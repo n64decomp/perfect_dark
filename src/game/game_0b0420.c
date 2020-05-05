@@ -980,132 +980,37 @@ f32 handGetXOffset(u32 hand)
 	return g_Vars.currentplayer->hands[hand].xoffset;
 }
 
-GLOBAL_ASM(
-glabel func0f0b131c
-/*  f0b131c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b1320:	14800034 */ 	bnez	$a0,.L0f0b13f4
-/*  f0b1324:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1328:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
-/*  f0b132c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b1330:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b1334:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0b1338:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0b133c:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0b1340:	8cae006c */ 	lw	$t6,0x6c($a1)
-/*  f0b1344:	c442002c */ 	lwc1	$f2,0x2c($v0)
-/*  f0b1348:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0b134c:	11c00003 */ 	beqz	$t6,.L0f0b135c
-/*  f0b1350:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0b1354:	10000001 */ 	beqz	$zero,.L0f0b135c
-/*  f0b1358:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f0b135c:
-/*  f0b135c:	8caf0068 */ 	lw	$t7,0x68($a1)
-/*  f0b1360:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b1364:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b1368:	11e00003 */ 	beqz	$t7,.L0f0b1378
-/*  f0b136c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b1370:	10000001 */ 	beqz	$zero,.L0f0b1378
-/*  f0b1374:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0b1378:
-/*  f0b1378:	8cb80064 */ 	lw	$t8,0x64($a1)
-/*  f0b137c:	13000003 */ 	beqz	$t8,.L0f0b138c
-/*  f0b1380:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b1384:	10000001 */ 	beqz	$zero,.L0f0b138c
-/*  f0b1388:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0b138c:
-/*  f0b138c:	8cb90070 */ 	lw	$t9,0x70($a1)
-/*  f0b1390:	13200003 */ 	beqz	$t9,.L0f0b13a0
-/*  f0b1394:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b1398:	10000001 */ 	beqz	$zero,.L0f0b13a0
-/*  f0b139c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0b13a0:
-/*  f0b13a0:	00434021 */ 	addu	$t0,$v0,$v1
-/*  f0b13a4:	01044821 */ 	addu	$t1,$t0,$a0
-/*  f0b13a8:	01265021 */ 	addu	$t2,$t1,$a2
-/*  f0b13ac:	55410046 */ 	bnel	$t2,$at,.L0f0b14c8
-/*  f0b13b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b13b4:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f0b13b8:	e7a2001c */ 	swc1	$f2,0x1c($sp)
-/*  f0b13bc:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0b13c0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0b13c4:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0b13c8:	1441003e */ 	bne	$v0,$at,.L0f0b14c4
-/*  f0b13cc:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
-/*  f0b13d0:	8cab028c */ 	lw	$t3,0x28c($a1)
-/*  f0b13d4:	3c014060 */ 	lui	$at,0x4060
-/*  f0b13d8:	44812000 */ 	mtc1	$at,$f4
-/*  f0b13dc:	3c014000 */ 	lui	$at,0x4000
-/*  f0b13e0:	15600038 */ 	bnez	$t3,.L0f0b14c4
-/*  f0b13e4:	46041081 */ 	sub.s	$f2,$f2,$f4
-/*  f0b13e8:	44813000 */ 	mtc1	$at,$f6
-/*  f0b13ec:	10000035 */ 	beqz	$zero,.L0f0b14c4
-/*  f0b13f0:	46061080 */ 	add.s	$f2,$f2,$f6
-.L0f0b13f4:
-/*  f0b13f4:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
-/*  f0b13f8:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0b13fc:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b1400:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0b1404:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0b1408:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0b140c:	8cac006c */ 	lw	$t4,0x6c($a1)
-/*  f0b1410:	c442002c */ 	lwc1	$f2,0x2c($v0)
-/*  f0b1414:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0b1418:	11800003 */ 	beqz	$t4,.L0f0b1428
-/*  f0b141c:	46001087 */ 	neg.s	$f2,$f2
-/*  f0b1420:	10000002 */ 	beqz	$zero,.L0f0b142c
-/*  f0b1424:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f0b1428:
-/*  f0b1428:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0b142c:
-/*  f0b142c:	8cad0068 */ 	lw	$t5,0x68($a1)
-/*  f0b1430:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b1434:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b1438:	11a00003 */ 	beqz	$t5,.L0f0b1448
-/*  f0b143c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b1440:	10000001 */ 	beqz	$zero,.L0f0b1448
-/*  f0b1444:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0b1448:
-/*  f0b1448:	8cae0064 */ 	lw	$t6,0x64($a1)
-/*  f0b144c:	11c00003 */ 	beqz	$t6,.L0f0b145c
-/*  f0b1450:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b1454:	10000001 */ 	beqz	$zero,.L0f0b145c
-/*  f0b1458:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0b145c:
-/*  f0b145c:	8caf0070 */ 	lw	$t7,0x70($a1)
-/*  f0b1460:	11e00003 */ 	beqz	$t7,.L0f0b1470
-/*  f0b1464:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b1468:	10000001 */ 	beqz	$zero,.L0f0b1470
-/*  f0b146c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0b1470:
-/*  f0b1470:	0043c021 */ 	addu	$t8,$v0,$v1
-/*  f0b1474:	0304c821 */ 	addu	$t9,$t8,$a0
-/*  f0b1478:	03264021 */ 	addu	$t0,$t9,$a2
-/*  f0b147c:	55010012 */ 	bnel	$t0,$at,.L0f0b14c8
-/*  f0b1480:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1484:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f0b1488:	e7a2001c */ 	swc1	$f2,0x1c($sp)
-/*  f0b148c:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0b1490:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0b1494:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0b1498:	1441000a */ 	bne	$v0,$at,.L0f0b14c4
-/*  f0b149c:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
-/*  f0b14a0:	8ca9028c */ 	lw	$t1,0x28c($a1)
-/*  f0b14a4:	3c014060 */ 	lui	$at,0x4060
-/*  f0b14a8:	44814000 */ 	mtc1	$at,$f8
-/*  f0b14ac:	3c014000 */ 	lui	$at,0x4000
-/*  f0b14b0:	15200004 */ 	bnez	$t1,.L0f0b14c4
-/*  f0b14b4:	46081080 */ 	add.s	$f2,$f2,$f8
-/*  f0b14b8:	44815000 */ 	mtc1	$at,$f10
-/*  f0b14bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b14c0:	460a1080 */ 	add.s	$f2,$f2,$f10
-.L0f0b14c4:
-/*  f0b14c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0b14c8:
-/*  f0b14c8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0b14cc:	46001006 */ 	mov.s	$f0,$f2
-/*  f0b14d0:	03e00008 */ 	jr	$ra
-/*  f0b14d4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 func0f0b131c(u32 hand)
+{
+	f32 x;
+	struct weapon *weapon;
+
+	if (hand == 0) {
+		weapon = weaponFindById(getCurrentPlayerWeaponIdWrapper(0));
+		x = weapon->leftright;
+
+		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+			x -= 3.5f;
+
+			if (g_Vars.currentplayernum == 0) {
+				x += 2.0f;
+			}
+		}
+	} else {
+		weapon = weaponFindById(getCurrentPlayerWeaponIdWrapper(1));
+		x = -weapon->leftright;
+
+		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+			x += 3.5f;
+
+			if (g_Vars.currentplayernum == 0) {
+				x += 2.0f;
+			}
+		}
+	}
+
+	return x;
+}
 
 GLOBAL_ASM(
 glabel func0f0b14d8
