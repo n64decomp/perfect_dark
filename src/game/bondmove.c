@@ -78,37 +78,22 @@ bool currentPlayerIsAutoAimYEnabled(void)
 	return optionsGetAutoAim(g_Vars.currentplayerstats->mpindex);
 }
 
-GLOBAL_ASM(
-glabel func0f0c7a8c
-/*  f0c7a8c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c7a90:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c7a94:	0fc2c43b */ 	jal	func0f0b10ec
-/*  f0c7a98:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0c7a9c:	1040000e */ 	beqz	$v0,.L0f0c7ad8
-/*  f0c7aa0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7aa4:	8c4e0010 */ 	lw	$t6,0x10($v0)
-/*  f0c7aa8:	31cf0040 */ 	andi	$t7,$t6,0x40
-/*  f0c7aac:	51e00004 */ 	beqzl	$t7,.L0f0c7ac0
-/*  f0c7ab0:	8c580000 */ 	lw	$t8,0x0($v0)
-/*  f0c7ab4:	1000000a */ 	beqz	$zero,.L0f0c7ae0
-/*  f0c7ab8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0c7abc:	8c580000 */ 	lw	$t8,0x0($v0)
-.L0f0c7ac0:
-/*  f0c7ac0:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0c7ac4:	331900ff */ 	andi	$t9,$t8,0xff
-/*  f0c7ac8:	17210003 */ 	bne	$t9,$at,.L0f0c7ad8
-/*  f0c7acc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7ad0:	10000003 */ 	beqz	$zero,.L0f0c7ae0
-/*  f0c7ad4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0c7ad8:
-/*  f0c7ad8:	0fc31e8c */ 	jal	currentPlayerIsAutoAimYEnabled
-/*  f0c7adc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0c7ae0:
-/*  f0c7ae0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c7ae4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c7ae8:	03e00008 */ 	jr	$ra
-/*  f0c7aec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f0c7a8c(void)
+{
+	struct weaponfunc *func = currentPlayerGetWeaponFunction(0);
+
+	if (func) {
+		if (func->flags & WEAPONFUNCFLAG_00000040) {
+			return false;
+		}
+
+		if ((func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
+			return true;
+		}
+	}
+
+	return currentPlayerIsAutoAimYEnabled();
+}
 
 bool currentPlayerIsInSightAimMode(void)
 {
@@ -155,7 +140,7 @@ GLOBAL_ASM(
 glabel func0f0c7bd0
 /*  f0c7bd0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0c7bd4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c7bd8:	0fc2c43b */ 	jal	func0f0b10ec
+/*  f0c7bd8:	0fc2c43b */ 	jal	currentPlayerGetWeaponFunction
 /*  f0c7bdc:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0c7be0:	1040000e */ 	beqz	$v0,.L0f0c7c1c
 /*  f0c7be4:	00000000 */ 	sll	$zero,$zero,0x0

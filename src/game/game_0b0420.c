@@ -931,7 +931,7 @@ glabel weaponGetFunction
 );
 
 GLOBAL_ASM(
-glabel func0f0b10ec
+glabel currentPlayerGetWeaponFunction
 /*  f0b10ec:	00041900 */ 	sll	$v1,$a0,0x4
 /*  f0b10f0:	00641823 */ 	subu	$v1,$v1,$a0
 /*  f0b10f4:	00031880 */ 	sll	$v1,$v1,0x2
