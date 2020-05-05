@@ -934,35 +934,23 @@ struct weaponfunc *currentPlayerGetWeaponFunction(u32 hand)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f0b1164
-/*  f0b1164:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b1168:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b116c:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b1170:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b1174:	14400003 */ 	bnez	$v0,.L0f0b1184
-/*  f0b1178:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b117c:	1000000d */ 	beqz	$zero,.L0f0b11b4
-/*  f0b1180:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b1184:
-/*  f0b1184:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b1188:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0b118c:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f0b1190:
-/*  f0b1190:	8c8e0014 */ 	lw	$t6,0x14($a0)
-/*  f0b1194:	55c00004 */ 	bnezl	$t6,.L0f0b11a8
-/*  f0b1198:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0b119c:	10000005 */ 	beqz	$zero,.L0f0b11b4
-/*  f0b11a0:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0b11a4:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f0b11a8:
-/*  f0b11a8:	1465fff9 */ 	bne	$v1,$a1,.L0f0b1190
-/*  f0b11ac:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f0b11b0:	24020002 */ 	addiu	$v0,$zero,0x2
-.L0f0b11b4:
-/*  f0b11b4:	03e00008 */ 	jr	$ra
-/*  f0b11b8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+u32 weaponGetNumFunctions(u32 weaponnum)
+{
+	struct weapon *weapon = weaponFindById(weaponnum);
+	s32 i;
+
+	if (!weapon) {
+		return 0;
+	}
+
+	for (i = 0; i < 2; i++) {
+		if (weapon->functions[i] == NULL) {
+			return i;
+		}
+	}
+
+	return 2;
+}
 
 GLOBAL_ASM(
 glabel func0f0b11bc
