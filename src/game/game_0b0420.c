@@ -975,21 +975,10 @@ void currentPlayerSetWeaponSway(struct coord *sway)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0b12ec
-/*  f0b12ec:	00047900 */ 	sll	$t7,$a0,0x4
-/*  f0b12f0:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f0b12f4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0b12f8:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f0b12fc:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0b1300:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0b1304:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0b1308:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f0b130c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0b1310:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0b1314:	03e00008 */ 	jr	$ra
-/*  f0b1318:	c70007f4 */ 	lwc1	$f0,0x7f4($t8)
-);
+f32 handGetXOffset(u32 hand)
+{
+	return g_Vars.currentplayer->hands[hand].xoffset;
+}
 
 GLOBAL_ASM(
 glabel func0f0b131c

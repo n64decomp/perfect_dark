@@ -25,7 +25,7 @@ struct weaponfunc *weaponGetFunction(u8 *arg0, s32 which);
 struct weaponfunc *currentPlayerGetWeaponFunction(u32 hand);
 u32 func0f0b11bc(void);
 struct inventory_ammo *weaponGetAmmoByFunction(u32 weaponnum, u32 funcnum);
-f32 func0f0b12ec(u32 arg0);
+f32 handGetXOffset(u32 arg0);
 u32 func0f0b131c(void);
 f32 func0f0b14d8(void);
 u32 func0f0b1588(void);

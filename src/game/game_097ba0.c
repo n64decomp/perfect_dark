@@ -7289,7 +7289,7 @@ glabel var7f1ac628
 /*  f09d73c:	e7aa005c */ 	swc1	$f10,0x5c($sp)
 /*  f09d740:	c61001a8 */ 	lwc1	$f16,0x1a8($s0)
 /*  f09d744:	46104100 */ 	add.s	$f4,$f8,$f16
-/*  f09d748:	0fc2c4bb */ 	jal	func0f0b12ec
+/*  f09d748:	0fc2c4bb */ 	jal	handGetXOffset
 /*  f09d74c:	e7a40060 */ 	swc1	$f4,0x60($sp)
 /*  f09d750:	c7b2005c */ 	lwc1	$f18,0x5c($sp)
 /*  f09d754:	8e2f0034 */ 	lw	$t7,0x34($s1)
@@ -21214,11 +21214,11 @@ void func0f0a93e0(struct coord *coord)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->hands[0].unk07f8.x = func0f0b12ec(0) + coord->x;
+	player->hands[0].unk07f8.x = handGetXOffset(0) + coord->x;
 	player->hands[0].unk07f8.y = coord->y;
 	player->hands[0].unk07f8.z = coord->z;
 
-	player->hands[1].unk07f8.x = func0f0b12ec(1) + coord->x;
+	player->hands[1].unk07f8.x = handGetXOffset(1) + coord->x;
 	player->hands[1].unk07f8.y = coord->y;
 	player->hands[1].unk07f8.z = coord->z;
 }
