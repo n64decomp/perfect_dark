@@ -953,28 +953,19 @@ struct inventory_ammo *weaponGetAmmoByFunction(u32 weaponnum, u32 funcnum)
 	return NULL;
 }
 
+void currentPlayerGetWeaponSway(struct coord *sway)
+{
+	struct weapon *weapon = weaponFindById(getCurrentPlayerWeaponId(0));
+
+	if (weapon) {
+		sway->x = weapon->leftright;
+		sway->y = weapon->updown;
+		sway->z = weapon->frontback;
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f0b1254
-/*  f0b1254:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b1258:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b125c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0b1260:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
-/*  f0b1264:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b1268:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b126c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0b1270:	10400007 */ 	beqz	$v0,.L0f0b1290
-/*  f0b1274:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f0b1278:	c444002c */ 	lwc1	$f4,0x2c($v0)
-/*  f0b127c:	e4640000 */ 	swc1	$f4,0x0($v1)
-/*  f0b1280:	c4460030 */ 	lwc1	$f6,0x30($v0)
-/*  f0b1284:	e4660004 */ 	swc1	$f6,0x4($v1)
-/*  f0b1288:	c4480034 */ 	lwc1	$f8,0x34($v0)
-/*  f0b128c:	e4680008 */ 	swc1	$f8,0x8($v1)
-.L0f0b1290:
-/*  f0b1290:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1294:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b1298:	03e00008 */ 	jr	$ra
-/*  f0b129c:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f0b12a0
 /*  f0b12a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b12a4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b12a8:	afa40018 */ 	sw	$a0,0x18($sp)
