@@ -136,37 +136,22 @@ bool currentPlayerIsAutoAimXEnabled(void)
 	return optionsGetAutoAim(g_Vars.currentplayerstats->mpindex);
 }
 
-GLOBAL_ASM(
-glabel func0f0c7bd0
-/*  f0c7bd0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c7bd4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c7bd8:	0fc2c43b */ 	jal	currentPlayerGetWeaponFunction
-/*  f0c7bdc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0c7be0:	1040000e */ 	beqz	$v0,.L0f0c7c1c
-/*  f0c7be4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7be8:	8c4e0010 */ 	lw	$t6,0x10($v0)
-/*  f0c7bec:	31cf0040 */ 	andi	$t7,$t6,0x40
-/*  f0c7bf0:	51e00004 */ 	beqzl	$t7,.L0f0c7c04
-/*  f0c7bf4:	8c580000 */ 	lw	$t8,0x0($v0)
-/*  f0c7bf8:	1000000a */ 	beqz	$zero,.L0f0c7c24
-/*  f0c7bfc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0c7c00:	8c580000 */ 	lw	$t8,0x0($v0)
-.L0f0c7c04:
-/*  f0c7c04:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0c7c08:	331900ff */ 	andi	$t9,$t8,0xff
-/*  f0c7c0c:	17210003 */ 	bne	$t9,$at,.L0f0c7c1c
-/*  f0c7c10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7c14:	10000003 */ 	beqz	$zero,.L0f0c7c24
-/*  f0c7c18:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0c7c1c:
-/*  f0c7c1c:	0fc31edd */ 	jal	currentPlayerIsAutoAimXEnabled
-/*  f0c7c20:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0c7c24:
-/*  f0c7c24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c7c28:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c7c2c:	03e00008 */ 	jr	$ra
-/*  f0c7c30:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f0c7bd0(void)
+{
+	struct weaponfunc *func = currentPlayerGetWeaponFunction(0);
+
+	if (func) {
+		if (func->flags & WEAPONFUNCFLAG_00000040) {
+			return false;
+		}
+
+		if ((func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
+			return true;
+		}
+	}
+
+	return currentPlayerIsAutoAimXEnabled();
+}
 
 void currentPlayerUpdateAutoAimXProp(struct prop *prop, f32 autoaimx)
 {

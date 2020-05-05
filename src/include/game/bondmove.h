@@ -12,7 +12,7 @@ bool currentPlayerIsInSightAimMode(void);
 void currentPlayerUpdateAutoAimYProp(struct prop *prop, f32 autoaimy);
 void currentPlayerSetAutoAimX(bool enabled);
 bool currentPlayerIsAutoAimXEnabled(void);
-u32 func0f0c7bd0(void);
+bool func0f0c7bd0(void);
 void currentPlayerUpdateAutoAimXProp(struct prop *prop, f32 autoaimx);
 struct prop *currentPlayerGetHoverbike(void);
 struct prop *currentPlayerGetGrabbedProp(void);
