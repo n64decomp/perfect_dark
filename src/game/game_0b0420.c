@@ -964,29 +964,16 @@ void currentPlayerGetWeaponSway(struct coord *sway)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0b12a0
-/*  f0b12a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b12a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b12a8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0b12ac:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
-/*  f0b12b0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b12b4:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b12b8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0b12bc:	10400007 */ 	beqz	$v0,.L0f0b12dc
-/*  f0b12c0:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f0b12c4:	c4640000 */ 	lwc1	$f4,0x0($v1)
-/*  f0b12c8:	e444002c */ 	swc1	$f4,0x2c($v0)
-/*  f0b12cc:	c4660004 */ 	lwc1	$f6,0x4($v1)
-/*  f0b12d0:	e4460030 */ 	swc1	$f6,0x30($v0)
-/*  f0b12d4:	c4680008 */ 	lwc1	$f8,0x8($v1)
-/*  f0b12d8:	e4480034 */ 	swc1	$f8,0x34($v0)
-.L0f0b12dc:
-/*  f0b12dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b12e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b12e4:	03e00008 */ 	jr	$ra
-/*  f0b12e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerSetWeaponSway(struct coord *sway)
+{
+	struct weapon *weapon = weaponFindById(getCurrentPlayerWeaponId(0));
+
+	if (weapon) {
+		weapon->leftright = sway->x;
+		weapon->updown = sway->y;
+		weapon->frontback = sway->z;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0b12ec
