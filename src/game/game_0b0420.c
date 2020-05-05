@@ -941,36 +941,20 @@ glabel func0f0b11bc
 /*  f0b11e8:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
+struct inventory_ammo *weaponGetAmmoByFunction(u32 weaponnum, u32 funcnum)
+{
+	struct weapon *weapon = weaponFindById(weaponnum);
+	struct weaponfunc *func = weaponGetFunctionById(weaponnum, funcnum);
+
+	if (func && weapon && func->ammoindex >= 0) {
+		return weapon->ammos[func->ammoindex];
+	}
+
+	return NULL;
+}
+
 GLOBAL_ASM(
-glabel func0f0b11ec
-/*  f0b11ec:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b11f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b11f4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0b11f8:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b11fc:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f0b1200:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f0b1204:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0b1208:	0fc2c401 */ 	jal	weaponGetFunctionById
-/*  f0b120c:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0b1210:	1040000b */ 	beqz	$v0,.L0f0b1240
-/*  f0b1214:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0b1218:	5060000a */ 	beqzl	$v1,.L0f0b1244
-/*  f0b121c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b1220:	804e0007 */ 	lb	$t6,0x7($v0)
-/*  f0b1224:	05c20007 */ 	bltzl	$t6,.L0f0b1244
-/*  f0b1228:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b122c:	804f0007 */ 	lb	$t7,0x7($v0)
-/*  f0b1230:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f0b1234:	0078c821 */ 	addu	$t9,$v1,$t8
-/*  f0b1238:	10000002 */ 	beqz	$zero,.L0f0b1244
-/*  f0b123c:	8f22001c */ 	lw	$v0,0x1c($t9)
-.L0f0b1240:
-/*  f0b1240:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b1244:
-/*  f0b1244:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1248:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0b124c:	03e00008 */ 	jr	$ra
-/*  f0b1250:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f0b1254
 /*  f0b1254:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b1258:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b125c:	afa40018 */ 	sw	$a0,0x18($sp)

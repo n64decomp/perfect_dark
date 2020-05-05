@@ -2599,7 +2599,7 @@ struct weaponfunc {
 	/*0x00*/ u32 type;
 	/*0x04*/ u16 name;
 	/*0x06*/ u8 unk06;
-	/*0x07*/ s8 unk07;
+	/*0x07*/ s8 ammoindex; // -1 = no ammo, 0 or 1 = index into weapon->ammos[]
 	/*0x08*/ struct inventory_menupos *menupos;
 	/*0x0c*/ u32 *fire_animation;
 	/*0x10*/ u32 flags;

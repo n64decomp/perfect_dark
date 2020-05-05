@@ -14003,7 +14003,7 @@ glabel var7f1a8ec4
 .L0f03a4e8:
 /*  f03a4e8:	e7a00034 */ 	swc1	$f0,0x34($sp)
 /*  f03a4ec:	afa70038 */ 	sw	$a3,0x38($sp)
-/*  f03a4f0:	0fc2c47b */ 	jal	func0f0b11ec
+/*  f03a4f0:	0fc2c47b */ 	jal	weaponGetAmmoByFunction
 /*  f03a4f4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f03a4f8:	44801000 */ 	mtc1	$zero,$f2
 /*  f03a4fc:	8fa70038 */ 	lw	$a3,0x38($sp)
