@@ -1165,7 +1165,7 @@ struct player638 {
 	/*0x0638*/ u8 unk0638;
 	/*0x0639*/ u8 unk0639;
 	/*0x063a*/ u8 unk063a;
-	/*0x063b*/ u8 unk063b;
+	/*0x063b*/ u8 unk063b; // 1 if using second function
 	/*0x063c*/ u8 unk063c;
 	/*0x0640*/ u32 unk0640;
 	/*0x0644*/ u32 unk0644;
@@ -1706,14 +1706,14 @@ struct player {
 	/*0x00f4*/ u32 unk00f4;
 	/*0x00f8*/ u32 unk00f8;
 	/*0x00fc*/ u32 unk00fc;
-	/*0x0100*/ u32 unk0100;
+	/*0x0100*/ bool docentreupdown;
 	/*0x0104*/ u32 unk0104;
-	/*0x0108*/ u32 unk0108;
-	/*0x010c*/ u32 unk010c;
-	/*0x0110*/ u32 unk0110;
+	/*0x0108*/ bool prevupdown;
+	/*0x010c*/ bool movecentrerelease;
+	/*0x0110*/ bool lookaheadcentreenabled;
 	/*0x0114*/ bool automovecentreenabled;
-	/*0x0118*/ u32 unk0118;
-	/*0x011c*/ u32 unk011c;
+	/*0x0118*/ bool fastmovecentreenabled;
+	/*0x011c*/ bool automovecentre;
 	/*0x0120*/ bool insightaimmode;
 
 	/*0x0124*/ bool autoyaimenabled;
@@ -1740,8 +1740,8 @@ struct player {
 	/*0x0168*/ f32 speedsideways;
 	/*0x016c*/ f32 speedstrafe;
 	/*0x0170*/ f32 speedforwards;
-	/*0x0174*/ f32 speedboost;
-	/*0x0178*/ u32 speedmaxtime60;
+	/*0x0174*/ f32 speedboost;       // speed multiplier - ranges from 1 to 1.25 - kicks in after 3 seconds of full speed
+	/*0x0178*/ u32 speedmaxtime60;   // amount of time player has held full forward speed - 60 is 1 second
 	/*0x017c*/ f32 bondshotspeed[3];
 	/*0x0188*/ f32 unk0188;
 	/*0x018c*/ f32 unk018c;
@@ -1793,10 +1793,10 @@ struct player {
 	/*0x024c*/ s16 invdowntime;
 	/*0x024e*/ s16 usedowntime;
 	/*0x0250*/ u8 activemenumode;
-	/*0x0254*/ u32 unk0254;
-	/*0x0258*/ u32 unk0258;
-	/*0x025c*/ u32 unk025c;
-	/*0x0260*/ u32 unk0260;
+	/*0x0254*/ u32 erasertime; // related to FarSight's auto tracking
+	/*0x0258*/ f32 autoeraserdist;
+	/*0x025c*/ struct prop *unk025c; // eraser target?
+	/*0x0260*/ s32 aimtaptime;
 	/*0x0264*/ struct weaponobj *slayerrocket;
 	/*0x0268*/ bool eyesshut;
 	/*0x026c*/ f32 eyesshutfrac;
@@ -2292,9 +2292,9 @@ struct player {
 	/*0x1bc8*/ struct coord cam_up;
 	/*0x1bd4*/ u32 unk1bd4;
 	/*0x1bd8*/ s32 unk1bd8;
-	/*0x1bdc*/ u32 unk1bdc;
-	/*0x1be0*/ u32 unk1be0;
-	/*0x1be4*/ u16 unk1be4;
+	/*0x1bdc*/ s32 unk1bdc;
+	/*0x1be0*/ u32 cachedlookahead;
+	/*0x1be4*/ u16 lookaheadframe;
 	/*0x1be6*/ u8 numaibuddies;
 	/*0x1be7*/ u8 aibuddynums[MAX_SIMULANTS];
 	/*0x1bf0*/ u32 bondexploding;
@@ -2327,6 +2327,8 @@ struct player {
 	/*0x1c54*/ u32 unk1c54;
 	/*0x1c58*/ f32 unk1c58;
 	/*0x1c5c*/ f32 stealhealth;
+	/*0x1c60*/ s32 unk1c60;
+	/*0x1c64*/ s32 unk1c64;
 };
 
 struct stagesetup00 {

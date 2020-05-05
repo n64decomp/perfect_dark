@@ -3973,6 +3973,1236 @@ glabel var7f1ad8e4
 /*  f0cb798:	27bd0260 */ 	addiu	$sp,$sp,0x260
 );
 
+//void func0f0c8b90(bool arg0, bool arg1, bool arg2, bool arg3)
+//{
+//	controlmode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
+//	uVar7 = getCurrentPlayerWeaponId(0);
+//	iStack180 = uVar7;
+//	iStack184 = func0f0b1804(uVar7, 1);
+//	contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
+//
+//	iStack24 = arg0 ? func00014e10(contpad1) : 0;
+//	iStack20 = arg1 ? func00014eb8(contpad1) : 0;
+//
+//	bVar4 = arg2 != 0;
+//
+//	if (bVar4) {
+//		uStack190 = func00014f60(contpad1, 0xffff);
+//		uStack192 = func00015020(contpad1, 0xffff);
+//	} else {
+//		uStack190 = 0;
+//		uStack192 = 0;
+//	}
+//
+//	uStack194 = 0xffff;
+//	uVar18 = g_Vars.currentplayer->joybutinhibit & 0xffff;
+//
+//	if (uVar18) {
+//		uStack194 = ~uVar18;
+//		uVar9 = func00014f60(contpad1, 0xffff);
+//		uVar5 = ~(uVar9 & uVar18);
+//		uStack190 &= uVar5;
+//		uStack192 &= uVar5;
+//		g_Vars.currentplayer->joybutinhibit &= 0xffff0000 | uVar9 & uVar18;
+//	}
+//
+//	numsamples = func0001481c();
+//	func0f0c8aa8(&uStack172);
+//
+//	iStack32 = iStack24 + 5;
+//
+//	if (iStack24 > -6) {
+//		iStack32 = iStack24 - 5;
+//
+//		if (istack24 < 6) {
+//			iStack32 = 0;
+//		}
+//	}
+//
+//	iStack28 = iStack20 + 5;
+//
+//	if (iStack20 > -6) {
+//		iStack28 = iStack20 - 5;
+//
+//		if (iStack20 < 6) {
+//			iStack28 = 0;
+//		}
+//	}
+//
+//	iStack16 = iStack32;
+//	iStack8 = iStack32;
+//	iStack12 = iStack28;
+//	iStack4 = iStack28;
+//
+//	// Pausing
+//	if (g_Vars.currentplayer->isdead == false) {
+//		if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED &&
+//				(uStack192 & START_BUTTON)) {
+//			if (g_Vars.mplayerisrunning == false) {
+//				if (g_Vars.lvframenum > 15) {
+//					currentPlayerPause(PAUSEMODE_2);
+//				}
+//			} else {
+//				mpPushPauseDialog();
+//			}
+//		}
+//	} else {
+//		if (g_Vars.mplayerisrunning) {
+//			if (PLAYERCOUNT() == 1) {
+//				if (mpIsPaused() && (uStack192 & START_BUTTON) && g_MpSetup.paused != PAUSEMODE_2) {
+//					mpSetPaused(PAUSEMODE_UNPAUSED);
+//				}
+//			} else {
+//				if (mpIsPaused() && (uStack192 & START_BUTTON)) {
+//					mpPushPauseDialog();
+//				}
+//			}
+//		}
+//	}
+//
+//	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
+//		if (g_Vars.currentplayer->isdead == false) {
+//			if (controlmode == CONTROLMODE_23 || controlmode == CONTROLMODE_24 || controlmode == CONTROLMODE_22 || controlmode == CONTROLMODE_21) {
+//				contpad2 = optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex);
+//				cStack375 = func00014e10(contpad2);
+//				cVar12 = func00014eb8(contpad2);
+//				iStack388 = cVar12;
+//				uStack378 = func00014f60(contpad2, 0xffff);
+//				uStack380 = func00015020(contpad2, 0xffff);
+//				uStack390 = 0xffff;
+//				uVar18 = g_Vars.currentplayer->joybutinhibit;
+//				lVar8 = cStack375;
+//
+//				if (uVar18 >> 16 != 0) {
+//					uStack390 = ~(uVar18 >> 16);
+//					uVar9 = func00014f60(contpad2, 0xffff) & (uVar18 >> 16);
+//					uVar5 = ~uVar9;
+//					uStack378 &= uVar5;
+//					uStack380 &= uVar5;
+//					g_Vars.currentplayer->joybutinhibit &= 0xffff | uVar9 << 16;
+//				}
+//
+//				lVar22 = lVar8;
+//
+//				if (arg3) {
+//					cStack375 = 0;
+//					uStack378 = 0;
+//					iStack388 = 0;
+//					uStack380 = 0;
+//					lVar22 = 0;
+//				}
+//
+//				if (arg3 || lVar8 > -6) {
+//					if (lVar22 < 6) {
+//						iStack8 = 0;
+//					} else {
+//						iStack8 = lVar22 - 5;
+//					}
+//				} else {
+//					iStack8 = lVar22 + 5;
+//				}
+//
+//				if (iStack388 < -5) {
+//					iStack388 += 5;
+//				} else {
+//					if (iStack388 < 6) {
+//						iStack388 = 0;
+//					} else {
+//						iStack388 -= 5;
+//					}
+//				}
+//
+//				iVar19 = iStack388;
+//
+//				if (controlmode != CONTROLMODE_21 && (iVar19 = iStack388, controlmode != CONTROLMODE_23)) {
+//					iVar19 = iStack12;
+//					iStack4 = iStack388;
+//				}
+//
+//				iStack12 = iVar19;
+//
+//				if (g_Vars.tickmode == TICKMODE_AUTOWALK) {
+//					uStack140 = 0;
+//					uStack136 = 0;
+//					iStack8 = 0;
+//					iStack4 = g_Vars.currentplayer->unk1bdc;
+//					iStack16 = g_Vars.currentplayer->unk1bd8;
+//					iStack12 = 0;
+//				}
+//
+//				if (controlmode == CONTROLMODE_21 || controlmode == CONTROLMODE_22) {
+//					uStack372 = uStack390;
+//					uStack374 = uStack194;
+//					uVar21 = contpad2;
+//					uStack369 = contpad1;
+//				} else {
+//					uStack372 = uStack194;
+//					uStack374 = uStack390;
+//					uVar21 = contpad1;
+//					uStack369 = contpad2;
+//				}
+//
+//				if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == AIMCONTROL_HOLD) {
+//					piVar14 = aiStack280;
+//					puVar16 = auStack356;
+//
+//					for (i = 0; i < numsamples; i++) {
+//						piVar14++;
+//						uVar23 = bVar4;
+//
+//						if (bVar4) {
+//							uVar23 = func00014a78(i, uVar21, uStack372 & Z_TRIG) != 0;
+//						}
+//
+//						*piVar14 = uVar23;
+//						*puVar16 = !uVar23;
+//						puVar16++;
+//					}
+//
+//					g_Vars.currentplayer->insightaimmode = aiStack280[numsamples];
+//				}
+//
+//				if (soloIsPaused() == false) {
+//					if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) != AIMCONTROL_HOLD) {
+//						piVar14 = aiStack280;
+//						puVar16 = auStack356;
+//
+//						for (i = 0; i < numsamples; i++) {
+//							piVar14++;
+//
+//							if (bVar4 && func00014b50(i, uVar21, uStack372 & Z_TRIG)) {
+//								g_Vars.currentplayer->insightaimmode = !g_Vars.currentplayer->insightaimmode;
+//							}
+//
+//							iVar2 = g_Vars.currentplayer->insightaimmode;
+//							*puVar16 = !iVar2;
+//							*piVar14 = iVar2;
+//							puVar16++;
+//						}
+//					}
+//
+//					if (getCurrentPlayerWeaponId(0) == WEAPON_HORIZONSCANNER) {
+//						g_Vars.currentplayer->insightaimmode = true;
+//					}
+//
+//					uStack172 = !g_Vars.currentplayer->insightaimmode;
+//					iStack168 = g_Vars.currentplayer->insightaimmode;
+//					uStack140 = 0;
+//					uStack136 = 0;
+//					uStack52 = !g_Vars.currentplayer->insightaimmode;
+//					uStack132 = 0;
+//					uStack128 = 0;
+//					uStack152 = 1;
+//					uStack156 = !g_Vars.currentplayer->insightaimmode;
+//					uStack148 = !g_Vars.currentplayer->insightaimmode;
+//					uStack144 = !g_Vars.currentplayer->insightaimmode;
+//
+//					if (g_Vars.currentplayer->insightaimmode == false || iStack20 <= 60) {
+//						fStack116 = 0;
+//					} else {
+//						fStack116 = (iStack20 - 60) / 10.0f;
+//
+//						if (fStack116 > 1) {
+//							fStack116 = 1;
+//						}
+//					}
+//
+//					if (g_Vars.currentplayer->insightaimmode == false || iStack20 >= -60) {
+//						fStack112 = 0;
+//					} else {
+//						fStack112 = (-60 - iStack20) / 10.0f;
+//
+//						if (fStack112 > 1) {
+//							fStack112 = 1;
+//						}
+//					}
+//
+//					if (g_Vars.currentplayer->insightaimmode == false || iStack24 >= -60) {
+//						fStack108 = 0;
+//					} else {
+//						fStack108 = (-60 - iStack24) / 10.0f;
+//
+//						if (fStack108 > 1) {
+//							fStack108 = 1;
+//						}
+//					}
+//
+//					if (g_Vars.currentplayer->insightaimmode == false || iStack24 <= 60) {
+//						fStack104 = 0;
+//					} else {
+//						fStack104 = (iStack24 - 60) / 10.0f;
+//
+//						if (fStack104 > 1) {
+//							fStack104 = 1;
+//						}
+//					}
+//
+//					if (bVar4) {
+//						if (g_Vars.currentplayer->invdowntime < -2) {
+//							g_Vars.currentplayer->invdowntime += numsamples;
+//
+//							if (g_Vars.currentplayer->invdowntime > -3) {
+//								g_Vars.currentplayer->invdowntime = 0;
+//							}
+//						} else {
+//							uVar23 = uStack194;
+//
+//							for (i = 0; i < numsamples; i++) {
+//								if (func00014a78(i, contpad1, uVar23 & A_BUTTON) == 0
+//										&& func00014a78(i, contpad2, uStack390 & A_BUTTON) == 0) {
+//									if (g_Vars.currentplayer->invdowntime > 0 &&
+//											(!bVar4 || func00014a78(i, uStack369, uStack374 & Z_TRIG) == 0)) {
+//										iStack96++;
+//									}
+//
+//									g_Vars.currentplayer->invdowntime = 0;
+//								} else {
+//									uVar18 = uStack374;
+//
+//									if (g_Vars.currentplayer->invdowntime > -2) {
+//										if (func00014b50(i, uStack369)) {
+//											iStack100++;
+//											g_Vars.currentplayer->invdowntime = -1;
+//										}
+//
+//										if (g_Vars.currentplayer->invdowntime > -1
+//												&& func00014a78(i, uStack369, uVar18 & Z_TRIG) == 0) {
+//											if (g_Vars.currentplayer->invdowntime <= 15) {
+//												g_Vars.currentplayer->invdowntime++;
+//											} else {
+//												activemenuOpen();
+//												g_Vars.currentplayer->invdowntime = -1;
+//											}
+//										}
+//									}
+//								}
+//							}
+//						}
+//					}
+//
+//					if (bVar4 && (iVar19 = 0, 0 < numsamples)) {
+//						uVar18 = uStack194;
+//
+//						for (i = 0; i < numsamples; i++) {
+//							if (func00014a78(i, contpad1, uVar18 & B_BUTTON) == 0
+//									&& func00014a78(i, contpad2, uStack390 & B_BUTTON) == 0) {
+//								if (g_Vars.currentplayer->usedowntime > 0) {
+//									iStack160++;
+//								}
+//
+//								g_Vars.currentplayer->usedowntime = 0;
+//								func0f0a8c50();
+//							} else {
+//								if (g_Vars.currentplayer->usedowntime < -1) {
+//									if (g_Vars.currentplayer->usedowntime > -3) {
+//										func0f0a895c(g_Vars.currentplayer->usedowntime, 0, 0);
+//									}
+//								} else {
+//									if (func00014b50(i,uStack369, uStack374 & Z_TRIG)
+//											&& g_Vars.currentplayer->usedowntime > -1
+//											&& func0f0a895c(g_Vars.currentplayer->usedowntime, 1, 0)) {
+//										g_Vars.currentplayer->usedowntime = -3;
+//									}
+//
+//									if (g_Vars.currentplayer->usedowntime > -1) {
+//										if (g_Vars.currentplayer->usedowntime <= 25) {
+//											g_Vars.currentplayer->usedowntime++;
+//										}
+//										else {
+//											lVar8 = func0f0a895c(g_Vars.currentplayer->usedowntime, 0, 0);
+//
+//											if (lVar8 == 1) {
+//												g_Vars.currentplayer->usedowntime = -1;
+//											} else if (lVar8 == 2) {
+//												g_Vars.currentplayer->usedowntime = -2;
+//											} else {
+//												g_Vars.currentplayer->usedowntime++;
+//											}
+//										}
+//									}
+//								}
+//							}
+//						}
+//					}
+//
+//					if (iStack184 && g_Vars.currentplayer->insightaimmode) {
+//						if (iStack388 < 0) {
+//							fStack80 = -iStack388 / 70.0f;
+//
+//							if (fStack80 > 1) {
+//								fStack80 = 2;
+//							} else {
+//								fStack80 = fStack80 + fStack80;
+//							}
+//						}
+//
+//						if (iStack388 > 0) {
+//							fStack76 = iStack388 / 70.0f;
+//
+//							if (fStack76 > 1) {
+//								fStack76 = 2;
+//							} else {
+//								fStack76 = fStack76 + fStack76;
+//							}
+//						}
+//					}
+//
+//					if (bVar4) {
+//						for (i = 0; i < numsamples; i++) {
+//							if (iStack184 == 0 && aiStack280[i + 1]) {
+//								if (func00014904(i, contpad2) > 30 && (func000149c0(i, contpad2) <= 30)) {
+//									if (iStack72 == 0) {
+//										iStack68++;
+//									} else {
+//										iStack72--;
+//									}
+//
+//									g_Vars.currentplayer->aimtaptime = -1;
+//								}
+//
+//								if (func00014904(i, contpad2) < -30 && func000149c0(i, contpad2) >= -30) {
+//									if (iStack68 == 0) {
+//										iStack72++;
+//									} else {
+//										iStack68--;
+//									}
+//
+//									g_Vars.currentplayer->aimtaptime = -1;
+//								}
+//							}
+//
+//							if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == 0) {
+//								if (aiStack280[i + 1] == 0) {
+//									if (g_Vars.currentplayer->aimtaptime > 0
+//											&& g_Vars.currentplayer->aimtaptime < 15) {
+//										if (iStack72 == 0) {
+//											iStack68++;
+//										} else {
+//											iStack72--;
+//										}
+//									}
+//
+//									g_Vars.currentplayer->aimtaptime = 0;
+//								} else {
+//									if (g_Vars.currentplayer->aimtaptime > -1) {
+//										g_Vars.currentplayer->aimtaptime++;
+//									}
+//								}
+//							}
+//						}
+//					}
+//
+//					if (currentPlayerGetCrouchPos() == CROUCH_SQUAT
+//							&& g_Vars.currentplayer->crouchoffset == -90
+//							&& g_Vars.mplayerisrunning
+//							&& g_Vars.coopplayernum < 0) {
+//						uStack44 = g_Vars.currentplayer->insightaimmode
+//							&& !iStack184
+//							&& func00014eb8(contpad2) < -30;
+//					}
+//
+//					if (getCurrentPlayerWeaponId(0) == WEAPON_FARSIGHTXR20) {
+//						numsamples = g_Vars.currentplayer->insightaimmode;
+//
+//						if (numsamples != 0) {
+//							uStack152 = 0;
+//							numsamples = g_Vars.currentplayer->insightaimmode;
+//						}
+//
+//						uStack48 = (numsamples != 0);
+//
+//						if (numsamples != 0) {
+//							if (cStack375 < -30) {
+//								uStack48 = (cStack375 < -30);
+//							} else {
+//								uStack48 = (cStack375 <= 30) ^ 1;
+//							}
+//						}
+//					}
+//
+//					uStack64 = 0;
+//					uStack60 = 0;
+//
+//					if ((((uStack190 & A_BUTTON) && (uStack192 & B_BUTTON))
+//								|| ((uStack190 & B_BUTTON) && (uStack192 & A_BUTTON))
+//								|| 	((uStack378 & A_BUTTON) && (uStack380 & B_BUTTON))
+//								|| ((uStack378 & B_BUTTON) && (uStack380 & A_BUTTON)))
+//							&& iStack180 == WEAPON_REMOTEMINE) {
+//						iStack56 = 1;
+//						iStack100 = 0;
+//						iStack96 = 0;
+//						iStack160 = 0;
+//						g_Vars.currentplayer->invdowntime = -2;
+//						g_Vars.currentplayer->usedowntime = -2;
+//					}
+//				}
+//
+//				uStack88 = g_Vars.currentplayer->insightaimmode;
+//				iStack84 = g_Vars.currentplayer->insightaimmode;
+//
+//				if (g_Vars.currentplayer->waitforzrelease
+//						&& func00014f60(uStack369, uStack374 & Z_TRIG) == 0) {
+//					g_Vars.currentplayer->waitforzrelease = false;
+//				}
+//
+//				if (weaponHasFlag(getCurrentPlayerWeaponId(0), WEAPONFLAG_80000000) == 0) {
+//					uStack164 = g_Vars.currentplayer->waitforzrelease == false
+//						&& bVar4
+//						&& func00014f60(uStack369, uStack374 & Z_TRIG)
+//						&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
+//						&& (uStack190 & A_BUTTON) == 0
+//						&& (uStack378 & A_BUTTON) == 0;
+//				} else {
+//					if (bVar4
+//							&& func00015020(uStack369, uStack374 & Z_TRIG)
+//							&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
+//						iStack160++;
+//					}
+//				}
+//			} else {
+//				// 1.x control style
+//				u16 shootbuttons;
+//				u16 aimbuttons;
+//				u16 invbuttons;
+//
+//				if (controlmode == CONTROLMODE_13 || controlmode == CONTROLMODE_14) {
+//					shootbuttons = A_BUTTON;
+//					aimbuttons = Z_TRIG;
+//					invbuttons = L_TRIG | R_TRIG;
+//				} else {
+//					shootbuttons = Z_TRIG;
+//					aimbuttons = L_TRIG | R_TRIG;
+//					invbuttons = A_BUTTON;
+//				}
+//
+//				if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == AIMCONTROL_HOLD) {
+//					piVar14 = aiStack280;
+//					puVar16 = auStack356;
+//
+//					for (i = 0; i != numsamples; i++) {
+//						piVar14++;
+//
+//						uVar15 = bVar4 && func00014a78(i, contpad1, aimbuttons & uStack194);
+//
+//						*piVar14 = uVar15;
+//						*puVar16 = (uVar15 == 0);
+//						puVar16++;
+//					}
+//
+//					g_Vars.currentplayer->insightaimmode = aiStack280[numsamples];
+//				}
+//
+//				if (soloIsPaused() == false) {
+//					if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) != AIMCONTROL_HOLD) {
+//						piVar14 = aiStack280;
+//						puVar16 = auStack356;
+//
+//						for (i = 0; i < numsamples; i++) {
+//							piVar14++;
+//
+//							if (bVar4 && func00014b50(i, contpad1, aimbuttons & uStack194)) {
+//								g_Vars.currentplayer->insightaimmode = !g_Vars.currentplayer->insightaimmode;
+//							}
+//
+//							*puVar16 = (g_Vars.currentplayer->insightaimmode == 0);
+//							*piVar14 = g_Vars.currentplayer->insightaimmode;
+//							puVar16++;
+//						}
+//					}
+//
+//					uVar5 = uStack190;
+//
+//					if (getCurrentPlayerWeaponId(0) == WEAPON_HORIZONSCANNER) {
+//						g_Vars.currentplayer->insightaimmmode = true;
+//					}
+//
+//					uStack172 = g_Vars.currentplayer->insightaimmode == 0;
+//					iStack168 = g_Vars.currentplayer->insightaimmode;
+//					uStack52 = g_Vars.currentplayer->insightaimmode == 0;
+//
+//					if (controlmode == CONTROLMODE_12 || controlmode == CONTROLMODE_14) {
+//						if (g_Vars.currentplayer->insightaimmode == false) {
+//							if (bVar4) {
+//								uStack132 = func00014c98(auStack356, contpad1, uStack194 & (L_JPAD | L_CBUTTONS));
+//								uStack128 = func00014c98(auStack356, contpad1, uStack194 & (R_JPAD | R_CBUTTONS));
+//							}
+//						} else {
+//							if (uStack190 & (L_JPAD | L_CBUTTONS)) {
+//								uStack124 = 0x3f800000;
+//							}
+//							if (uStack190 & (R_JPAD | R_CBUTTONS)) {
+//								uStack120 = 0x3f800000;
+//							}
+//						}
+//
+//						uStack140 = !g_Vars.currentplayer->insightaimmode && (uStack190 & (U_JPAD | U_CBUTTONS));
+//						uStack136 = !g_Vars.currentplayer->insightaimmode && (uStack190 & (D_JPAD | D_CBUTTONS));
+//
+//						uStack156 = 0;
+//						fStack116 = 0;
+//						fStack112 = 0;
+//						uStack144 = !g_Vars.currentplayer->insightaimmode;
+//						uStack148 = !g_Vars.currentplayer->insightaimmode;
+//						uVar5 = uStack190;
+//
+//						if (g_Vars.tickmode == TICKMODE_AUTOWALK) {
+//							uStack140 = (g_Vars.currentplayer->unk1bdc > 0);
+//							iStack8 = 0;
+//							iStack4 = 0;
+//							uStack136 = (g_Vars.currentplayer->unk1bdc < 0);
+//							iStack12 = 0;
+//							iStack16 = g_Vars.currentplayer->unk1bd8;
+//						}
+//					} else {
+//						if (uStack190 & (L_JPAD | L_CBUTTONS)) {
+//							uStack124 = 0x3f800000;
+//						}
+//
+//						if (uStack190 & (R_JPAD | R_CBUTTONS)) {
+//							uStack120 = 0x3f800000;
+//						}
+//
+//						if (g_Vars.currentplayer->insightaimmode == false && bVar4) {
+//							uStack132 = func00014c98(auStack356, contpad1, uStack194 & (L_JPAD | L_CBUTTONS));
+//							uStack128 = func00014c98(auStack356, contpad1, uStack194 & (R_JPAD | R_CBUTTONS));
+//						}
+//
+//						uStack140 = 0;
+//						uStack136 = 0;
+//						uStack144 = 0;
+//						uStack156 = !g_Vars.currentplayer->insightaimmode;
+//
+//						if (!g_Vars.currentplayer->insightaimmode && (uVar5 & (U_JPAD | U_CBUTTONS))) {
+//							fStack116 = 1;
+//						}
+//
+//						if (!g_Vars.currentplayer->insightaimmode && (uVar5 & (D_JPAD | D_CBUTTONS))) {
+//							fStack112 = 1;
+//						}
+//
+//						uStack148 = !g_Vars.currentplayer->insightaimmode;
+//						uStack152 = 0;
+//
+//						if (g_Vars.tickmode == TICKMODE_AUTOWALK) {
+//							iStack8 = 0;
+//							iStack4 = g_Vars.currentplayer->unk1bdc;
+//							iStack12 = 0;
+//							iStack16 = g_Vars.currentplayer->unk1bd8;
+//						}
+//					}
+//
+//					if (g_Vars.currentplayer->insightaimmode == false || iStack20 <= 60) {
+//						if (g_Vars.currentplayer->insightaimmode && iStack20 < -60) {
+//							fStack112 = (-60 - iStack20) / 10.0f;
+//
+//							if (fStack112 > 1) {
+//								fStack112 = 1;
+//							}
+//						}
+//					} else {
+//						fStack116 = (iStack20 - 60) / 10.0f;
+//
+//						if (fStack116 > 1) {
+//							fStack116 = 1;
+//						}
+//					}
+//
+//					if (g_Vars.currentplayer->insightaimmode == false || iStack24 >= -60) {
+//						if (g_Vars.currentplayer->insightaimmode && iStack24 > 60) {
+//							fStack104 = (iStack24 - 60) / 10.0f;
+//
+//							if (fStack104 > 1) {
+//								fStack104 = 1;
+//							}
+//						}
+//					} else {
+//						fStack108 = (-60 - iStack24) / 10.0f;
+//
+//						if (fStack108 > 1) {
+//							fStack108 = 1;
+//						}
+//					}
+//
+//					if (bVar4) {
+//						if (g_Vars.currentplayer->invdowntime < -2) {
+//							g_Vars.currentplayer->invdowntime += numsamples;
+//
+//							if (g_Vars.currentplayer->invdowntime > -3) {
+//								g_Vars.currentplayer->invdowntime = 0;
+//							}
+//						} else {
+//							for (i = 0; i < numsamples; i++) {
+//								if (func00014a78(i, contpad1, invbuttons & uStack194) == 0) {
+//									if (g_Vars.currentplayer->invdowntime > 0 &&
+//											(!bVar4 || func00014a78(i, contpad1, shootbuttons & uStack194) == 0)) {
+//										iStack96++;
+//									}
+//
+//									g_Vars.currentplayer->invdowntime = 0;
+//								} else {
+//									if (g_Vars.currentplayer->invdowntime > -2) {
+//										if (func00014b50(i, contpad1, shootbuttons & uStack194)) {
+//											iStack100++;
+//											g_Vars.currentplayer->invdowntime = -1;
+//										}
+//
+//										if (g_Vars.currentplayer->invdowntime >= 0 && func00014a78(i, contpad1, shootbuttons & uStack194) == 0) {
+//											if (g_Vars.currentplayer->invdowntime <= 15) {
+//												g_Vars.currentplayer->invdowntime++;
+//											} else {
+//												activemenuOpen();
+//												g_Vars.currentplayer->invdowntime = -1;
+//											}
+//										}
+//									}
+//								}
+//							}
+//						}
+//					}
+//
+//					uVar6 = invbuttons;
+//
+//					if (bVar4) {
+//						for (i = 0; i < numsamples; i++) {
+//							if (func00014a78(i, contpad1, uStack194 & B_BUTTON) == 0) {
+//								if (g_Vars.currentplayer->usedowntime > 0) {
+//									iStack160++;
+//								}
+//
+//								g_Vars.currentplayer->usedowntime = 0;
+//								func0f0a8c50();
+//							} else {
+//								if (g_Vars.currentplayer->usedowntime < -1) {
+//									if (g_Vars.currentplayer->usedowntime > -3) {
+//										func0f0a895c(g_Vars.currentplayer->usedowntime, 0, 0);
+//									}
+//								} else {
+//									if (func00014b50(i, contpad1, shootbuttons & uStack194)
+//											&& g_Vars.currentplayer->usedowntime >= 0
+//											&& func0f0a895c(g_Vars.currentplayer->usedowntime, 1, 0)) {
+//										g_Vars.currentplayer->usedowntime = -3;
+//									}
+//
+//									if (g_Vars.currentplayer->usedowntime > -1) {
+//										if (g_Vars.currentplayer->usedowntime <= 25) {
+//											g_Vars.currentplayer->usedowntime++;
+//										} else {
+//											lVar8 = func0f0a895c(g_Vars.currentplayer->usedowntime, 0, 0);
+//
+//											if (lVar8 == 1) {
+//												g_Vars.currentplayer->usedowntime = -1;
+//											} else if (lVar8 == 2) {
+//												g_Vars.currentplayer->usedowntime = -2;
+//											} else {
+//												g_Vars.currentplayer->usedowntime++;
+//											}
+//										}
+//									}
+//								}
+//							}
+//						}
+//					}
+//
+//					// Zoom in and out
+//					if (iStack184 && g_Vars.currentplayer->insightaimmode) {
+//						f32 increment = 1.0f;
+//
+//						if (getCurrentPlayerWeaponId(1) == WEAPON_FARSIGHTXR20) {
+//							increment = 0.5f;
+//						}
+//
+//						if (uVar5 & (D_JPAD | D_CBUTTONS)) {
+//							fStack80 = increment;
+//						}
+//
+//						if (uVar5 & (U_JPAD | U_CBUTTONS)) {
+//							fStack76 = increment;
+//						}
+//					}
+//
+//					if (bVar4) {
+//						for (i = 0; i < numsamples; i++) {
+//							if (iStack184 == 0 && aiStack280[i + 1]) {
+//								uVar17 = uStack194 & (D_JPAD | D_CBUTTONS);
+//
+//								if (func00014b50(i, contpad1, uStack194 & (U_JPAD | U_CBUTTONS))) {
+//									if (iStack72 == 0) {
+//										iStack68++;
+//									} else {
+//										iStack72--;
+//									}
+//
+//									g_Vars.currentplayer->aimtaptime = -1;
+//								}
+//
+//								if (func00014b50(i, contpad1, uStack194 & (D_JPAD | D_CBUTTONS))) {
+//									if (iStack68 == 0) {
+//										iStack72++;
+//									} else {
+//										iStack68--;
+//									}
+//
+//									g_Vars.currentplayer->aimtaptime = -1;
+//								}
+//							}
+//
+//							if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == AIMCONTROL_HOLD) {
+//								if (aiStack280[i + 1] == 0) {
+//									if (g_Vars.currentplayer->aimtaptime > 0 && g_Vars.currentplayer->aimtaptime < 15) {
+//										if (iStack72 == 0) {
+//											iStack68++;
+//										} else {
+//											iStack72--;
+//										}
+//									}
+//
+//									g_Vars.currentplayer->aimtaptime = 0;
+//								} else {
+//									if (g_Vars.currentplayer->aimtaptime >= 0) {
+//										g_Vars.currentplayer->aimtaptime++;
+//									}
+//								}
+//							}
+//						}
+//					}
+//
+//					if (currentPlayerGetCrouchPos() == CROUCH_SQUAT
+//							&& g_Vars.currentplayer->crouchoffset == -90
+//							&& g_Vars.mplayerisrunning
+//							&& g_Vars.coopplayernum <= -1) {
+//						uStack44 = g_Vars.currentplayer->insightaimmode
+//							&& iStack184 == 0
+//							&& func00014f60(contpad1, uStack194 & (D_JPAD | D_CBUTTONS));
+//					}
+//
+//					if (getCurrentPlayerWeaponId(0) == WEAPON_FARSIGHTXR20) {
+//						uStack48 = g_Vars.currentplayer->insightaimmode && (uVar5 & (L_TRIG | R_TRIG | L_CBUTTONS | R_CBUTTONS));
+//					} else {
+//						uStack64 = g_Vars.currentplayer->insightaimmode && (uVar5 & (L_JPAD | L_CBUTTONS));
+//						uStack60 = g_Vars.currentplayer->insightaimmode && (uVar5 & (R_JPAD | R_CBUTTONS));
+//					}
+//
+//					if (((uVar5 & invbuttons) && (uStack192 & B_BUTTON))
+//							|| ((uVar5 & B_BUTTON) && (uStack192 & invbuttons))
+//							&& iStack180 == WEAPON_REMOTEMINE) {
+//						iStack56 = 1;
+//						iStack100 = 0;
+//						iStack96 = 0;
+//						iStack160 = 0;
+//						g_Vars.currentplayer->invdowntime = -2;
+//						g_Vars.currentplayer->usedowntime = -2;
+//					}
+//				}
+//
+//				uStack88 = g_Vars.currentplayer->insightaimmode;
+//				iStack84 = g_Vars.currentplayer->insightaimmode;
+//
+//				if (g_Vars.currentplayer->waitforzrelease &&
+//						((uStack190 & shootbuttons) == 0)) {
+//					g_Vars.currentplayer->waitforzrelease = false;
+//				}
+//
+//				if (weaponHasFlag(getCurrentPlayerWeaponId(0), WEAPONFLAG_80000000) == false) {
+//					uStack164 = g_Vars.currentplayer->waitforzrelease == false
+//						&& (uStack190 & shootbuttons)
+//						&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
+//						&& (uStack190 & invbuttons) == 0;
+//				} else {
+//					if ((uStack192 & shootbuttons)
+//							&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
+//						iStack160++;
+//					}
+//				}
+//
+//				if (controlmode != CONTROLMODE_12 && controlmode != CONTROLMODE_14) {
+//					goto LAB_002ea8d4;
+//				}
+//			} // end control mode
+//
+//			iStack36 = 1;
+//		}
+//	}
+//
+//LAB_002ea8d4:
+//	g_Vars.currentplayer->unk00d0 = 0;
+//
+//	if (iStack160) {
+//		g_Vars.currentplayer->activatetimelast = g_Vars.currentplayer->activatetimethis;
+//		g_Vars.currentplayer->activatetimethis = g_Vars.lvframe60;
+//		g_Vars.currentplayer->unk00d0 = iStack160;
+//		func0f0c7f2c();
+//	}
+//
+//	fVar24 = fStack112;
+//
+//	if (iStack40 == 0) {
+//		iStack20 = -iStack20;
+//		iStack12 = -iStack12;
+//		fStack112 = fStack116;
+//		fStack116 = fVar24;
+//	}
+//
+//	func0f0a8d34(uStack164);
+//
+//	if (g_Vars.unk000324 && (func0f0a20fc(0) || func0f0a20fc(1))) {
+//		fStack428 = 0;
+//
+//		if (func0f0a20fc(0) && func0f09cf58(0) > 0) {
+//			fStack428 = func0f09cf58(0);
+//		}
+//
+//		if (func0f0a20fc(1) && func0f09cf58(1) > fStack428) {
+//			fStack428 = func0f09cf58(1);
+//		}
+//
+//		func0f028590(fStack428);
+//	}
+//
+//	func0f0abc74(2, uStack88);
+//
+//	if (fStack80 > 0) {
+//		func0f0b1588();
+//	}
+//
+//	if (fStack76 > 0) {
+//		currentPlayerUpdateGunZoomFovs();
+//	}
+//
+//	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED && var8005d9d0 == 0) {
+//		fStack432 = 60;
+//
+//		// FarSight in secondary function
+//		if (getCurrentPlayerWeaponId(0) == WEAPON_FARSIGHTXR20
+//				&& g_Vars.currentplayer->insightaimmode
+//				&& uStack48
+//				&& g_Vars.currentplayer->unk0638[0].unk063b == 1
+//				&& g_Vars.currentplayer->autoeraserdist > 0) {
+//			fVar25 = func0f0b49b8(500.0f / g_Vars.currentplayer->autoeraserdist);
+//			fStack436 = 2;
+//			fVar24 = fVar25;
+//
+//			if (fVar25 > 60) {
+//				fVar24 = 60;
+//			}
+//
+//			if (fVar25 > 60 || fVar25 >= 2) {
+//				fStack436 = fVar24;
+//			}
+//
+//			g_Vars.currentplayer->gunzoomfovs[1] = fStack436;
+//
+//			func00015b68(currentPlayerGetUnk1740(),
+//					&g_Vars.currentplayer->unk025c->pos, &fStack456.pos);
+//
+//			func0f0b4eb8(&fStack456.pos, (struct coord *)&fStack456, fStack436,
+//					g_Vars.currentplayer->c_perspaspect);
+//
+//			if (fStack456 < (currentPlayerGetScreenWidth() * 0.5f + currentPlayerGetScreenLeft()) - 20.0f) {
+//				fStack108 = 0.25f;
+//			} else if (fStack456 > currentPlayerGetScreenWidth() * 0.5f + currentPlayerGetScreenLeft() + 20.0f) {
+//				fStack104 = 0.25f;
+//			}
+//
+//			if (fStack452 < (currentPlayerGetScreenHeight() * 0.5f + currentPlayerGetScreenTop()) - 20.0f) {
+//				fStack112 = 0.25f;
+//			} else if (fStack452 > currentPlayerGetScreenHeight() * 0.5f + currentPlayerGetScreenTop() + 20.0f) {
+//				fStack116 = 0.25f;
+//			}
+//		}
+//
+//		if (iStack84) {
+//			fStack432 = func0f0b14d8();
+//		}
+//
+//		if (getCurrentPlayerWeaponId(0) == WEAPON_AR34
+//				&& g_Vars.currentplayer->unk0638[0].unk063b == 1) {
+//			fStack432 = func0f0b14d8();
+//		}
+//
+//		func0f0ba8b0(fStack432 > 0 ? fStack432 : 0);
+//		currentPlayerUpdateZoom();
+//	}
+//
+//	func0f0c7f98(&uStack172);
+//
+//	// Speed boost
+//	// After 3 seconds of holding forward at max speed, apply boost multiplier.
+//	// The multiplier starts at 1 and reaches 1.25 after about 0.1 seconds.
+//	if (g_Vars.currentplayer->speedmaxtime60 < 180) {
+//		if (g_Vars.currentplayer->speedboost > 1) {
+//			g_Vars.currentplayer->speedboost -= g_Vars.lvupdate240freal * 0.01f;
+//		}
+//
+//		if (g_Vars.currentplayer->speedboost < 1) {
+//			g_Vars.currentplayer->speedboost = 1;
+//		}
+//	} else {
+//		if (g_Vars.currentplayer->speedboost < 1.25f) {
+//			g_Vars.currentplayer->speedboost += g_Vars.lvupdate240freal * 0.01f;
+//		}
+//
+//		if (g_Vars.currentplayer->speedboost > 1.25f) {
+//			func0f082d74();
+//			g_Vars.currentplayer->speedboost = 1.25f;
+//		}
+//	}
+//
+//	// Look ahead
+//	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
+//		fVar24 = -4;
+//
+//		bVar4 = g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
+//			|| g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB;
+//
+//		if (g_Vars.currentplayer->lookaheadcentreenabled) {
+//			if (g_Vars.lvframenum != g_Vars.currentplayer->lookaheadframe
+//					&& g_Vars.currentplayernum == (g_Vars.lvframenum & 3)) {
+//				g_Vars.currentplayer->cachedlookahead = func0f0c8598();
+//			}
+//
+//			fVar24 = g_Vars.currentplayer->cachedlookahead;
+//		}
+//
+//		if (g_Vars.currentplayer->movecentrerelease && iStack4 < 40 && iStack4 > -40) {
+//			g_Vars.currentplayer->movecentrerelease = false;
+//		}
+//
+//		if (bVar4) {
+//			if (fStack116 <= 0 && fStack112 <= 0) {
+//				if (iStack36) {
+//					g_Vars.currentplayer->automovecentre = false;
+//				} else {
+//					if (g_Vars.currentplayer->automovecentreenabled == false) {
+//						if (g_Vars.currentplayer->fastmovecentreenabled
+//								&& uStack156
+//								&& (iStack4 > 60 || iStack4 < -60)
+//								&& (g_Vars.currentplayer->vv_verta > fVar24 + 5.0f
+//									|| fVar24 - 10.0f > g_Vars.currentplayer->vv_verta)
+//								&& g_Vars.currentplayer->movecentrerelease == false) {
+//							g_Vars.currentplayer->docentreupdown = true;
+//						}
+//					} else {
+//						if (uStack156 && (iStack4 > 60 || iStack4 < -60)) {
+//							g_Vars.currentplayer->automovecentre = true;
+//						}
+//
+//						if (g_Vars.currentplayer->automovecentre
+//								&& (g_Vars.currentplayer->vv_verta > fVar24 + 5.0f
+//									|| g_Vars.currentplayer->vv_verta < fVar24 - 10.0f)
+//								&& g_Vars.currentplayer->movecentrerelease == false) {
+//							g_Vars.currentplayer->docentreupdown = true;
+//						}
+//					}
+//				}
+//
+//				g_Vars.currentplayer->prevupdown = false;
+//			} else {
+//				g_Vars.currentplayer->docentreupdown = false;
+//				g_Vars.currentplayer->prevupdown = true;
+//				g_Vars.currentplayer->automovecentre = false;
+//			}
+//		}
+//
+//		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
+//			g_Vars.currentplayer->docentreupdown = false;
+//		}
+//
+//		if (g_Vars.currentplayer->docentreupdown == false) {
+//			if (uStack144 == 0) {
+//				if (fStack116 <= 0) {
+//					if (fStack112 > 0) {
+//						currentPlayerUpdateSpeedVerta(-fStack112);
+//
+//						if (uStack156 && (iStack4 > 60 || iStack4 < -60)) {
+//							g_Vars.currentplayer->movecentrerelease = true;
+//						}
+//					} else {
+//						currentPlayerUpdateSpeedVerta(0);
+//					}
+//				} else {
+//					currentPlayerUpdateSpeedVerta(fStack116);
+//
+//					if (uStack156 && (iStack4 > 60 || iStack4 < -60)) {
+//						g_Vars.currentplayer->movecentrerelease = true;
+//					}
+//				}
+//			} else {
+//				fVar24 = func0000be74();
+//				fVar25 = iStack12 / 70.0f;
+//
+//				if (fVar25 > 1) {
+//					fVar25 = 1;
+//					bVar4 = true;
+//				} else if (fVar25 < -1) {
+//					fVar25 = -1;
+//					bVar4 = false;
+//				} else {
+//					bVar4 = fVar25 >= 0;
+//				}
+//
+//				fVar26 = fVar25;
+//
+//				if (!bVar4) {
+//					fVar26 = -fVar25;
+//				}
+//
+//				g_Vars.currentplayer->speedverta = -(fVar25 * fVar26) * (fVar24 / 60.0f);
+//			}
+//
+//			g_Vars.currentplayer->vv_verta +=
+//				g_Vars.currentplayer->speedverta * g_Vars.lvupdate240freal * 3.5f;
+//		} else {
+//			if (bVar4) {
+//				fVar25 = (g_Vars.currentplayer->speedverta * g_Vars.currentplayer->speedverta * 0.5f) / 0.05f;
+//
+//				if (fVar24 + fVar25 < g_Vars.currentplayer->vv_verta) {
+//					currentPlayerUpdateSpeedVerta(1);
+//				} else if (g_Vars.currentplayer->vv_verta < fVar24 - fVar25) {
+//					currentPlayerUpdateSpeedVerta(-1);
+//				} else {
+//					currentPlayerUpdateSpeedVerta(0);
+//				}
+//
+//				fVar25 = g_Vars.currentplayer->vv_verta;
+//				fVar26 = g_Vars.currentplayer->speedverta * g_Vars.lvupdate240freal;
+//				fVar26 = fVar25 + fVar26 + fVar26;
+//
+//				if (fVar25 <= fVar24 || fVar26 <= fVar24) {
+//					if (fVar25 < fVar24) {
+//						if (fVar26 < fVar24) {
+//							g_Vars.currentplayer->vv_verta = fVar26;
+//							goto LAB_002eb32c;
+//						}
+//					}
+//
+//					g_Vars.currentplayer->vv_verta = fVar24;
+//					g_Vars.currentplayer->speedverta = 0;
+//
+//					if (g_Vars.currentplayer->prevupdown == false) {
+//						g_Vars.currentplayer->docentreupdown = false;
+//					}
+//				} else {
+//					g_Vars.currentplayer->vv_verta = fVar26;
+//				}
+//			}
+//		}
+//	}
+//
+//LAB_002eb32c:
+//	if (uStack148 == 0) {
+//		if (fStack108 > 0) {
+//			currentPlayerUpdateSpeedThetaControl(fStack108); // not sure on arg
+//		} else if (fStack104 <= 0) {
+//			currentPlayerUpdateSpeedThetaControl(0);
+//		} else {
+//			currentPlayerUpdateSpeedThetaControl(-fStack104);
+//		}
+//	} else {
+//		fVar24 = func0000be74();
+//		fVar25 = iStack16 / 70.0f;
+//
+//		if (fVar25 > 1) {
+//			fVar25 = 1;
+//			bVar4 = true;
+//		} else if (fVar25 < -1) {
+//			fVar25 = -1;
+//			bVar4 = false;
+//		} else {
+//			bVar4 = fVar25 >= 0;
+//		}
+//
+//		fVar26 = fVar25;
+//
+//		if (!bVar4) {
+//			fVar26 = -fVar25;
+//		}
+//
+//		g_Vars.currentplayer->unk1b9c = fVar25 * fVar26 * (fVar24 / 60.0f);
+//	}
+//
+//	g_Vars.currentplayer->speedtheta = g_Vars.currentplayer->speedthetacontrol;
+//	func0f0c8004();
+//
+//	if (iStack56) {
+//		g_Vars.currentplayer->unk0638[0].unk0658 = 0;
+//		g_Vars.currentplayer->unk0638[0].unk065c = 0;
+//		func0f08a9f4(g_Vars.currentplayernum);
+//	}
+//
+//	iVar10 = iStack100;
+//
+//	if (g_Vars.lvframenum > 9 && g_Vars.tickmode != TICKMODE_6) {
+//		while (iStack100 = iVar10 - 1, iVar19 = iStack96, 0 < iVar10) {
+//			func0f0a1c2c();
+//			iVar10 = iStack100;
+//		}
+//
+//		while (iStack96 = iVar19 - 1, iVar19 > 0) {
+//			func0f0a1b50();
+//			iVar19 = iStack96;
+//		}
+//	}
+//
+//	if (g_Vars.currentplayer->unk1c64 == 0) {
+//		if (uStack172 == 0) {
+//			if (iStack168) {
+//				currentPlayerSetAimType(0);
+//				func0f0a0b98(
+//						(iStack24 * 0.65f) / 80.0f,
+//						(iStack20 * 0.65f) / 80.0f, iStack20);
+//			}
+//		} else {
+//			currentPlayerSetAimType(0);
+//
+//			if (
+//					(
+//					 uStack52 == 0
+//					 || (func0f0c7bd0() == 0 && func0f0c7a8c() == 0)
+//					 || g_Vars.currentplayer->autoxaimprop == NULL
+//					 || g_Vars.currentplayer->autoyaimprop == NULL
+//					 || func0f0b1804(iStack180, 2) == 0
+//					)
+//					&& (getCurrentPlayerWeaponId(0) != WEAPON_CMP150 || g_Vars.currentplayer->unk0638[0].unk063b != 1)) {
+//
+//				if (g_Vars.currentplayer->unk1b68 < 0.979f) {
+//					g_Vars.currentplayer->unk1b68 += g_Vars.lvupdate240freal * 0.00032f;
+//				}
+//
+//				if (g_Vars.currentplayer->unk1b68 > 0.979f) {
+//					g_Vars.currentplayer->unk1b68 = 0.979f;
+//				}
+//
+//				func0f0a0b30(
+//						g_Vars.currentplayer->speedtheta * 0.3f + g_Vars.currentplayer->gunextraaimx,
+//						-g_Vars.currentplayer->speedverta * 0.1f + g_Vars.currentplayer->gunextraaimy);
+//			} else {
+//				bool followlockon = false;
+//
+//				if (getCurrentPlayerWeaponId(0) == WEAPON_CMP150
+//						&& g_Vars.currentplayer->unk0638[0].unk063b == 1) {
+//					followlockon = true;
+//				}
+//
+//				if (g_Vars.currentplayer->unk1b68 > 0.963f) {
+//					g_Vars.currentplayer->unk1b68 -= g_Vars.lvupdate240freal * 0.00032f;
+//				}
+//
+//				if (g_Vars.currentplayer->unk1b68 < 0.963f) {
+//					g_Vars.currentplayer->unk1b68 = 0.963f;
+//				}
+//
+//				if (followlockon) {
+//					func0f0a0394();
+//				} else {
+//					func0f0a0b30(g_Vars.currentplayer->autoaimx, g_Vars.currentplayer->autoaimy);
+//				}
+//			}
+//		}
+//	} else {
+//		g_Vars.currentplayer->unk1c64 = 0;
+//	}
+//}
+
 void func0f0cb79c(struct player *player, struct coord *mid, s16 *rooms)
 {
 	struct coord lower;

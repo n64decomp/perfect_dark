@@ -5327,7 +5327,7 @@ void currentPlayerPause(u32 mode)
 {
 	g_PauseMode = mode;
 
-	if (g_Vars.currentplayer->pausemode == PAUSEMODE_0) {
+	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
 		g_Vars.currentplayer->pausemode = PAUSEMODE_1;
 	}
 }
@@ -5337,7 +5337,7 @@ void func0f0baf38(void)
 	if (g_Vars.currentplayer->pausemode == PAUSEMODE_3) {
 		soloSetPaused(0);
 		func0f16db3c();
-		g_Vars.currentplayer->pausemode = PAUSEMODE_0;
+		g_Vars.currentplayer->pausemode = PAUSEMODE_UNPAUSED;
 	}
 }
 
@@ -10695,7 +10695,7 @@ glabel var7f1ad6ac
 //					u16 buttons = param_1 ? func00014f60(contpad1, 0xffff) : 0;
 //
 //					if (g_Vars.currentplayer->isdead == false
-//							&& g_Vars.currentplayer->pausemode == PAUSEMODE_0
+//							&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
 //							&& (buttons & START_BUTTON)) {
 //						if (g_Vars.mplayerisrunning == false) {
 //							currentPlayerPause(PAUSEMODE_2);
@@ -10745,7 +10745,7 @@ glabel var7f1ad6ac
 //	}
 //
 //	// df64
-//	if (g_Vars.currentplayer->pausemode != PAUSEMODE_0) {
+//	if (g_Vars.currentplayer->pausemode != PAUSEMODE_UNPAUSED) {
 //		func0f0bad6c();
 //	}
 //

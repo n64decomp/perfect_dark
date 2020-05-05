@@ -27,7 +27,7 @@ u32 func0f0b11bc(void);
 u32 func0f0b11ec(void);
 f32 func0f0b12ec(u32 arg0);
 u32 func0f0b131c(void);
-u32 func0f0b14d8(void);
+f32 func0f0b14d8(void);
 u32 func0f0b1588(void);
 void currentPlayerUpdateGunZoomFovs(f32 arg0);
 bool weaponHasFlag(s32 itemid, u32 flag);
