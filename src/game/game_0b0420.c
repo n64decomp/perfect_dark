@@ -30,7 +30,7 @@ const char var7f1acdbc[] = "%s %s";
 const char var7f1acdc4[] = "%s %s";
 
 const u32 var7f1acdcc[] = {0x00000000};
-const u32 var7f1acdd0[] = {0x3dcccccd};
+//const u32 var7f1acdd0[] = {0x3dcccccd};
 
 GLOBAL_ASM(
 glabel func0f0b0420
@@ -1037,88 +1037,7 @@ f32 currentPlayerGetGunZoomFov(void)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f0b1588
-/*  f0b1588:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b158c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1590:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f0b1594:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f0b1598:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0b159c:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
-/*  f0b15a0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b15a4:	24010015 */ 	addiu	$at,$zero,0x15
-/*  f0b15a8:	10410008 */ 	beq	$v0,$at,.L0f0b15cc
-/*  f0b15ac:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f0b15b0:	24010016 */ 	addiu	$at,$zero,0x16
-/*  f0b15b4:	10410007 */ 	beq	$v0,$at,.L0f0b15d4
-/*  f0b15b8:	24010032 */ 	addiu	$at,$zero,0x32
-/*  f0b15bc:	50410008 */ 	beql	$v0,$at,.L0f0b15e0
-/*  f0b15c0:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f0b15c4:	10000006 */ 	beqz	$zero,.L0f0b15e0
-/*  f0b15c8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0b15cc:
-/*  f0b15cc:	10000004 */ 	beqz	$zero,.L0f0b15e0
-/*  f0b15d0:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0b15d4:
-/*  f0b15d4:	10000002 */ 	beqz	$zero,.L0f0b15e0
-/*  f0b15d8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0b15dc:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f0b15e0:
-/*  f0b15e0:	04a0002c */ 	bltz	$a1,.L0f0b1694
-/*  f0b15e4:	c7a40020 */ 	lwc1	$f4,0x20($sp)
-/*  f0b15e8:	3c013e80 */ 	lui	$at,0x3e80
-/*  f0b15ec:	44813000 */ 	mtc1	$at,$f6
-/*  f0b15f0:	3c01800a */ 	lui	$at,0x800a
-/*  f0b15f4:	c42aa004 */ 	lwc1	$f10,-0x5ffc($at)
-/*  f0b15f8:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0b15fc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b1600:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0b1604:	460a4002 */ 	mul.s	$f0,$f8,$f10
-/*  f0b1608:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
-/*  f0b160c:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f0b1610:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0b1614:	24010016 */ 	addiu	$at,$zero,0x16
-/*  f0b1618:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0b161c:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f0b1620:	14410006 */ 	bne	$v0,$at,.L0f0b163c
-/*  f0b1624:	c7a00018 */ 	lwc1	$f0,0x18($sp)
-/*  f0b1628:	3c013f00 */ 	lui	$at,0x3f00
-/*  f0b162c:	44818000 */ 	mtc1	$at,$f16
-/*  f0b1630:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b1634:	46100002 */ 	mul.s	$f0,$f0,$f16
-/*  f0b1638:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0b163c:
-/*  f0b163c:	3c014270 */ 	lui	$at,0x4270
-/*  f0b1640:	44811000 */ 	mtc1	$at,$f2
-/*  f0b1644:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0b1648:	44819000 */ 	mtc1	$at,$f18
-/*  f0b164c:	3c017f1b */ 	lui	$at,%hi(var7f1acdd0)
-/*  f0b1650:	c424cdd0 */ 	lwc1	$f4,%lo(var7f1acdd0)($at)
-/*  f0b1654:	8c8e0284 */ 	lw	$t6,0x284($a0)
-/*  f0b1658:	00051080 */ 	sll	$v0,$a1,0x2
-/*  f0b165c:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f0b1660:	01c21821 */ 	addu	$v1,$t6,$v0
-/*  f0b1664:	c46a16f4 */ 	lwc1	$f10,0x16f4($v1)
-/*  f0b1668:	46069200 */ 	add.s	$f8,$f18,$f6
-/*  f0b166c:	46085402 */ 	mul.s	$f16,$f10,$f8
-/*  f0b1670:	e47016f4 */ 	swc1	$f16,0x16f4($v1)
-/*  f0b1674:	8c8f0284 */ 	lw	$t7,0x284($a0)
-/*  f0b1678:	01e21821 */ 	addu	$v1,$t7,$v0
-/*  f0b167c:	c46416f4 */ 	lwc1	$f4,0x16f4($v1)
-/*  f0b1680:	4604103c */ 	c.lt.s	$f2,$f4
-/*  f0b1684:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b1688:	45020003 */ 	bc1fl	.L0f0b1698
-/*  f0b168c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1690:	e46216f4 */ 	swc1	$f2,0x16f4($v1)
-.L0f0b1694:
-/*  f0b1694:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0b1698:
-/*  f0b1698:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0b169c:	03e00008 */ 	jr	$ra
-/*  f0b16a0:	00000000 */ 	sll	$zero,$zero,0x0
-);
-
-void currentPlayerUpdateGunZoomFovs(f32 arg0)
+void currentPlayerZoomOut(f32 fovpersec)
 {
 	s32 index = -1;
 
@@ -1129,13 +1048,38 @@ void currentPlayerUpdateGunZoomFovs(f32 arg0)
 	}
 
 	if (index >= 0) {
-		f32 value = arg0 * 0.25f * g_Vars.lvupdate240f;
+		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240f;
 
 		if (getCurrentPlayerWeaponIdWrapper(0) == WEAPON_FARSIGHTXR20) {
-			value *= 0.5f;
+			amount *= 0.5f;
 		}
 
-		g_Vars.currentplayer->gunzoomfovs[index] /= 1 + value * 0.1f;
+		g_Vars.currentplayer->gunzoomfovs[index] *= 1.0f + amount * 0.1f;
+
+		if (g_Vars.currentplayer->gunzoomfovs[index] > 60) {
+			g_Vars.currentplayer->gunzoomfovs[index] = 60;
+		}
+	}
+}
+
+void currentPlayerZoomIn(f32 fovpersec)
+{
+	s32 index = -1;
+
+	switch (getCurrentPlayerWeaponIdWrapper(0)) {
+	case WEAPON_SNIPERRIFLE:    index = 0; break;
+	case WEAPON_FARSIGHTXR20:   index = 1; break;
+	case WEAPON_HORIZONSCANNER: index = 2; break;
+	}
+
+	if (index >= 0) {
+		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240f;
+
+		if (getCurrentPlayerWeaponIdWrapper(0) == WEAPON_FARSIGHTXR20) {
+			amount *= 0.5f;
+		}
+
+		g_Vars.currentplayer->gunzoomfovs[index] /= 1 + amount * 0.1f;
 
 		if (g_Vars.currentplayer->gunzoomfovs[index] < 2) {
 			g_Vars.currentplayer->gunzoomfovs[index] = 2;

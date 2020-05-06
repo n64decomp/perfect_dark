@@ -2988,7 +2988,7 @@ glabel var7f1ad8e4
 /*  f0caa10:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0caa14:	45020004 */ 	bc1fl	.L0f0caa28
 /*  f0caa18:	c7ac0214 */ 	lwc1	$f12,0x214($sp)
-/*  f0caa1c:	0fc2c562 */ 	jal	func0f0b1588
+/*  f0caa1c:	0fc2c562 */ 	jal	currentPlayerZoomOut
 /*  f0caa20:	e7ac0210 */ 	swc1	$f12,0x210($sp)
 /*  f0caa24:	c7ac0214 */ 	lwc1	$f12,0x214($sp)
 .L0f0caa28:
@@ -2998,7 +2998,7 @@ glabel var7f1ad8e4
 /*  f0caa34:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0caa38:	45020004 */ 	bc1fl	.L0f0caa4c
 /*  f0caa3c:	8e590284 */ 	lw	$t9,0x284($s2)
-/*  f0caa40:	0fc2c5a9 */ 	jal	currentPlayerUpdateGunZoomFovs
+/*  f0caa40:	0fc2c5a9 */ 	jal	currentPlayerZoomIn
 /*  f0caa44:	e7ac0214 */ 	swc1	$f12,0x214($sp)
 /*  f0caa48:	8e590284 */ 	lw	$t9,0x284($s2)
 .L0f0caa4c:
@@ -4831,11 +4831,11 @@ glabel var7f1ad8e4
 //	func0f0abc74(2, uStack88);
 //
 //	if (fStack80 > 0) {
-//		func0f0b1588();
+//		currentPlayerZoomOut();
 //	}
 //
 //	if (fStack76 > 0) {
-//		currentPlayerUpdateGunZoomFovs();
+//		currentPlayerZoomIn();
 //	}
 //
 //	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED && var8005d9d0 == 0) {
