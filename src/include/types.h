@@ -125,12 +125,26 @@ struct anim {
 	/*0x88*/ u32 animscale;
 };
 
+struct animdata08_00 {
+	u16 unk00;
+};
+
+struct animdata08 {
+	struct animdata08_00 *unk00;
+};
+
+struct animdata10 {
+	u32 unk00;
+	f32 ground;
+};
+
 struct animdata {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
+	/*0x00*/ u8 unk00;
+	/*0x01*/ u8 unk01;
+	/*0x04*/ struct chrdata *chr;
+	/*0x08*/ struct animdata08 *unk08;
 	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
+	/*0x10*/ struct animdata10 *unk10;
 	/*0x14*/ f32 unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;

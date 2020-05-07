@@ -73,7 +73,7 @@ u32 func0f068af4(void);
 u32 func0f068b14(void);
 u32 func0f068c04(void);
 u32 func0f068fc8(void);
-u32 func0f069144(void);
+void func0f069144(struct prop *prop, u8 *nextcol, u16 floorcol);
 u32 func0f069630(void);
 u32 func0f069710(void);
 u32 func0f069750(void);

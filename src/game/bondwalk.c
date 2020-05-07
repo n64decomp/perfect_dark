@@ -1519,11 +1519,9 @@ void currentPlayerUpdateVerticalMovement(void)
 				if (prop
 						&& g_Vars.currentplayer->prop->pos.y < prop->pos.y
 						&& prop->type == PROPTYPE_OBJ) {
-					// 670
 					obj = prop->obj;
 
 					if (obj->obj == MODEL_HOVBIKE) {
-						// 684
 						amount = (obj->maxdamage - obj->damage + 1) / 250.0f;
 						obj->flags &= ~OBJFLAG_INVINCIBLE;
 						func0f0852ac(obj, amount, &obj->prop->pos, 0x22, -1);

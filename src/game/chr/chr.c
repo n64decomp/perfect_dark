@@ -2755,131 +2755,68 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chrInitSplats(chr);
 }
 
-GLOBAL_ASM(
-glabel func0f020b14
-.late_rodata
-glabel var7f1a8724
-.word 0x411ffffe
-.text
-/*  f020b14:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f020b18:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f020b1c:	afb20038 */ 	sw	$s2,0x38($sp)
-/*  f020b20:	afb10034 */ 	sw	$s1,0x34($sp)
-/*  f020b24:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f020b28:	afa60070 */ 	sw	$a2,0x70($sp)
-/*  f020b2c:	afa70074 */ 	sw	$a3,0x74($sp)
-/*  f020b30:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f020b34:	240e0003 */ 	addiu	$t6,$zero,0x3
-/*  f020b38:	00808825 */ 	or	$s1,$a0,$zero
-/*  f020b3c:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f020b40:	14400004 */ 	bnez	$v0,.L0f020b54
-/*  f020b44:	a08e0000 */ 	sb	$t6,0x0($a0)
-/*  f020b48:	0fc0819a */ 	jal	chrInit
-/*  f020b4c:	8fa5007c */ 	lw	$a1,0x7c($sp)
-/*  f020b50:	8e220004 */ 	lw	$v0,0x4($s1)
-.L0f020b54:
-/*  f020b54:	3c057f02 */ 	lui	$a1,%hi(func0f01f378)
-/*  f020b58:	00408025 */ 	or	$s0,$v0,$zero
-/*  f020b5c:	24a5f378 */ 	addiu	$a1,$a1,%lo(func0f01f378)
-/*  f020b60:	0c007800 */ 	jal	func0001e000
-/*  f020b64:	02402025 */ 	or	$a0,$s2,$zero
-/*  f020b68:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f020b6c:	ae500004 */ 	sw	$s0,0x4($s2)
-/*  f020b70:	a24f0001 */ 	sb	$t7,0x1($s2)
-/*  f020b74:	ae120020 */ 	sw	$s2,0x20($s0)
-/*  f020b78:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*  f020b7c:	0fc0f94e */ 	jal	func0f03e538
-/*  f020b80:	02002025 */ 	or	$a0,$s0,$zero
-/*  f020b84:	3c058006 */ 	lui	$a1,%hi(var80062968)
-/*  f020b88:	8ca52968 */ 	lw	$a1,%lo(var80062968)($a1)
-/*  f020b8c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f020b90:	0c0077eb */ 	jal	func0001dfac
-/*  f020b94:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f020b98:	8fa20070 */ 	lw	$v0,0x70($sp)
-/*  f020b9c:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f020ba0:	44814000 */ 	mtc1	$at,$f8
-/*  f020ba4:	c4440000 */ 	lwc1	$f4,0x0($v0)
-/*  f020ba8:	26180191 */ 	addiu	$t8,$s0,0x191
-/*  f020bac:	261902b2 */ 	addiu	$t9,$s0,0x2b2
-/*  f020bb0:	e7a40058 */ 	swc1	$f4,0x58($sp)
-/*  f020bb4:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*  f020bb8:	27a40058 */ 	addiu	$a0,$sp,0x58
-/*  f020bbc:	8fa60074 */ 	lw	$a2,0x74($sp)
-/*  f020bc0:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f020bc4:	2607018a */ 	addiu	$a3,$s0,0x18a
-/*  f020bc8:	e7aa005c */ 	swc1	$f10,0x5c($sp)
-/*  f020bcc:	c4500008 */ 	lwc1	$f16,0x8($v0)
-/*  f020bd0:	e7b00060 */ 	swc1	$f16,0x60($sp)
-/*  f020bd4:	8e050024 */ 	lw	$a1,0x24($s0)
-/*  f020bd8:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f020bdc:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f020be0:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f020be4:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f020be8:	0c00a86c */ 	jal	coordFindGroundY
-/*  f020bec:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f020bf0:	e7a00054 */ 	swc1	$f0,0x54($sp)
-/*  f020bf4:	e60000b8 */ 	swc1	$f0,0xb8($s0)
-/*  f020bf8:	e60000b4 */ 	swc1	$f0,0xb4($s0)
-/*  f020bfc:	3c017f1b */ 	lui	$at,%hi(var7f1a8724)
-/*  f020c00:	c4328724 */ 	lwc1	$f18,%lo(var7f1a8724)($at)
-/*  f020c04:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f020c08:	44814000 */ 	mtc1	$at,$f8
-/*  f020c0c:	46120102 */ 	mul.s	$f4,$f0,$f18
-/*  f020c10:	02202025 */ 	or	$a0,$s1,$zero
-/*  f020c14:	46080280 */ 	add.s	$f10,$f0,$f8
-/*  f020c18:	e60400b0 */ 	swc1	$f4,0xb0($s0)
-/*  f020c1c:	c7a60058 */ 	lwc1	$f6,0x58($sp)
-/*  f020c20:	e62a000c */ 	swc1	$f10,0xc($s1)
-/*  f020c24:	e6260008 */ 	swc1	$f6,0x8($s1)
-/*  f020c28:	c7b00060 */ 	lwc1	$f16,0x60($sp)
-/*  f020c2c:	0fc19711 */ 	jal	func0f065c44
-/*  f020c30:	e6300010 */ 	swc1	$f16,0x10($s1)
-/*  f020c34:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*  f020c38:	0fc195e9 */ 	jal	roomsCopy
-/*  f020c3c:	26250028 */ 	addiu	$a1,$s1,0x28
-/*  f020c40:	0fc0882b */ 	jal	func0f0220ac
-/*  f020c44:	02002025 */ 	or	$a0,$s0,$zero
-/*  f020c48:	02402025 */ 	or	$a0,$s2,$zero
-/*  f020c4c:	0c006b4d */ 	jal	func0001ad34
-/*  f020c50:	26250008 */ 	addiu	$a1,$s1,0x8
-/*  f020c54:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f020c58:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f020c5c:	8c880008 */ 	lw	$t0,0x8($a0)
-/*  f020c60:	8d050000 */ 	lw	$a1,0x0($t0)
-/*  f020c64:	94a20000 */ 	lhu	$v0,0x0($a1)
-/*  f020c68:	304900ff */ 	andi	$t1,$v0,0xff
-/*  f020c6c:	55210006 */ 	bnel	$t1,$at,.L0f020c88
-/*  f020c70:	c6240008 */ 	lwc1	$f4,0x8($s1)
-/*  f020c74:	0c006a87 */ 	jal	func0001aa1c
-/*  f020c78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f020c7c:	c7b20054 */ 	lwc1	$f18,0x54($sp)
-/*  f020c80:	e4520004 */ 	swc1	$f18,0x4($v0)
-/*  f020c84:	c6240008 */ 	lwc1	$f4,0x8($s1)
-.L0f020c88:
-/*  f020c88:	02202025 */ 	or	$a0,$s1,$zero
-/*  f020c8c:	260500fc */ 	addiu	$a1,$s0,0xfc
-/*  f020c90:	e60400c8 */ 	swc1	$f4,0xc8($s0)
-/*  f020c94:	c626000c */ 	lwc1	$f6,0xc($s1)
-/*  f020c98:	9606018a */ 	lhu	$a2,0x18a($s0)
-/*  f020c9c:	e60600cc */ 	swc1	$f6,0xcc($s0)
-/*  f020ca0:	c6280010 */ 	lwc1	$f8,0x10($s1)
-/*  f020ca4:	0fc1a451 */ 	jal	func0f069144
-/*  f020ca8:	e60800d0 */ 	swc1	$f8,0xd0($s0)
-/*  f020cac:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f020cb0:	02201025 */ 	or	$v0,$s1,$zero
-/*  f020cb4:	8fb10034 */ 	lw	$s1,0x34($sp)
-/*  f020cb8:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*  f020cbc:	8fb20038 */ 	lw	$s2,0x38($sp)
-/*  f020cc0:	03e00008 */ 	jr	$ra
-/*  f020cc4:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
+struct prop *func0f020b14(struct prop *prop, struct animdata *animdata,
+		struct coord *pos, s16 *rooms, f32 arg4, u8 *ailist)
+{
+	struct chrdata *chr;
+	struct coord testpos;
+	f32 ground;
+	u32 value;
 
-struct prop *func0f020cc8(s32 arg0, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist)
+	prop->type = PROPTYPE_CHR;
+
+	if (prop->chr == NULL) {
+		chrInit(prop, ailist);
+	}
+
+	chr = prop->chr;
+
+	func0001e000(animdata, func0f01f378);
+	animdata->chr = chr;
+	animdata->unk01 = 1;
+	chr->animdata = animdata;
+	func0f03e538(chr, arg4);
+	func0001dfac(animdata, var80062968, 0);
+
+	testpos.x = pos->x;
+	testpos.y = pos->y + 100;
+	testpos.z = pos->z;
+
+	chr->ground = chr->manground = ground = coordFindGroundY(&testpos, chr->chrwidth, rooms, &chr->floorcol, &chr->floortype, NULL, &chr->floorroom, NULL, NULL);
+
+	chr->sumground = ground * 9.999998f;
+
+	prop->pos.x = testpos.x;
+	prop->pos.y = ground + 100;
+	prop->pos.z = testpos.z;
+
+	func0f065c44(prop);
+	roomsCopy(rooms, prop->rooms);
+	func0f0220ac(chr);
+	func0001ad34(animdata, &prop->pos);
+
+	value = chr->animdata->unk08->unk00->unk00;
+
+	if ((value & 0xff) == 1) {
+		struct animdata10 *thing = func0001aa1c(chr->animdata, chr->animdata->unk08->unk00);
+		thing->ground = ground;
+	}
+
+	chr->prevpos.x = prop->pos.x;
+	chr->prevpos.y = prop->pos.y;
+	chr->prevpos.z = prop->pos.z;
+
+	func0f069144(prop, chr->nextcol, chr->floorcol);
+
+	return prop;
+}
+
+struct prop *func0f020cc8(struct animdata *animdata, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist)
 {
 	struct prop *prop = propAllocate();
 
 	if (prop) {
-		prop = func0f020b14(prop, arg0, pos, rooms, arg3, ailist);
+		prop = func0f020b14(prop, animdata, pos, rooms, arg3, ailist);
 
 		if (cheatIsActive(CHEAT_ENEMYSHIELDS)) {
 			chrSetShield(prop->chr, 8);
