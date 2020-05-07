@@ -20128,7 +20128,7 @@ glabel var7f1aa454
 /*  f077b4c:	1000000e */ 	beqz	$zero,.L0f077b88
 /*  f077b50:	e60a0070 */ 	swc1	$f10,0x70($s0)
 .L0f077b54:
-/*  f077b54:	0fc30f23 */ 	jal	func0f0c3c8c
+/*  f077b54:	0fc30f23 */ 	jal	currentPlayerHasGapToCeiling
 /*  f077b58:	4600a306 */ 	mov.s	$f12,$f20
 /*  f077b5c:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f077b60:	14410009 */ 	bne	$v0,$at,.L0f077b88

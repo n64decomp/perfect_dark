@@ -1452,7 +1452,7 @@ glabel var7f1ad568
 /*  f0b7418:	27a600fc */ 	addiu	$a2,$sp,0xfc
 /*  f0b741c:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f0b7420:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f0b7424:	0c00a86c */ 	jal	func0002a1b0
+/*  f0b7424:	0c00a86c */ 	jal	coordFindGroundY
 /*  f0b7428:	2607161a */ 	addiu	$a3,$s0,0x161a
 /*  f0b742c:	8e500284 */ 	lw	$s0,0x284($s2)
 /*  f0b7430:	3c0143b4 */ 	lui	$at,0x43b4
@@ -13795,6 +13795,15 @@ glabel func0f0c1ff4
 /*  f0c20b4:	e44619e0 */ 	swc1	$f6,0x19e0($v0)
 );
 
+/**
+ * Populates the width, ymax and ymin arguments with absolute coordinates.
+ *
+ * ymin is set to 30 units above the player's feet. This allows them to go up
+ * steps or ledges that are 30 units or smaller.
+ *
+ * ymax is the top of the head, minus some if crouching, and always at least 80
+ * units above the feet.
+ */
 void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 {
 	u32 playernum = propGetPlayerNum(prop);

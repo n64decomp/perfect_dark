@@ -549,7 +549,7 @@
 #define EYESPYMODE_BOMBSPY 2
 
 #define FLOORFLAG_0100 0x0100
-#define FLOORFLAG_4000 0x4000
+#define FLOORFLAG_DIE  0x4000
 
 #define FRFAILREASON_NOTFAILED         0
 #define FRFAILREASON_OUTOFAMMO         1
@@ -1885,7 +1885,7 @@
 #define OBJFLAG_DEACTIVATED          0x10000000
 #define OBJFLAG_20000000             0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
 #define OBJFLAG_40000000             0x40000000 // Editor: "Door open by default/Empty weapon"
-#define OBJFLAG_INTERCEPTOR_DISABLED 0x80000000
+#define OBJFLAG_INTERCEPTOR_DISABLED 0x80000000 // Or lift disabled
 
 // obj->flags2
 #define OBJFLAG2_00000001     0x00000001 // Used only in CI Training

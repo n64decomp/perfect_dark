@@ -1311,7 +1311,7 @@ glabel var7f1a8720
 /*  f01f490:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f01f494:	02202025 */ 	or	$a0,$s1,$zero
 /*  f01f498:	27a600fc */ 	addiu	$a2,$sp,0xfc
-/*  f01f49c:	0c00a86c */ 	jal	func0002a1b0
+/*  f01f49c:	0c00a86c */ 	jal	coordFindGroundY
 /*  f01f4a0:	2607018a */ 	addiu	$a3,$s0,0x18a
 /*  f01f4a4:	3c017f1b */ 	lui	$at,%hi(var7f1a86ac)
 /*  f01f4a8:	c42886ac */ 	lwc1	$f8,%lo(var7f1a86ac)($at)
@@ -2040,7 +2040,7 @@ glabel var7f1a8720
 /*  f01ff50:	afa20044 */ 	sw	$v0,0x44($sp)
 /*  f01ff54:	afa7004c */ 	sw	$a3,0x4c($sp)
 /*  f01ff58:	8fa40098 */ 	lw	$a0,0x98($sp)
-/*  f01ff5c:	0c00a86c */ 	jal	func0002a1b0
+/*  f01ff5c:	0c00a86c */ 	jal	coordFindGroundY
 /*  f01ff60:	8fa60094 */ 	lw	$a2,0x94($sp)
 /*  f01ff64:	8e0202d4 */ 	lw	$v0,0x2d4($s0)
 /*  f01ff68:	3c08800a */ 	lui	$t0,%hi(g_Vars)
@@ -2097,7 +2097,7 @@ glabel var7f1a8720
 /*  f020034:	27a600fc */ 	addiu	$a2,$sp,0xfc
 /*  f020038:	8fa7004c */ 	lw	$a3,0x4c($sp)
 /*  f02003c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f020040:	0c00a86c */ 	jal	func0002a1b0
+/*  f020040:	0c00a86c */ 	jal	coordFindGroundY
 /*  f020044:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f020048:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f02004c:	3c017f1b */ 	lui	$at,%hi(var7f1a86fc)
@@ -2693,7 +2693,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->talktimer = 3600;
 	chr->cloakfade_00 = 0;
 	chr->cloakfade_06 = 0;
-	chr->unk32c_08 = 0;
+	chr->inlift = false;
 	chr->targetlastseenp.x = 0;
 	chr->targetlastseenp.y = 0;
 	chr->targetlastseenp.z = 0;
@@ -2815,7 +2815,7 @@ glabel var7f1a8724
 /*  f020bdc:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f020be0:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f020be4:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f020be8:	0c00a86c */ 	jal	func0002a1b0
+/*  f020be8:	0c00a86c */ 	jal	coordFindGroundY
 /*  f020bec:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f020bf0:	e7a00054 */ 	swc1	$f0,0x54($sp)
 /*  f020bf4:	e60000b8 */ 	swc1	$f0,0xb8($s0)

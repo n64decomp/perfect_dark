@@ -70,7 +70,7 @@ f32 eyespyFindGround(s16 *floorroom)
 	pos.y = prop->pos.y + yoffset;
 	pos.z = prop->pos.z;
 
-	ground = func0002a1b0(&pos, 26, prop->rooms, NULL, NULL, NULL, floorroom, &thing, &lift);
+	ground = coordFindGroundY(&pos, 26, prop->rooms, NULL, NULL, NULL, floorroom, &thing, &lift);
 
 	if (ground < -30000) {
 		ground = -30000;

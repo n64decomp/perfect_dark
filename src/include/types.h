@@ -700,7 +700,7 @@ struct chrdata {
 	/*0x32c*/
 	u8 unk32c_00 : 8;
 
-	u8 unk32c_08 : 1;
+	u8 inlift : 1;
 	u8 pouncebits : 3;
 	u8 unk32c_12 : 2;
 	u8 darkroomthing : 1;
@@ -1674,13 +1674,16 @@ struct player {
 	/*0x0068*/ u32 unk0068;
 	/*0x006c*/ u32 unk006c;
 	/*0x0070*/ f32 sumground;
-	/*0x0074*/ f32 vv_manground;
-	/*0x0078*/ f32 vv_ground;
-	/*0x007c*/ struct coord bdeltapos;
+	/*0x0074*/ f32 vv_manground; // Feet Y value in absolute coordinates
+	/*0x0078*/ f32 vv_ground; // Ground Y value in absolute coordinates
+	/*0x007c*/ struct coord bdeltapos; // Only y is used? Negative when falling
+
+	// These crouch fields are related to recovering after a fall - not actual crouching
 	/*0x0088*/ f32 sumcrouch;
 	/*0x008c*/ f32 crouchheight;
 	/*0x0090*/ s32 crouchtime240;
 	/*0x0094*/ f32 crouchfall;
+
 	/*0x0098*/ s32 swaypos;
 	/*0x009c*/ f32 swayoffset;
 	/*0x00a0*/ f32 swaytarget;
@@ -1809,10 +1812,8 @@ struct player {
 	/*0x0284*/ s16 bondprevrooms[8];
 	/*0x0294*/ f32 liftground;
 	/*0x0298*/ struct prop *lift;
-	/*0x029c*/ u32 unk029c;
-	/*0x02a0*/ u32 unk02a0;
-	/*0x02a4*/ u32 unk02a4;
-	/*0x02a8*/ u32 unk02a8;
+	/*0x029c*/ f32 ladderupdown;
+	/*0x02a0*/ struct coord laddernormal;
 	/*0x02ac*/ bool onladder;
 	/*0x02b0*/ bool inlift;
 	/*0x02b4*/ struct coord posdie;
@@ -2208,9 +2209,9 @@ struct player {
 	/*0x19b3*/ u8 dostartnewlife;
 	/*0x19b4*/ f32 crouchoffsetsmall;
 	/*0x19b8*/ s32 crouchoffsetrealsmall; // 0 = standing, -90 = squatting, can be between during transition
-	/*0x19bc*/ f32 vv_height;
-	/*0x19c0*/ f32 vv_headheight;
-	/*0x19c4*/ f32 vv_eyeheight;
+	/*0x19bc*/ f32 vv_height;     // 159 when Jo, regardless of crouch state
+	/*0x19c0*/ f32 vv_headheight; // 172 when Jo, regardless of crouch state
+	/*0x19c4*/ f32 vv_eyeheight;  // 159 when Jo, regardless of crouch state
 	/*0x19c8*/ bool haschrbody;
 	/*0x19cc*/ u32 unk19cc;
 	/*0x19d0*/ u32 unk19d0;
@@ -2255,10 +2256,8 @@ struct player {
 	/*0x1a8c*/ u32 unk1a8c;
 	/*0x1a90*/ struct coord bondenterpos;
 	/*0x1a9c*/ f32 bondentermtx[16];
-	/*0x1adc*/ f32 unk1adc;
-	/*0x1ae0*/ u32 unk1ae0;
-	/*0x1ae4*/ u32 unk1ae4;
-	/*0x1ae8*/ f32 unk1ae8;
+	/*0x1adc*/ struct coord bondenteraim;
+	/*0x1ae8*/ f32 bondonground;
 	/*0x1aec*/ u32 unk1aec;
 	/*0x1af0*/ struct prop *unk1af0;
 	/*0x1af4*/ u32 unk1af4;

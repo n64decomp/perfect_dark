@@ -307,7 +307,7 @@ glabel mpChrReset
 //			chr->weapons_held[1] = NULL;
 //			chr->unk178 = 0;
 //			chr->unk32c_00 = 0;
-//			chr->unk32c_08 = 0;
+//			chr->inlift = 0;
 //			chr->unk364 = 0;
 //			chr->chrheight = 185;
 //

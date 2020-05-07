@@ -16,7 +16,7 @@ u32 var80075d64 = 0x00000002;
 u32 var80075d68 = 0x00000002;
 u32 var80075d6c = 0x00000002;
 u32 var80075d70 = 0x00000000;
-u32 var80075d74 = 0x00000000;
+bool g_DebugTurboMode = false;
 u32 var80075d78 = 0x00000000;
 u32 var80075d7c = 0x00000000;
 u32 var80075d80 = 0x00000000;
@@ -194,14 +194,14 @@ void debug0f11ee00(void)
 	// empty
 }
 
-s32 debug0f11ee08(void)
+s32 debugIsTurboModeEnabled(void)
 {
-	return var80075d74;
+	return g_DebugTurboMode;
 }
 
-void debug0f11ee14(s32 arg0)
+void debugSetTurboMode(bool enabled)
 {
-	var80075d74 = arg0;
+	g_DebugTurboMode = enabled;
 }
 
 bool debug0f11ee20(void)

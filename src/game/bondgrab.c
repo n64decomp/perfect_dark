@@ -1645,7 +1645,7 @@ void func0f0ce1ac(void)
 	f32 fVar3;
 	f32 f0;
 
-	f14 = func0002a1b0(&g_Vars.currentplayer->prop->pos,
+	f14 = coordFindGroundY(&g_Vars.currentplayer->prop->pos,
 			g_Vars.currentplayer->bond2.width,
 			g_Vars.currentplayer->prop->rooms,
 			&g_Vars.currentplayer->floorcol,
@@ -1706,7 +1706,7 @@ void func0f0ce1ac(void)
 		g_Vars.currentplayer->vv_manground = fVar3 * 0.045499980449677f;
 	}
 
-	if ((g_Vars.currentplayer->floorflags & FLOORFLAG_4000) &&
+	if ((g_Vars.currentplayer->floorflags & FLOORFLAG_DIE) &&
 			g_Vars.currentplayer->vv_manground - 20.0f < g_Vars.currentplayer->vv_ground) {
 		currentPlayerDie(true);
 	}
@@ -2222,7 +2222,7 @@ glabel var7f1ada2c
 /*  f0cebdc:	460a2200 */ 	add.s	$f8,$f4,$f10
 /*  f0cebe0:	0fc32ed2 */ 	jal	currentPlayerUpdateMoveInitSpeed
 /*  f0cebe4:	e7a8007c */ 	swc1	$f8,0x7c($sp)
-/*  f0cebe8:	0fc47b82 */ 	jal	debug0f11ee08
+/*  f0cebe8:	0fc47b82 */ 	jal	debugIsTurboModeEnabled
 /*  f0cebec:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0cebf0:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0cebf4:	1040001f */ 	beqz	$v0,.L0f0cec74

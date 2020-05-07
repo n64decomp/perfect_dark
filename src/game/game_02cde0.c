@@ -1009,7 +1009,7 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 			chr->visionrange = 0;
 			chr->race = bodyGetRace(chr->bodynum);
 
-			ground = func0002a1b0(&pad->pos, 30, rooms, NULL, NULL, NULL, NULL, &thing, &lift);
+			ground = coordFindGroundY(&pad->pos, 30, rooms, NULL, NULL, NULL, NULL, &thing, &lift);
 			chr->ground = ground;
 			chr->manground = ground;
 

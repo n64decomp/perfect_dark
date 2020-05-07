@@ -97,7 +97,7 @@ void currentPlayerBikeInit(void)
 
 	func00015d54(hoverbike->base.realrot, matrix);
 	func00015dd4(&hoverbike->base.prop->pos, matrix);
-	func00015b68(matrix, &g_Vars.currentplayer->unk1a70, &g_Vars.currentplayer->unk1adc);
+	func00015b68(matrix, &g_Vars.currentplayer->unk1a70, &g_Vars.currentplayer->bondenteraim);
 	func00016b58(g_Vars.currentplayer->bondentermtx,
 			0, 0, 0,
 			-g_Vars.currentplayer->bond2.unk1c.x, -g_Vars.currentplayer->bond2.unk1c.y, -g_Vars.currentplayer->bond2.unk1c.z,
@@ -1446,7 +1446,7 @@ glabel func0f0d341c
 /*  f0d3528:	afab001c */ 	sw	$t3,0x1c($sp)
 /*  f0d352c:	2447161a */ 	addiu	$a3,$v0,0x161a
 /*  f0d3530:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f0d3534:	0c00a86c */ 	jal	func0002a1b0
+/*  f0d3534:	0c00a86c */ 	jal	coordFindGroundY
 /*  f0d3538:	24660028 */ 	addiu	$a2,$v1,0x28
 /*  f0d353c:	3c017f1b */ 	lui	$at,%hi(var7f1adb84)
 /*  f0d3540:	c42cdb84 */ 	lwc1	$f12,%lo(var7f1adb84)($at)

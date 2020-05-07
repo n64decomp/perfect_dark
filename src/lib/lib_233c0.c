@@ -7783,7 +7783,7 @@ glabel func0002a13c
 );
 
 GLOBAL_ASM(
-glabel func0002a1b0
+glabel coordFindGroundY
 /*    2a1b0:	27bdfe10 */ 	addiu	$sp,$sp,-496
 /*    2a1b4:	44800000 */ 	mtc1	$zero,$f0
 /*    2a1b8:	afbf0034 */ 	sw	$ra,0x34($sp)
@@ -7904,7 +7904,7 @@ glabel func0002a330
 /*    2a348:	afa00018 */ 	sw	$zero,0x18($sp)
 /*    2a34c:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*    2a350:	afa00020 */ 	sw	$zero,0x20($sp)
-/*    2a354:	0c00a86c */ 	jal	func0002a1b0
+/*    2a354:	0c00a86c */ 	jal	coordFindGroundY
 /*    2a358:	afae0010 */ 	sw	$t6,0x10($sp)
 /*    2a35c:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*    2a360:	27bd0030 */ 	addiu	$sp,$sp,0x30
