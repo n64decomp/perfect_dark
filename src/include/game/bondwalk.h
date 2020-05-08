@@ -21,7 +21,7 @@ void currentPlayerUpdateVerticalMovement(void);
 void currentPlayerApplyCrouchSpeed(void);
 void currentPlayerUpdateCrouchOffsetWalk(void);
 void func0f0c6180(void);
-u32 func0f0c6318(void);
+void func0f0c6318(void);
 u32 func0f0c63bc(void);
 void currentPlayerUpdatePrevPosWalk(void);
 void func0f0c65a8(void);

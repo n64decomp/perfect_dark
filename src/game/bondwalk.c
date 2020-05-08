@@ -1748,16 +1748,6 @@ void currentPlayerUpdateVerticalMovement(void)
 	}
 }
 
-u32 var80070e5c = 0x00000000;
-u32 var80070e60 = 0x00000000;
-u32 var80070e64 = 0x00000000;
-u32 var80070e68 = 0x00000000;
-u32 var80070e6c = 0x00000000;
-u32 var80070e70 = 0x00000000;
-u32 var80070e74 = 0x00000000;
-u32 var80070e78 = 0x00000000;
-u32 var80070e7c = 0x00000000;
-
 void currentPlayerApplyCrouchSpeed(void)
 {
 	if (currentPlayerGetCrouchPos() == CROUCH_HALF) {
@@ -1828,54 +1818,25 @@ void func0f0c6180(void)
 	g_Vars.currentplayer->guncloseroffset = g_Vars.currentplayer->crouchoffset / -90;
 }
 
-GLOBAL_ASM(
-glabel func0f0c6318
-.late_rodata
-glabel var7f1ad7dc
-.word 0x3c8ef461
-.text
-/*  f0c6318:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0c631c:	3c0e8007 */ 	lui	$t6,%hi(var80070e5c)
-/*  f0c6320:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0c6324:	25ce0e5c */ 	addiu	$t6,$t6,%lo(var80070e5c)
-/*  f0c6328:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f0c632c:	27a40024 */ 	addiu	$a0,$sp,0x24
-/*  f0c6330:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0c6334:	ac810000 */ 	sw	$at,0x0($a0)
-/*  f0c6338:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f0c633c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0c6340:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c6344:	ac990004 */ 	sw	$t9,0x4($a0)
-/*  f0c6348:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f0c634c:	c470004c */ 	lwc1	$f16,0x4c($v1)
-/*  f0c6350:	2408003f */ 	addiu	$t0,$zero,0x3f
-/*  f0c6354:	ac810008 */ 	sw	$at,0x8($a0)
-/*  f0c6358:	3c01431f */ 	lui	$at,0x431f
-/*  f0c635c:	44812000 */ 	mtc1	$at,$f4
-/*  f0c6360:	c44619c4 */ 	lwc1	$f6,0x19c4($v0)
-/*  f0c6364:	c4480148 */ 	lwc1	$f8,0x148($v0)
-/*  f0c6368:	3c017f1b */ 	lui	$at,%hi(var7f1ad7dc)
-/*  f0c636c:	46062003 */ 	div.s	$f0,$f4,$f6
-/*  f0c6370:	c424d7dc */ 	lwc1	$f4,%lo(var7f1ad7dc)($at)
-/*  f0c6374:	3c014060 */ 	lui	$at,0x4060
-/*  f0c6378:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0c637c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0c6380:	24070000 */ 	addiu	$a3,$zero,0x0
-/*  f0c6384:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f0c6388:	44814000 */ 	mtc1	$at,$f8
-/*  f0c638c:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f0c6390:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c6394:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f0c6398:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c639c:	46083082 */ 	mul.s	$f2,$f6,$f8
-/*  f0c63a0:	44051000 */ 	mfc1	$a1,$f2
-/*  f0c63a4:	0fc31094 */ 	jal	func0f0c4250
-/*  f0c63a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c63ac:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0c63b0:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0c63b4:	03e00008 */ 	jr	$ra
-/*  f0c63b8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0c6318(void)
+{
+	f32 thing1;
+	f32 thing2;
+	struct coord delta = {0, 0, 0};
+
+	thing1 = 159.0f / g_Vars.currentplayer->vv_eyeheight;
+	thing2 = g_Vars.currentplayer->speedtheta * thing1
+		* g_Vars.lvupdate240freal * 0.0174505133f * 3.5f;
+
+	func0f0c4250(&delta, thing2, 1, 0, 63);
+}
+
+u32 var80070e68 = 0x00000000;
+u32 var80070e6c = 0x00000000;
+u32 var80070e70 = 0x00000000;
+u32 var80070e74 = 0x00000000;
+u32 var80070e78 = 0x00000000;
+u32 var80070e7c = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f0c63bc
