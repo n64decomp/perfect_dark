@@ -1352,7 +1352,7 @@ void currentPlayerUpdateVerticalMovement(void)
 	struct coord testpos;
 	struct coord newpos;
 	s16 newrooms[8];
-	bool newinlift;
+	s32 newinlift;
 	struct prop *lift = NULL;
 	f32 sumground;
 	f32 moveamount;

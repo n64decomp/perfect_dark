@@ -958,8 +958,8 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 	s16 rooms[2];
 	struct prop *prop;
 	struct chrdata *chr;
-	u32 lVar3;
-	bool thing;
+	struct animdata *animdata;
+	s32 inlift;
 	struct prop *lift;
 	f32 ground;
 	u32 stack[2];
@@ -991,10 +991,10 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 	}
 #endif
 
-	lVar3 = func0f02d36c(BODY_EYESPY, 0, 0);
+	animdata = func0f02d36c(BODY_EYESPY, 0, 0);
 
-	if (lVar3) {
-		prop = func0f020cc8(lVar3, &pad->pos, rooms, 0, ailistFindById(GAILIST_IDLE));
+	if (animdata) {
+		prop = func0f020cc8(animdata, &pad->pos, rooms, 0, ailistFindById(GAILIST_IDLE));
 
 		if (prop) {
 			func0f0604bc(prop);
@@ -1009,7 +1009,7 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 			chr->visionrange = 0;
 			chr->race = bodyGetRace(chr->bodynum);
 
-			ground = coordFindGroundY(&pad->pos, 30, rooms, NULL, NULL, NULL, NULL, &thing, &lift);
+			ground = coordFindGroundY(&pad->pos, 30, rooms, NULL, NULL, NULL, NULL, &inlift, &lift);
 			chr->ground = ground;
 			chr->manground = ground;
 

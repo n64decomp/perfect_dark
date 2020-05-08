@@ -5683,4 +5683,21 @@ struct mpconfigfull {
 	struct mpstrings strings;
 };
 
+struct tile {
+	/*0x00*/ u8 unk00; // 0 or 1 to enable floorcol, 2 or 3 to disable
+	/*0x01*/ u8 unk01;
+	/*0x02*/ u16 flags;
+	/*0x04*/ u8 floortype;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 floorcol;
+};
+
+struct tilething {
+	struct tile *tile;
+	u32 unk04;
+	u32 unk08;
+	struct prop *lift;
+	u32 floorroom;
+};
+
 #endif

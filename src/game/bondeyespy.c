@@ -52,7 +52,7 @@ u32 var80070edc = 0x00000bb8;
 f32 eyespyFindGround(s16 *floorroom)
 {
 	struct prop *prop = g_Vars.currentplayer->eyespy->prop;
-	bool thing;
+	s32 inlift;
 	struct prop *lift;
 	struct coord pos;
 	f32 yoffset = 50;
@@ -70,7 +70,7 @@ f32 eyespyFindGround(s16 *floorroom)
 	pos.y = prop->pos.y + yoffset;
 	pos.z = prop->pos.z;
 
-	ground = coordFindGroundY(&pos, 26, prop->rooms, NULL, NULL, NULL, floorroom, &thing, &lift);
+	ground = coordFindGroundY(&pos, 26, prop->rooms, NULL, NULL, NULL, floorroom, &inlift, &lift);
 
 	if (ground < -30000) {
 		ground = -30000;

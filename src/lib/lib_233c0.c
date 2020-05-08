@@ -7782,112 +7782,60 @@ glabel func0002a13c
 /*    2a1ac:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
+f32 coordFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
+		u8 *floortype, u16 *floorflags, s16 *floorroom, s32 *inlift, struct prop **lift)
+{
+	u32 sp76[105];
+	struct tilething *sp72 = NULL;
+	f32 ground;
+	struct tile *tile = NULL;
+
+	func00027d1c(pos, width, rooms, 0x3f, 3, 0, 0, 0, sp76, 20);
+	ground = func000296a0(sp76, pos, &sp72, width);
+
+	if (sp72) {
+		tile = sp72->tile;
+	}
+
+	if (floorcol) {
+		func00025b70(tile, floorcol);
+	}
+
+	if (floortype) {
+		func00025bdc(tile, floortype);
+	}
+
+	if (floorflags && tile) {
+		*floorflags = tile->flags;
+	}
+
+	if (floorroom) {
+		if (sp72) {
+			*floorroom = sp72->floorroom;
+		} else {
+			*floorroom = -1;
+		}
+	}
+
+	if (inlift) {
+		if (tile && tile->unk00 == 1 && (tile->flags & TILEFLAG_0020)) {
+			*inlift = true;
+			*lift = sp72->lift;
+
+			if (*lift && (*lift)->obj->obj == MODEL_ESCA_STEP && floortype) {
+				*floortype = FLOORTYPE_ESCALATOR;
+			}
+		} else {
+			*inlift = false;
+			*lift = NULL;
+		}
+	}
+
+	return ground;
+}
+
 GLOBAL_ASM(
-glabel coordFindGroundY
-/*    2a1b0:	27bdfe10 */ 	addiu	$sp,$sp,-496
-/*    2a1b4:	44800000 */ 	mtc1	$zero,$f0
-/*    2a1b8:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*    2a1bc:	afb00030 */ 	sw	$s0,0x30($sp)
-/*    2a1c0:	afa701fc */ 	sw	$a3,0x1fc($sp)
-/*    2a1c4:	27af004c */ 	addiu	$t7,$sp,0x4c
-/*    2a1c8:	240e0003 */ 	addiu	$t6,$zero,0x3
-/*    2a1cc:	24180014 */ 	addiu	$t8,$zero,0x14
-/*    2a1d0:	afa401f0 */ 	sw	$a0,0x1f0($sp)
-/*    2a1d4:	afa501f4 */ 	sw	$a1,0x1f4($sp)
-/*    2a1d8:	afa00048 */ 	sw	$zero,0x48($sp)
-/*    2a1dc:	00008025 */ 	or	$s0,$zero,$zero
-/*    2a1e0:	afb80024 */ 	sw	$t8,0x24($sp)
-/*    2a1e4:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2a1e8:	afaf0020 */ 	sw	$t7,0x20($sp)
-/*    2a1ec:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*    2a1f0:	afa00014 */ 	sw	$zero,0x14($sp)
-/*    2a1f4:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*    2a1f8:	0c009f47 */ 	jal	func00027d1c
-/*    2a1fc:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*    2a200:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*    2a204:	8fa501f0 */ 	lw	$a1,0x1f0($sp)
-/*    2a208:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*    2a20c:	0c00a5a8 */ 	jal	func000296a0
-/*    2a210:	8fa701f4 */ 	lw	$a3,0x1f4($sp)
-/*    2a214:	8fb90048 */ 	lw	$t9,0x48($sp)
-/*    2a218:	e7a00044 */ 	swc1	$f0,0x44($sp)
-/*    2a21c:	8fa501fc */ 	lw	$a1,0x1fc($sp)
-/*    2a220:	13200002 */ 	beqz	$t9,.L0002a22c
-/*    2a224:	00000000 */ 	sll	$zero,$zero,0x0
-/*    2a228:	8f300000 */ 	lw	$s0,0x0($t9)
-.L0002a22c:
-/*    2a22c:	50a00004 */ 	beqzl	$a1,.L0002a240
-/*    2a230:	8fa50200 */ 	lw	$a1,0x200($sp)
-/*    2a234:	0c0096dc */ 	jal	func00025b70
-/*    2a238:	02002025 */ 	or	$a0,$s0,$zero
-/*    2a23c:	8fa50200 */ 	lw	$a1,0x200($sp)
-.L0002a240:
-/*    2a240:	50a00005 */ 	beqzl	$a1,.L0002a258
-/*    2a244:	8fa20204 */ 	lw	$v0,0x204($sp)
-/*    2a248:	0c0096f7 */ 	jal	func00025bdc
-/*    2a24c:	02002025 */ 	or	$a0,$s0,$zero
-/*    2a250:	8fa50200 */ 	lw	$a1,0x200($sp)
-/*    2a254:	8fa20204 */ 	lw	$v0,0x204($sp)
-.L0002a258:
-/*    2a258:	50400006 */ 	beqzl	$v0,.L0002a274
-/*    2a25c:	8fa20208 */ 	lw	$v0,0x208($sp)
-/*    2a260:	52000004 */ 	beqzl	$s0,.L0002a274
-/*    2a264:	8fa20208 */ 	lw	$v0,0x208($sp)
-/*    2a268:	96080002 */ 	lhu	$t0,0x2($s0)
-/*    2a26c:	a4480000 */ 	sh	$t0,0x0($v0)
-/*    2a270:	8fa20208 */ 	lw	$v0,0x208($sp)
-.L0002a274:
-/*    2a274:	8fa90048 */ 	lw	$t1,0x48($sp)
-/*    2a278:	50400008 */ 	beqzl	$v0,.L0002a29c
-/*    2a27c:	8fa3020c */ 	lw	$v1,0x20c($sp)
-/*    2a280:	11200004 */ 	beqz	$t1,.L0002a294
-/*    2a284:	240bffff */ 	addiu	$t3,$zero,-1
-/*    2a288:	8d2a0010 */ 	lw	$t2,0x10($t1)
-/*    2a28c:	10000002 */ 	beqz	$zero,.L0002a298
-/*    2a290:	a44a0000 */ 	sh	$t2,0x0($v0)
-.L0002a294:
-/*    2a294:	a44b0000 */ 	sh	$t3,0x0($v0)
-.L0002a298:
-/*    2a298:	8fa3020c */ 	lw	$v1,0x20c($sp)
-.L0002a29c:
-/*    2a29c:	5060001d */ 	beqzl	$v1,.L0002a314
-/*    2a2a0:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*    2a2a4:	12000018 */ 	beqz	$s0,.L0002a308
-/*    2a2a8:	8fa40210 */ 	lw	$a0,0x210($sp)
-/*    2a2ac:	920c0000 */ 	lbu	$t4,0x0($s0)
-/*    2a2b0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    2a2b4:	54cc0015 */ 	bnel	$a2,$t4,.L0002a30c
-/*    2a2b8:	ac600000 */ 	sw	$zero,0x0($v1)
-/*    2a2bc:	960d0002 */ 	lhu	$t5,0x2($s0)
-/*    2a2c0:	31ae0020 */ 	andi	$t6,$t5,0x20
-/*    2a2c4:	51c00011 */ 	beqzl	$t6,.L0002a30c
-/*    2a2c8:	ac600000 */ 	sw	$zero,0x0($v1)
-/*    2a2cc:	8fa40210 */ 	lw	$a0,0x210($sp)
-/*    2a2d0:	ac660000 */ 	sw	$a2,0x0($v1)
-/*    2a2d4:	8faf0048 */ 	lw	$t7,0x48($sp)
-/*    2a2d8:	8df8000c */ 	lw	$t8,0xc($t7)
-/*    2a2dc:	1300000c */ 	beqz	$t8,.L0002a310
-/*    2a2e0:	ac980000 */ 	sw	$t8,0x0($a0)
-/*    2a2e4:	8f190004 */ 	lw	$t9,0x4($t8)
-/*    2a2e8:	240100e4 */ 	addiu	$at,$zero,0xe4
-/*    2a2ec:	87280004 */ 	lh	$t0,0x4($t9)
-/*    2a2f0:	55010008 */ 	bnel	$t0,$at,.L0002a314
-/*    2a2f4:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*    2a2f8:	10a00005 */ 	beqz	$a1,.L0002a310
-/*    2a2fc:	24090004 */ 	addiu	$t1,$zero,0x4
-/*    2a300:	10000003 */ 	beqz	$zero,.L0002a310
-/*    2a304:	a0a90000 */ 	sb	$t1,0x0($a1)
-.L0002a308:
-/*    2a308:	ac600000 */ 	sw	$zero,0x0($v1)
-.L0002a30c:
-/*    2a30c:	ac800000 */ 	sw	$zero,0x0($a0)
-.L0002a310:
-/*    2a310:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0002a314:
-/*    2a314:	c7a00044 */ 	lwc1	$f0,0x44($sp)
-/*    2a318:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*    2a31c:	03e00008 */ 	jr	$ra
-/*    2a320:	27bd01f0 */ 	addiu	$sp,$sp,0x1f0
+glabel func0002a324
 /*    2a324:	44800000 */ 	mtc1	$zero,$f0
 /*    2a328:	03e00008 */ 	jr	$ra
 /*    2a32c:	00000000 */ 	sll	$zero,$zero,0x0

@@ -7,7 +7,7 @@ u32 bodyGetRace(s32 bodynum);
 bool bodyLoad(u32 bodynum);
 u32 func0f02ce8c(void);
 u32 func0f02d338(void);
-u32 func0f02d36c(u32 bodynum, u32 arg1, u32 arg2);
+struct animdata *func0f02d36c(u32 bodynum, u32 arg1, u32 arg2);
 u32 func0f02d3f8(void);
 u32 bodyGetHead(u32 bodynum);
 u32 func0f02d4fc(void);

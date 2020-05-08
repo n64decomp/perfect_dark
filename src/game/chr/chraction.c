@@ -32138,16 +32138,16 @@ s32 func0f004cd84(s32 arg0, s32 arg1)
 void func0f04cf90(struct chrdata *chr, s32 arg1)
 {
 	if (chr && chr->animdata && chr->animdata->unk08) {
-		s32 value = func0001a91c(chr->animdata->unk08, arg1);
-		u32 *ptr = NULL;
+		void *value = func0001a91c(chr->animdata->unk08, arg1);
+		struct animdata10 *animdata10 = NULL;
 
 		if (value != 0) {
-			ptr = func0001aa1c(chr->animdata, value);
+			animdata10 = func0001aa1c(chr->animdata, value);
 		}
 
-		if (ptr) {
-			u32 value = *ptr;
-			*ptr = (value == 0);
+		if (animdata10) {
+			u32 value = animdata10->unk00;
+			animdata10->unk00 = (value == 0);
 		}
 	}
 }

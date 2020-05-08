@@ -1638,7 +1638,7 @@ void func0f0ce1ac(void)
 	f32 stack;
 	s32 i;
 	f32 tmp;
-	bool inlift;
+	s32 inlift;
 	struct prop *lift = NULL;
 	f32 dist;
 	f32 f14;

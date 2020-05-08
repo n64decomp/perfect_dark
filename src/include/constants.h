@@ -551,6 +551,8 @@
 #define FLOORFLAG_0100 0x0100
 #define FLOORFLAG_DIE  0x4000
 
+#define FLOORTYPE_ESCALATOR 4
+
 #define FRFAILREASON_NOTFAILED         0
 #define FRFAILREASON_OUTOFAMMO         1
 #define FRFAILREASON_TIMEOVER          2
@@ -2527,6 +2529,11 @@
 #define TEAM_32        0x32
 #define TEAM_NONCOMBAT 0x80
 
+#define TELEPORTSTATE_0        0
+#define TELEPORTSTATE_STARTING 1
+#define TELEPORTSTATE_3        3
+#define TELEPORTSTATE_4        4
+
 #define TICKMODE_0        0
 #define TICKMODE_1        1
 #define TICKMODE_3        3
@@ -2535,10 +2542,7 @@
 #define TICKMODE_6        6
 #define TICKMODE_AUTOWALK 7
 
-#define TELEPORTSTATE_0        0
-#define TELEPORTSTATE_STARTING 1
-#define TELEPORTSTATE_3        3
-#define TELEPORTSTATE_4        4
+#define TILEFLAG_0020 0x0020
 
 #define VISIONMODE_NORMAL       0
 #define VISIONMODE_XRAY         1
