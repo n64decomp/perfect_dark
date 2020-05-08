@@ -47,7 +47,7 @@ u32 func00025724(void);
 u32 func00025774(void);
 u32 func00025848(void);
 u32 func00025928(void);
-void func00025b70(struct tile *tile, u16 *floorcol);
+void tileGetFloorCol(struct tile *tile, u16 *floorcol);
 void func00025bdc(struct tile *tile, u8 *floortype);
 u32 func00025c74(void);
 u32 func00025f90(void);

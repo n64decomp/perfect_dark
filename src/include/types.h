@@ -5689,7 +5689,7 @@ struct tile {
 	/*0x02*/ u16 flags;
 	/*0x04*/ u8 floortype;
 	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 floorcol;
+	/*0x0c*/ u16 floorcol;
 };
 
 struct tilething {

@@ -2868,41 +2868,32 @@ glabel func00025928
 /*    25b6c:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-GLOBAL_ASM(
-glabel func00025b70
-/*    25b70:	14800003 */ 	bnez	$a0,.L00025b80
-/*    25b74:	240e0fff */ 	addiu	$t6,$zero,0xfff
-/*    25b78:	03e00008 */ 	jr	$ra
-/*    25b7c:	a4ae0000 */ 	sh	$t6,0x0($a1)
-.L00025b80:
-/*    25b80:	90820000 */ 	lbu	$v0,0x0($a0)
-/*    25b84:	24010001 */ 	addiu	$at,$zero,0x1
-/*    25b88:	14400004 */ 	bnez	$v0,.L00025b9c
-/*    25b8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    25b90:	948f000c */ 	lhu	$t7,0xc($a0)
-/*    25b94:	03e00008 */ 	jr	$ra
-/*    25b98:	a4af0000 */ 	sh	$t7,0x0($a1)
-.L00025b9c:
-/*    25b9c:	54410005 */ 	bnel	$v0,$at,.L00025bb4
-/*    25ba0:	24010002 */ 	addiu	$at,$zero,0x2
-/*    25ba4:	9498000c */ 	lhu	$t8,0xc($a0)
-/*    25ba8:	03e00008 */ 	jr	$ra
-/*    25bac:	a4b80000 */ 	sh	$t8,0x0($a1)
-/*    25bb0:	24010002 */ 	addiu	$at,$zero,0x2
-.L00025bb4:
-/*    25bb4:	14410003 */ 	bne	$v0,$at,.L00025bc4
-/*    25bb8:	24190fff */ 	addiu	$t9,$zero,0xfff
-/*    25bbc:	03e00008 */ 	jr	$ra
-/*    25bc0:	a4b90000 */ 	sh	$t9,0x0($a1)
-.L00025bc4:
-/*    25bc4:	24010003 */ 	addiu	$at,$zero,0x3
-/*    25bc8:	14410002 */ 	bne	$v0,$at,.L00025bd4
-/*    25bcc:	24080fff */ 	addiu	$t0,$zero,0xfff
-/*    25bd0:	a4a80000 */ 	sh	$t0,0x0($a1)
-.L00025bd4:
-/*    25bd4:	03e00008 */ 	jr	$ra
-/*    25bd8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void tileGetFloorCol(struct tile *tile, u16 *floorcol)
+{
+	if (tile == NULL) {
+		*floorcol = 0xfff;
+		return;
+	}
+
+	if (tile->unk00 == 0) {
+		*floorcol = tile->floorcol;
+		return;
+	}
+
+	if (tile->unk00 == 1) {
+		*floorcol = tile->floorcol;
+		return;
+	}
+
+	if (tile->unk00 == 2) {
+		*floorcol = 0xfff;
+		return;
+	}
+
+	if (tile->unk00 == 3) {
+		*floorcol = 0xfff;
+	}
+}
 
 GLOBAL_ASM(
 glabel func00025bdc
@@ -7798,7 +7789,7 @@ f32 coordFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
 	}
 
 	if (floorcol) {
-		func00025b70(tile, floorcol);
+		tileGetFloorCol(tile, floorcol);
 	}
 
 	if (floortype) {
@@ -7887,7 +7878,7 @@ glabel func0002a36c
 .L0002a3c4:
 /*    2a3c4:	50a00005 */ 	beqzl	$a1,.L0002a3dc
 /*    2a3c8:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*    2a3cc:	0c0096dc */ 	jal	func00025b70
+/*    2a3cc:	0c0096dc */ 	jal	tileGetFloorCol
 /*    2a3d0:	00000000 */ 	sll	$zero,$zero,0x0
 /*    2a3d4:	8fa40034 */ 	lw	$a0,0x34($sp)
 /*    2a3d8:	8fa50044 */ 	lw	$a1,0x44($sp)
@@ -7948,7 +7939,7 @@ glabel func0002a440
 .L0002a48c:
 /*    2a48c:	50a00004 */ 	beqzl	$a1,.L0002a4a0
 /*    2a490:	8fa20048 */ 	lw	$v0,0x48($sp)
-/*    2a494:	0c0096dc */ 	jal	func00025b70
+/*    2a494:	0c0096dc */ 	jal	tileGetFloorCol
 /*    2a498:	8fa40034 */ 	lw	$a0,0x34($sp)
 /*    2a49c:	8fa20048 */ 	lw	$v0,0x48($sp)
 .L0002a4a0:
@@ -7992,7 +7983,7 @@ glabel func0002a4d0
 .L0002a520:
 /*    2a520:	50a00004 */ 	beqzl	$a1,.L0002a534
 /*    2a524:	8fa20048 */ 	lw	$v0,0x48($sp)
-/*    2a528:	0c0096dc */ 	jal	func00025b70
+/*    2a528:	0c0096dc */ 	jal	tileGetFloorCol
 /*    2a52c:	8fa40034 */ 	lw	$a0,0x34($sp)
 /*    2a530:	8fa20048 */ 	lw	$v0,0x48($sp)
 .L0002a534:
@@ -8039,7 +8030,7 @@ glabel func0002a564
 /*    2a5bc:	8fa50044 */ 	lw	$a1,0x44($sp)
 /*    2a5c0:	50a00004 */ 	beqzl	$a1,.L0002a5d4
 /*    2a5c4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    2a5c8:	0c0096dc */ 	jal	func00025b70
+/*    2a5c8:	0c0096dc */ 	jal	tileGetFloorCol
 /*    2a5cc:	8fa40034 */ 	lw	$a0,0x34($sp)
 /*    2a5d0:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0002a5d4:
@@ -8077,7 +8068,7 @@ glabel func0002a5e4
 /*    2a63c:	8fa50044 */ 	lw	$a1,0x44($sp)
 /*    2a640:	50a00004 */ 	beqzl	$a1,.L0002a654
 /*    2a644:	8fa20048 */ 	lw	$v0,0x48($sp)
-/*    2a648:	0c0096dc */ 	jal	func00025b70
+/*    2a648:	0c0096dc */ 	jal	tileGetFloorCol
 /*    2a64c:	8fa40034 */ 	lw	$a0,0x34($sp)
 /*    2a650:	8fa20048 */ 	lw	$v0,0x48($sp)
 .L0002a654:
