@@ -5687,7 +5687,7 @@ struct tile {
 	/*0x00*/ u8 unk00; // 0 or 1 to enable floorcol, 2 or 3 to disable
 	/*0x01*/ u8 unk01;
 	/*0x02*/ u16 flags;
-	/*0x04*/ u8 floortype;
+	/*0x04*/ u16 floortype;
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u16 floorcol;
 };

@@ -2895,54 +2895,43 @@ void tileGetFloorCol(struct tile *tile, u16 *floorcol)
 	}
 }
 
-GLOBAL_ASM(
-glabel func00025bdc
-/*    25bdc:	10800006 */ 	beqz	$a0,.L00025bf8
-/*    25be0:	00001025 */ 	or	$v0,$zero,$zero
-/*    25be4:	948e0002 */ 	lhu	$t6,0x2($a0)
-/*    25be8:	31cf0200 */ 	andi	$t7,$t6,0x200
-/*    25bec:	11e00002 */ 	beqz	$t7,.L00025bf8
-/*    25bf0:	00000000 */ 	sll	$zero,$zero,0x0
-/*    25bf4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L00025bf8:
-/*    25bf8:	14800003 */ 	bnez	$a0,.L00025c08
-/*    25bfc:	241800ff */ 	addiu	$t8,$zero,0xff
-/*    25c00:	03e00008 */ 	jr	$ra
-/*    25c04:	a0b80000 */ 	sb	$t8,0x0($a1)
-.L00025c08:
-/*    25c08:	10400003 */ 	beqz	$v0,.L00025c18
-/*    25c0c:	24190006 */ 	addiu	$t9,$zero,0x6
-/*    25c10:	03e00008 */ 	jr	$ra
-/*    25c14:	a0b90000 */ 	sb	$t9,0x0($a1)
-.L00025c18:
-/*    25c18:	90820000 */ 	lbu	$v0,0x0($a0)
-/*    25c1c:	24010001 */ 	addiu	$at,$zero,0x1
-/*    25c20:	14400004 */ 	bnez	$v0,.L00025c34
-/*    25c24:	00000000 */ 	sll	$zero,$zero,0x0
-/*    25c28:	94880004 */ 	lhu	$t0,0x4($a0)
-/*    25c2c:	03e00008 */ 	jr	$ra
-/*    25c30:	a0a80000 */ 	sb	$t0,0x0($a1)
-.L00025c34:
-/*    25c34:	54410005 */ 	bnel	$v0,$at,.L00025c4c
-/*    25c38:	24010002 */ 	addiu	$at,$zero,0x2
-/*    25c3c:	94890004 */ 	lhu	$t1,0x4($a0)
-/*    25c40:	03e00008 */ 	jr	$ra
-/*    25c44:	a0a90000 */ 	sb	$t1,0x0($a1)
-/*    25c48:	24010002 */ 	addiu	$at,$zero,0x2
-.L00025c4c:
-/*    25c4c:	14410003 */ 	bne	$v0,$at,.L00025c5c
-/*    25c50:	240a00ff */ 	addiu	$t2,$zero,0xff
-/*    25c54:	03e00008 */ 	jr	$ra
-/*    25c58:	a0aa0000 */ 	sb	$t2,0x0($a1)
-.L00025c5c:
-/*    25c5c:	24010003 */ 	addiu	$at,$zero,0x3
-/*    25c60:	14410002 */ 	bne	$v0,$at,.L00025c6c
-/*    25c64:	240b00ff */ 	addiu	$t3,$zero,0xff
-/*    25c68:	a0ab0000 */ 	sb	$t3,0x0($a1)
-.L00025c6c:
-/*    25c6c:	03e00008 */ 	jr	$ra
-/*    25c70:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void tileGetFloorType(struct tile *tile, u8 *floortype)
+{
+	bool water = false;
+
+	if (tile && (tile->flags & TILEFLAG_0200)) {
+		water = true;
+	}
+
+	if (tile == NULL) {
+		*floortype = 0xff;
+		return;
+	}
+
+	if (water) {
+		*floortype = FLOORTYPE_WATER;
+		return;
+	}
+
+	if (tile->unk00 == 0) {
+		*floortype = tile->floortype;
+		return;
+	}
+
+	if (tile->unk00 == 1) {
+		*floortype = tile->floortype;
+		return;
+	}
+
+	if (tile->unk00 == 2) {
+		*floortype = 0xff;
+		return;
+	}
+
+	if (tile->unk00 == 3) {
+		*floortype = 0xff;
+	}
+}
 
 GLOBAL_ASM(
 glabel func00025c74
@@ -7793,7 +7782,7 @@ f32 coordFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
 	}
 
 	if (floortype) {
-		func00025bdc(tile, floortype);
+		tileGetFloorType(tile, floortype);
 	}
 
 	if (floorflags && tile) {
@@ -7814,7 +7803,7 @@ f32 coordFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
 			*lift = sp72->lift;
 
 			if (*lift && (*lift)->obj->obj == MODEL_ESCA_STEP && floortype) {
-				*floortype = FLOORTYPE_ESCALATOR;
+				*floortype = FLOORTYPE_METAL;
 			}
 		} else {
 			*inlift = false;
@@ -7885,7 +7874,7 @@ glabel func0002a36c
 .L0002a3dc:
 /*    2a3dc:	50a00004 */ 	beqzl	$a1,.L0002a3f0
 /*    2a3e0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    2a3e4:	0c0096f7 */ 	jal	func00025bdc
+/*    2a3e4:	0c0096f7 */ 	jal	tileGetFloorType
 /*    2a3e8:	00000000 */ 	sll	$zero,$zero,0x0
 /*    2a3ec:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0002a3f0:
