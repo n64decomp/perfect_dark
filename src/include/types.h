@@ -1757,7 +1757,7 @@ struct player {
 
 	/*0x0168*/ f32 speedsideways;
 	/*0x016c*/ f32 speedstrafe;
-	/*0x0170*/ f32 speedforwards;
+	/*0x0170*/ f32 speedforwards;    // range -1 to 1
 	/*0x0174*/ f32 speedboost;       // speed multiplier - ranges from 1 to 1.25 - kicks in after 3 seconds of full speed
 	/*0x0178*/ u32 speedmaxtime60;   // amount of time player has held full forward speed - 60 is 1 second
 	/*0x017c*/ f32 bondshotspeed[3];
@@ -5698,6 +5698,52 @@ struct tilething {
 	u32 unk08;
 	struct prop *lift;
 	u32 floorroom;
+};
+
+struct movedata {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ bool unk10;
+	/*0x14*/ bool unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ s32 stepforward;
+	/*0x24*/ s32 stepback;
+	/*0x28*/ s32 stepleft;
+	/*0x2c*/ s32 stepright;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ u32 unk40;
+	/*0x44*/ u32 unk44;
+	/*0x48*/ u32 unk48;
+	/*0x4c*/ u32 unk4c;
+	/*0x50*/ u32 unk50;
+	/*0x54*/ u32 unk54;
+	/*0x58*/ u32 unk58;
+	/*0x5c*/ u32 unk5c;
+	/*0x60*/ u32 unk60;
+	/*0x64*/ s32 crouchdown;
+	/*0x68*/ s32 crouchup;
+	/*0x6c*/ u32 swaynegative;
+	/*0x70*/ u32 swaypositive;
+	/*0x74*/ u32 unk74;
+	/*0x78*/ u32 unk78;
+	/*0x7c*/ u32 unk7c;
+	/*0x80*/ bool eyesshut;
+	/*0x84*/ u32 unk84;
+	/*0x88*/ u32 unk88;
+	/*0x8c*/ u32 unk8c;
+	/*0x90*/ u32 unk90;
+	/*0x94*/ u32 unk94;
+	/*0x98*/ u32 unk98;
+	/*0x9c*/ u32 unk9c;
+	/*0xa0*/ u32 unka0;
+	/*0xa4*/ s32 unka4;
+	/*0xa8*/ s32 unka8;
 };
 
 #endif
