@@ -245,7 +245,7 @@ void func0f0c7f2c(void)
 void func0f0c7f98(struct movedata *data)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		func0f0d26ac(data);
+		currentPlayerUpdateSpeedBike(data);
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		func0f0ce608(data);
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {

@@ -821,7 +821,7 @@ struct hov {
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ f32 unk10;
-	/*0x14*/ u32 unk14;
+	/*0x14*/ f32 unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ u32 unk20;
@@ -1037,10 +1037,10 @@ struct hoverbikeobj { // objtype 33
 	/*0x09c*/ f32 speed[2];
 	/*0x0a4*/ f32 prevpos[2];
 	/*0x0ac*/ f32 w;
-	/*0x0b0*/ u32 rels;
-	/*0x0b8*/ u32 exreal;
-	/*0x0bc*/ u32 ezreal;
-	/*0x0c0*/ u32 ezreal2;
+	/*0x0b0*/ u32 rels[2];
+	/*0x0b8*/ f32 exreal;
+	/*0x0bc*/ f32 ezreal;
+	/*0x0c0*/ f32 ezreal2;
 	/*0x0c4*/ u32 leanspeed;
 	/*0x0c8*/ u32 leandiff;
 	/*0x0cc*/ u32 maxspeedtime240;

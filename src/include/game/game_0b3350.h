@@ -17,7 +17,7 @@ void currentPlayerSetPerspective(f32 near, f32 fovy, f32 aspect);
 f32 func0f0b49b8(f32 arg0);
 void currentPlayerSetCameraScale(void);
 u32 func0f0b4c3c(void);
-void func0f0b4d04(struct coord *in, struct coord *out);
+void func0f0b4d04(struct coord *in, f32 *out);
 void func0f0b4d68(struct coord *in, struct coord *out);
 void func0f0b4dec(struct coord *in, struct coord *out);
 void func0f0b4e68(struct coord *in, f32 divisor, struct coord *out);

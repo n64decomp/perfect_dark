@@ -1706,15 +1706,15 @@ glabel func0f0b4c3c
 /*  f0b4d00:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f0b4d04(struct coord *in, struct coord *out)
+void func0f0b4d04(struct coord *in, f32 *out)
 {
 	struct player *player = g_Vars.currentplayer;
 	f32 value = 1.0f / in->z;
 
-	out->y = in->y * value * player->c_recipscaley
+	out[1] = in->y * value * player->c_recipscaley
 		+ (player->c_screentop + player->c_halfheight);
 
-	out->x = (player->c_screenleft + player->c_halfwidth)
+	out[0] = (player->c_screenleft + player->c_halfwidth)
 		- in->x * value * player->c_recipscalex;
 }
 

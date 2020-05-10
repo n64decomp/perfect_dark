@@ -35,34 +35,6 @@ const char var7f1adb10[] = "bondbike.c";
 const char var7f1adb1c[] = "bondbike.c";
 const char var7f1adb28[] = "bondbike.c";
 
-const u32 var7f1adb34[] = {0x40c907a9};
-const u32 var7f1adb38[] = {0x3fc907a9};
-const u32 var7f1adb3c[] = {0x4096c5bf};
-const u32 var7f1adb40[] = {0x3f4907a9};
-const u32 var7f1adb44[] = {0x40afe6b4};
-const u32 var7f1adb48[] = {0x4016c5bf};
-const u32 var7f1adb4c[] = {0x407b4993};
-const u32 var7f1adb50[] = {0x404907a9};
-const u32 var7f1adb54[] = {0x3dcccccd};
-const u32 var7f1adb58[] = {0xbdcccccd};
-const u32 var7f1adb5c[] = {0xbdcccccd};
-const u32 var7f1adb60[] = {0x3dcccccd};
-const u32 var7f1adb64[] = {0x40490fdb};
-const u32 var7f1adb68[] = {0x3f4ccccd};
-const u32 var7f1adb6c[] = {0x40c907a9};
-const u32 var7f1adb70[] = {0x40c907a9};
-const u32 var7f1adb74[] = {0x3f4ccccd};
-const u32 var7f1adb78[] = {0x3dcccccd};
-const u32 var7f1adb7c[] = {0x40c907a9};
-const u32 var7f1adb80[] = {0x40c907a9};
-const u32 var7f1adb84[] = {0xc6ea6000};
-const u32 var7f1adb88[] = {0x4528c000};
-const u32 var7f1adb8c[] = {0x3b23d70a};
-const u32 var7f1adb90[] = {0x3c8ef461};
-const u32 var7f1adb94[] = {0x40c907a9};
-const u32 var7f1adb98[] = {0x3f333333};
-const u32 var7f1adb9c[] = {0x3c8ef461};
-
 u32 var80070ee0 = 0x00000000;
 u32 var80070ee4 = 0x00000000;
 u32 var80070ee8 = 0x00000000;
@@ -203,6 +175,10 @@ void func0f0d2294(void)
 
 GLOBAL_ASM(
 glabel func0f0d22f8
+.late_rodata
+glabel var7f1adb34
+.word 0x40c907a9
+.text
 /*  f0d22f8:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f0d22fc:	afb00028 */ 	sw	$s0,0x28($sp)
 /*  f0d2300:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -363,6 +339,22 @@ glabel func0f0d22f8
 
 GLOBAL_ASM(
 glabel func0f0d2558
+.late_rodata
+glabel var7f1adb38
+.word 0x3fc907a9
+glabel var7f1adb3c
+.word 0x4096c5bf
+glabel var7f1adb40
+.word 0x3f4907a9
+glabel var7f1adb44
+.word 0x40afe6b4
+glabel var7f1adb48
+.word 0x4016c5bf
+glabel var7f1adb4c
+.word 0x407b4993
+glabel var7f1adb50
+.word 0x404907a9
+.text
 /*  f0d2558:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f0d255c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
 /*  f0d2560:	27bdffc8 */ 	addiu	$sp,$sp,-56
@@ -453,7 +445,27 @@ glabel func0f0d2558
 );
 
 GLOBAL_ASM(
-glabel func0f0d26ac
+glabel currentPlayerUpdateSpeedBike
+.late_rodata
+glabel var7f1adb54
+.word 0x3dcccccd
+glabel var7f1adb58
+.word 0xbdcccccd
+glabel var7f1adb5c
+.word 0xbdcccccd
+glabel var7f1adb60
+.word 0x3dcccccd
+glabel var7f1adb64
+.word 0x40490fdb
+glabel var7f1adb68
+.word 0x3f4ccccd
+glabel var7f1adb6c
+.word 0x40c907a9
+glabel var7f1adb70
+.word 0x40c907a9
+glabel var7f1adb74
+.word 0x3f4ccccd
+.text
 /*  f0d26ac:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f0d26b0:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
 /*  f0d26b4:	8c4e0284 */ 	lw	$t6,0x284($v0)
@@ -772,8 +784,125 @@ glabel func0f0d26ac
 /*  f0d2b3c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch due to stack placement.
+// Goal has a 6-word gap between contnum and sp60. It appears to be using this
+// space implicitly for some calculations then optimising the stack usage out.
+// The code below puts the implicit usage at the bottom of the stack, even if
+// sp60 onwards is moved to be declared at the latest possible location in the
+// function.
+//void currentPlayerUpdateSpeedBike(struct movedata *data)
+//{
+//	struct hoverbikeobj *bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
+//	s8 contnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
+//	f32 a;
+//	f32 b;
+//	f32 c;
+//	f32 d;
+//	f32 sp60;
+//	struct coord sp48;
+//	f32 sp40[2];
+//	f32 sp36;
+//
+//	if ((optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_12
+//				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_14
+//				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_13
+//				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_11)
+//			&& !soloIsPaused()) {
+//		data->stepleft = func00014c98(0, contnum, L_JPAD | L_CBUTTONS);
+//		data->stepright = func00014c98(0, contnum, R_JPAD | R_CBUTTONS);
+//	}
+//
+//	// Forward/back
+//	if (data->stepforward) {
+//		a = 1.0f - g_Vars.currentplayer->speedforwards;
+//
+//		if (a > 0.1f * g_Vars.lvupdate240freal) {
+//			a = 0.1f * g_Vars.lvupdate240freal;
+//		}
+//
+//		g_Vars.currentplayer->speedforwards += a;
+//	} else if (data->stepback) {
+//		a = -1.0f - g_Vars.currentplayer->speedforwards;
+//
+//		if (a < -0.1f * g_Vars.lvupdate240freal) {
+//			a = -0.1f * g_Vars.lvupdate240freal;
+//		}
+//
+//		g_Vars.currentplayer->speedforwards += a;
+//	} else if (data->unk10) {
+//		g_Vars.currentplayer->speedforwards = data->unka8 / 70.0f;
+//
+//		if (g_Vars.currentplayer->speedforwards > 1.0f) {
+//			g_Vars.currentplayer->speedforwards = 1;
+//		} else if (g_Vars.currentplayer->speedforwards < -1.0f) {
+//			g_Vars.currentplayer->speedforwards = -1;
+//		}
+//	} else {
+//		g_Vars.currentplayer->speedforwards = 0;
+//	}
+//
+//	// Sideways
+//	if (data->stepleft) {
+//		b = -1.0f - g_Vars.currentplayer->speedsideways;
+//
+//		if (b < data->stepleft * -0.1f) {
+//			b = data->stepleft * -0.1f;
+//		}
+//
+//		g_Vars.currentplayer->speedsideways += b;
+//	} else if (data->stepright) {
+//		b = 1.0f - g_Vars.currentplayer->speedsideways;
+//
+//		if (b > data->stepright * 0.1f) {
+//			b = data->stepright * 0.1f;
+//		}
+//
+//		g_Vars.currentplayer->speedsideways += b;
+//	} else if (data->unk14) {
+//		g_Vars.currentplayer->speedsideways = data->unka4 / 70.0f;
+//
+//		if (g_Vars.currentplayer->speedsideways > 1.0f) {
+//			g_Vars.currentplayer->speedsideways = 1.0f;
+//		}
+//
+//		if (g_Vars.currentplayer->speedsideways < -1.0f) {
+//			g_Vars.currentplayer->speedsideways = -1.0f;
+//		}
+//	} else {
+//		g_Vars.currentplayer->speedsideways = 0;
+//	}
+//
+//	sp60 = -bike->exreal;
+//
+//	if (bike->hov.unk14 < M_PI) {
+//		sp60 += -bike->hov.unk14 * 0.8f;
+//	} else {
+//		sp60 += (M_BADTAU - bike->hov.unk14) * 0.8f;
+//	}
+//
+//	if (sp60 < 0) {
+//		sp60 += M_BADTAU;
+//	} else if (sp60 >= M_BADTAU) {
+//		sp60 -= M_BADTAU;
+//	}
+//
+//	sp48.x = 0;
+//	sp48.y = -sinf(sp60);
+//	sp48.z = cosf(sp60);
+//
+//	func0f0b4d04(&sp48, sp40);
+//
+//	sp36 = currentPlayerGetScreenTop();
+//	g_Vars.currentplayer->gunextraaimy =
+//		-(((sp40[1] - sp36) + (sp40[1] - sp36)) / currentPlayerGetScreenHeight() - 1.0f) * 0.75f;
+//}
+
 GLOBAL_ASM(
 glabel func0f0d2b40
+.late_rodata
+glabel var7f1adb78
+.word 0x3dcccccd
+.text
 /*  f0d2b40:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f0d2b44:	3c0f8007 */ 	lui	$t7,%hi(var80070ee0)
 /*  f0d2b48:	afbf002c */ 	sw	$ra,0x2c($sp)
@@ -966,6 +1095,10 @@ glabel func0f0d2b40
 
 GLOBAL_ASM(
 glabel func0f0d2e18
+.late_rodata
+glabel var7f1adb7c
+.word 0x40c907a9
+.text
 /*  f0d2e18:	27bdfec8 */ 	addiu	$sp,$sp,-312
 /*  f0d2e1c:	afb10030 */ 	sw	$s1,0x30($sp)
 /*  f0d2e20:	3c11800a */ 	lui	$s1,%hi(g_Vars)
@@ -1376,6 +1509,12 @@ glabel func0f0d3298
 
 GLOBAL_ASM(
 glabel func0f0d341c
+.late_rodata
+glabel var7f1adb80
+.word 0x40c907a9
+glabel var7f1adb84
+.word 0xc6ea6000
+.text
 /*  f0d341c:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f0d3420:	afb00030 */ 	sw	$s0,0x30($sp)
 /*  f0d3424:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -2013,6 +2152,20 @@ glabel func0f0d3c60
 
 GLOBAL_ASM(
 glabel func0f0d3d50
+.late_rodata
+glabel var7f1adb88
+.word 0x4528c000
+glabel var7f1adb8c
+.word 0x3b23d70a
+glabel var7f1adb90
+.word 0x3c8ef461
+glabel var7f1adb94
+.word 0x40c907a9
+glabel var7f1adb98
+.word 0x3f333333
+glabel var7f1adb9c
+.word 0x3c8ef461
+.text
 /*  f0d3d50:	27bdfde0 */ 	addiu	$sp,$sp,-544
 /*  f0d3d54:	afb00048 */ 	sw	$s0,0x48($sp)
 /*  f0d3d58:	3c10800a */ 	lui	$s0,%hi(g_Vars)
