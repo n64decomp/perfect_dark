@@ -1722,58 +1722,26 @@ void func0f0ce450(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel currentPlayerUpdateSpeedSidewaysGrab
-/*  f0ce4a0:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0ce4a4:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0ce4a8:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ce4ac:	c440016c */ 	lwc1	$f0,0x16c($v0)
-/*  f0ce4b0:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f0ce4b4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce4b8:	45020013 */ 	bc1fl	.L0f0ce508
-/*  f0ce4bc:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0ce4c0:	44862000 */ 	mtc1	$a2,$f4
-/*  f0ce4c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce4c8:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0ce4cc:	46067202 */ 	mul.s	$f8,$f14,$f6
-/*  f0ce4d0:	46080281 */ 	sub.s	$f10,$f0,$f8
-/*  f0ce4d4:	e44a016c */ 	swc1	$f10,0x16c($v0)
-/*  f0ce4d8:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ce4dc:	c440016c */ 	lwc1	$f0,0x16c($v0)
-/*  f0ce4e0:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0ce4e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce4e8:	4500001a */ 	bc1f	.L0f0ce554
-/*  f0ce4ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce4f0:	e44c016c */ 	swc1	$f12,0x16c($v0)
-/*  f0ce4f4:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0ce4f8:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0ce4fc:	10000015 */ 	beqz	$zero,.L0f0ce554
-/*  f0ce500:	c440016c */ 	lwc1	$f0,0x16c($v0)
-/*  f0ce504:	460c003c */ 	c.lt.s	$f0,$f12
-.L0f0ce508:
-/*  f0ce508:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce50c:	45000011 */ 	bc1f	.L0f0ce554
-/*  f0ce510:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce514:	44868000 */ 	mtc1	$a2,$f16
-/*  f0ce518:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce51c:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f0ce520:	46127102 */ 	mul.s	$f4,$f14,$f18
-/*  f0ce524:	46040180 */ 	add.s	$f6,$f0,$f4
-/*  f0ce528:	e446016c */ 	swc1	$f6,0x16c($v0)
-/*  f0ce52c:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ce530:	c440016c */ 	lwc1	$f0,0x16c($v0)
-/*  f0ce534:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f0ce538:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce53c:	45000005 */ 	bc1f	.L0f0ce554
-/*  f0ce540:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce544:	e44c016c */ 	swc1	$f12,0x16c($v0)
-/*  f0ce548:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0ce54c:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0ce550:	c440016c */ 	lwc1	$f0,0x16c($v0)
-.L0f0ce554:
-/*  f0ce554:	03e00008 */ 	jr	$ra
-/*  f0ce558:	e4400168 */ 	swc1	$f0,0x168($v0)
-);
+void currentPlayerUpdateSpeedSidewaysGrab(f32 targetspeed, f32 accelspeed, s32 mult)
+{
+	if (targetspeed < g_Vars.currentplayer->speedstrafe) {
+		g_Vars.currentplayer->speedstrafe -= accelspeed * mult;
+
+		if (g_Vars.currentplayer->speedstrafe < targetspeed) {
+			g_Vars.currentplayer->speedstrafe = targetspeed;
+		}
+	} else {
+		if (g_Vars.currentplayer->speedstrafe < targetspeed) {
+			g_Vars.currentplayer->speedstrafe += accelspeed * mult;
+
+			if (g_Vars.currentplayer->speedstrafe > targetspeed) {
+				g_Vars.currentplayer->speedstrafe = targetspeed;
+			}
+		}
+	}
+
+	g_Vars.currentplayer->speedsideways = g_Vars.currentplayer->speedstrafe;
+}
 
 void currentPlayerUpdateSpeedForwardsGrab(f32 target, f32 speed)
 {

@@ -19,7 +19,7 @@ void currentPlayerUpdatePrevPosGrab(void);
 void func0f0ce178(void);
 void func0f0ce1ac(void);
 void func0f0ce450(void);
-void currentPlayerUpdateSpeedSidewaysGrab(f32 arg0, f32 arg1, s32 mult);
+void currentPlayerUpdateSpeedSidewaysGrab(f32 targetspeed, f32 accelspeed, s32 mult);
 void currentPlayerUpdateSpeedForwardsGrab(f32 target, f32 speed);
 void currentPlayerUpdateSpeedGrab(struct movedata *data);
 void currentPlayerUpdateSpeedThetaGrab(void);
