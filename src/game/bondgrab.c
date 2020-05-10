@@ -1730,13 +1730,11 @@ void currentPlayerUpdateSpeedSidewaysGrab(f32 targetspeed, f32 accelspeed, s32 m
 		if (g_Vars.currentplayer->speedstrafe < targetspeed) {
 			g_Vars.currentplayer->speedstrafe = targetspeed;
 		}
-	} else {
-		if (g_Vars.currentplayer->speedstrafe < targetspeed) {
-			g_Vars.currentplayer->speedstrafe += accelspeed * mult;
+	} else if (g_Vars.currentplayer->speedstrafe < targetspeed) {
+		g_Vars.currentplayer->speedstrafe += accelspeed * mult;
 
-			if (g_Vars.currentplayer->speedstrafe > targetspeed) {
-				g_Vars.currentplayer->speedstrafe = targetspeed;
-			}
+		if (g_Vars.currentplayer->speedstrafe > targetspeed) {
+			g_Vars.currentplayer->speedstrafe = targetspeed;
 		}
 	}
 

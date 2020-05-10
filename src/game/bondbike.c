@@ -41,12 +41,6 @@ u32 var80070ee8 = 0x00000000;
 u32 var80070eec = 0x00000000;
 u32 var80070ef0 = 0x00000000;
 u32 var80070ef4 = 0x00000000;
-u32 var80070ef8 = 0x00000000;
-u32 var80070efc = 0x00000000;
-u32 var80070f00 = 0x00000000;
-u32 var80070f04 = 0x00000000;
-u32 var80070f08 = 0x00000000;
-u32 var80070f0c = 0x00000000;
 
 void currentPlayerBikeInit(void)
 {
@@ -1657,26 +1651,12 @@ glabel var7f1adb84
 /*  f0d3638:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0d363c
-/*  f0d363c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0d3640:	3c0e8007 */ 	lui	$t6,%hi(var80070ef8)
-/*  f0d3644:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0d3648:	25ce0ef8 */ 	addiu	$t6,$t6,%lo(var80070ef8)
-/*  f0d364c:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f0d3650:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f0d3654:	44056000 */ 	mfc1	$a1,$f12
-/*  f0d3658:	ac810000 */ 	sw	$at,0x0($a0)
-/*  f0d365c:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f0d3660:	ac990004 */ 	sw	$t9,0x4($a0)
-/*  f0d3664:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f0d3668:	0fc34ca6 */ 	jal	func0f0d3298
-/*  f0d366c:	ac810008 */ 	sw	$at,0x8($a0)
-/*  f0d3670:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0d3674:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0d3678:	03e00008 */ 	jr	$ra
-/*  f0d367c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f0d363c(f32 arg0)
+{
+	struct coord coord = {0, 0, 0};
+
+	return func0f0d3298(&coord, arg0);
+}
 
 GLOBAL_ASM(
 glabel func0f0d3680
