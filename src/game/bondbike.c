@@ -32,8 +32,6 @@
 #include "types.h"
 
 const char var7f1adb10[] = "bondbike.c";
-const char var7f1adb1c[] = "bondbike.c";
-const char var7f1adb28[] = "bondbike.c";
 
 u32 var80070ee0 = 0x00000000;
 u32 var80070ee4 = 0x00000000;
@@ -1658,31 +1656,18 @@ s32 func0f0d363c(f32 arg0)
 	return func0f0d3298(&coord, arg0);
 }
 
-GLOBAL_ASM(
-glabel func0f0d3680
-/*  f0d3680:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0d3684:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0d3688:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f0d368c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f0d3690:	0fc34ca6 */ 	jal	func0f0d3298
-/*  f0d3694:	24050000 */ 	addiu	$a1,$zero,0x0
-/*  f0d3698:	14400009 */ 	bnez	$v0,.L0f0d36c0
-/*  f0d369c:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0d36a0:	3c077f1b */ 	lui	$a3,%hi(var7f1adb1c)
-/*  f0d36a4:	24e7db1c */ 	addiu	$a3,$a3,%lo(var7f1adb1c)
-/*  f0d36a8:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f0d36ac:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f0d36b0:	24060293 */ 	addiu	$a2,$zero,0x293
-/*  f0d36b4:	0c009393 */ 	jal	func00024e4c
-/*  f0d36b8:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0d36bc:	8fa3001c */ 	lw	$v1,0x1c($sp)
-.L0f0d36c0:
-/*  f0d36c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0d36c4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0d36c8:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0d36cc:	03e00008 */ 	jr	$ra
-/*  f0d36d0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+{
+	s32 result = func0f0d3298(arg0, 0);
+
+	if (!result) {
+		func00024e4c(arg1, arg2, 659, "bondbike.c");
+	}
+
+	return result;
+}
+
+const char var7f1adb28[] = "bondbike.c";
 
 GLOBAL_ASM(
 glabel func0f0d36d4

@@ -1916,7 +1916,7 @@ glabel func00024e40
 /*    24e48:	c420a8f0 */ 	lwc1	$f0,-0x5710($at)
 );
 
-void func00024e4c(struct coord *a, struct coord *b, u32 arg2, char *filename)
+void func00024e4c(struct coord *a, struct coord *b, u32 line, char *file)
 {
 	a->x = var8009a8b8.x;
 	a->y = var8009a8b8.y;
