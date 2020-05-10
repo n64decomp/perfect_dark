@@ -20,7 +20,7 @@ void currentPlayerGrabProp(struct prop *prop);
 void currentPlayerSetMoveMode(u32 movemode);
 void setMoveModeForAllPlayers(u32 movemode);
 void func0f0c7f2c(void);
-void func0f0c7f98(struct movedata *data);
+void currentPlayerUpdateSpeed(struct movedata *data);
 void func0f0c8004(void);
 f32 func0f0c805c(f32 value);
 void currentPlayerUpdateSpeedVerta(f32 value);

@@ -1755,7 +1755,7 @@ struct player {
 	/*0x0160*/ f32 vv_cosverta;
 	/*0x0164*/ f32 vv_sinverta;
 
-	/*0x0168*/ f32 speedsideways;
+	/*0x0168*/ f32 speedsideways;    // range -1 to 1
 	/*0x016c*/ f32 speedstrafe;
 	/*0x0170*/ f32 speedforwards;    // range -1 to 1
 	/*0x0174*/ f32 speedboost;       // speed multiplier - ranges from 1 to 1.25 - kicks in after 3 seconds of full speed

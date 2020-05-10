@@ -242,12 +242,12 @@ void func0f0c7f2c(void)
 	}
 }
 
-void func0f0c7f98(struct movedata *data)
+void currentPlayerUpdateSpeed(struct movedata *data)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		currentPlayerUpdateSpeedBike(data);
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
-		func0f0ce608(data);
+		currentPlayerUpdateSpeedGrab(data);
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 		currentPlayerUpdateSpeedWalk(data);
 	}
@@ -3197,7 +3197,7 @@ glabel var7f1ad8e4
 /*  f0cad20:	0fc2eab0 */ 	jal	currentPlayerUpdateZoom
 /*  f0cad24:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0cad28:
-/*  f0cad28:	0fc31fe6 */ 	jal	func0f0c7f98
+/*  f0cad28:	0fc31fe6 */ 	jal	currentPlayerUpdateSpeed
 /*  f0cad2c:	27a401b4 */ 	addiu	$a0,$sp,0x1b4
 /*  f0cad30:	8e450284 */ 	lw	$a1,0x284($s2)
 /*  f0cad34:	8ca90178 */ 	lw	$t1,0x178($a1)
@@ -4893,7 +4893,7 @@ glabel var7f1ad8e4
 //		currentPlayerUpdateZoom();
 //	}
 //
-//	func0f0c7f98(&uStack172);
+//	currentPlayerUpdateSpeed(&uStack172);
 //
 //	// Speed boost
 //	// After 3 seconds of holding forward at max speed, apply boost multiplier.
