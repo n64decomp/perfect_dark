@@ -41606,41 +41606,22 @@ glabel func0f08aa70
 /*  f08aaf0:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel weaponIsThrown
-/*  f08aaf4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08aaf8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f08aafc:	3c10800a */ 	lui	$s0,%hi(g_Vars+0x33c)
-/*  f08ab00:	8e10a2fc */ 	lw	$s0,%lo(g_Vars+0x33c)($s0)
-/*  f08ab04:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f08ab08:	00808825 */ 	or	$s1,$a0,$zero
-/*  f08ab0c:	1200000f */ 	beqz	$s0,.L0f08ab4c
-/*  f08ab10:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08ab14:	02202025 */ 	or	$a0,$s1,$zero
-.L0f08ab18:
-/*  f08ab18:	0fc22a9c */ 	jal	func0f08aa70
-/*  f08ab1c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f08ab20:	50400008 */ 	beqzl	$v0,.L0f08ab44
-/*  f08ab24:	8e100020 */ 	lw	$s0,0x20($s0)
-/*  f08ab28:	8c4e0040 */ 	lw	$t6,0x40($v0)
-/*  f08ab2c:	31cf0080 */ 	andi	$t7,$t6,0x80
-/*  f08ab30:	55e00004 */ 	bnezl	$t7,.L0f08ab44
-/*  f08ab34:	8e100020 */ 	lw	$s0,0x20($s0)
-/*  f08ab38:	10000006 */ 	beqz	$zero,.L0f08ab54
-/*  f08ab3c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08ab40:	8e100020 */ 	lw	$s0,0x20($s0)
-.L0f08ab44:
-/*  f08ab44:	5600fff4 */ 	bnezl	$s0,.L0f08ab18
-/*  f08ab48:	02202025 */ 	or	$a0,$s1,$zero
-.L0f08ab4c:
-/*  f08ab4c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f08ab50:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f08ab54:
-/*  f08ab54:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f08ab58:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f08ab5c:	03e00008 */ 	jr	$ra
-/*  f08ab60:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+struct weaponobj *weaponFindThrown(s32 weaponnum)
+{
+	struct prop *prop = g_Vars.unk00033c;
+
+	while (prop) {
+		struct weaponobj *weapon = func0f08aa70(weaponnum, prop);
+
+		if (weapon && (weapon->base.hidden & OBJHFLAG_00000080) == 0) {
+			return weapon;
+		}
+
+		prop = prop->next;
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f08ab64

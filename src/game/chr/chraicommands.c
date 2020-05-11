@@ -2096,7 +2096,7 @@ bool aiIfWeaponThrown(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (weaponIsThrown(cmd[2])) {
+	if (weaponFindThrown(cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
