@@ -27,7 +27,7 @@ void currentPlayerUpdateSpeedVerta(f32 value);
 f32 func0f0c82f8(f32 value);
 void currentPlayerUpdateSpeedThetaControl(f32 value);
 u32 func0f0c8598(void);
-u32 func0f0c8aa8(void);
+void movedataReset(struct movedata *data);
 void func0f0c8b90(bool arg0, bool arg1, bool arg2, bool arg3);
 void func0f0cb79c(struct player *player, struct coord *arg1, s16 *rooms);
 void func0f0cb89c(struct player *player, s16 *rooms);

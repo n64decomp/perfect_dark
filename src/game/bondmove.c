@@ -730,67 +730,52 @@ glabel var7f1ad8b4
 /*  f0c8aa4:	27bd0168 */ 	addiu	$sp,$sp,0x168
 );
 
-GLOBAL_ASM(
-glabel func0f0c8aa8
-/*  f0c8aa8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c8aac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c8ab0:	44800000 */ 	mtc1	$zero,$f0
-/*  f0c8ab4:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f0c8ab8:	ac800004 */ 	sw	$zero,0x4($a0)
-/*  f0c8abc:	ac800008 */ 	sw	$zero,0x8($a0)
-/*  f0c8ac0:	ac80000c */ 	sw	$zero,0xc($a0)
-/*  f0c8ac4:	ac800010 */ 	sw	$zero,0x10($a0)
-/*  f0c8ac8:	ac800014 */ 	sw	$zero,0x14($a0)
-/*  f0c8acc:	ac800018 */ 	sw	$zero,0x18($a0)
-/*  f0c8ad0:	ac80001c */ 	sw	$zero,0x1c($a0)
-/*  f0c8ad4:	ac800020 */ 	sw	$zero,0x20($a0)
-/*  f0c8ad8:	ac800024 */ 	sw	$zero,0x24($a0)
-/*  f0c8adc:	ac800028 */ 	sw	$zero,0x28($a0)
-/*  f0c8ae0:	ac80002c */ 	sw	$zero,0x2c($a0)
-/*  f0c8ae4:	ac800048 */ 	sw	$zero,0x48($a0)
-/*  f0c8ae8:	ac80004c */ 	sw	$zero,0x4c($a0)
-/*  f0c8aec:	ac800050 */ 	sw	$zero,0x50($a0)
-/*  f0c8af0:	ac800054 */ 	sw	$zero,0x54($a0)
-/*  f0c8af4:	ac800058 */ 	sw	$zero,0x58($a0)
-/*  f0c8af8:	ac800064 */ 	sw	$zero,0x64($a0)
-/*  f0c8afc:	ac800068 */ 	sw	$zero,0x68($a0)
-/*  f0c8b00:	ac80006c */ 	sw	$zero,0x6c($a0)
-/*  f0c8b04:	ac800070 */ 	sw	$zero,0x70($a0)
-/*  f0c8b08:	ac800074 */ 	sw	$zero,0x74($a0)
-/*  f0c8b0c:	ac800078 */ 	sw	$zero,0x78($a0)
-/*  f0c8b10:	ac80007c */ 	sw	$zero,0x7c($a0)
-/*  f0c8b14:	ac800080 */ 	sw	$zero,0x80($a0)
-/*  f0c8b18:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x288)
-/*  f0c8b1c:	e4800030 */ 	swc1	$f0,0x30($a0)
-/*  f0c8b20:	e4800034 */ 	swc1	$f0,0x34($a0)
-/*  f0c8b24:	e4800038 */ 	swc1	$f0,0x38($a0)
-/*  f0c8b28:	e480003c */ 	swc1	$f0,0x3c($a0)
-/*  f0c8b2c:	e4800040 */ 	swc1	$f0,0x40($a0)
-/*  f0c8b30:	e4800044 */ 	swc1	$f0,0x44($a0)
-/*  f0c8b34:	e480005c */ 	swc1	$f0,0x5c($a0)
-/*  f0c8b38:	e4800060 */ 	swc1	$f0,0x60($a0)
-/*  f0c8b3c:	8dcea248 */ 	lw	$t6,%lo(g_Vars+0x288)($t6)
-/*  f0c8b40:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0c8b44:	8dc40070 */ 	lw	$a0,0x70($t6)
-/*  f0c8b48:	0fc549e0 */ 	jal	optionsGetForwardPitch
-/*  f0c8b4c:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f0c8b50:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f0c8b54:	2c4f0001 */ 	sltiu	$t7,$v0,0x1
-/*  f0c8b58:	acaf0084 */ 	sw	$t7,0x84($a1)
-/*  f0c8b5c:	aca00088 */ 	sw	$zero,0x88($a1)
-/*  f0c8b60:	aca0008c */ 	sw	$zero,0x8c($a1)
-/*  f0c8b64:	aca00090 */ 	sw	$zero,0x90($a1)
-/*  f0c8b68:	aca00094 */ 	sw	$zero,0x94($a1)
-/*  f0c8b6c:	aca00098 */ 	sw	$zero,0x98($a1)
-/*  f0c8b70:	aca0009c */ 	sw	$zero,0x9c($a1)
-/*  f0c8b74:	aca000a0 */ 	sw	$zero,0xa0($a1)
-/*  f0c8b78:	aca000a4 */ 	sw	$zero,0xa4($a1)
-/*  f0c8b7c:	aca000a8 */ 	sw	$zero,0xa8($a1)
-/*  f0c8b80:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c8b84:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c8b88:	03e00008 */ 	jr	$ra
-/*  f0c8b8c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void movedataReset(struct movedata *data)
+{
+	data->unk00 = 0;
+	data->unk04 = 0;
+	data->unk08 = 0;
+	data->unk0c = 0;
+	data->unk10 = 0;
+	data->unk14 = 0;
+	data->unk18 = 0;
+	data->unk1c = 0;
+	data->stepforward = false;
+	data->stepback = false;
+	data->stepleft = false;
+	data->stepright = false;
+	data->unk48 = 0;
+	data->unk4c = 0;
+	data->unk50 = 0;
+	data->unk54 = 0;
+	data->unk58 = 0;
+	data->crouchdown = false;
+	data->crouchup = false;
+	data->swaynegative = false;
+	data->swaypositive = false;
+	data->unk74 = 0;
+	data->unk78 = 0;
+	data->unk7c = 0;
+	data->eyesshut = false;
+	data->unk30 = 0;
+	data->unk34 = 0;
+	data->unk38 = 0;
+	data->unk3c = 0;
+	data->unk40 = 0;
+	data->unk44 = 0;
+	data->unk5c = 0;
+	data->unk60 = 0;
+	data->unk84 = !optionsGetForwardPitch(g_Vars.currentplayerstats->mpindex);
+	data->unk88 = 0;
+	data->unk8c = 0;
+	data->unk90 = 0;
+	data->unk94 = 0;
+	data->unk98 = 0;
+	data->unk9c = 0;
+	data->unka0 = 0;
+	data->unka4 = 0;
+	data->unka8 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0c8b90
@@ -933,7 +918,7 @@ glabel var7f1ad8e4
 /*  f0c8d24:	0c005207 */ 	jal	func0001481c
 /*  f0c8d28:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c8d2c:	0040b025 */ 	or	$s6,$v0,$zero
-/*  f0c8d30:	0fc322aa */ 	jal	func0f0c8aa8
+/*  f0c8d30:	0fc322aa */ 	jal	movedataReset
 /*  f0c8d34:	27a401b4 */ 	addiu	$a0,$sp,0x1b4
 /*  f0c8d38:	2a81fffb */ 	slti	$at,$s4,-5
 /*  f0c8d3c:	10200003 */ 	beqz	$at,.L0f0c8d4c
@@ -3977,7 +3962,7 @@ glabel var7f1ad8e4
 //	}
 //
 //	numsamples = func0001481c();
-//	func0f0c8aa8(&uStack172);
+//	movedataReset(&uStack172);
 //
 //	iStack32 = iStack24 + 5;
 //
