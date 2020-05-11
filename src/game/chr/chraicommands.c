@@ -4512,205 +4512,99 @@ bool aiTryEquipHat(void)
 /**
  * @cmd 00ca
  */
-GLOBAL_ASM(
-glabel aiDuplicateChr
-/*  f055b18:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f055b1c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f055b20:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f055b24:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f055b28:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f055b2c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f055b30:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f055b34:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f055b38:	01cf2821 */ 	addu	$a1,$t6,$t7
-/*  f055b3c:	90b80005 */ 	lbu	$t8,0x5($a1)
-/*  f055b40:	90a80006 */ 	lbu	$t0,0x6($a1)
-/*  f055b44:	90ab0007 */ 	lbu	$t3,0x7($a1)
-/*  f055b48:	90ae0008 */ 	lbu	$t6,0x8($a1)
-/*  f055b4c:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f055b50:	00084c00 */ 	sll	$t1,$t0,0x10
-/*  f055b54:	03295025 */ 	or	$t2,$t9,$t1
-/*  f055b58:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f055b5c:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f055b60:	01ae7825 */ 	or	$t7,$t5,$t6
-/*  f055b64:	afaf0060 */ 	sw	$t7,0x60($sp)
-/*  f055b68:	90b80003 */ 	lbu	$t8,0x3($a1)
-/*  f055b6c:	90b90004 */ 	lbu	$t9,0x4($a1)
-/*  f055b70:	afa50064 */ 	sw	$a1,0x64($sp)
-/*  f055b74:	00184200 */ 	sll	$t0,$t8,0x8
-/*  f055b78:	01191025 */ 	or	$v0,$t0,$t9
-/*  f055b7c:	0c006134 */ 	jal	ailistFindById
-/*  f055b80:	3044ffff */ 	andi	$a0,$v0,0xffff
-/*  f055b84:	8fab0064 */ 	lw	$t3,0x64($sp)
-/*  f055b88:	afa00054 */ 	sw	$zero,0x54($sp)
-/*  f055b8c:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x424)
-/*  f055b90:	00408025 */ 	or	$s0,$v0,$zero
-/*  f055b94:	8c84a3e4 */ 	lw	$a0,%lo(g_Vars+0x424)($a0)
-/*  f055b98:	0fc126d1 */ 	jal	chrFindById
-/*  f055b9c:	91650002 */ 	lbu	$a1,0x2($t3)
-/*  f055ba0:	00408825 */ 	or	$s1,$v0,$zero
-/*  f055ba4:	afa00048 */ 	sw	$zero,0x48($sp)
-/*  f055ba8:	afa00040 */ 	sw	$zero,0x40($sp)
-/*  f055bac:	afa00030 */ 	sw	$zero,0x30($sp)
-/*  f055bb0:	1040007b */ 	beqz	$v0,.L0f055da0
-/*  f055bb4:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f055bb8:	8c4a0018 */ 	lw	$t2,0x18($v0)
-/*  f055bbc:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x424)
-/*  f055bc0:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f055bc4:	314c0002 */ 	andi	$t4,$t2,0x2
-/*  f055bc8:	51800076 */ 	beqzl	$t4,.L0f055da4
-/*  f055bcc:	8fb90054 */ 	lw	$t9,0x54($sp)
-/*  f055bd0:	8fad0060 */ 	lw	$t5,0x60($sp)
-/*  f055bd4:	84450010 */ 	lh	$a1,0x10($v0)
-/*  f055bd8:	84470000 */ 	lh	$a3,0x0($v0)
-/*  f055bdc:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f055be0:	8c84a3e4 */ 	lw	$a0,%lo(g_Vars+0x424)($a0)
-/*  f055be4:	0fc12d7d */ 	jal	chrSpawnAtChr
-/*  f055be8:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f055bec:	5040006d */ 	beqzl	$v0,.L0f055da4
-/*  f055bf0:	8fb90054 */ 	lw	$t9,0x54($sp)
-/*  f055bf4:	0fc0817b */ 	jal	getLowestUnusedChrId
-/*  f055bf8:	8c500004 */ 	lw	$s0,0x4($v0)
-/*  f055bfc:	00022c00 */ 	sll	$a1,$v0,0x10
-/*  f055c00:	00057403 */ 	sra	$t6,$a1,0x10
-/*  f055c04:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f055c08:	0fc07937 */ 	jal	chrSetChrnum
-/*  f055c0c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f055c10:	860f0000 */ 	lh	$t7,0x0($s0)
-/*  f055c14:	02202025 */ 	or	$a0,$s1,$zero
-/*  f055c18:	00002825 */ 	or	$a1,$zero,$zero
-/*  f055c1c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f055c20:	a62f0132 */ 	sh	$t7,0x132($s1)
-/*  f055c24:	5040000d */ 	beqzl	$v0,.L0f055c5c
-/*  f055c28:	02202025 */ 	or	$a0,$s1,$zero
-/*  f055c2c:	8c420004 */ 	lw	$v0,0x4($v0)
-/*  f055c30:	02002025 */ 	or	$a0,$s0,$zero
-/*  f055c34:	00003825 */ 	or	$a3,$zero,$zero
-/*  f055c38:	84450004 */ 	lh	$a1,0x4($v0)
-/*  f055c3c:	9046005c */ 	lbu	$a2,0x5c($v0)
-/*  f055c40:	0fc22eb4 */ 	jal	func0f08bad0
-/*  f055c44:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f055c48:	50400004 */ 	beqzl	$v0,.L0f055c5c
-/*  f055c4c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f055c50:	8c580004 */ 	lw	$t8,0x4($v0)
-/*  f055c54:	afb8002c */ 	sw	$t8,0x2c($sp)
-/*  f055c58:	02202025 */ 	or	$a0,$s1,$zero
-.L0f055c5c:
-/*  f055c5c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f055c60:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f055c64:	5040000d */ 	beqzl	$v0,.L0f055c9c
-/*  f055c68:	8fa20048 */ 	lw	$v0,0x48($sp)
-/*  f055c6c:	8c420004 */ 	lw	$v0,0x4($v0)
-/*  f055c70:	02002025 */ 	or	$a0,$s0,$zero
-/*  f055c74:	3c071000 */ 	lui	$a3,0x1000
-/*  f055c78:	84450004 */ 	lh	$a1,0x4($v0)
-/*  f055c7c:	9046005c */ 	lbu	$a2,0x5c($v0)
-/*  f055c80:	0fc22eb4 */ 	jal	func0f08bad0
-/*  f055c84:	afa20048 */ 	sw	$v0,0x48($sp)
-/*  f055c88:	50400004 */ 	beqzl	$v0,.L0f055c9c
-/*  f055c8c:	8fa20048 */ 	lw	$v0,0x48($sp)
-/*  f055c90:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f055c94:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f055c98:	8fa20048 */ 	lw	$v0,0x48($sp)
-.L0f055c9c:
-/*  f055c9c:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f055ca0:	8fa30040 */ 	lw	$v1,0x40($sp)
-/*  f055ca4:	50400010 */ 	beqzl	$v0,.L0f055ce8
-/*  f055ca8:	8e230178 */ 	lw	$v1,0x178($s1)
-/*  f055cac:	5060000e */ 	beqzl	$v1,.L0f055ce8
-/*  f055cb0:	8e230178 */ 	lw	$v1,0x178($s1)
-/*  f055cb4:	1080000b */ 	beqz	$a0,.L0f055ce4
-/*  f055cb8:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*  f055cbc:	5100000a */ 	beqzl	$t0,.L0f055ce8
-/*  f055cc0:	8e230178 */ 	lw	$v1,0x178($s1)
-/*  f055cc4:	8c590064 */ 	lw	$t9,0x64($v0)
-/*  f055cc8:	54790007 */ 	bnel	$v1,$t9,.L0f055ce8
-/*  f055ccc:	8e230178 */ 	lw	$v1,0x178($s1)
-/*  f055cd0:	8c690064 */ 	lw	$t1,0x64($v1)
-/*  f055cd4:	54490004 */ 	bnel	$v0,$t1,.L0f055ce8
-/*  f055cd8:	8e230178 */ 	lw	$v1,0x178($s1)
-/*  f055cdc:	0fc22b6b */ 	jal	func0f08adac
-/*  f055ce0:	01002825 */ 	or	$a1,$t0,$zero
-.L0f055ce4:
-/*  f055ce4:	8e230178 */ 	lw	$v1,0x178($s1)
-.L0f055ce8:
-/*  f055ce8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f055cec:	50600006 */ 	beqzl	$v1,.L0f055d08
-/*  f055cf0:	8e2b0114 */ 	lw	$t3,0x114($s1)
-/*  f055cf4:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f055cf8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f055cfc:	0fc22776 */ 	jal	chrTryEquipHat
-/*  f055d00:	84450004 */ 	lh	$a1,0x4($v0)
-/*  f055d04:	8e2b0114 */ 	lw	$t3,0x114($s1)
-.L0f055d08:
-/*  f055d08:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f055d0c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f055d10:	ae0b0114 */ 	sw	$t3,0x114($s0)
-/*  f055d14:	8e2a0118 */ 	lw	$t2,0x118($s1)
-/*  f055d18:	3c0e800a */ 	lui	$t6,%hi(g_MissionConfig+0x3)
-/*  f055d1c:	ae0a0118 */ 	sw	$t2,0x118($s0)
-/*  f055d20:	862c0128 */ 	lh	$t4,0x128($s1)
-/*  f055d24:	a60c0128 */ 	sh	$t4,0x128($s0)
-/*  f055d28:	8c4d0318 */ 	lw	$t5,0x318($v0)
-/*  f055d2c:	55a0000b */ 	bnezl	$t5,.L0f055d5c
-/*  f055d30:	8fa80060 */ 	lw	$t0,0x60($sp)
-/*  f055d34:	81cfdfeb */ 	lb	$t7,%lo(g_MissionConfig+0x3)($t6)
-/*  f055d38:	05e30008 */ 	bgezl	$t7,.L0f055d5c
-/*  f055d3c:	8fa80060 */ 	lw	$t0,0x60($sp)
-/*  f055d40:	8c580474 */ 	lw	$t8,0x474($v0)
-/*  f055d44:	3c010001 */ 	lui	$at,0x1
-/*  f055d48:	01614825 */ 	or	$t1,$t3,$at
-/*  f055d4c:	5b000003 */ 	blezl	$t8,.L0f055d5c
-/*  f055d50:	8fa80060 */ 	lw	$t0,0x60($sp)
-/*  f055d54:	ae090114 */ 	sw	$t1,0x114($s0)
-/*  f055d58:	8fa80060 */ 	lw	$t0,0x60($sp)
-.L0f055d5c:
-/*  f055d5c:	310b1000 */ 	andi	$t3,$t0,0x1000
-/*  f055d60:	51600005 */ 	beqzl	$t3,.L0f055d78
-/*  f055d64:	922d0125 */ 	lbu	$t5,0x125($s1)
-/*  f055d68:	8e0a0018 */ 	lw	$t2,0x18($s0)
-/*  f055d6c:	314c0400 */ 	andi	$t4,$t2,0x400
-/*  f055d70:	ae0c0018 */ 	sw	$t4,0x18($s0)
-/*  f055d74:	922d0125 */ 	lbu	$t5,0x125($s1)
-.L0f055d78:
-/*  f055d78:	a20d0125 */ 	sb	$t5,0x125($s0)
-/*  f055d7c:	922e02a2 */ 	lbu	$t6,0x2a2($s1)
-/*  f055d80:	a20e02a2 */ 	sb	$t6,0x2a2($s0)
-/*  f055d84:	922f02b1 */ 	lbu	$t7,0x2b1($s1)
-/*  f055d88:	0fc13301 */ 	jal	rebuildTeams
-/*  f055d8c:	a20f02b1 */ 	sb	$t7,0x2b1($s0)
-/*  f055d90:	0fc13341 */ 	jal	rebuildSquadrons
-/*  f055d94:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f055d98:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f055d9c:	afb80054 */ 	sw	$t8,0x54($sp)
-.L0f055da0:
-/*  f055da0:	8fb90054 */ 	lw	$t9,0x54($sp)
-.L0f055da4:
-/*  f055da4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f055da8:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f055dac:	13200009 */ 	beqz	$t9,.L0f055dd4
-/*  f055db0:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x438)
-/*  f055db4:	8fa90064 */ 	lw	$t1,0x64($sp)
-/*  f055db8:	8c440434 */ 	lw	$a0,0x434($v0)
-/*  f055dbc:	8c450438 */ 	lw	$a1,0x438($v0)
-/*  f055dc0:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f055dc4:	91260009 */ 	lbu	$a2,0x9($t1)
-/*  f055dc8:	3c01800a */ 	lui	$at,%hi(g_Vars+0x438)
-/*  f055dcc:	10000005 */ 	beqz	$zero,.L0f055de4
-/*  f055dd0:	ac22a3f8 */ 	sw	$v0,%lo(g_Vars+0x438)($at)
-.L0f055dd4:
-/*  f055dd4:	8d08a3f8 */ 	lw	$t0,%lo(g_Vars+0x438)($t0)
-/*  f055dd8:	3c01800a */ 	lui	$at,%hi(g_Vars+0x438)
-/*  f055ddc:	250b000a */ 	addiu	$t3,$t0,0xa
-/*  f055de0:	ac2ba3f8 */ 	sw	$t3,%lo(g_Vars+0x438)($at)
-.L0f055de4:
-/*  f055de4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f055de8:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f055dec:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f055df0:	27bd0068 */ 	addiu	$sp,$sp,0x68
-/*  f055df4:	03e00008 */ 	jr	$ra
-/*  f055df8:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiDuplicateChr(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 flags = (cmd[6] << 16) | (cmd[7] << 8) | cmd[8] | (cmd[5] << 24);
+	u16 ailistid = cmd[4] | (cmd[3] << 8);
+	u8 *ailist = ailistFindById(ailistid);
+	bool pass = false;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+	struct chrdata *clone = NULL;
+	struct weaponobj *srcweapon1 = NULL;
+	struct prop *cloneprop = NULL;
+	struct weaponobj *srcweapon0 = NULL;
+	struct prop *srcweapon0prop = NULL;
+	struct prop *cloneweapon0prop = NULL;
+	struct prop *srcweapon1prop = NULL;
+	struct weaponobj *cloneweapon1 = NULL;
+	struct weaponobj *cloneweapon0 = NULL;
+	struct prop *cloneweapon1prop = NULL;
+
+	if (chr && (chr->chrflags & CHRCFLAG_CLONEABLE)) {
+		cloneprop = chrSpawnAtChr(g_Vars.chrdata, chr->bodynum, -1, chr->chrnum, ailist, flags);
+
+		if (cloneprop) {
+			clone = cloneprop->chr;
+			chrSetChrnum(clone, getLowestUnusedChrId());
+			chr->chrdup = clone->chrnum;
+
+			srcweapon0prop = chrGetEquippedWeaponProp(chr, 0);
+
+			if (srcweapon0prop) {
+				srcweapon0 = srcweapon0prop->weapon;
+				cloneweapon0prop = func0f08bad0(clone, srcweapon0->base.obj, srcweapon0->weapon_id, 0);
+
+				if (cloneweapon0prop) {
+					cloneweapon0 = cloneweapon0prop->weapon;
+				}
+			}
+
+			srcweapon1prop = chrGetEquippedWeaponProp(chr, 1);
+
+			if (srcweapon1prop) {
+				srcweapon1 = srcweapon1prop->weapon;
+				cloneweapon1prop = func0f08bad0(clone, srcweapon1->base.obj, srcweapon1->weapon_id, 0x10000000);
+
+				if (cloneweapon1prop) {
+					cloneweapon1 = cloneweapon1prop->weapon;
+				}
+			}
+
+			if (srcweapon1 && srcweapon0
+					&& cloneweapon1 && cloneweapon0
+					&& srcweapon0 == srcweapon1->dual && srcweapon1 == srcweapon0->dual) {
+				func0f08adac(cloneweapon1, cloneweapon0);
+			}
+
+			if (chr->weapons_held[2]) {
+				struct defaultobj *obj = chr->weapons_held[2]->obj;
+				chrTryEquipHat(clone, obj->obj, 0);
+			}
+
+			clone->flags = chr->flags;
+			clone->flags2 = chr->flags2;
+			clone->padpreset1 = chr->padpreset1;
+
+			if (g_Vars.normmplayerisrunning == false
+					&& g_MissionConfig.iscoop
+					&& g_Vars.numaibuddies > 0) {
+				clone->flags |= CHRFLAG0_AIVSAI;
+			}
+
+			if (flags & 0x00001000) {
+				clone->chrflags &= CHRCFLAG_HIDDEN;
+			}
+
+			clone->team = chr->team;
+			clone->squadron = chr->squadron;
+			clone->voicebox = chr->voicebox;
+
+			rebuildTeams();
+			rebuildSquadrons();
+
+			pass = true;
+		}
+	}
+
+	if (pass) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[9]);
+	} else {
+		g_Vars.aioffset += 10;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00cb

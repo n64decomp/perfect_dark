@@ -845,7 +845,7 @@ u8 func0404_miniskedar[] = {
  * Spawn a clone and remove self. This function seems unnecessary.
  */
 u8 func0407_init_cloaked_skedar[] = {
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED)
@@ -912,7 +912,7 @@ u8 func0408_cloaked_skedar[] = {
  * Spawns up to 3 miniskedar clones, one at a time.
  */
 u8 func0404_miniskedar_spawner[] = {
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_morale(0)
@@ -2280,7 +2280,7 @@ u8 func040d_king_combat[] = {
 };
 
 u8 func040e_king_skedar_spawner[] = {
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_00040000)
@@ -2337,7 +2337,7 @@ u8 func0410_init_king_skedar_clone[] = {
 };
 
 u8 func0411_king_miniskedar_spawner[] = {
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_00040000)

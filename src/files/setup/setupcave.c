@@ -3141,7 +3141,7 @@ u8 func042a_foyer_spawner[] = {
 	add_health_or_armor(40)
 	set_recovery_speed(30)
 	set_shield(0)
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_00040000)
 

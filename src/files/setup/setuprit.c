@@ -2425,7 +2425,7 @@ u8 func040b_defend_president[] = {
 };
 
 u8 func0415_cloner1[] = {
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_00040000)
 
@@ -2516,7 +2516,7 @@ u8 func0417_clone1[] = {
 };
 
 u8 func0418_cloner2[] = {
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_00040000)
 
@@ -2616,7 +2616,7 @@ u8 func041a_clone2[] = {
  * reached the escape pod.
  */
 u8 func041b_cloner3[] = {
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_00040000)
 

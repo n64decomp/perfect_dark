@@ -1360,7 +1360,7 @@ u8 func0418_robot[] = {
  * Assigned to two stripes guards.
  */
 u8 func0414_spawner[] = {
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 
 	beginloop(0x06)
 		chr_toggle_p1p2(CHR_SELF)

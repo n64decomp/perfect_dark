@@ -2387,7 +2387,7 @@ u8 func1011_unhide_warehouse_spawner[] = {
 };
 
 u8 func0415_warehouse_spawner[] = {
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	restart_timer
 
 	beginloop(0x04)
@@ -4025,7 +4025,7 @@ u8 func0429_spawn_while_xraying[] = {
 	add_health_or_armor(0)
 	set_recovery_speed(35)
 	set_shield(0)
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_00040000)

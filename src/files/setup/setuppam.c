@@ -3370,7 +3370,7 @@ u8 func100f_check_drcaroll_dead[] = {
 
 u8 func040f_miniskedar_send_clones[] = {
 	dprint 'D','E','T','E','C','T','E','D','\n',0,
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_00040000)
 

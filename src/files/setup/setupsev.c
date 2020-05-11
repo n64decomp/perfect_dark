@@ -1187,7 +1187,7 @@ u8 func1006_activate_alarm[] = {
  * A hidden chr spawns clones every 50 seconds after the alarm is sounded.
  */
 u8 func0410_clone_spawner[] = {
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_00040000)
 
@@ -1255,7 +1255,7 @@ u8 func0412_clone[] = {
 };
 
 u8 func0410_clone_spawner2[] = {
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_00040000)
 

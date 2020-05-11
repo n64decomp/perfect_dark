@@ -3199,7 +3199,7 @@ u8 func0416_spawn_during_follow[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	set_self_chrflag(CHRCFLAG_00040000)
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 

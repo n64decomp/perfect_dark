@@ -585,7 +585,7 @@ u8 func1400_setup_counterop[] = {
 };
 
 #define spawner_logic(initfunc, clonefunc) \
-	set_self_chrflag(CHRCFLAG_00000002) \
+	set_self_chrflag(CHRCFLAG_CLONEABLE) \
 	set_self_chrflag(CHRCFLAG_HIDDEN) \
 	set_self_chrflag(CHRCFLAG_00040000) \
  \
@@ -1718,7 +1718,7 @@ u8 func041b_init_hostage_holo[] = {
 };
 
 u8 func041a_hostage_holo[] = {
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_shotlist(AILIST_HOSTAGE_HOLO)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
@@ -2972,7 +2972,7 @@ u8 func1015_firingrange_pc[] = {
 };
 
 #define topspawner_logic(initfunc, clonefunc) \
-	set_self_chrflag(CHRCFLAG_00000002) \
+	set_self_chrflag(CHRCFLAG_CLONEABLE) \
 	set_self_chrflag(CHRCFLAG_HIDDEN) \
 	set_self_chrflag(CHRCFLAG_00040000) \
  \
@@ -3111,7 +3111,7 @@ u8 func1016_remove_spawners[] = {
 
 // Spawner outside Jo's office
 u8 func0410_spawner6[] = {
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_00040000)
 

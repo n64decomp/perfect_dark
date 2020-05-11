@@ -921,6 +921,7 @@ struct weaponobj { // objtype 0x08
 	/*0x5f*/ u8 dragonthrown;
 	/*0x60*/ s16 unk60;
 	/*0x62*/ s16 team;
+	/*0x64*/ struct weaponobj *dual; // other weapon when dual wielding
 };
 
 struct singlemonitorobj { // objtype 0x0a

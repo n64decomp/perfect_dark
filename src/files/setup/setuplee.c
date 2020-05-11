@@ -1656,7 +1656,7 @@ u8 func0406_start_path05[] = {
 
 u8 func0412_hangarspawner[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_KILLCOUNTABLE)
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_morale(0)
@@ -2138,7 +2138,7 @@ u8 func0415_bridgespawner[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_KILLCOUNTABLE)
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_chr_cloaked(CHR_SELF, TRUE, FALSE)
 	set_self_chrflag(CHRCFLAG_00040000)

@@ -2651,7 +2651,7 @@ u8 func0419_clone_spawner[] = {
 	add_health_or_armor(10)
 	set_recovery_speed(35)
 	set_shield(0)
-	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_00040000)
