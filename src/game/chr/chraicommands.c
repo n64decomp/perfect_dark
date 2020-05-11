@@ -11460,53 +11460,21 @@ bool aiRemoveWeaponFromInventory(void)
 /**
  * @cmd 01dd
  */
-GLOBAL_ASM(
-glabel ai01dd
-/*  f05ffa0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05ffa4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05ffa8:	0c012144 */ 	jal	osGetCount
-/*  f05ffac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05ffb0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f05ffb4:	24040000 */ 	addiu	$a0,$zero,0x0
-/*  f05ffb8:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f05ffbc:	0c012bda */ 	jal	func0004af68
-/*  f05ffc0:	24070040 */ 	addiu	$a3,$zero,0x40
-/*  f05ffc4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f05ffc8:	00602825 */ 	or	$a1,$v1,$zero
-/*  f05ffcc:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f05ffd0:	0c012b9a */ 	jal	func0004ae68
-/*  f05ffd4:	24070bb8 */ 	addiu	$a3,$zero,0xbb8
-/*  f05ffd8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f05ffdc:	0c0016cc */ 	jal	func00005b30
-/*  f05ffe0:	00602825 */ 	or	$a1,$v1,$zero
-/*  f05ffe4:	3c0e8008 */ 	lui	$t6,%hi(var800840c4)
-/*  f05ffe8:	8dce40c4 */ 	lw	$t6,%lo(var800840c4)($t6)
-/*  f05ffec:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f05fff0:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f05fff4:	51c00008 */ 	beqzl	$t6,.L0f060018
-/*  f05fff8:	8ce40434 */ 	lw	$a0,0x434($a3)
-/*  f05fffc:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f060000:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f060004:	8cef0438 */ 	lw	$t7,0x438($a3)
-/*  f060008:	25f80004 */ 	addiu	$t8,$t7,0x4
-/*  f06000c:	10000009 */ 	beqz	$zero,.L0f060034
-/*  f060010:	acf80438 */ 	sw	$t8,0x438($a3)
-/*  f060014:	8ce40434 */ 	lw	$a0,0x434($a3)
-.L0f060018:
-/*  f060018:	8ce50438 */ 	lw	$a1,0x438($a3)
-/*  f06001c:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f060020:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f060024:	90460003 */ 	lbu	$a2,0x3($v0)
-/*  f060028:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f06002c:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f060030:	ace20438 */ 	sw	$v0,0x438($a3)
-.L0f060034:
-/*  f060034:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f060038:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f06003c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f060040:	03e00008 */ 	jr	$ra
-/*  f060044:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai01dd(void)
+{
+	u64 value = func0004af68(osGetCount(), 64);
+	value = func0004ae68(value, 3000);
+	func00005b30(value);
+
+	if (var800840c4) {
+		g_Vars.aioffset += 4;
+	} else {
+		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	}
+
+	return false;
+}
 
 /**
  * @cmd 01de
