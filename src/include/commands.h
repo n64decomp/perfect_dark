@@ -3068,10 +3068,11 @@
 	value, \
 	bool,
 
-#define damage_chr2(chr, value) \
+#define damage_player(chr, u1, operation) \
 	mkshort(0x016e), \
 	chr, \
-	mkshort(value),
+	u1, \
+	operation,
 
 // Likely related to being disarmed.
 // Not sure what this does if the chr had no gun to begin with.

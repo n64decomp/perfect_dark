@@ -660,7 +660,7 @@ u8 func0401_gas_damage[] = {
 		label(0x32)
 		if_timer_lt(460, /*goto*/ 0x32)
 		restart_timer
-		damage_chr2(CHR_TARGET, 514)
+		damage_player(CHR_TARGET, 2, 2)
 		label(0x32)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x009a, /*goto*/ 0x06)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0099, /*goto*/ 0x06)

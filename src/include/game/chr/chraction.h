@@ -48,7 +48,7 @@ u32 func0f033728(void);
 u32 func0f0338e0(void);
 void chrSetShield(struct chrdata *chr, f32 shield);
 u32 func0f034080(void);
-u32 func0f034124(void);
+void func0f034124(struct chrdata *chr, f32 arg1, struct coord *coord, u8 *arg3, u32 arg4);
 u32 func0f03417c(void);
 u32 func0f0341dc(void);
 void func0f034330(struct chrdata *chr, f32 arg1, struct coord *pos, u8 *arg3, struct prop *prop, s32 arg5);

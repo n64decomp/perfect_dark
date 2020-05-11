@@ -32072,10 +32072,12 @@ glabel rebuildSquadrons
 /*  f04cdfc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+u32 var80068460 = 0x10204080;
+
 s16 *teamGetChrIds(s32 team_id)
 {
 	s32 i;
-	u8 lookup[8] = g_ChrTeamIds;
+	u8 lookup[8] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
 
 	for (i = 0; i != MAX_TEAMS; i++) {
 		if (lookup[i] == team_id) {
@@ -32151,6 +32153,16 @@ void func0f04cf90(struct chrdata *chr, s32 arg1)
 		}
 	}
 }
+
+u32 var8006846c = 0x00000064;
+u32 var80068470 = 0x00000065;
+u32 var80068474 = 0x00000066;
+u32 var80068478 = 0x00000067;
+u32 var8006847c = 0x00000030;
+u32 var80068480 = 0x0000003a;
+u32 var80068484 = 0x00000023;
+u32 var80068488 = 0x00000023;
+u32 var8006848c = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f04d000

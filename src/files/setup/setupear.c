@@ -2784,7 +2784,7 @@ u8 func0415_radioactivity[] = {
 		add_motion_blur(CHR_TARGET, 10, TRUE)
 		if_timer_lt(300, /*goto*/ 0x2f)
 		restart_timer
-		damage_chr2(CHR_TARGET, 1024)
+		damage_player(CHR_TARGET, 4, 0)
 		label(0x2f)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0014, /*goto*/ 0x06)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0015, /*goto*/ 0x06)
