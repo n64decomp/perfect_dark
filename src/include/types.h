@@ -2599,7 +2599,7 @@ struct inventory_typee {
 	u32 unk10;
 	u32 unk14;
 	u32 unk18;
-	u32 unk1c;
+	u32 flags;
 };
 
 struct inventory_typef {

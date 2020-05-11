@@ -1098,29 +1098,16 @@ bool weaponHasFlag(s32 itemid, u32 flag)
 	return (weapon->flags & flag) != 0;
 }
 
-GLOBAL_ASM(
-glabel func0f0b1804
-/*  f0b1804:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b1808:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b180c:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b1810:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0b1814:	14400003 */ 	bnez	$v0,.L0f0b1824
-/*  f0b1818:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0b181c:	10000007 */ 	beqz	$zero,.L0f0b183c
-/*  f0b1820:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b1824:
-/*  f0b1824:	8c6e0024 */ 	lw	$t6,0x24($v1)
-/*  f0b1828:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*  f0b182c:	8dcf001c */ 	lw	$t7,0x1c($t6)
-/*  f0b1830:	01f81024 */ 	and	$v0,$t7,$t8
-/*  f0b1834:	0002c82b */ 	sltu	$t9,$zero,$v0
-/*  f0b1838:	03201025 */ 	or	$v0,$t9,$zero
-.L0f0b183c:
-/*  f0b183c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1840:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b1844:	03e00008 */ 	jr	$ra
-/*  f0b1848:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool weaponHasInvEFlag(s32 weaponnum, u32 flag)
+{
+	struct weapon *weapon = weaponFindById(weaponnum);
+
+	if (!weapon) {
+		return false;
+	}
+
+	return (weapon->eptr->flags & flag) != 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0b184c

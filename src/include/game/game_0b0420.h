@@ -31,7 +31,7 @@ f32 currentPlayerGetGunZoomFov(void);
 void currentPlayerZoomOut(f32 fovpersec);
 void currentPlayerZoomIn(f32 fovpersec);
 bool weaponHasFlag(s32 itemid, u32 flag);
-u32 func0f0b1804(void);
+bool weaponHasInvEFlag(s32 weaponnum, u32 flag);
 u32 func0f0b184c(void);
 s32 currentPlayerHasWeaponEquipped(u32 arg0);
 void func0f0b1948(s32 weaponum, s32 arg1);

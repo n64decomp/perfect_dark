@@ -844,7 +844,7 @@ glabel var7f1ad8e4
 /*  f0c8be4:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0c8be8:	afa201ac */ 	sw	$v0,0x1ac($sp)
 /*  f0c8bec:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0c8bf0:	0fc2c601 */ 	jal	func0f0b1804
+/*  f0c8bf0:	0fc2c601 */ 	jal	weaponHasInvEFlag
 /*  f0c8bf4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0c8bf8:	8e4f0288 */ 	lw	$t7,0x288($s2)
 /*  f0c8bfc:	afa201a8 */ 	sw	$v0,0x1a8($sp)
@@ -3794,7 +3794,7 @@ glabel var7f1ad8e4
 /*  f0cb578:	8fa401ac */ 	lw	$a0,0x1ac($sp)
 /*  f0cb57c:	11800005 */ 	beqz	$t4,.L0f0cb594
 /*  f0cb580:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cb584:	0fc2c601 */ 	jal	func0f0b1804
+/*  f0cb584:	0fc2c601 */ 	jal	weaponHasInvEFlag
 /*  f0cb588:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f0cb58c:	5440000b */ 	bnezl	$v0,.L0f0cb5bc
 /*  f0cb590:	00008025 */ 	or	$s0,$zero,$zero
@@ -3948,7 +3948,7 @@ glabel var7f1ad8e4
 //	controlmode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
 //	uVar7 = getCurrentPlayerWeaponId(0);
 //	iStack180 = uVar7;
-//	iStack184 = func0f0b1804(uVar7, 1);
+//	iStack184 = weaponHasInvEFlag(uVar7, 1);
 //	contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
 //
 //	iStack24 = arg0 ? func00014e10(contpad1) : 0;
@@ -5130,7 +5130,7 @@ glabel var7f1ad8e4
 //					 || (func0f0c7bd0() == 0 && func0f0c7a8c() == 0)
 //					 || g_Vars.currentplayer->autoxaimprop == NULL
 //					 || g_Vars.currentplayer->autoyaimprop == NULL
-//					 || func0f0b1804(iStack180, 2) == 0
+//					 || weaponHasInvEFlag(iStack180, 2) == 0
 //					)
 //					&& (getCurrentPlayerWeaponId(0) != WEAPON_CMP150 || g_Vars.currentplayer->hands[0].weaponfunc != FUNC_SECONDARY)) {
 //
