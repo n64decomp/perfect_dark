@@ -15016,9 +15016,9 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 				}
 
 				if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR) {
-					prop = func0f08bad0(chr, 0x112, WEAPON_NBOMB, flags);
+					prop = chrGiveWeapon(chr, 0x112, WEAPON_NBOMB, flags);
 				} else {
-					prop = func0f08bad0(chr, 0x112, WEAPON_GRENADE, flags);
+					prop = chrGiveWeapon(chr, 0x112, WEAPON_GRENADE, flags);
 				}
 
 				if (prop) {

@@ -9687,7 +9687,7 @@ glabel var7f1ad6ac
 /*  f0bee84:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bee88:	240500f5 */ 	addiu	$a1,$zero,0xf5
 /*  f0bee8c:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0bee90:	0fc22eb4 */ 	jal	func0f08bad0
+/*  f0bee90:	0fc22eb4 */ 	jal	chrGiveWeapon
 /*  f0bee94:	00003825 */ 	or	$a3,$zero,$zero
 .L0f0bee98:
 /*  f0bee98:	0fc41b99 */ 	jal	cheatIsActive
@@ -9885,7 +9885,7 @@ glabel var7f1ad6ac
 /*  f0bf174:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bf178:	24050101 */ 	addiu	$a1,$zero,0x101
 /*  f0bf17c:	24060010 */ 	addiu	$a2,$zero,0x10
-/*  f0bf180:	0fc22eb4 */ 	jal	func0f08bad0
+/*  f0bf180:	0fc22eb4 */ 	jal	chrGiveWeapon
 /*  f0bf184:	00003825 */ 	or	$a3,$zero,$zero
 .L0f0bf188:
 /*  f0bf188:	0fc41b99 */ 	jal	cheatIsActive
@@ -9986,12 +9986,12 @@ glabel var7f1ad6ac
 /*  f0bf2f4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bf2f8:	240500f9 */ 	addiu	$a1,$zero,0xf9
 /*  f0bf2fc:	24060009 */ 	addiu	$a2,$zero,0x9
-/*  f0bf300:	0fc22eb4 */ 	jal	func0f08bad0
+/*  f0bf300:	0fc22eb4 */ 	jal	chrGiveWeapon
 /*  f0bf304:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0bf308:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bf30c:	240500f8 */ 	addiu	$a1,$zero,0xf8
 /*  f0bf310:	24060008 */ 	addiu	$a2,$zero,0x8
-/*  f0bf314:	0fc22eb4 */ 	jal	func0f08bad0
+/*  f0bf314:	0fc22eb4 */ 	jal	chrGiveWeapon
 /*  f0bf318:	3c071000 */ 	lui	$a3,0x1000
 .L0f0bf31c:
 /*  f0bf31c:	0fc41b99 */ 	jal	cheatIsActive
@@ -10091,7 +10091,7 @@ glabel var7f1ad6ac
 /*  f0bf484:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bf488:	24050104 */ 	addiu	$a1,$zero,0x104
 /*  f0bf48c:	2406000d */ 	addiu	$a2,$zero,0xd
-/*  f0bf490:	0fc22eb4 */ 	jal	func0f08bad0
+/*  f0bf490:	0fc22eb4 */ 	jal	chrGiveWeapon
 /*  f0bf494:	00003825 */ 	or	$a3,$zero,$zero
 .L0f0bf498:
 /*  f0bf498:	8fae0058 */ 	lw	$t6,0x58($sp)
@@ -11173,7 +11173,7 @@ glabel var7f1ad6ac
 //										chr->hidden |= CHRHFLAG_CLOAKED;
 //										chr->cloakfade_00 = 0;
 //
-//										func0f08bad0(chr, MODEL_CHRFALCON2, WEAPON_FALCON2, 0);
+//										chrGiveWeapon(chr, MODEL_CHRFALCON2, WEAPON_FALCON2, 0);
 //									}
 //								}
 //
@@ -11267,7 +11267,7 @@ glabel var7f1ad6ac
 //										chr->hidden |= CHRHFLAG_CLOAKED;
 //										chr->cloakfade_00 = 0;
 //
-//										func0f08bad0(chr, MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0);
+//										chrGiveWeapon(chr, MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0);
 //									}
 //								}
 //
@@ -11315,8 +11315,8 @@ glabel var7f1ad6ac
 //										chr->hidden |= CHRHFLAG_CLOAKED;
 //										chr->cloakfade_00 = 0;
 //
-//										func0f08bad0(chr, MODEL_CHRDY357TRENT, WEAPON_DY357LX, 0);
-//										func0f08bad0(chr, MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000);
+//										chrGiveWeapon(chr, MODEL_CHRDY357TRENT, WEAPON_DY357LX, 0);
+//										chrGiveWeapon(chr, MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000);
 //									}
 //								}
 //
@@ -11364,7 +11364,7 @@ glabel var7f1ad6ac
 //										chr->hidden |= CHRHFLAG_CLOAKED;
 //										chr->cloakfade_00 = 0;
 //
-//										func0f08bad0(chr, MODEL_CHRRCP120, WEAPON_RCP120, 0);
+//										chrGiveWeapon(chr, MODEL_CHRRCP120, WEAPON_RCP120, 0);
 //									}
 //								}
 //

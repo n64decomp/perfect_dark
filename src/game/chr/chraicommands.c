@@ -4425,7 +4425,7 @@ bool aiTryEquipWeapon(void)
 			flags &= ~0x10000000;
 			flags |= 0x20000000;
 
-			prop = func0f08bad0(g_Vars.chrdata, model, cmd[4], flags);
+			prop = chrGiveWeapon(g_Vars.chrdata, model, cmd[4], flags);
 		} else if (cheatIsActive(CHEAT_ENEMYROCKETS)) {
 			switch (cmd[4]) {
 			case WEAPON_FALCON2:
@@ -4459,21 +4459,21 @@ bool aiTryEquipWeapon(void)
 			case WEAPON_TIMEDMINE:
 			case WEAPON_PROXIMITYMINE:
 			case WEAPON_REMOTEMINE:
-				prop = func0f08bad0(g_Vars.chrdata, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);
+				prop = chrGiveWeapon(g_Vars.chrdata, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);
 				break;
 			case WEAPON_K7AVENGER:
 				if (g_Vars.stagenum == STAGE_INVESTIGATION && getDifficulty() == DIFF_PA) {
-					prop = func0f08bad0(g_Vars.chrdata, model, cmd[4], flags);
+					prop = chrGiveWeapon(g_Vars.chrdata, model, cmd[4], flags);
 				} else {
-					prop = func0f08bad0(g_Vars.chrdata, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);
+					prop = chrGiveWeapon(g_Vars.chrdata, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);
 				}
 				break;
 			default:
-				prop = func0f08bad0(g_Vars.chrdata, model, cmd[4], flags);
+				prop = chrGiveWeapon(g_Vars.chrdata, model, cmd[4], flags);
 				break;
 			}
 		} else {
-			prop = func0f08bad0(g_Vars.chrdata, model, cmd[4], flags);
+			prop = chrGiveWeapon(g_Vars.chrdata, model, cmd[4], flags);
 		}
 	}
 
@@ -4543,7 +4543,7 @@ bool aiDuplicateChr(void)
 
 			if (srcweapon0prop) {
 				srcweapon0 = srcweapon0prop->weapon;
-				cloneweapon0prop = func0f08bad0(clone, srcweapon0->base.obj, srcweapon0->weapon_id, 0);
+				cloneweapon0prop = chrGiveWeapon(clone, srcweapon0->base.obj, srcweapon0->weapon_id, 0);
 
 				if (cloneweapon0prop) {
 					cloneweapon0 = cloneweapon0prop->weapon;
@@ -4554,7 +4554,7 @@ bool aiDuplicateChr(void)
 
 			if (srcweapon1prop) {
 				srcweapon1 = srcweapon1prop->weapon;
-				cloneweapon1prop = func0f08bad0(clone, srcweapon1->base.obj, srcweapon1->weapon_id, 0x10000000);
+				cloneweapon1prop = chrGiveWeapon(clone, srcweapon1->base.obj, srcweapon1->weapon_id, 0x10000000);
 
 				if (cloneweapon1prop) {
 					cloneweapon1 = cloneweapon1prop->weapon;

@@ -42839,17 +42839,13 @@ glabel func0f08b8e8
 /*  f08bacc:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
 
+struct prop *chrGiveWeapon(struct chrdata *chr, s32 model, s32 weapon_id, u32 flags)
+{
+	return func0f08b8e8(chr, model, weapon_id, flags, 0, 0);
+}
+
 GLOBAL_ASM(
-glabel func0f08bad0
-/*  f08bad0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08bad4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08bad8:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f08badc:	0fc22e3a */ 	jal	func0f08b8e8
-/*  f08bae0:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f08bae4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08bae8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f08baec:	03e00008 */ 	jr	$ra
-/*  f08baf0:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f08baf4
 /*  f08baf4:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f08baf8:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f08bafc:	afa40020 */ 	sw	$a0,0x20($sp)
