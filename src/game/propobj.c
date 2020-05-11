@@ -41819,16 +41819,13 @@ glabel func0f08acb0
 /*  f08ada8:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-GLOBAL_ASM(
-glabel func0f08adac
-/*  f08adac:	90ae005c */ 	lbu	$t6,0x5c($a1)
-/*  f08adb0:	908f005c */ 	lbu	$t7,0x5c($a0)
-/*  f08adb4:	ac850064 */ 	sw	$a1,0x64($a0)
-/*  f08adb8:	a08e0061 */ 	sb	$t6,0x61($a0)
-/*  f08adbc:	aca40064 */ 	sw	$a0,0x64($a1)
-/*  f08adc0:	03e00008 */ 	jr	$ra
-/*  f08adc4:	a0af0061 */ 	sb	$t7,0x61($a1)
-);
+void propweaponSetDual(struct weaponobj *weapon1, struct weaponobj *weapon2)
+{
+	weapon1->dualweaponnum = weapon2->weapon_id;
+	weapon1->dualweapon = weapon2;
+	weapon2->dualweaponnum = weapon1->weapon_id;
+	weapon2->dualweapon = weapon1;
+}
 
 GLOBAL_ASM(
 glabel func0f08adc8
@@ -41992,7 +41989,7 @@ glabel func0f08ae54
 /*  f08affc:	50400006 */ 	beqzl	$v0,.L0f08b018
 /*  f08b000:	8cc40014 */ 	lw	$a0,0x14($a2)
 /*  f08b004:	8c450004 */ 	lw	$a1,0x4($v0)
-/*  f08b008:	0fc22b6b */ 	jal	func0f08adac
+/*  f08b008:	0fc22b6b */ 	jal	propweaponSetDual
 /*  f08b00c:	afa60040 */ 	sw	$a2,0x40($sp)
 /*  f08b010:	8fa60040 */ 	lw	$a2,0x40($sp)
 .L0f08b014:
@@ -42048,7 +42045,7 @@ glabel func0f08ae54
 /*  f08b0c8:	5040ffd3 */ 	beqzl	$v0,.L0f08b018
 /*  f08b0cc:	8cc40014 */ 	lw	$a0,0x14($a2)
 /*  f08b0d0:	8c450004 */ 	lw	$a1,0x4($v0)
-/*  f08b0d4:	0fc22b6b */ 	jal	func0f08adac
+/*  f08b0d4:	0fc22b6b */ 	jal	propweaponSetDual
 /*  f08b0d8:	afa60040 */ 	sw	$a2,0x40($sp)
 /*  f08b0dc:	1000ffcd */ 	beqz	$zero,.L0f08b014
 /*  f08b0e0:	8fa60040 */ 	lw	$a2,0x40($sp)

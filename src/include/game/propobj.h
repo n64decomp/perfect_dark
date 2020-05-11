@@ -265,7 +265,7 @@ u32 func0f08ab64(void);
 u32 func0f08ab9c(void);
 u32 func0f08abd4(void);
 u32 func0f08acb0(void);
-void func0f08adac(struct weaponobj *weapon1, struct weaponobj *weapon2);
+void propweaponSetDual(struct weaponobj *weapon1, struct weaponobj *weapon2);
 u32 func0f08adc8(void);
 u32 func0f08ae0c(void);
 u32 func0f08ae54(struct defaultobj *obj, struct chrdata *chr);

@@ -4563,8 +4563,8 @@ bool aiDuplicateChr(void)
 
 			if (srcweapon1 && srcweapon0
 					&& cloneweapon1 && cloneweapon0
-					&& srcweapon0 == srcweapon1->dual && srcweapon1 == srcweapon0->dual) {
-				func0f08adac(cloneweapon1, cloneweapon0);
+					&& srcweapon0 == srcweapon1->dualweapon && srcweapon1 == srcweapon0->dualweapon) {
+				propweaponSetDual(cloneweapon1, cloneweapon0);
 			}
 
 			if (chr->weapons_held[2]) {
