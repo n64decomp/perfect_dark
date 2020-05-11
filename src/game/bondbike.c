@@ -2115,6 +2115,37 @@ glabel func0f0d3c60
 /*  f0d3d4c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch because the below copies arg0 into s0 but goal uses sp.
+//void func0f0d3c60(struct coord *arg0)
+//{
+//	struct coord sp100;
+//	struct coord sp88;
+//	struct coord sp76;
+//	struct coord sp64;
+//	s32 lVar1;
+//	struct coord sp48;
+//	struct coord sp36;
+//
+//	if (func0f0d3680(arg0, &sp100, &sp88) == 0) {
+//		lVar1 = func0f0d36d4(arg0, &sp100, &sp88, &sp76, &sp64);
+//
+//		if (lVar1 > 0 || lVar1 < 0) {
+//			if (func0f0d3840(arg0, &sp100, &sp88) < 1
+//					&& func0f0d3940(arg0, &sp100, &sp88) < 1) {
+//				// empty
+//			}
+//		} else if (lVar1 == 0) {
+//			func0f0d36d4(arg0, &sp76, &sp64, &sp48, &sp36);
+//
+//			if (func0f0d3840(arg0, &sp76, &sp64) < 1
+//					&& func0f0d3840(arg0, &sp100, &sp88) < 1
+//					&& func0f0d3940(arg0, &sp76, &sp64) < 1) {
+//				func0f0d3940(arg0, &sp100, &sp88);
+//			}
+//		}
+//	}
+//}
+
 GLOBAL_ASM(
 glabel func0f0d3d50
 .late_rodata
