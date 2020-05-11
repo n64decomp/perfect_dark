@@ -42844,27 +42844,10 @@ struct prop *chrGiveWeapon(struct chrdata *chr, s32 model, s32 weapon_id, u32 fl
 	return func0f08b8e8(chr, model, weapon_id, flags, 0, 0);
 }
 
-GLOBAL_ASM(
-glabel func0f08baf4
-/*  f08baf4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08baf8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08bafc:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f08bb00:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f08bb04:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f08bb08:	0fc4a2bd */ 	jal	weaponGetModel
-/*  f08bb0c:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f08bb10:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f08bb14:	00402825 */ 	or	$a1,$v0,$zero
-/*  f08bb18:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f08bb1c:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f08bb20:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f08bb24:	0fc22e3a */ 	jal	func0f08b8e8
-/*  f08bb28:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f08bb2c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08bb30:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f08bb34:	03e00008 */ 	jr	$ra
-/*  f08bb38:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct prop *func0f08baf4(struct chrdata *chr, s32 weaponnum, u32 flags)
+{
+	return func0f08b8e8(chr, weaponGetModel(weaponnum), weaponnum, flags, 0, 0);
+}
 
 GLOBAL_ASM(
 glabel func0f08bb3c
