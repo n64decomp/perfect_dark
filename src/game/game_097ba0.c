@@ -20384,66 +20384,66 @@ glabel func0f0a8910
 );
 
 GLOBAL_ASM(
-glabel func0f0a895c
+glabel currentPlayerConsiderToggleGunFunction
 .late_rodata
 glabel var7f1acaa4
-.word func0f0a895c+0x104 # f0a8a60
+.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acaa8
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaac
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acab0
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acab4
-.word func0f0a895c+0x104 # f0a8a60
+.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acab8
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acabc
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acac0
-.word func0f0a895c+0xb0 # f0a8a0c
+.word currentPlayerConsiderToggleGunFunction+0xb0 # f0a8a0c
 glabel var7f1acac4
-.word func0f0a895c+0xb0 # f0a8a0c
+.word currentPlayerConsiderToggleGunFunction+0xb0 # f0a8a0c
 glabel var7f1acac8
-.word func0f0a895c+0xb0 # f0a8a0c
+.word currentPlayerConsiderToggleGunFunction+0xb0 # f0a8a0c
 glabel var7f1acacc
-.word func0f0a895c+0x104 # f0a8a60
+.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acad0
-.word func0f0a895c+0x104 # f0a8a60
+.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acad4
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acad8
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acadc
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acae0
-.word func0f0a895c+0x44 # f0a89a0
+.word currentPlayerConsiderToggleGunFunction+0x44 # f0a89a0
 glabel var7f1acae4
-.word func0f0a895c+0x104 # f0a8a60
+.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acae8
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaec
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaf0
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaf4
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaf8
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acafc
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb00
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb04
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb08
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb0c
-.word func0f0a895c+0x104 # f0a8a60
+.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acb10
-.word func0f0a895c+0x1f4 # f0a8b50
+.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb14
-.word func0f0a895c+0xb0 # f0a8a0c
+.word currentPlayerConsiderToggleGunFunction+0xb0 # f0a8a0c
 .text
 /*  f0a895c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0a8960:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -20650,6 +20650,95 @@ glabel var7f1acb14
 /*  f0a8c48:	03e00008 */ 	jr	$ra
 /*  f0a8c4c:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch near the first gunfuncs check.
+// Goal loads 1 into $t5 while the below uses $at.
+//u32 currentPlayerConsiderToggleGunFunction(s32 usedowntime, bool firing, s32 arg2)
+//{
+//	switch (getCurrentPlayerWeaponId(0)) {
+//	case WEAPON_SNIPERRIFLE: // f0a89a0
+//		// Setting this allows the sniper rifle to behave somewhat similarly to
+//		// a temporary function, meaning that it reverts to primary when B is
+//		// released.
+//		g_Vars.currentplayer->invertgunfunc = true;
+//
+//		// B+Z immediately triggers crouch or stand.
+//		if (firing) {
+//			return 1;
+//		}
+//
+//		// Don't do anything if B hasn't been held for 50/60ths of a second.
+//		if (usedowntime < 50) {
+//			return 0;
+//		}
+//
+//		// Sanity check - make sure the sniper isn't set to alt function
+//		// permanently (this is impossible).
+//		if (g_Vars.currentplayer->hands[0].weaponfunc != 1) {
+//			return 0;
+//		}
+//
+//		// Do crouch or stand
+//		g_Vars.currentplayer->hands[0].unk0d0f_03 = true;
+//		return 2;
+//	case WEAPON_RCP120:
+//	case WEAPON_LAPTOPGUN:
+//	case WEAPON_DRAGON:
+//	case WEAPON_REMOTEMINE: // f0a8a0c
+//		// These guns use temporary alt functions
+//		g_Vars.currentplayer->invertgunfunc = true;
+//
+//		if (arg2 && currentPlayerIsUsingSecondaryFunction() == true) {
+//			g_Vars.currentplayer->hands[0].unk0d0f_03 = true;
+//		}
+//
+//		return 1;
+//	case WEAPON_MAULER:
+//	case WEAPON_CMP150:
+//	case WEAPON_K7AVENGER:
+//	case WEAPON_AR34:
+//	case WEAPON_FARSIGHTXR20:
+//	case WEAPON_TIMEDMINE: // f0a8a60
+//		// These guns disallow B+Z
+//		if (firing == false) {
+//			if (g_Vars.currentplayer->unk1580 >= WEAPON_UNARMED
+//					&& g_Vars.currentplayer->unk1580 <= WEAPON_COMBATBOOST) {
+//				// A macro is probably used here, hence the duplicate checks
+//				if ((g_Vars.currentplayer->unk1580 >= WEAPON_UNARMED
+//						&& g_Vars.currentplayer->unk1580 <= WEAPON_COMBATBOOST
+//						&& (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] & (1 << ((g_Vars.currentplayer->unk1580 - 1) & 7)))) != 1) {
+//					// b24
+//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] |= 1 << ((g_Vars.currentplayer->unk1580 - 1) & 7);
+//				} else {
+//					// b34
+//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] &= ~(1 << ((g_Vars.currentplayer->unk1580 - 1) & 7));
+//				}
+//			}
+//
+//			return 1;
+//		}
+//
+//		return 0;
+//	default: // b50
+//		if (firing) {
+//			// B+Z
+//			g_Vars.currentplayer->invertgunfunc = true;
+//		} else {
+//			if (g_Vars.currentplayer->unk1580 >= WEAPON_UNARMED
+//					&& g_Vars.currentplayer->unk1580 <= WEAPON_COMBATBOOST) {
+//				if (!(g_Vars.currentplayer->unk1580 >= WEAPON_UNARMED
+//							&& g_Vars.currentplayer->unk1580 <= WEAPON_COMBATBOOST
+//							&& (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] & (1 << ((g_Vars.currentplayer->unk1580 - 1) & 7))))) {
+//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] |= 1 << ((g_Vars.currentplayer->unk1580 - 1) & 7);
+//				} else {
+//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] &= ~(1 << ((g_Vars.currentplayer->unk1580 - 1) & 7));
+//				}
+//			}
+//		}
+//
+//		return 1;
+//	}
+//}
 
 void func0f0a8c50(void)
 {

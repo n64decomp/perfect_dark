@@ -1611,8 +1611,8 @@ struct hand {
 	/*0x0cfc*/ struct coord unk0cfc;
 	/*0x0d08*/ u32 unk0d08;
 	/*0x0d0c*/ u8 unk0d0c;
-	/*0x0d0e*/ u8 unk0d0d;
-	/*0x0d0d*/ u8 unk0d0e;
+	/*0x0d0d*/ u8 unk0d0d;
+	/*0x0d0e*/ u8 unk0d0e;
 	/*0x0d0f*/ u8 unk0d0f_00 : 3;
 	/*0x0d0f*/ u8 unk0d0f_03 : 1;
 	/*0x0d0f*/ u8 unk0d0f_04 : 4;

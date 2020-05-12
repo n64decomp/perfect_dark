@@ -1587,7 +1587,7 @@ glabel var7f1ad8e4
 /*  f0c969c:	85a4024e */ 	lh	$a0,0x24e($t5)
 /*  f0c96a0:	04820009 */ 	bltzl	$a0,.L0f0c96c8
 /*  f0c96a4:	8e450284 */ 	lw	$a1,0x284($s2)
-/*  f0c96a8:	0fc2a257 */ 	jal	func0f0a895c
+/*  f0c96a8:	0fc2a257 */ 	jal	currentPlayerConsiderToggleGunFunction
 /*  f0c96ac:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0c96b0:	50400005 */ 	beqzl	$v0,.L0f0c96c8
 /*  f0c96b4:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -1602,7 +1602,7 @@ glabel var7f1ad8e4
 /*  f0c96d4:	14200016 */ 	bnez	$at,.L0f0c9730
 /*  f0c96d8:	248b0001 */ 	addiu	$t3,$a0,0x1
 /*  f0c96dc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0c96e0:	0fc2a257 */ 	jal	func0f0a895c
+/*  f0c96e0:	0fc2a257 */ 	jal	currentPlayerConsiderToggleGunFunction
 /*  f0c96e4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0c96e8:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0c96ec:	54410005 */ 	bnel	$v0,$at,.L0f0c9704
@@ -1631,7 +1631,7 @@ glabel var7f1ad8e4
 .L0f0c973c:
 /*  f0c973c:	1420000e */ 	bnez	$at,.L0f0c9778
 /*  f0c9740:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0c9744:	0fc2a257 */ 	jal	func0f0a895c
+/*  f0c9744:	0fc2a257 */ 	jal	currentPlayerConsiderToggleGunFunction
 /*  f0c9748:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0c974c:	1000000b */ 	beqz	$zero,.L0f0c977c
 /*  f0c9750:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -2519,7 +2519,7 @@ glabel var7f1ad8e4
 /*  f0ca3c4:	8724024e */ 	lh	$a0,0x24e($t9)
 /*  f0ca3c8:	04820009 */ 	bltzl	$a0,.L0f0ca3f0
 /*  f0ca3cc:	8e450284 */ 	lw	$a1,0x284($s2)
-/*  f0ca3d0:	0fc2a257 */ 	jal	func0f0a895c
+/*  f0ca3d0:	0fc2a257 */ 	jal	currentPlayerConsiderToggleGunFunction
 /*  f0ca3d4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0ca3d8:	50400005 */ 	beqzl	$v0,.L0f0ca3f0
 /*  f0ca3dc:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -2534,7 +2534,7 @@ glabel var7f1ad8e4
 /*  f0ca3fc:	14200016 */ 	bnez	$at,.L0f0ca458
 /*  f0ca400:	248f0001 */ 	addiu	$t7,$a0,0x1
 /*  f0ca404:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0ca408:	0fc2a257 */ 	jal	func0f0a895c
+/*  f0ca408:	0fc2a257 */ 	jal	currentPlayerConsiderToggleGunFunction
 /*  f0ca40c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0ca410:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0ca414:	54410005 */ 	bnel	$v0,$at,.L0f0ca42c
@@ -2563,7 +2563,7 @@ glabel var7f1ad8e4
 /*  f0ca460:	2881fffe */ 	slti	$at,$a0,-2
 /*  f0ca464:	1420000e */ 	bnez	$at,.L0f0ca4a0
 /*  f0ca468:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0ca46c:	0fc2a257 */ 	jal	func0f0a895c
+/*  f0ca46c:	0fc2a257 */ 	jal	currentPlayerConsiderToggleGunFunction
 /*  f0ca470:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0ca474:	1000000b */ 	beqz	$zero,.L0f0ca4a4
 /*  f0ca478:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -4250,12 +4250,12 @@ glabel var7f1ad8e4
 //							} else {
 //								if (g_Vars.currentplayer->usedowntime < -1) {
 //									if (g_Vars.currentplayer->usedowntime > -3) {
-//										func0f0a895c(g_Vars.currentplayer->usedowntime, 0, 0);
+//										currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
 //									}
 //								} else {
 //									if (func00014b50(i,uStack369, uStack374 & Z_TRIG)
 //											&& g_Vars.currentplayer->usedowntime > -1
-//											&& func0f0a895c(g_Vars.currentplayer->usedowntime, 1, 0)) {
+//											&& currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 1, 0)) {
 //										g_Vars.currentplayer->usedowntime = -3;
 //									}
 //
@@ -4264,7 +4264,7 @@ glabel var7f1ad8e4
 //											g_Vars.currentplayer->usedowntime++;
 //										}
 //										else {
-//											lVar8 = func0f0a895c(g_Vars.currentplayer->usedowntime, 0, 0);
+//											lVar8 = currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
 //
 //											if (lVar8 == 1) {
 //												g_Vars.currentplayer->usedowntime = -1;
@@ -4629,12 +4629,12 @@ glabel var7f1ad8e4
 //							} else {
 //								if (g_Vars.currentplayer->usedowntime < -1) {
 //									if (g_Vars.currentplayer->usedowntime > -3) {
-//										func0f0a895c(g_Vars.currentplayer->usedowntime, 0, 0);
+//										currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
 //									}
 //								} else {
 //									if (func00014b50(i, contpad1, shootbuttons & uStack194)
 //											&& g_Vars.currentplayer->usedowntime >= 0
-//											&& func0f0a895c(g_Vars.currentplayer->usedowntime, 1, 0)) {
+//											&& currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 1, 0)) {
 //										g_Vars.currentplayer->usedowntime = -3;
 //									}
 //
@@ -4642,7 +4642,7 @@ glabel var7f1ad8e4
 //										if (g_Vars.currentplayer->usedowntime <= 25) {
 //											g_Vars.currentplayer->usedowntime++;
 //										} else {
-//											lVar8 = func0f0a895c(g_Vars.currentplayer->usedowntime, 0, 0);
+//											lVar8 = currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
 //
 //											if (lVar8 == 1) {
 //												g_Vars.currentplayer->usedowntime = -1;

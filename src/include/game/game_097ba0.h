@@ -140,7 +140,7 @@ u32 func0f0a7d98(void);
 u32 func0f0a8404(void);
 u32 func0f0a84c8(void);
 u32 func0f0a8910(void);
-u32 func0f0a895c(void);
+u32 currentPlayerConsiderToggleGunFunction(s32 usedowntime, bool firing, s32 arg2);
 void func0f0a8c50(void);
 bool currentPlayerIsUsingSecondaryFunction(void);
 u32 func0f0a8d34(void);
