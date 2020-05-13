@@ -5338,7 +5338,7 @@ void currentPlayerUpdateFootsteps(bool arg0, bool arg1, bool arg2, bool arg3)
 {
 	struct chrdata *chr;
 	u8 foot;
-	s32 thing;
+	s32 sound;
 	f32 xdiff;
 	f32 ydiff;
 	f32 zdiff;
@@ -5388,10 +5388,10 @@ void currentPlayerUpdateFootsteps(bool arg0, bool arg1, bool arg2, bool arg3)
 
 				chr->floortype = g_Vars.currentplayer->floortype;
 
-				thing = func0f006074(chr, distance > 10);
+				sound = chrChooseFootstepSound(chr, distance > 10);
 
-				if (thing != -1) {
-					func00010718(0, 0, 0x7fff, 0x40, thing, 1, 1, -1, 1);
+				if (sound != -1) {
+					func00010718(0, 0, 0x7fff, 0x40, sound, 1, 1, -1, 1);
 				}
 			}
 		}

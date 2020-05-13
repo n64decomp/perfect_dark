@@ -1656,7 +1656,7 @@ void currentPlayerUpdateVerticalMovement(void)
 			chr->floortype = g_Vars.currentplayer->floortype;
 			chr->footstep = 1;
 
-			sound = func0f006074(chr, true);
+			sound = chrChooseFootstepSound(chr, true);
 
 			if (sound != -1) {
 				if (sound != -1) {
@@ -1665,7 +1665,7 @@ void currentPlayerUpdateVerticalMovement(void)
 				}
 
 				chr->footstep = 2;
-				sound = func0f006074(chr, true);
+				sound = chrChooseFootstepSound(chr, true);
 
 				if (sound != -1) {
 					func0f0939f8(NULL, g_Vars.currentplayer->prop, sound,
