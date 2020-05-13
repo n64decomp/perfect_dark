@@ -70,7 +70,6 @@
 	build/ROMID/game/chr/chraicommands.o (section); \
 	build/ROMID/game/data/data_00e460.o (section); \
 	build/ROMID/game/data/inventory.o (section); \
-	build/ROMID/game/data/data_0160b0.o (section); \
 	build/ROMID/game/game_0601b0.o (section); \
 	build/ROMID/game/propobj.o (section); \
 	build/ROMID/game/game_091e10.o (section); \
@@ -88,6 +87,7 @@
 	build/ROMID/game/game_097a50.o (section); \
 	build/ROMID/game/game_097aa0.o (section); \
 	build/ROMID/game/game_097ba0.o (section); \
+	build/ROMID/game/data/data_0160b0.o (section); \
 	build/ROMID/game/game_0abe70.o (section); \
 	build/ROMID/game/game_0b0420.o (section); \
 	build/ROMID/game/game_0b2150.o (section); \

@@ -1184,7 +1184,10 @@ struct hand {
 	/*0x063a*/ u8 unk063a;
 	/*0x063b*/ u8 weaponfunc; // 0 or 1
 	/*0x063c*/ u8 unk063c;
-	/*0x0640*/ u32 unk0640;
+	/*0x063d*/ u8 unk063d;
+	/*0x063e*/ u8 unk063e;
+	/*0x063f*/ u8 unk063f;
+	/*0x0640*/ s8 unk0640;
 	/*0x0644*/ u32 unk0644;
 	/*0x0648*/ u32 unk0648;
 	/*0x064c*/ u32 unk064c;
@@ -1317,8 +1320,7 @@ struct hand {
 	/*0x0850*/ u32 unk0850;
 	/*0x0854*/ u32 unk0854;
 	/*0x0858*/ u32 unk0858[2];
-	/*0x0860*/ u32 unk0860;
-	/*0x0864*/ u32 unk0864;
+	/*0x0860*/ u32 unk0860[2];
 	/*0x0868*/ u32 unk0868;
 	/*0x086c*/ u32 unk086c;
 	/*0x0870*/ u32 unk0870;
@@ -1996,7 +1998,7 @@ struct player {
 	/*0x0638*/ struct hand hands[2];
 	/*0x1580*/ s8 unk1580;
 	/*0x1581*/ u8 unk1581;
-	/*0x1582*/ u8 unk1582;
+	/*0x1582*/ s8 unk1582;
 	/*0x1583*/ u8 unk1583_00 : 1;
 	/*0x1583*/ u8 unk1583_01 : 1;
 	/*0x1583*/ u8 invertgunfunc : 1;
@@ -2036,13 +2038,13 @@ struct player {
 	/*0x15f4*/ u32 unk15f4;
 	/*0x15f8*/ u32 unk15f8;
 	/*0x15fc*/ u32 unk15fc;
-	/*0x1600*/ u32 unk1600;
-	/*0x1604*/ u32 unk1604;
-	/*0x1608*/ u32 unk1608;
-	/*0x160c*/ u32 unk160c;
-	/*0x1610*/ u32 unk1610;
-	/*0x1614*/ u32 unk1614;
-	/*0x1618*/ u16 resetshadecol;
+	/*0x1600*/ u32 doautoselect;
+	/*0x1604*/ u32 playertriggeron;
+	/*0x1608*/ u32 playertriggerprev;
+	/*0x160c*/ s32 playertrigtime240;
+	/*0x1610*/ u32 curguntofire; // 0 or 1, for dual wielding
+	/*0x1614*/ u8 gunshadecol[4];
+	/*0x1618*/ s16 resetshadecol;
 	/*0x161a*/ u16 floorcol;
 	/*0x161c*/ u16 floorflags;
 	/*0x161e*/ u8 floortype;

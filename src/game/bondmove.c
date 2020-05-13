@@ -2913,7 +2913,7 @@ glabel var7f1ad8e4
 /*  f0ca934:	e7a001f0 */ 	swc1	$f0,0x1f0($sp)
 /*  f0ca938:	e7a401ec */ 	swc1	$f4,0x1ec($sp)
 .L0f0ca93c:
-/*  f0ca93c:	0fc2a34d */ 	jal	func0f0a8d34
+/*  f0ca93c:	0fc2a34d */ 	jal	currentPlayerTickInventory
 /*  f0ca940:	8fa401bc */ 	lw	$a0,0x1bc($sp)
 /*  f0ca944:	8e580324 */ 	lw	$t8,0x324($s2)
 /*  f0ca948:	5300002b */ 	beqzl	$t8,.L0f0ca9f8
@@ -4797,7 +4797,7 @@ glabel var7f1ad8e4
 //		fStack116 = fVar24;
 //	}
 //
-//	func0f0a8d34(uStack164);
+//	currentPlayerTickInventory(uStack164);
 //
 //	if (g_Vars.unk000324 && (func0f0a20fc(0) || func0f0a20fc(1))) {
 //		fStack428 = 0;
