@@ -21141,8 +21141,8 @@ void currentPlayerTickInventory(bool triggeron)
 			for (i = 0; i != 2; i++) {
 				if (weapon && weapon->ammos[i] &&
 						ammotypeAllowsUnlimitedAmmo(weapon->ammos[i]->type)) {
-					hand0->unk0858[i] = hand0->unk0860[i];
-					hand1->unk0858[i] = hand1->unk0860[i];
+					hand0->loadedammo[i] = hand0->clipsizes[i];
+					hand1->loadedammo[i] = hand1->clipsizes[i];
 				}
 			}
 
@@ -21450,48 +21450,25 @@ glabel ammoGetQuantity
 /*  f0a9864:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel currentPlayerGetAmmoCount
-/*  f0a9868:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0a986c:	8c47a244 */ 	lw	$a3,%lo(g_Vars+0x284)($v0)
-/*  f0a9870:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0a9874:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0a9878:	00ee7821 */ 	addu	$t7,$a3,$t6
-/*  f0a987c:	8de317a8 */ 	lw	$v1,0x17a8($t7)
-/*  f0a9880:	24090002 */ 	addiu	$t1,$zero,0x2
-/*  f0a9884:	00e02825 */ 	or	$a1,$a3,$zero
-.L0f0a9888:
-/*  f0a9888:	80f80640 */ 	lb	$t8,0x640($a3)
-/*  f0a988c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a9890:	00a04025 */ 	or	$t0,$a1,$zero
-/*  f0a9894:	53000013 */ 	beqzl	$t8,.L0f0a98e4
-/*  f0a9898:	24c60001 */ 	addiu	$a2,$a2,0x1
-.L0f0a989c:
-/*  f0a989c:	811915e4 */ 	lb	$t9,0x15e4($t0)
-/*  f0a98a0:	00065100 */ 	sll	$t2,$a2,0x4
-/*  f0a98a4:	01465023 */ 	subu	$t2,$t2,$a2
-/*  f0a98a8:	1499000a */ 	bne	$a0,$t9,.L0f0a98d4
-/*  f0a98ac:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f0a98b0:	01465021 */ 	addu	$t2,$t2,$a2
-/*  f0a98b4:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f0a98b8:	01465021 */ 	addu	$t2,$t2,$a2
-/*  f0a98bc:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f0a98c0:	00aa5821 */ 	addu	$t3,$a1,$t2
-/*  f0a98c4:	00026080 */ 	sll	$t4,$v0,0x2
-/*  f0a98c8:	016c6821 */ 	addu	$t5,$t3,$t4
-/*  f0a98cc:	8dae0858 */ 	lw	$t6,0x858($t5)
-/*  f0a98d0:	01c31821 */ 	addu	$v1,$t6,$v1
-.L0f0a98d4:
-/*  f0a98d4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0a98d8:	1449fff0 */ 	bne	$v0,$t1,.L0f0a989c
-/*  f0a98dc:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f0a98e0:	24c60001 */ 	addiu	$a2,$a2,0x1
-.L0f0a98e4:
-/*  f0a98e4:	14c9ffe8 */ 	bne	$a2,$t1,.L0f0a9888
-/*  f0a98e8:	24e707a4 */ 	addiu	$a3,$a3,0x7a4
-/*  f0a98ec:	03e00008 */ 	jr	$ra
-/*  f0a98f0:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 currentPlayerGetAmmoCount(s32 ammotype)
+{
+	s32 i;
+	s32 j;
+	s32 total = g_Vars.currentplayer->ammoheldarr[ammotype];
+	struct player *player = g_Vars.currentplayer;
+
+	for (i = 0; i < 2; i++) {
+		if (player->hands[i].unk0640) {
+			for (j = 0; j < 2; j++) {
+				if (player->equippedammotypes[j] == ammotype) {
+					total = player->hands[i].loadedammo[j] + total;
+				}
+			}
+		}
+	}
+
+	return total;
+}
 
 u32 ammotypeGetMaxCapacity(u32 ammotype)
 {
