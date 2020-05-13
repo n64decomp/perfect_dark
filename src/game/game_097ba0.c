@@ -12288,7 +12288,7 @@ glabel func0f0a1528
 /*  f0a1968:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-void currentPlayerEquipWeapon(u32 weaponnum)
+void currentPlayerEquipWeapon(s32 weaponnum)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -12819,40 +12819,22 @@ glabel func0f0a1df4
 /*  f0a208c:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
-GLOBAL_ASM(
-glabel currentPlayerEquipWeaponWrapper
-/*  f0a2090:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a2094:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0a2098:	1481000e */ 	bne	$a0,$at,.L0f0a20d4
-/*  f0a209c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a20a0:	14a00007 */ 	bnez	$a1,.L0f0a20c0
-/*  f0a20a4:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0x3583)
-/*  f0a20a8:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0a20ac:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0a20b0:	904e1583 */ 	lbu	$t6,%lo(g_MenuStack+0x3583)($v0)
-/*  f0a20b4:	31cfff7f */ 	andi	$t7,$t6,0xff7f
-/*  f0a20b8:	1000000c */ 	beqz	$zero,.L0f0a20ec
-/*  f0a20bc:	a04f1583 */ 	sb	$t7,0x1583($v0)
-.L0f0a20c0:
-/*  f0a20c0:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0a20c4:	90591583 */ 	lbu	$t9,0x1583($v0)
-/*  f0a20c8:	37280080 */ 	ori	$t0,$t9,0x80
-/*  f0a20cc:	10000007 */ 	beqz	$zero,.L0f0a20ec
-/*  f0a20d0:	a0481583 */ 	sb	$t0,0x1583($v0)
-.L0f0a20d4:
-/*  f0a20d4:	28a1005e */ 	slti	$at,$a1,0x5e
-/*  f0a20d8:	14200002 */ 	bnez	$at,.L0f0a20e4
-/*  f0a20dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a20e0:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0a20e4:
-/*  f0a20e4:	0fc2865b */ 	jal	currentPlayerEquipWeapon
-/*  f0a20e8:	00a02025 */ 	or	$a0,$a1,$zero
-.L0f0a20ec:
-/*  f0a20ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a20f0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0a20f4:	03e00008 */ 	jr	$ra
-/*  f0a20f8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerEquipWeaponWrapper(bool arg0, s32 weaponnum)
+{
+	if (arg0 == 1) {
+		if (weaponnum == WEAPON_NONE) {
+			g_Vars.currentplayer->unk1583_00 = false;
+		} else {
+			g_Vars.currentplayer->unk1583_00 = true;
+		}
+	} else {
+		if (weaponnum > WEAPON_SUICIDEPILL) {
+			weaponnum = WEAPON_UNARMED;
+		}
+
+		currentPlayerEquipWeapon(weaponnum);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0a20fc
