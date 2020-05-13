@@ -12288,26 +12288,17 @@ glabel func0f0a1528
 /*  f0a1968:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-GLOBAL_ASM(
-glabel currentPlayerEquipWeaponInCutscene
-/*  f0a196c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0a1970:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0a1974:	804e1580 */ 	lb	$t6,0x1580($v0)
-/*  f0a1978:	548e0006 */ 	bnel	$a0,$t6,.L0f0a1994
-/*  f0a197c:	90581583 */ 	lbu	$t8,0x1583($v0)
-/*  f0a1980:	804f1582 */ 	lb	$t7,0x1582($v0)
-/*  f0a1984:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0a1988:	11e10005 */ 	beq	$t7,$at,.L0f0a19a0
-/*  f0a198c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a1990:	90581583 */ 	lbu	$t8,0x1583($v0)
-.L0f0a1994:
-/*  f0a1994:	a0441582 */ 	sb	$a0,0x1582($v0)
-/*  f0a1998:	3319fffb */ 	andi	$t9,$t8,0xfffb
-/*  f0a199c:	a0591583 */ 	sb	$t9,0x1583($v0)
-.L0f0a19a0:
-/*  f0a19a0:	03e00008 */ 	jr	$ra
-/*  f0a19a4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerEquipWeapon(u32 weaponnum)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	if (player->weaponnum == weaponnum && player->unk1582 == -1) {
+		return;
+	}
+
+	player->unk1582 = weaponnum;
+	player->unk1583_05 = 0;
+}
 
 GLOBAL_ASM(
 glabel getCurrentPlayerWeaponId
@@ -12405,7 +12396,7 @@ glabel func0f0a1ab0
 /*  f0a1ad8:	82041581 */ 	lb	$a0,0x1581($s0)
 /*  f0a1adc:	10400015 */ 	beqz	$v0,.L0f0a1b34
 /*  f0a1ae0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a1ae4:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0a1ae4:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0a1ae8:	82051581 */ 	lb	$a1,0x1581($s0)
 /*  f0a1aec:	82041581 */ 	lb	$a0,0x1581($s0)
 /*  f0a1af0:	0fc4473e */ 	jal	func0f111cf8
@@ -12421,7 +12412,7 @@ glabel func0f0a1ab0
 /*  f0a1b18:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a1b1c:	03090019 */ 	multu	$t8,$t1
 /*  f0a1b20:	00002812 */ 	mflo	$a1
-/*  f0a1b24:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0a1b24:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0a1b28:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a1b2c:	10000004 */ 	beqz	$zero,.L0f0a1b40
 /*  f0a1b30:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -12493,7 +12484,7 @@ glabel func0f0a1b50
 /*  f0a1c0c:	35090080 */ 	ori	$t1,$t0,0x80
 /*  f0a1c10:	a0691583 */ 	sb	$t1,0x1583($v1)
 .L0f0a1c14:
-/*  f0a1c14:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
+/*  f0a1c14:	0fc2865b */ 	jal	currentPlayerEquipWeapon
 /*  f0a1c18:	8fa40024 */ 	lw	$a0,0x24($sp)
 .L0f0a1c1c:
 /*  f0a1c1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -12562,7 +12553,7 @@ glabel func0f0a1c2c
 /*  f0a1cf4:	37290080 */ 	ori	$t1,$t9,0x80
 /*  f0a1cf8:	a0691583 */ 	sb	$t1,0x1583($v1)
 .L0f0a1cfc:
-/*  f0a1cfc:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
+/*  f0a1cfc:	0fc2865b */ 	jal	currentPlayerEquipWeapon
 /*  f0a1d00:	8fa40024 */ 	lw	$a0,0x24($sp)
 .L0f0a1d04:
 /*  f0a1d04:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -12802,7 +12793,7 @@ glabel func0f0a1df4
 /*  f0a2030:	31cfff7f */ 	andi	$t7,$t6,0xff7f
 /*  f0a2034:	a04f1583 */ 	sb	$t7,0x1583($v0)
 .L0f0a2038:
-/*  f0a2038:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
+/*  f0a2038:	0fc2865b */ 	jal	currentPlayerEquipWeapon
 /*  f0a203c:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f0a2040:	8fb80040 */ 	lw	$t8,0x40($sp)
 /*  f0a2044:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
@@ -12829,7 +12820,7 @@ glabel func0f0a1df4
 );
 
 GLOBAL_ASM(
-glabel currentPlayerEquipWeapon
+glabel currentPlayerEquipWeaponWrapper
 /*  f0a2090:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0a2094:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0a2098:	1481000e */ 	bne	$a0,$at,.L0f0a20d4
@@ -12854,7 +12845,7 @@ glabel currentPlayerEquipWeapon
 /*  f0a20dc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a20e0:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f0a20e4:
-/*  f0a20e4:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
+/*  f0a20e4:	0fc2865b */ 	jal	currentPlayerEquipWeapon
 /*  f0a20e8:	00a02025 */ 	or	$a0,$a1,$zero
 .L0f0a20ec:
 /*  f0a20ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -13531,10 +13522,10 @@ glabel func0f0a29c8
 /*  f0a2a74:	1632fff8 */ 	bne	$s1,$s2,.L0f0a2a58
 /*  f0a2a78:	261007a4 */ 	addiu	$s0,$s0,0x7a4
 /*  f0a2a7c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0a2a80:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0a2a80:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0a2a84:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0a2a88:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a2a8c:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0a2a8c:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0a2a90:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0a2a94:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f0a2a98:
@@ -13742,10 +13733,10 @@ glabel func0f0a2ae4
 /*  f0a2d6c:	a6800010 */ 	sh	$zero,0x10($s4)
 .L0f0a2d70:
 /*  f0a2d70:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a2d74:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0a2d74:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0a2d78:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0a2d7c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0a2d80:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0a2d80:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0a2d84:	00002825 */ 	or	$a1,$zero,$zero
 .L0f0a2d88:
 /*  f0a2d88:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -20882,17 +20873,17 @@ glabel var7f1acb14
 //	case WEAPON_TIMEDMINE: // f0a8a60
 //		// These guns disallow B+Z
 //		if (firing == false) {
-//			if (g_Vars.currentplayer->unk1580 >= WEAPON_UNARMED
-//					&& g_Vars.currentplayer->unk1580 <= WEAPON_COMBATBOOST) {
+//			if (g_Vars.currentplayer->weaponnum >= WEAPON_UNARMED
+//					&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST) {
 //				// A macro is probably used here, hence the duplicate checks
-//				if ((g_Vars.currentplayer->unk1580 >= WEAPON_UNARMED
-//						&& g_Vars.currentplayer->unk1580 <= WEAPON_COMBATBOOST
-//						&& (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] & (1 << ((g_Vars.currentplayer->unk1580 - 1) & 7)))) != 1) {
+//				if ((g_Vars.currentplayer->weaponnum >= WEAPON_UNARMED
+//						&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST
+//						&& (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << ((g_Vars.currentplayer->weaponnum - 1) & 7)))) != 1) {
 //					// b24
-//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] |= 1 << ((g_Vars.currentplayer->unk1580 - 1) & 7);
+//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] |= 1 << ((g_Vars.currentplayer->weaponnum - 1) & 7);
 //				} else {
 //					// b34
-//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] &= ~(1 << ((g_Vars.currentplayer->unk1580 - 1) & 7));
+//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] &= ~(1 << ((g_Vars.currentplayer->weaponnum - 1) & 7));
 //				}
 //			}
 //
@@ -20905,14 +20896,14 @@ glabel var7f1acb14
 //			// B+Z
 //			g_Vars.currentplayer->invertgunfunc = true;
 //		} else {
-//			if (g_Vars.currentplayer->unk1580 >= WEAPON_UNARMED
-//					&& g_Vars.currentplayer->unk1580 <= WEAPON_COMBATBOOST) {
-//				if (!(g_Vars.currentplayer->unk1580 >= WEAPON_UNARMED
-//							&& g_Vars.currentplayer->unk1580 <= WEAPON_COMBATBOOST
-//							&& (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] & (1 << ((g_Vars.currentplayer->unk1580 - 1) & 7))))) {
-//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] |= 1 << ((g_Vars.currentplayer->unk1580 - 1) & 7);
+//			if (g_Vars.currentplayer->weaponnum >= WEAPON_UNARMED
+//					&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST) {
+//				if (!(g_Vars.currentplayer->weaponnum >= WEAPON_UNARMED
+//							&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST
+//							&& (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << ((g_Vars.currentplayer->weaponnum - 1) & 7))))) {
+//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] |= 1 << ((g_Vars.currentplayer->weaponnum - 1) & 7);
 //				} else {
-//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] &= ~(1 << ((g_Vars.currentplayer->unk1580 - 1) & 7));
+//					g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] &= ~(1 << ((g_Vars.currentplayer->weaponnum - 1) & 7));
 //				}
 //			}
 //		}
@@ -20985,7 +20976,7 @@ glabel currentPlayerIsUsingSecondaryFunction
 // regalloc
 //bool currentPlayerIsUsingSecondaryFunction(void)
 //{
-//	s32 weaponnum = g_Vars.currentplayer->unk1580;
+//	s32 weaponnum = g_Vars.currentplayer->weaponnum;
 //
 //	if (weaponnum >= WEAPON_UNARMED && weaponnum <= WEAPON_COMBATBOOST) {
 //		s32 index = (weaponnum - 1) >> 3;
@@ -21023,9 +21014,9 @@ void currentPlayerTickInventory(bool triggeron)
 			currentPlayerGiveWeapon(WEAPON_UNARMED);
 		}
 
-		if (g_Vars.currentplayer->unk1580 != WEAPON_UNARMED
+		if (g_Vars.currentplayer->weaponnum != WEAPON_UNARMED
 				&& g_Vars.currentplayer->unk1582 != (u32)WEAPON_UNARMED) {
-			currentPlayerEquipWeaponInCutscene(WEAPON_UNARMED);
+			currentPlayerEquipWeapon(WEAPON_UNARMED);
 		}
 
 		g_Vars.currentplayer->unk1583_00 = 0;
@@ -21061,7 +21052,7 @@ void currentPlayerTickInventory(bool triggeron)
 
 				if (weaponnum == equippedweaponnum && !currentPlayerCanHaveWeapon(weaponnum)) {
 					currentPlayerCalculateEquipCurItem();
-					currentPlayerEquipWeaponInCutscene(currentPlayerGetWeaponNumByInvIndex(g_Vars.currentplayer->equipcuritem));
+					currentPlayerEquipWeapon(currentPlayerGetWeaponNumByInvIndex(g_Vars.currentplayer->equipcuritem));
 				}
 			}
 		}
@@ -21088,7 +21079,7 @@ void currentPlayerTickInventory(bool triggeron)
 
 		if (player->hands[1].unk0640
 				&& player->hands[0].unk0640
-				&& player->unk1580 != WEAPON_REMOTEMINE) {
+				&& player->weaponnum != WEAPON_REMOTEMINE) {
 			if (player->playertrigtime240 > 80) {
 				gunsfiring[player->curguntofire] = 1;
 
@@ -21111,7 +21102,7 @@ void currentPlayerTickInventory(bool triggeron)
 				player->curguntofire = 1 - player->curguntofire;
 			}
 
-			if (player->unk1580 == WEAPON_REMOTEMINE) {
+			if (player->weaponnum == WEAPON_REMOTEMINE) {
 				player->curguntofire = 0;
 			}
 

@@ -3970,18 +3970,18 @@ glabel var7f1b2e84
 /*  f106260:	10400009 */ 	beqz	$v0,.L0f106288
 /*  f106264:	00002025 */ 	or	$a0,$zero,$zero
 /*  f106268:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10626c:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f10626c:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f106270:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f106274:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f106278:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f106278:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f10627c:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f106280:	10000007 */ 	beqz	$zero,.L0f1062a0
 /*  f106284:	8fad0028 */ 	lw	$t5,0x28($sp)
 .L0f106288:
-/*  f106288:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f106288:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f10628c:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f106290:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f106294:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f106294:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f106298:	00002825 */ 	or	$a1,$zero,$zero
 /*  f10629c:	8fad0028 */ 	lw	$t5,0x28($sp)
 .L0f1062a0:

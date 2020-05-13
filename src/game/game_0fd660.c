@@ -636,19 +636,19 @@ void activemenuApply(s32 slot)
 
 					if (func0f111cf8(weaponnum, weaponnum)) {
 						if (getCurrentPlayerWeaponId(0) != weaponnum) {
-							currentPlayerEquipWeapon(0, weaponnum);
+							currentPlayerEquipWeaponWrapper(0, weaponnum);
 						}
 
 						if (getCurrentPlayerWeaponId(1) != weaponnum) {
-							currentPlayerEquipWeapon(1, weaponnum);
+							currentPlayerEquipWeaponWrapper(1, weaponnum);
 						}
 					} else {
 						if (getCurrentPlayerWeaponId(0) != weaponnum) {
-							currentPlayerEquipWeapon(0, weaponnum);
+							currentPlayerEquipWeaponWrapper(0, weaponnum);
 						}
 
 						if (getCurrentPlayerWeaponId(1) != 0) {
-							currentPlayerEquipWeapon(1, 0);
+							currentPlayerEquipWeaponWrapper(1, 0);
 						}
 					}
 				}
@@ -656,9 +656,9 @@ void activemenuApply(s32 slot)
 		}
 		break;
 	case 1: // Function - 0c8
-		if (g_Vars.currentplayer->unk1580 >= WEAPON_UNARMED
-				&& g_Vars.currentplayer->unk1580 <= WEAPON_COMBATBOOST
-				&& g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] & (1 << (g_Vars.currentplayer->unk1580 - 1 & 7))) {
+		if (g_Vars.currentplayer->weaponnum >= WEAPON_UNARMED
+				&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST
+				&& g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->weaponnum - 1 & 7))) {
 			if (slot == 1) {
 				g_ActiveMenuThings[g_ActiveMenuIndex].unk30 = 1;
 			}
@@ -752,9 +752,9 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 
 			if (slot == 1) {
 				if (!secfunc
-						|| g_Vars.currentplayer->unk1580 < WEAPON_UNARMED
-						|| g_Vars.currentplayer->unk1580 > WEAPON_COMBATBOOST
-						|| (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] & (1 << (g_Vars.currentplayer->unk1580 - 1 & 7))) == 0) {
+						|| g_Vars.currentplayer->weaponnum < WEAPON_UNARMED
+						|| g_Vars.currentplayer->weaponnum > WEAPON_COMBATBOOST
+						|| (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->weaponnum - 1 & 7))) == 0) {
 					*flags |= AMSLOTFLAG_CURRENT;
 				}
 
@@ -763,9 +763,9 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 				}
 			} else {
 				if (!prifunc || (
-						g_Vars.currentplayer->unk1580 >= WEAPON_UNARMED
-						&& g_Vars.currentplayer->unk1580 <= WEAPON_COMBATBOOST
-						&& g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] & (1 << (g_Vars.currentplayer->unk1580 - 1 & 7)))) {
+						g_Vars.currentplayer->weaponnum >= WEAPON_UNARMED
+						&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST
+						&& g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->weaponnum - 1 & 7)))) {
 					*flags |= AMSLOTFLAG_CURRENT;
 				}
 

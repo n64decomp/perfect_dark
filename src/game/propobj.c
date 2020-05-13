@@ -39387,7 +39387,7 @@ glabel var7f1aae70
 /*  f088c84:	9305005c */ 	lbu	$a1,0x5c($t8)
 /*  f088c88:	50450004 */ 	beql	$v0,$a1,.L0f088c9c
 /*  f088c8c:	8fb90074 */ 	lw	$t9,0x74($sp)
-/*  f088c90:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f088c90:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f088c94:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f088c98:	8fb90074 */ 	lw	$t9,0x74($sp)
 .L0f088c9c:

@@ -1996,7 +1996,7 @@ struct player {
 	/*0x0634*/ s16 viewleft; // 0
 	/*0x0636*/ s16 viewtop;  // 0
 	/*0x0638*/ struct hand hands[2];
-	/*0x1580*/ s8 unk1580;
+	/*0x1580*/ s8 weaponnum;
 	/*0x1581*/ u8 unk1581;
 	/*0x1582*/ s8 unk1582;
 	/*0x1583*/ u8 unk1583_00 : 1;

@@ -58,7 +58,7 @@ s32 frDetailsOkMenuHandler(u32 operation, struct menu_item *item, s32 *value)
 			currentPlayerSetEquipCurItem(1);
 
 			if (getCurrentPlayerWeaponId(0) != weapon) {
-				currentPlayerEquipWeapon(0, weapon);
+				currentPlayerEquipWeaponWrapper(0, weapon);
 			}
 
 			g_FrWeaponNum = weapon;

@@ -2071,11 +2071,11 @@ glabel func0f0b7c60
 /*  f0b7d1c:	00802825 */ 	or	$a1,$a0,$zero
 /*  f0b7d20:	8fae0034 */ 	lw	$t6,0x34($sp)
 /*  f0b7d24:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b7d28:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0b7d28:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0b7d2c:	91c5005c */ 	lbu	$a1,0x5c($t6)
 /*  f0b7d30:	8faf0034 */ 	lw	$t7,0x34($sp)
 /*  f0b7d34:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0b7d38:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0b7d38:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0b7d3c:	91e5005c */ 	lbu	$a1,0x5c($t7)
 /*  f0b7d40:	10000033 */ 	beqz	$zero,.L0f0b7e10
 /*  f0b7d44:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2090,7 +2090,7 @@ glabel func0f0b7c60
 /*  f0b7d64:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f0b7d68:	2404000f */ 	addiu	$a0,$zero,0xf
 /*  f0b7d6c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b7d70:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0b7d70:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0b7d74:	2405000f */ 	addiu	$a1,$zero,0xf
 /*  f0b7d78:	10000025 */ 	beqz	$zero,.L0f0b7e10
 /*  f0b7d7c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2099,7 +2099,7 @@ glabel func0f0b7c60
 /*  f0b7d84:	afa3002c */ 	sw	$v1,0x2c($sp)
 /*  f0b7d88:	8fa3002c */ 	lw	$v1,0x2c($sp)
 /*  f0b7d8c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b7d90:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0b7d90:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0b7d94:	9065005c */ 	lbu	$a1,0x5c($v1)
 /*  f0b7d98:	1000001d */ 	beqz	$zero,.L0f0b7e10
 /*  f0b7d9c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2115,7 +2115,7 @@ glabel func0f0b7c60
 /*  f0b7dc0:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f0b7dc4:	2404000f */ 	addiu	$a0,$zero,0xf
 /*  f0b7dc8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b7dcc:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0b7dcc:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0b7dd0:	2405000f */ 	addiu	$a1,$zero,0xf
 /*  f0b7dd4:	1000000e */ 	beqz	$zero,.L0f0b7e10
 /*  f0b7dd8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2124,7 +2124,7 @@ glabel func0f0b7c60
 /*  f0b7de0:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f0b7de4:	8fa30028 */ 	lw	$v1,0x28($sp)
 /*  f0b7de8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b7dec:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0b7dec:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0b7df0:	9065005c */ 	lbu	$a1,0x5c($v1)
 /*  f0b7df4:	10000006 */ 	beqz	$zero,.L0f0b7e10
 /*  f0b7df8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2132,7 +2132,7 @@ glabel func0f0b7c60
 /*  f0b7dfc:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f0b7e00:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0b7e04:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b7e08:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0b7e08:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0b7e0c:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f0b7e10:
 /*  f0b7e10:	3c03800a */ 	lui	$v1,%hi(g_Vars)
@@ -2357,10 +2357,10 @@ glabel var7f1ad574
 /*  f0b8134:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f0b8138:	2404005d */ 	addiu	$a0,$zero,0x5d
 /*  f0b813c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0b8140:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0b8140:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0b8144:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0b8148:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b814c:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0b814c:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0b8150:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0b8154:	8ef8000c */ 	lw	$t8,0xc($s7)
 /*  f0b8158:	5b000018 */ 	blezl	$t8,.L0f0b81bc
@@ -2617,10 +2617,10 @@ glabel var7f1ad574
 /*  f0b84f4:	1000001a */ 	beqz	$zero,.L0f0b8560
 /*  f0b84f8:	a1a002ff */ 	sb	$zero,0x2ff($t5)
 .L0f0b84fc:
-/*  f0b84fc:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0b84fc:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0b8500:	8e050004 */ 	lw	$a1,0x4($s0)
 /*  f0b8504:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b8508:	0fc28824 */ 	jal	currentPlayerEquipWeapon
+/*  f0b8508:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
 /*  f0b850c:	8e050000 */ 	lw	$a1,0x0($s0)
 /*  f0b8510:	8eee0284 */ 	lw	$t6,0x284($s7)
 /*  f0b8514:	3c188009 */ 	lui	$t8,%hi(g_Is4Mb)
@@ -4136,8 +4136,8 @@ void func0f0b9a20(void)
 	}
 
 	func0f165eec(getCurrentStageId(), 0);
-	currentPlayerEquipWeapon(1, g_DefaultWeaponArgument);
-	currentPlayerEquipWeapon(0, g_DefaultWeapon);
+	currentPlayerEquipWeaponWrapper(1, g_DefaultWeaponArgument);
+	currentPlayerEquipWeaponWrapper(0, g_DefaultWeapon);
 	var8007074c = 0;
 }
 

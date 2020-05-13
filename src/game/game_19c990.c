@@ -3068,7 +3068,7 @@ glabel var7f1b94e4
 /*  f19fa08:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f19fa0c:	0fc6749a */ 	jal	frGetWeaponBySlot
 /*  f19fa10:	96a40456 */ 	lhu	$a0,0x456($s5)
-/*  f19fa14:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
+/*  f19fa14:	0fc2865b */ 	jal	currentPlayerEquipWeapon
 /*  f19fa18:	00402025 */ 	or	$a0,$v0,$zero
 .L0f19fa1c:
 /*  f19fa1c:	3c15800b */ 	lui	$s5,%hi(g_FiringRangeData)

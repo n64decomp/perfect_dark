@@ -187,7 +187,7 @@ void currentPlayerSetAllGuns(bool enable)
 	g_Vars.currentplayer->equipallguns = enable;
 	currentPlayerCalculateEquipCurItem();
 	weaponnum = currentPlayerGetWeaponNumByInvIndex(g_Vars.currentplayer->equipcuritem);
-	currentPlayerEquipWeaponInCutscene(weaponnum);
+	currentPlayerEquipWeapon(weaponnum);
 }
 
 bool currentPlayerHasAllGuns(void)

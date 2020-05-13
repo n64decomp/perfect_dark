@@ -5753,8 +5753,8 @@ bool aiChrDrawWeapon(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
-		currentPlayerEquipWeapon(0, (s8)cmd[3]);
-		currentPlayerEquipWeapon(1, 0);
+		currentPlayerEquipWeaponWrapper(0, (s8)cmd[3]);
+		currentPlayerEquipWeaponWrapper(1, 0);
 		setCurrentPlayerNum(prevplayernum);
 	}
 
@@ -5775,7 +5775,7 @@ bool aiChrDrawWeaponInCutscene(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
-		currentPlayerEquipWeaponInCutscene((s8)cmd[3]);
+		currentPlayerEquipWeapon((s8)cmd[3]);
 		setCurrentPlayerNum(prevplayernum);
 	}
 
@@ -10361,7 +10361,7 @@ bool aiClearInventory(void)
 			currentPlayerClearInventory();
 			g_Vars.currentplayer->itemswitch = 0;
 			currentPlayerGiveWeapon(WEAPON_UNARMED);
-			currentPlayerEquipWeaponInCutscene(WEAPON_UNARMED);
+			currentPlayerEquipWeapon(WEAPON_UNARMED);
 		}
 	}
 
