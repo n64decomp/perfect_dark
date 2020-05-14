@@ -2563,21 +2563,21 @@ struct inventory_menupos {
 
 struct inventory_typee {
 	f32 zoomfov;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
-	u32 unk14;
+	f32 unk04;
+	f32 unk08;
+	f32 unk0c;
+	f32 unk10;
+	f32 unk14;
 	u32 unk18;
 	u32 flags;
 };
 
 struct inventory_typef {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
+	u16 unk00;
+	u16 unk04;
+	u16 unk08;
+	u16 unk0c;
+	u16 unk10;
 };
 
 struct weaponfunc {
@@ -2592,7 +2592,7 @@ struct weaponfunc {
 
 struct weaponfunc_shootsingle {
 	struct weaponfunc base;
-	/*0x14*/ u32 unk14;
+	/*0x14*/ struct inventory_menupos *unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ u32 unk20;
@@ -2607,7 +2607,7 @@ struct weaponfunc_shootsingle {
 
 struct weaponfunc_shootauto {
 	struct weaponfunc base;
-	/*0x14*/ u32 unk14;
+	/*0x14*/ struct inventory_menupos *unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ u32 unk20;
@@ -2620,8 +2620,8 @@ struct weaponfunc_shootauto {
 	/*0x3c*/ u32 unk3c;
 	/*0x40*/ f32 initialfirerate; // rounds per minute
 	/*0x44*/ f32 maxfirerate; // rounds per minute
-	/*0x48*/ u32 unk48;
-	/*0x4c*/ u32 unk4c;
+	/*0x48*/ f32 *unk48;
+	/*0x4c*/ f32 *unk4c;
 	/*0x50*/ u32 unk50;
 };
 

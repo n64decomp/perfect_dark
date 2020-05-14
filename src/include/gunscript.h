@@ -24,11 +24,11 @@
 
 #define gunscript_include(unk1, address) \
 	0x06000000 | (unk1 << 16), \
-	address,
+	(u32)address,
 
 #define gunscript_random(probability, address) \
 	0x07000000 | probability, \
-	address,
+	(u32)address,
 
 #define gunscript_repeatuntilfull(triggerkey, dontloop, gototrigger) \
 	0x08000000 | triggerkey, \
