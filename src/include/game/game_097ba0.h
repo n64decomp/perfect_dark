@@ -22,7 +22,7 @@ u32 func0f098ca0(void);
 u32 func0f098df8(void);
 u32 func0f098f8c(void);
 u32 func0f099008(u32 hand);
-u32 func0f0990b0(void);
+bool func0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon);
 u32 func0f099188(void);
 u32 func0f0991e4(void);
 u32 func0f099780(void);

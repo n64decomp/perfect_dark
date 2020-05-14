@@ -1852,71 +1852,44 @@ glabel func0f099008
 /*  f0990ac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0990b0
-/*  f0990b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0990b4:	14800003 */ 	bnez	$a0,.L0f0990c4
-/*  f0990b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0990bc:	1000002e */ 	beqz	$zero,.L0f099178
-/*  f0990c0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0990c4:
-/*  f0990c4:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f0990c8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0990cc:	14400003 */ 	bnez	$v0,.L0f0990dc
-/*  f0990d0:	304300ff */ 	andi	$v1,$v0,0xff
-/*  f0990d4:	10000028 */ 	beqz	$zero,.L0f099178
-/*  f0990d8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0990dc:
-/*  f0990dc:	54610004 */ 	bnel	$v1,$at,.L0f0990f0
-/*  f0990e0:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0990e4:	10000024 */ 	beqz	$zero,.L0f099178
-/*  f0990e8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0990ec:	24010004 */ 	addiu	$at,$zero,0x4
-.L0f0990f0:
-/*  f0990f0:	5461000c */ 	bnel	$v1,$at,.L0f099124
-/*  f0990f4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0990f8:	8c820014 */ 	lw	$v0,0x14($a0)
-/*  f0990fc:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f099100:	10410007 */ 	beq	$v0,$at,.L0f099120
-/*  f099104:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f099108:	10410005 */ 	beq	$v0,$at,.L0f099120
-/*  f09910c:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f099110:	50410004 */ 	beql	$v0,$at,.L0f099124
-/*  f099114:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f099118:	10000017 */ 	beqz	$zero,.L0f099178
-/*  f09911c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f099120:
-/*  f099120:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f099124:
-/*  f099124:	54610007 */ 	bnel	$v1,$at,.L0f099144
-/*  f099128:	80820007 */ 	lb	$v0,0x7($a0)
-/*  f09912c:	808e0007 */ 	lb	$t6,0x7($a0)
-/*  f099130:	05c30004 */ 	bgezl	$t6,.L0f099144
-/*  f099134:	80820007 */ 	lb	$v0,0x7($a0)
-/*  f099138:	1000000f */ 	beqz	$zero,.L0f099178
-/*  f09913c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f099140:	80820007 */ 	lb	$v0,0x7($a0)
-.L0f099144:
-/*  f099144:	0440000b */ 	bltz	$v0,.L0f099174
-/*  f099148:	00027880 */ 	sll	$t7,$v0,0x2
-/*  f09914c:	00afc021 */ 	addu	$t8,$a1,$t7
-/*  f099150:	8f03001c */ 	lw	$v1,0x1c($t8)
-/*  f099154:	50600008 */ 	beqzl	$v1,.L0f099178
-/*  f099158:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09915c:	0fc2a61a */ 	jal	currentPlayerGetAmmoCount
-/*  f099160:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f099164:	5c400004 */ 	bgtzl	$v0,.L0f099178
-/*  f099168:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09916c:	10000002 */ 	beqz	$zero,.L0f099178
-/*  f099170:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f099174:
-/*  f099174:	00001025 */ 	or	$v0,$zero,$zero
-.L0f099178:
-/*  f099178:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f09917c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f099180:	03e00008 */ 	jr	$ra
-/*  f099184:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon)
+{
+	if (!basefunc) {
+		return true;
+	}
+
+	if (basefunc->type == INVENTORYFUNCTYPE_NONE) {
+		return true;
+	}
+
+	if ((basefunc->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
+		return true;
+	}
+
+	if ((basefunc->type & 0xff) == INVENTORYFUNCTYPE_SPECIAL) {
+		struct weaponfunc_special *func = (struct weaponfunc_special *)basefunc;
+
+		if (func->specialfunc != SPECIALFUNC_REMOTEMINE_DETONATE
+				&& func->specialfunc != SPECIALFUNC_COMBATBOOST_BOOST
+				&& func->specialfunc != SPECIALFUNC_COMBATBOOST_REVERT) {
+			return true;
+		}
+	}
+
+	if ((basefunc->type & 0xff) == INVENTORYFUNCTYPE_THROW) {
+		if (basefunc->ammoindex <= -1) {
+			return true;
+		}
+	}
+
+	if (basefunc->ammoindex >= 0
+			&& weapon->ammos[basefunc->ammoindex]
+			&& currentPlayerGetAmmoCount(weapon->ammos[basefunc->ammoindex]->type) <= 0) {
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f099188

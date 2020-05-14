@@ -2677,7 +2677,7 @@ struct weaponfunc_close {
 
 struct weaponfunc_special {
 	struct weaponfunc base;
-	/*0x14*/ u32 unk14;
+	/*0x14*/ u32 specialfunc;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 };
