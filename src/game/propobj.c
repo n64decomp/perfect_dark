@@ -4534,7 +4534,7 @@ glabel var7f1aa1fc
 /*  f069e18:	0fc181a6 */ 	jal	propReparent
 /*  f069e1c:	8dc50014 */ 	lw	$a1,0x14($t6)
 /*  f069e20:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f069e24:	0fc20a59 */ 	jal	propSetDropped
+/*  f069e24:	0fc20a59 */ 	jal	propobjSetDropped
 /*  f069e28:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f069e2c:	8e190040 */ 	lw	$t9,0x40($s0)
 /*  f069e30:	8fa200b0 */ 	lw	$v0,0xb0($sp)
@@ -32732,59 +32732,29 @@ glabel var7f1aa85c
 /*  f082960:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-GLOBAL_ASM(
-glabel propSetDropped
-/*  f082964:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f082968:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08296c:	8c820018 */ 	lw	$v0,0x18($a0)
-/*  f082970:	50400027 */ 	beqzl	$v0,.L0f082a10
-/*  f082974:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f082978:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f08297c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f082980:	0fc1a179 */ 	jal	func0f0685e4
-/*  f082984:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f082988:	8fa20018 */ 	lw	$v0,0x18($sp)
-/*  f08298c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f082990:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x31c)
-/*  f082994:	8c430040 */ 	lw	$v1,0x40($v0)
-/*  f082998:	306e0040 */ 	andi	$t6,$v1,0x40
-/*  f08299c:	11c00007 */ 	beqz	$t6,.L0f0829bc
-/*  f0829a0:	30780080 */ 	andi	$t8,$v1,0x80
-/*  f0829a4:	8c4f0048 */ 	lw	$t7,0x48($v0)
-/*  f0829a8:	8de40044 */ 	lw	$a0,0x44($t7)
-/*  f0829ac:	10800003 */ 	beqz	$a0,.L0f0829bc
-/*  f0829b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0829b4:	10000005 */ 	beqz	$zero,.L0f0829cc
-/*  f0829b8:	a48500b0 */ 	sh	$a1,0xb0($a0)
-.L0f0829bc:
-/*  f0829bc:	13000003 */ 	beqz	$t8,.L0f0829cc
-/*  f0829c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0829c4:	8c590048 */ 	lw	$t9,0x48($v0)
-/*  f0829c8:	a72500b0 */ 	sh	$a1,0xb0($t9)
-.L0f0829cc:
-/*  f0829cc:	8d08a2dc */ 	lw	$t0,%lo(g_Vars+0x31c)($t0)
-/*  f0829d0:	5100000f */ 	beqzl	$t0,.L0f082a10
-/*  f0829d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0829d8:	90490003 */ 	lbu	$t1,0x3($v0)
-/*  f0829dc:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f0829e0:	5521000b */ 	bnel	$t1,$at,.L0f082a10
-/*  f0829e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0829e8:	84430004 */ 	lh	$v1,0x4($v0)
-/*  f0829ec:	24010011 */ 	addiu	$at,$zero,0x11
-/*  f0829f0:	10610006 */ 	beq	$v1,$at,.L0f082a0c
-/*  f0829f4:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f0829f8:	50610005 */ 	beql	$v1,$at,.L0f082a10
-/*  f0829fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f082a00:	8c4a0010 */ 	lw	$t2,0x10($v0)
-/*  f082a04:	354b0080 */ 	ori	$t3,$t2,0x80
-/*  f082a08:	ac4b0010 */ 	sw	$t3,0x10($v0)
-.L0f082a0c:
-/*  f082a0c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f082a10:
-/*  f082a10:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f082a14:	03e00008 */ 	jr	$ra
-/*  f082a18:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void propobjSetDropped(struct prop *prop, u32 reason)
+{
+	struct prop *parent = prop->parent;
+
+	if (parent) {
+		struct defaultobj *obj = prop->obj;
+
+		func0f0685e4(prop);
+
+		if ((obj->hidden & OBJHFLAG_00000040) && obj->unk48->unk44) {
+			obj->unk48->unk44->dropreason = reason;
+		} else if (obj->hidden & OBJHFLAG_00000080) {
+			obj->unk48->dropreason = reason;
+		}
+
+		if (g_Vars.unk00031c
+				&& obj->type == OBJTYPE_WEAPON
+				&& obj->obj != MODEL_CHRBRIEFCASE
+				&& obj->obj != MODEL_CHRDATATHIEF) {
+			obj->flags3 |= OBJFLAG3_00000080;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f082a1c
@@ -36081,7 +36051,7 @@ glabel var7f1aab30
 /*  f0855f0:	10000008 */ 	beqz	$zero,.L0f085614
 /*  f0855f4:	92020003 */ 	lbu	$v0,0x3($s0)
 .L0f0855f8:
-/*  f0855f8:	0fc20a59 */ 	jal	propSetDropped
+/*  f0855f8:	0fc20a59 */ 	jal	propobjSetDropped
 /*  f0855fc:	8e040014 */ 	lw	$a0,0x14($s0)
 /*  f085600:	02002025 */ 	or	$a0,$s0,$zero
 /*  f085604:	8fa500c8 */ 	lw	$a1,0xc8($sp)
@@ -36322,7 +36292,7 @@ glabel var7f1aab30
 /*  f085970:	8c820020 */ 	lw	$v0,0x20($a0)
 .L0f085974:
 /*  f085974:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f085978:	0fc20a59 */ 	jal	propSetDropped
+/*  f085978:	0fc20a59 */ 	jal	propobjSetDropped
 /*  f08597c:	afa20028 */ 	sw	$v0,0x28($sp)
 /*  f085980:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*  f085984:	5480fffb */ 	bnezl	$a0,.L0f085974
@@ -49156,7 +49126,7 @@ glabel func0f091250
 /*  f091290:	1040000e */ 	beqz	$v0,.L0f0912cc
 /*  f091294:	00402025 */ 	or	$a0,$v0,$zero
 /*  f091298:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f09129c:	0fc20a59 */ 	jal	propSetDropped
+/*  f09129c:	0fc20a59 */ 	jal	propobjSetDropped
 /*  f0912a0:	afa20028 */ 	sw	$v0,0x28($sp)
 /*  f0912a4:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*  f0912a8:	0fc20c1f */ 	jal	func0f08307c

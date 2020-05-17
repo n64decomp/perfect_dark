@@ -6435,7 +6435,7 @@ glabel chrDropItems
 /*  f024588:	314b2000 */ 	andi	$t3,$t2,0x2000
 /*  f02458c:	55600004 */ 	bnezl	$t3,.L0f0245a0
 /*  f024590:	8e100020 */ 	lw	$s0,0x20($s0)
-/*  f024594:	0fc20a59 */ 	jal	propSetDropped
+/*  f024594:	0fc20a59 */ 	jal	propobjSetDropped
 /*  f024598:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f02459c:	8e100020 */ 	lw	$s0,0x20($s0)
 .L0f0245a0:
@@ -6508,7 +6508,7 @@ void chrDropWeapons(struct chrdata *chr)
 			struct defaultobj *obj = prop->obj;
 
 			if ((obj->flags & OBJFLAG_00002000) == 0) {
-				propSetDropped(prop, 6);
+				propobjSetDropped(prop, 6);
 			}
 		}
 
@@ -10614,7 +10614,7 @@ glabel func0f027e1c
 /*  f028104:	54410015 */ 	bnel	$v0,$at,.L0f02815c
 /*  f028108:	8622003a */ 	lh	$v0,0x3a($s1)
 .L0f02810c:
-/*  f02810c:	0fc20a59 */ 	jal	propSetDropped
+/*  f02810c:	0fc20a59 */ 	jal	propobjSetDropped
 /*  f028110:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f028114:	8faa00f0 */ 	lw	$t2,0xf0($sp)
 /*  f028118:	8d4b0014 */ 	lw	$t3,0x14($t2)
@@ -10707,7 +10707,7 @@ glabel func0f027e1c
 /*  f028258:	8e2b0004 */ 	lw	$t3,0x4($s1)
 /*  f02825c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f028260:	ad2b0300 */ 	sw	$t3,0x300($t1)
-/*  f028264:	0fc20a59 */ 	jal	propSetDropped
+/*  f028264:	0fc20a59 */ 	jal	propobjSetDropped
 /*  f028268:	8e240004 */ 	lw	$a0,0x4($s1)
 /*  f02826c:	8fac00f0 */ 	lw	$t4,0xf0($sp)
 /*  f028270:	8d8a0014 */ 	lw	$t2,0x14($t4)

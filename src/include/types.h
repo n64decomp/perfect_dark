@@ -784,7 +784,7 @@ struct obj48 {
 	/*0x38*/ u32 unk38;
 	/*0x3c*/ u32 unk3c;
 	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
+	/*0x44*/ struct obj48 *unk44;
 	/*0x48*/ u32 unk48;
 	/*0x4c*/ u32 unk4c;
 	/*0x50*/ u32 unk50;
@@ -811,7 +811,7 @@ struct obj48 {
 	/*0xa4*/ u32 unka4;
 	/*0xa8*/ u32 unka8;
 	/*0xac*/ u32 unkac;
-	/*0xb0*/ u16 unkb0;
+	/*0xb0*/ u16 dropreason;
 	/*0xb2*/ u16 unkb2;
 	/*0xb4*/ u32 unkb4;
 	/*0xb8*/ u32 unkb8;
