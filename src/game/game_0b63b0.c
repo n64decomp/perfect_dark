@@ -1627,7 +1627,7 @@ glabel var7f1ad568
 /*  f0b76a4:	15a00004 */ 	bnez	$t5,.L0f0b76b8
 /*  f0b76a8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0b76ac:	8e240004 */ 	lw	$a0,0x4($s1)
-/*  f0b76b0:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
+/*  f0b76b0:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
 /*  f0b76b4:	8e250008 */ 	lw	$a1,0x8($s1)
 .L0f0b76b8:
 /*  f0b76b8:	1000000a */ 	beqz	$zero,.L0f0b76e4
@@ -11168,10 +11168,10 @@ glabel var7f1ad6ac
 //
 //										chrSetMaxDamage(chr, 4);
 //
-//										chr->cloakfade_06 = true;
+//										chr->cloakfadefinished = true;
 //										chr->chrflags |= CHRCFLAG_00040000;
 //										chr->hidden |= CHRHFLAG_CLOAKED;
-//										chr->cloakfade_00 = 0;
+//										chr->cloakfadefrac = 0;
 //
 //										chrGiveWeapon(chr, MODEL_CHRFALCON2, WEAPON_FALCON2, 0);
 //									}
@@ -11214,10 +11214,10 @@ glabel var7f1ad6ac
 //											chrAddHealth(chr, 40);
 //										}
 //
-//										chr->cloakfade_06 = true;
+//										chr->cloakfadefinished = true;
 //										chr->chrflags |= CHRCFLAG_00040000;
 //										chr->hidden |= CHRHFLAG_PSYCHOSISED;
-//										chr->cloakfade_00 = 0;
+//										chr->cloakfadefrac = 0;
 //
 //										chrSetMaxDamage(chr, 20);
 //									}
@@ -11262,10 +11262,10 @@ glabel var7f1ad6ac
 //
 //										chrSetMaxDamage(chr, 10);
 //
-//										chr->cloakfade_06 = true;
+//										chr->cloakfadefinished = true;
 //										chr->chrflags |= CHRCFLAG_00040000;
 //										chr->hidden |= CHRHFLAG_CLOAKED;
-//										chr->cloakfade_00 = 0;
+//										chr->cloakfadefrac = 0;
 //
 //										chrGiveWeapon(chr, MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0);
 //									}
@@ -11310,10 +11310,10 @@ glabel var7f1ad6ac
 //
 //										chrSetMaxDamage(chr, 10);
 //
-//										chr->cloakfade_06 = true;
+//										chr->cloakfadefinished = true;
 //										chr->chrflags |= CHRCFLAG_00040000;
 //										chr->hidden |= CHRHFLAG_CLOAKED;
-//										chr->cloakfade_00 = 0;
+//										chr->cloakfadefrac = 0;
 //
 //										chrGiveWeapon(chr, MODEL_CHRDY357TRENT, WEAPON_DY357LX, 0);
 //										chrGiveWeapon(chr, MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000);
@@ -11359,10 +11359,10 @@ glabel var7f1ad6ac
 //
 //										chrSetMaxDamage(chr, 10);
 //
-//										chr->cloakfade_06 = true;
+//										chr->cloakfadefinished = true;
 //										chr->chrflags |= CHRCFLAG_00040000;
 //										chr->hidden |= CHRHFLAG_CLOAKED;
-//										chr->cloakfade_00 = 0;
+//										chr->cloakfadefrac = 0;
 //
 //										chrGiveWeapon(chr, MODEL_CHRRCP120, WEAPON_RCP120, 0);
 //									}
@@ -14385,7 +14385,7 @@ glabel var7f1ad710
 /*  f0c2950:	01856821 */ 	addu	$t5,$t4,$a1
 /*  f0c2954:	14ed0004 */ 	bne	$a3,$t5,.L0f0c2968
 /*  f0c2958:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c295c:	0fc08989 */ 	jal	func0f022624
+/*  f0c295c:	0fc08989 */ 	jal	chrUpdateCloak
 /*  f0c2960:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c2964:	8e2619c8 */ 	lw	$a2,0x19c8($s1)
 .L0f0c2968:

@@ -20,7 +20,7 @@ u32 func0f02143c(void);
 void func0f021fa8(struct chrdata *chr, struct coord *pos, s16 *room);
 void func0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2);
 u32 func0f022214(void);
-u32 func0f022624(void);
+void chrUpdateCloak(struct chrdata *chr);
 u32 func0f022be4(void);
 u32 func0f022cc8(void);
 u32 func0f022d60(void);

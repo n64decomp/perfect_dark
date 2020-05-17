@@ -151,7 +151,7 @@ void func0f0a9464(struct coord *coord);
 void func0f0a9494(u32 operation);
 void func0f0a94d0(u32 operation, struct coord *a, struct coord *b);
 void func0f0a95ec(u32 arg0, bool enable);
-void currentPlayerGiveAmmo(s32 ammotype, s32 quantity);
+void currentPlayerSetAmmoQuantity(s32 ammotype, s32 quantity);
 s32 ammoGetQuantity(u32 type);
 s32 currentPlayerGetAmmoCount(s32 ammotype);
 u32 ammotypeGetMaxCapacity(u32 ammotype);

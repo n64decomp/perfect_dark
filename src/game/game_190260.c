@@ -320,7 +320,7 @@ glabel mpChrReset
 //			aibot->unk04c_02 = 0;
 //			aibot->unk04c_01 = 1;
 //			aibot->unk09c_00 = 0;
-//			aibot->unk04c_06 = 0;
+//			aibot->cloakdeviceenabled = false;
 //			aibot->unk04c_04 = 0;
 //			aibot->unk04c_03 = 0;
 //			aibot->unk09c_01 = 0;
@@ -340,7 +340,7 @@ glabel mpChrReset
 //			aibot->unk04e = 0;
 //			aibot->unk044 = 0;
 //			aibot->unk0a0 = 0;
-//			aibot->unk09c_02 = 0;
+//			aibot->rcp120cloakenabled = false;
 //			aibot->unk064 = 0;
 //			aibot->unk04c_00 = 0;
 //			aibot->unk048 = -1;

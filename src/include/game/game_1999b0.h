@@ -3,10 +3,10 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f1999b0(void);
+s32 func0f1999b0(u32 weaponnum, u32 arg1);
 u32 func0f1999f8(void);
 u32 func0f199a40(void);
-u32 func0f199be4(void);
+s32 func0f199be4(struct aibot *aibot, u32 weaponnum, u32 arg2, u32 arg3);
 u32 func0f199cb8(void);
 u32 func0f199d70(void);
 void func0f199e3c(struct aibot *aibot, u32 weaponnum, bool proxy, u32 qty);

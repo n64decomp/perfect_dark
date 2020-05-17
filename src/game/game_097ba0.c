@@ -20977,8 +20977,8 @@ void currentPlayerTickInventory(bool triggeron)
 		g_Vars.currentplayer->unk1583_00 = 0;
 		g_Vars.currentplayer->itemswitch = 0;
 		chr->cloakpause = 0;
-		chr->cloakfade_00 = 0;
-		chr->cloakfade_06 = 0;
+		chr->cloakfadefrac = 0;
+		chr->cloakfadefinished = false;
 		chr->hidden &= ~CHRHFLAG_CLOAKED;
 	}
 
@@ -21233,7 +21233,7 @@ struct ammotype g_AmmoTypes[] = {
 };
 
 GLOBAL_ASM(
-glabel currentPlayerGiveAmmo
+glabel currentPlayerSetAmmoQuantity
 /*  f0a9628:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0a962c:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f0a9630:	afb1001c */ 	sw	$s1,0x1c($sp)
@@ -21463,7 +21463,7 @@ void currentPlayerGiveUnlimitedAmmo(bool force)
 		}
 
 		if (give) {
-			currentPlayerGiveAmmo(i, g_AmmoTypes[i].capacity);
+			currentPlayerSetAmmoQuantity(i, g_AmmoTypes[i].capacity);
 		}
 	}
 }
@@ -21506,7 +21506,7 @@ void currentPlayerGiveAmmoForWeapon(u32 weaponnum, u32 func, u32 quantity)
 		struct inventory_ammo *ammo = weapon->ammos[func];
 
 		if (ammo) {
-			currentPlayerGiveAmmo(ammo->type, quantity);
+			currentPlayerSetAmmoQuantity(ammo->type, quantity);
 		}
 	}
 }

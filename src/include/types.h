@@ -166,7 +166,7 @@ struct aibot {
 	/*0x018*/ u32 unk018;
 	/*0x01c*/ struct aibotammotype *ammotypes;
 	/*0x020*/ u32 weaponnum;
-	/*0x024*/ u32 unk024;
+	/*0x024*/ s32 unk024;
 	/*0x028*/ u32 unk028;
 	/*0x02c*/ u16 unk02c;
 	/*0x02e*/ u16 unk02e;
@@ -185,7 +185,7 @@ struct aibot {
 	/*0x04c*/ u8 unk04c_03 : 1;
 	/*0x04c*/ u8 unk04c_04 : 1;
 	/*0x04c*/ u8 unk04c_05 : 1;
-	/*0x04c*/ u8 unk04c_06 : 1;
+	/*0x04c*/ u8 cloakdeviceenabled : 1;
 	/*0x04c*/ u8 unk04c_07 : 1;
 	/*0x04d*/ u8 unk04d;
 	/*0x04e*/ u8 unk04e;
@@ -222,7 +222,7 @@ struct aibot {
 	/*0x098*/ f32 unk098;
 	/*0x09c*/ u8 unk09c_00 : 1;
 	/*0x09c*/ u8 unk09c_01 : 1;
-	/*0x09c*/ u8 unk09c_02 : 1;
+	/*0x09c*/ u8 rcp120cloakenabled : 1;
 	/*0x09c*/ u8 unk09c_03 : 1;
 	/*0x09c*/ u8 unk09c_04 : 1;
 	/*0x09c*/ u8 unk09c_05 : 1;
@@ -336,7 +336,13 @@ struct aibot {
 	/*0x2b8*/ u32 unk2b8;
 	/*0x2bc*/ u32 unk2bc;
 	/*0x2c0*/ u32 unk2c0;
+
+	/**
+	 * Some kind of cloak counter? Ticks up while cloaked. Over 1 causes RCP120
+	 * ammo to be removed, and when this happens this value is decreased.
+	 */
 	/*0x2c4*/ f32 unk2c4;
+
 	/*0x2c8*/ u32 unk2c8;
 	/*0x2cc*/ u32 unk2cc;
 	/*0x2d0*/ u32 unk2d0;
@@ -689,11 +695,16 @@ struct chrdata {
 	/*0x2c8*/ struct coord runfrompos;
 	/*0x2d4*/ struct aibot *aibot;
 	/*0x2d8*/ s16 blurdrugamount;
-	/*0x2da*/ u16 cloakpause;
+
+	// Cloakpause is set to a positive value when shooting, then decreases to
+	// zero over a couple of seconds. When zero is reached, the cloak is
+	// applied again.
+	/*0x2da*/ s16 cloakpause;
+
 	/*0x2dc*/ f32 drugheadsway;
 	/*0x2e0*/ u8 drugheadcount;
-	/*0x2e1*/ u8 cloakfade_00 : 7;
-	/*0x2e1*/ u8 cloakfade_06 : 1;
+	/*0x2e1*/ u8 cloakfadefrac : 7;
+	/*0x2e1*/ u8 cloakfadefinished : 1;
 	/*0x2e2*/ u8 teamscandist;
 	/*0x2e3*/ u8 naturalanim[1];
 	/*0x2e4*/ s32 myspecial; // This is an object tag ID
@@ -1713,7 +1724,11 @@ struct player {
 	/*0x00b8*/ f32 crouchspeed;
 	/*0x00bc*/ struct prop *prop;
 	/*0x00c0*/ bool bondperimenabled;
+
+	// 0x00000040 = cloaking device enabled
+	// 0x00000080 = RCP120 cloak enabled
 	/*0x00c4*/ u32 itemswitch;
+
 	/*0x00c8*/ s32 badrockettime;
 	/*0x00cc*/ u32 unk00cc;
 	/*0x00d0*/ u32 unk00d0;
