@@ -22,7 +22,7 @@ void func0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2);
 u32 func0f022214(void);
 void chrUpdateCloak(struct chrdata *chr);
 u32 func0f022be4(void);
-u32 func0f022cc8(void);
+void chrSetPoisoned(struct chrdata *chr, void *arg1);
 u32 func0f022d60(void);
 u32 func0f022fe0(void);
 u32 func0f023098(void);

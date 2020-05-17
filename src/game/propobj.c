@@ -10536,7 +10536,7 @@ glabel func0f06f0a0
 /*  f06f280:	14410003 */ 	bne	$v0,$at,.L0f06f290
 /*  f06f284:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f06f288:
-/*  f06f288:	0fc08b32 */ 	jal	func0f022cc8
+/*  f06f288:	0fc08b32 */ 	jal	chrSetPoisoned
 /*  f06f28c:	8c640004 */ 	lw	$a0,0x4($v1)
 .L0f06f290:
 /*  f06f290:	3c058007 */ 	lui	$a1,%hi(var80069930)

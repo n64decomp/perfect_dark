@@ -756,7 +756,7 @@ struct chrdata {
 	/*0x350*/ u32 unk350;
 	/*0x354*/ s16 aipunchdodgelist;
 	/*0x356*/ s16 aishootingatmelist;
-	/*0x358*/ u16 poisoncounter;
+	/*0x358*/ s16 poisoncounter;
 	/*0x35a*/ s16 aidarkroomlist;
 	/*0x35c*/ s16 aiplayerdeadlist;
 	/*0x35e*/ u8 dodgerating;

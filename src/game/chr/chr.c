@@ -4681,51 +4681,23 @@ glabel var7f1a87b4
 /*  f022cc4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f022cc8
-/*  f022cc8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f022ccc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f022cd0:	80820007 */ 	lb	$v0,0x7($a0)
-/*  f022cd4:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f022cd8:	00803025 */ 	or	$a2,$a0,$zero
-/*  f022cdc:	1041000d */ 	beq	$v0,$at,.L0f022d14
-/*  f022ce0:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f022ce4:	1041000b */ 	beq	$v0,$at,.L0f022d14
-/*  f022ce8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f022cec:	8c84001c */ 	lw	$a0,0x1c($a0)
-/*  f022cf0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f022cf4:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f022cf8:	15c10006 */ 	bne	$t6,$at,.L0f022d14
-/*  f022cfc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f022d00:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f022d04:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f022d08:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f022d0c:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f022d10:	8fa60018 */ 	lw	$a2,0x18($sp)
-.L0f022d14:
-/*  f022d14:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x318)
-/*  f022d18:	8defa2d8 */ 	lw	$t7,%lo(g_Vars+0x318)($t7)
-/*  f022d1c:	51e00007 */ 	beqzl	$t7,.L0f022d3c
-/*  f022d20:	84c80358 */ 	lh	$t0,0x358($a2)
-/*  f022d24:	84d80358 */ 	lh	$t8,0x358($a2)
-/*  f022d28:	acc500e8 */ 	sw	$a1,0xe8($a2)
-/*  f022d2c:	27190d20 */ 	addiu	$t9,$t8,0xd20
-/*  f022d30:	10000007 */ 	beqz	$zero,.L0f022d50
-/*  f022d34:	a4d90358 */ 	sh	$t9,0x358($a2)
-/*  f022d38:	84c80358 */ 	lh	$t0,0x358($a2)
-.L0f022d3c:
-/*  f022d3c:	24090690 */ 	addiu	$t1,$zero,0x690
-/*  f022d40:	55000004 */ 	bnezl	$t0,.L0f022d54
-/*  f022d44:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f022d48:	a4c90358 */ 	sh	$t1,0x358($a2)
-/*  f022d4c:	acc500e8 */ 	sw	$a1,0xe8($a2)
-.L0f022d50:
-/*  f022d50:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f022d54:
-/*  f022d54:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f022d58:	03e00008 */ 	jr	$ra
-/*  f022d5c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrSetPoisoned(struct chrdata *chr, void *arg1)
+{
+	if (chr->actiontype != ACT_DEAD
+			&& chr->actiontype != ACT_DIE
+			&& chr->prop->type == PROPTYPE_PLAYER) {
+		// This was probably used in a debug print
+		propGetPlayerNum(chr->prop);
+	}
+
+	if (g_Vars.normmplayerisrunning) {
+		chr->unk0e8 = arg1;
+		chr->poisoncounter += 3360;
+	} else if (chr->poisoncounter == 0) {
+		chr->poisoncounter = 1680;
+		chr->unk0e8 = arg1;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f022d60
