@@ -655,7 +655,7 @@ struct chrdata {
 	/*0x164*/ f32 aimendrshoulder;
 	/*0x168*/ f32 aimendback;
 	/*0x16c*/ f32 aimendsideback;
-	/*0x170*/ struct prop *weapons_held[3];
+	/*0x170*/ struct prop *weapons_held[3]; // gun 1, gun 2, hat
 	/*0x17c*/ s8 fireslot[2];
 	/*0x17e*/ s16 target; // index into g_Vars.props
 	/*0x180*/ f32 cshield;

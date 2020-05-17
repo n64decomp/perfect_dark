@@ -2374,7 +2374,7 @@ bool ai0067(void)
 
 	if (obj && obj->prop && obj->prop->parent && obj->prop->parent->type == PROPTYPE_CHR) {
 		struct chrdata *chr = obj->prop->parent->chr;
-		func0f082964(obj->prop, 2);
+		propSetDropped(obj->prop, 2);
 		chr->hidden |= CHRHFLAG_00000001;
 	}
 
@@ -2419,12 +2419,12 @@ bool aiChrDropWeapon(void)
 		setCurrentPlayerNum(prevplayernum);
 	} else if (chr && chr->prop) {
 		if (chr->weapons_held[0]) {
-			func0f082964(chr->weapons_held[0], 1);
+			propSetDropped(chr->weapons_held[0], 1);
 			chr->hidden |= CHRHFLAG_00000001;
 		}
 
 		if (chr->weapons_held[1]) {
-			func0f082964(chr->weapons_held[1], 1);
+			propSetDropped(chr->weapons_held[1], 1);
 			chr->hidden |= CHRHFLAG_00000001;
 		}
 	}

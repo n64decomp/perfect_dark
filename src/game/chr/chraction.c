@@ -1576,13 +1576,13 @@ glabel func0f02f704
 /*  f02f784:	8faf002c */ 	lw	$t7,0x2c($sp)
 /*  f02f788:	11e00003 */ 	beqz	$t7,.L0f02f798
 /*  f02f78c:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f02f790:	0fc20a59 */ 	jal	func0f082964
+/*  f02f790:	0fc20a59 */ 	jal	propSetDropped
 /*  f02f794:	24050002 */ 	addiu	$a1,$zero,0x2
 .L0f02f798:
 /*  f02f798:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*  f02f79c:	50800004 */ 	beqzl	$a0,.L0f02f7b0
 /*  f02f7a0:	8e180014 */ 	lw	$t8,0x14($s0)
-/*  f02f7a4:	0fc20a59 */ 	jal	func0f082964
+/*  f02f7a4:	0fc20a59 */ 	jal	propSetDropped
 /*  f02f7a8:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f02f7ac:	8e180014 */ 	lw	$t8,0x14($s0)
 .L0f02f7b0:
@@ -5087,7 +5087,7 @@ glabel var7f1a8d44
 /*  f032a54:	31d92000 */ 	andi	$t9,$t6,0x2000
 /*  f032a58:	57200007 */ 	bnezl	$t9,.L0f032a78
 /*  f032a5c:	8e040174 */ 	lw	$a0,0x174($s0)
-/*  f032a60:	0fc20a59 */ 	jal	func0f082964
+/*  f032a60:	0fc20a59 */ 	jal	propSetDropped
 /*  f032a64:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f032a68:	8e0f0014 */ 	lw	$t7,0x14($s0)
 /*  f032a6c:	35f80001 */ 	ori	$t8,$t7,0x1
@@ -5101,7 +5101,7 @@ glabel var7f1a8d44
 /*  f032a88:	31d92000 */ 	andi	$t9,$t6,0x2000
 /*  f032a8c:	17200006 */ 	bnez	$t9,.L0f032aa8
 /*  f032a90:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f032a94:	0fc20a59 */ 	jal	func0f082964
+/*  f032a94:	0fc20a59 */ 	jal	propSetDropped
 /*  f032a98:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f032a9c:	8e0f0014 */ 	lw	$t7,0x14($s0)
 /*  f032aa0:	35f80001 */ 	ori	$t8,$t7,0x1
@@ -7887,7 +7887,7 @@ glabel var7f1a8d98
 /*  f035194:	10410008 */ 	beq	$v0,$at,.L0f0351b8
 /*  f035198:	3c0d8007 */ 	lui	$t5,%hi(var80068268)
 /*  f03519c:	8e040178 */ 	lw	$a0,0x178($s0)
-/*  f0351a0:	0fc20a59 */ 	jal	func0f082964
+/*  f0351a0:	0fc20a59 */ 	jal	propSetDropped
 /*  f0351a4:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f0351a8:	8e0a0014 */ 	lw	$t2,0x14($s0)
 /*  f0351ac:	354b0001 */ 	ori	$t3,$t2,0x1
@@ -8590,7 +8590,7 @@ glabel var7f1a8d98
 /*  f035ba0:	10400007 */ 	beqz	$v0,.L0f035bc0
 /*  f035ba4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f035ba8:	ae020300 */ 	sw	$v0,0x300($s0)
-/*  f035bac:	0fc20a59 */ 	jal	func0f082964
+/*  f035bac:	0fc20a59 */ 	jal	propSetDropped
 /*  f035bb0:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f035bb4:	8e080014 */ 	lw	$t0,0x14($s0)
 /*  f035bb8:	350a0001 */ 	ori	$t2,$t0,0x1
@@ -8602,7 +8602,7 @@ glabel var7f1a8d98
 /*  f035bcc:	10400007 */ 	beqz	$v0,.L0f035bec
 /*  f035bd0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f035bd4:	ae020300 */ 	sw	$v0,0x300($s0)
-/*  f035bd8:	0fc20a59 */ 	jal	func0f082964
+/*  f035bd8:	0fc20a59 */ 	jal	propSetDropped
 /*  f035bdc:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f035be0:	8e0b0014 */ 	lw	$t3,0x14($s0)
 /*  f035be4:	356e0001 */ 	ori	$t6,$t3,0x1
@@ -8931,7 +8931,7 @@ glabel var7f1a8d98
 /*  f036074:	318f2000 */ 	andi	$t7,$t4,0x2000
 /*  f036078:	55e00007 */ 	bnezl	$t7,.L0f036098
 /*  f03607c:	8e040174 */ 	lw	$a0,0x174($s0)
-/*  f036080:	0fc20a59 */ 	jal	func0f082964
+/*  f036080:	0fc20a59 */ 	jal	propSetDropped
 /*  f036084:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f036088:	8e180014 */ 	lw	$t8,0x14($s0)
 /*  f03608c:	370d0001 */ 	ori	$t5,$t8,0x1
@@ -8945,7 +8945,7 @@ glabel var7f1a8d98
 /*  f0360a8:	31282000 */ 	andi	$t0,$t1,0x2000
 /*  f0360ac:	5500007a */ 	bnezl	$t0,.L0f036298
 /*  f0360b0:	c7a00080 */ 	lwc1	$f0,0x80($sp)
-/*  f0360b4:	0fc20a59 */ 	jal	func0f082964
+/*  f0360b4:	0fc20a59 */ 	jal	propSetDropped
 /*  f0360b8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0360bc:	8e0a0014 */ 	lw	$t2,0x14($s0)
 /*  f0360c0:	354b0001 */ 	ori	$t3,$t2,0x1
@@ -15079,7 +15079,7 @@ glabel func0f03b97c
 /*  f03ba04:	240f02d0 */ 	addiu	$t7,$zero,0x2d0
 /*  f03ba08:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03ba0c:	a46f0062 */ 	sh	$t7,0x62($v1)
-/*  f03ba10:	0fc20a59 */ 	jal	func0f082964
+/*  f03ba10:	0fc20a59 */ 	jal	propSetDropped
 /*  f03ba14:	8c640014 */ 	lw	$a0,0x14($v1)
 /*  f03ba18:	8e180014 */ 	lw	$t8,0x14($s0)
 /*  f03ba1c:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -16274,7 +16274,7 @@ void chrTickDead(struct chrdata *chr)
 	} else {
 		if (chr->act_dead.unk02c) {
 			chr->act_dead.unk038 = 0;
-			func0f024668(chr);
+			chrDropWeapons(chr);
 		}
 
 		if (chr->prop->flags & PROPFLAG_80) {
@@ -16290,7 +16290,7 @@ void chrTickDead(struct chrdata *chr)
 
 			chr->fadealpha = 0;
 
-			func0f024668(chr);
+			chrDropWeapons(chr);
 		}
 	}
 
@@ -16711,7 +16711,7 @@ glabel chrTickDruggedComingUp
 /*  f03d9f8:	33382000 */ 	andi	$t8,$t9,0x2000
 /*  f03d9fc:	57000007 */ 	bnezl	$t8,.L0f03da1c
 /*  f03da00:	8fc40174 */ 	lw	$a0,0x174($s8)
-/*  f03da04:	0fc20a59 */ 	jal	func0f082964
+/*  f03da04:	0fc20a59 */ 	jal	propSetDropped
 /*  f03da08:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03da0c:	8fce0014 */ 	lw	$t6,0x14($s8)
 /*  f03da10:	35cf0001 */ 	ori	$t7,$t6,0x1
@@ -16725,7 +16725,7 @@ glabel chrTickDruggedComingUp
 /*  f03da2c:	314b2000 */ 	andi	$t3,$t2,0x2000
 /*  f03da30:	15600006 */ 	bnez	$t3,.L0f03da4c
 /*  f03da34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03da38:	0fc20a59 */ 	jal	func0f082964
+/*  f03da38:	0fc20a59 */ 	jal	propSetDropped
 /*  f03da3c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03da40:	8fcc0014 */ 	lw	$t4,0x14($s8)
 /*  f03da44:	358d0001 */ 	ori	$t5,$t4,0x1
@@ -16844,7 +16844,7 @@ void chrTickDruggedKo(struct chrdata *chr)
 	if (pass) {
 		chr->fadealpha = 0;
 		chr->hidden |= CHRHFLAG_00000020;
-		func0f024668(chr);
+		chrDropWeapons(chr);
 	}
 }
 
@@ -23386,7 +23386,7 @@ void chrTickThrowGrenade(struct chrdata *chr)
 			(frame >= 57 && weaponprop && animGetId(animdata) == ANIM_THROWGRENADE_NOPIN) ||
 			(frame >= 58 && weaponprop && animGetId(animdata) == ANIM_THROWGRENADE_CROUCHING)) {
 		weapon = weaponprop->weapon;
-		func0f082964(weaponprop, 3);
+		propSetDropped(weaponprop, 3);
 		chr->hidden |= CHRHFLAG_00000001;
 		weapon->team = 0xf0;
 	}
