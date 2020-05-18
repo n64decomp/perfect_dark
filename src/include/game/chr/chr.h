@@ -24,7 +24,7 @@ void chrUpdateCloak(struct chrdata *chr);
 u32 func0f022be4(void);
 void chrSetPoisoned(struct chrdata *chr, void *arg1);
 u32 func0f022d60(void);
-u32 func0f022fe0(void);
+bool propchrDoFireslotThing(struct prop *prop);
 u32 func0f023098(void);
 void chrDropItems(struct chrdata *chr);
 u32 chrSetHudpieceVisible(struct chrdata *chr, u32 arg1);

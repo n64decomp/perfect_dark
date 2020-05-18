@@ -162,7 +162,7 @@ glabel func0f01e250
 /*  f01e3b8:	026c9026 */ 	xor	$s2,$s3,$t4
 /*  f01e3bc:	16a20005 */ 	bne	$s5,$v0,.L0f01e3d4
 /*  f01e3c0:	2e520001 */ 	sltiu	$s2,$s2,0x1
-/*  f01e3c4:	0fc08bf8 */ 	jal	func0f022fe0
+/*  f01e3c4:	0fc08bf8 */ 	jal	propchrDoFireslotThing
 /*  f01e3c8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01e3cc:	10000020 */ 	beqz	$zero,.L0f01e450
 /*  f01e3d0:	00402825 */ 	or	$a1,$v0,$zero
@@ -4820,60 +4820,28 @@ glabel var7f1a87b8
 /*  f022fdc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f022fe0
-/*  f022fe0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f022fe4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f022fe8:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f022fec:	3c18800a */ 	lui	$t8,%hi(g_Fireslots)
-/*  f022ff0:	2718d150 */ 	addiu	$t8,$t8,%lo(g_Fireslots)
-/*  f022ff4:	8062017c */ 	lb	$v0,0x17c($v1)
-/*  f022ff8:	04400008 */ 	bltz	$v0,.L0f02301c
-/*  f022ffc:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f023000:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f023004:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f023008:	25cf0004 */ 	addiu	$t7,$t6,0x4
-/*  f02300c:	01f82021 */ 	addu	$a0,$t7,$t8
-/*  f023010:	0fc2b6ef */ 	jal	func0f0adbbc
-/*  f023014:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f023018:	8fa3001c */ 	lw	$v1,0x1c($sp)
-.L0f02301c:
-/*  f02301c:	8062017d */ 	lb	$v0,0x17d($v1)
-/*  f023020:	3c09800a */ 	lui	$t1,%hi(g_Fireslots)
-/*  f023024:	2529d150 */ 	addiu	$t1,$t1,%lo(g_Fireslots)
-/*  f023028:	04400008 */ 	bltz	$v0,.L0f02304c
-/*  f02302c:	0002c880 */ 	sll	$t9,$v0,0x2
-/*  f023030:	0322c823 */ 	subu	$t9,$t9,$v0
-/*  f023034:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f023038:	27280004 */ 	addiu	$t0,$t9,0x4
-/*  f02303c:	01092021 */ 	addu	$a0,$t0,$t1
-/*  f023040:	0fc2b6ef */ 	jal	func0f0adbbc
-/*  f023044:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f023048:	8fa3001c */ 	lw	$v1,0x1c($sp)
-.L0f02304c:
-/*  f02304c:	8c6202d4 */ 	lw	$v0,0x2d4($v1)
-/*  f023050:	5040000d */ 	beqzl	$v0,.L0f023088
-/*  f023054:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f023058:	90430058 */ 	lbu	$v1,0x58($v0)
-/*  f02305c:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x38)
-/*  f023060:	58600009 */ 	blezl	$v1,.L0f023088
-/*  f023064:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f023068:	8c849ff8 */ 	lw	$a0,%lo(g_Vars+0x38)($a0)
-/*  f02306c:	0083082a */ 	slt	$at,$a0,$v1
-/*  f023070:	10200003 */ 	beqz	$at,.L0f023080
-/*  f023074:	00645023 */ 	subu	$t2,$v1,$a0
-/*  f023078:	10000002 */ 	beqz	$zero,.L0f023084
-/*  f02307c:	a04a0058 */ 	sb	$t2,0x58($v0)
-.L0f023080:
-/*  f023080:	a0400058 */ 	sb	$zero,0x58($v0)
-.L0f023084:
-/*  f023084:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f023088:
-/*  f023088:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f02308c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f023090:	03e00008 */ 	jr	$ra
-/*  f023094:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool propchrDoFireslotThing(struct prop *prop)
+{
+	struct chrdata *chr = prop->chr;
+
+	if (chr->fireslot[0] >= 0) {
+		func0f0adbbc(&g_Fireslots[chr->fireslot[0]].unk04);
+	}
+
+	if (chr->fireslot[1] >= 0) {
+		func0f0adbbc(&g_Fireslots[chr->fireslot[1]].unk04);
+	}
+
+	if (chr->aibot && chr->aibot->unk058 > 0) {
+		if (chr->aibot->unk058 > g_Vars.lvupdate240_60) {
+			chr->aibot->unk058 -= g_Vars.lvupdate240_60;
+		} else {
+			chr->aibot->unk058 = 0;
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f023098

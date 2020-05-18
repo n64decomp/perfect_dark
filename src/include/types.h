@@ -199,7 +199,7 @@ struct aibot {
 	/*0x04f*/ u8 unk04f_07 : 1;
 	/*0x050*/ u32 unk050;
 	/*0x054*/ u32 unk054;
-	/*0x058*/ u8 unk058;
+	/*0x058*/ u8 unk058; // related to fireslots
 	/*0x059*/ u8 unk059;
 	/*0x05c*/ u32 unk05c;
 	/*0x060*/ u32 unk060;
