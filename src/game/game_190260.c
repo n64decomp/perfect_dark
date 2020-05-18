@@ -488,7 +488,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			dprint();
 
 			if (qty) {
-				aibotGiveAmmo(chr->aibot, crate->ammotype, qty);
+				aibotGiveAmmoByType(chr->aibot, crate->ammotype, qty);
 			}
 
 			func0f0939f8(NULL, prop, 0xea, -1,
@@ -537,7 +537,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				}
 
 				if (qty) {
-					aibotGiveAmmo(chr->aibot, i + 1, qty);
+					aibotGiveAmmoByType(chr->aibot, i + 1, qty);
 				}
 			}
 
@@ -563,7 +563,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				qty = weaponGetPickupAmmoQty(weapon);
 
 				if (qty) {
-					func0f199e3c(chr->aibot, weapon->weapon_id, weapon->dragonthrown, qty);
+					aibotGiveAmmoByWeapon(chr->aibot, weapon->weapon_id, weapon->dragonthrown, qty);
 				}
 
 				if (itemtype) {

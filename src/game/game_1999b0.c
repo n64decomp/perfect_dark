@@ -339,7 +339,7 @@ glabel func0f199d70
 );
 
 GLOBAL_ASM(
-glabel func0f199e3c
+glabel aibotGiveAmmoByWeapon
 /*  f199e3c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f199e40:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f199e44:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -391,8 +391,28 @@ glabel func0f199e3c
 /*  f199ef0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatches because the target saves the heldquantity pointer to the stack
+// before calling to ammotypeGetMaxCapacity, despite it already being saved.
+//void aibotGiveAmmoByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 qty)
+//{
+//	s32 max;
+//	s32 *heldquantity = &aibot->ammotypes->quantities[weaponGetAmmoTypeByFunction(weaponnum, funcnum)];
+//
+//	if (aibot && (aibot->unk064 & 1) == 0 && qty > 0) {
+//		dprint();
+//		*heldquantity += qty;
+//		max = ammotypeGetMaxCapacity(weaponGetAmmoTypeByFunction(weaponnum, funcnum));
+//
+//		if (*heldquantity > max) {
+//			*heldquantity = max;
+//		}
+//
+//		dprint();
+//	}
+//}
+
 GLOBAL_ASM(
-glabel aibotGiveAmmo
+glabel aibotGiveAmmoByType
 /*  f199ef4:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f199ef8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f199efc:	8c8e001c */ 	lw	$t6,0x1c($a0)
@@ -436,7 +456,7 @@ glabel aibotGiveAmmo
 
 // Mismatches because the target saves the heldquantity pointer to the stack
 // before calling to ammotypeGetMaxCapacity, despite it already being saved.
-//void aibotGiveAmmo(struct aibot *aibot, u32 ammotype, s32 quantity)
+//void aibotGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity)
 //{
 //	s32 max;
 //	s32 *heldquantity = &aibot->ammotypes->quantities[ammotype];
