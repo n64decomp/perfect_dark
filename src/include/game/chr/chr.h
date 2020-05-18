@@ -5,7 +5,7 @@
 
 void func0f01e250(void);
 u32 chrSetChrnum(struct chrdata *chr, s16 arg1);
-u32 func0f01e6a4(void);
+void chrRemoveFromChrsC(s32 chrnum);
 u32 func0f01e7f4(void);
 u32 func0f01f264(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, bool arg4);
 void func0f01f378(void);
