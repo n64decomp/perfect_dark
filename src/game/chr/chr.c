@@ -3018,53 +3018,18 @@ void propClearReferences(s32 propnum)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0211a8
-/*  f0211a8:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0211ac:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f0211b0:	3c138006 */ 	lui	$s3,%hi(var80062968)
-/*  f0211b4:	26732968 */ 	addiu	$s3,$s3,%lo(var80062968)
-/*  f0211b8:	e66c0000 */ 	swc1	$f12,0x0($s3)
-/*  f0211bc:	3c028006 */ 	lui	$v0,%hi(g_NumChrsA)
-/*  f0211c0:	8c42298c */ 	lw	$v0,%lo(g_NumChrsA)($v0)
-/*  f0211c4:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f0211c8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0211cc:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f0211d0:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f0211d4:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f0211d8:	18400014 */ 	blez	$v0,.L0f02122c
-/*  f0211dc:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0211e0:	3c014416 */ 	lui	$at,0x4416
-/*  f0211e4:	3c128006 */ 	lui	$s2,%hi(g_ChrsA)
-/*  f0211e8:	4481a000 */ 	mtc1	$at,$f20
-/*  f0211ec:	26522988 */ 	addiu	$s2,$s2,%lo(g_ChrsA)
-/*  f0211f0:	00008025 */ 	or	$s0,$zero,$zero
-.L0f0211f4:
-/*  f0211f4:	8e4e0000 */ 	lw	$t6,0x0($s2)
-/*  f0211f8:	01d07821 */ 	addu	$t7,$t6,$s0
-/*  f0211fc:	8de40020 */ 	lw	$a0,0x20($t7)
-/*  f021200:	50800007 */ 	beqzl	$a0,.L0f021220
-/*  f021204:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f021208:	4406a000 */ 	mfc1	$a2,$f20
-/*  f02120c:	0c0077eb */ 	jal	func0001dfac
-/*  f021210:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f021214:	3c028006 */ 	lui	$v0,%hi(g_NumChrsA)
-/*  f021218:	8c42298c */ 	lw	$v0,%lo(g_NumChrsA)($v0)
-/*  f02121c:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f021220:
-/*  f021220:	0222082a */ 	slt	$at,$s1,$v0
-/*  f021224:	1420fff3 */ 	bnez	$at,.L0f0211f4
-/*  f021228:	26100368 */ 	addiu	$s0,$s0,0x368
-.L0f02122c:
-/*  f02122c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f021230:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f021234:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f021238:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f02123c:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f021240:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f021244:	03e00008 */ 	jr	$ra
-/*  f021248:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void func0f0211a8(f32 arg0)
+{
+	s32 i;
+
+	var80062968 = arg0;
+
+	for (i = 0; i < g_NumChrsA; i++) {
+		if (g_ChrsA[i].animdata) {
+			func0001dfac(g_ChrsA[i].animdata, var80062968, 600);
+		}
+	}
+}
 
 f32 func0f02124c(void)
 {
