@@ -668,7 +668,7 @@ struct chrdata {
 	/*0x18c*/ f32 oldframe;
 	/*0x190*/ s8 footstep;
 	/*0x191*/ u8 floortype;
-	/*0x192*/ u16 hidden2;
+	/*0x192*/ u16 hidden2; // First 3 bits are a number
 	/*0x194*/ f32 magicframe;
 	/*0x198*/ f32 magicspeed;
 	/*0x19c*/ s16 magicanim;

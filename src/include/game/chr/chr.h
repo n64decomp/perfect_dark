@@ -15,7 +15,7 @@ struct prop *func0f020b14(struct prop *prop, struct animdata *animdata, struct c
 void func0f020d44(struct prop *prop, bool arg1);
 u32 func0f021258(void);
 void func0f02133c(struct chrdata *chr);
-u32 func0f0213a0(void);
+void chrDoFlinchcntThing(struct chrdata *chr, f32 arg1);
 u32 func0f02143c(void);
 void func0f021fa8(struct chrdata *chr, struct coord *pos, s16 *room);
 void func0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2);
