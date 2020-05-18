@@ -1048,41 +1048,20 @@ glabel func0f19a6d0
 /*  f19a7cc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19a7d0
-/*  f19a7d0:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f19a7d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19a7d8:	afa40070 */ 	sw	$a0,0x70($sp)
-/*  f19a7dc:	afa50074 */ 	sw	$a1,0x74($sp)
-/*  f19a7e0:	3087ffff */ 	andi	$a3,$a0,0xffff
-/*  f19a7e4:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f19a7e8:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f19a7ec:	0fc456ac */ 	jal	padUnpack
-/*  f19a7f0:	27a6001c */ 	addiu	$a2,$sp,0x1c
-/*  f19a7f4:	8fae0064 */ 	lw	$t6,0x64($sp)
-/*  f19a7f8:	c7a4001c */ 	lwc1	$f4,0x1c($sp)
-/*  f19a7fc:	8fb80074 */ 	lw	$t8,0x74($sp)
-/*  f19a800:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f19a804:	a7af001a */ 	sh	$t7,0x1a($sp)
-/*  f19a808:	a7ae0018 */ 	sh	$t6,0x18($sp)
-/*  f19a80c:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f19a810:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*  f19a814:	00003025 */ 	or	$a2,$zero,$zero
-/*  f19a818:	00003825 */ 	or	$a3,$zero,$zero
-/*  f19a81c:	0c00a8db */ 	jal	func0002a36c
-/*  f19a820:	e7040000 */ 	swc1	$f4,0x0($t8)
-/*  f19a824:	3c014316 */ 	lui	$at,0x4316
-/*  f19a828:	44813000 */ 	mtc1	$at,$f6
-/*  f19a82c:	8fa20074 */ 	lw	$v0,0x74($sp)
-/*  f19a830:	46060200 */ 	add.s	$f8,$f0,$f6
-/*  f19a834:	e4480004 */ 	swc1	$f8,0x4($v0)
-/*  f19a838:	c7aa0024 */ 	lwc1	$f10,0x24($sp)
-/*  f19a83c:	e44a0008 */ 	swc1	$f10,0x8($v0)
-/*  f19a840:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19a844:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*  f19a848:	03e00008 */ 	jr	$ra
-/*  f19a84c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f19a7d0(u16 padnum, struct coord *pos)
+{
+	struct pad pad;
+	s16 rooms[2];
+
+	padUnpack(padnum, PADFIELD_ROOM | PADFIELD_POS, &pad);
+
+	rooms[0] = pad.room;
+	rooms[1] = -1;
+
+	pos->x = pad.pos.x;
+	pos->y = func0002a36c(&pad.pos, rooms, 0, 0) + 150;
+	pos->z = pad.pos.z;
+}
 
 GLOBAL_ASM(
 glabel func0f19a850

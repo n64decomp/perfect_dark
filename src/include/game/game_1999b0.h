@@ -18,7 +18,7 @@ u32 ammotypeGetWeapon(u32 ammotype);
 u32 func0f19a37c(void);
 u32 func0f19a60c(void);
 u32 func0f19a6d0(void);
-u32 func0f19a7d0(void);
+void func0f19a7d0(u16 padnum, struct coord *pos);
 u32 func0f19a850(void);
 
 #endif
