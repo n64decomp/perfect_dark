@@ -4410,7 +4410,7 @@ void chrUpdateCloak(struct chrdata *chr)
 								chr->aibot->unk024 = 0;
 							}
 						} else {
-							ammotype = func0f1999b0(WEAPON_RCP120, 0);
+							ammotype = weaponGetAmmoTypeByFunction(WEAPON_RCP120, 0);
 
 							if (chr->aibot->ammotypes->quantities[ammotype] > 0) {
 								chr->aibot->ammotypes->quantities[ammotype] -= qty;

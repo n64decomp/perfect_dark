@@ -25,29 +25,18 @@
 #include "lib/lib_233c0.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f1999b0
-/*  f1999b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1999b4:	28810002 */ 	slti	$at,$a0,0x2
-/*  f1999b8:	1420000a */ 	bnez	$at,.L0f1999e4
-/*  f1999bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1999c0:	2881005e */ 	slti	$at,$a0,0x5e
-/*  f1999c4:	50200008 */ 	beqzl	$at,.L0f1999e8
-/*  f1999c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1999cc:	0fc2c47b */ 	jal	weaponGetAmmoByFunction
-/*  f1999d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1999d4:	50400004 */ 	beqzl	$v0,.L0f1999e8
-/*  f1999d8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1999dc:	10000002 */ 	beqz	$zero,.L0f1999e8
-/*  f1999e0:	8c420000 */ 	lw	$v0,0x0($v0)
-.L0f1999e4:
-/*  f1999e4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1999e8:
-/*  f1999e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1999ec:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1999f0:	03e00008 */ 	jr	$ra
-/*  f1999f4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 weaponGetAmmoTypeByFunction(s32 weaponnum, u32 funcnum)
+{
+	if (weaponnum >= WEAPON_FALCON2 && weaponnum <= WEAPON_SUICIDEPILL) {
+		struct inventory_ammo *ammo = weaponGetAmmoByFunction(weaponnum, funcnum);
+
+		if (ammo) {
+			return ammo->type;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f1999f8
@@ -202,14 +191,14 @@ glabel func0f199be4
 /*  f199c14:	11e00008 */ 	beqz	$t7,.L0f199c38
 /*  f199c18:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f199c1c:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f199c20:	0fc6666c */ 	jal	func0f1999b0
+/*  f199c20:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
 /*  f199c24:	00c02825 */ 	or	$a1,$a2,$zero
 /*  f199c28:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
 /*  f199c2c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f199c30:	10000007 */ 	beqz	$zero,.L0f199c50
 /*  f199c34:	00401825 */ 	or	$v1,$v0,$zero
 .L0f199c38:
-/*  f199c38:	0fc6666c */ 	jal	func0f1999b0
+/*  f199c38:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
 /*  f199c3c:	8fa50030 */ 	lw	$a1,0x30($sp)
 /*  f199c40:	8e18001c */ 	lw	$t8,0x1c($s0)
 /*  f199c44:	0002c880 */ 	sll	$t9,$v0,0x2
@@ -221,13 +210,13 @@ glabel func0f199be4
 /*  f199c58:	8fa50030 */ 	lw	$a1,0x30($sp)
 /*  f199c5c:	51200012 */ 	beqzl	$t1,.L0f199ca8
 /*  f199c60:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f199c64:	0fc6666c */ 	jal	func0f1999b0
+/*  f199c64:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
 /*  f199c68:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f199c6c:	afa20020 */ 	sw	$v0,0x20($sp)
 /*  f199c70:	8e05004c */ 	lw	$a1,0x4c($s0)
 /*  f199c74:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f199c78:	00055080 */ 	sll	$t2,$a1,0x2
-/*  f199c7c:	0fc6666c */ 	jal	func0f1999b0
+/*  f199c7c:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
 /*  f199c80:	000a2fc2 */ 	srl	$a1,$t2,0x1f
 /*  f199c84:	8fac0020 */ 	lw	$t4,0x20($sp)
 /*  f199c88:	8fa30024 */ 	lw	$v1,0x24($sp)
@@ -280,7 +269,7 @@ glabel func0f199cb8
 /*  f199d24:	afa70020 */ 	sw	$a3,0x20($sp)
 /*  f199d28:	00055880 */ 	sll	$t3,$a1,0x2
 /*  f199d2c:	000b2fc2 */ 	srl	$a1,$t3,0x1f
-/*  f199d30:	0fc6666c */ 	jal	func0f1999b0
+/*  f199d30:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
 /*  f199d34:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f199d38:	8fad0024 */ 	lw	$t5,0x24($sp)
 /*  f199d3c:	8fa3001c */ 	lw	$v1,0x1c($sp)
@@ -308,7 +297,7 @@ glabel func0f199d70
 /*  f199d7c:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f199d80:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f199d84:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f199d88:	0fc6666c */ 	jal	func0f1999b0
+/*  f199d88:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
 /*  f199d8c:	afa7002c */ 	sw	$a3,0x2c($sp)
 /*  f199d90:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f199d94:	00027080 */ 	sll	$t6,$v0,0x2
@@ -369,7 +358,7 @@ glabel func0f199e3c
 /*  f199e4c:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f199e50:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f199e54:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f199e58:	0fc6666c */ 	jal	func0f1999b0
+/*  f199e58:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
 /*  f199e5c:	00c02825 */ 	or	$a1,$a2,$zero
 /*  f199e60:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f199e64:	00027080 */ 	sll	$t6,$v0,0x2
@@ -392,7 +381,7 @@ glabel func0f199e3c
 /*  f199ea8:	ac6b0000 */ 	sw	$t3,0x0($v1)
 /*  f199eac:	8fa50028 */ 	lw	$a1,0x28($sp)
 /*  f199eb0:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f199eb4:	0fc6666c */ 	jal	func0f1999b0
+/*  f199eb4:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
 /*  f199eb8:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f199ebc:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
 /*  f199ec0:	00402025 */ 	or	$a0,$v0,$zero
