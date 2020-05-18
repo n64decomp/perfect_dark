@@ -38,29 +38,18 @@ s32 weaponGetAmmoTypeByFunction(s32 weaponnum, u32 funcnum)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f1999f8
-/*  f1999f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1999fc:	28810002 */ 	slti	$at,$a0,0x2
-/*  f199a00:	1420000a */ 	bnez	$at,.L0f199a2c
-/*  f199a04:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f199a08:	2881005e */ 	slti	$at,$a0,0x5e
-/*  f199a0c:	50200008 */ 	beqzl	$at,.L0f199a30
-/*  f199a10:	00001025 */ 	or	$v0,$zero,$zero
-/*  f199a14:	0fc2c47b */ 	jal	weaponGetAmmoByFunction
-/*  f199a18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f199a1c:	50400004 */ 	beqzl	$v0,.L0f199a30
-/*  f199a20:	00001025 */ 	or	$v0,$zero,$zero
-/*  f199a24:	10000002 */ 	beqz	$zero,.L0f199a30
-/*  f199a28:	84420008 */ 	lh	$v0,0x8($v0)
-.L0f199a2c:
-/*  f199a2c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f199a30:
-/*  f199a30:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f199a34:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f199a38:	03e00008 */ 	jr	$ra
-/*  f199a3c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 weaponGetClipSizeByFunction(s32 weaponnum, u32 funcnum)
+{
+	if (weaponnum >= WEAPON_FALCON2 && weaponnum <= WEAPON_SUICIDEPILL) {
+		struct inventory_ammo *ammo = weaponGetAmmoByFunction(weaponnum, funcnum);
+
+		if (ammo) {
+			return ammo->clipsize;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f199a40
@@ -94,7 +83,7 @@ glabel func0f199a40
 /*  f199aac:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f199ab0:	afa30054 */ 	sw	$v1,0x54($sp)
 /*  f199ab4:	00055880 */ 	sll	$t3,$a1,0x2
-/*  f199ab8:	0fc6667e */ 	jal	func0f1999f8
+/*  f199ab8:	0fc6667e */ 	jal	weaponGetClipSizeByFunction
 /*  f199abc:	000b2fc2 */ 	srl	$a1,$t3,0x1f
 /*  f199ac0:	18400043 */ 	blez	$v0,.L0f199bd0
 /*  f199ac4:	8fa30054 */ 	lw	$v1,0x54($sp)

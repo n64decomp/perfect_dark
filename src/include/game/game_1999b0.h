@@ -4,7 +4,7 @@
 #include "types.h"
 
 s32 weaponGetAmmoTypeByFunction(s32 weaponnum, u32 funcnum);
-u32 func0f1999f8(void);
+s32 weaponGetClipSizeByFunction(s32 weaponnum, u32 funcnum);
 u32 func0f199a40(void);
 s32 func0f199be4(struct aibot *aibot, u32 weaponnum, u32 arg2, u32 arg3);
 u32 func0f199cb8(void);

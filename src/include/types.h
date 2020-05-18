@@ -2705,7 +2705,7 @@ struct weaponfunc_visual {
 struct inventory_ammo {
 	u32 type;
 	u32 casingeject;
-	u16 clipsize;
+	s16 clipsize;
 	u32 *reload_animation;
 	u32 style;
 };
