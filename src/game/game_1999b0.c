@@ -151,7 +151,7 @@ s32 aibotGetAmmoQty(struct aibot *aibot, s32 ammotype, bool include_equipped)
 		if (aibot->unk064 & 1) {
 			qty = ammotypeGetMaxCapacity(ammotype);
 		} else {
-			qty = aibot->ammotypes->quantities[ammotype];
+			qty = aibot->ammoheld[ammotype];
 		}
 
 		if (include_equipped
@@ -163,65 +163,36 @@ s32 aibotGetAmmoQty(struct aibot *aibot, s32 ammotype, bool include_equipped)
 	return qty;
 }
 
-GLOBAL_ASM(
-glabel func0f199d70
-/*  f199d70:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f199d74:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f199d78:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f199d7c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f199d80:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f199d84:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f199d88:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
-/*  f199d8c:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f199d90:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f199d94:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f199d98:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f199d9c:	8c8f001c */ 	lw	$t7,0x1c($a0)
-/*  f199da0:	10800006 */ 	beqz	$a0,.L0f199dbc
-/*  f199da4:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f199da8:	8c780000 */ 	lw	$t8,0x0($v1)
-/*  f199dac:	1b000003 */ 	blez	$t8,.L0f199dbc
-/*  f199db0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f199db4:	5ce00004 */ 	bgtzl	$a3,.L0f199dc8
-/*  f199db8:	94990064 */ 	lhu	$t9,0x64($a0)
-.L0f199dbc:
-/*  f199dbc:	1000001b */ 	beqz	$zero,.L0f199e2c
-/*  f199dc0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f199dc4:	94990064 */ 	lhu	$t9,0x64($a0)
-.L0f199dc8:
-/*  f199dc8:	33280001 */ 	andi	$t0,$t9,0x1
-/*  f199dcc:	51000004 */ 	beqzl	$t0,.L0f199de0
-/*  f199dd0:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f199dd4:	10000015 */ 	beqz	$zero,.L0f199e2c
-/*  f199dd8:	00e01025 */ 	or	$v0,$a3,$zero
-/*  f199ddc:	afa30018 */ 	sw	$v1,0x18($sp)
-.L0f199de0:
-/*  f199de0:	0fc47bba */ 	jal	dprint
-/*  f199de4:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f199de8:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f199dec:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f199df0:	8c690000 */ 	lw	$t1,0x0($v1)
-/*  f199df4:	01275023 */ 	subu	$t2,$t1,$a3
-/*  f199df8:	05410009 */ 	bgez	$t2,.L0f199e20
-/*  f199dfc:	ac6a0000 */ 	sw	$t2,0x0($v1)
-/*  f199e00:	01475821 */ 	addu	$t3,$t2,$a3
-/*  f199e04:	afab001c */ 	sw	$t3,0x1c($sp)
-/*  f199e08:	0fc47bba */ 	jal	dprint
-/*  f199e0c:	ac600000 */ 	sw	$zero,0x0($v1)
-/*  f199e10:	50400006 */ 	beqzl	$v0,.L0f199e2c
-/*  f199e14:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f199e18:	10000004 */ 	beqz	$zero,.L0f199e2c
-/*  f199e1c:	8fa2001c */ 	lw	$v0,0x1c($sp)
-.L0f199e20:
-/*  f199e20:	0fc47bba */ 	jal	dprint
-/*  f199e24:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f199e28:	8fa2001c */ 	lw	$v0,0x1c($sp)
-.L0f199e2c:
-/*  f199e2c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f199e30:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f199e34:	03e00008 */ 	jr	$ra
-/*  f199e38:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f199d70(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 qty)
+{
+	s32 result;
+	s32 *ammoheld = &aibot->ammoheld[weaponGetAmmoTypeByFunction(weaponnum, funcnum)];
+
+	if (!aibot || *ammoheld <= 0 || qty <= 0) {
+		return 0;
+	}
+
+	if (aibot->unk064 & 1) {
+		return qty;
+	}
+
+	dprint();
+	*ammoheld -= qty;
+
+	if (*ammoheld < 0) {
+		result = qty + *ammoheld;
+		*ammoheld = 0;
+
+		if (dprint()) {
+			return result;
+		}
+	} else {
+		result = qty;
+		dprint();
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel aibotGiveAmmoByWeapon

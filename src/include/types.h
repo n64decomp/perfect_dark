@@ -151,10 +151,6 @@ struct animdata {
 	/*0x20*/ struct anim *anim;
 };
 
-struct aibotammotype {
-	s32 quantities[33];
-};
-
 struct aibot {
 	/*0x000*/ u8 unk000;
 	/*0x004*/ struct mpsim *simulant;
@@ -164,7 +160,7 @@ struct aibot {
 	/*0x010*/ struct prop *prop;
 	/*0x014*/ u32 unk014;
 	/*0x018*/ u32 unk018;
-	/*0x01c*/ struct aibotammotype *ammotypes;
+	/*0x01c*/ s32 *ammoheld;
 	/*0x020*/ u32 weaponnum;
 	/*0x024*/ s32 unk024[2]; // probably current clip count or reserve count
 	/*0x02c*/ u16 unk02c[2];

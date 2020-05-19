@@ -4377,7 +4377,7 @@ void chrUpdateCloak(struct chrdata *chr)
 	// Handle ammo decrease and determine if cloak is still enabled
 	if (chr->aibot) {
 		if (chr->aibot->cloakdeviceenabled) {
-			qty = chr->aibot->ammotypes->quantities[AMMOTYPE_CLOAK];
+			qty = chr->aibot->ammoheld[AMMOTYPE_CLOAK];
 
 			if (qty > 0 && !chrIsDead(chr)) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {
@@ -4387,7 +4387,7 @@ void chrUpdateCloak(struct chrdata *chr)
 						qty = 0;
 					}
 
-					chr->aibot->ammotypes->quantities[AMMOTYPE_CLOAK] = qty;
+					chr->aibot->ammoheld[AMMOTYPE_CLOAK] = qty;
 				}
 			} else {
 				chr->aibot->cloakdeviceenabled = false;
@@ -4412,11 +4412,11 @@ void chrUpdateCloak(struct chrdata *chr)
 						} else {
 							ammotype = weaponGetAmmoTypeByFunction(WEAPON_RCP120, 0);
 
-							if (chr->aibot->ammotypes->quantities[ammotype] > 0) {
-								chr->aibot->ammotypes->quantities[ammotype] -= qty;
+							if (chr->aibot->ammoheld[ammotype] > 0) {
+								chr->aibot->ammoheld[ammotype] -= qty;
 
-								if (chr->aibot->ammotypes->quantities[ammotype] <= 0) {
-									chr->aibot->ammotypes->quantities[ammotype] = 0;
+								if (chr->aibot->ammoheld[ammotype] <= 0) {
+									chr->aibot->ammoheld[ammotype] = 0;
 								}
 							}
 						}
