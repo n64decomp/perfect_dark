@@ -51,117 +51,36 @@ s32 weaponGetClipSizeByFunction(s32 weaponnum, u32 funcnum)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f199a40
-/*  f199a40:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f199a44:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*  f199a48:	afb00048 */ 	sw	$s0,0x48($sp)
-/*  f199a4c:	afa60070 */ 	sw	$a2,0x70($sp)
-/*  f199a50:	8c9002d4 */ 	lw	$s0,0x2d4($a0)
-/*  f199a54:	44802000 */ 	mtc1	$zero,$f4
-/*  f199a58:	00057040 */ 	sll	$t6,$a1,0x1
-/*  f199a5c:	00051080 */ 	sll	$v0,$a1,0x2
-/*  f199a60:	020e7821 */ 	addu	$t7,$s0,$t6
-/*  f199a64:	a5e0002c */ 	sh	$zero,0x2c($t7)
-/*  f199a68:	02021821 */ 	addu	$v1,$s0,$v0
-/*  f199a6c:	0082c021 */ 	addu	$t8,$a0,$v0
-/*  f199a70:	e46400e4 */ 	swc1	$f4,0xe4($v1)
-/*  f199a74:	8f190170 */ 	lw	$t9,0x170($t8)
-/*  f199a78:	00803825 */ 	or	$a3,$a0,$zero
-/*  f199a7c:	53200055 */ 	beqzl	$t9,.L0f199bd4
-/*  f199a80:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f199a84:	8e05004c */ 	lw	$a1,0x4c($s0)
-/*  f199a88:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f199a8c:	afa70068 */ 	sw	$a3,0x68($sp)
-/*  f199a90:	00054880 */ 	sll	$t1,$a1,0x2
-/*  f199a94:	00092fc2 */ 	srl	$a1,$t1,0x1f
-/*  f199a98:	0fc668a7 */ 	jal	func0f19a29c
-/*  f199a9c:	afa30054 */ 	sw	$v1,0x54($sp)
-/*  f199aa0:	1440004b */ 	bnez	$v0,.L0f199bd0
-/*  f199aa4:	8fa30054 */ 	lw	$v1,0x54($sp)
-/*  f199aa8:	8e05004c */ 	lw	$a1,0x4c($s0)
-/*  f199aac:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f199ab0:	afa30054 */ 	sw	$v1,0x54($sp)
-/*  f199ab4:	00055880 */ 	sll	$t3,$a1,0x2
-/*  f199ab8:	0fc6667e */ 	jal	weaponGetClipSizeByFunction
-/*  f199abc:	000b2fc2 */ 	srl	$a1,$t3,0x1f
-/*  f199ac0:	18400043 */ 	blez	$v0,.L0f199bd0
-/*  f199ac4:	8fa30054 */ 	lw	$v1,0x54($sp)
-/*  f199ac8:	8e06004c */ 	lw	$a2,0x4c($s0)
-/*  f199acc:	8c6d0024 */ 	lw	$t5,0x24($v1)
-/*  f199ad0:	8e050020 */ 	lw	$a1,0x20($s0)
-/*  f199ad4:	00067080 */ 	sll	$t6,$a2,0x2
-/*  f199ad8:	000e37c2 */ 	srl	$a2,$t6,0x1f
-/*  f199adc:	afa30054 */ 	sw	$v1,0x54($sp)
-/*  f199ae0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f199ae4:	0fc6675c */ 	jal	func0f199d70
-/*  f199ae8:	004d3823 */ 	subu	$a3,$v0,$t5
-/*  f199aec:	18400038 */ 	blez	$v0,.L0f199bd0
-/*  f199af0:	8fa30054 */ 	lw	$v1,0x54($sp)
-/*  f199af4:	8c780024 */ 	lw	$t8,0x24($v1)
-/*  f199af8:	0302c821 */ 	addu	$t9,$t8,$v0
-/*  f199afc:	ac790024 */ 	sw	$t9,0x24($v1)
-/*  f199b00:	8fa90070 */ 	lw	$t1,0x70($sp)
-/*  f199b04:	51200033 */ 	beqzl	$t1,.L0f199bd4
-/*  f199b08:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f199b0c:	8e0a0020 */ 	lw	$t2,0x20($s0)
-/*  f199b10:	24010016 */ 	addiu	$at,$zero,0x16
-/*  f199b14:	00002025 */ 	or	$a0,$zero,$zero
-/*  f199b18:	15410019 */ 	bne	$t2,$at,.L0f199b80
-/*  f199b1c:	8faf0068 */ 	lw	$t7,0x68($sp)
-/*  f199b20:	8fab0068 */ 	lw	$t3,0x68($sp)
-/*  f199b24:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f199b28:	44810000 */ 	mtc1	$at,$f0
-/*  f199b2c:	8d65001c */ 	lw	$a1,0x1c($t3)
-/*  f199b30:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f199b34:	240d0400 */ 	addiu	$t5,$zero,0x400
-/*  f199b38:	240effff */ 	addiu	$t6,$zero,-1
-/*  f199b3c:	afae002c */ 	sw	$t6,0x2c($sp)
-/*  f199b40:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f199b44:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f199b48:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f199b4c:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f199b50:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f199b54:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f199b58:	00002025 */ 	or	$a0,$zero,$zero
-/*  f199b5c:	24060433 */ 	addiu	$a2,$zero,0x433
-/*  f199b60:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f199b64:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f199b68:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f199b6c:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f199b70:	0fc24e7e */ 	jal	func0f0939f8
-/*  f199b74:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f199b78:	10000016 */ 	beqz	$zero,.L0f199bd4
-/*  f199b7c:	8fbf004c */ 	lw	$ra,0x4c($sp)
-.L0f199b80:
-/*  f199b80:	8de5001c */ 	lw	$a1,0x1c($t7)
-/*  f199b84:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f199b88:	44810000 */ 	mtc1	$at,$f0
-/*  f199b8c:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f199b90:	24190400 */ 	addiu	$t9,$zero,0x400
-/*  f199b94:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f199b98:	afa9002c */ 	sw	$t1,0x2c($sp)
-/*  f199b9c:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f199ba0:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f199ba4:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f199ba8:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f199bac:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f199bb0:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f199bb4:	2406804f */ 	addiu	$a2,$zero,-32689
-/*  f199bb8:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f199bbc:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f199bc0:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f199bc4:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f199bc8:	0fc24e7e */ 	jal	func0f0939f8
-/*  f199bcc:	e7a00038 */ 	swc1	$f0,0x38($sp)
-.L0f199bd0:
-/*  f199bd0:	8fbf004c */ 	lw	$ra,0x4c($sp)
-.L0f199bd4:
-/*  f199bd4:	8fb00048 */ 	lw	$s0,0x48($sp)
-/*  f199bd8:	27bd0068 */ 	addiu	$sp,$sp,0x68
-/*  f199bdc:	03e00008 */ 	jr	$ra
-/*  f199be0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f199a40(struct chrdata *chr, u32 index, bool arg2)
+{
+	struct aibot *aibot = chr->aibot;
+	aibot->unk02c[index] = 0;
+	aibot->unk0e4[index] = 0;
+
+	if (chr->weapons_held[index]
+			&& func0f19a29c(aibot->weaponnum, aibot->gunfunc) == 0) {
+		s32 clipsize = weaponGetClipSizeByFunction(aibot->weaponnum, aibot->gunfunc);
+
+		if (clipsize > 0) {
+			s32 a = clipsize - aibot->unk024[index];
+			s32 b = func0f199d70(aibot, aibot->weaponnum, aibot->gunfunc, a);
+
+			if (b > 0) {
+				aibot->unk024[index] += b;
+
+				if (arg2) {
+					if (aibot->weaponnum == WEAPON_FARSIGHTXR20) {
+						func0f0939f8(NULL, chr->prop, 0x433, -1,
+								-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+					} else {
+						func0f0939f8(NULL, chr->prop, 0x804f, -1,
+								-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+					}
+				}
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f199be4
@@ -224,9 +143,9 @@ glabel func0f199be4
 /*  f199cb4:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-u32 aibotGetAmmoQty(struct aibot *aibot, s32 ammotype, bool include_equipped)
+s32 aibotGetAmmoQty(struct aibot *aibot, s32 ammotype, bool include_equipped)
 {
-	u32 qty = 0;
+	s32 qty = 0;
 
 	if (aibot) {
 		if (aibot->unk064 & 1) {
@@ -237,7 +156,7 @@ u32 aibotGetAmmoQty(struct aibot *aibot, s32 ammotype, bool include_equipped)
 
 		if (include_equipped
 				&& weaponGetAmmoTypeByFunction(aibot->weaponnum, aibot->gunfunc) == ammotype) {
-			qty += aibot->unk028 + aibot->unk024;
+			qty += aibot->unk024[1] + aibot->unk024[0];
 		}
 	}
 

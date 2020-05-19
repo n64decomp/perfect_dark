@@ -166,10 +166,8 @@ struct aibot {
 	/*0x018*/ u32 unk018;
 	/*0x01c*/ struct aibotammotype *ammotypes;
 	/*0x020*/ u32 weaponnum;
-	/*0x024*/ s32 unk024; // probably current clip count or reserve count
-	/*0x028*/ u32 unk028; // probably current clip count or reserve count
-	/*0x02c*/ u16 unk02c;
-	/*0x02e*/ u16 unk02e;
+	/*0x024*/ s32 unk024[2]; // probably current clip count or reserve count
+	/*0x02c*/ u16 unk02c[2];
 	/*0x030*/ u32 unk030; // timer of some sort
 	/*0x034*/ u32 unk034;
 	/*0x038*/ u32 unk038;
@@ -247,8 +245,7 @@ struct aibot {
 	/*0x0dc*/ u32 unk0dc;
 	/*0x0e0*/ u16 unk0e0;
 	/*0x0e2*/ u16 unk0e2;
-	/*0x0e4*/ f32 unk0e4;
-	/*0x0e8*/ f32 unk0e8;
+	/*0x0e4*/ f32 unk0e4[2];
 	/*0x0ec*/ u32 unk0ec;
 	/*0x0f0*/ u32 unk0f0;
 	/*0x0f4*/ u32 unk0f4;
