@@ -317,7 +317,7 @@ glabel mpChrReset
 //
 //			func0f197c00(chr);
 //
-//			aibot->unk04c_02 = 0;
+//			aibot->gunfunc = 0;
 //			aibot->unk04c_01 = 1;
 //			aibot->unk09c_00 = 0;
 //			aibot->cloakdeviceenabled = false;
@@ -821,7 +821,7 @@ glabel var7f1b8ea8
 /*  f190e64:	8fae008c */ 	lw	$t6,0x8c($sp)
 /*  f190e68:	00003025 */ 	or	$a2,$zero,$zero
 /*  f190e6c:	8e05005c */ 	lw	$a1,0x5c($s0)
-/*  f190e70:	0fc6672e */ 	jal	func0f199cb8
+/*  f190e70:	0fc6672e */ 	jal	aibotGetAmmoQty
 /*  f190e74:	8dc402d4 */ 	lw	$a0,0x2d4($t6)
 /*  f190e78:	8e04005c */ 	lw	$a0,0x5c($s0)
 /*  f190e7c:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
@@ -863,7 +863,7 @@ glabel var7f1b8ea8
 /*  f190f00:	5b20001d */ 	blezl	$t9,.L0f190f78
 /*  f190f04:	24010013 */ 	addiu	$at,$zero,0x13
 /*  f190f08:	8d0402d4 */ 	lw	$a0,0x2d4($t0)
-/*  f190f0c:	0fc6672e */ 	jal	func0f199cb8
+/*  f190f0c:	0fc6672e */ 	jal	aibotGetAmmoQty
 /*  f190f10:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f190f14:	02002025 */ 	or	$a0,$s0,$zero
 /*  f190f18:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
@@ -4530,7 +4530,7 @@ glabel var7f1b8f50
 /*  f194404:	02e08825 */ 	or	$s1,$s7,$zero
 .L0f194408:
 /*  f194408:	02402825 */ 	or	$a1,$s2,$zero
-/*  f19440c:	0fc6672e */ 	jal	func0f199cb8
+/*  f19440c:	0fc6672e */ 	jal	aibotGetAmmoQty
 /*  f194410:	02803025 */ 	or	$a2,$s4,$zero
 /*  f194414:	0051082a */ 	slt	$at,$v0,$s1
 /*  f194418:	10200008 */ 	beqz	$at,.L0f19443c
@@ -4658,7 +4658,7 @@ glabel var7f1b8f50
 /*  f1945c4:	00408025 */ 	or	$s0,$v0,$zero
 /*  f1945c8:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1945cc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1945d0:	0fc6672e */ 	jal	func0f199cb8
+/*  f1945d0:	0fc6672e */ 	jal	aibotGetAmmoQty
 /*  f1945d4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1945d8:	00409025 */ 	or	$s2,$v0,$zero
 /*  f1945dc:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
