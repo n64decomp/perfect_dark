@@ -12,7 +12,7 @@ s32 func0f199d70(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 qty);
 void aibotGiveAmmoByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 qty);
 void aibotGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity);
 u32 func0f199f84(void);
-bool func0f19a29c(u32 value, bool fallback);
+bool func0f19a29c(u32 weaponnum, bool is_secondary);
 u32 func0f19a2dc(u32 value);
 u32 ammotypeGetWeapon(u32 ammotype);
 u32 func0f19a37c(void);

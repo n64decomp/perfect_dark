@@ -517,18 +517,18 @@ glabel var7f1b90a0
 /*  f19a298:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool func0f19a29c(u32 value, bool fallback)
+bool func0f19a29c(u32 weaponnum, bool is_secondary)
 {
-	switch (value) {
-	case 14:
-	case 15:
-	case 26:
-		return fallback;
-	case 30:
-	case 31:
-	case 32:
-	case 33:
-	case 34:
+	switch (weaponnum) {
+	case WEAPON_LAPTOPGUN:
+	case WEAPON_DRAGON:
+	case WEAPON_COMBATKNIFE:
+		return is_secondary;
+	case WEAPON_GRENADE:
+	case WEAPON_NBOMB:
+	case WEAPON_TIMEDMINE:
+	case WEAPON_PROXIMITYMINE:
+	case WEAPON_REMOTEMINE:
 		return true;
 	}
 
