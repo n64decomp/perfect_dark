@@ -16,7 +16,7 @@ bool func0f19a29c(u32 value, bool fallback);
 u32 func0f19a2dc(u32 value);
 u32 ammotypeGetWeapon(u32 ammotype);
 u32 func0f19a37c(void);
-u32 func0f19a60c(void);
+s32 func0f19a60c(s32 weaponnum, s32 funcnum);
 u32 func0f19a6d0(void);
 void func0f19a7d0(u16 padnum, struct coord *pos);
 u32 func0f19a850(void);

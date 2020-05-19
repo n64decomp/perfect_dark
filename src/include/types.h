@@ -2608,7 +2608,16 @@ struct weaponfunc_shootsingle {
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
+
+	/**
+	 * Setting these 4 bytes to higher values causes slower recoil animations
+	 * after shooting.
+	 */
+	/*0x24*/ s8 unk24;
+	/*0x25*/ s8 unk25;
+	/*0x26*/ s8 unk26;
+	/*0x27*/ s8 unk27;
+
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
 	/*0x30*/ u32 unk30;
@@ -2623,7 +2632,10 @@ struct weaponfunc_shootauto {
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
+	/*0x24*/ s8 unk24;
+	/*0x25*/ s8 unk25;
+	/*0x26*/ s8 unk26;
+	/*0x27*/ s8 unk27;
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
 	/*0x30*/ u32 unk30;
@@ -2643,7 +2655,10 @@ struct weaponfunc_shootprojectile {
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
+	/*0x24*/ s8 unk24;
+	/*0x25*/ s8 unk25;
+	/*0x26*/ s8 unk26;
+	/*0x27*/ s8 unk27;
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
 	/*0x30*/ u32 unk30;

@@ -823,63 +823,33 @@ glabel var7f1b9168
 /*  f19a608:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19a60c
-/*  f19a60c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f19a610:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19a614:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f19a618:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f19a61c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f19a620:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f19a624:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f19a628:	10400024 */ 	beqz	$v0,.L0f19a6bc
-/*  f19a62c:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f19a630:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*  f19a634:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f19a638:	004fc021 */ 	addu	$t8,$v0,$t7
-/*  f19a63c:	8f030014 */ 	lw	$v1,0x14($t8)
-/*  f19a640:	5060001f */ 	beqzl	$v1,.L0f19a6c0
-/*  f19a644:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19a648:	8c620000 */ 	lw	$v0,0x0($v1)
-/*  f19a64c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f19a650:	54410006 */ 	bnel	$v0,$at,.L0f19a66c
-/*  f19a654:	24010101 */ 	addiu	$at,$zero,0x101
-/*  f19a658:	80790024 */ 	lb	$t9,0x24($v1)
-/*  f19a65c:	80680025 */ 	lb	$t0,0x25($v1)
-/*  f19a660:	10000016 */ 	beqz	$zero,.L0f19a6bc
-/*  f19a664:	03283021 */ 	addu	$a2,$t9,$t0
-/*  f19a668:	24010101 */ 	addiu	$at,$zero,0x101
-.L0f19a66c:
-/*  f19a66c:	54410006 */ 	bnel	$v0,$at,.L0f19a688
-/*  f19a670:	24010201 */ 	addiu	$at,$zero,0x201
-/*  f19a674:	80690024 */ 	lb	$t1,0x24($v1)
-/*  f19a678:	806a0025 */ 	lb	$t2,0x25($v1)
-/*  f19a67c:	1000000f */ 	beqz	$zero,.L0f19a6bc
-/*  f19a680:	012a3021 */ 	addu	$a2,$t1,$t2
-/*  f19a684:	24010201 */ 	addiu	$at,$zero,0x201
-.L0f19a688:
-/*  f19a688:	54410006 */ 	bnel	$v0,$at,.L0f19a6a4
-/*  f19a68c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f19a690:	806b0024 */ 	lb	$t3,0x24($v1)
-/*  f19a694:	806c0025 */ 	lb	$t4,0x25($v1)
-/*  f19a698:	10000008 */ 	beqz	$zero,.L0f19a6bc
-/*  f19a69c:	016c3021 */ 	addu	$a2,$t3,$t4
-/*  f19a6a0:	24010003 */ 	addiu	$at,$zero,0x3
-.L0f19a6a4:
-/*  f19a6a4:	14410005 */ 	bne	$v0,$at,.L0f19a6bc
-/*  f19a6a8:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*  f19a6ac:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f19a6b0:	51a10003 */ 	beql	$t5,$at,.L0f19a6c0
-/*  f19a6b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19a6b8:	2406003c */ 	addiu	$a2,$zero,0x3c
-.L0f19a6bc:
-/*  f19a6bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19a6c0:
-/*  f19a6c0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f19a6c4:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f19a6c8:	03e00008 */ 	jr	$ra
-/*  f19a6cc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f19a60c(s32 weaponnum, s32 funcnum)
+{
+	s32 stack[2];
+	s32 iVar4 = 1;
+	struct weapon *weapon = weaponFindById(weaponnum);
+
+	if (weapon) {
+		struct weaponfunc *func = weapon->functions[funcnum];
+
+		if (func) {
+			if (func->type == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
+				struct weaponfunc_shootsingle *func2 = (struct weaponfunc_shootsingle *)func;
+				iVar4 = func2->unk24 + func2->unk25;
+			} else if (func->type == INVENTORYFUNCTYPE_SHOOT_AUTOMATIC) {
+				struct weaponfunc_shootauto *func2 = (struct weaponfunc_shootauto *)func;
+				iVar4 = func2->unk24 + func2->unk25;
+			} else if (func->type == INVENTORYFUNCTYPE_SHOOT_PROJECTILE) {
+				struct weaponfunc_shootprojectile *func2 = (struct weaponfunc_shootprojectile *)func;
+				iVar4 = func2->unk24 + func2->unk25;
+			} else if (func->type == INVENTORYFUNCTYPE_CLOSE && weaponnum != WEAPON_REAPER) {
+				iVar4 = 60;
+			}
+		}
+	}
+
+	return iVar4;
+}
 
 GLOBAL_ASM(
 glabel func0f19a6d0
