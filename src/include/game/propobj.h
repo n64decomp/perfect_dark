@@ -236,7 +236,7 @@ void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
 u32 func0f087638(void);
 u32 func0f087668(void);
 u32 func0f08791c(void);
-void func0f087b0c(u32 arg0);
+void func0f087b0c(u32 ammotype);
 u32 propPlayPickupSound(struct prop *prop, s32 weapon);
 void func0f087d10(s32 weaponnum);
 u32 func0f087e40(void);

@@ -7373,222 +7373,222 @@ bool ai012f(void)
 
 s16 g_GuardQuipBank[][4] = {
 	// Voicebox 0
-	{  0, 0x027b, 0x027b, 0x027c },
-	{  1, 0x027d, 0x027e, 0x027f },
-	{  2, 0x028a, 0x028b, 0x028c },
-	{  3, 0x035b, 0x035c, 0x035d },
-	{  4, 0x0290, 0x80fb, 0x0292 },
-	{  5, 0x0293, 0x0294, 0x029d },
-	{  6, 0x0297, 0x0298, 0x0299 },
-	{  7, 0x029a, 0x029b, 0x029c },
-	{  8, 0x02a7, 0x02a8, 0x02a9 },
-	{  9, 0x026b, 0x026c, 0x026d },
-	{ 10, 0x0037, 0x0037, 0x0037 },
-	{ 11, 0x0264, 0x0265, 0x0266 },
-	{ 12, 0x80f7, 0x80f7, 0x80f8 },
-	{ 13, 0x025e, 0x025f, 0x0260 },
-	{ 14, 0x0261, 0x0262, 0x0263 },
-	{ 15, 0x02a3, 0x02a4, 0x02a5 },
-	{ 16, 0x0272, 0x0273, 0x0274 },
-	{ 34, 0x0037, 0x0037, 0x0037 },
-	{ 18, 0x025b, 0x025c, 0x025c },
-	{ 19, 0x026e, 0x026f, 0x0270 },
-	{ 20, 0x0037, 0x0037, 0x0037 },
-	{ 21, 0x0280, 0x0281, 0x0282 },
-	{ 22, 0x80f9, 0x80f9, 0x0287 },
-	{ 23, 0x80fa, 0x80fa, 0x0289 },
-	{ 24, 0x028d, 0x028e, 0x028f },
-	{ 25, 0x80fc, 0x80fd, 0x02a2 },
-	{ 26, 0x0037, 0x0037, 0x0037 },
-	{ 27, 0x0275, 0x0277, 0x0278 },
-	{ 28, 0x8167, 0x04c9, 0x04ca },
-	{ 29, 0x815d, 0x815e, 0x815f },
-	{ 30, 0x1aa0, 0x1aa1, 0x1aa2 },
-	{ 31, 0x0037, 0x1aa3, 0x1aa4 },
-	{ 32, 0x1aa5, 0x1aa5, 0x1aa6 },
-	{ 33, 0x04c6, 0x04c6, 0x04c6 },
-	{ 34, 0x04c7, 0x04c7, 0x04c7 },
-	{ 35, 0x04cb, 0x04cb, 0x04cc },
-	{ 36, 0x027b, 0x027b, 0x027d },
-	{ 37, 0x027b, 0x027d, 0x027d },
-	{ 38, 0x02a3, 0x02a4, 0x02a5 },
-	{ 39, 0x04c6, 0x04c6, 0x04c6 },
-	{ 40, 0x1aa6, 0x1aa6, 0x1aa6 },
+	{ QUIP_ATTACK1,            0x027b, 0x027b, 0x027c }, // "I've got a clear shot", "She's mine"
+	{ QUIP_ATTACK2,            0x027d, 0x027e, 0x027f }, // "Open fire", "Wipe her out", "Waste her"
+	{ QUIP_GOTOCOVER1,         0x028a, 0x028b, 0x028c }, // "Cover me", "Watch my back", "Take cover"
+	{ QUIP_GRENADE1,           0x035b, 0x035c, 0x035d }, // "Look out, look out", "It's a grenade", "Clear the area"
+	{ QUIP_RETREAT1,           0x0290, 0x80fb, 0x0292 }, // "Go to plan B", "Get the hell out of here", "Retreat"
+	{ QUIP_GRENADE2,           0x0293, 0x0294, 0x029d }, // "Catch", "Everybody down", "Grenade"
+	{ QUIP_RETREAT2,           0x0297, 0x0298, 0x0299 }, // "Fall back", "Everyone back off", "Withdraw"
+	{ QUIP_FLANK,              0x029a, 0x029b, 0x029c }, // "Flank the target", "Let's split up", "Surround her"
+	{ QUIP_SURRENDER,          0x02a7, 0x02a8, 0x02a9 }, // "Please, don't shoot me", "I give up", "You win, I surrender"
+	{ QUIP_HEARNOISE,          0x026b, 0x026c, 0x026d }, // "Did you hear that?", "What's that noise?", "I heard a noise"
+	{ QUIP_10,                 0x0037, 0x0037, 0x0037 },
+	{ QUIP_SEEPLAYER,          0x0264, 0x0265, 0x0266 }, // "Hey, you", "Intruder alert", "We've got a contact"
+	{ QUIP_SHOTUNALERT,        0x80f7, 0x80f7, 0x80f8 }, // "Holy shh", "What the hell?"
+	{ QUIP_INJURED1,           0x025e, 0x025f, 0x0260 }, // "Medic!", "Ow!", "You shot me!"
+	{ QUIP_INJURED2,           0x0261, 0x0262, 0x0263 }, // "I'm hit, I'm hit!", "I'm taking fire!", "Taking damage!"
+	{ QUIP_KILLEDPLAYER1,      0x02a3, 0x02a4, 0x02a5 }, // "Grab a body bag", "One for the morgue", "Rest in peace"
+	{ QUIP_WARNFRIENDS,        0x0272, 0x0273, 0x0274 }, // "Intruder alert", "We've got trouble", "We've got problems"
+	{ QUIP_GOFORALARM,         0x0037, 0x0037, 0x0037 },
+	{ QUIP_SURPRISED,          0x025b, 0x025c, 0x025c }, // "What the?", "Who the?"
+	{ QUIP_INSPECTBODY,        0x026e, 0x026f, 0x0270 }, // "Are you okay?", "Got a man down!", "He's bought it"
+	{ QUIP_20,                 0x0037, 0x0037, 0x0037 },
+	{ QUIP_HITPLAYER,          0x0280, 0x0281, 0x0282 }, // "Give it up!", "Surrender, now!", "Take that!"
+	{ QUIP_MISSEDPLAYER1,      0x80f9, 0x80f9, 0x0287 }, // "Damn it, missed", "How did I miss?"
+	{ QUIP_MISSEDPLAYER2,      0x80fa, 0x80fa, 0x0289 }, // "God sake, someone hit her", "She's a tricky one"
+	{ QUIP_GOTOCOVER2,         0x028d, 0x028e, 0x028f }, // "Take cover", "I'll cover you", "Get down!"
+	{ QUIP_DIE,                0x80fc, 0x80fd, 0x02a2 }, // "You bitch", "Oh my god", "She got me"
+	{ QUIP_26,                 0x0037, 0x0037, 0x0037 },
+	{ QUIP_SEARCHSUCCESS,      0x0275, 0x0277, 0x0278 }, // "I see her", "There she is", "There, movement"
+	{ QUIP_SEEEYESPY,          0x8167, 0x04c9, 0x04ca }, // "What the hell?", "Hello there", "What's this?"
+	{ QUIP_GREETING,           0x815d, 0x815e, 0x815f }, // "How's things?", "Hey there", "Hi, how are you?"
+	{ QUIP_ASKWEAPON1,         0x1aa0, 0x1aa1, 0x1aa2 }, // "Where did you get that?", "Should you have that?", "What are you doing with that weapon?"
+	{ QUIP_ASKWEAPON2,         0x0037, 0x1aa3, 0x1aa4 }, // "Don't point that at me", "Watch where you're pointing that"
+	{ QUIP_UNCOVERDISGUISE1,   0x1aa5, 0x1aa5, 0x1aa6 }, // "Imposter!", "It's a spy!"
+	{ QUIP_LOSTGUN,            0x04c6, 0x04c6, 0x04c6 }, // "My gun!"
+	{ QUIP_GOFORALARM,         0x04c7, 0x04c7, 0x04c7 }, // "Trigger the alarm"
+	{ QUIP_SEARCHFAIL,         0x04cb, 0x04cb, 0x04cc }, // "I'm sure I heard a noise", "I must be hearing things"
+	{ QUIP_ATTACK3,            0x027b, 0x027b, 0x027d }, // "I've got a clear shot", "Open fire!"
+	{ QUIP_ATTACK4,            0x027b, 0x027d, 0x027d }, // "I've got a clear shot", "Open fire!"
+	{ QUIP_KILLEDPLAYER2,      0x02a3, 0x02a4, 0x02a5 }, // "Grab a body bag", "One for the morgue", "Rest in peace"
+	{ QUIP_GUNJAMMED,          0x04c6, 0x04c6, 0x04c6 }, // "My gun!"
+	{ QUIP_UNCOVEREDDISGUISE2, 0x1aa6, 0x1aa6, 0x1aa6 }, // "It's a spy!"
 	// Voicebox 1
-	{  0, 0x0322, 0x0323, 0x0324 },
-	{  1, 0x0325, 0x0326, 0x0327 },
-	{  2, 0x812e, 0x0335, 0x0336 },
-	{  3, 0x035b, 0x035c, 0x035d },
-	{  4, 0x033a, 0x033b, 0x033c },
-	{  5, 0x033d, 0x033f, 0x0342 },
-	{  6, 0x0343, 0x0344, 0x0345 },
-	{  7, 0x0346, 0x0347, 0x0348 },
-	{  8, 0x0349, 0x034a, 0x034b },
-	{  9, 0x030e, 0x030f, 0x0310 },
-	{ 10, 0x0037, 0x0037, 0x0037 },
-	{ 11, 0x0306, 0x0307, 0x0308 },
-	{ 12, 0x0309, 0x8128, 0x030b },
-	{ 13, 0x8126, 0x0301, 0x0302 },
-	{ 14, 0x8127, 0x0304, 0x0305 },
-	{ 15, 0x0037, 0x0037, 0x0037 },
-	{ 16, 0x031c, 0x031d, 0x031e },
-	{ 34, 0x0037, 0x0037, 0x0037 },
-	{ 18, 0x8124, 0x8125, 0x02ff },
-	{ 19, 0x8129, 0x812a, 0x0316 },
-	{ 20, 0x031c, 0x031d, 0x031e },
-	{ 21, 0x0356, 0x0329, 0x0329 },
-	{ 22, 0x812b, 0x032f, 0x812c },
-	{ 23, 0x0331, 0x0332, 0x812d },
-	{ 24, 0x0337, 0x0338, 0x0339 },
-	{ 25, 0x812f, 0x034d, 0x034e },
-	{ 26, 0x0355, 0x0356, 0x0357 },
-	{ 27, 0x031f, 0x0320, 0x0321 },
-	{ 28, 0x04cf, 0x04d0, 0x04d1 },
-	{ 29, 0x8163, 0x8163, 0x8164 },
-	{ 30, 0x1ace, 0x1ace, 0x1acf },
-	{ 31, 0x1ad0, 0x1ad0, 0x1ad1 },
-	{ 32, 0x1ad2, 0x1ad2, 0x1ad3 },
-	{ 33, 0x8168, 0x8168, 0x8168 },
-	{ 34, 0x04ce, 0x04ce, 0x04ce },
-	{ 35, 0x04d2, 0x04d3, 0x04d3 },
-	{ 36, 0x0322, 0x0323, 0x0324 },
-	{ 37, 0x0324, 0x0327, 0x0327 },
-	{ 38, 0x0356, 0x0357, 0x035a },
-	{ 39, 0x812b, 0x032f, 0x812c },
-	{ 40, 0x1ad2, 0x1ad2, 0x1ad2 },
+	{ QUIP_ATTACK1,            0x0322, 0x0323, 0x0324 }, // "You made your last mistake", "What are you waiting for?", "Bring it on"
+	{ QUIP_ATTACK2,            0x0325, 0x0326, 0x0327 }, // "Take her down, men!", "Everybody, get her!", "Attack!"
+	{ QUIP_GOTOCOVER1,         0x812e, 0x0335, 0x0336 }, // "Cover my ass", "Cover me, now!", "I'm going for cover"
+	{ QUIP_GRENADE1,           0x035b, 0x035c, 0x035d }, // "Look out, look out!", "It's a grenade", "Clear the area"
+	{ QUIP_RETREAT1,           0x033a, 0x033b, 0x033c }, // "She's too good, run!", "Get some backup!", "Evacuate the area!"
+	{ QUIP_GRENADE2,           0x033d, 0x033f, 0x0342 }, // "Catch this", "Here, keep it", "Grenade!"
+	{ QUIP_RETREAT2,           0x0343, 0x0344, 0x0345 }, // "Withdraw, withdraw!", "Fall back!", "Everyone, get back!"
+	{ QUIP_FLANK,              0x0346, 0x0347, 0x0348 }, // "Surround her!", "Spread out!", "Split up!"
+	{ QUIP_SURRENDER,          0x0349, 0x034a, 0x034b }, // "Please don't", "Don't shoot", "I'm only doing my job"
+	{ QUIP_HEARNOISE,          0x030e, 0x030f, 0x0310 }, // "That sounded like...", "Gunfire!", "Someone's shooting!"
+	{ QUIP_10,                 0x0037, 0x0037, 0x0037 },
+	{ QUIP_SEEPLAYER,          0x0306, 0x0307, 0x0308 }, // "Come here", "There's someone here", "Get her"
+	{ QUIP_SHOTUNALERT,        0x0309, 0x8128, 0x030b }, // "Whoa!", "My god", "Is that a bullet?"
+	{ QUIP_INJURED1,           0x8126, 0x0301, 0x0302 }, // "Oh my god", "I'm hit, I'm hit!", "I'm bleeding"
+	{ QUIP_INJURED2,           0x8127, 0x0304, 0x0305 }, // "Oh god I'm hit", "Help me out", "I'm in trouble"
+	{ QUIP_KILLEDPLAYER1,      0x0037, 0x0037, 0x0037 },
+	{ QUIP_WARNFRIENDS,        0x031c, 0x031d, 0x031e }, // "Look out, she's coming!", "Take cover!", "Look out, look out"
+	{ QUIP_GOFORALARM,         0x0037, 0x0037, 0x0037 },
+	{ QUIP_SURPRISED,          0x8124, 0x8125, 0x02ff }, // "Holy...", "What the hell?", "Wha?"
+	{ QUIP_INSPECTBODY,        0x8129, 0x812a, 0x0316 }, // "Noooo!", "Oh god he's dead!", "He's gone!"
+	{ QUIP_20,                 0x031c, 0x031d, 0x031e }, // "Look out, she's coming!", "Take cover!", "Look out, look out"
+	{ QUIP_HITPLAYER,          0x0356, 0x0329, 0x0329 }, // "I'm just too good", "Yeah baby"
+	{ QUIP_MISSEDPLAYER1,      0x812b, 0x032f, 0x812c }, // "Bloody stupid gun", "My gun, it's useless", "Damn it"
+	{ QUIP_MISSEDPLAYER2,      0x0331, 0x0332, 0x812d }, // "Stop dodging", "Someone hit her", "Damn, she's good"
+	{ QUIP_GOTOCOVER2,         0x0337, 0x0338, 0x0339 }, // "Go for it", "Go go, go!", "Run!"
+	{ QUIP_DIE,                0x812f, 0x034d, 0x034e }, // Death scream, "Why me", choking
+	{ QUIP_26,                 0x0355, 0x0356, 0x0357 }, // "Outstanding", "I'm just too good"
+	{ QUIP_SEARCHSUCCESS,      0x031f, 0x0320, 0x0321 }, // "Over there", "Halt", "Freeze"
+	{ QUIP_SEEEYESPY,          0x04cf, 0x04d0, 0x04d1 }, // "What is it?", "How did that get here?", "Don't touch it!"
+	{ QUIP_GREETING,           0x8163, 0x8163, 0x8164 }, // "Hi there", "How's things?"
+	{ QUIP_ASKWEAPON1,         0x1ace, 0x1ace, 0x1acf }, // "Where are you taking that weapon?", "Get that firearm approved, now!"
+	{ QUIP_ASKWEAPON2,         0x1ad0, 0x1ad0, 0x1ad1 }, // "Hey watch what you're doing with that", "Be careful!"
+	{ QUIP_UNCOVERDISGUISE1,   0x1ad2, 0x1ad2, 0x1ad3 }, // "Stop right there", "Drop the gun"
+	{ QUIP_LOSTGUN,            0x8168, 0x8168, 0x8168 }, // "Geez"
+	{ QUIP_GOFORALARM,         0x04ce, 0x04ce, 0x04ce }, // "Warn the others"
+	{ QUIP_SEARCHFAIL,         0x04d2, 0x04d3, 0x04d3 }, // "I can't see anybody", "There's no one here"
+	{ QUIP_ATTACK3,            0x0322, 0x0323, 0x0324 }, // "You made your last mistake", "What are you waiting for?", "Bring it on"
+	{ QUIP_ATTACK4,            0x0324, 0x0327, 0x0327 }, // "Bring it on", "Attack!"
+	{ QUIP_KILLEDPLAYER2,      0x0356, 0x0357, 0x035a }, // "I'm just too good", "Yee-ha, got one", "Another one bites the dust"
+	{ QUIP_GUNJAMMED,          0x812b, 0x032f, 0x812c }, // "Bloody stupid gun", "My gun, it's useless", "Damn it"
+	{ QUIP_UNCOVEREDDISGUISE2, 0x1ad2, 0x1ad2, 0x1ad2 }, // "Stop right there!"
 	// Voicebox 2
-	{  0, 0x03e7, 0x03e8, 0x03e9 },
-	{  1, 0x03ea, 0x03eb, 0x03ec },
-	{  2, 0x03f9, 0x03fa, 0x03fb },
-	{  3, 0x0420, 0x0421, 0x813d },
-	{  4, 0x03ff, 0x8139, 0x0401 },
-	{  5, 0x0403, 0x0405, 0x0407 },
-	{  6, 0x0408, 0x0409, 0x040a },
-	{  7, 0x040b, 0x040c, 0x040d },
-	{  8, 0x040e, 0x040f, 0x0410 },
-	{  9, 0x03d6, 0x03d6, 0x03d7 },
-	{ 10, 0x0037, 0x0037, 0x0037 },
-	{ 11, 0x03d0, 0x03d1, 0x8134 },
-	{ 12, 0x03d3, 0x8135, 0x03d5 },
-	{ 13, 0x8132, 0x03c8, 0x03c8 },
-	{ 14, 0x03cd, 0x03ce, 0x8133 },
-	{ 15, 0x0037, 0x0037, 0x0037 },
-	{ 16, 0x03e1, 0x03e2, 0x03e3 },
-	{ 34, 0x0037, 0x0037, 0x0037 },
-	{ 18, 0x03c4, 0x03c5, 0x03c6 },
-	{ 19, 0x03d9, 0x03da, 0x03db },
-	{ 20, 0x031c, 0x031d, 0x031e },
-	{ 21, 0x03ed, 0x03ee, 0x03ef },
-	{ 22, 0x8136, 0x03f4, 0x8137 },
-	{ 23, 0x8138, 0x03f7, 0x03f8 },
-	{ 24, 0x03fc, 0x03fd, 0x03fe },
-	{ 25, 0x813a, 0x813c, 0x0415 },
-	{ 26, 0x041b, 0x041c, 0x041d },
-	{ 27, 0x03e4, 0x03e5, 0x03e6 },
-	{ 28, 0x04d5, 0x04d6, 0x04d7 },
-	{ 29, 0x8165, 0x8165, 0x8166 },
-	{ 30, 0x1ad6, 0x1ad6, 0x1ad7 },
-	{ 31, 0x1ad8, 0x1ad8, 0x1ad9 },
-	{ 32, 0x1ada, 0x1ada, 0x1adb },
-	{ 33, 0x8168, 0x8168, 0x8168 },
-	{ 34, 0x04d4, 0x04d4, 0x04d4 },
-	{ 35, 0x04d8, 0x04d8, 0x04d9 },
-	{ 36, 0x03e7, 0x03e8, 0x03e9 },
-	{ 37, 0x03e8, 0x03eb, 0x03eb },
-	{ 38, 0x041b, 0x0417, 0x041d },
-	{ 39, 0x8134, 0x03f4, 0x8134 },
-	{ 40, 0x1adb, 0x1adb, 0x1adb },
-	// Voicebox 3
-	{  0, 0x0396, 0x0396, 0x0396 },
-	{  1, 0x0037, 0x0398, 0x0399 },
-	{  2, 0x03a4, 0x0037, 0x03a6 },
-	{  3, 0x03c1, 0x03c2, 0x03c2 },
-	{  4, 0x03aa, 0x03ab, 0x03ac },
-	{  5, 0x03ad, 0x03ae, 0x0037 },
-	{  6, 0x03b0, 0x03b0, 0x03b1 },
-	{  7, 0x0037, 0x03b3, 0x03b4 },
-	{  8, 0x03b5, 0x03b5, 0x03b6 },
-	{  9, 0x0037, 0x0389, 0x038a },
-	{ 10, 0x0000, 0x0000, 0x0000 },
-	{ 11, 0x0381, 0x0382, 0x0037 },
-	{ 12, 0x0385, 0x0037, 0x0387 },
-	{ 13, 0x0037, 0x037e, 0x037f },
-	{ 14, 0x037e, 0x037f, 0x0380 },
-	{ 15, 0x0000, 0x0000, 0x0000 },
-	{ 16, 0x0384, 0x0385, 0x0037 },
-	{ 34, 0x03aa, 0x03ab, 0x03ac },
-	{ 18, 0x0037, 0x037b, 0x037c },
-	{ 19, 0x038d, 0x038d, 0x038d },
-	{ 20, 0x0384, 0x0385, 0x0387 },
-	{ 21, 0x039a, 0x039b, 0x0037 },
-	{ 22, 0x039f, 0x0037, 0x03a1 },
-	{ 23, 0x03a1, 0x03a2, 0x8130 },
-	{ 24, 0x03a7, 0x0037, 0x03a9 },
-	{ 25, 0x03b7, 0x03b8, 0x8131 },
-	{ 26, 0x03be, 0x0037, 0x03c0 },
-	{ 27, 0x0381, 0x0382, 0x0037 },
-	{ 28, 0x0000, 0x0000, 0x0000 },
-	{ 29, 0x0037, 0x0396, 0x0037 },
-	{ 30, 0x0037, 0x0396, 0x0037 },
-	{ 31, 0x0037, 0x0396, 0x0037 },
-	{ 32, 0x0037, 0x0396, 0x0037 },
-	{ 33, 0x037b, 0x037c, 0x037b },
-	{ 34, 0x03aa, 0x03b1, 0x03ab },
-	{ 35, 0x0000, 0x0000, 0x0000 },
-	{ 36, 0x0396, 0x0396, 0x0399 },
-	{ 37, 0x0399, 0x0399, 0x0396 },
-	{ 38, 0x03bc, 0x03be, 0x03c0 },
-	{ 39, 0x039f, 0x039f, 0x039f },
-	{ 40, 0x0000, 0x0000, 0x0000 },
+	{ QUIP_ATTACK1,            0x03e7, 0x03e8, 0x03e9 }, // "Come on, man", "Die", "Take this"
+	{ QUIP_ATTACK2,            0x03ea, 0x03eb, 0x03ec }, // "Move in", "You're out of your league", "Let her have it"
+	{ QUIP_GOTOCOVER1,         0x03f9, 0x03fa, 0x03fb }, // "Help me out here", "Hey, distract her", "Keep her occupied"
+	{ QUIP_GRENADE1,           0x0420, 0x0421, 0x813d }, // "Get back, quick!", "We're gonna die!", "God, run!"
+	{ QUIP_RETREAT1,           0x03ff, 0x8139, 0x0401 }, // "Retreat!", "Let's get the hell out of here", "Get back, get back!"
+	{ QUIP_GRENADE2,           0x0403, 0x0405, 0x0407 }, // "Fire in the hole", "Here's a little present for ya", "Try this for size"
+	{ QUIP_RETREAT2,           0x0408, 0x0409, 0x040a }, // "Get out of the way!", "Fall back!", "Move out"
+	{ QUIP_FLANK,              0x040b, 0x040c, 0x040d }, // "Team up, guys", "Come on, around the side", "Scatter!"
+	{ QUIP_SURRENDER,          0x040e, 0x040f, 0x0410 }, // "I don't like this any more", "Don't hurt me", "You win, I give up"
+	{ QUIP_HEARNOISE,          0x03d6, 0x03d6, 0x03d7 }, // "Listen, gunshots", "Someone's nearby"
+	{ QUIP_10,                 0x0037, 0x0037, 0x0037 },
+	{ QUIP_SEEPLAYER,          0x03d0, 0x03d1, 0x8134 }, // "Target sighted", "Come on, man", "God damn it"
+	{ QUIP_SHOTUNALERT,        0x03d3, 0x8135, 0x03d5 }, // "That was close", "Holy moly", "Ay caramba"
+	{ QUIP_INJURED1,           0x8132, 0x03c8, 0x03c8 }, // "Geez, that hurt", "Why you..."
+	{ QUIP_INJURED2,           0x03cd, 0x03ce, 0x8133 }, // "I'm injured", "I'm hit, I'm hit", "Damn it, I'm taking fire!"
+	{ QUIP_KILLEDPLAYER1,      0x0037, 0x0037, 0x0037 },
+	{ QUIP_WARNFRIENDS,        0x03e1, 0x03e2, 0x03e3 }, // "Watch out!", "Help me out", "We've got an intruder"
+	{ QUIP_GOFORALARM,         0x0037, 0x0037, 0x0037 },
+	{ QUIP_SURPRISED,          0x03c4, 0x03c5, 0x03c6 }, // "How the?", "Hey", "Stop"
+	{ QUIP_INSPECTBODY,        0x03d9, 0x03da, 0x03db }, // "Body count's too high!", "I never liked him anyway", "That was my best friend"
+	{ QUIP_20,                 0x031c, 0x031d, 0x031e }, // "Look out, she's coming!", "Take cover!", "Look out, look out"
+	{ QUIP_HITPLAYER,          0x03ed, 0x03ee, 0x03ef }, // "Surrender or die", "I have you now", "You won't beat me"
+	{ QUIP_MISSEDPLAYER1,      0x8136, 0x03f4, 0x8137 }, // "Damn, missed again", "I don't believe it", "Damn you"
+	{ QUIP_MISSEDPLAYER2,      0x8138, 0x03f7, 0x03f8 }, // "Hell, she's good", "Stop moving", "No escape for you"
+	{ QUIP_GOTOCOVER2,         0x03fc, 0x03fd, 0x03fe }, // "Move it, move it", "Get to cover now", "Run for it"
+	{ QUIP_DIE,                0x813a, 0x813c, 0x0415 }, // "Noooo!", "Oh god, I'm dying", "I don't want to die"
+	{ QUIP_26,                 0x041b, 0x041c, 0x041d }, // "I'm the man", "Boy that was close", "Did you see that?"
+	{ QUIP_SEARCHSUCCESS,      0x03e4, 0x03e5, 0x03e6 }, // "Get her!", "There, attack!", "Hey, you, stop!"
+	{ QUIP_SEEEYESPY,          0x04d5, 0x04d6, 0x04d7 }, // "Is it dangerous?", "Don't move", "Stay back"
+	{ QUIP_GREETING,           0x8165, 0x8165, 0x8166 }, // "Hello", "Hey, what's up?"
+	{ QUIP_ASKWEAPON1,         0x1ad6, 0x1ad6, 0x1ad7 }, // "Do you have permission for that?", "What are you doing with that gun?"
+	{ QUIP_ASKWEAPON2,         0x1ad8, 0x1ad8, 0x1ad9 }, // "Hey, that's dangerous", "Watch it, that thing could go off"
+	{ QUIP_UNCOVERDISGUISE1,   0x1ada, 0x1ada, 0x1adb }, // "Put your hands up", "It's a terrorist!"
+	{ QUIP_LOSTGUN,            0x8168, 0x8168, 0x8168 }, // "Geez"
+	{ QUIP_GOFORALARM,         0x04d4, 0x04d4, 0x04d4 }, // "Activate the alarm!"
+	{ QUIP_SEARCHFAIL,         0x04d8, 0x04d8, 0x04d9 }, // "I bet this is another drill", "Another false alarm"
+	{ QUIP_ATTACK3,            0x03e7, 0x03e8, 0x03e9 }, // "Come on, man", "Die", "Take this"
+	{ QUIP_ATTACK4,            0x03e8, 0x03eb, 0x03eb }, // "Die", "You're out of your league"
+	{ QUIP_KILLEDPLAYER2,      0x041b, 0x0417, 0x041d }, // "I'm the man", "It's all over for this one", "Did you see that?"
+	{ QUIP_GUNJAMMED,          0x8134, 0x03f4, 0x8134 }, // "God damn it", "I don't believe it"
+	{ QUIP_UNCOVEREDDISGUISE2, 0x1adb, 0x1adb, 0x1adb }, // "It's a terrorist!"
+	// Voicebox 3 (female)
+	{ QUIP_ATTACK1,            0x0396, 0x0396, 0x0396 }, // "Come on"
+	{ QUIP_ATTACK2,            0x0037, 0x0398, 0x0399 }, // "Everyone, get her", "Attack!"
+	{ QUIP_GOTOCOVER1,         0x03a4, 0x0037, 0x03a6 }, // "Cover me!", "Take cover!"
+	{ QUIP_GRENADE1,           0x03c1, 0x03c2, 0x03c2 }, // "Look out, look out!"
+	{ QUIP_RETREAT1,           0x03aa, 0x03ab, 0x03ac }, // "Get reinforcements!", "Evacuate the area", "Retreat!"
+	{ QUIP_GRENADE2,           0x03ad, 0x03ae, 0x0037 }, // "Catch this", "Time to die"
+	{ QUIP_RETREAT2,           0x03b0, 0x03b0, 0x03b1 }, // "Withdraw, withdraw!", "Fall back!"
+	{ QUIP_FLANK,              0x0037, 0x03b3, 0x03b4 }, // "Spread out", "Split up"
+	{ QUIP_SURRENDER,          0x03b5, 0x03b5, 0x03b6 }, // "Please dont", "Don't shoot"
+	{ QUIP_HEARNOISE,          0x0037, 0x0389, 0x038a }, // ???, "Someone's shooting"
+	{ QUIP_10,                 0x0000, 0x0000, 0x0000 },
+	{ QUIP_SEEPLAYER,          0x0381, 0x0382, 0x0037 }, // "Get her!", "Hey, you, come here!"
+	{ QUIP_SHOTUNALERT,        0x0385, 0x0037, 0x0387 }, // "Under fire!", "We're under fire!"
+	{ QUIP_INJURED1,           0x0037, 0x037e, 0x037f }, // "I'm wounded", "Help me out"
+	{ QUIP_INJURED2,           0x037e, 0x037f, 0x0380 }, // "I'm wounded", "I'm in trouble!"
+	{ QUIP_KILLEDPLAYER1,      0x0000, 0x0000, 0x0000 },
+	{ QUIP_WARNFRIENDS,        0x0384, 0x0385, 0x0037 }, // "Target attacking", "Under fire!"
+	{ QUIP_GOFORALARM,         0x03aa, 0x03ab, 0x03ac }, // "Get reinforcements", "Evacuate the area", "Retreat!"
+	{ QUIP_SURPRISED,          0x0037, 0x037b, 0x037c }, // "Hey", "Huh?"
+	{ QUIP_INSPECTBODY,        0x038d, 0x038d, 0x038d }, // "Unit down"
+	{ QUIP_20,                 0x0384, 0x0385, 0x0387 }, // "Target attacking", "Under fire!", "We're under fire!"
+	{ QUIP_HITPLAYER,          0x039a, 0x039b, 0x0037 }, // "Did that hurt?", "You want some more?"
+	{ QUIP_MISSEDPLAYER1,      0x039f, 0x0037, 0x03a1 }, // "This gun's useless", "Stand still"
+	{ QUIP_MISSEDPLAYER2,      0x03a1, 0x03a2, 0x8130 }, // "Stand still", "Someone hit her", "Damn, she's good"
+	{ QUIP_GOTOCOVER2,         0x03a7, 0x0037, 0x03a9 }, // "Go for it!", "Run!"
+	{ QUIP_DIE,                0x03b7, 0x03b8, 0x8131 }, // "Why me?", "Nooo!", "My god"
+	{ QUIP_26,                 0x03be, 0x0037, 0x03c0 }, // "I'm just too good", "Such a waste"
+	{ QUIP_SEARCHSUCCESS,      0x0381, 0x0382, 0x0037 }, // "Get her!", "Hey, you, come here"
+	{ QUIP_SEEEYESPY,          0x0000, 0x0000, 0x0000 },
+	{ QUIP_GREETING,           0x0037, 0x0396, 0x0037 }, // "Come on"
+	{ QUIP_ASKWEAPON1,         0x0037, 0x0396, 0x0037 }, // "Come on"
+	{ QUIP_ASKWEAPON2,         0x0037, 0x0396, 0x0037 }, // "Come on"
+	{ QUIP_UNCOVERDISGUISE1,   0x0037, 0x0396, 0x0037 }, // "Come on"
+	{ QUIP_LOSTGUN,            0x037b, 0x037c, 0x037b }, // "Hey", "Huh?"
+	{ QUIP_GOFORALARM,         0x03aa, 0x03b1, 0x03ab }, // "Get reinforcements!", "Fall back!", "Evacuate the area"
+	{ QUIP_SEARCHFAIL,         0x0000, 0x0000, 0x0000 },
+	{ QUIP_ATTACK3,            0x0396, 0x0396, 0x0399 }, // "Come on", "Attack!"
+	{ QUIP_ATTACK4,            0x0399, 0x0399, 0x0396 }, // "Attack!", "Come on"
+	{ QUIP_KILLEDPLAYER2,      0x03bc, 0x03be, 0x03c0 }, // "Get a cleaner", "I'm just too good", "Such a waste"
+	{ QUIP_GUNJAMMED,          0x039f, 0x039f, 0x039f }, // "This gun's useless"
+	{ QUIP_UNCOVEREDDISGUISE2, 0x0000, 0x0000, 0x0000 },
 };
 
 s16 g_SpecialQuipBank[][4] = {
 	{  0, 0x0af2, 0x0af3, 0x0af8 },
-	{  1, 0x1aee, 0x1aef, 0x1aee },
-	{  2, 0x023d, 0x023e, 0x0247 },
-	{  3, 0x0248, 0x0249, 0x024b },
-	{  4, 0x0246, 0x023f, 0x0240 },
-	{  5, 0x024c, 0x0252, 0x0251 },
-	{  6, 0x024f, 0x0258, 0x024d },
-	{  7, 0x0243, 0x0244, 0x0245 },
-	{  8, 0x1294, 0x1295, 0x1296 },
-	{  9, 0x1297, 0x1298, 0x1297 },
-	{ 10, 0x1290, 0x127e, 0x8103 },
-	{ 11, 0x7324, 0x7325, 0x7326 },
-	{ 12, 0x128e, 0x1280, 0x1287 },
-	{ 13, 0x128d, 0x1283, 0x1286 },
-	{ 14, 0x1291, 0x1284, 0x128a },
-	{ 15, 0x1292, 0x1281, 0x1288 },
-	{ 16, 0x128b, 0x1282, 0x1289 },
+	{  1, 0x1aee, 0x1aef, 0x1aee }, // Secretary: "Please don't kill me", "Don't shoot"
+	{  2, 0x023d, 0x023e, 0x0247 }, // Dr Caroll: "Come on, come on", "My dear you're taking your time", "Come on my dear, we're going to get out of here now"
+	{  3, 0x0248, 0x0249, 0x024b }, // Dr Caroll: "Do you actually know what you're doing", "Ooh, ...?", "We're going to the helipad I presume"
+	{  4, 0x0246, 0x023f, 0x0240 }, // Dr Caroll: "I say over there, stop that", "What", "Ooh"
+	{  5, 0x024c, 0x0252, 0x0251 }, // Dr Caroll: "Ooh-uh", "That's quite enough of that", "Wow"
+	{  6, 0x024f, 0x0258, 0x024d }, // Dr Caroll: "I can't make it", "You were supposed to protect me", "Systems failure"
+	{  7, 0x0243, 0x0244, 0x0245 }, // Dr Caroll: "Oh crikey", "Goodness gracious me", "Don't they know who I am"
+	{  8, 0x1294, 0x1295, 0x1296 }, // Invest shock: "I'm not sure", "One more time", "I dunno"
+	{  9, 0x1297, 0x1298, 0x1297 }, // Scientist: "And again", "Try it now"
+	{ 10, 0x1290, 0x127e, 0x8103 }, // Scientist: "What are you doing in my lab?", "I haven't seen you before", "Who the hell are you?"
+	{ 11, 0x7324, 0x7325, 0x7326 }, // Jo: "Shut down the experiments", "Pull the plug on that, now!", "Switch this thing off"
+	{ 12, 0x128e, 0x1280, 0x1287 }, // Scientist: "I'll shut it down", "Please, don't hurt me", "Allow me to assist you"
+	{ 13, 0x128d, 0x1283, 0x1286 }, // Scientist: "My experiments!", "There, the experiment is down", "Leave this area now!"
+	{ 14, 0x1291, 0x1284, 0x128a }, // Scientist: "Security!", "I'm calling security", "Accidents will happen"
+	{ 15, 0x1292, 0x1281, 0x1288 }, // Scientist: "How did that happen", "It looks like it's off already", "Have you been tampering with this?"
+	{ 16, 0x128b, 0x1282, 0x1289 }, // Scientist: "Someone's broken my equipment", "What's happened to the terminal?", "You vandal, you've broken it"
 	{ 17, 0x000d, 0x000d, 0x000d },
-	{ 18, 0x815d, 0x815e, 0x815f },
-	{ 19, 0x1aa0, 0x1aa1, 0x1aa2 },
-	{ 20, 0x0037, 0x1aa3, 0x1aa4 },
-	{ 21, 0x1aa5, 0x1aa5, 0x1aa6 },
-	{ 22, 0x0446, 0x0461, 0x0465 },
-	{ 23, 0x0447, 0x045d, 0x0466 },
-	{ 24, 0x814a, 0x045e, 0x0463 },
-	{ 25, 0x0444, 0x045f, 0x0468 },
-	{ 26, 0x0448, 0x0449, 0x0449 },
-	{ 27, 0x044b, 0x0459, 0x045a },
-	{ 28, 0x05be, 0x0515, 0x05bf },
-	{ 29, 0x044b, 0x0459, 0x045a },
-	{ 30, 0x044b, 0x0459, 0x045a },
-	{ 31, 0x1aeb, 0x1aeb, 0x1aeb },
-	{ 32, 0x1b35, 0x1b36, 0x1b37 },
-	{ 33, 0x1ac0, 0x1ac1, 0x1ac3 },
-	{ 34, 0x0446, 0x0461, 0x0000 },
-	{ 35, 0x0447, 0x045d, 0x0000 },
-	{ 36, 0x814a, 0x045e, 0x1aee },
-	{ 37, 0x0444, 0x045f, 0x0000 },
-	{ 38, 0x051b, 0x051c, 0x051d },
-	{ 39, 0x051e, 0x051f, 0x0520 },
-	{ 40, 0x0521, 0x0522, 0x0525 },
-	{ 41, 0x0523, 0x0523, 0x0524 },
-	{ 42, 0x1adb, 0x1aa6, 0x1ad2 },
+	{ 18, 0x815d, 0x815e, 0x815f }, // "How's things?", "Hey there", "Hi, how are you?"
+	{ 19, 0x1aa0, 0x1aa1, 0x1aa2 }, // "Where did you get that?", "Should you have that?", "What are you doing with that weapon?"
+	{ 20, 0x0037, 0x1aa3, 0x1aa4 }, // "Don't point that at me", "Watch where you're pointing that"
+	{ 21, 0x1aa5, 0x1aa5, 0x1aa6 }, // "Imposter!", "It's a spy!"
+	{ 22, 0x0446, 0x0461, 0x0465 }, // "Greetings, citizen", "Hey sugar, wanna party?", "Hey baby"
+	{ 23, 0x0447, 0x045d, 0x0466 }, // "How's it going?", "Whoa, take it easy there lady", wolf whistle
+	{ 24, 0x814a, 0x045e, 0x0463 }, // "Oh my god", "I don't want any trouble", "Here, take the wallet"
+	{ 25, 0x0444, 0x045f, 0x0468 }, // "There's a maniac on the loose", "Quick, down there, she's got a gun", "Help, get me out of here!"
+	{ 26, 0x0448, 0x0449, 0x0449 }, // "Guns don't scare me", "Keep away from this car"
+	{ 27, 0x044b, 0x0459, 0x045a }, // "Base, we have an intruder", "We have a code 2 situation", "Request backup immediately"
+	{ 28, 0x05be, 0x0515, 0x05bf }, // "You shouldn't have come here, girl", "Secure the perimeter", "We're taking over!"
+	{ 29, 0x044b, 0x0459, 0x045a }, // "Base, we have an intruder", "We have a code 2 situation", "Request backup immediately"
+	{ 30, 0x044b, 0x0459, 0x045a }, // "Base, we have an intruder", "We have a code 2 situation", "Request backup immediately"
+	{ 31, 0x1aeb, 0x1aeb, 0x1aeb }, // Robot: "Stop where you are"
+	{ 32, 0x1b35, 0x1b36, 0x1b37 }, // "Come back later, I'm busy", "Go away", "Look, I can't help you"
+	{ 33, 0x1ac0, 0x1ac1, 0x1ac3 }, // President: "Stop shooting!", "You sure this is the way to the escape pod?", "Why are they shooting at me?"
+	{ 34, 0x0446, 0x0461, 0x0000 }, // "Greetings, citizen", "Hey sugar, wanna party?"
+	{ 35, 0x0447, 0x045d, 0x0000 }, // "How's it going?", "Whoa, take it easy there lady"
+	{ 36, 0x814a, 0x045e, 0x1aee }, // "Oh my god", "I don't want any trouble", "Please don't kill me"
+	{ 37, 0x0444, 0x045f, 0x0000 }, // "There's a maniac on the loose", "Quick, down there, she's got a gun"
+	{ 38, 0x051b, 0x051c, 0x051d }, // Elvis: "In the name of intergalactic peace", "Eat hot lead, weirdos", "Kiss my alien butt"
+	{ 39, 0x051e, 0x051f, 0x0520 }, // Elvis: "I'll kick your ass", "I'm doing this for your own good", "You dare shoot at me?"
+	{ 40, 0x0521, 0x0522, 0x0525 }, // Elvis: "Don't mess with the Maian", "I'm bad", "He he"
+	{ 41, 0x0523, 0x0523, 0x0524 }, // Elvis: "Oh It's all going wrong", "Hey, watch the suit"
+	{ 42, 0x1adb, 0x1aa6, 0x1ad2 }, // "It's a terrorist!", "It's a spy!", "Stop right there!"
 	{ 43, 0x0af2, 0x0af8, 0x0af8 },
-	{ 44, 0x0525, 0x0525, 0x0525 },
-	{ 45, 0x1aec, 0x1aec, 0x1aec },
+	{ 44, 0x0525, 0x0525, 0x0525 }, // Elvis: "He he"
+	{ 45, 0x1aec, 0x1aec, 0x1aec }, // Robot: "Alert! Under attack"
 };
 
 s16 g_QuipTexts[][4] = {
@@ -7615,9 +7615,9 @@ s16 g_SkedarQuipBank[][4] = {
 };
 
 s16 g_MaianQuipBank[][4] = {
-	{ 1, 0x05e2, 0x05e3, 0x05e4 },
-	{ 2, 0x05e5, 0x05e6, 0x05e7 },
-	{ 3, 0x05df, 0x05e0, 0x05e1 },
+	{ 1, 0x05e2, 0x05e3, 0x05e4 }, // laughter, mumble, mumble
+	{ 2, 0x05e5, 0x05e6, 0x05e7 }, // mumble, mumble, laughter
+	{ 3, 0x05df, 0x05e0, 0x05e1 }, // injuries
 	{ 0, 0x0000, 0x0000, 0x0000 },
 };
 

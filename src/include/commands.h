@@ -2597,11 +2597,11 @@
  * lists.
  *
  * There are several banks (tables) of sound IDs. One for Skedar, one for
- * Maians, and two banks (0 and 1) for humans. The human bank 0 is divided into
- * four subbanks. Each subbank has similar phrases to the other subbanks but
- * each subbank uses a different style of voice. The subbank used is determined
- * by the chr's voicebox property. This allows them to have the same sounding
- * voice among all their phrases.
+ * Maians, one for general guard speech and one for special character speech.
+ * The guard speech bank is divided into four subbanks. Each subbank has similar
+ * phrases to the other subbanks but each subbank uses a different style of
+ * voice. The subbank used is determined by the chr's voicebox property. This
+ * allows them to have the same sounding voice among all their phrases.
  *
  * Each bank (table) contains rows and columns. The row can be selected via an
  * argument to this command, but the column is determined randomly. All tables
@@ -2615,8 +2615,8 @@
  * player has died then it'll attempt to use the coop player. If all players
  * have died then it's likely their line will not be said.
  *
- * The row argument determines which row in the bank is used. Counting starts
- * from 0.
+ * The quip argument determines which row in the bank is used. For guard speech
+ * you should use a QUIP constant, otherwise use the row number.
  *
  * The probability argument determines the likelihood that the chr will say
  * the line. The higher the number (up to 255), the more likely they are to
@@ -2633,8 +2633,8 @@
  * 255 = always talk, even if other chrs are nearby and talking
  *       (this applies after the probability check has passed)
  *
- * The bank argument determines which bank is used. Expected values are 0 or 1.
- * For Skedar and Maians, this argument is ignored and they use their own banks.
+ * If special is true, the special bank will be used. For Skedar and Maians,
+ * this argument is ignored and they use their own banks.
  *
  * The textrow argument determines whether text will be shown on the screen as
  * well as which row in the text bank will be used. Set to 0 to have no text.
@@ -2647,17 +2647,17 @@
  *
  * -----------------------------------------------------------------------------
  *
- * If called with zero values for all of row, probability and onlyifothers,
+ * If called with zero values for all of quip, probability and onlyifothers,
  * the chr's current speech (if any) will be stopped.
  */
-#define say_quip(player, row, probability, soundgap, onlyifothers, bank, textrow, colour) \
+#define say_quip(player, quip, probability, soundgap, onlyifothers, special, textrow, colour) \
 	mkshort(0x0130), \
 	player, \
-	row, \
+	quip, \
 	probability, \
 	soundgap, \
 	onlyifothers, \
-	bank, \
+	special, \
 	textrow, \
 	colour,
 

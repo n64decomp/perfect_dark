@@ -82,7 +82,7 @@ u8 func0006_unalerted[] = {
 
 	// Injured or has no gun
 	label(0x16)
-	say_quip(CHR_BOND, 0x0c, 0x78, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	say_quip(CHR_BOND, QUIP_SHOTUNALERT, 0x78, 0x03, 0x00, BANK_0, 0x00, 0x00)
 	dprint 'N','O','G','U','N',',','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x06)
 	unset_self_flag_bankx(CHRFLAG1_DOINGIDLEANIMATION, BANK_1)
@@ -130,7 +130,7 @@ u8 func0006_unalerted[] = {
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_WARNED, TRUE, BANK_1, /*goto*/ LABEL_SCAN_START)
 
-	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	say_quip(CHR_BOND, QUIP_SHOTUNALERT, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00)
 	dprint 'N','O',' ','W','A','R','N','I','N','G','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_CANT_ALERT_GROUP, TRUE, BANK_0, /*goto*/ 0x13)
 	increase_squadron_alertness(100)
@@ -367,14 +367,14 @@ u8 func0006_unalerted[] = {
 	if_chr_in_squadron_doing_action(MA_GOTOALARM, /*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_RUN_FOR_ALARM, TRUE, BANK_0, /*goto*/ 0x9f)
 	label(0x16)
-	say_quip(CHR_BOND, 0x0b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Hey, you!","Intruder alert","We've got a contact!"
+	say_quip(CHR_BOND, QUIP_SEEPLAYER, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	label(0x9f)
 	increase_squadron_alertness(100)
 	goto_next(0x77)
 
 	label(0xdb) // jumped to from below
 	label(0x14)
-	say_quip(CHR_BOND, 0x20, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Imposter!","It's a spy!"
+	say_quip(CHR_BOND, QUIP_UNCOVERDISGUISE1, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	increase_squadron_alertness(100)
 	goto_next(0x77)
 
@@ -383,7 +383,7 @@ u8 func0006_unalerted[] = {
 	yield
 	yield
 	dprint 'S','3',0,
-	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	say_quip(CHR_BOND, QUIP_SHOTUNALERT, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00)
 	increase_squadron_alertness(100)
 	goto_next(0x77)
 
@@ -391,7 +391,7 @@ u8 func0006_unalerted[] = {
 	label(0x16)
 	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_PSYCHOSISED)
 	dprint 'S','U','R','P','R','I','S','E','D','!','\n',0,
-	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
+	say_quip(CHR_BOND, QUIP_SURPRISED, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x16)
 	if_chr_idle_action_eq(IDLEACTION_SITTING_TYPING, /*goto*/ 0x13)
@@ -424,7 +424,7 @@ u8 func0006_unalerted[] = {
 	yield
 	dprint 'S','7',0,
 	dprint 'H','E','A','R','D','E','T','E','C','T','\n',0,
-	say_quip(CHR_BOND, 0x09, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Did you hear that?","What's that noise?","I heard a noise..."
+	say_quip(CHR_BOND, QUIP_HEARNOISE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_HEARSPAWN, TRUE, BANK_0, /*goto*/ LABEL_HEARSPAWN)
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x80)
@@ -482,7 +482,7 @@ u8 func0006_unalerted[] = {
 	//
 	label(LABEL_NEAR_MISS)
 	increase_self_alertness(100)
-	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	say_quip(CHR_BOND, QUIP_SHOTUNALERT, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00)
 	set_target_chr(CHR_BOND)
 	if_within_units_of_sight(30, /*goto*/ 0x13)
 	goto_next(0x16)
@@ -521,7 +521,7 @@ u8 func0006_unalerted[] = {
 	label(0x94)
 	label(0x16)
 	dprint 'S','U','R','P','R','I','S','E','D','!','\n',0,
-	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
+	say_quip(CHR_BOND, QUIP_SURPRISED, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x76)
 	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
@@ -570,7 +570,7 @@ u8 func0006_unalerted[] = {
 		label(0x13)
 		if_self_flag_bankx_eq(CHRFLAG0_CAN_EXAMINE_BODY, FALSE, BANK_0, /*goto*/ 0x13)
 		if_timer_lt(120, /*goto*/ 0x13)
-		say_quip(CHR_BOND, 0x13, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Are you okay?","Got a man down!","He's bought it..."
+		say_quip(CHR_BOND, QUIP_INSPECTBODY, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 		unset_self_flag_bankx(CHRFLAG0_CAN_EXAMINE_BODY, BANK_0)
 		label(0x13)
 		if_timer_gt(600, /*goto*/ 0x7d)
@@ -741,7 +741,7 @@ u8 func0006_unalerted[] = {
 	label(0x13)
 	dprint 'W','A','R','N','E','D','B','E','N','D','3','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_UNSURPRISABLE, FALSE, BANK_0, /*goto*/ 0x77)
-	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
+	say_quip(CHR_BOND, QUIP_SURPRISED, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x75)
 	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
@@ -901,7 +901,7 @@ u8 func0007_alerted[] = {
 	endloop(0x1c)
 
 	label(0x16)
-	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "You bitch!","Oh... my... god","She got me"
+	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -930,8 +930,8 @@ u8 func0007_alerted[] = {
 		if_self_flag_bankx_eq(CHRFLAG0_SAID_INJURY_QUIP, TRUE, BANK_0, /*goto*/ 0x16)
 		if_num_times_shot_lt(1, /*goto*/ 0x16)
 		if_timer_lt(20, /*goto*/ 0x16)
-		say_quip(CHR_BOND, 0x0d, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Medic!","Help!","You shot me?!"
-		say_quip(CHR_BOND, 0x0e, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00) // "I'm hit, I'm hit!","I'm taking fire!","Taking damage!"
+		say_quip(CHR_BOND, QUIP_INJURED1, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED2, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
 		set_self_flag_bankx(CHRFLAG0_SAID_INJURY_QUIP, BANK_0)
 		label(0x16)
 		if_timer_gt(180, /*goto*/ 0x13)
@@ -947,7 +947,7 @@ u8 func0007_alerted[] = {
 	dprint 'L','O','S','T',' ','M','Y',' ','G','U','N','\n',0,
 	label(0xac)
 	set_chr_dodge_rating(2, 0x00)
-	say_quip(CHR_BOND, 0x21, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "My gun!"
+	say_quip(CHR_BOND, QUIP_LOSTGUN, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	stop_chr
 	restart_timer
 	yield
@@ -1098,11 +1098,11 @@ u8 func0007_alerted[] = {
 	goto_next(0x93)
 
 	label(0x13)
-	say_quip(CHR_BOND, 0x07, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00) // "Wipe the target!","Let's split up!","Surround her!"
+	say_quip(CHR_BOND, QUIP_FLANK, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	goto_next(LABEL_FLANK_LEFT)
 
 	label(0x15)
-	say_quip(CHR_BOND, 0x07, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00) // "Wipe the target!","Let's split up!","Surround her!"
+	say_quip(CHR_BOND, QUIP_FLANK, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	goto_next(LABEL_FLANK_RIGHT)
 
 	// Attempt trap (hide and ambush when player gets near)
@@ -1227,7 +1227,7 @@ u8 func0007_alerted[] = {
 	dprint 'A','M','B','U','S','H',' ','P','L','A','Y','E','R','\n',0,
 	set_accuracy(30)
 	set_self_flag_bankx(CHRFLAG0_02000000, BANK_0)
-	say_quip(CHR_BOND, 0x01, 0x50, 0x02, 0x01, BANK_0, 0x00, 0x00) // "Open fire!","Wipe her out!","Waste her!"
+	say_quip(CHR_BOND, QUIP_ATTACK2, 0x50, 0x02, 0x01, BANK_0, 0x00, 0x00)
 	goto_first(0x1b)
 
 	label(0xa3)
@@ -1489,7 +1489,7 @@ u8 func0007_alerted[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
 	set_team_orders(MA_SHOOTING, /*goto*/ 0x16)
 	label(0x16)
-	say_quip(CHR_BOND, 0x02, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_GOTOCOVER1, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
 	restart_timer
 	go_to_cover(SPEED_RUN)
 
@@ -1672,7 +1672,7 @@ u8 func0007_alerted[] = {
 	endloop(0x60)
 
 	label(0x57)
-	say_quip(CHR_BOND, 0x27, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_GUNJAMMED, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	do_preset_animation(-2)
 	goto_next(0xe8)
 
@@ -1863,7 +1863,7 @@ u8 func0007_alerted[] = {
 	set_team_orders(MA_GRENADE, /*goto*/ 0x47)
 
 	beginloop(0x47)
-		say_quip(CHR_BOND, 0x05, 0xff, 0x07, 0x00, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_GRENADE2, 0xff, 0x07, 0x00, BANK_0, 0x00, 0x00)
 		if_chr_stopped(/*goto*/ 0x4a)
 	endloop(0x47)
 
@@ -2022,7 +2022,7 @@ u8 func0007_alerted[] = {
 	endloop(0x43)
 
 	label(0x57)
-	say_quip(CHR_BOND, 0x27, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_GUNJAMMED, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	do_preset_animation(-2)
 	goto_next(0xe9)
 
@@ -2032,13 +2032,13 @@ u8 func0007_alerted[] = {
 	set_accuracy(0)
 	label(0x13)
 	if_chr_injured_target(CHR_SELF, /*goto*/ 0x13)
-	say_quip(CHR_BOND, 0x16, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_BOND, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_MISSEDPLAYER1, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_MISSEDPLAYER2, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	goto_next(0x16)
 
 	label(0x13)
-	say_quip(CHR_BOND, 0x15, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_BOND, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_HITPLAYER, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_HITPLAYER, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	label(0x16)
 	call_rng
 	if_rand_lt(20, /*goto*/ 0x16)
@@ -2359,8 +2359,8 @@ u8 func0007_alerted[] = {
 	goto_next(0x67)
 
 	label(0x44)
-	say_quip(CHR_BOND, 0x00, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_BOND, 0x01, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK2, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 
 	beginloop(0x45)
 		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
@@ -2368,7 +2368,7 @@ u8 func0007_alerted[] = {
 	endloop(0x45)
 
 	label(0x57)
-	say_quip(CHR_BOND, 0x27, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_GUNJAMMED, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	do_preset_animation(-2)
 	goto_next(0xea)
 	label(0x2a)
@@ -2377,13 +2377,13 @@ u8 func0007_alerted[] = {
 	set_accuracy(0)
 	label(0x13)
 	if_chr_injured_target(CHR_SELF, /*goto*/ 0x13)
-	say_quip(CHR_BOND, 0x16, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_BOND, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_MISSEDPLAYER1, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_MISSEDPLAYER2, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	goto_next(0x16)
 
 	label(0x13)
-	say_quip(CHR_BOND, 0x15, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_BOND, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_HITPLAYER, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_HITPLAYER, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	label(0x16)
 	call_rng
 	if_rand_lt(20, /*goto*/ 0x16)
@@ -2459,7 +2459,7 @@ u8 func0007_alerted[] = {
 	set_action(MA_RETREAT, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
-	say_quip(CHR_BOND, 0x04, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00) // "Go to plan B","Get the hell out of here!","Retreat!"
+	say_quip(CHR_BOND, QUIP_RETREAT1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 	try_set_chrpreset_to_unalerted_teammate(0, /*goto*/ 0x95)
 	if_self_flag_bankx_eq(CHRFLAG1_00000002, TRUE, BANK_1, /*goto*/ 0x16)
 	label(0x16)
@@ -2505,7 +2505,7 @@ u8 func0007_alerted[] = {
 	set_action(MA_SURRENDER, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
-	say_quip(CHR_BOND, 0x08, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00) // "Please! Don't shoot me!","I give up!","You win! I surrender"
+	say_quip(CHR_BOND, QUIP_SURRENDER, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00)
 	restart_timer
 	surrender
 
@@ -2528,7 +2528,7 @@ u8 func0007_alerted[] = {
 	goto_first(0x71)
 
 	label(0x72)
-	say_quip(CHR_BOND, 0x08, 0x23, 0x0a, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_SURRENDER, 0x23, 0x0a, 0x00, BANK_0, 0x00, 0x00)
 	restart_timer
 	goto_first(0x71)
 
@@ -2547,7 +2547,7 @@ u8 func0007_alerted[] = {
 
 	label(0x97)
 	dprint 'W','A','R','N',' ','F','R','I','E','N','D','S','\n',0,
-	say_quip(CHR_BOND, 0x10, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_WARNFRIENDS, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	increase_squadron_alertness(100)
 	label(0x84)
 	goto_first(0x1b)
@@ -2562,7 +2562,7 @@ u8 func0007_alerted[] = {
 	set_action(MA_GOTOALARM, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
-	say_quip(CHR_BOND, 0x22, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Trigger the alarm"
+	say_quip(CHR_BOND, QUIP_GOFORALARM, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	go_to_target_pad(SPEED_JOG)
 
 	beginloop(0x9d)
@@ -2747,14 +2747,14 @@ u8 func000b_choose_target_chr[] = {
 	if_num_times_shot_lt(1, /*goto*/ 0xd3)
 
 	// Has been shot
-	say_quip(CHR_BOND, 0x0c, 0x78, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	say_quip(CHR_BOND, QUIP_SHOTUNALERT, 0x78, 0x03, 0x00, BANK_0, 0x00, 0x00)
 
 	beginloop(0x03)
 		if_chr_stopped(/*goto*/ 0x16)
 	endloop(0x03)
 
 	label(0x16)
-	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	say_quip(CHR_BOND, QUIP_SHOTUNALERT, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00)
 	dprint 'N','O',' ','W','A','R','N','I','N','G','\n',0,
 	increase_squadron_alertness(100)
 	dprint 'N','O',' ','W','A','R','N','I','N','G','\n',0,
@@ -2907,11 +2907,11 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0x16)
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
-	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	goto_next(0x17)
 
 	label(0x16)
-	say_quip(CHR_BOND, 0x02, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_GOTOCOVER1, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 
 	label(0x17)
 	set_shotlist(GAILIST_IDLE)
@@ -2936,8 +2936,8 @@ u8 func000c_combat_with_target_chr[] = {
 		if_self_flag_bankx_eq(CHRFLAG0_SAID_INJURY_QUIP, TRUE, BANK_0, /*goto*/ 0x16)
 		if_num_times_shot_lt(1, /*goto*/ 0x16)
 		if_timer_lt(20, /*goto*/ 0x16)
-		say_quip(CHR_BOND, 0x0d, 0x28, 0x03, 0xff, BANK_0, 0x00, 0x00)
-		say_quip(CHR_BOND, 0x0e, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED1, 0x28, 0x03, 0xff, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED2, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
 		set_self_flag_bankx(CHRFLAG0_SAID_INJURY_QUIP, BANK_0)
 		label(0x16)
 		if_chr_stopped(/*goto*/ 0x13)
@@ -3195,7 +3195,7 @@ u8 func000c_combat_with_target_chr[] = {
 	goto_next(0x16)
 
 	label(0x17)
-	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	label(0x16)
 	call_rng
 	if_rand_gt(50, /*goto*/ 0x13)
@@ -3215,8 +3215,8 @@ u8 func000c_combat_with_target_chr[] = {
 	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0xc3)
 
 	label(0xc3)
-	say_quip(CHR_BOND, 0x24, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
-	say_quip(CHR_BOND, 0x25, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK3, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK4, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 
 	beginloop(0xe2)
 		if_chr_dying(CHR_TARGET, /*goto*/ 0xc1)
@@ -3245,14 +3245,14 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0xc1)
 	if_chr_injured_target(CHR_SELF, /*goto*/ 0x13)
 	dprint 'P','U','N','C','H','M','I','S','S','E','D','\n',0,
-	say_quip(CHR_BOND, 0x16, 0x19, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	say_quip(CHR_BOND, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_MISSEDPLAYER1, 0x19, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_MISSEDPLAYER2, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	goto_next(0x16)
 
 	label(0x13)
 	dprint 'P','U','N','C','H','H','I','T','\n',0,
-	say_quip(CHR_BOND, 0x15, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
-	say_quip(CHR_BOND, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_HITPLAYER, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_HITPLAYER, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 
 	label(0x16)
 	dprint 'B','O','N','N','D',' ','3','\n',0,
@@ -3289,7 +3289,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0x53)
 	dprint 'G','O',' ','T','O',' ','C','O','V','E','R','\n',0,
-	say_quip(CHR_BOND, 0x02, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_GOTOCOVER1, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
 	go_to_cover(SPEED_RUN)
 	restart_timer
 
@@ -3344,14 +3344,14 @@ u8 func000c_combat_with_target_chr[] = {
 	goto_next(0x17)
 
 	label(0x16)
-	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	label(0x17)
 	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0xcb)
 	goto_next(0x16)
 
 	label(0xcb)
-	say_quip(CHR_BOND, 0x24, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
-	say_quip(CHR_BOND, 0x25, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK3, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK4, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 
 	beginloop(0xcc)
 		if_chr_dying(CHR_TARGET, /*goto*/ 0xc5)
@@ -3456,7 +3456,7 @@ u8 func000c_combat_with_target_chr[] = {
 	goto_first(0xb3)
 
 	label(0xd7)
-	say_quip(CHR_BOND, 0x0f, 0x28, 0x00, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_KILLEDPLAYER1, 0x28, 0x00, 0x01, BANK_0, 0x00, 0x00)
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x16)
 	label(0x16)
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0xd9)
@@ -3912,7 +3912,7 @@ u8 func000f_hand_combat[] = {
 
 	label(0x17)
 	restart_timer
-	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Open fire!","Wipe her out!","Waste her!"
+	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 
 	beginloop(0x05)
 		if_timer_gt(180, /*goto*/ 0x16)
@@ -3922,14 +3922,14 @@ u8 func000f_hand_combat[] = {
 	label(0x16)
 	if_chr_injured_target(CHR_SELF, /*goto*/ 0x13)
 	dprint 'P','U','N','C','H','M','I','S','S','E','D','\n',0,
-	say_quip(CHR_BOND, 0x16, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00) // Say random quip: "Damn, missed!","How did I miss?"
-	say_quip(CHR_BOND, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00) // "God sakes, someone hit her","She's a tricky one"
+	say_quip(CHR_BOND, QUIP_MISSEDPLAYER1, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_MISSEDPLAYER2, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	goto_next(0x16)
 
 	label(0x13)
 	dprint 'P','U','N','C','H','H','I','T','\n',0,
-	say_quip(CHR_BOND, 0x15, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00) // Say random quip: "Give it up!","Surrender, now!","Take that!"
-	say_quip(CHR_BOND, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00) // "Give it up!","Surrender, now!","Take that!"
+	say_quip(CHR_BOND, QUIP_HITPLAYER, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_HITPLAYER, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 
 	label(0x16)
 	goto_next(0x0b)
@@ -4003,7 +4003,7 @@ u8 func0010_civilian_say_comment[] = {
 	restart_timer
 	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_01000000, /*goto*/ 0x13)
 	do_preset_animation(-1)
-	say_quip(CHR_BOND, 0x1d, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "How's things?","Hey there","Hi, how are you?"
+	say_quip(CHR_BOND, QUIP_GREETING, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	yield
 
 	// Set a do-once flag, so chr is only stopped the first time
@@ -4020,7 +4020,7 @@ u8 func0010_civilian_say_comment[] = {
 	label(0x05)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_01000000, /*goto*/ 0x06)
 	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_01000000)
-	say_quip(CHR_BOND, 0x1e, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "Where did you get that?","Should you have that?","What are you doing with that weapon?"
+	say_quip(CHR_BOND, QUIP_ASKWEAPON1, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	do_preset_animation(6)
 	restart_timer
 
@@ -4041,7 +4041,7 @@ u8 func0010_civilian_say_comment[] = {
 	label(0x13)
 	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_02000000)
 	dprint 'D','O','N','T',' ','P','O','I','N','T','\n',0,
-	say_quip(CHR_BOND, 0x1f, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Don't point that at me","Watch where you're pointing that"
+	say_quip(CHR_BOND, QUIP_ASKWEAPON2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	do_preset_animation(-1)
 	restart_timer
 
@@ -4098,7 +4098,7 @@ u8 func0010_civilian_say_comment[] = {
 u8 func001c_surprised[] = {
 	set_shotlist(GAILIST_ALERTED)
 	increase_squadron_alertness(100)
-	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	say_quip(CHR_BOND, QUIP_SHOTUNALERT, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00)
 	restart_timer
 	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
@@ -4118,7 +4118,7 @@ u8 func0011_flee_from_grenade[] = {
 	set_action(MA_RUNFROMGRENADE, FALSE)
 	dprint 'N','E','A','R',' ','D','A','N','G','E','R','\n',0,
 	run_from_grenade
-	say_quip(CHR_BOND, 0x03, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00) // "Look out, look out!","It's a grenade!","Clear the area!"
+	say_quip(CHR_BOND, QUIP_GRENADE1, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00)
 	restart_timer
 
 	beginloop(0x0c)
@@ -4189,7 +4189,7 @@ u8 func001b_observe_camspy[] = {
 	// Timer expired
 	label(0x04)
 	do_preset_animation(-1)
-	say_quip(CHR_BOND, 0x1c, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00) // "What the hell?","Hello there","What's this?"
+	say_quip(CHR_BOND, QUIP_SEEEYESPY, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00)
 
 	// Wait another 5 seconds with same logic as previous timer
 	beginloop(0x05)
@@ -4216,7 +4216,7 @@ u8 func001b_observe_camspy[] = {
 
 	// Timer expired second time
 	label(0xe8)
-	say_quip(CHR_BOND, 0x28, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "It's a spy!"
+	say_quip(CHR_BOND, QUIP_UNCOVEREDDISGUISE2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 
 	// Shoot camspy
 	label(0x09)
@@ -4427,11 +4427,11 @@ u8 func001d_search_for_player[] = {
 	set_alertness(100)
 	dprint 'S','E','E',' ','P','L','A','Y','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG1_00000400, FALSE, BANK_1, /*goto*/ 0x13)
-	say_quip(CHR_BOND, 0x1b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_SEARCHSUCCESS, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	label(0x13)
 	set_ailist(CHR_SELF, GAILIST_ALERTED)
 	label(0x0b)
-	say_quip(CHR_BOND, 0x23, 0x32, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_SEARCHFAIL, 0x32, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	goto_first(0x05)
 
 	label(0xc3)
@@ -4507,7 +4507,7 @@ u8 func001f_related_to_spawning[] = {
 
 	label(0x1e)
 	dprint 'S','E','E',' ','D','E','T','E','C','T','\n',0,
-	say_quip(CHR_BOND, 0x0b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_SEEPLAYER, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	label(0x9f)
 	increase_squadron_alertness(100)
 	set_alertness(255)
@@ -4516,7 +4516,7 @@ u8 func001f_related_to_spawning[] = {
 
 	label(0x1f)
 	yield
-	say_quip(CHR_BOND, 0x09, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_HEARNOISE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_HEARSPAWN, TRUE, BANK_0, /*goto*/ 0xda)
 	increase_squadron_alertness(100)
 	set_returnlist(CHR_SELF, GAILIST_RELATED_TO_SPAWNING)
@@ -4721,7 +4721,7 @@ u8 func0014_coop_buddy[] = {
 
 	// Injured
 	label(0x13)
-	say_quip(CHR_BOND, 0x0e, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00) // "I'm hit, I'm hit!","I'm taking fire!","Taking damage!"
+	say_quip(CHR_BOND, QUIP_INJURED2, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00)
 	dprint 'B','U','D','D','Y',' ','W','O','U','N','D','\n',0,
 
 	beginloop(0xf2)
@@ -4842,15 +4842,15 @@ u8 func0014_coop_buddy[] = {
 	call_rng
 	if_rand_lt(85, /*goto*/ 0xfa)
 	if_rand_lt(170, /*goto*/ 0xf3)
-	say_quip(CHR_BOND, 0x00, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00) // "I've got a clear shot","She's mine!"
+	say_quip(CHR_BOND, QUIP_ATTACK1, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00)
 	goto_next(0x13)
 
 	label(0xfa)
-	say_quip(CHR_BOND, 0x0b, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00) // "Hey, you!","Intruder alert","We've got a contact!"
+	say_quip(CHR_BOND, QUIP_SEEPLAYER, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00)
 	goto_next(0x13)
 
 	label(0xf3)
-	say_quip(CHR_BOND, 0x15, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00) // "Give it up!","Surrender, now!","Take that!"
+	say_quip(CHR_BOND, QUIP_HITPLAYER, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00)
 	label(0x13)
 
 	// Found chr in group from non G5 or Deep Sea stage
@@ -4915,8 +4915,8 @@ u8 func0022_comment_on_player_dead[] = {
 
 	label(0x16)
 	dprint 'K','I','L','L','E','D','E','R','\n',0,
-	say_quip(CHR_BOND, 0x26, 0xff, 0x02, 0x00, BANK_0, 0x00, 0x00) // "Grab a body bag","One for the morgue","Rest in peace"
-	say_quip(CHR_BOND, 0x15, 0x80, 0x03, 0x01, BANK_0, 0x00, 0x00) // "Give it up!","Surrender, now!","Take that!"
+	say_quip(CHR_BOND, QUIP_KILLEDPLAYER2, 0xff, 0x02, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_HITPLAYER, 0x80, 0x03, 0x01, BANK_0, 0x00, 0x00)
 
 	beginloop(0x04)
 	endloop(0x04)
@@ -5188,7 +5188,7 @@ u8 func0027_psychosised[] = {
 
 	// Injured
 	label(0x13)
-	say_quip(CHR_BOND, 0x0e, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "I'm hit, I'm hit!","I'm taking fire!","Taking damage!"
+	say_quip(CHR_BOND, QUIP_INJURED2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 
 	beginloop(0xf2)
 		if_chr_stopped(/*goto*/ 0x16)
@@ -5253,15 +5253,15 @@ u8 func0027_psychosised[] = {
 	if_rand_lt(85, /*goto*/ 0xfa)
 	if_rand_lt(170, /*goto*/ 0xf3)
 
-	say_quip(CHR_BOND, 0x00, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "I've got a clear shot","She's mine!"
+	say_quip(CHR_BOND, QUIP_ATTACK1, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	goto_next(0x13)
 
 	label(0xfa)
-	say_quip(CHR_BOND, 0x0b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Hey, you!","Intruder alert","We've got a contact!"
+	say_quip(CHR_BOND, QUIP_SEEPLAYER, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	goto_next(0x13)
 
 	label(0xf3)
-	say_quip(CHR_BOND, 0x15, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Give it up!","Surrender, now!","Take that!"
+	say_quip(CHR_BOND, QUIP_HITPLAYER, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 
 	label(0x13)
 	set_returnlist(CHR_SELF, GAILIST_PSYCHOSISED)

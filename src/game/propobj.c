@@ -38425,37 +38425,37 @@ glabel var7f1aac40
 /*  f087b08:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f087b0c(u32 arg0)
+void func0f087b0c(u32 ammotype)
 {
-	switch (arg0) {
-	case 1:
-	case 2:
-	case 4:
-	case 5:
-	case 7:
-	case 8:
-	case 10:
-	case 11:
-	case 15:
-	case 16:
-	case 17:
-	case 18:
-	case 19:
-	case 20:
-	case 21:
-	case 30:
+	switch (ammotype) {
+	case AMMOTYPE_PISTOL:
+	case AMMOTYPE_SMG:
+	case AMMOTYPE_RIFLE:
+	case AMMOTYPE_SHOTGUN:
+	case AMMOTYPE_GRENADE:
+	case AMMOTYPE_ROCKET:
+	case AMMOTYPE_MAGNUM:
+	case AMMOTYPE_DEVASTATOR:
+	case AMMOTYPE_REAPER:
+	case AMMOTYPE_HOMINGROCKET:
+	case AMMOTYPE_DART:
+	case AMMOTYPE_NBOMB:
+	case AMMOTYPE_SEDATIVE:
+	case AMMOTYPE_CLOAK:
+	case AMMOTYPE_BOOST:
+	case AMMOTYPE_TOKEN:
 		func00010904(var80095200, 0xea, 0, -1, -1, -1, -1, -1);
 		break;
-	case 12:
-	case 13:
-	case 14:
-	case 24:
-	case 25:
-	case 26:
-	case 32:
+	case AMMOTYPE_REMOTE_MINE:
+	case AMMOTYPE_PROXY_MINE:
+	case AMMOTYPE_TIMED_MINE:
+	case AMMOTYPE_BUG:
+	case AMMOTYPE_MICROCAMERA:
+	case AMMOTYPE_PLASTIQUE:
+	case AMMOTYPE_ECM_MINE:
 		func00010904(var80095200, 0xeb, 0, -1, -1, -1, -1, -1);
 		break;
-	case 9:
+	case AMMOTYPE_KNIFE:
 		func00010904(var80095200, 0xe9, 0, -1, -1, -1, -1, -1);
 		break;
 	}

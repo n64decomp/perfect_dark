@@ -16464,8 +16464,24 @@ void chrTickDie(struct chrdata *chr)
 {
 	struct animdata *animdata = chr->animdata;
 	u32 race = CHRRACE(chr);
-	u16 uStack32[] = { 0x808d, 0x808e, 0x808f, 0x8090, 0x8091, 0x8092, 0x8093, 0x8094, 0x8095, 0x8096, 0x8097 };
-	u16 uStack56[] = { 0x8129, 0x812f, 0x813a, 0x813a, 0x812f, 0x8092, 0x8093, 0x8094, 0x8095, 0x8096, 0x8097 };
+
+	// Thud noises - probably bodies hitting the floor
+	u16 thuds[] = { 0x808d, 0x808e, 0x808f, 0x8090, 0x8091, 0x8092, 0x8093, 0x8094, 0x8095, 0x8096, 0x8097 };
+
+	u16 uStack56[] = {
+		0x8129, // "Noooo!"
+		0x812f, // Death scream
+		0x813a, // "Noooo!"
+		0x813a, // "Noooo!"
+		0x812f, // Death scream
+		0x8092, // Thud
+		0x8093, // Thud
+		0x8094, // Thud
+		0x8095, // Thud
+		0x8096, // Thud
+		0x8097, // Thud
+	};
+
 	static s32 animindex = 0;
 
 	if (race == RACE_EYESPY) {
@@ -16484,6 +16500,7 @@ void chrTickDie(struct chrdata *chr)
 		struct prop *prop = chr->prop;
 
 		if (var8006807c > 120 && chr->voicebox) {
+			// Dr Caroll death phrases
 			u16 psStack76[] = { 0x024d, 0x024e, 0x024f, 0x0256, 0x0257, 0x0258 };
 			func0f0939f8(NULL, chr->prop, psStack76[random() % 5], -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
@@ -16505,7 +16522,8 @@ void chrTickDie(struct chrdata *chr)
 		} else if (chr->soundtimer > (s32)var80068080) {
 			chr->soundtimer = 0;
 			var80068080 -= 5;
-			func0f0939f8(NULL, prop, 100, -1,
+			// Shield damage sound
+			func0f0939f8(NULL, prop, 0x64, -1,
 					-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 			func0f12f9f0(prop->rooms[0], prop, &prop->pos, 0, 0, 1);
 		}
@@ -16516,7 +16534,7 @@ void chrTickDie(struct chrdata *chr)
 	// Human or Skedar
 	if (chr->act_die.unk030 >= 0 && animGetFrame(animdata) >= chr->act_die.unk030) {
 		if (chr->specialdie == 0) {
-			func0f0939f8(NULL, chr->prop, uStack32[animindex], -1,
+			func0f0939f8(NULL, chr->prop, thuds[animindex], -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		} else if (chr->specialdie != SPECIALDIE_OVERRAILING) {
 			func0f0939f8(NULL, chr->prop, uStack56[chr->specialdie - 1], -1,
@@ -16537,7 +16555,7 @@ void chrTickDie(struct chrdata *chr)
 			func0f0939f8(NULL, chr->prop, 0x808e, -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		} else {
-			func0f0939f8(NULL, chr->prop, uStack32[animindex], -1,
+			func0f0939f8(NULL, chr->prop, thuds[animindex], -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		}
 
@@ -16753,26 +16771,26 @@ glabel chrTickDruggedComingUp
 void chrTickDruggedDrop(struct chrdata *chr)
 {
 	struct animdata *animdata = chr->animdata;
-	s16 things[11] = {
-		-32627,
-		-32626,
-		-32625,
-		-32624,
-		-32623,
-		-32622,
-		-32621,
-		-32620,
-		-32619,
-		-32618,
-		-32617,
+
+	u16 thuds[11] = {
+		0x808d,
+		0x808e,
+		0x808f,
+		0x8090,
+		0x8091,
+		0x8092,
+		0x8093,
+		0x8094,
+		0x8095,
+		0x8096,
+		0x8097,
 	};
+
 	static s32 index = 0;
 
 	if (chr->act_druggeddrop.unk030 >= 0 && animGetFrame(animdata) >= chr->act_druggeddrop.unk030) {
-		func0f0939f8(NULL, chr->prop, things[index], -1,
-				-1, 0, 0, 0,
-				0, -1, 0, -1,
-				-1, -1, -1);
+		func0f0939f8(NULL, chr->prop, thuds[index], -1,
+				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 		index++;
 
@@ -16784,10 +16802,8 @@ void chrTickDruggedDrop(struct chrdata *chr)
 	}
 
 	if (chr->act_druggeddrop.unk034 >= 0 && animGetFrame(animdata) >= chr->act_druggeddrop.unk034) {
-		func0f0939f8(NULL, chr->prop, things[index], -1,
-				-1, 0, 0, 0,
-				0, -1, 0, -1,
-				-1, -1, -1);
+		func0f0939f8(NULL, chr->prop, thuds[index], -1,
+				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 		index++;
 
@@ -32490,7 +32506,8 @@ bool func0f04d44c(struct chrdata *chr)
 void chrEmitSparks(struct chrdata *chr)
 {
 	if (chr && chr->prop) {
-		func0f0939f8(0, chr->prop, 100, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+		// Spark/shield sound
+		func0f0939f8(0, chr->prop, 0x64, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		func0f12f9f0(chr->prop->rooms[0], chr->prop, &chr->prop->pos, 0, 0, 1);
 	}
 }

@@ -545,7 +545,7 @@ u8 func0402_unarmed_skedar[] = {
 		label(0x2e)
 		call_rng
 		if_rand_gt(1, /*goto*/ 0x06)
-		say_quip(CHR_BOND, 0x03, 0xff, 0x05, 0xff, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_GRENADE1, 0xff, 0x05, 0xff, BANK_0, 0x00, 0x00)
 		label(0x06)
 	endloop(0x03)
 
@@ -559,7 +559,7 @@ u8 func0402_unarmed_skedar[] = {
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x2e)
 	label(0x2e)
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
-	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	if_distance_to_target_lt(150, /*goto*/ 0x2f)
 	label(0x54)
 	if_num_times_shot_lt(1, /*goto*/ 0x2d)
@@ -569,7 +569,7 @@ u8 func0402_unarmed_skedar[] = {
 	label(0x2d)
 	restart_timer
 	set_action(MA_WAITING, TRUE)
-	say_quip(CHR_BOND, 0x03, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_GRENADE1, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	try_walk_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
@@ -584,7 +584,7 @@ u8 func0402_unarmed_skedar[] = {
 	goto_next(0x2d)
 
 	label(0x06)
-	say_quip(CHR_BOND, 0x01, 0x20, 0x00, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK2, 0x20, 0x00, 0xff, BANK_0, 0x00, 0x00)
 	label(0x2d)
 	restart_timer
 	set_action(MA_TRACKING, TRUE)
@@ -761,7 +761,7 @@ u8 func0404_miniskedar[] = {
 
 	// Healthy
 	call_rng
-	say_quip(CHR_BOND, 0x06, 0xff, 0x05, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_RETREAT2, 0xff, 0x05, 0xff, BANK_0, 0x00, 0x00)
 	label(0x06)
 	label(0x06)
 	goto_next(0x54)
@@ -892,7 +892,7 @@ u8 func0408_cloaked_skedar[] = {
 		// 1 in 256 chance of making skedar roar sound
 		call_rng
 		if_rand_gt(1, /*goto*/ 0x06)
-		say_quip(CHR_BOND, 0x03, 0xff, 0x05, 0xff, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_GRENADE1, 0xff, 0x05, 0xff, BANK_0, 0x00, 0x00)
 		label(0x06)
 	endloop(0x08)
 
@@ -1674,7 +1674,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	endloop(0x5d)
 
 	label(0x06)
-	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1731,7 +1731,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	set_view_distance(100)
 	if_self_flag_bankx_eq(CHRFLAG0_00000004, TRUE, BANK_0, /*goto*/ 0x2d)
 	set_self_flag_bankx(CHRFLAG0_00000004, BANK_0)
-	say_quip(CHR_BOND, 0x0b, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_SEEPLAYER, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	label(0x2d)
 	goto_next(0x71)
 
@@ -1802,7 +1802,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, FALSE, BANK_0, /*goto*/ 0x72)
 	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x70)
 	label(0x70)
-	say_quip(CHR_BOND, 0x00, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x06)
 	goto_next(0x2d)
 
@@ -2041,10 +2041,10 @@ u8 func040d_king_combat[] = {
 	endloop(0x7a)
 
 	label(0x06)
-	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x70)
 	label(0x70)
-	say_quip(CHR_BOND, 0x00, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x7b)
 	goto_next(0x2d)
 
@@ -2066,7 +2066,7 @@ u8 func040d_king_combat[] = {
 	// Spawn skedar
 	//
 	label(LABEL_SPAWN_SKEDAR)
-	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_morale(0)
 	restart_timer
 	chr_do_animation(0x0350, 0, -1, 0x10, 0x10, CHR_SELF, 2)
@@ -2085,7 +2085,7 @@ u8 func040d_king_combat[] = {
 	// Spawn miniskedar
 	//
 	label(LABEL_SPAWN_MINISKEDAR)
-	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_morale(0)
 	restart_timer
 	chr_do_animation(0x0350, 0, -1, 0x10, 0x10, CHR_SELF, 2)
@@ -2104,7 +2104,7 @@ u8 func040d_king_combat[] = {
 	// Cloak and warp to player for hand combat
 	//
 	label(LABEL_CLOAK)
-	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_morale(0)
 	restart_timer
 	chr_do_animation(0x0350, 0, -1, 0x10, 0x10, CHR_SELF, 2)
@@ -2154,7 +2154,7 @@ u8 func040d_king_combat[] = {
 
 	// Distance to player < 150
 	label(0x06)
-	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	restart_timer
 	dprint 'F','A','C','E',' ','T','A','R','G','E','T','\n',0,
@@ -2210,7 +2210,7 @@ u8 func040d_king_combat[] = {
 
 	// Unreachable - nothing jumps here
 	label(0x77)
-	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_morale(0)
 	restart_timer
 	chr_do_animation(0x0350, 0, -1, 0x10, 0x10, CHR_SELF, 2)
@@ -2225,7 +2225,7 @@ u8 func040d_king_combat[] = {
 
 	// Shield < 20
 	label(LABEL_LOW_SHIELD)
-	say_quip(CHR_BOND, 0x02, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_GOTOCOVER1, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00)
 	jog_to_pad(0x0096)
 
 	beginloop(0x7d)

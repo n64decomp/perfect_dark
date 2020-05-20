@@ -1531,7 +1531,7 @@ u8 func0402_taker[] = {
 	// Laptop gun equipped
 	label(0x0b)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_SURPRISED, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	restart_timer
 	chr_do_animation(0x0202, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 

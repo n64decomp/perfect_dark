@@ -70,9 +70,11 @@ void func0f199a40(struct chrdata *chr, u32 index, bool arg2)
 
 				if (arg2) {
 					if (aibot->weaponnum == WEAPON_FARSIGHTXR20) {
+						// FarSight reload sound
 						func0f0939f8(NULL, chr->prop, 0x433, -1,
 								-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 					} else {
+						// Normal reload sound
 						func0f0939f8(NULL, chr->prop, 0x804f, -1,
 								-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 					}
@@ -914,6 +916,7 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 			rocket->base.unk48->unkf4 = 0;
 			rocket->base.unk48->unkb4 = 0x20000000;
 
+			// Fire rocket sound
 			func0f0939f8(NULL, rocket->base.prop, 0x8053, -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 

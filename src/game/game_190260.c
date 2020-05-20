@@ -491,6 +491,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				aibotGiveAmmoByType(chr->aibot, crate->ammotype, qty);
 			}
 
+			// Pickup sound
 			func0f0939f8(NULL, prop, 0xea, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
@@ -541,6 +542,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				}
 			}
 
+			// Pickup sound
 			func0f0939f8(NULL, prop, 0xea, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
@@ -594,6 +596,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 		{
 			struct shieldobj *shield = (struct shieldobj *)prop->obj;
 
+			// Shield pickup sound
 			func0f0939f8(NULL, prop, 0x1cd, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 

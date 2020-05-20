@@ -4314,6 +4314,7 @@ void chrCloak(struct chrdata *chr, bool value)
 		chr->hidden |= CHRHFLAG_CLOAKED;
 
 		if (value) {
+			// Cloak sound
 			func0f0939f8(0, chr->prop, 0x5b, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		}
 	}
@@ -4325,10 +4326,8 @@ void chrUncloak(struct chrdata *chr, bool value)
 		chr->hidden &= ~CHRHFLAG_CLOAKED;
 
 		if (value) {
-			func0f0939f8(0, chr->prop, 92, -1,
-					-1, 0, 0, 0,
-					0, -1, 0, -1,
-					-1, -1, -1);
+			// Uncloak sound
+			func0f0939f8(0, chr->prop, 0x5c, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		}
 
 #if PIRACYCHECKS

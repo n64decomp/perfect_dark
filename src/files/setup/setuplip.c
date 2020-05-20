@@ -1314,7 +1314,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	endloop(0x54)
 
 	label(0x06)
-	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1330,8 +1330,8 @@ u8 func0410_labtech_showers_sa_pa[] = {
 		if_self_flag_bankx_eq(CHRFLAG0_SAID_INJURY_QUIP, TRUE, BANK_0, /*goto*/ 0x06)
 		if_num_times_shot_lt(1, /*goto*/ 0x06)
 		if_timer_lt(20, /*goto*/ 0x06)
-		say_quip(CHR_BOND, 0x0d, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
-		say_quip(CHR_BOND, 0x0e, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED1, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED2, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
 		set_self_flag_bankx(CHRFLAG0_SAID_INJURY_QUIP, BANK_0)
 		label(0x06)
 		if_chr_stopped(/*goto*/ 0x58)
@@ -1696,7 +1696,7 @@ u8 func0418_doorman[] = {
 	endloop(0x54)
 
 	label(0x06)
-	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1915,7 +1915,7 @@ u8 func041a_labtech_harrysmate[] = {
 	endloop(0x54)
 
 	label(0x06)
-	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1930,8 +1930,8 @@ u8 func041a_labtech_harrysmate[] = {
 		if_self_flag_bankx_eq(CHRFLAG0_SAID_INJURY_QUIP, TRUE, BANK_0, /*goto*/ 0x06)
 		if_num_times_shot_lt(1, /*goto*/ 0x06)
 		if_timer_lt(20, /*goto*/ 0x06)
-		say_quip(CHR_BOND, 0x0d, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
-		say_quip(CHR_BOND, 0x0e, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED1, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED2, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
 		set_self_flag_bankx(CHRFLAG0_SAID_INJURY_QUIP, BANK_0)
 		label(0x06)
 		if_chr_stopped(/*goto*/ 0x58)
@@ -2015,7 +2015,7 @@ u8 func041b_labtech_keycardguy[] = {
 	endloop(0x54)
 
 	label(0x06)
-	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -2032,8 +2032,8 @@ u8 func041b_labtech_keycardguy[] = {
 		if_self_flag_bankx_eq(CHRFLAG0_SAID_INJURY_QUIP, TRUE, BANK_0, /*goto*/ 0x06)
 		if_num_times_shot_lt(1, /*goto*/ 0x06)
 		if_timer_lt(20, /*goto*/ 0x06)
-		say_quip(CHR_BOND, 0x0d, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
-		say_quip(CHR_BOND, 0x0e, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED1, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED2, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
 		set_self_flag_bankx(CHRFLAG0_SAID_INJURY_QUIP, BANK_0)
 		label(0x06)
 		if_chr_stopped(/*goto*/ 0x58)
@@ -2269,7 +2269,7 @@ u8 func0413_mechanic[] = {
 	endloop(0x54)
 
 	label(0x06)
-	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -2285,8 +2285,8 @@ u8 func0413_mechanic[] = {
 		if_self_flag_bankx_eq(CHRFLAG0_SAID_INJURY_QUIP, TRUE, BANK_0, /*goto*/ 0x06)
 		if_num_times_shot_lt(1, /*goto*/ 0x06)
 		if_timer_lt(20, /*goto*/ 0x06)
-		say_quip(CHR_BOND, 0x0d, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
-		say_quip(CHR_BOND, 0x0e, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED1, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED2, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
 		set_self_flag_bankx(CHRFLAG0_SAID_INJURY_QUIP, BANK_0)
 		label(0x06)
 		if_chr_stopped(/*goto*/ 0x58)
@@ -2575,7 +2575,7 @@ u8 func041f_labtech_lights[] = {
 	endloop(0x54)
 
 	label(0x06)
-	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -2591,8 +2591,8 @@ u8 func041f_labtech_lights[] = {
 		if_self_flag_bankx_eq(CHRFLAG0_SAID_INJURY_QUIP, TRUE, BANK_0, /*goto*/ 0x06)
 		if_num_times_shot_lt(1, /*goto*/ 0x06)
 		if_timer_lt(20, /*goto*/ 0x06)
-		say_quip(CHR_BOND, 0x0d, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
-		say_quip(CHR_BOND, 0x0e, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED1, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED2, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
 		set_self_flag_bankx(CHRFLAG0_SAID_INJURY_QUIP, BANK_0)
 		label(0x06)
 		if_chr_stopped(/*goto*/ 0x5e)
@@ -2797,7 +2797,7 @@ u8 func0420_labtech_doors[] = {
 	goto_next(0x2d)
 
 	label(0x06)
-	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -2812,8 +2812,8 @@ u8 func0420_labtech_doors[] = {
 		if_self_flag_bankx_eq(CHRFLAG0_SAID_INJURY_QUIP, TRUE, BANK_0, /*goto*/ 0x06)
 		if_num_times_shot_lt(1, /*goto*/ 0x06)
 		if_timer_lt(20, /*goto*/ 0x06)
-		say_quip(CHR_BOND, 0x0d, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
-		say_quip(CHR_BOND, 0x0e, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED1, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, QUIP_INJURED2, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
 		set_self_flag_bankx(CHRFLAG0_SAID_INJURY_QUIP, BANK_0)
 		label(0x06)
 		if_chr_stopped(/*goto*/ 0x5e)
@@ -2885,7 +2885,7 @@ u8 func0420_labtech_doors[] = {
 
 	label(0x2d)
 	do_preset_animation(3)
-	say_quip(CHR_BOND, 0x1d, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_GREETING, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	set_self_flag_bankx(CHRFLAG0_08000000, BANK_0)
 
 	beginloop(0x7b)
@@ -3016,7 +3016,7 @@ u8 func0422_labtech_records[] = {
 	goto_first(0x54)
 
 	label(0x06)
-	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	label(0x2d)
@@ -3029,8 +3029,8 @@ u8 func0422_labtech_records[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_SAID_INJURY_QUIP, TRUE, BANK_0, /*goto*/ 0x06)
 	if_num_times_shot_lt(1, /*goto*/ 0x06)
 	if_timer_lt(20, /*goto*/ 0x06)
-	say_quip(CHR_BOND, 0x0d, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_BOND, 0x0e, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_INJURED1, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_INJURED2, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	set_self_flag_bankx(CHRFLAG0_SAID_INJURY_QUIP, BANK_0)
 	label(0x06)
 	if_chr_stopped(/*goto*/ 0x5e)

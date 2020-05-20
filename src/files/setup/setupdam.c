@@ -1611,7 +1611,7 @@ u8 func0411_labtech_alerted[] = {
 
 	label(0x41)
 	increase_squadron_alertness(100)
-	say_quip(CHR_BOND, 0x10, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_WARNFRIENDS, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 
 	label(0x42)
 	go_to_target_pad(SPEED_RUN)
@@ -1902,7 +1902,7 @@ u8 func0401_pilot[] = {
 
 	// Seen player
 	label(0x07)
-	say_quip(CHR_BOND, 0x08, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_SURRENDER, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00)
 
 	label(0x04)
 	increase_squadron_alertness(100)
@@ -1943,7 +1943,7 @@ u8 func0401_pilot[] = {
 
 	// GPS disabled
 	label(0x04)
-	say_quip(CHR_BOND, 0x08, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_SURRENDER, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00)
 	goto_first(0x0b)
 
 	label(0x07)

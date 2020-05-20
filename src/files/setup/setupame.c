@@ -3774,7 +3774,7 @@ u8 func042f_surrendering_guard[] = {
 
 	// Be surprised
 	label(0x2c)
-	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
+	say_quip(CHR_BOND, QUIP_SURPRISED, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	// Wait 1 second
@@ -3803,7 +3803,7 @@ u8 func042f_surrendering_guard[] = {
 	// Warn
 	label(0x57)
 	dprint 'W','A','R','N',' ','F','R','I','E','N','D','S','\n',0,
-	say_quip(CHR_BOND, 0x10, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "Intruder alert!","We've got trouble","We've got problems"
+	say_quip(CHR_BOND, QUIP_WARNFRIENDS, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	increase_squadron_alertness(100)
 
 	// No chr in same group, or follow through from above

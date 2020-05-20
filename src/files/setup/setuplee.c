@@ -2971,7 +2971,7 @@ u8 func0421_bridge_skedar[] = {
 	endloop(0x53)
 
 	label(0x06)
-	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_DIE, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -3018,7 +3018,7 @@ u8 func0421_bridge_skedar[] = {
 	set_view_distance(100)
 	if_self_flag_bankx_eq(CHRFLAG0_00000004, TRUE, BANK_0, /*goto*/ 0x2c)
 	set_self_flag_bankx(CHRFLAG0_00000004, BANK_0)
-	say_quip(CHR_BOND, 0x0b, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_SEEPLAYER, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	label(0x2c)
 	goto_next(0xca)
 
@@ -3087,7 +3087,7 @@ u8 func0421_bridge_skedar[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, FALSE, BANK_0, /*goto*/ 0x60)
 	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0xb1)
 	label(0xb1)
-	say_quip(CHR_BOND, 0x00, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x06)
 	goto_next(0x2c)
 
