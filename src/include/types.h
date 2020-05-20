@@ -156,7 +156,7 @@ struct aibot {
 	/*0x004*/ struct mpsim *simulant;
 	/*0x008*/ u16 unk008;
 	/*0x008*/ s16 followingplayernum;
-	/*0x00c*/ s16 unk00c;
+	/*0x00c*/ s16 dangerouspropnum; // index into g_DangerousProps
 	/*0x010*/ struct prop *prop;
 	/*0x014*/ u32 unk014;
 	/*0x018*/ u32 unk018;
@@ -170,7 +170,7 @@ struct aibot {
 	/*0x03c*/ u16 unk03c;
 	/*0x03e*/ s16 unk03e;
 	/*0x040*/ f32 unk040;
-	/*0x044*/ u32 unk044;
+	/*0x044*/ struct prop *unk044; // obj
 	/*0x048*/ s16 unk048;
 	/*0x04a*/ s16 unk04a;
 	/*0x04c*/ u8 unk04c_00 : 1;
@@ -197,7 +197,13 @@ struct aibot {
 	/*0x059*/ u8 unk059;
 	/*0x05c*/ u32 unk05c;
 	/*0x060*/ u32 unk060;
+
+	/**
+	 * 0x0001 = has unlimited ammo (darksim?)
+	 * 0x0004 = detected dangerous prop
+	 */
 	/*0x064*/ u16 unk064;
+
 	/*0x068*/ u32 unk068;
 	/*0x06c*/ f32 unk06c;
 	/*0x070*/ f32 unk070;
@@ -764,11 +770,11 @@ struct chrdata {
 struct obj48 {
 	/*0x00*/ u32 flags;
 	/*0x04*/ struct coord unk04; // distance moved in last tick
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
+	/*0x10*/ f32 unk10;
+	/*0x14*/ f32 unk14;
+	/*0x18*/ f32 unk18;
 	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
+	/*0x20*/ f32 unk20;
 	/*0x24*/ u32 unk24;
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
@@ -810,13 +816,18 @@ struct obj48 {
 	/*0xb8*/ u32 unkb8;
 	/*0xbc*/ u32 unkbc;
 	/*0xc0*/ u32 unkc0;
-	/*0xc4*/ u32 unkc4;
-	/*0xc8*/ u32 unkc8;
-	/*0xcc*/ u32 unkcc;
+	/*0xc4*/ struct coord pos;
 	/*0xd0*/ u32 unkd0;
 	/*0xd4*/ u32 unkd4;
 	/*0xd8*/ u32 unkd8;
 	/*0xdc*/ f32 unkdc;
+	/*0xe0*/ u32 unke0;
+	/*0xe4*/ u32 unke4;
+	/*0xe8*/ u32 unke8;
+	/*0xec*/ u32 unkec;
+	/*0xf0*/ u32 unkf0;
+	/*0xf4*/ u32 unkf4;
+	/*0xf8*/ u16 padnum;
 };
 
 struct hov {
@@ -925,7 +936,14 @@ struct weaponobj { // objtype 0x08
 	/*0x5f*/ u8 dragonthrown;
 	/*0x60*/ s8 unk60;
 	/*0x61*/ s8 dualweaponnum;
-	/*0x62*/ s16 team;
+
+	/**
+	 * Appears to have multiple uses:
+	 * Grenades = timer?
+	 * CTC briefcase = team index
+	 */
+	/*0x62*/ s16 unk62;
+
 	/*0x64*/ struct weaponobj *dualweapon; // other weapon when dual wielding
 };
 

@@ -23388,7 +23388,7 @@ void chrTickThrowGrenade(struct chrdata *chr)
 		weapon = weaponprop->weapon;
 		propobjSetDropped(weaponprop, 3);
 		chr->hidden |= CHRHFLAG_00000001;
-		weapon->team = 0xf0;
+		weapon->unk62 = 240;
 	}
 
 	frame2 = animGetFrame(animdata);
@@ -23416,7 +23416,7 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 		if (prop) {
 			if ((flags & 1) && prop->weapon &&
 					prop->weapon->weapon_id == WEAPON_GRENADE &&
-					prop->weapon->team < 480) {
+					prop->weapon->unk62 < 480) {
 				pass = true;
 			}
 
@@ -23431,7 +23431,7 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 
 				if (chr->aibot) {
 					chr->aibot->unk064 |= 0x0004;
-					chr->aibot->unk00c = i;
+					chr->aibot->dangerouspropnum = i;
 				}
 
 				return true;
@@ -23441,7 +23441,7 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 
 	if (chr->aibot) {
 		chr->aibot->unk064 &= ~0x0004;
-		chr->aibot->unk00c = -1;
+		chr->aibot->dangerouspropnum = -1;
 	}
 
 	return false;
