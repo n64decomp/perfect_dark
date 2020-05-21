@@ -74,9 +74,9 @@ void currentPlayerBikeInit(void)
 
 	if (hoverbike->base.hidden & OBJHFLAG_00000080) {
 		struct obj48 *obj48 = hoverbike->base.unk48;
-		hoverbike->speed[0] = obj48->unk04.x;
-		hoverbike->speed[1] = obj48->unk04.z;
-		hoverbike->w = obj48->unkdc;
+		hoverbike->speed[0] = obj48->unk004.x;
+		hoverbike->speed[1] = obj48->unk004.z;
+		hoverbike->w = obj48->unk0dc;
 	}
 
 	func0f06ac90(g_Vars.currentplayer->hoverbike);

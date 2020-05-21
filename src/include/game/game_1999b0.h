@@ -17,7 +17,7 @@ u32 func0f19a2dc(u32 value);
 u32 ammotypeGetWeapon(u32 ammotype);
 u32 func0f19a37c(void);
 s32 func0f19a60c(s32 weaponnum, s32 funcnum);
-u32 func0f19a6d0(struct chrdata *chr, struct coord *frompos, struct coord *topos, s16 *fromrooms, s16 *torooms, struct obj48 *obj48);
+bool func0f19a6d0(struct chrdata *chr, struct coord *frompos, struct coord *topos, s16 *fromrooms, s16 *torooms, struct obj48 *obj48);
 void func0f19a7d0(u16 padnum, struct coord *pos);
 void aibotCreateSlayerRocket(struct chrdata *chr);
 

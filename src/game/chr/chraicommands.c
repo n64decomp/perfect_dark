@@ -8304,7 +8304,7 @@ glabel aiSayQuip
 //	s32 distance; // 116 - not referenced
 //	s32 row = cmd[3]; // 112
 //	u32 playernum; // 108 - not referenced
-//	u8 flag = g_Vars.chrdata->hidden2 & CHRH2FLAG_1000; // 107
+//	u8 headshotted = g_Vars.chrdata->hidden2 & CHRH2FLAG_HEADSHOTTED; // 107
 //	struct chrdata *loopchr; // 100
 //
 //	// Choose bank
@@ -8423,7 +8423,8 @@ glabel aiSayQuip
 //				audioMarkAsRecentlyPlayed(audioid);
 //
 //				// 6e8
-//				if (audioid == 0x34e && flag == 0) {
+//				// Replace gurgle with "why me"
+//				if (audioid == 0x34e && !headshotted) {
 //					audioid = 0x34d;
 //				}
 //
@@ -8439,6 +8440,7 @@ glabel aiSayQuip
 //					func0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
 //							-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
 //				} else {
+//					// Audio is "Stop moving", "Stop dodging" or "Stand still"
 //					distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
 //
 //					if (ABS(distance) > 50) {
@@ -8489,7 +8491,8 @@ glabel aiSayQuip
 //				if (audioid) {
 //					audioMarkAsRecentlyPlayed(audioid);
 //
-//					if (audioid == 0x34e && flag == 0) {
+//					// Replace gurgle with "why me"
+//					if (audioid == 0x34e && !headshotted) {
 //						audioid = 0x34d;
 //					}
 //
@@ -8504,6 +8507,7 @@ glabel aiSayQuip
 //						func0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
 //								-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
 //					} else {
+//						// Audio is "Stop moving", "Stop dodging" or "Stand still"
 //						// a90
 //						distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
 //

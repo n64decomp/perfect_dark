@@ -32741,8 +32741,8 @@ void propobjSetDropped(struct prop *prop, u32 reason)
 
 		func0f0685e4(prop);
 
-		if ((obj->hidden & OBJHFLAG_00000040) && obj->unk48->unk44) {
-			obj->unk48->unk44->dropreason = reason;
+		if ((obj->hidden & OBJHFLAG_00000040) && obj->unk48->unk044) {
+			obj->unk48->unk044->dropreason = reason;
 		} else if (obj->hidden & OBJHFLAG_00000080) {
 			obj->unk48->dropreason = reason;
 		}
@@ -45803,7 +45803,7 @@ void func0f08e224(struct doorobj *door)
 
 		if (door->base.hidden & OBJHFLAG_00000080) {
 			door->base.unk48->flags |= 1;
-			func000159b0(&door->base.unk48->unk20);
+			func000159b0(&door->base.unk48->unk020);
 		}
 	}
 

@@ -3084,7 +3084,7 @@ void chrDoFlinchcntThing(struct chrdata *chr, f32 arg1)
 	}
 
 	chr->hidden2 &= 0x0fff;
-	chr->hidden2 |= CHRH2FLAG_1000;
+	chr->hidden2 |= CHRH2FLAG_HEADSHOTTED;
 	value = (arg1 + 0.3926365673542f) * 8.0f / M_BADTAU;
 
 	if (value < 0) {

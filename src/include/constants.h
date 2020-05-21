@@ -387,9 +387,9 @@
 #define CHRHFLAG_PSYCHOSISED        0x80000000
 
 // chr->hidden2
-#define CHRH2FLAG_0001 0x0001
-#define CHRH2FLAG_0040 0x0040
-#define CHRH2FLAG_1000 0x1000
+#define CHRH2FLAG_0001        0x0001
+#define CHRH2FLAG_0040        0x0040
+#define CHRH2FLAG_HEADSHOTTED 0x1000
 
 // chr->chrflags
 #define CHRCFLAG_00000001                    0x00000001 // Villa takers, Attack Ship Cass and skedar - both set at end of intros

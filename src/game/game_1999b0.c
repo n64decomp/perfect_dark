@@ -793,77 +793,37 @@ s32 func0f19a60c(s32 weaponnum, s32 funcnum)
 	return iVar4;
 }
 
-GLOBAL_ASM(
-glabel func0f19a6d0
-/*  f19a6d0:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f19a6d4:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f19a6d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19a6dc:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f19a6e0:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f19a6e4:	afa60058 */ 	sw	$a2,0x58($sp)
-/*  f19a6e8:	0fc45095 */ 	jal	waypointFindClosestToPos
-/*  f19a6ec:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f19a6f0:	afa2004c */ 	sw	$v0,0x4c($sp)
-/*  f19a6f4:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f19a6f8:	0fc45095 */ 	jal	waypointFindClosestToPos
-/*  f19a6fc:	8fa50060 */ 	lw	$a1,0x60($sp)
-/*  f19a700:	8fae004c */ 	lw	$t6,0x4c($sp)
-/*  f19a704:	afa20048 */ 	sw	$v0,0x48($sp)
-/*  f19a708:	51c0002d */ 	beqzl	$t6,.L0f19a7c0
-/*  f19a70c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19a710:	1040002a */ 	beqz	$v0,.L0f19a7bc
-/*  f19a714:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x8)
-/*  f19a718:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f19a71c:	8def9fc8 */ 	lw	$t7,%lo(g_Vars+0x8)($t7)
-/*  f19a720:	85090000 */ 	lh	$t1,0x0($t0)
-/*  f19a724:	000fc243 */ 	sra	$t8,$t7,0x9
-/*  f19a728:	0018c9c0 */ 	sll	$t9,$t8,0x7
-/*  f19a72c:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f19a730:	032a2021 */ 	addu	$a0,$t9,$t2
-/*  f19a734:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f19a738:	00802825 */ 	or	$a1,$a0,$zero
-/*  f19a73c:	8fa4004c */ 	lw	$a0,0x4c($sp)
-/*  f19a740:	8fa50048 */ 	lw	$a1,0x48($sp)
-/*  f19a744:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f19a748:	0fc4547b */ 	jal	waypointFindRoute
-/*  f19a74c:	24070006 */ 	addiu	$a3,$zero,0x6
-/*  f19a750:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f19a754:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19a758:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f19a75c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f19a760:	8fab002c */ 	lw	$t3,0x2c($sp)
-/*  f19a764:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*  f19a768:	29610002 */ 	slti	$at,$t3,0x2
-/*  f19a76c:	54200014 */ 	bnezl	$at,.L0f19a7c0
-/*  f19a770:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19a774:	1180000c */ 	beqz	$t4,.L0f19a7a8
-/*  f19a778:	00002825 */ 	or	$a1,$zero,$zero
-/*  f19a77c:	27a30030 */ 	addiu	$v1,$sp,0x30
-/*  f19a780:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f19a784:	8fa20064 */ 	lw	$v0,0x64($sp)
-/*  f19a788:	8c8e0000 */ 	lw	$t6,0x0($a0)
-.L0f19a78c:
-/*  f19a78c:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f19a790:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f19a794:	a44e00f6 */ 	sh	$t6,0xf6($v0)
-/*  f19a798:	8c640004 */ 	lw	$a0,0x4($v1)
-/*  f19a79c:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f19a7a0:	5480fffa */ 	bnezl	$a0,.L0f19a78c
-/*  f19a7a4:	8c8e0000 */ 	lw	$t6,0x0($a0)
-.L0f19a7a8:
-/*  f19a7a8:	8fa60064 */ 	lw	$a2,0x64($sp)
-/*  f19a7ac:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f19a7b0:	a0c00105 */ 	sb	$zero,0x105($a2)
-/*  f19a7b4:	10000002 */ 	beqz	$zero,.L0f19a7c0
-/*  f19a7b8:	a0c50104 */ 	sb	$a1,0x104($a2)
-.L0f19a7bc:
-/*  f19a7bc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19a7c0:
-/*  f19a7c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19a7c4:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f19a7c8:	03e00008 */ 	jr	$ra
-/*  f19a7cc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f19a6d0(struct chrdata *chr, struct coord *frompos, struct coord *topos, s16 *fromrooms, s16 *torooms, struct obj48 *obj48)
+{
+	s32 *fromwaypoint = waypointFindClosestToPos(frompos, fromrooms);
+	s32 *towaypoint = waypointFindClosestToPos(topos, torooms);
+	s32 *waypoints[6];
+	s32 numwaypoints;
+
+	if (fromwaypoint && towaypoint) {
+		s32 hash = (g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8;
+		waypointSetHashThing(hash, hash);
+
+		numwaypoints = waypointFindRoute(fromwaypoint, towaypoint, waypoints, 6);
+		waypointSetHashThing(0, 0);
+
+		if (numwaypoints > 1) {
+			s32 i = 0;
+
+			while (waypoints[i]) {
+				obj48->waypoints[i] = *waypoints[i];
+				i++;
+			}
+
+			obj48->unk105 = 0;
+			obj48->unk104 = i;
+
+			return true;
+		}
+	}
+
+	return false;
+}
 
 void func0f19a7d0(u16 padnum, struct coord *pos)
 {
@@ -910,11 +870,11 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 		if (rocket->base.hidden & OBJHFLAG_00000080) {
 			struct prop *target = chrGetTargetProp(chr);
 			rocket->unk62 = -1;
-			rocket->base.unk48->unk10 = 7.5;
-			rocket->base.unk48->unk14 = b;
-			rocket->base.unk48->unk18 = a;
-			rocket->base.unk48->unkf4 = 0;
-			rocket->base.unk48->unkb4 = 0x20000000;
+			rocket->base.unk48->unk010 = 7.5;
+			rocket->base.unk48->unk014 = b;
+			rocket->base.unk48->unk018 = a;
+			rocket->base.unk48->unk0f4 = 0;
+			rocket->base.unk48->unk0b4 = 0x20000000;
 
 			// Fire rocket sound
 			func0f0939f8(NULL, rocket->base.prop, 0x8053, -1,
@@ -923,7 +883,7 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 			if (!func0f19a6d0(chr, &chr->prop->pos, &target->pos, chr->prop->rooms, target->rooms, rocket->base.unk48)) {
 				rocket->unk62 = 0;
 			} else {
-				func0f19a7d0(rocket->base.unk48->padnum, &rocket->base.unk48->pos);
+				func0f19a7d0(rocket->base.unk48->waypoints[0], &rocket->base.unk48->pos);
 				chr->aibot->unk044 = rocket->base.prop;
 			}
 		}
