@@ -201,6 +201,7 @@ struct aibot {
 	/**
 	 * 0x0001 = has unlimited ammo (darksim?)
 	 * 0x0004 = detected dangerous prop
+	 * 0x1000 = using remote mines
 	 */
 	/*0x064*/ u16 unk064;
 

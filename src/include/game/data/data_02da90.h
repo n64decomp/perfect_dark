@@ -13,8 +13,5 @@ extern u32 var80087e2c;
 extern u32 var80087e50;
 extern u32 var80087e98;
 extern u32 var80087eb0;
-extern u32 var80088490;
-extern u32 var80088494;
-extern u32 var800884a4;
 
 #endif

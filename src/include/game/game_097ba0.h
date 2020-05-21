@@ -70,7 +70,7 @@ u32 func0f09eae4(void);
 u32 func0f09ebbc(void);
 void func0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, f32 *matrix1, f32 *arg4, f32 *matrix2, struct prop *prop, struct coord *pos);
 u32 func0f09ed2c(void);
-u32 func0f09ee18(void);
+void func0f09ee18(struct chrdata *chr, u8 *arg1, struct coord *pos, s16 *rooms, f32 *arg4, struct coord *arg5);
 u32 func0f09f100(void);
 u32 func0f09f848(void);
 u32 func0f09f974(void);

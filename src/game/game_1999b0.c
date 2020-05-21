@@ -25,6 +25,8 @@
 #include "lib/lib_233c0.h"
 #include "types.h"
 
+u8 var80088490 = 0x16;
+
 s32 weaponGetAmmoTypeByFunction(s32 weaponnum, u32 funcnum)
 {
 	if (weaponnum >= WEAPON_FALCON2 && weaponnum <= WEAPON_SUICIDEPILL) {
@@ -570,200 +572,72 @@ u32 ammotypeGetWeapon(u32 ammotype)
 	return 0;
 }
 
-u32 var800884a0 = 0x00000000;
+void func0f19a37c(struct chrdata *chr)
+{
+	struct coord sp228 = {0, 0, 0};
+	f32 sp164[16];
+	f32 sp152[3];
+	struct prop *prop = chr->prop;
+	f32 sp84[16];
+	f32 sp80 = func0f03e5f0(chr);
+	u32 stack;
+	u8 sp72[] = {0, 0, 0, 0};
+	struct prop *target = chrGetTargetProp(chr);
+	struct coord sp56;
+	f32 mult;
 
-GLOBAL_ASM(
-glabel func0f19a37c
-.late_rodata
-glabel var7f1b914c
-.word 0x41855555
-glabel var7f1b9150
-.word 0x3eb2b17a
-glabel var7f1b9154
-.word 0x3eb2b17a
-glabel var7f1b9158
-.word 0x3eb2b17a
-glabel var7f1b915c
-.word 0x41855555
-glabel var7f1b9160
-.word 0x4096c5bf
-glabel var7f1b9164
-.word 0x404907a9
-glabel var7f1b9168
-.word 0x3eb2b17a
-.text
-/*  f19a37c:	27bdff10 */ 	addiu	$sp,$sp,-240
-/*  f19a380:	3c0f8009 */ 	lui	$t7,%hi(var80088494)
-/*  f19a384:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f19a388:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f19a38c:	25ef8494 */ 	addiu	$t7,$t7,%lo(var80088494)
-/*  f19a390:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f19a394:	27ae00e4 */ 	addiu	$t6,$sp,0xe4
-/*  f19a398:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f19a39c:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f19a3a0:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f19a3a4:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f19a3a8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f19a3ac:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f19a3b0:	8c89001c */ 	lw	$t1,0x1c($a0)
-/*  f19a3b4:	0fc0f97c */ 	jal	func0f03e5f0
-/*  f19a3b8:	afa90094 */ 	sw	$t1,0x94($sp)
-/*  f19a3bc:	3c0a8009 */ 	lui	$t2,%hi(var800884a0)
-/*  f19a3c0:	8d4a84a0 */ 	lw	$t2,%lo(var800884a0)($t2)
-/*  f19a3c4:	e7a00050 */ 	swc1	$f0,0x50($sp)
-/*  f19a3c8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19a3cc:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f19a3d0:	afaa0048 */ 	sw	$t2,0x48($sp)
-/*  f19a3d4:	8e0b02d4 */ 	lw	$t3,0x2d4($s0)
-/*  f19a3d8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19a3dc:	2405001e */ 	addiu	$a1,$zero,0x1e
-/*  f19a3e0:	8d6c0020 */ 	lw	$t4,0x20($t3)
-/*  f19a3e4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f19a3e8:	a3ac0048 */ 	sb	$t4,0x48($sp)
-/*  f19a3ec:	8e0d02d4 */ 	lw	$t5,0x2d4($s0)
-/*  f19a3f0:	8db9004c */ 	lw	$t9,0x4c($t5)
-/*  f19a3f4:	afa20044 */ 	sw	$v0,0x44($sp)
-/*  f19a3f8:	0019c080 */ 	sll	$t8,$t9,0x2
-/*  f19a3fc:	001877c2 */ 	srl	$t6,$t8,0x1f
-/*  f19a400:	0fc1241a */ 	jal	func0f049068
-/*  f19a404:	a3ae004b */ 	sb	$t6,0x4b($sp)
-/*  f19a408:	10400026 */ 	beqz	$v0,.L0f19a4a4
-/*  f19a40c:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f19a410:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f19a414:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f19a418:	3c054185 */ 	lui	$a1,0x4185
-/*  f19a41c:	e7a40038 */ 	swc1	$f4,0x38($sp)
-/*  f19a420:	c4660010 */ 	lwc1	$f6,0x10($v1)
-/*  f19a424:	34a55555 */ 	ori	$a1,$a1,0x5555
-/*  f19a428:	e7a60040 */ 	swc1	$f6,0x40($sp)
-/*  f19a42c:	8e0f02d4 */ 	lw	$t7,0x2d4($s0)
-/*  f19a430:	8de20020 */ 	lw	$v0,0x20($t7)
-/*  f19a434:	10410003 */ 	beq	$v0,$at,.L0f19a444
-/*  f19a438:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f19a43c:	54410006 */ 	bnel	$v0,$at,.L0f19a458
-/*  f19a440:	c46a000c */ 	lwc1	$f10,0xc($v1)
-.L0f19a444:
-/*  f19a444:	8c680004 */ 	lw	$t0,0x4($v1)
-/*  f19a448:	c50800b4 */ 	lwc1	$f8,0xb4($t0)
-/*  f19a44c:	1000000c */ 	beqz	$zero,.L0f19a480
-/*  f19a450:	e7a8003c */ 	swc1	$f8,0x3c($sp)
-/*  f19a454:	c46a000c */ 	lwc1	$f10,0xc($v1)
-.L0f19a458:
-/*  f19a458:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f19a45c:	e7aa003c */ 	swc1	$f10,0x3c($sp)
-/*  f19a460:	90690000 */ 	lbu	$t1,0x0($v1)
-/*  f19a464:	c7b0003c */ 	lwc1	$f16,0x3c($sp)
-/*  f19a468:	15210005 */ 	bne	$t1,$at,.L0f19a480
-/*  f19a46c:	3c0141c8 */ 	lui	$at,0x41c8
-/*  f19a470:	44819000 */ 	mtc1	$at,$f18
-/*  f19a474:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19a478:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*  f19a47c:	e7a4003c */ 	swc1	$f4,0x3c($sp)
-.L0f19a480:
-/*  f19a480:	8fa40094 */ 	lw	$a0,0x94($sp)
-/*  f19a484:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f19a488:	27a70098 */ 	addiu	$a3,$sp,0x98
-/*  f19a48c:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f19a490:	0fc100c7 */ 	jal	func0f04031c
-/*  f19a494:	afa4002c */ 	sw	$a0,0x2c($sp)
-/*  f19a498:	3c017f1c */ 	lui	$at,%hi(var7f1b914c)
-/*  f19a49c:	1000001c */ 	beqz	$zero,.L0f19a510
-/*  f19a4a0:	c420914c */ 	lwc1	$f0,%lo(var7f1b914c)($at)
-.L0f19a4a4:
-/*  f19a4a4:	3c017f1c */ 	lui	$at,%hi(var7f1b9150)
-/*  f19a4a8:	0c0068f4 */ 	jal	cosf
-/*  f19a4ac:	c42c9150 */ 	lwc1	$f12,%lo(var7f1b9150)($at)
-/*  f19a4b0:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f19a4b4:	0c0068f7 */ 	jal	sinf
-/*  f19a4b8:	c7ac0050 */ 	lwc1	$f12,0x50($sp)
-/*  f19a4bc:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-/*  f19a4c0:	3c017f1c */ 	lui	$at,%hi(var7f1b9154)
-/*  f19a4c4:	c42c9154 */ 	lwc1	$f12,%lo(var7f1b9154)($at)
-/*  f19a4c8:	46060202 */ 	mul.s	$f8,$f0,$f6
-/*  f19a4cc:	0c0068f7 */ 	jal	sinf
-/*  f19a4d0:	e7a80098 */ 	swc1	$f8,0x98($sp)
-/*  f19a4d4:	3c017f1c */ 	lui	$at,%hi(var7f1b9158)
-/*  f19a4d8:	e7a0009c */ 	swc1	$f0,0x9c($sp)
-/*  f19a4dc:	0c0068f4 */ 	jal	cosf
-/*  f19a4e0:	c42c9158 */ 	lwc1	$f12,%lo(var7f1b9158)($at)
-/*  f19a4e4:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f19a4e8:	0c0068f4 */ 	jal	cosf
-/*  f19a4ec:	c7ac0050 */ 	lwc1	$f12,0x50($sp)
-/*  f19a4f0:	c7aa0030 */ 	lwc1	$f10,0x30($sp)
-/*  f19a4f4:	8faa0094 */ 	lw	$t2,0x94($sp)
-/*  f19a4f8:	3c017f1c */ 	lui	$at,%hi(var7f1b915c)
-/*  f19a4fc:	460a0402 */ 	mul.s	$f16,$f0,$f10
-/*  f19a500:	254b0008 */ 	addiu	$t3,$t2,0x8
-/*  f19a504:	afab002c */ 	sw	$t3,0x2c($sp)
-/*  f19a508:	c420915c */ 	lwc1	$f0,%lo(var7f1b915c)($at)
-/*  f19a50c:	e7b000a0 */ 	swc1	$f16,0xa0($sp)
-.L0f19a510:
-/*  f19a510:	c7b20098 */ 	lwc1	$f18,0x98($sp)
-/*  f19a514:	c7a6009c */ 	lwc1	$f6,0x9c($sp)
-/*  f19a518:	c7aa00a0 */ 	lwc1	$f10,0xa0($sp)
-/*  f19a51c:	46009102 */ 	mul.s	$f4,$f18,$f0
-/*  f19a520:	27a400a4 */ 	addiu	$a0,$sp,0xa4
-/*  f19a524:	46003202 */ 	mul.s	$f8,$f6,$f0
-/*  f19a528:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19a52c:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f19a530:	e7a400e4 */ 	swc1	$f4,0xe4($sp)
-/*  f19a534:	e7a800e8 */ 	swc1	$f8,0xe8($sp)
-/*  f19a538:	0c00566c */ 	jal	func000159b0
-/*  f19a53c:	e7b000ec */ 	swc1	$f16,0xec($sp)
-/*  f19a540:	8e0c02d4 */ 	lw	$t4,0x2d4($s0)
-/*  f19a544:	2401001a */ 	addiu	$at,$zero,0x1a
-/*  f19a548:	27a500a4 */ 	addiu	$a1,$sp,0xa4
-/*  f19a54c:	8d8d0020 */ 	lw	$t5,0x20($t4)
-/*  f19a550:	15a1000a */ 	bne	$t5,$at,.L0f19a57c
-/*  f19a554:	3c017f1c */ 	lui	$at,%hi(var7f1b9160)
-/*  f19a558:	0c005900 */ 	jal	func00016400
-/*  f19a55c:	c42c9160 */ 	lwc1	$f12,%lo(var7f1b9160)($at)
-/*  f19a560:	3c017f1c */ 	lui	$at,%hi(var7f1b9164)
-/*  f19a564:	c42c9164 */ 	lwc1	$f12,%lo(var7f1b9164)($at)
-/*  f19a568:	0c0058ba */ 	jal	func000162e8
-/*  f19a56c:	27a50054 */ 	addiu	$a1,$sp,0x54
-/*  f19a570:	27a40054 */ 	addiu	$a0,$sp,0x54
-/*  f19a574:	0c00567f */ 	jal	func000159fc
-/*  f19a578:	27a500a4 */ 	addiu	$a1,$sp,0xa4
-.L0f19a57c:
-/*  f19a57c:	3c017f1c */ 	lui	$at,%hi(var7f1b9168)
-/*  f19a580:	c42c9168 */ 	lwc1	$f12,%lo(var7f1b9168)($at)
-/*  f19a584:	0c0058ba */ 	jal	func000162e8
-/*  f19a588:	27a50054 */ 	addiu	$a1,$sp,0x54
-/*  f19a58c:	27a40054 */ 	addiu	$a0,$sp,0x54
-/*  f19a590:	0c0056f8 */ 	jal	func00015be0
-/*  f19a594:	27a500a4 */ 	addiu	$a1,$sp,0xa4
-/*  f19a598:	c7ac0050 */ 	lwc1	$f12,0x50($sp)
-/*  f19a59c:	0c0058dd */ 	jal	func00016374
-/*  f19a5a0:	27a50054 */ 	addiu	$a1,$sp,0x54
-/*  f19a5a4:	27a40054 */ 	addiu	$a0,$sp,0x54
-/*  f19a5a8:	0c0056f8 */ 	jal	func00015be0
-/*  f19a5ac:	27a500a4 */ 	addiu	$a1,$sp,0xa4
-/*  f19a5b0:	8fa70094 */ 	lw	$a3,0x94($sp)
-/*  f19a5b4:	27b900a4 */ 	addiu	$t9,$sp,0xa4
-/*  f19a5b8:	27b800e4 */ 	addiu	$t8,$sp,0xe4
-/*  f19a5bc:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f19a5c0:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f19a5c4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19a5c8:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f19a5cc:	8fa6002c */ 	lw	$a2,0x2c($sp)
-/*  f19a5d0:	0fc27b86 */ 	jal	func0f09ee18
-/*  f19a5d4:	24e70028 */ 	addiu	$a3,$a3,0x28
-/*  f19a5d8:	93ae0048 */ 	lbu	$t6,0x48($sp)
-/*  f19a5dc:	24010022 */ 	addiu	$at,$zero,0x22
-/*  f19a5e0:	55c10006 */ 	bnel	$t6,$at,.L0f19a5fc
-/*  f19a5e4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f19a5e8:	8e0202d4 */ 	lw	$v0,0x2d4($s0)
-/*  f19a5ec:	944f0064 */ 	lhu	$t7,0x64($v0)
-/*  f19a5f0:	35e81000 */ 	ori	$t0,$t7,0x1000
-/*  f19a5f4:	a4480064 */ 	sh	$t0,0x64($v0)
-/*  f19a5f8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f19a5fc:
-/*  f19a5fc:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f19a600:	27bd00f0 */ 	addiu	$sp,$sp,0xf0
-/*  f19a604:	03e00008 */ 	jr	$ra
-/*  f19a608:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	sp72[0] = chr->aibot->weaponnum;
+	sp72[3] = chr->aibot->gunfunc;
+
+	if (func0f049068(chr, WEAPON_GRENADE, 0)) {
+		sp56.x = target->pos.x;
+		sp56.z = target->pos.z;
+
+		if (chr->aibot->weaponnum == WEAPON_GRENADE || chr->aibot->weaponnum == WEAPON_NBOMB) {
+			sp56.y = target->chr->manground;
+		} else {
+			sp56.y = target->pos.y;
+
+			if (target->type == PROPTYPE_PLAYER) {
+				sp56.y -= 25.0f;
+			}
+		}
+
+		func0f04031c(&prop->pos, 16.666666f, &sp56, sp152);
+	} else {
+		// These numbers are about 2 billionths away from DEG2RAD(20),
+		// but tweaking the multiplier in DEG2RAD doesn't make this match
+		// without creating mismatches in other places :(
+		sp152[0] = cosf(0.34901028871536f) * sinf(sp80);
+		sp152[1] = sinf(0.34901028871536f);
+		sp152[2] = cosf(0.34901028871536f) * cosf(sp80);
+	}
+
+	mult = 16.666666f;
+
+	sp228.x = sp152[0] * mult;
+	sp228.y = sp152[1] * mult;
+	sp228.z = sp152[2] * mult;
+
+	func000159b0(sp164);
+
+	if (chr->aibot->weaponnum == WEAPON_COMBATKNIFE) {
+		func00016400(M_BADPI * 1.5f, sp164);
+		func000162e8(M_BADPI, sp84);
+		func000159fc(sp84, sp164);
+	}
+
+	func000162e8(0.34901028871536f, sp84);
+	func00015be0(sp84, sp164);
+	func00016374(sp80, sp84);
+	func00015be0(sp84, sp164);
+
+	func0f09ee18(chr, sp72, &prop->pos, prop->rooms, sp164, &sp228);
+
+	if (sp72[0] == WEAPON_REMOTEMINE) {
+		chr->aibot->unk064 |= 0x1000;
+	}
+}
 
 s32 func0f19a60c(s32 weaponnum, s32 funcnum)
 {

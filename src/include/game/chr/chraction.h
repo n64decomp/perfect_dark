@@ -134,7 +134,7 @@ u32 func0f03fa10(void);
 u32 func0f03fab0(void);
 u32 func0f03fde4(void);
 u32 func0f03ff2c(void);
-u32 func0f04031c(void);
+void func0f04031c(struct coord *coord, f32 arg1, struct coord *coord2, f32 *arg3);
 u32 func0f0404d4(void);
 u32 func0f041a74(void);
 u32 func0f041c44(void);
