@@ -2006,20 +2006,34 @@ glabel audioIsFiltered
 /*    1049c:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-//bool audioIsFiltered(s16 audio_id)
+// Mismatch because goal is doing something funky with the audio_id.
+// It stores a halfword on the stack, then reads it back as a full word.
+//bool audioIsFiltered(s32 audio_id)
 //{
-//	bool filtered = false;
+//	// 418
+//	if (g_Vars.langfilteron) {
+//		// 434
+//		if ((audio_id << 16) >> 31) {
+//			u32 index = audio_id & 0x7fff;
+//			u32 configindex = audiodefinitions[index].audioconfig_index;
 //
-//	if (g_LangFilterActive) {
-//		if (audio_id < 0) {
-//			u32 bankoffset = audio_id & 0x7ff;
-//			filtered = bankoffset == 0x51d || bankoffset == 0x51e || bankoffset == 0x17ad;
+//			if (audioconfigs[configindex].flags & 0x10) {
+//				return true;
+//			}
 //		} else {
-//			filtered = (audioconfigs[audiodefinitions[audio_id].audioconfig_index].flags & 0x10) != 0;
+//			// 474
+//			// @bug: The masking here makes it impossible to match hangar guy's
+//			// audio ID, so his phrase can be said even with the lang filter on.
+//			switch (audio_id & 0x07ff) {
+//			case 0x051d: // Elvis: "Kiss my alien butt"
+//			case 0x051e: // Elvis: "I'll kick your ass"
+//			case 0x17ad: // Hangar guy: "Just don't screw up, okay?"
+//				return true;
+//			}
 //		}
 //	}
 //
-//	return filtered;
+//	return false;
 //}
 
 GLOBAL_ASM(
