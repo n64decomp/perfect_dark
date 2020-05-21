@@ -2000,7 +2000,7 @@ u8 func0425_hostage_thank_and_run[] = {
 	goto_first(0x0b)
 
 	label(0x08)
-	play_cistaff_quip(BANK_3, CHANNEL_6)
+	play_cistaff_quip(CIQUIP_THANKS, CHANNEL_6)
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	label(0x2f)
 	restart_timer
@@ -2090,7 +2090,7 @@ u8 func0427_drop_devastator[] = {
 	give_object_to_chr(OBJ_DEVASTATOR, CHR_SELF)
 	yield
 	drop_concealed_items(CHR_SELF)
-	play_cistaff_quip(BANK_3, CHANNEL_6)
+	play_cistaff_quip(CIQUIP_THANKS, CHANNEL_6)
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	restart_timer
 

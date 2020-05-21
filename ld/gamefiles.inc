@@ -68,10 +68,10 @@
 	build/ROMID/game/chr/chraction.o (section); \
 	build/ROMID/game/chr/chrai.o (section); \
 	build/ROMID/game/chr/chraicommands.o (section); \
-	build/ROMID/game/data/data_00e460.o (section); \
-	build/ROMID/game/data/inventory.o (section); \
 	build/ROMID/game/game_0601b0.o (section); \
 	build/ROMID/game/propobj.o (section); \
+	build/ROMID/game/data/data_00e460.o (section); \
+	build/ROMID/game/data/inventory.o (section); \
 	build/ROMID/game/game_091e10.o (section); \
 	build/ROMID/game/game_092610.o (section); \
 	build/ROMID/game/game_095320.o (section); \

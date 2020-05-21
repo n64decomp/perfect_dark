@@ -195,8 +195,6 @@
 
 #define BANK_0 0
 #define BANK_1 1
-#define BANK_2 2
-#define BANK_3 3
 
 #define CAMERAMODE_DEFAULT     0
 #define CAMERAMODE_THIRDPERSON 1
@@ -426,6 +424,11 @@
 #define CHRCFLAG_20000000                    0x20000000 // Not used in scripts
 #define CHRCFLAG_40000000                    0x40000000 // Not used in scripts
 #define CHRCFLAG_INJURED                     0x80000000
+
+#define CIQUIP_GREETING 0
+#define CIQUIP_MAIN     1
+#define CIQUIP_ANNOYED  2
+#define CIQUIP_THANKS   3
 
 #define CIROOM_FIRINGRANGE 0x0a
 #define CIROOM_HOLOSTART   0x16

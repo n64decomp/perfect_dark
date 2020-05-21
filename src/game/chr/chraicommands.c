@@ -10220,6 +10220,54 @@ bool aiSetRoomToSearch(void)
 	return false;
 }
 
+s16 g_CiMainQuips[][3] = {
+	{ 0x17a1, 0x17a2, 0x17a3 }, // Carrington
+	{ 0x17a4, 0x17a5, 0x17a6 }, // Device training girl
+	{ 0x17a7, 0x17a8, 0x17a9 }, // Grimshaw
+	{ 0x17aa, 0x17ab, 0x17ac }, // Holo training girl
+	{ 0x17ad, 0x17ae, 0x17af }, // Hangar guy
+	{ 0x179e, 0x179f, 0x17a0 }, // Foster
+};
+
+s16 g_CiGreetingQuips[][3] = {
+	{ 0x8028, 0x8028, 0x8028 },
+	{ 0x802b, 0x802b, 0x802b },
+	{ 0x802c, 0x802d, 0x802e },
+	{ 0x802f, 0x802f, 0x802f },
+	{ 0x8030, 0x8030, 0x8030 },
+	{ 0x8031, 0x8031, 0x8031 },
+	{ 0x8032, 0x8032, 0x8033 },
+	{ 0x8033, 0x8034, 0x8034 },
+	{ 0x8035, 0x8035, 0x8036 },
+	{ 0x8036, 0x8037, 0x8037 },
+};
+
+s16 g_CiAnnoyedQuips[][3] = {
+	{ 0x177b, 0x177b, 0x177b }, // Carrington
+	{ 0x177d, 0x177d, 0x177d }, // Device training girl
+	{ 0x1789, 0x178a, 0x178b }, // Grimshaw
+	{ 0x178d, 0x178d, 0x178d }, // Holo training girl
+	{ 0x1795, 0x1795, 0x1795 }, // Hangar guy
+	{ 0x1785, 0x1785, 0x1785 }, // Foster
+	{ 0x1791, 0x1791, 0x1791 }, // Male "Don't you have to be somewhere?"
+	{ 0x1791, 0x1791, 0x1791 },
+	{ 0x1782, 0x1782, 0x1782 }, // Female "Don't you have to be somewhere?"
+	{ 0x1783, 0x1783, 0x1783 }, // "Bother someone else, would you?"
+};
+
+s16 g_CiThanksQuips[] = {
+	0x0000,
+	0x1b1c, // Device training girl "Thanks for coming back for me, Joanna"
+	0x1b1f, // Grimshaw "That was too close"
+	0x1b20, // Holo training girl "Quick, let's get to the hangar"
+	0x0000,
+	0x1b1e, // Foster "I knew I could rely on you, Joanna"
+	0x1b21, // Device training guy "Thanks, Jo"
+	0x1b21,
+	0x1b1d, // Female "Thanks"
+	0x1b1d,
+};
+
 /**
  * @cmd 01a2
  */
@@ -10228,23 +10276,23 @@ bool aiSayCiStaffQuip(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 quip;
 
-	if (cmd[2] == 0) {
-		quip = ciquiptable_bank0[g_Vars.chrdata->morale][random() % 3];
+	if (cmd[2] == CIQUIP_GREETING) {
+		quip = g_CiGreetingQuips[g_Vars.chrdata->morale][random() % 3];
 		audioPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
 	}
 
-	if (cmd[2] == 1) {
-		quip = ciquiptable_bank1[g_Vars.chrdata->morale][random() % 3];
+	if (cmd[2] == CIQUIP_MAIN) {
+		quip = g_CiMainQuips[g_Vars.chrdata->morale][random() % 3];
 		audioPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
 	}
 
-	if (cmd[2] == 2) {
-		quip = ciquiptable_bank2[g_Vars.chrdata->morale][random() % 3];
+	if (cmd[2] == CIQUIP_ANNOYED) {
+		quip = g_CiAnnoyedQuips[g_Vars.chrdata->morale][random() % 3];
 		audioPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
 	}
 
-	if (cmd[2] == 3) {
-		quip = ciquiptable_bank3[g_Vars.chrdata->morale];
+	if (cmd[2] == CIQUIP_THANKS) {
+		quip = g_CiThanksQuips[g_Vars.chrdata->morale];
 		audioPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
 	}
 
@@ -10259,7 +10307,25 @@ bool aiSayCiStaffQuip(void)
 bool aiDoPresetAnimation(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u16 anims[15] = g_PresetAnimations;
+
+	// These all appear to be talking animations
+	u16 anims[15] = {
+		/* 0*/ 0x0296,
+		/* 1*/ 0x0297,
+		/* 2*/ 0x0298,
+		/* 3*/ 0x028a, // when value is 3 (1/2 chance)
+		/* 4*/ 0x028c, // when value is 3 (1/2 chance)
+		/* 5*/ 0x0290,
+		/* 6*/ 0x0291,
+		/* 7*/ 0x00a3, // when value is 255 (1/8 chance)
+		/* 8*/ 0x028e, // when value is 255 (1/8 chance)
+		/* 9*/ 0x028f, // when value is 255 (1/8 chance)
+		/*10*/ 0x0231, // when value is 255 (1/8 chance)
+		/*11*/ 0x0232, // when value is 255 (1/8 chance)
+		/*12*/ 0x0233, // when value is 255 (1/8 chance)
+		/*13*/ 0x0234, // when value is 255 (1/8 chance)
+		/*14*/ 0x028d, // when value is 255 (1/8 chance)
+	};
 
 	if (cmd[2] == 255) {
 		func0f03af44(g_Vars.chrdata, anims[7 + (random() & 7)], 0, -1, 0, 15, 0.5);
@@ -10592,7 +10658,7 @@ bool aiSetAutogunType(void)
  */
 bool aiShufflePelagicSwitches(void)
 {
-	u8 buttonsdone[8] = var80069860;
+	u8 buttonsdone[] = {0, 0, 0, 0, 0, 0, 0, 0};
 	u8 i;
 	u8 j;
 	struct tag *tag;
@@ -10988,8 +11054,8 @@ bool aiChrSetFiringInCutscene(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-	struct coord sp2c = var80069868;
-	struct coord sp20 = var80069874;
+	struct coord sp2c = {0, 0, 0};
+	struct coord sp20 = {0, 0, 0};
 
 	if (chr && chr->weapons_held[0]) {
 		if (cmd[3]) {

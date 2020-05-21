@@ -3436,10 +3436,19 @@
 
 /**
  * Play a quip for the CI staff.
+ *
+ * The ciquip argument is expected to be one of the CIQUIP constants. This
+ * determines what type of quip they say (greeting, main, annoyed or thankful).
+ *
+ * The voice used depends on the chr's morale property. Valid morales are 0-9,
+ * but if using the main bank only 0-5 are valid.
+ *
+ * Each quip type + morale combination has up to three quips that may be said.
+ * The quip used is random.
  */
-#define play_cistaff_quip(bank, channel) \
+#define play_cistaff_quip(ciquip, channel) \
 	mkshort(0x01a2), \
-	bank, \
+	ciquip, \
 	channel,
 
 /**
