@@ -1934,38 +1934,38 @@
 #define OBJFLAG2_80000000     0x80000000 // Attack Ship glass
 
 // obj->flags3
-#define OBJFLAG3_PUSHABLE        0x00000001
-#define OBJFLAG3_GRABBABLE       0x00000002
-#define OBJFLAG3_DOOR_STICKY     0x00000004 // eg. Skedar Ruins
-#define OBJFLAG3_00000008        0x00000008 // Not used in scripts
-#define OBJFLAG3_00000010        0x00000010 // Used heaps
-#define OBJFLAG3_00000020        0x00000020 // Not used in scripts
-#define OBJFLAG3_RTRACKED_YELLOW 0x00000040
-#define OBJFLAG3_00000080        0x00000080 // Not used in scripts
-#define OBJFLAG3_00000100        0x00000100 // Not used in scripts
-#define OBJFLAG3_00000200        0x00000200 // Not used in scripts
-#define OBJFLAG3_WALKTRHOUGH     0x00000400
-#define OBJFLAG3_RTRACKED_BLUE   0x00000800
-#define OBJFLAG3_SHOWSHIELD      0x00001000 // Show shield effect around object (always)
-#define OBJFLAG3_00002000        0x00002000 // Not used in scripts
-#define OBJFLAG3_00004000        0x00004000 // Not used in scripts
-#define OBJFLAG3_00008000        0x00008000 // Not used in scripts
-#define OBJFLAG3_00010000        0x00010000 // Editor: "Can be activated"
-#define OBJFLAG3_00020000        0x00020000 // Not used in scripts
-#define OBJFLAG3_00040000        0x00040000 // Not used in scripts
-#define OBJFLAG3_00080000        0x00080000 // Not used in scripts
-#define OBJFLAG3_00100000        0x00100000 // Ruins spikes
-#define OBJFLAG3_00200000        0x00200000 // Not used in scripts
-#define OBJFLAG3_00400000        0x00400000 // Investigation tech items
-#define OBJFLAG3_00800000        0x00800000 // Not used in scripts
-#define OBJFLAG3_01000000        0x01000000 // Not used in scripts
-#define OBJFLAG3_02000000        0x02000000 // Not used in scripts
-#define OBJFLAG3_04000000        0x04000000 // Not used in scripts
-#define OBJFLAG3_08000000        0x08000000 // Not used in scripts
-#define OBJFLAG3_10000000        0x10000000 // Editor: "Keep Collisions After Fully Destroyed"
-#define OBJFLAG3_20000000        0x20000000 // Not used in scripts
-#define OBJFLAG3_40000000        0x40000000 // Editor: "Door Highlighted IR Scanner"
-#define OBJFLAG3_80000000        0x80000000 // Not used in scripts
+#define OBJFLAG3_PUSHABLE           0x00000001
+#define OBJFLAG3_GRABBABLE          0x00000002
+#define OBJFLAG3_DOOR_STICKY        0x00000004 // eg. Skedar Ruins
+#define OBJFLAG3_00000008           0x00000008 // Not used in scripts
+#define OBJFLAG3_00000010           0x00000010 // Used heaps
+#define OBJFLAG3_AUTOCUTSCENESOUNDS 0x00000020 // For doors and objs - play default open/close noises
+#define OBJFLAG3_RTRACKED_YELLOW    0x00000040
+#define OBJFLAG3_00000080           0x00000080 // Not used in scripts
+#define OBJFLAG3_00000100           0x00000100 // Not used in scripts
+#define OBJFLAG3_00000200           0x00000200 // Not used in scripts
+#define OBJFLAG3_WALKTRHOUGH        0x00000400
+#define OBJFLAG3_RTRACKED_BLUE      0x00000800
+#define OBJFLAG3_SHOWSHIELD         0x00001000 // Show shield effect around object (always)
+#define OBJFLAG3_00002000           0x00002000 // Not used in scripts
+#define OBJFLAG3_00004000           0x00004000 // Not used in scripts
+#define OBJFLAG3_00008000           0x00008000 // Not used in scripts
+#define OBJFLAG3_00010000           0x00010000 // Editor: "Can be activated"
+#define OBJFLAG3_00020000           0x00020000 // Not used in scripts
+#define OBJFLAG3_00040000           0x00040000 // Not used in scripts
+#define OBJFLAG3_00080000           0x00080000 // Not used in scripts
+#define OBJFLAG3_00100000           0x00100000 // Ruins spikes
+#define OBJFLAG3_00200000           0x00200000 // Not used in scripts
+#define OBJFLAG3_00400000           0x00400000 // Investigation tech items
+#define OBJFLAG3_00800000           0x00800000 // Not used in scripts
+#define OBJFLAG3_01000000           0x01000000 // Not used in scripts
+#define OBJFLAG3_02000000           0x02000000 // Not used in scripts
+#define OBJFLAG3_04000000           0x04000000 // Not used in scripts
+#define OBJFLAG3_08000000           0x08000000 // Not used in scripts
+#define OBJFLAG3_10000000           0x10000000 // Editor: "Keep Collisions After Fully Destroyed"
+#define OBJFLAG3_20000000           0x20000000 // Not used in scripts
+#define OBJFLAG3_40000000           0x40000000 // Editor: "Door Highlighted IR Scanner"
+#define OBJFLAG3_80000000           0x80000000 // Not used in scripts
 
 // obj->hidden
 #define OBJHFLAG_00000004          0x00000004
