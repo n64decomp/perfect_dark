@@ -11984,54 +11984,28 @@ glabel func0f0295f8
 /*  f02979c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0297a0
-/*  f0297a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0297a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0297a8:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f0297ac:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0297b0:	90620000 */ 	lbu	$v0,0x0($v1)
-/*  f0297b4:	10410003 */ 	beq	$v0,$at,.L0f0297c4
-/*  f0297b8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0297bc:	54410006 */ 	bnel	$v0,$at,.L0f0297d8
-/*  f0297c0:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f0297c4:
-/*  f0297c4:	0fc0cfe8 */ 	jal	chrGetShield
-/*  f0297c8:	8c640004 */ 	lw	$a0,0x4($v1)
-/*  f0297cc:	10000018 */ 	beqz	$zero,.L0f029830
-/*  f0297d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0297d4:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f0297d8:
-/*  f0297d8:	10410005 */ 	beq	$v0,$at,.L0f0297f0
-/*  f0297dc:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0297e0:	10410003 */ 	beq	$v0,$at,.L0f0297f0
-/*  f0297e4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0297e8:	5441000f */ 	bnel	$v0,$at,.L0f029828
-/*  f0297ec:	44800000 */ 	mtc1	$zero,$f0
-.L0f0297f0:
-/*  f0297f0:	8c6e0004 */ 	lw	$t6,0x4($v1)
-/*  f0297f4:	3c014100 */ 	lui	$at,0x4100
-/*  f0297f8:	8dcf0010 */ 	lw	$t7,0x10($t6)
-/*  f0297fc:	31f81000 */ 	andi	$t8,$t7,0x1000
-/*  f029800:	53000006 */ 	beqzl	$t8,.L0f02981c
-/*  f029804:	44810000 */ 	mtc1	$at,$f0
-/*  f029808:	3c014080 */ 	lui	$at,0x4080
-/*  f02980c:	44810000 */ 	mtc1	$at,$f0
-/*  f029810:	10000007 */ 	beqz	$zero,.L0f029830
-/*  f029814:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f029818:	44810000 */ 	mtc1	$at,$f0
-.L0f02981c:
-/*  f02981c:	10000004 */ 	beqz	$zero,.L0f029830
-/*  f029820:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f029824:	44800000 */ 	mtc1	$zero,$f0
-.L0f029828:
-/*  f029828:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02982c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f029830:
-/*  f029830:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f029834:	03e00008 */ 	jr	$ra
-/*  f029838:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 propGetShieldThing(struct prop **propptr)
+{
+	struct prop *prop = *propptr;
+
+	if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+		return chrGetShield(prop->chr);
+	}
+
+	if (prop->type == PROPTYPE_OBJ
+			|| prop->type == PROPTYPE_WEAPON
+			|| prop->type == PROPTYPE_DOOR) {
+		if (prop->obj->flags3 & OBJFLAG3_SHOWSHIELD) {
+			return 4;
+		}
+
+		// If this function is returning the shield amount,
+		// why would it return 8 for all objects here?
+		return 8;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f02983c
@@ -15462,7 +15436,7 @@ glabel var7f1a8984
 /*  f02ca30:	0308082a */ 	slt	$at,$t8,$t0
 /*  f02ca34:	1420000f */ 	bnez	$at,.L0f02ca74
 /*  f02ca38:	02832021 */ 	addu	$a0,$s4,$v1
-/*  f02ca3c:	0fc0a5e8 */ 	jal	func0f0297a0
+/*  f02ca3c:	0fc0a5e8 */ 	jal	propGetShieldThing
 /*  f02ca40:	afa90040 */ 	sw	$t1,0x40($sp)
 /*  f02ca44:	8e2a0000 */ 	lw	$t2,0x0($s1)
 /*  f02ca48:	c7c60044 */ 	lwc1	$f6,0x44($s8)
