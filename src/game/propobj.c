@@ -44984,195 +44984,53 @@ void func0f08daa8(s32 soundtype, struct prop *prop)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f08dd44
-.late_rodata
-glabel var7f1ab074
-.word func0f08dd44+0x90 # f08ddd4
-glabel var7f1ab078
-.word func0f08dd44+0xa0 # f08dde4
-glabel var7f1ab07c
-.word func0f08dd44+0xa8 # f08ddec
-glabel var7f1ab080
-.word func0f08dd44+0xb0 # f08ddf4
-glabel var7f1ab084
-.word func0f08dd44+0xb8 # f08ddfc
-glabel var7f1ab088
-.word func0f08dd44+0x15c # f08dea0
-glabel var7f1ab08c
-.word func0f08dd44+0x15c # f08dea0
-glabel var7f1ab090
-.word func0f08dd44+0xc0 # f08de04
-glabel var7f1ab094
-.word func0f08dd44+0xc8 # f08de0c
-glabel var7f1ab098
-.word func0f08dd44+0xd0 # f08de14
-glabel var7f1ab09c
-.word func0f08dd44+0x15c # f08dea0
-glabel var7f1ab0a0
-.word func0f08dd44+0x15c # f08dea0
-glabel var7f1ab0a4
-.word func0f08dd44+0x15c # f08dea0
-glabel var7f1ab0a8
-.word func0f08dd44+0xe0 # f08de24
-glabel var7f1ab0ac
-.word func0f08dd44+0xe8 # f08de2c
-glabel var7f1ab0b0
-.word func0f08dd44+0xf8 # f08de3c
-glabel var7f1ab0b4
-.word func0f08dd44+0x100 # f08de44
-glabel var7f1ab0b8
-.word func0f08dd44+0x108 # f08de4c
-glabel var7f1ab0bc
-.word func0f08dd44+0x118 # f08de5c
-glabel var7f1ab0c0
-.word func0f08dd44+0x120 # f08de64
-glabel var7f1ab0c4
-.word func0f08dd44+0x128 # f08de6c
-glabel var7f1ab0c8
-.word func0f08dd44+0x140 # f08de84
-glabel var7f1ab0cc
-.word func0f08dd44+0x148 # f08de8c
-glabel var7f1ab0d0
-.word func0f08dd44+0x150 # f08de94
-glabel var7f1ab0d4
-.word func0f08dd44+0xf0 # f08de34
-glabel var7f1ab0d8
-.word func0f08dd44+0x110 # f08de54
-glabel var7f1ab0dc
-.word func0f08dd44+0x158 # f08de9c
-glabel var7f1ab0e0
-.word func0f08dd44+0x88 # f08ddcc
-glabel var7f1ab0e4
-.word func0f08dd44+0x98 # f08dddc
-glabel var7f1ab0e8
-.word func0f08dd44+0xd8 # f08de1c
-glabel var7f1ab0ec
-.word func0f08dd44+0x138 # f08de7c
-glabel var7f1ab0f0
-.word func0f08dd44+0x130 # f08de74
-.text
-/*  f08dd44:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f08dd48:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f08dd4c:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f08dd50:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f08dd54:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f08dd58:	2405000c */ 	addiu	$a1,$zero,0xc
-/*  f08dd5c:	afa0004c */ 	sw	$zero,0x4c($sp)
-/*  f08dd60:	0fc249af */ 	jal	func0f0926bc
-/*  f08dd64:	3406ffff */ 	dli	$a2,0xffff
-/*  f08dd68:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x4cc)
-/*  f08dd6c:	8dcea48c */ 	lw	$t6,%lo(g_Vars+0x4cc)($t6)
-/*  f08dd70:	8fa2004c */ 	lw	$v0,0x4c($sp)
-/*  f08dd74:	8fa50054 */ 	lw	$a1,0x54($sp)
-/*  f08dd78:	11c0000b */ 	beqz	$t6,.L0f08dda8
-/*  f08dd7c:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f08dd80:	90a30000 */ 	lbu	$v1,0x0($a1)
-/*  f08dd84:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f08dd88:	10610003 */ 	beq	$v1,$at,.L0f08dd98
-/*  f08dd8c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f08dd90:	54610006 */ 	bnel	$v1,$at,.L0f08ddac
-/*  f08dd94:	2509ffff */ 	addiu	$t1,$t0,-1
-.L0f08dd98:
-/*  f08dd98:	8caf0004 */ 	lw	$t7,0x4($a1)
-/*  f08dd9c:	8df80010 */ 	lw	$t8,0x10($t7)
-/*  f08dda0:	33190020 */ 	andi	$t9,$t8,0x20
-/*  f08dda4:	13200056 */ 	beqz	$t9,.L0f08df00
-.L0f08dda8:
-/*  f08dda8:	2509ffff */ 	addiu	$t1,$t0,-1
-.L0f08ddac:
-/*  f08ddac:	2d210020 */ 	sltiu	$at,$t1,0x20
-/*  f08ddb0:	1020003b */ 	beqz	$at,.L0f08dea0
-/*  f08ddb4:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f08ddb8:	3c017f1b */ 	lui	$at,%hi(var7f1ab074)
-/*  f08ddbc:	00290821 */ 	addu	$at,$at,$t1
-/*  f08ddc0:	8c29b074 */ 	lw	$t1,%lo(var7f1ab074)($at)
-/*  f08ddc4:	01200008 */ 	jr	$t1
-/*  f08ddc8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08ddcc:	10000034 */ 	beqz	$zero,.L0f08dea0
-/*  f08ddd0:	3402801a */ 	dli	$v0,0x801a
-/*  f08ddd4:	10000032 */ 	beqz	$zero,.L0f08dea0
-/*  f08ddd8:	3402801a */ 	dli	$v0,0x801a
-/*  f08dddc:	10000030 */ 	beqz	$zero,.L0f08dea0
-/*  f08dde0:	34028015 */ 	dli	$v0,0x8015
-/*  f08dde4:	1000002e */ 	beqz	$zero,.L0f08dea0
-/*  f08dde8:	3402801a */ 	dli	$v0,0x801a
-/*  f08ddec:	1000002c */ 	beqz	$zero,.L0f08dea0
-/*  f08ddf0:	34028015 */ 	dli	$v0,0x8015
-/*  f08ddf4:	1000002a */ 	beqz	$zero,.L0f08dea0
-/*  f08ddf8:	3402801f */ 	dli	$v0,0x801f
-/*  f08ddfc:	10000028 */ 	beqz	$zero,.L0f08dea0
-/*  f08de00:	34028002 */ 	dli	$v0,0x8002
-/*  f08de04:	10000026 */ 	beqz	$zero,.L0f08dea0
-/*  f08de08:	3402801a */ 	dli	$v0,0x801a
-/*  f08de0c:	10000024 */ 	beqz	$zero,.L0f08dea0
-/*  f08de10:	34028003 */ 	dli	$v0,0x8003
-/*  f08de14:	10000022 */ 	beqz	$zero,.L0f08dea0
-/*  f08de18:	3402800d */ 	dli	$v0,0x800d
-/*  f08de1c:	10000020 */ 	beqz	$zero,.L0f08dea0
-/*  f08de20:	3402816d */ 	dli	$v0,0x816d
-/*  f08de24:	1000001e */ 	beqz	$zero,.L0f08dea0
-/*  f08de28:	3402816d */ 	dli	$v0,0x816d
-/*  f08de2c:	1000001c */ 	beqz	$zero,.L0f08dea0
-/*  f08de30:	34028021 */ 	dli	$v0,0x8021
-/*  f08de34:	1000001a */ 	beqz	$zero,.L0f08dea0
-/*  f08de38:	340281b7 */ 	dli	$v0,0x81b7
-/*  f08de3c:	10000018 */ 	beqz	$zero,.L0f08dea0
-/*  f08de40:	34028027 */ 	dli	$v0,0x8027
-/*  f08de44:	10000016 */ 	beqz	$zero,.L0f08dea0
-/*  f08de48:	3402801f */ 	dli	$v0,0x801f
-/*  f08de4c:	10000014 */ 	beqz	$zero,.L0f08dea0
-/*  f08de50:	34028015 */ 	dli	$v0,0x8015
-/*  f08de54:	10000012 */ 	beqz	$zero,.L0f08dea0
-/*  f08de58:	2402042c */ 	addiu	$v0,$zero,0x42c
-/*  f08de5c:	10000010 */ 	beqz	$zero,.L0f08dea0
-/*  f08de60:	340281af */ 	dli	$v0,0x81af
-/*  f08de64:	1000000e */ 	beqz	$zero,.L0f08dea0
-/*  f08de68:	340281b2 */ 	dli	$v0,0x81b2
-/*  f08de6c:	1000000c */ 	beqz	$zero,.L0f08dea0
-/*  f08de70:	340281a8 */ 	dli	$v0,0x81a8
-/*  f08de74:	1000000a */ 	beqz	$zero,.L0f08dea0
-/*  f08de78:	340281ab */ 	dli	$v0,0x81ab
-/*  f08de7c:	10000008 */ 	beqz	$zero,.L0f08dea0
-/*  f08de80:	340281ab */ 	dli	$v0,0x81ab
-/*  f08de84:	10000006 */ 	beqz	$zero,.L0f08dea0
-/*  f08de88:	340281af */ 	dli	$v0,0x81af
-/*  f08de8c:	10000004 */ 	beqz	$zero,.L0f08dea0
-/*  f08de90:	340280ad */ 	dli	$v0,0x80ad
-/*  f08de94:	10000002 */ 	beqz	$zero,.L0f08dea0
-/*  f08de98:	3402816d */ 	dli	$v0,0x816d
-/*  f08de9c:	34028015 */ 	dli	$v0,0x8015
-.L0f08dea0:
-/*  f08dea0:	10400017 */ 	beqz	$v0,.L0f08df00
-/*  f08dea4:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f08dea8:	44810000 */ 	mtc1	$at,$f0
-/*  f08deac:	00023400 */ 	sll	$a2,$v0,0x10
-/*  f08deb0:	00065403 */ 	sra	$t2,$a2,0x10
-/*  f08deb4:	240bffff */ 	addiu	$t3,$zero,-1
-/*  f08deb8:	240c0400 */ 	addiu	$t4,$zero,0x400
-/*  f08debc:	240d000c */ 	addiu	$t5,$zero,0xc
-/*  f08dec0:	240effff */ 	addiu	$t6,$zero,-1
-/*  f08dec4:	afae002c */ 	sw	$t6,0x2c($sp)
-/*  f08dec8:	afad001c */ 	sw	$t5,0x1c($sp)
-/*  f08decc:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f08ded0:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f08ded4:	01403025 */ 	or	$a2,$t2,$zero
-/*  f08ded8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f08dedc:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f08dee0:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f08dee4:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f08dee8:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f08deec:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f08def0:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f08def4:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f08def8:	0fc24e7e */ 	jal	func0f0939f8
-/*  f08defc:	e7a00038 */ 	swc1	$f0,0x38($sp)
-.L0f08df00:
-/*  f08df00:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f08df04:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f08df08:	03e00008 */ 	jr	$ra
-/*  f08df0c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f08dd44(s32 soundtype, struct prop *prop)
+{
+	s32 sound = 0;
+
+	func0f0926bc(prop, 12, 0xffff);
+
+	if (g_Vars.in_cutscene
+			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR)
+			&& (prop->obj->flags3 & OBJFLAG3_AUTOCUTSCENESOUNDS) == 0) {
+		return;
+	}
+
+	switch (soundtype) {
+	case 28: sound = 0x801a; break;
+	case 1:  sound = 0x801a; break;
+	case 29: sound = 0x8015; break;
+	case 2:  sound = 0x801a; break;
+	case 3:  sound = 0x8015; break;
+	case 4:  sound = 0x801f; break;
+	case 5:  sound = 0x8002; break;
+	case 8:  sound = 0x801a; break;
+	case 9:  sound = 0x8003; break;
+	case 10: sound = 0x800d; break;
+	case 30: sound = 0x816d; break;
+	case 14: sound = 0x816d; break;
+	case 15: sound = 0x8021; break;
+	case 25: sound = 0x81b7; break;
+	case 16: sound = 0x8027; break;
+	case 17: sound = 0x801f; break;
+	case 18: sound = 0x8015; break;
+	case 26: sound = 0x042c; break;
+	case 19: sound = 0x81af; break;
+	case 20: sound = 0x81b2; break;
+	case 21: sound = 0x81a8; break;
+	case 32: sound = 0x81ab; break;
+	case 31: sound = 0x81ab; break;
+	case 22: sound = 0x81af; break;
+	case 23: sound = 0x80ad; break;
+	case 24: sound = 0x816d; break;
+	case 27: sound = 0x8015; break;
+	}
+
+	if (sound) {
+		func0f0939f8(NULL, prop, sound, -1,
+				-1, 1024, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f08df10
