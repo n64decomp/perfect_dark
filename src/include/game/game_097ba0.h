@@ -136,7 +136,7 @@ u32 func0f0a6c30(void);
 u32 func0f0a70f8(void);
 void func0f0a7138(Gfx **gdl);
 u32 func0f0a7d5c(void);
-u32 func0f0a7d98(void);
+void func0f0a7d98(u8 *arg0, struct prop *prop, s32 arg2);
 u32 func0f0a8404(void);
 u32 func0f0a84c8(void);
 void func0f0a8910(u32 hand, bool firing);

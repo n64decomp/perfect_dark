@@ -11,7 +11,7 @@ s32 aibotGetAmmoQty(struct aibot *aibot, s32 ammotype, bool include_equipped);
 s32 func0f199d70(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 qty);
 void aibotGiveAmmoByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 qty);
 void aibotGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity);
-u32 func0f199f84(void);
+bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, struct coord *arg3);
 bool func0f19a29c(u32 weaponnum, bool is_secondary);
 u32 func0f19a2dc(u32 value);
 u32 ammotypeGetWeapon(u32 ammotype);

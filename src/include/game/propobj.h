@@ -96,7 +96,7 @@ void func0f06ac90(struct prop *prop);
 void setupParseObject(void *ptr, bool arg1, bool arg2);
 void setupParseObjectWithArg2False(void *ptr, bool arg1);
 u32 func0f06b36c(void);
-u32 func0f06b39c(void);
+bool func0f06b39c(struct coord *arg0, struct coord *arg1, struct coord *arg2, f32 arg3);
 u32 func0f06b488(void);
 u32 func0f06b610(void);
 u32 func0f06be44(void);
