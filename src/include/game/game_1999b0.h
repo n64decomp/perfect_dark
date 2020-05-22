@@ -13,7 +13,7 @@ void aibotGiveAmmoByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 
 void aibotGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity);
 bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, struct coord *arg3);
 bool func0f19a29c(u32 weaponnum, bool is_secondary);
-u32 func0f19a2dc(u32 value);
+u32 aibotGetProjectileThrowInterval(u32 weapon);
 u32 ammotypeGetWeapon(u32 ammotype);
 void func0f19a37c(struct chrdata *chr);
 s32 func0f19a60c(s32 weaponnum, s32 funcnum);

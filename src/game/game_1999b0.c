@@ -402,20 +402,20 @@ bool func0f19a29c(u32 weaponnum, bool is_secondary)
 	return false;
 }
 
-u32 func0f19a2dc(u32 value)
+u32 aibotGetProjectileThrowInterval(u32 weapon)
 {
-	switch (value) {
-	case 26:
+	switch (weapon) {
+	case WEAPON_COMBATKNIFE:
 		return 120;
-	case 30:
-	case 31:
+	case WEAPON_GRENADE:
+	case WEAPON_NBOMB:
 		return 90;
-	case 27:
-	case 28:
-	case 29:
-	case 32:
-	case 33:
-	case 34:
+	case WEAPON_CROSSBOW:
+	case WEAPON_TRANQUILIZER:
+	case WEAPON_LASER:
+	case WEAPON_TIMEDMINE:
+	case WEAPON_PROXIMITYMINE:
+	case WEAPON_REMOTEMINE:
 	default:
 		return 60;
 	}

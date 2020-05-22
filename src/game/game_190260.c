@@ -7634,7 +7634,7 @@ glabel var7f1b8fc8
 /*  f19715c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f197160:	8e8902d4 */ 	lw	$t1,0x2d4($s4)
 .L0f197164:
-/*  f197164:	0fc668b7 */ 	jal	func0f19a2dc
+/*  f197164:	0fc668b7 */ 	jal	aibotGetProjectileThrowInterval
 /*  f197168:	8d240020 */ 	lw	$a0,0x20($t1)
 /*  f19716c:	100000d7 */ 	beqz	$zero,.L0f1974cc
 /*  f197170:	ae420034 */ 	sw	$v0,0x34($s2)
