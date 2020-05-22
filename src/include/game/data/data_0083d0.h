@@ -92,7 +92,7 @@ extern u32 var80062970;
 extern u32 var80062974;
 extern u32 var8006297c;
 extern u32 var80062980;
-extern s32 var80062984;
+extern s32 g_NextChrId;
 extern u32 var80062990;
 extern u32 var80062998;
 extern u32 var800629d8;

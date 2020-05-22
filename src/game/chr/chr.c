@@ -2449,63 +2449,23 @@ f32 chrGetArmor(struct chrdata *chr)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel getLowestUnusedChrId
-/*  f0205ec:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0205f0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0205f4:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0205f8:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0205fc:	3c108006 */ 	lui	$s0,%hi(var80062984)
-/*  f020600:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f020604:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f020608:	26102984 */ 	addiu	$s0,$s0,%lo(var80062984)
-/*  f02060c:	34128000 */ 	dli	$s2,0x8000
-/*  f020610:	24131388 */ 	addiu	$s3,$zero,0x1388
-/*  f020614:	8e0e0000 */ 	lw	$t6,0x0($s0)
-.L0f020618:
-/*  f020618:	25c20001 */ 	addiu	$v0,$t6,0x1
-/*  f02061c:	0052082a */ 	slt	$at,$v0,$s2
-/*  f020620:	14200003 */ 	bnez	$at,.L0f020630
-/*  f020624:	ae020000 */ 	sw	$v0,0x0($s0)
-/*  f020628:	ae130000 */ 	sw	$s3,0x0($s0)
-/*  f02062c:	02601025 */ 	or	$v0,$s3,$zero
-.L0f020630:
-/*  f020630:	00028c00 */ 	sll	$s1,$v0,0x10
-/*  f020634:	00112403 */ 	sra	$a0,$s1,0x10
-/*  f020638:	0fc0a1dd */ 	jal	chrFindByLiteralId
-/*  f02063c:	00808825 */ 	or	$s1,$a0,$zero
-/*  f020640:	5440fff5 */ 	bnezl	$v0,.L0f020618
-/*  f020644:	8e0e0000 */ 	lw	$t6,0x0($s0)
-/*  f020648:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f02064c:	02201025 */ 	or	$v0,$s1,$zero
-/*  f020650:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f020654:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f020658:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f02065c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f020660:	03e00008 */ 	jr	$ra
-/*  f020664:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s16 getLowestUnusedChrId(void)
+{
+	s32 chr_id;
+	struct chrdata *chr;
 
-// Mismatch due to different registers
-//s32 getLowestUnusedChrId(void)
-//{
-//	s32 chr_id;
-//	struct chrdata *chr;
-//
-//	do {
-//		chr_id = var80062984 + 1;
-//		var80062984 = chr_id;
-//
-//		if (chr_id > 32767) {
-//			var80062984 = 5000;
-//			chr_id = 5000;
-//		}
-//
-//		chr = chrFindByLiteralId(chr_id);
-//	} while (chr);
-//
-//	return chr_id;
-//}
+	do {
+		chr_id = ++g_NextChrId;
+
+		if (chr_id > 32767) {
+			chr_id = g_NextChrId = 5000;
+		}
+
+		chr = chrFindByLiteralId((s16)chr_id);
+	} while (chr);
+
+	return chr_id;
+}
 
 void chrInit(struct prop *prop, u8 *ailist)
 {

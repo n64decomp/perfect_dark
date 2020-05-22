@@ -382,7 +382,7 @@ u32 var80062974 = 0x00000000;
 u32 var80062978 = 0x00000000;
 u32 var8006297c = 0;
 u32 var80062980 = 0;
-s32 var80062984 = 5000;
+s32 g_NextChrId = 5000;
 
 // 80062988
 struct chrdata *g_ChrsA = NULL;

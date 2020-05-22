@@ -10,7 +10,7 @@ u32 func0f01e7f4(void);
 u32 func0f01f264(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, bool arg4);
 void func0f01f378(void);
 s32 chrsGetNumFree(void);
-s32 getLowestUnusedChrId(void);
+s16 getLowestUnusedChrId(void);
 struct prop *func0f020b14(struct prop *prop, struct animdata *animdata, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist);
 void func0f020d44(struct prop *prop, bool arg1);
 u32 func0f021258(void);
