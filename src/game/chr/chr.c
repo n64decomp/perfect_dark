@@ -6205,53 +6205,24 @@ glabel var7f1a87d8
 /*  f024520:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrDropItems
-/*  f024524:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f024528:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f02452c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f024530:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f024534:	8c8e001c */ 	lw	$t6,0x1c($a0)
-/*  f024538:	00808825 */ 	or	$s1,$a0,$zero
-/*  f02453c:	8dd0001c */ 	lw	$s0,0x1c($t6)
-/*  f024540:	5200001a */ 	beqzl	$s0,.L0f0245ac
-/*  f024544:	8e2c0014 */ 	lw	$t4,0x14($s1)
-/*  f024548:	8e2f0178 */ 	lw	$t7,0x178($s1)
-.L0f02454c:
-/*  f02454c:	520f0014 */ 	beql	$s0,$t7,.L0f0245a0
-/*  f024550:	8e100020 */ 	lw	$s0,0x20($s0)
-/*  f024554:	8e380174 */ 	lw	$t8,0x174($s1)
-/*  f024558:	52180011 */ 	beql	$s0,$t8,.L0f0245a0
-/*  f02455c:	8e100020 */ 	lw	$s0,0x20($s0)
-/*  f024560:	8e390170 */ 	lw	$t9,0x170($s1)
-/*  f024564:	5219000e */ 	beql	$s0,$t9,.L0f0245a0
-/*  f024568:	8e100020 */ 	lw	$s0,0x20($s0)
-/*  f02456c:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f024570:	8c480040 */ 	lw	$t0,0x40($v0)
-/*  f024574:	31090040 */ 	andi	$t1,$t0,0x40
-/*  f024578:	55200009 */ 	bnezl	$t1,.L0f0245a0
-/*  f02457c:	8e100020 */ 	lw	$s0,0x20($s0)
-/*  f024580:	8c4a0008 */ 	lw	$t2,0x8($v0)
-/*  f024584:	02002025 */ 	or	$a0,$s0,$zero
-/*  f024588:	314b2000 */ 	andi	$t3,$t2,0x2000
-/*  f02458c:	55600004 */ 	bnezl	$t3,.L0f0245a0
-/*  f024590:	8e100020 */ 	lw	$s0,0x20($s0)
-/*  f024594:	0fc20a59 */ 	jal	propobjSetDropped
-/*  f024598:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f02459c:	8e100020 */ 	lw	$s0,0x20($s0)
-.L0f0245a0:
-/*  f0245a0:	5600ffea */ 	bnezl	$s0,.L0f02454c
-/*  f0245a4:	8e2f0178 */ 	lw	$t7,0x178($s1)
-/*  f0245a8:	8e2c0014 */ 	lw	$t4,0x14($s1)
-.L0f0245ac:
-/*  f0245ac:	358d0001 */ 	ori	$t5,$t4,0x1
-/*  f0245b0:	ae2d0014 */ 	sw	$t5,0x14($s1)
-/*  f0245b4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0245b8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0245bc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0245c0:	03e00008 */ 	jr	$ra
-/*  f0245c4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void chrDropItems(struct chrdata *chr)
+{
+	struct prop *prop = chr->prop->child;
+
+	while (prop) {
+		if (prop != chr->weapons_held[2]
+				&& prop != chr->weapons_held[1]
+				&& prop != chr->weapons_held[0]
+				&& (prop->obj->hidden & OBJHFLAG_00000040) == 0
+				&& (prop->obj->flags & OBJFLAG_00002000) == 0) {
+			propobjSetDropped(prop, 1);
+		}
+
+		prop = prop->next;
+	}
+
+	chr->hidden |= CHRHFLAG_00000001;
+}
 
 GLOBAL_ASM(
 glabel chrSetHudpieceVisible
