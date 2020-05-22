@@ -13,7 +13,7 @@ void currentPlayerSetViewSize(s32 viewx, s32 viewy);
 void currentPlayerSetViewPosition(s32 viewleft, s32 viewtop);
 void currentPlayerSetFovY(f32 fovy);
 void currentPlayerSetAspectRatio(f32 aspect);
-s32 weaponGetModel(s32 arg0);
+s32 weaponGetModel(s32 weapon);
 void currentPlayerSetWeaponFlag4(s32 weaponslot);
 void func0f128d20(s32 slot);
 void randomisePlayerOrder(void);

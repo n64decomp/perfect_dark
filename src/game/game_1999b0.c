@@ -379,17 +379,10 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, str
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f19a27c
-/*  f19a27c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19a280:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19a284:	0fc4a2bd */ 	jal	weaponGetModel
-/*  f19a288:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19a28c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19a290:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19a294:	03e00008 */ 	jr	$ra
-/*  f19a298:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f19a27c(s32 weapon)
+{
+	return weaponGetModel(weapon);
+}
 
 bool func0f19a29c(u32 weaponnum, bool is_secondary)
 {
