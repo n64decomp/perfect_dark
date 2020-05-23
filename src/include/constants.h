@@ -1969,6 +1969,7 @@
 
 // obj->hidden
 #define OBJHFLAG_00000004          0x00000004
+#define OBJHFLAG_00000010          0x00000010
 #define OBJHFLAG_00000040          0x00000040
 #define OBJHFLAG_00000080          0x00000080
 #define OBJHFLAG_00000200          0x00000200

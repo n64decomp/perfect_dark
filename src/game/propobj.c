@@ -37781,7 +37781,8 @@ bool propobjInteract(struct prop *prop)
 		}
 
 		if (handled) {
-			func00010904(var80095200, -32488, 0, -1, -1, -1, -1, -1);
+			// Typing sound
+			func00010904(var80095200, 0x8118, 0, -1, -1, -1, -1, -1);
 		}
 
 		func0f0fd494(&prop->pos);
@@ -39672,6 +39673,313 @@ glabel var7f1aae70
 /*  f08900c:	03e00008 */ 	jr	$ra
 /*  f089010:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+//u32 func0f088840(struct prop *prop, bool showhudmsg)
+//{
+//	struct defaultobj *obj = prop->obj; // sp156
+//	u32 sp148[2];
+//	bool v0;
+//
+//	sp148[0] = 0;
+//
+//	if (g_Vars.currentplayer->isdead || g_Vars.lvupdate240 == 0) {
+//		return 0;
+//	}
+//
+//	// 88c
+//	switch (obj->type) {
+//	case 0x04: // f0888b4 - key
+//		if (g_Vars.in_cutscene == false) {
+//			func00010904(var80095200, 0xe5, 0, -1, -1, -1, -1, -1);
+//		}
+//
+//		if (showhudmsg) {
+//			char *text = objGetActivatedText(obj);
+//
+//			if (text == NULL) {
+//				text = langGet(L_PROPOBJ(40)); // "Picked up a key."
+//			}
+//
+//			func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 9);
+//		}
+//
+//		v0 = 4;
+//		break;
+//	case 0x07: // f088934 - ammocrate
+//		{
+//			struct ammocrateobj *crate = (struct ammocrateobj *)obj;
+//			func0f088028(crate->ammotype, ammocrateGetPickupAmmoQty(crate), g_Vars.in_cutscene == false, showhudmsg);
+//			sp148[1] = 1;
+//			v0 = 1;
+//		}
+//		break;
+//	case 0x14: // f088974 - multiammocrate
+//		{
+//			struct multiammocrateobj *crate = (struct multiammocrateobj *)obj;
+//			s32 i;
+//
+//			for (i = 0; i != 19; i++) {
+//				s32 qty = (u16)crate->quantities[i];
+//
+//				if (g_Vars.normmplayerisrunning == false) {
+//					qty *= g_AmmoMultiplier;
+//				}
+//
+//				func0f088028(i + 1, qty, false, showhudmsg);
+//			}
+//
+//			if (g_Vars.in_cutscene == false) {
+//				func00010904(var80095200, 0xea, 0, -1, -1, -1, -1, -1);
+//			}
+//
+//			sp148[1] = 1;
+//			v0 = 1;
+//		}
+//		break;
+//	case 0x08: // f088a34 - weapon
+//		{
+//			bool sp112 = false;
+//			u32 count = 0;
+//			struct weaponobj *weapon = (struct weaponobj *)obj;
+//			s32 ammotype;
+//
+//			if (g_Vars.normmplayerisrunning) {
+//				if (weapon->weapon_id == WEAPON_BRIEFCASE2) {
+//					u32 iVar2 = chrGiveBriefcase(g_Vars.currentplayer->prop->chr, prop);
+//
+//					if (iVar2) {
+//						func0f087d10(weapon->weapon_id);
+//					}
+//
+//					return iVar2;
+//				}
+//
+//				if (weapon->weapon_id == WEAPON_DATAUPLINK) {
+//					u32 iVar2 = chrGiveUplink(g_Vars.currentplayer->prop->chr, prop);
+//
+//					if (iVar2) {
+//						func0f087d10(weapon->weapon_id);
+//					}
+//
+//					return iVar2;
+//				}
+//			}
+//
+//			// acc
+//			if (g_Vars.in_cutscene == false) {
+//				func0f087d10(weapon->weapon_id);
+//			}
+//
+//			// af4
+//			if (obj->hidden & OBJHFLAG_00000400) {
+//				if (weapon->weapon_id <= WEAPON_PSYCHOSISGUN) {
+//					count = func0f1120f0(prop);
+//					sp148[0] = 1;
+//				}
+//
+//				if (showhudmsg) {
+//					char *text = objGetActivatedText(obj);
+//
+//					if (text) {
+//						func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 9);
+//					} else {
+//						currentPlayerQueuePickupWeaponHudmsg(weapon->weapon_id, count == 2);
+//					}
+//
+//					sp112 = true;
+//				}
+//
+//				sp148[1] = 4;
+//			} else {
+//				// b88
+//				if (weapon->weapon_id == WEAPON_BOLT) {
+//					count = 1; // sp104
+//					sp148[0] = 1;
+//					func0f088028(AMMOTYPE_CROSSBOW, 1, g_Vars.in_cutscene == false, true);
+//					sp148[1] = 1;
+//					showhudmsg = false;
+//					sp112 = true;
+//				} else {
+//					// bd0
+//					count = func0f1120f0(prop);
+//
+//					if (count) {
+//						sp112 = true;
+//					}
+//
+//					sp148[0] = 1;
+//
+//					if (showhudmsg) {
+//						char *text = weaponGetActivatedText(weapon->weapon_id);
+//
+//						if (text) {
+//							sp112 = true;
+//							func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 9);
+//						} else {
+//							if (sp112) {
+//								currentPlayerQueuePickupWeaponHudmsg(weapon->weapon_id, count == 2);
+//							}
+//						}
+//					}
+//
+//					sp148[1] = 1;
+//				}
+//			}
+//
+//			// c50
+//			if (count == 2
+//					&& getCurrentPlayerWeaponId(0) == weapon->weapon_id
+//					&& getCurrentPlayerWeaponId(1) != weapon->weapon_id) {
+//				currentPlayerEquipWeaponWrapper(1, weapon->weapon_id);
+//			}
+//
+//			// c9c
+//			ammotype = weaponGetAmmoType(weapon->weapon_id, 0);
+//
+//			if (ammotype) {
+//				s32 pickupqty = weaponGetPickupAmmoQty(weapon);
+//
+//				if (pickupqty > 0) {
+//					s32 heldqty = ammoGetQuantity(ammotype);
+//
+//					if (ammoGetQuantity(ammotype) < ammotypeGetMaxCapacity(ammotype)) {
+//						currentPlayerSetAmmoQuantity(ammotype, heldqty + pickupqty);
+//
+//						if (sp112 == false && showhudmsg) {
+//							func0f087fb0(ammotype, pickupqty);
+//						}
+//					}
+//				}
+//			}
+//
+//			// d20
+//			if (weapon->weapon_id == WEAPON_SUPERDRAGON) {
+//				s32 pickupqty = weaponGetPickupAmmoQty(weapon);
+//
+//				if (ammoGetQuantity(AMMOTYPE_DEVASTATOR) < ammoGetQuantity(AMMOTYPE_DEVASTATOR)) {
+//					s32 heldqty = ammoGetQuantity(AMMOTYPE_DEVASTATOR);
+//
+//					currentPlayerSetAmmoQuantity(AMMOTYPE_DEVASTATOR, heldqty + 5);
+//
+//					if (sp112 == false && showhudmsg) {
+//						func0f087fb0(AMMOTYPE_DEVASTATOR, pickupqty);
+//					}
+//				}
+//			}
+//
+//			if (weapon->weapon_id == WEAPON_CAMSPY && g_Vars.currentplayer->eyespy == NULL) {
+//				currentPlayerInitEyespy();
+//			}
+//
+//			v0 = sp148[1];
+//		}
+//		break;
+//	case 0x15: // f088dd0 - shield
+//		{
+//			struct shieldobj *shield = (struct shieldobj *)obj;
+//			func0f0c2210(shield->amount);
+//
+//			if (g_Vars.in_cutscene == false) {
+//				func00010904(var80095200, 0x1cd, 0, -1, -1, -1, -1, -1);
+//			}
+//
+//			if (showhudmsg) {
+//				char *text = objGetActivatedText(obj);
+//
+//				if (text == NULL) {
+//					s32 playercount = PLAYERCOUNT();
+//
+//					if (playercount < 3 &&
+//							(playercount != 2 || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && g_Is4Mb != true))) {
+//						text = langGet(L_PROPOBJ(41)); // "Picked up a shield."
+//					} else {
+//						text = langGet(L_PROPOBJ(42)); // "A shield."
+//					}
+//				}
+//
+//				func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 1);
+//			}
+//
+//			sp148[1] = 1;
+//			v0 = true;
+//		}
+//		break;
+//	case 0x03: // f088f20
+//	case 0x05: // f088f20
+//	case 0x06: // f088f20
+//	case 0x09: // f088f20
+//	case 0x0a: // f088f20
+//	case 0x0b: // f088f20
+//	case 0x0c: // f088f20
+//	case 0x0d: // f088f20
+//	case 0x0e: // f088f20
+//	case 0x0f: // f088f20
+//	case 0x10: // f088f20
+//	case 0x11: // f088f20
+//	case 0x12: // f088f20
+//	case 0x13: // f088f20
+//	case 0x16: // f088f20
+//	case 0x17: // f088f20
+//	case 0x18: // f088f20
+//	case 0x19: // f088f20
+//	case 0x1a: // f088f20
+//	case 0x1b: // f088f20
+//	case 0x1c: // f088f20
+//	case 0x1d: // f088f20
+//	case 0x1e: // f088f20
+//	case 0x1f: // f088f20
+//	case 0x20: // f088f20
+//	case 0x21: // f088f20
+//	case 0x22: // f088f20
+//	case 0x23: // f088f20
+//	case 0x24: // f088f20
+//	case 0x25: // f088f20
+//	case 0x26: // f088f20
+//	case 0x27: // f088f20
+//	case 0x28: // f088f20
+//	case 0x29: // f088f20
+//	case 0x2a: // f088f20
+//	case 0x2b: // f088f20
+//	case 0x2c: // f088f20
+//	case 0x2d: // f088f20
+//	case 0x2e: // f088f20
+//	case 0x2f: // f088f20
+//	default:
+//		if (g_Vars.in_cutscene == false) {
+//			func00010904(var80095200, 0xe5, 0, -1, -1, -1, -1, -1);
+//		}
+//
+//		if (showhudmsg) {
+//			char *text = objGetActivatedText(obj);
+//
+//			if (text == NULL) {
+//				text = langGet(L_PROPOBJ(43)); // "Picked up something."
+//			}
+//
+//			func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 9);
+//		}
+//
+//		sp148[1] = 4;
+//		v0 = 4;
+//	}
+//
+//	// fa4
+//	if (v0 == 1 && (obj->hidden & OBJHFLAG_00000010) == 0) {
+//		setupParseObject(obj, 0, obj->hidden2 & OBJHFLAG_00000004);
+//		return 1;
+//	}
+//
+//	// fe0
+//	if (v0) {
+//		if (sp148[0] == 0) {
+//			currentPlayerGiveProp(prop);
+//		}
+//
+//		return 4;
+//	}
+//
+//	return 0;
+//}
 
 GLOBAL_ASM(
 glabel func0f089014

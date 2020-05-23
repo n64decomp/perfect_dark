@@ -21416,7 +21416,7 @@ s32 currentPlayerGetAmmoCount(s32 ammotype)
 	return total;
 }
 
-u32 ammotypeGetMaxCapacity(u32 ammotype)
+s32 ammotypeGetMaxCapacity(u32 ammotype)
 {
 	return g_AmmoTypes[ammotype].capacity;
 }

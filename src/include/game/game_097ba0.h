@@ -154,7 +154,7 @@ void func0f0a95ec(u32 arg0, bool enable);
 void currentPlayerSetAmmoQuantity(s32 ammotype, s32 quantity);
 s32 ammoGetQuantity(u32 type);
 s32 currentPlayerGetAmmoCount(s32 ammotype);
-u32 ammotypeGetMaxCapacity(u32 ammotype);
+s32 ammotypeGetMaxCapacity(u32 ammotype);
 bool ammotypeAllowsUnlimitedAmmo(u32 ammotype);
 void currentPlayerGiveUnlimitedAmmo(bool force);
 u32 weaponGetAmmoType(u32 weaponnum, u32 func);
