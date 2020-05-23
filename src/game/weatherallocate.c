@@ -38,10 +38,10 @@ void weatherAllocate(void)
 			g_WeatherData->windspeed = 5;
 		}
 
-		g_WeatherData->unk34[0] = 0;
-		g_WeatherData->unk34[1] = 0;
-		g_WeatherData->unk34[2] = 0;
-		g_WeatherData->unk34[3] = 0;
+		g_WeatherData->audiohandles[0] = 0;
+		g_WeatherData->audiohandles[1] = 0;
+		g_WeatherData->audiohandles[2] = 0;
+		g_WeatherData->audiohandles[3] = 0;
 		g_WeatherData->unk44 = 0;
 		g_WeatherData->unk94 = -1;
 		g_WeatherData->unk48 = 1;

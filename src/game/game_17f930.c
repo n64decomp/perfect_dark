@@ -352,7 +352,7 @@ glabel func0f17fcb0
 /*  f17fd8c:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f17fd90:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f17fd94:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f17fd98:	0c004241 */ 	jal	func00010904
+/*  f17fd98:	0c004241 */ 	jal	audioStart
 /*  f17fd9c:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f17fda0:
 /*  f17fda0:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -852,7 +852,8 @@ void scenarioHtbCallback14(struct chrdata *chr)
 			chr->aibot->unk0a0 += g_Vars.lvupdate240;
 
 			if (chr->aibot->unk0a0 >= SECSTOFRAMES240(30)) {
-				func00010904(var80095200, 0x5b8, 0, -1, -1, -1, -1, -1);
+				// Point scored sound
+				audioStart(var80095200, 0x5b8, NULL, -1, -1, -1, -1, -1);
 				var800ac500[mpPlayerGetIndex(chr)]->unk3e++;
 				chr->aibot->unk0a0 = 0;
 			}
@@ -864,7 +865,8 @@ void scenarioHtbCallback14(struct chrdata *chr)
 			g_Vars.currentplayerstats->tokenheldtime += g_Vars.lvupdate240;
 
 			if (g_Vars.currentplayerstats->tokenheldtime >= SECSTOFRAMES240(30)) {
-				func00010904(var80095200, 0x5b8, 0, -1, -1, -1, -1, -1);
+				// Point scored sound
+				audioStart(var80095200, 0x5b8, NULL, -1, -1, -1, -1, -1);
 				var800ac500[g_Vars.currentplayernum]->unk3e++;
 				func0f0ddfa4(langGet(L_MPWEAPONS(24)), 9, 1); // "1 Point!"
 				g_Vars.currentplayerstats->tokenheldtime = 0;
@@ -2198,7 +2200,7 @@ glabel var7f1b8950
 /*  f1820f0:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f1820f4:	2407ffff */ 	addiu	$a3,$zero,-1
 /*  f1820f8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f1820fc:	0c004241 */ 	jal	func00010904
+/*  f1820fc:	0c004241 */ 	jal	audioStart
 /*  f182100:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f182104:	a6700004 */ 	sh	$s0,0x4($s3)
 /*  f182108:	a6600006 */ 	sh	$zero,0x6($s3)
@@ -2339,7 +2341,7 @@ glabel var7f1b8950
 /*  f1822f0:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1822f4:	2407ffff */ 	addiu	$a3,$zero,-1
 /*  f1822f8:	00009025 */ 	or	$s2,$zero,$zero
-/*  f1822fc:	0c004241 */ 	jal	func00010904
+/*  f1822fc:	0c004241 */ 	jal	audioStart
 /*  f182300:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f182304:	3c03800b */ 	lui	$v1,%hi(g_MpNumPlayers)
 /*  f182308:	8c63c530 */ 	lw	$v1,%lo(g_MpNumPlayers)($v1)
@@ -7122,7 +7124,7 @@ glabel chrGiveBriefcase
 /*  f186cf0:	240505b8 */ 	addiu	$a1,$zero,0x5b8
 /*  f186cf4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f186cf8:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f186cfc:	0c004241 */ 	jal	func00010904
+/*  f186cfc:	0c004241 */ 	jal	audioStart
 /*  f186d00:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f186d04:	0fc24494 */ 	jal	func0f091250
 /*  f186d08:	24040057 */ 	addiu	$a0,$zero,0x57

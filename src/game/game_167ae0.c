@@ -208,7 +208,7 @@ glabel func0f167b84
 /*  f167c0c:	84a54046 */ 	lh	$a1,%lo(var80084044+0x2)($a1)
 /*  f167c10:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f167c14:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f167c18:	0c004241 */ 	jal	func00010904
+/*  f167c18:	0c004241 */ 	jal	audioStart
 /*  f167c1c:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f167c20:	8fa30028 */ 	lw	$v1,0x28($sp)
 /*  f167c24:	8fae0038 */ 	lw	$t6,0x38($sp)
@@ -226,7 +226,7 @@ glabel func0f167b84
 /*  f167c50:	00021080 */ 	sll	$v0,$v0,0x2
 /*  f167c54:	01227821 */ 	addu	$t7,$t1,$v0
 /*  f167c58:	8de40000 */ 	lw	$a0,0x0($t7)
-/*  f167c5c:	0c00cec9 */ 	jal	func00033b24
+/*  f167c5c:	0c00cec9 */ 	jal	audioStop
 /*  f167c60:	afa20028 */ 	sw	$v0,0x28($sp)
 /*  f167c64:	8fa20028 */ 	lw	$v0,0x28($sp)
 /*  f167c68:	3c01800b */ 	lui	$at,%hi(var800aa5c0)
@@ -269,8 +269,8 @@ void doBoostAndSlayerSfx(void)
 		func0f167b84(2, usingrocket);
 	}
 
-	if (g_Vars.lvupdate240 == 0 && var80084034 && func000337f0(var80084034)) {
-		func00033b24(var80084034);
+	if (g_Vars.lvupdate240 == 0 && g_MiscAudioHandle && func000337f0(g_MiscAudioHandle)) {
+		audioStop(g_MiscAudioHandle);
 	}
 }
 
@@ -320,7 +320,7 @@ void func0f167e7c(s32 stagenum)
 	g_Vars.unk0004d6 = 0;
 	g_Vars.unk0004d7 = 0;
 
-	var80084034 = NULL;
+	g_MiscAudioHandle = NULL;
 
 	func0f16d324();
 	func0f011124(true);
@@ -2458,7 +2458,7 @@ glabel var7f1b7868
 /*  f16a0b0:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16a0b4:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16a0b8:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16a0bc:	0c004241 */ 	jal	func00010904
+/*  f16a0bc:	0c004241 */ 	jal	audioStart
 /*  f16a0c0:	afb7001c */ 	sw	$s7,0x1c($sp)
 /*  f16a0c4:	10000053 */ 	beqz	$zero,.L0f16a214
 /*  f16a0c8:	8e700284 */ 	lw	$s0,0x284($s3)
@@ -2478,7 +2478,7 @@ glabel var7f1b7868
 /*  f16a0fc:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16a100:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16a104:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16a108:	0c004241 */ 	jal	func00010904
+/*  f16a108:	0c004241 */ 	jal	audioStart
 /*  f16a10c:	afb7001c */ 	sw	$s7,0x1c($sp)
 /*  f16a110:	8e700284 */ 	lw	$s0,0x284($s3)
 /*  f16a114:	240f001c */ 	addiu	$t7,$zero,0x1c
@@ -2511,7 +2511,7 @@ glabel var7f1b7868
 /*  f16a17c:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16a180:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16a184:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16a188:	0c004241 */ 	jal	func00010904
+/*  f16a188:	0c004241 */ 	jal	audioStart
 /*  f16a18c:	afb7001c */ 	sw	$s7,0x1c($sp)
 .L0f16a190:
 /*  f16a190:	10000020 */ 	beqz	$zero,.L0f16a214
@@ -2837,7 +2837,7 @@ glabel var7f1b7868
 /*  f16a64c:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16a650:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16a654:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16a658:	0c004241 */ 	jal	func00010904
+/*  f16a658:	0c004241 */ 	jal	audioStart
 /*  f16a65c:	afb7001c */ 	sw	$s7,0x1c($sp)
 .L0f16a660:
 /*  f16a660:	3c0a8008 */ 	lui	$t2,%hi(var8008409c)
@@ -2882,7 +2882,7 @@ glabel var7f1b7868
 /*  f16a6f8:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16a6fc:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16a700:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16a704:	0c004241 */ 	jal	func00010904
+/*  f16a704:	0c004241 */ 	jal	audioStart
 /*  f16a708:	afb7001c */ 	sw	$s7,0x1c($sp)
 .L0f16a70c:
 /*  f16a70c:	3c0a8008 */ 	lui	$t2,%hi(var8008409c)
@@ -2909,7 +2909,7 @@ glabel var7f1b7868
 /*  f16a75c:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16a760:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16a764:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16a768:	0c004241 */ 	jal	func00010904
+/*  f16a768:	0c004241 */ 	jal	audioStart
 /*  f16a76c:	afb7001c */ 	sw	$s7,0x1c($sp)
 .L0f16a770:
 /*  f16a770:	12000005 */ 	beqz	$s0,.L0f16a788
@@ -2926,7 +2926,7 @@ glabel var7f1b7868
 /*  f16a798:	8e700284 */ 	lw	$s0,0x284($s3)
 /*  f16a79c:	55a00004 */ 	bnezl	$t5,.L0f16a7b0
 /*  f16a7a0:	8e700284 */ 	lw	$s0,0x284($s3)
-/*  f16a7a4:	0c00cec9 */ 	jal	func00033b24
+/*  f16a7a4:	0c00cec9 */ 	jal	audioStop
 /*  f16a7a8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16a7ac:	8e700284 */ 	lw	$s0,0x284($s3)
 .L0f16a7b0:
@@ -3044,7 +3044,7 @@ glabel var7f1b7868
 /*  f16a940:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16a944:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16a948:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16a94c:	0c004241 */ 	jal	func00010904
+/*  f16a94c:	0c004241 */ 	jal	audioStart
 /*  f16a950:	afb7001c */ 	sw	$s7,0x1c($sp)
 /*  f16a954:	8e630460 */ 	lw	$v1,0x460($s3)
 /*  f16a958:	2861000f */ 	slti	$at,$v1,0xf
@@ -5091,8 +5091,8 @@ glabel func0f16b96c
 .L0f16c56c:
 /*  f16c56c:	024c082a */ 	slt	$at,$s2,$t4
 /*  f16c570:	1420001c */ 	bnez	$at,.L0f16c5e4
-/*  f16c574:	3c108008 */ 	lui	$s0,%hi(var80084034)
-/*  f16c578:	26104034 */ 	addiu	$s0,$s0,%lo(var80084034)
+/*  f16c574:	3c108008 */ 	lui	$s0,%hi(g_MiscAudioHandle)
+/*  f16c578:	26104034 */ 	addiu	$s0,$s0,%lo(g_MiscAudioHandle)
 /*  f16c57c:	8e0d0000 */ 	lw	$t5,0x0($s0)
 /*  f16c580:	55a00019 */ 	bnezl	$t5,.L0f16c5e8
 /*  f16c584:	8e8d0034 */ 	lw	$t5,0x34($s4)
@@ -5709,11 +5709,11 @@ glabel func0f16b96c
 //
 //			// Sound alarm at 10 seconds remaining
 //			if (nexttime >= g_MpTimeLimit - 600
-//					&& var80084034 == NULL
+//					&& g_MiscAudioHandle == NULL
 //					&& !soloIsPaused()
 //					&& nexttime < g_MpTimeLimit) {
 //				// 5dc
-//				func00010718(&var80084034, 0, 0x7fff, 0x40, 163, 1, 1, -1, 1);
+//				func00010718(&g_MiscAudioHandle, 0, 0x7fff, 0x40, 163, 1, 1, -1, 1);
 //			}
 //		}
 //
@@ -5875,8 +5875,8 @@ void stageLoad(void)
 {
 	func0f11dcb0(1);
 
-	if (var80084034 && func000337f0(var80084034)) {
-		func00033b24(var80084034);
+	if (g_MiscAudioHandle && func000337f0(g_MiscAudioHandle)) {
+		audioStop(g_MiscAudioHandle);
 	}
 
 	if (g_Vars.stagenum < NUM_STAGES) {

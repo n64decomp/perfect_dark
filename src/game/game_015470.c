@@ -85,7 +85,7 @@ glabel func0f015470
 /*  f015530:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f015534:	50400004 */ 	beqzl	$v0,.L0f015548
 /*  f015538:	263107a4 */ 	addiu	$s1,$s1,0x7a4
-/*  f01553c:	0c00cec9 */ 	jal	func00033b24
+/*  f01553c:	0c00cec9 */ 	jal	audioStop
 /*  f015540:	8e0401cc */ 	lw	$a0,0x1cc($s0)
 /*  f015544:	263107a4 */ 	addiu	$s1,$s1,0x7a4
 .L0f015548:

@@ -10836,7 +10836,7 @@ bool aiChrBeginOrEndTeleport(void)
 		a = osGetThreadPri(0);
 		b = osGetThreadPri(&var800915e0);
 		osSetThreadPri(0, b + 1);
-		c = func00010904(var80095200, 1075, 0, -1, -1, -1, -1, -1);
+		c = audioStart(var80095200, 0x0433, NULL, -1, -1, -1, -1, -1);
 
 		if (c) {
 			func00033e50(c, 16, fvalue[0]);
@@ -10877,7 +10877,7 @@ bool aiIfChrTeleportFullWhite(void)
 		a = osGetThreadPri(0);
 		b = osGetThreadPri(&var800915e0);
 		osSetThreadPri(0, b + 1);
-		c = func00010904(var80095200, -32683, 0, -1, -1, -1, -1, -1);
+		c = audioStart(var80095200, 0x8055, NULL, -1, -1, -1, -1, -1);
 
 		if (c) {
 			func00033e50(c, 16, fvalue[0]);

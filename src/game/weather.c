@@ -527,7 +527,7 @@ glabel var7f1b56f4
 /*  f131c00:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f131c04:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f131c08:	e7b60014 */ 	swc1	$f22,0x14($sp)
-/*  f131c0c:	0c004241 */ 	jal	func00010904
+/*  f131c0c:	0c004241 */ 	jal	audioStart
 /*  f131c10:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f131c14:	8e040034 */ 	lw	$a0,0x34($s0)
 .L0f131c18:
@@ -557,7 +557,7 @@ glabel var7f1b56f4
 /*  f131c70:	03003025 */ 	or	$a2,$t8,$zero
 /*  f131c74:	2407ffff */ 	addiu	$a3,$zero,-1
 /*  f131c78:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f131c7c:	0c004128 */ 	jal	func000104a0
+/*  f131c7c:	0c004128 */ 	jal	audioAdjust
 /*  f131c80:	e7b20014 */ 	swc1	$f18,0x14($sp)
 /*  f131c84:	10000007 */ 	beqz	$zero,.L0f131ca4
 /*  f131c88:	26730004 */ 	addiu	$s3,$s3,0x4
@@ -565,7 +565,7 @@ glabel var7f1b56f4
 .L0f131c90:
 /*  f131c90:	50800004 */ 	beqzl	$a0,.L0f131ca4
 /*  f131c94:	26730004 */ 	addiu	$s3,$s3,0x4
-/*  f131c98:	0c00cec9 */ 	jal	func00033b24
+/*  f131c98:	0c00cec9 */ 	jal	audioStop
 /*  f131c9c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f131ca0:
 /*  f131ca0:	26730004 */ 	addiu	$s3,$s3,0x4
@@ -975,21 +975,21 @@ const char var7f1b5620[] = "rainspeedxtra";
 //		}
 //
 //		if (iVar10 > 0) {
-//			if (weather->unk34[i] == 0 && sounds[i] >= 0) {
+//			if (weather->audiohandles[i] == 0 && sounds[i] >= 0) {
 //				weather->unkf8 = sounds[i];
-//				func00010904(var80095200, weather->unkf8, &weather->unk34[i], -1,
+//				audioStart(var80095200, weather->unkf8, &weather->audiohandles[i], -1,
 //						-1, -1, -1, -1);
 //			}
 //
-//			if (weather->unk34[i] != 0) {
-//				if (func000337f0(weather->unk34[i])) {
-//					func000104a0(&weather->unk34[i], 0, iVar10 * 3 / 4, -1,
+//			if (weather->audiohandles[i] != 0) {
+//				if (func000337f0(weather->audiohandles[i])) {
+//					audioAdjust(&weather->audiohandles[i], 0, iVar10 * 3 / 4, -1,
 //							weather->unkf8, 1, 1, -1, 1);
 //				}
 //			}
 //		} else {
-//			if (weather->unk34[i] != 0) {
-//				func00033b24(weather->unk34[i]);
+//			if (weather->audiohandles[i] != 0) {
+//				audioStop(weather->audiohandles[i]);
 //			}
 //		}
 //	}
@@ -2737,7 +2737,7 @@ glabel var7f1b5780
 /*  f1337e8:	afad0018 */ 	sw	$t5,0x18($sp)
 /*  f1337ec:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f1337f0:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*  f1337f4:	0c004241 */ 	jal	func00010904
+/*  f1337f4:	0c004241 */ 	jal	audioStart
 /*  f1337f8:	e7aa0014 */ 	swc1	$f10,0x14($sp)
 /*  f1337fc:	8faf0dec */ 	lw	$t7,0xdec($sp)
 /*  f133800:	3c013f80 */ 	lui	$at,0x3f80
@@ -2772,7 +2772,7 @@ glabel var7f1b5780
 /*  f13386c:	afaf001c */ 	sw	$t7,0x1c($sp)
 /*  f133870:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f133874:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f133878:	0c004128 */ 	jal	func000104a0
+/*  f133878:	0c004128 */ 	jal	audioAdjust
 /*  f13387c:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f133880:	8fb90dec */ 	lw	$t9,0xdec($sp)
 /*  f133884:	24050010 */ 	addiu	$a1,$zero,0x10
@@ -5187,20 +5187,20 @@ glabel var7f1b5790
 void weatherFree(void)
 {
 	if (g_WeatherData) {
-		if (g_WeatherData->unk34[0]) {
-			func00033b24(g_WeatherData->unk34[0]);
+		if (g_WeatherData->audiohandles[0]) {
+			audioStop(g_WeatherData->audiohandles[0]);
 		}
 
-		if (g_WeatherData->unk34[1]) {
-			func00033b24(g_WeatherData->unk34[1]);
+		if (g_WeatherData->audiohandles[1]) {
+			audioStop(g_WeatherData->audiohandles[1]);
 		}
 
-		if (g_WeatherData->unk34[2]) {
-			func00033b24(g_WeatherData->unk34[2]);
+		if (g_WeatherData->audiohandles[2]) {
+			audioStop(g_WeatherData->audiohandles[2]);
 		}
 
-		if (g_WeatherData->unk34[3]) {
-			func00033b24(g_WeatherData->unk34[3]);
+		if (g_WeatherData->audiohandles[3]) {
+			audioStop(g_WeatherData->audiohandles[3]);
 		}
 
 		g_WeatherData = NULL;

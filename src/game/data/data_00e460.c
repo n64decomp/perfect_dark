@@ -13,11 +13,11 @@
 u32 g_TintedGlassEnabled = 0;
 
 // f8f4
-s32 g_AlarmActive = 0;
+s32 g_AlarmTimer = 0;
 
-u32 var800698d8 = 0x00000000;
-u32 var800698dc = 0x42800000;
-u32 var800698e0 = 0x3f800000;
+s32 g_AlarmAudioHandle = 0;
+f32 g_AlarmSpeakerWeight = 64;
+f32 g_AlarmSpeakerDirection = 1;
 u32 var800698e4 = 0x00000000;
 u32 var800698e8 = 0x00000000;
 u32 var800698ec = 0x00000000;

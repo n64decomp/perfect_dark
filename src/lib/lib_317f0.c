@@ -2516,7 +2516,7 @@ glabel func00033820
 
 #if VERSION >= VERSION_NTSC_FINAL
 GLOBAL_ASM(
-glabel func00033b24
+glabel audioStop
 /*    33b24:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    33b28:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    33b2c:	afa40028 */ 	sw	$a0,0x28($sp)
@@ -2562,7 +2562,7 @@ glabel func00033b24
 );
 #else
 GLOBAL_ASM(
-glabel func00033b24
+glabel audioStop
 /*    33b24:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    33b28:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    33b2c:	afa40028 */ 	sw	$a0,0x28($sp)

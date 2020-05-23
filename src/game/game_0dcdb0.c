@@ -3423,7 +3423,7 @@ glabel var7f1aded8
 /*  f0df828:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f0df82c:	afac0018 */ 	sw	$t4,0x18($sp)
 /*  f0df830:	afad001c */ 	sw	$t5,0x1c($sp)
-/*  f0df834:	0c004241 */ 	jal	func00010904
+/*  f0df834:	0c004241 */ 	jal	audioStart
 /*  f0df838:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f0df83c:
 /*  f0df83c:	9602001c */ 	lhu	$v0,0x1c($s0)

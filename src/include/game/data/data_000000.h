@@ -36,7 +36,7 @@ extern u16 g_CommandLengths[NUM_AICOMMANDS];
 extern struct coord var80068fec;
 
 extern u32 g_TintedGlassEnabled;
-extern s32 g_AlarmActive;
+extern s32 g_AlarmTimer; // counts upwards
 extern u32 var80059fe0;
 extern u32 var8005a0b0;
 extern u32 var8005b4d0;

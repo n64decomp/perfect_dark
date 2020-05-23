@@ -37782,12 +37782,13 @@ bool propobjInteract(struct prop *prop)
 
 		if (handled) {
 			// Typing sound
-			func00010904(var80095200, 0x8118, 0, -1, -1, -1, -1, -1);
+			audioStart(var80095200, 0x8118, NULL, -1, -1, -1, -1, -1);
 		}
 
 		func0f0fd494(&prop->pos);
 	} else if (obj->type == OBJTYPE_ALARM) {
-		func00010904(var80095200, 0xba, 0, -1, -1, -1, -1, -1);
+		// Button press sound
+		audioStart(var80095200, 0xba, NULL, -1, -1, -1, -1, -1);
 
 		if (alarmIsActive()) {
 			alarmDeactivate();
@@ -38490,7 +38491,7 @@ glabel var7f1aac40
 //	}
 //}
 
-void func0f087b0c(u32 ammotype)
+void ammotypePlayPickupSound(u32 ammotype)
 {
 	switch (ammotype) {
 	case AMMOTYPE_PISTOL:
@@ -38509,7 +38510,7 @@ void func0f087b0c(u32 ammotype)
 	case AMMOTYPE_CLOAK:
 	case AMMOTYPE_BOOST:
 	case AMMOTYPE_TOKEN:
-		func00010904(var80095200, 0xea, 0, -1, -1, -1, -1, -1);
+		audioStart(var80095200, 0xea, NULL, -1, -1, -1, -1, -1);
 		break;
 	case AMMOTYPE_REMOTE_MINE:
 	case AMMOTYPE_PROXY_MINE:
@@ -38518,10 +38519,10 @@ void func0f087b0c(u32 ammotype)
 	case AMMOTYPE_MICROCAMERA:
 	case AMMOTYPE_PLASTIQUE:
 	case AMMOTYPE_ECM_MINE:
-		func00010904(var80095200, 0xeb, 0, -1, -1, -1, -1, -1);
+		audioStart(var80095200, 0xeb, NULL, -1, -1, -1, -1, -1);
 		break;
 	case AMMOTYPE_KNIFE:
-		func00010904(var80095200, 0xe9, 0, -1, -1, -1, -1, -1);
+		audioStart(var80095200, 0xe9, NULL, -1, -1, -1, -1, -1);
 		break;
 	}
 }
@@ -38586,7 +38587,7 @@ void func0f087d10(s32 weaponnum)
 		sound = 0xe8;
 	}
 
-	func00010904(var80095200, sound, 0, -1, -1, -1, -1, -1);
+	audioStart(var80095200, sound, NULL, -1, -1, -1, -1, -1);
 }
 
 GLOBAL_ASM(
@@ -38766,7 +38767,7 @@ glabel func0f088028
 .L0f0880a0:
 /*  f0880a0:	51000004 */ 	beqzl	$t0,.L0f0880b4
 /*  f0880a4:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f0880a8:	0fc21ec3 */ 	jal	func0f087b0c
+/*  f0880a8:	0fc21ec3 */ 	jal	ammotypePlayPickupSound
 /*  f0880ac:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0880b0:	24010007 */ 	addiu	$at,$zero,0x7
 .L0f0880b4:
@@ -39167,7 +39168,7 @@ glabel var7f1aae70
 /*  f0888e4:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0888e8:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f0888ec:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0888f0:	0c004241 */ 	jal	func00010904
+/*  f0888f0:	0c004241 */ 	jal	audioStart
 /*  f0888f4:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f0888f8:
 /*  f0888f8:	8faf00a4 */ 	lw	$t7,0xa4($sp)
@@ -39247,7 +39248,7 @@ glabel var7f1aae70
 /*  f088a10:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f088a14:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f088a18:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f088a1c:	0c004241 */ 	jal	func00010904
+/*  f088a1c:	0c004241 */ 	jal	audioStart
 /*  f088a20:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f088a24:
 /*  f088a24:	24180001 */ 	addiu	$t8,$zero,0x1
@@ -39526,7 +39527,7 @@ glabel var7f1aae70
 /*  f088e0c:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f088e10:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f088e14:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f088e18:	0c004241 */ 	jal	func00010904
+/*  f088e18:	0c004241 */ 	jal	audioStart
 /*  f088e1c:	e7a60014 */ 	swc1	$f6,0x14($sp)
 .L0f088e20:
 /*  f088e20:	8faf00a4 */ 	lw	$t7,0xa4($sp)
@@ -39618,7 +39619,7 @@ glabel var7f1aae70
 /*  f088f50:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f088f54:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f088f58:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f088f5c:	0c004241 */ 	jal	func00010904
+/*  f088f5c:	0c004241 */ 	jal	audioStart
 /*  f088f60:	e7a80014 */ 	swc1	$f8,0x14($sp)
 .L0f088f64:
 /*  f088f64:	8faa00a4 */ 	lw	$t2,0xa4($sp)
@@ -39690,7 +39691,7 @@ glabel var7f1aae70
 //	switch (obj->type) {
 //	case 0x04: // f0888b4 - key
 //		if (g_Vars.in_cutscene == false) {
-//			func00010904(var80095200, 0xe5, 0, -1, -1, -1, -1, -1);
+//			audioStart(var80095200, 0xe5, NULL, -1, -1, -1, -1, -1);
 //		}
 //
 //		if (showhudmsg) {
@@ -39729,7 +39730,7 @@ glabel var7f1aae70
 //			}
 //
 //			if (g_Vars.in_cutscene == false) {
-//				func00010904(var80095200, 0xea, 0, -1, -1, -1, -1, -1);
+//				audioStart(var80095200, 0xea, NULL, -1, -1, -1, -1, -1);
 //			}
 //
 //			sp148[1] = 1;
@@ -39880,7 +39881,7 @@ glabel var7f1aae70
 //			func0f0c2210(shield->amount);
 //
 //			if (g_Vars.in_cutscene == false) {
-//				func00010904(var80095200, 0x1cd, 0, -1, -1, -1, -1, -1);
+//				audioStart(var80095200, 0x1cd, NULL, -1, -1, -1, -1, -1);
 //			}
 //
 //			if (showhudmsg) {
@@ -39946,7 +39947,7 @@ glabel var7f1aae70
 //	case 0x2f: // f088f20
 //	default:
 //		if (g_Vars.in_cutscene == false) {
-//			func00010904(var80095200, 0xe5, 0, -1, -1, -1, -1, -1);
+//			audioStart(var80095200, 0xe5, NULL, -1, -1, -1, -1, -1);
 //		}
 //
 //		if (showhudmsg) {
@@ -41895,7 +41896,7 @@ glabel func0f08a9f4
 /*  f08aa44:	240580ab */ 	addiu	$a1,$zero,-32597
 /*  f08aa48:	00003025 */ 	or	$a2,$zero,$zero
 /*  f08aa4c:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f08aa50:	0c004241 */ 	jal	func00010904
+/*  f08aa50:	0c004241 */ 	jal	audioStart
 /*  f08aa54:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f08aa58:	0fc28c41 */ 	jal	func0f0a3104
 /*  f08aa5c:	8fa40028 */ 	lw	$a0,0x28($sp)
@@ -47721,15 +47722,15 @@ bool func0f09018c(struct prop *doorprop)
 
 void alarmActivate(void)
 {
-	if (g_AlarmActive < 1) {
-		g_AlarmActive = 1;
+	if (g_AlarmTimer < 1) {
+		g_AlarmTimer = 1;
 	}
 }
 
 GLOBAL_ASM(
 glabel func0f0903d4
-/*  f0903d4:	3c048007 */ 	lui	$a0,%hi(var800698d8)
-/*  f0903d8:	8c8498d8 */ 	lw	$a0,%lo(var800698d8)($a0)
+/*  f0903d4:	3c048007 */ 	lui	$a0,%hi(g_AlarmAudioHandle)
+/*  f0903d8:	8c8498d8 */ 	lw	$a0,%lo(g_AlarmAudioHandle)($a0)
 /*  f0903dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0903e0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0903e4:	50800008 */ 	beqzl	$a0,.L0f090408
@@ -47737,9 +47738,9 @@ glabel func0f0903d4
 /*  f0903ec:	0c00cdfc */ 	jal	func000337f0
 /*  f0903f0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0903f4:	10400003 */ 	beqz	$v0,.L0f090404
-/*  f0903f8:	3c048007 */ 	lui	$a0,%hi(var800698d8)
-/*  f0903fc:	0c00cec9 */ 	jal	func00033b24
-/*  f090400:	8c8498d8 */ 	lw	$a0,%lo(var800698d8)($a0)
+/*  f0903f8:	3c048007 */ 	lui	$a0,%hi(g_AlarmAudioHandle)
+/*  f0903fc:	0c00cec9 */ 	jal	audioStop
+/*  f090400:	8c8498d8 */ 	lw	$a0,%lo(g_AlarmAudioHandle)($a0)
 .L0f090404:
 /*  f090404:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f090408:
@@ -47750,13 +47751,13 @@ glabel func0f0903d4
 
 void alarmDeactivate(void)
 {
-	g_AlarmActive = 0;
+	g_AlarmTimer = 0;
 	func0f0903d4();
 }
 
 bool alarmIsActive(void)
 {
-	return g_AlarmActive > 0;
+	return g_AlarmTimer > 0;
 }
 
 GLOBAL_ASM(
@@ -47814,7 +47815,7 @@ glabel func0f0904e0
 /*  f0904fc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f090500:	10400003 */ 	beqz	$v0,.L0f090510
 /*  f090504:	3c048007 */ 	lui	$a0,%hi(var80069900)
-/*  f090508:	0c00cec9 */ 	jal	func00033b24
+/*  f090508:	0c00cec9 */ 	jal	audioStop
 /*  f09050c:	8c849900 */ 	lw	$a0,%lo(var80069900)($a0)
 .L0f090510:
 /*  f090510:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -47917,7 +47918,7 @@ glabel var7f1ab19c
 /*  f090658:	afaa0018 */ 	sw	$t2,0x18($sp)
 /*  f09065c:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f090660:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f090664:	0c004241 */ 	jal	func00010904
+/*  f090664:	0c004241 */ 	jal	audioStart
 /*  f090668:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f09066c:	3c018007 */ 	lui	$at,0x8007
 /*  f090670:	c42098e4 */ 	lwc1	$f0,-0x671c($at)
@@ -47985,7 +47986,7 @@ glabel var7f1ab19c
 /*  f090760:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f090764:	24050037 */ 	addiu	$a1,$zero,0x37
 /*  f090768:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f09076c:	0c004241 */ 	jal	func00010904
+/*  f09076c:	0c004241 */ 	jal	audioStart
 /*  f090770:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f090774:
 /*  f090774:	3c048007 */ 	lui	$a0,%hi(var80069900)
@@ -48020,7 +48021,7 @@ glabel var7f1ab19c
 /*  f0907e4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0907e8:	10400003 */ 	beqz	$v0,.L0f0907f8
 /*  f0907ec:	3c048007 */ 	lui	$a0,%hi(var80069900)
-/*  f0907f0:	0c00cec9 */ 	jal	func00033b24
+/*  f0907f0:	0c00cec9 */ 	jal	audioStop
 /*  f0907f4:	8c849900 */ 	lw	$a0,%lo(var80069900)($a0)
 .L0f0907f8:
 /*  f0907f8:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -48425,230 +48426,67 @@ glabel func0f090d34
 /*  f090db0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f090db4
-.late_rodata
-glabel var7f1ab1ac
-.word func0f090db4+0x40 # f090df4
-glabel var7f1ab1b0
-.word func0f090db4+0x48 # f090dfc
-glabel var7f1ab1b4
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1b8
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1bc
-.word func0f090db4+0x58 # f090e0c
-glabel var7f1ab1c0
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1c4
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1c8
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1cc
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1d0
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1d4
-.word func0f090db4+0x50 # f090e04
-glabel var7f1ab1d8
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1dc
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1e0
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1e4
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1e8
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1ec
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1f0
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1f4
-.word func0f090db4+0x68 # f090e1c
-glabel var7f1ab1f8
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab1fc
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab200
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab204
-.word func0f090db4+0x70 # f090e24
-glabel var7f1ab208
-.word func0f090db4+0x60 # f090e14
-.text
-/*  f090db4:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f090db8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f090dbc:	0fc2410e */ 	jal	alarmIsActive
-/*  f090dc0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f090dc4:	10400079 */ 	beqz	$v0,.L0f090fac
-/*  f090dc8:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x4b4)
-/*  f090dcc:	8dcea474 */ 	lw	$t6,%lo(g_Vars+0x4b4)($t6)
-/*  f090dd0:	25cfffe3 */ 	addiu	$t7,$t6,-29
-/*  f090dd4:	2de10018 */ 	sltiu	$at,$t7,0x18
-/*  f090dd8:	10200012 */ 	beqz	$at,.L0f090e24
-/*  f090ddc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f090de0:	3c017f1b */ 	lui	$at,%hi(var7f1ab1ac)
-/*  f090de4:	002f0821 */ 	addu	$at,$at,$t7
-/*  f090de8:	8c2fb1ac */ 	lw	$t7,%lo(var7f1ab1ac)($at)
-/*  f090dec:	01e00008 */ 	jr	$t7
-/*  f090df0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f090df4:	1000000c */ 	beqz	$zero,.L0f090e28
-/*  f090df8:	24056455 */ 	addiu	$a1,$zero,0x6455
-/*  f090dfc:	1000000a */ 	beqz	$zero,.L0f090e28
-/*  f090e00:	240500a2 */ 	addiu	$a1,$zero,0xa2
-/*  f090e04:	10000008 */ 	beqz	$zero,.L0f090e28
-/*  f090e08:	240500a1 */ 	addiu	$a1,$zero,0xa1
-/*  f090e0c:	10000006 */ 	beqz	$zero,.L0f090e28
-/*  f090e10:	240500a2 */ 	addiu	$a1,$zero,0xa2
-/*  f090e14:	10000004 */ 	beqz	$zero,.L0f090e28
-/*  f090e18:	240505c2 */ 	addiu	$a1,$zero,0x5c2
-/*  f090e1c:	10000002 */ 	beqz	$zero,.L0f090e28
-/*  f090e20:	240504ac */ 	addiu	$a1,$zero,0x4ac
-.L0f090e24:
-/*  f090e24:	240500a3 */ 	addiu	$a1,$zero,0xa3
-.L0f090e28:
-/*  f090e28:	0fc5b364 */ 	jal	soloIsPaused
-/*  f090e2c:	a7a50036 */ 	sh	$a1,0x36($sp)
-/*  f090e30:	14400057 */ 	bnez	$v0,.L0f090f90
-/*  f090e34:	87a50036 */ 	lh	$a1,0x36($sp)
-/*  f090e38:	3c188007 */ 	lui	$t8,%hi(var800698d8)
-/*  f090e3c:	8f1898d8 */ 	lw	$t8,%lo(var800698d8)($t8)
-/*  f090e40:	3c068007 */ 	lui	$a2,%hi(var800698d8)
-/*  f090e44:	24c698d8 */ 	addiu	$a2,$a2,%lo(var800698d8)
-/*  f090e48:	13000045 */ 	beqz	$t8,.L0f090f60
-/*  f090e4c:	3c048009 */ 	lui	$a0,%hi(var80095200)
-/*  f090e50:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x34)
-/*  f090e54:	8f399ff4 */ 	lw	$t9,%lo(g_Vars+0x34)($t9)
-/*  f090e58:	3c014120 */ 	lui	$at,0x4120
-/*  f090e5c:	44810000 */ 	mtc1	$at,$f0
-/*  f090e60:	44992000 */ 	mtc1	$t9,$f4
-/*  f090e64:	3c014170 */ 	lui	$at,0x4170
-/*  f090e68:	44814000 */ 	mtc1	$at,$f8
-/*  f090e6c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f090e70:	3c038007 */ 	lui	$v1,%hi(var800698e0)
-/*  f090e74:	3c048007 */ 	lui	$a0,%hi(var800698d8)
-/*  f090e78:	246398e0 */ 	addiu	$v1,$v1,%lo(var800698e0)
-/*  f090e7c:	248498d8 */ 	addiu	$a0,$a0,%lo(var800698d8)
-/*  f090e80:	00002825 */ 	or	$a1,$zero,$zero
-/*  f090e84:	46083083 */ 	div.s	$f2,$f6,$f8
-/*  f090e88:	24067fff */ 	addiu	$a2,$zero,0x7fff
-/*  f090e8c:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f090e90:	240affff */ 	addiu	$t2,$zero,-1
-/*  f090e94:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f090e98:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f090e9c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f090ea0:	45020003 */ 	bc1fl	.L0f090eb0
-/*  f090ea4:	c46c0000 */ 	lwc1	$f12,0x0($v1)
-/*  f090ea8:	46000086 */ 	mov.s	$f2,$f0
-/*  f090eac:	c46c0000 */ 	lwc1	$f12,0x0($v1)
-.L0f090eb0:
-/*  f090eb0:	3c028007 */ 	lui	$v0,%hi(var800698dc)
-/*  f090eb4:	244298dc */ 	addiu	$v0,$v0,%lo(var800698dc)
-/*  f090eb8:	46026402 */ 	mul.s	$f16,$f12,$f2
-/*  f090ebc:	c44a0000 */ 	lwc1	$f10,0x0($v0)
-/*  f090ec0:	3c0141f0 */ 	lui	$at,0x41f0
-/*  f090ec4:	44817000 */ 	mtc1	$at,$f14
-/*  f090ec8:	3c0142c4 */ 	lui	$at,0x42c4
-/*  f090ecc:	46105480 */ 	add.s	$f18,$f10,$f16
-/*  f090ed0:	e4520000 */ 	swc1	$f18,0x0($v0)
-/*  f090ed4:	c4400000 */ 	lwc1	$f0,0x0($v0)
-/*  f090ed8:	460e003c */ 	c.lt.s	$f0,$f14
-/*  f090edc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f090ee0:	45020009 */ 	bc1fl	.L0f090f08
-/*  f090ee4:	44811000 */ 	mtc1	$at,$f2
-/*  f090ee8:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f090eec:	44812000 */ 	mtc1	$at,$f4
-/*  f090ef0:	e44e0000 */ 	swc1	$f14,0x0($v0)
-/*  f090ef4:	c4400000 */ 	lwc1	$f0,0x0($v0)
-/*  f090ef8:	46046182 */ 	mul.s	$f6,$f12,$f4
-/*  f090efc:	1000000c */ 	beqz	$zero,.L0f090f30
-/*  f090f00:	e4660000 */ 	swc1	$f6,0x0($v1)
-/*  f090f04:	44811000 */ 	mtc1	$at,$f2
-.L0f090f08:
-/*  f090f08:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f090f0c:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f090f10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f090f14:	45020007 */ 	bc1fl	.L0f090f34
-/*  f090f18:	4600040d */ 	trunc.w.s	$f16,$f0
-/*  f090f1c:	44814000 */ 	mtc1	$at,$f8
-/*  f090f20:	e4420000 */ 	swc1	$f2,0x0($v0)
-/*  f090f24:	c4400000 */ 	lwc1	$f0,0x0($v0)
-/*  f090f28:	46086282 */ 	mul.s	$f10,$f12,$f8
-/*  f090f2c:	e46a0000 */ 	swc1	$f10,0x0($v1)
-.L0f090f30:
-/*  f090f30:	4600040d */ 	trunc.w.s	$f16,$f0
-.L0f090f34:
-/*  f090f34:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f090f38:	44819000 */ 	mtc1	$at,$f18
-/*  f090f3c:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f090f40:	44078000 */ 	mfc1	$a3,$f16
-/*  f090f44:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f090f48:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*  f090f4c:	afab0020 */ 	sw	$t3,0x20($sp)
-/*  f090f50:	0c004128 */ 	jal	func000104a0
-/*  f090f54:	e7b20014 */ 	swc1	$f18,0x14($sp)
-/*  f090f58:	1000000d */ 	beqz	$zero,.L0f090f90
-/*  f090f5c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f090f60:
-/*  f090f60:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f090f64:	44812000 */ 	mtc1	$at,$f4
-/*  f090f68:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f090f6c:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f090f70:	240effff */ 	addiu	$t6,$zero,-1
-/*  f090f74:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f090f78:	afad0018 */ 	sw	$t5,0x18($sp)
-/*  f090f7c:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f090f80:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*  f090f84:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f090f88:	0c004241 */ 	jal	func00010904
-/*  f090f8c:	e7a40014 */ 	swc1	$f4,0x14($sp)
-.L0f090f90:
-/*  f090f90:	3c038007 */ 	lui	$v1,%hi(g_AlarmActive)
-/*  f090f94:	246398d4 */ 	addiu	$v1,$v1,%lo(g_AlarmActive)
-/*  f090f98:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x38)
-/*  f090f9c:	8f189ff8 */ 	lw	$t8,%lo(g_Vars+0x38)($t8)
-/*  f090fa0:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*  f090fa4:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f090fa8:	ac790000 */ 	sw	$t9,0x0($v1)
-.L0f090fac:
-/*  f090fac:	3c038007 */ 	lui	$v1,%hi(g_AlarmActive)
-/*  f090fb0:	246398d4 */ 	addiu	$v1,$v1,%lo(g_AlarmActive)
-/*  f090fb4:	8c620000 */ 	lw	$v0,0x0($v1)
-/*  f090fb8:	28410709 */ 	slti	$at,$v0,0x709
-/*  f090fbc:	54200008 */ 	bnezl	$at,.L0f090fe0
-/*  f090fc0:	28410ce5 */ 	slti	$at,$v0,0xce5
-/*  f090fc4:	0c003a61 */ 	jal	getCurrentStageId
-/*  f090fc8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f090fcc:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f090fd0:	1441000a */ 	bne	$v0,$at,.L0f090ffc
-/*  f090fd4:	3c028007 */ 	lui	$v0,%hi(g_AlarmActive)
-/*  f090fd8:	8c4298d4 */ 	lw	$v0,%lo(g_AlarmActive)($v0)
-/*  f090fdc:	28410ce5 */ 	slti	$at,$v0,0xce5
-.L0f090fe0:
-/*  f090fe0:	14200008 */ 	bnez	$at,.L0f091004
-/*  f090fe4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f090fe8:	0c003a61 */ 	jal	getCurrentStageId
-/*  f090fec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f090ff0:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f090ff4:	14410003 */ 	bne	$v0,$at,.L0f091004
-/*  f090ff8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f090ffc:
-/*  f090ffc:	0fc24105 */ 	jal	alarmDeactivate
-/*  f091000:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f091004:
-/*  f091004:	0fc24153 */ 	jal	func0f09054c
-/*  f091008:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f09100c:	0fc24222 */ 	jal	countdownTimerTick
-/*  f091010:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f091014:	0fc22b2c */ 	jal	func0f08acb0
-/*  f091018:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f09101c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f091020:	3c018007 */ 	lui	$at,%hi(var80069910)
-/*  f091024:	ac209910 */ 	sw	$zero,%lo(var80069910)($at)
-/*  f091028:	03e00008 */ 	jr	$ra
-/*  f09102c:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void alarmTick(void)
+{
+	if (alarmIsActive()) {
+		s16 sound;
+
+		// These sounds are alarm sounds.
+		// They go for a fraction of a second and are repeated by this function.
+		switch (g_Vars.stagenum) {
+		case STAGE_CHICAGO:      sound = 0x6455; break;
+		case STAGE_G5BUILDING:   sound = 0x00a2; break;
+		case STAGE_AIRBASE:      sound = 0x00a1; break;
+		case STAGE_PELAGIC:      sound = 0x00a2; break;
+		case STAGE_ATTACKSHIP:   sound = 0x05c2; break;
+		case STAGE_INFILTRATION: sound = 0x04ac; break;
+		default:                 sound = 0x00a3; break;
+		}
+
+		if (!soloIsPaused()) {
+			if (g_AlarmAudioHandle) {
+				// The sound is currently playing. Cycle between the left/right
+				// speaker for stereo or headphone mode.
+				f32 increment = g_Vars.lvupdate240 / 15.0f;
+
+				if (increment > 10) {
+					increment = 10;
+				}
+
+				g_AlarmSpeakerWeight += g_AlarmSpeakerDirection * increment;
+
+				if (g_AlarmSpeakerWeight < 30) {
+					g_AlarmSpeakerWeight = 30;
+					g_AlarmSpeakerDirection *= -1;
+				} else if (g_AlarmSpeakerWeight > 98) {
+					g_AlarmSpeakerWeight = 98;
+					g_AlarmSpeakerDirection *= -1;
+				}
+
+				audioAdjust(&g_AlarmAudioHandle, 0, 0x7fff, g_AlarmSpeakerWeight, -1, -1, 0, -1, 1);
+			} else {
+				// The alarm finished, or this is the first one.
+				// Start the sound again.
+				audioStart(var80095200, sound, &g_AlarmAudioHandle, -1, -1, -1, -1, -1);
+			}
+		}
+
+		g_AlarmTimer += g_Vars.lvupdate240_60;
+	}
+
+	// For G5, stop alarm after 55 seconds.
+	// For all other levels, stop alarm after 30 seconds.
+	if ((g_AlarmTimer > 1800 && getCurrentStageId() != STAGE_G5BUILDING)
+			|| (g_AlarmTimer > 3300 && getCurrentStageId() == STAGE_G5BUILDING)) {
+		alarmDeactivate();
+	}
+
+	func0f09054c();
+	countdownTimerTick();
+	func0f08acb0();
+
+	var80069910 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f091030

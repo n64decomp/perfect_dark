@@ -5166,7 +5166,7 @@ glabel func0f0bace0
 /*  f0bad30:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bad34:	50400004 */ 	beqzl	$v0,.L0f0bad48
 /*  f0bad38:	263107a4 */ 	addiu	$s1,$s1,0x7a4
-/*  f0bad3c:	0c00cec9 */ 	jal	func00033b24
+/*  f0bad3c:	0c00cec9 */ 	jal	audioStop
 /*  f0bad40:	8e0401cc */ 	lw	$a0,0x1cc($s0)
 /*  f0bad44:	263107a4 */ 	addiu	$s1,$s1,0x7a4
 .L0f0bad48:
@@ -8638,7 +8638,7 @@ glabel var7f1ad6ac
 /*  f0bdf28:	240580ab */ 	addiu	$a1,$zero,-32597
 /*  f0bdf2c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0bdf30:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0bdf34:	0c004241 */ 	jal	func00010904
+/*  f0bdf34:	0c004241 */ 	jal	audioStart
 /*  f0bdf38:	e7a80014 */ 	swc1	$f8,0x14($sp)
 /*  f0bdf3c:	8e700284 */ 	lw	$s0,0x284($s3)
 .L0f0bdf40:
@@ -10731,7 +10731,7 @@ glabel var7f1ad6ac
 //					eyespy->camerashuttertime = 0;
 //					eyespy->startuptimer60 = 0;
 //					eyespy->prop->chr->soundtimer = 10;
-//					func00010904(var80095200, 0x80ab, NULL, -1, -1, -1, -1, -1);
+//					audioStart(var80095200, 0x80ab, NULL, -1, -1, -1, -1, -1);
 //				}
 //
 //				g_Vars.currentplayer->invdowntime = -40;
