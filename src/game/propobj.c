@@ -38232,64 +38232,64 @@ glabel var7f1aabd0
 );
 
 GLOBAL_ASM(
-glabel func0f08791c
+glabel ammotypeGetPickupName
 .late_rodata
 glabel var7f1aabd4
-.word func0f08791c+0xd8 # f0879f4
+.word ammotypeGetPickupName+0xd8 # f0879f4
 glabel var7f1aabd8
-.word func0f08791c+0x184 # f087aa0
+.word ammotypeGetPickupName+0x184 # f087aa0
 glabel var7f1aabdc
-.word func0f08791c+0xe0 # f0879fc
+.word ammotypeGetPickupName+0xe0 # f0879fc
 glabel var7f1aabe0
-.word func0f08791c+0xe8 # f087a04
+.word ammotypeGetPickupName+0xe8 # f087a04
 glabel var7f1aabe4
-.word func0f08791c+0xf0 # f087a0c
+.word ammotypeGetPickupName+0xf0 # f087a0c
 glabel var7f1aabe8
-.word func0f08791c+0xf8 # f087a14
+.word ammotypeGetPickupName+0xf8 # f087a14
 glabel var7f1aabec
-.word func0f08791c+0x184 # f087aa0
+.word ammotypeGetPickupName+0x184 # f087aa0
 glabel var7f1aabf0
-.word func0f08791c+0x100 # f087a1c
+.word ammotypeGetPickupName+0x100 # f087a1c
 glabel var7f1aabf4
-.word func0f08791c+0x108 # f087a24
+.word ammotypeGetPickupName+0x108 # f087a24
 glabel var7f1aabf8
-.word func0f08791c+0x110 # f087a2c
+.word ammotypeGetPickupName+0x110 # f087a2c
 glabel var7f1aabfc
-.word func0f08791c+0x118 # f087a34
+.word ammotypeGetPickupName+0x118 # f087a34
 glabel var7f1aac00
-.word func0f08791c+0x120 # f087a3c
+.word ammotypeGetPickupName+0x120 # f087a3c
 glabel var7f1aac04
-.word func0f08791c+0x128 # f087a44
+.word ammotypeGetPickupName+0x128 # f087a44
 glabel var7f1aac08
-.word func0f08791c+0x130 # f087a4c
+.word ammotypeGetPickupName+0x130 # f087a4c
 glabel var7f1aac0c
-.word func0f08791c+0x138 # f087a54
+.word ammotypeGetPickupName+0x138 # f087a54
 glabel var7f1aac10
-.word func0f08791c+0x140 # f087a5c
+.word ammotypeGetPickupName+0x140 # f087a5c
 glabel var7f1aac14
-.word func0f08791c+0x148 # f087a64
+.word ammotypeGetPickupName+0x148 # f087a64
 glabel var7f1aac18
-.word func0f08791c+0x178 # f087a94
+.word ammotypeGetPickupName+0x178 # f087a94
 glabel var7f1aac1c
-.word func0f08791c+0x180 # f087a9c
+.word ammotypeGetPickupName+0x180 # f087a9c
 glabel var7f1aac20
-.word func0f08791c+0x150 # f087a6c
+.word ammotypeGetPickupName+0x150 # f087a6c
 glabel var7f1aac24
-.word func0f08791c+0x184 # f087aa0
+.word ammotypeGetPickupName+0x184 # f087aa0
 glabel var7f1aac28
-.word func0f08791c+0x158 # f087a74
+.word ammotypeGetPickupName+0x158 # f087a74
 glabel var7f1aac2c
-.word func0f08791c+0x160 # f087a7c
+.word ammotypeGetPickupName+0x160 # f087a7c
 glabel var7f1aac30
-.word func0f08791c+0x170 # f087a8c
+.word ammotypeGetPickupName+0x170 # f087a8c
 glabel var7f1aac34
-.word func0f08791c+0x184 # f087aa0
+.word ammotypeGetPickupName+0x184 # f087aa0
 glabel var7f1aac38
-.word func0f08791c+0x184 # f087aa0
+.word ammotypeGetPickupName+0x184 # f087aa0
 glabel var7f1aac3c
-.word func0f08791c+0x184 # f087aa0
+.word ammotypeGetPickupName+0x184 # f087aa0
 glabel var7f1aac40
-.word func0f08791c+0x168 # f087a84
+.word ammotypeGetPickupName+0x168 # f087a84
 .text
 /*  f08791c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f087920:	24010001 */ 	addiu	$at,$zero,0x1
@@ -38424,6 +38424,70 @@ glabel var7f1aac40
 /*  f087b04:	03e00008 */ 	jr	$ra
 /*  f087b08:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch because goal stores text_id in a0 while the below uses stack.
+//void ammotypeGetPickupName(char *dst, s32 ammotype, s32 qty)
+//{
+//	s32 text_id;
+//
+//	switch (ammotype) {
+//	case AMMOTYPE_PISTOL:
+//	case AMMOTYPE_SMG:
+//	case AMMOTYPE_RIFLE:
+//		strcat(dst, langGet(L_PROPOBJ(10))); // "ammo"
+//		return;
+//	}
+//
+//	if (ammotype == AMMOTYPE_KNIFE) {
+//		strcat(dst, langGet(L_PROPOBJ(21))); // "combat"
+//
+//		if (qty == 1) {
+//			strcat(dst, langGet(L_PROPOBJ(22))); // "knife"
+//		} else {
+//			strcat(dst, langGet(L_PROPOBJ(23))); // "knives"
+//		}
+//
+//		return;
+//	}
+//
+//	text_id = -1;
+//
+//	switch (ammotype) {
+//	case AMMOTYPE_CROSSBOW:     text_id = L_PROPOBJ(45); break; // "bolt"
+//	case AMMOTYPE_SHOTGUN:      text_id = L_PROPOBJ(11); break; // "cartridge"
+//	case AMMOTYPE_FARSIGHT:     text_id = L_PROPOBJ(46); break; // "orb"
+//	case AMMOTYPE_GRENADE:      text_id = L_PROPOBJ(14); break; // "grenade"
+//	case AMMOTYPE_ROCKET:       text_id = L_PROPOBJ(16); break; // "rocket"
+//	case AMMOTYPE_MAGNUM:       text_id = L_PROPOBJ(12); break; // "magnum bullet"
+//	case AMMOTYPE_DEVASTATOR:   text_id = L_PROPOBJ(15); break; // "grenade round"
+//	case AMMOTYPE_REMOTE_MINE:  text_id = L_PROPOBJ(18); break; // "remote mine"
+//	case AMMOTYPE_PROXY_MINE:   text_id = L_PROPOBJ(19); break; // "proximity mine"
+//	case AMMOTYPE_TIMED_MINE:   text_id = L_PROPOBJ(20); break; // "timed mine"
+//	case AMMOTYPE_REAPER:       text_id = L_PROPOBJ(47); break; // "Reaper ammo"
+//	case AMMOTYPE_HOMINGROCKET: text_id = L_PROPOBJ(17); break; // "homing rocket"
+//	case AMMOTYPE_DART:         text_id = L_PROPOBJ(25); break; // "dart"
+//	case AMMOTYPE_NBOMB:        text_id = L_PROPOBJ(26); break; // "N-Bomb"
+//	case AMMOTYPE_SEDATIVE:     text_id = L_PROPOBJ(27); break; // "sedatives"
+//	case AMMOTYPE_PSYCHOSIS:    text_id = L_PROPOBJ(27); break; // "sedatives"
+//	case AMMOTYPE_BUG:          text_id = L_PROPOBJ(35); break; // "bug"
+//	case AMMOTYPE_MICROCAMERA:  text_id = L_PROPOBJ(36); break; // "micro camera"
+//	case AMMOTYPE_TOKEN:        text_id = L_PROPOBJ(38); break; // "token"
+//	case AMMOTYPE_PLASTIQUE:    text_id = L_PROPOBJ(39); break; // "plastique"
+//	case AMMOTYPE_CLOAK:        text_id = L_PROPOBJ(48); break; // "cloaking device"
+//	case AMMOTYPE_BOOST:        text_id = L_PROPOBJ(49); break; // "boost pill"
+//	}
+//
+//	if (text_id >= 0) {
+//		strcat(dst, langGet(text_id));
+//	}
+//
+//	if (qty >= 2
+//			&& ammotype != AMMOTYPE_REAPER
+//			&& ammotype != AMMOTYPE_SEDATIVE
+//			&& ammotype != AMMOTYPE_CLOAK) {
+//		strcat(dst, langGet(L_PROPOBJ(24))); // "s"
+//	}
+//}
 
 void func0f087b0c(u32 ammotype)
 {
@@ -38592,7 +38656,7 @@ glabel func0f087e40
 /*  f087f20:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*  f087f24:	1180000e */ 	beqz	$t4,.L0f087f60
 /*  f087f28:	01602025 */ 	or	$a0,$t3,$zero
-/*  f087f2c:	0fc21e47 */ 	jal	func0f08791c
+/*  f087f2c:	0fc21e47 */ 	jal	ammotypeGetPickupName
 /*  f087f30:	afa7001c */ 	sw	$a3,0x1c($sp)
 /*  f087f34:	8fa7001c */ 	lw	$a3,0x1c($sp)
 /*  f087f38:	10e00003 */ 	beqz	$a3,.L0f087f48
@@ -38618,7 +38682,7 @@ glabel func0f087e40
 /*  f087f7c:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f087f80:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*  f087f84:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f087f88:	0fc21e47 */ 	jal	func0f08791c
+/*  f087f88:	0fc21e47 */ 	jal	ammotypeGetPickupName
 /*  f087f8c:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f087f90:	3c057f1b */ 	lui	$a1,%hi(var7f1aa068)
 /*  f087f94:	24a5a068 */ 	addiu	$a1,$a1,%lo(var7f1aa068)
