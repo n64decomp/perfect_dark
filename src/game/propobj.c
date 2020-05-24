@@ -103,33 +103,6 @@ const char var7f1aa02c[] = "propobj.c";
 const char var7f1aa038[] = "propobj.c";
 const char var7f1aa044[] = "propobj.c";
 const char var7f1aa050[] = "HC: %x - visible\n";
-const char var7f1aa064[] = "\n";
-const char var7f1aa068[] = ".\n";
-const char var7f1aa06c[] = "";
-const char var7f1aa070[] = "";
-const char var7f1aa074[] = "";
-const char var7f1aa078[] = "";
-const char var7f1aa07c[] = "";
-const char var7f1aa080[] = "";
-const char var7f1aa084[] = "";
-const char var7f1aa088[] = "";
-const char var7f1aa08c[] = "";
-const char var7f1aa090[] = "";
-const char var7f1aa094[] = "";
-const char var7f1aa098[] = "";
-const char var7f1aa09c[] = "";
-const char var7f1aa0a0[] = "";
-const char var7f1aa0a4[] = "";
-const char var7f1aa0a8[] = "";
-const char var7f1aa0ac[] = "";
-const char var7f1aa0b0[] = "";
-const char var7f1aa0b4[] = "";
-const char var7f1aa0b8[] = "";
-const char var7f1aa0bc[] = "";
-const char var7f1aa0c0[] = "";
-const char var7f1aa0c4[] = "";
-const char var7f1aa0c8[] = "";
-const char var7f1aa0cc[] = "";
 
 GLOBAL_ASM(
 glabel func0f066310
@@ -38414,112 +38387,58 @@ void func0f087d10(s32 weaponnum)
 	audioStart(var80095200, sound, NULL, -1, -1, -1, -1, -1);
 }
 
-GLOBAL_ASM(
-glabel func0f087e40
-/*  f087e40:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f087e44:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f087e48:	8c4e006c */ 	lw	$t6,0x6c($v0)
-/*  f087e4c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f087e50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f087e54:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f087e58:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f087e5c:	11c00003 */ 	beqz	$t6,.L0f087e6c
-/*  f087e60:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f087e64:	10000002 */ 	beqz	$zero,.L0f087e70
-/*  f087e68:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f087e6c:
-/*  f087e6c:	00003025 */ 	or	$a2,$zero,$zero
-.L0f087e70:
-/*  f087e70:	8c4f0068 */ 	lw	$t7,0x68($v0)
-/*  f087e74:	00001825 */ 	or	$v1,$zero,$zero
-/*  f087e78:	00002025 */ 	or	$a0,$zero,$zero
-/*  f087e7c:	11e00003 */ 	beqz	$t7,.L0f087e8c
-/*  f087e80:	00003825 */ 	or	$a3,$zero,$zero
-/*  f087e84:	10000001 */ 	beqz	$zero,.L0f087e8c
-/*  f087e88:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f087e8c:
-/*  f087e8c:	8c580064 */ 	lw	$t8,0x64($v0)
-/*  f087e90:	13000003 */ 	beqz	$t8,.L0f087ea0
-/*  f087e94:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f087e98:	10000001 */ 	beqz	$zero,.L0f087ea0
-/*  f087e9c:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f087ea0:
-/*  f087ea0:	8c590070 */ 	lw	$t9,0x70($v0)
-/*  f087ea4:	13200003 */ 	beqz	$t9,.L0f087eb4
-/*  f087ea8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f087eac:	10000001 */ 	beqz	$zero,.L0f087eb4
-/*  f087eb0:	24070001 */ 	addiu	$a3,$zero,0x1
-.L0f087eb4:
-/*  f087eb4:	00e44021 */ 	addu	$t0,$a3,$a0
-/*  f087eb8:	01034821 */ 	addu	$t1,$t0,$v1
-/*  f087ebc:	01261021 */ 	addu	$v0,$t1,$a2
-/*  f087ec0:	28470003 */ 	slti	$a3,$v0,0x3
-/*  f087ec4:	10e00011 */ 	beqz	$a3,.L0f087f0c
-/*  f087ec8:	38420002 */ 	xori	$v0,$v0,0x2
-/*  f087ecc:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f087ed0:	2c470001 */ 	sltiu	$a3,$v0,0x1
-/*  f087ed4:	54e0000e */ 	bnezl	$a3,.L0f087f10
-/*  f087ed8:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*  f087edc:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f087ee0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f087ee4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f087ee8:	00821826 */ 	xor	$v1,$a0,$v0
-/*  f087eec:	2c630001 */ 	sltiu	$v1,$v1,0x1
-/*  f087ef0:	2c670001 */ 	sltiu	$a3,$v1,0x1
-/*  f087ef4:	10e00005 */ 	beqz	$a3,.L0f087f0c
-/*  f087ef8:	3c0a8009 */ 	lui	$t2,%hi(g_Is4Mb)
-/*  f087efc:	914a0af0 */ 	lbu	$t2,%lo(g_Is4Mb)($t2)
-/*  f087f00:	008a3826 */ 	xor	$a3,$a0,$t2
-/*  f087f04:	2ce70001 */ 	sltiu	$a3,$a3,0x1
-/*  f087f08:	2ce70001 */ 	sltiu	$a3,$a3,0x1
-.L0f087f0c:
-/*  f087f0c:	8fab0028 */ 	lw	$t3,0x28($sp)
-.L0f087f10:
-/*  f087f10:	3c0c8008 */ 	lui	$t4,%hi(g_LanguageId)
-/*  f087f14:	a1600000 */ 	sb	$zero,0x0($t3)
-/*  f087f18:	8d8c4120 */ 	lw	$t4,%lo(g_LanguageId)($t4)
-/*  f087f1c:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f087f20:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f087f24:	1180000e */ 	beqz	$t4,.L0f087f60
-/*  f087f28:	01602025 */ 	or	$a0,$t3,$zero
-/*  f087f2c:	0fc21e47 */ 	jal	ammotypeGetPickupName
-/*  f087f30:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f087f34:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f087f38:	10e00003 */ 	beqz	$a3,.L0f087f48
-/*  f087f3c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f087f40:	0fc21d8e */ 	jal	ammotypeGetPickedUpText
-/*  f087f44:	8fa40028 */ 	lw	$a0,0x28($sp)
-.L0f087f48:
-/*  f087f48:	3c057f1b */ 	lui	$a1,%hi(var7f1aa064)
-/*  f087f4c:	24a5a064 */ 	addiu	$a1,$a1,%lo(var7f1aa064)
-/*  f087f50:	0c004c89 */ 	jal	strcat
-/*  f087f54:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f087f58:	10000012 */ 	beqz	$zero,.L0f087fa4
-/*  f087f5c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f087f60:
-/*  f087f60:	50e00004 */ 	beqzl	$a3,.L0f087f74
-/*  f087f64:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f087f68:	0fc21d8e */ 	jal	ammotypeGetPickedUpText
-/*  f087f6c:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f087f70:	8fa40028 */ 	lw	$a0,0x28($sp)
-.L0f087f74:
-/*  f087f74:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f087f78:	0fc21d9a */ 	jal	ammotypeGetDeterminer
-/*  f087f7c:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f087f80:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f087f84:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f087f88:	0fc21e47 */ 	jal	ammotypeGetPickupName
-/*  f087f8c:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f087f90:	3c057f1b */ 	lui	$a1,%hi(var7f1aa068)
-/*  f087f94:	24a5a068 */ 	addiu	$a1,$a1,%lo(var7f1aa068)
-/*  f087f98:	0c004c89 */ 	jal	strcat
-/*  f087f9c:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f087fa0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f087fa4:
-/*  f087fa4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f087fa8:	03e00008 */ 	jr	$ra
-/*  f087fac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void ammotypeGetPickupMessage(char *dst, s32 ammotype, s32 qty)
+{
+	s32 playercount = PLAYERCOUNT();
+	s32 full = playercount <= 2
+		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Is4Mb == true));
+
+	*dst = '\0';
+
+	if (g_LanguageId != LANGUAGE_ENGLISH) {
+		ammotypeGetPickupName(dst, ammotype, qty);
+
+		if (full) {
+			ammotypeGetPickedUpText(dst);
+		}
+
+		strcat(dst, "\n");
+	} else {
+		if (full) {
+			ammotypeGetPickedUpText(dst); // "Picked up"
+		}
+
+		ammotypeGetDeterminer(dst, ammotype, qty); // "a", "an", "some" or "the"
+		ammotypeGetPickupName(dst, ammotype, qty); // name of ammo type
+		strcat(dst, ".\n");
+	}
+}
+
+const char var7f1aa06c[] = "";
+const char var7f1aa070[] = "";
+const char var7f1aa074[] = "";
+const char var7f1aa078[] = "";
+const char var7f1aa07c[] = "";
+const char var7f1aa080[] = "";
+const char var7f1aa084[] = "";
+const char var7f1aa088[] = "";
+const char var7f1aa08c[] = "";
+const char var7f1aa090[] = "";
+const char var7f1aa094[] = "";
+const char var7f1aa098[] = "";
+const char var7f1aa09c[] = "";
+const char var7f1aa0a0[] = "";
+const char var7f1aa0a4[] = "";
+const char var7f1aa0a8[] = "";
+const char var7f1aa0ac[] = "";
+const char var7f1aa0b0[] = "";
+const char var7f1aa0b4[] = "";
+const char var7f1aa0b8[] = "";
+const char var7f1aa0bc[] = "";
+const char var7f1aa0c0[] = "";
+const char var7f1aa0c4[] = "";
+const char var7f1aa0c8[] = "";
+const char var7f1aa0cc[] = "";
 
 GLOBAL_ASM(
 glabel func0f087fb0
@@ -38544,7 +38463,7 @@ glabel func0f087fb0
 /*  f087ff4:	15d9fff8 */ 	bne	$t6,$t9,.L0f087fd8
 /*  f087ff8:	ad01fffc */ 	sw	$at,-0x4($t0)
 /*  f087ffc:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f088000:	0fc21f90 */ 	jal	func0f087e40
+/*  f088000:	0fc21f90 */ 	jal	ammotypeGetPickupMessage
 /*  f088004:	ad010000 */ 	sw	$at,0x0($t0)
 /*  f088008:	27a4001c */ 	addiu	$a0,$sp,0x1c
 /*  f08800c:	00002825 */ 	or	$a1,$zero,$zero
