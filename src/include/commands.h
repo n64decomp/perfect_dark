@@ -145,15 +145,19 @@
 	label,
 
 /**
- * Makes the chr do a surprised animation.
+ * Makes the chr raise one hand briefly.
+ * This isn't used, but was copied from GoldenEye and still works.
  */
-#define be_surprised_000d \
+#define be_surprised_one_hand \
 	mkshort(0x000d),
 
 /**
- * Makes the chr do a surprised animation.
+ * Makes the chr look over their shoulder.
+ *
+ * This command isn't used. The "surprised" part of the name is there because
+ * this is internally implemented using the ACT_SURPRISED action.
  */
-#define be_surprised_000e \
+#define be_surprised_look_around \
 	mkshort(0x000e),
 
 /**
@@ -2189,9 +2193,15 @@
 	mkshort(0x00fe),
 
 /**
- * Make the current chr do a surprised animation.
+ * Makes the chr raise their hands in a surrendering pose.
+ *
+ * This should not be used to make a chr surrender. Use the `surrender` command
+ * instead.
+ *
+ * This command isn't used. The "surprised" part of the name is there because
+ * this is internally implemented using the ACT_SURPRISED action.
  */
-#define be_surprised_00ff \
+#define be_surprised_surrender \
 	mkshort(0x00ff),
 
 #define cmd0100_noop(u1) \

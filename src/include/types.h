@@ -478,7 +478,7 @@ struct act_gopos {
 };
 
 struct act_surprised {
-	/*0x2c*/ u32 unk02c;
+	/*0x2c*/ u32 type;
 };
 
 struct act_throwgrenade {

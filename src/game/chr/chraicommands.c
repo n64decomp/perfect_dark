@@ -477,9 +477,9 @@ bool func0f04e418(void)
 /**
  * @cmd 000d
  */
-bool aiBeSurprised000d(void)
+bool aiBeSurprisedOneHand(void)
 {
-	func0f03adf4(g_Vars.chrdata);
+	chrTrySurprisedOneHand(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -488,9 +488,9 @@ bool aiBeSurprised000d(void)
 /**
  * @cmd 000e
  */
-bool aiBeSurprised000e(void)
+bool aiBeSurprisedLookAround(void)
 {
-	func0f03ae9c(g_Vars.chrdata);
+	chrTrySurprisedLookAround(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -6138,9 +6138,9 @@ bool aiKillBond(void)
 /**
  * @cmd 00ff
  */
-bool aiBeSurprised00ff(void)
+bool aiBeSurprisedSurrender(void)
 {
-	func0f03ae48(g_Vars.chrdata);
+	chrTrySurprisedSurrender(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
 
 	return false;

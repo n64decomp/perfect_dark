@@ -16,8 +16,8 @@
 /*0x000a*/ bool aiKneel(void);
 /*0x000b*/ bool aiChrDoAnimation(void);
 /*0x000c*/ bool aiIfIdle(void);
-/*0x000d*/ bool aiBeSurprised000d(void);
-/*0x000e*/ bool aiBeSurprised000e(void);
+/*0x000d*/ bool aiBeSurprisedOneHand(void);
+/*0x000e*/ bool aiBeSurprisedLookAround(void);
 /*0x000f*/ bool aiStepSideways(void);
 /*0x0010*/ bool aiHopSideways(void);
 /*0x0011*/ bool aiRunSideways(void);
@@ -255,7 +255,7 @@
 /*0x00fc*/ bool aiIfKillCountGreaterThan(void);
 /*0x00fd*/ bool ai00fd(void);
 /*0x00fe*/ bool aiKillBond(void);
-/*0x00ff*/ bool aiBeSurprised00ff(void);
+/*0x00ff*/ bool aiBeSurprisedSurrender(void);
 /*0x0100*/ bool aiNoOp0100(void);
 /*0x0101*/ bool aiNoOp0101(void);
 /*0x0102*/ bool aiSetLights(void);
