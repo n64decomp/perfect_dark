@@ -37956,21 +37956,10 @@ void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f087638
-/*  f087638:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08763c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f087640:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f087644:	0fc5b9f1 */ 	jal	langGet
-/*  f087648:	24045200 */ 	addiu	$a0,$zero,0x5200
-/*  f08764c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f087650:	0c004c89 */ 	jal	strcat
-/*  f087654:	00402825 */ 	or	$a1,$v0,$zero
-/*  f087658:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08765c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f087660:	03e00008 */ 	jr	$ra
-/*  f087664:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void ammotypeGetPickedUpText(char *dst)
+{
+	strcat(dst, langGet(L_PROPOBJ(0))); // "Picked up"
+}
 
 void ammotypeGetDeterminer(char *dst, s32 ammotype, s32 qty)
 {
@@ -38498,7 +38487,7 @@ glabel func0f087e40
 /*  f087f34:	8fa7001c */ 	lw	$a3,0x1c($sp)
 /*  f087f38:	10e00003 */ 	beqz	$a3,.L0f087f48
 /*  f087f3c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f087f40:	0fc21d8e */ 	jal	func0f087638
+/*  f087f40:	0fc21d8e */ 	jal	ammotypeGetPickedUpText
 /*  f087f44:	8fa40028 */ 	lw	$a0,0x28($sp)
 .L0f087f48:
 /*  f087f48:	3c057f1b */ 	lui	$a1,%hi(var7f1aa064)
@@ -38510,7 +38499,7 @@ glabel func0f087e40
 .L0f087f60:
 /*  f087f60:	50e00004 */ 	beqzl	$a3,.L0f087f74
 /*  f087f64:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f087f68:	0fc21d8e */ 	jal	func0f087638
+/*  f087f68:	0fc21d8e */ 	jal	ammotypeGetPickedUpText
 /*  f087f6c:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*  f087f70:	8fa40028 */ 	lw	$a0,0x28($sp)
 .L0f087f74:

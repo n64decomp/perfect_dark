@@ -233,7 +233,7 @@ bool propobjInteract(struct prop *prop);
 void propObjSetOrUnsetHiddenFlag00400000(struct prop *prop, bool enable);
 u32 func0f087458(void);
 void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
-u32 func0f087638(void);
+void ammotypeGetPickedUpText(char *dst);
 void ammotypeGetDeterminer(char *dst, s32 ammotype, s32 qty);
 void ammotypeGetPickupName(char *dst, s32 ammotype, s32 qty);
 void ammotypePlayPickupSound(u32 ammotype);
