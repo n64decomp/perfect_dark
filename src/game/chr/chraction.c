@@ -1443,7 +1443,8 @@ void func0f02f530(struct chrdata *chr)
 	struct prop *prop = chrGetTargetProp(chr);
 	f32 angle = chrGetAngleToPos(chr, &prop->pos);
 
-	if (angle < DEG2RAD(10) || angle > DEG2RAD(350)) {
+	// DEG2RAD(10) doesn't match due to float precision :(
+	if (angle < 0.17450514435768f || angle > DEG2RAD(350)) {
 		chrStopFiring(chr);
 		chr->actiontype = ACT_SURPRISED;
 		chr->act_surprised.unk02c = 1;
@@ -1490,84 +1491,31 @@ void func0f02f688(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f02f704
-/*  f02f704:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f02f708:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f02f70c:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f02f710:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02f714:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f02f718:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f02f71c:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f02f720:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02f724:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f02f728:	00002825 */ 	or	$a1,$zero,$zero
-/*  f02f72c:	14400004 */ 	bnez	$v0,.L0f02f740
-/*  f02f730:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f02f734:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*  f02f738:	11c00020 */ 	beqz	$t6,.L0f02f7bc
-/*  f02f73c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f02f740:
-/*  f02f740:	0c004b70 */ 	jal	random
-/*  f02f744:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02f748:	3c013f00 */ 	lui	$at,0x3f00
-/*  f02f74c:	44812000 */ 	mtc1	$at,$f4
-/*  f02f750:	3c014180 */ 	lui	$at,0x4180
-/*  f02f754:	44813000 */ 	mtc1	$at,$f6
-/*  f02f758:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f02f75c:	2405002f */ 	addiu	$a1,$zero,0x2f
-/*  f02f760:	30460001 */ 	andi	$a2,$v0,0x1
-/*  f02f764:	24070000 */ 	addiu	$a3,$zero,0x0
-/*  f02f768:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f02f76c:	0c007733 */ 	jal	func0001dccc
-/*  f02f770:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f02f774:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f02f778:	3c054220 */ 	lui	$a1,0x4220
-/*  f02f77c:	0c00777b */ 	jal	func0001ddec
-/*  f02f780:	3c064180 */ 	lui	$a2,0x4180
-/*  f02f784:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*  f02f788:	11e00003 */ 	beqz	$t7,.L0f02f798
-/*  f02f78c:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f02f790:	0fc20a59 */ 	jal	propobjSetDropped
-/*  f02f794:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f02f798:
-/*  f02f798:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f02f79c:	50800004 */ 	beqzl	$a0,.L0f02f7b0
-/*  f02f7a0:	8e180014 */ 	lw	$t8,0x14($s0)
-/*  f02f7a4:	0fc20a59 */ 	jal	propobjSetDropped
-/*  f02f7a8:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f02f7ac:	8e180014 */ 	lw	$t8,0x14($s0)
-.L0f02f7b0:
-/*  f02f7b0:	37190001 */ 	ori	$t9,$t8,0x1
-/*  f02f7b4:	10000012 */ 	beqz	$zero,.L0f02f800
-/*  f02f7b8:	ae190014 */ 	sw	$t9,0x14($s0)
-.L0f02f7bc:
-/*  f02f7bc:	0c004b70 */ 	jal	random
-/*  f02f7c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02f7c4:	3c013f00 */ 	lui	$at,0x3f00
-/*  f02f7c8:	44814000 */ 	mtc1	$at,$f8
-/*  f02f7cc:	3c014180 */ 	lui	$at,0x4180
-/*  f02f7d0:	44815000 */ 	mtc1	$at,$f10
-/*  f02f7d4:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f02f7d8:	2405002e */ 	addiu	$a1,$zero,0x2e
-/*  f02f7dc:	30460001 */ 	andi	$a2,$v0,0x1
-/*  f02f7e0:	24070000 */ 	addiu	$a3,$zero,0x0
-/*  f02f7e4:	e7a80010 */ 	swc1	$f8,0x10($sp)
-/*  f02f7e8:	0c007733 */ 	jal	func0001dccc
-/*  f02f7ec:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f02f7f0:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f02f7f4:	3c0541f0 */ 	lui	$a1,0x41f0
-/*  f02f7f8:	0c00777b */ 	jal	func0001ddec
-/*  f02f7fc:	3c064180 */ 	lui	$a2,0x4180
-.L0f02f800:
-/*  f02f800:	0fc09149 */ 	jal	chrDropItems
-/*  f02f804:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02f808:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f02f80c:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f02f810:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f02f814:	03e00008 */ 	jr	$ra
-/*  f02f818:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrSurrenderStartAnim(struct chrdata *chr)
+{
+	struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
+	struct prop *gun0 = chrGetEquippedWeaponProp(chr, 0);
+
+	if (gun0 || gun1) {
+		func0001dccc(chr->animdata, ANIM_SURRENDER_002F, random() & 1, 0, 0.5, 16);
+		func0001ddec(chr->animdata, 40, 16);
+
+		if (gun1) {
+			propobjSetDropped(gun1, 2);
+		}
+
+		if (gun0) {
+			propobjSetDropped(gun0, 2);
+		}
+
+		chr->hidden |= CHRHFLAG_00000001;
+	} else {
+		func0001dccc(chr->animdata, ANIM_SURRENDER_002E, random() & 1, 0, 0.5, 16);
+		func0001ddec(chr->animdata, 30, 16);
+	}
+
+	chrDropItems(chr);
+}
 
 void chrSurrender(struct chrdata *chr)
 {
@@ -1581,7 +1529,7 @@ void chrSurrender(struct chrdata *chr)
 		if (func0001db94(chr->animdata)) {
 			chr->hidden |= CHRHFLAG_00200000;
 		} else {
-			func0f02f704(chr);
+			chrSurrenderStartAnim(chr);
 			chr->hidden &= ~CHRHFLAG_00200000;
 		}
 	}
@@ -16167,7 +16115,7 @@ void chrTickSurrender(struct chrdata *chr)
 			return;
 		}
 
-		func0f02f704(chr);
+		chrSurrenderStartAnim(chr);
 		chr->hidden &= ~CHRHFLAG_00200000;
 	}
 

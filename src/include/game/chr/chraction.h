@@ -23,7 +23,7 @@ void func0f02ef40(struct chrdata *chr);
 void func0f02f070(struct chrdata *chr);
 void func0f02f314(struct chrdata *chr);
 void func0f02f530(struct chrdata *chr);
-void func0f02f704(struct chrdata *chr);
+void chrSurrenderStartAnim(struct chrdata *chr);
 void func0f02f8a4(struct chrdata *chr);
 void func0f02fc2c(struct chrdata *chr);
 void func0f02fe18(struct chrdata *chr);
