@@ -234,7 +234,7 @@ void propObjSetOrUnsetHiddenFlag00400000(struct prop *prop, bool enable);
 u32 func0f087458(void);
 void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
 u32 func0f087638(void);
-u32 func0f087668(void);
+void ammotypeGetDeterminer(char *dst, s32 ammotype, s32 qty);
 void ammotypeGetPickupName(char *dst, s32 ammotype, s32 qty);
 void ammotypePlayPickupSound(u32 ammotype);
 u32 propPlayPickupSound(struct prop *prop, s32 weapon);
