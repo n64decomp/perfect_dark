@@ -1568,7 +1568,7 @@ u8 func1003_hide_blondes_and_skedar[] = {
 
 u8 func100c_check_carrington_dead[] = {
 	beginloop(0x04)
-		if_chr_dying(CHR_CARRINGTON, /*goto*/ 0x2e)
+		if_chr_dead(CHR_CARRINGTON, /*goto*/ 0x2e)
 	endloop(0x04)
 
 	label(0x2e)
@@ -1596,9 +1596,9 @@ u8 func0416_init_hostage_fr2[] = {
 
 u8 func0414_firingrange_hostage[] = {
 	set_shotlist(AILIST_FIRINGRANGE_HOSTAGE)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x04)
 
 	label(0x2e)
@@ -1721,9 +1721,9 @@ u8 func041a_hostage_holo[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_shotlist(AILIST_HOSTAGE_HOLO)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x04)
 
 	// Dying
@@ -1899,10 +1899,10 @@ u8 func041f_holoclone[] = {
 	set_target_chr(holoclone) \
 	label(0x04) \
 	yield \
-	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0xb9) \
+	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0xb9) \
 	label(0xb9) \
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00) \
-	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x0a) \
+	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x0a) \
  \
 	beginloop(0x0a) \
 		if_chr_stopped(/*goto*/ 0x08) \
@@ -1950,8 +1950,8 @@ u8 func0423_init_shock[] = {
 u8 func0426_init_saved_hostage[] = {
 	set_shotlist(AILIST_HOSTAGE_THANK_AND_RUN)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
 	add_health_or_armor(80)
 	set_chr_maxdamage(CHR_SELF, 1)
@@ -1967,9 +1967,9 @@ u8 func0426_init_saved_hostage[] = {
 
 u8 func0425_hostage_thank_and_run[] = {
 	set_shotlist(AILIST_HOSTAGE_THANK_AND_RUN)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x03)
 
 	label(0x2e)
@@ -2059,9 +2059,9 @@ u8 func0427_drop_devastator[] = {
 	set_ailist(CHR_SELF, AILIST_HOSTAGE_THANK_AND_RUN)
 
 	label(0x08)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x03)
 
 	label(0x2e)
@@ -2122,21 +2122,21 @@ u8 func0427_drop_devastator[] = {
 
 u8 func100f_check_holo_takers_dead[] = {
 	beginloop(0x03)
-		if_chr_dying(CHR_TAKER_HOLO1, /*goto*/ 0x2e)
+		if_chr_dead(CHR_TAKER_HOLO1, /*goto*/ 0x2e)
 		if_chr_death_animation_finished(CHR_TAKER_HOLO1, /*goto*/ 0x2e)
-		if_chr_unloaded(CHR_TAKER_HOLO1, /*goto*/ 0x2e)
+		if_chr_knockedout(CHR_TAKER_HOLO1, /*goto*/ 0x2e)
 		reloop(0x03)
 
 		label(0x2e)
-		if_chr_dying(CHR_TAKER_HOLO2, /*goto*/ 0x2e)
+		if_chr_dead(CHR_TAKER_HOLO2, /*goto*/ 0x2e)
 		if_chr_death_animation_finished(CHR_TAKER_HOLO2, /*goto*/ 0x2e)
-		if_chr_unloaded(CHR_TAKER_HOLO2, /*goto*/ 0x2e)
+		if_chr_knockedout(CHR_TAKER_HOLO2, /*goto*/ 0x2e)
 		reloop(0x03)
 
 		label(0x2e)
-		if_chr_dying(CHR_TAKER_HOLO3, /*goto*/ 0x2e)
+		if_chr_dead(CHR_TAKER_HOLO3, /*goto*/ 0x2e)
 		if_chr_death_animation_finished(CHR_TAKER_HOLO3, /*goto*/ 0x2e)
-		if_chr_unloaded(CHR_TAKER_HOLO3, /*goto*/ 0x2e)
+		if_chr_knockedout(CHR_TAKER_HOLO3, /*goto*/ 0x2e)
 	endloop(0x03)
 
 	label(0x2e)
@@ -2147,15 +2147,15 @@ u8 func100f_check_holo_takers_dead[] = {
 
 u8 func1010_check_device_takers_dead[] = {
 	beginloop(0x03)
-		if_chr_dying(CHR_TAKER_DEVICE_M, /*goto*/ 0x2e)
+		if_chr_dead(CHR_TAKER_DEVICE_M, /*goto*/ 0x2e)
 		if_chr_death_animation_finished(CHR_TAKER_DEVICE_M, /*goto*/ 0x2e)
-		if_chr_unloaded(CHR_TAKER_DEVICE_M, /*goto*/ 0x2e)
+		if_chr_knockedout(CHR_TAKER_DEVICE_M, /*goto*/ 0x2e)
 		reloop(0x03)
 
 		label(0x2e)
-		if_chr_dying(CHR_TAKER_DEVICE_F, /*goto*/ 0x2e)
+		if_chr_dead(CHR_TAKER_DEVICE_F, /*goto*/ 0x2e)
 		if_chr_death_animation_finished(CHR_TAKER_DEVICE_F, /*goto*/ 0x2e)
-		if_chr_unloaded(CHR_TAKER_DEVICE_F, /*goto*/ 0x2e)
+		if_chr_knockedout(CHR_TAKER_DEVICE_F, /*goto*/ 0x2e)
 	endloop(0x03)
 
 	label(0x2e)
@@ -2166,15 +2166,15 @@ u8 func1010_check_device_takers_dead[] = {
 
 u8 func1011_check_info_takers_dead[] = {
 	beginloop(0x03)
-		if_chr_dying(CHR_TAKER_INFO_F, /*goto*/ 0x2e)
+		if_chr_dead(CHR_TAKER_INFO_F, /*goto*/ 0x2e)
 		if_chr_death_animation_finished(CHR_TAKER_INFO_F, /*goto*/ 0x2e)
-		if_chr_unloaded(CHR_TAKER_INFO_F, /*goto*/ 0x2e)
+		if_chr_knockedout(CHR_TAKER_INFO_F, /*goto*/ 0x2e)
 		reloop(0x03)
 
 		label(0x2e)
-		if_chr_dying(CHR_TAKER_INFO_M, /*goto*/ 0x2e)
+		if_chr_dead(CHR_TAKER_INFO_M, /*goto*/ 0x2e)
 		if_chr_death_animation_finished(CHR_TAKER_INFO_M, /*goto*/ 0x2e)
-		if_chr_unloaded(CHR_TAKER_INFO_M, /*goto*/ 0x2e)
+		if_chr_knockedout(CHR_TAKER_INFO_M, /*goto*/ 0x2e)
 	endloop(0x03)
 
 	label(0x2e)
@@ -2199,9 +2199,9 @@ u8 func042d_init_hostage_device_m[] = {
 
 u8 func042b_deviceroom_hostage[] = {
 	set_shotlist(AILIST_DEVICEROOM_HOSTAGE)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x12)
 
 	label(0x2e)
@@ -2240,9 +2240,9 @@ u8 func042f_init_taker_device_m[] = {
 
 u8 func042e_taker_device_m[] = {
 	set_shotlist(AILIST_TAKER_DEVICE_M)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x08)
 
 	// Dying
@@ -2292,9 +2292,9 @@ u8 func0431_init_taker_device_f[] = {
 
 u8 func0430_taker_device_f[] = {
 	set_shotlist(AILIST_TAKER_DEVICE_F)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x08)
 
 	// Dying
@@ -2340,8 +2340,8 @@ u8 func0430_taker_device_f[] = {
 u8 func0432_taker_attack[] = {
 	set_shotlist(AILIST_TAKER_ATTACK)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x08)
 
 	// Dying
@@ -2366,10 +2366,10 @@ u8 func0432_taker_attack[] = {
 	// Healthy
 	label(0x04)
 	yield
-	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0xb9)
+	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0xb9)
 	label(0xb9)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x0a)
+	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x0a)
 
 	beginloop(0x0a)
 		if_chr_stopped(/*goto*/ 0x08)
@@ -2401,9 +2401,9 @@ u8 func0435_init_hostage_info_f[] = {
 
 u8 func0433_inforoom_hostage[] = {
 	set_shotlist(AILIST_INFOROOM_HOSTAGE)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x04)
 
 	label(0x2e)
@@ -2507,8 +2507,8 @@ u8 func0437_init_taker_info_m[] = {
 u8 func0436_taker_info_m[] = {
 	set_shotlist(AILIST_TAKER_INFO_M)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x08)
 
 	// Dying
@@ -2540,8 +2540,8 @@ u8 func0439_init_taker_info_f[] = {
 u8 func0438_taker_info_f[] = {
 	set_shotlist(AILIST_TAKER_INFO_F)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x08)
 
 	// Dying
@@ -2569,29 +2569,29 @@ u8 func1013_check_hostages_saved[] = {
 	yield
 
 	beginloop(0x0a)
-		if_chr_dying(CHR_HOSTAGE_FR1, /*goto*/ 0x2f)
+		if_chr_dead(CHR_HOSTAGE_FR1, /*goto*/ 0x2f)
 		if_chr_death_animation_finished(CHR_HOSTAGE_FR1, /*goto*/ 0x2f)
-		if_chr_unloaded(CHR_HOSTAGE_FR1, /*goto*/ 0x2f)
+		if_chr_knockedout(CHR_HOSTAGE_FR1, /*goto*/ 0x2f)
 		goto_next(0x2e)
 
 		// FR1 hostage dead
 		label(0x2f)
-		if_chr_dying(CHR_HOSTAGE_FR2, /*goto*/ 0x2f)
+		if_chr_dead(CHR_HOSTAGE_FR2, /*goto*/ 0x2f)
 		if_chr_death_animation_finished(CHR_HOSTAGE_FR2, /*goto*/ 0x2f)
-		if_chr_unloaded(CHR_HOSTAGE_FR2, /*goto*/ 0x2f)
+		if_chr_knockedout(CHR_HOSTAGE_FR2, /*goto*/ 0x2f)
 
 		// FR1 hostage alive
 		label(0x2e)
-		if_chr_dying(CHR_TAKER_FR1, /*goto*/ 0x2e)
+		if_chr_dead(CHR_TAKER_FR1, /*goto*/ 0x2e)
 		if_chr_death_animation_finished(CHR_TAKER_FR1, /*goto*/ 0x2e)
-		if_chr_unloaded(CHR_TAKER_FR1, /*goto*/ 0x2e)
+		if_chr_knockedout(CHR_TAKER_FR1, /*goto*/ 0x2e)
 	endloop(0x0a)
 
 	// FR1 hostage alive and FR1 taker dead
 	label(0x2e)
-	if_chr_dying(CHR_TAKER_FR2, /*goto*/ 0x2e)
+	if_chr_dead(CHR_TAKER_FR2, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_TAKER_FR2, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_TAKER_FR2, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_TAKER_FR2, /*goto*/ 0x2e)
 	goto_first(0x0a)
 
 	// Both FR hostages dead
@@ -2600,37 +2600,37 @@ u8 func1013_check_hostages_saved[] = {
 	// Both FR takers dead
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_DEVICE_TAKERS_DEAD, TRUE, /*goto*/ 0x2e)
-	if_chr_dying(CHR_HOSTAGE_DEVICE_F, /*goto*/ 0x2f)
+	if_chr_dead(CHR_HOSTAGE_DEVICE_F, /*goto*/ 0x2f)
 	if_chr_death_animation_finished(CHR_HOSTAGE_DEVICE_F, /*goto*/ 0x2f)
-	if_chr_unloaded(CHR_HOSTAGE_DEVICE_F, /*goto*/ 0x2f)
+	if_chr_knockedout(CHR_HOSTAGE_DEVICE_F, /*goto*/ 0x2f)
 	goto_first(0x0a)
 
 	label(0x2f)
-	if_chr_dying(CHR_HOSTAGE_DEVICE_M, /*goto*/ 0x2e)
+	if_chr_dead(CHR_HOSTAGE_DEVICE_M, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_HOSTAGE_DEVICE_M, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_HOSTAGE_DEVICE_M, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_HOSTAGE_DEVICE_M, /*goto*/ 0x2e)
 	goto_first(0x0a)
 
 	// FR and device room done
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_INFO_TAKERS_DEAD, TRUE, /*goto*/ 0x2e)
-	if_chr_dying(CHR_HOSTAGE_INFO_M, /*goto*/ 0x2f)
+	if_chr_dead(CHR_HOSTAGE_INFO_M, /*goto*/ 0x2f)
 	if_chr_death_animation_finished(CHR_HOSTAGE_INFO_M, /*goto*/ 0x2f)
-	if_chr_unloaded(CHR_HOSTAGE_INFO_M, /*goto*/ 0x2f)
+	if_chr_knockedout(CHR_HOSTAGE_INFO_M, /*goto*/ 0x2f)
 	goto_first(0x0a)
 
 	label(0x2f)
-	if_chr_dying(CHR_HOSTAGE_INFO_F, /*goto*/ 0x2e)
+	if_chr_dead(CHR_HOSTAGE_INFO_F, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_HOSTAGE_INFO_F, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_HOSTAGE_INFO_F, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_HOSTAGE_INFO_F, /*goto*/ 0x2e)
 	goto_first(0x0a)
 
 	// FR, device and info rooms done
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_HOLO_TAKERS_DEAD, TRUE, /*goto*/ 0x2e)
-	if_chr_dying(CHR_HOSTAGE_HOLO, /*goto*/ 0x2e)
+	if_chr_dead(CHR_HOSTAGE_HOLO, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_HOSTAGE_HOLO, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_HOSTAGE_HOLO, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_HOSTAGE_HOLO, /*goto*/ 0x2e)
 	goto_first(0x0a)
 
 	// All rooms done
@@ -2648,13 +2648,13 @@ u8 func1014_carrington_messages[] = {
 	restart_timer
 
 	beginloop(0x03)
-		if_chr_dying(CHR_CARRINGTON, /*goto*/ 0xd9)
+		if_chr_dead(CHR_CARRINGTON, /*goto*/ 0xd9)
 		if_stage_flag_eq(STAGEFLAG_INTRO_FINISHED, TRUE, /*goto*/ 0x2e)
 	endloop(0x03)
 
 	#define carrington_sanity_checks \
-		if_chr_dying(CHR_CARRINGTON, /*goto*/ 0xd9) \
-		if_chr_dying(CHR_BOND, /*goto*/ 0x05) \
+		if_chr_dead(CHR_CARRINGTON, /*goto*/ 0xd9) \
+		if_chr_dead(CHR_BOND, /*goto*/ 0x05) \
 		goto_next(0x06) \
  \
 		label(0x05) \
@@ -2911,14 +2911,14 @@ u8 func1014_carrington_messages[] = {
 
 	label(0x2e)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2e)
-	if_chr_dying(CHR_BOND, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2e)
+	if_chr_dead(CHR_BOND, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2e)
 	goto_next(0x08)
 
 	label(0x2e)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2e)
-	if_chr_dying(CHR_COOP, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2e)
+	if_chr_dead(CHR_COOP, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_COOP, /*goto*/ 0x2e)
 	goto_next(0x08)
 
 	label(0x2e)
@@ -3956,8 +3956,8 @@ u8 unregistered_function2[] = {
 
 u8 unregistered_function3[] = {
 	beginloop(0x03)
-		if_chr_unloaded(CHR_TAKER_INFO_F, /*goto*/ 0x11)
-		if_chr_unloaded(CHR_TAKER_INFO_M, /*goto*/ 0x12)
+		if_chr_knockedout(CHR_TAKER_INFO_F, /*goto*/ 0x11)
+		if_chr_knockedout(CHR_TAKER_INFO_M, /*goto*/ 0x12)
 		reloop(0x03)
 
 		label(0x11)
@@ -3974,8 +3974,8 @@ u8 unregistered_function3[] = {
 u8 func102d_firingrange_taker_invincibility[] = {
 	beginloop(0x03)
 		if_chr_death_animation_finished(CHR_TAKER_FR1, /*goto*/ 0x2e)
-		if_chr_dying(CHR_TAKER_FR1, /*goto*/ 0x2e)
-		if_chr_unloaded(CHR_TAKER_FR1, /*goto*/ 0x2e)
+		if_chr_dead(CHR_TAKER_FR1, /*goto*/ 0x2e)
+		if_chr_knockedout(CHR_TAKER_FR1, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_TAKER_FR1, 0x00, 0x0007, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_TAKER_FR1, 0x00, 0x0008, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_TAKER_FR1, 0x00, 0x0009, /*goto*/ 0x2e)
@@ -3984,8 +3984,8 @@ u8 func102d_firingrange_taker_invincibility[] = {
 
 		label(0x2e)
 		if_chr_death_animation_finished(CHR_TAKER_FR2, /*goto*/ 0x2e)
-		if_chr_dying(CHR_TAKER_FR2, /*goto*/ 0x2e)
-		if_chr_unloaded(CHR_TAKER_FR2, /*goto*/ 0x2e)
+		if_chr_dead(CHR_TAKER_FR2, /*goto*/ 0x2e)
+		if_chr_knockedout(CHR_TAKER_FR2, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_TAKER_FR2, 0x00, 0x0007, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_TAKER_FR2, 0x00, 0x0008, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_TAKER_FR2, 0x00, 0x0009, /*goto*/ 0x2e)

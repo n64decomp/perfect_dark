@@ -1288,14 +1288,14 @@ u8 func1008_check_end_level[] = {
 	yield
 	yield
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2e)
-	if_chr_dying(CHR_BOND, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2e)
+	if_chr_dead(CHR_BOND, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	label(0x2e)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2e)
-	if_chr_dying(CHR_COOP, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2e)
+	if_chr_dead(CHR_COOP, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_COOP, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	label(0x2e)
@@ -1515,39 +1515,39 @@ u8 func0417_traitor[] = {
 
 	label(0x09)
 		open_door(0x11)
-		if_chr_dying(0x2f, /*goto*/ 0x0d)
-		if_chr_unloaded(0x2f, /*goto*/ 0x0d)
+		if_chr_dead(0x2f, /*goto*/ 0x0d)
+		if_chr_knockedout(0x2f, /*goto*/ 0x0d)
 		set_target_chr(0x2f)
 		goto_next(0x2e)
 
 		label(0x0d)
-		if_chr_dying(0x2e, /*goto*/ 0x0e)
-		if_chr_unloaded(0x2e, /*goto*/ 0x0e)
+		if_chr_dead(0x2e, /*goto*/ 0x0e)
+		if_chr_knockedout(0x2e, /*goto*/ 0x0e)
 		set_target_chr(0x2e)
 		goto_next(0x2e)
 
 		label(0x0e)
-		if_chr_dying(0x2d, /*goto*/ 0x0f)
-		if_chr_unloaded(0x2d, /*goto*/ 0x0f)
+		if_chr_dead(0x2d, /*goto*/ 0x0f)
+		if_chr_knockedout(0x2d, /*goto*/ 0x0f)
 		set_target_chr(0x2d)
 		goto_next(0x2e)
 
 		label(0x0f)
-		if_chr_dying(0x2c, /*goto*/ 0x10)
-		if_chr_unloaded(0x2c, /*goto*/ 0x10)
+		if_chr_dead(0x2c, /*goto*/ 0x10)
+		if_chr_knockedout(0x2c, /*goto*/ 0x10)
 		set_target_chr(0x2c)
 
 		label(0x2e)
 		call_rng
 		if_rand_gt(128, /*goto*/ 0x2e)
-		try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x0a)
+		try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x0a)
 
 		label(0x2e)
-		try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x0a)
+		try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x0a)
 		dprint 'S','H','O','O','T','F','A','I','L','E','D','\n',0,
 		yield
 		label(0x0a)
-		try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x0b)
+		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x0b)
 		goto_next(0x0c)
 
 		beginloop(0x0b)
@@ -1595,8 +1595,8 @@ u8 func0417_traitor[] = {
 u8 func0416_mechanic[] = {
 	set_shotlist(AILIST_MECHANIC)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2e)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	label(0x2e)
@@ -1733,7 +1733,7 @@ u8 func040a_top_interceptor[] = {
 		goto_first(0x09)
 
 		label(0x59)
-		try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x5b)
+		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x5b)
 		reloop(0x0a)
 
 		label(0x5b)
@@ -2600,14 +2600,14 @@ u8 func1018_unhide_guards[] = {
 
 		label(0x06)
 		if_chr_death_animation_finished(0x10, /*goto*/ 0x06)
-		if_chr_dying(0x10, /*goto*/ 0x06)
-		if_chr_unloaded(0x10, /*goto*/ 0x06)
+		if_chr_dead(0x10, /*goto*/ 0x06)
+		if_chr_knockedout(0x10, /*goto*/ 0x06)
 		goto_first(0x04)
 
 		label(0x06)
 		if_chr_death_animation_finished(0x11, /*goto*/ 0x2e)
-		if_chr_dying(0x11, /*goto*/ 0x2e)
-		if_chr_unloaded(0x11, /*goto*/ 0x2e)
+		if_chr_dead(0x11, /*goto*/ 0x2e)
+		if_chr_knockedout(0x11, /*goto*/ 0x2e)
 	endloop(0x04)
 
 	// Enable 4 more guards - the ones inside the blue door
@@ -2714,14 +2714,14 @@ u8 func1019_spawn_guards_at_antenna[] = {
 
 		label(0x06)
 		if_chr_death_animation_finished(0x10, /*goto*/ 0x06)
-		if_chr_dying(0x10, /*goto*/ 0x06)
-		if_chr_unloaded(0x10, /*goto*/ 0x06)
+		if_chr_dead(0x10, /*goto*/ 0x06)
+		if_chr_knockedout(0x10, /*goto*/ 0x06)
 		reloop(0x04)
 
 		label(0x06)
 		if_chr_death_animation_finished(0x11, /*goto*/ 0x2e)
-		if_chr_dying(0x11, /*goto*/ 0x2e)
-		if_chr_unloaded(0x11, /*goto*/ 0x2e)
+		if_chr_dead(0x11, /*goto*/ 0x2e)
+		if_chr_knockedout(0x11, /*goto*/ 0x2e)
 	endloop(0x04)
 
 	// Spawn 3 guards
@@ -2837,7 +2837,7 @@ u8 func101a_check_mechanic_dead[] = {
 	unset_savefile_flag(SAVEFILEFLAG_RESCUE_MECHANIC_DEAD)
 
 	beginloop(0x04)
-		if_chr_dying(CHR_MECHANIC, /*goto*/ 0x2e)
+		if_chr_dead(CHR_MECHANIC, /*goto*/ 0x2e)
 	endloop(0x04)
 
 	label(0x2e)

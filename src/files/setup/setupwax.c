@@ -1263,9 +1263,9 @@ u8 func0412_init_cass[] = {
 };
 
 u8 func0411_cass_in_office[] = {
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2c)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	// Dying
@@ -1298,8 +1298,8 @@ u8 func0411_cass_in_office[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x5a)
 	set_shotlist(AILIST_CASS_IN_OFFICE)
 	set_self_chrflag(CHRCFLAG_00040000)
-	if_chr_dying(CHR_CASS, /*goto*/ 0x06)
-	if_chr_unloaded(CHR_CASS, /*goto*/ 0x06)
+	if_chr_dead(CHR_CASS, /*goto*/ 0x06)
+	if_chr_knockedout(CHR_CASS, /*goto*/ 0x06)
 	goto_next(0x2c)
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1350,9 +1350,9 @@ u8 func0411_cass_in_office[] = {
 		reloop(0x5a)
 
 		label(0x83)
-		try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x2c)
+		try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x2c)
 		label(0x2c)
-		try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x82)
+		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x82)
 
 		// Wait until shooting animation finished
 		beginloop(0x82)
@@ -1369,9 +1369,9 @@ u8 func0413_cass_running[] = {
 	remove_cass_necklace(CHR_CASS)
 	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_shotlist(AILIST_CASS_RUNNING)
-	if_chr_dying(CHR_CASS, /*goto*/ 0x06)
+	if_chr_dead(CHR_CASS, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_CASS, /*goto*/ 0x06)
-	if_chr_unloaded(CHR_CASS, /*goto*/ 0x06)
+	if_chr_knockedout(CHR_CASS, /*goto*/ 0x06)
 	goto_next(0x2c)
 
 	// Dying
@@ -1462,9 +1462,9 @@ u8 func0413_cass_running[] = {
 u8 func1004_check_cass_dead[] = {
 	// Wait until Cass dead
 	beginloop(0x03)
-		if_chr_dying(CHR_CASS, /*goto*/ 0x2c)
+		if_chr_dead(CHR_CASS, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_CASS, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_CASS, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_CASS, /*goto*/ 0x2c)
 	endloop(0x03)
 
 	label(0x2c)
@@ -1478,8 +1478,8 @@ u8 func1005_check_cass_captured[] = {
 	// Wait until Cass at helipad
 	beginloop(0x03)
 		if_chr_death_animation_finished(CHR_CASS, /*goto*/ 0x0d)
-		if_chr_dying(CHR_CASS, /*goto*/ 0x0d)
-		if_chr_unloaded(CHR_CASS, /*goto*/ 0x0d)
+		if_chr_dead(CHR_CASS, /*goto*/ 0x0d)
+		if_chr_knockedout(CHR_CASS, /*goto*/ 0x0d)
 		if_chr_y(CHR_CASS, 0, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
 		show_hudmsg(CHR_BOND, L_WAX(15)) // "Cassandra has been captured successfully."
 		set_stage_flag(STAGEFLAG_CASS_CAPTURED)
@@ -1529,8 +1529,8 @@ u8 func1006_lift_disabling[] = {
 	// Wait until chief dead
 	beginloop(0x08)
 		if_chr_death_animation_finished(CHR_CHIEF, /*goto*/ 0x2c)
-		if_chr_dying(CHR_CHIEF, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_CHIEF, /*goto*/ 0x2c)
+		if_chr_dead(CHR_CHIEF, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_CHIEF, /*goto*/ 0x2c)
 	endloop(0x08)
 
 	label(0x2c)
@@ -1568,9 +1568,9 @@ u8 func0415_chief[] = {
 	set_shotlist(AILIST_CHIEF)
 
 	// Check if dying
-	if_chr_dying(CHR_CHIEF, /*goto*/ 0x2c)
+	if_chr_dead(CHR_CHIEF, /*goto*/ 0x2c)
 	if_chr_death_animation_finished(CHR_CHIEF, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_CHIEF, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_CHIEF, /*goto*/ 0x2c)
 	goto_next(0x03)
 	label(0x2c)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1586,9 +1586,9 @@ u8 func0415_chief[] = {
 
 		// Attack while in sight
 		label(0x2c)
-		try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x2c)
+		try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x2c)
 		label(0x2c)
-		try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x82)
+		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x82)
 
 		beginloop(0x82)
 			if_chr_stopped(/*goto*/ 0x06)
@@ -1854,14 +1854,14 @@ u8 func100a_check_for_completion[] = {
 		// If either player is alive
 		label(0x06)
 		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
-		if_chr_dying(CHR_BOND, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_BOND, /*goto*/ 0x2c)
+		if_chr_dead(CHR_BOND, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_BOND, /*goto*/ 0x2c)
 		goto_next(0x06)
 
 		label(0x2c)
 		if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
-		if_chr_dying(CHR_COOP, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_COOP, /*goto*/ 0x2c)
+		if_chr_dead(CHR_COOP, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_COOP, /*goto*/ 0x2c)
 		goto_next(0x06)
 
 		// Both players dead

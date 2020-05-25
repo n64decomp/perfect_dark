@@ -546,9 +546,9 @@ u8 func0401_drcaroll_following[] = {
 	label(0x00)
 	yield
 	set_target_chr(CHR_BOND)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x00)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x00)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x00)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x00)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x00)
 	goto_next(0x20)
 
 	label(0x00)
@@ -659,8 +659,8 @@ u8 func0401_drcaroll_following[] = {
 	label(0x5c)
 	dprint 'D','R',' ','C','H','A','N','G','E','L','I','S','T','\n',0,
 	if_chr_death_animation_finished(CHR_DRCAROLL, /*goto*/ 0x20)
-	if_chr_dying(CHR_DRCAROLL, /*goto*/ 0x20)
-	if_chr_unloaded(CHR_DRCAROLL, /*goto*/ 0x20)
+	if_chr_dead(CHR_DRCAROLL, /*goto*/ 0x20)
+	if_chr_knockedout(CHR_DRCAROLL, /*goto*/ 0x20)
 	chr_move_to_pad(CHR_DRCAROLL, 0x0079, 0x00, /*goto*/ 0x00)
 	dprint 'T','E','L','E','P','O','R','T',' ','F','A','I','L','\n',0,
 	label(0x00)
@@ -675,9 +675,9 @@ u8 func0401_drcaroll_following[] = {
  * Waiting at the door to the top room while you clear it out.
  */
 u8 func0405_drcaroll_waiting[] = {
-	if_chr_dying(CHR_DRCAROLL, /*goto*/ 0x20)
+	if_chr_dead(CHR_DRCAROLL, /*goto*/ 0x20)
 	if_chr_death_animation_finished(CHR_DRCAROLL, /*goto*/ 0x20)
-	if_chr_unloaded(CHR_DRCAROLL, /*goto*/ 0x20)
+	if_chr_knockedout(CHR_DRCAROLL, /*goto*/ 0x20)
 	goto_next(0x00)
 
 	label(0x20)
@@ -831,7 +831,7 @@ u8 func040f_top_guard[] = {
 	endloop(0x21)
 
 	label(0x00)
-	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x1f)
+	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x1f)
 
 	beginloop(0x1f)
 		if_distance_to_target_lt(200, /*goto*/ 0x20)
@@ -851,8 +851,8 @@ u8 func040f_top_guard[] = {
 
 u8 func0411_top_guard_blinded[] = {
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x20)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x20)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x20)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x20)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x20)
 	goto_next(0x00)
 
 	label(0x20)
@@ -882,9 +882,9 @@ u8 func0406_general_combat[] = {
 
 	// Has gun
 	label(0x20)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x00)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x00)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x00)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x00)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x00)
 	goto_next(0x20)
 
 	// Dying - wait a few frames then say quip
@@ -929,7 +929,7 @@ u8 func0406_general_combat[] = {
 	label(0x14)
 		if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x00)
 		label(0x20)
-		try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x10)
+		try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x10)
 		label(0x00)
 		kneel
 
@@ -1000,7 +1000,7 @@ u8 func0406_general_combat[] = {
 		say_quip(CHR_BOND, QUIP_SEEPLAYER, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 		label(0x20)
 		if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x17)
-		try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x12)
+		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x12)
 		goto_next(0x13)
 
 		beginloop(0x12)
@@ -1059,10 +1059,10 @@ u8 func0406_general_combat[] = {
 	goto_first(0x15)
 
 	label(0x17)
-	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x16)
+	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x16)
 	label(0x16)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x00)
+	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x00)
 	goto_next(0x20)
 	label(0x00)
 	goto_first(0x12)
@@ -1209,7 +1209,7 @@ u8 func0408_hovercopter[] = {
 
 	// Low shooting
 	label(0x43)
-	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x44)
+	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x44)
 	goto_first(0x22)
 
 	label(0x44)
@@ -1236,7 +1236,7 @@ u8 func0408_hovercopter[] = {
 	// Mid shooting
 	label(0x48)
 	dprint 'S','H','O','O','T',' ','M','I','D','\n',0,
-	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x49)
+	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x49)
 	goto_first(0x24)
 
 	label(0x49)
@@ -1262,7 +1262,7 @@ u8 func0408_hovercopter[] = {
 
 	// High shooting (roof)
 	label(0x4d)
-	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x00)
+	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x00)
 	label(0x00)
 	set_stage_flag(STAGEFLAG_HOVERCOPTER_ON_ROOF)
 	if_stage_flag_eq(STAGEFLAG_SAID_FINAL_WARNING, TRUE, /*goto*/ 0x20)
@@ -1277,7 +1277,7 @@ u8 func0408_hovercopter[] = {
 	endloop(0x29)
 
 	label(0x00)
-	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x00)
+	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x00)
 	goto_first(0x26)
 
 	label(0x00)
@@ -1353,14 +1353,14 @@ u8 func1003_check_end_level[] = {
 
 	label(0x20)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x20)
-	if_chr_dying(CHR_BOND, /*goto*/ 0x20)
-	if_chr_unloaded(CHR_BOND, /*goto*/ 0x20)
+	if_chr_dead(CHR_BOND, /*goto*/ 0x20)
+	if_chr_knockedout(CHR_BOND, /*goto*/ 0x20)
 	goto_next(0x00)
 
 	label(0x20)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x20)
-	if_chr_dying(CHR_COOP, /*goto*/ 0x20)
-	if_chr_unloaded(CHR_COOP, /*goto*/ 0x20)
+	if_chr_dead(CHR_COOP, /*goto*/ 0x20)
+	if_chr_knockedout(CHR_COOP, /*goto*/ 0x20)
 	goto_next(0x00)
 
 	label(0x20)
@@ -1447,8 +1447,8 @@ u8 func1004_elevator_unlocking[] = {
 u8 func1005_check_bodyguards_dead[] = {
 	#define if_alive_goto_00(chr, goto) \
 		if_chr_death_animation_finished(chr, goto) \
-		if_chr_dying(chr, goto) \
-		if_chr_unloaded(chr, goto) \
+		if_chr_dead(chr, goto) \
+		if_chr_knockedout(chr, goto) \
 		goto_next(0x00) \
 		label(goto)
 
@@ -1473,8 +1473,8 @@ u8 func1005_check_bodyguards_dead[] = {
 		if_alive_goto_00(0x1a, 0x20)
 
 		if_chr_death_animation_finished(0x1b, /*goto*/ 0x20)
-		if_chr_dying(0x1b, /*goto*/ 0x20)
-		if_chr_unloaded(0x1b, /*goto*/ 0x20)
+		if_chr_dead(0x1b, /*goto*/ 0x20)
+		if_chr_knockedout(0x1b, /*goto*/ 0x20)
 		goto_next(0x00)
 
 		label(0x00)
@@ -1507,8 +1507,8 @@ u8 func1006_check_hovercopter_destroyed[] = {
 u8 func100e_drcaroll_warnings[] = {
 	beginloop(0x1f)
 		if_chr_death_animation_finished(CHR_DRCAROLL, /*goto*/ 0x21)
-		if_chr_dying(CHR_DRCAROLL, /*goto*/ 0x21)
-		if_chr_unloaded(CHR_DRCAROLL, /*goto*/ 0x21)
+		if_chr_dead(CHR_DRCAROLL, /*goto*/ 0x21)
+		if_chr_knockedout(CHR_DRCAROLL, /*goto*/ 0x21)
 		if_stage_flag_eq(STAGEFLAG_DRCAROLL_ATTACKED, TRUE, /*goto*/ 0x00)
 		if_chr_shield_lt(CHR_DRCAROLL, 100, /*goto*/ 0x30)
 
@@ -1519,8 +1519,8 @@ u8 func100e_drcaroll_warnings[] = {
 
 		label(0x00)
 		if_chr_death_animation_finished(CHR_DRCAROLL, /*goto*/ 0x00)
-		if_chr_dying(CHR_DRCAROLL, /*goto*/ 0x00)
-		if_chr_unloaded(CHR_DRCAROLL, /*goto*/ 0x00)
+		if_chr_dead(CHR_DRCAROLL, /*goto*/ 0x00)
+		if_chr_knockedout(CHR_DRCAROLL, /*goto*/ 0x00)
 		reloop(0x1f)
 
 		// Dead
@@ -1968,8 +1968,8 @@ u8 func040d_cass[] = {
 	// 2 players, or force walk failed
 	label(0x20)
 	if_chr_death_animation_finished(CHR_DRCAROLL, /*goto*/ 0x20)
-	if_chr_dying(CHR_DRCAROLL, /*goto*/ 0x20)
-	if_chr_unloaded(CHR_DRCAROLL, /*goto*/ 0x20)
+	if_chr_dead(CHR_DRCAROLL, /*goto*/ 0x20)
+	if_chr_knockedout(CHR_DRCAROLL, /*goto*/ 0x20)
 	set_ailist(CHR_DRCAROLL, 0x0405)
 	label(0x20)
 	goto_next(0x00)
@@ -2750,8 +2750,8 @@ u8 func1014_msg_cantleaveany[] = {
 
 	label(0x20)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x26)
-	if_chr_dying(CHR_BOND, /*goto*/ 0x26)
-	if_chr_unloaded(CHR_BOND, /*goto*/ 0x26)
+	if_chr_dead(CHR_BOND, /*goto*/ 0x26)
+	if_chr_knockedout(CHR_BOND, /*goto*/ 0x26)
 	restart_timer
 
 	beginloop(0x21)
@@ -2760,19 +2760,19 @@ u8 func1014_msg_cantleaveany[] = {
 
 	label(0x20)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x26)
-	if_chr_dying(CHR_BOND, /*goto*/ 0x26)
-	if_chr_unloaded(CHR_BOND, /*goto*/ 0x26)
+	if_chr_dead(CHR_BOND, /*goto*/ 0x26)
+	if_chr_knockedout(CHR_BOND, /*goto*/ 0x26)
 	speak(CHR_BOND, L_ARK(53), 0x73aa, CHANNEL_6, COLOR_09_BLUE) // "I can't leave any bodyguards standing."
 
 	label(0x26)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x27)
-	if_chr_dying(CHR_BOND, /*goto*/ 0x27)
-	if_chr_unloaded(CHR_BOND, /*goto*/ 0x27)
+	if_chr_dead(CHR_BOND, /*goto*/ 0x27)
+	if_chr_knockedout(CHR_BOND, /*goto*/ 0x27)
 
 	beginloop(0x5f)
 		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x27)
-		if_chr_dying(CHR_BOND, /*goto*/ 0x27)
-		if_chr_unloaded(CHR_BOND, /*goto*/ 0x27)
+		if_chr_dead(CHR_BOND, /*goto*/ 0x27)
+		if_chr_knockedout(CHR_BOND, /*goto*/ 0x27)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x20)
 	endloop(0x5f)
 
@@ -2810,8 +2810,8 @@ u8 func1016_msg_make_foyer_guards_alerted[] = {
 
 	#define if_alive_set_alerted(chr) \
 		if_chr_death_animation_finished(chr, /*goto*/ 0x20) \
-		if_chr_dying(chr, /*goto*/ 0x20) \
-		if_chr_unloaded(chr, /*goto*/ 0x20) \
+		if_chr_dead(chr, /*goto*/ 0x20) \
+		if_chr_knockedout(chr, /*goto*/ 0x20) \
 		set_ailist(chr, GAILIST_ALERTED) \
 		increase_chr_alertness(100, chr) \
 		label(0x20)
@@ -2840,62 +2840,62 @@ u8 func1017_remove_special_shock[] = {
 		if_stage_flag_eq(STAGEFLAG_FOYER_LIGHTS_RESTORED, TRUE, /*goto*/ 0x00)
 
 		if_chr_death_animation_finished(0x01, /*goto*/ 0x20)
-		if_chr_dying(0x01, /*goto*/ 0x20)
-		if_chr_unloaded(0x01, /*goto*/ 0x20)
+		if_chr_dead(0x01, /*goto*/ 0x20)
+		if_chr_knockedout(0x01, /*goto*/ 0x20)
 		reloop(0x1f)
 		label(0x20)
 
 		if_chr_death_animation_finished(0x02, /*goto*/ 0x20)
-		if_chr_dying(0x02, /*goto*/ 0x20)
-		if_chr_unloaded(0x02, /*goto*/ 0x20)
+		if_chr_dead(0x02, /*goto*/ 0x20)
+		if_chr_knockedout(0x02, /*goto*/ 0x20)
 		reloop(0x1f)
 		label(0x20)
 
 		if_chr_death_animation_finished(0x03, /*goto*/ 0x20)
-		if_chr_dying(0x03, /*goto*/ 0x20)
-		if_chr_unloaded(0x03, /*goto*/ 0x20)
+		if_chr_dead(0x03, /*goto*/ 0x20)
+		if_chr_knockedout(0x03, /*goto*/ 0x20)
 		reloop(0x1f)
 		label(0x20)
 
 		if_chr_death_animation_finished(0x04, /*goto*/ 0x20)
-		if_chr_dying(0x04, /*goto*/ 0x20)
-		if_chr_unloaded(0x04, /*goto*/ 0x20)
+		if_chr_dead(0x04, /*goto*/ 0x20)
+		if_chr_knockedout(0x04, /*goto*/ 0x20)
 		reloop(0x1f)
 		label(0x20)
 
 		if_chr_death_animation_finished(0x05, /*goto*/ 0x20)
-		if_chr_dying(0x05, /*goto*/ 0x20)
-		if_chr_unloaded(0x05, /*goto*/ 0x20)
+		if_chr_dead(0x05, /*goto*/ 0x20)
+		if_chr_knockedout(0x05, /*goto*/ 0x20)
 		reloop(0x1f)
 		label(0x20)
 
 		if_chr_death_animation_finished(0x06, /*goto*/ 0x20)
-		if_chr_dying(0x06, /*goto*/ 0x20)
-		if_chr_unloaded(0x06, /*goto*/ 0x20)
+		if_chr_dead(0x06, /*goto*/ 0x20)
+		if_chr_knockedout(0x06, /*goto*/ 0x20)
 		reloop(0x1f)
 		label(0x20)
 
 		if_chr_death_animation_finished(0x07, /*goto*/ 0x20)
-		if_chr_dying(0x07, /*goto*/ 0x20)
-		if_chr_unloaded(0x07, /*goto*/ 0x20)
+		if_chr_dead(0x07, /*goto*/ 0x20)
+		if_chr_knockedout(0x07, /*goto*/ 0x20)
 		reloop(0x1f)
 		label(0x20)
 
 		if_chr_death_animation_finished(0x08, /*goto*/ 0x20)
-		if_chr_dying(0x08, /*goto*/ 0x20)
-		if_chr_unloaded(0x08, /*goto*/ 0x20)
+		if_chr_dead(0x08, /*goto*/ 0x20)
+		if_chr_knockedout(0x08, /*goto*/ 0x20)
 		reloop(0x1f)
 		label(0x20)
 
 		if_chr_death_animation_finished(0x09, /*goto*/ 0x20)
-		if_chr_dying(0x09, /*goto*/ 0x20)
-		if_chr_unloaded(0x09, /*goto*/ 0x20)
+		if_chr_dead(0x09, /*goto*/ 0x20)
+		if_chr_knockedout(0x09, /*goto*/ 0x20)
 		reloop(0x1f)
 		label(0x20)
 
 		if_chr_death_animation_finished(0x0a, /*goto*/ 0x20)
-		if_chr_dying(0x0a, /*goto*/ 0x20)
-		if_chr_unloaded(0x0a, /*goto*/ 0x20)
+		if_chr_dead(0x0a, /*goto*/ 0x20)
+		if_chr_knockedout(0x0a, /*goto*/ 0x20)
 	endloop(0x1f)
 
 	label(0x20)

@@ -720,8 +720,8 @@ u8 func100f_check_mine[] = {
 		beginloop(0x11)
 			dprint 'M','A','I','N','\n',0,
 			if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x29)
-			if_chr_dying(CHR_TARGET, /*goto*/ 0x29)
-			if_chr_unloaded(CHR_TARGET, /*goto*/ 0x29)
+			if_chr_dead(CHR_TARGET, /*goto*/ 0x29)
+			if_chr_knockedout(CHR_TARGET, /*goto*/ 0x29)
 			if_ammo_quantity_lt(CHR_TARGET, AMMOTYPE_REMOTE_MINE, 1, /*goto*/ 0x03)
 		endloop(0x11)
 
@@ -730,8 +730,8 @@ u8 func100f_check_mine[] = {
 		yield
 		dprint 'D','E','A','D','\n',0,
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x28)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x28)
-		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x28)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x28)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x28)
 		yield
 		dprint 'N','O','T','D','E','A','D','\n',0,
 		if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_REMOTE_MINE, 1, /*goto*/ 0x29)
@@ -992,8 +992,8 @@ u8 func040c_taxi[] = {
 		dprint 'B','U','G',' ','C','1','\n',0, \
 		set_target_chr(chr2) \
 		if_chr_death_animation_finished(chr, /*goto*/ 0x2f) \
-		if_chr_dying(chr, /*goto*/ 0x2f) \
-		if_chr_unloaded(chr, /*goto*/ 0x2f) \
+		if_chr_dead(chr, /*goto*/ 0x2f) \
+		if_chr_knockedout(chr, /*goto*/ 0x2f) \
 		if_ammo_quantity_lt(chr, AMMOTYPE_BUG, 1, /*goto*/ 0x03) \
 		label(0x04) \
 	endloop(0x11) \
@@ -1003,8 +1003,8 @@ u8 func040c_taxi[] = {
 		dprint 'B','U','G',' ','D','O','\n',0, \
 		set_target_chr(chr2) \
 		if_chr_death_animation_finished(chr, /*goto*/ 0x30) \
-		if_chr_dying(chr, /*goto*/ 0x30) \
-		if_chr_unloaded(chr, /*goto*/ 0x30) \
+		if_chr_dead(chr, /*goto*/ 0x30) \
+		if_chr_knockedout(chr, /*goto*/ 0x30) \
 		label(0x31) \
 		yield \
 		yield \
@@ -1110,7 +1110,7 @@ u8 func1005_check_things_destroyed[] = {
 		label(0x03)
 		if_stage_flag_eq(STAGEFLAG_DIVERSION_CREATED, TRUE, /*goto*/ 0x03)
 		if_stage_flag_eq(STAGEFLAG_ROBOT_DESTROYED, TRUE, /*goto*/ 0x03)
-		if_chr_dying(CHR_ROBOT, /*goto*/ 0x04)
+		if_chr_dead(CHR_ROBOT, /*goto*/ 0x04)
 		goto_next(0x03)
 
 		label(0x04)
@@ -1184,14 +1184,14 @@ u8 func1006_check_for_end[] = {
 	// Objectives complete
 	label(0x05)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x03)
-	if_chr_dying(CHR_BOND, /*goto*/ 0x03)
-	if_chr_unloaded(CHR_BOND, /*goto*/ 0x03)
+	if_chr_dead(CHR_BOND, /*goto*/ 0x03)
+	if_chr_knockedout(CHR_BOND, /*goto*/ 0x03)
 	goto_next(0x04)
 
 	label(0x03)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x03)
-	if_chr_dying(CHR_COOP, /*goto*/ 0x03)
-	if_chr_unloaded(CHR_COOP, /*goto*/ 0x03)
+	if_chr_dead(CHR_COOP, /*goto*/ 0x03)
+	if_chr_knockedout(CHR_COOP, /*goto*/ 0x03)
 	goto_next(0x04)
 
 	label(0x03)
@@ -1289,9 +1289,9 @@ u8 func040c_taxi_timing[] = {
 u8 func0412_cia[] = {
 	set_returnlist(CHR_SELF, AILIST_CIA)
 	set_shotlist(AILIST_CIA)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x04)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x04)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x04)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x04)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x04)
 	goto_next(0x03)
 
 	label(0x04)
@@ -1560,9 +1560,9 @@ u8 func0413_bugspotter[] = {
 
 	set_alertness(255)
 	set_shotlist(AILIST_BUGSPOTTER)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x04)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x04)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x04)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x04)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x04)
 	goto_next(0x03)
 
 	label(0x04)
@@ -1793,9 +1793,9 @@ u8 func0419_init_cia1[] = {
 
 u8 func041d_fbi[] = {
 	set_shotlist(AILIST_FBI)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x04)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x04)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x04)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x04)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x04)
 	goto_next(0x03)
 
 	label(0x04)
@@ -1900,7 +1900,7 @@ u8 func041d_fbi[] = {
 
 #define check_cia_dead(chr) \
 	beginloop(0x10) \
-		if_chr_dying(chr, /*goto*/ 0x05) \
+		if_chr_dead(chr, /*goto*/ 0x05) \
 	endloop(0x10) \
  \
 	/* Unreachable */ \
@@ -1925,7 +1925,7 @@ u8 func1009_check_cia1_dead[] = {
 u8 func100a_check_cia2_dead[] = {
 	beginloop(0x10)
 		if_chr_has_flag_bankx(CHR_CIA2, CHRFLAG0_00002000, BANK_0, /*goto*/ 0x03)
-		if_chr_dying(CHR_CIA2, /*goto*/ 0x05)
+		if_chr_dead(CHR_CIA2, /*goto*/ 0x05)
 	endloop(0x10)
 
 	// Stop checking this chr
@@ -1960,7 +1960,7 @@ u8 func041b_init_robot[] = {
 u8 func041a_robot[] = {
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_chr_maxdamage(CHR_SELF, 1)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x0c)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x0c)
 	assign_path(0)
 	start_path
 
@@ -2040,7 +2040,7 @@ u8 func041a_robot[] = {
 		label(0x03)
 		set_target_chr(CHR_P1P2)
 		restart_timer
-		try_aim_and_shoot_thing1(0x0200, 0x0000, /*goto*/ 0x09)
+		try_attack_stand1(0x0200, 0x0000, /*goto*/ 0x09)
 		reloop(0x02)
 
 		beginloop(0x09)
@@ -3019,22 +3019,22 @@ u8 func101d_msg_pointofingress[] = {
 u8 func101e_check_sealer_guards_dead[] = {
 	beginloop(0x10)
 		if_stage_flag_eq(STAGEFLAG_ELEVATOR_SEALED, TRUE, /*goto*/ 0x06)
-		if_chr_dying(CHR_SEALER1, /*goto*/ 0x03)
+		if_chr_dead(CHR_SEALER1, /*goto*/ 0x03)
 		if_chr_death_animation_finished(CHR_SEALER1, /*goto*/ 0x03)
 	endloop(0x10)
 
 	label(0x03)
-	if_chr_dying(CHR_SEALER2, /*goto*/ 0x03)
+	if_chr_dead(CHR_SEALER2, /*goto*/ 0x03)
 	if_chr_death_animation_finished(CHR_SEALER2, /*goto*/ 0x03)
 	goto_first(0x10)
 
 	label(0x03)
-	if_chr_dying(CHR_SEALER3, /*goto*/ 0x03)
+	if_chr_dead(CHR_SEALER3, /*goto*/ 0x03)
 	if_chr_death_animation_finished(CHR_SEALER3, /*goto*/ 0x03)
 	goto_first(0x10)
 
 	label(0x03)
-	if_chr_dying(CHR_SEALER4, /*goto*/ 0x03)
+	if_chr_dead(CHR_SEALER4, /*goto*/ 0x03)
 	if_chr_death_animation_finished(CHR_SEALER4, /*goto*/ 0x03)
 	goto_first(0x10)
 

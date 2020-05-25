@@ -2083,7 +2083,7 @@ glabel func0f030120
 );
 
 GLOBAL_ASM(
-glabel func0f030308
+glabel chrAttackLie
 /*  f030308:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f03030c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f030310:	afa5004c */ 	sw	$a1,0x4c($sp)
@@ -2127,7 +2127,7 @@ glabel func0f030308
 );
 
 GLOBAL_ASM(
-glabel func0f0303a0
+glabel chrAttackKneel
 /*  f0303a0:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f0303a4:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f0303a8:	afa5005c */ 	sw	$a1,0x5c($sp)
@@ -12789,7 +12789,7 @@ glabel chrIsStopped
 //}
 
 GLOBAL_ASM(
-glabel func0f03978c
+glabel chrCheckTargetInSight
 .late_rodata
 glabel var7f1a8de0
 .word 0x40c907a9
@@ -12992,7 +12992,7 @@ glabel var7f1a8e10
 /*  f039a14:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool func0f039a18(struct chrdata *chr)
+bool chrIsReadyForOrders(struct chrdata *chr)
 {
 	if (chr->onladder) {
 		return false;
@@ -13067,7 +13067,7 @@ glabel var7f1a8ea0
 /*  f039b48:	54410052 */ 	bnel	$v0,$at,.L0f039c94
 /*  f039b4c:	00001025 */ 	or	$v0,$zero,$zero
 .L0f039b50:
-/*  f039b50:	0fc0e686 */ 	jal	func0f039a18
+/*  f039b50:	0fc0e686 */ 	jal	chrIsReadyForOrders
 /*  f039b54:	02002025 */ 	or	$a0,$s0,$zero
 /*  f039b58:	5040004e */ 	beqzl	$v0,.L0f039c94
 /*  f039b5c:	00001025 */ 	or	$v0,$zero,$zero
@@ -13186,7 +13186,7 @@ glabel var7f1a8eb4
 .L0f039cc8:
 /*  f039cc8:	54400052 */ 	bnezl	$v0,.L0f039e14
 /*  f039ccc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f039cd0:	0fc0e686 */ 	jal	func0f039a18
+/*  f039cd0:	0fc0e686 */ 	jal	chrIsReadyForOrders
 /*  f039cd4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f039cd8:	5040004e */ 	beqzl	$v0,.L0f039e14
 /*  f039cdc:	00001025 */ 	or	$v0,$zero,$zero
@@ -13280,7 +13280,7 @@ glabel var7f1a8eb4
 );
 
 GLOBAL_ASM(
-glabel func0f039e28
+glabel chrTryRunSideways
 /*  f039e28:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f039e2c:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f039e30:	00808825 */ 	or	$s1,$a0,$zero
@@ -13297,7 +13297,7 @@ glabel func0f039e28
 /*  f039e54:	54410058 */ 	bnel	$v0,$at,.L0f039fb8
 /*  f039e58:	00001025 */ 	or	$v0,$zero,$zero
 .L0f039e5c:
-/*  f039e5c:	0fc0e686 */ 	jal	func0f039a18
+/*  f039e5c:	0fc0e686 */ 	jal	chrIsReadyForOrders
 /*  f039e60:	02202025 */ 	or	$a0,$s1,$zero
 /*  f039e64:	10400053 */ 	beqz	$v0,.L0f039fb4
 /*  f039e68:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x8)
@@ -13422,7 +13422,7 @@ glabel var7f1a8eb8
 /*  f03a008:	10000041 */ 	beqz	$zero,.L0f03a110
 /*  f03a00c:	00001025 */ 	or	$v0,$zero,$zero
 .L0f03a010:
-/*  f03a010:	0fc0e686 */ 	jal	func0f039a18
+/*  f03a010:	0fc0e686 */ 	jal	chrIsReadyForOrders
 /*  f03a014:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03a018:	5040003d */ 	beqzl	$v0,.L0f03a110
 /*  f03a01c:	00001025 */ 	or	$v0,$zero,$zero
@@ -13523,7 +13523,7 @@ glabel var7f1a8ebc
 /*  f03a160:	10000041 */ 	beqz	$zero,.L0f03a268
 /*  f03a164:	00001025 */ 	or	$v0,$zero,$zero
 .L0f03a168:
-/*  f03a168:	0fc0e686 */ 	jal	func0f039a18
+/*  f03a168:	0fc0e686 */ 	jal	chrIsReadyForOrders
 /*  f03a16c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03a170:	5040003d */ 	beqzl	$v0,.L0f03a268
 /*  f03a174:	00001025 */ 	or	$v0,$zero,$zero
@@ -13615,7 +13615,7 @@ glabel var7f1a8ec0
 .L0f03a29c:
 /*  f03a29c:	5440004e */ 	bnezl	$v0,.L0f03a3d8
 /*  f03a2a0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a2a4:	0fc0e686 */ 	jal	func0f039a18
+/*  f03a2a4:	0fc0e686 */ 	jal	chrIsReadyForOrders
 /*  f03a2a8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03a2ac:	5040004a */ 	beqzl	$v0,.L0f03a3d8
 /*  f03a2b0:	00001025 */ 	or	$v0,$zero,$zero
@@ -13727,7 +13727,7 @@ glabel var7f1a8ec4
 /*  f03a420:	54410050 */ 	bnel	$v0,$at,.L0f03a564
 /*  f03a424:	00001025 */ 	or	$v0,$zero,$zero
 .L0f03a428:
-/*  f03a428:	0fc0e686 */ 	jal	func0f039a18
+/*  f03a428:	0fc0e686 */ 	jal	chrIsReadyForOrders
 /*  f03a42c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03a430:	5040004c */ 	beqzl	$v0,.L0f03a564
 /*  f03a434:	00001025 */ 	or	$v0,$zero,$zero
@@ -13822,7 +13822,7 @@ glabel var7f1a8ec4
 /*  f03a574:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool func0f03a578(struct chrdata *chr, s32 thingtype, s32 thingid)
+bool func0f03a578(struct chrdata *chr, s32 entitytype, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
@@ -13830,7 +13830,7 @@ bool func0f03a578(struct chrdata *chr, s32 thingtype, s32 thingid)
 		return false;
 	}
 
-	if (func0f039a18(chr)) {
+	if (chrIsReadyForOrders(chr)) {
 		if (race == RACE_ROBOT) {
 			func0f042808(chr);
 			return true;
@@ -13839,7 +13839,7 @@ bool func0f03a578(struct chrdata *chr, s32 thingtype, s32 thingid)
 		if (race == RACE_HUMAN || race == RACE_SKEDAR) {
 			if (chrGetEquippedWeaponPropWithCheck(chr, 0) ||
 					(chrGetEquippedWeaponPropWithCheck(chr, 1))) {
-				func0f030120(chr, thingtype, thingid);
+				func0f030120(chr, entitytype, entityid);
 				return true;
 			}
 		}
@@ -13848,13 +13848,13 @@ bool func0f03a578(struct chrdata *chr, s32 thingtype, s32 thingid)
 	return false;
 }
 
-bool func0f03a644(struct chrdata *chr, s32 thingtype, s32 thingid)
+bool chrTryAttackKneel(struct chrdata *chr, s32 entitytype, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
-		if (func0f039a18(chr) && (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
-			func0f0303a0(chr, thingtype, thingid);
+		if (chrIsReadyForOrders(chr) && (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
+			chrAttackKneel(chr, entitytype, entityid);
 			return true;
 		}
 	}
@@ -13862,13 +13862,13 @@ bool func0f03a644(struct chrdata *chr, s32 thingtype, s32 thingid)
 	return false;
 }
 
-bool func0f03a6d8(struct chrdata *chr, s32 thingtype, s32 thingid)
+bool chrTryAttackLie(struct chrdata *chr, s32 entitytype, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
-		if (func0f039a18(chr) && (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
-			func0f030308(chr, thingtype, thingid);
+		if (chrIsReadyForOrders(chr) && (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
+			chrAttackLie(chr, entitytype, entityid);
 			return true;
 		}
 	}
@@ -13876,7 +13876,7 @@ bool func0f03a6d8(struct chrdata *chr, s32 thingtype, s32 thingid)
 	return false;
 }
 
-bool func0f03a76c(struct chrdata *chr, u32 thingtype, s32 thingid)
+bool func0f03a76c(struct chrdata *chr, u32 entitytype, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
@@ -13884,9 +13884,9 @@ bool func0f03a76c(struct chrdata *chr, u32 thingtype, s32 thingid)
 		return false;
 	}
 
-	if (chr->actiontype == ACT_ATTACK && (chr->act_attack.unk04c & 0x60)) {
-		chr->act_attack.unk04c = thingtype;
-		chr->act_attack.unk050 = thingid;
+	if (chr->actiontype == ACT_ATTACK && (chr->act_attack.entitytype & 0x60)) {
+		chr->act_attack.entitytype = entitytype;
+		chr->act_attack.entityid = entityid;
 		func0f031254();
 		return true;
 	}
@@ -13894,21 +13894,21 @@ bool func0f03a76c(struct chrdata *chr, u32 thingtype, s32 thingid)
 	return false;
 }
 
-bool chrFaceEntity(struct chrdata *chr, u32 entity_type, u32 entity_id)
+bool chrFaceEntity(struct chrdata *chr, u32 entitytype, u32 entityid)
 {
-	if (func0f039a18(chr)) {
+	if (chrIsReadyForOrders(chr)) {
 		if (chr->actiontype != ACT_STAND) {
 			chrStand(chr);
 		}
 
-		if (entity_type != chr->act_stand.face_entitytype ||
-				entity_id != chr->act_stand.face_entityid) {
-			chr->act_stand.face_entitytype = entity_type;
-			chr->act_stand.face_entityid = entity_id;
+		if (entitytype != chr->act_stand.face_entitytype ||
+				entityid != chr->act_stand.face_entityid) {
+			chr->act_stand.face_entitytype = entitytype;
+			chr->act_stand.face_entityid = entityid;
 			chr->act_stand.unk038 = 0;
 			chr->act_stand.unk040 = 0;
 
-			if (entity_type == ENTITYTYPE_TARGET && entity_id == 1) {
+			if (entitytype == ENTITYTYPE_TARGET && entityid == 1) {
 				chr->act_stand.face_target = true;
 				chr->act_stand.face_entityid = 0;
 			}
@@ -13928,7 +13928,7 @@ glabel func0f03a894
 /*  f03a8a0:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f03a8a4:	04a00027 */ 	bltz	$a1,.L0f03a944
 /*  f03a8a8:	afa60080 */ 	sw	$a2,0x80($sp)
-/*  f03a8ac:	0fc0e686 */ 	jal	func0f039a18
+/*  f03a8ac:	0fc0e686 */ 	jal	chrIsReadyForOrders
 /*  f03a8b0:	afa5007c */ 	sw	$a1,0x7c($sp)
 /*  f03a8b4:	10400023 */ 	beqz	$v0,.L0f03a944
 /*  f03a8b8:	8fa7007c */ 	lw	$a3,0x7c($sp)
@@ -13987,7 +13987,7 @@ bool chrStartPath(struct chrdata *chr)
 {
 	struct path *path = pathFindById(chr->path);
 
-	if (path && func0f039a18(chr)) {
+	if (path && chrIsReadyForOrders(chr)) {
 		func0f038b9c(chr, path);
 		return true;
 	}
@@ -13997,7 +13997,7 @@ bool chrStartPath(struct chrdata *chr)
 
 bool chrTrySurrender(struct chrdata *chr)
 {
-	if (CHRRACE(chr) == RACE_HUMAN && func0f039a18(chr)) {
+	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
 		chrSurrender(chr);
 		return true;
 	}
@@ -14015,7 +14015,7 @@ bool chrFadeOut(struct chrdata *chr)
 
 bool chrGoToTarget(struct chrdata *chr, u32 speed)
 {
-	if (func0f039a18(chr)) {
+	if (chrIsReadyForOrders(chr)) {
 		if (var80062cbc <= 8 ||
 				(chr->hidden & CHRHFLAG_00400000) == 0 ||
 				(chr->flags & CHRFLAG0_CAN_RUN_FOR_ALARM)) {
@@ -14032,7 +14032,7 @@ bool chrGoToTarget(struct chrdata *chr, u32 speed)
 
 bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
 {
-	if (func0f039a18(chr)) {
+	if (chrIsReadyForOrders(chr)) {
 		if (var80062cbc <= 8 ||
 				(chr->hidden & CHRHFLAG_00400000) == 0 ||
 				(chr->flags & CHRFLAG0_CAN_RUN_FOR_ALARM)) {
@@ -14049,7 +14049,7 @@ bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
 
 bool chrGoToProp(struct chrdata *chr, struct prop *prop, s32 speed)
 {
-	if (func0f039a18(chr) && prop) {
+	if (chrIsReadyForOrders(chr) && prop) {
 		if (chrGoToPos(chr, &prop->pos, &prop->rooms[0], speed)) {
 			return true;
 		}
@@ -14065,7 +14065,7 @@ glabel func0f03abd0
 /*  f03abd8:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f03abdc:	afa40088 */ 	sw	$a0,0x88($sp)
 /*  f03abe0:	afa5008c */ 	sw	$a1,0x8c($sp)
-/*  f03abe4:	0fc0e686 */ 	jal	func0f039a18
+/*  f03abe4:	0fc0e686 */ 	jal	chrIsReadyForOrders
 /*  f03abe8:	afa60090 */ 	sw	$a2,0x90($sp)
 /*  f03abec:	10400026 */ 	beqz	$v0,.L0f03ac88
 /*  f03abf0:	3c0e8006 */ 	lui	$t6,%hi(var80062cbc)
@@ -14199,7 +14199,7 @@ bool chrTryStop(struct chrdata *chr)
 		return true;
 	}
 
-	if (func0f039a18(chr)) {
+	if (chrIsReadyForOrders(chr)) {
 		chrStop(chr);
 		return true;
 	}
@@ -14209,7 +14209,7 @@ bool chrTryStop(struct chrdata *chr)
 
 bool chrTrySurprisedOneHand(struct chrdata *chr)
 {
-	if (CHRRACE(chr) == RACE_HUMAN && func0f039a18(chr)) {
+	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
 		chrDoSurprisedOneHand(chr);
 		return true;
 	}
@@ -14219,7 +14219,7 @@ bool chrTrySurprisedOneHand(struct chrdata *chr)
 
 bool chrTrySurprisedSurrender(struct chrdata *chr)
 {
-	if (CHRRACE(chr) == RACE_HUMAN && func0f039a18(chr)) {
+	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
 		chrDoSurprisedSurrender(chr);
 		return true;
 	}
@@ -14229,7 +14229,7 @@ bool chrTrySurprisedSurrender(struct chrdata *chr)
 
 bool chrTrySurprisedLookAround(struct chrdata *chr)
 {
-	if (CHRRACE(chr) == RACE_HUMAN && func0f039a18(chr)) {
+	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
 		chrDoSurprisedLookAround(chr);
 		return true;
 	}
@@ -14239,7 +14239,7 @@ bool chrTrySurprisedLookAround(struct chrdata *chr)
 
 bool chrTryKneel(struct chrdata *chr)
 {
-	if (CHRRACE(chr) == RACE_HUMAN && func0f039a18(chr)) {
+	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
 		chrKneel(chr);
 		return true;
 	}
@@ -14249,7 +14249,7 @@ bool chrTryKneel(struct chrdata *chr)
 
 bool func0f03af44(struct chrdata *chr, u32 anim_id, f32 fstartframe, f32 fendframe, u8 flags, u32 transition, f32 result)
 {
-	if (func0f039a18(chr)) {
+	if (chrIsReadyForOrders(chr)) {
 		func0f030ff8(chr, anim_id, fstartframe, fendframe, flags, transition, result);
 		return true;
 	}
@@ -14266,7 +14266,7 @@ glabel func0f03afac
 /*  f03afbc:	afa40088 */ 	sw	$a0,0x88($sp)
 /*  f03afc0:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f03afc4:	8c90001c */ 	lw	$s0,0x1c($a0)
-/*  f03afc8:	0fc0e686 */ 	jal	func0f039a18
+/*  f03afc8:	0fc0e686 */ 	jal	chrIsReadyForOrders
 /*  f03afcc:	afa20084 */ 	sw	$v0,0x84($sp)
 /*  f03afd0:	1040007d */ 	beqz	$v0,.L0f03b1c8
 /*  f03afd4:	8fa30084 */ 	lw	$v1,0x84($sp)
@@ -14440,7 +14440,7 @@ glabel var7f1a8ed4
 /*  f03b224:	100000e6 */ 	beqz	$zero,.L0f03b5c0
 /*  f03b228:	00001025 */ 	or	$v0,$zero,$zero
 .L0f03b22c:
-/*  f03b22c:	0fc0e686 */ 	jal	func0f039a18
+/*  f03b22c:	0fc0e686 */ 	jal	chrIsReadyForOrders
 /*  f03b230:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f03b234:	104000e1 */ 	beqz	$v0,.L0f03b5bc
 /*  f03b238:	27b700a8 */ 	addiu	$s7,$sp,0xa8
@@ -14701,7 +14701,7 @@ glabel var7f1a8ed4
 
 bool func0f03b5f0(struct chrdata *chr, s32 pad_id)
 {
-	if (CHRRACE(chr) == RACE_HUMAN && func0f039a18(chr)) {
+	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
 		pad_id = chrResolvePadId(chr, pad_id);
 
 		if (pad_id >= 0) {
@@ -14724,7 +14724,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 	if (CHRRACE(chr) == RACE_HUMAN &&
 			chr->grenadeprob > (random() % 255) &&
 			chrGetDistanceToTarget(chr) > 200 &&
-			func0f039a18(chr)) {
+			chrIsReadyForOrders(chr)) {
 		struct prop *target = chrGetTargetProp(chr);
 		struct coord pos;
 
@@ -22606,7 +22606,7 @@ glabel var7f1a91e0
 .L0f043230:
 /*  f043230:	02002025 */ 	or	$a0,$s0,$zero
 /*  f043234:	8e05004c */ 	lw	$a1,0x4c($s0)
-/*  f043238:	0fc0c0e8 */ 	jal	func0f0303a0
+/*  f043238:	0fc0c0e8 */ 	jal	chrAttackKneel
 /*  f04323c:	8e060050 */ 	lw	$a2,0x50($s0)
 /*  f043240:	10000063 */ 	beqz	$zero,.L0f0433d0
 /*  f043244:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -27072,7 +27072,7 @@ glabel chrTickPatrol
 bool chrTrySkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 {
 	if (chr && chr->actiontype != ACT_SKJUMP
-			&& func0f039a18(chr)
+			&& chrIsReadyForOrders(chr)
 			&& CHRRACE(chr) == RACE_SKEDAR) {
 		return chrStartSkJump(chr, arg1, arg2, arg3, arg4);
 	}
@@ -31249,7 +31249,7 @@ s16 chrGoToCover(struct chrdata *chr, u8 speed)
 		return 0;
 	}
 
-	if (func0f039a18(chr) && chr->cover != -1 && coverLoad(chr->cover, &cover)) {
+	if (chrIsReadyForOrders(chr) && chr->cover != -1 && coverLoad(chr->cover, &cover)) {
 		chrGoToPos(chr, cover.pos, &cover.room, speed);
 		return chr->cover;
 	}
@@ -31265,7 +31265,7 @@ glabel chrRunFromPos
 /*  f04c2f4:	00808025 */ 	or	$s0,$a0,$zero
 /*  f04c2f8:	afa50054 */ 	sw	$a1,0x54($sp)
 /*  f04c2fc:	afa60058 */ 	sw	$a2,0x58($sp)
-/*  f04c300:	0fc0e686 */ 	jal	func0f039a18
+/*  f04c300:	0fc0e686 */ 	jal	chrIsReadyForOrders
 /*  f04c304:	afa7005c */ 	sw	$a3,0x5c($sp)
 /*  f04c308:	10400048 */ 	beqz	$v0,.L0f04c42c
 /*  f04c30c:	8fa3005c */ 	lw	$v1,0x5c($sp)
@@ -32020,7 +32020,7 @@ glabel var7f1a9448
 /*  f04d0a0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f04d0a4:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
 /*  f04d0a8:	e7a00058 */ 	swc1	$f0,0x58($sp)
-/*  f04d0ac:	0fc0e686 */ 	jal	func0f039a18
+/*  f04d0ac:	0fc0e686 */ 	jal	chrIsReadyForOrders
 /*  f04d0b0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04d0b4:	c7a2007c */ 	lwc1	$f2,0x7c($sp)
 /*  f04d0b8:	104000df */ 	beqz	$v0,.L0f04d438

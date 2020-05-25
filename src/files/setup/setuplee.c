@@ -707,8 +707,8 @@ u8 func040d_elvis_wait_for_hangar_entry[] = {
 u8 func040e_elvis_give_ar34[] = {
 	set_shotlist(AILIST_ELVIS_GIVE_AR34)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2c)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
@@ -798,9 +798,9 @@ u8 func0409_elvis_follow[] = {
 	set_self_chrflag(CHRCFLAG_00000040)
 	set_shotlist(AILIST_ELVIS_FOLLOW)
 	set_returnlist(CHR_SELF, AILIST_ELVIS_FOLLOW)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2c)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	// Dying
@@ -882,8 +882,8 @@ u8 func0409_elvis_follow[] = {
 	// Enemy detected
 	label(0x08)
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2c)
-	if_chr_dying(CHR_TARGET, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_TARGET, /*goto*/ 0x2c)
+	if_chr_dead(CHR_TARGET, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_TARGET, /*goto*/ 0x2c)
 	if_chrpresets_target_is_different(/*goto*/ 0x06)
 	label(0x2c)
 	goto_first(0x03)
@@ -951,9 +951,9 @@ u8 func041d_init_elvis_outside_prebridgelift[] = {
 
 u8 func041c_elvis_outside_prebridgelift[] = {
 	set_shotlist(AILIST_ELVIS_OUTSIDE_PREBRIDGELIFT)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2c)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	// Dying
@@ -991,9 +991,9 @@ u8 func041c_elvis_outside_prebridgelift[] = {
 
 u8 func040a_elvis_go_to_hangar_lift[] = {
 	set_shotlist(AILIST_ELVIS_GO_TO_HANGAR_LIFT)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2c)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	// Dying
@@ -1048,9 +1048,9 @@ u8 func040a_elvis_go_to_hangar_lift[] = {
 u8 func041b_elvis_at_bridge[] = {
 	stop_chr
 	set_shotlist(AILIST_ELVIS_AT_BRIDGE)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2c)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	// Dying
@@ -1106,9 +1106,9 @@ u8 func041b_elvis_at_bridge[] = {
 
 u8 func1005_check_elvis_dead[] = {
 	beginloop(0x04)
-		if_chr_dying(CHR_ELVIS, /*goto*/ 0x2c)
+		if_chr_dead(CHR_ELVIS, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_ELVIS, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x2c)
 	endloop(0x04)
 
 	label(0x2c)
@@ -1120,8 +1120,8 @@ u8 func1005_check_elvis_dead[] = {
 
 u8 func040f_init_skedar[] = {
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x0d)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x0d)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x0d)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x0d)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x0d)
 
 	// Alive
 	set_accuracy(20)
@@ -1141,8 +1141,8 @@ u8 func040f_init_skedar[] = {
 
 u8 func0410_wake_suspendedanim_skedar[] = {
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2c)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
@@ -1199,8 +1199,8 @@ u8 func1006_wake_slayer_skedar[] = {
 	open_door(0x13)
 
 	if_chr_death_animation_finished(CHR_SUSPENDEDANIM3, /*goto*/ 0x2c)
-	if_chr_dying(CHR_SUSPENDEDANIM3, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_SUSPENDEDANIM3, /*goto*/ 0x2c)
+	if_chr_dead(CHR_SUSPENDEDANIM3, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_SUSPENDEDANIM3, /*goto*/ 0x2c)
 	set_ailist(CHR_SUSPENDEDANIM3, AILIST_WAKE_SUSPENDEDANIM_SKEDAR)
 
 	set_chr_team(CHR_SUSPENDEDANIM3, TEAM_ENEMY)
@@ -1353,8 +1353,8 @@ u8 func1008_hangar_lifts[] = {
 	set_object_flag(OBJ_HANGARLIFT_JO, OBJFLAG_DEACTIVATED)
 	unset_object_flag(OBJ_HANGARLIFT_ELVIS, OBJFLAG_DEACTIVATED)
 	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_ELVIS, /*goto*/ 0x2c)
-	if_chr_dying(CHR_ELVIS, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x2c)
+	if_chr_dead(CHR_ELVIS, /*goto*/ 0x2c)
 	set_ailist(CHR_ELVIS, GAILIST_STOP_AND_IDLE)
 	yield
 	if_chr_y(CHR_ELVIS, 400, OPERATOR_LESS_THAN, /*goto*/ 0x06)
@@ -1385,8 +1385,8 @@ u8 func1008_hangar_lifts[] = {
 
 	label(0x2c)
 	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_ELVIS, /*goto*/ 0x2c)
-	if_chr_dying(CHR_ELVIS, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x2c)
+	if_chr_dead(CHR_ELVIS, /*goto*/ 0x2c)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_FOLLOW)
 	label(0x2c)
 
@@ -1734,9 +1734,9 @@ u8 func0414_hangarclone[] = {
 u8 func0419_hangar_maian[] = {
 	set_shotlist(AILIST_HANGAR_MAIAN)
 	set_self_chrflag(CHRCFLAG_NOAUTOAIM)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2c)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
@@ -1914,8 +1914,8 @@ u8 func100c_engineroom[] = {
 
 	label(0x06)
 	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x2c)
-	if_chr_dying(CHR_ELVIS, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_ELVIS, /*goto*/ 0x2c)
+	if_chr_dead(CHR_ELVIS, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x2c)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_RUN_FROM_ENGINEROOM)
 	play_x_music(CHANNEL_10, 10)
 	speak(CHR_BOND, L_LEE(46), 0x73d7, CHANNEL_6, COLOR_04_ORANGE) // "We have to get out of here!"
@@ -2167,8 +2167,8 @@ u8 func0415_bridgespawner[] = {
 		label(0x2c)
 		if_never_been_onscreen(/*goto*/ 0x4d)
 		if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x2c)
-		if_chr_dying(CHR_CLONE, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_CLONE, /*goto*/ 0x2c)
+		if_chr_dead(CHR_CLONE, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_CLONE, /*goto*/ 0x2c)
 		label(0x2c)
 		if_chr_sees_player(/*goto*/ 0x08)
 	endloop(0x04)
@@ -2196,8 +2196,8 @@ u8 func0415_bridgespawner[] = {
 	// Check clone is dead
 	label(0x2c)
 	if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x4d)
-	if_chr_dying(CHR_CLONE, /*goto*/ 0x4d)
-	if_chr_unloaded(CHR_CLONE, /*goto*/ 0x4d)
+	if_chr_dead(CHR_CLONE, /*goto*/ 0x4d)
+	if_chr_knockedout(CHR_CLONE, /*goto*/ 0x4d)
 	goto_first(0x04)
 
 	// Spawn
@@ -2260,8 +2260,8 @@ u8 func0417_init_spawner_reveal[] = {
 u8 func041a_bridgeclone[] = {
 	set_shotlist(AILIST_BRIDGECLONE)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2c)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	// Dying
@@ -2280,7 +2280,7 @@ u8 func041a_bridgeclone[] = {
 	call_rng
 	if_rand_gt(128, /*goto*/ 0x2c)
 	set_target_chr(CHR_COOP)
-	if_chr_dying(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_dead(CHR_COOP, /*goto*/ 0x2c)
 	goto_next(0xc2)
 
 	label(0x2c)
@@ -2289,8 +2289,8 @@ u8 func041a_bridgeclone[] = {
 
 	beginloop(0xc2)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2c)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x2c)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x2c)
 		goto_next(0x06)
 
 		label(0x2c)
@@ -2305,10 +2305,10 @@ u8 func041a_bridgeclone[] = {
 	try_walk_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
-		if_chr_dying(CHR_SELF, /*goto*/ 0xb8)
+		if_chr_dead(CHR_SELF, /*goto*/ 0xb8)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x10)
 		if_timer_gt(120, /*goto*/ 0x09)
 	endloop(0x08)
 
@@ -2318,10 +2318,10 @@ u8 func041a_bridgeclone[] = {
 
 	// Start running
 	beginloop(0x0a)
-		if_chr_dying(CHR_SELF, /*goto*/ 0xb8)
+		if_chr_dead(CHR_SELF, /*goto*/ 0xb8)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x10)
 		if_target_moving_away(/*goto*/ 0x2c)
 		if_distance_to_target_lt(150, /*goto*/ 0x2e)
 		label(0x2c)
@@ -2342,10 +2342,10 @@ u8 func041a_bridgeclone[] = {
 	try_face_entity(0x0200, 0x0001, /*goto*/ 0x0b)
 
 	beginloop(0x0b)
-		if_chr_dying(CHR_SELF, /*goto*/ 0xb8)
+		if_chr_dead(CHR_SELF, /*goto*/ 0xb8)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x10)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
 		if_timer_gt(15, /*goto*/ 0x06)
@@ -2357,10 +2357,10 @@ u8 func041a_bridgeclone[] = {
 	goto_first(0x03)
 
 	beginloop(0x2f)
-		if_chr_dying(CHR_SELF, /*goto*/ 0xb8)
+		if_chr_dead(CHR_SELF, /*goto*/ 0xb8)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x10)
 		if_chr_stopped(/*goto*/ 0x06)
 	endloop(0x2f)
 
@@ -2373,7 +2373,7 @@ u8 func041a_bridgeclone[] = {
 	stop_chr
 
 	beginloop(0x0f)
-		if_chr_dying(CHR_SELF, /*goto*/ 0xb8)
+		if_chr_dead(CHR_SELF, /*goto*/ 0xb8)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x06)
 	endloop(0x0f)
 
@@ -2388,21 +2388,21 @@ u8 func041a_bridgeclone[] = {
 u8 func100f_bridge_entry[] = {
 	// Wait until 3 bridge Skedar dead
 	beginloop(0x09)
-		if_chr_dying(CHR_BRIDGE1, /*goto*/ 0x2c)
+		if_chr_dead(CHR_BRIDGE1, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_BRIDGE1, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_BRIDGE1, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_BRIDGE1, /*goto*/ 0x2c)
 		reloop(0x09)
 
 		label(0x2c)
-		if_chr_dying(CHR_BRIDGE2, /*goto*/ 0x2c)
+		if_chr_dead(CHR_BRIDGE2, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_BRIDGE2, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_BRIDGE2, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_BRIDGE2, /*goto*/ 0x2c)
 		reloop(0x09)
 
 		label(0x2c)
-		if_chr_dying(CHR_BRIDGE3, /*goto*/ 0x2c)
+		if_chr_dead(CHR_BRIDGE3, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_BRIDGE3, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_BRIDGE3, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_BRIDGE3, /*goto*/ 0x2c)
 	endloop(0x09)
 
 	label(0x2c)
@@ -2458,14 +2458,14 @@ u8 func1010_check_bridge_captured[] = {
 		if_timer_gt(3600, /*goto*/ 0x0d)
 		label(0x2c)
 		if_chr_death_animation_finished(CHR_BRIDGESPAWNER1, /*goto*/ 0x2c)
-		if_chr_dying(CHR_BRIDGESPAWNER1, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_BRIDGESPAWNER1, /*goto*/ 0x2c)
+		if_chr_dead(CHR_BRIDGESPAWNER1, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_BRIDGESPAWNER1, /*goto*/ 0x2c)
 		reloop(0x09)
 
 		label(0x2c)
 		if_chr_death_animation_finished(CHR_BRIDGESPAWNER2, /*goto*/ 0x2c)
-		if_chr_dying(CHR_BRIDGESPAWNER2, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_BRIDGESPAWNER2, /*goto*/ 0x2c)
+		if_chr_dead(CHR_BRIDGESPAWNER2, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_BRIDGESPAWNER2, /*goto*/ 0x2c)
 	endloop(0x09)
 
 	// 60 seconds elapsed
@@ -2498,14 +2498,14 @@ u8 func1011_check_end_level[] = {
 
 	label(0x06)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
-	if_chr_dying(CHR_BOND, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_dead(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
-	if_chr_dying(CHR_COOP, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_dead(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_COOP, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	// Both players dead
@@ -2516,8 +2516,8 @@ u8 func1011_check_end_level[] = {
 	// Either buddy is alive
 	label(0x06)
 	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x2c)
-	if_chr_dying(CHR_ELVIS, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_ELVIS, /*goto*/ 0x2c)
+	if_chr_dead(CHR_ELVIS, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x2c)
 
 	// Mission complete
 	set_invincible(CHR_BOND)
@@ -2956,9 +2956,9 @@ u8 func0420_init_bridge3[] = {
  */
 u8 func0421_bridge_skedar[] = {
 	set_shotlist(AILIST_BRIDGE_SKEDAR)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x06)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x2c)
 
 	// Dying
@@ -2990,7 +2990,7 @@ u8 func0421_bridge_skedar[] = {
 	label(0xc6)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x06)
 	set_target_chr(CHR_BOND)
-	try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0xc7)
+	try_attack_kneel(0x0220, 0x0000, /*goto*/ 0xc7)
 	label(0x06)
 	kneel
 
@@ -3085,10 +3085,10 @@ u8 func0421_bridge_skedar[] = {
 
 	label(0xca)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, FALSE, BANK_0, /*goto*/ 0x60)
-	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0xb1)
+	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0xb1)
 	label(0xb1)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x06)
+	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x06)
 	goto_next(0x2c)
 
 	label(0x60)
@@ -3201,8 +3201,8 @@ u8 func0422_cass[] = {
 	beginloop(0xc2)
 		damage_chr(CHR_SELF, 18)
 		if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2c)
-		if_chr_dying(CHR_SELF, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_SELF, /*goto*/ 0x2c)
+		if_chr_dead(CHR_SELF, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_SELF, /*goto*/ 0x2c)
 	endloop(0xc2)
 
 	label(0x2c)

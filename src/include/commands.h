@@ -164,7 +164,7 @@
  * Attempt to jump sideways. If it worked then go to the given label.
  * The command may fail if the chr is blocked.
  */
-#define try_jump_sideways(label) \
+#define try_sidestep(label) \
 	mkshort(0x000f), \
 	label,
 
@@ -172,7 +172,7 @@
  * Attempt to hop sideways. If it worked then go to the given label.
  * The command may fail if the chr is blocked.
  */
-#define try_hop_sideways(label) \
+#define try_jumpout(label) \
 	mkshort(0x0010), \
 	label,
 
@@ -189,7 +189,7 @@
  * The command may fail if the chr is blocked, or maybe if the chr can't see
  * their target.
  */
-#define try_walk_and_shoot(label) \
+#define try_attack_walk(label) \
 	mkshort(0x0012), \
 	label,
 
@@ -198,7 +198,7 @@
  * The command may fail if the chr is blocked, or maybe if the chr can't see
  * their target.
  */
-#define try_run_and_shoot(label) \
+#define try_attack_run(label) \
 	mkshort(0x0013), \
 	label,
 
@@ -207,23 +207,23 @@
  * The command may fail if the chr is blocked, or maybe if the chr can't see
  * their target.
  */
-#define try_roll_and_shoot(label) \
+#define try_attack_roll(label) \
 	mkshort(0x0014), \
 	label,
 
-#define try_aim_and_shoot_thing1(u1, u2, label) \
+#define try_attack_stand1(u1, u2, label) \
 	mkshort(0x0015), \
 	mkshort(u1), \
 	mkshort(u2), \
 	label,
 
-#define try_chr_kneel_and_shoot_thing(u1, u2, label) \
+#define try_attack_kneel(u1, u2, label) \
 	mkshort(0x0016), \
 	mkshort(u1), \
 	mkshort(u2), \
 	label,
 
-#define try_aim_and_shoot_thing2(u1, u2, label) \
+#define try_attack_stand2(u1, u2, label) \
 	mkshort(0x0017), \
 	mkshort(u1), \
 	mkshort(u2), \
@@ -437,9 +437,10 @@
 	label,
 
 /**
- * Checks if the chr is doing their death animation.
+ * Checks if the chr is doing their death animation, has finished their death
+ * animation or is invalid.
  */
-#define if_chr_dying(chr, label) \
+#define if_chr_dead(chr, label) \
 	mkshort(0x0033), \
 	chr, \
 	label,
@@ -3195,7 +3196,10 @@
 	mkshort(0x017a), \
 	label,
 
-#define if_chr_unloaded(chr, label) \
+/**
+ * Checks if the chr is knocked out or invalid.
+ */
+#define if_chr_knockedout(chr, label) \
 	mkshort(0x017b), \
 	chr, \
 	label,
@@ -3632,7 +3636,7 @@
 	mkshort(0x01b9),
 
 // Likely some kind of shoot command, with u1 = entitytype and u2 = entityid
-#define cmd01ba(u1, u2, label) \
+#define try_attack_lie(u1, u2, label) \
 	mkshort(0x01ba), \
 	mkshort(u1), \
 	mkshort(u2), \

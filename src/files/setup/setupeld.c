@@ -1434,7 +1434,7 @@ u8 func1004_check_negotiator[] = {
 	// A and SA
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_NEGOTIATOR_ESCAPED, TRUE, /*goto*/ 0x2d)
-		if_chr_dying(CHR_NEGOTIATOR, /*goto*/ 0x06)
+		if_chr_dead(CHR_NEGOTIATOR, /*goto*/ 0x06)
 	endloop(0x04)
 
 	label(0x06)
@@ -1500,7 +1500,7 @@ u8 func0402_taker[] = {
 		label(0x06)
 		set_target_chr(CHR_BOND)
 		label(0x03)
-		try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x05)
+		try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x05)
 
 		beginloop(0x05)
 			if_distance_to_target_gt(1000, /*goto*/ 0x2e)
@@ -1519,7 +1519,7 @@ u8 func0402_taker[] = {
 		// Jo got too close
 		label(0x06)
 		set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-		try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x09)
+		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x09)
 		label(0x09)
 		yield
 		if_chr_stopped(/*goto*/ 0x06)
@@ -1546,7 +1546,7 @@ u8 func0402_taker[] = {
 	restart_timer
 	set_target_chr(CHR_NEGOTIATOR)
 	label(0x03)
-	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x04)
+	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x04)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1556,7 +1556,7 @@ u8 func0402_taker[] = {
 		if_self_flag_bankx_eq(CHRFLAG0_00200000, TRUE, BANK_0, /*goto*/ 0x06)
 		set_target_chr(CHR_NEGOTIATOR)
 		if_chr_death_animation_finished(CHR_NEGOTIATOR, /*goto*/ 0x10)
-		if_chr_dying(CHR_NEGOTIATOR, /*goto*/ 0x10)
+		if_chr_dead(CHR_NEGOTIATOR, /*goto*/ 0x10)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x2d)
 		if_timer_gt(600, /*goto*/ 0x06)
 		reloop(0x04)
@@ -1572,7 +1572,7 @@ u8 func0402_taker[] = {
 
 	beginloop(0x0c)
 		if_chr_death_animation_finished(CHR_NEGOTIATOR, /*goto*/ 0x10)
-		if_chr_dying(CHR_NEGOTIATOR, /*goto*/ 0x10)
+		if_chr_dead(CHR_NEGOTIATOR, /*goto*/ 0x10)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x2d)
 		if_timer_gt(600, /*goto*/ 0x06)
 		reloop(0x0c)
@@ -1584,17 +1584,17 @@ u8 func0402_taker[] = {
 	// Shoot
 	label(0x6f)
 	label(0x06)
-	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x08)
+	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_chr_death_animation_finished(CHR_NEGOTIATOR, /*goto*/ 0x06)
-		if_chr_dying(CHR_NEGOTIATOR, /*goto*/ 0x06)
+		if_chr_dead(CHR_NEGOTIATOR, /*goto*/ 0x06)
 		if_chr_stopped(/*goto*/ 0x06)
 	endloop(0x08)
 
 	label(0x06)
 	if_chr_death_animation_finished(CHR_NEGOTIATOR, /*goto*/ 0x10)
-	if_chr_dying(CHR_NEGOTIATOR, /*goto*/ 0x10)
+	if_chr_dead(CHR_NEGOTIATOR, /*goto*/ 0x10)
 	goto_first(0x03)
 
 	label(0x10)
@@ -1646,15 +1646,15 @@ u8 func0402_taker[] = {
 
 u8 func100f_check_takers_dead[] = {
 	beginloop(0x04)
-		if_chr_dying(CHR_TAKER1, /*goto*/ 0x2d)
+		if_chr_dead(CHR_TAKER1, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_TAKER1, /*goto*/ 0x2d)
-		if_chr_unloaded(CHR_TAKER1, /*goto*/ 0x2d)
+		if_chr_knockedout(CHR_TAKER1, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)
-		if_chr_dying(CHR_TAKER2, /*goto*/ 0x2d)
+		if_chr_dead(CHR_TAKER2, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_TAKER2, /*goto*/ 0x2d)
-		if_chr_unloaded(CHR_TAKER2, /*goto*/ 0x2d)
+		if_chr_knockedout(CHR_TAKER2, /*goto*/ 0x2d)
 	endloop(0x04)
 
 	label(0x2d)
@@ -1777,7 +1777,7 @@ u8 func0404_sniper[] = {
 	stop_chr
 	set_shotlist(AILIST_SNIPER)
 	set_target_chr(CHR_BOND)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x64)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x64)
 	if_self_flag_bankx_eq(CHRFLAG0_08000000, TRUE, BANK_0, /*goto*/ 0x04)
 
 	beginloop(0x60)
@@ -1889,13 +1889,13 @@ u8 func0404_sniper[] = {
 		label(0x2d)
 		restart_timer
 		label(0x06)
-		try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x08)
+		try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x08)
 		reloop(0x04)
 
 		label(0x08)
 		yield
 		label(0x06)
-		try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x09)
+		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x09)
 		reloop(0x04)
 
 		beginloop(0x09)
@@ -1913,42 +1913,42 @@ u8 func0404_sniper[] = {
 
 u8 func1006_check_snipers_dead[] = {
 	beginloop(0x04)
-		if_chr_dying(CHR_SNIPER1, /*goto*/ 0x2d)
+		if_chr_dead(CHR_SNIPER1, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_SNIPER1, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)
-		if_chr_dying(CHR_SNIPER2, /*goto*/ 0x2d)
+		if_chr_dead(CHR_SNIPER2, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_SNIPER2, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)
-		if_chr_dying(CHR_SNIPER3, /*goto*/ 0x2d)
+		if_chr_dead(CHR_SNIPER3, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_SNIPER3, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)
-		if_chr_dying(CHR_SNIPER4, /*goto*/ 0x2d)
+		if_chr_dead(CHR_SNIPER4, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_SNIPER4, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)
-		if_chr_dying(CHR_SNIPER5, /*goto*/ 0x2d)
+		if_chr_dead(CHR_SNIPER5, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_SNIPER5, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)
-		if_chr_dying(CHR_SNIPER6, /*goto*/ 0x2d)
+		if_chr_dead(CHR_SNIPER6, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_SNIPER6, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)
-		if_chr_dying(CHR_SNIPER7, /*goto*/ 0x2d)
+		if_chr_dead(CHR_SNIPER7, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_SNIPER7, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)
-		if_chr_dying(CHR_SNIPER8, /*goto*/ 0x2d)
+		if_chr_dead(CHR_SNIPER8, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_SNIPER8, /*goto*/ 0x2d)
 	endloop(0x04)
 
@@ -2260,21 +2260,21 @@ u8 func100c_check_hackers_dead[] = {
 		yield
 		yield
 		yield
-		if_chr_dying(CHR_HACKER1, /*goto*/ 0x2d)
+		if_chr_dead(CHR_HACKER1, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_HACKER1, /*goto*/ 0x2d)
-		if_chr_unloaded(CHR_HACKER1, /*goto*/ 0x2d)
+		if_chr_knockedout(CHR_HACKER1, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)
-		if_chr_dying(CHR_HACKER2, /*goto*/ 0x2d)
+		if_chr_dead(CHR_HACKER2, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_HACKER2, /*goto*/ 0x2d)
-		if_chr_unloaded(CHR_HACKER2, /*goto*/ 0x2d)
+		if_chr_knockedout(CHR_HACKER2, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)
-		if_chr_dying(CHR_HACKER3, /*goto*/ 0x2d)
+		if_chr_dead(CHR_HACKER3, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_HACKER3, /*goto*/ 0x2d)
-		if_chr_unloaded(CHR_HACKER3, /*goto*/ 0x2d)
+		if_chr_knockedout(CHR_HACKER3, /*goto*/ 0x2d)
 	endloop(0x04)
 
 	label(0x2d)
@@ -2330,13 +2330,13 @@ u8 func100e_check_objectives_complete[] = {
 
 	label(0x2d)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2d)
-	if_chr_dying(CHR_BOND, /*goto*/ 0x2d)
-	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2d)
+	if_chr_dead(CHR_BOND, /*goto*/ 0x2d)
+	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2d)
 	goto_next(0x06)
 	label(0x2d)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2d)
-	if_chr_dying(CHR_COOP, /*goto*/ 0x2d)
-	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2d)
+	if_chr_dead(CHR_COOP, /*goto*/ 0x2d)
+	if_chr_knockedout(CHR_COOP, /*goto*/ 0x2d)
 	goto_next(0x06)
 
 	// Mission failed - players dead
@@ -2345,9 +2345,9 @@ u8 func100e_check_objectives_complete[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x06)
-	if_chr_dying(CHR_CARRINGTON, /*goto*/ 0x2d)
+	if_chr_dead(CHR_CARRINGTON, /*goto*/ 0x2d)
 	if_chr_death_animation_finished(CHR_CARRINGTON, /*goto*/ 0x2d)
-	if_chr_unloaded(CHR_CARRINGTON, /*goto*/ 0x2d)
+	if_chr_knockedout(CHR_CARRINGTON, /*goto*/ 0x2d)
 
 	// Mission complete
 	set_ailist(CHR_SELF, AILIST_OUTRO)
@@ -2439,8 +2439,8 @@ u8 func1014_give_keycard[] = {
 
 	#define give_keycard_if_alive(chr) \
 		if_chr_death_animation_finished(chr, /*goto*/ 0x2d) \
-		if_chr_dying(chr, /*goto*/ 0x2d) \
-		if_chr_unloaded(chr, /*goto*/ 0x2d) \
+		if_chr_dead(chr, /*goto*/ 0x2d) \
+		if_chr_knockedout(chr, /*goto*/ 0x2d) \
 		give_object_to_chr(OBJ_KEYCARD, chr) \
 		goto_next(0x09) \
 		label(0x2d)
@@ -2922,7 +2922,7 @@ u8 func101d_dual_cmp150[] = {
 
 	// Wait 38.3 seconds or for CMP150 sniper to die
 	beginloop(0x04)
-		if_chr_dying(CHR_SNIPER7, /*goto*/ 0x2d)
+		if_chr_dead(CHR_SNIPER7, /*goto*/ 0x2d)
 		if_timer_gt(2300, /*goto*/ 0x06)
 	endloop(0x04)
 
@@ -2983,9 +2983,9 @@ u8 func101e_unlock_doors[] = {
 
 u8 func101f_check_one_basement_guard_remaining[] = {
 	#define inc_var_if_chr_dead(chr) \
-		if_chr_dying(chr, /*goto*/ 0x2d) \
+		if_chr_dead(chr, /*goto*/ 0x2d) \
 		if_chr_death_animation_finished(chr, /*goto*/ 0x2d) \
-		if_chr_unloaded(chr, /*goto*/ 0x2d) \
+		if_chr_knockedout(chr, /*goto*/ 0x2d) \
 		goto_next(0x06) \
 		label(0x2d) \
 		add_morale(1) \

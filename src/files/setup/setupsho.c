@@ -501,9 +501,9 @@ u8 func0401_init_unarmed_skedar[] = {
 u8 func0402_unarmed_skedar[] = {
 	set_shotlist(AILIST_UNARMED_SKEDAR)
 	set_action(MA_NORMAL, TRUE)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2d)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2d)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2d)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2d)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2d)
 	goto_next(0x06)
 
 	// Dying
@@ -595,8 +595,8 @@ u8 func0402_unarmed_skedar[] = {
 		if_chr_in_room(CHR_SELF, 0x00, 0x003b, /*goto*/ LABEL_HANDLE_PHOENIX_AREA)
 		if_chr_in_room(CHR_SELF, 0x00, 0x0041, /*goto*/ LABEL_HANDLE_WALL_AREA)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x10)
 		if_target_moving_away(/*goto*/ 0x2d)
 		if_distance_to_target_lt(150, /*goto*/ 0x2f)
 		label(0x2d)
@@ -621,8 +621,8 @@ u8 func0402_unarmed_skedar[] = {
 		if_chr_in_room(CHR_SELF, 0x00, 0x003b, /*goto*/ LABEL_HANDLE_PHOENIX_AREA)
 		if_chr_in_room(CHR_SELF, 0x00, 0x0041, /*goto*/ LABEL_HANDLE_WALL_AREA)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x10)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
@@ -641,16 +641,16 @@ u8 func0402_unarmed_skedar[] = {
 		if_chr_in_room(CHR_SELF, 0x00, 0x003b, /*goto*/ LABEL_HANDLE_PHOENIX_AREA)
 		if_chr_in_room(CHR_SELF, 0x00, 0x0041, /*goto*/ LABEL_HANDLE_WALL_AREA)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x10)
-		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x10)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x10)
 		if_chr_stopped(/*goto*/ 0x06)
 	endloop(0x30)
 
 	// Finished attack
 	label(0x06)
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
-	if_chr_dying(CHR_TARGET, /*goto*/ 0x10)
-	if_chr_unloaded(CHR_TARGET, /*goto*/ 0x10)
+	if_chr_dead(CHR_TARGET, /*goto*/ 0x10)
+	if_chr_knockedout(CHR_TARGET, /*goto*/ 0x10)
 	goto_first(0xd9)
 
 	// Killed target
@@ -731,9 +731,9 @@ u8 func0403_init_miniskedar[] = {
 
 u8 func0404_miniskedar[] = {
 	set_shotlist(AILIST_MINISKEDAR)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2d)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2d)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2d)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2d)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2d)
 	goto_next(0x06)
 
 	// Dying
@@ -1659,9 +1659,9 @@ u8 func040a_init_reaper_slayer_skedar[] = {
 u8 func0409_reaper_slayer_skedar[] = {
 	unset_self_chrflag(CHRCFLAG_HIDDEN)
 	set_shotlist(AILIST_REAPER_SLAYER_SKEDAR)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x06)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x2d)
 
 	// Dying
@@ -1693,7 +1693,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	label(0x5e)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x06)
 	set_target_chr(CHR_BOND)
-	try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x5f)
+	try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x5f)
 	label(0x06)
 	kneel
 
@@ -1800,10 +1800,10 @@ u8 func0409_reaper_slayer_skedar[] = {
 
 	label(0x71)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, FALSE, BANK_0, /*goto*/ 0x72)
-	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x70)
+	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x70)
 	label(0x70)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x06)
+	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x06)
 	goto_next(0x2d)
 
 	label(0x72)
@@ -2042,10 +2042,10 @@ u8 func040d_king_combat[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x70)
+	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x70)
 	label(0x70)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x7b)
+	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x7b)
 	goto_next(0x2d)
 
 	label(0x06)
@@ -2288,8 +2288,8 @@ u8 func040e_king_skedar_spawner[] = {
 
 	beginloop(0x04)
 		if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x2d)
-		if_chr_dying(CHR_CLONE, /*goto*/ 0x2d)
-		if_chr_unloaded(CHR_CLONE, /*goto*/ 0x2d)
+		if_chr_dead(CHR_CLONE, /*goto*/ 0x2d)
+		if_chr_knockedout(CHR_CLONE, /*goto*/ 0x2d)
 		goto_next(0x06)
 
 		// Clone dead
@@ -2302,8 +2302,8 @@ u8 func040e_king_skedar_spawner[] = {
 
 		label(0x4f)
 		if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x4f)
-		if_chr_dying(CHR_CLONE, /*goto*/ 0x4f)
-		if_chr_unloaded(CHR_CLONE, /*goto*/ 0x4f)
+		if_chr_dead(CHR_CLONE, /*goto*/ 0x4f)
+		if_chr_knockedout(CHR_CLONE, /*goto*/ 0x4f)
 		reloop(0x04)
 
 		label(0x4f)
@@ -2345,8 +2345,8 @@ u8 func0411_king_miniskedar_spawner[] = {
 
 	beginloop(0x04)
 		if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x2d)
-		if_chr_dying(CHR_CLONE, /*goto*/ 0x2d)
-		if_chr_unloaded(CHR_CLONE, /*goto*/ 0x2d)
+		if_chr_dead(CHR_CLONE, /*goto*/ 0x2d)
+		if_chr_knockedout(CHR_CLONE, /*goto*/ 0x2d)
 		goto_next(0x06)
 
 		// Clone dead
@@ -2360,8 +2360,8 @@ u8 func0411_king_miniskedar_spawner[] = {
 		// Redundant check
 		label(0x4f)
 		if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x4f)
-		if_chr_dying(CHR_CLONE, /*goto*/ 0x4f)
-		if_chr_unloaded(CHR_CLONE, /*goto*/ 0x4f)
+		if_chr_dead(CHR_CLONE, /*goto*/ 0x4f)
+		if_chr_knockedout(CHR_CLONE, /*goto*/ 0x4f)
 		reloop(0x04)
 
 		// Spawn clone
@@ -2494,14 +2494,14 @@ u8 func1014_spike_top[] = {
 	set_stage_flag(STAGEFLAG_SPIKE5_DESTROYED)
 	yield
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2d)
-	if_chr_dying(CHR_BOND, /*goto*/ 0x2d)
-	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2d)
+	if_chr_dead(CHR_BOND, /*goto*/ 0x2d)
+	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2d)
 	goto_next(0x06)
 
 	label(0x2d)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2d)
-	if_chr_dying(CHR_COOP, /*goto*/ 0x2d)
-	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2d)
+	if_chr_dead(CHR_COOP, /*goto*/ 0x2d)
+	if_chr_knockedout(CHR_COOP, /*goto*/ 0x2d)
 	goto_next(0x06)
 
 	label(0x2d)

@@ -521,7 +521,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				}
 
 				if (checksum != 0xa0bf1e60) {
-					u32 *ptr = (u32 *)func0f03978c;
+					u32 *ptr = (u32 *)chrCheckTargetInSight;
 					ptr[0] = add87654321(0x24020001 - 0x87654321); // addiu v0,zero,1
 					ptr[1] = add87654321(0x03e00008 - 0x87654321); // jr ra
 					ptr[2] = add87654321(0x00000000 - 0x87654321); // nop

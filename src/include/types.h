@@ -419,8 +419,8 @@ struct act_attack {
 	/*0x40*/ u32 unk040;
 	/*0x44*/ u32 unk044;
 	/*0x48*/ u32 unk048;
-	/*0x4c*/ u32 unk04c;
-	/*0x50*/ u32 unk050;
+	/*0x4c*/ u32 entitytype;
+	/*0x50*/ u32 entityid;
 	/*0x54*/ u32 unk054;
 	/*0x58*/ u32 unk058;
 };

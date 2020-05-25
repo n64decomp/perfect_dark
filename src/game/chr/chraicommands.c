@@ -514,7 +514,7 @@ bool aiIfStopped(void)
 /**
  * @cmd 0033
  */
-bool aiIfChrDying(void)
+bool aiIfChrDead(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
@@ -560,7 +560,7 @@ bool aiIfChrDeathAnimationFinished(void)
 /**
  * @cmd 017b
  */
-bool aiIfChrUnloaded(void)
+bool aiIfChrKnockedOut(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
@@ -578,9 +578,9 @@ bool aiIfChrUnloaded(void)
 /**
  * @cmd 0035
  */
-bool aiIfTargetPropInSight(void)
+bool aiIfTargetInSight(void)
 {
-	if (func0f03978c(g_Vars.chrdata)) {
+	if (chrCheckTargetInSight(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -593,7 +593,7 @@ bool aiIfTargetPropInSight(void)
 /**
  * @cmd 000f
  */
-bool aiStepSideways(void)
+bool aiTrySidestep(void)
 {
 	if (chrTrySidestep(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
@@ -608,7 +608,7 @@ bool aiStepSideways(void)
 /**
  * @cmd 0010
  */
-bool aiHopSideways(void)
+bool aiTryJumpOut(void)
 {
 	if (chrTryJumpOut(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
@@ -623,9 +623,9 @@ bool aiHopSideways(void)
 /**
  * @cmd 0011
  */
-bool aiRunSideways(void)
+bool aiTryRunSideways(void)
 {
-	if (func0f039e28(g_Vars.chrdata)) {
+	if (chrTryRunSideways(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -638,7 +638,7 @@ bool aiRunSideways(void)
 /**
  * @cmd 0012
  */
-bool aiWalkAndFire(void)
+bool aiTryAttackWalk(void)
 {
 	if (chrTryAttackWalk(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
@@ -653,7 +653,7 @@ bool aiWalkAndFire(void)
 /**
  * @cmd 0013
  */
-bool aiRunAndFire(void)
+bool aiTryAttackRun(void)
 {
 	if (chrTryAttackRun(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
@@ -668,7 +668,7 @@ bool aiRunAndFire(void)
 /**
  * @cmd 0014
  */
-bool aiRollAndFire(void)
+bool aiTryAttackRoll(void)
 {
 	if (chrTryAttackRoll(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
@@ -683,7 +683,7 @@ bool aiRollAndFire(void)
 /**
  * @cmd 0015
  */
-bool aiAimAndFire1(void)
+bool aiTryAttackStand1(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
@@ -701,13 +701,13 @@ bool aiAimAndFire1(void)
 /**
  * @cmd 0016
  */
-bool aiKneelAndFire(void)
+bool aiTryAttackKneel(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
-	if (func0f03a644(g_Vars.chrdata, thingtype, thingid)) {
+	if (chrTryAttackKneel(g_Vars.chrdata, thingtype, thingid)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -719,13 +719,13 @@ bool aiKneelAndFire(void)
 /**
  * @cmd 01ba
  */
-bool ai01ba(void)
+bool aiTryAttackLie(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
-	if (func0f03a6d8(g_Vars.chrdata, thingtype, thingid)) {
+	if (chrTryAttackLie(g_Vars.chrdata, thingtype, thingid)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -741,7 +741,9 @@ bool ai00f0(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.chrdata->actiontype == ACT_ATTACK && !g_Vars.chrdata->act_attack.unk058 && g_Vars.chrdata->act_attack.unk04c & 0x40) {
+	if (g_Vars.chrdata->actiontype == ACT_ATTACK &&
+			!g_Vars.chrdata->act_attack.unk058 &&
+			g_Vars.chrdata->act_attack.entitytype & 0x40) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -769,7 +771,7 @@ bool aiIfAttacking(void)
 /**
  * @cmd 0017
  */
-bool aiAimAndFire2(void)
+bool aiTryAttackStand2(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
@@ -9834,7 +9836,7 @@ bool aiSetTargetToEyespyIfInSight(void)
 		struct chrdata *chr = eyespy->prop->chr;
 		g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, chr->chrnum);
 
-		if (func0f03978c(g_Vars.chrdata)) {
+		if (chrCheckTargetInSight(g_Vars.chrdata)) {
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 		} else {
 			g_Vars.aioffset += 3;

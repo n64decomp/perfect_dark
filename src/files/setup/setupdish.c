@@ -4514,8 +4514,8 @@ u8 func0403_holo4_guard1[] = {
 
 	beginloop(0x04)
 		if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
-		if_chr_dying(CHR_SELF, /*goto*/ 0x2f)
-		if_chr_unloaded(CHR_SELF, /*goto*/ 0x2f)
+		if_chr_dead(CHR_SELF, /*goto*/ 0x2f)
+		if_chr_knockedout(CHR_SELF, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
@@ -4535,8 +4535,8 @@ u8 func0404_holo4_guard2[] = {
 	label(0x04)
 	yield
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2f)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2f)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2f)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
@@ -4592,8 +4592,8 @@ u8 func1033_holo4_part1[] = {
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x57)
 		if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x57)
 		if_chr_death_animation_finished(0x0d, /*goto*/ 0x2f)
-		if_chr_dying(0x0d, /*goto*/ 0x2f)
-		if_chr_unloaded(0x0d, /*goto*/ 0x2f)
+		if_chr_dead(0x0d, /*goto*/ 0x2f)
+		if_chr_knockedout(0x0d, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
@@ -4605,8 +4605,8 @@ u8 func1033_holo4_part1[] = {
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x57)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x57)
 	if_chr_death_animation_finished(0x0e, /*goto*/ 0x2f)
-	if_chr_dying(0x0e, /*goto*/ 0x2f)
-	if_chr_unloaded(0x0e, /*goto*/ 0x2f)
+	if_chr_dead(0x0e, /*goto*/ 0x2f)
+	if_chr_knockedout(0x0e, /*goto*/ 0x2f)
 	goto_first(0x04)
 
 	label(0x2f)
@@ -4618,8 +4618,8 @@ u8 func1033_holo4_part1[] = {
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x57)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x57)
 	if_chr_death_animation_finished(0x0f, /*goto*/ 0x2f)
-	if_chr_dying(0x0f, /*goto*/ 0x2f)
-	if_chr_unloaded(0x0f, /*goto*/ 0x2f)
+	if_chr_dead(0x0f, /*goto*/ 0x2f)
+	if_chr_knockedout(0x0f, /*goto*/ 0x2f)
 	goto_first(0x04)
 
 	label(0x2f)
@@ -4769,8 +4769,8 @@ u8 func0407_holo5_guard1[] = {
 	yield
 	label(0x2f)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x30)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x30)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x30)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x30)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x30)
 	if_has_gun(CHR_SELF, /*goto*/ 0x06)
 	label(0x2f)
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
@@ -4847,8 +4847,8 @@ u8 func0409_holo5_guard2[] = {
 	label(0x04)
 	yield
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2f)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2f)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2f)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2f)
 	restart_timer
 	assign_path(0)
 	start_path
@@ -4856,8 +4856,8 @@ u8 func0409_holo5_guard2[] = {
 	yield
 	dprint 'O','n',' ','P','a','t','r','o','l',0,
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x2f)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2f)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x2f)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2f)
 	if_target_in_sight(/*goto*/ 0x09)
 	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_alertness(0)
@@ -4915,8 +4915,8 @@ u8 func040b_holo5_guard3[] = {
 
 	beginloop(0x04)
 		if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
-		if_chr_dying(CHR_SELF, /*goto*/ 0x2f)
-		if_chr_unloaded(CHR_SELF, /*goto*/ 0x2f)
+		if_chr_dead(CHR_SELF, /*goto*/ 0x2f)
+		if_chr_knockedout(CHR_SELF, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
@@ -4960,8 +4960,8 @@ u8 func1034_holo5_part1[] = {
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
 	if_chr_death_animation_finished(0x11, /*goto*/ 0x2f)
-	if_chr_dying(0x11, /*goto*/ 0x2f)
-	if_chr_unloaded(0x11, /*goto*/ 0x2f)
+	if_chr_dead(0x11, /*goto*/ 0x2f)
+	if_chr_knockedout(0x11, /*goto*/ 0x2f)
 	goto_first(0x04)
 
 	label(0x2f)
@@ -4973,8 +4973,8 @@ u8 func1034_holo5_part1[] = {
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
 	if_chr_death_animation_finished(0x12, /*goto*/ 0x2f)
-	if_chr_dying(0x12, /*goto*/ 0x2f)
-	if_chr_unloaded(0x12, /*goto*/ 0x2f)
+	if_chr_dead(0x12, /*goto*/ 0x2f)
+	if_chr_knockedout(0x12, /*goto*/ 0x2f)
 	goto_first(0x04)
 
 	label(0x2f)
@@ -5215,8 +5215,8 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	restart_timer
 
 	beginloop(0x04)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x57)
-		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x57)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x57)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x57)
 		if_distance_to_target_gt(100, /*goto*/ 0x2f)
 		if_in_disarm_range(/*goto*/ 0x2f)
 		if_timer_gt(120, /*goto*/ 0x10)
@@ -5229,8 +5229,8 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	try_run_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x57)
-		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x57)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x57)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x57)
 		if_timer_gt(20, /*goto*/ 0x10)
 		if_chr_stopped(/*goto*/ 0x10)
 		if_target_is_player(/*goto*/ 0x0e)
@@ -5251,8 +5251,8 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x57)
-		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x57)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x57)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x57)
 		if_distance_to_target_gt(400, /*goto*/ 0x10)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
@@ -5343,9 +5343,9 @@ u8 func102f_holo1_part1[] = {
 		dprint 'N','O',' ','D','E','A','D',0,
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 		if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
-		if_chr_dying(0x13, /*goto*/ 0x2f)
+		if_chr_dead(0x13, /*goto*/ 0x2f)
 		if_chr_death_animation_finished(0x13, /*goto*/ 0x2f)
-		if_chr_unloaded(0x13, /*goto*/ 0x2f)
+		if_chr_knockedout(0x13, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
@@ -5356,9 +5356,9 @@ u8 func102f_holo1_part1[] = {
 	dprint 'C','H','R',' ','7','F','D',0,
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
-	if_chr_dying(0x14, /*goto*/ 0x2f)
+	if_chr_dead(0x14, /*goto*/ 0x2f)
 	if_chr_death_animation_finished(0x14, /*goto*/ 0x2f)
-	if_chr_unloaded(0x14, /*goto*/ 0x2f)
+	if_chr_knockedout(0x14, /*goto*/ 0x2f)
 	goto_first(0x04)
 
 	label(0x2f)
@@ -5369,9 +5369,9 @@ u8 func102f_holo1_part1[] = {
 	dprint 'C','H','R',' ','8','F','D',0,
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
-	if_chr_dying(0x15, /*goto*/ 0x2f)
+	if_chr_dead(0x15, /*goto*/ 0x2f)
 	if_chr_death_animation_finished(0x15, /*goto*/ 0x2f)
-	if_chr_unloaded(0x15, /*goto*/ 0x2f)
+	if_chr_knockedout(0x15, /*goto*/ 0x2f)
 	goto_first(0x04)
 
 	label(0x2f)
@@ -5382,9 +5382,9 @@ u8 func102f_holo1_part1[] = {
 	dprint 'C','H','R',' ','9','F','D',0,
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
-	if_chr_dying(0x16, /*goto*/ 0x2f)
+	if_chr_dead(0x16, /*goto*/ 0x2f)
 	if_chr_death_animation_finished(0x16, /*goto*/ 0x2f)
-	if_chr_unloaded(0x16, /*goto*/ 0x2f)
+	if_chr_knockedout(0x16, /*goto*/ 0x2f)
 	goto_first(0x04)
 
 	label(0x2f)
@@ -5604,14 +5604,14 @@ u8 func0419_holo_guard_armed_alert[] = {
 	set_ailist(CHR_SELF, AILIST_HOLO_GUARD_UNARMED_ALERT)
 	label(0x2f)
 	label(0x8f)
-	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x04)
+	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x04)
 
 	beginloop(0x04)
 		if_in_disarm_range(/*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
-	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x08)
+	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_chr_injured_target(CHR_SELF, /*goto*/ 0x2f)
@@ -5656,9 +5656,9 @@ u8 func1031_holo7_part1[] = {
 		yield
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 		if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
-		if_chr_dying(0x19, /*goto*/ 0x2f)
+		if_chr_dead(0x19, /*goto*/ 0x2f)
 		if_chr_death_animation_finished(0x19, /*goto*/ 0x2f)
-		if_chr_unloaded(0x19, /*goto*/ 0x2f)
+		if_chr_knockedout(0x19, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
@@ -5669,9 +5669,9 @@ u8 func1031_holo7_part1[] = {
 	yield
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
-	if_chr_dying(0x1a, /*goto*/ 0x2f)
+	if_chr_dead(0x1a, /*goto*/ 0x2f)
 	if_chr_death_animation_finished(0x1a, /*goto*/ 0x2f)
-	if_chr_unloaded(0x1a, /*goto*/ 0x2f)
+	if_chr_knockedout(0x1a, /*goto*/ 0x2f)
 	goto_first(0x04)
 
 	label(0x2f)
@@ -5682,9 +5682,9 @@ u8 func1031_holo7_part1[] = {
 	yield
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
-	if_chr_dying(0x1b, /*goto*/ 0x2f)
+	if_chr_dead(0x1b, /*goto*/ 0x2f)
 	if_chr_death_animation_finished(0x1b, /*goto*/ 0x2f)
-	if_chr_unloaded(0x1b, /*goto*/ 0x2f)
+	if_chr_knockedout(0x1b, /*goto*/ 0x2f)
 	goto_first(0x04)
 
 	label(0x2f)
@@ -5695,9 +5695,9 @@ u8 func1031_holo7_part1[] = {
 	yield
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
-	if_chr_dying(0x17, /*goto*/ 0x2f)
+	if_chr_dead(0x17, /*goto*/ 0x2f)
 	if_chr_death_animation_finished(0x17, /*goto*/ 0x2f)
-	if_chr_unloaded(0x17, /*goto*/ 0x2f)
+	if_chr_knockedout(0x17, /*goto*/ 0x2f)
 	goto_first(0x04)
 
 	label(0x2f)
@@ -5708,9 +5708,9 @@ u8 func1031_holo7_part1[] = {
 	yield
 	if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
-	if_chr_dying(0x18, /*goto*/ 0x2f)
+	if_chr_dead(0x18, /*goto*/ 0x2f)
 	if_chr_death_animation_finished(0x18, /*goto*/ 0x2f)
-	if_chr_unloaded(0x18, /*goto*/ 0x2f)
+	if_chr_knockedout(0x18, /*goto*/ 0x2f)
 	goto_first(0x04)
 
 	label(0x2f)

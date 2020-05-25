@@ -1210,8 +1210,8 @@ u8 func0410_init_cass[] = {
 
 u8 func040f_cass[] = {
 	set_shotlist(GAILIST_IDLE)
-	if_chr_dying(CHR_CASS, /*goto*/ 0x06)
-	if_chr_unloaded(CHR_CASS, /*goto*/ 0x06)
+	if_chr_dead(CHR_CASS, /*goto*/ 0x06)
+	if_chr_knockedout(CHR_CASS, /*goto*/ 0x06)
 	goto_next(0x2c)
 
 	// Dying
@@ -1435,8 +1435,8 @@ u8 func0411_secretary[] = {
 	stop_chr
 	label(0x06)
 	set_shotlist(GAILIST_IDLE)
-	if_chr_dying(CHR_SECRETARY, /*goto*/ 0x06)
-	if_chr_unloaded(CHR_SECRETARY, /*goto*/ 0x06)
+	if_chr_dead(CHR_SECRETARY, /*goto*/ 0x06)
+	if_chr_knockedout(CHR_SECRETARY, /*goto*/ 0x06)
 	goto_next(0x2c)
 
 	label(0x06)
@@ -1554,9 +1554,9 @@ u8 func0414_programmer[] = {
 	set_reaction_speed(100)
 	set_shotlist(AILIST_PROGRAMMER)
 	set_chr_chrflag(CHR_PROGRAMMER, CHRCFLAG_00000080)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x06)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x2c)
 
 	label(0x06)
@@ -1888,7 +1888,7 @@ u8 func0414_programmer[] = {
 
 	beginloop(0xaf)
 		if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
-		if_chr_dying(CHR_SELF, /*goto*/ 0xb1)
+		if_chr_dead(CHR_SELF, /*goto*/ 0xb1)
 		if_timer_gt(1040, /*goto*/ 0x06)
 	endloop(0xaf)
 
@@ -2132,14 +2132,14 @@ u8 func1004_check_lab_lift_located[] = {
 
 	label(0x2c)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
-	if_chr_dying(CHR_BOND, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_dead(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
-	if_chr_dying(CHR_COOP, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_dead(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_COOP, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
@@ -2156,8 +2156,8 @@ u8 func1006_check_programmer_dead[] = {
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x06)
 
 	beginloop(0x04)
-		if_chr_dying(CHR_PROGRAMMER, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_PROGRAMMER, /*goto*/ 0x2c)
+		if_chr_dead(CHR_PROGRAMMER, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_PROGRAMMER, /*goto*/ 0x2c)
 	endloop(0x04)
 
 	label(0x2c)
@@ -2336,8 +2336,8 @@ u8 func1008_doorswitch[] = {
 
 u8 func1009_check_civilians_killed[] = {
 	beginloop(0x04)
-		if_chr_dying(CHR_SECRETARY, /*goto*/ 0x2c)
-		if_chr_dying(CHR_CASS, /*goto*/ 0x09)
+		if_chr_dead(CHR_SECRETARY, /*goto*/ 0x2c)
+		if_chr_dead(CHR_CASS, /*goto*/ 0x09)
 		label(0x06)
 	endloop(0x04)
 
@@ -3795,7 +3795,7 @@ u8 func042f_surrendering_guard[] = {
 		if_chr_in_view(/*goto*/ 0x28)
 		label(0x06)
 		if_chr_death_animation_finished(CHR_PRESET, /*goto*/ 0x55)
-		if_chr_unloaded(CHR_PRESET, /*goto*/ 0x55)
+		if_chr_knockedout(CHR_PRESET, /*goto*/ 0x55)
 		if_detected_chr(CHR_PRESET, /*goto*/ 0x57)
 		if_chr_stopped(/*goto*/ 0x57)
 	endloop(0x56)

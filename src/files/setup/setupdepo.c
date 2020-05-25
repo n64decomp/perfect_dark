@@ -1151,9 +1151,9 @@ u8 func100a_give_keycards[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	if_chr_dying(CHR_CLOAK_1A, /*goto*/ 0x06)
+	if_chr_dead(CHR_CLOAK_1A, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_CLOAK_1A, /*goto*/ 0x06)
-	if_chr_unloaded(CHR_CLOAK_1A, /*goto*/ 0x06)
+	if_chr_knockedout(CHR_CLOAK_1A, /*goto*/ 0x06)
 
 	// First cloacked guard is alive
 	give_object_to_chr(OBJ_KEYCARD1, CHR_CLOAK_1A)
@@ -1175,8 +1175,8 @@ u8 func100a_give_keycards[] = {
 
 	// Wait for the chr who holds the keycard to die
 	beginloop(0x55)
-		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x08)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x08)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2c)
 	endloop(0x55)
 
@@ -1192,9 +1192,9 @@ u8 func100a_give_keycards[] = {
 
 	// Second room
 	label(0x2c)
-	if_chr_dying(CHR_CLOAK_2A, /*goto*/ 0x06)
+	if_chr_dead(CHR_CLOAK_2A, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_CLOAK_2A, /*goto*/ 0x06)
-	if_chr_unloaded(CHR_CLOAK_2A, /*goto*/ 0x06)
+	if_chr_knockedout(CHR_CLOAK_2A, /*goto*/ 0x06)
 
 	// 2A alive
 	give_object_to_chr(OBJ_KEYCARD2, CHR_CLOAK_2A)
@@ -1203,18 +1203,18 @@ u8 func100a_give_keycards[] = {
 
 	// 2A dead
 	label(0x06)
-	if_chr_dying(CHR_CLOAK_2B, /*goto*/ 0x06)
+	if_chr_dead(CHR_CLOAK_2B, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_CLOAK_2B, /*goto*/ 0x06)
-	if_chr_unloaded(CHR_CLOAK_2B, /*goto*/ 0x06)
+	if_chr_knockedout(CHR_CLOAK_2B, /*goto*/ 0x06)
 	give_object_to_chr(OBJ_KEYCARD2, CHR_CLOAK_2B)
 	dprint 'G','I','V','E',' ','T','O','5',0,
 	goto_next(0x2c)
 
 	// 2B dead
 	label(0x06)
-	if_chr_dying(CHR_CLOAK_2C, /*goto*/ 0x06)
+	if_chr_dead(CHR_CLOAK_2C, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_CLOAK_2C, /*goto*/ 0x06)
-	if_chr_unloaded(CHR_CLOAK_2C, /*goto*/ 0x06)
+	if_chr_knockedout(CHR_CLOAK_2C, /*goto*/ 0x06)
 	give_object_to_chr(OBJ_KEYCARD2, CHR_CLOAK_2C)
 	dprint 'G','I','V','E',' ','T','O','6',0,
 	goto_next(0x2c)
@@ -1413,8 +1413,8 @@ u8 func1012_check_for_end[] = {
 
 		label(0x06)
 		if_chr_death_animation_finished(CHR_P1P2, /*goto*/ 0x2c)
-		if_chr_dying(CHR_P1P2, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_P1P2, /*goto*/ 0x2c)
+		if_chr_dead(CHR_P1P2, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_P1P2, /*goto*/ 0x2c)
 		goto_next(0x06)
 		label(0x2c)
 	endloop(0x08)
@@ -1444,14 +1444,14 @@ u8 func1012_check_for_end[] = {
 	// Objectives complete
 	label(0x53)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
-	if_chr_dying(CHR_BOND, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_dead(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
-	if_chr_dying(CHR_COOP, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_dead(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_knockedout(CHR_COOP, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
@@ -2265,9 +2265,9 @@ u8 func0412_cloak_guard[] = {
 	set_morale(0)
 	set_shotlist(AILIST_CLOAK_GUARD)
 	set_chr_cloaked(CHR_SELF, TRUE, FALSE)
-	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
+	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
-	if_chr_unloaded(CHR_SELF, /*goto*/ 0x06)
+	if_chr_knockedout(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x03)
 
 	// Dead
@@ -2316,9 +2316,9 @@ u8 func0412_cloak_guard[] = {
 		set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 		label(0x0a)
 		label(0x2c)
-		try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x2c)
+		try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x2c)
 		label(0x2c)
-		try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x0b)
+		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x0b)
 
 		beginloop(0x0b)
 			if_chr_stopped(/*goto*/ 0x0c)
@@ -2977,12 +2977,12 @@ u8 func0411_hide[] = {
 u8 func1027_cloak1_check_one_remaining[] = {
 	// Wait until either cloak guard dying (in first room)
 	beginloop(0x04)
-		if_chr_dying(CHR_CLOAK_1A, /*goto*/ 0x2c)
+		if_chr_dead(CHR_CLOAK_1A, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_CLOAK_1A, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_CLOAK_1A, /*goto*/ 0x2c)
-		if_chr_dying(CHR_CLOAK_1B, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_CLOAK_1A, /*goto*/ 0x2c)
+		if_chr_dead(CHR_CLOAK_1B, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_CLOAK_1B, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_CLOAK_1B, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_CLOAK_1B, /*goto*/ 0x2c)
 	endloop(0x04)
 
 	label(0x2c)
@@ -2995,33 +2995,33 @@ u8 func1028_cloak2_check_one_remaining[] = {
 	// Count number of dead cloak guards in second room
 	beginloop(0x04)
 		set_morale(0)
-		if_chr_dying(CHR_CLOAK_2A, /*goto*/ 0x2c)
+		if_chr_dead(CHR_CLOAK_2A, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_CLOAK_2A, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_CLOAK_2A, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_CLOAK_2A, /*goto*/ 0x2c)
 		goto_next(0x06)
 
 		label(0x2c)
 		add_morale(1)
 		label(0x06)
-		if_chr_dying(CHR_CLOAK_2B, /*goto*/ 0x2c)
+		if_chr_dead(CHR_CLOAK_2B, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_CLOAK_2B, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_CLOAK_2B, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_CLOAK_2B, /*goto*/ 0x2c)
 		goto_next(0x06)
 
 		label(0x2c)
 		add_morale(1)
 		label(0x06)
-		if_chr_dying(CHR_CLOAK_2C, /*goto*/ 0x2c)
+		if_chr_dead(CHR_CLOAK_2C, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_CLOAK_2C, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_CLOAK_2C, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_CLOAK_2C, /*goto*/ 0x2c)
 		goto_next(0x06)
 
 		label(0x2c)
 		add_morale(1)
 		label(0x06)
-		if_chr_dying(CHR_CLOAK_2D, /*goto*/ 0x2c)
+		if_chr_dead(CHR_CLOAK_2D, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_CLOAK_2D, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_CLOAK_2D, /*goto*/ 0x2c)
+		if_chr_knockedout(CHR_CLOAK_2D, /*goto*/ 0x2c)
 		goto_next(0x06)
 
 		label(0x2c)

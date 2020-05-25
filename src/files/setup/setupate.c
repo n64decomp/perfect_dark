@@ -139,7 +139,7 @@ u8 func1002_first_walk[] = {
 u8 func1007_second_walk[] = {
 	// Wait until SA walk trigger
 	beginloop(0x58)
-		if_chr_dying(CHR_BOND, /*goto*/ 0x2d)
+		if_chr_dead(CHR_BOND, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_SA_WALK_TRIGGER, TRUE, /*goto*/ 0x06)
 	endloop(0x58)
@@ -219,7 +219,7 @@ u8 func0401_move_to_pad[] = {
 u8 func1008_third_walk[] = {
 	// Wait for flag or Jo dying
 	beginloop(0x58)
-		if_chr_dying(CHR_BOND, /*goto*/ 0x2d)
+		if_chr_dead(CHR_BOND, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_PA_WALK_TRIGGER, TRUE, /*goto*/ 0x06)
 	endloop(0x58)
@@ -290,8 +290,8 @@ u8 func1005_main[] = {
 	// Wait until guard dead
 	beginloop(0x04)
 		if_chr_death_animation_finished(CHR_GUARD, /*goto*/ 0x2d)
-		if_chr_dying(CHR_GUARD, /*goto*/ 0x2d)
-		if_chr_unloaded(CHR_GUARD, /*goto*/ 0x2d)
+		if_chr_dead(CHR_GUARD, /*goto*/ 0x2d)
+		if_chr_knockedout(CHR_GUARD, /*goto*/ 0x2d)
 	endloop(0x04)
 
 	label(0x2d)
@@ -317,8 +317,8 @@ u8 func1005_main[] = {
 	// Wait until Jonathan dead
 	beginloop(0x09)
 		if_chr_death_animation_finished(CHR_JONATHAN, /*goto*/ 0x2d)
-		if_chr_dying(CHR_JONATHAN, /*goto*/ 0x2d)
-		if_chr_unloaded(CHR_JONATHAN, /*goto*/ 0x2d)
+		if_chr_dead(CHR_JONATHAN, /*goto*/ 0x2d)
+		if_chr_knockedout(CHR_JONATHAN, /*goto*/ 0x2d)
 	endloop(0x09)
 
 	label(0x2d)
@@ -344,8 +344,8 @@ u8 func1005_main[] = {
 	// Wait until Trent dead
 	beginloop(0x0c)
 		if_chr_death_animation_finished(CHR_TRENT, /*goto*/ 0x2d)
-		if_chr_dying(CHR_TRENT, /*goto*/ 0x2d)
-		if_chr_unloaded(CHR_TRENT, /*goto*/ 0x2d)
+		if_chr_dead(CHR_TRENT, /*goto*/ 0x2d)
+		if_chr_knockedout(CHR_TRENT, /*goto*/ 0x2d)
 	endloop(0x0c)
 
 	label(0x2d)
@@ -405,7 +405,7 @@ u8 func0402_guard_combat[] = {
 
 	// Guard has come into view. Jump sideways.
 	label(0x2d)
-	try_jump_sideways(/*goto*/ 0x08)
+	try_sidestep(/*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_distance_to_target_lt(250, /*goto*/ 0x0e)
@@ -420,10 +420,10 @@ u8 func0402_guard_combat[] = {
 
 		// 2 seconds have passed without seeing guard, or guard has been shot
 		label(0x06)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x2e)
-		try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x2d)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x2e)
+		try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x2d)
 		label(0x2d)
-		try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x0c)
+		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x0c)
 
 		beginloop(0x0c)
 			if_chr_stopped(/*goto*/ 0x06)
@@ -464,10 +464,10 @@ u8 func0403_jon_combat[] = {
 		reloop(0x08)
 
 		label(0x06)
-		try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x2d)
+		try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x2d)
 		label(0x2d)
-		try_roll_and_shoot(/*goto*/ 0x0c)
-		try_chr_kneel_and_shoot_thing(0x0200, 0x0000, /*goto*/ 0x0c)
+		try_attack_roll(/*goto*/ 0x0c)
+		try_attack_kneel(0x0200, 0x0000, /*goto*/ 0x0c)
 
 		beginloop(0x0c)
 			if_chr_stopped(/*goto*/ 0x06)
@@ -502,10 +502,10 @@ u8 func0404_trent_combat[] = {
 
 		// Attack
 		label(0x06)
-		if_chr_dying(CHR_TARGET, /*goto*/ 0x2e)
-		try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x2d)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0x2e)
+		try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x2d)
 		label(0x2d)
-		try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x0c)
+		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x0c)
 
 		beginloop(0x0c)
 			if_chr_stopped(/*goto*/ 0x06)
