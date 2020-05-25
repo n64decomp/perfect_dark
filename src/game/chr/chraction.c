@@ -9400,7 +9400,7 @@ glabel func0f0369cc
 );
 
 GLOBAL_ASM(
-glabel func0f036aa0
+glabel chrCanRollInDirection
 /*  f036aa0:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f036aa4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f036aa8:	afa60040 */ 	sw	$a2,0x40($sp)
@@ -13472,111 +13472,37 @@ bool chrTryAttackRun(struct chrdata *chr)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel chrTryAttackRoll
-.late_rodata
-glabel var7f1a8ec0
-.word 0x471c4000
-.text
-/*  f03a27c:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f03a280:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03a284:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03a288:	10800003 */ 	beqz	$a0,.L0f03a298
-/*  f03a28c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03a290:	10000002 */ 	beqz	$zero,.L0f03a29c
-/*  f03a294:	908202fe */ 	lbu	$v0,0x2fe($a0)
-.L0f03a298:
-/*  f03a298:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a29c:
-/*  f03a29c:	5440004e */ 	bnezl	$v0,.L0f03a3d8
-/*  f03a2a0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a2a4:	0fc0e686 */ 	jal	chrIsReadyForOrders
-/*  f03a2a8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a2ac:	5040004a */ 	beqzl	$v0,.L0f03a3d8
-/*  f03a2b0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a2b4:	8e03001c */ 	lw	$v1,0x1c($s0)
-/*  f03a2b8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a2bc:	00003825 */ 	or	$a3,$zero,$zero
-/*  f03a2c0:	24650008 */ 	addiu	$a1,$v1,0x8
-/*  f03a2c4:	24660028 */ 	addiu	$a2,$v1,0x28
-/*  f03a2c8:	0fc0e47b */ 	jal	func0f0391ec
-/*  f03a2cc:	afa30044 */ 	sw	$v1,0x44($sp)
-/*  f03a2d0:	10400040 */ 	beqz	$v0,.L0f03a3d4
-/*  f03a2d4:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f03a2d8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a2dc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03a2e0:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f03a2e4:	afa30044 */ 	sw	$v1,0x44($sp)
-/*  f03a2e8:	14400007 */ 	bnez	$v0,.L0f03a308
-/*  f03a2ec:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f03a2f0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a2f4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03a2f8:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f03a2fc:	afa30044 */ 	sw	$v1,0x44($sp)
-/*  f03a300:	10400034 */ 	beqz	$v0,.L0f03a3d4
-/*  f03a304:	8fa30044 */ 	lw	$v1,0x44($sp)
-.L0f03a308:
-/*  f03a308:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a30c:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f03a310:	afa30044 */ 	sw	$v1,0x44($sp)
-/*  f03a314:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f03a318:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f03a31c:	c448000c */ 	lwc1	$f8,0xc($v0)
-/*  f03a320:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f03a324:	c46a000c */ 	lwc1	$f10,0xc($v1)
-/*  f03a328:	c4500010 */ 	lwc1	$f16,0x10($v0)
-/*  f03a32c:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f03a330:	c4720010 */ 	lwc1	$f18,0x10($v1)
-/*  f03a334:	3c017f1b */ 	lui	$at,%hi(var7f1a8ec0)
-/*  f03a338:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f03a33c:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f03a340:	46128301 */ 	sub.s	$f12,$f16,$f18
-/*  f03a344:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f03a348:	c4328ec0 */ 	lwc1	$f18,%lo(var7f1a8ec0)($at)
-/*  f03a34c:	460c6282 */ 	mul.s	$f10,$f12,$f12
-/*  f03a350:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f03a354:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f03a358:	4610903e */ 	c.le.s	$f18,$f16
-/*  f03a35c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03a360:	4502001d */ 	bc1fl	.L0f03a3d8
-/*  f03a364:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a368:	0c004b70 */ 	jal	random
-/*  f03a36c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03a370:	30450001 */ 	andi	$a1,$v0,0x1
-/*  f03a374:	2cae0001 */ 	sltiu	$t6,$a1,0x1
-/*  f03a378:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f03a37c:	afae002c */ 	sw	$t6,0x2c($sp)
-/*  f03a380:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a384:	0fc0daa8 */ 	jal	func0f036aa0
-/*  f03a388:	3c064348 */ 	lui	$a2,0x4348
-/*  f03a38c:	10400006 */ 	beqz	$v0,.L0f03a3a8
-/*  f03a390:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f03a394:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a398:	0fc0c2d2 */ 	jal	chrAttackRoll
-/*  f03a39c:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f03a3a0:	1000000d */ 	beqz	$zero,.L0f03a3d8
-/*  f03a3a4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03a3a8:
-/*  f03a3a8:	2ce50001 */ 	sltiu	$a1,$a3,0x1
-/*  f03a3ac:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f03a3b0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a3b4:	0fc0daa8 */ 	jal	func0f036aa0
-/*  f03a3b8:	3c064348 */ 	lui	$a2,0x4348
-/*  f03a3bc:	10400005 */ 	beqz	$v0,.L0f03a3d4
-/*  f03a3c0:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f03a3c4:	0fc0c2d2 */ 	jal	chrAttackRoll
-/*  f03a3c8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a3cc:	10000002 */ 	beqz	$zero,.L0f03a3d8
-/*  f03a3d0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03a3d4:
-/*  f03a3d4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a3d8:
-/*  f03a3d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03a3dc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03a3e0:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f03a3e4:	03e00008 */ 	jr	$ra
-/*  f03a3e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrTryAttackRoll(struct chrdata *chr)
+{
+	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
+		struct prop *prop = chr->prop;
+
+		if (func0f0391ec(chr, &prop->pos, prop->rooms, 0) &&
+				(chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
+			struct prop *target = chrGetTargetProp(chr);
+			f32 x = target->pos.x - prop->pos.x;
+			f32 y = target->pos.y - prop->pos.y;
+			f32 z = target->pos.z - prop->pos.z;
+			f32 sqdistance = x * x + y * y + z * z;
+
+			if (sqdistance >= 40000.0f) {
+				bool direction = (random() & 1) == 0;
+
+				if (chrCanRollInDirection(chr, direction, 200)) {
+					chrAttackRoll(chr, direction);
+					return true;
+				}
+
+				if (chrCanRollInDirection(chr, !direction, 200)) {
+					chrAttackRoll(chr, !direction);
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f03a3ec
