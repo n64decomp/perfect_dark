@@ -60,7 +60,7 @@ u32 func0f03654c(void);
 bool propHasClearLineToPos(struct prop *prop, struct coord *arg1, struct coord *arg2);
 bool func0f036918(struct prop *prop, struct coord *coord, f32 arg2);
 u32 func0f036974(void);
-void chrGetSideVector(struct chrdata *chr, bool side, struct coord *coord);
+void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vector);
 u32 chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance);
 u32 func0f036b10(void);
 u32 func0f036b98(void);

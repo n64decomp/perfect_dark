@@ -9339,65 +9339,36 @@ glabel var7f1a8da0
 /*  f0369c8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrGetSideVector
-/*  f0369cc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0369d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0369d4:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f0369d8:	8c83001c */ 	lw	$v1,0x1c($a0)
-/*  f0369dc:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f0369e0:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f0369e4:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f0369e8:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f0369ec:	44808000 */ 	mtc1	$zero,$f16
-/*  f0369f0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0369f4:	44812000 */ 	mtc1	$at,$f4
-/*  f0369f8:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f0369fc:	e4d00000 */ 	swc1	$f16,0x0($a2)
-/*  f036a00:	e4d00004 */ 	swc1	$f16,0x4($a2)
-/*  f036a04:	10400022 */ 	beqz	$v0,.L0f036a90
-/*  f036a08:	e4c40008 */ 	swc1	$f4,0x8($a2)
-/*  f036a0c:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f036a10:	c4680008 */ 	lwc1	$f8,0x8($v1)
-/*  f036a14:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f036a18:	c4720010 */ 	lwc1	$f18,0x10($v1)
-/*  f036a1c:	46083081 */ 	sub.s	$f2,$f6,$f8
-/*  f036a20:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f036a24:	46125381 */ 	sub.s	$f14,$f10,$f18
-/*  f036a28:	46021102 */ 	mul.s	$f4,$f2,$f2
-/*  f036a2c:	e7a2001c */ 	swc1	$f2,0x1c($sp)
-/*  f036a30:	460e7182 */ 	mul.s	$f6,$f14,$f14
-/*  f036a34:	e7ae0018 */ 	swc1	$f14,0x18($sp)
-/*  f036a38:	0c012974 */ 	jal	sqrtf
-/*  f036a3c:	46062300 */ 	add.s	$f12,$f4,$f6
-/*  f036a40:	44808000 */ 	mtc1	$zero,$f16
-/*  f036a44:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f036a48:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
-/*  f036a4c:	4600803c */ 	c.lt.s	$f16,$f0
-/*  f036a50:	c7ae0018 */ 	lwc1	$f14,0x18($sp)
-/*  f036a54:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*  f036a58:	4502000e */ 	bc1fl	.L0f036a94
-/*  f036a5c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f036a60:	46001083 */ 	div.s	$f2,$f2,$f0
-/*  f036a64:	11c00006 */ 	beqz	$t6,.L0f036a80
-/*  f036a68:	46007383 */ 	div.s	$f14,$f14,$f0
-/*  f036a6c:	46001207 */ 	neg.s	$f8,$f2
-/*  f036a70:	e4ce0000 */ 	swc1	$f14,0x0($a2)
-/*  f036a74:	e4d00004 */ 	swc1	$f16,0x4($a2)
-/*  f036a78:	10000005 */ 	beqz	$zero,.L0f036a90
-/*  f036a7c:	e4c80008 */ 	swc1	$f8,0x8($a2)
-.L0f036a80:
-/*  f036a80:	46007287 */ 	neg.s	$f10,$f14
-/*  f036a84:	e4d00004 */ 	swc1	$f16,0x4($a2)
-/*  f036a88:	e4ca0000 */ 	swc1	$f10,0x0($a2)
-/*  f036a8c:	e4c20008 */ 	swc1	$f2,0x8($a2)
-.L0f036a90:
-/*  f036a90:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f036a94:
-/*  f036a94:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f036a98:	03e00008 */ 	jr	$ra
-/*  f036a9c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vector)
+{
+	struct prop *prop = chr->prop;
+	struct prop *target = chrGetTargetProp(chr);
+
+	vector->x = 0;
+	vector->y = 0;
+	vector->z = 1;
+
+	if (target) {
+		f32 x = target->pos.x - prop->pos.x;
+		f32 z = target->pos.z - prop->pos.z;
+		f32 distance = sqrtf(x * x + z * z);
+
+		if (distance > 0) {
+			x = x / distance;
+			z = z / distance;
+
+			if (side) {
+				vector->x = z;
+				vector->y = 0;
+				vector->z = -x;
+			} else {
+				vector->x = -z;
+				vector->y = 0;
+				vector->z = x;
+			}
+		}
+	}
+}
 
 bool chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance)
 {
@@ -9405,7 +9376,7 @@ bool chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance)
 	struct coord vector;
 	struct coord dstpos;
 
-	chrGetSideVector(chr, side, &vector);
+	chrGetSideVectorToTarget(chr, side, &vector);
 
 	dstpos.x = vector.x * distance + prop->pos.x;
 	dstpos.y = prop->pos.y;
@@ -13334,7 +13305,7 @@ glabel chrTryRunSideways
 /*  f039ed8:	2cb90001 */ 	sltiu	$t9,$a1,0x1
 /*  f039edc:	03202825 */ 	or	$a1,$t9,$zero
 /*  f039ee0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f039ee4:	0fc0da73 */ 	jal	chrGetSideVector
+/*  f039ee4:	0fc0da73 */ 	jal	chrGetSideVectorToTarget
 /*  f039ee8:	27a60030 */ 	addiu	$a2,$sp,0x30
 /*  f039eec:	c7a0003c */ 	lwc1	$f0,0x3c($sp)
 /*  f039ef0:	c7a80030 */ 	lwc1	$f8,0x30($sp)
