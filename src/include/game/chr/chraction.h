@@ -36,7 +36,7 @@ u32 func0f030a40(void);
 u32 chrAttackRoll(void);
 void func0f030ff8(struct chrdata *chr, u32 anim_id, f32 fstartframe, f32 fendframe, u8 flags, u32 transition, f32 result);
 u32 func0f031254(void);
-u32 func0f031384(void);
+void func0f031384(struct chrdata *chr, u32 *arg1, bool arg2, s32 *firing, u32 entitytype, u32 entityid, u32 arg6);
 u32 func0f0318b8(void);
 u32 func0f0319a8(void);
 u32 func0f032ac4(void);

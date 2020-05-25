@@ -2126,6 +2126,25 @@ glabel chrAttackLie
 /*  f03039c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch because some instructions are swapped
+//void chrAttackLie(struct chrdata *chr, s32 entitytype, s32 entityid)
+//{
+//	u32 stack1[2];
+//	struct prop *gun = chrGetEquippedWeaponProp(chr, 0);
+//	s32 firing[2] = {false, false};
+//	u32 stack2[2];
+//
+//	if (entitytype & 0x20) {
+//		firing[1] = false;
+//		firing[0] = false;
+//	} else {
+//		firing[1] = gun == NULL;
+//		firing[0] = !firing[1];
+//	}
+//
+//	func0f031384(chr, &var80067e50, gun == NULL, firing, entitytype, entityid, 0);
+//}
+
 GLOBAL_ASM(
 glabel chrAttackKneel
 /*  f0303a0:	27bdffa8 */ 	addiu	$sp,$sp,-88
