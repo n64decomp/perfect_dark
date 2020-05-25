@@ -612,7 +612,7 @@ struct chrdata {
 	/*0x0b8*/ f32 ground;
 	/*0x0bc*/ struct coord fallspeed;
 	/*0x0c8*/ struct coord prevpos;
-	/*0x0d4*/ u32 lastwalk60;
+	/*0x0d4*/ s32 lastwalk60;
 	/*0x0d8*/ s32 lastmoveok60;
 	/*0x0dc*/ f32 visionrange;
 	/*0x0e0*/ s32 lastseetarget60;
