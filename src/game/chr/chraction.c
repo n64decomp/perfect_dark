@@ -13443,106 +13443,34 @@ bool chrTryAttackWalk(struct chrdata *chr)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel chrTryAttackRun
-.late_rodata
-glabel var7f1a8ebc
-.word 0x49742400
-.text
-/*  f03a124:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f03a128:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03a12c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03a130:	10800004 */ 	beqz	$a0,.L0f03a144
-/*  f03a134:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03a138:	908e02fe */ 	lbu	$t6,0x2fe($a0)
-/*  f03a13c:	10000002 */ 	beqz	$zero,.L0f03a148
-/*  f03a140:	afae0024 */ 	sw	$t6,0x24($sp)
-.L0f03a144:
-/*  f03a144:	afa00024 */ 	sw	$zero,0x24($sp)
-.L0f03a148:
-/*  f03a148:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*  f03a14c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f03a150:	11e10003 */ 	beq	$t7,$at,.L0f03a160
-/*  f03a154:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f03a158:	15e10003 */ 	bne	$t7,$at,.L0f03a168
-/*  f03a15c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f03a160:
-/*  f03a160:	10000041 */ 	beqz	$zero,.L0f03a268
-/*  f03a164:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a168:
-/*  f03a168:	0fc0e686 */ 	jal	chrIsReadyForOrders
-/*  f03a16c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a170:	5040003d */ 	beqzl	$v0,.L0f03a268
-/*  f03a174:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a178:	8e03001c */ 	lw	$v1,0x1c($s0)
-/*  f03a17c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a180:	00003825 */ 	or	$a3,$zero,$zero
-/*  f03a184:	24650008 */ 	addiu	$a1,$v1,0x8
-/*  f03a188:	24660028 */ 	addiu	$a2,$v1,0x28
-/*  f03a18c:	0fc0e47b */ 	jal	func0f0391ec
-/*  f03a190:	afa30020 */ 	sw	$v1,0x20($sp)
-/*  f03a194:	10400033 */ 	beqz	$v0,.L0f03a264
-/*  f03a198:	8fa30020 */ 	lw	$v1,0x20($sp)
-/*  f03a19c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a1a0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03a1a4:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f03a1a8:	afa30020 */ 	sw	$v1,0x20($sp)
-/*  f03a1ac:	14400007 */ 	bnez	$v0,.L0f03a1cc
-/*  f03a1b0:	8fa30020 */ 	lw	$v1,0x20($sp)
-/*  f03a1b4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a1b8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03a1bc:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f03a1c0:	afa30020 */ 	sw	$v1,0x20($sp)
-/*  f03a1c4:	10400027 */ 	beqz	$v0,.L0f03a264
-/*  f03a1c8:	8fa30020 */ 	lw	$v1,0x20($sp)
-.L0f03a1cc:
-/*  f03a1cc:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x8)
-/*  f03a1d0:	8f189fc8 */ 	lw	$t8,%lo(g_Vars+0x8)($t8)
-/*  f03a1d4:	8e1900d4 */ 	lw	$t9,0xd4($s0)
-/*  f03a1d8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a1dc:	03194023 */ 	subu	$t0,$t8,$t9
-/*  f03a1e0:	290100b5 */ 	slti	$at,$t0,0xb5
-/*  f03a1e4:	54200020 */ 	bnezl	$at,.L0f03a268
-/*  f03a1e8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a1ec:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f03a1f0:	afa30020 */ 	sw	$v1,0x20($sp)
-/*  f03a1f4:	8fa30020 */ 	lw	$v1,0x20($sp)
-/*  f03a1f8:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*  f03a1fc:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f03a200:	c448000c */ 	lwc1	$f8,0xc($v0)
-/*  f03a204:	c4500010 */ 	lwc1	$f16,0x10($v0)
-/*  f03a208:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f03a20c:	c46a000c */ 	lwc1	$f10,0xc($v1)
-/*  f03a210:	c4720010 */ 	lwc1	$f18,0x10($v1)
-/*  f03a214:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f03a218:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f03a21c:	15200011 */ 	bnez	$t1,.L0f03a264
-/*  f03a220:	46128301 */ 	sub.s	$f12,$f16,$f18
-/*  f03a224:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f03a228:	3c017f1b */ 	lui	$at,%hi(var7f1a8ebc)
-/*  f03a22c:	c4328ebc */ 	lwc1	$f18,%lo(var7f1a8ebc)($at)
-/*  f03a230:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f03a234:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a238:	460c6282 */ 	mul.s	$f10,$f12,$f12
-/*  f03a23c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f03a240:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f03a244:	4610903e */ 	c.le.s	$f18,$f16
-/*  f03a248:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03a24c:	45020006 */ 	bc1fl	.L0f03a268
-/*  f03a250:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a254:	0fc0c178 */ 	jal	chrAttackWalk
-/*  f03a258:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03a25c:	10000002 */ 	beqz	$zero,.L0f03a268
-/*  f03a260:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03a264:
-/*  f03a264:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a268:
-/*  f03a268:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03a26c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03a270:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f03a274:	03e00008 */ 	jr	$ra
-/*  f03a278:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrTryAttackRun(struct chrdata *chr)
+{
+	u32 race = CHRRACE(chr);
+
+	if (race == RACE_DRCAROLL || race == RACE_EYESPY) {
+		return false;
+	}
+
+	if (chrIsReadyForOrders(chr)) {
+		struct prop *prop = chr->prop;
+
+		if (func0f0391ec(chr, &prop->pos, prop->rooms, 0)
+				&& (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))
+				&& g_Vars.lvframe60 - chr->lastwalk60 > 180) {
+			struct prop *target = chrGetTargetProp(chr);
+			f32 x = target->pos.x - prop->pos.x;
+			f32 y = target->pos.y - prop->pos.y;
+			f32 z = target->pos.z - prop->pos.z;
+
+			if (race == RACE_HUMAN && x * x + y * y + z * z >= 1000000.0f) {
+				chrAttackWalk(chr, SPEED_JOG);
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel chrTryAttackRoll
