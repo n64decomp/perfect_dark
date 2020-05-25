@@ -94,7 +94,7 @@ u32 chrCheckTargetInSight(struct chrdata *chr);
 bool chrIsReadyForOrders(struct chrdata *chr);
 u32 chrTrySidestep(struct chrdata *chr);
 u32 chrTryJumpOut(struct chrdata *chr);
-u32 chrTryRunSideways(struct chrdata *chr);
+bool chrTryRunSideways(struct chrdata *chr);
 u32 chrTryAttackWalk(struct chrdata *chr);
 bool chrTryAttackRun(struct chrdata *chr);
 u32 chrTryAttackRoll(struct chrdata *chr);

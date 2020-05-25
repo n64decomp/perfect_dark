@@ -13368,6 +13368,46 @@ glabel chrTryRunSideways
 /*  f039fc8:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
+// Mismatch because the below is using too much stack.
+//bool chrTryRunSideways(struct chrdata *chr)
+//{
+//	u8 race = CHRRACE(chr);
+//
+//	if ((race == RACE_HUMAN || race == RACE_SKEDAR)
+//			&& chrIsReadyForOrders(chr)
+//			&& g_Vars.lvframe60 - chr->lastwalk60 > 180) {
+//		struct prop *prop = chr->prop;
+//		f32 distance = 200.0f + random() * (1.0f / U32_MAX) * 200.0f; // sp60
+//		struct coord vector;// sp48
+//		struct coord dstpos; // sp36
+//
+//		chrGetSideVectorToTarget(chr, random() % 2 == 0, &vector);
+//
+//		dstpos.x = vector.x * distance + prop->pos.x;
+//		dstpos.y = prop->pos.y;
+//		dstpos.z = vector.z * distance + prop->pos.z;
+//
+//		if (propHasClearLineToPos(prop, &dstpos, &vector)) {
+//			chrRunToPos(chr, &dstpos);
+//			return true;
+//		}
+//
+//		vector.x = -vector.x;
+//		vector.z = -vector.z;
+//
+//		dstpos.x = vector.x * distance + prop->pos.x;
+//		dstpos.y = prop->pos.y;
+//		dstpos.z = vector.z * distance + prop->pos.z;
+//
+//		if (propHasClearLineToPos(prop, &dstpos, &vector)) {
+//			chrRunToPos(chr, &dstpos);
+//			return true;
+//		}
+//	}
+//
+//	return false;
+//}
+
 bool chrTryAttackWalk(struct chrdata *chr)
 {
 	u32 race = CHRRACE(chr);
