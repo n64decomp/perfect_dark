@@ -9251,7 +9251,7 @@ glabel func0f03654c
 );
 
 GLOBAL_ASM(
-glabel func0f0368b8
+glabel propHasClearLineToPos
 .late_rodata
 glabel var7f1a8d9c
 .word 0x3f99999a
@@ -9301,7 +9301,7 @@ glabel func0f036918
 /*  f036950:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*  f036954:	460c9102 */ 	mul.s	$f4,$f18,$f12
 /*  f036958:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f03695c:	0fc0da2e */ 	jal	func0f0368b8
+/*  f03695c:	0fc0da2e */ 	jal	propHasClearLineToPos
 /*  f036960:	e7a80024 */ 	swc1	$f8,0x24($sp)
 /*  f036964:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f036968:	27bd0028 */ 	addiu	$sp,$sp,0x28
@@ -9340,7 +9340,7 @@ glabel var7f1a8da0
 );
 
 GLOBAL_ASM(
-glabel func0f0369cc
+glabel chrGetSideVector
 /*  f0369cc:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f0369d0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0369d4:	afa5002c */ 	sw	$a1,0x2c($sp)
@@ -9399,37 +9399,20 @@ glabel func0f0369cc
 /*  f036a9c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrCanRollInDirection
-/*  f036aa0:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f036aa4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f036aa8:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f036aac:	8c87001c */ 	lw	$a3,0x1c($a0)
-/*  f036ab0:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f036ab4:	0fc0da73 */ 	jal	func0f0369cc
-/*  f036ab8:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f036abc:	c7a00040 */ 	lwc1	$f0,0x40($sp)
-/*  f036ac0:	c7a40028 */ 	lwc1	$f4,0x28($sp)
-/*  f036ac4:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*  f036ac8:	c7b20030 */ 	lwc1	$f18,0x30($sp)
-/*  f036acc:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f036ad0:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f036ad4:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f036ad8:	46009102 */ 	mul.s	$f4,$f18,$f0
-/*  f036adc:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f036ae0:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f036ae4:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*  f036ae8:	c490000c */ 	lwc1	$f16,0xc($a0)
-/*  f036aec:	e7b00020 */ 	swc1	$f16,0x20($sp)
-/*  f036af0:	c4860010 */ 	lwc1	$f6,0x10($a0)
-/*  f036af4:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f036af8:	0fc0da2e */ 	jal	func0f0368b8
-/*  f036afc:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f036b00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f036b04:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f036b08:	03e00008 */ 	jr	$ra
-/*  f036b0c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance)
+{
+	struct prop *prop = chr->prop;
+	struct coord vector;
+	struct coord dstpos;
+
+	chrGetSideVector(chr, side, &vector);
+
+	dstpos.x = vector.x * distance + prop->pos.x;
+	dstpos.y = prop->pos.y;
+	dstpos.z = vector.z * distance + prop->pos.z;
+
+	return propHasClearLineToPos(prop, &dstpos, &vector);
+}
 
 GLOBAL_ASM(
 glabel func0f036b10
@@ -9495,7 +9478,7 @@ glabel func0f036b98
 /*  f036be4:	e7b00020 */ 	swc1	$f16,0x20($sp)
 /*  f036be8:	c4860010 */ 	lwc1	$f6,0x10($a0)
 /*  f036bec:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f036bf0:	0fc0da2e */ 	jal	func0f0368b8
+/*  f036bf0:	0fc0da2e */ 	jal	propHasClearLineToPos
 /*  f036bf4:	e7a80024 */ 	swc1	$f8,0x24($sp)
 /*  f036bf8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f036bfc:	27bd0038 */ 	addiu	$sp,$sp,0x38
@@ -13351,7 +13334,7 @@ glabel chrTryRunSideways
 /*  f039ed8:	2cb90001 */ 	sltiu	$t9,$a1,0x1
 /*  f039edc:	03202825 */ 	or	$a1,$t9,$zero
 /*  f039ee0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f039ee4:	0fc0da73 */ 	jal	func0f0369cc
+/*  f039ee4:	0fc0da73 */ 	jal	chrGetSideVector
 /*  f039ee8:	27a60030 */ 	addiu	$a2,$sp,0x30
 /*  f039eec:	c7a0003c */ 	lwc1	$f0,0x3c($sp)
 /*  f039ef0:	c7a80030 */ 	lwc1	$f8,0x30($sp)
@@ -13368,7 +13351,7 @@ glabel chrTryRunSideways
 /*  f039f1c:	e7b20028 */ 	swc1	$f18,0x28($sp)
 /*  f039f20:	c6060010 */ 	lwc1	$f6,0x10($s0)
 /*  f039f24:	46064280 */ 	add.s	$f10,$f8,$f6
-/*  f039f28:	0fc0da2e */ 	jal	func0f0368b8
+/*  f039f28:	0fc0da2e */ 	jal	propHasClearLineToPos
 /*  f039f2c:	e7aa002c */ 	swc1	$f10,0x2c($sp)
 /*  f039f30:	10400006 */ 	beqz	$v0,.L0f039f4c
 /*  f039f34:	c7b00030 */ 	lwc1	$f16,0x30($sp)
@@ -13396,7 +13379,7 @@ glabel chrTryRunSideways
 /*  f039f88:	e7b20028 */ 	swc1	$f18,0x28($sp)
 /*  f039f8c:	c6100010 */ 	lwc1	$f16,0x10($s0)
 /*  f039f90:	46105100 */ 	add.s	$f4,$f10,$f16
-/*  f039f94:	0fc0da2e */ 	jal	func0f0368b8
+/*  f039f94:	0fc0da2e */ 	jal	propHasClearLineToPos
 /*  f039f98:	e7a4002c */ 	swc1	$f4,0x2c($sp)
 /*  f039f9c:	10400005 */ 	beqz	$v0,.L0f039fb4
 /*  f039fa0:	02202025 */ 	or	$a0,$s1,$zero
@@ -13486,15 +13469,15 @@ bool chrTryAttackRoll(struct chrdata *chr)
 			f32 sqdistance = x * x + y * y + z * z;
 
 			if (sqdistance >= 40000.0f) {
-				bool direction = (random() & 1) == 0;
+				bool side = (random() & 1) == 0;
 
-				if (chrCanRollInDirection(chr, direction, 200)) {
-					chrAttackRoll(chr, direction);
+				if (chrCanRollInDirection(chr, side, 200)) {
+					chrAttackRoll(chr, side);
 					return true;
 				}
 
-				if (chrCanRollInDirection(chr, !direction, 200)) {
-					chrAttackRoll(chr, !direction);
+				if (chrCanRollInDirection(chr, !side, 200)) {
+					chrAttackRoll(chr, !side);
 					return true;
 				}
 			}
