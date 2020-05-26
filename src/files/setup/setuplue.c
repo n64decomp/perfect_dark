@@ -1540,14 +1540,14 @@ u8 func0417_traitor[] = {
 		label(0x2e)
 		call_rng
 		if_rand_gt(128, /*goto*/ 0x2e)
-		try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x0a)
+		try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x0a)
 
 		label(0x2e)
-		try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x0a)
+		try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x0a)
 		dprint 'S','H','O','O','T','F','A','I','L','E','D','\n',0,
 		yield
 		label(0x0a)
-		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x0b)
+		try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0b)
 		goto_next(0x0c)
 
 		beginloop(0x0b)
@@ -1659,7 +1659,7 @@ u8 func0416_mechanic[] = {
 	label(0x2e)
 	set_alertness(100)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x0a)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0a)
 
 	beginloop(0x0a)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
@@ -1733,7 +1733,7 @@ u8 func040a_top_interceptor[] = {
 		goto_first(0x09)
 
 		label(0x59)
-		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x5b)
+		try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x5b)
 		reloop(0x0a)
 
 		label(0x5b)

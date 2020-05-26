@@ -421,9 +421,9 @@ u8 func0402_guard_combat[] = {
 		// 2 seconds have passed without seeing guard, or guard has been shot
 		label(0x06)
 		if_chr_dead(CHR_TARGET, /*goto*/ 0x2e)
-		try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x2d)
+		try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x2d)
 		label(0x2d)
-		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x0c)
+		try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0c)
 
 		beginloop(0x0c)
 			if_chr_stopped(/*goto*/ 0x06)
@@ -464,10 +464,10 @@ u8 func0403_jon_combat[] = {
 		reloop(0x08)
 
 		label(0x06)
-		try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x2d)
+		try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x2d)
 		label(0x2d)
 		try_attack_roll(/*goto*/ 0x0c)
-		try_attack_kneel(0x0200, 0x0000, /*goto*/ 0x0c)
+		try_attack_kneel(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0c)
 
 		beginloop(0x0c)
 			if_chr_stopped(/*goto*/ 0x06)
@@ -503,9 +503,9 @@ u8 func0404_trent_combat[] = {
 		// Attack
 		label(0x06)
 		if_chr_dead(CHR_TARGET, /*goto*/ 0x2e)
-		try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x2d)
+		try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x2d)
 		label(0x2d)
-		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x0c)
+		try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0c)
 
 		beginloop(0x0c)
 			if_chr_stopped(/*goto*/ 0x06)

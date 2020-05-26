@@ -1437,7 +1437,7 @@ u8 func0412_cia[] = {
 
 	label(0x1e)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x04)
@@ -1586,7 +1586,7 @@ u8 func0413_bugspotter[] = {
 	// Player in sight - face them
 	label(0x04)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x04)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x04)
 
 	beginloop(0x09)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x04)
@@ -1868,7 +1868,7 @@ u8 func041d_fbi[] = {
 
 	label(0x04)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x0d)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0d)
 
 	beginloop(0x0d)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x04)
@@ -2040,7 +2040,7 @@ u8 func041a_robot[] = {
 		label(0x03)
 		set_target_chr(CHR_P1P2)
 		restart_timer
-		try_attack_stand1(0x0200, 0x0000, /*goto*/ 0x09)
+		try_attack_stand(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 		reloop(0x02)
 
 		beginloop(0x09)

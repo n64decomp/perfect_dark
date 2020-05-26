@@ -211,32 +211,50 @@
 	mkshort(0x0014), \
 	label,
 
-#define try_attack_stand1(u1, u2, label) \
+/**
+ * Makes the chr attempt to do a standing attack.
+ *
+ * entity_type is expected to be an ENTITYTYPE constant. It can be bitwise ORed
+ * with ENTITYTYPE_AIMONLY to make the chr only aim at the entity.
+ */
+#define try_attack_stand(entity_type, entity_id, label) \
 	mkshort(0x0015), \
-	mkshort(u1), \
-	mkshort(u2), \
+	mkshort(entity_type), \
+	mkshort(entity_id), \
 	label,
 
-#define try_attack_kneel(u1, u2, label) \
+/**
+ * Makes the chr attempt to do a kneeling attack.
+ *
+ * entity_type is expected to be an ENTITYTYPE constant. It can be bitwise ORed
+ * with ENTITYTYPE_AIMONLY to make the chr only aim at the entity.
+ */
+#define try_attack_kneel(entity_type, entity_id, label) \
 	mkshort(0x0016), \
-	mkshort(u1), \
-	mkshort(u2), \
+	mkshort(entity_type), \
+	mkshort(entity_id), \
 	label,
 
-#define try_attack_stand2(u1, u2, label) \
+/**
+ * Modifies the target entity and the aim-only/shoot flag.
+ *
+ * This command can only be used after try_attack_stand, try_attack_kneel,
+ * try_attack_lie or try_face_entity. A common pattern is to use one of those
+ * commands with the ENTITYTYPE_AIMONLY flag to point the gun at the entity, and
+ * if the label was followed then call try_modify_attack to remove the
+ * ENTITYTYPE_AIMONLY flag, causing the chr to shoot.
+ */
+#define try_modify_attack(entity_type, entity_id, label) \
 	mkshort(0x0017), \
-	mkshort(u1), \
-	mkshort(u2), \
+	mkshort(entity_type), \
+	mkshort(entity_id), \
 	label,
 
 /**
  * Makes the chr begin facing the given entity. They will continue to face it
- * until stop_chr is used or significantly different action is given to them.
+ * until stop_chr is used or a significantly different action is given to them.
  *
- * Type 0x0004 is not known
- * Type 0x0008 is pad
- * Type 0x0010 is a compass direction (use 0x0000, 0x4000, 0x8000 and 0xc000)
- * Type 0x0200 is the player
+ * entity_type is expected to be an ENTITYTYPE constant.
  */
 #define try_face_entity(entity_type, entity_id, label) \
 	mkshort(0x0018), \
@@ -3635,11 +3653,16 @@
 #define shuffle_pelagic_switches \
 	mkshort(0x01b9),
 
-// Likely some kind of shoot command, with u1 = entitytype and u2 = entityid
-#define try_attack_lie(u1, u2, label) \
+/**
+ * Makes the chr attempt to do a lying down attack.
+ *
+ * entity_type is expected to be an ENTITYTYPE constant. It can be bitwise ORed
+ * with ENTITYTYPE_AIMONLY to make the chr only aim at the entity.
+ */
+#define try_attack_lie(entity_type, entity_id, label) \
 	mkshort(0x01ba), \
-	mkshort(u1), \
-	mkshort(u2), \
+	mkshort(entity_type), \
+	mkshort(entity_id), \
 	label,
 
 #define noop01bb \

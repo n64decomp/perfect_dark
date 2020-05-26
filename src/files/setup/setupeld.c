@@ -1500,7 +1500,7 @@ u8 func0402_taker[] = {
 		label(0x06)
 		set_target_chr(CHR_BOND)
 		label(0x03)
-		try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x05)
+		try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x05)
 
 		beginloop(0x05)
 			if_distance_to_target_gt(1000, /*goto*/ 0x2e)
@@ -1519,7 +1519,7 @@ u8 func0402_taker[] = {
 		// Jo got too close
 		label(0x06)
 		set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x09)
+		try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 		label(0x09)
 		yield
 		if_chr_stopped(/*goto*/ 0x06)
@@ -1546,7 +1546,7 @@ u8 func0402_taker[] = {
 	restart_timer
 	set_target_chr(CHR_NEGOTIATOR)
 	label(0x03)
-	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x04)
+	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x04)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1584,7 +1584,7 @@ u8 func0402_taker[] = {
 	// Shoot
 	label(0x6f)
 	label(0x06)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x08)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_chr_death_animation_finished(CHR_NEGOTIATOR, /*goto*/ 0x06)
@@ -1805,7 +1805,7 @@ u8 func0404_sniper[] = {
 		if_rand_lt(64, /*goto*/ 0x59)
 		if_rand_lt(128, /*goto*/ 0x5a)
 		if_rand_lt(196, /*goto*/ 0x5b)
-		try_face_entity(ENTITYTYPE_DIRECTION, 0x0000, /*goto*/ 0x06)
+		try_face_entity(ENTITYTYPE_DIRECTION, 0, /*goto*/ 0x06)
 		reloop(0x04)
 
 		label(0x59)
@@ -1889,13 +1889,13 @@ u8 func0404_sniper[] = {
 		label(0x2d)
 		restart_timer
 		label(0x06)
-		try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x08)
+		try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x08)
 		reloop(0x04)
 
 		label(0x08)
 		yield
 		label(0x06)
-		try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x09)
+		try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 		reloop(0x04)
 
 		beginloop(0x09)

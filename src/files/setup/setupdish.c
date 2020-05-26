@@ -591,7 +591,7 @@ u8 func041e_colleague[] = {
 		restart_timer
 		label(0x08)
 		if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x06)
-		try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
+		try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 
 		beginloop(0x09)
 			if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
@@ -620,7 +620,7 @@ u8 func041e_colleague[] = {
 		label(0x06)
 		restart_timer
 		stop_chr
-		try_face_entity(0x0200, 0x0000, /*goto*/ 0x59)
+		try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x59)
 
 		beginloop(0x59)
 			if_target_in_sight(/*goto*/ 0x06)
@@ -2464,7 +2464,7 @@ u8 func0429_grimshaw_disguise[] = {
 	restart_timer
 	label(0x08)
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x06)
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
@@ -2656,7 +2656,7 @@ u8 func042a_carrington_cloak[] = {
 	restart_timer
 	label(0x08)
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x06)
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
@@ -3174,7 +3174,7 @@ u8 func042c_carrington_tour[] = {
 	label(0x06)
 	restart_timer
 	set_target_chr(CHR_BOND)
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x79)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x79)
 
 	beginloop(0x79)
 		if_timer_gt(120, /*goto*/ 0x2f)
@@ -4549,7 +4549,7 @@ u8 func0404_holo4_guard2[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	label(0x06)
 	if_distance_to_target_lt(500, /*goto*/ 0x2f)
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x08)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_distance_to_target_lt(500, /*goto*/ 0x2f)
@@ -4809,7 +4809,7 @@ u8 func0407_holo5_guard1[] = {
 
 	label(0x06)
 	if_distance_to_target_lt(300, /*goto*/ 0x2f)
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x08)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_distance_to_target_lt(300, /*goto*/ 0x2f)
@@ -4866,7 +4866,7 @@ u8 func0409_holo5_guard2[] = {
 	label(0x06)
 	label(0x09)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x0a)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0a)
 
 	beginloop(0x0a)
 		if_chr_sees_player(/*goto*/ 0x06)
@@ -5248,7 +5248,7 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 	if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
 	stop_chr
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_chr_dead(CHR_TARGET, /*goto*/ 0x57)
@@ -5604,14 +5604,14 @@ u8 func0419_holo_guard_armed_alert[] = {
 	set_ailist(CHR_SELF, AILIST_HOLO_GUARD_UNARMED_ALERT)
 	label(0x2f)
 	label(0x8f)
-	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x04)
+	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x04)
 
 	beginloop(0x04)
 		if_in_disarm_range(/*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x08)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_chr_injured_target(CHR_SELF, /*goto*/ 0x2f)

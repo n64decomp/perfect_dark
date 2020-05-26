@@ -1245,7 +1245,7 @@ u8 func040f_cass[] = {
 	stop_chr
 	yield
 	unset_stage_flag(STAGEFLAG_SECETARY_SAW_JO_OR_COOP)
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x5b)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x5b)
 
 	beginloop(0x5b)
 		if_chr_stopped(/*goto*/ 0x5c)
@@ -1276,7 +1276,7 @@ u8 func040f_cass[] = {
 	// Face target again
 	label(0x06)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x64)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x64)
 
 	beginloop(0x64)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x65)
@@ -1349,7 +1349,7 @@ u8 func040f_cass[] = {
 
 	label(0x06)
 	restart_timer
-	try_face_entity(0x0008, 0x0042, /*goto*/ 0xb8)
+	try_face_entity(ENTITYTYPE_PAD, 0x0042, /*goto*/ 0xb8)
 
 	beginloop(0xb8)
 		if_timer_gt(60, /*goto*/ 0x63)
@@ -1383,13 +1383,13 @@ u8 func040f_cass[] = {
 	label(0x6b)
 		stop_chr
 		yield
-		try_face_entity(0x0200, 0x0000, /*goto*/ 0x6c)
+		try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x6c)
 
 		beginloop(0x6c)
 			call_rng
 			if_rand_lt(250, /*goto*/ 0x06)
 			stop_chr
-			try_face_entity(0x0200, 0x0000, /*goto*/ 0x2c)
+			try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x2c)
 			label(0x2c)
 			call_rng
 			if_distance_to_target_gt(500, /*goto*/ 0x06)
@@ -1465,7 +1465,7 @@ u8 func0411_secretary[] = {
 	endloop(0x7a)
 
 	label(0x7b)
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x7c)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x7c)
 
 	beginloop(0x7c)
 		if_timer_lt(80, /*goto*/ 0x2c)
@@ -1509,7 +1509,7 @@ u8 func0411_secretary[] = {
 		goto_next(0x81)
 
 		// Unreachable
-		try_face_entity(0x0200, 0x0000, /*goto*/ 0x7f)
+		try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x7f)
 
 		beginloop(0x7f)
 			if_jo_ccw_direction_lt(10, /*goto*/ 0x81)
@@ -1700,7 +1700,7 @@ u8 func0414_programmer[] = {
 		restart_timer
 		set_alertness(255)
 		restart_timer
-		try_face_entity(0x0200, 0x0000, /*goto*/ 0x9a)
+		try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x9a)
 
 		beginloop(0x9a)
 			if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
@@ -1799,7 +1799,7 @@ u8 func0414_programmer[] = {
 	speak(CHR_TARGET, L_AME(71), 0x7323, CHANNEL_3, COLOR_09_BLUE) // "Move it!"
 	label(0x06)
 	set_stage_flag(STAGEFLAG_TALKED_TO_PROGRAMMER)
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x9b)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x9b)
 
 	beginloop(0x9b)
 		if_stage_flag_eq(STAGEFLAG_TALKED_TO_PROGRAMMER, TRUE, /*goto*/ 0x06)

@@ -1168,7 +1168,7 @@ u8 func0007_alerted[] = {
 	dprint 'A','T',' ','T','R','A','P',' ','P','A','D','\n',0,
 	label(0x9b)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
-	try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x03)
+	try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x03)
 
 	beginloop(0x03)
 		if_in_disarm_range(/*goto*/ 0x9a)
@@ -1188,7 +1188,7 @@ u8 func0007_alerted[] = {
 
 	// Aiming only
 	label(0x9a)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x04)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x04)
 
 	beginloop(0x04)
 		if_chr_stopped(/*goto*/ 0x16)
@@ -1260,7 +1260,7 @@ u8 func0007_alerted[] = {
 	dprint 'U','N','D','E','R',' ','P','O','P','P','E','R','\n',0,
 	label(0xa8)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
-	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0xa9)
+	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0xa9)
 
 	beginloop(0xa9)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1278,7 +1278,7 @@ u8 func0007_alerted[] = {
 	goto_next(0x13)
 
 	label(0x16)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0xaa)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0xaa)
 	label(0x13)
 	kneel
 	restart_timer
@@ -1297,7 +1297,7 @@ u8 func0007_alerted[] = {
 
 	label(0x13)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
-	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x13)
+	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x13)
 	goto_first(0xa8)
 
 	label(0x13)
@@ -1305,7 +1305,7 @@ u8 func0007_alerted[] = {
 	goto_first(0xa8)
 
 	label(0x13)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x13)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x13)
 	goto_first(0xa8)
 
 	label(0x13)
@@ -1331,7 +1331,7 @@ u8 func0007_alerted[] = {
 	if_jo_ccw_direction_gt(246, /*goto*/ 0x13)
 	restart_timer
 	stop_chr
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0xec)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0xec)
 
 	beginloop(0xec)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x13)
@@ -1369,7 +1369,7 @@ u8 func0007_alerted[] = {
 	label(0x13)
 	restart_timer
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
-	try_attack_lie(0x0022, 0x0000, /*goto*/ 0xdf)
+	try_attack_lie(ENTITYTYPE_FORWARD | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0xdf)
 
 	beginloop(0xdf)
 		if_distance_to_target_lt(1000, /*goto*/ 0x16)
@@ -1385,7 +1385,7 @@ u8 func0007_alerted[] = {
 	label(0x13)
 	restart_timer
 	set_accuracy(100)
-	try_attack_lie(0x0200, 0x0000, /*goto*/ 0xe0)
+	try_attack_lie(ENTITYTYPE_TARGET, 0, /*goto*/ 0xe0)
 	dprint 'S','N','I','P','E','R',' ','N','O',' ','S','H','O','O','T','\n',0,
 
 	beginloop(0xe0)
@@ -1525,7 +1525,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
-	try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x59)
+	try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x59)
 
 	beginloop(0x59)
 		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
@@ -1660,11 +1660,11 @@ u8 func0007_alerted[] = {
 	label(0x13)
 	call_rng
 	if_rand_gt(128, /*goto*/ 0x8c)
-	try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x16)
+	try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x16)
 	label(0x8c)
-	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x16)
+	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x16)
 	label(0x16)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x60)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x60)
 
 	beginloop(0x60)
 		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
@@ -1874,7 +1874,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x4b)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x4b)
 
 	beginloop(0x4b)
 		if_within_units_of_sight(30, /*goto*/ 0x42)
@@ -1903,7 +1903,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
-	try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x40)
+	try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x40)
 
 	beginloop(0x40)
 		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
@@ -2010,11 +2010,11 @@ u8 func0007_alerted[] = {
 	label(0x13)
 	call_rng
 	if_rand_gt(128, /*goto*/ 0x8c)
-	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x16)
+	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x16)
 	label(0x8c)
-	try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x16)
+	try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x16)
 	label(0x16)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x43)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x43)
 
 	beginloop(0x43)
 		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
@@ -2346,16 +2346,16 @@ u8 func0007_alerted[] = {
 	label(0x13)
 	call_rng
 	if_rand_gt(128, /*goto*/ 0x8c)
-	try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x28)
+	try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x28)
 	label(0x8c)
-	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x28)
+	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x28)
 	dprint 'S','H','O','O','T','F','A','I','L','E','D','\n',0,
 	yield
 	if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 	goto_first(0x8b)
 
 	label(0x28)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x44)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x44)
 	goto_next(0x67)
 
 	label(0x44)
@@ -3208,11 +3208,11 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0x13)
 	call_rng
 	if_rand_gt(128, /*goto*/ 0x8c)
-	try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x16)
+	try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x16)
 	label(0x8c)
-	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x16)
+	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x16)
 	label(0x16)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0xc3)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0xc3)
 
 	label(0xc3)
 	say_quip(CHR_BOND, QUIP_ATTACK3, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
@@ -3309,7 +3309,7 @@ u8 func000c_combat_with_target_chr[] = {
 	dprint 'G','O','T',' ','T','O',' ','C','O','V','E','R','\n',0,
 	label(0xc8)
 	restart_timer
-	try_attack_kneel(0x0220, 0x0000, /*goto*/ 0xc9)
+	try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0xc9)
 
 	beginloop(0xc9)
 		if_chr_dead(CHR_TARGET, /*goto*/ 0xc5)
@@ -3346,7 +3346,7 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0x16)
 	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	label(0x17)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0xcb)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0xcb)
 	goto_next(0x16)
 
 	label(0xcb)
@@ -3457,7 +3457,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0xd7)
 	say_quip(CHR_BOND, QUIP_KILLEDPLAYER1, 0x28, 0x00, 0x01, BANK_0, 0x00, 0x00)
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x16)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x16)
 	label(0x16)
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0xd9)
 	chr_do_animation(ANIM_YAWN, 0, 193, 0x18, 0x10, CHR_SELF, 2)
@@ -3880,7 +3880,7 @@ u8 func000f_hand_combat[] = {
 	if_jo_ccw_direction_lt(10, /*goto*/ LABEL_PUNCH)
 	if_jo_ccw_direction_gt(246, /*goto*/ LABEL_PUNCH)
 	stop_chr
-	try_face_entity(0x0200, 0x0001, /*goto*/ 0x04)
+	try_face_entity(ENTITYTYPE_TARGET, 1, /*goto*/ 0x04)
 
 	beginloop(0x04)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xfa)
@@ -3969,7 +3969,7 @@ u8 func0010_civilian_say_comment[] = {
 	label(0x16)
 	restart_timer
 	dprint 'F','A','C','E',' ','T','A','R','G','E','T','\n',0,
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x04)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x04)
 
 	// Wait until facing target, or a second has passed, or something else
 	// happens such as hearing gunfire or seeing someone die.
@@ -4166,7 +4166,7 @@ u8 func001b_observe_camspy[] = {
 	label(0x13)
 	set_target_chr(CHR_PRESET)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x03)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x03)
 
 	// Wait 5 seconds. During this time:
 	// - If the camspy moves away, exit the loop and follow it
@@ -4221,9 +4221,9 @@ u8 func001b_observe_camspy[] = {
 	// Shoot camspy
 	label(0x09)
 	set_self_chrflag(CHRCFLAG_00000040)
-	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x16)
+	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x16)
 	label(0x16)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0xc3)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0xc3)
 
 	// Wait until shooting animation done
 	beginloop(0xc3)

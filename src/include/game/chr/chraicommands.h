@@ -24,9 +24,9 @@
 /*0x0012*/ bool aiTryAttackWalk(void);
 /*0x0013*/ bool aiTryAttackRun(void);
 /*0x0014*/ bool aiTryAttackRoll(void);
-/*0x0015*/ bool aiTryAttackStand1(void);
+/*0x0015*/ bool aiTryAttackStand(void);
 /*0x0016*/ bool aiTryAttackKneel(void);
-/*0x0017*/ bool aiTryAttackStand2(void);
+/*0x0017*/ bool aiTryModifyAttack(void);
 /*0x0018*/ bool aiFaceEntity(void);
 /*0x0019*/ bool ai0019(void);
 /*0x001a*/ bool ai001a(void);

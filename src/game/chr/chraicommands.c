@@ -683,13 +683,13 @@ bool aiTryAttackRoll(void)
 /**
  * @cmd 0015
  */
-bool aiTryAttackStand1(void)
+bool aiTryAttackStand(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
-	if (func0f03a578(g_Vars.chrdata, thingtype, thingid)) {
+	if (chrTryAttackStand(g_Vars.chrdata, thingtype, thingid)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -771,13 +771,13 @@ bool aiIfAttacking(void)
 /**
  * @cmd 0017
  */
-bool aiTryAttackStand2(void)
+bool aiTryModifyAttack(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
-	if ((g_Vars.chrdata && func0f03a76c(g_Vars.chrdata, thingtype, thingid)) ||
+	if ((g_Vars.chrdata && chrTryModifyAttack(g_Vars.chrdata, thingtype, thingid)) ||
 			(g_Vars.hovercar && chopperAttack(g_Vars.hovercar))) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {

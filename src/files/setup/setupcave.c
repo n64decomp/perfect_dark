@@ -1229,7 +1229,7 @@ u8 func0407_stewardess[] = {
 	// Saw player
 	label(0x04)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x05)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x05)
 
 	beginloop(0x05)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x02)
@@ -1526,7 +1526,7 @@ u8 func0408_secretary[] = {
 	// Joanna within 14 units (?) of distance
 	label(0x02)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x05)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x05)
 
 	beginloop(0x05)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x02)
@@ -2118,7 +2118,7 @@ u8 func0409_office1[] = {
 	// Picked up briefcase
 	label(0x02)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x0b)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0b)
 
 	beginloop(0x0b)
 		if_sound_finished(CHANNEL_4, /*goto*/ 0x31)
@@ -2145,7 +2145,7 @@ u8 func0409_office1[] = {
 	label(0x07)
 	object_do_animation(0x025a, 0xff, 0x02, 0xffff)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x05)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x05)
 
 	beginloop(0x05)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x02)
@@ -2226,7 +2226,7 @@ u8 func040a_office2[] = {
 	label(0x02)
 	object_do_animation(0x025a, 0xff, 0x02, 0xffff)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x05)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x05)
 
 	// Wait for other guy to finish talking
 	beginloop(0x05)
@@ -2505,7 +2505,7 @@ u8 func040f_nsa[] = {
 	label(0x04)
 	restart_timer
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x02)
@@ -2625,7 +2625,7 @@ u8 func0411_takeover_lackey[] = {
 		goto_next(0x02)
 
 		label(0x31)
-		try_face_entity(0x0200, 0x0000, /*goto*/ 0x02)
+		try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x02)
 		label(0x02)
 		if_self_flag_bankx_eq(CHRFLAG0_00002000, FALSE, BANK_0, /*goto*/ 0x31)
 		if_target_in_sight(/*goto*/ 0x02)
@@ -2640,9 +2640,9 @@ u8 func0411_takeover_lackey[] = {
 	if_chr_death_animation_finished(0x0c, /*goto*/ 0x02)
 	if_chr_knockedout(0x0c, /*goto*/ 0x02)
 	set_target_chr(0x0c)
-	try_attack_kneel(0x0220, 0x0000, /*goto*/ 0x31)
+	try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x31)
 	label(0x31)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x04)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x04)
 
 	beginloop(0x04)
 		if_chr_stopped(/*goto*/ 0x02)
@@ -2743,7 +2743,7 @@ u8 func0414_officeworker[] = {
 
 	label(0x02)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x78)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x78)
 
 	beginloop(0x78)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x02)
@@ -3414,7 +3414,7 @@ u8 func0419_ba8c[] = {
 
 	label(0x0f)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x08)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x08)
 	label(0x08)
 	yield
 	if_jo_ccw_direction_lt(10, /*goto*/ 0x02)

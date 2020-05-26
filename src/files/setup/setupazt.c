@@ -1339,7 +1339,7 @@ u8 func0418_robot[] = {
 	set_target_chr(CHR_P1P2)
 	restart_timer
 	dprint 'P','A','R','T',' ','3','a','\n',0,
-	try_attack_stand1(0x0200, 0x0000, /*goto*/ 0x0e)
+	try_attack_stand(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0e)
 	goto_first(0x04)
 
 	beginloop(0x0e)
@@ -1748,10 +1748,10 @@ u8 func041f_trent_shooting[] = {
 
 	label(0x08)
 	label(0xa8)
-	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0xa7)
+	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0xa7)
 	label(0xa7)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x0a)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0a)
 	goto_next(0x31)
 
 	// Shoot worked

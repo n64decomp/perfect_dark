@@ -1949,7 +1949,7 @@ void chrRunToPos(struct chrdata *chr, struct coord *pos)
 }
 
 GLOBAL_ASM(
-glabel func0f030120
+glabel chrAttackStand
 /*  f030120:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f030124:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f030128:	afa5005c */ 	sw	$a1,0x5c($sp)
@@ -13304,7 +13304,7 @@ glabel var7f1a8ec4
 /*  f03a574:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool func0f03a578(struct chrdata *chr, s32 entitytype, s32 entityid)
+bool chrTryAttackStand(struct chrdata *chr, s32 entitytype, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
@@ -13314,14 +13314,14 @@ bool func0f03a578(struct chrdata *chr, s32 entitytype, s32 entityid)
 
 	if (chrIsReadyForOrders(chr)) {
 		if (race == RACE_ROBOT) {
-			func0f042808(chr);
+			robotAttack(chr);
 			return true;
 		}
 
 		if (race == RACE_HUMAN || race == RACE_SKEDAR) {
 			if (chrGetEquippedWeaponPropWithCheck(chr, 0) ||
 					(chrGetEquippedWeaponPropWithCheck(chr, 1))) {
-				func0f030120(chr, entitytype, entityid);
+				chrAttackStand(chr, entitytype, entityid);
 				return true;
 			}
 		}
@@ -13358,7 +13358,7 @@ bool chrTryAttackLie(struct chrdata *chr, s32 entitytype, s32 entityid)
 	return false;
 }
 
-bool func0f03a76c(struct chrdata *chr, u32 entitytype, s32 entityid)
+bool chrTryModifyAttack(struct chrdata *chr, u32 entitytype, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
@@ -21364,7 +21364,7 @@ glabel func0f04279c
 );
 
 GLOBAL_ASM(
-glabel func0f042808
+glabel robotAttack
 .late_rodata
 glabel var7f1a9194
 .word 0x3f59999a
@@ -22081,7 +22081,7 @@ glabel var7f1a91e0
 /*  f043214:	ae0f004c */ 	sw	$t7,0x4c($s0)
 /*  f043218:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04321c:	01e02825 */ 	or	$a1,$t7,$zero
-/*  f043220:	0fc0c048 */ 	jal	func0f030120
+/*  f043220:	0fc0c048 */ 	jal	chrAttackStand
 /*  f043224:	8e060050 */ 	lw	$a2,0x50($s0)
 /*  f043228:	10000069 */ 	beqz	$zero,.L0f0433d0
 /*  f04322c:	8fbf0024 */ 	lw	$ra,0x24($sp)

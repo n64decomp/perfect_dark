@@ -1211,7 +1211,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 
 	label(0x2e)
 	restart_timer
-	try_face_entity(0x0008, 0x0115, /*goto*/ 0x97)
+	try_face_entity(ENTITYTYPE_PAD, 0x0115, /*goto*/ 0x97)
 
 	beginloop(0x97)
 		if_timer_gt(60, /*goto*/ 0x06)
@@ -3223,9 +3223,9 @@ u8 func041d_sniper[] = {
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	label(0x0a)
 	label(0x2e)
-	try_attack_stand1(0x0220, 0x0000, /*goto*/ 0x2e)
+	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x2e)
 	label(0x2e)
-	try_attack_stand2(0x0200, 0x0000, /*goto*/ 0x0b)
+	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0b)
 
 	beginloop(0x0b)
 		if_chr_stopped(/*goto*/ 0x0c)
@@ -3467,7 +3467,7 @@ u8 func040f_miniskedar[] = {
 		restart_timer
 		dprint 'F','A','C','E',' ','T','A','R','G','E','T','\n',0,
 		stop_chr
-		try_face_entity(0x0200, 0x0000, /*goto*/ 0x0b)
+		try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0b)
 
 		beginloop(0x0b)
 			if_timer_gt(30, /*goto*/ 0x06)

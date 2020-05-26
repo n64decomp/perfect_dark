@@ -837,7 +837,7 @@ u8 func0402_jonathan_waiting_for_meetup[] = {
 
 	label(0x06)
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x0a)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0a)
 
 	beginloop(0x0a)
 		if_sound_finished(CHANNEL_4, /*goto*/ 0x32)
@@ -1101,7 +1101,7 @@ u8 func0413_jonathan_hangar[] = {
 	set_stage_flag(STAGEFLAG_JON_WAITING_AT_UFO)
 	stop_chr
 	set_target_chr(CHR_P1P2)
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x14)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x14)
 
 	// Wait until both Joanna and Elvis within 400 units
 	beginloop(0x14)
@@ -1336,7 +1336,7 @@ u8 func0413_jonathan_hangar[] = {
 	label(0x59)
 	speak(CHR_BOND, L_TRA(47), 0x72ac, CHANNEL_5, COLOR_09_BLUE) // "Jonathan, go with Elvis. I'll see to the consoles."
 	restart_timer
-	try_face_entity(0x0200, 0x0000, /*goto*/ 0x46)
+	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x46)
 
 	beginloop(0x46)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
