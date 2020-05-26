@@ -3173,92 +3173,33 @@ void func0f03119c(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f031254
-/*  f031254:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f031258:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03125c:	8c8e004c */ 	lw	$t6,0x4c($a0)
-/*  f031260:	8c860020 */ 	lw	$a2,0x20($a0)
-/*  f031264:	8c82002c */ 	lw	$v0,0x2c($a0)
-/*  f031268:	31cf0020 */ 	andi	$t7,$t6,0x20
-/*  f03126c:	51e00017 */ 	beqzl	$t7,.L0f0312cc
-/*  f031270:	80980036 */ 	lb	$t8,0x36($a0)
-/*  f031274:	44801000 */ 	mtc1	$zero,$f2
-/*  f031278:	c4400020 */ 	lwc1	$f0,0x20($v0)
-/*  f03127c:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f031280:	4600103e */ 	c.le.s	$f2,$f0
-/*  f031284:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f031288:	4500000b */ 	bc1f	.L0f0312b8
-/*  f03128c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f031290:	c4440018 */ 	lwc1	$f4,0x18($v0)
-/*  f031294:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f031298:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03129c:	45000006 */ 	bc1f	.L0f0312b8
-/*  f0312a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0312a4:	44050000 */ 	mfc1	$a1,$f0
-/*  f0312a8:	0c007787 */ 	jal	func0001de1c
-/*  f0312ac:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0312b0:	10000031 */ 	beqz	$zero,.L0f031378
-/*  f0312b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0312b8:
-/*  f0312b8:	0c007787 */ 	jal	func0001de1c
-/*  f0312bc:	8c450018 */ 	lw	$a1,0x18($v0)
-/*  f0312c0:	1000002d */ 	beqz	$zero,.L0f031378
-/*  f0312c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0312c8:	80980036 */ 	lb	$t8,0x36($a0)
-.L0f0312cc:
-/*  f0312cc:	53000012 */ 	beqzl	$t8,.L0f031318
-/*  f0312d0:	44801000 */ 	mtc1	$zero,$f2
-/*  f0312d4:	44801000 */ 	mtc1	$zero,$f2
-/*  f0312d8:	c4400020 */ 	lwc1	$f0,0x20($v0)
-/*  f0312dc:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0312e0:	4600103e */ 	c.le.s	$f2,$f0
-/*  f0312e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0312e8:	45000006 */ 	bc1f	.L0f031304
-/*  f0312ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0312f0:	44050000 */ 	mfc1	$a1,$f0
-/*  f0312f4:	0c007787 */ 	jal	func0001de1c
-/*  f0312f8:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0312fc:	1000001e */ 	beqz	$zero,.L0f031378
-/*  f031300:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f031304:
-/*  f031304:	0c007787 */ 	jal	func0001de1c
-/*  f031308:	8c450018 */ 	lw	$a1,0x18($v0)
-/*  f03130c:	1000001a */ 	beqz	$zero,.L0f031378
-/*  f031310:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f031314:	44801000 */ 	mtc1	$zero,$f2
-.L0f031318:
-/*  f031318:	c4400020 */ 	lwc1	$f0,0x20($v0)
-/*  f03131c:	4600103e */ 	c.le.s	$f2,$f0
-/*  f031320:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f031324:	45020007 */ 	bc1fl	.L0f031344
-/*  f031328:	c4400014 */ 	lwc1	$f0,0x14($v0)
-/*  f03132c:	44050000 */ 	mfc1	$a1,$f0
-/*  f031330:	0c007787 */ 	jal	func0001de1c
-/*  f031334:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f031338:	1000000f */ 	beqz	$zero,.L0f031378
-/*  f03133c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f031340:	c4400014 */ 	lwc1	$f0,0x14($v0)
-.L0f031344:
-/*  f031344:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f031348:	4600103e */ 	c.le.s	$f2,$f0
-/*  f03134c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f031350:	45000006 */ 	bc1f	.L0f03136c
-/*  f031354:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f031358:	44050000 */ 	mfc1	$a1,$f0
-/*  f03135c:	0c007787 */ 	jal	func0001de1c
-/*  f031360:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f031364:	10000004 */ 	beqz	$zero,.L0f031378
-/*  f031368:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f03136c:
-/*  f03136c:	0c007787 */ 	jal	func0001de1c
-/*  f031370:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f031374:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f031378:
-/*  f031378:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03137c:	03e00008 */ 	jr	$ra
-/*  f031380:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f031254(struct chrdata *chr)
+{
+	struct animdata *animdata = chr->animdata;
+	f32 *floats = chr->act_attack.unk02c;
+
+	if (chr->act_attack.entitytype & ENTITYTYPE_AIMONLY) {
+		if (floats[8] >= 0 && floats[8] < floats[6]) {
+			func0001de1c(animdata, floats[8]);
+		} else {
+			func0001de1c(animdata, floats[6]);
+		}
+	} else if (chr->act_attack.unk036) {
+		if (floats[8] >= 0) {
+			func0001de1c(animdata, floats[8]);
+		} else {
+			func0001de1c(animdata, floats[6]);
+		}
+	} else {
+		if (floats[8] >= 0) {
+			func0001de1c(animdata, floats[8]);
+		} else if (floats[5] >= 0) {
+			func0001de1c(animdata, floats[5]);
+		} else {
+			func0001de1c(animdata, -1);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f031384
@@ -13202,7 +13143,7 @@ bool chrTryModifyAttack(struct chrdata *chr, u32 entitytype, s32 entityid)
 			&& (chr->act_attack.entitytype & (ENTITYTYPE_AIMONLY | ENTITYTYPE_DONTTURN))) {
 		chr->act_attack.entitytype = entitytype;
 		chr->act_attack.entityid = entityid;
-		func0f031254();
+		func0f031254(chr);
 		return true;
 	}
 
