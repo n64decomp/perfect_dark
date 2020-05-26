@@ -430,7 +430,7 @@ struct act_sidestep {
 };
 
 struct act_jumpout {
-	/*0x2c*/ u32 unk02c;
+	/*0x2c*/ bool side;
 };
 
 struct act_runpos {
