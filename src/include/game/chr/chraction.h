@@ -215,7 +215,7 @@ void chrThrowGrenade(struct chrdata *chr, s32 arg1, s32 arg2);
 void chrDoSurprisedSurrender(struct chrdata *chr);
 void chrDoSurprisedLookAround(struct chrdata *chr);
 void chrSurrender(struct chrdata *chr);
-void chrSidestep(struct chrdata *chr, s32 arg1);
+void chrSidestep(struct chrdata *chr, bool side);
 void chrJumpOut(struct chrdata *chr, bool side);
 void chrRunToPos(struct chrdata *chr, struct coord *pos);
 void func0f03119c(struct chrdata *chr);

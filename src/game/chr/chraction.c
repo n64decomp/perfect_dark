@@ -1626,11 +1626,11 @@ glabel func0f02f8a4
 /*  f02fba8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void chrSidestep(struct chrdata *chr, s32 arg1)
+void chrSidestep(struct chrdata *chr, bool side)
 {
 	chrStopFiring(chr);
 	chr->actiontype = ACT_SIDESTEP;
-	chr->act_sidestep.unk02c = arg1;
+	chr->act_sidestep.side = side;
 	chr->sleep = 0;
 
 	if (func0001db94(chr->animdata)) {
@@ -13011,127 +13011,41 @@ bool chrIsDead(struct chrdata *chr)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel chrTrySidestep
-.late_rodata
-glabel var7f1a8e90
-.word 0x40c907a9
-glabel var7f1a8e94
-.word 0x3f4907a9
-glabel var7f1a8e98
-.word 0x40afe6b4
-glabel var7f1a8e9c
-.word 0x4016c5bf
-glabel var7f1a8ea0
-.word 0x407b4993
-.text
-/*  f039b20:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f039b24:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f039b28:	00808025 */ 	or	$s0,$a0,$zero
-/*  f039b2c:	10800003 */ 	beqz	$a0,.L0f039b3c
-/*  f039b30:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f039b34:	10000002 */ 	beqz	$zero,.L0f039b40
-/*  f039b38:	908202fe */ 	lbu	$v0,0x2fe($a0)
-.L0f039b3c:
-/*  f039b3c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f039b40:
-/*  f039b40:	10400003 */ 	beqz	$v0,.L0f039b50
-/*  f039b44:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f039b48:	54410052 */ 	bnel	$v0,$at,.L0f039c94
-/*  f039b4c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f039b50:
-/*  f039b50:	0fc0e686 */ 	jal	chrIsReadyForOrders
-/*  f039b54:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039b58:	5040004e */ 	beqzl	$v0,.L0f039c94
-/*  f039b5c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f039b60:	8e0e001c */ 	lw	$t6,0x1c($s0)
-/*  f039b64:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039b68:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f039b6c:	afae0048 */ 	sw	$t6,0x48($sp)
-/*  f039b70:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039b74:	0fc0f917 */ 	jal	func0f03e45c
-/*  f039b78:	afa20044 */ 	sw	$v0,0x44($sp)
-/*  f039b7c:	8fa20048 */ 	lw	$v0,0x48($sp)
-/*  f039b80:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f039b84:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f039b88:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f039b8c:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f039b90:	c4680010 */ 	lwc1	$f8,0x10($v1)
-/*  f039b94:	e7a00040 */ 	swc1	$f0,0x40($sp)
-/*  f039b98:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f039b9c:	0fc259d4 */ 	jal	func0f096750
-/*  f039ba0:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f039ba4:	c7b00040 */ 	lwc1	$f16,0x40($sp)
-/*  f039ba8:	3c017f1b */ 	lui	$at,%hi(var7f1a8e90)
-/*  f039bac:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f039bb0:	46100301 */ 	sub.s	$f12,$f0,$f16
-/*  f039bb4:	45000003 */ 	bc1f	.L0f039bc4
-/*  f039bb8:	46006086 */ 	mov.s	$f2,$f12
-/*  f039bbc:	c4328e90 */ 	lwc1	$f18,%lo(var7f1a8e90)($at)
-/*  f039bc0:	46126080 */ 	add.s	$f2,$f12,$f18
-.L0f039bc4:
-/*  f039bc4:	3c017f1b */ 	lui	$at,%hi(var7f1a8e94)
-/*  f039bc8:	c4248e94 */ 	lwc1	$f4,%lo(var7f1a8e94)($at)
-/*  f039bcc:	3c017f1b */ 	lui	$at,%hi(var7f1a8e98)
-/*  f039bd0:	4604103c */ 	c.lt.s	$f2,$f4
-/*  f039bd4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039bd8:	45010012 */ 	bc1t	.L0f039c24
-/*  f039bdc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039be0:	c4268e98 */ 	lwc1	$f6,%lo(var7f1a8e98)($at)
-/*  f039be4:	3c017f1b */ 	lui	$at,%hi(var7f1a8e9c)
-/*  f039be8:	4602303c */ 	c.lt.s	$f6,$f2
-/*  f039bec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039bf0:	4501000c */ 	bc1t	.L0f039c24
-/*  f039bf4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039bf8:	c4288e9c */ 	lwc1	$f8,%lo(var7f1a8e9c)($at)
-/*  f039bfc:	3c017f1b */ 	lui	$at,%hi(var7f1a8ea0)
-/*  f039c00:	4602403c */ 	c.lt.s	$f8,$f2
-/*  f039c04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039c08:	45020022 */ 	bc1fl	.L0f039c94
-/*  f039c0c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f039c10:	c42a8ea0 */ 	lwc1	$f10,%lo(var7f1a8ea0)($at)
-/*  f039c14:	460a103c */ 	c.lt.s	$f2,$f10
-/*  f039c18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039c1c:	4502001d */ 	bc1fl	.L0f039c94
-/*  f039c20:	00001025 */ 	or	$v0,$zero,$zero
-.L0f039c24:
-/*  f039c24:	0c004b70 */ 	jal	random
-/*  f039c28:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039c2c:	30450001 */ 	andi	$a1,$v0,0x1
-/*  f039c30:	2caf0001 */ 	sltiu	$t7,$a1,0x1
-/*  f039c34:	01e02825 */ 	or	$a1,$t7,$zero
-/*  f039c38:	afaf002c */ 	sw	$t7,0x2c($sp)
-/*  f039c3c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039c40:	0fc0dae6 */ 	jal	chrCanJumpInDirection
-/*  f039c44:	3c0642c8 */ 	lui	$a2,0x42c8
-/*  f039c48:	10400006 */ 	beqz	$v0,.L0f039c64
-/*  f039c4c:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f039c50:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039c54:	0fc0beeb */ 	jal	chrSidestep
-/*  f039c58:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f039c5c:	1000000d */ 	beqz	$zero,.L0f039c94
-/*  f039c60:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f039c64:
-/*  f039c64:	2ce50001 */ 	sltiu	$a1,$a3,0x1
-/*  f039c68:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f039c6c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039c70:	0fc0dae6 */ 	jal	chrCanJumpInDirection
-/*  f039c74:	3c0642c8 */ 	lui	$a2,0x42c8
-/*  f039c78:	10400005 */ 	beqz	$v0,.L0f039c90
-/*  f039c7c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f039c80:	0fc0beeb */ 	jal	chrSidestep
-/*  f039c84:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039c88:	10000002 */ 	beqz	$zero,.L0f039c94
-/*  f039c8c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f039c90:
-/*  f039c90:	00001025 */ 	or	$v0,$zero,$zero
-.L0f039c94:
-/*  f039c94:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f039c98:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f039c9c:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f039ca0:	03e00008 */ 	jr	$ra
-/*  f039ca4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrTrySidestep(struct chrdata *chr)
+{
+	u8 race = CHRRACE(chr);
+
+	if ((race == RACE_HUMAN || race == RACE_SKEDAR)
+			&& chrIsReadyForOrders(chr)) {
+		struct prop *prop = chr->prop;
+		struct prop *target = chrGetTargetProp(chr);
+		f32 a = func0f03e45c(chr);
+		f32 b = func0f096750(target->pos.x - prop->pos.x, target->pos.z - prop->pos.z);
+		f32 angle = b - a;
+		u32 stack[2];
+
+		if (b < a) {
+			angle += M_BADTAU;
+		}
+
+		if (angle < 0.7852731347084f || angle > 5.4969120025635f
+				|| (angle > 2.3558194637299f && angle < 3.9263656139374f)) {
+			bool side = (random() % 2) == 0;
+
+			if (chrCanJumpInDirection(chr, side, 100)) {
+				chrSidestep(chr, side);
+				return true;
+			}
+
+			if (chrCanJumpInDirection(chr, !side, 100)) {
+				chrSidestep(chr, !side);
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
 
 bool chrTryJumpOut(struct chrdata *chr)
 {

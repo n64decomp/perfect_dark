@@ -426,7 +426,7 @@ struct act_attack {
 };
 
 struct act_sidestep {
-	/*0x2c*/ u32 unk02c;
+	/*0x2c*/ bool side;
 };
 
 struct act_jumpout {
