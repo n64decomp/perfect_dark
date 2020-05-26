@@ -9425,37 +9425,20 @@ glabel func0f036b10
 /*  f036b94:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrCanJumpInDirection
-/*  f036b98:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f036b9c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f036ba0:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f036ba4:	8c87001c */ 	lw	$a3,0x1c($a0)
-/*  f036ba8:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f036bac:	0fc0dac4 */ 	jal	func0f036b10
-/*  f036bb0:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f036bb4:	c7a00040 */ 	lwc1	$f0,0x40($sp)
-/*  f036bb8:	c7a40028 */ 	lwc1	$f4,0x28($sp)
-/*  f036bbc:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*  f036bc0:	c7b20030 */ 	lwc1	$f18,0x30($sp)
-/*  f036bc4:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f036bc8:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f036bcc:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f036bd0:	46009102 */ 	mul.s	$f4,$f18,$f0
-/*  f036bd4:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f036bd8:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f036bdc:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*  f036be0:	c490000c */ 	lwc1	$f16,0xc($a0)
-/*  f036be4:	e7b00020 */ 	swc1	$f16,0x20($sp)
-/*  f036be8:	c4860010 */ 	lwc1	$f6,0x10($a0)
-/*  f036bec:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f036bf0:	0fc0da2e */ 	jal	propHasClearLineToPos
-/*  f036bf4:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f036bf8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f036bfc:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f036c00:	03e00008 */ 	jr	$ra
-/*  f036c04:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance)
+{
+	struct prop *prop = chr->prop;
+	struct coord vector;
+	struct coord dstpos;
+
+	func0f036b10(chr, side, &vector);
+
+	dstpos.x = vector.x * distance + prop->pos.x;
+	dstpos.y = prop->pos.y;
+	dstpos.z = vector.z * distance + prop->pos.z;
+
+	return propHasClearLineToPos(prop, &dstpos, &vector);
+}
 
 GLOBAL_ASM(
 glabel func0f036c08
