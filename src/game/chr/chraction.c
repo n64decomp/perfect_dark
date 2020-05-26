@@ -12550,174 +12550,48 @@ void chrRecordLastHearTargetTime(struct chrdata *chr)
 	chr->lastheartarget60 = g_Vars.lvframe60;
 }
 
-GLOBAL_ASM(
-glabel chrIsStopped
-/*  f0395d8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0395dc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0395e0:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0395e4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0395e8:	0c00744f */ 	jal	animGetId
-/*  f0395ec:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f0395f0:	24010269 */ 	addiu	$at,$zero,0x269
-/*  f0395f4:	10410003 */ 	beq	$v0,$at,.L0f039604
-/*  f0395f8:	2401026b */ 	addiu	$at,$zero,0x26b
-/*  f0395fc:	54410004 */ 	bnel	$v0,$at,.L0f039610
-/*  f039600:	2401026a */ 	addiu	$at,$zero,0x26a
-.L0f039604:
-/*  f039604:	1000005c */ 	beqz	$zero,.L0f039778
-/*  f039608:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03960c:	2401026a */ 	addiu	$at,$zero,0x26a
-.L0f039610:
-/*  f039610:	5441000b */ 	bnel	$v0,$at,.L0f039640
-/*  f039614:	82020007 */ 	lb	$v0,0x7($s0)
-/*  f039618:	820e0033 */ 	lb	$t6,0x33($s0)
-/*  f03961c:	820f0034 */ 	lb	$t7,0x34($s0)
-/*  f039620:	01cf082a */ 	slt	$at,$t6,$t7
-/*  f039624:	54200006 */ 	bnezl	$at,.L0f039640
-/*  f039628:	82020007 */ 	lb	$v0,0x7($s0)
-/*  f03962c:	0fc0fe3d */ 	jal	chrStopFiring
-/*  f039630:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039634:	10000050 */ 	beqz	$zero,.L0f039778
-/*  f039638:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f03963c:	82020007 */ 	lb	$v0,0x7($s0)
-.L0f039640:
-/*  f039640:	24010022 */ 	addiu	$at,$zero,0x22
-/*  f039644:	54410007 */ 	bnel	$v0,$at,.L0f039664
-/*  f039648:	24010021 */ 	addiu	$at,$zero,0x21
-/*  f03964c:	9218006e */ 	lbu	$t8,0x6e($s0)
-/*  f039650:	53000004 */ 	beqzl	$t8,.L0f039664
-/*  f039654:	24010021 */ 	addiu	$at,$zero,0x21
-/*  f039658:	10000047 */ 	beqz	$zero,.L0f039778
-/*  f03965c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f039660:	24010021 */ 	addiu	$at,$zero,0x21
-.L0f039664:
-/*  f039664:	14410008 */ 	bne	$v0,$at,.L0f039688
-/*  f039668:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f03966c:	82190033 */ 	lb	$t9,0x33($s0)
-/*  f039670:	82080034 */ 	lb	$t0,0x34($s0)
-/*  f039674:	0328082a */ 	slt	$at,$t9,$t0
-/*  f039678:	14200003 */ 	bnez	$at,.L0f039688
-/*  f03967c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039680:	1000003d */ 	beqz	$zero,.L0f039778
-/*  f039684:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f039688:
-/*  f039688:	1462000c */ 	bne	$v1,$v0,.L0f0396bc
-/*  f03968c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f039690:	8e09002c */ 	lw	$t1,0x2c($s0)
-/*  f039694:	15200009 */ 	bnez	$t1,.L0f0396bc
-/*  f039698:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03969c:	8e0a0038 */ 	lw	$t2,0x38($s0)
-/*  f0396a0:	15400006 */ 	bnez	$t2,.L0f0396bc
-/*  f0396a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0396a8:	8e0b003c */ 	lw	$t3,0x3c($s0)
-/*  f0396ac:	106b0003 */ 	beq	$v1,$t3,.L0f0396bc
-/*  f0396b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0396b4:	10000030 */ 	beqz	$zero,.L0f039778
-/*  f0396b8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0396bc:
-/*  f0396bc:	54410029 */ 	bnel	$v0,$at,.L0f039764
-/*  f0396c0:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f0396c4:	8e0c0034 */ 	lw	$t4,0x34($s0)
-/*  f0396c8:	15800023 */ 	bnez	$t4,.L0f039758
-/*  f0396cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0396d0:	0c007498 */ 	jal	func0001d260
-/*  f0396d4:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f0396d8:	44802000 */ 	mtc1	$zero,$f4
-/*  f0396dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0396e0:	4600203e */ 	c.le.s	$f4,$f0
-/*  f0396e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0396e8:	4500000b */ 	bc1f	.L0f039718
-/*  f0396ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0396f0:	0c00745f */ 	jal	animGetFrame
-/*  f0396f4:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f0396f8:	e7a00020 */ 	swc1	$f0,0x20($sp)
-/*  f0396fc:	0c007468 */ 	jal	func0001d1a0
-/*  f039700:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f039704:	c7a60020 */ 	lwc1	$f6,0x20($sp)
-/*  f039708:	4606003e */ 	c.le.s	$f0,$f6
-/*  f03970c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039710:	45010011 */ 	bc1t	.L0f039758
-/*  f039714:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f039718:
-/*  f039718:	0c007498 */ 	jal	func0001d260
-/*  f03971c:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f039720:	44804000 */ 	mtc1	$zero,$f8
-/*  f039724:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039728:	4608003c */ 	c.lt.s	$f0,$f8
-/*  f03972c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039730:	45020011 */ 	bc1fl	.L0f039778
-/*  f039734:	00001025 */ 	or	$v0,$zero,$zero
-/*  f039738:	0c00745f */ 	jal	animGetFrame
-/*  f03973c:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f039740:	44805000 */ 	mtc1	$zero,$f10
-/*  f039744:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039748:	460a003e */ 	c.le.s	$f0,$f10
-/*  f03974c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039750:	45020009 */ 	bc1fl	.L0f039778
-/*  f039754:	00001025 */ 	or	$v0,$zero,$zero
-.L0f039758:
-/*  f039758:	10000007 */ 	beqz	$zero,.L0f039778
-/*  f03975c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f039760:	2401000e */ 	addiu	$at,$zero,0xe
-.L0f039764:
-/*  f039764:	54410004 */ 	bnel	$v0,$at,.L0f039778
-/*  f039768:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03976c:	10000002 */ 	beqz	$zero,.L0f039778
-/*  f039770:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f039774:	00001025 */ 	or	$v0,$zero,$zero
-.L0f039778:
-/*  f039778:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03977c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f039780:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f039784:	03e00008 */ 	jr	$ra
-/*  f039788:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrIsStopped(struct chrdata *chr)
+{
+	u32 anim = animGetId(chr->animdata);
 
-//bool chrIsStopped(struct chrdata *chr)
-//{
-//	u32 anim = animGetId(chr->animdata);
-//
-//	if (anim == ANIM_SNIPING_0269 || anim == ANIM_SNIPING_026B) {
-//		return false;
-//	}
-//
-//	if (anim == ANIM_SNIPING_026A && chr->act_attack.unk034 <= chr->act_attack.unk033) {
-//		chrStopFiring(chr);
-//		return true;
-//	}
-//
-//	if (chr->actiontype == ACT_ROBOTATTACK && chr->unk06e) {
-//		return true;
-//	}
-//
-//	if (chr->actiontype == ACT_ATTACKAMOUNT && chr->act_attackamount.unk034 <= chr->act_attackamount.unk033) {
-//		return true;
-//	}
-//
-//	if (chr->actiontype == ACT_STAND && chr->act_stand.unk02c == 0 && chr->act_stand.unk038 == 0 && chr->act_stand.unk03c != 1) {
-//		return true;
-//	}
-//
-//	if (chr->actiontype == ACT_ANIM) {
-//		if (chr->act_anim.unk034) {
-//			return true;
-//		}
-//
-//		if (func0001d260(chr->animdata) >= 0 && animGetFrame(chr->animdata) >= func0001d1a0(chr->animdata)) {
-//			return true;
-//		}
-//
-//		if (func0001d260(chr->animdata) >= 0 || animGetFrame(chr->animdata) > 0) {
-//			return false;
-//		}
-//	}
-//
-//	if (chr->actiontype == ACT_PATROL) {
-//		return true;
-//	}
-//
-//	return false;
-//}
+	if (anim == ANIM_SNIPING_0269 || anim == ANIM_SNIPING_026B) {
+		return false;
+	}
+
+	if (anim == ANIM_SNIPING_026A
+			&& chr->act_attack.unk034 <= chr->act_attack.unk033) {
+		chrStopFiring(chr);
+		return true;
+	}
+
+	if (chr->actiontype == ACT_ROBOTATTACK && chr->act_robotattack.unk06e) {
+		return true;
+	}
+
+	if (chr->actiontype == ACT_ATTACKAMOUNT
+			&& chr->act_attackamount.unk034 <= chr->act_attackamount.unk033) {
+		return true;
+	}
+
+	if (chr->actiontype == ACT_STAND
+			&& chr->act_stand.unk02c == 0
+			&& chr->act_stand.unk038 == 0
+			&& chr->act_stand.unk03c != 1) {
+		return true;
+	}
+
+	if (chr->actiontype == ACT_ANIM) {
+		if (chr->act_anim.unk034
+				|| (func0001d260(chr->animdata) >= 0 && animGetFrame(chr->animdata) >= func0001d1a0(chr->animdata))
+				|| (func0001d260(chr->animdata) < 0 && animGetFrame(chr->animdata) <= 0)) {
+			return true;
+		}
+	} else if (chr->actiontype == ACT_PATROL) {
+		return true;
+	}
+
+	return false;
+}
 
 bool chrCheckTargetInSight(struct chrdata *chr)
 {
