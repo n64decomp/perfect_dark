@@ -9385,45 +9385,20 @@ bool chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance)
 	return propHasClearLineToPos(prop, &dstpos, &vector);
 }
 
-GLOBAL_ASM(
-glabel func0f036b10
-/*  f036b10:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f036b14:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f036b18:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f036b1c:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f036b20:	0fc0f917 */ 	jal	func0f03e45c
-/*  f036b24:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f036b28:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*  f036b2c:	46000306 */ 	mov.s	$f12,$f0
-/*  f036b30:	11c0000b */ 	beqz	$t6,.L0f036b60
-/*  f036b34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f036b38:	0c0068f4 */ 	jal	cosf
-/*  f036b3c:	e7ac0024 */ 	swc1	$f12,0x24($sp)
-/*  f036b40:	44802000 */ 	mtc1	$zero,$f4
-/*  f036b44:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f036b48:	e6000000 */ 	swc1	$f0,0x0($s0)
-/*  f036b4c:	0c0068f7 */ 	jal	sinf
-/*  f036b50:	e6040004 */ 	swc1	$f4,0x4($s0)
-/*  f036b54:	46000187 */ 	neg.s	$f6,$f0
-/*  f036b58:	1000000a */ 	beqz	$zero,.L0f036b84
-/*  f036b5c:	e6060008 */ 	swc1	$f6,0x8($s0)
-.L0f036b60:
-/*  f036b60:	0c0068f4 */ 	jal	cosf
-/*  f036b64:	e7ac0024 */ 	swc1	$f12,0x24($sp)
-/*  f036b68:	44805000 */ 	mtc1	$zero,$f10
-/*  f036b6c:	46000207 */ 	neg.s	$f8,$f0
-/*  f036b70:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f036b74:	e6080000 */ 	swc1	$f8,0x0($s0)
-/*  f036b78:	0c0068f7 */ 	jal	sinf
-/*  f036b7c:	e60a0004 */ 	swc1	$f10,0x4($s0)
-/*  f036b80:	e6000008 */ 	swc1	$f0,0x8($s0)
-.L0f036b84:
-/*  f036b84:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f036b88:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f036b8c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f036b90:	03e00008 */ 	jr	$ra
-/*  f036b94:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrGetSideVector(struct chrdata *chr, bool side, struct coord *vector)
+{
+	f32 angle = func0f03e45c(chr);
+
+	if (side) {
+		vector->x = cosf(angle);
+		vector->y = 0;
+		vector->z = -sinf(angle);
+	} else {
+		vector->x = -cosf(angle);
+		vector->y = 0;
+		vector->z = sinf(angle);
+	}
+}
 
 bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance)
 {
@@ -9431,7 +9406,7 @@ bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance)
 	struct coord vector;
 	struct coord dstpos;
 
-	func0f036b10(chr, side, &vector);
+	chrGetSideVector(chr, side, &vector);
 
 	dstpos.x = vector.x * distance + prop->pos.x;
 	dstpos.y = prop->pos.y;

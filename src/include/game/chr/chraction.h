@@ -62,7 +62,7 @@ bool func0f036918(struct prop *prop, struct coord *coord, f32 arg2);
 u32 func0f036974(void);
 void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vector);
 u32 chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance);
-void func0f036b10(struct chrdata *chr, bool side, struct coord *vector);
+void chrGetSideVector(struct chrdata *chr, bool side, struct coord *vector);
 bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance);
 u32 func0f036c08(struct chrdata *chr, s32 *arg1, s32 *arg2);
 void func0f036ee4(struct chrdata *chr, s8 *maxwaypoints, s32 *arg2, struct coord *prevpos);
