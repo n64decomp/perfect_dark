@@ -13198,7 +13198,8 @@ bool chrTryModifyAttack(struct chrdata *chr, u32 entitytype, s32 entityid)
 		return false;
 	}
 
-	if (chr->actiontype == ACT_ATTACK && (chr->act_attack.entitytype & 0x60)) {
+	if (chr->actiontype == ACT_ATTACK
+			&& (chr->act_attack.entitytype & (ENTITYTYPE_AIMONLY | ENTITYTYPE_DONTTURN))) {
 		chr->act_attack.entitytype = entitytype;
 		chr->act_attack.entityid = entityid;
 		func0f031254();

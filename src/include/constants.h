@@ -542,13 +542,14 @@
 #define DRCAROLLIMAGE_RANDOM25     7
 #define DRCAROLLIMAGE_RANDOM       8
 
-#define ENTITYTYPE_BOND      0x0001
-#define ENTITYTYPE_FORWARD   0x0002
-#define ENTITYTYPE_CHR       0x0004
-#define ENTITYTYPE_PAD       0x0008
-#define ENTITYTYPE_DIRECTION 0x0010
-#define ENTITYTYPE_AIMONLY   0x0020
-#define ENTITYTYPE_TARGET    0x0200
+#define ENTITYTYPE_BOND      0x0001 // aim/shoot at Jo
+#define ENTITYTYPE_FORWARD   0x0002 // aim/shoot in front of self
+#define ENTITYTYPE_CHR       0x0004 // aim/shoot at chr (ID should be given in entity_id)
+#define ENTITYTYPE_PAD       0x0008 // aim/shoot at pad (ID should be given in entity_id)
+#define ENTITYTYPE_DIRECTION 0x0010 // aim/shoot in compass direction (0000, 4000, 8000, c000)
+#define ENTITYTYPE_AIMONLY   0x0020 // aim only - do not shoot
+#define ENTITYTYPE_DONTTURN  0x0040 // don't do a shooting animation that would change the chr's direction
+#define ENTITYTYPE_TARGET    0x0200 // aim/shoot at whatever is in the chr's `target` field
 
 #define EYESPYMODE_CAMSPY  0
 #define EYESPYMODE_DRUGSPY 1

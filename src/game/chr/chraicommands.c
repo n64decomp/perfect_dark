@@ -743,7 +743,7 @@ bool ai00f0(void)
 
 	if (g_Vars.chrdata->actiontype == ACT_ATTACK &&
 			!g_Vars.chrdata->act_attack.unk058 &&
-			g_Vars.chrdata->act_attack.entitytype & 0x40) {
+			g_Vars.chrdata->act_attack.entitytype & ENTITYTYPE_DONTTURN) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
