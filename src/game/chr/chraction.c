@@ -6334,67 +6334,30 @@ f32 chrGetShield(struct chrdata *chr)
 	return chr->cshield;
 }
 
-GLOBAL_ASM(
-glabel chrSetShield
-/*  f033fa8:	44856000 */ 	mtc1	$a1,$f12
-/*  f033fac:	44800000 */ 	mtc1	$zero,$f0
-/*  f033fb0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f033fb4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f033fb8:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f033fbc:	3c013f80 */ 	lui	$at,0x3f80
-/*  f033fc0:	45020003 */ 	bc1fl	.L0f033fd0
-/*  f033fc4:	8c8e0014 */ 	lw	$t6,0x14($a0)
-/*  f033fc8:	46000306 */ 	mov.s	$f12,$f0
-/*  f033fcc:	8c8e0014 */ 	lw	$t6,0x14($a0)
-.L0f033fd0:
-/*  f033fd0:	e48c0180 */ 	swc1	$f12,0x180($a0)
-/*  f033fd4:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f033fd8:	05e30009 */ 	bgezl	$t7,.L0f034000
-/*  f033fdc:	8c85001c */ 	lw	$a1,0x1c($a0)
-/*  f033fe0:	44810000 */ 	mtc1	$at,$f0
-/*  f033fe4:	c4840180 */ 	lwc1	$f4,0x180($a0)
-/*  f033fe8:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f033fec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f033ff0:	45020003 */ 	bc1fl	.L0f034000
-/*  f033ff4:	8c85001c */ 	lw	$a1,0x1c($a0)
-/*  f033ff8:	e4800180 */ 	swc1	$f0,0x180($a0)
-/*  f033ffc:	8c85001c */ 	lw	$a1,0x1c($a0)
-.L0f034000:
-/*  f034000:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f034004:	90b80000 */ 	lbu	$t8,0x0($a1)
-/*  f034008:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f03400c:	57010019 */ 	bnel	$t8,$at,.L0f034074
-/*  f034010:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f034014:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f034018:	e7ac0024 */ 	swc1	$f12,0x24($sp)
-/*  f03401c:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f034020:	04400013 */ 	bltz	$v0,.L0f034070
-/*  f034024:	00402025 */ 	or	$a0,$v0,$zero
-/*  f034028:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x28c)
-/*  f03402c:	8f39a24c */ 	lw	$t9,%lo(g_Vars+0x28c)($t9)
-/*  f034030:	e7ac0024 */ 	swc1	$f12,0x24($sp)
-/*  f034034:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f034038:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f03403c:	0fc2eda7 */ 	jal	func0f0bb69c
-/*  f034040:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f034044:	3c013e00 */ 	lui	$at,0x3e00
-/*  f034048:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f03404c:	44814000 */ 	mtc1	$at,$f8
-/*  f034050:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x288)
-/*  f034054:	8c42a248 */ 	lw	$v0,%lo(g_Vars+0x288)($v0)
-/*  f034058:	46086282 */ 	mul.s	$f10,$f12,$f8
-/*  f03405c:	c4460040 */ 	lwc1	$f6,0x40($v0)
-/*  f034060:	460a3400 */ 	add.s	$f16,$f6,$f10
-/*  f034064:	e4500040 */ 	swc1	$f16,0x40($v0)
-/*  f034068:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f03406c:	8fa40018 */ 	lw	$a0,0x18($sp)
-.L0f034070:
-/*  f034070:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f034074:
-/*  f034074:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f034078:	03e00008 */ 	jr	$ra
-/*  f03407c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrSetShield(struct chrdata *chr, f32 amount)
+{
+	if (amount < 0) {
+		amount = 0;
+	}
+
+	chr->cshield = amount;
+
+	if ((chr->hidden & CHRHFLAG_10000000) && chr->cshield < 1) {
+		chr->cshield = 1;
+	}
+
+	if (chr->prop->type == PROPTYPE_PLAYER) {
+		s32 playernum = propGetPlayerNum(chr->prop);
+
+		if (playernum >= 0) {
+			s32 prevplayernum = g_Vars.currentplayernum;
+			setCurrentPlayerNum(playernum);
+			func0f0bb69c();
+			g_Vars.currentplayerstats->armourcount += amount * 0.125f;
+			setCurrentPlayerNum(prevplayernum);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f034080
