@@ -13985,64 +13985,29 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 	return done;
 }
 
-GLOBAL_ASM(
-glabel func0f03b97c
-/*  f03b97c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f03b980:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03b984:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03b988:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03b98c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f03b990:	10800003 */ 	beqz	$a0,.L0f03b9a0
-/*  f03b994:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f03b998:	10000002 */ 	beqz	$zero,.L0f03b9a4
-/*  f03b99c:	908202fe */ 	lbu	$v0,0x2fe($a0)
-.L0f03b9a0:
-/*  f03b9a0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03b9a4:
-/*  f03b9a4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f03b9a8:	10410003 */ 	beq	$v0,$at,.L0f03b9b8
-/*  f03b9ac:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f03b9b0:	14410003 */ 	bne	$v0,$at,.L0f03b9c0
-/*  f03b9b4:	00e02025 */ 	or	$a0,$a3,$zero
-.L0f03b9b8:
-/*  f03b9b8:	1000001d */ 	beqz	$zero,.L0f03ba30
-/*  f03b9bc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03b9c0:
-/*  f03b9c0:	93a50033 */ 	lbu	$a1,0x33($sp)
-/*  f03b9c4:	0fc22e20 */ 	jal	func0f08b880
-/*  f03b9c8:	02003025 */ 	or	$a2,$s0,$zero
-/*  f03b9cc:	50400018 */ 	beqzl	$v0,.L0f03ba30
-/*  f03b9d0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03b9d4:	8c4e0014 */ 	lw	$t6,0x14($v0)
-/*  f03b9d8:	51c00015 */ 	beqzl	$t6,.L0f03ba30
-/*  f03b9dc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03b9e0:	8c440018 */ 	lw	$a0,0x18($v0)
-/*  f03b9e4:	8c850014 */ 	lw	$a1,0x14($a0)
-/*  f03b9e8:	0c006bd6 */ 	jal	func0001af58
-/*  f03b9ec:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f03b9f0:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f03b9f4:	8e05001c */ 	lw	$a1,0x1c($s0)
-/*  f03b9f8:	0fc181a6 */ 	jal	propReparent
-/*  f03b9fc:	8c640014 */ 	lw	$a0,0x14($v1)
-/*  f03ba00:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f03ba04:	240f02d0 */ 	addiu	$t7,$zero,0x2d0
-/*  f03ba08:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03ba0c:	a46f0062 */ 	sh	$t7,0x62($v1)
-/*  f03ba10:	0fc20a59 */ 	jal	propobjSetDropped
-/*  f03ba14:	8c640014 */ 	lw	$a0,0x14($v1)
-/*  f03ba18:	8e180014 */ 	lw	$t8,0x14($s0)
-/*  f03ba1c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f03ba20:	37190001 */ 	ori	$t9,$t8,0x1
-/*  f03ba24:	10000002 */ 	beqz	$zero,.L0f03ba30
-/*  f03ba28:	ae190014 */ 	sw	$t9,0x14($s0)
-/*  f03ba2c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03ba30:
-/*  f03ba30:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03ba34:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03ba38:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f03ba3c:	03e00008 */ 	jr	$ra
-/*  f03ba40:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
+{
+	struct weaponobj *weapon;
+	u8 race = CHRRACE(chr);
+
+	if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
+		return false;
+	}
+
+	weapon = func0f08b880(modelnum, (u8)weaponnum, chr);
+
+	if (weapon && weapon->base.prop) {
+		func0001af58(weapon->base.animdata, weapon->base.animdata->unk14);
+		propReparent(weapon->base.prop, chr->prop);
+		weapon->unk62 = 720;
+		propobjSetDropped(weapon->base.prop, 1);
+		chr->hidden |= CHRHFLAG_00000001;
+
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f03ba44

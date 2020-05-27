@@ -880,12 +880,12 @@ bool aiConsiderGrenadeThrow(void)
 /**
  * @cmd 001c
  */
-bool ai001c(void)
+bool aiDropItem(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u32 value = cmd[3] | (cmd[2] << 8);
+	u32 modelnum = cmd[3] | (cmd[2] << 8);
 
-	if (func0f03b97c(g_Vars.chrdata, value & 0xffff, cmd[4] & 0xff)) {
+	if (chrDropItem(g_Vars.chrdata, modelnum & 0xffff, cmd[4] & 0xff)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
 	} else {
 		g_Vars.aioffset += 6;

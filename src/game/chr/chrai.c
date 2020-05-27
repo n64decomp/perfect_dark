@@ -46,7 +46,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0019*/ ai0019,
 	/*0x001a*/ ai001a,
 	/*0x001b*/ aiConsiderGrenadeThrow,
-	/*0x001c*/ ai001c,
+	/*0x001c*/ aiDropItem,
 	/*0x001d*/ aiJogToPad,
 	/*0x001e*/ aiGoToPadPreset,
 	/*0x001f*/ aiWalkToPad,

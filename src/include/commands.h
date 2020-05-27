@@ -292,10 +292,13 @@
 	mkshort(value_2), \
 	label,
 
-#define cmd001c(u1, u2, label) \
+/**
+ * Makes the chr spawn the given item and drop it immediately.
+ */
+#define drop_item(modelnum, weaponnum, label) \
 	mkshort(0x001c), \
-	mkshort(u1), \
-	u2, \
+	mkshort(modelnum), \
+	weaponnum, \
 	label,
 
 /**
