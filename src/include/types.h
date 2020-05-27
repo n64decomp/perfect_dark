@@ -5764,4 +5764,30 @@ struct movedata {
 	/*0xa8*/ s32 unka8;
 };
 
+struct animfloats {
+	/*0x00*/ u16 animnum;
+	/*0x04*/ f32 unk04;
+	/*0x08*/ f32 unk08;
+	/*0x0c*/ f32 unk0c;
+	/*0x10*/ f32 unk10;
+	/*0x14*/ f32 unk14;
+	/*0x18*/ f32 unk18;
+	/*0x1c*/ f32 unk1c;
+	/*0x20*/ f32 unk20;
+	/*0x24*/ f32 unk24;
+	/*0x28*/ f32 unk28;
+	/*0x2c*/ f32 unk2c;
+	/*0x30*/ f32 unk30;
+	/*0x34*/ f32 unk34;
+	/*0x38*/ f32 unk38;
+	/*0x3c*/ f32 unk3c;
+	/*0x40*/ f32 unk40;
+	/*0x44*/ f32 unk44;
+};
+
+struct var80065750 {
+	struct animfloats *unk00;
+	u32 unk04;
+};
+
 #endif
