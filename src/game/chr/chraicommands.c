@@ -836,7 +836,7 @@ bool ai001a(void)
 	if (chr1 && chr2 && chr1->prop && chr2->prop) {
 		struct prop *prop = chrGetEquippedWeaponPropWithCheck(chr1, 0);
 		f32 thing;
-		struct coord pos = {0, 0, 0};
+		struct coord vector = {0, 0, 0};
 		struct weaponobj *weapon;
 
 		if (!prop) {
@@ -844,13 +844,13 @@ bool ai001a(void)
 		}
 
 		if (prop) {
-			pos.x = chr2->prop->pos.x - chr1->prop->pos.x;
-			pos.y = chr2->prop->pos.y - chr1->prop->pos.y;
-			pos.z = chr2->prop->pos.z - chr1->prop->pos.z;
-			scaleTo1(&pos.x, &pos.y, &pos.z);
+			vector.x = chr2->prop->pos.x - chr1->prop->pos.x;
+			vector.y = chr2->prop->pos.y - chr1->prop->pos.y;
+			vector.z = chr2->prop->pos.z - chr1->prop->pos.z;
+			scaleTo1(&vector.x, &vector.y, &vector.z);
 			weapon = prop->weapon;
 			thing = func0f0b1d28(&weapon->weapon_id);
-			func0f034330(chr2, thing, &pos, &weapon->weapon_id, chr1->prop, (s8)cmd[4]);
+			func0f034330(chr2, thing, &vector, &weapon->weapon_id, chr1->prop, (s8)cmd[4]);
 		}
 	}
 

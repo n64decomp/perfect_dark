@@ -6551,67 +6551,18 @@ glabel func0f0341dc
 /*  f03432c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f034330
-/*  f034330:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f034334:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f034338:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f03433c:	afa60058 */ 	sw	$a2,0x58($sp)
-/*  f034340:	afa7005c */ 	sw	$a3,0x5c($sp)
-/*  f034344:	afa0004c */ 	sw	$zero,0x4c($sp)
-/*  f034348:	afa00048 */ 	sw	$zero,0x48($sp)
-/*  f03434c:	afa00044 */ 	sw	$zero,0x44($sp)
-/*  f034350:	0fc0cfe8 */ 	jal	chrGetShield
-/*  f034354:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f034358:	44802000 */ 	mtc1	$zero,$f4
-/*  f03435c:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f034360:	4600203e */ 	c.le.s	$f4,$f0
-/*  f034364:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f034368:	45020011 */ 	bc1fl	.L0f0343b0
-/*  f03436c:	8fa80060 */ 	lw	$t0,0x60($sp)
-/*  f034370:	8c8e0020 */ 	lw	$t6,0x20($a0)
-/*  f034374:	8fa60058 */ 	lw	$a2,0x58($sp)
-/*  f034378:	27a7004c */ 	addiu	$a3,$sp,0x4c
-/*  f03437c:	11c0000b */ 	beqz	$t6,.L0f0343ac
-/*  f034380:	27af0064 */ 	addiu	$t7,$sp,0x64
-/*  f034384:	8c85001c */ 	lw	$a1,0x1c($a0)
-/*  f034388:	27b80048 */ 	addiu	$t8,$sp,0x48
-/*  f03438c:	27b90044 */ 	addiu	$t9,$sp,0x44
-/*  f034390:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f034394:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f034398:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f03439c:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0343a0:	0fc0ffcb */ 	jal	func0f03ff2c
-/*  f0343a4:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f0343a8:	8fa40050 */ 	lw	$a0,0x50($sp)
-.L0f0343ac:
-/*  f0343ac:	8fa80060 */ 	lw	$t0,0x60($sp)
-.L0f0343b0:
-/*  f0343b0:	8fa90064 */ 	lw	$t1,0x64($sp)
-/*  f0343b4:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0343b8:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*  f0343bc:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0343c0:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f0343c4:	8c8b001c */ 	lw	$t3,0x1c($a0)
-/*  f0343c8:	8fac004c */ 	lw	$t4,0x4c($sp)
-/*  f0343cc:	8fad0048 */ 	lw	$t5,0x48($sp)
-/*  f0343d0:	8fae0044 */ 	lw	$t6,0x44($sp)
-/*  f0343d4:	afa00034 */ 	sw	$zero,0x34($sp)
-/*  f0343d8:	afa00030 */ 	sw	$zero,0x30($sp)
-/*  f0343dc:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f0343e0:	8fa50054 */ 	lw	$a1,0x54($sp)
-/*  f0343e4:	8fa60058 */ 	lw	$a2,0x58($sp)
-/*  f0343e8:	8fa7005c */ 	lw	$a3,0x5c($sp)
-/*  f0343ec:	afab001c */ 	sw	$t3,0x1c($sp)
-/*  f0343f0:	afac0020 */ 	sw	$t4,0x20($sp)
-/*  f0343f4:	afad0024 */ 	sw	$t5,0x24($sp)
-/*  f0343f8:	0fc0d149 */ 	jal	func0f034524
-/*  f0343fc:	afae0028 */ 	sw	$t6,0x28($sp)
-/*  f034400:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f034404:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f034408:	03e00008 */ 	jr	$ra
-/*  f03440c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f034330(struct chrdata *chr, f32 arg1, struct coord *vector, u8 *arg3, struct prop *prop, s32 arg5)
+{
+	s32 sp76 = 0;
+	s32 sp72 = 0;
+	s32 sp68 = 0;
+
+	if (chrGetShield(chr) >= 0 && chr->animdata) {
+		func0f03ff2c(chr, &chr->prop->pos, vector, &sp76, &arg5, &sp72, &sp68);
+	}
+
+	func0f034524(chr, arg1, vector, arg3, prop, arg5, 1, chr->prop, sp76, sp72, sp68, 0, 0, 0);
+}
 
 GLOBAL_ASM(
 glabel func0f034410
