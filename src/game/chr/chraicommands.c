@@ -937,12 +937,12 @@ bool aiRemoveChr(void)
 /**
  * @cmd 0027
  */
-bool ai0027(void)
+bool aiTryStartAlarm(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 
-	if (func0f03b5f0(g_Vars.chrdata, pad_id)) {
+	if (chrTryStartAlarm(g_Vars.chrdata, pad_id)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;

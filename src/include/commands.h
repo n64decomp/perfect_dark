@@ -372,7 +372,17 @@
 	mkshort(0x0026), \
 	chr,
 
-#define cmd0027(pad, label) \
+/**
+ * Makes the chr try to run to an alarm switch and activate it.
+ *
+ * The pad argument should be the pad that the alarm is at. A check is done to
+ * make sure the object at that pad is healthy.
+ *
+ * Note that no check is done to make sure that the object at the pad is
+ * actually an alarm switch, and the chr will actually run to their closest
+ * alarm switch rather than the one at the given pad.
+ */
+#define try_start_alarm(pad, label) \
 	mkshort(0x0027), \
 	mkshort(pad), \
 	label,
@@ -382,8 +392,8 @@
  * start. To make guards spawn when the alarm is sounded, an AI list must wait
  * for the alarm then spawn them.
  *
- * The alarm does not have a timer. You may want to use an AI list to wait for
- * them alarm, then wait a certain amount of time before deactivating it.
+ * Alarms have a 30 second timer, with the exception of G5 Building which is
+ * 55 seconds.
  */
 #define activate_alarm \
 	mkshort(0x0028),

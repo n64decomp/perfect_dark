@@ -1111,7 +1111,7 @@ glabel func0f02ef40
 /*  f02eff8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f02effc(struct chrdata *chr)
+void chrStartAlarm(struct chrdata *chr)
 {
 	chrStopFiring(chr);
 	chr->actiontype = ACT_STARTALARM;
@@ -13869,16 +13869,16 @@ glabel var7f1a8ed4
 /*  f03b5ec:	27bd02b8 */ 	addiu	$sp,$sp,0x2b8
 );
 
-bool func0f03b5f0(struct chrdata *chr, s32 pad_id)
+bool chrTryStartAlarm(struct chrdata *chr, s32 pad_id)
 {
 	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
 		pad_id = chrResolvePadId(chr, pad_id);
 
 		if (pad_id >= 0) {
-			struct defaultobj *obj = func0f0681c0(pad_id);
+			struct defaultobj *obj = objFindByPadNum(pad_id);
 
 			if (obj && objIsHealthy(obj)) {
-				func0f02effc(chr);
+				chrStartAlarm(chr);
 				return true;
 			}
 		}

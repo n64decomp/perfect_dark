@@ -42,7 +42,7 @@
 /*0x0024*/ bool aiSurrender(void);
 /*0x0025*/ bool aiFadeOut(void);
 /*0x0026*/ bool aiRemoveChr(void);
-/*0x0027*/ bool ai0027(void);
+/*0x0027*/ bool aiTryStartAlarm(void);
 /*0x0028*/ bool aiActivateAlarm(void);
 /*0x0029*/ bool aiDeactivateAlarm(void);
 /*0x002a*/ bool ai002a(void);

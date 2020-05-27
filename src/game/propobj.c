@@ -2370,34 +2370,24 @@ glabel func0f06803c
 /*  f0681bc:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-GLOBAL_ASM(
-glabel func0f0681c0
-/*  f0681c0:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x33c)
-/*  f0681c4:	8c42a2fc */ 	lw	$v0,%lo(g_Vars+0x33c)($v0)
-/*  f0681c8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0681cc:	50400010 */ 	beqzl	$v0,.L0f068210
-/*  f0681d0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0681d4:	904e0000 */ 	lbu	$t6,0x0($v0)
-.L0f0681d8:
-/*  f0681d8:	54ae000a */ 	bnel	$a1,$t6,.L0f068204
-/*  f0681dc:	8c420020 */ 	lw	$v0,0x20($v0)
-/*  f0681e0:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f0681e4:	00047c00 */ 	sll	$t7,$a0,0x10
-/*  f0681e8:	000fc403 */ 	sra	$t8,$t7,0x10
-/*  f0681ec:	84790006 */ 	lh	$t9,0x6($v1)
-/*  f0681f0:	57190004 */ 	bnel	$t8,$t9,.L0f068204
-/*  f0681f4:	8c420020 */ 	lw	$v0,0x20($v0)
-/*  f0681f8:	03e00008 */ 	jr	$ra
-/*  f0681fc:	00601025 */ 	or	$v0,$v1,$zero
-/*  f068200:	8c420020 */ 	lw	$v0,0x20($v0)
-.L0f068204:
-/*  f068204:	5440fff4 */ 	bnezl	$v0,.L0f0681d8
-/*  f068208:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f06820c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f068210:
-/*  f068210:	03e00008 */ 	jr	$ra
-/*  f068214:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct defaultobj *objFindByPadNum(s32 padnum)
+{
+	struct prop *prop = g_Vars.unk00033c;
+
+	while (prop) {
+		if (prop->type == PROPTYPE_OBJ) {
+			struct defaultobj *obj = prop->obj;
+
+			if (obj->pad == (s16)padnum) {
+				return obj;
+			}
+		}
+
+		prop = prop->next;
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f068218

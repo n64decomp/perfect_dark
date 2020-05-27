@@ -57,7 +57,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0024*/ aiSurrender,
 	/*0x0025*/ aiFadeOut,
 	/*0x0026*/ aiRemoveChr,
-	/*0x0027*/ ai0027,
+	/*0x0027*/ aiTryStartAlarm,
 	/*0x0028*/ aiActivateAlarm,
 	/*0x0029*/ aiDeactivateAlarm,
 	/*0x002a*/ ai002a,
