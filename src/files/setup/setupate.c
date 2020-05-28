@@ -452,7 +452,7 @@ u8 func0403_jon_combat[] = {
 
 	beginloop(0x04)
 		if_timer_gt(240, /*goto*/ 0x58)
-		if_within_units_of_sight(30, /*goto*/ 0x58)
+		if_nearly_in_targets_sight(30, /*goto*/ 0x58)
 	endloop(0x04)
 
 	label(0x58)

@@ -30597,18 +30597,18 @@ s32 chrGetDistanceLostToTargetInLastSecond(struct chrdata *chr)
 	return curdist - olddist;
 }
 
-bool func0f04c6b4(struct chrdata *chr, u32 distance)
+bool chrIsTargetNearlyInSight(struct chrdata *chr, u32 distance)
 {
-	struct prop *prop = chrGetTargetProp(chr);
+	struct prop *target = chrGetTargetProp(chr);
 
-	return func0002f450(&chr->prop->pos, &chr->prop->rooms[0], &prop->pos, distance, 32);
+	return func0002f450(&chr->prop->pos, &chr->prop->rooms[0], &target->pos, distance, 32);
 }
 
-bool func0f04c71c(struct chrdata *chr, u32 distance)
+bool chrIsNearlyInTargetsSight(struct chrdata *chr, u32 distance)
 {
-	struct prop *prop = chrGetTargetProp(chr);
+	struct prop *target = chrGetTargetProp(chr);
 
-	return func0002f450(&prop->pos, &prop->rooms[0], &chr->prop->pos, distance, 32);
+	return func0002f450(&target->pos, &target->rooms[0], &chr->prop->pos, distance, 32);
 }
 
 GLOBAL_ASM(

@@ -1157,7 +1157,7 @@ u8 func1004_check_saucer_destroyed[] = {
 	endlist
 };
 
-u8 func1005_check_experiemnt_destroyed_pointless[] = {
+u8 func1005_check_experiment_destroyed_pointless[] = {
 	// This is a pointless function
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_EXPERIMENT, /*goto*/ 0x2c)
@@ -1887,14 +1887,14 @@ u8 func0414_unload[] = {
 	label(0x2c)
 	yield
 	set_target_chr(CHR_BOND)
-	if_within_units_of_sight(30, /*goto*/ 0x06)
+	if_nearly_in_targets_sight(30, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
 	set_target_chr(CHR_COOP)
-	if_within_units_of_sight(30, /*goto*/ 0x06)
+	if_nearly_in_targets_sight(30, /*goto*/ 0x06)
 	label(0x2c)
 	if_chr_death_animation_finished(CHR_ANTI, /*goto*/ 0x08)
 	set_target_chr(CHR_ANTI)
-	if_within_units_of_sight(30, /*goto*/ 0x06)
+	if_nearly_in_targets_sight(30, /*goto*/ 0x06)
 	label(0x08)
 	yield
 	chr_drop_weapon(CHR_SELF)
@@ -1912,7 +1912,7 @@ struct ailist ailists[] = {
 	{ func1002_intro,                                0x1002 },
 	{ func1003_check_experiment_destroyed,           0x1003 },
 	{ func1004_check_saucer_destroyed,               0x1004 },
-	{ func1005_check_experiemnt_destroyed_pointless, 0x1005 },
+	{ func1005_check_experiment_destroyed_pointless, 0x1005 },
 	{ func1006_activate_alarm,                       0x1006 },
 	{ func1007_disable_pods,                         0x1007 },
 	{ func1008_check_console,                        0x1008 },

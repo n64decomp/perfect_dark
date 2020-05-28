@@ -13498,7 +13498,49 @@ glabel func0002f308
 /*    2f44c:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-bool func0002f450(struct coord *pos, s16 *rooms, struct coord *pos2, f32 distance, s32 arg4)
+//bool func0002f308(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 arg4, u16 arg5)
+//{
+//	struct coord diff; // sp60
+//	f32 x; // sp56
+//	f32 z; // sp52
+//	struct coord vector; // sp40
+//
+//	if (func0002db98(viewpos, rooms, targetpos, arg4, arg5)) {
+//		return true;
+//	}
+//
+//	vector.x = targetpos->x - viewpos->x;
+//	vector.y = 0;
+//	vector.z = targetpos->z - viewpos->z;
+//
+//	// 378
+//	scaleTo1(&vector.x, &vector.y, &vector.z);
+//
+//	x = vector.x * distance;
+//	z = vector.z * distance;
+//
+//	diff.x = targetpos->x - z;
+//	diff.y = targetpos->y;
+//	diff.z = targetpos->z + x;
+//
+//	// 3d0
+//	if (func0002db98(viewpos, rooms, &diff, arg4, arg5)) {
+//		return true;
+//	}
+//
+//	diff.x = targetpos->x + z;
+//	diff.y = targetpos->y;
+//	diff.z = targetpos->z - x;
+//
+//	// 420
+//	if (func0002db98(viewpos, rooms, &diff, arg4, arg5)) {
+//		return true;
+//	}
+//
+//	return false;
+//}
+
+bool func0002f450(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 arg4)
 {
-	return func0002f308(pos, rooms, pos2, distance, arg4, 8);
+	return func0002f308(viewpos, rooms, targetpos, distance, arg4, 8);
 }

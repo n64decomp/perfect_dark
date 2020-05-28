@@ -1804,9 +1804,9 @@ u8 func0420_trent_running[] = {
 	if_chr_stopped(/*goto*/ 0x08)
 	goto_first(0x0a)
 
-	// Player not in sight
+	// Player not in sight, or Trent has reached his destination
 	label(0x08)
-	if_within_units_of_sight(30, /*goto*/ 0x31)
+	if_nearly_in_targets_sight(30, /*goto*/ 0x31)
 	goto_next(0x08)
 
 	label(0x31)

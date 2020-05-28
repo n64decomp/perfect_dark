@@ -67,8 +67,8 @@
 /*0x003d*/ bool aiIfSawInjury(void);
 /*0x003e*/ bool aiIfSawDeath(void);
 /*0x003f*/ bool aiIfSeesPlayer(void);
-/*0x0040*/ bool ai0040(void);
-/*0x0041*/ bool ai0041(void);
+/*0x0040*/ bool aiIfTargetNearlyInSight(void);
+/*0x0041*/ bool aiIfNearlyInTargetsSight(void);
 /*0x0042*/ bool aiIfInLoadedRoom(void);
 /*0x0043*/ bool aiIfSawTargetRecently(void);
 /*0x0044*/ bool aiIfHeardTargetRecently(void);

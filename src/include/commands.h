@@ -592,15 +592,24 @@
 	mkshort(0x003f), \
 	label,
 
-#define cmd0040(flags, label) \
+/**
+ * Checks if the current chr's target is in sight of the current chr, or would
+ * be in sight if the target were to move <distance> units left or right in a
+ * circle around the current chr.
+ */
+#define if_target_nearly_in_sight(distance, label) \
 	mkshort(0x0040), \
-	mkword(flags), \
+	mkword(distance), \
 	label,
 
-// Not sure about this.
-#define if_within_units_of_sight(value, label) \
+/**
+ * Checks if the current chr is in sight of their target, or would be in sight
+ * if the current chr were to move <distance> units left or right in a circle
+ * around their target.
+ */
+#define if_nearly_in_targets_sight(distance, label) \
 	mkshort(0x0041), \
-	mkword(value), \
+	mkword(distance), \
 	label,
 
 /**

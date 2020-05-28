@@ -317,8 +317,8 @@ struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrn
 s16 chrGoToCover(struct chrdata *chr, u8 speed);
 void chrAddTargetToBdlist(struct chrdata *chr);
 s32 chrGetDistanceLostToTargetInLastSecond(struct chrdata *chr);
-bool func0f04c6b4(struct chrdata *chr, u32 distance);
-bool func0f04c71c(struct chrdata *chr, u32 distance);
+bool chrIsTargetNearlyInSight(struct chrdata *chr, u32 distance);
+bool chrIsNearlyInTargetsSight(struct chrdata *chr, u32 distance);
 s16 *teamGetChrIds(s32 team_id);
 s16 *squadronGetChrIds(s32 squadron_id);
 void audioMarkAsRecentlyPlayed(s16 audioid);

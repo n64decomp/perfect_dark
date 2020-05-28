@@ -2066,7 +2066,7 @@ u8 func040d_cass[] = {
 	label(0x00)
 	set_stage_flag(STAGEFLAG_TOP_GUARDS_ATTACKING)
 
-	// Wait until Jo not in top room
+	// Wait until Cass not in top room
 	beginloop(0x2c)
 		if_chr_in_room(CHR_SELF, 0x00, 0x003a, /*goto*/ 0x20)
 		if_chr_in_room(CHR_SELF, 0x00, 0x003b, /*goto*/ 0x20)
@@ -2079,9 +2079,9 @@ u8 func040d_cass[] = {
 		label(0x00)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_within_units_of_sight(30, /*goto*/ 0x20)
+		if_nearly_in_targets_sight(30, /*goto*/ 0x20)
 		set_target_chr(CHR_ANTI)
-		if_within_units_of_sight(30, /*goto*/ 0x20)
+		if_nearly_in_targets_sight(30, /*goto*/ 0x20)
 		goto_next(0x2d)
 
 		label(0x20)

@@ -922,11 +922,11 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 u8 func0433_unused[] = {
 	beginloop(0x04)
 		set_target_chr(CHR_BOND)
-		if_within_units_of_sight(30, /*goto*/ 0x06)
+		if_nearly_in_targets_sight(30, /*goto*/ 0x06)
 		set_target_chr(CHR_COOP)
-		if_within_units_of_sight(30, /*goto*/ 0x06)
+		if_nearly_in_targets_sight(30, /*goto*/ 0x06)
 		set_target_chr(CHR_ANTI)
-		if_within_units_of_sight(30, /*goto*/ 0x06)
+		if_nearly_in_targets_sight(30, /*goto*/ 0x06)
 		goto_next(0x2e)
 
 		label(0x06)

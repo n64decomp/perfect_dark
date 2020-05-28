@@ -108,7 +108,7 @@ u32 func0002d8b8(void);
 u32 func0002d95c(void);
 u32 func0002da50(void);
 u32 func0002dac8(void);
-u32 func0002db98(void);
+bool func0002db98(struct coord *viewpos, s16 *rooms, struct coord *targetpos, s32 arg3, u32 arg4);
 u32 func0002dc18(struct coord *coord, s16 *room, struct coord *coord2, s32 arg3);
 bool hasLineOfSight(struct coord *coord, s16 *room, struct coord *coord2, s16 *room2, s32 arg4, s32 arg5);
 u32 func0002dcd0(void);
@@ -127,7 +127,7 @@ u32 func0002e9d8(void);
 u32 func0002eb84(void);
 u32 func0002ed30(void);
 u32 func0002f02c(void);
-bool func0002f308(struct coord *pos, s16 *rooms, struct coord *pos2, f32 distance, s32 arg4, s32 arg5);
-bool func0002f450(struct coord *pos, s16 *rooms, struct coord *pos2, f32 distance, s32 arg4);
+bool func0002f308(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 arg4, u16 arg5);
+bool func0002f450(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 arg4);
 
 #endif

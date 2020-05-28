@@ -1377,12 +1377,12 @@ bool ai017a(void)
 /**
  * @cmd 0040
  */
-bool ai0040(void)
+bool aiIfTargetNearlyInSight(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
+	u32 distance = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
-	if (func0f04c6b4(g_Vars.chrdata, flags)) {
+	if (chrIsTargetNearlyInSight(g_Vars.chrdata, distance)) {
 		cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
@@ -1395,12 +1395,12 @@ bool ai0040(void)
 /**
  * @cmd 0041
  */
-bool ai0041(void)
+bool aiIfNearlyInTargetsSight(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u32 value = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
+	u32 distance = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
-	if (func0f04c71c(g_Vars.chrdata, value)) {
+	if (chrIsNearlyInTargetsSight(g_Vars.chrdata, distance)) {
 		cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
