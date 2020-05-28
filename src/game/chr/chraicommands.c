@@ -9799,7 +9799,7 @@ bool aiIfTargetIsPlayer(void)
 bool ai0184(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f03a3ec(g_Vars.chrdata, 512, 0, cmd[2], cmd[3]);
+	chrTryAttackAmount(g_Vars.chrdata, 512, 0, cmd[2], cmd[3]);
 	g_Vars.aioffset += 4;
 
 	return false;

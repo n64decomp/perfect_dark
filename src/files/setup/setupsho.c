@@ -1736,7 +1736,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	goto_next(0x71)
 
 	// Unreachable
-	cmd0184(90, 100)
+	try_attack_amount(90, 100)
 
 	beginloop(0x64)
 		if_chr_stopped(/*goto*/ 0x63)
@@ -1807,7 +1807,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	goto_next(0x2d)
 
 	label(0x72)
-	cmd0184(40, 60)
+	try_attack_amount(40, 60)
 	dprint 'F','I','R','E',' ','F','U','L','L','\n',0,
 	label(0x06)
 	goto_first(0x64)

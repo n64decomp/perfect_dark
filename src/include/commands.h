@@ -3308,24 +3308,32 @@
 	mkshort(0x0183), \
 	label,
 
-// Involves a call to the RNG, and zeroing chr fields aimendlshoulder,
-// aimendrshoulder, aimendback and amendsideback.
-//
-// Called with values:
-// 90, 100
-// 40, 60
-// 20, 30
-//
-// Used by:
-// Attack Ship - Bridge skedar (with 40,60)
-// Ruins - Reaper and Slayer skedar (with 40,60)
-// globals.s - with values 90,100 and 20,30
-//
-// Sometimes accompanied with dprint "FIRE FULL"
-#define cmd0184(u1, u2) \
+/**
+ * Makes the chr begin the ACT_ATTACKAMOUNT action, although the specifics of
+ * this action are unknown.
+ *
+ * The two values are the lower and upper bounds of a random percentage. For
+ * example, when using the values 40 and 60 a random percentage will be chosen
+ * between 40% and 60%. This percentage is then applied to the weapon's clip
+ * size. When happens with that is not yet known.
+ *
+ * Note that this command can fail, but doesn't have a label argument so failure
+ * cannot be detected.
+ *
+ * It's called with these values:
+ * 90, 100
+ * 40, 60
+ * 20, 30
+ *
+ * It's used by:
+ * Attack Ship - Bridge skedar (with 40,60)
+ * Ruins - Reaper and Slayer skedar (with 40,60)
+ * Global AI lists - with values 90,100 and 20,30
+ */
+#define try_attack_amount(lower, upper) \
 	mkshort(0x0184), \
-	u1, \
-	u2,
+	lower, \
+	upper,
 
 #define mp_init_simulants \
 	mkshort(0x0185),

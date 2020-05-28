@@ -321,9 +321,9 @@
 // chr->flags2
 #define CHRFLAG1_00000001                  0x00000001 // Globals, Extraction, Air Base, Deep Sea
 #define CHRFLAG1_00000002                  0x00000002 // Globals
-#define CHRFLAG1_00000004                  0x00000004 // Globals - If set, avoids cmd0184
+#define CHRFLAG1_00000004                  0x00000004 // Globals - If set, avoids try_attack_amount
 #define CHRFLAG1_00000008                  0x00000008 // Only used in WAR. If set, chr waits 2 seconds before attacking while defending
-#define CHRFLAG1_00000010                  0x00000010 // Globals - If set, avoids cmd0184
+#define CHRFLAG1_00000010                  0x00000010 // Globals - If set, avoids try_attack_amount
 #define CHRFLAG1_00000020                  0x00000020 // Globals, AF1, Defense - related to reload animation
 #define CHRFLAG1_CAN_SNIPE                 0x00000040
 #define CHRFLAG1_00000080                  0x00000080 // Not used in scripts
