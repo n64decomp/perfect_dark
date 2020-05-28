@@ -13498,22 +13498,7 @@ glabel func0002f308
 /*    2f44c:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-GLOBAL_ASM(
-glabel func0002f450
-/*    2f450:	44876000 */ 	mtc1	$a3,$f12
-/*    2f454:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    2f458:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*    2f45c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    2f460:	240f0008 */ 	addiu	$t7,$zero,0x8
-/*    2f464:	44076000 */ 	mfc1	$a3,$f12
-/*    2f468:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2f46c:	0c00bcc2 */ 	jal	func0002f308
-/*    2f470:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2f474:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    2f478:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    2f47c:	03e00008 */ 	jr	$ra
-/*    2f480:	00000000 */ 	sll	$zero,$zero,0x0
-/*    2f484:	00000000 */ 	sll	$zero,$zero,0x0
-/*    2f488:	00000000 */ 	sll	$zero,$zero,0x0
-/*    2f48c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0002f450(struct coord *pos, s16 *rooms, struct coord *pos2, f32 distance, s32 arg4)
+{
+	return func0002f308(pos, rooms, pos2, distance, arg4, 8);
+}
