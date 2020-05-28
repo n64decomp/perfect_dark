@@ -45,7 +45,7 @@
 /*0x0027*/ bool aiTryStartAlarm(void);
 /*0x0028*/ bool aiActivateAlarm(void);
 /*0x0029*/ bool aiDeactivateAlarm(void);
-/*0x002a*/ bool ai002a(void);
+/*0x002a*/ bool aiTryRunFromTarget(void);
 /*0x002b*/ bool aiTryJogToTargetProp(void);
 /*0x002c*/ bool aiTryWalkToTargetProp(void);
 /*0x002d*/ bool aiTryRunToTargetProp(void);

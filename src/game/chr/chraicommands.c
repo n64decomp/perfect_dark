@@ -976,9 +976,9 @@ bool aiDeactivateAlarm(void)
 /**
  * @cmd 002a
  */
-bool ai002a(void)
+bool aiTryRunFromTarget(void)
 {
-	if (func0f03afac(g_Vars.chrdata)) {
+	if (chrTryRunFromTarget(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

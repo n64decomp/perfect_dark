@@ -404,7 +404,12 @@
 #define deactivate_alarm \
 	mkshort(0x0029),
 
-#define cmd002a(label) \
+/**
+ * Makes the chr attempt to run 1000 units in the opposite direction to their
+ * target, without any pathfinding. If this destination is obstructed by a wall
+ * then they'll run as far as they can and stop at the wall.
+ */
+#define try_run_from_target(label) \
 	mkshort(0x002a), \
 	label,
 

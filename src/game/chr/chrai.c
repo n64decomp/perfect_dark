@@ -60,7 +60,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0027*/ aiTryStartAlarm,
 	/*0x0028*/ aiActivateAlarm,
 	/*0x0029*/ aiDeactivateAlarm,
-	/*0x002a*/ ai002a,
+	/*0x002a*/ aiTryRunFromTarget,
 	/*0x002b*/ aiTryJogToTargetProp,
 	/*0x002c*/ aiTryWalkToTargetProp,
 	/*0x002d*/ aiTryRunToTargetProp,

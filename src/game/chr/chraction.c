@@ -13428,7 +13428,7 @@ bool func0f03af44(struct chrdata *chr, u32 anim_id, f32 fstartframe, f32 fendfra
 }
 
 GLOBAL_ASM(
-glabel func0f03afac
+glabel chrTryRunFromTarget
 /*  f03afac:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f03afb0:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f03afb4:	afb00028 */ 	sw	$s0,0x28($sp)
@@ -13579,6 +13579,77 @@ glabel func0f03afac
 /*  f03b1d8:	03e00008 */ 	jr	$ra
 /*  f03b1dc:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+//bool chrTryRunFromTarget(struct chrdata *chr)
+//{
+//	struct prop *target = chrGetTargetProp(chr); // sp132
+//	struct prop *prop = chr->prop;
+//	f32 ymax; // sp124
+//	f32 ymin; // sp120
+//	f32 width; // sp116
+//	struct coord dst; // sp104
+//	s16 rooms[8]; // sp88
+//	struct coord diff; // sp76
+//	f32 distance;
+//
+//	if (!chrIsReadyForOrders(chr) || !target) {
+//		return false;
+//	}
+//
+//	diff.x = target->pos.x - prop->pos.x;
+//	diff.y = 0;
+//	diff.z = target->pos.z - prop->pos.z;
+//
+//	distance = sqrtf(diff.z * diff.z + diff.x * diff.x);
+//
+//	// 02c
+//	// Scale diff into range -1 to +1
+//	diff.x *= (1 / distance);
+//	diff.y *= (1 / distance);
+//	diff.z *= (1 / distance);
+//
+//	// Set dst to 1000 units in the opposite direction
+//	dst.x = prop->pos.x - diff.x * 1000;
+//	dst.y = prop->pos.y;
+//	dst.z = prop->pos.z - diff.z * 1000;
+//
+//	propGetBbox(prop, &width, &ymax, &ymin);
+//
+//	// 098
+//	// If dst runs into a wall, set it to closest valid spot
+//	if (!func0002d7c0(&prop->pos, prop->rooms, &dst, 0x33, 1,
+//				ymax - prop->pos.y, ymin - prop->pos.y)) {
+//		func00024ebc(&dst, 8788, "chraction.c"); // var7f1a8ad8
+//	}
+//
+//	// 0f0
+//	// Adjust dst to be two chr widths closer to avoid collision with wall
+//	dst.x += diff.x * width + diff.x * width;
+//	dst.z += diff.z * width + diff.z * width;
+//
+//	if (func0f036974(prop, &dst)) {
+//		u32 speed = SPEED_RUN;
+//
+//		if (CHRRACE(chr) == RACE_HUMAN) {
+//			f32 dist = chrGetDistanceToCoord(chr, &dst);
+//
+//			if (dist > 100) {
+//				speed = SPEED_RUN;
+//			} else if (dist < 50) {
+//				speed = SPEED_WALK;
+//			} else {
+//				speed = SPEED_JOG;
+//			}
+//		}
+//
+//		func0f065e74(&prop->pos, prop->rooms, &dst, rooms);
+//		chrGoToPos(chr, &dst, rooms, speed);
+//
+//		return true;
+//	}
+//
+//	return false;
+//}
 
 GLOBAL_ASM(
 glabel func0f03b1e0
