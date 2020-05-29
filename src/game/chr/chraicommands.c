@@ -1345,7 +1345,7 @@ bool aiIfSawDeath(void)
 bool aiIfCanSeeTarget(void)
 {
 	if ((g_Vars.chrdata && chrCanSeeTarget(g_Vars.chrdata)) ||
-			(g_Vars.hovercar && func0f07ae18(g_Vars.hovercar, 0x40) && chopperCheckTargetVisible(g_Vars.hovercar))) {
+			(g_Vars.hovercar && chopperCheckTargetInFov(g_Vars.hovercar, 64) && chopperCheckTargetInSight(g_Vars.hovercar))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1361,7 +1361,7 @@ bool aiIfCanSeeTarget(void)
 bool ai017a(void)
 {
 	if ((g_Vars.chrdata && g_Vars.chrdata->prop && func0f0391ec(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, &g_Vars.chrdata->prop->rooms[0], 1))
-			|| (g_Vars.hovercar && func0f07ae18(g_Vars.hovercar, 0x40) && chopperCheckTargetVisible(g_Vars.hovercar))) {
+			|| (g_Vars.hovercar && chopperCheckTargetInFov(g_Vars.hovercar, 64) && chopperCheckTargetInSight(g_Vars.hovercar))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

@@ -23803,99 +23803,39 @@ struct chopperobj *chopperFromHovercar(struct chopperobj *chopper)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f07ae18
-.late_rodata
-glabel var7f1aa5b4
-.word 0x40c907a9
-glabel var7f1aa5b8
-.word 0x3cc907a9
-glabel var7f1aa5bc
-.word 0x40490fdb
-glabel var7f1aa5c0
-.word 0x40c907a9
-glabel var7f1aa5c4
-.word 0x40490fdb
-.text
-/*  f07ae18:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f07ae1c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07ae20:	0fc1eb7d */ 	jal	chopperFromHovercar
-/*  f07ae24:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f07ae28:	00402025 */ 	or	$a0,$v0,$zero
-/*  f07ae2c:	1040003c */ 	beqz	$v0,.L0f07af20
-/*  f07ae30:	00002825 */ 	or	$a1,$zero,$zero
-/*  f07ae34:	c444007c */ 	lwc1	$f4,0x7c($v0)
-/*  f07ae38:	a3a00023 */ 	sb	$zero,0x23($sp)
-/*  f07ae3c:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f07ae40:	0fc1eb6e */ 	jal	chopperGetTargetProp
-/*  f07ae44:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*  f07ae48:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f07ae4c:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f07ae50:	c4500010 */ 	lwc1	$f16,0x10($v0)
-/*  f07ae54:	8c830014 */ 	lw	$v1,0x14($a0)
-/*  f07ae58:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f07ae5c:	c46a0010 */ 	lwc1	$f10,0x10($v1)
-/*  f07ae60:	46083301 */ 	sub.s	$f12,$f6,$f8
-/*  f07ae64:	0fc259d4 */ 	jal	func0f096750
-/*  f07ae68:	46105381 */ 	sub.s	$f14,$f10,$f16
-/*  f07ae6c:	c7ae001c */ 	lwc1	$f14,0x1c($sp)
-/*  f07ae70:	93ae002f */ 	lbu	$t6,0x2f($sp)
-/*  f07ae74:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f07ae78:	460e003c */ 	c.lt.s	$f0,$f14
-/*  f07ae7c:	448e2000 */ 	mtc1	$t6,$f4
-/*  f07ae80:	460e0301 */ 	sub.s	$f12,$f0,$f14
-/*  f07ae84:	93a50023 */ 	lbu	$a1,0x23($sp)
-/*  f07ae88:	3c017f1b */ 	lui	$at,%hi(var7f1aa5b4)
-/*  f07ae8c:	45000003 */ 	bc1f	.L0f07ae9c
-/*  f07ae90:	46006086 */ 	mov.s	$f2,$f12
-/*  f07ae94:	c432a5b4 */ 	lwc1	$f18,%lo(var7f1aa5b4)($at)
-/*  f07ae98:	46126080 */ 	add.s	$f2,$f12,$f18
-.L0f07ae9c:
-/*  f07ae9c:	05c10005 */ 	bgez	$t6,.L0f07aeb4
-/*  f07aea0:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f07aea4:	3c014f80 */ 	lui	$at,0x4f80
-/*  f07aea8:	44814000 */ 	mtc1	$at,$f8
-/*  f07aeac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07aeb0:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f07aeb4:
-/*  f07aeb4:	3c017f1b */ 	lui	$at,%hi(var7f1aa5b8)
-/*  f07aeb8:	c42aa5b8 */ 	lwc1	$f10,%lo(var7f1aa5b8)($at)
-/*  f07aebc:	3c017f1b */ 	lui	$at,%hi(var7f1aa5bc)
-/*  f07aec0:	460a3002 */ 	mul.s	$f0,$f6,$f10
-/*  f07aec4:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f07aec8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07aecc:	45000005 */ 	bc1f	.L0f07aee4
-/*  f07aed0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07aed4:	c430a5bc */ 	lwc1	$f16,%lo(var7f1aa5bc)($at)
-/*  f07aed8:	4610103c */ 	c.lt.s	$f2,$f16
-/*  f07aedc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07aee0:	4501000e */ 	bc1t	.L0f07af1c
-.L0f07aee4:
-/*  f07aee4:	3c017f1b */ 	lui	$at,%hi(var7f1aa5c0)
-/*  f07aee8:	c432a5c0 */ 	lwc1	$f18,%lo(var7f1aa5c0)($at)
-/*  f07aeec:	3c017f1b */ 	lui	$at,%hi(var7f1aa5c4)
-/*  f07aef0:	46009101 */ 	sub.s	$f4,$f18,$f0
-/*  f07aef4:	4602203c */ 	c.lt.s	$f4,$f2
-/*  f07aef8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07aefc:	45020007 */ 	bc1fl	.L0f07af1c
-/*  f07af00:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f07af04:	c428a5c4 */ 	lwc1	$f8,%lo(var7f1aa5c4)($at)
-/*  f07af08:	4602403c */ 	c.lt.s	$f8,$f2
-/*  f07af0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07af10:	45030003 */ 	bc1tl	.L0f07af20
-/*  f07af14:	ac8500bc */ 	sw	$a1,0xbc($a0)
-/*  f07af18:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f07af1c:
-/*  f07af1c:	ac8500bc */ 	sw	$a1,0xbc($a0)
-.L0f07af20:
-/*  f07af20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f07af24:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f07af28:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f07af2c:	03e00008 */ 	jr	$ra
-/*  f07af30:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chopperCheckTargetInFov(struct chopperobj *hovercar, u8 fov)
+{
+	struct chopperobj *chopper = chopperFromHovercar(hovercar);
+	u8 visible = false;
 
-bool chopperCheckTargetVisible(struct chopperobj *obj)
+	if (chopper) {
+		f32 roty = chopper->roty;
+		struct prop *target = chopperGetTargetProp(chopper);
+		struct prop *prop = chopper->base.prop;
+		f32 angle = func0f096750(prop->pos.x - target->pos.x, prop->pos.z - target->pos.z);
+		f32 anglediff = angle - roty;
+
+		if (angle < roty) {
+			anglediff += M_BADTAU;
+		}
+
+		visible = false;
+
+		// This logic looks wrong, but is actually correct. I think the fov is
+		// actually the not viewable area and starts at the back of the chopper,
+		// which makes sense because the chopper's windows go around the side.
+		if (!(anglediff < fov * 0.024539785459638f && anglediff < M_PI)
+				&& !(anglediff > M_BADTAU - fov * 0.024539785459638f && anglediff > M_PI)) {
+			visible = true;
+		}
+
+		chopper->targetvisible = visible;
+	}
+
+	return visible;
+}
+
+bool chopperCheckTargetInSight(struct chopperobj *obj)
 {
 	struct chopperobj *chopper = chopperFromHovercar(obj);
 
