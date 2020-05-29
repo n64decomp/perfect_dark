@@ -355,7 +355,7 @@
 /*0x0177*/ bool aiPlayerAutoWalk(void);
 /*0x0178*/ bool aiIfPlayerAutoWalkFinished(void);
 /*0x0179*/ bool ai0179(void);
-/*0x017a*/ bool ai017a(void);
+/*0x017a*/ bool aiIfCanSeeAttackTarget(void);
 /*0x017b*/ bool aiIfChrKnockedOut(void);
 /*0x017c*/ bool aiAssignSound(void);
 /*0x017d*/ bool aiAudioSetMusicTrack(void);

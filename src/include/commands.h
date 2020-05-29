@@ -3237,9 +3237,14 @@
 	mkshort(u2), \
 	entity_type,
 
-// Suspected to be named incorrectly. Global functions suggests this checks if
-// the chr can see the player.
-#define if_in_disarm_range(label) \
+/**
+ * Checks if the chr can see their attack target, which should have been
+ * specified in a prior attack command using entitytype and entityid.
+ *
+ * If the chr is not currently doing an attack action, it checks if they can see
+ * their normal target (same as if_can_see_target).
+ */
+#define if_can_see_attack_target(label) \
 	mkshort(0x017a), \
 	label,
 

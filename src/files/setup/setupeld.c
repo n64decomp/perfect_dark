@@ -1883,7 +1883,7 @@ u8 func0404_sniper[] = {
 
 		// Detected player
 		label(0x58)
-		if_in_disarm_range(/*goto*/ 0x2d)
+		if_can_see_attack_target(/*goto*/ 0x2d)
 		reloop(0x04)
 
 		label(0x2d)

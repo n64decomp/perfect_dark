@@ -1358,9 +1358,9 @@ bool aiIfCanSeeTarget(void)
 /**
  * @cmd 017a
  */
-bool ai017a(void)
+bool aiIfCanSeeAttackTarget(void)
 {
-	if ((g_Vars.chrdata && g_Vars.chrdata->prop && func0f0391ec(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, &g_Vars.chrdata->prop->rooms[0], 1))
+	if ((g_Vars.chrdata && g_Vars.chrdata->prop && chrCanSeeAttackTarget(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, true))
 			|| (g_Vars.hovercar && chopperCheckTargetInFov(g_Vars.hovercar, 64) && chopperCheckTargetInSight(g_Vars.hovercar))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);

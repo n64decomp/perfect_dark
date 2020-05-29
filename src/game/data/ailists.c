@@ -1113,7 +1113,7 @@ u8 func0007_alerted[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_00000004, FALSE, BANK_0, /*goto*/ 0x16)
 	label(0x13)
 	dprint 'V','I','S','\n',0,
-	if_in_disarm_range(/*goto*/ 0x16)
+	if_can_see_attack_target(/*goto*/ 0x16)
 	goto_next(0x98)
 
 	label(0x16)
@@ -1122,7 +1122,7 @@ u8 func0007_alerted[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_01000000, FALSE, BANK_0, /*goto*/ 0x16)
 	label(0x13)
 	dprint 'V','I','S','\n',0,
-	if_in_disarm_range(/*goto*/ 0x16)
+	if_can_see_attack_target(/*goto*/ 0x16)
 	goto_next(0xa1)
 
 	label(0x16)
@@ -1171,7 +1171,7 @@ u8 func0007_alerted[] = {
 	try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x03)
 
 	beginloop(0x03)
-		if_in_disarm_range(/*goto*/ 0x9a)
+		if_can_see_attack_target(/*goto*/ 0x9a)
 		if_chr_target_eq(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
 		goto_next(0xef)
 
@@ -1179,7 +1179,7 @@ u8 func0007_alerted[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		if_chr_target_eq(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
 		set_target_chr(CHR_P1P2)
-		if_in_disarm_range(/*goto*/ 0x9a)
+		if_can_see_attack_target(/*goto*/ 0x9a)
 		label(0xee)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
@@ -1209,7 +1209,7 @@ u8 func0007_alerted[] = {
 
 	beginloop(0xa2)
 		dprint 'W','A','I','T',' ','F','O','R',' ','A','M','B','\n',0,
-		if_in_disarm_range(/*goto*/ 0xa3)
+		if_can_see_attack_target(/*goto*/ 0xa3)
 		dprint 'A','M','B','1','\n',0,
 		if_distance_from_target_to_pad_lt(200, PAD_PRESET, /*goto*/ 0x13)
 		dprint 'A','M','B','2','\n',0,
@@ -1268,13 +1268,13 @@ u8 func0007_alerted[] = {
 		if_near_miss(/*goto*/ 0x13)
 		if_saw_injury(0x00, /*goto*/ 0x13)
 		if_saw_death(0x00, /*goto*/ 0x13)
-		if_in_disarm_range(/*goto*/ 0x13)
+		if_can_see_attack_target(/*goto*/ 0x13)
 	endloop(0xa9)
 
 	label(0x13)
 	call_rng
 	if_rand_gt(150, /*goto*/ 0x13)
-	if_in_disarm_range(/*goto*/ 0x16)
+	if_can_see_attack_target(/*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
@@ -1301,7 +1301,7 @@ u8 func0007_alerted[] = {
 	goto_first(0xa8)
 
 	label(0x13)
-	if_in_disarm_range(/*goto*/ 0x13)
+	if_can_see_attack_target(/*goto*/ 0x13)
 	goto_first(0xa8)
 
 	label(0x13)
@@ -1340,7 +1340,7 @@ u8 func0007_alerted[] = {
 	endloop(0xec)
 
 	label(0x13)
-	if_in_disarm_range(/*goto*/ 0x13)
+	if_can_see_attack_target(/*goto*/ 0x13)
 	if_chr_target_eq(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
 	goto_next(0xef)
 
@@ -1348,7 +1348,7 @@ u8 func0007_alerted[] = {
 	chr_toggle_p1p2(CHR_SELF)
 	if_chr_target_eq(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
 	set_target_chr(CHR_P1P2)
-	if_in_disarm_range(/*goto*/ 0x13)
+	if_can_see_attack_target(/*goto*/ 0x13)
 	label(0xee)
 	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
@@ -1377,7 +1377,7 @@ u8 func0007_alerted[] = {
 	endloop(0xdf)
 
 	label(0x13)
-	if_in_disarm_range(/*goto*/ 0x13)
+	if_can_see_attack_target(/*goto*/ 0x13)
 	set_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
 	stop_chr
 	goto_first(0x1b)
@@ -1442,7 +1442,7 @@ u8 func0007_alerted[] = {
 	if_distance_to_target_gt(4000, /*goto*/ 0x61)
 	label(0x16)
 	dprint 'O','K','F','O','R','C','O','V','E','R','\n',0,
-	if_in_disarm_range(/*goto*/ 0x5b)
+	if_can_see_attack_target(/*goto*/ 0x5b)
 	if_nearly_in_targets_sight(30, /*goto*/ 0x5b)
 	if_chr_in_view(/*goto*/ 0x5b)
 	goto_next(0x56)
@@ -1503,7 +1503,7 @@ u8 func0007_alerted[] = {
 		if_rand_lt(128, /*goto*/ 0x13)
 		if_distance_to_target_gt(250, /*goto*/ 0x13)
 		label(0x16)
-		if_in_disarm_range(/*goto*/ 0x16)
+		if_can_see_attack_target(/*goto*/ 0x16)
 		goto_next(0x13)
 
 		label(0x16)
@@ -1569,7 +1569,7 @@ u8 func0007_alerted[] = {
 
 	beginloop(0x62)
 		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
-		if_in_disarm_range(/*goto*/ 0x5f)
+		if_can_see_attack_target(/*goto*/ 0x5f)
 		if_player_using_cmp150_or_ar34(/*goto*/ 0x69)
 		if_distance_to_target_gt(2000, /*goto*/ 0x65)
 		goto_next(0x16)
@@ -1609,7 +1609,7 @@ u8 func0007_alerted[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x93)
 	if_has_orders(/*goto*/ 0x84)
 	label(0x93)
-	if_in_disarm_range(/*goto*/ 0x26)
+	if_can_see_attack_target(/*goto*/ 0x26)
 	goto_next(0x87)
 
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
@@ -1620,7 +1620,7 @@ u8 func0007_alerted[] = {
 	if_rand_lt(128, /*goto*/ 0x13)
 	if_distance_to_target_gt(250, /*goto*/ 0x13)
 	label(0x16)
-	if_in_disarm_range(/*goto*/ 0x16)
+	if_can_see_attack_target(/*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
@@ -1707,7 +1707,7 @@ u8 func0007_alerted[] = {
 	label(0x54)
 	dprint 'N','O',' ','C','O','V','E','R','A','V','A','I','L','A','B','L','E','\n',0,
 	label(0x68)
-	if_in_disarm_range(/*goto*/ 0x24)
+	if_can_see_attack_target(/*goto*/ 0x24)
 	goto_next(0x25)
 
 	label(0x25)
@@ -1778,7 +1778,7 @@ u8 func0007_alerted[] = {
 		if_rand_lt(128, /*goto*/ 0x13)
 		if_distance_to_target_gt(250, /*goto*/ 0x13)
 		label(0x16)
-		if_in_disarm_range(/*goto*/ 0x16)
+		if_can_see_attack_target(/*goto*/ 0x16)
 		goto_next(0x13)
 
 		label(0x16)
@@ -1805,7 +1805,7 @@ u8 func0007_alerted[] = {
 	label(0x2f)
 	dprint 'C',' ','1','\n',0,
 	if_distance_to_target_gt(1300, /*goto*/ LABEL_TRACK)
-	if_in_disarm_range(/*goto*/ 0x26)
+	if_can_see_attack_target(/*goto*/ 0x26)
 	dprint 'C',' ','2','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_RETREAT, FALSE, BANK_0, /*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CANT_ALERT_GROUP, TRUE, BANK_0, /*goto*/ LABEL_RETREAT)
@@ -1946,7 +1946,7 @@ u8 func0007_alerted[] = {
 	set_team_orders(MA_WAITSEEN, /*goto*/ 0x16)
 	label(0x16)
 	dprint 'S','E','E','W','A','I','T','3','\n',0,
-	if_in_disarm_range(/*goto*/ 0x8a)
+	if_can_see_attack_target(/*goto*/ 0x8a)
 	restart_timer
 	try_run_to_target(/*goto*/ 0x89)
 
@@ -1957,7 +1957,7 @@ u8 func0007_alerted[] = {
 		label(0x91)
 		if_retreat_risk_lt(5, /*goto*/ 0x41)
 		label(0x16)
-		if_in_disarm_range(/*goto*/ 0x8a)
+		if_can_see_attack_target(/*goto*/ 0x8a)
 		if_timer_gt(60, /*goto*/ 0x29)
 	endloop(0x89)
 
@@ -1970,7 +1970,7 @@ u8 func0007_alerted[] = {
 	if_rand_lt(128, /*goto*/ 0x13)
 	if_distance_to_target_gt(250, /*goto*/ 0x13)
 	label(0x16)
-	if_in_disarm_range(/*goto*/ 0x16)
+	if_can_see_attack_target(/*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
@@ -2091,7 +2091,7 @@ u8 func0007_alerted[] = {
 	if_rand_lt(128, /*goto*/ 0x13)
 	if_distance_to_target_gt(250, /*goto*/ 0x13)
 	label(0x16)
-	if_in_disarm_range(/*goto*/ 0x16)
+	if_can_see_attack_target(/*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
@@ -2168,7 +2168,7 @@ u8 func0007_alerted[] = {
 		if_rand_lt(128, /*goto*/ 0x13)
 		if_distance_to_target_gt(250, /*goto*/ 0x13)
 		label(0x16)
-		if_in_disarm_range(/*goto*/ 0x16)
+		if_can_see_attack_target(/*goto*/ 0x16)
 		goto_next(0x13)
 
 		label(0x16)
@@ -2189,7 +2189,7 @@ u8 func0007_alerted[] = {
 		goto_first(0x31)
 
 		label(0x16)
-		if_in_disarm_range(/*goto*/ 0x26)
+		if_can_see_attack_target(/*goto*/ 0x26)
 		label(0x13)
 		dprint 'N','O','S','E','E','P','L','A','Y','E','R','\n',0,
 		if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x13)
@@ -2275,7 +2275,7 @@ u8 func0007_alerted[] = {
 		if_rand_lt(128, /*goto*/ 0x13)
 		if_distance_to_target_gt(250, /*goto*/ 0x13)
 		label(0x16)
-		if_in_disarm_range(/*goto*/ 0x16)
+		if_can_see_attack_target(/*goto*/ 0x16)
 		goto_next(0x13)
 
 		label(0x16)
@@ -2283,7 +2283,7 @@ u8 func0007_alerted[] = {
 		set_ailist(CHR_SELF, GAILIST_HAND_COMBAT)
 
 		label(0x13)
-		if_in_disarm_range(/*goto*/ 0x26)
+		if_can_see_attack_target(/*goto*/ 0x26)
 		if_timer_gt(120, /*goto*/ 0x86)
 	endloop(0x85)
 
@@ -2300,7 +2300,7 @@ u8 func0007_alerted[] = {
 	if_rand_lt(128, /*goto*/ 0x13)
 	if_distance_to_target_gt(250, /*goto*/ 0x13)
 	label(0x16)
-	if_in_disarm_range(/*goto*/ 0x16)
+	if_can_see_attack_target(/*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
@@ -3030,7 +3030,7 @@ u8 func000c_combat_with_target_chr[] = {
 	call_rng
 	if_rand_lt(128, /*goto*/ 0x13)
 	if_distance_to_target_gt(250, /*goto*/ 0x16)
-	if_in_disarm_range(/*goto*/ 0x13)
+	if_can_see_attack_target(/*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
@@ -3062,7 +3062,7 @@ u8 func000c_combat_with_target_chr[] = {
 		if_rand_lt(128, /*goto*/ 0x13)
 		if_distance_to_target_gt(250, /*goto*/ 0x13)
 		label(0x16)
-		if_in_disarm_range(/*goto*/ 0x16)
+		if_can_see_attack_target(/*goto*/ 0x16)
 		dprint 'N','O','U','N','A','R','M','\n',0,
 		goto_next(0x13)
 
@@ -3074,7 +3074,7 @@ u8 func000c_combat_with_target_chr[] = {
 		label(0x13)
 		label(0x13)
 		if_enemy_distance_lt_and_los(1200, /*goto*/ 0xb5)
-		if_in_disarm_range(/*goto*/ 0xb6)
+		if_can_see_attack_target(/*goto*/ 0xb6)
 	endloop(0xb4)
 
 	label(0x09)
@@ -3082,7 +3082,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0xb7)
 	label(0xb9)
-	if_in_disarm_range(/*goto*/ 0xb6)
+	if_can_see_attack_target(/*goto*/ 0xb6)
 	if_chr_dead(CHR_TARGET, /*goto*/ 0xba)
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xba)
 	if_chr_knockedout(CHR_TARGET, /*goto*/ 0xba)
@@ -3106,7 +3106,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 		label(0x13)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ 0x13)
-		if_in_disarm_range(/*goto*/ 0xbf)
+		if_can_see_attack_target(/*goto*/ 0xbf)
 		label(0x13)
 		if_timer_gt(120, /*goto*/ 0xc0)
 	endloop(0xbc)
@@ -3149,7 +3149,7 @@ u8 func000c_combat_with_target_chr[] = {
 	if_rand_lt(128, /*goto*/ 0x13)
 	if_distance_to_target_gt(250, /*goto*/ 0x13)
 	label(0x16)
-	if_in_disarm_range(/*goto*/ 0x16)
+	if_can_see_attack_target(/*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
@@ -3167,7 +3167,7 @@ u8 func000c_combat_with_target_chr[] = {
 	if_rand_lt(128, /*goto*/ 0x13)
 	if_distance_to_target_gt(250, /*goto*/ 0x13)
 	label(0x16)
-	if_in_disarm_range(/*goto*/ 0x16)
+	if_can_see_attack_target(/*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
@@ -3321,7 +3321,7 @@ u8 func000c_combat_with_target_chr[] = {
 		label(0x13)
 		if_enemy_distance_lt_and_los(400, /*goto*/ 0x15)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ 0x13)
-		if_in_disarm_range(/*goto*/ 0xca)
+		if_can_see_attack_target(/*goto*/ 0xca)
 		label(0x13)
 		if_timer_gt(200, /*goto*/ 0x16)
 	endloop(0xc9)
@@ -3806,7 +3806,7 @@ u8 func000f_hand_combat[] = {
 	if_distance_to_target_gt(150, /*goto*/ 0x13)
 
 	label(0x10)
-	if_in_disarm_range(/*goto*/ 0x13)
+	if_can_see_attack_target(/*goto*/ 0x13)
 	if_timer_gt(120, /*goto*/ 0x0b)
 	goto_first(0x0c)
 

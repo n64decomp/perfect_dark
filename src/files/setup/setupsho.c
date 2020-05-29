@@ -1973,7 +1973,7 @@ u8 func040d_king_combat[] = {
 	beginloop(0x59)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_in_disarm_range(/*goto*/ 0x03)
+		if_can_see_attack_target(/*goto*/ 0x03)
 		if_chr_shield_lt(CHR_SELF, 20, /*goto*/ LABEL_LOW_SHIELD)
 	endloop(0x59)
 
@@ -2037,7 +2037,7 @@ u8 func040d_king_combat[] = {
 	beginloop(0x7a)
 		if_chr_death_animation_finished(CHR_P1P2, /*goto*/ LABEL_PLAYER_DEAD)
 		if_chr_shield_lt(CHR_SELF, 20, /*goto*/ LABEL_LOW_SHIELD)
-		if_in_disarm_range(/*goto*/ 0x06)
+		if_can_see_attack_target(/*goto*/ 0x06)
 	endloop(0x7a)
 
 	label(0x06)

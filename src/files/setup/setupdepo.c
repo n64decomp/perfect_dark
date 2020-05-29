@@ -2307,7 +2307,7 @@ u8 func0412_cloak_guard[] = {
 		label(0x2c)
 		if_player_looking_at_something_maybe(0x0f, 0x01, 0x00, /*goto*/ 0x0e)
 		label(0x06)
-		if_in_disarm_range(/*goto*/ 0x2c)
+		if_can_see_attack_target(/*goto*/ 0x2c)
 		goto_next(0x0d)
 		label(0x0e)
 		add_morale(1)

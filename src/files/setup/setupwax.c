@@ -1346,7 +1346,7 @@ u8 func0411_cass_in_office[] = {
 	beginloop(0x5a)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_in_disarm_range(/*goto*/ 0x83)
+		if_can_see_attack_target(/*goto*/ 0x83)
 		reloop(0x5a)
 
 		label(0x83)

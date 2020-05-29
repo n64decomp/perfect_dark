@@ -11955,7 +11955,7 @@ void chrRecordLastVisibleTargetTime(struct chrdata *chr)
 }
 
 GLOBAL_ASM(
-glabel func0f038f40
+glabel chrCanSeeEntity
 /*  f038f40:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f038f44:	8fae0088 */ 	lw	$t6,0x88($sp)
 /*  f038f48:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -12147,26 +12147,18 @@ glabel func0f038f40
 /*  f0391e8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0391ec
-/*  f0391ec:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0391f0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0391f4:	808e0007 */ 	lb	$t6,0x7($a0)
-/*  f0391f8:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f0391fc:	24020200 */ 	addiu	$v0,$zero,0x200
-/*  f039200:	15c10003 */ 	bne	$t6,$at,.L0f039210
-/*  f039204:	00001825 */ 	or	$v1,$zero,$zero
-/*  f039208:	8c82004c */ 	lw	$v0,0x4c($a0)
-/*  f03920c:	8c830050 */ 	lw	$v1,0x50($a0)
-.L0f039210:
-/*  f039210:	afa20010 */ 	sw	$v0,0x10($sp)
-/*  f039214:	0fc0e3d0 */ 	jal	func0f038f40
-/*  f039218:	afa30014 */ 	sw	$v1,0x14($sp)
-/*  f03921c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f039220:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f039224:	03e00008 */ 	jr	$ra
-/*  f039228:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrCanSeeAttackTarget(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3)
+{
+	u32 entitytype = ENTITYTYPE_TARGET;
+    u32 entityid = 0;
+
+    if (chr->actiontype == ACT_ATTACK) {
+        entitytype = chr->act_attack.entitytype;
+        entityid = chr->act_attack.entityid;
+    }
+
+	return chrCanSeeEntity(chr, pos, rooms, arg3, entitytype, entityid);
+}
 
 bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room)
 {
@@ -12824,7 +12816,7 @@ bool chrTryAttackWalk(struct chrdata *chr)
 	if (chrIsReadyForOrders(chr)) {
 		struct prop *prop = chr->prop;
 
-		if (func0f0391ec(chr, &prop->pos, prop->rooms, 0)
+		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, 0)
 				&& (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))
 				&& g_Vars.lvframe60 - chr->lastwalk60 > 120) {
 			struct prop *target = chrGetTargetProp(chr);
@@ -12853,7 +12845,7 @@ bool chrTryAttackRun(struct chrdata *chr)
 	if (chrIsReadyForOrders(chr)) {
 		struct prop *prop = chr->prop;
 
-		if (func0f0391ec(chr, &prop->pos, prop->rooms, 0)
+		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, 0)
 				&& (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))
 				&& g_Vars.lvframe60 - chr->lastwalk60 > 180) {
 			struct prop *target = chrGetTargetProp(chr);
@@ -12876,7 +12868,7 @@ bool chrTryAttackRoll(struct chrdata *chr)
 	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
 		struct prop *prop = chr->prop;
 
-		if (func0f0391ec(chr, &prop->pos, prop->rooms, 0) &&
+		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, 0) &&
 				(chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
 			struct prop *target = chrGetTargetProp(chr);
 			f32 x = target->pos.x - prop->pos.x;
@@ -19493,7 +19485,7 @@ glabel var7f1a9184
 /*  f041284:	15a10047 */ 	bne	$t5,$at,.L0f0413a4
 /*  f041288:	27a50244 */ 	addiu	$a1,$sp,0x244
 /*  f04128c:	27a60234 */ 	addiu	$a2,$sp,0x234
-/*  f041290:	0fc0e47b */ 	jal	func0f0391ec
+/*  f041290:	0fc0e47b */ 	jal	chrCanSeeAttackTarget
 /*  f041294:	00003825 */ 	or	$a3,$zero,$zero
 /*  f041298:	10400042 */ 	beqz	$v0,.L0f0413a4
 /*  f04129c:	8faa025c */ 	lw	$t2,0x25c($sp)

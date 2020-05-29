@@ -396,7 +396,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0177*/ aiPlayerAutoWalk,
 	/*0x0178*/ aiIfPlayerAutoWalkFinished,
 	/*0x0179*/ ai0179,
-	/*0x017a*/ ai017a,
+	/*0x017a*/ aiIfCanSeeAttackTarget,
 	/*0x017b*/ aiIfChrKnockedOut,
 	/*0x017c*/ aiAssignSound,
 	/*0x017d*/ aiAudioSetMusicTrack,

@@ -5218,7 +5218,7 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 		if_chr_dead(CHR_TARGET, /*goto*/ 0x57)
 		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x57)
 		if_distance_to_target_gt(100, /*goto*/ 0x2f)
-		if_in_disarm_range(/*goto*/ 0x2f)
+		if_can_see_attack_target(/*goto*/ 0x2f)
 		if_timer_gt(120, /*goto*/ 0x10)
 	endloop(0x04)
 
@@ -5607,7 +5607,7 @@ u8 func0419_holo_guard_armed_alert[] = {
 	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x04)
 
 	beginloop(0x04)
-		if_in_disarm_range(/*goto*/ 0x2f)
+		if_can_see_attack_target(/*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)

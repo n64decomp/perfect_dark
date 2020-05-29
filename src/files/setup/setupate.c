@@ -460,7 +460,7 @@ u8 func0403_jon_combat[] = {
 
 	beginloop(0x08)
 		if_distance_to_target_lt(250, /*goto*/ 0x0e)
-		if_in_disarm_range(/*goto*/ 0x06)
+		if_can_see_attack_target(/*goto*/ 0x06)
 		reloop(0x08)
 
 		label(0x06)

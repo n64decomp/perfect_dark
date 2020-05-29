@@ -2213,7 +2213,7 @@ u8 func0404_angry_pilot[] = {
 	try_run_to_target(/*goto*/ 0x6d)
 
 	beginloop(0x6d)
-		if_in_disarm_range(/*goto*/ 0x07)
+		if_can_see_attack_target(/*goto*/ 0x07)
 		if_timer_gt(120, /*goto*/ 0x04)
 	endloop(0x6d)
 
