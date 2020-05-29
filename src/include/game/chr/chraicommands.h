@@ -293,7 +293,7 @@
 /*0x0122*/ bool ai0122(void);
 /*0x0123*/ bool ai0123(void);
 /*0x0124*/ bool aiGoToCover(void);
-/*0x0125*/ bool ai0125(void);
+/*0x0125*/ bool aiCheckCoverOutOfSight(void);
 /*0x0126*/ bool aiIfPlayerUsingCmpOrAr34(void);
 /*0x0127*/ bool aiDetectEnemyOnSameFloor(void);
 /*0x0128*/ bool aiDetectEnemy(void);

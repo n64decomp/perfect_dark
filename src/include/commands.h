@@ -2563,9 +2563,12 @@
 	mkshort(0x0124), \
 	speed,
 
-// Related to command 012f
-// globals.c only
-#define cmd0125_if_or_try_something(label) \
+/**
+ * Checks if the chr's cover is still out of sight of their target and updates a
+ * flag in the cover struct accordingly. The label is followed if the target
+ * can't see the cover.
+ */
+#define check_cover_out_of_sight(label) \
 	mkshort(0x0125), \
 	label,
 

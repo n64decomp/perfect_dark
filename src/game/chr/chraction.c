@@ -29724,73 +29724,38 @@ glabel var7f1a9424
 /*  f04b94c:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-GLOBAL_ASM(
-glabel func0f04b950
-/*  f04b950:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f04b954:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04b958:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f04b95c:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f04b960:	04a0000b */ 	bltz	$a1,.L0f04b990
-/*  f04b964:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f04b968:	0fc458b4 */ 	jal	coverGetCount
-/*  f04b96c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04b970:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f04b974:	0044082a */ 	slt	$at,$v0,$a0
-/*  f04b978:	14200005 */ 	bnez	$at,.L0f04b990
-/*  f04b97c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04b980:	0fc458b8 */ 	jal	coverLoad
-/*  f04b984:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f04b988:	14400003 */ 	bnez	$v0,.L0f04b998
-/*  f04b98c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f04b990:
-/*  f04b990:	10000024 */ 	beqz	$zero,.L0f04ba24
-/*  f04b994:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04b998:
-/*  f04b998:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f04b99c:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*  f04b9a0:	14400003 */ 	bnez	$v0,.L0f04b9b0
-/*  f04b9a4:	00401825 */ 	or	$v1,$v0,$zero
-/*  f04b9a8:	1000001e */ 	beqz	$zero,.L0f04ba24
-/*  f04b9ac:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04b9b0:
-/*  f04b9b0:	8faf0048 */ 	lw	$t7,0x48($sp)
-/*  f04b9b4:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f04b9b8:	24650028 */ 	addiu	$a1,$v1,0x28
-/*  f04b9bc:	11e0000a */ 	beqz	$t7,.L0f04b9e8
-/*  f04b9c0:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f04b9c4:	24180008 */ 	addiu	$t8,$zero,0x8
-/*  f04b9c8:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f04b9cc:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f04b9d0:	24650028 */ 	addiu	$a1,$v1,0x28
-/*  f04b9d4:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f04b9d8:	0c00b6e6 */ 	jal	func0002db98
-/*  f04b9dc:	24070023 */ 	addiu	$a3,$zero,0x23
-/*  f04b9e0:	10000006 */ 	beqz	$zero,.L0f04b9fc
-/*  f04b9e4:	2c480001 */ 	sltiu	$t0,$v0,0x1
-.L0f04b9e8:
-/*  f04b9e8:	24190023 */ 	addiu	$t9,$zero,0x23
-/*  f04b9ec:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f04b9f0:	0c00bd14 */ 	jal	func0002f450
-/*  f04b9f4:	3c074248 */ 	lui	$a3,0x4248
-/*  f04b9f8:	2c480001 */ 	sltiu	$t0,$v0,0x1
-.L0f04b9fc:
-/*  f04b9fc:	11000006 */ 	beqz	$t0,.L0f04ba18
-/*  f04ba00:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f04ba04:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f04ba08:	0fc45953 */ 	jal	coverSetFlag0001
-/*  f04ba0c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f04ba10:	10000004 */ 	beqz	$zero,.L0f04ba24
-/*  f04ba14:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f04ba18:
-/*  f04ba18:	0fc45953 */ 	jal	coverSetFlag0001
-/*  f04ba1c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04ba20:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04ba24:
-/*  f04ba24:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04ba28:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f04ba2c:	03e00008 */ 	jr	$ra
-/*  f04ba30:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool arg2)
+{
+	struct cover cover;
+	struct prop *target;
+	bool targetcanseecover;
+
+	// @bug: Should be >= coverGetCount()
+	if (covernum < 0 || covernum > coverGetCount() || !coverLoad(covernum, &cover)) {
+		return false;
+	}
+
+	target = chrGetTargetProp(chr);
+
+	if (!target) {
+		return false;
+	}
+
+	if (arg2) {
+		targetcanseecover = func0002db98(&target->pos, target->rooms, cover.pos, 35, 8);
+	} else {
+		targetcanseecover = func0002f450(&target->pos, target->rooms, cover.pos, 50, 35);
+	}
+
+	if (!targetcanseecover != false) {
+		// Target can't see cover
+		coverSetFlag0001(covernum, true);
+		return true;
+	}
+
+	coverSetFlag0001(covernum, false);
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f04ba34
@@ -30164,7 +30129,7 @@ glabel func0f04ba34
 /*  f04bf4c:	8fa60050 */ 	lw	$a2,0x50($sp)
 /*  f04bf50:	0047c821 */ 	addu	$t9,$v0,$a3
 /*  f04bf54:	8f250008 */ 	lw	$a1,0x8($t9)
-/*  f04bf58:	0fc12e54 */ 	jal	func0f04b950
+/*  f04bf58:	0fc12e54 */ 	jal	chrCheckCoverOutOfSight
 /*  f04bf5c:	afa70048 */ 	sw	$a3,0x48($sp)
 /*  f04bf60:	10400016 */ 	beqz	$v0,.L0f04bfbc
 /*  f04bf64:	8fa70048 */ 	lw	$a3,0x48($sp)

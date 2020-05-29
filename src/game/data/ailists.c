@@ -1700,7 +1700,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG0_01000000, BANK_0)
 	set_accuracy(0)
 	label(0x13)
-	cmd0125_if_or_try_something(/*goto*/ 0x16)
+	check_cover_out_of_sight(/*goto*/ 0x16)
 	label(0x16)
 	goto_first(0x1b)
 

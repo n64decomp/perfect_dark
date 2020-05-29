@@ -6837,11 +6837,11 @@ bool aiGoToCover(void)
 /**
  * @cmd 0125
  */
-bool ai0125(void)
+bool aiCheckCoverOutOfSight(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f04b950(g_Vars.chrdata, g_Vars.chrdata->cover, 0)) {
+	if (chrCheckCoverOutOfSight(g_Vars.chrdata, g_Vars.chrdata->cover, false)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
