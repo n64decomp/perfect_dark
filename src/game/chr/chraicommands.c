@@ -1149,7 +1149,7 @@ bool aiJogToPad(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad = cmd[3] | (cmd[2] << 8);
 
-	func0f03a894(g_Vars.chrdata, pad, SPEED_JOG);
+	chrGoToPad(g_Vars.chrdata, pad, SPEED_JOG);
 	g_Vars.aioffset += 4;
 
 	return false;
@@ -1164,13 +1164,13 @@ bool aiGoToPadPreset(void)
 
 	switch (cmd[2]) {
 	case 0:
-		func0f03a894(g_Vars.chrdata, g_Vars.chrdata->padpreset1, SPEED_WALK);
+		chrGoToPad(g_Vars.chrdata, g_Vars.chrdata->padpreset1, SPEED_WALK);
 		break;
 	case 1:
-		func0f03a894(g_Vars.chrdata, g_Vars.chrdata->padpreset1, SPEED_JOG);
+		chrGoToPad(g_Vars.chrdata, g_Vars.chrdata->padpreset1, SPEED_JOG);
 		break;
 	default:
-		func0f03a894(g_Vars.chrdata, g_Vars.chrdata->padpreset1, SPEED_RUN);
+		chrGoToPad(g_Vars.chrdata, g_Vars.chrdata->padpreset1, SPEED_RUN);
 		break;
 	}
 
@@ -1187,7 +1187,7 @@ bool aiWalkToPad(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad = cmd[3] | (cmd[2] << 8);
 
-	func0f03a894(g_Vars.chrdata, pad, SPEED_WALK);
+	chrGoToPad(g_Vars.chrdata, pad, SPEED_WALK);
 	g_Vars.aioffset += 4;
 
 	return false;
@@ -1201,7 +1201,7 @@ bool aiRunToPad(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad = cmd[3] | (cmd[2] << 8);
 
-	func0f03a894(g_Vars.chrdata, pad, SPEED_RUN);
+	chrGoToPad(g_Vars.chrdata, pad, SPEED_RUN);
 	g_Vars.aioffset += 4;
 
 	return false;

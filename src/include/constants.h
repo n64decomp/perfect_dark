@@ -303,7 +303,7 @@
 #define CHRFLAG0_00008000           0x00008000 // Something to do with breaking cover or grenades?
 #define CHRFLAG0_AIVSAI             0x00010000
 #define CHRFLAG0_CAN_TRAP           0x00020000
-#define CHRFLAG0_CAN_RUN_FOR_ALARM  0x00040000
+#define CHRFLAG0_CAN_GO_TO_PLACES   0x00040000
 #define CHRFLAG0_SQUADALERTANYDIST  0x00080000
 #define CHRFLAG0_00100000           0x00100000 // Become alert when hearing player and never on screen
 #define CHRFLAG0_00200000           0x00200000 // Globals, Villa hostage takers

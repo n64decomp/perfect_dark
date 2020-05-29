@@ -365,7 +365,7 @@ u8 func0006_unalerted[] = {
 	label(0x16)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x14)
 	if_chr_in_squadron_doing_action(MA_GOTOALARM, /*goto*/ 0x16)
-	if_self_flag_bankx_eq(CHRFLAG0_CAN_RUN_FOR_ALARM, TRUE, BANK_0, /*goto*/ 0x9f)
+	if_self_flag_bankx_eq(CHRFLAG0_CAN_GO_TO_PLACES, TRUE, BANK_0, /*goto*/ 0x9f)
 	label(0x16)
 	say_quip(CHR_BOND, QUIP_SEEPLAYER, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	label(0x9f)
@@ -753,7 +753,7 @@ u8 func0006_unalerted[] = {
 
 	label(0x77)
 	if_chr_in_squadron_doing_action(MA_GOTOALARM, /*goto*/ 0x16)
-	if_self_flag_bankx_eq(CHRFLAG0_CAN_RUN_FOR_ALARM, TRUE, BANK_0, /*goto*/ 0x13)
+	if_self_flag_bankx_eq(CHRFLAG0_CAN_GO_TO_PLACES, TRUE, BANK_0, /*goto*/ 0x13)
 	label(0x16)
 	set_ailist(CHR_SELF, GAILIST_INIT_COMBAT)
 
@@ -1074,7 +1074,7 @@ u8 func0007_alerted[] = {
 	dprint 'B','4',' ','T','E','A','M',' ','C','H','E','C','K','\n',0,
 	if_alarm_active(/*goto*/ 0x16)
 	if_chr_in_squadron_doing_action(MA_GOTOALARM, /*goto*/ 0x16)
-	if_self_flag_bankx_eq(CHRFLAG0_CAN_RUN_FOR_ALARM, TRUE, BANK_0, /*goto*/ LABEL_RUN_FOR_ALARM)
+	if_self_flag_bankx_eq(CHRFLAG0_CAN_GO_TO_PLACES, TRUE, BANK_0, /*goto*/ LABEL_RUN_FOR_ALARM)
 
 	// No need to warn
 	label(0x16)

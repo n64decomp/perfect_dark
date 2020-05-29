@@ -99,7 +99,7 @@ u32 chrTryAttackWalk(struct chrdata *chr);
 bool chrTryAttackRun(struct chrdata *chr);
 u32 chrTryAttackRoll(struct chrdata *chr);
 u32 chrTryAttackAmount(struct chrdata *chr, u32 arg1, u32 arg2, u8 arg3, u8 arg4);
-u32 func0f03a894(struct chrdata *chr, s32 pad, s32 arg2);
+bool chrGoToPad(struct chrdata *chr, s32 padnum, u32 speed);
 u32 func0f03abd0(void);
 u32 func0f03aca0(struct chrdata *chr, u32 arg1, u32 arg2);
 u32 chrTryRunFromTarget(struct chrdata *chr);

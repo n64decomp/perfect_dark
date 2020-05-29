@@ -2240,21 +2240,21 @@ u8 func101a_init_laser_switch_guards[] = {
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x09)
 
 	// Perfect Agent
-	set_chr_flag_bankx(0x0c, CHRFLAG0_CAN_RUN_FOR_ALARM, BANK_0)
-	set_chr_flag_bankx(0x0d, CHRFLAG0_CAN_RUN_FOR_ALARM, BANK_0)
-	set_chr_flag_bankx(0x0e, CHRFLAG0_CAN_RUN_FOR_ALARM, BANK_0)
+	set_chr_flag_bankx(0x0c, CHRFLAG0_CAN_GO_TO_PLACES, BANK_0)
+	set_chr_flag_bankx(0x0d, CHRFLAG0_CAN_GO_TO_PLACES, BANK_0)
+	set_chr_flag_bankx(0x0e, CHRFLAG0_CAN_GO_TO_PLACES, BANK_0)
 	goto_next(0x06)
 
 	// Agent
 	label(0x08)
-	set_chr_flag_bankx(0x0e, CHRFLAG0_CAN_RUN_FOR_ALARM, BANK_0)
+	set_chr_flag_bankx(0x0e, CHRFLAG0_CAN_GO_TO_PLACES, BANK_0)
 	set_chr_flag_bankx(0x0e, CHRFLAG0_UNSURPRISABLE, BANK_0)
 	goto_next(0x06)
 
 	// Special Agent
 	label(0x09)
-	set_chr_flag_bankx(0x0e, CHRFLAG0_CAN_RUN_FOR_ALARM, BANK_0)
-	set_chr_flag_bankx(0x0d, CHRFLAG0_CAN_RUN_FOR_ALARM, BANK_0)
+	set_chr_flag_bankx(0x0e, CHRFLAG0_CAN_GO_TO_PLACES, BANK_0)
+	set_chr_flag_bankx(0x0d, CHRFLAG0_CAN_GO_TO_PLACES, BANK_0)
 
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_IDLE)

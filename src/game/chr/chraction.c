@@ -13019,62 +13019,32 @@ bool chrFaceEntity(struct chrdata *chr, u32 entitytype, u32 entityid)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f03a894
-/*  f03a894:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f03a898:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03a89c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03a8a0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03a8a4:	04a00027 */ 	bltz	$a1,.L0f03a944
-/*  f03a8a8:	afa60080 */ 	sw	$a2,0x80($sp)
-/*  f03a8ac:	0fc0e686 */ 	jal	chrIsReadyForOrders
-/*  f03a8b0:	afa5007c */ 	sw	$a1,0x7c($sp)
-/*  f03a8b4:	10400023 */ 	beqz	$v0,.L0f03a944
-/*  f03a8b8:	8fa7007c */ 	lw	$a3,0x7c($sp)
-/*  f03a8bc:	3c0e8006 */ 	lui	$t6,%hi(var80062cbc)
-/*  f03a8c0:	8dce2cbc */ 	lw	$t6,%lo(var80062cbc)($t6)
-/*  f03a8c4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a8c8:	29c10009 */ 	slti	$at,$t6,0x9
-/*  f03a8cc:	14200009 */ 	bnez	$at,.L0f03a8f4
-/*  f03a8d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03a8d4:	8e0f0014 */ 	lw	$t7,0x14($s0)
-/*  f03a8d8:	000fc240 */ 	sll	$t8,$t7,0x9
-/*  f03a8dc:	07010005 */ 	bgez	$t8,.L0f03a8f4
-/*  f03a8e0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03a8e4:	8e190114 */ 	lw	$t9,0x114($s0)
-/*  f03a8e8:	00194340 */ 	sll	$t0,$t9,0xd
-/*  f03a8ec:	05030016 */ 	bgezl	$t0,.L0f03a948
-/*  f03a8f0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a8f4:
-/*  f03a8f4:	0fc1258b */ 	jal	chrResolvePadId
-/*  f03a8f8:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f03a8fc:	04400011 */ 	bltz	$v0,.L0f03a944
-/*  f03a900:	00402025 */ 	or	$a0,$v0,$zero
-/*  f03a904:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f03a908:	0fc456ac */ 	jal	padUnpack
-/*  f03a90c:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f03a910:	8fa90068 */ 	lw	$t1,0x68($sp)
-/*  f03a914:	240affff */ 	addiu	$t2,$zero,-1
-/*  f03a918:	a7aa0076 */ 	sh	$t2,0x76($sp)
-/*  f03a91c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a920:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*  f03a924:	27a60074 */ 	addiu	$a2,$sp,0x74
-/*  f03a928:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f03a92c:	0fc0e10f */ 	jal	chrGoToPos
-/*  f03a930:	a7a90074 */ 	sh	$t1,0x74($sp)
-/*  f03a934:	50400004 */ 	beqzl	$v0,.L0f03a948
-/*  f03a938:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a93c:	10000002 */ 	beqz	$zero,.L0f03a948
-/*  f03a940:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03a944:
-/*  f03a944:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a948:
-/*  f03a948:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03a94c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03a950:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*  f03a954:	03e00008 */ 	jr	$ra
-/*  f03a958:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrGoToPad(struct chrdata *chr, s32 padnum, u32 speed)
+{
+	if (padnum >= 0
+			&& chrIsReadyForOrders(chr)
+			&& (var80062cbc <= 8
+				|| (chr->hidden & CHRHFLAG_00400000) == 0
+				|| (chr->flags & CHRFLAG0_CAN_GO_TO_PLACES))) {
+		padnum = chrResolvePadId(chr, padnum);
+
+		if (padnum >= 0) {
+			s16 rooms[2];
+			struct pad pad;
+
+			padUnpack(padnum, PADFIELD_ROOM | PADFIELD_POS, &pad);
+
+			rooms[0] = pad.room;
+			rooms[1] = -1;
+
+			if (chrGoToPos(chr, &pad.pos, rooms, speed)) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
 
 bool chrSetPath(struct chrdata *chr, u32 path_id)
 {
@@ -13117,7 +13087,7 @@ bool chrGoToTarget(struct chrdata *chr, u32 speed)
 	if (chrIsReadyForOrders(chr)) {
 		if (var80062cbc <= 8 ||
 				(chr->hidden & CHRHFLAG_00400000) == 0 ||
-				(chr->flags & CHRFLAG0_CAN_RUN_FOR_ALARM)) {
+				(chr->flags & CHRFLAG0_CAN_GO_TO_PLACES)) {
 			struct prop *prop = chrGetTargetProp(chr);
 
 			if (chrGoToPos(chr, &prop->pos, &prop->rooms[0], speed)) {
@@ -13134,7 +13104,7 @@ bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
 	if (chrIsReadyForOrders(chr)) {
 		if (var80062cbc <= 8 ||
 				(chr->hidden & CHRHFLAG_00400000) == 0 ||
-				(chr->flags & CHRFLAG0_CAN_RUN_FOR_ALARM)) {
+				(chr->flags & CHRFLAG0_CAN_GO_TO_PLACES)) {
 			struct chrdata *dstchr = chrFindById(chr, dst_chrnum);
 
 			if (dstchr && dstchr->prop && chrGoToPos(chr, &dstchr->prop->pos, &dstchr->prop->rooms[0], speed)) {
