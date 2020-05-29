@@ -20,7 +20,7 @@ u32 func0001a9e8(void);
 struct animdata10 *func0001aa1c(struct animdata *animdata, void *arg1);
 u32 func0001ab0c(void);
 u32 func0001abc4(void);
-u32 func0001ad0c(void);
+void func0001ad0c(struct animdata *animdata, struct coord *coord);
 void func0001ad34(struct animdata *animdata, struct coord *coord);
 u32 func0001ad5c(void);
 f32 func0001ae44(struct animdata *animdata);

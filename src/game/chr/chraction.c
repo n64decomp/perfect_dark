@@ -26356,7 +26356,7 @@ void chrTick(struct chrdata *chr)
 
 				if (chr->aishootingatmelist >= 0
 						&& ailistFindById(chr->aishootingatmelist) != chr->ailist
-						&& func0f049fcc(chr)) {
+						&& chrCanSeeTargetWithExtraCheck(chr)) {
 					chr->chrflags |= CHRCFLAG_CONSIDER_DODGE;
 				}
 			} else {
@@ -28031,88 +28031,41 @@ f32 chrGetTimer(struct chrdata *chr)
 	return chr->timer60 * FRAMEDURATION;
 }
 
-GLOBAL_ASM(
-glabel func0f049fcc
-.late_rodata
-glabel var7f1a93e0
-.word 0x3f4ccccd
-.text
-/*  f049fcc:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f049fd0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f049fd4:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f049fd8:	afa40058 */ 	sw	$a0,0x58($sp)
-/*  f049fdc:	1040003c */ 	beqz	$v0,.L0f04a0d0
-/*  f049fe0:	00401825 */ 	or	$v1,$v0,$zero
-/*  f049fe4:	90440000 */ 	lbu	$a0,0x0($v0)
-/*  f049fe8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f049fec:	5481000c */ 	bnel	$a0,$at,.L0f04a020
-/*  f049ff0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f049ff4:	0fc0e4da */ 	jal	chrCanSeeTarget
-/*  f049ff8:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f049ffc:	14400003 */ 	bnez	$v0,.L0f04a00c
-/*  f04a000:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f04a004:	10000033 */ 	beqz	$zero,.L0f04a0d4
-/*  f04a008:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04a00c:
-/*  f04a00c:	0fc1239d */ 	jal	func0f048e74
-/*  f04a010:	24050014 */ 	addiu	$a1,$zero,0x14
-/*  f04a014:	10000030 */ 	beqz	$zero,.L0f04a0d8
-/*  f04a018:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04a01c:	24010006 */ 	addiu	$at,$zero,0x6
-.L0f04a020:
-/*  f04a020:	1481002b */ 	bne	$a0,$at,.L0f04a0d0
-/*  f04a024:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x324)
-/*  f04a028:	8dcea2e4 */ 	lw	$t6,%lo(g_Vars+0x324)($t6)
-/*  f04a02c:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f04a030:	24650028 */ 	addiu	$a1,$v1,0x28
-/*  f04a034:	11c00026 */ 	beqz	$t6,.L0f04a0d0
-/*  f04a038:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f04a03c:	8de2001c */ 	lw	$v0,0x1c($t7)
-/*  f04a040:	24180033 */ 	addiu	$t8,$zero,0x33
-/*  f04a044:	24190008 */ 	addiu	$t9,$zero,0x8
-/*  f04a048:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f04a04c:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f04a050:	24460008 */ 	addiu	$a2,$v0,0x8
-/*  f04a054:	0c00b70f */ 	jal	hasLineOfSight
-/*  f04a058:	24470028 */ 	addiu	$a3,$v0,0x28
-/*  f04a05c:	1040001c */ 	beqz	$v0,.L0f04a0d0
-/*  f04a060:	8fa80058 */ 	lw	$t0,0x58($sp)
-/*  f04a064:	8d040020 */ 	lw	$a0,0x20($t0)
-/*  f04a068:	0c006be0 */ 	jal	func0001af80
-/*  f04a06c:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f04a070:	3c017f1b */ 	lui	$at,%hi(var7f1a93e0)
-/*  f04a074:	c42493e0 */ 	lwc1	$f4,%lo(var7f1a93e0)($at)
-/*  f04a078:	27a40044 */ 	addiu	$a0,$sp,0x44
-/*  f04a07c:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f04a080:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f04a084:	0fc28302 */ 	jal	func0f0a0c08
-/*  f04a088:	e7a60028 */ 	swc1	$f6,0x28($sp)
-/*  f04a08c:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f04a090:	0c006b43 */ 	jal	func0001ad0c
-/*  f04a094:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*  f04a098:	0fc2d5be */ 	jal	currentPlayerGetUnk1740
-/*  f04a09c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a0a0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f04a0a4:	0c0056d9 */ 	jal	func00015b64
-/*  f04a0a8:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*  f04a0ac:	27a40044 */ 	addiu	$a0,$sp,0x44
-/*  f04a0b0:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f04a0b4:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f04a0b8:	0fc1ace7 */ 	jal	func0f06b39c
-/*  f04a0bc:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f04a0c0:	50400004 */ 	beqzl	$v0,.L0f04a0d4
-/*  f04a0c4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04a0c8:	10000002 */ 	beqz	$zero,.L0f04a0d4
-/*  f04a0cc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f04a0d0:
-/*  f04a0d0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04a0d4:
-/*  f04a0d4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f04a0d8:
-/*  f04a0d8:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*  f04a0dc:	03e00008 */ 	jr	$ra
-/*  f04a0e0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
+{
+	struct prop *target = chrGetTargetProp(chr);
+
+	if (target) {
+		if (target->type == PROPTYPE_CHR) {
+			if (!chrCanSeeTarget(chr)) {
+				return false;
+			}
+
+			return func0f048e74(chr, 20);
+		}
+
+		if (target->type == PROPTYPE_PLAYER) {
+			if (g_Vars.unk000324 &&
+					(hasLineOfSight(&target->pos, target->rooms, &chr->prop->pos, chr->prop->rooms, 51, 8))) {
+				struct animdata *animdata = chr->animdata;
+				struct coord sp68;
+				struct coord sp56;
+				struct coord sp44;
+				f32 somefloat = func0001af80(animdata) * 0.8f;
+
+				func0f0a0c08(&sp68, &sp56);
+				func0001ad0c(animdata, &sp44);
+				func00015b64(currentPlayerGetUnk1740(), &sp44);
+
+				if (func0f06b39c(&sp68, &sp56, &sp44, somefloat)) {
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
+}
 
 bool chrResetNearMiss(struct chrdata *chr)
 {

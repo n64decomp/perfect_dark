@@ -80,7 +80,7 @@ void func0f0a0394(void);
 void func0f0a0b30(f32 autoaimx, f32 autoaimy);
 u32 func0f0a0b98(void);
 u32 func0f0a0bec(void);
-u32 func0f0a0c08(void);
+void func0f0a0c08(struct coord *arg0, struct coord *arg1);
 u32 func0f0a0c44(void);
 u32 func0f0a0cb0(void);
 u32 func0f0a0fac(void);
