@@ -297,7 +297,7 @@ bool chrHasFlagById(struct chrdata *ref, u32 chrnum, u32 flag, u32 bank);
 void chrSetStageFlag(struct chrdata *chr, u32 flag);
 void chrUnsetStageFlag(struct chrdata *chr, u32 flag);
 bool chrHasStageFlag(struct chrdata *chr, u32 flag);
-bool chrHasHiddenFlag00000002(struct chrdata *chr);
+bool chrIsHearingTarget(struct chrdata *chr);
 void chrRestartTimer(struct chrdata *chr);
 u32 chrResetNearMiss(struct chrdata *chr);
 s32 chrGetNumArghs(struct chrdata *chr);

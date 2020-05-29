@@ -12401,7 +12401,7 @@ void chrRecordLastSeeTargetTime(struct chrdata *chr)
 
 void chrRecordLastHearTargetTime(struct chrdata *chr)
 {
-	chr->hidden |= CHRHFLAG_00000002;
+	chr->hidden |= CHRHFLAG_IS_HEARING_TARGET;
 	chr->lastheartarget60 = g_Vars.lvframe60;
 }
 
@@ -26449,7 +26449,7 @@ void chrTick(struct chrdata *chr)
 			}
 		}
 
-		chr->hidden &= ~CHRHFLAG_00000002;
+		chr->hidden &= ~CHRHFLAG_IS_HEARING_TARGET;
 		chr->hidden2 &= ~CHRH2FLAG_0040;
 
 		if (pass) {
@@ -28022,9 +28022,9 @@ bool chrHasStageFlag(struct chrdata *chr, u32 flag)
 	return (g_StageFlags & flag) != 0;
 }
 
-bool chrHasHiddenFlag00000002(struct chrdata *chr)
+bool chrIsHearingTarget(struct chrdata *chr)
 {
-	return (chr->hidden & CHRHFLAG_00000002) != 0;
+	return (chr->hidden & CHRHFLAG_IS_HEARING_TARGET) != 0;
 }
 
 void chrRestartTimer(struct chrdata *chr)

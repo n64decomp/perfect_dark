@@ -564,7 +564,7 @@ u8 func0006_unalerted[] = {
 		set_hear_distance(10000)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_hears_gunfire(/*goto*/ 0x16)
+		if_hears_target(/*goto*/ 0x16)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x13)
 		if_target_in_sight(/*goto*/ 0x17)
 		label(0x13)
@@ -4392,7 +4392,7 @@ u8 func001d_search_for_player[] = {
 		dprint '1','\n',0,
 		if_chr_stopped(/*goto*/ 0x16)
 		dprint '1','\n',0,
-		if_hears_gunfire(/*goto*/ 0x12)
+		if_hears_target(/*goto*/ 0x12)
 		dprint '1','\n',0,
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x12)
 		dprint '1','\n',0,

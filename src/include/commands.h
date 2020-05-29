@@ -542,9 +542,9 @@
 	label,
 
 /**
- * Checks if the chr has heard gunfire.
+ * Checks if the chr has heard their target (eg. due to gunfire).
  */
-#define if_hears_gunfire(label) \
+#define if_hears_target(label) \
 	mkshort(0x003c), \
 	label,
 

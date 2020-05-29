@@ -354,7 +354,7 @@
 
 // chr->hidden
 #define CHRHFLAG_00000001           0x00000001 // Set when chr drops weapon
-#define CHRHFLAG_00000002           0x00000002 // Not used in scripts
+#define CHRHFLAG_IS_HEARING_TARGET  0x00000002 // Not used in scripts
 #define CHRHFLAG_00000004           0x00000004 // Related to firing - hand 1
 #define CHRHFLAG_00000008           0x00000008 // Related to firing - hand 0
 #define CHRHFLAG_00000010           0x00000010 // Not used in scripts

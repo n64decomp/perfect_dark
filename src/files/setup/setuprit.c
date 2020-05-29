@@ -1236,7 +1236,7 @@ u8 func0405_president_in_room[] = {
 
 		label(0x2d)
 		if_saw_injury(0x00, /*goto*/ 0x86)
-		if_hears_gunfire(/*goto*/ 0x86)
+		if_hears_target(/*goto*/ 0x86)
 		if_timer_lt(120, /*goto*/ 0x2d)
 		if_chr_in_view(/*goto*/ 0x06)
 		label(0x2d)
@@ -1259,7 +1259,7 @@ u8 func0405_president_in_room[] = {
 
 		label(0x2d)
 		if_saw_injury(0x00, /*goto*/ 0x86)
-		if_hears_gunfire(/*goto*/ 0x86)
+		if_hears_target(/*goto*/ 0x86)
 		if_timer_lt(240, /*goto*/ 0x2d)
 		if_chr_in_view(/*goto*/ 0x06)
 		label(0x2d)
@@ -1279,7 +1279,7 @@ u8 func0405_president_in_room[] = {
 
 		label(0x2d)
 		if_saw_injury(0x00, /*goto*/ 0x86)
-		if_hears_gunfire(/*goto*/ 0x86)
+		if_hears_target(/*goto*/ 0x86)
 		if_timer_lt(400, /*goto*/ 0x2d)
 		goto_next(0x84)
 
@@ -1352,7 +1352,7 @@ u8 func0405_president_in_room[] = {
 
 		label(0x2d)
 		if_saw_injury(0x00, /*goto*/ 0x86)
-		if_hears_gunfire(/*goto*/ 0x86)
+		if_hears_target(/*goto*/ 0x86)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x06)
 	goto_first(0x0b)
 
@@ -1370,7 +1370,7 @@ u8 func0405_president_in_room[] = {
 
 		label(0x2d)
 		if_saw_injury(0x00, /*goto*/ 0x86)
-		if_hears_gunfire(/*goto*/ 0x86)
+		if_hears_target(/*goto*/ 0x86)
 		if_timer_gt(400, /*goto*/ 0x06)
 	endloop(0x7a)
 

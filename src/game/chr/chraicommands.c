@@ -1293,14 +1293,11 @@ bool ai003b(void)
 }
 
 /**
- * Either a check if chr is alerted or a check if they can hear gunfire.
- * Probably the latter.
- *
  * @cmd 003c
  */
-bool ai003c(void)
+bool aiIfHearsTarget(void)
 {
-	if (chrHasHiddenFlag00000002(g_Vars.chrdata)) {
+	if (chrIsHearingTarget(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -6297,7 +6294,7 @@ bool aiSetTarget(void)
 			g_Vars.chrdata->lastvisibletarget60 = 0;
 			g_Vars.chrdata->lastseetarget60 = 0;
 			g_Vars.chrdata->lastheartarget60 = 0;
-			g_Vars.chrdata->hidden &= ~CHRHFLAG_00000002;
+			g_Vars.chrdata->hidden &= ~CHRHFLAG_IS_HEARING_TARGET;
 			g_Vars.chrdata->chrflags &= ~CHRCFLAG_NEAR_MISS;
 			g_Vars.chrdata->target = prop_id;
 		}
