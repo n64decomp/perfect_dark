@@ -87,6 +87,17 @@ const char var7f1a8cb4[] = "chrdisttopad : %x -> %d : Dist=%f";
 const char var7f1a8cd8[] = "chraction.c";
 const char var7f1a8ce4[] = "chraction.c";
 
+u32 var80068260 = 0x00000000;
+u32 var80068264 = 0x00000000;
+u32 var80068268 = 0x807b8079;
+u32 var8006826c = 0x807c0000;
+u32 var80068270 = 0x0000006b;
+u32 var80068274 = 0x0000001b;
+u32 var80068278 = 0x00000016;
+u32 var8006827c = 0x0000006b;
+u32 var80068280 = 0x0000001b;
+u32 var80068284 = 0x00000016;
+
 GLOBAL_ASM(
 glabel func0f02dff0
 /*  f02dff0:	00043400 */ 	sll	$a2,$a0,0x10
@@ -12157,103 +12168,123 @@ glabel func0f0391ec
 /*  f039228:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03922c
-/*  f03922c:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f039230:	3c0f8007 */ 	lui	$t7,%hi(var80068288)
-/*  f039234:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f039238:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f03923c:	afa50074 */ 	sw	$a1,0x74($sp)
-/*  f039240:	afa60078 */ 	sw	$a2,0x78($sp)
-/*  f039244:	afa0006c */ 	sw	$zero,0x6c($sp)
-/*  f039248:	25ef8288 */ 	addiu	$t7,$t7,%lo(var80068288)
-/*  f03924c:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f039250:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f039254:	27ae0058 */ 	addiu	$t6,$sp,0x58
-/*  f039258:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f03925c:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f039260:	8de8000c */ 	lw	$t0,0xc($t7)
-/*  f039264:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f039268:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03926c:	adc8000c */ 	sw	$t0,0xc($t6)
-/*  f039270:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f039274:	0fc64a53 */ 	jal	func0f19294c
-/*  f039278:	8fa50074 */ 	lw	$a1,0x74($sp)
-/*  f03927c:	54400031 */ 	bnezl	$v0,.L0f039344
-/*  f039280:	8fa20078 */ 	lw	$v0,0x78($sp)
-/*  f039284:	8e02001c */ 	lw	$v0,0x1c($s0)
-/*  f039288:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f03928c:	44818000 */ 	mtc1	$at,$f16
-/*  f039290:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f039294:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039298:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03929c:	e7a40048 */ 	swc1	$f4,0x48($sp)
-/*  f0392a0:	c6080028 */ 	lwc1	$f8,0x28($s0)
-/*  f0392a4:	c60600b8 */ 	lwc1	$f6,0xb8($s0)
-/*  f0392a8:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f0392ac:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f0392b0:	e7b2004c */ 	swc1	$f18,0x4c($sp)
-/*  f0392b4:	c4440010 */ 	lwc1	$f4,0x10($v0)
-/*  f0392b8:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f0392bc:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f0392c0:	e7a40050 */ 	swc1	$f4,0x50($sp)
-/*  f0392c4:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*  f0392c8:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f0392cc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0392d0:	8fa20054 */ 	lw	$v0,0x54($sp)
-/*  f0392d4:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f0392d8:	27a70038 */ 	addiu	$a3,$sp,0x38
-/*  f0392dc:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0392e0:	0fc1979d */ 	jal	func0f065e74
-/*  f0392e4:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f0392e8:	8fa90074 */ 	lw	$t1,0x74($sp)
-/*  f0392ec:	27aa0058 */ 	addiu	$t2,$sp,0x58
-/*  f0392f0:	240b0133 */ 	addiu	$t3,$zero,0x133
-/*  f0392f4:	8d22001c */ 	lw	$v0,0x1c($t1)
-/*  f0392f8:	240c0008 */ 	addiu	$t4,$zero,0x8
-/*  f0392fc:	afac0018 */ 	sw	$t4,0x18($sp)
-/*  f039300:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f039304:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f039308:	27a40048 */ 	addiu	$a0,$sp,0x48
-/*  f03930c:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f039310:	24460008 */ 	addiu	$a2,$v0,0x8
-/*  f039314:	0c00b73f */ 	jal	func0002dcfc
-/*  f039318:	24470028 */ 	addiu	$a3,$v0,0x28
-/*  f03931c:	10400003 */ 	beqz	$v0,.L0f03932c
-/*  f039320:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039324:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f039328:	afad006c */ 	sw	$t5,0x6c($sp)
-.L0f03932c:
-/*  f03932c:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f039330:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f039334:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*  f039338:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f03933c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f039340:	8fa20078 */ 	lw	$v0,0x78($sp)
-.L0f039344:
-/*  f039344:	87b90058 */ 	lh	$t9,0x58($sp)
-/*  f039348:	50400003 */ 	beqzl	$v0,.L0f039358
-/*  f03934c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f039350:	a4590000 */ 	sh	$t9,0x0($v0)
-/*  f039354:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f039358:
-/*  f039358:	8fa2006c */ 	lw	$v0,0x6c($sp)
-/*  f03935c:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f039360:	03e00008 */ 	jr	$ra
-/*  f039364:	27bd0070 */ 	addiu	$sp,$sp,0x70
-);
-
-u32 func0f039368(struct chrdata *chr)
+bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room)
 {
-	u32 result;
-	struct prop *prop = chrGetTargetProp(chr);
-	result = func0f03922c(chr, prop->chr, 0);
+	bool cansee = false;
+	u32 stack;
+	s16 sp88[] = {-1, 0, 0, 0, 0, 0, 0, 0};
 
-	if (result) {
+	if (func0f19294c(chr, target) == 0) {
+		struct prop *prop = chr->prop;
+		struct coord pos;
+		s16 rooms[8];
+
+		pos.x = prop->pos.x;
+		pos.y = chr->ground + chr->chrheight - 20;
+		pos.z = prop->pos.z;
+
+		chrSetOrUnsetHiddenFlag00000100(chr, false);
+		chrSetOrUnsetHiddenFlag00000100(target, false);
+
+		func0f065e74(&prop->pos, prop->rooms, &pos, rooms);
+
+		if (func0002dcfc(&pos, rooms, &target->prop->pos, target->prop->rooms, sp88, 307, 8)) {
+			cansee = true;
+		}
+
+		chrSetOrUnsetHiddenFlag00000100(chr, true);
+		chrSetOrUnsetHiddenFlag00000100(target, true);
+	}
+
+	if (room) {
+		*room = sp88[0];
+	}
+
+	return cansee;
+}
+
+u32 var80068298 = 0x01000000;
+u32 var8006829c = 0x0000027c;
+u32 var800682a0 = 0x00000005;
+u32 var800682a4 = 0x00140000;
+u32 var800682a8 = 0x42700000;
+u32 var800682ac = 0x0000027d;
+u32 var800682b0 = 0x00000005;
+u32 var800682b4 = 0x00140000;
+u32 var800682b8 = 0x41f80000;
+u32 var800682bc = 0x0000027e;
+u32 var800682c0 = 0x00000005;
+u32 var800682c4 = 0x00140000;
+u32 var800682c8 = 0x42400000;
+u32 var800682cc = 0x0000027f;
+u32 var800682d0 = 0x00000005;
+u32 var800682d4 = 0x00140000;
+u32 var800682d8 = 0x428a0000;
+u32 var800682dc = 0x00000212;
+u32 var800682e0 = 0x00000005;
+u32 var800682e4 = 0x00140000;
+u32 var800682e8 = 0x42800000;
+u32 var800682ec = 0x00000213;
+u32 var800682f0 = 0x00000005;
+u32 var800682f4 = 0x00140000;
+u32 var800682f8 = 0x42500000;
+u32 var800682fc = 0x00000214;
+u32 var80068300 = 0x00000005;
+u32 var80068304 = 0x00140000;
+u32 var80068308 = 0x424c0000;
+u32 var8006830c = 0x0000020e;
+u32 var80068310 = 0x00000005;
+u32 var80068314 = 0x00140000;
+u32 var80068318 = 0x42540000;
+u32 var8006831c = 0x0000020f;
+u32 var80068320 = 0x00000005;
+u32 var80068324 = 0x00140000;
+u32 var80068328 = 0x42b20000;
+u32 var8006832c = 0x00000210;
+u32 var80068330 = 0x00000005;
+u32 var80068334 = 0x00140000;
+u32 var80068338 = 0x428e0000;
+u32 var8006833c = 0x00000215;
+u32 var80068340 = 0x00000005;
+u32 var80068344 = 0x00140000;
+u32 var80068348 = 0x42780000;
+u32 var8006834c = 0x00000211;
+u32 var80068350 = 0x00000005;
+u32 var80068354 = 0x00140000;
+u32 var80068358 = 0x42900000;
+u32 var8006835c = 0x0000034c;
+u32 var80068360 = 0x0000000f;
+u32 var80068364 = 0x00190000;
+u32 var80068368 = 0x42c80000;
+u32 var8006836c = 0x0000034d;
+u32 var80068370 = 0x0000000f;
+u32 var80068374 = 0x00190000;
+u32 var80068378 = 0xbf800000;
+u32 var8006837c = 0x00000395;
+u32 var80068380 = 0x0000000f;
+u32 var80068384 = 0x00190000;
+u32 var80068388 = 0xbf800000;
+u32 var8006838c = 0x00000346;
+u32 var80068390 = 0x0000000f;
+u32 var80068394 = 0x00190000;
+u32 var80068398 = 0xbf800000;
+u32 var8006839c = 0x00000347;
+u32 var800683a0 = 0x0000000f;
+u32 var800683a4 = 0x00190000;
+u32 var800683a8 = 0xbf800000;
+u32 var800683ac = 0x0000034f;
+
+bool chrCanSeeTarget(struct chrdata *chr)
+{
+	bool cansee;
+	struct prop *prop = chrGetTargetProp(chr);
+	cansee = chrCanSeeChr(chr, prop->chr, NULL);
+
+	if (cansee) {
 		chrRecordLastVisibleTargetTime(chr);
 	}
 
-	return result;
+	return cansee;
 }
 
 GLOBAL_ASM(
@@ -12496,7 +12527,7 @@ bool chrCheckTargetInSight(struct chrdata *chr)
 	}
 
 	if (result) {
-		result = func0f039368(chr);
+		result = chrCanSeeTarget(chr);
 	}
 
 	if (result) {
@@ -16584,7 +16615,7 @@ glabel var7f1a8fc8
 /*  f03eb44:	afaf0160 */ 	sw	$t7,0x160($sp)
 .L0f03eb48:
 /*  f03eb48:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f03eb4c:	0fc0e4da */ 	jal	func0f039368
+/*  f03eb4c:	0fc0e4da */ 	jal	chrCanSeeTarget
 /*  f03eb50:	e7b00188 */ 	swc1	$f16,0x188($sp)
 /*  f03eb54:	c7a00024 */ 	lwc1	$f0,0x24($sp)
 /*  f03eb58:	c7b00188 */ 	lwc1	$f16,0x188($sp)
@@ -28054,7 +28085,7 @@ glabel var7f1a93e0
 /*  f049fe8:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f049fec:	5481000c */ 	bnel	$a0,$at,.L0f04a020
 /*  f049ff0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f049ff4:	0fc0e4da */ 	jal	func0f039368
+/*  f049ff4:	0fc0e4da */ 	jal	chrCanSeeTarget
 /*  f049ff8:	8fa40058 */ 	lw	$a0,0x58($sp)
 /*  f049ffc:	14400003 */ 	bnez	$v0,.L0f04a00c
 /*  f04a000:	8fa40058 */ 	lw	$a0,0x58($sp)

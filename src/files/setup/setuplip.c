@@ -2300,7 +2300,7 @@ u8 func0413_mechanic[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x0a)
+		if_can_see_target(/*goto*/ 0x0a)
 		if_chr_activated_object(CHR_P1P2, 0x14, /*goto*/ 0x2d)
 		if_chr_activated_object(CHR_P1P2, 0x15, /*goto*/ 0x2d)
 	endloop(0x04)
@@ -2321,7 +2321,7 @@ u8 func0413_mechanic[] = {
 	beginloop(0x0a)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x06)
+		if_can_see_target(/*goto*/ 0x06)
 	endloop(0x0a)
 
 	label(0x06)
@@ -2393,7 +2393,7 @@ u8 func0415_warehouse_spawner[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x08)
+		if_can_see_target(/*goto*/ 0x08)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x00f8, /*goto*/ 0x08)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x00f7, /*goto*/ 0x08)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x00f6, /*goto*/ 0x08)
@@ -2406,7 +2406,7 @@ u8 func0415_warehouse_spawner[] = {
 		label(0x2d)
 		if_never_been_onscreen(/*goto*/ 0x4e)
 		dprint 'N','E','V','E','R',' ','V','I','S','F','A','I','L','\n',0,
-		if_chr_sees_player(/*goto*/ 0x08)
+		if_can_see_target(/*goto*/ 0x08)
 		reloop(0x04)
 
 		label(0x08)
@@ -2845,7 +2845,7 @@ u8 func0420_labtech_doors[] = {
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x2e)
 		if_self_flag_bankx_eq(CHRFLAG0_08000000, TRUE, BANK_0, /*goto*/ 0x06)
 		label(0x2e)
-		if_chr_sees_player(/*goto*/ 0x03)
+		if_can_see_target(/*goto*/ 0x03)
 		label(0x06)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x03)
 		if_saw_injury(0x00, /*goto*/ 0x03)
@@ -4312,7 +4312,7 @@ u8 func0416_become_unaware[] = {
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x0f)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x0f)
 	if_chr_knockedout(CHR_SELF, /*goto*/ 0x0f)
-	if_chr_sees_player(/*goto*/ 0x2d)
+	if_can_see_target(/*goto*/ 0x2d)
 	set_alertness(0)
 	return
 

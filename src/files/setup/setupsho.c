@@ -536,9 +536,9 @@ u8 func0402_unarmed_skedar[] = {
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x2d)
 		label(0x2e)
 		set_target_chr(CHR_BOND)
-		if_chr_sees_player(/*goto*/ 0x2d)
+		if_can_see_target(/*goto*/ 0x2d)
 		set_target_chr(CHR_COOP)
-		if_chr_sees_player(/*goto*/ 0x2d)
+		if_can_see_target(/*goto*/ 0x2d)
 		if_self_flag_bankx_eq(CHRFLAG0_00000004, FALSE, BANK_0, /*goto*/ 0x2e)
 		if_just_injured(CHR_SELF, /*goto*/ 0x2d)
 
@@ -704,9 +704,9 @@ u8 func0405_puzzleroom_miniskedar_waiting[] = {
 
 		label(0x2e)
 		set_target_chr(CHR_BOND)
-		if_chr_sees_player(/*goto*/ 0x2d)
+		if_can_see_target(/*goto*/ 0x2d)
 		set_target_chr(CHR_COOP)
-		if_chr_sees_player(/*goto*/ 0x2d)
+		if_can_see_target(/*goto*/ 0x2d)
 		if_just_injured(CHR_SELF, /*goto*/ 0x2d)
 	endloop(0x03)
 
@@ -756,7 +756,7 @@ u8 func0404_miniskedar[] = {
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x2d)
 
 	label(0x2e)
-	if_chr_sees_player(/*goto*/ 0x2d)
+	if_can_see_target(/*goto*/ 0x2d)
 	if_just_injured(CHR_SELF, /*goto*/ 0x2d)
 
 	// Healthy
@@ -786,7 +786,7 @@ u8 func0404_miniskedar[] = {
 		if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x2e)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x2d)
 		label(0x2e)
-		if_chr_sees_player(/*goto*/ 0x2d)
+		if_can_see_target(/*goto*/ 0x2d)
 		goto_next(0x06)
 
 		label(0x2d)
@@ -1723,7 +1723,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	goto_first(0x5f)
 
 	label(0x60)
-	if_chr_sees_player(/*goto*/ 0x2d)
+	if_can_see_target(/*goto*/ 0x2d)
 	goto_first(0x5e)
 
 	label(0x58)
@@ -1776,7 +1776,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	goto_first(0x6a)
 
 	label(0x6c)
-	if_chr_sees_player(/*goto*/ 0x6b)
+	if_can_see_target(/*goto*/ 0x6b)
 	goto_first(0x5e)
 
 	label(0x6b)
@@ -1788,7 +1788,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	beginloop(0x6e)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x6b)
+		if_can_see_target(/*goto*/ 0x6b)
 		if_timer_gt(300, /*goto*/ 0x06)
 	endloop(0x6e)
 

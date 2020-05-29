@@ -1231,7 +1231,7 @@ u8 func0405_president_in_room[] = {
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0055, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0056, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0057, /*goto*/ 0x2d)
-		if_chr_sees_player(/*goto*/ 0x2d)
+		if_can_see_target(/*goto*/ 0x2d)
 		goto_next(0x86)
 
 		label(0x2d)
@@ -1254,7 +1254,7 @@ u8 func0405_president_in_room[] = {
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0055, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0056, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0057, /*goto*/ 0x2d)
-		if_chr_sees_player(/*goto*/ 0x2d)
+		if_can_see_target(/*goto*/ 0x2d)
 		goto_next(0x86)
 
 		label(0x2d)
@@ -1274,7 +1274,7 @@ u8 func0405_president_in_room[] = {
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0055, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0056, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0057, /*goto*/ 0x2d)
-		if_chr_sees_player(/*goto*/ 0x2d)
+		if_can_see_target(/*goto*/ 0x2d)
 		goto_next(0x86)
 
 		label(0x2d)
@@ -1347,7 +1347,7 @@ u8 func0405_president_in_room[] = {
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0055, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0056, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0057, /*goto*/ 0x2d)
-		if_chr_sees_player(/*goto*/ 0x2d)
+		if_can_see_target(/*goto*/ 0x2d)
 		goto_next(0x86)
 
 		label(0x2d)
@@ -1365,7 +1365,7 @@ u8 func0405_president_in_room[] = {
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0055, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0056, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0057, /*goto*/ 0x2d)
-		if_chr_sees_player(/*goto*/ 0x2d)
+		if_can_see_target(/*goto*/ 0x2d)
 		goto_next(0x86)
 
 		label(0x2d)
@@ -1500,7 +1500,7 @@ u8 func0404_president_running[] = {
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0031, /*goto*/ 0x11)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0032, /*goto*/ 0x11)
 		dprint 't','a','r','g','e','t','\n',0,
-		if_chr_sees_player(/*goto*/ 0x06)
+		if_can_see_target(/*goto*/ 0x06)
 		goto_next(0x58)
 
 		label(0x06)
@@ -1689,7 +1689,7 @@ u8 func100c_cockpit_stripes[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x06)
+		if_can_see_target(/*goto*/ 0x06)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x06)
 		reloop(0x04)
 
@@ -2450,7 +2450,7 @@ u8 func0415_cloner1[] = {
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0018, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0019, /*goto*/ 0x2d)
 		if_never_been_onscreen(/*goto*/ 0x4f)
-		if_chr_sees_player(/*goto*/ 0x08)
+		if_can_see_target(/*goto*/ 0x08)
 		label(0x2d)
 		reloop(0x04)
 
@@ -2546,7 +2546,7 @@ u8 func0418_cloner2[] = {
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0018, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0019, /*goto*/ 0x2d)
 		if_never_been_onscreen(/*goto*/ 0x4f)
-		if_chr_sees_player(/*goto*/ 0x08)
+		if_can_see_target(/*goto*/ 0x08)
 		label(0x2d)
 		reloop(0x04)
 
@@ -2645,7 +2645,7 @@ u8 func041b_cloner3[] = {
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0018, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0019, /*goto*/ 0x2d)
 		if_never_been_onscreen(/*goto*/ 0x4f)
-		if_chr_sees_player(/*goto*/ 0x08)
+		if_can_see_target(/*goto*/ 0x08)
 		label(0x2d)
 		reloop(0x04)
 
@@ -2821,7 +2821,7 @@ u8 func041e_blonde[] = {
 	goto_first(0x6f)
 
 	label(0x71)
-	if_chr_sees_player(/*goto*/ 0x70)
+	if_can_see_target(/*goto*/ 0x70)
 	goto_first(0x68)
 
 	label(0x70)
@@ -2831,7 +2831,7 @@ u8 func041e_blonde[] = {
 	restart_timer
 
 	beginloop(0x73)
-		if_chr_sees_player(/*goto*/ 0x70)
+		if_can_see_target(/*goto*/ 0x70)
 		if_timer_gt(300, /*goto*/ 0x06)
 	endloop(0x73)
 
@@ -2876,7 +2876,7 @@ u8 func0421_trent_waiting[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x06)
+		if_can_see_target(/*goto*/ 0x06)
 	endloop(0x04)
 
 	label(0x06)
@@ -2958,9 +2958,9 @@ u8 func0422_trent_running[] = {
 
 	label(0x06)
 	set_target_chr(CHR_BOND)
-	if_chr_sees_player(/*goto*/ 0x06)
+	if_can_see_target(/*goto*/ 0x06)
 	set_target_chr(CHR_COOP)
-	if_chr_sees_player(/*goto*/ 0x06)
+	if_can_see_target(/*goto*/ 0x06)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	remove_chr(CHR_SELF)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3795,9 +3795,9 @@ u8 func042c_remove_if_offscreen[] = {
 	label(0x04)
 	yield
 	set_target_chr(CHR_BOND)
-	if_chr_sees_player(/*goto*/ 0x06)
+	if_can_see_target(/*goto*/ 0x06)
 	set_target_chr(CHR_COOP)
-	if_chr_sees_player(/*goto*/ 0x06)
+	if_can_see_target(/*goto*/ 0x06)
 	label(0x08)
 	chr_drop_weapon(CHR_SELF)
 	remove_chr(CHR_SELF)

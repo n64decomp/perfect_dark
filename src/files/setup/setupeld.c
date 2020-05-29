@@ -2218,7 +2218,7 @@ u8 func0405_hacker[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_HACKERS_SUCCEEDED, TRUE, /*goto*/ 0x2d)
-		if_chr_sees_player(/*goto*/ 0x09)
+		if_can_see_target(/*goto*/ 0x09)
 	endloop(0x04)
 
 	// Hackers succeeded
@@ -2228,7 +2228,7 @@ u8 func0405_hacker[] = {
 	beginloop(0x08)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x09)
+		if_can_see_target(/*goto*/ 0x09)
 		if_chr_stopped(/*goto*/ 0x06)
 	endloop(0x08)
 

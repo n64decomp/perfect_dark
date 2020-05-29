@@ -1712,7 +1712,7 @@ u8 func040a_top_interceptor[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x59)
+		if_can_see_target(/*goto*/ 0x59)
 	endloop(0x04)
 
 	label(0x58)
@@ -1724,7 +1724,7 @@ u8 func040a_top_interceptor[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		label(0x06)
-		if_chr_sees_player(/*goto*/ 0x59)
+		if_can_see_target(/*goto*/ 0x59)
 		reloop(0x0a)
 
 		// Unreachable
@@ -1738,12 +1738,12 @@ u8 func040a_top_interceptor[] = {
 
 		label(0x5b)
 		yield
-		if_chr_sees_player(/*goto*/ 0x5c)
+		if_can_see_target(/*goto*/ 0x5c)
 		restart_timer
 
 		beginloop(0x5d)
 			if_timer_gt(480, /*goto*/ 0x5e)
-			if_chr_sees_player(/*goto*/ 0x5c)
+			if_can_see_target(/*goto*/ 0x5c)
 		endloop(0x5d)
 
 		label(0x5e)
@@ -2663,7 +2663,7 @@ u8 func0419_clone_spawner[] = {
 		label(0x2e)
 		dprint 'O','B','J','E','C','T','I','V','E',' ','D','O','N','E','\n',0,
 		if_never_been_onscreen(/*goto*/ 0x4f)
-		if_chr_sees_player(/*goto*/ 0x09)
+		if_can_see_target(/*goto*/ 0x09)
 		reloop(0x04)
 
 		label(0x09)

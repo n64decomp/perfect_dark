@@ -683,11 +683,11 @@ u8 func040d_elvis_wait_for_hangar_entry[] = {
 
 	beginloop(0x65)
 		set_target_chr(CHR_BOND)
-		if_chr_sees_player(/*goto*/ 0x2c)
+		if_can_see_target(/*goto*/ 0x2c)
 		set_target_chr(CHR_COOP)
-		if_chr_sees_player(/*goto*/ 0x2c)
+		if_can_see_target(/*goto*/ 0x2c)
 		set_target_chr(CHR_ANTI)
-		if_chr_sees_player(/*goto*/ 0x2c)
+		if_can_see_target(/*goto*/ 0x2c)
 		goto_next(0x06)
 
 		label(0x2c)
@@ -723,13 +723,13 @@ u8 func040e_elvis_give_ar34[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		set_chrpreset(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x2c)
+		if_can_see_target(/*goto*/ 0x2c)
 	endloop(0x04)
 
 	label(0x2c)
 
 	beginloop(0x08)
-		if_chr_sees_player(/*goto*/ 0x2c)
+		if_can_see_target(/*goto*/ 0x2c)
 	endloop(0x08)
 
 	// Run towards player
@@ -744,7 +744,7 @@ u8 func040e_elvis_give_ar34[] = {
 		reloop(0x09)
 
 		label(0x06)
-		if_chr_sees_player(/*goto*/ 0x06)
+		if_can_see_target(/*goto*/ 0x06)
 	endloop(0x09)
 
 	label(0x2c)
@@ -1677,7 +1677,7 @@ u8 func0412_hangarspawner[] = {
 		// Still killing
 		label(0x2c)
 		if_never_been_onscreen(/*goto*/ 0x4d)
-		if_chr_sees_player(/*goto*/ 0x08)
+		if_can_see_target(/*goto*/ 0x08)
 		reloop(0x04)
 
 		// Seen player, or kills done
@@ -2170,7 +2170,7 @@ u8 func0415_bridgespawner[] = {
 		if_chr_dead(CHR_CLONE, /*goto*/ 0x2c)
 		if_chr_knockedout(CHR_CLONE, /*goto*/ 0x2c)
 		label(0x2c)
-		if_chr_sees_player(/*goto*/ 0x08)
+		if_can_see_target(/*goto*/ 0x08)
 	endloop(0x04)
 
 	// Been spawning for 61 seconds, or Skedar can see player
@@ -3061,7 +3061,7 @@ u8 func0421_bridge_skedar[] = {
 	goto_first(0xcd)
 
 	label(0xcf)
-	if_chr_sees_player(/*goto*/ 0xce)
+	if_can_see_target(/*goto*/ 0xce)
 	goto_first(0xc6)
 
 	label(0xce)
@@ -3073,7 +3073,7 @@ u8 func0421_bridge_skedar[] = {
 	beginloop(0xd1)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0xce)
+		if_can_see_target(/*goto*/ 0xce)
 		if_timer_gt(300, /*goto*/ 0x06)
 	endloop(0xd1)
 
@@ -3266,11 +3266,11 @@ u8 func0423_shy_skedar[] = {
 	label(0x2d)
 	stop_chr
 	set_target_chr(CHR_BOND)
-	if_chr_sees_player(/*goto*/ 0x2c)
+	if_can_see_target(/*goto*/ 0x2c)
 	set_target_chr(CHR_COOP)
-	if_chr_sees_player(/*goto*/ 0x2c)
+	if_can_see_target(/*goto*/ 0x2c)
 	set_target_chr(CHR_ANTI)
-	if_chr_sees_player(/*goto*/ 0x2c)
+	if_can_see_target(/*goto*/ 0x2c)
 
 	label(0x2c)
 	stop_chr

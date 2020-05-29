@@ -533,7 +533,7 @@ u8 func041d_init_collegue_when_sighted[] = {
 	restart_timer
 
 	beginloop(0x04)
-		if_chr_sees_player(/*goto*/ 0x2f)
+		if_can_see_target(/*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
@@ -2928,7 +2928,7 @@ u8 func042c_carrington_tour[] = {
 	beginloop(0x04)
 		dprint 'F','A','C','E',' ','P','A','D',0,
 		if_timer_gt(1200, /*goto*/ 0x2f)
-		if_chr_sees_player(/*goto*/ 0x2f)
+		if_can_see_target(/*goto*/ 0x2f)
 		if_chr_idle(/*goto*/ 0x06)
 		label(0x7f)
 		call_rng
@@ -2939,11 +2939,11 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	if_chr_sees_player(/*goto*/ 0x06)
+	if_can_see_target(/*goto*/ 0x06)
 	try_jog_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
-		if_chr_sees_player(/*goto*/ 0x06)
+		if_can_see_target(/*goto*/ 0x06)
 	endloop(0x08)
 
 	label(0x06)
@@ -2981,7 +2981,7 @@ u8 func042c_carrington_tour[] = {
 
 	beginloop(0x5c)
 		if_timer_lt(60, /*goto*/ 0x06)
-		if_chr_sees_player(/*goto*/ 0x2f)
+		if_can_see_target(/*goto*/ 0x2f)
 		label(0x06)
 	endloop(0x5c)
 
@@ -3010,7 +3010,7 @@ u8 func042c_carrington_tour[] = {
 	stop_chr
 
 	beginloop(0x63)
-		if_chr_sees_player(/*goto*/ 0x2f)
+		if_can_see_target(/*goto*/ 0x2f)
 	endloop(0x63)
 
 	label(0x2f)
@@ -3067,7 +3067,7 @@ u8 func042c_carrington_tour[] = {
 	stop_chr
 
 	beginloop(0x6a)
-		if_chr_sees_player(/*goto*/ 0x2f)
+		if_can_see_target(/*goto*/ 0x2f)
 	endloop(0x6a)
 
 	label(0x2f)
@@ -3103,7 +3103,7 @@ u8 func042c_carrington_tour[] = {
 	stop_chr
 
 	beginloop(0x6e)
-		if_chr_sees_player(/*goto*/ 0x2f)
+		if_can_see_target(/*goto*/ 0x2f)
 	endloop(0x6e)
 
 	label(0x2f)
@@ -3155,7 +3155,7 @@ u8 func042c_carrington_tour[] = {
 	stop_chr
 
 	beginloop(0x74)
-		if_chr_sees_player(/*goto*/ 0x2f)
+		if_can_see_target(/*goto*/ 0x2f)
 	endloop(0x74)
 
 	label(0x2f)
@@ -4869,7 +4869,7 @@ u8 func0409_holo5_guard2[] = {
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0a)
 
 	beginloop(0x0a)
-		if_chr_sees_player(/*goto*/ 0x06)
+		if_can_see_target(/*goto*/ 0x06)
 		goto_first(0x04)
 
 		label(0x06)

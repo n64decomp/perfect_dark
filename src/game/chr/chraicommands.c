@@ -1342,9 +1342,9 @@ bool aiIfSawDeath(void)
 /**
  * @cmd 003f
  */
-bool aiIfSeesPlayer(void)
+bool aiIfCanSeeTarget(void)
 {
-	if ((g_Vars.chrdata && func0f039368(g_Vars.chrdata)) ||
+	if ((g_Vars.chrdata && chrCanSeeTarget(g_Vars.chrdata)) ||
 			(g_Vars.hovercar && func0f07ae18(g_Vars.hovercar, 0x40) && chopperCheckTargetVisible(g_Vars.hovercar))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);

@@ -1309,7 +1309,7 @@ u8 func0411_cass_in_office[] = {
 	beginloop(0x54)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x55)
+		if_can_see_target(/*goto*/ 0x55)
 	endloop(0x54)
 
 	// Player has entered
@@ -1401,7 +1401,7 @@ u8 func0413_cass_running[] = {
 		jog_to_pad(0x0000)
 
 		beginloop(0x08)
-			if_chr_sees_player(/*goto*/ 0x2c)
+			if_can_see_target(/*goto*/ 0x2c)
 			if_chr_stopped(/*goto*/ 0x0d)
 			goto_next(0x06)
 			label(0x2c)
@@ -1423,7 +1423,7 @@ u8 func0413_cass_running[] = {
 		beginloop(0x09)
 			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
-			if_chr_sees_player(/*goto*/ 0x2c)
+			if_can_see_target(/*goto*/ 0x2c)
 		endloop(0x09)
 
 		// Consider saying something

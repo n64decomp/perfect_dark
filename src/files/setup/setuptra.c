@@ -818,7 +818,7 @@ u8 func0402_jonathan_waiting_for_meetup[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x06)
+		if_can_see_target(/*goto*/ 0x06)
 	endloop(0x04)
 
 	label(0x06)
@@ -910,7 +910,7 @@ u8 func0404_jonathan_following_and_mine[] = {
 
 	beginloop(0x5b)
 		label(0x32)
-		if_chr_sees_player(/*goto*/ 0x06)
+		if_can_see_target(/*goto*/ 0x06)
 		goto_next(0x5c)
 
 		label(0x06)
@@ -1993,7 +1993,7 @@ u8 func040b_elvis_follow[] = {
 
 		beginloop(0x5b)
 			if_chr_distance_to_pad_lt(CHR_SELF, 3510, 0x001e, /*goto*/ 0x08)
-			if_chr_sees_player(/*goto*/ 0x06)
+			if_can_see_target(/*goto*/ 0x06)
 			goto_next(0x5c)
 
 			label(0x06)
@@ -3204,7 +3204,7 @@ u8 func0416_spawn_during_follow[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 
 	beginloop(0x04)
-		if_chr_sees_player(/*goto*/ 0x32)
+		if_can_see_target(/*goto*/ 0x32)
 		if_stage_flag_eq(STAGEFLAG_MET_JON, TRUE, /*goto*/ 0x06)
 		label(0x32)
 		reloop(0x04)
@@ -3337,9 +3337,9 @@ u8 unregistered_function1[] = {
  */
 u8 func040f_warp_jon_to_catwalk[] = {
 	set_target_chr(CHR_BOND)
-	if_chr_sees_player(/*goto*/ 0x06)
+	if_can_see_target(/*goto*/ 0x06)
 	set_target_chr(CHR_COOP)
-	if_chr_sees_player(/*goto*/ 0x06)
+	if_can_see_target(/*goto*/ 0x06)
 	stop_chr
 	yield
 	chr_move_to_pad(CHR_JONATHAN, 0x0152, 0x00, /*goto*/ 0x32)

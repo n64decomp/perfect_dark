@@ -1198,7 +1198,7 @@ u8 func0410_clone_spawner[] = {
 
 	beginloop(0x04)
 		if_never_been_onscreen(/*goto*/ 0x4d)
-		if_chr_sees_player(/*goto*/ 0x08) // <-- pointless
+		if_can_see_target(/*goto*/ 0x08) // <-- pointless
 		reloop(0x04)
 
 		label(0x08)
@@ -1266,7 +1266,7 @@ u8 func0410_clone_spawner2[] = {
 
 	beginloop(0x04)
 		if_never_been_onscreen(/*goto*/ 0x4d)
-		if_chr_sees_player(/*goto*/ 0x08) // <-- pointless
+		if_can_see_target(/*goto*/ 0x08) // <-- pointless
 		reloop(0x04)
 
 		label(0x08)

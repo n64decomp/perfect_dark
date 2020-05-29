@@ -183,7 +183,7 @@ u8 func0006_unalerted[] = {
 	if_num_times_shot_gt(0, /*goto*/ LABEL_SEE_DETECT)
 	dprint 'B','4','N','O','H','E','A','R','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, FALSE, BANK_0, /*goto*/ 0x16)
-	if_chr_sees_player(/*goto*/ 0x16)
+	if_can_see_target(/*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
@@ -339,7 +339,7 @@ u8 func0006_unalerted[] = {
 	label(0xe6)
 	if_distance_to_target_gt(450, /*goto*/ 0x15)
 	label(0xe8)
-	if_chr_sees_player(/*goto*/ 0xe9)
+	if_can_see_target(/*goto*/ 0xe9)
 	goto_next(LABEL_DISGUISE_UNCOVERED)
 
 	label(0xe9)
@@ -2610,7 +2610,7 @@ u8 func0007_alerted[] = {
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x16)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x16)
 	if_chr_knockedout(CHR_SELF, /*goto*/ 0x16)
-	if_chr_sees_player(/*goto*/ 0x13)
+	if_can_see_target(/*goto*/ 0x13)
 	set_alertness(0)
 	set_self_flag_bankx(CHRFLAG1_10000000, BANK_1)
 	set_returnlist(CHR_SELF, GAILIST_UNALERTED)
@@ -3518,7 +3518,7 @@ u8 func000e_see_then_attack[] = {
 	beginloop(0x0c)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x16)
+		if_can_see_target(/*goto*/ 0x16)
 	endloop(0x0c)
 
 	label(0x16)
@@ -4238,7 +4238,7 @@ u8 func001b_observe_camspy[] = {
 
 	// Camspy still alive
 	dprint 'E','2','\n',0,
-	if_chr_sees_player(/*goto*/ 0x16)
+	if_can_see_target(/*goto*/ 0x16)
 	dprint 'E','3','\n',0,
 	goto_next(0x13)
 
@@ -4494,7 +4494,7 @@ u8 func001f_related_to_spawning[] = {
 	if_near_miss(/*goto*/ 0x1e)
 	if_num_times_shot_gt(0, /*goto*/ 0x1e)
 	if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, FALSE, BANK_0, /*goto*/ 0x16)
-	if_chr_sees_player(/*goto*/ 0x16)
+	if_can_see_target(/*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
@@ -4779,7 +4779,7 @@ u8 func0014_coop_buddy[] = {
 		set_chr_hiddenflag(CHR_SELF, CHRHFLAG_DISGUISED)
 		label(0x07)
 		set_target_chr(CHR_BOND)
-		if_chr_sees_player(/*goto*/ 0xdd)
+		if_can_see_target(/*goto*/ 0xdd)
 		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_PASSIVE, /*goto*/ 0xdc)
 		label(0xdd)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
@@ -4896,7 +4896,7 @@ u8 func0022_comment_on_player_dead[] = {
 	// Wait until player in sight. Which won't happen if the current chr is
 	// stopped and player is dying...
 	beginloop(0x0c)
-		if_chr_sees_player(/*goto*/ 0x16)
+		if_can_see_target(/*goto*/ 0x16)
 	endloop(0x0c)
 
 	// Wait half a second

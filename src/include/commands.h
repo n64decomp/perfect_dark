@@ -585,9 +585,9 @@
 	label,
 
 /**
- * Checks if the chr can see the player.
+ * Checks if the current chr can see their target.
  */
-#define if_chr_sees_player(label) \
+#define if_can_see_target(label) \
 	mkshort(0x003f), \
 	label,
 

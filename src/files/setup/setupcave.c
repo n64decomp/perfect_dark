@@ -1590,7 +1590,7 @@ u8 func0408_secretary[] = {
 		if_saw_injury(0x00, /*goto*/ LABEL_BECOME_ALERT2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ LABEL_BECOME_ALERT2)
 		if_timer_gt(60, /*goto*/ 0x02)
-		if_chr_sees_player(/*goto*/ 0x31)
+		if_can_see_target(/*goto*/ 0x31)
 		goto_first(LABEL_MAIN_LOOP)
 
 		label(0x31)
@@ -1620,7 +1620,7 @@ u8 func0408_secretary[] = {
 		if_saw_injury(0x00, /*goto*/ LABEL_BECOME_ALERT2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ LABEL_BECOME_ALERT2)
 		if_timer_gt(400, /*goto*/ 0x02)
-		if_chr_sees_player(/*goto*/ 0x31)
+		if_can_see_target(/*goto*/ 0x31)
 		goto_first(LABEL_MAIN_LOOP)
 
 		label(0x31)
@@ -1645,7 +1645,7 @@ u8 func0408_secretary[] = {
 		if_saw_injury(0x00, /*goto*/ LABEL_BECOME_ALERT2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ LABEL_BECOME_ALERT2)
 		if_timer_gt(400, /*goto*/ 0x0c)
-		if_chr_sees_player(/*goto*/ 0x31)
+		if_can_see_target(/*goto*/ 0x31)
 		goto_first(LABEL_MAIN_LOOP)
 
 		label(0x31)
@@ -2217,7 +2217,7 @@ u8 func040a_office2[] = {
 	beginloop(0x09)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x02)
+		if_can_see_target(/*goto*/ 0x02)
 		if_saw_injury(0x00, /*goto*/ 0x02)
 		if_stage_flag_eq(STAGEFLAG_OFFICE1_DEAD, TRUE, /*goto*/ 0x72)
 	endloop(0x09)
@@ -2458,7 +2458,7 @@ u8 func040f_nsa[] = {
 		goto_first(0x00)
 
 		label(0x31)
-		if_chr_sees_player(/*goto*/ 0x04)
+		if_can_see_target(/*goto*/ 0x04)
 		if_chr_distance_to_pad_lt(CHR_SELF, 70, PAD_PRESET, /*goto*/ 0x02)
 	endloop(0x06)
 
@@ -2471,7 +2471,7 @@ u8 func040f_nsa[] = {
 		dprint 'W','A','I','T',' ','F','O','R',' ','C','H','R','\n',0,
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_SECURITY_SHUT_DOWN, TRUE, /*goto*/ 0x0b)
-		if_chr_sees_player(/*goto*/ 0x31)
+		if_can_see_target(/*goto*/ 0x31)
 	endloop(0x00)
 
 	// Seen player
@@ -3159,7 +3159,7 @@ u8 func042a_foyer_spawner[] = {
 		rebuild_squadrons
 		dprint 'O','B','J','E','C','T','I','V','E',' ','D','O','N','E','\n',0,
 		if_never_been_onscreen(/*goto*/ 0x6a)
-		if_chr_sees_player(/*goto*/ 0x04)
+		if_can_see_target(/*goto*/ 0x04)
 		reloop(0x00)
 
 		label(0x04)

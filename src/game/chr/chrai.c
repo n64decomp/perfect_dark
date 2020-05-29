@@ -81,7 +81,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x003c*/ aiIfHearsTarget,
 	/*0x003d*/ aiIfSawInjury,
 	/*0x003e*/ aiIfSawDeath,
-	/*0x003f*/ aiIfSeesPlayer,
+	/*0x003f*/ aiIfCanSeeTarget,
 	/*0x0040*/ aiIfTargetNearlyInSight,
 	/*0x0041*/ aiIfNearlyInTargetsSight,
 	/*0x0042*/ aiIfInLoadedRoom,

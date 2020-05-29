@@ -1159,10 +1159,10 @@ u8 func0404_elvis[] = {
 		if_objective_complete(2, /*goto*/ 0x31)
 		if_objective_complete(3, /*goto*/ 0x31)
 		if_objective_complete(4, /*goto*/ 0x31)
-		if_chr_sees_player(/*goto*/ 0xa5)
+		if_can_see_target(/*goto*/ 0xa5)
 		set_target_chr(CHR_COOP)
 		set_chrpreset(CHR_COOP)
-		if_chr_sees_player(/*goto*/ 0xa5)
+		if_can_see_target(/*goto*/ 0xa5)
 		label(0x31)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x0a)
 		if_timer_gt(600, /*goto*/ 0x0b)
@@ -1217,7 +1217,7 @@ u8 func0404_elvis[] = {
 
 	// Running towards player for 3 seconds - check if can still see player
 	label(0x08)
-	if_chr_sees_player(/*goto*/ 0x31)
+	if_can_see_target(/*goto*/ 0x31)
 	goto_first(0x04)
 
 	label(0x31)
@@ -1365,7 +1365,7 @@ u8 func0414_spawner[] = {
 	beginloop(0x06)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x0a)
+		if_can_see_target(/*goto*/ 0x0a)
 		// Room 0x0029 is the skedar shuttle area
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0029, /*goto*/ 0x0a)
 		reloop(0x06)
@@ -1375,7 +1375,7 @@ u8 func0414_spawner[] = {
 		label(0x31)
 		if_never_been_onscreen(/*goto*/ 0x52)
 		dprint 'N','E','V','E','R',' ','V','I','S','F','A','I','L','\n',0,
-		if_chr_sees_player(/*goto*/ 0x0a)
+		if_can_see_target(/*goto*/ 0x0a)
 	endloop(0x06)
 
 	label(0x0a)
@@ -1483,7 +1483,7 @@ u8 func041c_president_waiting[] = {
 		goto_first(0x06)
 
 		label(0x31)
-		if_chr_sees_player(/*goto*/ 0x31)
+		if_can_see_target(/*goto*/ 0x31)
 	endloop(0x06)
 
 	label(0x31)
@@ -1554,7 +1554,7 @@ u8 func041d_president_running[] = {
 		if_chr_in_room(CHR_SELF, 0x00, 0x0014, /*goto*/ 0xa5)
 		if_chr_in_room(CHR_SELF, 0x00, 0x0014, /*goto*/ 0xa5)
 		dprint 't','a','r','g','e','t','\n',0,
-		if_chr_sees_player(/*goto*/ 0x08)
+		if_can_see_target(/*goto*/ 0x08)
 		goto_next(0xa0)
 
 		label(0x08)
@@ -1715,7 +1715,7 @@ u8 func041e_trent_waiting[] = {
 	beginloop(0x06)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x08)
+		if_can_see_target(/*goto*/ 0x08)
 	endloop(0x06)
 
 	label(0x08)
@@ -1797,7 +1797,7 @@ u8 func0420_trent_running[] = {
 	label(0x31)
 	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
-	if_chr_sees_player(/*goto*/ 0x31)
+	if_can_see_target(/*goto*/ 0x31)
 	goto_next(0x08)
 
 	label(0x31)

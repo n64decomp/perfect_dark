@@ -3079,9 +3079,9 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 u8 func041c_teleport_activation_responder[] = {
 	beginloop(0x04)
 		set_target_chr(CHR_BOND)
-		if_chr_sees_player(/*goto*/ 0x2e)
+		if_can_see_target(/*goto*/ 0x2e)
 		set_target_chr(CHR_COOP)
-		if_chr_sees_player(/*goto*/ 0x2e)
+		if_can_see_target(/*goto*/ 0x2e)
 		unset_self_chrflag(CHRCFLAG_HIDDEN)
 		set_ailist(CHR_SELF, AILIST_INIT_SNIPER)
 		label(0x2e)
@@ -3126,7 +3126,7 @@ u8 func041b_sniper_wait_for_detection[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x2e)
+		if_can_see_target(/*goto*/ 0x2e)
 		if_enemy_distance_lt_and_los(1000, /*goto*/ 0x2e)
 		if_saw_death(0x00, /*goto*/ 0x2e)
 		reloop(0x04)
@@ -3170,7 +3170,7 @@ u8 func041d_sniper[] = {
 
 	beginloop(0x63)
 		chr_toggle_p1p2(CHR_SELF)
-		if_chr_sees_player(/*goto*/ 0x2e)
+		if_can_see_target(/*goto*/ 0x2e)
 		dprint 'N','O',' ','P','L','A','Y','E','R',' ','T','A','R','G','E','T','\n',0,
 		if_enemy_distance_lt_and_los(1000, /*goto*/ 0x2f)
 		dprint 'N','O',' ','O','P','P','\n',0,
@@ -3213,7 +3213,7 @@ u8 func041d_sniper[] = {
 	if_player_looking_at_something_maybe(0x14, 0x01, 0x00, /*goto*/ 0x0d)
 	dprint '3','\n',0,
 	label(0x06)
-	if_chr_sees_player(/*goto*/ 0x2e)
+	if_can_see_target(/*goto*/ 0x2e)
 	dprint '4','\n',0,
 	goto_next(0x0d)
 
@@ -3272,7 +3272,7 @@ u8 func040c_blonde[] = {
 	beginloop(0x08)
 		if_saw_injury(0x00, /*goto*/ 0x06)
 		if_saw_death(0x00, /*goto*/ 0x06)
-		if_chr_sees_player(/*goto*/ 0x06)
+		if_can_see_target(/*goto*/ 0x06)
 	endloop(0x08)
 
 	label(0x06)
@@ -3436,7 +3436,7 @@ u8 func040f_miniskedar[] = {
 	beginloop(0x03)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x2e)
 		label(0x2e)
-		if_chr_sees_player(/*goto*/ 0x2e)
+		if_can_see_target(/*goto*/ 0x2e)
 		goto_next(0x1e)
 
 		label(0x2e)
@@ -3451,7 +3451,7 @@ u8 func040f_miniskedar[] = {
 		try_run_to_target(/*goto*/ 0x0a)
 
 		beginloop(0x0a)
-			if_chr_sees_player(/*goto*/ 0x2e)
+			if_can_see_target(/*goto*/ 0x2e)
 			goto_next(0x06)
 
 			label(0x2e)
@@ -4525,7 +4525,7 @@ u8 func040f_miniskedar_unalerted[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x2e)
+		if_can_see_target(/*goto*/ 0x2e)
 	endloop(0x04)
 
 	label(0x2e)

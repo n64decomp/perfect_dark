@@ -595,7 +595,7 @@ u8 func1400_setup_counterop[] = {
  \
 	beginloop(0x04) \
 		if_never_been_onscreen(/*goto*/ 0x4f) \
-		if_chr_sees_player(/*goto*/ 0x0a) \
+		if_can_see_target(/*goto*/ 0x0a) \
 		reloop(0x04) \
  \
 		label(0x0a) \
@@ -1750,9 +1750,9 @@ u8 func041a_hostage_holo[] = {
 	// Wait until player in sight, or 2 seconds
 	beginloop(0x0a)
 		set_target_chr(CHR_BOND)
-		if_chr_sees_player(/*goto*/ 0x08)
+		if_can_see_target(/*goto*/ 0x08)
 		set_target_chr(CHR_COOP)
-		if_chr_sees_player(/*goto*/ 0x08)
+		if_can_see_target(/*goto*/ 0x08)
 		if_timer_gt(120, /*goto*/ 0x08)
 	endloop(0x0a)
 
@@ -1887,9 +1887,9 @@ u8 func041f_holoclone[] = {
  \
 	beginloop(0xba) \
 		set_target_chr(CHR_BOND) \
-		if_chr_sees_player(/*goto*/ 0xbb) \
+		if_can_see_target(/*goto*/ 0xbb) \
 		set_target_chr(CHR_COOP) \
-		if_chr_sees_player(/*goto*/ 0xbb) \
+		if_can_see_target(/*goto*/ 0xbb) \
 		if_timer_gt(60, /*goto*/ 0xbb) \
 	endloop(0xba) \
  \
@@ -1978,7 +1978,7 @@ u8 func0425_hostage_thank_and_run[] = {
 
 	label(0x03)
 	set_target_chr(CHR_COOP)
-	if_chr_sees_player(/*goto*/ 0x2e)
+	if_can_see_target(/*goto*/ 0x2e)
 	set_chrpreset(CHR_BOND)
 	goto_next(0x08)
 
@@ -2021,11 +2021,11 @@ u8 func0425_hostage_thank_and_run[] = {
 
 	beginloop(0x10)
 		set_target_chr(CHR_BOND)
-		if_chr_sees_player(/*goto*/ 0x2e)
+		if_can_see_target(/*goto*/ 0x2e)
 		set_target_chr(CHR_ANTI)
-		if_chr_sees_player(/*goto*/ 0x2e)
+		if_can_see_target(/*goto*/ 0x2e)
 		set_target_chr(CHR_COOP)
-		if_chr_sees_player(/*goto*/ 0x2e)
+		if_can_see_target(/*goto*/ 0x2e)
 		if_distance_to_target_gt(500, /*goto*/ 0x08)
 		label(0x2e)
 	endloop(0x10)
@@ -2070,7 +2070,7 @@ u8 func0427_drop_devastator[] = {
 
 	label(0x03)
 	set_target_chr(CHR_COOP)
-	if_chr_sees_player(/*goto*/ 0x2e)
+	if_can_see_target(/*goto*/ 0x2e)
 	set_chrpreset(CHR_BOND)
 	goto_next(0x08)
 
@@ -2109,7 +2109,7 @@ u8 func0427_drop_devastator[] = {
 	set_target_chr(CHR_PRESET)
 
 	beginloop(0x10)
-		if_chr_sees_player(/*goto*/ 0x2e)
+		if_can_see_target(/*goto*/ 0x2e)
 		if_distance_to_target_gt(500, /*goto*/ 0x08)
 		label(0x2e)
 	endloop(0x10)
@@ -2210,9 +2210,9 @@ u8 func042b_deviceroom_hostage[] = {
 
 	label(0x12)
 	set_target_chr(CHR_BOND)
-	if_chr_sees_player(/*goto*/ 0x2e)
+	if_can_see_target(/*goto*/ 0x2e)
 	set_target_chr(CHR_COOP)
-	if_chr_sees_player(/*goto*/ 0x2e)
+	if_can_see_target(/*goto*/ 0x2e)
 	stop_chr
 	goto_next(0x10)
 
@@ -2983,7 +2983,7 @@ u8 func1015_firingrange_pc[] = {
 		label(0x2e) \
 		dprint 'O','B','J','E','C','T','I','V','E',' ','D','O','N','E','\n',0, \
 		if_never_been_onscreen(/*goto*/ 0x4f) \
-		if_chr_sees_player(/*goto*/ 0x0a) \
+		if_can_see_target(/*goto*/ 0x0a) \
 		reloop(0x04) \
  \
 		label(0x0a) \
@@ -3127,7 +3127,7 @@ u8 func0410_spawner6[] = {
 		label(0x2e)
 		dprint 'O','B','J','E','C','T','I','V','E',' ','D','O','N','E','\n',0,
 		if_never_been_onscreen(/*goto*/ 0x4f)
-		if_chr_sees_player(/*goto*/ 0x0a)
+		if_can_see_target(/*goto*/ 0x0a)
 		reloop(0x04)
 
 		label(0x0a)

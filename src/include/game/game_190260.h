@@ -19,7 +19,7 @@ u32 func0f191fa4(void);
 u32 func0f1921f8(void);
 u32 func0f192628(void);
 u32 func0f19277c(void);
-u32 func0f19294c(void);
+bool func0f19294c(struct chrdata *chr, struct chrdata *chr2);
 u32 func0f192a48(void);
 u32 func0f192a74(void);
 u32 func0f192d64(void);

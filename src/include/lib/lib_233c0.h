@@ -112,7 +112,7 @@ bool func0002db98(struct coord *viewpos, s16 *rooms, struct coord *targetpos, s3
 u32 func0002dc18(struct coord *coord, s16 *room, struct coord *coord2, s32 arg3);
 bool hasLineOfSight(struct coord *coord, s16 *room, struct coord *coord2, s16 *room2, s32 arg4, s32 arg5);
 u32 func0002dcd0(void);
-u32 func0002dcfc(void);
+bool func0002dcfc(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, s16 *rooms3, u32 arg5, u32 arg6);
 u32 func0002dd90(void);
 u32 func0002de10(void);
 u32 func0002de34(void);

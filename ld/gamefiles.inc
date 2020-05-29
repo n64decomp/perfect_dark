@@ -27,7 +27,6 @@
 	build/ROMID/game/game_0109d0.o (section); \
 	build/ROMID/game/game_010b20.o (section); \
 	build/ROMID/game/game_011110.o (section); \
-	build/ROMID/game/data/data_0083d0.o (section); \
 	build/ROMID/game/game_012450.o (section); \
 	build/ROMID/game/game_0125a0.o (section); \
 	build/ROMID/game/game_012d50.o (section); \
@@ -65,6 +64,7 @@
 	build/ROMID/game/sparkstick.o (section); \
 	build/ROMID/game/chr/chr.o (section); \
 	build/ROMID/game/game_02cde0.o (section); \
+	build/ROMID/game/data/data_0083d0.o (section); \
 	build/ROMID/game/chr/chraction.o (section); \
 	build/ROMID/game/chr/chrai.o (section); \
 	build/ROMID/game/chr/chraicommands.o (section); \

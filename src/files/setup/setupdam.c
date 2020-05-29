@@ -1367,7 +1367,7 @@ u8 func040b_labtech1[] = {
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x0f)
+		if_can_see_target(/*goto*/ 0x0f)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x0f)
 		if_chr_stopped(/*goto*/ 0x04)
 		goto_next(0x07)
@@ -1442,7 +1442,7 @@ u8 func040c_labtech2[] = {
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x0f)
+		if_can_see_target(/*goto*/ 0x0f)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x0f)
 		if_chr_stopped(/*goto*/ 0x04)
 		goto_next(0x07)
@@ -1521,7 +1521,7 @@ u8 func040d_labtech3[] = {
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x0f)
+		if_can_see_target(/*goto*/ 0x0f)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x10)
 		if_chr_stopped(/*goto*/ 0x04)
 		goto_next(0x07)
@@ -1622,7 +1622,7 @@ u8 func0411_labtech_alerted[] = {
 
 	label(0x13)
 	restart_timer
-	if_chr_sees_player(/*goto*/ 0x07)
+	if_can_see_target(/*goto*/ 0x07)
 	goto_next(0x00)
 
 	label(0x07)
@@ -1636,7 +1636,7 @@ u8 func0411_labtech_alerted[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_timer_gt(1200, /*goto*/ 0x0d)
-		if_chr_sees_player(/*goto*/ 0x07)
+		if_can_see_target(/*goto*/ 0x07)
 		goto_next(0x00)
 
 		label(0x07)
@@ -2693,7 +2693,7 @@ u8 func0418_elvis_at_moonpool[] = {
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_sees_player(/*goto*/ 0x07)
+		if_can_see_target(/*goto*/ 0x07)
 	endloop(0x00)
 
 	label(0x07)

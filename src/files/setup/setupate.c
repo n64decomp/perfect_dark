@@ -415,7 +415,7 @@ u8 func0402_guard_combat[] = {
 	// Guard has been shot, or finished jump
 	beginloop(0x03)
 		if_distance_to_target_lt(250, /*goto*/ 0x0e)
-		if_chr_sees_player(/*goto*/ 0x06)
+		if_can_see_target(/*goto*/ 0x06)
 		reloop(0x03)
 
 		// 2 seconds have passed without seeing guard, or guard has been shot
@@ -497,7 +497,7 @@ u8 func0404_trent_combat[] = {
 	// Wait until player in sight or in close range
 	beginloop(0x03)
 		if_distance_to_target_lt(250, /*goto*/ 0x0e)
-		if_chr_sees_player(/*goto*/ 0x06)
+		if_can_see_target(/*goto*/ 0x06)
 		reloop(0x03)
 
 		// Attack
