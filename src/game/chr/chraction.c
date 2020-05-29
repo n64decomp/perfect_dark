@@ -27278,66 +27278,17 @@ glabel var7f1a9348
 /*  f048f1c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f048f20
-.late_rodata
-glabel var7f1a934c
-.word 0x3cc907a9
-glabel var7f1a9350
-.word 0x40490fdb
-glabel var7f1a9354
-.word 0x40c907a9
-glabel var7f1a9358
-.word 0x40490fdb
-.text
-/*  f048f20:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f048f24:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f048f28:	0fc12373 */ 	jal	func0f048dcc
-/*  f048f2c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f048f30:	93ae001f */ 	lbu	$t6,0x1f($sp)
-/*  f048f34:	3c014f80 */ 	lui	$at,0x4f80
-/*  f048f38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f048f3c:	448e2000 */ 	mtc1	$t6,$f4
-/*  f048f40:	05c10004 */ 	bgez	$t6,.L0f048f54
-/*  f048f44:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f048f48:	44814000 */ 	mtc1	$at,$f8
-/*  f048f4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048f50:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f048f54:
-/*  f048f54:	3c017f1b */ 	lui	$at,%hi(var7f1a934c)
-/*  f048f58:	c42a934c */ 	lwc1	$f10,%lo(var7f1a934c)($at)
-/*  f048f5c:	3c017f1b */ 	lui	$at,%hi(var7f1a9350)
-/*  f048f60:	460a3082 */ 	mul.s	$f2,$f6,$f10
-/*  f048f64:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f048f68:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048f6c:	45000005 */ 	bc1f	.L0f048f84
-/*  f048f70:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048f74:	c4309350 */ 	lwc1	$f16,%lo(var7f1a9350)($at)
-/*  f048f78:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f048f7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048f80:	4501000e */ 	bc1t	.L0f048fbc
-.L0f048f84:
-/*  f048f84:	3c017f1b */ 	lui	$at,%hi(var7f1a9354)
-/*  f048f88:	c4329354 */ 	lwc1	$f18,%lo(var7f1a9354)($at)
-/*  f048f8c:	3c017f1b */ 	lui	$at,%hi(var7f1a9358)
-/*  f048f90:	00001025 */ 	or	$v0,$zero,$zero
-/*  f048f94:	46029101 */ 	sub.s	$f4,$f18,$f2
-/*  f048f98:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f048f9c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048fa0:	45000008 */ 	bc1f	.L0f048fc4
-/*  f048fa4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048fa8:	c4289358 */ 	lwc1	$f8,%lo(var7f1a9358)($at)
-/*  f048fac:	4600403c */ 	c.lt.s	$f8,$f0
-/*  f048fb0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048fb4:	45000003 */ 	bc1f	.L0f048fc4
-/*  f048fb8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f048fbc:
-/*  f048fbc:	10000001 */ 	beqz	$zero,.L0f048fc4
-/*  f048fc0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f048fc4:
-/*  f048fc4:	03e00008 */ 	jr	$ra
-/*  f048fc8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool func0f048f20(struct chrdata *chr, u8 angle)
+{
+	f32 val = func0f048dcc(chr);
+
+	if ((val < angle * 0.024539785459638f && val < M_PI)
+			|| (val > M_BADTAU - angle * 0.024539785459638f && val > M_PI)) {
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f048fcc
