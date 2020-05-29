@@ -29,7 +29,7 @@ extern u32 var800698c0;
 extern s32 g_AlarmAudioHandle;
 extern f32 g_AlarmSpeakerWeight;
 extern f32 g_AlarmSpeakerDirection;
-extern u32 var800698e4;
+extern f32 var800698e4;
 extern u32 var800698e8;
 extern u32 var800698ec;
 extern u32 var800698f8;

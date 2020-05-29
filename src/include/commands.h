@@ -537,10 +537,7 @@
 	mkshort(0x003a), \
 	label,
 
-/**
- * Checks if the alarm is currently quiet.
- */
-#define if_alarm_inactive(label) \
+#define cmd003b(label) \
 	mkshort(0x003b), \
 	label,
 

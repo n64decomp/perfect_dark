@@ -1280,7 +1280,7 @@ bool aiIfAlarmActive(void)
 /**
  * @cmd 003b
  */
-bool aiIfAlarmInactive(void)
+bool ai003b(void)
 {
 	if (func0f090520()) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;

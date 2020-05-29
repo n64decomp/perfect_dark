@@ -329,7 +329,7 @@ bool func0f09018c(struct prop *doorprop);
 u32 func0f0903d4(void);
 u32 func0f09044c(void);
 u32 func0f0904e0(void);
-u32 func0f090520(void);
+bool func0f090520(void);
 void func0f09054c(void);
 u32 func0f0908b8(void);
 u32 func0f090d34(void);
