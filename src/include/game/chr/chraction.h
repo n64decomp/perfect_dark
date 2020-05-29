@@ -86,7 +86,7 @@ void func0f038b9c(struct chrdata *chr, struct path *path);
 bool chrCanSeeEntity(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3, u32 entitytype, u32 entityid);
 bool chrCanSeeAttackTarget(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3);
 bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room);
-u32 func0f0393b4(struct chrdata *chr, struct coord *pos, s16 *room);
+bool chrCanViewPos(struct chrdata *viewerchr, struct coord *pos, s16 *rooms);
 bool func0f039474(struct chrdata *chr, struct coord *pos, s16 *room);
 bool func0f039558(struct chrdata *chr, struct prop *prop);
 bool chrIsStopped(struct chrdata *chr);

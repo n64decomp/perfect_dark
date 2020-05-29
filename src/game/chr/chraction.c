@@ -12279,58 +12279,28 @@ bool chrCanSeeTarget(struct chrdata *chr)
 	return cansee;
 }
 
-GLOBAL_ASM(
-glabel func0f0393b4
-/*  f0393b4:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f0393b8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0393bc:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0393c0:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f0393c4:	afa60058 */ 	sw	$a2,0x58($sp)
-/*  f0393c8:	8c82001c */ 	lw	$v0,0x1c($a0)
-/*  f0393cc:	afa00048 */ 	sw	$zero,0x48($sp)
-/*  f0393d0:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f0393d4:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f0393d8:	44818000 */ 	mtc1	$at,$f16
-/*  f0393dc:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0393e0:	e7a4003c */ 	swc1	$f4,0x3c($sp)
-/*  f0393e4:	c4880028 */ 	lwc1	$f8,0x28($a0)
-/*  f0393e8:	c48600b8 */ 	lwc1	$f6,0xb8($a0)
-/*  f0393ec:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0393f0:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f0393f4:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f0393f8:	e7b20040 */ 	swc1	$f18,0x40($sp)
-/*  f0393fc:	c4440010 */ 	lwc1	$f4,0x10($v0)
-/*  f039400:	afa2004c */ 	sw	$v0,0x4c($sp)
-/*  f039404:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f039408:	e7a40044 */ 	swc1	$f4,0x44($sp)
-/*  f03940c:	8fa2004c */ 	lw	$v0,0x4c($sp)
-/*  f039410:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f039414:	27a7002c */ 	addiu	$a3,$sp,0x2c
-/*  f039418:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f03941c:	0fc1979d */ 	jal	func0f065e74
-/*  f039420:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f039424:	240e0133 */ 	addiu	$t6,$zero,0x133
-/*  f039428:	240f0008 */ 	addiu	$t7,$zero,0x8
-/*  f03942c:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f039430:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f039434:	27a4003c */ 	addiu	$a0,$sp,0x3c
-/*  f039438:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*  f03943c:	8fa60054 */ 	lw	$a2,0x54($sp)
-/*  f039440:	0c00b70f */ 	jal	hasLineOfSight
-/*  f039444:	8fa70058 */ 	lw	$a3,0x58($sp)
-/*  f039448:	10400003 */ 	beqz	$v0,.L0f039458
-/*  f03944c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039450:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f039454:	afb80048 */ 	sw	$t8,0x48($sp)
-.L0f039458:
-/*  f039458:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f03945c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f039460:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f039464:	8fa20048 */ 	lw	$v0,0x48($sp)
-/*  f039468:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f03946c:	03e00008 */ 	jr	$ra
-/*  f039470:	27bd0050 */ 	addiu	$sp,$sp,0x50
-);
+bool chrCanViewPos(struct chrdata *viewerchr, struct coord *pos, s16 *rooms)
+{
+	struct prop *viewerprop = viewerchr->prop;
+	bool result = false;
+	struct coord viewerpos;
+	s16 viewerrooms[8];
+
+	viewerpos.x = viewerprop->pos.x;
+	viewerpos.y = viewerchr->ground + viewerchr->chrheight - 20;
+	viewerpos.z = viewerprop->pos.z;
+
+	chrSetOrUnsetHiddenFlag00000100(viewerchr, false);
+	func0f065e74(&viewerprop->pos, viewerprop->rooms, &viewerpos, viewerrooms);
+
+	if (hasLineOfSight(&viewerpos, viewerrooms, pos, rooms, 307, 8)) {
+		result = true;
+	}
+
+	chrSetOrUnsetHiddenFlag00000100(viewerchr, true);
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f039474
@@ -12388,7 +12358,7 @@ glabel var7f1a8ddc
 /*  f039518:	14400006 */ 	bnez	$v0,.L0f039534
 /*  f03951c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f039520:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f039524:	0fc0e4ed */ 	jal	func0f0393b4
+/*  f039524:	0fc0e4ed */ 	jal	chrCanViewPos
 /*  f039528:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f03952c:	10000006 */ 	beqz	$zero,.L0f039548
 /*  f039530:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -12396,7 +12366,7 @@ glabel var7f1a8ddc
 /*  f039534:	02002025 */ 	or	$a0,$s0,$zero
 .L0f039538:
 /*  f039538:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f03953c:	0fc0e4ed */ 	jal	func0f0393b4
+/*  f03953c:	0fc0e4ed */ 	jal	chrCanViewPos
 /*  f039540:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f039544:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f039548:

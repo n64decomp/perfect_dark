@@ -1460,7 +1460,7 @@ bool ai0045(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->prop && func0f0393b4(g_Vars.chrdata, &chr->prop->pos, &chr->prop->rooms[0])) {
+	if (chr && chr->prop && chrCanViewPos(g_Vars.chrdata, &chr->prop->pos, chr->prop->rooms)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
