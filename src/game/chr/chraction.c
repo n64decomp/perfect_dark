@@ -28200,7 +28200,7 @@ void incrementByte(u8 *dst, u8 amount)
 	*dst += amount;
 }
 
-bool func0f04a2b4(struct chrdata *chr)
+bool chrCanHearAlarm(struct chrdata *chr)
 {
 	return alarmIsActive();
 }

@@ -75,7 +75,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0036*/ aiRandom,
 	/*0x0037*/ aiIfRandomLessThan,
 	/*0x0038*/ aiIfRandomGreaterThan,
-	/*0x0039*/ aiIfChrAlarmActivate,
+	/*0x0039*/ aiIfCanHearAlarm,
 	/*0x003a*/ aiIfAlarmActive,
 	/*0x003b*/ aiIfAlarmInactive,
 	/*0x003c*/ ai003c,

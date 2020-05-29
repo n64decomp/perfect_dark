@@ -521,10 +521,12 @@
 	label,
 
 /**
- * Checks if the alarm is currently sounding. Not sure how this differs from
- * if_alarm_active.
+ * Checks if the alarm is currently sounding.
+ *
+ * This is functionally the same as if_alarm_active, but during development may
+ * have contained extra per-chr checks such as chr flags and distance.
  */
-#define if_alarm_active2(label) \
+#define if_can_hear_alarm(label) \
 	mkshort(0x0039), \
 	label,
 

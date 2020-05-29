@@ -304,7 +304,7 @@ s32 chrGetNumArghs(struct chrdata *chr);
 s32 chrGetNumCloseArghs(struct chrdata *chr);
 void decrementByte(u8 *dst, u8 amount);
 void incrementByte(u8 *dst, u8 amount);
-bool func0f04a2b4(struct chrdata *chr);
+bool chrCanHearAlarm(struct chrdata *chr);
 bool func0f04a76c(struct chrdata *chr, f32 distance);
 bool func0f04a79c(u8 chrnum, struct chrdata *chr, f32 distance);
 bool chrCompareTeams(struct chrdata *chr1, struct chrdata *chr2, u8 checktype);

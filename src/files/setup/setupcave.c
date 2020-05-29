@@ -1520,7 +1520,7 @@ u8 func0408_secretary[] = {
 		set_view_distance(14)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ LABEL_BECOME_ALERT1)
 		if_target_in_sight(/*goto*/ 0x02)
-		if_alarm_active2(/*goto*/ 0x67)
+		if_can_hear_alarm(/*goto*/ 0x67)
 	endloop(LABEL_MAIN_LOOP)
 
 	// Joanna within 14 units (?) of distance
