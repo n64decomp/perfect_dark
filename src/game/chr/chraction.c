@@ -29330,69 +29330,34 @@ struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrn
 	return chrSpawnAtCoord(body, head, &chr->prop->pos, &chr->prop->rooms[0], fvalue, ailist, flags);
 }
 
+bool func0f04b658(struct chrdata *chr)
+{
+	bool result = false;
+	struct prop *prop = chr->prop;
+	struct prop *target = chrGetTargetProp(chr);
+
+	if (chr->proppreset1 >= 0) {
+		chrSetOrUnsetHiddenFlag00000100(chr, false);
+		func0f064178(target, false);
+
+		if (!func0002dc18(&prop->pos, prop->rooms, &target->pos, 0x33)) {
+			struct prop *thing = func00024eb0();
+
+			if (thing && thing->type == PROPTYPE_OBJ
+					&& chr->proppreset1 == (s16)(thing - g_Vars.props)) {
+				result = true;
+			}
+		}
+
+		chrSetOrUnsetHiddenFlag00000100(chr, true);
+		func0f064178(target, true);
+	}
+
+	return result;
+}
+
 GLOBAL_ASM(
-glabel func0f04b658
-/*  f04b658:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f04b65c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04b660:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04b664:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f04b668:	8c8e001c */ 	lw	$t6,0x1c($a0)
-/*  f04b66c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f04b670:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f04b674:	afae0028 */ 	sw	$t6,0x28($sp)
-/*  f04b678:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f04b67c:	860f012c */ 	lh	$t7,0x12c($s0)
-/*  f04b680:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04b684:	05e2002a */ 	bltzl	$t7,.L0f04b730
-/*  f04b688:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04b68c:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f04b690:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04b694:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f04b698:	0fc1905e */ 	jal	func0f064178
-/*  f04b69c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04b6a0:	8fa20028 */ 	lw	$v0,0x28($sp)
-/*  f04b6a4:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f04b6a8:	24070033 */ 	addiu	$a3,$zero,0x33
-/*  f04b6ac:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f04b6b0:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f04b6b4:	0c00b706 */ 	jal	func0002dc18
-/*  f04b6b8:	24c60008 */ 	addiu	$a2,$a2,0x8
-/*  f04b6bc:	54400016 */ 	bnezl	$v0,.L0f04b718
-/*  f04b6c0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04b6c4:	0c0093ac */ 	jal	func00024eb0
-/*  f04b6c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04b6cc:	50400012 */ 	beqzl	$v0,.L0f04b718
-/*  f04b6d0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04b6d4:	90580000 */ 	lbu	$t8,0x0($v0)
-/*  f04b6d8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f04b6dc:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x338)
-/*  f04b6e0:	5701000d */ 	bnel	$t8,$at,.L0f04b718
-/*  f04b6e4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04b6e8:	8f39a2f8 */ 	lw	$t9,%lo(g_Vars+0x338)($t9)
-/*  f04b6ec:	24010048 */ 	addiu	$at,$zero,0x48
-/*  f04b6f0:	860c012c */ 	lh	$t4,0x12c($s0)
-/*  f04b6f4:	00594023 */ 	subu	$t0,$v0,$t9
-/*  f04b6f8:	0101001a */ 	div	$zero,$t0,$at
-/*  f04b6fc:	00004812 */ 	mflo	$t1
-/*  f04b700:	00095400 */ 	sll	$t2,$t1,0x10
-/*  f04b704:	000a5c03 */ 	sra	$t3,$t2,0x10
-/*  f04b708:	156c0002 */ 	bne	$t3,$t4,.L0f04b714
-/*  f04b70c:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f04b710:	afad002c */ 	sw	$t5,0x2c($sp)
-.L0f04b714:
-/*  f04b714:	02002025 */ 	or	$a0,$s0,$zero
-.L0f04b718:
-/*  f04b718:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f04b71c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f04b720:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f04b724:	0fc1905e */ 	jal	func0f064178
-/*  f04b728:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f04b72c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f04b730:
-/*  f04b730:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*  f04b734:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f04b738:	03e00008 */ 	jr	$ra
-/*  f04b73c:	27bd0030 */ 	addiu	$sp,$sp,0x30
+glabel func0f04b740
 /*  f04b740:	03e00008 */ 	jr	$ra
 /*  f04b744:	00000000 */ 	sll	$zero,$zero,0x0
 );
