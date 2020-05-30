@@ -27217,66 +27217,17 @@ glabel var7f1a9338
 /*  f048e70:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f048e74
-.late_rodata
-glabel var7f1a933c
-.word 0x3cc907a9
-glabel var7f1a9340
-.word 0x40490fdb
-glabel var7f1a9344
-.word 0x40c907a9
-glabel var7f1a9348
-.word 0x40490fdb
-.text
-/*  f048e74:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f048e78:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f048e7c:	0fc12330 */ 	jal	func0f048cc0
-/*  f048e80:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f048e84:	93ae001f */ 	lbu	$t6,0x1f($sp)
-/*  f048e88:	3c014f80 */ 	lui	$at,0x4f80
-/*  f048e8c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f048e90:	448e2000 */ 	mtc1	$t6,$f4
-/*  f048e94:	05c10004 */ 	bgez	$t6,.L0f048ea8
-/*  f048e98:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f048e9c:	44814000 */ 	mtc1	$at,$f8
-/*  f048ea0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048ea4:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f048ea8:
-/*  f048ea8:	3c017f1b */ 	lui	$at,%hi(var7f1a933c)
-/*  f048eac:	c42a933c */ 	lwc1	$f10,%lo(var7f1a933c)($at)
-/*  f048eb0:	3c017f1b */ 	lui	$at,%hi(var7f1a9340)
-/*  f048eb4:	460a3082 */ 	mul.s	$f2,$f6,$f10
-/*  f048eb8:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f048ebc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048ec0:	45000005 */ 	bc1f	.L0f048ed8
-/*  f048ec4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048ec8:	c4309340 */ 	lwc1	$f16,%lo(var7f1a9340)($at)
-/*  f048ecc:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f048ed0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048ed4:	4501000e */ 	bc1t	.L0f048f10
-.L0f048ed8:
-/*  f048ed8:	3c017f1b */ 	lui	$at,%hi(var7f1a9344)
-/*  f048edc:	c4329344 */ 	lwc1	$f18,%lo(var7f1a9344)($at)
-/*  f048ee0:	3c017f1b */ 	lui	$at,%hi(var7f1a9348)
-/*  f048ee4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f048ee8:	46029101 */ 	sub.s	$f4,$f18,$f2
-/*  f048eec:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f048ef0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048ef4:	45000008 */ 	bc1f	.L0f048f18
-/*  f048ef8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048efc:	c4289348 */ 	lwc1	$f8,%lo(var7f1a9348)($at)
-/*  f048f00:	4600403c */ 	c.lt.s	$f8,$f0
-/*  f048f04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048f08:	45000003 */ 	bc1f	.L0f048f18
-/*  f048f0c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f048f10:
-/*  f048f10:	10000001 */ 	beqz	$zero,.L0f048f18
-/*  f048f14:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f048f18:
-/*  f048f18:	03e00008 */ 	jr	$ra
-/*  f048f1c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool func0f048e74(struct chrdata *chr, u8 fov)
+{
+	f32 angle = func0f048cc0(chr);
+
+	if ((angle < fov * 0.024539785459638f && angle < M_PI)
+			|| (angle > M_BADTAU - fov * 0.024539785459638f && angle > M_PI)) {
+		return true;
+	}
+
+	return false;
+}
 
 bool func0f048f20(struct chrdata *chr, u8 angle)
 {
