@@ -5066,17 +5066,15 @@ glabel titleRenderNoController
 /*  f01a7e0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+void func0f01a7e4(s32 arg0)
+{
+	if (var800624c0 != arg0) {
+		var800624b8 = arg0;
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f01a7e4
-/*  f01a7e4:	3c0e8006 */ 	lui	$t6,%hi(var800624c0)
-/*  f01a7e8:	8dce24c0 */ 	lw	$t6,%lo(var800624c0)($t6)
-/*  f01a7ec:	3c018006 */ 	lui	$at,%hi(var800624b8)
-/*  f01a7f0:	108e0002 */ 	beq	$a0,$t6,.L0f01a7fc
-/*  f01a7f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01a7f8:	ac2424b8 */ 	sw	$a0,%lo(var800624b8)($at)
-.L0f01a7fc:
-/*  f01a7fc:	03e00008 */ 	jr	$ra
-/*  f01a800:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f01a804
 /*  f01a804:	3c028006 */ 	lui	$v0,%hi(g_TitleMode)
 /*  f01a808:	03e00008 */ 	jr	$ra
 /*  f01a80c:	8c4224b4 */ 	lw	$v0,%lo(g_TitleMode)($v0)
