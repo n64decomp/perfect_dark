@@ -5511,79 +5511,36 @@ void func0f01adb8(void)
 	func0000bca8(0, 0);
 }
 
-GLOBAL_ASM(
-glabel func0f01ae30
-.late_rodata
-glabel var7f1a8558
-.word func0f01ae30+0x58 # f01ae88
-glabel var7f1a855c
-.word func0f01ae30+0x68 # f01ae98
-glabel var7f1a8560
-.word func0f01ae30+0x78 # f01aea8
-glabel var7f1a8564
-.word func0f01ae30+0x88 # f01aeb8
-glabel var7f1a8568
-.word func0f01ae30+0xa8 # f01aed8
-glabel var7f1a856c
-.word func0f01ae30+0xb0 # f01aee0
-glabel var7f1a8570
-.word func0f01ae30+0xb0 # f01aee0
-glabel var7f1a8574
-.word func0f01ae30+0x98 # f01aec8
-glabel var7f1a8578
-.word func0f01ae30+0x98 # f01aec8
-.text
-/*  f01ae30:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f01ae34:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f01ae38:	0fc06aea */ 	jal	func0f01aba8
-/*  f01ae3c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01ae40:	50400028 */ 	beqzl	$v0,.L0f01aee4
-/*  f01ae44:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01ae48:	0c005204 */ 	jal	func00014810
-/*  f01ae4c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01ae50:	3c0e8006 */ 	lui	$t6,%hi(var800624bc)
-/*  f01ae54:	8dce24bc */ 	lw	$t6,%lo(var800624bc)($t6)
-/*  f01ae58:	3c0f8006 */ 	lui	$t7,%hi(var800624b4)
-/*  f01ae5c:	55c00021 */ 	bnezl	$t6,.L0f01aee4
-/*  f01ae60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01ae64:	8def24b4 */ 	lw	$t7,%lo(var800624b4)($t7)
-/*  f01ae68:	2de10009 */ 	sltiu	$at,$t7,0x9
-/*  f01ae6c:	1020001c */ 	beqz	$at,.L0f01aee0
-/*  f01ae70:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f01ae74:	3c017f1b */ 	lui	$at,%hi(var7f1a8558)
-/*  f01ae78:	002f0821 */ 	addu	$at,$at,$t7
-/*  f01ae7c:	8c2f8558 */ 	lw	$t7,%lo(var7f1a8558)($at)
-/*  f01ae80:	01e00008 */ 	jr	$t7
-/*  f01ae84:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01ae88:	0fc05913 */ 	jal	func0f01644c
-/*  f01ae8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01ae90:	10000014 */ 	beqz	$zero,.L0f01aee4
-/*  f01ae94:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01ae98:	0fc05949 */ 	jal	func0f016524
-/*  f01ae9c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01aea0:	10000010 */ 	beqz	$zero,.L0f01aee4
-/*  f01aea4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01aea8:	0fc05c2f */ 	jal	func0f0170bc
-/*  f01aeac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01aeb0:	1000000c */ 	beqz	$zero,.L0f01aee4
-/*  f01aeb4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01aeb8:	0fc06543 */ 	jal	func0f01950c
-/*  f01aebc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01aec0:	10000008 */ 	beqz	$zero,.L0f01aee4
-/*  f01aec4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01aec8:	0fc06387 */ 	jal	func0f018e1c
-/*  f01aecc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01aed0:	10000004 */ 	beqz	$zero,.L0f01aee4
-/*  f01aed4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01aed8:	0fc066e8 */ 	jal	func0f019ba0
-/*  f01aedc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f01aee0:
-/*  f01aee0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f01aee4:
-/*  f01aee4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f01aee8:	03e00008 */ 	jr	$ra
-/*  f01aeec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f01ae30(void)
+{
+	if (func0f01aba8()) {
+		func00014810(0);
+
+		if (var800624bc == 0) {
+			switch (var800624b4) {
+			case 0:
+				func0f01644c();
+				break;
+			case 1:
+				func0f016524();
+				break;
+			case 2:
+				func0f0170bc();
+				break;
+			case 3:
+				func0f01950c();
+				break;
+			case 7:
+			case 8:
+				func0f018e1c();
+				break;
+			case 4:
+				func0f019ba0();
+				break;
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f01aef0
