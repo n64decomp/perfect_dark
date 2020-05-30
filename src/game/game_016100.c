@@ -5365,14 +5365,10 @@ glabel var7f1a851c
 /*  f01ab90:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f01ab94
-/*  f01ab94:	3c028006 */ 	lui	$v0,%hi(var800624b8)
-/*  f01ab98:	8c4224b8 */ 	lw	$v0,%lo(var800624b8)($v0)
-/*  f01ab9c:	284e0000 */ 	slti	$t6,$v0,0x0
-/*  f01aba0:	03e00008 */ 	jr	$ra
-/*  f01aba4:	39c20001 */ 	xori	$v0,$t6,0x1
-);
+bool func0f01ab94(void)
+{
+	return var800624b8 >= 0;
+}
 
 GLOBAL_ASM(
 glabel func0f01aba8
