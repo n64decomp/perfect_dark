@@ -49,7 +49,7 @@ s16 func0000bd00(void);
 s16 func0000bd10(void);
 void func0000bd20(bool arg0);
 void func0000bd30(f32 fovy);
-u32 func0000bd7c(void);
+void func0000bd7c(f32 arg0);
 u32 func0000bdc8(void);
 void func0000bdd8(f32 arg0, f32 arg1, s16 viewx, s16 viewy);
 f32 func0000be74(void);
