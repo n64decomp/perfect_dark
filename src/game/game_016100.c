@@ -5073,12 +5073,10 @@ void func0f01a7e4(s32 arg0)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f01a804
-/*  f01a804:	3c028006 */ 	lui	$v0,%hi(g_TitleMode)
-/*  f01a808:	03e00008 */ 	jr	$ra
-/*  f01a80c:	8c4224b4 */ 	lw	$v0,%lo(g_TitleMode)($v0)
-);
+u32 titleGetMode(void)
+{
+	return g_TitleMode;
+}
 
 GLOBAL_ASM(
 glabel func0f01a810
