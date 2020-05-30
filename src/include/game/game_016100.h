@@ -33,7 +33,7 @@ void func0f019ba0(void);
 u32 func0f019d0c(void);
 Gfx *titleRenderRareLogo(Gfx *gdl);
 u32 func0f01a3b8(void);
-u32 func0f01a494(void);
+void func0f01a494(void);
 u32 func0f01a4a8(void);
 Gfx *titleRenderNoController(Gfx *gdl);
 void func0f01a7e4(s32 arg0);

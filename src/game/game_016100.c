@@ -4766,12 +4766,10 @@ glabel var7f1a84c0
 /*  f01a490:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f01a494
-/*  f01a494:	3c018006 */ 	lui	$at,%hi(var800624c4)
-/*  f01a498:	03e00008 */ 	jr	$ra
-/*  f01a49c:	ac2024c4 */ 	sw	$zero,%lo(var800624c4)($at)
-);
+void func0f01a494(void)
+{
+	var800624c4 = 0;
+}
 
 void func0f01a4a0(void)
 {
