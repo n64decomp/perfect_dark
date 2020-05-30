@@ -11375,7 +11375,7 @@ glabel chrGoToPos
 //		nextwaypoint = chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex];
 //	} else {
 //		// 54c
-//		nextwaypoint = waypointFindClosestToPos(&prop->pos, &prop->rooms[0]);
+//		nextwaypoint = waypointFindClosestToPos(&prop->pos, prop->rooms);
 //	}
 //
 //	// 560
@@ -11406,7 +11406,7 @@ glabel chrGoToPos
 //		chr->act_gopos.pos.x = pos->x;
 //		chr->act_gopos.pos.y = pos->y;
 //		chr->act_gopos.pos.z = pos->z;
-//		roomsCopy(room, &chr->act_gopos.rooms[0]);
+//		roomsCopy(room, chr->act_gopos.rooms);
 //		chr->act_gopos.nextwaypointindex = 0;
 //		chr->act_gopos.numwaypoints = numwaypoints;
 //		chr->act_gopos.unk065 = 4 | speed;
@@ -12381,7 +12381,7 @@ bool func0f039558(struct chrdata *chr, struct prop *prop)
 	bool result;
 
 	func0f064178(prop, false);
-	result = func0f039474(chr, &prop->pos, &prop->rooms[0]);
+	result = func0f039474(chr, &prop->pos, prop->rooms);
 	func0f064178(prop, true);
 
 	return result;
@@ -13083,7 +13083,7 @@ bool chrGoToTarget(struct chrdata *chr, u32 speed)
 				(chr->flags & CHRFLAG0_CAN_GO_TO_PLACES)) {
 			struct prop *prop = chrGetTargetProp(chr);
 
-			if (chrGoToPos(chr, &prop->pos, &prop->rooms[0], speed)) {
+			if (chrGoToPos(chr, &prop->pos, prop->rooms, speed)) {
 				return true;
 			}
 		}
@@ -13100,7 +13100,7 @@ bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
 				(chr->flags & CHRFLAG0_CAN_GO_TO_PLACES)) {
 			struct chrdata *dstchr = chrFindById(chr, dst_chrnum);
 
-			if (dstchr && dstchr->prop && chrGoToPos(chr, &dstchr->prop->pos, &dstchr->prop->rooms[0], speed)) {
+			if (dstchr && dstchr->prop && chrGoToPos(chr, &dstchr->prop->pos, dstchr->prop->rooms, speed)) {
 				return true;
 			}
 		}
@@ -13112,7 +13112,7 @@ bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
 bool chrGoToProp(struct chrdata *chr, struct prop *prop, s32 speed)
 {
 	if (chrIsReadyForOrders(chr) && prop) {
-		if (chrGoToPos(chr, &prop->pos, &prop->rooms[0], speed)) {
+		if (chrGoToPos(chr, &prop->pos, prop->rooms, speed)) {
 			return true;
 		}
 	}
@@ -13867,7 +13867,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 			pos.z = target->pos.z;
 		}
 
-		if (target && func0002dc18(&chr->prop->pos, &chr->prop->rooms[0], &pos, 0x33)) {
+		if (target && func0002dc18(&chr->prop->pos, chr->prop->rooms, &pos, 0x33)) {
 			struct prop *leftprop = chrGetEquippedWeaponProp(chr, 1);
 			struct prop *rightprop = chrGetEquippedWeaponProp(chr, 0);
 			struct weaponobj *weapon;
@@ -28417,7 +28417,7 @@ bool func0f04a76c(struct chrdata *chr, f32 distance)
 
 bool func0f04a79c(u8 chrnum, struct chrdata *chr, f32 distance)
 {
-	return func0f04a848(chrnum, chr, distance, &chr->prop->pos, &chr->prop->rooms[0]);
+	return func0f04a848(chrnum, chr, distance, &chr->prop->pos, chr->prop->rooms);
 }
 
 bool func0f04a7dc(u32 chrnum, struct chrdata *chr, f32 distance, s32 padnum)
@@ -29310,7 +29310,7 @@ struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrn
 		fvalue = func0f03e45c(chr);
 	}
 
-	return chrSpawnAtCoord(body, head, &chr->prop->pos, &chr->prop->rooms[0], fvalue, ailist, flags);
+	return chrSpawnAtCoord(body, head, &chr->prop->pos, chr->prop->rooms, fvalue, ailist, flags);
 }
 
 bool func0f04b658(struct chrdata *chr)
@@ -30259,14 +30259,14 @@ bool chrIsTargetNearlyInSight(struct chrdata *chr, u32 distance)
 {
 	struct prop *target = chrGetTargetProp(chr);
 
-	return func0002f450(&chr->prop->pos, &chr->prop->rooms[0], &target->pos, distance, 32);
+	return func0002f450(&chr->prop->pos, chr->prop->rooms, &target->pos, distance, 32);
 }
 
 bool chrIsNearlyInTargetsSight(struct chrdata *chr, u32 distance)
 {
 	struct prop *target = chrGetTargetProp(chr);
 
-	return func0002f450(&target->pos, &target->rooms[0], &chr->prop->pos, distance, 32);
+	return func0002f450(&target->pos, target->rooms, &chr->prop->pos, distance, 32);
 }
 
 GLOBAL_ASM(

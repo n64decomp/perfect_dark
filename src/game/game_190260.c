@@ -2433,7 +2433,7 @@ void mpAibotApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 a
 	chr->aibot->defendholdpos.x = pos->x;
 	chr->aibot->defendholdpos.y = pos->y;
 	chr->aibot->defendholdpos.z = pos->z;
-	roomsCopy(room, &chr->aibot->rooms[0]);
+	roomsCopy(room, chr->aibot->rooms);
 	chr->aibot->unk098 = arg3;
 	chr->aibot->unk0d8 = 1;
 }
@@ -2444,7 +2444,7 @@ void mpAibotApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg
 	chr->aibot->defendholdpos.x = pos->x;
 	chr->aibot->defendholdpos.y = pos->y;
 	chr->aibot->defendholdpos.z = pos->z;
-	roomsCopy(room, &chr->aibot->rooms[0]);
+	roomsCopy(room, chr->aibot->rooms);
 	chr->aibot->unk098 = arg3;
 	chr->aibot->unk0d8 = 1;
 }
@@ -7924,6 +7924,6 @@ void func0f197544(struct chrdata *chr)
 	}
 
 	if (!pass) {
-		chrGoToPos(chr, &chr->act_gopos.pos, &chr->act_gopos.rooms[0], chr->act_gopos.unk065);
+		chrGoToPos(chr, &chr->act_gopos.pos, chr->act_gopos.rooms, chr->act_gopos.unk065);
 	}
 }

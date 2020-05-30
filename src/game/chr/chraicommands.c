@@ -1587,7 +1587,7 @@ bool aiIfSeesSuspiciousItem(void)
 	s16 propnums[256];
 	struct prop *chrprop = g_Vars.chrdata->prop;
 
-	roomGetProps(&chrprop->rooms[0], &propnums[0], 256);
+	roomGetProps(chrprop->rooms, &propnums[0], 256);
 
 	ptr = &propnums[0];
 
@@ -2350,7 +2350,7 @@ bool aiDestroyObject(void)
 
 		if (entity->obj == MODEL_ELVIS_SAUCER) {
 			obj->flags = (obj->flags & ~OBJFLAG_00010000) | OBJFLAG_INVINCIBLE;
-			func0f129900(entity->prop, &entity->prop->pos, &entity->prop->rooms[0], 3, 0);
+			func0f129900(entity->prop, &entity->prop->pos, entity->prop->rooms, 3, 0);
 			func0f12e714(entity->prop, 0x16);
 		} else {
 			f32 damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
@@ -5552,7 +5552,7 @@ bool aiChrMoveToPad(void)
 
 			if (chr2 && chr2->prop) {
 				somefloat = func0f03e45c(chr2);
-				pass = chrMoveToPos(chr, &chr2->prop->pos, &chr2->prop->rooms[0], somefloat, 0);
+				pass = chrMoveToPos(chr, &chr2->prop->pos, chr2->prop->rooms, somefloat, 0);
 			}
 		} else {
 			s32 padnum = cmd[4] | (cmd[3] << 8);
@@ -5564,7 +5564,7 @@ bool aiChrMoveToPad(void)
 
 				rooms[0] = pad.room;
 				rooms[1] = -1;
-				pass = chrMoveToPos(chr, &pad.pos, &rooms[0], somefloat, cmd[5]);
+				pass = chrMoveToPos(chr, &pad.pos, rooms, somefloat, cmd[5]);
 			}
 		}
 	}
@@ -11475,7 +11475,7 @@ bool aiRemoveReferencesToChr(void)
 bool ai01b4(void)
 {
 	if (g_Vars.chrdata && g_Vars.chrdata->prop &&
-			func0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, &g_Vars.chrdata->prop->rooms[0], 0, false)) {
+			func0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, 0, false)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

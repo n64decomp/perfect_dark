@@ -955,7 +955,7 @@ void objectiveCheckMultiroomEntered(s32 arg0, s16 *requiredrooms)
 				objectiverooms[0] = room;
 				objectiverooms[1] = -1;
 
-				if (arrayIntersects(&objectiverooms[0], requiredrooms)) {
+				if (arrayIntersects(objectiverooms, requiredrooms)) {
 					criteria->status = OBJECTIVE_COMPLETE;
 				}
 			}

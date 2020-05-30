@@ -1553,19 +1553,19 @@ glabel var7f1a827c
 //
 //	if (g_NumSpawnPoints > 0) {
 //		if (g_Vars.coopplayernum >= 0) {
-//			fStack32 = M_BADTAU - scenarioCallback2c(30, &pos, &rooms[0], g_Vars.currentplayer->prop);
+//			fStack32 = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop);
 //		} else if (g_Vars.antiplayernum >= 0) {
-//			fStack32 = M_BADTAU - scenarioCallback2c(30, &pos, &rooms[0], g_Vars.currentplayer->prop);
+//			fStack32 = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop);
 //		} else {
 //			if (g_Vars.mplayerisrunning == 0) {
 //				g_NumSpawnPoints = 1;
 //			}
 //
-//			fStack32 = M_BADTAU - scenarioCallback2c(30, &pos, &rooms[0], g_Vars.currentplayer->prop);
+//			fStack32 = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop);
 //		}
 //	}
 //
-//	fVar9 = coordFindGroundY(&pos, 30, &rooms[0],
+//	fVar9 = coordFindGroundY(&pos, 30, rooms,
 //			&g_Vars.currentplayer->unk161a,
 //			&g_Vars.currentplayer->unk161e,
 //			&g_Vars.currentplayer->unk161c,

@@ -6602,7 +6602,7 @@ u32 var8007f46c = 0x00000000;
 // 25490
 struct credit credits[] = {
 	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(2), L_TITLE(0) }, // "perfect dark", ""
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(3), L_TITLE(4) }, // "neau ner chesluk", "guns and visual orgasms"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(3), L_TITLE(4) }, // "beau ner chesluk", "guns and visual orgasms"
 	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(5), L_TITLE(6) }, // "jonathan nasty mummery", "mover and shaker"
 	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(7), L_TITLE(8) }, // "darkmark", "reality engineer"
 	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(9), L_TITLE(10) }, // "chris tilston", "designs on the future"

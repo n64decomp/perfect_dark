@@ -23844,7 +23844,7 @@ bool chopperCheckTargetInSight(struct chopperobj *obj)
 		struct prop *target = chopperGetTargetProp(chopper);
 
 		if (target->type != PROPTYPE_PLAYER || g_Vars.unk000324) {
-			visible = hasLineOfSight(&target->pos, &target->rooms[0], &chopper->base.prop->pos, &chopper->base.prop->rooms[0], 307, 16);
+			visible = hasLineOfSight(&target->pos, target->rooms, &chopper->base.prop->pos, chopper->base.prop->rooms, 307, 16);
 		}
 
 		chopper->targetvisible = visible;

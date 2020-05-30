@@ -4000,7 +4000,7 @@ void func0f022084(struct chrdata *chr, s16 *room)
 void func0f0220ac(struct chrdata *chr)
 {
 	func0f065c44(chr->prop);
-	func0f022084(chr, &chr->prop->rooms[0]);
+	func0f022084(chr, chr->prop->rooms);
 	func0f065cb0(chr->prop);
 }
 
