@@ -5383,77 +5383,36 @@ bool func0f01aba8(void)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f01abf0
-.late_rodata
-glabel var7f1a8520
-.word func0f01abf0+0x30 # f01ac20
-glabel var7f1a8524
-.word func0f01abf0+0x40 # f01ac30
-glabel var7f1a8528
-.word func0f01abf0+0x50 # f01ac40
-glabel var7f1a852c
-.word func0f01abf0+0x60 # f01ac50
-glabel var7f1a8530
-.word func0f01abf0+0x70 # f01ac60
-glabel var7f1a8534
-.word func0f01abf0+0x98 # f01ac88
-glabel var7f1a8538
-.word func0f01abf0+0x80 # f01ac70
-glabel var7f1a853c
-.word func0f01abf0+0x90 # f01ac80
-glabel var7f1a8540
-.word func0f01abf0+0x90 # f01ac80
-.text
-/*  f01abf0:	3c0e8006 */ 	lui	$t6,%hi(g_TitleMode)
-/*  f01abf4:	8dce24b4 */ 	lw	$t6,%lo(g_TitleMode)($t6)
-/*  f01abf8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f01abfc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f01ac00:	2dc10009 */ 	sltiu	$at,$t6,0x9
-/*  f01ac04:	10200020 */ 	beqz	$at,.L0f01ac88
-/*  f01ac08:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f01ac0c:	3c017f1b */ 	lui	$at,%hi(var7f1a8520)
-/*  f01ac10:	002e0821 */ 	addu	$at,$at,$t6
-/*  f01ac14:	8c2e8520 */ 	lw	$t6,%lo(var7f1a8520)($at)
-/*  f01ac18:	01c00008 */ 	jr	$t6
-/*  f01ac1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01ac20:	0fc05911 */ 	jal	func0f016444
-/*  f01ac24:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01ac28:	10000018 */ 	beqz	$zero,.L0f01ac8c
-/*  f01ac2c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01ac30:	0fc0593c */ 	jal	func0f0164f0
-/*  f01ac34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01ac38:	10000014 */ 	beqz	$zero,.L0f01ac8c
-/*  f01ac3c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01ac40:	0fc05c1b */ 	jal	func0f01706c
-/*  f01ac44:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01ac48:	10000010 */ 	beqz	$zero,.L0f01ac8c
-/*  f01ac4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01ac50:	0fc06538 */ 	jal	func0f0194e0
-/*  f01ac54:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01ac58:	1000000c */ 	beqz	$zero,.L0f01ac8c
-/*  f01ac5c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01ac60:	0fc066dd */ 	jal	func0f019b74
-/*  f01ac64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01ac68:	10000008 */ 	beqz	$zero,.L0f01ac8c
-/*  f01ac6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01ac70:	0fc06928 */ 	jal	func0f01a4a0
-/*  f01ac74:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01ac78:	10000004 */ 	beqz	$zero,.L0f01ac8c
-/*  f01ac7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01ac80:	0fc06377 */ 	jal	func0f018ddc
-/*  f01ac84:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f01ac88:
-/*  f01ac88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f01ac8c:
-/*  f01ac8c:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f01ac90:	3c018006 */ 	lui	$at,%hi(var800624b8)
-/*  f01ac94:	ac2224b8 */ 	sw	$v0,%lo(var800624b8)($at)
-/*  f01ac98:	3c018006 */ 	lui	$at,%hi(g_TitleMode)
-/*  f01ac9c:	ac2224b4 */ 	sw	$v0,%lo(g_TitleMode)($at)
-/*  f01aca0:	03e00008 */ 	jr	$ra
-/*  f01aca4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void func0f01abf0(void)
+{
+	switch (g_TitleMode) {
+	case TITLEMODE_LEGAL:
+		func0f016444();
+		break;
+	case TITLEMODE_1:
+		func0f0164f0();
+		break;
+	case TITLEMODE_PDLOGO:
+		func0f01706c();
+		break;
+	case TITLEMODE_NINTENDOLOGO:
+		func0f0194e0();
+		break;
+	case TITLEMODE_RARELOGO:
+		func0f019b74();
+		break;
+	case TITLEMODE_NOCONTROLLER:
+		func0f01a4a0();
+		break;
+	case TITLEMODE_RAREPRESENTS1:
+	case TITLEMODE_RAREPRESENTS2:
+		func0f018ddc();
+		break;
+	}
+
+	var800624b8 = -1;
+	g_TitleMode = -1;
+}
 
 void func0f01aca8(u32 value)
 {
