@@ -38,7 +38,7 @@
 #include "types.h"
 
 s16 var800624a0 = 480;
-u32 var800624a4 = 0x00000000;
+s32 var800624a4 = false;
 u32 var800624a8 = 0x00000000;
 u32 var800624ac = 0x00000000;
 u32 var800624b0 = 0x00000000;
@@ -3768,36 +3768,6 @@ u32 var800628b8 = 0x00000000;
 u32 var800628bc = 0x00000000;
 u32 var800628c0 = 0x00000000;
 u32 var800628c4 = 0x00000000;
-u32 var800628c8 = 0x00000000;
-u32 var800628cc = 0x00000000;
-u32 var800628d0 = 0x00000000;
-u32 var800628d4 = 0x00000000;
-u32 var800628d8 = 0x00000001;
-u32 var800628dc = 0x00000003;
-u32 var800628e0 = 0x00000000;
-u32 var800628e4 = 0x00000000;
-u32 var800628e8 = 0x00000000;
-u32 var800628ec = 0x00000000;
-u32 var800628f0 = 0x00000000;
-u32 var800628f4 = 0x00000000;
-u32 var800628f8 = 0x00000000;
-u32 var800628fc = 0x00000000;
-u32 var80062900 = 0x00000000;
-u32 var80062904 = 0x00000000;
-u32 var80062908 = 0x00000000;
-u32 var8006290c = 0x00000000;
-u32 var80062910 = 0x00000000;
-u32 var80062914 = 0x00000000;
-u32 var80062918 = 0x00000000;
-u32 var8006291c = 0x00000000;
-u32 var80062920 = 0x00000000;
-s32 g_NumPlayers = 0;
-u32 var80062928 = 0x00000000;
-u32 var8006292c = 0x00000001;
-u32 var80062930 = 0x00000001;
-u32 var80062934 = 0x00000001;
-u32 var80062938 = 0x00000000;
-u32 var8006293c = 0x00000000;
 
 GLOBAL_ASM(
 glabel titleTickNintendoLogo
@@ -4199,77 +4169,66 @@ glabel var7f1a84a0
 /*  f019a7c:	27bd0190 */ 	addiu	$sp,$sp,0x190
 );
 
-GLOBAL_ASM(
-glabel titleInitRareLogo
-/*  f019a80:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f019a84:	240efffd */ 	addiu	$t6,$zero,-3
-/*  f019a88:	3c018006 */ 	lui	$at,%hi(g_TitleTimer)
-/*  f019a8c:	3c188006 */ 	lui	$t8,%hi(var800628c8)
-/*  f019a90:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f019a94:	ac2e24c4 */ 	sw	$t6,%lo(g_TitleTimer)($at)
-/*  f019a98:	271828c8 */ 	addiu	$t8,$t8,%lo(var800628c8)
-/*  f019a9c:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f019aa0:	3c05800a */ 	lui	$a1,%hi(var8009cca0)
-/*  f019aa4:	8ca5cca0 */ 	lw	$a1,%lo(var8009cca0)($a1)
-/*  f019aa8:	27af0018 */ 	addiu	$t7,$sp,0x18
-/*  f019aac:	ade10000 */ 	sw	$at,0x0($t7)
-/*  f019ab0:	8f010008 */ 	lw	$at,0x8($t8)
-/*  f019ab4:	8f090004 */ 	lw	$t1,0x4($t8)
-/*  f019ab8:	3c048008 */ 	lui	$a0,%hi(g_Props+0xc04)
-/*  f019abc:	3c060004 */ 	lui	$a2,0x4
-/*  f019ac0:	ade10008 */ 	sw	$at,0x8($t7)
-/*  f019ac4:	ade90004 */ 	sw	$t1,0x4($t7)
-/*  f019ac8:	9484bc70 */ 	lhu	$a0,%lo(g_Props+0xc04)($a0)
-/*  f019acc:	34c67800 */ 	ori	$a2,$a2,0x7800
-/*  f019ad0:	0fc69de5 */ 	jal	func0f1a7794
-/*  f019ad4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f019ad8:	3c038008 */ 	lui	$v1,%hi(g_Props)
-/*  f019adc:	2463b06c */ 	addiu	$v1,$v1,%lo(g_Props)
-/*  f019ae0:	ac620c00 */ 	sw	$v0,0xc00($v1)
-/*  f019ae4:	0c008b49 */ 	jal	func00022d24
-/*  f019ae8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f019aec:	3c048008 */ 	lui	$a0,%hi(g_Props+0xc00)
-/*  f019af0:	0fc2cc2b */ 	jal	func0f0b30ac
-/*  f019af4:	8c84bc6c */ 	lw	$a0,%lo(g_Props+0xc00)($a0)
-/*  f019af8:	3c038006 */ 	lui	$v1,%hi(g_TitleModel)
-/*  f019afc:	246324f8 */ 	addiu	$v1,$v1,%lo(g_TitleModel)
-/*  f019b00:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f019b04:	00402025 */ 	or	$a0,$v0,$zero
-/*  f019b08:	0c006bd6 */ 	jal	func0001af58
-/*  f019b0c:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f019b10:	3c048006 */ 	lui	$a0,%hi(g_TitleModel)
-/*  f019b14:	8c8424f8 */ 	lw	$a0,%lo(g_TitleModel)($a0)
-/*  f019b18:	0c006b4d */ 	jal	func0001ad34
-/*  f019b1c:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*  f019b20:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f019b24:	3c018006 */ 	lui	$at,%hi(var800624f4)
-/*  f019b28:	0fc5b4f4 */ 	jal	func0f16d3d0
-/*  f019b2c:	ac2a24f4 */ 	sw	$t2,%lo(var800624f4)($at)
-/*  f019b30:	0c005204 */ 	jal	func00014810
-/*  f019b34:	00002025 */ 	or	$a0,$zero,$zero
-/*  f019b38:	3c028006 */ 	lui	$v0,%hi(var800624a4)
-/*  f019b3c:	244224a4 */ 	addiu	$v0,$v0,%lo(var800624a4)
-/*  f019b40:	8c4b0000 */ 	lw	$t3,0x0($v0)
-/*  f019b44:	3c0c8009 */ 	lui	$t4,%hi(g_Is4Mb)
-/*  f019b48:	55600007 */ 	bnezl	$t3,.L0f019b68
-/*  f019b4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f019b50:	918c0af0 */ 	lbu	$t4,%lo(g_Is4Mb)($t4)
-/*  f019b54:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f019b58:	506c0003 */ 	beql	$v1,$t4,.L0f019b68
-/*  f019b5c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f019b60:	ac430000 */ 	sw	$v1,0x0($v0)
-/*  f019b64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f019b68:
-/*  f019b68:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f019b6c:	03e00008 */ 	jr	$ra
-/*  f019b70:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void titleInitRareLogo(void)
+{
+	u32 thing = var8009cca0;
+
+	g_TitleTimer = -3;
+
+	{
+		struct coord coord = {0, 0, 0};
+
+		g_Props[MODEL_RARELOGO].filedata = func0f1a7794(g_Props[MODEL_RARELOGO].fileid, thing, 0x47800, 0);
+
+		func00022d24(g_Props[MODEL_RARELOGO].filedata);
+		g_TitleModel = func0f0b30ac(g_Props[MODEL_RARELOGO].filedata);
+		func0001af58(g_TitleModel, 1);
+		func0001ad34(g_TitleModel, &coord);
+
+		var800624f4 = 1;
+
+		func0f16d3d0();
+		func00014810(false);
+
+		if (var800624a4 == false && g_Is4Mb != true) {
+			var800624a4 = true;
+		}
+	}
+}
 
 void titleExitRareLogo(void)
 {
 	func0f0b30cc(g_TitleModel);
 	func00014810(true);
 }
+
+u32 var800628d4 = 0x00000000;
+u32 var800628d8 = 0x00000001;
+u32 var800628dc = 0x00000003;
+u32 var800628e0 = 0x00000000;
+u32 var800628e4 = 0x00000000;
+u32 var800628e8 = 0x00000000;
+u32 var800628ec = 0x00000000;
+u32 var800628f0 = 0x00000000;
+u32 var800628f4 = 0x00000000;
+u32 var800628f8 = 0x00000000;
+u32 var800628fc = 0x00000000;
+u32 var80062900 = 0x00000000;
+u32 var80062904 = 0x00000000;
+u32 var80062908 = 0x00000000;
+u32 var8006290c = 0x00000000;
+u32 var80062910 = 0x00000000;
+u32 var80062914 = 0x00000000;
+u32 var80062918 = 0x00000000;
+u32 var8006291c = 0x00000000;
+u32 var80062920 = 0x00000000;
+s32 g_NumPlayers = 0;
+u32 var80062928 = 0x00000000;
+u32 var8006292c = 0x00000001;
+u32 var80062930 = 0x00000001;
+u32 var80062934 = 0x00000001;
+u32 var80062938 = 0x00000000;
+u32 var8006293c = 0x00000000;
 
 GLOBAL_ASM(
 glabel titleTickRareLogo
