@@ -901,52 +901,23 @@ void chrStand(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f02ec94
-.late_rodata
-glabel var7f1a8d00
-.word 0x46230028
-.text
-/*  f02ec94:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f02ec98:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f02ec9c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02eca0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f02eca4:	84840292 */ 	lh	$a0,0x292($a0)
-/*  f02eca8:	0fc458b8 */ 	jal	coverLoad
-/*  f02ecac:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*  f02ecb0:	14400003 */ 	bnez	$v0,.L0f02ecc0
-/*  f02ecb4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02ecb8:	10000016 */ 	beqz	$zero,.L0f02ed14
-/*  f02ecbc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f02ecc0:
-/*  f02ecc0:	0fc0baaf */ 	jal	chrStand
-/*  f02ecc4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02ecc8:	240e0010 */ 	addiu	$t6,$zero,0x10
-/*  f02eccc:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f02ecd0:	ae000038 */ 	sw	$zero,0x38($s0)
-/*  f02ecd4:	ae0e0030 */ 	sw	$t6,0x30($s0)
-/*  f02ecd8:	ae0f003c */ 	sw	$t7,0x3c($s0)
-/*  f02ecdc:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*  f02ece0:	c70c0000 */ 	lwc1	$f12,0x0($t8)
-/*  f02ece4:	c70e0008 */ 	lwc1	$f14,0x8($t8)
-/*  f02ece8:	46006307 */ 	neg.s	$f12,$f12
-/*  f02ecec:	0fc259d4 */ 	jal	func0f096750
-/*  f02ecf0:	46007387 */ 	neg.s	$f14,$f14
-/*  f02ecf4:	3c017f1b */ 	lui	$at,%hi(var7f1a8d00)
-/*  f02ecf8:	c4248d00 */ 	lwc1	$f4,%lo(var7f1a8d00)($at)
-/*  f02ecfc:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f02ed00:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f02ed04:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f02ed08:	44084000 */ 	mfc1	$t0,$f8
-/*  f02ed0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02ed10:	ae080034 */ 	sw	$t0,0x34($s0)
-.L0f02ed14:
-/*  f02ed14:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f02ed18:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f02ed1c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f02ed20:	03e00008 */ 	jr	$ra
-/*  f02ed24:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrFaceCover(struct chrdata *chr)
+{
+	struct cover cover;
+
+	if (!coverLoad(chr->cover, &cover)) {
+		return false;
+	}
+
+	chrStand(chr);
+	chr->act_stand.unk038 = 0;
+	chr->act_stand.face_entitytype = ENTITYTYPE_DIRECTION;
+	chr->act_stand.unk03c = 1;
+	//chr->act_stand.face_entityid = func0f096750(-cover.look->x, -cover.look->z) * (0x4000 / DEG2RAD(90));
+	chr->act_stand.face_entityid = func0f096750(-cover.look->x, -cover.look->z) * 10432.039f;
+
+	return true;
+}
 
 void func0f02ed28(struct chrdata *chr, f32 arg1)
 {

@@ -2856,7 +2856,12 @@
 	mkshort(0x013b), \
 	id,
 
-#define cmd013c(label) \
+/**
+ * Makes the current chr face their cover spot. Or face away from it. Not sure.
+ *
+ * The cover spot must have been assigned to the chr already.
+ */
+#define face_cover(label) \
 	mkshort(0x013c), \
 	label,
 

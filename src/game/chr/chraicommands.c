@@ -8928,11 +8928,11 @@ bool aiSetSquadron(void)
 /**
  * @cmd 013c
  */
-bool ai013c(void)
+bool aiFaceCover(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f02ec94(g_Vars.chrdata)) {
+	if (chrFaceCover(g_Vars.chrdata)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;

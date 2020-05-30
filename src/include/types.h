@@ -352,7 +352,7 @@ struct aibot {
 struct act_stand {
 	/*0x2c*/ s32 unk02c;
 	/*0x30*/ u32 face_entitytype;
-	/*0x34*/ u32 face_entityid;
+	/*0x34*/ s32 face_entityid;
 	/*0x38*/ u32 unk038;
 	/*0x3c*/ s32 unk03c;
 	/*0x40*/ u32 unk040;

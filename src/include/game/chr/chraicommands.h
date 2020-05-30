@@ -314,7 +314,7 @@
 /*0x0139*/ bool ai0139(void);
 /*0x013a*/ bool aiSetChrPresetToUnalertedTeammate(void);
 /*0x013b*/ bool aiSetSquadron(void);
-/*0x013c*/ bool ai013c(void);
+/*0x013c*/ bool aiFaceCover(void);
 /*0x013d*/ bool aiIfDangerousObjectNearby(void);
 /*0x013e*/ bool ai013e(void);
 /*0x013f*/ bool aiIfHeliWeaponsArmed(void);
