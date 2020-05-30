@@ -2336,8 +2336,8 @@ u8 func041a_bridgeclone[] = {
 	label(0x2e)
 	restart_timer
 	dprint 'F','A','C','E',' ','T','A','R','G','E','T','\n',0,
-	if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
-	if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
+	if_target_in_fov_left(10, /*goto*/ 0x06)
+	if_target_out_of_fov_left(246, /*goto*/ 0x06)
 	stop_chr
 	try_face_entity(ENTITYTYPE_TARGET, 1, /*goto*/ 0x0b)
 
@@ -2346,8 +2346,8 @@ u8 func041a_bridgeclone[] = {
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
 		if_chr_dead(CHR_TARGET, /*goto*/ 0x10)
 		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x10)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
-		if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
+		if_target_in_fov_left(10, /*goto*/ 0x06)
+		if_target_out_of_fov_left(246, /*goto*/ 0x06)
 		if_timer_gt(15, /*goto*/ 0x06)
 	endloop(0x0b)
 

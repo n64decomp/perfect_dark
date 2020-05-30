@@ -1653,7 +1653,7 @@ bool ai004e(void)
 /**
  * @cmd 004d
  */
-bool ai004d(void)
+bool aiIfTargetInFovLeft(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
@@ -1669,7 +1669,7 @@ bool ai004d(void)
 /**
  * @cmd 004f
  */
-bool ai004f(void)
+bool aiIfTargetOutOfFovLeft(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
@@ -1685,11 +1685,11 @@ bool ai004f(void)
 /**
  * @cmd 0050
  */
-bool ai0050(void)
+bool aiIfTargetInFov(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f049068(g_Vars.chrdata, cmd[2], 0)) {
+	if (chrIsTargetInFov(g_Vars.chrdata, cmd[2], 0)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1701,11 +1701,11 @@ bool ai0050(void)
 /**
  * @cmd 0051
  */
-bool ai0051(void)
+bool aiIfTargetOutOfFov(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (!func0f049068(g_Vars.chrdata, cmd[2], 0)) {
+	if (!chrIsTargetInFov(g_Vars.chrdata, cmd[2], 0)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;

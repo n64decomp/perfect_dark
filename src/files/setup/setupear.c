@@ -1027,7 +1027,7 @@ u8 func0404_scientist[] = {
 	endloop(0x09)
 
 	label(0x2f)
-	if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+	if_target_in_fov_left(10, /*goto*/ 0x06)
 	if_timer_gt(60, /*goto*/ 0x06)
 	goto_first(0x09)
 
@@ -1059,7 +1059,7 @@ u8 func0404_scientist[] = {
 	chr_do_animation(ANIM_SURRENDER_002E, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0b)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+		if_target_in_fov_left(10, /*goto*/ 0x06)
 		if_timer_gt(90, /*goto*/ 0x06)
 	endloop(0x0b)
 
@@ -1211,7 +1211,7 @@ u8 func0406_nasty_scientist[] = {
 		reloop(0x09)
 
 		label(0x2f)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+		if_target_in_fov_left(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 

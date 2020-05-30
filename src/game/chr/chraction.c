@@ -14000,7 +14000,7 @@ glabel func0f03ba44
 /*  f03baa0:	00084fc2 */ 	srl	$t1,$t0,0x1f
 /*  f03baa4:	a3a90043 */ 	sb	$t1,0x43($sp)
 .L0f03baa8:
-/*  f03baa8:	0fc1241a */ 	jal	func0f049068
+/*  f03baa8:	0fc1241a */ 	jal	chrIsTargetInFov
 /*  f03baac:	93a60057 */ 	lbu	$a2,0x57($sp)
 /*  f03bab0:	5040003e */ 	beqzl	$v0,.L0f03bbac
 /*  f03bab4:	93a40040 */ 	lbu	$a0,0x40($sp)
@@ -19134,7 +19134,7 @@ glabel var7f1a9184
 /*  f040dd0:	46105482 */ 	mul.s	$f18,$f10,$f16
 /*  f040dd4:	13000080 */ 	beqz	$t8,.L0f040fd8
 /*  f040dd8:	e7b200cc */ 	swc1	$f18,0xcc($sp)
-/*  f040ddc:	0fc1241a */ 	jal	func0f049068
+/*  f040ddc:	0fc1241a */ 	jal	chrIsTargetInFov
 /*  f040de0:	00003025 */ 	or	$a2,$zero,$zero
 /*  f040de4:	1040007c */ 	beqz	$v0,.L0f040fd8
 /*  f040de8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -27340,68 +27340,17 @@ glabel var7f1a9360
 /*  f049064:	46007006 */ 	mov.s	$f0,$f14
 );
 
-GLOBAL_ASM(
-glabel func0f049068
-.late_rodata
-glabel var7f1a9364
-.word 0x3cc907a9
-glabel var7f1a9368
-.word 0x40490fdb
-glabel var7f1a936c
-.word 0x40c907a9
-glabel var7f1a9370
-.word 0x40490fdb
-.text
-/*  f049068:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04906c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f049070:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f049074:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f049078:	0fc123f3 */ 	jal	func0f048fcc
-/*  f04907c:	30c500ff */ 	andi	$a1,$a2,0xff
-/*  f049080:	93af001f */ 	lbu	$t7,0x1f($sp)
-/*  f049084:	3c014f80 */ 	lui	$at,0x4f80
-/*  f049088:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04908c:	448f2000 */ 	mtc1	$t7,$f4
-/*  f049090:	05e10004 */ 	bgez	$t7,.L0f0490a4
-/*  f049094:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f049098:	44814000 */ 	mtc1	$at,$f8
-/*  f04909c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0490a0:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f0490a4:
-/*  f0490a4:	3c017f1b */ 	lui	$at,%hi(var7f1a9364)
-/*  f0490a8:	c42a9364 */ 	lwc1	$f10,%lo(var7f1a9364)($at)
-/*  f0490ac:	3c017f1b */ 	lui	$at,%hi(var7f1a9368)
-/*  f0490b0:	460a3082 */ 	mul.s	$f2,$f6,$f10
-/*  f0490b4:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f0490b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0490bc:	45000005 */ 	bc1f	.L0f0490d4
-/*  f0490c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0490c4:	c4309368 */ 	lwc1	$f16,%lo(var7f1a9368)($at)
-/*  f0490c8:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f0490cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0490d0:	4501000e */ 	bc1t	.L0f04910c
-.L0f0490d4:
-/*  f0490d4:	3c017f1b */ 	lui	$at,%hi(var7f1a936c)
-/*  f0490d8:	c432936c */ 	lwc1	$f18,%lo(var7f1a936c)($at)
-/*  f0490dc:	3c017f1b */ 	lui	$at,%hi(var7f1a9370)
-/*  f0490e0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0490e4:	46029101 */ 	sub.s	$f4,$f18,$f2
-/*  f0490e8:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f0490ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0490f0:	45000008 */ 	bc1f	.L0f049114
-/*  f0490f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0490f8:	c4289370 */ 	lwc1	$f8,%lo(var7f1a9370)($at)
-/*  f0490fc:	4600403c */ 	c.lt.s	$f8,$f0
-/*  f049100:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f049104:	45000003 */ 	bc1f	.L0f049114
-/*  f049108:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f04910c:
-/*  f04910c:	10000001 */ 	beqz	$zero,.L0f049114
-/*  f049110:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f049114:
-/*  f049114:	03e00008 */ 	jr	$ra
-/*  f049118:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool chrIsTargetInFov(struct chrdata *chr, u8 arg1, u8 arg2)
+{
+	f32 angle = func0f048fcc(chr, arg2);
+
+	if ((angle < arg1 * 0.024539785459638f && angle < M_PI)
+			|| (angle > M_BADTAU - arg1 * 0.024539785459638f && angle > M_PI)) {
+		return true;
+	}
+
+	return false;
+}
 
 bool func0f04911c(struct chrdata *chr, struct coord *pos, u8 arg2)
 {

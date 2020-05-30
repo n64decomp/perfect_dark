@@ -452,7 +452,7 @@ void func0f19a37c(struct chrdata *chr)
 	sp72[0] = chr->aibot->weaponnum;
 	sp72[3] = chr->aibot->gunfunc;
 
-	if (func0f049068(chr, WEAPON_GRENADE, 0)) {
+	if (chrIsTargetInFov(chr, WEAPON_GRENADE, 0)) {
 		sp56.x = target->pos.x;
 		sp56.z = target->pos.z;
 

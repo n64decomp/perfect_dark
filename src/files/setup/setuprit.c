@@ -1218,7 +1218,7 @@ u8 func0405_president_in_room[] = {
 		reloop(0x09)
 
 		label(0x2d)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+		if_target_in_fov_left(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -1249,7 +1249,7 @@ u8 func0405_president_in_room[] = {
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x78)
 
 	// In this loop the president will continue to turn to face the player
-	// because it lacks an if_jo_ccw_direction_lt check.
+	// because it lacks an if_target_in_fov_left check.
 	beginloop(0x78)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0055, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0056, /*goto*/ 0x2d)
@@ -3242,7 +3242,7 @@ u8 func0407_steward[] = {
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+		if_target_in_fov_left(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -3298,7 +3298,7 @@ u8 func0407_stewardess[] = {
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+		if_target_in_fov_left(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 

@@ -2353,7 +2353,7 @@ u8 func0413_cloak1_guard[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_distance_to_target_lt(400, /*goto*/ 0x06)
-		if_jo_front_direction_lt(30, /*goto*/ 0x06)
+		if_target_in_fov(30, /*goto*/ 0x06)
 		if_chr_in_view(/*goto*/ 0x06)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x2c)
 		if_timer_gt(180, /*goto*/ 0x06)

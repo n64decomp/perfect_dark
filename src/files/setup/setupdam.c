@@ -1580,7 +1580,7 @@ u8 func0411_labtech_alerted[] = {
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0c)
 
 	beginloop(0x0c)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x04)
+		if_target_in_fov_left(10, /*goto*/ 0x04)
 		if_timer_gt(60, /*goto*/ 0x04)
 	endloop(0x0c)
 

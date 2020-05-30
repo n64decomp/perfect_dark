@@ -1339,7 +1339,7 @@ u8 func0413_jonathan_hangar[] = {
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x46)
 
 	beginloop(0x46)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+		if_target_in_fov_left(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x46)
 

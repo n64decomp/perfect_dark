@@ -80,11 +80,11 @@
 /*0x004a*/ bool ai004a(void);
 /*0x004b*/ bool aiIfNearMiss(void);
 /*0x004c*/ bool aiIfSeesSuspiciousItem(void);
-/*0x004d*/ bool ai004d(void);
+/*0x004d*/ bool aiIfTargetInFovLeft(void);
 /*0x004e*/ bool ai004e(void);
-/*0x004f*/ bool ai004f(void);
-/*0x0050*/ bool ai0050(void);
-/*0x0051*/ bool ai0051(void);
+/*0x004f*/ bool aiIfTargetOutOfFovLeft(void);
+/*0x0050*/ bool aiIfTargetInFov(void);
+/*0x0051*/ bool aiIfTargetOutOfFov(void);
 /*0x0052*/ bool aiIfDistanceToTargetLessThan(void);
 /*0x0053*/ bool aiIfDistanceToTargetGreaterThan(void);
 /*0x0054*/ bool aiIfChrDistanceToPadLessThan(void);

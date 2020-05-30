@@ -594,7 +594,7 @@ u8 func041e_colleague[] = {
 		try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 
 		beginloop(0x09)
-			if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+			if_target_in_fov_left(10, /*goto*/ 0x06)
 			if_timer_gt(60, /*goto*/ 0x06)
 		endloop(0x09)
 
@@ -2468,7 +2468,7 @@ u8 func0429_grimshaw_disguise[] = {
 
 	beginloop(0x09)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+		if_target_in_fov_left(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -2659,7 +2659,7 @@ u8 func042a_carrington_cloak[] = {
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+		if_target_in_fov_left(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -5245,8 +5245,8 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 
 	label(0x06)
 	restart_timer
-	if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
-	if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
+	if_target_in_fov_left(10, /*goto*/ 0x06)
+	if_target_out_of_fov_left(246, /*goto*/ 0x06)
 	stop_chr
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
 
@@ -5254,8 +5254,8 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 		if_chr_dead(CHR_TARGET, /*goto*/ 0x57)
 		if_chr_knockedout(CHR_TARGET, /*goto*/ 0x57)
 		if_distance_to_target_gt(400, /*goto*/ 0x10)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
-		if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
+		if_target_in_fov_left(10, /*goto*/ 0x06)
+		if_target_out_of_fov_left(246, /*goto*/ 0x06)
 		if_timer_gt(120, /*goto*/ 0x06)
 	endloop(0x09)
 

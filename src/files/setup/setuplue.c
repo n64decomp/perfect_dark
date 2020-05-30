@@ -1662,7 +1662,7 @@ u8 func0416_mechanic[] = {
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0a)
 
 	beginloop(0x0a)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+		if_target_in_fov_left(10, /*goto*/ 0x06)
 		if_timer_gt(30, /*goto*/ 0x06)
 	endloop(0x0a)
 

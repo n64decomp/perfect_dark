@@ -696,14 +696,14 @@
 	label,
 
 /**
- * Checks if Jo is within a certain angle of the chr's direction.
- * Value is a percentage of the circle, where 256 is a full circle.
- * Only ever called with value = decimal 10, which is about 14 degrees.
- * With value 10, returns true if Jo is roughly within 12-11 o'clock.
+ * Checks if the current chr's target is within a certain angle of the chr's
+ * direction. Angle is a percentage of the circle, where 256 is a full circle.
+ * Only ever called with angle = decimal 10, which is about 14 degrees.
+ * With angle 10, returns true if target is roughly within 12-11 o'clock.
  */
-#define if_jo_ccw_direction_lt(value, label) \
+#define if_target_in_fov_left(angle, label) \
 	mkshort(0x004d), \
-	value, \
+	angle, \
 	label,
 
 // Either bool1 or bool2 are set - never none or both
@@ -717,32 +717,32 @@
 	label,
 
 /**
- * Checks if Jo is outside of a certain angle of the chr's direction.
- * Value is a percentage of the circle, where 256 is a full circle.
- * Called with values = -10 and -11, which is about -14 degrees.
- * With value -10, returns true if Jo is roughly within 12-1 o'clock.
+ * Checks if the current chr's target is outside of a certain angle of the chr's
+ * direction. Angle is a percentage of the circle, where 256 is a full circle.
+ * It is common to call this with angles > 240, which makes it follow the label
+ * if the target is roughly within 12-1 o'clock.
  */
-#define if_jo_ccw_direction_gt(value, label) \
+#define if_target_out_of_fov_left(angle, label) \
 	mkshort(0x004f), \
-	value, \
+	angle, \
 	label,
 
 /**
- * Similar to 004d and 004f, but checks if Jo is within the angle of player's
- * 12 o'clock (ie. either side).
+ * Similar to 004d and 004f, but checks if the target is within the angle of the
+ * current chr's 12 o'clock (ie. either side).
  */
-#define if_jo_front_direction_lt(value, label) \
+#define if_target_in_fov(angle, label) \
 	mkshort(0x0050), \
-	value, \
+	angle, \
 	label,
 
 /**
- * Similar to 004d and 004f, but checks if Jo is not in front of the current chr
- * by the given angle.
+ * Similar to 004d and 004f, but checks if the target is not in front of the
+ * current chr by the given angle.
  */
-#define if_jo_front_direction_gt(value, label) \
+#define if_target_out_of_fov(angle, label) \
 	mkshort(0x0051), \
-	value, \
+	angle, \
 	label,
 
 /**

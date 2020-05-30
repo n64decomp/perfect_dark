@@ -1327,15 +1327,15 @@ u8 func0007_alerted[] = {
 	if_distance_to_target_gt(2500, /*goto*/ 0x14)
 
 	// Distance between 1000 and 2500
-	if_jo_ccw_direction_lt(10, /*goto*/ 0x13)
-	if_jo_ccw_direction_gt(246, /*goto*/ 0x13)
+	if_target_in_fov_left(10, /*goto*/ 0x13)
+	if_target_out_of_fov_left(246, /*goto*/ 0x13)
 	restart_timer
 	stop_chr
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0xec)
 
 	beginloop(0xec)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x13)
-		if_jo_ccw_direction_gt(246, /*goto*/ 0x13)
+		if_target_in_fov_left(10, /*goto*/ 0x13)
+		if_target_out_of_fov_left(246, /*goto*/ 0x13)
 		if_timer_gt(60, /*goto*/ 0x13)
 	endloop(0xec)
 
@@ -3877,8 +3877,8 @@ u8 func000f_hand_combat[] = {
 	label(LABEL_FACE_TARGET)
 	restart_timer
 	dprint 'F','A','C','E',' ','T','A','R','G','E','T','\n',0,
-	if_jo_ccw_direction_lt(10, /*goto*/ LABEL_PUNCH)
-	if_jo_ccw_direction_gt(246, /*goto*/ LABEL_PUNCH)
+	if_target_in_fov_left(10, /*goto*/ LABEL_PUNCH)
+	if_target_out_of_fov_left(246, /*goto*/ LABEL_PUNCH)
 	stop_chr
 	try_face_entity(ENTITYTYPE_TARGET, 1, /*goto*/ 0x04)
 
@@ -3888,8 +3888,8 @@ u8 func000f_hand_combat[] = {
 		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xfa)
 		label(0x13)
 		if_distance_to_target_gt(400, /*goto*/ 0x0b)
-		if_jo_ccw_direction_lt(15, /*goto*/ LABEL_PUNCH)
-		if_jo_ccw_direction_gt(240, /*goto*/ LABEL_PUNCH)
+		if_target_in_fov_left(15, /*goto*/ LABEL_PUNCH)
+		if_target_out_of_fov_left(240, /*goto*/ LABEL_PUNCH)
 		if_timer_gt(60, /*goto*/ LABEL_PUNCH)
 	endloop(0x04)
 
@@ -3976,8 +3976,8 @@ u8 func0010_civilian_say_comment[] = {
 	beginloop(0x04)
 		if_saw_injury(0x01, /*goto*/ 0x83)
 		if_saw_death(0x01, /*goto*/ 0x83)
-		if_jo_ccw_direction_lt(10, /*goto*/ 0x13)
-		if_jo_ccw_direction_gt(246, /*goto*/ 0x13)
+		if_target_in_fov_left(10, /*goto*/ 0x13)
+		if_target_out_of_fov_left(246, /*goto*/ 0x13)
 		if_timer_gt(60, /*goto*/ 0x13)
 	endloop(0x04)
 
