@@ -7,7 +7,7 @@ char *mpPlayerGetWeaponOfChoiceName(u32 playernum, u32 slot);
 u32 func0f01616c(void);
 void func0f016404(void);
 void func0f01644c(void);
-u32 func0f0164c8(void);
+void func0f0164c8(void);
 void func0f0164f0(void);
 void func0f016524(void);
 Gfx *titleRenderMode1(Gfx *gdl);
