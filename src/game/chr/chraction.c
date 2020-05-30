@@ -28420,36 +28420,19 @@ bool func0f04a79c(u8 chrnum, struct chrdata *chr, f32 distance)
 	return func0f04a848(chrnum, chr, distance, &chr->prop->pos, &chr->prop->rooms[0]);
 }
 
-GLOBAL_ASM(
-glabel func0f04a7dc
-/*  f04a7dc:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f04a7e0:	afa40078 */ 	sw	$a0,0x78($sp)
-/*  f04a7e4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04a7e8:	afa5007c */ 	sw	$a1,0x7c($sp)
-/*  f04a7ec:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f04a7f0:	afa60080 */ 	sw	$a2,0x80($sp)
-/*  f04a7f4:	0fc1258b */ 	jal	chrResolvePadId
-/*  f04a7f8:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f04a7fc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f04a800:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f04a804:	0fc456ac */ 	jal	padUnpack
-/*  f04a808:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f04a80c:	8fae006c */ 	lw	$t6,0x6c($sp)
-/*  f04a810:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f04a814:	27b80020 */ 	addiu	$t8,$sp,0x20
-/*  f04a818:	a7af0022 */ 	sh	$t7,0x22($sp)
-/*  f04a81c:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f04a820:	93a4007b */ 	lbu	$a0,0x7b($sp)
-/*  f04a824:	8fa5007c */ 	lw	$a1,0x7c($sp)
-/*  f04a828:	8fa60080 */ 	lw	$a2,0x80($sp)
-/*  f04a82c:	27a70024 */ 	addiu	$a3,$sp,0x24
-/*  f04a830:	0fc12a12 */ 	jal	func0f04a848
-/*  f04a834:	a7ae0020 */ 	sh	$t6,0x20($sp)
-/*  f04a838:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04a83c:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*  f04a840:	03e00008 */ 	jr	$ra
-/*  f04a844:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f04a7dc(u32 chrnum, struct chrdata *chr, f32 distance, s32 padnum)
+{
+	struct pad pad;
+	s16 rooms[2];
+
+	padnum = chrResolvePadId(chr, padnum);
+	padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
+
+	rooms[0] = pad.room;
+	rooms[1] = -1;
+
+	return func0f04a848(chrnum, chr, distance, &pad.pos, rooms);
+}
 
 GLOBAL_ASM(
 glabel func0f04a848

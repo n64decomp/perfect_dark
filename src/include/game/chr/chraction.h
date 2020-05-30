@@ -189,7 +189,7 @@ u32 func0f04a2d4(void);
 u32 func0f04a37c(void);
 u32 func0f04a4ec(struct chrdata *chr, s32 arg1);
 u32 func0f04a674(struct chrdata *chr, s32 arg1);
-bool func0f04a7dc(u8 arg0, struct chrdata *chr, f32 distance, s32 arg3);
+bool func0f04a7dc(u32 chrnum, struct chrdata *chr, f32 distance, s32 padnum);
 bool func0f04a848(u8 chrnum, struct chrdata *chr, f32 distance, struct coord *pos, s16 *room);
 u32 chrIsInLoadedRoom(struct chrdata *chr);
 u32 func0f04aeb0(void);

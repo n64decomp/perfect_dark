@@ -6386,9 +6386,9 @@ bool ai010a(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
-	u16 thing = cmd[6] | (cmd[5] << 8);
+	u16 padnum = cmd[6] | (cmd[5] << 8);
 
-	if (func0f04a7dc(cmd[2], g_Vars.chrdata, distance, thing)) {
+	if (func0f04a7dc(cmd[2], g_Vars.chrdata, distance, padnum)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
 	} else {
 		g_Vars.aioffset += 8;
