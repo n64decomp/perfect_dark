@@ -16,7 +16,7 @@ u32 func00009ab0(void);
 u32 func00009b50(void);
 u32 func00009bf8(void);
 u32 func00009c3c(void);
-void func00009ec4(s32 arg0);
+void func00009ec4(bool arg0);
 u32 func00009ed4(void);
 u32 func0000a044(void);
 u32 func0000aa50(void);

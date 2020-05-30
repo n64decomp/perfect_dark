@@ -757,7 +757,7 @@ glabel menuhandlerAcceptMission
 /*  f103514:	00046642 */ 	srl	$t4,$a0,0x19
 /*  f103518:	0fc5b36a */ 	jal	setDifficulty
 /*  f10351c:	01802025 */ 	or	$a0,$t4,$zero
-/*  f103520:	0fc069f9 */ 	jal	func0f01a7e4
+/*  f103520:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f103524:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f103528:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig+0x1)
 /*  f10352c:	0c003a57 */ 	jal	func0000e95c
@@ -818,7 +818,7 @@ glabel menuhandlerAcceptMission
 //		}
 //
 //		setDifficulty(g_MissionConfig.difficulty);
-//		func0f01a7e4(5);
+//		titleSetNextMode(TITLEMODE_SKIP);
 //		func0000e95c(g_MissionConfig.stagenum);
 //		func00009ec4(1);
 //	}

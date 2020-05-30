@@ -10906,11 +10906,11 @@ bool ai01c5(void)
 /**
  * @cmd 01c8
  */
-bool ai01c8(void)
+bool aiTitleInitMode(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	g_Vars.aioffset += 3;
-	func0f01aca8(cmd[2]);
+	titleInitFromAiCmd(cmd[2]);
 
 	return false;
 }
@@ -10918,12 +10918,12 @@ bool ai01c8(void)
 /**
  * @cmd 01c9
  */
-bool ai01c9(void)
+bool aiTryExitTitle(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f01ab94()) {
-		func0f01abf0();
+	if (titleIsChangingMode()) {
+		titleExit();
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset = g_Vars.aioffset + 3;

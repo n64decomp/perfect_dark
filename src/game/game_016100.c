@@ -239,7 +239,7 @@ glabel func0f01616c
 /*  f016400:	a0980012 */ 	sb	$t8,0x12($a0)
 );
 
-void func0f016404(void)
+void titleInitLegal(void)
 {
 	func0f16d3d0();
 	var800624f4 = 1;
@@ -248,12 +248,12 @@ void func0f016404(void)
 	var800624ac = 0;
 }
 
-void func0f016444(void)
+void titleExitLegal(void)
 {
 	// empty
 }
 
-void func0f01644c(void)
+void titleTickLegal(void)
 {
 	func0000bd30(60);
 	func0000bd7c(1.33333333f);
@@ -263,25 +263,25 @@ void func0f01644c(void)
 	g_TitleTimer += g_Vars.lvupdate240_60;
 
 	if (g_TitleTimer > 180) {
-		func0f01a7e4(1);
+		titleSetNextMode(TITLEMODE_CHECKCONTROLLERS);
 	}
 }
 
-void func0f0164c8(void)
+void titleInitCheckControllers(void)
 {
 	g_TitleTimer = 0;
-	func00009ec4(1);
+	func00009ec4(true);
 }
 
-void func0f0164f0(void)
+void titleExitCheckControllers(void)
 {
 	var800624e8 = 0;
 	func00009ab0();
 	func0000aab0(2);
-	func00009ec4(0);
+	func00009ec4(false);
 }
 
-void func0f016524(void)
+void titleTickCheckControllers(void)
 {
 	g_TitleTimer++;
 	func0000be84(100, 10000);
@@ -289,15 +289,15 @@ void func0f016524(void)
 
 	if (g_TitleTimer > 6) {
 		if ((func0001404c() % 2) == 0) {
-			func0f01a7e4(TITLEMODE_NOCONTROLLER);
+			titleSetNextMode(TITLEMODE_NOCONTROLLER);
 		} else {
-			func0f01a7e4(TITLEMODE_RARELOGO);
+			titleSetNextMode(TITLEMODE_RARELOGO);
 		}
 	}
 }
 
 GLOBAL_ASM(
-glabel titleRenderMode1
+glabel titleRenderCheckControllers
 /*  f0165ac:	3c028006 */ 	lui	$v0,%hi(g_TitleTimer)
 /*  f0165b0:	8c4224c4 */ 	lw	$v0,%lo(g_TitleTimer)($v0)
 /*  f0165b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -818,7 +818,7 @@ glabel var7f1a83e4
 );
 
 GLOBAL_ASM(
-glabel func0f016d34
+glabel titleInitPdLogo
 /*  f016d34:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f016d38:	3c018006 */ 	lui	$at,%hi(g_TitleTimer)
 /*  f016d3c:	3c0f8006 */ 	lui	$t7,%hi(var80062738)
@@ -1028,7 +1028,7 @@ glabel func0f016d34
 /*  f017068:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
 
-void func0f01706c(void)
+void titleExitPdLogo(void)
 {
 	func0f0b30cc(var800624f8);
 	func0f0b30cc(var800624fc);
@@ -1038,7 +1038,7 @@ void func0f01706c(void)
 }
 
 GLOBAL_ASM(
-glabel func0f0170bc
+glabel titleTickPdLogo
 .late_rodata
 glabel var7f1a83e8
 .word 0x3faaaaab
@@ -1111,7 +1111,7 @@ glabel var7f1a83ec
 /*  f0171b8:	10000003 */ 	beqz	$zero,.L0f0171c8
 /*  f0171bc:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0171c0:
-/*  f0171c0:	0fc069f9 */ 	jal	func0f01a7e4
+/*  f0171c0:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f0171c4:	24040005 */ 	addiu	$a0,$zero,0x5
 .L0f0171c8:
 /*  f0171c8:	3c0f8006 */ 	lui	$t7,%hi(var800624a8)
@@ -1123,7 +1123,7 @@ glabel var7f1a83ec
 /*  f0171e0:	2b01029b */ 	slti	$at,$t8,0x29b
 /*  f0171e4:	54200004 */ 	bnezl	$at,.L0f0171f8
 /*  f0171e8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0171ec:	0fc069f9 */ 	jal	func0f01a7e4
+/*  f0171ec:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f0171f0:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f0171f4:	00002025 */ 	or	$a0,$zero,$zero
 .L0f0171f8:
@@ -1141,7 +1141,7 @@ glabel var7f1a83ec
 /*  f017224:	29210225 */ 	slti	$at,$t1,0x225
 /*  f017228:	50200004 */ 	beqzl	$at,.L0f01723c
 /*  f01722c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f017230:	0fc069f9 */ 	jal	func0f01a7e4
+/*  f017230:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f017234:	24040002 */ 	addiu	$a0,$zero,0x2
 .L0f017238:
 /*  f017238:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -3076,7 +3076,7 @@ glabel var7f1a8468
 /*  f018dac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f018db0(void)
+void titleInitRarePresents(void)
 {
 	g_TitleTimer = 0;
 	func00014810(0);
@@ -3084,7 +3084,7 @@ void func0f018db0(void)
 }
 
 GLOBAL_ASM(
-glabel func0f018ddc
+glabel titleExitRarePresents
 /*  f018ddc:	3c048006 */ 	lui	$a0,%hi(var80062864)
 /*  f018de0:	8c842864 */ 	lw	$a0,%lo(var80062864)($a0)
 /*  f018de4:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -3105,7 +3105,7 @@ glabel func0f018ddc
 );
 
 GLOBAL_ASM(
-glabel func0f018e1c
+glabel titleTickRarePresents
 .late_rodata
 glabel var7f1a846c
 .word 0x3faaaaab
@@ -3138,7 +3138,7 @@ glabel var7f1a8470
 /*  f018e78:	2b01012d */ 	slti	$at,$t8,0x12d
 /*  f018e7c:	14200005 */ 	bnez	$at,.L0f018e94
 /*  f018e80:	ac580000 */ 	sw	$t8,0x0($v0)
-/*  f018e84:	0fc069f9 */ 	jal	func0f01a7e4
+/*  f018e84:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f018e88:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f018e8c:	10000008 */ 	beqz	$zero,.L0f018eb0
 /*  f018e90:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -3147,7 +3147,7 @@ glabel var7f1a8470
 /*  f018e98:	3405ffff */ 	dli	$a1,0xffff
 /*  f018e9c:	50400004 */ 	beqzl	$v0,.L0f018eb0
 /*  f018ea0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f018ea4:	0fc069f9 */ 	jal	func0f01a7e4
+/*  f018ea4:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f018ea8:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f018eac:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f018eb0:
@@ -3519,7 +3519,7 @@ glabel titleRenderRarePresents
 );
 
 GLOBAL_ASM(
-glabel func0f0193fc
+glabel titleInitNintendoLogo
 /*  f0193fc:	3c0e8006 */ 	lui	$t6,%hi(var800624a8)
 /*  f019400:	8dce24a8 */ 	lw	$t6,%lo(var800624a8)($t6)
 /*  f019404:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -3581,14 +3581,14 @@ glabel func0f0193fc
 /*  f0194dc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f0194e0(void)
+void titleExitNintendoLogo(void)
 {
 	func0f0b30cc(var800624f8);
 	func00014810(1);
 }
 
 GLOBAL_ASM(
-glabel func0f01950c
+glabel titleTickNintendoLogo
 .late_rodata
 glabel var7f1a8474
 .word 0x3faaaaab
@@ -3640,7 +3640,7 @@ glabel var7f1a8478
 /*  f0195b0:	14490009 */ 	bne	$v0,$t1,.L0f0195d8
 /*  f0195b4:	3c0a8006 */ 	lui	$t2,%hi(var800624a8)
 /*  f0195b8:	ac2224a8 */ 	sw	$v0,%lo(var800624a8)($at)
-/*  f0195bc:	0fc069f9 */ 	jal	func0f01a7e4
+/*  f0195bc:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f0195c0:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f0195c4:	3c038006 */ 	lui	$v1,%hi(g_TitleTimer)
 /*  f0195c8:	3c068006 */ 	lui	$a2,%hi(var800624ac)
@@ -3668,7 +3668,7 @@ glabel var7f1a8478
 /*  f019614:	14200006 */ 	bnez	$at,.L0f019630
 /*  f019618:	3c018006 */ 	lui	$at,%hi(var800624a8)
 /*  f01961c:	ac2224a8 */ 	sw	$v0,%lo(var800624a8)($at)
-/*  f019620:	0fc069f9 */ 	jal	func0f01a7e4
+/*  f019620:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f019624:	acc00000 */ 	sw	$zero,0x0($a2)
 /*  f019628:	3c038006 */ 	lui	$v1,%hi(g_TitleTimer)
 /*  f01962c:	246324c4 */ 	addiu	$v1,$v1,%lo(g_TitleTimer)
@@ -3678,7 +3678,7 @@ glabel var7f1a8478
 /*  f019634:	29c100f1 */ 	slti	$at,$t6,0xf1
 /*  f019638:	54200004 */ 	bnezl	$at,.L0f01964c
 /*  f01963c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f019640:	0fc069f9 */ 	jal	func0f01a7e4
+/*  f019640:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f019644:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f019648:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f01964c:
@@ -3988,7 +3988,7 @@ glabel var7f1a84a0
 );
 
 GLOBAL_ASM(
-glabel func0f019a80
+glabel titleInitRareLogo
 /*  f019a80:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f019a84:	240efffd */ 	addiu	$t6,$zero,-3
 /*  f019a88:	3c018006 */ 	lui	$at,%hi(g_TitleTimer)
@@ -4053,14 +4053,14 @@ glabel func0f019a80
 /*  f019b70:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f019b74(void)
+void titleExitRareLogo(void)
 {
 	func0f0b30cc(var800624f8);
 	func00014810(1);
 }
 
 GLOBAL_ASM(
-glabel func0f019ba0
+glabel titleTickRareLogo
 .late_rodata
 glabel var7f1a84a4
 .word 0x3faaaaab
@@ -4119,7 +4119,7 @@ glabel var7f1a84a8
 /*  f019c5c:	248424a8 */ 	addiu	$a0,$a0,%lo(var800624a8)
 /*  f019c60:	3c018006 */ 	lui	$at,%hi(var800624a8)
 /*  f019c64:	ac2324a8 */ 	sw	$v1,%lo(var800624a8)($at)
-/*  f019c68:	0fc069f9 */ 	jal	func0f01a7e4
+/*  f019c68:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f019c6c:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f019c70:	3c088006 */ 	lui	$t0,%hi(g_TitleTimer)
 /*  f019c74:	10000010 */ 	beqz	$zero,.L0f019cb8
@@ -4159,7 +4159,7 @@ glabel var7f1a84a8
 /*  f019cec:	54200004 */ 	bnezl	$at,.L0f019d00
 /*  f019cf0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f019cf4:
-/*  f019cf4:	0fc069f9 */ 	jal	func0f01a7e4
+/*  f019cf4:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f019cf8:	24040003 */ 	addiu	$a0,$zero,0x3
 .L0f019cfc:
 /*  f019cfc:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -4645,7 +4645,7 @@ glabel func0f01a360
 );
 
 GLOBAL_ASM(
-glabel func0f01a3b8
+glabel titleInitModeSkip
 .late_rodata
 glabel var7f1a84c0
 .word 0x3fba2e8c
@@ -4709,17 +4709,17 @@ glabel var7f1a84c0
 /*  f01a490:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f01a494(void)
+void titleInitNoController(void)
 {
 	g_TitleTimer = 0;
 }
 
-void func0f01a4a0(void)
+void titleExitNoController(void)
 {
 	// empty
 }
 
-void func0f01a4a8(void)
+void titleTickNoController(void)
 {
 	func0000bd30(60);
 	func0000bd7c(1.33333333f);
@@ -4920,10 +4920,10 @@ glabel titleRenderNoController
 /*  f01a7e0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f01a7e4(s32 arg0)
+void titleSetNextMode(s32 mode)
 {
-	if (var800624c0 != arg0) {
-		var800624b8 = arg0;
+	if (g_TitleDelayedMode != mode) {
+		g_TitleNextMode = mode;
 	}
 }
 
@@ -4932,7 +4932,7 @@ s32 titleGetMode(void)
 	return g_TitleMode;
 }
 
-void func0f01a810(void)
+void titleTick(void)
 {
 	func0000bd7c(576.0f / var800624a0);
 	func0000bbe4(576, var800624a0);
@@ -4942,191 +4942,196 @@ void func0f01a810(void)
 	currentPlayerSetViewPosition(0, 0);
 	func0000bca8(0, 0);
 
-	if (var800624b8 >= 0) {
-		var800624bc = 3;
-		var800624c0 = var800624b8;
+	// If there's a new mode to transition to, schedule it to apply in 3 ticks
+	// time and call the exit function for the current mode.
+	if (g_TitleNextMode >= 0) {
+		g_TitleDelayedTimer = 3;
+		g_TitleDelayedMode = g_TitleNextMode;
 
 		switch (g_TitleMode) {
 		case TITLEMODE_LEGAL:
-			func0f016444();
+			titleExitLegal();
 			break;
-		case TITLEMODE_1:
-			func0f0164f0();
+		case TITLEMODE_CHECKCONTROLLERS:
+			titleExitCheckControllers();
 			break;
 		case TITLEMODE_PDLOGO:
-			func0f01706c();
+			titleExitPdLogo();
 			break;
 		case TITLEMODE_NINTENDOLOGO:
-			func0f0194e0();
+			titleExitNintendoLogo();
 			break;
 		case TITLEMODE_RARELOGO:
-			func0f019b74();
+			titleExitRareLogo();
 			break;
 		case TITLEMODE_NOCONTROLLER:
-			func0f01a4a0();
+			titleExitNoController();
 			break;
 		}
 
-		if (g_TitleMode != 1) {
-			func00009ec4(1);
+		if (g_TitleMode != TITLEMODE_CHECKCONTROLLERS) {
+			func00009ec4(true);
 		}
 
-		var800624b8 = -1;
+		g_TitleNextMode = -1;
 	}
 
-	if (var800624bc != 0) {
-		var800624bc--;
+	// If there's a new mode scheduled, tick the timer down
+	if (g_TitleDelayedTimer != 0) {
+		g_TitleDelayedTimer--;
 
 		if (g_TitleMode == -1) {
-			var800624bc = 0;
+			g_TitleDelayedTimer = 0;
 		}
 
-		if (var800624bc == 0 && var800624c0 != -1) {
-			var800624b8 = var800624c0;
-			var800624c0 = -1;
+		if (g_TitleDelayedTimer == 0 && g_TitleDelayedMode != -1) {
+			g_TitleNextMode = g_TitleDelayedMode;
+			g_TitleDelayedMode = -1;
 		}
 	}
 
-	if (var800624b8 >= 0) {
-		g_TitleMode = var800624b8;
-		var800624b8 = -1;
+	// Apply new mode
+	if (g_TitleNextMode >= 0) {
+		g_TitleMode = g_TitleNextMode;
+		g_TitleNextMode = -1;
 		var800624ac = 0;
 
 		switch (g_TitleMode) {
 		case TITLEMODE_LEGAL:
-			func0f016404();
+			titleInitLegal();
 			break;
-		case TITLEMODE_1:
-			func0f0164c8();
+		case TITLEMODE_CHECKCONTROLLERS:
+			titleInitCheckControllers();
 			break;
 		case TITLEMODE_PDLOGO:
-			func0f016d34();
+			titleInitPdLogo();
 			break;
 		case TITLEMODE_NINTENDOLOGO:
-			func0f0193fc();
+			titleInitNintendoLogo();
 			break;
 		case TITLEMODE_RARELOGO:
-			func0f019a80();
+			titleInitRareLogo();
 			break;
-		case TITLEMODE_5:
-			func0f01a3b8();
+		case TITLEMODE_SKIP:
+			titleInitModeSkip();
 			break;
 		case TITLEMODE_NOCONTROLLER:
-			func0f01a494();
+			titleInitNoController();
 			break;
 		}
 
-		if (g_TitleMode != TITLEMODE_1 && g_TitleMode != TITLEMODE_5) {
-			func00009ec4(0);
+		if (g_TitleMode != TITLEMODE_CHECKCONTROLLERS && g_TitleMode != TITLEMODE_SKIP) {
+			func00009ec4(false);
 		}
 	}
 
+	// Run the current mode's tick function
 	switch (g_TitleMode) {
 	case TITLEMODE_LEGAL:
-		func0f01644c();
+		titleTickLegal();
 		break;
-	case TITLEMODE_1:
-		func0f016524();
+	case TITLEMODE_CHECKCONTROLLERS:
+		titleTickCheckControllers();
 		break;
 	case TITLEMODE_PDLOGO:
-		func0f0170bc();
+		titleTickPdLogo();
 		break;
 	case TITLEMODE_NINTENDOLOGO:
-		func0f01950c();
+		titleTickNintendoLogo();
 		break;
 	case TITLEMODE_RARELOGO:
-		func0f019ba0();
+		titleTickRareLogo();
 		break;
 	case TITLEMODE_NOCONTROLLER:
-		func0f01a4a8();
+		titleTickNoController();
 		break;
-	case TITLEMODE_5:
+	case TITLEMODE_SKIP:
 		func0000bd20(0);
-		func0f01a7e4(4);
+		titleSetNextMode(TITLEMODE_RARELOGO);
 		break;
 	}
 }
 
-bool func0f01ab94(void)
+bool titleIsChangingMode(void)
 {
-	return var800624b8 >= 0;
+	return g_TitleNextMode >= 0;
 }
 
-bool func0f01aba8(void)
+bool titleIsKeepingMode(void)
 {
-	if (var800624b8 >= 0) {
+	if (g_TitleNextMode >= 0) {
 		return false;
 	}
 
-	if (g_TitleMode == -1 || g_TitleMode == TITLEMODE_5) {
+	if (g_TitleMode == -1 || g_TitleMode == TITLEMODE_SKIP) {
 		return false;
 	}
 
 	return true;
 }
 
-void func0f01abf0(void)
+void titleExit(void)
 {
 	switch (g_TitleMode) {
 	case TITLEMODE_LEGAL:
-		func0f016444();
+		titleExitLegal();
 		break;
-	case TITLEMODE_1:
-		func0f0164f0();
+	case TITLEMODE_CHECKCONTROLLERS:
+		titleExitCheckControllers();
 		break;
 	case TITLEMODE_PDLOGO:
-		func0f01706c();
+		titleExitPdLogo();
 		break;
 	case TITLEMODE_NINTENDOLOGO:
-		func0f0194e0();
+		titleExitNintendoLogo();
 		break;
 	case TITLEMODE_RARELOGO:
-		func0f019b74();
+		titleExitRareLogo();
 		break;
 	case TITLEMODE_NOCONTROLLER:
-		func0f01a4a0();
+		titleExitNoController();
 		break;
 	case TITLEMODE_RAREPRESENTS1:
 	case TITLEMODE_RAREPRESENTS2:
-		func0f018ddc();
+		titleExitRarePresents();
 		break;
 	}
 
-	var800624b8 = -1;
+	g_TitleNextMode = -1;
 	g_TitleMode = -1;
 }
 
-void func0f01aca8(u32 value)
+void titleInitFromAiCmd(u32 value)
 {
 	switch (value) {
-	case 1:
+	case TITLEAIMODE_RAREPRESENTS1:
 		g_TitleMode = TITLEMODE_RAREPRESENTS1;
-		func0f018db0();
+		titleInitRarePresents();
 		break;
-	case 2:
+	case TITLEAIMODE_RARELOGO:
 		g_TitleMode = TITLEMODE_RARELOGO;
-		func0f019a80();
+		titleInitRareLogo();
 		break;
-	case 4:
+	case TITLEAIMODE_RAREPRESENTS2:
 		g_TitleMode = TITLEMODE_RAREPRESENTS2;
-		func0f018db0();
+		titleInitRarePresents();
 		break;
-	case 3:
+	case TITLEAIMODE_NINTENDOLOGO:
 		g_TitleMode = TITLEMODE_NINTENDOLOGO;
-		func0f0193fc();
+		titleInitNintendoLogo();
 		break;
-	case 5:
+	case TITLEAIMODE_PDLOGO:
 		g_TitleMode = TITLEMODE_PDLOGO;
-		func0f016d34();
+		titleInitPdLogo();
 		break;
 	}
 
-	var800624b8 = -1;
+	g_TitleNextMode = -1;
 }
 
 bool func0f01ad5c(void)
 {
-	if (!func0f01aba8()) {
+	if (!titleIsKeepingMode()) {
 		return false;
 	}
 
@@ -5154,29 +5159,29 @@ void func0f01adb8(void)
 
 void func0f01ae30(void)
 {
-	if (func0f01aba8()) {
+	if (titleIsKeepingMode()) {
 		func00014810(0);
 
-		if (var800624bc == 0) {
+		if (g_TitleDelayedTimer == 0) {
 			switch (g_TitleMode) {
 			case TITLEMODE_LEGAL:
-				func0f01644c();
+				titleTickLegal();
 				break;
-			case TITLEMODE_1:
-				func0f016524();
+			case TITLEMODE_CHECKCONTROLLERS:
+				titleTickCheckControllers();
 				break;
 			case TITLEMODE_PDLOGO:
-				func0f0170bc();
+				titleTickPdLogo();
 				break;
 			case TITLEMODE_NINTENDOLOGO:
-				func0f01950c();
+				titleTickNintendoLogo();
 				break;
 			case TITLEMODE_RAREPRESENTS1:
 			case TITLEMODE_RAREPRESENTS2:
-				func0f018e1c();
+				titleTickRarePresents();
 				break;
 			case TITLEMODE_RARELOGO:
-				func0f019ba0();
+				titleTickRareLogo();
 				break;
 			}
 		}
@@ -5185,13 +5190,13 @@ void func0f01ae30(void)
 
 Gfx *titleRender(Gfx *gdl)
 {
-	if (var800624bc == 0) {
+	if (g_TitleDelayedTimer == 0) {
 		switch (g_TitleMode) {
 		case TITLEMODE_LEGAL:
 			gdl = titleRenderLegal(gdl);
 			break;
-		case TITLEMODE_1:
-			gdl = titleRenderMode1(gdl);
+		case TITLEMODE_CHECKCONTROLLERS:
+			gdl = titleRenderCheckControllers(gdl);
 			break;
 		case TITLEMODE_PDLOGO:
 			gdl = titleRenderPdLogo(gdl);

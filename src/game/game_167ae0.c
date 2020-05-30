@@ -1579,7 +1579,7 @@ glabel var7f1b7868
 /*  f1693d0:	2401004e */ 	addiu	$at,$zero,0x4e
 /*  f1693d4:	54410060 */ 	bnel	$v0,$at,.L0f169558
 /*  f1693d8:	8e6204b4 */ 	lw	$v0,0x4b4($s3)
-/*  f1693dc:	0fc06aea */ 	jal	func0f01aba8
+/*  f1693dc:	0fc06aea */ 	jal	titleIsKeepingMode
 /*  f1693e0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1693e4:	1040005b */ 	beqz	$v0,.L0f169554
 .L0f1693e8:
@@ -3486,7 +3486,7 @@ glabel var7f1b7868
 /*  f16af9c:	a20a0003 */ 	sb	$t2,0x3($s0)
 /*  f16afa0:	0fc068d5 */ 	jal	setNumPlayers
 /*  f16afa4:	a26f04d2 */ 	sb	$t7,0x4d2($s3)
-/*  f16afa8:	0fc069f9 */ 	jal	func0f01a7e4
+/*  f16afa8:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f16afac:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f16afb0:	920e0000 */ 	lbu	$t6,0x0($s0)
 /*  f16afb4:	00002025 */ 	or	$a0,$zero,$zero
@@ -4844,7 +4844,7 @@ glabel func0f16b96c
 /*  f16c1d4:	2401005a */ 	addiu	$at,$zero,0x5a
 /*  f16c1d8:	51810006 */ 	beql	$t4,$at,.L0f16c1f4
 /*  f16c1dc:	ae000000 */ 	sw	$zero,0x0($s0)
-/*  f16c1e0:	0fc069f9 */ 	jal	func0f01a7e4
+/*  f16c1e0:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f16c1e4:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f16c1e8:	0c003a57 */ 	jal	func0000e95c
 /*  f16c1ec:	2404005a */ 	addiu	$a0,$zero,0x5a
@@ -5323,7 +5323,7 @@ glabel func0f16b96c
 .L0f16c8a4:
 /*  f16c8a4:	5441000a */ 	bnel	$v0,$at,.L0f16c8d0
 /*  f16c8a8:	2401005b */ 	addiu	$at,$zero,0x5b
-/*  f16c8ac:	0fc06a04 */ 	jal	func0f01a810
+/*  f16c8ac:	0fc06a04 */ 	jal	titleTick
 /*  f16c8b0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16c8b4:	0fc07618 */ 	jal	func0f01d860
 /*  f16c8b8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5648,7 +5648,7 @@ glabel func0f16b96c
 //				|| func00014eb8(3) > 10
 //				|| func00014eb8(3) < -10) && var800624a4) {
 //		if (g_Vars.stagenum != STAGE_TITLE) {
-//			func0f01a7e4(5);
+//			titleSetNextMode(TITLEMODE_SKIP);
 //			func0000e95c(STAGE_TITLE);
 //		}
 //
@@ -5777,7 +5777,7 @@ glabel func0f16b96c
 //	}
 //
 //	if (g_Vars.stagenum == STAGE_TITLE) {
-//		func0f01a810();
+//		titleTick();
 //		func0f01d860();
 //		func00011d84();
 //	} else if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {

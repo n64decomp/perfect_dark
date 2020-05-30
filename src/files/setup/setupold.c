@@ -40,25 +40,24 @@ struct path paths[] = {
 };
 
 /**
- * Some kind of camera movement test? When you press a button it jumps forward
- * to the next camera animation rather than ending the cutscene.
+ * This function is an old and unused method of programming the title screen.
  */
 u8 func0c00_017c[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_music_track(MUSIC_G5_INTRO)
 	camera_movement(0x045d)
-	cmd01c8(2)
+	title_init_mode(TITLEAIMODE_RARELOGO)
 
 	beginloop(0x12)
-		cmd01c9(/*goto*/ 0x59)
+		try_exit_title(/*goto*/ 0x59)
 	endloop(0x12)
 
 	label(0x59)
-	cmd01c8(3)
+	title_init_mode(TITLEAIMODE_NINTENDOLOGO)
 
 	beginloop(0x13)
-		cmd01c9(/*goto*/ 0x59)
+		try_exit_title(/*goto*/ 0x59)
 	endloop(0x13)
 
 	label(0x59)
@@ -149,10 +148,10 @@ u8 func0c00_017c[] = {
 	label(0x59)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	cmd01c8(5)
+	title_init_mode(TITLEAIMODE_PDLOGO)
 
 	beginloop(0x15)
-		cmd01c9(/*goto*/ 0x59)
+		try_exit_title(/*goto*/ 0x59)
 	endloop(0x15)
 
 	label(0x59)

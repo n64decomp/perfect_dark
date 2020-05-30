@@ -3818,18 +3818,21 @@
 	mkshort(0x01c7), \
 	value,
 
-// Only used in test levels. Value can be 0-4.
-// Looks up the index in a pointer array and calls the function at the pointer.
-// If passed a value > 4, sets 800624b8 to -1.
-// Related to cmd01c9
-#define cmd01c8(value) \
+/**
+ * Sets the title mode (legal, Rare logo, etc). This is an unused feature - it
+ * appears that at one point the title screen could be controlled via AI
+ * commands.
+ *
+ * Expects a TITLEAIMODE constant.
+ */
+#define title_init_mode(mode) \
 	mkshort(0x01c8), \
-	value,
+	mode,
 
-// Test levels only. Checks if value at 800624b8 is >= 0.
-// If so, runs some function and goes to label.
-// Related to cmd01c8.
-#define cmd01c9(label) \
+/**
+ * Exits the title screen. This is an unused feature.
+ */
+#define try_exit_title(label) \
 	mkshort(0x01c9), \
 	label,
 
