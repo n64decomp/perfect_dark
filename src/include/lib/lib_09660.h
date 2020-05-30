@@ -41,7 +41,7 @@ u32 func0000bbd4(void);
 void func0000bbe4(s16 arg0, s16 arg1);
 s32 func0000bc08(void);
 s32 func0000bc18(void);
-u32 func0000bc28(void);
+void func0000bc28(s16 arg0, s16 arg1);
 s16 func0000bc88(void);
 s16 func0000bc98(void);
 void func0000bca8(s16 arg0, s16 arg1);

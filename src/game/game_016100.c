@@ -5500,39 +5500,16 @@ bool func0f01ad5c(void)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f01adb8
-/*  f01adb8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f01adbc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f01adc0:	0c002aac */ 	jal	func0000aab0
-/*  f01adc4:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f01adc8:	3c058006 */ 	lui	$a1,%hi(var800624a0)
-/*  f01adcc:	84a524a0 */ 	lh	$a1,%lo(var800624a0)($a1)
-/*  f01add0:	0c002ef9 */ 	jal	func0000bbe4
-/*  f01add4:	24040240 */ 	addiu	$a0,$zero,0x240
-/*  f01add8:	3c058006 */ 	lui	$a1,%hi(var800624a0)
-/*  f01addc:	84a524a0 */ 	lh	$a1,%lo(var800624a0)($a1)
-/*  f01ade0:	0c002ee8 */ 	jal	func0000bba0
-/*  f01ade4:	24040240 */ 	addiu	$a0,$zero,0x240
-/*  f01ade8:	3c058006 */ 	lui	$a1,%hi(var800624a0)
-/*  f01adec:	84a524a0 */ 	lh	$a1,%lo(var800624a0)($a1)
-/*  f01adf0:	0fc4a2a7 */ 	jal	currentPlayerSetViewSize
-/*  f01adf4:	24040240 */ 	addiu	$a0,$zero,0x240
-/*  f01adf8:	3c058006 */ 	lui	$a1,%hi(var800624a0)
-/*  f01adfc:	84a524a0 */ 	lh	$a1,%lo(var800624a0)($a1)
-/*  f01ae00:	0c002f0a */ 	jal	func0000bc28
-/*  f01ae04:	24040240 */ 	addiu	$a0,$zero,0x240
-/*  f01ae08:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01ae0c:	0fc4a2ae */ 	jal	currentPlayerSetViewPosition
-/*  f01ae10:	00002825 */ 	or	$a1,$zero,$zero
-/*  f01ae14:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01ae18:	0c002f2a */ 	jal	func0000bca8
-/*  f01ae1c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f01ae20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01ae24:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f01ae28:	03e00008 */ 	jr	$ra
-/*  f01ae2c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f01adb8(void)
+{
+	func0000aab0(2);
+	func0000bbe4(576, var800624a0);
+	func0000bba0(576, var800624a0);
+	currentPlayerSetViewSize(576, var800624a0);
+	func0000bc28(576, var800624a0);
+	currentPlayerSetViewPosition(0, 0);
+	func0000bca8(0, 0);
+}
 
 GLOBAL_ASM(
 glabel func0f01ae30
