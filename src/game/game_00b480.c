@@ -16,8 +16,8 @@
 GLOBAL_ASM(
 glabel func0f00b480
 /*  f00b480:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f00b484:	3c018006 */ 	lui	$at,%hi(var800624b4)
-/*  f00b488:	ac2224b4 */ 	sw	$v0,%lo(var800624b4)($at)
+/*  f00b484:	3c018006 */ 	lui	$at,%hi(g_TitleMode)
+/*  f00b488:	ac2224b4 */ 	sw	$v0,%lo(g_TitleMode)($at)
 /*  f00b48c:	3c018006 */ 	lui	$at,%hi(var800624d4)
 /*  f00b490:	ac2024d4 */ 	sw	$zero,%lo(var800624d4)($at)
 /*  f00b494:	3c018006 */ 	lui	$at,%hi(var800624d8)

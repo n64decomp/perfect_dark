@@ -16,7 +16,7 @@
 
 void func0f000090(void)
 {
-	var800624b4 = -1;
+	g_TitleMode = -1;
 	var800624b8 = 0;
 	var800624c4 = 0;
 	var800624e4 = -1;

@@ -21,7 +21,7 @@ extern u32 var800624a4;
 extern u32 var800624a8;
 extern u32 var800624ac;
 extern u32 var800624b0;
-extern s32 var800624b4;
+extern s32 g_TitleMode;
 extern s32 var800624b8;
 extern u32 var800624bc;
 extern u32 var800624c4;
