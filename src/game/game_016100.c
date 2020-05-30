@@ -3712,105 +3712,38 @@ u32 var800628bc = 0x00000000;
 u32 var800628c0 = 0x00000000;
 u32 var800628c4 = 0x00000000;
 
-GLOBAL_ASM(
-glabel titleTickNintendoLogo
-.late_rodata
-glabel var7f1a8474
-.word 0x3faaaaab
-glabel var7f1a8478
-.word 0x461c4000
-.text
-/*  f01950c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f019510:	3c014270 */ 	lui	$at,0x4270
-/*  f019514:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f019518:	44816000 */ 	mtc1	$at,$f12
-/*  f01951c:	0c002f4c */ 	jal	func0000bd30
-/*  f019520:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f019524:	3c017f1b */ 	lui	$at,%hi(var7f1a8474)
-/*  f019528:	0c002f5f */ 	jal	func0000bd7c
-/*  f01952c:	c42c8474 */ 	lwc1	$f12,%lo(var7f1a8474)($at)
-/*  f019530:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f019534:	44816000 */ 	mtc1	$at,$f12
-/*  f019538:	3c017f1b */ 	lui	$at,%hi(var7f1a8478)
-/*  f01953c:	0c002fa1 */ 	jal	func0000be84
-/*  f019540:	c42e8478 */ 	lwc1	$f14,%lo(var7f1a8478)($at)
-/*  f019544:	0c002f48 */ 	jal	func0000bd20
-/*  f019548:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01954c:	3c038006 */ 	lui	$v1,%hi(g_TitleTimer)
-/*  f019550:	246324c4 */ 	addiu	$v1,$v1,%lo(g_TitleTimer)
-/*  f019554:	3c068006 */ 	lui	$a2,%hi(var800624ac)
-/*  f019558:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x38)
-/*  f01955c:	8c429ff8 */ 	lw	$v0,%lo(g_Vars+0x38)($v0)
-/*  f019560:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f019564:	24c624ac */ 	addiu	$a2,$a2,%lo(var800624ac)
-/*  f019568:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*  f01956c:	01c27821 */ 	addu	$t7,$t6,$v0
-/*  f019570:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*  f019574:	13000003 */ 	beqz	$t8,.L0f019584
-/*  f019578:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01957c:	01e24021 */ 	addu	$t0,$t7,$v0
-/*  f019580:	ac680000 */ 	sw	$t0,0x0($v1)
-.L0f019584:
-/*  f019584:	0c005408 */ 	jal	func00015020
-/*  f019588:	3405ffff */ 	dli	$a1,0xffff
-/*  f01958c:	3c038006 */ 	lui	$v1,%hi(g_TitleTimer)
-/*  f019590:	3c068006 */ 	lui	$a2,%hi(var800624ac)
-/*  f019594:	24c624ac */ 	addiu	$a2,$a2,%lo(var800624ac)
-/*  f019598:	10400013 */ 	beqz	$v0,.L0f0195e8
-/*  f01959c:	246324c4 */ 	addiu	$v1,$v1,%lo(g_TitleTimer)
-/*  f0195a0:	3c098000 */ 	lui	$t1,0x8000
-/*  f0195a4:	8d29030c */ 	lw	$t1,0x30c($t1)
-/*  f0195a8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0195ac:	3c018006 */ 	lui	$at,%hi(var800624a8)
-/*  f0195b0:	14490009 */ 	bne	$v0,$t1,.L0f0195d8
-/*  f0195b4:	3c0a8006 */ 	lui	$t2,%hi(var800624a8)
-/*  f0195b8:	ac2224a8 */ 	sw	$v0,%lo(var800624a8)($at)
-/*  f0195bc:	0fc069f9 */ 	jal	titleSetNextMode
-/*  f0195c0:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f0195c4:	3c038006 */ 	lui	$v1,%hi(g_TitleTimer)
-/*  f0195c8:	3c068006 */ 	lui	$a2,%hi(var800624ac)
-/*  f0195cc:	24c624ac */ 	addiu	$a2,$a2,%lo(var800624ac)
-/*  f0195d0:	10000005 */ 	beqz	$zero,.L0f0195e8
-/*  f0195d4:	246324c4 */ 	addiu	$v1,$v1,%lo(g_TitleTimer)
-.L0f0195d8:
-/*  f0195d8:	8d4a24a8 */ 	lw	$t2,%lo(var800624a8)($t2)
-/*  f0195dc:	55400003 */ 	bnezl	$t2,.L0f0195ec
-/*  f0195e0:	8ccb0000 */ 	lw	$t3,0x0($a2)
-/*  f0195e4:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f0195e8:
-/*  f0195e8:	8ccb0000 */ 	lw	$t3,0x0($a2)
-.L0f0195ec:
-/*  f0195ec:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0195f0:	3c0c8006 */ 	lui	$t4,%hi(var800624a8)
-/*  f0195f4:	5160000f */ 	beqzl	$t3,.L0f019634
-/*  f0195f8:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f0195fc:	8d8c24a8 */ 	lw	$t4,%lo(var800624a8)($t4)
-/*  f019600:	5580000c */ 	bnezl	$t4,.L0f019634
-/*  f019604:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f019608:	8c6d0000 */ 	lw	$t5,0x0($v1)
-/*  f01960c:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f019610:	29a1008d */ 	slti	$at,$t5,0x8d
-/*  f019614:	14200006 */ 	bnez	$at,.L0f019630
-/*  f019618:	3c018006 */ 	lui	$at,%hi(var800624a8)
-/*  f01961c:	ac2224a8 */ 	sw	$v0,%lo(var800624a8)($at)
-/*  f019620:	0fc069f9 */ 	jal	titleSetNextMode
-/*  f019624:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f019628:	3c038006 */ 	lui	$v1,%hi(g_TitleTimer)
-/*  f01962c:	246324c4 */ 	addiu	$v1,$v1,%lo(g_TitleTimer)
-.L0f019630:
-/*  f019630:	8c6e0000 */ 	lw	$t6,0x0($v1)
-.L0f019634:
-/*  f019634:	29c100f1 */ 	slti	$at,$t6,0xf1
-/*  f019638:	54200004 */ 	bnezl	$at,.L0f01964c
-/*  f01963c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f019640:	0fc069f9 */ 	jal	titleSetNextMode
-/*  f019644:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f019648:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f01964c:
-/*  f01964c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f019650:	03e00008 */ 	jr	$ra
-/*  f019654:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void titleTickNintendoLogo(void)
+{
+	func0000bd30(60);
+	func0000bd7c(1.33333333f);
+	func0000be84(100, 10000);
+	func0000bd20(0);
+
+	g_TitleTimer += g_Vars.lvupdate240_60;
+
+	if (var800624ac) {
+		g_TitleTimer += g_Vars.lvupdate240_60;
+	}
+
+	if (func00015020(0, 0xffff)) {
+		if (osResetType == RESET_TYPE_NMI) {
+			var800624a8 = 1;
+			titleSetNextMode(TITLEMODE_PDLOGO);
+		} else if (var800624a8 == 0) {
+			var800624ac = 1;
+		}
+	}
+
+	if (var800624ac && var800624a8 == 0 && g_TitleTimer > 140) {
+		var800624a8 = 1;
+		var800624ac = 0;
+		titleSetNextMode(TITLEMODE_PDLOGO);
+	}
+
+	if (g_TitleTimer > 240) {
+		titleSetNextMode(TITLEMODE_PDLOGO);
+	}
+}
 
 GLOBAL_ASM(
 glabel titleRenderNintendoLogo
