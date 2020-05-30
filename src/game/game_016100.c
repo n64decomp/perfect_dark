@@ -3093,57 +3093,21 @@ void titleExitRarePresents(void)
 	func00014810(true);
 }
 
-GLOBAL_ASM(
-glabel titleTickRarePresents
-.late_rodata
-glabel var7f1a846c
-.word 0x3faaaaab
-glabel var7f1a8470
-.word 0x461c4000
-.text
-/*  f018e1c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f018e20:	3c014270 */ 	lui	$at,0x4270
-/*  f018e24:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f018e28:	44816000 */ 	mtc1	$at,$f12
-/*  f018e2c:	0c002f4c */ 	jal	func0000bd30
-/*  f018e30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f018e34:	3c017f1b */ 	lui	$at,%hi(var7f1a846c)
-/*  f018e38:	0c002f5f */ 	jal	func0000bd7c
-/*  f018e3c:	c42c846c */ 	lwc1	$f12,%lo(var7f1a846c)($at)
-/*  f018e40:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f018e44:	44816000 */ 	mtc1	$at,$f12
-/*  f018e48:	3c017f1b */ 	lui	$at,%hi(var7f1a8470)
-/*  f018e4c:	0c002fa1 */ 	jal	func0000be84
-/*  f018e50:	c42e8470 */ 	lwc1	$f14,%lo(var7f1a8470)($at)
-/*  f018e54:	0c002f48 */ 	jal	func0000bd20
-/*  f018e58:	00002025 */ 	or	$a0,$zero,$zero
-/*  f018e5c:	3c028006 */ 	lui	$v0,%hi(g_TitleTimer)
-/*  f018e60:	244224c4 */ 	addiu	$v0,$v0,%lo(g_TitleTimer)
-/*  f018e64:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x38)
-/*  f018e68:	8def9ff8 */ 	lw	$t7,%lo(g_Vars+0x38)($t7)
-/*  f018e6c:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f018e70:	00002025 */ 	or	$a0,$zero,$zero
-/*  f018e74:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f018e78:	2b01012d */ 	slti	$at,$t8,0x12d
-/*  f018e7c:	14200005 */ 	bnez	$at,.L0f018e94
-/*  f018e80:	ac580000 */ 	sw	$t8,0x0($v0)
-/*  f018e84:	0fc069f9 */ 	jal	titleSetNextMode
-/*  f018e88:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f018e8c:	10000008 */ 	beqz	$zero,.L0f018eb0
-/*  f018e90:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f018e94:
-/*  f018e94:	0c005408 */ 	jal	func00015020
-/*  f018e98:	3405ffff */ 	dli	$a1,0xffff
-/*  f018e9c:	50400004 */ 	beqzl	$v0,.L0f018eb0
-/*  f018ea0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f018ea4:	0fc069f9 */ 	jal	titleSetNextMode
-/*  f018ea8:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f018eac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f018eb0:
-/*  f018eb0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f018eb4:	03e00008 */ 	jr	$ra
-/*  f018eb8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void titleTickRarePresents(void)
+{
+	func0000bd30(60);
+	func0000bd7c(1.33333333f);
+	func0000be84(100, 10000);
+	func0000bd20(0);
+
+	g_TitleTimer += g_Vars.lvupdate240_60;
+
+	if (g_TitleTimer > 300) {
+		titleSetNextMode(TITLEMODE_PDLOGO);
+	} else if (func00015020(0, 0xffff)) {
+		titleSetNextMode(TITLEMODE_SKIP);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f018ebc
