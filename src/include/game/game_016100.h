@@ -16,7 +16,7 @@ void titleInitPdLogo(void);
 void titleExitPdLogo(void);
 void titleTickPdLogo(void);
 u32 func0f017248(void);
-u32 func0f017980(void);
+void func0f017980(void);
 Gfx *titleRenderPdLogo(Gfx *gdl);
 void titleInitRarePresents(void);
 void titleExitRarePresents(void);

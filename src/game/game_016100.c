@@ -231,15 +231,15 @@ u32 var80062798 = 0x00000000;
 u32 var8006279c = 0x00000000;
 u32 var800627a0 = 0x00000000;
 u32 var800627a4 = 0x00000000;
-u32 var800627a8 = 0x00000000;
-u32 var800627ac = 0x00000000;
-u32 var800627b0 = 0x00000000;
-u32 var800627b4 = 0x00000000;
-u32 var800627b8 = 0x3f800000;
-u32 var800627bc = 0x00000000;
+f32 var800627a8 = 0;
+f32 var800627ac = 0;
+f32 var800627b0 = 0;
+f32 var800627b4 = 0;
+f32 var800627b8 = 1;
+f32 var800627bc = 0;
 u32 var800627c0 = 0x00000000;
-u32 var800627c4 = 0x00000000;
-u32 var800627c8 = 0x3f800000;
+f32 var800627c4 = 0;
+f32 var800627c8 = 1;
 u32 var800627cc = 0x00000000;
 u32 var800627d0 = 0x00000000;
 u32 var800627d4 = 0x00000000;
@@ -250,15 +250,15 @@ u32 var800627e4 = 0x00000000;
 u32 var800627e8 = 0x00000000;
 u32 var800627ec = 0x00000000;
 u32 var800627f0 = 0x00000000;
-u32 var800627f4 = 0x00000000;
+f32 var800627f4 = 0;
 u32 var800627f8 = 0x00000000;
 u32 var800627fc = 0x00000000;
 u32 var80062800 = 0x00000000;
 u32 var80062804 = 0x00000001;
-u32 var80062808 = 0x3fc907a9;
+f32 var80062808 = 1.5705462694168;
 u32 var8006280c = 0x00000000;
 u32 var80062810 = 0x00000000;
-u32 var80062814 = 0x00000000;
+f32 var80062814 = 0;
 u32 var80062818 = 0x00000000;
 u32 var8006281c = 0x00000001;
 u32 var80062820 = 0x00000003;
@@ -1897,99 +1897,42 @@ glabel func0f017248
 /*  f01797c:	27bd0150 */ 	addiu	$sp,$sp,0x150
 );
 
-GLOBAL_ASM(
-glabel func0f017980
-.late_rodata
-glabel var7f1a83f0
-.word 0x3eb33333
-glabel var7f1a83f4
-.word 0x3f2147ae
-glabel var7f1a83f8
-.word 0x3fd27a74
-glabel var7f1a83fc
-.word 0x3e4c8b44
-.text
-/*  f017980:	44800000 */ 	mtc1	$zero,$f0
-/*  f017984:	3c018006 */ 	lui	$at,0x8006
-/*  f017988:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f01798c:	e42027a8 */ 	swc1	$f0,0x27a8($at)
-/*  f017990:	3c018006 */ 	lui	$at,0x8006
-/*  f017994:	e42027ac */ 	swc1	$f0,0x27ac($at)
-/*  f017998:	3c018006 */ 	lui	$at,0x8006
-/*  f01799c:	e42027b0 */ 	swc1	$f0,0x27b0($at)
-/*  f0179a0:	3c018006 */ 	lui	$at,0x8006
-/*  f0179a4:	e42027b4 */ 	swc1	$f0,0x27b4($at)
-/*  f0179a8:	3c017f1b */ 	lui	$at,%hi(var7f1a83f0)
-/*  f0179ac:	c42483f0 */ 	lwc1	$f4,%lo(var7f1a83f0)($at)
-/*  f0179b0:	3c018006 */ 	lui	$at,0x8006
-/*  f0179b4:	240e0225 */ 	addiu	$t6,$zero,0x225
-/*  f0179b8:	e42427b8 */ 	swc1	$f4,0x27b8($at)
-/*  f0179bc:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0179c0:	44813000 */ 	mtc1	$at,$f6
-/*  f0179c4:	3c018006 */ 	lui	$at,0x8006
-/*  f0179c8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0179cc:	e42627bc */ 	swc1	$f6,0x27bc($at)
-/*  f0179d0:	3c017f1b */ 	lui	$at,%hi(var7f1a83f4)
-/*  f0179d4:	c42883f4 */ 	lwc1	$f8,%lo(var7f1a83f4)($at)
-/*  f0179d8:	3c018006 */ 	lui	$at,0x8006
-/*  f0179dc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0179e0:	e42827f4 */ 	swc1	$f8,0x27f4($at)
-/*  f0179e4:	3c017f1b */ 	lui	$at,%hi(var7f1a83f8)
-/*  f0179e8:	c42a83f8 */ 	lwc1	$f10,%lo(var7f1a83f8)($at)
-/*  f0179ec:	3c018006 */ 	lui	$at,0x8006
-/*  f0179f0:	e42a2808 */ 	swc1	$f10,0x2808($at)
-/*  f0179f4:	3c017f1b */ 	lui	$at,%hi(var7f1a83fc)
-/*  f0179f8:	c43083fc */ 	lwc1	$f16,%lo(var7f1a83fc)($at)
-/*  f0179fc:	3c018006 */ 	lui	$at,0x8006
-/*  f017a00:	e4302814 */ 	swc1	$f16,0x2814($at)
-/*  f017a04:	3c018006 */ 	lui	$at,0x8006
-/*  f017a08:	e42027c4 */ 	swc1	$f0,0x27c4($at)
-/*  f017a0c:	3c018006 */ 	lui	$at,0x8006
-/*  f017a10:	e42027c8 */ 	swc1	$f0,0x27c8($at)
-/*  f017a14:	3c018006 */ 	lui	$at,%hi(var800627c0)
-/*  f017a18:	ac2427c0 */ 	sw	$a0,%lo(var800627c0)($at)
-/*  f017a1c:	3c018006 */ 	lui	$at,%hi(var800627cc)
-/*  f017a20:	ac2027cc */ 	sw	$zero,%lo(var800627cc)($at)
-/*  f017a24:	3c018006 */ 	lui	$at,%hi(var800627d0)
-/*  f017a28:	ac2027d0 */ 	sw	$zero,%lo(var800627d0)($at)
-/*  f017a2c:	3c018006 */ 	lui	$at,%hi(var800627d4)
-/*  f017a30:	ac2027d4 */ 	sw	$zero,%lo(var800627d4)($at)
-/*  f017a34:	3c018006 */ 	lui	$at,%hi(var800627d8)
-/*  f017a38:	ac2027d8 */ 	sw	$zero,%lo(var800627d8)($at)
-/*  f017a3c:	3c018006 */ 	lui	$at,%hi(var800627dc)
-/*  f017a40:	ac2027dc */ 	sw	$zero,%lo(var800627dc)($at)
-/*  f017a44:	3c018006 */ 	lui	$at,%hi(var800627e0)
-/*  f017a48:	ac2027e0 */ 	sw	$zero,%lo(var800627e0)($at)
-/*  f017a4c:	3c018006 */ 	lui	$at,%hi(var800627e4)
-/*  f017a50:	ac2027e4 */ 	sw	$zero,%lo(var800627e4)($at)
-/*  f017a54:	3c018006 */ 	lui	$at,%hi(var800627e8)
-/*  f017a58:	ac2027e8 */ 	sw	$zero,%lo(var800627e8)($at)
-/*  f017a5c:	3c018006 */ 	lui	$at,%hi(var800627ec)
-/*  f017a60:	ac2027ec */ 	sw	$zero,%lo(var800627ec)($at)
-/*  f017a64:	3c018006 */ 	lui	$at,%hi(var800627f0)
-/*  f017a68:	ac2027f0 */ 	sw	$zero,%lo(var800627f0)($at)
-/*  f017a6c:	3c018006 */ 	lui	$at,%hi(var800627f8)
-/*  f017a70:	ac2427f8 */ 	sw	$a0,%lo(var800627f8)($at)
-/*  f017a74:	3c018006 */ 	lui	$at,%hi(var800627fc)
-/*  f017a78:	ac2427fc */ 	sw	$a0,%lo(var800627fc)($at)
-/*  f017a7c:	3c018006 */ 	lui	$at,%hi(var80062800)
-/*  f017a80:	ac202800 */ 	sw	$zero,%lo(var80062800)($at)
-/*  f017a84:	3c018006 */ 	lui	$at,%hi(var80062804)
-/*  f017a88:	ac242804 */ 	sw	$a0,%lo(var80062804)($at)
-/*  f017a8c:	3c018006 */ 	lui	$at,%hi(var8006280c)
-/*  f017a90:	ac24280c */ 	sw	$a0,%lo(var8006280c)($at)
-/*  f017a94:	3c018006 */ 	lui	$at,%hi(var80062810)
-/*  f017a98:	ac242810 */ 	sw	$a0,%lo(var80062810)($at)
-/*  f017a9c:	3c018006 */ 	lui	$at,%hi(g_TitleTimer)
-/*  f017aa0:	ac2e24c4 */ 	sw	$t6,%lo(g_TitleTimer)($at)
-/*  f017aa4:	3c018006 */ 	lui	$at,%hi(var80062730)
-/*  f017aa8:	0fc5b7ae */ 	jal	func0f16deb8
-/*  f017aac:	ac202730 */ 	sw	$zero,%lo(var80062730)($at)
-/*  f017ab0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f017ab4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f017ab8:	03e00008 */ 	jr	$ra
-/*  f017abc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f017980(void)
+{
+	var800627a8 = 0;
+	var800627ac = 0;
+	var800627b0 = 0;
+	var800627b4 = 0;
+	var800627b8 = 0.35f;
+	var800627bc = 1;
+	var800627f4 = 0.63f;
+	var80062808 = 1.6443619728088f;
+	var80062814 = 0.19975f;
+	var800627c4 = 0;
+	var800627c8 = 0;
+
+	var800627c0 = 1;
+	var800627cc = 0;
+	var800627d0 = 0;
+	var800627d4 = 0;
+	var800627d8 = 0;
+	var800627dc = 0;
+	var800627e0 = 0;
+	var800627e4 = 0;
+	var800627e8 = 0;
+	var800627ec = 0;
+	var800627f0 = 0;
+	var800627f8 = 1;
+	var800627fc = 1;
+	var80062800 = 0;
+	var80062804 = 1;
+	var8006280c = 1;
+	var80062810 = 1;
+	g_TitleTimer = 549;
+	var80062730 = 0;
+
+	func0f16deb8(1);
+}
 
 GLOBAL_ASM(
 glabel titleRenderPdLogo
