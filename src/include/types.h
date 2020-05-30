@@ -1131,13 +1131,11 @@ struct chopperobj {
 };
 
 struct tag {
-	// These three words are possibly the same values as defined in the setup
-	// file, but this just a guess.
-	u32 unk00;
-	u16 unk04;
-	s16 unk06;
-	u32 unk08;
-	struct defaultobj *obj;
+	/*0x00*/ u32 identifier; // always 0x00000016
+	/*0x04*/ u16 tagnum;
+	/*0x06*/ s16 cmdoffset;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ struct defaultobj *obj;
 };
 
 struct eyespy {

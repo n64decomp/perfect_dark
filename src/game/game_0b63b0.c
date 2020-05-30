@@ -4144,7 +4144,7 @@ void func0f0b9a20(void)
 void func0f0b9afc(void)
 {
 	if (var800624a4) {
-		func0000e95c(0x5a);
+		func0000e95c(STAGE_TITLE);
 	} else if (g_Vars.unk0004d3) {
 		g_Vars.unk0004d6 = 1;
 	} else {

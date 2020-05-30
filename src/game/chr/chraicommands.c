@@ -5017,10 +5017,10 @@ bool ai0179(void)
 bool ai00d0(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	s16 thing1 = cmd[4] | (cmd[3] << 8);
-	s16 thing2 = cmd[6] | (cmd[5] << 8);
+	s16 padnum = cmd[4] | (cmd[3] << 8);
+	s16 sound = cmd[6] | (cmd[5] << 8);
 
-	func0f0939f8(0, NULL, thing2, thing1, -1, 2, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+	func0f0939f8(0, NULL, sound, padnum, -1, 2, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 	g_Vars.aioffset += 7;
 
@@ -5201,7 +5201,7 @@ bool aiEndLevel(void)
 {
 	if (debugAllowEndLevel()) {
 		if (var800624a4) {
-			func0000e95c(90);
+			func0000e95c(STAGE_TITLE);
 		} else if (g_Vars.unk0004d3) {
 			g_Vars.unk0004d6 = 1;
 		} else {
@@ -5464,10 +5464,10 @@ bool ai00df(void)
 	struct tag *tag = tagFindById(cmd[2]);
 
 	if (tag) {
-		s32 a = func0f092098(tag);
+		s32 cmdindex = tagGetCommandIndex(tag);
 
-		if (a >= 0) {
-			u32 *ptr = setupGetPtrToCommandByIndex(tag->unk06 + a);
+		if (cmdindex >= 0) {
+			u32 *ptr = setupGetPtrToCommandByIndex(cmdindex + tag->cmdoffset);
 			func0f0b9bac(ptr, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
 		}
 	}
@@ -9044,19 +9044,19 @@ bool aiShuffleInvestigationTerminals(void)
 		// Place the good terminal
 		if (rand1 == 0) {
 			pc = tagFindById(cmd[4]);
-			goodtag->unk06 = pc->unk06;
+			goodtag->cmdoffset = pc->cmdoffset;
 			goodtag->obj = pc->obj;
 		} else if (rand1 == 1) {
 			pc = tagFindById(cmd[5]);
-			goodtag->unk06 = pc->unk06;
+			goodtag->cmdoffset = pc->cmdoffset;
 			goodtag->obj = pc->obj;
 		} else if (rand1 == 2) {
 			pc = tagFindById(cmd[6]);
-			goodtag->unk06 = pc->unk06;
+			goodtag->cmdoffset = pc->cmdoffset;
 			goodtag->obj = pc->obj;
 		} else {
 			pc = tagFindById(cmd[7]);
-			goodtag->unk06 = pc->unk06;
+			goodtag->cmdoffset = pc->cmdoffset;
 			goodtag->obj = pc->obj;
 		}
 
@@ -9070,19 +9070,19 @@ bool aiShuffleInvestigationTerminals(void)
 		// Place the alarm terminal
 		if (rand2 == 0) {
 			pc = tagFindById(cmd[4]);
-			badtag->unk06 = pc->unk06;
+			badtag->cmdoffset = pc->cmdoffset;
 			badtag->obj = pc->obj;
 		} else if (rand2 == 1) {
 			pc = tagFindById(cmd[5]);
-			badtag->unk06 = pc->unk06;
+			badtag->cmdoffset = pc->cmdoffset;
 			badtag->obj = pc->obj;
 		} else if (rand2 == 2) {
 			pc = tagFindById(cmd[6]);
-			badtag->unk06 = pc->unk06;
+			badtag->cmdoffset = pc->cmdoffset;
 			badtag->obj = pc->obj;
 		} else {
 			pc = tagFindById(cmd[7]);
-			badtag->unk06 = pc->unk06;
+			badtag->cmdoffset = pc->cmdoffset;
 			badtag->obj = pc->obj;
 		}
 	}
@@ -10515,32 +10515,32 @@ bool aiShuffleRuinsPillars(void)
 
 	// Pillar/mine 1
 	src = tagFindById(pillars[marked1index]);
-	ptr1->unk06 = src->unk06;
+	ptr1->cmdoffset = src->cmdoffset;
 	ptr1->obj = src->obj;
 
 	ptr1 = tagFindById(cmd[10]);
 	src = tagFindById(mines[marked1index]);
-	ptr1->unk06 = src->unk06;
+	ptr1->cmdoffset = src->cmdoffset;
 	ptr1->obj = src->obj;
 
 	// Pillar/mine 2
 	src = tagFindById(pillars[marked2index]);
-	ptr2->unk06 = src->unk06;
+	ptr2->cmdoffset = src->cmdoffset;
 	ptr2->obj = src->obj;
 
 	ptr2 = tagFindById(cmd[11]);
 	src = tagFindById(mines[marked2index]);
-	ptr2->unk06 = src->unk06;
+	ptr2->cmdoffset = src->cmdoffset;
 	ptr2->obj = src->obj;
 
 	// Pillar/mine 3
 	src = tagFindById(pillars[marked3index]);
-	ptr3->unk06 = src->unk06;
+	ptr3->cmdoffset = src->cmdoffset;
 	ptr3->obj = src->obj;
 
 	ptr3 = tagFindById(cmd[12]);
 	src = tagFindById(mines[marked3index]);
-	ptr3->unk06 = src->unk06;
+	ptr3->cmdoffset = src->cmdoffset;
 	ptr3->obj = src->obj;
 
 	g_Vars.aioffset += 18;
@@ -10675,7 +10675,7 @@ bool aiShufflePelagicSwitches(void)
 		if (buttonsdone[index] == 0) {
 			// Switch has not yet been mapped
 			button = tagFindById(index);
-			tag->unk06 = button->unk06;
+			tag->cmdoffset = button->cmdoffset;
 			tag->obj = button->obj;
 			buttonsdone[index] = 1;
 		} else {
@@ -10683,7 +10683,7 @@ bool aiShufflePelagicSwitches(void)
 			for (j = 0; buttonsdone[j]; j++);
 
 			button = tagFindById(j);
-			tag->unk06 = button->unk06;
+			tag->cmdoffset = button->cmdoffset;
 			tag->obj = button->obj;
 			buttonsdone[j] = 1;
 		}

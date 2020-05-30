@@ -126,48 +126,25 @@ glabel setupGetPtrToCommandByIndex
 /*  f092094:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f092098
-/*  f092098:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f09209c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0920a0:	3c10800a */ 	lui	$s0,%hi(g_StageSetup+0x10)
-/*  f0920a4:	8e10d040 */ 	lw	$s0,%lo(g_StageSetup+0x10)($s0)
-/*  f0920a8:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0920ac:	00809825 */ 	or	$s3,$a0,$zero
-/*  f0920b0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0920b4:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0920b8:	12000012 */ 	beqz	$s0,.L0f092104
-/*  f0920bc:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0920c0:	920e0003 */ 	lbu	$t6,0x3($s0)
-/*  f0920c4:	24120034 */ 	addiu	$s2,$zero,0x34
-/*  f0920c8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0920cc:	524e000e */ 	beql	$s2,$t6,.L0f092108
-/*  f0920d0:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f0920d4:
-/*  f0920d4:	16130003 */ 	bne	$s0,$s3,.L0f0920e4
-/*  f0920d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0920dc:	1000000a */ 	beqz	$zero,.L0f092108
-/*  f0920e0:	02201025 */ 	or	$v0,$s1,$zero
-.L0f0920e4:
-/*  f0920e4:	0fc24784 */ 	jal	setupGetCommandLength
-/*  f0920e8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0920ec:	00027880 */ 	sll	$t7,$v0,0x2
-/*  f0920f0:	01f08021 */ 	addu	$s0,$t7,$s0
-/*  f0920f4:	92180003 */ 	lbu	$t8,0x3($s0)
-/*  f0920f8:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0920fc:	1658fff5 */ 	bne	$s2,$t8,.L0f0920d4
-/*  f092100:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f092104:
-/*  f092104:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f092108:
-/*  f092108:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f09210c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f092110:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f092114:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f092118:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f09211c:	03e00008 */ 	jr	$ra
-/*  f092120:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 tagGetCommandIndex(struct tag *tag)
+{
+	u32 *cmd = g_StageSetup.props;
+
+	if (cmd) {
+		s32 cmdindex = 0;
+
+		while ((u8)cmd[0] != OBJTYPE_END) {
+			if ((struct tag *)cmd == tag) {
+				return cmdindex;
+			}
+
+			cmd = cmd + setupGetCommandLength(cmd);
+			cmdindex++;
+		}
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel func0f092124
