@@ -11127,7 +11127,7 @@ glabel var7f1ad6ac
 //										prop = chrSpawnAtCoord(BODY_DARK_COMBAT, HEAD_VD,
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
-//												DEG2RAD(g_Vars.currentplayer->vv_theta / 2),
+//												BADDEG2RAD(g_Vars.currentplayer->vv_theta / 2),
 //												ailistFindById(GAILIST_INIT_COOP_100),
 //												0);
 //									} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR) {
@@ -11135,7 +11135,7 @@ glabel var7f1ad6ac
 //										prop = chrSpawnAtCoord(BODY_MRBLONDE, HEAD_MRBLONDE,
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
-//												DEG2RAD(g_Vars.currentplayer->vv_theta),
+//												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 //												ailistFindById(GAILIST_INIT_COOP_100),
 //												0);
 //									} else {
@@ -11143,7 +11143,7 @@ glabel var7f1ad6ac
 //										prop = chrSpawnAtCoord(BODY_DARK_COMBAT, HEAD_VD,
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
-//												DEG2RAD(g_Vars.currentplayer->vv_theta / 2),
+//												BADDEG2RAD(g_Vars.currentplayer->vv_theta / 2),
 //												ailistFindById(GAILIST_INIT_COOP_100),
 //												0);
 //									}
@@ -11183,7 +11183,7 @@ glabel var7f1ad6ac
 //										prop = chrSpawnAtCoord(BODY_MRBLONDE, HEAD_MRBLONDE,
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
-//												DEG2RAD(g_Vars.currentplayer->vv_theta),
+//												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 //												ailistFindById(GAILIST_INIT_COOP_100),
 //												0);
 //									} else {
@@ -11191,7 +11191,7 @@ glabel var7f1ad6ac
 //										prop = chrSpawnAtCoord(BODY_CARRINGTON, HEAD_JAMIE,
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
-//												DEG2RAD(g_Vars.currentplayer->vv_theta),
+//												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 //												ailistFindById(GAILIST_INIT_COOP_200),
 //												0);
 //									}
@@ -11229,7 +11229,7 @@ glabel var7f1ad6ac
 //										prop = chrSpawnAtCoord(BODY_MRBLONDE, HEAD_MRBLONDE,
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
-//												DEG2RAD(g_Vars.currentplayer->vv_theta),
+//												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 //												ailistFindById(GAILIST_INIT_COOP_100),
 //												0);
 //									} else {
@@ -11237,7 +11237,7 @@ glabel var7f1ad6ac
 //										prop = chrSpawnAtCoord(BODY_MRBLONDE, HEAD_MARK2,
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
-//												DEG2RAD(g_Vars.currentplayer->vv_theta),
+//												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 //												ailistFindById(GAILIST_INIT_COOP_100),
 //												0);
 //									}
@@ -11277,7 +11277,7 @@ glabel var7f1ad6ac
 //										prop = chrSpawnAtCoord(BODY_MRBLONDE, HEAD_MRBLONDE,
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
-//												DEG2RAD(g_Vars.currentplayer->vv_theta),
+//												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 //												ailistFindById(GAILIST_INIT_COOP_100),
 //												0);
 //									} else {
@@ -11285,7 +11285,7 @@ glabel var7f1ad6ac
 //										prop = chrSpawnAtCoord(BODY_CISOLDIER, HEAD_CHRIST,
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
-//												DEG2RAD(g_Vars.currentplayer->vv_theta),
+//												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 //												ailistFindById(GAILIST_INIT_COOP_100),
 //												0);
 //									}
@@ -11326,7 +11326,7 @@ glabel var7f1ad6ac
 //										prop = chrSpawnAtCoord(BODY_MRBLONDE, HEAD_MRBLONDE,
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
-//												DEG2RAD(g_Vars.currentplayer->vv_theta),
+//												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 //												ailistFindById(GAILIST_INIT_COOP_100),
 //												0);
 //									} else {
@@ -11334,7 +11334,7 @@ glabel var7f1ad6ac
 //										prop = chrSpawnAtCoord(BODY_ELVIS1, HEAD_MAIAN_S,
 //												&g_Vars.currentplayer->prop->pos,
 //												g_Vars.currentplayer->prop->rooms,
-//												DEG2RAD(g_Vars.currentplayer->vv_theta),
+//												BADDEG2RAD(g_Vars.currentplayer->vv_theta),
 //												ailistFindById(GAILIST_INIT_COOP_100),
 //												0);
 //									}

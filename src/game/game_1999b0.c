@@ -468,8 +468,8 @@ void func0f19a37c(struct chrdata *chr)
 
 		func0f04031c(&prop->pos, 16.666666f, &sp56, sp152);
 	} else {
-		// These numbers are about 2 billionths away from DEG2RAD(20),
-		// but tweaking the multiplier in DEG2RAD doesn't make this match
+		// These numbers are about 2 billionths away from BADDEG2RAD(20),
+		// but tweaking the multiplier in BADDEG2RAD doesn't make this match
 		// without creating mismatches in other places :(
 		sp152[0] = cosf(0.34901028871536f) * sinf(sp80);
 		sp152[1] = sinf(0.34901028871536f);

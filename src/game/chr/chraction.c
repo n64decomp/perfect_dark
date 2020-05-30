@@ -913,7 +913,7 @@ bool chrFaceCover(struct chrdata *chr)
 	chr->act_stand.unk038 = 0;
 	chr->act_stand.face_entitytype = ENTITYTYPE_DIRECTION;
 	chr->act_stand.unk03c = 1;
-	//chr->act_stand.face_entityid = func0f096750(-cover.look->x, -cover.look->z) * (0x4000 / DEG2RAD(90));
+	//chr->act_stand.face_entityid = func0f096750(-cover.look->x, -cover.look->z) * (0x4000 / BADDEG2RAD(90));
 	chr->act_stand.face_entityid = func0f096750(-cover.look->x, -cover.look->z) * 10432.039f;
 
 	return true;
@@ -1304,8 +1304,8 @@ void chrDoSurprisedOneHand(struct chrdata *chr)
 	struct prop *prop = chrGetTargetProp(chr);
 	f32 angle = chrGetAngleToPos(chr, &prop->pos);
 
-	// DEG2RAD(10) doesn't match due to float precision :(
-	if (angle < 0.17450514435768f || angle > DEG2RAD(350)) {
+	// BADDEG2RAD(10) doesn't match due to float precision :(
+	if (angle < 0.17450514435768f || angle > BADDEG2RAD(350)) {
 		chrStopFiring(chr);
 		chr->actiontype = ACT_SURPRISED;
 		chr->act_surprised.type = 1;
@@ -12548,10 +12548,10 @@ bool chrTryJumpOut(struct chrdata *chr)
 
 		// This commented code is what the floats represent, but mismatches due
 		// to float precision:
-		//if (angle < DEG2RAD(45) || angle > DEG2RAD(315)
-		//		|| (angle > DEG2RAD(135) && angle < DEG2RAD(225))) {
+		//if (angle < BADDEG2RAD(45) || angle > BADDEG2RAD(315)
+		//		|| (angle > BADDEG2RAD(135) && angle < BADDEG2RAD(225))) {
 		if (angle < 0.7852731347084f || angle > 5.4969120025635f
-				|| (angle > 2.3558194637299f && angle < DEG2RAD(225))) {
+				|| (angle > 2.3558194637299f && angle < BADDEG2RAD(225))) {
 			bool side = (random() % 2) == 0;
 
 			if (chrCanJumpInDirection(chr, side, 200)) {

@@ -5414,8 +5414,8 @@ void func0f0cbf50(void)
 		g_Vars.currentplayer->vv_verta = -90;
 	}
 
-	g_Vars.currentplayer->vv_costheta = cosf(DEG2RAD(g_Vars.currentplayer->vv_theta));
-	g_Vars.currentplayer->vv_sintheta = sinf(DEG2RAD(g_Vars.currentplayer->vv_theta));
+	g_Vars.currentplayer->vv_costheta = cosf(BADDEG2RAD(g_Vars.currentplayer->vv_theta));
+	g_Vars.currentplayer->vv_sintheta = sinf(BADDEG2RAD(g_Vars.currentplayer->vv_theta));
 
 	g_Vars.currentplayer->vv_verta360 = g_Vars.currentplayer->vv_verta;
 
@@ -5423,8 +5423,8 @@ void func0f0cbf50(void)
 		g_Vars.currentplayer->vv_verta360 += 360;
 	}
 
-	g_Vars.currentplayer->vv_cosverta = cosf(DEG2RAD(g_Vars.currentplayer->vv_verta360));
-	g_Vars.currentplayer->vv_sinverta = sinf(DEG2RAD(g_Vars.currentplayer->vv_verta360));
+	g_Vars.currentplayer->vv_cosverta = cosf(BADDEG2RAD(g_Vars.currentplayer->vv_verta360));
+	g_Vars.currentplayer->vv_sinverta = sinf(BADDEG2RAD(g_Vars.currentplayer->vv_verta360));
 
 	g_Vars.currentplayer->bond2.unk00.x = -g_Vars.currentplayer->vv_sintheta;
 	g_Vars.currentplayer->bond2.unk00.y = 0;
@@ -5434,7 +5434,7 @@ void func0f0cbf50(void)
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
 		if (chr && chr->animdata) {
-			func0f03e538(chr, DEG2RAD(360 - g_Vars.currentplayer->vv_theta));
+			func0f03e538(chr, BADDEG2RAD(360 - g_Vars.currentplayer->vv_theta));
 		}
 	}
 }
@@ -5512,7 +5512,7 @@ void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 arg4)
 	}
 
 	func0f1138a4(sp244, arg2);
-	func000162e8(DEG2RAD(360 - g_Vars.currentplayer->vv_verta360), sp180);
+	func000162e8(BADDEG2RAD(360 - g_Vars.currentplayer->vv_verta360), sp180);
 
 	if (optionsGetHeadRoll(g_Vars.currentplayerstats->mpindex)) {
 		func00016d58(sp116,
@@ -5522,7 +5522,7 @@ void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 arg4)
 		func000159fc(sp116, sp180);
 	}
 
-	func00016374(DEG2RAD(360 - g_Vars.currentplayer->vv_theta), sp116);
+	func00016374(BADDEG2RAD(360 - g_Vars.currentplayer->vv_theta), sp116);
 	func000159fc(sp116, sp180);
 
 	if (arg3) {

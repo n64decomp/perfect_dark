@@ -4340,26 +4340,10 @@ glabel var7f1a84a8
 /*  f019d08:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f019d0c
-.late_rodata
-glabel var7f1a84ac
-.word 0x40490fdb
-glabel var7f1a84b0
-.word 0x3fc90fdb
-.text
-/*  f019d0c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f019d10:	44812000 */ 	mtc1	$at,$f4
-/*  f019d14:	3c017f1b */ 	lui	$at,%hi(var7f1a84ac)
-/*  f019d18:	c42884ac */ 	lwc1	$f8,%lo(var7f1a84ac)($at)
-/*  f019d1c:	460c2081 */ 	sub.s	$f2,$f4,$f12
-/*  f019d20:	3c017f1b */ 	lui	$at,%hi(var7f1a84b0)
-/*  f019d24:	c43084b0 */ 	lwc1	$f16,%lo(var7f1a84b0)($at)
-/*  f019d28:	46021180 */ 	add.s	$f6,$f2,$f2
-/*  f019d2c:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f019d30:	03e00008 */ 	jr	$ra
-/*  f019d34:	46105001 */ 	sub.s	$f0,$f10,$f16
-);
+f32 func0f019d0c(f32 arg0)
+{
+	return ((1.0f - arg0) + (1.0f - arg0)) * M_PI - DEG2RAD(90);
+}
 
 GLOBAL_ASM(
 glabel titleRenderRareLogo
