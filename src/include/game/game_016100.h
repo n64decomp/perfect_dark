@@ -39,7 +39,7 @@ u32 func0f01a510(void);
 void func0f01a7e4(s32 arg0);
 void func0f01a810(void);
 bool func0f01ab94(void);
-u32 func0f01aba8(void);
+bool func0f01aba8(void);
 u32 func0f01abf0(void);
 void func0f01aca8(u32 arg0);
 bool func0f01ad5c(void);
