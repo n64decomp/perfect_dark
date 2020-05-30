@@ -5370,30 +5370,18 @@ bool func0f01ab94(void)
 	return var800624b8 >= 0;
 }
 
-GLOBAL_ASM(
-glabel func0f01aba8
-/*  f01aba8:	3c0e8006 */ 	lui	$t6,%hi(var800624b8)
-/*  f01abac:	8dce24b8 */ 	lw	$t6,%lo(var800624b8)($t6)
-/*  f01abb0:	3c028006 */ 	lui	$v0,%hi(var800624b4)
-/*  f01abb4:	05c00003 */ 	bltz	$t6,.L0f01abc4
-/*  f01abb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01abbc:	03e00008 */ 	jr	$ra
-/*  f01abc0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f01abc4:
-/*  f01abc4:	8c4224b4 */ 	lw	$v0,%lo(var800624b4)($v0)
-/*  f01abc8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f01abcc:	10410003 */ 	beq	$v0,$at,.L0f01abdc
-/*  f01abd0:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f01abd4:	54410004 */ 	bnel	$v0,$at,.L0f01abe8
-/*  f01abd8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f01abdc:
-/*  f01abdc:	03e00008 */ 	jr	$ra
-/*  f01abe0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f01abe4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f01abe8:
-/*  f01abe8:	03e00008 */ 	jr	$ra
-/*  f01abec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f01aba8(void)
+{
+	if (var800624b8 >= 0) {
+		return false;
+	}
+
+	if (var800624b4 == -1 || var800624b4 == 5) {
+		return false;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f01abf0
