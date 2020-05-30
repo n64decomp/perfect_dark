@@ -1034,7 +1034,7 @@ void titleExitPdLogo(void)
 	func0f0b30cc(var800624fc);
 	func0f0b30cc(var80062508);
 	func0f0b30cc(var8006250c);
-	func00014810(1);
+	func00014810(true);
 }
 
 GLOBAL_ASM(
@@ -3079,30 +3079,19 @@ glabel var7f1a8468
 void titleInitRarePresents(void)
 {
 	g_TitleTimer = 0;
-	func00014810(0);
-	var80062864 = 0;
+	func00014810(false);
+	g_TitleAudioHandle = NULL;
 }
 
-GLOBAL_ASM(
-glabel titleExitRarePresents
-/*  f018ddc:	3c048006 */ 	lui	$a0,%hi(var80062864)
-/*  f018de0:	8c842864 */ 	lw	$a0,%lo(var80062864)($a0)
-/*  f018de4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f018de8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f018dec:	10800003 */ 	beqz	$a0,.L0f018dfc
-/*  f018df0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f018df4:	0c00cec9 */ 	jal	audioStop
-/*  f018df8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f018dfc:
-/*  f018dfc:	3c018006 */ 	lui	$at,%hi(var80062864)
-/*  f018e00:	ac202864 */ 	sw	$zero,%lo(var80062864)($at)
-/*  f018e04:	0c005204 */ 	jal	func00014810
-/*  f018e08:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f018e0c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f018e10:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f018e14:	03e00008 */ 	jr	$ra
-/*  f018e18:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void titleExitRarePresents(void)
+{
+	if (g_TitleAudioHandle) {
+		audioStop(g_TitleAudioHandle);
+	}
+
+	g_TitleAudioHandle = NULL;
+	func00014810(true);
+}
 
 GLOBAL_ASM(
 glabel titleTickRarePresents
@@ -3369,12 +3358,12 @@ glabel titleRenderRarePresents
 /*  f0191c0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0191c4:	3c0a8006 */ 	lui	$t2,%hi(var80062868)
 /*  f0191c8:	8d4a2868 */ 	lw	$t2,%lo(var80062868)($t2)
-/*  f0191cc:	3c068006 */ 	lui	$a2,%hi(var80062864)
+/*  f0191cc:	3c068006 */ 	lui	$a2,%hi(g_TitleAudioHandle)
 /*  f0191d0:	00408025 */ 	or	$s0,$v0,$zero
 /*  f0191d4:	11400015 */ 	beqz	$t2,.L0f01922c
-/*  f0191d8:	24c62864 */ 	addiu	$a2,$a2,%lo(var80062864)
-/*  f0191dc:	3c068006 */ 	lui	$a2,%hi(var80062864)
-/*  f0191e0:	24c62864 */ 	addiu	$a2,$a2,%lo(var80062864)
+/*  f0191d8:	24c62864 */ 	addiu	$a2,$a2,%lo(g_TitleAudioHandle)
+/*  f0191dc:	3c068006 */ 	lui	$a2,%hi(g_TitleAudioHandle)
+/*  f0191e0:	24c62864 */ 	addiu	$a2,$a2,%lo(g_TitleAudioHandle)
 /*  f0191e4:	8ccb0000 */ 	lw	$t3,0x0($a2)
 /*  f0191e8:	3c048009 */ 	lui	$a0,%hi(var80095200)
 /*  f0191ec:	2405003e */ 	addiu	$a1,$zero,0x3e
@@ -3399,8 +3388,8 @@ glabel titleRenderRarePresents
 /*  f019234:	acc00000 */ 	sw	$zero,0x0($a2)
 /*  f019238:	0c00cec9 */ 	jal	audioStop
 /*  f01923c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f019240:	3c068006 */ 	lui	$a2,%hi(var80062864)
-/*  f019244:	24c62864 */ 	addiu	$a2,$a2,%lo(var80062864)
+/*  f019240:	3c068006 */ 	lui	$a2,%hi(g_TitleAudioHandle)
+/*  f019244:	24c62864 */ 	addiu	$a2,$a2,%lo(g_TitleAudioHandle)
 /*  f019248:	acc00000 */ 	sw	$zero,0x0($a2)
 .L0f01924c:
 /*  f01924c:	3c018006 */ 	lui	$at,0x8006
@@ -3584,7 +3573,7 @@ glabel titleInitNintendoLogo
 void titleExitNintendoLogo(void)
 {
 	func0f0b30cc(var800624f8);
-	func00014810(1);
+	func00014810(true);
 }
 
 GLOBAL_ASM(
@@ -4056,7 +4045,7 @@ glabel titleInitRareLogo
 void titleExitRareLogo(void)
 {
 	func0f0b30cc(var800624f8);
-	func00014810(1);
+	func00014810(true);
 }
 
 GLOBAL_ASM(
@@ -5160,7 +5149,7 @@ void func0f01adb8(void)
 void func0f01ae30(void)
 {
 	if (titleIsKeepingMode()) {
-		func00014810(0);
+		func00014810(false);
 
 		if (g_TitleDelayedTimer == 0) {
 			switch (g_TitleMode) {
