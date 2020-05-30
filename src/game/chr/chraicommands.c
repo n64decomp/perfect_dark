@@ -9487,11 +9487,11 @@ bool aiDamagePlayer(void)
 	if (chr && chr->prop) {
 		if (cmd[4] == 2) {
 			u8 sp40[] = {0x1a, 0, 0, 3};
-			func0f034124(chr, (s32)cmd[3] * 0.03125f, &coord, sp40, 0);
+			func0f034124(chr, (s32)cmd[3] * 0.03125f, &coord, sp40, NULL);
 		} else if (cmd[4] == 0) {
-			func0f034124(chr, (s32)cmd[3] * 0.03125f, &coord, NULL, 0);
+			func0f034124(chr, (s32)cmd[3] * 0.03125f, &coord, NULL, NULL);
 		} else {
-			func0f034124(chr, (s32)cmd[3] * -0.03125f, &coord, NULL, 0);
+			func0f034124(chr, (s32)cmd[3] * -0.03125f, &coord, NULL, NULL);
 		}
 	}
 

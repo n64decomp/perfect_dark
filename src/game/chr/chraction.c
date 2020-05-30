@@ -6388,31 +6388,10 @@ glabel func0f034080
 /*  f034120:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f034124
-/*  f034124:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f034128:	44856000 */ 	mtc1	$a1,$f12
-/*  f03412c:	8fae0050 */ 	lw	$t6,0x50($sp)
-/*  f034130:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f034134:	240f00c8 */ 	addiu	$t7,$zero,0xc8
-/*  f034138:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f03413c:	44056000 */ 	mfc1	$a1,$f12
-/*  f034140:	afb80028 */ 	sw	$t8,0x28($sp)
-/*  f034144:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f034148:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f03414c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f034150:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f034154:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f034158:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f03415c:	afa00030 */ 	sw	$zero,0x30($sp)
-/*  f034160:	afa00034 */ 	sw	$zero,0x34($sp)
-/*  f034164:	0fc0d149 */ 	jal	func0f034524
-/*  f034168:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f03416c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f034170:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f034174:	03e00008 */ 	jr	$ra
-/*  f034178:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f034124(struct chrdata *chr, f32 arg1, struct coord *vector, u8 *arg3, struct prop *prop)
+{
+	func0f034524(chr, arg1, vector, arg3, prop, 200, 0, 0, 0, 0, -1, 0, 0, 0);
+}
 
 GLOBAL_ASM(
 glabel func0f03417c
