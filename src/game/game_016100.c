@@ -3176,20 +3176,12 @@ glabel var7f1a8468
 /*  f018dac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f018db0
-/*  f018db0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f018db4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f018db8:	3c018006 */ 	lui	$at,%hi(var800624c4)
-/*  f018dbc:	ac2024c4 */ 	sw	$zero,%lo(var800624c4)($at)
-/*  f018dc0:	0c005204 */ 	jal	func00014810
-/*  f018dc4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f018dc8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f018dcc:	3c018006 */ 	lui	$at,%hi(var80062864)
-/*  f018dd0:	ac202864 */ 	sw	$zero,%lo(var80062864)($at)
-/*  f018dd4:	03e00008 */ 	jr	$ra
-/*  f018dd8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void func0f018db0(void)
+{
+	var800624c4 = 0;
+	func00014810(0);
+	var80062864 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f018ddc
