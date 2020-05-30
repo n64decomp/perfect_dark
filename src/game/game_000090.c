@@ -19,7 +19,7 @@ void func0f000090(void)
 	g_TitleMode = -1;
 	g_TitleNextMode = TITLEMODE_LEGAL;
 	g_TitleTimer = 0;
-	var800624e4 = -1;
+	g_TitleNextStage = -1;
 	var800624e0 = 0;
 	var800624e8 = 1;
 	var800624ec = 0;

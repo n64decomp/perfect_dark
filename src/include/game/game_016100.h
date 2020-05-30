@@ -32,7 +32,7 @@ void titleExitRareLogo(void);
 void titleTickRareLogo(void);
 f32 func0f019d0c(f32 arg0);
 Gfx *titleRenderRareLogo(Gfx *gdl);
-void titleInitModeSkip(void);
+void titleInitSkip(void);
 void titleInitNoController(void);
 void titleTickNoController(void);
 Gfx *titleRenderNoController(Gfx *gdl);

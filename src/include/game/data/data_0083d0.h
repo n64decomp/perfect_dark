@@ -27,7 +27,7 @@ extern u32 g_TitleDelayedTimer;
 extern s32 g_TitleDelayedMode;
 extern s32 g_TitleTimer;
 extern u32 var800624e0;
-extern s32 var800624e4;
+extern s32 g_TitleNextStage;
 extern u32 var800624e8;
 extern u32 var800624ec;
 extern u32 var800624f0;

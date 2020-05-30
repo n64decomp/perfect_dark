@@ -65,9 +65,9 @@ glabel func0f01b148
 
 GLOBAL_ASM(
 glabel func0f01b154
-/*  f01b154:	3c018006 */ 	lui	$at,%hi(var800624e4)
+/*  f01b154:	3c018006 */ 	lui	$at,%hi(g_TitleNextStage)
 /*  f01b158:	03e00008 */ 	jr	$ra
-/*  f01b15c:	ac2424e4 */ 	sw	$a0,%lo(var800624e4)($at)
+/*  f01b15c:	ac2424e4 */ 	sw	$a0,%lo(g_TitleNextStage)($at)
 );
 
 GLOBAL_ASM(

@@ -54,7 +54,7 @@ u32 var800624d4 = 0x00000000;
 u32 var800624d8 = 0x00000000;
 u32 var800624dc = 0x00000000;
 u32 var800624e0 = 0x00000000;
-s32 var800624e4 = -1;
+s32 g_TitleNextStage = -1;
 u32 var800624e8 = 0x00000001;
 u32 var800624ec = 0x00000001;
 u32 var800624f0 = 0x00000000;
@@ -1337,13 +1337,13 @@ glabel var7f1a83ec
 /*  f017168:	0fc4ed98 */ 	jal	func0f13b660
 /*  f01716c:	ac2d24b4 */ 	sw	$t5,%lo(g_TitleMode)($at)
 /*  f017170:	240e005c */ 	addiu	$t6,$zero,0x5c
-/*  f017174:	3c018006 */ 	lui	$at,%hi(var800624e4)
-/*  f017178:	ac2e24e4 */ 	sw	$t6,%lo(var800624e4)($at)
+/*  f017174:	3c018006 */ 	lui	$at,%hi(g_TitleNextStage)
+/*  f017178:	ac2e24e4 */ 	sw	$t6,%lo(g_TitleNextStage)($at)
 /*  f01717c:	0fc068d5 */ 	jal	setNumPlayers
 /*  f017180:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f017184:	3c048006 */ 	lui	$a0,%hi(var800624e4)
+/*  f017184:	3c048006 */ 	lui	$a0,%hi(g_TitleNextStage)
 /*  f017188:	0c003a57 */ 	jal	func0000e95c
-/*  f01718c:	8c8424e4 */ 	lw	$a0,%lo(var800624e4)($a0)
+/*  f01718c:	8c8424e4 */ 	lw	$a0,%lo(g_TitleNextStage)($a0)
 /*  f017190:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f017194:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
 /*  f017198:	2402ffff */ 	addiu	$v0,$zero,-1
@@ -4783,70 +4783,35 @@ void playerSetTeam(s32 playernum, s32 team)
 	g_MpPlayers[g_Vars.playerstats[playernum].mpindex].base.team = team;
 }
 
-GLOBAL_ASM(
-glabel titleInitModeSkip
-.late_rodata
-glabel var7f1a84c0
-.word 0x3fba2e8c
-.text
-/*  f01a3b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f01a3bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f01a3c0:	240e0026 */ 	addiu	$t6,$zero,0x26
-/*  f01a3c4:	3c018006 */ 	lui	$at,%hi(var800624e4)
-/*  f01a3c8:	ac2e24e4 */ 	sw	$t6,%lo(var800624e4)($at)
-/*  f01a3cc:	0fc068d5 */ 	jal	setNumPlayers
-/*  f01a3d0:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f01a3d4:	3c038006 */ 	lui	$v1,%hi(var800624a4)
-/*  f01a3d8:	246324a4 */ 	addiu	$v1,$v1,%lo(var800624a4)
-/*  f01a3dc:	8c620000 */ 	lw	$v0,0x0($v1)
-/*  f01a3e0:	240f0030 */ 	addiu	$t7,$zero,0x30
-/*  f01a3e4:	3c018006 */ 	lui	$at,%hi(var800624e4)
-/*  f01a3e8:	10400004 */ 	beqz	$v0,.L0f01a3fc
-/*  f01a3ec:	3c198009 */ 	lui	$t9,%hi(g_Is4Mb)
-/*  f01a3f0:	ac2f24e4 */ 	sw	$t7,%lo(var800624e4)($at)
-/*  f01a3f4:	24580001 */ 	addiu	$t8,$v0,0x1
-/*  f01a3f8:	ac780000 */ 	sw	$t8,0x0($v1)
-.L0f01a3fc:
-/*  f01a3fc:	93390af0 */ 	lbu	$t9,%lo(g_Is4Mb)($t9)
-/*  f01a400:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f01a404:	2408005d */ 	addiu	$t0,$zero,0x5d
-/*  f01a408:	17210011 */ 	bne	$t9,$at,.L0f01a450
-/*  f01a40c:	3c018006 */ 	lui	$at,%hi(var800624e4)
-/*  f01a410:	ac2824e4 */ 	sw	$t0,%lo(var800624e4)($at)
-/*  f01a414:	3c017f1b */ 	lui	$at,%hi(var7f1a84c0)
-/*  f01a418:	0c002f5f */ 	jal	func0000bd7c
-/*  f01a41c:	c42c84c0 */ 	lwc1	$f12,%lo(var7f1a84c0)($at)
-/*  f01a420:	24040140 */ 	addiu	$a0,$zero,0x140
-/*  f01a424:	0c002ef9 */ 	jal	func0000bbe4
-/*  f01a428:	240500dc */ 	addiu	$a1,$zero,0xdc
-/*  f01a42c:	24040140 */ 	addiu	$a0,$zero,0x140
-/*  f01a430:	0c002ee8 */ 	jal	func0000bba0
-/*  f01a434:	240500dc */ 	addiu	$a1,$zero,0xdc
-/*  f01a438:	24040140 */ 	addiu	$a0,$zero,0x140
-/*  f01a43c:	0fc4a2a7 */ 	jal	currentPlayerSetViewSize
-/*  f01a440:	240500dc */ 	addiu	$a1,$zero,0xdc
-/*  f01a444:	24040140 */ 	addiu	$a0,$zero,0x140
-/*  f01a448:	0c002f0a */ 	jal	func0000bc28
-/*  f01a44c:	240500dc */ 	addiu	$a1,$zero,0xdc
-.L0f01a450:
-/*  f01a450:	3c048006 */ 	lui	$a0,%hi(var800624e4)
-/*  f01a454:	0c003a57 */ 	jal	func0000e95c
-/*  f01a458:	8c8424e4 */ 	lw	$a0,%lo(var800624e4)($a0)
-/*  f01a45c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f01a460:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f01a464:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f01a468:	ac400294 */ 	sw	$zero,0x294($v0)
-/*  f01a46c:	ac430298 */ 	sw	$v1,0x298($v0)
-/*  f01a470:	ac43029c */ 	sw	$v1,0x29c($v0)
-/*  f01a474:	0fc5b36a */ 	jal	setDifficulty
-/*  f01a478:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01a47c:	0c0027b1 */ 	jal	func00009ec4
-/*  f01a480:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f01a484:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01a488:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f01a48c:	03e00008 */ 	jr	$ra
-/*  f01a490:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void titleInitSkip(void)
+{
+	g_TitleNextStage = STAGE_CITRAINING;
+
+	setNumPlayers(1);
+
+	if (var800624a4 != 0) {
+		g_TitleNextStage = STAGE_DEFECTION;
+		var800624a4++;
+	}
+
+	if (g_Is4Mb == true) {
+		g_TitleNextStage = STAGE_4MBMENU;
+		func0000bd7c(1.4545454978943f);
+		func0000bbe4(320, 220);
+		func0000bba0(320, 220);
+		currentPlayerSetViewSize(320, 220);
+		func0000bc28(320, 220);
+	}
+
+	func0000e95c(g_TitleNextStage);
+
+	g_Vars.bondplayernum = 0;
+	g_Vars.coopplayernum = -1;
+	g_Vars.antiplayernum = -1;
+
+	setDifficulty(DIFF_A);
+	func00009ec4(true);
+}
 
 void titleInitNoController(void)
 {
@@ -5152,7 +5117,7 @@ void titleTick(void)
 			titleInitRareLogo();
 			break;
 		case TITLEMODE_SKIP:
-			titleInitModeSkip();
+			titleInitSkip();
 			break;
 		case TITLEMODE_NOCONTROLLER:
 			titleInitNoController();
