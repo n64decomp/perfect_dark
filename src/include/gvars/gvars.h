@@ -535,6 +535,7 @@ extern void *var8009cc80;
 extern void *var8009cc84;
 extern void *var8009cc88;
 extern u32 var8009cc90;
+extern u32 var8009cca0;
 extern u32 var8009cca8;
 extern u32 var8009ccb0;
 extern u32 var8009ccb8;
