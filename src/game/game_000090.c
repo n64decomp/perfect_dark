@@ -18,7 +18,7 @@ void func0f000090(void)
 {
 	g_TitleMode = -1;
 	var800624b8 = 0;
-	var800624c4 = 0;
+	g_TitleTimer = 0;
 	var800624e4 = -1;
 	var800624e0 = 0;
 	var800624e8 = 1;

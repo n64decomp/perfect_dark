@@ -25,7 +25,7 @@ extern s32 g_TitleMode;
 extern s32 var800624b8;
 extern u32 var800624bc;
 extern s32 var800624c0;
-extern s32 var800624c4;
+extern s32 g_TitleTimer;
 extern u32 var800624e0;
 extern s32 var800624e4;
 extern u32 var800624e8;
