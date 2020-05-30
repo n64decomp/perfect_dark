@@ -4773,19 +4773,13 @@ void setNumPlayers(s32 numplayers)
 	g_NumPlayers = numplayers;
 }
 
+s32 playerGetTeam(s32 playernum)
+{
+	return g_MpPlayers[g_Vars.playerstats[playernum].mpindex].base.team;
+}
+
 GLOBAL_ASM(
-glabel func0f01a360
-/*  f01a360:	000471c0 */ 	sll	$t6,$a0,0x7
-/*  f01a364:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0xe4)
-/*  f01a368:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f01a36c:	8defa0a4 */ 	lw	$t7,%lo(g_Vars+0xe4)($t7)
-/*  f01a370:	3c02800b */ 	lui	$v0,%hi(g_MpPlayers+0x11)
-/*  f01a374:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f01a378:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f01a37c:	0018c140 */ 	sll	$t8,$t8,0x5
-/*  f01a380:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f01a384:	03e00008 */ 	jr	$ra
-/*  f01a388:	9042c7c9 */ 	lbu	$v0,%lo(g_MpPlayers+0x11)($v0)
+glabel func0f01a38c
 /*  f01a38c:	000471c0 */ 	sll	$t6,$a0,0x7
 /*  f01a390:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0xe4)
 /*  f01a394:	01ee7821 */ 	addu	$t7,$t7,$t6
