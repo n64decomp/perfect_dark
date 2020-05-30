@@ -4778,20 +4778,10 @@ s32 playerGetTeam(s32 playernum)
 	return g_MpPlayers[g_Vars.playerstats[playernum].mpindex].base.team;
 }
 
-GLOBAL_ASM(
-glabel func0f01a38c
-/*  f01a38c:	000471c0 */ 	sll	$t6,$a0,0x7
-/*  f01a390:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0xe4)
-/*  f01a394:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f01a398:	8defa0a4 */ 	lw	$t7,%lo(g_Vars+0xe4)($t7)
-/*  f01a39c:	3c01800b */ 	lui	$at,%hi(g_MpPlayers+0x11)
-/*  f01a3a0:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f01a3a4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f01a3a8:	0018c140 */ 	sll	$t8,$t8,0x5
-/*  f01a3ac:	00380821 */ 	addu	$at,$at,$t8
-/*  f01a3b0:	03e00008 */ 	jr	$ra
-/*  f01a3b4:	a025c7c9 */ 	sb	$a1,%lo(g_MpPlayers+0x11)($at)
-);
+void playerSetTeam(s32 playernum, s32 team)
+{
+	g_MpPlayers[g_Vars.playerstats[playernum].mpindex].base.team = team;
+}
 
 GLOBAL_ASM(
 glabel titleInitModeSkip
