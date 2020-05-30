@@ -281,49 +281,20 @@ void func0f0164f0(void)
 	func00009ec4(0);
 }
 
-GLOBAL_ASM(
-glabel func0f016524
-.late_rodata
-glabel var7f1a83c8
-.word 0x461c4000
-.text
-/*  f016524:	3c028006 */ 	lui	$v0,%hi(var800624c4)
-/*  f016528:	244224c4 */ 	addiu	$v0,$v0,%lo(var800624c4)
-/*  f01652c:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f016530:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f016534:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f016538:	44816000 */ 	mtc1	$at,$f12
-/*  f01653c:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f016540:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f016544:	ac4f0000 */ 	sw	$t7,0x0($v0)
-/*  f016548:	3c017f1b */ 	lui	$at,%hi(var7f1a83c8)
-/*  f01654c:	0c002fa1 */ 	jal	func0000be84
-/*  f016550:	c42e83c8 */ 	lwc1	$f14,%lo(var7f1a83c8)($at)
-/*  f016554:	0c002f48 */ 	jal	func0000bd20
-/*  f016558:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01655c:	3c188006 */ 	lui	$t8,%hi(var800624c4)
-/*  f016560:	8f1824c4 */ 	lw	$t8,%lo(var800624c4)($t8)
-/*  f016564:	2b010007 */ 	slti	$at,$t8,0x7
-/*  f016568:	5420000d */ 	bnezl	$at,.L0f0165a0
-/*  f01656c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f016570:	0c005013 */ 	jal	func0001404c
-/*  f016574:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f016578:	30590001 */ 	andi	$t9,$v0,0x1
-/*  f01657c:	17200005 */ 	bnez	$t9,.L0f016594
-/*  f016580:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f016584:	0fc069f9 */ 	jal	func0f01a7e4
-/*  f016588:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f01658c:	10000004 */ 	beqz	$zero,.L0f0165a0
-/*  f016590:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f016594:
-/*  f016594:	0fc069f9 */ 	jal	func0f01a7e4
-/*  f016598:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f01659c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0165a0:
-/*  f0165a0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0165a4:	03e00008 */ 	jr	$ra
-/*  f0165a8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f016524(void)
+{
+	var800624c4++;
+	func0000be84(100, 10000);
+	func0000bd20(0);
+
+	if (var800624c4 > 6) {
+		if ((func0001404c() % 2) == 0) {
+			func0f01a7e4(TITLEMODE_NOCONTROLLER);
+		} else {
+			func0f01a7e4(TITLEMODE_RARELOGO);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel titleRenderMode1
