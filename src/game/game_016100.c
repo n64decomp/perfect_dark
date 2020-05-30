@@ -253,47 +253,19 @@ void func0f016444(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f01644c
-.late_rodata
-glabel var7f1a83c0
-.word 0x3faaaaab
-glabel var7f1a83c4
-.word 0x461c4000
-.text
-/*  f01644c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f016450:	3c014270 */ 	lui	$at,0x4270
-/*  f016454:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f016458:	44816000 */ 	mtc1	$at,$f12
-/*  f01645c:	0c002f4c */ 	jal	func0000bd30
-/*  f016460:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f016464:	3c017f1b */ 	lui	$at,%hi(var7f1a83c0)
-/*  f016468:	0c002f5f */ 	jal	func0000bd7c
-/*  f01646c:	c42c83c0 */ 	lwc1	$f12,%lo(var7f1a83c0)($at)
-/*  f016470:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f016474:	44816000 */ 	mtc1	$at,$f12
-/*  f016478:	3c017f1b */ 	lui	$at,%hi(var7f1a83c4)
-/*  f01647c:	0c002fa1 */ 	jal	func0000be84
-/*  f016480:	c42e83c4 */ 	lwc1	$f14,%lo(var7f1a83c4)($at)
-/*  f016484:	0c002f48 */ 	jal	func0000bd20
-/*  f016488:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01648c:	3c028006 */ 	lui	$v0,%hi(var800624c4)
-/*  f016490:	244224c4 */ 	addiu	$v0,$v0,%lo(var800624c4)
-/*  f016494:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x38)
-/*  f016498:	8def9ff8 */ 	lw	$t7,%lo(g_Vars+0x38)($t7)
-/*  f01649c:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f0164a0:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0164a4:	2b0100b5 */ 	slti	$at,$t8,0xb5
-/*  f0164a8:	14200003 */ 	bnez	$at,.L0f0164b8
-/*  f0164ac:	ac580000 */ 	sw	$t8,0x0($v0)
-/*  f0164b0:	0fc069f9 */ 	jal	func0f01a7e4
-/*  f0164b4:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0164b8:
-/*  f0164b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0164bc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0164c0:	03e00008 */ 	jr	$ra
-/*  f0164c4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f01644c(void)
+{
+	func0000bd30(60);
+	func0000bd7c(1.33333333f);
+	func0000be84(100, 10000);
+	func0000bd20(false);
+
+	var800624c4 += g_Vars.lvupdate240_60;
+
+	if (var800624c4 > 180) {
+		func0f01a7e4(1);
+	}
+}
 
 void func0f0164c8(void)
 {
