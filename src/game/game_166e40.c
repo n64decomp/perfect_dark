@@ -402,7 +402,7 @@ glabel func0f167200
 );
 
 GLOBAL_ASM(
-glabel func0f167280
+glabel fileGetSize
 /*  f167280:	000470c0 */ 	sll	$t6,$a0,0x3
 /*  f167284:	3c02800a */ 	lui	$v0,%hi(g_FileInfo)
 /*  f167288:	004e1021 */ 	addu	$v0,$v0,$t6

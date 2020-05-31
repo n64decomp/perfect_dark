@@ -60,7 +60,7 @@ u32 var800624ec = 0x00000001;
 u32 var800624f0 = 0x00000000;
 u32 var800624f4 = 0x00000001;
 struct animdata *g_TitleModel = NULL;
-struct animdata *var800624fc = NULL;
+struct animdata *g_TitleModel2 = NULL;
 u32 var80062500 = 0x00000000;
 u32 var80062504 = 0x00000000;
 struct animdata *var80062508 = NULL;
@@ -203,85 +203,6 @@ u32 var80062728 = 0x00000000;
 u32 var8006272c = 0x00000001;
 u32 var80062730 = 0x00000001;
 u32 var80062734 = 0x00000000;
-u32 var80062738 = 0x00000000;
-u32 var8006273c = 0x00000000;
-u32 var80062740 = 0x00000000;
-u32 var80062744 = 0x00000000;
-u32 var80062748 = 0x00000000;
-u32 var8006274c = 0x00000000;
-u32 var80062750 = 0x00000000;
-u32 var80062754 = 0x00000000;
-u32 var80062758 = 0x00000000;
-u32 var8006275c = 0x00000000;
-u32 var80062760 = 0x00000000;
-u32 var80062764 = 0x00000000;
-u32 var80062768 = 0x00000000;
-u32 var8006276c = 0x00000001;
-u32 var80062770 = 0x00000003;
-u32 var80062774 = 0x00000000;
-u32 var80062778 = 0x00000000;
-u32 var8006277c = 0x00000000;
-u32 var80062780 = 0x00000000;
-u32 var80062784 = 0x00000000;
-u32 var80062788 = 0x00000000;
-u32 var8006278c = 0x00000000;
-u32 var80062790 = 0x00000000;
-u32 var80062794 = 0x00000000;
-u32 var80062798 = 0x00000000;
-u32 var8006279c = 0x00000000;
-u32 var800627a0 = 0x00000000;
-u32 var800627a4 = 0x00000000;
-f32 var800627a8 = 0;
-f32 var800627ac = 0;
-f32 var800627b0 = 0;
-f32 var800627b4 = 0;
-f32 var800627b8 = 1;
-f32 var800627bc = 0;
-u32 var800627c0 = 0x00000000;
-f32 var800627c4 = 0;
-f32 var800627c8 = 1;
-u32 var800627cc = 0x00000000;
-u32 var800627d0 = 0x00000000;
-u32 var800627d4 = 0x00000000;
-u32 var800627d8 = 0x00000000;
-u32 var800627dc = 0x00000000;
-u32 var800627e0 = 0x00000000;
-u32 var800627e4 = 0x00000000;
-u32 var800627e8 = 0x00000000;
-u32 var800627ec = 0x00000000;
-u32 var800627f0 = 0x00000000;
-f32 var800627f4 = 0;
-u32 var800627f8 = 0x00000000;
-u32 var800627fc = 0x00000000;
-u32 var80062800 = 0x00000000;
-u32 var80062804 = 0x00000001;
-f32 var80062808 = 1.5705462694168;
-u32 var8006280c = 0x00000000;
-u32 var80062810 = 0x00000000;
-f32 var80062814 = 0;
-u32 var80062818 = 0x00000000;
-u32 var8006281c = 0x00000001;
-u32 var80062820 = 0x00000003;
-u32 var80062824 = 0x00000000;
-u32 var80062828 = 0x00000000;
-u32 var8006282c = 0x00000000;
-u32 var80062830 = 0x00000000;
-u32 var80062834 = 0x00000000;
-u32 var80062838 = 0x00000000;
-u32 var8006283c = 0x00000000;
-u32 var80062840 = 0x00000000;
-u32 var80062844 = 0x00000000;
-u32 var80062848 = 0x00000000;
-u32 var8006284c = 0x00000000;
-u32 var80062850 = 0x00000000;
-u32 var80062854 = 0x00000000;
-u32 var80062858 = 0x00000000;
-u32 var8006285c = 0x00000000;
-u32 var80062860 = 0x447a0000;
-s32 *g_TitleAudioHandle = NULL;
-u32 var80062868 = 0x00000000;
-u32 var8006286c = 0x00000000;
-
 
 char *mpPlayerGetWeaponOfChoiceName(u32 playernum, u32 slot)
 {
@@ -1053,6 +974,19 @@ glabel var7f1a83e4
 /*  f016d30:	27bd0128 */ 	addiu	$sp,$sp,0x128
 );
 
+u32 var80062738 = 0;
+u32 var8006273c = 0;
+u32 var80062740 = 0;
+u32 var80062744 = 0;
+u32 var80062748 = 0;
+u32 var8006274c = 0;
+u32 var80062750 = 0;
+u32 var80062754 = 0;
+u32 var80062758 = 0;
+u32 var8006275c = 0;
+u32 var80062760 = 0;
+u32 var80062764 = 0;
+
 GLOBAL_ASM(
 glabel titleInitPdLogo
 /*  f016d34:	27bdff90 */ 	addiu	$sp,$sp,-112
@@ -1082,7 +1016,7 @@ glabel titleInitPdLogo
 /*  f016d94:	0fc69de5 */ 	jal	func0f1a7794
 /*  f016d98:	02002825 */ 	or	$a1,$s0,$zero
 /*  f016d9c:	ae220240 */ 	sw	$v0,0x240($s1)
-/*  f016da0:	0fc59ca0 */ 	jal	func0f167280
+/*  f016da0:	0fc59ca0 */ 	jal	fileGetSize
 /*  f016da4:	96240244 */ 	lhu	$a0,0x244($s1)
 /*  f016da8:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f016dac:	3469003f */ 	ori	$t1,$v1,0x3f
@@ -1120,7 +1054,7 @@ glabel titleInitPdLogo
 /*  f016e2c:	0fc69de5 */ 	jal	func0f1a7794
 /*  f016e30:	00003825 */ 	or	$a3,$zero,$zero
 /*  f016e34:	ae220248 */ 	sw	$v0,0x248($s1)
-/*  f016e38:	0fc59ca0 */ 	jal	func0f167280
+/*  f016e38:	0fc59ca0 */ 	jal	fileGetSize
 /*  f016e3c:	9624024c */ 	lhu	$a0,0x24c($s1)
 /*  f016e40:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f016e44:	346e003f */ 	ori	$t6,$v1,0x3f
@@ -1131,14 +1065,14 @@ glabel titleInitPdLogo
 /*  f016e58:	8e240248 */ 	lw	$a0,0x248($s1)
 /*  f016e5c:	0fc2cca0 */ 	jal	func0f0b3280
 /*  f016e60:	8e240248 */ 	lw	$a0,0x248($s1)
-/*  f016e64:	3c038006 */ 	lui	$v1,%hi(var800624fc)
-/*  f016e68:	246324fc */ 	addiu	$v1,$v1,%lo(var800624fc)
+/*  f016e64:	3c038006 */ 	lui	$v1,%hi(g_TitleModel2)
+/*  f016e68:	246324fc */ 	addiu	$v1,$v1,%lo(g_TitleModel2)
 /*  f016e6c:	ac620000 */ 	sw	$v0,0x0($v1)
 /*  f016e70:	00402025 */ 	or	$a0,$v0,$zero
 /*  f016e74:	0c006bd6 */ 	jal	func0001af58
 /*  f016e78:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f016e7c:	3c048006 */ 	lui	$a0,%hi(var800624fc)
-/*  f016e80:	8c8424fc */ 	lw	$a0,%lo(var800624fc)($a0)
+/*  f016e7c:	3c048006 */ 	lui	$a0,%hi(g_TitleModel2)
+/*  f016e80:	8c8424fc */ 	lw	$a0,%lo(g_TitleModel2)($a0)
 /*  f016e84:	0c006b4d */ 	jal	func0001ad34
 /*  f016e88:	27a5004c */ 	addiu	$a1,$sp,0x4c
 /*  f016e8c:	3c098006 */ 	lui	$t1,%hi(var80062750)
@@ -1156,7 +1090,7 @@ glabel titleInitPdLogo
 /*  f016ebc:	0fc69de5 */ 	jal	func0f1a7794
 /*  f016ec0:	00003825 */ 	or	$a3,$zero,$zero
 /*  f016ec4:	ae220268 */ 	sw	$v0,0x268($s1)
-/*  f016ec8:	0fc59ca0 */ 	jal	func0f167280
+/*  f016ec8:	0fc59ca0 */ 	jal	fileGetSize
 /*  f016ecc:	9624026c */ 	lhu	$a0,0x26c($s1)
 /*  f016ed0:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f016ed4:	3479003f */ 	ori	$t9,$v1,0x3f
@@ -1192,7 +1126,7 @@ glabel titleInitPdLogo
 /*  f016f4c:	0fc69de5 */ 	jal	func0f1a7794
 /*  f016f50:	00003825 */ 	or	$a3,$zero,$zero
 /*  f016f54:	ae220270 */ 	sw	$v0,0x270($s1)
-/*  f016f58:	0fc59ca0 */ 	jal	func0f167280
+/*  f016f58:	0fc59ca0 */ 	jal	fileGetSize
 /*  f016f5c:	96240274 */ 	lhu	$a0,0x274($s1)
 /*  f016f60:	2443003f */ 	addiu	$v1,$v0,0x3f
 /*  f016f64:	346a003f */ 	ori	$t2,$v1,0x3f
@@ -1264,12 +1198,110 @@ glabel titleInitPdLogo
 /*  f017068:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
 
+// Mismatch due to regalloc in modelthing block
+//void titleInitPdLogo(void)
+//{
+//	u8 *nextaddr = var8009cca0;
+//	u32 remaining;
+//	u32 size;
+//
+//	g_TitleTimer = 0;
+//
+//	{
+//		struct coord coord = {0, 0, 0}; // var80062738
+//		g_Props[MODEL_NLOGO].filedata = func0f1a7794(g_Props[MODEL_NLOGO].fileid, nextaddr, 0x47800, 0);
+//		size = ALIGN64(fileGetSize(g_Props[MODEL_NLOGO].fileid));
+//		nextaddr += size;
+//		remaining = 0x47800 - size;
+//		func00022d24(g_Props[MODEL_NLOGO].filedata);
+//
+//		g_TitleModel = func0f0b3280(g_Props[MODEL_NLOGO].filedata);
+//		func0001af58(g_TitleModel, 1);
+//		func0001ad34(g_TitleModel, &coord);
+//	}
+//
+//	{
+//		struct coord coord = {0, 0, 0}; // var80062744
+//		g_Props[MODEL_NLOGO2].filedata = func0f1a7794(g_Props[MODEL_NLOGO2].fileid, nextaddr, remaining, 0);
+//		size = ALIGN64(fileGetSize(g_Props[MODEL_NLOGO2].fileid));
+//		nextaddr += size;
+//		remaining -= size;
+//		func00022d24(g_Props[MODEL_NLOGO2].filedata);
+//
+//		g_TitleModel2 = func0f0b3280(g_Props[MODEL_NLOGO2].filedata);
+//		func0001af58(g_TitleModel2, 1);
+//		func0001ad34(g_TitleModel2, &coord);
+//	}
+//
+//	{
+//		struct coord coord = {0, 0, 0}; // var80062750
+//		g_Props[MODEL_PDTWO].filedata = func0f1a7794(g_Props[MODEL_PDTWO].fileid, nextaddr, remaining, 0);
+//		size = ALIGN64(fileGetSize(g_Props[MODEL_PDTWO].fileid));
+//		nextaddr += size;
+//		remaining -= size;
+//		func00022d24(g_Props[MODEL_PDTWO].filedata);
+//
+//		var80062508 = func0f0b30ac(g_Props[MODEL_PDTWO].filedata);
+//		func0001af58(var80062508, 1);
+//		func0001ad34(var80062508, &coord);
+//	}
+//
+//	{
+//		struct coord coord = {0, 0, 0}; // var8006275c
+//		g_Props[MODEL_PDTHREE].filedata = func0f1a7794(g_Props[MODEL_PDTHREE].fileid, nextaddr, remaining, 0);
+//		size = ALIGN64(fileGetSize(g_Props[MODEL_PDTHREE].fileid));
+//		nextaddr += size;
+//		remaining -= size;
+//		func00022d24(g_Props[MODEL_PDTHREE].filedata);
+//
+//		var8006250c = func0f0b30ac(g_Props[MODEL_PDTHREE].filedata);
+//		func0001af58(var8006250c, 1);
+//		func0001ad34(var8006250c, &coord);
+//	}
+//
+//	{
+//		// fb0
+//		struct modelthing *modelthing = func0001a9bc(g_Props[MODEL_PDTWO].filedata, 2);
+//		u32 size2;
+//
+//		size = ALIGN8(modelthing->unk10 * 0xc);
+//
+//		var8009cca8[0] = nextaddr;
+//
+//		nextaddr += size;
+//		remaining -= size;
+//		var8009cca8[1] = nextaddr;
+//
+//		nextaddr += size;
+//		remaining -= size;
+//		size2 = ALIGN8(modelthing->unk16 * 4);
+//		var8009ccb0[0] = nextaddr;
+//
+//		nextaddr += size2;
+//		remaining -= size2;
+//		var8009ccb0[1] = nextaddr;
+//
+//		var8009ccb8 = 0;
+//		var800624f4 = 1;
+//
+//		func00014810(false);
+//
+//		var80062730 = 1;
+//		var80062734 = 0;
+//
+//		if (var800624a8) {
+//			func0f017980();
+//		}
+//	}
+//}
+
 void titleExitPdLogo(void)
 {
-	func0f0b30cc(g_TitleModel);
-	func0f0b30cc(var800624fc);
-	func0f0b30cc(var80062508);
-	func0f0b30cc(var8006250c);
+	modelFree(g_TitleModel);
+	modelFree(g_TitleModel2);
+	modelFree(var80062508);
+	modelFree(var8006250c);
+
 	func00014810(true);
 }
 
@@ -1314,6 +1346,73 @@ void titleTickPdLogo(void)
 		}
 	}
 }
+
+u32 var80062768 = 0x00000000;
+u32 var8006276c = 0x00000001;
+u32 var80062770 = 0x00000003;
+u32 var80062774 = 0x00000000;
+u32 var80062778 = 0x00000000;
+u32 var8006277c = 0x00000000;
+u32 var80062780 = 0x00000000;
+u32 var80062784 = 0x00000000;
+u32 var80062788 = 0x00000000;
+u32 var8006278c = 0x00000000;
+u32 var80062790 = 0x00000000;
+u32 var80062794 = 0x00000000;
+u32 var80062798 = 0x00000000;
+u32 var8006279c = 0x00000000;
+u32 var800627a0 = 0x00000000;
+u32 var800627a4 = 0x00000000;
+f32 var800627a8 = 0;
+f32 var800627ac = 0;
+f32 var800627b0 = 0;
+f32 var800627b4 = 0;
+f32 var800627b8 = 1;
+f32 var800627bc = 0;
+u32 var800627c0 = 0x00000000;
+f32 var800627c4 = 0;
+f32 var800627c8 = 1;
+u32 var800627cc = 0x00000000;
+u32 var800627d0 = 0x00000000;
+u32 var800627d4 = 0x00000000;
+u32 var800627d8 = 0x00000000;
+u32 var800627dc = 0x00000000;
+u32 var800627e0 = 0x00000000;
+u32 var800627e4 = 0x00000000;
+u32 var800627e8 = 0x00000000;
+u32 var800627ec = 0x00000000;
+u32 var800627f0 = 0x00000000;
+f32 var800627f4 = 0;
+u32 var800627f8 = 0x00000000;
+u32 var800627fc = 0x00000000;
+u32 var80062800 = 0x00000000;
+u32 var80062804 = 0x00000001;
+f32 var80062808 = 1.5705462694168;
+u32 var8006280c = 0x00000000;
+u32 var80062810 = 0x00000000;
+f32 var80062814 = 0;
+u32 var80062818 = 0x00000000;
+u32 var8006281c = 0x00000001;
+u32 var80062820 = 0x00000003;
+u32 var80062824 = 0x00000000;
+u32 var80062828 = 0x00000000;
+u32 var8006282c = 0x00000000;
+u32 var80062830 = 0x00000000;
+u32 var80062834 = 0x00000000;
+u32 var80062838 = 0x00000000;
+u32 var8006283c = 0x00000000;
+u32 var80062840 = 0x00000000;
+u32 var80062844 = 0x00000000;
+u32 var80062848 = 0x00000000;
+u32 var8006284c = 0x00000000;
+u32 var80062850 = 0x00000000;
+u32 var80062854 = 0x00000000;
+u32 var80062858 = 0x00000000;
+u32 var8006285c = 0x00000000;
+u32 var80062860 = 0x447a0000;
+s32 *g_TitleAudioHandle = NULL;
+u32 var80062868 = 0x00000000;
+u32 var8006286c = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f017248
@@ -2661,8 +2760,8 @@ glabel var7f1a8468
 /*  f0185d8:	10000004 */ 	beqz	$zero,.L0f0185ec
 /*  f0185dc:	afae022c */ 	sw	$t6,0x22c($sp)
 .L0f0185e0:
-/*  f0185e0:	3c188006 */ 	lui	$t8,%hi(var800624fc)
-/*  f0185e4:	8f1824fc */ 	lw	$t8,%lo(var800624fc)($t8)
+/*  f0185e0:	3c188006 */ 	lui	$t8,%hi(g_TitleModel2)
+/*  f0185e4:	8f1824fc */ 	lw	$t8,%lo(g_TitleModel2)($t8)
 /*  f0185e8:	afb8022c */ 	sw	$t8,0x22c($sp)
 .L0f0185ec:
 /*  f0185ec:	3c018006 */ 	lui	$at,0x8006
@@ -3580,7 +3679,7 @@ glabel titleRenderRarePresents
 
 void titleInitNintendoLogo(void)
 {
-	u32 thing = var8009cca0;
+	u8 *nextaddr = var8009cca0;
 
 	var800624ac = 0;
 
@@ -3593,7 +3692,7 @@ void titleInitNintendoLogo(void)
 	{
 		struct coord coord = {0, 0, 0};
 
-		g_Props[MODEL_NINTENDOLOGO].filedata = func0f1a7794(g_Props[MODEL_NINTENDOLOGO].fileid, thing, 0x47800, 0);
+		g_Props[MODEL_NINTENDOLOGO].filedata = func0f1a7794(g_Props[MODEL_NINTENDOLOGO].fileid, nextaddr, 0x47800, 0);
 
 		func00022d24(g_Props[MODEL_NINTENDOLOGO].filedata);
 		g_TitleModel = func0f0b30ac(g_Props[MODEL_NINTENDOLOGO].filedata);
@@ -3606,7 +3705,7 @@ void titleInitNintendoLogo(void)
 
 void titleExitNintendoLogo(void)
 {
-	func0f0b30cc(g_TitleModel);
+	modelFree(g_TitleModel);
 	func00014810(true);
 }
 
@@ -3965,14 +4064,14 @@ glabel var7f1a84a0
 
 void titleInitRareLogo(void)
 {
-	u32 thing = var8009cca0;
+	u8 *nextaddr = var8009cca0;
 
 	g_TitleTimer = -3;
 
 	{
 		struct coord coord = {0, 0, 0};
 
-		g_Props[MODEL_RARELOGO].filedata = func0f1a7794(g_Props[MODEL_RARELOGO].fileid, thing, 0x47800, 0);
+		g_Props[MODEL_RARELOGO].filedata = func0f1a7794(g_Props[MODEL_RARELOGO].fileid, nextaddr, 0x47800, 0);
 
 		func00022d24(g_Props[MODEL_RARELOGO].filedata);
 		g_TitleModel = func0f0b30ac(g_Props[MODEL_RARELOGO].filedata);
@@ -3992,7 +4091,7 @@ void titleInitRareLogo(void)
 
 void titleExitRareLogo(void)
 {
-	func0f0b30cc(g_TitleModel);
+	modelFree(g_TitleModel);
 	func00014810(true);
 }
 

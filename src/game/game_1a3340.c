@@ -4187,7 +4187,7 @@ glabel func0f1a7560
 /*  f1a75a0:	0fc59ca5 */ 	jal	func0f167294
 /*  f1a75a4:	afa40058 */ 	sw	$a0,0x58($sp)
 /*  f1a75a8:	00408025 */ 	or	$s0,$v0,$zero
-/*  f1a75ac:	0fc59ca0 */ 	jal	func0f167280
+/*  f1a75ac:	0fc59ca0 */ 	jal	fileGetSize
 /*  f1a75b0:	8fa40058 */ 	lw	$a0,0x58($sp)
 /*  f1a75b4:	afa20088 */ 	sw	$v0,0x88($sp)
 /*  f1a75b8:	afa00074 */ 	sw	$zero,0x74($sp)
@@ -4325,7 +4325,7 @@ glabel func0f1a7730
 /*  f1a7790:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void *func0f1a7794(u16 fileid, u32 arg1, s32 arg2, s32 arg3)
+void *func0f1a7794(u16 fileid, u8 *arg1, s32 arg2, s32 arg3)
 {
 	void *ptr;
 
@@ -4339,7 +4339,7 @@ void *func0f1a7794(u16 fileid, u32 arg1, s32 arg2, s32 arg3)
 
 	func0f1a7730(ptr);
 	func00022a24(ptr, 0x5000000, ptr);
-	func0f1a7560(ptr, fileid, 0x5000000, ptr, arg3, arg1 < 1);
+	func0f1a7560(ptr, fileid, 0x5000000, ptr, arg3, arg1 == NULL);
 
 	return ptr;
 }
@@ -4349,7 +4349,7 @@ void *fileLoad(u16 fileid)
 	return func0f1a7794(fileid, 0, 0, 0);
 }
 
-void *func0f1a7878(u16 fileid, s32 arg1, s32 arg2)
+void *func0f1a7878(u16 fileid, u8 *arg1, s32 arg2)
 {
 	return func0f1a7794(fileid, arg1, arg2, 0);
 }

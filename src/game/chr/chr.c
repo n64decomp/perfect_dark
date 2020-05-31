@@ -2838,7 +2838,7 @@ glabel func0f020d44
 /*  f020e78:	1600ffea */ 	bnez	$s0,.L0f020e24
 /*  f020e7c:	02002025 */ 	or	$a0,$s0,$zero
 .L0f020e80:
-/*  f020e80:	0fc2cc33 */ 	jal	func0f0b30cc
+/*  f020e80:	0fc2cc33 */ 	jal	modelFree
 /*  f020e84:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f020e88:	8fa2004c */ 	lw	$v0,0x4c($sp)
 /*  f020e8c:	ac400020 */ 	sw	$zero,0x20($v0)

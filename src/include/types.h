@@ -5788,4 +5788,15 @@ struct var80065750 {
 	u32 unk04;
 };
 
+struct modelthing {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ s16 unk10;
+	/*0x12*/ u16 unk12;
+	/*0x14*/ u16 unk14;
+	/*0x16*/ u16 unk16;
+};
+
 #endif

@@ -33,7 +33,7 @@ extern u32 var800624ec;
 extern u32 var800624f0;
 extern u32 var800624f4;
 extern struct animdata *g_TitleModel;
-extern struct animdata *var800624fc;
+extern struct animdata *g_TitleModel2;
 extern struct animdata *var80062508;
 extern struct animdata *var8006250c;
 extern u32 var80062530;

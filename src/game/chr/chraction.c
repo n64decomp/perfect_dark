@@ -29099,7 +29099,7 @@ glabel chrSpawnAtCoord
 /*  f04b43c:	1000004a */ 	beqz	$zero,.L0f04b568
 /*  f04b440:	8fa20074 */ 	lw	$v0,0x74($sp)
 .L0f04b444:
-/*  f04b444:	0fc2cc33 */ 	jal	func0f0b30cc
+/*  f04b444:	0fc2cc33 */ 	jal	modelFree
 /*  f04b448:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f04b44c:
 /*  f04b44c:	0fc0814e */ 	jal	chrsGetNumFree

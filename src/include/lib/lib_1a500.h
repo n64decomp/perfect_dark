@@ -15,7 +15,7 @@ u32 func0001a784(void);
 u32 func0001a7cc(void);
 u32 func0001a85c(void);
 void *func0001a91c(struct animdata08 *arg0, s32 arg1);
-u32 func0001a9bc(void);
+struct modelthing *func0001a9bc(void *modelfiledata, s32 arg1);
 u32 func0001a9e8(void);
 struct animdata10 *func0001aa1c(struct animdata *animdata, void *arg1);
 u32 func0001ab0c(void);

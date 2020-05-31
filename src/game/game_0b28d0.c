@@ -572,7 +572,7 @@ glabel func0f0b2b64
 /*  f0b3054:	8fb9003c */ 	lw	$t9,0x3c($sp)
 .L0f0b3058:
 /*  f0b3058:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0b305c:	0fc2cc33 */ 	jal	func0f0b30cc
+/*  f0b305c:	0fc2cc33 */ 	jal	modelFree
 /*  f0b3060:	afa0003c */ 	sw	$zero,0x3c($sp)
 /*  f0b3064:	10000003 */ 	beqz	$zero,.L0f0b3074
 /*  f0b3068:	8fb9003c */ 	lw	$t9,0x3c($sp)
@@ -610,7 +610,7 @@ glabel func0f0b30ac
 );
 
 GLOBAL_ASM(
-glabel func0f0b30cc
+glabel modelFree
 /*  f0b30cc:	3c098009 */ 	lui	$t1,%hi(g_Is4Mb)
 /*  f0b30d0:	25290af0 */ 	addiu	$t1,$t1,%lo(g_Is4Mb)
 /*  f0b30d4:	91250000 */ 	lbu	$a1,0x0($t1)

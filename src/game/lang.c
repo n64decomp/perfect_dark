@@ -323,7 +323,7 @@ void langSetBankSimple(s32 bank)
 	g_LangBanks[bank] = func0f1670fc(file_id, 0x22);
 }
 
-void langSetBank(s32 bank, s32 arg1, s32 arg2)
+void langSetBank(s32 bank, u8 *arg1, s32 arg2)
 {
 	s32 file_id = langGetFileId(bank);
 	g_LangBanks[bank] = func0f167200(file_id, 0x22, arg1, arg2);
