@@ -1528,7 +1528,7 @@ glabel menuhandlerCoopBuddy
 /*  f104304:	0fc41023 */ 	jal	getMaxAiBuddies
 /*  f104308:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10430c:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f104310:	0c005013 */ 	jal	func0001404c
+/*  f104310:	0c005013 */ 	jal	getConnectedControllers
 /*  f104314:	afa0002c */ 	sw	$zero,0x2c($sp)
 /*  f104318:	30490002 */ 	andi	$t1,$v0,0x2
 /*  f10431c:	11200002 */ 	beqz	$t1,.L0f104328
@@ -1541,7 +1541,7 @@ glabel menuhandlerCoopBuddy
 /*  f104334:	10000035 */ 	beqz	$zero,.L0f10440c
 /*  f104338:	ad8b0000 */ 	sw	$t3,0x0($t4)
 .L0f10433c:
-/*  f10433c:	0c005013 */ 	jal	func0001404c
+/*  f10433c:	0c005013 */ 	jal	getConnectedControllers
 /*  f104340:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f104344:	304d0002 */ 	andi	$t5,$v0,0x2
 /*  f104348:	11a00002 */ 	beqz	$t5,.L0f104354
@@ -1559,7 +1559,7 @@ glabel menuhandlerCoopBuddy
 /*  f104374:	10000027 */ 	beqz	$zero,.L0f104414
 /*  f104378:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f10437c:
-/*  f10437c:	0c005013 */ 	jal	func0001404c
+/*  f10437c:	0c005013 */ 	jal	getConnectedControllers
 /*  f104380:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f104384:	30490002 */ 	andi	$t1,$v0,0x2
 /*  f104388:	11200002 */ 	beqz	$t1,.L0f104394
@@ -1577,7 +1577,7 @@ glabel menuhandlerCoopBuddy
 /*  f1043b4:	10000015 */ 	beqz	$zero,.L0f10440c
 /*  f1043b8:	ac590458 */ 	sw	$t9,0x458($v0)
 .L0f1043bc:
-/*  f1043bc:	0c005013 */ 	jal	func0001404c
+/*  f1043bc:	0c005013 */ 	jal	getConnectedControllers
 /*  f1043c0:	afa50020 */ 	sw	$a1,0x20($sp)
 /*  f1043c4:	30580002 */ 	andi	$t8,$v0,0x2
 /*  f1043c8:	8fa30020 */ 	lw	$v1,0x20($sp)
@@ -2786,7 +2786,7 @@ glabel var7f1b2dfc
 /*  f1054d8:	27a50130 */ 	addiu	$a1,$sp,0x130
 /*  f1054dc:	27a6012c */ 	addiu	$a2,$sp,0x12c
 /*  f1054e0:	27a700f0 */ 	addiu	$a3,$sp,0xf0
-/*  f1054e4:	0fc5580f */ 	jal	func0f15603c
+/*  f1054e4:	0fc5580f */ 	jal	textRenderWhite
 /*  f1054e8:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f1054ec:	8faf004c */ 	lw	$t7,0x4c($sp)
 /*  f1054f0:	afa20138 */ 	sw	$v0,0x138($sp)
@@ -2817,7 +2817,7 @@ glabel var7f1b2dfc
 /*  f105554:	27a50130 */ 	addiu	$a1,$sp,0x130
 /*  f105558:	27a6012c */ 	addiu	$a2,$sp,0x12c
 /*  f10555c:	27a700f0 */ 	addiu	$a3,$sp,0xf0
-/*  f105560:	0fc5580f */ 	jal	func0f15603c
+/*  f105560:	0fc5580f */ 	jal	textRenderWhite
 /*  f105564:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f105568:	afa20138 */ 	sw	$v0,0x138($sp)
 /*  f10556c:	0fc54de0 */ 	jal	func0f153780
@@ -4479,7 +4479,7 @@ s32 menuhandlerMainMenuCooperative(u32 operation, struct menu_item *item, s32 *v
 s32 menuhandlerMainMenuCounterOperative(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
-		if ((func0001404c() & 2) == 0) {
+		if ((getConnectedControllers() & 2) == 0) {
 			return true;
 		}
 	}

@@ -2407,7 +2407,7 @@ glabel func0f1552d4
 /*  f15536c:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f155370:	afa200c4 */ 	sw	$v0,0xc4($sp)
 /*  f155374:	02003025 */ 	or	$a2,$s0,$zero
-/*  f155378:	0fc55cbe */ 	jal	func0f1572f8
+/*  f155378:	0fc55cbe */ 	jal	textMeasure
 /*  f15537c:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f155380:	8fa800cc */ 	lw	$t0,0xcc($sp)
 /*  f155384:	3c013f80 */ 	lui	$at,0x3f80
@@ -3274,7 +3274,7 @@ glabel func0f156030
 );
 
 GLOBAL_ASM(
-glabel func0f15603c
+glabel textRenderWhite
 /*  f15603c:	27bdff40 */ 	addiu	$sp,$sp,-192
 /*  f156040:	3c0f8008 */ 	lui	$t7,%hi(var8007fac8)
 /*  f156044:	8deffac8 */ 	lw	$t7,%lo(var8007fac8)($t7)
@@ -3418,7 +3418,7 @@ glabel func0f15603c
 /*  f15624c:	afae0020 */ 	sw	$t6,0x20($sp)
 /*  f156250:	afaf0024 */ 	sw	$t7,0x24($sp)
 /*  f156254:	afb80028 */ 	sw	$t8,0x28($sp)
-/*  f156258:	0fc55b92 */ 	jal	func0f156e48
+/*  f156258:	0fc55b92 */ 	jal	textRender
 /*  f15625c:	afb9002c */ 	sw	$t9,0x2c($sp)
 /*  f156260:	0040a825 */ 	or	$s5,$v0,$zero
 .L0f156264:
@@ -4237,7 +4237,7 @@ glabel func0f156a24
 );
 
 GLOBAL_ASM(
-glabel func0f156e48
+glabel textRender
 /*  f156e48:	27bdff38 */ 	addiu	$sp,$sp,-200
 /*  f156e4c:	afbf005c */ 	sw	$ra,0x5c($sp)
 /*  f156e50:	afbe0058 */ 	sw	$s8,0x58($sp)
@@ -4554,7 +4554,7 @@ glabel func0f156e48
 );
 
 GLOBAL_ASM(
-glabel func0f1572f8
+glabel textMeasure
 /*  f1572f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1572fc:	afb10008 */ 	sw	$s1,0x8($sp)
 /*  f157300:	8fb1002c */ 	lw	$s1,0x2c($sp)
@@ -4775,7 +4775,7 @@ glabel func0f157520
 /*  f157608:	27a40074 */ 	addiu	$a0,$sp,0x74
 /*  f15760c:	02803025 */ 	or	$a2,$s4,$zero
 /*  f157610:	02603825 */ 	or	$a3,$s3,$zero
-/*  f157614:	0fc55cbe */ 	jal	func0f1572f8
+/*  f157614:	0fc55cbe */ 	jal	textMeasure
 /*  f157618:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f15761c:	8fab0084 */ 	lw	$t3,0x84($sp)
 /*  f157620:	8fae0078 */ 	lw	$t6,0x78($sp)

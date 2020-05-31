@@ -598,7 +598,7 @@ glabel func00013e84
 );
 
 GLOBAL_ASM(
-glabel func0001404c
+glabel getConnectedControllers
 /*    1404c:	3c028006 */ 	lui	$v0,%hi(var8005eeac)
 /*    14050:	03e00008 */ 	jr	$ra
 /*    14054:	9042eeac */ 	lbu	$v0,%lo(var8005eeac)($v0)

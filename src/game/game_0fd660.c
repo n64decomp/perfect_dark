@@ -469,7 +469,7 @@ glabel var7f1b2cd8
 /*  f0fdc30:	afb8001c */ 	sw	$t8,0x1c($sp)
 /*  f0fdc34:	afaf0014 */ 	sw	$t7,0x14($sp)
 /*  f0fdc38:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f0fdc3c:	0fc5580f */ 	jal	func0f15603c
+/*  f0fdc3c:	0fc5580f */ 	jal	textRenderWhite
 /*  f0fdc40:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f0fdc44:	0fc54de0 */ 	jal	func0f153780
 /*  f0fdc48:	00402025 */ 	or	$a0,$v0,$zero
@@ -929,21 +929,21 @@ glabel func0f0fe848
 /*  f0fea10:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-s16 func0f0fea14(void)
+s16 activemenuCalculateSlotWidth(void)
 {
-	u32 sp140;
-	s32 value;
+	s32 textheight;
+	s32 textwidth;
 	s32 max = 0;
 	s32 i;
 	u32 flags;
-	char label[32];
+	char text[32];
 
 	for (i = 0; i != 9; i++) {
-		activemenuGetSlotDetails(i, &flags, label);
-		func0f1572f8(&sp140, &value, label, var800a21b0, var800a21b4, 0);
+		activemenuGetSlotDetails(i, &flags, text);
+		textMeasure(&textheight, &textwidth, text, var800a21b0, var800a21b4, 0);
 
-		if (value > max) {
-			max = value;
+		if (textwidth > max) {
+			max = textwidth;
 		}
 	}
 
@@ -1004,7 +1004,7 @@ void activemenuChangeScreen(s32 step)
 	g_ActiveMenuThings[g_ActiveMenuIndex].unk14 = 0;
 	g_ActiveMenuThings[g_ActiveMenuIndex].unk10 = 0;
 	g_ActiveMenuThings[g_ActiveMenuIndex].unk18 = 0;
-	g_ActiveMenuThings[g_ActiveMenuIndex].unk04 = func0f0fea14();
+	g_ActiveMenuThings[g_ActiveMenuIndex].slotwidth = activemenuCalculateSlotWidth();
 }
 
 GLOBAL_ASM(
@@ -1209,7 +1209,7 @@ void activemenuOpen(void)
 		g_ActiveMenuThings[g_ActiveMenuIndex].unk1c = 0;
 		func0f0fecd4();
 		activemenuChangeScreen(0);
-		g_ActiveMenuThings[g_ActiveMenuIndex].unk02 = g_ActiveMenuThings[g_ActiveMenuIndex].unk04 + 5;
+		g_ActiveMenuThings[g_ActiveMenuIndex].unk02 = g_ActiveMenuThings[g_ActiveMenuIndex].slotwidth + 5;
 		g_ActiveMenuThings[g_ActiveMenuIndex].unk18 = 0.3;
 		g_ActiveMenuThings[g_ActiveMenuIndex].unk34 = 0;
 		g_ActiveMenuThings[g_ActiveMenuIndex].unk33 = 0;
@@ -1693,7 +1693,7 @@ glabel func0f0ff6f4
 /*  f0ff720:	27a5003c */ 	addiu	$a1,$sp,0x3c
 /*  f0ff724:	27a40038 */ 	addiu	$a0,$sp,0x38
 /*  f0ff728:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0ff72c:	0fc55cbe */ 	jal	func0f1572f8
+/*  f0ff72c:	0fc55cbe */ 	jal	textMeasure
 /*  f0ff730:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0ff734:	8fb8003c */ 	lw	$t8,0x3c($sp)
 /*  f0ff738:	87af0056 */ 	lh	$t7,0x56($sp)
@@ -1724,7 +1724,7 @@ glabel func0f0ff6f4
 /*  f0ff798:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f0ff79c:	afac0014 */ 	sw	$t4,0x14($sp)
 /*  f0ff7a0:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0ff7a4:	0fc5580f */ 	jal	func0f15603c
+/*  f0ff7a4:	0fc5580f */ 	jal	textRenderWhite
 /*  f0ff7a8:	afad0018 */ 	sw	$t5,0x18($sp)
 /*  f0ff7ac:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*  f0ff7b0:	27bd0048 */ 	addiu	$sp,$sp,0x48
@@ -1933,7 +1933,7 @@ glabel var7f1b2ce0
 /*  f0ffa60:	27a5008c */ 	addiu	$a1,$sp,0x8c
 /*  f0ffa64:	8fa6007c */ 	lw	$a2,0x7c($sp)
 /*  f0ffa68:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0ffa6c:	0fc55cbe */ 	jal	func0f1572f8
+/*  f0ffa6c:	0fc55cbe */ 	jal	textMeasure
 /*  f0ffa70:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0ffa74:	0c002f40 */ 	jal	func0000bd00
 /*  f0ffa78:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2075,7 +2075,7 @@ glabel var7f1b2ce0
 /*  f0ffc64:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f0ffc68:	afa0002c */ 	sw	$zero,0x2c($sp)
 /*  f0ffc6c:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f0ffc70:	0fc55b92 */ 	jal	func0f156e48
+/*  f0ffc70:	0fc55b92 */ 	jal	textRender
 /*  f0ffc74:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0ffc78:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0ffc7c:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -2136,7 +2136,7 @@ glabel var7f1b2ce0
 /*  f0ffd40:	8fa60080 */ 	lw	$a2,0x80($sp)
 /*  f0ffd44:	8ce721b0 */ 	lw	$a3,%lo(var800a21b0)($a3)
 /*  f0ffd48:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0ffd4c:	0fc55cbe */ 	jal	func0f1572f8
+/*  f0ffd4c:	0fc55cbe */ 	jal	textMeasure
 /*  f0ffd50:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0ffd54:	0c002f40 */ 	jal	func0000bd00
 /*  f0ffd58:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2229,7 +2229,7 @@ glabel var7f1b2ce0
 /*  f0ffe9c:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f0ffea0:	afa0002c */ 	sw	$zero,0x2c($sp)
 /*  f0ffea4:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f0ffea8:	0fc55b92 */ 	jal	func0f156e48
+/*  f0ffea8:	0fc55b92 */ 	jal	textRender
 /*  f0ffeac:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0ffeb0:	8fae0048 */ 	lw	$t6,0x48($sp)
 /*  f0ffeb4:	afa20098 */ 	sw	$v0,0x98($sp)
@@ -2250,7 +2250,7 @@ glabel var7f1b2ce0
 /*  f0ffeec:	27a5008c */ 	addiu	$a1,$sp,0x8c
 /*  f0ffef0:	00403025 */ 	or	$a2,$v0,$zero
 /*  f0ffef4:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0ffef8:	0fc55cbe */ 	jal	func0f1572f8
+/*  f0ffef8:	0fc55cbe */ 	jal	textMeasure
 /*  f0ffefc:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0fff00:	0c002f40 */ 	jal	func0000bd00
 /*  f0fff04:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2394,7 +2394,7 @@ glabel var7f1b2ce0
 /*  f1000fc:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f100100:	afa0002c */ 	sw	$zero,0x2c($sp)
 /*  f100104:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f100108:	0fc55b92 */ 	jal	func0f156e48
+/*  f100108:	0fc55b92 */ 	jal	textRender
 /*  f10010c:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f100110:	afa20098 */ 	sw	$v0,0x98($sp)
 .L0f100114:
@@ -3818,7 +3818,7 @@ glabel func0f100ad0
 /*  f10159c:	27a50138 */ 	addiu	$a1,$sp,0x138
 /*  f1015a0:	02003025 */ 	or	$a2,$s0,$zero
 /*  f1015a4:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f1015a8:	0fc55cbe */ 	jal	func0f1572f8
+/*  f1015a8:	0fc55cbe */ 	jal	textMeasure
 /*  f1015ac:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f1015b0:	8fb10138 */ 	lw	$s1,0x138($sp)
 /*  f1015b4:	06210003 */ 	bgez	$s1,.L0f1015c4

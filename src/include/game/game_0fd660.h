@@ -10,7 +10,7 @@ s32 activemenuGetFirstBuddyIndex(void);
 void activemenuApply(s32 slot);
 void activemenuGetSlotDetails(s32 slot, u32 *flags, char *dst);
 void func0f0fe848(void);
-s16 func0f0fea14(void);
+s16 activemenuCalculateSlotWidth(void);
 void activemenuChangeScreen(s32 step);
 u32 func0f0fecd4(void);
 void activemenuOpen(void);

@@ -534,7 +534,7 @@ void titleTickCheckControllers(void)
 	func0000bd20(0);
 
 	if (g_TitleTimer > 6) {
-		if ((func0001404c() % 2) == 0) {
+		if ((getConnectedControllers() & 1) == 0) {
 			titleSetNextMode(TITLEMODE_NOCONTROLLER);
 		} else {
 			titleSetNextMode(TITLEMODE_RARELOGO);
@@ -569,7 +569,7 @@ glabel func0f0165f0
 /*  f016624:	27a50048 */ 	addiu	$a1,$sp,0x48
 /*  f016628:	27a4004c */ 	addiu	$a0,$sp,0x4c
 /*  f01662c:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f016630:	0fc55cbe */ 	jal	func0f1572f8
+/*  f016630:	0fc55cbe */ 	jal	textMeasure
 /*  f016634:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f016638:	8faf005c */ 	lw	$t7,0x5c($sp)
 /*  f01663c:	8fb80048 */ 	lw	$t8,0x48($sp)
@@ -612,7 +612,7 @@ glabel func0f0165f0
 /*  f0166c8:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0166cc:	afa90014 */ 	sw	$t1,0x14($sp)
 /*  f0166d0:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f0166d4:	0fc5580f */ 	jal	func0f15603c
+/*  f0166d4:	0fc5580f */ 	jal	textRenderWhite
 /*  f0166d8:	afaa001c */ 	sw	$t2,0x1c($sp)
 /*  f0166dc:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*  f0166e0:	27bd0050 */ 	addiu	$sp,$sp,0x50
@@ -1025,7 +1025,7 @@ glabel var7f1a83e4
 /*  f016cc8:	afb4001c */ 	sw	$s4,0x1c($sp)
 /*  f016ccc:	afa20020 */ 	sw	$v0,0x20($sp)
 /*  f016cd0:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f016cd4:	0fc5580f */ 	jal	func0f15603c
+/*  f016cd4:	0fc5580f */ 	jal	textRenderWhite
 /*  f016cd8:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f016cdc:	afa20128 */ 	sw	$v0,0x128($sp)
 .L0f016ce0:
@@ -3319,7 +3319,7 @@ glabel func0f018ebc
 /*  f019028:	afa00024 */ 	sw	$zero,0x24($sp)
 /*  f01902c:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f019030:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f019034:	0fc5580f */ 	jal	func0f15603c
+/*  f019034:	0fc5580f */ 	jal	textRenderWhite
 /*  f019038:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f01903c:	8fa8008c */ 	lw	$t0,0x8c($sp)
 /*  f019040:	26940001 */ 	addiu	$s4,$s4,0x1
@@ -4562,7 +4562,7 @@ glabel titleRenderNoController
 /*  f01a510:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f01a514:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f01a518:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f01a51c:	0c005013 */ 	jal	func0001404c
+/*  f01a51c:	0c005013 */ 	jal	getConnectedControllers
 /*  f01a520:	00808025 */ 	or	$s0,$a0,$zero
 /*  f01a524:	0fc06bf0 */ 	jal	func0f01afc0
 /*  f01a528:	02002025 */ 	or	$a0,$s0,$zero
@@ -4580,7 +4580,7 @@ glabel titleRenderNoController
 /*  f01a558:	27a50060 */ 	addiu	$a1,$sp,0x60
 /*  f01a55c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f01a560:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f01a564:	0fc55cbe */ 	jal	func0f1572f8
+/*  f01a564:	0fc55cbe */ 	jal	textMeasure
 /*  f01a568:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f01a56c:	8faf0060 */ 	lw	$t7,0x60($sp)
 /*  f01a570:	3c098006 */ 	lui	$t1,%hi(var800624a0)
@@ -4625,7 +4625,7 @@ glabel titleRenderNoController
 /*  f01a608:	afa0002c */ 	sw	$zero,0x2c($sp)
 /*  f01a60c:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f01a610:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f01a614:	0fc55b92 */ 	jal	func0f156e48
+/*  f01a614:	0fc55b92 */ 	jal	textRender
 /*  f01a618:	afab0020 */ 	sw	$t3,0x20($sp)
 /*  f01a61c:	10000018 */ 	beqz	$zero,.L0f01a680
 /*  f01a620:	00408025 */ 	or	$s0,$v0,$zero
@@ -4650,7 +4650,7 @@ glabel titleRenderNoController
 /*  f01a668:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f01a66c:	afac0014 */ 	sw	$t4,0x14($sp)
 /*  f01a670:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f01a674:	0fc5580f */ 	jal	func0f15603c
+/*  f01a674:	0fc5580f */ 	jal	textRenderWhite
 /*  f01a678:	afae001c */ 	sw	$t6,0x1c($sp)
 /*  f01a67c:	00408025 */ 	or	$s0,$v0,$zero
 .L0f01a680:
@@ -4665,7 +4665,7 @@ glabel titleRenderNoController
 /*  f01a6a0:	27a50060 */ 	addiu	$a1,$sp,0x60
 /*  f01a6a4:	00403025 */ 	or	$a2,$v0,$zero
 /*  f01a6a8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f01a6ac:	0fc55cbe */ 	jal	func0f1572f8
+/*  f01a6ac:	0fc55cbe */ 	jal	textMeasure
 /*  f01a6b0:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f01a6b4:	8fb90060 */ 	lw	$t9,0x60($sp)
 /*  f01a6b8:	3c0b8006 */ 	lui	$t3,%hi(var800624a0)
@@ -4710,7 +4710,7 @@ glabel titleRenderNoController
 /*  f01a750:	afa0002c */ 	sw	$zero,0x2c($sp)
 /*  f01a754:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f01a758:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f01a75c:	0fc55b92 */ 	jal	func0f156e48
+/*  f01a75c:	0fc55b92 */ 	jal	textRender
 /*  f01a760:	afac0020 */ 	sw	$t4,0x20($sp)
 /*  f01a764:	10000018 */ 	beqz	$zero,.L0f01a7c8
 /*  f01a768:	00408025 */ 	or	$s0,$v0,$zero
@@ -4735,7 +4735,7 @@ glabel titleRenderNoController
 /*  f01a7b0:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f01a7b4:	afad0014 */ 	sw	$t5,0x14($sp)
 /*  f01a7b8:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f01a7bc:	0fc5580f */ 	jal	func0f15603c
+/*  f01a7bc:	0fc5580f */ 	jal	textRenderWhite
 /*  f01a7c0:	afaf001c */ 	sw	$t7,0x1c($sp)
 /*  f01a7c4:	00408025 */ 	or	$s0,$v0,$zero
 .L0f01a7c8:
@@ -4747,6 +4747,65 @@ glabel titleRenderNoController
 /*  f01a7dc:	03e00008 */ 	jr	$ra
 /*  f01a7e0:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch because goal uses an implicit stack address for func0000bc08's
+// return value while mine uses s0, or multiple stack addresses.
+//
+// Each time func000bc08 is called, goal puts the result in sp72 to preserve it
+// past the call to func000bc18. It uses the same stack address each time.
+// However, if the below is changed to call the final func000bc08 like the
+// others, it uses s0 instead. Likewise, changing all calls to load their return
+// values into variables also makes it use s0. And a mix between the two
+// (as shown below) causes it to use different stack addresses.
+//Gfx *titleRenderNoController(Gfx *gdl)
+//{
+//	s32 textheight; // sp100
+//	s32 textwidth; // sp96
+//	s32 x; // sp92
+//	s32 y; // sp88
+//	char *text; // sp84
+//	u16 stack[6];
+//
+//	// This was likely printed to console
+//	getConnectedControllers();
+//
+//	gdl = func0f01afc0(gdl);
+//	gdl = func0f153628(gdl);
+//
+//	// First line
+//	text = langGet(L_OPTIONS(71)); // "- no controller in controller socket 1 -"
+//	textMeasure(&textheight, &textwidth, text, var8007fb20, var8007fb1c, 0);
+//
+//	x = 288 - (textwidth >> 1);
+//	y = ((var800624a0 / 2) - (textheight >> 1)) - 12;
+//
+//	if (g_LanguageId != LANGUAGE_ENGLISH) {
+//		gdl = textRender(gdl, &x, &y, text, var8007fb20, var8007fb1c,
+//				-1, 0x008000ff, func0000bc08(), func0000bc18(), 0, 0);
+//	} else {
+//		gdl = textRenderWhite(gdl, &x, &y, text, var8007fb20, var8007fb1c,
+//				-1, func0000bc08(), func0000bc18(), 0, 0);
+//	}
+//
+//	// Second line
+//	text = langGet(L_OPTIONS(72)); // "please power off and attach a controller"
+//	textMeasure(&textheight, &textwidth, text, var8007fb20, var8007fb1c, 0);
+//
+//	x = 288 - (textwidth >> 1);
+//	y = ((var800624a0 / 2) - (textheight >> 1)) + 12;
+//
+//	if (g_LanguageId != LANGUAGE_ENGLISH) {
+//		gdl = textRender(gdl, &x, &y, text, var8007fb20, var8007fb1c,
+//				-1, 0x008000ff, func0000bc08(), func0000bc18(), 0, 0);
+//	} else {
+//		s16 a = func0000bc08();
+//		s16 b = func0000bc18();
+//		gdl = textRenderWhite(gdl, &x, &y, text, var8007fb20, var8007fb1c,
+//				-1, a, b, 0, 0);
+//	}
+//
+//	return func0f153780(gdl);
+//}
 
 void titleSetNextMode(s32 mode)
 {
