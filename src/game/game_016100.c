@@ -542,27 +542,17 @@ void titleTickCheckControllers(void)
 	}
 }
 
+Gfx *titleRenderCheckControllers(Gfx *gdl)
+{
+	if (g_TitleTimer > 2 && g_TitleTimer < 6) {
+		gdl = func0f01afc0(gdl);
+	}
+
+	return gdl;
+}
+
 GLOBAL_ASM(
-glabel titleRenderCheckControllers
-/*  f0165ac:	3c028006 */ 	lui	$v0,%hi(g_TitleTimer)
-/*  f0165b0:	8c4224c4 */ 	lw	$v0,%lo(g_TitleTimer)($v0)
-/*  f0165b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0165b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0165bc:	28410003 */ 	slti	$at,$v0,0x3
-/*  f0165c0:	14200006 */ 	bnez	$at,.L0f0165dc
-/*  f0165c4:	28410006 */ 	slti	$at,$v0,0x6
-/*  f0165c8:	50200005 */ 	beqzl	$at,.L0f0165e0
-/*  f0165cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0165d0:	0fc06bf0 */ 	jal	func0f01afc0
-/*  f0165d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0165d8:	00402025 */ 	or	$a0,$v0,$zero
-.L0f0165dc:
-/*  f0165dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0165e0:
-/*  f0165e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0165e4:	00801025 */ 	or	$v0,$a0,$zero
-/*  f0165e8:	03e00008 */ 	jr	$ra
-/*  f0165ec:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f0165f0
 /*  f0165f0:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f0165f4:	3c0e8008 */ 	lui	$t6,%hi(var8007fb1c)
 /*  f0165f8:	8dcefb1c */ 	lw	$t6,%lo(var8007fb1c)($t6)

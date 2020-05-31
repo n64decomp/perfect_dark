@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f01afc0(void);
+Gfx *func0f01afc0(Gfx *gdl);
 
 #endif
