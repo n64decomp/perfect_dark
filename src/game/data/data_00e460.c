@@ -15,7 +15,7 @@ u32 g_TintedGlassEnabled = 0;
 // f8f4
 s32 g_AlarmTimer = 0;
 
-s32 g_AlarmAudioHandle = 0;
+struct audiohandle *g_AlarmAudioHandle = NULL;
 f32 g_AlarmSpeakerWeight = 64;
 f32 g_AlarmSpeakerDirection = 1;
 f32 var800698e4 = 0;

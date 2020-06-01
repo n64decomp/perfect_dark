@@ -281,7 +281,7 @@ extern s32 g_MpTimeElapsed;
 extern s32 g_MpTimeLimit;
 extern s32 g_MpScoreLimit;
 extern s32 g_MpTeamScoreLimit;
-extern void *g_MiscAudioHandle;
+extern struct audiohandle *g_MiscAudioHandle;
 extern s32 var80084038;
 extern f32 g_Uptime;
 extern bool var80084040;

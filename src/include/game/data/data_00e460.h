@@ -26,7 +26,7 @@ extern u8 var80069860[8];
 extern struct coord var80069868;
 extern struct coord var80069874;
 extern u32 var800698c0;
-extern s32 g_AlarmAudioHandle;
+extern struct audiohandle *g_AlarmAudioHandle;
 extern f32 g_AlarmSpeakerWeight;
 extern f32 g_AlarmSpeakerDirection;
 extern f32 var800698e4;

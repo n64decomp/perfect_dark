@@ -192,7 +192,7 @@ extern u32 var80061460;
 extern u32 var80061468;
 extern s32 g_FootstepSounds[];
 extern u16 var800615a0[][2];
-extern u32 var80061630;
+extern f32 var80061630;
 extern u32 var80061634;
 extern u32 var80061640;
 extern u32 var80061644;

@@ -73,7 +73,7 @@ extern u32 var80062810;
 extern f32 var80062814;
 extern u32 var80062818;
 extern u32 var80062858;
-extern s32 *g_TitleAudioHandle;
+extern struct audiohandle *g_TitleAudioHandle;
 extern u32 var80062868;
 extern u32 var80062870;
 extern u32 var8006287c;

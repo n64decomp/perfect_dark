@@ -1172,6 +1172,10 @@ struct eyespy {
 	/*0x7c*/ s32 pitch;
 };
 
+struct audiohandle {
+	u32 unk00;
+};
+
 /**
  * List of guns that the player has equipped and the amount of time they've been
  * equipped for. It's used to determine the weapon of choice for the endscreen.
@@ -1671,7 +1675,7 @@ struct hand {
 	/*0x0d74*/ u16 unk0d74[4];
 	/*0x0d7c*/ u32 unk0d7c;
 	/*0x0d80*/ u32 unk0d80;
-	/*0x0d84*/ s32 *audiohandle;
+	/*0x0d84*/ struct audiohandle *audiohandle;
 	/*0x0d88*/ u32 unk0d88;
 	/*0x0d8c*/ u32 unk0d8c;
 	/*0x0d90*/ u32 unk0d90;
@@ -5353,7 +5357,7 @@ struct weatherdata {
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
 	/*0x30*/ u32 unk30;
-	/*0x34*/ s32 *audiohandles[4];
+	/*0x34*/ struct audiohandle *audiohandles[4];
 	/*0x44*/ s32 unk44;
 	/*0x48*/ s32 unk48;
 	/*0x4c*/ s32 unk4c;

@@ -19,7 +19,7 @@ u32 func0f143678(void);
 Gfx *hudRenderEyespyUi(Gfx *gdl);
 Gfx *func0f1472fc(Gfx *gdl);
 Gfx *func0f147578(Gfx *gdl);
-u32 func0f147cf8(void);
+Gfx *func0f147cf8(Gfx *gdl);
 Gfx *hudRenderHorizonScanner(Gfx *gdl);
 Gfx *func0f14886c(Gfx *gdl);
 u32 func0f148b40(void);
