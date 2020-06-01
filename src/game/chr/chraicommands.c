@@ -849,8 +849,8 @@ bool ai001a(void)
 			vector.z = chr2->prop->pos.z - chr1->prop->pos.z;
 			scaleTo1(&vector.x, &vector.y, &vector.z);
 			weapon = prop->weapon;
-			thing = func0f0b1d28(&weapon->weapon_id);
-			func0f034330(chr2, thing, &vector, &weapon->weapon_id, chr1->prop, (s8)cmd[4]);
+			thing = func0f0b1d28(&weapon->weaponnum);
+			func0f034330(chr2, thing, &vector, &weapon->weaponnum, chr1->prop, (s8)cmd[4]);
 		}
 	}
 
@@ -2182,7 +2182,7 @@ glabel aiIfWeaponThrownOnObject
 //			if (prop->type == PROPTYPE_WEAPON) {
 //				struct weaponobj *weapon = prop->weapon;
 //
-//				if (weapon->weapon_id == cmd[2]) {
+//				if (weapon->weaponnum == cmd[2]) {
 //					pass = true;
 //				}
 //			}
@@ -2348,7 +2348,7 @@ bool aiDestroyObject(void)
 	if (obj && obj->prop && func0f0687b8(obj) == 0) {
 		struct defaultobj *entity = obj->prop->obj;
 
-		if (entity->obj == MODEL_ELVIS_SAUCER) {
+		if (entity->modelnum == MODEL_ELVIS_SAUCER) {
 			obj->flags = (obj->flags & ~OBJFLAG_00010000) | OBJFLAG_INVINCIBLE;
 			func0f129900(entity->prop, &entity->prop->pos, entity->prop->rooms, 3, 0);
 			func0f12e714(entity->prop, 0x16);
@@ -2410,10 +2410,10 @@ bool aiChrDropWeapon(void)
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = propGetPlayerNum(chr->prop);
-		u32 weapon_id;
+		u32 weaponnum;
 		setCurrentPlayerNum(playernum);
-		weapon_id = getCurrentPlayerWeaponId(0);
-		currentPlayerRemoveWeapon(weapon_id);
+		weaponnum = getCurrentPlayerWeaponId(0);
+		currentPlayerRemoveWeapon(weaponnum);
 		func0f0a1c2c();
 		setCurrentPlayerNum(prevplayernum);
 	} else if (chr && chr->prop) {
@@ -4542,7 +4542,7 @@ bool aiDuplicateChr(void)
 
 			if (srcweapon0prop) {
 				srcweapon0 = srcweapon0prop->weapon;
-				cloneweapon0prop = chrGiveWeapon(clone, srcweapon0->base.obj, srcweapon0->weapon_id, 0);
+				cloneweapon0prop = chrGiveWeapon(clone, srcweapon0->base.modelnum, srcweapon0->weaponnum, 0);
 
 				if (cloneweapon0prop) {
 					cloneweapon0 = cloneweapon0prop->weapon;
@@ -4553,7 +4553,7 @@ bool aiDuplicateChr(void)
 
 			if (srcweapon1prop) {
 				srcweapon1 = srcweapon1prop->weapon;
-				cloneweapon1prop = chrGiveWeapon(clone, srcweapon1->base.obj, srcweapon1->weapon_id, 0x10000000);
+				cloneweapon1prop = chrGiveWeapon(clone, srcweapon1->base.modelnum, srcweapon1->weaponnum, 0x10000000);
 
 				if (cloneweapon1prop) {
 					cloneweapon1 = cloneweapon1prop->weapon;
@@ -4568,7 +4568,7 @@ bool aiDuplicateChr(void)
 
 			if (chr->weapons_held[2]) {
 				struct defaultobj *obj = chr->weapons_held[2]->obj;
-				chrTryEquipHat(clone, obj->obj, 0);
+				chrTryEquipHat(clone, obj->modelnum, 0);
 			}
 
 			clone->flags = chr->flags;
@@ -5421,7 +5421,7 @@ bool aiShowObj(void)
 		if (g_Vars.currentplayer->eyespy == NULL && obj->type == OBJTYPE_WEAPON) {
 			struct weaponobj *weapon = (struct weaponobj *) obj;
 
-			if (weapon->weapon_id == WEAPON_CAMSPY) {
+			if (weapon->weaponnum == WEAPON_CAMSPY) {
 				currentPlayerInitEyespy();
 			}
 		}
@@ -10949,7 +10949,7 @@ bool aiChrSetCutsceneWeapon(void)
 					struct weaponobj *weapon = chr->weapons_held[0]->weapon;
 					bool valid = true;
 
-					switch (weapon->weapon_id) {
+					switch (weapon->weaponnum) {
 					case WEAPON_FALCON2:
 					case WEAPON_FALCON2_SILENCER:
 					case WEAPON_FALCON2_SCOPE:

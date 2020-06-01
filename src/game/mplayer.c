@@ -4972,7 +4972,7 @@ s32 mpGetNumHeads(void)
 
 s32 mpGetHeadId(u8 headnum)
 {
-	return g_MpHeads[headnum].headid;
+	return g_MpHeads[headnum].headnum;
 }
 
 s32 mpGetHeadUnlockValue(u8 headnum)
@@ -4982,7 +4982,7 @@ s32 mpGetHeadUnlockValue(u8 headnum)
 
 s32 mpGetBeauHeadId(u8 headnum)
 {
-	return g_MpBeauHeads[headnum].headid;
+	return g_MpBeauHeads[headnum].headnum;
 }
 
 s32 mpGetNumBeauHeads(void)
@@ -5005,25 +5005,25 @@ s32 mpGetBodyId(u8 bodynum)
 		return BODY_DARK_COMBAT;
 	}
 
-	return g_MpBodies[bodynum].bodyid;
+	return g_MpBodies[bodynum].bodynum;
 }
 
-s32 mpGetBodyIndexByBodyId(u16 bodyid)
+s32 mpGetBodyIndexByBodyId(u16 bodynum)
 {
 	s32 i;
 
-	if (bodyid == BODY_DRCAROLL) {
+	if (bodynum == BODY_DRCAROLL) {
 		return 62; // NUM_MPBODIES + 1
 	}
 
 	for (i = 0; i != NUM_MPBODIES; i++) {
-		if (g_MpBodies[i].bodyid == bodyid) {
+		if (g_MpBodies[i].bodynum == bodynum) {
 			return i;
 		}
 	}
 
-	// @bug: Should return 0 as a fallback, not the first body's bodyid
-	return g_MpBodies[0].bodyid;
+	// @bug: Should return 0 as a fallback, not the first body's bodynum
+	return g_MpBodies[0].bodynum;
 }
 
 char *mpGetBodyName(u8 bodynum)
@@ -5056,10 +5056,10 @@ s32 mpBodyGetMpHeadIndex(s32 bodynum)
 		bodynum = 0;
 	}
 
-	headnum = g_MpBodies[bodynum].headid;
+	headnum = g_MpBodies[bodynum].headnum;
 
 	if (headnum == 1000) {
-		if (g_Bodies[g_MpBodies[bodynum].bodyid].ismale) {
+		if (g_Bodies[g_MpBodies[bodynum].bodynum].ismale) {
 			headnum = g_MpMaleHeads[random() % ARRAYCOUNT(g_MpMaleHeads)];
 		} else {
 			headnum = g_MpFemaleHeads[random() % ARRAYCOUNT(g_MpFemaleHeads)];
@@ -5067,7 +5067,7 @@ s32 mpBodyGetMpHeadIndex(s32 bodynum)
 	}
 
 	for (i = 0; i != ARRAYCOUNT(g_MpHeads); i++) {
-		if (g_MpHeads[i].headid == headnum) {
+		if (g_MpHeads[i].headnum == headnum) {
 			index = i;
 		}
 	}
@@ -5398,11 +5398,11 @@ s32 func0f18c200(void)
 	return mpGetTrackSlotIndex(NUM_MPTRACKS);
 }
 
-s32 mpGetTrackAudioId(s32 slotindex)
+s32 mpGetTrackMusicNum(s32 slotindex)
 {
 	s32 tracknum = mpGetTrackNumAtSlotIndex(slotindex);
 
-	return g_MpTracks[tracknum].audioid;
+	return g_MpTracks[tracknum].musicnum;
 }
 
 char *mpGetTrackName(s32 slotindex)

@@ -12839,7 +12839,7 @@ bool chrTryAttackAmount(struct chrdata *chr, u32 arg1, u32 arg2, u8 lower, u8 up
 			percentage = 0;
 		}
 
-		ammo = weaponGetAmmoByFunction(weapon->weapon_id, 0);
+		ammo = weaponGetAmmoByFunction(weapon->weaponnum, 0);
 
 		if (ammo) {
 			quantity = ammo->clipsize * percentage;
@@ -13847,7 +13847,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 			if (rightprop) {
 				weapon = rightprop->weapon;
 
-				if (weapon->weapon_id == WEAPON_GRENADE || weapon->weapon_id == WEAPON_NBOMB) {
+				if (weapon->weaponnum == WEAPON_GRENADE || weapon->weaponnum == WEAPON_NBOMB) {
 					chrThrowGrenade(chr, 0, false);
 					chr->act_throwgrenade.entitytype = entitytype;
 					chr->act_throwgrenade.entityid = entityid;
@@ -13858,7 +13858,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 			if (!done && leftprop) {
 				weapon = leftprop->weapon;
 
-				if (weapon->weapon_id == WEAPON_GRENADE || weapon->weapon_id == WEAPON_NBOMB) {
+				if (weapon->weaponnum == WEAPON_GRENADE || weapon->weaponnum == WEAPON_NBOMB) {
 					chrThrowGrenade(chr, 1, false);
 					chr->act_throwgrenade.entitytype = entitytype;
 					chr->act_throwgrenade.entityid = entityid;
@@ -22258,7 +22258,7 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 
 		if (prop) {
 			if ((flags & 1) && prop->weapon &&
-					prop->weapon->weapon_id == WEAPON_GRENADE &&
+					prop->weapon->weaponnum == WEAPON_GRENADE &&
 					prop->weapon->unk62 < 480) {
 				pass = true;
 			}

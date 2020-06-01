@@ -208,7 +208,7 @@ s32 menuhandlerReplayPreviousMission(u32 operation, struct menu_item *item, s32 
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.stageindex--;
-		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stage_id;
+		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stage;
 	}
 
 	return menuhandlerAcceptMission(operation, NULL, value);
@@ -504,7 +504,7 @@ void func0f10d770(void)
 s32 menuhandlerReplayLastLevel(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stage_id;
+		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stage;
 		return menuhandlerAcceptMission(operation, NULL, value);
 	}
 

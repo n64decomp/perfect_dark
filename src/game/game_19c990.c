@@ -64,10 +64,10 @@ bool ciIsTourDone(void)
 	return savefileHasFlag(SAVEFILEFLAG_CI_TOUR_DONE);
 }
 
-u8 ciGetFiringRangeScore(s32 weapon_id)
+u8 ciGetFiringRangeScore(s32 weaponnum)
 {
 	// Data at firingrangescores is a u8 array where each score uses 2 bits
-	return (g_SoloSaveFile.firingrangescores[weapon_id >> 2] >> (weapon_id % 4) * 2) & 3;
+	return (g_SoloSaveFile.firingrangescores[weaponnum >> 2] >> (weaponnum % 4) * 2) & 3;
 }
 
 GLOBAL_ASM(
@@ -4129,7 +4129,7 @@ void func0f1a0924(struct prop *prop)
 	struct defaultobj *obj = prop->obj;
 	s32 i;
 
-	if (obj->obj == MODEL_TARGET) {
+	if (obj->modelnum == MODEL_TARGET) {
 		f32 sp68;
 		f32 sp64;
 		f32 sp60;

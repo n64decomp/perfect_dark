@@ -7802,7 +7802,7 @@ f32 coordFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
 			*inlift = true;
 			*lift = sp72->lift;
 
-			if (*lift && (*lift)->obj->obj == MODEL_ESCA_STEP && floortype) {
+			if (*lift && (*lift)->obj->modelnum == MODEL_ESCA_STEP && floortype) {
 				*floortype = FLOORTYPE_METAL;
 			}
 		} else {

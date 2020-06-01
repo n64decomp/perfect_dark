@@ -10922,7 +10922,7 @@ struct prop *chrGetEquippedWeaponPropWithCheck(struct chrdata *chr, s32 hand)
 	if (prop) {
 		struct weaponobj *weapon = prop->weapon;
 
-		if (!weaponHasFlag(weapon->weapon_id, WEAPONFLAG_00000010)) {
+		if (!weaponHasFlag(weapon->weaponnum, WEAPONFLAG_00000010)) {
 			prop = NULL;
 		}
 	}

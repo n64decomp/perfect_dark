@@ -320,7 +320,7 @@ glabel func0f111ad4
 //				if (obj && obj->type == OBJTYPE_WEAPON) {
 //					struct weaponobj *weapon = (struct weaponobj *)obj;
 //
-//					if (weapon->weapon_id == weaponnum) {
+//					if (weapon->weaponnum == weaponnum) {
 //						return true;
 //					}
 //				}
@@ -525,7 +525,7 @@ bool currentPlayerGiveProp(struct prop *prop)
 	if (cheatIsActive(CHEAT_PERFECTDARKNESS)
 			&& prop->type == PROPTYPE_OBJ
 			&& prop->obj
-			&& prop->obj->obj == MODEL_CHRNIGHTSIGHT) {
+			&& prop->obj->modelnum == MODEL_CHRNIGHTSIGHT) {
 		return true;
 	}
 

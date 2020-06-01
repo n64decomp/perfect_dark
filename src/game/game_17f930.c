@@ -797,7 +797,7 @@ void scenarioHtbCallback10(void)
 		if (prop->type == PROPTYPE_WEAPON) {
 			struct weaponobj *weapon = prop->weapon;
 
-			if (weapon->weapon_id == WEAPON_BRIEFCASE2) {
+			if (weapon->weaponnum == WEAPON_BRIEFCASE2) {
 				g_ScenarioData.htb.token = prop;
 			}
 		}
@@ -1656,7 +1656,7 @@ glabel scenarioCtcHighlight
 //bool scenarioCtcHighlight(struct prop *prop, u32 *colour)
 //{
 //	if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
-//		if (prop->obj->type == OBJTYPE_WEAPON && prop->weapon->weapon_id == WEAPON_BRIEFCASE2) {
+//		if (prop->obj->type == OBJTYPE_WEAPON && prop->weapon->weaponnum == WEAPON_BRIEFCASE2) {
 //			u32 teamcolour = g_TeamColours[prop->weapon->team];
 //
 //			colour[0] = teamcolour >> 24 & 0xff;
@@ -3279,7 +3279,7 @@ void scenarioHtmCallback10(void)
 		if (prop->type == PROPTYPE_WEAPON) {
 			struct weaponobj *weapon = prop->weapon;
 
-			if (weapon->weapon_id == WEAPON_DATAUPLINK) {
+			if (weapon->weaponnum == WEAPON_DATAUPLINK) {
 				g_ScenarioData.htm.uplink = prop;
 			}
 		}

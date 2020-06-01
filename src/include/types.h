@@ -858,7 +858,7 @@ struct defaultobj {
 	/*0x00*/ u16 extrascale;
 	/*0x02*/ u8 hidden2;
 	/*0x03*/ u8 type;
-	/*0x04*/ s16 obj;
+	/*0x04*/ s16 modelnum;
 	/*0x06*/ s16 pad;
 	/*0x08*/ u32 flags;
 	/*0x0c*/ u32 flags2;
@@ -935,7 +935,7 @@ struct ammocrateobj { // objtype 0x07
 
 struct weaponobj { // objtype 0x08
 	struct defaultobj base;
-	/*0x5c*/ u8 weapon_id;
+	/*0x5c*/ u8 weaponnum;
 	/*0x5d*/ s8 unk5d;
 	/*0x5e*/ s8 unk5e;
 	/*0x5f*/ u8 dragonthrown;
@@ -2764,7 +2764,7 @@ struct weapon {
 };
 
 struct cutscene {
-	u16 stage_id;
+	u16 stage;
 	u16 mission;
 	u32 scene;
 	u16 name;
@@ -2827,7 +2827,7 @@ struct mpweaponset {
 };
 
 struct mphead {
-	s16 headid;
+	s16 headnum;
 	u8 unlockvalue;
 };
 
@@ -2840,21 +2840,21 @@ struct mpsimulant {
 };
 
 struct mpbody {
-	s16 bodyid;
+	s16 bodynum;
 	s16 name;
-	s16 headid;
+	s16 headnum;
 	u8 unk06;
 };
 
 struct mptrack {
-	u16 audioid : 7;
+	u16 musicnum : 7;
 	u16 duration : 9;
 	s16 name;
 	s16 unlockstage;
 };
 
 struct stageoverviewentry {
-	u32 stage_id;
+	u32 stage;
 	u8 unk04;
 	u16 name1; // "dataDyne Central"
 	u16 name2; // " - Defection"
@@ -2862,7 +2862,7 @@ struct stageoverviewentry {
 };
 
 struct stagemusic {
-	u16 stage_id;
+	u16 stage;
 	s16 main_music;
 	s16 sfx_music;
 	s16 x_music;

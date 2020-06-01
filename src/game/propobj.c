@@ -32652,8 +32652,8 @@ void propobjSetDropped(struct prop *prop, u32 reason)
 
 		if (g_Vars.unk00031c
 				&& obj->type == OBJTYPE_WEAPON
-				&& obj->obj != MODEL_CHRBRIEFCASE
-				&& obj->obj != MODEL_CHRDATATHIEF) {
+				&& obj->modelnum != MODEL_CHRBRIEFCASE
+				&& obj->modelnum != MODEL_CHRDATATHIEF) {
 			obj->flags3 |= OBJFLAG3_00000080;
 		}
 	}
@@ -38550,9 +38550,9 @@ s32 weaponGetPickupAmmoQty(struct weaponobj *weapon)
 		return 20;
 	}
 
-	ammotype = weaponGetAmmoType(weapon->weapon_id, 0);
+	ammotype = weaponGetAmmoType(weapon->weaponnum, 0);
 
-	if (weapon->weapon_id == WEAPON_COMBATKNIFE || weapon->weapon_id == WEAPON_BOLT) {
+	if (weapon->weaponnum == WEAPON_COMBATKNIFE || weapon->weaponnum == WEAPON_BOLT) {
 		return 1;
 	}
 
@@ -39418,21 +39418,21 @@ glabel var7f1aae70
 //			s32 ammotype;
 //
 //			if (g_Vars.normmplayerisrunning) {
-//				if (weapon->weapon_id == WEAPON_BRIEFCASE2) {
+//				if (weapon->weaponnum == WEAPON_BRIEFCASE2) {
 //					u32 iVar2 = chrGiveBriefcase(g_Vars.currentplayer->prop->chr, prop);
 //
 //					if (iVar2) {
-//						func0f087d10(weapon->weapon_id);
+//						func0f087d10(weapon->weaponnum);
 //					}
 //
 //					return iVar2;
 //				}
 //
-//				if (weapon->weapon_id == WEAPON_DATAUPLINK) {
+//				if (weapon->weaponnum == WEAPON_DATAUPLINK) {
 //					u32 iVar2 = chrGiveUplink(g_Vars.currentplayer->prop->chr, prop);
 //
 //					if (iVar2) {
-//						func0f087d10(weapon->weapon_id);
+//						func0f087d10(weapon->weaponnum);
 //					}
 //
 //					return iVar2;
@@ -39441,12 +39441,12 @@ glabel var7f1aae70
 //
 //			// acc
 //			if (g_Vars.in_cutscene == false) {
-//				func0f087d10(weapon->weapon_id);
+//				func0f087d10(weapon->weaponnum);
 //			}
 //
 //			// af4
 //			if (obj->hidden & OBJHFLAG_00000400) {
-//				if (weapon->weapon_id <= WEAPON_PSYCHOSISGUN) {
+//				if (weapon->weaponnum <= WEAPON_PSYCHOSISGUN) {
 //					count = func0f1120f0(prop);
 //					sp148[0] = 1;
 //				}
@@ -39457,7 +39457,7 @@ glabel var7f1aae70
 //					if (text) {
 //						func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 9);
 //					} else {
-//						currentPlayerQueuePickupWeaponHudmsg(weapon->weapon_id, count == 2);
+//						currentPlayerQueuePickupWeaponHudmsg(weapon->weaponnum, count == 2);
 //					}
 //
 //					sp112 = true;
@@ -39466,7 +39466,7 @@ glabel var7f1aae70
 //				sp148[1] = 4;
 //			} else {
 //				// b88
-//				if (weapon->weapon_id == WEAPON_BOLT) {
+//				if (weapon->weaponnum == WEAPON_BOLT) {
 //					count = 1; // sp104
 //					sp148[0] = 1;
 //					func0f088028(AMMOTYPE_CROSSBOW, 1, g_Vars.in_cutscene == false, true);
@@ -39484,14 +39484,14 @@ glabel var7f1aae70
 //					sp148[0] = 1;
 //
 //					if (showhudmsg) {
-//						char *text = weaponGetActivatedText(weapon->weapon_id);
+//						char *text = weaponGetActivatedText(weapon->weaponnum);
 //
 //						if (text) {
 //							sp112 = true;
 //							func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 9);
 //						} else {
 //							if (sp112) {
-//								currentPlayerQueuePickupWeaponHudmsg(weapon->weapon_id, count == 2);
+//								currentPlayerQueuePickupWeaponHudmsg(weapon->weaponnum, count == 2);
 //							}
 //						}
 //					}
@@ -39502,13 +39502,13 @@ glabel var7f1aae70
 //
 //			// c50
 //			if (count == 2
-//					&& getCurrentPlayerWeaponId(0) == weapon->weapon_id
-//					&& getCurrentPlayerWeaponId(1) != weapon->weapon_id) {
-//				currentPlayerEquipWeaponWrapper(1, weapon->weapon_id);
+//					&& getCurrentPlayerWeaponId(0) == weapon->weaponnum
+//					&& getCurrentPlayerWeaponId(1) != weapon->weaponnum) {
+//				currentPlayerEquipWeaponWrapper(1, weapon->weaponnum);
 //			}
 //
 //			// c9c
-//			ammotype = weaponGetAmmoType(weapon->weapon_id, 0);
+//			ammotype = weaponGetAmmoType(weapon->weaponnum, 0);
 //
 //			if (ammotype) {
 //				s32 pickupqty = weaponGetPickupAmmoQty(weapon);
@@ -39527,7 +39527,7 @@ glabel var7f1aae70
 //			}
 //
 //			// d20
-//			if (weapon->weapon_id == WEAPON_SUPERDRAGON) {
+//			if (weapon->weaponnum == WEAPON_SUPERDRAGON) {
 //				s32 pickupqty = weaponGetPickupAmmoQty(weapon);
 //
 //				if (ammoGetQuantity(AMMOTYPE_DEVASTATOR) < ammoGetQuantity(AMMOTYPE_DEVASTATOR)) {
@@ -39541,7 +39541,7 @@ glabel var7f1aae70
 //				}
 //			}
 //
-//			if (weapon->weapon_id == WEAPON_CAMSPY && g_Vars.currentplayer->eyespy == NULL) {
+//			if (weapon->weaponnum == WEAPON_CAMSPY && g_Vars.currentplayer->eyespy == NULL) {
 //				currentPlayerInitEyespy();
 //			}
 //
@@ -41818,9 +41818,9 @@ glabel func0f08acb0
 
 void propweaponSetDual(struct weaponobj *weapon1, struct weaponobj *weapon2)
 {
-	weapon1->dualweaponnum = weapon2->weapon_id;
+	weapon1->dualweaponnum = weapon2->weaponnum;
 	weapon1->dualweapon = weapon2;
-	weapon2->dualweaponnum = weapon1->weapon_id;
+	weapon2->dualweaponnum = weapon1->weaponnum;
 	weapon2->dualweapon = weapon1;
 }
 
@@ -42836,9 +42836,9 @@ glabel func0f08b8e8
 /*  f08bacc:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
 
-struct prop *chrGiveWeapon(struct chrdata *chr, s32 model, s32 weapon_id, u32 flags)
+struct prop *chrGiveWeapon(struct chrdata *chr, s32 model, s32 weaponnum, u32 flags)
 {
-	return func0f08b8e8(chr, model, weapon_id, flags, 0, 0);
+	return func0f08b8e8(chr, model, weaponnum, flags, 0, 0);
 }
 
 struct prop *func0f08baf4(struct chrdata *chr, s32 weaponnum, u32 flags)

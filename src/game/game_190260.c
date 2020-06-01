@@ -552,32 +552,32 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 	case OBJTYPE_WEAPON:
 		{
 			struct weaponobj *weapon = prop->weapon;
-			u32 itemtype = aibotGetInvItemType(chr, weapon->weapon_id);
+			u32 itemtype = aibotGetInvItemType(chr, weapon->weaponnum);
 			u32 result;
 			u32 qty;
 
-			if (weapon->weapon_id == WEAPON_BRIEFCASE2) {
+			if (weapon->weaponnum == WEAPON_BRIEFCASE2) {
 				result = chrGiveBriefcase(chr, prop);
-			} else if (weapon->weapon_id == WEAPON_DATAUPLINK) {
+			} else if (weapon->weaponnum == WEAPON_DATAUPLINK) {
 				result = chrGiveUplink(chr, prop);
 			} else {
-				propPlayPickupSound(prop, weapon->weapon_id);
+				propPlayPickupSound(prop, weapon->weaponnum);
 				qty = weaponGetPickupAmmoQty(weapon);
 
 				if (qty) {
-					aibotGiveAmmoByWeapon(chr->aibot, weapon->weapon_id, weapon->dragonthrown, qty);
+					aibotGiveAmmoByWeapon(chr->aibot, weapon->weaponnum, weapon->dragonthrown, qty);
 				}
 
 				if (itemtype) {
-					struct weapon *weapondef = weaponFindById(weapon->weapon_id);
-					u32 originalpad = aibotGetWeaponPad(chr, weapon->weapon_id);
+					struct weapon *weapondef = weaponFindById(weapon->weaponnum);
+					u32 originalpad = aibotGetWeaponPad(chr, weapon->weaponnum);
 					u32 currentpad = obj->pad;
 
 					if (itemtype == INVITEMTYPE_WEAP
 							&& weapondef
 							&& (weapondef->flags & WEAPONFLAG_DUALWIELD)
 							&& originalpad != currentpad) {
-						aibotGiveDualWeapon(chr, weapon->weapon_id);
+						aibotGiveDualWeapon(chr, weapon->weaponnum);
 						result = 1;
 					} else {
 						result = 2;
@@ -1060,14 +1060,14 @@ s32 mpObjIsSafe(struct defaultobj *obj)
 	if (obj->type == OBJTYPE_WEAPON) {
 		struct weaponobj *weapon = (struct weaponobj *)obj;
 
-		if (weapon->weapon_id == WEAPON_NBOMB ||
-				weapon->weapon_id == WEAPON_GRENADE ||
-				weapon->weapon_id == WEAPON_GRENADEROUND ||
-				weapon->weapon_id == WEAPON_PROXIMITYMINE ||
-				weapon->weapon_id == WEAPON_REMOTEMINE ||
-				weapon->weapon_id == WEAPON_TIMEDMINE ||
-				weapon->weapon_id == WEAPON_ROCKET2 ||
-				(weapon->weapon_id == WEAPON_DRAGON && weapon->dragonthrown == 1)) {
+		if (weapon->weaponnum == WEAPON_NBOMB ||
+				weapon->weaponnum == WEAPON_GRENADE ||
+				weapon->weaponnum == WEAPON_GRENADEROUND ||
+				weapon->weaponnum == WEAPON_PROXIMITYMINE ||
+				weapon->weaponnum == WEAPON_REMOTEMINE ||
+				weapon->weaponnum == WEAPON_TIMEDMINE ||
+				weapon->weaponnum == WEAPON_ROCKET2 ||
+				(weapon->weaponnum == WEAPON_DRAGON && weapon->dragonthrown == 1)) {
 			return false;
 		}
 
