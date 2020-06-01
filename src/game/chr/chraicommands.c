@@ -413,7 +413,7 @@ bool aiChrDoAnimation(void)
 	if (startframe == 0xffff) {
 		fstartframe = 0;
 	} else if (startframe == 0xfffe) {
-		fstartframe = animGetNumFrames(anim_id) - 1;
+		fstartframe = modelGetNumAnimFrames(anim_id) - 1;
 	} else {
 		fstartframe = startframe;
 	}
@@ -424,7 +424,7 @@ bool aiChrDoAnimation(void)
 		fendframe = endframe;
 	}
 
-	if (chr && chr->animdata) {
+	if (chr && chr->model) {
 		f32 result = 1.0f / (s32)cmd[11];
 
 		if (g_Vars.in_cutscene) {
@@ -519,7 +519,7 @@ bool aiIfChrDead(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER) && (!chr || !chr->animdata || chrIsDead(chr))) {
+	if ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER) && (!chr || !chr->model || chrIsDead(chr))) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -566,7 +566,7 @@ bool aiIfChrKnockedOut(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER) &&
-			(!chr || !chr->animdata || chr->actiontype == ACT_DRUGGEDKO || chr->actiontype == ACT_DRUGGEDDROP || chr->actiontype == ACT_DRUGGEDCOMINGUP)) {
+			(!chr || !chr->model || chr->actiontype == ACT_DRUGGEDKO || chr->actiontype == ACT_DRUGGEDDROP || chr->actiontype == ACT_DRUGGEDCOMINGUP)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2500,8 +2500,8 @@ bool aiObjectMoveToPad(void)
 				-pad.look.x, -pad.look.y, -pad.look.z,
 				pad.up.x, pad.up.y, pad.up.z);
 
-		if (obj->animdata) {
-			func00015f04(obj->animdata->unk14, matrix);
+		if (obj->model) {
+			func00015f04(obj->model->unk14, matrix);
 		}
 
 		rooms[0] = pad.room;
@@ -4419,7 +4419,7 @@ bool aiTryEquipWeapon(void)
 	u32 model = cmd[3] | (cmd[2] << 8);
 	struct prop *prop = NULL;
 
-	if (g_Vars.chrdata && g_Vars.chrdata->prop && g_Vars.chrdata->animdata) {
+	if (g_Vars.chrdata && g_Vars.chrdata->prop && g_Vars.chrdata->model) {
 		if (cheatIsActive(CHEAT_MARQUIS)) {
 			flags &= ~0x10000000;
 			flags |= 0x20000000;
@@ -4495,7 +4495,7 @@ bool aiTryEquipHat(void)
 	u32 thing = cmd[3] | (cmd[2] << 8);
 	bool ok = false;
 
-	if (g_Vars.chrdata && g_Vars.chrdata->prop && g_Vars.chrdata->animdata) {
+	if (g_Vars.chrdata && g_Vars.chrdata->prop && g_Vars.chrdata->model) {
 		ok = chrTryEquipHat(g_Vars.chrdata, thing, flags);
 	}
 
@@ -5326,7 +5326,7 @@ bool aiObjectDoAnimation(void)
 	if (startframe == 0xffff) {
 		fstartframe = 0;
 	} else if (startframe == 0xfffe) {
-		fstartframe = animGetNumFrames(anim_id) - 2;
+		fstartframe = modelGetNumAnimFrames(anim_id) - 2;
 
 		if (fstartframe < 0) {
 			fstartframe = 0;
@@ -5344,22 +5344,22 @@ bool aiObjectDoAnimation(void)
 	}
 
 	if (obj && obj->prop) {
-		struct anim *anim = obj->animdata->anim;
+		struct anim *anim = obj->model->anim;
 
-		if (obj->animdata->anim == NULL) {
-			obj->animdata->anim = func0f0b32e4();
+		if (obj->model->anim == NULL) {
+			obj->model->anim = func0f0b32e4();
 		}
 
-		if (obj->animdata->anim) {
+		if (obj->model->anim) {
 			thing = 1.0f / (s32)cmd[5];
 
 			if (g_Vars.in_cutscene && startframe != 0xfffe) {
 				fstartframe += var8009de20 * thing * 0.25f;
 			}
 
-			func000230a0(obj->animdata->anim);
-			func0001dccc(obj->animdata, anim_id, 0, fstartframe, thing, 0);
-			func0001af64(obj->animdata, func0f15c888() * obj->animdata->unk14 * 100.0f);
+			func000230a0(obj->model->anim);
+			func0001dccc(obj->model, anim_id, 0, fstartframe, thing, 0);
+			func0001af64(obj->model, func0f15c888() * obj->model->unk14 * 100.0f);
 		}
 	}
 
@@ -5376,7 +5376,7 @@ bool aiShowChr(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->prop && chr->animdata) {
+	if (chr && chr->prop && chr->model) {
 		func0f0604bc(chr->prop);
 		propHide(chr->prop);
 		func0f0220ac(chr);
@@ -5395,7 +5395,7 @@ bool aiHideChr(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->prop && chr->animdata) {
+	if (chr && chr->prop && chr->model) {
 		func0f065c44(chr->prop);
 		func0f0605c4(chr->prop);
 		func0f060300(chr->prop);
@@ -5414,7 +5414,7 @@ bool aiShowObj(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->prop && obj->animdata) {
+	if (obj && obj->prop && obj->model) {
 		func0f0604bc(obj->prop);
 		propHide(obj->prop);
 
@@ -5440,7 +5440,7 @@ bool aiHideObj(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->prop && obj->animdata) {
+	if (obj && obj->prop && obj->model) {
 		if (obj->prop->parent) {
 			func0f082f88(obj->prop);
 		} else {
@@ -6422,7 +6422,7 @@ bool aiIfCompareChrPresetsTeam(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
 
-	if (!chr || (!chr->animdata && chr->prop->type != PROPTYPE_PLAYER)) {
+	if (!chr || (!chr->model && chr->prop->type != PROPTYPE_PLAYER)) {
 		chrSetChrPreset(g_Vars.chrdata, CHR_BOND);
 		chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
 	}
@@ -6733,7 +6733,7 @@ glabel var7f1a9d4c
 //	while (*chrnums != -2) {
 //		struct chrdata *chr = chrFindByLiteralId(*chrnums);
 //
-//		if (chr && chr->animdata
+//		if (chr && chr->model
 //				&& !chrIsDead(chr)
 //				&& chr->actiontype != ACT_DEAD
 //				&& chr->alertness > 100 // @bug? I don't think this goes higher than 100
@@ -7271,7 +7271,7 @@ bool aiIfSafetyLessThan(void)
 	while (*chrnums != -2) {
 		struct chrdata *chr = chrFindByLiteralId(*chrnums);
 
-		if (chr && chr->animdata
+		if (chr && chr->model
 				&& !chrIsDead(chr)
 				&& chr->actiontype != ACT_DEAD
 				&& g_Vars.chrdata->chrnum != chr->chrnum
@@ -8384,7 +8384,7 @@ glabel aiSayQuip
 //		while (*chrnums != -2) {
 //			loopchr = chrFindByLiteralId(*chrnums);
 //
-//			if (loopchr && loopchr->animdata
+//			if (loopchr && loopchr->model
 //					&& !chrIsDead(loopchr)
 //					&& loopchr->actiontype != ACT_DEAD
 //					&& g_Vars.chrdata->squadron == loopchr->squadron
@@ -8545,7 +8545,7 @@ glabel aiSayQuip
 
 void func0f05abdc(struct prop *prop)
 {
-	if (prop && prop->chr && prop->chr->animdata && prop->chr->propsoundcount > 0) {
+	if (prop && prop->chr && prop->chr->model && prop->chr->propsoundcount > 0) {
 		prop->chr->propsoundcount--;
 	}
 }
@@ -8579,7 +8579,7 @@ bool aiIncreaseSquadronAlertness(void)
 		struct chrdata *chr = chrFindByLiteralId(*chrnums);
 
 		if (chr &&
-				chr->animdata &&
+				chr->model &&
 				!chrIsDead(chr) &&
 				chr->actiontype != ACT_DEAD &&
 				(g_Vars.chrdata->squadron == chr->squadron || g_Vars.chrdata->squadron == 255) &&
@@ -8634,7 +8634,7 @@ bool aiSetTeamOrders(void)
 		while (*chrnums != -2) {
 			struct chrdata *chr = chrFindByLiteralId(*chrnums);
 
-			if (chr && chr->animdata
+			if (chr && chr->model
 					&& !chrIsDead(chr)
 					&& chr->actiontype != ACT_DEAD
 					&& chrCompareTeams(g_Vars.chrdata, chr, true)
@@ -8822,7 +8822,7 @@ bool aiIfChrInSquadronDoingAction(void)
 		for (; *chrnums != -2; chrnums++) {
 			struct chrdata *chr = chrFindByLiteralId(*chrnums);
 
-			if (chr && chr->animdata && chrIsDead(chr) == false &&
+			if (chr && chr->model && chrIsDead(chr) == false &&
 					chr->actiontype != ACT_DEAD &&
 					chrCompareTeams(g_Vars.chrdata, chr, 1) &&
 					g_Vars.chrdata->chrnum != chr->chrnum &&
@@ -8876,7 +8876,7 @@ bool aiSetChrPresetToUnalertedTeammate(void)
 	for (; *chrnums != -2; chrnums++) {
 		struct chrdata *chr = chrFindByLiteralId(*chrnums);
 
-		if (cmd[3] == 0 && chr && chr->animdata &&
+		if (cmd[3] == 0 && chr && chr->model &&
 				chrIsDead(chr) == false &&
 				chr->actiontype != ACT_DEAD &&
 				chr->actiontype != ACT_DIE &&
@@ -9213,7 +9213,7 @@ bool aiIfSquadronIsDead(void)
 		while (*chrnums != -2) {
 			struct chrdata *chr = chrFindByLiteralId(*chrnums);
 
-			if (chr && chr->animdata) {
+			if (chr && chr->model) {
 				anyalive = false;
 
 				if (!chrIsDead(chr) && chr->actiontype != ACT_DEAD) {
@@ -9508,7 +9508,7 @@ bool aiIfChrHasGun(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->animdata && chr->gunprop == NULL) {
+	if (chr && chr->model && chr->gunprop == NULL) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
@@ -9647,7 +9647,7 @@ bool aiChrCopyProperties(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->animdata) {
+	if (chr && chr->model) {
 		g_Vars.chrdata->hearingscale = chr->hearingscale;
 		g_Vars.chrdata->visionrange = chr->visionrange;
 		g_Vars.chrdata->padpreset1 = chr->padpreset1;
@@ -11029,7 +11029,7 @@ bool aiSetChrHudpieceVisible(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->prop && chr->animdata) {
+	if (chr && chr->prop && chr->model) {
 		chrSetHudpieceVisible(chr, cmd[3]);
 	}
 

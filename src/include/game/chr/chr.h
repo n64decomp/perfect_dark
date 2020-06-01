@@ -11,7 +11,7 @@ u32 func0f01f264(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, bo
 void func0f01f378(void);
 s32 chrsGetNumFree(void);
 s16 getLowestUnusedChrId(void);
-struct prop *func0f020b14(struct prop *prop, struct animdata *animdata, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist);
+struct prop *func0f020b14(struct prop *prop, struct model *model, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist);
 void func0f020d44(struct prop *prop, bool arg1);
 u32 func0f021258(void);
 void func0f02133c(struct chrdata *chr);
@@ -75,7 +75,7 @@ f32 chrGetMaxDamage(struct chrdata *chr);
 void chrAddHealth(struct chrdata *chr, f32 health);
 f32 chrGetArmor(struct chrdata *chr);
 void chrInit(struct prop *prop, u8 *ailist);
-struct prop *func0f020cc8(struct animdata *animdata, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist);
+struct prop *func0f020cc8(struct model *model, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist);
 void propClearReferences(s32 propnum);
 void func0f022084(struct chrdata *chr, s16 *room);
 void func0f0220ac(struct chrdata *chr);

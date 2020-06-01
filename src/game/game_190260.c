@@ -442,10 +442,10 @@ void mpInitSimulant(struct chrdata *chr, u8 full)
 		thing = scenarioCallback2c(chr->chrwidth, &pos, rooms, chr->prop);
 		chr->hidden |= CHRHFLAG_00100000;
 		chrMoveToPos(chr, &pos, rooms, thing, true);
-		chr->aibot->unk0a4 = func0001ae44(chr->animdata);
+		chr->aibot->unk0a4 = func0001ae44(chr->model);
 		chr->aibot->unk0a8 = 0;
 		chr->aibot->unk0ac = 0;
-		chr->aibot->unk0b0 = func0001ae44(chr->animdata);
+		chr->aibot->unk0b0 = func0001ae44(chr->model);
 		chr->aibot->unk0b4 = 0;
 		chr->aibot->unk0b8 = 0;
 		func0f02e9a0(chr, 0);

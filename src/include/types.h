@@ -125,26 +125,26 @@ struct anim {
 	/*0x88*/ u32 animscale;
 };
 
-struct animdata08_00 {
+struct model08_00 {
 	u16 unk00;
 };
 
-struct animdata08 {
-	struct animdata08_00 *unk00;
+struct model08 {
+	struct model08_00 *unk00;
 };
 
-struct animdata10 {
+struct model10 {
 	u32 unk00;
 	f32 ground;
 };
 
-struct animdata {
+struct model {
 	/*0x00*/ u8 unk00;
 	/*0x01*/ u8 unk01;
 	/*0x04*/ struct chrdata *chr;
-	/*0x08*/ struct animdata08 *unk08;
+	/*0x08*/ struct model08 *unk08;
 	/*0x0c*/ u32 unk0c;
-	/*0x10*/ struct animdata10 *unk10;
+	/*0x10*/ struct model10 *unk10;
 	/*0x14*/ f32 unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
@@ -584,7 +584,7 @@ struct chrdata {
 	/*0x014*/ u32 hidden;
 	/*0x018*/ u32 chrflags;
 	/*0x01c*/ struct prop *prop;
-	/*0x020*/ struct animdata *animdata;
+	/*0x020*/ struct model *model;
 	/*0x024*/ f32 chrwidth;
 	/*0x028*/ f32 chrheight;
 
@@ -864,7 +864,7 @@ struct defaultobj {
 	/*0x0c*/ u32 flags2;
 	/*0x10*/ u32 flags3;
 	/*0x14*/ struct prop *prop;
-	/*0x18*/ struct animdata *animdata;
+	/*0x18*/ struct model *model;
 	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden;
 	/*0x44*/ struct geo *geo;
@@ -1911,7 +1911,7 @@ struct player {
 	/*0x0428*/ struct coord standlook[2];
 	/*0x0440*/ struct coord standup[2];
 	/*0x0458*/ s32 standcnt;
-	/*0x045c*/ struct animdata animdata;
+	/*0x045c*/ struct model model;
 	/*0x0480*/ struct eyespy *eyespy;
 	/*0x0484*/ u32 unk0484;
 	/*0x0488*/ u32 unk0488;

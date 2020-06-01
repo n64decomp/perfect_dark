@@ -28051,7 +28051,7 @@ glabel var7f1aa6ec
 /*  f07ea0c:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f07ea10:	13010016 */ 	beq	$t8,$at,.L0f07ea6c
 /*  f07ea14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07ea18:	0c00745f */ 	jal	animGetFrame
+/*  f07ea18:	0c00745f */ 	jal	modelGetCurAnimFrame
 /*  f07ea1c:	01202025 */ 	or	$a0,$t1,$zero
 /*  f07ea20:	e7a00044 */ 	swc1	$f0,0x44($sp)
 /*  f07ea24:	0c007486 */ 	jal	func0001d218
@@ -28421,7 +28421,7 @@ glabel var7f1aa6ec
 /*  f07ef84:	0fc1979d */ 	jal	func0f065e74
 /*  f07ef88:	afa50034 */ 	sw	$a1,0x34($sp)
 .L0f07ef8c:
-/*  f07ef8c:	0c00745f */ 	jal	animGetFrame
+/*  f07ef8c:	0c00745f */ 	jal	modelGetCurAnimFrame
 /*  f07ef90:	8fa40254 */ 	lw	$a0,0x254($sp)
 /*  f07ef94:	e7a00044 */ 	swc1	$f0,0x44($sp)
 /*  f07ef98:	0c007486 */ 	jal	func0001d218
@@ -37848,7 +37848,7 @@ void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 			*ymin = obj->geo->ymin;
 			*ymax = obj->geo->ymax;
 		} else {
-			*width = func0001af80(obj->animdata);
+			*width = func0001af80(obj->model);
 			*ymin = obj->geo->ymin;
 			*ymax = obj->geo->ymax;
 		}

@@ -958,7 +958,7 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 	s16 rooms[2];
 	struct prop *prop;
 	struct chrdata *chr;
-	struct animdata *animdata;
+	struct model *model;
 	s32 inlift;
 	struct prop *lift;
 	f32 ground;
@@ -991,10 +991,10 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 	}
 #endif
 
-	animdata = func0f02d36c(BODY_EYESPY, 0, 0);
+	model = func0f02d36c(BODY_EYESPY, 0, 0);
 
-	if (animdata) {
-		prop = func0f020cc8(animdata, &pad->pos, rooms, 0, ailistFindById(GAILIST_IDLE));
+	if (model) {
+		prop = func0f020cc8(model, &pad->pos, rooms, 0, ailistFindById(GAILIST_IDLE));
 
 		if (prop) {
 			func0f0604bc(prop);

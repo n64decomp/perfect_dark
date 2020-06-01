@@ -160,9 +160,9 @@ void func0f0d2294(void)
 {
 	struct defaultobj *hoverbike = g_Vars.currentplayer->hoverbike->obj;
 
-	g_Vars.currentplayer->unk1a70 = 0.0f / hoverbike->animdata->unk14;
-	g_Vars.currentplayer->unk1a74 = 80.0f / hoverbike->animdata->unk14;
-	g_Vars.currentplayer->unk1a78 = -50.0f / hoverbike->animdata->unk14;
+	g_Vars.currentplayer->unk1a70 = 0.0f / hoverbike->model->unk14;
+	g_Vars.currentplayer->unk1a74 = 80.0f / hoverbike->model->unk14;
+	g_Vars.currentplayer->unk1a78 = -50.0f / hoverbike->model->unk14;
 }
 
 GLOBAL_ASM(

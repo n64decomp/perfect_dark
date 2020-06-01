@@ -2486,7 +2486,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->headnum = 0;
 	chr->bodynum = 0;
 	chr->prop = prop;
-	chr->animdata = NULL;
+	chr->model = NULL;
 	chr->numarghs = 0;
 	chr->lastwalk60 = 0;
 	chr->invalidmove = 0;
@@ -2680,7 +2680,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chrInitSplats(chr);
 }
 
-struct prop *func0f020b14(struct prop *prop, struct animdata *animdata,
+struct prop *func0f020b14(struct prop *prop, struct model *model,
 		struct coord *pos, s16 *rooms, f32 arg4, u8 *ailist)
 {
 	struct chrdata *chr;
@@ -2696,12 +2696,12 @@ struct prop *func0f020b14(struct prop *prop, struct animdata *animdata,
 
 	chr = prop->chr;
 
-	func0001e000(animdata, func0f01f378);
-	animdata->chr = chr;
-	animdata->unk01 = 1;
-	chr->animdata = animdata;
+	func0001e000(model, func0f01f378);
+	model->chr = chr;
+	model->unk01 = 1;
+	chr->model = model;
 	func0f03e538(chr, arg4);
-	func0001dfac(animdata, var80062968, 0);
+	func0001dfac(model, var80062968, 0);
 
 	testpos.x = pos->x;
 	testpos.y = pos->y + 100;
@@ -2718,12 +2718,12 @@ struct prop *func0f020b14(struct prop *prop, struct animdata *animdata,
 	func0f065c44(prop);
 	roomsCopy(rooms, prop->rooms);
 	func0f0220ac(chr);
-	func0001ad34(animdata, &prop->pos);
+	func0001ad34(model, &prop->pos);
 
-	value = chr->animdata->unk08->unk00->unk00;
+	value = chr->model->unk08->unk00->unk00;
 
 	if ((value & 0xff) == 1) {
-		struct animdata10 *thing = func0001aa1c(chr->animdata, chr->animdata->unk08->unk00);
+		struct model10 *thing = func0001aa1c(chr->model, chr->model->unk08->unk00);
 		thing->ground = ground;
 	}
 
@@ -2736,12 +2736,12 @@ struct prop *func0f020b14(struct prop *prop, struct animdata *animdata,
 	return prop;
 }
 
-struct prop *func0f020cc8(struct animdata *animdata, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist)
+struct prop *func0f020cc8(struct model *model, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist)
 {
 	struct prop *prop = propAllocate();
 
 	if (prop) {
-		prop = func0f020b14(prop, animdata, pos, rooms, arg3, ailist);
+		prop = func0f020b14(prop, model, pos, rooms, arg3, ailist);
 
 		if (cheatIsActive(CHEAT_ENEMYSHIELDS)) {
 			chrSetShield(prop->chr, 8);
@@ -2950,8 +2950,8 @@ void func0f0211a8(f32 arg0)
 	var80062968 = arg0;
 
 	for (i = 0; i < g_NumChrsA; i++) {
-		if (g_ChrsA[i].animdata) {
-			func0001dfac(g_ChrsA[i].animdata, var80062968, 600);
+		if (g_ChrsA[i].model) {
+			func0001dfac(g_ChrsA[i].model, var80062968, 600);
 		}
 	}
 }
@@ -4971,13 +4971,13 @@ glabel var7f1a87d8
 /*  f023340:	84842972 */ 	lh	$a0,%lo(var80062970+0x2)($a0)
 /*  f023344:	10400025 */ 	beqz	$v0,.L0f0233dc
 /*  f023348:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02334c:	0c00744f */ 	jal	animGetId
+/*  f02334c:	0c00744f */ 	jal	modelGetAnimNum
 /*  f023350:	8fa40208 */ 	lw	$a0,0x208($sp)
 /*  f023354:	3c038006 */ 	lui	$v1,%hi(var80062970)
 /*  f023358:	8c632970 */ 	lw	$v1,%lo(var80062970)($v1)
 /*  f02335c:	5443000b */ 	bnel	$v0,$v1,.L0f02338c
 /*  f023360:	44800000 */ 	mtc1	$zero,$f0
-/*  f023364:	0c00744f */ 	jal	animGetId
+/*  f023364:	0c00744f */ 	jal	modelGetAnimNum
 /*  f023368:	8fa40208 */ 	lw	$a0,0x208($sp)
 /*  f02336c:	00022400 */ 	sll	$a0,$v0,0x10
 /*  f023370:	00047c03 */ 	sra	$t7,$a0,0x10
@@ -10849,7 +10849,7 @@ glabel var7f1a8948
 //	f32 add = 0.75f;
 //
 //	for (i = 0; i < g_NumChrsA; i++) {
-//		if (g_ChrsA[i].animdata) {
+//		if (g_ChrsA[i].model) {
 //			struct prop *prop = g_ChrsA[i].prop;
 //
 //			if (prop && prop->type == PROPTYPE_CHR &&

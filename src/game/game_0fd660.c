@@ -574,7 +574,7 @@ s32 activemenuGetFirstBuddyIndex(void)
 			if (chr && chr->actiontype != ACT_DIE
 					&& chr->actiontype != ACT_DEAD
 					&& chr->prop
-					&& chr->animdata) {
+					&& chr->model) {
 				return i;
 			}
 		}

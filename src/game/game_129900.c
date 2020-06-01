@@ -347,7 +347,7 @@ void alertNearbyChrsToNoise(f32 *radius, struct coord *noisepos)
 	s32 i;
 
 	for (i = 0; i < g_NumChrsA; i++) {
-		if (g_ChrsA[i].animdata
+		if (g_ChrsA[i].model
 				&& chrGetTargetProp(&g_ChrsA[i]) == g_Vars.currentplayer->prop
 				&& g_ChrsA[i].prop
 				&& g_ChrsA[i].prop->type == PROPTYPE_CHR

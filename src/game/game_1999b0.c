@@ -361,7 +361,7 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, str
 						&& func0f06b39c(arg3, arg2, &oppprop->pos, func0f0278a4(oppchr))) {
 					func0f0a7d98(sp156, oppprop, -1);
 
-					if (oppchr->animdata && chrGetShield(oppchr) > 0) {
+					if (oppchr->model && chrGetShield(oppchr) > 0) {
 						func0f03ff2c(oppchr, &oppprop->pos, arg2, &sp172, &sp160, &sp168, &sp164);
 					}
 

@@ -53,7 +53,7 @@ u32 var80075c9c = 0x00000000;
 
 void currentPlayerFlipAnimation(void)
 {
-	g_Vars.currentplayer->animdata.anim->flip = !g_Vars.currentplayer->animdata.anim->flip;
+	g_Vars.currentplayer->model.anim->flip = !g_Vars.currentplayer->model.anim->flip;
 }
 
 void currentPlayerUpdateIdleHeadRoll(void)
@@ -751,14 +751,14 @@ glabel func0f1140bc
 
 void func0f11412c(f32 speed)
 {
-	func0001deb0(&g_Vars.currentplayer->animdata, speed * 0.5f, 0);
+	func0001deb0(&g_Vars.currentplayer->model, speed * 0.5f, 0);
 }
 
 f32 func0f11416c(void)
 {
 	if (g_Vars.currentplayer->unk03ac >= 0) {
 		f32 a = g_Vars.currentplayer->unk0198 * 0.012500001f + 0.004166667f;
-		f32 b = func0001d288(&g_Vars.currentplayer->animdata);
+		f32 b = func0001d288(&g_Vars.currentplayer->model);
 
 		if (b > 0) {
 			f32 c = b / (var80075c00[g_Vars.currentplayer->unk03ac].unk08 - var80075c00[g_Vars.currentplayer->unk03ac].unk04);

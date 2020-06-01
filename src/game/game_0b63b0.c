@@ -4431,7 +4431,7 @@ void func0f0ba010(void)
 	var8009de2c = -1;
 	var80070764 = 1;
 	func0f11dcb0(1);
-	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_6 && var8009de10 < animGetNumFrames(var8009de18) - 1;
+	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_6 && var8009de10 < modelGetNumAnimFrames(var8009de18) - 1;
 	g_Vars.unk0004e2 = 0;
 }
 
@@ -4506,7 +4506,7 @@ glabel var7f1ad5d8
 /*  f0ba198:	ac24de2c */ 	sw	$a0,%lo(var8009de2c)($at)
 /*  f0ba19c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f0ba1a0:	3c04800a */ 	lui	$a0,%hi(var8009de18)
-/*  f0ba1a4:	0c008dda */ 	jal	animGetNumFrames
+/*  f0ba1a4:	0c008dda */ 	jal	modelGetNumAnimFrames
 /*  f0ba1a8:	8484de18 */ 	lh	$a0,%lo(var8009de18)($a0)
 /*  f0ba1ac:	244effff */ 	addiu	$t6,$v0,-1
 /*  f0ba1b0:	3c04800a */ 	lui	$a0,%hi(var8009de18)
@@ -4605,7 +4605,7 @@ glabel var7f1ad5dc
 /*  f0ba2fc:	2652de18 */ 	addiu	$s2,$s2,%lo(var8009de18)
 /*  f0ba300:	0c008f4e */ 	jal	func00023d38
 /*  f0ba304:	86440000 */ 	lh	$a0,0x0($s2)
-/*  f0ba308:	0c008dda */ 	jal	animGetNumFrames
+/*  f0ba308:	0c008dda */ 	jal	modelGetNumAnimFrames
 /*  f0ba30c:	86440000 */ 	lh	$a0,0x0($s2)
 /*  f0ba310:	8e780290 */ 	lw	$t8,0x290($s3)
 /*  f0ba314:	2444ffff */ 	addiu	$a0,$v0,-1
@@ -12801,7 +12801,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 			}
 		}
 
-		if (animGetFrame(&g_Vars.currentplayer->animdata) >= func0001d1a0(&g_Vars.currentplayer->animdata)
+		if (modelGetCurAnimFrame(&g_Vars.currentplayer->model) >= func0001d1a0(&g_Vars.currentplayer->model)
 				&& g_Vars.currentplayer->redbloodfinished) {
 			if (g_Vars.currentplayer->deathanimfinished == false) {
 				g_Vars.currentplayer->deathanimfinished = true;
@@ -14156,7 +14156,7 @@ glabel var7f1ad710
 /*  f0c2608:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f0c260c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0c2610:	afa20068 */ 	sw	$v0,0x68($sp)
-/*  f0c2614:	0c00744f */ 	jal	animGetId
+/*  f0c2614:	0c00744f */ 	jal	modelGetAnimNum
 /*  f0c2618:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f0c261c:	afa20078 */ 	sw	$v0,0x78($sp)
 /*  f0c2620:	0fc331ab */ 	jal	playerGetCrouchPos
@@ -14186,7 +14186,7 @@ glabel var7f1ad710
 /*  f0c267c:	8e040020 */ 	lw	$a0,0x20($s0)
 .L0f0c2680:
 /*  f0c2680:	e7a20070 */ 	swc1	$f2,0x70($sp)
-/*  f0c2684:	0c00744f */ 	jal	animGetId
+/*  f0c2684:	0c00744f */ 	jal	modelGetAnimNum
 /*  f0c2688:	e7a00074 */ 	swc1	$f0,0x74($sp)
 /*  f0c268c:	8fb80078 */ 	lw	$t8,0x78($sp)
 /*  f0c2690:	c7a00074 */ 	lwc1	$f0,0x74($sp)
@@ -14518,7 +14518,7 @@ glabel var7f1ad744
 /*  f0c2ac8:	afa70050 */ 	sw	$a3,0x50($sp)
 /*  f0c2acc:	afa60054 */ 	sw	$a2,0x54($sp)
 /*  f0c2ad0:	afa50058 */ 	sw	$a1,0x58($sp)
-/*  f0c2ad4:	0c00744f */ 	jal	animGetId
+/*  f0c2ad4:	0c00744f */ 	jal	modelGetAnimNum
 /*  f0c2ad8:	afa3005c */ 	sw	$v1,0x5c($sp)
 /*  f0c2adc:	afa20040 */ 	sw	$v0,0x40($sp)
 /*  f0c2ae0:	0fc0e6a5 */ 	jal	chrIsDead

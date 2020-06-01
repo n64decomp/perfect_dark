@@ -751,7 +751,7 @@ glabel func0f09815c
 /*  f098194:	0c007486 */ 	jal	func0001d218
 /*  f098198:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f09819c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0981a0:	0c00745f */ 	jal	animGetFrame
+/*  f0981a0:	0c00745f */ 	jal	modelGetCurAnimFrame
 /*  f0981a4:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*  f0981a8:	8fb8001c */ 	lw	$t8,0x1c($sp)
 /*  f0981ac:	44982000 */ 	mtc1	$t8,$f4
@@ -760,7 +760,7 @@ glabel func0f09815c
 /*  f0981b8:	10000007 */ 	beqz	$zero,.L0f0981d8
 /*  f0981bc:	46003001 */ 	sub.s	$f0,$f6,$f0
 .L0f0981c0:
-/*  f0981c0:	0c00745f */ 	jal	animGetFrame
+/*  f0981c0:	0c00745f */ 	jal	modelGetCurAnimFrame
 /*  f0981c4:	24a40384 */ 	addiu	$a0,$a1,0x384
 /*  f0981c8:	10000004 */ 	beqz	$zero,.L0f0981dc
 /*  f0981cc:	8fbf0014 */ 	lw	$ra,0x14($sp)

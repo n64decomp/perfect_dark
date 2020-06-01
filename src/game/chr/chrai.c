@@ -710,7 +710,7 @@ void chraiExecute(void *entity, s32 proptype)
 
 		// Check if the ailist should be switched to a different one
 		if (g_Vars.chrdata && (g_Vars.chrdata->chrflags & CHRCFLAG_00200000)) {
-			u32 animnum = animGetId(g_Vars.chrdata->animdata);
+			u32 animnum = modelGetAnimNum(g_Vars.chrdata->model);
 			if (g_Vars.chrdata->aishotlist >= 0
 					&& g_Vars.chrdata->cshield <= 0
 					&& (0 <= g_Vars.chrdata->damage || g_Vars.chrdata->gunprop != NULL)
