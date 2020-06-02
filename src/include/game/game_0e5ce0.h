@@ -50,7 +50,7 @@ void func0f0ef360(u8 *arg0, u32 *arg1);
 u32 func0f0ef394(void);
 u32 func0f0ef4bc(void);
 u32 func0f0ef758(void);
-u32 func0f0efa90(void);
+u16 func0f0efa90(s32 row, s32 col);
 u32 func0f0efbb4(void);
 u32 func0f0efe30(void);
 Gfx *menuRenderItemController(Gfx *gdl);
