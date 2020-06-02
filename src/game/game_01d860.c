@@ -11,36 +11,18 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f01d860
-/*  f01d860:	3c0e8008 */ 	lui	$t6,%hi(g_LanguageId)
-/*  f01d864:	8dce4120 */ 	lw	$t6,%lo(g_LanguageId)($t6)
-/*  f01d868:	00001825 */ 	or	$v1,$zero,$zero
-/*  f01d86c:	240600f8 */ 	addiu	$a2,$zero,0xf8
-/*  f01d870:	11c00011 */ 	beqz	$t6,.L0f01d8b8
-/*  f01d874:	3c05800b */ 	lui	$a1,%hi(var800aabb8)
-/*  f01d878:	24a5abb8 */ 	addiu	$a1,$a1,%lo(var800aabb8)
-/*  f01d87c:	8caf0000 */ 	lw	$t7,0x0($a1)
-.L0f01d880:
-/*  f01d880:	01e31021 */ 	addu	$v0,$t7,$v1
-/*  f01d884:	94440000 */ 	lhu	$a0,0x0($v0)
-/*  f01d888:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f01d88c:	0004c382 */ 	srl	$t8,$a0,0xe
-/*  f01d890:	13000007 */ 	beqz	$t8,.L0f01d8b0
-/*  f01d894:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01d898:	904a0000 */ 	lbu	$t2,0x0($v0)
-/*  f01d89c:	2719ffff */ 	addiu	$t9,$t8,-1
-/*  f01d8a0:	00194980 */ 	sll	$t1,$t9,0x6
-/*  f01d8a4:	314bff3f */ 	andi	$t3,$t2,0xff3f
-/*  f01d8a8:	012b6025 */ 	or	$t4,$t1,$t3
-/*  f01d8ac:	a04c0000 */ 	sb	$t4,0x0($v0)
-.L0f01d8b0:
-/*  f01d8b0:	5466fff3 */ 	bnel	$v1,$a2,.L0f01d880
-/*  f01d8b4:	8caf0000 */ 	lw	$t7,0x0($a1)
-.L0f01d8b8:
-/*  f01d8b8:	03e00008 */ 	jr	$ra
-/*  f01d8bc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f01d860(void)
+{
+	s32 i;
+
+	if (g_LanguageId != LANGUAGE_ENGLISH) {
+		for (i = 0; i != 124; i++) {
+			if (var800aabb8[i].unk00_00) {
+				var800aabb8[i].unk00_00--;
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f01d8c0
