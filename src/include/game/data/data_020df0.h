@@ -271,7 +271,7 @@ extern struct stagetableentry g_Stages[61];
 extern u32 var80081018;
 extern u32 var80081058;
 extern struct smallsky smallskies[];
-extern u32 var80082050;
+extern s32 var80082050;
 extern void *filetable[];
 extern u32 var80084008;
 extern u32 var80084010;

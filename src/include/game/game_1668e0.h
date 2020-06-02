@@ -6,7 +6,7 @@
 void currentPlayerSetLastRoomForOffset(s32 room);
 u32 func0f1668f0(void);
 u32 func0f16692c(void);
-u32 func0f16696c(void);
+void func0f16696c(s32 arg0);
 u32 func0f1669fc(void);
 u32 func0f166a6c(void);
 u32 func0f166c20(void);
