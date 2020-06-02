@@ -5988,9 +5988,7 @@ u32 mpGetTimeElapsed(void)
 	return g_MpTimeElapsed;
 }
 
-GLOBAL_ASM(
-glabel func0f16ce04
-/*  f16ce04:	03e00008 */ 	jr	$ra
-/*  f16ce08:	00801025 */ 	or	$v0,$a0,$zero
-/*  f16ce0c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 func0f16ce04(u32 arg0)
+{
+	return arg0;
+}
