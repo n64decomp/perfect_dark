@@ -15866,32 +15866,32 @@ glabel var7f1b1f48
 /*  f0f085c:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-void func0f0f0860(u8 *arg0, u32 *arg1)
+void func0f0f0860(struct menu_item *item, u32 *arg1)
 {
-	switch (*arg0) {
-	case 2:
-	case 12:
-		func0f0e7998(arg0, arg1);
+	switch (item->type) {
+	case MENUITEMTYPE_CUSTOM:
+	case MENUITEMTYPE_DROPDOWN:
+		func0f0e7998(item, arg1);
 		break;
-	case 5:
+	case MENUITEMTYPE_SCROLLABLE:
 		func0f0ed514(arg1);
 		break;
-	case 23:
+	case MENUITEMTYPE_MARQUEE:
 		func0f0edb50(arg1);
 		break;
-	case 14:
+	case MENUITEMTYPE_RANKING:
 		func0f0ee640(arg1);
 		break;
-	case 8:
+	case MENUITEMTYPE_SLIDER:
 		func0f0ec220(arg1);
 		break;
-	case 15:
-		func0f0ef360(arg0, arg1);
+	case MENUITEMTYPE_PLAYERSTATS:
+		func0f0ef360(item, arg1);
 		break;
-	case 13:
-		func0f0e9744(arg0, arg1);
+	case MENUITEMTYPE_KEYBOARD:
+		func0f0e9744(item, arg1);
 		break;
-	case 25:
+	case MENUITEMTYPE_CONTROLLER:
 		func0f0f057c(arg1);
 		break;
 	}
