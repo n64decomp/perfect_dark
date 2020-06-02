@@ -6,7 +6,7 @@
 u32 getVar80084040(void);
 void func0f167af8(void);
 void func0f167b10(void);
-u32 func0f167b48(void);
+s32 func0f167b48(s32 arg0);
 void func0f167b84(u32 arg0, u32 arg1);
 void doBoostAndSlayerSfx(void);
 void func0f167e7c(s32 stagenum);

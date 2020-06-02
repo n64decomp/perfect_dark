@@ -139,26 +139,18 @@ void func0f167b10(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f167b48
-/*  f167b48:	3c02800b */ 	lui	$v0,%hi(var800aa5c0)
-/*  f167b4c:	2442a5c0 */ 	addiu	$v0,$v0,%lo(var800aa5c0)
-/*  f167b50:	00001825 */ 	or	$v1,$zero,$zero
-/*  f167b54:	24050003 */ 	addiu	$a1,$zero,0x3
-.L0f167b58:
-/*  f167b58:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f167b5c:	548e0004 */ 	bnel	$a0,$t6,.L0f167b70
-/*  f167b60:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f167b64:	03e00008 */ 	jr	$ra
-/*  f167b68:	00601025 */ 	or	$v0,$v1,$zero
-/*  f167b6c:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f167b70:
-/*  f167b70:	1465fff9 */ 	bne	$v1,$a1,.L0f167b58
-/*  f167b74:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f167b78:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f167b7c:	03e00008 */ 	jr	$ra
-/*  f167b80:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f167b48(s32 arg0)
+{
+	s32 i;
+
+	for (i = 0; i != 3; i++) {
+		if (var800aa5c0[i] == arg0) {
+			return i;
+		}
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel func0f167b84
