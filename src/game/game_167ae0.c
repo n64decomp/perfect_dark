@@ -46,7 +46,7 @@
 #include "game/game_015410.h"
 #include "game/game_015420.h"
 #include "game/game_015470.h"
-#include "game/game_016100.h"
+#include "game/title.h"
 #include "game/game_01b0a0.h"
 #include "game/game_01bea0.h"
 #include "game/weathertick.h"

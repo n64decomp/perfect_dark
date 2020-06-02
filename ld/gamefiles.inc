@@ -52,7 +52,7 @@
 	build/ROMID/game/game_015410.o (section); \
 	build/ROMID/game/game_015420.o (section); \
 	build/ROMID/game/game_015470.o (section); \
-	build/ROMID/game/game_016100.o (section); \
+	build/ROMID/game/title.o (section); \
 	build/ROMID/game/game_01afc0.o (section); \
 	build/ROMID/game/game_01b0a0.o (section); \
 	build/ROMID/game/game_01bea0.o (section); \

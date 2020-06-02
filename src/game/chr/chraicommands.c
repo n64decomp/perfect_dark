@@ -16,7 +16,7 @@
 #include "game/debug.h"
 #include "game/dlights.h"
 #include "game/game_011110.h"
-#include "game/game_016100.h"
+#include "game/title.h"
 #include "game/chr/chr.h"
 #include "game/game_0601b0.h"
 #include "game/game_091e10.h"

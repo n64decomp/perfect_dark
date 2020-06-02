@@ -28,7 +28,7 @@
 #include "game/game_00b200.h"
 #include "game/game_00b210.h"
 #include "game/game_00b320.h"
-#include "game/game_016100.h"
+#include "game/title.h"
 #include "game/game_01b0a0.h"
 #include "game/game_095320.h"
 #include "game/game_10ccd0.h"

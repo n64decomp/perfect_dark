@@ -10,7 +10,7 @@
 #include "game/data/data_02e820.h"
 #include "game/cheats.h"
 #include "game/game_00c490.h"
-#include "game/game_016100.h"
+#include "game/title.h"
 #include "game/game_01b0a0.h"
 #include "game/game_01bea0.h"
 #include "game/game_095320.h"
