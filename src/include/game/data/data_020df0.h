@@ -285,6 +285,7 @@ extern struct audiohandle *g_MiscAudioHandle;
 extern s32 var80084038;
 extern f32 g_Uptime;
 extern bool var80084040;
+extern u32 g_BoostAndSlayerSounds[3];
 extern u32 var80084050;
 extern u32 var80084068;
 extern u32 var80084078;

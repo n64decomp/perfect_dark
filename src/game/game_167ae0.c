@@ -129,22 +129,22 @@ void func0f167af8(void)
 	g_Vars.unk0004d8 = -1;
 }
 
-void func0f167b10(void)
+void boostAndSlayerSfxStopAll(void)
 {
 	s32 i;
 
 	for (i = 0; i != 3; i++) {
-		var800aa5b0[i] = 0;
-		var800aa5c0[i] = -1;
+		g_BoostAndSlayerAudioHandles[i] = NULL;
+		g_BoostAndSlayerActiveTypes[i] = -1;
 	}
 }
 
-s32 func0f167b48(s32 arg0)
+s32 boostAndSlayerSfxGetIndex(u32 type)
 {
 	s32 i;
 
 	for (i = 0; i != 3; i++) {
-		if (var800aa5c0[i] == arg0) {
+		if (g_BoostAndSlayerActiveTypes[i] == type) {
 			return i;
 		}
 	}
@@ -152,85 +152,35 @@ s32 func0f167b48(s32 arg0)
 	return -1;
 }
 
-GLOBAL_ASM(
-glabel func0f167b84
-/*  f167b84:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f167b88:	10a0002b */ 	beqz	$a1,.L0f167c38
-/*  f167b8c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f167b90:	0fc59ed2 */ 	jal	func0f167b48
-/*  f167b94:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f167b98:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f167b9c:	54410037 */ 	bnel	$v0,$at,.L0f167c7c
-/*  f167ba0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f167ba4:	0fc59ed2 */ 	jal	func0f167b48
-/*  f167ba8:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f167bac:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f167bb0:	10410031 */ 	beq	$v0,$at,.L0f167c78
-/*  f167bb4:	3c09800b */ 	lui	$t1,%hi(var800aa5b0)
-/*  f167bb8:	2529a5b0 */ 	addiu	$t1,$t1,%lo(var800aa5b0)
-/*  f167bbc:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f167bc0:	012e7821 */ 	addu	$t7,$t1,$t6
-/*  f167bc4:	8df80000 */ 	lw	$t8,0x0($t7)
-/*  f167bc8:	8fb90038 */ 	lw	$t9,0x38($sp)
-/*  f167bcc:	3c048009 */ 	lui	$a0,%hi(var80095200)
-/*  f167bd0:	17000029 */ 	bnez	$t8,.L0f167c78
-/*  f167bd4:	00195080 */ 	sll	$t2,$t9,0x2
-/*  f167bd8:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f167bdc:	44812000 */ 	mtc1	$at,$f4
-/*  f167be0:	3c058008 */ 	lui	$a1,%hi(var80084044+0x2)
-/*  f167be4:	00aa2821 */ 	addu	$a1,$a1,$t2
-/*  f167be8:	00021880 */ 	sll	$v1,$v0,0x2
-/*  f167bec:	240bffff */ 	addiu	$t3,$zero,-1
-/*  f167bf0:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f167bf4:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f167bf8:	afad001c */ 	sw	$t5,0x1c($sp)
-/*  f167bfc:	afac0018 */ 	sw	$t4,0x18($sp)
-/*  f167c00:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f167c04:	01233021 */ 	addu	$a2,$t1,$v1
-/*  f167c08:	afa30028 */ 	sw	$v1,0x28($sp)
-/*  f167c0c:	84a54046 */ 	lh	$a1,%lo(var80084044+0x2)($a1)
-/*  f167c10:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*  f167c14:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f167c18:	0c004241 */ 	jal	audioStart
-/*  f167c1c:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f167c20:	8fa30028 */ 	lw	$v1,0x28($sp)
-/*  f167c24:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*  f167c28:	3c01800b */ 	lui	$at,%hi(var800aa5c0)
-/*  f167c2c:	00230821 */ 	addu	$at,$at,$v1
-/*  f167c30:	10000011 */ 	beqz	$zero,.L0f167c78
-/*  f167c34:	ac2ea5c0 */ 	sw	$t6,%lo(var800aa5c0)($at)
-.L0f167c38:
-/*  f167c38:	0fc59ed2 */ 	jal	func0f167b48
-/*  f167c3c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167c40:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f167c44:	1041000c */ 	beq	$v0,$at,.L0f167c78
-/*  f167c48:	3c09800b */ 	lui	$t1,%hi(var800aa5b0)
-/*  f167c4c:	2529a5b0 */ 	addiu	$t1,$t1,%lo(var800aa5b0)
-/*  f167c50:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f167c54:	01227821 */ 	addu	$t7,$t1,$v0
-/*  f167c58:	8de40000 */ 	lw	$a0,0x0($t7)
-/*  f167c5c:	0c00cec9 */ 	jal	audioStop
-/*  f167c60:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f167c64:	8fa20028 */ 	lw	$v0,0x28($sp)
-/*  f167c68:	3c01800b */ 	lui	$at,%hi(var800aa5c0)
-/*  f167c6c:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f167c70:	00220821 */ 	addu	$at,$at,$v0
-/*  f167c74:	ac38a5c0 */ 	sw	$t8,%lo(var800aa5c0)($at)
-.L0f167c78:
-/*  f167c78:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f167c7c:
-/*  f167c7c:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f167c80:	03e00008 */ 	jr	$ra
-/*  f167c84:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void boostAndSlayerSfxSetEnabled(u32 type, bool enable)
+{
+	if (enable) {
+		if (boostAndSlayerSfxGetIndex(type) == -1) {
+			s32 index = boostAndSlayerSfxGetIndex(-1);
 
-void doBoostAndSlayerSfx(void)
+			if (index != -1 && g_BoostAndSlayerAudioHandles[index] == NULL) {
+				audioStart(var80095200, g_BoostAndSlayerSounds[type], &g_BoostAndSlayerAudioHandles[index], -1, -1, -1, -1, -1);
+				g_BoostAndSlayerActiveTypes[index] = type;
+			}
+		}
+	} else {
+		u32 stack;
+		s32 index = boostAndSlayerSfxGetIndex(type);
+
+		if (index != -1) {
+			audioStop(g_BoostAndSlayerAudioHandles[index]);
+			g_BoostAndSlayerActiveTypes[index] = -1;
+		}
+	}
+}
+
+void boostAndSlayerSfxUpdate(void)
 {
 	s32 i;
 
 	if (g_Vars.lvupdate240 == 0) {
 		for (i = 0; i != 3; i++) {
-			func0f167b84(i, 0);
+			boostAndSlayerSfxSetEnabled(i, false);
 		}
 	} else {
 		bool usingboost = g_Vars.speedpillon
@@ -238,7 +188,7 @@ void doBoostAndSlayerSfx(void)
 			&& g_Vars.in_cutscene == false;
 		bool usingrocket;
 
-		func0f167b84(0, usingboost);
+		boostAndSlayerSfxSetEnabled(0, usingboost);
 
 		usingrocket = false;
 
@@ -248,8 +198,8 @@ void doBoostAndSlayerSfx(void)
 			}
 		}
 
-		func0f167b84(1, usingrocket);
-		func0f167b84(2, usingrocket);
+		boostAndSlayerSfxSetEnabled(1, usingrocket);
+		boostAndSlayerSfxSetEnabled(2, usingrocket);
 	}
 
 	if (g_Vars.lvupdate240 == 0 && g_MiscAudioHandle && func000337f0(g_MiscAudioHandle)) {
@@ -389,7 +339,7 @@ void func0f167e7c(s32 stagenum)
 	func0f013130();
 	func0f013260();
 	weatherAllocate();
-	func0f167b10();
+	boostAndSlayerSfxStopAll();
 
 	switch (g_Vars.stagenum) {
 	case STAGE_ESCAPE:
@@ -5389,7 +5339,7 @@ glabel func0f16b96c
 /*  f16c9d8:	0fc027ab */ 	jal	func0f009eac
 /*  f16c9dc:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f16c9e0:
-/*  f16c9e0:	0fc59f22 */ 	jal	doBoostAndSlayerSfx
+/*  f16c9e0:	0fc59f22 */ 	jal	boostAndSlayerSfxUpdate
 /*  f16c9e4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16c9e8:	0c003fa2 */ 	jal	func0000fe88
 /*  f16c9ec:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5797,7 +5747,7 @@ glabel func0f16b96c
 //			func0f009eac();
 //		}
 //
-//		doBoostAndSlayerSfx();
+//		boostAndSlayerSfxUpdate();
 //		func0000fe88();
 //		func0f11c7a0();
 //		func0f0033b0();

@@ -9574,9 +9574,7 @@ struct audiohandle *g_MiscAudioHandle = NULL;
 s32 var80084038 = 0;
 f32 g_Uptime = 0;
 bool var80084040 = true;
-u32 var80084044 = 0x000005c8;
-u32 var80084048 = 0x00008068;
-u32 var8008404c = 0x000001c8;
+u32 g_BoostAndSlayerSounds[] = {0x05c8, 0x8068, 0x01c8};
 u32 var80084050 = 0;
 
 s16 g_FadeNumFrames = 0;
