@@ -10,7 +10,7 @@ s32 boostAndSlayerSfxGetIndex(u32 arg0);
 void boostAndSlayerSfxSetEnabled(u32 arg0, bool arg1);
 void boostAndSlayerSfxUpdate(void);
 void func0f167e7c(s32 stagenum);
-u32 func0f1685d8(void);
+Gfx *fadeRender(Gfx *gdl);
 void fadeCancel(void);
 u32 func0f1688fc(void);
 u32 func0f168b4c(void);

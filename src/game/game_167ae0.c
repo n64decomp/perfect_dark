@@ -466,7 +466,7 @@ void fadeConfigure(u32 color, s16 num_frames)
 }
 
 GLOBAL_ASM(
-glabel func0f1685d8
+glabel fadeRender
 /*  f1685d8:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f1685dc:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
 /*  f1685e0:	8cae04b4 */ 	lw	$t6,0x4b4($a1)
@@ -1605,7 +1605,7 @@ glabel var7f1b7868
 /*  f169538:	032b6025 */ 	or	$t4,$t9,$t3
 /*  f16953c:	0fc06bbc */ 	jal	titleRender
 /*  f169540:	ae8c0004 */ 	sw	$t4,0x4($s4)
-/*  f169544:	0fc5a176 */ 	jal	func0f1685d8
+/*  f169544:	0fc5a176 */ 	jal	fadeRender
 /*  f169548:	00402025 */ 	or	$a0,$v0,$zero
 /*  f16954c:	1000065d */ 	beqz	$zero,.L0f16aec4
 /*  f169550:	00409025 */ 	or	$s2,$v0,$zero
@@ -3267,7 +3267,7 @@ glabel var7f1b7868
 .L0f16ad70:
 /*  f16ad70:	0fc615dd */ 	jal	func0f185774
 /*  f16ad74:	02402025 */ 	or	$a0,$s2,$zero
-/*  f16ad78:	0fc5a176 */ 	jal	func0f1685d8
+/*  f16ad78:	0fc5a176 */ 	jal	fadeRender
 /*  f16ad7c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f16ad80:	3c0c8009 */ 	lui	$t4,%hi(var80088804)
 /*  f16ad84:	918c8804 */ 	lbu	$t4,%lo(var80088804)($t4)
