@@ -2177,10 +2177,10 @@
 #define PORTALMODE_SHOW 0
 #define PORTALMODE_HIDE 1
 
-#define PROPFLAG_02     0x02
-#define PROPFLAG_HIDDEN 0x04
-#define PROPFLAG_40     0x40
-#define PROPFLAG_80     0x80
+#define PROPFLAG_CMPFOLLOW 0x02
+#define PROPFLAG_HIDDEN    0x04
+#define PROPFLAG_40        0x40
+#define PROPFLAG_80        0x80
 
 #define PROPTYPE_OBJ       1
 #define PROPTYPE_DOOR      2

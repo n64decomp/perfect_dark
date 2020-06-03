@@ -1198,7 +1198,7 @@ struct playerbond {
 	/*0x0360 0x0394*/ struct coord unk28;
 };
 
-struct player1630 {
+struct targetedprop {
 	struct prop *prop;
 	s16 unk04;
 	s16 unk06;
@@ -2082,10 +2082,8 @@ struct player {
 	/*0x161c*/ u16 floorflags;
 	/*0x161e*/ u8 floortype;
 	/*0x1620*/ u32 aimtype;
-	/*0x1624*/ struct prop *lookingatprop;
-	/*0x1628*/ u32 unk1628;
-	/*0x162c*/ u32 unk162c;
-	/*0x1630*/ struct player1630 unk1630[4];
+	/*0x1624*/ struct targetedprop lookingatprop;
+	/*0x1630*/ struct targetedprop cmpfollowprops[4];
 	/*0x1660*/ u32 unk1660;
 	/*0x1664*/ u32 unk1664;
 	/*0x1668*/ u32 unk1668;
@@ -2297,7 +2295,7 @@ struct player {
 	/*0x1b84*/ bool tickdiefinished;
 	/*0x1b88*/ s32 introanimnum;
 	/*0x1b8c*/ u32 unk1b8c;
-	/*0x1b90*/ u16 unk1b90[4];
+	/*0x1b90*/ u16 unk1b90[4]; // related to cmpfollowprops
 	/*0x1b98*/ u32 unk1b98;
 	/*0x1b9c*/ f32 speedthetacontrol;
 	/*0x1ba0*/ s32 cam_room;

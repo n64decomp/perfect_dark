@@ -11384,7 +11384,7 @@ glabel chrGoToPos
 //
 //		if ((!same2 || same) &&
 //				g_Vars.normmplayerisrunning == 0 &&
-//				(prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) == 0 &&
+//				(prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_CMPFOLLOW)) == 0 &&
 //				func0f036c08(chr, &auStack52[0], &auStack68[0]) &&
 //				chr->unk32c_00 >= 0) {
 //			func0f036ee4(chr, &chr->act_gopos.unk068, &auStack52[0], &prevpos);

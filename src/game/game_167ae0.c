@@ -671,185 +671,89 @@ void fadeCancel(void)
 	fade80084064 = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f1688fc
-.late_rodata
-glabel var7f1b77e0
-.word func0f1688fc+0x168 # f168a64
-glabel var7f1b77e4
-.word func0f1688fc+0x1cc # f168ac8
-glabel var7f1b77e8
-.word func0f1688fc+0x78 # f168974
-glabel var7f1b77ec
-.word func0f1688fc+0x168 # f168a64
-glabel var7f1b77f0
-.word func0f1688fc+0x1cc # f168ac8
-glabel var7f1b77f4
-.word func0f1688fc+0x50 # f16894c
-glabel var7f1b77f8
-.word func0f1688fc+0x1cc # f168ac8
-glabel var7f1b77fc
-.word func0f1688fc+0x1cc # f168ac8
-.text
-/*  f1688fc:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f168900:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f168904:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f168908:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f16890c:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f168910:	10400089 */ 	beqz	$v0,.L0f168b38
-/*  f168914:	00403025 */ 	or	$a2,$v0,$zero
-/*  f168918:	8c4f0004 */ 	lw	$t7,0x4($v0)
-/*  f16891c:	51e00087 */ 	beqzl	$t7,.L0f168b3c
-/*  f168920:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f168924:	90580000 */ 	lbu	$t8,0x0($v0)
-/*  f168928:	2719ffff */ 	addiu	$t9,$t8,-1
-/*  f16892c:	2f210008 */ 	sltiu	$at,$t9,0x8
-/*  f168930:	10200065 */ 	beqz	$at,.L0f168ac8
-/*  f168934:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f168938:	3c017f1b */ 	lui	$at,%hi(var7f1b77e0)
-/*  f16893c:	00390821 */ 	addu	$at,$at,$t9
-/*  f168940:	8c3977e0 */ 	lw	$t9,%lo(var7f1b77e0)($at)
-/*  f168944:	03200008 */ 	jr	$t9
-/*  f168948:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16894c:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f168950:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f168954:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x28c)
-/*  f168958:	8d4aa24c */ 	lw	$t2,%lo(g_Vars+0x28c)($t2)
-/*  f16895c:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f168960:	544a0004 */ 	bnel	$v0,$t2,.L0f168974
-/*  f168964:	8d020000 */ 	lw	$v0,0x0($t0)
-/*  f168968:	10000074 */ 	beqz	$zero,.L0f168b3c
-/*  f16896c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f168970:	8d020000 */ 	lw	$v0,0x0($t0)
-.L0f168974:
-/*  f168974:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f168978:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f16897c:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f168980:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f168984:	1040001a */ 	beqz	$v0,.L0f1689f0
-/*  f168988:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*  f16898c:	8fab0054 */ 	lw	$t3,0x54($sp)
-/*  f168990:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x284)
-/*  f168994:	00001025 */ 	or	$v0,$zero,$zero
-/*  f168998:	05600013 */ 	bltz	$t3,.L0f1689e8
-/*  f16899c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1689a0:	8d8ca244 */ 	lw	$t4,%lo(g_Vars+0x284)($t4)
-/*  f1689a4:	000b1840 */ 	sll	$v1,$t3,0x1
-/*  f1689a8:	240d0081 */ 	addiu	$t5,$zero,0x81
-/*  f1689ac:	01832021 */ 	addu	$a0,$t4,$v1
-/*  f1689b0:	94821b90 */ 	lhu	$v0,0x1b90($a0)
-/*  f1689b4:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f1689b8:	28410081 */ 	slti	$at,$v0,0x81
-/*  f1689bc:	50200006 */ 	beqzl	$at,.L0f1689d8
-/*  f1689c0:	284100af */ 	slti	$at,$v0,0xaf
-/*  f1689c4:	a48d1b90 */ 	sh	$t5,0x1b90($a0)
-/*  f1689c8:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f1689cc:	01c37821 */ 	addu	$t7,$t6,$v1
-/*  f1689d0:	95e21b90 */ 	lhu	$v0,0x1b90($t7)
-/*  f1689d4:	284100af */ 	slti	$at,$v0,0xaf
-.L0f1689d8:
-/*  f1689d8:	14200005 */ 	bnez	$at,.L0f1689f0
-/*  f1689dc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1689e0:	10000056 */ 	beqz	$zero,.L0f168b3c
-/*  f1689e4:	ad000000 */ 	sw	$zero,0x0($t0)
-.L0f1689e8:
-/*  f1689e8:	10000054 */ 	beqz	$zero,.L0f168b3c
-/*  f1689ec:	ad000000 */ 	sw	$zero,0x0($t0)
-.L0f1689f0:
-/*  f1689f0:	8d180000 */ 	lw	$t8,0x0($t0)
-/*  f1689f4:	93190001 */ 	lbu	$t9,0x1($t8)
-/*  f1689f8:	332a0002 */ 	andi	$t2,$t9,0x2
-/*  f1689fc:	11400017 */ 	beqz	$t2,.L0f168a5c
-/*  f168a00:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f168a04:	8d2b0018 */ 	lw	$t3,0x18($t1)
-/*  f168a08:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f168a0c:	27a50040 */ 	addiu	$a1,$sp,0x40
-/*  f168a10:	316c0800 */ 	andi	$t4,$t3,0x800
-/*  f168a14:	15800011 */ 	bnez	$t4,.L0f168a5c
-/*  f168a18:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f168a1c:	44810000 */ 	mtc1	$at,$f0
-/*  f168a20:	3c01c000 */ 	lui	$at,0xc000
-/*  f168a24:	8d240020 */ 	lw	$a0,0x20($t1)
-/*  f168a28:	44811000 */ 	mtc1	$at,$f2
-/*  f168a2c:	27ad004c */ 	addiu	$t5,$sp,0x4c
-/*  f168a30:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f168a34:	27a70044 */ 	addiu	$a3,$sp,0x44
-/*  f168a38:	e7a00048 */ 	swc1	$f0,0x48($sp)
-/*  f168a3c:	e7a0004c */ 	swc1	$f0,0x4c($sp)
-/*  f168a40:	e7a20040 */ 	swc1	$f2,0x40($sp)
-/*  f168a44:	0fc1a006 */ 	jal	func0f068018
-/*  f168a48:	e7a20044 */ 	swc1	$f2,0x44($sp)
-/*  f168a4c:	14400020 */ 	bnez	$v0,.L0f168ad0
-/*  f168a50:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f168a54:	10000039 */ 	beqz	$zero,.L0f168b3c
-/*  f168a58:	00001025 */ 	or	$v0,$zero,$zero
-.L0f168a5c:
-/*  f168a5c:	10000037 */ 	beqz	$zero,.L0f168b3c
-/*  f168a60:	00001025 */ 	or	$v0,$zero,$zero
-/*  f168a64:	904e0001 */ 	lbu	$t6,0x1($v0)
-/*  f168a68:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f168a6c:	27a50040 */ 	addiu	$a1,$sp,0x40
-/*  f168a70:	31cf0002 */ 	andi	$t7,$t6,0x2
-/*  f168a74:	11e00012 */ 	beqz	$t7,.L0f168ac0
-/*  f168a78:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f168a7c:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f168a80:	44810000 */ 	mtc1	$at,$f0
-/*  f168a84:	3c01c000 */ 	lui	$at,0xc000
-/*  f168a88:	8c640018 */ 	lw	$a0,0x18($v1)
-/*  f168a8c:	44811000 */ 	mtc1	$at,$f2
-/*  f168a90:	27b8004c */ 	addiu	$t8,$sp,0x4c
-/*  f168a94:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f168a98:	27a70044 */ 	addiu	$a3,$sp,0x44
-/*  f168a9c:	e7a00048 */ 	swc1	$f0,0x48($sp)
-/*  f168aa0:	e7a0004c */ 	swc1	$f0,0x4c($sp)
-/*  f168aa4:	e7a20040 */ 	swc1	$f2,0x40($sp)
-/*  f168aa8:	0fc1a006 */ 	jal	func0f068018
-/*  f168aac:	e7a20044 */ 	swc1	$f2,0x44($sp)
-/*  f168ab0:	14400007 */ 	bnez	$v0,.L0f168ad0
-/*  f168ab4:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f168ab8:	10000020 */ 	beqz	$zero,.L0f168b3c
-/*  f168abc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f168ac0:
-/*  f168ac0:	1000001e */ 	beqz	$zero,.L0f168b3c
-/*  f168ac4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f168ac8:
-/*  f168ac8:	1000001c */ 	beqz	$zero,.L0f168b3c
-/*  f168acc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f168ad0:
-/*  f168ad0:	3c014000 */ 	lui	$at,0x4000
-/*  f168ad4:	44810000 */ 	mtc1	$at,$f0
-/*  f168ad8:	c7a40048 */ 	lwc1	$f4,0x48($sp)
-/*  f168adc:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f168ae0:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f168ae4:	440a4000 */ 	mfc1	$t2,$f8
-/*  f168ae8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f168aec:	a50a0004 */ 	sh	$t2,0x4($t0)
-/*  f168af0:	c7aa0040 */ 	lwc1	$f10,0x40($sp)
-/*  f168af4:	46005400 */ 	add.s	$f16,$f10,$f0
-/*  f168af8:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f168afc:	440c9000 */ 	mfc1	$t4,$f18
-/*  f168b00:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f168b04:	a50c0008 */ 	sh	$t4,0x8($t0)
-/*  f168b08:	c7a4004c */ 	lwc1	$f4,0x4c($sp)
-/*  f168b0c:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f168b10:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f168b14:	440e4000 */ 	mfc1	$t6,$f8
-/*  f168b18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f168b1c:	a50e0006 */ 	sh	$t6,0x6($t0)
-/*  f168b20:	c7aa0044 */ 	lwc1	$f10,0x44($sp)
-/*  f168b24:	46005400 */ 	add.s	$f16,$f10,$f0
-/*  f168b28:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f168b2c:	44189000 */ 	mfc1	$t8,$f18
-/*  f168b30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f168b34:	a518000a */ 	sh	$t8,0xa($t0)
-.L0f168b38:
-/*  f168b38:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f168b3c:
-/*  f168b3c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f168b40:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f168b44:	03e00008 */ 	jr	$ra
-/*  f168b48:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool targetedpropCheckCmpFollow(struct targetedprop *targetedprop, s32 index)
+{
+	f32 sp76;
+	f32 sp72;
+	f32 sp68;
+	f32 sp64;
+	struct prop *prop = targetedprop->prop;
+	struct chrdata *chr;
+
+	if (targetedprop->prop && prop->chr) {
+		switch (targetedprop->prop->type) {
+		case PROPTYPE_PLAYER:
+			if (propGetPlayerNum(prop) == g_Vars.currentplayernum) {
+				return false;
+			}
+			// fall through
+		case PROPTYPE_CHR:
+			chr = targetedprop->prop->chr;
+
+			if (chrIsDead(targetedprop->prop->chr)) {
+				if (index >= 0) {
+					// Existing targetedprop
+					if (g_Vars.currentplayer->unk1b90[index] <= 128) {
+						g_Vars.currentplayer->unk1b90[index] = 129;
+					}
+
+					if (g_Vars.currentplayer->unk1b90[index] >= 175) {
+						targetedprop->prop = NULL;
+						return false;
+					}
+				} else {
+					// Attempting to add a new targetedprop, but chr is dead
+					targetedprop->prop = NULL;
+					return false;
+				}
+			}
+
+			if ((targetedprop->prop->flags & PROPFLAG_CMPFOLLOW)
+					&& (chr->chrflags & CHRCFLAG_NOAUTOAIM) == 0) {
+				struct model *model = chr->model;
+				sp72 = -1;
+				sp76 = -1;
+				sp64 = -2;
+				sp68 = -2;
+
+				if (func0f068018(model, &sp64, &sp72, &sp68, &sp76)) {
+					break;
+				}
+				return false;
+			}
+			return false;
+		case PROPTYPE_OBJ:
+		case PROPTYPE_WEAPON:
+			if (targetedprop->prop->flags & PROPFLAG_CMPFOLLOW) {
+				struct defaultobj *obj = targetedprop->prop->obj;
+				struct model *model = obj->model;
+				sp72 = -1;
+				sp76 = -1;
+				sp64 = -2;
+				sp68 = -2;
+
+				if (func0f068018(model, &sp64, &sp72, &sp68, &sp76)) {
+					break;
+				}
+				return false;
+			}
+			return false;
+		case PROPTYPE_DOOR:
+		case PROPTYPE_EYESPY:
+		case PROPTYPE_EXPLOSION:
+		case PROPTYPE_EFFECT:
+		default:
+			return false;
+		}
+
+		targetedprop->unk04 = sp72 - 2;
+		targetedprop->unk08 = sp64 + 2;
+		targetedprop->unk06 = sp76 - 2;
+		targetedprop->unk0a = sp68 + 2;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f168b4c
@@ -2335,7 +2239,7 @@ glabel var7f1b7868
 /*  f169fe4:	8e640284 */ 	lw	$a0,0x284($s3)
 .L0f169fe8:
 /*  f169fe8:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f169fec:	0fc5a23f */ 	jal	func0f1688fc
+/*  f169fec:	0fc5a23f */ 	jal	targetedpropCheckCmpFollow
 /*  f169ff0:	24841624 */ 	addiu	$a0,$a0,0x1624
 /*  f169ff4:	54400004 */ 	bnezl	$v0,.L0f16a008
 /*  f169ff8:	00008825 */ 	or	$s1,$zero,$zero
@@ -2348,7 +2252,7 @@ glabel var7f1b7868
 /*  f16a00c:	8e6e0284 */ 	lw	$t6,0x284($s3)
 /*  f16a010:	02202825 */ 	or	$a1,$s1,$zero
 /*  f16a014:	01d02021 */ 	addu	$a0,$t6,$s0
-/*  f16a018:	0fc5a23f */ 	jal	func0f1688fc
+/*  f16a018:	0fc5a23f */ 	jal	targetedpropCheckCmpFollow
 /*  f16a01c:	24841630 */ 	addiu	$a0,$a0,0x1630
 /*  f16a020:	14400007 */ 	bnez	$v0,.L0f16a040
 /*  f16a024:	26310001 */ 	addiu	$s1,$s1,0x1

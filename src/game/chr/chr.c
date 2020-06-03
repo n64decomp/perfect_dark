@@ -2931,13 +2931,13 @@ void propClearReferences(s32 propnum)
 	}
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
-		if (g_Vars.players[i]->lookingatprop == prop) {
-			g_Vars.players[i]->lookingatprop = NULL;
+		if (g_Vars.players[i]->lookingatprop.prop == prop) {
+			g_Vars.players[i]->lookingatprop.prop = NULL;
 		}
 
 		for (j = 0; j != 4; j++) {
-			if (g_Vars.players[i]->unk1630[j].prop == prop) {
-				g_Vars.players[i]->unk1630[j].prop = NULL;
+			if (g_Vars.players[i]->cmpfollowprops[j].prop == prop) {
+				g_Vars.players[i]->cmpfollowprops[j].prop = NULL;
 			}
 		}
 	}

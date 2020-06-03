@@ -4143,17 +4143,17 @@ void func0f1a0924(struct prop *prop)
 		func0f068018(obj->model, &sp56, &sp64, &sp60, &sp68);
 
 		for (i = 0; i < 4; i++) {
-			if (g_Vars.currentplayer->unk1630[i].prop == prop) {
+			if (g_Vars.currentplayer->cmpfollowprops[i].prop == prop) {
 				return;
 			}
 
-			if (g_Vars.currentplayer->unk1630[i].prop == NULL) {
-				g_Vars.currentplayer->unk1630[i].prop = prop;
+			if (g_Vars.currentplayer->cmpfollowprops[i].prop == NULL) {
+				g_Vars.currentplayer->cmpfollowprops[i].prop = prop;
 
-				g_Vars.currentplayer->unk1630[i].unk04 = sp64 - 2;
-				g_Vars.currentplayer->unk1630[i].unk08 = sp56 + 2;
-				g_Vars.currentplayer->unk1630[i].unk06 = sp68 - 2;
-				g_Vars.currentplayer->unk1630[i].unk0a = sp60 + 2;
+				g_Vars.currentplayer->cmpfollowprops[i].unk04 = sp64 - 2;
+				g_Vars.currentplayer->cmpfollowprops[i].unk08 = sp56 + 2;
+				g_Vars.currentplayer->cmpfollowprops[i].unk06 = sp68 - 2;
+				g_Vars.currentplayer->cmpfollowprops[i].unk0a = sp60 + 2;
 				g_Vars.currentplayer->unk1b90[i] = 0;
 				return;
 			}

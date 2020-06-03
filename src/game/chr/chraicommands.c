@@ -9741,7 +9741,7 @@ bool aiIfPlayerLookingAtObject(void)
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
-		if (g_Vars.currentplayer->lookingatprop == obj->prop) {
+		if (g_Vars.currentplayer->lookingatprop.prop == obj->prop) {
 			pass = true;
 		}
 

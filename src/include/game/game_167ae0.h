@@ -12,7 +12,7 @@ void boostAndSlayerSfxUpdate(void);
 void func0f167e7c(s32 stagenum);
 Gfx *fadeRender(Gfx *gdl);
 void fadeCancel(void);
-u32 func0f1688fc(void);
+bool targetedpropCheckCmpFollow(struct targetedprop *targetedprop, s32 index);
 u32 func0f168b4c(void);
 u32 func0f168f24(void);
 u32 func0f1691c0(void);
