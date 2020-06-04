@@ -50,7 +50,7 @@ void func0f19ecdc(s32 arg0);
 bool frWasTooInaccurate(void);
 void frSetFailReason(s32 failreason);
 u32 func0f19f18c(void);
-u32 func0f19f220(void);
+bool func0f19f220(struct prop *prop);
 u32 func0f19f294(void);
 u32 func0f19f2ec(void);
 u32 func0f19f39c(void);

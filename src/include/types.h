@@ -1198,7 +1198,7 @@ struct playerbond {
 	/*0x0360 0x0394*/ struct coord unk28;
 };
 
-struct targetedprop {
+struct threat {
 	struct prop *prop;
 	s16 unk04;
 	s16 unk06;
@@ -2082,8 +2082,8 @@ struct player {
 	/*0x161c*/ u16 floorflags;
 	/*0x161e*/ u8 floortype;
 	/*0x1620*/ u32 aimtype;
-	/*0x1624*/ struct targetedprop lookingatprop;
-	/*0x1630*/ struct targetedprop cmpfollowprops[4];
+	/*0x1624*/ struct threat lookingatprop;
+	/*0x1630*/ struct threat cmpfollowprops[4];
 	/*0x1660*/ u32 unk1660;
 	/*0x1664*/ u32 unk1664;
 	/*0x1668*/ u32 unk1668;

@@ -671,44 +671,44 @@ void fadeCancel(void)
 	fade80084064 = 0;
 }
 
-bool targetedpropCheckCmpFollow(struct targetedprop *targetedprop, s32 index)
+bool threatCheckCmpFollow(struct threat *threat, s32 index)
 {
 	f32 sp76;
 	f32 sp72;
 	f32 sp68;
 	f32 sp64;
-	struct prop *prop = targetedprop->prop;
+	struct prop *prop = threat->prop;
 	struct chrdata *chr;
 
-	if (targetedprop->prop && prop->chr) {
-		switch (targetedprop->prop->type) {
+	if (threat->prop && prop->chr) {
+		switch (threat->prop->type) {
 		case PROPTYPE_PLAYER:
 			if (propGetPlayerNum(prop) == g_Vars.currentplayernum) {
 				return false;
 			}
 			// fall through
 		case PROPTYPE_CHR:
-			chr = targetedprop->prop->chr;
+			chr = threat->prop->chr;
 
-			if (chrIsDead(targetedprop->prop->chr)) {
+			if (chrIsDead(threat->prop->chr)) {
 				if (index >= 0) {
-					// Existing targetedprop
+					// Existing threat
 					if (g_Vars.currentplayer->unk1b90[index] <= 128) {
 						g_Vars.currentplayer->unk1b90[index] = 129;
 					}
 
 					if (g_Vars.currentplayer->unk1b90[index] >= 175) {
-						targetedprop->prop = NULL;
+						threat->prop = NULL;
 						return false;
 					}
 				} else {
-					// Attempting to add a new targetedprop, but chr is dead
-					targetedprop->prop = NULL;
+					// Attempting to add a new threat, but chr is dead
+					threat->prop = NULL;
 					return false;
 				}
 			}
 
-			if ((targetedprop->prop->flags & PROPFLAG_CMPFOLLOW)
+			if ((threat->prop->flags & PROPFLAG_REDBOXABLE)
 					&& (chr->chrflags & CHRCFLAG_NOAUTOAIM) == 0) {
 				struct model *model = chr->model;
 				sp72 = -1;
@@ -724,8 +724,8 @@ bool targetedpropCheckCmpFollow(struct targetedprop *targetedprop, s32 index)
 			return false;
 		case PROPTYPE_OBJ:
 		case PROPTYPE_WEAPON:
-			if (targetedprop->prop->flags & PROPFLAG_CMPFOLLOW) {
-				struct defaultobj *obj = targetedprop->prop->obj;
+			if (threat->prop->flags & PROPFLAG_REDBOXABLE) {
+				struct defaultobj *obj = threat->prop->obj;
 				struct model *model = obj->model;
 				sp72 = -1;
 				sp76 = -1;
@@ -746,58 +746,58 @@ bool targetedpropCheckCmpFollow(struct targetedprop *targetedprop, s32 index)
 			return false;
 		}
 
-		targetedprop->unk04 = sp72 - 2;
-		targetedprop->unk08 = sp64 + 2;
-		targetedprop->unk06 = sp76 - 2;
-		targetedprop->unk0a = sp68 + 2;
+		threat->unk04 = sp72 - 2;
+		threat->unk08 = sp64 + 2;
+		threat->unk06 = sp76 - 2;
+		threat->unk0a = sp68 + 2;
 	}
 
 	return true;
 }
 
 GLOBAL_ASM(
-glabel func0f168b4c
+glabel propFindThreats
 .late_rodata
 glabel var7f1b7800
-.word func0f168b4c+0x124 # f168c70
+.word propFindThreats+0x124 # f168c70
 glabel var7f1b7804
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b7808
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b780c
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b7810
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b7814
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b7818
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b781c
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b7820
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b7824
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b7828
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b782c
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b7830
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b7834
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b7838
-.word func0f168b4c+0x138 # f168c84
+.word propFindThreats+0x138 # f168c84
 glabel var7f1b783c
-.word func0f168b4c+0x11c # f168c68
+.word propFindThreats+0x11c # f168c68
 glabel var7f1b7840
-.word func0f168b4c+0x11c # f168c68
+.word propFindThreats+0x11c # f168c68
 glabel var7f1b7844
-.word func0f168b4c+0x11c # f168c68
+.word propFindThreats+0x11c # f168c68
 glabel var7f1b7848
-.word func0f168b4c+0x11c # f168c68
+.word propFindThreats+0x11c # f168c68
 glabel var7f1b784c
-.word func0f168b4c+0x11c # f168c68
+.word propFindThreats+0x11c # f168c68
 .text
 /*  f168b4c:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f168b50:	afb00020 */ 	sw	$s0,0x20($sp)
@@ -1046,7 +1046,7 @@ glabel var7f1b784c
 /*  f168ed0:	10800004 */ 	beqz	$a0,.L0f168ee4
 /*  f168ed4:	8fb80078 */ 	lw	$t8,0x78($sp)
 /*  f168ed8:	8fa70074 */ 	lw	$a3,0x74($sp)
-/*  f168edc:	0fc5a2d3 */ 	jal	func0f168b4c
+/*  f168edc:	0fc5a2d3 */ 	jal	propFindThreats
 /*  f168ee0:	afb80010 */ 	sw	$t8,0x10($sp)
 .L0f168ee4:
 /*  f168ee4:	8fb9006c */ 	lw	$t9,0x6c($sp)
@@ -1058,7 +1058,7 @@ glabel var7f1b784c
 /*  f168efc:	10800004 */ 	beqz	$a0,.L0f168f10
 /*  f168f00:	8faa0078 */ 	lw	$t2,0x78($sp)
 /*  f168f04:	8fa70074 */ 	lw	$a3,0x74($sp)
-/*  f168f08:	0fc5a2d3 */ 	jal	func0f168b4c
+/*  f168f08:	0fc5a2d3 */ 	jal	propFindThreats
 /*  f168f0c:	afaa0010 */ 	sw	$t2,0x10($sp)
 .L0f168f10:
 /*  f168f10:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -1068,6 +1068,143 @@ glabel var7f1b784c
 /*  f168f1c:	03e00008 */ 	jr	$ra
 /*  f168f20:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+//void propFindThreats(struct prop *prop, bool inchild, struct coord *playerpos, bool *activeslots, f32 *distances)
+//{
+//	bool condition = true;
+//	struct defaultobj *obj;
+//	bool pass;
+//	f32 sp88;
+//	f32 sp84;
+//	f32 sp80;
+//	f32 sp76;
+//	s32 i;
+//	struct model *model;
+//	struct weaponobj *weapon;
+//
+//	if (!inchild && prop->z < 0) {
+//		condition = false;
+//	}
+//
+//	if (prop->obj
+//			&& (prop->flags & PROPFLAG_REDBOXABLE)
+//			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON)
+//			&& condition) {
+//		pass = false;
+//		obj = prop->obj;
+//		model = prop->obj->model;
+//
+//		if (obj
+//				&& obj->type == OBJTYPE_AUTOGUN
+//				&& (obj->flags2 & (OBJFLAG2_80000000 | OBJFLAG2_AICANNOTUSE)) == 0) {
+//			pass = true;
+//		}
+//
+//		if (obj && obj->modelnum == MODEL_SK_SHUTTLE) {
+//			pass = true;
+//		}
+//
+//		weapon = (struct weaponobj *)prop->obj;
+//
+//		if (weapon && prop->obj->type == OBJTYPE_WEAPON) {
+//			switch (weapon->weaponnum) {
+//			case WEAPON_GRENADE:
+//			case WEAPON_NBOMB:
+//			case WEAPON_TIMEDMINE:
+//			case WEAPON_PROXIMITYMINE:
+//			case WEAPON_REMOTEMINE:
+//				pass = true;
+//				break;
+//			case WEAPON_DRAGON:
+//				if (weapon->dragonthrown == 1U) {
+//					pass = true;
+//				}
+//				break;
+//			}
+//		}
+//
+//		if (obj->modelnum == MODEL_TARGET && func0f19f220(prop)) {
+//			pass = true;
+//		}
+//
+//		if (pass) {
+//			for (i = 0; i != 4; i++) {
+//				if (g_Vars.currentplayer->cmpfollowprops[i].prop == prop) {
+//					pass = false;
+//				}
+//			}
+//		}
+//
+//		if (pass) {
+//			sp84 = -1;
+//			sp88 = -1;
+//			sp76 = -2;
+//			sp80 = -2;
+//
+//			if (!func0f068018(model, &sp76, &sp84, &sp80, &sp88)) {
+//				pass = false;
+//			}
+//		}
+//
+//		if (pass) {
+//			f32 furtherestdist = 0;
+//			s32 index = -1;
+//
+//			// Method 1: This generates correctly ordered FPU instructions, but
+//			// the multiply and adding is relocated to after the for loop, and
+//			// this method also uses too much stack.
+//			//f32 zdiff = prop->pos.z - playerpos->z;
+//			//f32 xdiff = prop->pos.x - playerpos->x;
+//			//f32 ydiff = prop->pos.y - playerpos->y;
+//			//f32 sqdist = zdiff * zdiff + xdiff * xdiff + ydiff * ydiff;
+//
+//			// Method 2: Stack is correct, location is correct, but FPU
+//			// instructions are mismatching.
+//			f32 sqdist = (prop->pos.z - playerpos->z) * (prop->pos.z - playerpos->z)
+//				+ (prop->pos.x - playerpos->x) * (prop->pos.x - playerpos->x)
+//				+ (prop->pos.y - playerpos->y) * (prop->pos.y - playerpos->y);
+//
+//			for (i = 0; i < 4; i++) {
+//				if (!activeslots[i]) {
+//					index = i;
+//				}
+//			}
+//
+//			if (index == -1) {
+//				// No slots available - consider replacing the furtherest
+//				for (i = 0; i != 4; i++) {
+//					if (distances[i] > furtherestdist) {
+//						furtherestdist = distances[i];
+//						index = i;
+//					}
+//				}
+//
+//				if (sqdist >= furtherestdist) {
+//					index = -1;
+//				}
+//			}
+//
+//			if (index >= 0) {
+//				g_Vars.currentplayer->cmpfollowprops[index].prop = prop;
+//				g_Vars.currentplayer->cmpfollowprops[index].unk04 = sp84 - 2;
+//				g_Vars.currentplayer->cmpfollowprops[index].unk08 = sp76 + 2;
+//				g_Vars.currentplayer->cmpfollowprops[index].unk06 = sp88 - 2;
+//				g_Vars.currentplayer->cmpfollowprops[index].unk0a = sp80 + 2;
+//				g_Vars.currentplayer->unk1b90[index] = 0;
+//				activeslots[index] = true;
+//				distances[index] = sqdist;
+//			}
+//		}
+//	}
+//
+//	if (prop->child) {
+//		propFindThreats(prop->child, true, playerpos, activeslots, distances);
+//	}
+//
+//	if (inchild && prop->next) {
+//		propFindThreats(prop->next, inchild, playerpos, activeslots, distances);
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f168f24
@@ -1352,7 +1489,7 @@ glabel func0f1691c0
 /*  f169328:	02403025 */ 	or	$a2,$s2,$zero
 /*  f16932c:	10800005 */ 	beqz	$a0,.L0f169344
 /*  f169330:	02803825 */ 	or	$a3,$s4,$zero
-/*  f169334:	0fc5a2d3 */ 	jal	func0f168b4c
+/*  f169334:	0fc5a2d3 */ 	jal	propFindThreats
 /*  f169338:	afb30010 */ 	sw	$s3,0x10($sp)
 /*  f16933c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x348)
 /*  f169340:	8c42a308 */ 	lw	$v0,%lo(g_Vars+0x348)($v0)
@@ -2239,7 +2376,7 @@ glabel var7f1b7868
 /*  f169fe4:	8e640284 */ 	lw	$a0,0x284($s3)
 .L0f169fe8:
 /*  f169fe8:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f169fec:	0fc5a23f */ 	jal	targetedpropCheckCmpFollow
+/*  f169fec:	0fc5a23f */ 	jal	threatCheckCmpFollow
 /*  f169ff0:	24841624 */ 	addiu	$a0,$a0,0x1624
 /*  f169ff4:	54400004 */ 	bnezl	$v0,.L0f16a008
 /*  f169ff8:	00008825 */ 	or	$s1,$zero,$zero
@@ -2252,7 +2389,7 @@ glabel var7f1b7868
 /*  f16a00c:	8e6e0284 */ 	lw	$t6,0x284($s3)
 /*  f16a010:	02202825 */ 	or	$a1,$s1,$zero
 /*  f16a014:	01d02021 */ 	addu	$a0,$t6,$s0
-/*  f16a018:	0fc5a23f */ 	jal	targetedpropCheckCmpFollow
+/*  f16a018:	0fc5a23f */ 	jal	threatCheckCmpFollow
 /*  f16a01c:	24841630 */ 	addiu	$a0,$a0,0x1630
 /*  f16a020:	14400007 */ 	bnez	$v0,.L0f16a040
 /*  f16a024:	26310001 */ 	addiu	$s1,$s1,0x1
