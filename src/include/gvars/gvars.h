@@ -91,8 +91,8 @@ struct g_vars {
 	/*00033c*/ struct prop *unk00033c;
 	/*000340*/ struct prop *unk000340;
 	/*000344*/ struct prop *freeprops;
-	/*000348*/ struct prop *unk000348;
-	/*00034c*/ u32 unk00034c;
+	/*000348*/ struct prop **unk000348;
+	/*00034c*/ struct prop **unk00034c;
 	/*000350*/ u32 unk000350;
 	/*000354*/ struct prop *unk000354;
 	/*000358*/ u8 numpropstateindexes;

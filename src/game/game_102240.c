@@ -6,6 +6,7 @@
 #include "game/data/data_0160b0.h"
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
+#include "game/data/data_02a0e0.h"
 #include "game/data/data_02da90.h"
 #include "game/data/data_02e820.h"
 #include "game/cheats.h"
