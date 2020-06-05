@@ -4140,7 +4140,7 @@ void func0f1a0924(struct prop *prop)
 		sp56 = -2;
 		sp60 = -2;
 
-		func0f068018(obj->model, &sp56, &sp64, &sp60, &sp68);
+		modelSetRedBox(obj->model, &sp56, &sp64, &sp60, &sp68);
 
 		for (i = 0; i < 4; i++) {
 			if (g_Vars.currentplayer->cmpfollowprops[i].prop == prop) {

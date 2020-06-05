@@ -2256,7 +2256,7 @@ glabel func0f067dc4
 );
 
 GLOBAL_ASM(
-glabel func0f068018
+glabel modelSetRedBox
 /*  f068018:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f06801c:	8fae0030 */ 	lw	$t6,0x30($sp)
 /*  f068020:	afbf001c */ 	sw	$ra,0x1c($sp)

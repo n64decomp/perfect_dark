@@ -716,7 +716,7 @@ bool threatCheckCmpFollow(struct threat *threat, s32 index)
 				sp64 = -2;
 				sp68 = -2;
 
-				if (func0f068018(model, &sp64, &sp72, &sp68, &sp76)) {
+				if (modelSetRedBox(model, &sp64, &sp72, &sp68, &sp76)) {
 					break;
 				}
 				return false;
@@ -732,7 +732,7 @@ bool threatCheckCmpFollow(struct threat *threat, s32 index)
 				sp64 = -2;
 				sp68 = -2;
 
-				if (func0f068018(model, &sp64, &sp72, &sp68, &sp76)) {
+				if (modelSetRedBox(model, &sp64, &sp72, &sp68, &sp76)) {
 					break;
 				}
 				return false;
@@ -924,7 +924,7 @@ glabel var7f1b784c
 /*  f168d08:	e7a00054 */ 	swc1	$f0,0x54($sp)
 /*  f168d0c:	e7a00058 */ 	swc1	$f0,0x58($sp)
 /*  f168d10:	e7a2004c */ 	swc1	$f2,0x4c($sp)
-/*  f168d14:	0fc1a006 */ 	jal	func0f068018
+/*  f168d14:	0fc1a006 */ 	jal	modelSetRedBox
 /*  f168d18:	e7a20050 */ 	swc1	$f2,0x50($sp)
 /*  f168d1c:	8fa8005c */ 	lw	$t0,0x5c($sp)
 /*  f168d20:	14400002 */ 	bnez	$v0,.L0f168d2c
@@ -1141,7 +1141,7 @@ glabel var7f1b784c
 //			sp76 = -2;
 //			sp80 = -2;
 //
-//			if (!func0f068018(model, &sp76, &sp84, &sp80, &sp88)) {
+//			if (!modelSetRedBox(model, &sp76, &sp84, &sp80, &sp88)) {
 //				pass = false;
 //			}
 //		}
@@ -1290,7 +1290,7 @@ glabel func0f168f24
 /*  f169048:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f16904c:	27a50074 */ 	addiu	$a1,$sp,0x74
 /*  f169050:	27a6007c */ 	addiu	$a2,$sp,0x7c
-/*  f169054:	0fc1a006 */ 	jal	func0f068018
+/*  f169054:	0fc1a006 */ 	jal	modelSetRedBox
 /*  f169058:	27a70078 */ 	addiu	$a3,$sp,0x78
 /*  f16905c:	10400035 */ 	beqz	$v0,.L0f169134
 /*  f169060:	8fae0094 */ 	lw	$t6,0x94($sp)
@@ -1387,6 +1387,64 @@ glabel func0f168f24
 /*  f1691b8:	03e00008 */ 	jr	$ra
 /*  f1691bc:	27bd0088 */ 	addiu	$sp,$sp,0x88
 );
+
+// Mismatch because goal uses a nop when calculating distances[i].
+// I suspect this needs an earlier version of the compiler.
+//void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 *activeslots, f32 *distances)
+//{
+//	s32 i;
+//	struct model *model;
+//	f32 sp128;
+//	f32 sp124;
+//	f32 sp120;
+//	f32 sp116;
+//
+//	for (i = 0; i != 4; i++) {
+//		if (g_Vars.currentplayer->cmpfollowprops[i].prop == prop
+//				&& (prop->flags & PROPFLAG_REDBOXABLE)) {
+//			model = NULL;
+//
+//			if (prop->type == PROPTYPE_OBJ
+//					|| prop->type == PROPTYPE_WEAPON
+//					|| prop->type == PROPTYPE_DOOR) {
+//				model = g_Vars.currentplayer->cmpfollowprops[i].prop->obj->model;
+//			} else {
+//				if (prop->type == PROPTYPE_CHR
+//						|| (prop->type == PROPTYPE_PLAYER
+//							&& propGetPlayerNum(prop) != g_Vars.currentplayernum)) {
+//					model = g_Vars.currentplayer->cmpfollowprops[i].prop->chr->model;
+//				}
+//			}
+//
+//			if (model) {
+//				sp128 = -1;
+//				sp124 = -1;
+//				sp120 = -2;
+//				sp116 = -2;
+//
+//				if (modelSetRedBox(model, &sp116, &sp124, &sp120, &sp128)) {
+//					activeslots[i] = true;
+//					g_Vars.currentplayer->cmpfollowprops[i].unk04 = sp124 - 2;
+//					g_Vars.currentplayer->cmpfollowprops[i].unk08 = sp116 + 2;
+//					g_Vars.currentplayer->cmpfollowprops[i].unk06 = sp128 - 2;
+//					g_Vars.currentplayer->cmpfollowprops[i].unk0a = sp120 + 2;
+//
+//					distances[i] = (prop->pos.x - playerpos->x) * (prop->pos.x - playerpos->x)
+//						+ (prop->pos.y - playerpos->y) * (prop->pos.y - playerpos->y)
+//						+ (prop->pos.z - playerpos->z) * (prop->pos.z - playerpos->z);
+//				}
+//			}
+//		}
+//	}
+//
+//	if (prop->child) {
+//		func0f168f24(prop->child, true, playerpos, activeslots, distances);
+//	}
+//
+//	if (inchild && prop->next) {
+//		func0f168f24(prop->next, inchild, playerpos, activeslots, distances);
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f1691c0
