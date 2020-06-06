@@ -903,7 +903,7 @@ u8 func0c01_outro[] = {
 	open_door(0x51)
 	restart_timer
 	yield
-	set_object_flag(0x51, OBJFLAG_40000000)
+	set_object_flag(0x51, OBJFLAG_DOORKEEPOPEN)
 	set_cutscene_weapon(CHR_P1P2, WEAPON_NONE, WEAPON_NONE)
 	yield
 	set_cutscene_weapon(CHR_P1P2, WEAPON_AR34, WEAPON_NONE)

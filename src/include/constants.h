@@ -516,10 +516,10 @@
 #define DOORFLAG_0800            0x0800 // Non-CI lasers, and floor grates
 #define DOORFLAG_4000            0x4000 // Two Investigation vertical doors after lasers
 
-#define DOORMODE_IDLE      0
-#define DOORMODE_OPENING   1
-#define DOORMODE_CLOSING   2
-#define DOORMODE_3         3
+#define DOORMODE_IDLE    0
+#define DOORMODE_OPENING 1
+#define DOORMODE_CLOSING 2
+#define DOORMODE_WAITING 3 // Waiting for sibling door to close. Eg. Dam gates in GE
 
 // For AI commands - bitwise ORable
 #define DOORSTATE_CLOSED  1
@@ -1902,7 +1902,7 @@
 #define OBJFLAG_08000000             0x08000000 // Not used in scripts
 #define OBJFLAG_DEACTIVATED          0x10000000
 #define OBJFLAG_20000000             0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
-#define OBJFLAG_40000000             0x40000000 // Editor: "Door open by default/Empty weapon"
+#define OBJFLAG_DOORKEEPOPEN         0x40000000 // Editor: "Door open by default/Empty weapon"
 #define OBJFLAG_INTERCEPTOR_DISABLED 0x80000000 // Or lift disabled
 
 // obj->flags2

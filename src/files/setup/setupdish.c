@@ -2780,7 +2780,7 @@ u8 func100e_training_unlockables[] = {
 		label(0x06) \
 		if_door_state(door, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2f) \
 		open_door(door) \
-		set_object_flag(door, OBJFLAG_40000000) \
+		set_object_flag(door, OBJFLAG_DOORKEEPOPEN) \
 		restart_timer \
  \
 		beginloop(0x08) \
@@ -2832,7 +2832,7 @@ u8 func1012_cloak_doorproxy[] = {
 	label(0x06)
 	if_door_state(0x40, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2f)
 	open_door(0x40)
-	set_object_flag(0x40, OBJFLAG_40000000)
+	set_object_flag(0x40, OBJFLAG_DOORKEEPOPEN)
 	restart_timer
 
 	beginloop(0x08)
@@ -2860,7 +2860,7 @@ u8 func101b_ir_door[] = {
 	label(0x06)
 	if_door_state(0x37, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2f)
 	open_door(0x37)
-	set_object_flag(0x37, OBJFLAG_40000000)
+	set_object_flag(0x37, OBJFLAG_DOORKEEPOPEN)
 	restart_timer
 
 	beginloop(0x08)

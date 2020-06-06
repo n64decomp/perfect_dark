@@ -68,7 +68,7 @@ extern u32 var80069bbc;
 extern u32 var80069bc8;
 extern u32 var80069bcc;
 extern u32 var80069bd0;
-extern u32 var80069bd4;
+extern u32 g_DebugDoor;
 extern u32 var80069bd8;
 extern u32 var80069c48;
 extern u32 var80069cc4;

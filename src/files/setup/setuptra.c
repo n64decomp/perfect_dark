@@ -1298,8 +1298,8 @@ u8 func0413_jonathan_hangar[] = {
 	set_stage_flag(STAGEFLAG_INNER_DOOR_OPENING)
 	open_door(0x2c)
 	open_door(0x2d)
-	set_object_flag(0x2c, OBJFLAG_40000000)
-	set_object_flag(0x2d, OBJFLAG_40000000)
+	set_object_flag(0x2c, OBJFLAG_DOORKEEPOPEN)
+	set_object_flag(0x2d, OBJFLAG_DOORKEEPOPEN)
 	show_hudmsg(CHR_P1P2, L_TRA(39)) // "Inner hangar door is opening."
 
 	label(0x32)
@@ -1324,8 +1324,8 @@ u8 func0413_jonathan_hangar[] = {
 	set_stage_flag(STAGEFLAG_OUTER_DOOR_OPENING)
 	open_door(0x2e)
 	open_door(0x2f)
-	set_object_flag(0x2e, OBJFLAG_40000000)
-	set_object_flag(0x2f, OBJFLAG_40000000)
+	set_object_flag(0x2e, OBJFLAG_DOORKEEPOPEN)
+	set_object_flag(0x2f, OBJFLAG_DOORKEEPOPEN)
 	show_hudmsg(CHR_P1P2, L_TRA(37)) // "Outer hangar door is opening."
 
 	beginloop(0x20)
@@ -2052,8 +2052,8 @@ u8 func100f_terminals[] = {
 		label(0x32)
 		open_door(0x2c)
 		open_door(0x2d)
-		set_object_flag(0x2c, OBJFLAG_40000000)
-		set_object_flag(0x2d, OBJFLAG_40000000)
+		set_object_flag(0x2c, OBJFLAG_DOORKEEPOPEN)
+		set_object_flag(0x2d, OBJFLAG_DOORKEEPOPEN)
 		reloop(0x04)
 
 		// Terminal 2
@@ -2073,8 +2073,8 @@ u8 func100f_terminals[] = {
 		label(0x32)
 		open_door(0x2e)
 		open_door(0x2f)
-		set_object_flag(0x2e, OBJFLAG_40000000)
-		set_object_flag(0x2f, OBJFLAG_40000000)
+		set_object_flag(0x2e, OBJFLAG_DOORKEEPOPEN)
+		set_object_flag(0x2f, OBJFLAG_DOORKEEPOPEN)
 		reloop(0x04)
 
 		// Wait 2 seconds
@@ -2240,7 +2240,7 @@ u8 func1012_hoverbike_auto_doors[] = {
 		reloop(0x04)
 
 		label(0x06)
-		set_object_flag(0x0a, OBJFLAG_40000000)
+		set_object_flag(0x0a, OBJFLAG_DOORKEEPOPEN)
 		open_door(0x0a)
 		reloop(0x04)
 
@@ -2250,7 +2250,7 @@ u8 func1012_hoverbike_auto_doors[] = {
 		reloop(0x04)
 
 		label(0x06)
-		set_object_flag(0x0b, OBJFLAG_40000000)
+		set_object_flag(0x0b, OBJFLAG_DOORKEEPOPEN)
 		open_door(0x0b)
 		reloop(0x04)
 
@@ -2260,8 +2260,8 @@ u8 func1012_hoverbike_auto_doors[] = {
 		reloop(0x04)
 
 		label(0x06)
-		set_object_flag(0x08, OBJFLAG_40000000)
-		set_object_flag(0x09, OBJFLAG_40000000)
+		set_object_flag(0x08, OBJFLAG_DOORKEEPOPEN)
+		set_object_flag(0x09, OBJFLAG_DOORKEEPOPEN)
 		open_door(0x08)
 		open_door(0x09)
 		reloop(0x04)
@@ -2272,7 +2272,7 @@ u8 func1012_hoverbike_auto_doors[] = {
 		reloop(0x04)
 
 		label(0x06)
-		set_object_flag(0x0c, OBJFLAG_40000000)
+		set_object_flag(0x0c, OBJFLAG_DOORKEEPOPEN)
 		open_door(0x0c)
 		reloop(0x04)
 
@@ -2282,7 +2282,7 @@ u8 func1012_hoverbike_auto_doors[] = {
 		reloop(0x04)
 
 		label(0x06)
-		set_object_flag(0x05, OBJFLAG_40000000)
+		set_object_flag(0x05, OBJFLAG_DOORKEEPOPEN)
 		open_door(0x05)
 	endloop(0x04)
 
@@ -2996,8 +2996,8 @@ u8 func101b_gas_sound[] = {
 u8 func0c02_outro[] = {
 	open_door(0x2c)
 	open_door(0x2e)
-	set_object_flag(0x2c, OBJFLAG_40000000)
-	set_object_flag(0x2d, OBJFLAG_40000000)
+	set_object_flag(0x2c, OBJFLAG_DOORKEEPOPEN)
+	set_object_flag(0x2d, OBJFLAG_DOORKEEPOPEN)
 	label(0x32)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
@@ -3548,8 +3548,8 @@ u8 func102e_keep_hangar_doors_open[] = {
 		label(0x32)
 		open_door(0x2c)
 		open_door(0x2d)
-		set_object_flag(0x2c, OBJFLAG_40000000)
-		set_object_flag(0x2d, OBJFLAG_40000000)
+		set_object_flag(0x2c, OBJFLAG_DOORKEEPOPEN)
+		set_object_flag(0x2d, OBJFLAG_DOORKEEPOPEN)
 		reloop(0x04)
 
 		// Door 2 closing
@@ -3560,8 +3560,8 @@ u8 func102e_keep_hangar_doors_open[] = {
 		label(0x32)
 		open_door(0x2e)
 		open_door(0x2f)
-		set_object_flag(0x2e, OBJFLAG_40000000)
-		set_object_flag(0x2f, OBJFLAG_40000000)
+		set_object_flag(0x2e, OBJFLAG_DOORKEEPOPEN)
+		set_object_flag(0x2f, OBJFLAG_DOORKEEPOPEN)
 	endloop(0x04)
 
 	// Terminal destroyed

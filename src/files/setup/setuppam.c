@@ -1437,7 +1437,7 @@ u8 func1003_powernode1[] = {
 	set_object_health(OBJ_POWERNODE1, 0)
 	set_object_flag(OBJ_POWERNODE1, OBJFLAG_INVINCIBLE)
 	open_door(0x03)
-	set_object_flag(0x03, OBJFLAG_40000000)
+	set_object_flag(0x03, OBJFLAG_DOORKEEPOPEN)
 	goto_first(0x04)
 
 	label(0x2e)
@@ -1457,7 +1457,7 @@ u8 func1004_powernode2[] = {
 	set_object_health(OBJ_POWERNODE2, 0)
 	set_object_flag(OBJ_POWERNODE2, OBJFLAG_INVINCIBLE)
 	open_door(0x04)
-	set_object_flag(0x04, OBJFLAG_40000000)
+	set_object_flag(0x04, OBJFLAG_DOORKEEPOPEN)
 	goto_first(0x04)
 
 	label(0x2e)
@@ -1477,7 +1477,7 @@ u8 func1005_powernode3[] = {
 	set_object_flag(OBJ_POWERNODE3, OBJFLAG_INVINCIBLE)
 	set_object_health(OBJ_POWERNODE3, 0)
 	open_door(0x05)
-	set_object_flag(0x05, OBJFLAG_40000000)
+	set_object_flag(0x05, OBJFLAG_DOORKEEPOPEN)
 	goto_first(0x04)
 
 	label(0x2e)
@@ -3973,7 +3973,7 @@ u8 func040a_check_pa_canisters_destroyed[] = {
 
 	// Both canisters destroyed
 	label(0x2e)
-	set_object_flag(0x0f, OBJFLAG_40000000)
+	set_object_flag(0x0f, OBJFLAG_DOORKEEPOPEN)
 	set_lights_state(0x00bc, 0x03, 0xff, 0x0a, 0x78)
 
 	beginloop(0x08)
@@ -4562,11 +4562,11 @@ u8 func102e_open_powernode_doors_on_agent[] = {
 	// Agent
 	label(0x08)
 	open_door(0x03)
-	set_object_flag(0x03, OBJFLAG_40000000)
+	set_object_flag(0x03, OBJFLAG_DOORKEEPOPEN)
 	open_door(0x04)
-	set_object_flag(0x04, OBJFLAG_40000000)
+	set_object_flag(0x04, OBJFLAG_DOORKEEPOPEN)
 	open_door(0x05)
-	set_object_flag(0x05, OBJFLAG_40000000)
+	set_object_flag(0x05, OBJFLAG_DOORKEEPOPEN)
 	label(0x2e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

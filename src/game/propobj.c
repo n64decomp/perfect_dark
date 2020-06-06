@@ -97,13 +97,6 @@ const char var7f1a9fc4[] = "propobj.c";
 const char var7f1a9fd0[] = "kkg";
 const char var7f1a9fd4[] = "kkd";
 const char var7f1a9fd8[] = "kkp";
-const char var7f1a9fdc[] = "debugdoor";
-const char var7f1a9fe8[] = "************** RWI : Door Stuck Mate -> Sort it out\n";
-const char var7f1aa020[] = "propobj.c";
-const char var7f1aa02c[] = "propobj.c";
-const char var7f1aa038[] = "propobj.c";
-const char var7f1aa044[] = "propobj.c";
-const char var7f1aa050[] = "HC: %x - visible\n";
 
 GLOBAL_ASM(
 glabel func0f066310
@@ -19235,8 +19228,10 @@ glabel var7f1aa438
 /*  f076f2c:	27bd0608 */ 	addiu	$sp,$sp,0x608
 );
 
+const char var7f1a9fdc[] = "debugdoor";
+
 GLOBAL_ASM(
-glabel func0f076f30
+glabel doorTick
 .late_rodata
 glabel var7f1aa43c
 .word 0x3e99999a
@@ -19247,16 +19242,16 @@ glabel var7f1aa43c
 /*  f076f3c:	afa40078 */ 	sw	$a0,0x78($sp)
 /*  f076f40:	8c900004 */ 	lw	$s0,0x4($a0)
 /*  f076f44:	3c047f1b */ 	lui	$a0,%hi(var7f1a9fdc)
-/*  f076f48:	3c058007 */ 	lui	$a1,%hi(var80069bd4)
+/*  f076f48:	3c058007 */ 	lui	$a1,%hi(g_DebugDoor)
 /*  f076f4c:	8e0f0018 */ 	lw	$t7,0x18($s0)
-/*  f076f50:	24a59bd4 */ 	addiu	$a1,$a1,%lo(var80069bd4)
+/*  f076f50:	24a59bd4 */ 	addiu	$a1,$a1,%lo(g_DebugDoor)
 /*  f076f54:	24849fdc */ 	addiu	$a0,$a0,%lo(var7f1a9fdc)
 /*  f076f58:	afaf0070 */ 	sw	$t7,0x70($sp)
 /*  f076f5c:	c604007c */ 	lwc1	$f4,0x7c($s0)
 /*  f076f60:	0c0036cc */ 	jal	func0000db30
 /*  f076f64:	e7a4006c */ 	swc1	$f4,0x6c($sp)
-/*  f076f68:	3c028007 */ 	lui	$v0,%hi(var80069bd4)
-/*  f076f6c:	8c429bd4 */ 	lw	$v0,%lo(var80069bd4)($v0)
+/*  f076f68:	3c028007 */ 	lui	$v0,%hi(g_DebugDoor)
+/*  f076f6c:	8c429bd4 */ 	lw	$v0,%lo(g_DebugDoor)($v0)
 /*  f076f70:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f076f74:	50400013 */ 	beqzl	$v0,.L0f076fc4
 /*  f076f78:	8e0200c0 */ 	lw	$v0,0xc0($s0)
@@ -19439,7 +19434,7 @@ glabel var7f1aa43c
 /*  f0771f0:	55e00004 */ 	bnezl	$t7,.L0f077204
 /*  f0771f4:	8fb90070 */ 	lw	$t9,0x70($sp)
 .L0f0771f8:
-/*  f0771f8:	0fc23c47 */ 	jal	func0f08f11c
+/*  f0771f8:	0fc23c47 */ 	jal	doorDoCalc
 /*  f0771fc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f077200:	8fb90070 */ 	lw	$t9,0x70($sp)
 .L0f077204:
@@ -19517,6 +19512,128 @@ glabel var7f1aa43c
 /*  f077314:	03e00008 */ 	jr	$ra
 /*  f077318:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch because `g_DebugDoor == (u32)doorprop` is swapped,
+// and regalloc near 004.
+//void doorTick(struct prop *doorprop)
+//{
+//	struct doorobj *door = (struct doorobj *)doorprop->obj;
+//	struct model *model = door->base.model;
+//	f32 prevfrac = door->frac;
+//
+//	func0000db30("debugdoor", &g_DebugDoor);
+//
+//	// If g_DebugDoor is set to 1 or to the address of this door,
+//	// print the distance to the door to console
+//	if (g_DebugDoor) {
+//		if (g_DebugDoor == 1 || g_DebugDoor == (u32)doorprop) {
+//			f32 xdiff = doorprop->pos.x - g_Vars.players[0]->cam_pos.x;
+//			f32 zdiff = doorprop->pos.z - g_Vars.players[0]->cam_pos.z;
+//
+//			sqrtf(xdiff * xdiff + zdiff * zdiff);
+//		}
+//	}
+//
+//	// If door should autoclose this tick
+//	if (door->lastopen60 > 0
+//			&& door->mode == DOORMODE_IDLE
+//			&& (door->base.flags & OBJFLAG_DOORKEEPOPEN) == 0
+//			&& door->lastopen60 < g_Vars.lvframe60 - door->autoclosetime) {
+//		// 004
+//		// Check if any sibling has DOORFLAG_0010
+//		struct doorobj *loopdoor = door->sibling;
+//		s32 hasflag = door->doorflags & DOORFLAG_0010;
+//
+//		while (loopdoor && loopdoor != door && !hasflag) {
+//			hasflag = loopdoor->doorflags & DOORFLAG_0010;
+//			loopdoor = loopdoor->sibling;
+//		}
+//
+//		if (hasflag == false) {
+//			doorActivate(door, DOORMODE_CLOSING);
+//		} else if (door->doorflags & DOORFLAG_0010) {
+//			// Check if any sibling has a false return value
+//			s32 pass = func0f08c040(door) == false;
+//			struct doorobj *loopdoor = door->sibling;
+//
+//			while (loopdoor && loopdoor != door && !pass) {
+//				pass = func0f08c040(loopdoor) == false;
+//				loopdoor = loopdoor->sibling;
+//			}
+//
+//			if (pass) {
+//				// One or all siblings is set to keep open?
+//				struct doorobj *loopdoor = door->sibling;
+//				door->lastopen60 = g_Vars.lvframe60;
+//
+//				while (loopdoor && loopdoor != door) {
+//					loopdoor->lastopen60 = g_Vars.lvframe60;
+//					loopdoor = loopdoor->sibling;
+//				}
+//			} else {
+//				doorActivate(door, DOORMODE_CLOSING);
+//			}
+//		}
+//	}
+//
+//	// If waiting for sibling to close, check for that
+//	if (door->mode == DOORMODE_WAITING) {
+//		s32 shouldopen = true;
+//		struct doorobj *loopdoor = door->sibling;
+//
+//		while (loopdoor && loopdoor != door) {
+//			if (loopdoor->mode != DOORMODE_IDLE || loopdoor->frac > 0) {
+//				shouldopen = false;
+//			}
+//
+//			loopdoor = loopdoor->sibling;
+//		}
+//
+//		if (shouldopen) {
+//			doorSetMode(door, DOORMODE_OPENING);
+//		}
+//	}
+//
+//	// DOORTYPE_8 is unused - not sure what this does
+//	if (door->doortype == DOORTYPE_8
+//			&& doorIsClosed(door)
+//			&& func0f0665ac(door)) {
+//		doorActivateWrapper(doorprop, false);
+//	}
+//
+//	// Update frac
+//	if (door->lastcalc60 < g_Vars.lvframe60 || g_Vars.lvupdate240 == 0) {
+//		doorDoCalc(door);
+//	}
+//
+//	// Consider playing a sound effect
+//	if (model->unk08->unk04 == &stagethinglist_20ec8) {
+//		f32 soundpoint = door->maxfrac * 0.3f;
+//
+//		if (door->frac > soundpoint) {
+//			if (prevfrac <= soundpoint) {
+//				// frac increased past the soundpoint
+//				// Sounds like a door closing?
+//				func0f0939f8(NULL, doorprop, 0x8014, -1,
+//						-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+//			}
+//		} else {
+//			if (prevfrac > soundpoint) {
+//				// frac decreased past the soundpoint
+//				// Also sounds like a door closing
+//				func0f0939f8(NULL, doorprop, 0x8015, -1,
+//						-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+//			}
+//		}
+//	}
+//}
+
+const char var7f1a9fe8[] = "************** RWI : Door Stuck Mate -> Sort it out\n";
+const char var7f1aa020[] = "propobj.c";
+const char var7f1aa02c[] = "propobj.c";
+const char var7f1aa038[] = "propobj.c";
+const char var7f1aa044[] = "propobj.c";
+const char var7f1aa050[] = "HC: %x - visible\n";
 
 GLOBAL_ASM(
 glabel func0f07731c
@@ -28581,7 +28698,7 @@ glabel var7f1aa6ec
 /*  f07f1dc:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f07f1e0:	54410006 */ 	bnel	$v0,$at,.L0f07f1fc
 /*  f07f1e4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f07f1e8:	0fc1dbcc */ 	jal	func0f076f30
+/*  f07f1e8:	0fc1dbcc */ 	jal	doorTick
 /*  f07f1ec:	02202025 */ 	or	$a0,$s1,$zero
 /*  f07f1f0:	10000067 */ 	beqz	$zero,.L0f07f390
 /*  f07f1f4:	92020003 */ 	lbu	$v0,0x3($s0)
@@ -38557,7 +38674,7 @@ s32 weaponGetPickupAmmoQty(struct weaponobj *weapon)
 		return 1;
 	}
 
-	if (weapon->base.flags & OBJFLAG_40000000) {
+	if (weapon->base.flags & OBJFLAG_DOORKEEPOPEN) {
 		return 0;
 	}
 
@@ -45126,7 +45243,7 @@ void func0f08df10(s32 soundtype, struct prop *prop)
 
 void func0f08e0c4(struct doorobj *door)
 {
-	door->base.flags &= ~OBJFLAG_40000000;
+	door->base.flags &= ~OBJFLAG_DOORKEEPOPEN;
 	door->base.hidden |= OBJHFLAG_00000200;
 
 	func0f08d784(door->soundtype, door->base.prop);
@@ -45152,7 +45269,7 @@ void func0f08e0c4(struct doorobj *door)
 
 void func0f08e1a0(struct doorobj *door)
 {
-	door->base.flags &= ~OBJFLAG_40000000;
+	door->base.flags &= ~OBJFLAG_DOORKEEPOPEN;
 
 	func0f08daa8(door->soundtype, door->base.prop);
 
@@ -45232,7 +45349,7 @@ void func0f08e2ac(struct doorobj *door)
 void doorSetMode(struct doorobj *door, s32 newmode)
 {
 	if (newmode == DOORMODE_OPENING) {
-		if (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_3) {
+		if (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_WAITING) {
 			func0f08e0c4(door);
 		}
 
@@ -45242,9 +45359,9 @@ void doorSetMode(struct doorobj *door, s32 newmode)
 			func0f08e1a0(door);
 		}
 
-		if ((door->mode != DOORMODE_IDLE && door->mode != DOORMODE_3) || door->frac > 0) {
+		if ((door->mode != DOORMODE_IDLE && door->mode != DOORMODE_WAITING) || door->frac > 0) {
 			door->mode = newmode;
-		} else if (door->mode == DOORMODE_3) {
+		} else if (door->mode == DOORMODE_WAITING) {
 			door->mode = DOORMODE_IDLE;
 		}
 	} else {
@@ -45262,7 +45379,7 @@ void doorActivate(struct doorobj *door, s32 newmode)
 		siblingmode = DOORMODE_CLOSING;
 
 		if (door->mode == DOORMODE_IDLE) {
-			newmode = DOORMODE_3;
+			newmode = DOORMODE_WAITING;
 		}
 	}
 
@@ -45278,12 +45395,12 @@ void doorActivate(struct doorobj *door, s32 newmode)
 
 s32 doorIsClosed(struct doorobj *door)
 {
-	return (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_3) && door->frac <= 0;
+	return (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_WAITING) && door->frac <= 0;
 }
 
 s32 doorIsOpen(struct doorobj *door)
 {
-	return (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_3) && door->frac >= door->maxfrac;
+	return (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_WAITING) && door->frac >= door->maxfrac;
 }
 
 GLOBAL_ASM(
@@ -46203,7 +46320,7 @@ glabel func0f08ed74
 //}
 
 GLOBAL_ASM(
-glabel func0f08f11c
+glabel doorDoCalc
 /*  f08f11c:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f08f120:	afb30028 */ 	sw	$s3,0x28($sp)
 /*  f08f124:	afb20024 */ 	sw	$s2,0x24($sp)
@@ -47212,7 +47329,7 @@ void doorActivateWrapper(struct prop *doorprop, bool arg1)
 	struct doorobj *door = doorprop->door;
 
 	if (func0f066310(doorprop, arg1) == 0) {
-		if (door->mode == DOORMODE_OPENING || door->mode == DOORMODE_3) {
+		if (door->mode == DOORMODE_OPENING || door->mode == DOORMODE_WAITING) {
 			doorActivate(door, DOORMODE_CLOSING);
 		} else if (door->mode == DOORMODE_CLOSING) {
 			doorActivate(door, DOORMODE_OPENING);

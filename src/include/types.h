@@ -125,12 +125,19 @@ struct anim {
 	/*0x88*/ u32 animscale;
 };
 
+struct stagethinglist {
+	u16 stage;
+	u16 numthings;
+	u16 *things;
+};
+
 struct model08_00 {
 	u16 unk00;
 };
 
 struct model08 {
 	struct model08_00 *unk00;
+	struct stagethinglist *unk04;
 };
 
 struct model10 {
@@ -887,7 +894,7 @@ struct doorobj { // objtype 0x01
 	/*0x70*/ u16 doorflags;
 	/*0x72*/ u16 doortype;
 	/*0x74*/ u32 keyflags;
-	/*0x78*/ u32 autoclosetime;
+	/*0x78*/ s32 autoclosetime;
 	/*0x7c*/ f32 frac;
 	/*0x80*/ f32 fracspeed;
 	/*0x84*/ s8 mode;
@@ -906,7 +913,7 @@ struct doorobj { // objtype 0x01
 	/*0xb4*/ u32 unkb4;
 	/*0xb8*/ u32 unkb8;
 	/*0xbc*/ struct doorobj *sibling;
-	/*0xc0*/ u32 lastopen60;
+	/*0xc0*/ s32 lastopen60;
 	/*0xc4*/ s16 portal;
 	/*0xc6*/ s8 soundtype;
 	/*0xc7*/ s8 fadetime60;
@@ -2968,12 +2975,6 @@ struct menu_dialog {
 	void *unk0c;
 	u32 unk10;
 	struct menu_dialog *nextsibling;
-};
-
-struct stagethinglist {
-	u16 stage;
-	u16 numthings;
-	u16 *things;
 };
 
 struct twowords {

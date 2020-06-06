@@ -2571,7 +2571,7 @@ bool aiIfDoorState(void)
 			} else {
 				pass = (cmd[3] & DOORSTATE_OPEN) != 0;
 			}
-		} else if (door->mode == DOORMODE_OPENING || door->mode == DOORMODE_3) {
+		} else if (door->mode == DOORMODE_OPENING || door->mode == DOORMODE_WAITING) {
 			pass = (cmd[3] & DOORSTATE_OPENING) != 0;
 		} else if (door->mode == DOORMODE_CLOSING) {
 			pass = (cmd[3] & DOORSTATE_CLOSING) != 0;
