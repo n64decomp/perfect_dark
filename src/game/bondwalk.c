@@ -1440,7 +1440,7 @@ void currentPlayerUpdateVerticalMovement(void)
 					if (moveamount > 0
 							|| lift == NULL
 							|| lift->obj == NULL
-							|| (lift->obj->flags & OBJFLAG_INTERCEPTOR_DISABLED) == 0
+							|| (lift->obj->flags & OBJFLAG_CHOPPER_INACTIVE) == 0
 							|| currentPlayerHasGapToCeiling(moveamount) == true) {
 						// Going up
 						g_Vars.currentplayer->vv_manground += moveamount;

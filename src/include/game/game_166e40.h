@@ -24,7 +24,7 @@ u32 func0f167964(void);
 u32 func0f167998(void);
 u32 func0f1679b0(void);
 u32 func0f1679cc(void);
-void func0f1679f4(s32 arg0);
+struct model0c *func0f1679f4(s32 arg0);
 u32 func0f167a18(void);
 
 #endif

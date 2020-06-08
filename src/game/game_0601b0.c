@@ -3813,7 +3813,7 @@ glabel func0f06302c
 /*  f063558:	54610006 */ 	bnel	$v1,$at,.L0f063574
 /*  f06355c:	24010007 */ 	addiu	$at,$zero,0x7
 .L0f063560:
-/*  f063560:	0fc1f9d6 */ 	jal	func0f07e758
+/*  f063560:	0fc1f9d6 */ 	jal	objTick
 /*  f063564:	02002025 */ 	or	$a0,$s0,$zero
 /*  f063568:	10000017 */ 	beqz	$zero,.L0f0635c8
 /*  f06356c:	00403025 */ 	or	$a2,$v0,$zero
@@ -3965,7 +3965,7 @@ glabel func0f06302c
 /*  f06377c:	93189884 */ 	lbu	$t8,%lo(var80069884)($t8)
 /*  f063780:	57000006 */ 	bnezl	$t8,.L0f06379c
 /*  f063784:	860d0002 */ 	lh	$t5,0x2($s0)
-/*  f063788:	0fc1f9d6 */ 	jal	func0f07e758
+/*  f063788:	0fc1f9d6 */ 	jal	objTick
 /*  f06378c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f063790:	10000027 */ 	beqz	$zero,.L0f063830
 /*  f063794:	00403025 */ 	or	$a2,$v0,$zero

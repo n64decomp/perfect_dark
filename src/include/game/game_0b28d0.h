@@ -11,6 +11,6 @@ void modelFree(struct model *model);
 struct model *func0f0b3280(void *modelfiledata);
 u32 func0f0b32a0(void);
 struct anim *func0f0b32e4(void);
-u32 func0f0b3338(void);
+void func0f0b3338(struct anim *anim);
 
 #endif

@@ -7,7 +7,7 @@ u32 xorBaffbeff(u32 value);
 u32 xorBabeffff(u32 value);
 u32 xorBoobless(u32 value);
 void func0f0953cc(void);
-u32 func0f095560(void);
+s32 func0f095560(struct defaultobj *obj);
 s32 objectiveGetCount(void);
 u32 objectiveGetDifficultyBits(s32 index);
 u32 objectiveGetStatus(u32 arg0);

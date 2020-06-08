@@ -4622,12 +4622,12 @@ glabel var7f1ad5dc
 /*  f0ba340:	8c680000 */ 	lw	$t0,0x0($v1)
 /*  f0ba344:	8e690034 */ 	lw	$t1,0x34($s3)
 /*  f0ba348:	86460000 */ 	lh	$a2,0x0($s2)
-/*  f0ba34c:	3c0d8006 */ 	lui	$t5,%hi(var8005f00c)
+/*  f0ba34c:	3c0d8006 */ 	lui	$t5,%hi(g_Anims)
 /*  f0ba350:	01095021 */ 	addu	$t2,$t0,$t1
 /*  f0ba354:	000a6083 */ 	sra	$t4,$t2,0x2
 /*  f0ba358:	ac6a0000 */ 	sw	$t2,0x0($v1)
 /*  f0ba35c:	ae0c0000 */ 	sw	$t4,0x0($s0)
-/*  f0ba360:	8dadf00c */ 	lw	$t5,%lo(var8005f00c)($t5)
+/*  f0ba360:	8dadf00c */ 	lw	$t5,%lo(g_Anims)($t5)
 /*  f0ba364:	00067080 */ 	sll	$t6,$a2,0x2
 /*  f0ba368:	01c67023 */ 	subu	$t6,$t6,$a2
 /*  f0ba36c:	000e7080 */ 	sll	$t6,$t6,0x2
@@ -13806,7 +13806,7 @@ glabel func0f0c1ff4
  */
 void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 {
-	u32 playernum = propGetPlayerNum(prop);
+	s32 playernum = propGetPlayerNum(prop);
 
 	*width = g_Vars.players[playernum]->bond2.width;
 	*ymin = g_Vars.currentplayer->vv_manground + 30;

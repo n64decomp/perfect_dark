@@ -91,8 +91,8 @@ struct anim {
 	/*0x0b*/ u8 average;
 	/*0x0c*/ f32 frame;
 	/*0x10*/ u32 frac;
-	/*0x14*/ u16 framea;
-	/*0x16*/ u16 frameb;
+	/*0x14*/ s16 framea;
+	/*0x16*/ s16 frameb;
 	/*0x18*/ u32 endrame;
 	/*0x1c*/ u32 speed;
 	/*0x20*/ u32 newspeed;
@@ -133,11 +133,33 @@ struct stagethinglist {
 
 struct model08_00 {
 	u16 unk00;
+	u32 unk04;
 };
 
 struct model08 {
 	struct model08_00 *unk00;
 	struct stagethinglist *unk04;
+	u32 unk08;
+	u16 unk0c;
+	s16 unk0e;
+};
+
+struct model0c {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ f32 unk38;
 };
 
 struct model10 {
@@ -150,7 +172,7 @@ struct model {
 	/*0x01*/ u8 unk01;
 	/*0x04*/ struct chrdata *chr;
 	/*0x08*/ struct model08 *unk08;
-	/*0x0c*/ u32 unk0c;
+	/*0x0c*/ struct model0c *unk0c;
 	/*0x10*/ struct model10 *unk10;
 	/*0x14*/ f32 unk14;
 	/*0x18*/ u32 unk18;
@@ -560,7 +582,7 @@ struct act_skjump {
 };
 
 struct geo {
-	/*0x134*/ s8 type;
+	/*0x134*/ u8 type;
 	/*0x135*/ u8 unk01;
 	/*0x136*/ u16 unk136;
 	/*0x138*/ f32 ymax;
@@ -810,7 +832,7 @@ struct obj48 {
 	/*0x07c*/ u32 unk07c;
 	/*0x080*/ u32 unk080;
 	/*0x084*/ u32 unk084;
-	/*0x088*/ u32 unk088;
+	/*0x088*/ struct prop *unk088;
 	/*0x08c*/ u32 unk08c;
 	/*0x090*/ u32 unk090;
 	/*0x094*/ u32 unk094;
@@ -842,21 +864,22 @@ struct obj48 {
 	/*0x105*/ u8 unk105;
 };
 
+// I get the feeling this struct might be a regular f32 matrix...
 struct hov {
 	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
+	/*0x04*/ f32 unk04;
 	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
+	/*0x0c*/ f32 unk0c;
 	/*0x10*/ f32 unk10;
 	/*0x14*/ f32 unk14;
 	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
+	/*0x1c*/ f32 unk1c;
+	/*0x20*/ f32 unk20;
 	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
+	/*0x28*/ f32 unk28;
 	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
+	/*0x30*/ f32 unk30;
+	/*0x34*/ f32 unk34;
 	/*0x38*/ u32 unk38;
 	/*0x3c*/ u32 unk3c;
 };
@@ -878,8 +901,8 @@ struct defaultobj {
 	/*0x48*/ struct obj48 *unk48;
 	/*0x4c*/ s16 damage;
 	/*0x4e*/ s16 maxdamage;
-	/*0x50*/ u32 shadecol;
-	/*0x54*/ u32 nextcol;
+	/*0x50*/ u8 shadecol[4];
+	/*0x54*/ u8 nextcol[4];
 	/*0x58*/ u16 floorcol;
 	/*0x5a*/ u8 numtiles;
 };
@@ -914,7 +937,7 @@ struct doorobj { // objtype 0x01
 	/*0xb8*/ u32 unkb8;
 	/*0xbc*/ struct doorobj *sibling;
 	/*0xc0*/ s32 lastopen60;
-	/*0xc4*/ s16 portal;
+	/*0xc4*/ s16 portalnum;
 	/*0xc6*/ s8 soundtype;
 	/*0xc7*/ s8 fadetime60;
 	/*0xc8*/ s32 lastcalc60;
@@ -1053,6 +1076,13 @@ struct heliobj {
 	/*0x7c*/ f32 speedtime60;
 };
 
+struct tintedglassobj { // objtype 2f
+	struct defaultobj base;
+	/*0x5c*/ u32 unk5c;
+	/*0x60*/ u16 unk60;
+	/*0x62*/ s16 portalnum;
+};
+
 struct liftobj { // objtype 30
 	struct defaultobj base;
 	/*0x5c*/ s16 pads[4];
@@ -1135,6 +1165,8 @@ struct chopperobj {
 	/*0xd4*/ f32 gunrotx;
 	/*0xd8*/ f32 barrelrotspeed;
 	/*0xdc*/ f32 barrelrot;
+	/*0xdc*/ u32 unke0;
+	/*0xe4*/ bool dead;
 };
 
 struct tag {
@@ -5800,6 +5832,42 @@ struct modelthing {
 	/*0x12*/ u16 unk12;
 	/*0x14*/ u16 unk14;
 	/*0x16*/ u16 unk16;
+};
+
+struct g_Anims {
+	u32 unk00;
+	u32 unk04;
+	u16 unk08;
+	u8 unk0a;
+	u8 unk0b;
+};
+
+struct animheader {
+	/*0x00*/ u16 numframes;
+	/*0x02*/ u16 framelen; // in bytes
+	/*0x04*/ u8 *data;
+	/*0x08*/ u16 initialposbytes;
+	/*0x0a*/ u8 initiaposbitsperentry;
+	/*0x0b*/ u8 flags;
+};
+
+struct objticksp476 {
+	/*0x00*/ f32 *matrix;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ struct model0c *model0c;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
 };
 
 #endif

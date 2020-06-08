@@ -135,7 +135,7 @@ extern u32 var8005efd0;
 extern u32 var8005efe0;
 extern u32 var8005efec;
 extern u32 var8005f008;
-extern u32 var8005f00c;
+extern struct animheader *g_Anims;
 extern u32 var8005f010;
 extern u32 var8005f014;
 extern u32 var8005f018;
