@@ -27653,52 +27653,25 @@ void hoverpropTick(struct prop *prop, bool arg1)
 
 	if ((obj->base.hidden & OBJHFLAG_GRABBED) == 0
 			&& (arg1 || (prop->flags & PROPFLAG_80) || (obj->base.flags & OBJFLAG_CHOPPER_INACTIVE))) {
-		func0f0714b8(obj, &obj->hov);
+		func0f0714b8(&obj->base, &obj->hov);
 	}
 }
 
-GLOBAL_ASM(
-glabel hoverbikeTick
-/*  f07dfd0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f07dfd4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f07dfd8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f07dfdc:	8c900004 */ 	lw	$s0,0x4($a0)
-/*  f07dfe0:	8e020040 */ 	lw	$v0,0x40($s0)
-/*  f07dfe4:	00027140 */ 	sll	$t6,$v0,0x5
-/*  f07dfe8:	05c00016 */ 	bltz	$t6,.L0f07e044
-/*  f07dfec:	00027900 */ 	sll	$t7,$v0,0x4
-/*  f07dff0:	05e2000a */ 	bltzl	$t7,.L0f07e01c
-/*  f07dff4:	8e080008 */ 	lw	$t0,0x8($s0)
-/*  f07dff8:	54a00005 */ 	bnezl	$a1,.L0f07e010
-/*  f07dffc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07e000:	90980001 */ 	lbu	$t8,0x1($a0)
-/*  f07e004:	33190080 */ 	andi	$t9,$t8,0x80
-/*  f07e008:	13200003 */ 	beqz	$t9,.L0f07e018
-/*  f07e00c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f07e010:
-/*  f07e010:	0fc1c52e */ 	jal	func0f0714b8
-/*  f07e014:	2605005c */ 	addiu	$a1,$s0,0x5c
-.L0f07e018:
-/*  f07e018:	8e080008 */ 	lw	$t0,0x8($s0)
-.L0f07e01c:
-/*  f07e01c:	00084840 */ 	sll	$t1,$t0,0x1
-/*  f07e020:	05230009 */ 	bgezl	$t1,.L0f07e048
-/*  f07e024:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f07e028:	44800000 */ 	mtc1	$zero,$f0
-/*  f07e02c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07e030:	44050000 */ 	mfc1	$a1,$f0
-/*  f07e034:	44060000 */ 	mfc1	$a2,$f0
-/*  f07e038:	44070000 */ 	mfc1	$a3,$f0
-/*  f07e03c:	0fc1cab7 */ 	jal	func0f072adc
-/*  f07e040:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f07e044:
-/*  f07e044:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f07e048:
-/*  f07e048:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f07e04c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f07e050:	03e00008 */ 	jr	$ra
-/*  f07e054:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void hoverbikeTick(struct prop *prop, bool arg1)
+{
+	struct hoverbikeobj *obj = (struct hoverbikeobj *)prop->obj;
+
+	if ((obj->base.hidden & OBJHFLAG_04000000) == 0) {
+		if ((obj->base.hidden & OBJHFLAG_GRABBED) == 0
+				&& (arg1 || (prop->flags & PROPFLAG_80))) {
+			func0f0714b8(&obj->base, &obj->hov);
+		}
+
+		if (obj->base.flags & OBJFLAG_DOORKEEPOPEN) {
+			func0f072adc(obj, 0, 0, 0);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f07e058
