@@ -27647,35 +27647,15 @@ glabel var7f1aa6e4
 /*  f07df70:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel hoverpropTick
-/*  f07df74:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f07df78:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07df7c:	8c860004 */ 	lw	$a2,0x4($a0)
-/*  f07df80:	8cce0040 */ 	lw	$t6,0x40($a2)
-/*  f07df84:	000e7900 */ 	sll	$t7,$t6,0x4
-/*  f07df88:	05e2000e */ 	bltzl	$t7,.L0f07dfc4
-/*  f07df8c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f07df90:	54a00009 */ 	bnezl	$a1,.L0f07dfb8
-/*  f07df94:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f07df98:	90980001 */ 	lbu	$t8,0x1($a0)
-/*  f07df9c:	33190080 */ 	andi	$t9,$t8,0x80
-/*  f07dfa0:	57200005 */ 	bnezl	$t9,.L0f07dfb8
-/*  f07dfa4:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f07dfa8:	8cc80008 */ 	lw	$t0,0x8($a2)
-/*  f07dfac:	00084800 */ 	sll	$t1,$t0,0x0
-/*  f07dfb0:	05210003 */ 	bgez	$t1,.L0f07dfc0
-/*  f07dfb4:	00c02025 */ 	or	$a0,$a2,$zero
-.L0f07dfb8:
-/*  f07dfb8:	0fc1c52e */ 	jal	func0f0714b8
-/*  f07dfbc:	24c5005c */ 	addiu	$a1,$a2,0x5c
-.L0f07dfc0:
-/*  f07dfc0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f07dfc4:
-/*  f07dfc4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f07dfc8:	03e00008 */ 	jr	$ra
-/*  f07dfcc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void hoverpropTick(struct prop *prop, bool arg1)
+{
+	struct hoverpropobj *obj = (struct hoverpropobj *)prop->obj;
+
+	if ((obj->base.hidden & OBJHFLAG_GRABBED) == 0
+			&& (arg1 || (prop->flags & PROPFLAG_80) || (obj->base.flags & OBJFLAG_CHOPPER_INACTIVE))) {
+		func0f0714b8(obj, &obj->hov);
+	}
+}
 
 GLOBAL_ASM(
 glabel hoverbikeTick
