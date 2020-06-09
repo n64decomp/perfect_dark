@@ -1119,6 +1119,16 @@ struct hoverpropobj { // objtype 35
 	struct hov hov;
 };
 
+struct fanobj { // objtype 36
+	struct defaultobj base;
+	/*0x5c*/ f32 yrot;
+	/*0x60*/ f32 yrotprev;
+	/*0x64*/ f32 ymaxspeed;
+	/*0x68*/ f32 yspeed;
+	/*0x6c*/ f32 yaccel;
+	/*0x70*/ s8 on;
+};
+
 struct hovercarobj {
 	struct defaultobj base;
 	/*0x5c*/ u8 *ailist;

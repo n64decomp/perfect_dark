@@ -45,7 +45,7 @@ void setupParseObjects(void)
 			case OBJTYPE_LIFT:
 			case OBJTYPE_HOVERBIKE:
 			case OBJTYPE_HOVERPROP:
-			case OBJTYPE_VENTFAN:
+			case OBJTYPE_FAN:
 			case OBJTYPE_HOVERCAR:
 			case OBJTYPE_CHOPPER:
 			case OBJTYPE_ESCALATOR:

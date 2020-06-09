@@ -2051,7 +2051,7 @@
 #define OBJTYPE_HOVERBIKE        0x33
 #define OBJTYPE_END              0x34
 #define OBJTYPE_HOVERPROP        0x35
-#define OBJTYPE_VENTFAN          0x36
+#define OBJTYPE_FAN              0x36
 #define OBJTYPE_HOVERCAR         0x37
 #define OBJTYPE_PADEFFECT        0x38
 #define OBJTYPE_CHOPPER          0x39

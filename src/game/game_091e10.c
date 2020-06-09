@@ -70,7 +70,7 @@ u32 setupGetCommandLength(u32 *cmd)
 	case OBJTYPE_LINKPATHS:        return 4;
 	case OBJTYPE_HOVERBIKE:        return 56;
 	case OBJTYPE_HOVERPROP:        return 39;
-	case OBJTYPE_VENTFAN:          return 29;
+	case OBJTYPE_FAN:          return 29;
 	case OBJTYPE_HOVERCAR:         return 38;
 	case OBJTYPE_CHOPPER:          return 58;
 	case OBJTYPE_PADEFFECT:        return 3;
@@ -356,7 +356,7 @@ struct defaultobj *setupCommandGetObject(u32 cmdindex)
 		case OBJTYPE_LIFT:
 		case OBJTYPE_HOVERBIKE:
 		case OBJTYPE_HOVERPROP:
-		case OBJTYPE_VENTFAN:
+		case OBJTYPE_FAN:
 		case OBJTYPE_HOVERCAR:
 		case OBJTYPE_CHOPPER:
 		case OBJTYPE_ESCALATOR:

@@ -21558,137 +21558,54 @@ glabel var7f1aa4ac
 /*  f078a28:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel ventfanTick
-.late_rodata
-glabel var7f1aa4b0
-.word 0x3e4ccccd
-glabel var7f1aa4b4
-.word 0x3c23d70a
-glabel var7f1aa4b8
-.word 0x3fc907a9
-.text
-/*  f078a2c:	8c850004 */ 	lw	$a1,0x4($a0)
-/*  f078a30:	3c010004 */ 	lui	$at,0x4
-/*  f078a34:	34214000 */ 	ori	$at,$at,0x4000
-/*  f078a38:	8cae0040 */ 	lw	$t6,0x40($a1)
-/*  f078a3c:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f078a40:	01c17824 */ 	and	$t7,$t6,$at
-/*  f078a44:	51e00013 */ 	beqzl	$t7,.L0f078a94
-/*  f078a48:	80ab0070 */ 	lb	$t3,0x70($a1)
-/*  f078a4c:	80b80070 */ 	lb	$t8,0x70($a1)
-/*  f078a50:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f078a54:	54780009 */ 	bnel	$v1,$t8,.L0f078a7c
-/*  f078a58:	a0a30070 */ 	sb	$v1,0x70($a1)
-/*  f078a5c:	a0a00070 */ 	sb	$zero,0x70($a1)
-/*  f078a60:	8c590040 */ 	lw	$t9,0x40($v0)
-/*  f078a64:	3c01fffb */ 	lui	$at,0xfffb
-/*  f078a68:	3421bfff */ 	ori	$at,$at,0xbfff
-/*  f078a6c:	03214024 */ 	and	$t0,$t9,$at
-/*  f078a70:	10000007 */ 	beqz	$zero,.L0f078a90
-/*  f078a74:	ac480040 */ 	sw	$t0,0x40($v0)
-/*  f078a78:	a0a30070 */ 	sb	$v1,0x70($a1)
-.L0f078a7c:
-/*  f078a7c:	8c490040 */ 	lw	$t1,0x40($v0)
-/*  f078a80:	3c01fffb */ 	lui	$at,0xfffb
-/*  f078a84:	3421bfff */ 	ori	$at,$at,0xbfff
-/*  f078a88:	01215024 */ 	and	$t2,$t1,$at
-/*  f078a8c:	ac4a0040 */ 	sw	$t2,0x40($v0)
-.L0f078a90:
-/*  f078a90:	80ab0070 */ 	lb	$t3,0x70($a1)
-.L0f078a94:
-/*  f078a94:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f078a98:	146b0013 */ 	bne	$v1,$t3,.L0f078ae8
-/*  f078a9c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f078aa0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f078aa4:	c466004c */ 	lwc1	$f6,0x4c($v1)
-/*  f078aa8:	c4a4006c */ 	lwc1	$f4,0x6c($a1)
-/*  f078aac:	c4aa0068 */ 	lwc1	$f10,0x68($a1)
-/*  f078ab0:	c4a20064 */ 	lwc1	$f2,0x64($a1)
-/*  f078ab4:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f078ab8:	46085400 */ 	add.s	$f16,$f10,$f8
-/*  f078abc:	e4b00068 */ 	swc1	$f16,0x68($a1)
-/*  f078ac0:	c4a00068 */ 	lwc1	$f0,0x68($a1)
-/*  f078ac4:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f078ac8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f078acc:	45020004 */ 	bc1fl	.L0f078ae0
-/*  f078ad0:	44801000 */ 	mtc1	$zero,$f2
-/*  f078ad4:	e4a20068 */ 	swc1	$f2,0x68($a1)
-/*  f078ad8:	c4a00068 */ 	lwc1	$f0,0x68($a1)
-/*  f078adc:	44801000 */ 	mtc1	$zero,$f2
-.L0f078ae0:
-/*  f078ae0:	10000025 */ 	beqz	$zero,.L0f078b78
-/*  f078ae4:	4600103c */ 	c.lt.s	$f2,$f0
-.L0f078ae8:
-/*  f078ae8:	44801000 */ 	mtc1	$zero,$f2
-/*  f078aec:	c4a00068 */ 	lwc1	$f0,0x68($a1)
-/*  f078af0:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f078af4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f078af8:	4500001e */ 	bc1f	.L0f078b74
-/*  f078afc:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f078b00:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f078b04:	8c6c0034 */ 	lw	$t4,0x34($v1)
-/*  f078b08:	00001025 */ 	or	$v0,$zero,$zero
-/*  f078b0c:	3c017f1b */ 	lui	$at,%hi(var7f1aa4b0)
-/*  f078b10:	1980000e */ 	blez	$t4,.L0f078b4c
-/*  f078b14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f078b18:	c4b2006c */ 	lwc1	$f18,0x6c($a1)
-/*  f078b1c:	c424a4b0 */ 	lwc1	$f4,%lo(var7f1aa4b0)($at)
-/*  f078b20:	46049002 */ 	mul.s	$f0,$f18,$f4
-/*  f078b24:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f078b28:	c4a60068 */ 	lwc1	$f6,0x68($a1)
-.L0f078b2c:
-/*  f078b2c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f078b30:	46003281 */ 	sub.s	$f10,$f6,$f0
-/*  f078b34:	e4aa0068 */ 	swc1	$f10,0x68($a1)
-/*  f078b38:	8c6d0034 */ 	lw	$t5,0x34($v1)
-/*  f078b3c:	004d082a */ 	slt	$at,$v0,$t5
-/*  f078b40:	5420fffa */ 	bnezl	$at,.L0f078b2c
-/*  f078b44:	c4a60068 */ 	lwc1	$f6,0x68($a1)
-/*  f078b48:	c4a00068 */ 	lwc1	$f0,0x68($a1)
-.L0f078b4c:
-/*  f078b4c:	3c017f1b */ 	lui	$at,%hi(var7f1aa4b4)
-/*  f078b50:	c430a4b4 */ 	lwc1	$f16,%lo(var7f1aa4b4)($at)
-/*  f078b54:	c4a80064 */ 	lwc1	$f8,0x64($a1)
-/*  f078b58:	46104482 */ 	mul.s	$f18,$f8,$f16
-/*  f078b5c:	4612003e */ 	c.le.s	$f0,$f18
-/*  f078b60:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f078b64:	45020004 */ 	bc1fl	.L0f078b78
-/*  f078b68:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f078b6c:	e4a20068 */ 	swc1	$f2,0x68($a1)
-/*  f078b70:	c4a00068 */ 	lwc1	$f0,0x68($a1)
-.L0f078b74:
-/*  f078b74:	4600103c */ 	c.lt.s	$f2,$f0
-.L0f078b78:
-/*  f078b78:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f078b7c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f078b80:	45000015 */ 	bc1f	.L0f078bd8
-/*  f078b84:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f078b88:	c466004c */ 	lwc1	$f6,0x4c($v1)
-/*  f078b8c:	c4a4005c */ 	lwc1	$f4,0x5c($a1)
-/*  f078b90:	3c017f1b */ 	lui	$at,%hi(var7f1aa4b8)
-/*  f078b94:	46060282 */ 	mul.s	$f10,$f0,$f6
-/*  f078b98:	c42ca4b8 */ 	lwc1	$f12,%lo(var7f1aa4b8)($at)
-/*  f078b9c:	460a2200 */ 	add.s	$f8,$f4,$f10
-/*  f078ba0:	e4a8005c */ 	swc1	$f8,0x5c($a1)
-/*  f078ba4:	c4a2005c */ 	lwc1	$f2,0x5c($a1)
-/*  f078ba8:	4602603e */ 	c.le.s	$f12,$f2
-/*  f078bac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f078bb0:	45020009 */ 	bc1fl	.L0f078bd8
-/*  f078bb4:	e4a20060 */ 	swc1	$f2,0x60($a1)
-/*  f078bb8:	460c1401 */ 	sub.s	$f16,$f2,$f12
-.L0f078bbc:
-/*  f078bbc:	e4b0005c */ 	swc1	$f16,0x5c($a1)
-/*  f078bc0:	c4a2005c */ 	lwc1	$f2,0x5c($a1)
-/*  f078bc4:	4602603e */ 	c.le.s	$f12,$f2
-/*  f078bc8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f078bcc:	4503fffb */ 	bc1tl	.L0f078bbc
-/*  f078bd0:	460c1401 */ 	sub.s	$f16,$f2,$f12
-/*  f078bd4:	e4a20060 */ 	swc1	$f2,0x60($a1)
-.L0f078bd8:
-/*  f078bd8:	03e00008 */ 	jr	$ra
-/*  f078bdc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void fanTick(struct prop *prop)
+{
+	struct defaultobj *obj = (struct defaultobj *)prop->obj;
+	struct fanobj *fan = (struct fanobj *)prop->obj;
+
+	// If activated, toggle the power state
+	if (obj->hidden & (OBJHFLAG_ACTIVATED_BY_BOND | OBJHFLAG_ACTIVATED_BY_COOP)) {
+		if (fan->on == true) {
+			fan->on = false;
+			obj->hidden &= ~(OBJHFLAG_ACTIVATED_BY_BOND | OBJHFLAG_ACTIVATED_BY_COOP);
+		} else {
+			fan->on = true;
+			obj->hidden &= ~(OBJHFLAG_ACTIVATED_BY_BOND | OBJHFLAG_ACTIVATED_BY_COOP);
+		}
+	}
+
+	// Adjust fan speed
+	if (fan->on == true) {
+		// Accelerating
+		fan->yspeed += fan->yaccel * g_Vars.lvupdate240freal;
+
+		if (fan->yspeed > fan->ymaxspeed) {
+			fan->yspeed = fan->ymaxspeed;
+		}
+	} else if (fan->yspeed > 0) {
+		// Decelerating
+		s32 i;
+
+		for (i = 0; i < g_Vars.lvupdate240; i++) {
+			fan->yspeed -= fan->yaccel * 0.2f;
+		}
+
+		if (fan->yspeed <= fan->ymaxspeed * 0.01f) {
+			fan->yspeed = 0;
+		}
+	}
+
+	// Rotate
+	if (fan->yspeed > 0) {
+		fan->yrot += fan->yspeed * g_Vars.lvupdate240freal;
+
+		while (fan->yrot >= 1.5705462694168f) { // almost BADDEG2RAD(90)
+			fan->yrot -= 1.5705462694168f;
+		}
+
+		fan->yrotprev = fan->yrot;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f078be0
@@ -28450,8 +28367,8 @@ s32 objTick(struct prop *prop)
 			doorTick(prop);
 		} else if (obj->type == OBJTYPE_CAMERA && (obj->flags & OBJFLAG_DEACTIVATED) == 0) {
 			cameraTick(prop);
-		} else if (obj->type == OBJTYPE_VENTFAN) {
-			ventfanTick(prop);
+		} else if (obj->type == OBJTYPE_FAN) {
+			fanTick(prop);
 		} else if (obj->type == OBJTYPE_AUTOGUN && (obj->flags & OBJFLAG_DEACTIVATED) == 0) {
 			autogunTick(prop);
 		} else if (obj->type == OBJTYPE_HOVERCAR) {
@@ -28525,7 +28442,7 @@ s32 objTick(struct prop *prop)
 
 		prop->flags |= PROPFLAG_40 | PROPFLAG_02;
 
-		if (obj->type == OBJTYPE_VENTFAN) {
+		if (obj->type == OBJTYPE_FAN) {
 			func0f078be0(prop);
 		} else if (obj->model->unk08->unk04 == &stagethinglist_20e10) {
 			func0f07e058(prop);
@@ -35270,7 +35187,7 @@ bool func0f085158(struct defaultobj *obj)
 	case OBJTYPE_LIFT:
 	case OBJTYPE_HOVERBIKE:
 	case OBJTYPE_HOVERPROP:
-	case OBJTYPE_VENTFAN:
+	case OBJTYPE_FAN:
 	case OBJTYPE_HOVERCAR:
 	case OBJTYPE_CHOPPER:
 		return true;
