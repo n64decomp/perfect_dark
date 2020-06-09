@@ -128,7 +128,7 @@ f32 func0f03e45c(struct chrdata *chr);
 f32 func0f03e5f0(struct chrdata *chr);
 f32 func0f03e754(struct chrdata *chr);
 void func0f03e788(struct chrdata *chr, s32 arg1, f32 arg2, f32 arg3, f32 arg4);
-u32 func0f03e9f4(void);
+void func0f03e9f4(struct chrdata *chr, struct act_attackamount_2c *arg1, s32 arg2, s32 arg3, f32 arg4);
 u32 func0f03f778(void);
 u32 func0f03fa10(void);
 u32 func0f03fab0(void);
@@ -138,7 +138,7 @@ void func0f04031c(struct coord *coord, f32 arg1, struct coord *coord2, f32 *arg3
 u32 func0f0404d4(void);
 u32 func0f041a74(void);
 u32 func0f041c44(void);
-u32 func0f041d38(void);
+void func0f041d38(struct chrdata *chr);
 u32 func0f041e48(void);
 void chrTickAttackAmount(struct chrdata *chr);
 void func0f04279c(struct chrdata *chr, bool arg1, bool arg2);

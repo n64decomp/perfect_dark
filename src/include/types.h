@@ -539,12 +539,30 @@ struct act_druggedcomingup {
 	/*0x34*/ f32 unk034;
 };
 
+struct act_attackamount_2c {
+	u32 unk00;
+	f32 unk04;
+	u32 unk08;
+	f32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	f32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	u32 unk24;
+	f32 framestart;
+	f32 frameend;
+};
+
 struct act_attackamount {
-	/*0x2c*/ u32 unk02c;
+	/*0x2c*/ struct act_attackamount_2c *unk02c;
 	/*0x30*/ u16 unk030;
 	/*0x32*/ u8 unk032;
 	/*0x33*/ s8 unk033;
 	/*0x34*/ s8 unk034;
+	/*0x35*/ s8 unk035;
+	/*0x36*/ s8 unk036;
+	/*0x37*/ s8 unk037;
 };
 
 struct act_robotattack {
