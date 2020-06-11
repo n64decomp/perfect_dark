@@ -96,62 +96,35 @@ bool explosionCreateComplex(struct prop *prop, struct coord *pos, s16 *rooms, s1
 	return explosionCreate(prop, pos, rooms, type, playernum, sp80, &sp100, ret, &sp88);
 }
 
-GLOBAL_ASM(
-glabel func0f129b08
-/*  f129b08:	808303cc */ 	lb	$v1,0x3cc($a0)
-/*  f129b0c:	3c0f8008 */ 	lui	$t7,%hi(g_ExplosionTypes)
-/*  f129b10:	25efe4b8 */ 	addiu	$t7,$t7,%lo(g_ExplosionTypes)
-/*  f129b14:	00037080 */ 	sll	$t6,$v1,0x2
-/*  f129b18:	01c37023 */ 	subu	$t6,$t6,$v1
-/*  f129b1c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f129b20:	01c37023 */ 	subu	$t6,$t6,$v1
-/*  f129b24:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f129b28:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f129b2c:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f129b30:	14610015 */ 	bne	$v1,$at,.L0f129b88
-/*  f129b34:	c4400008 */ 	lwc1	$f0,0x8($v0)
-/*  f129b38:	28a10021 */ 	slti	$at,$a1,0x21
-/*  f129b3c:	54200013 */ 	bnezl	$at,.L0f129b8c
-/*  f129b40:	44852000 */ 	mtc1	$a1,$f4
-/*  f129b44:	44852000 */ 	mtc1	$a1,$f4
-/*  f129b48:	3c014396 */ 	lui	$at,0x4396
-/*  f129b4c:	44816000 */ 	mtc1	$at,$f12
-/*  f129b50:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f129b54:	3c014040 */ 	lui	$at,0x4040
-/*  f129b58:	44814000 */ 	mtc1	$at,$f8
-/*  f129b5c:	3c014220 */ 	lui	$at,0x4220
-/*  f129b60:	44818000 */ 	mtc1	$at,$f16
-/*  f129b64:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f129b68:	46105080 */ 	add.s	$f2,$f10,$f16
-/*  f129b6c:	4602603c */ 	c.lt.s	$f12,$f2
-/*  f129b70:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f129b74:	45000009 */ 	bc1f	.L0f129b9c
-/*  f129b78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f129b7c:	46006086 */ 	mov.s	$f2,$f12
-/*  f129b80:	03e00008 */ 	jr	$ra
-/*  f129b84:	46006006 */ 	mov.s	$f0,$f12
-.L0f129b88:
-/*  f129b88:	44852000 */ 	mtc1	$a1,$f4
-.L0f129b8c:
-/*  f129b8c:	c4520000 */ 	lwc1	$f18,0x0($v0)
-/*  f129b90:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f129b94:	46060202 */ 	mul.s	$f8,$f0,$f6
-/*  f129b98:	46089080 */ 	add.s	$f2,$f18,$f8
-.L0f129b9c:
-/*  f129b9c:	03e00008 */ 	jr	$ra
-/*  f129ba0:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 explosionGetHorizontalRangeAtFrame(struct explosion *exp, s32 frame)
+{
+	struct explosiontype *type = &g_ExplosionTypes[exp->type];
+	f32 changerate = type->changerateh;
+	f32 result;
+
+	if (exp->type == EXPLOSIONTYPE_14 && frame > 32) {
+		result = frame * 3.0f + 40.0f;
+
+		if (result > 300) {
+			result = 300;
+		}
+	} else {
+		result = type->rangeh + changerate * frame;
+	}
+
+	return result;
+}
 
 f32 explosionGetVerticalRangeAtFrame(struct explosion *exp, s32 frame)
 {
 	struct explosiontype *type = &g_ExplosionTypes[exp->type];
-	f32 changeratev = type->changeratev;
+	f32 changerate = type->changeratev;
 	f32 result;
 
 	if (exp->type == EXPLOSIONTYPE_14 && frame > 32) {
 		result = 20;
 	} else {
-		result = type->rangev + changeratev * frame;
+		result = type->rangev + changerate * frame;
 	}
 
 	return result;
@@ -177,7 +150,7 @@ glabel func0f129c08
 /*  f129c44:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f129c48:	01f8c821 */ 	addu	$t9,$t7,$t8
 /*  f129c4c:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f129c50:	0fc4a6c2 */ 	jal	func0f129b08
+/*  f129c50:	0fc4a6c2 */ 	jal	explosionGetHorizontalRangeAtFrame
 /*  f129c54:	afa40024 */ 	sw	$a0,0x24($sp)
 /*  f129c58:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f129c5c:	8fa50030 */ 	lw	$a1,0x30($sp)
@@ -2326,7 +2299,7 @@ glabel var7f1b55a8
 /*  f12bc98:	00c8082a */ 	slt	$at,$a2,$t0
 /*  f12bc9c:	1020013f */ 	beqz	$at,.L0f12c19c
 /*  f12bca0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f12bca4:	0fc4a6c2 */ 	jal	func0f129b08
+/*  f12bca4:	0fc4a6c2 */ 	jal	explosionGetHorizontalRangeAtFrame
 /*  f12bca8:	00c02825 */ 	or	$a1,$a2,$zero
 /*  f12bcac:	46000506 */ 	mov.s	$f20,$f0
 /*  f12bcb0:	02202025 */ 	or	$a0,$s1,$zero

@@ -5,7 +5,7 @@
 
 bool explosionCreateSimple(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, s32 playernum);
 bool explosionCreateComplex(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, s32 playernum);
-u32 func0f129b08(void);
+f32 explosionGetHorizontalRangeAtFrame(struct explosion *exp, s32 frame);
 f32 explosionGetVerticalRangeAtFrame(struct explosion *exp, s32 frame);
 u32 func0f129c08(void);
 void alertNearbyChrsToNoise(f32 *radius, struct coord *noisepos);
