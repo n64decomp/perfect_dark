@@ -689,11 +689,9 @@ extern u32 var800a3440;
 extern u32 var800a3444;
 extern u32 var800a3448;
 extern u32 var800a3488;
-extern u32 var800a34d0;
-
-extern u32 var800a3fc0; // likely a count of 800a3fc8
-extern struct gvars800a3fc8 var800a3fc8[];
-
+extern struct spark g_Sparks[100];
+extern u32 var800a3fc0; // likely a count of g_SparkGroups
+extern struct sparkgroup g_SparkGroups[];
 extern u32 var800a4130;
 extern u32 var800a4154;
 extern u32 var800a4158;

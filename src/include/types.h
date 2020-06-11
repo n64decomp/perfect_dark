@@ -3101,16 +3101,39 @@ struct credit {
 	u16 text2;
 };
 
-struct gvars800a3fc8 {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
+struct sparktype {
+	u16 unk00;
+	s16 unk02;
+	u16 unk04;
+	u16 unk06;
+	u16 unk08;
+	u16 unk0a;
+	f32 weight;
+	u16 maxage;
+	u16 unk12;
+	u16 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	f32 decel;
+};
+
+struct sparkgroup {
+	s32 type;
+	s32 numsparks;
+	s32 age;
+	s32 startindex; // index into g_Sparks
 	u32 unk10;
 	u32 unk14;
 	u32 unk18;
 	u32 unk1c;
 	u32 unk20;
+};
+
+struct spark {
+	struct coord pos;
+	struct coord speed;
+	s32 ttl; // time to live (number of ticks remaining)
 };
 
 struct roombitfield {

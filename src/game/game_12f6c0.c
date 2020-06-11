@@ -40,11 +40,11 @@ glabel func0f12f6c0
 /*  f12f6d8:	0301001a */ 	div	$zero,$t8,$at
 /*  f12f6dc:	000270c0 */ 	sll	$t6,$v0,0x3
 /*  f12f6e0:	44800000 */ 	mtc1	$zero,$f0
-/*  f12f6e4:	3c0f800a */ 	lui	$t7,%hi(var800a34d0)
+/*  f12f6e4:	3c0f800a */ 	lui	$t7,%hi(g_Sparks)
 /*  f12f6e8:	01c27023 */ 	subu	$t6,$t6,$v0
 /*  f12f6ec:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f12f6f0:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f12f6f4:	25ef34d0 */ 	addiu	$t7,$t7,%lo(var800a34d0)
+/*  f12f6f4:	25ef34d0 */ 	addiu	$t7,$t7,%lo(g_Sparks)
 /*  f12f6f8:	0000c810 */ 	mfhi	$t9
 /*  f12f6fc:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f12f700:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -214,12 +214,12 @@ glabel func0f12f6c0
 
 GLOBAL_ASM(
 glabel func0f12f95c
-/*  f12f95c:	3c03800a */ 	lui	$v1,%hi(var800a3fc8)
+/*  f12f95c:	3c03800a */ 	lui	$v1,%hi(g_SparkGroups)
 /*  f12f960:	3c07800a */ 	lui	$a3,%hi(var800a4130)
 /*  f12f964:	3c05800a */ 	lui	$a1,%hi(var800a3fc0)
 /*  f12f968:	24a53fc0 */ 	addiu	$a1,$a1,%lo(var800a3fc0)
 /*  f12f96c:	24e74130 */ 	addiu	$a3,$a3,%lo(var800a4130)
-/*  f12f970:	24633fc8 */ 	addiu	$v1,$v1,%lo(var800a3fc8)
+/*  f12f970:	24633fc8 */ 	addiu	$v1,$v1,%lo(g_SparkGroups)
 /*  f12f974:	24060064 */ 	addiu	$a2,$zero,0x64
 .L0f12f978:
 /*  f12f978:	50830019 */ 	beql	$a0,$v1,.L0f12f9e0
@@ -266,17 +266,17 @@ glabel func0f12f9f0
 /*  f12f9fc:	24634130 */ 	addiu	$v1,$v1,%lo(var800a4130)
 /*  f12fa00:	8c6e0000 */ 	lw	$t6,0x0($v1)
 /*  f12fa04:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f12fa08:	3c098008 */ 	lui	$t1,%hi(sparktable)
+/*  f12fa08:	3c098008 */ 	lui	$t1,%hi(g_SparkTypes)
 /*  f12fa0c:	01194021 */ 	addu	$t0,$t0,$t9
 /*  f12fa10:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f12fa14:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f12fa18:	3c18800a */ 	lui	$t8,%hi(var800a3fc8)
+/*  f12fa18:	3c18800a */ 	lui	$t8,%hi(g_SparkGroups)
 /*  f12fa1c:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f12fa20:	2529ec80 */ 	addiu	$t1,$t1,%lo(sparktable)
+/*  f12fa20:	2529ec80 */ 	addiu	$t1,$t1,%lo(g_SparkTypes)
 /*  f12fa24:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*  f12fa28:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f12fa2c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f12fa30:	27183fc8 */ 	addiu	$t8,$t8,%lo(var800a3fc8)
+/*  f12fa30:	27183fc8 */ 	addiu	$t8,$t8,%lo(g_SparkGroups)
 /*  f12fa34:	01098021 */ 	addu	$s0,$t0,$t1
 /*  f12fa38:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f12fa3c:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -436,8 +436,8 @@ glabel func0f12f9f0
 /*  f12fc68:	00001825 */ 	or	$v1,$zero,$zero
 /*  f12fc6c:	11e00016 */ 	beqz	$t7,.L0f12fcc8
 /*  f12fc70:	00004140 */ 	sll	$t0,$zero,0x5
-/*  f12fc74:	3c0d800a */ 	lui	$t5,%hi(var800a3fc8)
-/*  f12fc78:	25ad3fc8 */ 	addiu	$t5,$t5,%lo(var800a3fc8)
+/*  f12fc74:	3c0d800a */ 	lui	$t5,%hi(g_SparkGroups)
+/*  f12fc78:	25ad3fc8 */ 	addiu	$t5,$t5,%lo(g_SparkGroups)
 /*  f12fc7c:	010d1021 */ 	addu	$v0,$t0,$t5
 /*  f12fc80:	8c580008 */ 	lw	$t8,0x8($v0)
 .L0f12fc84:
@@ -456,8 +456,8 @@ glabel func0f12f9f0
 /*  f12fcac:	108100e0 */ 	beq	$a0,$at,.L0f130030
 /*  f12fcb0:	000448c0 */ 	sll	$t1,$a0,0x3
 /*  f12fcb4:	01244821 */ 	addu	$t1,$t1,$a0
-/*  f12fcb8:	3c19800a */ 	lui	$t9,%hi(var800a3fc8)
-/*  f12fcbc:	27393fc8 */ 	addiu	$t9,$t9,%lo(var800a3fc8)
+/*  f12fcb8:	3c19800a */ 	lui	$t9,%hi(g_SparkGroups)
+/*  f12fcbc:	27393fc8 */ 	addiu	$t9,$t9,%lo(g_SparkGroups)
 /*  f12fcc0:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f12fcc4:	01398821 */ 	addu	$s1,$t1,$t9
 .L0f12fcc8:
@@ -690,8 +690,8 @@ glabel func0f12f9f0
 .L0f130024:
 /*  f130024:	240e0001 */ 	addiu	$t6,$zero,0x1
 .L0f130028:
-/*  f130028:	3c018008 */ 	lui	$at,%hi(var8007f0b8)
-/*  f13002c:	ac2ef0b8 */ 	sw	$t6,%lo(var8007f0b8)($at)
+/*  f130028:	3c018008 */ 	lui	$at,%hi(g_SparksAreActive)
+/*  f13002c:	ac2ef0b8 */ 	sw	$t6,%lo(g_SparksAreActive)($at)
 .L0f130030:
 /*  f130030:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f130034:	8fb00014 */ 	lw	$s0,0x14($sp)
@@ -703,8 +703,8 @@ glabel func0f12f9f0
 GLOBAL_ASM(
 glabel func0f130044
 /*  f130044:	27bdfe90 */ 	addiu	$sp,$sp,-368
-/*  f130048:	3c0e8008 */ 	lui	$t6,%hi(var8007f0b8)
-/*  f13004c:	8dcef0b8 */ 	lw	$t6,%lo(var8007f0b8)($t6)
+/*  f130048:	3c0e8008 */ 	lui	$t6,%hi(g_SparksAreActive)
+/*  f13004c:	8dcef0b8 */ 	lw	$t6,%lo(g_SparksAreActive)($t6)
 /*  f130050:	afbf0074 */ 	sw	$ra,0x74($sp)
 /*  f130054:	afbe0070 */ 	sw	$s8,0x70($sp)
 /*  f130058:	afb7006c */ 	sw	$s7,0x6c($sp)
@@ -867,9 +867,9 @@ glabel func0f130044
 /*  f1302a8:	ad0a0000 */ 	sw	$t2,0x0($t0)
 /*  f1302ac:	c43c5608 */ 	lwc1	$f28,%lo(var7f1b5608)($at)
 /*  f1302b0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1302b4:	3c13800a */ 	lui	$s3,%hi(var800a3fc8)
+/*  f1302b4:	3c13800a */ 	lui	$s3,%hi(g_SparkGroups)
 /*  f1302b8:	4481c000 */ 	mtc1	$at,$f24
-/*  f1302bc:	26733fc8 */ 	addiu	$s3,$s3,%lo(var800a3fc8)
+/*  f1302bc:	26733fc8 */ 	addiu	$s3,$s3,%lo(g_SparkGroups)
 /*  f1302c0:	c7b60120 */ 	lwc1	$f22,0x120($sp)
 /*  f1302c4:	c7ba013c */ 	lwc1	$f26,0x13c($sp)
 /*  f1302c8:	241e01f0 */ 	addiu	$s8,$zero,0x1f0
@@ -992,9 +992,9 @@ glabel func0f130044
 /*  f130480:	00008825 */ 	or	$s1,$zero,$zero
 .L0f130484:
 /*  f130484:	122002db */ 	beqz	$s1,.L0f130ff4
-/*  f130488:	3c0d8008 */ 	lui	$t5,%hi(sparktable)
+/*  f130488:	3c0d8008 */ 	lui	$t5,%hi(g_SparkTypes)
 /*  f13048c:	8e6b0000 */ 	lw	$t3,0x0($s3)
-/*  f130490:	25adec80 */ 	addiu	$t5,$t5,%lo(sparktable)
+/*  f130490:	25adec80 */ 	addiu	$t5,$t5,%lo(g_SparkTypes)
 /*  f130494:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f130498:	000b6080 */ 	sll	$t4,$t3,0x2
 /*  f13049c:	018b6021 */ 	addu	$t4,$t4,$t3
@@ -1421,8 +1421,8 @@ glabel func0f130044
 /*  f130ab0:	0015c8c0 */ 	sll	$t9,$s5,0x3
 .L0f130ab4:
 /*  f130ab4:	0335c823 */ 	subu	$t9,$t9,$s5
-/*  f130ab8:	3c0e800a */ 	lui	$t6,%hi(var800a34d0)
-/*  f130abc:	25ce34d0 */ 	addiu	$t6,$t6,%lo(var800a34d0)
+/*  f130ab8:	3c0e800a */ 	lui	$t6,%hi(g_Sparks)
+/*  f130abc:	25ce34d0 */ 	addiu	$t6,$t6,%lo(g_Sparks)
 /*  f130ac0:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f130ac4:	032e8821 */ 	addu	$s1,$t9,$t6
 /*  f130ac8:	8e2f0018 */ 	lw	$t7,0x18($s1)

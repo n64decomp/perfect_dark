@@ -11,15 +11,12 @@
 #include "types.h"
 
 const u32 var7f1a8680[] = {0xb8d1b717};
-const u32 var7f1a8684[] = {0x00000000};
-const u32 var7f1a8688[] = {0x00000000};
-const u32 var7f1a868c[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel sparksTick
 /*  f01e050:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f01e054:	3c0b8008 */ 	lui	$t3,%hi(var8007f0b8)
-/*  f01e058:	256bf0b8 */ 	addiu	$t3,$t3,%lo(var8007f0b8)
+/*  f01e054:	3c0b8008 */ 	lui	$t3,%hi(g_SparksAreActive)
+/*  f01e058:	256bf0b8 */ 	addiu	$t3,$t3,%lo(g_SparksAreActive)
 /*  f01e05c:	8d6e0000 */ 	lw	$t6,0x0($t3)
 /*  f01e060:	afb5001c */ 	sw	$s5,0x1c($sp)
 /*  f01e064:	afb40018 */ 	sw	$s4,0x18($sp)
@@ -29,16 +26,16 @@ glabel sparksTick
 /*  f01e074:	11c0006d */ 	beqz	$t6,.L0f01e22c
 /*  f01e078:	afb00008 */ 	sw	$s0,0x8($sp)
 /*  f01e07c:	ad600000 */ 	sw	$zero,0x0($t3)
-/*  f01e080:	3c02800a */ 	lui	$v0,%hi(var800a3fc8)
+/*  f01e080:	3c02800a */ 	lui	$v0,%hi(g_SparkGroups)
 /*  f01e084:	3c017f1b */ 	lui	$at,%hi(var7f1a8680)
 /*  f01e088:	3c15800a */ 	lui	$s5,%hi(g_Vars)
 /*  f01e08c:	3c14800a */ 	lui	$s4,%hi(var800a3fc0)
-/*  f01e090:	3c12800a */ 	lui	$s2,%hi(var800a34d0)
-/*  f01e094:	3c0c8008 */ 	lui	$t4,%hi(sparktable)
+/*  f01e090:	3c12800a */ 	lui	$s2,%hi(g_Sparks)
+/*  f01e094:	3c0c8008 */ 	lui	$t4,%hi(g_SparkTypes)
 /*  f01e098:	44807000 */ 	mtc1	$zero,$f14
-/*  f01e09c:	24423fc8 */ 	addiu	$v0,$v0,%lo(var800a3fc8)
-/*  f01e0a0:	258cec80 */ 	addiu	$t4,$t4,%lo(sparktable)
-/*  f01e0a4:	265234d0 */ 	addiu	$s2,$s2,%lo(var800a34d0)
+/*  f01e09c:	24423fc8 */ 	addiu	$v0,$v0,%lo(g_SparkGroups)
+/*  f01e0a0:	258cec80 */ 	addiu	$t4,$t4,%lo(g_SparkTypes)
+/*  f01e0a4:	265234d0 */ 	addiu	$s2,$s2,%lo(g_Sparks)
 /*  f01e0a8:	26943fc0 */ 	addiu	$s4,$s4,%lo(var800a3fc0)
 /*  f01e0ac:	26b59fc0 */ 	addiu	$s5,$s5,%lo(g_Vars)
 /*  f01e0b0:	c4308680 */ 	lwc1	$f16,%lo(var7f1a8680)($at)
@@ -158,3 +155,83 @@ glabel sparksTick
 /*  f01e248:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*  f01e24c:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch due to regalloc near group->startindex
+//void sparksTick(void)
+//{
+//	struct sparkgroup *group;
+//	struct sparktype *type;
+//	s32 i;
+//	s32 j;
+//	s32 k;
+//
+//	// 074
+//	if (g_SparksAreActive) {
+//		g_SparksAreActive = false;
+//		group = &g_SparkGroups[0];
+//
+//		// Iterate spark groups
+//		for (i = 0; i != 10; i++) {
+//			type = &g_SparkTypes[group->type];
+//
+//			// 0e8
+//			if (group->age >= type->maxage) {
+//				group->age = 0;
+//			} else /*0f8*/ if (group->age) {
+//				// 10c
+//				if (g_SparksAreActive == false) {
+//					g_SparksAreActive = true;
+//				}
+//
+//				// 118
+//				// Iterate the lvupdate multiplier
+//				for (j = 0; j < g_Vars.lvupdate240_60; j++) {
+//					// 120
+//					struct spark *spark = &g_Sparks[group->startindex];
+//					struct spark *next = &g_Sparks[group->startindex];
+//					group->age++;
+//
+//					// 144
+//					// Iterate sparks in this group
+//					for (k = 0; k < group->numsparks; k++) {
+//						// 14c
+//						// Update this spark if active
+//						if (spark->ttl) {
+//							spark->speed.x -= spark->speed.x * type->decel;
+//							spark->speed.y = (spark->speed.y - spark->speed.y * type->decel) - type->weight;
+//							spark->speed.z -= spark->speed.z * type->decel;
+//
+//							if (spark->speed.y == 0) {
+//								spark->speed.y = -0.0001f;
+//							}
+//
+//							spark->pos.x += spark->speed.x;
+//							spark->pos.y += spark->speed.y;
+//							spark->pos.z += spark->speed.z;
+//
+//							spark->ttl--;
+//						}
+//
+//						// 1f4
+//						// If reached the end of the array, jump back to start
+//						if (++next == &g_Sparks[100]) {
+//							// @dangerous: `next` is not reset here, so this
+//							// condition will only pass once per group.
+//							// If a group contains more than 100 sparks, it
+//							// could cause spark to overflow the array and write
+//							// over whatever's after it.
+//							spark = &g_Sparks[0];
+//						} else {
+//							spark++;
+//						}
+//
+//						// 208
+//					}
+//				}
+//			}
+//
+//			// 224
+//			group++;
+//		}
+//	}
+//}
