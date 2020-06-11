@@ -142,35 +142,20 @@ glabel func0f129b08
 /*  f129ba0:	46001006 */ 	mov.s	$f0,$f2
 );
 
-GLOBAL_ASM(
-glabel func0f129ba4
-/*  f129ba4:	808303cc */ 	lb	$v1,0x3cc($a0)
-/*  f129ba8:	3c0f8008 */ 	lui	$t7,%hi(g_ExplosionTypes)
-/*  f129bac:	25efe4b8 */ 	addiu	$t7,$t7,%lo(g_ExplosionTypes)
-/*  f129bb0:	00037080 */ 	sll	$t6,$v1,0x2
-/*  f129bb4:	01c37023 */ 	subu	$t6,$t6,$v1
-/*  f129bb8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f129bbc:	01c37023 */ 	subu	$t6,$t6,$v1
-/*  f129bc0:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f129bc4:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f129bc8:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f129bcc:	14610007 */ 	bne	$v1,$at,.L0f129bec
-/*  f129bd0:	c440000c */ 	lwc1	$f0,0xc($v0)
-/*  f129bd4:	28a10021 */ 	slti	$at,$a1,0x21
-/*  f129bd8:	14200004 */ 	bnez	$at,.L0f129bec
-/*  f129bdc:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f129be0:	44811000 */ 	mtc1	$at,$f2
-/*  f129be4:	03e00008 */ 	jr	$ra
-/*  f129be8:	46001006 */ 	mov.s	$f0,$f2
-.L0f129bec:
-/*  f129bec:	44853000 */ 	mtc1	$a1,$f6
-/*  f129bf0:	c4440004 */ 	lwc1	$f4,0x4($v0)
-/*  f129bf4:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f129bf8:	46080282 */ 	mul.s	$f10,$f0,$f8
-/*  f129bfc:	460a2080 */ 	add.s	$f2,$f4,$f10
-/*  f129c00:	03e00008 */ 	jr	$ra
-/*  f129c04:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 explosionGetVerticalRangeAtFrame(struct explosion *exp, s32 frame)
+{
+	struct explosiontype *type = &g_ExplosionTypes[exp->type];
+	f32 changeratev = type->changeratev;
+	f32 result;
+
+	if (exp->type == EXPLOSIONTYPE_14 && frame > 32) {
+		result = 20;
+	} else {
+		result = type->rangev + changeratev * frame;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f129c08
@@ -196,7 +181,7 @@ glabel func0f129c08
 /*  f129c54:	afa40024 */ 	sw	$a0,0x24($sp)
 /*  f129c58:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f129c5c:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f129c60:	0fc4a6e9 */ 	jal	func0f129ba4
+/*  f129c60:	0fc4a6e9 */ 	jal	explosionGetVerticalRangeAtFrame
 /*  f129c64:	e7a0001c */ 	swc1	$f0,0x1c($sp)
 /*  f129c68:	8fa80020 */ 	lw	$t0,0x20($sp)
 /*  f129c6c:	3c013f00 */ 	lui	$at,0x3f00
@@ -2345,7 +2330,7 @@ glabel var7f1b55a8
 /*  f12bca8:	00c02825 */ 	or	$a1,$a2,$zero
 /*  f12bcac:	46000506 */ 	mov.s	$f20,$f0
 /*  f12bcb0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f12bcb4:	0fc4a6e9 */ 	jal	func0f129ba4
+/*  f12bcb4:	0fc4a6e9 */ 	jal	explosionGetVerticalRangeAtFrame
 /*  f12bcb8:	862503c8 */ 	lh	$a1,0x3c8($s1)
 /*  f12bcbc:	3c013f00 */ 	lui	$at,0x3f00
 /*  f12bcc0:	44815000 */ 	mtc1	$at,$f10

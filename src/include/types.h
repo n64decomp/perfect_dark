@@ -4529,6 +4529,15 @@ struct explosiontype {
 	/*0x28*/ f32 damage;
 };
 
+struct explosion {
+	u8 unk[0x3c8];
+	/*0x3c8*/ s32 frame60;
+	/*0x3cc*/ s8 type;
+	/*0x3cd*/ s8 makescorch;
+	/*0x3ce*/ s8 owner;
+	/*0x3cf*/ s8 numbb;
+};
+
 struct smoketype {
 	u16 duration;
 	u16 fadespeed;

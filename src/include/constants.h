@@ -553,9 +553,10 @@
 #define ENTITYTYPE_DONTTURN  0x0040 // don't do a shooting animation that would change the chr's direction
 #define ENTITYTYPE_TARGET    0x0200 // aim/shoot at whatever is in the chr's `target` field
 
-#define EXPLOSIONTYPE_0 0
-#define EXPLOSIONTYPE_3 3
-#define EXPLOSIONTYPE_8 8
+#define EXPLOSIONTYPE_0  0
+#define EXPLOSIONTYPE_3  3
+#define EXPLOSIONTYPE_8  8
+#define EXPLOSIONTYPE_14 14
 
 #define EYESPYMODE_CAMSPY  0
 #define EYESPYMODE_DRUGSPY 1
