@@ -31,7 +31,7 @@
 #include "game/game_0dcdb0.h"
 #include "game/game_111600.h"
 #include "game/game_127910.h"
-#include "game/game_129900.h"
+#include "game/explosion.h"
 #include "game/game_12d3f0.h"
 #include "game/weather.h"
 #include "game/game_157db0.h"
@@ -2351,7 +2351,7 @@ bool aiDestroyObject(void)
 
 		if (entity->modelnum == MODEL_ELVIS_SAUCER) {
 			obj->flags = (obj->flags & ~OBJFLAG_00010000) | OBJFLAG_INVINCIBLE;
-			func0f129900(entity->prop, &entity->prop->pos, entity->prop->rooms, 3, 0);
+			explosionCreateSimple(entity->prop, &entity->prop->pos, entity->prop->rooms, EXPLOSIONTYPE_3, 0);
 			func0f12e714(entity->prop, 0x16);
 		} else {
 			f32 damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;

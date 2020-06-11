@@ -83,7 +83,7 @@ f32 func0002a36c(struct coord *coord, s16 *rooms, u16 *floorcol, s32 arg3);
 u32 func0002a400(void);
 u32 func0002a440(void);
 u32 func0002a4d0(void);
-u32 func0002a564(void);
+s32 func0002a564(struct coord *pos, s16 *rooms, f32 *arg2, u32 arg3, struct coord *arg4, bool *arg5);
 u32 func0002a5e4(void);
 bool func0002a684(struct coord *pos, f32 width, s16 *rooms, s32 arg3, s32 arg4, f32 arg5, f32 arg6);
 u32 func0002a6fc(void);

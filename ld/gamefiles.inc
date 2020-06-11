@@ -130,7 +130,7 @@
 	build/ROMID/game/game_127910.o (section); \
 	build/ROMID/game/game_128f30.o (section); \
 	build/ROMID/game/game_129210.o (section); \
-	build/ROMID/game/game_129900.o (section); \
+	build/ROMID/game/explosion.o (section); \
 	build/ROMID/game/game_12d3f0.o (section); \
 	build/ROMID/game/game_12f6c0.o (section); \
 	build/ROMID/game/weather.o (section); \

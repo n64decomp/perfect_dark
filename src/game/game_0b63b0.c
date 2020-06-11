@@ -33,7 +33,7 @@
 #include "game/game_107fb0.h"
 #include "game/game_111600.h"
 #include "game/game_127910.h"
-#include "game/game_129900.h"
+#include "game/explosion.h"
 #include "game/game_141820.h"
 #include "game/game_1531a0.h"
 #include "game/game_157db0.h"
@@ -6688,7 +6688,7 @@ glabel func0f0bc120
 /*  f0bc3a0:	e7a80038 */ 	swc1	$f8,0x38($sp)
 /*  f0bc3a4:	8dc600bc */ 	lw	$a2,0xbc($t6)
 /*  f0bc3a8:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0bc3ac:	0fc4a640 */ 	jal	func0f129900
+/*  f0bc3ac:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f0bc3b0:	24c60028 */ 	addiu	$a2,$a2,0x28
 /*  f0bc3b4:	0c004b70 */ 	jal	random
 /*  f0bc3b8:	00000000 */ 	sll	$zero,$zero,0x0

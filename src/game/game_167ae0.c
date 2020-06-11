@@ -71,7 +71,7 @@
 #include "game/game_11f000.h"
 #include "game/game_127910.h"
 #include "game/game_129210.h"
-#include "game/game_129900.h"
+#include "game/explosion.h"
 #include "game/game_12f6c0.h"
 #include "game/weather.h"
 #include "game/game_135c70.h"
@@ -2531,7 +2531,7 @@ glabel var7f1b7868
 /*  f16a1cc:	8da40000 */ 	lw	$a0,0x0($t5)
 /*  f16a1d0:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f16a1d4:	24850008 */ 	addiu	$a1,$a0,0x8
-/*  f16a1d8:	0fc4a640 */ 	jal	func0f129900
+/*  f16a1d8:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f16a1dc:	24860028 */ 	addiu	$a2,$a0,0x28
 /*  f16a1e0:	8e6f0284 */ 	lw	$t7,0x284($s3)
 /*  f16a1e4:	27aa00d0 */ 	addiu	$t2,$sp,0xd0

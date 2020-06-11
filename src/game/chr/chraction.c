@@ -28,7 +28,7 @@
 #include "game/game_0b63b0.h"
 #include "game/game_111600.h"
 #include "game/game_127910.h"
-#include "game/game_129900.h"
+#include "game/explosion.h"
 #include "game/game_12f6c0.h"
 #include "game/game_157db0.h"
 #include "game/game_1655c0.h"
@@ -3821,7 +3821,7 @@ glabel var7f1a8d44
 /*  f031bf4:	8da40000 */ 	lw	$a0,0x0($t5)
 /*  f031bf8:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f031bfc:	24850008 */ 	addiu	$a1,$a0,0x8
-/*  f031c00:	0fc4a640 */ 	jal	func0f129900
+/*  f031c00:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f031c04:	24860028 */ 	addiu	$a2,$a0,0x28
 /*  f031c08:	0fc447a9 */ 	jal	currentPlayerRemoveWeapon
 /*  f031c0c:	2404002e */ 	addiu	$a0,$zero,0x2e
@@ -15318,7 +15318,7 @@ void chrTickDie(struct chrdata *chr)
 	if (race == RACE_ROBOT) {
 		struct prop *prop = chr->prop;
 		func0f0926bc(prop, 1, 0xffff);
-		func0f129900(prop, &prop->pos, prop->rooms, 8, g_Vars.currentplayernum);
+		explosionCreateSimple(prop, &prop->pos, prop->rooms, EXPLOSIONTYPE_8, g_Vars.currentplayernum);
 		chr->hidden |= CHRHFLAG_00000020;
 		return;
 	}
@@ -15344,7 +15344,7 @@ void chrTickDie(struct chrdata *chr)
 
 		if (var8006807c > 310) {
 			func0f0926bc(prop, 1, 0xffff);
-			func0f129900(prop, &prop->pos, prop->rooms, 8, g_Vars.currentplayernum);
+			explosionCreateSimple(prop, &prop->pos, prop->rooms, EXPLOSIONTYPE_8, g_Vars.currentplayernum);
 			func0f03119c(chr);
 		} else if (chr->soundtimer > (s32)var80068080) {
 			chr->soundtimer = 0;
@@ -19871,7 +19871,7 @@ glabel var7f1a9184
 /*  f041948:	27a50228 */ 	addiu	$a1,$sp,0x228
 /*  f04194c:	27a60214 */ 	addiu	$a2,$sp,0x214
 /*  f041950:	24070016 */ 	addiu	$a3,$zero,0x16
-/*  f041954:	0fc4a640 */ 	jal	func0f129900
+/*  f041954:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f041958:	afa30010 */ 	sw	$v1,0x10($sp)
 .L0f04195c:
 /*  f04195c:	8fae01c0 */ 	lw	$t6,0x1c0($sp)

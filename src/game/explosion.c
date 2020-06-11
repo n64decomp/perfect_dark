@@ -14,7 +14,7 @@
 #include "game/game_091e10.h"
 #include "game/game_092610.h"
 #include "game/game_0b3350.h"
-#include "game/game_129900.h"
+#include "game/explosion.h"
 #include "game/game_12d3f0.h"
 #include "game/game_157db0.h"
 #include "game/game_1668e0.h"
@@ -55,134 +55,46 @@ const char var7f1b5568[] = "";
 const char var7f1b556c[] = "";
 const char var7f1b5570[] = "ecol";
 
-bool func0f129900(struct prop *prop, struct coord *pos, s16 *room, s16 arg3, s32 playernum)
+bool explosionCreateSimple(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, s32 playernum)
 {
-	return explosionCreate(prop, pos, room, arg3, playernum, 0, 0, 0, 0);
+	return explosionCreate(prop, pos, rooms, type, playernum, false, NULL, 0, NULL);
 }
 
-GLOBAL_ASM(
-glabel func0f129940
-/*  f129940:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f129944:	afa7007c */ 	sw	$a3,0x7c($sp)
-/*  f129948:	87ae007e */ 	lh	$t6,0x7e($sp)
-/*  f12994c:	afb10030 */ 	sw	$s1,0x30($sp)
-/*  f129950:	afb0002c */ 	sw	$s0,0x2c($sp)
-/*  f129954:	00808025 */ 	or	$s0,$a0,$zero
-/*  f129958:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f12995c:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f129960:	afa60078 */ 	sw	$a2,0x78($sp)
-/*  f129964:	15c00003 */ 	bnez	$t6,.L0f129974
-/*  f129968:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f12996c:	10000061 */ 	beqz	$zero,.L0f129af4
-/*  f129970:	00001025 */ 	or	$v0,$zero,$zero
-.L0f129974:
-/*  f129974:	12000016 */ 	beqz	$s0,.L0f1299d0
-/*  f129978:	02202025 */ 	or	$a0,$s1,$zero
-/*  f12997c:	27af0058 */ 	addiu	$t7,$sp,0x58
-/*  f129980:	27b80044 */ 	addiu	$t8,$sp,0x44
-/*  f129984:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f129988:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f12998c:	26040008 */ 	addiu	$a0,$s0,0x8
-/*  f129990:	26050028 */ 	addiu	$a1,$s0,0x28
-/*  f129994:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f129998:	00003825 */ 	or	$a3,$zero,$zero
-/*  f12999c:	0c00a959 */ 	jal	func0002a564
-/*  f1299a0:	afa80050 */ 	sw	$t0,0x50($sp)
-/*  f1299a4:	c6040008 */ 	lwc1	$f4,0x8($s0)
-/*  f1299a8:	c7a60048 */ 	lwc1	$f6,0x48($sp)
-/*  f1299ac:	00021c00 */ 	sll	$v1,$v0,0x10
-/*  f1299b0:	e7a40064 */ 	swc1	$f4,0x64($sp)
-/*  f1299b4:	e7a60068 */ 	swc1	$f6,0x68($sp)
-/*  f1299b8:	c6080010 */ 	lwc1	$f8,0x10($s0)
-/*  f1299bc:	0003cc03 */ 	sra	$t9,$v1,0x10
-/*  f1299c0:	03201825 */ 	or	$v1,$t9,$zero
-/*  f1299c4:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f1299c8:	10000014 */ 	beqz	$zero,.L0f129a1c
-/*  f1299cc:	e7a8006c */ 	swc1	$f8,0x6c($sp)
-.L0f1299d0:
-/*  f1299d0:	27a90058 */ 	addiu	$t1,$sp,0x58
-/*  f1299d4:	27aa0044 */ 	addiu	$t2,$sp,0x44
-/*  f1299d8:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f1299dc:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f1299e0:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*  f1299e4:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f1299e8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1299ec:	0c00a959 */ 	jal	func0002a564
-/*  f1299f0:	afa80050 */ 	sw	$t0,0x50($sp)
-/*  f1299f4:	c62a0000 */ 	lwc1	$f10,0x0($s1)
-/*  f1299f8:	c7b00048 */ 	lwc1	$f16,0x48($sp)
-/*  f1299fc:	00021c00 */ 	sll	$v1,$v0,0x10
-/*  f129a00:	e7aa0064 */ 	swc1	$f10,0x64($sp)
-/*  f129a04:	e7b00068 */ 	swc1	$f16,0x68($sp)
-/*  f129a08:	c6320008 */ 	lwc1	$f18,0x8($s1)
-/*  f129a0c:	00035c03 */ 	sra	$t3,$v1,0x10
-/*  f129a10:	01601825 */ 	or	$v1,$t3,$zero
-/*  f129a14:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f129a18:	e7b2006c */ 	swc1	$f18,0x6c($sp)
-.L0f129a1c:
-/*  f129a1c:	8fac0044 */ 	lw	$t4,0x44($sp)
-/*  f129a20:	02002025 */ 	or	$a0,$s0,$zero
-/*  f129a24:	02202825 */ 	or	$a1,$s1,$zero
-/*  f129a28:	15800027 */ 	bnez	$t4,.L0f129ac8
-/*  f129a2c:	8fa60078 */ 	lw	$a2,0x78($sp)
-/*  f129a30:	00026c00 */ 	sll	$t5,$v0,0x10
-/*  f129a34:	000d7403 */ 	sra	$t6,$t5,0x10
-/*  f129a38:	19c00023 */ 	blez	$t6,.L0f129ac8
-/*  f129a3c:	87af007e */ 	lh	$t7,0x7e($sp)
-/*  f129a40:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f129a44:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f129a48:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f129a4c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f129a50:	3c198008 */ 	lui	$t9,%hi(g_ExplosionTypes)
-/*  f129a54:	2739e4b8 */ 	addiu	$t9,$t9,%lo(g_ExplosionTypes)
-/*  f129a58:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f129a5c:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f129a60:	8449001c */ 	lh	$t1,0x1c($v0)
-/*  f129a64:	c448000c */ 	lwc1	$f8,0xc($v0)
-/*  f129a68:	c6240004 */ 	lwc1	$f4,0x4($s1)
-/*  f129a6c:	44895000 */ 	mtc1	$t1,$f10
-/*  f129a70:	c7a60048 */ 	lwc1	$f6,0x48($sp)
-/*  f129a74:	3c013f00 */ 	lui	$at,0x3f00
-/*  f129a78:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f129a7c:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f129a80:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f129a84:	46104482 */ 	mul.s	$f18,$f8,$f16
-/*  f129a88:	c4440004 */ 	lwc1	$f4,0x4($v0)
-/*  f129a8c:	44818000 */ 	mtc1	$at,$f16
-/*  f129a90:	3c014296 */ 	lui	$at,0x4296
-/*  f129a94:	46122180 */ 	add.s	$f6,$f4,$f18
-/*  f129a98:	460a3200 */ 	add.s	$f8,$f6,$f10
-/*  f129a9c:	46104102 */ 	mul.s	$f4,$f8,$f16
-/*  f129aa0:	4604003e */ 	c.le.s	$f0,$f4
-/*  f129aa4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f129aa8:	45030009 */ 	bc1tl	.L0f129ad0
-/*  f129aac:	8faa0080 */ 	lw	$t2,0x80($sp)
-/*  f129ab0:	44819000 */ 	mtc1	$at,$f18
-/*  f129ab4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f129ab8:	4612003e */ 	c.le.s	$f0,$f18
-/*  f129abc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f129ac0:	45030003 */ 	bc1tl	.L0f129ad0
-/*  f129ac4:	8faa0080 */ 	lw	$t2,0x80($sp)
-.L0f129ac8:
-/*  f129ac8:	00004025 */ 	or	$t0,$zero,$zero
-/*  f129acc:	8faa0080 */ 	lw	$t2,0x80($sp)
-.L0f129ad0:
-/*  f129ad0:	27ab0064 */ 	addiu	$t3,$sp,0x64
-/*  f129ad4:	27ac0058 */ 	addiu	$t4,$sp,0x58
-/*  f129ad8:	afac0020 */ 	sw	$t4,0x20($sp)
-/*  f129adc:	afab0018 */ 	sw	$t3,0x18($sp)
-/*  f129ae0:	87a7007e */ 	lh	$a3,0x7e($sp)
-/*  f129ae4:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f129ae8:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f129aec:	0fc4a7d5 */ 	jal	explosionCreate
-/*  f129af0:	afaa0010 */ 	sw	$t2,0x10($sp)
-.L0f129af4:
-/*  f129af4:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f129af8:	8fb0002c */ 	lw	$s0,0x2c($sp)
-/*  f129afc:	8fb10030 */ 	lw	$s1,0x30($sp)
-/*  f129b00:	03e00008 */ 	jr	$ra
-/*  f129b04:	27bd0070 */ 	addiu	$sp,$sp,0x70
-);
+bool explosionCreateComplex(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, s32 playernum)
+{
+	struct coord sp100;
+	struct coord sp88;
+	struct explosiontype *etype;
+	bool sp80 = true;
+	s16 ret;
+	f32 y;
+	bool sp68;
+
+	if (type == EXPLOSIONTYPE_0) {
+		return false;
+	}
+
+	if (prop) {
+		ret = func0002a564(&prop->pos, prop->rooms, &y, 0, &sp88, &sp68);
+		sp100.x = prop->pos.x;
+		sp100.y = y;
+		sp100.z = prop->pos.z;
+	} else {
+		ret = func0002a564(pos, rooms, &y, 0, &sp88, &sp68);
+		sp100.x = pos->x;
+		sp100.y = y;
+		sp100.z = pos->z;
+	}
+
+	etype = &g_ExplosionTypes[type];
+
+	if (sp68 || ret <= 0
+			|| !(pos->y - y <= (etype->rangev + etype->changeratev * etype->duration + etype->innersize) * 0.5f || pos->y - y <= 75)) {
+		sp80 = false;
+	}
+
+	return explosionCreate(prop, pos, rooms, type, playernum, sp80, &sp100, ret, &sp88);
+}
 
 GLOBAL_ASM(
 glabel func0f129b08

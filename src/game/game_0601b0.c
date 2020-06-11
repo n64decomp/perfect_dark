@@ -22,7 +22,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
 #include "game/game_127910.h"
-#include "game/game_129900.h"
+#include "game/explosion.h"
 #include "game/game_12d3f0.h"
 #include "game/game_12f6c0.h"
 #include "game/game_157db0.h"
@@ -1540,7 +1540,7 @@ glabel var7f1a9eb8
 /*  f0616a0:	27a5008c */ 	addiu	$a1,$sp,0x8c
 /*  f0616a4:	27a6007c */ 	addiu	$a2,$sp,0x7c
 /*  f0616a8:	24070016 */ 	addiu	$a3,$zero,0x16
-/*  f0616ac:	0fc4a640 */ 	jal	func0f129900
+/*  f0616ac:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f0616b0:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0616b4:	8fa806d0 */ 	lw	$t0,0x6d0($sp)
 /*  f0616b8:	26100068 */ 	addiu	$s0,$s0,0x68
@@ -1669,7 +1669,7 @@ glabel var7f1a9eb8
 /*  f06187c:	8defa24c */ 	lw	$t7,%lo(g_Vars+0x28c)($t7)
 /*  f061880:	02003025 */ 	or	$a2,$s0,$zero
 /*  f061884:	24070016 */ 	addiu	$a3,$zero,0x16
-/*  f061888:	0fc4a640 */ 	jal	func0f129900
+/*  f061888:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f06188c:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f061890:	100000b0 */ 	beqz	$zero,.L0f061b54
 /*  f061894:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1734,7 +1734,7 @@ glabel var7f1a9eb8
 /*  f061964:	27a50694 */ 	addiu	$a1,$sp,0x694
 /*  f061968:	02003025 */ 	or	$a2,$s0,$zero
 /*  f06196c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f061970:	0fc4a640 */ 	jal	func0f129900
+/*  f061970:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f061974:	afa90010 */ 	sw	$t1,0x10($sp)
 .L0f061978:
 /*  f061978:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x6c)

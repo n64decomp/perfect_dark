@@ -21,7 +21,7 @@
 #include "game/game_0f09f0.h"
 #include "game/game_107fb0.h"
 #include "game/game_111600.h"
-#include "game/game_129900.h"
+#include "game/explosion.h"
 #include "game/game_150820.h"
 #include "game/game_1531a0.h"
 #include "game/game_157db0.h"
@@ -3625,7 +3625,7 @@ glabel var7f1b94e4
 /*  f1a01fc:	240a0001 */ 	addiu	$t2,$zero,0x1
 /*  f1a0200:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f1a0204:	24850008 */ 	addiu	$a1,$a0,0x8
-/*  f1a0208:	0fc4a640 */ 	jal	func0f129900
+/*  f1a0208:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f1a020c:	24860028 */ 	addiu	$a2,$a0,0x28
 /*  f1a0210:	920b0010 */ 	lbu	$t3,0x10($s0)
 .L0f1a0214:

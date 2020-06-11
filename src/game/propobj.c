@@ -42,7 +42,7 @@
 #include "game/game_127910.h"
 #include "game/game_128f30.h"
 #include "game/game_129210.h"
-#include "game/game_129900.h"
+#include "game/explosion.h"
 #include "game/game_12d3f0.h"
 #include "game/game_12f6c0.h"
 #include "game/game_150820.h"
@@ -10862,7 +10862,7 @@ glabel func0f06f314
 /*  f06f3fc:	02002825 */ 	or	$a1,$s0,$zero
 /*  f06f400:	27a6006c */ 	addiu	$a2,$sp,0x6c
 /*  f06f404:	87a7009e */ 	lh	$a3,0x9e($sp)
-/*  f06f408:	0fc4a650 */ 	jal	func0f129940
+/*  f06f408:	0fc4a650 */ 	jal	explosionCreateComplex
 /*  f06f40c:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f06f410:	10000037 */ 	beqz	$zero,.L0f06f4f0
 /*  f06f414:	00401825 */ 	or	$v1,$v0,$zero
@@ -10919,7 +10919,7 @@ glabel func0f06f314
 /*  f06f4d8:	26050008 */ 	addiu	$a1,$s0,0x8
 /*  f06f4dc:	26060028 */ 	addiu	$a2,$s0,0x28
 /*  f06f4e0:	87a7009e */ 	lh	$a3,0x9e($sp)
-/*  f06f4e4:	0fc4a650 */ 	jal	func0f129940
+/*  f06f4e4:	0fc4a650 */ 	jal	explosionCreateComplex
 /*  f06f4e8:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f06f4ec:	00401825 */ 	or	$v1,$v0,$zero
 .L0f06f4f0:
@@ -34094,7 +34094,7 @@ glabel func0f0841dc
 /*  f0842c4:	8fa50074 */ 	lw	$a1,0x74($sp)
 /*  f0842c8:	27a60054 */ 	addiu	$a2,$sp,0x54
 /*  f0842cc:	87a70066 */ 	lh	$a3,0x66($sp)
-/*  f0842d0:	0fc4a650 */ 	jal	func0f129940
+/*  f0842d0:	0fc4a650 */ 	jal	explosionCreateComplex
 /*  f0842d4:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0842d8:	8e0d000c */ 	lw	$t5,0xc($s0)
 /*  f0842dc:	8fa30068 */ 	lw	$v1,0x68($sp)
@@ -34180,7 +34180,7 @@ glabel func0f0841dc
 /*  f084400:	87a70066 */ 	lh	$a3,0x66($sp)
 /*  f084404:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f084408:	24850008 */ 	addiu	$a1,$a0,0x8
-/*  f08440c:	0fc4a640 */ 	jal	func0f129900
+/*  f08440c:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f084410:	24860028 */ 	addiu	$a2,$a0,0x28
 /*  f084414:	0fc1c9bb */ 	jal	func0f0726ec
 /*  f084418:	02002025 */ 	or	$a0,$s0,$zero
@@ -34240,7 +34240,7 @@ glabel func0f0841dc
 /*  f0844e4:	27a60054 */ 	addiu	$a2,$sp,0x54
 /*  f0844e8:	8faf0078 */ 	lw	$t7,0x78($sp)
 /*  f0844ec:	24070006 */ 	addiu	$a3,$zero,0x6
-/*  f0844f0:	0fc4a640 */ 	jal	func0f129900
+/*  f0844f0:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f0844f4:	afaf0010 */ 	sw	$t7,0x10($sp)
 .L0f0844f8:
 /*  f0844f8:	0fc1a1ee */ 	jal	func0f0687b8
@@ -41792,7 +41792,7 @@ glabel var7f1aae98
 /*  f08b334:	10600007 */ 	beqz	$v1,.L0f08b354
 /*  f08b338:	24650008 */ 	addiu	$a1,$v1,0x8
 /*  f08b33c:	24660028 */ 	addiu	$a2,$v1,0x28
-/*  f08b340:	0fc4a640 */ 	jal	func0f129900
+/*  f08b340:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f08b344:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f08b348:	02002025 */ 	or	$a0,$s0,$zero
 /*  f08b34c:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False

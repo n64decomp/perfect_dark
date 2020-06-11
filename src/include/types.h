@@ -4514,19 +4514,19 @@ struct mppreset {
 };
 
 struct explosiontype {
-	f32 rangeh;
-	f32 rangev;
-	f32 changerateh;
-	f32 changeratev;
-	f32 innersize;
-	f32 blastradius;
-	f32 damageradius;
-	u16 duration;
-	u16 propagationrate;
-	f32 flarespeed;
-	u8 smoketype;
-	u16 sound;
-	f32 damage;
+	/*0x00*/ f32 rangeh;
+	/*0x04*/ f32 rangev;
+	/*0x08*/ f32 changerateh;
+	/*0x0c*/ f32 changeratev;
+	/*0x10*/ f32 innersize;
+	/*0x14*/ f32 blastradius;
+	/*0x18*/ f32 damageradius;
+	/*0x1c*/ s16 duration;
+	/*0x1e*/ u16 propagationrate;
+	/*0x20*/ f32 flarespeed;
+	/*0x24*/ u8 smoketype;
+	/*0x26*/ u16 sound;
+	/*0x28*/ f32 damage;
 };
 
 struct smoketype {
