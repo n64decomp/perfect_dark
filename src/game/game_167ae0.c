@@ -26,7 +26,7 @@
 #include "game/game_012450.h"
 #include "game/game_0125a0.h"
 #include "game/game_013010.h"
-#include "game/game_013260.h"
+#include "game/sparksreset.h"
 #include "game/weatherallocate.h"
 #include "game/game_013540.h"
 #include "game/game_013550.h"
@@ -365,7 +365,7 @@ void func0f167e7c(s32 stagenum)
 	func0f0953cc();
 	func0f013010();
 	func0f013130();
-	func0f013260();
+	sparksReset();
 	weatherAllocate();
 	boostAndSlayerSfxStopAll();
 

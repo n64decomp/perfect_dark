@@ -31,7 +31,7 @@
 	build/ROMID/game/game_0125a0.o (section); \
 	build/ROMID/game/game_012d50.o (section); \
 	build/ROMID/game/game_013010.o (section); \
-	build/ROMID/game/game_013260.o (section); \
+	build/ROMID/game/sparksreset.o (section); \
 	build/ROMID/game/weatherallocate.o (section); \
 	build/ROMID/game/game_013540.o (section); \
 	build/ROMID/game/game_013550.o (section); \
