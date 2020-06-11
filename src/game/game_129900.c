@@ -55,25 +55,10 @@ const char var7f1b5568[] = "";
 const char var7f1b556c[] = "";
 const char var7f1b5570[] = "ecol";
 
-GLOBAL_ASM(
-glabel func0f129900
-/*  f129900:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f129904:	8fb80040 */ 	lw	$t8,0x40($sp)
-/*  f129908:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f12990c:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f129910:	00077400 */ 	sll	$t6,$a3,0x10
-/*  f129914:	000e3c03 */ 	sra	$a3,$t6,0x10
-/*  f129918:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f12991c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f129920:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f129924:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f129928:	0fc4a7d5 */ 	jal	func0f129f54
-/*  f12992c:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f129930:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f129934:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f129938:	03e00008 */ 	jr	$ra
-/*  f12993c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f129900(struct prop *prop, struct coord *pos, s16 *room, s16 arg3, s32 playernum)
+{
+	return explosionCreate(prop, pos, room, arg3, playernum, 0, 0, 0, 0);
+}
 
 GLOBAL_ASM(
 glabel func0f129940
@@ -189,7 +174,7 @@ glabel func0f129940
 /*  f129ae0:	87a7007e */ 	lh	$a3,0x7e($sp)
 /*  f129ae4:	afa80014 */ 	sw	$t0,0x14($sp)
 /*  f129ae8:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f129aec:	0fc4a7d5 */ 	jal	func0f129f54
+/*  f129aec:	0fc4a7d5 */ 	jal	explosionCreate
 /*  f129af0:	afaa0010 */ 	sw	$t2,0x10($sp)
 .L0f129af4:
 /*  f129af4:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -397,7 +382,7 @@ void alertNearbyChrsToNoise(f32 *radius, struct coord *noisepos)
 }
 
 GLOBAL_ASM(
-glabel func0f129f54
+glabel explosionCreate
 .late_rodata
 glabel var7f1b557c
 .word 0x481c4000
