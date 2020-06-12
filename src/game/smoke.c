@@ -1354,24 +1354,13 @@ glabel func0f12e5b0
 
 void smokeCreateAtProp(struct prop *prop, s16 type)
 {
-	func0f12e5b0(prop, &prop->pos, prop->rooms, type, 0);
+	func0f12e5b0(prop, &prop->pos, prop->rooms, type, false);
 }
 
-GLOBAL_ASM(
-glabel func0f12e74c
-/*  f12e74c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f12e750:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f12e754:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f12e758:	00077400 */ 	sll	$t6,$a3,0x10
-/*  f12e75c:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f12e760:	000e3c03 */ 	sra	$a3,$t6,0x10
-/*  f12e764:	0fc4b96c */ 	jal	func0f12e5b0
-/*  f12e768:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f12e76c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f12e770:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f12e774:	03e00008 */ 	jr	$ra
-/*  f12e778:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f12e74c(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, bool arg4)
+{
+	func0f12e5b0(prop, pos, rooms, type, true);
+}
 
 GLOBAL_ASM(
 glabel func0f12e77c
