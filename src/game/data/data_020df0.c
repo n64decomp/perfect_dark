@@ -6264,6 +6264,20 @@ u32 var8007e4b0 = 0x000001e0;
 u32 var8007e4b4 = 0x000000a8;
 
 struct explosiontype g_ExplosionTypes[NUM_EXPLOSIONTYPES] = {
+	//       rangeh
+	//       |    rangev
+	//       |    |    changerateh
+	//       |    |    |    changeratev
+	//       |    |    |    |     innersize
+	//       |    |    |    |     |     blastradius
+	//       |    |    |    |     |     |     damageradius
+	//       |    |    |    |     |     |     |     duration
+	//       |    |    |    |     |     |     |     |    propagationrate
+	//       |    |    |    |     |     |     |     |    |  flarespeed
+	//       |    |    |    |     |     |     |     |    |  |  smoketype
+	//       |    |    |    |     |     |     |     |    |  |  |            sound
+	//       |    |    |    |     |     |     |     |    |  |  |            |       damage
+	//       |    |    |    |     |     |     |     |    |  |  |            |       |
 	/*00*/ { 0.1, 0.1, 0,   0,    0.1,  0,    0,    1,   1, 1, SMOKETYPE_0, 0x0000, 0     },
 	/*01*/ { 1,   1,   0,   0,    1,    0,    0,    30,  1, 1, SMOKETYPE_7, 0x0000, 0     },
 	/*02*/ { 20,  20,  0,   0,    30,   50,   50,   40,  1, 3, SMOKETYPE_2, 0x8099, 0.125 },

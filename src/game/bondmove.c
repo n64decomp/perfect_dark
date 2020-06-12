@@ -3041,7 +3041,7 @@ glabel var7f1ad8e4
 /*  f0cab10:	8e4d0284 */ 	lw	$t5,0x284($s2)
 .L0f0cab14:
 /*  f0cab14:	e5a216f8 */ 	swc1	$f2,0x16f8($t5)
-/*  f0cab18:	0fc2d5be */ 	jal	currentPlayerGetUnk1740
+/*  f0cab18:	0fc2d5be */ 	jal	currentPlayerGetMatrix
 /*  f0cab1c:	e7a200ac */ 	swc1	$f2,0xac($sp)
 /*  f0cab20:	8e4e0284 */ 	lw	$t6,0x284($s2)
 /*  f0cab24:	27b000a0 */ 	addiu	$s0,$sp,0xa0
@@ -4846,7 +4846,7 @@ glabel var7f1ad8e4
 //
 //			g_Vars.currentplayer->gunzoomfovs[1] = fStack436;
 //
-//			func00015b68(currentPlayerGetUnk1740(),
+//			func00015b68(currentPlayerGetMatrix(),
 //					&g_Vars.currentplayer->unk025c->pos, &fStack456.pos);
 //
 //			func0f0b4eb8(&fStack456.pos, (struct coord *)&fStack456, fStack436,

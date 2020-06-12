@@ -2928,54 +2928,22 @@ glabel var7f1b55a8
 /*  f12c5a4:	27bd0168 */ 	addiu	$sp,$sp,0x168
 );
 
-GLOBAL_ASM(
-glabel func0f12c5a8
-/*  f12c5a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f12c5ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f12c5b0:	0fc2d5be */ 	jal	currentPlayerGetUnk1740
-/*  f12c5b4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f12c5b8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f12c5bc:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f12c5c0:	c44a0018 */ 	lwc1	$f10,0x18($v0)
-/*  f12c5c4:	c4860008 */ 	lwc1	$f6,0x8($a0)
-/*  f12c5c8:	c490000c */ 	lwc1	$f16,0xc($a0)
-/*  f12c5cc:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f12c5d0:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f12c5d4:	c4460028 */ 	lwc1	$f6,0x28($v0)
-/*  f12c5d8:	44811000 */ 	mtc1	$at,$f2
-/*  f12c5dc:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f12c5e0:	c48a0010 */ 	lwc1	$f10,0x10($a0)
-/*  f12c5e4:	3c013f00 */ 	lui	$at,0x3f00
-/*  f12c5e8:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f12c5ec:	46124100 */ 	add.s	$f4,$f8,$f18
-/*  f12c5f0:	c4520038 */ 	lwc1	$f18,0x38($v0)
-/*  f12c5f4:	46102200 */ 	add.s	$f8,$f4,$f16
-/*  f12c5f8:	46089180 */ 	add.s	$f6,$f18,$f8
-/*  f12c5fc:	46003287 */ 	neg.s	$f10,$f6
-/*  f12c600:	e48a0014 */ 	swc1	$f10,0x14($a0)
-/*  f12c604:	c4800014 */ 	lwc1	$f0,0x14($a0)
-/*  f12c608:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f12c60c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f12c610:	45020007 */ 	bc1fl	.L0f12c630
-/*  f12c614:	46020481 */ 	sub.s	$f18,$f0,$f2
-/*  f12c618:	44812000 */ 	mtc1	$at,$f4
-/*  f12c61c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f12c620:	46040402 */ 	mul.s	$f16,$f0,$f4
-/*  f12c624:	10000003 */ 	beqz	$zero,.L0f12c634
-/*  f12c628:	e4900014 */ 	swc1	$f16,0x14($a0)
-/*  f12c62c:	46020481 */ 	sub.s	$f18,$f0,$f2
-.L0f12c630:
-/*  f12c630:	e4920014 */ 	swc1	$f18,0x14($a0)
-.L0f12c634:
-/*  f12c634:	908e0001 */ 	lbu	$t6,0x1($a0)
-/*  f12c638:	00001025 */ 	or	$v0,$zero,$zero
-/*  f12c63c:	35cf0042 */ 	ori	$t7,$t6,0x42
-/*  f12c640:	a08f0001 */ 	sb	$t7,0x1($a0)
-/*  f12c644:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f12c648:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f12c64c:	03e00008 */ 	jr	$ra
-/*  f12c650:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 explosionUpdateZ(struct prop *prop)
+{
+	f32 *matrix = currentPlayerGetMatrix();
+
+	prop->z = -(matrix[2] * prop->pos.x + matrix[6] * prop->pos.y + matrix[10] * prop->pos.z + matrix[14]);
+
+	if (prop->z < 100) {
+		prop->z *= 0.5f;
+	} else {
+		prop->z -= 100;
+	}
+
+	prop->flags |= PROPFLAG_40 | PROPFLAG_02;
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f12c654

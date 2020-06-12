@@ -1782,7 +1782,7 @@ struct player {
 	/*0x0038*/ struct coord globaldrawworldoffset;
 	/*0x0044*/ struct coord globaldrawcameraoffset;
 	/*0x0050*/ struct coord globaldrawworldbgoffset;
-	/*0x005c*/ f32 *matrix;
+	/*0x005c*/ f32 *matrix5c;
 	/*0x0060*/ u32 unk0060;
 	/*0x0064*/ u32 unk0064;
 	/*0x0068*/ u32 unk0068;
@@ -2205,7 +2205,7 @@ struct player {
 	/*0x1734*/ f32 c_recipscaley;
 	/*0x1738*/ u32 unk1738;
 	/*0x173c*/ u32 unk173c;
-	/*0x1740*/ f32 *unk1740;
+	/*0x1740*/ f32 *matrix;
 	/*0x1744*/ u32 unk1744;
 	/*0x1748*/ u32 unk1748;
 	/*0x174c*/ u32 unk174c;
@@ -2213,7 +2213,7 @@ struct player {
 	/*0x1754*/ u32 unk1754;
 	/*0x1758*/ u32 unk1758;
 	/*0x175c*/ u32 unk175c;
-	/*0x1760*/ f32 *unk1760;
+	/*0x1760*/ f32 *prevmatrix;
 	/*0x1764*/ u32 unk1764;
 	/*0x1768*/ u32 unk1768;
 	/*0x176c*/ f32 c_scalelod60;

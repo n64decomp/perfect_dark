@@ -14,7 +14,7 @@ u32 func0f12acec(void);
 u32 func0f12af5c(void);
 u32 func0f12b0e0(void);
 u32 func0f12bbdc(void);
-u32 func0f12c5a8(void);
+u32 explosionUpdateZ(struct prop *prop);
 u32 func0f12c654(void);
 u32 func0f12cd64(void);
 

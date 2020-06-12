@@ -1864,12 +1864,12 @@ u32 currentPlayerGetUnk1758(void)
 	return g_Vars.currentplayer->unk1758;
 }
 
-void currentPlayerSetUnk1740(f32 *value)
+void currentPlayerSetMatrix(f32 *matrix)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->unk1760 = player->unk1740;
-	player->unk1740 = value;
+	player->prevmatrix = player->matrix;
+	player->matrix = matrix;
 	player->unk1744 = var80084008;
 	player->unk0488 = player->unk0484;
 	player->unk0484 = var800aa59c;
@@ -2361,9 +2361,9 @@ glabel func0f0b53a4
 /*  f0b56f4:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-f32 *currentPlayerGetUnk1740(void)
+f32 *currentPlayerGetMatrix(void)
 {
-	return g_Vars.currentplayer->unk1740;
+	return g_Vars.currentplayer->matrix;
 }
 
 void currentPlayerSetUnk1754(u32 value)
@@ -2376,9 +2376,9 @@ u32 currentPlayerGetUnk1754(void)
 	return g_Vars.currentplayer->unk1754;
 }
 
-f32 *currentPlayerGetUnk1760(void)
+f32 *currentPlayerGetPrevMatrix(void)
 {
-	return g_Vars.currentplayer->unk1760;
+	return g_Vars.currentplayer->prevmatrix;
 }
 
 void currentPlayerSetUnk1748(u32 value)

@@ -11868,7 +11868,7 @@ void currentPlayerSetGlobalDrawCameraOffset(void)
 	g_Vars.currentplayer->globaldrawcameraoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
 	g_Vars.currentplayer->globaldrawcameraoffset.z = g_Vars.currentplayer->globaldrawworldoffset.z;
 
-	func00015b10(currentPlayerGetUnk1740(), &g_Vars.currentplayer->globaldrawcameraoffset);
+	func00015b10(currentPlayerGetMatrix(), &g_Vars.currentplayer->globaldrawcameraoffset);
 }
 
 GLOBAL_ASM(
@@ -12072,7 +12072,7 @@ glabel func0f0bfc7c
 /*  f0bff7c:	0fc2d3de */ 	jal	currentPlayerSetUnk1738
 /*  f0bff80:	8de40060 */ 	lw	$a0,0x60($t7)
 /*  f0bff84:	8e580284 */ 	lw	$t8,0x284($s2)
-/*  f0bff88:	0fc2d406 */ 	jal	currentPlayerSetUnk1740
+/*  f0bff88:	0fc2d406 */ 	jal	currentPlayerSetMatrix
 /*  f0bff8c:	8f040064 */ 	lw	$a0,0x64($t8)
 /*  f0bff90:	8e590284 */ 	lw	$t9,0x284($s2)
 /*  f0bff94:	0fc2d5d6 */ 	jal	currentPlayerSetUnk174c
@@ -15103,7 +15103,7 @@ glabel func0f0c32a0
 
 Gfx *currentPlayerLoadMatrix(Gfx *gdl)
 {
-	gSPMatrix(gdl++, g_Vars.currentplayer->matrix, G_MTX_LOAD);
+	gSPMatrix(gdl++, g_Vars.currentplayer->matrix5c, G_MTX_LOAD);
 	return gdl;
 }
 

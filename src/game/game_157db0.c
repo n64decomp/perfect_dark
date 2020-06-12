@@ -7009,7 +7009,7 @@ bool func0f15cd90(u32 room, struct screenbox *screen)
 
 bool func0f15d08c(struct coord *a, struct coord *b)
 {
-	f32 *matrixmaybe = currentPlayerGetUnk1740();
+	f32 *matrixmaybe = currentPlayerGetMatrix();
 
 	b->x = a->x;
 	b->y = a->y;
