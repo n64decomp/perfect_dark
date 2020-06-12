@@ -140,9 +140,9 @@ glabel func0f0601b0
 /*  f0602ec:	27bd0348 */ 	addiu	$sp,$sp,0x348
 );
 
-void propHide(struct prop *prop)
+void propShow(struct prop *prop)
 {
-	prop->flags |= PROPFLAG_HIDDEN;
+	prop->flags |= PROPFLAG_TANGIBLE;
 }
 
 GLOBAL_ASM(

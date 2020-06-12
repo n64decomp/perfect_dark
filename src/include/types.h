@@ -22,6 +22,7 @@ struct bbox {
 
 struct weaponobj;
 struct prop;
+struct explosion;
 
 /**
  * Most, if not all, entity types (chrs, objs, weapons etc) have a pointer to a
@@ -43,6 +44,7 @@ struct prop {
 		struct defaultobj *obj;
 		struct doorobj *door;
 		struct weaponobj *weapon;
+		struct explosion *explosion;
 	};
 
 	/*0x08*/ struct coord pos;

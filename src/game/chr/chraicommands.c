@@ -5379,7 +5379,7 @@ bool aiShowChr(void)
 
 	if (chr && chr->prop && chr->model) {
 		func0f0604bc(chr->prop);
-		propHide(chr->prop);
+		propShow(chr->prop);
 		func0f0220ac(chr);
 	}
 
@@ -5417,7 +5417,7 @@ bool aiShowObj(void)
 
 	if (obj && obj->prop && obj->model) {
 		func0f0604bc(obj->prop);
-		propHide(obj->prop);
+		propShow(obj->prop);
 
 		if (g_Vars.currentplayer->eyespy == NULL && obj->type == OBJTYPE_WEAPON) {
 			struct weaponobj *weapon = (struct weaponobj *) obj;

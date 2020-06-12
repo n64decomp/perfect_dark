@@ -972,7 +972,7 @@ glabel var7f1a827c
 /*  f011fb8:	0fc1812f */ 	jal	func0f0604bc
 /*  f011fbc:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f011fc0:	8e290284 */ 	lw	$t1,0x284($s1)
-/*  f011fc4:	0fc180bc */ 	jal	propHide
+/*  f011fc4:	0fc180bc */ 	jal	propShow
 /*  f011fc8:	8d2400bc */ 	lw	$a0,0xbc($t1)
 /*  f011fcc:	8e2a0284 */ 	lw	$t2,0x284($s1)
 /*  f011fd0:	00002825 */ 	or	$a1,$zero,$zero
@@ -1528,7 +1528,7 @@ glabel var7f1a827c
 //	g_Vars.currentplayer->prop->chr = NULL;
 //	g_Vars.currentplayer->prop->type = PROPTYPE_PLAYER;
 //	func0f0604bc(g_Vars.currentplayer->prop);
-//	propHide(g_Vars.currentplayer->prop);
+//	propShow(g_Vars.currentplayer->prop);
 //	chrInit(g_Vars.currentplayer->prop, 0);
 //
 //	if (g_Vars.coopplayernum >= 0) {

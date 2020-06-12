@@ -130,72 +130,27 @@ f32 explosionGetVerticalRangeAtFrame(struct explosion *exp, s32 frame)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f129c08
-/*  f129c08:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f129c0c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f129c10:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f129c14:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f129c18:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f129c1c:	8ce40004 */ 	lw	$a0,0x4($a3)
-/*  f129c20:	3c188008 */ 	lui	$t8,%hi(g_ExplosionTypes)
-/*  f129c24:	2718e4b8 */ 	addiu	$t8,$t8,%lo(g_ExplosionTypes)
-/*  f129c28:	808e03cc */ 	lb	$t6,0x3cc($a0)
-/*  f129c2c:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f129c30:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f129c34:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f129c38:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f129c3c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f129c40:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f129c44:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f129c48:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f129c4c:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f129c50:	0fc4a6c2 */ 	jal	explosionGetHorizontalRangeAtFrame
-/*  f129c54:	afa40024 */ 	sw	$a0,0x24($sp)
-/*  f129c58:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f129c5c:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f129c60:	0fc4a6e9 */ 	jal	explosionGetVerticalRangeAtFrame
-/*  f129c64:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*  f129c68:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*  f129c6c:	3c013f00 */ 	lui	$at,0x3f00
-/*  f129c70:	44818000 */ 	mtc1	$at,$f16
-/*  f129c74:	3c013fc0 */ 	lui	$at,0x3fc0
-/*  f129c78:	44813000 */ 	mtc1	$at,$f6
-/*  f129c7c:	c5040010 */ 	lwc1	$f4,0x10($t0)
-/*  f129c80:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
-/*  f129c84:	8fa70034 */ 	lw	$a3,0x34($sp)
-/*  f129c88:	46062302 */ 	mul.s	$f12,$f4,$f6
-/*  f129c8c:	8fa20028 */ 	lw	$v0,0x28($sp)
-/*  f129c90:	c4f20008 */ 	lwc1	$f18,0x8($a3)
-/*  f129c94:	46101202 */ 	mul.s	$f8,$f2,$f16
-/*  f129c98:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f129c9c:	46100282 */ 	mul.s	$f10,$f0,$f16
-/*  f129ca0:	460c4080 */ 	add.s	$f2,$f8,$f12
-/*  f129ca4:	460c5380 */ 	add.s	$f14,$f10,$f12
-/*  f129ca8:	46029101 */ 	sub.s	$f4,$f18,$f2
-/*  f129cac:	e4440000 */ 	swc1	$f4,0x0($v0)
-/*  f129cb0:	c4e6000c */ 	lwc1	$f6,0xc($a3)
-/*  f129cb4:	460e3201 */ 	sub.s	$f8,$f6,$f14
-/*  f129cb8:	e4480004 */ 	swc1	$f8,0x4($v0)
-/*  f129cbc:	c4ea0010 */ 	lwc1	$f10,0x10($a3)
-/*  f129cc0:	46025481 */ 	sub.s	$f18,$f10,$f2
-/*  f129cc4:	e4520008 */ 	swc1	$f18,0x8($v0)
-/*  f129cc8:	c4e40008 */ 	lwc1	$f4,0x8($a3)
-/*  f129ccc:	46022180 */ 	add.s	$f6,$f4,$f2
-/*  f129cd0:	e4660000 */ 	swc1	$f6,0x0($v1)
-/*  f129cd4:	c4e8000c */ 	lwc1	$f8,0xc($a3)
-/*  f129cd8:	460e4280 */ 	add.s	$f10,$f8,$f14
-/*  f129cdc:	e46a0004 */ 	swc1	$f10,0x4($v1)
-/*  f129ce0:	c4f20010 */ 	lwc1	$f18,0x10($a3)
-/*  f129ce4:	46029100 */ 	add.s	$f4,$f18,$f2
-/*  f129ce8:	e4640008 */ 	swc1	$f4,0x8($v1)
-/*  f129cec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f129cf0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f129cf4:	03e00008 */ 	jr	$ra
-/*  f129cf8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void explosionGetBboxAtFrame(struct coord *lower, struct coord *upper, s32 frame, struct prop *prop)
+{
+	struct explosion *exp = prop->explosion;
+	struct explosiontype *type = &g_ExplosionTypes[exp->type];
 
-void alertNearbyChrsToNoise(f32 *radius, struct coord *noisepos)
+	f32 rangeh = explosionGetHorizontalRangeAtFrame(exp, frame);
+	f32 rangev = explosionGetVerticalRangeAtFrame(exp, frame);
+
+	rangeh = rangeh * 0.5f + type->innersize * 1.5f;
+	rangev = rangev * 0.5f + type->innersize * 1.5f;
+
+	lower->x = prop->pos.x - rangeh;
+	lower->y = prop->pos.y - rangev;
+	lower->z = prop->pos.z - rangeh;
+
+	upper->x = prop->pos.x + rangeh;
+	upper->y = prop->pos.y + rangev;
+	upper->z = prop->pos.z + rangeh;
+}
+
+void explosionAlertChrs(f32 *radius, struct coord *noisepos)
 {
 	u32 stack[2];
 	s32 *end = (s32 *)&func0f084e58;
@@ -206,7 +161,7 @@ void alertNearbyChrsToNoise(f32 *radius, struct coord *noisepos)
 				&& chrGetTargetProp(&g_ChrsA[i]) == g_Vars.currentplayer->prop
 				&& g_ChrsA[i].prop
 				&& g_ChrsA[i].prop->type == PROPTYPE_CHR
-				&& (g_ChrsA[i].prop->flags & 4)) {
+				&& (g_ChrsA[i].prop->flags & PROPFLAG_TANGIBLE)) {
 			f32 distance = chrGetDistanceToCoord(&g_ChrsA[i], noisepos);
 
 			if (distance == 0) {
@@ -500,7 +455,7 @@ glabel var7f1b5584
 /*  f12a2c8:	afaa0158 */ 	sw	$t2,0x158($sp)
 /*  f12a2cc:	0fc1814e */ 	jal	func0f060538
 /*  f12a2d0:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f12a2d4:	0fc180bc */ 	jal	propHide
+/*  f12a2d4:	0fc180bc */ 	jal	propShow
 /*  f12a2d8:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f12a2dc:	8faa0158 */ 	lw	$t2,0x158($sp)
 /*  f12a2e0:	3c188008 */ 	lui	$t8,%hi(g_ExplosionTypes+0x2c)
@@ -532,7 +487,7 @@ glabel var7f1b5584
 /*  f12a340:	85a6001c */ 	lh	$a2,0x1c($t5)
 /*  f12a344:	afaa0158 */ 	sw	$t2,0x158($sp)
 /*  f12a348:	27a500c8 */ 	addiu	$a1,$sp,0xc8
-/*  f12a34c:	0fc4a702 */ 	jal	func0f129c08
+/*  f12a34c:	0fc4a702 */ 	jal	explosionGetBboxAtFrame
 /*  f12a350:	02a03825 */ 	or	$a3,$s5,$zero
 /*  f12a354:	3c013f80 */ 	lui	$at,0x3f80
 /*  f12a358:	4481b000 */ 	mtc1	$at,$f22
@@ -1157,7 +1112,7 @@ glabel var7f1b5584
 /*  f12ac80:	8fa4009c */ 	lw	$a0,0x9c($sp)
 .L0f12ac84:
 /*  f12ac84:	8fa50164 */ 	lw	$a1,0x164($sp)
-/*  f12ac88:	0fc4a73f */ 	jal	alertNearbyChrsToNoise
+/*  f12ac88:	0fc4a73f */ 	jal	explosionAlertChrs
 /*  f12ac8c:	afaa0158 */ 	sw	$t2,0x158($sp)
 /*  f12ac90:	8faa0158 */ 	lw	$t2,0x158($sp)
 .L0f12ac94:
@@ -2652,7 +2607,7 @@ glabel var7f1b55a8
 /*  f12c1a8:	27b20130 */ 	addiu	$s2,$sp,0x130
 /*  f12c1ac:	02402825 */ 	or	$a1,$s2,$zero
 /*  f12c1b0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f12c1b4:	0fc4a702 */ 	jal	func0f129c08
+/*  f12c1b4:	0fc4a702 */ 	jal	explosionGetBboxAtFrame
 /*  f12c1b8:	02e03825 */ 	or	$a3,$s7,$zero
 /*  f12c1bc:	26e60028 */ 	addiu	$a2,$s7,0x28
 /*  f12c1c0:	afa6009c */ 	sw	$a2,0x9c($sp)

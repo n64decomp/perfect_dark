@@ -7,8 +7,8 @@ bool explosionCreateSimple(struct prop *prop, struct coord *pos, s16 *rooms, s16
 bool explosionCreateComplex(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, s32 playernum);
 f32 explosionGetHorizontalRangeAtFrame(struct explosion *exp, s32 frame);
 f32 explosionGetVerticalRangeAtFrame(struct explosion *exp, s32 frame);
-u32 func0f129c08(void);
-void alertNearbyChrsToNoise(f32 *radius, struct coord *noisepos);
+void explosionGetBboxAtFrame(struct coord *lower, struct coord *upper, s32 frame, struct prop *prop);
+void explosionAlertChrs(f32 *radius, struct coord *noisepos);
 bool explosionCreate(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, s32 playernum, bool arg5, struct coord *arg6, s16 arg7, struct coord *arg8);
 u32 func0f12acec(void);
 u32 func0f12af5c(void);
