@@ -1309,53 +1309,17 @@ void func0f12e74c(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, u3
 	smokeCreateAtPropIfNecessary(prop, pos, rooms, type, true);
 }
 
-GLOBAL_ASM(
-glabel func0f12e77c
-/*  f12e77c:	3c03800a */ 	lui	$v1,%hi(g_NumSmokes)
-/*  f12e780:	8c633444 */ 	lw	$v1,%lo(g_NumSmokes)($v1)
-/*  f12e784:	00803025 */ 	or	$a2,$a0,$zero
-/*  f12e788:	00002025 */ 	or	$a0,$zero,$zero
-/*  f12e78c:	18600022 */ 	blez	$v1,.L0f12e818
-/*  f12e790:	00001025 */ 	or	$v0,$zero,$zero
-/*  f12e794:	3c088008 */ 	lui	$t0,%hi(g_SmokeTypes)
-/*  f12e798:	3c07800a */ 	lui	$a3,%hi(g_Smokes)
-/*  f12e79c:	24e73440 */ 	addiu	$a3,$a3,%lo(g_Smokes)
-/*  f12e7a0:	2508e940 */ 	addiu	$t0,$t0,%lo(g_SmokeTypes)
-/*  f12e7a4:	24090024 */ 	addiu	$t1,$zero,0x24
-.L0f12e7a8:
-/*  f12e7a8:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*  f12e7ac:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f12e7b0:	01c42821 */ 	addu	$a1,$t6,$a0
-/*  f12e7b4:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*  f12e7b8:	51e00015 */ 	beqzl	$t7,.L0f12e810
-/*  f12e7bc:	0043082a */ 	slt	$at,$v0,$v1
-/*  f12e7c0:	8cb80198 */ 	lw	$t8,0x198($a1)
-/*  f12e7c4:	54d80012 */ 	bnel	$a2,$t8,.L0f12e810
-/*  f12e7c8:	0043082a */ 	slt	$at,$v0,$v1
-/*  f12e7cc:	90b90006 */ 	lbu	$t9,0x6($a1)
-/*  f12e7d0:	332a0001 */ 	andi	$t2,$t9,0x1
-/*  f12e7d4:	5540000e */ 	bnezl	$t2,.L0f12e810
-/*  f12e7d8:	0043082a */ 	slt	$at,$v0,$v1
-/*  f12e7dc:	94ab0006 */ 	lhu	$t3,0x6($a1)
-/*  f12e7e0:	3c03800a */ 	lui	$v1,%hi(g_NumSmokes)
-/*  f12e7e4:	000b6242 */ 	srl	$t4,$t3,0x9
-/*  f12e7e8:	01890019 */ 	multu	$t4,$t1
-/*  f12e7ec:	00006812 */ 	mflo	$t5
-/*  f12e7f0:	010d7021 */ 	addu	$t6,$t0,$t5
-/*  f12e7f4:	85cf0000 */ 	lh	$t7,0x0($t6)
-/*  f12e7f8:	a4af0004 */ 	sh	$t7,0x4($a1)
-/*  f12e7fc:	8cf80000 */ 	lw	$t8,0x0($a3)
-/*  f12e800:	0304c821 */ 	addu	$t9,$t8,$a0
-/*  f12e804:	af200198 */ 	sw	$zero,0x198($t9)
-/*  f12e808:	8c633444 */ 	lw	$v1,%lo(g_NumSmokes)($v1)
-/*  f12e80c:	0043082a */ 	slt	$at,$v0,$v1
-.L0f12e810:
-/*  f12e810:	1420ffe5 */ 	bnez	$at,.L0f12e7a8
-/*  f12e814:	2484019c */ 	addiu	$a0,$a0,0x19c
-.L0f12e818:
-/*  f12e818:	03e00008 */ 	jr	$ra
-/*  f12e81c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void smokeClearForProp(struct prop *prop)
+{
+	s32 i;
+
+	for (i = 0; i < g_NumSmokes; i++) {
+		if (g_Smokes[i].active && g_Smokes[i].prop == prop && g_Smokes[i].unk06_07 == false) {
+			g_Smokes[i].age = g_SmokeTypes[g_Smokes[i].type].duration;
+			g_Smokes[i].prop = NULL;
+		}
+	}
+}
 
 struct smoke *smokeCreateSimple(struct coord *pos, s16 *rooms, s16 type)
 {

@@ -9,7 +9,7 @@ u32 func0f12e454(void);
 bool smokeCreateAtPropIfNecessary(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, u32 arg4);
 void smokeCreateAtProp(struct prop *prop, s16 type);
 void func0f12e74c(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, u32 arg4);
-u32 func0f12e77c(void);
+void smokeClearForProp(struct prop *prop);
 struct smoke *smokeCreateSimple(struct coord *pos, s16 *rooms, s16 type);
 u32 func0f12e848(void);
 u32 smokeUpdateZ(struct prop *prop);
