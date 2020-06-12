@@ -4568,6 +4568,10 @@ struct smoketype {
 	f32 unk20;
 };
 
+struct smoke {
+	u32 unk00;
+};
+
 struct textoverride {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;

@@ -1,16 +1,16 @@
-#ifndef _IN_GAME_GAME_12D3F0_H
-#define _IN_GAME_GAME_12D3F0_H
+#ifndef _IN_GAME_SMOKE_H
+#define _IN_GAME_SMOKE_H
 #include <ultra64.h>
 #include "types.h"
 
 u32 func0f12d3f0(void);
-u32 func0f12e1c0(void);
+struct smoke *smokeCreate(struct coord *pos, s16 *rooms, s16 type);
 u32 func0f12e454(void);
 u32 func0f12e5b0(void);
 void func0f12e714(struct prop *prop, s32 arg1);
 u32 func0f12e74c(void);
 u32 func0f12e77c(void);
-u32 func0f12e820(void);
+struct smoke *smokeCreateSimple(struct coord *pos, s16 *rooms, s16 type);
 u32 func0f12e848(void);
 u32 func0f12f184(void);
 u32 func0f12f230(void);

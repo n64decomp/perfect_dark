@@ -131,7 +131,7 @@
 	build/ROMID/game/game_128f30.o (section); \
 	build/ROMID/game/game_129210.o (section); \
 	build/ROMID/game/explosion.o (section); \
-	build/ROMID/game/game_12d3f0.o (section); \
+	build/ROMID/game/smoke.o (section); \
 	build/ROMID/game/game_12f6c0.o (section); \
 	build/ROMID/game/weather.o (section); \
 	build/ROMID/game/game_135c70.o (section); \

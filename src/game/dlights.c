@@ -12,7 +12,7 @@
 #include "game/game_092610.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
-#include "game/game_12d3f0.h"
+#include "game/smoke.h"
 #include "game/game_12f6c0.h"
 #include "game/game_157db0.h"
 #include "game/game_166e40.h"
@@ -3081,7 +3081,7 @@ glabel func0f002ef8
 /*  f0032d8:	a7b80066 */ 	sh	$t8,0x66($sp)
 /*  f0032dc:	27a40074 */ 	addiu	$a0,$sp,0x74
 /*  f0032e0:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0032e4:	0fc4ba08 */ 	jal	func0f12e820
+/*  f0032e4:	0fc4ba08 */ 	jal	smokeCreateSimple
 /*  f0032e8:	24060007 */ 	addiu	$a2,$zero,0x7
 .L0f0032ec:
 /*  f0032ec:	8fa400d8 */ 	lw	$a0,0xd8($sp)

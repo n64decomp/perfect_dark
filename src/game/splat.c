@@ -7,7 +7,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/game_12d3f0.h"
+#include "game/smoke.h"
 #include "game/game_157db0.h"
 #include "game/propobj.h"
 #include "game/splat.h"
@@ -1229,7 +1229,7 @@ glabel var7f1b6048
 /*  f149c3c:	00023400 */ 	sll	$a2,$v0,0x10
 /*  f149c40:	00065c03 */ 	sra	$t3,$a2,0x10
 /*  f149c44:	01603025 */ 	or	$a2,$t3,$zero
-/*  f149c48:	0fc4ba08 */ 	jal	func0f12e820
+/*  f149c48:	0fc4ba08 */ 	jal	smokeCreateSimple
 /*  f149c4c:	8fa4006c */ 	lw	$a0,0x6c($sp)
 /*  f149c50:	8fbf005c */ 	lw	$ra,0x5c($sp)
 .L0f149c54:

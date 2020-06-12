@@ -23,7 +23,7 @@
 #include "game/game_0b63b0.h"
 #include "game/game_127910.h"
 #include "game/explosion.h"
-#include "game/game_12d3f0.h"
+#include "game/smoke.h"
 #include "game/game_12f6c0.h"
 #include "game/game_157db0.h"
 #include "game/game_190260.h"
@@ -1722,7 +1722,7 @@ glabel var7f1a9eb8
 /*  f061938:	1540000f */ 	bnez	$t2,.L0f061978
 /*  f06193c:	27a40694 */ 	addiu	$a0,$sp,0x694
 /*  f061940:	02002825 */ 	or	$a1,$s0,$zero
-/*  f061944:	0fc4ba08 */ 	jal	func0f12e820
+/*  f061944:	0fc4ba08 */ 	jal	smokeCreateSimple
 /*  f061948:	24060007 */ 	addiu	$a2,$zero,0x7
 /*  f06194c:	1000000a */ 	beqz	$zero,.L0f061978
 /*  f061950:	00000000 */ 	sll	$zero,$zero,0x0

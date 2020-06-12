@@ -43,7 +43,7 @@
 #include "game/game_128f30.h"
 #include "game/game_129210.h"
 #include "game/explosion.h"
-#include "game/game_12d3f0.h"
+#include "game/smoke.h"
 #include "game/game_12f6c0.h"
 #include "game/game_150820.h"
 #include "game/game_1531a0.h"
@@ -15677,7 +15677,7 @@ glabel var7f1aa3d0
 /*  f073860:	1c400006 */ 	bgtz	$v0,.L0f07387c
 /*  f073864:	26650028 */ 	addiu	$a1,$s3,0x28
 /*  f073868:	ae4b00f4 */ 	sw	$t3,0xf4($s2)
-/*  f07386c:	0fc4ba08 */ 	jal	func0f12e820
+/*  f07386c:	0fc4ba08 */ 	jal	smokeCreateSimple
 /*  f073870:	24060008 */ 	addiu	$a2,$zero,0x8
 /*  f073874:	10000004 */ 	beqz	$zero,.L0f073888
 /*  f073878:	00000000 */ 	sll	$zero,$zero,0x0
@@ -18908,7 +18908,7 @@ glabel var7f1aa438
 /*  f0766b0:	e7a6010c */ 	swc1	$f6,0x10c($sp)
 /*  f0766b4:	c6480010 */ 	lwc1	$f8,0x10($s2)
 /*  f0766b8:	460a4181 */ 	sub.s	$f6,$f8,$f10
-/*  f0766bc:	0fc4ba08 */ 	jal	func0f12e820
+/*  f0766bc:	0fc4ba08 */ 	jal	smokeCreateSimple
 /*  f0766c0:	e7a60110 */ 	swc1	$f6,0x110($sp)
 /*  f0766c4:	1000006a */ 	beqz	$zero,.L0f076870
 /*  f0766c8:	8fac0600 */ 	lw	$t4,0x600($sp)
@@ -18922,7 +18922,7 @@ glabel var7f1aa438
 /*  f0766e4:	a6200062 */ 	sh	$zero,0x62($s1)
 .L0f0766e8:
 /*  f0766e8:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*  f0766ec:	0fc4ba08 */ 	jal	func0f12e820
+/*  f0766ec:	0fc4ba08 */ 	jal	smokeCreateSimple
 /*  f0766f0:	2406000b */ 	addiu	$a2,$zero,0xb
 /*  f0766f4:	1000005e */ 	beqz	$zero,.L0f076870
 /*  f0766f8:	8fac0600 */ 	lw	$t4,0x600($sp)
@@ -19022,7 +19022,7 @@ glabel var7f1aa438
 /*  f076858:	10470004 */ 	beq	$v0,$a3,.L0f07686c
 /*  f07685c:	26440008 */ 	addiu	$a0,$s2,0x8
 /*  f076860:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*  f076864:	0fc4ba08 */ 	jal	func0f12e820
+/*  f076864:	0fc4ba08 */ 	jal	smokeCreateSimple
 /*  f076868:	24060009 */ 	addiu	$a2,$zero,0x9
 .L0f07686c:
 /*  f07686c:	8fac0600 */ 	lw	$t4,0x600($sp)
@@ -24402,7 +24402,7 @@ glabel var7f1aa5d0
 /*  f07b3a8:	e7b200cc */ 	swc1	$f18,0xcc($sp)
 /*  f07b3ac:	27a400b8 */ 	addiu	$a0,$sp,0xb8
 /*  f07b3b0:	26050028 */ 	addiu	$a1,$s0,0x28
-/*  f07b3b4:	0fc4ba08 */ 	jal	func0f12e820
+/*  f07b3b4:	0fc4ba08 */ 	jal	smokeCreateSimple
 /*  f07b3b8:	24060003 */ 	addiu	$a2,$zero,0x3
 /*  f07b3bc:	24190018 */ 	addiu	$t9,$zero,0x18
 /*  f07b3c0:	afb90010 */ 	sw	$t9,0x10($sp)
@@ -25853,7 +25853,7 @@ glabel var7f1aa698
 /*  f07c74c:	ae0900e4 */ 	sw	$t1,0xe4($s0)
 .L0f07c750:
 /*  f07c750:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*  f07c754:	0fc4ba08 */ 	jal	func0f12e820
+/*  f07c754:	0fc4ba08 */ 	jal	smokeCreateSimple
 /*  f07c758:	24060003 */ 	addiu	$a2,$zero,0x3
 /*  f07c75c:	c6120080 */ 	lwc1	$f18,0x80($s0)
 /*  f07c760:	44802000 */ 	mtc1	$zero,$f4

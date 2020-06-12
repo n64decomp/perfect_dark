@@ -32,7 +32,7 @@
 #include "game/game_111600.h"
 #include "game/game_127910.h"
 #include "game/explosion.h"
-#include "game/game_12d3f0.h"
+#include "game/smoke.h"
 #include "game/weather.h"
 #include "game/game_157db0.h"
 #include "game/game_1655c0.h"

@@ -10,7 +10,7 @@
 #include "game/dlights.h"
 #include "game/game_0601b0.h"
 #include "game/game_0b3350.h"
-#include "game/game_12d3f0.h"
+#include "game/smoke.h"
 #include "game/game_157db0.h"
 #include "game/game_1668e0.h"
 #include "game/game_166e40.h"
@@ -970,7 +970,7 @@ glabel func0f12d3f0
 );
 
 GLOBAL_ASM(
-glabel func0f12e1c0
+glabel smokeCreate
 /*  f12e1c0:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f12e1c4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f12e1c8:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
@@ -1232,7 +1232,7 @@ glabel func0f12e454
 .L0f12e564:
 /*  f12e564:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f12e568:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f12e56c:	0fc4b870 */ 	jal	func0f12e1c0
+/*  f12e56c:	0fc4b870 */ 	jal	smokeCreate
 /*  f12e570:	87a6002a */ 	lh	$a2,0x2a($sp)
 /*  f12e574:	50400009 */ 	beqzl	$v0,.L0f12e59c
 /*  f12e578:	00001025 */ 	or	$v0,$zero,$zero
@@ -1330,7 +1330,7 @@ glabel func0f12e5b0
 .L0f12e6c0:
 /*  f12e6c0:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f12e6c4:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f12e6c8:	0fc4b870 */ 	jal	func0f12e1c0
+/*  f12e6c8:	0fc4b870 */ 	jal	smokeCreate
 /*  f12e6cc:	87a6002e */ 	lh	$a2,0x2e($sp)
 /*  f12e6d0:	5040000b */ 	beqzl	$v0,.L0f12e700
 /*  f12e6d4:	00001025 */ 	or	$v0,$zero,$zero
@@ -1434,19 +1434,10 @@ glabel func0f12e77c
 /*  f12e81c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f12e820
-/*  f12e820:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f12e824:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f12e828:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f12e82c:	00067400 */ 	sll	$t6,$a2,0x10
-/*  f12e830:	0fc4b870 */ 	jal	func0f12e1c0
-/*  f12e834:	000e3403 */ 	sra	$a2,$t6,0x10
-/*  f12e838:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f12e83c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f12e840:	03e00008 */ 	jr	$ra
-/*  f12e844:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct smoke *smokeCreateSimple(struct coord *pos, s16 *rooms, s16 type)
+{
+	return smokeCreate(pos, rooms, type);
+}
 
 GLOBAL_ASM(
 glabel func0f12e848

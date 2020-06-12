@@ -30,7 +30,7 @@
 #include "game/game_0d7070.h"
 #include "game/game_111600.h"
 #include "game/game_127910.h"
-#include "game/game_12d3f0.h"
+#include "game/smoke.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
 #include "game/game_167ae0.h"

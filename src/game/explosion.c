@@ -15,7 +15,7 @@
 #include "game/game_092610.h"
 #include "game/game_0b3350.h"
 #include "game/explosion.h"
-#include "game/game_12d3f0.h"
+#include "game/smoke.h"
 #include "game/game_157db0.h"
 #include "game/game_1668e0.h"
 #include "game/game_166e40.h"
@@ -296,7 +296,7 @@ glabel var7f1b5584
 /*  f12a080:	00d93021 */ 	addu	$a2,$a2,$t9
 /*  f12a084:	90c6e4dc */ 	lbu	$a2,%lo(g_ExplosionTypes+0x24)($a2)
 /*  f12a088:	27c40008 */ 	addiu	$a0,$s8,0x8
-/*  f12a08c:	0fc4ba08 */ 	jal	func0f12e820
+/*  f12a08c:	0fc4ba08 */ 	jal	smokeCreateSimple
 /*  f12a090:	27c50028 */ 	addiu	$a1,$s8,0x28
 /*  f12a094:	10000300 */ 	beqz	$zero,.L0f12ac98
 /*  f12a098:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -309,7 +309,7 @@ glabel var7f1b5584
 /*  f12a0b0:	3c068008 */ 	lui	$a2,%hi(g_ExplosionTypes+0x24)
 /*  f12a0b4:	00cc3021 */ 	addu	$a2,$a2,$t4
 /*  f12a0b8:	90c6e4dc */ 	lbu	$a2,%lo(g_ExplosionTypes+0x24)($a2)
-/*  f12a0bc:	0fc4ba08 */ 	jal	func0f12e820
+/*  f12a0bc:	0fc4ba08 */ 	jal	smokeCreateSimple
 /*  f12a0c0:	02802825 */ 	or	$a1,$s4,$zero
 .L0f12a0c4:
 /*  f12a0c4:	100002f4 */ 	beqz	$zero,.L0f12ac98
@@ -2631,12 +2631,12 @@ glabel var7f1b55a8
 /*  f12c308:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f12c30c:	24440008 */ 	addiu	$a0,$v0,0x8
 /*  f12c310:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f12c314:	0fc4ba08 */ 	jal	func0f12e820
+/*  f12c314:	0fc4ba08 */ 	jal	smokeCreateSimple
 /*  f12c318:	92c60024 */ 	lbu	$a2,0x24($s6)
 /*  f12c31c:	10000004 */ 	beqz	$zero,.L0f12c330
 /*  f12c320:	8fae0094 */ 	lw	$t6,0x94($sp)
 .L0f12c324:
-/*  f12c324:	0fc4ba08 */ 	jal	func0f12e820
+/*  f12c324:	0fc4ba08 */ 	jal	smokeCreateSimple
 /*  f12c328:	92c60024 */ 	lbu	$a2,0x24($s6)
 .L0f12c32c:
 /*  f12c32c:	8fae0094 */ 	lw	$t6,0x94($sp)
