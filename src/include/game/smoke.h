@@ -12,7 +12,7 @@ void func0f12e74c(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, bo
 u32 func0f12e77c(void);
 struct smoke *smokeCreateSimple(struct coord *pos, s16 *rooms, s16 type);
 u32 func0f12e848(void);
-u32 func0f12f184(void);
+u32 smokeUpdateZ(struct prop *prop);
 u32 func0f12f230(void);
 u32 func0f12f5f8(void);
 

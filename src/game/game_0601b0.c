@@ -3829,7 +3829,7 @@ glabel func0f06302c
 .L0f063590:
 /*  f063590:	54610006 */ 	bnel	$v1,$at,.L0f0635ac
 /*  f063594:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f063598:	0fc4bc61 */ 	jal	func0f12f184
+/*  f063598:	0fc4bc61 */ 	jal	smokeUpdateZ
 /*  f06359c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0635a0:	10000009 */ 	beqz	$zero,.L0f0635c8
 /*  f0635a4:	00403025 */ 	or	$a2,$v0,$zero
@@ -3998,7 +3998,7 @@ glabel func0f06302c
 .L0f0637f8:
 /*  f0637f8:	54610006 */ 	bnel	$v1,$at,.L0f063814
 /*  f0637fc:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f063800:	0fc4bc61 */ 	jal	func0f12f184
+/*  f063800:	0fc4bc61 */ 	jal	smokeUpdateZ
 /*  f063804:	02002025 */ 	or	$a0,$s0,$zero
 /*  f063808:	10000009 */ 	beqz	$zero,.L0f063830
 /*  f06380c:	00403025 */ 	or	$a2,$v0,$zero
