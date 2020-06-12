@@ -4531,13 +4531,27 @@ struct explosiontype {
 	/*0x28*/ f32 damage;
 };
 
+struct explosionbb { // billboards?
+	struct coord unk00;
+	struct coord unk0c;
+	s16 room;
+	s16 room2;
+};
+
 struct explosion {
 	u8 unk[0x3c8];
 	/*0x3c8*/ s32 frame60;
 	/*0x3cc*/ s8 type;
 	/*0x3cd*/ s8 makescorch;
 	/*0x3ce*/ s8 owner;
-	/*0x3cf*/ s8 numbb;
+	/*0x3cf*/ u8 numbb;
+	/*0x3d0*/ u32 unk3d0;
+	/*0x3d4*/ u32 unk3d4;
+	/*0x3d8*/ u32 unk3d8;
+	/*0x3dc*/ u32 unk3dc;
+	/*0x3e0*/ u32 unk3e0;
+	/*0x3e4*/ u32 unk3e4;
+	/*0x3e8*/ struct explosionbb bbs[1]; // length unknown
 };
 
 struct smoketype {
