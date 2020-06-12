@@ -6,8 +6,8 @@
 u32 func0f12d3f0(void);
 struct smoke *smokeCreate(struct coord *pos, s16 *rooms, s16 type);
 u32 func0f12e454(void);
-u32 func0f12e5b0(void);
-void func0f12e714(struct prop *prop, s32 arg1);
+bool func0f12e5b0(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, u32 arg4);
+void smokeCreateAtProp(struct prop *prop, s16 type);
 u32 func0f12e74c(void);
 u32 func0f12e77c(void);
 struct smoke *smokeCreateSimple(struct coord *pos, s16 *rooms, s16 type);

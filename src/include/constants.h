@@ -2373,14 +2373,15 @@
 #define SLOWMOTION_ON    1
 #define SLOWMOTION_SMART 2
 
-#define SMOKETYPE_0 0
-#define SMOKETYPE_1 1
-#define SMOKETYPE_2 2
-#define SMOKETYPE_3 3
-#define SMOKETYPE_4 4
-#define SMOKETYPE_5 5
-#define SMOKETYPE_6 6
-#define SMOKETYPE_7 7
+#define SMOKETYPE_0  0
+#define SMOKETYPE_1  1
+#define SMOKETYPE_2  2
+#define SMOKETYPE_3  3
+#define SMOKETYPE_4  4
+#define SMOKETYPE_5  5
+#define SMOKETYPE_6  6
+#define SMOKETYPE_7  7
+#define SMOKETYPE_22 22
 
 #define SOLOSTAGEINDEX_DEFECTION     0
 #define SOLOSTAGEINDEX_INVESTIGATION 1

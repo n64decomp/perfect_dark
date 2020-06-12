@@ -18715,7 +18715,7 @@ glabel var7f1aa438
 /*  f0763e4:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0763e8:	57010004 */ 	bnel	$t8,$at,.L0f0763fc
 /*  f0763ec:	8fad0350 */ 	lw	$t5,0x350($sp)
-/*  f0763f0:	0fc4b9c5 */ 	jal	func0f12e714
+/*  f0763f0:	0fc4b9c5 */ 	jal	smokeCreateAtProp
 /*  f0763f4:	24050013 */ 	addiu	$a1,$zero,0x13
 /*  f0763f8:	8fad0350 */ 	lw	$t5,0x350($sp)
 .L0f0763fc:
