@@ -997,7 +997,7 @@ glabel smokeCreate
 /*  f12e214:	00008825 */ 	or	$s1,$zero,$zero
 /*  f12e218:	00009025 */ 	or	$s2,$zero,$zero
 /*  f12e21c:	13000003 */ 	beqz	$t8,.L0f12e22c
-/*  f12e220:	3c08800a */ 	lui	$t0,%hi(var800a3444)
+/*  f12e220:	3c08800a */ 	lui	$t0,%hi(g_NumSmokes)
 /*  f12e224:	10000001 */ 	beqz	$zero,.L0f12e22c
 /*  f12e228:	24110001 */ 	addiu	$s1,$zero,0x1
 .L0f12e22c:
@@ -1005,19 +1005,19 @@ glabel smokeCreate
 /*  f12e230:	00006825 */ 	or	$t5,$zero,$zero
 /*  f12e234:	00003025 */ 	or	$a2,$zero,$zero
 /*  f12e238:	13200003 */ 	beqz	$t9,.L0f12e248
-/*  f12e23c:	3c1f800a */ 	lui	$ra,%hi(var800a3440)
+/*  f12e23c:	3c1f800a */ 	lui	$ra,%hi(g_Smokes)
 /*  f12e240:	10000001 */ 	beqz	$zero,.L0f12e248
 /*  f12e244:	24120001 */ 	addiu	$s2,$zero,0x1
 .L0f12e248:
 /*  f12e248:	8c4e0070 */ 	lw	$t6,0x70($v0)
-/*  f12e24c:	27ff3440 */ 	addiu	$ra,$ra,%lo(var800a3440)
+/*  f12e24c:	27ff3440 */ 	addiu	$ra,$ra,%lo(g_Smokes)
 /*  f12e250:	240c0024 */ 	addiu	$t4,$zero,0x24
 /*  f12e254:	11c00003 */ 	beqz	$t6,.L0f12e264
 /*  f12e258:	3c0b8008 */ 	lui	$t3,%hi(g_SmokeTypes)
 /*  f12e25c:	10000001 */ 	beqz	$zero,.L0f12e264
 /*  f12e260:	240d0001 */ 	addiu	$t5,$zero,0x1
 .L0f12e264:
-/*  f12e264:	8d083444 */ 	lw	$t0,%lo(var800a3444)($t0)
+/*  f12e264:	8d083444 */ 	lw	$t0,%lo(g_NumSmokes)($t0)
 /*  f12e268:	00004825 */ 	or	$t1,$zero,$zero
 /*  f12e26c:	00003825 */ 	or	$a3,$zero,$zero
 /*  f12e270:	1900003b */ 	blez	$t0,.L0f12e360
@@ -1052,13 +1052,13 @@ glabel smokeCreate
 /*  f12e2dc:	5321001e */ 	beql	$t9,$at,.L0f12e358
 /*  f12e2e0:	00e8082a */ 	slt	$at,$a3,$t0
 /*  f12e2e4:	032c0019 */ 	multu	$t9,$t4
-/*  f12e2e8:	3c08800a */ 	lui	$t0,%hi(var800a3444)
+/*  f12e2e8:	3c08800a */ 	lui	$t0,%hi(g_NumSmokes)
 /*  f12e2ec:	00007012 */ 	mflo	$t6
 /*  f12e2f0:	016e7821 */ 	addu	$t7,$t3,$t6
 /*  f12e2f4:	85f80000 */ 	lh	$t8,0x0($t7)
 /*  f12e2f8:	a4780004 */ 	sh	$t8,0x4($v1)
 /*  f12e2fc:	10000015 */ 	beqz	$zero,.L0f12e354
-/*  f12e300:	8d083444 */ 	lw	$t0,%lo(var800a3444)($t0)
+/*  f12e300:	8d083444 */ 	lw	$t0,%lo(g_NumSmokes)($t0)
 /*  f12e304:	2a01000f */ 	slti	$at,$s0,0xf
 .L0f12e308:
 /*  f12e308:	14200012 */ 	bnez	$at,.L0f12e354
@@ -1073,12 +1073,12 @@ glabel smokeCreate
 /*  f12e32c:	55210009 */ 	bnel	$t1,$at,.L0f12e354
 /*  f12e330:	25290001 */ 	addiu	$t1,$t1,0x1
 /*  f12e334:	032c0019 */ 	multu	$t9,$t4
-/*  f12e338:	3c08800a */ 	lui	$t0,%hi(var800a3444)
+/*  f12e338:	3c08800a */ 	lui	$t0,%hi(g_NumSmokes)
 /*  f12e33c:	00007012 */ 	mflo	$t6
 /*  f12e340:	016e7821 */ 	addu	$t7,$t3,$t6
 /*  f12e344:	85f80000 */ 	lh	$t8,0x0($t7)
 /*  f12e348:	a4580004 */ 	sh	$t8,0x4($v0)
-/*  f12e34c:	8d083444 */ 	lw	$t0,%lo(var800a3444)($t0)
+/*  f12e34c:	8d083444 */ 	lw	$t0,%lo(g_NumSmokes)($t0)
 /*  f12e350:	25290001 */ 	addiu	$t1,$t1,0x1
 .L0f12e354:
 /*  f12e354:	00e8082a */ 	slt	$at,$a3,$t0
@@ -1157,8 +1157,8 @@ glabel smokeCreate
 GLOBAL_ASM(
 glabel func0f12e454
 /*  f12e454:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f12e458:	3c0c800a */ 	lui	$t4,%hi(var800a3444)
-/*  f12e45c:	8d8c3444 */ 	lw	$t4,%lo(var800a3444)($t4)
+/*  f12e458:	3c0c800a */ 	lui	$t4,%hi(g_NumSmokes)
+/*  f12e45c:	8d8c3444 */ 	lw	$t4,%lo(g_NumSmokes)($t4)
 /*  f12e460:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f12e464:	00e08025 */ 	or	$s0,$a3,$zero
 /*  f12e468:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -1167,8 +1167,8 @@ glabel func0f12e454
 /*  f12e474:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f12e478:	1980003a */ 	blez	$t4,.L0f12e564
 /*  f12e47c:	00004025 */ 	or	$t0,$zero,$zero
-/*  f12e480:	3c09800a */ 	lui	$t1,%hi(var800a3440)
-/*  f12e484:	8d293440 */ 	lw	$t1,%lo(var800a3440)($t1)
+/*  f12e480:	3c09800a */ 	lui	$t1,%hi(g_Smokes)
+/*  f12e484:	8d293440 */ 	lw	$t1,%lo(g_Smokes)($t1)
 /*  f12e488:	3c0a8008 */ 	lui	$t2,%hi(g_SmokeTypes)
 /*  f12e48c:	44800000 */ 	mtc1	$zero,$f0
 /*  f12e490:	254ae940 */ 	addiu	$t2,$t2,%lo(g_SmokeTypes)
@@ -1252,127 +1252,74 @@ glabel func0f12e454
 /*  f12e5ac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f12e5b0
-/*  f12e5b0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f12e5b4:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f12e5b8:	87ae002e */ 	lh	$t6,0x2e($sp)
-/*  f12e5bc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f12e5c0:	24010016 */ 	addiu	$at,$zero,0x16
-/*  f12e5c4:	00808025 */ 	or	$s0,$a0,$zero
-/*  f12e5c8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f12e5cc:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f12e5d0:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f12e5d4:	15c10002 */ 	bne	$t6,$at,.L0f12e5e0
-/*  f12e5d8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f12e5dc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f12e5e0:
-/*  f12e5e0:	10400037 */ 	beqz	$v0,.L0f12e6c0
-/*  f12e5e4:	3c09800a */ 	lui	$t1,%hi(var800a3444)
-/*  f12e5e8:	8d293444 */ 	lw	$t1,%lo(var800a3444)($t1)
-/*  f12e5ec:	00003825 */ 	or	$a3,$zero,$zero
-/*  f12e5f0:	3c0a800a */ 	lui	$t2,%hi(var800a3440)
-/*  f12e5f4:	19200032 */ 	blez	$t1,.L0f12e6c0
-/*  f12e5f8:	240c0024 */ 	addiu	$t4,$zero,0x24
-/*  f12e5fc:	8d4a3440 */ 	lw	$t2,%lo(var800a3440)($t2)
-/*  f12e600:	3c0b8008 */ 	lui	$t3,%hi(g_SmokeTypes)
-/*  f12e604:	44800000 */ 	mtc1	$zero,$f0
-/*  f12e608:	256be940 */ 	addiu	$t3,$t3,%lo(g_SmokeTypes)
-/*  f12e60c:	24050190 */ 	addiu	$a1,$zero,0x190
-/*  f12e610:	01403025 */ 	or	$a2,$t2,$zero
-.L0f12e614:
-/*  f12e614:	8ccf0000 */ 	lw	$t7,0x0($a2)
-/*  f12e618:	51e00026 */ 	beqzl	$t7,.L0f12e6b4
-/*  f12e61c:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f12e620:	8cd80198 */ 	lw	$t8,0x198($a2)
-/*  f12e624:	56180023 */ 	bnel	$s0,$t8,.L0f12e6b4
-/*  f12e628:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f12e62c:	94cd0006 */ 	lhu	$t5,0x6($a2)
-/*  f12e630:	84d90004 */ 	lh	$t9,0x4($a2)
-/*  f12e634:	00002025 */ 	or	$a0,$zero,$zero
-/*  f12e638:	000d7242 */ 	srl	$t6,$t5,0x9
-/*  f12e63c:	01cc0019 */ 	multu	$t6,$t4
-/*  f12e640:	00077080 */ 	sll	$t6,$a3,0x2
-/*  f12e644:	01c77023 */ 	subu	$t6,$t6,$a3
-/*  f12e648:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f12e64c:	01c77021 */ 	addu	$t6,$t6,$a3
-/*  f12e650:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f12e654:	01c77023 */ 	subu	$t6,$t6,$a3
-/*  f12e658:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f12e65c:	014e1821 */ 	addu	$v1,$t2,$t6
-/*  f12e660:	00001025 */ 	or	$v0,$zero,$zero
-/*  f12e664:	00007812 */ 	mflo	$t7
-/*  f12e668:	016fc021 */ 	addu	$t8,$t3,$t7
-/*  f12e66c:	870d0000 */ 	lh	$t5,0x0($t8)
-/*  f12e670:	032d082a */ 	slt	$at,$t9,$t5
-/*  f12e674:	5020000f */ 	beqzl	$at,.L0f12e6b4
-/*  f12e678:	24e70001 */ 	addiu	$a3,$a3,0x1
-.L0f12e67c:
-/*  f12e67c:	c4640014 */ 	lwc1	$f4,0x14($v1)
-/*  f12e680:	24420028 */ 	addiu	$v0,$v0,0x28
-/*  f12e684:	46040032 */ 	c.eq.s	$f0,$f4
-/*  f12e688:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f12e68c:	45000002 */ 	bc1f	.L0f12e698
-/*  f12e690:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f12e694:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f12e698:
-/*  f12e698:	1445fff8 */ 	bne	$v0,$a1,.L0f12e67c
-/*  f12e69c:	24630028 */ 	addiu	$v1,$v1,0x28
-/*  f12e6a0:	50800004 */ 	beqzl	$a0,.L0f12e6b4
-/*  f12e6a4:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f12e6a8:	10000015 */ 	beqz	$zero,.L0f12e700
-/*  f12e6ac:	00001025 */ 	or	$v0,$zero,$zero
-/*  f12e6b0:	24e70001 */ 	addiu	$a3,$a3,0x1
-.L0f12e6b4:
-/*  f12e6b4:	00e9082a */ 	slt	$at,$a3,$t1
-/*  f12e6b8:	1420ffd6 */ 	bnez	$at,.L0f12e614
-/*  f12e6bc:	24c6019c */ 	addiu	$a2,$a2,0x19c
-.L0f12e6c0:
-/*  f12e6c0:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f12e6c4:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f12e6c8:	0fc4b870 */ 	jal	smokeCreate
-/*  f12e6cc:	87a6002e */ 	lh	$a2,0x2e($sp)
-/*  f12e6d0:	5040000b */ 	beqzl	$v0,.L0f12e700
-/*  f12e6d4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f12e6d8:	ac500198 */ 	sw	$s0,0x198($v0)
-/*  f12e6dc:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*  f12e6e0:	904d0006 */ 	lbu	$t5,0x6($v0)
-/*  f12e6e4:	33190001 */ 	andi	$t9,$t8,0x1
-/*  f12e6e8:	31aefffe */ 	andi	$t6,$t5,0xfffe
-/*  f12e6ec:	032e7825 */ 	or	$t7,$t9,$t6
-/*  f12e6f0:	a04f0006 */ 	sb	$t7,0x6($v0)
-/*  f12e6f4:	10000002 */ 	beqz	$zero,.L0f12e700
-/*  f12e6f8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f12e6fc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f12e700:
-/*  f12e700:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f12e704:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f12e708:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f12e70c:	03e00008 */ 	jr	$ra
-/*  f12e710:	00000000 */ 	sll	$zero,$zero,0x0
-);
+/**
+ * Creates smoke, unless there is already smoke for this prop and any of the
+ * smokebits have a size of zero. Perhaps the caller is supposed to check if
+ * this function returns false and reuse the zero-sized smokebits if so?
+ */
+bool smokeCreateAtPropIfNecessary(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, u32 arg4)
+{
+	struct smoke *smoke;
+	s32 i;
+	s32 j;
+	bool checksmokes = true;
+
+	if (type == SMOKETYPE_22) {
+		checksmokes = false;
+	}
+
+	if (checksmokes) {
+		for (i = 0; i < g_NumSmokes; i++) {
+			if (g_Smokes[i].active && g_Smokes[i].prop == prop) {
+				bool fail = false;
+
+				if (g_Smokes[i].age < g_SmokeTypes[g_Smokes[i].type].duration) {
+					for (j = 0; j < 10; j++) {
+						if (g_Smokes[i].smokebits[j].size == 0) {
+							fail = true;
+						}
+					}
+
+					if (fail) {
+						return false;
+					}
+				}
+			}
+		}
+	}
+
+	smoke = smokeCreate(pos, rooms, type);
+
+	if (smoke) {
+		smoke->prop = prop;
+		smoke->unk06_07 = arg4;
+		return true;
+	}
+
+	return false;
+}
 
 void smokeCreateAtProp(struct prop *prop, s16 type)
 {
-	func0f12e5b0(prop, &prop->pos, prop->rooms, type, false);
+	smokeCreateAtPropIfNecessary(prop, &prop->pos, prop->rooms, type, false);
 }
 
-void func0f12e74c(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, bool arg4)
+void func0f12e74c(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, u32 arg4)
 {
-	func0f12e5b0(prop, pos, rooms, type, true);
+	smokeCreateAtPropIfNecessary(prop, pos, rooms, type, true);
 }
 
 GLOBAL_ASM(
 glabel func0f12e77c
-/*  f12e77c:	3c03800a */ 	lui	$v1,%hi(var800a3444)
-/*  f12e780:	8c633444 */ 	lw	$v1,%lo(var800a3444)($v1)
+/*  f12e77c:	3c03800a */ 	lui	$v1,%hi(g_NumSmokes)
+/*  f12e780:	8c633444 */ 	lw	$v1,%lo(g_NumSmokes)($v1)
 /*  f12e784:	00803025 */ 	or	$a2,$a0,$zero
 /*  f12e788:	00002025 */ 	or	$a0,$zero,$zero
 /*  f12e78c:	18600022 */ 	blez	$v1,.L0f12e818
 /*  f12e790:	00001025 */ 	or	$v0,$zero,$zero
 /*  f12e794:	3c088008 */ 	lui	$t0,%hi(g_SmokeTypes)
-/*  f12e798:	3c07800a */ 	lui	$a3,%hi(var800a3440)
-/*  f12e79c:	24e73440 */ 	addiu	$a3,$a3,%lo(var800a3440)
+/*  f12e798:	3c07800a */ 	lui	$a3,%hi(g_Smokes)
+/*  f12e79c:	24e73440 */ 	addiu	$a3,$a3,%lo(g_Smokes)
 /*  f12e7a0:	2508e940 */ 	addiu	$t0,$t0,%lo(g_SmokeTypes)
 /*  f12e7a4:	24090024 */ 	addiu	$t1,$zero,0x24
 .L0f12e7a8:
@@ -1390,7 +1337,7 @@ glabel func0f12e77c
 /*  f12e7d4:	5540000e */ 	bnezl	$t2,.L0f12e810
 /*  f12e7d8:	0043082a */ 	slt	$at,$v0,$v1
 /*  f12e7dc:	94ab0006 */ 	lhu	$t3,0x6($a1)
-/*  f12e7e0:	3c03800a */ 	lui	$v1,%hi(var800a3444)
+/*  f12e7e0:	3c03800a */ 	lui	$v1,%hi(g_NumSmokes)
 /*  f12e7e4:	000b6242 */ 	srl	$t4,$t3,0x9
 /*  f12e7e8:	01890019 */ 	multu	$t4,$t1
 /*  f12e7ec:	00006812 */ 	mflo	$t5
@@ -1400,7 +1347,7 @@ glabel func0f12e77c
 /*  f12e7fc:	8cf80000 */ 	lw	$t8,0x0($a3)
 /*  f12e800:	0304c821 */ 	addu	$t9,$t8,$a0
 /*  f12e804:	af200198 */ 	sw	$zero,0x198($t9)
-/*  f12e808:	8c633444 */ 	lw	$v1,%lo(var800a3444)($v1)
+/*  f12e808:	8c633444 */ 	lw	$v1,%lo(g_NumSmokes)($v1)
 /*  f12e80c:	0043082a */ 	slt	$at,$v0,$v1
 .L0f12e810:
 /*  f12e810:	1420ffe5 */ 	bnez	$at,.L0f12e7a8
@@ -2334,16 +2281,16 @@ glabel func0f12f230
 
 GLOBAL_ASM(
 glabel func0f12f5f8
-/*  f12f5f8:	3c03800a */ 	lui	$v1,%hi(var800a3444)
-/*  f12f5fc:	8c633444 */ 	lw	$v1,%lo(var800a3444)($v1)
+/*  f12f5f8:	3c03800a */ 	lui	$v1,%hi(g_NumSmokes)
+/*  f12f5fc:	8c633444 */ 	lw	$v1,%lo(g_NumSmokes)($v1)
 /*  f12f600:	27bdfff0 */ 	addiu	$sp,$sp,-16
 /*  f12f604:	afb1000c */ 	sw	$s1,0xc($sp)
 /*  f12f608:	afb00008 */ 	sw	$s0,0x8($sp)
 /*  f12f60c:	18600026 */ 	blez	$v1,.L0f12f6a8
 /*  f12f610:	00001025 */ 	or	$v0,$zero,$zero
 /*  f12f614:	3c108008 */ 	lui	$s0,%hi(g_SmokeTypes)
-/*  f12f618:	3c09800a */ 	lui	$t1,%hi(var800a3440)
-/*  f12f61c:	25293440 */ 	addiu	$t1,$t1,%lo(var800a3440)
+/*  f12f618:	3c09800a */ 	lui	$t1,%hi(g_Smokes)
+/*  f12f61c:	25293440 */ 	addiu	$t1,$t1,%lo(g_Smokes)
 /*  f12f620:	2610e940 */ 	addiu	$s0,$s0,%lo(g_SmokeTypes)
 /*  f12f624:	00002825 */ 	or	$a1,$zero,$zero
 /*  f12f628:	24110024 */ 	addiu	$s1,$zero,0x24
@@ -2370,12 +2317,12 @@ glabel func0f12f5f8
 /*  f12f678:	51b80009 */ 	beql	$t5,$t8,.L0f12f6a0
 /*  f12f67c:	0043082a */ 	slt	$at,$v0,$v1
 /*  f12f680:	03110019 */ 	multu	$t8,$s1
-/*  f12f684:	3c03800a */ 	lui	$v1,%hi(var800a3444)
+/*  f12f684:	3c03800a */ 	lui	$v1,%hi(g_NumSmokes)
 /*  f12f688:	0000c812 */ 	mflo	$t9
 /*  f12f68c:	02197021 */ 	addu	$t6,$s0,$t9
 /*  f12f690:	85cf0000 */ 	lh	$t7,0x0($t6)
 /*  f12f694:	a4cf0004 */ 	sh	$t7,0x4($a2)
-/*  f12f698:	8c633444 */ 	lw	$v1,%lo(var800a3444)($v1)
+/*  f12f698:	8c633444 */ 	lw	$v1,%lo(g_NumSmokes)($v1)
 /*  f12f69c:	0043082a */ 	slt	$at,$v0,$v1
 .L0f12f6a0:
 /*  f12f6a0:	1420ffe6 */ 	bnez	$at,.L0f12f63c

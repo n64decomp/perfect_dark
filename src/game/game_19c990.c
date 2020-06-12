@@ -2330,16 +2330,16 @@ glabel func0f19ecdc
 /*  f19efb4:	8c6f0000 */ 	lw	$t7,0x0($v1)
 /*  f19efb8:	00008825 */ 	or	$s1,$zero,$zero
 .L0f19efbc:
-/*  f19efbc:	3c08800a */ 	lui	$t0,%hi(var800a3444)
-/*  f19efc0:	25083444 */ 	addiu	$t0,$t0,%lo(var800a3444)
+/*  f19efbc:	3c08800a */ 	lui	$t0,%hi(g_NumSmokes)
+/*  f19efc0:	25083444 */ 	addiu	$t0,$t0,%lo(g_NumSmokes)
 /*  f19efc4:	8d0d0000 */ 	lw	$t5,0x0($t0)
 /*  f19efc8:	24070100 */ 	addiu	$a3,$zero,0x100
 /*  f19efcc:	00002825 */ 	or	$a1,$zero,$zero
 /*  f19efd0:	19a0001b */ 	blez	$t5,.L0f19f040
 /*  f19efd4:	24040190 */ 	addiu	$a0,$zero,0x190
-/*  f19efd8:	3c03800a */ 	lui	$v1,%hi(var800a3440)
+/*  f19efd8:	3c03800a */ 	lui	$v1,%hi(g_Smokes)
 /*  f19efdc:	44800000 */ 	mtc1	$zero,$f0
-/*  f19efe0:	24633440 */ 	addiu	$v1,$v1,%lo(var800a3440)
+/*  f19efe0:	24633440 */ 	addiu	$v1,$v1,%lo(g_Smokes)
 /*  f19efe4:	8c6e0000 */ 	lw	$t6,0x0($v1)
 .L0f19efe8:
 /*  f19efe8:	00001025 */ 	or	$v0,$zero,$zero

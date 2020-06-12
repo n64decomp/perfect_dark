@@ -4555,21 +4555,38 @@ struct explosion {
 };
 
 struct smoketype {
-	u16 duration;
-	u16 fadespeed;
-	u16 spreadspeed;
-	u16 size;
-	f32 bgrotatespeed;
-	u32 colour;
-	f32 fgrotatespeed;
-	u16 numclouds;
-	f32 unk18;
-	f32 unk1c;
-	f32 unk20;
+	/*0x00*/ s16 duration;
+	/*0x02*/ u16 fadespeed;
+	/*0x04*/ u16 spreadspeed;
+	/*0x06*/ u16 size;
+	/*0x08*/ f32 bgrotatespeed;
+	/*0x0c*/ u32 colour;
+	/*0x10*/ f32 fgrotatespeed;
+	/*0x14*/ u16 numclouds;
+	/*0x18*/ f32 unk18;
+	/*0x1c*/ f32 unk1c;
+	/*0x20*/ f32 unk20;
+};
+
+struct smokebit {
+	/*0x00*/ struct coord pos;
+	/*0x0c*/ f32 size;
+	/*0x10*/ u32 rot;
+	/*0x14*/ u32 deltarot;
+	/*0x18*/ u32 offset1;
+	/*0x1c*/ u32 offset2;
+	/*0x20*/ u32 alpha;
+	/*0x24*/ u16 count;
 };
 
 struct smoke {
-	u32 unk00;
+	/*0x000*/ u32 active;
+	/*0x004*/ s16 age;
+	/*0x006*/ u16 type : 7;
+	/*0x006*/ u16 unk06_07 : 1;
+	/*0x007*/ u16 unk06_08 : 8;
+	/*0x008*/ struct smokebit smokebits[10];
+	/*0x198*/ struct prop *prop;
 };
 
 struct textoverride {

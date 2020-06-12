@@ -15,15 +15,15 @@ GLOBAL_ASM(
 glabel func0f015330
 /*  f015330:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f015334:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f015338:	3c11800a */ 	lui	$s1,%hi(var800a3440)
-/*  f01533c:	26313440 */ 	addiu	$s1,$s1,%lo(var800a3440)
+/*  f015338:	3c11800a */ 	lui	$s1,%hi(g_Smokes)
+/*  f01533c:	26313440 */ 	addiu	$s1,$s1,%lo(g_Smokes)
 /*  f015340:	8e2e0000 */ 	lw	$t6,0x0($s1)
 /*  f015344:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f015348:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f01534c:	11c0001f */ 	beqz	$t6,.L0f0153cc
 /*  f015350:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f015354:	3c02800a */ 	lui	$v0,%hi(var800a3444)
-/*  f015358:	8c423444 */ 	lw	$v0,%lo(var800a3444)($v0)
+/*  f015354:	3c02800a */ 	lui	$v0,%hi(g_NumSmokes)
+/*  f015358:	8c423444 */ 	lw	$v0,%lo(g_NumSmokes)($v0)
 /*  f01535c:	00009025 */ 	or	$s2,$zero,$zero
 /*  f015360:	00008025 */ 	or	$s0,$zero,$zero
 /*  f015364:	5840001a */ 	blezl	$v0,.L0f0153d0
@@ -45,10 +45,10 @@ glabel func0f015330
 /*  f0153a0:	0fc1810e */ 	jal	propFree
 /*  f0153a4:	8d440000 */ 	lw	$a0,0x0($t2)
 /*  f0153a8:	8e2b0000 */ 	lw	$t3,0x0($s1)
-/*  f0153ac:	3c02800a */ 	lui	$v0,%hi(var800a3444)
+/*  f0153ac:	3c02800a */ 	lui	$v0,%hi(g_NumSmokes)
 /*  f0153b0:	01706021 */ 	addu	$t4,$t3,$s0
 /*  f0153b4:	ad800000 */ 	sw	$zero,0x0($t4)
-/*  f0153b8:	8c423444 */ 	lw	$v0,%lo(var800a3444)($v0)
+/*  f0153b8:	8c423444 */ 	lw	$v0,%lo(g_NumSmokes)($v0)
 /*  f0153bc:	26520001 */ 	addiu	$s2,$s2,0x1
 .L0f0153c0:
 /*  f0153c0:	0242082a */ 	slt	$at,$s2,$v0
