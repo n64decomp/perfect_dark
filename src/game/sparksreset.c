@@ -13,7 +13,7 @@
 void sparksReset(void)
 {
 	s32 i;
-	var800a3fc0 = 0;
+	g_NextSparkIndex = 0;
 
 	for (i = 0; i < 10; i++) {
 		g_SparkGroups[i].age = 0;

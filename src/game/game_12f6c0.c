@@ -31,8 +31,8 @@ const u32 var7f1b561c[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func0f12f6c0
-/*  f12f6c0:	3c03800a */ 	lui	$v1,%hi(var800a3fc0)
-/*  f12f6c4:	24633fc0 */ 	addiu	$v1,$v1,%lo(var800a3fc0)
+/*  f12f6c0:	3c03800a */ 	lui	$v1,%hi(g_NextSparkIndex)
+/*  f12f6c4:	24633fc0 */ 	addiu	$v1,$v1,%lo(g_NextSparkIndex)
 /*  f12f6c8:	8c620000 */ 	lw	$v0,0x0($v1)
 /*  f12f6cc:	24010064 */ 	addiu	$at,$zero,0x64
 /*  f12f6d0:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -212,51 +212,25 @@ glabel func0f12f6c0
 /*  f12f958:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f12f95c
-/*  f12f95c:	3c03800a */ 	lui	$v1,%hi(g_SparkGroups)
-/*  f12f960:	3c07800a */ 	lui	$a3,%hi(var800a4130)
-/*  f12f964:	3c05800a */ 	lui	$a1,%hi(var800a3fc0)
-/*  f12f968:	24a53fc0 */ 	addiu	$a1,$a1,%lo(var800a3fc0)
-/*  f12f96c:	24e74130 */ 	addiu	$a3,$a3,%lo(var800a4130)
-/*  f12f970:	24633fc8 */ 	addiu	$v1,$v1,%lo(g_SparkGroups)
-/*  f12f974:	24060064 */ 	addiu	$a2,$zero,0x64
-.L0f12f978:
-/*  f12f978:	50830019 */ 	beql	$a0,$v1,.L0f12f9e0
-/*  f12f97c:	24630024 */ 	addiu	$v1,$v1,0x24
-/*  f12f980:	8c62000c */ 	lw	$v0,0xc($v1)
-/*  f12f984:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f12f988:	244f0001 */ 	addiu	$t7,$v0,0x1
-/*  f12f98c:	55c20014 */ 	bnel	$t6,$v0,.L0f12f9e0
-/*  f12f990:	24630024 */ 	addiu	$v1,$v1,0x24
-/*  f12f994:	01e6001a */ 	div	$zero,$t7,$a2
-/*  f12f998:	8c790004 */ 	lw	$t9,0x4($v1)
-/*  f12f99c:	0000c010 */ 	mfhi	$t8
-/*  f12f9a0:	ac78000c */ 	sw	$t8,0xc($v1)
-/*  f12f9a4:	2728ffff */ 	addiu	$t0,$t9,-1
-/*  f12f9a8:	14c00002 */ 	bnez	$a2,.L0f12f9b4
-/*  f12f9ac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f12f9b0:	0007000d */ 	break	0x7
-.L0f12f9b4:
-/*  f12f9b4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f12f9b8:	14c10004 */ 	bne	$a2,$at,.L0f12f9cc
-/*  f12f9bc:	3c018000 */ 	lui	$at,0x8000
-/*  f12f9c0:	15e10002 */ 	bne	$t7,$at,.L0f12f9cc
-/*  f12f9c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f12f9c8:	0006000d */ 	break	0x6
-.L0f12f9cc:
-/*  f12f9cc:	ac680004 */ 	sw	$t0,0x4($v1)
-/*  f12f9d0:	15000002 */ 	bnez	$t0,.L0f12f9dc
-/*  f12f9d4:	01004825 */ 	or	$t1,$t0,$zero
-/*  f12f9d8:	ac600008 */ 	sw	$zero,0x8($v1)
-.L0f12f9dc:
-/*  f12f9dc:	24630024 */ 	addiu	$v1,$v1,0x24
-.L0f12f9e0:
-/*  f12f9e0:	1467ffe5 */ 	bne	$v1,$a3,.L0f12f978
-/*  f12f9e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f12f9e8:	03e00008 */ 	jr	$ra
-/*  f12f9ec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+/**
+ * This function handles an out-of-memory situation when creating a spark, by
+ * shrinking whichever spark group was about to be overwritten.
+ */
+void sparkgroupEnsureFreeSparkSlot(struct sparkgroup *group)
+{
+	s32 i;
+
+	for (i = 0; i < 10; i++) {
+		if (&g_SparkGroups[i] != group && g_SparkGroups[i].startindex == g_NextSparkIndex) {
+			g_SparkGroups[i].startindex = (g_SparkGroups[i].startindex + 1) % 100;
+			g_SparkGroups[i].numsparks--;
+
+			if (g_SparkGroups[i].numsparks == 0) {
+				g_SparkGroups[i].age = 0;
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f12f9f0
@@ -603,9 +577,9 @@ glabel func0f12f9f0
 /*  f12fee0:	8fb80084 */ 	lw	$t8,0x84($sp)
 /*  f12fee4:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f12fee8:	ae290008 */ 	sw	$t1,0x8($s1)
-/*  f12feec:	3c19800a */ 	lui	$t9,%hi(var800a3fc0)
+/*  f12feec:	3c19800a */ 	lui	$t9,%hi(g_NextSparkIndex)
 /*  f12fef0:	ae380000 */ 	sw	$t8,0x0($s1)
-/*  f12fef4:	8f393fc0 */ 	lw	$t9,%lo(var800a3fc0)($t9)
+/*  f12fef4:	8f393fc0 */ 	lw	$t9,%lo(g_NextSparkIndex)($t9)
 /*  f12fef8:	ae39000c */ 	sw	$t9,0xc($s1)
 /*  f12fefc:	960b0014 */ 	lhu	$t3,0x14($s0)
 /*  f12ff00:	ae2b0004 */ 	sw	$t3,0x4($s1)
@@ -626,7 +600,7 @@ glabel func0f12f9f0
 /*  f12ff3c:	19a0000d */ 	blez	$t5,.L0f12ff74
 /*  f12ff40:	02202025 */ 	or	$a0,$s1,$zero
 .L0f12ff44:
-/*  f12ff44:	0fc4be57 */ 	jal	func0f12f95c
+/*  f12ff44:	0fc4be57 */ 	jal	sparkgroupEnsureFreeSparkSlot
 /*  f12ff48:	afa30058 */ 	sw	$v1,0x58($sp)
 /*  f12ff4c:	27a4005c */ 	addiu	$a0,$sp,0x5c
 /*  f12ff50:	0fc4bdb0 */ 	jal	func0f12f6c0

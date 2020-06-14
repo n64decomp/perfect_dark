@@ -690,7 +690,7 @@ extern s32 g_NumSmokes;
 extern u32 var800a3448;
 extern u32 var800a3488;
 extern struct spark g_Sparks[100];
-extern u32 var800a3fc0; // likely a count of g_SparkGroups
+extern u32 g_NextSparkIndex;
 extern struct sparkgroup g_SparkGroups[];
 extern u32 var800a4130;
 extern u32 var800a4154;
