@@ -1154,6 +1154,76 @@ glabel smokeCreate
 /*  f12e450:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
+// Mismatch because goal calculates g_Smokes[i].type an extra time while mine
+// resuses an existing one.
+//struct smoke *smokeCreate(struct coord *pos, s16 *rooms, s16 type)
+//{
+//	struct smoke *smoke = NULL;
+//	s32 playercount = PLAYERCOUNT();
+//	s32 count = 0;
+//	s32 i;
+//
+//	// 270
+//	for (i = 0; i < g_NumSmokes; i++) {
+//		if (g_Smokes[i].prop == NULL) {
+//			smoke = &g_Smokes[i];
+//			break;
+//		}
+//
+//		// 2b0
+//		if (playercount >= 2) {
+//			// Multiplayer - clear existing smoke if it's not any of the following
+//			if (g_Smokes[i].type != SMOKETYPE_BULLETIMPACT
+//					&& g_Smokes[i].type != SMOKETYPE_ROCKETTAIL
+//					&& g_Smokes[i].type != SMOKETYPE_HOMINGTAIL
+//					&& g_Smokes[i].type != SMOKETYPE_GRENADETAIL) {
+//				g_Smokes[i].age = g_SmokeTypes[g_Smokes[i].type].duration;
+//			}
+//		} else {
+//			// 308
+//			// 1 player - if creating muzzle smoke, remove the third bullet impact smoke
+//			if (type >= SMOKETYPE_MUZZLE_PISTOL && type <= SMOKETYPE_MUZZLE_REAPER) {
+//				if (g_Smokes[i].type == SMOKETYPE_BULLETIMPACT) {
+//					// 32c
+//					if (count == 3) {
+//						g_Smokes[i].age = g_SmokeTypes[g_Smokes[i].type].duration;
+//					}
+//
+//					count++;
+//				}
+//			}
+//		}
+//	}
+//
+//	// 360
+//	if (smoke) {
+//		struct prop *prop = propAllocate();
+//
+//		if (prop) {
+//			prop->type = PROPTYPE_EFFECT;
+//			prop->smoke = smoke;
+//			prop->pos.x = pos->x;
+//			prop->pos.y = pos->y;
+//			prop->pos.z = pos->z;
+//
+//			for (i = 0; rooms[i] != -1 && i < 7; i++) {
+//				prop->rooms[i] = rooms[i];
+//			}
+//
+//			prop->rooms[i] = -1;
+//			func0f060538(prop);
+//			propShow(prop);
+//
+//			smoke->prop = prop;
+//			smoke->age = 0;
+//			smoke->type = type;
+//			smoke->srcprop = NULL;
+//		}
+//	}
+//
+//	return smoke;
+//}
+
 bool func0f12e454(struct coord *pos, s16 *rooms, s16 type, u32 arg4)
 {
 	struct smoke *smoke;
@@ -1161,10 +1231,10 @@ bool func0f12e454(struct coord *pos, s16 *rooms, s16 type, u32 arg4)
 	s32 j;
 
 	for (i = 0; i < g_NumSmokes; i++) {
-		if (g_Smokes[i].active
+		if (g_Smokes[i].prop
 				&& g_Smokes[i].unk06_07 == arg4
-				&& g_Smokes[i].type >= SMOKETYPE_15
-				&& g_Smokes[i].type <= SMOKETYPE_18) {
+				&& g_Smokes[i].type >= SMOKETYPE_MUZZLE_PISTOL
+				&& g_Smokes[i].type <= SMOKETYPE_MUZZLE_REAPER) {
 			bool fail = false;
 
 			if (g_Smokes[i].age < g_SmokeTypes[g_Smokes[i].type].duration) {
@@ -1203,13 +1273,13 @@ bool smokeCreateAtPropIfNecessary(struct prop *prop, struct coord *pos, s16 *roo
 	s32 j;
 	bool checksmokes = true;
 
-	if (type == SMOKETYPE_22) {
+	if (type == SMOKETYPE_UFO) {
 		checksmokes = false;
 	}
 
 	if (checksmokes) {
 		for (i = 0; i < g_NumSmokes; i++) {
-			if (g_Smokes[i].active && g_Smokes[i].prop == prop) {
+			if (g_Smokes[i].prop && g_Smokes[i].srcprop == prop) {
 				bool fail = false;
 
 				if (g_Smokes[i].age < g_SmokeTypes[g_Smokes[i].type].duration) {
@@ -1230,7 +1300,7 @@ bool smokeCreateAtPropIfNecessary(struct prop *prop, struct coord *pos, s16 *roo
 	smoke = smokeCreate(pos, rooms, type);
 
 	if (smoke) {
-		smoke->prop = prop;
+		smoke->srcprop = prop;
 		smoke->unk06_07 = arg4;
 		return true;
 	}
@@ -1253,9 +1323,9 @@ void smokeClearForProp(struct prop *prop)
 	s32 i;
 
 	for (i = 0; i < g_NumSmokes; i++) {
-		if (g_Smokes[i].active && g_Smokes[i].prop == prop && g_Smokes[i].unk06_07 == false) {
+		if (g_Smokes[i].prop && g_Smokes[i].srcprop == prop && g_Smokes[i].unk06_07 == false) {
 			g_Smokes[i].age = g_SmokeTypes[g_Smokes[i].type].duration;
-			g_Smokes[i].prop = NULL;
+			g_Smokes[i].srcprop = NULL;
 		}
 	}
 }

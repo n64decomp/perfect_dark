@@ -2373,17 +2373,26 @@
 #define SLOWMOTION_ON    1
 #define SLOWMOTION_SMART 2
 
-#define SMOKETYPE_0  0
-#define SMOKETYPE_1  1
-#define SMOKETYPE_2  2
-#define SMOKETYPE_3  3
-#define SMOKETYPE_4  4
-#define SMOKETYPE_5  5
-#define SMOKETYPE_6  6
-#define SMOKETYPE_7  7
-#define SMOKETYPE_15 15
-#define SMOKETYPE_18 18
-#define SMOKETYPE_22 22
+#define SMOKETYPE_NONE             0
+#define SMOKETYPE_ELECTRICAL       1 // Dr Caroll, mainframes in Infiltration bunker
+#define SMOKETYPE_MINI             2 // Phoenix, Laptop sentry
+#define SMOKETYPE_3                3
+#define SMOKETYPE_SMALL            4 // SuperDragon grenades, some barrels and autoguns
+#define SMOKETYPE_MEDIUM           5 // Maian SOS hoverbed
+#define SMOKETYPE_LARGE            6 // Rockets, mines etc
+#define SMOKETYPE_BULLETIMPACT     7
+#define SMOKETYPE_ROCKETTAIL       8
+#define SMOKETYPE_GRENADETAIL      9
+#define SMOKETYPE_HOMINGTAIL       11
+#define SMOKETYPE_SKCORPSE         13
+#define SMOKETYPE_MUZZLE_PISTOL    15
+#define SMOKETYPE_MUZZLE_SHOTGUN   16
+#define SMOKETYPE_MUZZLE_AUTOMATIC 17
+#define SMOKETYPE_MUZZLE_REAPER    18
+#define SMOKETYPE_PINBALL          19 // Grenade in proxy pinball mode
+#define SMOKETYPE_WATER            20 // Splash effect in Chicago
+#define SMOKETYPE_DEBRIS           21 // Crash site cockpit, Skedar Ruins outro
+#define SMOKETYPE_UFO              22 // AF1 outro
 
 #define SOLOSTAGEINDEX_DEFECTION     0
 #define SOLOSTAGEINDEX_INVESTIGATION 1

@@ -45,6 +45,7 @@ struct prop {
 		struct doorobj *door;
 		struct weaponobj *weapon;
 		struct explosion *explosion;
+		struct smoke *smoke;
 	};
 
 	/*0x08*/ struct coord pos;
@@ -4580,13 +4581,13 @@ struct smokebit {
 };
 
 struct smoke {
-	/*0x000*/ u32 active;
+	/*0x000*/ struct prop *prop; // Prop of the smoke itself
 	/*0x004*/ s16 age;
 	/*0x006*/ u16 type : 7;
 	/*0x006*/ u16 unk06_07 : 1;
 	/*0x007*/ u16 unk06_08 : 8;
 	/*0x008*/ struct smokebit smokebits[10];
-	/*0x198*/ struct prop *prop;
+	/*0x198*/ struct prop *srcprop; // Prop of the thing generating smoke
 };
 
 struct textoverride {
