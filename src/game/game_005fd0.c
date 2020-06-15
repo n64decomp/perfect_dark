@@ -609,64 +609,21 @@ glabel var7f1a7e6c
 /*  f0068fc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel colourBlend
-/*  f006900:	00047e02 */ 	srl	$t7,$a0,0x18
-/*  f006904:	31f800ff */ 	andi	$t8,$t7,0xff
-/*  f006908:	03060019 */ 	multu	$t8,$a2
-/*  f00690c:	240e00ff */ 	addiu	$t6,$zero,0xff
-/*  f006910:	00054602 */ 	srl	$t0,$a1,0x18
-/*  f006914:	310900ff */ 	andi	$t1,$t0,0xff
-/*  f006918:	01c61823 */ 	subu	$v1,$t6,$a2
-/*  f00691c:	00047402 */ 	srl	$t6,$a0,0x10
-/*  f006920:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f006924:	00054402 */ 	srl	$t0,$a1,0x10
-/*  f006928:	0000c812 */ 	mflo	$t9
-/*  f00692c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f006930:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f006934:	00690019 */ 	multu	$v1,$t1
-/*  f006938:	310900ff */ 	andi	$t1,$t0,0xff
-/*  f00693c:	00005012 */ 	mflo	$t2
-/*  f006940:	032a5821 */ 	addu	$t3,$t9,$t2
-/*  f006944:	000b6202 */ 	srl	$t4,$t3,0x8
-/*  f006948:	00cf0019 */ 	multu	$a2,$t7
-/*  f00694c:	00047a02 */ 	srl	$t7,$a0,0x8
-/*  f006950:	31e800ff */ 	andi	$t0,$t7,0xff
-/*  f006954:	000c6e00 */ 	sll	$t5,$t4,0x18
-/*  f006958:	0000c012 */ 	mflo	$t8
-/*  f00695c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f006960:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f006964:	00690019 */ 	multu	$v1,$t1
-/*  f006968:	0000c812 */ 	mflo	$t9
-/*  f00696c:	03195021 */ 	addu	$t2,$t8,$t9
-/*  f006970:	0005c202 */ 	srl	$t8,$a1,0x8
-/*  f006974:	00c80019 */ 	multu	$a2,$t0
-/*  f006978:	331900ff */ 	andi	$t9,$t8,0xff
-/*  f00697c:	000a5a02 */ 	srl	$t3,$t2,0x8
-/*  f006980:	308800ff */ 	andi	$t0,$a0,0xff
-/*  f006984:	000b6400 */ 	sll	$t4,$t3,0x10
-/*  f006988:	01ac7025 */ 	or	$t6,$t5,$t4
-/*  f00698c:	00004812 */ 	mflo	$t1
-/*  f006990:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f006994:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f006998:	00790019 */ 	multu	$v1,$t9
-/*  f00699c:	30b900ff */ 	andi	$t9,$a1,0xff
-/*  f0069a0:	00005012 */ 	mflo	$t2
-/*  f0069a4:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f0069a8:	000b6a02 */ 	srl	$t5,$t3,0x8
-/*  f0069ac:	00c80019 */ 	multu	$a2,$t0
-/*  f0069b0:	000d6200 */ 	sll	$t4,$t5,0x8
-/*  f0069b4:	01cc7825 */ 	or	$t7,$t6,$t4
-/*  f0069b8:	0000c012 */ 	mflo	$t8
-/*  f0069bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0069c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0069c4:	00790019 */ 	multu	$v1,$t9
-/*  f0069c8:	00004812 */ 	mflo	$t1
-/*  f0069cc:	03095021 */ 	addu	$t2,$t8,$t1
-/*  f0069d0:	000a5a02 */ 	srl	$t3,$t2,0x8
-/*  f0069d4:	03e00008 */ 	jr	$ra
-/*  f0069d8:	01eb1025 */ 	or	$v0,$t7,$t3
-);
+/**
+ * Blends two colours together.
+ *
+ * The aweight argument is how much weight is given to colour A, on a scale of
+ * 0 to 255.
+ */
+u32 colourBlend(u32 a, u32 b, u32 aweight)
+{
+	u32 bweight = 0xff - aweight;
+
+	return (((aweight * ((a >> 24) & 0xff) + bweight * ((b >> 24) & 0xff)) >> 8) << 24)
+		| (((aweight * ((a >> 16) & 0xff) + bweight * ((b >> 16) & 0xff)) >> 8) << 16)
+		| (((aweight * ((a >> 8) & 0xff) + bweight * ((b >> 8) & 0xff)) >> 8) << 8)
+		| ((aweight * (a & 0xff) + bweight * (b & 0xff)) >> 8);
+}
 
 GLOBAL_ASM(
 glabel func0f0069dc

@@ -7,7 +7,7 @@ bool func0f005fd0(s32 arg0);
 s32 chrChooseFootstepSound(struct chrdata *chr, u32 arg1);
 void func0f0061dc(struct chrdata *chr);
 void func0f006520(struct chrdata *chr);
-s32 colourBlend(u32 colour, u32 prevcolour, u32 arg2);
+u32 colourBlend(u32 a, u32 b, u32 weight);
 u32 func0f0069dc(void);
 u32 func0f006b08(void);
 u32 func0f006b54(void);
