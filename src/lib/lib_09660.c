@@ -2721,21 +2721,15 @@ glabel func0000bba0
 /*     bbc0:	a525001a */ 	sh	$a1,0x1a($t1)
 );
 
-GLOBAL_ASM(
-glabel func0000bbc4
-/*     bbc4:	3c0e8006 */ 	lui	$t6,%hi(g_ViData)
-/*     bbc8:	8dced594 */ 	lw	$t6,%lo(g_ViData)($t6)
-/*     bbcc:	03e00008 */ 	jr	$ra
-/*     bbd0:	85c20018 */ 	lh	$v0,0x18($t6)
-);
+s16 viGetBufX(void)
+{
+	return g_ViData->bufx;
+}
 
-GLOBAL_ASM(
-glabel func0000bbd4
-/*     bbd4:	3c0e8006 */ 	lui	$t6,%hi(g_ViData)
-/*     bbd8:	8dced594 */ 	lw	$t6,%lo(g_ViData)($t6)
-/*     bbdc:	03e00008 */ 	jr	$ra
-/*     bbe0:	85c2001a */ 	lh	$v0,0x1a($t6)
-);
+s16 viGetBufY(void)
+{
+	return g_ViData->bufy;
+}
 
 GLOBAL_ASM(
 glabel func0000bbe4
