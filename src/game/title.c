@@ -424,7 +424,7 @@ void titleTickLegal(void)
 {
 	viSetFovY(60);
 	viSetAspect(1.33333333f);
-	func0000be84(100, 10000);
+	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
 	g_TitleTimer += g_Vars.lvupdate240_60;
@@ -451,7 +451,7 @@ void titleExitCheckControllers(void)
 void titleTickCheckControllers(void)
 {
 	g_TitleTimer++;
-	func0000be84(100, 10000);
+	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
 	if (g_TitleTimer > 6) {
@@ -1309,7 +1309,7 @@ void titleTickPdLogo(void)
 {
 	viSetFovY(46);
 	viSetAspect(1.33333333f);
-	func0000be84(100, 10000);
+	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
 	g_TitleTimer += g_Vars.lvupdate240_60;
@@ -3303,7 +3303,7 @@ void titleTickRarePresents(void)
 {
 	viSetFovY(60);
 	viSetAspect(1.33333333f);
-	func0000be84(100, 10000);
+	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
 	g_TitleTimer += g_Vars.lvupdate240_60;
@@ -3559,7 +3559,7 @@ void titleTickNintendoLogo(void)
 {
 	viSetFovY(60);
 	viSetAspect(1.33333333f);
-	func0000be84(100, 10000);
+	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
 	g_TitleTimer += g_Vars.lvupdate240_60;
@@ -3953,7 +3953,7 @@ void titleTickRareLogo(void)
 {
 	viSetFovY(60);
 	viSetAspect(1.33333333f);
-	func0000be84(100, 10000);
+	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
 	if (g_TitleTimer < 0) {
@@ -4476,7 +4476,7 @@ void titleTickNoController(void)
 {
 	viSetFovY(60);
 	viSetAspect(1.33333333f);
-	func0000be84(100, 10000);
+	viSetZRange(100, 10000);
 	viSetUseZBuf(false);
 
 	g_TitleTimer += g_Vars.lvupdate240_60;

@@ -2827,32 +2827,14 @@ f32 viGetFovY(void)
 	return g_ViData->fovy;
 }
 
-GLOBAL_ASM(
-glabel func0000be84
-/*     be84:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     be88:	3c038006 */ 	lui	$v1,%hi(g_ViData)
-/*     be8c:	2463d594 */ 	addiu	$v1,$v1,%lo(g_ViData)
-/*     be90:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*     be94:	c7a40018 */ 	lwc1	$f4,0x18($sp)
-/*     be98:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*     be9c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     bea0:	e7ae001c */ 	swc1	$f14,0x1c($sp)
-/*     bea4:	e5c40010 */ 	swc1	$f4,0x10($t6)
-/*     bea8:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*     beac:	c7a6001c */ 	lwc1	$f6,0x1c($sp)
-/*     beb0:	e5e60014 */ 	swc1	$f6,0x14($t7)
-/*     beb4:	8c620000 */ 	lw	$v0,0x0($v1)
-/*     beb8:	c44c0010 */ 	lwc1	$f12,0x10($v0)
-/*     bebc:	c44e0008 */ 	lwc1	$f14,0x8($v0)
-/*     bec0:	0fc2d266 */ 	jal	currentPlayerSetPerspective
-/*     bec4:	8c46000c */ 	lw	$a2,0xc($v0)
-/*     bec8:	0fc2d289 */ 	jal	currentPlayerSetCameraScale
-/*     becc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     bed0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     bed4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     bed8:	03e00008 */ 	jr	$ra
-/*     bedc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void viSetZRange(f32 near, f32 far)
+{
+	g_ViData->znear = near;
+	g_ViData->zfar = far;
+
+	currentPlayerSetPerspective(g_ViData->znear, g_ViData->fovy, g_ViData->aspect);
+	currentPlayerSetCameraScale();
+}
 
 void viGetZRange(struct zrange *zrange)
 {

@@ -53,7 +53,7 @@ void viSetAspect(f32 aspect);
 f32 viGetAspect(void);
 void viSetFovAspectAndSize(f32 fovy, f32 aspect, s16 width, s16 height);
 f32 viGetFovY(void);
-void func0000be84(f32 arg0, f32 arg1);
+void viSetZRange(f32 arg0, f32 arg1);
 void viGetZRange(struct zrange *zrange);
 u32 func0000bf04(void);
 
