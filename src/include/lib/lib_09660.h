@@ -49,7 +49,7 @@ s16 viGetViewLeft(void);
 s16 viGetViewTop(void);
 void viSetUseZBuf(bool use);
 void viSetFovY(f32 fovy);
-void func0000bd7c(f32 arg0);
+void viSetAspect(f32 aspect);
 u32 func0000bdc8(void);
 void func0000bdd8(f32 arg0, f32 arg1, s16 viewx, s16 viewy);
 f32 viGetFovY(void);

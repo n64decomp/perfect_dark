@@ -423,7 +423,7 @@ void titleExitLegal(void)
 void titleTickLegal(void)
 {
 	viSetFovY(60);
-	func0000bd7c(1.33333333f);
+	viSetAspect(1.33333333f);
 	func0000be84(100, 10000);
 	viSetUseZBuf(false);
 
@@ -1308,7 +1308,7 @@ void titleExitPdLogo(void)
 void titleTickPdLogo(void)
 {
 	viSetFovY(46);
-	func0000bd7c(1.33333333f);
+	viSetAspect(1.33333333f);
 	func0000be84(100, 10000);
 	viSetUseZBuf(false);
 
@@ -3302,7 +3302,7 @@ void titleExitRarePresents(void)
 void titleTickRarePresents(void)
 {
 	viSetFovY(60);
-	func0000bd7c(1.33333333f);
+	viSetAspect(1.33333333f);
 	func0000be84(100, 10000);
 	viSetUseZBuf(false);
 
@@ -3558,7 +3558,7 @@ u32 var800628c4 = 0x00000000;
 void titleTickNintendoLogo(void)
 {
 	viSetFovY(60);
-	func0000bd7c(1.33333333f);
+	viSetAspect(1.33333333f);
 	func0000be84(100, 10000);
 	viSetUseZBuf(false);
 
@@ -3952,7 +3952,7 @@ u32 var8006293c = 0x00000000;
 void titleTickRareLogo(void)
 {
 	viSetFovY(60);
-	func0000bd7c(1.33333333f);
+	viSetAspect(1.33333333f);
 	func0000be84(100, 10000);
 	viSetUseZBuf(false);
 
@@ -4445,7 +4445,7 @@ void titleInitSkip(void)
 
 	if (g_Is4Mb == true) {
 		g_TitleNextStage = STAGE_4MBMENU;
-		func0000bd7c(1.4545454978943f);
+		viSetAspect(1.4545454978943f);
 		viSetXY(320, 220);
 		viSetBuf(320, 220);
 		currentPlayerSetViewSize(320, 220);
@@ -4475,7 +4475,7 @@ void titleExitNoController(void)
 void titleTickNoController(void)
 {
 	viSetFovY(60);
-	func0000bd7c(1.33333333f);
+	viSetAspect(1.33333333f);
 	func0000be84(100, 10000);
 	viSetUseZBuf(false);
 
@@ -4746,7 +4746,7 @@ s32 titleGetMode(void)
 
 void titleTick(void)
 {
-	func0000bd7c(576.0f / var800624a0);
+	viSetAspect(576.0f / var800624a0);
 	viSetXY(576, var800624a0);
 	viSetBuf(576, var800624a0);
 	currentPlayerSetViewSize(576, var800624a0);

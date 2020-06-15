@@ -2797,28 +2797,13 @@ void viSetFovY(f32 fovy)
 	currentPlayerSetCameraScale();
 }
 
-GLOBAL_ASM(
-glabel func0000bd7c
-/*     bd7c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     bd80:	3c038006 */ 	lui	$v1,%hi(g_ViData)
-/*     bd84:	2463d594 */ 	addiu	$v1,$v1,%lo(g_ViData)
-/*     bd88:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*     bd8c:	c7a40018 */ 	lwc1	$f4,0x18($sp)
-/*     bd90:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*     bd94:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     bd98:	e5c4000c */ 	swc1	$f4,0xc($t6)
-/*     bd9c:	8c620000 */ 	lw	$v0,0x0($v1)
-/*     bda0:	c44c0010 */ 	lwc1	$f12,0x10($v0)
-/*     bda4:	c44e0008 */ 	lwc1	$f14,0x8($v0)
-/*     bda8:	0fc2d266 */ 	jal	currentPlayerSetPerspective
-/*     bdac:	8c46000c */ 	lw	$a2,0xc($v0)
-/*     bdb0:	0fc2d289 */ 	jal	currentPlayerSetCameraScale
-/*     bdb4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     bdb8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     bdbc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     bdc0:	03e00008 */ 	jr	$ra
-/*     bdc4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void viSetAspect(f32 aspect)
+{
+	g_ViData->aspect = aspect;
+
+	currentPlayerSetPerspective(g_ViData->znear, g_ViData->fovy, g_ViData->aspect);
+	currentPlayerSetCameraScale();
+}
 
 GLOBAL_ASM(
 glabel func0000bdc8
