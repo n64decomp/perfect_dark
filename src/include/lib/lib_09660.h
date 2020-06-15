@@ -38,7 +38,7 @@ u32 func0000b330(void);
 void viSetBuf(s16 x, s16 y);
 s16 viGetBufX(void);
 s16 viGetBufY(void);
-void func0000bbe4(s16 arg0, s16 arg1);
+void viSetXY(s16 x, s16 y);
 s16 viGetX(void);
 s16 viGetY(void);
 void func0000bc28(s16 arg0, s16 arg1);

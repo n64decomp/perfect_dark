@@ -2725,18 +2725,11 @@ s16 viGetBufY(void)
 	return g_ViData->bufy;
 }
 
-GLOBAL_ASM(
-glabel func0000bbe4
-/*     bbe4:	3c028006 */ 	lui	$v0,%hi(g_ViData)
-/*     bbe8:	2442d594 */ 	addiu	$v0,$v0,%lo(g_ViData)
-/*     bbec:	8c480000 */ 	lw	$t0,0x0($v0)
-/*     bbf0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*     bbf4:	afa50004 */ 	sw	$a1,0x4($sp)
-/*     bbf8:	a5040004 */ 	sh	$a0,0x4($t0)
-/*     bbfc:	8c490000 */ 	lw	$t1,0x0($v0)
-/*     bc00:	03e00008 */ 	jr	$ra
-/*     bc04:	a5250006 */ 	sh	$a1,0x6($t1)
-);
+void viSetXY(s16 x, s16 y)
+{
+	g_ViData->x = x;
+	g_ViData->y = y;
+}
 
 s16 viGetX(void)
 {

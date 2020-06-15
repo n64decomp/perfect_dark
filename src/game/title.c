@@ -4446,7 +4446,7 @@ void titleInitSkip(void)
 	if (g_Is4Mb == true) {
 		g_TitleNextStage = STAGE_4MBMENU;
 		func0000bd7c(1.4545454978943f);
-		func0000bbe4(320, 220);
+		viSetXY(320, 220);
 		viSetBuf(320, 220);
 		currentPlayerSetViewSize(320, 220);
 		func0000bc28(320, 220);
@@ -4747,7 +4747,7 @@ s32 titleGetMode(void)
 void titleTick(void)
 {
 	func0000bd7c(576.0f / var800624a0);
-	func0000bbe4(576, var800624a0);
+	viSetXY(576, var800624a0);
 	viSetBuf(576, var800624a0);
 	currentPlayerSetViewSize(576, var800624a0);
 	func0000bc28(576, var800624a0);
@@ -4961,7 +4961,7 @@ bool func0f01ad5c(void)
 void func0f01adb8(void)
 {
 	func0000aab0(2);
-	func0000bbe4(576, var800624a0);
+	viSetXY(576, var800624a0);
 	viSetBuf(576, var800624a0);
 	currentPlayerSetViewSize(576, var800624a0);
 	func0000bc28(576, var800624a0);
