@@ -1557,11 +1557,12 @@ glabel func0000ab2c
 /*     ab30:	8dced590 */ 	lw	$t6,%lo(var8005d590)($t6)
 /*     ab34:	03e00008 */ 	jr	$ra
 /*     ab38:	8dc20028 */ 	lw	$v0,0x28($t6)
-/*     ab3c:	3c0e8006 */ 	lui	$t6,%hi(g_ViData)
-/*     ab40:	8dced594 */ 	lw	$t6,%lo(g_ViData)($t6)
-/*     ab44:	03e00008 */ 	jr	$ra
-/*     ab48:	adc40028 */ 	sw	$a0,0x28($t6)
 );
+
+void viSetUnk28(u32 arg0)
+{
+	g_ViData->unk28 = arg0;
+}
 
 GLOBAL_ASM(
 glabel func0000ab4c
