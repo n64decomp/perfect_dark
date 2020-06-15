@@ -21,7 +21,7 @@ u32 func00009ed4(void);
 u32 func0000a044(void);
 u32 func0000aa50(void);
 void func0000aab0(u32 arg0);
-u32 func0000ab1c(void);
+u32 viGetUnk28(void);
 u32 func0000ab2c(void);
 u32 func0000ab4c(void);
 u32 func0000ab6c(void);

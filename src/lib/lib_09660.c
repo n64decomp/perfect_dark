@@ -1546,13 +1546,10 @@ glabel func0000aab0
 /*     ab18:	ac20d598 */ 	sw	$zero,%lo(var8005d598)($at)
 );
 
-GLOBAL_ASM(
-glabel func0000ab1c
-/*     ab1c:	3c0e8006 */ 	lui	$t6,%hi(g_ViData)
-/*     ab20:	8dced594 */ 	lw	$t6,%lo(g_ViData)($t6)
-/*     ab24:	03e00008 */ 	jr	$ra
-/*     ab28:	8dc20028 */ 	lw	$v0,0x28($t6)
-);
+u32 viGetUnk28(void)
+{
+	return g_ViData->unk28;
+}
 
 GLOBAL_ASM(
 glabel func0000ab2c
