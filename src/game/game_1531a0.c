@@ -471,17 +471,12 @@ Gfx *func0f1537dc(Gfx *gdl, u32 colour)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f153838
-/*  f153838:	3c0efcff */ 	lui	$t6,0xfcff
-/*  f15383c:	3c0fff2d */ 	lui	$t7,0xff2d
-/*  f153840:	35effeff */ 	ori	$t7,$t7,0xfeff
-/*  f153844:	35ce97ff */ 	ori	$t6,$t6,0x97ff
-/*  f153848:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*  f15384c:	ac8f0004 */ 	sw	$t7,0x4($a0)
-/*  f153850:	03e00008 */ 	jr	$ra
-/*  f153854:	24820008 */ 	addiu	$v0,$a0,0x8
-);
+Gfx *func0f153838(Gfx *gdl)
+{
+	gDPSetCombine(gdl++, 0xff97ff, 0xff2dfeff);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f153858
