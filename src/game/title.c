@@ -4752,7 +4752,7 @@ void titleTick(void)
 	currentPlayerSetViewSize(576, var800624a0);
 	viSetViewSize(576, var800624a0);
 	currentPlayerSetViewPosition(0, 0);
-	func0000bca8(0, 0);
+	viSetViewPosition(0, 0);
 
 	// If there's a new mode to transition to, schedule it to apply in 3 ticks
 	// time and call the exit function for the current mode.
@@ -4966,7 +4966,7 @@ void func0f01adb8(void)
 	currentPlayerSetViewSize(576, var800624a0);
 	viSetViewSize(576, var800624a0);
 	currentPlayerSetViewPosition(0, 0);
-	func0000bca8(0, 0);
+	viSetViewPosition(0, 0);
 }
 
 void func0f01ae30(void)

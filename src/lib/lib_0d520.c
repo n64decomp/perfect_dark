@@ -1279,7 +1279,7 @@ glabel func0000e324
 /*     e504:	8e300284 */ 	lw	$s0,0x284($s1)
 .L0000e508:
 /*     e508:	86040634 */ 	lh	$a0,0x634($s0)
-/*     e50c:	0c002f2a */ 	jal	func0000bca8
+/*     e50c:	0c002f2a */ 	jal	viSetViewPosition
 /*     e510:	86050636 */ 	lh	$a1,0x636($s0)
 /*     e514:	8e300284 */ 	lw	$s0,0x284($s1)
 /*     e518:	c60c1854 */ 	lwc1	$f12,0x1854($s0)

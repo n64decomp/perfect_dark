@@ -2766,31 +2766,13 @@ s16 viGetViewY(void)
 	return g_ViData->viewy;
 }
 
-GLOBAL_ASM(
-glabel func0000bca8
-/*     bca8:	3c038006 */ 	lui	$v1,%hi(g_ViData)
-/*     bcac:	2463d594 */ 	addiu	$v1,$v1,%lo(g_ViData)
-/*     bcb0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     bcb4:	8c680000 */ 	lw	$t0,0x0($v1)
-/*     bcb8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     bcbc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*     bcc0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*     bcc4:	a5040020 */ 	sh	$a0,0x20($t0)
-/*     bcc8:	8c690000 */ 	lw	$t1,0x0($v1)
-/*     bccc:	a5250022 */ 	sh	$a1,0x22($t1)
-/*     bcd0:	8c620000 */ 	lw	$v0,0x0($v1)
-/*     bcd4:	844a0020 */ 	lh	$t2,0x20($v0)
-/*     bcd8:	844b0022 */ 	lh	$t3,0x22($v0)
-/*     bcdc:	448a2000 */ 	mtc1	$t2,$f4
-/*     bce0:	448b3000 */ 	mtc1	$t3,$f6
-/*     bce4:	46802320 */ 	cvt.s.w	$f12,$f4
-/*     bce8:	0fc2d261 */ 	jal	currentPlayerSetScreenPosition
-/*     bcec:	468033a0 */ 	cvt.s.w	$f14,$f6
-/*     bcf0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     bcf4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     bcf8:	03e00008 */ 	jr	$ra
-/*     bcfc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void viSetViewPosition(s16 left, s16 top)
+{
+	g_ViData->viewleft = left;
+	g_ViData->viewtop = top;
+
+	currentPlayerSetScreenPosition(g_ViData->viewleft, g_ViData->viewtop);
+}
 
 s16 viGetViewLeft(void)
 {

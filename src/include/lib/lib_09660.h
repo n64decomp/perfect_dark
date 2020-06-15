@@ -44,7 +44,7 @@ s16 viGetY(void);
 void viSetViewSize(s16 x, s16 y);
 s16 viGetViewX(void);
 s16 viGetViewY(void);
-void func0000bca8(s16 arg0, s16 arg1);
+void viSetViewPosition(s16 left, s16 top);
 s16 viGetViewLeft(void);
 s16 viGetViewTop(void);
 void viSetUseZBuf(bool use);
