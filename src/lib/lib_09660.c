@@ -2810,48 +2810,17 @@ f32 viGetAspect(void)
 	return g_ViData->aspect;
 }
 
-GLOBAL_ASM(
-glabel func0000bdd8
-/*     bdd8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     bddc:	3c038006 */ 	lui	$v1,%hi(g_ViData)
-/*     bde0:	2463d594 */ 	addiu	$v1,$v1,%lo(g_ViData)
-/*     bde4:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*     bde8:	c7a40018 */ 	lwc1	$f4,0x18($sp)
-/*     bdec:	8c680000 */ 	lw	$t0,0x0($v1)
-/*     bdf0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     bdf4:	e7ae001c */ 	swc1	$f14,0x1c($sp)
-/*     bdf8:	afa60020 */ 	sw	$a2,0x20($sp)
-/*     bdfc:	afa70024 */ 	sw	$a3,0x24($sp)
-/*     be00:	e5040008 */ 	swc1	$f4,0x8($t0)
-/*     be04:	8c690000 */ 	lw	$t1,0x0($v1)
-/*     be08:	c7a6001c */ 	lwc1	$f6,0x1c($sp)
-/*     be0c:	e526000c */ 	swc1	$f6,0xc($t1)
-/*     be10:	8c6a0000 */ 	lw	$t2,0x0($v1)
-/*     be14:	a546001c */ 	sh	$a2,0x1c($t2)
-/*     be18:	8c6b0000 */ 	lw	$t3,0x0($v1)
-/*     be1c:	a567001e */ 	sh	$a3,0x1e($t3)
-/*     be20:	8c620000 */ 	lw	$v0,0x0($v1)
-/*     be24:	844c001c */ 	lh	$t4,0x1c($v0)
-/*     be28:	844d001e */ 	lh	$t5,0x1e($v0)
-/*     be2c:	448c4000 */ 	mtc1	$t4,$f8
-/*     be30:	448d5000 */ 	mtc1	$t5,$f10
-/*     be34:	46804320 */ 	cvt.s.w	$f12,$f8
-/*     be38:	0fc2d256 */ 	jal	currentPlayerSetScreenSize
-/*     be3c:	468053a0 */ 	cvt.s.w	$f14,$f10
-/*     be40:	3c038006 */ 	lui	$v1,%hi(g_ViData)
-/*     be44:	2463d594 */ 	addiu	$v1,$v1,%lo(g_ViData)
-/*     be48:	8c620000 */ 	lw	$v0,0x0($v1)
-/*     be4c:	c44c0010 */ 	lwc1	$f12,0x10($v0)
-/*     be50:	c44e0008 */ 	lwc1	$f14,0x8($v0)
-/*     be54:	0fc2d266 */ 	jal	currentPlayerSetPerspective
-/*     be58:	8c46000c */ 	lw	$a2,0xc($v0)
-/*     be5c:	0fc2d289 */ 	jal	currentPlayerSetCameraScale
-/*     be60:	00000000 */ 	sll	$zero,$zero,0x0
-/*     be64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     be68:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     be6c:	03e00008 */ 	jr	$ra
-/*     be70:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void viSetFovAspectAndSize(f32 fovy, f32 aspect, s16 width, s16 height)
+{
+	g_ViData->fovy = fovy;
+	g_ViData->aspect = aspect;
+	g_ViData->viewx = width;
+	g_ViData->viewy = height;
+
+	currentPlayerSetScreenSize(g_ViData->viewx, g_ViData->viewy);
+	currentPlayerSetPerspective(g_ViData->znear, g_ViData->fovy, g_ViData->aspect);
+	currentPlayerSetCameraScale();
+}
 
 f32 viGetFovY(void)
 {

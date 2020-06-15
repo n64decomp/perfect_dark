@@ -8129,7 +8129,7 @@ glabel func0f0bd764
 /*  f0bd840:	44816000 */ 	mtc1	$at,$f12
 /*  f0bd844:	01203025 */ 	or	$a2,$t1,$zero
 /*  f0bd848:	01403825 */ 	or	$a3,$t2,$zero
-/*  f0bd84c:	0c002f76 */ 	jal	func0000bdd8
+/*  f0bd84c:	0c002f76 */ 	jal	viSetFovAspectAndSize
 /*  f0bd850:	c7ae0024 */ 	lwc1	$f14,0x24($sp)
 /*  f0bd854:	0fc2f1eb */ 	jal	func0f0bc7ac
 /*  f0bd858:	00000000 */ 	sll	$zero,$zero,0x0
@@ -8390,7 +8390,7 @@ glabel var7f1ad6ac
 /*  f0bdb78:	44816000 */ 	mtc1	$at,$f12
 /*  f0bdb7c:	01203025 */ 	or	$a2,$t1,$zero
 /*  f0bdb80:	01403825 */ 	or	$a3,$t2,$zero
-/*  f0bdb84:	0c002f76 */ 	jal	func0000bdd8
+/*  f0bdb84:	0c002f76 */ 	jal	viSetFovAspectAndSize
 /*  f0bdb88:	c7ae032c */ 	lwc1	$f14,0x32c($sp)
 /*  f0bdb8c:	0fc2f1eb */ 	jal	func0f0bc7ac
 /*  f0bdb90:	00000000 */ 	sll	$zero,$zero,0x0
@@ -10642,7 +10642,7 @@ glabel var7f1ad6ac
 //
 //	// db44
 //	func0000aab0(var800705c0[g_HiResActive].unk10);
-//	func0000bdd8(60, aspectratio, func0f0bc554(), func0f0bcaa0());
+//	viSetFovAspectAndSize(60, aspectratio, func0f0bc554(), func0f0bcaa0());
 //	viSetViewPosition(func0f0bc7ac(), func0f0bce24());
 //	viSetXY(func0f0bc44c(), func0f0bc478());
 //	viSetBuf(func0f0bc44c(), func0f0bc478());

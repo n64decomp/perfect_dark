@@ -1285,7 +1285,7 @@ glabel func0000e324
 /*     e518:	c60c1854 */ 	lwc1	$f12,0x1854($s0)
 /*     e51c:	c60e1858 */ 	lwc1	$f14,0x1858($s0)
 /*     e520:	86060630 */ 	lh	$a2,0x630($s0)
-/*     e524:	0c002f76 */ 	jal	func0000bdd8
+/*     e524:	0c002f76 */ 	jal	viSetFovAspectAndSize
 /*     e528:	86070632 */ 	lh	$a3,0x632($s0)
 .L0000e52c:
 /*     e52c:	0fc5b2c1 */ 	jal	currentPlayerRecordDistanceMoved
