@@ -3373,11 +3373,11 @@ glabel var7f1b7868
 .L0f16b030:
 /*  f16b030:	3c0bed00 */ 	lui	$t3,0xed00
 /*  f16b034:	ae0b0000 */ 	sw	$t3,0x0($s0)
-/*  f16b038:	0c002f02 */ 	jal	func0000bc08
+/*  f16b038:	0c002f02 */ 	jal	viGetX
 /*  f16b03c:	26520008 */ 	addiu	$s2,$s2,0x8
 /*  f16b040:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  f16b044:	0011cc03 */ 	sra	$t9,$s1,0x10
-/*  f16b048:	0c002f06 */ 	jal	func0000bc18
+/*  f16b048:	0c002f06 */ 	jal	viGetY
 /*  f16b04c:	03208825 */ 	or	$s1,$t9,$zero
 /*  f16b050:	44829000 */ 	mtc1	$v0,$f18
 /*  f16b054:	44914000 */ 	mtc1	$s1,$f8
