@@ -41,7 +41,7 @@ s16 viGetBufY(void);
 void viSetXY(s16 x, s16 y);
 s16 viGetX(void);
 s16 viGetY(void);
-void func0000bc28(s16 arg0, s16 arg1);
+void viSetViewSize(s16 x, s16 y);
 s16 viGetViewX(void);
 s16 viGetViewY(void);
 void func0000bca8(s16 arg0, s16 arg1);

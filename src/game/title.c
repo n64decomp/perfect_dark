@@ -4449,7 +4449,7 @@ void titleInitSkip(void)
 		viSetXY(320, 220);
 		viSetBuf(320, 220);
 		currentPlayerSetViewSize(320, 220);
-		func0000bc28(320, 220);
+		viSetViewSize(320, 220);
 	}
 
 	func0000e95c(g_TitleNextStage);
@@ -4750,7 +4750,7 @@ void titleTick(void)
 	viSetXY(576, var800624a0);
 	viSetBuf(576, var800624a0);
 	currentPlayerSetViewSize(576, var800624a0);
-	func0000bc28(576, var800624a0);
+	viSetViewSize(576, var800624a0);
 	currentPlayerSetViewPosition(0, 0);
 	func0000bca8(0, 0);
 
@@ -4964,7 +4964,7 @@ void func0f01adb8(void)
 	viSetXY(576, var800624a0);
 	viSetBuf(576, var800624a0);
 	currentPlayerSetViewSize(576, var800624a0);
-	func0000bc28(576, var800624a0);
+	viSetViewSize(576, var800624a0);
 	currentPlayerSetViewPosition(0, 0);
 	func0000bca8(0, 0);
 }

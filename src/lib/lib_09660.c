@@ -2741,33 +2741,14 @@ s16 viGetY(void)
 	return g_ViData->y;
 }
 
-GLOBAL_ASM(
-glabel func0000bc28
-/*     bc28:	3c038006 */ 	lui	$v1,%hi(g_ViData)
-/*     bc2c:	2463d594 */ 	addiu	$v1,$v1,%lo(g_ViData)
-/*     bc30:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     bc34:	8c680000 */ 	lw	$t0,0x0($v1)
-/*     bc38:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     bc3c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*     bc40:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*     bc44:	a504001c */ 	sh	$a0,0x1c($t0)
-/*     bc48:	8c690000 */ 	lw	$t1,0x0($v1)
-/*     bc4c:	a525001e */ 	sh	$a1,0x1e($t1)
-/*     bc50:	8c620000 */ 	lw	$v0,0x0($v1)
-/*     bc54:	844a001c */ 	lh	$t2,0x1c($v0)
-/*     bc58:	844b001e */ 	lh	$t3,0x1e($v0)
-/*     bc5c:	448a2000 */ 	mtc1	$t2,$f4
-/*     bc60:	448b3000 */ 	mtc1	$t3,$f6
-/*     bc64:	46802320 */ 	cvt.s.w	$f12,$f4
-/*     bc68:	0fc2d256 */ 	jal	currentPlayerSetScreenSize
-/*     bc6c:	468033a0 */ 	cvt.s.w	$f14,$f6
-/*     bc70:	0fc2d289 */ 	jal	currentPlayerSetCameraScale
-/*     bc74:	00000000 */ 	sll	$zero,$zero,0x0
-/*     bc78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     bc7c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     bc80:	03e00008 */ 	jr	$ra
-/*     bc84:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void viSetViewSize(s16 x, s16 y)
+{
+	g_ViData->viewx = x;
+	g_ViData->viewy = y;
+
+	currentPlayerSetScreenSize(g_ViData->viewx, g_ViData->viewy);
+	currentPlayerSetCameraScale();
+}
 
 /**
  * This is actually the width.
