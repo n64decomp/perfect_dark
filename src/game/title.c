@@ -3452,8 +3452,8 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 	gdl = func0f01afc0(gdl);
 	gdl = func0f153628(gdl);
 
-	sp84 = func0000bd00() + 50;
-	sp80 = func0000bd10() + func0000bc98() - 80;
+	sp84 = viGetLeft() + 50;
+	sp80 = viGetTop() + viGetHeight() - 80;
 
 	var80062868 = 0;
 
@@ -3461,8 +3461,8 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 		gdl = func0f018ebc(gdl, &sp84, &sp80, L_OPTIONS(5), g_TitleTimer, &sp76); // "earth:"
 
 		if (g_TitleTimer > 70) {
-			sp84 = func0000bd00() + 50;
-			sp80 = func0000bd10() + func0000bc98() - 60;
+			sp84 = viGetLeft() + 50;
+			sp80 = viGetTop() + viGetHeight() - 60;
 			gdl = func0f018ebc(gdl, &sp84, &sp80, L_OPTIONS(6), g_TitleTimer - 100, &sp76); // "   prehistory"
 		}
 	} else {
@@ -3494,9 +3494,9 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 		f32 tmp2 = ((g_TitleTimer - 222.0f) / 78.0f);
 		u32 stack;
 
-		gdl = func0f153a34(gdl, func0000bd00(), func0000bd10(),
-				func0000bd00() + func0000bc88(),
-				func0000bd10() + func0000bc98(),
+		gdl = func0f153a34(gdl, viGetLeft(), viGetTop(),
+				viGetLeft() + viGetWidth(),
+				viGetTop() + viGetHeight(),
 				255.0f * tmp2);
 	}
 

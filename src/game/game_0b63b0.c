@@ -5501,13 +5501,13 @@ glabel fadeDraw
 /*  f0bb1dc:	ac6f0004 */ 	sw	$t7,0x4($v1)
 /*  f0bb1e0:	26100008 */ 	addiu	$s0,$s0,0x8
 /*  f0bb1e4:	afb0003c */ 	sw	$s0,0x3c($sp)
-/*  f0bb1e8:	0c002f22 */ 	jal	func0000bc88
+/*  f0bb1e8:	0c002f22 */ 	jal	viGetWidth
 /*  f0bb1ec:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f0bb1f0:	0c002f40 */ 	jal	func0000bd00
+/*  f0bb1f0:	0c002f40 */ 	jal	viGetLeft
 /*  f0bb1f4:	a7a20026 */ 	sh	$v0,0x26($sp)
-/*  f0bb1f8:	0c002f44 */ 	jal	func0000bd10
+/*  f0bb1f8:	0c002f44 */ 	jal	viGetTop
 /*  f0bb1fc:	a7a20028 */ 	sh	$v0,0x28($sp)
-/*  f0bb200:	0c002f26 */ 	jal	func0000bc98
+/*  f0bb200:	0c002f26 */ 	jal	viGetHeight
 /*  f0bb204:	a7a2002a */ 	sh	$v0,0x2a($sp)
 /*  f0bb208:	87ab002a */ 	lh	$t3,0x2a($sp)
 /*  f0bb20c:	87ad0028 */ 	lh	$t5,0x28($sp)
@@ -5522,9 +5522,9 @@ glabel fadeDraw
 /*  f0bb230:	01c17825 */ 	or	$t7,$t6,$at
 /*  f0bb234:	00194b80 */ 	sll	$t1,$t9,0xe
 /*  f0bb238:	01e96825 */ 	or	$t5,$t7,$t1
-/*  f0bb23c:	0c002f40 */ 	jal	func0000bd00
+/*  f0bb23c:	0c002f40 */ 	jal	viGetLeft
 /*  f0bb240:	af0d0000 */ 	sw	$t5,0x0($t8)
-/*  f0bb244:	0c002f44 */ 	jal	func0000bd10
+/*  f0bb244:	0c002f44 */ 	jal	viGetTop
 /*  f0bb248:	a7a2002a */ 	sh	$v0,0x2a($sp)
 /*  f0bb24c:	87ab002a */ 	lh	$t3,0x2a($sp)
 /*  f0bb250:	8faf003c */ 	lw	$t7,0x3c($sp)
@@ -12754,10 +12754,10 @@ Gfx *func0f0c07c8(Gfx *gdl)
 
 	// Draw menu
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY && g_Vars.currentplayer->mpmenuon) {
-		s32 a = func0000bd00();
-		s32 b = func0000bd10();
-		s32 c = func0000bd00() + func0000bc88();
-		s32 d = func0000bd10() + func0000bc98();
+		s32 a = viGetLeft();
+		s32 b = viGetTop();
+		s32 c = viGetLeft() + viGetWidth();
+		s32 d = viGetTop() + viGetHeight();
 
 		gdl = func0f153628(gdl);
 		gdl = func0f153a34(gdl, a, b, c, d, 160);
@@ -12998,10 +12998,10 @@ Gfx *func0f0c07c8(Gfx *gdl)
 		}
 
 		if (g_Vars.currentplayer->mpmenuon) {
-			s32 a = func0000bd00();
-			s32 b = func0000bd10();
-			s32 c = func0000bd00() + func0000bc88();
-			s32 d = func0000bd10() + func0000bc98();
+			s32 a = viGetLeft();
+			s32 b = viGetTop();
+			s32 c = viGetLeft() + viGetWidth();
+			s32 d = viGetTop() + viGetHeight();
 
 			gdl = func0f153628(gdl);
 			gdl = func0f153a34(gdl, a, b, c, d, 160);

@@ -610,7 +610,7 @@ glabel var7f1a7e6c
 );
 
 GLOBAL_ASM(
-glabel func0f006900
+glabel colourBlend
 /*  f006900:	00047e02 */ 	srl	$t7,$a0,0x18
 /*  f006904:	31f800ff */ 	andi	$t8,$t7,0xff
 /*  f006908:	03060019 */ 	multu	$t8,$a2

@@ -2216,7 +2216,7 @@ glabel func0000b330
 /*     b490:	55c0004e */ 	bnezl	$t6,.L0000b5cc
 /*     b494:	8d6d0290 */ 	lw	$t5,0x290($t3)
 .L0000b498:
-/*     b498:	0c002f44 */ 	jal	func0000bd10
+/*     b498:	0c002f44 */ 	jal	viGetTop
 /*     b49c:	afa600a8 */ 	sw	$a2,0xa8($sp)
 /*     b4a0:	1840001a */ 	blez	$v0,.L0000b50c
 /*     b4a4:	8fa600a8 */ 	lw	$a2,0xa8($sp)
@@ -2224,7 +2224,7 @@ glabel func0000b330
 /*     b4ac:	24c60008 */ 	addiu	$a2,$a2,0x8
 /*     b4b0:	0c002f02 */ 	jal	func0000bc08
 /*     b4b4:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*     b4b8:	0c002f44 */ 	jal	func0000bd10
+/*     b4b8:	0c002f44 */ 	jal	viGetTop
 /*     b4bc:	a7a20056 */ 	sh	$v0,0x56($sp)
 /*     b4c0:	87ae0056 */ 	lh	$t6,0x56($sp)
 /*     b4c4:	244fffff */ 	addiu	$t7,$v0,-1
@@ -2246,9 +2246,9 @@ glabel func0000b330
 /*     b504:	ac600004 */ 	sw	$zero,0x4($v1)
 /*     b508:	24c60008 */ 	addiu	$a2,$a2,0x8
 .L0000b50c:
-/*     b50c:	0c002f26 */ 	jal	func0000bc98
+/*     b50c:	0c002f26 */ 	jal	viGetHeight
 /*     b510:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*     b514:	0c002f44 */ 	jal	func0000bd10
+/*     b514:	0c002f44 */ 	jal	viGetTop
 /*     b518:	a7a20042 */ 	sh	$v0,0x42($sp)
 /*     b51c:	0c002f06 */ 	jal	func0000bc18
 /*     b520:	a7a20056 */ 	sh	$v0,0x56($sp)
@@ -2276,9 +2276,9 @@ glabel func0000b330
 /*     b578:	8fae0090 */ 	lw	$t6,0x90($sp)
 /*     b57c:	000fc380 */ 	sll	$t8,$t7,0xe
 /*     b580:	01b8c825 */ 	or	$t9,$t5,$t8
-/*     b584:	0c002f44 */ 	jal	func0000bd10
+/*     b584:	0c002f44 */ 	jal	viGetTop
 /*     b588:	add90000 */ 	sw	$t9,0x0($t6)
-/*     b58c:	0c002f26 */ 	jal	func0000bc98
+/*     b58c:	0c002f26 */ 	jal	viGetHeight
 /*     b590:	a7a20056 */ 	sh	$v0,0x56($sp)
 /*     b594:	87af0056 */ 	lh	$t7,0x56($sp)
 /*     b598:	8fa600a8 */ 	lw	$a2,0xa8($sp)
@@ -2798,7 +2798,7 @@ glabel func0000bc28
 );
 
 GLOBAL_ASM(
-glabel func0000bc88
+glabel viGetWidth
 /*     bc88:	3c0e8006 */ 	lui	$t6,%hi(var8005d594)
 /*     bc8c:	8dced594 */ 	lw	$t6,%lo(var8005d594)($t6)
 /*     bc90:	03e00008 */ 	jr	$ra
@@ -2806,7 +2806,7 @@ glabel func0000bc88
 );
 
 GLOBAL_ASM(
-glabel func0000bc98
+glabel viGetHeight
 /*     bc98:	3c0e8006 */ 	lui	$t6,%hi(var8005d594)
 /*     bc9c:	8dced594 */ 	lw	$t6,%lo(var8005d594)($t6)
 /*     bca0:	03e00008 */ 	jr	$ra
@@ -2840,7 +2840,7 @@ glabel func0000bca8
 );
 
 GLOBAL_ASM(
-glabel func0000bd00
+glabel viGetLeft
 /*     bd00:	3c0e8006 */ 	lui	$t6,%hi(var8005d594)
 /*     bd04:	8dced594 */ 	lw	$t6,%lo(var8005d594)($t6)
 /*     bd08:	03e00008 */ 	jr	$ra
@@ -2848,7 +2848,7 @@ glabel func0000bd00
 );
 
 GLOBAL_ASM(
-glabel func0000bd10
+glabel viGetTop
 /*     bd10:	3c0e8006 */ 	lui	$t6,%hi(var8005d594)
 /*     bd14:	8dced594 */ 	lw	$t6,%lo(var8005d594)($t6)
 /*     bd18:	03e00008 */ 	jr	$ra

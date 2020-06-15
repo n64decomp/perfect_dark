@@ -25,10 +25,10 @@ extern struct menu_dialog menudialog_mpquickteam;
 extern s32 g_Difficulty;
 
 extern s16 g_FadeNumFrames;
-extern f32 fade80084058;
-extern u32 g_FadePrevColor;
-extern u32 g_FadeColor;
-extern u16 fade80084064;
+extern f32 g_FadeFrac;
+extern u32 g_FadePrevColour;
+extern u32 g_FadeColour;
+extern s16 g_FadeDelay;
 
 extern s32 var80087260;
 extern struct stagethinglist stagethinglist_20e10;

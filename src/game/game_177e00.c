@@ -410,7 +410,7 @@ glabel menuhandler001785c4
 /*  f1786ac:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1786b0:
 /*  f1786b0:	44c8f800 */ 	ctc1	$t0,$31
-/*  f1786b4:	0fc01a40 */ 	jal	func0f006900
+/*  f1786b4:	0fc01a40 */ 	jal	colourBlend
 /*  f1786b8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1786bc:	8fa90020 */ 	lw	$t1,0x20($sp)
 /*  f1786c0:	ad220004 */ 	sw	$v0,0x4($t1)
@@ -745,7 +745,7 @@ glabel menuhandler00178a94
 /*  f178b84:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f178b88:
 /*  f178b88:	44caf800 */ 	ctc1	$t2,$31
-/*  f178b8c:	0fc01a40 */ 	jal	func0f006900
+/*  f178b8c:	0fc01a40 */ 	jal	colourBlend
 /*  f178b90:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f178b94:	8fab0020 */ 	lw	$t3,0x20($sp)
 /*  f178b98:	ad620004 */ 	sw	$v0,0x4($t3)
