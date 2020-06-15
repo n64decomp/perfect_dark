@@ -4905,7 +4905,7 @@ glabel var7f1ad5dc
 /*  f0ba78c:	27a60184 */ 	addiu	$a2,$sp,0x184
 /*  f0ba790:	0fc4a2b5 */ 	jal	currentPlayerSetFovY
 /*  f0ba794:	c7ac0114 */ 	lwc1	$f12,0x114($sp)
-/*  f0ba798:	0c002f4c */ 	jal	func0000bd30
+/*  f0ba798:	0c002f4c */ 	jal	viSetFovY
 /*  f0ba79c:	c7ac0114 */ 	lwc1	$f12,0x114($sp)
 /*  f0ba7a0:	8e6f0290 */ 	lw	$t7,0x290($s3)
 /*  f0ba7a4:	3c0141f0 */ 	lui	$at,0x41f0
@@ -5116,12 +5116,12 @@ void currentPlayerUpdateZoom(void)
 	}
 
 	currentPlayerSetFovY(g_Vars.currentplayer->zoominfovy);
-	func0000bd30(g_Vars.currentplayer->zoominfovy);
+	viSetFovY(g_Vars.currentplayer->zoominfovy);
 
 	if (g_Vars.currentplayer->teleportstate != TELEPORTSTATE_0) {
 		fovy = currentPlayerGetTeleportFovY();
 		currentPlayerSetFovY(fovy);
-		func0000bd30(fovy);
+		viSetFovY(fovy);
 	}
 
 	if (g_Vars.currentplayer->zoominfovy >= 15) {
@@ -8060,7 +8060,7 @@ glabel var7f1ad67c
 /*  f0bd740:	e7a00018 */ 	swc1	$f0,0x18($sp)
 /*  f0bd744:	0fc4a2b5 */ 	jal	currentPlayerSetFovY
 /*  f0bd748:	46000306 */ 	mov.s	$f12,$f0
-/*  f0bd74c:	0c002f4c */ 	jal	func0000bd30
+/*  f0bd74c:	0c002f4c */ 	jal	viSetFovY
 /*  f0bd750:	c7ac0018 */ 	lwc1	$f12,0x18($sp)
 /*  f0bd754:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f0bd758:
@@ -8797,7 +8797,7 @@ glabel var7f1ad6ac
 /*  f0be158:	4481a000 */ 	mtc1	$at,$f20
 /*  f0be15c:	0fc4a2b5 */ 	jal	currentPlayerSetFovY
 /*  f0be160:	4600a306 */ 	mov.s	$f12,$f20
-/*  f0be164:	0c002f4c */ 	jal	func0000bd30
+/*  f0be164:	0c002f4c */ 	jal	viSetFovY
 /*  f0be168:	4600a306 */ 	mov.s	$f12,$f20
 /*  f0be16c:	8e700284 */ 	lw	$s0,0x284($s3)
 /*  f0be170:	8e190480 */ 	lw	$t9,0x480($s0)
@@ -10787,7 +10787,7 @@ glabel var7f1ad6ac
 //				&& g_Vars.currentplayer->eyespy->active) {
 //			struct coord sp776;
 //			currentPlayerSetFovY(120);
-//			func0000bd30(120);
+//			viSetFovY(120);
 //			sp776.x = g_Vars.currentplayer->eyespy->prop->pos.x;
 //			sp776.y = g_Vars.currentplayer->eyespy->prop->pos.y;
 //			sp776.z = g_Vars.currentplayer->eyespy->prop->pos.z;

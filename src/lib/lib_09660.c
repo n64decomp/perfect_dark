@@ -2789,28 +2789,13 @@ void viSetUseZBuf(bool use)
 	g_ViData->usezbuf = use;
 }
 
-GLOBAL_ASM(
-glabel func0000bd30
-/*     bd30:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     bd34:	3c038006 */ 	lui	$v1,%hi(g_ViData)
-/*     bd38:	2463d594 */ 	addiu	$v1,$v1,%lo(g_ViData)
-/*     bd3c:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*     bd40:	c7a40018 */ 	lwc1	$f4,0x18($sp)
-/*     bd44:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*     bd48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     bd4c:	e5c40008 */ 	swc1	$f4,0x8($t6)
-/*     bd50:	8c620000 */ 	lw	$v0,0x0($v1)
-/*     bd54:	c44c0010 */ 	lwc1	$f12,0x10($v0)
-/*     bd58:	c44e0008 */ 	lwc1	$f14,0x8($v0)
-/*     bd5c:	0fc2d266 */ 	jal	currentPlayerSetPerspective
-/*     bd60:	8c46000c */ 	lw	$a2,0xc($v0)
-/*     bd64:	0fc2d289 */ 	jal	currentPlayerSetCameraScale
-/*     bd68:	00000000 */ 	sll	$zero,$zero,0x0
-/*     bd6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     bd70:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     bd74:	03e00008 */ 	jr	$ra
-/*     bd78:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void viSetFovY(f32 fovy)
+{
+	g_ViData->fovy = fovy;
+
+	currentPlayerSetPerspective(g_ViData->znear, g_ViData->fovy, g_ViData->aspect);
+	currentPlayerSetCameraScale();
+}
 
 GLOBAL_ASM(
 glabel func0000bd7c

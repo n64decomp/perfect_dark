@@ -48,7 +48,7 @@ void viSetViewPosition(s16 left, s16 top);
 s16 viGetViewLeft(void);
 s16 viGetViewTop(void);
 void viSetUseZBuf(bool use);
-void func0000bd30(f32 fovy);
+void viSetFovY(f32 fovy);
 void func0000bd7c(f32 arg0);
 u32 func0000bdc8(void);
 void func0000bdd8(f32 arg0, f32 arg1, s16 viewx, s16 viewy);

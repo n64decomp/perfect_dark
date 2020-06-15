@@ -422,7 +422,7 @@ void titleExitLegal(void)
 
 void titleTickLegal(void)
 {
-	func0000bd30(60);
+	viSetFovY(60);
 	func0000bd7c(1.33333333f);
 	func0000be84(100, 10000);
 	viSetUseZBuf(false);
@@ -1307,7 +1307,7 @@ void titleExitPdLogo(void)
 
 void titleTickPdLogo(void)
 {
-	func0000bd30(46);
+	viSetFovY(46);
 	func0000bd7c(1.33333333f);
 	func0000be84(100, 10000);
 	viSetUseZBuf(false);
@@ -3301,7 +3301,7 @@ void titleExitRarePresents(void)
 
 void titleTickRarePresents(void)
 {
-	func0000bd30(60);
+	viSetFovY(60);
 	func0000bd7c(1.33333333f);
 	func0000be84(100, 10000);
 	viSetUseZBuf(false);
@@ -3557,7 +3557,7 @@ u32 var800628c4 = 0x00000000;
 
 void titleTickNintendoLogo(void)
 {
-	func0000bd30(60);
+	viSetFovY(60);
 	func0000bd7c(1.33333333f);
 	func0000be84(100, 10000);
 	viSetUseZBuf(false);
@@ -3951,7 +3951,7 @@ u32 var8006293c = 0x00000000;
 
 void titleTickRareLogo(void)
 {
-	func0000bd30(60);
+	viSetFovY(60);
 	func0000bd7c(1.33333333f);
 	func0000be84(100, 10000);
 	viSetUseZBuf(false);
@@ -4474,7 +4474,7 @@ void titleExitNoController(void)
 
 void titleTickNoController(void)
 {
-	func0000bd30(60);
+	viSetFovY(60);
 	func0000bd7c(1.33333333f);
 	func0000be84(100, 10000);
 	viSetUseZBuf(false);
