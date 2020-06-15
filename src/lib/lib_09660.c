@@ -2968,18 +2968,11 @@ glabel func0000be84
 /*     bedc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0000bee0
-/*     bee0:	3c028006 */ 	lui	$v0,%hi(g_ViData)
-/*     bee4:	2442d594 */ 	addiu	$v0,$v0,%lo(g_ViData)
-/*     bee8:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*     beec:	c5c40010 */ 	lwc1	$f4,0x10($t6)
-/*     bef0:	e4840000 */ 	swc1	$f4,0x0($a0)
-/*     bef4:	8c4f0000 */ 	lw	$t7,0x0($v0)
-/*     bef8:	c5e60014 */ 	lwc1	$f6,0x14($t7)
-/*     befc:	03e00008 */ 	jr	$ra
-/*     bf00:	e4860004 */ 	swc1	$f6,0x4($a0)
-);
+void viGetZRange(struct zrange *zrange)
+{
+	zrange->near = g_ViData->znear;
+	zrange->far = g_ViData->zfar;
+}
 
 GLOBAL_ASM(
 glabel func0000bf04

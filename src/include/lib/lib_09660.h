@@ -54,7 +54,7 @@ u32 func0000bdc8(void);
 void func0000bdd8(f32 arg0, f32 arg1, s16 viewx, s16 viewy);
 f32 viGetFovY(void);
 void func0000be84(f32 arg0, f32 arg1);
-void func0000bee0(f32 *arg0);
+void viGetZRange(struct zrange *zrange);
 u32 func0000bf04(void);
 
 #endif

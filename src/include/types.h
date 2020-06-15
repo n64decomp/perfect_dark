@@ -5772,12 +5772,16 @@ struct var800a4640 {
 	struct screenbox unk2d4;
 };
 
+struct zrange {
+	f32 near;
+	f32 far;
+};
+
 struct var800a4cf0 {
 	u16 unk00;
 	u16 unk02;
 	u16 unk04;
-	f32 unk08;
-	f32 unk0c;
+	struct zrange zrange;
 };
 
 struct menuthing {

@@ -6955,7 +6955,7 @@ bool func0f15cd90(u32 room, struct screenbox *screen)
 		}
 
 		if (func0f15d08c(&corner, &roomscreenpos) == 0) {
-			if (var800a4cf0.unk0c <= -roomscreenpos.z) {
+			if (var800a4cf0.zrange.far <= -roomscreenpos.z) {
 				numb++;
 			}
 
@@ -6977,7 +6977,7 @@ bool func0f15cd90(u32 room, struct screenbox *screen)
 
 			numa++;
 		} else {
-			if (var800a4cf0.unk0c <= -roomscreenpos.z) {
+			if (var800a4cf0.zrange.far <= -roomscreenpos.z) {
 				numb++;
 			}
 
@@ -14875,7 +14875,7 @@ glabel func0f163e34
 /*  f163e9c:	c60417a0 */ 	lwc1	$f4,0x17a0($s0)
 /*  f163ea0:	4600218d */ 	trunc.w.s	$f6,$f4
 /*  f163ea4:	440c3000 */ 	mfc1	$t4,$f6
-/*  f163ea8:	0c002fb8 */ 	jal	func0000bee0
+/*  f163ea8:	0c002fb8 */ 	jal	viGetZRange
 /*  f163eac:	a7ac003e */ 	sh	$t4,0x3e($sp)
 /*  f163eb0:	8e4d0288 */ 	lw	$t5,0x288($s2)
 /*  f163eb4:	3c08800a */ 	lui	$t0,%hi(var800a4cf0)
@@ -15082,8 +15082,8 @@ glabel func0f163e34
 //	box.xmax = player->screenxmaxf;
 //	box.ymax = player->screenymaxf;
 //
-//	func0000bee0(&var800a4cf0.unk08);
-//	var800a4cf0.unk0c = var800a4cf0.unk0c / g_Vars.currentplayerstats->scale_bg2gfx;
+//	viGetZRange(&var800a4cf0.zrange);
+//	var800a4cf0.zrange.far = var800a4cf0.zrange.far / g_Vars.currentplayerstats->scale_bg2gfx;
 //
 //	for (i = 0; i < g_Vars.roomcount; i++) {
 //		g_Rooms[i].flags &= ~0x2d;
