@@ -50,7 +50,7 @@ s16 viGetViewTop(void);
 void viSetUseZBuf(bool use);
 void viSetFovY(f32 fovy);
 void viSetAspect(f32 aspect);
-u32 func0000bdc8(void);
+f32 viGetAspect(void);
 void func0000bdd8(f32 arg0, f32 arg1, s16 viewx, s16 viewy);
 f32 viGetFovY(void);
 void func0000be84(f32 arg0, f32 arg1);

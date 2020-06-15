@@ -2805,13 +2805,10 @@ void viSetAspect(f32 aspect)
 	currentPlayerSetCameraScale();
 }
 
-GLOBAL_ASM(
-glabel func0000bdc8
-/*     bdc8:	3c0e8006 */ 	lui	$t6,%hi(g_ViData)
-/*     bdcc:	8dced594 */ 	lw	$t6,%lo(g_ViData)($t6)
-/*     bdd0:	03e00008 */ 	jr	$ra
-/*     bdd4:	c5c0000c */ 	lwc1	$f0,0xc($t6)
-);
+f32 viGetAspect(void)
+{
+	return g_ViData->aspect;
+}
 
 GLOBAL_ASM(
 glabel func0000bdd8

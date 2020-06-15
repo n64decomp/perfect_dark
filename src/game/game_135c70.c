@@ -1155,7 +1155,7 @@ glabel var7f1b57bc
 .L0f136c48:
 /*  f136c48:	0c002f9d */ 	jal	viGetFovY
 /*  f136c4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f136c50:	0c002f72 */ 	jal	func0000bdc8
+/*  f136c50:	0c002f72 */ 	jal	viGetAspect
 /*  f136c54:	e7a00090 */ 	swc1	$f0,0x90($sp)
 /*  f136c58:	c7b00090 */ 	lwc1	$f16,0x90($sp)
 /*  f136c5c:	3c013f00 */ 	lui	$at,0x3f00
