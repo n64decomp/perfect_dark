@@ -11437,7 +11437,7 @@ glabel func0f0a0cb0
 /*  f0a0dac:	46081082 */ 	mul.s	$f2,$f2,$f8
 /*  f0a0db0:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0a0db4:
-/*  f0a0db4:	0c002f9d */ 	jal	func0000be74
+/*  f0a0db4:	0c002f9d */ 	jal	viGetFovY
 /*  f0a0db8:	e7a2003c */ 	swc1	$f2,0x3c($sp)
 /*  f0a0dbc:	3c0142f0 */ 	lui	$at,0x42f0
 /*  f0a0dc0:	44815000 */ 	mtc1	$at,$f10
@@ -11633,7 +11633,7 @@ glabel func0f0a0fac
 /*  f0a1074:	46081082 */ 	mul.s	$f2,$f2,$f8
 /*  f0a1078:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0a107c:
-/*  f0a107c:	0c002f9d */ 	jal	func0000be74
+/*  f0a107c:	0c002f9d */ 	jal	viGetFovY
 /*  f0a1080:	e7a200a4 */ 	swc1	$f2,0xa4($sp)
 /*  f0a1084:	3c0142f0 */ 	lui	$at,0x42f0
 /*  f0a1088:	44815000 */ 	mtc1	$at,$f10

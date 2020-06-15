@@ -267,11 +267,11 @@ void func0f0c8004(void)
 f32 func0f0c805c(f32 value)
 {
 	if (value > 0) {
-		return (func0000be74() * value * -0.7f) / 60.0f;
+		return (viGetFovY() * value * -0.7f) / 60.0f;
 	}
 
 	if (value < 0) {
-		return (func0000be74() * -value * 0.7f) / 60.0f;
+		return (viGetFovY() * -value * 0.7f) / 60.0f;
 	}
 
 	return 0;
@@ -279,7 +279,7 @@ f32 func0f0c805c(f32 value)
 
 void currentPlayerUpdateSpeedVerta(f32 value)
 {
-	f32 mult = func0000be74() / 60.0f;
+	f32 mult = viGetFovY() / 60.0f;
 	f32 limit = func0f0c805c(value);
 
 	if (value > 0) {
@@ -322,11 +322,11 @@ void currentPlayerUpdateSpeedVerta(f32 value)
 f32 func0f0c82f8(f32 value)
 {
 	if (value > 0) {
-		return (func0000be74() * value * -0.7f) / 60.0f;
+		return (viGetFovY() * value * -0.7f) / 60.0f;
 	}
 
 	if (value < 0) {
-		return (func0000be74() * -value * 0.7f) / 60.0f;
+		return (viGetFovY() * -value * 0.7f) / 60.0f;
 	}
 
 	return 0;
@@ -334,7 +334,7 @@ f32 func0f0c82f8(f32 value)
 
 void currentPlayerUpdateSpeedThetaControl(f32 value)
 {
-	f32 mult = func0000be74() / 60.0f;
+	f32 mult = viGetFovY() / 60.0f;
 	f32 limit = func0f0c82f8(value);
 
 	if (value > 0) {
@@ -3496,7 +3496,7 @@ glabel var7f1ad8e4
 .L0f0cb190:
 /*  f0cb190:	1120002f */ 	beqz	$t1,.L0f0cb250
 /*  f0cb194:	c7a601ec */ 	lwc1	$f6,0x1ec($sp)
-/*  f0cb198:	0c002f9d */ 	jal	func0000be74
+/*  f0cb198:	0c002f9d */ 	jal	viGetFovY
 /*  f0cb19c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0cb1a0:	8faa0254 */ 	lw	$t2,0x254($sp)
 /*  f0cb1a4:	3c014270 */ 	lui	$at,0x4270
@@ -3613,7 +3613,7 @@ glabel var7f1ad8e4
 /*  f0cb32c:	c7ac01f4 */ 	lwc1	$f12,0x1f4($sp)
 /*  f0cb330:	5140002d */ 	beqzl	$t2,.L0f0cb3e8
 /*  f0cb334:	44804000 */ 	mtc1	$zero,$f8
-/*  f0cb338:	0c002f9d */ 	jal	func0000be74
+/*  f0cb338:	0c002f9d */ 	jal	viGetFovY
 /*  f0cb33c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0cb340:	8fab0250 */ 	lw	$t3,0x250($sp)
 /*  f0cb344:	3c01428c */ 	lui	$at,0x428c
@@ -4982,7 +4982,7 @@ glabel var7f1ad8e4
 //					}
 //				}
 //			} else {
-//				fVar24 = func0000be74();
+//				fVar24 = viGetFovY();
 //				fVar25 = iStack12 / 70.0f;
 //
 //				if (fVar25 > 1) {
@@ -5053,7 +5053,7 @@ glabel var7f1ad8e4
 //			currentPlayerUpdateSpeedThetaControl(-fStack104);
 //		}
 //	} else {
-//		fVar24 = func0000be74();
+//		fVar24 = viGetFovY();
 //		fVar25 = iStack16 / 70.0f;
 //
 //		if (fVar25 > 1) {

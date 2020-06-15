@@ -2936,13 +2936,10 @@ glabel func0000bdd8
 /*     be70:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0000be74
-/*     be74:	3c0e8006 */ 	lui	$t6,%hi(g_ViData)
-/*     be78:	8dced594 */ 	lw	$t6,%lo(g_ViData)($t6)
-/*     be7c:	03e00008 */ 	jr	$ra
-/*     be80:	c5c00008 */ 	lwc1	$f0,0x8($t6)
-);
+f32 viGetFovY(void)
+{
+	return g_ViData->fovy;
+}
 
 GLOBAL_ASM(
 glabel func0000be84

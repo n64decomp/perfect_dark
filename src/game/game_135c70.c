@@ -1153,7 +1153,7 @@ glabel var7f1b57bc
 /*  f136c40:	5632fffb */ 	bnel	$s1,$s2,.L0f136c30
 /*  f136c44:	8e240000 */ 	lw	$a0,0x0($s1)
 .L0f136c48:
-/*  f136c48:	0c002f9d */ 	jal	func0000be74
+/*  f136c48:	0c002f9d */ 	jal	viGetFovY
 /*  f136c4c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f136c50:	0c002f72 */ 	jal	func0000bdc8
 /*  f136c54:	e7a00090 */ 	swc1	$f0,0x90($sp)
