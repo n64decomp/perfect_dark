@@ -5968,4 +5968,22 @@ struct objticksp476 {
 	/*0x3c*/ u32 unk3c;
 };
 
+struct rend_vidat {
+	/*0x00*/ void *unk00;
+	/*0x04*/ u16 x;
+	/*0x06*/ u16 y;
+	/*0x08*/ f32 fovy;
+	/*0x0c*/ f32 aspect;
+	/*0x10*/ f32 znear;
+	/*0x14*/ f32 zfar;
+	/*0x18*/ u16 bufx;
+	/*0x1a*/ u16 bufy;
+	/*0x1c*/ s16 viewx;
+	/*0x1e*/ s16 viewy;
+	/*0x20*/ s16 viewleft;
+	/*0x22*/ s16 viewtop;
+	/*0x24*/ bool usezbuf;
+	/*0x28*/ u32 unk28;
+};
+
 #endif

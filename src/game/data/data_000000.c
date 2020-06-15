@@ -3423,32 +3423,39 @@ u32 var8005d520 = 0x00000000;
 u32 var8005d524 = 0x00000000;
 u32 var8005d528 = 0x00000000;
 u32 var8005d52c = 0x00000000;
-u32 var8005d530 = 0x00000000;
-u32 var8005d534 = 0x014000dc;
-u32 var8005d538 = 0x42700000;
-u32 var8005d53c = 0x3fba2e8c;
-u32 var8005d540 = 0x41f00000;
-u32 var8005d544 = 0x461c4000;
-u32 var8005d548 = 0x014000dc;
-u32 var8005d54c = 0x014000dc;
-u32 var8005d550 = 0x00000000;
-u32 var8005d554 = 0x00000001;
-u32 var8005d558 = 0x00000000;
-u32 var8005d55c = 0x00000000;
-u32 var8005d560 = 0x014000dc;
-u32 var8005d564 = 0x42700000;
-u32 var8005d568 = 0x3fba2e8c;
-u32 var8005d56c = 0x41f00000;
-u32 var8005d570 = 0x461c4000;
-u32 var8005d574 = 0x014000dc;
-u32 var8005d578 = 0x014000dc;
-u32 var8005d57c = 0x00000000;
-u32 var8005d580 = 0x00000001;
-u32 var8005d584 = 0x00000000;
+
+struct rend_vidat var8005d530 = {
+	NULL,
+	320, 220,         // x and y
+	60,               // fovy
+	1.4545454978943f, // aspect
+	30,               // znear
+	10000,            // zfar
+	320, 220,         // bufx and bufy
+	320, 220,         // viewx and viewy
+	0, 0,             // viewleft and viewtop
+	true,             // usezbuf
+	0,
+};
+
+struct rend_vidat var8005d55c = {
+	NULL,
+	320, 220,         // x and y
+	60,               // fovy
+	1.4545454978943f, // aspect
+	30,               // znear
+	10000,            // zfar
+	320, 220,         // bufx and bufy
+	320, 220,         // viewx and viewy
+	0, 0,             // viewleft and viewtop
+	true,             // usezbuf
+	0,
+};
+
 u32 var8005d588 = 0x00000000;
 u32 var8005d58c = 0x00000000;
-u32 var8005d590 = (u32) &var8005d530;
-u32 var8005d594 = (u32) &var8005d530;
+struct rend_vidat *var8005d590 = &var8005d530;
+struct rend_vidat *g_ViData = &var8005d530;
 u32 var8005d598 = 0x00000001;
 u32 var8005d59c = 0x00000000;
 u32 var8005d5a0 = 0x00000000;

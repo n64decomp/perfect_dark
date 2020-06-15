@@ -1368,11 +1368,11 @@ glabel func0f18f874
 /*  f18fa00:	3c018008 */ 	lui	$at,%hi(var8007fac0)
 /*  f18fa04:	ac22fac0 */ 	sw	$v0,%lo(var8007fac0)($at)
 .L0f18fa08:
-/*  f18fa08:	0c002f40 */ 	jal	viGetLeft
+/*  f18fa08:	0c002f40 */ 	jal	viGetViewLeft
 /*  f18fa0c:	afa6003c */ 	sw	$a2,0x3c($sp)
 /*  f18fa10:	00028400 */ 	sll	$s0,$v0,0x10
 /*  f18fa14:	00105c03 */ 	sra	$t3,$s0,0x10
-/*  f18fa18:	0c002f22 */ 	jal	viGetWidth
+/*  f18fa18:	0c002f22 */ 	jal	viGetViewX
 /*  f18fa1c:	01608025 */ 	or	$s0,$t3,$zero
 /*  f18fa20:	3c0d8008 */ 	lui	$t5,%hi(var8007fac0)
 /*  f18fa24:	8dadfac0 */ 	lw	$t5,%lo(var8007fac0)($t5)
@@ -1445,7 +1445,7 @@ glabel func0f18f874
 /*  f18fb14:	25aefff9 */ 	addiu	$t6,$t5,-7
 /*  f18fb18:	ae2e0000 */ 	sw	$t6,0x0($s1)
 .L0f18fb1c:
-/*  f18fb1c:	0c002f44 */ 	jal	viGetTop
+/*  f18fb1c:	0c002f44 */ 	jal	viGetViewTop
 /*  f18fb20:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18fb24:	8faf003c */ 	lw	$t7,0x3c($sp)
 /*  f18fb28:	3c10800b */ 	lui	$s0,%hi(var800acc74)

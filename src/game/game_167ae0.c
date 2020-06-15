@@ -528,10 +528,10 @@ Gfx *fadeRender(Gfx *gdl)
 	gDPSetPrimColor(gdl++, 0, 0, colour);
 
 	gDPFillRectangle(gdl++,
-			viGetLeft(),
-			viGetTop() + inset,
-			viGetLeft() + viGetWidth() + 1,
-			viGetTop() + viGetHeight() - inset + 2);
+			viGetViewLeft(),
+			viGetViewTop() + inset,
+			viGetViewLeft() + viGetViewX() + 1,
+			viGetViewTop() + viGetViewY() - inset + 2);
 
 	return func0f153838(gdl);
 }
@@ -1463,11 +1463,11 @@ glabel var7f1b7868
 /*  f169450:	0c002c74 */ 	jal	func0000b1d0
 /*  f169454:	00402025 */ 	or	$a0,$v0,$zero
 /*  f169458:	0040a025 */ 	or	$s4,$v0,$zero
-/*  f16945c:	0c002f40 */ 	jal	viGetLeft
+/*  f16945c:	0c002f40 */ 	jal	viGetViewLeft
 /*  f169460:	24520008 */ 	addiu	$s2,$v0,0x8
 /*  f169464:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  f169468:	00116c03 */ 	sra	$t5,$s1,0x10
-/*  f16946c:	0c002f44 */ 	jal	viGetTop
+/*  f16946c:	0c002f44 */ 	jal	viGetViewTop
 /*  f169470:	01a08825 */ 	or	$s1,$t5,$zero
 /*  f169474:	44822000 */ 	mtc1	$v0,$f4
 /*  f169478:	44918000 */ 	mtc1	$s1,$f16
@@ -1488,17 +1488,17 @@ glabel var7f1b7868
 /*  f1694b4:	316c0fff */ 	andi	$t4,$t3,0xfff
 /*  f1694b8:	000c6b00 */ 	sll	$t5,$t4,0xc
 /*  f1694bc:	032d7025 */ 	or	$t6,$t9,$t5
-/*  f1694c0:	0c002f22 */ 	jal	viGetWidth
+/*  f1694c0:	0c002f22 */ 	jal	viGetViewX
 /*  f1694c4:	ae8e0000 */ 	sw	$t6,0x0($s4)
-/*  f1694c8:	0c002f40 */ 	jal	viGetLeft
+/*  f1694c8:	0c002f40 */ 	jal	viGetViewLeft
 /*  f1694cc:	a7a2008a */ 	sh	$v0,0x8a($sp)
 /*  f1694d0:	00028400 */ 	sll	$s0,$v0,0x10
 /*  f1694d4:	00107c03 */ 	sra	$t7,$s0,0x10
-/*  f1694d8:	0c002f44 */ 	jal	viGetTop
+/*  f1694d8:	0c002f44 */ 	jal	viGetViewTop
 /*  f1694dc:	01e08025 */ 	or	$s0,$t7,$zero
 /*  f1694e0:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  f1694e4:	0011c403 */ 	sra	$t8,$s1,0x10
-/*  f1694e8:	0c002f26 */ 	jal	viGetHeight
+/*  f1694e8:	0c002f26 */ 	jal	viGetViewY
 /*  f1694ec:	03008825 */ 	or	$s1,$t8,$zero
 /*  f1694f0:	87ad008a */ 	lh	$t5,0x8a($sp)
 /*  f1694f4:	00515021 */ 	addu	$t2,$v0,$s1
@@ -2610,17 +2610,17 @@ glabel var7f1b7868
 /*  f16a524:	acad0004 */ 	sw	$t5,0x4($a1)
 /*  f16a528:	44ccf800 */ 	ctc1	$t4,$31
 /*  f16a52c:	afb200a8 */ 	sw	$s2,0xa8($sp)
-/*  f16a530:	0c002f22 */ 	jal	viGetWidth
+/*  f16a530:	0c002f22 */ 	jal	viGetViewX
 /*  f16a534:	26520008 */ 	addiu	$s2,$s2,0x8
-/*  f16a538:	0c002f40 */ 	jal	viGetLeft
+/*  f16a538:	0c002f40 */ 	jal	viGetViewLeft
 /*  f16a53c:	a7a2008a */ 	sh	$v0,0x8a($sp)
 /*  f16a540:	00028400 */ 	sll	$s0,$v0,0x10
 /*  f16a544:	00107c03 */ 	sra	$t7,$s0,0x10
-/*  f16a548:	0c002f44 */ 	jal	viGetTop
+/*  f16a548:	0c002f44 */ 	jal	viGetViewTop
 /*  f16a54c:	01e08025 */ 	or	$s0,$t7,$zero
 /*  f16a550:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  f16a554:	00115c03 */ 	sra	$t3,$s1,0x10
-/*  f16a558:	0c002f26 */ 	jal	viGetHeight
+/*  f16a558:	0c002f26 */ 	jal	viGetViewY
 /*  f16a55c:	01608825 */ 	or	$s1,$t3,$zero
 /*  f16a560:	87ae008a */ 	lh	$t6,0x8a($sp)
 /*  f16a564:	0051c821 */ 	addu	$t9,$v0,$s1
@@ -2633,11 +2633,11 @@ glabel var7f1b7868
 /*  f16a580:	03016025 */ 	or	$t4,$t8,$at
 /*  f16a584:	000f5b80 */ 	sll	$t3,$t7,0xe
 /*  f16a588:	018bc825 */ 	or	$t9,$t4,$t3
-/*  f16a58c:	0c002f40 */ 	jal	viGetLeft
+/*  f16a58c:	0c002f40 */ 	jal	viGetViewLeft
 /*  f16a590:	ad590000 */ 	sw	$t9,0x0($t2)
 /*  f16a594:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  f16a598:	0011c403 */ 	sra	$t8,$s1,0x10
-/*  f16a59c:	0c002f44 */ 	jal	viGetTop
+/*  f16a59c:	0c002f44 */ 	jal	viGetViewTop
 /*  f16a5a0:	03008825 */ 	or	$s1,$t8,$zero
 /*  f16a5a4:	304e03ff */ 	andi	$t6,$v0,0x3ff
 /*  f16a5a8:	322f03ff */ 	andi	$t7,$s1,0x3ff
@@ -3151,19 +3151,19 @@ glabel var7f1b7868
 /*  f16acf0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16acf4:	0fc54d8a */ 	jal	func0f153628
 /*  f16acf8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f16acfc:	0c002f40 */ 	jal	viGetLeft
+/*  f16acfc:	0c002f40 */ 	jal	viGetViewLeft
 /*  f16ad00:	00409025 */ 	or	$s2,$v0,$zero
-/*  f16ad04:	0c002f44 */ 	jal	viGetTop
+/*  f16ad04:	0c002f44 */ 	jal	viGetViewTop
 /*  f16ad08:	a7a2006e */ 	sh	$v0,0x6e($sp)
-/*  f16ad0c:	0c002f40 */ 	jal	viGetLeft
+/*  f16ad0c:	0c002f40 */ 	jal	viGetViewLeft
 /*  f16ad10:	a7a20070 */ 	sh	$v0,0x70($sp)
-/*  f16ad14:	0c002f22 */ 	jal	viGetWidth
+/*  f16ad14:	0c002f22 */ 	jal	viGetViewX
 /*  f16ad18:	a7a20072 */ 	sh	$v0,0x72($sp)
-/*  f16ad1c:	0c002f44 */ 	jal	viGetTop
+/*  f16ad1c:	0c002f44 */ 	jal	viGetViewTop
 /*  f16ad20:	a7a2008a */ 	sh	$v0,0x8a($sp)
 /*  f16ad24:	00028400 */ 	sll	$s0,$v0,0x10
 /*  f16ad28:	00105403 */ 	sra	$t2,$s0,0x10
-/*  f16ad2c:	0c002f26 */ 	jal	viGetHeight
+/*  f16ad2c:	0c002f26 */ 	jal	viGetViewY
 /*  f16ad30:	01408025 */ 	or	$s0,$t2,$zero
 /*  f16ad34:	87ae008a */ 	lh	$t6,0x8a($sp)
 /*  f16ad38:	87b80072 */ 	lh	$t8,0x72($sp)
