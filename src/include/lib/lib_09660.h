@@ -47,7 +47,7 @@ s16 viGetViewY(void);
 void func0000bca8(s16 arg0, s16 arg1);
 s16 viGetViewLeft(void);
 s16 viGetViewTop(void);
-void func0000bd20(bool arg0);
+void viSetUseZBuf(bool use);
 void func0000bd30(f32 fovy);
 void func0000bd7c(f32 arg0);
 u32 func0000bdc8(void);

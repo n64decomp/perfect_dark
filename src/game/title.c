@@ -425,7 +425,7 @@ void titleTickLegal(void)
 	func0000bd30(60);
 	func0000bd7c(1.33333333f);
 	func0000be84(100, 10000);
-	func0000bd20(false);
+	viSetUseZBuf(false);
 
 	g_TitleTimer += g_Vars.lvupdate240_60;
 
@@ -452,7 +452,7 @@ void titleTickCheckControllers(void)
 {
 	g_TitleTimer++;
 	func0000be84(100, 10000);
-	func0000bd20(0);
+	viSetUseZBuf(false);
 
 	if (g_TitleTimer > 6) {
 		if ((getConnectedControllers() & 1) == 0) {
@@ -1310,7 +1310,7 @@ void titleTickPdLogo(void)
 	func0000bd30(46);
 	func0000bd7c(1.33333333f);
 	func0000be84(100, 10000);
-	func0000bd20(0);
+	viSetUseZBuf(false);
 
 	g_TitleTimer += g_Vars.lvupdate240_60;
 	var8009ccb8 = 1 - var8009ccb8;
@@ -3304,7 +3304,7 @@ void titleTickRarePresents(void)
 	func0000bd30(60);
 	func0000bd7c(1.33333333f);
 	func0000be84(100, 10000);
-	func0000bd20(0);
+	viSetUseZBuf(false);
 
 	g_TitleTimer += g_Vars.lvupdate240_60;
 
@@ -3560,7 +3560,7 @@ void titleTickNintendoLogo(void)
 	func0000bd30(60);
 	func0000bd7c(1.33333333f);
 	func0000be84(100, 10000);
-	func0000bd20(0);
+	viSetUseZBuf(false);
 
 	g_TitleTimer += g_Vars.lvupdate240_60;
 
@@ -3954,7 +3954,7 @@ void titleTickRareLogo(void)
 	func0000bd30(60);
 	func0000bd7c(1.33333333f);
 	func0000be84(100, 10000);
-	func0000bd20(0);
+	viSetUseZBuf(false);
 
 	if (g_TitleTimer < 0) {
 		g_TitleTimer++;
@@ -4477,7 +4477,7 @@ void titleTickNoController(void)
 	func0000bd30(60);
 	func0000bd7c(1.33333333f);
 	func0000be84(100, 10000);
-	func0000bd20(0);
+	viSetUseZBuf(false);
 
 	g_TitleTimer += g_Vars.lvupdate240_60;
 }
@@ -4858,7 +4858,7 @@ void titleTick(void)
 		titleTickNoController();
 		break;
 	case TITLEMODE_SKIP:
-		func0000bd20(0);
+		viSetUseZBuf(false);
 		titleSetNextMode(TITLEMODE_RARELOGO);
 		break;
 	}

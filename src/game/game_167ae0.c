@@ -5157,7 +5157,7 @@ glabel func0f16b96c
 /*  f16c868:	44818000 */ 	mtc1	$at,$f16
 /*  f16c86c:	3c018008 */ 	lui	$at,0x8008
 /*  f16c870:	46105483 */ 	div.s	$f18,$f10,$f16
-/*  f16c874:	0c002f48 */ 	jal	func0000bd20
+/*  f16c874:	0c002f48 */ 	jal	viSetUseZBuf
 /*  f16c878:	e432403c */ 	swc1	$f18,0x403c($at)
 /*  f16c87c:	8e8204b4 */ 	lw	$v0,0x4b4($s4)
 /*  f16c880:	2401004e */ 	addiu	$at,$zero,0x4e
@@ -5618,7 +5618,7 @@ glabel func0f16b96c
 //	g_Uptime = g_MpTimeElapsed / 60.0f;
 //
 //	// 874
-//	func0000bd20(true);
+//	viSetUseZBuf(true);
 //
 //	if (g_Vars.stagenum == STAGE_TEST_OLD) {
 //		func0f01ae30();

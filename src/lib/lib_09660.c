@@ -2834,13 +2834,10 @@ s16 viGetViewTop(void)
 	return g_ViData->viewtop;
 }
 
-GLOBAL_ASM(
-glabel func0000bd20
-/*     bd20:	3c0e8006 */ 	lui	$t6,%hi(g_ViData)
-/*     bd24:	8dced594 */ 	lw	$t6,%lo(g_ViData)($t6)
-/*     bd28:	03e00008 */ 	jr	$ra
-/*     bd2c:	adc40024 */ 	sw	$a0,0x24($t6)
-);
+void viSetUseZBuf(bool use)
+{
+	g_ViData->usezbuf = use;
+}
 
 GLOBAL_ASM(
 glabel func0000bd30
