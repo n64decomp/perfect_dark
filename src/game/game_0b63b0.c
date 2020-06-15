@@ -8168,7 +8168,7 @@ glabel func0f0bd764
 /*  f0bd8dc:	00054c03 */ 	sra	$t1,$a1,0x10
 /*  f0bd8e0:	00044403 */ 	sra	$t0,$a0,0x10
 /*  f0bd8e4:	01002025 */ 	or	$a0,$t0,$zero
-/*  f0bd8e8:	0c002ee8 */ 	jal	func0000bba0
+/*  f0bd8e8:	0c002ee8 */ 	jal	viSetBuf
 /*  f0bd8ec:	01202825 */ 	or	$a1,$t1,$zero
 /*  f0bd8f0:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f0bd8f4:	8fb00018 */ 	lw	$s0,0x18($sp)
@@ -8429,7 +8429,7 @@ glabel var7f1ad6ac
 /*  f0bdc14:	00055403 */ 	sra	$t2,$a1,0x10
 /*  f0bdc18:	00044c03 */ 	sra	$t1,$a0,0x10
 /*  f0bdc1c:	01202025 */ 	or	$a0,$t1,$zero
-/*  f0bdc20:	0c002ee8 */ 	jal	func0000bba0
+/*  f0bdc20:	0c002ee8 */ 	jal	viSetBuf
 /*  f0bdc24:	01402825 */ 	or	$a1,$t2,$zero
 /*  f0bdc28:	0fc2ed0b */ 	jal	func0f0bb42c
 /*  f0bdc2c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -10645,7 +10645,7 @@ glabel var7f1ad6ac
 //	func0000bdd8(60, aspectratio, func0f0bc554(), func0f0bcaa0());
 //	func0000bca8(func0f0bc7ac(), func0f0bce24());
 //	func0000bbe4(func0f0bc44c(), func0f0bc478());
-//	func0000bba0(func0f0bc44c(), func0f0bc478());
+//	viSetBuf(func0f0bc44c(), func0f0bc478());
 //	func0f0bb42c();
 //	func0f0bb5ec();
 //	currentPlayerSetAutoAimY(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));

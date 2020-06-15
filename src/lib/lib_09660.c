@@ -2709,18 +2709,11 @@ glabel func0000b330
 /*     bb9c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0000bba0
-/*     bba0:	3c028006 */ 	lui	$v0,%hi(g_ViData)
-/*     bba4:	2442d594 */ 	addiu	$v0,$v0,%lo(g_ViData)
-/*     bba8:	8c480000 */ 	lw	$t0,0x0($v0)
-/*     bbac:	afa40000 */ 	sw	$a0,0x0($sp)
-/*     bbb0:	afa50004 */ 	sw	$a1,0x4($sp)
-/*     bbb4:	a5040018 */ 	sh	$a0,0x18($t0)
-/*     bbb8:	8c490000 */ 	lw	$t1,0x0($v0)
-/*     bbbc:	03e00008 */ 	jr	$ra
-/*     bbc0:	a525001a */ 	sh	$a1,0x1a($t1)
-);
+void viSetBuf(s16 x, s16 y)
+{
+	g_ViData->bufx = x;
+	g_ViData->bufy = y;
+}
 
 s16 viGetBufX(void)
 {
