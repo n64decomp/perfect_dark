@@ -1551,13 +1551,10 @@ u32 viGetUnk28(void)
 	return g_ViData->unk28;
 }
 
-GLOBAL_ASM(
-glabel func0000ab2c
-/*     ab2c:	3c0e8006 */ 	lui	$t6,%hi(var8005d590)
-/*     ab30:	8dced590 */ 	lw	$t6,%lo(var8005d590)($t6)
-/*     ab34:	03e00008 */ 	jr	$ra
-/*     ab38:	8dc20028 */ 	lw	$v0,0x28($t6)
-);
+u32 vi2GetUnk28(void)
+{
+	return var8005d590->unk28;
+}
 
 void viSetUnk28(u32 arg0)
 {

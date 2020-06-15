@@ -76,6 +76,7 @@ extern u32 var8005d4e8;
 extern u32 var8005d520;
 extern struct rend_vidat var8005d530;
 extern u32 var8005d588;
+extern struct rend_vidat *var8005d590;
 extern struct rend_vidat *g_ViData;
 extern u32 var8005d59c;
 extern u32 var8005d5b4;
