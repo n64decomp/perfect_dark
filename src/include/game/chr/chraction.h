@@ -71,7 +71,7 @@ f32 func0f0370a8(struct chrdata *chr);
 s32 func0f037124(struct chrdata *chr);
 void chrGoposConsiderRestart(struct chrdata *chr);
 void func0f0372e8(struct chrdata *chr);
-void func0f03733c(struct chrdata *chr);
+void chrGoposAdvanceWaypoint(struct chrdata *chr);
 u32 func0f0373dc(void);
 u32 func0f0374a0(void);
 s32 func0f0374e4(s32 arg0, s32 arg1, s32 arg2, s32 arg3);

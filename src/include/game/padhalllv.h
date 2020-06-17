@@ -4,7 +4,7 @@
 #include "types.h"
 
 void waypointSetHashThing(s32 hash1, s32 hash2);
-s32 *waypointFindClosestToPos(struct coord *pos, s16 *room);
+struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms);
 u32 func0f114810(void);
 u32 func0f114958(void);
 u32 func0f1149b0(void);
@@ -17,7 +17,7 @@ u32 func0f114de0(void);
 u32 func0f114ee4(void);
 u32 func0f114f70(void);
 u32 func0f11505c(void);
-s32 waypointFindRoute(s32 *from, s32 *to, s32 **dst, s32 maxwaypoints);
+s32 waypointFindRoute(struct waypoint *from, struct waypoint *to, struct waypoint **arr, s32 maxwaypoints);
 u32 func0f115390(void);
 u32 func0f1153c4(void);
 u32 func0f1154cc(void);

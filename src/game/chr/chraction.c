@@ -9729,51 +9729,32 @@ glabel func0f0372e8
 /*  f037338:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03733c
-/*  f03733c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f037340:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f037344:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f037348:	90820064 */ 	lbu	$v0,0x64($a0)
-/*  f03734c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f037350:	28410003 */ 	slti	$at,$v0,0x3
-/*  f037354:	10200004 */ 	beqz	$at,.L0f037368
-/*  f037358:	00027880 */ 	sll	$t7,$v0,0x2
-/*  f03735c:	244e0001 */ 	addiu	$t6,$v0,0x1
-/*  f037360:	10000017 */ 	beqz	$zero,.L0f0373c0
-/*  f037364:	a08e0064 */ 	sb	$t6,0x64($a0)
-.L0f037368:
-/*  f037368:	020fc021 */ 	addu	$t8,$s0,$t7
-/*  f03736c:	8f19004c */ 	lw	$t9,0x4c($t8)
-/*  f037370:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f037374:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x8)
-/*  f037378:	afb90024 */ 	sw	$t9,0x24($sp)
-/*  f03737c:	a2080064 */ 	sb	$t0,0x64($s0)
-/*  f037380:	8d299fc8 */ 	lw	$t1,%lo(g_Vars+0x8)($t1)
-/*  f037384:	860c0000 */ 	lh	$t4,0x0($s0)
-/*  f037388:	00095243 */ 	sra	$t2,$t1,0x9
-/*  f03738c:	000a59c0 */ 	sll	$t3,$t2,0x7
-/*  f037390:	000c68c0 */ 	sll	$t5,$t4,0x3
-/*  f037394:	016d2021 */ 	addu	$a0,$t3,$t5
-/*  f037398:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f03739c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0373a0:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f0373a4:	8e050048 */ 	lw	$a1,0x48($s0)
-/*  f0373a8:	2606004c */ 	addiu	$a2,$s0,0x4c
-/*  f0373ac:	0fc4547b */ 	jal	waypointFindRoute
-/*  f0373b0:	24070006 */ 	addiu	$a3,$zero,0x6
-/*  f0373b4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0373b8:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f0373bc:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0373c0:
-/*  f0373c0:	0fc0dcba */ 	jal	func0f0372e8
-/*  f0373c4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0373c8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0373cc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0373d0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0373d4:	03e00008 */ 	jr	$ra
-/*  f0373d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+/**
+ * Advance the chr's current waypoint index to the next one in the route.
+ *
+ * The waypoints array allows 6 waypoints and it's important that they have a
+ * couple loaded in front of their current one. So if the index is moving too
+ * far into the array, new pathfinding will be done and the array and index will
+ * be reset.
+ */
+void chrGoposAdvanceWaypoint(struct chrdata *chr)
+{
+	if (chr->act_gopos.curindex < 3) {
+		chr->act_gopos.curindex++;
+	} else {
+		struct waypoint *from = chr->act_gopos.waypoints[chr->act_gopos.curindex];
+		u32 hash;
+		chr->act_gopos.curindex = 1;
+
+		hash = (g_Vars.lvframe60 >> 9) * 0x80 + chr->chrnum * 8;
+
+		waypointSetHashThing(hash, hash);
+		waypointFindRoute(from, chr->act_gopos.target, chr->act_gopos.waypoints, MAX_CHRWAYPOINTS);
+		waypointSetHashThing(0, 0);
+	}
+
+	func0f0372e8(chr);
+}
 
 GLOBAL_ASM(
 glabel func0f0373dc
@@ -10146,7 +10127,7 @@ glabel var7f1a8dac
 /*  f037908:	10000022 */ 	beqz	$zero,.L0f037994
 /*  f03790c:	02002025 */ 	or	$a0,$s0,$zero
 .L0f037910:
-/*  f037910:	0fc0dccf */ 	jal	func0f03733c
+/*  f037910:	0fc0dccf */ 	jal	chrGoposAdvanceWaypoint
 /*  f037914:	02002025 */ 	or	$a0,$s0,$zero
 /*  f037918:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03791c:	27a5005c */ 	addiu	$a1,$sp,0x5c
@@ -25258,7 +25239,7 @@ void chrTickGoPos(struct chrdata *chr)
 	}
 
 	{
-	bool sp192 = false;
+	bool advance = false;
 	bool sp188;
 	bool sp184;
 	f32 sp180;
@@ -25288,10 +25269,10 @@ void chrTickGoPos(struct chrdata *chr)
 		}
 
 		if ((pad.flags & PADFLAG_AIWAITLIFT) || (pad.flags & PADFLAG_AIONLIFT)) {
-			sp192 = func0f046648(chr, pad.flags, sp184, sp188, waypoint->padnum, chrGoposGetNextPadNum(chr));
+			advance = func0f046648(chr, pad.flags, sp184, sp188, waypoint->padnum, chrGoposGetNextPadNum(chr));
 		} else {
 			if (sp188 || (sp184 && (chr->inlift || (pad.flags & PADFLAG_8000)))) {
-				sp192 = true;
+				advance = true;
 			}
 		}
 	} else {
@@ -25308,10 +25289,8 @@ void chrTickGoPos(struct chrdata *chr)
 		}
 	}
 
-	if (sp192) {
-		// This function involves finding new route every 3rd invocation and
-		// updating waydata info on every invocation
-		func0f03733c(chr);
+	if (advance) {
+		chrGoposAdvanceWaypoint(chr);
 	}
 
 	// Every 10 ticks: Check something a couple of waypoints ahead
@@ -25359,9 +25338,8 @@ void chrTickGoPos(struct chrdata *chr)
 
 						// Some bbox related check
 						if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, 0, chr->chrwidth * 1.2f, 48)) {
-							// Probably assigning the new waypoint
-							func0f03733c(chr);
-							func0f03733c(chr);
+							chrGoposAdvanceWaypoint(chr);
+							chrGoposAdvanceWaypoint(chr);
 						}
 					}
 				}
@@ -25420,13 +25398,13 @@ void chrTickGoPos(struct chrdata *chr)
 						// sp160 < DEG2RAD(45) || sp160 > DEG2RAD(315)
 						if (sp160 < 0.7852731347084f || sp160 > 5.4969120025635f) {
 							if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, 0, chr->chrwidth * 1.2f, 48)) {
-								func0f03733c(chr);
+								chrGoposAdvanceWaypoint(chr);
 							}
 						}
 					}
 				} else {
 					if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, 0, chr->chrwidth * 1.2f, 48)) {
-						func0f03733c(chr);
+						chrGoposAdvanceWaypoint(chr);
 					}
 				}
 			}

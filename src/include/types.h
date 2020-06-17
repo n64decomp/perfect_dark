@@ -502,17 +502,19 @@ struct waydata {
 };
 
 struct act_gopos {
-	/*0x02c*/ struct coord pos; // Target pos
-	/*0x038*/ s16 rooms[8];     // Target rooms
-	/*0x048*/ s32 numwaypoints; // in practice, seems to be a pointer to the final waypoint?
+	/*0x02c*/ struct coord pos;        // Target pos
+	/*0x038*/ s16 rooms[8];            // Target rooms
+	/*0x048*/ struct waypoint *target; // Target/final waypoint
 
 	// Array of pointers to the next couple of waypoints. Recalculated each time
 	// a waypoint is reached, and probably even more frequently than that.
 	/*0x04c*/ struct waypoint *waypoints[MAX_CHRWAYPOINTS];
 
 	// Index of the waypoint in the above array that the chr is running to. If
-	// the chr has line of sight (through doors) to a later waypoint then this
-	// index can be changed to that one and the chr will run straight to it.
+	// the chr has line of sight (through doors) to the next or next + 1 then
+	// the index can be changed to that one and the chr will run straight to it.
+	// This index will always be 0, 1 or 2. When it reaches 3 the pathfinding is
+	// recalculated, the array replaced with a new one and index set to 0.
 	/*0x064*/ u8 curindex;
 
 	// x....... = walking directly to pad due to PADFLAG_AIWALKDIRECT
@@ -896,8 +898,8 @@ struct obj48 {
 	/*0x0ec*/ u32 unk0ec;
 	/*0x0f0*/ u32 unk0f0;
 	/*0x0f4*/ u32 unk0f4;
-	/*0x0f8*/ s16 waypoints[6];
-	/*0x104*/ u8 unk104;
+	/*0x0f8*/ s16 waypads[6];
+	/*0x104*/ u8 numwaypads;
 	/*0x105*/ u8 unk105;
 };
 

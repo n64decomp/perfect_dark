@@ -532,28 +532,28 @@ s32 func0f19a60c(s32 weaponnum, s32 funcnum)
 
 bool func0f19a6d0(struct chrdata *chr, struct coord *frompos, struct coord *topos, s16 *fromrooms, s16 *torooms, struct obj48 *obj48)
 {
-	s32 *fromwaypoint = waypointFindClosestToPos(frompos, fromrooms);
-	s32 *towaypoint = waypointFindClosestToPos(topos, torooms);
-	s32 *waypoints[6];
+	struct waypoint *from = waypointFindClosestToPos(frompos, fromrooms);
+	struct waypoint *to = waypointFindClosestToPos(topos, torooms);
+	struct waypoint *waypoints[6];
 	s32 numwaypoints;
 
-	if (fromwaypoint && towaypoint) {
+	if (from && to) {
 		s32 hash = (g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8;
-		waypointSetHashThing(hash, hash);
 
-		numwaypoints = waypointFindRoute(fromwaypoint, towaypoint, waypoints, 6);
+		waypointSetHashThing(hash, hash);
+		numwaypoints = waypointFindRoute(from, to, waypoints, 6);
 		waypointSetHashThing(0, 0);
 
 		if (numwaypoints > 1) {
 			s32 i = 0;
 
 			while (waypoints[i]) {
-				obj48->waypoints[i] = *waypoints[i];
+				obj48->waypads[i] = waypoints[i]->padnum;
 				i++;
 			}
 
 			obj48->unk105 = 0;
-			obj48->unk104 = i;
+			obj48->numwaypads = i;
 
 			return true;
 		}
@@ -620,7 +620,7 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 			if (!func0f19a6d0(chr, &chr->prop->pos, &target->pos, chr->prop->rooms, target->rooms, rocket->base.unk48)) {
 				rocket->unk62 = 0;
 			} else {
-				func0f19a7d0(rocket->base.unk48->waypoints[0], &rocket->base.unk48->pos);
+				func0f19a7d0(rocket->base.unk48->waypads[0], &rocket->base.unk48->pos);
 				chr->aibot->unk044 = rocket->base.prop;
 			}
 		}
