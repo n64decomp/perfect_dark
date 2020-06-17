@@ -7924,6 +7924,6 @@ void func0f197544(struct chrdata *chr)
 	}
 
 	if (!pass) {
-		chrGoToPos(chr, &chr->act_gopos.pos, chr->act_gopos.rooms, chr->act_gopos.unk065);
+		chrGoToPos(chr, &chr->act_gopos.pos, chr->act_gopos.rooms, chr->act_gopos.flags);
 	}
 }

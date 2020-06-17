@@ -183,6 +183,10 @@ struct model {
 	/*0x20*/ struct anim *anim;
 };
 
+struct waypoint {
+	s32 padnum;
+};
+
 struct aibot {
 	/*0x000*/ u8 unk000;
 	/*0x004*/ struct mpsim *simulant;
@@ -474,20 +478,8 @@ struct act_runpos {
 	/*0x40*/ f32 unk040;
 };
 
-struct act_gopos {
-	/*0x02c*/ struct coord pos;
-	/*0x038*/ s16 rooms[8];
-	/*0x048*/ s32 numwaypoints;
-	/*0x04c*/ s32 *waypoints[MAX_CHRWAYPOINTS];
-	/*0x064*/ u8 nextwaypointindex;
-
-	// This doesn't appear to be a proper bitfield, but is used as one
-	// ....x... = on preset path
-	// ......xx = speed
-	/*0x065*/ u8 unk065;
-
-	/*0x066*/ s16 unk066;
-	/*0x068*/ s8 unk068;
+struct waydata {
+	/*0x068*/ s8 mode;
 	/*0x069*/ u8 unk069;
 	/*0x06a*/ u8 unk06a;
 	/*0x06b*/ u8 unk06b;
@@ -501,13 +493,31 @@ struct act_gopos {
 	/*0x084*/ u32 unk084;
 	/*0x088*/ u32 unk088;
 	/*0x08c*/ u32 unk08c;
-	/*0x090*/ u32 unk090;
+	/*0x090*/ s32 age;
 	/*0x094*/ u32 unk094;
 	/*0x098*/ u32 unk098;
 	/*0x09c*/ u32 unk09c;
 	/*0x0a0*/ u32 unk0a0;
 	/*0x0a4*/ u32 unk0a4;
-	/*0x0a8*/ s32 unk0a8;
+};
+
+struct act_gopos {
+	/*0x02c*/ struct coord pos;
+	/*0x038*/ s16 rooms[8];
+	/*0x048*/ s32 numwaypoints;
+	/*0x04c*/ struct waypoint *waypoints[MAX_CHRWAYPOINTS];
+	/*0x064*/ u8 nextwaypointindex;
+
+	// This doesn't appear to be a proper bitfield, but is used as one
+	// x....... = walking directly to pad due to PADFLAG_AIWALKDIRECT
+	// .x...... = ducking due to PADFLAG_AIDUCK
+	// ....x... = on preset path
+	// ......xx = speed
+	/*0x065*/ u8 flags;
+
+	/*0x066*/ s16 unk066;
+	/*0x068*/ struct waydata waydata;
+	/*0x0a8*/ s32 cheapend60; // lvframe60 time that the chr exited cheap method of wayfinding
 	/*0x0ac*/ f32 unk0ac;
 };
 

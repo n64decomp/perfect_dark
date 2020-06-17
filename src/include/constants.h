@@ -640,6 +640,11 @@
 
 #define GEOTYPE_2 2
 
+#define GOPOSFLAG_04           0x04
+#define GOPOSFLAG_ONPRESETPATH 0x08
+#define GOPOSFLAG_DUCK         0x40
+#define GOPOSFLAG_80           0x80
+
 #define HANGARBIO_INSTITUTE      0
 #define HANGARBIO_DDTOWER        1
 #define HANGARBIO_LABBASEMENT    2
@@ -2134,6 +2139,8 @@
 #define PADFLAG_AIWALKDIRECT    0x1000
 #define PADFLAG_AIDROP          0x2000
 #define PADFLAG_AIDUCK          0x4000
+#define PADFLAG_8000            0x8000
+#define PADFLAG_10000           0x10000
 
 #define PATHTYPE_BACKANDFORTH 0
 #define PATHTYPE_CIRCULAR     1
@@ -2655,6 +2662,8 @@
 #define VISIONMODE_XRAY         1
 #define VISIONMODE_SLAYERROCKET 2
 #define VISIONMODE_3            3
+
+#define WAYMODE_CHEAP 6
 
 #define WEAPON_NONE              0x00
 #define WEAPON_UNARMED           0x01
