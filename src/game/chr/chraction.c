@@ -9663,30 +9663,22 @@ void chrGoposConsiderRestart(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0372e8
-/*  f0372e8:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0372ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0372f0:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*  f0372f4:	27a6001c */ 	addiu	$a2,$sp,0x1c
-/*  f0372f8:	0fc0dc22 */ 	jal	func0f037088
-/*  f0372fc:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f037300:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f037304:	a0800068 */ 	sb	$zero,0x68($a0)
-/*  f037308:	a0800069 */ 	sb	$zero,0x69($a0)
-/*  f03730c:	a080006a */ 	sb	$zero,0x6a($a0)
-/*  f037310:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*  f037314:	e484006c */ 	swc1	$f4,0x6c($a0)
-/*  f037318:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-/*  f03731c:	e4860070 */ 	swc1	$f6,0x70($a0)
-/*  f037320:	c7a80034 */ 	lwc1	$f8,0x34($sp)
-/*  f037324:	0fc0dc87 */ 	jal	chrGoposClearRestartTtl
-/*  f037328:	e4880074 */ 	swc1	$f8,0x74($a0)
-/*  f03732c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f037330:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f037334:	03e00008 */ 	jr	$ra
-/*  f037338:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrGoposInitExpensive(struct chrdata *chr)
+{
+	struct coord pos;
+	s16 rooms[8];
+
+	func0f037088(chr, &pos, rooms);
+
+	chr->act_gopos.waydata.mode = WAYMODE_EXPENSIVE;
+	chr->act_gopos.waydata.unk01 = 0;
+	chr->act_gopos.waydata.unk02 = 0;
+	chr->act_gopos.waydata.pos.x = pos.x;
+	chr->act_gopos.waydata.pos.y = pos.y;
+	chr->act_gopos.waydata.pos.z = pos.z;
+
+	chrGoposClearRestartTtl(chr);
+}
 
 /**
  * Advance the chr's current waypoint index to the next one in the route.
@@ -9712,7 +9704,7 @@ void chrGoposAdvanceWaypoint(struct chrdata *chr)
 		waypointSetHashThing(0, 0);
 	}
 
-	func0f0372e8(chr);
+	chrGoposInitExpensive(chr);
 }
 
 GLOBAL_ASM(
@@ -10118,7 +10110,7 @@ glabel var7f1a8dac
 .L0f037980:
 /*  f037980:	8d299fc8 */ 	lw	$t1,%lo(g_Vars+0x8)($t1)
 /*  f037984:	02002025 */ 	or	$a0,$s0,$zero
-/*  f037988:	0fc0dcba */ 	jal	func0f0372e8
+/*  f037988:	0fc0dcba */ 	jal	chrGoposInitExpensive
 /*  f03798c:	ae0900a8 */ 	sw	$t1,0xa8($s0)
 /*  f037990:	02002025 */ 	or	$a0,$s0,$zero
 .L0f037994:
@@ -11102,7 +11094,7 @@ glabel chrGoToPos
 /*  f0386e0:	1444fffc */ 	bne	$v0,$a0,.L0f0386d4
 /*  f0386e4:	ac780048 */ 	sw	$t8,0x48($v1)
 /*  f0386e8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0386ec:	0fc0dcba */ 	jal	func0f0372e8
+/*  f0386ec:	0fc0dcba */ 	jal	chrGoposInitExpensive
 /*  f0386f0:	afaa0030 */ 	sw	$t2,0x30($sp)
 /*  f0386f4:	920b0065 */ 	lbu	$t3,0x65($s0)
 /*  f0386f8:	2409ffff */ 	addiu	$t1,$zero,-1
@@ -11281,7 +11273,7 @@ glabel chrGoToPos
 //			chr->act_gopos.waypoints[i] = waypoints[i];
 //		}
 //
-//		func0f0372e8(chr);
+//		chrGoposInitExpensive(chr);
 //		chr->goposforce = -1;
 //		chr->sleep = 0;
 //		chr->liftaction = 0;
@@ -25187,7 +25179,7 @@ void chrTickGoPos(struct chrdata *chr)
 				|| (padflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
 				|| chr->inlift) {
 			// Exiting cheap mode
-			func0f0372e8(chr);
+			chrGoposInitExpensive(chr);
 			chr->act_gopos.cheapend60 = g_Vars.lvframe60;
 			return;
 		}

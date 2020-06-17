@@ -2667,7 +2667,8 @@
 #define VISIONMODE_SLAYERROCKET 2
 #define VISIONMODE_3            3
 
-#define WAYMODE_CHEAP 6
+#define WAYMODE_EXPENSIVE 0
+#define WAYMODE_CHEAP     6
 
 #define WEAPON_NONE              0x00
 #define WEAPON_UNARMED           0x01

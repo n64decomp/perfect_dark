@@ -482,11 +482,7 @@ struct waydata {
 	/*0x00*/ s8 mode;
 	/*0x01*/ u8 unk01;
 	/*0x02*/ u8 unk02;
-	/*0x03*/ u8 unk03;
-	/*0x04*/ u16 unk04;
-	/*0x06*/ u8 unk06;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
+	/*0x04*/ struct coord pos;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;
