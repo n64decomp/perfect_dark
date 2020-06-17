@@ -521,7 +521,7 @@ struct act_gopos {
 	// ......xx = speed
 	/*0x065*/ u8 flags;
 
-	/*0x066*/ s16 unk066;
+	/*0x066*/ u16 restartttl;
 	/*0x068*/ struct waydata waydata;
 	/*0x0a8*/ s32 cheapend60; // lvframe60 time that the chr exited cheap method of wayfinding
 	/*0x0ac*/ f32 unk0ac;
@@ -791,7 +791,7 @@ struct chrdata {
 	/*0x320*/ struct coord laddernormal;
 
 	/*0x32c*/
-	u8 unk32c_00 : 8;
+	u8 liftaction : 8;
 
 	u8 inlift : 1;
 	u8 pouncebits : 3;

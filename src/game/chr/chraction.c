@@ -9674,69 +9674,35 @@ glabel var7f1a8da8
 /*  f037218:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void chrSetField66To0(struct chrdata *chr)
+void chrGoposClearRestartTtl(struct chrdata *chr)
 {
-	chr->act_gopos.unk066 = 0;
+	chr->act_gopos.restartttl = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f037224
-/*  f037224:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f037228:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03722c:	808e0068 */ 	lb	$t6,0x68($a0)
-/*  f037230:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f037234:	51c10029 */ 	beql	$t6,$at,.L0f0372dc
-/*  f037238:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03723c:	9082032c */ 	lbu	$v0,0x32c($a0)
-/*  f037240:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f037244:	10410024 */ 	beq	$v0,$at,.L0f0372d8
-/*  f037248:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f03724c:	50410023 */ 	beql	$v0,$at,.L0f0372dc
-/*  f037250:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f037254:	94820066 */ 	lhu	$v0,0x66($a0)
-/*  f037258:	3c03800a */ 	lui	$v1,%hi(g_MenuStack+0x212c)
-/*  f03725c:	1440000c */ 	bnez	$v0,.L0f037290
-/*  f037260:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f037264:	0fc0dc49 */ 	jal	func0f037124
-/*  f037268:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f03726c:	00021840 */ 	sll	$v1,$v0,0x1
-/*  f037270:	2465012c */ 	addiu	$a1,$v1,%lo(g_MenuStack+0x212c)
-/*  f037274:	3c010001 */ 	lui	$at,0x1
-/*  f037278:	00a1082a */ 	slt	$at,$a1,$at
-/*  f03727c:	14200002 */ 	bnez	$at,.L0f037288
-/*  f037280:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f037284:	3405ffff */ 	dli	$a1,0xffff
-.L0f037288:
-/*  f037288:	10000013 */ 	beqz	$zero,.L0f0372d8
-/*  f03728c:	a4850066 */ 	sh	$a1,0x66($a0)
-.L0f037290:
-/*  f037290:	94639ffa */ 	lhu	$v1,-0x6006($v1)
-/*  f037294:	0062082a */ 	slt	$at,$v1,$v0
-/*  f037298:	1420000e */ 	bnez	$at,.L0f0372d4
-/*  f03729c:	0043c023 */ 	subu	$t8,$v0,$v1
-/*  f0372a0:	8c8f02d4 */ 	lw	$t7,0x2d4($a0)
-/*  f0372a4:	2485002c */ 	addiu	$a1,$a0,0x2c
-/*  f0372a8:	24860038 */ 	addiu	$a2,$a0,0x38
-/*  f0372ac:	11e00005 */ 	beqz	$t7,.L0f0372c4
-/*  f0372b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0372b4:	0fc65d51 */ 	jal	func0f197544
-/*  f0372b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0372bc:	10000007 */ 	beqz	$zero,.L0f0372dc
-/*  f0372c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0372c4:
-/*  f0372c4:	0fc0e10f */ 	jal	chrGoToPos
-/*  f0372c8:	90870065 */ 	lbu	$a3,0x65($a0)
-/*  f0372cc:	10000003 */ 	beqz	$zero,.L0f0372dc
-/*  f0372d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0372d4:
-/*  f0372d4:	a4980066 */ 	sh	$t8,0x66($a0)
-.L0f0372d8:
-/*  f0372d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0372dc:
-/*  f0372dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0372e0:	03e00008 */ 	jr	$ra
-/*  f0372e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrGoposConsiderRestart(struct chrdata *chr)
+{
+	if (chr->act_gopos.waydata.mode != WAYMODE_CHEAP
+			&& chr->liftaction != LA_3
+			&& chr->liftaction != LA_1) {
+		if (chr->act_gopos.restartttl == 0) {
+			s32 value = func0f037124(chr) * 2 + 300;
+
+			if (value > 0xffff) {
+				value = 0xffff;
+			}
+
+			chr->act_gopos.restartttl = value;
+		} else if (chr->act_gopos.restartttl <= (u16)g_Vars.lvupdate240_60) {
+			if (chr->aibot) {
+				func0f197544(chr);
+			} else {
+				chrGoToPos(chr, &chr->act_gopos.pos, chr->act_gopos.rooms, chr->act_gopos.flags);
+			}
+		} else {
+			chr->act_gopos.restartttl -= (u16)g_Vars.lvupdate240_60;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0372e8
@@ -9755,7 +9721,7 @@ glabel func0f0372e8
 /*  f037318:	c7a60030 */ 	lwc1	$f6,0x30($sp)
 /*  f03731c:	e4860070 */ 	swc1	$f6,0x70($a0)
 /*  f037320:	c7a80034 */ 	lwc1	$f8,0x34($sp)
-/*  f037324:	0fc0dc87 */ 	jal	chrSetField66To0
+/*  f037324:	0fc0dc87 */ 	jal	chrGoposClearRestartTtl
 /*  f037328:	e4880074 */ 	swc1	$f8,0x74($a0)
 /*  f03732c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f037330:	27bd0038 */ 	addiu	$sp,$sp,0x38
@@ -11378,7 +11344,7 @@ glabel chrGoToPos
 //		func0f0372e8(chr);
 //		chr->goposforce = -1;
 //		chr->sleep = 0;
-//		chr->unk32c_00 = 0;
+//		chr->liftaction = 0;
 //		chr->act_gopos.unk065 &= 0xff1f;
 //		func0f037088(chr, &auStack52[0], &auStack68[0]);
 //
@@ -11386,7 +11352,7 @@ glabel chrGoToPos
 //				g_Vars.normmplayerisrunning == 0 &&
 //				(prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) == 0 &&
 //				func0f036c08(chr, &auStack52[0], &auStack68[0]) &&
-//				chr->unk32c_00 >= 0) {
+//				chr->liftaction >= 0) {
 //			func0f036ee4(chr, &chr->act_gopos.waydata, &auStack52[0], &prevpos);
 //		}
 //
@@ -24124,7 +24090,7 @@ glabel var7f1a9260
 /*  f045b38:	11400010 */ 	beqz	$t2,.L0f045b7c
 /*  f045b3c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f045b40:
-/*  f045b40:	0fc0dc87 */ 	jal	chrSetField66To0
+/*  f045b40:	0fc0dc87 */ 	jal	chrGoposClearRestartTtl
 /*  f045b44:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f045b48:	8fab0030 */ 	lw	$t3,0x30($sp)
 /*  f045b4c:	8e050004 */ 	lw	$a1,0x4($s0)
@@ -25184,7 +25150,7 @@ glabel func0f046648
 
 s32 func0f046a30(struct chrdata *chr)
 {
-	return (chr->actiontype == ACT_GOPOS || chr->actiontype == ACT_PATROL) && chr->unk32c_00 > 0;
+	return (chr->actiontype == ACT_GOPOS || chr->actiontype == ACT_PATROL) && chr->liftaction > 0;
 }
 
 s16 chrGoposGetNextPadNum(struct chrdata *chr)
@@ -25240,7 +25206,7 @@ void chrTickGoPos(struct chrdata *chr)
 		chrGoToPos(chr, &chr->act_gopos.pos, chr->act_gopos.rooms, chr->act_gopos.flags);
 	}
 
-	func0f037224(chr); // related to lifts, may result in chrGoToPos being called
+	chrGoposConsiderRestart(chr);
 	chrGoposGetCurWaypointInfo(chr, &sp228pos, sp212rooms, &padflags);
 
 	// If cheap mode ended over 3 seconds ago, not multiplayer, not in view of

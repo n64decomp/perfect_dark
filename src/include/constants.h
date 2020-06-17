@@ -718,6 +718,10 @@
 #define INVITEMTYPE_PROP 2
 #define INVITEMTYPE_DUAL 3
 
+// Lift actions
+#define LA_1 1 // either waiting for lift or in lift
+#define LA_3 3 // either waiting for lift or in lift
+
 #define LANGBANK_AME       0x01
 #define LANGBANK_ARCH      0x02
 #define LANGBANK_ARK       0x03

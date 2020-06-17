@@ -2657,7 +2657,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->laddernormal.x = 0;
 	chr->laddernormal.y = 0;
 	chr->laddernormal.z = 0;
-	chr->unk32c_00 = 0;
+	chr->liftaction = 0;
 	chr->unk364 = 0;
 	chr->pouncebits = 0;
 	chr->specialdie = 0;
