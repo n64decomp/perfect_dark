@@ -9439,64 +9439,23 @@ glabel func0f036c08
 /*  f036ee0:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-GLOBAL_ASM(
-glabel func0f036ee4
-/*  f036ee4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f036ee8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f036eec:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f036ef0:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f036ef4:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f036ef8:	8c82001c */ 	lw	$v0,0x1c($a0)
-/*  f036efc:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f036f00:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*  f036f04:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f036f08:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f036f0c:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f036f10:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f036f14:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f036f18:	e7ac002c */ 	swc1	$f12,0x2c($sp)
-/*  f036f1c:	0fc259d4 */ 	jal	func0f096750
-/*  f036f20:	e7ae0028 */ 	swc1	$f14,0x28($sp)
-/*  f036f24:	8fa2003c */ 	lw	$v0,0x3c($sp)
-/*  f036f28:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f036f2c:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f036f30:	c4460000 */ 	lwc1	$f6,0x0($v0)
-/*  f036f34:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f036f38:	c7b2002c */ 	lwc1	$f18,0x2c($sp)
-/*  f036f3c:	c7ae0028 */ 	lwc1	$f14,0x28($sp)
-/*  f036f40:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f036f44:	46129102 */ 	mul.s	$f4,$f18,$f18
-/*  f036f48:	c44a0008 */ 	lwc1	$f10,0x8($v0)
-/*  f036f4c:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*  f036f50:	460e7182 */ 	mul.s	$f6,$f14,$f14
-/*  f036f54:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*  f036f58:	460a4401 */ 	sub.s	$f16,$f8,$f10
-/*  f036f5c:	240f0006 */ 	addiu	$t7,$zero,0x6
-/*  f036f60:	a30f0000 */ 	sb	$t7,0x0($t8)
-/*  f036f64:	e7a20020 */ 	swc1	$f2,0x20($sp)
-/*  f036f68:	e7b0001c */ 	swc1	$f16,0x1c($sp)
-/*  f036f6c:	0c012974 */ 	jal	sqrtf
-/*  f036f70:	46062300 */ 	add.s	$f12,$f4,$f6
-/*  f036f74:	c7a20020 */ 	lwc1	$f2,0x20($sp)
-/*  f036f78:	c7b0001c */ 	lwc1	$f16,0x1c($sp)
-/*  f036f7c:	8fb90034 */ 	lw	$t9,0x34($sp)
-/*  f036f80:	46021202 */ 	mul.s	$f8,$f2,$f2
-/*  f036f84:	e720003c */ 	swc1	$f0,0x3c($t9)
-/*  f036f88:	46108282 */ 	mul.s	$f10,$f16,$f16
-/*  f036f8c:	0c012974 */ 	jal	sqrtf
-/*  f036f90:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f036f94:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*  f036f98:	c444003c */ 	lwc1	$f4,0x3c($v0)
-/*  f036f9c:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f036fa0:	e4460038 */ 	swc1	$f6,0x38($v0)
-/*  f036fa4:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f036fa8:	0fc0f94e */ 	jal	func0f03e538
-/*  f036fac:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f036fb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f036fb4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f036fb8:	03e00008 */ 	jr	$ra
-/*  f036fbc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrGoposInitCheap(struct chrdata *chr, struct waydata *waydata, struct coord *padpos, struct coord *chrpos)
+{
+	f32 xdiff1 = padpos->x - chr->prop->pos.x;
+	f32 zdiff1 = padpos->z - chr->prop->pos.z;
+
+	f32 angle = func0f096750(xdiff1, zdiff1);
+
+	f32 xdiff2 = padpos->x - chrpos->x;
+	f32 zdiff2 = padpos->z - chrpos->z;
+
+	waydata->mode = WAYMODE_CHEAP;
+
+	waydata->segdisttodo = sqrtf(xdiff1 * xdiff1 + zdiff1 * zdiff1);
+	waydata->segdistdone = waydata->segdisttodo - sqrtf(xdiff2 * xdiff2 + zdiff2 * zdiff2);
+
+	func0f03e538(chr, angle);
+}
 
 GLOBAL_ASM(
 glabel chrGoposGetCurWaypointInfo
@@ -10063,7 +10022,7 @@ glabel var7f1a8dac
 /*  f037820:	02002025 */ 	or	$a0,$s0,$zero
 /*  f037824:	8fa5012c */ 	lw	$a1,0x12c($sp)
 /*  f037828:	27a600dc */ 	addiu	$a2,$sp,0xdc
-/*  f03782c:	0fc0dbb9 */ 	jal	func0f036ee4
+/*  f03782c:	0fc0dbb9 */ 	jal	chrGoposInitCheap
 /*  f037830:	8fa7003c */ 	lw	$a3,0x3c($sp)
 /*  f037834:	10000057 */ 	beqz	$zero,.L0f037994
 /*  f037838:	02002025 */ 	or	$a0,$s0,$zero
@@ -10136,7 +10095,7 @@ glabel var7f1a8dac
 /*  f037928:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03792c:	8fa5012c */ 	lw	$a1,0x12c($sp)
 /*  f037930:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f037934:	0fc0dbb9 */ 	jal	func0f036ee4
+/*  f037934:	0fc0dbb9 */ 	jal	chrGoposInitCheap
 /*  f037938:	8fa7003c */ 	lw	$a3,0x3c($sp)
 /*  f03793c:	10000015 */ 	beqz	$zero,.L0f037994
 /*  f037940:	02002025 */ 	or	$a0,$s0,$zero
@@ -11183,7 +11142,7 @@ glabel chrGoToPos
 /*  f03877c:	26050068 */ 	addiu	$a1,$s0,0x68
 /*  f038780:	07200003 */ 	bltz	$t9,.L0f038790
 /*  f038784:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f038788:	0fc0dbb9 */ 	jal	func0f036ee4
+/*  f038788:	0fc0dbb9 */ 	jal	chrGoposInitCheap
 /*  f03878c:	27a70038 */ 	addiu	$a3,$sp,0x38
 .L0f038790:
 /*  f038790:	820c0068 */ 	lb	$t4,0x68($s0)
@@ -11334,7 +11293,7 @@ glabel chrGoToPos
 //				(prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) == 0 &&
 //				func0f036c08(chr, &auStack52[0], &auStack68[0]) &&
 //				chr->liftaction >= 0) {
-//			func0f036ee4(chr, &chr->act_gopos.waydata, &auStack52[0], &prevpos);
+//			chrGoposInitCheap(chr, &chr->act_gopos.waydata, &auStack52[0], &prevpos);
 //		}
 //
 //		if (chr->act_gopos.unk068 != MAX_CHRWAYPOINTS && func0001db94(chr->model) != 0 && !chr->aibot) {
@@ -11798,7 +11757,7 @@ glabel var7f1a8dd0
 /*  f038e84:	26650038 */ 	addiu	$a1,$s3,0x38
 /*  f038e88:	05a00003 */ 	bltz	$t5,.L0f038e98
 /*  f038e8c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f038e90:	0fc0dbb9 */ 	jal	func0f036ee4
+/*  f038e90:	0fc0dbb9 */ 	jal	chrGoposInitCheap
 /*  f038e94:	8fa70054 */ 	lw	$a3,0x54($sp)
 .L0f038e98:
 /*  f038e98:	826e0068 */ 	lb	$t6,0x68($s3)
@@ -25200,7 +25159,7 @@ void chrTickGoPos(struct chrdata *chr)
 			&& (padflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT)) == 0
 			&& chr->inlift == false) {
 		enteringcheap = true;
-		func0f036ee4(chr, &chr->act_gopos.waydata, &sp228pos, &prop->pos);
+		chrGoposInitCheap(chr, &chr->act_gopos.waydata, &sp228pos, &prop->pos);
 	}
 
 	if (var80062cbc >= 9
@@ -25500,7 +25459,7 @@ glabel chrTickPatrol
 /*  f0474b8:	8fa7006c */ 	lw	$a3,0x6c($sp)
 /*  f0474bc:	afaa0068 */ 	sw	$t2,0x68($sp)
 /*  f0474c0:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0474c4:	0fc0dbb9 */ 	jal	func0f036ee4
+/*  f0474c4:	0fc0dbb9 */ 	jal	chrGoposInitCheap
 /*  f0474c8:	24e70008 */ 	addiu	$a3,$a3,0x8
 .L0f0474cc:
 /*  f0474cc:	820b0038 */ 	lb	$t3,0x38($s0)

@@ -479,26 +479,29 @@ struct act_runpos {
 };
 
 struct waydata {
-	/*0x068*/ s8 mode;
-	/*0x069*/ u8 unk069;
-	/*0x06a*/ u8 unk06a;
-	/*0x06b*/ u8 unk06b;
-	/*0x06c*/ u16 unk06c;
-	/*0x06e*/ u8 unk06e;
-	/*0x070*/ u32 unk070;
-	/*0x074*/ u32 unk074;
-	/*0x078*/ u32 unk078;
-	/*0x07c*/ u32 unk07c;
-	/*0x080*/ u32 unk080;
-	/*0x084*/ u32 unk084;
-	/*0x088*/ u32 unk088;
-	/*0x08c*/ u32 unk08c;
-	/*0x090*/ s32 age;
-	/*0x094*/ u32 unk094;
-	/*0x098*/ u32 unk098;
-	/*0x09c*/ u32 unk09c;
-	/*0x0a0*/ u32 unk0a0;
-	/*0x0a4*/ u32 unk0a4;
+	/*0x00*/ s8 mode;
+	/*0x01*/ u8 unk01;
+	/*0x02*/ u8 unk02;
+	/*0x03*/ u8 unk03;
+	/*0x04*/ u16 unk04;
+	/*0x06*/ u8 unk06;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ s32 age;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+
+	// These are the distances between the current waypoint and the previous
+	// when using cheap mode.
+	/*0x38*/ f32 segdistdone;
+	/*0x3c*/ f32 segdisttodo;
 };
 
 struct act_gopos {

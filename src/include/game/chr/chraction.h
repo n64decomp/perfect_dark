@@ -65,7 +65,7 @@ u32 chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance);
 void chrGetSideVector(struct chrdata *chr, bool side, struct coord *vector);
 bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance);
 u32 func0f036c08(struct chrdata *chr, struct coord *arg1, s16 *rooms);
-void func0f036ee4(struct chrdata *chr, struct waydata *waydata, struct coord *arg2, struct coord *prevpos);
+void chrGoposInitCheap(struct chrdata *chr, struct waydata *waydata, struct coord *arg2, struct coord *prevpos);
 void chrGoposGetCurWaypointInfo(struct chrdata *chr, struct coord *arg1, s16 *rooms, u32 *flags);
 f32 func0f0370a8(struct chrdata *chr);
 s32 func0f037124(struct chrdata *chr);
