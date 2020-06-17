@@ -502,13 +502,19 @@ struct waydata {
 };
 
 struct act_gopos {
-	/*0x02c*/ struct coord pos;
-	/*0x038*/ s16 rooms[8];
-	/*0x048*/ s32 numwaypoints;
-	/*0x04c*/ struct waypoint *waypoints[MAX_CHRWAYPOINTS];
-	/*0x064*/ u8 nextwaypointindex;
+	/*0x02c*/ struct coord pos; // Target pos
+	/*0x038*/ s16 rooms[8];     // Target rooms
+	/*0x048*/ s32 numwaypoints; // in practice, seems to be a pointer to the final waypoint?
 
-	// This doesn't appear to be a proper bitfield, but is used as one
+	// Array of pointers to the next couple of waypoints. Recalculated each time
+	// a waypoint is reached, and probably even more frequently than that.
+	/*0x04c*/ struct waypoint *waypoints[MAX_CHRWAYPOINTS];
+
+	// Index of the waypoint in the above array that the chr is running to. If
+	// the chr has line of sight (through doors) to a later waypoint then this
+	// index can be changed to that one and the chr will run straight to it.
+	/*0x064*/ u8 curindex;
+
 	// x....... = walking directly to pad due to PADFLAG_AIWALKDIRECT
 	// .x...... = ducking due to PADFLAG_AIDUCK
 	// ....x... = on preset path

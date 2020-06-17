@@ -7909,7 +7909,7 @@ void func0f197544(struct chrdata *chr)
 	struct aibot *aibot = chr->aibot;
 
 	if (chr->myaction[0] == MA_AIBOTGETITEM) {
-		if (chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex] == 0) {
+		if (chr->act_gopos.waypoints[chr->act_gopos.curindex] == 0) {
 			struct prop *prop = aibot->prop;
 
 			if (prop && !prop->parent && prop->timetoregen == 0) {

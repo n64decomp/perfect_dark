@@ -9499,7 +9499,7 @@ glabel func0f036ee4
 );
 
 GLOBAL_ASM(
-glabel chrGoposGetNextPadInfo
+glabel chrGoposGetCurWaypointInfo
 /*  f036fc0:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f036fc4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f036fc8:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -9556,7 +9556,7 @@ glabel chrGoposGetNextPadInfo
 
 void func0f037088(struct chrdata *chr, struct coord *pos, s16 *rooms)
 {
-	chrGoposGetNextPadInfo(chr, pos, rooms, NULL);
+	chrGoposGetCurWaypointInfo(chr, pos, rooms, NULL);
 }
 
 GLOBAL_ASM(
@@ -11321,8 +11321,8 @@ glabel chrGoToPos
 //	chr->oldrooms[i] = -1;
 //
 //	// 51c
-//	if (same2 && same && chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex]) {
-//		nextwaypoint = chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex];
+//	if (same2 && same && chr->act_gopos.waypoints[chr->act_gopos.curindex]) {
+//		nextwaypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 //	} else {
 //		// 54c
 //		nextwaypoint = waypointFindClosestToPos(&prop->pos, prop->rooms);
@@ -11357,7 +11357,7 @@ glabel chrGoToPos
 //		chr->act_gopos.pos.y = pos->y;
 //		chr->act_gopos.pos.z = pos->z;
 //		roomsCopy(room, chr->act_gopos.rooms);
-//		chr->act_gopos.nextwaypointindex = 0;
+//		chr->act_gopos.curindex = 0;
 //		chr->act_gopos.numwaypoints = numwaypoints;
 //		chr->act_gopos.unk065 = 4 | speed;
 //		chr->act_gopos.unk0ac = 0;
@@ -25187,21 +25187,14 @@ s32 func0f046a30(struct chrdata *chr)
 	return (chr->actiontype == ACT_GOPOS || chr->actiontype == ACT_PATROL) && chr->unk32c_00 > 0;
 }
 
-GLOBAL_ASM(
-glabel func0f046a60
-/*  f046a60:	908e0064 */ 	lbu	$t6,0x64($a0)
-/*  f046a64:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f046a68:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f046a6c:	008fc021 */ 	addu	$t8,$a0,$t7
-/*  f046a70:	8f030050 */ 	lw	$v1,0x50($t8)
-/*  f046a74:	10600003 */ 	beqz	$v1,.L0f046a84
-/*  f046a78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f046a7c:	03e00008 */ 	jr	$ra
-/*  f046a80:	84620002 */ 	lh	$v0,0x2($v1)
-.L0f046a84:
-/*  f046a84:	03e00008 */ 	jr	$ra
-/*  f046a88:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s16 chrGoposGetNextPadNum(struct chrdata *chr)
+{
+	if (chr->act_gopos.waypoints[chr->act_gopos.curindex + 1]) {
+		return chr->act_gopos.waypoints[chr->act_gopos.curindex + 1]->padnum;
+	}
+
+	return -1;
+}
 
 void chrTickGoPos(struct chrdata *chr)
 {
@@ -25248,7 +25241,7 @@ void chrTickGoPos(struct chrdata *chr)
 	}
 
 	func0f037224(chr); // related to lifts, may result in chrGoToPos being called
-	chrGoposGetNextPadInfo(chr, &sp228pos, sp212rooms, &padflags);
+	chrGoposGetCurWaypointInfo(chr, &sp228pos, sp212rooms, &padflags);
 
 	// If cheap mode ended over 3 seconds ago, not multiplayer, not in view of
 	// eyespy, pad is nothing special and not in lift, then enter the cheap move
@@ -25312,7 +25305,7 @@ void chrTickGoPos(struct chrdata *chr)
 	struct waypoint *next;
 	struct pad pad2;
 
-	waypoint = chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex];
+	waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 
 	if (waypoint) {
 		padUnpack(waypoint->padnum, PADFIELD_FLAGS | PADFIELD_POS, &pad);
@@ -25329,7 +25322,7 @@ void chrTickGoPos(struct chrdata *chr)
 		}
 
 		if ((pad.flags & PADFLAG_AIWAITLIFT) || (pad.flags & PADFLAG_AIONLIFT)) {
-			sp192 = func0f046648(chr, pad.flags, sp184, sp188, waypoint->padnum, func0f046a60(chr));
+			sp192 = func0f046648(chr, pad.flags, sp184, sp188, waypoint->padnum, chrGoposGetNextPadNum(chr));
 		} else {
 			if (sp188 || (sp184 && (chr->inlift || (pad.flags & PADFLAG_8000)))) {
 				sp192 = true;
@@ -25355,24 +25348,31 @@ void chrTickGoPos(struct chrdata *chr)
 		func0f03733c(chr);
 	}
 
-	// Every 10 ticks: Check something 3 pads ahead
+	// Every 10 ticks: Check something a couple of waypoints ahead
 	// This might be checking if the chr has line of sight to that pad and can
 	// walk straight to it.
 	if (chr->act_gopos.waydata.age % 10 == 5 || (chr->act_gopos.flags & GOPOSFLAG_04)) {
-		waypoint = chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex];
+		// Load waypoint that the chr is running to
+		waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 
 		if (waypoint) {
 			padUnpack(waypoint->padnum, PADFIELD_FLAGS, &pad);
 
 			if ((pad.flags & PADFLAG_AIWALKDIRECT) == 0) {
-				waypoint = chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex + 1];
+				// The waypoint the chr is running to doesn't have
+				// PADFLAG_AIWALKDIRECT, so the chr is able to ignore it and run
+				// towards the next one if it's in sight.
+
+				// Load the next waypoint after the one the chr is running to
+				waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex + 1];
 
 				if (waypoint) {
 					padUnpack(waypoint->padnum, PADFIELD_FLAGS, &pad);
 
 					if ((pad.flags & PADFLAG_AIWALKDIRECT) == 0) {
-						// Neither next pad nor the one after have AIWALKDIRECT
-						waypoint = chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex + 2];
+						// And this one doesn't have PADFLAG_AIWALKDIRECT either,
+						// so the chr can consider skipping this one too.
+						waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex + 2];
 
 						if (waypoint) {
 							padUnpack(waypoint->padnum, PADFIELD_ROOM | PADFIELD_POS, &pad);
@@ -25393,7 +25393,7 @@ void chrTickGoPos(struct chrdata *chr)
 
 						// Some bbox related check
 						if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, 0, chr->chrwidth * 1.2f, 48)) {
-							// Possibly find new route
+							// Probably assigning the new waypoint
 							func0f03733c(chr);
 							func0f03733c(chr);
 						}
@@ -25404,13 +25404,13 @@ void chrTickGoPos(struct chrdata *chr)
 	}
 
 	if (chr->act_gopos.waydata.age % 10 == 0 || (chr->act_gopos.flags & GOPOSFLAG_04)) {
-		waypoint = chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex];
+		waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 
 		if (waypoint) {
 			candosomething = (chr->act_gopos.flags & GOPOSFLAG_04) != 0;
 			padUnpack(waypoint->padnum, PADFIELD_FLAGS | PADFIELD_POS, &pad);
 
-			next = chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex + 1];
+			next = chr->act_gopos.waypoints[chr->act_gopos.curindex + 1];
 
 			if (next) {
 				padUnpack(next->padnum, PADFIELD_ROOM | PADFIELD_POS, &pad2);
@@ -25469,7 +25469,7 @@ void chrTickGoPos(struct chrdata *chr)
 		chr->act_gopos.flags &= ~GOPOSFLAG_04;
 	}
 
-	waypoint = chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex];
+	waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 
 	if (waypoint) {
 		padUnpack(waypoint->padnum, PADFIELD_POS, &pad);
