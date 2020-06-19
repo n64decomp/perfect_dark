@@ -20,7 +20,7 @@ void chrStand(struct chrdata *chr);
 u32 chrFaceCover(struct chrdata *chr);
 void chrKneelChooseAnimation(struct chrdata *chr);
 void chrStartAlarmChooseAnimation(struct chrdata *chr);
-void func0f02f070(struct chrdata *chr);
+void chrThrowGrenadeChooseAnimation(struct chrdata *chr);
 void chrDoSurprisedThing(struct chrdata *chr);
 void chrDoSurprisedOneHand(struct chrdata *chr);
 void chrSurrenderStartAnim(struct chrdata *chr);
