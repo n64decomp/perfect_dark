@@ -24,7 +24,7 @@ void chrThrowGrenadeChooseAnimation(struct chrdata *chr);
 void chrSurprisedChooseAnimation(struct chrdata *chr);
 void chrDoSurprisedOneHand(struct chrdata *chr);
 void chrSurrenderChooseAnimation(struct chrdata *chr);
-void func0f02f8a4(struct chrdata *chr);
+void chrSidestepChooseAnimation(struct chrdata *chr);
 void func0f02fc2c(struct chrdata *chr);
 void func0f02fe18(struct chrdata *chr);
 void chrAttackStand(struct chrdata *chr, s32 entitytype, s32 entityid);
