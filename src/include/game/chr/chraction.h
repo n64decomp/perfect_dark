@@ -15,7 +15,7 @@ void func0f02e3dc(struct coord *arg0, struct coord *arg1, struct coord *arg2, st
 u32 func0f02e4f8(void);
 u32 func0f02e550(void);
 u32 func0f02e684(void);
-void func0f02e6dc(struct chrdata *chr, f32 arg1);
+void chrStandChooseAnimation(struct chrdata *chr, f32 arg1);
 void chrStand(struct chrdata *chr);
 u32 chrFaceCover(struct chrdata *chr);
 void chrKneelChooseAnimation(struct chrdata *chr);
