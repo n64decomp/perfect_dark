@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-f32 func0f02dff0(u32 arg0);
+f32 func0f02dff0(u32 animnum);
 u32 func0f02e064(struct chrdata *chr);
 bool func0f02e124(struct prop *prop);
 f32 func0f02e15c(struct chrdata *chr, f32 arg1, f32 arg2);
@@ -26,7 +26,7 @@ void chrDoSurprisedOneHand(struct chrdata *chr);
 void chrSurrenderChooseAnimation(struct chrdata *chr);
 void chrSidestepChooseAnimation(struct chrdata *chr);
 void chrJumpOutChooseAnimation(struct chrdata *chr);
-void func0f02fe18(struct chrdata *chr);
+void chrRunPosChooseAnimation(struct chrdata *chr);
 void chrAttackStand(struct chrdata *chr, s32 entitytype, s32 entityid);
 void chrAttackLie(struct chrdata *chr, s32 entitytype, s32 entityid);
 void chrAttackKneel(struct chrdata *chr, s32 entitytype, s32 entityid);
