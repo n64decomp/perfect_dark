@@ -1030,7 +1030,7 @@ void chrThrowGrenade(struct chrdata *chr, s32 hand, s32 needsequip)
 	}
 }
 
-void chrDoSurprisedThing(struct chrdata *chr)
+void chrSurprisedChooseAnimation(struct chrdata *chr)
 {
 	if (chr->act_surprised.type == 1) {
 		struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
@@ -1077,7 +1077,7 @@ void chrDoSurprisedOneHand(struct chrdata *chr)
 		if (func0001db94(chr->model)) {
 			chr->hidden |= CHRHFLAG_NEEDANIM;
 		} else {
-			chrDoSurprisedThing(chr);
+			chrSurprisedChooseAnimation(chr);
 			chr->hidden &= ~CHRHFLAG_NEEDANIM;
 		}
 	} else if (!chrIsStopped(chr)) {
@@ -1095,7 +1095,7 @@ void chrDoSurprisedSurrender(struct chrdata *chr)
 	if (func0001db94(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
-		chrDoSurprisedThing(chr);
+		chrSurprisedChooseAnimation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 }
@@ -1110,12 +1110,12 @@ void chrDoSurprisedLookAround(struct chrdata *chr)
 	if (func0001db94(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
-		chrDoSurprisedThing(chr);
+		chrSurprisedChooseAnimation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 }
 
-void chrSurrenderStartAnim(struct chrdata *chr)
+void chrSurrenderChooseAnimation(struct chrdata *chr)
 {
 	struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
 	struct prop *gun0 = chrGetEquippedWeaponProp(chr, 0);
@@ -1153,7 +1153,7 @@ void chrSurrender(struct chrdata *chr)
 		if (func0001db94(chr->model)) {
 			chr->hidden |= CHRHFLAG_NEEDANIM;
 		} else {
-			chrSurrenderStartAnim(chr);
+			chrSurrenderChooseAnimation(chr);
 			chr->hidden &= ~CHRHFLAG_NEEDANIM;
 		}
 	}
@@ -9202,7 +9202,7 @@ glabel func0f036c08
 /*  f036ee0:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-void chrGoposInitCheap(struct chrdata *chr, struct waydata *waydata, struct coord *padpos, struct coord *chrpos)
+void chrGoPosInitCheap(struct chrdata *chr, struct waydata *waydata, struct coord *padpos, struct coord *chrpos)
 {
 	f32 xdiff1 = padpos->x - chr->prop->pos.x;
 	f32 zdiff1 = padpos->z - chr->prop->pos.z;
@@ -9221,7 +9221,7 @@ void chrGoposInitCheap(struct chrdata *chr, struct waydata *waydata, struct coor
 }
 
 GLOBAL_ASM(
-glabel chrGoposGetCurWaypointInfo
+glabel chrGoPosGetCurWaypointInfo
 /*  f036fc0:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f036fc4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f036fc8:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -9278,7 +9278,7 @@ glabel chrGoposGetCurWaypointInfo
 
 void func0f037088(struct chrdata *chr, struct coord *pos, s16 *rooms)
 {
-	chrGoposGetCurWaypointInfo(chr, pos, rooms, NULL);
+	chrGoPosGetCurWaypointInfo(chr, pos, rooms, NULL);
 }
 
 GLOBAL_ASM(
@@ -9396,12 +9396,12 @@ glabel var7f1a8da8
 /*  f037218:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void chrGoposClearRestartTtl(struct chrdata *chr)
+void chrGoPosClearRestartTtl(struct chrdata *chr)
 {
 	chr->act_gopos.restartttl = 0;
 }
 
-void chrGoposConsiderRestart(struct chrdata *chr)
+void chrGoPosConsiderRestart(struct chrdata *chr)
 {
 	if (chr->act_gopos.waydata.mode != WAYMODE_CHEAP
 			&& chr->liftaction != LA_3
@@ -9426,7 +9426,7 @@ void chrGoposConsiderRestart(struct chrdata *chr)
 	}
 }
 
-void chrGoposInitExpensive(struct chrdata *chr)
+void chrGoPosInitExpensive(struct chrdata *chr)
 {
 	struct coord pos;
 	s16 rooms[8];
@@ -9440,7 +9440,7 @@ void chrGoposInitExpensive(struct chrdata *chr)
 	chr->act_gopos.waydata.pos.y = pos.y;
 	chr->act_gopos.waydata.pos.z = pos.z;
 
-	chrGoposClearRestartTtl(chr);
+	chrGoPosClearRestartTtl(chr);
 }
 
 /**
@@ -9451,7 +9451,7 @@ void chrGoposInitExpensive(struct chrdata *chr)
  * far into the array, new pathfinding will be done and the array and index will
  * be reset.
  */
-void chrGoposAdvanceWaypoint(struct chrdata *chr)
+void chrGoPosAdvanceWaypoint(struct chrdata *chr)
 {
 	if (chr->act_gopos.curindex < 3) {
 		chr->act_gopos.curindex++;
@@ -9467,7 +9467,7 @@ void chrGoposAdvanceWaypoint(struct chrdata *chr)
 		waypointSetHashThing(0, 0);
 	}
 
-	chrGoposInitExpensive(chr);
+	chrGoPosInitExpensive(chr);
 }
 
 GLOBAL_ASM(
@@ -9777,7 +9777,7 @@ glabel var7f1a8dac
 /*  f037820:	02002025 */ 	or	$a0,$s0,$zero
 /*  f037824:	8fa5012c */ 	lw	$a1,0x12c($sp)
 /*  f037828:	27a600dc */ 	addiu	$a2,$sp,0xdc
-/*  f03782c:	0fc0dbb9 */ 	jal	chrGoposInitCheap
+/*  f03782c:	0fc0dbb9 */ 	jal	chrGoPosInitCheap
 /*  f037830:	8fa7003c */ 	lw	$a3,0x3c($sp)
 /*  f037834:	10000057 */ 	beqz	$zero,.L0f037994
 /*  f037838:	02002025 */ 	or	$a0,$s0,$zero
@@ -9841,7 +9841,7 @@ glabel var7f1a8dac
 /*  f037908:	10000022 */ 	beqz	$zero,.L0f037994
 /*  f03790c:	02002025 */ 	or	$a0,$s0,$zero
 .L0f037910:
-/*  f037910:	0fc0dccf */ 	jal	chrGoposAdvanceWaypoint
+/*  f037910:	0fc0dccf */ 	jal	chrGoPosAdvanceWaypoint
 /*  f037914:	02002025 */ 	or	$a0,$s0,$zero
 /*  f037918:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03791c:	27a5005c */ 	addiu	$a1,$sp,0x5c
@@ -9850,7 +9850,7 @@ glabel var7f1a8dac
 /*  f037928:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03792c:	8fa5012c */ 	lw	$a1,0x12c($sp)
 /*  f037930:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f037934:	0fc0dbb9 */ 	jal	chrGoposInitCheap
+/*  f037934:	0fc0dbb9 */ 	jal	chrGoPosInitCheap
 /*  f037938:	8fa7003c */ 	lw	$a3,0x3c($sp)
 /*  f03793c:	10000015 */ 	beqz	$zero,.L0f037994
 /*  f037940:	02002025 */ 	or	$a0,$s0,$zero
@@ -9873,7 +9873,7 @@ glabel var7f1a8dac
 .L0f037980:
 /*  f037980:	8d299fc8 */ 	lw	$t1,%lo(g_Vars+0x8)($t1)
 /*  f037984:	02002025 */ 	or	$a0,$s0,$zero
-/*  f037988:	0fc0dcba */ 	jal	chrGoposInitExpensive
+/*  f037988:	0fc0dcba */ 	jal	chrGoPosInitExpensive
 /*  f03798c:	ae0900a8 */ 	sw	$t1,0xa8($s0)
 /*  f037990:	02002025 */ 	or	$a0,$s0,$zero
 .L0f037994:
@@ -10007,7 +10007,7 @@ glabel func0f0379b0
 /*  f037b6c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void chrGoposChooseAnimation(struct chrdata *chr)
+void chrGoPosChooseAnimation(struct chrdata *chr)
 {
 	s32 speed = chr->act_gopos.flags & 3;
 	s32 male = g_Bodies[chr->bodynum].ismale;
@@ -10470,7 +10470,7 @@ glabel chrGoToPos
 /*  f0386e0:	1444fffc */ 	bne	$v0,$a0,.L0f0386d4
 /*  f0386e4:	ac780048 */ 	sw	$t8,0x48($v1)
 /*  f0386e8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0386ec:	0fc0dcba */ 	jal	chrGoposInitExpensive
+/*  f0386ec:	0fc0dcba */ 	jal	chrGoPosInitExpensive
 /*  f0386f0:	afaa0030 */ 	sw	$t2,0x30($sp)
 /*  f0386f4:	920b0065 */ 	lbu	$t3,0x65($s0)
 /*  f0386f8:	2409ffff */ 	addiu	$t1,$zero,-1
@@ -10510,7 +10510,7 @@ glabel chrGoToPos
 /*  f03877c:	26050068 */ 	addiu	$a1,$s0,0x68
 /*  f038780:	07200003 */ 	bltz	$t9,.L0f038790
 /*  f038784:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f038788:	0fc0dbb9 */ 	jal	chrGoposInitCheap
+/*  f038788:	0fc0dbb9 */ 	jal	chrGoPosInitCheap
 /*  f03878c:	27a70038 */ 	addiu	$a3,$sp,0x38
 .L0f038790:
 /*  f038790:	820c0068 */ 	lb	$t4,0x68($s0)
@@ -10535,7 +10535,7 @@ glabel chrGoToPos
 .L0f0387d8:
 /*  f0387d8:	57000004 */ 	bnezl	$t8,.L0f0387ec
 /*  f0387dc:	8e0b0014 */ 	lw	$t3,0x14($s0)
-/*  f0387e0:	0fc0dedc */ 	jal	chrGoposChooseAnimation
+/*  f0387e0:	0fc0dedc */ 	jal	chrGoPosChooseAnimation
 /*  f0387e4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0387e8:	8e0b0014 */ 	lw	$t3,0x14($s0)
 .L0f0387ec:
@@ -10649,7 +10649,7 @@ glabel chrGoToPos
 //			chr->act_gopos.waypoints[i] = waypoints[i];
 //		}
 //
-//		chrGoposInitExpensive(chr);
+//		chrGoPosInitExpensive(chr);
 //		chr->goposforce = -1;
 //		chr->sleep = 0;
 //		chr->liftaction = 0;
@@ -10661,7 +10661,7 @@ glabel chrGoToPos
 //				(prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) == 0 &&
 //				func0f036c08(chr, &auStack52[0], &auStack68[0]) &&
 //				chr->liftaction >= 0) {
-//			chrGoposInitCheap(chr, &chr->act_gopos.waydata, &auStack52[0], &prevpos);
+//			chrGoPosInitCheap(chr, &chr->act_gopos.waydata, &auStack52[0], &prevpos);
 //		}
 //
 //		if (chr->act_gopos.unk068 != MAX_CHRWAYPOINTS && func0001db94(chr->model) != 0 && !chr->aibot) {
@@ -10669,7 +10669,7 @@ glabel chrGoToPos
 //			return true;
 //		} else {
 //			if (!same2) {
-//				chrGoposChooseAnimation(chr);
+//				chrGoPosChooseAnimation(chr);
 //			}
 //
 //			chr->hidden &= ~CHRHFLAG_NEEDANIM;
@@ -11125,7 +11125,7 @@ glabel var7f1a8dd0
 /*  f038e84:	26650038 */ 	addiu	$a1,$s3,0x38
 /*  f038e88:	05a00003 */ 	bltz	$t5,.L0f038e98
 /*  f038e8c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f038e90:	0fc0dbb9 */ 	jal	chrGoposInitCheap
+/*  f038e90:	0fc0dbb9 */ 	jal	chrGoPosInitCheap
 /*  f038e94:	8fa70054 */ 	lw	$a3,0x54($sp)
 .L0f038e98:
 /*  f038e98:	826e0068 */ 	lb	$t6,0x68($s3)
@@ -14316,7 +14316,7 @@ void chrTickSurrender(struct chrdata *chr)
 			return;
 		}
 
-		chrSurrenderStartAnim(chr);
+		chrSurrenderChooseAnimation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 
@@ -15081,7 +15081,7 @@ void chrTickSurprised(struct chrdata *chr)
 			return;
 		}
 
-		chrDoSurprisedThing(chr);
+		chrSurprisedChooseAnimation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 
@@ -23398,7 +23398,7 @@ glabel var7f1a9260
 /*  f045b38:	11400010 */ 	beqz	$t2,.L0f045b7c
 /*  f045b3c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f045b40:
-/*  f045b40:	0fc0dc87 */ 	jal	chrGoposClearRestartTtl
+/*  f045b40:	0fc0dc87 */ 	jal	chrGoPosClearRestartTtl
 /*  f045b44:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f045b48:	8fab0030 */ 	lw	$t3,0x30($sp)
 /*  f045b4c:	8e050004 */ 	lw	$a1,0x4($s0)
@@ -24054,7 +24054,7 @@ glabel var7f1a927c
 /*  f046468:	10000003 */ 	beqz	$zero,.L0f046478
 /*  f04646c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f046470:
-/*  f046470:	0fc0dedc */ 	jal	chrGoposChooseAnimation
+/*  f046470:	0fc0dedc */ 	jal	chrGoPosChooseAnimation
 /*  f046474:	02402025 */ 	or	$a0,$s2,$zero
 .L0f046478:
 /*  f046478:	56200006 */ 	bnezl	$s1,.L0f046494
@@ -24323,7 +24323,7 @@ glabel func0f046648
 /*  f046848:	10000073 */ 	beqz	$zero,.L0f046a18
 /*  f04684c:	8fa8009c */ 	lw	$t0,0x9c($sp)
 .L0f046850:
-/*  f046850:	0fc0dedc */ 	jal	chrGoposChooseAnimation
+/*  f046850:	0fc0dedc */ 	jal	chrGoPosChooseAnimation
 /*  f046854:	afa8009c */ 	sw	$t0,0x9c($sp)
 /*  f046858:	1000006f */ 	beqz	$zero,.L0f046a18
 /*  f04685c:	8fa8009c */ 	lw	$t0,0x9c($sp)
@@ -24435,7 +24435,7 @@ glabel func0f046648
 /*  f0469e8:	1000000b */ 	beqz	$zero,.L0f046a18
 /*  f0469ec:	8fa8009c */ 	lw	$t0,0x9c($sp)
 .L0f0469f0:
-/*  f0469f0:	0fc0dedc */ 	jal	chrGoposChooseAnimation
+/*  f0469f0:	0fc0dedc */ 	jal	chrGoPosChooseAnimation
 /*  f0469f4:	afa8009c */ 	sw	$t0,0x9c($sp)
 /*  f0469f8:	10000007 */ 	beqz	$zero,.L0f046a18
 /*  f0469fc:	8fa8009c */ 	lw	$t0,0x9c($sp)
@@ -24461,7 +24461,7 @@ s32 func0f046a30(struct chrdata *chr)
 	return (chr->actiontype == ACT_GOPOS || chr->actiontype == ACT_PATROL) && chr->liftaction > 0;
 }
 
-s16 chrGoposGetNextPadNum(struct chrdata *chr)
+s16 chrGoPosGetNextPadNum(struct chrdata *chr)
 {
 	if (chr->act_gopos.waypoints[chr->act_gopos.curindex + 1]) {
 		return chr->act_gopos.waypoints[chr->act_gopos.curindex + 1]->padnum;
@@ -24490,7 +24490,7 @@ void chrTickGoPos(struct chrdata *chr)
 			return;
 		}
 
-		chrGoposChooseAnimation(chr);
+		chrGoPosChooseAnimation(chr);
 
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
@@ -24513,8 +24513,8 @@ void chrTickGoPos(struct chrdata *chr)
 		chrGoToPos(chr, &chr->act_gopos.pos, chr->act_gopos.rooms, chr->act_gopos.flags);
 	}
 
-	chrGoposConsiderRestart(chr);
-	chrGoposGetCurWaypointInfo(chr, &sp228pos, sp212rooms, &padflags);
+	chrGoPosConsiderRestart(chr);
+	chrGoPosGetCurWaypointInfo(chr, &sp228pos, sp212rooms, &padflags);
 
 	// If cheap mode ended over 3 seconds ago, not multiplayer, not in view of
 	// eyespy, pad is nothing special and not in lift, then enter the cheap move
@@ -24526,7 +24526,7 @@ void chrTickGoPos(struct chrdata *chr)
 			&& (padflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT)) == 0
 			&& chr->inlift == false) {
 		enteringcheap = true;
-		chrGoposInitCheap(chr, &chr->act_gopos.waydata, &sp228pos, &prop->pos);
+		chrGoPosInitCheap(chr, &chr->act_gopos.waydata, &sp228pos, &prop->pos);
 	}
 
 	if (var80062cbc >= 9
@@ -24554,7 +24554,7 @@ void chrTickGoPos(struct chrdata *chr)
 				|| (padflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
 				|| chr->inlift) {
 			// Exiting cheap mode
-			chrGoposInitExpensive(chr);
+			chrGoPosInitExpensive(chr);
 			chr->act_gopos.cheapend60 = g_Vars.lvframe60;
 			return;
 		}
@@ -24595,7 +24595,7 @@ void chrTickGoPos(struct chrdata *chr)
 		}
 
 		if ((pad.flags & PADFLAG_AIWAITLIFT) || (pad.flags & PADFLAG_AIONLIFT)) {
-			advance = func0f046648(chr, pad.flags, sp184, sp188, waypoint->padnum, chrGoposGetNextPadNum(chr));
+			advance = func0f046648(chr, pad.flags, sp184, sp188, waypoint->padnum, chrGoPosGetNextPadNum(chr));
 		} else {
 			if (sp188 || (sp184 && (chr->inlift || (pad.flags & PADFLAG_8000)))) {
 				advance = true;
@@ -24616,7 +24616,7 @@ void chrTickGoPos(struct chrdata *chr)
 	}
 
 	if (advance) {
-		chrGoposAdvanceWaypoint(chr);
+		chrGoPosAdvanceWaypoint(chr);
 	}
 
 	// Every 10 ticks: Check something a couple of waypoints ahead
@@ -24664,8 +24664,8 @@ void chrTickGoPos(struct chrdata *chr)
 
 						// Some bbox related check
 						if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, 0, chr->chrwidth * 1.2f, 48)) {
-							chrGoposAdvanceWaypoint(chr);
-							chrGoposAdvanceWaypoint(chr);
+							chrGoPosAdvanceWaypoint(chr);
+							chrGoPosAdvanceWaypoint(chr);
 						}
 					}
 				}
@@ -24724,13 +24724,13 @@ void chrTickGoPos(struct chrdata *chr)
 						// sp160 < DEG2RAD(45) || sp160 > DEG2RAD(315)
 						if (sp160 < 0.7852731347084f || sp160 > 5.4969120025635f) {
 							if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, 0, chr->chrwidth * 1.2f, 48)) {
-								chrGoposAdvanceWaypoint(chr);
+								chrGoPosAdvanceWaypoint(chr);
 							}
 						}
 					}
 				} else {
 					if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, 0, chr->chrwidth * 1.2f, 48)) {
-						chrGoposAdvanceWaypoint(chr);
+						chrGoPosAdvanceWaypoint(chr);
 					}
 				}
 			}
@@ -24826,7 +24826,7 @@ glabel chrTickPatrol
 /*  f0474b8:	8fa7006c */ 	lw	$a3,0x6c($sp)
 /*  f0474bc:	afaa0068 */ 	sw	$t2,0x68($sp)
 /*  f0474c0:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0474c4:	0fc0dbb9 */ 	jal	chrGoposInitCheap
+/*  f0474c4:	0fc0dbb9 */ 	jal	chrGoPosInitCheap
 /*  f0474c8:	24e70008 */ 	addiu	$a3,$a3,0x8
 .L0f0474cc:
 /*  f0474cc:	820b0038 */ 	lb	$t3,0x38($s0)
