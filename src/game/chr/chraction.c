@@ -1495,8 +1495,8 @@ glabel chrAttackKneel
 void chrAttackWalkChooseAnimation(struct chrdata *chr)
 {
 	if (chr->aibot == NULL) {
-		modelSetAnimation(chr->model, chr->act_attackwalk.anim->animnum,
-				chr->act_attackwalk.flip, chr->act_attackwalk.anim->frac, 0.5, 16);
+		modelSetAnimation(chr->model, chr->act_attackwalk.animfloats->animnum,
+				chr->act_attackwalk.flip, chr->act_attackwalk.animfloats->unk10, 0.5, 16);
 	}
 }
 
@@ -1816,79 +1816,27 @@ glabel chrAttackWalk
 /*  f030a3c:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-GLOBAL_ASM(
-glabel func0f030a40
-/*  f030a40:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f030a44:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f030a48:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f030a4c:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f030a50:	00808025 */ 	or	$s0,$a0,$zero
-/*  f030a54:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f030a58:	0fc0b857 */ 	jal	func0f02e15c
-/*  f030a5c:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f030a60:	8e02002c */ 	lw	$v0,0x2c($s0)
-/*  f030a64:	3c014180 */ 	lui	$at,0x4180
-/*  f030a68:	44812000 */ 	mtc1	$at,$f4
-/*  f030a6c:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f030a70:	8206003e */ 	lb	$a2,0x3e($s0)
-/*  f030a74:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f030a78:	8c470010 */ 	lw	$a3,0x10($v0)
-/*  f030a7c:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f030a80:	0c007733 */ 	jal	modelSetAnimation
-/*  f030a84:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f030a88:	820e0035 */ 	lb	$t6,0x35($s0)
-/*  f030a8c:	55c0002a */ 	bnezl	$t6,.L0f030b38
-/*  f030a90:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f030a94:	820f0036 */ 	lb	$t7,0x36($s0)
-/*  f030a98:	51e00013 */ 	beqzl	$t7,.L0f030ae8
-/*  f030a9c:	8e02002c */ 	lw	$v0,0x2c($s0)
-/*  f030aa0:	8e02002c */ 	lw	$v0,0x2c($s0)
-/*  f030aa4:	44801000 */ 	mtc1	$zero,$f2
-/*  f030aa8:	c4400024 */ 	lwc1	$f0,0x24($v0)
-/*  f030aac:	4600103e */ 	c.le.s	$f2,$f0
-/*  f030ab0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f030ab4:	45020007 */ 	bc1fl	.L0f030ad4
-/*  f030ab8:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f030abc:	44050000 */ 	mfc1	$a1,$f0
-/*  f030ac0:	0c007787 */ 	jal	func0001de1c
-/*  f030ac4:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f030ac8:	1000001b */ 	beqz	$zero,.L0f030b38
-/*  f030acc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f030ad0:	8e040020 */ 	lw	$a0,0x20($s0)
-.L0f030ad4:
-/*  f030ad4:	0c007787 */ 	jal	func0001de1c
-/*  f030ad8:	8c45001c */ 	lw	$a1,0x1c($v0)
-/*  f030adc:	10000016 */ 	beqz	$zero,.L0f030b38
-/*  f030ae0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f030ae4:	8e02002c */ 	lw	$v0,0x2c($s0)
-.L0f030ae8:
-/*  f030ae8:	44801000 */ 	mtc1	$zero,$f2
-/*  f030aec:	c4400020 */ 	lwc1	$f0,0x20($v0)
-/*  f030af0:	4600103e */ 	c.le.s	$f2,$f0
-/*  f030af4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f030af8:	45020007 */ 	bc1fl	.L0f030b18
-/*  f030afc:	c4400014 */ 	lwc1	$f0,0x14($v0)
-/*  f030b00:	44050000 */ 	mfc1	$a1,$f0
-/*  f030b04:	0c007787 */ 	jal	func0001de1c
-/*  f030b08:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f030b0c:	1000000a */ 	beqz	$zero,.L0f030b38
-/*  f030b10:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f030b14:	c4400014 */ 	lwc1	$f0,0x14($v0)
-.L0f030b18:
-/*  f030b18:	4600103e */ 	c.le.s	$f2,$f0
-/*  f030b1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f030b20:	45020005 */ 	bc1fl	.L0f030b38
-/*  f030b24:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f030b28:	44050000 */ 	mfc1	$a1,$f0
-/*  f030b2c:	0c007787 */ 	jal	func0001de1c
-/*  f030b30:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f030b34:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f030b38:
-/*  f030b38:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f030b3c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f030b40:	03e00008 */ 	jr	$ra
-/*  f030b44:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrAttackRollChooseAnimation(struct chrdata *chr)
+{
+	modelSetAnimation(chr->model,chr->act_attackroll.animfloats->animnum, chr->act_attackroll.flip,
+			chr->act_attackroll.animfloats->unk10, func0f02e15c(chr, 0.5, 0.8), 16);
+
+	if (chr->act_attackroll.unk035 == 0) {
+		if (chr->act_attackroll.unk036) {
+			if (chr->act_attackroll.animfloats->unk24 >= 0) {
+				func0001de1c(chr->model, chr->act_attackroll.animfloats->unk24);
+			} else {
+				func0001de1c(chr->model, chr->act_attackroll.animfloats->unk1c);
+			}
+		} else {
+			if (chr->act_attackroll.animfloats->unk20 >= 0) {
+				func0001de1c(chr->model, chr->act_attackroll.animfloats->unk20);
+			} else if (chr->act_attackroll.animfloats->unk14 >= 0) {
+				func0001de1c(chr->model, chr->act_attackroll.animfloats->unk14);
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel chrAttackRoll
@@ -2207,7 +2155,7 @@ glabel chrAttackRoll
 /*  f030fb8:	10000008 */ 	beqz	$zero,.L0f030fdc
 /*  f030fbc:	ae2a0014 */ 	sw	$t2,0x14($s1)
 .L0f030fc0:
-/*  f030fc0:	0fc0c290 */ 	jal	func0f030a40
+/*  f030fc0:	0fc0c290 */ 	jal	chrAttackRollChooseAnimation
 /*  f030fc4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f030fc8:	8e2d0014 */ 	lw	$t5,0x14($s1)
 /*  f030fcc:	3c01ffdf */ 	lui	$at,0xffdf
@@ -20434,7 +20382,7 @@ glabel chrTickAttackRoll
 /*  f043400:	8c840020 */ 	lw	$a0,0x20($a0)
 /*  f043404:	5440014c */ 	bnezl	$v0,.L0f043938
 /*  f043408:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04340c:	0fc0c290 */ 	jal	func0f030a40
+/*  f04340c:	0fc0c290 */ 	jal	chrAttackRollChooseAnimation
 /*  f043410:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f043414:	8fa20048 */ 	lw	$v0,0x48($sp)
 /*  f043418:	3c01ffdf */ 	lui	$at,0xffdf

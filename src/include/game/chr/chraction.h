@@ -32,7 +32,7 @@ void chrAttackLie(struct chrdata *chr, s32 entitytype, s32 entityid);
 void chrAttackKneel(struct chrdata *chr, s32 entitytype, s32 entityid);
 void chrAttackWalkChooseAnimation(struct chrdata *chr);
 void chrAttackWalk(struct chrdata *chr, u32 speed);
-u32 func0f030a40(void);
+void chrAttackRollChooseAnimation(struct chrdata *chr);
 void chrAttackRoll(struct chrdata *chr, bool direction);
 void func0f030ff8(struct chrdata *chr, u32 anim_id, f32 fstartframe, f32 fendframe, u8 flags, u32 transition, f32 result);
 void func0f031254(struct chrdata *chr);

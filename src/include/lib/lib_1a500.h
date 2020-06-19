@@ -65,7 +65,7 @@ void func0001dbfc(struct model *model, s32 arg1, u32 arg2, f32 arg3, f32 arg4, f
 void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 arg4, f32 arg5);
 u32 func0001dd90(void);
 void func0001ddec(struct model *model, f32 arg1, f32 arg2);
-void func0001de1c(struct model *model, f32 arg1);
+void func0001de1c(struct model *model, f32 speed);
 u32 func0001de98(void);
 void func0001deb0(struct model *model, f32 speed, f32 startframe);
 void func0001df04(struct model *model, f32 arg1, f32 arg2);
