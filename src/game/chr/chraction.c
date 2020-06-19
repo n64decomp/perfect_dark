@@ -925,97 +925,25 @@ void chrStop(struct chrdata *chr)
 	chr->act_stand.unk040 = 1;
 }
 
-GLOBAL_ASM(
-glabel func0f02ed88
-/*  f02ed88:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f02ed8c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f02ed90:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f02ed94:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02ed98:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f02ed9c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f02eda0:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f02eda4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02eda8:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f02edac:	00002825 */ 	or	$a1,$zero,$zero
-/*  f02edb0:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f02edb4:	8e0e02d4 */ 	lw	$t6,0x2d4($s0)
-/*  f02edb8:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*  f02edbc:	55c0003f */ 	bnezl	$t6,.L0f02eebc
-/*  f02edc0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f02edc4:	10800003 */ 	beqz	$a0,.L0f02edd4
-/*  f02edc8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02edcc:	1440000d */ 	bnez	$v0,.L0f02ee04
-/*  f02edd0:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f02edd4:
-/*  f02edd4:	14800003 */ 	bnez	$a0,.L0f02ede4
-/*  f02edd8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02eddc:	10400009 */ 	beqz	$v0,.L0f02ee04
-/*  f02ede0:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f02ede4:
-/*  f02ede4:	0fc0b849 */ 	jal	func0f02e124
-/*  f02ede8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02edec:	14400005 */ 	bnez	$v0,.L0f02ee04
-/*  f02edf0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02edf4:	0fc0b849 */ 	jal	func0f02e124
-/*  f02edf8:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f02edfc:	10400018 */ 	beqz	$v0,.L0f02ee60
-/*  f02ee00:	8fb80030 */ 	lw	$t8,0x30($sp)
-.L0f02ee04:
-/*  f02ee04:	0c004b70 */ 	jal	random
-/*  f02ee08:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02ee0c:	304f0001 */ 	andi	$t7,$v0,0x1
-/*  f02ee10:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f02ee14:	afaf002c */ 	sw	$t7,0x2c($sp)
-/*  f02ee18:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f02ee1c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02ee20:	0fc0b857 */ 	jal	func0f02e15c
-/*  f02ee24:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f02ee28:	3c014180 */ 	lui	$at,0x4180
-/*  f02ee2c:	44812000 */ 	mtc1	$at,$f4
-/*  f02ee30:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f02ee34:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f02ee38:	2405004b */ 	addiu	$a1,$zero,0x4b
-/*  f02ee3c:	8fa6002c */ 	lw	$a2,0x2c($sp)
-/*  f02ee40:	24070000 */ 	addiu	$a3,$zero,0x0
-/*  f02ee44:	0c007733 */ 	jal	modelSetAnimation
-/*  f02ee48:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f02ee4c:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f02ee50:	0c007787 */ 	jal	func0001de1c
-/*  f02ee54:	3c0541e0 */ 	lui	$a1,0x41e0
-/*  f02ee58:	10000018 */ 	beqz	$zero,.L0f02eebc
-/*  f02ee5c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f02ee60:
-/*  f02ee60:	17000002 */ 	bnez	$t8,.L0f02ee6c
-/*  f02ee64:	8fb90034 */ 	lw	$t9,0x34($sp)
-/*  f02ee68:	13200013 */ 	beqz	$t9,.L0f02eeb8
-.L0f02ee6c:
-/*  f02ee6c:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f02ee70:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f02ee74:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02ee78:	0fc0b857 */ 	jal	func0f02e15c
-/*  f02ee7c:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f02ee80:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f02ee84:	3c014180 */ 	lui	$at,0x4180
-/*  f02ee88:	44813000 */ 	mtc1	$at,$f6
-/*  f02ee8c:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f02ee90:	0006402b */ 	sltu	$t0,$zero,$a2
-/*  f02ee94:	01003025 */ 	or	$a2,$t0,$zero
-/*  f02ee98:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f02ee9c:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f02eea0:	24070000 */ 	addiu	$a3,$zero,0x0
-/*  f02eea4:	0c007733 */ 	jal	modelSetAnimation
-/*  f02eea8:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f02eeac:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f02eeb0:	0c007787 */ 	jal	func0001de1c
-/*  f02eeb4:	3c0541d8 */ 	lui	$a1,0x41d8
-.L0f02eeb8:
-/*  f02eeb8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f02eebc:
-/*  f02eebc:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f02eec0:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f02eec4:	03e00008 */ 	jr	$ra
-/*  f02eec8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrKneelChooseAnimation(struct chrdata *chr)
+{
+	struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
+	struct prop *gun2 = chrGetEquippedWeaponProp(chr, 0);
+
+	if (chr->aibot == NULL) {
+		if ((gun1 && gun2)
+				|| (!gun1 && !gun2)
+				|| func0f02e124(gun1)
+				|| func0f02e124(gun2)) {
+			bool flip = random() % 2;
+			modelSetAnimation(chr->model, 0x4b, flip, 0, func0f02e15c(chr, 0.5, 0.8), 16);
+			func0001de1c(chr->model, 28);
+		} else if (gun2 || gun1) {
+			modelSetAnimation(chr->model, 0x08, gun1 != NULL, 0, func0f02e15c(chr, 0.5, 0.8), 16);
+			func0001de1c(chr->model, 27);
+		}
+	}
+}
 
 void chrKneel(struct chrdata *chr)
 {
@@ -1026,7 +954,7 @@ void chrKneel(struct chrdata *chr)
 	if (func0001db94(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
-		func0f02ed88(chr);
+		chrKneelChooseAnimation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 }
@@ -14485,7 +14413,7 @@ void chrTickKneel(struct chrdata *chr)
 	chr->sleep = 0;
 
 	if ((chr->hidden & CHRHFLAG_NEEDANIM) && func0001db94(chr->model) == 0) {
-		func0f02ed88(chr);
+		chrKneelChooseAnimation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 }
