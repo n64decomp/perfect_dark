@@ -2770,7 +2770,7 @@ u8 func040f_spawned_guard[] = {
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_04000000, BANK_0)
 	set_squadron(SQUADRON_0E)
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	try_inherit_properties(0x35, /*goto*/ 0x06)
 	label(0x06)
 	restart_timer

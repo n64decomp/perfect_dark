@@ -1132,7 +1132,7 @@ u8 func0403_init_elvis[] = {
 	set_reaction_speed(100)
 	add_health_or_armor(1000)
 	set_chr_maxdamage(CHR_SELF, 1000)
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	assign_path(12)
 	start_path
 	set_ailist(CHR_SELF, AILIST_ELVIS)
@@ -1415,7 +1415,7 @@ u8 func0422_hide[] = {
 
 u8 func041a_pres_clone[] = {
 	set_self_chrflag(CHRCFLAG_00020000)
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 
 	beginloop(0x06)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1452,7 +1452,7 @@ u8 func041a_pres_clone[] = {
 };
 
 u8 func041b_init_president[] = {
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_chr_maxdamage(CHR_SELF, 300)
 	set_shield(0)
 	set_ailist(CHR_SELF, AILIST_PRESIDENT_WAITING)
@@ -1784,7 +1784,7 @@ u8 func041f_trent_shooting[] = {
 };
 
 u8 func0420_trent_running[] = {
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_stage_flag(STAGEFLAG_TRENT_RUNNING)
 	restart_timer

@@ -4372,7 +4372,7 @@ glabel func0001dbfc
 );
 
 GLOBAL_ASM(
-glabel func0001dccc
+glabel modelSetAnimation
 /*    1dccc:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    1dcd0:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    1dcd4:	afa50024 */ 	sw	$a1,0x24($sp)
@@ -5887,7 +5887,7 @@ glabel func0001ee18
 /*    1f1e8:	4407e000 */ 	mfc1	$a3,$f28
 /*    1f1ec:	e7b0008c */ 	swc1	$f16,0x8c($sp)
 /*    1f1f0:	02402025 */ 	or	$a0,$s2,$zero
-/*    1f1f4:	0c007733 */ 	jal	func0001dccc
+/*    1f1f4:	0c007733 */ 	jal	modelSetAnimation
 /*    1f1f8:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*    1f1fc:	c7b0008c */ 	lwc1	$f16,0x8c($sp)
 /*    1f200:	24090001 */ 	addiu	$t1,$zero,0x1
@@ -6227,7 +6227,7 @@ glabel func0001f314
 /*    1f6b4:	4407e000 */ 	mfc1	$a3,$f28
 /*    1f6b8:	e7b0008c */ 	swc1	$f16,0x8c($sp)
 /*    1f6bc:	02402025 */ 	or	$a0,$s2,$zero
-/*    1f6c0:	0c007733 */ 	jal	func0001dccc
+/*    1f6c0:	0c007733 */ 	jal	modelSetAnimation
 /*    1f6c4:	e7a80014 */ 	swc1	$f8,0x14($sp)
 /*    1f6c8:	c7b0008c */ 	lwc1	$f16,0x8c($sp)
 /*    1f6cc:	24090001 */ 	addiu	$t1,$zero,0x1

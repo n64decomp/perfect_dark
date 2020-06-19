@@ -724,7 +724,7 @@ u8 func0403_init_miniskedar[] = {
 	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_ailist(CHR_SELF, AILIST_MINISKEDAR)
 	endlist
 };
@@ -1873,7 +1873,7 @@ u8 func100b_check_sanctum_accessed[] = {
 };
 
 u8 func040b_mauler_skedar[] = {
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_accuracy(20)
 	set_reaction_speed(50)
 	set_chr_maxdamage(CHR_SELF, 40)
@@ -1929,7 +1929,7 @@ u8 func100e_wake_skedar_army[] = {
 u8 func040c_king_waiting[] = {
 	set_shield(500)
 	set_accuracy(100)
-	set_chr_chrflag(CHR_SELF, CHRCFLAG_00080000)
+	set_chr_chrflag(CHR_SELF, CHRCFLAG_RUNFASTER)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00100000)
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x2d)
 	set_self_chrflag(CHRCFLAG_00000020)
@@ -2545,7 +2545,7 @@ u8 func0c00_intro[] = {
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_music_track(MUSIC_SKEDARRUINS_INTRO)
 	set_stage_flag(STAGEFLAG_IN_INTRO)
-	set_chr_chrflag(CHR_BOND, CHRCFLAG_00080000)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_RUNFASTER)
 	set_chr_chrflag(CHR_KING2, CHRCFLAG_HIDDEN)
 	camera_movement(0x02e9)
 
@@ -2776,7 +2776,7 @@ u8 func0c00_intro[] = {
 
 	label(0x86)
 	unset_stage_flag(STAGEFLAG_IN_INTRO)
-	unset_chr_chrflag(CHR_BOND, CHRCFLAG_00080000)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_RUNFASTER)
 	mute_channel(CHANNEL_7)
 	label(0x06)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
@@ -3198,12 +3198,12 @@ u8 func101d_remove_pillar_shadow[] = {
 
 u8 func0c00_intro_sounds[] = {
 	label(0xda)
-	if_chr_has_chrflag(CHR_BOND, CHRCFLAG_00080000, /*goto*/ 0xdb)
+	if_chr_has_chrflag(CHR_BOND, CHRCFLAG_RUNFASTER, /*goto*/ 0xdb)
 	yield
 	goto_first(0xda)
 
 	label(0xdb)
-	unset_chr_chrflag(CHR_BOND, CHRCFLAG_00080000)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_RUNFASTER)
 
 	#define wait_until_with_stageflag(time, loopid) \
 		beginloop(loopid) \

@@ -5360,7 +5360,7 @@ bool aiObjectDoAnimation(void)
 			}
 
 			func000230a0(obj->model->anim);
-			func0001dccc(obj->model, anim_id, 0, fstartframe, thing, 0);
+			modelSetAnimation(obj->model, anim_id, 0, fstartframe, thing, 0);
 			func0001af64(obj->model, func0f15c888() * obj->model->unk14 * 100.0f);
 		}
 	}

@@ -79,7 +79,7 @@ u32 func0f037580(void);
 u32 func0f0375b0(void);
 void func0f0375e8(struct chrdata *chr, struct waydata *waydata, f32 arg2, struct coord *arg3, s16 *rooms);
 void func0f0379b0(struct chrdata *chr, struct coord *pos);
-void func0f037b70(struct chrdata *chr);
+void chrGoposChooseAnimation(struct chrdata *chr);
 u32 chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags);
 u32 func0f038868(void);
 void func0f038b9c(struct chrdata *chr, struct path *path);

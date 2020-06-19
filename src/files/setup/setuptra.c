@@ -813,7 +813,7 @@ u8 func0402_jonathan_waiting_for_meetup[] = {
 
 	label(0x67)
 	set_self_flag_bankx(CHRFLAG0_10000000, BANK_0)
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)

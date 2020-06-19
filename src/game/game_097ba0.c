@@ -894,7 +894,7 @@ glabel var7f1ac1b0
 /*  f09837c:	01602825 */ 	or	$a1,$t3,$zero
 /*  f098380:	00003025 */ 	or	$a2,$zero,$zero
 /*  f098384:	e7ac0014 */ 	swc1	$f12,0x14($sp)
-/*  f098388:	0c007733 */ 	jal	func0001dccc
+/*  f098388:	0c007733 */ 	jal	modelSetAnimation
 /*  f09838c:	e7a80010 */ 	swc1	$f8,0x10($sp)
 /*  f098390:	0c007486 */ 	jal	func0001d218
 /*  f098394:	8fa40058 */ 	lw	$a0,0x58($sp)
@@ -914,7 +914,7 @@ glabel var7f1ac1b0
 /*  f0983c8:	01802825 */ 	or	$a1,$t4,$zero
 /*  f0983cc:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0983d0:	e7ac0014 */ 	swc1	$f12,0x14($sp)
-/*  f0983d4:	0c007733 */ 	jal	func0001dccc
+/*  f0983d4:	0c007733 */ 	jal	modelSetAnimation
 /*  f0983d8:	e7b20010 */ 	swc1	$f18,0x10($sp)
 /*  f0983dc:	240dffff */ 	addiu	$t5,$zero,-1
 .L0f0983e0:

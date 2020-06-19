@@ -4655,7 +4655,7 @@ u8 func0013_init_coop_200[] = {
 	yield
 	yield
 	yield
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 
 	// Wait for intro to finish
 	beginloop(0x03)

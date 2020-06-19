@@ -667,7 +667,7 @@ u8 func040d_elvis_wait_for_hangar_entry[] = {
 	set_alertness(100)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_self_chrflag(CHRCFLAG_NOAUTOAIM)
 
 	beginloop(0x04)

@@ -376,7 +376,7 @@
 #define CHRHFLAG_00040000           0x00040000 // Not used in scripts
 #define CHRHFLAG_DISGUISED          0x00080000
 #define CHRHFLAG_00100000           0x00100000 // Set before warping to pad, never unset or read
-#define CHRHFLAG_00200000           0x00200000 // Not used in scripts
+#define CHRHFLAG_NEEDANIM           0x00200000
 #define CHRHFLAG_00400000           0x00400000 // Set in Chicago, G5, AF1, Defense, Attack Ship, Skedar Ruins, Maian SOS, WAR
 #define CHRHFLAG_00800000           0x00800000 // Not used in scripts
 #define CHRHFLAG_01000000           0x01000000 // Globals - asked about gun (eg. "where did you get that?")
@@ -413,7 +413,7 @@
 #define CHRCFLAG_00010000                    0x00010000 // Related to dead people in intro cutscenes
 #define CHRCFLAG_00020000                    0x00020000 // Chicago, Crash Site, Deep Sea, Defense, Ruins
 #define CHRCFLAG_00040000                    0x00040000 // Used a lot
-#define CHRCFLAG_00080000                    0x00080000
+#define CHRCFLAG_RUNFASTER                   0x00080000
 #define CHRCFLAG_KILLCOUNTABLE               0x00100000
 #define CHRCFLAG_00200000                    0x00200000 // Unset by cmd 00fd
 #define CHRCFLAG_00400000                    0x00400000 // Not used in scripts
@@ -642,6 +642,7 @@
 
 #define GOPOSFLAG_04           0x04
 #define GOPOSFLAG_ONPRESETPATH 0x08
+#define GOPOSFLAG_20           0x20
 #define GOPOSFLAG_DUCK         0x40
 #define GOPOSFLAG_80           0x80
 
@@ -684,6 +685,23 @@
 #define HUDMSGTYPE_3                 3
 #define HUDMSGTYPE_4                 4
 #define HUDMSGTYPE_SUBTITLE          6
+
+// chr->ivebeenhit values
+#define IBH_LFOOT    1
+#define IBH_LSHIN    2
+#define IBH_LTHIGH   3
+#define IBH_RFOOT    4
+#define IBH_RSHIN    5
+#define IBH_RTHIGH   6
+#define IBH_PELVIS   7
+#define IBH_HEAD     8
+#define IBH_LHAND    9
+#define IBH_LFOREARM 10
+#define IBH_LBICEP   11
+#define IBH_RHAND    12
+#define IBH_RFOREARM 13
+#define IBH_RBICEP   14
+#define IBH_TORSO    15
 
 #define IDLEACTION_STANDING        0x01
 #define IDLEACTION_SITTING_TYPING  0x02

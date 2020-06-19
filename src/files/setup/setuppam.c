@@ -745,7 +745,7 @@ u8 func1400_setup_counterop[] = {
 };
 
 u8 func040b_init_elvis[] = {
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_self_chrflag(CHRCFLAG_01000000)
 	set_accuracy(100)
@@ -943,7 +943,7 @@ u8 func0433_unused[] = {
  * function because he can't enter the agent megaweapon room on PA.
  */
 u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	unset_self_flag_bankx(CHRFLAG1_00200000, BANK_1)
 	set_shotlist(AILIST_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
 	set_target_chr(CHR_PRESET)
@@ -1084,7 +1084,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
  * @unused
  */
 u8 func0405_elvis_follow_nocombat[] = {
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	unset_self_flag_bankx(CHRFLAG1_00200000, BANK_1)
 	set_shotlist(0x0405)
 	set_target_chr(CHR_PRESET)
@@ -3394,7 +3394,7 @@ u8 func040f_miniskedar_send_clones[] = {
 };
 
 u8 func040e_init_miniskedar[] = {
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_self_chrflag(CHRCFLAG_00020000)
 	set_accuracy(0)
 	set_reaction_speed(65)
@@ -3402,7 +3402,7 @@ u8 func040e_init_miniskedar[] = {
 	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	rebuild_teams
 	rebuild_squadrons
@@ -4305,7 +4305,7 @@ u8 func1026_setup_autoguns[] = {
 };
 
 u8 func042e_elvis_run_to_exit[] = {
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_shotlist(AILIST_ELVIS_RUN_TO_EXIT)
 	set_returnlist(CHR_SELF, AILIST_ELVIS_RUN_TO_EXIT)
 	set_target_chr(CHR_PRESET)
@@ -4509,7 +4509,7 @@ u8 func102c_lock_doors[] = {
 
 u8 func040f_miniskedar_unalerted[] = {
 	set_shotlist(AILIST_MINISKEDAR)
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_self_chrflag(CHRCFLAG_00020000)
 	set_accuracy(0)
 	set_reaction_speed(65)
@@ -4517,7 +4517,7 @@ u8 func040f_miniskedar_unalerted[] = {
 	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	rebuild_teams
 	rebuild_squadrons

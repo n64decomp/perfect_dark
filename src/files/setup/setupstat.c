@@ -489,7 +489,7 @@ u8 func1003_spawn_maians[] = {
 
 u8 func0405_init_maian[] = {
 	set_self_chrflag(CHRCFLAG_00040000)
-	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	set_squadron(GROUP_MAIANS)
 	rebuild_teams
