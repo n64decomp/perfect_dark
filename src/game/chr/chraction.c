@@ -1492,33 +1492,13 @@ glabel chrAttackKneel
 /*  f030580:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f030584
-/*  f030584:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f030588:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03058c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f030590:	8c8f02d4 */ 	lw	$t7,0x2d4($a0)
-/*  f030594:	00807025 */ 	or	$t6,$a0,$zero
-/*  f030598:	3c013f00 */ 	lui	$at,0x3f00
-/*  f03059c:	55e0000d */ 	bnezl	$t7,.L0f0305d4
-/*  f0305a0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0305a4:	8dc2003c */ 	lw	$v0,0x3c($t6)
-/*  f0305a8:	44812000 */ 	mtc1	$at,$f4
-/*  f0305ac:	3c014180 */ 	lui	$at,0x4180
-/*  f0305b0:	44813000 */ 	mtc1	$at,$f6
-/*  f0305b4:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f0305b8:	91c6004e */ 	lbu	$a2,0x4e($t6)
-/*  f0305bc:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f0305c0:	8c470010 */ 	lw	$a3,0x10($v0)
-/*  f0305c4:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f0305c8:	0c007733 */ 	jal	modelSetAnimation
-/*  f0305cc:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f0305d0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0305d4:
-/*  f0305d4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0305d8:	03e00008 */ 	jr	$ra
-/*  f0305dc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrAttackWalkChooseAnimation(struct chrdata *chr)
+{
+	if (chr->aibot == NULL) {
+		modelSetAnimation(chr->model, chr->act_attackwalk.anim->animnum,
+				chr->act_attackwalk.flip, chr->act_attackwalk.anim->frac, 0.5, 16);
+	}
+}
 
 GLOBAL_ASM(
 glabel chrAttackWalk
@@ -1821,7 +1801,7 @@ glabel chrAttackWalk
 /*  f030a08:	10000008 */ 	beqz	$zero,.L0f030a2c
 /*  f030a0c:	ae2a0014 */ 	sw	$t2,0x14($s1)
 .L0f030a10:
-/*  f030a10:	0fc0c161 */ 	jal	func0f030584
+/*  f030a10:	0fc0c161 */ 	jal	chrAttackWalkChooseAnimation
 /*  f030a14:	02202025 */ 	or	$a0,$s1,$zero
 /*  f030a18:	8e2d0014 */ 	lw	$t5,0x14($s1)
 /*  f030a1c:	3c01ffdf */ 	lui	$at,0xffdf
@@ -21236,7 +21216,7 @@ glabel chrTickAttackWalk
 /*  f044248:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f04424c:	544000d8 */ 	bnezl	$v0,.L0f0445b0
 /*  f044250:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f044254:	0fc0c161 */ 	jal	func0f030584
+/*  f044254:	0fc0c161 */ 	jal	chrAttackWalkChooseAnimation
 /*  f044258:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04425c:	8e190014 */ 	lw	$t9,0x14($s0)
 /*  f044260:	3c01ffdf */ 	lui	$at,0xffdf

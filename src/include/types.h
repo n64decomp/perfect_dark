@@ -93,7 +93,7 @@ struct anim {
 	/*0x0a*/ u8 looping;
 	/*0x0b*/ u8 average;
 	/*0x0c*/ f32 frame;
-	/*0x10*/ u32 frac;
+	/*0x10*/ f32 frac;
 	/*0x14*/ s16 framea;
 	/*0x16*/ s16 frameb;
 	/*0x18*/ u32 endrame;
@@ -463,6 +463,19 @@ struct act_attack {
 	/*0x58*/ u32 unk058;
 };
 
+struct act_attackwalk {
+	/*0x2c*/ u32 unk02c;
+	/*0x30*/ u32 unk030;
+	/*0x34*/ u32 unk034;
+	/*0x38*/ u32 unk038;
+	/*0x3c*/ struct anim *anim;
+	/*0x40*/ u32 unk040;
+	/*0x44*/ u32 unk044;
+	/*0x48*/ u32 unk048;
+	/*0x4c*/ u16 unk04c;
+	/*0x4e*/ u8 flip;
+};
+
 struct act_sidestep {
 	/*0x2c*/ bool side;
 };
@@ -662,6 +675,7 @@ struct chrdata {
 		struct act_dead act_dead;
 		struct act_preargh act_preargh;
 		struct act_attack act_attack;
+		struct act_attackwalk act_attackwalk;
 		struct act_sidestep act_sidestep;
 		struct act_jumpout act_jumpout;
 		struct act_runpos act_runpos;
