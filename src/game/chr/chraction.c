@@ -8924,41 +8924,24 @@ glabel func0f0374a0
 /*  f0374e0:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel chrPatrolGetCurWaypointInfoWithFlags
-/*  f0374e4:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f0374e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0374ec:	afa50074 */ 	sw	$a1,0x74($sp)
-/*  f0374f0:	afa60078 */ 	sw	$a2,0x78($sp)
-/*  f0374f4:	afa7007c */ 	sw	$a3,0x7c($sp)
-/*  f0374f8:	0fc0dd28 */ 	jal	func0f0374a0
-/*  f0374fc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f037500:	00402025 */ 	or	$a0,$v0,$zero
-/*  f037504:	240500c2 */ 	addiu	$a1,$zero,0xc2
-/*  f037508:	0fc456ac */ 	jal	padUnpack
-/*  f03750c:	27a60018 */ 	addiu	$a2,$sp,0x18
-/*  f037510:	8fa20074 */ 	lw	$v0,0x74($sp)
-/*  f037514:	c7a40018 */ 	lwc1	$f4,0x18($sp)
-/*  f037518:	8fa30078 */ 	lw	$v1,0x78($sp)
-/*  f03751c:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f037520:	e4440000 */ 	swc1	$f4,0x0($v0)
-/*  f037524:	c7a6001c */ 	lwc1	$f6,0x1c($sp)
-/*  f037528:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f03752c:	e4460004 */ 	swc1	$f6,0x4($v0)
-/*  f037530:	c7a80020 */ 	lwc1	$f8,0x20($sp)
-/*  f037534:	e4480008 */ 	swc1	$f8,0x8($v0)
-/*  f037538:	8fae0060 */ 	lw	$t6,0x60($sp)
-/*  f03753c:	a46f0002 */ 	sh	$t7,0x2($v1)
-/*  f037540:	10800003 */ 	beqz	$a0,.L0f037550
-/*  f037544:	a46e0000 */ 	sh	$t6,0x0($v1)
-/*  f037548:	8fb80064 */ 	lw	$t8,0x64($sp)
-/*  f03754c:	ac980000 */ 	sw	$t8,0x0($a0)
-.L0f037550:
-/*  f037550:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f037554:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*  f037558:	03e00008 */ 	jr	$ra
-/*  f03755c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
+{
+	s32 padnum = func0f0374a0(chr, 0);
+	struct pad pad;
+
+	padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM | PADFIELD_FLAGS, &pad);
+
+	pos->x = pad.pos.x;
+	pos->y = pad.pos.y;
+	pos->z = pad.pos.z;
+
+	rooms[0] = pad.room;
+	rooms[1] = -1;
+
+	if (flags) {
+		*flags = pad.flags;
+	}
+}
 
 void chrPatrolGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, s16 *rooms)
 {
