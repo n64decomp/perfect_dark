@@ -543,7 +543,14 @@ struct waydata {
 	// These are the distances between the current waypoint and the previous
 	// when using cheap mode.
 	/*0x38*/ f32 segdistdone;
-	/*0x3c*/ f32 segdisttodo;
+	/*0x3c*/ f32 segdisttotal;
+};
+
+struct act_patrol {
+	/*0x02c*/ u32 unk02c;
+	/*0x030*/ u32 unk030;
+	/*0x034*/ u32 unk034;
+	/*0x038*/ struct waydata waydata;
 };
 
 struct act_gopos {
@@ -713,6 +720,7 @@ struct chrdata {
 		struct act_sidestep act_sidestep;
 		struct act_jumpout act_jumpout;
 		struct act_runpos act_runpos;
+		struct act_patrol act_patrol;
 		struct act_gopos act_gopos;
 		struct act_surprised act_surprised;
 		struct act_throwgrenade act_throwgrenade;

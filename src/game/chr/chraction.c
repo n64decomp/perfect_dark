@@ -8611,8 +8611,8 @@ void chrGoPosInitCheap(struct chrdata *chr, struct waydata *waydata, struct coor
 
 	waydata->mode = WAYMODE_CHEAP;
 
-	waydata->segdisttodo = sqrtf(xdiff1 * xdiff1 + zdiff1 * zdiff1);
-	waydata->segdistdone = waydata->segdisttodo - sqrtf(xdiff2 * xdiff2 + zdiff2 * zdiff2);
+	waydata->segdisttotal = sqrtf(xdiff1 * xdiff1 + zdiff1 * zdiff1);
+	waydata->segdistdone = waydata->segdisttotal - sqrtf(xdiff2 * xdiff2 + zdiff2 * zdiff2);
 
 	func0f03e538(chr, angle);
 }
@@ -8925,7 +8925,7 @@ glabel func0f0374a0
 );
 
 GLOBAL_ASM(
-glabel func0f0374e4
+glabel chrPatrolGetCurWaypointInfoWithFlags
 /*  f0374e4:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f0374e8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0374ec:	afa50074 */ 	sw	$a1,0x74($sp)
@@ -8960,9 +8960,9 @@ glabel func0f0374e4
 /*  f03755c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-s32 func0f037560(s32 arg0, s32 arg1, s32 arg2)
+void chrPatrolGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, s16 *rooms)
 {
-	return func0f0374e4(arg0, arg1, arg2, 0);
+	chrPatrolGetCurWaypointInfoWithFlags(chr, pos, rooms, NULL);
 }
 
 GLOBAL_ASM(
@@ -8973,7 +8973,7 @@ glabel func0f037580
 /*  f03758c:	a0800039 */ 	sb	$zero,0x39($a0)
 /*  f037590:	a080003a */ 	sb	$zero,0x3a($a0)
 /*  f037594:	27a60018 */ 	addiu	$a2,$sp,0x18
-/*  f037598:	0fc0dd58 */ 	jal	func0f037560
+/*  f037598:	0fc0dd58 */ 	jal	chrPatrolGetCurWaypointInfo
 /*  f03759c:	2485003c */ 	addiu	$a1,$a0,0x3c
 /*  f0375a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0375a4:	27bd0028 */ 	addiu	$sp,$sp,0x28
@@ -9145,7 +9145,7 @@ glabel var7f1a8dac
 /*  f03780c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f037810:	02002025 */ 	or	$a0,$s0,$zero
 /*  f037814:	27a500dc */ 	addiu	$a1,$sp,0xdc
-/*  f037818:	0fc0dd58 */ 	jal	func0f037560
+/*  f037818:	0fc0dd58 */ 	jal	chrPatrolGetCurWaypointInfo
 /*  f03781c:	27a600cc */ 	addiu	$a2,$sp,0xcc
 /*  f037820:	02002025 */ 	or	$a0,$s0,$zero
 /*  f037824:	8fa5012c */ 	lw	$a1,0x12c($sp)
@@ -9260,125 +9260,52 @@ glabel var7f1a8dac
 /*  f0379ac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0379b0
-/*  f0379b0:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0379b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0379b8:	80820007 */ 	lb	$v0,0x7($a0)
-/*  f0379bc:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f0379c0:	5441002f */ 	bnel	$v0,$at,.L0f037a80
-/*  f0379c4:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f0379c8:	808e0038 */ 	lb	$t6,0x38($a0)
-/*  f0379cc:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0379d0:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f0379d4:	55c1002a */ 	bnel	$t6,$at,.L0f037a80
-/*  f0379d8:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f0379dc:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f0379e0:	0fc0dd58 */ 	jal	func0f037560
-/*  f0379e4:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f0379e8:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f0379ec:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f0379f0:	c4920070 */ 	lwc1	$f18,0x70($a0)
-/*  f0379f4:	c4900074 */ 	lwc1	$f16,0x74($a0)
-/*  f0379f8:	4612803e */ 	c.le.s	$f16,$f18
-/*  f0379fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f037a00:	45030058 */ 	bc1tl	.L0f037b64
-/*  f037a04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f037a08:	44802000 */ 	mtc1	$zero,$f4
-/*  f037a0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f037a10:	4610203c */ 	c.lt.s	$f4,$f16
-/*  f037a14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f037a18:	45020052 */ 	bc1fl	.L0f037b64
-/*  f037a1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f037a20:	46109003 */ 	div.s	$f0,$f18,$f16
-/*  f037a24:	8c8f001c */ 	lw	$t7,0x1c($a0)
-/*  f037a28:	c4a60000 */ 	lwc1	$f6,0x0($a1)
-/*  f037a2c:	c5e20008 */ 	lwc1	$f2,0x8($t7)
-/*  f037a30:	46023201 */ 	sub.s	$f8,$f6,$f2
-/*  f037a34:	c4a60004 */ 	lwc1	$f6,0x4($a1)
-/*  f037a38:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f037a3c:	46025100 */ 	add.s	$f4,$f10,$f2
-/*  f037a40:	e4a40000 */ 	swc1	$f4,0x0($a1)
-/*  f037a44:	8c98001c */ 	lw	$t8,0x1c($a0)
-/*  f037a48:	c70c000c */ 	lwc1	$f12,0xc($t8)
-/*  f037a4c:	460c3201 */ 	sub.s	$f8,$f6,$f12
-/*  f037a50:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*  f037a54:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f037a58:	460c5100 */ 	add.s	$f4,$f10,$f12
-/*  f037a5c:	e4a40004 */ 	swc1	$f4,0x4($a1)
-/*  f037a60:	8c99001c */ 	lw	$t9,0x1c($a0)
-/*  f037a64:	c72e0010 */ 	lwc1	$f14,0x10($t9)
-/*  f037a68:	460e3201 */ 	sub.s	$f8,$f6,$f14
-/*  f037a6c:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f037a70:	460e5100 */ 	add.s	$f4,$f10,$f14
-/*  f037a74:	1000003a */ 	beqz	$zero,.L0f037b60
-/*  f037a78:	e4a40008 */ 	swc1	$f4,0x8($a1)
-/*  f037a7c:	2401000f */ 	addiu	$at,$zero,0xf
-.L0f037a80:
-/*  f037a80:	5441002f */ 	bnel	$v0,$at,.L0f037b40
-/*  f037a84:	8c8c001c */ 	lw	$t4,0x1c($a0)
-/*  f037a88:	80880068 */ 	lb	$t0,0x68($a0)
-/*  f037a8c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f037a90:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f037a94:	5501002a */ 	bnel	$t0,$at,.L0f037b40
-/*  f037a98:	8c8c001c */ 	lw	$t4,0x1c($a0)
-/*  f037a9c:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f037aa0:	0fc0dc22 */ 	jal	chrGoPosGetCurWaypointInfo
-/*  f037aa4:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f037aa8:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f037aac:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f037ab0:	c49200a0 */ 	lwc1	$f18,0xa0($a0)
-/*  f037ab4:	c49000a4 */ 	lwc1	$f16,0xa4($a0)
-/*  f037ab8:	4612803e */ 	c.le.s	$f16,$f18
-/*  f037abc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f037ac0:	45030028 */ 	bc1tl	.L0f037b64
-/*  f037ac4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f037ac8:	44803000 */ 	mtc1	$zero,$f6
-/*  f037acc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f037ad0:	4610303c */ 	c.lt.s	$f6,$f16
-/*  f037ad4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f037ad8:	45020022 */ 	bc1fl	.L0f037b64
-/*  f037adc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f037ae0:	46109003 */ 	div.s	$f0,$f18,$f16
-/*  f037ae4:	8c89001c */ 	lw	$t1,0x1c($a0)
-/*  f037ae8:	c4a80000 */ 	lwc1	$f8,0x0($a1)
-/*  f037aec:	c5220008 */ 	lwc1	$f2,0x8($t1)
-/*  f037af0:	46024281 */ 	sub.s	$f10,$f8,$f2
-/*  f037af4:	c4a80004 */ 	lwc1	$f8,0x4($a1)
-/*  f037af8:	46005102 */ 	mul.s	$f4,$f10,$f0
-/*  f037afc:	46022180 */ 	add.s	$f6,$f4,$f2
-/*  f037b00:	e4a60000 */ 	swc1	$f6,0x0($a1)
-/*  f037b04:	8c8a001c */ 	lw	$t2,0x1c($a0)
-/*  f037b08:	c54c000c */ 	lwc1	$f12,0xc($t2)
-/*  f037b0c:	460c4281 */ 	sub.s	$f10,$f8,$f12
-/*  f037b10:	c4a80008 */ 	lwc1	$f8,0x8($a1)
-/*  f037b14:	46005102 */ 	mul.s	$f4,$f10,$f0
-/*  f037b18:	460c2180 */ 	add.s	$f6,$f4,$f12
-/*  f037b1c:	e4a60004 */ 	swc1	$f6,0x4($a1)
-/*  f037b20:	8c8b001c */ 	lw	$t3,0x1c($a0)
-/*  f037b24:	c56e0010 */ 	lwc1	$f14,0x10($t3)
-/*  f037b28:	460e4281 */ 	sub.s	$f10,$f8,$f14
-/*  f037b2c:	46005102 */ 	mul.s	$f4,$f10,$f0
-/*  f037b30:	460e2180 */ 	add.s	$f6,$f4,$f14
-/*  f037b34:	1000000a */ 	beqz	$zero,.L0f037b60
-/*  f037b38:	e4a60008 */ 	swc1	$f6,0x8($a1)
-/*  f037b3c:	8c8c001c */ 	lw	$t4,0x1c($a0)
-.L0f037b40:
-/*  f037b40:	c5880008 */ 	lwc1	$f8,0x8($t4)
-/*  f037b44:	e4a80000 */ 	swc1	$f8,0x0($a1)
-/*  f037b48:	8c8d001c */ 	lw	$t5,0x1c($a0)
-/*  f037b4c:	c5aa000c */ 	lwc1	$f10,0xc($t5)
-/*  f037b50:	e4aa0004 */ 	swc1	$f10,0x4($a1)
-/*  f037b54:	8c8e001c */ 	lw	$t6,0x1c($a0)
-/*  f037b58:	c5c40010 */ 	lwc1	$f4,0x10($t6)
-/*  f037b5c:	e4a40008 */ 	swc1	$f4,0x8($a1)
-.L0f037b60:
-/*  f037b60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f037b64:
-/*  f037b64:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f037b68:	03e00008 */ 	jr	$ra
-/*  f037b6c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+/**
+ * Calculate the chr's position when using the cheap method of navigating.
+ *
+ * The cheap method is used when the chr is off-screen. It measures the distance
+ * between two consecutive pads in the route and simply increments a distance
+ * value along that segment on each tick, ignoring collisions. Meanwhile, the
+ * chr's prop->pos is left as the original location where this segment started.
+ *
+ * The calculation is finding the fraction of the distance travelled in this
+ * segment, then finding the position between the starting pos and the pad's
+ * pos.
+ *
+ * The pos variable is used for both loading the next pad's position and for
+ * returning the new position, which means there's less stack usage.
+ */
+void chrCalculatePosition(struct chrdata *chr, struct coord *pos)
+{
+	s16 rooms[8];
+	f32 frac;
+
+	if (chr->actiontype == ACT_PATROL && chr->act_patrol.waydata.mode == WAYMODE_CHEAP) {
+		chrPatrolGetCurWaypointInfo(chr, pos, rooms);
+
+		if (!(chr->act_patrol.waydata.segdistdone >= chr->act_patrol.waydata.segdisttotal)
+				&& chr->act_patrol.waydata.segdisttotal > 0) {
+			frac = chr->act_patrol.waydata.segdistdone / chr->act_patrol.waydata.segdisttotal;
+			pos->x = (pos->x - chr->prop->pos.x) * frac + chr->prop->pos.x;
+			pos->y = (pos->y - chr->prop->pos.y) * frac + chr->prop->pos.y;
+			pos->z = (pos->z - chr->prop->pos.z) * frac + chr->prop->pos.z;
+		}
+	} else if (chr->actiontype == ACT_GOPOS && chr->act_gopos.waydata.mode == WAYMODE_CHEAP) {
+		chrGoPosGetCurWaypointInfo(chr, pos, rooms);
+
+		if (!(chr->act_gopos.waydata.segdistdone >= chr->act_gopos.waydata.segdisttotal)
+				&& chr->act_gopos.waydata.segdisttotal > 0) {
+			frac = chr->act_gopos.waydata.segdistdone / chr->act_gopos.waydata.segdisttotal;
+			pos->x = (pos->x - chr->prop->pos.x) * frac + chr->prop->pos.x;
+			pos->y = (pos->y - chr->prop->pos.y) * frac + chr->prop->pos.y;
+			pos->z = (pos->z - chr->prop->pos.z) * frac + chr->prop->pos.z;
+		}
+	} else {
+		pos->x = chr->prop->pos.x;
+		pos->y = chr->prop->pos.y;
+		pos->z = chr->prop->pos.z;
+	}
+}
 
 void chrGoPosChooseAnimation(struct chrdata *chr)
 {
@@ -9696,7 +9623,7 @@ s32 chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
 
 	if (numwaypoints > 1) {
 		if (isgopos && ischeap) {
-			func0f0379b0(chr, &prevpos);
+			chrCalculatePosition(chr, &prevpos);
 		} else {
 			prevpos.x = prop->pos.x;
 			prevpos.y = prop->pos.y;
@@ -10182,7 +10109,7 @@ glabel var7f1a8dd0
 /*  f038e2c:	02203025 */ 	or	$a2,$s1,$zero
 /*  f038e30:	02002825 */ 	or	$a1,$s0,$zero
 /*  f038e34:	02602025 */ 	or	$a0,$s3,$zero
-/*  f038e38:	0fc0dd58 */ 	jal	func0f037560
+/*  f038e38:	0fc0dd58 */ 	jal	chrPatrolGetCurWaypointInfo
 /*  f038e3c:	a2790333 */ 	sb	$t9,0x333($s3)
 /*  f038e40:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x318)
 /*  f038e44:	8d08a2d8 */ 	lw	$t0,%lo(g_Vars+0x318)($t0)
@@ -23869,7 +23796,7 @@ glabel chrTickPatrol
 .L0f04742c:
 /*  f04742c:	27a50058 */ 	addiu	$a1,$sp,0x58
 /*  f047430:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f047434:	0fc0dd39 */ 	jal	func0f0374e4
+/*  f047434:	0fc0dd39 */ 	jal	chrPatrolGetCurWaypointInfoWithFlags
 /*  f047438:	27a70064 */ 	addiu	$a3,$sp,0x64
 /*  f04743c:	8e090060 */ 	lw	$t1,0x60($s0)
 /*  f047440:	820b0038 */ 	lb	$t3,0x38($s0)
@@ -24011,7 +23938,7 @@ glabel chrTickPatrol
 /*  f047638:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04763c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f047640:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f047644:	0fc0dd58 */ 	jal	func0f037560
+/*  f047644:	0fc0dd58 */ 	jal	chrPatrolGetCurWaypointInfo
 /*  f047648:	27a60048 */ 	addiu	$a2,$sp,0x48
 /*  f04764c:	02002025 */ 	or	$a0,$s0,$zero
 .L0f047650:
