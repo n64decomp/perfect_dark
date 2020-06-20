@@ -10357,11 +10357,11 @@ bool aiDoPresetAnimation(void)
 /**
  * @cmd 01a5
  */
-bool ai01a5(void)
+bool aiIfUsingLift(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f046a30(g_Vars.chrdata)) {
+	if (chrIsUsingLift(g_Vars.chrdata)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;

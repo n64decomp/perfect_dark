@@ -266,7 +266,7 @@ void unregisterDangerousProp(struct prop *prop);
 void registerDangerousProp(struct prop *prop);
 bool chrDetectDangerousObject(struct chrdata *chr, u8 flags);
 void chrTickBondDie(struct chrdata *chr);
-s32 func0f046a30(struct chrdata *chr);
+s32 chrIsUsingLift(struct chrdata *chr);
 bool chrTrySkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4);
 bool chrSawTargetRecently(struct chrdata *chr);
 bool chrHeardTargetRecently(struct chrdata *chr);

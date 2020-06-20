@@ -439,7 +439,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01a2*/ aiSayCiStaffQuip,
 	/*0x01a3*/ aiDoPresetAnimation,
 	/*0x01a4*/ aiShowHudmsgMiddle,
-	/*0x01a5*/ ai01a5,
+	/*0x01a5*/ aiIfUsingLift,
 	/*0x01a6*/ aiIfTargetYDifferenceLessThan,
 	/*0x01a7*/ aiIfChrPropsoundcountZero,
 	/*0x01a8*/ NULL,

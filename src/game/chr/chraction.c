@@ -23829,7 +23829,7 @@ glabel func0f046648
 /*  f046a2c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-s32 func0f046a30(struct chrdata *chr)
+s32 chrIsUsingLift(struct chrdata *chr)
 {
 	return (chr->actiontype == ACT_GOPOS || chr->actiontype == ACT_PATROL) && chr->liftaction > 0;
 }

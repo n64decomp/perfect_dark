@@ -3555,7 +3555,11 @@
 	color, \
 	mkshort(text),
 
-#define cmd01a5(label) \
+/**
+ * Checks if the current chr is using a lift (most likely from the moment they
+ * call it until the moment the door opens at the end of the journey).
+ */
+#define if_using_lift(label) \
 	mkshort(0x01a5), \
 	label,
 

@@ -388,7 +388,7 @@
 /*0x01a2*/ bool aiSayCiStaffQuip(void);
 /*0x01a3*/ bool aiDoPresetAnimation(void);
 /*0x01a4*/ bool aiShowHudmsgMiddle(void);
-/*0x01a5*/ bool ai01a5(void);
+/*0x01a5*/ bool aiIfUsingLift(void);
 /*0x01a6*/ bool aiIfTargetYDifferenceLessThan(void);
 /*0x01a7*/ bool aiIfChrPropsoundcountZero(void);
 /*0x01aa*/ bool ai01aa(void);
