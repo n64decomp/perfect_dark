@@ -8617,65 +8617,41 @@ void chrGoPosInitCheap(struct chrdata *chr, struct waydata *waydata, struct coor
 	func0f03e538(chr, angle);
 }
 
-GLOBAL_ASM(
-glabel chrGoPosGetCurWaypointInfo
-/*  f036fc0:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f036fc4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f036fc8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f036fcc:	afa60080 */ 	sw	$a2,0x80($sp)
-/*  f036fd0:	908e0064 */ 	lbu	$t6,0x64($a0)
-/*  f036fd4:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f036fd8:	240500c2 */ 	addiu	$a1,$zero,0xc2
-/*  f036fdc:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f036fe0:	008fc021 */ 	addu	$t8,$a0,$t7
-/*  f036fe4:	8f02004c */ 	lw	$v0,0x4c($t8)
-/*  f036fe8:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f036fec:	50400015 */ 	beqzl	$v0,.L0f037044
-/*  f036ff0:	c48a002c */ 	lwc1	$f10,0x2c($a0)
-/*  f036ff4:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f036ff8:	0fc456ac */ 	jal	padUnpack
-/*  f036ffc:	afa70084 */ 	sw	$a3,0x84($sp)
-/*  f037000:	c7a40020 */ 	lwc1	$f4,0x20($sp)
-/*  f037004:	8fa20080 */ 	lw	$v0,0x80($sp)
-/*  f037008:	8fa70084 */ 	lw	$a3,0x84($sp)
-/*  f03700c:	e6040000 */ 	swc1	$f4,0x0($s0)
-/*  f037010:	c7a60024 */ 	lwc1	$f6,0x24($sp)
-/*  f037014:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f037018:	e6060004 */ 	swc1	$f6,0x4($s0)
-/*  f03701c:	c7a80028 */ 	lwc1	$f8,0x28($sp)
-/*  f037020:	e6080008 */ 	swc1	$f8,0x8($s0)
-/*  f037024:	8fb90068 */ 	lw	$t9,0x68($sp)
-/*  f037028:	a4480002 */ 	sh	$t0,0x2($v0)
-/*  f03702c:	10e00011 */ 	beqz	$a3,.L0f037074
-/*  f037030:	a4590000 */ 	sh	$t9,0x0($v0)
-/*  f037034:	8fa9006c */ 	lw	$t1,0x6c($sp)
-/*  f037038:	1000000e */ 	beqz	$zero,.L0f037074
-/*  f03703c:	ace90000 */ 	sw	$t1,0x0($a3)
-/*  f037040:	c48a002c */ 	lwc1	$f10,0x2c($a0)
-.L0f037044:
-/*  f037044:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f037048:	e60a0000 */ 	swc1	$f10,0x0($s0)
-/*  f03704c:	c4900030 */ 	lwc1	$f16,0x30($a0)
-/*  f037050:	e6100004 */ 	swc1	$f16,0x4($s0)
-/*  f037054:	c4920034 */ 	lwc1	$f18,0x34($a0)
-/*  f037058:	e6120008 */ 	swc1	$f18,0x8($s0)
-/*  f03705c:	8fab0080 */ 	lw	$t3,0x80($sp)
-/*  f037060:	848a0038 */ 	lh	$t2,0x38($a0)
-/*  f037064:	a56c0002 */ 	sh	$t4,0x2($t3)
-/*  f037068:	10e00002 */ 	beqz	$a3,.L0f037074
-/*  f03706c:	a56a0000 */ 	sh	$t2,0x0($t3)
-/*  f037070:	ace00000 */ 	sw	$zero,0x0($a3)
-.L0f037074:
-/*  f037074:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f037078:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03707c:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*  f037080:	03e00008 */ 	jr	$ra
-/*  f037084:	00000000 */ 	sll	$zero,$zero,0x0
-);
-
-void func0f037088(struct chrdata *chr, struct coord *pos, s16 *rooms)
+void chrGoPosGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
 {
-	chrGoPosGetCurWaypointInfo(chr, pos, rooms, NULL);
+	struct waypoint *waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
+	struct pad pad;
+
+	if (waypoint) {
+		padUnpack(waypoint->padnum, PADFIELD_POS | PADFIELD_ROOM | PADFIELD_FLAGS, &pad);
+
+		pos->x = pad.pos.x;
+		pos->y = pad.pos.y;
+		pos->z = pad.pos.z;
+
+		rooms[0] = pad.room;
+		rooms[1] = -1;
+
+		if (flags) {
+			*flags = pad.flags;
+		}
+	} else {
+		pos->x = chr->act_gopos.pos.x;
+		pos->y = chr->act_gopos.pos.y;
+		pos->z = chr->act_gopos.pos.z;
+
+		rooms[0] = chr->act_gopos.rooms[0];
+		rooms[1] = -1;
+
+		if (flags) {
+			*flags = 0;
+		}
+	}
+}
+
+void chrGoPosGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, s16 *rooms)
+{
+	chrGoPosGetCurWaypointInfoWithFlags(chr, pos, rooms, NULL);
 }
 
 GLOBAL_ASM(
@@ -8729,7 +8705,7 @@ glabel var7f1a8da8
 /*  f037128:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f03712c:	27a50030 */ 	addiu	$a1,$sp,0x30
 /*  f037130:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f037134:	0fc0dc22 */ 	jal	func0f037088
+/*  f037134:	0fc0dc22 */ 	jal	chrGoPosGetCurWaypointInfo
 /*  f037138:	afa40048 */ 	sw	$a0,0x48($sp)
 /*  f03713c:	8fa70048 */ 	lw	$a3,0x48($sp)
 /*  f037140:	c7a40030 */ 	lwc1	$f4,0x30($sp)
@@ -8828,7 +8804,7 @@ void chrGoPosInitExpensive(struct chrdata *chr)
 	struct coord pos;
 	s16 rooms[8];
 
-	func0f037088(chr, &pos, rooms);
+	chrGoPosGetCurWaypointInfo(chr, &pos, rooms);
 
 	chr->act_gopos.waydata.mode = WAYMODE_EXPENSIVE;
 	chr->act_gopos.waydata.unk01 = 0;
@@ -9242,7 +9218,7 @@ glabel var7f1a8dac
 /*  f037914:	02002025 */ 	or	$a0,$s0,$zero
 /*  f037918:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03791c:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f037920:	0fc0dc22 */ 	jal	func0f037088
+/*  f037920:	0fc0dc22 */ 	jal	chrGoPosGetCurWaypointInfo
 /*  f037924:	27a6004c */ 	addiu	$a2,$sp,0x4c
 /*  f037928:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03792c:	8fa5012c */ 	lw	$a1,0x12c($sp)
@@ -9347,7 +9323,7 @@ glabel func0f0379b0
 /*  f037a94:	5501002a */ 	bnel	$t0,$at,.L0f037b40
 /*  f037a98:	8c8c001c */ 	lw	$t4,0x1c($a0)
 /*  f037a9c:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f037aa0:	0fc0dc22 */ 	jal	func0f037088
+/*  f037aa0:	0fc0dc22 */ 	jal	chrGoPosGetCurWaypointInfo
 /*  f037aa4:	afa5003c */ 	sw	$a1,0x3c($sp)
 /*  f037aa8:	8fa40038 */ 	lw	$a0,0x38($sp)
 /*  f037aac:	8fa5003c */ 	lw	$a1,0x3c($sp)
@@ -9878,7 +9854,7 @@ glabel chrGoToPos
 /*  f03870c:	a2190065 */ 	sb	$t9,0x65($s0)
 /*  f038710:	02002025 */ 	or	$a0,$s0,$zero
 /*  f038714:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f038718:	0fc0dc22 */ 	jal	func0f037088
+/*  f038718:	0fc0dc22 */ 	jal	chrGoPosGetCurWaypointInfo
 /*  f03871c:	27a6004c */ 	addiu	$a2,$sp,0x4c
 /*  f038720:	8fac0048 */ 	lw	$t4,0x48($sp)
 /*  f038724:	8faa0030 */ 	lw	$t2,0x30($sp)
@@ -10051,7 +10027,7 @@ glabel chrGoToPos
 //		chr->sleep = 0;
 //		chr->liftaction = 0;
 //		chr->act_gopos.unk065 &= 0xff1f;
-//		func0f037088(chr, &auStack52[0], &auStack68[0]);
+//		chrGoPosGetCurWaypointInfo(chr, &auStack52[0], &auStack68[0]);
 //
 //		if ((!same2 || same) &&
 //				g_Vars.normmplayerisrunning == 0 &&
@@ -23876,9 +23852,9 @@ void chrTickGoPos(struct chrdata *chr)
 	bool enteringcheap = false;
 	struct pad pad;
 	bool sp240 = true;
-	struct coord sp228pos;
-	s16 sp212rooms[8];
-	u32 padflags;
+	struct coord curwppos;
+	s16 curwprooms[8];
+	u32 curwpflags;
 
 	chr->act_gopos.flags &= ~(GOPOSFLAG_DUCK | GOPOSFLAG_80);
 
@@ -23911,7 +23887,7 @@ void chrTickGoPos(struct chrdata *chr)
 	}
 
 	chrGoPosConsiderRestart(chr);
-	chrGoPosGetCurWaypointInfo(chr, &sp228pos, sp212rooms, &padflags);
+	chrGoPosGetCurWaypointInfoWithFlags(chr, &curwppos, curwprooms, &curwpflags);
 
 	// If cheap mode ended over 3 seconds ago, not multiplayer, not in view of
 	// eyespy, pad is nothing special and not in lift, then enter the cheap move
@@ -23919,11 +23895,11 @@ void chrTickGoPos(struct chrdata *chr)
 	if (chr->act_gopos.waydata.mode != WAYMODE_CHEAP
 			&& chr->act_gopos.cheapend60 + 180 < g_Vars.lvframe60
 			&& g_Vars.normmplayerisrunning == false
-			&& func0f036c08(chr, &sp228pos, sp212rooms) // related to eyespy
-			&& (padflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT)) == 0
+			&& func0f036c08(chr, &curwppos, curwprooms) // related to eyespy
+			&& (curwpflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT)) == 0
 			&& chr->inlift == false) {
 		enteringcheap = true;
-		chrGoPosInitCheap(chr, &chr->act_gopos.waydata, &sp228pos, &prop->pos);
+		chrGoPosInitCheap(chr, &chr->act_gopos.waydata, &curwppos, &prop->pos);
 	}
 
 	if (var80062cbc >= 9
@@ -23947,8 +23923,8 @@ void chrTickGoPos(struct chrdata *chr)
 
 	if (chr->act_gopos.waydata.mode == WAYMODE_CHEAP) {
 		// Check if chr needs to exit cheap mode
-		if ((!enteringcheap && ((prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) || !func0f036c08(chr, &sp228pos, sp212rooms)))
-				|| (padflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
+		if ((!enteringcheap && ((prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) || !func0f036c08(chr, &curwppos, curwprooms)))
+				|| (curwpflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
 				|| chr->inlift) {
 			// Exiting cheap mode
 			chrGoPosInitExpensive(chr);
@@ -23957,7 +23933,7 @@ void chrTickGoPos(struct chrdata *chr)
 		}
 
 		// Tick the cheap mode
-		func0f0375e8(chr, &chr->act_gopos.waydata, func0f0370a8(chr), &sp228pos, sp212rooms);
+		func0f0375e8(chr, &chr->act_gopos.waydata, func0f0370a8(chr), &curwppos, curwprooms);
 		return;
 	}
 
