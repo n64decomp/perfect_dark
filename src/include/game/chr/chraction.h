@@ -64,7 +64,7 @@ void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vect
 u32 chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance);
 void chrGetSideVector(struct chrdata *chr, bool side, struct coord *vector);
 bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance);
-u32 func0f036c08(struct chrdata *chr, struct coord *arg1, s16 *rooms);
+s32 func0f036c08(struct chrdata *chr, struct coord *arg1, s16 *rooms);
 void chrGoPosInitCheap(struct chrdata *chr, struct waydata *waydata, struct coord *arg2, struct coord *prevpos);
 void chrGoPosGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags);
 f32 func0f0370a8(struct chrdata *chr);
@@ -80,7 +80,7 @@ u32 func0f0375b0(void);
 void func0f0375e8(struct chrdata *chr, struct waydata *waydata, f32 arg2, struct coord *arg3, s16 *rooms);
 void func0f0379b0(struct chrdata *chr, struct coord *pos);
 void chrGoPosChooseAnimation(struct chrdata *chr);
-u32 chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags);
+s32 chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags);
 u32 func0f038868(void);
 void func0f038b9c(struct chrdata *chr, struct path *path);
 bool chrCanSeeEntity(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3, u32 entitytype, u32 entityid);

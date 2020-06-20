@@ -9656,402 +9656,108 @@ u32 var8006827c = 0x0000006b;
 u32 var80068280 = 0x0000001b;
 u32 var80068284 = 0x00000016;
 
-GLOBAL_ASM(
-glabel chrGoToPos
-/*  f03843c:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f038440:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f038444:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f038448:	afa50094 */ 	sw	$a1,0x94($sp)
-/*  f03844c:	afa60098 */ 	sw	$a2,0x98($sp)
-/*  f038450:	afa7009c */ 	sw	$a3,0x9c($sp)
-/*  f038454:	8c88001c */ 	lw	$t0,0x1c($a0)
-/*  f038458:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03845c:	afa8008c */ 	sw	$t0,0x8c($sp)
-/*  f038460:	808a0007 */ 	lb	$t2,0x7($a0)
-/*  f038464:	394e000f */ 	xori	$t6,$t2,0xf
-/*  f038468:	2dca0001 */ 	sltiu	$t2,$t6,0x1
-/*  f03846c:	000a182b */ 	sltu	$v1,$zero,$t2
-/*  f038470:	5060000f */ 	beqzl	$v1,.L0f0384b0
-/*  f038474:	afaa0048 */ 	sw	$t2,0x48($sp)
-/*  f038478:	908b0065 */ 	lbu	$t3,0x65($a0)
-/*  f03847c:	30f90003 */ 	andi	$t9,$a3,0x3
-/*  f038480:	316c0003 */ 	andi	$t4,$t3,0x3
-/*  f038484:	032c5026 */ 	xor	$t2,$t9,$t4
-/*  f038488:	2d4a0001 */ 	sltiu	$t2,$t2,0x1
-/*  f03848c:	000a182b */ 	sltu	$v1,$zero,$t2
-/*  f038490:	50600007 */ 	beqzl	$v1,.L0f0384b0
-/*  f038494:	afaa0048 */ 	sw	$t2,0x48($sp)
-/*  f038498:	0fc0b819 */ 	jal	func0f02e064
-/*  f03849c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0384a0:	2c4a0001 */ 	sltiu	$t2,$v0,0x1
-/*  f0384a4:	000a182b */ 	sltu	$v1,$zero,$t2
-/*  f0384a8:	8e08001c */ 	lw	$t0,0x1c($s0)
-/*  f0384ac:	afaa0048 */ 	sw	$t2,0x48($sp)
-.L0f0384b0:
-/*  f0384b0:	10600004 */ 	beqz	$v1,.L0f0384c4
-/*  f0384b4:	00605025 */ 	or	$t2,$v1,$zero
-/*  f0384b8:	820a0068 */ 	lb	$t2,0x68($s0)
-/*  f0384bc:	394d0006 */ 	xori	$t5,$t2,0x6
-/*  f0384c0:	2daa0001 */ 	sltiu	$t2,$t5,0x1
-.L0f0384c4:
-/*  f0384c4:	afa00034 */ 	sw	$zero,0x34($sp)
-/*  f0384c8:	850e0028 */ 	lh	$t6,0x28($t0)
-/*  f0384cc:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f0384d0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0384d4:	112e000c */ 	beq	$t1,$t6,.L0f038508
-/*  f0384d8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0384dc:	02001825 */ 	or	$v1,$s0,$zero
-/*  f0384e0:	85040028 */ 	lh	$a0,0x28($t0)
-/*  f0384e4:	a46402b8 */ 	sh	$a0,0x2b8($v1)
-.L0f0384e8:
-/*  f0384e8:	8e0f001c */ 	lw	$t7,0x1c($s0)
-/*  f0384ec:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f0384f0:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f0384f4:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*  f0384f8:	87040028 */ 	lh	$a0,0x28($t8)
-/*  f0384fc:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f038500:	5524fff9 */ 	bnel	$t1,$a0,.L0f0384e8
-/*  f038504:	a46402b8 */ 	sh	$a0,0x2b8($v1)
-.L0f038508:
-/*  f038508:	00055840 */ 	sll	$t3,$a1,0x1
-/*  f03850c:	020bc821 */ 	addu	$t9,$s0,$t3
-/*  f038510:	a72902b8 */ 	sh	$t1,0x2b8($t9)
-/*  f038514:	8fac0048 */ 	lw	$t4,0x48($sp)
-/*  f038518:	8fb8008c */ 	lw	$t8,0x8c($sp)
-/*  f03851c:	1180000b */ 	beqz	$t4,.L0f03854c
-/*  f038520:	27040008 */ 	addiu	$a0,$t8,0x8
-/*  f038524:	5140000a */ 	beqzl	$t2,.L0f038550
-/*  f038528:	27050028 */ 	addiu	$a1,$t8,0x28
-/*  f03852c:	920d0064 */ 	lbu	$t5,0x64($s0)
-/*  f038530:	000d7080 */ 	sll	$t6,$t5,0x2
-/*  f038534:	020e7821 */ 	addu	$t7,$s0,$t6
-/*  f038538:	8de2004c */ 	lw	$v0,0x4c($t7)
-/*  f03853c:	50400004 */ 	beqzl	$v0,.L0f038550
-/*  f038540:	27050028 */ 	addiu	$a1,$t8,0x28
-/*  f038544:	10000006 */ 	beqz	$zero,.L0f038560
-/*  f038548:	afa20088 */ 	sw	$v0,0x88($sp)
-.L0f03854c:
-/*  f03854c:	27050028 */ 	addiu	$a1,$t8,0x28
-.L0f038550:
-/*  f038550:	0fc45095 */ 	jal	waypointFindClosestToPos
-/*  f038554:	afaa0030 */ 	sw	$t2,0x30($sp)
-/*  f038558:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*  f03855c:	afa20088 */ 	sw	$v0,0x88($sp)
-.L0f038560:
-/*  f038560:	8fa40094 */ 	lw	$a0,0x94($sp)
-/*  f038564:	8fa50098 */ 	lw	$a1,0x98($sp)
-/*  f038568:	0fc45095 */ 	jal	waypointFindClosestToPos
-/*  f03856c:	afaa0030 */ 	sw	$t2,0x30($sp)
-/*  f038570:	8fab0088 */ 	lw	$t3,0x88($sp)
-/*  f038574:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*  f038578:	afa20084 */ 	sw	$v0,0x84($sp)
-/*  f03857c:	51600017 */ 	beqzl	$t3,.L0f0385dc
-/*  f038580:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*  f038584:	10400014 */ 	beqz	$v0,.L0f0385d8
-/*  f038588:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x8)
-/*  f03858c:	8f399fc8 */ 	lw	$t9,%lo(g_Vars+0x8)($t9)
-/*  f038590:	860e0000 */ 	lh	$t6,0x0($s0)
-/*  f038594:	afaa0030 */ 	sw	$t2,0x30($sp)
-/*  f038598:	00196243 */ 	sra	$t4,$t9,0x9
-/*  f03859c:	000c69c0 */ 	sll	$t5,$t4,0x7
-/*  f0385a0:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0385a4:	01af2021 */ 	addu	$a0,$t5,$t7
-/*  f0385a8:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f0385ac:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0385b0:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f0385b4:	8fa50084 */ 	lw	$a1,0x84($sp)
-/*  f0385b8:	27a6006c */ 	addiu	$a2,$sp,0x6c
-/*  f0385bc:	0fc4547b */ 	jal	waypointFindRoute
-/*  f0385c0:	24070006 */ 	addiu	$a3,$zero,0x6
-/*  f0385c4:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f0385c8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0385cc:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f0385d0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0385d4:	8faa0030 */ 	lw	$t2,0x30($sp)
-.L0f0385d8:
-/*  f0385d8:	8fb80034 */ 	lw	$t8,0x34($sp)
-.L0f0385dc:
-/*  f0385dc:	8fab0048 */ 	lw	$t3,0x48($sp)
-/*  f0385e0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0385e4:	2b010002 */ 	slti	$at,$t8,0x2
-/*  f0385e8:	14200086 */ 	bnez	$at,.L0f038804
-/*  f0385ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0385f0:	11600008 */ 	beqz	$t3,.L0f038614
-/*  f0385f4:	8fb9008c */ 	lw	$t9,0x8c($sp)
-/*  f0385f8:	11400006 */ 	beqz	$t2,.L0f038614
-/*  f0385fc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f038600:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f038604:	0fc0de6c */ 	jal	func0f0379b0
-/*  f038608:	afaa0030 */ 	sw	$t2,0x30($sp)
-/*  f03860c:	10000007 */ 	beqz	$zero,.L0f03862c
-/*  f038610:	8faa0030 */ 	lw	$t2,0x30($sp)
-.L0f038614:
-/*  f038614:	c7240008 */ 	lwc1	$f4,0x8($t9)
-/*  f038618:	e7a40038 */ 	swc1	$f4,0x38($sp)
-/*  f03861c:	c726000c */ 	lwc1	$f6,0xc($t9)
-/*  f038620:	e7a6003c */ 	swc1	$f6,0x3c($sp)
-/*  f038624:	c7280010 */ 	lwc1	$f8,0x10($t9)
-/*  f038628:	e7a80040 */ 	swc1	$f8,0x40($sp)
-.L0f03862c:
-/*  f03862c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f038630:	0fc0fe3d */ 	jal	chrStopFiring
-/*  f038634:	afaa0030 */ 	sw	$t2,0x30($sp)
-/*  f038638:	240c000f */ 	addiu	$t4,$zero,0xf
-/*  f03863c:	a20c0007 */ 	sb	$t4,0x7($s0)
-/*  f038640:	8fae0094 */ 	lw	$t6,0x94($sp)
-/*  f038644:	26050038 */ 	addiu	$a1,$s0,0x38
-/*  f038648:	c5ca0000 */ 	lwc1	$f10,0x0($t6)
-/*  f03864c:	e60a002c */ 	swc1	$f10,0x2c($s0)
-/*  f038650:	8fad0094 */ 	lw	$t5,0x94($sp)
-/*  f038654:	c5b00004 */ 	lwc1	$f16,0x4($t5)
-/*  f038658:	e6100030 */ 	swc1	$f16,0x30($s0)
-/*  f03865c:	8faf0094 */ 	lw	$t7,0x94($sp)
-/*  f038660:	c5f20008 */ 	lwc1	$f18,0x8($t7)
-/*  f038664:	e6120034 */ 	swc1	$f18,0x34($s0)
-/*  f038668:	0fc195e9 */ 	jal	roomsCopy
-/*  f03866c:	8fa40098 */ 	lw	$a0,0x98($sp)
-/*  f038670:	8fb80084 */ 	lw	$t8,0x84($sp)
-/*  f038674:	a2000064 */ 	sb	$zero,0x64($s0)
-/*  f038678:	920c032e */ 	lbu	$t4,0x32e($s0)
-/*  f03867c:	ae180048 */ 	sw	$t8,0x48($s0)
-/*  f038680:	8fab009c */ 	lw	$t3,0x9c($sp)
-/*  f038684:	44802000 */ 	mtc1	$zero,$f4
-/*  f038688:	318efffb */ 	andi	$t6,$t4,0xfffb
-/*  f03868c:	35790004 */ 	ori	$t9,$t3,0x4
-/*  f038690:	a2190065 */ 	sb	$t9,0x65($s0)
-/*  f038694:	a20e032e */ 	sb	$t6,0x32e($s0)
-/*  f038698:	0c004b70 */ 	jal	random
-/*  f03869c:	e60400ac */ 	swc1	$f4,0xac($s0)
-/*  f0386a0:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f0386a4:	0041001b */ 	divu	$zero,$v0,$at
-/*  f0386a8:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*  f0386ac:	00006810 */ 	mfhi	$t5
-/*  f0386b0:	ae0d0090 */ 	sw	$t5,0x90($s0)
-/*  f0386b4:	a200006b */ 	sb	$zero,0x6b($s0)
-/*  f0386b8:	8faf0048 */ 	lw	$t7,0x48($sp)
-/*  f0386bc:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f0386c0:	27a2006c */ 	addiu	$v0,$sp,0x6c
-/*  f0386c4:	15e00002 */ 	bnez	$t7,.L0f0386d0
-/*  f0386c8:	02001825 */ 	or	$v1,$s0,$zero
-/*  f0386cc:	ae0900a8 */ 	sw	$t1,0xa8($s0)
-.L0f0386d0:
-/*  f0386d0:	27a40084 */ 	addiu	$a0,$sp,0x84
-.L0f0386d4:
-/*  f0386d4:	8c580000 */ 	lw	$t8,0x0($v0)
-/*  f0386d8:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f0386dc:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f0386e0:	1444fffc */ 	bne	$v0,$a0,.L0f0386d4
-/*  f0386e4:	ac780048 */ 	sw	$t8,0x48($v1)
-/*  f0386e8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0386ec:	0fc0dcba */ 	jal	chrGoPosInitExpensive
-/*  f0386f0:	afaa0030 */ 	sw	$t2,0x30($sp)
-/*  f0386f4:	920b0065 */ 	lbu	$t3,0x65($s0)
-/*  f0386f8:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f0386fc:	a609019e */ 	sh	$t1,0x19e($s0)
-/*  f038700:	3179ff1f */ 	andi	$t9,$t3,0xff1f
-/*  f038704:	a2000008 */ 	sb	$zero,0x8($s0)
-/*  f038708:	a200032c */ 	sb	$zero,0x32c($s0)
-/*  f03870c:	a2190065 */ 	sb	$t9,0x65($s0)
-/*  f038710:	02002025 */ 	or	$a0,$s0,$zero
-/*  f038714:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f038718:	0fc0dc22 */ 	jal	chrGoPosGetCurWaypointInfo
-/*  f03871c:	27a6004c */ 	addiu	$a2,$sp,0x4c
-/*  f038720:	8fac0048 */ 	lw	$t4,0x48($sp)
-/*  f038724:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*  f038728:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x318)
-/*  f03872c:	11800003 */ 	beqz	$t4,.L0f03873c
-/*  f038730:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f038734:	51400017 */ 	beqzl	$t2,.L0f038794
-/*  f038738:	820c0068 */ 	lb	$t4,0x68($s0)
-.L0f03873c:
-/*  f03873c:	8dcea2d8 */ 	lw	$t6,%lo(g_Vars+0x318)($t6)
-/*  f038740:	8fad008c */ 	lw	$t5,0x8c($sp)
-/*  f038744:	55c00013 */ 	bnezl	$t6,.L0f038794
-/*  f038748:	820c0068 */ 	lb	$t4,0x68($s0)
-/*  f03874c:	91af0001 */ 	lbu	$t7,0x1($t5)
-/*  f038750:	02002025 */ 	or	$a0,$s0,$zero
-/*  f038754:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f038758:	31f800c2 */ 	andi	$t8,$t7,0xc2
-/*  f03875c:	5700000d */ 	bnezl	$t8,.L0f038794
-/*  f038760:	820c0068 */ 	lb	$t4,0x68($s0)
-/*  f038764:	0fc0db02 */ 	jal	func0f036c08
-/*  f038768:	27a6004c */ 	addiu	$a2,$sp,0x4c
-/*  f03876c:	50400009 */ 	beqzl	$v0,.L0f038794
-/*  f038770:	820c0068 */ 	lb	$t4,0x68($s0)
-/*  f038774:	8219032d */ 	lb	$t9,0x32d($s0)
-/*  f038778:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03877c:	26050068 */ 	addiu	$a1,$s0,0x68
-/*  f038780:	07200003 */ 	bltz	$t9,.L0f038790
-/*  f038784:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f038788:	0fc0dbb9 */ 	jal	chrGoPosInitCheap
-/*  f03878c:	27a70038 */ 	addiu	$a3,$sp,0x38
-.L0f038790:
-/*  f038790:	820c0068 */ 	lb	$t4,0x68($s0)
-.L0f038794:
-/*  f038794:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f038798:	5181000f */ 	beql	$t4,$at,.L0f0387d8
-/*  f03879c:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f0387a0:	0c0076e5 */ 	jal	func0001db94
-/*  f0387a4:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f0387a8:	5040000b */ 	beqzl	$v0,.L0f0387d8
-/*  f0387ac:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f0387b0:	8e0e02d4 */ 	lw	$t6,0x2d4($s0)
-/*  f0387b4:	55c00008 */ 	bnezl	$t6,.L0f0387d8
-/*  f0387b8:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f0387bc:	8e0d0014 */ 	lw	$t5,0x14($s0)
-/*  f0387c0:	3c010020 */ 	lui	$at,0x20
-/*  f0387c4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0387c8:	01a17825 */ 	or	$t7,$t5,$at
-/*  f0387cc:	1000000d */ 	beqz	$zero,.L0f038804
-/*  f0387d0:	ae0f0014 */ 	sw	$t7,0x14($s0)
-/*  f0387d4:	8fb80048 */ 	lw	$t8,0x48($sp)
-.L0f0387d8:
-/*  f0387d8:	57000004 */ 	bnezl	$t8,.L0f0387ec
-/*  f0387dc:	8e0b0014 */ 	lw	$t3,0x14($s0)
-/*  f0387e0:	0fc0dedc */ 	jal	chrGoPosChooseAnimation
-/*  f0387e4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0387e8:	8e0b0014 */ 	lw	$t3,0x14($s0)
-.L0f0387ec:
-/*  f0387ec:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f0387f0:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f0387f4:	0161c824 */ 	and	$t9,$t3,$at
-/*  f0387f8:	ae190014 */ 	sw	$t9,0x14($s0)
-/*  f0387fc:	10000001 */ 	beqz	$zero,.L0f038804
-/*  f038800:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f038804:
-/*  f038804:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f038808:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03880c:	27bd0090 */ 	addiu	$sp,$sp,0x90
-/*  f038810:	03e00008 */ 	jr	$ra
-/*  f038814:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
+{
+	struct prop *prop = chr->prop;
+	struct waypoint *nextwaypoint;
+	struct waypoint *lastwaypoint;
+	struct waypoint *waypoints[MAX_CHRWAYPOINTS];
+	s32 i;
+	struct coord curwppos;
+	s16 curwprooms[8];
+	s32 isgopos = chr->actiontype == ACT_GOPOS
+		&& (chr->act_gopos.flags & GOPOSFLAG_SPEED) == (flags & 0xff & GOPOSFLAG_SPEED)
+		&& !func0f02e064(chr);
+	s32 ischeap = isgopos && chr->act_gopos.waydata.mode == WAYMODE_CHEAP;
+	struct coord prevpos;
+	s32 numwaypoints = 0;
 
-//u32 chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 speed)
-//{
-//	struct prop *prop = chr->prop; // 140
-//	s32 *nextwaypoint; // 136
-//	s32 *lastwaypoint; // 132
-//	s32 *waypoints[MAX_CHRWAYPOINTS]; // 108
-//	s32 auStack52[4]; // 92
-//	s32 auStack68[3]; // 76
-//	bool same2; // 72
-//	struct coord prevpos; // 56
-//	s32 numwaypoints; // 52
-//	bool same; // 48
-//	s32 i;
-//
-//	same = (chr->actiontype == ACT_GOPOS);
-//
-//	// 470
-//	if (same) {
-//		same = (chr->act_gopos.unk065 & 0x3) == (speed & 0x3);
-//
-//		// 490
-//		if (same) {
-//			same = func0f02e064(chr) == 0;
-//		}
-//	}
-//
-//	// 4b0
-//	same2 = same;
-//	same = same && chr->act_gopos.unk068 == MAX_CHRWAYPOINTS;
-//
-//	// 4c4
-//	numwaypoints = 0;
-//
-//	// 4e8
-//	for (i = 0; chr->prop->rooms[i] != -1; i++) {
-//		chr->oldrooms[i] = chr->prop->rooms[i];
-//	}
-//
-//	// 508
-//	chr->oldrooms[i] = -1;
-//
-//	// 51c
-//	if (same2 && same && chr->act_gopos.waypoints[chr->act_gopos.curindex]) {
-//		nextwaypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
-//	} else {
-//		// 54c
-//		nextwaypoint = waypointFindClosestToPos(&prop->pos, prop->rooms);
-//	}
-//
-//	// 560
-//	lastwaypoint = waypointFindClosestToPos(pos, room);
-//
-//	// 57c
-//	if (nextwaypoint && lastwaypoint) {
-//		// 588
-//		waypointSetHashThing(
-//				((g_Vars.lvframe60 >> 9) << 7) + chr->chrnum * 8,
-//				((g_Vars.lvframe60 >> 9) << 7) + chr->chrnum * 8);
-//		numwaypoints = waypointFindRoute(nextwaypoint, lastwaypoint, &waypoints[0], MAX_CHRWAYPOINTS);
-//		waypointSetHashThing(0, 0);
-//	}
-//
-//	// 5d8
-//	if (numwaypoints > 1) {
-//		if (same2 && same) {
-//			func0f0379b0(chr, &prevpos);
-//		} else {
-//			prevpos.x = prop->pos.x;
-//			prevpos.y = prop->pos.y;
-//			prevpos.z = prop->pos.z;
-//		}
-//
-//		chrStopFiring(chr);
-//		chr->actiontype = ACT_GOPOS;
-//		chr->act_gopos.pos.x = pos->x;
-//		chr->act_gopos.pos.y = pos->y;
-//		chr->act_gopos.pos.z = pos->z;
-//		roomsCopy(room, chr->act_gopos.rooms);
-//		chr->act_gopos.curindex = 0;
-//		chr->act_gopos.numwaypoints = numwaypoints;
-//		chr->act_gopos.unk065 = 4 | speed;
-//		chr->act_gopos.unk0ac = 0;
-//		chr->unk32c_21 = 0;
-//		chr->act_gopos.unk090 = random() % 100;
-//		chr->act_gopos.unk06b = 0;
-//
-//		// 6c4
-//		if (same2 == 0) {
-//			chr->act_gopos.cheapend60 = -1;
-//		}
-//
-//		// 6d0
-//		for (i = 0; i < MAX_CHRWAYPOINTS; i++) {
-//			chr->act_gopos.waypoints[i] = waypoints[i];
-//		}
-//
-//		chrGoPosInitExpensive(chr);
-//		chr->goposforce = -1;
-//		chr->sleep = 0;
-//		chr->liftaction = 0;
-//		chr->act_gopos.unk065 &= 0xff1f;
-//		chrGoPosGetCurWaypointInfo(chr, &auStack52[0], &auStack68[0]);
-//
-//		if ((!same2 || same) &&
-//				g_Vars.normmplayerisrunning == 0 &&
-//				(prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) == 0 &&
-//				func0f036c08(chr, &auStack52[0], &auStack68[0]) &&
-//				chr->liftaction >= 0) {
-//			chrGoPosInitCheap(chr, &chr->act_gopos.waydata, &auStack52[0], &prevpos);
-//		}
-//
-//		if (chr->act_gopos.unk068 != MAX_CHRWAYPOINTS && func0001db94(chr->model) != 0 && !chr->aibot) {
-//			chr->hidden |= CHRHFLAG_NEEDANIM;
-//			return true;
-//		} else {
-//			if (!same2) {
-//				chrGoPosChooseAnimation(chr);
-//			}
-//
-//			chr->hidden &= ~CHRHFLAG_NEEDANIM;
-//			return true;
-//		}
-//	}
-//
-//	return false;
-//}
+	for (i = 0; chr->prop->rooms[i] != -1; i++) {
+		chr->oldrooms[i] = chr->prop->rooms[i];
+	}
+
+	chr->oldrooms[i] = -1;
+
+	if (isgopos && ischeap && chr->act_gopos.waypoints[chr->act_gopos.curindex]) {
+		nextwaypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
+	} else {
+		nextwaypoint = waypointFindClosestToPos(&prop->pos, prop->rooms);
+	}
+
+	lastwaypoint = waypointFindClosestToPos(pos, room);
+
+	if (nextwaypoint && lastwaypoint) {
+		waypointSetHashThing(
+				((g_Vars.lvframe60 >> 9) << 7) + chr->chrnum * 8,
+				((g_Vars.lvframe60 >> 9) << 7) + chr->chrnum * 8);
+		numwaypoints = waypointFindRoute(nextwaypoint, lastwaypoint, waypoints, MAX_CHRWAYPOINTS);
+		waypointSetHashThing(0, 0);
+	}
+
+	if (numwaypoints > 1) {
+		if (isgopos && ischeap) {
+			func0f0379b0(chr, &prevpos);
+		} else {
+			prevpos.x = prop->pos.x;
+			prevpos.y = prop->pos.y;
+			prevpos.z = prop->pos.z;
+		}
+
+		chrStopFiring(chr);
+
+		chr->actiontype = ACT_GOPOS;
+		chr->act_gopos.pos.x = pos->x;
+		chr->act_gopos.pos.y = pos->y;
+		chr->act_gopos.pos.z = pos->z;
+		roomsCopy(room, chr->act_gopos.rooms);
+
+		chr->act_gopos.target = lastwaypoint;
+		chr->act_gopos.curindex = 0;
+		chr->act_gopos.flags = flags | GOPOSFLAG_INIT;
+		chr->act_gopos.unk0ac = 0;
+		chr->unk32c_21 = 0;
+		chr->act_gopos.waydata.age = random() % 100;
+		chr->act_gopos.waydata.unk03 = 0;
+
+		if (!isgopos) {
+			chr->act_gopos.cheapend60 = -1;
+		}
+
+		for (i = 0; i < MAX_CHRWAYPOINTS; i++) {
+			chr->act_gopos.waypoints[i] = waypoints[i];
+		}
+
+		chrGoPosInitExpensive(chr);
+		chr->goposforce = -1;
+		chr->sleep = 0;
+		chr->liftaction = 0;
+		chr->act_gopos.flags &= ~(GOPOSFLAG_80 | GOPOSFLAG_DUCK | GOPOSFLAG_20);
+		chrGoPosGetCurWaypointInfo(chr, &curwppos, curwprooms);
+
+		if ((!isgopos || ischeap)
+				&& g_Vars.normmplayerisrunning == false
+				&& (prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) == 0
+				&& func0f036c08(chr, &curwppos, curwprooms)
+				&& chr->inlift == false) {
+			chrGoPosInitCheap(chr, &chr->act_gopos.waydata, &curwppos, &prevpos);
+		}
+
+		if (chr->act_gopos.waydata.mode != WAYMODE_CHEAP
+				&& func0001db94(chr->model) && !chr->aibot) {
+			chr->hidden |= CHRHFLAG_NEEDANIM;
+			return true;
+		} else {
+			if (!isgopos) {
+				chrGoPosChooseAnimation(chr);
+			}
+
+			chr->hidden &= ~CHRHFLAG_NEEDANIM;
+			return true;
+		}
+	}
+
+	return false;
+}
 
 struct path *pathFindById(u32 path_id)
 {
@@ -23995,7 +23701,7 @@ void chrTickGoPos(struct chrdata *chr)
 	// Every 10 ticks: Check something a couple of waypoints ahead
 	// This might be checking if the chr has line of sight to that pad and can
 	// walk straight to it.
-	if (chr->act_gopos.waydata.age % 10 == 5 || (chr->act_gopos.flags & GOPOSFLAG_04)) {
+	if (chr->act_gopos.waydata.age % 10 == 5 || (chr->act_gopos.flags & GOPOSFLAG_INIT)) {
 		// Load waypoint that the chr is running to
 		waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 
@@ -24046,11 +23752,11 @@ void chrTickGoPos(struct chrdata *chr)
 		}
 	}
 
-	if (chr->act_gopos.waydata.age % 10 == 0 || (chr->act_gopos.flags & GOPOSFLAG_04)) {
+	if (chr->act_gopos.waydata.age % 10 == 0 || (chr->act_gopos.flags & GOPOSFLAG_INIT)) {
 		waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 
 		if (waypoint) {
-			candosomething = (chr->act_gopos.flags & GOPOSFLAG_04) != 0;
+			candosomething = (chr->act_gopos.flags & GOPOSFLAG_INIT) != 0;
 			padUnpack(waypoint->padnum, PADFIELD_FLAGS | PADFIELD_POS, &pad);
 
 			next = chr->act_gopos.waypoints[chr->act_gopos.curindex + 1];
@@ -24109,7 +23815,7 @@ void chrTickGoPos(struct chrdata *chr)
 			}
 		}
 
-		chr->act_gopos.flags &= ~GOPOSFLAG_04;
+		chr->act_gopos.flags &= ~GOPOSFLAG_INIT;
 	}
 
 	waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
