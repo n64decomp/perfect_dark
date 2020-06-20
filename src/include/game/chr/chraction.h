@@ -324,7 +324,7 @@ s16 *squadronGetChrIds(s32 squadron_id);
 void audioMarkAsRecentlyPlayed(s16 audioid);
 bool audioWasNotPlayedRecently(s16 audioid);
 void func0f04cf90(struct chrdata *chr, s32 arg1);
-bool func0f04d44c(struct chrdata *chr);
+bool chrIsAvoiding(struct chrdata *chr);
 void chrEmitSparks(struct chrdata *chr);
 
 #endif

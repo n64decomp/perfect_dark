@@ -29263,14 +29263,25 @@ glabel var7f1a9448
 /*  f04d448:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool func0f04d44c(struct chrdata *chr)
+/**
+ * Checks if the chr is doing an avoiding animation.
+ *
+ * These animations are possibly unused. In each one, the chr jumps backwards or
+ * to the side as if avoiding something, then looks at whatever it was that just
+ * went past.
+ */
+bool chrIsAvoiding(struct chrdata *chr)
 {
-	s32 val = modelGetAnimNum(chr->model);
+	s32 anim = modelGetAnimNum(chr->model);
 	chr->chrflags &= ~CHRCFLAG_10000000;
 
 	// Possible @bug or just sloppy code: The flag check below can never pass
 	// because that flag was just turned off above.
-	if (val == 100 || val == 101 || val == 102 || val == 103 || (chr->chrflags & CHRCFLAG_10000000)) {
+	if (anim == 0x64
+			|| anim == 0x65
+			|| anim == 0x66
+			|| anim == 0x67
+			|| (chr->chrflags & CHRCFLAG_10000000)) {
 		return true;
 	}
 
