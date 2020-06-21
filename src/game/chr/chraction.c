@@ -8230,35 +8230,10 @@ bool propchrHasClearLineInVector(struct prop *prop, struct coord *vector, f32 mu
 	return propchrHasClearLineToPos(prop, &dstpos, vector);
 }
 
-GLOBAL_ASM(
-glabel func0f036974
-.late_rodata
-glabel var7f1a8da0
-.word 0x3f99999a
-.text
-/*  f036974:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f036978:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f03697c:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f036980:	00807025 */ 	or	$t6,$a0,$zero
-/*  f036984:	8c840004 */ 	lw	$a0,0x4($a0)
-/*  f036988:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f03698c:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f036990:	3c017f1b */ 	lui	$at,%hi(var7f1a8da0)
-/*  f036994:	c4268da0 */ 	lwc1	$f6,%lo(var7f1a8da0)($at)
-/*  f036998:	c4840024 */ 	lwc1	$f4,0x24($a0)
-/*  f03699c:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f0369a0:	240f003f */ 	addiu	$t7,$zero,0x3f
-/*  f0369a4:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0369a8:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*  f0369ac:	25c50008 */ 	addiu	$a1,$t6,0x8
-/*  f0369b0:	25c60028 */ 	addiu	$a2,$t6,0x28
-/*  f0369b4:	0fc0d953 */ 	jal	func0f03654c
-/*  f0369b8:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*  f0369bc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0369c0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0369c4:	03e00008 */ 	jr	$ra
-/*  f0369c8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f036974(struct prop *prop, struct coord *pos)
+{
+	return func0f03654c(prop->chr, &prop->pos, prop->rooms, pos, NULL, NULL, prop->chr->chrwidth * 1.2f, 0x3f);
+}
 
 void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vector)
 {
