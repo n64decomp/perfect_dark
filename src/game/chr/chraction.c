@@ -26920,11 +26920,10 @@ bool func0f04b658(struct chrdata *chr)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f04b740
-/*  f04b740:	03e00008 */ 	jr	$ra
-/*  f04b744:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f04b740(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel chrMoveToPos
