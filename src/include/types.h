@@ -548,7 +548,7 @@ struct waydata {
 
 struct act_patrol {
 	/*0x02c*/ u32 unk02c;
-	/*0x030*/ u32 unk030;
+	/*0x030*/ s32 nextstep;
 	/*0x034*/ u32 unk034;
 	/*0x038*/ struct waydata waydata;
 };

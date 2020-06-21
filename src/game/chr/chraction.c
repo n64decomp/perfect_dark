@@ -8959,23 +8959,15 @@ void func0f037580(struct chrdata *chr)
 	chrPatrolGetCurWaypointInfo(chr, &chr->act_patrol.waydata.pos, rooms);
 }
 
-GLOBAL_ASM(
-glabel func0f0375b0
-/*  f0375b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0375b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0375b8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0375bc:	24850034 */ 	addiu	$a1,$a0,0x34
-/*  f0375c0:	0fc0dcf7 */ 	jal	func0f0373dc
-/*  f0375c4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0375c8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0375cc:	ac820030 */ 	sw	$v0,0x30($a0)
-/*  f0375d0:	0fc0dd60 */ 	jal	func0f037580
-/*  f0375d4:	a0820333 */ 	sb	$v0,0x333($a0)
-/*  f0375d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0375dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0375e0:	03e00008 */ 	jr	$ra
-/*  f0375e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0375b0(struct chrdata *chr)
+{
+	s32 nextstep = func0f0373dc(chr, &chr->act_patrol.unk034, true);
+
+	chr->act_patrol.nextstep = nextstep;
+	chr->patrolnextstep = nextstep;
+
+	func0f037580(chr);
+}
 
 GLOBAL_ASM(
 glabel func0f0375e8
