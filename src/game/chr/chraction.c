@@ -8219,32 +8219,16 @@ bool propchrHasClearLineToPos(struct prop *prop, struct coord *dstpos, struct co
 	return func0f03654c(prop->chr, &prop->pos, prop->rooms, dstpos, NULL, vector, prop->chr->chrwidth * 1.2f, 0x3f);
 }
 
-GLOBAL_ASM(
-glabel func0f036918
-/*  f036918:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f03691c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f036920:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f036924:	44866000 */ 	mtc1	$a2,$f12
-/*  f036928:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f03692c:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f036930:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f036934:	460c2182 */ 	mul.s	$f6,$f4,$f12
-/*  f036938:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f03693c:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*  f036940:	c490000c */ 	lwc1	$f16,0xc($a0)
-/*  f036944:	e7b00020 */ 	swc1	$f16,0x20($sp)
-/*  f036948:	c4b20008 */ 	lwc1	$f18,0x8($a1)
-/*  f03694c:	c4860010 */ 	lwc1	$f6,0x10($a0)
-/*  f036950:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f036954:	460c9102 */ 	mul.s	$f4,$f18,$f12
-/*  f036958:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f03695c:	0fc0da2e */ 	jal	propchrHasClearLineToPos
-/*  f036960:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f036964:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f036968:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f03696c:	03e00008 */ 	jr	$ra
-/*  f036970:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool propchrHasClearLineInVector(struct prop *prop, struct coord *vector, f32 mult)
+{
+	struct coord dstpos;
+
+	dstpos.x = vector->x * mult + prop->pos.x;
+	dstpos.y = prop->pos.y;
+	dstpos.z = vector->z * mult + prop->pos.z;
+
+	return propchrHasClearLineToPos(prop, &dstpos, vector);
+}
 
 GLOBAL_ASM(
 glabel func0f036974
@@ -13151,7 +13135,7 @@ void chrTickSurrender(struct chrdata *chr)
 				coord.x = -sinf(value);
 				coord.z = -cosf(value);
 
-				if (!func0f036918(chr->prop, &coord, 20)) {
+				if (!propchrHasClearLineInVector(chr->prop, &coord, 20)) {
 					modelSetAnimation(chr->model, ANIM_SURRENDER_002E, random() & 1, 30, 0.5, 16);
 					func0001ddec(chr->model, 30, 16);
 				}

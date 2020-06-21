@@ -58,7 +58,7 @@ void func0f034524(struct chrdata *chr, f32 arg1, struct coord *vector, u8 *arg3,
 u32 func0f03645c(void);
 bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, struct coord *vector, f32 arg6, u32 arg7);
 bool propchrHasClearLineToPos(struct prop *prop, struct coord *dstpos, struct coord *vector);
-bool func0f036918(struct prop *prop, struct coord *coord, f32 arg2);
+bool propchrHasClearLineInVector(struct prop *prop, struct coord *coord, f32 arg2);
 bool func0f036974(struct prop *prop, struct coord *coord);
 void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vector);
 u32 chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance);
