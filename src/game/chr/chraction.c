@@ -188,25 +188,15 @@ glabel func0f02e064
 /*  f02e120:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f02e124
-/*  f02e124:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f02e128:	10800007 */ 	beqz	$a0,.L0f02e148
-/*  f02e12c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f02e130:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f02e134:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f02e138:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f02e13c:	9044005c */ 	lbu	$a0,0x5c($v0)
-/*  f02e140:	10000003 */ 	beqz	$zero,.L0f02e150
-/*  f02e144:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f02e148:
-/*  f02e148:	00001025 */ 	or	$v0,$zero,$zero
-/*  f02e14c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f02e150:
-/*  f02e150:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f02e154:	03e00008 */ 	jr	$ra
-/*  f02e158:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool weaponIsOneHanded(struct prop *prop)
+{
+	if (prop) {
+		struct weaponobj *weapon = prop->weapon;
+		return weaponHasFlag(weapon->weaponnum, WEAPONFLAG_ONEHANDED);
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f02e15c
@@ -631,8 +621,8 @@ void chrStandChooseAnimation(struct chrdata *chr, f32 arg1)
 				|| prevanimnum == ANIM_SNIPING_026A) {
 			modelSetAnimation(chr->model, ANIM_SNIPING_026B, chr->model->anim->flip, -1, func0f02e15c(chr, 0.5, 0.8), 16);
 		} else if ((gun1 && gun2) || (!gun1 && !gun2)
-				|| func0f02e124(gun1)
-				|| func0f02e124(gun2)) {
+				|| weaponIsOneHanded(gun1)
+				|| weaponIsOneHanded(gun2)) {
 			modelSetAnimation(chr->model, 0x6a, random() % 2, 0, 0.25, arg1);
 			func0001ddec(chr->model, 0, 16);
 		} else if (gun2 || gun1) {
@@ -777,8 +767,8 @@ void chrKneelChooseAnimation(struct chrdata *chr)
 	if (chr->aibot == NULL) {
 		if ((gun1 && gun2)
 				|| (!gun1 && !gun2)
-				|| func0f02e124(gun1)
-				|| func0f02e124(gun2)) {
+				|| weaponIsOneHanded(gun1)
+				|| weaponIsOneHanded(gun2)) {
 			bool flip = random() % 2;
 			modelSetAnimation(chr->model, 0x4b, flip, 0, func0f02e15c(chr, 0.5, 0.8), 16);
 			func0001de1c(chr->model, 28);
@@ -1015,8 +1005,8 @@ void chrSidestepChooseAnimation(struct chrdata *chr)
 		flip = random() % 2;
 		allowflip = random() % 2;
 	} else {
-		if (func0f02e124(gun1) == 0
-				&& func0f02e124(gun2) == 0
+		if (weaponIsOneHanded(gun1) == false
+				&& weaponIsOneHanded(gun2) == false
 				&& (gun1 || gun2)) {
 			flip = (gun1 != 0);
 			allowflip = random() % 2;
@@ -1076,7 +1066,7 @@ void chrJumpOutChooseAnimation(struct chrdata *chr)
 	if (gun1 && !gun2) {
 		flip = true;
 	} else if ((gun1 && gun2) || (!gun1 && !gun2)
-			|| func0f02e124(gun1) || func0f02e124(gun2)) {
+			|| weaponIsOneHanded(gun1) || weaponIsOneHanded(gun2)) {
 		flip = random() % 2;
 	}
 
@@ -1119,7 +1109,7 @@ void chrRunPosChooseAnimation(struct chrdata *chr)
 	if ((gun1 && gun2) || (!gun1 && !gun2)) {
 		heavy = false;
 		flip = random() % 2;
-	} else if (func0f02e124(gun1) || func0f02e124(gun2)) {
+	} else if (weaponIsOneHanded(gun1) || weaponIsOneHanded(gun2)) {
 		heavy = false;
 		flip = (bool)gun1 != false;
 	} else {
@@ -1249,13 +1239,13 @@ glabel chrAttackStand
 /*  f030258:	afaa0040 */ 	sw	$t2,0x40($sp)
 /*  f03025c:	afa50050 */ 	sw	$a1,0x50($sp)
 .L0f030260:
-/*  f030260:	0fc0b849 */ 	jal	func0f02e124
+/*  f030260:	0fc0b849 */ 	jal	weaponIsOneHanded
 /*  f030264:	afa7003c */ 	sw	$a3,0x3c($sp)
 /*  f030268:	8fa50050 */ 	lw	$a1,0x50($sp)
 /*  f03026c:	14400006 */ 	bnez	$v0,.L0f030288
 /*  f030270:	8fa7003c */ 	lw	$a3,0x3c($sp)
 /*  f030274:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f030278:	0fc0b849 */ 	jal	func0f02e124
+/*  f030278:	0fc0b849 */ 	jal	weaponIsOneHanded
 /*  f03027c:	afa7003c */ 	sw	$a3,0x3c($sp)
 /*  f030280:	1040000b */ 	beqz	$v0,.L0f0302b0
 /*  f030284:	8fa7003c */ 	lw	$a3,0x3c($sp)
@@ -1446,13 +1436,13 @@ glabel chrAttackKneel
 /*  f0304d8:	afaa0040 */ 	sw	$t2,0x40($sp)
 /*  f0304dc:	afa50050 */ 	sw	$a1,0x50($sp)
 .L0f0304e0:
-/*  f0304e0:	0fc0b849 */ 	jal	func0f02e124
+/*  f0304e0:	0fc0b849 */ 	jal	weaponIsOneHanded
 /*  f0304e4:	afa7003c */ 	sw	$a3,0x3c($sp)
 /*  f0304e8:	8fa50050 */ 	lw	$a1,0x50($sp)
 /*  f0304ec:	14400006 */ 	bnez	$v0,.L0f030508
 /*  f0304f0:	8fa7003c */ 	lw	$a3,0x3c($sp)
 /*  f0304f4:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f0304f8:	0fc0b849 */ 	jal	func0f02e124
+/*  f0304f8:	0fc0b849 */ 	jal	weaponIsOneHanded
 /*  f0304fc:	afa7003c */ 	sw	$a3,0x3c($sp)
 /*  f030500:	1040000b */ 	beqz	$v0,.L0f030530
 /*  f030504:	8fa7003c */ 	lw	$a3,0x3c($sp)
@@ -1622,11 +1612,11 @@ glabel chrAttackWalk
 /*  f030784:	afa20060 */ 	sw	$v0,0x60($sp)
 .L0f030788:
 /*  f030788:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03078c:	0fc0b849 */ 	jal	func0f02e124
+/*  f03078c:	0fc0b849 */ 	jal	weaponIsOneHanded
 /*  f030790:	afa5006c */ 	sw	$a1,0x6c($sp)
 /*  f030794:	14400005 */ 	bnez	$v0,.L0f0307ac
 /*  f030798:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*  f03079c:	0fc0b849 */ 	jal	func0f02e124
+/*  f03079c:	0fc0b849 */ 	jal	weaponIsOneHanded
 /*  f0307a0:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f0307a4:	50400014 */ 	beqzl	$v0,.L0f0307f8
 /*  f0307a8:	8fb9007c */ 	lw	$t9,0x7c($sp)
@@ -1924,11 +1914,11 @@ glabel chrAttackRoll
 /*  f030c80:	10000015 */ 	beqz	$zero,.L0f030cd8
 /*  f030c84:	afb80060 */ 	sw	$t8,0x60($sp)
 .L0f030c88:
-/*  f030c88:	0fc0b849 */ 	jal	func0f02e124
+/*  f030c88:	0fc0b849 */ 	jal	weaponIsOneHanded
 /*  f030c8c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f030c90:	54400005 */ 	bnezl	$v0,.L0f030ca8
 /*  f030c94:	0010102b */ 	sltu	$v0,$zero,$s0
-/*  f030c98:	0fc0b849 */ 	jal	func0f02e124
+/*  f030c98:	0fc0b849 */ 	jal	weaponIsOneHanded
 /*  f030c9c:	02402025 */ 	or	$a0,$s2,$zero
 /*  f030ca0:	10400008 */ 	beqz	$v0,.L0f030cc4
 /*  f030ca4:	0010102b */ 	sltu	$v0,$zero,$s0
@@ -2746,7 +2736,7 @@ glabel chrAttackAmount
 .L0f031910:
 /*  f031910:	50400012 */ 	beqzl	$v0,.L0f03195c
 /*  f031914:	8fb9004c */ 	lw	$t9,0x4c($sp)
-/*  f031918:	0fc0b849 */ 	jal	func0f02e124
+/*  f031918:	0fc0b849 */ 	jal	weaponIsOneHanded
 /*  f03191c:	afa30030 */ 	sw	$v1,0x30($sp)
 /*  f031920:	10400006 */ 	beqz	$v0,.L0f03193c
 /*  f031924:	8fa30030 */ 	lw	$v1,0x30($sp)
@@ -9306,7 +9296,7 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 			heavy = false;
 			flip = random() % 2;
 		} else {
-			if (func0f02e124(gun1) || func0f02e124(gun2)) {
+			if (weaponIsOneHanded(gun1) || weaponIsOneHanded(gun2)) {
 				heavy = false;
 				flip = (bool)gun1 != false;
 			} else {
@@ -9724,7 +9714,7 @@ glabel func0f038868
 /*  f03891c:	afa3003c */ 	sw	$v1,0x3c($sp)
 .L0f038920:
 /*  f038920:	afa50048 */ 	sw	$a1,0x48($sp)
-/*  f038924:	0fc0b849 */ 	jal	func0f02e124
+/*  f038924:	0fc0b849 */ 	jal	weaponIsOneHanded
 /*  f038928:	afa7004c */ 	sw	$a3,0x4c($sp)
 /*  f03892c:	8fa3003c */ 	lw	$v1,0x3c($sp)
 /*  f038930:	8fa50048 */ 	lw	$a1,0x48($sp)
@@ -9732,7 +9722,7 @@ glabel func0f038868
 /*  f038938:	8fa7004c */ 	lw	$a3,0x4c($sp)
 /*  f03893c:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f038940:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f038944:	0fc0b849 */ 	jal	func0f02e124
+/*  f038944:	0fc0b849 */ 	jal	weaponIsOneHanded
 /*  f038948:	afa7004c */ 	sw	$a3,0x4c($sp)
 /*  f03894c:	8fa3003c */ 	lw	$v1,0x3c($sp)
 /*  f038950:	10400004 */ 	beqz	$v0,.L0f038964
@@ -12875,11 +12865,11 @@ glabel var7f1a8f08
 /*  f03c3b4:	10400009 */ 	beqz	$v0,.L0f03c3dc
 /*  f03c3b8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f03c3bc:
-/*  f03c3bc:	0fc0b849 */ 	jal	func0f02e124
+/*  f03c3bc:	0fc0b849 */ 	jal	weaponIsOneHanded
 /*  f03c3c0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f03c3c4:	14400005 */ 	bnez	$v0,.L0f03c3dc
 /*  f03c3c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03c3cc:	0fc0b849 */ 	jal	func0f02e124
+/*  f03c3cc:	0fc0b849 */ 	jal	weaponIsOneHanded
 /*  f03c3d0:	8fa400a0 */ 	lw	$a0,0xa0($sp)
 /*  f03c3d4:	10400019 */ 	beqz	$v0,.L0f03c43c
 /*  f03c3d8:	8fae00a0 */ 	lw	$t6,0xa0($sp)

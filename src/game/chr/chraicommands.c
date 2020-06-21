@@ -10338,7 +10338,7 @@ bool aiDoPresetAnimation(void)
 		struct prop *prop0 = chrGetEquippedWeaponProp(g_Vars.chrdata, 1);
 		struct prop *prop1 = chrGetEquippedWeaponProp(g_Vars.chrdata, 0);
 
-		if (func0f02e124(prop0) || func0f02e124(prop1)) {
+		if (weaponIsOneHanded(prop0) || weaponIsOneHanded(prop1)) {
 			func0f03af44(g_Vars.chrdata, ANIM_FIX_GUN_JAM_EASY, 0, -1, 0, 5, 0.5);
 		} else {
 			func0f03af44(g_Vars.chrdata, ANIM_FIX_GUN_JAM_HARD, 0, -1, 0, 5, 0.5);
