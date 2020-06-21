@@ -10807,161 +10807,44 @@ bool chrTryJumpOut(struct chrdata *chr)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel chrTryRunSideways
-/*  f039e28:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f039e2c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f039e30:	00808825 */ 	or	$s1,$a0,$zero
-/*  f039e34:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f039e38:	10800003 */ 	beqz	$a0,.L0f039e48
-/*  f039e3c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f039e40:	10000002 */ 	beqz	$zero,.L0f039e4c
-/*  f039e44:	908202fe */ 	lbu	$v0,0x2fe($a0)
-.L0f039e48:
-/*  f039e48:	00001025 */ 	or	$v0,$zero,$zero
-.L0f039e4c:
-/*  f039e4c:	10400003 */ 	beqz	$v0,.L0f039e5c
-/*  f039e50:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f039e54:	54410058 */ 	bnel	$v0,$at,.L0f039fb8
-/*  f039e58:	00001025 */ 	or	$v0,$zero,$zero
-.L0f039e5c:
-/*  f039e5c:	0fc0e686 */ 	jal	chrIsReadyForOrders
-/*  f039e60:	02202025 */ 	or	$a0,$s1,$zero
-/*  f039e64:	10400053 */ 	beqz	$v0,.L0f039fb4
-/*  f039e68:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x8)
-/*  f039e6c:	8dce9fc8 */ 	lw	$t6,%lo(g_Vars+0x8)($t6)
-/*  f039e70:	8e2f00d4 */ 	lw	$t7,0xd4($s1)
-/*  f039e74:	01cfc023 */ 	subu	$t8,$t6,$t7
-/*  f039e78:	2b0100b5 */ 	slti	$at,$t8,0xb5
-/*  f039e7c:	5420004e */ 	bnezl	$at,.L0f039fb8
-/*  f039e80:	00001025 */ 	or	$v0,$zero,$zero
-/*  f039e84:	0c004b70 */ 	jal	random
-/*  f039e88:	8e30001c */ 	lw	$s0,0x1c($s1)
-/*  f039e8c:	44822000 */ 	mtc1	$v0,$f4
-/*  f039e90:	3c014348 */ 	lui	$at,0x4348
-/*  f039e94:	44810000 */ 	mtc1	$at,$f0
-/*  f039e98:	04410005 */ 	bgez	$v0,.L0f039eb0
-/*  f039e9c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f039ea0:	3c014f80 */ 	lui	$at,0x4f80
-/*  f039ea4:	44814000 */ 	mtc1	$at,$f8
-/*  f039ea8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039eac:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f039eb0:
-/*  f039eb0:	3c012f80 */ 	lui	$at,0x2f80
-/*  f039eb4:	44815000 */ 	mtc1	$at,$f10
-/*  f039eb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039ebc:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f039ec0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f039ec4:	46008482 */ 	mul.s	$f18,$f16,$f0
-/*  f039ec8:	46009100 */ 	add.s	$f4,$f18,$f0
-/*  f039ecc:	0c004b70 */ 	jal	random
-/*  f039ed0:	e7a4003c */ 	swc1	$f4,0x3c($sp)
-/*  f039ed4:	30450001 */ 	andi	$a1,$v0,0x1
-/*  f039ed8:	2cb90001 */ 	sltiu	$t9,$a1,0x1
-/*  f039edc:	03202825 */ 	or	$a1,$t9,$zero
-/*  f039ee0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f039ee4:	0fc0da73 */ 	jal	chrGetSideVectorToTarget
-/*  f039ee8:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f039eec:	c7a0003c */ 	lwc1	$f0,0x3c($sp)
-/*  f039ef0:	c7a80030 */ 	lwc1	$f8,0x30($sp)
-/*  f039ef4:	c60a0008 */ 	lwc1	$f10,0x8($s0)
-/*  f039ef8:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*  f039efc:	46004182 */ 	mul.s	$f6,$f8,$f0
-/*  f039f00:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039f04:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f039f08:	46002202 */ 	mul.s	$f8,$f4,$f0
-/*  f039f0c:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f039f10:	460a3400 */ 	add.s	$f16,$f6,$f10
-/*  f039f14:	e7b00024 */ 	swc1	$f16,0x24($sp)
-/*  f039f18:	c612000c */ 	lwc1	$f18,0xc($s0)
-/*  f039f1c:	e7b20028 */ 	swc1	$f18,0x28($sp)
-/*  f039f20:	c6060010 */ 	lwc1	$f6,0x10($s0)
-/*  f039f24:	46064280 */ 	add.s	$f10,$f8,$f6
-/*  f039f28:	0fc0da2e */ 	jal	propHasClearLineToPos
-/*  f039f2c:	e7aa002c */ 	swc1	$f10,0x2c($sp)
-/*  f039f30:	10400006 */ 	beqz	$v0,.L0f039f4c
-/*  f039f34:	c7b00030 */ 	lwc1	$f16,0x30($sp)
-/*  f039f38:	02202025 */ 	or	$a0,$s1,$zero
-/*  f039f3c:	0fc0c01e */ 	jal	chrRunToPos
-/*  f039f40:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f039f44:	1000001c */ 	beqz	$zero,.L0f039fb8
-/*  f039f48:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f039f4c:
-/*  f039f4c:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
-/*  f039f50:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*  f039f54:	46008487 */ 	neg.s	$f18,$f16
-/*  f039f58:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039f5c:	46069282 */ 	mul.s	$f10,$f18,$f6
-/*  f039f60:	46002207 */ 	neg.s	$f8,$f4
-/*  f039f64:	e7b20030 */ 	swc1	$f18,0x30($sp)
-/*  f039f68:	e7a80038 */ 	swc1	$f8,0x38($sp)
-/*  f039f6c:	c6100008 */ 	lwc1	$f16,0x8($s0)
-/*  f039f70:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f039f74:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f039f78:	46105100 */ 	add.s	$f4,$f10,$f16
-/*  f039f7c:	46064282 */ 	mul.s	$f10,$f8,$f6
-/*  f039f80:	e7a40024 */ 	swc1	$f4,0x24($sp)
-/*  f039f84:	c612000c */ 	lwc1	$f18,0xc($s0)
-/*  f039f88:	e7b20028 */ 	swc1	$f18,0x28($sp)
-/*  f039f8c:	c6100010 */ 	lwc1	$f16,0x10($s0)
-/*  f039f90:	46105100 */ 	add.s	$f4,$f10,$f16
-/*  f039f94:	0fc0da2e */ 	jal	propHasClearLineToPos
-/*  f039f98:	e7a4002c */ 	swc1	$f4,0x2c($sp)
-/*  f039f9c:	10400005 */ 	beqz	$v0,.L0f039fb4
-/*  f039fa0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f039fa4:	0fc0c01e */ 	jal	chrRunToPos
-/*  f039fa8:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f039fac:	10000002 */ 	beqz	$zero,.L0f039fb8
-/*  f039fb0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f039fb4:
-/*  f039fb4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f039fb8:
-/*  f039fb8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f039fbc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f039fc0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f039fc4:	03e00008 */ 	jr	$ra
-/*  f039fc8:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+bool chrTryRunSideways(struct chrdata *chr)
+{
+	u32 race = CHRRACE(chr);
 
-// Mismatch because the below is using too much stack.
-//bool chrTryRunSideways(struct chrdata *chr)
-//{
-//	u8 race = CHRRACE(chr);
-//
-//	if ((race == RACE_HUMAN || race == RACE_SKEDAR)
-//			&& chrIsReadyForOrders(chr)
-//			&& g_Vars.lvframe60 - chr->lastwalk60 > 180) {
-//		struct prop *prop = chr->prop;
-//		f32 distance = 200.0f + random() * (1.0f / U32_MAX) * 200.0f; // sp60
-//		struct coord vector;// sp48
-//		struct coord dstpos; // sp36
-//
-//		chrGetSideVectorToTarget(chr, random() % 2 == 0, &vector);
-//
-//		dstpos.x = vector.x * distance + prop->pos.x;
-//		dstpos.y = prop->pos.y;
-//		dstpos.z = vector.z * distance + prop->pos.z;
-//
-//		if (propHasClearLineToPos(prop, &dstpos, &vector)) {
-//			chrRunToPos(chr, &dstpos);
-//			return true;
-//		}
-//
-//		vector.x = -vector.x;
-//		vector.z = -vector.z;
-//
-//		dstpos.x = vector.x * distance + prop->pos.x;
-//		dstpos.y = prop->pos.y;
-//		dstpos.z = vector.z * distance + prop->pos.z;
-//
-//		if (propHasClearLineToPos(prop, &dstpos, &vector)) {
-//			chrRunToPos(chr, &dstpos);
-//			return true;
-//		}
-//	}
-//
-//	return false;
-//}
+	if ((race == RACE_HUMAN || race == RACE_SKEDAR)
+			&& chrIsReadyForOrders(chr)
+			&& g_Vars.lvframe60 - chr->lastwalk60 > 180) {
+		struct prop *prop = chr->prop;
+		f32 distance = 200.0f + random() * (1.0f / U32_MAX) * 200.0f;
+		struct coord vector;
+		struct coord dstpos;
+
+		chrGetSideVectorToTarget(chr, random() % 2 == 0, &vector);
+
+		dstpos.x = vector.x * distance + prop->pos.x;
+		dstpos.y = prop->pos.y;
+		dstpos.z = vector.z * distance + prop->pos.z;
+
+		if (propHasClearLineToPos(prop, &dstpos, &vector)) {
+			chrRunToPos(chr, &dstpos);
+			return true;
+		}
+
+		vector.x = -vector.x;
+		vector.z = -vector.z;
+
+		dstpos.x = vector.x * distance + prop->pos.x;
+		dstpos.y = prop->pos.y;
+		dstpos.z = vector.z * distance + prop->pos.z;
+
+		if (propHasClearLineToPos(prop, &dstpos, &vector)) {
+			chrRunToPos(chr, &dstpos);
+			return true;
+		}
+	}
+
+	return false;
+}
 
 bool chrTryAttackWalk(struct chrdata *chr)
 {
