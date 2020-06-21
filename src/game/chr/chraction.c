@@ -8214,37 +8214,10 @@ glabel func0f03654c
 /*  f0368b4:	27bd0090 */ 	addiu	$sp,$sp,0x90
 );
 
-GLOBAL_ASM(
-glabel propHasClearLineToPos
-.late_rodata
-glabel var7f1a8d9c
-.word 0x3f99999a
-.text
-/*  f0368b8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0368bc:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f0368c0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0368c4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f0368c8:	00807025 */ 	or	$t6,$a0,$zero
-/*  f0368cc:	8c840004 */ 	lw	$a0,0x4($a0)
-/*  f0368d0:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*  f0368d4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0368d8:	3c017f1b */ 	lui	$at,%hi(var7f1a8d9c)
-/*  f0368dc:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0368e0:	c4268d9c */ 	lwc1	$f6,%lo(var7f1a8d9c)($at)
-/*  f0368e4:	c4840024 */ 	lwc1	$f4,0x24($a0)
-/*  f0368e8:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f0368ec:	2418003f */ 	addiu	$t8,$zero,0x3f
-/*  f0368f0:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0368f4:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f0368f8:	25c50008 */ 	addiu	$a1,$t6,0x8
-/*  f0368fc:	25c60028 */ 	addiu	$a2,$t6,0x28
-/*  f036900:	0fc0d953 */ 	jal	func0f03654c
-/*  f036904:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*  f036908:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f03690c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f036910:	03e00008 */ 	jr	$ra
-/*  f036914:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool propchrHasClearLineToPos(struct prop *prop, struct coord *dstpos, struct coord *vector)
+{
+	return func0f03654c(prop->chr, &prop->pos, prop->rooms, dstpos, NULL, vector, prop->chr->chrwidth * 1.2f, 0x3f);
+}
 
 GLOBAL_ASM(
 glabel func0f036918
@@ -8265,7 +8238,7 @@ glabel func0f036918
 /*  f036950:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*  f036954:	460c9102 */ 	mul.s	$f4,$f18,$f12
 /*  f036958:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f03695c:	0fc0da2e */ 	jal	propHasClearLineToPos
+/*  f03695c:	0fc0da2e */ 	jal	propchrHasClearLineToPos
 /*  f036960:	e7a80024 */ 	swc1	$f8,0x24($sp)
 /*  f036964:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f036968:	27bd0028 */ 	addiu	$sp,$sp,0x28
@@ -8346,7 +8319,7 @@ bool chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance)
 	dstpos.y = prop->pos.y;
 	dstpos.z = vector.z * distance + prop->pos.z;
 
-	return propHasClearLineToPos(prop, &dstpos, &vector);
+	return propchrHasClearLineToPos(prop, &dstpos, &vector);
 }
 
 void chrGetSideVector(struct chrdata *chr, bool side, struct coord *vector)
@@ -8376,7 +8349,7 @@ bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance)
 	dstpos.y = prop->pos.y;
 	dstpos.z = vector.z * distance + prop->pos.z;
 
-	return propHasClearLineToPos(prop, &dstpos, &vector);
+	return propchrHasClearLineToPos(prop, &dstpos, &vector);
 }
 
 GLOBAL_ASM(
@@ -10825,7 +10798,7 @@ bool chrTryRunSideways(struct chrdata *chr)
 		dstpos.y = prop->pos.y;
 		dstpos.z = vector.z * distance + prop->pos.z;
 
-		if (propHasClearLineToPos(prop, &dstpos, &vector)) {
+		if (propchrHasClearLineToPos(prop, &dstpos, &vector)) {
 			chrRunToPos(chr, &dstpos);
 			return true;
 		}
@@ -10837,7 +10810,7 @@ bool chrTryRunSideways(struct chrdata *chr)
 		dstpos.y = prop->pos.y;
 		dstpos.z = vector.z * distance + prop->pos.z;
 
-		if (propHasClearLineToPos(prop, &dstpos, &vector)) {
+		if (propchrHasClearLineToPos(prop, &dstpos, &vector)) {
 			chrRunToPos(chr, &dstpos);
 			return true;
 		}
@@ -23510,7 +23483,7 @@ void chrTickGoPos(struct chrdata *chr)
 						}
 
 						// Some bbox related check
-						if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, 0, chr->chrwidth * 1.2f, 48)) {
+						if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, 48)) {
 							chrGoPosAdvanceWaypoint(chr);
 							chrGoPosAdvanceWaypoint(chr);
 						}
@@ -23570,13 +23543,13 @@ void chrTickGoPos(struct chrdata *chr)
 
 						// sp160 < DEG2RAD(45) || sp160 > DEG2RAD(315)
 						if (sp160 < 0.7852731347084f || sp160 > 5.4969120025635f) {
-							if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, 0, chr->chrwidth * 1.2f, 48)) {
+							if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, 48)) {
 								chrGoPosAdvanceWaypoint(chr);
 							}
 						}
 					}
 				} else {
-					if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, 0, chr->chrwidth * 1.2f, 48)) {
+					if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, 48)) {
 						chrGoPosAdvanceWaypoint(chr);
 					}
 				}
