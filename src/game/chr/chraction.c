@@ -84,8 +84,6 @@ const char var7f1a8c54[] = "CHARS -> numseenbond3      \t= %d/%d";
 const char var7f1a8c78[] = "CHARS -> numseenbond       \t= %d/%d";
 const char var7f1a8c9c[] = "CHARS -> DEAD = %d/%d";
 const char var7f1a8cb4[] = "chrdisttopad : %x -> %d : Dist=%f";
-const char var7f1a8cd8[] = "chraction.c";
-const char var7f1a8ce4[] = "chraction.c";
 
 u32 var80068260 = 0x00000000;
 u32 var80068264 = 0x00000000;
@@ -27821,102 +27819,44 @@ s16 chrGoToCover(struct chrdata *chr, u8 speed)
 	return -1;
 }
 
-GLOBAL_ASM(
-glabel chrRunFromPos
-/*  f04c2e8:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f04c2ec:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f04c2f0:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f04c2f4:	00808025 */ 	or	$s0,$a0,$zero
-/*  f04c2f8:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f04c2fc:	afa60058 */ 	sw	$a2,0x58($sp)
-/*  f04c300:	0fc0e686 */ 	jal	chrIsReadyForOrders
-/*  f04c304:	afa7005c */ 	sw	$a3,0x5c($sp)
-/*  f04c308:	10400048 */ 	beqz	$v0,.L0f04c42c
-/*  f04c30c:	8fa3005c */ 	lw	$v1,0x5c($sp)
-/*  f04c310:	8e0e001c */ 	lw	$t6,0x1c($s0)
-/*  f04c314:	c4660000 */ 	lwc1	$f6,0x0($v1)
-/*  f04c318:	44800000 */ 	mtc1	$zero,$f0
-/*  f04c31c:	c5c40008 */ 	lwc1	$f4,0x8($t6)
-/*  f04c320:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f04c324:	e7a80040 */ 	swc1	$f8,0x40($sp)
-/*  f04c328:	8e0f001c */ 	lw	$t7,0x1c($s0)
-/*  f04c32c:	c7a60040 */ 	lwc1	$f6,0x40($sp)
-/*  f04c330:	c5ea000c */ 	lwc1	$f10,0xc($t7)
-/*  f04c334:	46060032 */ 	c.eq.s	$f0,$f6
-/*  f04c338:	e7aa0044 */ 	swc1	$f10,0x44($sp)
-/*  f04c33c:	8e18001c */ 	lw	$t8,0x1c($s0)
-/*  f04c340:	c4720008 */ 	lwc1	$f18,0x8($v1)
-/*  f04c344:	c7100010 */ 	lwc1	$f16,0x10($t8)
-/*  f04c348:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*  f04c34c:	45010006 */ 	bc1t	.L0f04c368
-/*  f04c350:	e7a40048 */ 	swc1	$f4,0x48($sp)
-/*  f04c354:	c7ae0048 */ 	lwc1	$f14,0x48($sp)
-/*  f04c358:	460e0032 */ 	c.eq.s	$f0,$f14
-/*  f04c35c:	c7a00040 */ 	lwc1	$f0,0x40($sp)
-/*  f04c360:	45000003 */ 	bc1f	.L0f04c370
-/*  f04c364:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f04c368:
-/*  f04c368:	10000031 */ 	beqz	$zero,.L0f04c430
-/*  f04c36c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04c370:
-/*  f04c370:	460e7202 */ 	mul.s	$f8,$f14,$f14
-/*  f04c374:	e7ae0048 */ 	swc1	$f14,0x48($sp)
-/*  f04c378:	46000282 */ 	mul.s	$f10,$f0,$f0
-/*  f04c37c:	0c012974 */ 	jal	sqrtf
-/*  f04c380:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f04c384:	c7b00058 */ 	lwc1	$f16,0x58($sp)
-/*  f04c388:	c7b20040 */ 	lwc1	$f18,0x40($sp)
-/*  f04c38c:	c7ae0048 */ 	lwc1	$f14,0x48($sp)
-/*  f04c390:	46008083 */ 	div.s	$f2,$f16,$f0
-/*  f04c394:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04c398:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04c39c:	46029102 */ 	mul.s	$f4,$f18,$f2
-/*  f04c3a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c3a4:	46027382 */ 	mul.s	$f14,$f14,$f2
-/*  f04c3a8:	e7a40040 */ 	swc1	$f4,0x40($sp)
-/*  f04c3ac:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f04c3b0:	e7ae0048 */ 	swc1	$f14,0x48($sp)
-/*  f04c3b4:	8e02001c */ 	lw	$v0,0x1c($s0)
-/*  f04c3b8:	24190004 */ 	addiu	$t9,$zero,0x4
-/*  f04c3bc:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f04c3c0:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f04c3c4:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f04c3c8:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f04c3cc:	0c00b764 */ 	jal	func0002dd90
-/*  f04c3d0:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f04c3d4:	14400005 */ 	bnez	$v0,.L0f04c3ec
-/*  f04c3d8:	27a40040 */ 	addiu	$a0,$sp,0x40
-/*  f04c3dc:	3c067f1b */ 	lui	$a2,%hi(var7f1a8cd8)
-/*  f04c3e0:	24c68cd8 */ 	addiu	$a2,$a2,%lo(var7f1a8cd8)
-/*  f04c3e4:	0c0093af */ 	jal	func00024ebc
-/*  f04c3e8:	24054873 */ 	addiu	$a1,$zero,0x4873
-.L0f04c3ec:
-/*  f04c3ec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04c3f0:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f04c3f4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f04c3f8:	8e02001c */ 	lw	$v0,0x1c($s0)
-/*  f04c3fc:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f04c400:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f04c404:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f04c408:	0fc1979d */ 	jal	func0f065e74
-/*  f04c40c:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f04c410:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04c414:	27a50040 */ 	addiu	$a1,$sp,0x40
-/*  f04c418:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f04c41c:	0fc0e10f */ 	jal	chrGoToPos
-/*  f04c420:	8fa70054 */ 	lw	$a3,0x54($sp)
-/*  f04c424:	10000003 */ 	beqz	$zero,.L0f04c434
-/*  f04c428:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f04c42c:
-/*  f04c42c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04c430:
-/*  f04c430:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f04c434:
-/*  f04c434:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f04c438:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f04c43c:	03e00008 */ 	jr	$ra
-/*  f04c440:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrRunFromPos(struct chrdata *chr, u32 speed, f32 rundist, struct coord *frompos)
+{
+	f32 curdistfrompos;
+	struct coord delta;
+	s16 rooms[8];
+	f32 zero = 0;
+
+	if (chrIsReadyForOrders(chr)) {
+		delta.x = chr->prop->pos.x - frompos->x;
+		delta.y = chr->prop->pos.y;
+		delta.z = chr->prop->pos.z - frompos->z;
+
+		// @bug: This check should be &&. The runfrompos will fail if the
+		// frompos is on the same X or Z axis as the chr, which is unlikely
+		// because it's a floating point number.
+		if (zero == delta.x || zero == delta.z) {
+			return false;
+		}
+
+		curdistfrompos = sqrtf(delta.z * delta.z + delta.x * delta.x);
+		delta.x *= rundist / curdistfrompos;
+		delta.z *= rundist / curdistfrompos;
+
+		chrSetOrUnsetHiddenFlag00000100(chr, false);
+
+		if (!func0002dd90(&chr->prop->pos, chr->prop->rooms, &delta, 0x3f, 4)) {
+			func00024ebc(&delta, 18547, "chraction.c");
+		}
+
+		chrSetOrUnsetHiddenFlag00000100(chr, true);
+
+		func0f065e74(&chr->prop->pos, chr->prop->rooms, &delta, rooms);
+
+		return chrGoToPos(chr, &delta, rooms, speed);
+	}
+
+	return false;
+}
 
 void chrAddTargetToBdlist(struct chrdata *chr)
 {
@@ -28039,6 +27979,8 @@ glabel var7f1a9428
 /*  f04c86c:	03e00008 */ 	jr	$ra
 /*  f04c870:	46006006 */ 	mov.s	$f0,$f12
 );
+
+const char var7f1a8ce4[] = "chraction.c";
 
 GLOBAL_ASM(
 glabel func0f04c874

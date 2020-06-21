@@ -2784,17 +2784,19 @@
 #define WEAPON_DISABLED          0x5c
 #define WEAPON_SUICIDEPILL       0x5d
 
-#define WEAPONFLAG_ONEHANDED         0x00000008
+#define WEAPONFLAG_ONEHANDED         0x00000008 // Makes guards carry the gun with one hand
 #define WEAPONFLAG_00000010          0x00000010
-#define WEAPONFLAG_TRACKTIMEUSED     0x00000200
-#define WEAPONFLAG_DUALWIELD         0x00001000
-#define WEAPONFLAG_00040000          0x00040000
-#define WEAPONFLAG_DETERMINER_S_AN   0x00200000
-#define WEAPONFLAG_DETERMINER_F_AN   0x00400000
-#define WEAPONFLAG_DETERMINER_S_THE  0x00800000
-#define WEAPONFLAG_DETERMINER_F_THE  0x01000000
-#define WEAPONFLAG_DETERMINER_S_SOME 0x10000000
-#define WEAPONFLAG_DETERMINER_F_SOME 0x20000000
+#define WEAPONFLAG_TRACKTIMEUSED     0x00000200 // Allow tracking how long gun is used, for weapon of choice
+#define WEAPONFLAG_DUALWIELD         0x00001000 // Allow dual wielding
+#define WEAPONFLAG_HIDEMENUMODEL     0x00040000 // Don't display the rotating model in the inventory menu
+#define WEAPONFLAG_HOLDSIDEWAYS      0x00080000 // Allow turning the gun sideways at close range
+#define WEAPONFLAG_DETERMINER_S_AN   0x00200000 // "An ..." (short version - when vertically split)
+#define WEAPONFLAG_DETERMINER_F_AN   0x00400000 // "Picked up an ..." (full version)
+#define WEAPONFLAG_DETERMINER_S_THE  0x00800000 // "The ..." (short version - when vertically split)
+#define WEAPONFLAG_DETERMINER_F_THE  0x01000000 // "Picked up the ..." (full version)
+#define WEAPONFLAG_DETERMINER_S_SOME 0x10000000 // "Some ..." (short version - when vertically split)
+#define WEAPONFLAG_DETERMINER_F_SOME 0x20000000 // "Picked up some ..." (full version)
+#define WEAPONFLAG_AIMTRACK          0x40000000 // Allow drawing red box around targets in aim mode
 #define WEAPONFLAG_80000000          0x80000000
 
 #define WEAPONFUNCFLAG_00000040 0x00000040 // related to auto aim

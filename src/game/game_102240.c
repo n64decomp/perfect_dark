@@ -3486,7 +3486,7 @@ void func0f105948(s32 weaponnum)
 		useindex = 0;
 	}
 
-	if (weaponHasFlag(weaponnum, WEAPONFLAG_00040000) == false && (u32)wantindex >= 0 && useindex >= 0) {
+	if (weaponHasFlag(weaponnum, WEAPONFLAG_HIDEMENUMODEL) == false && (u32)wantindex >= 0 && useindex >= 0) {
 		weapon = weaponFindById(weaponnum);
 
 		g_MenuStack[g_MpPlayerNum].unk840 = 8;
