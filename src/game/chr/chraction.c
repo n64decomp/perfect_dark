@@ -8948,21 +8948,16 @@ void chrPatrolGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, s16 *ro
 	chrPatrolGetCurWaypointInfoWithFlags(chr, pos, rooms, NULL);
 }
 
-GLOBAL_ASM(
-glabel func0f037580
-/*  f037580:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f037584:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f037588:	a0800038 */ 	sb	$zero,0x38($a0)
-/*  f03758c:	a0800039 */ 	sb	$zero,0x39($a0)
-/*  f037590:	a080003a */ 	sb	$zero,0x3a($a0)
-/*  f037594:	27a60018 */ 	addiu	$a2,$sp,0x18
-/*  f037598:	0fc0dd58 */ 	jal	chrPatrolGetCurWaypointInfo
-/*  f03759c:	2485003c */ 	addiu	$a1,$a0,0x3c
-/*  f0375a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0375a4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0375a8:	03e00008 */ 	jr	$ra
-/*  f0375ac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f037580(struct chrdata *chr)
+{
+	s16 rooms[8];
+
+	chr->act_patrol.waydata.mode = WAYMODE_EXPENSIVE;
+	chr->act_patrol.waydata.unk01 = 0;
+	chr->act_patrol.waydata.unk02 = 0;
+
+	chrPatrolGetCurWaypointInfo(chr, &chr->act_patrol.waydata.pos, rooms);
+}
 
 GLOBAL_ASM(
 glabel func0f0375b0

@@ -75,7 +75,7 @@ void chrGoPosAdvanceWaypoint(struct chrdata *chr);
 u32 func0f0373dc(void);
 s32 func0f0374a0(struct chrdata *chr, s32 arg1);
 void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags);
-u32 func0f037580(void);
+void func0f037580(struct chrdata *chr);
 u32 func0f0375b0(void);
 void func0f0375e8(struct chrdata *chr, struct waydata *waydata, f32 arg2, struct coord *arg3, s16 *rooms);
 void chrCalculatePosition(struct chrdata *chr, struct coord *pos);
