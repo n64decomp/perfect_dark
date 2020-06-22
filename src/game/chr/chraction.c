@@ -8763,79 +8763,84 @@ void chrGoPosAdvanceWaypoint(struct chrdata *chr)
 	chrGoPosInitExpensive(chr);
 }
 
-GLOBAL_ASM(
-glabel func0f0373dc
-/*  f0373dc:	8c830030 */ 	lw	$v1,0x30($a0)
-/*  f0373e0:	04c10004 */ 	bgez	$a2,.L0f0373f4
-/*  f0373e4:	8ca70000 */ 	lw	$a3,0x0($a1)
-/*  f0373e8:	2cee0001 */ 	sltiu	$t6,$a3,0x1
-/*  f0373ec:	01c03825 */ 	or	$a3,$t6,$zero
-/*  f0373f0:	00063023 */ 	negu	$a2,$a2
-.L0f0373f4:
-/*  f0373f4:	58c00028 */ 	blezl	$a2,.L0f037498
-/*  f0373f8:	aca70000 */ 	sw	$a3,0x0($a1)
-.L0f0373fc:
-/*  f0373fc:	10e00014 */ 	beqz	$a3,.L0f037450
-/*  f037400:	24c6ffff */ 	addiu	$a2,$a2,-1
-/*  f037404:	8c82002c */ 	lw	$v0,0x2c($a0)
-/*  f037408:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f03740c:	0003c080 */ 	sll	$t8,$v1,0x2
-/*  f037410:	8c4f0000 */ 	lw	$t7,0x0($v0)
-/*  f037414:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f037418:	8f290000 */ 	lw	$t1,0x0($t9)
-/*  f03741c:	0521001b */ 	bgez	$t1,.L0f03748c
-/*  f037420:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f037424:	904a0005 */ 	lbu	$t2,0x5($v0)
-/*  f037428:	2463fffe */ 	addiu	$v1,$v1,-2
-/*  f03742c:	314b0001 */ 	andi	$t3,$t2,0x1
-/*  f037430:	11600003 */ 	beqz	$t3,.L0f037440
-/*  f037434:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f037438:	10000014 */ 	beqz	$zero,.L0f03748c
-/*  f03743c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f037440:
-/*  f037440:	04610012 */ 	bgez	$v1,.L0f03748c
-/*  f037444:	00003825 */ 	or	$a3,$zero,$zero
-/*  f037448:	10000010 */ 	beqz	$zero,.L0f03748c
-/*  f03744c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f037450:
-/*  f037450:	2463ffff */ 	addiu	$v1,$v1,-1
-/*  f037454:	0461000d */ 	bgez	$v1,.L0f03748c
-/*  f037458:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03745c:	8c82002c */ 	lw	$v0,0x2c($a0)
-/*  f037460:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f037464:	904c0005 */ 	lbu	$t4,0x5($v0)
-/*  f037468:	94480006 */ 	lhu	$t0,0x6($v0)
-/*  f03746c:	318d0001 */ 	andi	$t5,$t4,0x1
-/*  f037470:	11a00003 */ 	beqz	$t5,.L0f037480
-/*  f037474:	2508ffff */ 	addiu	$t0,$t0,-1
-/*  f037478:	10000004 */ 	beqz	$zero,.L0f03748c
-/*  f03747c:	01001825 */ 	or	$v1,$t0,$zero
-.L0f037480:
-/*  f037480:	1d000002 */ 	bgtz	$t0,.L0f03748c
-/*  f037484:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f037488:	01001825 */ 	or	$v1,$t0,$zero
-.L0f03748c:
-/*  f03748c:	1cc0ffdb */ 	bgtz	$a2,.L0f0373fc
-/*  f037490:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f037494:	aca70000 */ 	sw	$a3,0x0($a1)
-.L0f037498:
-/*  f037498:	03e00008 */ 	jr	$ra
-/*  f03749c:	00601025 */ 	or	$v0,$v1,$zero
-);
+/**
+ * Determines which step index the chr will be at given their current index, the
+ * number of steps to take and in which direction (forward or back).
+ *
+ * Returns the step index and populates *forward with true or false depending on
+ * whether the chr will be traversing the path in the forward direction at that
+ * point.
+ */
+s32 chrPatrolCalculateStep(struct chrdata *chr, bool *forward, s32 numsteps)
+{
+	s32 nextstep = chr->act_patrol.nextstep;
+	bool isforward = *forward;
 
-s16 chrPatrolGetCurPadNum(struct chrdata *chr, bool arg1)
+	if (numsteps < 0) {
+		isforward = !isforward;
+		numsteps = -numsteps;
+	}
+
+	while (numsteps > 0) {
+		numsteps--;
+
+		if (isforward) {
+			nextstep++;
+
+			if (chr->act_patrol.path->pads[nextstep] < 0) {
+				// Reached the end of the list
+				if (chr->act_patrol.path->flags & PATHFLAG_CIRCULAR) {
+					nextstep = 0;
+				} else {
+					isforward = false;
+					nextstep -= 2;
+
+					if (nextstep < 0) {
+						nextstep = 0;
+					}
+				}
+			}
+		} else {
+			nextstep--;
+
+			if (nextstep < 0) {
+				// Reached the start of the list
+				if (chr->act_patrol.path->flags & PATHFLAG_CIRCULAR) {
+					nextstep = chr->act_patrol.path->len - 1;
+				} else {
+					isforward = true;
+					nextstep = 1;
+
+					if (chr->act_patrol.path->len - 1 <= 0) {
+						nextstep = chr->act_patrol.path->len - 1;
+					}
+				}
+			}
+		}
+	}
+
+	*forward = isforward;
+
+	return nextstep;
+}
+
+/**
+ * Determines which pad number the chr will be at given their current index and
+ * the number of steps to take.
+ */
+s16 chrPatrolCalculatePadNum(struct chrdata *chr, s32 numsteps)
 {
 	s32 *padnumptr;
-	u32 sp32 = chr->act_patrol.unk034;
-	s32 nodeindex = func0f0373dc(chr, &sp32, arg1);
-	padnumptr = &chr->act_patrol.path->pads[nodeindex];
+	bool forward = chr->act_patrol.forward;
+	s32 step = chrPatrolCalculateStep(chr, &forward, numsteps);
+	padnumptr = &chr->act_patrol.path->pads[step];
 
 	return *padnumptr;
 }
 
 void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
 {
-	s32 padnum = chrPatrolGetCurPadNum(chr, false);
+	s32 padnum = chrPatrolCalculatePadNum(chr, 0);
 	struct pad pad;
 
 	padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM | PADFIELD_FLAGS, &pad);
@@ -8870,7 +8875,7 @@ void func0f037580(struct chrdata *chr)
 
 void func0f0375b0(struct chrdata *chr)
 {
-	s32 nextstep = func0f0373dc(chr, &chr->act_patrol.unk034, true);
+	s32 nextstep = chrPatrolCalculateStep(chr, &chr->act_patrol.forward, 1);
 
 	chr->act_patrol.nextstep = nextstep;
 	chr->patrolnextstep = nextstep;
@@ -23588,11 +23593,11 @@ glabel chrTickPatrol
 /*  f0475d8:	13000011 */ 	beqz	$t8,.L0f047620
 .L0f0475dc:
 /*  f0475dc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0475e0:	0fc0dd28 */ 	jal	chrPatrolGetCurPadNum
+/*  f0475e0:	0fc0dd28 */ 	jal	chrPatrolCalculatePadNum
 /*  f0475e4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0475e8:	a7a20034 */ 	sh	$v0,0x34($sp)
 /*  f0475ec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0475f0:	0fc0dd28 */ 	jal	chrPatrolGetCurPadNum
+/*  f0475f0:	0fc0dd28 */ 	jal	chrPatrolCalculatePadNum
 /*  f0475f4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0475f8:	87b90034 */ 	lh	$t9,0x34($sp)
 /*  f0475fc:	02002025 */ 	or	$a0,$s0,$zero

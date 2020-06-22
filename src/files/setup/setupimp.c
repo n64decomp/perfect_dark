@@ -4108,7 +4108,7 @@ struct ailist ailists[] = {
 };
 
 struct path paths[] = {
-	{ path00, 0, PATHTYPE_FLYING },
+	{ path00, 0, PATHFLAG_FLYING },
 	{ NULL, 0, 0 },
 };
 

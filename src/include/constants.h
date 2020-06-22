@@ -2165,10 +2165,9 @@
 #define PADFLAG_8000            0x8000
 #define PADFLAG_10000           0x10000
 
-#define PATHTYPE_BACKANDFORTH 0
-#define PATHTYPE_CIRCULAR     1
-#define PATHTYPE_FLYING       2
-#define PATHTYPE_4            4
+#define PATHFLAG_CIRCULAR 1
+#define PATHFLAG_FLYING   2
+#define PATHFLAG_04       4
 
 #define PAUSEMODE_UNPAUSED 0
 #define PAUSEMODE_1        1

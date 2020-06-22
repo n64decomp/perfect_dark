@@ -553,7 +553,7 @@ struct waydata {
 struct act_patrol {
 	/*0x02c*/ struct path *path;
 	/*0x030*/ s32 nextstep;
-	/*0x034*/ u32 unk034;
+	/*0x034*/ bool forward;
 	/*0x038*/ struct waydata waydata;
 };
 
@@ -2703,9 +2703,10 @@ struct ailist {
 };
 
 struct path {
-	s32 *pads;
-	u8 id;
-	u8 type;
+	/*0x00*/ s32 *pads;
+	/*0x04*/ u8 id;
+	/*0x05*/ u8 flags;
+	/*0x06*/ u16 len;
 };
 
 struct coverdefinition {

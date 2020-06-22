@@ -640,11 +640,11 @@ s32 path04[] = {
 };
 
 struct path paths[] = {
-	{ path00, 0, PATHTYPE_CIRCULAR },
-	{ path01, 1, PATHTYPE_BACKANDFORTH },
-	{ path02, 2, PATHTYPE_CIRCULAR },
-	{ path03, 3, PATHTYPE_CIRCULAR },
-	{ path04, 4, PATHTYPE_CIRCULAR },
+	{ path00, 0, PATHFLAG_CIRCULAR },
+	{ path01, 1, 0 },
+	{ path02, 2, PATHFLAG_CIRCULAR },
+	{ path03, 3, PATHFLAG_CIRCULAR },
+	{ path04, 4, PATHFLAG_CIRCULAR },
 	{ NULL, 0, 0 },
 };
 

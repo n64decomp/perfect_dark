@@ -3279,8 +3279,8 @@ struct ailist ailists[] = {
 };
 
 struct path paths[] = {
-	{ path00, 0, PATHTYPE_BACKANDFORTH },
-	{ path01, 1, PATHTYPE_BACKANDFORTH },
+	{ path00, 0, 0 },
+	{ path01, 1, 0 },
 	{ NULL, 0, 0 },
 };
 

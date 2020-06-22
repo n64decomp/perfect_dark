@@ -3182,10 +3182,10 @@ struct ailist ailists[] = {
 };
 
 struct path paths[] = {
-	{ path00, 0, PATHTYPE_CIRCULAR },
-	{ path01, 1, PATHTYPE_CIRCULAR },
-	{ path02, 2, PATHTYPE_CIRCULAR },
-	{ path03, 3, PATHTYPE_CIRCULAR },
+	{ path00, 0, PATHFLAG_CIRCULAR },
+	{ path01, 1, PATHFLAG_CIRCULAR },
+	{ path02, 2, PATHFLAG_CIRCULAR },
+	{ path03, 3, PATHFLAG_CIRCULAR },
 	{ NULL, 0, 0 },
 };
 
