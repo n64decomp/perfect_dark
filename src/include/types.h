@@ -2702,13 +2702,8 @@ struct ailist {
 	s32 id;
 };
 
-struct pathnode {
-	u16 unk00;
-	s16 padnum;
-};
-
 struct path {
-	struct pathnode *nodes;
+	s32 *pads;
 	u8 id;
 	u8 type;
 };

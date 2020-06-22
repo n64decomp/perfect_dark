@@ -8823,15 +8823,14 @@ glabel func0f0373dc
 /*  f03749c:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-s32 chrPatrolGetCurPadNum(struct chrdata *chr, bool arg1)
+s16 chrPatrolGetCurPadNum(struct chrdata *chr, bool arg1)
 {
-	struct pathnode *node;
+	s32 *padnumptr;
 	u32 sp32 = chr->act_patrol.unk034;
 	s32 nodeindex = func0f0373dc(chr, &sp32, arg1);
+	padnumptr = &chr->act_patrol.path->pads[nodeindex];
 
-	node = &chr->act_patrol.path->nodes[nodeindex];
-
-	return node->padnum;
+	return *padnumptr;
 }
 
 void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
@@ -9570,7 +9569,7 @@ struct path *pathFindById(u32 path_id)
 {
 	s32 i = 0;
 
-	for (i = 0; g_StageSetup.paths[i].nodes; i++) {
+	for (i = 0; g_StageSetup.paths[i].pads; i++) {
 		if (path_id == g_StageSetup.paths[i].id) {
 			return &g_StageSetup.paths[i];
 		}
