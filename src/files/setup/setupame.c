@@ -2481,9 +2481,9 @@ u8 func100d_check_objects_destroyed[] = {
 
 u8 func1002_objectives_failed_msg[] = {
 	yield
-	set_chr_chrflag(CHR_CASS, CHRCFLAG_04000000)
-	set_chr_chrflag(CHR_SECRETARY, CHRCFLAG_04000000)
-	set_chr_chrflag(CHR_PROGRAMMER, CHRCFLAG_04000000)
+	set_chr_chrflag(CHR_CASS, CHRCFLAG_KEEPCORPSEKO)
+	set_chr_chrflag(CHR_SECRETARY, CHRCFLAG_KEEPCORPSEKO)
+	set_chr_chrflag(CHR_PROGRAMMER, CHRCFLAG_KEEPCORPSEKO)
 	set_ailist(CHR_SELF, GAILIST_SHOW_OBJ_FAILED_MSG)
 	endlist
 };

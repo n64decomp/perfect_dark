@@ -439,21 +439,21 @@ struct act_anim {
 
 struct act_die {
 	/*0x2c*/ u32 unk02c;
-	/*0x30*/ f32 unk030; // frame number
-	/*0x34*/ f32 unk034; // frame number
+	/*0x30*/ f32 thudframe1;
+	/*0x34*/ f32 thudframe2;
 	/*0x38*/ f32 unk038;
 	/*0x3c*/ u32 unk03c;
 	/*0x40*/ u32 unk040;
 	/*0x44*/ u32 unk044;
 	/*0x48*/ u32 unk048;
-	/*0x4c*/ s16 unk04c;
+	/*0x4c*/ s16 drcarollimagedelay;
 };
 
 struct act_dead {
-	/*0x2c*/ u32 unk02c;
-	/*0x30*/ u32 unk030;
-	/*0x34*/ s32 unk034; // timer
-	/*0x38*/ s32 unk038; // timer
+	/*0x2c*/ bool allowfade;
+	/*0x30*/ bool allowreap;
+	/*0x34*/ s32 reaptimer;
+	/*0x38*/ s32 fadetimer;
 	/*0x3c*/ u32 unk03c;
 };
 
@@ -594,15 +594,15 @@ struct act_throwgrenade {
 
 struct act_druggeddrop {
 	/*0x2c*/ u32 unk02c;
-	/*0x30*/ f32 unk030;
-	/*0x34*/ f32 unk034;
+	/*0x30*/ f32 thudframe1;
+	/*0x34*/ f32 thudframe2;
 };
 
 struct act_druggedko {
-	/*0x2c*/ u32 unk02c;
-	/*0x30*/ u32 unk030;
-	/*0x34*/ s32 unk034;
-	/*0x38*/ s32 unk038;
+	/*0x2c*/ bool allowfade;
+	/*0x30*/ bool allowreap;
+	/*0x34*/ s32 reaptimer;
+	/*0x38*/ s32 fadetimer;
 	/*0x3c*/ u32 unk03c;
 };
 

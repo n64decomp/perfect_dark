@@ -11396,13 +11396,13 @@ bool aiChrKill(void)
 
 	if (chr) {
 		chr->actiontype = ACT_DEAD;
-		chr->act_dead.unk038 = -1;
-		chr->act_dead.unk02c = 0;
-		chr->act_dead.unk030 = 0;
-		chr->act_dead.unk034 = 0;
+		chr->act_dead.fadetimer = -1;
+		chr->act_dead.allowfade = false;
+		chr->act_dead.allowreap = false;
+		chr->act_dead.reaptimer = 0;
 		chr->act_dead.unk03c = 0;
 		chr->sleep = 0;
-		chr->chrflags |= CHRCFLAG_04000000 | CHRCFLAG_00010000;
+		chr->chrflags |= CHRCFLAG_KEEPCORPSEKO | CHRCFLAG_00010000;
 	}
 
 	g_Vars.aioffset += 3;

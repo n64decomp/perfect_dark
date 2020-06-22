@@ -1948,10 +1948,10 @@ u8 func1008_check_bot_terminals_destroyed[] = {
 u8 func1001_objectives_failed_msg[] = {
 	yield
 	// These are scientist chrs
-	set_chr_chrflag(0x35, CHRCFLAG_04000000)
-	set_chr_chrflag(0x36, CHRCFLAG_04000000)
-	set_chr_chrflag(0x37, CHRCFLAG_04000000)
-	set_chr_chrflag(0x38, CHRCFLAG_04000000)
+	set_chr_chrflag(0x35, CHRCFLAG_KEEPCORPSEKO)
+	set_chr_chrflag(0x36, CHRCFLAG_KEEPCORPSEKO)
+	set_chr_chrflag(0x37, CHRCFLAG_KEEPCORPSEKO)
+	set_chr_chrflag(0x38, CHRCFLAG_KEEPCORPSEKO)
 	set_ailist(CHR_SELF, GAILIST_SHOW_OBJ_FAILED_MSG)
 	endlist
 };

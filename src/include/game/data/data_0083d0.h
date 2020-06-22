@@ -186,7 +186,7 @@ extern u32 var8006805c;
 extern u32 var80068064;
 extern u32 var8006806c;
 extern u32 var80068074;
-extern s32 var8006807c;
+extern s32 g_DrCarollDyingTimer;
 extern u8 var80068080;
 extern u32 var80068084;
 extern u32 var800680bc;

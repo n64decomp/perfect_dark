@@ -1686,7 +1686,7 @@ u8 func1001_objectives_failed_msg[] = {
 	set_object_flag2(OBJ_MINE4, OBJFLAG2_INVISIBLE)
 	set_object_flag2(OBJ_MINE5, OBJFLAG2_INVISIBLE)
 	set_object_flag2(OBJ_MINE6, OBJFLAG2_INVISIBLE)
-	set_chr_chrflag(CHR_MECHANIC, CHRCFLAG_04000000)
+	set_chr_chrflag(CHR_MECHANIC, CHRCFLAG_KEEPCORPSEKO)
 	set_ailist(CHR_SELF, GAILIST_SHOW_OBJ_FAILED_MSG)
 	endlist
 };

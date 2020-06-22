@@ -360,13 +360,13 @@
 #define CHRHFLAG_00000004           0x00000004 // Related to firing - hand 1
 #define CHRHFLAG_00000008           0x00000008 // Related to firing - hand 0
 #define CHRHFLAG_00000010           0x00000010 // Not used in scripts
-#define CHRHFLAG_00000020           0x00000020 // Not used in scripts
+#define CHRHFLAG_REAPED             0x00000020
 #define CHRHFLAG_TIMER_RUNNING      0x00000040
 #define CHRHFLAG_00000080           0x00000080 // Not used in scripts
 #define CHRHFLAG_00000100           0x00000100 // Not used in scripts
 #define CHRHFLAG_00000200           0x00000200 // Not used in scripts
 #define CHRHFLAG_PASSIVE            0x00000400
-#define CHRHFLAG_KEEP_CORPSE        0x00000800
+#define CHRHFLAG_KEEP_CORPSE        0x00000800 // Appears to be misnamed
 #define CHRHFLAG_BUDDY_PLACED       0x00001000
 #define CHRHFLAG_00002000           0x00002000 // Globals, Rescue guards once disguised
 #define CHRHFLAG_TRIGGER_BUDDY_WARP 0x00004000
@@ -420,7 +420,7 @@
 #define CHRCFLAG_UNPLAYABLE                  0x00800000
 #define CHRCFLAG_01000000                    0x01000000 // Typically set on allies during init
 #define CHRCFLAG_02000000                    0x02000000 // can be unset by cmd0168
-#define CHRCFLAG_04000000                    0x04000000 // Set by aiChrKill command
+#define CHRCFLAG_KEEPCORPSEKO                0x04000000
 #define CHRCFLAG_CONSIDER_DODGE              0x08000000
 #define CHRCFLAG_10000000                    0x10000000 // Not used in scripts
 #define CHRCFLAG_20000000                    0x20000000 // Not used in scripts

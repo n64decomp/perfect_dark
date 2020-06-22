@@ -650,14 +650,14 @@ struct path paths[] = {
 
 u8 func1001_objectives_failed_msg[] = {
 	yield
-	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_04000000)
+	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_KEEPCORPSEKO)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_01000000)
-	set_chr_chrflag(CHR_LABTECH1, CHRCFLAG_04000000)
-	set_chr_chrflag(CHR_LABTECH2, CHRCFLAG_04000000)
-	set_chr_chrflag(CHR_LABTECH3, CHRCFLAG_04000000)
-	set_chr_chrflag(CHR_PILOT1, CHRCFLAG_04000000)
-	set_chr_chrflag(CHR_PILOT2, CHRCFLAG_04000000)
-	set_chr_chrflag(CHR_PILOT3, CHRCFLAG_04000000)
+	set_chr_chrflag(CHR_LABTECH1, CHRCFLAG_KEEPCORPSEKO)
+	set_chr_chrflag(CHR_LABTECH2, CHRCFLAG_KEEPCORPSEKO)
+	set_chr_chrflag(CHR_LABTECH3, CHRCFLAG_KEEPCORPSEKO)
+	set_chr_chrflag(CHR_PILOT1, CHRCFLAG_KEEPCORPSEKO)
+	set_chr_chrflag(CHR_PILOT2, CHRCFLAG_KEEPCORPSEKO)
+	set_chr_chrflag(CHR_PILOT3, CHRCFLAG_KEEPCORPSEKO)
 	set_ailist(CHR_SELF, GAILIST_SHOW_OBJ_FAILED_MSG)
 	endlist
 };
@@ -1343,7 +1343,7 @@ u8 func0407_start_path02[] = {
 
 
 u8 func040e_init_labtech1[] = {
-	set_self_chrflag(CHRCFLAG_04000000)
+	set_self_chrflag(CHRCFLAG_KEEPCORPSEKO)
 	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, AILIST_LABTECH1)
 	endlist
@@ -1418,7 +1418,7 @@ u8 func040b_labtech1[] = {
 };
 
 u8 func040f_init_labtech2[] = {
-	set_self_chrflag(CHRCFLAG_04000000)
+	set_self_chrflag(CHRCFLAG_KEEPCORPSEKO)
 	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, AILIST_LABTECH2)
 	endlist
@@ -1493,7 +1493,7 @@ u8 func040c_labtech2[] = {
 };
 
 u8 func0410_init_labtech3[] = {
-	set_self_chrflag(CHRCFLAG_04000000)
+	set_self_chrflag(CHRCFLAG_KEEPCORPSEKO)
 	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, AILIST_LABTECH3)
 	endlist

@@ -2677,8 +2677,8 @@ u8 func040d_cass_outro[] = {
 
 u8 func1001_objectives_failed_msg[] = {
 	yield
-	set_chr_chrflag(CHR_TECH1, CHRCFLAG_04000000)
-	set_chr_chrflag(CHR_TECH2, CHRCFLAG_04000000)
+	set_chr_chrflag(CHR_TECH1, CHRCFLAG_KEEPCORPSEKO)
+	set_chr_chrflag(CHR_TECH2, CHRCFLAG_KEEPCORPSEKO)
 	set_ailist(CHR_SELF, GAILIST_SHOW_OBJ_FAILED_MSG)
 	endlist
 };

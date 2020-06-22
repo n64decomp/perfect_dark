@@ -2278,7 +2278,7 @@ glabel func0f030ff8
 /*  f031198:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f03119c(struct chrdata *chr)
+void chrBeginDead(struct chrdata *chr)
 {
 	if (chr->actiontype != ACT_DEAD) {
 		chrStopFiring(chr);
@@ -2289,10 +2289,10 @@ void func0f03119c(struct chrdata *chr)
 		}
 
 		chr->actiontype = ACT_DEAD;
-		chr->act_dead.unk038 = chr->aibot ? 0 : -1;
-		chr->act_dead.unk02c = 0;
-		chr->act_dead.unk030 = 0;
-		chr->act_dead.unk034 = 0;
+		chr->act_dead.fadetimer = chr->aibot ? 0 : -1;
+		chr->act_dead.allowfade = false;
+		chr->act_dead.allowreap = false;
+		chr->act_dead.reaptimer = 0;
 		chr->act_dead.unk03c = 0;
 		chr->sleep = 0;
 
@@ -3222,8 +3222,8 @@ glabel var7f1a8d44
 /*  f031f90:	3c0d8006 */ 	lui	$t5,%hi(var800652b8+0x8)
 /*  f031f94:	25ad52c0 */ 	addiu	$t5,$t5,%lo(var800652b8+0x8)
 /*  f031f98:	172d02c5 */ 	bne	$t9,$t5,.L0f032ab0
-/*  f031f9c:	3c018007 */ 	lui	$at,%hi(var8006807c)
-/*  f031fa0:	ac20807c */ 	sw	$zero,%lo(var8006807c)($at)
+/*  f031f9c:	3c018007 */ 	lui	$at,%hi(g_DrCarollDyingTimer)
+/*  f031fa0:	ac20807c */ 	sw	$zero,%lo(g_DrCarollDyingTimer)($at)
 /*  f031fa4:	3c014180 */ 	lui	$at,0x4180
 /*  f031fa8:	44815000 */ 	mtc1	$at,$f10
 /*  f031fac:	ae000120 */ 	sw	$zero,0x120($s0)
@@ -5058,10 +5058,10 @@ glabel func0f0338e0
 /*  f0339b0:	2401000f */ 	addiu	$at,$zero,0xf
 /*  f0339b4:	8f010000 */ 	lw	$at,0x0($t8)
 /*  f0339b8:	27a300f8 */ 	addiu	$v1,$sp,0xf8
-/*  f0339bc:	3c048007 */ 	lui	$a0,%hi(var8006807c)
+/*  f0339bc:	3c048007 */ 	lui	$a0,%hi(g_DrCarollDyingTimer)
 /*  f0339c0:	ac610000 */ 	sw	$at,0x0($v1)
 /*  f0339c4:	8f080004 */ 	lw	$t0,0x4($t8)
-/*  f0339c8:	2484807c */ 	addiu	$a0,$a0,%lo(var8006807c)
+/*  f0339c8:	2484807c */ 	addiu	$a0,$a0,%lo(g_DrCarollDyingTimer)
 /*  f0339cc:	8c890000 */ 	lw	$t1,0x0($a0)
 /*  f0339d0:	ac680004 */ 	sw	$t0,0x4($v1)
 /*  f0339d4:	8f010008 */ 	lw	$at,0x8($t8)
@@ -7894,14 +7894,14 @@ void func0f036358(struct chrdata *chr, s32 arg1)
 {
 	if (chr->actiontype != ACT_DIE) {
 		chrStopFiring(chr);
-		chrUncloak(chr, 1);
+		chrUncloak(chr, true);
 
 		chr->actiontype = ACT_DIE;
 		chr->act_die.unk02c = 0;
 		chr->sleep = 0;
 		chr->blurnumtimesdied++;
-		chr->act_die.unk030 = -1;
-		chr->act_die.unk034 = -1;
+		chr->act_die.thudframe1 = -1;
+		chr->act_die.thudframe2 = -1;
 		chr->act_die.unk038 = 0;
 
 		chr->ailist = ailistFindById(GAILIST_AI_BOT_DEAD);
@@ -11072,8 +11072,8 @@ bool chrTrySurrender(struct chrdata *chr)
 
 bool chrFadeOut(struct chrdata *chr)
 {
-	func0f03119c(chr);
-	func0f03ccdc(chr);
+	chrBeginDead(chr);
+	chrFadeCorpse(chr);
 
 	return true;
 }
@@ -13119,17 +13119,17 @@ void chrTickSurrender(struct chrdata *chr)
 	}
 }
 
-void func0f03ccdc(struct chrdata *chr)
+void chrFadeCorpse(struct chrdata *chr)
 {
 	if (chr->actiontype == ACT_DEAD || chr->actiontype == ACT_DRUGGEDKO) {
-		chr->act_dead.unk02c = 1;
+		chr->act_dead.allowfade = true;
 	}
 }
 
-void func0f03cd04(struct chrdata *chr)
+void chrEnableReap(struct chrdata *chr)
 {
 	if (chr->actiontype == ACT_DEAD) {
-		chr->act_dead.unk030 = 1;
+		chr->act_dead.allowreap = true;
 	}
 }
 
@@ -13137,35 +13137,42 @@ void chrTickDead(struct chrdata *chr)
 {
 	struct aibot *aibot = chr->aibot;
 
-	if (chr->act_dead.unk038 >= 0) {
-		chr->act_dead.unk038 += g_Vars.lvupdate240_60;
+	// If fade is active, handle it
+	if (chr->act_dead.fadetimer >= 0) {
+		chr->act_dead.fadetimer += g_Vars.lvupdate240_60;
 
-		if (chr->act_dead.unk038 >= 90) {
+		if (chr->act_dead.fadetimer >= 90) {
+			// Fade finished
 			chr->fadealpha = 0;
 
 			if (aibot) {
 				mpInitSimulant(chr, true);
 			} else {
-				chr->hidden |= CHRHFLAG_00000020;
+				chr->hidden |= CHRHFLAG_REAPED;
 			}
 		} else {
-			chr->fadealpha = (90 - chr->act_dead.unk038) * 255 / 90;
+			// Still fading
+			chr->fadealpha = (90 - chr->act_dead.fadetimer) * 255 / 90;
 		}
 	} else {
-		if (chr->act_dead.unk02c) {
-			chr->act_dead.unk038 = 0;
+		// If fade has been triggered (this can happen when the corpse is on
+		// screen and there's lots of other chrs around)
+		if (chr->act_dead.allowfade) {
+			chr->act_dead.fadetimer = 0;
 			chrDropWeapons(chr);
 		}
 
 		if (chr->prop->flags & PROPFLAG_80) {
-			chr->act_dead.unk034 = 0;
+			// Keep corpse for now
+			chr->act_dead.reaptimer = 0;
 		} else {
-			chr->act_dead.unk034 += g_Vars.lvupdate240_60;
+			chr->act_dead.reaptimer += g_Vars.lvupdate240_60;
 		}
 
-		if (chr->act_dead.unk030 && chr->act_dead.unk034 >= 120) {
-			if (aibot == 0) {
-				chr->hidden |= CHRHFLAG_00000020;
+		if (chr->act_dead.allowreap && chr->act_dead.reaptimer >= 120) {
+			// Remove corpse (off-screen)
+			if (aibot == NULL) {
+				chr->hidden |= CHRHFLAG_REAPED;
 			}
 
 			chr->fadealpha = 0;
@@ -13345,10 +13352,10 @@ void chrTickDie(struct chrdata *chr)
 	struct model *model = chr->model;
 	u32 race = CHRRACE(chr);
 
-	// Thud noises - probably bodies hitting the floor
+	// Thud noises
 	u16 thuds[] = { 0x808d, 0x808e, 0x808f, 0x8090, 0x8091, 0x8092, 0x8093, 0x8094, 0x8095, 0x8096, 0x8097 };
 
-	u16 uStack56[] = {
+	u16 specialdiesounds[] = {
 		0x8129, // "Noooo!"
 		0x812f, // Death scream
 		0x813a, // "Noooo!"
@@ -13362,7 +13369,7 @@ void chrTickDie(struct chrdata *chr)
 		0x8097, // Thud
 	};
 
-	static s32 animindex = 0;
+	static s32 thudindex = 0;
 
 	if (race == RACE_EYESPY) {
 		return;
@@ -13372,37 +13379,39 @@ void chrTickDie(struct chrdata *chr)
 		struct prop *prop = chr->prop;
 		func0f0926bc(prop, 1, 0xffff);
 		explosionCreateSimple(prop, &prop->pos, prop->rooms, EXPLOSIONTYPE_8, g_Vars.currentplayernum);
-		chr->hidden |= CHRHFLAG_00000020;
+		chr->hidden |= CHRHFLAG_REAPED;
 		return;
 	}
 
 	if (race == RACE_DRCAROLL) {
 		struct prop *prop = chr->prop;
 
-		if (var8006807c > 120 && chr->voicebox) {
-			// Dr Caroll death phrases
-			u16 psStack76[] = { 0x024d, 0x024e, 0x024f, 0x0256, 0x0257, 0x0258 };
-			func0f0939f8(NULL, chr->prop, psStack76[random() % 5], -1,
+		if (g_DrCarollDyingTimer > 120 && chr->voicebox) {
+			// Play speech
+			u16 phrases[] = { 0x024d, 0x024e, 0x024f, 0x0256, 0x0257, 0x0258 };
+			func0f0939f8(NULL, chr->prop, phrases[random() % 5], -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 			chr->voicebox = 0;
 		}
 
-		if (chr->act_die.unk04c > 0) {
-			chr->act_die.unk04c -= g_Vars.lvupdate240_60;
+		// Change images randomly
+		if (chr->act_die.drcarollimagedelay > 0) {
+			chr->act_die.drcarollimagedelay -= g_Vars.lvupdate240_60;
 		} else {
-			chr->act_die.unk04c = (random() % 1000) * 0.01f + 5.0f;
+			chr->act_die.drcarollimagedelay = (random() % 1000) * 0.01f + 5.0f;
 			chr->drcarollimage_left = 1 + (s32)((random() % 400) * 0.01f);
 			chr->drcarollimage_right = 1 + (s32)((random() % 400) * 0.01f);
 		}
 
-		if (var8006807c > 310) {
+		if (g_DrCarollDyingTimer > 310) {
+			// Explode
 			func0f0926bc(prop, 1, 0xffff);
 			explosionCreateSimple(prop, &prop->pos, prop->rooms, EXPLOSIONTYPE_8, g_Vars.currentplayernum);
-			func0f03119c(chr);
+			chrBeginDead(chr);
 		} else if (chr->soundtimer > (s32)var80068080) {
+			// Play shield damage sound
 			chr->soundtimer = 0;
 			var80068080 -= 5;
-			// Shield damage sound
 			func0f0939f8(NULL, prop, 0x64, -1,
 					-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 			func0f12f9f0(prop->rooms[0], prop, &prop->pos, 0, 0, 1);
@@ -13412,42 +13421,45 @@ void chrTickDie(struct chrdata *chr)
 	}
 
 	// Human or Skedar
-	if (chr->act_die.unk030 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.unk030) {
+	// If due, play thud 1 sound
+	if (chr->act_die.thudframe1 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe1) {
 		if (chr->specialdie == 0) {
-			func0f0939f8(NULL, chr->prop, thuds[animindex], -1,
+			func0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		} else if (chr->specialdie != SPECIALDIE_OVERRAILING) {
-			func0f0939f8(NULL, chr->prop, uStack56[chr->specialdie - 1], -1,
+			func0f0939f8(NULL, chr->prop, specialdiesounds[chr->specialdie - 1], -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		}
 
-		animindex++;
+		thudindex++;
 
-		if (animindex > 10) {
-			animindex = 0;
+		if (thudindex > 10) {
+			thudindex = 0;
 		}
 
-		chr->act_die.unk030 = -1;
+		chr->act_die.thudframe1 = -1;
 	}
 
-	if (chr->act_die.unk034 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.unk034) {
+	// If due, play thud 2 sound
+	if (chr->act_die.thudframe2 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe2) {
 		if (chr->specialdie < 5) {
 			func0f0939f8(NULL, chr->prop, 0x808e, -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		} else {
-			func0f0939f8(NULL, chr->prop, thuds[animindex], -1,
+			func0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		}
 
-		animindex++;
+		thudindex++;
 
-		if (animindex > 10) {
-			animindex = 0;
+		if (thudindex > 10) {
+			thudindex = 0;
 		}
 
-		chr->act_die.unk034 = -1;
+		chr->act_die.thudframe2 = -1;
 	}
 
+	// Check for end of death animation and switch to ACT_DEAD
 	if (modelGetCurAnimFrame(model) >= func0001d1a0(model)) {
 		if (CHRRACE(chr) == RACE_HUMAN && modelGetAnimNum(model) == ANIM_DEATH_STOMACH_LONG) {
 			modelSetAnimation(model, ANIM_003C, !modelIsFlipped(model), 50, 0.3, modelGetNumAnimFrames(ANIM_003C) - 51.0f);
@@ -13455,10 +13467,10 @@ void chrTickDie(struct chrdata *chr)
 			return;
 		}
 
-		func0f03119c(chr);
+		chrBeginDead(chr);
 	}
 
-	func0f03ce8c(chr, 1);
+	func0f03ce8c(chr, true);
 }
 
 u32 var80068408 = 0x808d808e;
@@ -13666,80 +13678,84 @@ void chrTickDruggedDrop(struct chrdata *chr)
 		0x8097,
 	};
 
-	static s32 index = 0;
+	static s32 thudindex = 0;
 
-	if (chr->act_druggeddrop.unk030 >= 0 && modelGetCurAnimFrame(model) >= chr->act_druggeddrop.unk030) {
-		func0f0939f8(NULL, chr->prop, thuds[index], -1,
+	// If due, play thud 1 sound
+	if (chr->act_druggeddrop.thudframe1 >= 0 && modelGetCurAnimFrame(model) >= chr->act_druggeddrop.thudframe1) {
+		func0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
 				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
-		index++;
+		thudindex++;
 
-		if (index > 10) {
-			index = 0;
+		if (thudindex > 10) {
+			thudindex = 0;
 		}
 
-		chr->act_druggeddrop.unk030 = -1;
+		chr->act_druggeddrop.thudframe1 = -1;
 	}
 
-	if (chr->act_druggeddrop.unk034 >= 0 && modelGetCurAnimFrame(model) >= chr->act_druggeddrop.unk034) {
-		func0f0939f8(NULL, chr->prop, thuds[index], -1,
+	// If due, play thud 2 sound
+	if (chr->act_druggeddrop.thudframe2 >= 0 && modelGetCurAnimFrame(model) >= chr->act_druggeddrop.thudframe2) {
+		func0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
 				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
-		index++;
+		thudindex++;
 
-		if (index > 10) {
-			index = 0;
+		if (thudindex > 10) {
+			thudindex = 0;
 		}
 
-		chr->act_druggeddrop.unk034 = -1;
+		chr->act_druggeddrop.thudframe2 = -1;
 	}
 
+	// If falling animation finished, assign ACT_DRUGGEDKO
 	if (modelGetCurAnimFrame(model) >= func0001d1a0(model)) {
 		chr->actiontype = ACT_DRUGGEDKO;
-		chr->act_druggedko.unk038 = chr->aibot ? 0 : -1;
-		chr->act_druggedko.unk02c = 0;
-		chr->act_druggedko.unk030 = 0;
-		chr->act_druggedko.unk034 = 0;
+		chr->act_druggedko.fadetimer = chr->aibot ? 0 : -1;
+		chr->act_druggedko.allowfade = false;
+		chr->act_druggedko.allowreap = false;
+		chr->act_druggedko.reaptimer = 0;
 		chr->act_druggedko.unk03c = 0;
 		chr->sleep = 0;
 	}
 
-	func0f03ce8c(chr, 1);
+	func0f03ce8c(chr, true);
 }
 
 u32 var8006843c = 0x0000ffff;
 
 void chrTickDruggedKo(struct chrdata *chr)
 {
-	bool pass = false;
+	bool reap = false;
 
-	if (chr->act_druggedko.unk038 >= 0) {
-		chr->act_druggedko.unk038 += g_Vars.lvupdate240_60;
+	// If fade is active, handle it
+	if (chr->act_druggedko.fadetimer >= 0) {
+		chr->act_druggedko.fadetimer += g_Vars.lvupdate240_60;
 
-		if (chr->act_druggedko.unk038 >= 90) {
-			pass = true;
+		if (chr->act_druggedko.fadetimer >= 90) {
+			reap = true;
 		} else {
-			chr->fadealpha = (90 - chr->act_druggedko.unk038) * 255 / 90;
+			chr->fadealpha = (90 - chr->act_druggedko.fadetimer) * 255 / 90;
 		}
-	} else if ((chr->chrflags & CHRCFLAG_04000000) == 0) {
-		if (chr->act_druggedko.unk02c) {
-			chr->act_druggedko.unk038 = 0;
+	} else if ((chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0) {
+		if (chr->act_druggedko.allowfade) {
+			chr->act_druggedko.fadetimer = 0;
 		}
 
 		if (chr->prop->flags & PROPFLAG_80) {
-			chr->act_druggedko.unk034 = 0;
+			chr->act_druggedko.reaptimer = 0;
 		} else {
-			chr->act_druggedko.unk034 += g_Vars.lvupdate240_60;
+			chr->act_druggedko.reaptimer += g_Vars.lvupdate240_60;
 		}
 
-		if (chr->act_druggedko.unk030 && chr->act_druggedko.unk034 >= 120) {
-			pass = true;
+		if (chr->act_druggedko.allowreap && chr->act_druggedko.reaptimer >= 120) {
+			reap = true;
 		}
 	}
 
-	if (pass) {
+	if (reap) {
 		chr->fadealpha = 0;
-		chr->hidden |= CHRHFLAG_00000020;
+		chr->hidden |= CHRHFLAG_REAPED;
 		chrDropWeapons(chr);
 	}
 }
@@ -13763,7 +13779,7 @@ void chrTickArgh(struct chrdata *chr)
 		}
 	}
 
-	func0f03ce8c(chr, 0);
+	func0f03ce8c(chr, false);
 }
 
 void chrTickPreArgh(struct chrdata *chr)
@@ -23886,7 +23902,7 @@ void chrTick(struct chrdata *chr)
 	}
 
 	if (race == RACE_DRCAROLL) {
-		var8006807c += g_Vars.lvupdate240_60;
+		g_DrCarollDyingTimer += g_Vars.lvupdate240_60;
 	}
 
 	chr->soundtimer += g_Vars.lvupdate240_60;
@@ -24309,7 +24325,7 @@ glabel func0f048398
 /*  f048754:	0007000d */ 	break	0x7
 .L0f048758:
 /*  f048758:	8d840000 */ 	lw	$a0,0x0($t4)
-/*  f04875c:	0fc0f337 */ 	jal	func0f03ccdc
+/*  f04875c:	0fc0f337 */ 	jal	chrFadeCorpse
 /*  f048760:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f048764:	8fa30048 */ 	lw	$v1,0x48($sp)
 /*  f048768:	00107080 */ 	sll	$t6,$s0,0x2
@@ -24399,7 +24415,7 @@ glabel func0f048398
 /*  f048898:	51a00006 */ 	beqzl	$t5,.L0f0488b4
 /*  f04889c:	8c8f0030 */ 	lw	$t7,0x30($a0)
 .L0f0488a0:
-/*  f0488a0:	0fc0f337 */ 	jal	func0f03ccdc
+/*  f0488a0:	0fc0f337 */ 	jal	chrFadeCorpse
 /*  f0488a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0488a8:	10000049 */ 	beqz	$zero,.L0f0489d0
 /*  f0488ac:	26d6ffff */ 	addiu	$s6,$s6,-1
@@ -24427,7 +24443,7 @@ glabel func0f048398
 /*  f048900:	0007000d */ 	break	0x7
 .L0f048904:
 /*  f048904:	8c8400b8 */ 	lw	$a0,0xb8($a0)
-/*  f048908:	0fc0f341 */ 	jal	func0f03cd04
+/*  f048908:	0fc0f341 */ 	jal	chrEnableReap
 /*  f04890c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f048910:	8fa30048 */ 	lw	$v1,0x48($sp)
 /*  f048914:	00105080 */ 	sll	$t2,$s0,0x2
@@ -24465,7 +24481,7 @@ glabel func0f048398
 /*  f04898c:	12f90005 */ 	beq	$s7,$t9,.L0f0489a4
 /*  f048990:	02884821 */ 	addu	$t1,$s4,$t0
 /*  f048994:	8d240000 */ 	lw	$a0,0x0($t1)
-/*  f048998:	0fc0c467 */ 	jal	func0f03119c
+/*  f048998:	0fc0c467 */ 	jal	chrBeginDead
 /*  f04899c:	afa50048 */ 	sw	$a1,0x48($sp)
 /*  f0489a0:	8fa50048 */ 	lw	$a1,0x48($sp)
 .L0f0489a4:
@@ -24473,7 +24489,7 @@ glabel func0f048398
 /*  f0489a8:	028a1021 */ 	addu	$v0,$s4,$t2
 /*  f0489ac:	8c440000 */ 	lw	$a0,0x0($v0)
 /*  f0489b0:	afa50048 */ 	sw	$a1,0x48($sp)
-/*  f0489b4:	0fc0f341 */ 	jal	func0f03cd04
+/*  f0489b4:	0fc0f341 */ 	jal	chrEnableReap
 /*  f0489b8:	afa20044 */ 	sw	$v0,0x44($sp)
 /*  f0489bc:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f0489c0:	8fa20044 */ 	lw	$v0,0x44($sp)

@@ -1654,7 +1654,7 @@ u8 func100c_unset_trolley_flag_when_destroyed[] = {
 };
 
 u8 func041c_init_labtech[] = {
-	set_self_chrflag(CHRCFLAG_04000000)
+	set_self_chrflag(CHRCFLAG_KEEPCORPSEKO)
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };

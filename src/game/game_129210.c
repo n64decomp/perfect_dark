@@ -397,7 +397,7 @@ glabel func0f12955c
 .L0f12975c:
 /*  f12975c:	028d7021 */ 	addu	$t6,$s4,$t5
 /*  f129760:	00608825 */ 	or	$s1,$v1,$zero
-/*  f129764:	0fc0f341 */ 	jal	func0f03cd04
+/*  f129764:	0fc0f341 */ 	jal	chrEnableReap
 /*  f129768:	8dc40000 */ 	lw	$a0,0x0($t6)
 /*  f12976c:	00117880 */ 	sll	$t7,$s1,0x2
 /*  f129770:	028fc021 */ 	addu	$t8,$s4,$t7
@@ -428,7 +428,7 @@ glabel func0f12955c
 /*  f1297c0:	11200006 */ 	beqz	$t1,.L0f1297dc
 /*  f1297c4:	00035080 */ 	sll	$t2,$v1,0x2
 /*  f1297c8:	028a8021 */ 	addu	$s0,$s4,$t2
-/*  f1297cc:	0fc0f341 */ 	jal	func0f03cd04
+/*  f1297cc:	0fc0f341 */ 	jal	chrEnableReap
 /*  f1297d0:	8e040000 */ 	lw	$a0,0x0($s0)
 /*  f1297d4:	ae000000 */ 	sw	$zero,0x0($s0)
 /*  f1297d8:	2631ffff */ 	addiu	$s1,$s1,-1
