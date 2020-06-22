@@ -73,7 +73,7 @@ void chrGoPosConsiderRestart(struct chrdata *chr);
 void chrGoPosInitExpensive(struct chrdata *chr);
 void chrGoPosAdvanceWaypoint(struct chrdata *chr);
 s32 func0f0373dc(struct chrdata *chr, u32 *arg1, bool arg2);
-s32 func0f0374a0(struct chrdata *chr, s32 arg1);
+s32 chrPatrolGetCurPadNum(struct chrdata *chr, bool arg1);
 void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags);
 void func0f037580(struct chrdata *chr);
 void func0f0375b0(struct chrdata *chr);

@@ -8823,30 +8823,20 @@ glabel func0f0373dc
 /*  f03749c:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f0374a0
-/*  f0374a0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0374a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0374a8:	8c8e0034 */ 	lw	$t6,0x34($a0)
-/*  f0374ac:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f0374b0:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*  f0374b4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f0374b8:	0fc0dcf7 */ 	jal	func0f0373dc
-/*  f0374bc:	afae0020 */ 	sw	$t6,0x20($sp)
-/*  f0374c0:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f0374c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0374c8:	0002c880 */ 	sll	$t9,$v0,0x2
-/*  f0374cc:	8c8f002c */ 	lw	$t7,0x2c($a0)
-/*  f0374d0:	8df80000 */ 	lw	$t8,0x0($t7)
-/*  f0374d4:	03191821 */ 	addu	$v1,$t8,$t9
-/*  f0374d8:	84620002 */ 	lh	$v0,0x2($v1)
-/*  f0374dc:	03e00008 */ 	jr	$ra
-/*  f0374e0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 chrPatrolGetCurPadNum(struct chrdata *chr, bool arg1)
+{
+	struct pathnode *node;
+	u32 sp32 = chr->act_patrol.unk034;
+	s32 nodeindex = func0f0373dc(chr, &sp32, arg1);
+
+	node = &chr->act_patrol.path->nodes[nodeindex];
+
+	return node->padnum;
+}
 
 void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
 {
-	s32 padnum = func0f0374a0(chr, 0);
+	s32 padnum = chrPatrolGetCurPadNum(chr, false);
 	struct pad pad;
 
 	padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM | PADFIELD_FLAGS, &pad);
@@ -9580,7 +9570,7 @@ struct path *pathFindById(u32 path_id)
 {
 	s32 i = 0;
 
-	for (i = 0; g_StageSetup.paths[i].pads; i++) {
+	for (i = 0; g_StageSetup.paths[i].nodes; i++) {
 		if (path_id == g_StageSetup.paths[i].id) {
 			return &g_StageSetup.paths[i];
 		}
@@ -23599,11 +23589,11 @@ glabel chrTickPatrol
 /*  f0475d8:	13000011 */ 	beqz	$t8,.L0f047620
 .L0f0475dc:
 /*  f0475dc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0475e0:	0fc0dd28 */ 	jal	func0f0374a0
+/*  f0475e0:	0fc0dd28 */ 	jal	chrPatrolGetCurPadNum
 /*  f0475e4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0475e8:	a7a20034 */ 	sh	$v0,0x34($sp)
 /*  f0475ec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0475f0:	0fc0dd28 */ 	jal	func0f0374a0
+/*  f0475f0:	0fc0dd28 */ 	jal	chrPatrolGetCurPadNum
 /*  f0475f4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0475f8:	87b90034 */ 	lh	$t9,0x34($sp)
 /*  f0475fc:	02002025 */ 	or	$a0,$s0,$zero
