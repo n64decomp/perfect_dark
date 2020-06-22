@@ -2293,7 +2293,7 @@ void chrBeginDead(struct chrdata *chr)
 		chr->act_dead.allowfade = false;
 		chr->act_dead.allowreap = false;
 		chr->act_dead.reaptimer = 0;
-		chr->act_dead.unk03c = 0;
+		chr->act_dead.notifychrindex = 0;
 		chr->sleep = 0;
 
 		if (chr->race == RACE_DRCAROLL) {
@@ -7897,7 +7897,7 @@ void func0f036358(struct chrdata *chr, s32 arg1)
 		chrUncloak(chr, true);
 
 		chr->actiontype = ACT_DIE;
-		chr->act_die.unk02c = 0;
+		chr->act_die.notifychrindex = 0;
 		chr->sleep = 0;
 		chr->blurnumtimesdied++;
 		chr->act_die.thudframe1 = -1;
@@ -13186,166 +13186,65 @@ void chrTickDead(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f03ce8c
-.late_rodata
-glabel var7f1a8f0c
-.word 0x4a742400
-.text
-/*  f03ce8c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f03ce90:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f03ce94:	afb70038 */ 	sw	$s7,0x38($sp)
-/*  f03ce98:	afb4002c */ 	sw	$s4,0x2c($sp)
-/*  f03ce9c:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f03cea0:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f03cea4:	0080a025 */ 	or	$s4,$a0,$zero
-/*  f03cea8:	00a0b825 */ 	or	$s7,$a1,$zero
-/*  f03ceac:	afb60034 */ 	sw	$s6,0x34($sp)
-/*  f03ceb0:	afb50030 */ 	sw	$s5,0x30($sp)
-/*  f03ceb4:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f03ceb8:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f03cebc:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f03cec0:	00009825 */ 	or	$s3,$zero,$zero
-/*  f03cec4:	0fc07934 */ 	jal	getNumChrs
-/*  f03cec8:	00009025 */ 	or	$s2,$zero,$zero
-/*  f03cecc:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f03ced0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f03ced4:	8c6e029c */ 	lw	$t6,0x29c($v1)
-/*  f03ced8:	0040b025 */ 	or	$s6,$v0,$zero
-/*  f03cedc:	05c20007 */ 	bltzl	$t6,.L0f03cefc
-/*  f03cee0:	82830007 */ 	lb	$v1,0x7($s4)
-/*  f03cee4:	8c6f02a8 */ 	lw	$t7,0x2a8($v1)
-/*  f03cee8:	8e99001c */ 	lw	$t9,0x1c($s4)
-/*  f03ceec:	8df800bc */ 	lw	$t8,0xbc($t7)
-/*  f03cef0:	53190064 */ 	beql	$t8,$t9,.L0f03d084
-/*  f03cef4:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f03cef8:	82830007 */ 	lb	$v1,0x7($s4)
-.L0f03cefc:
-/*  f03cefc:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f03cf00:	3c158006 */ 	lui	$s5,%hi(g_ChrsA)
-/*  f03cf04:	14610003 */ 	bne	$v1,$at,.L0f03cf14
-/*  f03cf08:	26b52988 */ 	addiu	$s5,$s5,%lo(g_ChrsA)
-/*  f03cf0c:	1000000c */ 	beqz	$zero,.L0f03cf40
-/*  f03cf10:	8e93002c */ 	lw	$s3,0x2c($s4)
-.L0f03cf14:
-/*  f03cf14:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f03cf18:	10610003 */ 	beq	$v1,$at,.L0f03cf28
-/*  f03cf1c:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f03cf20:	54610004 */ 	bnel	$v1,$at,.L0f03cf34
-/*  f03cf24:	24010005 */ 	addiu	$at,$zero,0x5
-.L0f03cf28:
-/*  f03cf28:	10000005 */ 	beqz	$zero,.L0f03cf40
-/*  f03cf2c:	8e93002c */ 	lw	$s3,0x2c($s4)
-/*  f03cf30:	24010005 */ 	addiu	$at,$zero,0x5
-.L0f03cf34:
-/*  f03cf34:	54610003 */ 	bnel	$v1,$at,.L0f03cf44
-/*  f03cf38:	0262082a */ 	slt	$at,$s3,$v0
-/*  f03cf3c:	8e93003c */ 	lw	$s3,0x3c($s4)
-.L0f03cf40:
-/*  f03cf40:	0262082a */ 	slt	$at,$s3,$v0
-.L0f03cf44:
-/*  f03cf44:	1020003d */ 	beqz	$at,.L0f03d03c
-/*  f03cf48:	001388c0 */ 	sll	$s1,$s3,0x3
-/*  f03cf4c:	02338823 */ 	subu	$s1,$s1,$s3
-/*  f03cf50:	00118880 */ 	sll	$s1,$s1,0x2
-/*  f03cf54:	02338823 */ 	subu	$s1,$s1,$s3
-/*  f03cf58:	00118880 */ 	sll	$s1,$s1,0x2
-/*  f03cf5c:	02338821 */ 	addu	$s1,$s1,$s3
-/*  f03cf60:	3c017f1b */ 	lui	$at,%hi(var7f1a8f0c)
-/*  f03cf64:	c4348f0c */ 	lwc1	$f20,%lo(var7f1a8f0c)($at)
-/*  f03cf68:	001188c0 */ 	sll	$s1,$s1,0x3
-/*  f03cf6c:	8ea80000 */ 	lw	$t0,0x0($s5)
-.L0f03cf70:
-/*  f03cf70:	02288021 */ 	addu	$s0,$s1,$t0
-/*  f03cf74:	8e090020 */ 	lw	$t1,0x20($s0)
-/*  f03cf78:	5120002a */ 	beqzl	$t1,.L0f03d024
-/*  f03cf7c:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f03cf80:	8e03001c */ 	lw	$v1,0x1c($s0)
-/*  f03cf84:	50600027 */ 	beqzl	$v1,.L0f03d024
-/*  f03cf88:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f03cf8c:	906a0001 */ 	lbu	$t2,0x1($v1)
-/*  f03cf90:	314b0004 */ 	andi	$t3,$t2,0x4
-/*  f03cf94:	51600023 */ 	beqzl	$t3,.L0f03d024
-/*  f03cf98:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f03cf9c:	8e82001c */ 	lw	$v0,0x1c($s4)
-/*  f03cfa0:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f03cfa4:	c468000c */ 	lwc1	$f8,0xc($v1)
-/*  f03cfa8:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f03cfac:	c44a000c */ 	lwc1	$f10,0xc($v0)
-/*  f03cfb0:	c4700010 */ 	lwc1	$f16,0x10($v1)
-/*  f03cfb4:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f03cfb8:	c4520010 */ 	lwc1	$f18,0x10($v0)
-/*  f03cfbc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03cfc0:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f03cfc4:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f03cfc8:	24450008 */ 	addiu	$a1,$v0,0x8
-/*  f03cfcc:	46128301 */ 	sub.s	$f12,$f16,$f18
-/*  f03cfd0:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f03cfd4:	24460028 */ 	addiu	$a2,$v0,0x28
-/*  f03cfd8:	460c6282 */ 	mul.s	$f10,$f12,$f12
-/*  f03cfdc:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f03cfe0:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f03cfe4:	4614803c */ 	c.lt.s	$f16,$f20
-/*  f03cfe8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03cfec:	4502000d */ 	bc1fl	.L0f03d024
-/*  f03cff0:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f03cff4:	0fc0e51d */ 	jal	func0f039474
-/*  f03cff8:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f03cffc:	50400009 */ 	beqzl	$v0,.L0f03d024
-/*  f03d000:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f03d004:	56e00005 */ 	bnezl	$s7,.L0f03d01c
-/*  f03d008:	868d0000 */ 	lh	$t5,0x0($s4)
-/*  f03d00c:	868c0000 */ 	lh	$t4,0x0($s4)
-/*  f03d010:	10000003 */ 	beqz	$zero,.L0f03d020
-/*  f03d014:	a60c012e */ 	sh	$t4,0x12e($s0)
-/*  f03d018:	868d0000 */ 	lh	$t5,0x0($s4)
-.L0f03d01c:
-/*  f03d01c:	a60d0130 */ 	sh	$t5,0x130($s0)
-.L0f03d020:
-/*  f03d020:	26730001 */ 	addiu	$s3,$s3,0x1
-.L0f03d024:
-/*  f03d024:	0276082a */ 	slt	$at,$s3,$s6
-/*  f03d028:	10200004 */ 	beqz	$at,.L0f03d03c
-/*  f03d02c:	26310368 */ 	addiu	$s1,$s1,0x368
-/*  f03d030:	2a410007 */ 	slti	$at,$s2,0x7
-/*  f03d034:	5420ffce */ 	bnezl	$at,.L0f03cf70
-/*  f03d038:	8ea80000 */ 	lw	$t0,0x0($s5)
-.L0f03d03c:
-/*  f03d03c:	82830007 */ 	lb	$v1,0x7($s4)
-/*  f03d040:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f03d044:	54610004 */ 	bnel	$v1,$at,.L0f03d058
-/*  f03d048:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f03d04c:	1000000c */ 	beqz	$zero,.L0f03d080
-/*  f03d050:	ae93002c */ 	sw	$s3,0x2c($s4)
-/*  f03d054:	24010004 */ 	addiu	$at,$zero,0x4
-.L0f03d058:
-/*  f03d058:	10610003 */ 	beq	$v1,$at,.L0f03d068
-/*  f03d05c:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f03d060:	54610004 */ 	bnel	$v1,$at,.L0f03d074
-/*  f03d064:	24010005 */ 	addiu	$at,$zero,0x5
-.L0f03d068:
-/*  f03d068:	10000005 */ 	beqz	$zero,.L0f03d080
-/*  f03d06c:	ae93002c */ 	sw	$s3,0x2c($s4)
-/*  f03d070:	24010005 */ 	addiu	$at,$zero,0x5
-.L0f03d074:
-/*  f03d074:	54610003 */ 	bnel	$v1,$at,.L0f03d084
-/*  f03d078:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f03d07c:	ae93003c */ 	sw	$s3,0x3c($s4)
-.L0f03d080:
-/*  f03d080:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f03d084:
-/*  f03d084:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f03d088:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f03d08c:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f03d090:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f03d094:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f03d098:	8fb4002c */ 	lw	$s4,0x2c($sp)
-/*  f03d09c:	8fb50030 */ 	lw	$s5,0x30($sp)
-/*  f03d0a0:	8fb60034 */ 	lw	$s6,0x34($sp)
-/*  f03d0a4:	8fb70038 */ 	lw	$s7,0x38($sp)
-/*  f03d0a8:	03e00008 */ 	jr	$ra
-/*  f03d0ac:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+/**
+ * This function is called when a chr is injured or killed. It iterates other
+ * chrs within 2000 units who can see the chr and updates their chrseeshot or
+ * chrseedie properties.
+ *
+ * The search stops once 7 chrs have been found in range, regardless of whether
+ * they can see the chr, presumably to avoid doing too many expensive line of
+ * sight checks in one tick. The last iterated chr index is stored and continued
+ * from there next time the function is called. The function is called on
+ * subsequent ticks while the chr is still in their injured or dying action.
+ */
+void chrAlertOthersOfInjury(struct chrdata *chr, bool dying)
+{
+	s32 index = 0;
+	s32 numinrange = 0;
+	s32 numchrs = getNumChrs();
+
+	if (g_Vars.antiplayernum >= 0 && chr->prop == g_Vars.anti->prop) {
+		return;
+	}
+
+	if (chr->actiontype == ACT_ARGH) {
+		index = chr->act_argh.notifychrindex;
+	} else if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DRUGGEDDROP) {
+		index = chr->act_die.notifychrindex;
+	} else if (chr->actiontype == ACT_DEAD) {
+		index = chr->act_dead.notifychrindex;
+	}
+
+	for (; index < numchrs && numinrange < 7; index++) {
+		struct chrdata *loopchr = &g_ChrsA[index];
+
+		if (loopchr->model && loopchr->prop && (loopchr->prop->flags & PROPFLAG_TANGIBLE)) {
+			f32 xdiff = loopchr->prop->pos.x - chr->prop->pos.x;
+			f32 ydiff = loopchr->prop->pos.y - chr->prop->pos.y;
+			f32 zdiff = loopchr->prop->pos.z - chr->prop->pos.z;
+
+			if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff < 4000000.0f) {
+				numinrange++;
+
+				if (func0f039474(loopchr, &chr->prop->pos, chr->prop->rooms)) {
+					if (dying == false) {
+						loopchr->chrseeshot = chr->chrnum;
+					} else {
+						loopchr->chrseedie = chr->chrnum;
+					}
+				}
+			}
+		}
+	}
+
+	if (chr->actiontype == ACT_ARGH) {
+		chr->act_argh.notifychrindex = index;
+	} else if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DRUGGEDDROP) {
+		chr->act_die.notifychrindex = index;
+	} else if (chr->actiontype == ACT_DEAD) {
+		chr->act_dead.notifychrindex = index;
+	}
+}
 
 void chrTickDie(struct chrdata *chr)
 {
@@ -13470,7 +13369,7 @@ void chrTickDie(struct chrdata *chr)
 		chrBeginDead(chr);
 	}
 
-	func0f03ce8c(chr, true);
+	chrAlertOthersOfInjury(chr, true);
 }
 
 u32 var80068408 = 0x808d808e;
@@ -13719,7 +13618,7 @@ void chrTickDruggedDrop(struct chrdata *chr)
 		chr->sleep = 0;
 	}
 
-	func0f03ce8c(chr, true);
+	chrAlertOthersOfInjury(chr, true);
 }
 
 u32 var8006843c = 0x0000ffff;
@@ -13779,7 +13678,7 @@ void chrTickArgh(struct chrdata *chr)
 		}
 	}
 
-	func0f03ce8c(chr, false);
+	chrAlertOthersOfInjury(chr, false);
 }
 
 void chrTickPreArgh(struct chrdata *chr)

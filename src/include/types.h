@@ -438,7 +438,7 @@ struct act_anim {
 };
 
 struct act_die {
-	/*0x2c*/ u32 unk02c;
+	/*0x2c*/ s32 notifychrindex;
 	/*0x30*/ f32 thudframe1;
 	/*0x34*/ f32 thudframe2;
 	/*0x38*/ f32 unk038;
@@ -454,7 +454,11 @@ struct act_dead {
 	/*0x30*/ bool allowreap;
 	/*0x34*/ s32 reaptimer;
 	/*0x38*/ s32 fadetimer;
-	/*0x3c*/ u32 unk03c;
+	/*0x3c*/ s32 notifychrindex;
+};
+
+struct act_argh {
+	/*0x2c*/ s32 notifychrindex;
 };
 
 struct act_preargh {
@@ -592,8 +596,9 @@ struct act_throwgrenade {
 	/*0x38*/ bool needsequip;
 };
 
+// This struct likely doesn't exist - act_die was used instead
 struct act_druggeddrop {
-	/*0x2c*/ u32 unk02c;
+	/*0x2c*/ s32 notifychrindex;
 	/*0x30*/ f32 thudframe1;
 	/*0x34*/ f32 thudframe2;
 };
@@ -713,6 +718,7 @@ struct chrdata {
 		struct act_anim act_anim;
 		struct act_die act_die;
 		struct act_dead act_dead;
+		struct act_argh act_argh;
 		struct act_preargh act_preargh;
 		struct act_attack act_attack;
 		struct act_attackwalk act_attackwalk;

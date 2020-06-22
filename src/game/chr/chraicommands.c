@@ -11400,7 +11400,7 @@ bool aiChrKill(void)
 		chr->act_dead.allowfade = false;
 		chr->act_dead.allowreap = false;
 		chr->act_dead.reaptimer = 0;
-		chr->act_dead.unk03c = 0;
+		chr->act_dead.notifychrindex = 0;
 		chr->sleep = 0;
 		chr->chrflags |= CHRCFLAG_KEEPCORPSEKO | CHRCFLAG_00010000;
 	}
