@@ -410,7 +410,7 @@ glabel func0f02d338
 );
 
 GLOBAL_ASM(
-glabel func0f02d36c
+glabel modelAllocateChr
 /*  f02d36c:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f02d370:	30ce0001 */ 	andi	$t6,$a2,0x1
 /*  f02d374:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -628,7 +628,7 @@ glabel func0f02d4fc
 /*  f02d6f8:	10000004 */ 	beqz	$zero,.L0f02d70c
 /*  f02d6fc:	afa20054 */ 	sw	$v0,0x54($sp)
 .L0f02d700:
-/*  f02d700:	0fc0b4db */ 	jal	func0f02d36c
+/*  f02d700:	0fc0b4db */ 	jal	modelAllocateChr
 /*  f02d704:	8e060004 */ 	lw	$a2,0x4($s0)
 /*  f02d708:	afa20054 */ 	sw	$v0,0x54($sp)
 .L0f02d70c:
@@ -643,7 +643,7 @@ glabel func0f02d4fc
 /*  f02d72c:	27a50064 */ 	addiu	$a1,$sp,0x64
 /*  f02d730:	27a60060 */ 	addiu	$a2,$sp,0x60
 /*  f02d734:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f02d738:	0fc08332 */ 	jal	func0f020cc8
+/*  f02d738:	0fc08332 */ 	jal	propAllocateChr
 /*  f02d73c:	afa20010 */ 	sw	$v0,0x10($sp)
 /*  f02d740:	10400115 */ 	beqz	$v0,.L0f02db98
 /*  f02d744:	00402025 */ 	or	$a0,$v0,$zero
@@ -991,10 +991,10 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 	}
 #endif
 
-	model = func0f02d36c(BODY_EYESPY, 0, 0);
+	model = modelAllocateChr(BODY_EYESPY, 0, 0);
 
 	if (model) {
-		prop = func0f020cc8(model, &pad->pos, rooms, 0, ailistFindById(GAILIST_IDLE));
+		prop = propAllocateChr(model, &pad->pos, rooms, 0, ailistFindById(GAILIST_IDLE));
 
 		if (prop) {
 			func0f0604bc(prop);

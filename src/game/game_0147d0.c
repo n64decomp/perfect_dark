@@ -115,7 +115,7 @@ glabel var7f1a82b4
 /*  f0148c4:	2404005e */ 	addiu	$a0,$zero,0x5e
 .L0f0148c8:
 /*  f0148c8:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*  f0148cc:	0fc0b4db */ 	jal	func0f02d36c
+/*  f0148cc:	0fc0b4db */ 	jal	modelAllocateChr
 /*  f0148d0:	afa4005c */ 	sw	$a0,0x5c($sp)
 /*  f0148d4:	10400169 */ 	beqz	$v0,.L0f014e7c
 /*  f0148d8:	00408025 */ 	or	$s0,$v0,$zero
@@ -135,7 +135,7 @@ glabel var7f1a82b4
 /*  f014910:	27a5004c */ 	addiu	$a1,$sp,0x4c
 /*  f014914:	4407a000 */ 	mfc1	$a3,$f20
 /*  f014918:	27a60074 */ 	addiu	$a2,$sp,0x74
-/*  f01491c:	0fc08332 */ 	jal	func0f020cc8
+/*  f01491c:	0fc08332 */ 	jal	propAllocateChr
 /*  f014920:	afa20010 */ 	sw	$v0,0x10($sp)
 /*  f014924:	10400155 */ 	beqz	$v0,.L0f014e7c
 /*  f014928:	00402025 */ 	or	$a0,$v0,$zero

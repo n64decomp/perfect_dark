@@ -2736,7 +2736,7 @@ struct prop *func0f020b14(struct prop *prop, struct model *model,
 	return prop;
 }
 
-struct prop *func0f020cc8(struct model *model, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist)
+struct prop *propAllocateChr(struct model *model, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist)
 {
 	struct prop *prop = propAllocate();
 

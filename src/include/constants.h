@@ -391,6 +391,7 @@
 // chr->hidden2
 #define CHRH2FLAG_0001        0x0001
 #define CHRH2FLAG_0040        0x0040
+#define CHRH2FLAG_0080        0x0080
 #define CHRH2FLAG_HEADSHOTTED 0x1000
 
 // chr->chrflags

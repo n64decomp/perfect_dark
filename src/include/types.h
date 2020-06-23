@@ -603,6 +603,7 @@ struct act_druggeddrop {
 	/*0x34*/ f32 thudframe2;
 };
 
+// This struct likely doesn't exist - act_dead was used instead
 struct act_druggedko {
 	/*0x2c*/ bool allowfade;
 	/*0x30*/ bool allowreap;

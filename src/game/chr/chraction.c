@@ -26455,183 +26455,100 @@ glabel var7f1a941c
 /*  f04b2f0:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-GLOBAL_ASM(
-glabel chrSpawnAtCoord
-/*  f04b2f4:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f04b2f8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f04b2fc:	afa40078 */ 	sw	$a0,0x78($sp)
-/*  f04b300:	afa5007c */ 	sw	$a1,0x7c($sp)
-/*  f04b304:	afa60080 */ 	sw	$a2,0x80($sp)
-/*  f04b308:	0fc0814e */ 	jal	chrsGetNumFree
-/*  f04b30c:	afa70084 */ 	sw	$a3,0x84($sp)
-/*  f04b310:	28410002 */ 	slti	$at,$v0,0x2
-/*  f04b314:	1420004d */ 	bnez	$at,.L0f04b44c
-/*  f04b318:	8fa30080 */ 	lw	$v1,0x80($sp)
-/*  f04b31c:	8fae007c */ 	lw	$t6,0x7c($sp)
-/*  f04b320:	05c30006 */ 	bgezl	$t6,.L0f04b33c
-/*  f04b324:	c4640000 */ 	lwc1	$f4,0x0($v1)
-/*  f04b328:	0fc0b505 */ 	jal	bodyGetHead
-/*  f04b32c:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f04b330:	8fa30080 */ 	lw	$v1,0x80($sp)
-/*  f04b334:	afa2007c */ 	sw	$v0,0x7c($sp)
-/*  f04b338:	c4640000 */ 	lwc1	$f4,0x0($v1)
-.L0f04b33c:
-/*  f04b33c:	8fa40084 */ 	lw	$a0,0x84($sp)
-/*  f04b340:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f04b344:	e7a40068 */ 	swc1	$f4,0x68($sp)
-/*  f04b348:	c4660004 */ 	lwc1	$f6,0x4($v1)
-/*  f04b34c:	e7a6006c */ 	swc1	$f6,0x6c($sp)
-/*  f04b350:	c4680008 */ 	lwc1	$f8,0x8($v1)
-/*  f04b354:	0fc195e9 */ 	jal	roomsCopy
-/*  f04b358:	e7a80070 */ 	swc1	$f8,0x70($sp)
-/*  f04b35c:	8faf0090 */ 	lw	$t7,0x90($sp)
-/*  f04b360:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f04b364:	44816000 */ 	mtc1	$at,$f12
-/*  f04b368:	31f80010 */ 	andi	$t8,$t7,0x10
-/*  f04b36c:	0018c82b */ 	sltu	$t9,$zero,$t8
-/*  f04b370:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f04b374:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*  f04b378:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f04b37c:	8fa70088 */ 	lw	$a3,0x88($sp)
-/*  f04b380:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f04b384:	0fc12be1 */ 	jal	func0f04af84
-/*  f04b388:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f04b38c:	1040002f */ 	beqz	$v0,.L0f04b44c
-/*  f04b390:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f04b394:	8fa5007c */ 	lw	$a1,0x7c($sp)
-/*  f04b398:	0fc0b4db */ 	jal	func0f02d36c
-/*  f04b39c:	8fa60090 */ 	lw	$a2,0x90($sp)
-/*  f04b3a0:	1040002a */ 	beqz	$v0,.L0f04b44c
-/*  f04b3a4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f04b3a8:	8fae008c */ 	lw	$t6,0x8c($sp)
-/*  f04b3ac:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*  f04b3b0:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f04b3b4:	8fa70088 */ 	lw	$a3,0x88($sp)
-/*  f04b3b8:	afa20050 */ 	sw	$v0,0x50($sp)
-/*  f04b3bc:	0fc08332 */ 	jal	func0f020cc8
-/*  f04b3c0:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f04b3c4:	1040001f */ 	beqz	$v0,.L0f04b444
-/*  f04b3c8:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f04b3cc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f04b3d0:	0fc1814e */ 	jal	func0f060538
-/*  f04b3d4:	afa20074 */ 	sw	$v0,0x74($sp)
-/*  f04b3d8:	0fc180bc */ 	jal	propShow
-/*  f04b3dc:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*  f04b3e0:	8faf0074 */ 	lw	$t7,0x74($sp)
-/*  f04b3e4:	8fb8007c */ 	lw	$t8,0x7c($sp)
-/*  f04b3e8:	8de30004 */ 	lw	$v1,0x4($t7)
-/*  f04b3ec:	a0780006 */ 	sb	$t8,0x6($v1)
-/*  f04b3f0:	8fb90078 */ 	lw	$t9,0x78($sp)
-/*  f04b3f4:	a4790010 */ 	sh	$t9,0x10($v1)
-/*  f04b3f8:	84640010 */ 	lh	$a0,0x10($v1)
-/*  f04b3fc:	0fc0b378 */ 	jal	bodyGetRace
-/*  f04b400:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f04b404:	8fa3004c */ 	lw	$v1,0x4c($sp)
-/*  f04b408:	946e0192 */ 	lhu	$t6,0x192($v1)
-/*  f04b40c:	a06202fe */ 	sb	$v0,0x2fe($v1)
-/*  f04b410:	ac600114 */ 	sw	$zero,0x114($v1)
-/*  f04b414:	35cf0080 */ 	ori	$t7,$t6,0x80
-/*  f04b418:	ac600118 */ 	sw	$zero,0x118($v1)
-/*  f04b41c:	a46f0192 */ 	sh	$t7,0x192($v1)
-/*  f04b420:	8fb80090 */ 	lw	$t8,0x90($sp)
-/*  f04b424:	33192000 */ 	andi	$t9,$t8,0x2000
-/*  f04b428:	13200004 */ 	beqz	$t9,.L0f04b43c
-/*  f04b42c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04b430:	906f032e */ 	lbu	$t7,0x32e($v1)
-/*  f04b434:	35f80010 */ 	ori	$t8,$t7,0x10
-/*  f04b438:	a078032e */ 	sb	$t8,0x32e($v1)
-.L0f04b43c:
-/*  f04b43c:	1000004a */ 	beqz	$zero,.L0f04b568
-/*  f04b440:	8fa20074 */ 	lw	$v0,0x74($sp)
-.L0f04b444:
-/*  f04b444:	0fc2cc33 */ 	jal	modelFree
-/*  f04b448:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f04b44c:
-/*  f04b44c:	0fc0814e */ 	jal	chrsGetNumFree
-/*  f04b450:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04b454:	28410004 */ 	slti	$at,$v0,0x4
-/*  f04b458:	50200043 */ 	beqzl	$at,.L0f04b568
-/*  f04b45c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04b460:	0c004b70 */ 	jal	random
-/*  f04b464:	afa00044 */ 	sw	$zero,0x44($sp)
-/*  f04b468:	3c098006 */ 	lui	$t1,%hi(g_NumChrsA)
-/*  f04b46c:	8d29298c */ 	lw	$t1,%lo(g_NumChrsA)($t1)
-/*  f04b470:	3c068006 */ 	lui	$a2,%hi(g_ChrsA)
-/*  f04b474:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f04b478:	0049001b */ 	divu	$zero,$v0,$t1
-/*  f04b47c:	00004010 */ 	mfhi	$t0
-/*  f04b480:	01002025 */ 	or	$a0,$t0,$zero
-/*  f04b484:	8cc62988 */ 	lw	$a2,%lo(g_ChrsA)($a2)
-/*  f04b488:	3c0d0400 */ 	lui	$t5,0x400
-/*  f04b48c:	240c001f */ 	addiu	$t4,$zero,0x1f
-/*  f04b490:	240b0005 */ 	addiu	$t3,$zero,0x5
-/*  f04b494:	240a0368 */ 	addiu	$t2,$zero,0x368
-/*  f04b498:	15200002 */ 	bnez	$t1,.L0f04b4a4
-/*  f04b49c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04b4a0:	0007000d */ 	break	0x7
-.L0f04b4a4:
-/*  f04b4a4:	008a0019 */ 	multu	$a0,$t2
-/*  f04b4a8:	00002812 */ 	mflo	$a1
-/*  f04b4ac:	00c51021 */ 	addu	$v0,$a2,$a1
-/*  f04b4b0:	84590000 */ 	lh	$t9,0x0($v0)
-/*  f04b4b4:	0722001a */ 	bltzl	$t9,.L0f04b520
-/*  f04b4b8:	248f0001 */ 	addiu	$t7,$a0,0x1
-/*  f04b4bc:	8c4e0020 */ 	lw	$t6,0x20($v0)
-/*  f04b4c0:	51c00017 */ 	beqzl	$t6,.L0f04b520
-/*  f04b4c4:	248f0001 */ 	addiu	$t7,$a0,0x1
-/*  f04b4c8:	8c4f001c */ 	lw	$t7,0x1c($v0)
-/*  f04b4cc:	51e00014 */ 	beqzl	$t7,.L0f04b520
-/*  f04b4d0:	248f0001 */ 	addiu	$t7,$a0,0x1
-/*  f04b4d4:	80430007 */ 	lb	$v1,0x7($v0)
-/*  f04b4d8:	51630008 */ 	beql	$t3,$v1,.L0f04b4fc
-/*  f04b4dc:	8c4e0034 */ 	lw	$t6,0x34($v0)
-/*  f04b4e0:	5583000f */ 	bnel	$t4,$v1,.L0f04b520
-/*  f04b4e4:	248f0001 */ 	addiu	$t7,$a0,0x1
-/*  f04b4e8:	8c580018 */ 	lw	$t8,0x18($v0)
-/*  f04b4ec:	030dc824 */ 	and	$t9,$t8,$t5
-/*  f04b4f0:	5720000b */ 	bnezl	$t9,.L0f04b520
-/*  f04b4f4:	248f0001 */ 	addiu	$t7,$a0,0x1
-/*  f04b4f8:	8c4e0034 */ 	lw	$t6,0x34($v0)
-.L0f04b4fc:
-/*  f04b4fc:	29c10078 */ 	slti	$at,$t6,0x78
-/*  f04b500:	14200003 */ 	bnez	$at,.L0f04b510
-/*  f04b504:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04b508:	10000012 */ 	beqz	$zero,.L0f04b554
-/*  f04b50c:	00a63821 */ 	addu	$a3,$a1,$a2
-.L0f04b510:
-/*  f04b510:	54e00003 */ 	bnezl	$a3,.L0f04b520
-/*  f04b514:	248f0001 */ 	addiu	$t7,$a0,0x1
-/*  f04b518:	00a63821 */ 	addu	$a3,$a1,$a2
-/*  f04b51c:	248f0001 */ 	addiu	$t7,$a0,0x1
-.L0f04b520:
-/*  f04b520:	01e9001a */ 	div	$zero,$t7,$t1
-/*  f04b524:	00002010 */ 	mfhi	$a0
-/*  f04b528:	15200002 */ 	bnez	$t1,.L0f04b534
-/*  f04b52c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04b530:	0007000d */ 	break	0x7
-.L0f04b534:
-/*  f04b534:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f04b538:	15210004 */ 	bne	$t1,$at,.L0f04b54c
-/*  f04b53c:	3c018000 */ 	lui	$at,0x8000
-/*  f04b540:	15e10002 */ 	bne	$t7,$at,.L0f04b54c
-/*  f04b544:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04b548:	0006000d */ 	break	0x6
-.L0f04b54c:
-/*  f04b54c:	1488ffd5 */ 	bne	$a0,$t0,.L0f04b4a4
-/*  f04b550:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f04b554:
-/*  f04b554:	10e00003 */ 	beqz	$a3,.L0f04b564
-/*  f04b558:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f04b55c:	ace20030 */ 	sw	$v0,0x30($a3)
-/*  f04b560:	ace2002c */ 	sw	$v0,0x2c($a3)
-.L0f04b564:
-/*  f04b564:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04b568:
-/*  f04b568:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f04b56c:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*  f04b570:	03e00008 */ 	jr	$ra
-/*  f04b574:	00000000 */ 	sll	$zero,$zero,0x0
-);
+/**
+ * Attempts to spawn a chr at the given coordinates.
+ *
+ * In low memory conditions, the function will iterate all existing chrs in
+ * search of a corpse that can be reaped. If one is found then the reap will be
+ * triggered, but the function will not attempt to spawn the chr until the next
+ * time it's called.
+ */
+struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *rooms, f32 arg4, u8 *ailist, u32 flags)
+{
+	struct prop *prop;
+	struct coord pos2;
+	s16 rooms2[8];
+	s32 stack;
+
+	if (chrsGetNumFree() > 1) {
+		if (headnum < 0) {
+			headnum = bodyGetHead(bodynum);
+		}
+
+		pos2.x = pos->x;
+		pos2.y = pos->y;
+		pos2.z = pos->z;
+		roomsCopy(rooms, rooms2);
+
+		if (func0f04af84(20, &pos2, rooms2, arg4, (flags & 0x10) != 0, 0, 0)) {
+			struct model *model = modelAllocateChr(bodynum, headnum, flags);
+			struct chrdata *chr;
+
+			if (model) {
+				prop = propAllocateChr(model, &pos2, rooms2, arg4, ailist);
+
+				if (prop) {
+					func0f060538(prop);
+					propShow(prop);
+
+					chr = prop->chr;
+					chr->headnum = headnum;
+					chr->bodynum = bodynum;
+					chr->race = bodyGetRace(chr->bodynum);
+					chr->flags = 0;
+					chr->flags2 = 0;
+					chr->hidden2 |= CHRH2FLAG_0080;
+
+					if (flags & 0x2000) {
+						chr->unk32c_19 = true;
+					}
+
+					return prop;
+				}
+
+				modelFree(model);
+			}
+		}
+	}
+
+	// Low memory - find a corpse to reap
+	if (chrsGetNumFree() < 4) {
+		s32 stack2;
+		struct chrdata *replacechr = NULL;
+		s32 startindex = random() % g_NumChrsA;
+		s32 index = startindex;
+
+		do {
+			if (g_ChrsA[index].chrnum >= 0 && g_ChrsA[index].model && g_ChrsA[index].prop) {
+				if (g_ChrsA[index].actiontype == ACT_DEAD
+						|| (g_ChrsA[index].actiontype == ACT_DRUGGEDKO && (g_ChrsA[index].chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
+					// If we've found a chr that's ready to be reaped, great.
+					// Bail out of the loop.
+					if (g_ChrsA[index].act_dead.reaptimer >= 120) {
+						replacechr = &g_ChrsA[index];
+						break;
+					}
+
+					// Otherwise, this chr is dead/KO'ed and can be reaped as a
+					// last resort, so store them and keep looping in search of
+					// a better chr.
+					if (replacechr == NULL) {
+						replacechr = &g_ChrsA[index];
+					}
+				}
+			}
+
+			index = (index + 1) % g_NumChrsA;
+		} while (index != startindex);
+
+		if (replacechr) {
+			replacechr->act_dead.allowreap = true;
+			replacechr->act_dead.allowfade = true;
+		}
+	}
+
+	return NULL;
+}
 
 struct prop *chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *ailist, u32 flags)
 {
