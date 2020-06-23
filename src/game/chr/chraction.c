@@ -14027,27 +14027,16 @@ glabel var7f1a8f2c
 /*  f03e750:	46001006 */ 	mov.s	$f0,$f2
 );
 
-GLOBAL_ASM(
-glabel func0f03e754
-.late_rodata
-glabel var7f1a8f30
-.word 0x40c907a9
-.text
-/*  f03e754:	c4840154 */ 	lwc1	$f4,0x154($a0)
-/*  f03e758:	c4860158 */ 	lwc1	$f6,0x158($a0)
-/*  f03e75c:	44804000 */ 	mtc1	$zero,$f8
-/*  f03e760:	3c017f1b */ 	lui	$at,%hi(var7f1a8f30)
-/*  f03e764:	46062080 */ 	add.s	$f2,$f4,$f6
-/*  f03e768:	4608103c */ 	c.lt.s	$f2,$f8
-/*  f03e76c:	00000000 */ 	nop
-/*  f03e770:	45000003 */ 	bc1f	.L0f03e780
-/*  f03e774:	00000000 */ 	nop
-/*  f03e778:	c42a8f30 */ 	lwc1	$f10,%lo(var7f1a8f30)($at)
-/*  f03e77c:	460a1080 */ 	add.s	$f2,$f2,$f10
-.L0f03e780:
-/*  f03e780:	03e00008 */ 	jr	$ra
-/*  f03e784:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 func0f03e754(struct chrdata *chr)
+{
+	f32 sum = chr->aimuprshoulder + chr->aimupback;
+
+	if (sum < 0) {
+		sum += M_TAU;
+	}
+
+	return sum;
+}
 
 GLOBAL_ASM(
 glabel func0f03e788
