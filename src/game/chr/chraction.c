@@ -67,23 +67,6 @@ const char var7f1a8b1c[] = "on";
 const char var7f1a8b20[] = "off";
 const char var7f1a8b24[] = "firecount(%d) = %d";
 const char var7f1a8b38[] = "numshots(%d) = %d";
-const char var7f1a8b4c[] = "Current dangerous items:";
-const char var7f1a8b68[] = "    Grenade %x";
-const char var7f1a8b78[] = "    Explosion %x";
-const char var7f1a8b8c[] = "misc dangerous prop";
-const char var7f1a8ba0[] = "chraction.c";
-const char var7f1a8bac[] = "chraction.c";
-const char var7f1a8bb8[] = "chraction.c";
-const char var7f1a8bc4[] = "chraction.c";
-const char var7f1a8bd0[] = "chraction.c";
-const char var7f1a8bdc[] = "chraction.c";
-const char var7f1a8be8[] = "CHARS -> FRAMETIMESCALEI(240)  = %d";
-const char var7f1a8c0c[] = "CHARS -> numseenbond1      \t= %d/%d";
-const char var7f1a8c30[] = "CHARS -> numseenbond2      \t= %d/%d";
-const char var7f1a8c54[] = "CHARS -> numseenbond3      \t= %d/%d";
-const char var7f1a8c78[] = "CHARS -> numseenbond       \t= %d/%d";
-const char var7f1a8c9c[] = "CHARS -> DEAD = %d/%d";
-const char var7f1a8cb4[] = "chrdisttopad : %x -> %d : Dist=%f";
 
 u32 var80068260 = 0x00000000;
 u32 var80068264 = 0x00000000;
@@ -20037,30 +20020,30 @@ glabel chrTickAttackRoll
 /*  f043940:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f043944
-/*  f043944:	3c05800a */ 	lui	$a1,%hi(g_DangerousProps)
-/*  f043948:	24a5cc00 */ 	addiu	$a1,$a1,%lo(g_DangerousProps)
-/*  f04394c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f043950:
-/*  f043950:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f043954:	00ae7821 */ 	addu	$t7,$a1,$t6
-/*  f043958:	8de30000 */ 	lw	$v1,0x0($t7)
-/*  f04395c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f043960:	305900ff */ 	andi	$t9,$v0,0xff
-/*  f043964:	10600004 */ 	beqz	$v1,.L0f043978
-/*  f043968:	2b21000c */ 	slti	$at,$t9,0xc
-/*  f04396c:	8c640004 */ 	lw	$a0,0x4($v1)
-/*  f043970:	10800001 */ 	beqz	$a0,.L0f043978
-/*  f043974:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f043978:
-/*  f043978:	1420fff5 */ 	bnez	$at,.L0f043950
-/*  f04397c:	03201025 */ 	or	$v0,$t9,$zero
-/*  f043980:	03e00008 */ 	jr	$ra
-/*  f043984:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void propPrintDangerous(void)
+{
+	u8 i;
 
-void unregisterDangerousProp(struct prop *prop)
+	osSyncPrintf("Current dangerous items:");
+
+	for (i = 0; i < MAX_DANGEROUSPROPS; i++) {
+		struct prop *prop = g_DangerousProps[i];
+
+		if (prop) {
+			if (prop->weapon
+					&& prop->weapon->weaponnum == WEAPON_GRENADE
+					&& prop->type == PROPTYPE_WEAPON) {
+				osSyncPrintf("    Grenade %x", prop);
+			} else if (prop->type == PROPTYPE_EXPLOSION) {
+				osSyncPrintf("    Explosion %x", prop);
+			} else {
+				osSyncPrintf("misc dangerous prop");
+			}
+		}
+	}
+}
+
+void propUnsetDangerous(struct prop *prop)
 {
 	s32 i;
 
@@ -20072,7 +20055,7 @@ void unregisterDangerousProp(struct prop *prop)
 	}
 }
 
-void registerDangerousProp(struct prop *prop)
+void propSetDangerous(struct prop *prop)
 {
 	s32 i;
 
@@ -20184,6 +20167,20 @@ void chrTickBondDie(struct chrdata *chr)
 {
 	// empty
 }
+
+const char var7f1a8ba0[] = "chraction.c";
+const char var7f1a8bac[] = "chraction.c";
+const char var7f1a8bb8[] = "chraction.c";
+const char var7f1a8bc4[] = "chraction.c";
+const char var7f1a8bd0[] = "chraction.c";
+const char var7f1a8bdc[] = "chraction.c";
+const char var7f1a8be8[] = "CHARS -> FRAMETIMESCALEI(240)  = %d";
+const char var7f1a8c0c[] = "CHARS -> numseenbond1      \t= %d/%d";
+const char var7f1a8c30[] = "CHARS -> numseenbond2      \t= %d/%d";
+const char var7f1a8c54[] = "CHARS -> numseenbond3      \t= %d/%d";
+const char var7f1a8c78[] = "CHARS -> numseenbond       \t= %d/%d";
+const char var7f1a8c9c[] = "CHARS -> DEAD = %d/%d";
+const char var7f1a8cb4[] = "chrdisttopad : %x -> %d : Dist=%f";
 
 GLOBAL_ASM(
 glabel func0f043f2c
@@ -24096,7 +24093,7 @@ glabel func0f048398
 /*  f048598:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f04859c:	10400003 */ 	beqz	$v0,.L0f0485ac
 /*  f0485a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0485a4:	0fc10e51 */ 	jal	func0f043944
+/*  f0485a4:	0fc10e51 */ 	jal	propPrintDangerous
 /*  f0485a8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0485ac:
 /*  f0485ac:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x4d2)

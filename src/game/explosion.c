@@ -475,7 +475,7 @@ glabel var7f1b5584
 /*  f12a318:	86ac0028 */ 	lh	$t4,0x28($s5)
 /*  f12a31c:	11f90004 */ 	beq	$t7,$t9,.L0f12a330
 /*  f12a320:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f12a324:	0fc10e70 */ 	jal	registerDangerousProp
+/*  f12a324:	0fc10e70 */ 	jal	propSetDangerous
 /*  f12a328:	afaa0158 */ 	sw	$t2,0x158($sp)
 /*  f12a32c:	8faa0158 */ 	lw	$t2,0x158($sp)
 .L0f12a330:
@@ -2790,7 +2790,7 @@ glabel var7f1b55a8
 /*  f12c554:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f12c558:	51a10004 */ 	beql	$t5,$at,.L0f12c56c
 /*  f12c55c:	ae200000 */ 	sw	$zero,0x0($s1)
-/*  f12c560:	0fc10e62 */ 	jal	unregisterDangerousProp
+/*  f12c560:	0fc10e62 */ 	jal	propUnsetDangerous
 /*  f12c564:	8e240000 */ 	lw	$a0,0x0($s1)
 /*  f12c568:	ae200000 */ 	sw	$zero,0x0($s1)
 .L0f12c56c:
