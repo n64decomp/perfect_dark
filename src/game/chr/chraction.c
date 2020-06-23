@@ -553,31 +553,16 @@ glabel func0f02e550
 /*  f02e680:	46001006 */ 	mov.s	$f0,$f2
 );
 
-GLOBAL_ASM(
-glabel func0f02e684
-/*  f02e684:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f02e688:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f02e68c:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f02e690:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f02e694:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f02e698:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f02e69c:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f02e6a0:	0fc0a277 */ 	jal	propChrGetBbox
-/*  f02e6a4:	27a70028 */ 	addiu	$a3,$sp,0x28
-/*  f02e6a8:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*  f02e6ac:	c7a60028 */ 	lwc1	$f6,0x28($sp)
-/*  f02e6b0:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f02e6b4:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f02e6b8:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f02e6bc:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f02e6c0:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f02e6c4:	0fc0b954 */ 	jal	func0f02e550
-/*  f02e6c8:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f02e6cc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f02e6d0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f02e6d4:	03e00008 */ 	jr	$ra
-/*  f02e6d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2)
+{
+	f32 ymax;
+	f32 ymin;
+	f32 width;
+
+	propChrGetBbox(prop, &width, &ymax, &ymin);
+
+	return func0f02e550(prop, arg1, arg2, 0x3f, ymax, ymin);
+}
 
 void chrStandChooseAnimation(struct chrdata *chr, f32 arg1)
 {
