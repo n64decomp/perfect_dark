@@ -6224,51 +6224,27 @@ void chrDropItems(struct chrdata *chr)
 	chr->hidden |= CHRHFLAG_00000001;
 }
 
-GLOBAL_ASM(
-glabel chrSetHudpieceVisible
-/*  f0245c8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0245cc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0245d0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0245d4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0245d8:	8c8f0020 */ 	lw	$t7,0x20($a0)
-/*  f0245dc:	3c188008 */ 	lui	$t8,%hi(stagethinglist_22e60)
-/*  f0245e0:	2718ce40 */ 	addiu	$t8,$t8,%lo(stagethinglist_22e60)
-/*  f0245e4:	8de60008 */ 	lw	$a2,0x8($t7)
-/*  f0245e8:	8cd90004 */ 	lw	$t9,0x4($a2)
-/*  f0245ec:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0245f0:	5719001a */ 	bnel	$t8,$t9,.L0f02465c
-/*  f0245f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0245f8:	0c006a47 */ 	jal	func0001a91c
-/*  f0245fc:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f024600:	10400015 */ 	beqz	$v0,.L0f024658
-/*  f024604:	00402825 */ 	or	$a1,$v0,$zero
-/*  f024608:	94480000 */ 	lhu	$t0,0x0($v0)
-/*  f02460c:	24010017 */ 	addiu	$at,$zero,0x17
-/*  f024610:	8fa90018 */ 	lw	$t1,0x18($sp)
-/*  f024614:	55010011 */ 	bnel	$t0,$at,.L0f02465c
-/*  f024618:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f02461c:	0c006a87 */ 	jal	func0001aa1c
-/*  f024620:	8d240020 */ 	lw	$a0,0x20($t1)
-/*  f024624:	8c4a0000 */ 	lw	$t2,0x0($v0)
-/*  f024628:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f02462c:	5140000b */ 	beqzl	$t2,.L0f02465c
-/*  f024630:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f024634:	0c006a47 */ 	jal	func0001a91c
-/*  f024638:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f02463c:	10400006 */ 	beqz	$v0,.L0f024658
-/*  f024640:	00402825 */ 	or	$a1,$v0,$zero
-/*  f024644:	8fab0018 */ 	lw	$t3,0x18($sp)
-/*  f024648:	0c006a87 */ 	jal	func0001aa1c
-/*  f02464c:	8d640020 */ 	lw	$a0,0x20($t3)
-/*  f024650:	8fac001c */ 	lw	$t4,0x1c($sp)
-/*  f024654:	ac4c0000 */ 	sw	$t4,0x0($v0)
-.L0f024658:
-/*  f024658:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f02465c:
-/*  f02465c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f024660:	03e00008 */ 	jr	$ra
-/*  f024664:	00000000 */ 	nop
-);
+void chrSetHudpieceVisible(struct chrdata *chr, bool visible)
+{
+	struct model08 *model08 = chr->model->unk08;
+
+	if (model08->unk04 == &stagethinglist_22e60) {
+		struct model08_00 *model08_00 = func0001a91c(model08, 4);
+
+		if (model08_00 && model08_00->unk00 == 0x17) {
+			struct model10 *model10 = func0001aa1c(chr->model, model08_00);
+
+			if (model10->unk00.model08) {
+				struct model08_00 *model08_00_2 = func0001a91c(model10->unk00.model08, 4);
+
+				if (model08_00_2) {
+					model10 = func0001aa1c(chr->model, model08_00_2);
+					model10->unk00.u32 = visible;
+				}
+			}
+		}
+	}
+}
 
 void chrDropWeapons(struct chrdata *chr)
 {

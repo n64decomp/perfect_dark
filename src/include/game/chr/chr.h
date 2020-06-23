@@ -27,7 +27,7 @@ u32 func0f022d60(void);
 bool propchrDoFireslotThing(struct prop *prop);
 u32 func0f023098(void);
 void chrDropItems(struct chrdata *chr);
-u32 chrSetHudpieceVisible(struct chrdata *chr, u32 arg1);
+void chrSetHudpieceVisible(struct chrdata *chr, bool visible);
 void chrDropWeapons(struct chrdata *chr);
 void func0f0246e4(u8 *arg0);
 u32 func0f024738(void);

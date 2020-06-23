@@ -186,10 +186,13 @@ struct model0c {
 	/*0x38*/ f32 unk38;
 };
 
+// This seems to be a model component which can be turned on and off, like a
+// muzzle flash, Jo's hudpiece and probably Cass's necklace.
 struct model10 {
 	union {
 		u16 u16;
 		u32 u32;
+		struct model08 *model08;
 	} unk00;
 	f32 ground;
 };
