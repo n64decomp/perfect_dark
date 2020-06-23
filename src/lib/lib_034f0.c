@@ -43,7 +43,7 @@ glabel __osExceptionPreamble
 /*     34f0:	3c1a7000 */ 	lui	$k0,%hi(__osException)
 /*     34f4:	275a3500 */ 	addiu	$k0,$k0,%lo(__osException)
 /*     34f8:	03400008 */ 	jr	$k0
-/*     34fc:	00000000 */ 	sll	$zero,$zero,0x0
+/*     34fc:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -143,9 +143,9 @@ glabel __osException
 /*     3668:	af48011c */ 	sw	$t0,0x11c($k0)
 /*     366c:	8f480018 */ 	lw	$t0,0x18($k0)
 /*     3670:	11000024 */ 	beqz	$t0,.L00003704
-/*     3674:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3674:	00000000 */ 	nop
 /*     3678:	4448f800 */ 	cfc1	$t0,$31
-/*     367c:	00000000 */ 	sll	$zero,$zero,0x0
+/*     367c:	00000000 */ 	nop
 /*     3680:	af48012c */ 	sw	$t0,0x12c($k0)
 /*     3684:	f7400130 */ 	sdc1	$f0,0x130($k0)
 /*     3688:	f7410138 */ 	sdc1	$f1,0x138($k0)
@@ -187,26 +187,26 @@ glabel __osException
 /*     3714:	3109007c */ 	andi	$t1,$t0,0x7c
 /*     3718:	240a0008 */ 	addiu	$t2,$zero,0x8
 /*     371c:	112a00b2 */ 	beq	$t1,$t2,.L000039e8
-/*     3720:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3720:	00000000 */ 	nop
 /*     3724:	240a000c */ 	addiu	$t2,$zero,0xc
 /*     3728:	112a00b3 */ 	beq	$t1,$t2,.L000039f8
-/*     372c:	00000000 */ 	sll	$zero,$zero,0x0
+/*     372c:	00000000 */ 	nop
 /*     3730:	240a0024 */ 	addiu	$t2,$zero,0x24
 /*     3734:	512a00b3 */ 	beql	$t1,$t2,.L00003a04
 /*     3738:	24090001 */ 	addiu	$t1,$zero,0x1
 /*     373c:	240a002c */ 	addiu	$t2,$zero,0x2c
 /*     3740:	112a010a */ 	beq	$t1,$t2,.L00003b6c
-/*     3744:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3744:	00000000 */ 	nop
 /*     3748:	240a0000 */ 	addiu	$t2,$zero,0x0
 /*     374c:	152a00ce */ 	bne	$t1,$t2,.L00003a88
-/*     3750:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3750:	00000000 */ 	nop
 /*     3754:	03688024 */ 	and	$s0,$k1,$t0
 .L00003758:
 /*     3758:	3209ff00 */ 	andi	$t1,$s0,0xff00
 .L0000375c:
 /*     375c:	00095302 */ 	srl	$t2,$t1,0xc
 /*     3760:	15400003 */ 	bnez	$t2,.L00003770
-/*     3764:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3764:	00000000 */ 	nop
 /*     3768:	00095202 */ 	srl	$t2,$t1,0x8
 /*     376c:	214a0010 */ 	addi	$t2,$t2,0x10
 .L00003770:
@@ -217,12 +217,12 @@ glabel __osException
 /*     3780:	002a0821 */ 	addu	$at,$at,$t2
 /*     3784:	8c2a2470 */ 	lw	$t2,%lo(var70052470)($at)
 /*     3788:	01400008 */ 	jr	$t2
-/*     378c:	00000000 */ 	sll	$zero,$zero,0x0
+/*     378c:	00000000 */ 	nop
 /*     3790:	2401dfff */ 	addiu	$at,$zero,-8193
-/*     3794:	1000fff0 */ 	beqz	$zero,.L00003758
+/*     3794:	1000fff0 */ 	b	.L00003758
 /*     3798:	02018024 */ 	and	$s0,$s0,$at
 /*     379c:	2401bfff */ 	addiu	$at,$zero,-16385
-/*     37a0:	1000ffed */ 	beqz	$zero,.L00003758
+/*     37a0:	1000ffed */ 	b	.L00003758
 /*     37a4:	02018024 */ 	and	$s0,$s0,$at
 /*     37a8:	40095800 */ 	mfc0	$t1,$11
 /*     37ac:	40895800 */ 	mtc0	$t1,$11
@@ -230,7 +230,7 @@ glabel __osException
 /*     37b4:	24040018 */ 	addiu	$a0,$zero,0x18
 /*     37b8:	3c01ffff */ 	lui	$at,0xffff
 /*     37bc:	34217fff */ 	ori	$at,$at,0x7fff
-/*     37c0:	1000ffe5 */ 	beqz	$zero,.L00003758
+/*     37c0:	1000ffe5 */ 	b	.L00003758
 /*     37c4:	02018024 */ 	and	$s0,$s0,$at
 /*     37c8:	3c098006 */ 	lui	$t1,%hi(var8005cf30)
 /*     37cc:	2529cf30 */ 	addiu	$t1,$t1,%lo(var8005cf30)
@@ -242,13 +242,13 @@ glabel __osException
 /*     37e4:	0140f809 */ 	jalr	$t2
 /*     37e8:	8d3d0004 */ 	lw	$sp,0x4($t1)
 /*     37ec:	10400003 */ 	beqz	$v0,.L000037fc
-/*     37f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*     37f4:	10000091 */ 	beqz	$zero,.L00003a3c
-/*     37f8:	00000000 */ 	sll	$zero,$zero,0x0
+/*     37f0:	00000000 */ 	nop
+/*     37f4:	10000091 */ 	b	.L00003a3c
+/*     37f8:	00000000 */ 	nop
 .L000037fc:
 /*     37fc:	0c000eae */ 	jal	func00003ab8
 /*     3800:	24040010 */ 	addiu	$a0,$zero,0x10
-/*     3804:	1000ffd5 */ 	beqz	$zero,.L0000375c
+/*     3804:	1000ffd5 */ 	b	.L0000375c
 /*     3808:	3209ff00 */ 	andi	$t1,$s0,0xff00
 /*     380c:	3c088006 */ 	lui	$t0,%hi(var8005cf70)
 /*     3810:	2508cf70 */ 	addiu	$t0,$t0,%lo(var8005cf70)
@@ -272,7 +272,7 @@ glabel __osException
 /*     3858:	24040020 */ 	addiu	$a0,$zero,0x20
 /*     385c:	52200039 */ 	beqzl	$s1,.L00003944
 /*     3860:	2401fbff */ 	addiu	$at,$zero,-1025
-/*     3864:	10000006 */ 	beqz	$zero,.L00003880
+/*     3864:	10000006 */ 	b	.L00003880
 /*     3868:	32290008 */ 	andi	$t1,$s1,0x8
 .L0000386c:
 /*     386c:	0c000eae */ 	jal	func00003ab8
@@ -335,7 +335,7 @@ glabel __osException
 /*     393c:	24040048 */ 	addiu	$a0,$zero,0x48
 /*     3940:	2401fbff */ 	addiu	$at,$zero,-1025
 .L00003944:
-/*     3944:	1000ff84 */ 	beqz	$zero,.L00003758
+/*     3944:	1000ff84 */ 	b	.L00003758
 /*     3948:	02018024 */ 	and	$s0,$s0,$at
 /*     394c:	8f5b0118 */ 	lw	$k1,0x118($k0)
 /*     3950:	2401efff */ 	addiu	$at,$zero,-4097
@@ -346,7 +346,7 @@ glabel __osException
 /*     3964:	8d2a0000 */ 	lw	$t2,0x0($t1)
 /*     3968:	11400003 */ 	beqz	$t2,.L00003978
 /*     396c:	2401efff */ 	addiu	$at,$zero,-4097
-/*     3970:	10000032 */ 	beqz	$zero,.L00003a3c
+/*     3970:	10000032 */ 	b	.L00003a3c
 /*     3974:	02018024 */ 	and	$s0,$s0,$at
 .L00003978:
 /*     3978:	240a0001 */ 	addiu	$t2,$zero,0x1
@@ -359,7 +359,7 @@ glabel __osException
 /*     3994:	02018024 */ 	and	$s0,$s0,$at
 /*     3998:	8d5b0118 */ 	lw	$k1,0x118($t2)
 /*     399c:	0361d824 */ 	and	$k1,$k1,$at
-/*     39a0:	10000026 */ 	beqz	$zero,.L00003a3c
+/*     39a0:	10000026 */ 	b	.L00003a3c
 /*     39a4:	ad5b0118 */ 	sw	$k1,0x118($t2)
 /*     39a8:	2401fdff */ 	addiu	$at,$zero,-513
 /*     39ac:	01014024 */ 	and	$t0,$t0,$at
@@ -367,7 +367,7 @@ glabel __osException
 /*     39b4:	0c000eae */ 	jal	func00003ab8
 /*     39b8:	24040008 */ 	addiu	$a0,$zero,0x8
 /*     39bc:	2401fdff */ 	addiu	$at,$zero,-513
-/*     39c0:	1000ff65 */ 	beqz	$zero,.L00003758
+/*     39c0:	1000ff65 */ 	b	.L00003758
 /*     39c4:	02018024 */ 	and	$s0,$s0,$at
 /*     39c8:	2401feff */ 	addiu	$at,$zero,-257
 /*     39cc:	01014024 */ 	and	$t0,$t0,$at
@@ -375,16 +375,16 @@ glabel __osException
 /*     39d4:	0c000eae */ 	jal	func00003ab8
 /*     39d8:	24040000 */ 	addiu	$a0,$zero,0x0
 /*     39dc:	2401feff */ 	addiu	$at,$zero,-257
-/*     39e0:	1000ff5d */ 	beqz	$zero,.L00003758
+/*     39e0:	1000ff5d */ 	b	.L00003758
 /*     39e4:	02018024 */ 	and	$s0,$s0,$at
 .L000039e8:
 /*     39e8:	0c000460 */ 	jal	func00001180
-/*     39ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*     39f0:	10000012 */ 	beqz	$zero,.L00003a3c
-/*     39f4:	00000000 */ 	sll	$zero,$zero,0x0
+/*     39ec:	00000000 */ 	nop
+/*     39f0:	10000012 */ 	b	.L00003a3c
+/*     39f4:	00000000 */ 	nop
 .L000039f8:
 /*     39f8:	08000ea2 */ 	j	0x3a88
-/*     39fc:	00000000 */ 	sll	$zero,$zero,0x0
+/*     39fc:	00000000 */ 	nop
 /*     3a00:	24090001 */ 	addiu	$t1,$zero,0x1
 .L00003a04:
 /*     3a04:	a7490012 */ 	sh	$t1,0x12($k0)
@@ -396,11 +396,11 @@ glabel __osException
 /*     3a1c:	1121001a */ 	beq	$t1,$at,.L00003a88
 /*     3a20:	24010007 */ 	addiu	$at,$zero,0x7
 /*     3a24:	11210018 */ 	beq	$t1,$at,.L00003a88
-/*     3a28:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3a28:	00000000 */ 	nop
 /*     3a2c:	0c000eae */ 	jal	func00003ab8
 /*     3a30:	24040050 */ 	addiu	$a0,$zero,0x50
-/*     3a34:	10000001 */ 	beqz	$zero,.L00003a3c
-/*     3a38:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3a34:	10000001 */ 	b	.L00003a3c
+/*     3a38:	00000000 */ 	nop
 .L00003a3c:
 /*     3a3c:	3c0a8006 */ 	lui	$t2,%hi(var80060938)
 /*     3a40:	8d4a0938 */ 	lw	$t2,%lo(var80060938)($t2)
@@ -408,13 +408,13 @@ glabel __osException
 /*     3a48:	8d4b0004 */ 	lw	$t3,0x4($t2)
 /*     3a4c:	012b082a */ 	slt	$at,$t1,$t3
 /*     3a50:	10200007 */ 	beqz	$at,.L00003a70
-/*     3a54:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3a54:	00000000 */ 	nop
 /*     3a58:	3c048006 */ 	lui	$a0,%hi(var80060938)
 /*     3a5c:	03402825 */ 	or	$a1,$k0,$zero
 /*     3a60:	0c000f2e */ 	jal	__osEnqueueThread
 /*     3a64:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 /*     3a68:	08000f44 */ 	j	0x3d10
-/*     3a6c:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3a6c:	00000000 */ 	nop
 .L00003a70:
 /*     3a70:	3c098006 */ 	lui	$t1,%hi(var80060938)
 /*     3a74:	25290938 */ 	addiu	$t1,$t1,%lo(var80060938)
@@ -434,7 +434,7 @@ glabel __osException
 /*     3aa8:	0c000eae */ 	jal	func00003ab8
 /*     3aac:	24040060 */ 	addiu	$a0,$zero,0x60
 /*     3ab0:	08000f44 */ 	j	0x3d10
-/*     3ab4:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3ab4:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -445,24 +445,24 @@ glabel func00003ab8
 /*     3ac4:	8d490000 */ 	lw	$t1,0x0($t2)
 /*     3ac8:	03e09025 */ 	or	$s2,$ra,$zero
 /*     3acc:	11200025 */ 	beqz	$t1,.L00003b64
-/*     3ad0:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3ad0:	00000000 */ 	nop
 /*     3ad4:	8d2b0008 */ 	lw	$t3,0x8($t1)
 /*     3ad8:	8d2c0010 */ 	lw	$t4,0x10($t1)
 /*     3adc:	016c082a */ 	slt	$at,$t3,$t4
 /*     3ae0:	10200020 */ 	beqz	$at,.L00003b64
-/*     3ae4:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3ae4:	00000000 */ 	nop
 /*     3ae8:	8d2d000c */ 	lw	$t5,0xc($t1)
 /*     3aec:	01ab6821 */ 	addu	$t5,$t5,$t3
 /*     3af0:	01ac001a */ 	div	$zero,$t5,$t4
 /*     3af4:	15800002 */ 	bnez	$t4,.L00003b00
-/*     3af8:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3af8:	00000000 */ 	nop
 /*     3afc:	0007000d */ 	break	0x7
 .L00003b00:
 /*     3b00:	2401ffff */ 	addiu	$at,$zero,-1
 /*     3b04:	15810004 */ 	bne	$t4,$at,.L00003b18
 /*     3b08:	3c018000 */ 	lui	$at,0x8000
 /*     3b0c:	15a10002 */ 	bne	$t5,$at,.L00003b18
-/*     3b10:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3b10:	00000000 */ 	nop
 /*     3b14:	0006000d */ 	break	0x6
 .L00003b18:
 /*     3b18:	8d2c0014 */ 	lw	$t4,0x14($t1)
@@ -476,7 +476,7 @@ glabel func00003ab8
 /*     3b38:	8d2a0000 */ 	lw	$t2,0x0($t1)
 /*     3b3c:	8d4b0000 */ 	lw	$t3,0x0($t2)
 /*     3b40:	11600008 */ 	beqz	$t3,.L00003b64
-/*     3b44:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3b44:	00000000 */ 	nop
 /*     3b48:	0c000f40 */ 	jal	__osPopThread
 /*     3b4c:	01202025 */ 	or	$a0,$t1,$zero
 /*     3b50:	00405025 */ 	or	$t2,$v0,$zero
@@ -486,20 +486,20 @@ glabel func00003ab8
 /*     3b60:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 .L00003b64:
 /*     3b64:	02400008 */ 	jr	$s2
-/*     3b68:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3b68:	00000000 */ 	nop
 .L00003b6c:
 /*     3b6c:	3c013000 */ 	lui	$at,0x3000
 /*     3b70:	01014824 */ 	and	$t1,$t0,$at
 /*     3b74:	00094f02 */ 	srl	$t1,$t1,0x1c
 /*     3b78:	240a0001 */ 	addiu	$t2,$zero,0x1
 /*     3b7c:	152affc2 */ 	bne	$t1,$t2,.L00003a88
-/*     3b80:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3b80:	00000000 */ 	nop
 /*     3b84:	8f5b0118 */ 	lw	$k1,0x118($k0)
 /*     3b88:	3c012000 */ 	lui	$at,0x2000
 /*     3b8c:	24090001 */ 	addiu	$t1,$zero,0x1
 /*     3b90:	0361d825 */ 	or	$k1,$k1,$at
 /*     3b94:	af490018 */ 	sw	$t1,0x18($k0)
-/*     3b98:	1000ffb5 */ 	beqz	$zero,.L00003a70
+/*     3b98:	1000ffb5 */ 	b	.L00003a70
 /*     3b9c:	af5b0118 */ 	sw	$k1,0x118($k0)
 );
 
@@ -560,7 +560,7 @@ glabel __osEnqueueAndYield
 .L00003c6c:
 /*     3c6c:	8f7b000c */ 	lw	$k1,0xc($k1)
 /*     3c70:	1360000b */ 	beqz	$k1,.L00003ca0
-/*     3c74:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3c74:	00000000 */ 	nop
 /*     3c78:	3c1a8006 */ 	lui	$k0,%hi(var8005cf70)
 /*     3c7c:	275acf70 */ 	addiu	$k0,$k0,%lo(var8005cf70)
 /*     3c80:	8f5a0000 */ 	lw	$k0,0x0($k0)
@@ -575,10 +575,10 @@ glabel __osEnqueueAndYield
 /*     3ca0:	10800003 */ 	beqz	$a0,.L00003cb0
 /*     3ca4:	acbb0128 */ 	sw	$k1,0x128($a1)
 /*     3ca8:	0c000f2e */ 	jal	__osEnqueueThread
-/*     3cac:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3cac:	00000000 */ 	nop
 .L00003cb0:
 /*     3cb0:	08000f44 */ 	j	0x3d10
-/*     3cb4:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3cb4:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -672,7 +672,7 @@ glabel __osDispatchThread
 /*     3de8:	409b7000 */ 	mtc0	$k1,$14
 /*     3dec:	8f5b0018 */ 	lw	$k1,0x18($k0)
 /*     3df0:	13600023 */ 	beqz	$k1,.L00003e80
-/*     3df4:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3df4:	00000000 */ 	nop
 /*     3df8:	8f5b012c */ 	lw	$k1,0x12c($k0)
 /*     3dfc:	44dbf800 */ 	ctc1	$k1,$31
 /*     3e00:	d7400130 */ 	ldc1	$f0,0x130($k0)
@@ -722,10 +722,10 @@ glabel __osDispatchThread
 /*     3eac:	3c1aa430 */ 	lui	$k0,0xa430
 /*     3eb0:	275a000c */ 	addiu	$k0,$k0,0xc
 /*     3eb4:	af5b0000 */ 	sw	$k1,0x0($k0)
-/*     3eb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3ebc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3ec0:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3ec4:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3eb8:	00000000 */ 	nop
+/*     3ebc:	00000000 */ 	nop
+/*     3ec0:	00000000 */ 	nop
+/*     3ec4:	00000000 */ 	nop
 /*     3ec8:	42000018 */ 	eret
 );
 
@@ -733,7 +733,7 @@ GLOBAL_ASM(
 glabel __osCleanupThread
 /*     3ecc:	0c012894 */ 	jal	__osDestroyThread
 /*     3ed0:	00002025 */ 	or	$a0,$zero,$zero
-/*     3ed4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3ed8:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3edc:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3ed4:	00000000 */ 	nop
+/*     3ed8:	00000000 */ 	nop
+/*     3edc:	00000000 */ 	nop
 );

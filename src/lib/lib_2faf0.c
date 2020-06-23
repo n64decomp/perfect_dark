@@ -18,9 +18,9 @@ glabel func0002faf0
 /*    2fafc:	ac8e0004 */ 	sw	$t6,0x4($a0)
 /*    2fb00:	ac80000c */ 	sw	$zero,0xc($a0)
 /*    2fb04:	03e00008 */ 	jr	$ra
-/*    2fb08:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fb08:	00000000 */ 	nop
 /*    2fb0c:	03e00008 */ 	jr	$ra
-/*    2fb10:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fb10:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -44,22 +44,22 @@ glabel func0002fb14
 /*    2fb54:	016c6821 */ 	addu	$t5,$t3,$t4
 /*    2fb58:	01aa082b */ 	sltu	$at,$t5,$t2
 /*    2fb5c:	14200008 */ 	bnez	$at,.L0002fb80
-/*    2fb60:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fb60:	00000000 */ 	nop
 /*    2fb64:	8cce0004 */ 	lw	$t6,0x4($a2)
 /*    2fb68:	afae0000 */ 	sw	$t6,0x0($sp)
 /*    2fb6c:	8ccf0004 */ 	lw	$t7,0x4($a2)
 /*    2fb70:	8fb80004 */ 	lw	$t8,0x4($sp)
 /*    2fb74:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*    2fb78:	10000001 */ 	beqz	$zero,.L0002fb80
+/*    2fb78:	10000001 */ 	b	.L0002fb80
 /*    2fb7c:	acd90004 */ 	sw	$t9,0x4($a2)
 .L0002fb80:
-/*    2fb80:	10000003 */ 	beqz	$zero,.L0002fb90
+/*    2fb80:	10000003 */ 	b	.L0002fb90
 /*    2fb84:	8fa20000 */ 	lw	$v0,0x0($sp)
-/*    2fb88:	10000001 */ 	beqz	$zero,.L0002fb90
-/*    2fb8c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fb88:	10000001 */ 	b	.L0002fb90
+/*    2fb8c:	00000000 */ 	nop
 .L0002fb90:
 /*    2fb90:	03e00008 */ 	jr	$ra
 /*    2fb94:	27bd0008 */ 	addiu	$sp,$sp,0x8
-/*    2fb98:	00000000 */ 	sll	$zero,$zero,0x0
-/*    2fb9c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fb98:	00000000 */ 	nop
+/*    2fb9c:	00000000 */ 	nop
 );

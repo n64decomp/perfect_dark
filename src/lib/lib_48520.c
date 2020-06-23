@@ -36,15 +36,15 @@ glabel osSetEventMesg
 /*    4856c:	ad490004 */ 	sw	$t1,0x4($t2)
 /*    48570:	8fab0028 */ 	lw	$t3,0x28($sp)
 /*    48574:	15610010 */ 	bne	$t3,$at,.L000485b8
-/*    48578:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48578:	00000000 */ 	nop
 /*    4857c:	3c0c8006 */ 	lui	$t4,%hi(var8005cf6c)
 /*    48580:	8d8ccf6c */ 	lw	$t4,%lo(var8005cf6c)($t4)
 /*    48584:	11800009 */ 	beqz	$t4,.L000485ac
-/*    48588:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48588:	00000000 */ 	nop
 /*    4858c:	3c0d8006 */ 	lui	$t5,%hi(var80060890)
 /*    48590:	8dad0890 */ 	lw	$t5,%lo(var80060890)($t5)
 /*    48594:	15a00005 */ 	bnez	$t5,.L000485ac
-/*    48598:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48598:	00000000 */ 	nop
 /*    4859c:	8fa4002c */ 	lw	$a0,0x2c($sp)
 /*    485a0:	8fa50030 */ 	lw	$a1,0x30($sp)
 /*    485a4:	0c012238 */ 	jal	osSendMesg
@@ -60,8 +60,8 @@ glabel osSetEventMesg
 /*    485c4:	8fb00018 */ 	lw	$s0,0x18($sp)
 /*    485c8:	27bd0028 */ 	addiu	$sp,$sp,0x28
 /*    485cc:	03e00008 */ 	jr	$ra
-/*    485d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*    485d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*    485d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    485dc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    485d0:	00000000 */ 	nop
+/*    485d4:	00000000 */ 	nop
+/*    485d8:	00000000 */ 	nop
+/*    485dc:	00000000 */ 	nop
 );

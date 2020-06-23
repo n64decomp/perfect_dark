@@ -33,7 +33,7 @@ glabel func000070d0
 /*     7100:	0c00222c */ 	jal	func000088b0
 /*     7104:	a030ae28 */ 	sb	$s0,%lo(var8008ae28)($at)
 /*     7108:	0c0005b0 */ 	jal	osGetMemSize
-/*     710c:	00000000 */ 	sll	$zero,$zero,0x0
+/*     710c:	00000000 */ 	nop
 /*     7110:	3c010040 */ 	lui	$at,0x40
 /*     7114:	34210001 */ 	ori	$at,$at,0x1
 /*     7118:	0041082a */ 	slt	$at,$v0,$at
@@ -159,9 +159,9 @@ glabel func000070d0
 /*     72dc:	ac40fffc */ 	sw	$zero,-0x4($v0)
 .L000072e0:
 /*     72e0:	0c00044f */ 	jal	func0000113c
-/*     72e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     72e8:	1000006a */ 	beqz	$zero,.L00007494
-/*     72ec:	00000000 */ 	sll	$zero,$zero,0x0
+/*     72e4:	00000000 */ 	nop
+/*     72e8:	1000006a */ 	b	.L00007494
+/*     72ec:	00000000 */ 	nop
 .L000072f0:
 /*     72f0:	3c097f00 */ 	lui	$t1,%hi(func0f000000)
 /*     72f4:	25290000 */ 	addiu	$t1,$t1,%lo(func0f000000)
@@ -294,7 +294,7 @@ glabel func000070d0
 /*     74d8:	8fb70038 */ 	lw	$s7,0x38($sp)
 /*     74dc:	03e00008 */ 	jr	$ra
 /*     74e0:	27bd14a8 */ 	addiu	$sp,$sp,0x14a8
-/*     74e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     74e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*     74ec:	00000000 */ 	sll	$zero,$zero,0x0
+/*     74e4:	00000000 */ 	nop
+/*     74e8:	00000000 */ 	nop
+/*     74ec:	00000000 */ 	nop
 );

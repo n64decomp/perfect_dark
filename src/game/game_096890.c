@@ -19,7 +19,7 @@ glabel func0f096890
 /*  f09689c:	3c068007 */ 	lui	$a2,%hi(var8006af8c)
 /*  f0968a0:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f0968a4:	24c6af8c */ 	addiu	$a2,$a2,%lo(var8006af8c)
-/*  f0968a8:	1000000d */ 	beqz	$zero,.L0f0968e0
+/*  f0968a8:	1000000d */ 	b	.L0f0968e0
 /*  f0968ac:	24848020 */ 	addiu	$a0,$a0,-32736
 .L0f0968b0:
 /*  f0968b0:	28817800 */ 	slti	$at,$a0,0x7800
@@ -29,7 +29,7 @@ glabel func0f096890
 /*  f0968c0:	2403001f */ 	addiu	$v1,$zero,0x1f
 /*  f0968c4:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f0968c8:	24c6af0c */ 	addiu	$a2,$a2,%lo(var8006af0c)
-/*  f0968cc:	10000004 */ 	beqz	$zero,.L0f0968e0
+/*  f0968cc:	10000004 */ 	b	.L0f0968e0
 /*  f0968d0:	24848800 */ 	addiu	$a0,$a0,-30720
 .L0f0968d4:
 /*  f0968d4:	3c068007 */ 	lui	$a2,%hi(var8006ae90)
@@ -59,7 +59,7 @@ glabel func0f096910
 /*  f096920:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f096924:	05c00003 */ 	bltz	$t6,.L0f096934
 /*  f096928:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f09692c:	10000002 */ 	beqz	$zero,.L0f096938
+/*  f09692c:	10000002 */ 	b	.L0f096938
 /*  f096930:	01c02025 */ 	or	$a0,$t6,$zero
 .L0f096934:
 /*  f096934:	00052023 */ 	negu	$a0,$a1
@@ -87,7 +87,7 @@ glabel func0f096964
 /*  f096974:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f096978:	05c00003 */ 	bltz	$t6,.L0f096988
 /*  f09697c:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f096980:	10000002 */ 	beqz	$zero,.L0f09698c
+/*  f096980:	10000002 */ 	b	.L0f09698c
 /*  f096984:	01c02025 */ 	or	$a0,$t6,$zero
 .L0f096988:
 /*  f096988:	00052023 */ 	negu	$a0,$a1
@@ -100,7 +100,7 @@ glabel func0f096964
 /*  f0969a0:	04a00004 */ 	bltz	$a1,.L0f0969b4
 /*  f0969a4:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f0969a8:	240f7fff */ 	addiu	$t7,$zero,0x7fff
-/*  f0969ac:	10000002 */ 	beqz	$zero,.L0f0969b8
+/*  f0969ac:	10000002 */ 	b	.L0f0969b8
 /*  f0969b0:	01e22023 */ 	subu	$a0,$t7,$v0
 .L0f0969b4:
 /*  f0969b4:	00412021 */ 	addu	$a0,$v0,$at
@@ -109,6 +109,6 @@ glabel func0f096964
 /*  f0969bc:	0002c403 */ 	sra	$t8,$v0,0x10
 /*  f0969c0:	03e00008 */ 	jr	$ra
 /*  f0969c4:	03001025 */ 	or	$v0,$t8,$zero
-/*  f0969c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0969cc:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f0969c8:	00000000 */ 	nop
+/*  f0969cc:	00000000 */ 	nop
 );

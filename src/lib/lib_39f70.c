@@ -24,14 +24,14 @@ glabel func00039f70
 /*    39f90:	00003825 */ 	or	$a3,$zero,$zero
 /*    39f94:	0c00f184 */ 	jal	alEvtqPostEvent
 /*    39f98:	24840048 */ 	addiu	$a0,$a0,0x48
-/*    39f9c:	10000001 */ 	beqz	$zero,.L00039fa4
-/*    39fa0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    39f9c:	10000001 */ 	b	.L00039fa4
+/*    39fa0:	00000000 */ 	nop
 .L00039fa4:
 /*    39fa4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    39fa8:	27bd0028 */ 	addiu	$sp,$sp,0x28
 /*    39fac:	03e00008 */ 	jr	$ra
-/*    39fb0:	00000000 */ 	sll	$zero,$zero,0x0
-/*    39fb4:	00000000 */ 	sll	$zero,$zero,0x0
-/*    39fb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    39fbc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    39fb0:	00000000 */ 	nop
+/*    39fb4:	00000000 */ 	nop
+/*    39fb8:	00000000 */ 	nop
+/*    39fbc:	00000000 */ 	nop
 );

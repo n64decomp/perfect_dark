@@ -37,7 +37,7 @@ glabel func0f015280
 /*  f0152cc:	5080000f */ 	beqzl	$a0,.L0f01530c
 /*  f0152d0:	26100478 */ 	addiu	$s0,$s0,0x478
 /*  f0152d4:	0fc18171 */ 	jal	func0f0605c4
-/*  f0152d8:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f0152d8:	00000000 */ 	nop
 /*  f0152dc:	8e390000 */ 	lw	$t9,0x0($s1)
 /*  f0152e0:	03304021 */ 	addu	$t0,$t9,$s0
 /*  f0152e4:	0fc180c0 */ 	jal	func0f060300
@@ -60,5 +60,5 @@ glabel func0f015280
 /*  f015320:	8fb20020 */ 	lw	$s2,0x20($sp)
 /*  f015324:	03e00008 */ 	jr	$ra
 /*  f015328:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f01532c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01532c:	00000000 */ 	nop
 );

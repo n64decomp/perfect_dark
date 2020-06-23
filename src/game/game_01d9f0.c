@@ -52,7 +52,7 @@ glabel func0f01d9f0
 /*  f01da5c:	e4860008 */ 	swc1	$f6,0x8($a0)
 /*  f01da60:	c4880008 */ 	lwc1	$f8,0x8($a0)
 /*  f01da64:	460a403c */ 	c.lt.s	$f8,$f10
-/*  f01da68:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01da68:	00000000 */ 	nop
 /*  f01da6c:	4502004c */ 	bc1fl	.L0f01dba0
 /*  f01da70:	c6aa0010 */ 	lwc1	$f10,0x10($s5)
 /*  f01da74:	8e4e0000 */ 	lw	$t6,0x0($s2)
@@ -75,26 +75,26 @@ glabel func0f01d9f0
 /*  f01daac:	3c13800a */ 	lui	$s3,%hi(var8009d0d0)
 /*  f01dab0:	2673d0d0 */ 	addiu	$s3,$s3,%lo(var8009d0d0)
 /*  f01dab4:	1b200037 */ 	blez	$t9,.L0f01db94
-/*  f01dab8:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01dab8:	00000000 */ 	nop
 /*  f01dabc:	06200035 */ 	bltz	$s1,.L0f01db94
-/*  f01dac0:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01dac0:	00000000 */ 	nop
 /*  f01dac4:	8e820284 */ 	lw	$v0,0x284($s4)
 /*  f01dac8:	24030002 */ 	addiu	$v1,$zero,0x2
 /*  f01dacc:	8c4a0658 */ 	lw	$t2,0x658($v0)
 /*  f01dad0:	106a0030 */ 	beq	$v1,$t2,.L0f01db94
-/*  f01dad4:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01dad4:	00000000 */ 	nop
 /*  f01dad8:	8c4b0dfc */ 	lw	$t3,0xdfc($v0)
 /*  f01dadc:	106b002d */ 	beq	$v1,$t3,.L0f01db94
-/*  f01dae0:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01dae0:	00000000 */ 	nop
 /*  f01dae4:	0c004b70 */ 	jal	random
-/*  f01dae8:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01dae8:	00000000 */ 	nop
 /*  f01daec:	44828000 */ 	mtc1	$v0,$f16
 /*  f01daf0:	240c0014 */ 	addiu	$t4,$zero,0x14
 /*  f01daf4:	04410005 */ 	bgez	$v0,.L0f01db0c
 /*  f01daf8:	46808120 */ 	cvt.s.w	$f4,$f16
 /*  f01dafc:	3c014f80 */ 	lui	$at,0x4f80
 /*  f01db00:	44819000 */ 	mtc1	$at,$f18
-/*  f01db04:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01db04:	00000000 */ 	nop
 /*  f01db08:	46122100 */ 	add.s	$f4,$f4,$f18
 .L0f01db0c:
 /*  f01db0c:	3c012f80 */ 	lui	$at,0x2f80
@@ -128,11 +128,11 @@ glabel func0f01d9f0
 /*  f01db7c:	8e040000 */ 	lw	$a0,0x0($s0)
 /*  f01db80:	24050010 */ 	addiu	$a1,$zero,0x10
 /*  f01db84:	10800003 */ 	beqz	$a0,.L0f01db94
-/*  f01db88:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01db88:	00000000 */ 	nop
 /*  f01db8c:	0c00cf94 */ 	jal	func00033e50
 /*  f01db90:	8fa60058 */ 	lw	$a2,0x58($sp)
 .L0f01db94:
-/*  f01db94:	1000006c */ 	beqz	$zero,.L0f01dd48
+/*  f01db94:	1000006c */ 	b	.L0f01dd48
 /*  f01db98:	aea00040 */ 	sw	$zero,0x40($s5)
 /*  f01db9c:	c6aa0010 */ 	lwc1	$f10,0x10($s5)
 .L0f01dba0:
@@ -161,7 +161,7 @@ glabel func0f01d9f0
 /*  f01dbf4:	8459002e */ 	lh	$t9,0x2e($v0)
 /*  f01dbf8:	24630001 */ 	addiu	$v1,$v1,0x1
 /*  f01dbfc:	44998000 */ 	mtc1	$t9,$f16
-/*  f01dc00:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01dc00:	00000000 */ 	nop
 /*  f01dc04:	46808420 */ 	cvt.s.w	$f16,$f16
 /*  f01dc08:	46008482 */ 	mul.s	$f18,$f16,$f0
 /*  f01dc0c:	50700013 */ 	beql	$v1,$s0,.L0f01dc5c
@@ -179,7 +179,7 @@ glabel func0f01d9f0
 /*  f01dc38:	e490fffc */ 	swc1	$f16,-0x4($a0)
 /*  f01dc3c:	8459002e */ 	lh	$t9,0x2e($v0)
 /*  f01dc40:	44998000 */ 	mtc1	$t9,$f16
-/*  f01dc44:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01dc44:	00000000 */ 	nop
 /*  f01dc48:	46808420 */ 	cvt.s.w	$f16,$f16
 /*  f01dc4c:	46008482 */ 	mul.s	$f18,$f16,$f0
 /*  f01dc50:	5470fff1 */ 	bnel	$v1,$s0,.L0f01dc18
@@ -234,7 +234,7 @@ glabel func0f01d9f0
 /*  f01dd00:	24420002 */ 	addiu	$v0,$v0,0x2
 /*  f01dd04:	24840004 */ 	addiu	$a0,$a0,0x4
 /*  f01dd08:	440e8000 */ 	mfc1	$t6,$f16
-/*  f01dd0c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01dd0c:	00000000 */ 	nop
 /*  f01dd10:	a44e001a */ 	sh	$t6,0x1a($v0)
 /*  f01dd14:	c4900000 */ 	lwc1	$f16,0x0($a0)
 /*  f01dd18:	46008482 */ 	mul.s	$f18,$f16,$f0
@@ -245,7 +245,7 @@ glabel func0f01d9f0
 /*  f01dd28:	24420002 */ 	addiu	$v0,$v0,0x2
 /*  f01dd2c:	24840004 */ 	addiu	$a0,$a0,0x4
 /*  f01dd30:	440e8000 */ 	mfc1	$t6,$f16
-/*  f01dd34:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01dd34:	00000000 */ 	nop
 /*  f01dd38:	a44e001a */ 	sh	$t6,0x1a($v0)
 /*  f01dd3c:	24c6000c */ 	addiu	$a2,$a2,0xc
 /*  f01dd40:	14c5ffe5 */ 	bne	$a2,$a1,.L0f01dcd8
@@ -316,6 +316,6 @@ glabel func0f01dd6c
 /*  f01de1c:	8fb30020 */ 	lw	$s3,0x20($sp)
 /*  f01de20:	03e00008 */ 	jr	$ra
 /*  f01de24:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f01de28:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01de2c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01de28:	00000000 */ 	nop
+/*  f01de2c:	00000000 */ 	nop
 );

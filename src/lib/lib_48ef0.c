@@ -34,7 +34,7 @@ glabel func00048ef0
 /*    48f38:	8fb00018 */ 	lw	$s0,0x18($sp)
 /*    48f3c:	27bd0028 */ 	addiu	$sp,$sp,0x28
 /*    48f40:	03e00008 */ 	jr	$ra
-/*    48f44:	00000000 */ 	sll	$zero,$zero,0x0
-/*    48f48:	00000000 */ 	sll	$zero,$zero,0x0
-/*    48f4c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48f44:	00000000 */ 	nop
+/*    48f48:	00000000 */ 	nop
+/*    48f4c:	00000000 */ 	nop
 );

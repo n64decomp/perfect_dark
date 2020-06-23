@@ -204,6 +204,6 @@ glabel func0f012d50
 /*  f012ffc:	8fbe0038 */ 	lw	$s8,0x38($sp)
 /*  f013000:	03e00008 */ 	jr	$ra
 /*  f013004:	27bd0120 */ 	addiu	$sp,$sp,0x120
-/*  f013008:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01300c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f013008:	00000000 */ 	nop
+/*  f01300c:	00000000 */ 	nop
 );

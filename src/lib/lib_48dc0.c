@@ -41,17 +41,17 @@ glabel func00048dc0
 /*    48e24:	468042a0 */ 	cvt.s.w	$f10,$f8
 /*    48e28:	3c014f80 */ 	lui	$at,0x4f80
 /*    48e2c:	44818000 */ 	mtc1	$at,$f16
-/*    48e30:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48e30:	00000000 */ 	nop
 /*    48e34:	46105280 */ 	add.s	$f10,$f10,$f16
 .L00048e38:
 /*    48e38:	460a3482 */ 	mul.s	$f18,$f6,$f10
 /*    48e3c:	240c0001 */ 	addiu	$t4,$zero,0x1
 /*    48e40:	444bf800 */ 	cfc1	$t3,$31
 /*    48e44:	44ccf800 */ 	ctc1	$t4,$31
-/*    48e48:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48e48:	00000000 */ 	nop
 /*    48e4c:	46009124 */ 	cvt.w.s	$f4,$f18
 /*    48e50:	444cf800 */ 	cfc1	$t4,$31
-/*    48e54:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48e54:	00000000 */ 	nop
 /*    48e58:	31810004 */ 	andi	$at,$t4,0x4
 /*    48e5c:	318c0078 */ 	andi	$t4,$t4,0x78
 /*    48e60:	11800013 */ 	beqz	$t4,.L00048eb0
@@ -60,26 +60,26 @@ glabel func00048dc0
 /*    48e6c:	240c0001 */ 	addiu	$t4,$zero,0x1
 /*    48e70:	46049101 */ 	sub.s	$f4,$f18,$f4
 /*    48e74:	44ccf800 */ 	ctc1	$t4,$31
-/*    48e78:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48e78:	00000000 */ 	nop
 /*    48e7c:	46002124 */ 	cvt.w.s	$f4,$f4
 /*    48e80:	444cf800 */ 	cfc1	$t4,$31
-/*    48e84:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48e84:	00000000 */ 	nop
 /*    48e88:	31810004 */ 	andi	$at,$t4,0x4
 /*    48e8c:	318c0078 */ 	andi	$t4,$t4,0x78
 /*    48e90:	15800005 */ 	bnez	$t4,.L00048ea8
-/*    48e94:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48e94:	00000000 */ 	nop
 /*    48e98:	440c2000 */ 	mfc1	$t4,$f4
 /*    48e9c:	3c018000 */ 	lui	$at,0x8000
-/*    48ea0:	10000007 */ 	beqz	$zero,.L00048ec0
+/*    48ea0:	10000007 */ 	b	.L00048ec0
 /*    48ea4:	01816025 */ 	or	$t4,$t4,$at
 .L00048ea8:
-/*    48ea8:	10000005 */ 	beqz	$zero,.L00048ec0
+/*    48ea8:	10000005 */ 	b	.L00048ec0
 /*    48eac:	240cffff */ 	addiu	$t4,$zero,-1
 .L00048eb0:
 /*    48eb0:	440c2000 */ 	mfc1	$t4,$f4
-/*    48eb4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48eb4:	00000000 */ 	nop
 /*    48eb8:	0580fffb */ 	bltz	$t4,.L00048ea8
-/*    48ebc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48ebc:	00000000 */ 	nop
 .L00048ec0:
 /*    48ec0:	44cbf800 */ 	ctc1	$t3,$31
 /*    48ec4:	318d0fff */ 	andi	$t5,$t4,0xfff
@@ -91,6 +91,6 @@ glabel func00048dc0
 /*    48edc:	8fb10018 */ 	lw	$s1,0x18($sp)
 /*    48ee0:	03e00008 */ 	jr	$ra
 /*    48ee4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    48ee8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    48eec:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48ee8:	00000000 */ 	nop
+/*    48eec:	00000000 */ 	nop
 );

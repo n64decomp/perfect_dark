@@ -15,7 +15,7 @@
 GLOBAL_ASM(
 glabel func0002fa00
 /*    2fa00:	03e00008 */ 	jr	$ra
-/*    2fa04:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fa04:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -25,17 +25,17 @@ glabel func0002fa08
 /*    2fa10:	03e00008 */ 	jr	$ra
 /*    2fa14:	2402ffff */ 	addiu	$v0,$zero,-1
 /*    2fa18:	03e00008 */ 	jr	$ra
-/*    2fa1c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fa1c:	00000000 */ 	nop
 /*    2fa20:	03e00008 */ 	jr	$ra
-/*    2fa24:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fa24:	00000000 */ 	nop
 /*    2fa28:	03e00008 */ 	jr	$ra
-/*    2fa2c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fa2c:	00000000 */ 	nop
 /*    2fa30:	03e00008 */ 	jr	$ra
-/*    2fa34:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fa34:	00000000 */ 	nop
 /*    2fa38:	03e00008 */ 	jr	$ra
-/*    2fa3c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fa3c:	00000000 */ 	nop
 /*    2fa40:	03e00008 */ 	jr	$ra
-/*    2fa44:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fa44:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -84,8 +84,8 @@ glabel func0002faa4
 /*    2fad4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    2fad8:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*    2fadc:	03e00008 */ 	jr	$ra
-/*    2fae0:	00000000 */ 	sll	$zero,$zero,0x0
-/*    2fae4:	00000000 */ 	sll	$zero,$zero,0x0
-/*    2fae8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    2faec:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fae0:	00000000 */ 	nop
+/*    2fae4:	00000000 */ 	nop
+/*    2fae8:	00000000 */ 	nop
+/*    2faec:	00000000 */ 	nop
 );

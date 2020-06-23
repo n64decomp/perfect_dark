@@ -21,14 +21,14 @@ glabel func0002fba0
 /*    2fbb0:	3c0e8006 */ 	lui	$t6,%hi(var8005f110)
 /*    2fbb4:	8dcef110 */ 	lw	$t6,%lo(var8005f110)($t6)
 /*    2fbb8:	15c0000e */ 	bnez	$t6,.L0002fbf4
-/*    2fbbc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fbbc:	00000000 */ 	nop
 /*    2fbc0:	8faf0018 */ 	lw	$t7,0x18($sp)
 /*    2fbc4:	3c018006 */ 	lui	$at,%hi(var8005f110)
 /*    2fbc8:	ac2ff110 */ 	sw	$t7,%lo(var8005f110)($at)
 /*    2fbcc:	3c188006 */ 	lui	$t8,%hi(var8005f114)
 /*    2fbd0:	8f18f114 */ 	lw	$t8,%lo(var8005f114)($t8)
 /*    2fbd4:	17000007 */ 	bnez	$t8,.L0002fbf4
-/*    2fbd8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fbd8:	00000000 */ 	nop
 /*    2fbdc:	3c198006 */ 	lui	$t9,%hi(var8005f110)
 /*    2fbe0:	8f39f110 */ 	lw	$t9,%lo(var8005f110)($t9)
 /*    2fbe4:	3c018006 */ 	lui	$at,%hi(var8005f114)
@@ -36,13 +36,13 @@ glabel func0002fba0
 /*    2fbec:	0c00c338 */ 	jal	func00030ce0
 /*    2fbf0:	8fa4001c */ 	lw	$a0,0x1c($sp)
 .L0002fbf4:
-/*    2fbf4:	10000001 */ 	beqz	$zero,.L0002fbfc
-/*    2fbf8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fbf4:	10000001 */ 	b	.L0002fbfc
+/*    2fbf8:	00000000 */ 	nop
 .L0002fbfc:
 /*    2fbfc:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    2fc00:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    2fc04:	03e00008 */ 	jr	$ra
-/*    2fc08:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fc08:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -53,21 +53,21 @@ glabel func0002fc0c
 /*    2fc18:	3c0e8006 */ 	lui	$t6,%hi(var8005f110)
 /*    2fc1c:	8dcef110 */ 	lw	$t6,%lo(var8005f110)($t6)
 /*    2fc20:	11c00007 */ 	beqz	$t6,.L0002fc40
-/*    2fc24:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fc24:	00000000 */ 	nop
 /*    2fc28:	0c00e7f0 */ 	jal	func00039fc0
-/*    2fc2c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fc2c:	00000000 */ 	nop
 /*    2fc30:	3c018006 */ 	lui	$at,%hi(var8005f110)
 /*    2fc34:	ac20f110 */ 	sw	$zero,%lo(var8005f110)($at)
 /*    2fc38:	3c018006 */ 	lui	$at,%hi(var8005f114)
 /*    2fc3c:	ac20f114 */ 	sw	$zero,%lo(var8005f114)($at)
 .L0002fc40:
-/*    2fc40:	10000001 */ 	beqz	$zero,.L0002fc48
-/*    2fc44:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fc40:	10000001 */ 	b	.L0002fc48
+/*    2fc44:	00000000 */ 	nop
 .L0002fc48:
 /*    2fc48:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    2fc4c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    2fc50:	03e00008 */ 	jr	$ra
-/*    2fc54:	00000000 */ 	sll	$zero,$zero,0x0
-/*    2fc58:	00000000 */ 	sll	$zero,$zero,0x0
-/*    2fc5c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    2fc54:	00000000 */ 	nop
+/*    2fc58:	00000000 */ 	nop
+/*    2fc5c:	00000000 */ 	nop
 );

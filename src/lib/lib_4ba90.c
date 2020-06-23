@@ -52,21 +52,21 @@ glabel __osPfsGetStatus
 /*    4bb18:	10600005 */ 	beqz	$v1,.L0004bb30
 /*    4bb1c:	304f0002 */ 	andi	$t7,$v0,0x2
 /*    4bb20:	11e00003 */ 	beqz	$t7,.L0004bb30
-/*    4bb24:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4bb28:	1000000b */ 	beqz	$zero,.L0004bb58
+/*    4bb24:	00000000 */ 	nop
+/*    4bb28:	1000000b */ 	b	.L0004bb58
 /*    4bb2c:	24020002 */ 	addiu	$v0,$zero,0x2
 .L0004bb30:
 /*    4bb30:	17000003 */ 	bnez	$t8,.L0004bb40
-/*    4bb34:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4bb34:	00000000 */ 	nop
 /*    4bb38:	14600003 */ 	bnez	$v1,.L0004bb48
 /*    4bb3c:	30590004 */ 	andi	$t9,$v0,0x4
 .L0004bb40:
-/*    4bb40:	10000005 */ 	beqz	$zero,.L0004bb58
+/*    4bb40:	10000005 */ 	b	.L0004bb58
 /*    4bb44:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0004bb48:
 /*    4bb48:	13200003 */ 	beqz	$t9,.L0004bb58
 /*    4bb4c:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*    4bb50:	10000001 */ 	beqz	$zero,.L0004bb58
+/*    4bb50:	10000001 */ 	b	.L0004bb58
 /*    4bb54:	24020004 */ 	addiu	$v0,$zero,0x4
 .L0004bb58:
 /*    4bb58:	03e00008 */ 	jr	$ra
@@ -173,7 +173,7 @@ glabel __osPfsGetOneChannelData
 .L0004bcb4:
 /*    4bcb4:	03e00008 */ 	jr	$ra
 /*    4bcb8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    4bcbc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4bcbc:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -200,26 +200,26 @@ glabel osEepromWrite
 /*    4bd0c:	3401c000 */ 	dli	$at,0xc000
 /*    4bd10:	11e10008 */ 	beq	$t7,$at,.L0004bd34
 /*    4bd14:	93b9004f */ 	lbu	$t9,0x4f($sp)
-/*    4bd18:	1000000b */ 	beqz	$zero,.L0004bd48
+/*    4bd18:	1000000b */ 	b	.L0004bd48
 /*    4bd1c:	24030008 */ 	addiu	$v1,$zero,0x8
 .L0004bd20:
 /*    4bd20:	2b010040 */ 	slti	$at,$t8,0x40
 /*    4bd24:	14200008 */ 	bnez	$at,.L0004bd48
-/*    4bd28:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4bd2c:	10000006 */ 	beqz	$zero,.L0004bd48
+/*    4bd28:	00000000 */ 	nop
+/*    4bd2c:	10000006 */ 	b	.L0004bd48
 /*    4bd30:	2403ffff */ 	addiu	$v1,$zero,-1
 .L0004bd34:
 /*    4bd34:	2b210100 */ 	slti	$at,$t9,0x100
 /*    4bd38:	14200003 */ 	bnez	$at,.L0004bd48
-/*    4bd3c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4bd40:	10000001 */ 	beqz	$zero,.L0004bd48
+/*    4bd3c:	00000000 */ 	nop
+/*    4bd40:	10000001 */ 	b	.L0004bd48
 /*    4bd44:	2403ffff */ 	addiu	$v1,$zero,-1
 .L0004bd48:
 /*    4bd48:	10600005 */ 	beqz	$v1,.L0004bd60
 /*    4bd4c:	93a8002e */ 	lbu	$t0,0x2e($sp)
 /*    4bd50:	0c012a29 */ 	jal	__osSiRelAccess
 /*    4bd54:	afa30044 */ 	sw	$v1,0x44($sp)
-/*    4bd58:	10000032 */ 	beqz	$zero,.L0004be24
+/*    4bd58:	10000032 */ 	b	.L0004be24
 /*    4bd5c:	8fa20044 */ 	lw	$v0,0x44($sp)
 .L0004bd60:
 /*    4bd60:	31090080 */ 	andi	$t1,$t0,0x80
@@ -404,7 +404,7 @@ glabel __osEepStatus
 /*    4bff4:	2442ca81 */ 	addiu	$v0,$v0,%lo(var8009ca80+0x1)
 /*    4bff8:	10600003 */ 	beqz	$v1,.L0004c008
 /*    4bffc:	3c01800a */ 	lui	$at,%hi(var8009ca80)
-/*    4c000:	1000001e */ 	beqz	$zero,.L0004c07c
+/*    4c000:	1000001e */ 	b	.L0004c07c
 /*    4c004:	00601025 */ 	or	$v0,$v1,$zero
 .L0004c008:
 /*    4c008:	a020ca80 */ 	sb	$zero,%lo(var8009ca80)($at)
@@ -434,12 +434,12 @@ glabel __osEepStatus
 /*    4c068:	93a90022 */ 	lbu	$t1,0x22($sp)
 /*    4c06c:	10600003 */ 	beqz	$v1,.L0004c07c
 /*    4c070:	a0890002 */ 	sb	$t1,0x2($a0)
-/*    4c074:	10000001 */ 	beqz	$zero,.L0004c07c
+/*    4c074:	10000001 */ 	b	.L0004c07c
 /*    4c078:	00601025 */ 	or	$v0,$v1,$zero
 .L0004c07c:
 /*    4c07c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4c080:	27bd0030 */ 	addiu	$sp,$sp,0x30
 /*    4c084:	03e00008 */ 	jr	$ra
-/*    4c088:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4c08c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4c088:	00000000 */ 	nop
+/*    4c08c:	00000000 */ 	nop
 );

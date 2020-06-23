@@ -54,21 +54,21 @@ glabel sparksTick
 /*  f01e0e0:	94990010 */ 	lhu	$t9,0x10($a0)
 /*  f01e0e4:	00b9082a */ 	slt	$at,$a1,$t9
 /*  f01e0e8:	14200003 */ 	bnez	$at,.L0f01e0f8
-/*  f01e0ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01e0f0:	1000004c */ 	beqz	$zero,.L0f01e224
+/*  f01e0ec:	00000000 */ 	nop
+/*  f01e0f0:	1000004c */ 	b	.L0f01e224
 /*  f01e0f4:	ac400008 */ 	sw	$zero,0x8($v0)
 .L0f01e0f8:
 /*  f01e0f8:	10a0004a */ 	beqz	$a1,.L0f01e224
-/*  f01e0fc:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01e0fc:	00000000 */ 	nop
 /*  f01e100:	8d6e0000 */ 	lw	$t6,0x0($t3)
 /*  f01e104:	00002825 */ 	or	$a1,$zero,$zero
 /*  f01e108:	8ea60038 */ 	lw	$a2,0x38($s5)
 /*  f01e10c:	15c00002 */ 	bnez	$t6,.L0f01e118
-/*  f01e110:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01e110:	00000000 */ 	nop
 /*  f01e114:	ad710000 */ 	sw	$s1,0x0($t3)
 .L0f01e118:
 /*  f01e118:	18c00042 */ 	blez	$a2,.L0f01e224
-/*  f01e11c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01e11c:	00000000 */ 	nop
 /*  f01e120:	8c4a0004 */ 	lw	$t2,0x4($v0)
 /*  f01e124:	8c46000c */ 	lw	$a2,0xc($v0)
 .L0f01e128:
@@ -86,7 +86,7 @@ glabel sparksTick
 /*  f01e150:	25290001 */ 	addiu	$t1,$t1,0x1
 /*  f01e154:	2508001c */ 	addiu	$t0,$t0,0x1c
 /*  f01e158:	11c00026 */ 	beqz	$t6,.L0f01e1f4
-/*  f01e15c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01e15c:	00000000 */ 	nop
 /*  f01e160:	c4e0000c */ 	lwc1	$f0,0xc($a3)
 /*  f01e164:	c4840024 */ 	lwc1	$f4,0x24($a0)
 /*  f01e168:	c4e20010 */ 	lwc1	$f2,0x10($a3)
@@ -128,7 +128,7 @@ glabel sparksTick
 .L0f01e1f4:
 /*  f01e1f4:	15140003 */ 	bne	$t0,$s4,.L0f01e204
 /*  f01e1f8:	012a082a */ 	slt	$at,$t1,$t2
-/*  f01e1fc:	10000002 */ 	beqz	$zero,.L0f01e208
+/*  f01e1fc:	10000002 */ 	b	.L0f01e208
 /*  f01e200:	02403825 */ 	or	$a3,$s2,$zero
 .L0f01e204:
 /*  f01e204:	24e7001c */ 	addiu	$a3,$a3,0x1c
@@ -153,7 +153,7 @@ glabel sparksTick
 /*  f01e240:	8fb5001c */ 	lw	$s5,0x1c($sp)
 /*  f01e244:	03e00008 */ 	jr	$ra
 /*  f01e248:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f01e24c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01e24c:	00000000 */ 	nop
 );
 
 // Mismatch due to regalloc near group->startindex

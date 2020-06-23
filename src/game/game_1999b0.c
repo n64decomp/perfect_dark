@@ -203,17 +203,17 @@ glabel aibotGiveAmmoByWeapon
 /*  f199ec8:	8c6c0000 */ 	lw	$t4,0x0($v1)
 /*  f199ecc:	004c082a */ 	slt	$at,$v0,$t4
 /*  f199ed0:	10200002 */ 	beqz	$at,.L0f199edc
-/*  f199ed4:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f199ed4:	00000000 */ 	nop
 /*  f199ed8:	ac620000 */ 	sw	$v0,0x0($v1)
 .L0f199edc:
 /*  f199edc:	0fc47bba */ 	jal	dprint
-/*  f199ee0:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f199ee0:	00000000 */ 	nop
 .L0f199ee4:
 /*  f199ee4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f199ee8:
 /*  f199ee8:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*  f199eec:	03e00008 */ 	jr	$ra
-/*  f199ef0:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f199ef0:	00000000 */ 	nop
 );
 
 // Mismatches because the target saves the heldquantity pointer to the stack
@@ -266,17 +266,17 @@ glabel aibotGiveAmmoByType
 /*  f199f58:	8c6a0000 */ 	lw	$t2,0x0($v1)
 /*  f199f5c:	004a082a */ 	slt	$at,$v0,$t2
 /*  f199f60:	10200002 */ 	beqz	$at,.L0f199f6c
-/*  f199f64:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f199f64:	00000000 */ 	nop
 /*  f199f68:	ac620000 */ 	sw	$v0,0x0($v1)
 .L0f199f6c:
 /*  f199f6c:	0fc47bba */ 	jal	dprint
-/*  f199f70:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f199f70:	00000000 */ 	nop
 .L0f199f74:
 /*  f199f74:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f199f78:
 /*  f199f78:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*  f199f7c:	03e00008 */ 	jr	$ra
-/*  f199f80:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f199f80:	00000000 */ 	nop
 );
 
 // Mismatches because the target saves the heldquantity pointer to the stack

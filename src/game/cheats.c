@@ -274,11 +274,11 @@ glabel cheatMenuHandleCheatCheckbox
 /*  f1076fc:	004e7804 */ 	sllv	$t7,$t6,$v0
 /*  f107700:	01f8c824 */ 	and	$t9,$t7,$t8
 /*  f107704:	13200003 */ 	beqz	$t9,.L0f107714
-/*  f107708:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10770c:	10000045 */ 	beqz	$zero,.L0f107824
+/*  f107708:	00000000 */ 	nop
+/*  f10770c:	10000045 */ 	b	.L0f107824
 /*  f107710:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f107714:
-/*  f107714:	10000043 */ 	beqz	$zero,.L0f107824
+/*  f107714:	10000043 */ 	b	.L0f107824
 /*  f107718:	00001025 */ 	or	$v0,$zero,$zero
 .L0f10771c:
 /*  f10771c:	8cca0000 */ 	lw	$t2,0x0($a2)
@@ -286,11 +286,11 @@ glabel cheatMenuHandleCheatCheckbox
 /*  f107724:	00484804 */ 	sllv	$t1,$t0,$v0
 /*  f107728:	012a5824 */ 	and	$t3,$t1,$t2
 /*  f10772c:	11600003 */ 	beqz	$t3,.L0f10773c
-/*  f107730:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f107734:	1000003b */ 	beqz	$zero,.L0f107824
+/*  f107730:	00000000 */ 	nop
+/*  f107734:	1000003b */ 	b	.L0f107824
 /*  f107738:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f10773c:
-/*  f10773c:	10000039 */ 	beqz	$zero,.L0f107824
+/*  f10773c:	10000039 */ 	b	.L0f107824
 /*  f107740:	00001025 */ 	or	$v0,$zero,$zero
 .L0f107744:
 /*  f107744:	90c40001 */ 	lbu	$a0,0x1($a2)
@@ -303,7 +303,7 @@ glabel cheatMenuHandleCheatCheckbox
 /*  f107760:	24a521d8 */ 	addiu	$a1,$a1,%lo(g_CheatsEnabledBank0)
 /*  f107764:	28410020 */ 	slti	$at,$v0,0x20
 /*  f107768:	1020001f */ 	beqz	$at,.L0f1077e8
-/*  f10776c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f10776c:	00000000 */ 	nop
 /*  f107770:	8ca30000 */ 	lw	$v1,0x0($a1)
 /*  f107774:	240c0001 */ 	addiu	$t4,$zero,0x1
 /*  f107778:	004c2004 */ 	sllv	$a0,$t4,$v0
@@ -312,7 +312,7 @@ glabel cheatMenuHandleCheatCheckbox
 /*  f107784:	24010014 */ 	addiu	$at,$zero,0x14
 /*  f107788:	00807027 */ 	nor	$t6,$a0,$zero
 /*  f10778c:	01c37824 */ 	and	$t7,$t6,$v1
-/*  f107790:	10000023 */ 	beqz	$zero,.L0f107820
+/*  f107790:	10000023 */ 	b	.L0f107820
 /*  f107794:	acaf0000 */ 	sw	$t7,0x0($a1)
 .L0f107798:
 /*  f107798:	14410007 */ 	bne	$v0,$at,.L0f1077b8
@@ -335,7 +335,7 @@ glabel cheatMenuHandleCheatCheckbox
 .L0f1077d8:
 /*  f1077d8:	00484804 */ 	sllv	$t1,$t0,$v0
 /*  f1077dc:	01235025 */ 	or	$t2,$t1,$v1
-/*  f1077e0:	1000000f */ 	beqz	$zero,.L0f107820
+/*  f1077e0:	1000000f */ 	b	.L0f107820
 /*  f1077e4:	acaa0000 */ 	sw	$t2,0x0($a1)
 .L0f1077e8:
 /*  f1077e8:	3c06800a */ 	lui	$a2,%hi(g_CheatsEnabledBank1)
@@ -348,7 +348,7 @@ glabel cheatMenuHandleCheatCheckbox
 /*  f107804:	00802825 */ 	or	$a1,$a0,$zero
 /*  f107808:	00806827 */ 	nor	$t5,$a0,$zero
 /*  f10780c:	01a37024 */ 	and	$t6,$t5,$v1
-/*  f107810:	10000003 */ 	beqz	$zero,.L0f107820
+/*  f107810:	10000003 */ 	b	.L0f107820
 /*  f107814:	acce0000 */ 	sw	$t6,0x0($a2)
 .L0f107818:
 /*  f107818:	00a37825 */ 	or	$t7,$a1,$v1
@@ -359,7 +359,7 @@ glabel cheatMenuHandleCheatCheckbox
 /*  f107824:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f107828:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f10782c:	03e00008 */ 	jr	$ra
-/*  f107830:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f107830:	00000000 */ 	nop
 );
 
 // Mismatch due to different registers in case 6 (v1/a0)
@@ -470,11 +470,11 @@ glabel cheatMenuHandleDialog
 /*  f1079a4:	14810023 */ 	bne	$a0,$at,.L0f107a34
 /*  f1079a8:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f1079ac:	0fc5294b */ 	jal	func0f14a52c
-/*  f1079b0:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1079b0:	00000000 */ 	nop
 /*  f1079b4:	0fc479e3 */ 	jal	func0f11e78c
-/*  f1079b8:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1079b8:	00000000 */ 	nop
 /*  f1079bc:	10400003 */ 	beqz	$v0,.L0f1079cc
-/*  f1079c0:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1079c0:	00000000 */ 	nop
 /*  f1079c4:	0fc43c4f */ 	jal	savefileSetFlag
 /*  f1079c8:	24040023 */ 	addiu	$a0,$zero,0x23
 .L0f1079cc:
@@ -513,20 +513,20 @@ glabel cheatMenuHandleDialog
 /*  f107a3c:	5721000a */ 	bnel	$t9,$at,.L0f107a68
 /*  f107a40:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f107a44:	0fc479e3 */ 	jal	func0f11e78c
-/*  f107a48:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f107a48:	00000000 */ 	nop
 /*  f107a4c:	10400003 */ 	beqz	$v0,.L0f107a5c
-/*  f107a50:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f107a50:	00000000 */ 	nop
 /*  f107a54:	0fc43c4f */ 	jal	savefileSetFlag
 /*  f107a58:	24040023 */ 	addiu	$a0,$zero,0x23
 .L0f107a5c:
 /*  f107a5c:	0fc52958 */ 	jal	func0f14a560
-/*  f107a60:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f107a60:	00000000 */ 	nop
 /*  f107a64:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f107a68:
 /*  f107a68:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f107a6c:	00001025 */ 	or	$v0,$zero,$zero
 /*  f107a70:	03e00008 */ 	jr	$ra
-/*  f107a74:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f107a74:	00000000 */ 	nop
 );
 
 // Mismatch because it optimises the `end = &ptr[4]` line.

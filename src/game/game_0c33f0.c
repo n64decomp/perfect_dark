@@ -150,7 +150,7 @@ glabel func0f0c33f0
 /*  f0c3608:	14a0ff7d */ 	bnez	$a1,.L0f0c3400
 /*  f0c360c:	24840040 */ 	addiu	$a0,$a0,0x40
 /*  f0c3610:	03e00008 */ 	jr	$ra
-/*  f0c3614:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c3618:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c361c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f0c3614:	00000000 */ 	nop
+/*  f0c3618:	00000000 */ 	nop
+/*  f0c361c:	00000000 */ 	nop
 );

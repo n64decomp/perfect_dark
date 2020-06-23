@@ -46,27 +46,27 @@ glabel padUnpack
 /*  f115b1c:	13000017 */ 	beqz	$t8,.L0f115b7c
 /*  f115b20:	01e01025 */ 	or	$v0,$t7,$zero
 /*  f115b24:	13200013 */ 	beqz	$t9,.L0f115b74
-/*  f115b28:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115b28:	00000000 */ 	nop
 /*  f115b2c:	84680000 */ 	lh	$t0,0x0($v1)
 /*  f115b30:	44882000 */ 	mtc1	$t0,$f4
-/*  f115b34:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115b34:	00000000 */ 	nop
 /*  f115b38:	468021a0 */ 	cvt.s.w	$f6,$f4
 /*  f115b3c:	e4c60000 */ 	swc1	$f6,0x0($a2)
 /*  f115b40:	84690002 */ 	lh	$t1,0x2($v1)
 /*  f115b44:	44894000 */ 	mtc1	$t1,$f8
-/*  f115b48:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115b48:	00000000 */ 	nop
 /*  f115b4c:	468042a0 */ 	cvt.s.w	$f10,$f8
 /*  f115b50:	e4ca0004 */ 	swc1	$f10,0x4($a2)
 /*  f115b54:	846a0004 */ 	lh	$t2,0x4($v1)
 /*  f115b58:	448a2000 */ 	mtc1	$t2,$f4
-/*  f115b5c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115b5c:	00000000 */ 	nop
 /*  f115b60:	468021a0 */ 	cvt.s.w	$f6,$f4
 /*  f115b64:	e4c60008 */ 	swc1	$f6,0x8($a2)
 /*  f115b68:	8ca20000 */ 	lw	$v0,0x0($a1)
 /*  f115b6c:	00025b82 */ 	srl	$t3,$v0,0xe
 /*  f115b70:	01601025 */ 	or	$v0,$t3,$zero
 .L0f115b74:
-/*  f115b74:	1000000d */ 	beqz	$zero,.L0f115bac
+/*  f115b74:	1000000d */ 	b	.L0f115bac
 /*  f115b78:	24630008 */ 	addiu	$v1,$v1,0x8
 .L0f115b7c:
 /*  f115b7c:	5180000b */ 	beqzl	$t4,.L0f115bac
@@ -96,11 +96,11 @@ glabel padUnpack
 /*  f115bd8:	3c013f80 */ 	lui	$at,0x3f80
 /*  f115bdc:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f115be0:	44813000 */ 	mtc1	$at,$f6
-/*  f115be4:	10000004 */ 	beqz	$zero,.L0f115bf8
+/*  f115be4:	10000004 */ 	b	.L0f115bf8
 /*  f115be8:	e4c60018 */ 	swc1	$f6,0x18($a2)
 .L0f115bec:
 /*  f115bec:	44814000 */ 	mtc1	$at,$f8
-/*  f115bf0:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115bf0:	00000000 */ 	nop
 /*  f115bf4:	e4c80018 */ 	swc1	$f8,0x18($a2)
 .L0f115bf8:
 /*  f115bf8:	e4c0001c */ 	swc1	$f0,0x1c($a2)
@@ -108,7 +108,7 @@ glabel padUnpack
 /*  f115c00:	8ca20000 */ 	lw	$v0,0x0($a1)
 /*  f115c04:	44800000 */ 	mtc1	$zero,$f0
 /*  f115c08:	00024382 */ 	srl	$t0,$v0,0xe
-/*  f115c0c:	1000003f */ 	beqz	$zero,.L0f115d0c
+/*  f115c0c:	1000003f */ 	b	.L0f115d0c
 /*  f115c10:	01001025 */ 	or	$v0,$t0,$zero
 .L0f115c14:
 /*  f115c14:	51200017 */ 	beqzl	$t1,.L0f115c74
@@ -123,18 +123,18 @@ glabel padUnpack
 /*  f115c38:	44812000 */ 	mtc1	$at,$f4
 /*  f115c3c:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f115c40:	44815000 */ 	mtc1	$at,$f10
-/*  f115c44:	10000004 */ 	beqz	$zero,.L0f115c58
+/*  f115c44:	10000004 */ 	b	.L0f115c58
 /*  f115c48:	e4ca001c */ 	swc1	$f10,0x1c($a2)
 /*  f115c4c:	44812000 */ 	mtc1	$at,$f4
 .L0f115c50:
-/*  f115c50:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115c50:	00000000 */ 	nop
 /*  f115c54:	e4c4001c */ 	swc1	$f4,0x1c($a2)
 .L0f115c58:
 /*  f115c58:	e4c00020 */ 	swc1	$f0,0x20($a2)
 /*  f115c5c:	8ca20000 */ 	lw	$v0,0x0($a1)
 /*  f115c60:	44800000 */ 	mtc1	$zero,$f0
 /*  f115c64:	00026b82 */ 	srl	$t5,$v0,0xe
-/*  f115c68:	10000028 */ 	beqz	$zero,.L0f115d0c
+/*  f115c68:	10000028 */ 	b	.L0f115d0c
 /*  f115c6c:	01a01025 */ 	or	$v0,$t5,$zero
 /*  f115c70:	44800000 */ 	mtc1	$zero,$f0
 .L0f115c74:
@@ -152,18 +152,18 @@ glabel padUnpack
 /*  f115ca0:	e4c60020 */ 	swc1	$f6,0x20($a2)
 /*  f115ca4:	8ca20000 */ 	lw	$v0,0x0($a1)
 /*  f115ca8:	0002cb82 */ 	srl	$t9,$v0,0xe
-/*  f115cac:	10000017 */ 	beqz	$zero,.L0f115d0c
+/*  f115cac:	10000017 */ 	b	.L0f115d0c
 /*  f115cb0:	03201025 */ 	or	$v0,$t9,$zero
 /*  f115cb4:	44814000 */ 	mtc1	$at,$f8
 .L0f115cb8:
-/*  f115cb8:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115cb8:	00000000 */ 	nop
 /*  f115cbc:	e4c80020 */ 	swc1	$f8,0x20($a2)
 /*  f115cc0:	8ca20000 */ 	lw	$v0,0x0($a1)
 /*  f115cc4:	00024382 */ 	srl	$t0,$v0,0xe
 /*  f115cc8:	01001025 */ 	or	$v0,$t0,$zero
 .L0f115ccc:
 /*  f115ccc:	44800000 */ 	mtc1	$zero,$f0
-/*  f115cd0:	1000000f */ 	beqz	$zero,.L0f115d10
+/*  f115cd0:	1000000f */ 	b	.L0f115d10
 /*  f115cd4:	304b00e0 */ 	andi	$t3,$v0,0xe0
 .L0f115cd8:
 /*  f115cd8:	5120000b */ 	beqzl	$t1,.L0f115d08
@@ -195,15 +195,15 @@ glabel padUnpack
 /*  f115d34:	3c013f80 */ 	lui	$at,0x3f80
 /*  f115d38:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f115d3c:	44814000 */ 	mtc1	$at,$f8
-/*  f115d40:	10000004 */ 	beqz	$zero,.L0f115d54
+/*  f115d40:	10000004 */ 	b	.L0f115d54
 /*  f115d44:	e4c8000c */ 	swc1	$f8,0xc($a2)
 .L0f115d48:
 /*  f115d48:	44815000 */ 	mtc1	$at,$f10
-/*  f115d4c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115d4c:	00000000 */ 	nop
 /*  f115d50:	e4ca000c */ 	swc1	$f10,0xc($a2)
 .L0f115d54:
 /*  f115d54:	e4c00010 */ 	swc1	$f0,0x10($a2)
-/*  f115d58:	1000002b */ 	beqz	$zero,.L0f115e08
+/*  f115d58:	1000002b */ 	b	.L0f115e08
 /*  f115d5c:	e4c00014 */ 	swc1	$f0,0x14($a2)
 .L0f115d60:
 /*  f115d60:	51e00012 */ 	beqzl	$t7,.L0f115dac
@@ -217,14 +217,14 @@ glabel padUnpack
 /*  f115d80:	44813000 */ 	mtc1	$at,$f6
 /*  f115d84:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f115d88:	44812000 */ 	mtc1	$at,$f4
-/*  f115d8c:	10000004 */ 	beqz	$zero,.L0f115da0
+/*  f115d8c:	10000004 */ 	b	.L0f115da0
 /*  f115d90:	e4c40010 */ 	swc1	$f4,0x10($a2)
 /*  f115d94:	44813000 */ 	mtc1	$at,$f6
 .L0f115d98:
-/*  f115d98:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115d98:	00000000 */ 	nop
 /*  f115d9c:	e4c60010 */ 	swc1	$f6,0x10($a2)
 .L0f115da0:
-/*  f115da0:	10000019 */ 	beqz	$zero,.L0f115e08
+/*  f115da0:	10000019 */ 	b	.L0f115e08
 /*  f115da4:	e4c00014 */ 	swc1	$f0,0x14($a2)
 /*  f115da8:	e4c0000c */ 	swc1	$f0,0xc($a2)
 .L0f115dac:
@@ -237,11 +237,11 @@ glabel padUnpack
 /*  f115dc4:	44815000 */ 	mtc1	$at,$f10
 /*  f115dc8:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f115dcc:	44814000 */ 	mtc1	$at,$f8
-/*  f115dd0:	1000000d */ 	beqz	$zero,.L0f115e08
+/*  f115dd0:	1000000d */ 	b	.L0f115e08
 /*  f115dd4:	e4c80014 */ 	swc1	$f8,0x14($a2)
 /*  f115dd8:	44815000 */ 	mtc1	$at,$f10
 .L0f115ddc:
-/*  f115ddc:	1000000a */ 	beqz	$zero,.L0f115e08
+/*  f115ddc:	1000000a */ 	b	.L0f115e08
 /*  f115de0:	e4ca0014 */ 	swc1	$f10,0x14($a2)
 .L0f115de4:
 /*  f115de4:	51800008 */ 	beqzl	$t4,.L0f115e08
@@ -267,7 +267,7 @@ glabel padUnpack
 /*  f115e30:	460e6102 */ 	mul.s	$f4,$f12,$f14
 /*  f115e34:	46045181 */ 	sub.s	$f6,$f10,$f4
 /*  f115e38:	46107202 */ 	mul.s	$f8,$f14,$f16
-/*  f115e3c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115e3c:	00000000 */ 	nop
 /*  f115e40:	46121282 */ 	mul.s	$f10,$f2,$f18
 /*  f115e44:	e4c60024 */ 	swc1	$f6,0x24($a2)
 /*  f115e48:	460c9182 */ 	mul.s	$f6,$f18,$f12
@@ -283,9 +283,9 @@ glabel padUnpack
 /*  f115e6c:	000e7b82 */ 	srl	$t7,$t6,0xe
 /*  f115e70:	31f80200 */ 	andi	$t8,$t7,0x200
 /*  f115e74:	13000010 */ 	beqz	$t8,.L0f115eb8
-/*  f115e78:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115e78:	00000000 */ 	nop
 /*  f115e7c:	13200019 */ 	beqz	$t9,.L0f115ee4
-/*  f115e80:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115e80:	00000000 */ 	nop
 /*  f115e84:	c4640000 */ 	lwc1	$f4,0x0($v1)
 /*  f115e88:	e4c40030 */ 	swc1	$f4,0x30($a2)
 /*  f115e8c:	c4660004 */ 	lwc1	$f6,0x4($v1)
@@ -297,7 +297,7 @@ glabel padUnpack
 /*  f115ea4:	c4640010 */ 	lwc1	$f4,0x10($v1)
 /*  f115ea8:	e4c40040 */ 	swc1	$f4,0x40($a2)
 /*  f115eac:	c4660014 */ 	lwc1	$f6,0x14($v1)
-/*  f115eb0:	1000000c */ 	beqz	$zero,.L0f115ee4
+/*  f115eb0:	1000000c */ 	b	.L0f115ee4
 /*  f115eb4:	e4c60044 */ 	swc1	$f6,0x44($a2)
 .L0f115eb8:
 /*  f115eb8:	1100000a */ 	beqz	$t0,.L0f115ee4
@@ -313,13 +313,13 @@ glabel padUnpack
 /*  f115ee0:	e4c20044 */ 	swc1	$f2,0x44($a2)
 .L0f115ee4:
 /*  f115ee4:	11200004 */ 	beqz	$t1,.L0f115ef8
-/*  f115ee8:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115ee8:	00000000 */ 	nop
 /*  f115eec:	8caa0000 */ 	lw	$t2,0x0($a1)
 /*  f115ef0:	000a5b82 */ 	srl	$t3,$t2,0xe
 /*  f115ef4:	accb004c */ 	sw	$t3,0x4c($a2)
 .L0f115ef8:
 /*  f115ef8:	03e00008 */ 	jr	$ra
-/*  f115efc:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f115efc:	00000000 */ 	nop
 );
 
 // Mismatch because the ROM moves `fields` from a1 to a3 then uses a1 for other
@@ -526,7 +526,7 @@ glabel padGetCentre
 /*  f116058:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f11605c:	27bd0070 */ 	addiu	$sp,$sp,0x70
 /*  f116060:	03e00008 */ 	jr	$ra
-/*  f116064:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f116064:	00000000 */ 	nop
 );
 
 //void padGetCentre(s32 padnum, struct coord *coord)
@@ -568,7 +568,7 @@ glabel func0f116068
 /*  f1160a0:	30680001 */ 	andi	$t0,$v1,0x1
 /*  f1160a4:	11000003 */ 	beqz	$t0,.L0f1160b4
 /*  f1160a8:	3069000e */ 	andi	$t1,$v1,0xe
-/*  f1160ac:	10000002 */ 	beqz	$zero,.L0f1160b8
+/*  f1160ac:	10000002 */ 	b	.L0f1160b8
 /*  f1160b0:	24420008 */ 	addiu	$v0,$v0,0x8
 .L0f1160b4:
 /*  f1160b4:	2442000c */ 	addiu	$v0,$v0,0xc
@@ -596,7 +596,7 @@ glabel func0f116068
 /*  f116108:	8fa20028 */ 	lw	$v0,0x28($sp)
 /*  f11610c:	2442000c */ 	addiu	$v0,$v0,0xc
 /*  f116110:	46028482 */ 	mul.s	$f18,$f16,$f2
-/*  f116114:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f116114:	00000000 */ 	nop
 /*  f116118:	46022182 */ 	mul.s	$f6,$f4,$f2
 /*  f11611c:	e4920000 */ 	swc1	$f18,0x0($a0)
 /*  f116120:	e4860008 */ 	swc1	$f6,0x8($a0)
@@ -616,7 +616,7 @@ glabel func0f116068
 /*  f116154:	0018cb80 */ 	sll	$t9,$t8,0xe
 /*  f116158:	acee0000 */ 	sw	$t6,0x0($a3)
 /*  f11615c:	032e4026 */ 	xor	$t0,$t9,$t6
-/*  f116160:	10000007 */ 	beqz	$zero,.L0f116180
+/*  f116160:	10000007 */ 	b	.L0f116180
 /*  f116164:	ace80000 */ 	sw	$t0,0x0($a3)
 .L0f116168:
 /*  f116168:	44800000 */ 	mtc1	$zero,$f0
@@ -629,7 +629,7 @@ glabel func0f116068
 /*  f116180:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f116184:	27bd0030 */ 	addiu	$sp,$sp,0x30
 /*  f116188:	03e00008 */ 	jr	$ra
-/*  f11618c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f11618c:	00000000 */ 	nop
 );
 
 void padCopyBboxFromPad(s32 padnum, struct pad *src)
@@ -698,7 +698,7 @@ glabel coverLoad
 /*  f1162ec:	8dcf0004 */ 	lw	$t7,0x4($t6)
 /*  f1162f0:	008f082a */ 	slt	$at,$a0,$t7
 /*  f1162f4:	10200008 */ 	beqz	$at,.L0f116318
-/*  f1162f8:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1162f8:	00000000 */ 	nop
 /*  f1162fc:	04800006 */ 	bltz	$a0,.L0f116318
 /*  f116300:	3c03800a */ 	lui	$v1,%hi(g_StageSetup+0x8)
 /*  f116304:	8c63d038 */ 	lw	$v1,%lo(g_StageSetup+0x8)($v1)
@@ -738,7 +738,7 @@ glabel coverLoad
 /*  f116384:	a4ce000a */ 	sh	$t6,0xa($a2)
 /*  f116388:	a4cd0008 */ 	sh	$t5,0x8($a2)
 /*  f11638c:	03e00008 */ 	jr	$ra
-/*  f116390:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f116390:	00000000 */ 	nop
 );
 
 // Mismatch because it swaps the addu arguments when calculating def

@@ -1075,7 +1075,7 @@ glabel currentPlayerCalculateAiBuddyNums
 /*  f128844:	00001825 */ 	or	$v1,$zero,$zero
 /*  f128848:	11c00003 */ 	beqz	$t6,.L0f128858
 /*  f12884c:	3c09800b */ 	lui	$t1,%hi(g_MpNumPlayers)
-/*  f128850:	10000001 */ 	beqz	$zero,.L0f128858
+/*  f128850:	10000001 */ 	b	.L0f128858
 /*  f128854:	24030001 */ 	addiu	$v1,$zero,0x1
 .L0f128858:
 /*  f128858:	8d4f0068 */ 	lw	$t7,0x68($t2)
@@ -1083,21 +1083,21 @@ glabel currentPlayerCalculateAiBuddyNums
 /*  f128860:	00002825 */ 	or	$a1,$zero,$zero
 /*  f128864:	11e00003 */ 	beqz	$t7,.L0f128874
 /*  f128868:	00003025 */ 	or	$a2,$zero,$zero
-/*  f12886c:	10000001 */ 	beqz	$zero,.L0f128874
+/*  f12886c:	10000001 */ 	b	.L0f128874
 /*  f128870:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0f128874:
 /*  f128874:	8d580064 */ 	lw	$t8,0x64($t2)
 /*  f128878:	3c0e800b */ 	lui	$t6,%hi(var800ac500)
 /*  f12887c:	25cec500 */ 	addiu	$t6,$t6,%lo(var800ac500)
 /*  f128880:	13000003 */ 	beqz	$t8,.L0f128890
-/*  f128884:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f128888:	10000001 */ 	beqz	$zero,.L0f128890
+/*  f128884:	00000000 */ 	nop
+/*  f128888:	10000001 */ 	b	.L0f128890
 /*  f12888c:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f128890:
 /*  f128890:	8d590070 */ 	lw	$t9,0x70($t2)
 /*  f128894:	13200003 */ 	beqz	$t9,.L0f1288a4
-/*  f128898:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f12889c:	10000001 */ 	beqz	$zero,.L0f1288a4
+/*  f128898:	00000000 */ 	nop
+/*  f12889c:	10000001 */ 	b	.L0f1288a4
 /*  f1288a0:	24060001 */ 	addiu	$a2,$zero,0x1
 .L0f1288a4:
 /*  f1288a4:	8d29c530 */ 	lw	$t1,%lo(g_MpNumPlayers)($t1)
@@ -1136,7 +1136,7 @@ glabel currentPlayerCalculateAiBuddyNums
 /*  f128920:	24630004 */ 	addiu	$v1,$v1,0x4
 .L0f128924:
 /*  f128924:	03e00008 */ 	jr	$ra
-/*  f128928:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f128928:	00000000 */ 	nop
 );
 
 void setCurrentPlayerNum(u32 playernum)
@@ -1157,7 +1157,7 @@ glabel propGetPlayerNum
 /*  f128990:	00808025 */ 	or	$s0,$a0,$zero
 /*  f128994:	10400003 */ 	beqz	$v0,.L0f1289a4
 /*  f128998:	00001825 */ 	or	$v1,$zero,$zero
-/*  f12899c:	10000002 */ 	beqz	$zero,.L0f1289a8
+/*  f12899c:	10000002 */ 	b	.L0f1289a8
 /*  f1289a0:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0f1289a4:
 /*  f1289a4:	00002025 */ 	or	$a0,$zero,$zero
@@ -1167,7 +1167,7 @@ glabel propGetPlayerNum
 /*  f1289b0:	00004025 */ 	or	$t0,$zero,$zero
 /*  f1289b4:	10a00003 */ 	beqz	$a1,.L0f1289c4
 /*  f1289b8:	0003c880 */ 	sll	$t9,$v1,0x2
-/*  f1289bc:	10000001 */ 	beqz	$zero,.L0f1289c4
+/*  f1289bc:	10000001 */ 	b	.L0f1289c4
 /*  f1289c0:	24060001 */ 	addiu	$a2,$zero,0x1
 .L0f1289c4:
 /*  f1289c4:	8d470064 */ 	lw	$a3,0x64($t2)
@@ -1175,14 +1175,14 @@ glabel propGetPlayerNum
 /*  f1289cc:	258c9fc0 */ 	addiu	$t4,$t4,%lo(g_Vars)
 /*  f1289d0:	10e00003 */ 	beqz	$a3,.L0f1289e0
 /*  f1289d4:	032c5821 */ 	addu	$t3,$t9,$t4
-/*  f1289d8:	10000001 */ 	beqz	$zero,.L0f1289e0
+/*  f1289d8:	10000001 */ 	b	.L0f1289e0
 /*  f1289dc:	24080001 */ 	addiu	$t0,$zero,0x1
 .L0f1289e0:
 /*  f1289e0:	8d490070 */ 	lw	$t1,0x70($t2)
 /*  f1289e4:	00005025 */ 	or	$t2,$zero,$zero
 /*  f1289e8:	11200003 */ 	beqz	$t1,.L0f1289f8
-/*  f1289ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1289f0:	10000001 */ 	beqz	$zero,.L0f1289f8
+/*  f1289ec:	00000000 */ 	nop
+/*  f1289f0:	10000001 */ 	b	.L0f1289f8
 /*  f1289f4:	240a0001 */ 	addiu	$t2,$zero,0x1
 .L0f1289f8:
 /*  f1289f8:	01487021 */ 	addu	$t6,$t2,$t0
@@ -1199,27 +1199,27 @@ glabel propGetPlayerNum
 /*  f128a20:	00004025 */ 	or	$t0,$zero,$zero
 /*  f128a24:	160e0003 */ 	bne	$s0,$t6,.L0f128a34
 /*  f128a28:	00005025 */ 	or	$t2,$zero,$zero
-/*  f128a2c:	10000018 */ 	beqz	$zero,.L0f128a90
+/*  f128a2c:	10000018 */ 	b	.L0f128a90
 /*  f128a30:	00601025 */ 	or	$v0,$v1,$zero
 .L0f128a34:
 /*  f128a34:	10400003 */ 	beqz	$v0,.L0f128a44
 /*  f128a38:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f128a3c:	10000001 */ 	beqz	$zero,.L0f128a44
+/*  f128a3c:	10000001 */ 	b	.L0f128a44
 /*  f128a40:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0f128a44:
 /*  f128a44:	10a00003 */ 	beqz	$a1,.L0f128a54
-/*  f128a48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f128a4c:	10000001 */ 	beqz	$zero,.L0f128a54
+/*  f128a48:	00000000 */ 	nop
+/*  f128a4c:	10000001 */ 	b	.L0f128a54
 /*  f128a50:	24060001 */ 	addiu	$a2,$zero,0x1
 .L0f128a54:
 /*  f128a54:	10e00003 */ 	beqz	$a3,.L0f128a64
-/*  f128a58:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f128a5c:	10000001 */ 	beqz	$zero,.L0f128a64
+/*  f128a58:	00000000 */ 	nop
+/*  f128a5c:	10000001 */ 	b	.L0f128a64
 /*  f128a60:	24080001 */ 	addiu	$t0,$zero,0x1
 .L0f128a64:
 /*  f128a64:	11200003 */ 	beqz	$t1,.L0f128a74
-/*  f128a68:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f128a6c:	10000001 */ 	beqz	$zero,.L0f128a74
+/*  f128a68:	00000000 */ 	nop
+/*  f128a6c:	10000001 */ 	b	.L0f128a74
 /*  f128a70:	240a0001 */ 	addiu	$t2,$zero,0x1
 .L0f128a74:
 /*  f128a74:	01487821 */ 	addu	$t7,$t2,$t0
@@ -1265,16 +1265,16 @@ glabel weaponGetModel
 /*  f128b00:	10810072 */ 	beq	$a0,$at,.L0f128ccc
 /*  f128b04:	24010057 */ 	addiu	$at,$zero,0x57
 /*  f128b08:	10810058 */ 	beq	$a0,$at,.L0f128c6c
-/*  f128b0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f128b10:	10000071 */ 	beqz	$zero,.L0f128cd8
+/*  f128b0c:	00000000 */ 	nop
+/*  f128b10:	10000071 */ 	b	.L0f128cd8
 /*  f128b14:	2881002d */ 	slti	$at,$a0,0x2d
 .L0f128b18:
 /*  f128b18:	28810032 */ 	slti	$at,$a0,0x32
 /*  f128b1c:	14200005 */ 	bnez	$at,.L0f128b34
 /*  f128b20:	24010051 */ 	addiu	$at,$zero,0x51
 /*  f128b24:	10810067 */ 	beq	$a0,$at,.L0f128cc4
-/*  f128b28:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f128b2c:	1000006a */ 	beqz	$zero,.L0f128cd8
+/*  f128b28:	00000000 */ 	nop
+/*  f128b2c:	1000006a */ 	b	.L0f128cd8
 /*  f128b30:	2881002d */ 	slti	$at,$a0,0x2d
 .L0f128b34:
 /*  f128b34:	2c810032 */ 	sltiu	$at,$a0,0x32
@@ -1284,7 +1284,7 @@ glabel weaponGetModel
 /*  f128b44:	002e0821 */ 	addu	$at,$at,$t6
 /*  f128b48:	8c2e5168 */ 	lw	$t6,%lo(var7f1b5168)($at)
 /*  f128b4c:	01c00008 */ 	jr	$t6
-/*  f128b50:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f128b50:	00000000 */ 	nop
 /*  f128b54:	03e00008 */ 	jr	$ra
 /*  f128b58:	2402ffff */ 	addiu	$v0,$zero,-1
 /*  f128b5c:	03e00008 */ 	jr	$ra

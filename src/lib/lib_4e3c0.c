@@ -31,20 +31,20 @@ glabel func0004e3c0
 /*    4e3f4:	03284821 */ 	addu	$t1,$t9,$t0
 /*    4e3f8:	312a1fff */ 	andi	$t2,$t1,0x1fff
 /*    4e3fc:	15400005 */ 	bnez	$t2,.L0004e414
-/*    4e400:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4e400:	00000000 */ 	nop
 /*    4e404:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*    4e408:	3c018006 */ 	lui	$at,%hi(var80060990)
-/*    4e40c:	10000003 */ 	beqz	$zero,.L0004e41c
+/*    4e40c:	10000003 */ 	b	.L0004e41c
 /*    4e410:	a02b0990 */ 	sb	$t3,%lo(var80060990)($at)
 .L0004e414:
 /*    4e414:	3c018006 */ 	lui	$at,%hi(var80060990)
 /*    4e418:	a0200990 */ 	sb	$zero,%lo(var80060990)($at)
 .L0004e41c:
 /*    4e41c:	0c0147b0 */ 	jal	func00051ec0
-/*    4e420:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4e420:	00000000 */ 	nop
 /*    4e424:	10400003 */ 	beqz	$v0,.L0004e434
-/*    4e428:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4e42c:	10000009 */ 	beqz	$zero,.L0004e454
+/*    4e428:	00000000 */ 	nop
+/*    4e42c:	10000009 */ 	b	.L0004e454
 /*    4e430:	2402ffff */ 	addiu	$v0,$zero,-1
 .L0004e434:
 /*    4e434:	0c012d20 */ 	jal	osVirtualToPhysical
@@ -59,8 +59,8 @@ glabel func0004e3c0
 /*    4e454:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4e458:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*    4e45c:	03e00008 */ 	jr	$ra
-/*    4e460:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4e464:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4e468:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4e46c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4e460:	00000000 */ 	nop
+/*    4e464:	00000000 */ 	nop
+/*    4e468:	00000000 */ 	nop
+/*    4e46c:	00000000 */ 	nop
 );

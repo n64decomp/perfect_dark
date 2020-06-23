@@ -67,14 +67,14 @@ glabel func0f00c240
 /*  f00c304:	8e020338 */ 	lw	$v0,0x338($s0)
 .L0f00c308:
 /*  f00c308:	0fc030e4 */ 	jal	func0f00c390
-/*  f00c30c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f00c30c:	00000000 */ 	nop
 /*  f00c310:	8e080318 */ 	lw	$t0,0x318($s0)
 /*  f00c314:	340bfffe */ 	dli	$t3,0xfffe
 /*  f00c318:	340cffff */ 	dli	$t4,0xffff
 /*  f00c31c:	11000004 */ 	beqz	$t0,.L0f00c330
 /*  f00c320:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f00c324:	24090004 */ 	addiu	$t1,$zero,0x4
-/*  f00c328:	10000003 */ 	beqz	$zero,.L0f00c338
+/*  f00c328:	10000003 */ 	b	.L0f00c338
 /*  f00c32c:	a2090358 */ 	sb	$t1,0x358($s0)
 .L0f00c330:
 /*  f00c330:	240a0007 */ 	addiu	$t2,$zero,0x7
@@ -102,7 +102,7 @@ glabel func0f00c240
 /*  f00c380:	8fb00018 */ 	lw	$s0,0x18($sp)
 /*  f00c384:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*  f00c388:	03e00008 */ 	jr	$ra
-/*  f00c38c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f00c38c:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -172,7 +172,7 @@ glabel func0f00c390
 /*  f00c478:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f00c47c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f00c480:	03e00008 */ 	jr	$ra
-/*  f00c484:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f00c488:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f00c48c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f00c484:	00000000 */ 	nop
+/*  f00c488:	00000000 */ 	nop
+/*  f00c48c:	00000000 */ 	nop
 );

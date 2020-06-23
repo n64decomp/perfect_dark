@@ -42,7 +42,7 @@ glabel menuhandler00177e00
 /*  f177e24:	24010007 */ 	addiu	$at,$zero,0x7
 /*  f177e28:	10810053 */ 	beq	$a0,$at,.L0f177f78
 /*  f177e2c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f177e30:	10000067 */ 	beqz	$zero,.L0f177fd0
+/*  f177e30:	10000067 */ 	b	.L0f177fd0
 /*  f177e34:	00001025 */ 	or	$v0,$zero,$zero
 .L0f177e38:
 /*  f177e38:	3c05800b */ 	lui	$a1,%hi(g_MpSetup)
@@ -63,7 +63,7 @@ glabel menuhandler00177e00
 .L0f177e70:
 /*  f177e70:	5448fff7 */ 	bnel	$v0,$t0,.L0f177e50
 /*  f177e74:	94ae0016 */ 	lhu	$t6,0x16($a1)
-/*  f177e78:	10000055 */ 	beqz	$zero,.L0f177fd0
+/*  f177e78:	10000055 */ 	b	.L0f177fd0
 /*  f177e7c:	00001025 */ 	or	$v0,$zero,$zero
 .L0f177e80:
 /*  f177e80:	3c03800b */ 	lui	$v1,%hi(g_MpSetup+0x16)
@@ -87,8 +87,8 @@ glabel menuhandler00177e00
 /*  f177ec4:	00aa0019 */ 	multu	$a1,$t2
 /*  f177ec8:	00006812 */ 	mflo	$t5
 /*  f177ecc:	012d3821 */ 	addu	$a3,$t1,$t5
-/*  f177ed0:	10000005 */ 	beqz	$zero,.L0f177ee8
-/*  f177ed4:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f177ed0:	10000005 */ 	b	.L0f177ee8
+/*  f177ed4:	00000000 */ 	nop
 .L0f177ed8:
 /*  f177ed8:	00ac0019 */ 	multu	$a1,$t4
 /*  f177edc:	00007812 */ 	mflo	$t7
@@ -134,7 +134,7 @@ glabel menuhandler00177e00
 .L0f177f68:
 /*  f177f68:	54a8fff3 */ 	bnel	$a1,$t0,.L0f177f38
 /*  f177f6c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f177f70:	10000017 */ 	beqz	$zero,.L0f177fd0
+/*  f177f70:	10000017 */ 	b	.L0f177fd0
 /*  f177f74:	00001025 */ 	or	$v0,$zero,$zero
 .L0f177f78:
 /*  f177f78:	3c05800b */ 	lui	$a1,%hi(g_MpSetup)
@@ -163,7 +163,7 @@ glabel menuhandler00177e00
 /*  f177fcc:	00001025 */ 	or	$v0,$zero,$zero
 .L0f177fd0:
 /*  f177fd0:	03e00008 */ 	jr	$ra
-/*  f177fd4:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f177fd4:	00000000 */ 	nop
 );
 
 s32 menuhandlerMpEndGame(u32 operation, struct menu_item *item, s32 *value)
@@ -291,7 +291,7 @@ glabel func0f1783a0
 /*  f1783d4:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers)
 /*  f1783d8:	2718c7b8 */ 	addiu	$t8,$t8,%lo(g_MpPlayers)
 /*  f1783dc:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f1783e0:	1000000a */ 	beqz	$zero,.L0f17840c
+/*  f1783e0:	1000000a */ 	b	.L0f17840c
 /*  f1783e4:	01f83021 */ 	addu	$a2,$t7,$t8
 .L0f1783e8:
 /*  f1783e8:	0003c880 */ 	sll	$t9,$v1,0x2
@@ -366,7 +366,7 @@ glabel menuhandler001785c4
 /*  f178604:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f178608:	44816000 */ 	mtc1	$at,$f12
 /*  f17860c:	0fc01ac2 */ 	jal	func0f006b08
-/*  f178610:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178610:	00000000 */ 	nop
 /*  f178614:	3c01437f */ 	lui	$at,0x437f
 /*  f178618:	44812000 */ 	mtc1	$at,$f4
 /*  f17861c:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -378,10 +378,10 @@ glabel menuhandler001785c4
 /*  f178634:	8f240004 */ 	lw	$a0,0x4($t9)
 /*  f178638:	4448f800 */ 	cfc1	$t0,$31
 /*  f17863c:	44c6f800 */ 	ctc1	$a2,$31
-/*  f178640:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178640:	00000000 */ 	nop
 /*  f178644:	46003224 */ 	cvt.w.s	$f8,$f6
 /*  f178648:	4446f800 */ 	cfc1	$a2,$31
-/*  f17864c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f17864c:	00000000 */ 	nop
 /*  f178650:	30c60078 */ 	andi	$a2,$a2,0x78
 /*  f178654:	50c00013 */ 	beqzl	$a2,.L0f1786a4
 /*  f178658:	44064000 */ 	mfc1	$a2,$f8
@@ -389,29 +389,29 @@ glabel menuhandler001785c4
 /*  f178660:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f178664:	46083201 */ 	sub.s	$f8,$f6,$f8
 /*  f178668:	44c6f800 */ 	ctc1	$a2,$31
-/*  f17866c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f17866c:	00000000 */ 	nop
 /*  f178670:	46004224 */ 	cvt.w.s	$f8,$f8
 /*  f178674:	4446f800 */ 	cfc1	$a2,$31
-/*  f178678:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178678:	00000000 */ 	nop
 /*  f17867c:	30c60078 */ 	andi	$a2,$a2,0x78
 /*  f178680:	14c00005 */ 	bnez	$a2,.L0f178698
-/*  f178684:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178684:	00000000 */ 	nop
 /*  f178688:	44064000 */ 	mfc1	$a2,$f8
 /*  f17868c:	3c018000 */ 	lui	$at,0x8000
-/*  f178690:	10000007 */ 	beqz	$zero,.L0f1786b0
+/*  f178690:	10000007 */ 	b	.L0f1786b0
 /*  f178694:	00c13025 */ 	or	$a2,$a2,$at
 .L0f178698:
-/*  f178698:	10000005 */ 	beqz	$zero,.L0f1786b0
+/*  f178698:	10000005 */ 	b	.L0f1786b0
 /*  f17869c:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f1786a0:	44064000 */ 	mfc1	$a2,$f8
 .L0f1786a4:
-/*  f1786a4:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1786a4:	00000000 */ 	nop
 /*  f1786a8:	04c0fffb */ 	bltz	$a2,.L0f178698
-/*  f1786ac:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1786ac:	00000000 */ 	nop
 .L0f1786b0:
 /*  f1786b0:	44c8f800 */ 	ctc1	$t0,$31
 /*  f1786b4:	0fc01a40 */ 	jal	colourBlend
-/*  f1786b8:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1786b8:	00000000 */ 	nop
 /*  f1786bc:	8fa90020 */ 	lw	$t1,0x20($sp)
 /*  f1786c0:	ad220004 */ 	sw	$v0,0x4($t1)
 .L0f1786c4:
@@ -420,7 +420,7 @@ glabel menuhandler001785c4
 /*  f1786c8:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f1786cc:	00001025 */ 	or	$v0,$zero,$zero
 /*  f1786d0:	03e00008 */ 	jr	$ra
-/*  f1786d4:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1786d4:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -477,19 +477,19 @@ glabel menuhandler001786d8
 /*  f178798:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f17879c:	5201000d */ 	beql	$s0,$at,.L0f1787d4
 /*  f1787a0:	3c1100bf */ 	lui	$s1,0xbf
-/*  f1787a4:	1000000c */ 	beqz	$zero,.L0f1787d8
-/*  f1787a8:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1787a4:	1000000c */ 	b	.L0f1787d8
+/*  f1787a8:	00000000 */ 	nop
 .L0f1787ac:
 /*  f1787ac:	3c11ff7f */ 	lui	$s1,0xff7f
-/*  f1787b0:	10000009 */ 	beqz	$zero,.L0f1787d8
+/*  f1787b0:	10000009 */ 	b	.L0f1787d8
 /*  f1787b4:	36317fff */ 	ori	$s1,$s1,0x7fff
 .L0f1787b8:
 /*  f1787b8:	3c11bfbf */ 	lui	$s1,0xbfbf
-/*  f1787bc:	10000006 */ 	beqz	$zero,.L0f1787d8
+/*  f1787bc:	10000006 */ 	b	.L0f1787d8
 /*  f1787c0:	363100ff */ 	ori	$s1,$s1,0xff
 .L0f1787c4:
 /*  f1787c4:	3c1100ff */ 	lui	$s1,0xff
-/*  f1787c8:	10000003 */ 	beqz	$zero,.L0f1787d8
+/*  f1787c8:	10000003 */ 	b	.L0f1787d8
 /*  f1787cc:	363100ff */ 	ori	$s1,$s1,0xff
 /*  f1787d0:	3c1100bf */ 	lui	$s1,0xbf
 .L0f1787d4:
@@ -643,14 +643,14 @@ glabel menuhandler001786d8
 /*  f178a18:	35f8fc00 */ 	ori	$t8,$t7,0xfc00
 /*  f178a1c:	acb80004 */ 	sw	$t8,0x4($a1)
 /*  f178a20:	15200002 */ 	bnez	$t1,.L0f178a2c
-/*  f178a24:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178a24:	00000000 */ 	nop
 /*  f178a28:	0007000d */ 	break	0x7
 .L0f178a2c:
 /*  f178a2c:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f178a30:	15210004 */ 	bne	$t1,$at,.L0f178a44
 /*  f178a34:	3c018000 */ 	lui	$at,0x8000
 /*  f178a38:	15810002 */ 	bne	$t4,$at,.L0f178a44
-/*  f178a3c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178a3c:	00000000 */ 	nop
 /*  f178a40:	0006000d */ 	break	0x6
 .L0f178a44:
 /*  f178a44:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -659,7 +659,7 @@ glabel menuhandler001786d8
 /*  f178a4c:	5601ff43 */ 	bnel	$s0,$at,.L0f17875c
 /*  f178a50:	8fd90000 */ 	lw	$t9,0x0($s8)
 /*  f178a54:	afb10090 */ 	sw	$s1,0x90($sp)
-/*  f178a58:	10000002 */ 	beqz	$zero,.L0f178a64
+/*  f178a58:	10000002 */ 	b	.L0f178a64
 /*  f178a5c:	8fa200a4 */ 	lw	$v0,0xa4($sp)
 .L0f178a60:
 /*  f178a60:	00001025 */ 	or	$v0,$zero,$zero
@@ -701,7 +701,7 @@ glabel menuhandler00178a94
 /*  f178adc:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f178ae0:	44816000 */ 	mtc1	$at,$f12
 /*  f178ae4:	0fc01ac2 */ 	jal	func0f006b08
-/*  f178ae8:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178ae8:	00000000 */ 	nop
 /*  f178aec:	3c01437f */ 	lui	$at,0x437f
 /*  f178af0:	44812000 */ 	mtc1	$at,$f4
 /*  f178af4:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -713,10 +713,10 @@ glabel menuhandler00178a94
 /*  f178b0c:	8d240004 */ 	lw	$a0,0x4($t1)
 /*  f178b10:	444af800 */ 	cfc1	$t2,$31
 /*  f178b14:	44c6f800 */ 	ctc1	$a2,$31
-/*  f178b18:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178b18:	00000000 */ 	nop
 /*  f178b1c:	46003224 */ 	cvt.w.s	$f8,$f6
 /*  f178b20:	4446f800 */ 	cfc1	$a2,$31
-/*  f178b24:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178b24:	00000000 */ 	nop
 /*  f178b28:	30c60078 */ 	andi	$a2,$a2,0x78
 /*  f178b2c:	50c00013 */ 	beqzl	$a2,.L0f178b7c
 /*  f178b30:	44064000 */ 	mfc1	$a2,$f8
@@ -724,29 +724,29 @@ glabel menuhandler00178a94
 /*  f178b38:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f178b3c:	46083201 */ 	sub.s	$f8,$f6,$f8
 /*  f178b40:	44c6f800 */ 	ctc1	$a2,$31
-/*  f178b44:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178b44:	00000000 */ 	nop
 /*  f178b48:	46004224 */ 	cvt.w.s	$f8,$f8
 /*  f178b4c:	4446f800 */ 	cfc1	$a2,$31
-/*  f178b50:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178b50:	00000000 */ 	nop
 /*  f178b54:	30c60078 */ 	andi	$a2,$a2,0x78
 /*  f178b58:	14c00005 */ 	bnez	$a2,.L0f178b70
-/*  f178b5c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178b5c:	00000000 */ 	nop
 /*  f178b60:	44064000 */ 	mfc1	$a2,$f8
 /*  f178b64:	3c018000 */ 	lui	$at,0x8000
-/*  f178b68:	10000007 */ 	beqz	$zero,.L0f178b88
+/*  f178b68:	10000007 */ 	b	.L0f178b88
 /*  f178b6c:	00c13025 */ 	or	$a2,$a2,$at
 .L0f178b70:
-/*  f178b70:	10000005 */ 	beqz	$zero,.L0f178b88
+/*  f178b70:	10000005 */ 	b	.L0f178b88
 /*  f178b74:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f178b78:	44064000 */ 	mfc1	$a2,$f8
 .L0f178b7c:
-/*  f178b7c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178b7c:	00000000 */ 	nop
 /*  f178b80:	04c0fffb */ 	bltz	$a2,.L0f178b70
-/*  f178b84:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178b84:	00000000 */ 	nop
 .L0f178b88:
 /*  f178b88:	44caf800 */ 	ctc1	$t2,$31
 /*  f178b8c:	0fc01a40 */ 	jal	colourBlend
-/*  f178b90:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178b90:	00000000 */ 	nop
 /*  f178b94:	8fab0020 */ 	lw	$t3,0x20($sp)
 /*  f178b98:	ad620004 */ 	sw	$v0,0x4($t3)
 .L0f178b9c:
@@ -755,7 +755,7 @@ glabel menuhandler00178a94
 /*  f178ba0:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f178ba4:	00001025 */ 	or	$v0,$zero,$zero
 /*  f178ba8:	03e00008 */ 	jr	$ra
-/*  f178bac:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178bac:	00000000 */ 	nop
 );
 
 char *mpMenuTextPlayerTitle(s32 arg0)
@@ -777,7 +777,7 @@ glabel menuhandler00178bf4
 /*  f178c18:	24010012 */ 	addiu	$at,$zero,0x12
 /*  f178c1c:	10810033 */ 	beq	$a0,$at,.L0f178cec
 /*  f178c20:	3c07800b */ 	lui	$a3,%hi(g_MpPlayers)
-/*  f178c24:	10000061 */ 	beqz	$zero,.L0f178dac
+/*  f178c24:	10000061 */ 	b	.L0f178dac
 /*  f178c28:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f178c2c:
 /*  f178c2c:	25081448 */ 	addiu	$t0,$t0,%lo(g_MpPlayerNum)
@@ -830,7 +830,7 @@ glabel menuhandler00178bf4
 /*  f178cd8:	a0400000 */ 	sb	$zero,0x0($v0)
 /*  f178cdc:	1420fffc */ 	bnez	$at,.L0f178cd0
 /*  f178ce0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f178ce4:	10000031 */ 	beqz	$zero,.L0f178dac
+/*  f178ce4:	10000031 */ 	b	.L0f178dac
 /*  f178ce8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f178cec:
 /*  f178cec:	91590000 */ 	lbu	$t9,0x0($t2)
@@ -878,7 +878,7 @@ glabel menuhandler00178bf4
 /*  f178d88:	a0800000 */ 	sb	$zero,0x0($a0)
 /*  f178d8c:	1420fffc */ 	bnez	$at,.L0f178d80
 /*  f178d90:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f178d94:	10000005 */ 	beqz	$zero,.L0f178dac
+/*  f178d94:	10000005 */ 	b	.L0f178dac
 /*  f178d98:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f178d9c:
 /*  f178d9c:	24040006 */ 	addiu	$a0,$zero,0x6
@@ -890,7 +890,7 @@ glabel menuhandler00178bf4
 /*  f178dac:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f178db0:	00001025 */ 	or	$v0,$zero,$zero
 /*  f178db4:	03e00008 */ 	jr	$ra
-/*  f178db8:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f178db8:	00000000 */ 	nop
 );
 
 void mpPushPauseDialog(void)

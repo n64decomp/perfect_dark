@@ -67,7 +67,7 @@ glabel func0f01afc0
 /*  f01b088:	8fb00018 */ 	lw	$s0,0x18($sp)
 /*  f01b08c:	03e00008 */ 	jr	$ra
 /*  f01b090:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f01b094:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01b098:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01b09c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f01b094:	00000000 */ 	nop
+/*  f01b098:	00000000 */ 	nop
+/*  f01b09c:	00000000 */ 	nop
 );

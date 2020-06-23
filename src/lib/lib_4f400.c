@@ -22,9 +22,9 @@ glabel osContStartReadData
 /*    4f414:	91cec820 */ 	lbu	$t6,%lo(var8009c820)($t6)
 /*    4f418:	24010001 */ 	addiu	$at,$zero,0x1
 /*    4f41c:	11c1000b */ 	beq	$t6,$at,.L0004f44c
-/*    4f420:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4f420:	00000000 */ 	nop
 /*    4f424:	0c013d44 */ 	jal	__osPackReadData
-/*    4f428:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4f428:	00000000 */ 	nop
 /*    4f42c:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
 /*    4f430:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
 /*    4f434:	0c012a34 */ 	jal	__osSiRawStartDma
@@ -47,7 +47,7 @@ glabel osContStartReadData
 /*    4f474:	8fa2001c */ 	lw	$v0,0x1c($sp)
 /*    4f478:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*    4f47c:	03e00008 */ 	jr	$ra
-/*    4f480:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4f480:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -147,6 +147,6 @@ glabel __osPackReadData
 /*    4f5cc:	a0580000 */ 	sb	$t8,0x0($v0)
 /*    4f5d0:	03e00008 */ 	jr	$ra
 /*    4f5d4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    4f5d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4f5dc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4f5d8:	00000000 */ 	nop
+/*    4f5dc:	00000000 */ 	nop
 );

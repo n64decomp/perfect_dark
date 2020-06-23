@@ -20,7 +20,7 @@ glabel __osSiRawReadIo
 /*    4acf0:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*    4acf4:	10400003 */ 	beqz	$v0,.L0004ad04
 /*    4acf8:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*    4acfc:	10000007 */ 	beqz	$zero,.L0004ad1c
+/*    4acfc:	10000007 */ 	b	.L0004ad1c
 /*    4ad00:	2402ffff */ 	addiu	$v0,$zero,-1
 .L0004ad04:
 /*    4ad04:	3c01a000 */ 	lui	$at,0xa000
@@ -33,6 +33,6 @@ glabel __osSiRawReadIo
 /*    4ad1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4ad20:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    4ad24:	03e00008 */ 	jr	$ra
-/*    4ad28:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4ad2c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4ad28:	00000000 */ 	nop
+/*    4ad2c:	00000000 */ 	nop
 );

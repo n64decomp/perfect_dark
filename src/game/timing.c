@@ -62,7 +62,7 @@ glabel func0f16ce94
 /*  f16ced4:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
 .L0f16ced8:
 /*  f16ced8:	0c012144 */ 	jal	osGetCount
-/*  f16cedc:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f16cedc:	00000000 */ 	nop
 /*  f16cee0:	8e0e0018 */ 	lw	$t6,0x18($s0)
 /*  f16cee4:	8e0f0020 */ 	lw	$t7,0x20($s0)
 /*  f16cee8:	8e190024 */ 	lw	$t9,0x24($s0)
@@ -80,15 +80,15 @@ glabel func0f16ce94
 /*  f16cf18:	008a082b */ 	sltu	$at,$a0,$t2
 /*  f16cf1c:	ae03001c */ 	sw	$v1,0x1c($s0)
 /*  f16cf20:	16200002 */ 	bnez	$s1,.L0f16cf2c
-/*  f16cf24:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f16cf24:	00000000 */ 	nop
 /*  f16cf28:	0007000d */ 	break	0x7
 .L0f16cf2c:
 /*  f16cf2c:	16400002 */ 	bnez	$s2,.L0f16cf38
-/*  f16cf30:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f16cf30:	00000000 */ 	nop
 /*  f16cf34:	0007000d */ 	break	0x7
 .L0f16cf38:
 /*  f16cf38:	1420ffe7 */ 	bnez	$at,.L0f16ced8
-/*  f16cf3c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f16cf3c:	00000000 */ 	nop
 /*  f16cf40:	00910019 */ 	multu	$a0,$s1
 /*  f16cf44:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f16cf48:	ae0f0028 */ 	sw	$t7,0x28($s0)

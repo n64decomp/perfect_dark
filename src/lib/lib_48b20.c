@@ -30,13 +30,13 @@ glabel osSetTimer
 /*    48b58:	8faa0028 */ 	lw	$t2,0x28($sp)
 /*    48b5c:	8fab002c */ 	lw	$t3,0x2c($sp)
 /*    48b60:	15400003 */ 	bnez	$t2,.L00048b70
-/*    48b64:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48b64:	00000000 */ 	nop
 /*    48b68:	11600005 */ 	beqz	$t3,.L00048b80
-/*    48b6c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48b6c:	00000000 */ 	nop
 .L00048b70:
 /*    48b70:	8fa90020 */ 	lw	$t1,0x20($sp)
 /*    48b74:	ad2a0010 */ 	sw	$t2,0x10($t1)
-/*    48b78:	10000006 */ 	beqz	$zero,.L00048b94
+/*    48b78:	10000006 */ 	b	.L00048b94
 /*    48b7c:	ad2b0014 */ 	sw	$t3,0x14($t1)
 .L00048b80:
 /*    48b80:	8fae0020 */ 	lw	$t6,0x20($sp)
@@ -60,7 +60,7 @@ glabel osSetTimer
 /*    48bc4:	8fa90020 */ 	lw	$t1,0x20($sp)
 /*    48bc8:	8d4b0000 */ 	lw	$t3,0x0($t2)
 /*    48bcc:	15690004 */ 	bne	$t3,$t1,.L00048be0
-/*    48bd0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48bd0:	00000000 */ 	nop
 /*    48bd4:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*    48bd8:	0c0124ed */ 	jal	__osSetTimerIntr
 /*    48bdc:	8fa5001c */ 	lw	$a1,0x1c($sp)
@@ -69,8 +69,8 @@ glabel osSetTimer
 /*    48be4:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*    48be8:	00001025 */ 	or	$v0,$zero,$zero
 /*    48bec:	03e00008 */ 	jr	$ra
-/*    48bf0:	00000000 */ 	sll	$zero,$zero,0x0
-/*    48bf4:	00000000 */ 	sll	$zero,$zero,0x0
-/*    48bf8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    48bfc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    48bf0:	00000000 */ 	nop
+/*    48bf4:	00000000 */ 	nop
+/*    48bf8:	00000000 */ 	nop
+/*    48bfc:	00000000 */ 	nop
 );

@@ -42,7 +42,7 @@ glabel osCreateViManager
 /*     306c:	55c00054 */ 	bnezl	$t6,.L000031c0
 /*     3070:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*     3074:	0c01246c */ 	jal	__osTimerServicesInit
-/*     3078:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3078:	00000000 */ 	nop
 /*     307c:	3c018006 */ 	lui	$at,%hi(var8005cefc)
 /*     3080:	3c048009 */ 	lui	$a0,%hi(var80090230)
 /*     3084:	3c058009 */ 	lui	$a1,%hi(var80090248)
@@ -86,7 +86,7 @@ glabel osCreateViManager
 /*     311c:	afa20028 */ 	sw	$v0,0x28($sp)
 .L00003120:
 /*     3120:	0c01256c */ 	jal	__osDisableInt
-/*     3124:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3124:	00000000 */ 	nop
 /*     3128:	8fab0030 */ 	lw	$t3,0x30($sp)
 /*     312c:	3c038009 */ 	lui	$v1,%hi(var80090230)
 /*     3130:	3c048009 */ 	lui	$a0,%hi(var8008fe00)
@@ -111,7 +111,7 @@ glabel osCreateViManager
 /*     317c:	0c000fb8 */ 	jal	osCreateThread
 /*     3180:	afab0014 */ 	sw	$t3,0x14($sp)
 /*     3184:	0c012590 */ 	jal	__osViInit
-/*     3188:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3188:	00000000 */ 	nop
 /*     318c:	3c048009 */ 	lui	$a0,%hi(var8008fe00)
 /*     3190:	0c01207c */ 	jal	osStartThread
 /*     3194:	2484fe00 */ 	addiu	$a0,$a0,%lo(var8008fe00)
@@ -129,7 +129,7 @@ glabel osCreateViManager
 /*     31c0:	8fb00020 */ 	lw	$s0,0x20($sp)
 /*     31c4:	27bd0030 */ 	addiu	$sp,$sp,0x30
 /*     31c8:	03e00008 */ 	jr	$ra
-/*     31cc:	00000000 */ 	sll	$zero,$zero,0x0
+/*     31cc:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -173,14 +173,14 @@ glabel func000031d0
 /*     3254:	8fae0044 */ 	lw	$t6,0x44($sp)
 /*     3258:	95c30000 */ 	lhu	$v1,0x0($t6)
 /*     325c:	10750005 */ 	beq	$v1,$s5,.L00003274
-/*     3260:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3260:	00000000 */ 	nop
 /*     3264:	1076002a */ 	beq	$v1,$s6,.L00003310
-/*     3268:	00000000 */ 	sll	$zero,$zero,0x0
-/*     326c:	1000fff6 */ 	beqz	$zero,.L00003248
+/*     3268:	00000000 */ 	nop
+/*     326c:	1000fff6 */ 	b	.L00003248
 /*     3270:	8ee4000c */ 	lw	$a0,0xc($s7)
 .L00003274:
 /*     3274:	0c0125e4 */ 	jal	__osViSwapContext
-/*     3278:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3278:	00000000 */ 	nop
 /*     327c:	3c038009 */ 	lui	$v1,%hi(var80090290)
 /*     3280:	94630290 */ 	lhu	$v1,%lo(var80090290)($v1)
 /*     3284:	3c018009 */ 	lui	$at,%hi(var80090290)
@@ -189,7 +189,7 @@ glabel func000031d0
 /*     3290:	15e0000e */ 	bnez	$t7,.L000032cc
 /*     3294:	a42f0290 */ 	sh	$t7,%lo(var80090290)($at)
 /*     3298:	0c0125e0 */ 	jal	func00049780
-/*     329c:	00000000 */ 	sll	$zero,$zero,0x0
+/*     329c:	00000000 */ 	nop
 /*     32a0:	8c580010 */ 	lw	$t8,0x10($v0)
 /*     32a4:	00408025 */ 	or	$s0,$v0,$zero
 /*     32a8:	00003025 */ 	or	$a2,$zero,$zero
@@ -218,17 +218,17 @@ glabel func000031d0
 /*     32fc:	01cc7021 */ 	addu	$t6,$t6,$t4
 /*     3300:	ae420000 */ 	sw	$v0,0x0($s2)
 /*     3304:	ae2e0000 */ 	sw	$t6,0x0($s1)
-/*     3308:	1000ffce */ 	beqz	$zero,.L00003244
+/*     3308:	1000ffce */ 	b	.L00003244
 /*     330c:	ae2f0004 */ 	sw	$t7,0x4($s1)
 .L00003310:
 /*     3310:	0c01248f */ 	jal	__osTimerInterrupt
-/*     3314:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3318:	1000ffcb */ 	beqz	$zero,.L00003248
+/*     3314:	00000000 */ 	nop
+/*     3318:	1000ffcb */ 	b	.L00003248
 /*     331c:	8ee4000c */ 	lw	$a0,0xc($s7)
-/*     3320:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3324:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3328:	00000000 */ 	sll	$zero,$zero,0x0
-/*     332c:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3320:	00000000 */ 	nop
+/*     3324:	00000000 */ 	nop
+/*     3328:	00000000 */ 	nop
+/*     332c:	00000000 */ 	nop
 /*     3330:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*     3334:	8fb00014 */ 	lw	$s0,0x14($sp)
 /*     3338:	8fb10018 */ 	lw	$s1,0x18($sp)
@@ -240,7 +240,7 @@ glabel func000031d0
 /*     3350:	8fb70030 */ 	lw	$s7,0x30($sp)
 /*     3354:	03e00008 */ 	jr	$ra
 /*     3358:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*     335c:	00000000 */ 	sll	$zero,$zero,0x0
+/*     335c:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -268,9 +268,9 @@ glabel osCreatePiPanager
 /*     33b0:	3c0f8006 */ 	lui	$t7,%hi(var80060920)
 /*     33b4:	8def0920 */ 	lw	$t7,%lo(var80060920)($t7)
 /*     33b8:	15e00003 */ 	bnez	$t7,.L000033c8
-/*     33bc:	00000000 */ 	sll	$zero,$zero,0x0
+/*     33bc:	00000000 */ 	nop
 /*     33c0:	0c0126a4 */ 	jal	__osPiCreateAccessQueue
-/*     33c4:	00000000 */ 	sll	$zero,$zero,0x0
+/*     33c4:	00000000 */ 	nop
 .L000033c8:
 /*     33c8:	3c058009 */ 	lui	$a1,%hi(var800907c0)
 /*     33cc:	3c062222 */ 	lui	$a2,0x2222
@@ -291,7 +291,7 @@ glabel osCreatePiPanager
 /*     3408:	afa20028 */ 	sw	$v0,0x28($sp)
 .L0000340c:
 /*     340c:	0c01256c */ 	jal	__osDisableInt
-/*     3410:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3410:	00000000 */ 	nop
 /*     3414:	8fa90034 */ 	lw	$t1,0x34($sp)
 /*     3418:	8faf0030 */ 	lw	$t7,0x30($sp)
 /*     341c:	3c048009 */ 	lui	$a0,%hi(var80090390)
@@ -340,7 +340,7 @@ glabel osCreatePiPanager
 /*     34c0:	8fb00020 */ 	lw	$s0,0x20($sp)
 /*     34c4:	27bd0030 */ 	addiu	$sp,$sp,0x30
 /*     34c8:	03e00008 */ 	jr	$ra
-/*     34cc:	00000000 */ 	sll	$zero,$zero,0x0
+/*     34cc:	00000000 */ 	nop
 );
 
 void func000034d0(void)
@@ -357,6 +357,6 @@ GLOBAL_ASM(
 glabel func000034e0
 /*     34e0:	03e00008 */ 	jr	$ra
 /*     34e4:	afa40000 */ 	sw	$a0,0x0($sp)
-/*     34e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*     34ec:	00000000 */ 	sll	$zero,$zero,0x0
+/*     34e8:	00000000 */ 	nop
+/*     34ec:	00000000 */ 	nop
 );

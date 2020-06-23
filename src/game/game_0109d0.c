@@ -17,7 +17,7 @@ glabel func0f0109d0
 /*  f0109d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0109d4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0109d8:	0c003a61 */ 	jal	getCurrentStageId
-/*  f0109dc:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f0109dc:	00000000 */ 	nop
 /*  f0109e0:	2841005a */ 	slti	$at,$v0,0x5a
 /*  f0109e4:	1020000a */ 	beqz	$at,.L0f010a10
 /*  f0109e8:	240effff */ 	addiu	$t6,$zero,-1
@@ -90,11 +90,11 @@ glabel func0f010a98
 /*  f010ab8:	8c820004 */ 	lw	$v0,0x4($a0)
 /*  f010abc:	0302082a */ 	slt	$at,$t8,$v0
 /*  f010ac0:	10200002 */ 	beqz	$at,.L0f010acc
-/*  f010ac4:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f010ac4:	00000000 */ 	nop
 /*  f010ac8:	ac620000 */ 	sw	$v0,0x0($v1)
 .L0f010acc:
 /*  f010acc:	03e00008 */ 	jr	$ra
-/*  f010ad0:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f010ad0:	00000000 */ 	nop
 );
 
 void objectiveAddRoomEnteredCriteria(struct criteria_roomentered *criteria)

@@ -107,6 +107,6 @@ glabel func00048f50
 /*    4909c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    490a0:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    490a4:	03e00008 */ 	jr	$ra
-/*    490a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    490ac:	00000000 */ 	sll	$zero,$zero,0x0
+/*    490a8:	00000000 */ 	nop
+/*    490ac:	00000000 */ 	nop
 );

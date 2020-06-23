@@ -45,7 +45,7 @@ glabel osEepromLongWrite
 /*     64a8:	02403025 */ 	or	$a2,$s2,$zero
 /*     64ac:	10400003 */ 	beqz	$v0,.L000064bc
 /*     64b0:	0040b025 */ 	or	$s6,$v0,$zero
-/*     64b4:	10000019 */ 	beqz	$zero,.L0000651c
+/*     64b4:	10000019 */ 	b	.L0000651c
 /*     64b8:	8fbf0044 */ 	lw	$ra,0x44($sp)
 .L000064bc:
 /*     64bc:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -84,7 +84,7 @@ glabel osEepromLongWrite
 /*     6538:	8fb70040 */ 	lw	$s7,0x40($sp)
 /*     653c:	03e00008 */ 	jr	$ra
 /*     6540:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*     6544:	00000000 */ 	sll	$zero,$zero,0x0
-/*     6548:	00000000 */ 	sll	$zero,$zero,0x0
-/*     654c:	00000000 */ 	sll	$zero,$zero,0x0
+/*     6544:	00000000 */ 	nop
+/*     6548:	00000000 */ 	nop
+/*     654c:	00000000 */ 	nop
 );

@@ -75,7 +75,7 @@ glabel func0f00b210
 /*  f00b2f0:	8e040004 */ 	lw	$a0,0x4($s0)
 .L0f00b2f4:
 /*  f00b2f4:	0fc66bf7 */ 	jal	func0f19afdc
-/*  f00b2f8:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f00b2f8:	00000000 */ 	nop
 /*  f00b2fc:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f00b300:	8fb00014 */ 	lw	$s0,0x14($sp)
 /*  f00b304:	8fb10018 */ 	lw	$s1,0x18($sp)
@@ -83,6 +83,6 @@ glabel func0f00b210
 /*  f00b30c:	8fb30020 */ 	lw	$s3,0x20($sp)
 /*  f00b310:	03e00008 */ 	jr	$ra
 /*  f00b314:	27bd0208 */ 	addiu	$sp,$sp,0x208
-/*  f00b318:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f00b31c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f00b318:	00000000 */ 	nop
+/*  f00b31c:	00000000 */ 	nop
 );

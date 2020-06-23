@@ -36,7 +36,7 @@ glabel __osPiCreateAccessQueue
 /*    49ad0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    49ad4:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    49ad8:	03e00008 */ 	jr	$ra
-/*    49adc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49adc:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -46,9 +46,9 @@ glabel func00049ae0
 /*    49ae8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    49aec:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    49af0:	15c00003 */ 	bnez	$t6,.L00049b00
-/*    49af4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49af4:	00000000 */ 	nop
 /*    49af8:	0c0126a4 */ 	jal	__osPiCreateAccessQueue
-/*    49afc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49afc:	00000000 */ 	nop
 .L00049b00:
 /*    49b00:	3c04800a */ 	lui	$a0,%hi(var8009c7a8)
 /*    49b04:	2484c7a8 */ 	addiu	$a0,$a0,%lo(var8009c7a8)
@@ -58,7 +58,7 @@ glabel func00049ae0
 /*    49b14:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    49b18:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*    49b1c:	03e00008 */ 	jr	$ra
-/*    49b20:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49b20:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -73,7 +73,7 @@ glabel func00049b24
 /*    49b40:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    49b44:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    49b48:	03e00008 */ 	jr	$ra
-/*    49b4c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49b4c:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -88,7 +88,7 @@ glabel osPiRawStartDma
 /*    49b6c:	00c02025 */ 	or	$a0,$a2,$zero
 /*    49b70:	304e0003 */ 	andi	$t6,$v0,0x3
 /*    49b74:	11c00005 */ 	beqz	$t6,.L00049b8c
-/*    49b78:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49b78:	00000000 */ 	nop
 /*    49b7c:	8c620000 */ 	lw	$v0,0x0($v1)
 .L00049b80:
 /*    49b80:	304f0003 */ 	andi	$t7,$v0,0x3
@@ -114,18 +114,18 @@ glabel osPiRawStartDma
 /*    49bcc:	24010001 */ 	addiu	$at,$zero,0x1
 /*    49bd0:	10610007 */ 	beq	$v1,$at,.L00049bf0
 /*    49bd4:	24eeffff */ 	addiu	$t6,$a3,-1
-/*    49bd8:	1000000b */ 	beqz	$zero,.L00049c08
+/*    49bd8:	1000000b */ 	b	.L00049c08
 /*    49bdc:	2402ffff */ 	addiu	$v0,$zero,-1
 .L00049be0:
 /*    49be0:	24ecffff */ 	addiu	$t4,$a3,-1
 /*    49be4:	3c0da460 */ 	lui	$t5,0xa460
-/*    49be8:	10000006 */ 	beqz	$zero,.L00049c04
+/*    49be8:	10000006 */ 	b	.L00049c04
 /*    49bec:	adac000c */ 	sw	$t4,0xc($t5)
 .L00049bf0:
 /*    49bf0:	3c0fa460 */ 	lui	$t7,0xa460
-/*    49bf4:	10000003 */ 	beqz	$zero,.L00049c04
+/*    49bf4:	10000003 */ 	b	.L00049c04
 /*    49bf8:	adee0008 */ 	sw	$t6,0x8($t7)
-/*    49bfc:	10000002 */ 	beqz	$zero,.L00049c08
+/*    49bfc:	10000002 */ 	b	.L00049c08
 /*    49c00:	2402ffff */ 	addiu	$v0,$zero,-1
 .L00049c04:
 /*    49c04:	00001025 */ 	or	$v0,$zero,$zero
@@ -133,7 +133,7 @@ glabel osPiRawStartDma
 /*    49c08:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    49c0c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    49c10:	03e00008 */ 	jr	$ra
-/*    49c14:	00000000 */ 	sll	$zero,$zero,0x0
-/*    49c18:	00000000 */ 	sll	$zero,$zero,0x0
-/*    49c1c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49c14:	00000000 */ 	nop
+/*    49c18:	00000000 */ 	nop
+/*    49c1c:	00000000 */ 	nop
 );

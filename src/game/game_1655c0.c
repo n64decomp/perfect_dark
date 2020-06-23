@@ -35,7 +35,7 @@ glabel stageGetCurrent
 .L0f165608:
 /*  f165608:	00001025 */ 	or	$v0,$zero,$zero
 /*  f16560c:	03e00008 */ 	jr	$ra
-/*  f165610:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f165610:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -53,7 +53,7 @@ glabel stageGetIndex
 /*  f165638:	24420038 */ 	addiu	$v0,$v0,0x38
 /*  f16563c:	0043082b */ 	sltu	$at,$v0,$v1
 /*  f165640:	148f0003 */ 	bne	$a0,$t7,.L0f165650
-/*  f165644:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f165644:	00000000 */ 	nop
 /*  f165648:	03e00008 */ 	jr	$ra
 /*  f16564c:	00c01025 */ 	or	$v0,$a2,$zero
 .L0f165650:
@@ -62,8 +62,8 @@ glabel stageGetIndex
 .L0f165658:
 /*  f165658:	2402ffff */ 	addiu	$v0,$zero,-1
 /*  f16565c:	03e00008 */ 	jr	$ra
-/*  f165660:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f165664:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f165668:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16566c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f165660:	00000000 */ 	nop
+/*  f165664:	00000000 */ 	nop
+/*  f165668:	00000000 */ 	nop
+/*  f16566c:	00000000 */ 	nop
 );

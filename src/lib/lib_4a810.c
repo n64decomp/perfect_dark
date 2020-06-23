@@ -38,7 +38,7 @@ glabel __osSiCreateAccessQueue
 /*    4a850:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4a854:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    4a858:	03e00008 */ 	jr	$ra
-/*    4a85c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4a85c:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -48,9 +48,9 @@ glabel __osSiGetAccess
 /*    4a868:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    4a86c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4a870:	15c00003 */ 	bnez	$t6,.L0004a880
-/*    4a874:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4a874:	00000000 */ 	nop
 /*    4a878:	0c012a04 */ 	jal	__osSiCreateAccessQueue
-/*    4a87c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4a87c:	00000000 */ 	nop
 .L0004a880:
 /*    4a880:	3c04800a */ 	lui	$a0,%hi(var8009c7c8)
 /*    4a884:	2484c7c8 */ 	addiu	$a0,$a0,%lo(var8009c7c8)
@@ -60,7 +60,7 @@ glabel __osSiGetAccess
 /*    4a894:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4a898:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*    4a89c:	03e00008 */ 	jr	$ra
-/*    4a8a0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4a8a0:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -75,7 +75,7 @@ glabel __osSiRelAccess
 /*    4a8c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4a8c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    4a8c8:	03e00008 */ 	jr	$ra
-/*    4a8cc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4a8cc:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -89,8 +89,8 @@ glabel __osSiRawStartDma
 /*    4a8e8:	24010001 */ 	addiu	$at,$zero,0x1
 /*    4a8ec:	31f80003 */ 	andi	$t8,$t7,0x3
 /*    4a8f0:	13000003 */ 	beqz	$t8,.L0004a900
-/*    4a8f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4a8f8:	1000001c */ 	beqz	$zero,.L0004a96c
+/*    4a8f4:	00000000 */ 	nop
+/*    4a8f8:	1000001c */ 	b	.L0004a96c
 /*    4a8fc:	2402ffff */ 	addiu	$v0,$zero,-1
 .L0004a900:
 /*    4a900:	14c10005 */ 	bne	$a2,$at,.L0004a918
@@ -111,7 +111,7 @@ glabel __osSiRawStartDma
 /*    4a938:	3c081fc0 */ 	lui	$t0,0x1fc0
 /*    4a93c:	350807c0 */ 	ori	$t0,$t0,0x7c0
 /*    4a940:	3c09a480 */ 	lui	$t1,0xa480
-/*    4a944:	10000004 */ 	beqz	$zero,.L0004a958
+/*    4a944:	10000004 */ 	b	.L0004a958
 /*    4a948:	ad280004 */ 	sw	$t0,0x4($t1)
 .L0004a94c:
 /*    4a94c:	354a07c0 */ 	ori	$t2,$t2,0x7c0
@@ -128,6 +128,6 @@ glabel __osSiRawStartDma
 /*    4a96c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4a970:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    4a974:	03e00008 */ 	jr	$ra
-/*    4a978:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4a97c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4a978:	00000000 */ 	nop
+/*    4a97c:	00000000 */ 	nop
 );

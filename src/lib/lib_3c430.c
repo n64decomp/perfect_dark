@@ -42,16 +42,16 @@ glabel func0003c430
 /*    3c498:	8faf001c */ 	lw	$t7,0x1c($sp)
 /*    3c49c:	8dae0048 */ 	lw	$t6,0x48($t5)
 /*    3c4a0:	adee0004 */ 	sw	$t6,0x4($t7)
-/*    3c4a4:	10000003 */ 	beqz	$zero,.L0003c4b4
+/*    3c4a4:	10000003 */ 	b	.L0003c4b4
 /*    3c4a8:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*    3c4ac:	10000001 */ 	beqz	$zero,.L0003c4b4
-/*    3c4b0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3c4ac:	10000001 */ 	b	.L0003c4b4
+/*    3c4b0:	00000000 */ 	nop
 .L0003c4b4:
 /*    3c4b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    3c4b8:	27bd0028 */ 	addiu	$sp,$sp,0x28
 /*    3c4bc:	03e00008 */ 	jr	$ra
-/*    3c4c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*    3c4c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*    3c4c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    3c4cc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3c4c0:	00000000 */ 	nop
+/*    3c4c4:	00000000 */ 	nop
+/*    3c4c8:	00000000 */ 	nop
+/*    3c4cc:	00000000 */ 	nop
 );

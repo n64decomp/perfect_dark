@@ -27,7 +27,7 @@ glabel func0004a980
 /*    4a998:	afa60078 */ 	sw	$a2,0x78($sp)
 /*    4a99c:	11c00003 */ 	beqz	$t6,.L0004a9ac
 /*    4a9a0:	afa00068 */ 	sw	$zero,0x68($sp)
-/*    4a9a4:	1000004e */ 	beqz	$zero,.L0004aae0
+/*    4a9a4:	1000004e */ 	b	.L0004aae0
 /*    4a9a8:	00001025 */ 	or	$v0,$zero,$zero
 .L0004a9ac:
 /*    4a9ac:	240f0001 */ 	addiu	$t7,$zero,0x1
@@ -43,7 +43,7 @@ glabel func0004a980
 /*    4a9d4:	3421a0bc */ 	ori	$at,$at,0xa0bc
 /*    4a9d8:	0321082b */ 	sltu	$at,$t9,$at
 /*    4a9dc:	1020001c */ 	beqz	$at,.L0004aa50
-/*    4a9e0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4a9e0:	00000000 */ 	nop
 /*    4a9e4:	27a40028 */ 	addiu	$a0,$sp,0x28
 /*    4a9e8:	27a5006c */ 	addiu	$a1,$sp,0x6c
 /*    4a9ec:	0c0120d0 */ 	jal	osCreateMesgQueue
@@ -112,7 +112,7 @@ glabel func0004a980
 /*    4aae0:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*    4aae4:	27bd0070 */ 	addiu	$sp,$sp,0x70
 /*    4aae8:	03e00008 */ 	jr	$ra
-/*    4aaec:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4aaec:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -141,7 +141,7 @@ glabel func0004aaf0
 /*    4ab40:	a0ac0003 */ 	sb	$t4,0x3($a1)
 /*    4ab44:	90ad0003 */ 	lbu	$t5,0x3($a1)
 /*    4ab48:	15a0000e */ 	bnez	$t5,.L0004ab84
-/*    4ab4c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4ab4c:	00000000 */ 	nop
 /*    4ab50:	93ae0011 */ 	lbu	$t6,0x11($sp)
 /*    4ab54:	93a80010 */ 	lbu	$t0,0x10($sp)
 /*    4ab58:	240b0001 */ 	addiu	$t3,$zero,0x1
@@ -240,7 +240,7 @@ glabel func0004abc0
 /*    4aca8:	27bd0010 */ 	addiu	$sp,$sp,0x10
 /*    4acac:	03e00008 */ 	jr	$ra
 /*    4acb0:	a1590000 */ 	sb	$t9,0x0($t2)
-/*    4acb4:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4acb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4acbc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4acb4:	00000000 */ 	nop
+/*    4acb8:	00000000 */ 	nop
+/*    4acbc:	00000000 */ 	nop
 );

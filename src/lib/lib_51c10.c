@@ -32,6 +32,6 @@ glabel func00051c10
 /*    51c4c:	8fb00018 */ 	lw	$s0,0x18($sp)
 /*    51c50:	27bd0028 */ 	addiu	$sp,$sp,0x28
 /*    51c54:	03e00008 */ 	jr	$ra
-/*    51c58:	00000000 */ 	sll	$zero,$zero,0x0
-/*    51c5c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    51c58:	00000000 */ 	nop
+/*    51c5c:	00000000 */ 	nop
 );

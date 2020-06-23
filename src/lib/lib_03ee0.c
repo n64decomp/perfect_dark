@@ -62,7 +62,7 @@ glabel osCreateThread
 /*     3f98:	8fb00018 */ 	lw	$s0,0x18($sp)
 /*     3f9c:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*     3fa0:	03e00008 */ 	jr	$ra
-/*     3fa4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3fa8:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3fac:	00000000 */ 	sll	$zero,$zero,0x0
+/*     3fa4:	00000000 */ 	nop
+/*     3fa8:	00000000 */ 	nop
+/*     3fac:	00000000 */ 	nop
 );

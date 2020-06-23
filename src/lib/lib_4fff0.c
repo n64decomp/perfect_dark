@@ -30,7 +30,7 @@ glabel func0004fff0
 /*    50028:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    5002c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    50030:	03e00008 */ 	jr	$ra
-/*    50034:	00000000 */ 	sll	$zero,$zero,0x0
+/*    50034:	00000000 */ 	nop
 /*    50038:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*    5003c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    50040:	afa40068 */ 	sw	$a0,0x68($sp)
@@ -51,6 +51,6 @@ glabel func0004fff0
 /*    5007c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    50080:	27bd0068 */ 	addiu	$sp,$sp,0x68
 /*    50084:	03e00008 */ 	jr	$ra
-/*    50088:	00000000 */ 	sll	$zero,$zero,0x0
-/*    5008c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    50088:	00000000 */ 	nop
+/*    5008c:	00000000 */ 	nop
 );

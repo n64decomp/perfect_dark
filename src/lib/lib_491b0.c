@@ -61,7 +61,7 @@ glabel __osTimerInterrupt
 /*    49248:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4924c:	8dcf0000 */ 	lw	$t7,0x0($t6)
 /*    49250:	11ee0054 */ 	beq	$t7,$t6,.L000493a4
-/*    49254:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49254:	00000000 */ 	nop
 .L00049258:
 /*    49258:	3c188006 */ 	lui	$t8,%hi(var800608a0)
 /*    4925c:	8f1808a0 */ 	lw	$t8,%lo(var800608a0)($t8)
@@ -71,11 +71,11 @@ glabel __osTimerInterrupt
 /*    4926c:	0c014620 */ 	jal	__osSetCompare
 /*    49270:	00002025 */ 	or	$a0,$zero,$zero
 /*    49274:	3c01800a */ 	lui	$at,%hi(var8009c790)
-/*    49278:	1000004a */ 	beqz	$zero,.L000493a4
+/*    49278:	1000004a */ 	b	.L000493a4
 /*    4927c:	ac20c790 */ 	sw	$zero,%lo(var8009c790)($at)
 .L00049280:
 /*    49280:	0c012144 */ 	jal	osGetCount
-/*    49284:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49284:	00000000 */ 	nop
 /*    49288:	afa20020 */ 	sw	$v0,0x20($sp)
 /*    4928c:	3c09800a */ 	lui	$t1,%hi(var8009c790)
 /*    49290:	8d29c790 */ 	lw	$t1,%lo(var8009c790)($t1)
@@ -97,7 +97,7 @@ glabel __osTimerInterrupt
 /*    492d0:	14200003 */ 	bnez	$at,.L000492e0
 /*    492d4:	01af082b */ 	sltu	$at,$t5,$t7
 /*    492d8:	10200011 */ 	beqz	$at,.L00049320
-/*    492dc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    492dc:	00000000 */ 	nop
 .L000492e0:
 /*    492e0:	27380010 */ 	addiu	$t8,$t9,0x10
 /*    492e4:	afb80018 */ 	sw	$t8,0x18($sp)
@@ -113,8 +113,8 @@ glabel __osTimerInterrupt
 /*    4930c:	8dc40010 */ 	lw	$a0,0x10($t6)
 /*    49310:	0c0124ed */ 	jal	__osSetTimerIntr
 /*    49314:	8dc50014 */ 	lw	$a1,0x14($t6)
-/*    49318:	10000022 */ 	beqz	$zero,.L000493a4
-/*    4931c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49318:	10000022 */ 	b	.L000493a4
+/*    4931c:	00000000 */ 	nop
 .L00049320:
 /*    49320:	8faf0024 */ 	lw	$t7,0x24($sp)
 /*    49324:	8df80000 */ 	lw	$t8,0x0($t7)
@@ -131,7 +131,7 @@ glabel __osTimerInterrupt
 /*    49350:	8fb90024 */ 	lw	$t9,0x24($sp)
 /*    49354:	8f2e0018 */ 	lw	$t6,0x18($t9)
 /*    49358:	11c00005 */ 	beqz	$t6,.L00049370
-/*    4935c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4935c:	00000000 */ 	nop
 /*    49360:	01c02025 */ 	or	$a0,$t6,$zero
 /*    49364:	8f25001c */ 	lw	$a1,0x1c($t9)
 /*    49368:	0c012238 */ 	jal	osSendMesg
@@ -141,21 +141,21 @@ glabel __osTimerInterrupt
 /*    49374:	8df80008 */ 	lw	$t8,0x8($t7)
 /*    49378:	8df9000c */ 	lw	$t9,0xc($t7)
 /*    4937c:	17000003 */ 	bnez	$t8,.L0004938c
-/*    49380:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49380:	00000000 */ 	nop
 /*    49384:	1320ffb4 */ 	beqz	$t9,.L00049258
-/*    49388:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49388:	00000000 */ 	nop
 .L0004938c:
 /*    4938c:	adf80010 */ 	sw	$t8,0x10($t7)
 /*    49390:	adf90014 */ 	sw	$t9,0x14($t7)
 /*    49394:	0c01250a */ 	jal	__osInsertTimer
 /*    49398:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    4939c:	1000ffae */ 	beqz	$zero,.L00049258
-/*    493a0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4939c:	1000ffae */ 	b	.L00049258
+/*    493a0:	00000000 */ 	nop
 .L000493a4:
 /*    493a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    493a8:	27bd0028 */ 	addiu	$sp,$sp,0x28
 /*    493ac:	03e00008 */ 	jr	$ra
-/*    493b0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    493b0:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -188,7 +188,7 @@ glabel __osSetTimerIntr
 /*    49418:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4941c:	27bd0028 */ 	addiu	$sp,$sp,0x28
 /*    49420:	03e00008 */ 	jr	$ra
-/*    49424:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49424:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -216,7 +216,7 @@ glabel __osInsertTimer
 /*    49478:	14200003 */ 	bnez	$at,.L00049488
 /*    4947c:	0169082b */ 	sltu	$at,$t3,$t1
 /*    49480:	10200020 */ 	beqz	$at,.L00049504
-/*    49484:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49484:	00000000 */ 	nop
 .L00049488:
 /*    49488:	27b90028 */ 	addiu	$t9,$sp,0x28
 /*    4948c:	8fb80034 */ 	lw	$t8,0x34($sp)
@@ -243,12 +243,12 @@ glabel __osInsertTimer
 /*    494e0:	8d6f0014 */ 	lw	$t7,0x14($t3)
 /*    494e4:	01cc082b */ 	sltu	$at,$t6,$t4
 /*    494e8:	1420ffe7 */ 	bnez	$at,.L00049488
-/*    494ec:	00000000 */ 	sll	$zero,$zero,0x0
+/*    494ec:	00000000 */ 	nop
 /*    494f0:	018e082b */ 	sltu	$at,$t4,$t6
 /*    494f4:	14200003 */ 	bnez	$at,.L00049504
 /*    494f8:	01ed082b */ 	sltu	$at,$t7,$t5
 /*    494fc:	1420ffe2 */ 	bnez	$at,.L00049488
-/*    49500:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49500:	00000000 */ 	nop
 .L00049504:
 /*    49504:	8fb90038 */ 	lw	$t9,0x38($sp)
 /*    49508:	8fa80028 */ 	lw	$t0,0x28($sp)
@@ -259,7 +259,7 @@ glabel __osInsertTimer
 /*    4951c:	8f1808a0 */ 	lw	$t8,%lo(var800608a0)($t8)
 /*    49520:	8faa0034 */ 	lw	$t2,0x34($sp)
 /*    49524:	1158000d */ 	beq	$t2,$t8,.L0004955c
-/*    49528:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49528:	00000000 */ 	nop
 /*    4952c:	254b0010 */ 	addiu	$t3,$t2,0x10
 /*    49530:	afab001c */ 	sw	$t3,0x1c($sp)
 /*    49534:	8d4d0014 */ 	lw	$t5,0x14($t2)
@@ -322,11 +322,11 @@ glabel __osDisableInt
 /*    49604:	2401fffe */ 	addiu	$at,$zero,-2
 /*    49608:	01214824 */ 	and	$t1,$t1,$at
 /*    4960c:	40896000 */ 	mtc0	$t1,$12
-/*    49610:	00000000 */ 	sll	$zero,$zero,0x0
-/*    49614:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49610:	00000000 */ 	nop
+/*    49614:	00000000 */ 	nop
 .L00049618:
 /*    49618:	03e00008 */ 	jr	$ra
-/*    4961c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4961c:	00000000 */ 	nop
 );
 
 GLOBAL_ASM(
@@ -334,9 +334,9 @@ glabel __osRestoreInt
 /*    49620:	40086000 */ 	mfc0	$t0,$12
 /*    49624:	01044025 */ 	or	$t0,$t0,$a0
 /*    49628:	40886000 */ 	mtc0	$t0,$12
-/*    4962c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    49630:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4962c:	00000000 */ 	nop
+/*    49630:	00000000 */ 	nop
 /*    49634:	03e00008 */ 	jr	$ra
-/*    49638:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4963c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    49638:	00000000 */ 	nop
+/*    4963c:	00000000 */ 	nop
 );

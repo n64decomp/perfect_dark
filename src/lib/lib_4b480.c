@@ -25,7 +25,7 @@ glabel osVirtualToPhysical
 /*    4b4a4:	10200004 */ 	beqz	$at,.L0004b4b8
 /*    4b4a8:	3c011fff */ 	lui	$at,0x1fff
 /*    4b4ac:	3421ffff */ 	ori	$at,$at,0xffff
-/*    4b4b0:	1000000e */ 	beqz	$zero,.L0004b4ec
+/*    4b4b0:	1000000e */ 	b	.L0004b4ec
 /*    4b4b4:	01c11024 */ 	and	$v0,$t6,$at
 .L0004b4b8:
 /*    4b4b8:	8faf0018 */ 	lw	$t7,0x18($sp)
@@ -37,7 +37,7 @@ glabel osVirtualToPhysical
 /*    4b4d0:	10200004 */ 	beqz	$at,.L0004b4e4
 /*    4b4d4:	3c011fff */ 	lui	$at,0x1fff
 /*    4b4d8:	3421ffff */ 	ori	$at,$at,0xffff
-/*    4b4dc:	10000003 */ 	beqz	$zero,.L0004b4ec
+/*    4b4dc:	10000003 */ 	b	.L0004b4ec
 /*    4b4e0:	01e11024 */ 	and	$v0,$t7,$at
 .L0004b4e4:
 /*    4b4e4:	0c014724 */ 	jal	__osProbeTLB
@@ -46,6 +46,6 @@ glabel osVirtualToPhysical
 /*    4b4ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4b4f0:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    4b4f4:	03e00008 */ 	jr	$ra
-/*    4b4f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4b4fc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4b4f8:	00000000 */ 	nop
+/*    4b4fc:	00000000 */ 	nop
 );

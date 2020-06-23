@@ -45,6 +45,6 @@ glabel func0004cde0
 /*    4ce4c:	27bd0058 */ 	addiu	$sp,$sp,0x58
 /*    4ce50:	03e00008 */ 	jr	$ra
 /*    4ce54:	00601025 */ 	or	$v0,$v1,$zero
-/*    4ce58:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4ce5c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    4ce58:	00000000 */ 	nop
+/*    4ce5c:	00000000 */ 	nop
 );
