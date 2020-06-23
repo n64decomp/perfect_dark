@@ -229,7 +229,7 @@ glabel func0f0d7240
 /*  f0d72e4:	906f02fe */ 	lbu	$t7,0x2fe($v1)
 /*  f0d72e8:	54af000b */ 	bnel	$a1,$t7,.L0f0d7318
 /*  f0d72ec:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0d72f0:	0fc0f011 */ 	jal	func0f03c044
+/*  f0d72f0:	0fc0f011 */ 	jal	chrToEyespy
 /*  f0d72f4:	00000000 */ 	nop
 /*  f0d72f8:	10400004 */ 	beqz	$v0,.L0f0d730c
 /*  f0d72fc:	00000000 */ 	nop

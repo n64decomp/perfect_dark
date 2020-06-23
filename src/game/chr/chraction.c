@@ -2756,7 +2756,7 @@ glabel var7f1a8d44
 /*  f031a40:	240effff */ 	addiu	$t6,$zero,-1
 /*  f031a44:	afae00dc */ 	sw	$t6,0xdc($sp)
 /*  f031a48:	02002025 */ 	or	$a0,$s0,$zero
-/*  f031a4c:	0fc0f011 */ 	jal	func0f03c044
+/*  f031a4c:	0fc0f011 */ 	jal	chrToEyespy
 /*  f031a50:	afad00e4 */ 	sw	$t5,0xe4($sp)
 /*  f031a54:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x6c)
 /*  f031a58:	8d6ba02c */ 	lw	$t3,%lo(g_Vars+0x6c)($t3)
@@ -4288,7 +4288,7 @@ glabel func0f032fe4
 /*  f03304c:	0fc2c73a */ 	jal	func0f0b1ce8
 /*  f033050:	afa50034 */ 	sw	$a1,0x34($sp)
 /*  f033054:	02002025 */ 	or	$a0,$s0,$zero
-/*  f033058:	0fc0f011 */ 	jal	func0f03c044
+/*  f033058:	0fc0f011 */ 	jal	chrToEyespy
 /*  f03305c:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f033060:	8fa3003c */ 	lw	$v1,0x3c($sp)
 /*  f033064:	8fa50034 */ 	lw	$a1,0x34($sp)
@@ -12280,80 +12280,33 @@ glabel var7f1a8ed8
 /*  f03c040:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f03c044
-/*  f03c044:	5080003a */ 	beqzl	$a0,.L0f03c130
-/*  f03c048:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03c04c:	8c82001c */ 	lw	$v0,0x1c($a0)
-/*  f03c050:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f03c054:	50400036 */ 	beqzl	$v0,.L0f03c130
-/*  f03c058:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03c05c:	10800003 */ 	beqz	$a0,.L0f03c06c
-/*  f03c060:	00001825 */ 	or	$v1,$zero,$zero
-/*  f03c064:	10000001 */ 	b	.L0f03c06c
-/*  f03c068:	908302fe */ 	lbu	$v1,0x2fe($a0)
-.L0f03c06c:
-/*  f03c06c:	1461002f */ 	bne	$v1,$at,.L0f03c12c
-/*  f03c070:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f03c074:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f03c078:	8c6e006c */ 	lw	$t6,0x6c($v1)
-/*  f03c07c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f03c080:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03c084:	11c00003 */ 	beqz	$t6,.L0f03c094
-/*  f03c088:	00003025 */ 	or	$a2,$zero,$zero
-/*  f03c08c:	10000001 */ 	b	.L0f03c094
-/*  f03c090:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f03c094:
-/*  f03c094:	8c6f0068 */ 	lw	$t7,0x68($v1)
-/*  f03c098:	11e00003 */ 	beqz	$t7,.L0f03c0a8
-/*  f03c09c:	00000000 */ 	nop
-/*  f03c0a0:	10000001 */ 	b	.L0f03c0a8
-/*  f03c0a4:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f03c0a8:
-/*  f03c0a8:	8c780064 */ 	lw	$t8,0x64($v1)
-/*  f03c0ac:	13000003 */ 	beqz	$t8,.L0f03c0bc
-/*  f03c0b0:	00000000 */ 	nop
-/*  f03c0b4:	10000001 */ 	b	.L0f03c0bc
-/*  f03c0b8:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f03c0bc:
-/*  f03c0bc:	8c790070 */ 	lw	$t9,0x70($v1)
-/*  f03c0c0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f03c0c4:	13200003 */ 	beqz	$t9,.L0f03c0d4
-/*  f03c0c8:	00000000 */ 	nop
-/*  f03c0cc:	10000001 */ 	b	.L0f03c0d4
-/*  f03c0d0:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f03c0d4:
-/*  f03c0d4:	00665021 */ 	addu	$t2,$v1,$a2
-/*  f03c0d8:	01455821 */ 	addu	$t3,$t2,$a1
-/*  f03c0dc:	01643821 */ 	addu	$a3,$t3,$a0
-/*  f03c0e0:	18e00010 */ 	blez	$a3,.L0f03c124
-/*  f03c0e4:	00004825 */ 	or	$t1,$zero,$zero
-/*  f03c0e8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f03c0ec:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-.L0f03c0f0:
-/*  f03c0f0:	8c6c0064 */ 	lw	$t4,0x64($v1)
-/*  f03c0f4:	25290001 */ 	addiu	$t1,$t1,0x1
-/*  f03c0f8:	0127082a */ 	slt	$at,$t1,$a3
-/*  f03c0fc:	8d840480 */ 	lw	$a0,0x480($t4)
-/*  f03c100:	10800006 */ 	beqz	$a0,.L0f03c11c
-/*  f03c104:	00000000 */ 	nop
-/*  f03c108:	8c8d0000 */ 	lw	$t5,0x0($a0)
-/*  f03c10c:	144d0003 */ 	bne	$v0,$t5,.L0f03c11c
-/*  f03c110:	00000000 */ 	nop
-/*  f03c114:	03e00008 */ 	jr	$ra
-/*  f03c118:	00801025 */ 	or	$v0,$a0,$zero
-.L0f03c11c:
-/*  f03c11c:	1420fff4 */ 	bnez	$at,.L0f03c0f0
-/*  f03c120:	24630004 */ 	addiu	$v1,$v1,0x4
-.L0f03c124:
-/*  f03c124:	03e00008 */ 	jr	$ra
-/*  f03c128:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03c12c:
-/*  f03c12c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03c130:
-/*  f03c130:	03e00008 */ 	jr	$ra
-/*  f03c134:	00000000 */ 	nop
-);
+/**
+ * Verifies that the given chr struct is actually an eyespy and returns the
+ * eyespy struct.
+ *
+ * Eyespys have their own chr struct, even though they aren't a chr. Iterating
+ * the player list is required because the only pointer to an eyespy is via the
+ * player struct.
+ */
+struct eyespy *chrToEyespy(struct chrdata *chr)
+{
+	if (chr && chr->prop) {
+		if (CHRRACE(chr) == RACE_EYESPY) {
+			s32 playercount = PLAYERCOUNT();
+			s32 i;
+
+			for (i = 0; i < playercount; i++) {
+				if (g_Vars.players[i]->eyespy && chr->prop == g_Vars.players[i]->eyespy->prop) {
+					return g_Vars.players[i]->eyespy;
+				}
+			}
+
+			return NULL;
+		}
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel chrTickStand

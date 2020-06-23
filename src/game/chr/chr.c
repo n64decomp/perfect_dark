@@ -1736,7 +1736,7 @@ glabel var7f1a8720
 /*  f01fb60:	8faa00f4 */ 	lw	$t2,0xf4($sp)
 /*  f01fb64:	55410013 */ 	bnel	$t2,$at,.L0f01fbb4
 /*  f01fb68:	820d0007 */ 	lb	$t5,0x7($s0)
-/*  f01fb6c:	0fc0f011 */ 	jal	func0f03c044
+/*  f01fb6c:	0fc0f011 */ 	jal	chrToEyespy
 /*  f01fb70:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01fb74:	50400043 */ 	beqzl	$v0,.L0f01fc84
 /*  f01fb78:	8fac0118 */ 	lw	$t4,0x118($sp)
@@ -3937,7 +3937,7 @@ void func0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms)
 	f32 height = 110;
 
 	if (chr && chr->race == RACE_EYESPY) {
-		struct eyespy *eyespy = func0f03c044(chr);
+		struct eyespy *eyespy = chrToEyespy(chr);
 
 		if (eyespy) {
 			height = eyespy->height + 30.0f;
@@ -5007,7 +5007,7 @@ glabel var7f1a87d8
 /*  f023440:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f023444:	55a10026 */ 	bnel	$t5,$at,.L0f0234e0
 /*  f023448:	8e020018 */ 	lw	$v0,0x18($s0)
-/*  f02344c:	0fc0f011 */ 	jal	func0f03c044
+/*  f02344c:	0fc0f011 */ 	jal	chrToEyespy
 /*  f023450:	02002025 */ 	or	$a0,$s0,$zero
 /*  f023454:	1040001f */ 	beqz	$v0,.L0f0234d4
 /*  f023458:	00000000 */ 	nop
@@ -7053,7 +7053,7 @@ glabel var7f1a8900
 .L0f0252c4:
 /*  f0252c4:	54610015 */ 	bnel	$v1,$at,.L0f02531c
 /*  f0252c8:	8e0a0018 */ 	lw	$t2,0x18($s0)
-/*  f0252cc:	0fc0f011 */ 	jal	func0f03c044
+/*  f0252cc:	0fc0f011 */ 	jal	chrToEyespy
 /*  f0252d0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0252d4:	50400011 */ 	beqzl	$v0,.L0f02531c
 /*  f0252d8:	8e0a0018 */ 	lw	$t2,0x18($s0)
