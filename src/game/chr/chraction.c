@@ -8484,46 +8484,19 @@ void chrGoPosGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, s16 *roo
 	chrGoPosGetCurWaypointInfoWithFlags(chr, pos, rooms, NULL);
 }
 
-GLOBAL_ASM(
-glabel func0f0370a8
-.late_rodata
-glabel var7f1a8da4
-.word 0x411fffff
-.text
-/*  f0370a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0370ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0370b0:	8c8e02d4 */ 	lw	$t6,0x2d4($a0)
-/*  f0370b4:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0370b8:	51c00006 */ 	beqzl	$t6,.L0f0370d4
-/*  f0370bc:	8ca40020 */ 	lw	$a0,0x20($a1)
-/*  f0370c0:	0fc647e9 */ 	jal	func0f191fa4
-/*  f0370c4:	00000000 */ 	nop
-/*  f0370c8:	10000011 */ 	b	.L0f037110
-/*  f0370cc:	46000086 */ 	mov.s	$f2,$f0
-/*  f0370d0:	8ca40020 */ 	lw	$a0,0x20($a1)
-.L0f0370d4:
-/*  f0370d4:	0c00744f */ 	jal	modelGetAnimNum
-/*  f0370d8:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f0370dc:	00022400 */ 	sll	$a0,$v0,0x10
-/*  f0370e0:	00047c03 */ 	sra	$t7,$a0,0x10
-/*  f0370e4:	0fc0b7fc */ 	jal	func0f02dff0
-/*  f0370e8:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f0370ec:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f0370f0:	3c017f1b */ 	lui	$at,%hi(var7f1a8da4)
-/*  f0370f4:	c4268da4 */ 	lwc1	$f6,%lo(var7f1a8da4)($at)
-/*  f0370f8:	8cb80020 */ 	lw	$t8,0x20($a1)
-/*  f0370fc:	c7040014 */ 	lwc1	$f4,0x14($t8)
-/*  f037100:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f037104:	00000000 */ 	nop
-/*  f037108:	46080082 */ 	mul.s	$f2,$f0,$f8
-/*  f03710c:	00000000 */ 	nop
-.L0f037110:
-/*  f037110:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f037114:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f037118:	46001006 */ 	mov.s	$f0,$f2
-/*  f03711c:	03e00008 */ 	jr	$ra
-/*  f037120:	00000000 */ 	nop
-);
+f32 func0f0370a8(struct chrdata *chr)
+{
+	f32 result;
+
+	if (chr->aibot) {
+		result = func0f191fa4(chr);
+	} else {
+		s16 animnum = modelGetAnimNum(chr->model);
+		result = func0f02dff0(animnum) * (chr->model->unk14 * 9.999999f);
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f037124
