@@ -409,48 +409,23 @@ glabel func0f02d338
 /*  f02d368:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel modelAllocateChr
-/*  f02d36c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f02d370:	30ce0001 */ 	andi	$t6,$a2,0x1
-/*  f02d374:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f02d378:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f02d37c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f02d380:	00001825 */ 	or	$v1,$zero,$zero
-/*  f02d384:	11c00003 */ 	beqz	$t6,.L0f02d394
-/*  f02d388:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f02d38c:	1000000c */ 	b	.L0f02d3c0
-/*  f02d390:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f02d394:
-/*  f02d394:	30cf0002 */ 	andi	$t7,$a2,0x2
-/*  f02d398:	51e0000a */ 	beqzl	$t7,.L0f02d3c4
-/*  f02d39c:	30d94000 */ 	andi	$t9,$a2,0x4000
-/*  f02d3a0:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f02d3a4:	0c004b70 */ 	jal	random
-/*  f02d3a8:	a3a80023 */ 	sb	$t0,0x23($sp)
-/*  f02d3ac:	30430001 */ 	andi	$v1,$v0,0x1
-/*  f02d3b0:	2c780001 */ 	sltiu	$t8,$v1,0x1
-/*  f02d3b4:	03001825 */ 	or	$v1,$t8,$zero
-/*  f02d3b8:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f02d3bc:	93a80023 */ 	lbu	$t0,0x23($sp)
-.L0f02d3c0:
-/*  f02d3c0:	30d94000 */ 	andi	$t9,$a2,0x4000
-.L0f02d3c4:
-/*  f02d3c4:	13200002 */ 	beqz	$t9,.L0f02d3d0
-/*  f02d3c8:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f02d3cc:	00004025 */ 	or	$t0,$zero,$zero
-.L0f02d3d0:
-/*  f02d3d0:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f02d3d4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f02d3d8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f02d3dc:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f02d3e0:	0fc0b4ce */ 	jal	func0f02d338
-/*  f02d3e4:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f02d3e8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f02d3ec:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f02d3f0:	03e00008 */ 	jr	$ra
-/*  f02d3f4:	00000000 */ 	nop
-);
+struct model *modelAllocateChr(u32 bodynum, u32 headnum, u32 flags)
+{
+	bool a = 0;
+	u8 b = 1;
+
+	if (flags & 0x0001) {
+		a = true;
+	} else if (flags & 0x0002) {
+		a = random() % 2 == 0;
+	}
+
+	if (flags & 0x4000) {
+		b = 0;
+	}
+
+	return func0f02d338(bodynum, headnum, 0, 0, a, b);
+}
 
 GLOBAL_ASM(
 glabel func0f02d3f8
