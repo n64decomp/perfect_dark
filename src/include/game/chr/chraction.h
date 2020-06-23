@@ -141,7 +141,7 @@ u32 func0f041c44(void);
 void func0f041d38(struct chrdata *chr);
 u32 func0f041e48(void);
 void chrTickAttackAmount(struct chrdata *chr);
-void func0f04279c(struct chrdata *chr, bool arg1, bool arg2);
+void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool enabled);
 void robotAttack(struct chrdata *chr);
 void chrTickRobotAttack(struct chrdata *chr);
 void chrTickAttack(struct chrdata *chr);

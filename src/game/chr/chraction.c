@@ -14032,7 +14032,7 @@ f32 func0f03e754(struct chrdata *chr)
 	f32 sum = chr->aimuprshoulder + chr->aimupback;
 
 	if (sum < 0) {
-		sum += M_TAU;
+		sum += M_BADTAU;
 	}
 
 	return sum;
@@ -18683,40 +18683,35 @@ void chrTickAttackAmount(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f04279c
-/*  f04279c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0427a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0427a4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0427a8:	10a00003 */ 	beqz	$a1,.L0f0427b8
-/*  f0427ac:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f0427b0:	10000002 */ 	b	.L0f0427bc
-/*  f0427b4:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f0427b8:
-/*  f0427b8:	24050003 */ 	addiu	$a1,$zero,0x3
-.L0f0427bc:
-/*  f0427bc:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*  f0427c0:	8dcf0020 */ 	lw	$t7,0x20($t6)
-/*  f0427c4:	0c006a47 */ 	jal	func0001a91c
-/*  f0427c8:	8de40008 */ 	lw	$a0,0x8($t7)
-/*  f0427cc:	10400005 */ 	beqz	$v0,.L0f0427e4
-/*  f0427d0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0427d4:	8fb80020 */ 	lw	$t8,0x20($sp)
-/*  f0427d8:	0c006a87 */ 	jal	func0001aa1c
-/*  f0427dc:	8f040020 */ 	lw	$a0,0x20($t8)
-/*  f0427e0:	afa20018 */ 	sw	$v0,0x18($sp)
-.L0f0427e4:
-/*  f0427e4:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f0427e8:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f0427ec:	50600003 */ 	beqzl	$v1,.L0f0427fc
-/*  f0427f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0427f4:	a4790000 */ 	sh	$t9,0x0($v1)
-/*  f0427f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0427fc:
-/*  f0427fc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f042800:	03e00008 */ 	jr	$ra
-/*  f042804:	00000000 */ 	nop
-);
+/**
+ * Sets the robot's muzzle flash to on or off.
+ *
+ * There are two muzzles, left and right, which is specified using the `right`
+ * argument.
+ */
+void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool enabled)
+{
+	struct model08_00 *model08_00;
+	struct model10 *model10;
+	s32 value;
+
+	if (right) {
+		value = 2;
+	} else {
+		value = 3;
+	}
+
+	model08_00 = func0001a91c(chr->model->unk08, value);
+
+	if (model08_00) {
+		model10 = func0001aa1c(chr->model, model08_00);
+	}
+
+	// @dangerous: model10 may be uninitialised
+	if (model10) {
+		model10->unk00.u16 = enabled;
+	}
+}
 
 GLOBAL_ASM(
 glabel robotAttack
@@ -19247,7 +19242,7 @@ glabel var7f1a91dc
 /*  f042f64:	02402025 */ 	or	$a0,$s2,$zero
 /*  f042f68:	02802825 */ 	or	$a1,$s4,$zero
 /*  f042f6c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f042f70:	0fc109e7 */ 	jal	func0f04279c
+/*  f042f70:	0fc109e7 */ 	jal	robotSetMuzzleFlash
 /*  f042f74:	e6040020 */ 	swc1	$f4,0x20($s0)
 /*  f042f78:	8ee90038 */ 	lw	$t1,0x38($s7)
 /*  f042f7c:	252affff */ 	addiu	$t2,$t1,-1
@@ -23783,8 +23778,8 @@ void chrTick(struct chrdata *chr)
 		}
 
 		if (race == RACE_ROBOT) {
-			func0f04279c(chr, 0, 0);
-			func0f04279c(chr, 1, 0);
+			robotSetMuzzleFlash(chr, 0, false);
+			robotSetMuzzleFlash(chr, 1, false);
 		}
 
 		if (chr->prop) {
@@ -27911,16 +27906,16 @@ s32 func0f004cd84(s32 arg0, s32 arg1)
 void func0f04cf90(struct chrdata *chr, s32 arg1)
 {
 	if (chr && chr->model && chr->model->unk08) {
-		void *value = func0001a91c(chr->model->unk08, arg1);
+		struct model08_00 *model08_00 = func0001a91c(chr->model->unk08, arg1);
 		struct model10 *model10 = NULL;
 
-		if (value != 0) {
-			model10 = func0001aa1c(chr->model, value);
+		if (model08_00) {
+			model10 = func0001aa1c(chr->model, model08_00);
 		}
 
 		if (model10) {
-			u32 value = model10->unk00;
-			model10->unk00 = (value == 0);
+			u32 value = model10->unk00.u32;
+			model10->unk00.u32 = (value == 0);
 		}
 	}
 }

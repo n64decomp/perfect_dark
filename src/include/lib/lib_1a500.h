@@ -14,7 +14,7 @@ u32 func0001a740(void);
 u32 func0001a784(void);
 u32 func0001a7cc(void);
 u32 func0001a85c(void);
-void *func0001a91c(struct model08 *arg0, s32 arg1);
+struct model08_00 *func0001a91c(struct model08 *arg0, s32 arg1);
 struct modelthing *func0001a9bc(void *modelfiledata, s32 arg1);
 u32 func0001a9e8(void);
 struct model10 *func0001aa1c(struct model *model, struct model08_00 *arg1);

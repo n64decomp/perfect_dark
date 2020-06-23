@@ -187,7 +187,10 @@ struct model0c {
 };
 
 struct model10 {
-	u32 unk00;
+	union {
+		u16 u16;
+		u32 u32;
+	} unk00;
 	f32 ground;
 };
 
