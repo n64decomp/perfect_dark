@@ -100,6 +100,6 @@ void portalSetEnabled(s32 portal, bool enable);
 u32 func0f164e8c(void);
 u32 func0f164f9c(void);
 u32 func0f165004(void);
-void func0f1650d0(struct coord *arg0, struct coord *arg1, s16 *rooms, s32 arg3, s32 arg4);
+void func0f1650d0(struct coord *lower, struct coord *upper, s16 *rooms, s32 arg3, s32 arg4);
 
 #endif

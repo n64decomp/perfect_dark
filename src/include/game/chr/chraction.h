@@ -107,7 +107,7 @@ u32 func0f03b1e0(struct chrdata *chr);
 bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum);
 void func0f03ba44(struct chrdata *chr, u32 arg1, u32 arg2, u32 arg3);
 u32 chrTryPunchOrKick(struct chrdata *chr, u32 arg1);
-u32 func0f03c044(void);
+struct eyespy *func0f03c044(struct chrdata *chr);
 void chrTickStand(struct chrdata *chr);
 void chrTickAnim(struct chrdata *chr);
 void chrTickSurrender(struct chrdata *chr);

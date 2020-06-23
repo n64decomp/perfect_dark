@@ -3930,67 +3930,32 @@ glabel var7f1a879c
 /*  f021fa4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f021fa8
-/*  f021fa8:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f021fac:	3c0142dc */ 	lui	$at,0x42dc
-/*  f021fb0:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f021fb4:	44811000 */ 	mtc1	$at,$f2
-/*  f021fb8:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f021fbc:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f021fc0:	10800010 */ 	beqz	$a0,.L0f022004
-/*  f021fc4:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f021fc8:	908e02fe */ 	lbu	$t6,0x2fe($a0)
-/*  f021fcc:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f021fd0:	55c1000d */ 	bnel	$t6,$at,.L0f022008
-/*  f021fd4:	3c014248 */ 	lui	$at,0x4248
-/*  f021fd8:	0fc0f011 */ 	jal	func0f03c044
-/*  f021fdc:	00000000 */ 	nop
-/*  f021fe0:	10400006 */ 	beqz	$v0,.L0f021ffc
-/*  f021fe4:	3c014366 */ 	lui	$at,0x4366
-/*  f021fe8:	3c0141f0 */ 	lui	$at,0x41f0
-/*  f021fec:	44813000 */ 	mtc1	$at,$f6
-/*  f021ff0:	c4440060 */ 	lwc1	$f4,0x60($v0)
-/*  f021ff4:	10000003 */ 	b	.L0f022004
-/*  f021ff8:	46062080 */ 	add.s	$f2,$f4,$f6
-.L0f021ffc:
-/*  f021ffc:	44811000 */ 	mtc1	$at,$f2
-/*  f022000:	00000000 */ 	nop
-.L0f022004:
-/*  f022004:	3c014248 */ 	lui	$at,0x4248
-.L0f022008:
-/*  f022008:	44810000 */ 	mtc1	$at,$f0
-/*  f02200c:	c6080000 */ 	lwc1	$f8,0x0($s0)
-/*  f022010:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f022014:	27a4003c */ 	addiu	$a0,$sp,0x3c
-/*  f022018:	46004281 */ 	sub.s	$f10,$f8,$f0
-/*  f02201c:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f022020:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f022024:	24070007 */ 	addiu	$a3,$zero,0x7
-/*  f022028:	e7aa003c */ 	swc1	$f10,0x3c($sp)
-/*  f02202c:	c6100004 */ 	lwc1	$f16,0x4($s0)
-/*  f022030:	46028481 */ 	sub.s	$f18,$f16,$f2
-/*  f022034:	e7b20040 */ 	swc1	$f18,0x40($sp)
-/*  f022038:	c6040008 */ 	lwc1	$f4,0x8($s0)
-/*  f02203c:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f022040:	e7a60044 */ 	swc1	$f6,0x44($sp)
-/*  f022044:	c6080000 */ 	lwc1	$f8,0x0($s0)
-/*  f022048:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f02204c:	e7aa0030 */ 	swc1	$f10,0x30($sp)
-/*  f022050:	c6100004 */ 	lwc1	$f16,0x4($s0)
-/*  f022054:	46028480 */ 	add.s	$f18,$f16,$f2
-/*  f022058:	e7b20034 */ 	swc1	$f18,0x34($sp)
-/*  f02205c:	c6040008 */ 	lwc1	$f4,0x8($s0)
-/*  f022060:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f022064:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f022068:	0fc59434 */ 	jal	func0f1650d0
-/*  f02206c:	e7a60038 */ 	swc1	$f6,0x38($sp)
-/*  f022070:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f022074:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f022078:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f02207c:	03e00008 */ 	jr	$ra
-/*  f022080:	00000000 */ 	nop
-);
+void func0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms)
+{
+	struct coord lower;
+	struct coord upper;
+	f32 height = 110;
+
+	if (chr && chr->race == RACE_EYESPY) {
+		struct eyespy *eyespy = func0f03c044(chr);
+
+		if (eyespy) {
+			height = eyespy->height + 30.0f;
+		} else {
+			height = 230;
+		}
+	}
+
+	lower.x = pos->x - 50.0f;
+	lower.y = pos->y - height;
+	lower.z = pos->z - 50.0f;
+
+	upper.x = pos->x + 50.0f;
+	upper.y = pos->y + height;
+	upper.z = pos->z + 50.0f;
+
+	func0f1650d0(&lower, &upper, rooms, 7, 1);
+}
 
 void func0f022084(struct chrdata *chr, s16 *room)
 {
