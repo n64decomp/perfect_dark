@@ -11,7 +11,7 @@ s32 func0f02e1cc(struct chrdata *chr, s32 arg1);
 u32 func0f02e260(void);
 u32 func0f02e2d0(void);
 f32 chrGetDistanceToEntity(struct chrdata *chr, u32 entitytype, s32 entityid);
-void func0f02e3dc(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4);
+void func0f02e3dc(struct coord *a, struct coord *b,struct coord *c, struct coord *d, struct coord *dst);
 u32 func0f02e4f8(void);
 f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 arg3, f32 ymax, f32 ymin);
 f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2);

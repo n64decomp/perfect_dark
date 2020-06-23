@@ -366,83 +366,25 @@ f32 chrGetDistanceToEntity(struct chrdata *chr, u32 entitytype, s32 entityid)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f02e3dc
-/*  f02e3dc:	c48c0000 */ 	lwc1	$f12,0x0($a0)
-/*  f02e3e0:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f02e3e4:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f02e3e8:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*  f02e3ec:	460c2381 */ 	sub.s	$f14,$f4,$f12
-/*  f02e3f0:	c4e80000 */ 	lwc1	$f8,0x0($a3)
-/*  f02e3f4:	c4e20008 */ 	lwc1	$f2,0x8($a3)
-/*  f02e3f8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f02e3fc:	46103481 */ 	sub.s	$f18,$f6,$f16
-/*  f02e400:	e7a80000 */ 	swc1	$f8,0x0($sp)
-/*  f02e404:	460e1282 */ 	mul.s	$f10,$f2,$f14
-/*  f02e408:	c7a40000 */ 	lwc1	$f4,0x0($sp)
-/*  f02e40c:	44804000 */ 	mtc1	$zero,$f8
-/*  f02e410:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f02e414:	46065001 */ 	sub.s	$f0,$f10,$f6
-/*  f02e418:	46080032 */ 	c.eq.s	$f0,$f8
-/*  f02e41c:	c7a80000 */ 	lwc1	$f8,0x0($sp)
-/*  f02e420:	4503001b */ 	bc1tl	.L0f02e490
-/*  f02e424:	44802000 */ 	mtc1	$zero,$f4
-/*  f02e428:	c4ca0000 */ 	lwc1	$f10,0x0($a2)
-/*  f02e42c:	8fa20030 */ 	lw	$v0,0x30($sp)
-/*  f02e430:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f02e434:	c7a60014 */ 	lwc1	$f6,0x14($sp)
-/*  f02e438:	460c3201 */ 	sub.s	$f8,$f6,$f12
-/*  f02e43c:	46089282 */ 	mul.s	$f10,$f18,$f8
-/*  f02e440:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*  f02e444:	46088201 */ 	sub.s	$f8,$f16,$f8
-/*  f02e448:	460e4202 */ 	mul.s	$f8,$f8,$f14
-/*  f02e44c:	46085280 */ 	add.s	$f10,$f10,$f8
-/*  f02e450:	46005083 */ 	div.s	$f2,$f10,$f0
-/*  f02e454:	46022202 */ 	mul.s	$f8,$f4,$f2
-/*  f02e458:	46064280 */ 	add.s	$f10,$f8,$f6
-/*  f02e45c:	e44a0000 */ 	swc1	$f10,0x0($v0)
-/*  f02e460:	c4e40004 */ 	lwc1	$f4,0x4($a3)
-/*  f02e464:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*  f02e468:	46022202 */ 	mul.s	$f8,$f4,$f2
-/*  f02e46c:	46064280 */ 	add.s	$f10,$f8,$f6
-/*  f02e470:	e44a0004 */ 	swc1	$f10,0x4($v0)
-/*  f02e474:	c4e40008 */ 	lwc1	$f4,0x8($a3)
-/*  f02e478:	c4c60008 */ 	lwc1	$f6,0x8($a2)
-/*  f02e47c:	46022202 */ 	mul.s	$f8,$f4,$f2
-/*  f02e480:	46064280 */ 	add.s	$f10,$f8,$f6
-/*  f02e484:	1000001a */ 	beqz	$zero,.L0f02e4f0
-/*  f02e488:	e44a0008 */ 	swc1	$f10,0x8($v0)
-/*  f02e48c:	44802000 */ 	mtc1	$zero,$f4
-.L0f02e490:
-/*  f02e490:	8fa20030 */ 	lw	$v0,0x30($sp)
-/*  f02e494:	46082032 */ 	c.eq.s	$f4,$f8
-/*  f02e498:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02e49c:	45020010 */ 	bc1fl	.L0f02e4e0
-/*  f02e4a0:	e44c0000 */ 	swc1	$f12,0x0($v0)
-/*  f02e4a4:	44803000 */ 	mtc1	$zero,$f6
-/*  f02e4a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02e4ac:	46023032 */ 	c.eq.s	$f6,$f2
-/*  f02e4b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02e4b4:	4502000a */ 	bc1fl	.L0f02e4e0
-/*  f02e4b8:	e44c0000 */ 	swc1	$f12,0x0($v0)
-/*  f02e4bc:	8fa20030 */ 	lw	$v0,0x30($sp)
-/*  f02e4c0:	c4ca0000 */ 	lwc1	$f10,0x0($a2)
-/*  f02e4c4:	e44a0000 */ 	swc1	$f10,0x0($v0)
-/*  f02e4c8:	c4c40004 */ 	lwc1	$f4,0x4($a2)
-/*  f02e4cc:	e4440004 */ 	swc1	$f4,0x4($v0)
-/*  f02e4d0:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*  f02e4d4:	10000006 */ 	beqz	$zero,.L0f02e4f0
-/*  f02e4d8:	e4480008 */ 	swc1	$f8,0x8($v0)
-/*  f02e4dc:	e44c0000 */ 	swc1	$f12,0x0($v0)
-.L0f02e4e0:
-/*  f02e4e0:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*  f02e4e4:	e4460004 */ 	swc1	$f6,0x4($v0)
-/*  f02e4e8:	c48a0008 */ 	lwc1	$f10,0x8($a0)
-/*  f02e4ec:	e44a0008 */ 	swc1	$f10,0x8($v0)
-.L0f02e4f0:
-/*  f02e4f0:	03e00008 */ 	jr	$ra
-/*  f02e4f4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void func0f02e3dc(struct coord *a, struct coord *b,struct coord *c, struct coord *d, struct coord *dst)
+{
+	f32 value = d->z * (b->x - a->x) - (b->z - a->z) * d->x;
+
+	if (value != 0) {
+		f32 tmp = ((b->z - a->z) * (c->x - a->x) + (a->z - c->z) * (b->x - a->x)) / value;
+		dst->x = d->x * tmp + c->x;
+		dst->y = d->y * tmp + c->y;
+		dst->z = d->z * tmp + c->z;
+	} else if (d->x == 0 && d->z == 0) {
+		dst->x = c->x;
+		dst->y = c->y;
+		dst->z = c->z;
+	} else {
+		dst->x = a->x;
+		dst->y = a->y;
+		dst->z = a->z;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f02e4f8
