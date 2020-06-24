@@ -188,7 +188,7 @@ u32 func0f07e184(void);
 u32 func0f07e1fc(void);
 void func0f07e2cc(struct prop *prop);
 u32 func0f07e468(void);
-u32 func0f07e474(void);
+u32 func0f07e474(struct prop *prop);
 s32 objTick(struct prop *prop);
 u32 func0f07f6d0(void);
 u32 func0f07f918(void);

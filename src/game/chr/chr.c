@@ -55,191 +55,65 @@
 const char var7f1a8690[] = "chr/chr.c";
 const char var7f1a869c[] = "selectanimnum";
 
-GLOBAL_ASM(
-glabel func0f01e250
-/*  f01e250:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f01e254:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f01e258:	3c14800a */ 	lui	$s4,%hi(g_Vars)
-/*  f01e25c:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
-/*  f01e260:	8e8e006c */ 	lw	$t6,0x6c($s4)
-/*  f01e264:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f01e268:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f01e26c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f01e270:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f01e274:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f01e278:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f01e27c:	11c00003 */ 	beqz	$t6,.L0f01e28c
-/*  f01e280:	00003825 */ 	or	$a3,$zero,$zero
-/*  f01e284:	10000002 */ 	b	.L0f01e290
-/*  f01e288:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f01e28c:
-/*  f01e28c:	00003025 */ 	or	$a2,$zero,$zero
-.L0f01e290:
-/*  f01e290:	8e8f0068 */ 	lw	$t7,0x68($s4)
-/*  f01e294:	00002825 */ 	or	$a1,$zero,$zero
-/*  f01e298:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01e29c:	11e00003 */ 	beqz	$t7,.L0f01e2ac
-/*  f01e2a0:	00000000 */ 	nop
-/*  f01e2a4:	10000001 */ 	b	.L0f01e2ac
-/*  f01e2a8:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f01e2ac:
-/*  f01e2ac:	8e980064 */ 	lw	$t8,0x64($s4)
-/*  f01e2b0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f01e2b4:	00075880 */ 	sll	$t3,$a3,0x2
-/*  f01e2b8:	13000003 */ 	beqz	$t8,.L0f01e2c8
-/*  f01e2bc:	00000000 */ 	nop
-/*  f01e2c0:	10000001 */ 	b	.L0f01e2c8
-/*  f01e2c4:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f01e2c8:
-/*  f01e2c8:	8e990070 */ 	lw	$t9,0x70($s4)
-/*  f01e2cc:	13200003 */ 	beqz	$t9,.L0f01e2dc
-/*  f01e2d0:	00000000 */ 	nop
-/*  f01e2d4:	10000001 */ 	b	.L0f01e2dc
-/*  f01e2d8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f01e2dc:
-/*  f01e2dc:	00444021 */ 	addu	$t0,$v0,$a0
-/*  f01e2e0:	01054821 */ 	addu	$t1,$t0,$a1
-/*  f01e2e4:	01265021 */ 	addu	$t2,$t1,$a2
-/*  f01e2e8:	19400029 */ 	blez	$t2,.L0f01e390
-/*  f01e2ec:	00000000 */ 	nop
-/*  f01e2f0:	44800000 */ 	mtc1	$zero,$f0
-/*  f01e2f4:	028b1821 */ 	addu	$v1,$s4,$t3
-/*  f01e2f8:	8c6c0064 */ 	lw	$t4,0x64($v1)
-.L0f01e2fc:
-/*  f01e2fc:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f01e300:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f01e304:	e5801c44 */ 	swc1	$f0,0x1c44($t4)
-/*  f01e308:	8c6d0060 */ 	lw	$t5,0x60($v1)
-/*  f01e30c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f01e310:	00002825 */ 	or	$a1,$zero,$zero
-/*  f01e314:	e5a01c48 */ 	swc1	$f0,0x1c48($t5)
-/*  f01e318:	8c6e0060 */ 	lw	$t6,0x60($v1)
-/*  f01e31c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01e320:	00001025 */ 	or	$v0,$zero,$zero
-/*  f01e324:	e5c01c4c */ 	swc1	$f0,0x1c4c($t6)
-/*  f01e328:	8e8f006c */ 	lw	$t7,0x6c($s4)
-/*  f01e32c:	11e00003 */ 	beqz	$t7,.L0f01e33c
-/*  f01e330:	00000000 */ 	nop
-/*  f01e334:	10000001 */ 	b	.L0f01e33c
-/*  f01e338:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f01e33c:
-/*  f01e33c:	8e980068 */ 	lw	$t8,0x68($s4)
-/*  f01e340:	13000003 */ 	beqz	$t8,.L0f01e350
-/*  f01e344:	00000000 */ 	nop
-/*  f01e348:	10000001 */ 	b	.L0f01e350
-/*  f01e34c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f01e350:
-/*  f01e350:	8e990064 */ 	lw	$t9,0x64($s4)
-/*  f01e354:	13200003 */ 	beqz	$t9,.L0f01e364
-/*  f01e358:	00000000 */ 	nop
-/*  f01e35c:	10000001 */ 	b	.L0f01e364
-/*  f01e360:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f01e364:
-/*  f01e364:	8e880070 */ 	lw	$t0,0x70($s4)
-/*  f01e368:	11000003 */ 	beqz	$t0,.L0f01e378
-/*  f01e36c:	00000000 */ 	nop
-/*  f01e370:	10000001 */ 	b	.L0f01e378
-/*  f01e374:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f01e378:
-/*  f01e378:	00444821 */ 	addu	$t1,$v0,$a0
-/*  f01e37c:	01255021 */ 	addu	$t2,$t1,$a1
-/*  f01e380:	01465821 */ 	addu	$t3,$t2,$a2
-/*  f01e384:	00eb082a */ 	slt	$at,$a3,$t3
-/*  f01e388:	5420ffdc */ 	bnezl	$at,.L0f01e2fc
-/*  f01e38c:	8c6c0064 */ 	lw	$t4,0x64($v1)
-.L0f01e390:
-/*  f01e390:	0fc0b26c */ 	jal	func0f02c9b0
-/*  f01e394:	00000000 */ 	nop
-/*  f01e398:	0fc120e6 */ 	jal	func0f048398
-/*  f01e39c:	00000000 */ 	nop
-/*  f01e3a0:	8e90033c */ 	lw	$s0,0x33c($s4)
-/*  f01e3a4:	24150003 */ 	addiu	$s5,$zero,0x3
-.L0f01e3a8:
-/*  f01e3a8:	8e130020 */ 	lw	$s3,0x20($s0)
-/*  f01e3ac:	8e8c0354 */ 	lw	$t4,0x354($s4)
-/*  f01e3b0:	92020000 */ 	lbu	$v0,0x0($s0)
-/*  f01e3b4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f01e3b8:	026c9026 */ 	xor	$s2,$s3,$t4
-/*  f01e3bc:	16a20005 */ 	bne	$s5,$v0,.L0f01e3d4
-/*  f01e3c0:	2e520001 */ 	sltiu	$s2,$s2,0x1
-/*  f01e3c4:	0fc08bf8 */ 	jal	propchrDoFireslotThing
-/*  f01e3c8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01e3cc:	10000020 */ 	b	.L0f01e450
-/*  f01e3d0:	00402825 */ 	or	$a1,$v0,$zero
-.L0f01e3d4:
-/*  f01e3d4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f01e3d8:	10410005 */ 	beq	$v0,$at,.L0f01e3f0
-/*  f01e3dc:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f01e3e0:	10410003 */ 	beq	$v0,$at,.L0f01e3f0
-/*  f01e3e4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f01e3e8:	54410006 */ 	bnel	$v0,$at,.L0f01e404
-/*  f01e3ec:	24010007 */ 	addiu	$at,$zero,0x7
-.L0f01e3f0:
-/*  f01e3f0:	0fc1f91d */ 	jal	func0f07e474
-/*  f01e3f4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01e3f8:	10000015 */ 	b	.L0f01e450
-/*  f01e3fc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f01e400:	24010007 */ 	addiu	$at,$zero,0x7
-.L0f01e404:
-/*  f01e404:	54410006 */ 	bnel	$v0,$at,.L0f01e420
-/*  f01e408:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f01e40c:	0fc4aef7 */ 	jal	func0f12bbdc
-/*  f01e410:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01e414:	1000000e */ 	b	.L0f01e450
-/*  f01e418:	00402825 */ 	or	$a1,$v0,$zero
-/*  f01e41c:	24010008 */ 	addiu	$at,$zero,0x8
-.L0f01e420:
-/*  f01e420:	54410006 */ 	bnel	$v0,$at,.L0f01e43c
-/*  f01e424:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f01e428:	0fc4ba12 */ 	jal	func0f12e848
-/*  f01e42c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01e430:	10000007 */ 	b	.L0f01e450
-/*  f01e434:	00402825 */ 	or	$a1,$v0,$zero
-/*  f01e438:	24010006 */ 	addiu	$at,$zero,0x6
-.L0f01e43c:
-/*  f01e43c:	54410005 */ 	bnel	$v0,$at,.L0f01e454
-/*  f01e440:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f01e444:	0fc308a3 */ 	jal	func0f0c228c
-/*  f01e448:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01e44c:	00402825 */ 	or	$a1,$v0,$zero
-.L0f01e450:
-/*  f01e450:	24010005 */ 	addiu	$at,$zero,0x5
-.L0f01e454:
-/*  f01e454:	54a10004 */ 	bnel	$a1,$at,.L0f01e468
-/*  f01e458:	8e110020 */ 	lw	$s1,0x20($s0)
-/*  f01e45c:	10000011 */ 	b	.L0f01e4a4
-/*  f01e460:	02608825 */ 	or	$s1,$s3,$zero
-/*  f01e464:	8e110020 */ 	lw	$s1,0x20($s0)
-.L0f01e468:
-/*  f01e468:	8e8d0354 */ 	lw	$t5,0x354($s4)
-/*  f01e46c:	022d9026 */ 	xor	$s2,$s1,$t5
-/*  f01e470:	14b5000a */ 	bne	$a1,$s5,.L0f01e49c
-/*  f01e474:	2e520001 */ 	sltiu	$s2,$s2,0x1
-/*  f01e478:	0fc18171 */ 	jal	func0f0605c4
-/*  f01e47c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01e480:	0fc1814e */ 	jal	func0f060538
-/*  f01e484:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01e488:	12400006 */ 	beqz	$s2,.L0f01e4a4
-/*  f01e48c:	00000000 */ 	nop
-/*  f01e490:	02008825 */ 	or	$s1,$s0,$zero
-/*  f01e494:	10000003 */ 	b	.L0f01e4a4
-/*  f01e498:	00009025 */ 	or	$s2,$zero,$zero
-.L0f01e49c:
-/*  f01e49c:	0fc18ad9 */ 	jal	func0f062b64
-/*  f01e4a0:	02002025 */ 	or	$a0,$s0,$zero
-.L0f01e4a4:
-/*  f01e4a4:	1240ffc0 */ 	beqz	$s2,.L0f01e3a8
-/*  f01e4a8:	02208025 */ 	or	$s0,$s1,$zero
-/*  f01e4ac:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f01e4b0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f01e4b4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f01e4b8:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f01e4bc:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f01e4c0:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f01e4c4:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f01e4c8:	03e00008 */ 	jr	$ra
-/*  f01e4cc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void func0f01e250(void)
+{
+	s32 i;
+	struct prop *prop;
+	struct prop *next;
+	struct prop *next2;
+	s32 done;
+	s32 value;
+
+	for (i = 0; i < PLAYERCOUNT(); i++) {
+		g_Vars.players[i]->unk1c44 = 0;
+		g_Vars.players[i]->unk1c48 = 0;
+		g_Vars.players[i]->unk1c4c = 0;
+	}
+
+	func0f02c9b0();
+	func0f048398();
+
+	prop = g_Vars.unk00033c;
+
+	do {
+		next = prop->next;
+		done = next == g_Vars.unk000354;
+		value = 0;
+
+		if (prop->type == PROPTYPE_CHR) {
+			value = propchrDoFireslotThing(prop);
+		} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+			value = func0f07e474(prop);
+		} else if (prop->type == PROPTYPE_EXPLOSION) {
+			value = func0f12bbdc(prop);
+		} else if (prop->type == PROPTYPE_EFFECT) {
+			value = func0f12e848(prop);
+		} else if (prop->type == PROPTYPE_PLAYER) {
+			value = func0f0c228c(prop);
+		}
+
+		if (value == 5) {
+			next2 = next;
+		} else {
+			next2 = prop->next;
+			done = next2 == g_Vars.unk000354;
+
+			if (value == 3) {
+				func0f0605c4(prop);
+				func0f060538(prop);
+
+				if (done) {
+					next2 = prop;
+					done = false;
+				}
+			} else {
+				func0f062b64(prop, value);
+			}
+		}
+
+		prop = next2;
+	} while (!done);
+}
 
 s32 getNumChrs(void)
 {

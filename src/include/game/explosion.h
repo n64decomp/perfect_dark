@@ -13,7 +13,7 @@ bool explosionCreate(struct prop *prop, struct coord *pos, s16 *rooms, s16 type,
 u32 func0f12acec(void);
 bool func0f12af5c(struct explosion *exp, struct prop *prop, struct coord *pos1, struct coord *pos2);
 u32 func0f12b0e0(void);
-u32 func0f12bbdc(void);
+u32 func0f12bbdc(struct prop *prop);
 u32 explosionUpdateZ(struct prop *prop);
 u32 func0f12c654(void);
 u32 func0f12cd64(void);

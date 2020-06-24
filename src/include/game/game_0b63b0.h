@@ -81,7 +81,7 @@ f32 currentPlayerGetHealth(void);
 u32 func0f0c21a4(void);
 void func0f0c2210(f32 shield);
 s32 getMissionTime(void);
-u32 func0f0c228c(void);
+u32 func0f0c228c(struct prop *prop);
 u32 func0f0c2364(void);
 u32 func0f0c2a58(void);
 u32 func0f0c32a0(void);

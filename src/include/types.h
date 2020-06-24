@@ -2493,9 +2493,9 @@ struct player {
 	/*0x1c38*/ u32 unk1c38;
 	/*0x1c3c*/ u32 unk1c3c;
 	/*0x1c40*/ u32 joybutinhibit;
-	/*0x1c44*/ u32 unk1c44;
-	/*0x1c48*/ u32 unk1c48;
-	/*0x1c4c*/ u32 unk1c4c;
+	/*0x1c44*/ f32 unk1c44;
+	/*0x1c48*/ f32 unk1c48;
+	/*0x1c4c*/ f32 unk1c4c;
 	/*0x1c50*/ u32 unk1c50;
 	/*0x1c54*/ u32 unk1c54;
 	/*0x1c58*/ f32 unk1c58;
