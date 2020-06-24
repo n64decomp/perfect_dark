@@ -4,7 +4,7 @@
 #include "types.h"
 
 void func0f01e250(void);
-u32 chrSetChrnum(struct chrdata *chr, s16 arg1);
+void chrSetChrnum(struct chrdata *chr, s16 chrnum);
 void chrRemoveFromChrsC(s32 chrnum);
 u32 func0f01e7f4(void);
 u32 func0f01f264(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, bool arg4);
