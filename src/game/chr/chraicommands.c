@@ -5052,7 +5052,6 @@ bool ai00d4(void)
 bool aiHovercarBeginPath(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-
 	struct path *path = pathFindById(cmd[2]);
 
 	if (g_Vars.truck) {

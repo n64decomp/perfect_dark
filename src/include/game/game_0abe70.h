@@ -7,7 +7,7 @@ u32 func0f0abe70(void);
 u32 func0f0ac138(void);
 u32 func0f0ac4b8(void);
 u32 func0f0acb90(void);
-void func0f0adbbc(u32 *arg0);
+void func0f0adbbc(struct fireslot04 *fireslot04);
 u32 func0f0adcc8(void);
 u32 func0f0ade00(void);
 u32 func0f0ae964(void);

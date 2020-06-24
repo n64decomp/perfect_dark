@@ -36,7 +36,7 @@ struct explosion;
 struct prop {
 	/*0x00*/ u8 type;
 	/*0x01*/ u8 flags;
-	/*0x02*/ s16 timetoregen;
+	/*0x02*/ s16 timetoregen; // ticks down
 
 	/*0x04*/
 	union {
@@ -1135,7 +1135,7 @@ struct autogunobj { // objtype 0d
 	/*0x90*/ u32 unk90;
 	/*0x94*/ u32 unk94;
 	/*0x98*/ u32 unk98;
-	/*0x9c*/ u32 unk9c;
+	/*0x9c*/ struct fireslot04 *unk9c;
 	/*0xa0*/ u32 unka0;
 	/*0xa4*/ u32 unka4;
 	/*0xa8*/ u8 autogun_type;
@@ -1149,7 +1149,7 @@ struct multiammocrateobj { // objtype 14
 
 struct shieldobj { // objtype 15
 	struct defaultobj base;
-	/*0x5c*/ f32 unk5c;
+	/*0x5c*/ f32 initialamount;
 	/*0x60*/ f32 amount;
 };
 
@@ -1282,7 +1282,7 @@ struct chopperobj {
 	/*0xd4*/ f32 gunrotx;
 	/*0xd8*/ f32 barrelrotspeed;
 	/*0xdc*/ f32 barrelrot;
-	/*0xdc*/ u32 unke0;
+	/*0xe0*/ struct fireslotthing *fireslotthing;
 	/*0xe4*/ bool dead;
 };
 
@@ -3271,19 +3271,29 @@ struct room {
 	/*0x88*/ u32 unk88;
 };
 
+struct fireslot04 {
+	s8 unk00;
+	s8 unk01;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	f32 unk1c;
+	f32 unk20;
+	u32 unk24;
+	f32 unk28;
+};
+
+struct fireslotthing {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ struct fireslot04 *unk04;
+};
+
 struct fireslot {
 	/*0x00*/ s32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
+	/*0x04*/ struct fireslot04 unk04;
 };
 
 struct menulayer {

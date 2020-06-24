@@ -6,7 +6,7 @@
 u32 setupGetCommandLength(u32 *cmd);
 u32 *setupGetPtrToCommandByIndex(u32 cmdindex);
 s32 tagGetCommandIndex(struct tag *tag);
-u32 func0f092124(void);
+u32 setupGetCommandOffset(struct prop *prop);
 bool propLoad(s32 propnum);
 bool func0f09220c(struct defaultobj *obj, struct coord *pos, f32 *realrot, u32 arg3, u32 arg4);
 bool func0f092304(struct defaultobj *obj, u32 arg1, u32 arg2);

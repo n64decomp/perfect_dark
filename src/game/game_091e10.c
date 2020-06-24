@@ -147,7 +147,7 @@ s32 tagGetCommandIndex(struct tag *tag)
 }
 
 GLOBAL_ASM(
-glabel func0f092124
+glabel setupGetCommandOffset
 /*  f092124:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f092128:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f09212c:	3c10800a */ 	lui	$s0,%hi(g_StageSetup+0x10)
