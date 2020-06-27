@@ -19798,7 +19798,7 @@ glabel var7f1aa43c
 //	// If door should autoclose this tick
 //	if (door->lastopen60 > 0
 //			&& door->mode == DOORMODE_IDLE
-//			&& (door->base.flags & OBJFLAG_DOORKEEPOPEN) == 0
+//			&& (door->base.flags & OBJFLAG_DOOR_KEEPOPEN) == 0
 //			&& door->lastopen60 < g_Vars.lvframe60 - door->autoclosetime) {
 //		// 004
 //		// Check if any sibling has DOORFLAG_0010
@@ -20138,7 +20138,7 @@ glabel var7f1aa44c
 );
 
 GLOBAL_ASM(
-glabel func0f07766c
+glabel platformDisplaceProps
 .late_rodata
 glabel var7f1aa450
 .word 0x3d3a5e30
@@ -20579,7 +20579,7 @@ glabel liftTick
 /*  f077cd4:	24060100 */ 	addiu	$a2,$zero,0x100
 /*  f077cd8:	e7a40244 */ 	swc1	$f4,0x244($sp)
 /*  f077cdc:	c6260010 */ 	lwc1	$f6,0x10($s1)
-/*  f077ce0:	0c0099c7 */ 	jal	func0002671c
+/*  f077ce0:	0c0099c7 */ 	jal	platformGetRidingProps
 /*  f077ce4:	e7a60248 */ 	swc1	$f6,0x248($sp)
 /*  f077ce8:	44807000 */ 	mtc1	$zero,$f14
 /*  f077cec:	c6080074 */ 	lwc1	$f8,0x74($s0)
@@ -20790,7 +20790,7 @@ glabel liftTick
 /*  f077ffc:	02202025 */ 	or	$a0,$s1,$zero
 /*  f078000:	27a5003c */ 	addiu	$a1,$sp,0x3c
 /*  f078004:	27a60240 */ 	addiu	$a2,$sp,0x240
-/*  f078008:	0fc1dd9b */ 	jal	func0f07766c
+/*  f078008:	0fc1dd9b */ 	jal	platformDisplaceProps
 /*  f07800c:	8fa70034 */ 	lw	$a3,0x34($sp)
 /*  f078010:	1000001c */ 	b	.L0f078084
 /*  f078014:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -20832,6 +20832,150 @@ glabel liftTick
 /*  f07808c:	03e00008 */ 	jr	$ra
 /*  f078090:	27bd0340 */ 	addiu	$sp,$sp,0x340
 );
+
+// Mismatch because goal loads xdiff earlier for multiply with frac.
+//void liftTick(struct prop *prop)
+//{
+//	struct liftobj *lift = (struct liftobj *)prop->obj;
+//	struct defaultobj *obj = prop->obj;
+//	struct doorobj *door; // sp820
+//	struct pad padcur; // sp736
+//	struct pad padaim; // sp652
+//	f32 segdist; // sp648
+//	f32 xdiff; // sp644
+//	f32 ydiff; // sp640
+//	f32 zdiff; // sp636
+//	struct coord curcentre; // sp624
+//	f32 frac;
+//	s32 move; // sp616
+//	struct coord newpos; // sp604
+//	s16 newrooms[8]; // sp588
+//	struct coord prevpos; // sp576
+//	f32 prevdist; // sp572
+//	s16 propnums[256]; // sp60
+//	s32 stop;
+//
+//	lift->prevpos.x = prop->pos.x;
+//	lift->prevpos.y = prop->pos.y;
+//	lift->prevpos.z = prop->pos.z;
+//
+//	// c50
+//	if (lift->levelaim != lift->levelcur) {
+//		// c58
+//		// Lift is not at the desired level. So try to move, but not if the lift
+//		// is disabled or if the door needs to be closed first.
+//		move = true;
+//
+//		if (obj->flags & OBJFLAG_DEACTIVATED) {
+//			move = false;
+//		} else {
+//			// c84
+//			if (lift->doors[lift->levelcur] && !doorIsClosed(lift->doors[lift->levelcur])) {
+//				doorActivate(lift->doors[lift->levelcur], DOORMODE_CLOSING);
+//				move = false;
+//			}
+//		}
+//
+//		// cb8
+//		if (move) {
+//			prevpos.x = prop->pos.x;
+//			prevpos.y = prop->pos.y;
+//			prevpos.z = prop->pos.z;
+//
+//			platformGetRidingProps(prop, propnums, sizeof(propnums));
+//
+//			if (lift->dist == 0 && lift->speed == 0) {
+//				// d18
+//				func0f08d784(lift->soundtype, lift->base.prop);
+//
+//				if (obj->flags & OBJFLAG_LIFT_TRIGGERDISABLE) {
+//					obj->flags &= ~OBJFLAG_LIFT_TRIGGERDISABLE;
+//					obj->flags |= OBJFLAG_DEACTIVATED;
+//				}
+//			}
+//
+//			padGetCentre(lift->pads[lift->levelcur], &curcentre);
+//			padUnpack(lift->pads[lift->levelcur], PADFIELD_POS, &padcur);
+//			padUnpack(lift->pads[lift->levelaim], PADFIELD_POS, &padaim);
+//
+//			xdiff = padaim.pos.x - padcur.pos.x;
+//			ydiff = padaim.pos.y - padcur.pos.y;
+//			zdiff = padaim.pos.z - padcur.pos.z;
+//
+//			segdist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+//
+//			prevdist = lift->dist;
+//
+//			// e0c
+//			func0f06d90c(&lift->dist, segdist, &lift->speed, lift->accel, lift->accel, lift->maxspeed);
+//
+//			// If arriving at the destination, set the distance explicitly
+//			if (lift->speed < 1 && lift->speed > -1) {
+//				if (prevdist < segdist && lift->dist >= segdist) {
+//					lift->dist = segdist;
+//				} else if (prevdist > 0 && lift->dist <= 0) {
+//					lift->dist = 0;
+//				}
+//			}
+//
+//			// eb0
+//			frac = segdist == 0 ? 0 : lift->dist / segdist;
+//
+//			newpos.x = curcentre.x + xdiff * frac;
+//			newpos.y = curcentre.y + ydiff * frac;
+//			newpos.z = curcentre.z + zdiff * frac;
+//
+//			if (segdist == lift->dist) {
+//				// f18
+//				lift->dist = 0;
+//				lift->speed = 0;
+//				lift->levelcur = lift->levelaim;
+//
+//				func0f08dd44(lift->soundtype, lift->base.prop);
+//
+//				if (obj->flags & OBJFLAG_LIFT_TRIGGERDISABLE) {
+//					obj->flags &= ~OBJFLAG_LIFT_TRIGGERDISABLE;
+//					obj->flags |= OBJFLAG_DEACTIVATED;
+//				}
+//
+//				door = lift->doors[lift->levelcur];
+//
+//				if (door && door->keyflags == 0) {
+//					doorActivate(door, DOORMODE_OPENING);
+//				}
+//			}
+//
+//			func0f065e74(&prop->pos, prop->rooms, &newpos, newrooms);
+//
+//			prop->pos.x = newpos.x;
+//			prop->pos.y = newpos.y;
+//			prop->pos.z = newpos.z;
+//
+//			func0f065c44(prop);
+//			roomsCopy(newrooms, prop->rooms);
+//			func0f069c70(obj, true, true);
+//			func0f070f08(lift, lift->levelcur == lift->levelaim);
+//			platformDisplaceProps(prop, propnums, &prevpos, &prop->pos);
+//		}
+//	} else {
+//		// 018
+//		// Lift is at the aim stop
+//		door = lift->doors[lift->levelcur];
+//
+//		if (!door || (doorIsClosed(door) && door->keyflags == 0)) {
+//			// Find next stop
+//			// 040
+//			stop = lift->levelaim;
+//
+//			do {
+//				// 048
+//				stop = (stop + 1) % 4;
+//			} while (lift->pads[stop] < 0);
+//
+//			liftGoToStop(lift, stop);
+//		}
+//	}
+//}
 
 GLOBAL_ASM(
 glabel escalatorTick
@@ -20923,7 +21067,7 @@ glabel escalatorTick
 /*  f0781d4:	c6040010 */ 	lwc1	$f4,0x10($s0)
 /*  f0781d8:	afa90030 */ 	sw	$t1,0x30($sp)
 /*  f0781dc:	afa7025c */ 	sw	$a3,0x25c($sp)
-/*  f0781e0:	0c0099c7 */ 	jal	func0002671c
+/*  f0781e0:	0c0099c7 */ 	jal	platformGetRidingProps
 /*  f0781e4:	e7a4023c */ 	swc1	$f4,0x23c($sp)
 /*  f0781e8:	8fa7025c */ 	lw	$a3,0x25c($sp)
 /*  f0781ec:	c6080008 */ 	lwc1	$f8,0x8($s0)
@@ -20970,7 +21114,7 @@ glabel escalatorTick
 /*  f078284:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*  f078288:	15200003 */ 	bnez	$t1,.L0f078298
 /*  f07828c:	27a60234 */ 	addiu	$a2,$sp,0x234
-/*  f078290:	0fc1dd9b */ 	jal	func0f07766c
+/*  f078290:	0fc1dd9b */ 	jal	platformDisplaceProps
 /*  f078294:	26070008 */ 	addiu	$a3,$s0,0x8
 .L0f078298:
 /*  f078298:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -27584,7 +27728,7 @@ void hoverbikeTick(struct prop *prop, bool arg1)
 			func0f0714b8(&obj->base, &obj->hov);
 		}
 
-		if (obj->base.flags & OBJFLAG_DOORKEEPOPEN) {
+		if (obj->base.flags & OBJFLAG_DOOR_KEEPOPEN) {
 			func0f072adc(obj, 0, 0, 0);
 		}
 	}
@@ -38011,7 +38155,7 @@ s32 weaponGetPickupAmmoQty(struct weaponobj *weapon)
 		return 1;
 	}
 
-	if (weapon->base.flags & OBJFLAG_DOORKEEPOPEN) {
+	if (weapon->base.flags & OBJFLAG_DOOR_KEEPOPEN) {
 		return 0;
 	}
 
@@ -44580,7 +44724,7 @@ void func0f08df10(s32 soundtype, struct prop *prop)
 
 void func0f08e0c4(struct doorobj *door)
 {
-	door->base.flags &= ~OBJFLAG_DOORKEEPOPEN;
+	door->base.flags &= ~OBJFLAG_DOOR_KEEPOPEN;
 	door->base.hidden |= OBJHFLAG_00000200;
 
 	func0f08d784(door->soundtype, door->base.prop);
@@ -44606,7 +44750,7 @@ void func0f08e0c4(struct doorobj *door)
 
 void func0f08e1a0(struct doorobj *door)
 {
-	door->base.flags &= ~OBJFLAG_DOORKEEPOPEN;
+	door->base.flags &= ~OBJFLAG_DOOR_KEEPOPEN;
 
 	func0f08daa8(door->soundtype, door->base.prop);
 

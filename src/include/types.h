@@ -1196,9 +1196,9 @@ struct liftobj { // objtype 30
 	/*0x64*/ struct doorobj *doors[4];
 	/*0x74*/ f32 dist;
 	/*0x78*/ f32 speed;
-	/*0x7c*/ u32 accel;
-	/*0x80*/ u32 maxspeed;
-	/*0x84*/ u8 soundtype;
+	/*0x7c*/ f32 accel;
+	/*0x80*/ f32 maxspeed;
+	/*0x84*/ s8 soundtype;
 	/*0x85*/ s8 levelcur;
 	/*0x86*/ s8 levelaim;
 	/*0x88*/ struct coord prevpos;

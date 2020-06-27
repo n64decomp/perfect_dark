@@ -3524,7 +3524,7 @@ u8 func1018_safe_switch[] = {
 	yield
 	open_door(OBJ_SAFEDOOR)
 	yield
-	set_object_flag(OBJ_SAFEDOOR, OBJFLAG_DOORKEEPOPEN)
+	set_object_flag(OBJ_SAFEDOOR, OBJFLAG_DOOR_KEEPOPEN)
 
 	unset_object_flag2(OBJ_FLIGHTPLANS, OBJFLAG2_INVISIBLE)
 	unset_object_flag(OBJ_FLIGHTPLANS, OBJFLAG_UNCOLLECTABLE)

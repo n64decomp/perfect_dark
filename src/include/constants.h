@@ -1909,38 +1909,39 @@
 #define NUM_WEAPONS          94
 
 // obj->flags
-#define OBJFLAG_00000001         0x00000001 // Editor: "Fall to Ground"
-#define OBJFLAG_00000002         0x00000002 // Editor: "In Air Rotated 90 Deg Upside-Down"
-#define OBJFLAG_00000004         0x00000004 // Editor: "In Air Upside-Down"
-#define OBJFLAG_00000008         0x00000008 // Editor: "In Air"
-#define OBJFLAG_00000010         0x00000010 // Editor: "Scale to Pad Bounds"
-#define OBJFLAG_00000020         0x00000020 // Editor: "X to Pad Bounds"
-#define OBJFLAG_00000040         0x00000040 // Editor: "Y to Pad Bounds"
-#define OBJFLAG_00000080         0x00000080 // Editor: "Z to Pad Bounds"
-#define OBJFLAG_00000100         0x00000100 // G5 mines, Air Base brown door, AF1 grate and escape door, Defense shuttle, Ruins mines, MBR lift door. Editor suggests "Force Collisions" but this seems wrong
-#define OBJFLAG_00000200         0x00000200 // Editor: "Special Environment Mapping"
-#define OBJFLAG_ILLUMINATED      0x00000400
-#define OBJFLAG_00000800         0x00000800 // Editor: "Free Standing Glass"
-#define OBJFLAG_00001000         0x00001000 // Editor: "Absolute Position"
-#define OBJFLAG_00002000         0x00002000 // AF1 commhubs. Editor suggests "Weapon Not Dropped"
-#define OBJFLAG_00004000         0x00004000 // Editor: "Assigned to Actor"
-#define OBJFLAG_00008000         0x00008000 // Editor: "Embedded Object"
-#define OBJFLAG_00010000         0x00010000 // Not used in scripts
-#define OBJFLAG_INVINCIBLE       0x00020000
-#define OBJFLAG_COLLECTABLE      0x00040000
-#define OBJFLAG_00080000         0x00080000 // Thrown laptop?
-#define OBJFLAG_UNCOLLECTABLE    0x00100000
-#define OBJFLAG_00200000         0x00200000 // Editor: "Bounce and Destroy If Shot"
-#define OBJFLAG_00400000         0x00400000 // Not used in scripts
-#define OBJFLAG_00800000         0x00800000 // Not used in scripts
-#define OBJFLAG_01000000         0x01000000 // Editor: "Embedded Object"
-#define OBJFLAG_CANNOT_ACTIVATE  0x02000000 // Makes it do nothing if player presses B on object. Used mostly for doors.
-#define OBJFLAG_04000000         0x04000000 // Editor: "AI Sees Through Door/Object"
-#define OBJFLAG_08000000         0x08000000 // Not used in scripts
-#define OBJFLAG_DEACTIVATED      0x10000000
-#define OBJFLAG_20000000         0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
-#define OBJFLAG_DOORKEEPOPEN     0x40000000 // Editor: "Door open by default/Empty weapon"
-#define OBJFLAG_CHOPPER_INACTIVE 0x80000000 // Or lift disabled
+#define OBJFLAG_00000001            0x00000001 // Editor: "Fall to Ground"
+#define OBJFLAG_00000002            0x00000002 // Editor: "In Air Rotated 90 Deg Upside-Down"
+#define OBJFLAG_00000004            0x00000004 // Editor: "In Air Upside-Down"
+#define OBJFLAG_00000008            0x00000008 // Editor: "In Air"
+#define OBJFLAG_00000010            0x00000010 // Editor: "Scale to Pad Bounds"
+#define OBJFLAG_00000020            0x00000020 // Editor: "X to Pad Bounds"
+#define OBJFLAG_00000040            0x00000040 // Editor: "Y to Pad Bounds"
+#define OBJFLAG_00000080            0x00000080 // Editor: "Z to Pad Bounds"
+#define OBJFLAG_00000100            0x00000100 // G5 mines, Air Base brown door, AF1 grate and escape door, Defense shuttle, Ruins mines, MBR lift door. Editor suggests "Force Collisions" but this seems wrong
+#define OBJFLAG_00000200            0x00000200 // Editor: "Special Environment Mapping"
+#define OBJFLAG_ILLUMINATED         0x00000400
+#define OBJFLAG_00000800            0x00000800 // Editor: "Free Standing Glass"
+#define OBJFLAG_00001000            0x00001000 // Editor: "Absolute Position"
+#define OBJFLAG_00002000            0x00002000 // AF1 commhubs. Editor suggests "Weapon Not Dropped"
+#define OBJFLAG_00004000            0x00004000 // Editor: "Assigned to Actor"
+#define OBJFLAG_00008000            0x00008000 // Editor: "Embedded Object"
+#define OBJFLAG_00010000            0x00010000 // Not used in scripts
+#define OBJFLAG_INVINCIBLE          0x00020000
+#define OBJFLAG_COLLECTABLE         0x00040000
+#define OBJFLAG_00080000            0x00080000 // Thrown laptop?
+#define OBJFLAG_UNCOLLECTABLE       0x00100000
+#define OBJFLAG_00200000            0x00200000 // Editor: "Bounce and Destroy If Shot"
+#define OBJFLAG_00400000            0x00400000 // Not used in scripts
+#define OBJFLAG_00800000            0x00800000 // Not used in scripts
+#define OBJFLAG_01000000            0x01000000 // Editor: "Embedded Object"
+#define OBJFLAG_CANNOT_ACTIVATE     0x02000000 // Makes it do nothing if player presses B on object. Used mostly for doors.
+#define OBJFLAG_04000000            0x04000000 // Editor: "AI Sees Through Door/Object"
+#define OBJFLAG_08000000            0x08000000 // Not used in scripts
+#define OBJFLAG_DEACTIVATED         0x10000000
+#define OBJFLAG_20000000            0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
+#define OBJFLAG_DOOR_KEEPOPEN       0x40000000 // Editor: "Door open by default/Empty weapon"
+#define OBJFLAG_LIFT_TRIGGERDISABLE 0x40000000
+#define OBJFLAG_CHOPPER_INACTIVE    0x80000000 // Or lift disabled
 
 // obj->flags2
 #define OBJFLAG2_00000001     0x00000001 // Used only in CI Training

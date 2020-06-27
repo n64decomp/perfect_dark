@@ -3698,7 +3698,7 @@ glabel func000266a4
 );
 
 GLOBAL_ASM(
-glabel func0002671c
+glabel platformGetRidingProps
 /*    2671c:	27bdfd88 */ 	addiu	$sp,$sp,-632
 /*    26720:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*    26724:	afa5027c */ 	sw	$a1,0x27c($sp)

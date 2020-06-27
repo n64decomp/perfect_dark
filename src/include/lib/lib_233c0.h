@@ -57,7 +57,7 @@ u32 func000263e4(void);
 u32 func00026520(void);
 u32 func00026654(void);
 u32 func000266a4(void);
-u32 func0002671c(void);
+void platformGetRidingProps(struct prop *platform, s16 *propnums, u32 len);
 u32 func00026a04(void);
 u32 func00026e7c(void);
 u32 func0002709c(void);

@@ -633,10 +633,10 @@ u8 func1004_check_hangar_doors_opened[] = {
 	open_door(OBJ_HANGARDOOR2)
 	open_door(OBJ_HANGARDOOR3)
 	open_door(OBJ_HANGARDOOR4)
-	set_object_flag(OBJ_HANGARDOOR1, OBJFLAG_DOORKEEPOPEN)
-	set_object_flag(OBJ_HANGARDOOR2, OBJFLAG_DOORKEEPOPEN)
-	set_object_flag(OBJ_HANGARDOOR3, OBJFLAG_DOORKEEPOPEN)
-	set_object_flag(OBJ_HANGARDOOR4, OBJFLAG_DOORKEEPOPEN)
+	set_object_flag(OBJ_HANGARDOOR1, OBJFLAG_DOOR_KEEPOPEN)
+	set_object_flag(OBJ_HANGARDOOR2, OBJFLAG_DOOR_KEEPOPEN)
+	set_object_flag(OBJ_HANGARDOOR3, OBJFLAG_DOOR_KEEPOPEN)
+	set_object_flag(OBJ_HANGARDOOR4, OBJFLAG_DOOR_KEEPOPEN)
 	restart_timer
 
 	beginloop(0x09)
@@ -1296,8 +1296,8 @@ u8 func1008_hangar_lifts[] = {
 
 	// Deactivate lift and open door
 	label(0x66)
-	set_object_flag(0x39, OBJFLAG_DOORKEEPOPEN)
-	set_object_flag(0x3a, OBJFLAG_DOORKEEPOPEN)
+	set_object_flag(0x39, OBJFLAG_DOOR_KEEPOPEN)
+	set_object_flag(0x3a, OBJFLAG_DOOR_KEEPOPEN)
 	unset_object_flag(OBJ_HANGARLIFT_JO, OBJFLAG_DEACTIVATED)
 	open_door(0x39)
 	open_door(0x3a)
@@ -1329,8 +1329,8 @@ u8 func1008_hangar_lifts[] = {
 	// hence the 5 second wait if entered as soon as the door opens.
 	label(0x2c)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
-	unset_object_flag(0x39, OBJFLAG_DOORKEEPOPEN)
-	unset_object_flag(0x3a, OBJFLAG_DOORKEEPOPEN)
+	unset_object_flag(0x39, OBJFLAG_DOOR_KEEPOPEN)
+	unset_object_flag(0x3a, OBJFLAG_DOOR_KEEPOPEN)
 	unset_object_flag(OBJ_HANGARLIFT_JO, OBJFLAG_DEACTIVATED)
 
 	// Wait until Y coordinate >= 400
@@ -2904,10 +2904,10 @@ u8 func0c01_outro[] = {
 	open_door(OBJ_HANGARDOOR2)
 	open_door(OBJ_HANGARDOOR3)
 	open_door(OBJ_HANGARDOOR4)
-	set_object_flag(OBJ_HANGARDOOR1, OBJFLAG_DOORKEEPOPEN)
-	set_object_flag(OBJ_HANGARDOOR2, OBJFLAG_DOORKEEPOPEN)
-	set_object_flag(OBJ_HANGARDOOR3, OBJFLAG_DOORKEEPOPEN)
-	set_object_flag(OBJ_HANGARDOOR4, OBJFLAG_DOORKEEPOPEN)
+	set_object_flag(OBJ_HANGARDOOR1, OBJFLAG_DOOR_KEEPOPEN)
+	set_object_flag(OBJ_HANGARDOOR2, OBJFLAG_DOOR_KEEPOPEN)
+	set_object_flag(OBJ_HANGARDOOR3, OBJFLAG_DOOR_KEEPOPEN)
+	set_object_flag(OBJ_HANGARDOOR4, OBJFLAG_DOOR_KEEPOPEN)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2c)
