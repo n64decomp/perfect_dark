@@ -28029,12 +28029,10 @@ glabel func0f07e2cc
 /*  f07e464:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel propCanRegen
-/*  f07e468:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f07e46c:	03e00008 */ 	jr	$ra
-/*  f07e470:	24020001 */ 	addiu	$v0,$zero,0x1
-);
+bool propCanRegen(struct prop *prop)
+{
+	return true;
+}
 
 u32 func0f07e474(struct prop *prop)
 {
