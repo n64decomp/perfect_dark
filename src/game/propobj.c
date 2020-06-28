@@ -12194,53 +12194,27 @@ glabel func0f070698
 /*  f0706f4:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f0706f8
-/*  f0706f8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0706fc:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f070700:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f070704:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f070708:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f07070c:	8c870004 */ 	lw	$a3,0x4($a0)
-/*  f070710:	00808825 */ 	or	$s1,$a0,$zero
-/*  f070714:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f070718:	8cee0040 */ 	lw	$t6,0x40($a3)
-/*  f07071c:	31cf0004 */ 	andi	$t7,$t6,0x4
-/*  f070720:	51e0000a */ 	beqzl	$t7,.L0f07074c
-/*  f070724:	92390001 */ 	lbu	$t9,0x1($s1)
-/*  f070728:	90e60002 */ 	lbu	$a2,0x2($a3)
-/*  f07072c:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f070730:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f070734:	30d80004 */ 	andi	$t8,$a2,0x4
-/*  f070738:	0fc1ab4b */ 	jal	setupParseObject
-/*  f07073c:	03003025 */ 	or	$a2,$t8,$zero
-/*  f070740:	10000011 */ 	b	.L0f070788
-/*  f070744:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f070748:	92390001 */ 	lbu	$t9,0x1($s1)
-.L0f07074c:
-/*  f07074c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f070750:	02402825 */ 	or	$a1,$s2,$zero
-/*  f070754:	3328fffd */ 	andi	$t0,$t9,0xfffd
-/*  f070758:	0fc1c18f */ 	jal	func0f07063c
-/*  f07075c:	a2280001 */ 	sb	$t0,0x1($s1)
-/*  f070760:	8e30001c */ 	lw	$s0,0x1c($s1)
-/*  f070764:	52000008 */ 	beqzl	$s0,.L0f070788
-/*  f070768:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f07076c:
-/*  f07076c:	8e110020 */ 	lw	$s1,0x20($s0)
-/*  f070770:	02002025 */ 	or	$a0,$s0,$zero
-/*  f070774:	0fc1c1be */ 	jal	func0f0706f8
-/*  f070778:	02402825 */ 	or	$a1,$s2,$zero
-/*  f07077c:	1620fffb */ 	bnez	$s1,.L0f07076c
-/*  f070780:	02208025 */ 	or	$s0,$s1,$zero
-/*  f070784:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f070788:
-/*  f070788:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f07078c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f070790:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f070794:	03e00008 */ 	jr	$ra
-/*  f070798:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f0706f8(struct prop *prop, bool arg1)
+{
+	struct defaultobj *obj = prop->obj;
+	struct prop *child;
+
+	if (obj->hidden & OBJHFLAG_00000004) {
+		setupParseObject(obj, true, obj->hidden2 & OBJHFLAG_00000004);
+	} else {
+		prop->flags &= ~PROPFLAG_02;
+		func0f07063c(prop, arg1);
+
+		// Recurse into children
+		child = prop->child;
+
+		while (child) {
+			struct prop *next = child->next;
+			func0f0706f8(child, arg1);
+			child = next;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f07079c
