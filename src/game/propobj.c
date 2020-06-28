@@ -24327,27 +24327,12 @@ void chopperRestartTimer(struct chopperobj *obj)
 	}
 }
 
-GLOBAL_ASM(
-glabel chopperGetTimer
-.late_rodata
-glabel var7f1aa5c8
-.word 0x3c888889
-.text
-/*  f07b120:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f07b124:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07b128:	0fc1eb7d */ 	jal	chopperFromHovercar
-/*  f07b12c:	00000000 */ 	nop
-/*  f07b130:	8c4e00c0 */ 	lw	$t6,0xc0($v0)
-/*  f07b134:	3c017f1b */ 	lui	$at,%hi(var7f1aa5c8)
-/*  f07b138:	c428a5c8 */ 	lwc1	$f8,%lo(var7f1aa5c8)($at)
-/*  f07b13c:	448e2000 */ 	mtc1	$t6,$f4
-/*  f07b140:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f07b144:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f07b148:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f07b14c:	46083002 */ 	mul.s	$f0,$f6,$f8
-/*  f07b150:	03e00008 */ 	jr	$ra
-/*  f07b154:	00000000 */ 	nop
-);
+f32 chopperGetTimer(struct chopperobj *obj)
+{
+	struct chopperobj *chopper = chopperFromHovercar(obj);
+
+	return chopper->timer60 * FRAMEDURATION;
+}
 
 void chopperSetMaxDamage(struct chopperobj *chopper, s16 health)
 {

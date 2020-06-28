@@ -1274,7 +1274,7 @@ struct chopperobj {
 	/*0xb4*/ f32 bob;
 	/*0xb8*/ f32 bobstrength;
 	/*0xbc*/ u32 targetvisible;
-	/*0xc0*/ u32 timer60;
+	/*0xc0*/ s32 timer60;
 	/*0xc4*/ u32 patroltimer60;
 	/*0xc8*/ u32 gunturnyspeed60;
 	/*0xcc*/ u32 gunturnxspeed60;
