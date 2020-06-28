@@ -28122,12 +28122,12 @@ u32 func0f07e474(struct prop *prop)
 	if (obj->type == OBJTYPE_AUTOGUN) {
 		struct autogunobj *autogun = (struct autogunobj *)prop->obj;
 
-		if (autogun->unk9c) {
-			func0f0adbbc(autogun->unk9c);
+		if (autogun->bullettail) {
+			bullettailTick(autogun->bullettail);
 		}
 	} else if (obj->type == OBJTYPE_CHOPPER) {
 		struct chopperobj *chopper = (struct chopperobj *)prop->obj;
-		func0f0adbbc(chopper->fireslotthing->unk04);
+		bullettailTick(chopper->fireslotthing->bullettail);
 	} else if (obj->type == OBJTYPE_LIFT) {
 		liftTick(prop);
 	} else if (obj->type == OBJTYPE_ESCALATOR) {

@@ -17815,10 +17815,10 @@ glabel func0f041a74
 /*  f041b78:	a058003f */ 	sb	$t8,0x3f($v0)
 .L0f041b7c:
 /*  f041b7c:	8e190348 */ 	lw	$t9,0x348($s0)
-/*  f041b80:	0fc2b6ef */ 	jal	func0f0adbbc
+/*  f041b80:	0fc2b6ef */ 	jal	bullettailTick
 /*  f041b84:	8f240004 */ 	lw	$a0,0x4($t9)
 /*  f041b88:	8e08034c */ 	lw	$t0,0x34c($s0)
-/*  f041b8c:	0fc2b6ef */ 	jal	func0f0adbbc
+/*  f041b8c:	0fc2b6ef */ 	jal	bullettailTick
 /*  f041b90:	8d040004 */ 	lw	$a0,0x4($t0)
 /*  f041b94:	10000027 */ 	b	.L0f041c34
 /*  f041b98:	8fbf0024 */ 	lw	$ra,0x24($sp)

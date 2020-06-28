@@ -1135,7 +1135,7 @@ struct autogunobj { // objtype 0d
 	/*0x90*/ u32 unk90;
 	/*0x94*/ u32 unk94;
 	/*0x98*/ u32 unk98;
-	/*0x9c*/ struct fireslot04 *unk9c;
+	/*0x9c*/ struct bullettail *bullettail;
 	/*0xa0*/ u32 unka0;
 	/*0xa4*/ u32 unka4;
 	/*0xa8*/ u8 autogun_type;
@@ -3271,8 +3271,8 @@ struct room {
 	/*0x88*/ u32 unk88;
 };
 
-struct fireslot04 {
-	s8 unk00;
+struct bullettail {
+	s8 age;
 	s8 unk01;
 	u32 unk04;
 	u32 unk08;
@@ -3280,20 +3280,20 @@ struct fireslot04 {
 	u32 unk10;
 	u32 unk14;
 	u32 unk18;
-	f32 unk1c;
-	f32 unk20;
+	f32 maxdist;
+	f32 speed;
 	u32 unk24;
-	f32 unk28;
+	f32 dist;
 };
 
 struct fireslotthing {
 	/*0x00*/ u32 unk00;
-	/*0x04*/ struct fireslot04 *unk04;
+	/*0x04*/ struct bullettail *bullettail;
 };
 
 struct fireslot {
 	/*0x00*/ s32 unk00;
-	/*0x04*/ struct fireslot04 unk04;
+	/*0x04*/ struct bullettail bullettail;
 };
 
 struct menulayer {
