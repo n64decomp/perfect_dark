@@ -4566,32 +4566,16 @@ glabel func0f069b4c
 /*  f069c18:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f069c1c
-/*  f069c1c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f069c20:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f069c24:	8c870044 */ 	lw	$a3,0x44($a0)
-/*  f069c28:	50e0000e */ 	beqzl	$a3,.L0f069c64
-/*  f069c2c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f069c30:	908e0002 */ 	lbu	$t6,0x2($a0)
-/*  f069c34:	2486001c */ 	addiu	$a2,$a0,0x1c
-/*  f069c38:	31cf0008 */ 	andi	$t7,$t6,0x8
-/*  f069c3c:	11e00006 */ 	beqz	$t7,.L0f069c58
-/*  f069c40:	00000000 */ 	nop
-/*  f069c44:	8c850014 */ 	lw	$a1,0x14($a0)
-/*  f069c48:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f069c4c:	0fc1a614 */ 	jal	func0f069850
-/*  f069c50:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f069c54:	8fa40018 */ 	lw	$a0,0x18($sp)
-.L0f069c58:
-/*  f069c58:	0fc1a6d3 */ 	jal	func0f069b4c
-/*  f069c5c:	00000000 */ 	nop
-/*  f069c60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f069c64:
-/*  f069c64:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f069c68:	03e00008 */ 	jr	$ra
-/*  f069c6c:	00000000 */ 	nop
-);
+void func0f069c1c(struct defaultobj *obj)
+{
+	if (obj->geo) {
+		if (obj->hidden2 & OBJH2FLAG_08) {
+			func0f069850(obj, &obj->prop->pos, obj->realrot, obj->geo);
+		}
+
+		func0f069b4c(obj);
+	}
+}
 
 void func0f069c70(struct defaultobj *obj, bool arg1, bool arg2)
 {
