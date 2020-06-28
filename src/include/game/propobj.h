@@ -53,7 +53,7 @@ bool modelSetRedBox(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *a
 u32 func0f06803c(void);
 struct defaultobj *objFindByPadNum(s32 padnum);
 u32 func0f068218(void);
-u32 func0f0682dc(void);
+void func0f0682dc(struct obj48 *obj48);
 u32 func0f0682fc(void);
 u32 func0f068368(void);
 u32 func0f06843c(void);

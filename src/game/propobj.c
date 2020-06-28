@@ -5742,30 +5742,15 @@ glabel var7f1aa208
 /*  f06ac3c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f06ac40
-/*  f06ac40:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f06ac44:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f06ac48:	8c8e0040 */ 	lw	$t6,0x40($a0)
-/*  f06ac4c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f06ac50:	31cf0080 */ 	andi	$t7,$t6,0x80
-/*  f06ac54:	51e0000b */ 	beqzl	$t7,.L0f06ac84
-/*  f06ac58:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06ac5c:	8c840048 */ 	lw	$a0,0x48($a0)
-/*  f06ac60:	0fc1a0b7 */ 	jal	func0f0682dc
-/*  f06ac64:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f06ac68:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f06ac6c:	2401ff7f */ 	addiu	$at,$zero,-129
-/*  f06ac70:	8cb80040 */ 	lw	$t8,0x40($a1)
-/*  f06ac74:	aca00048 */ 	sw	$zero,0x48($a1)
-/*  f06ac78:	0301c824 */ 	and	$t9,$t8,$at
-/*  f06ac7c:	acb90040 */ 	sw	$t9,0x40($a1)
-/*  f06ac80:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f06ac84:
-/*  f06ac84:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f06ac88:	03e00008 */ 	jr	$ra
-/*  f06ac8c:	00000000 */ 	nop
-);
+void func0f06ac40(struct defaultobj *obj)
+{
+	if (obj->hidden & OBJHFLAG_00000080) {
+		func0f0682dc(obj->unk48);
+		obj->unk48 = NULL;
+
+		obj->hidden &= ~OBJHFLAG_00000080;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f06ac90
