@@ -12164,35 +12164,17 @@ glabel func0f07063c
 /*  f070694:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f070698
-/*  f070698:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f07069c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0706a0:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0706a4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0706a8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0706ac:	8c90001c */ 	lw	$s0,0x1c($a0)
-/*  f0706b0:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f0706b4:	5200000b */ 	beqzl	$s0,.L0f0706e4
-/*  f0706b8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0706bc:
-/*  f0706bc:	8e110020 */ 	lw	$s1,0x20($s0)
-/*  f0706c0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0706c4:	0fc1c1a6 */ 	jal	func0f070698
-/*  f0706c8:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0706cc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0706d0:	0fc20c1f */ 	jal	func0f08307c
-/*  f0706d4:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0706d8:	1620fff8 */ 	bnez	$s1,.L0f0706bc
-/*  f0706dc:	02208025 */ 	or	$s0,$s1,$zero
-/*  f0706e0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0706e4:
-/*  f0706e4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0706e8:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0706ec:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0706f0:	03e00008 */ 	jr	$ra
-/*  f0706f4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f070698(struct prop *prop, bool arg1)
+{
+	struct prop *child = prop->child;
+
+	while (child) {
+		struct prop *next = child->next;
+		func0f070698(child, arg1);
+		func0f08307c(child, arg1);
+		child = next;
+	}
+}
 
 void func0f0706f8(struct prop *prop, bool arg1)
 {
