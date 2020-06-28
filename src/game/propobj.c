@@ -2510,18 +2510,10 @@ glabel func0f067dc4
 /*  f068014:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel modelSetRedBox
-/*  f068018:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f06801c:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*  f068020:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f068024:	0fc19f71 */ 	jal	func0f067dc4
-/*  f068028:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f06802c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f068030:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f068034:	03e00008 */ 	jr	$ra
-/*  f068038:	00000000 */ 	nop
-);
+bool modelSetRedBox(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4)
+{
+	return func0f067dc4(model, arg1, arg2, arg3, arg4);
+}
 
 GLOBAL_ASM(
 glabel func0f06803c
