@@ -27668,34 +27668,20 @@ void hoverbikeTick(struct prop *prop, bool arg1)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f07e058
-/*  f07e058:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f07e05c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07e060:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f07e064:	2405006e */ 	addiu	$a1,$zero,0x6e
-/*  f07e068:	8c460018 */ 	lw	$a2,0x18($v0)
-/*  f07e06c:	8cc40008 */ 	lw	$a0,0x8($a2)
-/*  f07e070:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f07e074:	0c006a47 */ 	jal	func0001a91c
-/*  f07e078:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f07e07c:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f07e080:	10400009 */ 	beqz	$v0,.L0f07e0a8
-/*  f07e084:	00402825 */ 	or	$a1,$v0,$zero
-/*  f07e088:	0c006a87 */ 	jal	func0001aa1c
-/*  f07e08c:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f07e090:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f07e094:	3c011000 */ 	lui	$at,0x1000
-/*  f07e098:	8dc30008 */ 	lw	$v1,0x8($t6)
-/*  f07e09c:	00617824 */ 	and	$t7,$v1,$at
-/*  f07e0a0:	2df80001 */ 	sltiu	$t8,$t7,0x1
-/*  f07e0a4:	ac580000 */ 	sw	$t8,0x0($v0)
-.L0f07e0a8:
-/*  f07e0a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f07e0ac:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f07e0b0:	03e00008 */ 	jr	$ra
-/*  f07e0b4:	00000000 */ 	nop
-);
+void func0f07e058(struct prop *prop)
+{
+	struct defaultobj *obj = prop->obj;
+	struct model *model = obj->model;
+
+	struct model08_00 *model08_00 = func0001a91c(model->unk08, 0x6e);
+
+	if (model08_00) {
+		struct model10 *model10 = func0001aa1c(model, model08_00);
+		u32 flags = obj->flags;
+
+		model10->unk00.u32 = (flags & OBJFLAG_DEACTIVATED) == 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f07e0b8
