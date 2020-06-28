@@ -174,7 +174,7 @@ void chopperSetMaxDamage(struct chopperobj *obj, s16 health);
 u32 func0f07b164(void);
 u32 chopperFireRocket(struct chopperobj *obj, u32 arg1);
 u32 func0f07b3f0(void);
-u32 func0f07ba38(void);
+void func0f07ba38(struct prop *prop, f32 roty, f32 rotx, struct coord *coord, u32 arg4);
 void chopperTickAttackMode2(struct prop *chopper);
 void func0f07c7b0(struct prop *chopper);
 void chopperTickAttackMode0(struct prop *chopper);

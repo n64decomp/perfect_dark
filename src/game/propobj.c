@@ -25854,41 +25854,24 @@ glabel var7f1aa698
 /*  f07c7ac:	27bd0180 */ 	addiu	$sp,$sp,0x180
 );
 
-GLOBAL_ASM(
-glabel func0f07c7b0
-/*  f07c7b0:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f07c7b4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f07c7b8:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f07c7bc:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f07c7c0:	8c900004 */ 	lw	$s0,0x4($a0)
-/*  f07c7c4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f07c7c8:	c604007c */ 	lwc1	$f4,0x7c($s0)
-/*  f07c7cc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07c7d0:	e7a4003c */ 	swc1	$f4,0x3c($sp)
-/*  f07c7d4:	c6060080 */ 	lwc1	$f6,0x80($s0)
-/*  f07c7d8:	0fc135ad */ 	jal	chraiExecute
-/*  f07c7dc:	e7a60038 */ 	swc1	$f6,0x38($sp)
-/*  f07c7e0:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x38)
-/*  f07c7e4:	8f189ff8 */ 	lw	$t8,%lo(g_Vars+0x38)($t8)
-/*  f07c7e8:	8e0f00c0 */ 	lw	$t7,0xc0($s0)
-/*  f07c7ec:	44800000 */ 	mtc1	$zero,$f0
-/*  f07c7f0:	27a7002c */ 	addiu	$a3,$sp,0x2c
-/*  f07c7f4:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f07c7f8:	ae1900c0 */ 	sw	$t9,0xc0($s0)
-/*  f07c7fc:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f07c800:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f07c804:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f07c808:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f07c80c:	e7a0002c */ 	swc1	$f0,0x2c($sp)
-/*  f07c810:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f07c814:	0fc1ee8e */ 	jal	func0f07ba38
-/*  f07c818:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f07c81c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f07c820:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f07c824:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f07c828:	03e00008 */ 	jr	$ra
-/*  f07c82c:	00000000 */ 	nop
-);
+void func0f07c7b0(struct prop *prop)
+{
+	struct chopperobj *chopper = (struct chopperobj *)prop->obj;
+	u32 stack;
+	f32 roty = chopper->roty;
+	f32 rotx = chopper->rotx;
+	struct coord coord;
+
+	chraiExecute(chopper, PROPTYPE_OBJ);
+
+	chopper->timer60 += g_Vars.lvupdate240_60;
+
+	coord.x = 0;
+	coord.y = 0;
+	coord.z = 0;
+
+	func0f07ba38(prop, roty, rotx, &coord, 0);
+}
 
 GLOBAL_ASM(
 glabel chopperTickAttackMode0
