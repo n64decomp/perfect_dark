@@ -37755,66 +37755,13 @@ void ammotypeGetPickupMessage(char *dst, s32 ammotype, s32 qty)
 	}
 }
 
-const char var7f1aa06c[] = "";
-const char var7f1aa070[] = "";
-const char var7f1aa074[] = "";
-const char var7f1aa078[] = "";
-const char var7f1aa07c[] = "";
-const char var7f1aa080[] = "";
-const char var7f1aa084[] = "";
-const char var7f1aa088[] = "";
-const char var7f1aa08c[] = "";
-const char var7f1aa090[] = "";
-const char var7f1aa094[] = "";
-const char var7f1aa098[] = "";
-const char var7f1aa09c[] = "";
-const char var7f1aa0a0[] = "";
-const char var7f1aa0a4[] = "";
-const char var7f1aa0a8[] = "";
-const char var7f1aa0ac[] = "";
-const char var7f1aa0b0[] = "";
-const char var7f1aa0b4[] = "";
-const char var7f1aa0b8[] = "";
-const char var7f1aa0bc[] = "";
-const char var7f1aa0c0[] = "";
-const char var7f1aa0c4[] = "";
-const char var7f1aa0c8[] = "";
-const char var7f1aa0cc[] = "";
+void currentPlayerQueuePickupAmmoHudmsg(s32 ammotype, s32 pickupqty)
+{
+	char buffer[100] = "";
 
-GLOBAL_ASM(
-glabel func0f087fb0
-/*  f087fb0:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f087fb4:	afa40080 */ 	sw	$a0,0x80($sp)
-/*  f087fb8:	3c0e7f1b */ 	lui	$t6,%hi(var7f1aa06c)
-/*  f087fbc:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f087fc0:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f087fc4:	25cea06c */ 	addiu	$t6,$t6,%lo(var7f1aa06c)
-/*  f087fc8:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f087fcc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f087fd0:	25d90060 */ 	addiu	$t9,$t6,0x60
-/*  f087fd4:	00804025 */ 	or	$t0,$a0,$zero
-.L0f087fd8:
-/*  f087fd8:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f087fdc:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f087fe0:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f087fe4:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f087fe8:	8dc1fff8 */ 	lw	$at,-0x8($t6)
-/*  f087fec:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f087ff0:	8dc1fffc */ 	lw	$at,-0x4($t6)
-/*  f087ff4:	15d9fff8 */ 	bne	$t6,$t9,.L0f087fd8
-/*  f087ff8:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f087ffc:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f088000:	0fc21f90 */ 	jal	ammotypeGetPickupMessage
-/*  f088004:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f088008:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f08800c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f088010:	0fc377e9 */ 	jal	func0f0ddfa4
-/*  f088014:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f088018:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08801c:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*  f088020:	03e00008 */ 	jr	$ra
-/*  f088024:	00000000 */ 	nop
-);
+	ammotypeGetPickupMessage(buffer, ammotype, pickupqty);
+	func0f0ddfa4(buffer, HUDMSGTYPE_DEFAULT, 1);
+}
 
 GLOBAL_ASM(
 glabel func0f088028
@@ -37845,7 +37792,7 @@ glabel func0f088028
 /*  f088088:	02002025 */ 	or	$a0,$s0,$zero
 /*  f08808c:	53200004 */ 	beqzl	$t9,.L0f0880a0
 /*  f088090:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f088094:	0fc21fec */ 	jal	func0f087fb0
+/*  f088094:	0fc21fec */ 	jal	currentPlayerQueuePickupAmmoHudmsg
 /*  f088098:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*  f08809c:	8fa80030 */ 	lw	$t0,0x30($sp)
 .L0f0880a0:
@@ -38542,7 +38489,7 @@ glabel var7f1aae70
 /*  f088d0c:	8fac0074 */ 	lw	$t4,0x74($sp)
 /*  f088d10:	11600003 */ 	beqz	$t3,.L0f088d20
 /*  f088d14:	8fa4006c */ 	lw	$a0,0x6c($sp)
-/*  f088d18:	0fc21fec */ 	jal	func0f087fb0
+/*  f088d18:	0fc21fec */ 	jal	currentPlayerQueuePickupAmmoHudmsg
 /*  f088d1c:	8fa50058 */ 	lw	$a1,0x58($sp)
 .L0f088d20:
 /*  f088d20:	8fac0074 */ 	lw	$t4,0x74($sp)
@@ -38574,7 +38521,7 @@ glabel var7f1aae70
 /*  f088d84:	8fb80074 */ 	lw	$t8,0x74($sp)
 /*  f088d88:	11e00003 */ 	beqz	$t7,.L0f088d98
 /*  f088d8c:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f088d90:	0fc21fec */ 	jal	func0f087fb0
+/*  f088d90:	0fc21fec */ 	jal	currentPlayerQueuePickupAmmoHudmsg
 /*  f088d94:	8fa50050 */ 	lw	$a1,0x50($sp)
 .L0f088d98:
 /*  f088d98:	8fb80074 */ 	lw	$t8,0x74($sp)
@@ -38931,7 +38878,7 @@ glabel var7f1aae70
 //						currentPlayerSetAmmoQuantity(ammotype, heldqty + pickupqty);
 //
 //						if (sp112 == false && showhudmsg) {
-//							func0f087fb0(ammotype, pickupqty);
+//							currentPlayerQueuePickupAmmoHudmsg(ammotype, pickupqty);
 //						}
 //					}
 //				}
@@ -38947,7 +38894,7 @@ glabel var7f1aae70
 //					currentPlayerSetAmmoQuantity(AMMOTYPE_DEVASTATOR, heldqty + 5);
 //
 //					if (sp112 == false && showhudmsg) {
-//						func0f087fb0(AMMOTYPE_DEVASTATOR, pickupqty);
+//						currentPlayerQueuePickupAmmoHudmsg(AMMOTYPE_DEVASTATOR, pickupqty);
 //					}
 //				}
 //			}
