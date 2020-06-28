@@ -48404,9 +48404,7 @@ void objSetPartVisible(struct defaultobj *obj, s32 partnum, bool visible)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f091e04
-/*  f091e04:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f091e08:	03e00008 */ 	jr	$ra
-/*  f091e0c:	00801025 */ 	or	$v0,$a0,$zero
-);
+u32 func0f091e04(u32 arg0, u32 arg1)
+{
+	return arg0;
+}
