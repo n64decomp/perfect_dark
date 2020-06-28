@@ -13920,19 +13920,10 @@ glabel var7f1aa314
 /*  f0720b0:	27bd01d8 */ 	addiu	$sp,$sp,0x1d8
 );
 
-GLOBAL_ASM(
-glabel func0f0720b4
-/*  f0720b4:	90830003 */ 	lbu	$v1,0x3($a0)
-/*  f0720b8:	38620035 */ 	xori	$v0,$v1,0x35
-/*  f0720bc:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f0720c0:	14400003 */ 	bnez	$v0,.L0f0720d0
-/*  f0720c4:	00000000 */ 	nop
-/*  f0720c8:	38620033 */ 	xori	$v0,$v1,0x33
-/*  f0720cc:	2c420001 */ 	sltiu	$v0,$v0,0x1
-.L0f0720d0:
-/*  f0720d0:	03e00008 */ 	jr	$ra
-/*  f0720d4:	00000000 */ 	nop
-);
+s32 objIsHoverpropOrBike(struct defaultobj *obj)
+{
+	return obj->type == OBJTYPE_HOVERPROP || obj->type == OBJTYPE_HOVERBIKE;
+}
 
 f32 hoverpropGetTurnAngle(struct defaultobj *obj)
 {
@@ -13980,7 +13971,7 @@ glabel var7f1aa31c
 /*  f072168:	8c8f0014 */ 	lw	$t7,0x14($a0)
 /*  f07216c:	00808025 */ 	or	$s0,$a0,$zero
 /*  f072170:	e7ac0490 */ 	swc1	$f12,0x490($sp)
-/*  f072174:	0fc1c82d */ 	jal	func0f0720b4
+/*  f072174:	0fc1c82d */ 	jal	objIsHoverpropOrBike
 /*  f072178:	afaf00e8 */ 	sw	$t7,0xe8($sp)
 /*  f07217c:	1040002c */ 	beqz	$v0,.L0f072230
 /*  f072180:	c7ac0490 */ 	lwc1	$f12,0x490($sp)

@@ -2088,11 +2088,11 @@
 #define OBJTYPE_LINKPATHS        0x32
 #define OBJTYPE_HOVERBIKE        0x33
 #define OBJTYPE_END              0x34
-#define OBJTYPE_HOVERPROP        0x35
+#define OBJTYPE_HOVERPROP        0x35 // Hovercrates and hoverbeds
 #define OBJTYPE_FAN              0x36
-#define OBJTYPE_HOVERCAR         0x37
+#define OBJTYPE_HOVERCAR         0x37 // Datadyne cars, Chicago taxi and limo, and hoverbots
 #define OBJTYPE_PADEFFECT        0x38
-#define OBJTYPE_CHOPPER          0x39
+#define OBJTYPE_CHOPPER          0x39 // Extraction hovercopter and A51 interceptors
 #define OBJTYPE_MINE             0x3a
 #define OBJTYPE_ESCALATOR        0x3b
 

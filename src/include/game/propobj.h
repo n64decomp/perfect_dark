@@ -134,7 +134,7 @@ void liftGoToStop(struct liftobj *lift, s32 stopnum);
 u32 func0f071360(void);
 void func0f0713e4(struct defaultobj *obj, struct hov *hov, struct coord *coord, s16 *rooms, f32 *matrix);
 void func0f0714b8(struct defaultobj *obj, struct hov *hov);
-u32 func0f0720b4(void);
+s32 objIsHoverpropOrBike(struct defaultobj *obj);
 f32 hoverpropGetTurnAngle(struct defaultobj *obj);
 void hoverpropSetTurnAngle(struct defaultobj *obj, f32 angle);
 u32 func0f072144(void);
