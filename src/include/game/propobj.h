@@ -136,7 +136,7 @@ void func0f0713e4(struct defaultobj *obj, struct hov *hov, struct coord *coord, 
 void func0f0714b8(struct defaultobj *obj, struct hov *hov);
 u32 func0f0720b4(void);
 f32 func0f0720d8(struct defaultobj *obj);
-void func0f072110(struct defaultobj *obj, f32 angle);
+void hoverpropSetTurnAngle(struct defaultobj *obj, f32 angle);
 u32 func0f072144(void);
 u32 func0f072650(void);
 u32 func0f0726ec(void);

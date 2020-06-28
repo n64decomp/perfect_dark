@@ -13954,24 +13954,16 @@ glabel func0f0720d8
 /*  f07210c:	46001006 */ 	mov.s	$f0,$f2
 );
 
-GLOBAL_ASM(
-glabel func0f072110
-/*  f072110:	90820003 */ 	lbu	$v0,0x3($a0)
-/*  f072114:	44856000 */ 	mtc1	$a1,$f12
-/*  f072118:	24010035 */ 	addiu	$at,$zero,0x35
-/*  f07211c:	54410004 */ 	bnel	$v0,$at,.L0f072130
-/*  f072120:	24010033 */ 	addiu	$at,$zero,0x33
-/*  f072124:	03e00008 */ 	jr	$ra
-/*  f072128:	e48c006c */ 	swc1	$f12,0x6c($a0)
-/*  f07212c:	24010033 */ 	addiu	$at,$zero,0x33
-.L0f072130:
-/*  f072130:	14410002 */ 	bne	$v0,$at,.L0f07213c
-/*  f072134:	00000000 */ 	nop
-/*  f072138:	e48c006c */ 	swc1	$f12,0x6c($a0)
-.L0f07213c:
-/*  f07213c:	03e00008 */ 	jr	$ra
-/*  f072140:	00000000 */ 	nop
-);
+void hoverpropSetTurnAngle(struct defaultobj *obj, f32 angle)
+{
+	if (obj->type == OBJTYPE_HOVERPROP) {
+		struct hoverpropobj *hoverprop = (struct hoverpropobj *)obj;
+		hoverprop->hov.unk10 = angle;
+	} else if (obj->type == OBJTYPE_HOVERBIKE) {
+		struct hoverbikeobj *hoverbike = (struct hoverbikeobj *)obj;
+		hoverbike->hov.unk10 = angle;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f072144
@@ -14251,7 +14243,7 @@ glabel var7f1aa31c
 /*  f072524:	02002025 */ 	or	$a0,$s0,$zero
 /*  f072528:	260e001c */ 	addiu	$t6,$s0,0x1c
 /*  f07252c:	afae003c */ 	sw	$t6,0x3c($sp)
-/*  f072530:	0fc1c844 */ 	jal	func0f072110
+/*  f072530:	0fc1c844 */ 	jal	hoverpropSetTurnAngle
 /*  f072534:	8fa5045c */ 	lw	$a1,0x45c($sp)
 /*  f072538:	27a40460 */ 	addiu	$a0,$sp,0x460
 /*  f07253c:	0c005736 */ 	jal	func00015cd8
@@ -28261,7 +28253,7 @@ s32 objTick(struct prop *prop)
 
 						if (hov) {
 							func0f0713e4(obj, hov, &prop->pos, prop->rooms, obj->realrot);
-							func0f072110(obj, func0f096750(sp412[8], sp412[10]));
+							hoverpropSetTurnAngle(obj, func0f096750(sp412[8], sp412[10]));
 
 							hov->unk14 = 0;
 							hov->unk1c = 0;

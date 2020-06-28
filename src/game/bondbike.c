@@ -1331,7 +1331,7 @@ glabel var7f1adb7c
 .L0f0d31b0:
 /*  f0d31b0:	44056000 */ 	mfc1	$a1,$f12
 .L0f0d31b4:
-/*  f0d31b4:	0fc1c844 */ 	jal	func0f072110
+/*  f0d31b4:	0fc1c844 */ 	jal	hoverpropSetTurnAngle
 /*  f0d31b8:	e7ac0084 */ 	swc1	$f12,0x84($sp)
 /*  f0d31bc:	c7ac0084 */ 	lwc1	$f12,0x84($sp)
 /*  f0d31c0:	0c0058dd */ 	jal	func00016374
