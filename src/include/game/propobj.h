@@ -115,7 +115,7 @@ u32 func0f06ec20(void);
 u32 func0f06ed64(void);
 u32 func0f06ef44(void);
 u32 func0f06f0a0(void);
-u32 func0f06f314(void);
+void func0f06f314(struct prop *prop, u32 explosiontype);
 void func0f06f504(struct prop *ammocrate);
 void func0f06f54c(struct prop *weapon);
 void func0f07063c(struct prop *prop, bool arg1);
