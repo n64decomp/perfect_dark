@@ -12133,36 +12133,18 @@ glabel var7f1aa2c4
 /*  f070638:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f07063c
-/*  f07063c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f070640:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f070644:	10a00010 */ 	beqz	$a1,.L0f070688
-/*  f070648:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f07064c:	90620003 */ 	lbu	$v0,0x3($v1)
-/*  f070650:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f070654:	10410003 */ 	beq	$v0,$at,.L0f070664
-/*  f070658:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f07065c:	54410006 */ 	bnel	$v0,$at,.L0f070678
-/*  f070660:	24010008 */ 	addiu	$at,$zero,0x8
-.L0f070664:
-/*  f070664:	0fc1bd41 */ 	jal	func0f06f504
-/*  f070668:	00000000 */ 	nop
-/*  f07066c:	10000007 */ 	b	.L0f07068c
-/*  f070670:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f070674:	24010008 */ 	addiu	$at,$zero,0x8
-.L0f070678:
-/*  f070678:	54410004 */ 	bnel	$v0,$at,.L0f07068c
-/*  f07067c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f070680:	0fc1bd53 */ 	jal	func0f06f54c
-/*  f070684:	00000000 */ 	nop
-.L0f070688:
-/*  f070688:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f07068c:
-/*  f07068c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f070690:	03e00008 */ 	jr	$ra
-/*  f070694:	00000000 */ 	nop
-);
+void func0f07063c(struct prop *prop, bool arg1)
+{
+	struct defaultobj *obj = prop->obj;
+
+	if (arg1) {
+		if (obj->type == OBJTYPE_AMMOCRATE || obj->type == OBJTYPE_MULTIAMMOCRATE) {
+			func0f06f504(prop);
+		} else if (obj->type == OBJTYPE_WEAPON) {
+			func0f06f54c(prop);
+		}
+	}
+}
 
 void func0f070698(struct prop *prop, bool arg1)
 {
