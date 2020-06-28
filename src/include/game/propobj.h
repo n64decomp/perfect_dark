@@ -314,7 +314,7 @@ u32 func0f08e5a8(void);
 u32 func0f08e6bc(void);
 u32 func0f08e794(void);
 bool func0f08e8ac(struct prop *prop, struct coord *coord, f32 arg2, u32 arg3);
-bool func0f08e9e4(struct coord *arg);
+bool posIsInDrawDistance(struct coord *arg);
 void func0f08ea50(struct doorobj *door);
 bool func0f08ed74(struct doorobj *door);
 void doorDoCalc(struct doorobj *door);

@@ -28267,9 +28267,9 @@ s32 objTick(struct prop *prop)
 	if (sp552) {
 		pass2 = false;
 	} else if (prop == currentPlayerGetHoverbike() || prop == currentPlayerGetGrabbedProp()) {
-		pass2 = func0f08e9e4(&prop->pos);
+		pass2 = posIsInDrawDistance(&prop->pos);
 	} else if (obj->flags2 & OBJFLAG2_04000000) {
-		pass2 = func0f08e9e4(&prop->pos);
+		pass2 = posIsInDrawDistance(&prop->pos);
 	} else if ((obj->hidden & OBJHFLAG_00000800) == 0 && (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
 		pass2 = func0f08e8ac(prop, &prop->pos, func0001af80(model), sp564);
 	} else {
@@ -44952,57 +44952,21 @@ glabel var7f1ab16c
 /*  f08e9e0:	01001025 */ 	or	$v0,$t0,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f08e9e4
-.late_rodata
-glabel var7f1ab170
-.word 0x4e742400
-.text
-/*  f08e9e4:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f08e9e8:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f08e9ec:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f08e9f0:	c4880004 */ 	lwc1	$f8,0x4($a0)
-/*  f08e9f4:	c4461bb0 */ 	lwc1	$f6,0x1bb0($v0)
-/*  f08e9f8:	c44a1bb4 */ 	lwc1	$f10,0x1bb4($v0)
-/*  f08e9fc:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f08ea00:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f08ea04:	c4521bb8 */ 	lwc1	$f18,0x1bb8($v0)
-/*  f08ea08:	3c017f1b */ 	lui	$at,%hi(var7f1ab170)
-/*  f08ea0c:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f08ea10:	46000182 */ 	mul.s	$f6,$f0,$f0
-/*  f08ea14:	c424b170 */ 	lwc1	$f4,%lo(var7f1ab170)($at)
-/*  f08ea18:	46128301 */ 	sub.s	$f12,$f16,$f18
-/*  f08ea1c:	46021202 */ 	mul.s	$f8,$f2,$f2
-/*  f08ea20:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f08ea24:	24421bb0 */ 	addiu	$v0,$v0,7088
-/*  f08ea28:	460c6402 */ 	mul.s	$f16,$f12,$f12
-/*  f08ea2c:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f08ea30:	46105480 */ 	add.s	$f18,$f10,$f16
-/*  f08ea34:	4612203c */ 	c.lt.s	$f4,$f18
-/*  f08ea38:	00000000 */ 	nop
-/*  f08ea3c:	45000002 */ 	bc1f	.L0f08ea48
-/*  f08ea40:	00000000 */ 	nop
-/*  f08ea44:	00001825 */ 	or	$v1,$zero,$zero
-.L0f08ea48:
-/*  f08ea48:	03e00008 */ 	jr	$ra
-/*  f08ea4c:	00601025 */ 	or	$v0,$v1,$zero
-);
+bool posIsInDrawDistance(struct coord *pos)
+{
+	struct coord *campos = &g_Vars.currentplayer->cam_pos;
+	f32 x = pos->x - campos->x;
+	f32 y = pos->y - campos->y;
+	f32 z = pos->z - campos->z;
+	f32 aggregate = x * x + y * y + z * z;
+	bool result = true;
 
-// Goal ASM loads the address of cam_pos an extra time for no reason
-//bool func0f08e9e4(struct coord *arg)
-//{
-//	f32 x = arg->x - g_Vars.currentplayer->cam_pos.x;
-//	f32 y = arg->y - g_Vars.currentplayer->cam_pos.y;
-//	f32 z = arg->z - g_Vars.currentplayer->cam_pos.z;
-//	f32 aggregate = x * x + y * y + z * z;
-//	bool result = true;
-//
-//	if (aggregate > 1024000000) {
-//		result = false;
-//	}
-//
-//	return result;
-//}
+	if (aggregate > 1024000000) {
+		result = false;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f08ea50

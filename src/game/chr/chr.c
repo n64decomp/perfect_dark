@@ -5001,7 +5001,7 @@ glabel var7f1a87d8
 /*  f02368c:	10000155 */ 	b	.L0f023be4
 /*  f023690:	00003825 */ 	or	$a3,$zero,$zero
 .L0f023694:
-/*  f023694:	0fc23a79 */ 	jal	func0f08e9e4
+/*  f023694:	0fc23a79 */ 	jal	posIsInDrawDistance
 /*  f023698:	24840008 */ 	addiu	$a0,$a0,8
 /*  f02369c:	10000151 */ 	b	.L0f023be4
 /*  f0236a0:	00403825 */ 	or	$a3,$v0,$zero
