@@ -48383,43 +48383,29 @@ glabel var7f1ab214
 /*  f091d80:	00000000 */ 	nop
 );
 
+void objSetPartVisible(struct defaultobj *obj, s32 partnum, bool visible)
+{
+	if (obj && obj->model && obj->model->unk08) {
+		struct model08_00 *model08_00 = func0001a91c(obj->model->unk08, partnum);
+
+		if (model08_00) {
+			struct model10 *model10 = func0001aa1c(obj->model, model08_00);
+
+			if (model10) {
+				if (visible) {
+					visible = true;
+				} else {
+					visible = false;
+				}
+
+				model10->unk00.u32 = visible;
+			}
+		}
+	}
+}
+
 GLOBAL_ASM(
-glabel objSetPartVisible
-/*  f091d84:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f091d88:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f091d8c:	10800019 */ 	beqz	$a0,.L0f091df4
-/*  f091d90:	00803825 */ 	or	$a3,$a0,$zero
-/*  f091d94:	8c820018 */ 	lw	$v0,0x18($a0)
-/*  f091d98:	50400017 */ 	beqzl	$v0,.L0f091df8
-/*  f091d9c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f091da0:	8c440008 */ 	lw	$a0,0x8($v0)
-/*  f091da4:	50800014 */ 	beqzl	$a0,.L0f091df8
-/*  f091da8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f091dac:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f091db0:	0c006a47 */ 	jal	func0001a91c
-/*  f091db4:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f091db8:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f091dbc:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f091dc0:	1040000c */ 	beqz	$v0,.L0f091df4
-/*  f091dc4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f091dc8:	8ce40018 */ 	lw	$a0,0x18($a3)
-/*  f091dcc:	0c006a87 */ 	jal	func0001aa1c
-/*  f091dd0:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f091dd4:	10400007 */ 	beqz	$v0,.L0f091df4
-/*  f091dd8:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f091ddc:	50c00004 */ 	beqzl	$a2,.L0f091df0
-/*  f091de0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f091de4:	10000002 */ 	b	.L0f091df0
-/*  f091de8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f091dec:	00003025 */ 	or	$a2,$zero,$zero
-.L0f091df0:
-/*  f091df0:	ac460000 */ 	sw	$a2,0x0($v0)
-.L0f091df4:
-/*  f091df4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f091df8:
-/*  f091df8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f091dfc:	03e00008 */ 	jr	$ra
-/*  f091e00:	00000000 */ 	nop
+glabel func0f091e04
 /*  f091e04:	afa50004 */ 	sw	$a1,0x4($sp)
 /*  f091e08:	03e00008 */ 	jr	$ra
 /*  f091e0c:	00801025 */ 	or	$v0,$a0,$zero
