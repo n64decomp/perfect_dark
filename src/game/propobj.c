@@ -13934,25 +13934,20 @@ glabel func0f0720b4
 /*  f0720d4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0720d8
-/*  f0720d8:	90820003 */ 	lbu	$v0,0x3($a0)
-/*  f0720dc:	44801000 */ 	mtc1	$zero,$f2
-/*  f0720e0:	24010035 */ 	addiu	$at,$zero,0x35
-/*  f0720e4:	54410005 */ 	bnel	$v0,$at,.L0f0720fc
-/*  f0720e8:	24010033 */ 	addiu	$at,$zero,0x33
-/*  f0720ec:	c482006c */ 	lwc1	$f2,0x6c($a0)
-/*  f0720f0:	03e00008 */ 	jr	$ra
-/*  f0720f4:	46001006 */ 	mov.s	$f0,$f2
-/*  f0720f8:	24010033 */ 	addiu	$at,$zero,0x33
-.L0f0720fc:
-/*  f0720fc:	14410002 */ 	bne	$v0,$at,.L0f072108
-/*  f072100:	00000000 */ 	nop
-/*  f072104:	c482006c */ 	lwc1	$f2,0x6c($a0)
-.L0f072108:
-/*  f072108:	03e00008 */ 	jr	$ra
-/*  f07210c:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 hoverpropGetTurnAngle(struct defaultobj *obj)
+{
+	f32 angle = 0;
+
+	if (obj->type == OBJTYPE_HOVERPROP) {
+		struct hoverpropobj *hoverprop = (struct hoverpropobj *)obj;
+		angle = hoverprop->hov.unk10;
+	} else if (obj->type == OBJTYPE_HOVERBIKE) {
+		struct hoverbikeobj *hoverbike = (struct hoverbikeobj *)obj;
+		angle = hoverbike->hov.unk10;
+	}
+
+	return angle;
+}
 
 void hoverpropSetTurnAngle(struct defaultobj *obj, f32 angle)
 {
@@ -13995,7 +13990,7 @@ glabel var7f1aa31c
 /*  f072190:	00000000 */ 	nop
 /*  f072194:	45010017 */ 	bc1t	.L0f0721f4
 /*  f072198:	00000000 */ 	nop
-/*  f07219c:	0fc1c836 */ 	jal	func0f0720d8
+/*  f07219c:	0fc1c836 */ 	jal	hoverpropGetTurnAngle
 /*  f0721a0:	e7ac0490 */ 	swc1	$f12,0x490($sp)
 /*  f0721a4:	c7ac0490 */ 	lwc1	$f12,0x490($sp)
 /*  f0721a8:	3c017f1b */ 	lui	$at,%hi(var7f1aa318)
@@ -14019,7 +14014,7 @@ glabel var7f1aa31c
 /*  f0721ec:	10000004 */ 	b	.L0f072200
 /*  f0721f0:	e7aa045c */ 	swc1	$f10,0x45c($sp)
 .L0f0721f4:
-/*  f0721f4:	0fc1c836 */ 	jal	func0f0720d8
+/*  f0721f4:	0fc1c836 */ 	jal	hoverpropGetTurnAngle
 /*  f0721f8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0721fc:	e7a0045c */ 	swc1	$f0,0x45c($sp)
 .L0f072200:
@@ -14778,7 +14773,7 @@ glabel var7f1aa3b8
 /*  f072b9c:	460a2182 */ 	mul.s	$f6,$f4,$f10
 /*  f072ba0:	afa30064 */ 	sw	$v1,0x64($sp)
 /*  f072ba4:	4606a200 */ 	add.s	$f8,$f20,$f6
-/*  f072ba8:	0fc1c836 */ 	jal	func0f0720d8
+/*  f072ba8:	0fc1c836 */ 	jal	hoverpropGetTurnAngle
 /*  f072bac:	e7a8006c */ 	swc1	$f8,0x6c($sp)
 /*  f072bb0:	e7a00080 */ 	swc1	$f0,0x80($sp)
 /*  f072bb4:	0c0068f7 */ 	jal	sinf
@@ -30573,7 +30568,7 @@ glabel func0f081220
 /*  f08126c:	14610011 */ 	bne	$v1,$at,.L0f0812b4
 /*  f081270:	00000000 */ 	nop
 .L0f081274:
-/*  f081274:	0fc1c836 */ 	jal	func0f0720d8
+/*  f081274:	0fc1c836 */ 	jal	hoverpropGetTurnAngle
 /*  f081278:	02002025 */ 	or	$a0,$s0,$zero
 /*  f08127c:	8e020014 */ 	lw	$v0,0x14($s0)
 /*  f081280:	3c0141a0 */ 	lui	$at,0x41a0
@@ -30592,7 +30587,7 @@ glabel func0f081220
 .L0f0812b4:
 /*  f0812b4:	58400011 */ 	blezl	$v0,.L0f0812fc
 /*  f0812b8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0812bc:	0fc1c836 */ 	jal	func0f0720d8
+/*  f0812bc:	0fc1c836 */ 	jal	hoverpropGetTurnAngle
 /*  f0812c0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0812c4:	8e020014 */ 	lw	$v0,0x14($s0)
 /*  f0812c8:	3c0141f0 */ 	lui	$at,0x41f0
@@ -37185,17 +37180,17 @@ bool currentPlayerTryMountHoverbike(struct prop *prop)
 	}
 
 	if (pass) {
-		f32 thing = func0f096750(
+		f32 angle = func0f096750(
 				prop->pos.x - g_Vars.currentplayer->prop->pos.x,
 				prop->pos.z - g_Vars.currentplayer->prop->pos.z);
-		thing -= func0f0720d8(obj);
+		angle -= hoverpropGetTurnAngle(obj);
 
-		if (thing < 0) {
-			thing += M_BADTAU;
+		if (angle < 0) {
+			angle += M_BADTAU;
 		}
 
-		if ((thing > 0.3926365673542f && thing < 2.3558194637299f)
-				|| (thing < 5.8895483016968f && thing > 3.9263656139374f)) {
+		if ((angle > 0.3926365673542f && angle < 2.3558194637299f)
+				|| (angle < 5.8895483016968f && angle > 3.9263656139374f)) {
 			g_Vars.currentplayer->hoverbike = prop;
 			currentPlayerSetMoveMode(MOVEMODE_BIKE);
 			return true;
