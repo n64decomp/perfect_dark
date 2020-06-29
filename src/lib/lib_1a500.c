@@ -647,19 +647,10 @@ glabel func0001ad0c
 /*    1ad30:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001ad34
-/*    1ad34:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1ad38:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1ad3c:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*    1ad40:	00a03025 */ 	or	$a2,$a1,$zero
-/*    1ad44:	0c006af1 */ 	jal	func0001abc4
-/*    1ad48:	8dc50000 */ 	lw	$a1,0x0($t6)
-/*    1ad4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1ad50:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1ad54:	03e00008 */ 	jr	$ra
-/*    1ad58:	00000000 */ 	nop
-);
+void func0001ad34(struct model *model, struct coord *coord)
+{
+	func0001abc4(model, model->unk08->rootnode, coord);
+}
 
 GLOBAL_ASM(
 glabel func0001ad5c
