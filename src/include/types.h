@@ -155,9 +155,105 @@ struct stagethinglist {
 	u16 *things;
 };
 
+struct modelnode_root { // type 0x01
+	u32 modeltype;
+	f32 unk04;
+	u16 index;
+};
+
+struct modelnode_position { // type 0x02
+	struct coord pos;
+	u16 part;
+	s16 piece0;
+	s16 piece1;
+	s16 piece2;
+	f32 drawdist;
+};
+
+struct modelnode_nearfar { // type 0x08
+	f32 near;
+	f32 far;
+	u32 target;
+	u16 index;
+};
+
+struct modelnode_hat { // type 0x09
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u16 unk20;
+	u16 index;
+};
+
+struct modelnode_0b { // type 0x0b
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	u32 unk24;
+	u32 unk28;
+	u32 unk2c;
+	u32 unk30;
+	u32 unk34;
+	u32 unk38;
+	u32 unk3c;
+	u32 unk40;
+	u16 index;
+};
+
+struct modelnode_gunfire { // type 0x0c
+	struct coord pos;
+	struct coord dim;
+	u32 texture;
+	f32 unk1c;
+	u16 index;
+};
+
+struct modelnode_partid { // type 0x12
+	u32 target;
+	u16 index;
+};
+
+struct modelnode_headspot { // type 0x17
+	u16 index;
+};
+
+struct modelnode_displaylist { // type 0x18
+	u32 primary;
+	u32 secondary;
+	u32 unk08;
+	u32 ptable;
+	u16 pcount;
+	u16 mcount;
+	u16 index;
+};
+
 struct modelnode {
 	u16 type;
-	u32 unk04;
+
+	union {
+		struct modelnode_root *root;
+		struct modelnode_position *position;
+		struct modelnode_nearfar *nearfar;
+		struct modelnode_hat *hat;
+		struct modelnode_0b *unk0b;
+		struct modelnode_gunfire *gunfire;
+		struct modelnode_partid *partid;
+		struct modelnode_headspot *headspot;
+		struct modelnode_displaylist *displaylist;
+	} data;
+
+	struct modelnode *relation; // unsure if parent or child
 };
 
 struct model08 {
@@ -190,27 +286,34 @@ struct model0c {
 	/*0x38*/ f32 unk38;
 };
 
-// Suspected to be multiple structs, or a union based on the node type
-struct model10 {
-	union {
-		u16 u16;
-		u32 u32;
-		struct model08 *model08;
-	} unk00;
-	f32 ground;
-};
-
 struct model {
 	/*0x00*/ u8 unk00;
 	/*0x01*/ u8 unk01;
 	/*0x04*/ struct chrdata *chr;
 	/*0x08*/ struct model08 *unk08;
 	/*0x0c*/ struct model0c *unk0c;
-	/*0x10*/ struct model10 *unk10;
+	/*0x10*/ void *datas; // array of pointers to modeldata structs
 	/*0x14*/ f32 unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ struct anim *anim;
+};
+
+struct modeldata_root { // type 0x01
+	u32 unk00;
+	f32 ground;
+};
+
+struct modeldata_partid { // type 0x12
+	union {
+		u16 u16;
+		bool u32;
+	} visible;
+};
+
+struct modeldata_headspot { // type 0x17
+	struct model08 *model08;
+	void *datas;
 };
 
 struct waypoint {
