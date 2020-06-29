@@ -860,7 +860,7 @@ glabel var7f1a7f80
 /*  f00cfbc:	c4880014 */ 	lwc1	$f8,0x14($a0)
 /*  f00cfc0:	46064282 */ 	mul.s	$f10,$f8,$f6
 /*  f00cfc4:	44055000 */ 	mfc1	$a1,$f10
-/*  f00cfc8:	0c006bd6 */ 	jal	func0001af58
+/*  f00cfc8:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f00cfcc:	00000000 */ 	nop
 /*  f00cfd0:	100001a3 */ 	b	.L0f00d660
 /*  f00cfd4:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -904,7 +904,7 @@ glabel var7f1a7f80
 /*  f00d060:	afa6006c */ 	sw	$a2,0x6c($sp)
 /*  f00d064:	46082182 */ 	mul.s	$f6,$f4,$f8
 /*  f00d068:	44053000 */ 	mfc1	$a1,$f6
-/*  f00d06c:	0c006bd6 */ 	jal	func0001af58
+/*  f00d06c:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f00d070:	00000000 */ 	nop
 /*  f00d074:	8fab0070 */ 	lw	$t3,0x70($sp)
 /*  f00d078:	8fa4006c */ 	lw	$a0,0x6c($sp)
@@ -941,7 +941,7 @@ glabel var7f1a7f80
 /*  f00d0e8:	c48a0014 */ 	lwc1	$f10,0x14($a0)
 /*  f00d0ec:	46045202 */ 	mul.s	$f8,$f10,$f4
 /*  f00d0f0:	44054000 */ 	mfc1	$a1,$f8
-/*  f00d0f4:	0c006bd6 */ 	jal	func0001af58
+/*  f00d0f4:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f00d0f8:	00000000 */ 	nop
 /*  f00d0fc:	10000158 */ 	b	.L0f00d660
 /*  f00d100:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -1261,7 +1261,7 @@ glabel var7f1a7f80
 /*  f00d584:	c48a0014 */ 	lwc1	$f10,0x14($a0)
 /*  f00d588:	460e5182 */ 	mul.s	$f6,$f10,$f14
 /*  f00d58c:	44053000 */ 	mfc1	$a1,$f6
-/*  f00d590:	0c006bd6 */ 	jal	func0001af58
+/*  f00d590:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f00d594:	00000000 */ 	nop
 .L0f00d598:
 /*  f00d598:	8e040018 */ 	lw	$a0,0x18($s0)
@@ -1270,7 +1270,7 @@ glabel var7f1a7f80
 /*  f00d5a0:	c4880014 */ 	lwc1	$f8,0x14($a0)
 /*  f00d5a4:	46044282 */ 	mul.s	$f10,$f8,$f4
 /*  f00d5a8:	44055000 */ 	mfc1	$a1,$f10
-/*  f00d5ac:	0c006bd6 */ 	jal	func0001af58
+/*  f00d5ac:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f00d5b0:	00000000 */ 	nop
 /*  f00d5b4:	8e0e0018 */ 	lw	$t6,0x18($s0)
 /*  f00d5b8:	27a500ac */ 	addiu	$a1,$sp,0xac
@@ -2043,7 +2043,7 @@ glabel var7f1a8058
 /*  f00def4:	c4920014 */ 	lwc1	$f18,0x14($a0)
 /*  f00def8:	46049202 */ 	mul.s	$f8,$f18,$f4
 /*  f00defc:	44054000 */ 	mfc1	$a1,$f8
-/*  f00df00:	0c006bd6 */ 	jal	func0001af58
+/*  f00df00:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f00df04:	00000000 */ 	nop
 /*  f00df08:	8fa300b8 */ 	lw	$v1,0xb8($sp)
 /*  f00df0c:	8e180018 */ 	lw	$t8,0x18($s0)
@@ -2721,7 +2721,7 @@ glabel var7f1a8064
 .L0f00e8cc:
 /*  f00e8cc:	46008182 */ 	mul.s	$f6,$f16,$f0
 /*  f00e8d0:	44053000 */ 	mfc1	$a1,$f6
-/*  f00e8d4:	0c006bd6 */ 	jal	func0001af58
+/*  f00e8d4:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f00e8d8:	00000000 */ 	nop
 .L0f00e8dc:
 /*  f00e8dc:	0fc1812f */ 	jal	func0f0604bc
@@ -4862,7 +4862,7 @@ glabel var7f1a8224
 /*  f0104a4:	03347825 */ 	or	$t7,$t9,$s4
 /*  f0104a8:	ae4f0040 */ 	sw	$t7,0x40($s2)
 /*  f0104ac:	8cc50014 */ 	lw	$a1,0x14($a2)
-/*  f0104b0:	0c006bd6 */ 	jal	func0001af58
+/*  f0104b0:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f0104b4:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f0104b8:	8e440014 */ 	lw	$a0,0x14($s2)
 /*  f0104bc:	0fc181a6 */ 	jal	propReparent

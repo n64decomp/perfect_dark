@@ -5086,7 +5086,7 @@ glabel func0f06a1ec
 /*  f06a388:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f06a38c:	460a3402 */ 	mul.s	$f16,$f6,$f10
 /*  f06a390:	44058000 */ 	mfc1	$a1,$f16
-/*  f06a394:	0c006bd6 */ 	jal	func0001af58
+/*  f06a394:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f06a398:	00000000 */ 	nop
 /*  f06a39c:	8fa60028 */ 	lw	$a2,0x28($sp)
 /*  f06a3a0:	44800000 */ 	mtc1	$zero,$f0
@@ -27881,7 +27881,7 @@ u32 func0f07e474(struct prop *prop)
 					newparent = setupCommandGetObject(cmdoffset + padnum);
 
 					if (newparent && newparent->prop) {
-						func0001af58(obj->model, obj->model->unk14);
+						modelSetUnk14(obj->model, obj->model->unk14);
 						propReparent(obj->prop, newparent->prop);
 						silent = true;
 					}
@@ -39939,7 +39939,7 @@ glabel func0f089c70
 /*  f089d00:	00000000 */ 	nop
 /*  f089d04:	46008482 */ 	mul.s	$f18,$f16,$f0
 /*  f089d08:	44059000 */ 	mfc1	$a1,$f18
-/*  f089d0c:	0c006bd6 */ 	jal	func0001af58
+/*  f089d0c:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f089d10:	00000000 */ 	nop
 /*  f089d14:	8e290020 */ 	lw	$t1,0x20($s1)
 /*  f089d18:	8e0a0018 */ 	lw	$t2,0x18($s0)
@@ -41435,7 +41435,7 @@ glabel func0f08b108
 /*  f08b178:	00000000 */ 	nop
 /*  f08b17c:	46008482 */ 	mul.s	$f18,$f16,$f0
 /*  f08b180:	44059000 */ 	mfc1	$a1,$f18
-/*  f08b184:	0c006bd6 */ 	jal	func0001af58
+/*  f08b184:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f08b188:	00000000 */ 	nop
 /*  f08b18c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f08b190:	0fc22b95 */ 	jal	func0f08ae54

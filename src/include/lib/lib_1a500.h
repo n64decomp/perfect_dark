@@ -25,7 +25,7 @@ void func0001ad34(struct model *model, struct coord *coord);
 u32 func0001ad5c(void);
 f32 func0001ae44(struct model *model);
 void func0001ae90(struct model *model, f32 arg1);
-void func0001af58(struct model *model, f32 arg1);
+void modelSetUnk14(struct model *model, f32 arg1);
 void func0001af64(struct model *model, f32 arg1);
 f32 func0001af80(struct model *model);
 u32 func0001af98(void);

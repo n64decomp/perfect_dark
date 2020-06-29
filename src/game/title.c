@@ -1033,7 +1033,7 @@ glabel titleInitPdLogo
 /*  f016dd8:	246324f8 */ 	addiu	$v1,$v1,%lo(g_TitleModel)
 /*  f016ddc:	ac620000 */ 	sw	$v0,0x0($v1)
 /*  f016de0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f016de4:	0c006bd6 */ 	jal	func0001af58
+/*  f016de4:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f016de8:	3c053f80 */ 	lui	$a1,0x3f80
 /*  f016dec:	3c048006 */ 	lui	$a0,%hi(g_TitleModel)
 /*  f016df0:	8c8424f8 */ 	lw	$a0,%lo(g_TitleModel)($a0)
@@ -1069,7 +1069,7 @@ glabel titleInitPdLogo
 /*  f016e68:	246324fc */ 	addiu	$v1,$v1,%lo(g_TitleModel2)
 /*  f016e6c:	ac620000 */ 	sw	$v0,0x0($v1)
 /*  f016e70:	00402025 */ 	or	$a0,$v0,$zero
-/*  f016e74:	0c006bd6 */ 	jal	func0001af58
+/*  f016e74:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f016e78:	3c053f80 */ 	lui	$a1,0x3f80
 /*  f016e7c:	3c048006 */ 	lui	$a0,%hi(g_TitleModel2)
 /*  f016e80:	8c8424fc */ 	lw	$a0,%lo(g_TitleModel2)($a0)
@@ -1105,7 +1105,7 @@ glabel titleInitPdLogo
 /*  f016ef8:	24632508 */ 	addiu	$v1,$v1,%lo(var80062508)
 /*  f016efc:	ac620000 */ 	sw	$v0,0x0($v1)
 /*  f016f00:	00402025 */ 	or	$a0,$v0,$zero
-/*  f016f04:	0c006bd6 */ 	jal	func0001af58
+/*  f016f04:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f016f08:	3c053f80 */ 	lui	$a1,0x3f80
 /*  f016f0c:	3c048006 */ 	lui	$a0,%hi(var80062508)
 /*  f016f10:	8c842508 */ 	lw	$a0,%lo(var80062508)($a0)
@@ -1141,7 +1141,7 @@ glabel titleInitPdLogo
 /*  f016f88:	2463250c */ 	addiu	$v1,$v1,%lo(var8006250c)
 /*  f016f8c:	ac620000 */ 	sw	$v0,0x0($v1)
 /*  f016f90:	00402025 */ 	or	$a0,$v0,$zero
-/*  f016f94:	0c006bd6 */ 	jal	func0001af58
+/*  f016f94:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f016f98:	3c053f80 */ 	lui	$a1,0x3f80
 /*  f016f9c:	3c048006 */ 	lui	$a0,%hi(var8006250c)
 /*  f016fa0:	8c84250c */ 	lw	$a0,%lo(var8006250c)($a0)
@@ -1216,7 +1216,7 @@ glabel titleInitPdLogo
 //		func00022d24(g_Props[MODEL_NLOGO].filedata);
 //
 //		g_TitleModel = func0f0b3280(g_Props[MODEL_NLOGO].filedata);
-//		func0001af58(g_TitleModel, 1);
+//		modelSetUnk14(g_TitleModel, 1);
 //		func0001ad34(g_TitleModel, &coord);
 //	}
 //
@@ -1229,7 +1229,7 @@ glabel titleInitPdLogo
 //		func00022d24(g_Props[MODEL_NLOGO2].filedata);
 //
 //		g_TitleModel2 = func0f0b3280(g_Props[MODEL_NLOGO2].filedata);
-//		func0001af58(g_TitleModel2, 1);
+//		modelSetUnk14(g_TitleModel2, 1);
 //		func0001ad34(g_TitleModel2, &coord);
 //	}
 //
@@ -1242,7 +1242,7 @@ glabel titleInitPdLogo
 //		func00022d24(g_Props[MODEL_PDTWO].filedata);
 //
 //		var80062508 = func0f0b30ac(g_Props[MODEL_PDTWO].filedata);
-//		func0001af58(var80062508, 1);
+//		modelSetUnk14(var80062508, 1);
 //		func0001ad34(var80062508, &coord);
 //	}
 //
@@ -1255,7 +1255,7 @@ glabel titleInitPdLogo
 //		func00022d24(g_Props[MODEL_PDTHREE].filedata);
 //
 //		var8006250c = func0f0b30ac(g_Props[MODEL_PDTHREE].filedata);
-//		func0001af58(var8006250c, 1);
+//		modelSetUnk14(var8006250c, 1);
 //		func0001ad34(var8006250c, &coord);
 //	}
 //
@@ -3522,7 +3522,7 @@ void titleInitNintendoLogo(void)
 
 		func00022d24(g_Props[MODEL_NINTENDOLOGO].filedata);
 		g_TitleModel = func0f0b30ac(g_Props[MODEL_NINTENDOLOGO].filedata);
-		func0001af58(g_TitleModel, 1);
+		modelSetUnk14(g_TitleModel, 1);
 		func0001ad34(g_TitleModel, &coord);
 		var800624f4 = 1;
 		func00014810(false);
@@ -3901,7 +3901,7 @@ void titleInitRareLogo(void)
 
 		func00022d24(g_Props[MODEL_RARELOGO].filedata);
 		g_TitleModel = func0f0b30ac(g_Props[MODEL_RARELOGO].filedata);
-		func0001af58(g_TitleModel, 1);
+		modelSetUnk14(g_TitleModel, 1);
 		func0001ad34(g_TitleModel, &coord);
 
 		var800624f4 = 1;

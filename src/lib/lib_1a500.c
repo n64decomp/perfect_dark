@@ -818,12 +818,10 @@ glabel var700542e4
 /*    1af54:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001af58
-/*    1af58:	44856000 */ 	mtc1	$a1,$f12
-/*    1af5c:	03e00008 */ 	jr	$ra
-/*    1af60:	e48c0014 */ 	swc1	$f12,0x14($a0)
-);
+void modelSetUnk14(struct model *model, f32 arg1)
+{
+	model->unk14 = arg1;
+}
 
 GLOBAL_ASM(
 glabel func0001af64
