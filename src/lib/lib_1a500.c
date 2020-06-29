@@ -4331,32 +4331,22 @@ glabel func0001de98
 /*    1deac:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001deb0
-/*    1deb0:	8c820020 */ 	lw	$v0,0x20($a0)
-/*    1deb4:	44857000 */ 	mtc1	$a1,$f14
-/*    1deb8:	44866000 */ 	mtc1	$a2,$f12
-/*    1debc:	1040000f */ 	beqz	$v0,.L0001defc
-/*    1dec0:	00000000 */ 	nop
-/*    1dec4:	44800000 */ 	mtc1	$zero,$f0
-/*    1dec8:	00000000 */ 	nop
-/*    1decc:	460c003c */ 	c.lt.s	$f0,$f12
-/*    1ded0:	00000000 */ 	nop
-/*    1ded4:	45020008 */ 	bc1fl	.L0001def8
-/*    1ded8:	e44e001c */ 	swc1	$f14,0x1c($v0)
-/*    1dedc:	c444001c */ 	lwc1	$f4,0x1c($v0)
-/*    1dee0:	e44c0028 */ 	swc1	$f12,0x28($v0)
-/*    1dee4:	e44e0020 */ 	swc1	$f14,0x20($v0)
-/*    1dee8:	e440002c */ 	swc1	$f0,0x2c($v0)
-/*    1deec:	03e00008 */ 	jr	$ra
-/*    1def0:	e4440024 */ 	swc1	$f4,0x24($v0)
-/*    1def4:	e44e001c */ 	swc1	$f14,0x1c($v0)
-.L0001def8:
-/*    1def8:	e4400028 */ 	swc1	$f0,0x28($v0)
-.L0001defc:
-/*    1defc:	03e00008 */ 	jr	$ra
-/*    1df00:	00000000 */ 	nop
-);
+void modelSetAnimSpeed(struct model *model, f32 speed, f32 startframe)
+{
+	struct anim *anim = model->anim;
+
+	if (anim) {
+		if (startframe > 0) {
+			anim->timespeed = startframe;
+			anim->newspeed = speed;
+			anim->elapsespeed = 0;
+			anim->oldspeed = anim->speed;
+		} else {
+			anim->speed = speed;
+			anim->timespeed = 0;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0001df04
@@ -4398,7 +4388,7 @@ glabel func0001df04
 /*    1df88:	460e9103 */ 	div.s	$f4,$f18,$f14
 /*    1df8c:	46048080 */ 	add.s	$f2,$f16,$f4
 /*    1df90:	44051000 */ 	mfc1	$a1,$f2
-/*    1df94:	0c0077ac */ 	jal	func0001deb0
+/*    1df94:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*    1df98:	00000000 */ 	nop
 .L0001df9c:
 /*    1df9c:	8fbf0014 */ 	lw	$ra,0x14($sp)

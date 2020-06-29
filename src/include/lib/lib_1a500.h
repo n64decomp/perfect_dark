@@ -67,7 +67,7 @@ u32 func0001dd90(void);
 void modelSetAnimLooping(struct model *model, f32 loopframe, f32 loopmerge);
 void func0001de1c(struct model *model, f32 speed);
 u32 func0001de98(void);
-void func0001deb0(struct model *model, f32 speed, f32 startframe);
+void modelSetAnimSpeed(struct model *model, f32 speed, f32 startframe);
 void func0001df04(struct model *model, f32 arg1, f32 arg2);
 void func0001dfac(struct model *model, f32 arg1, f32 arg2);
 void modelSetAnim70(struct model *model, void *callback);

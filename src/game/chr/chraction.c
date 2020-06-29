@@ -9341,7 +9341,7 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 		modelSetAnimation(chr->model, anim, flip, 0, sp64, sp60);
 
 		if (animspeed > 0) {
-			func0001deb0(chr->model, animspeed, startframe);
+			modelSetAnimSpeed(chr->model, animspeed, startframe);
 		}
 	}
 }
@@ -13192,7 +13192,7 @@ void chrTickDie(struct chrdata *chr)
 	if (modelGetCurAnimFrame(model) >= func0001d1a0(model)) {
 		if (CHRRACE(chr) == RACE_HUMAN && modelGetAnimNum(model) == ANIM_DEATH_STOMACH_LONG) {
 			modelSetAnimation(model, ANIM_003C, !modelIsFlipped(model), 50, 0.3, animGetNumFrames(ANIM_003C) - 51.0f);
-			func0001deb0(model, 0.5, animGetNumFrames(ANIM_003C) - 51.0f);
+			modelSetAnimSpeed(model, 0.5, animGetNumFrames(ANIM_003C) - 51.0f);
 			return;
 		}
 
@@ -18429,13 +18429,13 @@ glabel var7f1a918c
 /*  f042420:	4406b000 */ 	mfc1	$a2,$f22
 /*  f042424:	4405c000 */ 	mfc1	$a1,$f24
 /*  f042428:	4406b000 */ 	mfc1	$a2,$f22
-/*  f04242c:	0c0077ac */ 	jal	func0001deb0
+/*  f04242c:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*  f042430:	02602025 */ 	or	$a0,$s3,$zero
 /*  f042434:	10000070 */ 	b	.L0f0425f8
 /*  f042438:	26310001 */ 	addiu	$s1,$s1,0x1
 /*  f04243c:	4406b000 */ 	mfc1	$a2,$f22
 .L0f042440:
-/*  f042440:	0c0077ac */ 	jal	func0001deb0
+/*  f042440:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*  f042444:	34a5cccd */ 	ori	$a1,$a1,0xcccd
 /*  f042448:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x38)
 /*  f04244c:	8dce9ff8 */ 	lw	$t6,%lo(g_Vars+0x38)($t6)
@@ -18446,14 +18446,14 @@ glabel var7f1a918c
 /*  f042460:	4405c000 */ 	mfc1	$a1,$f24
 .L0f042464:
 /*  f042464:	4406b000 */ 	mfc1	$a2,$f22
-/*  f042468:	0c0077ac */ 	jal	func0001deb0
+/*  f042468:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*  f04246c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f042470:	10000061 */ 	b	.L0f0425f8
 /*  f042474:	26310001 */ 	addiu	$s1,$s1,0x1
 .L0f042478:
 /*  f042478:	4405c000 */ 	mfc1	$a1,$f24
 /*  f04247c:	4406b000 */ 	mfc1	$a2,$f22
-/*  f042480:	0c0077ac */ 	jal	func0001deb0
+/*  f042480:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*  f042484:	02602025 */ 	or	$a0,$s3,$zero
 /*  f042488:	1000005b */ 	b	.L0f0425f8
 /*  f04248c:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -18474,7 +18474,7 @@ glabel var7f1a918c
 /*  f0424c0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0424c4:	44050000 */ 	mfc1	$a1,$f0
 /*  f0424c8:	4406b000 */ 	mfc1	$a2,$f22
-/*  f0424cc:	0c0077ac */ 	jal	func0001deb0
+/*  f0424cc:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*  f0424d0:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0424d4:	10000048 */ 	b	.L0f0425f8
 /*  f0424d8:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -18484,7 +18484,7 @@ glabel var7f1a918c
 /*  f0424e4:	34c6cccd */ 	ori	$a2,$a2,0xcccd
 /*  f0424e8:	44050000 */ 	mfc1	$a1,$f0
 /*  f0424ec:	4406b000 */ 	mfc1	$a2,$f22
-/*  f0424f0:	0c0077ac */ 	jal	func0001deb0
+/*  f0424f0:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*  f0424f4:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0424f8:	1000003f */ 	b	.L0f0425f8
 /*  f0424fc:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -22638,7 +22638,7 @@ glabel var7f1a927c
 /*  f04654c:	00095d40 */ 	sll	$t3,$t1,0x15
 /*  f046550:	0562002d */ 	bltzl	$t3,.L0f046608
 /*  f046554:	8fbf0084 */ 	lw	$ra,0x84($sp)
-/*  f046558:	0c0077ac */ 	jal	func0001deb0
+/*  f046558:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*  f04655c:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f046560:	10000029 */ 	b	.L0f046608
 /*  f046564:	8fbf0084 */ 	lw	$ra,0x84($sp)
@@ -22656,12 +22656,12 @@ glabel var7f1a927c
 /*  f046590:	3c053f26 */ 	lui	$a1,0x3f26
 /*  f046594:	34a56666 */ 	ori	$a1,$a1,0x6666
 /*  f046598:	8e440020 */ 	lw	$a0,0x20($s2)
-/*  f04659c:	0c0077ac */ 	jal	func0001deb0
+/*  f04659c:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*  f0465a0:	3c064200 */ 	lui	$a2,0x4200
 /*  f0465a4:	10000018 */ 	b	.L0f046608
 /*  f0465a8:	8fbf0084 */ 	lw	$ra,0x84($sp)
 .L0f0465ac:
-/*  f0465ac:	0c0077ac */ 	jal	func0001deb0
+/*  f0465ac:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*  f0465b0:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f0465b4:	10000014 */ 	b	.L0f046608
 /*  f0465b8:	8fbf0084 */ 	lw	$ra,0x84($sp)
@@ -22677,13 +22677,13 @@ glabel var7f1a927c
 /*  f0465dc:	3c053ecc */ 	lui	$a1,0x3ecc
 /*  f0465e0:	4406d000 */ 	mfc1	$a2,$f26
 /*  f0465e4:	34a5cccd */ 	ori	$a1,$a1,0xcccd
-/*  f0465e8:	0c0077ac */ 	jal	func0001deb0
+/*  f0465e8:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*  f0465ec:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f0465f0:	10000005 */ 	b	.L0f046608
 /*  f0465f4:	8fbf0084 */ 	lw	$ra,0x84($sp)
 /*  f0465f8:	4406d000 */ 	mfc1	$a2,$f26
 .L0f0465fc:
-/*  f0465fc:	0c0077ac */ 	jal	func0001deb0
+/*  f0465fc:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*  f046600:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f046604:	8fbf0084 */ 	lw	$ra,0x84($sp)
 .L0f046608:
@@ -23548,14 +23548,14 @@ void chrTickSkJump(struct chrdata *chr)
 		switch (chr->act_skjump.state) {
 		case SKJUMPSTATE_TAKEOFF:
 			modelSetAnimation(chr->model, ANIM_SKEDAR_JUMPSTART, 0, 0, -1, 8);
-			func0001deb0(chr->model, 2.5, 0);
+			modelSetAnimSpeed(chr->model, 2.5, 0);
 			break;
 		case SKJUMPSTATE_AIRBORNE: {
 				u16 sounds[] = { 0x532, 0x533, 0x534 };
 				func0f0939f8(NULL, chr->prop, sounds[random() % 3], -1,
 						-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 				modelSetAnimation(chr->model, ANIM_SKEDAR_JUMPAIR, 0, 0, -1, 16);
-				func0001deb0(chr->model, 1, 0);
+				modelSetAnimSpeed(chr->model, 1, 0);
 			}
 			break;
 		}

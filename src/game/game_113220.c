@@ -696,7 +696,7 @@ glabel func0f113f10
 /*  f11406c:	24060000 */ 	addiu	$a2,$zero,0x0
 /*  f114070:	46046182 */ 	mul.s	$f6,$f12,$f4
 /*  f114074:	44053000 */ 	mfc1	$a1,$f6
-/*  f114078:	0c0077ac */ 	jal	func0001deb0
+/*  f114078:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*  f11407c:	00000000 */ 	nop
 /*  f114080:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
 /*  f114084:	10000004 */ 	b	.L0f114098
@@ -751,7 +751,7 @@ glabel func0f1140bc
 
 void func0f11412c(f32 speed)
 {
-	func0001deb0(&g_Vars.currentplayer->model, speed * 0.5f, 0);
+	modelSetAnimSpeed(&g_Vars.currentplayer->model, speed * 0.5f, 0);
 }
 
 f32 func0f11416c(void)

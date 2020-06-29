@@ -15060,7 +15060,7 @@ glabel var7f1ad744
 /*  f0c3270:	8fa90078 */ 	lw	$t1,0x78($sp)
 /*  f0c3274:	8f240020 */ 	lw	$a0,0x20($t9)
 /*  f0c3278:	44059000 */ 	mfc1	$a1,$f18
-/*  f0c327c:	0c0077ac */ 	jal	func0001deb0
+/*  f0c327c:	0c0077ac */ 	jal	modelSetAnimSpeed
 /*  f0c3280:	afa80048 */ 	sw	$t0,0x48($sp)
 /*  f0c3284:	8fa80048 */ 	lw	$t0,0x48($sp)
 .L0f0c3288:
