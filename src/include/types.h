@@ -266,6 +266,7 @@ struct model08 {
 
 	s16 numparts;
 	s16 unk0e;
+	f32 unk10;
 };
 
 struct model0c {

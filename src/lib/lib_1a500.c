@@ -833,15 +833,10 @@ glabel func0001af64
 /*    1af7c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001af80
-/*    1af80:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*    1af84:	c4860014 */ 	lwc1	$f6,0x14($a0)
-/*    1af88:	c5c40010 */ 	lwc1	$f4,0x10($t6)
-/*    1af8c:	46062002 */ 	mul.s	$f0,$f4,$f6
-/*    1af90:	03e00008 */ 	jr	$ra
-/*    1af94:	00000000 */ 	nop
-);
+f32 func0001af80(struct model *model)
+{
+	return model->unk08->unk10 * model->unk14;
+}
 
 GLOBAL_ASM(
 glabel func0001af98
