@@ -118,7 +118,7 @@ struct anim {
 	/*0x14*/ s16 framea;
 	/*0x16*/ s16 frameb;
 	/*0x18*/ u32 endrame;
-	/*0x1c*/ u32 speed;
+	/*0x1c*/ f32 speed;
 	/*0x20*/ u32 newspeed;
 	/*0x24*/ u32 oldspeed;
 	/*0x28*/ u32 timespeed;

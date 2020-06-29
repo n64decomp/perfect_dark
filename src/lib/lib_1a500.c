@@ -3499,20 +3499,14 @@ glabel func0001d218
 /*    1d25c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001d260
-/*    1d260:	8c820020 */ 	lw	$v0,0x20($a0)
-/*    1d264:	3c013f80 */ 	lui	$at,0x3f80
-/*    1d268:	50400004 */ 	beqzl	$v0,.L0001d27c
-/*    1d26c:	44810000 */ 	mtc1	$at,$f0
-/*    1d270:	03e00008 */ 	jr	$ra
-/*    1d274:	c440001c */ 	lwc1	$f0,0x1c($v0)
-/*    1d278:	44810000 */ 	mtc1	$at,$f0
-.L0001d27c:
-/*    1d27c:	00000000 */ 	nop
-/*    1d280:	03e00008 */ 	jr	$ra
-/*    1d284:	00000000 */ 	nop
-);
+f32 modelGetAnimSpeed(struct model *model)
+{
+	if (model->anim) {
+		return model->anim->speed;
+	}
+
+	return 1;
+}
 
 GLOBAL_ASM(
 glabel func0001d288
@@ -3542,7 +3536,7 @@ glabel func0001d288
 /*    1d2dc:	3c013f80 */ 	lui	$at,0x3f80
 /*    1d2e0:	51c0000a */ 	beqzl	$t6,.L0001d30c
 /*    1d2e4:	44810000 */ 	mtc1	$at,$f0
-/*    1d2e8:	0c007498 */ 	jal	func0001d260
+/*    1d2e8:	0c007498 */ 	jal	modelGetAnimSpeed
 /*    1d2ec:	afa40018 */ 	sw	$a0,0x18($sp)
 /*    1d2f0:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*    1d2f4:	8c8f0020 */ 	lw	$t7,0x20($a0)

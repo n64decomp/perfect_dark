@@ -10427,8 +10427,8 @@ bool chrIsStopped(struct chrdata *chr)
 
 	if (chr->actiontype == ACT_ANIM) {
 		if (chr->act_anim.unk034
-				|| (func0001d260(chr->model) >= 0 && modelGetCurAnimFrame(chr->model) >= func0001d1a0(chr->model))
-				|| (func0001d260(chr->model) < 0 && modelGetCurAnimFrame(chr->model) <= 0)) {
+				|| (modelGetAnimSpeed(chr->model) >= 0 && modelGetCurAnimFrame(chr->model) >= func0001d1a0(chr->model))
+				|| (modelGetAnimSpeed(chr->model) < 0 && modelGetCurAnimFrame(chr->model) <= 0)) {
 			return true;
 		}
 	} else if (chr->actiontype == ACT_PATROL) {
