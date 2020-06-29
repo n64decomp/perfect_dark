@@ -136,8 +136,8 @@ struct anim {
 	/*0x54*/ u32 fracmerge;
 	/*0x58*/ u32 timemerge;
 	/*0x5c*/ u32 elapsemerge;
-	/*0x60*/ u32 loopframe;
-	/*0x64*/ u32 loopmerge;
+	/*0x60*/ f32 loopframe;
+	/*0x64*/ f32 loopmerge;
 	/*0x68*/ u32 unk68;
 	/*0x6c*/ u32 unk6c;
 	/*0x70*/ void *unk70; // pointer to function

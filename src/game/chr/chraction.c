@@ -532,10 +532,10 @@ void chrStandChooseAnimation(struct chrdata *chr, f32 arg1)
 				|| weaponIsOneHanded(gun1)
 				|| weaponIsOneHanded(gun2)) {
 			modelSetAnimation(chr->model, 0x6a, random() % 2, 0, 0.25, arg1);
-			func0001ddec(chr->model, 0, 16);
+			modelSetAnimLooping(chr->model, 0, 16);
 		} else if (gun2 || gun1) {
 			modelSetAnimation(chr->model, 0x01, gun1 != NULL, 0, 0.25, arg1);
-			func0001ddec(chr->model, 0, 16);
+			modelSetAnimLooping(chr->model, 0, 16);
 			func0001de1c(chr->model, 120);
 		}
 	} else if (race == RACE_SKEDAR) {
@@ -864,7 +864,7 @@ void chrSurrenderChooseAnimation(struct chrdata *chr)
 
 	if (gun0 || gun1) {
 		modelSetAnimation(chr->model, ANIM_SURRENDER_002F, random() & 1, 0, 0.5, 16);
-		func0001ddec(chr->model, 40, 16);
+		modelSetAnimLooping(chr->model, 40, 16);
 
 		if (gun1) {
 			propobjSetDropped(gun1, 2);
@@ -877,7 +877,7 @@ void chrSurrenderChooseAnimation(struct chrdata *chr)
 		chr->hidden |= CHRHFLAG_00000001;
 	} else {
 		modelSetAnimation(chr->model, ANIM_SURRENDER_002E, random() & 1, 0, 0.5, 16);
-		func0001ddec(chr->model, 30, 16);
+		modelSetAnimLooping(chr->model, 30, 16);
 	}
 
 	chrDropItems(chr);
@@ -12942,7 +12942,7 @@ void chrTickSurrender(struct chrdata *chr)
 
 				if (!propchrHasClearLineInVector(chr->prop, &coord, 20)) {
 					modelSetAnimation(chr->model, ANIM_SURRENDER_002E, random() & 1, 30, 0.5, 16);
-					func0001ddec(chr->model, 30, 16);
+					modelSetAnimLooping(chr->model, 30, 16);
 				}
 			}
 		}

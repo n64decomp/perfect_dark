@@ -4316,22 +4316,14 @@ glabel func0001dd90
 /*    1dde8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001ddec
-/*    1ddec:	8c820020 */ 	lw	$v0,0x20($a0)
-/*    1ddf0:	44856000 */ 	mtc1	$a1,$f12
-/*    1ddf4:	44867000 */ 	mtc1	$a2,$f14
-/*    1ddf8:	10400006 */ 	beqz	$v0,.L0001de14
-/*    1ddfc:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    1de00:	a04e000a */ 	sb	$t6,0xa($v0)
-/*    1de04:	8c8f0020 */ 	lw	$t7,0x20($a0)
-/*    1de08:	e5ec0060 */ 	swc1	$f12,0x60($t7)
-/*    1de0c:	8c980020 */ 	lw	$t8,0x20($a0)
-/*    1de10:	e70e0064 */ 	swc1	$f14,0x64($t8)
-.L0001de14:
-/*    1de14:	03e00008 */ 	jr	$ra
-/*    1de18:	00000000 */ 	nop
-);
+void modelSetAnimLooping(struct model *model, f32 loopframe, f32 loopmerge)
+{
+	if (model->anim) {
+		model->anim->looping = true;
+		model->anim->loopframe = loopframe;
+		model->anim->loopmerge = loopmerge;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0001de1c
