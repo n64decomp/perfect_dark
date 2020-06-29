@@ -2533,7 +2533,7 @@ struct prop *func0f020b14(struct prop *prop, struct model *model,
 
 	chr = prop->chr;
 
-	func0001e000(model, func0f01f378);
+	modelSetAnim70(model, func0f01f378);
 	model->chr = chr;
 	model->unk01 = 1;
 	chr->model = model;

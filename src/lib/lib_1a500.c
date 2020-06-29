@@ -4514,16 +4514,12 @@ glabel func0001dfac
 /*    1dffc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001e000
-/*    1e000:	8c820020 */ 	lw	$v0,0x20($a0)
-/*    1e004:	10400002 */ 	beqz	$v0,.L0001e010
-/*    1e008:	00000000 */ 	nop
-/*    1e00c:	ac450070 */ 	sw	$a1,0x70($v0)
-.L0001e010:
-/*    1e010:	03e00008 */ 	jr	$ra
-/*    1e014:	00000000 */ 	nop
-);
+void modelSetAnim70(struct model *model, void *callback)
+{
+	if (model->anim) {
+		model->anim->unk70 = callback;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0001e018

@@ -140,7 +140,7 @@ struct anim {
 	/*0x64*/ u32 loopmerge;
 	/*0x68*/ u32 unk68;
 	/*0x6c*/ u32 unk6c;
-	/*0x70*/ u32 unk70;
+	/*0x70*/ void *unk70; // pointer to function
 	/*0x74*/ f32 playspeed;
 	/*0x78*/ u32 newplay;
 	/*0x7c*/ u32 oldplay;
