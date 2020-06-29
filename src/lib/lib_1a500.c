@@ -4397,32 +4397,22 @@ glabel func0001df04
 /*    1dfa8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001dfac
-/*    1dfac:	8c820020 */ 	lw	$v0,0x20($a0)
-/*    1dfb0:	44857000 */ 	mtc1	$a1,$f14
-/*    1dfb4:	44866000 */ 	mtc1	$a2,$f12
-/*    1dfb8:	1040000f */ 	beqz	$v0,.L0001dff8
-/*    1dfbc:	00000000 */ 	nop
-/*    1dfc0:	44800000 */ 	mtc1	$zero,$f0
-/*    1dfc4:	00000000 */ 	nop
-/*    1dfc8:	460c003c */ 	c.lt.s	$f0,$f12
-/*    1dfcc:	00000000 */ 	nop
-/*    1dfd0:	45020008 */ 	bc1fl	.L0001dff4
-/*    1dfd4:	e44e0074 */ 	swc1	$f14,0x74($v0)
-/*    1dfd8:	c4440074 */ 	lwc1	$f4,0x74($v0)
-/*    1dfdc:	e44c0080 */ 	swc1	$f12,0x80($v0)
-/*    1dfe0:	e44e0078 */ 	swc1	$f14,0x78($v0)
-/*    1dfe4:	e4400084 */ 	swc1	$f0,0x84($v0)
-/*    1dfe8:	03e00008 */ 	jr	$ra
-/*    1dfec:	e444007c */ 	swc1	$f4,0x7c($v0)
-/*    1dff0:	e44e0074 */ 	swc1	$f14,0x74($v0)
-.L0001dff4:
-/*    1dff4:	e4400080 */ 	swc1	$f0,0x80($v0)
-.L0001dff8:
-/*    1dff8:	03e00008 */ 	jr	$ra
-/*    1dffc:	00000000 */ 	nop
-);
+void modelSetAnimPlaySpeed(struct model *model, f32 speed, f32 startframe)
+{
+	struct anim *anim = model->anim;
+
+	if (anim) {
+		if (startframe > 0) {
+			anim->timeplay = startframe;
+			anim->newplay = speed;
+			anim->elapseplay = 0;
+			anim->oldplay = anim->playspeed;
+		} else {
+			anim->playspeed = speed;
+			anim->timeplay = 0;
+		}
+	}
+}
 
 void modelSetAnim70(struct model *model, void *callback)
 {

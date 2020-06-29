@@ -69,7 +69,7 @@ void func0001de1c(struct model *model, f32 speed);
 u32 func0001de98(void);
 void modelSetAnimSpeed(struct model *model, f32 speed, f32 startframe);
 void func0001df04(struct model *model, f32 arg1, f32 arg2);
-void func0001dfac(struct model *model, f32 arg1, f32 arg2);
+void modelSetAnimPlaySpeed(struct model *model, f32 speed, f32 frame);
 void modelSetAnim70(struct model *model, void *callback);
 u32 func0001e018(void);
 u32 func0001e14c(void);

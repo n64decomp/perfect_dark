@@ -142,10 +142,10 @@ struct anim {
 	/*0x6c*/ u32 unk6c;
 	/*0x70*/ void *unk70; // pointer to function
 	/*0x74*/ f32 playspeed;
-	/*0x78*/ u32 newplay;
-	/*0x7c*/ u32 oldplay;
-	/*0x80*/ u32 timeplay;
-	/*0x84*/ u32 elapseplay;
+	/*0x78*/ f32 newplay;
+	/*0x7c*/ f32 oldplay;
+	/*0x80*/ f32 timeplay;
+	/*0x84*/ f32 elapseplay;
 	/*0x88*/ f32 animscale;
 };
 
