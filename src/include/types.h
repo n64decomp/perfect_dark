@@ -303,6 +303,10 @@ struct model {
 struct modeldata_root { // type 0x01
 	u32 unk00;
 	f32 ground;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	f32 unk14;
 };
 
 struct modeldata_partid { // type 0x12

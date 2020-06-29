@@ -709,30 +709,15 @@ glabel func0001ad5c
 /*    1ae40:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-GLOBAL_ASM(
-glabel func0001ae44
-/*    1ae44:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1ae48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1ae4c:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*    1ae50:	24010001 */ 	addiu	$at,$zero,0x1
-/*    1ae54:	8dc50000 */ 	lw	$a1,0x0($t6)
-/*    1ae58:	94af0000 */ 	lhu	$t7,0x0($a1)
-/*    1ae5c:	31f800ff */ 	andi	$t8,$t7,0xff
-/*    1ae60:	57010006 */ 	bnel	$t8,$at,.L0001ae7c
-/*    1ae64:	44800000 */ 	mtc1	$zero,$f0
-/*    1ae68:	0c006a87 */ 	jal	modelGetNodeData
-/*    1ae6c:	00000000 */ 	nop
-/*    1ae70:	10000003 */ 	b	.L0001ae80
-/*    1ae74:	c4400014 */ 	lwc1	$f0,0x14($v0)
-/*    1ae78:	44800000 */ 	mtc1	$zero,$f0
-.L0001ae7c:
-/*    1ae7c:	00000000 */ 	nop
-.L0001ae80:
-/*    1ae80:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1ae84:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1ae88:	03e00008 */ 	jr	$ra
-/*    1ae8c:	00000000 */ 	nop
-);
+f32 func0001ae44(struct model *model)
+{
+	if ((model->unk08->rootnode->type & 0xff) == MODELNODETYPE_ROOT) {
+		struct modeldata_root *data = modelGetNodeData(model, model->unk08->rootnode);
+		return data->unk14;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0001ae90
