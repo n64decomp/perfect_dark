@@ -821,17 +821,12 @@ void modelSetUnk14(struct model *model, f32 arg1)
 	model->unk14 = arg1;
 }
 
-GLOBAL_ASM(
-glabel func0001af64
-/*    1af64:	8c820020 */ 	lw	$v0,0x20($a0)
-/*    1af68:	44856000 */ 	mtc1	$a1,$f12
-/*    1af6c:	10400002 */ 	beqz	$v0,.L0001af78
-/*    1af70:	00000000 */ 	nop
-/*    1af74:	e44c0088 */ 	swc1	$f12,0x88($v0)
-.L0001af78:
-/*    1af78:	03e00008 */ 	jr	$ra
-/*    1af7c:	00000000 */ 	nop
-);
+void modelSetAnimScale(struct model *model, f32 scale)
+{
+	if (model->anim) {
+		model->anim->animscale = scale;
+	}
+}
 
 f32 func0001af80(struct model *model)
 {

@@ -146,7 +146,7 @@ struct anim {
 	/*0x7c*/ u32 oldplay;
 	/*0x80*/ u32 timeplay;
 	/*0x84*/ u32 elapseplay;
-	/*0x88*/ u32 animscale;
+	/*0x88*/ f32 animscale;
 };
 
 struct stagethinglist {
