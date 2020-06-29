@@ -1117,27 +1117,14 @@ glabel func0001b0e8
 /*    1b3b8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001b3bc
-/*    1b3bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1b3c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1b3c4:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*    1b3c8:	8dc50000 */ 	lw	$a1,0x0($t6)
-/*    1b3cc:	50a00009 */ 	beqzl	$a1,.L0001b3f4
-/*    1b3d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1b3d4:	94af0000 */ 	lhu	$t7,0x0($a1)
-/*    1b3d8:	24010001 */ 	addiu	$at,$zero,0x1
-/*    1b3dc:	31f800ff */ 	andi	$t8,$t7,0xff
-/*    1b3e0:	57010004 */ 	bnel	$t8,$at,.L0001b3f4
-/*    1b3e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1b3e8:	0c006c3a */ 	jal	func0001b0e8
-/*    1b3ec:	00000000 */ 	nop
-/*    1b3f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001b3f4:
-/*    1b3f4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1b3f8:	03e00008 */ 	jr	$ra
-/*    1b3fc:	00000000 */ 	nop
-);
+void func0001b3bc(struct model *model)
+{
+	struct modelnode *node = model->unk08->rootnode;
+
+	if (node && (node->type & 0xff) == MODELNODETYPE_ROOT) {
+		func0001b0e8(model, node);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0001b400

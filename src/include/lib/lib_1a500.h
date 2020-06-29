@@ -31,7 +31,7 @@ f32 func0001af80(struct model *model);
 u32 func0001af98(void);
 f32 func0001afe8(f32 arg0, f32 distance, f32 arg2);
 u32 func0001b07c(void);
-u32 func0001b0e8(void);
+void func0001b0e8(struct model *model, struct modelnode *node);
 void func0001b3bc(struct model *model);
 u32 func0001b400(void);
 u32 func0001b80c(void);
