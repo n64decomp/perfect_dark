@@ -40,12 +40,10 @@ glabel func0001a50c
 /*    1a514:	e42cefb8 */ 	swc1	$f12,-0x1048($at)
 );
 
-GLOBAL_ASM(
-glabel func0001a518
-/*    1a518:	3c018006 */ 	lui	$at,%hi(var8005efc8)
-/*    1a51c:	03e00008 */ 	jr	$ra
-/*    1a520:	ac24efc8 */ 	sw	$a0,%lo(var8005efc8)($at)
-);
+void func0001a518(void *callback)
+{
+	var8005efc8 = callback;
+}
 
 GLOBAL_ASM(
 glabel func0001a524

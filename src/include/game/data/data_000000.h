@@ -131,6 +131,7 @@ extern u32 var8005ef7c;
 extern u32 var8005ef90;
 extern u32 var8005efb4;
 extern u32 var8005efb8;
+extern void *var8005efc8;
 extern u32 var8005efcc;
 extern u32 var8005efd0;
 extern u32 var8005efe0;

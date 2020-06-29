@@ -5,7 +5,7 @@
 
 u32 func0001a500(void);
 u32 func0001a50c(void);
-void func0001a518(void *ptr);
+void func0001a518(void *callback);
 u32 func0001a524(void);
 u32 func0001a5cc(void);
 u32 func0001a60c(void);
