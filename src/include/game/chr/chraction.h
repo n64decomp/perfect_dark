@@ -323,7 +323,7 @@ s16 *teamGetChrIds(s32 team_id);
 s16 *squadronGetChrIds(s32 squadron_id);
 void audioMarkAsRecentlyPlayed(s16 audioid);
 bool audioWasNotPlayedRecently(s16 audioid);
-void func0f04cf90(struct chrdata *chr, s32 arg1);
+void chrToggleModelPart(struct chrdata *chr, s32 partnum);
 bool chrIsAvoiding(struct chrdata *chr);
 void chrEmitSparks(struct chrdata *chr);
 

@@ -3203,7 +3203,7 @@ u8 func1022_skedar_shuttle[] = {
 	set_object_flag2(OBJ_SKEDAR_SHUTTLE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_SKEDAR_SHUTTLE, OBJFLAG3_00000010)
 	object_do_animation(0x045a, OBJ_SKEDAR_SHUTTLE, 0x04, 0xffff)
-	set_object_part_visible(OBJ_SKEDAR_SHUTTLE, FALSE)
+	object_set_modelpart_visible(OBJ_SKEDAR_SHUTTLE, MODELPART_SKGANGWAY, FALSE)
 	set_object_flag(OBJ_SKEDAR_SHUTTLE, OBJFLAG_00000100)
 
 	unset_chr_chrflag(CHR_BLONDE1, CHRCFLAG_HIDDEN)

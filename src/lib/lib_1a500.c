@@ -638,62 +638,43 @@ glabel func0001a85c
 /*    1a918:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0001a91c
-/*    1a91c:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    1a920:	afb00004 */ 	sw	$s0,0x4($sp)
-/*    1a924:	8482000c */ 	lh	$v0,0xc($a0)
-/*    1a928:	00a08025 */ 	or	$s0,$a1,$zero
-/*    1a92c:	00003025 */ 	or	$a2,$zero,$zero
-/*    1a930:	14400003 */ 	bnez	$v0,.L0001a940
-/*    1a934:	00027080 */ 	sll	$t6,$v0,0x2
-/*    1a938:	1000001d */ 	b	.L0001a9b0
-/*    1a93c:	00001025 */ 	or	$v0,$zero,$zero
-.L0001a940:
-/*    1a940:	8c850008 */ 	lw	$a1,0x8($a0)
-/*    1a944:	00403825 */ 	or	$a3,$v0,$zero
-/*    1a948:	04400018 */ 	bltz	$v0,.L0001a9ac
-/*    1a94c:	00ae1821 */ 	addu	$v1,$a1,$t6
-/*    1a950:	00c72021 */ 	addu	$a0,$a2,$a3
-.L0001a954:
-/*    1a954:	04810003 */ 	bgez	$a0,.L0001a964
-/*    1a958:	00047843 */ 	sra	$t7,$a0,0x1
-/*    1a95c:	24810001 */ 	addiu	$at,$a0,0x1
-/*    1a960:	00017843 */ 	sra	$t7,$at,0x1
-.L0001a964:
-/*    1a964:	000fc040 */ 	sll	$t8,$t7,0x1
-/*    1a968:	0078c821 */ 	addu	$t9,$v1,$t8
-/*    1a96c:	87280000 */ 	lh	$t0,0x0($t9)
-/*    1a970:	01e01025 */ 	or	$v0,$t7,$zero
-/*    1a974:	16080005 */ 	bne	$s0,$t0,.L0001a98c
-/*    1a978:	0208082a */ 	slt	$at,$s0,$t0
-/*    1a97c:	000f4880 */ 	sll	$t1,$t7,0x2
-/*    1a980:	00a95021 */ 	addu	$t2,$a1,$t1
-/*    1a984:	1000000a */ 	b	.L0001a9b0
-/*    1a988:	8d420000 */ 	lw	$v0,0x0($t2)
-.L0001a98c:
-/*    1a98c:	50200004 */ 	beqzl	$at,.L0001a9a0
-/*    1a990:	24460001 */ 	addiu	$a2,$v0,0x1
-/*    1a994:	10000002 */ 	b	.L0001a9a0
-/*    1a998:	2447ffff */ 	addiu	$a3,$v0,-1
-/*    1a99c:	24460001 */ 	addiu	$a2,$v0,0x1
-.L0001a9a0:
-/*    1a9a0:	00e6082a */ 	slt	$at,$a3,$a2
-/*    1a9a4:	5020ffeb */ 	beqzl	$at,.L0001a954
-/*    1a9a8:	00c72021 */ 	addu	$a0,$a2,$a3
-.L0001a9ac:
-/*    1a9ac:	00001025 */ 	or	$v0,$zero,$zero
-.L0001a9b0:
-/*    1a9b0:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*    1a9b4:	03e00008 */ 	jr	$ra
-/*    1a9b8:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+struct modelnode *modelGetPart(struct model08 *model08, s32 partnum)
+{
+	s32 upper;
+	s32 lower;
+	u32 i;
+	s16 *partnums;
+
+	if (model08->numparts == 0) {
+		return NULL;
+	}
+
+	partnums = (s16 *)&model08->parts[model08->numparts];
+	lower = 0;
+	upper = model08->numparts;
+
+	while (upper >= lower) {
+		i = (lower + upper) / 2;
+
+		if (partnum == partnums[i]) {
+			return model08->parts[i];
+		}
+
+		if (partnum < partnums[i]) {
+			upper = i - 1;
+		} else {
+			lower = i + 1;
+		}
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0001a9bc
 /*    1a9bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    1a9c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1a9c4:	0c006a47 */ 	jal	func0001a91c
+/*    1a9c4:	0c006a47 */ 	jal	modelGetPart
 /*    1a9c8:	00000000 */ 	nop
 /*    1a9cc:	10400003 */ 	beqz	$v0,.L0001a9dc
 /*    1a9d0:	8fbf0014 */ 	lw	$ra,0x14($sp)

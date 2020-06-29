@@ -3404,12 +3404,15 @@
 	value,
 
 /**
- * Remove the necklace from the given chr.
+ * Toggle the visibility of part of the chr's model. It's used for Cassandra's
+ * necklace.
+ *
+ * modelpart should be a MODELPART constant, and refers to a node in the model.
  */
-#define remove_cass_necklace(chr) \
+#define chr_toggle_modelpart(chr, modelpart) \
 	mkshort(0x018c), \
 	chr, \
-	0x07,
+	modelpart,
 
 /**
  * Activate the given lift.
@@ -3910,11 +3913,18 @@
 	mkshort(portal), \
 	flag,
 
-#define set_object_part_visible(object, bool) \
+/**
+ * Shows or hides part of the object's model.
+ *
+ * modelpart should be a MODELPART constant, and refers to a node in the model.
+ *
+ * visible is a boolean. TRUE makes it visible. FALSE makes it invisible.
+ */
+#define object_set_modelpart_visible(object, modelpart, visible) \
 	mkshort(0x01d1), \
 	object, \
-	0xb7, \
-	bool,
+	modelpart, \
+	visible,
 
 /**
  * Emits sparks from the given chr.

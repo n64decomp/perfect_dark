@@ -373,7 +373,7 @@
 /*0x0189*/ bool aiLiftGoToStop(void);
 /*0x018a*/ bool aiIfLiftAtStop(void);
 /*0x018b*/ bool aiConfigureRain(void);
-/*0x018c*/ bool aiChrToggleProp(void);
+/*0x018c*/ bool aiChrToggleModelPart(void);
 /*0x018d*/ bool aiActivateLift(void);
 /*0x018e*/ bool aiMiniSkedarTryPounce(void);
 /*0x018f*/ bool aiIfObjectDistanceToPadLessThan(void);
@@ -428,7 +428,7 @@
 /*0x01ce*/ bool aiSetPassiveMode(void);
 /*0x01cf*/ bool aiChrSetFiringInCutscene(void);
 /*0x01d0*/ bool aiSetPortalFlag(void);
-/*0x01d1*/ bool aiSetObjPartVisible(void);
+/*0x01d1*/ bool aiObjSetModelPartVisible(void);
 /*0x01d2*/ bool aiChrEmitSparks(void);
 /*0x01d3*/ bool aiSetDrCarollImages(void);
 /*0x01d4*/ bool ai01d4(void);

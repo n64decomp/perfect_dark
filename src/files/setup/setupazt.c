@@ -1936,7 +1936,7 @@ u8 func1014_setup_skedar_shuttle[] = {
 	yield
 	show_object(OBJ_SKEDAR_SHUTTLE)
 	set_object_flag3(OBJ_SKEDAR_SHUTTLE, OBJFLAG3_00000010)
-	set_object_part_visible(OBJ_SKEDAR_SHUTTLE, FALSE)
+	object_set_modelpart_visible(OBJ_SKEDAR_SHUTTLE, MODELPART_SKGANGWAY, FALSE)
 	object_do_animation(0x0486, OBJ_SKEDAR_SHUTTLE, 0x01, 0xffff)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

@@ -14839,7 +14839,7 @@ glabel var7f1a8fc8
 /*  f03f2f8:	8c470018 */ 	lw	$a3,0x18($v0)
 /*  f03f2fc:	afa00114 */ 	sw	$zero,0x114($sp)
 /*  f03f300:	8ce40008 */ 	lw	$a0,0x8($a3)
-/*  f03f304:	0c006a47 */ 	jal	func0001a91c
+/*  f03f304:	0c006a47 */ 	jal	modelGetPart
 /*  f03f308:	afa70124 */ 	sw	$a3,0x124($sp)
 /*  f03f30c:	8fa70124 */ 	lw	$a3,0x124($sp)
 /*  f03f310:	10400026 */ 	beqz	$v0,.L0f03f3ac
@@ -14884,7 +14884,7 @@ glabel var7f1a8fc8
 .L0f03f3ac:
 /*  f03f3ac:	8ce40008 */ 	lw	$a0,0x8($a3)
 /*  f03f3b0:	afa70124 */ 	sw	$a3,0x124($sp)
-/*  f03f3b4:	0c006a47 */ 	jal	func0001a91c
+/*  f03f3b4:	0c006a47 */ 	jal	modelGetPart
 /*  f03f3b8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03f3bc:	8fa70124 */ 	lw	$a3,0x124($sp)
 /*  f03f3c0:	10400017 */ 	beqz	$v0,.L0f03f420
@@ -15680,7 +15680,7 @@ glabel func0f03fde4
 /*  f03fe34:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f03fe38:	8ce40008 */ 	lw	$a0,0x8($a3)
 /*  f03fe3c:	afa700bc */ 	sw	$a3,0xbc($sp)
-/*  f03fe40:	0c006a47 */ 	jal	func0001a91c
+/*  f03fe40:	0c006a47 */ 	jal	modelGetPart
 /*  f03fe44:	afa000b8 */ 	sw	$zero,0xb8($sp)
 /*  f03fe48:	8fa600b8 */ 	lw	$a2,0xb8($sp)
 /*  f03fe4c:	8fa700bc */ 	lw	$a3,0xbc($sp)
@@ -15713,7 +15713,7 @@ glabel func0f03fde4
 /*  f03feb4:	8ce40008 */ 	lw	$a0,0x8($a3)
 /*  f03feb8:	afa700bc */ 	sw	$a3,0xbc($sp)
 /*  f03febc:	afa600b8 */ 	sw	$a2,0xb8($sp)
-/*  f03fec0:	0c006a47 */ 	jal	func0001a91c
+/*  f03fec0:	0c006a47 */ 	jal	modelGetPart
 /*  f03fec4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03fec8:	8fa600b8 */ 	lw	$a2,0xb8($sp)
 /*  f03fecc:	8fa700bc */ 	lw	$a3,0xbc($sp)
@@ -18617,20 +18617,20 @@ void chrTickAttackAmount(struct chrdata *chr)
  */
 void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool enabled)
 {
-	struct model08_00 *model08_00;
+	struct modelnode *node;
 	struct model10 *model10;
-	s32 value;
+	s32 partnum;
 
 	if (right) {
-		value = 2;
+		partnum = MODELPART_MUZZLEFLASHRIGHT;
 	} else {
-		value = 3;
+		partnum = MODELPART_MUZZLEFLASHLEFT;
 	}
 
-	model08_00 = func0001a91c(chr->model->unk08, value);
+	node = modelGetPart(chr->model->unk08, partnum);
 
-	if (model08_00) {
-		model10 = func0001aa1c(chr->model, model08_00);
+	if (node) {
+		model10 = func0001aa1c(chr->model, node);
 	}
 
 	// @dangerous: model10 may be uninitialised
@@ -26522,7 +26522,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, 
 	struct coord pos2;
 	s16 rooms2[8];
 	bool result = false;
-	u32 thing;
+	u32 nodetype;
 	struct model10 *model10;
 	struct player *player;
 	f32 ground;
@@ -26550,10 +26550,10 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, 
 		func0f0220ac(chr);
 		func0001ad34(chr->model, &pos2);
 
-		thing = chr->model->unk08->unk00->unk00;
+		nodetype = chr->model->unk08->rootnode->type;
 
-		if ((thing & 0xff) == 1) {
-			model10 = func0001aa1c(chr->model, chr->model->unk08->unk00);
+		if ((nodetype & 0xff) == MODELNODETYPE_ROOT) {
+			model10 = func0001aa1c(chr->model, chr->model->unk08->rootnode);
 			model10->ground = ground;
 		}
 
@@ -27829,19 +27829,19 @@ s32 func0f004cd84(s32 arg0, s32 arg1)
 	return arg0;
 }
 
-void func0f04cf90(struct chrdata *chr, s32 arg1)
+void chrToggleModelPart(struct chrdata *chr, s32 partnum)
 {
 	if (chr && chr->model && chr->model->unk08) {
-		struct model08_00 *model08_00 = func0001a91c(chr->model->unk08, arg1);
+		struct modelnode *node = modelGetPart(chr->model->unk08, partnum);
 		struct model10 *model10 = NULL;
 
-		if (model08_00) {
-			model10 = func0001aa1c(chr->model, model08_00);
+		if (node) {
+			model10 = func0001aa1c(chr->model, node);
 		}
 
 		if (model10) {
-			u32 value = model10->unk00.u32;
-			model10->unk00.u32 = (value == 0);
+			bool visible = model10->unk00.u32;
+			model10->unk00.u32 = !visible;
 		}
 	}
 }

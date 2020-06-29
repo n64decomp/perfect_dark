@@ -2819,7 +2819,7 @@ u8 func0c01_outro[] = {
 	set_object_flag2(OBJ_OUTRO_SHUTTLE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_OUTRO_SHUTTLE, OBJFLAG3_00000010)
 	object_do_animation(0x01e4, OBJ_OUTRO_SHUTTLE, 0x04, 0xffff)
-	set_object_part_visible(OBJ_OUTRO_SHUTTLE, FALSE)
+	object_set_modelpart_visible(OBJ_OUTRO_SHUTTLE, MODELPART_SKGANGWAY, FALSE)
 
 	show_nonessential_chrs(FALSE)
 	restart_timer
@@ -3375,7 +3375,7 @@ u8 func1002_hangar_shuttle[] = {
 	yield
 	show_object(OBJ_HANGAR_SHUTTLE)
 	set_object_flag3(OBJ_HANGAR_SHUTTLE, OBJFLAG3_00000010)
-	set_object_part_visible(OBJ_HANGAR_SHUTTLE, FALSE)
+	object_set_modelpart_visible(OBJ_HANGAR_SHUTTLE, MODELPART_SKGANGWAY, FALSE)
 
 	label(0x09)
 	restart_timer

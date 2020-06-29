@@ -1366,7 +1366,7 @@ u8 func0411_cass_in_office[] = {
 };
 
 u8 func0413_cass_running[] = {
-	remove_cass_necklace(CHR_CASS)
+	chr_toggle_modelpart(CHR_CASS, MODELPART_NECKLACE)
 	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_shotlist(AILIST_CASS_RUNNING)
 	if_chr_dead(CHR_CASS, /*goto*/ 0x06)
@@ -2029,7 +2029,7 @@ u8 func0417_outro[] = {
 	object_do_animation(0x0475, OBJ_SHUTTLE2, 0x04, 0xffff)
 	show_nonessential_chrs(FALSE)
 	restart_timer
-	set_object_part_visible(OBJ_SHUTTLE2, FALSE)
+	object_set_modelpart_visible(OBJ_SHUTTLE2, MODELPART_SKGANGWAY, FALSE)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2c)
@@ -2120,7 +2120,7 @@ u8 func1011_shuttle_animation[] = {
 	yield
 	show_object(OBJ_SHUTTLE1)
 	set_object_flag3(OBJ_SHUTTLE1, OBJFLAG3_00000010)
-	set_object_part_visible(OBJ_SHUTTLE1, FALSE)
+	object_set_modelpart_visible(OBJ_SHUTTLE1, MODELPART_SKGANGWAY, FALSE)
 	label(0x09)
 	restart_timer
 

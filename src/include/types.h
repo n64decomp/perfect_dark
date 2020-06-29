@@ -155,16 +155,20 @@ struct stagethinglist {
 	u16 *things;
 };
 
-struct model08_00 {
-	u16 unk00;
+struct modelnode {
+	u16 type;
 	u32 unk04;
 };
 
 struct model08 {
-	struct model08_00 *unk00;
+	struct modelnode *rootnode;
 	struct stagethinglist *unk04;
-	u32 unk08;
-	u16 unk0c;
+
+	// This is a pointer to a variable length array of pointers to modelnodes,
+	// but the array is followed by an s16 array of part numbers.
+	struct modelnode **parts;
+
+	s16 numparts;
 	s16 unk0e;
 };
 
@@ -186,8 +190,7 @@ struct model0c {
 	/*0x38*/ f32 unk38;
 };
 
-// This seems to be a model component which can be turned on and off, like a
-// muzzle flash, Jo's hudpiece and probably Cass's necklace.
+// Suspected to be multiple structs, or a union based on the node type
 struct model10 {
 	union {
 		u16 u16;

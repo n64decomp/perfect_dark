@@ -10003,13 +10003,13 @@ bool aiConfigureSnow(void)
 /**
  * @cmd 018c
  */
-bool aiChrToggleProp(void)
+bool aiChrToggleModelPart(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
-		func0f04cf90(chr, cmd[3]);
+		chrToggleModelPart(chr, cmd[3]);
 	}
 
 	g_Vars.aioffset += 4;
@@ -11092,13 +11092,13 @@ bool aiSetPortalFlag(void)
 /**
  * @cmd 01d1
  */
-bool aiSetObjPartVisible(void)
+bool aiObjSetModelPartVisible(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop) {
-		objSetPartVisible(obj, cmd[3], cmd[4]);
+		objSetModelPartVisible(obj, cmd[3], cmd[4]);
 	}
 
 	g_Vars.aioffset += 5;
