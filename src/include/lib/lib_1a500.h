@@ -18,7 +18,7 @@ struct modelnode *modelGetPart(struct model08 *arg0, s32 partnum);
 struct modelthing *func0001a9bc(void *modelfiledata, s32 arg1);
 u32 func0001a9e8(void);
 void *modelGetNodeData(struct model *model, struct modelnode *node);
-u32 func0001ab0c(void);
+void func0001ab0c(struct model *model, struct modelnode *node, struct coord *coord);
 void func0001abc4(struct model *model, struct modelnode *node, struct coord *coord);
 void func0001ad0c(struct model *model, struct coord *coord);
 void func0001ad34(struct model *model, struct coord *coord);
