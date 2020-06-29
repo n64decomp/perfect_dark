@@ -28001,7 +28001,7 @@ s32 objTick(struct prop *prop)
 	if (model->anim) {
 		if (g_Anims[model->anim->animnum].flags & 0x02) {
 			if (g_Vars.tickmode != TICKMODE_6
-					&& modelGetCurAnimFrame(model) >= func0001d218(model) - 1) {
+					&& modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
 				func0f0b3338(model->anim);
 				model->anim = NULL;
 			} else {
@@ -28146,7 +28146,7 @@ s32 objTick(struct prop *prop)
 					func0f065e74(&prop->pos, prop->rooms, &sp236, sp220);
 				}
 
-				if (modelGetCurAnimFrame(model) >= func0001d218(model) - 1) {
+				if (modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
 					func0f0b3338(model->anim);
 					model->anim = NULL;
 					func00015be4(currentPlayerGetUnk174c(), model->unk0c, sp248);

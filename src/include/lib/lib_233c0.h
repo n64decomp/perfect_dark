@@ -6,7 +6,7 @@
 u32 func000233c0(void);
 u32 func00023640(void);
 void func0002373c(void);
-s32 modelGetNumAnimFrames(s16 anim_id);
+s32 animGetNumFrames(s16 anim_id);
 u32 func00023794(void);
 u32 func000237dc(void);
 u32 func000237e8(void);

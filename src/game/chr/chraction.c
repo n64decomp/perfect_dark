@@ -3404,7 +3404,7 @@ glabel var7f1a8d44
 /*  f03239c:	1000000f */ 	b	.L0f0323dc
 /*  f0323a0:	8e180018 */ 	lw	$t8,0x18($s0)
 .L0f0323a4:
-/*  f0323a4:	0c008dda */ 	jal	modelGetNumAnimFrames
+/*  f0323a4:	0c008dda */ 	jal	animGetNumFrames
 /*  f0323a8:	84640000 */ 	lh	$a0,0x0($v1)
 /*  f0323ac:	2459ffff */ 	addiu	$t9,$v0,-1
 /*  f0323b0:	44994000 */ 	mtc1	$t9,$f8
@@ -4112,7 +4112,7 @@ glabel var7f1a8d4c
 /*  f032dc8:	1000000f */ 	b	.L0f032e08
 /*  f032dcc:	24080001 */ 	addiu	$t0,$zero,0x1
 .L0f032dd0:
-/*  f032dd0:	0c008dda */ 	jal	modelGetNumAnimFrames
+/*  f032dd0:	0c008dda */ 	jal	animGetNumFrames
 /*  f032dd4:	85040000 */ 	lh	$a0,0x0($t0)
 /*  f032dd8:	2449ffff */ 	addiu	$t1,$v0,-1
 /*  f032ddc:	44893000 */ 	mtc1	$t1,$f6
@@ -4232,7 +4232,7 @@ glabel var7f1a8d4c
 /*  f032f94:	1000000f */ 	b	.L0f032fd4
 /*  f032f98:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f032f9c:
-/*  f032f9c:	0c008dda */ 	jal	modelGetNumAnimFrames
+/*  f032f9c:	0c008dda */ 	jal	animGetNumFrames
 /*  f032fa0:	85040000 */ 	lh	$a0,0x0($t0)
 /*  f032fa4:	244dffff */ 	addiu	$t5,$v0,-1
 /*  f032fa8:	448d9000 */ 	mtc1	$t5,$f18
@@ -12424,7 +12424,7 @@ glabel var7f1a8f08
 /*  f03c274:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03c278:	51a0001c */ 	beqzl	$t5,.L0f03c2ec
 /*  f03c27c:	8e060034 */ 	lw	$a2,0x34($s0)
-/*  f03c280:	0c007486 */ 	jal	func0001d218
+/*  f03c280:	0c007486 */ 	jal	modelGetNumAnimFrames
 /*  f03c284:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f03c288:	244effff */ 	addiu	$t6,$v0,-1
 /*  f03c28c:	448e4000 */ 	mtc1	$t6,$f8
@@ -12530,7 +12530,7 @@ glabel var7f1a8f08
 /*  f03c404:	e7a80010 */ 	swc1	$f8,0x10($sp)
 /*  f03c408:	0c007733 */ 	jal	modelSetAnimation
 /*  f03c40c:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f03c410:	0c008dda */ 	jal	modelGetNumAnimFrames
+/*  f03c410:	0c008dda */ 	jal	animGetNumFrames
 /*  f03c414:	2404006b */ 	addiu	$a0,$zero,0x6b
 /*  f03c418:	244dffff */ 	addiu	$t5,$v0,-1
 /*  f03c41c:	448d8000 */ 	mtc1	$t5,$f16
@@ -12559,7 +12559,7 @@ glabel var7f1a8f08
 /*  f03c470:	e7b20010 */ 	swc1	$f18,0x10($sp)
 /*  f03c474:	0c007733 */ 	jal	modelSetAnimation
 /*  f03c478:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f03c47c:	0c008dda */ 	jal	modelGetNumAnimFrames
+/*  f03c47c:	0c008dda */ 	jal	animGetNumFrames
 /*  f03c480:	24040028 */ 	addiu	$a0,$zero,0x28
 /*  f03c484:	2459ffff */ 	addiu	$t9,$v0,-1
 /*  f03c488:	44993000 */ 	mtc1	$t9,$f6
@@ -12587,7 +12587,7 @@ glabel var7f1a8f08
 /*  f03c4dc:	e7a80010 */ 	swc1	$f8,0x10($sp)
 /*  f03c4e0:	0c007733 */ 	jal	modelSetAnimation
 /*  f03c4e4:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f03c4e8:	0c008dda */ 	jal	modelGetNumAnimFrames
+/*  f03c4e8:	0c008dda */ 	jal	animGetNumFrames
 /*  f03c4ec:	24040392 */ 	addiu	$a0,$zero,0x392
 /*  f03c4f0:	244bffff */ 	addiu	$t3,$v0,-1
 /*  f03c4f4:	448b8000 */ 	mtc1	$t3,$f16
@@ -13191,8 +13191,8 @@ void chrTickDie(struct chrdata *chr)
 	// Check for end of death animation and switch to ACT_DEAD
 	if (modelGetCurAnimFrame(model) >= func0001d1a0(model)) {
 		if (CHRRACE(chr) == RACE_HUMAN && modelGetAnimNum(model) == ANIM_DEATH_STOMACH_LONG) {
-			modelSetAnimation(model, ANIM_003C, !modelIsFlipped(model), 50, 0.3, modelGetNumAnimFrames(ANIM_003C) - 51.0f);
-			func0001deb0(model, 0.5, modelGetNumAnimFrames(ANIM_003C) - 51.0f);
+			modelSetAnimation(model, ANIM_003C, !modelIsFlipped(model), 50, 0.3, animGetNumFrames(ANIM_003C) - 51.0f);
+			func0001deb0(model, 0.5, animGetNumFrames(ANIM_003C) - 51.0f);
 			return;
 		}
 
@@ -20323,7 +20323,7 @@ glabel chrTickAttackWalk
 /*  f0442c8:	0c00745f */ 	jal	modelGetCurAnimFrame
 /*  f0442cc:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0442d0:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f0442d4:	0c007486 */ 	jal	func0001d218
+/*  f0442d4:	0c007486 */ 	jal	modelGetNumAnimFrames
 /*  f0442d8:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0442dc:	44822000 */ 	mtc1	$v0,$f4
 /*  f0442e0:	3c013f00 */ 	lui	$at,0x3f00
@@ -20342,7 +20342,7 @@ glabel chrTickAttackWalk
 /*  f044314:	1000000d */ 	b	.L0f04434c
 /*  f044318:	00000000 */ 	nop
 .L0f04431c:
-/*  f04431c:	0c007486 */ 	jal	func0001d218
+/*  f04431c:	0c007486 */ 	jal	modelGetNumAnimFrames
 /*  f044320:	02202025 */ 	or	$a0,$s1,$zero
 /*  f044324:	44829000 */ 	mtc1	$v0,$f18
 /*  f044328:	3c013f00 */ 	lui	$at,0x3f00
@@ -20770,19 +20770,19 @@ void chrTickRunPos(struct chrdata *chr)
 		fVar6 = fVar7 - zero;
 
 		if (fVar7 < 0) {
-			fVar6 += func0001d218(model);
+			fVar6 += modelGetNumAnimFrames(model);
 		}
 
-		if (func0001d218(model) * 0.5f < fVar6) {
+		if (modelGetNumAnimFrames(model) * 0.5f < fVar6) {
 			zero = 0;
-			func0001df04(model, func0001d218(model) - zero, 16);
+			func0001df04(model, modelGetNumAnimFrames(model) - zero, 16);
 		} else {
 			zero = 0;
-			fVar7 = func0001d218(model) * 0.5f;
+			fVar7 = modelGetNumAnimFrames(model) * 0.5f;
 			fVar6 = fVar7 - zero;
 
 			if (fVar7 < 0) {
-				fVar6 += func0001d218(model);
+				fVar6 += modelGetNumAnimFrames(model);
 			}
 
 			func0001df04(model, fVar6, 16);

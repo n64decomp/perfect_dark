@@ -54,7 +54,7 @@ u32 modelGetAnimNum(struct model *model);
 bool modelIsFlipped(struct model *model);
 f32 modelGetCurAnimFrame(struct model *model);
 f32 func0001d1a0(struct model *model);
-s32 func0001d218(struct model *model);
+s32 modelGetNumAnimFrames(struct model *model);
 f32 modelGetAnimSpeed(struct model *model);
 f32 func0001d288(struct model *model);
 u32 func0001d320(void);

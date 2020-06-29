@@ -4850,7 +4850,7 @@ glabel var7f1b2948
 /*  f0f49a8:	e7a40010 */ 	swc1	$f4,0x10($sp)
 /*  f0f49ac:	0c007733 */ 	jal	modelSetAnimation
 /*  f0f49b0:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f0f49b4:	0c007486 */ 	jal	func0001d218
+/*  f0f49b4:	0c007486 */ 	jal	modelGetNumAnimFrames
 /*  f0f49b8:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0f49bc:	44825000 */ 	mtc1	$v0,$f10
 /*  f0f49c0:	8fa4003c */ 	lw	$a0,0x3c($sp)
@@ -4884,7 +4884,7 @@ glabel var7f1b2948
 /*  f0f4a20:	00195ac0 */ 	sll	$t3,$t9,0xb
 /*  f0f4a24:	0561000c */ 	bgez	$t3,.L0f0f4a58
 /*  f0f4a28:	00000000 */ 	nop
-/*  f0f4a2c:	0c007486 */ 	jal	func0001d218
+/*  f0f4a2c:	0c007486 */ 	jal	modelGetNumAnimFrames
 /*  f0f4a30:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0f4a34:	afa2004c */ 	sw	$v0,0x4c($sp)
 /*  f0f4a38:	0c00745f */ 	jal	modelGetCurAnimFrame
@@ -4901,7 +4901,7 @@ glabel var7f1b2948
 /*  f0f4a60:	46000086 */ 	mov.s	$f2,$f0
 .L0f0f4a64:
 /*  f0f4a64:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0f4a68:	0c007486 */ 	jal	func0001d218
+/*  f0f4a68:	0c007486 */ 	jal	modelGetNumAnimFrames
 /*  f0f4a6c:	e7a20178 */ 	swc1	$f2,0x178($sp)
 /*  f0f4a70:	244dffff */ 	addiu	$t5,$v0,-1
 /*  f0f4a74:	448d4000 */ 	mtc1	$t5,$f8
