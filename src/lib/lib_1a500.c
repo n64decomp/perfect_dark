@@ -4261,43 +4261,18 @@ void modelSetAnimLooping(struct model *model, f32 loopframe, f32 loopmerge)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0001de1c
-/*    1de1c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    1de20:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1de24:	8c830020 */ 	lw	$v1,0x20($a0)
-/*    1de28:	44856000 */ 	mtc1	$a1,$f12
-/*    1de2c:	50600017 */ 	beqzl	$v1,.L0001de8c
-/*    1de30:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1de34:	84640000 */ 	lh	$a0,0x0($v1)
-/*    1de38:	50800010 */ 	beqzl	$a0,.L0001de7c
-/*    1de3c:	3c01bf80 */ 	lui	$at,0xbf80
-/*    1de40:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*    1de44:	0c008dda */ 	jal	animGetNumFrames
-/*    1de48:	e7ac0024 */ 	swc1	$f12,0x24($sp)
-/*    1de4c:	244effff */ 	addiu	$t6,$v0,-1
-/*    1de50:	448e2000 */ 	mtc1	$t6,$f4
-/*    1de54:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*    1de58:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*    1de5c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    1de60:	4606603c */ 	c.lt.s	$f12,$f6
-/*    1de64:	00000000 */ 	nop
-/*    1de68:	45020004 */ 	bc1fl	.L0001de7c
-/*    1de6c:	3c01bf80 */ 	lui	$at,0xbf80
-/*    1de70:	10000005 */ 	b	.L0001de88
-/*    1de74:	e46c0018 */ 	swc1	$f12,0x18($v1)
-/*    1de78:	3c01bf80 */ 	lui	$at,0xbf80
-.L0001de7c:
-/*    1de7c:	44814000 */ 	mtc1	$at,$f8
-/*    1de80:	00000000 */ 	nop
-/*    1de84:	e4680018 */ 	swc1	$f8,0x18($v1)
-.L0001de88:
-/*    1de88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001de8c:
-/*    1de8c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    1de90:	03e00008 */ 	jr	$ra
-/*    1de94:	00000000 */ 	nop
-);
+void modelSetAnimEndFrame(struct model *model, f32 endframe)
+{
+	struct anim *anim = model->anim;
+
+	if (anim) {
+		if (anim->animnum && endframe < animGetNumFrames(anim->animnum) - 1) {
+			anim->endframe = endframe;
+		} else {
+			anim->endframe = -1;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0001de98

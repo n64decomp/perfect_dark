@@ -536,7 +536,7 @@ void chrStandChooseAnimation(struct chrdata *chr, f32 arg1)
 		} else if (gun2 || gun1) {
 			modelSetAnimation(chr->model, 0x01, gun1 != NULL, 0, 0.25, arg1);
 			modelSetAnimLooping(chr->model, 0, 16);
-			func0001de1c(chr->model, 120);
+			modelSetAnimEndFrame(chr->model, 120);
 		}
 	} else if (race == RACE_SKEDAR) {
 		modelSetAnimation(chr->model, 0xc0, random() % 2, 0, 0.5, arg1);
@@ -610,12 +610,12 @@ void chrStand(struct chrdata *chr)
 					result = func0f02e15c(chr, 0.5, 0.8);
 					modelSetAnimation(chr->model, ANIM_KNEEL_SHOOT_RIGHT_HAND,
 							chr->model->anim->flip, 109, result, 16);
-					func0001de1c(chr->model, 140);
+					modelSetAnimEndFrame(chr->model, 140);
 				} else {
 					result = func0f02e15c(chr, 0.5, 0.8);
 					modelSetAnimation(chr->model, ANIM_KNEEL_TWO_HANDED_GUN,
 							chr->model->anim->flip, 120, result, 16);
-					func0001de1c(chr->model, 151);
+					modelSetAnimEndFrame(chr->model, 151);
 				}
 			}
 		} else if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
@@ -679,10 +679,10 @@ void chrKneelChooseAnimation(struct chrdata *chr)
 				|| weaponIsOneHanded(gun2)) {
 			bool flip = random() % 2;
 			modelSetAnimation(chr->model, 0x4b, flip, 0, func0f02e15c(chr, 0.5, 0.8), 16);
-			func0001de1c(chr->model, 28);
+			modelSetAnimEndFrame(chr->model, 28);
 		} else if (gun2 || gun1) {
 			modelSetAnimation(chr->model, 0x08, gun1 != NULL, 0, func0f02e15c(chr, 0.5, 0.8), 16);
-			func0001de1c(chr->model, 27);
+			modelSetAnimEndFrame(chr->model, 27);
 		}
 	}
 }
@@ -714,7 +714,7 @@ void chrStartAlarmChooseAnimation(struct chrdata *chr)
 	}
 
 	modelSetAnimation(chr->model, 0x3d, flip, 40, 1, 16);
-	func0001de1c(chr->model, 82);
+	modelSetAnimEndFrame(chr->model, 82);
 }
 
 void chrStartAlarm(struct chrdata *chr)
@@ -753,7 +753,7 @@ void chrThrowGrenadeChooseAnimation(struct chrdata *chr)
 		}
 	}
 
-	func0001de1c(chr->model, -1);
+	modelSetAnimEndFrame(chr->model, -1);
 }
 
 void chrThrowGrenade(struct chrdata *chr, s32 hand, s32 needsequip)
@@ -786,20 +786,20 @@ void chrSurprisedChooseAnimation(struct chrdata *chr)
 		}
 
 		modelSetAnimation(chr->model, 0x3f, flip, 10, func0f02e15c(chr, 0.6f, 0.96000003f), 16);
-		func0001de1c(chr->model, 52);
+		modelSetAnimEndFrame(chr->model, 52);
 	} else if (chr->act_surprised.type == 2) {
 		modelSetAnimation(chr->model, ANIM_SURRENDER_002E, random() & 1, 0, func0f02e15c(chr, 0.35f, 0.56f), 16);
-		func0001de1c(chr->model, 7);
+		modelSetAnimEndFrame(chr->model, 7);
 	} else {
 		u32 part = random() % 3;
 		modelSetAnimation(chr->model, 0x40, random() & 1, 17, 0.6f, 16);
 
 		if (part == 0) {
-			func0001de1c(chr->model, func0f02e15c(chr, 38, 8));
+			modelSetAnimEndFrame(chr->model, func0f02e15c(chr, 38, 8));
 		} else if (part == 1) {
-			func0001de1c(chr->model, func0f02e15c(chr, 66, 8));
+			modelSetAnimEndFrame(chr->model, func0f02e15c(chr, 66, 8));
 		} else {
-			func0001de1c(chr->model, func0f02e15c(chr, 96, 8));
+			modelSetAnimEndFrame(chr->model, func0f02e15c(chr, 96, 8));
 		}
 	}
 }
@@ -925,27 +925,27 @@ void chrSidestepChooseAnimation(struct chrdata *chr)
 		if (allowflip == false) {
 			if (chr->act_sidestep.side) {
 				modelSetAnimation(chr->model, 0x68, true, 5, func0f02e15c(chr, 0.55, 0.88000005), 16);
-				func0001de1c(chr->model, 36);
+				modelSetAnimEndFrame(chr->model, 36);
 			} else {
 				modelSetAnimation(chr->model, 0x68, false, 5, func0f02e15c(chr, 0.55, 0.88000005), 16);
-				func0001de1c(chr->model, 36);
+				modelSetAnimEndFrame(chr->model, 36);
 			}
 		} else {
 			if ((chr->act_sidestep.side && !flip) || (chr->act_sidestep.side == 0 && flip)) {
 				modelSetAnimation(chr->model, 0x3b, flip, 5, func0f02e15c(chr, 0.7, 1.12), 16);
-				func0001de1c(chr->model, 34);
+				modelSetAnimEndFrame(chr->model, 34);
 			} else {
 				modelSetAnimation(chr->model, 0x3a, flip, 5, func0f02e15c(chr, 0.7, 1.12), 16);
-				func0001de1c(chr->model, 32);
+				modelSetAnimEndFrame(chr->model, 32);
 			}
 		}
 	} else if (race == RACE_SKEDAR) {
 		if (chr->act_sidestep.side) {
 			modelSetAnimation(chr->model, 0x328, false, 5, func0f02e15c(chr, 0.55, 0.88000005), 16);
-			func0001de1c(chr->model, 27);
+			modelSetAnimEndFrame(chr->model, 27);
 		} else {
 			modelSetAnimation(chr->model, 0x328, true, 5, func0f02e15c(chr, 0.55, 0.88000005), 16);
-			func0001de1c(chr->model, 27);
+			modelSetAnimEndFrame(chr->model, 27);
 		}
 	}
 }
@@ -980,10 +980,10 @@ void chrJumpOutChooseAnimation(struct chrdata *chr)
 
 	if ((chr->act_jumpout.side && !flip) || (chr->act_jumpout.side == 0 && flip)) {
 		modelSetAnimation(chr->model, 0x68, true, 5, func0f02e15c(chr, 0.55, 0.88000005), 16);
-		func0001de1c(chr->model, 36);
+		modelSetAnimEndFrame(chr->model, 36);
 	} else {
 		modelSetAnimation(chr->model, 0x68, false, 5, func0f02e15c(chr, 0.55, 0.88000005), 16);
-		func0001de1c(chr->model, 36);
+		modelSetAnimEndFrame(chr->model, 36);
 	}
 }
 
@@ -1722,15 +1722,15 @@ void chrAttackRollChooseAnimation(struct chrdata *chr)
 	if (chr->act_attackroll.unk035 == 0) {
 		if (chr->act_attackroll.unk036) {
 			if (chr->act_attackroll.animfloats->unk24 >= 0) {
-				func0001de1c(chr->model, chr->act_attackroll.animfloats->unk24);
+				modelSetAnimEndFrame(chr->model, chr->act_attackroll.animfloats->unk24);
 			} else {
-				func0001de1c(chr->model, chr->act_attackroll.animfloats->unk1c);
+				modelSetAnimEndFrame(chr->model, chr->act_attackroll.animfloats->unk1c);
 			}
 		} else {
 			if (chr->act_attackroll.animfloats->unk20 >= 0) {
-				func0001de1c(chr->model, chr->act_attackroll.animfloats->unk20);
+				modelSetAnimEndFrame(chr->model, chr->act_attackroll.animfloats->unk20);
 			} else if (chr->act_attackroll.animfloats->unk14 >= 0) {
-				func0001de1c(chr->model, chr->act_attackroll.animfloats->unk14);
+				modelSetAnimEndFrame(chr->model, chr->act_attackroll.animfloats->unk14);
 			}
 		}
 	}
@@ -2172,7 +2172,7 @@ glabel func0f030ff8
 /*  f031160:	45020005 */ 	bc1fl	.L0f031178
 /*  f031164:	8e0c0014 */ 	lw	$t4,0x14($s0)
 /*  f031168:	44053000 */ 	mfc1	$a1,$f6
-/*  f03116c:	0c007787 */ 	jal	func0001de1c
+/*  f03116c:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f031170:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f031174:	8e0c0014 */ 	lw	$t4,0x14($s0)
 .L0f031178:
@@ -2220,23 +2220,23 @@ void func0f031254(struct chrdata *chr)
 
 	if (chr->act_attack.entitytype & ENTITYTYPE_AIMONLY) {
 		if (floats[8] >= 0 && floats[8] < floats[6]) {
-			func0001de1c(model, floats[8]);
+			modelSetAnimEndFrame(model, floats[8]);
 		} else {
-			func0001de1c(model, floats[6]);
+			modelSetAnimEndFrame(model, floats[6]);
 		}
 	} else if (chr->act_attack.unk036) {
 		if (floats[8] >= 0) {
-			func0001de1c(model, floats[8]);
+			modelSetAnimEndFrame(model, floats[8]);
 		} else {
-			func0001de1c(model, floats[6]);
+			modelSetAnimEndFrame(model, floats[6]);
 		}
 	} else {
 		if (floats[8] >= 0) {
-			func0001de1c(model, floats[8]);
+			modelSetAnimEndFrame(model, floats[8]);
 		} else if (floats[5] >= 0) {
-			func0001de1c(model, floats[5]);
+			modelSetAnimEndFrame(model, floats[5]);
 		} else {
-			func0001de1c(model, -1);
+			modelSetAnimEndFrame(model, -1);
 		}
 	}
 }
@@ -2324,7 +2324,7 @@ glabel var7f1a8d18
 /*  f031494:	0c007733 */ 	jal	modelSetAnimation
 /*  f031498:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f03149c:	8fa4008c */ 	lw	$a0,0x8c($sp)
-/*  f0314a0:	0c007787 */ 	jal	func0001de1c
+/*  f0314a0:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f0314a4:	3c05436c */ 	lui	$a1,0x436c
 /*  f0314a8:	10000038 */ 	b	.L0f03158c
 /*  f0314ac:	00008025 */ 	or	$s0,$zero,$zero
@@ -3290,7 +3290,7 @@ glabel var7f1a8d44
 /*  f0321f0:	45020005 */ 	bc1fl	.L0f032208
 /*  f0321f4:	3c014120 */ 	lui	$at,0x4120
 /*  f0321f8:	44050000 */ 	mfc1	$a1,$f0
-/*  f0321fc:	0c007787 */ 	jal	func0001de1c
+/*  f0321fc:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f032200:	8fa400f4 */ 	lw	$a0,0xf4($sp)
 /*  f032204:	3c014120 */ 	lui	$at,0x4120
 .L0f032208:
@@ -3399,7 +3399,7 @@ glabel var7f1a8d44
 /*  f032388:	0fc0b898 */ 	jal	func0f02e260
 /*  f03238c:	3c064100 */ 	lui	$a2,0x4100
 /*  f032390:	44050000 */ 	mfc1	$a1,$f0
-/*  f032394:	0c007787 */ 	jal	func0001de1c
+/*  f032394:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f032398:	8fa400f4 */ 	lw	$a0,0xf4($sp)
 /*  f03239c:	1000000f */ 	b	.L0f0323dc
 /*  f0323a0:	8e180018 */ 	lw	$t8,0x18($s0)
@@ -3415,7 +3415,7 @@ glabel var7f1a8d44
 /*  f0323c4:	0fc0b898 */ 	jal	func0f02e260
 /*  f0323c8:	00000000 */ 	nop
 /*  f0323cc:	44050000 */ 	mfc1	$a1,$f0
-/*  f0323d0:	0c007787 */ 	jal	func0001de1c
+/*  f0323d0:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f0323d4:	8fa400f4 */ 	lw	$a0,0xf4($sp)
 /*  f0323d8:	8e180018 */ 	lw	$t8,0x18($s0)
 .L0f0323dc:
@@ -3582,7 +3582,7 @@ glabel var7f1a8d44
 /*  f032628:	45020006 */ 	bc1fl	.L0f032644
 /*  f03262c:	8fa40120 */ 	lw	$a0,0x120($sp)
 /*  f032630:	44050000 */ 	mfc1	$a1,$f0
-/*  f032634:	0c007787 */ 	jal	func0001de1c
+/*  f032634:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f032638:	afa8006c */ 	sw	$t0,0x6c($sp)
 /*  f03263c:	8fa8006c */ 	lw	$t0,0x6c($sp)
 /*  f032640:	8fa40120 */ 	lw	$a0,0x120($sp)
@@ -3701,7 +3701,7 @@ glabel var7f1a8d44
 /*  f0327f0:	4502006f */ 	bc1fl	.L0f0329b0
 /*  f0327f4:	8fa20040 */ 	lw	$v0,0x40($sp)
 /*  f0327f8:	44050000 */ 	mfc1	$a1,$f0
-/*  f0327fc:	0c007787 */ 	jal	func0001de1c
+/*  f0327fc:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f032800:	8fa400f4 */ 	lw	$a0,0xf4($sp)
 /*  f032804:	1000006a */ 	b	.L0f0329b0
 /*  f032808:	8fa20040 */ 	lw	$v0,0x40($sp)
@@ -3770,7 +3770,7 @@ glabel var7f1a8d44
 /*  f0328f0:	45020006 */ 	bc1fl	.L0f03290c
 /*  f0328f4:	8fa40120 */ 	lw	$a0,0x120($sp)
 /*  f0328f8:	44050000 */ 	mfc1	$a1,$f0
-/*  f0328fc:	0c007787 */ 	jal	func0001de1c
+/*  f0328fc:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f032900:	afa80060 */ 	sw	$t0,0x60($sp)
 /*  f032904:	8fa80060 */ 	lw	$t0,0x60($sp)
 /*  f032908:	8fa40120 */ 	lw	$a0,0x120($sp)
@@ -4107,7 +4107,7 @@ glabel var7f1a8d4c
 /*  f032db4:	0fc0b898 */ 	jal	func0f02e260
 /*  f032db8:	3c064100 */ 	lui	$a2,0x4100
 /*  f032dbc:	44050000 */ 	mfc1	$a1,$f0
-/*  f032dc0:	0c007787 */ 	jal	func0001de1c
+/*  f032dc0:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f032dc4:	8fa40148 */ 	lw	$a0,0x148($sp)
 /*  f032dc8:	1000000f */ 	b	.L0f032e08
 /*  f032dcc:	24080001 */ 	addiu	$t0,$zero,0x1
@@ -4123,7 +4123,7 @@ glabel var7f1a8d4c
 /*  f032df0:	0fc0b898 */ 	jal	func0f02e260
 /*  f032df4:	00000000 */ 	nop
 /*  f032df8:	44050000 */ 	mfc1	$a1,$f0
-/*  f032dfc:	0c007787 */ 	jal	func0001de1c
+/*  f032dfc:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f032e00:	8fa40148 */ 	lw	$a0,0x148($sp)
 /*  f032e04:	24080001 */ 	addiu	$t0,$zero,0x1
 .L0f032e08:
@@ -4227,7 +4227,7 @@ glabel var7f1a8d4c
 /*  f032f80:	0fc0b898 */ 	jal	func0f02e260
 /*  f032f84:	3c064100 */ 	lui	$a2,0x4100
 /*  f032f88:	44050000 */ 	mfc1	$a1,$f0
-/*  f032f8c:	0c007787 */ 	jal	func0001de1c
+/*  f032f8c:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f032f90:	8fa40148 */ 	lw	$a0,0x148($sp)
 /*  f032f94:	1000000f */ 	b	.L0f032fd4
 /*  f032f98:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -4243,7 +4243,7 @@ glabel var7f1a8d4c
 /*  f032fbc:	0fc0b898 */ 	jal	func0f02e260
 /*  f032fc0:	00000000 */ 	nop
 /*  f032fc4:	44050000 */ 	mfc1	$a1,$f0
-/*  f032fc8:	0c007787 */ 	jal	func0001de1c
+/*  f032fc8:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f032fcc:	8fa40148 */ 	lw	$a0,0x148($sp)
 .L0f032fd0:
 /*  f032fd0:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -4702,7 +4702,7 @@ glabel var7f1a8d5c
 /*  f03362c:	45020005 */ 	bc1fl	.L0f033644
 /*  f033630:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f033634:	44050000 */ 	mfc1	$a1,$f0
-/*  f033638:	0c007787 */ 	jal	func0001de1c
+/*  f033638:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f03363c:	8fa4005c */ 	lw	$a0,0x5c($sp)
 .L0f033640:
 /*  f033640:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -7702,7 +7702,7 @@ glabel var7f1a8d98
 /*  f0361e4:	45020005 */ 	bc1fl	.L0f0361fc
 /*  f0361e8:	240d0007 */ 	addiu	$t5,$zero,0x7
 /*  f0361ec:	44053000 */ 	mfc1	$a1,$f6
-/*  f0361f0:	0c007787 */ 	jal	func0001de1c
+/*  f0361f0:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f0361f4:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f0361f8:	240d0007 */ 	addiu	$t5,$zero,0x7
 .L0f0361fc:
@@ -12537,7 +12537,7 @@ glabel var7f1a8f08
 /*  f03c420:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f03c424:	46808420 */ 	cvt.s.w	$f16,$f16
 /*  f03c428:	44058000 */ 	mfc1	$a1,$f16
-/*  f03c42c:	0c007787 */ 	jal	func0001de1c
+/*  f03c42c:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f03c430:	00000000 */ 	nop
 /*  f03c434:	1000003c */ 	b	.L0f03c528
 /*  f03c438:	00000000 */ 	nop
@@ -12566,7 +12566,7 @@ glabel var7f1a8f08
 /*  f03c48c:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f03c490:	468031a0 */ 	cvt.s.w	$f6,$f6
 /*  f03c494:	44053000 */ 	mfc1	$a1,$f6
-/*  f03c498:	0c007787 */ 	jal	func0001de1c
+/*  f03c498:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f03c49c:	00000000 */ 	nop
 /*  f03c4a0:	10000021 */ 	b	.L0f03c528
 /*  f03c4a4:	00000000 */ 	nop
@@ -12594,7 +12594,7 @@ glabel var7f1a8f08
 /*  f03c4f8:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f03c4fc:	46808420 */ 	cvt.s.w	$f16,$f16
 /*  f03c500:	44058000 */ 	mfc1	$a1,$f16
-/*  f03c504:	0c007787 */ 	jal	func0001de1c
+/*  f03c504:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f03c508:	00000000 */ 	nop
 /*  f03c50c:	10000006 */ 	b	.L0f03c528
 /*  f03c510:	00000000 */ 	nop
@@ -12878,8 +12878,8 @@ void chrTickAnim(struct chrdata *chr)
 		modelSetAnimation(chr->model, chr->act_anim.animnum, chr->act_anim.flip,
 				chr->act_anim.startframe, chr->act_anim.unk054, chr->act_anim.unk058);
 
-		if (chr->act_anim.unk050 >= 0) {
-			func0001de1c(chr->model, chr->act_anim.unk050);
+		if (chr->act_anim.endframe >= 0) {
+			modelSetAnimEndFrame(chr->model, chr->act_anim.endframe);
 		}
 
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
@@ -13321,7 +13321,7 @@ glabel chrTickDruggedComingUp
 /*  f03d98c:	45020005 */ 	bc1fl	.L0f03d9a4
 /*  f03d990:	8fa20088 */ 	lw	$v0,0x88($sp)
 /*  f03d994:	44050000 */ 	mfc1	$a1,$f0
-/*  f03d998:	0c007787 */ 	jal	func0001de1c
+/*  f03d998:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f03d99c:	02e02025 */ 	or	$a0,$s7,$zero
 /*  f03d9a0:	8fa20088 */ 	lw	$v0,0x88($sp)
 .L0f03d9a4:
@@ -17928,7 +17928,7 @@ glabel func0f041c44
 /*  f041d08:	45000004 */ 	bc1f	.L0f041d1c
 /*  f041d0c:	00000000 */ 	nop
 /*  f041d10:	44050000 */ 	mfc1	$a1,$f0
-/*  f041d14:	0c007787 */ 	jal	func0001de1c
+/*  f041d14:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f041d18:	8fa4002c */ 	lw	$a0,0x2c($sp)
 .L0f041d1c:
 /*  f041d1c:	10000002 */ 	b	.L0f041d28
@@ -18006,7 +18006,7 @@ glabel func0f041d38
 /*  f041e20:	45020005 */ 	bc1fl	.L0f041e38
 /*  f041e24:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f041e28:	44050000 */ 	mfc1	$a1,$f0
-/*  f041e2c:	0c007787 */ 	jal	func0001de1c
+/*  f041e2c:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f041e30:	02002025 */ 	or	$a0,$s0,$zero
 /*  f041e34:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f041e38:
@@ -18117,7 +18117,7 @@ glabel var7f1a918c
 /*  f041fac:	45000004 */ 	bc1f	.L0f041fc0
 /*  f041fb0:	00000000 */ 	nop
 /*  f041fb4:	44050000 */ 	mfc1	$a1,$f0
-/*  f041fb8:	0c007787 */ 	jal	func0001de1c
+/*  f041fb8:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f041fbc:	02602025 */ 	or	$a0,$s3,$zero
 .L0f041fc0:
 /*  f041fc0:	10000004 */ 	b	.L0f041fd4
@@ -18275,7 +18275,7 @@ glabel var7f1a918c
 /*  f0421e8:	0c007733 */ 	jal	modelSetAnimation
 /*  f0421ec:	e7a20010 */ 	swc1	$f2,0x10($sp)
 /*  f0421f0:	4405a000 */ 	mfc1	$a1,$f20
-/*  f0421f4:	0c007787 */ 	jal	func0001de1c
+/*  f0421f4:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f0421f8:	02602025 */ 	or	$a0,$s3,$zero
 .L0f0421fc:
 /*  f0421fc:	0c00745f */ 	jal	modelGetCurAnimFrame
@@ -19329,7 +19329,7 @@ glabel var7f1a91e0
 /*  f0431ac:	45020005 */ 	bc1fl	.L0f0431c4
 /*  f0431b0:	240d0002 */ 	addiu	$t5,$zero,0x2
 /*  f0431b4:	44050000 */ 	mfc1	$a1,$f0
-/*  f0431b8:	0c007787 */ 	jal	func0001de1c
+/*  f0431b8:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f0431bc:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0431c0:	240d0002 */ 	addiu	$t5,$zero,0x2
 .L0f0431c4:
@@ -19459,14 +19459,14 @@ glabel var7f1a91e0
 /*  f043398:	4500000a */ 	bc1f	.L0f0433c4
 /*  f04339c:	00000000 */ 	nop
 /*  f0433a0:	44050000 */ 	mfc1	$a1,$f0
-/*  f0433a4:	0c007787 */ 	jal	func0001de1c
+/*  f0433a4:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f0433a8:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0433ac:	10000005 */ 	b	.L0f0433c4
 /*  f0433b0:	00000000 */ 	nop
 /*  f0433b4:	8e0b002c */ 	lw	$t3,0x2c($s0)
 .L0f0433b8:
 /*  f0433b8:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0433bc:	0c007787 */ 	jal	func0001de1c
+/*  f0433bc:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f0433c0:	8d65001c */ 	lw	$a1,0x1c($t3)
 .L0f0433c4:
 /*  f0433c4:	0fc10792 */ 	jal	func0f041e48
@@ -19679,13 +19679,13 @@ glabel chrTickAttackRoll
 /*  f0436a4:	8c65001c */ 	lw	$a1,0x1c($v1)
 /*  f0436a8:	44050000 */ 	mfc1	$a1,$f0
 /*  f0436ac:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0436b0:	0c007787 */ 	jal	func0001de1c
+/*  f0436b0:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f0436b4:	e7a20034 */ 	swc1	$f2,0x34($sp)
 /*  f0436b8:	1000001d */ 	b	.L0f043730
 /*  f0436bc:	c7a20034 */ 	lwc1	$f2,0x34($sp)
 /*  f0436c0:	8c65001c */ 	lw	$a1,0x1c($v1)
 .L0f0436c4:
-/*  f0436c4:	0c007787 */ 	jal	func0001de1c
+/*  f0436c4:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f0436c8:	e7a20034 */ 	swc1	$f2,0x34($sp)
 /*  f0436cc:	10000018 */ 	b	.L0f043730
 /*  f0436d0:	c7a20034 */ 	lwc1	$f2,0x34($sp)
@@ -19698,7 +19698,7 @@ glabel chrTickAttackRoll
 /*  f0436e8:	45020007 */ 	bc1fl	.L0f043708
 /*  f0436ec:	c4600014 */ 	lwc1	$f0,0x14($v1)
 /*  f0436f0:	44050000 */ 	mfc1	$a1,$f0
-/*  f0436f4:	0c007787 */ 	jal	func0001de1c
+/*  f0436f4:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f0436f8:	e7a20034 */ 	swc1	$f2,0x34($sp)
 /*  f0436fc:	1000000c */ 	b	.L0f043730
 /*  f043700:	c7a20034 */ 	lwc1	$f2,0x34($sp)
@@ -19711,7 +19711,7 @@ glabel chrTickAttackRoll
 /*  f043718:	45020006 */ 	bc1fl	.L0f043734
 /*  f04371c:	8fae0048 */ 	lw	$t6,0x48($sp)
 /*  f043720:	44050000 */ 	mfc1	$a1,$f0
-/*  f043724:	0c007787 */ 	jal	func0001de1c
+/*  f043724:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f043728:	e7a20034 */ 	swc1	$f2,0x34($sp)
 /*  f04372c:	c7a20034 */ 	lwc1	$f2,0x34($sp)
 .L0f043730:
@@ -19838,14 +19838,14 @@ glabel chrTickAttackRoll
 /*  f043900:	4500000a */ 	bc1f	.L0f04392c
 /*  f043904:	00000000 */ 	nop
 /*  f043908:	44050000 */ 	mfc1	$a1,$f0
-/*  f04390c:	0c007787 */ 	jal	func0001de1c
+/*  f04390c:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f043910:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f043914:	10000005 */ 	b	.L0f04392c
 /*  f043918:	00000000 */ 	nop
 /*  f04391c:	8d8d002c */ 	lw	$t5,0x2c($t4)
 .L0f043920:
 /*  f043920:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f043924:	0c007787 */ 	jal	func0001de1c
+/*  f043924:	0c007787 */ 	jal	modelSetAnimEndFrame
 /*  f043928:	8da5001c */ 	lw	$a1,0x1c($t5)
 .L0f04392c:
 /*  f04392c:	0fc10792 */ 	jal	func0f041e48

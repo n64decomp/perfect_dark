@@ -90,11 +90,11 @@ struct animfloats {
 	/*0x08*/ f32 unk08;
 	/*0x0c*/ f32 unk0c;
 	/*0x10*/ f32 unk10;
-	/*0x14*/ f32 unk14;
+	/*0x14*/ f32 unk14; // frame number
 	/*0x18*/ f32 unk18;
-	/*0x1c*/ f32 unk1c;
-	/*0x20*/ f32 unk20;
-	/*0x24*/ f32 unk24;
+	/*0x1c*/ f32 unk1c; // frame number
+	/*0x20*/ f32 unk20; // frame number
+	/*0x24*/ f32 unk24; // frame number
 	/*0x28*/ f32 unk28;
 	/*0x2c*/ f32 unk2c;
 	/*0x30*/ f32 unk30;
@@ -549,7 +549,7 @@ struct act_anim {
 	/*0x48*/ s16 animnum;
 	/*0x4a*/ u8 flip;
 	/*0x4c*/ f32 startframe;
-	/*0x50*/ f32 unk050;
+	/*0x50*/ f32 endframe;
 	/*0x54*/ f32 unk054;
 	/*0x58*/ f32 unk058;
 };
