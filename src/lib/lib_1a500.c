@@ -3540,88 +3540,49 @@ glabel func0001d320
 /*    1d4f8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001d4fc
-/*    1d4fc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1d500:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1d504:	8c820020 */ 	lw	$v0,0x20($a0)
-/*    1d508:	44856000 */ 	mtc1	$a1,$f12
-/*    1d50c:	50400044 */ 	beqzl	$v0,.L0001d620
-/*    1d510:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1d514:	44802000 */ 	mtc1	$zero,$f4
-/*    1d518:	00000000 */ 	nop
-/*    1d51c:	460c203c */ 	c.lt.s	$f4,$f12
-/*    1d520:	00000000 */ 	nop
-/*    1d524:	4502003d */ 	bc1fl	.L0001d61c
-/*    1d528:	a4400002 */ 	sh	$zero,0x2($v0)
-/*    1d52c:	84430000 */ 	lh	$v1,0x0($v0)
-/*    1d530:	5060003a */ 	beqzl	$v1,.L0001d61c
-/*    1d534:	a4400002 */ 	sh	$zero,0x2($v0)
-/*    1d538:	844e0002 */ 	lh	$t6,0x2($v0)
-/*    1d53c:	3c013f80 */ 	lui	$at,0x3f80
-/*    1d540:	51c00008 */ 	beqzl	$t6,.L0001d564
-/*    1d544:	8c8f0008 */ 	lw	$t7,0x8($a0)
-/*    1d548:	44813000 */ 	mtc1	$at,$f6
-/*    1d54c:	c4480054 */ 	lwc1	$f8,0x54($v0)
-/*    1d550:	46083032 */ 	c.eq.s	$f6,$f8
-/*    1d554:	00000000 */ 	nop
-/*    1d558:	45030031 */ 	bc1tl	.L0001d620
-/*    1d55c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1d560:	8c8f0008 */ 	lw	$t7,0x8($a0)
-.L0001d564:
-/*    1d564:	c44a000c */ 	lwc1	$f10,0xc($v0)
-/*    1d568:	c4500010 */ 	lwc1	$f16,0x10($v0)
-/*    1d56c:	8de50000 */ 	lw	$a1,0x0($t7)
-/*    1d570:	80590008 */ 	lb	$t9,0x8($v0)
-/*    1d574:	84480014 */ 	lh	$t0,0x14($v0)
-/*    1d578:	94a60000 */ 	lhu	$a2,0x0($a1)
-/*    1d57c:	e44a0030 */ 	swc1	$f10,0x30($v0)
-/*    1d580:	e4500034 */ 	swc1	$f16,0x34($v0)
-/*    1d584:	84490016 */ 	lh	$t1,0x16($v0)
-/*    1d588:	c452001c */ 	lwc1	$f18,0x1c($v0)
-/*    1d58c:	c4440020 */ 	lwc1	$f4,0x20($v0)
-/*    1d590:	c4460024 */ 	lwc1	$f6,0x24($v0)
-/*    1d594:	c4480028 */ 	lwc1	$f8,0x28($v0)
-/*    1d598:	c44a002c */ 	lwc1	$f10,0x2c($v0)
-/*    1d59c:	c4500018 */ 	lwc1	$f16,0x18($v0)
-/*    1d5a0:	24010001 */ 	addiu	$at,$zero,0x1
-/*    1d5a4:	30d800ff */ 	andi	$t8,$a2,0xff
-/*    1d5a8:	a4430002 */ 	sh	$v1,0x2($v0)
-/*    1d5ac:	a0590009 */ 	sb	$t9,0x9($v0)
-/*    1d5b0:	a4480038 */ 	sh	$t0,0x38($v0)
-/*    1d5b4:	a449003a */ 	sh	$t1,0x3a($v0)
-/*    1d5b8:	e4520040 */ 	swc1	$f18,0x40($v0)
-/*    1d5bc:	e4440044 */ 	swc1	$f4,0x44($v0)
-/*    1d5c0:	e4460048 */ 	swc1	$f6,0x48($v0)
-/*    1d5c4:	e448004c */ 	swc1	$f8,0x4c($v0)
-/*    1d5c8:	e44a0050 */ 	swc1	$f10,0x50($v0)
-/*    1d5cc:	17010013 */ 	bne	$t8,$at,.L0001d61c
-/*    1d5d0:	e450003c */ 	swc1	$f16,0x3c($v0)
-/*    1d5d4:	0c006a87 */ 	jal	modelGetNodeData
-/*    1d5d8:	00000000 */ 	nop
-/*    1d5dc:	c4520034 */ 	lwc1	$f18,0x34($v0)
-/*    1d5e0:	c4440038 */ 	lwc1	$f4,0x38($v0)
-/*    1d5e4:	c446003c */ 	lwc1	$f6,0x3c($v0)
-/*    1d5e8:	c4480024 */ 	lwc1	$f8,0x24($v0)
-/*    1d5ec:	c44a0028 */ 	lwc1	$f10,0x28($v0)
-/*    1d5f0:	c450002c */ 	lwc1	$f16,0x2c($v0)
-/*    1d5f4:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*    1d5f8:	a04a0002 */ 	sb	$t2,0x2($v0)
-/*    1d5fc:	e452004c */ 	swc1	$f18,0x4c($v0)
-/*    1d600:	e4440050 */ 	swc1	$f4,0x50($v0)
-/*    1d604:	e4460054 */ 	swc1	$f6,0x54($v0)
-/*    1d608:	e4480040 */ 	swc1	$f8,0x40($v0)
-/*    1d60c:	e44a0044 */ 	swc1	$f10,0x44($v0)
-/*    1d610:	10000002 */ 	b	.L0001d61c
-/*    1d614:	e4500048 */ 	swc1	$f16,0x48($v0)
-/*    1d618:	a4400002 */ 	sh	$zero,0x2($v0)
-.L0001d61c:
-/*    1d61c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001d620:
-/*    1d620:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1d624:	03e00008 */ 	jr	$ra
-/*    1d628:	00000000 */ 	nop
-);
+void modelCopyAnimForMerge(struct model *model, f32 arg1)
+{
+	struct anim *anim = model->anim;
+	struct modelnode *node;
+	u32 nodetype;
+
+	if (anim) {
+		if (arg1 > 0 && anim->animnum) {
+			if (anim->animnum2 && anim->fracmerge == 1) {
+				return;
+			}
+
+			node = model->unk08->rootnode;
+			nodetype = node->type & 0xff;
+
+			anim->frame2 = anim->frame;
+			anim->frac2 = anim->frac;
+			anim->animnum2 = anim->animnum;
+			anim->flip2 = anim->flip;
+			anim->frame2a = anim->framea;
+			anim->frame2b = anim->frameb;
+			anim->speed2 = anim->speed;
+			anim->newspeed2 = anim->newspeed;
+			anim->oldspeed2 = anim->oldspeed;
+			anim->timespeed2 = anim->timespeed;
+			anim->elapsespeed2 = anim->elapsespeed;
+			anim->endframe2 = anim->endframe;
+
+			if (nodetype == MODELNODETYPE_ROOT) {
+				struct modeldata_root *data = modelGetNodeData(model, node);
+				data->unk02 = 1;
+				data->unk4c = data->unk34;
+				data->unk50 = data->unk38;
+				data->unk54 = data->unk3c;
+				data->unk40 = data->unk24;
+				data->unk44 = data->unk28;
+				data->unk48 = data->unk2c;
+			}
+		} else {
+			anim->animnum2 = 0;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0001d62c
@@ -4003,7 +3964,7 @@ bool modelIsAnimMerging(struct model *model)
 	return false;
 }
 
-void func0001dbfc(struct model *model, s16 animnum, u32 arg2, f32 arg3, f32 arg4, f32 arg5, bool arg6)
+void func0001dbfc(struct model *model, s16 animnum, u32 arg2, f32 arg3, f32 arg4, f32 arg5, bool newmerge)
 {
 	if (model) {
 		if (model->anim && model->anim->animnum
@@ -4012,8 +3973,8 @@ void func0001dbfc(struct model *model, s16 animnum, u32 arg2, f32 arg3, f32 arg4
 			arg5 = 0;
 		}
 
-		if (arg6) {
-			func0001d4fc(model, arg5);
+		if (newmerge) {
+			modelCopyAnimForMerge(model, arg5);
 		}
 
 		func0001d62c(model, animnum, arg2, arg3, arg4, arg5);
@@ -4029,7 +3990,7 @@ void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startfram
 			arg5 = 0;
 		}
 
-		func0001d4fc(model, arg5);
+		modelCopyAnimForMerge(model, arg5);
 		func0001d62c(model, animnum, flip, startframe, arg4, arg5);
 	}
 }

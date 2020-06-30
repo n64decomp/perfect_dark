@@ -123,19 +123,19 @@ struct anim {
 	/*0x24*/ f32 oldspeed;
 	/*0x28*/ f32 timespeed;
 	/*0x2c*/ f32 elapsespeed;
-	/*0x30*/ u32 frame2;
+	/*0x30*/ f32 frame2;
 	/*0x34*/ f32 frac2;
-	/*0x38*/ u16 frame2a;
-	/*0x3a*/ u16 frame2b;
+	/*0x38*/ s16 frame2a;
+	/*0x3a*/ s16 frame2b;
 	/*0x3c*/ f32 endframe2;
 	/*0x40*/ f32 speed2;
-	/*0x44*/ u32 newspeed2;
-	/*0x48*/ u32 oldspeed2;
+	/*0x44*/ f32 newspeed2;
+	/*0x48*/ f32 oldspeed2;
 	/*0x4c*/ f32 timespeed2;
-	/*0x50*/ u32 elapsespeed2;
+	/*0x50*/ f32 elapsespeed2;
 	/*0x54*/ f32 fracmerge;
 	/*0x58*/ f32 timemerge;
-	/*0x5c*/ u32 elapsemerge;
+	/*0x5c*/ f32 elapsemerge;
 	/*0x60*/ f32 loopframe;
 	/*0x64*/ f32 loopmerge;
 	/*0x68*/ u32 unk68;
@@ -306,17 +306,27 @@ struct model {
 };
 
 struct modeldata_root { // type 0x01
-	u32 unk00;
+	u16 unk00;
+	u8 unk02;
 	f32 ground;
 	struct coord pos;
 	f32 unk14; // angle
 	f32 unk18;
 	u32 unk1c;
 	f32 unk20; // angle
-	u32 unk24;
-	u32 unk28;
-	u32 unk2c;
+	f32 unk24;
+	f32 unk28;
+	f32 unk2c;
 	f32 unk30; // angle
+	f32 unk34;
+	f32 unk38;
+	f32 unk3c;
+	f32 unk40;
+	f32 unk44;
+	f32 unk48;
+	f32 unk4c;
+	f32 unk50;
+	f32 unk54;
 };
 
 struct modeldata_partid { // type 0x12
