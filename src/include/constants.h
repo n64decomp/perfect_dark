@@ -195,6 +195,8 @@
 #define ANIM_SKEDAR_JUMPAIR         0x0385
 #define ANIM_SKEDAR_RUNNING         0x0394
 
+#define ANIMFLAG_02 0x02
+
 #define BANK_0 0
 #define BANK_1 1
 
