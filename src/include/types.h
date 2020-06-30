@@ -224,6 +224,10 @@ struct modelnode_partid { // type 0x12
 	u16 index;
 };
 
+struct modelnode_positionheld { // type 0x15
+	struct coord pos;
+};
+
 struct modelnode_headspot { // type 0x17
 	u16 index;
 };
@@ -249,6 +253,7 @@ struct modelnode {
 		struct modelnode_0b *unk0b;
 		struct modelnode_gunfire *gunfire;
 		struct modelnode_partid *partid;
+		struct modelnode_positionheld *positionheld;
 		struct modelnode_headspot *headspot;
 		struct modelnode_displaylist *displaylist;
 	} data;
@@ -303,9 +308,7 @@ struct model {
 struct modeldata_root { // type 0x01
 	u32 unk00;
 	f32 ground;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
+	struct coord pos;
 	f32 unk14;
 };
 

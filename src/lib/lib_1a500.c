@@ -488,59 +488,40 @@ void *modelGetNodeData(struct model *model, struct modelnode *node)
 	return &datas[index];
 }
 
-GLOBAL_ASM(
-glabel func0001ab0c
-/*    1ab0c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1ab10:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1ab14:	94a20000 */ 	lhu	$v0,0x0($a1)
-/*    1ab18:	24010001 */ 	addiu	$at,$zero,0x1
-/*    1ab1c:	304e00ff */ 	andi	$t6,$v0,0xff
-/*    1ab20:	11c1000b */ 	beq	$t6,$at,.L0001ab50
-/*    1ab24:	24010002 */ 	addiu	$at,$zero,0x2
-/*    1ab28:	11c10013 */ 	beq	$t6,$at,.L0001ab78
-/*    1ab2c:	24010015 */ 	addiu	$at,$zero,0x15
-/*    1ab30:	51c1001a */ 	beql	$t6,$at,.L0001ab9c
-/*    1ab34:	8ca20004 */ 	lw	$v0,0x4($a1)
-/*    1ab38:	44800000 */ 	mtc1	$zero,$f0
-/*    1ab3c:	00000000 */ 	nop
-/*    1ab40:	e4c00000 */ 	swc1	$f0,0x0($a2)
-/*    1ab44:	e4c00004 */ 	swc1	$f0,0x4($a2)
-/*    1ab48:	1000001a */ 	b	.L0001abb4
-/*    1ab4c:	e4c00008 */ 	swc1	$f0,0x8($a2)
-.L0001ab50:
-/*    1ab50:	0c006a87 */ 	jal	modelGetNodeData
-/*    1ab54:	afa60020 */ 	sw	$a2,0x20($sp)
-/*    1ab58:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*    1ab5c:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*    1ab60:	e4c40000 */ 	swc1	$f4,0x0($a2)
-/*    1ab64:	c446000c */ 	lwc1	$f6,0xc($v0)
-/*    1ab68:	e4c60004 */ 	swc1	$f6,0x4($a2)
-/*    1ab6c:	c4480010 */ 	lwc1	$f8,0x10($v0)
-/*    1ab70:	10000010 */ 	b	.L0001abb4
-/*    1ab74:	e4c80008 */ 	swc1	$f8,0x8($a2)
-.L0001ab78:
-/*    1ab78:	8ca20004 */ 	lw	$v0,0x4($a1)
-/*    1ab7c:	c44a0000 */ 	lwc1	$f10,0x0($v0)
-/*    1ab80:	e4ca0000 */ 	swc1	$f10,0x0($a2)
-/*    1ab84:	c4500004 */ 	lwc1	$f16,0x4($v0)
-/*    1ab88:	e4d00004 */ 	swc1	$f16,0x4($a2)
-/*    1ab8c:	c4520008 */ 	lwc1	$f18,0x8($v0)
-/*    1ab90:	10000008 */ 	b	.L0001abb4
-/*    1ab94:	e4d20008 */ 	swc1	$f18,0x8($a2)
-/*    1ab98:	8ca20004 */ 	lw	$v0,0x4($a1)
-.L0001ab9c:
-/*    1ab9c:	c4440000 */ 	lwc1	$f4,0x0($v0)
-/*    1aba0:	e4c40000 */ 	swc1	$f4,0x0($a2)
-/*    1aba4:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*    1aba8:	e4c60004 */ 	swc1	$f6,0x4($a2)
-/*    1abac:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*    1abb0:	e4c80008 */ 	swc1	$f8,0x8($a2)
-.L0001abb4:
-/*    1abb4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1abb8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1abbc:	03e00008 */ 	jr	$ra
-/*    1abc0:	00000000 */ 	nop
-);
+void modelNodeGetPosition(struct model *model, struct modelnode *node, struct coord *pos)
+{
+	switch (node->type & 0xff) {
+	case MODELNODETYPE_ROOT:
+		{
+		struct modeldata_root *data = modelGetNodeData(model, node);
+		pos->x = data->pos.x;
+		pos->y = data->pos.y;
+		pos->z = data->pos.z;
+		}
+		break;
+	case MODELNODETYPE_POSITION:
+		{
+		struct modelnode_position *data = node->data.position;
+		pos->x = data->pos.x;
+		pos->y = data->pos.y;
+		pos->z = data->pos.z;
+		}
+		break;
+	case MODELNODETYPE_POSITIONHELD:
+		{
+		struct modelnode_positionheld *data = node->data.positionheld;
+		pos->x = data->pos.x;
+		pos->y = data->pos.y;
+		pos->z = data->pos.z;
+		}
+		break;
+	default:
+		pos->x = 0;
+		pos->y = 0;
+		pos->z = 0;
+		break;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0001abc4
@@ -635,7 +616,7 @@ glabel func0001abc4
 
 void func0001ad0c(struct model *model, struct coord *coord)
 {
-	func0001ab0c(model, model->unk08->rootnode, coord);
+	modelNodeGetPosition(model, model->unk08->rootnode, coord);
 }
 
 void func0001ad34(struct model *model, struct coord *coord)
@@ -678,7 +659,7 @@ glabel func0001ad5c
 /*    1add0:	55d50010 */ 	bnel	$t6,$s5,.L0001ae14
 /*    1add4:	8e310008 */ 	lw	$s1,0x8($s1)
 .L0001add8:
-/*    1add8:	0c006ac3 */ 	jal	func0001ab0c
+/*    1add8:	0c006ac3 */ 	jal	modelNodeGetPosition
 /*    1addc:	02c03025 */ 	or	$a2,$s6,$zero
 /*    1ade0:	c6040000 */ 	lwc1	$f4,0x0($s0)
 /*    1ade4:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
