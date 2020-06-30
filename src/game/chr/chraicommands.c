@@ -5358,7 +5358,7 @@ bool aiObjectDoAnimation(void)
 				fstartframe += var8009de20 * thing * 0.25f;
 			}
 
-			func000230a0(obj->model->anim);
+			animInitialise(obj->model->anim);
 			modelSetAnimation(obj->model, anim_id, 0, fstartframe, thing, 0);
 			modelSetAnimScale(obj->model, func0f15c888() * obj->model->unk14 * 100.0f);
 		}

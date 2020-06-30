@@ -97,7 +97,7 @@ u32 func00022b68(void);
 void func00022d24(void *data);
 u32 func00022d50(void);
 u32 func00022fa4(void);
-bool func000230a0(struct anim *anim);
+void animInitialise(struct anim *anim);
 u32 func00023108(void);
 u32 func0002319c(void);
 u32 func00023314(void);

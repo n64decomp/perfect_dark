@@ -10267,35 +10267,29 @@ glabel func00022fa4
 /*    2309c:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel func000230a0
-/*    230a0:	44800000 */ 	mtc1	$zero,$f0
-/*    230a4:	3c01bf80 */ 	lui	$at,0xbf80
-/*    230a8:	44811000 */ 	mtc1	$at,$f2
-/*    230ac:	3c013f80 */ 	lui	$at,0x3f80
-/*    230b0:	44816000 */ 	mtc1	$at,$f12
-/*    230b4:	a4800000 */ 	sh	$zero,0x0($a0)
-/*    230b8:	a4800002 */ 	sh	$zero,0x2($a0)
-/*    230bc:	a080000a */ 	sb	$zero,0xa($a0)
-/*    230c0:	ac800068 */ 	sw	$zero,0x68($a0)
-/*    230c4:	ac80006c */ 	sw	$zero,0x6c($a0)
-/*    230c8:	ac800070 */ 	sw	$zero,0x70($a0)
-/*    230cc:	a080000b */ 	sb	$zero,0xb($a0)
-/*    230d0:	e4800010 */ 	swc1	$f0,0x10($a0)
-/*    230d4:	e4800028 */ 	swc1	$f0,0x28($a0)
-/*    230d8:	e4800034 */ 	swc1	$f0,0x34($a0)
-/*    230dc:	e480004c */ 	swc1	$f0,0x4c($a0)
-/*    230e0:	e4800054 */ 	swc1	$f0,0x54($a0)
-/*    230e4:	e4800058 */ 	swc1	$f0,0x58($a0)
-/*    230e8:	e4800080 */ 	swc1	$f0,0x80($a0)
-/*    230ec:	e4820018 */ 	swc1	$f2,0x18($a0)
-/*    230f0:	e482003c */ 	swc1	$f2,0x3c($a0)
-/*    230f4:	e48c001c */ 	swc1	$f12,0x1c($a0)
-/*    230f8:	e48c0040 */ 	swc1	$f12,0x40($a0)
-/*    230fc:	e48c0074 */ 	swc1	$f12,0x74($a0)
-/*    23100:	03e00008 */ 	jr	$ra
-/*    23104:	e48c0088 */ 	swc1	$f12,0x88($a0)
-);
+void animInitialise(struct anim *anim)
+{
+	anim->animnum = 0;
+	anim->animnum2 = 0;
+	anim->looping = 0;
+	anim->unk68 = 0;
+	anim->unk6c = 0;
+	anim->unk70 = NULL;
+	anim->average = 0;
+	anim->frac = 0;
+	anim->timespeed = 0;
+	anim->frac2 = 0;
+	anim->timespeed2 = 0;
+	anim->fracmerge = 0;
+	anim->timemerge = 0;
+	anim->timeplay = 0;
+	anim->endframe = -1;
+	anim->endframe2 = -1;
+	anim->speed = 1;
+	anim->speed2 = 1;
+	anim->playspeed = 1;
+	anim->animscale = 1;
+}
 
 GLOBAL_ASM(
 glabel func00023108
