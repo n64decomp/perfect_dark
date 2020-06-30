@@ -4041,64 +4041,22 @@ bool modelIsAnimMerging(struct model *model)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0001dbfc
-/*    1dbfc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    1dc00:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    1dc04:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    1dc08:	afa60028 */ 	sw	$a2,0x28($sp)
-/*    1dc0c:	1080002b */ 	beqz	$a0,.L0001dcbc
-/*    1dc10:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*    1dc14:	8c820020 */ 	lw	$v0,0x20($a0)
-/*    1dc18:	5040001a */ 	beqzl	$v0,.L0001dc84
-/*    1dc1c:	8fad0038 */ 	lw	$t5,0x38($sp)
-/*    1dc20:	84430000 */ 	lh	$v1,0x0($v0)
-/*    1dc24:	2405000c */ 	addiu	$a1,$zero,0xc
-/*    1dc28:	50600016 */ 	beqzl	$v1,.L0001dc84
-/*    1dc2c:	8fad0038 */ 	lw	$t5,0x38($sp)
-/*    1dc30:	00650019 */ 	multu	$v1,$a1
-/*    1dc34:	3c028006 */ 	lui	$v0,%hi(g_Anims)
-/*    1dc38:	8c42f00c */ 	lw	$v0,%lo(g_Anims)($v0)
-/*    1dc3c:	87a80026 */ 	lh	$t0,0x26($sp)
-/*    1dc40:	00007012 */ 	mflo	$t6
-/*    1dc44:	004e7821 */ 	addu	$t7,$v0,$t6
-/*    1dc48:	91f8000b */ 	lbu	$t8,0xb($t7)
-/*    1dc4c:	33190002 */ 	andi	$t9,$t8,0x2
-/*    1dc50:	5320000c */ 	beqzl	$t9,.L0001dc84
-/*    1dc54:	8fad0038 */ 	lw	$t5,0x38($sp)
-/*    1dc58:	01050019 */ 	multu	$t0,$a1
-/*    1dc5c:	00004812 */ 	mflo	$t1
-/*    1dc60:	00495021 */ 	addu	$t2,$v0,$t1
-/*    1dc64:	914b000b */ 	lbu	$t3,0xb($t2)
-/*    1dc68:	316c0002 */ 	andi	$t4,$t3,0x2
-/*    1dc6c:	55800005 */ 	bnezl	$t4,.L0001dc84
-/*    1dc70:	8fad0038 */ 	lw	$t5,0x38($sp)
-/*    1dc74:	44802000 */ 	mtc1	$zero,$f4
-/*    1dc78:	00000000 */ 	nop
-/*    1dc7c:	e7a40034 */ 	swc1	$f4,0x34($sp)
-/*    1dc80:	8fad0038 */ 	lw	$t5,0x38($sp)
-.L0001dc84:
-/*    1dc84:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*    1dc88:	51a00005 */ 	beqzl	$t5,.L0001dca0
-/*    1dc8c:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-/*    1dc90:	0c00753f */ 	jal	func0001d4fc
-/*    1dc94:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    1dc98:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    1dc9c:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-.L0001dca0:
-/*    1dca0:	c7a80034 */ 	lwc1	$f8,0x34($sp)
-/*    1dca4:	87a50026 */ 	lh	$a1,0x26($sp)
-/*    1dca8:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*    1dcac:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*    1dcb0:	e7a60010 */ 	swc1	$f6,0x10($sp)
-/*    1dcb4:	0c00758b */ 	jal	func0001d62c
-/*    1dcb8:	e7a80014 */ 	swc1	$f8,0x14($sp)
-.L0001dcbc:
-/*    1dcbc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    1dcc0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    1dcc4:	03e00008 */ 	jr	$ra
-/*    1dcc8:	00000000 */ 	nop
-);
+void func0001dbfc(struct model *model, s16 animnum, u32 arg2, f32 arg3, f32 arg4, f32 arg5, bool arg6)
+{
+	if (model) {
+		if (model->anim && model->anim->animnum
+				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_02)
+				&& (g_Anims[animnum].flags & ANIMFLAG_02) == 0) {
+			arg5 = 0;
+		}
+
+		if (arg6) {
+			func0001d4fc(model, arg5);
+		}
+
+		func0001d62c(model, animnum, arg2, arg3, arg4, arg5);
+	}
+}
 
 void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startframe, f32 arg4, f32 arg5)
 {

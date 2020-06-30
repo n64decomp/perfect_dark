@@ -61,7 +61,7 @@ u32 func0001d320(void);
 void func0001d4fc(struct model *model, f32 arg1);
 void func0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 arg4, f32 arg5);
 bool modelIsAnimMerging(struct model *model);
-void func0001dbfc(struct model *model, s32 arg1, u32 arg2, f32 arg3, f32 arg4, f32 arg5);
+void func0001dbfc(struct model *model, s16 animnum, u32 arg2, f32 arg3, f32 arg4, f32 arg5, bool arg6);
 void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 arg4, f32 arg5);
 u32 func0001dd90(void);
 void modelSetAnimLooping(struct model *model, f32 loopframe, f32 loopmerge);
