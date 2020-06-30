@@ -8546,7 +8546,7 @@ glabel var7f1a8da8
 /*  f0371b8:	8ce40020 */ 	lw	$a0,0x20($a3)
 /*  f0371bc:	e7ae0040 */ 	swc1	$f14,0x40($sp)
 /*  f0371c0:	e7ac0044 */ 	swc1	$f12,0x44($sp)
-/*  f0371c4:	0c0074a2 */ 	jal	func0001d288
+/*  f0371c4:	0c0074a2 */ 	jal	modelGetAbsAnimSpeed
 /*  f0371c8:	e7a2001c */ 	swc1	$f2,0x1c($sp)
 /*  f0371cc:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
 /*  f0371d0:	c7ac0044 */ 	lwc1	$f12,0x44($sp)
@@ -8785,7 +8785,7 @@ glabel var7f1a8dac
 /*  f037610:	a0800009 */ 	sb	$zero,0x9($a0)
 /*  f037614:	8def9fc8 */ 	lw	$t7,%lo(g_Vars+0x8)($t7)
 /*  f037618:	ac8f00d8 */ 	sw	$t7,0xd8($a0)
-/*  f03761c:	0c0074a2 */ 	jal	func0001d288
+/*  f03761c:	0c0074a2 */ 	jal	modelGetAbsAnimSpeed
 /*  f037620:	8c840020 */ 	lw	$a0,0x20($a0)
 /*  f037624:	c7a40130 */ 	lwc1	$f4,0x130($sp)
 /*  f037628:	3c01800a */ 	lui	$at,0x800a
@@ -20809,7 +20809,7 @@ void chrTickRunPos(struct chrdata *chr)
 			fVar7 = func0f02dff0(ANIM_SKEDAR_RUNNING);
 		}
 
-		chr->act_runpos.unk038 += fVar7 * g_Vars.lvupdate240freal * func0001d288(model);
+		chr->act_runpos.unk038 += fVar7 * g_Vars.lvupdate240freal * modelGetAbsAnimSpeed(model);
 	}
 }
 

@@ -56,7 +56,7 @@ f32 modelGetCurAnimFrame(struct model *model);
 f32 modelGetAnimEndFrame(struct model *model);
 s32 modelGetNumAnimFrames(struct model *model);
 f32 modelGetAnimSpeed(struct model *model);
-f32 func0001d288(struct model *model);
+f32 modelGetAbsAnimSpeed(struct model *model);
 u32 func0001d320(void);
 u32 func0001d4fc(void);
 u32 func0001d62c(void);

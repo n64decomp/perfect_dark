@@ -218,7 +218,7 @@ glabel var7f1b3a74
 /*  f113944:	50400088 */ 	beqzl	$v0,.L0f113b68
 /*  f113948:	44800000 */ 	mtc1	$zero,$f0
 /*  f11394c:	8e040284 */ 	lw	$a0,0x284($s0)
-/*  f113950:	0c0074a2 */ 	jal	func0001d288
+/*  f113950:	0c0074a2 */ 	jal	modelGetAbsAnimSpeed
 /*  f113954:	2484045c */ 	addiu	$a0,$a0,0x45c
 /*  f113958:	8e020284 */ 	lw	$v0,0x284($s0)
 /*  f11395c:	e7a000c0 */ 	swc1	$f0,0xc0($sp)
@@ -758,7 +758,7 @@ f32 func0f11416c(void)
 {
 	if (g_Vars.currentplayer->unk03ac >= 0) {
 		f32 a = g_Vars.currentplayer->unk0198 * 0.012500001f + 0.004166667f;
-		f32 b = func0001d288(&g_Vars.currentplayer->model);
+		f32 b = modelGetAbsAnimSpeed(&g_Vars.currentplayer->model);
 
 		if (b > 0) {
 			f32 c = b / (var80075c00[g_Vars.currentplayer->unk03ac].unk08 - var80075c00[g_Vars.currentplayer->unk03ac].unk04);
