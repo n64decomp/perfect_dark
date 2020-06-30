@@ -29,7 +29,7 @@ void modelSetUnk14(struct model *model, f32 arg1);
 void modelSetAnimScale(struct model *model, f32 scale);
 f32 func0001af80(struct model *model);
 u32 func0001af98(void);
-f32 func0001afe8(f32 arg0, f32 distance, f32 arg2);
+f32 func0001afe8(f32 arg0, f32 angle, f32 mult);
 u32 func0001b07c(void);
 void func0001b0e8(struct model *model, struct modelnode *node);
 void func0001b3bc(struct model *model);

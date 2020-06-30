@@ -805,57 +805,30 @@ glabel func0001af98
 /*    1afe4:	e4920008 */ 	swc1	$f18,0x8($a0)
 );
 
-GLOBAL_ASM(
-glabel func0001afe8
-.late_rodata
-glabel var700542e8
-.word 0x40c907a9
-glabel var700542ec
-.word 0x40c907a9
-glabel var700542f0
-.word 0x40490fdb
-.text
-/*    1afe8:	460c703c */ 	c.lt.s	$f14,$f12
-/*    1afec:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    1aff0:	460c7081 */ 	sub.s	$f2,$f14,$f12
-/*    1aff4:	3c017005 */ 	lui	$at,%hi(var700542e8)
-/*    1aff8:	c7a60008 */ 	lwc1	$f6,0x8($sp)
-/*    1affc:	45000003 */ 	bc1f	.L0001b00c
-/*    1b000:	46001006 */ 	mov.s	$f0,$f2
-/*    1b004:	c42e42e8 */ 	lwc1	$f14,%lo(var700542e8)($at)
-/*    1b008:	460e1000 */ 	add.s	$f0,$f2,$f14
-.L0001b00c:
-/*    1b00c:	3c017005 */ 	lui	$at,%hi(var700542ec)
-/*    1b010:	c42e42ec */ 	lwc1	$f14,%lo(var700542ec)($at)
-/*    1b014:	3c017005 */ 	lui	$at,%hi(var700542f0)
-/*    1b018:	c42442f0 */ 	lwc1	$f4,%lo(var700542f0)($at)
-/*    1b01c:	4604003c */ 	c.lt.s	$f0,$f4
-/*    1b020:	00000000 */ 	nop
-/*    1b024:	4502000a */ 	bc1fl	.L0001b050
-/*    1b028:	46007281 */ 	sub.s	$f10,$f14,$f0
-/*    1b02c:	46060202 */ 	mul.s	$f8,$f0,$f6
-/*    1b030:	46086300 */ 	add.s	$f12,$f12,$f8
-/*    1b034:	460c703e */ 	c.le.s	$f14,$f12
-/*    1b038:	00000000 */ 	nop
-/*    1b03c:	4500000d */ 	bc1f	.L0001b074
-/*    1b040:	00000000 */ 	nop
-/*    1b044:	03e00008 */ 	jr	$ra
-/*    1b048:	460e6001 */ 	sub.s	$f0,$f12,$f14
-/*    1b04c:	46007281 */ 	sub.s	$f10,$f14,$f0
-.L0001b050:
-/*    1b050:	c7b00008 */ 	lwc1	$f16,0x8($sp)
-/*    1b054:	44802000 */ 	mtc1	$zero,$f4
-/*    1b058:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*    1b05c:	46126301 */ 	sub.s	$f12,$f12,$f18
-/*    1b060:	4604603c */ 	c.lt.s	$f12,$f4
-/*    1b064:	00000000 */ 	nop
-/*    1b068:	45000002 */ 	bc1f	.L0001b074
-/*    1b06c:	00000000 */ 	nop
-/*    1b070:	460e6300 */ 	add.s	$f12,$f12,$f14
-.L0001b074:
-/*    1b074:	03e00008 */ 	jr	$ra
-/*    1b078:	46006006 */ 	mov.s	$f0,$f12
-);
+f32 func0001afe8(f32 arg0, f32 angle, f32 mult)
+{
+	f32 value = angle - arg0;
+
+	if (angle < arg0) {
+		value += M_BADTAU;
+	}
+
+	if (value < M_PI) {
+		arg0 += value * mult;
+
+		if (arg0 >= M_BADTAU) {
+			arg0 -= M_BADTAU;
+		}
+	} else {
+		arg0 -= (M_BADTAU - value) * mult;
+
+		if (arg0 < 0) {
+			arg0 += M_BADTAU;
+		}
+	}
+
+	return arg0;
+}
 
 GLOBAL_ASM(
 glabel func0001b07c
