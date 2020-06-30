@@ -18977,7 +18977,7 @@ glabel var7f1a91dc
 /*  f042c98:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f042c9c:
 /*  f042c9c:	8e4b0020 */ 	lw	$t3,0x20($s2)
-/*  f042ca0:	0c006a6f */ 	jal	func0001a9bc
+/*  f042ca0:	0c006a6f */ 	jal	modelGetPartNodeData
 /*  f042ca4:	8d640008 */ 	lw	$a0,0x8($t3)
 /*  f042ca8:	c4500000 */ 	lwc1	$f16,0x0($v0)
 /*  f042cac:	3c014396 */ 	lui	$at,0x4396

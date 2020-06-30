@@ -407,22 +407,16 @@ struct modelnode *modelGetPart(struct model08 *model08, s32 partnum)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0001a9bc
-/*    1a9bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1a9c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1a9c4:	0c006a47 */ 	jal	modelGetPart
-/*    1a9c8:	00000000 */ 	nop
-/*    1a9cc:	10400003 */ 	beqz	$v0,.L0001a9dc
-/*    1a9d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1a9d4:	10000002 */ 	b	.L0001a9e0
-/*    1a9d8:	8c420004 */ 	lw	$v0,0x4($v0)
-.L0001a9dc:
-/*    1a9dc:	00001025 */ 	or	$v0,$zero,$zero
-.L0001a9e0:
-/*    1a9e0:	03e00008 */ 	jr	$ra
-/*    1a9e4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+struct modelnode_partid *modelGetPartNodeData(struct model08 *model08, s32 partnum)
+{
+	struct modelnode *node = modelGetPart(model08, partnum);
+
+	if (node) {
+		return node->data.partid;
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0001a9e8

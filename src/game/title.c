@@ -1148,7 +1148,7 @@ glabel titleInitPdLogo
 /*  f016fa4:	0c006b4d */ 	jal	modelSetRootPosition
 /*  f016fa8:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*  f016fac:	8e240268 */ 	lw	$a0,0x268($s1)
-/*  f016fb0:	0c006a6f */ 	jal	func0001a9bc
+/*  f016fb0:	0c006a6f */ 	jal	modelGetPartNodeData
 /*  f016fb4:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f016fb8:	84430010 */ 	lh	$v1,0x10($v0)
 /*  f016fbc:	3c04800a */ 	lui	$a0,%hi(var8009cca8)
@@ -1261,7 +1261,7 @@ glabel titleInitPdLogo
 //
 //	{
 //		// fb0
-//		struct modelthing *modelthing = func0001a9bc(g_Props[MODEL_PDTWO].filedata, 2);
+//		struct modelthing *modelthing = modelGetPartNodeData(g_Props[MODEL_PDTWO].filedata, 2);
 //		u32 size2;
 //
 //		size = ALIGN8(modelthing->unk10 * 0xc);
