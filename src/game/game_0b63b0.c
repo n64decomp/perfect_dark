@@ -2202,7 +2202,7 @@ glabel func0f0b7c60
 /*  f0b7f04:	00000000 */ 	nop
 /*  f0b7f08:	8fb9003c */ 	lw	$t9,0x3c($sp)
 /*  f0b7f0c:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f0b7f10:	0c007764 */ 	jal	func0001dd90
+/*  f0b7f10:	0c007764 */ 	jal	modelCopyAnimData
 /*  f0b7f14:	8f250020 */ 	lw	$a1,0x20($t9)
 /*  f0b7f18:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0b7f1c:	0fc0ba68 */ 	jal	func0f02e9a0

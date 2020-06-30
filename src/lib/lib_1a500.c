@@ -3938,34 +3938,12 @@ void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startfram
 	}
 }
 
-GLOBAL_ASM(
-glabel func0001dd90
-/*    1dd90:	8c820020 */ 	lw	$v0,0x20($a0)
-/*    1dd94:	10400013 */ 	beqz	$v0,.L0001dde4
-/*    1dd98:	00000000 */ 	nop
-/*    1dd9c:	8ca30020 */ 	lw	$v1,0x20($a1)
-/*    1dda0:	0040c825 */ 	or	$t9,$v0,$zero
-/*    1dda4:	24580084 */ 	addiu	$t8,$v0,0x84
-/*    1dda8:	1060000e */ 	beqz	$v1,.L0001dde4
-/*    1ddac:	00604025 */ 	or	$t0,$v1,$zero
-.L0001ddb0:
-/*    1ddb0:	8f210000 */ 	lw	$at,0x0($t9)
-/*    1ddb4:	2739000c */ 	addiu	$t9,$t9,0xc
-/*    1ddb8:	2508000c */ 	addiu	$t0,$t0,0xc
-/*    1ddbc:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*    1ddc0:	8f21fff8 */ 	lw	$at,-0x8($t9)
-/*    1ddc4:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*    1ddc8:	8f21fffc */ 	lw	$at,-0x4($t9)
-/*    1ddcc:	1738fff8 */ 	bne	$t9,$t8,.L0001ddb0
-/*    1ddd0:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*    1ddd4:	8f210000 */ 	lw	$at,0x0($t9)
-/*    1ddd8:	ad010000 */ 	sw	$at,0x0($t0)
-/*    1dddc:	8f380004 */ 	lw	$t8,0x4($t9)
-/*    1dde0:	ad180004 */ 	sw	$t8,0x4($t0)
-.L0001dde4:
-/*    1dde4:	03e00008 */ 	jr	$ra
-/*    1dde8:	00000000 */ 	nop
-);
+void modelCopyAnimData(struct model *src, struct model *dst)
+{
+	if (src->anim && dst->anim) {
+		*dst->anim = *src->anim;
+	}
+}
 
 void modelSetAnimLooping(struct model *model, f32 loopframe, f32 loopmerge)
 {
