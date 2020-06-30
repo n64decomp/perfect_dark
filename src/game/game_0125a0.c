@@ -340,7 +340,7 @@ glabel func0f012684
 /*  f012a60:	8e240284 */ 	lw	$a0,0x284($s1)
 /*  f012a64:	3c057f11 */ 	lui	$a1,%hi(currentPlayerFlipAnimation)
 /*  f012a68:	24a53220 */ 	addiu	$a1,$a1,%lo(currentPlayerFlipAnimation)
-/*  f012a6c:	0c0077a6 */ 	jal	func0001de98
+/*  f012a6c:	0c0077a6 */ 	jal	modelSetAnimFlipFunction
 /*  f012a70:	2484045c */ 	addiu	$a0,$a0,0x45c
 /*  f012a74:	0fc44c8f */ 	jal	currentPlayerUpdateIdleHeadRoll
 /*  f012a78:	00000000 */ 	nop

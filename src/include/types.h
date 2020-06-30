@@ -138,7 +138,7 @@ struct anim {
 	/*0x5c*/ f32 elapsemerge;
 	/*0x60*/ f32 loopframe;
 	/*0x64*/ f32 loopmerge;
-	/*0x68*/ u32 unk68;
+	/*0x68*/ void *flipfunc;
 	/*0x6c*/ u32 unk6c;
 	/*0x70*/ void *unk70; // pointer to function
 	/*0x74*/ f32 playspeed;

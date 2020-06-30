@@ -3989,16 +3989,12 @@ void modelSetAnimEndFrame(struct model *model, f32 endframe)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0001de98
-/*    1de98:	8c820020 */ 	lw	$v0,0x20($a0)
-/*    1de9c:	10400002 */ 	beqz	$v0,.L0001dea8
-/*    1dea0:	00000000 */ 	nop
-/*    1dea4:	ac450068 */ 	sw	$a1,0x68($v0)
-.L0001dea8:
-/*    1dea8:	03e00008 */ 	jr	$ra
-/*    1deac:	00000000 */ 	nop
-);
+void modelSetAnimFlipFunction(struct model *model, void *callback)
+{
+	if (model->anim) {
+		model->anim->flipfunc = callback;
+	}
+}
 
 void modelSetAnimSpeed(struct model *model, f32 speed, f32 startframe)
 {
@@ -9911,7 +9907,7 @@ void animInitialise(struct anim *anim)
 	anim->animnum = 0;
 	anim->animnum2 = 0;
 	anim->looping = 0;
-	anim->unk68 = 0;
+	anim->flipfunc = NULL;
 	anim->unk6c = 0;
 	anim->unk70 = NULL;
 	anim->average = 0;

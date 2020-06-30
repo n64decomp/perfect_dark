@@ -66,7 +66,7 @@ void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 fstartfra
 u32 func0001dd90(void);
 void modelSetAnimLooping(struct model *model, f32 loopframe, f32 loopmerge);
 void modelSetAnimEndFrame(struct model *model, f32 endframe);
-u32 func0001de98(void);
+void modelSetAnimFlipFunction(struct model *model, void *callback);
 void modelSetAnimSpeed(struct model *model, f32 speed, f32 startframe);
 void modelSetAnimSpeedAuto(struct model *model, f32 arg1, f32 startframe);
 void modelSetAnimPlaySpeed(struct model *model, f32 speed, f32 frame);
