@@ -4261,54 +4261,24 @@ void modelSetAnimSpeed(struct model *model, f32 speed, f32 startframe)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0001df04
-/*    1df04:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    1df08:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1df0c:	8c830020 */ 	lw	$v1,0x20($a0)
-/*    1df10:	44856000 */ 	mtc1	$a1,$f12
-/*    1df14:	44867000 */ 	mtc1	$a2,$f14
-/*    1df18:	10600020 */ 	beqz	$v1,.L0001df9c
-/*    1df1c:	00803825 */ 	or	$a3,$a0,$zero
-/*    1df20:	c462000c */ 	lwc1	$f2,0xc($v1)
-/*    1df24:	460c103e */ 	c.le.s	$f2,$f12
-/*    1df28:	00000000 */ 	nop
-/*    1df2c:	45020004 */ 	bc1fl	.L0001df40
-/*    1df30:	84640000 */ 	lh	$a0,0x0($v1)
-/*    1df34:	10000010 */ 	b	.L0001df78
-/*    1df38:	46026001 */ 	sub.s	$f0,$f12,$f2
-/*    1df3c:	84640000 */ 	lh	$a0,0x0($v1)
-.L0001df40:
-/*    1df40:	e7ae0028 */ 	swc1	$f14,0x28($sp)
-/*    1df44:	e7ac0024 */ 	swc1	$f12,0x24($sp)
-/*    1df48:	afa70020 */ 	sw	$a3,0x20($sp)
-/*    1df4c:	0c008dda */ 	jal	animGetNumFrames
-/*    1df50:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*    1df54:	44822000 */ 	mtc1	$v0,$f4
-/*    1df58:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*    1df5c:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*    1df60:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    1df64:	c468000c */ 	lwc1	$f8,0xc($v1)
-/*    1df68:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*    1df6c:	c7ae0028 */ 	lwc1	$f14,0x28($sp)
-/*    1df70:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*    1df74:	460c5000 */ 	add.s	$f0,$f10,$f12
-.L0001df78:
-/*    1df78:	46000480 */ 	add.s	$f18,$f0,$f0
-/*    1df7c:	c470001c */ 	lwc1	$f16,0x1c($v1)
-/*    1df80:	44067000 */ 	mfc1	$a2,$f14
-/*    1df84:	00e02025 */ 	or	$a0,$a3,$zero
-/*    1df88:	460e9103 */ 	div.s	$f4,$f18,$f14
-/*    1df8c:	46048080 */ 	add.s	$f2,$f16,$f4
-/*    1df90:	44051000 */ 	mfc1	$a1,$f2
-/*    1df94:	0c0077ac */ 	jal	modelSetAnimSpeed
-/*    1df98:	00000000 */ 	nop
-.L0001df9c:
-/*    1df9c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1dfa0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    1dfa4:	03e00008 */ 	jr	$ra
-/*    1dfa8:	00000000 */ 	nop
-);
+void modelSetAnimSpeedAuto(struct model *model, f32 arg1, f32 startframe)
+{
+	struct anim *anim = model->anim;
+	f32 tmp;
+	f32 speed;
+
+	if (anim) {
+		if (anim->frame <= arg1) {
+			tmp = arg1 - anim->frame;
+		} else {
+			tmp = animGetNumFrames(anim->animnum) - anim->frame + arg1;
+		}
+
+		speed = anim->speed + (tmp + tmp) / startframe;
+
+		modelSetAnimSpeed(model, speed, startframe);
+	}
+}
 
 void modelSetAnimPlaySpeed(struct model *model, f32 speed, f32 startframe)
 {

@@ -20337,7 +20337,7 @@ glabel chrTickAttackWalk
 /*  f044300:	00000000 */ 	nop
 /*  f044304:	45000005 */ 	bc1f	.L0f04431c
 /*  f044308:	00000000 */ 	nop
-/*  f04430c:	0c0077c1 */ 	jal	func0001df04
+/*  f04430c:	0c0077c1 */ 	jal	modelSetAnimSpeedAuto
 /*  f044310:	3c064180 */ 	lui	$a2,0x4180
 /*  f044314:	1000000d */ 	b	.L0f04434c
 /*  f044318:	00000000 */ 	nop
@@ -20352,7 +20352,7 @@ glabel chrTickAttackWalk
 /*  f044338:	3c064180 */ 	lui	$a2,0x4180
 /*  f04433c:	46062202 */ 	mul.s	$f8,$f4,$f6
 /*  f044340:	44054000 */ 	mfc1	$a1,$f8
-/*  f044344:	0c0077c1 */ 	jal	func0001df04
+/*  f044344:	0c0077c1 */ 	jal	modelSetAnimSpeedAuto
 /*  f044348:	00000000 */ 	nop
 .L0f04434c:
 /*  f04434c:	0fc0e56b */ 	jal	chrRecordLastSeeTargetTime
@@ -20775,7 +20775,7 @@ void chrTickRunPos(struct chrdata *chr)
 
 		if (modelGetNumAnimFrames(model) * 0.5f < fVar6) {
 			zero = 0;
-			func0001df04(model, modelGetNumAnimFrames(model) - zero, 16);
+			modelSetAnimSpeedAuto(model, modelGetNumAnimFrames(model) - zero, 16);
 		} else {
 			zero = 0;
 			fVar7 = modelGetNumAnimFrames(model) * 0.5f;
@@ -20785,7 +20785,7 @@ void chrTickRunPos(struct chrdata *chr)
 				fVar6 += modelGetNumAnimFrames(model);
 			}
 
-			func0001df04(model, fVar6, 16);
+			modelSetAnimSpeedAuto(model, fVar6, 16);
 		}
 
 		chrStop(chr);
