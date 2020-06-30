@@ -314,19 +314,11 @@ struct modeldata_root { // type 0x01
 	f32 unk18;
 	u32 unk1c;
 	f32 unk20; // angle
-	f32 unk24;
-	f32 unk28;
-	f32 unk2c;
+	struct coord unk24;
 	f32 unk30; // angle
-	f32 unk34;
-	f32 unk38;
-	f32 unk3c;
-	f32 unk40;
-	f32 unk44;
-	f32 unk48;
-	f32 unk4c;
-	f32 unk50;
-	f32 unk54;
+	struct coord unk34;
+	struct coord unk40; // "2" version of unk24
+	struct coord unk4c; // "2" version of unk34
 };
 
 struct modeldata_partid { // type 0x12

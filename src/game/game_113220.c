@@ -343,7 +343,7 @@ glabel var7f1b3a74
 /*  f113b20:	c4440420 */ 	lwc1	$f4,0x420($v0)
 /*  f113b24:	e4440410 */ 	swc1	$f4,0x410($v0)
 /*  f113b28:	8e040284 */ 	lw	$a0,0x284($s0)
-/*  f113b2c:	0c006b43 */ 	jal	func0001ad0c
+/*  f113b2c:	0c006b43 */ 	jal	modelGetRootPosition
 /*  f113b30:	2484045c */ 	addiu	$a0,$a0,0x45c
 /*  f113b34:	8e020284 */ 	lw	$v0,0x284($s0)
 /*  f113b38:	c7a60034 */ 	lwc1	$f6,0x34($sp)
@@ -355,7 +355,7 @@ glabel var7f1b3a74
 /*  f113b50:	e7aa0034 */ 	swc1	$f10,0x34($sp)
 /*  f113b54:	c4520548 */ 	lwc1	$f18,0x548($v0)
 /*  f113b58:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*  f113b5c:	0c006b4d */ 	jal	func0001ad34
+/*  f113b5c:	0c006b4d */ 	jal	modelSetRootPosition
 /*  f113b60:	e7a4003c */ 	swc1	$f4,0x3c($sp)
 /*  f113b64:	44800000 */ 	mtc1	$zero,$f0
 .L0f113b68:

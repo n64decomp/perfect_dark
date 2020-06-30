@@ -2555,7 +2555,7 @@ struct prop *func0f020b14(struct prop *prop, struct model *model,
 	func0f065c44(prop);
 	roomsCopy(rooms, prop->rooms);
 	func0f0220ac(chr);
-	func0001ad34(model, &prop->pos);
+	modelSetRootPosition(model, &prop->pos);
 
 	nodetype = chr->model->unk08->rootnode->type;
 
@@ -3868,7 +3868,7 @@ glabel func0f0220ec
 /*  f0221c0:	312b0800 */ 	andi	$t3,$t1,0x800
 /*  f0221c4:	5560000f */ 	bnezl	$t3,.L0f022204
 /*  f0221c8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0221cc:	0c006b43 */ 	jal	func0001ad0c
+/*  f0221cc:	0c006b43 */ 	jal	modelGetRootPosition
 /*  f0221d0:	24e500c8 */ 	addiu	$a1,$a3,0xc8
 /*  f0221d4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0221d8:	8fa50024 */ 	lw	$a1,0x24($sp)
@@ -5040,7 +5040,7 @@ glabel var7f1a87d8
 /*  f023714:	260500c8 */ 	addiu	$a1,$s0,0xc8
 /*  f023718:	8c990020 */ 	lw	$t9,0x20($a0)
 /*  f02371c:	a320000b */ 	sb	$zero,0xb($t9)
-/*  f023720:	0c006b43 */ 	jal	func0001ad0c
+/*  f023720:	0c006b43 */ 	jal	modelGetRootPosition
 /*  f023724:	afa20204 */ 	sw	$v0,0x204($sp)
 /*  f023728:	0c006cef */ 	jal	func0001b3bc
 /*  f02372c:	8fa40208 */ 	lw	$a0,0x208($sp)
@@ -6289,7 +6289,7 @@ glabel func0f024738
 /*  f024a2c:	8fb90280 */ 	lw	$t9,0x280($sp)
 .L0f024a30:
 /*  f024a30:	27a50054 */ 	addiu	$a1,$sp,0x54
-/*  f024a34:	0c006b43 */ 	jal	func0001ad0c
+/*  f024a34:	0c006b43 */ 	jal	modelGetRootPosition
 /*  f024a38:	8f240020 */ 	lw	$a0,0x20($t9)
 /*  f024a3c:	c6120074 */ 	lwc1	$f18,0x74($s0)
 /*  f024a40:	c7a80054 */ 	lwc1	$f8,0x54($sp)

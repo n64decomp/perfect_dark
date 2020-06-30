@@ -8894,7 +8894,7 @@ glabel var7f1a8dac
 /*  f0377c4:	8fa500f0 */ 	lw	$a1,0xf0($sp)
 /*  f0377c8:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f0377cc:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f0377d0:	0c006b4d */ 	jal	func0001ad34
+/*  f0377d0:	0c006b4d */ 	jal	modelSetRootPosition
 /*  f0377d4:	afa5003c */ 	sw	$a1,0x3c($sp)
 /*  f0377d8:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f0377dc:	8c8f0008 */ 	lw	$t7,0x8($a0)
@@ -14713,7 +14713,7 @@ glabel var7f1a8fc8
 /*  f03f128:	e7b20174 */ 	swc1	$f18,0x174($sp)
 /*  f03f12c:	8cc40020 */ 	lw	$a0,0x20($a2)
 .L0f03f130:
-/*  f03f130:	0c006b43 */ 	jal	func0001ad0c
+/*  f03f130:	0c006b43 */ 	jal	modelGetRootPosition
 /*  f03f134:	e7b00188 */ 	swc1	$f16,0x188($sp)
 /*  f03f138:	27a90144 */ 	addiu	$t1,$sp,0x144
 /*  f03f13c:	afa90010 */ 	sw	$t1,0x10($sp)
@@ -25210,7 +25210,7 @@ bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
 				f32 somefloat = func0001af80(model) * 0.8f;
 
 				func0f0a0c08(&sp68, &sp56);
-				func0001ad0c(model, &sp44);
+				modelGetRootPosition(model, &sp44);
 				func00015b64(currentPlayerGetMatrix(), &sp44);
 
 				if (func0f06b39c(&sp68, &sp56, &sp44, somefloat)) {
@@ -26548,7 +26548,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, 
 		func0f065c44(chr->prop);
 		roomsCopy(rooms2, chr->prop->rooms);
 		func0f0220ac(chr);
-		func0001ad34(chr->model, &pos2);
+		modelSetRootPosition(chr->model, &pos2);
 
 		nodetype = chr->model->unk08->rootnode->type;
 

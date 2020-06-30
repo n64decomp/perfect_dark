@@ -493,26 +493,26 @@ void modelNodeGetPosition(struct model *model, struct modelnode *node, struct co
 	switch (node->type & 0xff) {
 	case MODELNODETYPE_ROOT:
 		{
-		struct modeldata_root *data = modelGetNodeData(model, node);
-		pos->x = data->pos.x;
-		pos->y = data->pos.y;
-		pos->z = data->pos.z;
+			struct modeldata_root *data = modelGetNodeData(model, node);
+			pos->x = data->pos.x;
+			pos->y = data->pos.y;
+			pos->z = data->pos.z;
 		}
 		break;
 	case MODELNODETYPE_POSITION:
 		{
-		struct modelnode_position *data = node->data.position;
-		pos->x = data->pos.x;
-		pos->y = data->pos.y;
-		pos->z = data->pos.z;
+			struct modelnode_position *data = node->data.position;
+			pos->x = data->pos.x;
+			pos->y = data->pos.y;
+			pos->z = data->pos.z;
 		}
 		break;
 	case MODELNODETYPE_POSITIONHELD:
 		{
-		struct modelnode_positionheld *data = node->data.positionheld;
-		pos->x = data->pos.x;
-		pos->y = data->pos.y;
-		pos->z = data->pos.z;
+			struct modelnode_positionheld *data = node->data.positionheld;
+			pos->x = data->pos.x;
+			pos->y = data->pos.y;
+			pos->z = data->pos.z;
 		}
 		break;
 	default:
@@ -523,105 +523,54 @@ void modelNodeGetPosition(struct model *model, struct modelnode *node, struct co
 	}
 }
 
-GLOBAL_ASM(
-glabel func0001abc4
-/*    1abc4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    1abc8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1abcc:	94a20000 */ 	lhu	$v0,0x0($a1)
-/*    1abd0:	24010001 */ 	addiu	$at,$zero,0x1
-/*    1abd4:	304e00ff */ 	andi	$t6,$v0,0xff
-/*    1abd8:	11c10007 */ 	beq	$t6,$at,.L0001abf8
-/*    1abdc:	24010002 */ 	addiu	$at,$zero,0x2
-/*    1abe0:	11c10037 */ 	beq	$t6,$at,.L0001acc0
-/*    1abe4:	24010015 */ 	addiu	$at,$zero,0x15
-/*    1abe8:	51c1003e */ 	beql	$t6,$at,.L0001ace4
-/*    1abec:	8ca20004 */ 	lw	$v0,0x4($a1)
-/*    1abf0:	10000043 */ 	b	.L0001ad00
-/*    1abf4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001abf8:
-/*    1abf8:	0c006a87 */ 	jal	modelGetNodeData
-/*    1abfc:	afa60030 */ 	sw	$a2,0x30($sp)
-/*    1ac00:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*    1ac04:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*    1ac08:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*    1ac0c:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*    1ac10:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*    1ac14:	c4500010 */ 	lwc1	$f16,0x10($v0)
-/*    1ac18:	c4ca0008 */ 	lwc1	$f10,0x8($a2)
-/*    1ac1c:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*    1ac20:	e7b20020 */ 	swc1	$f18,0x20($sp)
-/*    1ac24:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*    1ac28:	c44a0024 */ 	lwc1	$f10,0x24($v0)
-/*    1ac2c:	e4440008 */ 	swc1	$f4,0x8($v0)
-/*    1ac30:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*    1ac34:	c444002c */ 	lwc1	$f4,0x2c($v0)
-/*    1ac38:	e446000c */ 	swc1	$f6,0xc($v0)
-/*    1ac3c:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*    1ac40:	e4480010 */ 	swc1	$f8,0x10($v0)
-/*    1ac44:	c7b00018 */ 	lwc1	$f16,0x18($sp)
-/*    1ac48:	46105480 */ 	add.s	$f18,$f10,$f16
-/*    1ac4c:	c44a0034 */ 	lwc1	$f10,0x34($v0)
-/*    1ac50:	e4520024 */ 	swc1	$f18,0x24($v0)
-/*    1ac54:	c7a60020 */ 	lwc1	$f6,0x20($sp)
-/*    1ac58:	46062200 */ 	add.s	$f8,$f4,$f6
-/*    1ac5c:	c444003c */ 	lwc1	$f4,0x3c($v0)
-/*    1ac60:	e448002c */ 	swc1	$f8,0x2c($v0)
-/*    1ac64:	c7b00018 */ 	lwc1	$f16,0x18($sp)
-/*    1ac68:	46105480 */ 	add.s	$f18,$f10,$f16
-/*    1ac6c:	c44a0040 */ 	lwc1	$f10,0x40($v0)
-/*    1ac70:	e4520034 */ 	swc1	$f18,0x34($v0)
-/*    1ac74:	c7a60020 */ 	lwc1	$f6,0x20($sp)
-/*    1ac78:	46062200 */ 	add.s	$f8,$f4,$f6
-/*    1ac7c:	c4440048 */ 	lwc1	$f4,0x48($v0)
-/*    1ac80:	e448003c */ 	swc1	$f8,0x3c($v0)
-/*    1ac84:	c7b00018 */ 	lwc1	$f16,0x18($sp)
-/*    1ac88:	46105480 */ 	add.s	$f18,$f10,$f16
-/*    1ac8c:	c44a004c */ 	lwc1	$f10,0x4c($v0)
-/*    1ac90:	e4520040 */ 	swc1	$f18,0x40($v0)
-/*    1ac94:	c7a60020 */ 	lwc1	$f6,0x20($sp)
-/*    1ac98:	46062200 */ 	add.s	$f8,$f4,$f6
-/*    1ac9c:	c4440054 */ 	lwc1	$f4,0x54($v0)
-/*    1aca0:	e4480048 */ 	swc1	$f8,0x48($v0)
-/*    1aca4:	c7b00018 */ 	lwc1	$f16,0x18($sp)
-/*    1aca8:	46105480 */ 	add.s	$f18,$f10,$f16
-/*    1acac:	e452004c */ 	swc1	$f18,0x4c($v0)
-/*    1acb0:	c7a60020 */ 	lwc1	$f6,0x20($sp)
-/*    1acb4:	46062200 */ 	add.s	$f8,$f4,$f6
-/*    1acb8:	10000010 */ 	b	.L0001acfc
-/*    1acbc:	e4480054 */ 	swc1	$f8,0x54($v0)
-.L0001acc0:
-/*    1acc0:	8ca20004 */ 	lw	$v0,0x4($a1)
-/*    1acc4:	c4ca0000 */ 	lwc1	$f10,0x0($a2)
-/*    1acc8:	e44a0000 */ 	swc1	$f10,0x0($v0)
-/*    1accc:	c4d00004 */ 	lwc1	$f16,0x4($a2)
-/*    1acd0:	e4500004 */ 	swc1	$f16,0x4($v0)
-/*    1acd4:	c4d20008 */ 	lwc1	$f18,0x8($a2)
-/*    1acd8:	10000008 */ 	b	.L0001acfc
-/*    1acdc:	e4520008 */ 	swc1	$f18,0x8($v0)
-/*    1ace0:	8ca20004 */ 	lw	$v0,0x4($a1)
-.L0001ace4:
-/*    1ace4:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*    1ace8:	e4440000 */ 	swc1	$f4,0x0($v0)
-/*    1acec:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*    1acf0:	e4460004 */ 	swc1	$f6,0x4($v0)
-/*    1acf4:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*    1acf8:	e4480008 */ 	swc1	$f8,0x8($v0)
-.L0001acfc:
-/*    1acfc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001ad00:
-/*    1ad00:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    1ad04:	03e00008 */ 	jr	$ra
-/*    1ad08:	00000000 */ 	nop
-);
-
-void func0001ad0c(struct model *model, struct coord *coord)
+void modelNodeSetPosition(struct model *model, struct modelnode *node, struct coord *pos)
 {
-	modelNodeGetPosition(model, model->unk08->rootnode, coord);
+	switch (node->type & 0xff) {
+	case MODELNODETYPE_ROOT:
+		{
+			struct modeldata_root *data = modelGetNodeData(model, node);
+			struct coord diff[1];
+
+			diff[0].x = pos->x - data->pos.x;
+			diff[0].z = pos->z - data->pos.z;
+
+			data->pos.x = pos->x;
+			data->pos.y = pos->y;
+			data->pos.z = pos->z;
+
+			data->unk24.x += diff[0].x; data->unk24.z += diff[0].z;
+			data->unk34.x += diff[0].x; data->unk34.z += diff[0].z;
+			data->unk40.x += diff[0].x; data->unk40.z += diff[0].z;
+			data->unk4c.x += diff[0].x; data->unk4c.z += diff[0].z;
+		}
+		break;
+	case MODELNODETYPE_POSITION:
+		{
+			struct modelnode_position *data = node->data.position;
+			data->pos.x = pos->x;
+			data->pos.y = pos->y;
+			data->pos.z = pos->z;
+		}
+		break;
+	case MODELNODETYPE_POSITIONHELD:
+		{
+			struct modelnode_positionheld *data = node->data.positionheld;
+			data->pos.x = pos->x;
+			data->pos.y = pos->y;
+			data->pos.z = pos->z;
+		}
+		break;
+	}
 }
 
-void func0001ad34(struct model *model, struct coord *coord)
+void modelGetRootPosition(struct model *model, struct coord *pos)
 {
-	func0001abc4(model, model->unk08->rootnode, coord);
+	modelNodeGetPosition(model, model->unk08->rootnode, pos);
+}
+
+void modelSetRootPosition(struct model *model, struct coord *pos)
+{
+	modelNodeSetPosition(model, model->unk08->rootnode, pos);
 }
 
 GLOBAL_ASM(
@@ -3571,12 +3520,12 @@ void modelCopyAnimForMerge(struct model *model, f32 arg1)
 			if (nodetype == MODELNODETYPE_ROOT) {
 				struct modeldata_root *data = modelGetNodeData(model, node);
 				data->unk02 = 1;
-				data->unk4c = data->unk34;
-				data->unk50 = data->unk38;
-				data->unk54 = data->unk3c;
-				data->unk40 = data->unk24;
-				data->unk44 = data->unk28;
-				data->unk48 = data->unk2c;
+				data->unk4c.x = data->unk34.x;
+				data->unk4c.y = data->unk34.y;
+				data->unk4c.z = data->unk34.z;
+				data->unk40.x = data->unk24.x;
+				data->unk40.y = data->unk24.y;
+				data->unk40.z = data->unk24.z;
 			}
 		} else {
 			anim->animnum2 = 0;
