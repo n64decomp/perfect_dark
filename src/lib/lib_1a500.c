@@ -3409,43 +3409,24 @@ f32 modelGetCurAnimFrame(struct model *model)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0001d1a0
-/*    1d1a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1d1a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1d1a8:	8c820020 */ 	lw	$v0,0x20($a0)
-/*    1d1ac:	50400015 */ 	beqzl	$v0,.L0001d204
-/*    1d1b0:	44800000 */ 	mtc1	$zero,$f0
-/*    1d1b4:	44806000 */ 	mtc1	$zero,$f12
-/*    1d1b8:	c4420018 */ 	lwc1	$f2,0x18($v0)
-/*    1d1bc:	4602603e */ 	c.le.s	$f12,$f2
-/*    1d1c0:	00000000 */ 	nop
-/*    1d1c4:	45020004 */ 	bc1fl	.L0001d1d8
-/*    1d1c8:	84440000 */ 	lh	$a0,0x0($v0)
-/*    1d1cc:	1000000e */ 	b	.L0001d208
-/*    1d1d0:	46001006 */ 	mov.s	$f0,$f2
-/*    1d1d4:	84440000 */ 	lh	$a0,0x0($v0)
-.L0001d1d8:
-/*    1d1d8:	10800007 */ 	beqz	$a0,.L0001d1f8
-/*    1d1dc:	00000000 */ 	nop
-/*    1d1e0:	0c008dda */ 	jal	animGetNumFrames
-/*    1d1e4:	00000000 */ 	nop
-/*    1d1e8:	244effff */ 	addiu	$t6,$v0,-1
-/*    1d1ec:	448e2000 */ 	mtc1	$t6,$f4
-/*    1d1f0:	10000005 */ 	b	.L0001d208
-/*    1d1f4:	46802020 */ 	cvt.s.w	$f0,$f4
-.L0001d1f8:
-/*    1d1f8:	10000003 */ 	b	.L0001d208
-/*    1d1fc:	46006006 */ 	mov.s	$f0,$f12
-/*    1d200:	44800000 */ 	mtc1	$zero,$f0
-.L0001d204:
-/*    1d204:	00000000 */ 	nop
-.L0001d208:
-/*    1d208:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1d20c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1d210:	03e00008 */ 	jr	$ra
-/*    1d214:	00000000 */ 	nop
-);
+f32 modelGetAnimEndFrame(struct model *model)
+{
+	struct anim *anim = model->anim;
+
+	if (anim) {
+		if (anim->endframe >= 0) {
+			return anim->endframe;
+		}
+
+		if (anim->animnum) {
+			return animGetNumFrames(anim->animnum) - 1;
+		} else {
+			return 0;
+		}
+	}
+
+	return 0;
+}
 
 s32 modelGetNumAnimFrames(struct model *model)
 {

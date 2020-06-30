@@ -12801,7 +12801,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 			}
 		}
 
-		if (modelGetCurAnimFrame(&g_Vars.currentplayer->model) >= func0001d1a0(&g_Vars.currentplayer->model)
+		if (modelGetCurAnimFrame(&g_Vars.currentplayer->model) >= modelGetAnimEndFrame(&g_Vars.currentplayer->model)
 				&& g_Vars.currentplayer->redbloodfinished) {
 			if (g_Vars.currentplayer->deathanimfinished == false) {
 				g_Vars.currentplayer->deathanimfinished = true;

@@ -10427,7 +10427,7 @@ bool chrIsStopped(struct chrdata *chr)
 
 	if (chr->actiontype == ACT_ANIM) {
 		if (chr->act_anim.unk034
-				|| (modelGetAnimSpeed(chr->model) >= 0 && modelGetCurAnimFrame(chr->model) >= func0001d1a0(chr->model))
+				|| (modelGetAnimSpeed(chr->model) >= 0 && modelGetCurAnimFrame(chr->model) >= modelGetAnimEndFrame(chr->model))
 				|| (modelGetAnimSpeed(chr->model) < 0 && modelGetCurAnimFrame(chr->model) <= 0)) {
 			return true;
 		}
@@ -12364,7 +12364,7 @@ glabel var7f1a8f08
 /*  f03c198:	0c00745f */ 	jal	modelGetCurAnimFrame
 /*  f03c19c:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f03c1a0:	e7a0003c */ 	swc1	$f0,0x3c($sp)
-/*  f03c1a4:	0c007468 */ 	jal	func0001d1a0
+/*  f03c1a4:	0c007468 */ 	jal	modelGetAnimEndFrame
 /*  f03c1a8:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f03c1ac:	c7a4003c */ 	lwc1	$f4,0x3c($sp)
 /*  f03c1b0:	02002025 */ 	or	$a0,$s0,$zero
@@ -12394,7 +12394,7 @@ glabel var7f1a8f08
 /*  f03c208:	0c00745f */ 	jal	modelGetCurAnimFrame
 /*  f03c20c:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f03c210:	e7a0003c */ 	swc1	$f0,0x3c($sp)
-/*  f03c214:	0c007468 */ 	jal	func0001d1a0
+/*  f03c214:	0c007468 */ 	jal	modelGetAnimEndFrame
 /*  f03c218:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f03c21c:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
 /*  f03c220:	02002025 */ 	or	$a0,$s0,$zero
@@ -12885,7 +12885,7 @@ void chrTickAnim(struct chrdata *chr)
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 
-	if (chr->act_anim.unk030 == 0 && modelGetCurAnimFrame(chr->model) >= func0001d1a0(chr->model)) {
+	if (chr->act_anim.unk030 == 0 && modelGetCurAnimFrame(chr->model) >= modelGetAnimEndFrame(chr->model)) {
 		chrStand(chr);
 	}
 
@@ -13189,7 +13189,7 @@ void chrTickDie(struct chrdata *chr)
 	}
 
 	// Check for end of death animation and switch to ACT_DEAD
-	if (modelGetCurAnimFrame(model) >= func0001d1a0(model)) {
+	if (modelGetCurAnimFrame(model) >= modelGetAnimEndFrame(model)) {
 		if (CHRRACE(chr) == RACE_HUMAN && modelGetAnimNum(model) == ANIM_DEATH_STOMACH_LONG) {
 			modelSetAnimation(model, ANIM_003C, !modelIsFlipped(model), 50, 0.3, animGetNumFrames(ANIM_003C) - 51.0f);
 			modelSetAnimSpeed(model, 0.5, animGetNumFrames(ANIM_003C) - 51.0f);
@@ -13438,7 +13438,7 @@ void chrTickDruggedDrop(struct chrdata *chr)
 	}
 
 	// If falling animation finished, assign ACT_DRUGGEDKO
-	if (modelGetCurAnimFrame(model) >= func0001d1a0(model)) {
+	if (modelGetCurAnimFrame(model) >= modelGetAnimEndFrame(model)) {
 		chr->actiontype = ACT_DRUGGEDKO;
 		chr->act_druggedko.fadetimer = chr->aibot ? 0 : -1;
 		chr->act_druggedko.allowfade = false;
@@ -13493,7 +13493,7 @@ void chrTickArgh(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
-	if (modelGetCurAnimFrame(model) >= func0001d1a0(model)) {
+	if (modelGetCurAnimFrame(model) >= modelGetAnimEndFrame(model)) {
 		chrRecordLastSeeTargetTime(chr);
 
 		if (CHRRACE(chr) == RACE_HUMAN && modelGetAnimNum(model) == ANIM_DEATH_STOMACH_LONG) {
@@ -13515,7 +13515,7 @@ void chrTickPreArgh(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
-	if (modelGetCurAnimFrame(model) >= func0001d1a0(model)) {
+	if (modelGetCurAnimFrame(model) >= modelGetAnimEndFrame(model)) {
 		struct coord pos;
 		pos.x = chr->act_preargh.pos.x;
 		pos.y = chr->act_preargh.pos.y;
@@ -13542,7 +13542,7 @@ void chrTickSidestep(struct chrdata *chr)
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 
-	if (modelGetCurAnimFrame(model) >= func0001d1a0(model)) {
+	if (modelGetCurAnimFrame(model) >= modelGetAnimEndFrame(model)) {
 		chrRecordLastSeeTargetTime(chr);
 		func0f02ed28(chr, 10);
 	}
@@ -13561,7 +13561,7 @@ void chrTickJumpOut(struct chrdata *chr)
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 
-	if (modelGetCurAnimFrame(model) >= func0001d1a0(model)) {
+	if (modelGetCurAnimFrame(model) >= modelGetAnimEndFrame(model)) {
 		chrRecordLastSeeTargetTime(chr);
 		chrStop(chr);
 	}
@@ -13571,7 +13571,7 @@ void chrTickTest(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
-	if (modelGetCurAnimFrame(model) >= func0001d1a0(model)) {
+	if (modelGetCurAnimFrame(model) >= modelGetAnimEndFrame(model)) {
 		chrStand(chr);
 	}
 }
@@ -13593,7 +13593,7 @@ void chrTickStartAlarm(struct chrdata *chr)
 		alarmActivate();
 	}
 
-	if (modelGetCurAnimFrame(model) >= func0001d1a0(model)) {
+	if (modelGetCurAnimFrame(model) >= modelGetAnimEndFrame(model)) {
 		chrStop(chr);
 	}
 }
@@ -13612,7 +13612,7 @@ void chrTickSurprised(struct chrdata *chr)
 	if (CHRRACE(chr) == RACE_HUMAN) {
 		struct model *model = chr->model;
 
-		if (modelGetCurAnimFrame(model) >= func0001d1a0(model)) {
+		if (modelGetCurAnimFrame(model) >= modelGetAnimEndFrame(model)) {
 			if (modelGetAnimNum(model) == 0x2e) {
 				func0f02ed28(chr, 26);
 			} else if (modelGetAnimNum(model) == 0x3f) {
@@ -18136,7 +18136,7 @@ glabel var7f1a918c
 .L0f041fec:
 /*  f041fec:	4481c000 */ 	mtc1	$at,$f24
 /*  f041ff0:	4480b000 */ 	mtc1	$zero,$f22
-/*  f041ff4:	0c007468 */ 	jal	func0001d1a0
+/*  f041ff4:	0c007468 */ 	jal	modelGetAnimEndFrame
 /*  f041ff8:	02602025 */ 	or	$a0,$s3,$zero
 /*  f041ffc:	4614003e */ 	c.le.s	$f0,$f20
 /*  f042000:	00000000 */ 	nop
@@ -18298,7 +18298,7 @@ glabel var7f1a918c
 /*  f04223c:	1160000f */ 	beqz	$t3,.L0f04227c
 /*  f042240:	c4ac0004 */ 	lwc1	$f12,0x4($a1)
 /*  f042244:	e7a20050 */ 	swc1	$f2,0x50($sp)
-/*  f042248:	0c007468 */ 	jal	func0001d1a0
+/*  f042248:	0c007468 */ 	jal	modelGetAnimEndFrame
 /*  f04224c:	e7ac004c */ 	swc1	$f12,0x4c($sp)
 /*  f042250:	c7ac004c */ 	lwc1	$f12,0x4c($sp)
 /*  f042254:	c7a20050 */ 	lwc1	$f2,0x50($sp)
@@ -18307,7 +18307,7 @@ glabel var7f1a918c
 /*  f042260:	00000000 */ 	nop
 /*  f042264:	45020006 */ 	bc1fl	.L0f042280
 /*  f042268:	8e6c0020 */ 	lw	$t4,0x20($s3)
-/*  f04226c:	0c007468 */ 	jal	func0001d1a0
+/*  f04226c:	0c007468 */ 	jal	modelGetAnimEndFrame
 /*  f042270:	e7a20050 */ 	swc1	$f2,0x50($sp)
 /*  f042274:	c7a20050 */ 	lwc1	$f2,0x50($sp)
 /*  f042278:	46000306 */ 	mov.s	$f12,$f0
@@ -19257,7 +19257,7 @@ glabel var7f1a91e0
 /*  f043098:	85090000 */ 	lh	$t1,0x0($t0)
 /*  f04309c:	55210019 */ 	bnel	$t1,$at,.L0f043104
 /*  f0430a0:	8e0302d4 */ 	lw	$v1,0x2d4($s0)
-/*  f0430a4:	0c007468 */ 	jal	func0001d1a0
+/*  f0430a4:	0c007468 */ 	jal	modelGetAnimEndFrame
 /*  f0430a8:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0430ac:	c7a60038 */ 	lwc1	$f6,0x38($sp)
 /*  f0430b0:	3c0a8006 */ 	lui	$t2,%hi(var80067d70)
@@ -19342,7 +19342,7 @@ glabel var7f1a91e0
 /*  f0431d8:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f0431dc:	1441001a */ 	bne	$v0,$at,.L0f043248
 /*  f0431e0:	00000000 */ 	nop
-/*  f0431e4:	0c007468 */ 	jal	func0001d1a0
+/*  f0431e4:	0c007468 */ 	jal	modelGetAnimEndFrame
 /*  f0431e8:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0431ec:	c7a40038 */ 	lwc1	$f4,0x38($sp)
 /*  f0431f0:	4604003e */ 	c.le.s	$f0,$f4
@@ -19389,7 +19389,7 @@ glabel var7f1a91e0
 /*  f04328c:	1000004f */ 	b	.L0f0433cc
 /*  f043290:	ae090058 */ 	sw	$t1,0x58($s0)
 .L0f043294:
-/*  f043294:	0c007468 */ 	jal	func0001d1a0
+/*  f043294:	0c007468 */ 	jal	modelGetAnimEndFrame
 /*  f043298:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f04329c:	c7a80038 */ 	lwc1	$f8,0x38($sp)
 /*  f0432a0:	4608003e */ 	c.le.s	$f0,$f8
@@ -19422,7 +19422,7 @@ glabel var7f1a91e0
 /*  f043304:	00000000 */ 	nop
 /*  f043308:	4500002e */ 	bc1f	.L0f0433c4
 /*  f04330c:	00000000 */ 	nop
-/*  f043310:	0c007468 */ 	jal	func0001d1a0
+/*  f043310:	0c007468 */ 	jal	modelGetAnimEndFrame
 /*  f043314:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f043318:	c7b20038 */ 	lwc1	$f18,0x38($sp)
 /*  f04331c:	4612003e */ 	c.le.s	$f0,$f18
@@ -19798,7 +19798,7 @@ glabel chrTickAttackRoll
 /*  f043860:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f043864:	45000031 */ 	bc1f	.L0f04392c
 /*  f043868:	00000000 */ 	nop
-/*  f04386c:	0c007468 */ 	jal	func0001d1a0
+/*  f04386c:	0c007468 */ 	jal	modelGetAnimEndFrame
 /*  f043870:	e7ac0040 */ 	swc1	$f12,0x40($sp)
 /*  f043874:	c7ac0040 */ 	lwc1	$f12,0x40($sp)
 /*  f043878:	460c003e */ 	c.le.s	$f0,$f12
@@ -19946,7 +19946,7 @@ void chrTickThrowGrenade(struct chrdata *chr)
 
 	frame2 = modelGetCurAnimFrame(model);
 
-	if (frame2 >= func0001d1a0(model)) {
+	if (frame2 >= modelGetAnimEndFrame(model)) {
 		chrStop(chr);
 	} else {
 		if ((frame >= 87 && frame <= 110 && modelGetAnimNum(model) == ANIM_THROWGRENADE_STANDING) ||
@@ -23575,7 +23575,7 @@ void chrTickSkJump(struct chrdata *chr)
 			func0f03e538(chr, fVar5);
 			frame = modelGetCurAnimFrame(chr->model);
 
-			if (frame >= func0001d1a0(chr->model)) {
+			if (frame >= modelGetAnimEndFrame(chr->model)) {
 				chr->act_skjump.state++;
 				chr->act_skjump.needsnewanim = true;
 			}
