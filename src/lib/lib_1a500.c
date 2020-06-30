@@ -4099,36 +4099,15 @@ glabel var7005444c
 /*    1db90:	27bd00c0 */ 	addiu	$sp,$sp,0xc0
 );
 
-GLOBAL_ASM(
-glabel func0001db94
-/*    1db94:	50800017 */ 	beqzl	$a0,.L0001dbf4
-/*    1db98:	00001025 */ 	or	$v0,$zero,$zero
-/*    1db9c:	8c820020 */ 	lw	$v0,0x20($a0)
-/*    1dba0:	50400014 */ 	beqzl	$v0,.L0001dbf4
-/*    1dba4:	00001025 */ 	or	$v0,$zero,$zero
-/*    1dba8:	844e0002 */ 	lh	$t6,0x2($v0)
-/*    1dbac:	51c00011 */ 	beqzl	$t6,.L0001dbf4
-/*    1dbb0:	00001025 */ 	or	$v0,$zero,$zero
-/*    1dbb4:	c4400054 */ 	lwc1	$f0,0x54($v0)
-/*    1dbb8:	44802000 */ 	mtc1	$zero,$f4
-/*    1dbbc:	3c013f80 */ 	lui	$at,0x3f80
-/*    1dbc0:	46002032 */ 	c.eq.s	$f4,$f0
-/*    1dbc4:	00000000 */ 	nop
-/*    1dbc8:	4503000a */ 	bc1tl	.L0001dbf4
-/*    1dbcc:	00001025 */ 	or	$v0,$zero,$zero
-/*    1dbd0:	44813000 */ 	mtc1	$at,$f6
-/*    1dbd4:	00000000 */ 	nop
-/*    1dbd8:	46003032 */ 	c.eq.s	$f6,$f0
-/*    1dbdc:	00000000 */ 	nop
-/*    1dbe0:	45030004 */ 	bc1tl	.L0001dbf4
-/*    1dbe4:	00001025 */ 	or	$v0,$zero,$zero
-/*    1dbe8:	03e00008 */ 	jr	$ra
-/*    1dbec:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    1dbf0:	00001025 */ 	or	$v0,$zero,$zero
-.L0001dbf4:
-/*    1dbf4:	03e00008 */ 	jr	$ra
-/*    1dbf8:	00000000 */ 	nop
-);
+bool modelIsAnimMerging(struct model *model)
+{
+	if (model && model->anim && model->anim->animnum2
+			&& model->anim->fracmerge != 0 && model->anim->fracmerge != 1) {
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0001dbfc

@@ -576,7 +576,7 @@ void func0f02e9a0(struct chrdata *chr, f32 arg1)
 
 	chr->sleep = fsleep;
 
-	if (func0001db94(chr->model) && !chr->aibot) {
+	if (modelIsAnimMerging(chr->model) && !chr->aibot) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
 		chrStandChooseAnimation(chr, arg1);
@@ -693,7 +693,7 @@ void chrKneel(struct chrdata *chr)
 	chr->actiontype = ACT_KNEEL;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->model)) {
+	if (modelIsAnimMerging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
 		chrKneelChooseAnimation(chr);
@@ -723,7 +723,7 @@ void chrStartAlarm(struct chrdata *chr)
 	chr->actiontype = ACT_STARTALARM;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->model)) {
+	if (modelIsAnimMerging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
 		chrStartAlarmChooseAnimation(chr);
@@ -764,7 +764,7 @@ void chrThrowGrenade(struct chrdata *chr, s32 hand, s32 needsequip)
 	chr->act_throwgrenade.needsequip = needsequip;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->model)) {
+	if (modelIsAnimMerging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
 		chrThrowGrenadeChooseAnimation(chr);
@@ -816,7 +816,7 @@ void chrDoSurprisedOneHand(struct chrdata *chr)
 		chr->act_surprised.type = 1;
 		chr->sleep = 0;
 
-		if (func0001db94(chr->model)) {
+		if (modelIsAnimMerging(chr->model)) {
 			chr->hidden |= CHRHFLAG_NEEDANIM;
 		} else {
 			chrSurprisedChooseAnimation(chr);
@@ -834,7 +834,7 @@ void chrDoSurprisedSurrender(struct chrdata *chr)
 	chr->act_surprised.type = 2;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->model)) {
+	if (modelIsAnimMerging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
 		chrSurprisedChooseAnimation(chr);
@@ -849,7 +849,7 @@ void chrDoSurprisedLookAround(struct chrdata *chr)
 	chr->act_surprised.type = 3;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->model)) {
+	if (modelIsAnimMerging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
 		chrSurprisedChooseAnimation(chr);
@@ -892,7 +892,7 @@ void chrSurrender(struct chrdata *chr)
 		chr->actiontype = action;
 		chr->sleep = action;
 
-		if (func0001db94(chr->model)) {
+		if (modelIsAnimMerging(chr->model)) {
 			chr->hidden |= CHRHFLAG_NEEDANIM;
 		} else {
 			chrSurrenderChooseAnimation(chr);
@@ -957,7 +957,7 @@ void chrSidestep(struct chrdata *chr, bool side)
 	chr->act_sidestep.side = side;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->model)) {
+	if (modelIsAnimMerging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
 		chrSidestepChooseAnimation(chr);
@@ -994,7 +994,7 @@ void chrJumpOut(struct chrdata *chr, bool side)
 	chr->act_jumpout.side = side;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->model)) {
+	if (modelIsAnimMerging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
 		chrJumpOutChooseAnimation(chr);
@@ -1052,7 +1052,7 @@ void chrRunToPos(struct chrdata *chr, struct coord *pos)
 	chr->act_runpos.unk038 = 30; // float
 	chr->act_runpos.unk040 = 0;
 
-	if (func0001db94(chr->model)) {
+	if (modelIsAnimMerging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
 		chrRunPosChooseAnimation(chr);
@@ -1689,7 +1689,7 @@ glabel chrAttackWalk
 /*  f0309e0:	8fa80068 */ 	lw	$t0,0x68($sp)
 /*  f0309e4:	a2200008 */ 	sb	$zero,0x8($s1)
 /*  f0309e8:	ae2b0018 */ 	sw	$t3,0x18($s1)
-/*  f0309ec:	0c0076e5 */ 	jal	func0001db94
+/*  f0309ec:	0c0076e5 */ 	jal	modelIsAnimMerging
 /*  f0309f0:	a228004e */ 	sb	$t0,0x4e($s1)
 /*  f0309f4:	10400006 */ 	beqz	$v0,.L0f030a10
 /*  f0309f8:	00000000 */ 	nop
@@ -2043,7 +2043,7 @@ glabel chrAttackRoll
 /*  f030f90:	8fab0078 */ 	lw	$t3,0x78($sp)
 /*  f030f94:	a2200008 */ 	sb	$zero,0x8($s1)
 /*  f030f98:	8e240020 */ 	lw	$a0,0x20($s1)
-/*  f030f9c:	0c0076e5 */ 	jal	func0001db94
+/*  f030f9c:	0c0076e5 */ 	jal	modelIsAnimMerging
 /*  f030fa0:	a22b003e */ 	sb	$t3,0x3e($s1)
 /*  f030fa4:	10400006 */ 	beqz	$v0,.L0f030fc0
 /*  f030fa8:	00000000 */ 	nop
@@ -2145,7 +2145,7 @@ glabel func0f030ff8
 /*  f0310fc:	c7a40050 */ 	lwc1	$f4,0x50($sp)
 /*  f031100:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f031104:	e7a0002c */ 	swc1	$f0,0x2c($sp)
-/*  f031108:	0c0076e5 */ 	jal	func0001db94
+/*  f031108:	0c0076e5 */ 	jal	modelIsAnimMerging
 /*  f03110c:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f031110:	8fa60028 */ 	lw	$a2,0x28($sp)
 /*  f031114:	10400006 */ 	beqz	$v0,.L0f031130
@@ -2574,7 +2574,7 @@ glabel var7f1a8d18
 /*  f031818:	8e2b02d4 */ 	lw	$t3,0x2d4($s1)
 /*  f03181c:	55600020 */ 	bnezl	$t3,.L0f0318a0
 /*  f031820:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f031824:	0c0076e5 */ 	jal	func0001db94
+/*  f031824:	0c0076e5 */ 	jal	modelIsAnimMerging
 /*  f031828:	8e240020 */ 	lw	$a0,0x20($s1)
 /*  f03182c:	10400006 */ 	beqz	$v0,.L0f031848
 /*  f031830:	02202025 */ 	or	$a0,$s1,$zero
@@ -9437,7 +9437,7 @@ s32 chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
 		}
 
 		if (chr->act_gopos.waydata.mode != WAYMODE_CHEAP
-				&& func0001db94(chr->model) && !chr->aibot) {
+				&& modelIsAnimMerging(chr->model) && !chr->aibot) {
 			chr->hidden |= CHRHFLAG_NEEDANIM;
 			return true;
 		} else {
@@ -9906,7 +9906,7 @@ glabel var7f1a8dd0
 /*  f038e9c:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f038ea0:	11c1000a */ 	beq	$t6,$at,.L0f038ecc
 /*  f038ea4:	00000000 */ 	nop
-/*  f038ea8:	0c0076e5 */ 	jal	func0001db94
+/*  f038ea8:	0c0076e5 */ 	jal	modelIsAnimMerging
 /*  f038eac:	8e640020 */ 	lw	$a0,0x20($s3)
 /*  f038eb0:	10400006 */ 	beqz	$v0,.L0f038ecc
 /*  f038eb4:	00000000 */ 	nop
@@ -12344,7 +12344,7 @@ glabel var7f1a8f08
 /*  f03c14c:	000e7a80 */ 	sll	$t7,$t6,0xa
 /*  f03c150:	05e1000c */ 	bgez	$t7,.L0f03c184
 /*  f03c154:	00000000 */ 	nop
-/*  f03c158:	0c0076e5 */ 	jal	func0001db94
+/*  f03c158:	0c0076e5 */ 	jal	modelIsAnimMerging
 /*  f03c15c:	8c840020 */ 	lw	$a0,0x20($a0)
 /*  f03c160:	144001cf */ 	bnez	$v0,.L0f03c8a0
 /*  f03c164:	02002025 */ 	or	$a0,$s0,$zero
@@ -12862,7 +12862,7 @@ void chrTickKneel(struct chrdata *chr)
 {
 	chr->sleep = 0;
 
-	if ((chr->hidden & CHRHFLAG_NEEDANIM) && func0001db94(chr->model) == 0) {
+	if ((chr->hidden & CHRHFLAG_NEEDANIM) && modelIsAnimMerging(chr->model) == 0) {
 		chrKneelChooseAnimation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
@@ -12871,7 +12871,7 @@ void chrTickKneel(struct chrdata *chr)
 void chrTickAnim(struct chrdata *chr)
 {
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
-		if (func0001db94(chr->model)) {
+		if (modelIsAnimMerging(chr->model)) {
 			return;
 		}
 
@@ -12921,7 +12921,7 @@ u32 var800683b8 = 0xbf800000;
 void chrTickSurrender(struct chrdata *chr)
 {
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
-		if (func0001db94(chr->model)) {
+		if (modelIsAnimMerging(chr->model)) {
 			return;
 		}
 
@@ -13534,7 +13534,7 @@ void chrTickSidestep(struct chrdata *chr)
 	struct model *model = chr->model;
 
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
-		if (func0001db94(chr->model)) {
+		if (modelIsAnimMerging(chr->model)) {
 			return;
 		}
 
@@ -13553,7 +13553,7 @@ void chrTickJumpOut(struct chrdata *chr)
 	struct model *model = chr->model;
 
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
-		if (func0001db94(chr->model)) {
+		if (modelIsAnimMerging(chr->model)) {
 			return;
 		}
 
@@ -13581,7 +13581,7 @@ void chrTickStartAlarm(struct chrdata *chr)
 	struct model *model = chr->model;
 
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
-		if (func0001db94(chr->model)) {
+		if (modelIsAnimMerging(chr->model)) {
 			return;
 		}
 
@@ -13601,7 +13601,7 @@ void chrTickStartAlarm(struct chrdata *chr)
 void chrTickSurprised(struct chrdata *chr)
 {
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
-		if (func0001db94(chr->model)) {
+		if (modelIsAnimMerging(chr->model)) {
 			return;
 		}
 
@@ -19226,7 +19226,7 @@ glabel var7f1a91e0
 /*  f043020:	000e7a80 */ 	sll	$t7,$t6,0xa
 /*  f043024:	05e3001b */ 	bgezl	$t7,.L0f043094
 /*  f043028:	8e08002c */ 	lw	$t0,0x2c($s0)
-/*  f04302c:	0c0076e5 */ 	jal	func0001db94
+/*  f04302c:	0c0076e5 */ 	jal	modelIsAnimMerging
 /*  f043030:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f043034:	144000e5 */ 	bnez	$v0,.L0f0433cc
 /*  f043038:	02002025 */ 	or	$a0,$s0,$zero
@@ -19489,7 +19489,7 @@ glabel chrTickAttackRoll
 /*  f0433f0:	000fc280 */ 	sll	$t8,$t7,0xa
 /*  f0433f4:	0703000e */ 	bgezl	$t8,.L0f043430
 /*  f0433f8:	8fa90048 */ 	lw	$t1,0x48($sp)
-/*  f0433fc:	0c0076e5 */ 	jal	func0001db94
+/*  f0433fc:	0c0076e5 */ 	jal	modelIsAnimMerging
 /*  f043400:	8c840020 */ 	lw	$a0,0x20($a0)
 /*  f043404:	5440014c */ 	bnezl	$v0,.L0f043938
 /*  f043408:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -19915,7 +19915,7 @@ void chrTickThrowGrenade(struct chrdata *chr)
 	f32 frame2;
 
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
-		if (func0001db94(chr->model)) {
+		if (modelIsAnimMerging(chr->model)) {
 			return;
 		}
 
@@ -20285,7 +20285,7 @@ glabel chrTickAttackWalk
 /*  f044238:	000fc280 */ 	sll	$t8,$t7,0xa
 /*  f04423c:	0701000c */ 	bgez	$t8,.L0f044270
 /*  f044240:	00000000 */ 	nop
-/*  f044244:	0c0076e5 */ 	jal	func0001db94
+/*  f044244:	0c0076e5 */ 	jal	modelIsAnimMerging
 /*  f044248:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f04424c:	544000d8 */ 	bnezl	$v0,.L0f0445b0
 /*  f044250:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -20748,7 +20748,7 @@ void chrTickRunPos(struct chrdata *chr)
 	f32 fVar7;
 
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
-		if (func0001db94(chr->model)) {
+		if (modelIsAnimMerging(chr->model)) {
 			return;
 		}
 
@@ -23008,7 +23008,7 @@ void chrTickGoPos(struct chrdata *chr)
 	chr->act_gopos.flags &= ~(GOPOSFLAG_DUCK | GOPOSFLAG_80);
 
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
-		if (func0001db94(chr->model)) {
+		if (modelIsAnimMerging(chr->model)) {
 			return;
 		}
 
@@ -23297,7 +23297,7 @@ glabel chrTickPatrol
 /*  f0473f0:	000fc280 */ 	sll	$t8,$t7,0xa
 /*  f0473f4:	0703000d */ 	bgezl	$t8,.L0f04742c
 /*  f0473f8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0473fc:	0c0076e5 */ 	jal	func0001db94
+/*  f0473fc:	0c0076e5 */ 	jal	modelIsAnimMerging
 /*  f047400:	8c840020 */ 	lw	$a0,0x20($a0)
 /*  f047404:	54400099 */ 	bnezl	$v0,.L0f04766c
 /*  f047408:	8fbf0024 */ 	lw	$ra,0x24($sp)
