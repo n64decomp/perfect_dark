@@ -309,7 +309,14 @@ struct modeldata_root { // type 0x01
 	u32 unk00;
 	f32 ground;
 	struct coord pos;
-	f32 unk14;
+	f32 unk14; // angle
+	f32 unk18;
+	u32 unk1c;
+	f32 unk20; // angle
+	u32 unk24;
+	u32 unk28;
+	u32 unk2c;
+	f32 unk30; // angle
 };
 
 struct modeldata_partid { // type 0x12

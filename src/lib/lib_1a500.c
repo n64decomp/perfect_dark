@@ -700,69 +700,31 @@ f32 func0001ae44(struct model *model)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0001ae90
-.late_rodata
-glabel var700542e0
-.word 0x40c907a9
-glabel var700542e4
-.word 0x40c907a9
-.text
-/*    1ae90:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1ae94:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1ae98:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*    1ae9c:	44857000 */ 	mtc1	$a1,$f14
-/*    1aea0:	24010001 */ 	addiu	$at,$zero,0x1
-/*    1aea4:	8dc50000 */ 	lw	$a1,0x0($t6)
-/*    1aea8:	94af0000 */ 	lhu	$t7,0x0($a1)
-/*    1aeac:	31f800ff */ 	andi	$t8,$t7,0xff
-/*    1aeb0:	57010026 */ 	bnel	$t8,$at,.L0001af4c
-/*    1aeb4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1aeb8:	0c006a87 */ 	jal	modelGetNodeData
-/*    1aebc:	e7ae001c */ 	swc1	$f14,0x1c($sp)
-/*    1aec0:	c7ae001c */ 	lwc1	$f14,0x1c($sp)
-/*    1aec4:	c4440014 */ 	lwc1	$f4,0x14($v0)
-/*    1aec8:	44803000 */ 	mtc1	$zero,$f6
-/*    1aecc:	3c017005 */ 	lui	$at,%hi(var700542e0)
-/*    1aed0:	46047001 */ 	sub.s	$f0,$f14,$f4
-/*    1aed4:	4606003c */ 	c.lt.s	$f0,$f6
-/*    1aed8:	00000000 */ 	nop
-/*    1aedc:	45020004 */ 	bc1fl	.L0001aef0
-/*    1aee0:	c4480030 */ 	lwc1	$f8,0x30($v0)
-/*    1aee4:	c42c42e0 */ 	lwc1	$f12,%lo(var700542e0)($at)
-/*    1aee8:	460c0000 */ 	add.s	$f0,$f0,$f12
-/*    1aeec:	c4480030 */ 	lwc1	$f8,0x30($v0)
-.L0001aef0:
-/*    1aef0:	3c017005 */ 	lui	$at,%hi(var700542e4)
-/*    1aef4:	c42c42e4 */ 	lwc1	$f12,%lo(var700542e4)($at)
-/*    1aef8:	46004280 */ 	add.s	$f10,$f8,$f0
-/*    1aefc:	e44a0030 */ 	swc1	$f10,0x30($v0)
-/*    1af00:	c4420030 */ 	lwc1	$f2,0x30($v0)
-/*    1af04:	4602603e */ 	c.le.s	$f12,$f2
-/*    1af08:	00000000 */ 	nop
-/*    1af0c:	45020004 */ 	bc1fl	.L0001af20
-/*    1af10:	c4520020 */ 	lwc1	$f18,0x20($v0)
-/*    1af14:	460c1401 */ 	sub.s	$f16,$f2,$f12
-/*    1af18:	e4500030 */ 	swc1	$f16,0x30($v0)
-/*    1af1c:	c4520020 */ 	lwc1	$f18,0x20($v0)
-.L0001af20:
-/*    1af20:	46009100 */ 	add.s	$f4,$f18,$f0
-/*    1af24:	e4440020 */ 	swc1	$f4,0x20($v0)
-/*    1af28:	c4420020 */ 	lwc1	$f2,0x20($v0)
-/*    1af2c:	4602603e */ 	c.le.s	$f12,$f2
-/*    1af30:	00000000 */ 	nop
-/*    1af34:	45020004 */ 	bc1fl	.L0001af48
-/*    1af38:	e44e0014 */ 	swc1	$f14,0x14($v0)
-/*    1af3c:	460c1181 */ 	sub.s	$f6,$f2,$f12
-/*    1af40:	e4460020 */ 	swc1	$f6,0x20($v0)
-/*    1af44:	e44e0014 */ 	swc1	$f14,0x14($v0)
-.L0001af48:
-/*    1af48:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001af4c:
-/*    1af4c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1af50:	03e00008 */ 	jr	$ra
-/*    1af54:	00000000 */ 	nop
-);
+void func0001ae90(struct model *model, f32 angle)
+{
+	if ((model->unk08->rootnode->type & 0xff) == MODELNODETYPE_ROOT) {
+		struct modeldata_root *data = modelGetNodeData(model, model->unk08->rootnode);
+		f32 diff = angle - data->unk14;
+
+		if (diff < 0) {
+			diff += M_BADTAU;
+		}
+
+		data->unk30 += diff;
+
+		if (data->unk30 >= M_BADTAU) {
+			data->unk30 -= M_BADTAU;
+		}
+
+		data->unk20 += diff;
+
+		if (data->unk20 >= M_BADTAU) {
+			data->unk20 -= M_BADTAU;
+		}
+
+		data->unk14 = angle;
+	}
+}
 
 void modelSetUnk14(struct model *model, f32 arg1)
 {
