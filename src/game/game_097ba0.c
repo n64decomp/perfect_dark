@@ -20955,7 +20955,7 @@ glabel currentPlayerIsUsingSecondaryFunction
 
 void currentPlayerTickInventory(bool triggeron)
 {
-	bool gunsfiring[2] = {false, false};
+	s32 gunsfiring[2] = {false, false};
 	struct player *player = g_Vars.currentplayer;
 	s32 i;
 
@@ -20970,7 +20970,7 @@ void currentPlayerTickInventory(bool triggeron)
 		}
 
 		if (g_Vars.currentplayer->weaponnum != WEAPON_UNARMED
-				&& g_Vars.currentplayer->unk1582 != (u32)WEAPON_UNARMED) {
+				&& g_Vars.currentplayer->unk1582 != WEAPON_UNARMED) {
 			currentPlayerEquipWeapon(WEAPON_UNARMED);
 		}
 

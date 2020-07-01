@@ -2350,11 +2350,11 @@ struct player {
 	/*0x15f4*/ u32 unk15f4;
 	/*0x15f8*/ u32 unk15f8;
 	/*0x15fc*/ u32 unk15fc;
-	/*0x1600*/ u32 doautoselect;
+	/*0x1600*/ s32 doautoselect;
 	/*0x1604*/ u32 playertriggeron;
 	/*0x1608*/ u32 playertriggerprev;
 	/*0x160c*/ s32 playertrigtime240;
-	/*0x1610*/ u32 curguntofire; // 0 or 1, for dual wielding
+	/*0x1610*/ s32 curguntofire; // 0 or 1, for dual wielding
 	/*0x1614*/ u8 gunshadecol[4];
 	/*0x1618*/ s16 resetshadecol;
 	/*0x161a*/ u16 floorcol;

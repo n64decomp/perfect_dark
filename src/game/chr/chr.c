@@ -3806,90 +3806,35 @@ void func0f0220ac(struct chrdata *chr)
 	func0f065cb0(chr->prop);
 }
 
-GLOBAL_ASM(
-glabel func0f0220ec
-/*  f0220ec:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0220f0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0220f4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0220f8:	8c6e02ac */ 	lw	$t6,0x2ac($v1)
-/*  f0220fc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f022100:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f022104:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f022108:	24020006 */ 	addiu	$v0,$zero,0x6
-/*  f02210c:	00803825 */ 	or	$a3,$a0,$zero
-/*  f022110:	144e001f */ 	bne	$v0,$t6,.L0f022190
-/*  f022114:	8c900020 */ 	lw	$s0,0x20($a0)
-/*  f022118:	8c8f001c */ 	lw	$t7,0x1c($a0)
-/*  f02211c:	91f80000 */ 	lbu	$t8,0x0($t7)
-/*  f022120:	54580006 */ 	bnel	$v0,$t8,.L0f02213c
-/*  f022124:	8e020020 */ 	lw	$v0,0x20($s0)
-/*  f022128:	8c990014 */ 	lw	$t9,0x14($a0)
-/*  f02212c:	2401f7ff */ 	addiu	$at,$zero,-2049
-/*  f022130:	03214024 */ 	and	$t0,$t9,$at
-/*  f022134:	ac880014 */ 	sw	$t0,0x14($a0)
-/*  f022138:	8e020020 */ 	lw	$v0,0x20($s0)
-.L0f02213c:
-/*  f02213c:	50400015 */ 	beqzl	$v0,.L0f022194
-/*  f022140:	8ce20018 */ 	lw	$v0,0x18($a3)
-/*  f022144:	844a0000 */ 	lh	$t2,0x0($v0)
-/*  f022148:	3c098006 */ 	lui	$t1,%hi(g_Anims)
-/*  f02214c:	8d29f00c */ 	lw	$t1,%lo(g_Anims)($t1)
-/*  f022150:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f022154:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f022158:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f02215c:	012b6021 */ 	addu	$t4,$t1,$t3
-/*  f022160:	918d000b */ 	lbu	$t5,0xb($t4)
-/*  f022164:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*  f022168:	31ae0002 */ 	andi	$t6,$t5,0x2
-/*  f02216c:	51c00009 */ 	beqzl	$t6,.L0f022194
-/*  f022170:	8ce20018 */ 	lw	$v0,0x18($a3)
-/*  f022174:	59e00007 */ 	blezl	$t7,.L0f022194
-/*  f022178:	8ce20018 */ 	lw	$v0,0x18($a3)
-/*  f02217c:	906204e2 */ 	lbu	$v0,0x4e2($v1)
-/*  f022180:	18400003 */ 	blez	$v0,.L0f022190
-/*  f022184:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f022188:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f02218c:	afb90024 */ 	sw	$t9,0x24($sp)
-.L0f022190:
-/*  f022190:	8ce20018 */ 	lw	$v0,0x18($a3)
-.L0f022194:
-/*  f022194:	3c01dfff */ 	lui	$at,0xdfff
-/*  f022198:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f02219c:	00024080 */ 	sll	$t0,$v0,0x2
-/*  f0221a0:	05010003 */ 	bgez	$t0,.L0f0221b0
-/*  f0221a4:	00415024 */ 	and	$t2,$v0,$at
-/*  f0221a8:	10000015 */ 	b	.L0f022200
-/*  f0221ac:	acea0018 */ 	sw	$t2,0x18($a3)
-.L0f0221b0:
-/*  f0221b0:	10c00010 */ 	beqz	$a2,.L0f0221f4
-/*  f0221b4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0221b8:	8ce90014 */ 	lw	$t1,0x14($a3)
-/*  f0221bc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0221c0:	312b0800 */ 	andi	$t3,$t1,0x800
-/*  f0221c4:	5560000f */ 	bnezl	$t3,.L0f022204
-/*  f0221c8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0221cc:	0c006b43 */ 	jal	modelGetRootPosition
-/*  f0221d0:	24e500c8 */ 	addiu	$a1,$a3,0xc8
-/*  f0221d4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0221d8:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0221dc:	0c007b86 */ 	jal	func0001ee18
-/*  f0221e0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0221e4:	0c006cef */ 	jal	func0001b3bc
-/*  f0221e8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0221ec:	10000005 */ 	b	.L0f022204
-/*  f0221f0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0221f4:
-/*  f0221f4:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0221f8:	0c007b86 */ 	jal	func0001ee18
-/*  f0221fc:	00003025 */ 	or	$a2,$zero,$zero
-.L0f022200:
-/*  f022200:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f022204:
-/*  f022204:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f022208:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f02220c:	03e00008 */ 	jr	$ra
-/*  f022210:	00000000 */ 	nop
-);
+void func0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
+{
+	struct model *model = chr->model;
+
+	if (g_Vars.tickmode == TICKMODE_6) {
+		if (chr->prop->type == PROPTYPE_PLAYER) {
+			chr->hidden &= ~CHRHFLAG_KEEP_CORPSE;
+		}
+
+		if (model->anim
+				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_02)
+				&& arg1 > 0
+				&& g_Vars.unk0004e2 > 0) {
+			arg1 += g_Vars.unk0004e2 * 4;
+		}
+	}
+
+	if ((chr->chrflags & CHRCFLAG_20000000)) {
+		chr->chrflags &= ~CHRCFLAG_20000000;
+	} else if (arg2) {
+		if ((chr->hidden & CHRHFLAG_KEEP_CORPSE) == 0) {
+			modelGetRootPosition(model, &chr->prevpos);
+			func0001ee18(model, arg1, 1);
+			func0001b3bc(model);
+		}
+	} else {
+		func0001ee18(model, arg1, 0);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f022214
