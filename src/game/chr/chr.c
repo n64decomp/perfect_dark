@@ -9588,74 +9588,37 @@ glabel func0f0270f4
 /*  f0278a0:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-GLOBAL_ASM(
-glabel func0f0278a4
-/*  f0278a4:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0278a8:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0278ac:	afb30030 */ 	sw	$s3,0x30($sp)
-/*  f0278b0:	afb2002c */ 	sw	$s2,0x2c($sp)
-/*  f0278b4:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f0278b8:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f0278bc:	f7b60018 */ 	sdc1	$f22,0x18($sp)
-/*  f0278c0:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f0278c4:	8c850020 */ 	lw	$a1,0x20($a0)
-/*  f0278c8:	4480a000 */ 	mtc1	$zero,$f20
-/*  f0278cc:	00809825 */ 	or	$s3,$a0,$zero
-/*  f0278d0:	10a00024 */ 	beqz	$a1,.L0f027964
-/*  f0278d4:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f0278d8:	0c006be0 */ 	jal	func0001af80
-/*  f0278dc:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f0278e0:	46000586 */ 	mov.s	$f22,$f0
-/*  f0278e4:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0278e8:	02608825 */ 	or	$s1,$s3,$zero
-/*  f0278ec:	24120008 */ 	addiu	$s2,$zero,0x8
-.L0f0278f0:
-/*  f0278f0:	8e230170 */ 	lw	$v1,0x170($s1)
-/*  f0278f4:	5060000d */ 	beqzl	$v1,.L0f02792c
-/*  f0278f8:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f0278fc:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f027900:	0c006be0 */ 	jal	func0001af80
-/*  f027904:	8c440018 */ 	lw	$a0,0x18($v0)
-/*  f027908:	8e6e0020 */ 	lw	$t6,0x20($s3)
-/*  f02790c:	c5c40014 */ 	lwc1	$f4,0x14($t6)
-/*  f027910:	46040082 */ 	mul.s	$f2,$f0,$f4
-/*  f027914:	4602a03c */ 	c.lt.s	$f20,$f2
-/*  f027918:	00000000 */ 	nop
-/*  f02791c:	45020003 */ 	bc1fl	.L0f02792c
-/*  f027920:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f027924:	46001506 */ 	mov.s	$f20,$f2
-/*  f027928:	26100004 */ 	addiu	$s0,$s0,0x4
-.L0f02792c:
-/*  f02792c:	1612fff0 */ 	bne	$s0,$s2,.L0f0278f0
-/*  f027930:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f027934:	4614b580 */ 	add.s	$f22,$f22,$f20
-/*  f027938:	0fc0cfe8 */ 	jal	chrGetShield
-/*  f02793c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f027940:	44803000 */ 	mtc1	$zero,$f6
-/*  f027944:	3c014120 */ 	lui	$at,0x4120
-/*  f027948:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f02794c:	00000000 */ 	nop
-/*  f027950:	45020007 */ 	bc1fl	.L0f027970
-/*  f027954:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f027958:	44814000 */ 	mtc1	$at,$f8
-/*  f02795c:	10000003 */ 	b	.L0f02796c
-/*  f027960:	4608b580 */ 	add.s	$f22,$f22,$f8
-.L0f027964:
-/*  f027964:	4481b000 */ 	mtc1	$at,$f22
-/*  f027968:	00000000 */ 	nop
-.L0f02796c:
-/*  f02796c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f027970:
-/*  f027970:	4600b006 */ 	mov.s	$f0,$f22
-/*  f027974:	d7b60018 */ 	ldc1	$f22,0x18($sp)
-/*  f027978:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f02797c:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f027980:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f027984:	8fb2002c */ 	lw	$s2,0x2c($sp)
-/*  f027988:	8fb30030 */ 	lw	$s3,0x30($sp)
-/*  f02798c:	03e00008 */ 	jr	$ra
-/*  f027990:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+f32 func0f0278a4(struct chrdata *chr)
+{
+	s32 i;
+	f32 result;
+	f32 highest = 0;
+
+	if (chr->model) {
+		result = func0001af80(chr->model);
+
+		for (i = 0; i < 2; i++) {
+			if (chr->weapons_held[i]) {
+				struct defaultobj *obj = chr->weapons_held[i]->obj;
+				f32 value = func0001af80(obj->model) * chr->model->unk14;
+
+				if (value > highest) {
+					highest = value;
+				}
+			}
+		}
+
+		result += highest;
+
+		if (chrGetShield(chr) > 0) {
+			result += 10;
+		}
+	} else {
+		result = 100;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f027994
