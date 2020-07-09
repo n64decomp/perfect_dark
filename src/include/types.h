@@ -4095,10 +4095,6 @@ struct menustackitem {
 };
 
 struct savefile_solo {
-	/**
-	 * This is a little weird. The name entry is clearly 10 characters plus a
-	 * null byte, but there is other code that uses unk08 for other purposes.
-	 */
 	/*0x00*/ char name[11];
 	/*0x0b*/ u8 unk0b_0 : 5;
 	/*0x0b*/ u8 unk0b_5 : 3;
@@ -4109,7 +4105,7 @@ struct savefile_solo {
 	/*0x1c*/ u16 unk1c;
 	/*0x1e*/ u16 unk1e;
 	/*0x20*/ u16 besttimes[NUM_SOLOSTAGES][3];
-	/*0xa0*/ s32 coopcompletions[3];
+	/*0xa0*/ s32 coopcompletions[3]; // indexed by difficulty
 	/*0xac*/ u8 firingrangescores[9];
 	/*0xb5*/ u8 weaponsfound[6];
 };

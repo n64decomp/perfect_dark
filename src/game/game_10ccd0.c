@@ -1309,49 +1309,16 @@ const char var7f1b38bc[] = "\n";
 //	return g_StringPointer;
 //}
 
-GLOBAL_ASM(
-glabel func0f10e588
-/*  f10e588:	3c0e800a */ 	lui	$t6,%hi(g_CheatsActiveBank0)
-/*  f10e58c:	8dce21d0 */ 	lw	$t6,%lo(g_CheatsActiveBank0)($t6)
-/*  f10e590:	3c0f800a */ 	lui	$t7,%hi(g_CheatsActiveBank1)
-/*  f10e594:	15c00020 */ 	bnez	$t6,.L0f10e618
-/*  f10e598:	00000000 */ 	nop
-/*  f10e59c:	8def21d4 */ 	lw	$t7,%lo(g_CheatsActiveBank1)($t7)
-/*  f10e5a0:	3c05800a */ 	lui	$a1,%hi(g_MissionConfig)
-/*  f10e5a4:	24a5dfe8 */ 	addiu	$a1,$a1,%lo(g_MissionConfig)
-/*  f10e5a8:	15e0001b */ 	bnez	$t7,.L0f10e618
-/*  f10e5ac:	3c09800a */ 	lui	$t1,%hi(g_SoloSaveFile)
-/*  f10e5b0:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*  f10e5b4:	25292200 */ 	addiu	$t1,$t1,%lo(g_SoloSaveFile)
-/*  f10e5b8:	90aa0002 */ 	lbu	$t2,0x2($a1)
-/*  f10e5bc:	0018ce42 */ 	srl	$t9,$t8,0x19
-/*  f10e5c0:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f10e5c4:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f10e5c8:	8c4300a0 */ 	lw	$v1,0xa0($v0)
-/*  f10e5cc:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f10e5d0:	014b2004 */ 	sllv	$a0,$t3,$t2
-/*  f10e5d4:	00646024 */ 	and	$t4,$v1,$a0
-/*  f10e5d8:	1180000e */ 	beqz	$t4,.L0f10e614
-/*  f10e5dc:	0064c025 */ 	or	$t8,$v1,$a0
-/*  f10e5e0:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10e5e4:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10e5e8:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe24)
-/*  f10e5ec:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f10e5f0:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10e5f4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10e5f8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10e5fc:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10e600:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10e604:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10e608:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10e60c:	002f0821 */ 	addu	$at,$at,$t7
-/*  f10e610:	ac2dee24 */ 	sw	$t5,%lo(g_MenuStack+0xe24)($at)
-.L0f10e614:
-/*  f10e614:	ac5800a0 */ 	sw	$t8,0xa0($v0)
-.L0f10e618:
-/*  f10e618:	03e00008 */ 	jr	$ra
-/*  f10e61c:	00000000 */ 	nop
-);
+void endscreenSetCoopCompleted(void)
+{
+	if (g_CheatsActiveBank0 == 0 && g_CheatsActiveBank1 == 0) {
+		if (g_SoloSaveFile.coopcompletions[g_MissionConfig.difficulty] & (1 << g_MissionConfig.stageindex)) {
+			g_MenuStack[g_MpPlayerNum].unke24 = 1;
+		}
+
+		g_SoloSaveFile.coopcompletions[g_MissionConfig.difficulty] |= (1 << g_MissionConfig.stageindex);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f10e620
@@ -1469,7 +1436,7 @@ glabel func0f10e620
 /*  f10e7cc:	000251c2 */ 	srl	$t2,$v0,0x7
 /*  f10e7d0:	11400007 */ 	beqz	$t2,.L0f10e7f0
 /*  f10e7d4:	01401025 */ 	or	$v0,$t2,$zero
-/*  f10e7d8:	0fc43962 */ 	jal	func0f10e588
+/*  f10e7d8:	0fc43962 */ 	jal	endscreenSetCoopCompleted
 /*  f10e7dc:	00000000 */ 	nop
 /*  f10e7e0:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig+0x3)
 /*  f10e7e4:	9042dfeb */ 	lbu	$v0,%lo(g_MissionConfig+0x3)($v0)
@@ -1893,7 +1860,7 @@ glabel func0f10ecb4
 /*  f10edf0:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f10edf4:	24050005 */ 	addiu	$a1,$zero,0x5
 .L0f10edf8:
-/*  f10edf8:	0fc43962 */ 	jal	func0f10e588
+/*  f10edf8:	0fc43962 */ 	jal	endscreenSetCoopCompleted
 /*  f10edfc:	00000000 */ 	nop
 .L0f10ee00:
 /*  f10ee00:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x2a0)
