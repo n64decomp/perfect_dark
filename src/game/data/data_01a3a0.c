@@ -281,7 +281,7 @@ struct menu_item menuitems_1b570[] = {
 // 1b5c0
 struct menu_dialog menudialog_1b5c0 = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f10ce74,
+	(u32)&menuDialogTitleRetryStageName,
 	menuitems_1b570,
 	menudialogRetryMission,
 	0x0000000c,
