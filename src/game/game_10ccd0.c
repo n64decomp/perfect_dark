@@ -100,73 +100,36 @@ void menudialogRetryMission(u32 operation, struct menu_dialog *dialog, struct me
 char *menuDialogTitleRetryStageName(struct menu_dialog *dialog)
 {
 	char *name;
-	char *status;
+	char *prefix;
 
 	if (g_MenuStack[g_MpPlayerNum].curframe->dialog != dialog) {
 		return langGet(L_OPTIONS(300)); // "Objectives"
 	}
 
-	status = langGet(L_OPTIONS(296)); // "Retry"
+	prefix = langGet(L_OPTIONS(296)); // "Retry"
 	name = langGet(g_StageNames[g_MissionConfig.stageindex].name3);
 
-	sprintf(g_StringPointer, "%s: %s\n", status, name);
+	sprintf(g_StringPointer, "%s: %s\n", prefix, name);
 
 	return g_StringPointer;
 }
 
-const char var7f1b3868[] = "%s: %s\n";
+char *menuDialogTitleNextMissionStageName(struct menu_dialog *dialog)
+{
+	char *name;
+	char *prefix;
 
-GLOBAL_ASM(
-glabel func0f10cf2c
-/*  f10cf2c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10cf30:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10cf34:	3c18800a */ 	lui	$t8,%hi(g_MenuStack+0x4f8)
-/*  f10cf38:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10cf3c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10cf40:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10cf44:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10cf48:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10cf4c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10cf50:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10cf54:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10cf58:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f10cf5c:	8f18e4f8 */ 	lw	$t8,%lo(g_MenuStack+0x4f8)($t8)
-/*  f10cf60:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10cf64:	8f190000 */ 	lw	$t9,0x0($t8)
-/*  f10cf68:	10990005 */ 	beq	$a0,$t9,.L0f10cf80
-/*  f10cf6c:	00000000 */ 	nop
-/*  f10cf70:	0fc5b9f1 */ 	jal	langGet
-/*  f10cf74:	2404572c */ 	addiu	$a0,$zero,0x572c
-/*  f10cf78:	10000017 */ 	b	.L0f10cfd8
-/*  f10cf7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10cf80:
-/*  f10cf80:	0fc5b9f1 */ 	jal	langGet
-/*  f10cf84:	24045729 */ 	addiu	$a0,$zero,0x5729
-/*  f10cf88:	3c08800a */ 	lui	$t0,%hi(g_MissionConfig+0x2)
-/*  f10cf8c:	9108dfea */ 	lbu	$t0,%lo(g_MissionConfig+0x2)($t0)
-/*  f10cf90:	3c048007 */ 	lui	$a0,%hi(g_StageNames+0xa)
-/*  f10cf94:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f10cf98:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f10cf9c:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f10cfa0:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f10cfa4:	00892021 */ 	addu	$a0,$a0,$t1
-/*  f10cfa8:	0fc5b9f1 */ 	jal	langGet
-/*  f10cfac:	94841e76 */ 	lhu	$a0,%lo(g_StageNames+0xa)($a0)
-/*  f10cfb0:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f10cfb4:	3c057f1b */ 	lui	$a1,%hi(var7f1b3868)
-/*  f10cfb8:	24a53868 */ 	addiu	$a1,$a1,%lo(var7f1b3868)
-/*  f10cfbc:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10cfc0:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f10cfc4:	0c004dad */ 	jal	sprintf
-/*  f10cfc8:	00403825 */ 	or	$a3,$v0,$zero
-/*  f10cfcc:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f10cfd0:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f10cfd4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10cfd8:
-/*  f10cfd8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f10cfdc:	03e00008 */ 	jr	$ra
-/*  f10cfe0:	00000000 */ 	nop
-);
+	if (g_MenuStack[g_MpPlayerNum].curframe->dialog != dialog) {
+		return langGet(L_OPTIONS(300)); // "Objectives"
+	}
+
+	prefix = langGet(L_OPTIONS(297)); // "Next Mission"
+	name = langGet(g_StageNames[g_MissionConfig.stageindex].name3);
+
+	sprintf(g_StringPointer, "%s: %s\n", prefix, name);
+
+	return g_StringPointer;
+}
 
 s32 menuhandlerReplayPreviousMission(u32 operation, struct menu_item *item, s32 *value)
 {

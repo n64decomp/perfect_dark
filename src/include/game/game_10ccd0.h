@@ -12,7 +12,7 @@ s32 menuhandlerContinueMission(u32 operation, struct menu_item *item, s32 *value
 s32 menuhandlerReplayLastLevel(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerReplayPreviousMission(u32 operation, struct menu_item *item, s32 *value);
 char *menuDialogTitleRetryStageName(struct menu_dialog *dialog);
-u32 func0f10cf2c(void);
+char *menuDialogTitleNextMissionStageName(struct menu_dialog *dialog);
 char *soloMenuTextNumKills(struct menu_item *item);
 char *soloMenuTextNumShots(struct menu_item *item);
 char *soloMenuTextNumHeadShots(struct menu_item *item);

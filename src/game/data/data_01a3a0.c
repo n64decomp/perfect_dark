@@ -301,7 +301,7 @@ struct menu_item g_MenuItemsPromptNextMission[] = {
 // 1b650
 struct menu_dialog g_MenuDialogPromptNextMission = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f10cf2c,
+	(u32)&menuDialogTitleNextMissionStageName,
 	g_MenuItemsPromptNextMission,
 	menudialogRetryMission,
 	0x0000000c,
