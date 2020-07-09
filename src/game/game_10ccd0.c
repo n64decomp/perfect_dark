@@ -1809,65 +1809,27 @@ glabel func0f10ecb4
 /*  f10ee3c:	ac2a1448 */ 	sw	$t2,%lo(g_MpPlayerNum)($at)
 );
 
-GLOBAL_ASM(
-glabel func0f10ee40
-/*  f10ee40:	0000c0c0 */ 	sll	$t8,$zero,0x3
-/*  f10ee44:	0300c023 */ 	subu	$t8,$t8,$zero
-/*  f10ee48:	3c048007 */ 	lui	$a0,%hi(g_MpPlayerNum)
-/*  f10ee4c:	0018c140 */ 	sll	$t8,$t8,0x5
-/*  f10ee50:	24841448 */ 	addiu	$a0,$a0,%lo(g_MpPlayerNum)
-/*  f10ee54:	0300c023 */ 	subu	$t8,$t8,$zero
-/*  f10ee58:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f10ee5c:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f10ee60:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0x83b)
-/*  f10ee64:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f10ee68:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f10ee6c:	00380821 */ 	addu	$at,$at,$t8
-/*  f10ee70:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f10ee74:	a020e83b */ 	sb	$zero,%lo(g_MenuStack+0x83b)($at)
-/*  f10ee78:	8c6202a0 */ 	lw	$v0,0x2a0($v1)
-/*  f10ee7c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10ee80:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10ee84:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f10ee88:	8c5900d8 */ 	lw	$t9,0xd8($v0)
-/*  f10ee8c:	53200006 */ 	beqzl	$t9,.L0f10eea8
-/*  f10ee90:	8c4a048c */ 	lw	$t2,0x48c($v0)
-/*  f10ee94:	8c6802a4 */ 	lw	$t0,0x2a4($v1)
-/*  f10ee98:	8d0900d8 */ 	lw	$t1,0xd8($t0)
-/*  f10ee9c:	1520000c */ 	bnez	$t1,.L0f10eed0
-/*  f10eea0:	00000000 */ 	nop
-/*  f10eea4:	8c4a048c */ 	lw	$t2,0x48c($v0)
-.L0f10eea8:
-/*  f10eea8:	15400009 */ 	bnez	$t2,.L0f10eed0
-/*  f10eeac:	00000000 */ 	nop
-/*  f10eeb0:	8c6b02a4 */ 	lw	$t3,0x2a4($v1)
-/*  f10eeb4:	8d6c048c */ 	lw	$t4,0x48c($t3)
-/*  f10eeb8:	15800005 */ 	bnez	$t4,.L0f10eed0
-/*  f10eebc:	00000000 */ 	nop
-/*  f10eec0:	0fc256d9 */ 	jal	objectiveIsAllComplete
-/*  f10eec4:	00000000 */ 	nop
-/*  f10eec8:	14400009 */ 	bnez	$v0,.L0f10eef0
-/*  f10eecc:	00000000 */ 	nop
-.L0f10eed0:
-/*  f10eed0:	0fc435dc */ 	jal	func0f10d770
-/*  f10eed4:	00000000 */ 	nop
-/*  f10eed8:	3c048007 */ 	lui	$a0,%hi(menudialog_1b5c0)
-/*  f10eedc:	248455a0 */ 	addiu	$a0,$a0,%lo(menudialog_1b5c0)
-/*  f10eee0:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10eee4:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f10eee8:	10000004 */ 	b	.L0f10eefc
-/*  f10eeec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10eef0:
-/*  f10eef0:	0fc43644 */ 	jal	func0f10d910
-/*  f10eef4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f10eef8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10eefc:
-/*  f10eefc:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*  f10ef00:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
-/*  f10ef04:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f10ef08:	03e00008 */ 	jr	$ra
-/*  f10ef0c:	ac2d1448 */ 	sw	$t5,%lo(g_MpPlayerNum)($at)
-);
+void func0f10ee40(void)
+{
+	u32 prevplayernum = g_MpPlayerNum;
+
+	g_MpPlayerNum = 0;
+	g_MenuStack[g_MpPlayerNum].playernum = 0;
+
+	if ((g_Vars.bond->isdead && g_Vars.coop->isdead)
+			|| g_Vars.bond->aborted
+			|| g_Vars.coop->aborted
+			|| !objectiveIsAllComplete()) {
+		// Failed or aborted
+		func0f10d770();
+		menuPushRootDialog(&menudialog_1b5c0, MENUROOT_9);
+	} else {
+		// Completed
+		func0f10d910(1);
+	}
+
+	g_MpPlayerNum = prevplayernum;
+}
 
 GLOBAL_ASM(
 glabel func0f10ef10

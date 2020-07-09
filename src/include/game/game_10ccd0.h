@@ -35,7 +35,7 @@ char *soloMenuTextTargetTime(struct menu_item *item);
 void endscreenSetCoopCompleted(void);
 u32 func0f10e620(void);
 u32 func0f10ecb4(void);
-u32 func0f10ee40(void);
+void func0f10ee40(void);
 u32 func0f10ef10(void);
 
 #endif
