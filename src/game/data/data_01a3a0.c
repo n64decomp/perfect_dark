@@ -439,7 +439,7 @@ struct menu_item menuitems_1b98c[] = {
 // 1bb44
 struct menu_dialog menudialog_1bb44 = {
 	MENUDIALOGTYPE_SUCCESS,
-	(u32)&func0f10d588,
+	(u32)&menuTitleStageCompleted,
 	menuitems_1b98c,
 	menudialog0010dd28,
 	0x00000048,
@@ -459,7 +459,7 @@ struct menu_dialog menudialog_1bb5c = {
 // 1bb74
 struct menu_dialog menudialog_1bb74 = {
 	MENUDIALOGTYPE_SUCCESS,
-	(u32)&func0f10d588,
+	(u32)&menuTitleStageCompleted,
 	menuitems_1b98c,
 	menudialog0010dd28,
 	0x00000048,

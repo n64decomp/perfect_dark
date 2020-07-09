@@ -355,48 +355,14 @@ char *soloMenuTextAgentStatus(struct menu_item *item)
 	return langGet(L_OPTIONS(291)); // "Active"
 }
 
-GLOBAL_ASM(
-glabel func0f10d588
-/*  f10d588:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10d58c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10d590:	3c18800a */ 	lui	$t8,%hi(g_MenuStack+0xe2c)
-/*  f10d594:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10d598:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10d59c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10d5a0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10d5a4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10d5a8:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10d5ac:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10d5b0:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10d5b4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f10d5b8:	8f18ee2c */ 	lw	$t8,%lo(g_MenuStack+0xe2c)($t8)
-/*  f10d5bc:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f10d5c0:	3c048007 */ 	lui	$a0,%hi(g_StageNames+0xa)
-/*  f10d5c4:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f10d5c8:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10d5cc:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f10d5d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10d5d4:	00992021 */ 	addu	$a0,$a0,$t9
-/*  f10d5d8:	0fc5b9f1 */ 	jal	langGet
-/*  f10d5dc:	94841e76 */ 	lhu	$a0,%lo(g_StageNames+0xa)($a0)
-/*  f10d5e0:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f10d5e4:	0fc5b9f1 */ 	jal	langGet
-/*  f10d5e8:	24045714 */ 	addiu	$a0,$zero,0x5714
-/*  f10d5ec:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f10d5f0:	3c057f1b */ 	lui	$a1,%hi(var7f1b389c)
-/*  f10d5f4:	24a5389c */ 	addiu	$a1,$a1,%lo(var7f1b389c)
-/*  f10d5f8:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10d5fc:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f10d600:	0c004dad */ 	jal	sprintf
-/*  f10d604:	00403825 */ 	or	$a3,$v0,$zero
-/*  f10d608:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10d60c:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f10d610:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f10d614:	03e00008 */ 	jr	$ra
-/*  f10d618:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+char *menuTitleStageCompleted(struct menu_item *item)
+{
+	sprintf(g_StringPointer, "%s: %s\n",
+			langGet(g_StageNames[g_MenuStack[g_MpPlayerNum].unke2c].name3),
+			langGet(L_OPTIONS(276))); // "Completed"
 
-const char var7f1b389c[] = "%s: %s\n";
+	return g_StringPointer;
+}
 
 char *menuTextCurrentStageName3(struct menu_item *item)
 {
