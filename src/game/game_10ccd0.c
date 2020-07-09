@@ -208,7 +208,7 @@ s32 menuhandlerReplayPreviousMission(u32 operation, struct menu_item *item, s32 
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.stageindex--;
-		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stage;
+		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
 	}
 
 	return menuhandlerAcceptMission(operation, NULL, value);
@@ -466,25 +466,13 @@ char *soloMenuTextMissionTime(struct menu_item *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f10d730
-/*  f10d730:	3c03800a */ 	lui	$v1,%hi(g_MissionConfig)
-/*  f10d734:	2463dfe8 */ 	addiu	$v1,$v1,%lo(g_MissionConfig)
-/*  f10d738:	906e0002 */ 	lbu	$t6,0x2($v1)
-/*  f10d73c:	3c088007 */ 	lui	$t0,%hi(g_StageNames)
-/*  f10d740:	3c028007 */ 	lui	$v0,%hi(menudialog_promptnextmission)
-/*  f10d744:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f10d748:	31f800ff */ 	andi	$t8,$t7,0xff
-/*  f10d74c:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f10d750:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10d754:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f10d758:	a06f0002 */ 	sb	$t7,0x2($v1)
-/*  f10d75c:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f10d760:	8d081e6c */ 	lw	$t0,%lo(g_StageNames)($t0)
-/*  f10d764:	24425630 */ 	addiu	$v0,$v0,%lo(menudialog_promptnextmission)
-/*  f10d768:	03e00008 */ 	jr	$ra
-/*  f10d76c:	a0680001 */ 	sb	$t0,0x1($v1)
-);
+struct menu_dialog *func0f10d730(void)
+{
+	g_MissionConfig.stageindex++;
+	g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
+
+	return &g_MenuDialogPromptNextMission;
+}
 
 void func0f10d770(void)
 {
@@ -504,7 +492,7 @@ void func0f10d770(void)
 s32 menuhandlerReplayLastLevel(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stage;
+		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
 		return menuhandlerAcceptMission(operation, NULL, value);
 	}
 

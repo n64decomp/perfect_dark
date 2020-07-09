@@ -34,7 +34,7 @@ extern struct menu_dialog menudialog_mpdropout;
 extern struct menu_dialog g_MpEditSimulant4MbMenuDialog;
 extern struct menu_dialog g_4MbAdvancedSetupMenuDialog;
 extern struct menu_dialog menudialog_1b5c0;
-extern struct menu_dialog menudialog_promptnextmission;
+extern struct menu_dialog g_MenuDialogPromptNextMission;
 extern struct menu_dialog menudialog_1b7a4;
 extern u32 var80075968;
 extern struct menu_dialog menudialog_1bb44;

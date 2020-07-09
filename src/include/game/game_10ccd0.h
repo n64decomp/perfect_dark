@@ -26,7 +26,7 @@ u32 func0f10d588(void);
 u32 func0f10d61c(void);
 u32 func0f10d678(void);
 char *soloMenuTextMissionTime(struct menu_item *item);
-u32 func0f10d730(void);
+struct menu_dialog *func0f10d730(void);
 void func0f10d770(void);
 void func0f10d910(s32 arg0);
 char *soloMenuTextCheatName(struct menu_item *item);

@@ -289,7 +289,7 @@ struct menu_dialog menudialog_1b5c0 = {
 };
 
 // 1b5d8
-struct menu_item menuitems_promptnextmission[] = {
+struct menu_item g_MenuItemsPromptNextMission[] = {
 	{ MENUITEMTYPE_OBJECTIVES,  1, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(298), 0x00000000, menuhandlerAcceptMission }, // "Accept"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(299), 0x00000000, menuhandlerDeclineMission }, // "Decline"
@@ -299,10 +299,10 @@ struct menu_item menuitems_promptnextmission[] = {
 };
 
 // 1b650
-struct menu_dialog menudialog_promptnextmission = {
+struct menu_dialog g_MenuDialogPromptNextMission = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f10cf2c,
-	menuitems_promptnextmission,
+	g_MenuItemsPromptNextMission,
 	menudialogRetryMission,
 	0x0000000c,
 	&menudialog_briefing,
