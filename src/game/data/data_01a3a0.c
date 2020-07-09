@@ -449,7 +449,7 @@ struct menu_dialog menudialog_1bb44 = {
 // 1bb5c
 struct menu_dialog menudialog_1bb5c = {
 	MENUDIALOGTYPE_DANGER,
-	(u32)&func0f10d678,
+	(u32)&menuTitleStageFailed,
 	menuitems_1b98c,
 	menudialog0010de58,
 	0x00000048,
@@ -469,7 +469,7 @@ struct menu_dialog menudialog_1bb74 = {
 // 1bb8c
 struct menu_dialog menudialog_1bb8c = {
 	MENUDIALOGTYPE_DANGER,
-	(u32)&func0f10d678,
+	(u32)&menuTitleStageFailed,
 	menuitems_1b98c,
 	menudialog0010de58,
 	0x00000048,

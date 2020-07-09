@@ -24,7 +24,7 @@ char *soloMenuTextMissionStatus(struct menu_item *item);
 char *soloMenuTextAgentStatus(struct menu_item *item);
 u32 func0f10d588(void);
 char *menuTextCurrentStageName3(struct menu_item *item);
-u32 func0f10d678(void);
+char *menuTitleStageFailed(struct menu_item *item);
 char *soloMenuTextMissionTime(struct menu_item *item);
 struct menu_dialog *func0f10d730(void);
 void func0f10d770(void);

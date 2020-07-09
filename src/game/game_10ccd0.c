@@ -406,38 +406,14 @@ char *menuTextCurrentStageName3(struct menu_item *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f10d678
-/*  f10d678:	3c0e800a */ 	lui	$t6,%hi(g_MissionConfig+0x2)
-/*  f10d67c:	91cedfea */ 	lbu	$t6,%lo(g_MissionConfig+0x2)($t6)
-/*  f10d680:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10d684:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f10d688:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f10d68c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10d690:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10d694:	3c048007 */ 	lui	$a0,%hi(g_StageNames+0xa)
-/*  f10d698:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10d69c:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f10d6a0:	0fc5b9f1 */ 	jal	langGet
-/*  f10d6a4:	94841e76 */ 	lhu	$a0,%lo(g_StageNames+0xa)($a0)
-/*  f10d6a8:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f10d6ac:	0fc5b9f1 */ 	jal	langGet
-/*  f10d6b0:	24045715 */ 	addiu	$a0,$zero,0x5715
-/*  f10d6b4:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f10d6b8:	3c057f1b */ 	lui	$a1,%hi(var7f1b38a8)
-/*  f10d6bc:	24a538a8 */ 	addiu	$a1,$a1,%lo(var7f1b38a8)
-/*  f10d6c0:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10d6c4:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f10d6c8:	0c004dad */ 	jal	sprintf
-/*  f10d6cc:	00403825 */ 	or	$a3,$v0,$zero
-/*  f10d6d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10d6d4:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f10d6d8:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f10d6dc:	03e00008 */ 	jr	$ra
-/*  f10d6e0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+char *menuTitleStageFailed(struct menu_item *item)
+{
+	sprintf(g_StringPointer, "%s: %s\n",
+			langGet(g_StageNames[g_MissionConfig.stageindex].name3),
+			langGet(L_OPTIONS(277))); // "Failed"
 
-const char var7f1b38a8[] = "%s: %s\n";
+	return g_StringPointer;
+}
 
 char *soloMenuTextMissionTime(struct menu_item *item)
 {
