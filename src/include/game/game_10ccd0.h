@@ -23,7 +23,7 @@ char *soloMenuTextAccuracy(struct menu_item *item);
 char *soloMenuTextMissionStatus(struct menu_item *item);
 char *soloMenuTextAgentStatus(struct menu_item *item);
 u32 func0f10d588(void);
-u32 func0f10d61c(void);
+char *menuTextCurrentStageName3(struct menu_item *item);
 u32 func0f10d678(void);
 char *soloMenuTextMissionTime(struct menu_item *item);
 struct menu_dialog *func0f10d730(void);

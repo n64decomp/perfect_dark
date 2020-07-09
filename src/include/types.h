@@ -3136,11 +3136,11 @@ struct mptrack {
 };
 
 struct stageoverviewentry {
-	u32 stagenum;
-	u8 unk04;
-	u16 name1; // "dataDyne Central"
-	u16 name2; // " - Defection"
-	u16 name3; // "dataDyne Defection"
+	/*0x00*/ u32 stagenum;
+	/*0x04*/ u8 unk04;
+	/*0x06*/ u16 name1; // "dataDyne Central"
+	/*0x08*/ u16 name2; // " - Defection"
+	/*0x0a*/ u16 name3; // "dataDyne Defection"
 };
 
 struct stagemusic {

@@ -396,32 +396,15 @@ glabel func0f10d588
 /*  f10d618:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel func0f10d61c
-/*  f10d61c:	3c0e800a */ 	lui	$t6,%hi(g_MissionConfig+0x2)
-/*  f10d620:	91cedfea */ 	lbu	$t6,%lo(g_MissionConfig+0x2)($t6)
-/*  f10d624:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10d628:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10d62c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f10d630:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10d634:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10d638:	3c048007 */ 	lui	$a0,%hi(g_StageNames+0xa)
-/*  f10d63c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10d640:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f10d644:	0fc5b9f1 */ 	jal	langGet
-/*  f10d648:	94841e76 */ 	lhu	$a0,%lo(g_StageNames+0xa)($a0)
-/*  f10d64c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f10d650:	3c057f1b */ 	lui	$a1,%hi(var7f1b38a4)
-/*  f10d654:	24a538a4 */ 	addiu	$a1,$a1,%lo(var7f1b38a4)
-/*  f10d658:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10d65c:	0c004dad */ 	jal	sprintf
-/*  f10d660:	00403025 */ 	or	$a2,$v0,$zero
-/*  f10d664:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10d668:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f10d66c:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f10d670:	03e00008 */ 	jr	$ra
-/*  f10d674:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+const char var7f1b389c[] = "%s: %s\n";
+
+char *menuTextCurrentStageName3(struct menu_item *item)
+{
+	char *name = langGet(g_StageNames[g_MissionConfig.stageindex].name3);
+	sprintf(g_StringPointer, "%s\n", name);
+
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f10d678
@@ -454,8 +437,6 @@ glabel func0f10d678
 /*  f10d6e0:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-const char var7f1b389c[] = "%s: %s\n";
-const char var7f1b38a4[] = "%s\n";
 const char var7f1b38a8[] = "%s: %s\n";
 
 char *soloMenuTextMissionTime(struct menu_item *item)

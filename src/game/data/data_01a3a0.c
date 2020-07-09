@@ -374,7 +374,7 @@ struct menu_item menuitems_1b768[] = {
 // 1b7a4
 struct menu_dialog menudialog_1b7a4 = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f10d61c,
+	(u32)&menuTextCurrentStageName3,
 	menuitems_1b768,
 	NULL,
 	0x00000004,
