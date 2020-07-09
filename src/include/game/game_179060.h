@@ -70,7 +70,7 @@ u32 menuhandlerMpNumberOfSimulants(u32 operation, struct menu_item *item, s32 *v
 u32 menuhandlerMpSimulantsPerTeam(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0017f74c(u32, u32, u32 *);
 u32 func0f17fa28(void);
-u32 func0f17fcb0(void);
+void func0f17fcb0(bool silent);
 s32 menuhandlerMpSlowMotion(u32, u32, u32 *);
 u32 func0f17ff8c(void);
 u32 func0f17ffe4(void);
