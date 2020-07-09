@@ -1343,10 +1343,10 @@ glabel func0f10e620
 /*  f10e784:	0fc256d9 */ 	jal	objectiveIsAllComplete
 /*  f10e788:	00000000 */ 	nop
 /*  f10e78c:	1440000a */ 	bnez	$v0,.L0f10e7b8
-/*  f10e790:	3c048007 */ 	lui	$a0,%hi(menudialog_1bb44)
+/*  f10e790:	3c048007 */ 	lui	$a0,%hi(g_MenuDialogSoloEndscreenCompleted)
 .L0f10e794:
-/*  f10e794:	3c048007 */ 	lui	$a0,%hi(menudialog_1bb5c)
-/*  f10e798:	24845b3c */ 	addiu	$a0,$a0,%lo(menudialog_1bb5c)
+/*  f10e794:	3c048007 */ 	lui	$a0,%hi(g_MenuDialogSoloEndscreenFailed)
+/*  f10e798:	24845b3c */ 	addiu	$a0,$a0,%lo(g_MenuDialogSoloEndscreenFailed)
 /*  f10e79c:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f10e7a0:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f10e7a4:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig+0x3)
@@ -1355,7 +1355,7 @@ glabel func0f10e620
 /*  f10e7b0:	1000000f */ 	b	.L0f10e7f0
 /*  f10e7b4:	01201025 */ 	or	$v0,$t1,$zero
 .L0f10e7b8:
-/*  f10e7b8:	24845b24 */ 	addiu	$a0,$a0,%lo(menudialog_1bb44)
+/*  f10e7b8:	24845b24 */ 	addiu	$a0,$a0,%lo(g_MenuDialogSoloEndscreenCompleted)
 /*  f10e7bc:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f10e7c0:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f10e7c4:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig+0x3)
@@ -1698,7 +1698,7 @@ glabel func0f10e620
 /*  f10ecb0:	00000000 */ 	nop
 );
 
-void func0f10ecb4(void)
+void soloPushCoopModeEndscreen(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
 
@@ -1717,16 +1717,16 @@ void func0f10ecb4(void)
 			|| !objectiveIsAllComplete()) {
 		// Failed or aborted
 		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
-			menuPushRootDialog(&menudialog_1bbbc, MENUROOT_MPENDSCREEN);
+			menuPushRootDialog(&g_MenuDialogSolo2PEndscreenFailedNarrow, MENUROOT_MPENDSCREEN);
 		} else {
-			menuPushRootDialog(&menudialog_1bb8c, MENUROOT_MPENDSCREEN);
+			menuPushRootDialog(&g_MenuDialogSolo2PEndscreenFailedWide, MENUROOT_MPENDSCREEN);
 		}
 	} else {
 		// Completed
 		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
-			menuPushRootDialog(&menudialog_1bba4, MENUROOT_MPENDSCREEN);
+			menuPushRootDialog(&g_MenuDialogSolo2PEndscreenCompletedNarrow, MENUROOT_MPENDSCREEN);
 		} else {
-			menuPushRootDialog(&menudialog_1bb74, MENUROOT_MPENDSCREEN);
+			menuPushRootDialog(&g_MenuDialogSolo2PEndscreenCompletedWide, MENUROOT_MPENDSCREEN);
 		}
 
 		endscreenSetCoopCompleted();
@@ -1739,7 +1739,7 @@ void func0f10ecb4(void)
 	g_MpPlayerNum = prevplayernum;
 }
 
-void func0f10ee40(void)
+void soloPushSoloModeEndscreen(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
 
@@ -1761,153 +1761,56 @@ void func0f10ee40(void)
 	g_MpPlayerNum = prevplayernum;
 }
 
-GLOBAL_ASM(
-glabel func0f10ef10
-/*  f10ef10:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10ef14:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10ef18:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10ef1c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10ef20:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f10ef24:	0fc5b350 */ 	jal	soloSetPaused
-/*  f10ef28:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f10ef2c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f10ef30:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f10ef34:	8c6f0288 */ 	lw	$t7,0x288($v1)
-/*  f10ef38:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
-/*  f10ef3c:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
-/*  f10ef40:	8df80070 */ 	lw	$t8,0x70($t7)
-/*  f10ef44:	3c09800a */ 	lui	$t1,0x800a
-/*  f10ef48:	2529e000 */ 	addiu	$t1,$t1,-8192
-/*  f10ef4c:	ac381448 */ 	sw	$t8,%lo(g_MpPlayerNum)($at)
-/*  f10ef50:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f10ef54:	8c6c0284 */ 	lw	$t4,0x284($v1)
-/*  f10ef58:	8c6402a0 */ 	lw	$a0,0x2a0($v1)
-/*  f10ef5c:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f10ef60:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f10ef64:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f10ef68:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f10ef6c:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f10ef70:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f10ef74:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f10ef78:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f10ef7c:	ac400e20 */ 	sw	$zero,0xe20($v0)
-/*  f10ef80:	ac400e24 */ 	sw	$zero,0xe24($v0)
-/*  f10ef84:	3c0a800a */ 	lui	$t2,%hi(g_MissionConfig+0x2)
-/*  f10ef88:	914adfea */ 	lbu	$t2,%lo(g_MissionConfig+0x2)($t2)
-/*  f10ef8c:	8c6b028c */ 	lw	$t3,0x28c($v1)
-/*  f10ef90:	ac4a0e2c */ 	sw	$t2,0xe2c($v0)
-/*  f10ef94:	148c0034 */ 	bne	$a0,$t4,.L0f10f068
-/*  f10ef98:	a04b083b */ 	sb	$t3,0x83b($v0)
-/*  f10ef9c:	8c6d02a8 */ 	lw	$t5,0x2a8($v1)
-/*  f10efa0:	8dae048c */ 	lw	$t6,0x48c($t5)
-/*  f10efa4:	15c0001b */ 	bnez	$t6,.L0f10f014
-/*  f10efa8:	00000000 */ 	nop
-/*  f10efac:	8c8f00d8 */ 	lw	$t7,0xd8($a0)
-/*  f10efb0:	15e00008 */ 	bnez	$t7,.L0f10efd4
-/*  f10efb4:	00000000 */ 	nop
-/*  f10efb8:	8c98048c */ 	lw	$t8,0x48c($a0)
-/*  f10efbc:	17000005 */ 	bnez	$t8,.L0f10efd4
-/*  f10efc0:	00000000 */ 	nop
-/*  f10efc4:	0fc256d9 */ 	jal	objectiveIsAllComplete
-/*  f10efc8:	00000000 */ 	nop
-/*  f10efcc:	14400011 */ 	bnez	$v0,.L0f10f014
-/*  f10efd0:	00000000 */ 	nop
-.L0f10efd4:
-/*  f10efd4:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f10efd8:	00000000 */ 	nop
-/*  f10efdc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10efe0:	14410007 */ 	bne	$v0,$at,.L0f10f000
-/*  f10efe4:	3c048007 */ 	lui	$a0,%hi(menudialog_1bb8c)
-/*  f10efe8:	3c048007 */ 	lui	$a0,%hi(menudialog_1bbbc)
-/*  f10efec:	24845b9c */ 	addiu	$a0,$a0,%lo(menudialog_1bbbc)
-/*  f10eff0:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10eff4:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10eff8:	10000014 */ 	b	.L0f10f04c
-/*  f10effc:	00000000 */ 	nop
-.L0f10f000:
-/*  f10f000:	24845b6c */ 	addiu	$a0,$a0,%lo(menudialog_1bb8c)
-/*  f10f004:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10f008:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10f00c:	1000000f */ 	b	.L0f10f04c
-/*  f10f010:	00000000 */ 	nop
-.L0f10f014:
-/*  f10f014:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f10f018:	00000000 */ 	nop
-/*  f10f01c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10f020:	14410007 */ 	bne	$v0,$at,.L0f10f040
-/*  f10f024:	3c048007 */ 	lui	$a0,%hi(menudialog_1bb74)
-/*  f10f028:	3c048007 */ 	lui	$a0,%hi(menudialog_1bba4)
-/*  f10f02c:	24845b84 */ 	addiu	$a0,$a0,%lo(menudialog_1bba4)
-/*  f10f030:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10f034:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10f038:	10000004 */ 	b	.L0f10f04c
-/*  f10f03c:	00000000 */ 	nop
-.L0f10f040:
-/*  f10f040:	24845b54 */ 	addiu	$a0,$a0,%lo(menudialog_1bb74)
-/*  f10f044:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10f048:	24050005 */ 	addiu	$a1,$zero,0x5
-.L0f10f04c:
-/*  f10f04c:	3c04800a */ 	lui	$a0,%hi(var800a22c0)
-/*  f10f050:	248422c0 */ 	addiu	$a0,$a0,%lo(var800a22c0)
-/*  f10f054:	00002825 */ 	or	$a1,$zero,$zero
-/*  f10f058:	0fc42539 */ 	jal	func0f1094e4
-/*  f10f05c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f060:	1000002e */ 	b	.L0f10f11c
-/*  f10f064:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10f068:
-/*  f10f068:	8c7902a8 */ 	lw	$t9,0x2a8($v1)
-/*  f10f06c:	8f28048c */ 	lw	$t0,0x48c($t9)
-/*  f10f070:	1500001b */ 	bnez	$t0,.L0f10f0e0
-/*  f10f074:	00000000 */ 	nop
-/*  f10f078:	8c8900d8 */ 	lw	$t1,0xd8($a0)
-/*  f10f07c:	15200008 */ 	bnez	$t1,.L0f10f0a0
-/*  f10f080:	00000000 */ 	nop
-/*  f10f084:	8c8a048c */ 	lw	$t2,0x48c($a0)
-/*  f10f088:	15400005 */ 	bnez	$t2,.L0f10f0a0
-/*  f10f08c:	00000000 */ 	nop
-/*  f10f090:	0fc256d9 */ 	jal	objectiveIsAllComplete
-/*  f10f094:	00000000 */ 	nop
-/*  f10f098:	14400011 */ 	bnez	$v0,.L0f10f0e0
-/*  f10f09c:	00000000 */ 	nop
-.L0f10f0a0:
-/*  f10f0a0:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f10f0a4:	00000000 */ 	nop
-/*  f10f0a8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10f0ac:	14410007 */ 	bne	$v0,$at,.L0f10f0cc
-/*  f10f0b0:	3c048007 */ 	lui	$a0,%hi(menudialog_1bb74)
-/*  f10f0b4:	3c048007 */ 	lui	$a0,%hi(menudialog_1bba4)
-/*  f10f0b8:	24845b84 */ 	addiu	$a0,$a0,%lo(menudialog_1bba4)
-/*  f10f0bc:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10f0c0:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10f0c4:	10000015 */ 	b	.L0f10f11c
-/*  f10f0c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10f0cc:
-/*  f10f0cc:	24845b54 */ 	addiu	$a0,$a0,%lo(menudialog_1bb74)
-/*  f10f0d0:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10f0d4:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10f0d8:	10000010 */ 	b	.L0f10f11c
-/*  f10f0dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10f0e0:
-/*  f10f0e0:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f10f0e4:	00000000 */ 	nop
-/*  f10f0e8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10f0ec:	14410007 */ 	bne	$v0,$at,.L0f10f10c
-/*  f10f0f0:	3c048007 */ 	lui	$a0,%hi(menudialog_1bb8c)
-/*  f10f0f4:	3c048007 */ 	lui	$a0,%hi(menudialog_1bbbc)
-/*  f10f0f8:	24845b9c */ 	addiu	$a0,$a0,%lo(menudialog_1bbbc)
-/*  f10f0fc:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10f100:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10f104:	10000005 */ 	b	.L0f10f11c
-/*  f10f108:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10f10c:
-/*  f10f10c:	24845b6c */ 	addiu	$a0,$a0,%lo(menudialog_1bb8c)
-/*  f10f110:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10f114:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10f118:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10f11c:
-/*  f10f11c:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*  f10f120:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
-/*  f10f124:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f10f128:	03e00008 */ 	jr	$ra
-/*  f10f12c:	ac2b1448 */ 	sw	$t3,%lo(g_MpPlayerNum)($at)
-);
+void soloPushAntiModeEndscreen(void)
+{
+	u32 prevplayernum = g_MpPlayerNum;
+
+	soloSetPaused(true);
+
+	g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
+
+	g_MenuStack[g_MpPlayerNum].slotcount = 0;
+	g_MenuStack[g_MpPlayerNum].unke24 = 0;
+	g_MenuStack[g_MpPlayerNum].unke2c = g_MissionConfig.stageindex;
+	g_MenuStack[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
+
+	if (g_Vars.currentplayer == g_Vars.bond) {
+		if (g_Vars.anti->aborted == 0 &&
+				(g_Vars.bond->isdead || g_Vars.bond->aborted || objectiveIsAllComplete() == false)) {
+			// Bond - failed or aborted
+			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenFailedNarrow, MENUROOT_MPENDSCREEN);
+			} else {
+				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenFailedWide, MENUROOT_MPENDSCREEN);
+			}
+		} else {
+			// Bond - completed
+			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenCompletedNarrow, MENUROOT_MPENDSCREEN);
+			} else {
+				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenCompletedWide, MENUROOT_MPENDSCREEN);
+			}
+		}
+
+		func0f1094e4(&var800a22c0, 0, 0);
+	} else {
+		if (g_Vars.anti->aborted == 0 &&
+				(g_Vars.bond->isdead || g_Vars.bond->aborted || objectiveIsAllComplete() == false)) {
+			// Anti - completed
+			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenCompletedNarrow, MENUROOT_MPENDSCREEN);
+			} else {
+				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenCompletedWide, MENUROOT_MPENDSCREEN);
+			}
+		} else {
+			// Anti - failed or aborted
+			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenFailedNarrow, MENUROOT_MPENDSCREEN);
+			} else {
+				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenFailedWide, MENUROOT_MPENDSCREEN);
+			}
+		}
+	}
+
+	g_MpPlayerNum = prevplayernum;
+}

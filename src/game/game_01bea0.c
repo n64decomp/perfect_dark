@@ -931,7 +931,7 @@ glabel var7f1a863c
 /*  f01ca80:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01ca84:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f01ca88:	afaf0128 */ 	sw	$t7,0x128($sp)
-/*  f01ca8c:	0fc43b2d */ 	jal	func0f10ecb4
+/*  f01ca8c:	0fc43b2d */ 	jal	soloPushCoopModeEndscreen
 /*  f01ca90:	00000000 */ 	nop
 /*  f01ca94:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f01ca98:	8fa40128 */ 	lw	$a0,0x128($sp)
@@ -946,7 +946,7 @@ glabel var7f1a863c
 /*  f01cab8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01cabc:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f01cac0:	afb80124 */ 	sw	$t8,0x124($sp)
-/*  f01cac4:	0fc43bc4 */ 	jal	func0f10ef10
+/*  f01cac4:	0fc43bc4 */ 	jal	soloPushAntiModeEndscreen
 /*  f01cac8:	00000000 */ 	nop
 /*  f01cacc:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f01cad0:	8fa40124 */ 	lw	$a0,0x124($sp)
@@ -1174,7 +1174,7 @@ glabel var7f1a863c
 .L0f01cdec:
 /*  f01cdec:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f01cdf0:	afaf0158 */ 	sw	$t7,0x158($sp)
-/*  f01cdf4:	0fc43b2d */ 	jal	func0f10ecb4
+/*  f01cdf4:	0fc43b2d */ 	jal	soloPushCoopModeEndscreen
 /*  f01cdf8:	00000000 */ 	nop
 /*  f01cdfc:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f01ce00:	02002025 */ 	or	$a0,$s0,$zero
@@ -1189,7 +1189,7 @@ glabel var7f1a863c
 /*  f01ce20:	8e70028c */ 	lw	$s0,0x28c($s3)
 /*  f01ce24:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f01ce28:	8fa40120 */ 	lw	$a0,0x120($sp)
-/*  f01ce2c:	0fc43bc4 */ 	jal	func0f10ef10
+/*  f01ce2c:	0fc43bc4 */ 	jal	soloPushAntiModeEndscreen
 /*  f01ce30:	00000000 */ 	nop
 /*  f01ce34:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f01ce38:	02002025 */ 	or	$a0,$s0,$zero
@@ -1497,7 +1497,7 @@ glabel var7f1a863c
 /*  f01d27c:	50400006 */ 	beqzl	$v0,.L0f01d298
 /*  f01d280:	8e6f046c */ 	lw	$t7,0x46c($s3)
 .L0f01d284:
-/*  f01d284:	0fc43b90 */ 	jal	func0f10ee40
+/*  f01d284:	0fc43b90 */ 	jal	soloPushSoloModeEndscreen
 /*  f01d288:	00000000 */ 	nop
 /*  f01d28c:	10000042 */ 	b	.L0f01d398
 /*  f01d290:	00000000 */ 	nop

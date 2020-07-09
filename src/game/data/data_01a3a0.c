@@ -382,7 +382,7 @@ struct menu_dialog menudialog_1b7a4 = {
 };
 
 // 1b7bc
-struct menu_item menuitems_1b7bc[] = {
+struct menu_item g_MenuItemsSoloEndscreenNarrow[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_OPTIONS(278), 0x00000000, NULL }, // "Mission Status:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&soloMenuTextMissionStatus, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_OPTIONS(279), 0x00000000, NULL }, // "Agent Status:"
@@ -411,7 +411,7 @@ struct menu_item menuitems_1b7bc[] = {
 u32 var80075968 = 0xff7f7fff;
 
 // 1b98c
-struct menu_item menuitems_1b98c[] = {
+struct menu_item g_MenuItemsSoloEndscreenWide[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(278), (u32)&soloMenuTextMissionStatus, NULL }, // "Mission Status:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(279), (u32)&soloMenuTextAgentStatus, NULL }, // "Agent Status:"
 	{ MENUITEMTYPE_LABEL,       0, 0x01000000, L_OPTIONS(280), (u32)&soloMenuTextMissionTime, menuhandler0010e064 }, // "Mission Time:"
@@ -437,60 +437,60 @@ struct menu_item menuitems_1b98c[] = {
 };
 
 // 1bb44
-struct menu_dialog menudialog_1bb44 = {
+struct menu_dialog g_MenuDialogSoloEndscreenCompleted = {
 	MENUDIALOGTYPE_SUCCESS,
 	(u32)&menuTitleStageCompleted,
-	menuitems_1b98c,
+	g_MenuItemsSoloEndscreenWide,
 	menudialog0010dd28,
 	0x00000048,
 	&menudialog_1b720,
 };
 
 // 1bb5c
-struct menu_dialog menudialog_1bb5c = {
+struct menu_dialog g_MenuDialogSoloEndscreenFailed = {
 	MENUDIALOGTYPE_DANGER,
 	(u32)&menuTitleStageFailed,
-	menuitems_1b98c,
+	g_MenuItemsSoloEndscreenWide,
 	menudialog0010de58,
 	0x00000048,
 	&menudialog_1b708,
 };
 
 // 1bb74
-struct menu_dialog menudialog_1bb74 = {
+struct menu_dialog g_MenuDialogSolo2PEndscreenCompletedWide = {
 	MENUDIALOGTYPE_SUCCESS,
 	(u32)&menuTitleStageCompleted,
-	menuitems_1b98c,
+	g_MenuItemsSoloEndscreenWide,
 	menudialog0010dd28,
 	0x00000048,
 	&menudialog_1b720,
 };
 
 // 1bb8c
-struct menu_dialog menudialog_1bb8c = {
+struct menu_dialog g_MenuDialogSolo2PEndscreenFailedWide = {
 	MENUDIALOGTYPE_DANGER,
 	(u32)&menuTitleStageFailed,
-	menuitems_1b98c,
+	g_MenuItemsSoloEndscreenWide,
 	menudialog0010de58,
 	0x00000048,
 	&menudialog_1b708,
 };
 
 // 1bba4
-struct menu_dialog menudialog_1bba4 = {
+struct menu_dialog g_MenuDialogSolo2PEndscreenCompletedNarrow = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_OPTIONS(276), // "Completed"
-	menuitems_1b7bc,
+	g_MenuItemsSoloEndscreenNarrow,
 	menudialog0010dd28,
 	0x00000048,
 	&menudialog_1b750,
 };
 
 // 1bbbc
-struct menu_dialog menudialog_1bbbc = {
+struct menu_dialog g_MenuDialogSolo2PEndscreenFailedNarrow = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(277), // "Failed"
-	menuitems_1b7bc,
+	g_MenuItemsSoloEndscreenNarrow,
 	menudialog0010de58,
 	0x00000048,
 	&menudialog_1b738,

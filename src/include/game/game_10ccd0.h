@@ -34,8 +34,8 @@ char *soloMenuTextCheatName2(struct menu_item *item);
 char *soloMenuTextTargetTime(struct menu_item *item);
 void endscreenSetCoopCompleted(void);
 u32 func0f10e620(void);
-void func0f10ecb4(void);
-void func0f10ee40(void);
-u32 func0f10ef10(void);
+void soloPushCoopModeEndscreen(void);
+void soloPushSoloModeEndscreen(void);
+void soloPushAntiModeEndscreen(void);
 
 #endif

@@ -1444,7 +1444,7 @@ glabel func0000e684
 .L0000e748:
 /*     e748:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*     e74c:	02202025 */ 	or	$a0,$s1,$zero
-/*     e750:	0fc43b2d */ 	jal	func0f10ecb4
+/*     e750:	0fc43b2d */ 	jal	soloPushCoopModeEndscreen
 /*     e754:	00000000 */ 	nop
 /*     e758:	8e0e006c */ 	lw	$t6,0x6c($s0)
 /*     e75c:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -1530,7 +1530,7 @@ glabel func0000e684
 .L0000e870:
 /*     e870:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*     e874:	02202025 */ 	or	$a0,$s1,$zero
-/*     e878:	0fc43bc4 */ 	jal	func0f10ef10
+/*     e878:	0fc43bc4 */ 	jal	soloPushAntiModeEndscreen
 /*     e87c:	00000000 */ 	nop
 /*     e880:	8e0a006c */ 	lw	$t2,0x6c($s0)
 /*     e884:	26310001 */ 	addiu	$s1,$s1,0x1
