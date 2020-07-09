@@ -5,7 +5,7 @@
 #include "game/game_102240.h"
 #include "game/cheats.h"
 #include "game/game_107fb0.h"
-#include "game/game_10ccd0.h"
+#include "game/endscreen.h"
 #include "game/utils.h"
 #include "game/game_177e00.h"
 #include "game/game_1a3340.h"

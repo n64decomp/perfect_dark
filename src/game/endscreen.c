@@ -20,7 +20,7 @@
 #include "game/game_0f09f0.h"
 #include "game/game_102240.h"
 #include "game/game_107fb0.h"
-#include "game/game_10ccd0.h"
+#include "game/endscreen.h"
 #include "game/game_1655c0.h"
 #include "game/game_167ae0.h"
 #include "game/game_19aa80.h"

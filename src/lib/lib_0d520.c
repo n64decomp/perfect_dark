@@ -31,7 +31,7 @@
 #include "game/title.h"
 #include "game/game_01b0a0.h"
 #include "game/game_095320.h"
-#include "game/game_10ccd0.h"
+#include "game/endscreen.h"
 #include "game/game_127910.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"

@@ -4,7 +4,7 @@
 #include "game/game_102240.h"
 #include "game/cheats.h"
 #include "game/game_107fb0.h"
-#include "game/game_10ccd0.h"
+#include "game/endscreen.h"
 #include "game/camdraw.h"
 #include "game/timing.h"
 #include "game/game_173a00.h"

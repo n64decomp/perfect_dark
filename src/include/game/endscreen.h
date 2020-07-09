@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_10CCD0_H
-#define IN_GAME_GAME_10CCD0_H
+#ifndef IN_GAME_ENDSCREEN_H
+#define IN_GAME_ENDSCREEN_H
 #include <ultra64.h>
 #include "types.h"
 
