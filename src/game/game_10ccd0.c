@@ -1698,116 +1698,46 @@ glabel func0f10e620
 /*  f10ecb0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f10ecb4
-/*  f10ecb4:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10ecb8:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10ecbc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10ecc0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10ecc4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f10ecc8:	0fc5b350 */ 	jal	soloSetPaused
-/*  f10eccc:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f10ecd0:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f10ecd4:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f10ecd8:	8c8f0288 */ 	lw	$t7,0x288($a0)
-/*  f10ecdc:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
-/*  f10ece0:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
-/*  f10ece4:	8df80070 */ 	lw	$t8,0x70($t7)
-/*  f10ece8:	3c09800a */ 	lui	$t1,0x800a
-/*  f10ecec:	2529e000 */ 	addiu	$t1,$t1,-8192
-/*  f10ecf0:	ac381448 */ 	sw	$t8,%lo(g_MpPlayerNum)($at)
-/*  f10ecf4:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f10ecf8:	3c0a800a */ 	lui	$t2,%hi(g_MissionConfig+0x2)
-/*  f10ecfc:	8c8b028c */ 	lw	$t3,0x28c($a0)
-/*  f10ed00:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f10ed04:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f10ed08:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f10ed0c:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f10ed10:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f10ed14:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f10ed18:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f10ed1c:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f10ed20:	ac400e20 */ 	sw	$zero,0xe20($v0)
-/*  f10ed24:	ac400e24 */ 	sw	$zero,0xe24($v0)
-/*  f10ed28:	914adfea */ 	lbu	$t2,%lo(g_MissionConfig+0x2)($t2)
-/*  f10ed2c:	8c8302a0 */ 	lw	$v1,0x2a0($a0)
-/*  f10ed30:	a04b083b */ 	sb	$t3,0x83b($v0)
-/*  f10ed34:	ac4a0e2c */ 	sw	$t2,0xe2c($v0)
-/*  f10ed38:	8c6c00d8 */ 	lw	$t4,0xd8($v1)
-/*  f10ed3c:	51800006 */ 	beqzl	$t4,.L0f10ed58
-/*  f10ed40:	8c6f048c */ 	lw	$t7,0x48c($v1)
-/*  f10ed44:	8c8d02a4 */ 	lw	$t5,0x2a4($a0)
-/*  f10ed48:	8dae00d8 */ 	lw	$t6,0xd8($t5)
-/*  f10ed4c:	15c0000c */ 	bnez	$t6,.L0f10ed80
-/*  f10ed50:	00000000 */ 	nop
-/*  f10ed54:	8c6f048c */ 	lw	$t7,0x48c($v1)
-.L0f10ed58:
-/*  f10ed58:	15e00009 */ 	bnez	$t7,.L0f10ed80
-/*  f10ed5c:	00000000 */ 	nop
-/*  f10ed60:	8c9802a4 */ 	lw	$t8,0x2a4($a0)
-/*  f10ed64:	8f19048c */ 	lw	$t9,0x48c($t8)
-/*  f10ed68:	17200005 */ 	bnez	$t9,.L0f10ed80
-/*  f10ed6c:	00000000 */ 	nop
-/*  f10ed70:	0fc256d9 */ 	jal	objectiveIsAllComplete
-/*  f10ed74:	00000000 */ 	nop
-/*  f10ed78:	14400011 */ 	bnez	$v0,.L0f10edc0
-/*  f10ed7c:	00000000 */ 	nop
-.L0f10ed80:
-/*  f10ed80:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f10ed84:	00000000 */ 	nop
-/*  f10ed88:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10ed8c:	14410007 */ 	bne	$v0,$at,.L0f10edac
-/*  f10ed90:	3c048007 */ 	lui	$a0,%hi(menudialog_1bb8c)
-/*  f10ed94:	3c048007 */ 	lui	$a0,%hi(menudialog_1bbbc)
-/*  f10ed98:	24845b9c */ 	addiu	$a0,$a0,%lo(menudialog_1bbbc)
-/*  f10ed9c:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10eda0:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10eda4:	10000016 */ 	b	.L0f10ee00
-/*  f10eda8:	00000000 */ 	nop
-.L0f10edac:
-/*  f10edac:	24845b6c */ 	addiu	$a0,$a0,%lo(menudialog_1bb8c)
-/*  f10edb0:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10edb4:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10edb8:	10000011 */ 	b	.L0f10ee00
-/*  f10edbc:	00000000 */ 	nop
-.L0f10edc0:
-/*  f10edc0:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f10edc4:	00000000 */ 	nop
-/*  f10edc8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10edcc:	14410007 */ 	bne	$v0,$at,.L0f10edec
-/*  f10edd0:	3c048007 */ 	lui	$a0,%hi(menudialog_1bb74)
-/*  f10edd4:	3c048007 */ 	lui	$a0,%hi(menudialog_1bba4)
-/*  f10edd8:	24845b84 */ 	addiu	$a0,$a0,%lo(menudialog_1bba4)
-/*  f10eddc:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10ede0:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10ede4:	10000004 */ 	b	.L0f10edf8
-/*  f10ede8:	00000000 */ 	nop
-.L0f10edec:
-/*  f10edec:	24845b54 */ 	addiu	$a0,$a0,%lo(menudialog_1bb74)
-/*  f10edf0:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10edf4:	24050005 */ 	addiu	$a1,$zero,0x5
-.L0f10edf8:
-/*  f10edf8:	0fc43962 */ 	jal	endscreenSetCoopCompleted
-/*  f10edfc:	00000000 */ 	nop
-.L0f10ee00:
-/*  f10ee00:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x2a0)
-/*  f10ee04:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x284)
-/*  f10ee08:	8d29a244 */ 	lw	$t1,%lo(g_Vars+0x284)($t1)
-/*  f10ee0c:	8d08a260 */ 	lw	$t0,%lo(g_Vars+0x2a0)($t0)
-/*  f10ee10:	3c04800a */ 	lui	$a0,%hi(var800a22c0)
-/*  f10ee14:	248422c0 */ 	addiu	$a0,$a0,%lo(var800a22c0)
-/*  f10ee18:	15090003 */ 	bne	$t0,$t1,.L0f10ee28
-/*  f10ee1c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f10ee20:	0fc42539 */ 	jal	func0f1094e4
-/*  f10ee24:	00003025 */ 	or	$a2,$zero,$zero
-.L0f10ee28:
-/*  f10ee28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10ee2c:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*  f10ee30:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
-/*  f10ee34:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f10ee38:	03e00008 */ 	jr	$ra
-/*  f10ee3c:	ac2a1448 */ 	sw	$t2,%lo(g_MpPlayerNum)($at)
-);
+void func0f10ecb4(void)
+{
+	u32 prevplayernum = g_MpPlayerNum;
+
+	soloSetPaused(true);
+
+	g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
+
+	g_MenuStack[g_MpPlayerNum].slotcount = 0;
+	g_MenuStack[g_MpPlayerNum].unke24 = 0;
+	g_MenuStack[g_MpPlayerNum].unke2c = g_MissionConfig.stageindex;
+	g_MenuStack[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
+
+	if ((g_Vars.bond->isdead && g_Vars.coop->isdead)
+			|| g_Vars.bond->aborted
+			|| g_Vars.coop->aborted
+			|| !objectiveIsAllComplete()) {
+		// Failed or aborted
+		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+			menuPushRootDialog(&menudialog_1bbbc, MENUROOT_MPENDSCREEN);
+		} else {
+			menuPushRootDialog(&menudialog_1bb8c, MENUROOT_MPENDSCREEN);
+		}
+	} else {
+		// Completed
+		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+			menuPushRootDialog(&menudialog_1bba4, MENUROOT_MPENDSCREEN);
+		} else {
+			menuPushRootDialog(&menudialog_1bb74, MENUROOT_MPENDSCREEN);
+		}
+
+		endscreenSetCoopCompleted();
+	}
+
+	if (g_Vars.currentplayer == g_Vars.bond) {
+		func0f1094e4(&var800a22c0, 0, 0);
+	}
+
+	g_MpPlayerNum = prevplayernum;
+}
 
 void func0f10ee40(void)
 {
