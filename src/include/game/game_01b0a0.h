@@ -8,7 +8,7 @@ f32 pdmodeGetHealth(void);
 f32 pdmodeGetDamage(void);
 f32 pdmodeGetAccuracy(void);
 u32 func0f01b148(void);
-void func0f01b154(s32 arg0);
+void func0f01b154(s32 stagenum);
 void activemenuTick(void);
 
 #endif

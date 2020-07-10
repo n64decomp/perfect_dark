@@ -28,7 +28,7 @@ char *menuTitleStageFailed(struct menuitem *item);
 char *soloMenuTextMissionTime(struct menuitem *item);
 struct menudialog *func0f10d730(void);
 void func0f10d770(void);
-void func0f10d910(s32 arg0);
+void endscreenHandleContinue(s32 context);
 char *soloMenuTextCheatName(struct menuitem *item);
 char *soloMenuTextCheatName2(struct menuitem *item);
 char *soloMenuTextTargetTime(struct menuitem *item);

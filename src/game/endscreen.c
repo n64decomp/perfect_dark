@@ -355,303 +355,113 @@ s32 menuhandlerReplayLastLevel(u32 operation, struct menuitem *item, s32 *value)
 s32 menuhandlerContinueMission(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		func0f10d910(2);
+		endscreenHandleContinue(2);
 	}
 
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f10d910
-/*  f10d910:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f10d914:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f10d918:	8c6e029c */ 	lw	$t6,0x29c($v1)
-/*  f10d91c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10d920:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10d924:	05c00005 */ 	bltz	$t6,.L0f10d93c
-/*  f10d928:	00803825 */ 	or	$a3,$a0,$zero
-/*  f10d92c:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10d930:	00000000 */ 	nop
-/*  f10d934:	100000f9 */ 	b	.L0f10dd1c
-/*  f10d938:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10d93c:
-/*  f10d93c:	8c6f0298 */ 	lw	$t7,0x298($v1)
-/*  f10d940:	05e20025 */ 	bltzl	$t7,.L0f10d9d8
-/*  f10d944:	8c6204b4 */ 	lw	$v0,0x4b4($v1)
-/*  f10d948:	8c78006c */ 	lw	$t8,0x6c($v1)
-/*  f10d94c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10d950:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10d954:	13000003 */ 	beqz	$t8,.L0f10d964
-/*  f10d958:	00002825 */ 	or	$a1,$zero,$zero
-/*  f10d95c:	10000001 */ 	b	.L0f10d964
-/*  f10d960:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f10d964:
-/*  f10d964:	8c790068 */ 	lw	$t9,0x68($v1)
-/*  f10d968:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10d96c:	13200003 */ 	beqz	$t9,.L0f10d97c
-/*  f10d970:	00000000 */ 	nop
-/*  f10d974:	10000001 */ 	b	.L0f10d97c
-/*  f10d978:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f10d97c:
-/*  f10d97c:	8c680064 */ 	lw	$t0,0x64($v1)
-/*  f10d980:	11000003 */ 	beqz	$t0,.L0f10d990
-/*  f10d984:	00000000 */ 	nop
-/*  f10d988:	10000001 */ 	b	.L0f10d990
-/*  f10d98c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f10d990:
-/*  f10d990:	8c690070 */ 	lw	$t1,0x70($v1)
-/*  f10d994:	11200003 */ 	beqz	$t1,.L0f10d9a4
-/*  f10d998:	00000000 */ 	nop
-/*  f10d99c:	10000001 */ 	b	.L0f10d9a4
-/*  f10d9a0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f10d9a4:
-/*  f10d9a4:	00455021 */ 	addu	$t2,$v0,$a1
-/*  f10d9a8:	01445821 */ 	addu	$t3,$t2,$a0
-/*  f10d9ac:	01666021 */ 	addu	$t4,$t3,$a2
-/*  f10d9b0:	29810002 */ 	slti	$at,$t4,0x2
-/*  f10d9b4:	54200008 */ 	bnezl	$at,.L0f10d9d8
-/*  f10d9b8:	8c6204b4 */ 	lw	$v0,0x4b4($v1)
-/*  f10d9bc:	54e00006 */ 	bnezl	$a3,.L0f10d9d8
-/*  f10d9c0:	8c6204b4 */ 	lw	$v0,0x4b4($v1)
-/*  f10d9c4:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10d9c8:	00000000 */ 	nop
-/*  f10d9cc:	100000d3 */ 	b	.L0f10dd1c
-/*  f10d9d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10d9d4:	8c6204b4 */ 	lw	$v0,0x4b4($v1)
-.L0f10d9d8:
-/*  f10d9d8:	24040038 */ 	addiu	$a0,$zero,0x38
-/*  f10d9dc:	2401002a */ 	addiu	$at,$zero,0x2a
-/*  f10d9e0:	50820003 */ 	beql	$a0,$v0,.L0f10d9f0
-/*  f10d9e4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f10d9e8:	1441007f */ 	bne	$v0,$at,.L0f10dbe8
-/*  f10d9ec:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f10d9f0:
-/*  f10d9f0:	10e1000f */ 	beq	$a3,$at,.L0f10da30
-/*  f10d9f4:	3c0d8007 */ 	lui	$t5,%hi(g_MpPlayerNum)
-/*  f10d9f8:	8dad1448 */ 	lw	$t5,%lo(g_MpPlayerNum)($t5)
-/*  f10d9fc:	3c0f800a */ 	lui	$t7,%hi(g_Menus+0xe24)
-/*  f10da00:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10da04:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f10da08:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*  f10da0c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f10da10:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f10da14:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f10da18:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*  f10da1c:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f10da20:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10da24:	8defee24 */ 	lw	$t7,%lo(g_Menus+0xe24)($t7)
-/*  f10da28:	11e00063 */ 	beqz	$t7,.L0f10dbb8
-/*  f10da2c:	00000000 */ 	nop
-.L0f10da30:
-/*  f10da30:	1482004c */ 	bne	$a0,$v0,.L0f10db64
-/*  f10da34:	2401002a */ 	addiu	$at,$zero,0x2a
-/*  f10da38:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f10da3c:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f10da40:	8c450000 */ 	lw	$a1,0x0($v0)
-/*  f10da44:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f10da48:	0005c642 */ 	srl	$t8,$a1,0x19
-/*  f10da4c:	03002825 */ 	or	$a1,$t8,$zero
-/*  f10da50:	0fc40e3b */ 	jal	isStageDifficultyUnlocked
-/*  f10da54:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f10da58:	14400007 */ 	bnez	$v0,.L0f10da78
-/*  f10da5c:	00000000 */ 	nop
-/*  f10da60:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10da64:	00000000 */ 	nop
-/*  f10da68:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10da6c:	00000000 */ 	nop
-/*  f10da70:	100000aa */ 	b	.L0f10dd1c
-/*  f10da74:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10da78:
-/*  f10da78:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f10da7c:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f10da80:	90590002 */ 	lbu	$t9,0x2($v0)
-/*  f10da84:	3c0b8007 */ 	lui	$t3,%hi(g_StageNames)
-/*  f10da88:	27280001 */ 	addiu	$t0,$t9,0x1
-/*  f10da8c:	310900ff */ 	andi	$t1,$t0,0xff
-/*  f10da90:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f10da94:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f10da98:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f10da9c:	a0480002 */ 	sb	$t0,0x2($v0)
-/*  f10daa0:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f10daa4:	8d6b1e6c */ 	lw	$t3,%lo(g_StageNames)($t3)
-/*  f10daa8:	a04b0001 */ 	sb	$t3,0x1($v0)
-/*  f10daac:	0fc06c55 */ 	jal	func0f01b154
-/*  f10dab0:	316400ff */ 	andi	$a0,$t3,0xff
-/*  f10dab4:	3c0c800a */ 	lui	$t4,%hi(g_MissionConfig+0x3)
-/*  f10dab8:	818ddfeb */ 	lb	$t5,%lo(g_MissionConfig+0x3)($t4)
-/*  f10dabc:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f10dac0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f10dac4:	05a10014 */ 	bgez	$t5,.L0f10db18
-/*  f10dac8:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f10dacc:	8c6e0474 */ 	lw	$t6,0x474($v1)
-/*  f10dad0:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f10dad4:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f10dad8:	15c00009 */ 	bnez	$t6,.L0f10db00
-/*  f10dadc:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f10dae0:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f10dae4:	ac600294 */ 	sw	$zero,0x294($v1)
-/*  f10dae8:	ac6f0298 */ 	sw	$t7,0x298($v1)
-/*  f10daec:	ac62029c */ 	sw	$v0,0x29c($v1)
-/*  f10daf0:	0fc068d5 */ 	jal	setNumPlayers
-/*  f10daf4:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f10daf8:	1000000c */ 	b	.L0f10db2c
-/*  f10dafc:	00000000 */ 	nop
-.L0f10db00:
-/*  f10db00:	ac600294 */ 	sw	$zero,0x294($v1)
-/*  f10db04:	ac620298 */ 	sw	$v0,0x298($v1)
-/*  f10db08:	0fc068d5 */ 	jal	setNumPlayers
-/*  f10db0c:	ac62029c */ 	sw	$v0,0x29c($v1)
-/*  f10db10:	10000006 */ 	b	.L0f10db2c
-/*  f10db14:	00000000 */ 	nop
-.L0f10db18:
-/*  f10db18:	ac600294 */ 	sw	$zero,0x294($v1)
-/*  f10db1c:	ac620298 */ 	sw	$v0,0x298($v1)
-/*  f10db20:	ac62029c */ 	sw	$v0,0x29c($v1)
-/*  f10db24:	0fc068d5 */ 	jal	setNumPlayers
-/*  f10db28:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f10db2c:
-/*  f10db2c:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig)
-/*  f10db30:	8c84dfe8 */ 	lw	$a0,%lo(g_MissionConfig)($a0)
-/*  f10db34:	0004c642 */ 	srl	$t8,$a0,0x19
-/*  f10db38:	0fc5b36a */ 	jal	setDifficulty
-/*  f10db3c:	03002025 */ 	or	$a0,$t8,$zero
-/*  f10db40:	0fc069f9 */ 	jal	titleSetNextMode
-/*  f10db44:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f10db48:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig+0x1)
-/*  f10db4c:	0c003a57 */ 	jal	func0000e95c
-/*  f10db50:	9084dfe9 */ 	lbu	$a0,%lo(g_MissionConfig+0x1)($a0)
-/*  f10db54:	0c0027b1 */ 	jal	func00009ec4
-/*  f10db58:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f10db5c:	1000006f */ 	b	.L0f10dd1c
-/*  f10db60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10db64:
-/*  f10db64:	1441006c */ 	bne	$v0,$at,.L0f10dd18
-/*  f10db68:	2419005c */ 	addiu	$t9,$zero,0x5c
-/*  f10db6c:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f10db70:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f10db74:	a0590001 */ 	sb	$t9,0x1($v0)
-/*  f10db78:	0fc06c55 */ 	jal	func0f01b154
-/*  f10db7c:	332400ff */ 	andi	$a0,$t9,0xff
-/*  f10db80:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig)
-/*  f10db84:	8c84dfe8 */ 	lw	$a0,%lo(g_MissionConfig)($a0)
-/*  f10db88:	00044642 */ 	srl	$t0,$a0,0x19
-/*  f10db8c:	0fc5b36a */ 	jal	setDifficulty
-/*  f10db90:	01002025 */ 	or	$a0,$t0,$zero
-/*  f10db94:	0fc069f9 */ 	jal	titleSetNextMode
-/*  f10db98:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f10db9c:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig+0x1)
-/*  f10dba0:	0c003a57 */ 	jal	func0000e95c
-/*  f10dba4:	9084dfe9 */ 	lbu	$a0,%lo(g_MissionConfig+0x1)($a0)
-/*  f10dba8:	0c0027b1 */ 	jal	func00009ec4
-/*  f10dbac:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f10dbb0:	1000005a */ 	b	.L0f10dd1c
-/*  f10dbb4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10dbb8:
-/*  f10dbb8:	14e10007 */ 	bne	$a3,$at,.L0f10dbd8
-/*  f10dbbc:	3c048007 */ 	lui	$a0,%hi(menudialog_1b7a4)
-/*  f10dbc0:	3c048007 */ 	lui	$a0,%hi(menudialog_1b7a4)
-/*  f10dbc4:	24845784 */ 	addiu	$a0,$a0,%lo(menudialog_1b7a4)
-/*  f10dbc8:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10dbcc:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f10dbd0:	10000052 */ 	b	.L0f10dd1c
-/*  f10dbd4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10dbd8:
-/*  f10dbd8:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10dbdc:	24845784 */ 	addiu	$a0,$a0,%lo(menudialog_1b7a4)
-/*  f10dbe0:	1000004e */ 	b	.L0f10dd1c
-/*  f10dbe4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10dbe8:
-/*  f10dbe8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f10dbec:	14e10004 */ 	bne	$a3,$at,.L0f10dc00
-/*  f10dbf0:	00000000 */ 	nop
-/*  f10dbf4:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10dbf8:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f10dbfc:	8fa70018 */ 	lw	$a3,0x18($sp)
-.L0f10dc00:
-/*  f10dc00:	3c05800a */ 	lui	$a1,%hi(g_MissionConfig)
-/*  f10dc04:	8ca5dfe8 */ 	lw	$a1,%lo(g_MissionConfig)($a1)
-/*  f10dc08:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig+0x2)
-/*  f10dc0c:	9084dfea */ 	lbu	$a0,%lo(g_MissionConfig+0x2)($a0)
-/*  f10dc10:	00054e42 */ 	srl	$t1,$a1,0x19
-/*  f10dc14:	01202825 */ 	or	$a1,$t1,$zero
-/*  f10dc18:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f10dc1c:	0fc40e3b */ 	jal	isStageDifficultyUnlocked
-/*  f10dc20:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f10dc24:	1440000e */ 	bnez	$v0,.L0f10dc60
-/*  f10dc28:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f10dc2c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f10dc30:	14e10007 */ 	bne	$a3,$at,.L0f10dc50
-/*  f10dc34:	3c048007 */ 	lui	$a0,%hi(menudialog_1b7a4)
-/*  f10dc38:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10dc3c:	00000000 */ 	nop
-/*  f10dc40:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10dc44:	00000000 */ 	nop
-/*  f10dc48:	10000034 */ 	b	.L0f10dd1c
-/*  f10dc4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10dc50:
-/*  f10dc50:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10dc54:	24845784 */ 	addiu	$a0,$a0,%lo(menudialog_1b7a4)
-/*  f10dc58:	10000030 */ 	b	.L0f10dd1c
-/*  f10dc5c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10dc60:
-/*  f10dc60:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig+0x1)
-/*  f10dc64:	9084dfe9 */ 	lbu	$a0,%lo(g_MissionConfig+0x1)($a0)
-/*  f10dc68:	0fc59585 */ 	jal	stageGetIndex
-/*  f10dc6c:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f10dc70:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f10dc74:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f10dc78:	04400009 */ 	bltz	$v0,.L0f10dca0
-/*  f10dc7c:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f10dc80:	8c6a04b4 */ 	lw	$t2,0x4b4($v1)
-/*  f10dc84:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f10dc88:	3c0b800a */ 	lui	$t3,%hi(g_MissionConfig+0x2)
-/*  f10dc8c:	51410005 */ 	beql	$t2,$at,.L0f10dca4
-/*  f10dc90:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f10dc94:	916bdfea */ 	lbu	$t3,%lo(g_MissionConfig+0x2)($t3)
-/*  f10dc98:	29610011 */ 	slti	$at,$t3,0x11
-/*  f10dc9c:	1420000d */ 	bnez	$at,.L0f10dcd4
-.L0f10dca0:
-/*  f10dca0:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f10dca4:
-/*  f10dca4:	14e10007 */ 	bne	$a3,$at,.L0f10dcc4
-/*  f10dca8:	3c048007 */ 	lui	$a0,%hi(menudialog_1b7a4)
-/*  f10dcac:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10dcb0:	00000000 */ 	nop
-/*  f10dcb4:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10dcb8:	00000000 */ 	nop
-/*  f10dcbc:	10000017 */ 	b	.L0f10dd1c
-/*  f10dcc0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10dcc4:
-/*  f10dcc4:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10dcc8:	24845784 */ 	addiu	$a0,$a0,%lo(menudialog_1b7a4)
-/*  f10dccc:	10000013 */ 	b	.L0f10dd1c
-/*  f10dcd0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10dcd4:
-/*  f10dcd4:	0fc435dc */ 	jal	func0f10d770
-/*  f10dcd8:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f10dcdc:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f10dce0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10dce4:	14e10008 */ 	bne	$a3,$at,.L0f10dd08
-/*  f10dce8:	00000000 */ 	nop
-/*  f10dcec:	0fc435cc */ 	jal	func0f10d730
-/*  f10dcf0:	00000000 */ 	nop
-/*  f10dcf4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f10dcf8:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10dcfc:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f10dd00:	10000006 */ 	b	.L0f10dd1c
-/*  f10dd04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10dd08:
-/*  f10dd08:	0fc435cc */ 	jal	func0f10d730
-/*  f10dd0c:	00000000 */ 	nop
-/*  f10dd10:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10dd14:	00402025 */ 	or	$a0,$v0,$zero
-.L0f10dd18:
-/*  f10dd18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10dd1c:
-/*  f10dd1c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10dd20:	03e00008 */ 	jr	$ra
-/*  f10dd24:	00000000 */ 	nop
-);
+/**
+ * Context is:
+ *
+ * 0 when closing a completed endscreen
+ * 1 unsure - is invoked directly by menuTick
+ * 2 when pressing continue
+ */
+void endscreenHandleContinue(s32 context)
+{
+	if (g_Vars.antiplayernum >= 0) {
+		menuPopDialog();
+	} else if (g_Vars.coopplayernum >= 0 && PLAYERCOUNT() >= 2 && context == 0) {
+		menuPopDialog();
+	} else {
+		if (g_Vars.stagenum == STAGE_DEEPSEA || g_Vars.stagenum == STAGE_SKEDARRUINS) {
+			if (context == 2 || g_Menus[g_MpPlayerNum].data.endscreen.unke24) {
+				// Pressed continue
+				if (g_Vars.stagenum == STAGE_DEEPSEA) {
+					if (!isStageDifficultyUnlocked(g_MissionConfig.stageindex + 1, g_MissionConfig.difficulty)) {
+						menuPopDialog();
+						menuPopDialog();
+					} else {
+						// Commit to starting next stage
+						g_MissionConfig.stageindex++;
+						g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
+
+						func0f01b154(g_MissionConfig.stagenum);
+
+						if (g_MissionConfig.iscoop) {
+							if (g_Vars.numaibuddies == 0) {
+								g_Vars.bondplayernum = 0;
+								g_Vars.coopplayernum = 1;
+								g_Vars.antiplayernum = -1;
+								setNumPlayers(2);
+							} else {
+								g_Vars.bondplayernum = 0;
+								g_Vars.coopplayernum = -1;
+								g_Vars.antiplayernum = -1;
+								setNumPlayers(1);
+							}
+						} else {
+							g_Vars.bondplayernum = 0;
+							g_Vars.coopplayernum = -1;
+							g_Vars.antiplayernum = -1;
+							setNumPlayers(1);
+						}
+
+						setDifficulty(g_MissionConfig.difficulty);
+						titleSetNextMode(TITLEMODE_SKIP);
+						func0000e95c(g_MissionConfig.stagenum);
+						func00009ec4(true);
+					}
+				} else if (g_Vars.stagenum == STAGE_SKEDARRUINS) {
+					// Commit to starting credits
+					g_MissionConfig.stagenum = STAGE_CREDITS;
+					func0f01b154(g_MissionConfig.stagenum);
+					setDifficulty(g_MissionConfig.difficulty);
+					titleSetNextMode(TITLEMODE_SKIP);
+					func0000e95c(g_MissionConfig.stagenum);
+					func00009ec4(true);
+				}
+			} else {
+				if (context == 1) {
+					menuPushRootDialog(&g_MenuDialogContinueOrReplay, MENUROOT_9);
+				} else {
+					menuPushDialog(&g_MenuDialogContinueOrReplay);
+				}
+			}
+		} else {
+			if (context == 2) {
+				menuPopDialog();
+			}
+
+			if (isStageDifficultyUnlocked(g_MissionConfig.stageindex + 1, g_MissionConfig.difficulty) == 0) {
+				if (context == 2) {
+					menuPopDialog();
+					menuPopDialog();
+				} else {
+					menuPushDialog(&g_MenuDialogContinueOrReplay);
+				}
+			} else if (stageGetIndex(g_MissionConfig.stagenum) < 0
+						|| g_Vars.stagenum == STAGE_CITRAINING
+						|| g_MissionConfig.stageindex >= SOLOSTAGEINDEX_MBR) {
+				if (context == 2) {
+					menuPopDialog();
+					menuPopDialog();
+				} else {
+					menuPushDialog(&g_MenuDialogContinueOrReplay);
+				}
+			} else {
+				func0f10d770();
+
+				if (context == 1) {
+					menuPushRootDialog(func0f10d730(), MENUROOT_9);
+				} else {
+					menuPushDialog(func0f10d730());
+				}
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel menudialog0010dd28
@@ -725,7 +535,7 @@ glabel menudialog0010dd28
 .L0f10de24:
 /*  f10de24:	14400004 */ 	bnez	$v0,.L0f10de38
 /*  f10de28:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10de2c:	0fc43644 */ 	jal	func0f10d910
+/*  f10de2c:	0fc43644 */ 	jal	endscreenHandleContinue
 /*  f10de30:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f10de34:	8fa3001c */ 	lw	$v1,0x1c($sp)
 .L0f10de38:
@@ -875,9 +685,9 @@ glabel menudialog0010de58
 .L0f10e02c:
 /*  f10e02c:	0fc435dc */ 	jal	func0f10d770
 /*  f10e030:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f10e034:	3c048007 */ 	lui	$a0,%hi(menudialog_1b5c0)
+/*  f10e034:	3c048007 */ 	lui	$a0,%hi(g_MenuDialogRetryMission)
 /*  f10e038:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10e03c:	248455a0 */ 	addiu	$a0,$a0,%lo(menudialog_1b5c0)
+/*  f10e03c:	248455a0 */ 	addiu	$a0,$a0,%lo(g_MenuDialogRetryMission)
 /*  f10e040:	8fa6001c */ 	lw	$a2,0x1c($sp)
 .L0f10e044:
 /*  f10e044:	a0c0000a */ 	sb	$zero,0xa($a2)
@@ -1557,6 +1367,13 @@ void soloPushCoopModeEndscreen(void)
 	g_MpPlayerNum = prevplayernum;
 }
 
+/**
+ * This function is misnamed. It pushes the menu after the endscreen
+ * (ie. retry, next mission or continue), and it looks like it might be for coop
+ * only but I'm not 100% sure.
+ *
+ * This function is only called from menuTick, which is a bit weird...
+ */
 void soloPushSoloModeEndscreen(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
@@ -1570,10 +1387,10 @@ void soloPushSoloModeEndscreen(void)
 			|| !objectiveIsAllComplete()) {
 		// Failed or aborted
 		func0f10d770();
-		menuPushRootDialog(&menudialog_1b5c0, MENUROOT_9);
+		menuPushRootDialog(&g_MenuDialogRetryMission, MENUROOT_9);
 	} else {
 		// Completed
-		func0f10d910(1);
+		endscreenHandleContinue(1);
 	}
 
 	g_MpPlayerNum = prevplayernum;

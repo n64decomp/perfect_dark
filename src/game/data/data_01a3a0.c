@@ -271,7 +271,7 @@ struct menudialog g_4MbAdvancedSetupMenuDialog = {
 };
 
 // 1b570
-struct menuitem menuitems_1b570[] = {
+struct menuitem g_MenuItemsRetryMission[] = {
 	{ MENUITEMTYPE_OBJECTIVES,  1, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(298), 0x00000000, menuhandlerAcceptMission }, // "Accept"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(299), 0x00000000, menuhandlerDeclineMission }, // "Decline"
@@ -279,10 +279,10 @@ struct menuitem menuitems_1b570[] = {
 };
 
 // 1b5c0
-struct menudialog menudialog_1b5c0 = {
+struct menudialog g_MenuDialogRetryMission = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&menuDialogTitleRetryStageName,
-	menuitems_1b570,
+	g_MenuItemsRetryMission,
 	menudialogRetryMission,
 	0x0000000c,
 	&menudialog_briefing,
@@ -365,17 +365,17 @@ struct menudialog menudialog_1b750 = {
 };
 
 // 1b768
-struct menuitem menuitems_1b768[] = {
+struct menuitem g_MenuItemsContinueOrReplay[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(244), 0x00000000, menuhandlerContinueMission }, // "Continue"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(245), 0x00000000, menuhandlerReplayLastLevel }, // "Replay Last Level"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 1b7a4
-struct menudialog menudialog_1b7a4 = {
+struct menudialog g_MenuDialogContinueOrReplay = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&menuTextCurrentStageName3,
-	menuitems_1b768,
+	g_MenuItemsContinueOrReplay,
 	NULL,
 	0x00000004,
 	NULL,
