@@ -36,7 +36,7 @@ extern struct menu_dialog g_4MbAdvancedSetupMenuDialog;
 extern struct menu_dialog menudialog_1b5c0;
 extern struct menu_dialog g_MenuDialogPromptNextMission;
 extern struct menu_dialog menudialog_1b7a4;
-extern u32 var80075968;
+extern u32 g_CheatColour;
 extern struct menu_dialog g_MenuDialogSoloEndscreenCompleted;
 extern struct menu_dialog g_MenuDialogSoloEndscreenFailed;
 extern struct menu_dialog g_MenuDialogSolo2PEndscreenCompletedWide;

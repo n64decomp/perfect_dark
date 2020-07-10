@@ -7,7 +7,7 @@ void menudialogRetryMission(u32 operation, struct menu_dialog *dialog, struct me
 s32 menudialog0010dd28(u32, u32, u32 *);
 s32 menudialog0010de58(u32, u32, u32 *);
 s32 menuhandlerDeclineMission(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandler0010e064(u32, u32, u32 *);
+s32 menuhandlerEndscreenMisc(u32 operation, struct menu_item *item, u32 *values);
 s32 menuhandlerContinueMission(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerReplayLastLevel(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerReplayPreviousMission(u32 operation, struct menu_item *item, s32 *value);
