@@ -8576,7 +8576,7 @@ glabel func0f0e98ac
 .L0f0e9c28:
 /*  f0e9c28:	3c098007 */ 	lui	$t1,%hi(g_MpPlayerNum)
 /*  f0e9c2c:	8d291448 */ 	lw	$t1,%lo(g_MpPlayerNum)($t1)
-/*  f0e9c30:	3c0c800a */ 	lui	$t4,%hi(g_MenuStack+0x4f8)
+/*  f0e9c30:	3c0c800a */ 	lui	$t4,%hi(g_Menus+0x4f8)
 /*  f0e9c34:	8fae0134 */ 	lw	$t6,0x134($sp)
 /*  f0e9c38:	000950c0 */ 	sll	$t2,$t1,0x3
 /*  f0e9c3c:	01495023 */ 	subu	$t2,$t2,$t1
@@ -8586,7 +8586,7 @@ glabel func0f0e98ac
 /*  f0e9c4c:	01495023 */ 	subu	$t2,$t2,$t1
 /*  f0e9c50:	000a5100 */ 	sll	$t2,$t2,0x4
 /*  f0e9c54:	018a6021 */ 	addu	$t4,$t4,$t2
-/*  f0e9c58:	8d8ce4f8 */ 	lw	$t4,%lo(g_MenuStack+0x4f8)($t4)
+/*  f0e9c58:	8d8ce4f8 */ 	lw	$t4,%lo(g_Menus+0x4f8)($t4)
 /*  f0e9c5c:	27a400c0 */ 	addiu	$a0,$sp,0xc0
 /*  f0e9c60:	27a500c4 */ 	addiu	$a1,$sp,0xc4
 /*  f0e9c64:	11cc0004 */ 	beq	$t6,$t4,.L0f0e9c78
@@ -10960,7 +10960,7 @@ glabel func0f0ebec8
 /*  f0ebf2c:	15000017 */ 	bnez	$t0,.L0f0ebf8c
 /*  f0ebf30:	01002825 */ 	or	$a1,$t0,$zero
 /*  f0ebf34:	8d291448 */ 	lw	$t1,%lo(g_MpPlayerNum)($t1)
-/*  f0ebf38:	3c0b800a */ 	lui	$t3,%hi(g_MenuStack+0x82c)
+/*  f0ebf38:	3c0b800a */ 	lui	$t3,%hi(g_Menus+0x82c)
 /*  f0ebf3c:	8fac0050 */ 	lw	$t4,0x50($sp)
 /*  f0ebf40:	000950c0 */ 	sll	$t2,$t1,0x3
 /*  f0ebf44:	01495023 */ 	subu	$t2,$t2,$t1
@@ -10970,7 +10970,7 @@ glabel func0f0ebec8
 /*  f0ebf54:	01495023 */ 	subu	$t2,$t2,$t1
 /*  f0ebf58:	000a5100 */ 	sll	$t2,$t2,0x4
 /*  f0ebf5c:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f0ebf60:	856be82c */ 	lh	$t3,%lo(g_MenuStack+0x82c)($t3)
+/*  f0ebf60:	856be82c */ 	lh	$t3,%lo(g_Menus+0x82c)($t3)
 /*  f0ebf64:	3c0142c8 */ 	lui	$at,0x42c8
 /*  f0ebf68:	55600009 */ 	bnezl	$t3,.L0f0ebf90
 /*  f0ebf6c:	84ce0000 */ 	lh	$t6,0x0($a2)
@@ -11051,7 +11051,7 @@ glabel func0f0ebec8
 /*  f0ec084:	45020013 */ 	bc1fl	.L0f0ec0d4
 /*  f0ec088:	84cc0000 */ 	lh	$t4,0x0($a2)
 /*  f0ec08c:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f0ec090:	3c09800a */ 	lui	$t1,%hi(g_MenuStack+0x82c)
+/*  f0ec090:	3c09800a */ 	lui	$t1,%hi(g_Menus+0x82c)
 /*  f0ec094:	8faa0050 */ 	lw	$t2,0x50($sp)
 /*  f0ec098:	001940c0 */ 	sll	$t0,$t9,0x3
 /*  f0ec09c:	01194023 */ 	subu	$t0,$t0,$t9
@@ -11061,7 +11061,7 @@ glabel func0f0ebec8
 /*  f0ec0ac:	01194023 */ 	subu	$t0,$t0,$t9
 /*  f0ec0b0:	00084100 */ 	sll	$t0,$t0,0x4
 /*  f0ec0b4:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f0ec0b8:	8529e82c */ 	lh	$t1,%lo(g_MenuStack+0x82c)($t1)
+/*  f0ec0b8:	8529e82c */ 	lh	$t1,%lo(g_Menus+0x82c)($t1)
 /*  f0ec0bc:	11200034 */ 	beqz	$t1,.L0f0ec190
 /*  f0ec0c0:	00000000 */ 	nop
 /*  f0ec0c4:	814b0000 */ 	lb	$t3,0x0($t2)
@@ -11901,15 +11901,15 @@ glabel func0f0ecbfc
 /*  f0ecc94:	00000000 */ 	nop
 );
 
-char *menuGetDescription(u32 type)
+char *menuTrainGetDescription(u32 type)
 {
 	switch (type) {
 	case DESCRIPTION_MPCONFIG:
-		return mpconfigGetDescription(g_MenuStack[g_MpPlayerNum].mpconfig);
+		return mpconfigGetDescription(g_Menus[g_MpPlayerNum].data.train.mpconfig);
 	case DESCRIPTION_MPCHALLENGE:
 		if (!mpIsChallengeLoaded()) {
-			g_MenuStack[g_MpPlayerNum].unk850 = 0x4fac5ace;
-			mpLoadAndStoreCurrentChallenge(g_MenuStack[g_MpPlayerNum].mpconfigbuffer, g_MenuStack[g_MpPlayerNum].mpconfigbufferlen);
+			g_Menus[g_MpPlayerNum].unk850 = 0x4fac5ace;
+			mpLoadAndStoreCurrentChallenge(g_Menus[g_MpPlayerNum].mpconfigbuffer, g_Menus[g_MpPlayerNum].mpconfigbufferlen);
 		}
 		return mpGetCurrentChallengeDescription();
 	case DESCRIPTION_CHRBIO:         return ciGetChrBioDescription();
@@ -11957,7 +11957,7 @@ glabel menuRenderItemScrollable
 /*  f0ece80:	afac004c */ 	sw	$t4,0x4c($sp)
 /*  f0ece84:	afab0060 */ 	sw	$t3,0x60($sp)
 /*  f0ece88:	8e0d0008 */ 	lw	$t5,0x8($s0)
-/*  f0ece8c:	0fc3b326 */ 	jal	menuGetDescription
+/*  f0ece8c:	0fc3b326 */ 	jal	menuTrainGetDescription
 /*  f0ece90:	91a40001 */ 	lbu	$a0,0x1($t5)
 /*  f0ece94:	8e040008 */ 	lw	$a0,0x8($s0)
 /*  f0ece98:	0fc3c94d */ 	jal	func0f0f2534
@@ -12289,7 +12289,7 @@ glabel func0f0ed264
 /*  f0ed368:	afac004c */ 	sw	$t4,0x4c($sp)
 .L0f0ed36c:
 /*  f0ed36c:	8fad1f98 */ 	lw	$t5,0x1f98($sp)
-/*  f0ed370:	0fc3b326 */ 	jal	menuGetDescription
+/*  f0ed370:	0fc3b326 */ 	jal	menuTrainGetDescription
 /*  f0ed374:	91a40001 */ 	lbu	$a0,0x1($t5)
 /*  f0ed378:	10400009 */ 	beqz	$v0,.L0f0ed3a0
 /*  f0ed37c:	00402825 */ 	or	$a1,$v0,$zero
@@ -14988,19 +14988,20 @@ glabel func0f0ef758
 /*  f0efa8c:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
 
+// These are the action names, like "AIM", and "LOOK UP"
 u16 var80071354[][9] = {
-	/* 0*/ { 0x54c2, 0x54c4, 0x54ca, 0x54c5, 0x54cb, 0x54cc, 0x54ce, 0x54cd, 0x54d2 },
-	/* 1*/ { 0x54c2, 0x54c8, 0x54ca, 0x54c9, 0x54cb, 0x54cc, 0x54cf, 0x54cd, 0x54d2 },
-	/* 2*/ { 0x54cb, 0x54c4, 0x54ca, 0x54c5, 0x54cd, 0x54cc, 0x54ce, 0x54c2, 0x54d2 },
-	/* 3*/ { 0x54cb, 0x54c8, 0x54ca, 0x54c9, 0x54cd, 0x54cc, 0x54cf, 0x54c2, 0x54d2 },
-	/* 4*/ { 0x5603, 0x5603, 0x54d3, 0x5603, 0x54cb, 0x54cc, 0x54ce, 0x54cd, 0x5603 },
-	/* 5*/ { 0x5603, 0x5603, 0x54d3, 0x5603, 0x54cb, 0x54cc, 0x54cf, 0x54cd, 0x5603 },
-	/* 6*/ { 0x5603, 0x5603, 0x54d3, 0x5603, 0x54cb, 0x54cc, 0x54ce, 0x54c2, 0x5603 },
-	/* 7*/ { 0x5603, 0x5603, 0x54d3, 0x5603, 0x54cb, 0x54cc, 0x54cf, 0x54c2, 0x5603 },
-	/* 8*/ { 0x5603, 0x5603, 0x54d4, 0x5603, 0x54cb, 0x54cc, 0x54d1, 0x54c2, 0x5603 },
-	/* 9*/ { 0x5603, 0x5603, 0x54d4, 0x5603, 0x54cb, 0x54cc, 0x54d0, 0x54c2, 0x5603 },
-	/*10*/ { 0x5603, 0x5603, 0x54d4, 0x5603, 0x54cb, 0x54cc, 0x54d1, 0x54cd, 0x5603 },
-	/*11*/ { 0x5603, 0x5603, 0x54d4, 0x5603, 0x54cb, 0x54cc, 0x54d0, 0x54cd, 0x5603 },
+	/*0*/  { L_MPWEAPONS(194), L_MPWEAPONS(196), L_MPWEAPONS(202), L_MPWEAPONS(197), L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(206), L_MPWEAPONS(205), L_MPWEAPONS(210) },
+	/*1*/  { L_MPWEAPONS(194), L_MPWEAPONS(200), L_MPWEAPONS(202), L_MPWEAPONS(201), L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(207), L_MPWEAPONS(205), L_MPWEAPONS(210) },
+	/*2*/  { L_MPWEAPONS(203), L_MPWEAPONS(196), L_MPWEAPONS(202), L_MPWEAPONS(197), L_MPWEAPONS(205), L_MPWEAPONS(204), L_MPWEAPONS(206), L_MPWEAPONS(194), L_MPWEAPONS(210) },
+	/*3*/  { L_MPWEAPONS(203), L_MPWEAPONS(200), L_MPWEAPONS(202), L_MPWEAPONS(201), L_MPWEAPONS(205), L_MPWEAPONS(204), L_MPWEAPONS(207), L_MPWEAPONS(194), L_MPWEAPONS(210) },
+	/*4*/  { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(211), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(206), L_MPWEAPONS(205), L_OPTIONS(3)     },
+	/*5*/  { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(211), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(207), L_MPWEAPONS(205), L_OPTIONS(3)     },
+	/*6*/  { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(211), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(206), L_MPWEAPONS(194), L_OPTIONS(3)     },
+	/*7*/  { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(211), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(207), L_MPWEAPONS(194), L_OPTIONS(3)     },
+	/*8*/  { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(212), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(209), L_MPWEAPONS(194), L_OPTIONS(3)     },
+	/*9*/  { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(212), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(208), L_MPWEAPONS(194), L_OPTIONS(3)     },
+	/*10*/ { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(212), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(209), L_MPWEAPONS(205), L_OPTIONS(3)     },
+	/*11*/ { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(212), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(208), L_MPWEAPONS(205), L_OPTIONS(3)     },
 };
 
 u16 func0f0efa90(s32 row, s32 col)
@@ -15008,24 +15009,34 @@ u16 func0f0efa90(s32 row, s32 col)
 	u32 textid = var80071354[row][col];
 
 	if (textid == L_MPWEAPONS(194) // "AIM"
-			&& optionsGetAimControl(g_MenuStack[g_MpPlayerNum].unke24) == AIMCONTROL_TOGGLE) {
+			&& optionsGetAimControl(g_Menus[g_MpPlayerNum].data.main.mpindex) == AIMCONTROL_TOGGLE) {
 		textid = L_MPWEAPONS(195); // "AIM TOGGLE"
 	}
 
 	if (textid == L_MPWEAPONS(196) // "LOOK UP"
-			&& optionsGetForwardPitch(g_MenuStack[g_MpPlayerNum].unke24) == false) {
+			&& optionsGetForwardPitch(g_Menus[g_MpPlayerNum].data.main.mpindex) == false) {
 		textid = L_MPWEAPONS(198); // "LOOK DOWN"
 	}
 
 	if (textid == L_MPWEAPONS(197) // "LOOK DOWN"
-			&& optionsGetForwardPitch(g_MenuStack[g_MpPlayerNum].unke24) == false) {
+			&& optionsGetForwardPitch(g_Menus[g_MpPlayerNum].data.main.mpindex) == false) {
 		textid = L_MPWEAPONS(199); // "LOOK UP"
 	}
 
 	return textid;
 }
 
-u16 var8007142c[] = { 0x54b9, 0x54ba, 0x54bb, 0x54bc, 0x54bd, 0x54be, 0x54bf, 0x54c0, 0x54c1 };
+u16 var8007142c[] = {
+	L_MPWEAPONS(185), // "L/R BUTTONS:"
+	L_MPWEAPONS(186), // "UP C BUTTON:"
+	L_MPWEAPONS(187), // "LEFT/RIGHT C BUTTONS:"
+	L_MPWEAPONS(188), // "DOWN C BUTTON:"
+	L_MPWEAPONS(189), // "A BUTTON:"
+	L_MPWEAPONS(190), // "B BUTTON:"
+	L_MPWEAPONS(191), // "CONTROL STICK:"
+	L_MPWEAPONS(192), // "Z BUTTON:"
+	L_MPWEAPONS(193), // "+ CONTROL PAD:"
+};
 
 GLOBAL_ASM(
 glabel func0f0efbb4
@@ -15455,7 +15466,7 @@ glabel menuRenderItemController
 /*  f0f01e0:	8c842298 */ 	lw	$a0,%lo(var7f1b2298)($a0)
 /*  f0f01e4:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
 /*  f0f01e8:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f0f01ec:	3c19800a */ 	lui	$t9,%hi(g_MenuStack+0xe20)
+/*  f0f01ec:	3c19800a */ 	lui	$t9,%hi(g_Menus+0xe20)
 /*  f0f01f0:	000fc0c0 */ 	sll	$t8,$t7,0x3
 /*  f0f01f4:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f0f01f8:	0018c080 */ 	sll	$t8,$t8,0x2
@@ -15464,7 +15475,7 @@ glabel menuRenderItemController
 /*  f0f0204:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f0f0208:	0018c100 */ 	sll	$t8,$t8,0x4
 /*  f0f020c:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f0f0210:	8f39ee20 */ 	lw	$t9,%lo(g_MenuStack+0xe20)($t9)
+/*  f0f0210:	8f39ee20 */ 	lw	$t9,%lo(g_Menus+0xe20)($t9)
 /*  f0f0214:	2f210004 */ 	sltiu	$at,$t9,0x4
 /*  f0f0218:	1420001f */ 	bnez	$at,.L0f0f0298
 /*  f0f021c:	00000000 */ 	nop
@@ -15472,7 +15483,7 @@ glabel menuRenderItemController
 /*  f0f0224:	240454d5 */ 	addiu	$a0,$zero,0x54d5
 /*  f0f0228:	3c098007 */ 	lui	$t1,%hi(g_MpPlayerNum)
 /*  f0f022c:	8d291448 */ 	lw	$t1,%lo(g_MpPlayerNum)($t1)
-/*  f0f0230:	3c0a800a */ 	lui	$t2,%hi(g_MenuStack+0xe20)
+/*  f0f0230:	3c0a800a */ 	lui	$t2,%hi(g_Menus+0xe20)
 /*  f0f0234:	3c048007 */ 	lui	$a0,%hi(g_ControlStyleOptions)
 /*  f0f0238:	000958c0 */ 	sll	$t3,$t1,0x3
 /*  f0f023c:	01695823 */ 	subu	$t3,$t3,$t1
@@ -15482,7 +15493,7 @@ glabel menuRenderItemController
 /*  f0f024c:	01695823 */ 	subu	$t3,$t3,$t1
 /*  f0f0250:	000b5900 */ 	sll	$t3,$t3,0x4
 /*  f0f0254:	014b5021 */ 	addu	$t2,$t2,$t3
-/*  f0f0258:	8d4aee20 */ 	lw	$t2,%lo(g_MenuStack+0xe20)($t2)
+/*  f0f0258:	8d4aee20 */ 	lw	$t2,%lo(g_Menus+0xe20)($t2)
 /*  f0f025c:	afa2004c */ 	sw	$v0,0x4c($sp)
 /*  f0f0260:	000a6040 */ 	sll	$t4,$t2,0x1
 /*  f0f0264:	008c2021 */ 	addu	$a0,$a0,$t4
@@ -15503,7 +15514,7 @@ glabel menuRenderItemController
 /*  f0f029c:	240454d5 */ 	addiu	$a0,$zero,0x54d5
 /*  f0f02a0:	3c0d8007 */ 	lui	$t5,%hi(g_MpPlayerNum)
 /*  f0f02a4:	8dad1448 */ 	lw	$t5,%lo(g_MpPlayerNum)($t5)
-/*  f0f02a8:	3c0f800a */ 	lui	$t7,%hi(g_MenuStack+0xe20)
+/*  f0f02a8:	3c0f800a */ 	lui	$t7,%hi(g_Menus+0xe20)
 /*  f0f02ac:	3c048007 */ 	lui	$a0,%hi(g_ControlStyleOptions)
 /*  f0f02b0:	000d70c0 */ 	sll	$t6,$t5,0x3
 /*  f0f02b4:	01cd7023 */ 	subu	$t6,$t6,$t5
@@ -15513,7 +15524,7 @@ glabel menuRenderItemController
 /*  f0f02c4:	01cd7023 */ 	subu	$t6,$t6,$t5
 /*  f0f02c8:	000e7100 */ 	sll	$t6,$t6,0x4
 /*  f0f02cc:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0f02d0:	8defee20 */ 	lw	$t7,%lo(g_MenuStack+0xe20)($t7)
+/*  f0f02d0:	8defee20 */ 	lw	$t7,%lo(g_Menus+0xe20)($t7)
 /*  f0f02d4:	afa2004c */ 	sw	$v0,0x4c($sp)
 /*  f0f02d8:	000fc040 */ 	sll	$t8,$t7,0x1
 /*  f0f02dc:	00982021 */ 	addu	$a0,$a0,$t8
@@ -15572,7 +15583,7 @@ glabel menuRenderItemController
 /*  f0f03ac:	8fa60064 */ 	lw	$a2,0x64($sp)
 /*  f0f03b0:	3c188007 */ 	lui	$t8,%hi(g_MpPlayerNum)
 /*  f0f03b4:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f0f03b8:	3c03800a */ 	lui	$v1,%hi(g_MenuStack+0xe20)
+/*  f0f03b8:	3c03800a */ 	lui	$v1,%hi(g_Menus+0xe20)
 /*  f0f03bc:	00404025 */ 	or	$t0,$v0,$zero
 /*  f0f03c0:	0018c8c0 */ 	sll	$t9,$t8,0x3
 /*  f0f03c4:	0338c823 */ 	subu	$t9,$t9,$t8
@@ -15582,7 +15593,7 @@ glabel menuRenderItemController
 /*  f0f03d4:	0338c823 */ 	subu	$t9,$t9,$t8
 /*  f0f03d8:	0019c900 */ 	sll	$t9,$t9,0x4
 /*  f0f03dc:	00791821 */ 	addu	$v1,$v1,$t9
-/*  f0f03e0:	8c63ee20 */ 	lw	$v1,%lo(g_MenuStack+0xe20)($v1)
+/*  f0f03e0:	8c63ee20 */ 	lw	$v1,%lo(g_Menus+0xe20)($v1)
 /*  f0f03e4:	8fa400a0 */ 	lw	$a0,0xa0($sp)
 /*  f0f03e8:	8fa500a4 */ 	lw	$a1,0xa4($sp)
 /*  f0f03ec:	2c610004 */ 	sltiu	$at,$v1,0x4
@@ -15604,7 +15615,7 @@ glabel menuRenderItemController
 /*  f0f042c:	afaa0020 */ 	sw	$t2,0x20($sp)
 /*  f0f0430:	3c0c8007 */ 	lui	$t4,%hi(g_MpPlayerNum)
 /*  f0f0434:	8d8c1448 */ 	lw	$t4,%lo(g_MpPlayerNum)($t4)
-/*  f0f0438:	3c0e800a */ 	lui	$t6,%hi(g_MenuStack+0xe20)
+/*  f0f0438:	3c0e800a */ 	lui	$t6,%hi(g_Menus+0xe20)
 /*  f0f043c:	8fb80064 */ 	lw	$t8,0x64($sp)
 /*  f0f0440:	000c68c0 */ 	sll	$t5,$t4,0x3
 /*  f0f0444:	01ac6823 */ 	subu	$t5,$t5,$t4
@@ -15614,7 +15625,7 @@ glabel menuRenderItemController
 /*  f0f0454:	01ac6823 */ 	subu	$t5,$t5,$t4
 /*  f0f0458:	000d6900 */ 	sll	$t5,$t5,0x4
 /*  f0f045c:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f0f0460:	8dceee20 */ 	lw	$t6,%lo(g_MenuStack+0xe20)($t6)
+/*  f0f0460:	8dceee20 */ 	lw	$t6,%lo(g_Menus+0xe20)($t6)
 /*  f0f0464:	8fb90094 */ 	lw	$t9,0x94($sp)
 /*  f0f0468:	8fa90098 */ 	lw	$t1,0x98($sp)
 /*  f0f046c:	25cf0004 */ 	addiu	$t7,$t6,0x4
@@ -15866,7 +15877,7 @@ glabel var7f1b1f48
 /*  f0f085c:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-void func0f0f0860(struct menu_item *item, u32 *arg1)
+void func0f0f0860(struct menuitem *item, u32 *arg1)
 {
 	switch (item->type) {
 	case MENUITEMTYPE_CUSTOM:

@@ -2948,7 +2948,7 @@ glabel func0f19f524
 /*  f19f8b8:	00001025 */ 	or	$v0,$zero,$zero
 .L0f19f8bc:
 /*  f19f8bc:	14400014 */ 	bnez	$v0,.L0f19f910
-/*  f19f8c0:	3c0f800a */ 	lui	$t7,%hi(g_MenuStack+0x2220)
+/*  f19f8c0:	3c0f800a */ 	lui	$t7,%hi(g_Menus+0x2220)
 /*  f19f8c4:	8fa402bc */ 	lw	$a0,0x2bc($sp)
 /*  f19f8c8:	0fc2a685 */ 	jal	weaponGetAmmoType
 /*  f19f8cc:	00002825 */ 	or	$a1,$zero,$zero
@@ -2961,7 +2961,7 @@ glabel func0f19f524
 /*  f19f8e8:	8faf0034 */ 	lw	$t7,0x34($sp)
 /*  f19f8ec:	2419012c */ 	addiu	$t9,$zero,0x12c
 /*  f19f8f0:	3c01800b */ 	lui	$at,%hi(g_FiringRangeData+0x474)
-/*  f19f8f4:	8df80220 */ 	lw	$t8,%lo(g_MenuStack+0x2220)($t7)
+/*  f19f8f4:	8df80220 */ 	lw	$t8,%lo(g_Menus+0x2220)($t7)
 /*  f19f8f8:	03027021 */ 	addu	$t6,$t8,$v0
 /*  f19f8fc:	15c00002 */ 	bnez	$t6,.L0f19f908
 /*  f19f900:	00000000 */ 	nop

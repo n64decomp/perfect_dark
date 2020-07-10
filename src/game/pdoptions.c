@@ -229,19 +229,19 @@ s32 optionsGetEffectiveScreenSize(void)
 	if (g_MenuData.root == MENUROOT_TRAINING) {
 		g_MpPlayerNum = 0;
 
-		if (g_MenuStack[g_MpPlayerNum].curframe && var8009dfc0) {
+		if (g_Menus[g_MpPlayerNum].curframe && var8009dfc0) {
 			return SCREENSIZE_FULL;
 		}
 	}
 
-	if (g_MenuStack[g_MpPlayerNum].curframe && (
-				g_MenuStack[g_MpPlayerNum].curframe->dialog == &menudialog_control4 ||
-				g_MenuStack[g_MpPlayerNum].curframe->dialog == &menudialog_control3 ||
-				g_MenuStack[g_MpPlayerNum].curframe->dialog == &g_ControlStyleSingleMenuDialog)) {
+	if (g_Menus[g_MpPlayerNum].curframe && (
+				g_Menus[g_MpPlayerNum].curframe->dialog == &menudialog_control4 ||
+				g_Menus[g_MpPlayerNum].curframe->dialog == &menudialog_control3 ||
+				g_Menus[g_MpPlayerNum].curframe->dialog == &g_ControlStyleSingleMenuDialog)) {
 		return SCREENSIZE_FULL;
 	}
 
-	if (PLAYERCOUNT() >= 2 || g_MenuData.root == MENUROOT_COMBATSIM) {
+	if (PLAYERCOUNT() >= 2 || g_MenuData.root == MENUROOT_MPSETUP) {
 		return SCREENSIZE_FULL;
 	}
 

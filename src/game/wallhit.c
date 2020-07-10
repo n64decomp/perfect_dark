@@ -1682,11 +1682,11 @@ glabel var7f1b5d6c
 /*  f13f660:	00002025 */ 	or	$a0,$zero,$zero
 .L0f13f664:
 /*  f13f664:	12400005 */ 	beqz	$s2,.L0f13f67c
-/*  f13f668:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0x1fff)
+/*  f13f668:	3c02800a */ 	lui	$v0,%hi(g_Menus+0x1fff)
 /*  f13f66c:	3c02800a */ 	lui	$v0,%hi(var8009cc60)
 /*  f13f670:	8c42cc60 */ 	lw	$v0,%lo(var8009cc60)($v0)
 /*  f13f674:	10000003 */ 	b	.L0f13f684
-/*  f13f678:	2442ffff */ 	addiu	$v0,$v0,%lo(g_MenuStack+0x1fff)
+/*  f13f678:	2442ffff */ 	addiu	$v0,$v0,%lo(g_Menus+0x1fff)
 .L0f13f67c:
 /*  f13f67c:	8c42cc68 */ 	lw	$v0,-0x3398($v0)
 /*  f13f680:	2442ffff */ 	addiu	$v0,$v0,-1

@@ -14,47 +14,47 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-s32 menuhandler4MbDropOut(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandler4MbDropOut(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
 		menuPopDialog();
 
 		if (mpGetNumChrs() == 1) {
-			func0f0f820c(&g_4MbMainMenu, 11);
+			func0f0f820c(&g_4MbMainMenu, MENUROOT_4MBMAINMENU);
 		}
 	}
 
 	return 0;
 }
 
-s32 menuhandler0010ca1c(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandler0010ca1c(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		if (g_Vars.stagenum == 0x5d) {
-			func0f0f820c(&g_4MbMainMenu, 11);
+		if (g_Vars.stagenum == STAGE_4MBMENU) {
+			func0f0f820c(&g_4MbMainMenu, MENUROOT_4MBMAINMENU);
 		} else {
-			func0f0f820c(&g_SoloPauseMenuDialog, 2);
+			func0f0f820c(&g_SoloPauseMenuDialog, MENUROOT_MAINMENU);
 		}
 	}
 
 	return 0;
 }
 
-s32 menuhandler4MbAdvancedSetup(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandler4MbAdvancedSetup(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		func0f0f820c(&g_4MbAdvancedSetupMenuDialog, 11);
+		func0f0f820c(&g_4MbAdvancedSetupMenuDialog, MENUROOT_4MBMAINMENU);
 	}
 
 	return 0;
 }
 
-s32 menuhandler0010cabc(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandler0010cabc(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		mpSetCurrentChallenge(g_MenuStack[g_MpPlayerNum].slotindex);
-		func0f0f820c(&menudialog_mpquickgo2, 11);
+		mpSetCurrentChallenge(g_Menus[g_MpPlayerNum].data.main4mb.slotindex);
+		func0f0f820c(&menudialog_mpquickgo2, MENUROOT_4MBMAINMENU);
 	}
 
 	return 0;
@@ -90,7 +90,7 @@ void func0f10cb2c(void)
 	g_MpPlayerNum = prevplayernum;
 }
 
-bool menudialog4MbMainMenu(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+bool menudialog4MbMainMenu(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
 	if (operation == MENUOP_100) {
 		g_Vars.unk000494 = 0;
@@ -99,8 +99,8 @@ bool menudialog4MbMainMenu(u32 operation, struct menu_dialog *dialog, struct men
 		g_Vars.unk000497 = 0;
 	}
 
-	if (g_MenuStack[g_MpPlayerNum].curframe &&
-			g_MenuStack[g_MpPlayerNum].curframe->dialog == &g_4MbMainMenu &&
+	if (g_Menus[g_MpPlayerNum].curframe &&
+			g_Menus[g_MpPlayerNum].curframe->dialog == &g_4MbMainMenu &&
 			operation == MENUOP_102) {
 		g_Vars.unk000490 = 2;
 		g_Vars.mpquickteam = MPQUICKTEAM_5;

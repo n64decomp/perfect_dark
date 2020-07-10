@@ -2266,7 +2266,7 @@ bool mpIsPaused(void)
 {
 	if (PLAYERCOUNT() == 1
 			&& g_Vars.mplayerisrunning
-			&& g_MenuStack[g_Vars.currentplayerstats->mpindex].curframe) {
+			&& g_Menus[g_Vars.currentplayerstats->mpindex].curframe) {
 		return true;
 	}
 
@@ -2333,7 +2333,7 @@ glabel func0f18973c
 /*  f1897f0:	03284821 */ 	addu	$t1,$t9,$t0
 /*  f1897f4:	afa90094 */ 	sw	$t1,0x94($sp)
 /*  f1897f8:	8d4b0070 */ 	lw	$t3,0x70($t2)
-/*  f1897fc:	3c0d800a */ 	lui	$t5,%hi(g_MenuStack+0x4f8)
+/*  f1897fc:	3c0d800a */ 	lui	$t5,%hi(g_Menus+0x4f8)
 /*  f189800:	000b60c0 */ 	sll	$t4,$t3,0x3
 /*  f189804:	018b6023 */ 	subu	$t4,$t4,$t3
 /*  f189808:	000c6080 */ 	sll	$t4,$t4,0x2
@@ -2342,7 +2342,7 @@ glabel func0f18973c
 /*  f189814:	018b6023 */ 	subu	$t4,$t4,$t3
 /*  f189818:	000c6100 */ 	sll	$t4,$t4,0x4
 /*  f18981c:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*  f189820:	8dade4f8 */ 	lw	$t5,%lo(g_MenuStack+0x4f8)($t5)
+/*  f189820:	8dade4f8 */ 	lw	$t5,%lo(g_Menus+0x4f8)($t5)
 /*  f189824:	11a00006 */ 	beqz	$t5,.L0f189840
 /*  f189828:	00000000 */ 	nop
 /*  f18982c:	0c002f44 */ 	jal	viGetViewTop
@@ -2636,7 +2636,7 @@ glabel func0f18973c
 /*  f189c70:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x288)
 /*  f189c74:	8defa248 */ 	lw	$t7,%lo(g_Vars+0x288)($t7)
 /*  f189c78:	afa200a0 */ 	sw	$v0,0xa0($sp)
-/*  f189c7c:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0x83c)
+/*  f189c7c:	3c01800a */ 	lui	$at,%hi(g_Menus+0x83c)
 /*  f189c80:	8df90070 */ 	lw	$t9,0x70($t7)
 /*  f189c84:	2418000a */ 	addiu	$t8,$zero,0xa
 /*  f189c88:	001940c0 */ 	sll	$t0,$t9,0x3
@@ -2647,7 +2647,7 @@ glabel func0f18973c
 /*  f189c9c:	01194023 */ 	subu	$t0,$t0,$t9
 /*  f189ca0:	00084100 */ 	sll	$t0,$t0,0x4
 /*  f189ca4:	00280821 */ 	addu	$at,$at,$t0
-/*  f189ca8:	a038e83c */ 	sb	$t8,%lo(g_MenuStack+0x83c)($at)
+/*  f189ca8:	a038e83c */ 	sb	$t8,%lo(g_Menus+0x83c)($at)
 .L0f189cac:
 /*  f189cac:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .L0f189cb0:

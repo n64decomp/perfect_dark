@@ -479,7 +479,7 @@ glabel var7f1b27fc
 bool menuIsSoloMissionOrMp(void)
 {
 	switch (g_MenuData.root) {
-	case MENUROOT_SOLOPAUSE:
+	case MENUROOT_MAINMENU:
 	case MENUROOT_TRAINING:
 		if (g_Vars.stagenum == STAGE_CITRAINING) {
 			return false;
@@ -502,7 +502,7 @@ bool currentPlayerIsMenuOpenInSoloOrMp(void)
 			mpindex -= 4;
 		}
 
-		if (g_MenuStack[mpindex].curframe) {
+		if (g_Menus[mpindex].curframe) {
 			return true;
 		}
 	}
@@ -526,7 +526,7 @@ void func0f0f0ca0(s32 value, bool allplayers)
 		return;
 	}
 
-	g_MenuStack[g_MpPlayerNum].unkdf8 = value;
+	g_Menus[g_MpPlayerNum].unkdf8 = value;
 }
 
 u32 var8007144c = 0x51e451e5;
@@ -956,13 +956,13 @@ glabel func0f0f0ce8
 /*  f0f1334:	27bd0090 */ 	addiu	$sp,$sp,0x90
 );
 
-struct menustackdfc *func0f0f1338(u32 arg0)
+struct menudfc *func0f0f1338(u32 arg0)
 {
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		if (g_MenuStack[g_MpPlayerNum].unkdfc[i].unk00 == arg0) {
-			return &g_MenuStack[g_MpPlayerNum].unkdfc[i];
+		if (g_Menus[g_MpPlayerNum].unkdfc[i].unk00 == arg0) {
+			return &g_Menus[g_MpPlayerNum].unkdfc[i];
 		}
 	}
 
@@ -971,7 +971,7 @@ struct menustackdfc *func0f0f1338(u32 arg0)
 
 void func0f0f139c(s32 arg0, f32 arg1)
 {
-	struct menustackdfc *thing = func0f0f1338(arg0);
+	struct menudfc *thing = func0f0f1338(arg0);
 
 	if (thing) {
 		thing->unk04 = arg1;
@@ -988,7 +988,7 @@ void func0f0f139c(s32 arg0, f32 arg1)
 
 void func0f0f13ec(s32 arg0)
 {
-	struct menustackdfc *thing = func0f0f1338(arg0);
+	struct menudfc *thing = func0f0f1338(arg0);
 
 	if (thing) {
 		thing->unk00 = 0;
@@ -1000,8 +1000,8 @@ void func0f0f1418(void)
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		if (g_MenuStack[g_MpPlayerNum].unkdfc[i].unk00) {
-			g_MenuStack[g_MpPlayerNum].unkdfc[i].unk04 += g_Vars.diffframe60f / 60.0f;
+		if (g_Menus[g_MpPlayerNum].unkdfc[i].unk00) {
+			g_Menus[g_MpPlayerNum].unkdfc[i].unk04 += g_Vars.diffframe60f / 60.0f;
 		}
 	}
 }
@@ -1011,13 +1011,13 @@ void func0f0f1494(void)
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		g_MenuStack[g_MpPlayerNum].unkdfc[i].unk00 = 0;
+		g_Menus[g_MpPlayerNum].unkdfc[i].unk00 = 0;
 	}
 }
 
-char *menuResolveText(u32 thing, struct menu_item *item)
+char *menuResolveText(u32 thing, struct menuitem *item)
 {
-	char *(*handler)(struct menu_item *item) = (void *)thing;
+	char *(*handler)(struct menuitem *item) = (void *)thing;
 
 	// Null/zero
 	if (thing == 0) {
@@ -1087,12 +1087,12 @@ const u32 var7f1b264c[] = {0x88445500};
 const u32 var7f1b2650[] = {0x48242000};
 const u32 var7f1b2654[] = {0x88445500};
 
-char *menuResolveParam2Text(struct menu_item *item)
+char *menuResolveParam2Text(struct menuitem *item)
 {
 	return menuResolveText(item->param2, item);
 }
 
-char *menuResolveParam1Text(struct menu_item *item)
+char *menuResolveParam1Text(struct menuitem *item)
 {
 	return menuResolveText(item->param1, item);
 }
@@ -3158,48 +3158,48 @@ glabel menuPushDialog
 );
 
 // regalloc: s1 (layer) and s2 (sibling) are swapped
-//void menuPushDialog(struct menu_dialog *dialog)
+//void menuPushDialog(struct menudialog *dialog)
 //{
 //	if (dialog) {
-//		func0f0f37a4(&g_MenuStack[g_MpPlayerNum].unk840);
+//		func0f0f37a4(&g_Menus[g_MpPlayerNum].unk840);
 //
-//		if (g_MenuStack[g_MpPlayerNum].depth < 6 && g_MenuStack[g_MpPlayerNum].numframes < 10) {
-//			struct menulayer *layer = &g_MenuStack[g_MpPlayerNum].layers[g_MenuStack[g_MpPlayerNum].depth];
-//			struct menu_dialog *sibling;
+//		if (g_Menus[g_MpPlayerNum].depth < 6 && g_Menus[g_MpPlayerNum].numframes < 10) {
+//			struct menulayer *layer = &g_Menus[g_MpPlayerNum].layers[g_Menus[g_MpPlayerNum].depth];
+//			struct menudialog *sibling;
 //			struct menuframe *frame;
 //
-//			g_MenuStack[g_MpPlayerNum].depth++;
+//			g_Menus[g_MpPlayerNum].depth++;
 //
 //			layer->numsiblings = 1;
 //			layer->cursibling = 0;
 //
-//			frame = &g_MenuStack[g_MpPlayerNum].frames[g_MenuStack[g_MpPlayerNum].numframes];
-//			g_MenuStack[g_MpPlayerNum].numframes++;
+//			frame = &g_Menus[g_MpPlayerNum].frames[g_Menus[g_MpPlayerNum].numframes];
+//			g_Menus[g_MpPlayerNum].numframes++;
 //			layer->siblings[0] = frame;
-//			g_MenuStack[g_MpPlayerNum].curframe = frame;
+//			g_Menus[g_MpPlayerNum].curframe = frame;
 //			frame->unk6d = 0;
 //
-//			func0f0f2cf4(dialog, frame, &g_MenuStack[g_MpPlayerNum]);
+//			func0f0f2cf4(dialog, frame, &g_Menus[g_MpPlayerNum]);
 //
 //			frame->unk2c = (viGetX() - frame->unk1c) / 2;
 //			frame->unk30 = (viGetY() - frame->unk20) / 2;
 //
-//			g_MenuStack[g_MpPlayerNum].unke40 |= 0x80;
+//			g_Menus[g_MpPlayerNum].unke40 |= 0x80;
 //			sibling = dialog->nextsibling;
 //
 //			while (sibling && layer->numsiblings < 5) {
 //				// If this limit were to be reached, the game would soft lock
 //				// because sibling is incremented inside the if-statement block.
-//				if (g_MenuStack[g_MpPlayerNum].numframes < 10) {
-//					frame = &g_MenuStack[g_MpPlayerNum].frames[g_MenuStack[g_MpPlayerNum].numframes];
-//					g_MenuStack[g_MpPlayerNum].numframes++;
+//				if (g_Menus[g_MpPlayerNum].numframes < 10) {
+//					frame = &g_Menus[g_MpPlayerNum].frames[g_Menus[g_MpPlayerNum].numframes];
+//					g_Menus[g_MpPlayerNum].numframes++;
 //
 //					layer->siblings[layer->numsiblings] = frame;
 //					layer->numsiblings++;
 //
 //					frame->unk6d = -1;
 //
-//					func0f0f2cf4(sibling, frame, &g_MenuStack[g_MpPlayerNum]);
+//					func0f0f2cf4(sibling, frame, &g_Menus[g_MpPlayerNum]);
 //
 //					frame->unk14 = -320;
 //					frame->unk2c = -320;
@@ -3236,9 +3236,9 @@ glabel func0f0f3220
 /*  f0f323c:	24080001 */ 	addiu	$t0,$zero,0x1
 /*  f0f3240:	3c078007 */ 	lui	$a3,%hi(g_MpPlayerNum)
 /*  f0f3244:	24e71448 */ 	addiu	$a3,$a3,%lo(g_MpPlayerNum)
-/*  f0f3248:	3c03800a */ 	lui	$v1,%hi(g_MenuStack+0x2b50)
+/*  f0f3248:	3c03800a */ 	lui	$v1,%hi(g_Menus+0x2b50)
 /*  f0f324c:	8ce90000 */ 	lw	$t1,0x0($a3)
-/*  f0f3250:	24630b50 */ 	addiu	$v1,$v1,%lo(g_MenuStack+0x2b50)
+/*  f0f3250:	24630b50 */ 	addiu	$v1,$v1,%lo(g_Menus+0x2b50)
 /*  f0f3254:	24020003 */ 	addiu	$v0,$zero,0x3
 .L0f0f3258:
 /*  f0f3258:	8c6e04f8 */ 	lw	$t6,0x4f8($v1)
@@ -3509,17 +3509,17 @@ glabel func0f0f33bc
 
 void menuUpdateCurFrame(void)
 {
-	s32 depth = g_MenuStack[g_MpPlayerNum].depth;
+	s32 depth = g_Menus[g_MpPlayerNum].depth;
 
 	if (depth == 0) {
 		// No more parent menus - return control to the player
 		g_Vars.currentplayer->joybutinhibit = 0xffffffff;
 		func0f0f8040();
-		g_MenuStack[g_MpPlayerNum].curframe = NULL;
+		g_Menus[g_MpPlayerNum].curframe = NULL;
 	} else {
 		// Set up parent menu
-		struct menulayer *layer = &g_MenuStack[g_MpPlayerNum].layers[depth - 1];
-		g_MenuStack[g_MpPlayerNum].curframe = layer->siblings[layer->cursibling];
+		struct menulayer *layer = &g_Menus[g_MpPlayerNum].layers[depth - 1];
+		g_Menus[g_MpPlayerNum].curframe = layer->siblings[layer->cursibling];
 	}
 }
 
@@ -3529,7 +3529,7 @@ void menuPopDialog(void)
 	menuUpdateCurFrame();
 }
 
-void func0f0f3704(struct menu_dialog *dialog)
+void func0f0f3704(struct menudialog *dialog)
 {
 	func0f0f33bc();
 	menuPushDialog(dialog);
@@ -4691,7 +4691,7 @@ glabel var7f1b2948
 /*  f0f4748:	5020006f */ 	beqzl	$at,.L0f0f4908
 /*  f0f474c:	8e0a0054 */ 	lw	$t2,0x54($s0)
 /*  f0f4750:	11a0000e */ 	beqz	$t5,.L0f0f478c
-/*  f0f4754:	3c11800a */ 	lui	$s1,%hi(g_MenuStack+0x2004)
+/*  f0f4754:	3c11800a */ 	lui	$s1,%hi(g_Menus+0x2004)
 /*  f0f4758:	0fc35272 */ 	jal	func0f0d49c8
 /*  f0f475c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0f4760:	244c0008 */ 	addiu	$t4,$v0,0x8
@@ -4704,7 +4704,7 @@ glabel var7f1b2948
 /*  f0f477c:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f0f4780:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0f4784:	1000005f */ 	b	.L0f0f4904
-/*  f0f4788:	ae220004 */ 	sw	$v0,%lo(g_MenuStack+0x2004)($s1)
+/*  f0f4788:	ae220004 */ 	sw	$v0,%lo(g_Menus+0x2004)($s1)
 .L0f0f478c:
 /*  f0f478c:	26312038 */ 	addiu	$s1,$s1,8248
 /*  f0f4790:	3c18800a */ 	lui	$t8,%hi(var800a203c)
@@ -7889,7 +7889,7 @@ glabel func0f0f7594
 /*  f0f75a4:	55c1005d */ 	bnel	$t6,$at,.L0f0f771c
 /*  f0f75a8:	aca00000 */ 	sw	$zero,0x0($a1)
 /*  f0f75ac:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f0f75b0:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0x83b)
+/*  f0f75b0:	3c02800a */ 	lui	$v0,%hi(g_Menus+0x83b)
 /*  f0f75b4:	3c038007 */ 	lui	$v1,%hi(var800714d8)
 /*  f0f75b8:	000fc0c0 */ 	sll	$t8,$t7,0x3
 /*  f0f75bc:	030fc023 */ 	subu	$t8,$t8,$t7
@@ -7899,7 +7899,7 @@ glabel func0f0f7594
 /*  f0f75cc:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f0f75d0:	0018c100 */ 	sll	$t8,$t8,0x4
 /*  f0f75d4:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f0f75d8:	9042e83b */ 	lbu	$v0,%lo(g_MenuStack+0x83b)($v0)
+/*  f0f75d8:	9042e83b */ 	lbu	$v0,%lo(g_Menus+0x83b)($v0)
 /*  f0f75dc:	aca00000 */ 	sw	$zero,0x0($a1)
 /*  f0f75e0:	acc00000 */ 	sw	$zero,0x0($a2)
 /*  f0f75e4:	8c6314d8 */ 	lw	$v1,%lo(var800714d8)($v1)
@@ -9118,7 +9118,7 @@ glabel var7f1b29f8
 /*  f0f85dc:	00000000 */ 	nop
 );
 
-void func0f0f85e0(struct menu_dialog *dialog, s32 root)
+void func0f0f85e0(struct menudialog *dialog, s32 root)
 {
 	if (dialog == &g_MainMenuMenuDialog) {
 		func0f16db14();
@@ -9214,9 +9214,9 @@ glabel func0f0f86a8
 /*  f0f8748:	0019c8c0 */ 	sll	$t9,$t9,0x3
 /*  f0f874c:	0338c823 */ 	subu	$t9,$t9,$t8
 /*  f0f8750:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f0f8754:	3c10800a */ 	lui	$s0,%hi(g_MenuStack+0x4f8)
+/*  f0f8754:	3c10800a */ 	lui	$s0,%hi(g_Menus+0x4f8)
 /*  f0f8758:	02198021 */ 	addu	$s0,$s0,$t9
-/*  f0f875c:	8e10e4f8 */ 	lw	$s0,%lo(g_MenuStack+0x4f8)($s0)
+/*  f0f875c:	8e10e4f8 */ 	lw	$s0,%lo(g_Menus+0x4f8)($s0)
 /*  f0f8760:	0000c012 */ 	mflo	$t8
 /*  f0f8764:	8e0b001c */ 	lw	$t3,0x1c($s0)
 /*  f0f8768:	8e0a0014 */ 	lw	$t2,0x14($s0)
@@ -9409,7 +9409,7 @@ glabel func0f0f86a8
 /*  f0f8a1c:	27a70074 */ 	addiu	$a3,$sp,0x74
 /*  f0f8a20:	3c0c8007 */ 	lui	$t4,%hi(g_MpPlayerNum)
 /*  f0f8a24:	8d8c1448 */ 	lw	$t4,%lo(g_MpPlayerNum)($t4)
-/*  f0f8a28:	3c19800a */ 	lui	$t9,%hi(g_MenuStack+0xdf8)
+/*  f0f8a28:	3c19800a */ 	lui	$t9,%hi(g_Menus+0xdf8)
 /*  f0f8a2c:	8faa0074 */ 	lw	$t2,0x74($sp)
 /*  f0f8a30:	000c78c0 */ 	sll	$t7,$t4,0x3
 /*  f0f8a34:	01ec7823 */ 	subu	$t7,$t7,$t4
@@ -9419,7 +9419,7 @@ glabel func0f0f86a8
 /*  f0f8a44:	01ec7823 */ 	subu	$t7,$t7,$t4
 /*  f0f8a48:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f0f8a4c:	032fc821 */ 	addu	$t9,$t9,$t7
-/*  f0f8a50:	8339edf8 */ 	lb	$t9,%lo(g_MenuStack+0xdf8)($t9)
+/*  f0f8a50:	8339edf8 */ 	lb	$t9,%lo(g_Menus+0xdf8)($t9)
 /*  f0f8a54:	8fa40098 */ 	lw	$a0,0x98($sp)
 /*  f0f8a58:	8fa50080 */ 	lw	$a1,0x80($sp)
 /*  f0f8a5c:	8fa6007c */ 	lw	$a2,0x7c($sp)
@@ -9484,7 +9484,7 @@ glabel func0f0f86a8
 /*  f0f8b34:	01e08025 */ 	or	$s0,$t7,$zero
 /*  f0f8b38:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f0f8b3c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f0f8b40:	3c0b800a */ 	lui	$t3,%hi(g_MenuStack+0xdf8)
+/*  f0f8b40:	3c0b800a */ 	lui	$t3,%hi(g_Menus+0xdf8)
 /*  f0f8b44:	0050c821 */ 	addu	$t9,$v0,$s0
 /*  f0f8b48:	000e68c0 */ 	sll	$t5,$t6,0x3
 /*  f0f8b4c:	01ae6823 */ 	subu	$t5,$t5,$t6
@@ -9494,7 +9494,7 @@ glabel func0f0f86a8
 /*  f0f8b5c:	01ae6823 */ 	subu	$t5,$t5,$t6
 /*  f0f8b60:	000d6900 */ 	sll	$t5,$t5,0x4
 /*  f0f8b64:	016d5821 */ 	addu	$t3,$t3,$t5
-/*  f0f8b68:	816bedf8 */ 	lb	$t3,%lo(g_MenuStack+0xdf8)($t3)
+/*  f0f8b68:	816bedf8 */ 	lb	$t3,%lo(g_Menus+0xdf8)($t3)
 /*  f0f8b6c:	24180001 */ 	addiu	$t8,$zero,0x1
 /*  f0f8b70:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f0f8b74:	afb90010 */ 	sw	$t9,0x10($sp)
@@ -9707,12 +9707,12 @@ glabel var7f1b2a0c
 .L0f0f8e38:
 /*  f0f8e38:	2401005d */ 	addiu	$at,$zero,0x5d
 /*  f0f8e3c:	14810002 */ 	bne	$a0,$at,.L0f0f8e48
-/*  f0f8e40:	3c10800a */ 	lui	$s0,%hi(g_MenuStack+0x840)
+/*  f0f8e40:	3c10800a */ 	lui	$s0,%hi(g_Menus+0x840)
 /*  f0f8e44:	24020004 */ 	addiu	$v0,$zero,0x4
 .L0f0f8e48:
 /*  f0f8e48:	18400015 */ 	blez	$v0,.L0f0f8ea0
 /*  f0f8e4c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0f8e50:	2610e840 */ 	addiu	$s0,$s0,%lo(g_MenuStack+0x840)
+/*  f0f8e50:	2610e840 */ 	addiu	$s0,$s0,%lo(g_Menus+0x840)
 .L0f0f8e54:
 /*  f0f8e54:	3c0f8009 */ 	lui	$t7,%hi(g_Is4Mb)
 /*  f0f8e58:	91ef0af0 */ 	lbu	$t7,%lo(g_Is4Mb)($t7)
@@ -10240,7 +10240,7 @@ glabel var7f1b2a64
 /*  f0f9554:	4500004b */ 	bc1f	.L0f0f9684
 /*  f0f9558:	3c048007 */ 	lui	$a0,%hi(g_MpPlayerNum)
 /*  f0f955c:	8c841448 */ 	lw	$a0,%lo(g_MpPlayerNum)($a0)
-/*  f0f9560:	3c0a800a */ 	lui	$t2,%hi(g_MenuStack+0x4f8)
+/*  f0f9560:	3c0a800a */ 	lui	$t2,%hi(g_Menus+0x4f8)
 /*  f0f9564:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0f9568:	000448c0 */ 	sll	$t1,$a0,0x3
 /*  f0f956c:	01244823 */ 	subu	$t1,$t1,$a0
@@ -10250,7 +10250,7 @@ glabel var7f1b2a64
 /*  f0f957c:	01244823 */ 	subu	$t1,$t1,$a0
 /*  f0f9580:	00094900 */ 	sll	$t1,$t1,0x4
 /*  f0f9584:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f0f9588:	8d4ae4f8 */ 	lw	$t2,%lo(g_MenuStack+0x4f8)($t2)
+/*  f0f9588:	8d4ae4f8 */ 	lw	$t2,%lo(g_Menus+0x4f8)($t2)
 /*  f0f958c:	57ca0034 */ 	bnel	$s8,$t2,.L0f0f9660
 /*  f0f9590:	93c9003c */ 	lbu	$t1,0x3c($s8)
 /*  f0f9594:	92700000 */ 	lbu	$s0,0x0($s3)
@@ -10975,7 +10975,7 @@ glabel var7f1b2a64
 /*  f0f9fc8:	267306dc */ 	addiu	$s3,$s3,0x6dc
 .L0f0f9fcc:
 /*  f0f9fcc:	8d8c1448 */ 	lw	$t4,%lo(g_MpPlayerNum)($t4)
-/*  f0f9fd0:	3c0d800a */ 	lui	$t5,%hi(g_MenuStack+0xe40)
+/*  f0f9fd0:	3c0d800a */ 	lui	$t5,%hi(g_Menus+0xe40)
 /*  f0f9fd4:	3c0f8006 */ 	lui	$t7,%hi(var8005dd58)
 /*  f0f9fd8:	000c58c0 */ 	sll	$t3,$t4,0x3
 /*  f0f9fdc:	016c5823 */ 	subu	$t3,$t3,$t4
@@ -10985,7 +10985,7 @@ glabel var7f1b2a64
 /*  f0f9fec:	016c5823 */ 	subu	$t3,$t3,$t4
 /*  f0f9ff0:	000b5900 */ 	sll	$t3,$t3,0x4
 /*  f0f9ff4:	01ab6821 */ 	addu	$t5,$t5,$t3
-/*  f0f9ff8:	8dadee40 */ 	lw	$t5,%lo(g_MenuStack+0xe40)($t5)
+/*  f0f9ff8:	8dadee40 */ 	lw	$t5,%lo(g_Menus+0xe40)($t5)
 /*  f0f9ffc:	000d77c2 */ 	srl	$t6,$t5,0x1f
 /*  f0fa000:	55c00023 */ 	bnezl	$t6,.L0f0fa090
 /*  f0fa004:	92e90668 */ 	lbu	$t1,0x668($s7)
@@ -11311,7 +11311,7 @@ glabel var7f1b2a64
 /*  f0fa494:	afc90064 */ 	sw	$t1,0x64($s8)
 .L0f0fa498:
 /*  f0fa498:	8d6b1448 */ 	lw	$t3,%lo(g_MpPlayerNum)($t3)
-/*  f0fa49c:	3c0d800a */ 	lui	$t5,%hi(g_MenuStack+0xe40)
+/*  f0fa49c:	3c0d800a */ 	lui	$t5,%hi(g_Menus+0xe40)
 /*  f0fa4a0:	3c0f8006 */ 	lui	$t7,%hi(var8005dd58)
 /*  f0fa4a4:	000b60c0 */ 	sll	$t4,$t3,0x3
 /*  f0fa4a8:	018b6023 */ 	subu	$t4,$t4,$t3
@@ -11321,7 +11321,7 @@ glabel var7f1b2a64
 /*  f0fa4b8:	018b6023 */ 	subu	$t4,$t4,$t3
 /*  f0fa4bc:	000c6100 */ 	sll	$t4,$t4,0x4
 /*  f0fa4c0:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*  f0fa4c4:	8dadee40 */ 	lw	$t5,%lo(g_MenuStack+0xe40)($t5)
+/*  f0fa4c4:	8dadee40 */ 	lw	$t5,%lo(g_Menus+0xe40)($t5)
 /*  f0fa4c8:	8fb80124 */ 	lw	$t8,0x124($sp)
 /*  f0fa4cc:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
 /*  f0fa4d0:	000d77c2 */ 	srl	$t6,$t5,0x1f
@@ -11459,8 +11459,8 @@ glabel func0f0fa574
 void func0f0fa6ac(void)
 {
 	switch (g_MenuData.root) {
-	case MENUROOT_SOLOPAUSE:
-	case MENUROOT_COMBATSIM:
+	case MENUROOT_MAINMENU:
+	case MENUROOT_MPSETUP:
 	case MENUROOT_FILESELECT:
 	case MENUROOT_4MBMAINMENU:
 	case MENUROOT_TRAINING:
@@ -13220,7 +13220,7 @@ glabel var7f1b2afc
 .L0f0fbef4:
 /*  f0fbef4:	8e380000 */ 	lw	$t8,0x0($s1)
 .L0f0fbef8:
-/*  f0fbef8:	3c0a800a */ 	lui	$t2,%hi(g_MenuStack+0x4f8)
+/*  f0fbef8:	3c0a800a */ 	lui	$t2,%hi(g_Menus+0x4f8)
 /*  f0fbefc:	3c047f1b */ 	lui	$a0,%hi(var7f1b2788)
 /*  f0fbf00:	0018c8c0 */ 	sll	$t9,$t8,0x3
 /*  f0fbf04:	0338c823 */ 	subu	$t9,$t9,$t8
@@ -13230,7 +13230,7 @@ glabel var7f1b2afc
 /*  f0fbf14:	0338c823 */ 	subu	$t9,$t9,$t8
 /*  f0fbf18:	0019c900 */ 	sll	$t9,$t9,0x4
 /*  f0fbf1c:	01595021 */ 	addu	$t2,$t2,$t9
-/*  f0fbf20:	8d4ae4f8 */ 	lw	$t2,%lo(g_MenuStack+0x4f8)($t2)
+/*  f0fbf20:	8d4ae4f8 */ 	lw	$t2,%lo(g_Menus+0x4f8)($t2)
 /*  f0fbf24:	26d69fc0 */ 	addiu	$s6,$s6,%lo(g_Vars)
 /*  f0fbf28:	24842788 */ 	addiu	$a0,$a0,%lo(var7f1b2788)
 /*  f0fbf2c:	15400004 */ 	bnez	$t2,.L0f0fbf40
@@ -14008,7 +14008,7 @@ u32 menuChooseMusic(void)
 		missionsuccess = MUSIC_MISSION_UNKNOWN;
 	}
 
-	if (g_MenuData.root == MENUROOT_SOLOENDSCREEN) {
+	if (g_MenuData.root == MENUROOT_ENDSCREEN) {
 		if (g_Vars.bond->isdead || g_Vars.bond->aborted || !objectiveIsAllComplete()) {
 			return MUSIC_MISSION_FAILED;
 		}
@@ -14041,7 +14041,7 @@ u32 menuChooseMusic(void)
 		return MUSIC_MAINMENU;
 	}
 
-	if (g_MenuData.root == MENUROOT_COMBATSIM || g_MenuData.root == MENUROOT_4MBMAINMENU) {
+	if (g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU) {
 		return MUSIC_COMBATSIM_MENU;
 	}
 
@@ -14219,10 +14219,10 @@ glabel menudialog000fcd48
 /*  f0fce04:	00000000 */ 	nop
 );
 
-s32 menuhandlerRepairPak(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerRepairPak(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		if (pakRepair(g_MenuStack[g_MpPlayerNum].savedevice)) {
+		if (pakRepair(g_Menus[g_MpPlayerNum].savedevice)) {
 			func0f0f3704(&g_PakRepairSuccessMenuDialog);
 		} else {
 			func0f0f3704(&g_PakRepairFailedMenuDialog);
@@ -14319,14 +14319,14 @@ glabel func0f0fce8c
 /*  f0fcfb4:	ac2a1448 */ 	sw	$t2,%lo(g_MpPlayerNum)($at)
 );
 
-struct menu_item menuitems_pakremoved[] = {
+struct menuitem menuitems_pakremoved[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(174), 0x00000000, NULL }, // "The Controller Pak has been removed."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(73), 0x00000000, menuhandler000fcc34 }, // "OK"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menu_dialog menudialog_pakremoved = {
+struct menudialog menudialog_pakremoved = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(173), // "Error"
 	menuitems_pakremoved,
@@ -14335,14 +14335,14 @@ struct menu_dialog menudialog_pakremoved = {
 	NULL,
 };
 
-struct menu_item menuitems_pakrepaired[] = {
+struct menuitem menuitems_pakrepaired[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x000054b5, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x00005449, 0x00000000, menuhandler000fcc34 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menu_dialog g_PakRepairSuccessMenuDialog = {
+struct menudialog g_PakRepairSuccessMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPWEAPONS(180), // "Repair Successful"
 	menuitems_pakrepaired,
@@ -14351,14 +14351,14 @@ struct menu_dialog g_PakRepairSuccessMenuDialog = {
 	NULL,
 };
 
-struct menu_item menuitems_pakrepairfailed[] = {
+struct menuitem menuitems_pakrepairfailed[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(183), 0x00000000, NULL }, // "The Controller Pak cannot be repaired. You will not be able to load from or save to this Controller Pak."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS(73), 0x00000000, NULL }, // "OK"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menu_dialog g_PakRepairFailedMenuDialog = {
+struct menudialog g_PakRepairFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(182), // "Repair Failed"
 	menuitems_pakrepairfailed,
@@ -14367,7 +14367,7 @@ struct menu_dialog g_PakRepairFailedMenuDialog = {
 	NULL,
 };
 
-struct menu_item menuitems_pakattemptrepair[] = {
+struct menuitem menuitems_pakattemptrepair[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(176), 0x00000000, NULL }, // "Are you sure you want to attempt repair of this Controller Pak?"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(177), 0x00000000, NULL }, // "Data may be lost!"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -14376,7 +14376,7 @@ struct menu_item menuitems_pakattemptrepair[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menu_dialog g_PakAttemptRepairMenuDialog = {
+struct menudialog g_PakAttemptRepairMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(175), // "Attempt Repair"
 	menuitems_pakattemptrepair,
@@ -14385,7 +14385,7 @@ struct menu_dialog g_PakAttemptRepairMenuDialog = {
 	NULL,
 };
 
-char *menuTextSaveDeviceName(struct menu_item *item)
+char *menuTextSaveDeviceName(struct menuitem *item)
 {
 	u16 devices[] = {
 		L_OPTIONS(112), // "Controller Pak 1"
@@ -14395,26 +14395,26 @@ char *menuTextSaveDeviceName(struct menu_item *item)
 		L_OPTIONS(111), // "Game Pak"
 	};
 
-	if ((u8)g_MenuStack[g_MpPlayerNum].savedevice < 5) {
-		return langGet(devices[(u8)g_MenuStack[g_MpPlayerNum].savedevice]);
+	if ((u8)g_Menus[g_MpPlayerNum].savedevice < 5) {
+		return langGet(devices[(u8)g_Menus[g_MpPlayerNum].savedevice]);
 	}
 
 	return NULL;
 }
 
-s32 menuhandlerRetrySavePak(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerRetrySavePak(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
 		g_Vars.unk0004e4 &= 0xfff0;
 		g_Vars.unk0004e4 |= 8;
-		g_Vars.unk0004e4 |= 1 << ((u8)g_MenuStack[g_MpPlayerNum].savedevice + 8);
+		g_Vars.unk0004e4 |= 1 << ((u8)g_Menus[g_MpPlayerNum].savedevice + 8);
 	}
 
 	return 0;
 }
 
-s32 menuhandlerWarnRepairPak(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerWarnRepairPak(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		menuPushDialog(&g_PakAttemptRepairMenuDialog);
@@ -14506,15 +14506,15 @@ bool func0f0fd1f4(u32 arg0, u32 arg1)
 		result = true;
 	}
 
-	if (g_MenuStack[playernum].curframe) {
-		if (g_MenuStack[playernum].curframe->dialog == &menudialog_damagedcontrollerpak
-				|| g_MenuStack[playernum].curframe->dialog == &menudialog_cannotreadgameboy
-				|| g_MenuStack[playernum].curframe->dialog == &menudialog_datalost
-				|| g_MenuStack[playernum].curframe->dialog == &menudialog_fullcontrollerpak
-				|| g_MenuStack[playernum].curframe->dialog == &g_PakAttemptRepairMenuDialog
-				|| g_MenuStack[playernum].curframe->dialog == &menudialog_pakremoved
-				|| g_MenuStack[playernum].curframe->dialog == &g_PakRepairSuccessMenuDialog
-				|| g_MenuStack[playernum].curframe->dialog == &g_PakRepairFailedMenuDialog) {
+	if (g_Menus[playernum].curframe) {
+		if (g_Menus[playernum].curframe->dialog == &menudialog_damagedcontrollerpak
+				|| g_Menus[playernum].curframe->dialog == &menudialog_cannotreadgameboy
+				|| g_Menus[playernum].curframe->dialog == &menudialog_datalost
+				|| g_Menus[playernum].curframe->dialog == &menudialog_fullcontrollerpak
+				|| g_Menus[playernum].curframe->dialog == &g_PakAttemptRepairMenuDialog
+				|| g_Menus[playernum].curframe->dialog == &menudialog_pakremoved
+				|| g_Menus[playernum].curframe->dialog == &g_PakRepairSuccessMenuDialog
+				|| g_Menus[playernum].curframe->dialog == &g_PakRepairFailedMenuDialog) {
 			result = false;
 		}
 	} else if (g_MenuData.unk015 != 255 || g_MenuData.unk014 || g_MenuData.unk5d4) {
@@ -14766,7 +14766,7 @@ bool currentPlayerGetUnk1c04(void)
 	return g_Vars.currentplayer->unk1c04;
 }
 
-struct menu_item menuitems_damagedcontrollerpak[] = {
+struct menuitem menuitems_damagedcontrollerpak[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(65), 0x00000000, NULL }, // "is damaged or"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(66), 0x00000000, NULL }, // "inserted incorrectly"
@@ -14777,7 +14777,7 @@ struct menu_item menuitems_damagedcontrollerpak[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menu_dialog menudialog_damagedcontrollerpak = {
+struct menudialog menudialog_damagedcontrollerpak = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(64), // "Damaged Controller Pak"
 	menuitems_damagedcontrollerpak,
@@ -14786,7 +14786,7 @@ struct menu_dialog menudialog_damagedcontrollerpak = {
 	NULL,
 };
 
-struct menu_item menuitems_fullcontrollerpak[] = {
+struct menuitem menuitems_fullcontrollerpak[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS(71), 0x00000000, NULL }, // "is too full to save note - 1 note and 28 pages required to save"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000220, L_OPTIONS(3), 0x00000000, NULL }, // ""
@@ -14796,7 +14796,7 @@ struct menu_item menuitems_fullcontrollerpak[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menu_dialog menudialog_fullcontrollerpak = {
+struct menudialog menudialog_fullcontrollerpak = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(70), // "Full Controller Pak"
 	menuitems_fullcontrollerpak,
@@ -14805,14 +14805,14 @@ struct menu_dialog menudialog_fullcontrollerpak = {
 	NULL,
 };
 
-struct menu_item menuitems_cannotreadgameboy[] = {
+struct menuitem menuitems_cannotreadgameboy[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(254), 0x00000000, NULL }, // "Cannot read Game Boy Game Pak. Check connections and make sure correct Game Boy Game Pak is being used."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS(255), 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menu_dialog menudialog_cannotreadgameboy = {
+struct menudialog menudialog_cannotreadgameboy = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(253), // "Error"
 	menuitems_cannotreadgameboy,
@@ -14821,7 +14821,7 @@ struct menu_dialog menudialog_cannotreadgameboy = {
 	NULL,
 };
 
-struct menu_item menuitems_datalost[] = {
+struct menuitem menuitems_datalost[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(257), 0x00000000, NULL }, // "The saved data has"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(258), 0x00000000, NULL }, // "been erased due to"
@@ -14831,7 +14831,7 @@ struct menu_item menuitems_datalost[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menu_dialog menudialog_datalost = {
+struct menudialog menudialog_datalost = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(256), // "Error"
 	menuitems_datalost,

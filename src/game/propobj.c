@@ -37070,7 +37070,7 @@ bool propobjInteract(struct prop *prop)
 				func0f0f85e0(&menudialog_weaponsavailable, MENUROOT_TRAINING);
 			} else if (tag_id == 0x47) {
 				handled = true;
-				func0f0f85e0(&g_MainMenuMenuDialog, MENUROOT_SOLOPAUSE);
+				func0f0f85e0(&g_MainMenuMenuDialog, MENUROOT_MAINMENU);
 			} else if (tag_id == 0x46) {
 				handled = true;
 				func0f0f85e0(&menudialog_hangarinformation, MENUROOT_TRAINING);

@@ -102,10 +102,10 @@ char *getSaveLocationName(s32 index)
 	return NULL;
 }
 
-s32 menuhandler00108014(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandler00108014(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if ((g_MenuStack[g_MpPlayerNum].unke3c & 0x7f) > 4) {
+		if ((g_Menus[g_MpPlayerNum].unke3c & 0x7f) > 4) {
 			return true;
 		}
 	}
@@ -113,9 +113,9 @@ s32 menuhandler00108014(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-char *pakMenuTextLocationName(struct menu_item *item)
+char *pakMenuTextLocationName(struct menuitem *item)
 {
-	return getSaveLocationName(g_MenuStack[g_MpPlayerNum].unke3c & 0x7f);
+	return getSaveLocationName(g_Menus[g_MpPlayerNum].unke3c & 0x7f);
 }
 
 GLOBAL_ASM(
@@ -228,10 +228,10 @@ glabel func0f1080d0
 /*  f108250:	00000000 */ 	nop
 );
 
-s32 menuhandler00108254(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandler00108254(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (g_MenuStack[g_MpPlayerNum].unke38 == 0) {
+		if (g_Menus[g_MpPlayerNum].unke38 == 0) {
 			return true;
 		}
 	}
@@ -239,12 +239,12 @@ s32 menuhandler00108254(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-char *func0f1082b0(struct menu_item *item)
+char *func0f1082b0(struct menuitem *item)
 {
-	if (g_MenuStack[g_MpPlayerNum].unke38) {
+	if (g_Menus[g_MpPlayerNum].unke38) {
 		func0f1080d0(g_StringPointer,
-				g_MenuStack[g_MpPlayerNum].unke38,
-				g_MenuStack[g_MpPlayerNum].unke3d);
+				g_Menus[g_MpPlayerNum].unke38,
+				g_Menus[g_MpPlayerNum].unke3d);
 		return g_StringPointer;
 	}
 
@@ -256,9 +256,9 @@ void func0f108324(s32 arg0)
 	s32 value = func0f11e6b0(arg0);
 
 	if (value >= 0) {
-		g_MenuStack[g_MpPlayerNum].unke3c = value;
+		g_Menus[g_MpPlayerNum].unke3c = value;
 	} else {
-		g_MenuStack[g_MpPlayerNum].unke3c = 5;
+		g_Menus[g_MpPlayerNum].unke3c = 5;
 	}
 }
 
@@ -276,8 +276,8 @@ glabel func0f1083b0
 
 void func0f1083d0(s32 arg0, s32 arg1)
 {
-	g_MenuStack[g_MpPlayerNum].unke3d = arg1;
-	g_MenuStack[g_MpPlayerNum].unke38 = arg0;
+	g_Menus[g_MpPlayerNum].unke3d = arg1;
+	g_Menus[g_MpPlayerNum].unke38 = arg0;
 	func0f1083b0();
 }
 
@@ -293,9 +293,9 @@ u16 g_PakFailReasons[] = {
 	L_OPTIONS(330), // "Game note delete failed."
 };
 
-char *pakMenuTextFailReason(struct menu_item *item)
+char *pakMenuTextFailReason(struct menuitem *item)
 {
-	return langGet(g_PakFailReasons[g_MenuStack[g_MpPlayerNum].unke34]);
+	return langGet(g_PakFailReasons[g_Menus[g_MpPlayerNum].unke34]);
 }
 
 GLOBAL_ASM(
@@ -391,9 +391,9 @@ glabel func0f108550
 /*  f108570:	000f78c0 */ 	sll	$t7,$t7,0x3
 /*  f108574:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f108578:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10857c:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe3c)
+/*  f10857c:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe3c)
 /*  f108580:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f108584:	9084ee3c */ 	lbu	$a0,%lo(g_MenuStack+0xe3c)($a0)
+/*  f108584:	9084ee3c */ 	lbu	$a0,%lo(g_Menus+0xe3c)($a0)
 /*  f108588:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10858c:	3098007f */ 	andi	$t8,$a0,0x7f
 /*  f108590:	0fc41fec */ 	jal	getSaveLocationName
@@ -407,7 +407,7 @@ glabel func0f108550
 /*  f1085b0:	00403025 */ 	or	$a2,$v0,$zero
 /*  f1085b4:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
 /*  f1085b8:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f1085bc:	3c09800a */ 	lui	$t1,%hi(g_MenuStack+0xe34)
+/*  f1085bc:	3c09800a */ 	lui	$t1,%hi(g_Menus+0xe34)
 /*  f1085c0:	3c078007 */ 	lui	$a3,%hi(g_StringPointer)
 /*  f1085c4:	001940c0 */ 	sll	$t0,$t9,0x3
 /*  f1085c8:	01194023 */ 	subu	$t0,$t0,$t9
@@ -417,7 +417,7 @@ glabel func0f108550
 /*  f1085d8:	01194023 */ 	subu	$t0,$t0,$t9
 /*  f1085dc:	00084100 */ 	sll	$t0,$t0,0x4
 /*  f1085e0:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f1085e4:	9529ee34 */ 	lhu	$t1,%lo(g_MenuStack+0xe34)($t1)
+/*  f1085e4:	9529ee34 */ 	lhu	$t1,%lo(g_Menus+0xe34)($t1)
 /*  f1085e8:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f1085ec:	24e71440 */ 	addiu	$a3,$a3,%lo(g_StringPointer)
 /*  f1085f0:	11210015 */ 	beq	$t1,$at,.L0f108648
@@ -466,11 +466,11 @@ glabel func0f10865c
 /*  f108680:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f108684:	00802825 */ 	or	$a1,$a0,$zero
 /*  f108688:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10868c:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe34)
+/*  f10868c:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe34)
 /*  f108690:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f108694:	002f0821 */ 	addu	$at,$at,$t7
 /*  f108698:	3c048007 */ 	lui	$a0,%hi(menudialog_1a410)
-/*  f10869c:	a425ee34 */ 	sh	$a1,%lo(g_MenuStack+0xe34)($at)
+/*  f10869c:	a425ee34 */ 	sh	$a1,%lo(g_Menus+0xe34)($at)
 /*  f1086a0:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f1086a4:	248443f0 */ 	addiu	$a0,$a0,%lo(menudialog_1a410)
 /*  f1086a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -588,7 +588,7 @@ glabel var7f1b35a4
 /*  f1087a8:	adc8000c */ 	sw	$t0,0xc($t6)
 /*  f1087ac:	a5c10010 */ 	sh	$at,0x10($t6)
 /*  f1087b0:	8d291448 */ 	lw	$t1,%lo(g_MpPlayerNum)($t1)
-/*  f1087b4:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0xe42)
+/*  f1087b4:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe42)
 /*  f1087b8:	000950c0 */ 	sll	$t2,$t1,0x3
 /*  f1087bc:	01495023 */ 	subu	$t2,$t2,$t1
 /*  f1087c0:	000a5080 */ 	sll	$t2,$t2,0x2
@@ -597,7 +597,7 @@ glabel var7f1b35a4
 /*  f1087cc:	01495023 */ 	subu	$t2,$t2,$t1
 /*  f1087d0:	000a5100 */ 	sll	$t2,$t2,0x4
 /*  f1087d4:	004a1021 */ 	addu	$v0,$v0,$t2
-/*  f1087d8:	9042ee42 */ 	lbu	$v0,%lo(g_MenuStack+0xe42)($v0)
+/*  f1087d8:	9042ee42 */ 	lbu	$v0,%lo(g_Menus+0xe42)($v0)
 /*  f1087dc:	28410009 */ 	slti	$at,$v0,0x9
 /*  f1087e0:	14200009 */ 	bnez	$at,.L0f108808
 /*  f1087e4:	244bff9c */ 	addiu	$t3,$v0,-100
@@ -700,7 +700,7 @@ glabel var7f1b35e4
 /*  f1088c4:	adc10000 */ 	sw	$at,0x0($t6)
 /*  f1088c8:	adc80004 */ 	sw	$t0,0x4($t6)
 /*  f1088cc:	8d291448 */ 	lw	$t1,%lo(g_MpPlayerNum)($t1)
-/*  f1088d0:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0xe42)
+/*  f1088d0:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe42)
 /*  f1088d4:	000950c0 */ 	sll	$t2,$t1,0x3
 /*  f1088d8:	01495023 */ 	subu	$t2,$t2,$t1
 /*  f1088dc:	000a5080 */ 	sll	$t2,$t2,0x2
@@ -709,7 +709,7 @@ glabel var7f1b35e4
 /*  f1088e8:	01495023 */ 	subu	$t2,$t2,$t1
 /*  f1088ec:	000a5100 */ 	sll	$t2,$t2,0x4
 /*  f1088f0:	004a1021 */ 	addu	$v0,$v0,$t2
-/*  f1088f4:	9042ee42 */ 	lbu	$v0,%lo(g_MenuStack+0xe42)($v0)
+/*  f1088f4:	9042ee42 */ 	lbu	$v0,%lo(g_Menus+0xe42)($v0)
 /*  f1088f8:	28410009 */ 	slti	$at,$v0,0x9
 /*  f1088fc:	14200009 */ 	bnez	$at,.L0f108924
 /*  f108900:	244bff9c */ 	addiu	$t3,$v0,-100
@@ -834,7 +834,7 @@ glabel var7f1b3624
 /*  f108a34:	8c842f38 */ 	lw	$a0,%lo(var7f1b2f3c-0x4)($a0)
 /*  f108a38:	3c0b8007 */ 	lui	$t3,%hi(g_MpPlayerNum)
 /*  f108a3c:	8d6b1448 */ 	lw	$t3,%lo(g_MpPlayerNum)($t3)
-/*  f108a40:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe44)
+/*  f108a40:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe44)
 /*  f108a44:	00402825 */ 	or	$a1,$v0,$zero
 /*  f108a48:	000b60c0 */ 	sll	$t4,$t3,0x3
 /*  f108a4c:	018b6023 */ 	subu	$t4,$t4,$t3
@@ -845,7 +845,7 @@ glabel var7f1b3624
 /*  f108a60:	000c6100 */ 	sll	$t4,$t4,0x4
 /*  f108a64:	008c2021 */ 	addu	$a0,$a0,$t4
 /*  f108a68:	0c004b2d */ 	jal	func00012cb4
-/*  f108a6c:	8c84ee44 */ 	lw	$a0,%lo(g_MenuStack+0xe44)($a0)
+/*  f108a6c:	8c84ee44 */ 	lw	$a0,%lo(g_Menus+0xe44)($a0)
 .L0f108a70:
 /*  f108a70:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f108a74:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -936,7 +936,7 @@ glabel var7f1b3664
 /*  f108b2c:	8c842f38 */ 	lw	$a0,%lo(var7f1b2f3c-0x4)($a0)
 /*  f108b30:	3c0b8007 */ 	lui	$t3,%hi(g_MpPlayerNum)
 /*  f108b34:	8d6b1448 */ 	lw	$t3,%lo(g_MpPlayerNum)($t3)
-/*  f108b38:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe44)
+/*  f108b38:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe44)
 /*  f108b3c:	00402825 */ 	or	$a1,$v0,$zero
 /*  f108b40:	000b60c0 */ 	sll	$t4,$t3,0x3
 /*  f108b44:	018b6023 */ 	subu	$t4,$t4,$t3
@@ -947,7 +947,7 @@ glabel var7f1b3664
 /*  f108b58:	000c6100 */ 	sll	$t4,$t4,0x4
 /*  f108b5c:	008c2021 */ 	addu	$a0,$a0,$t4
 /*  f108b60:	0c004b2d */ 	jal	func00012cb4
-/*  f108b64:	8c84ee44 */ 	lw	$a0,%lo(g_MenuStack+0xe44)($a0)
+/*  f108b64:	8c84ee44 */ 	lw	$a0,%lo(g_Menus+0xe44)($a0)
 /*  f108b68:	1000001e */ 	b	.L0f108be4
 /*  f108b6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f108b70:	8c6d0e48 */ 	lw	$t5,0xe48($v1)
@@ -987,7 +987,7 @@ glabel var7f1b3664
 /*  f108bec:	00000000 */ 	nop
 );
 
-s32 menuhandlerPakErrorTryAgain(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerPakErrorTryAgain(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		func0f109038(2);
@@ -1028,7 +1028,7 @@ glabel var7f1b3688
 /*  f108c40:	00000000 */ 	nop
 /*  f108c44:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f108c48:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f108c4c:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0xe42)
+/*  f108c4c:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe42)
 /*  f108c50:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f108c54:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f108c58:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -1037,7 +1037,7 @@ glabel var7f1b3688
 /*  f108c64:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f108c68:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f108c6c:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f108c70:	9042ee42 */ 	lbu	$v0,%lo(g_MenuStack+0xe42)($v0)
+/*  f108c70:	9042ee42 */ 	lbu	$v0,%lo(g_Menus+0xe42)($v0)
 /*  f108c74:	2c410009 */ 	sltiu	$at,$v0,0x9
 /*  f108c78:	1020000d */ 	beqz	$at,.L0f108cb0
 /*  f108c7c:	0002c080 */ 	sll	$t8,$v0,0x2
@@ -1065,7 +1065,7 @@ glabel var7f1b3688
 /*  f108ccc:	00000000 */ 	nop
 );
 
-s32 menuhandlerPakCancelSave2(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerPakCancelSave2(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		func0f0f33bc();
@@ -1094,7 +1094,7 @@ glabel func0f108d14
 /*  f108d44:	00000000 */ 	nop
 );
 
-s32 menuhandlerAcknowledgePakFileLost(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerAcknowledgePakFileLost(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		func0f0f33bc();
@@ -1110,7 +1110,7 @@ glabel func0f108d8c
 /*  f108d8c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f108d90:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f108d94:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f108d98:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe4c)
+/*  f108d98:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe4c)
 /*  f108d9c:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f108da0:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f108da4:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -1121,12 +1121,12 @@ glabel func0f108d8c
 /*  f108db8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f108dbc:	008f2021 */ 	addu	$a0,$a0,$t7
 /*  f108dc0:	0fc479ac */ 	jal	func0f11e6b0
-/*  f108dc4:	8c84ee4c */ 	lw	$a0,%lo(g_MenuStack+0xe4c)($a0)
+/*  f108dc4:	8c84ee4c */ 	lw	$a0,%lo(g_Menus+0xe4c)($a0)
 /*  f108dc8:	04400010 */ 	bltz	$v0,.L0f108e0c
 /*  f108dcc:	00022600 */ 	sll	$a0,$v0,0x18
 /*  f108dd0:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
 /*  f108dd4:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f108dd8:	3c05800a */ 	lui	$a1,%hi(g_MenuStack+0xe48)
+/*  f108dd8:	3c05800a */ 	lui	$a1,%hi(g_Menus+0xe48)
 /*  f108ddc:	0004c603 */ 	sra	$t8,$a0,0x18
 /*  f108de0:	001940c0 */ 	sll	$t0,$t9,0x3
 /*  f108de4:	01194023 */ 	subu	$t0,$t0,$t9
@@ -1136,7 +1136,7 @@ glabel func0f108d8c
 /*  f108df4:	01194023 */ 	subu	$t0,$t0,$t9
 /*  f108df8:	00084100 */ 	sll	$t0,$t0,0x4
 /*  f108dfc:	00a82821 */ 	addu	$a1,$a1,$t0
-/*  f108e00:	8ca5ee48 */ 	lw	$a1,%lo(g_MenuStack+0xe48)($a1)
+/*  f108e00:	8ca5ee48 */ 	lw	$a1,%lo(g_Menus+0xe48)($a1)
 /*  f108e04:	0fc45a18 */ 	jal	func0f116860
 /*  f108e08:	03002025 */ 	or	$a0,$t8,$zero
 .L0f108e0c:
@@ -1163,11 +1163,11 @@ glabel func0f108d8c
 /*  f108e54:	00000000 */ 	nop
 );
 
-bool menudialog00108e58(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+bool menudialog00108e58(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
 	if (operation == MENUOP_102) {
-		if (g_MenuStack[g_MpPlayerNum].curframe &&
-				g_MenuStack[g_MpPlayerNum].curframe->dialog == dialog) {
+		if (g_Menus[g_MpPlayerNum].curframe &&
+				g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
 			func0f109038(0);
 		}
 	}
@@ -1175,7 +1175,7 @@ bool menudialog00108e58(u32 operation, struct menu_dialog *dialog, struct menust
 	return false;
 }
 
-s32 menuhandler00108ecc(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandler00108ecc(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		func0f11c7a0();
@@ -1185,10 +1185,10 @@ s32 menuhandler00108ecc(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandler00108f08(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandler00108f08(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		if (g_MenuStack[g_MpPlayerNum].unke42 < 100 && g_MenuStack[g_MpPlayerNum].unke42 != 1) {
+		if (g_Menus[g_MpPlayerNum].unke42 < 100 && g_Menus[g_MpPlayerNum].unke42 != 1) {
 			func0f0f3704(&g_SaveElsewhereMenuDialog);
 		} else {
 			menuPopDialog();
@@ -1260,11 +1260,11 @@ glabel func0f109038
 /*  f109058:	000f78c0 */ 	sll	$t7,$t7,0x3
 /*  f10905c:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f109060:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f109064:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe4c)
+/*  f109064:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe4c)
 /*  f109068:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10906c:	008f2021 */ 	addu	$a0,$a0,$t7
 /*  f109070:	0fc479ac */ 	jal	func0f11e6b0
-/*  f109074:	8c84ee4c */ 	lw	$a0,%lo(g_MenuStack+0xe4c)($a0)
+/*  f109074:	8c84ee4c */ 	lw	$a0,%lo(g_Menus+0xe4c)($a0)
 /*  f109078:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f10907c:	14410010 */ 	bne	$v0,$at,.L0f1090c0
 /*  f109080:	00402025 */ 	or	$a0,$v0,$zero
@@ -1322,7 +1322,7 @@ glabel func0f109038
 /*  f109144:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f109148:
 /*  f109148:	8dad1448 */ 	lw	$t5,%lo(g_MpPlayerNum)($t5)
-/*  f10914c:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe4c)
+/*  f10914c:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe4c)
 /*  f109150:	000d70c0 */ 	sll	$t6,$t5,0x3
 /*  f109154:	01cd7023 */ 	subu	$t6,$t6,$t5
 /*  f109158:	000e7080 */ 	sll	$t6,$t6,0x2
@@ -1332,10 +1332,10 @@ glabel func0f109038
 /*  f109168:	000e7100 */ 	sll	$t6,$t6,0x4
 /*  f10916c:	008e2021 */ 	addu	$a0,$a0,$t6
 /*  f109170:	0fc420c9 */ 	jal	func0f108324
-/*  f109174:	8c84ee4c */ 	lw	$a0,%lo(g_MenuStack+0xe4c)($a0)
+/*  f109174:	8c84ee4c */ 	lw	$a0,%lo(g_Menus+0xe4c)($a0)
 /*  f109178:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
 /*  f10917c:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f109180:	3c19800a */ 	lui	$t9,%hi(g_MenuStack+0xe42)
+/*  f109180:	3c19800a */ 	lui	$t9,%hi(g_Menus+0xe42)
 /*  f109184:	3c048007 */ 	lui	$a0,%hi(menudialog_saveerror)
 /*  f109188:	000fc0c0 */ 	sll	$t8,$t7,0x3
 /*  f10918c:	030fc023 */ 	subu	$t8,$t8,$t7
@@ -1345,7 +1345,7 @@ glabel func0f109038
 /*  f10919c:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f1091a0:	0018c100 */ 	sll	$t8,$t8,0x4
 /*  f1091a4:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f1091a8:	9339ee42 */ 	lbu	$t9,%lo(g_MenuStack+0xe42)($t9)
+/*  f1091a8:	9339ee42 */ 	lbu	$t9,%lo(g_Menus+0xe42)($t9)
 /*  f1091ac:	2b210064 */ 	slti	$at,$t9,0x64
 /*  f1091b0:	10200005 */ 	beqz	$at,.L0f1091c8
 /*  f1091b4:	00000000 */ 	nop
@@ -1505,7 +1505,7 @@ glabel var7f1b36c8
 /*  f109374:	83a4004b */ 	lb	$a0,0x4b($sp)
 /*  f109378:	3c188007 */ 	lui	$t8,%hi(g_MpPlayerNum)
 /*  f10937c:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f109380:	3c08800a */ 	lui	$t0,%hi(g_MenuStack+0xe42)
+/*  f109380:	3c08800a */ 	lui	$t0,%hi(g_Menus+0xe42)
 /*  f109384:	3c018007 */ 	lui	$at,%hi(var80075bb8)
 /*  f109388:	0018c8c0 */ 	sll	$t9,$t8,0x3
 /*  f10938c:	0338c823 */ 	subu	$t9,$t9,$t8
@@ -1515,7 +1515,7 @@ glabel var7f1b36c8
 /*  f10939c:	0338c823 */ 	subu	$t9,$t9,$t8
 /*  f1093a0:	0019c900 */ 	sll	$t9,$t9,0x4
 /*  f1093a4:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f1093a8:	9108ee42 */ 	lbu	$t0,%lo(g_MenuStack+0xe42)($t0)
+/*  f1093a8:	9108ee42 */ 	lbu	$t0,%lo(g_Menus+0xe42)($t0)
 /*  f1093ac:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f1093b0:	00403025 */ 	or	$a2,$v0,$zero
 /*  f1093b4:	00084880 */ 	sll	$t1,$t0,0x2
@@ -1556,7 +1556,7 @@ glabel var7f1b36c8
 .L0f10943c:
 /*  f10943c:	3c0c8007 */ 	lui	$t4,%hi(g_MpPlayerNum)
 /*  f109440:	8d8c1448 */ 	lw	$t4,%lo(g_MpPlayerNum)($t4)
-/*  f109444:	3c0b800a */ 	lui	$t3,%hi(g_MenuStack+0xe42)
+/*  f109444:	3c0b800a */ 	lui	$t3,%hi(g_Menus+0xe42)
 /*  f109448:	000c50c0 */ 	sll	$t2,$t4,0x3
 /*  f10944c:	014c5023 */ 	subu	$t2,$t2,$t4
 /*  f109450:	000a5080 */ 	sll	$t2,$t2,0x2
@@ -1565,7 +1565,7 @@ glabel var7f1b36c8
 /*  f10945c:	014c5023 */ 	subu	$t2,$t2,$t4
 /*  f109460:	000a5100 */ 	sll	$t2,$t2,0x4
 /*  f109464:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f109468:	916bee42 */ 	lbu	$t3,%lo(g_MenuStack+0xe42)($t3)
+/*  f109468:	916bee42 */ 	lbu	$t3,%lo(g_Menus+0xe42)($t3)
 /*  f10946c:	29610064 */ 	slti	$at,$t3,0x64
 /*  f109470:	10200010 */ 	beqz	$at,.L0f1094b4
 /*  f109474:	00000000 */ 	nop
@@ -1689,7 +1689,7 @@ glabel func0f1094e4
 /*  f109628:	a44b0e50 */ 	sh	$t3,0xe50($v0)
 /*  f10962c:	3c0c8007 */ 	lui	$t4,%hi(g_MpPlayerNum)
 /*  f109630:	8d8c1448 */ 	lw	$t4,%lo(g_MpPlayerNum)($t4)
-/*  f109634:	3c0e800a */ 	lui	$t6,%hi(g_MenuStack+0xe42)
+/*  f109634:	3c0e800a */ 	lui	$t6,%hi(g_Menus+0xe42)
 /*  f109638:	3c048007 */ 	lui	$a0,%hi(menudialog_saveerror)
 /*  f10963c:	000c68c0 */ 	sll	$t5,$t4,0x3
 /*  f109640:	01ac6823 */ 	subu	$t5,$t5,$t4
@@ -1699,7 +1699,7 @@ glabel func0f1094e4
 /*  f109650:	01ac6823 */ 	subu	$t5,$t5,$t4
 /*  f109654:	000d6900 */ 	sll	$t5,$t5,0x4
 /*  f109658:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f10965c:	91ceee42 */ 	lbu	$t6,%lo(g_MenuStack+0xe42)($t6)
+/*  f10965c:	91ceee42 */ 	lbu	$t6,%lo(g_Menus+0xe42)($t6)
 /*  f109660:	29c10064 */ 	slti	$at,$t6,0x64
 /*  f109664:	10200005 */ 	beqz	$at,.L0f10967c
 /*  f109668:	00000000 */ 	nop
@@ -1844,7 +1844,7 @@ glabel func0f1097d0
 /*  f109850:	acb80000 */ 	sw	$t8,0x0($a1)
 /*  f109854:	944e02dc */ 	lhu	$t6,0x2dc($v0)
 /*  f109858:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
-/*  f10985c:	3c0c800a */ 	lui	$t4,%hi(g_MenuStack+0xe1c)
+/*  f10985c:	3c0c800a */ 	lui	$t4,%hi(g_Menus+0xe1c)
 /*  f109860:	a4ae0004 */ 	sh	$t6,0x4($a1)
 /*  f109864:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
 /*  f109868:	3c047f1b */ 	lui	$a0,%hi(var7f1b2f3c-0x4)
@@ -1856,7 +1856,7 @@ glabel func0f1097d0
 /*  f109880:	010f4023 */ 	subu	$t0,$t0,$t7
 /*  f109884:	00084100 */ 	sll	$t0,$t0,0x4
 /*  f109888:	01886021 */ 	addu	$t4,$t4,$t0
-/*  f10988c:	8d8cee1c */ 	lw	$t4,%lo(g_MenuStack+0xe1c)($t4)
+/*  f10988c:	8d8cee1c */ 	lw	$t4,%lo(g_Menus+0xe1c)($t4)
 /*  f109890:	000c5880 */ 	sll	$t3,$t4,0x2
 /*  f109894:	008b2021 */ 	addu	$a0,$a0,$t3
 /*  f109898:	0fc5db69 */ 	jal	align16
@@ -1867,7 +1867,7 @@ glabel func0f1097d0
 /*  f1098ac:	00403025 */ 	or	$a2,$v0,$zero
 /*  f1098b0:	3c098007 */ 	lui	$t1,%hi(g_MpPlayerNum)
 /*  f1098b4:	8d291448 */ 	lw	$t1,%lo(g_MpPlayerNum)($t1)
-/*  f1098b8:	3c05800a */ 	lui	$a1,%hi(g_MenuStack+0xe1c)
+/*  f1098b8:	3c05800a */ 	lui	$a1,%hi(g_Menus+0xe1c)
 /*  f1098bc:	3c04800a */ 	lui	$a0,%hi(var800a21e0)
 /*  f1098c0:	000950c0 */ 	sll	$t2,$t1,0x3
 /*  f1098c4:	01495023 */ 	subu	$t2,$t2,$t1
@@ -1877,7 +1877,7 @@ glabel func0f1097d0
 /*  f1098d4:	01495023 */ 	subu	$t2,$t2,$t1
 /*  f1098d8:	000a5100 */ 	sll	$t2,$t2,0x4
 /*  f1098dc:	00aa2821 */ 	addu	$a1,$a1,$t2
-/*  f1098e0:	8ca5ee1c */ 	lw	$a1,%lo(g_MenuStack+0xe1c)($a1)
+/*  f1098e0:	8ca5ee1c */ 	lw	$a1,%lo(g_Menus+0xe1c)($a1)
 /*  f1098e4:	248421e0 */ 	addiu	$a0,$a0,%lo(var800a21e0)
 /*  f1098e8:	0fc42539 */ 	jal	func0f1094e4
 /*  f1098ec:	24a50067 */ 	addiu	$a1,$a1,0x67
@@ -1889,7 +1889,7 @@ glabel func0f1097d0
 .L0f109900:
 /*  f109900:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
 /*  f109904:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f109908:	3c0e800a */ 	lui	$t6,%hi(g_MenuStack+0xe1c)
+/*  f109908:	3c0e800a */ 	lui	$t6,%hi(g_Menus+0xe1c)
 /*  f10990c:	3c018007 */ 	lui	$at,%hi(g_SaveLocations+0xc)
 /*  f109910:	0019c0c0 */ 	sll	$t8,$t9,0x3
 /*  f109914:	0319c023 */ 	subu	$t8,$t8,$t9
@@ -1899,7 +1899,7 @@ glabel func0f1097d0
 /*  f109924:	0319c023 */ 	subu	$t8,$t8,$t9
 /*  f109928:	0018c100 */ 	sll	$t8,$t8,0x4
 /*  f10992c:	01d87021 */ 	addu	$t6,$t6,$t8
-/*  f109930:	8dceee1c */ 	lw	$t6,%lo(g_MenuStack+0xe1c)($t6)
+/*  f109930:	8dceee1c */ 	lw	$t6,%lo(g_Menus+0xe1c)($t6)
 /*  f109934:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f109938:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f10993c:	002f0821 */ 	addu	$at,$at,$t7
@@ -1941,7 +1941,7 @@ GLOBAL_ASM(
 glabel func0f1099a8
 /*  f1099a8:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f1099ac:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f1099b0:	3c18800a */ 	lui	$t8,%hi(g_MenuStack+0xe3f)
+/*  f1099b0:	3c18800a */ 	lui	$t8,%hi(g_Menus+0xe3f)
 /*  f1099b4:	3c088007 */ 	lui	$t0,%hi(g_SaveLocations)
 /*  f1099b8:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f1099bc:	01ee7823 */ 	subu	$t7,$t7,$t6
@@ -1951,7 +1951,7 @@ glabel func0f1099a8
 /*  f1099cc:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f1099d0:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f1099d4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f1099d8:	9318ee3f */ 	lbu	$t8,%lo(g_MenuStack+0xe3f)($t8)
+/*  f1099d8:	9318ee3f */ 	lbu	$t8,%lo(g_Menus+0xe3f)($t8)
 /*  f1099dc:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f1099e0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1099e4:	0018c880 */ 	sll	$t9,$t8,0x2
@@ -2124,7 +2124,7 @@ glabel var7f1b3710
 
 void func0f109bb4(char *name)
 {
-	switch (g_MenuStack[g_MpPlayerNum].unke3e) {
+	switch (g_Menus[g_MpPlayerNum].unke3e) {
 	case 0:
 	case 9:
 	case 10:
@@ -2138,7 +2138,7 @@ void func0f109bb4(char *name)
 	case 15:
 	case 16:
 	case 17:
-		strcpy(g_MenuStack[g_MpPlayerNum].unke53, name);
+		strcpy(g_Menus[g_MpPlayerNum].unke53, name);
 		break;
 	case 12:
 	case 6:
@@ -2189,7 +2189,7 @@ GLOBAL_ASM(
 glabel func0f109c8c
 /*  f109c8c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f109c90:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f109c94:	3c18800a */ 	lui	$t8,%hi(g_MenuStack+0xe3f)
+/*  f109c94:	3c18800a */ 	lui	$t8,%hi(g_Menus+0xe3f)
 /*  f109c98:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f109c9c:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f109ca0:	01ee7823 */ 	subu	$t7,$t7,$t6
@@ -2199,7 +2199,7 @@ glabel func0f109c8c
 /*  f109cb0:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f109cb4:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f109cb8:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f109cbc:	9318ee3f */ 	lbu	$t8,%lo(g_MenuStack+0xe3f)($t8)
+/*  f109cbc:	9318ee3f */ 	lbu	$t8,%lo(g_Menus+0xe3f)($t8)
 /*  f109cc0:	3c038007 */ 	lui	$v1,%hi(g_SaveLocations)
 /*  f109cc4:	3c058007 */ 	lui	$a1,%hi(var8007465c)
 /*  f109cc8:	0018c880 */ 	sll	$t9,$t8,0x2
@@ -2279,7 +2279,7 @@ glabel func0f109c8c
 .L0f109dcc:
 /*  f109dcc:	3c0c8007 */ 	lui	$t4,%hi(g_MpPlayerNum)
 /*  f109dd0:	8d8c1448 */ 	lw	$t4,%lo(g_MpPlayerNum)($t4)
-/*  f109dd4:	3c0e800a */ 	lui	$t6,%hi(g_MenuStack+0xe3f)
+/*  f109dd4:	3c0e800a */ 	lui	$t6,%hi(g_Menus+0xe3f)
 /*  f109dd8:	3c188007 */ 	lui	$t8,%hi(g_SaveLocations)
 /*  f109ddc:	000c68c0 */ 	sll	$t5,$t4,0x3
 /*  f109de0:	01ac6823 */ 	subu	$t5,$t5,$t4
@@ -2289,7 +2289,7 @@ glabel func0f109c8c
 /*  f109df0:	01ac6823 */ 	subu	$t5,$t5,$t4
 /*  f109df4:	000d6900 */ 	sll	$t5,$t5,0x4
 /*  f109df8:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f109dfc:	91ceee3f */ 	lbu	$t6,%lo(g_MenuStack+0xe3f)($t6)
+/*  f109dfc:	91ceee3f */ 	lbu	$t6,%lo(g_Menus+0xe3f)($t6)
 /*  f109e00:	02602025 */ 	or	$a0,$s3,$zero
 /*  f109e04:	00001025 */ 	or	$v0,$zero,$zero
 /*  f109e08:	000e7880 */ 	sll	$t7,$t6,0x2
@@ -2482,7 +2482,7 @@ glabel func0f109ec4
 /*  f10a0ac:	00000000 */ 	nop
 );
 
-s32 menuhandlerRenameFile(u32 operation, struct menu_item *item, char **value)
+s32 menuhandlerRenameFile(u32 operation, struct menuitem *item, char **value)
 {
 	char *name = *value;
 
@@ -2501,7 +2501,7 @@ s32 menuhandlerRenameFile(u32 operation, struct menu_item *item, char **value)
 	return 0;
 }
 
-s32 menuhandlerPakRenameDuplicateSave(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerPakRenameDuplicateSave(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -2511,7 +2511,7 @@ s32 menuhandlerPakRenameDuplicateSave(u32 operation, struct menu_item *item, s32
 	return 0;
 }
 
-s32 menuhandlerPakCancelDuplicateSave(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerPakCancelDuplicateSave(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -2534,11 +2534,11 @@ glabel func0f10a19c
 /*  f10a1bc:	000f78c0 */ 	sll	$t7,$t7,0x3
 /*  f10a1c0:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f10a1c4:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10a1c8:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe52)
+/*  f10a1c8:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe52)
 /*  f10a1cc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10a1d0:	008f2021 */ 	addu	$a0,$a0,$t7
 /*  f10a1d4:	0fc41fec */ 	jal	getSaveLocationName
-/*  f10a1d8:	9084ee52 */ 	lbu	$a0,%lo(g_MenuStack+0xe52)($a0)
+/*  f10a1d8:	9084ee52 */ 	lbu	$a0,%lo(g_Menus+0xe52)($a0)
 /*  f10a1dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f10a1e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f10a1e4:	03e00008 */ 	jr	$ra
@@ -2576,7 +2576,7 @@ glabel func0f10a22c
 /*  f10a244:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
 /*  f10a248:	aca10000 */ 	sw	$at,0x0($a1)
 /*  f10a24c:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f10a250:	3c0a800a */ 	lui	$t2,%hi(g_MenuStack+0xe3f)
+/*  f10a250:	3c0a800a */ 	lui	$t2,%hi(g_Menus+0xe3f)
 /*  f10a254:	3c028007 */ 	lui	$v0,%hi(g_SaveLocations)
 /*  f10a258:	acb90004 */ 	sw	$t9,0x4($a1)
 /*  f10a25c:	8dc10008 */ 	lw	$at,0x8($t6)
@@ -2590,7 +2590,7 @@ glabel func0f10a22c
 /*  f10a27c:	01284823 */ 	subu	$t1,$t1,$t0
 /*  f10a280:	00094900 */ 	sll	$t1,$t1,0x4
 /*  f10a284:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f10a288:	914aee3f */ 	lbu	$t2,%lo(g_MenuStack+0xe3f)($t2)
+/*  f10a288:	914aee3f */ 	lbu	$t2,%lo(g_Menus+0xe3f)($t2)
 /*  f10a28c:	000a5880 */ 	sll	$t3,$t2,0x2
 /*  f10a290:	004b1021 */ 	addu	$v0,$v0,$t3
 /*  f10a294:	8c425bc0 */ 	lw	$v0,%lo(g_SaveLocations)($v0)
@@ -2625,7 +2625,7 @@ GLOBAL_ASM(
 glabel func0f10a2ec
 /*  f10a2ec:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f10a2f0:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10a2f4:	3c18800a */ 	lui	$t8,%hi(g_MenuStack+0xe3f)
+/*  f10a2f4:	3c18800a */ 	lui	$t8,%hi(g_Menus+0xe3f)
 /*  f10a2f8:	3c028007 */ 	lui	$v0,%hi(g_SaveLocations)
 /*  f10a2fc:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f10a300:	01ee7823 */ 	subu	$t7,$t7,$t6
@@ -2635,7 +2635,7 @@ glabel func0f10a2ec
 /*  f10a310:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f10a314:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f10a318:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f10a31c:	9318ee3f */ 	lbu	$t8,%lo(g_MenuStack+0xe3f)($t8)
+/*  f10a31c:	9318ee3f */ 	lbu	$t8,%lo(g_Menus+0xe3f)($t8)
 /*  f10a320:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f10a324:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10a328:	0018c880 */ 	sll	$t9,$t8,0x2
@@ -2676,27 +2676,27 @@ glabel func0f10a2ec
 /*  f10a3a0:	00000000 */ 	nop
 );
 
-s32 menuhandlerSaveLocation(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerSaveLocation(u32 operation, struct menuitem *item, s32 *value)
 {
-	if (g_SaveLocations[g_MenuStack[g_MpPlayerNum].unke3f] == NULL) {
+	if (g_SaveLocations[g_Menus[g_MpPlayerNum].unke3f] == NULL) {
 		return 0;
 	}
 
 	if (operation == MENUOP_CHECKDISABLED) {
-		if (g_SaveLocations[g_MenuStack[g_MpPlayerNum].unke3f]->unk2d2[item->param] < 1) {
+		if (g_SaveLocations[g_Menus[g_MpPlayerNum].unke3f]->unk2d2[item->param] < 1) {
 			return true;
 		}
 	}
 
 	if (operation == MENUOP_SET) {
-		g_MenuStack[g_MpPlayerNum].unke52 = item->param;
+		g_Menus[g_MpPlayerNum].unke52 = item->param;
 		func0f109ec4();
 	}
 
 	return 0;
 }
 
-s32 menuhandlerPakCancelSave(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerPakCancelSave(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -2705,11 +2705,11 @@ s32 menuhandlerPakCancelSave(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandlerDeleteFiles(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerDeleteFiles(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		func0f10b0c4(g_MenuStack[g_MpPlayerNum].unke3f);
-		g_MenuStack[g_MpPlayerNum].unke28 = 1;
+		func0f10b0c4(g_Menus[g_MpPlayerNum].unke3f);
+		g_Menus[g_MpPlayerNum].data.filesel.unke28 = 1;
 	}
 
 	return 0;
@@ -2719,7 +2719,7 @@ GLOBAL_ASM(
 glabel func0f10a51c
 /*  f10a51c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f10a520:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10a524:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe3e)
+/*  f10a524:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe3e)
 /*  f10a528:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f10a52c:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f10a530:	01ee7823 */ 	subu	$t7,$t7,$t6
@@ -2730,12 +2730,12 @@ glabel func0f10a51c
 /*  f10a544:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f10a548:	002f0821 */ 	addu	$at,$at,$t7
 /*  f10a54c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a550:	a024ee3e */ 	sb	$a0,%lo(g_MenuStack+0xe3e)($at)
+/*  f10a550:	a024ee3e */ 	sb	$a0,%lo(g_Menus+0xe3e)($at)
 /*  f10a554:	0fc4433e */ 	jal	func0f110cf8
 /*  f10a558:	30a400ff */ 	andi	$a0,$a1,0xff
 /*  f10a55c:	3c188007 */ 	lui	$t8,%hi(g_MpPlayerNum)
 /*  f10a560:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f10a564:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe3f)
+/*  f10a564:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe3f)
 /*  f10a568:	0018c8c0 */ 	sll	$t9,$t8,0x3
 /*  f10a56c:	0338c823 */ 	subu	$t9,$t9,$t8
 /*  f10a570:	0019c880 */ 	sll	$t9,$t9,0x2
@@ -2745,7 +2745,7 @@ glabel func0f10a51c
 /*  f10a580:	0019c900 */ 	sll	$t9,$t9,0x4
 /*  f10a584:	00390821 */ 	addu	$at,$at,$t9
 /*  f10a588:	0fc4436a */ 	jal	func0f110da8
-/*  f10a58c:	a022ee3f */ 	sb	$v0,%lo(g_MenuStack+0xe3f)($at)
+/*  f10a58c:	a022ee3f */ 	sb	$v0,%lo(g_Menus+0xe3f)($at)
 /*  f10a590:	3c048007 */ 	lui	$a0,%hi(menudialog_selectlocation)
 /*  f10a594:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f10a598:	24844858 */ 	addiu	$a0,$a0,%lo(menudialog_selectlocation)
@@ -2755,7 +2755,7 @@ glabel func0f10a51c
 /*  f10a5a8:	00000000 */ 	nop
 );
 
-s32 menuhandlerPakConfirmDelete(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerPakConfirmDelete(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -3165,7 +3165,7 @@ glabel var7f1b37a8
 /*  f10ab08:	00008825 */ 	or	$s1,$zero,$zero
 /*  f10ab0c:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
 /*  f10ab10:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f10ab14:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0xe3f)
+/*  f10ab14:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe3f)
 /*  f10ab18:	000fc0c0 */ 	sll	$t8,$t7,0x3
 /*  f10ab1c:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f10ab20:	0018c080 */ 	sll	$t8,$t8,0x2
@@ -3174,7 +3174,7 @@ glabel var7f1b37a8
 /*  f10ab2c:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f10ab30:	0018c100 */ 	sll	$t8,$t8,0x4
 /*  f10ab34:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f10ab38:	9051ee3f */ 	lbu	$s1,%lo(g_MenuStack+0xe3f)($v0)
+/*  f10ab38:	9051ee3f */ 	lbu	$s1,%lo(g_Menus+0xe3f)($v0)
 /*  f10ab3c:	0011c880 */ 	sll	$t9,$s1,0x2
 /*  f10ab40:	01194821 */ 	addu	$t1,$t0,$t9
 /*  f10ab44:	8d230000 */ 	lw	$v1,0x0($t1)
@@ -3203,7 +3203,7 @@ glabel var7f1b37a8
 /*  f10ab98:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
 /*  f10ab9c:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
 /*  f10aba0:	8e0e0004 */ 	lw	$t6,0x4($s0)
-/*  f10aba4:	3c0a800a */ 	lui	$t2,%hi(g_MenuStack+0xe1c)
+/*  f10aba4:	3c0a800a */ 	lui	$t2,%hi(g_Menus+0xe1c)
 /*  f10aba8:	001948c0 */ 	sll	$t1,$t9,0x3
 /*  f10abac:	01394823 */ 	subu	$t1,$t1,$t9
 /*  f10abb0:	00094880 */ 	sll	$t1,$t1,0x2
@@ -3213,7 +3213,7 @@ glabel var7f1b37a8
 /*  f10abc0:	00094900 */ 	sll	$t1,$t1,0x4
 /*  f10abc4:	01495021 */ 	addu	$t2,$t2,$t1
 /*  f10abc8:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f10abcc:	8d4aee1c */ 	lw	$t2,%lo(g_MenuStack+0xe1c)($t2)
+/*  f10abcc:	8d4aee1c */ 	lw	$t2,%lo(g_Menus+0xe1c)($t2)
 /*  f10abd0:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f10abd4:	000f78c0 */ 	sll	$t7,$t7,0x3
 /*  f10abd8:	8e110000 */ 	lw	$s1,0x0($s0)
@@ -3256,7 +3256,7 @@ glabel var7f1b37a8
 /*  f10ac64:	1120002e */ 	beqz	$t1,.L0f10ad20
 /*  f10ac68:	00000000 */ 	nop
 /*  f10ac6c:	8d4a1448 */ 	lw	$t2,%lo(g_MpPlayerNum)($t2)
-/*  f10ac70:	3c06800a */ 	lui	$a2,%hi(g_MenuStack+0xe1c)
+/*  f10ac70:	3c06800a */ 	lui	$a2,%hi(g_Menus+0xe1c)
 /*  f10ac74:	27a40048 */ 	addiu	$a0,$sp,0x48
 /*  f10ac78:	000a58c0 */ 	sll	$t3,$t2,0x3
 /*  f10ac7c:	016a5823 */ 	subu	$t3,$t3,$t2
@@ -3266,7 +3266,7 @@ glabel var7f1b37a8
 /*  f10ac8c:	016a5823 */ 	subu	$t3,$t3,$t2
 /*  f10ac90:	000b5900 */ 	sll	$t3,$t3,0x4
 /*  f10ac94:	00cb3021 */ 	addu	$a2,$a2,$t3
-/*  f10ac98:	8cc6ee1c */ 	lw	$a2,%lo(g_MenuStack+0xe1c)($a2)
+/*  f10ac98:	8cc6ee1c */ 	lw	$a2,%lo(g_Menus+0xe1c)($a2)
 /*  f10ac9c:	01202825 */ 	or	$a1,$t1,$zero
 /*  f10aca0:	0fc42034 */ 	jal	func0f1080d0
 /*  f10aca4:	24c6ffff */ 	addiu	$a2,$a2,-1
@@ -3485,7 +3485,7 @@ glabel menucustomFileToCopy
 /*  f10afb0:	018d2021 */ 	addu	$a0,$t4,$t5
 /*  f10afb4:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f10afb8:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10afbc:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0xe1c)
+/*  f10afbc:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe1c)
 /*  f10afc0:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f10afc4:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f10afc8:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -3494,7 +3494,7 @@ glabel menucustomFileToCopy
 /*  f10afd4:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f10afd8:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f10afdc:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f10afe0:	8c42ee1c */ 	lw	$v0,%lo(g_MenuStack+0xe1c)($v0)
+/*  f10afe0:	8c42ee1c */ 	lw	$v0,%lo(g_Menus+0xe1c)($v0)
 /*  f10afe4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f10afe8:	0fc42947 */ 	jal	func0f10a51c
 /*  f10afec:	2445ffff */ 	addiu	$a1,$v0,-1
@@ -3543,7 +3543,7 @@ glabel menudialog0010b014
 /*  f10b07c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f10b080:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
 /*  f10b084:	8d081448 */ 	lw	$t0,%lo(g_MpPlayerNum)($t0)
-/*  f10b088:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe1c)
+/*  f10b088:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe1c)
 /*  f10b08c:	000848c0 */ 	sll	$t1,$t0,0x3
 /*  f10b090:	01284823 */ 	subu	$t1,$t1,$t0
 /*  f10b094:	00094880 */ 	sll	$t1,$t1,0x2
@@ -3552,7 +3552,7 @@ glabel menudialog0010b014
 /*  f10b0a0:	01284823 */ 	subu	$t1,$t1,$t0
 /*  f10b0a4:	00094900 */ 	sll	$t1,$t1,0x4
 /*  f10b0a8:	00290821 */ 	addu	$at,$at,$t1
-/*  f10b0ac:	ac20ee1c */ 	sw	$zero,%lo(g_MenuStack+0xe1c)($at)
+/*  f10b0ac:	ac20ee1c */ 	sw	$zero,%lo(g_Menus+0xe1c)($at)
 .L0f10b0b0:
 /*  f10b0b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f10b0b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -3636,7 +3636,7 @@ glabel menuhandler0010b14c
 /*  f10b1c8:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
 /*  f10b1cc:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
 /*  f10b1d0:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*  f10b1d4:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe23)
+/*  f10b1d4:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe23)
 /*  f10b1d8:	000fc0c0 */ 	sll	$t8,$t7,0x3
 /*  f10b1dc:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f10b1e0:	0018c080 */ 	sll	$t8,$t8,0x2
@@ -3649,7 +3649,7 @@ glabel menuhandler0010b14c
 /*  f10b1fc:	8c460004 */ 	lw	$a2,0x4($v0)
 /*  f10b200:	2448000a */ 	addiu	$t0,$v0,0xa
 /*  f10b204:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f10b208:	8084ee23 */ 	lb	$a0,%lo(g_MenuStack+0xe23)($a0)
+/*  f10b208:	8084ee23 */ 	lb	$a0,%lo(g_Menus+0xe23)($a0)
 /*  f10b20c:	0fc45a22 */ 	jal	func0f116888
 /*  f10b210:	2447000e */ 	addiu	$a3,$v0,0xe
 /*  f10b214:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
@@ -3964,7 +3964,7 @@ glabel var7f1b37f8
 /*  f10b620:	5581000f */ 	bnel	$t4,$at,.L0f10b660
 /*  f10b624:	00001025 */ 	or	$v0,$zero,$zero
 /*  f10b628:	8dad1448 */ 	lw	$t5,%lo(g_MpPlayerNum)($t5)
-/*  f10b62c:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe28)
+/*  f10b62c:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe28)
 /*  f10b630:	24844aa0 */ 	addiu	$a0,$a0,%lo(menudialog_deletegamenote)
 /*  f10b634:	000d70c0 */ 	sll	$t6,$t5,0x3
 /*  f10b638:	01cd7023 */ 	subu	$t6,$t6,$t5
@@ -3975,7 +3975,7 @@ glabel var7f1b37f8
 /*  f10b64c:	000e7100 */ 	sll	$t6,$t6,0x4
 /*  f10b650:	002e0821 */ 	addu	$at,$at,$t6
 /*  f10b654:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10b658:	ac22ee28 */ 	sw	$v0,%lo(g_MenuStack+0xe28)($at)
+/*  f10b658:	ac22ee28 */ 	sw	$v0,%lo(g_Menus+0xe28)($at)
 .L0f10b65c:
 /*  f10b65c:	00001025 */ 	or	$v0,$zero,$zero
 .L0f10b660:
@@ -4203,18 +4203,18 @@ glabel func0f10b924
 /*  f10b944:	000f78c0 */ 	sll	$t7,$t7,0x3
 /*  f10b948:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f10b94c:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10b950:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe20)
+/*  f10b950:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe20)
 /*  f10b954:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10b958:	008f2021 */ 	addu	$a0,$a0,$t7
 /*  f10b95c:	0fc41fec */ 	jal	getSaveLocationName
-/*  f10b960:	8c84ee20 */ 	lw	$a0,%lo(g_MenuStack+0xe20)($a0)
+/*  f10b960:	8c84ee20 */ 	lw	$a0,%lo(g_Menus+0xe20)($a0)
 /*  f10b964:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f10b968:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f10b96c:	03e00008 */ 	jr	$ra
 /*  f10b970:	00000000 */ 	nop
 );
 
-s32 menuhandlerPakSelection(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerPakSelection(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
 		if (pakIsConnected((s8)item->param) == 0) {
@@ -4223,7 +4223,7 @@ s32 menuhandlerPakSelection(u32 operation, struct menu_item *item, s32 *value)
 	}
 
 	if (operation == MENUOP_SET) {
-		g_MenuStack[g_MpPlayerNum].slotcount = item->param;
+		g_Menus[g_MpPlayerNum].data.filesel.slotcount = item->param;
 		menuPushDialog(&menudialog_gamenotes);
 	}
 
@@ -4251,7 +4251,7 @@ glabel menudialog0010ba10
 /*  f10ba4c:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f10ba50:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f10ba54:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10ba58:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe24)
+/*  f10ba58:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe24)
 /*  f10ba5c:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f10ba60:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f10ba64:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -4261,7 +4261,7 @@ glabel menudialog0010ba10
 /*  f10ba74:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f10ba78:	002f0821 */ 	addu	$at,$at,$t7
 /*  f10ba7c:	10000029 */ 	b	.L0f10bb24
-/*  f10ba80:	ac20ee24 */ 	sw	$zero,%lo(g_MenuStack+0xe24)($at)
+/*  f10ba80:	ac20ee24 */ 	sw	$zero,%lo(g_Menus+0xe24)($at)
 .L0f10ba84:
 /*  f10ba84:	3c018006 */ 	lui	$at,%hi(var80062944)
 /*  f10ba88:	10000026 */ 	b	.L0f10bb24
@@ -4274,7 +4274,7 @@ glabel menudialog0010ba10
 /*  f10baa0:	1321001e */ 	beq	$t9,$at,.L0f10bb1c
 /*  f10baa4:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
 /*  f10baa8:	8d081448 */ 	lw	$t0,%lo(g_MpPlayerNum)($t0)
-/*  f10baac:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe24)
+/*  f10baac:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe24)
 /*  f10bab0:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f10bab4:	000848c0 */ 	sll	$t1,$t0,0x3
 /*  f10bab8:	01284823 */ 	subu	$t1,$t1,$t0
@@ -4284,7 +4284,7 @@ glabel menudialog0010ba10
 /*  f10bac8:	01284823 */ 	subu	$t1,$t1,$t0
 /*  f10bacc:	00094900 */ 	sll	$t1,$t1,0x4
 /*  f10bad0:	00892021 */ 	addu	$a0,$a0,$t1
-/*  f10bad4:	8c84ee24 */ 	lw	$a0,%lo(g_MenuStack+0xe24)($a0)
+/*  f10bad4:	8c84ee24 */ 	lw	$a0,%lo(g_Menus+0xe24)($a0)
 /*  f10bad8:	240a0001 */ 	addiu	$t2,$zero,0x1
 .L0f10badc:
 /*  f10badc:	006a5804 */ 	sllv	$t3,$t2,$v1
@@ -4316,32 +4316,32 @@ glabel menudialog0010ba10
 /*  f10bb34:	00000000 */ 	nop
 );
 
-s32 menuhandlerOpenCopyFile(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerOpenCopyFile(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		g_MenuStack[g_MpPlayerNum].slotindex = item->param + 1;
+		g_Menus[g_MpPlayerNum].data.filesel.slotindex = item->param + 1;
 		func0f110c5c(0, item->param);
-		g_MenuStack[g_MpPlayerNum].unke3f = 0;
-		g_MenuStack[g_MpPlayerNum].unke28 = 0;
+		g_Menus[g_MpPlayerNum].unke3f = 0;
+		g_Menus[g_MpPlayerNum].data.filesel.unke28 = 0;
 		menuPushDialog(&menudialog_copyfile);
 	}
 
 	return 0;
 }
 
-s32 menuhandlerOpenDeleteFile(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerOpenDeleteFile(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		g_MenuStack[g_MpPlayerNum].slotindex = item->param + 1;
+		g_Menus[g_MpPlayerNum].data.filesel.slotindex = item->param + 1;
 		func0f110c5c(0, item->param);
-		g_MenuStack[g_MpPlayerNum].unke3e = -1;
+		g_Menus[g_MpPlayerNum].unke3e = -1;
 		func0f10b0c4(0);
 	}
 
 	return 0;
 }
 
-s32 menuhandlerAgentName(u32 operation, struct menu_item *item, char **value)
+s32 menuhandlerAgentName(u32 operation, struct menuitem *item, char **value)
 {
 	char *ptr = *value;
 
@@ -4358,7 +4358,7 @@ s32 menuhandlerAgentName(u32 operation, struct menu_item *item, char **value)
 		break;
 	case MENUOP_SET:
 		func0f10a51c(0, 0);
-		g_MenuStack[g_MpPlayerNum].unke2c = 1;
+		g_Menus[g_MpPlayerNum].data.filesel.unke2c = 1;
 		break;
 	}
 
@@ -4516,7 +4516,7 @@ glabel var7f1b385c
 .L0f10bec4:
 /*  f10bec4:	3c188007 */ 	lui	$t8,%hi(g_MpPlayerNum)
 /*  f10bec8:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f10becc:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe2c)
+/*  f10becc:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe2c)
 /*  f10bed0:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f10bed4:	0018c8c0 */ 	sll	$t9,$t8,0x3
 /*  f10bed8:	0338c823 */ 	subu	$t9,$t9,$t8
@@ -4526,7 +4526,7 @@ glabel var7f1b385c
 /*  f10bee8:	0338c823 */ 	subu	$t9,$t9,$t8
 /*  f10beec:	0019c900 */ 	sll	$t9,$t9,0x4
 /*  f10bef0:	00390821 */ 	addu	$at,$at,$t9
-/*  f10bef4:	ac20ee2c */ 	sw	$zero,%lo(g_MenuStack+0xe2c)($at)
+/*  f10bef4:	ac20ee2c */ 	sw	$zero,%lo(g_Menus+0xe2c)($at)
 .L0f10bef8:
 /*  f10bef8:	10c0023c */ 	beqz	$a2,.L0f10c7ec
 /*  f10befc:	3c06800a */ 	lui	$a2,%hi(g_Vars)
@@ -5150,7 +5150,7 @@ glabel menudialog0010c804
 .L0f10c840:
 /*  f10c840:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f10c844:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10c848:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe1c)
+/*  f10c848:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe1c)
 /*  f10c84c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f10c850:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f10c854:	01ee7823 */ 	subu	$t7,$t7,$t6
@@ -5160,7 +5160,7 @@ glabel menudialog0010c804
 /*  f10c864:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f10c868:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f10c86c:	002f0821 */ 	addu	$at,$at,$t7
-/*  f10c870:	ac20ee1c */ 	sw	$zero,%lo(g_MenuStack+0xe1c)($at)
+/*  f10c870:	ac20ee1c */ 	sw	$zero,%lo(g_Menus+0xe1c)($at)
 /*  f10c874:	0fc44317 */ 	jal	func0f110c5c
 /*  f10c878:	00002825 */ 	or	$a1,$zero,$zero
 /*  f10c87c:	0fc62084 */ 	jal	func0f188210
@@ -5261,7 +5261,7 @@ glabel func0f10c970
 );
 
 // 1a3c0
-struct menu_item menuitems_1a3c0[] = {
+struct menuitem menuitems_1a3c0[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108550, 0x00000000, menuhandler001084b8 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextFailReason, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS(321), 0x00000000, NULL }, // "Cancel"
@@ -5269,7 +5269,7 @@ struct menu_item menuitems_1a3c0[] = {
 };
 
 // 1a410
-struct menu_dialog menudialog_1a410 = {
+struct menudialog menudialog_1a410 = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(320), // "Error"
 	menuitems_1a3c0,
@@ -5311,14 +5311,14 @@ u16 filetypenames[] = {
 };
 
 // 1a450
-struct menu_item menuitems_filesaved[] = {
+struct menuitem menuitems_filesaved[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(346), 0x00000000, NULL }, // "File Saved."
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS(347), 0x00000000, NULL }, // "OK"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 1a48c
-struct menu_dialog menudialog_filesaved = {
+struct menudialog menudialog_filesaved = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_OPTIONS(345), // "Cool!"
 	menuitems_filesaved,
@@ -5328,7 +5328,7 @@ struct menu_dialog menudialog_filesaved = {
 };
 
 // 1a4a4
-struct menu_item menuitems_saveerror[] = {
+struct menuitem menuitems_saveerror[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextLocationName, 0x00000000, menuhandler00108014 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(348), 0x00000000, NULL }, // "An error occurred while trying to save"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(349), 0x00000000, menuhandlerPakErrorTryAgain }, // "Try Again"
@@ -5338,7 +5338,7 @@ struct menu_item menuitems_saveerror[] = {
 };
 
 // 1a51c
-struct menu_dialog menudialog_saveerror = {
+struct menudialog menudialog_saveerror = {
 	MENUDIALOGTYPE_DANGER,
 	(u32)&func0f10876c,
 	menuitems_saveerror,
@@ -5348,7 +5348,7 @@ struct menu_dialog menudialog_saveerror = {
 };
 
 // 1a534
-struct menu_item menuitems_savelost[] = {
+struct menuitem menuitems_savelost[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextLocationName, 0x00000000, menuhandler00108014 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(251), 0x00000000, NULL }, // "The saved file has been erased due to corruption or damage."
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(354), 0x00000000, menuhandlerAcknowledgePakFileLost }, // "Cancel"
@@ -5356,7 +5356,7 @@ struct menu_item menuitems_savelost[] = {
 };
 
 // 1a584
-struct menu_dialog menudialog_savelost = {
+struct menudialog menudialog_savelost = {
 	MENUDIALOGTYPE_DANGER,
 	(u32)&func0f10876c,
 	menuitems_savelost,
@@ -5366,7 +5366,7 @@ struct menu_dialog menudialog_savelost = {
 };
 
 // 1a59c
-struct menu_item menuitems_saveelsewhere[] = {
+struct menuitem menuitems_saveelsewhere[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(360), 0x00000000, NULL }, // "Would you like to save your file elsewhere?"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(361), 0x00000000, menuhandlerSaveElsewhere }, // "Yes"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(362), 0x00000000, menuhandlerPakCancelSave2 }, // "No"
@@ -5374,7 +5374,7 @@ struct menu_item menuitems_saveelsewhere[] = {
 };
 
 // 1a5ec
-struct menu_dialog g_SaveElsewhereMenuDialog = {
+struct menudialog g_SaveElsewhereMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(359), // "Save"
 	menuitems_saveelsewhere,
@@ -5384,7 +5384,7 @@ struct menu_dialog g_SaveElsewhereMenuDialog = {
 };
 
 // 1a604
-struct menu_item menuitems_1a604[] = {
+struct menuitem menuitems_1a604[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108f90, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(365), 0x00000000, menuhandler00108ecc }, // "OK"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(366), 0x00000000, menuhandler00108f08 }, // "Cancel"
@@ -5392,7 +5392,7 @@ struct menu_item menuitems_1a604[] = {
 };
 
 // 1a654
-struct menu_dialog menudialog_1a654 = {
+struct menudialog menudialog_1a654 = {
 	MENUDIALOGTYPE_DANGER,
 	(u32)&func0f10876c,
 	menuitems_1a604,
@@ -5409,14 +5409,14 @@ u32 var8007465c = 0x01020304;
 u32 var80074660 = 0x00000000;
 
 // 1a684
-struct menu_item menuitems_changefilename[] = {
+struct menuitem menuitems_changefilename[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(239), 0x00000000, NULL }, // "Enter new file name:"
 	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandlerRenameFile },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 1a6c0
-struct menu_dialog menudialog_changefilename = {
+struct menudialog menudialog_changefilename = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS(238), // "Change File Name"
 	menuitems_changefilename,
@@ -5426,7 +5426,7 @@ struct menu_dialog menudialog_changefilename = {
 };
 
 // 1a6d8
-struct menu_item menuitems_duplicatefilename[] = {
+struct menuitem menuitems_duplicatefilename[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f10a19c, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(233), 0x00000000, NULL }, // "already contains"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(234), 0x00000000, NULL }, // "a file named"
@@ -5438,7 +5438,7 @@ struct menu_item menuitems_duplicatefilename[] = {
 };
 
 // 1a778
-struct menu_dialog menudialog_duplicatefilename = {
+struct menudialog menudialog_duplicatefilename = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS(232), // "Duplicate File Name"
 	menuitems_duplicatefilename,
@@ -5458,7 +5458,7 @@ u16 savelocations3[] = {
 };
 
 // 1a79c
-struct menu_item menuitems_selectlocation[] = {
+struct menuitem menuitems_selectlocation[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(368), L_OPTIONS(369), NULL }, // "Where", "Spaces"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  4, 0x00000000, (u32)&func0f10a22c, (u32)&func0f10a2ec, menuhandlerSaveLocation },
@@ -5473,7 +5473,7 @@ struct menu_item menuitems_selectlocation[] = {
 };
 
 // 1a878
-struct menu_dialog menudialog_selectlocation = {
+struct menudialog menudialog_selectlocation = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(367), // "Select Location"
 	menuitems_selectlocation,
@@ -5483,7 +5483,7 @@ struct menu_dialog menudialog_selectlocation = {
 };
 
 // 1a890
-struct menu_item menuitems_confirmdelete[] = {
+struct menuitem menuitems_confirmdelete[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f1082b0, 0x00000000, menuhandler00108254 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000230, (u32)&pakMenuTextLocationName, 0x00000000, menuhandler00108014 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(380), 0x00000000, NULL }, // "Are you sure you want to delete this file?"
@@ -5493,7 +5493,7 @@ struct menu_item menuitems_confirmdelete[] = {
 };
 
 // 1a908
-struct menu_dialog menudialog_confirmdelete = {
+struct menudialog menudialog_confirmdelete = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(379), // "Warning"
 	menuitems_confirmdelete,
@@ -5503,7 +5503,7 @@ struct menu_dialog menudialog_confirmdelete = {
 };
 
 // 1a920
-struct menu_item menuitems_1a920[] = {
+struct menuitem menuitems_1a920[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f1082b0, 0x00000000, menuhandler00108254 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000230, (u32)&pakMenuTextLocationName, 0x00000000, menuhandler00108014 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f10a5e8, 0x00000000, NULL },
@@ -5512,7 +5512,7 @@ struct menu_item menuitems_1a920[] = {
 };
 
 // 1a984
-struct menu_dialog menudialog_1a984 = {
+struct menudialog menudialog_1a984 = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(159), // "Error"
 	menuitems_1a920,
@@ -5522,7 +5522,7 @@ struct menu_dialog menudialog_1a984 = {
 };
 
 // 1a99c
-struct menu_item menuitems_deletefile[] = {
+struct menuitem menuitems_deletefile[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(377), 0x00000000, NULL }, // "Select a file to delete:"
 	{ MENUITEMTYPE_CUSTOM,      1, 0x00200000, 0x00000000, 0x00000000, menucustomFileToDelete },
 	{ MENUITEMTYPE_LABEL,       0, 0x00004030, L_OPTIONS(378), 0x00000000, NULL }, // "Press B Button to exit."
@@ -5530,7 +5530,7 @@ struct menu_item menuitems_deletefile[] = {
 };
 
 // 1a9ec
-struct menu_dialog menudialog_deletefile = {
+struct menudialog menudialog_deletefile = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(376), // "Delete File"
 	menuitems_deletefile,
@@ -5540,7 +5540,7 @@ struct menu_dialog menudialog_deletefile = {
 };
 
 // 1aa04
-struct menu_item menuitems_copyfile[] = {
+struct menuitem menuitems_copyfile[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(374), 0x00000000, NULL }, // "Select a file to copy:"
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x00000000, 0x00000000, menucustomFileToCopy },
 	{ MENUITEMTYPE_LABEL,       0, 0x00004030, L_OPTIONS(375), 0x00000000, NULL }, // "Press B Button to exit."
@@ -5548,7 +5548,7 @@ struct menu_item menuitems_copyfile[] = {
 };
 
 // 1aa54
-struct menu_dialog menudialog_copyfile = {
+struct menudialog menudialog_copyfile = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(373), // "Copy File"
 	menuitems_copyfile,
@@ -5560,7 +5560,7 @@ struct menu_dialog menudialog_copyfile = {
 u32 var80074a4c = 0x00000000;
 
 // 1aa70
-struct menu_item menuitems_deletegamenote[] = {
+struct menuitem menuitems_deletegamenote[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(384), 0x00000000, NULL }, // "Are you sure you want to delete this game note?"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS(385), 0x00000000, NULL }, // "No"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(386), 0x00000000, menuhandler0010b14c }, // "Yes"
@@ -5568,7 +5568,7 @@ struct menu_item menuitems_deletegamenote[] = {
 };
 
 // 1aac0
-struct menu_dialog menudialog_deletegamenote = {
+struct menudialog menudialog_deletegamenote = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(383), // "Delete Game Note"
 	menuitems_deletegamenote,
@@ -5578,7 +5578,7 @@ struct menu_dialog menudialog_deletegamenote = {
 };
 
 // 1aad8
-struct menu_item menuitems_gamenotes[] = {
+struct menuitem menuitems_gamenotes[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(388), (u32)&func0f10b924, NULL }, // "Delete Game Notes:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x0000010e, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(389), L_OPTIONS(390), NULL }, // "Note", "Pages"
@@ -5590,7 +5590,7 @@ struct menu_item menuitems_gamenotes[] = {
 };
 
 // 1ab78
-struct menu_dialog menudialog_gamenotes = {
+struct menudialog menudialog_gamenotes = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(387), // "Game Notes"
 	menuitems_gamenotes,
@@ -5600,7 +5600,7 @@ struct menu_dialog menudialog_gamenotes = {
 };
 
 // 1ab90
-struct menu_item menuitems_controllerpakmenu[] = {
+struct menuitem menuitems_controllerpakmenu[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(108), 0x00000000, NULL }, // "Use this menu to delete game notes from your Controller Pak"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(109), 0x00000000, NULL }, // "Choose Controller Pak to Edit:"
@@ -5614,7 +5614,7 @@ struct menu_item menuitems_controllerpakmenu[] = {
 };
 
 // 1ac58
-struct menu_dialog menudialog_controllerpakmenu = {
+struct menudialog menudialog_controllerpakmenu = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(107), // "Controller Pak Menu"
 	menuitems_controllerpakmenu,
@@ -5624,7 +5624,7 @@ struct menu_dialog menudialog_controllerpakmenu = {
 };
 
 // 1ac70
-struct menu_item menuitems_gamefiles[] = {
+struct menuitem menuitems_gamefiles[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(100), 0x00000000, NULL }, // "Copy:"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(103), 0x00000000, menuhandlerOpenCopyFile }, // "Single Player Agent File"
 	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, L_OPTIONS(104), 0x00000000, menuhandlerOpenCopyFile }, // "Combat Simulator Settings File"
@@ -5640,7 +5640,7 @@ struct menu_item menuitems_gamefiles[] = {
 };
 
 // 1ad60
-struct menu_dialog menudialog_gamefiles = {
+struct menudialog menudialog_gamefiles = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(99), // "Game Files"
 	menuitems_gamefiles,
@@ -5650,13 +5650,13 @@ struct menu_dialog menudialog_gamefiles = {
 };
 
 // 1ad78
-struct menu_item menuitems_enteragentname[] = {
+struct menuitem menuitems_enteragentname[] = {
 	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000001, menuhandlerAgentName },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 1ada0
-struct menu_dialog menudialog_enteragentname = {
+struct menudialog menudialog_enteragentname = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(401), // "Enter Agent Name"
 	menuitems_enteragentname,
@@ -5666,14 +5666,14 @@ struct menu_dialog menudialog_enteragentname = {
 };
 
 // 1adb8
-struct menu_item menuitems_fileselect[] = {
+struct menuitem menuitems_fileselect[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(96), 0x00000000, NULL }, // "Choose Your Reality"
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x000000f5, 0x00000000, menucustomChooseAgent },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 1adf4
-struct menu_dialog menudialog_fileselect = {
+struct menudialog menudialog_fileselect = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(95), // "Perfect Dark"
 	menuitems_fileselect,

@@ -33,7 +33,7 @@
 #include "lib/lib_13130.h"
 #include "types.h"
 
-s32 menuhandlerDeclineMission(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerDeclineMission(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -43,7 +43,7 @@ s32 menuhandlerDeclineMission(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-void menudialogRetryMission(u32 operation, struct menu_dialog *dialog, struct menuthing **thingptr)
+void menudialogRetryMission(u32 operation, struct menudialog *dialog, struct menuthing **thingptr)
 {
 	switch (operation) {
 	case MENUOP_102:
@@ -55,9 +55,9 @@ void menudialogRetryMission(u32 operation, struct menu_dialog *dialog, struct me
 			 * when the dialog is not on screen?
 			 */
 #if VERSION >= VERSION_NTSC_FINAL
-			if (g_MenuStack[g_MpPlayerNum].curframe) {
-				if (dialog == g_MenuStack[g_MpPlayerNum].curframe->dialog
-						|| (dialog->nextsibling && dialog->nextsibling == g_MenuStack[g_MpPlayerNum].curframe->dialog)) {
+			if (g_Menus[g_MpPlayerNum].curframe) {
+				if (dialog == g_Menus[g_MpPlayerNum].curframe->dialog
+						|| (dialog->nextsibling && dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog)) {
 #endif
 					struct menuthing *thing = *thingptr;
 					bool pass = false;
@@ -76,9 +76,9 @@ void menudialogRetryMission(u32 operation, struct menu_dialog *dialog, struct me
 					thing->unk0a = 0;
 
 					if (thing->unk02
-							&& g_MenuStack[g_MpPlayerNum].curframe
+							&& g_Menus[g_MpPlayerNum].curframe
 							&& dialog->nextsibling
-							&& dialog->nextsibling == g_MenuStack[g_MpPlayerNum].curframe->dialog) {
+							&& dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog) {
 						pass = true;
 						thing->unk02 = 0;
 					}
@@ -97,12 +97,12 @@ void menudialogRetryMission(u32 operation, struct menu_dialog *dialog, struct me
 	menudialog00103608(operation, dialog, thingptr);
 }
 
-char *menuDialogTitleRetryStageName(struct menu_dialog *dialog)
+char *menuDialogTitleRetryStageName(struct menudialog *dialog)
 {
 	char *name;
 	char *prefix;
 
-	if (g_MenuStack[g_MpPlayerNum].curframe->dialog != dialog) {
+	if (g_Menus[g_MpPlayerNum].curframe->dialog != dialog) {
 		return langGet(L_OPTIONS(300)); // "Objectives"
 	}
 
@@ -114,12 +114,12 @@ char *menuDialogTitleRetryStageName(struct menu_dialog *dialog)
 	return g_StringPointer;
 }
 
-char *menuDialogTitleNextMissionStageName(struct menu_dialog *dialog)
+char *menuDialogTitleNextMissionStageName(struct menudialog *dialog)
 {
 	char *name;
 	char *prefix;
 
-	if (g_MenuStack[g_MpPlayerNum].curframe->dialog != dialog) {
+	if (g_Menus[g_MpPlayerNum].curframe->dialog != dialog) {
 		return langGet(L_OPTIONS(300)); // "Objectives"
 	}
 
@@ -131,7 +131,7 @@ char *menuDialogTitleNextMissionStageName(struct menu_dialog *dialog)
 	return g_StringPointer;
 }
 
-s32 menuhandlerReplayPreviousMission(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerReplayPreviousMission(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.stageindex--;
@@ -141,44 +141,44 @@ s32 menuhandlerReplayPreviousMission(u32 operation, struct menu_item *item, s32 
 	return menuhandlerAcceptMission(operation, NULL, value);
 }
 
-char *soloMenuTextNumKills(struct menu_item *item)
+char *soloMenuTextNumKills(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%d", currentPlayerGetNumKills());
 	return g_StringPointer;
 }
 
-char *soloMenuTextNumShots(struct menu_item *item)
+char *soloMenuTextNumShots(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%d", currentPlayerGetShotCount(SHOTCOUNT_TOTAL));
 	return g_StringPointer;
 }
 
-char *soloMenuTextNumHeadShots(struct menu_item *item)
+char *soloMenuTextNumHeadShots(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%d", currentPlayerGetShotCount(SHOTCOUNT_HEAD));
 	return g_StringPointer;
 }
 
-char *soloMenuTextNumBodyShots(struct menu_item *item)
+char *soloMenuTextNumBodyShots(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%d", currentPlayerGetShotCount(SHOTCOUNT_BODY));
 	return g_StringPointer;
 }
 
-char *soloMenuTextNumLimbShots(struct menu_item *item)
+char *soloMenuTextNumLimbShots(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%d", currentPlayerGetShotCount(SHOTCOUNT_LIMB));
 	return g_StringPointer;
 }
 
-char *soloMenuTextNumOtherShots(struct menu_item *item)
+char *soloMenuTextNumOtherShots(struct menuitem *item)
 {
 	u32 total = currentPlayerGetShotCount(SHOTCOUNT_GUN) + currentPlayerGetShotCount(SHOTCOUNT_5);
 	sprintf(g_StringPointer, "%d", total);
 	return g_StringPointer;
 }
 
-char *soloMenuTextAccuracy(struct menu_item *item)
+char *soloMenuTextAccuracy(struct menuitem *item)
 {
 	s32 total = currentPlayerGetShotCount(SHOTCOUNT_TOTAL);
 	s32 numhead = currentPlayerGetShotCount(SHOTCOUNT_HEAD);
@@ -204,7 +204,7 @@ char *soloMenuTextAccuracy(struct menu_item *item)
     return g_StringPointer;
 }
 
-char *soloMenuTextMissionStatus(struct menu_item *item)
+char *soloMenuTextMissionStatus(struct menuitem *item)
 {
 	if (g_CheatsActiveBank0 || g_CheatsActiveBank1) {
 		return langGet(L_MPWEAPONS(135)); // "Cheated"
@@ -261,7 +261,7 @@ char *soloMenuTextMissionStatus(struct menu_item *item)
 	return langGet(L_OPTIONS(294)); // "Completed"
 }
 
-char *soloMenuTextAgentStatus(struct menu_item *item)
+char *soloMenuTextAgentStatus(struct menuitem *item)
 {
 	if (g_CheatsActiveBank0 || g_CheatsActiveBank1) {
 		return langGet(L_MPWEAPONS(134)); // "Dishonored"
@@ -282,16 +282,16 @@ char *soloMenuTextAgentStatus(struct menu_item *item)
 	return langGet(L_OPTIONS(291)); // "Active"
 }
 
-char *menuTitleStageCompleted(struct menu_item *item)
+char *menuTitleStageCompleted(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%s: %s\n",
-			langGet(g_StageNames[g_MenuStack[g_MpPlayerNum].unke2c].name3),
+			langGet(g_StageNames[g_Menus[g_MpPlayerNum].data.endscreen.stageindex].name3),
 			langGet(L_OPTIONS(276))); // "Completed"
 
 	return g_StringPointer;
 }
 
-char *menuTextCurrentStageName3(struct menu_item *item)
+char *menuTextCurrentStageName3(struct menuitem *item)
 {
 	char *name = langGet(g_StageNames[g_MissionConfig.stageindex].name3);
 	sprintf(g_StringPointer, "%s\n", name);
@@ -299,7 +299,7 @@ char *menuTextCurrentStageName3(struct menu_item *item)
 	return g_StringPointer;
 }
 
-char *menuTitleStageFailed(struct menu_item *item)
+char *menuTitleStageFailed(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%s: %s\n",
 			langGet(g_StageNames[g_MissionConfig.stageindex].name3),
@@ -308,7 +308,7 @@ char *menuTitleStageFailed(struct menu_item *item)
 	return g_StringPointer;
 }
 
-char *soloMenuTextMissionTime(struct menu_item *item)
+char *soloMenuTextMissionTime(struct menuitem *item)
 {
 	formatTime(g_StringPointer, getMissionTime(), 3);
 	strcat(g_StringPointer, "\n");
@@ -316,7 +316,7 @@ char *soloMenuTextMissionTime(struct menu_item *item)
 	return g_StringPointer;
 }
 
-struct menu_dialog *func0f10d730(void)
+struct menudialog *func0f10d730(void)
 {
 	g_MissionConfig.stageindex++;
 	g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
@@ -326,20 +326,20 @@ struct menu_dialog *func0f10d730(void)
 
 void func0f10d770(void)
 {
-	func0f0f8bb4(&g_MenuStack[0].unk840, func0f09ddfc() - func0f0e4fe0(), 0);
-	g_MenuStack[0].unk844 = func0f09ddec() + func0f0e4fe0();
+	func0f0f8bb4(&g_Menus[0].unk840, func0f09ddfc() - func0f0e4fe0(), 0);
+	g_Menus[0].unk844 = func0f09ddec() + func0f0e4fe0();
 
-	func0f0f8bb4(&g_MenuStack[1].unk840, func0f09ddfc() - func0f0e4fe0(), 0);
-	g_MenuStack[1].unk844 = func0f09ddec() + func0f0e4fe0();
+	func0f0f8bb4(&g_Menus[1].unk840, func0f09ddfc() - func0f0e4fe0(), 0);
+	g_Menus[1].unk844 = func0f09ddec() + func0f0e4fe0();
 
-	func0f0f8bb4(&g_MenuStack[2].unk840, func0f09ddfc() - func0f0e4fe0(), 0);
-	g_MenuStack[2].unk844 = func0f09ddec() + func0f0e4fe0();
+	func0f0f8bb4(&g_Menus[2].unk840, func0f09ddfc() - func0f0e4fe0(), 0);
+	g_Menus[2].unk844 = func0f09ddec() + func0f0e4fe0();
 
-	func0f0f8bb4(&g_MenuStack[3].unk840, func0f09ddfc() - func0f0e4fe0(), 0);
-	g_MenuStack[3].unk844 = func0f09ddec() + func0f0e4fe0();
+	func0f0f8bb4(&g_Menus[3].unk840, func0f09ddfc() - func0f0e4fe0(), 0);
+	g_Menus[3].unk844 = func0f09ddec() + func0f0e4fe0();
 }
 
-s32 menuhandlerReplayLastLevel(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerReplayLastLevel(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
@@ -352,7 +352,7 @@ s32 menuhandlerReplayLastLevel(u32 operation, struct menu_item *item, s32 *value
 /**
  * Displayed after Defense and Skedar Ruins completion screens.
  */
-s32 menuhandlerContinueMission(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerContinueMission(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		func0f10d910(2);
@@ -429,7 +429,7 @@ glabel func0f10d910
 /*  f10d9f0:	10e1000f */ 	beq	$a3,$at,.L0f10da30
 /*  f10d9f4:	3c0d8007 */ 	lui	$t5,%hi(g_MpPlayerNum)
 /*  f10d9f8:	8dad1448 */ 	lw	$t5,%lo(g_MpPlayerNum)($t5)
-/*  f10d9fc:	3c0f800a */ 	lui	$t7,%hi(g_MenuStack+0xe24)
+/*  f10d9fc:	3c0f800a */ 	lui	$t7,%hi(g_Menus+0xe24)
 /*  f10da00:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f10da04:	000d70c0 */ 	sll	$t6,$t5,0x3
 /*  f10da08:	01cd7023 */ 	subu	$t6,$t6,$t5
@@ -439,7 +439,7 @@ glabel func0f10d910
 /*  f10da18:	01cd7023 */ 	subu	$t6,$t6,$t5
 /*  f10da1c:	000e7100 */ 	sll	$t6,$t6,0x4
 /*  f10da20:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10da24:	8defee24 */ 	lw	$t7,%lo(g_MenuStack+0xe24)($t7)
+/*  f10da24:	8defee24 */ 	lw	$t7,%lo(g_Menus+0xe24)($t7)
 /*  f10da28:	11e00063 */ 	beqz	$t7,.L0f10dbb8
 /*  f10da2c:	00000000 */ 	nop
 .L0f10da30:
@@ -661,7 +661,7 @@ glabel menudialog0010dd28
 /*  f10dd34:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10dd38:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f10dd3c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10dd40:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe1c)
+/*  f10dd40:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe1c)
 /*  f10dd44:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f10dd48:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f10dd4c:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -670,7 +670,7 @@ glabel menudialog0010dd28
 /*  f10dd58:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f10dd5c:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f10dd60:	002f0821 */ 	addu	$at,$at,$t7
-/*  f10dd64:	ac20ee1c */ 	sw	$zero,%lo(g_MenuStack+0xe1c)($at)
+/*  f10dd64:	ac20ee1c */ 	sw	$zero,%lo(g_Menus+0xe1c)($at)
 .L0f10dd68:
 /*  f10dd68:	24010066 */ 	addiu	$at,$zero,0x66
 /*  f10dd6c:	14810035 */ 	bne	$a0,$at,.L0f10de44
@@ -751,7 +751,7 @@ glabel menudialog0010de58
 /*  f10de68:	00c03825 */ 	or	$a3,$a2,$zero
 /*  f10de6c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f10de70:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10de74:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe1c)
+/*  f10de74:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe1c)
 /*  f10de78:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f10de7c:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f10de80:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -760,7 +760,7 @@ glabel menudialog0010de58
 /*  f10de8c:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f10de90:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f10de94:	002f0821 */ 	addu	$at,$at,$t7
-/*  f10de98:	ac20ee1c */ 	sw	$zero,%lo(g_MenuStack+0xe1c)($at)
+/*  f10de98:	ac20ee1c */ 	sw	$zero,%lo(g_Menus+0xe1c)($at)
 .L0f10de9c:
 /*  f10de9c:	24010066 */ 	addiu	$at,$zero,0x66
 /*  f10dea0:	1481006b */ 	bne	$a0,$at,.L0f10e050
@@ -900,38 +900,38 @@ glabel menudialog0010de58
  * 0 = mission time
  * 1 = target time
  * 2 = separator and new cheat available
- * 3 = cheat name
+ * 3 = completion cheat name
  * 4 = others (shots)
- * 5 = cheat name 2
+ * 5 = timed cheat name
  * 6 = limb shots
  */
-s32 menuhandlerEndscreenMisc(u32 operation, struct menu_item *item, u32 *values)
+s32 menuhandlerEndscreenCheats(u32 operation, struct menuitem *item, u32 *values)
 {
 	if (operation == MENUOP_GETCOLOUR
-			&& ((g_MenuStack[g_MpPlayerNum].slotcount & 0x200) || item->param == 5)) { // cheat name 2
+			&& ((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x200) || item->param == 5)) { // timed cheat name
 		u32 weight = func0f006b08(40) * 255;
 
 		func0000db30("ctcol", &g_CheatColour);
 
 		if (item->param == 0
-				&& cheatGetTime(g_MenuStack[g_MpPlayerNum].slotcount & 0xff) == 0) {
+				&& cheatGetTime(g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xff) == 0) {
 			return 0;
 		}
 
 		values[1] = colourBlend(values[1], g_CheatColour, weight);
 
-		if (item->param == 3) { // cheat name
+		if (item->param == 3) { // completion cheat name
 			values[0] = colourBlend(values[0], g_CheatColour, weight);
 		}
 
-		if (item->param == 5) { // cheat name 2
+		if (item->param == 5) { // timed cheat name
 			values[0] = colourBlend(values[0], g_CheatColour, weight);
 		}
 	}
 
 	if (operation == MENUOP_CHECKHIDDEN) {
 		if (item->param == 1) { // target time
-			u32 info = g_MenuStack[g_MpPlayerNum].slotcount;
+			u32 info = g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo;
 
 			if (info & 0x800) {
 				return true;
@@ -942,20 +942,20 @@ s32 menuhandlerEndscreenMisc(u32 operation, struct menu_item *item, u32 *values)
 			}
 
 			return true;
-		} else if (item->param == 2 && (g_MenuStack[g_MpPlayerNum].slotcount & 0xa00) == 0) {
+		} else if (item->param == 2 && (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xa00) == 0) {
 			// new cheat available
 			return true;
-		} else if (item->param == 3 && (g_MenuStack[g_MpPlayerNum].slotcount & 0x200) == 0) {
-			// cheat name
+		} else if (item->param == 3 && (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x200) == 0) {
+			// completion cheat name
 			return true;
-		} else if (item->param == 4 && (g_MenuStack[g_MpPlayerNum].slotcount & 0xa00)) {
+		} else if (item->param == 4 && (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xa00)) {
 			// others (shots)
 			return true;
-		} else if (item->param == 6 && (g_MenuStack[g_MpPlayerNum].slotcount & 0xa00) == 0xa00) {
+		} else if (item->param == 6 && (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xa00) == 0xa00) {
 			// limb shots
 			return true;
-		} else if (item->param == 5 && (g_MenuStack[g_MpPlayerNum].slotcount & 0x800) == 0) {
-			// cheat name 2
+		} else if (item->param == 5 && (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x800) == 0) {
+			// timed cheat name
 			return true;
 		}
 	}
@@ -963,19 +963,19 @@ s32 menuhandlerEndscreenMisc(u32 operation, struct menu_item *item, u32 *values)
 	return false;
 }
 
-char *soloMenuTextCheatName(struct menu_item *item)
+char *soloMenuTextCheatName(struct menuitem *item)
 {
-	if (g_MenuStack[g_MpPlayerNum].slotcount & 0x00000300) {
-		return cheatGetName(g_MenuStack[g_MpPlayerNum].slotcount & 0xff);
+	if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x00000300) {
+		return cheatGetName(g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xff);
 	}
 
 	return NULL;
 }
 
-char *soloMenuTextCheatName2(struct menu_item *item)
+char *soloMenuTextCheatName2(struct menuitem *item)
 {
-	if (g_MenuStack[g_MpPlayerNum].slotcount & 0x00000800) {
-		return cheatGetName((g_MenuStack[g_MpPlayerNum].slotcount >> 16) & 0xff);
+	if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x00000800) {
+		return cheatGetName((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo >> 16) & 0xff);
 	}
 
 	return NULL;
@@ -985,7 +985,7 @@ GLOBAL_ASM(
 glabel soloMenuTextTargetTime
 /*  f10e4d8:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f10e4dc:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10e4e0:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0xe20)
+/*  f10e4e0:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe20)
 /*  f10e4e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f10e4e8:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f10e4ec:	01ee7823 */ 	subu	$t7,$t7,$t6
@@ -995,7 +995,7 @@ glabel soloMenuTextTargetTime
 /*  f10e4fc:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f10e500:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f10e504:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f10e508:	8c42ee20 */ 	lw	$v0,%lo(g_MenuStack+0xe20)($v0)
+/*  f10e508:	8c42ee20 */ 	lw	$v0,%lo(g_Menus+0xe20)($v0)
 /*  f10e50c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10e510:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f10e514:	30580100 */ 	andi	$t8,$v0,0x100
@@ -1035,15 +1035,15 @@ glabel soloMenuTextTargetTime
 const char var7f1b38bc[] = "\n";
 
 // regalloc
-//char *soloMenuTextTargetTime(struct menu_item *item)
+//char *soloMenuTextTargetTime(struct menuitem *item)
 //{
 //	s32 time;
 //
-//	if ((g_MenuStack[g_MpPlayerNum].slotcount & 0x00000100) == 0) {
+//	if ((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x00000100) == 0) {
 //		return NULL;
 //	}
 //
-//	time = cheatGetTime(g_MenuStack[g_MpPlayerNum].slotcount & 0xff);
+//	time = cheatGetTime(g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xff);
 //
 //	if (!time) {
 //		return NULL;
@@ -1058,7 +1058,7 @@ void endscreenSetCoopCompleted(void)
 {
 	if (g_CheatsActiveBank0 == 0 && g_CheatsActiveBank1 == 0) {
 		if (g_SoloSaveFile.coopcompletions[g_MissionConfig.difficulty] & (1 << g_MissionConfig.stageindex)) {
-			g_MenuStack[g_MpPlayerNum].unke24 = 1;
+			g_Menus[g_MpPlayerNum].data.endscreen.unke24 = true;
 		}
 
 		g_SoloSaveFile.coopcompletions[g_MissionConfig.difficulty] |= (1 << g_MissionConfig.stageindex);
@@ -1119,7 +1119,7 @@ glabel func0f10e620
 /*  f10e6e4:	0460000d */ 	bltz	$v1,.L0f10e71c
 /*  f10e6e8:	00000000 */ 	nop
 /*  f10e6ec:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f10e6f0:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe20)
+/*  f10e6f0:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe20)
 /*  f10e6f4:	346f0100 */ 	ori	$t7,$v1,0x100
 /*  f10e6f8:	0018c8c0 */ 	sll	$t9,$t8,0x3
 /*  f10e6fc:	0338c823 */ 	subu	$t9,$t9,$t8
@@ -1129,7 +1129,7 @@ glabel func0f10e620
 /*  f10e70c:	0338c823 */ 	subu	$t9,$t9,$t8
 /*  f10e710:	0019c900 */ 	sll	$t9,$t9,0x4
 /*  f10e714:	00390821 */ 	addu	$at,$at,$t9
-/*  f10e718:	ac2fee20 */ 	sw	$t7,%lo(g_MenuStack+0xe20)($at)
+/*  f10e718:	ac2fee20 */ 	sw	$t7,%lo(g_Menus+0xe20)($at)
 .L0f10e71c:
 /*  f10e71c:	04400011 */ 	bltz	$v0,.L0f10e764
 /*  f10e720:	00000000 */ 	nop
@@ -1196,7 +1196,7 @@ glabel func0f10e620
 /*  f10e804:	05c00117 */ 	bltz	$t6,.L0f10ec64
 /*  f10e808:	00000000 */ 	nop
 /*  f10e80c:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f10e810:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0xe20)
+/*  f10e810:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe20)
 /*  f10e814:	afa00020 */ 	sw	$zero,0x20($sp)
 /*  f10e818:	001878c0 */ 	sll	$t7,$t8,0x3
 /*  f10e81c:	01f87823 */ 	subu	$t7,$t7,$t8
@@ -1206,7 +1206,7 @@ glabel func0f10e620
 /*  f10e82c:	01f87823 */ 	subu	$t7,$t7,$t8
 /*  f10e830:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f10e834:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f10e838:	8c42ee20 */ 	lw	$v0,%lo(g_MenuStack+0xe20)($v0)
+/*  f10e838:	8c42ee20 */ 	lw	$v0,%lo(g_Menus+0xe20)($v0)
 /*  f10e83c:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f10e840:	30590100 */ 	andi	$t9,$v0,0x100
 /*  f10e844:	13200014 */ 	beqz	$t9,.L0f10e898
@@ -1233,7 +1233,7 @@ glabel func0f10e620
 .L0f10e898:
 /*  f10e898:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f10e89c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10e8a0:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0xe20)
+/*  f10e8a0:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe20)
 /*  f10e8a4:	000ec0c0 */ 	sll	$t8,$t6,0x3
 /*  f10e8a8:	030ec023 */ 	subu	$t8,$t8,$t6
 /*  f10e8ac:	0018c080 */ 	sll	$t8,$t8,0x2
@@ -1242,7 +1242,7 @@ glabel func0f10e620
 /*  f10e8b8:	030ec023 */ 	subu	$t8,$t8,$t6
 /*  f10e8bc:	0018c100 */ 	sll	$t8,$t8,0x4
 /*  f10e8c0:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f10e8c4:	8c42ee20 */ 	lw	$v0,%lo(g_MenuStack+0xe20)($v0)
+/*  f10e8c4:	8c42ee20 */ 	lw	$v0,%lo(g_Menus+0xe20)($v0)
 /*  f10e8c8:	304f1000 */ 	andi	$t7,$v0,0x1000
 /*  f10e8cc:	11e00005 */ 	beqz	$t7,.L0f10e8e4
 /*  f10e8d0:	00022402 */ 	srl	$a0,$v0,0x10
@@ -1345,7 +1345,7 @@ glabel func0f10e620
 /*  f10ea3c:	1460000d */ 	bnez	$v1,.L0f10ea74
 /*  f10ea40:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
 /*  f10ea44:	8d8c1448 */ 	lw	$t4,%lo(g_MpPlayerNum)($t4)
-/*  f10ea48:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe24)
+/*  f10ea48:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe24)
 /*  f10ea4c:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f10ea50:	000c70c0 */ 	sll	$t6,$t4,0x3
 /*  f10ea54:	01cc7023 */ 	subu	$t6,$t6,$t4
@@ -1355,7 +1355,7 @@ glabel func0f10e620
 /*  f10ea64:	01cc7023 */ 	subu	$t6,$t6,$t4
 /*  f10ea68:	000e7100 */ 	sll	$t6,$t6,0x4
 /*  f10ea6c:	002e0821 */ 	addu	$at,$at,$t6
-/*  f10ea70:	ac2dee24 */ 	sw	$t5,%lo(g_MenuStack+0xe24)($at)
+/*  f10ea70:	ac2dee24 */ 	sw	$t5,%lo(g_Menus+0xe24)($at)
 .L0f10ea74:
 /*  f10ea74:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
 /*  f10ea78:	2529e000 */ 	addiu	$t1,$t1,-8192
@@ -1438,7 +1438,7 @@ glabel func0f10e620
 .L0f10eb90:
 /*  f10eb90:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
 /*  f10eb94:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f10eb98:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0xe20)
+/*  f10eb98:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe20)
 /*  f10eb9c:	001958c0 */ 	sll	$t3,$t9,0x3
 /*  f10eba0:	01795823 */ 	subu	$t3,$t3,$t9
 /*  f10eba4:	000b5880 */ 	sll	$t3,$t3,0x2
@@ -1447,7 +1447,7 @@ glabel func0f10e620
 /*  f10ebb0:	01795823 */ 	subu	$t3,$t3,$t9
 /*  f10ebb4:	000b5900 */ 	sll	$t3,$t3,0x4
 /*  f10ebb8:	004b1021 */ 	addu	$v0,$v0,$t3
-/*  f10ebbc:	8c42ee20 */ 	lw	$v0,%lo(g_MenuStack+0xe20)($v0)
+/*  f10ebbc:	8c42ee20 */ 	lw	$v0,%lo(g_Menus+0xe20)($v0)
 /*  f10ebc0:	304c1000 */ 	andi	$t4,$v0,0x1000
 /*  f10ebc4:	11800017 */ 	beqz	$t4,.L0f10ec24
 /*  f10ebc8:	00022402 */ 	srl	$a0,$v0,0x10
@@ -1524,10 +1524,10 @@ void soloPushCoopModeEndscreen(void)
 
 	g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 
-	g_MenuStack[g_MpPlayerNum].slotcount = 0;
-	g_MenuStack[g_MpPlayerNum].unke24 = 0;
-	g_MenuStack[g_MpPlayerNum].unke2c = g_MissionConfig.stageindex;
-	g_MenuStack[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
+	g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo = 0;
+	g_Menus[g_MpPlayerNum].data.endscreen.unke24 = false;
+	g_Menus[g_MpPlayerNum].data.endscreen.stageindex = g_MissionConfig.stageindex;
+	g_Menus[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
 
 	if ((g_Vars.bond->isdead && g_Vars.coop->isdead)
 			|| g_Vars.bond->aborted
@@ -1562,7 +1562,7 @@ void soloPushSoloModeEndscreen(void)
 	u32 prevplayernum = g_MpPlayerNum;
 
 	g_MpPlayerNum = 0;
-	g_MenuStack[g_MpPlayerNum].playernum = 0;
+	g_Menus[g_MpPlayerNum].playernum = 0;
 
 	if ((g_Vars.bond->isdead && g_Vars.coop->isdead)
 			|| g_Vars.bond->aborted
@@ -1587,10 +1587,10 @@ void soloPushAntiModeEndscreen(void)
 
 	g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 
-	g_MenuStack[g_MpPlayerNum].slotcount = 0;
-	g_MenuStack[g_MpPlayerNum].unke24 = 0;
-	g_MenuStack[g_MpPlayerNum].unke2c = g_MissionConfig.stageindex;
-	g_MenuStack[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
+	g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo = 0;
+	g_Menus[g_MpPlayerNum].data.endscreen.unke24 = false;
+	g_Menus[g_MpPlayerNum].data.endscreen.stageindex = g_MissionConfig.stageindex;
+	g_Menus[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
 
 	if (g_Vars.currentplayer == g_Vars.bond) {
 		if (g_Vars.anti->aborted == 0 &&

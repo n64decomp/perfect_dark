@@ -363,7 +363,7 @@ glabel cheatMenuHandleCheatCheckbox
 );
 
 // Mismatch due to different registers in case 6 (v1/a0)
-//s32 cheatMenuHandleCheatCheckbox(u32 arg0, struct menu_item *item, s32 arg2)
+//s32 cheatMenuHandleCheatCheckbox(u32 arg0, struct menuitem *item, s32 arg2)
 //{
 //	switch (arg0) {
 //	case 8:
@@ -410,7 +410,7 @@ glabel cheatMenuHandleCheatCheckbox
 //	return 0;
 //}
 
-s32 cheatMenuHandleBuddyCheckbox(s32 operation, struct menu_item *item, s32 arg2)
+s32 cheatMenuHandleBuddyCheckbox(s32 operation, struct menuitem *item, s32 arg2)
 {
 	switch (operation) {
 	case MENUOP_GET:
@@ -451,7 +451,7 @@ s32 cheatMenuHandleBuddyCheckbox(s32 operation, struct menu_item *item, s32 arg2
 	return 0;
 }
 
-char *cheatGetNameIfUnlocked(struct menu_item *item)
+char *cheatGetNameIfUnlocked(struct menuitem *item)
 {
 	if (cheatIsUnlocked(item->param)) {
 		return langGet(g_Cheats[item->param].nametextid);
@@ -531,7 +531,7 @@ glabel cheatMenuHandleDialog
 
 // Mismatch because it optimises the `end = &ptr[4]` line.
 // It's calculating it as &func00002148 + 24 rather than ptr + 4.
-//bool cheatMenuHandleDialog(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+//bool cheatMenuHandleDialog(u32 operation, struct menudialog *dialog, struct menu *menu)
 //{
 //	if (operation == MENUOP_100) {
 //		func0f14a52c();
@@ -575,17 +575,17 @@ glabel cheatMenuHandleDialog
 //	return 0;
 //}
 
-char *cheatGetMarquee(struct menu_item *arg0)
+char *cheatGetMarquee(struct menuitem *arg0)
 {
 	u32 cheat_id;
 	char *ptr;
 	char difficultyname[256];
 	char cheatname[256];
 
-	if (g_MenuStack[g_MpPlayerNum].curframe && g_MenuStack[g_MpPlayerNum].curframe->item && g_MenuStack[g_MpPlayerNum].curframe->item->type == MENUITEMTYPE_CHECKBOX) {
-		cheat_id = g_MenuStack[g_MpPlayerNum].curframe->item->param;
+	if (g_Menus[g_MpPlayerNum].curframe && g_Menus[g_MpPlayerNum].curframe->item && g_Menus[g_MpPlayerNum].curframe->item->type == MENUITEMTYPE_CHECKBOX) {
+		cheat_id = g_Menus[g_MpPlayerNum].curframe->item->param;
 
-		if (g_MenuStack[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog && g_MenuStack[g_MpPlayerNum].curframe->item == &g_CheatsBuddiesMenuItems[0]) {
+		if (g_Menus[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog && g_Menus[g_MpPlayerNum].curframe->item == &g_CheatsBuddiesMenuItems[0]) {
 			// Velvet
 			sprintf(g_CheatMarqueeString, "%s: %s", langGet(L_MPWEAPONS(143)), langGet(L_MPWEAPONS(117))); // "Buddy Available", "Velvet Dark"
 			return g_CheatMarqueeString;
@@ -594,7 +594,7 @@ char *cheatGetMarquee(struct menu_item *arg0)
 		if (cheatIsUnlocked(cheat_id)) {
 			// Show cheat name
 			sprintf(g_CheatMarqueeString, "%s: %s\n",
-					g_MenuStack[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog ? langGet(L_MPWEAPONS(143)) : langGet(L_MPWEAPONS(136)), // "Buddy Available", "Cheat available"
+					g_Menus[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog ? langGet(L_MPWEAPONS(143)) : langGet(L_MPWEAPONS(136)), // "Buddy Available", "Cheat available"
 					langGet(g_Cheats[cheat_id].nametextid)
 			);
 			return g_CheatMarqueeString;
@@ -705,14 +705,14 @@ char *cheatGetName(s32 cheat_id)
 	return langGet(g_Cheats[cheat_id].nametextid);
 }
 
-struct menu_item g_CheatWarningMenuItems[] = {
+struct menuitem g_CheatWarningMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(479), 0x00000000, NULL }, // "If you activate any cheats, then you will be unable to progress further in the game while those cheats are active."
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU(480), 0x00000000, NULL }, // "OK"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU(481), 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menu_dialog g_CheatWarningMenuDialog = {
+struct menudialog g_CheatWarningMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPMENU(478), // "Warning"
 	g_CheatWarningMenuItems,
@@ -721,7 +721,7 @@ struct menu_dialog g_CheatWarningMenuDialog = {
 	NULL,
 };
 
-struct menu_item g_CheatsFunMenuItems[] = {
+struct menuitem g_CheatsFunMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_DKMODE,          0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SMALLJO,         0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SMALLCHARACTERS, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
@@ -735,7 +735,7 @@ struct menu_item g_CheatsFunMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                     0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
-struct menu_dialog g_CheatsFunMenuDialog = {
+struct menudialog g_CheatsFunMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS(118), // "Fun"
 	g_CheatsFunMenuItems,
@@ -744,7 +744,7 @@ struct menu_dialog g_CheatsFunMenuDialog = {
 	NULL,
 };
 
-struct menu_item g_CheatsGameplayMenuItems[] = {
+struct menuitem g_CheatsGameplayMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_INVINCIBLE,      0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_CLOAKINGDEVICE,  0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_MARQUIS,         0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
@@ -760,7 +760,7 @@ struct menu_item g_CheatsGameplayMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                     0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
-struct menu_dialog g_CheatsGameplayMenuDialog = {
+struct menudialog g_CheatsGameplayMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS(119), // "Gameplay"
 	g_CheatsGameplayMenuItems,
@@ -769,7 +769,7 @@ struct menu_dialog g_CheatsGameplayMenuDialog = {
 	NULL,
 };
 
-struct menu_item g_CheatsSoloWeaponsMenuItems[] = {
+struct menuitem g_CheatsSoloWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_ROCKETLAUNCHER, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SNIPERRIFLE,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SUPERDRAGON,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
@@ -785,7 +785,7 @@ struct menu_item g_CheatsSoloWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
-struct menu_dialog g_CheatsSoloWeaponsMenuDialog = {
+struct menudialog g_CheatsSoloWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS(122), // "Weapons for Jo in Solo"
 	g_CheatsSoloWeaponsMenuItems,
@@ -794,7 +794,7 @@ struct menu_dialog g_CheatsSoloWeaponsMenuDialog = {
 	NULL,
 };
 
-struct menu_item g_CheatsClassicWeaponsMenuItems[] = {
+struct menuitem g_CheatsClassicWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PP9I,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_CC13,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_KL01313,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
@@ -810,7 +810,7 @@ struct menu_item g_CheatsClassicWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
-struct menu_dialog g_CheatsClassicWeaponsMenuDialog = {
+struct menudialog g_CheatsClassicWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS(123), // "Classic Weapons for Jo in Solo"
 	g_CheatsClassicWeaponsMenuItems,
@@ -819,7 +819,7 @@ struct menu_dialog g_CheatsClassicWeaponsMenuDialog = {
 	NULL,
 };
 
-struct menu_item g_CheatsWeaponsMenuItems[] = {
+struct menuitem g_CheatsWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_CLASSICSIGHT,           0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_UNLIMITEDAMMOLAPTOP,    0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_HURRICANEFISTS,         0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
@@ -835,7 +835,7 @@ struct menu_item g_CheatsWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,                            0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
-struct menu_dialog g_CheatsWeaponsMenuDialog = {
+struct menudialog g_CheatsWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS(120), // "Weapons"
 	g_CheatsWeaponsMenuItems,
@@ -844,7 +844,7 @@ struct menu_dialog g_CheatsWeaponsMenuDialog = {
 	NULL,
 };
 
-struct menu_item g_CheatsBuddiesMenuItems[] = {
+struct menuitem g_CheatsBuddiesMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,   0,               0x00000000, L_MPWEAPONS(117),             0x00000000, cheatMenuHandleBuddyCheckbox }, // "Velvet Dark"
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PUGILIST,  0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_HOTSHOT,   0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
@@ -857,7 +857,7 @@ struct menu_item g_CheatsBuddiesMenuItems[] = {
 	{ MENUITEMTYPE_END,        0,               0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
-struct menu_dialog g_CheatsBuddiesMenuDialog = {
+struct menudialog g_CheatsBuddiesMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS(121), // "Buddies"
 	g_CheatsBuddiesMenuItems,
@@ -866,7 +866,7 @@ struct menu_dialog g_CheatsBuddiesMenuDialog = {
 	NULL,
 };
 
-struct menu_item g_CheatsMenuItems[] = {
+struct menuitem g_CheatsMenuItems[] = {
 	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(118), 0x00000000, &g_CheatsFunMenuDialog            }, // "Fun"
 	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(119), 0x00000000, &g_CheatsGameplayMenuDialog       }, // "Gameplay"
 	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(122), 0x00000000, &g_CheatsSoloWeaponsMenuDialog    }, // "Weapons for Jo in Solo"
@@ -880,7 +880,7 @@ struct menu_item g_CheatsMenuItems[] = {
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,       0x00000000, NULL                              },
 };
 
-struct menu_dialog g_CheatsMenuDialog = {
+struct menudialog g_CheatsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(476), // "Cheats"
 	g_CheatsMenuItems,

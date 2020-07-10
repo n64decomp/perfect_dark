@@ -1001,17 +1001,17 @@
 #define MENUOP_101                101
 #define MENUOP_102                102
 
-#define MENUROOT_SOLOENDSCREEN 1
-#define MENUROOT_SOLOPAUSE     2
-#define MENUROOT_COMBATSIM     3
-#define MENUROOT_MPPAUSE       4
-#define MENUROOT_MPENDSCREEN   5
-#define MENUROOT_FILESELECT    6
-#define MENUROOT_BOOTPAKMGR    7
-#define MENUROOT_9             9
-#define MENUROOT_10            10
-#define MENUROOT_4MBMAINMENU   11
-#define MENUROOT_TRAINING      13
+#define MENUROOT_ENDSCREEN   1
+#define MENUROOT_MAINMENU    2
+#define MENUROOT_MPSETUP     3
+#define MENUROOT_MPPAUSE     4
+#define MENUROOT_MPENDSCREEN 5
+#define MENUROOT_FILESELECT  6
+#define MENUROOT_BOOTPAKMGR  7
+#define MENUROOT_9           9
+#define MENUROOT_10          10
+#define MENUROOT_4MBMAINMENU 11
+#define MENUROOT_TRAINING    13
 
 #define MISCBIO_MAIANS     0
 #define MISCBIO_SKEDAR     1

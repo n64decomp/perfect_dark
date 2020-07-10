@@ -640,7 +640,7 @@ extern u32 var8009dfc0;
 extern struct briefing g_Briefing;
 extern u16 var8009dfe0[2];
 extern struct missionconfig g_MissionConfig;
-extern struct menustackitem g_MenuStack[4];
+extern struct menu g_Menus[4];
 extern struct menudata g_MenuData;
 extern u32 var800a2038;
 extern u32 var800a203c;

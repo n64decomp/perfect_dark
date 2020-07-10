@@ -36,7 +36,7 @@
 const char var7f1b97d0[] = "\n";
 const char var7f1b97d4[] = "\n";
 
-s32 frDetailsOkMenuHandler(u32 operation, struct menu_item *item, s32 *value)
+s32 frDetailsOkMenuHandler(u32 operation, struct menuitem *item, s32 *value)
 {
 	s32 i;
 
@@ -78,7 +78,7 @@ s32 frDetailsOkMenuHandler(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandler001a3448(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandler001a3448(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		if (frIsInTraining()) {
@@ -499,7 +499,7 @@ glabel var7f1b9944
 /*  f1a39e4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1a39e8:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f1a39ec:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f1a39f0:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe28)
+/*  f1a39f0:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe28)
 /*  f1a39f4:	afa20018 */ 	sw	$v0,0x18($sp)
 /*  f1a39f8:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f1a39fc:	01ee7823 */ 	subu	$t7,$t7,$t6
@@ -509,7 +509,7 @@ glabel var7f1b9944
 /*  f1a3a0c:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f1a3a10:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f1a3a14:	002f0821 */ 	addu	$at,$at,$t7
-/*  f1a3a18:	ac22ee28 */ 	sw	$v0,%lo(g_MenuStack+0xe28)($at)
+/*  f1a3a18:	ac22ee28 */ 	sw	$v0,%lo(g_Menus+0xe28)($at)
 /*  f1a3a1c:	0fc41652 */ 	jal	func0f105948
 /*  f1a3a20:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1a3a24:	0fc6830c */ 	jal	frIsInTraining
@@ -763,7 +763,7 @@ glabel menuhandlerFrDifficulty
 /*  f1a3d94:	00000000 */ 	nop
 );
 
-char *frMenuTextFailReason(struct menu_item *item)
+char *frMenuTextFailReason(struct menuitem *item)
 {
 	u16 reasons[5] = g_FiringRangeFailReasons;
 	struct frdata *frdata = getFiringRangeData();
@@ -771,7 +771,7 @@ char *frMenuTextFailReason(struct menu_item *item)
 	return langGet(reasons[frdata->failreason]);
 }
 
-char *frMenuTextDifficultyName(struct menu_item *item)
+char *frMenuTextDifficultyName(struct menuitem *item)
 {
 	u16 names[3] = g_FiringRangeDifficultyNames;
 
@@ -780,7 +780,7 @@ char *frMenuTextDifficultyName(struct menu_item *item)
 	return langGet(names[frdata->difficulty]);
 }
 
-char *frMenuTextTimeTakenValue(struct menu_item *item)
+char *frMenuTextTimeTakenValue(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
 	f32 secs = frdata->timetaken / 60.0f;
@@ -806,7 +806,7 @@ char *frMenuTextTimeTakenValue(struct menu_item *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextScoreValue(struct menu_item *item)
+char *frMenuTextScoreValue(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
 
@@ -814,19 +814,19 @@ char *frMenuTextScoreValue(struct menu_item *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextGoalScoreValueUnconditional(struct menu_item *item)
+char *frMenuTextGoalScoreValueUnconditional(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
 	sprintf(g_StringPointer, "%d\n", frdata->goalscore);
 	return g_StringPointer;
 }
 
-char *frMenuTextWeaponName(struct menu_item *item)
+char *frMenuTextWeaponName(struct menuitem *item)
 {
 	return weaponGetName(frGetWeaponBySlot(frGetSlot()));
 }
 
-char *frMenuTextTargetsDestroyedValue(struct menu_item *item)
+char *frMenuTextTargetsDestroyedValue(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
 
@@ -834,7 +834,7 @@ char *frMenuTextTargetsDestroyedValue(struct menu_item *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextAccuracyValue(struct menu_item *item)
+char *frMenuTextAccuracyValue(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
 	f32 totalhits = (frdata->numhitstype4 + frdata->numhitstype1 + frdata->numhitstype2 + frdata->numhitstype3) * 100.0f;
@@ -852,7 +852,7 @@ char *frMenuTextAccuracyValue(struct menu_item *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextGoalScoreLabel(struct menu_item *item)
+char *frMenuTextGoalScoreLabel(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
 
@@ -864,7 +864,7 @@ char *frMenuTextGoalScoreLabel(struct menu_item *item)
 	return NULL;
 }
 
-char *frMenuTextGoalScoreValue(struct menu_item *item)
+char *frMenuTextGoalScoreValue(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
 
@@ -876,7 +876,7 @@ char *frMenuTextGoalScoreValue(struct menu_item *item)
 	return NULL;
 }
 
-char *frMenuTextMinAccuracyOrTargetsLabel(struct menu_item *item)
+char *frMenuTextMinAccuracyOrTargetsLabel(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
 
@@ -891,7 +891,7 @@ char *frMenuTextMinAccuracyOrTargetsLabel(struct menu_item *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextMinAccuracyOrTargetsValue(struct menu_item *item)
+char *frMenuTextMinAccuracyOrTargetsValue(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
 
@@ -906,7 +906,7 @@ char *frMenuTextMinAccuracyOrTargetsValue(struct menu_item *item)
 	return g_StringPointer2;
 }
 
-char *frMenuTextTimeLimitLabel(struct menu_item *item)
+char *frMenuTextTimeLimitLabel(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
 
@@ -919,7 +919,7 @@ char *frMenuTextTimeLimitLabel(struct menu_item *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextTimeLimitValue(struct menu_item *item)
+char *frMenuTextTimeLimitValue(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
 
@@ -944,7 +944,7 @@ char *frMenuTextTimeLimitValue(struct menu_item *item)
 	return g_StringPointer2;
 }
 
-char *frMenuTextAmmoLimitLabel(struct menu_item *item)
+char *frMenuTextAmmoLimitLabel(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
 
@@ -957,7 +957,7 @@ char *frMenuTextAmmoLimitLabel(struct menu_item *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextAmmoLimitValue(struct menu_item *item)
+char *frMenuTextAmmoLimitValue(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
 	char suffix[16];
@@ -2587,7 +2587,7 @@ glabel menuhandler001a44c0
 /*  f1a5d58:	00000000 */ 	nop
 );
 
-s32 menuhandlerFrFailedContinue(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerFrFailedContinue(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		if (g_Vars.currentplayer->prop->rooms[0] == 0xa) {
@@ -2981,7 +2981,7 @@ const char var7f1b9894[] = "%d\n";
 const char var7f1b9898[] = "%d\n";
 const char var7f1b989c[] = "%d\n";
 
-char *ciMenuTextBioName(struct menu_item *item)
+char *ciMenuTextBioName(struct menuitem *item)
 {
 	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->name));
@@ -2989,7 +2989,7 @@ char *ciMenuTextBioName(struct menu_item *item)
 	return g_StringPointer;
 }
 
-char *ciMenuTextBioAge(struct menu_item *item)
+char *ciMenuTextBioAge(struct menuitem *item)
 {
 	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->age));
@@ -2997,7 +2997,7 @@ char *ciMenuTextBioAge(struct menu_item *item)
 	return g_StringPointer;
 }
 
-char *ciMenuTextBioRace(struct menu_item *item)
+char *ciMenuTextBioRace(struct menuitem *item)
 {
 	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->race));
@@ -3120,7 +3120,7 @@ glabel func0f1a64a0
 /*  f1a64d4:	00000000 */ 	nop
 );
 
-s32 menuhandlerDtOkOrResume(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerDtOkOrResume(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		// @bug: dtBegin() should not be called if training is already in
@@ -3132,7 +3132,7 @@ s32 menuhandlerDtOkOrResume(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandler001a6514(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandler001a6514(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		dtEnd();
@@ -3179,7 +3179,7 @@ glabel var7f1b9998
 /*  f1a65b8:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
 /*  f1a65bc:	8d081448 */ 	lw	$t0,%lo(g_MpPlayerNum)($t0)
 /*  f1a65c0:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*  f1a65c4:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe28)
+/*  f1a65c4:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe28)
 /*  f1a65c8:	000848c0 */ 	sll	$t1,$t0,0x3
 /*  f1a65cc:	01284823 */ 	subu	$t1,$t1,$t0
 /*  f1a65d0:	00094880 */ 	sll	$t1,$t1,0x2
@@ -3189,7 +3189,7 @@ glabel var7f1b9998
 /*  f1a65e0:	00094900 */ 	sll	$t1,$t1,0x4
 /*  f1a65e4:	00290821 */ 	addu	$at,$at,$t1
 /*  f1a65e8:	0fc41652 */ 	jal	func0f105948
-/*  f1a65ec:	ac24ee28 */ 	sw	$a0,%lo(g_MenuStack+0xe28)($at)
+/*  f1a65ec:	ac24ee28 */ 	sw	$a0,%lo(g_Menus+0xe28)($at)
 /*  f1a65f0:	0fc54bc7 */ 	jal	optionsGetScreenRatio
 /*  f1a65f4:	00000000 */ 	nop
 /*  f1a65f8:	24010001 */ 	addiu	$at,$zero,0x1
@@ -3238,7 +3238,7 @@ glabel var7f1b9998
 .L0f1a669c:
 /*  f1a669c:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
 /*  f1a66a0:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f1a66a4:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0x4f8)
+/*  f1a66a4:	3c02800a */ 	lui	$v0,%hi(g_Menus+0x4f8)
 /*  f1a66a8:	000fc8c0 */ 	sll	$t9,$t7,0x3
 /*  f1a66ac:	032fc823 */ 	subu	$t9,$t9,$t7
 /*  f1a66b0:	0019c880 */ 	sll	$t9,$t9,0x2
@@ -3247,7 +3247,7 @@ glabel var7f1b9998
 /*  f1a66bc:	032fc823 */ 	subu	$t9,$t9,$t7
 /*  f1a66c0:	0019c900 */ 	sll	$t9,$t9,0x4
 /*  f1a66c4:	00591021 */ 	addu	$v0,$v0,$t9
-/*  f1a66c8:	8c42e4f8 */ 	lw	$v0,%lo(g_MenuStack+0x4f8)($v0)
+/*  f1a66c8:	8c42e4f8 */ 	lw	$v0,%lo(g_Menus+0x4f8)($v0)
 /*  f1a66cc:	50400034 */ 	beqzl	$v0,.L0f1a67a0
 /*  f1a66d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f1a66d4:	8c480000 */ 	lw	$t0,0x0($v0)
@@ -3310,7 +3310,7 @@ glabel var7f1b9998
 /*  f1a67ac:	00000000 */ 	nop
 );
 
-char *dtMenuTextOkOrResume(struct menu_item *item)
+char *dtMenuTextOkOrResume(struct menuitem *item)
 {
 	struct trainingdata *data = getDeviceTrainingData();
 
@@ -3321,7 +3321,7 @@ char *dtMenuTextOkOrResume(struct menu_item *item)
 	return langGet(L_MPMENU(427)); // "Ok"
 }
 
-char *dtMenuTextCancelOrAbort(struct menu_item *item)
+char *dtMenuTextCancelOrAbort(struct menuitem *item)
 {
 	struct trainingdata *data = getDeviceTrainingData();
 
@@ -3334,7 +3334,7 @@ char *dtMenuTextCancelOrAbort(struct menu_item *item)
 
 const char var7f1b98ac[] = "%s\n";
 
-char *dtMenuTextTimeTakenValue(struct menu_item *item)
+char *dtMenuTextTimeTakenValue(struct menuitem *item)
 {
 	struct trainingdata *data = getDeviceTrainingData();
 	f32 secs = data->timetaken / 60.0f;
@@ -3356,7 +3356,7 @@ char *dtMenuTextTimeTakenValue(struct menu_item *item)
 	return g_StringPointer;
 }
 
-bool menudialogDeviceTrainingResults(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+bool menudialogDeviceTrainingResults(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
 	if (operation == MENUOP_101) {
 		chrSetStageFlag(NULL, 0x08000000);
@@ -3449,7 +3449,7 @@ glabel func0f1a6a04
 /*  f1a6a30:	00000000 */ 	nop
 );
 
-s32 menuhandler001a6a34(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandler001a6a34(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		htBegin();
@@ -3459,7 +3459,7 @@ s32 menuhandler001a6a34(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandler001a6a70(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandler001a6a70(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		htEnd();
@@ -3468,7 +3468,7 @@ s32 menuhandler001a6a70(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-bool menudialog001a6aa4(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+bool menudialog001a6aa4(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
 	switch (operation) {
 	case MENUOP_100:
@@ -3481,7 +3481,7 @@ bool menudialog001a6aa4(u32 operation, struct menu_dialog *dialog, struct menust
 	return false;
 }
 
-char *htMenuTextOkOrResume(struct menu_item *item)
+char *htMenuTextOkOrResume(struct menuitem *item)
 {
 	struct trainingdata *data = getHoloTrainingData();
 
@@ -3492,7 +3492,7 @@ char *htMenuTextOkOrResume(struct menu_item *item)
 	return langGet(L_MPMENU(427)); // "Ok"
 }
 
-char *htMenuTextCancelOrAbort(struct menu_item *item)
+char *htMenuTextCancelOrAbort(struct menuitem *item)
 {
 	struct trainingdata *data = getHoloTrainingData();
 
@@ -3503,7 +3503,7 @@ char *htMenuTextCancelOrAbort(struct menu_item *item)
 	return langGet(L_MPMENU(429)); // "Cancel"
 }
 
-char *htMenuTextTimeTakenValue(struct menu_item *item)
+char *htMenuTextTimeTakenValue(struct menuitem *item)
 {
 	struct trainingdata *data = getHoloTrainingData();
 	f32 secs = data->timetaken / 60.0f;
@@ -3525,7 +3525,7 @@ char *htMenuTextTimeTakenValue(struct menu_item *item)
 	return g_StringPointer;
 }
 
-bool menudialogFiringRangeResults(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+bool menudialogFiringRangeResults(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
 	if (operation == MENUOP_101) {
 		chrSetStageFlag(NULL, 0x08000000);
@@ -4161,7 +4161,7 @@ glabel var7f1b99d8
 /*  f1a7550:	00000000 */ 	nop
 );
 
-struct menu_dialog *ciGetFrWeaponListMenuDialog(void)
+struct menudialog *ciGetFrWeaponListMenuDialog(void)
 {
 	return &g_FrWeaponListMenuDialog;
 }

@@ -488,7 +488,7 @@ glabel var7f1b2cd8
 /*  f0fdc70:	00000000 */ 	nop
 );
 
-bool menudialogMpPickTarget(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+bool menudialogMpPickTarget(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
 	switch (operation) {
 	case MENUOP_100:
@@ -507,13 +507,13 @@ bool menudialogMpPickTarget(u32 operation, struct menu_dialog *dialog, struct me
 
 
 // 17980
-struct menu_item menuitems_picktarget[] = {
+struct menuitem menuitems_picktarget[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x0000005a, 0x00000000, menuhandler000fd6f0 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 179a8
-struct menu_dialog menudialog_picktarget = {
+struct menudialog menudialog_picktarget = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(492), // "Pick Target"
 	menuitems_picktarget,

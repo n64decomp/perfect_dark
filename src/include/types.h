@@ -3232,7 +3232,7 @@ struct hoverprop {
 	u16 size;
 };
 
-struct menu_item {
+struct menuitem {
 	u8 type;
 	u8 param;
 	u32 param1;
@@ -3241,13 +3241,13 @@ struct menu_item {
 	void *handler;
 };
 
-struct menu_dialog {
+struct menudialog {
 	u8 type;
 	u32 title;
-	struct menu_item *items;
+	struct menuitem *items;
 	void *unk0c;
 	u32 unk10;
-	struct menu_dialog *nextsibling;
+	struct menudialog *nextsibling;
 };
 
 struct twowords {
@@ -3426,9 +3426,9 @@ struct menulayer {
 };
 
 struct menuframe {
-	struct menu_dialog *dialog;
+	struct menudialog *dialog;
 	u32 unk04;
-	struct menu_item *item;
+	struct menuitem *item;
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ s32 unk14;
@@ -3457,12 +3457,73 @@ struct menuframe {
 	/*0x6d*/ s8 unk6d;
 };
 
-struct menustackdfc {
+struct menudfc {
 	u32 unk00;
 	f32 unk04;
 };
 
-struct menustackitem {
+struct menudata_endscreen {
+	u32 unke1c;
+
+	// ......xx = cheat ID
+	// .....1.. = ?
+	// .....2.. = show completion cheat name
+	// .....4.. = ?
+	// .....8.. = show timed cheat name
+	u32 cheatinfo;
+
+	bool unke24;
+	u32 unke28;
+	u32 stageindex;
+};
+
+struct menudata_main {
+	u32 unke1c;
+	u32 unke20;
+	u32 mpindex;
+	u32 unke28;
+	u32 unke2c;
+};
+
+struct menudata_mpsetup {
+	u32 slotindex;
+	u32 slotcount;
+	u32 unke24;
+};
+
+struct menudata_mppause {
+	u32 unke1c;
+	u32 unke20;
+	u32 unke24;
+	s32 weaponnum; // of selected weapon in inventory menu
+};
+
+struct menudata_mpend {
+	u32 unke1c;
+};
+
+struct menudata_filesel {
+	u32 slotindex;
+	u32 slotcount;
+	u32 unke24;
+	u32 unke28;
+	u32 unke2c;
+};
+
+struct menudata_pak {
+	u32 unke1c;
+};
+
+struct menudata_main4mb {
+	u32 slotindex;
+};
+
+struct menudata_train {
+	u32 unke1c;
+	struct mpconfigfull *mpconfig;
+};
+
+struct menu {
 	struct menuframe frames[10];
 	/*0x460*/ s16 numframes;
 	/*0x464*/ struct menulayer layers[6];
@@ -3686,12 +3747,12 @@ struct menustackitem {
 
 	union {
 		/*0x844*/ u32 unk844;
-		/*0x844*/ u8 *mpconfigbuffer;
+		/*0x844*/ u8 *mpconfigbuffer; // for MENUROOT_TRAINING
 	};
 
 	union {
 		/*0x848*/ u32 unk848;
-		/*0x848*/ u32 mpconfigbufferlen;
+		/*0x848*/ u32 mpconfigbufferlen; // for MENUROOT_TRAINING
 	};
 
 	/*0x84c*/ u32 unk84c;
@@ -4058,17 +4119,20 @@ struct menustackitem {
 	/*0xdf0*/ u32 unkdf0;
 	/*0xdf4*/ s8 *unkdf4;
 	/*0xdf8*/ u8 unkdf8;
-	/*0xdfc*/ struct menustackdfc unkdfc[4];
-	/*0xe1c*/ s32 slotindex;
+	/*0xdfc*/ struct menudfc unkdfc[4];
 
 	union {
-		/*0xe20*/ u32 slotcount;
-		/*0xe20*/ struct mpconfigfull *mpconfig;
-	};
+		struct menudata_endscreen endscreen;
+		struct menudata_main main;
+		struct menudata_mpsetup mpsetup;
+		struct menudata_mppause mppause;
+		struct menudata_mpend mpend;
+		struct menudata_filesel filesel;
+		struct menudata_pak pak;
+		struct menudata_main4mb main4mb;
+		struct menudata_train train;
+	} data;
 
-	/*0xe24*/ u32 unke24;
-	/*0xe28*/ u32 unke28;
-	/*0xe2c*/ u32 unke2c;
 	/*0xe30*/ u32 unke30;
 	/*0xe34*/ u16 unke34; // I/O error code
 	/*0xe38*/ u32 unke38;
@@ -4238,7 +4302,7 @@ struct savefile_setup {
 };
 
 struct mpscenario {
-	struct menu_dialog *optionsdialog;
+	struct menudialog *optionsdialog;
 	void (*initfunc)(void);
 	s32 (*unk08)(void);
 	void (*resetfunc)(void);

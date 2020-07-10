@@ -611,7 +611,7 @@ glabel activemenuTick
 /*  f01b8b8:	1561000e */ 	bne	$t3,$at,.L0f01b8f4
 /*  f01b8bc:	00000000 */ 	nop
 /*  f01b8c0:	8d8c1448 */ 	lw	$t4,%lo(g_MpPlayerNum)($t4)
-/*  f01b8c4:	3c0e800a */ 	lui	$t6,%hi(g_MenuStack+0x4f8)
+/*  f01b8c4:	3c0e800a */ 	lui	$t6,%hi(g_Menus+0x4f8)
 /*  f01b8c8:	000c68c0 */ 	sll	$t5,$t4,0x3
 /*  f01b8cc:	01ac6823 */ 	subu	$t5,$t5,$t4
 /*  f01b8d0:	000d6880 */ 	sll	$t5,$t5,0x2
@@ -620,7 +620,7 @@ glabel activemenuTick
 /*  f01b8dc:	01ac6823 */ 	subu	$t5,$t5,$t4
 /*  f01b8e0:	000d6900 */ 	sll	$t5,$t5,0x4
 /*  f01b8e4:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f01b8e8:	8dcee4f8 */ 	lw	$t6,%lo(g_MenuStack+0x4f8)($t6)
+/*  f01b8e8:	8dcee4f8 */ 	lw	$t6,%lo(g_Menus+0x4f8)($t6)
 /*  f01b8ec:	15c00005 */ 	bnez	$t6,.L0f01b904
 /*  f01b8f0:	00000000 */ 	nop
 .L0f01b8f4:

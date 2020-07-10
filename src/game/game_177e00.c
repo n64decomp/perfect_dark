@@ -166,7 +166,7 @@ glabel menuhandler00177e00
 /*  f177fd4:	00000000 */ 	nop
 );
 
-s32 menuhandlerMpEndGame(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerMpEndGame(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		g_Vars.currentplayer->aborted = true;
@@ -179,7 +179,7 @@ s32 menuhandlerMpEndGame(u32 operation, struct menu_item *item, s32 *value)
 /**
  * This is something near the top of the "End Game" dialog during gameplay.
  */
-s32 menuhandler00178018(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandler00178018(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		if (g_MpSetupSaveFile.locktype != MPLOCKTYPE_CHALLENGE) {
@@ -190,7 +190,7 @@ s32 menuhandler00178018(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-char *mpMenuTextInGameLimit(struct menu_item *item)
+char *mpMenuTextInGameLimit(struct menuitem *item)
 {
 	*g_StringPointer = 0;
 
@@ -209,7 +209,7 @@ char *mpMenuTextInGameLimit(struct menu_item *item)
 	return g_StringPointer;
 }
 
-s32 menuhandlerMpInGameLimitLabel(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerMpInGameLimitLabel(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		switch (item->param) {
@@ -222,7 +222,7 @@ s32 menuhandlerMpInGameLimitLabel(u32 operation, struct menu_item *item, s32 *va
 	return 0;
 }
 
-s32 menuhandlerMpPause(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerMpPause(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		if (mpIsPaused()) {
@@ -262,9 +262,9 @@ char *menutextMatchTime(s32 arg0)
 	return g_StringPointer;
 }
 
-char *mpMenuTextWeaponDescription(struct menu_item *item)
+char *mpMenuTextWeaponDescription(struct menuitem *item)
 {
-	struct weapon *weapon = weaponFindById(g_MenuStack[g_MpPlayerNum].unke28);
+	struct weapon *weapon = weaponFindById(g_Menus[g_MpPlayerNum].data.mppause.weaponnum);
 
 	if (weapon) {
 		return langGet(weapon->description);
@@ -323,22 +323,22 @@ glabel func0f1783a0
 /*  f17844c:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-char *mpMenuTextWeaponOfChoiceName(struct menu_item *item)
+char *mpMenuTextWeaponOfChoiceName(struct menuitem *item)
 {
-	return mpPlayerGetWeaponOfChoiceName(g_MenuStack[g_MpPlayerNum].playernum, 0);
+	return mpPlayerGetWeaponOfChoiceName(g_Menus[g_MpPlayerNum].playernum, 0);
 }
 
-char *mpMenuTextAward1(struct menu_item *item)
+char *mpMenuTextAward1(struct menuitem *item)
 {
-	return g_Vars.players[g_MenuStack[g_MpPlayerNum].playernum]->award1;
+	return g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->award1;
 }
 
-char *mpMenuTextAward2(struct menu_item *item)
+char *mpMenuTextAward2(struct menuitem *item)
 {
-	return g_Vars.players[g_MenuStack[g_MpPlayerNum].playernum]->award2;
+	return g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->award2;
 }
 
-char *mpMenuTextPlacementWithSuffix(struct menu_item *item)
+char *mpMenuTextPlacementWithSuffix(struct menuitem *item)
 {
 	u16 suffixes[12] = g_OrdinalSuffixes;
 
@@ -900,8 +900,8 @@ void mpPushPauseDialog(void)
 	if (g_MpSetup.paused != 2 && var8005d9d0 == 0) {
 		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 
-		if (g_MenuStack[g_MpPlayerNum].unk83c == 0) {
-			g_MenuStack[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
+		if (g_Menus[g_MpPlayerNum].unk83c == 0) {
+			g_Menus[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
 
 			if (g_Vars.normmplayerisrunning) {
 				if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
@@ -927,7 +927,7 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 	u32 prevplayernum = g_MpPlayerNum;
 	g_MpPlayerNum = playernum;
 
-	g_MenuStack[g_MpPlayerNum].playernum = arg0;
+	g_Menus[g_MpPlayerNum].playernum = arg0;
 
 	if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 		if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {

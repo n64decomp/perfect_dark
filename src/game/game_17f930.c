@@ -73,7 +73,7 @@ const char var7f1b8878[] = "PopACapReset -> Done\n";
 const char var7f1b8890[] = "PopACapTick : Current Victim = %d (Player %d)\n";
 const char var7f1b88c0[] = "%d:%02d";
 
-bool menudialogCombatSimulator(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+bool menudialogCombatSimulator(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
 	if (operation == MENUOP_100) {
 		g_Vars.unk000494 = 0;
@@ -82,8 +82,8 @@ bool menudialogCombatSimulator(u32 operation, struct menu_dialog *dialog, struct
 		g_Vars.unk000497 = 0;
 	}
 
-	if (g_MenuStack[g_MpPlayerNum].curframe
-			&& g_MenuStack[g_MpPlayerNum].curframe->dialog == &g_CombatSimulatorMenuDialog
+	if (g_Menus[g_MpPlayerNum].curframe
+			&& g_Menus[g_MpPlayerNum].curframe->dialog == &g_CombatSimulatorMenuDialog
 			&& operation == MENUOP_102) {
 		g_Vars.unk000490 = 2;
 		g_Vars.mpquickteam = MPQUICKTEAM_5;
@@ -95,7 +95,7 @@ bool menudialogCombatSimulator(u32 operation, struct menu_dialog *dialog, struct
 	return false;
 }
 
-s32 menuhandlerMpAdvancedSetup(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerMpAdvancedSetup(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		func0f0f820c(&menudialog_mpgamesetup3, 3);
@@ -152,10 +152,10 @@ glabel func0f17fa28
 /*  f17fad0:	0018c0c0 */ 	sll	$t8,$t8,0x3
 /*  f17fad4:	0302c023 */ 	subu	$t8,$t8,$v0
 /*  f17fad8:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f17fadc:	3c19800a */ 	lui	$t9,%hi(g_MenuStack+0x4f8)
+/*  f17fadc:	3c19800a */ 	lui	$t9,%hi(g_Menus+0x4f8)
 /*  f17fae0:	afe20000 */ 	sw	$v0,0x0($ra)
 /*  f17fae4:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f17fae8:	8f39e4f8 */ 	lw	$t9,%lo(g_MenuStack+0x4f8)($t9)
+/*  f17fae8:	8f39e4f8 */ 	lw	$t9,%lo(g_Menus+0x4f8)($t9)
 /*  f17faec:	5320005f */ 	beqzl	$t9,.L0f17fc6c
 /*  f17faf0:	24420001 */ 	addiu	$v0,$v0,0x1
 /*  f17faf4:	afa20044 */ 	sw	$v0,0x44($sp)
@@ -291,16 +291,16 @@ glabel func0f17fa28
 
 void func0f17fcb0(bool silent)
 {
-	g_MenuStack[g_MpPlayerNum].playernum = g_MpPlayerNum;
+	g_Menus[g_MpPlayerNum].playernum = g_MpPlayerNum;
 
 	if (g_Is4Mb == true) {
 		menuPushRootDialog(&g_4MbAdvancedSetupMenuDialog, MENUROOT_4MBMAINMENU);
 		func0f0f8300();
 	} else {
 		if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
-			menuPushRootDialog(&menudialog_mpchallengedetails2, MENUROOT_COMBATSIM);
+			menuPushRootDialog(&menudialog_mpchallengedetails2, MENUROOT_MPSETUP);
 		} else {
-			menuPushRootDialog(&menudialog_mpgamesetup3, MENUROOT_COMBATSIM);
+			menuPushRootDialog(&menudialog_mpgamesetup3, MENUROOT_MPSETUP);
 		}
 
 		func0f0f8300();
@@ -312,7 +312,7 @@ void func0f17fcb0(bool silent)
 	}
 }
 
-s32 menuhandlerMpDisplayTeam(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerMpDisplayTeam(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
 		if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
@@ -325,7 +325,7 @@ s32 menuhandlerMpDisplayTeam(u32 operation, struct menu_item *item, s32 *value)
 	return menuhandlerMpCheckboxOption(operation, item, value);
 }
 
-s32 menuhandlerMpOneHitKills(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerMpOneHitKills(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKDISABLED || operation == MENUOP_CHECKHIDDEN) {
 		if (mpIsChallengeComplete(CHALLENGE_7)) {
@@ -1769,7 +1769,7 @@ glabel scenarioCtcCallback38
 /*  f181a94:	00000000 */ 	nop
 );
 
-s32 menuhandlerMpHillTime(u32 operation, struct menu_item *item, struct numandtext *value)
+s32 menuhandlerMpHillTime(u32 operation, struct menuitem *item, struct numandtext *value)
 {
 	switch (operation) {
 	case MENUOP_GETSLIDER:
@@ -5130,10 +5130,10 @@ glabel menudialog00184ec0
 /*  f184ef8:	000f78c0 */ 	sll	$t7,$t7,0x3
 /*  f184efc:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f184f00:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f184f04:	3c18800a */ 	lui	$t8,%hi(g_MenuStack+0x4f8)
+/*  f184f04:	3c18800a */ 	lui	$t8,%hi(g_Menus+0x4f8)
 /*  f184f08:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f184f0c:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f184f10:	8f18e4f8 */ 	lw	$t8,%lo(g_MenuStack+0x4f8)($t8)
+/*  f184f10:	8f18e4f8 */ 	lw	$t8,%lo(g_Menus+0x4f8)($t8)
 /*  f184f14:	3c098008 */ 	lui	$t1,%hi(g_MpScenarios)
 /*  f184f18:	01194021 */ 	addu	$t0,$t0,$t9
 /*  f184f1c:	000840c0 */ 	sll	$t0,$t0,0x3
@@ -5179,13 +5179,13 @@ glabel menudialog00184ec0
 /*  f184fac:	00000000 */ 	nop
 );
 
-char *mpMenuTextScenarioShortName(struct menu_item *item)
+char *mpMenuTextScenarioShortName(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%s\n", langGet(g_MpScenarioOverviews[g_MpSetup.scenario].shortname));
 	return g_StringPointer;
 }
 
-char *mpMenuTextScenarioName(struct menu_item *item)
+char *mpMenuTextScenarioName(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%s\n", langGet(g_MpScenarioOverviews[g_MpSetup.scenario].name));
 	return g_StringPointer;
@@ -5437,7 +5437,7 @@ glabel var7f1b897c
 /*  f18537c:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-s32 menuhandlerMpOpenOptions(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerMpOpenOptions(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		menuPushDialog(g_MpScenarios[g_MpSetup.scenario].optionsdialog);

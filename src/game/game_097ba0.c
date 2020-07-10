@@ -23857,11 +23857,11 @@ glabel func0f0abc28
 GLOBAL_ASM(
 glabel func0f0abc74
 /*  f0abc74:	10a00008 */ 	beqz	$a1,.L0f0abc98
-/*  f0abc78:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0x37a4)
+/*  f0abc78:	3c02800a */ 	lui	$v0,%hi(g_Menus+0x37a4)
 /*  f0abc7c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
 /*  f0abc80:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
 /*  f0abc84:	00807827 */ 	nor	$t7,$a0,$zero
-/*  f0abc88:	8c4e17a4 */ 	lw	$t6,%lo(g_MenuStack+0x37a4)($v0)
+/*  f0abc88:	8c4e17a4 */ 	lw	$t6,%lo(g_Menus+0x37a4)($v0)
 /*  f0abc8c:	01cfc024 */ 	and	$t8,$t6,$t7
 /*  f0abc90:	03e00008 */ 	jr	$ra
 /*  f0abc94:	ac5817a4 */ 	sw	$t8,0x17a4($v0)

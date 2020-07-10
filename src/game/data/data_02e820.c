@@ -45,7 +45,7 @@ u32 var80088ca4 = 0x00000000;
 u32 var80088ca8 = 0x00000000;
 
 // 2eccc
-struct menu_item menuitems_frdifficulty[] = {
+struct menuitem menuitems_frdifficulty[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000012, L_MPMENU(444), L_MPMENU(445), NULL }, // "Select Difficulty:"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPMENU(439), L_OPTIONS(3), menuhandlerFrDifficulty }, // "Bronze"
 	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000020, L_MPMENU(440), L_OPTIONS(3), menuhandlerFrDifficulty }, // "Silver"
@@ -56,7 +56,7 @@ struct menu_item menuitems_frdifficulty[] = {
 };
 
 // 2ed58
-struct menu_dialog menudialog_frdifficulty = {
+struct menudialog menudialog_frdifficulty = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(442), // "Difficulty"
 	menuitems_frdifficulty,
@@ -66,13 +66,13 @@ struct menu_dialog menudialog_frdifficulty = {
 };
 
 // 2ed70
-struct menu_item menuitems_frweapon[] = {
+struct menuitem menuitems_frweapon[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00200008, 0x000000aa, 0x00000000, menuhandler001a348c },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 2ed98
-struct menu_dialog g_FrWeaponListMenuDialog = {
+struct menudialog g_FrWeaponListMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(446), // "Weapon"
 	menuitems_frweapon,
@@ -82,7 +82,7 @@ struct menu_dialog g_FrWeaponListMenuDialog = {
 };
 
 // 2edb0
-struct menu_item menuitems_frtraininginfo[] = {
+struct menuitem menuitems_frtraininginfo[] = {
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU(443),                             (u32)&frMenuTextDifficultyName,            NULL                   }, // "Difficulty"
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextGoalScoreLabel,            (u32)&frMenuTextGoalScoreValue,            NULL                   },
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextMinAccuracyOrTargetsLabel, (u32)&frMenuTextMinAccuracyOrTargetsValue, NULL                   },
@@ -97,7 +97,7 @@ struct menu_item menuitems_frtraininginfo[] = {
 };
 
 // 2ee8c
-struct menu_dialog g_FrTrainingInfoMenuDialog = {
+struct menudialog g_FrTrainingInfoMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(447), // "Training Info"
 	menuitems_frtraininginfo,
@@ -107,7 +107,7 @@ struct menu_dialog g_FrTrainingInfoMenuDialog = {
 };
 
 // 2eea4
-struct menu_item menuitems_frtraininginfo2[] = {
+struct menuitem menuitems_frtraininginfo2[] = {
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU(443),                             (u32)&frMenuTextDifficultyName,            NULL                   }, // "Difficulty:"
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextGoalScoreLabel,            (u32)&frMenuTextGoalScoreValue,            NULL                   },
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextMinAccuracyOrTargetsLabel, (u32)&frMenuTextMinAccuracyOrTargetsValue, NULL                   },
@@ -122,7 +122,7 @@ struct menu_item menuitems_frtraininginfo2[] = {
 };
 
 // 2ef80
-struct menu_dialog menudialog_frtraininginfo2 = {
+struct menudialog menudialog_frtraininginfo2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(447), // "Training Info"
 	menuitems_frtraininginfo2,
@@ -132,7 +132,7 @@ struct menu_dialog menudialog_frtraininginfo2 = {
 };
 
 // 2ef98
-struct menu_item menuitems_frtrainingstats[] = {
+struct menuitem menuitems_frtrainingstats[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, L_MPMENU(449), 0x00000000, NULL }, // "Completed!"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(450), (u32)&frMenuTextScoreValue, NULL }, // "Score:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(451), (u32)&frMenuTextTargetsDestroyedValue, NULL }, // "Targets Destroyed:"
@@ -149,7 +149,7 @@ struct menu_item menuitems_frtrainingstats[] = {
 };
 
 // 2f09c
-struct menu_dialog menudialog_frtrainingstats = {
+struct menudialog menudialog_frtrainingstats = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPMENU(448), // "Training Stats"
 	menuitems_frtrainingstats,
@@ -159,7 +159,7 @@ struct menu_dialog menudialog_frtrainingstats = {
 };
 
 // 2f0b4
-struct menu_item menuitems_frtrainingstats2[] = {
+struct menuitem menuitems_frtrainingstats2[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&frMenuTextFailReason, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(450), (u32)&frMenuTextScoreValue, NULL }, // "Score:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(451), (u32)&frMenuTextTargetsDestroyedValue, NULL }, // "Targets Destroyed:"
@@ -176,7 +176,7 @@ struct menu_item menuitems_frtrainingstats2[] = {
 };
 
 // 2f1b8
-struct menu_dialog menudialog_frtrainingstats2 = {
+struct menudialog menudialog_frtrainingstats2 = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPMENU(448), // "Training Stats"
 	menuitems_frtrainingstats2,
@@ -191,13 +191,13 @@ u32 var800891b8 = 0x00000000;
 u32 var800891bc = 0x51a60000; // "Other Information"
 
 // 2f1e0
-struct menu_item menuitems_information[] = {
+struct menuitem menuitems_information[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000c8, 0x00000000, menuhandler001a5dc0 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 2f208
-struct menu_dialog menudialog_information = {
+struct menudialog menudialog_information = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(418), // "Information"
 	menuitems_information,
@@ -207,7 +207,7 @@ struct menu_dialog menudialog_information = {
 };
 
 // 2f220
-struct menu_item menuitems_nowsafe[] = {
+struct menuitem menuitems_nowsafe[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, L_MPMENU(437), 0x00000000, NULL }, // "It is now safe to turn off your computer"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(438), 0x00000000, NULL }, // "Cancel"
@@ -215,7 +215,7 @@ struct menu_item menuitems_nowsafe[] = {
 };
 
 // 2f270
-struct menu_dialog menudialog_nowsafe = {
+struct menudialog menudialog_nowsafe = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(436), // "Cheats"
 	menuitems_nowsafe,
@@ -233,7 +233,7 @@ u32 var8008927c = 0xff000000;
 u32 var80089280 = 0x0300ff00;
 
 // 2f2a4
-struct menu_item menuitems_characterprofile[] = {
+struct menuitem menuitems_characterprofile[] = {
 	{ MENUITEMTYPE_MODEL,      0,                  0x00000002, 0x00000046,    0x00000096,              NULL },
 	{ MENUITEMTYPE_LABEL,      0,                  0x00000003, L_MPMENU(432), (u32)&ciMenuTextBioName, NULL }, // "Name:"
 	{ MENUITEMTYPE_LABEL,      0,                  0x00000002, L_MPMENU(433), (u32)&ciMenuTextBioAge,  NULL }, // "Age:"
@@ -246,7 +246,7 @@ struct menu_item menuitems_characterprofile[] = {
 };
 
 // 2f358
-struct menu_dialog menudialog_characterprofile = {
+struct menudialog menudialog_characterprofile = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(431), // "Character Profile"
 	menuitems_characterprofile,
@@ -256,7 +256,7 @@ struct menu_dialog menudialog_characterprofile = {
 };
 
 // 2f370
-struct menu_item menuitems_2f370[] = {
+struct menuitem menuitems_2f370[] = {
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MISCBIO, 0x00000000, 0x000000c8,    0x00000096, NULL },
 	{ MENUITEMTYPE_SEPARATOR,  0,                   0x00000002, 0x00000000,    0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,      0,                   0x00000022, L_MPMENU(414), 0x00000000, NULL }, // "Press the B Button to go back."
@@ -264,7 +264,7 @@ struct menu_item menuitems_2f370[] = {
 };
 
 // 2f3c0
-struct menu_dialog menudialog_2f3c0 = {
+struct menudialog menudialog_2f3c0 = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f1a6388,
 	menuitems_2f370,
@@ -274,13 +274,13 @@ struct menu_dialog menudialog_2f3c0 = {
 };
 
 // 2f3d8
-struct menu_item menuitems_devicelist[] = {
+struct menuitem menuitems_devicelist[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000a0, 0x00000000, menuhandler001a63e4 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 2f400
-struct menu_dialog g_DeviceTrainingListMenuDialog = {
+struct menudialog g_DeviceTrainingListMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(417), // "Device List"
 	menuitems_devicelist,
@@ -294,7 +294,7 @@ u32 var800893fc = 0x64326464;
 u32 var80089400 = 0x32960000;
 
 // 2f424
-struct menu_item menuitems_2f424[] = {
+struct menuitem menuitems_2f424[] = {
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_DEVICETRAINING, 0x00000000, 0x000000aa,                    0x000000be, NULL                    },
 	{ MENUITEMTYPE_MODEL,      0,                          0x00000003, 0x0000008c,                    0x0000009c, NULL                    },
 	{ MENUITEMTYPE_SEPARATOR,  0,                          0x00000002, 0x00000000,                    0x00000000, NULL                    },
@@ -304,7 +304,7 @@ struct menu_item menuitems_2f424[] = {
 };
 
 // 2f49c
-struct menu_dialog g_DeviceTrainingDetailsMenuDialog = {
+struct menudialog g_DeviceTrainingDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f1a64a0,
 	menuitems_2f424,
@@ -314,7 +314,7 @@ struct menu_dialog g_DeviceTrainingDetailsMenuDialog = {
 };
 
 // 2f4b4
-struct menu_item menuitems_trainingstats_failed[] = {
+struct menuitem menuitems_trainingstats_failed[] = {
 	{ MENUITEMTYPE_LABEL,      0,                      0x00000032, L_MPMENU(426), 0x00000000,                     NULL }, // "Failed!"
 	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
 	{ MENUITEMTYPE_LABEL,      0,                      0x00000002, L_MPMENU(424), (u32)&dtMenuTextTimeTakenValue, NULL }, // "Time Taken:"
@@ -324,7 +324,7 @@ struct menu_item menuitems_trainingstats_failed[] = {
 };
 
 // 2f52c
-struct menu_dialog g_DeviceTrainingStatsFailedMenuDialog = {
+struct menudialog g_DeviceTrainingStatsFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPMENU(423), // "Training Stats"
 	menuitems_trainingstats_failed,
@@ -334,7 +334,7 @@ struct menu_dialog g_DeviceTrainingStatsFailedMenuDialog = {
 };
 
 // 2f544
-struct menu_item menuitems_trainingstats_completed[] = {
+struct menuitem menuitems_trainingstats_completed[] = {
 	{ MENUITEMTYPE_LABEL,      0,                      0x00000032, L_MPMENU(425), 0x00000000,                     NULL }, // "Completed!"
 	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
 	{ MENUITEMTYPE_LABEL,      0,                      0x00000002, L_MPMENU(424), (u32)&dtMenuTextTimeTakenValue, NULL }, // "Time Taken:"
@@ -344,7 +344,7 @@ struct menu_item menuitems_trainingstats_completed[] = {
 };
 
 // 2f5bc
-struct menu_dialog g_DeviceTrainingStatsCompletedMenuDialog = {
+struct menudialog g_DeviceTrainingStatsCompletedMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPMENU(423), // "Training Stats"
 	menuitems_trainingstats_completed,
@@ -354,13 +354,13 @@ struct menu_dialog g_DeviceTrainingStatsCompletedMenuDialog = {
 };
 
 // 2f5d4
-struct menu_item menuitems_holotraining[] = {
+struct menuitem menuitems_holotraining[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000a0, 0x00000000, menuhandler001a6950 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 2f5fc
-struct menu_dialog g_HoloTrainingListMenuDialog = {
+struct menudialog g_HoloTrainingListMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(416), // "Holotraining"
 	menuitems_holotraining,
@@ -370,7 +370,7 @@ struct menu_dialog g_HoloTrainingListMenuDialog = {
 };
 
 // 2f614
-struct menu_item menuitems_2f614[] = {
+struct menuitem menuitems_2f614[] = {
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTRAINING, 0x00000000, 0x000000aa,                    0x000000be, NULL                },
 	{ MENUITEMTYPE_MODEL,      0,                        0x00000003, 0x0000008c,                    0x0000009c, NULL                },
 	{ MENUITEMTYPE_SEPARATOR,  0,                        0x00000002, 0x00000000,                    0x00000000, NULL                },
@@ -380,7 +380,7 @@ struct menu_item menuitems_2f614[] = {
 };
 
 // 2f68c
-struct menu_dialog g_HoloTrainingDetailsMenuDialog = {
+struct menudialog g_HoloTrainingDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f1a6a04,
 	menuitems_2f614,
@@ -390,7 +390,7 @@ struct menu_dialog g_HoloTrainingDetailsMenuDialog = {
 };
 
 // 2f6a4
-struct menu_item menuitems_trainingstats_failed2[] = {
+struct menuitem menuitems_trainingstats_failed2[] = {
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000032, L_MPMENU(426), 0x00000000,                     NULL }, // "Failed!"
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU(424), (u32)&htMenuTextTimeTakenValue, NULL }, // "Time Taken:"
@@ -400,7 +400,7 @@ struct menu_item menuitems_trainingstats_failed2[] = {
 };
 
 // 2f71c
-struct menu_dialog g_HoloTrainingStatsFailedMenuDialog = {
+struct menudialog g_HoloTrainingStatsFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPMENU(423), // "Training Stats"
 	menuitems_trainingstats_failed2,
@@ -410,7 +410,7 @@ struct menu_dialog g_HoloTrainingStatsFailedMenuDialog = {
 };
 
 // 2f734
-struct menu_item menuitems_trainingstats_completed2[] = {
+struct menuitem menuitems_trainingstats_completed2[] = {
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000032, L_MPMENU(425), 0x00000000,                     NULL }, // "Completed!"
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU(424), (u32)&htMenuTextTimeTakenValue, NULL }, // "Time Taken:"
@@ -420,7 +420,7 @@ struct menu_item menuitems_trainingstats_completed2[] = {
 };
 
 // 2f7ac
-struct menu_dialog g_HoloTrainingStatsCompletedMenuDialog = {
+struct menudialog g_HoloTrainingStatsCompletedMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPMENU(423), // "Training Stats"
 	menuitems_trainingstats_completed2,
@@ -456,7 +456,7 @@ struct hoverprop hoverprops[] = {
 };
 
 // 2f858
-struct menu_item menuitems_2f858[] = {
+struct menuitem menuitems_2f858[] = {
 	{ MENUITEMTYPE_MODEL,      0,                     0x00200002, 0x00000104,    0x0000002c, menuhandler001a6ea4 },
 	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000002, 0x00000000,    0x00000000, NULL                },
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HANGARBIO, 0x00000000, 0x00000104,    0x0000005a, NULL                },
@@ -466,7 +466,7 @@ struct menu_item menuitems_2f858[] = {
 };
 
 // 2f8d0
-struct menu_item menuitems_holograph[] = {
+struct menuitem menuitems_holograph[] = {
 	{ MENUITEMTYPE_MODEL,       0, 0x00000002, 0x00000104, 0x0000006e, NULL },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000002, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000022, L_MPMENU(414), 0x00000000, NULL }, // "Press the B Button to go back."
@@ -474,7 +474,7 @@ struct menu_item menuitems_holograph[] = {
 };
 
 // 2f920
-struct menu_dialog menudialog_holograph = {
+struct menudialog menudialog_holograph = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MISC(471), // "Holograph"
 	menuitems_holograph,
@@ -484,7 +484,7 @@ struct menu_dialog menudialog_holograph = {
 };
 
 // 2f938
-struct menu_dialog menudialog_2f938 = {
+struct menudialog menudialog_2f938 = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f1a6c8c,
 	menuitems_2f858,
@@ -494,7 +494,7 @@ struct menu_dialog menudialog_2f938 = {
 };
 
 // 2f950
-struct menu_dialog menudialog_2f950 = {
+struct menudialog menudialog_2f950 = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f1a6c8c,
 	menuitems_2f858,
@@ -504,13 +504,13 @@ struct menu_dialog menudialog_2f950 = {
 };
 
 // 2f968
-struct menu_item menuitems_hangarinformation[] = {
+struct menuitem menuitems_hangarinformation[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000a0, 0x00000000, menuhandler001a6d4c },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 2f990
-struct menu_dialog menudialog_hangarinformation = {
+struct menudialog menudialog_hangarinformation = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(415), // "Hangar Information"
 	menuitems_hangarinformation,
