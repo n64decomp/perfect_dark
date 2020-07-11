@@ -3465,14 +3465,16 @@ struct menudfc {
 struct menudata_endscreen {
 	u32 unke1c;
 
-	// ......xx = cheat ID
-	// .....1.. = ?
-	// .....2.. = show completion cheat name
-	// .....4.. = ?
-	// .....8.. = show timed cheat name
+	// ......xx = timed cheat ID
+	// .....1.. = this stage + difficulty has a timed cheat
+	// .....2.. = timed cheat just got unlocked
+	// .....4.. = timed cheat already unlocked
+	// .....8.. = completion cheat just got unlocked
+	// ....1... = this stage has a completion cheat
+	// ..xx.... = completion cheat ID
 	u32 cheatinfo;
 
-	bool unke24;
+	bool isfirstcompletion;
 	u32 unke28;
 	u32 stageindex;
 };
@@ -4160,10 +4162,10 @@ struct menu {
 
 struct savefile_solo {
 	/*0x00*/ char name[11];
-	/*0x0b*/ u8 unk0b_0 : 5;
-	/*0x0b*/ u8 unk0b_5 : 3;
-	/*0x0c*/ u8 unk0c;
-	/*0x10*/ u32 unk10;
+	/*0x0b*/ u8 thumbnail : 5; // stage index of the image to show on file select screen
+	/*0x0b*/ u8 autodifficulty : 3;
+	/*0x0c*/ u8 autostageindex;
+	/*0x10*/ u32 totaltime;
 	/*0x14*/ u32 flags;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u16 unk1c;

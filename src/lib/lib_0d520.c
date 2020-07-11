@@ -1582,7 +1582,7 @@ glabel func0000e684
 /*     e924:	10000006 */ 	b	.L0000e940
 /*     e928:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0000e92c:
-/*     e92c:	0fc43988 */ 	jal	func0f10e620
+/*     e92c:	0fc43988 */ 	jal	endscreenPrepare
 /*     e930:	00000000 */ 	nop
 /*     e934:	0fc5b6c5 */ 	jal	func0f16db14
 /*     e938:	00000000 */ 	nop

@@ -1260,7 +1260,7 @@ s32 menuhandlerSoloDifficulty(u32 operation, struct menuitem *item, s32 *value)
 			if (item->param3 == 0) {
 				return true;
 			}
-			if (item->param <= (u32)g_SoloSaveFile.unk0b_5) {
+			if (item->param <= (u32)g_SoloSaveFile.autodifficulty) {
 				return true;
 			}
 		}

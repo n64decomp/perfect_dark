@@ -138,10 +138,10 @@ void savefileLoadDefaults(struct savefile_solo *file)
 	s32 j;
 
 	strcpy(file->name, "Dark");
-	file->unk0b_0 = 0;
-	file->unk0b_5 = 0;
-	file->unk0c = 0;
-	file->unk10 = 0;
+	file->thumbnail = 0;
+	file->autodifficulty = 0;
+	file->autostageindex = 0;
+	file->totaltime = 0;
 	audioSetSfxVolume(0x5000);
 	optionsSetMusicVolume(0x5000);
 	audioSetSoundMode(SOUNDMODE_STEREO);

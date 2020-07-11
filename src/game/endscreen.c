@@ -376,7 +376,7 @@ void endscreenHandleContinue(s32 context)
 		menuPopDialog();
 	} else {
 		if (g_Vars.stagenum == STAGE_DEEPSEA || g_Vars.stagenum == STAGE_SKEDARRUINS) {
-			if (context == 2 || g_Menus[g_MpPlayerNum].data.endscreen.unke24) {
+			if (context == 2 || g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion) {
 				// Pressed continue
 				if (g_Vars.stagenum == STAGE_DEEPSEA) {
 					if (!isStageDifficultyUnlocked(g_MissionConfig.stageindex + 1, g_MissionConfig.difficulty)) {
@@ -718,7 +718,8 @@ glabel menudialog0010de58
 s32 menuhandlerEndscreenCheats(u32 operation, struct menuitem *item, u32 *values)
 {
 	if (operation == MENUOP_GETCOLOUR
-			&& ((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x200) || item->param == 5)) { // timed cheat name
+			&& ((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x200) || item->param == 5)) {
+		// Timed cheat just got unlocked, and this item is the timed cheat name
 		u32 weight = func0f006b08(40) * 255;
 
 		func0000db30("ctcol", &g_CheatColour);
@@ -743,10 +744,13 @@ s32 menuhandlerEndscreenCheats(u32 operation, struct menuitem *item, u32 *values
 		if (item->param == 1) { // target time
 			u32 info = g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo;
 
-			if (info & 0x800) {
+			if (info & 0x800) { // completion cheat just got unlocked
 				return true;
 			}
 
+			// (has timed cheat)
+			// and (timed cheat just got unlocked or timed cheat already unlocked) == 0
+			// and cheat has a target time configured
 			if ((info & 0x100) && (info & 0x600) == 0 && cheatGetTime(info & 0xff) > 0) {
 				return false;
 			}
@@ -773,7 +777,7 @@ s32 menuhandlerEndscreenCheats(u32 operation, struct menuitem *item, u32 *values
 	return false;
 }
 
-char *soloMenuTextCheatName(struct menuitem *item)
+char *soloMenuTextTimedCheatName(struct menuitem *item)
 {
 	if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x00000300) {
 		return cheatGetName(g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xff);
@@ -782,7 +786,7 @@ char *soloMenuTextCheatName(struct menuitem *item)
 	return NULL;
 }
 
-char *soloMenuTextCheatName2(struct menuitem *item)
+char *soloMenuTextCompletionCheatName(struct menuitem *item)
 {
 	if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x00000800) {
 		return cheatGetName((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo >> 16) & 0xff);
@@ -868,7 +872,7 @@ void endscreenSetCoopCompleted(void)
 {
 	if (g_CheatsActiveBank0 == 0 && g_CheatsActiveBank1 == 0) {
 		if (g_SoloSaveFile.coopcompletions[g_MissionConfig.difficulty] & (1 << g_MissionConfig.stageindex)) {
-			g_Menus[g_MpPlayerNum].data.endscreen.unke24 = true;
+			g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion = true;
 		}
 
 		g_SoloSaveFile.coopcompletions[g_MissionConfig.difficulty] |= (1 << g_MissionConfig.stageindex);
@@ -876,7 +880,7 @@ void endscreenSetCoopCompleted(void)
 }
 
 GLOBAL_ASM(
-glabel func0f10e620
+glabel endscreenPrepare
 /*  f10e620:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f10e624:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f10e628:	3c07800a */ 	lui	$a3,%hi(g_MissionConfig)
@@ -1326,6 +1330,171 @@ glabel func0f10e620
 /*  f10ecb0:	00000000 */ 	nop
 );
 
+// Mismatch because address of var800a2328[3] is calcualted differently
+//void endscreenPrepare(void)
+//{
+//	s32 timedcheatid;
+//	s32 complcheatid;
+//	s32 d;
+//	s32 s;
+//	u32 secs;
+//	s32 timedalreadyunlocked;
+//	s32 complalreadyunlocked;
+//	u16 prevbest;
+//	bool nowunlocked;
+//
+//	g_Menus[g_MpPlayerNum].data.endscreen.stageindex = g_MissionConfig.stageindex;
+//
+//	if (g_MenuData.root != MENUROOT_ENDSCREEN && g_Vars.mplayerisrunning == false) {
+//		g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo = 0;
+//		g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion = false;
+//		g_Menus[g_MpPlayerNum].playernum = 0;
+//
+//		// Set cheat info
+//		if (g_MissionConfig.iscoop == false
+//				&& g_MissionConfig.isanti == false
+//				&& g_MissionConfig.pdmode == false) {
+//			timedcheatid = cheatGetByTimedStageIndex(g_MissionConfig.stageindex, g_MissionConfig.difficulty);
+//			complcheatid = cheatGetByCompletedStageIndex(g_MissionConfig.stageindex);
+//
+//			if (timedcheatid >= 0) {
+//				g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo = 0x0100 | timedcheatid;
+//			}
+//
+//			if (complcheatid >= 0) {
+//				g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo |= 0x1000 | (complcheatid << 16);
+//			}
+//		}
+//
+//		// Push the endscreen
+//		if (g_Vars.currentplayer->isdead
+//				|| g_Vars.currentplayer->aborted
+//				|| !objectiveIsAllComplete()) {
+//			menuPushRootDialog(&g_MenuDialogSoloEndscreenFailed, MENUROOT_ENDSCREEN);
+//		} else {
+//			menuPushRootDialog(&g_MenuDialogSoloEndscreenCompleted, MENUROOT_ENDSCREEN);
+//
+//			if (g_MissionConfig.iscoop) {
+//				endscreenSetCoopCompleted();
+//			}
+//		}
+//
+//		if (g_MissionConfig.iscoop == false && g_MissionConfig.isanti == false) {
+//			timedalreadyunlocked = false;
+//			complalreadyunlocked = false;
+//
+//			// If there's a timed cheat for this stage + difficulty
+//			if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x100) {
+//				timedalreadyunlocked = cheatIsUnlocked(g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xff);
+//
+//				if (timedalreadyunlocked) {
+//					g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo |= 0x400;
+//				}
+//			}
+//
+//			// If there's a completion cheat for this stage (ie. not a special stage)
+//			if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x1000) {
+//				complalreadyunlocked = cheatIsUnlocked((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo >> 16) & 0xff);
+//			}
+//
+//			// Update total mission time
+//			secs = getMissionTime() / 60;
+//
+//			if (secs != 0) {
+//				if (secs >= S32_MAX || S32_MAX - secs <= g_SoloSaveFile.totaltime) {
+//					g_SoloSaveFile.totaltime = S32_MAX;
+//				} else {
+//					g_SoloSaveFile.totaltime += secs;
+//				}
+//			}
+//
+//			g_SoloSaveFile.autostageindex = g_MissionConfig.stageindex;
+//			g_SoloSaveFile.autodifficulty = g_MissionConfig.difficulty;
+//
+//			if (g_CheatsActiveBank0 == 0
+//					&& g_CheatsActiveBank1 == 0
+//					&& g_MissionConfig.pdmode == false
+//					&& g_Vars.currentplayer->isdead == false
+//					&& g_Vars.currentplayer->aborted == false
+//					&& objectiveIsAllComplete()) {
+//				secs = getMissionTime() / 60;
+//
+//				// The save file allows 12 bits per time, which is up to
+//				// 1h 8m 16s. If the timer is higher than this, reduce it.
+//				if (secs > 0xfff) {
+//					secs = 0xfff;
+//				}
+//
+//				// Zero is used as an indicator that the stage is not completed,
+//				// so if the player managed to legitly complete a stage in 0:00
+//				// adjust it to 0:01.
+//				if (secs == 0) {
+//					secs = 1;
+//				}
+//
+//				// Set best time
+//				prevbest = g_SoloSaveFile.besttimes[g_MissionConfig.stageindex][g_MissionConfig.difficulty];
+//
+//				if (prevbest == 0) {
+//					g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion = true;
+//				}
+//
+//				if (secs < prevbest || prevbest == 0) {
+//					g_SoloSaveFile.besttimes[g_MissionConfig.stageindex][g_MissionConfig.difficulty] = secs;
+//				}
+//
+//				// Recalculate thumbnail for file select screen
+//				if (g_MissionConfig.stageindex <= SOLOSTAGEINDEX_SKEDARRUINS) {
+//					g_SoloSaveFile.autostageindex = g_MissionConfig.stageindex + 1;
+//
+//					if (g_SoloSaveFile.autostageindex > SOLOSTAGEINDEX_SKEDARRUINS) {
+//						g_SoloSaveFile.autostageindex = SOLOSTAGEINDEX_SKEDARRUINS;
+//					}
+//
+//					for (d = 0; d != 3; d++) {
+//						for (s = 0; s <= SOLOSTAGEINDEX_SKEDARRUINS; s++) {
+//							if (g_SoloSaveFile.besttimes[s][d]) {
+//								g_SoloSaveFile.thumbnail = s + 1;
+//							}
+//						}
+//					}
+//				}
+//
+//				if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x100) {
+//					nowunlocked = cheatIsUnlocked(g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xff);
+//
+//					if (!timedalreadyunlocked && nowunlocked) {
+//						g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo |= 0x0200;
+//					}
+//				}
+//
+//				if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x1000) {
+//					nowunlocked = cheatIsUnlocked((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo >> 16) & 0xff);
+//
+//					if (!complalreadyunlocked && nowunlocked) {
+//						g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo |= 0x0800;
+//					}
+//				}
+//
+//				func0f19afdc();
+//
+//				if (g_MissionConfig.stagenum == STAGE_SKEDARRUINS && var800a2328[3] == 0) {
+//					var800a2328[3] = 1;
+//					g_AltTitle = true;
+//					func0f1109c0();
+//				}
+//			}
+//		}
+//
+//		func0f1094e4(&var800a22c0, 0, 0);
+//	}
+//
+//	if (g_MenuData.root == MENUROOT_ENDSCREEN) {
+//		soloSetPaused(true);
+//		g_Vars.currentplayer->pausemode = PAUSEMODE_3;
+//	}
+//}
+
 void soloPushCoopModeEndscreen(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
@@ -1335,7 +1504,7 @@ void soloPushCoopModeEndscreen(void)
 	g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 
 	g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo = 0;
-	g_Menus[g_MpPlayerNum].data.endscreen.unke24 = false;
+	g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion = false;
 	g_Menus[g_MpPlayerNum].data.endscreen.stageindex = g_MissionConfig.stageindex;
 	g_Menus[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
 
@@ -1405,7 +1574,7 @@ void soloPushAntiModeEndscreen(void)
 	g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 
 	g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo = 0;
-	g_Menus[g_MpPlayerNum].data.endscreen.unke24 = false;
+	g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion = false;
 	g_Menus[g_MpPlayerNum].data.endscreen.stageindex = g_MissionConfig.stageindex;
 	g_Menus[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
 
