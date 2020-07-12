@@ -23,6 +23,7 @@
 #include "game/endscreen.h"
 #include "game/game_1655c0.h"
 #include "game/game_167ae0.h"
+#include "game/game_177e00.h"
 #include "game/game_19aa80.h"
 #include "game/gamefile.h"
 #include "game/lang.h"
@@ -140,6 +141,40 @@ s32 menuhandlerReplayPreviousMission(u32 operation, struct menuitem *item, s32 *
 
 	return menuhandlerAcceptMission(operation, NULL, value);
 }
+
+struct menuitem g_MenuItemsRetryMission[] = {
+	{ MENUITEMTYPE_OBJECTIVES,  1, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(298), 0x00000000, menuhandlerAcceptMission }, // "Accept"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(299), 0x00000000, menuhandlerDeclineMission }, // "Decline"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MenuDialogRetryMission = {
+	MENUDIALOGTYPE_DEFAULT,
+	(u32)&menuDialogTitleRetryStageName,
+	g_MenuItemsRetryMission,
+	menudialogRetryMission,
+	0x0000000c,
+	&menudialog_briefing,
+};
+
+struct menuitem g_MenuItemsPromptNextMission[] = {
+	{ MENUITEMTYPE_OBJECTIVES,  1, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(298), 0x00000000, menuhandlerAcceptMission }, // "Accept"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(299), 0x00000000, menuhandlerDeclineMission }, // "Decline"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MISC(470), 0x00000000, menuhandlerReplayPreviousMission }, // "Replay Previous Mission"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MenuDialogPromptNextMission = {
+	MENUDIALOGTYPE_DEFAULT,
+	(u32)&menuDialogTitleNextMissionStageName,
+	g_MenuItemsPromptNextMission,
+	menudialogRetryMission,
+	0x0000000c,
+	&menudialog_briefing,
+};
 
 char *soloMenuTextNumKills(struct menuitem *item)
 {
@@ -349,6 +384,57 @@ s32 menuhandlerReplayLastLevel(u32 operation, struct menuitem *item, s32 *value)
 	return 0;
 }
 
+struct menuitem g_MenuItemsSolo2PObjectivesNarrow[] = {
+	{ MENUITEMTYPE_OBJECTIVES,  2, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(301), 0x00000000, NULL }, // "Press START"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menuitem g_MenuItemsSolo2PObjectivesWide[] = {
+	{ MENUITEMTYPE_OBJECTIVES,  0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(301), 0x00000000, NULL }, // "Press START"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MenuDialogObjectivesFailedWide = {
+	MENUDIALOGTYPE_DANGER,
+	L_OPTIONS(300), // "Objectives"
+	g_MenuItemsSolo2PObjectivesWide,
+	soloMenuDialogPauseStatus,
+	0x00000048,
+	NULL,
+};
+
+struct menudialog g_MenuDialogObjectivesCompletedWide = {
+	MENUDIALOGTYPE_SUCCESS,
+	L_OPTIONS(300), // "Objectives"
+	g_MenuItemsSolo2PObjectivesWide,
+	soloMenuDialogPauseStatus,
+	0x00000048,
+	NULL,
+};
+
+struct menudialog g_MenuDialogObjectivesFailedNarrow = {
+	MENUDIALOGTYPE_DANGER,
+	L_OPTIONS(300), // "Objectives"
+	g_MenuItemsSolo2PObjectivesNarrow,
+	soloMenuDialogPauseStatus,
+	0x00000048,
+	NULL,
+};
+
+struct menudialog g_MenuDialogObjectivesCompletedNarrow = {
+	MENUDIALOGTYPE_SUCCESS,
+	L_OPTIONS(300), // "Objectives"
+	g_MenuItemsSolo2PObjectivesNarrow,
+	soloMenuDialogPauseStatus,
+	0x00000048,
+	NULL,
+};
+
+
 /**
  * Displayed after Defense and Skedar Ruins completion screens.
  */
@@ -360,6 +446,21 @@ s32 menuhandlerContinueMission(u32 operation, struct menuitem *item, s32 *value)
 
 	return 0;
 }
+
+struct menuitem g_MenuItemsContinueOrReplay[] = {
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(244), 0x00000000, menuhandlerContinueMission }, // "Continue"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(245), 0x00000000, menuhandlerReplayLastLevel }, // "Replay Last Level"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MenuDialogContinueOrReplay = {
+	MENUDIALOGTYPE_DEFAULT,
+	(u32)&menuTextCurrentStageName3,
+	g_MenuItemsContinueOrReplay,
+	NULL,
+	0x00000004,
+	NULL,
+};
 
 /**
  * Context is:
@@ -464,7 +565,7 @@ void endscreenHandleContinue(s32 context)
 }
 
 GLOBAL_ASM(
-glabel menudialog0010dd28
+glabel menudialogSolo2PEndscreenCompleted
 /*  f10dd28:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f10dd2c:	24010064 */ 	addiu	$at,$zero,0x64
 /*  f10dd30:	1481000d */ 	bne	$a0,$at,.L0f10dd68
@@ -553,7 +654,7 @@ glabel menudialog0010dd28
 );
 
 GLOBAL_ASM(
-glabel menudialog0010de58
+glabel menudialogSolo2PEndscreenFailed
 /*  f10de58:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f10de5c:	24010064 */ 	addiu	$at,$zero,0x64
 /*  f10de60:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -702,6 +803,59 @@ glabel menudialog0010de58
 /*  f10e05c:	03e00008 */ 	jr	$ra
 /*  f10e060:	00000000 */ 	nop
 );
+
+struct menuitem g_MenuItemsSoloEndscreenNarrow[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_OPTIONS(278), 0x00000000, NULL }, // "Mission Status:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&soloMenuTextMissionStatus, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_OPTIONS(279), 0x00000000, NULL }, // "Agent Status:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&soloMenuTextAgentStatus, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_OPTIONS(280), 0x00000000, NULL }, // "Mission Time:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&soloMenuTextMissionTime, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_MPWEAPONS(129), 0x00000000, NULL }, // "Difficulty"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)soloMenuTextDifficulty, 0x00000000, NULL },
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_OPTIONS(281), 0x00000000, NULL }, // "Weapon of Choice:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&mpMenuTextWeaponOfChoiceName, 0x00000000, NULL },
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(282), (u32)&soloMenuTextNumKills, NULL }, // "Kills:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(283), (u32)&soloMenuTextAccuracy, NULL }, // "Accuracy:"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(284), (u32)&soloMenuTextNumShots, NULL }, // "Shot Total:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_OPTIONS(285), (u32)&soloMenuTextNumHeadShots, NULL }, // "Head Shots:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_OPTIONS(286), (u32)&soloMenuTextNumBodyShots, NULL }, // "Body Shots:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_OPTIONS(287), (u32)&soloMenuTextNumLimbShots, NULL }, // "Limb Shots:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_OPTIONS(288), (u32)&soloMenuTextNumOtherShots, NULL }, // "Others:"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(289), 0x00000000, NULL }, // "Press START"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+u32 g_CheatColour = 0xff7f7fff;
+
+struct menuitem g_MenuItemsSoloEndscreenWide[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(278), (u32)&soloMenuTextMissionStatus, NULL }, // "Mission Status:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(279), (u32)&soloMenuTextAgentStatus, NULL }, // "Agent Status:"
+	{ MENUITEMTYPE_LABEL,       0, 0x01000000, L_OPTIONS(280), (u32)&soloMenuTextMissionTime, menuhandlerEndscreenCheats }, // "Mission Time:"
+	{ MENUITEMTYPE_LABEL,       1, 0x01000000, L_MPWEAPONS(242), (u32)&soloMenuTextTargetTime, menuhandlerEndscreenCheats }, // "Target Time:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPWEAPONS(129), (u32)&soloMenuTextDifficulty, NULL }, // "Difficulty:"
+	{ MENUITEMTYPE_SEPARATOR,   2, 0x00000000, 0x00000000, 0x00000000, menuhandlerEndscreenCheats },
+	{ MENUITEMTYPE_LABEL,       2, 0x00000000, L_MPWEAPONS(243), 0x00000000, menuhandlerEndscreenCheats }, // "New Cheat Available!:"
+	{ MENUITEMTYPE_LABEL,       3, 0x01000020, (u32)&soloMenuTextTimedCheatName, 0x00000000, menuhandlerEndscreenCheats },
+	{ MENUITEMTYPE_LABEL,       5, 0x01000020, (u32)&soloMenuTextCompletionCheatName, 0x00000000, menuhandlerEndscreenCheats },
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(281), (u32)&mpMenuTextWeaponOfChoiceName, NULL }, // "Weapon of Choice"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(282), (u32)&soloMenuTextNumKills, NULL }, // "Kills:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(283), (u32)&soloMenuTextAccuracy, NULL }, // "Accuracy:"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(284), (u32)&soloMenuTextNumShots, NULL }, // "Shot Total:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(285), (u32)&soloMenuTextNumHeadShots, NULL }, // "Head Shots:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(286), (u32)&soloMenuTextNumBodyShots, NULL }, // "Body Shots:"
+	{ MENUITEMTYPE_LABEL,       6, 0x00000000, L_OPTIONS(287), (u32)&soloMenuTextNumLimbShots, menuhandlerEndscreenCheats }, // "Limb Shots:"
+	{ MENUITEMTYPE_LABEL,       4, 0x00000000, L_OPTIONS(288), (u32)&soloMenuTextNumOtherShots, menuhandlerEndscreenCheats }, // "Others:"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(289), 0x00000000, NULL }, // "Press START"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
 
 /**
  * This function is re-used for several values on the endscreen.
@@ -878,6 +1032,24 @@ void endscreenSetCoopCompleted(void)
 		g_SoloSaveFile.coopcompletions[g_MissionConfig.difficulty] |= (1 << g_MissionConfig.stageindex);
 	}
 }
+
+struct menudialog g_MenuDialogSoloEndscreenCompleted = {
+	MENUDIALOGTYPE_SUCCESS,
+	(u32)&menuTitleStageCompleted,
+	g_MenuItemsSoloEndscreenWide,
+	menudialogSolo2PEndscreenCompleted,
+	0x00000048,
+	&g_MenuDialogObjectivesCompletedWide,
+};
+
+struct menudialog g_MenuDialogSoloEndscreenFailed = {
+	MENUDIALOGTYPE_DANGER,
+	(u32)&menuTitleStageFailed,
+	g_MenuItemsSoloEndscreenWide,
+	menudialogSolo2PEndscreenFailed,
+	0x00000048,
+	&g_MenuDialogObjectivesFailedWide,
+};
 
 GLOBAL_ASM(
 glabel endscreenPrepare
@@ -1495,6 +1667,42 @@ glabel endscreenPrepare
 //	}
 //}
 
+struct menudialog g_MenuDialogSolo2PEndscreenCompletedWide = {
+	MENUDIALOGTYPE_SUCCESS,
+	(u32)&menuTitleStageCompleted,
+	g_MenuItemsSoloEndscreenWide,
+	menudialogSolo2PEndscreenCompleted,
+	0x00000048,
+	&g_MenuDialogObjectivesCompletedWide,
+};
+
+struct menudialog g_MenuDialogSolo2PEndscreenFailedWide = {
+	MENUDIALOGTYPE_DANGER,
+	(u32)&menuTitleStageFailed,
+	g_MenuItemsSoloEndscreenWide,
+	menudialogSolo2PEndscreenFailed,
+	0x00000048,
+	&g_MenuDialogObjectivesFailedWide,
+};
+
+struct menudialog g_MenuDialogSolo2PEndscreenCompletedNarrow = {
+	MENUDIALOGTYPE_SUCCESS,
+	L_OPTIONS(276), // "Completed"
+	g_MenuItemsSoloEndscreenNarrow,
+	menudialogSolo2PEndscreenCompleted,
+	0x00000048,
+	&g_MenuDialogObjectivesCompletedNarrow,
+};
+
+struct menudialog g_MenuDialogSolo2PEndscreenFailedNarrow = {
+	MENUDIALOGTYPE_DANGER,
+	L_OPTIONS(277), // "Failed"
+	g_MenuItemsSoloEndscreenNarrow,
+	menudialogSolo2PEndscreenFailed,
+	0x00000048,
+	&g_MenuDialogObjectivesFailedNarrow,
+};
+
 void soloPushCoopModeEndscreen(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
@@ -1618,3 +1826,6 @@ void soloPushAntiModeEndscreen(void)
 
 	g_MpPlayerNum = prevplayernum;
 }
+
+u32 var80075bb4 = 0;
+u32 var80075bb8 = 0;

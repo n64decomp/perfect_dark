@@ -29,6 +29,21 @@
 #include "lib/lib_4b170.h"
 #include "types.h"
 
+struct savelocation *g_SaveLocations[] = {NULL, NULL, NULL, NULL};
+
+u32 var80075bd0 = 1;
+u32 var80075bd4 = 1;
+u32 var80075bd8 = 1;
+u32 var80075bdc = 1;
+u32 var80075be0 = 0;
+u32 var80075be4 = 0;
+u32 var80075be8 = 0;
+u32 var80075bec = 0;
+u32 var80075bf0 = 0;
+u32 var80075bf4 = 0;
+u32 var80075bf8 = 0;
+u32 var80075bfc = 0;
+
 u32 *savefileGetFlags(void)
 {
 	return &g_SoloSaveFile.flags;

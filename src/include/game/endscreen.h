@@ -4,8 +4,8 @@
 #include "types.h"
 
 void menudialogRetryMission(u32 operation, struct menudialog *dialog, struct menuthing **thingptr);
-s32 menudialog0010dd28(u32, u32, u32 *);
-s32 menudialog0010de58(u32, u32, u32 *);
+s32 menudialogSolo2PEndscreenCompleted(u32, u32, u32 *);
+s32 menudialogSolo2PEndscreenFailed(u32, u32, u32 *);
 s32 menuhandlerDeclineMission(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandlerEndscreenCheats(u32 operation, struct menuitem *item, u32 *values);
 s32 menuhandlerContinueMission(u32 operation, struct menuitem *item, s32 *value);
