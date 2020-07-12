@@ -1467,50 +1467,22 @@ glabel func0f110bf8
 /*  f110c58:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel func0f110c5c
-/*  f110c5c:	3c0f8007 */ 	lui	$t7,%hi(g_SaveLocations)
-/*  f110c60:	25ef5bc0 */ 	addiu	$t7,$t7,%lo(g_SaveLocations)
-/*  f110c64:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f110c68:	01cf3021 */ 	addu	$a2,$t6,$t7
-/*  f110c6c:	8cc30000 */ 	lw	$v1,0x0($a2)
-/*  f110c70:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f110c74:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f110c78:	1460000e */ 	bnez	$v1,.L0f110cb4
-/*  f110c7c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f110c80:	24040310 */ 	addiu	$a0,$zero,0x310
-/*  f110c84:	0fc5db69 */ 	jal	align16
-/*  f110c88:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f110c8c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f110c90:	0fc5796e */ 	jal	func0f15e5b8
-/*  f110c94:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f110c98:	0fc5db69 */ 	jal	align16
-/*  f110c9c:	24040310 */ 	addiu	$a0,$zero,0x310
-/*  f110ca0:	0c004aac */ 	jal	func00012ab0
-/*  f110ca4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f110ca8:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f110cac:	00401825 */ 	or	$v1,$v0,$zero
-/*  f110cb0:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f110cb4:
-/*  f110cb4:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f110cb8:	a078030c */ 	sb	$t8,0x30c($v1)
-/*  f110cbc:	8cc80000 */ 	lw	$t0,0x0($a2)
-/*  f110cc0:	93b90027 */ 	lbu	$t9,0x27($sp)
-/*  f110cc4:	3c098006 */ 	lui	$t1,%hi(var80062944)
-/*  f110cc8:	a119030b */ 	sb	$t9,0x30b($t0)
-/*  f110ccc:	91292944 */ 	lbu	$t1,%lo(var80062944)($t1)
-/*  f110cd0:	55200004 */ 	bnezl	$t1,.L0f110ce4
-/*  f110cd4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f110cd8:	0c004e63 */ 	jal	func0001398c
-/*  f110cdc:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f110ce0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f110ce4:
-/*  f110ce4:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f110ce8:	3c018006 */ 	lui	$at,%hi(var80062944)
-/*  f110cec:	a02a2944 */ 	sb	$t2,%lo(var80062944)($at)
-/*  f110cf0:	03e00008 */ 	jr	$ra
-/*  f110cf4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void func0f110c5c(s32 locationindex, u8 filetype)
+{
+	if (g_SaveLocations[locationindex] == NULL) {
+		func0f15e5b8(align16(0x310), 1);
+		g_SaveLocations[locationindex] = func00012ab0(align16(0x310));
+	}
+
+	g_SaveLocations[locationindex]->unk30c = 1;
+	g_SaveLocations[locationindex]->filetype = filetype;
+
+	if (var80062944 == 0) {
+		func0001398c(3);
+	}
+
+	var80062944 = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f110cf8

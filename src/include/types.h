@@ -4344,7 +4344,7 @@ struct numandtext {
 };
 
 struct savelocation {
-	/*0x000*/ u32 unk000;
+	/*0x000*/ struct savelocation00 *unk000;
 	/*0x004*/ u32 unk004;
 	/*0x008*/ u32 unk008;
 	/*0x00c*/ u32 unk00c;
@@ -4526,6 +4526,23 @@ struct savelocation {
 	/*0x2cc*/ u32 unk2cc;
 	/*0x2d0*/ u16 unk2d0;
 	/*0x2d2*/ s8 unk2d2[4];
+	/*0x2d8*/ u32 unk2d8;
+	/*0x2dc*/ u32 unk2dc;
+	/*0x2e0*/ u32 unk2e0;
+	/*0x2e4*/ u32 unk2e4;
+	/*0x2e8*/ u32 unk2e8;
+	/*0x2ec*/ u32 unk2ec;
+	/*0x2f0*/ u32 unk2f0;
+	/*0x2f4*/ u32 unk2f4;
+	/*0x2f8*/ u32 unk2f8;
+	/*0x2fc*/ u32 unk2fc;
+	/*0x300*/ u32 unk300;
+	/*0x304*/ u32 unk304;
+	/*0x308*/ u8 unk308;
+	/*0x309*/ u8 unk309;
+	/*0x30a*/ u8 unk30a;
+	/*0x30b*/ u8 filetype;
+	/*0x30c*/ u8 unk30c; // inuse?
 };
 
 struct challenge {

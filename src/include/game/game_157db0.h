@@ -56,7 +56,7 @@ u32 func0f15dbb4(void);
 u32 func0f15dc58(void);
 void func0f15e474(s32 room);
 void func0f15e538(void);
-u32 func0f15e5b8(void);
+void func0f15e5b8(u32 size, u32 arg1);
 u32 func0f15e728(void);
 u32 func0f15e85c(void);
 u32 func0f15eb28(void);
