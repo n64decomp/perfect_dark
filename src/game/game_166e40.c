@@ -41,12 +41,12 @@ glabel func0f166e40
 /*  f166e50:	8c422060 */ 	lw	$v0,%lo(filetable)($v0)
 );
 
-u32 func0f166e54(struct fileinfo *info)
+u32 fileGetRomSizeByTableAddress(u32 *filetableaddr)
 {
 	u32 difference;
 
-	if (info->unk04) {
-		difference = info->unk04 - info->size;
+	if (filetableaddr[1]) {
+		difference = filetableaddr[1] - filetableaddr[0];
 	} else {
 		difference = 0;
 	}
@@ -54,20 +54,10 @@ u32 func0f166e54(struct fileinfo *info)
 	return difference;
 }
 
-GLOBAL_ASM(
-glabel func0f166e7c
-/*  f166e7c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f166e80:	3c0f8008 */ 	lui	$t7,%hi(filetable)
-/*  f166e84:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f166e88:	25ef2060 */ 	addiu	$t7,$t7,%lo(filetable)
-/*  f166e8c:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f166e90:	0fc59b95 */ 	jal	func0f166e54
-/*  f166e94:	01cf2021 */ 	addu	$a0,$t6,$t7
-/*  f166e98:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f166e9c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f166ea0:	03e00008 */ 	jr	$ra
-/*  f166ea4:	00000000 */ 	nop
-);
+u32 fileGetRomSizeByFileNum(s32 filenum)
+{
+	return fileGetRomSizeByTableAddress((u32 *)&filetable[filenum]);
+}
 
 GLOBAL_ASM(
 glabel func0f166ea8
@@ -84,7 +74,7 @@ glabel func0f166eb4
 /*  f166ec0:	afa51434 */ 	sw	$a1,0x1434($sp)
 /*  f166ec4:	afa61438 */ 	sw	$a2,0x1438($sp)
 /*  f166ec8:	afa7143c */ 	sw	$a3,0x143c($sp)
-/*  f166ecc:	0fc59b95 */ 	jal	func0f166e54
+/*  f166ecc:	0fc59b95 */ 	jal	fileGetRomSizeByTableAddress
 /*  f166ed0:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f166ed4:	8fa41434 */ 	lw	$a0,0x1434($sp)
 /*  f166ed8:	8fa71430 */ 	lw	$a3,0x1430($sp)
@@ -153,7 +143,7 @@ glabel func0f166f74
 /*  f166fb0:	00107880 */ 	sll	$t7,$s0,0x2
 /*  f166fb4:	ac400000 */ 	sw	$zero,0x0($v0)
 /*  f166fb8:	ac400004 */ 	sw	$zero,0x4($v0)
-/*  f166fbc:	0fc59b95 */ 	jal	func0f166e54
+/*  f166fbc:	0fc59b95 */ 	jal	fileGetRomSizeByTableAddress
 /*  f166fc0:	024f2021 */ 	addu	$a0,$s2,$t7
 /*  f166fc4:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f166fc8:	5614fff8 */ 	bnel	$s0,$s4,.L0f166fac
@@ -181,7 +171,7 @@ glabel func0f166ff0
 /*  f167010:	afa5002c */ 	sw	$a1,0x2c($sp)
 /*  f167014:	afa60030 */ 	sw	$a2,0x30($sp)
 /*  f167018:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f16701c:	0fc59b95 */ 	jal	func0f166e54
+/*  f16701c:	0fc59b95 */ 	jal	fileGetRomSizeByTableAddress
 /*  f167020:	afa4001c */ 	sw	$a0,0x1c($sp)
 /*  f167024:	10400007 */ 	beqz	$v0,.L0f167044
 /*  f167028:	8fb9001c */ 	lw	$t9,0x1c($sp)
