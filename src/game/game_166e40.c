@@ -406,14 +406,10 @@ u32 fileGetSize(s32 filenum)
 	return g_FileInfo[filenum].size;
 }
 
-GLOBAL_ASM(
-glabel func0f167294
-/*  f167294:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f167298:	3c02800a */ 	lui	$v0,%hi(g_FileInfo+0x4)
-/*  f16729c:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f1672a0:	03e00008 */ 	jr	$ra
-/*  f1672a4:	8c426684 */ 	lw	$v0,%lo(g_FileInfo+0x4)($v0)
-);
+u32 fileGetUnk04(s32 filenum)
+{
+	return g_FileInfo[filenum].unk04;
+}
 
 GLOBAL_ASM(
 glabel func0f1672a8
