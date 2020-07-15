@@ -401,14 +401,10 @@ glabel func0f167200
 /*  f16727c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel fileGetSize
-/*  f167280:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f167284:	3c02800a */ 	lui	$v0,%hi(g_FileInfo)
-/*  f167288:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f16728c:	03e00008 */ 	jr	$ra
-/*  f167290:	8c426680 */ 	lw	$v0,%lo(g_FileInfo)($v0)
-);
+u32 fileGetSize(s32 filenum)
+{
+	return g_FileInfo[filenum].size;
+}
 
 GLOBAL_ASM(
 glabel func0f167294
