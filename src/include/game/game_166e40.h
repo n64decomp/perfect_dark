@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f166e40(void);
+void *fileGetRomAddress(s32 filenum);
 u32 fileGetRomSizeByTableAddress(u32 *filetableaddr);
 u32 fileGetRomSizeByFileNum(s32 filenum);
 u32 func0f166ea8(void);

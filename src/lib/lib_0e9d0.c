@@ -2617,7 +2617,7 @@ glabel func00010ae4
 /*    10ca4:	01c1001a */ 	div	$zero,$t6,$at
 /*    10ca8:	00004812 */ 	mflo	$t1
 /*    10cac:	afa9002c */ 	sw	$t1,0x2c($sp)
-/*    10cb0:	0fc59b90 */ 	jal	func0f166e40
+/*    10cb0:	0fc59b90 */ 	jal	fileGetRomAddress
 /*    10cb4:	00000000 */ 	nop
 /*    10cb8:	97a40020 */ 	lhu	$a0,0x20($sp)
 /*    10cbc:	ae02001c */ 	sw	$v0,0x1c($s0)

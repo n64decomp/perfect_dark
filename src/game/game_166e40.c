@@ -32,14 +32,10 @@ const char var7f1b774c[] = "pos:%s%s %.2f %.2f %.2f\n";
 const u32 var7f1b7768[] = {0x00000000};
 const u32 var7f1b776c[] = {0x00000000};
 
-GLOBAL_ASM(
-glabel func0f166e40
-/*  f166e40:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f166e44:	3c028008 */ 	lui	$v0,%hi(filetable)
-/*  f166e48:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f166e4c:	03e00008 */ 	jr	$ra
-/*  f166e50:	8c422060 */ 	lw	$v0,%lo(filetable)($v0)
-);
+void *fileGetRomAddress(s32 filenum)
+{
+	return filetable[filenum];
+}
 
 u32 fileGetRomSizeByTableAddress(u32 *filetableaddr)
 {
