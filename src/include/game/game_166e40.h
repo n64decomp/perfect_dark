@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f166e40(void);
-u32 func0f166e54(void);
+u32 func0f166e54(struct fileinfo *info);
 u32 func0f166e7c(void);
 u32 func0f166ea8(void);
 void func0f166eb4(void *ptr, u32 len, void *table, struct fileinfo *info);

@@ -41,20 +41,18 @@ glabel func0f166e40
 /*  f166e50:	8c422060 */ 	lw	$v0,%lo(filetable)($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f166e54
-/*  f166e54:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f166e58:	00001825 */ 	or	$v1,$zero,$zero
-/*  f166e5c:	10400005 */ 	beqz	$v0,.L0f166e74
-/*  f166e60:	00000000 */ 	nop
-/*  f166e64:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f166e68:	004e1823 */ 	subu	$v1,$v0,$t6
-/*  f166e6c:	03e00008 */ 	jr	$ra
-/*  f166e70:	00601025 */ 	or	$v0,$v1,$zero
-.L0f166e74:
-/*  f166e74:	03e00008 */ 	jr	$ra
-/*  f166e78:	00601025 */ 	or	$v0,$v1,$zero
-);
+u32 func0f166e54(struct fileinfo *info)
+{
+	u32 difference;
+
+	if (info->unk04) {
+		difference = info->unk04 - info->size;
+	} else {
+		difference = 0;
+	}
+
+	return difference;
+}
 
 GLOBAL_ASM(
 glabel func0f166e7c
