@@ -17,7 +17,7 @@ u32 fileGetSize(s32 filenum);
 u32 fileGetUnk04(s32 filenum);
 u32 func0f1672a8(void);
 void func0f1672f0(s32 arg0);
-u32 func0f167330(void);
+void func0f167330(void);
 u32 func0f167350(void);
 u32 func0f16793c(void);
 u32 func0f167964(void);

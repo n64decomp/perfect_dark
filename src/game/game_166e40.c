@@ -456,17 +456,10 @@ glabel func0f1672f0
 /*  f16732c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f167330
-/*  f167330:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f167334:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f167338:	0fc59cbc */ 	jal	func0f1672f0
-/*  f16733c:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f167340:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f167344:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f167348:	03e00008 */ 	jr	$ra
-/*  f16734c:	00000000 */ 	nop
-);
+void func0f167330(void)
+{
+	func0f1672f0(5);
+}
 
 GLOBAL_ASM(
 glabel func0f167350
