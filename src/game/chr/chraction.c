@@ -13143,7 +13143,7 @@ void chrTickDie(struct chrdata *chr)
 			var80068080 -= 5;
 			func0f0939f8(NULL, prop, 0x64, -1,
 					-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-			func0f12f9f0(prop->rooms[0], prop, &prop->pos, 0, 0, 1);
+			func0f12f9f0(prop->rooms[0], prop, &prop->pos, NULL, 0, 1);
 		}
 
 		return;
@@ -28195,6 +28195,6 @@ void chrEmitSparks(struct chrdata *chr)
 	if (chr && chr->prop) {
 		// Spark/shield sound
 		func0f0939f8(0, chr->prop, 0x64, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-		func0f12f9f0(chr->prop->rooms[0], chr->prop, &chr->prop->pos, 0, 0, 1);
+		func0f12f9f0(chr->prop->rooms[0], chr->prop, &chr->prop->pos, NULL, 0, 1);
 	}
 }
