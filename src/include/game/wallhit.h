@@ -20,7 +20,7 @@ u32 func0f140b7c(void);
 u32 func0f140e20(void);
 u32 func0f1411b0(void);
 u32 func0f141234(void);
-u32 func0f14159c(void);
+void func0f14159c(struct prop *prop);
 u32 func0f141704(void);
 
 #endif

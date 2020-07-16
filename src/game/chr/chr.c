@@ -2588,168 +2588,82 @@ struct prop *propAllocateChr(struct model *model, struct coord *pos, s16 *rooms,
 	return prop;
 }
 
-GLOBAL_ASM(
-glabel func0f020d44
-/*  f020d44:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f020d48:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f020d4c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f020d50:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f020d54:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f020d58:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f020d5c:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f020d60:	00808825 */ 	or	$s1,$a0,$zero
-/*  f020d64:	00009025 */ 	or	$s2,$zero,$zero
-/*  f020d68:	8c4e0020 */ 	lw	$t6,0x20($v0)
-/*  f020d6c:	afae0048 */ 	sw	$t6,0x48($sp)
-/*  f020d70:	8044017c */ 	lb	$a0,0x17c($v0)
-/*  f020d74:	0fc29c2a */ 	jal	freeFireslotWrapper
-/*  f020d78:	afa2004c */ 	sw	$v0,0x4c($sp)
-/*  f020d7c:	8faf004c */ 	lw	$t7,0x4c($sp)
-/*  f020d80:	0fc29c2a */ 	jal	freeFireslotWrapper
-/*  f020d84:	81e4017d */ 	lb	$a0,0x17d($t7)
-/*  f020d88:	8fb8004c */ 	lw	$t8,0x4c($sp)
-/*  f020d8c:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x338)
-/*  f020d90:	8704012c */ 	lh	$a0,0x12c($t8)
-/*  f020d94:	0480000b */ 	bltz	$a0,.L0f020dc4
-/*  f020d98:	0004c8c0 */ 	sll	$t9,$a0,0x3
-/*  f020d9c:	8d08a2f8 */ 	lw	$t0,%lo(g_Vars+0x338)($t0)
-/*  f020da0:	0324c821 */ 	addu	$t9,$t9,$a0
-/*  f020da4:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f020da8:	03281821 */ 	addu	$v1,$t9,$t0
-/*  f020dac:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f020db0:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f020db4:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f020db8:	8c490040 */ 	lw	$t1,0x40($v0)
-/*  f020dbc:	01215024 */ 	and	$t2,$t1,$at
-/*  f020dc0:	ac4a0040 */ 	sw	$t2,0x40($v0)
-.L0f020dc4:
-/*  f020dc4:	0fc50567 */ 	jal	func0f14159c
-/*  f020dc8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f020dcc:	02202025 */ 	or	$a0,$s1,$zero
-/*  f020dd0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f020dd4:	0fc249af */ 	jal	func0f0926bc
-/*  f020dd8:	3406ffff */ 	dli	$a2,0xffff
-/*  f020ddc:	0fc0a4af */ 	jal	func0f0292bc
-/*  f020de0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f020de4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f020de8:	0fc226a5 */ 	jal	func0f089a94
-/*  f020dec:	8fa50048 */ 	lw	$a1,0x48($sp)
-/*  f020df0:	0fc19711 */ 	jal	func0f065c44
-/*  f020df4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f020df8:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x4b4)
-/*  f020dfc:	8d6ba474 */ 	lw	$t3,%lo(g_Vars+0x4b4)($t3)
-/*  f020e00:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f020e04:	55610005 */ 	bnel	$t3,$at,.L0f020e1c
-/*  f020e08:	8e24001c */ 	lw	$a0,0x1c($s1)
-/*  f020e0c:	0fc2556c */ 	jal	objFindByTagId
-/*  f020e10:	24040026 */ 	addiu	$a0,$zero,0x26
-/*  f020e14:	00409025 */ 	or	$s2,$v0,$zero
-/*  f020e18:	8e24001c */ 	lw	$a0,0x1c($s1)
-.L0f020e1c:
-/*  f020e1c:	10800018 */ 	beqz	$a0,.L0f020e80
-/*  f020e20:	00000000 */ 	nop
-.L0f020e24:
-/*  f020e24:	8c860004 */ 	lw	$a2,0x4($a0)
-/*  f020e28:	8c900020 */ 	lw	$s0,0x20($a0)
-/*  f020e2c:	8ccc0040 */ 	lw	$t4,0x40($a2)
-/*  f020e30:	318d0400 */ 	andi	$t5,$t4,0x400
-/*  f020e34:	15a00010 */ 	bnez	$t5,.L0f020e78
-/*  f020e38:	00000000 */ 	nop
-/*  f020e3c:	10d2000e */ 	beq	$a2,$s2,.L0f020e78
-/*  f020e40:	00000000 */ 	nop
-/*  f020e44:	922e0000 */ 	lbu	$t6,0x0($s1)
-/*  f020e48:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f020e4c:	15c10005 */ 	bne	$t6,$at,.L0f020e64
-/*  f020e50:	00000000 */ 	nop
-/*  f020e54:	8ccf0010 */ 	lw	$t7,0x10($a2)
-/*  f020e58:	000fc240 */ 	sll	$t8,$t7,0x9
-/*  f020e5c:	07000006 */ 	bltz	$t8,.L0f020e78
-/*  f020e60:	00000000 */ 	nop
-.L0f020e64:
-/*  f020e64:	0fc20be2 */ 	jal	func0f082f88
-/*  f020e68:	afa6002c */ 	sw	$a2,0x2c($sp)
-/*  f020e6c:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f020e70:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
-/*  f020e74:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f020e78:
-/*  f020e78:	1600ffea */ 	bnez	$s0,.L0f020e24
-/*  f020e7c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f020e80:
-/*  f020e80:	0fc2cc33 */ 	jal	modelFree
-/*  f020e84:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f020e88:	8fa2004c */ 	lw	$v0,0x4c($sp)
-/*  f020e8c:	ac400020 */ 	sw	$zero,0x20($v0)
-/*  f020e90:	8fb90054 */ 	lw	$t9,0x54($sp)
-/*  f020e94:	53200039 */ 	beqzl	$t9,.L0f020f7c
-/*  f020e98:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f020e9c:	0fc079a9 */ 	jal	chrRemoveFromChrsC
-/*  f020ea0:	84440000 */ 	lh	$a0,0x0($v0)
-/*  f020ea4:	8fa8004c */ 	lw	$t0,0x4c($sp)
-/*  f020ea8:	2410ffff */ 	addiu	$s0,$zero,-1
-/*  f020eac:	85040292 */ 	lh	$a0,0x292($t0)
-/*  f020eb0:	12040005 */ 	beq	$s0,$a0,.L0f020ec8
-/*  f020eb4:	00000000 */ 	nop
-/*  f020eb8:	0fc45929 */ 	jal	coverSetFlag0002
-/*  f020ebc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f020ec0:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f020ec4:	a5300292 */ 	sh	$s0,0x292($t1)
-.L0f020ec8:
-/*  f020ec8:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x338)
-/*  f020ecc:	8d4aa2f8 */ 	lw	$t2,%lo(g_Vars+0x338)($t2)
-/*  f020ed0:	24010048 */ 	addiu	$at,$zero,0x48
-/*  f020ed4:	022a2023 */ 	subu	$a0,$s1,$t2
-/*  f020ed8:	0081001a */ 	div	$zero,$a0,$at
-/*  f020edc:	00002012 */ 	mflo	$a0
-/*  f020ee0:	0fc083e4 */ 	jal	propClearReferences
-/*  f020ee4:	00000000 */ 	nop
-/*  f020ee8:	0fc1a0bf */ 	jal	func0f0682fc
-/*  f020eec:	02202025 */ 	or	$a0,$s1,$zero
-/*  f020ef0:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x318)
-/*  f020ef4:	8d8ca2d8 */ 	lw	$t4,%lo(g_Vars+0x318)($t4)
-/*  f020ef8:	3c0d800a */ 	lui	$t5,%hi(g_MissionConfig+0x3)
-/*  f020efc:	5580001a */ 	bnezl	$t4,.L0f020f68
-/*  f020f00:	8fa8004c */ 	lw	$t0,0x4c($sp)
-/*  f020f04:	81aedfeb */ 	lb	$t6,%lo(g_MissionConfig+0x3)($t5)
-/*  f020f08:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x474)
-/*  f020f0c:	05c30016 */ 	bgezl	$t6,.L0f020f68
-/*  f020f10:	8fa8004c */ 	lw	$t0,0x4c($sp)
-/*  f020f14:	8c84a434 */ 	lw	$a0,%lo(g_Vars+0x474)($a0)
-/*  f020f18:	00001825 */ 	or	$v1,$zero,$zero
-/*  f020f1c:	00007880 */ 	sll	$t7,$zero,0x2
-/*  f020f20:	18800010 */ 	blez	$a0,.L0f020f64
-/*  f020f24:	3c18800a */ 	lui	$t8,%hi(g_Vars)
-/*  f020f28:	27189fc0 */ 	addiu	$t8,$t8,%lo(g_Vars)
-/*  f020f2c:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f020f30:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f020f34:	8c5904b8 */ 	lw	$t9,0x4b8($v0)
-.L0f020f38:
-/*  f020f38:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f020f3c:	56390005 */ 	bnel	$s1,$t9,.L0f020f54
-/*  f020f40:	0064082a */ 	slt	$at,$v1,$a0
-/*  f020f44:	ac4004b8 */ 	sw	$zero,0x4b8($v0)
-/*  f020f48:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x474)
-/*  f020f4c:	8c84a434 */ 	lw	$a0,%lo(g_Vars+0x474)($a0)
-/*  f020f50:	0064082a */ 	slt	$at,$v1,$a0
-.L0f020f54:
-/*  f020f54:	10200003 */ 	beqz	$at,.L0f020f64
-/*  f020f58:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f020f5c:	5465fff6 */ 	bnel	$v1,$a1,.L0f020f38
-/*  f020f60:	8c5904b8 */ 	lw	$t9,0x4b8($v0)
-.L0f020f64:
-/*  f020f64:	8fa8004c */ 	lw	$t0,0x4c($sp)
-.L0f020f68:
-/*  f020f68:	0fc13301 */ 	jal	rebuildTeams
-/*  f020f6c:	a5100000 */ 	sh	$s0,0x0($t0)
-/*  f020f70:	0fc13341 */ 	jal	rebuildSquadrons
-/*  f020f74:	00000000 */ 	nop
-/*  f020f78:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f020f7c:
-/*  f020f7c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f020f80:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f020f84:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f020f88:	03e00008 */ 	jr	$ra
-/*  f020f8c:	27bd0050 */ 	addiu	$sp,$sp,0x50
-);
+/**
+ * Appears to hide a chr. If removechr is true, deallocates the chr completely.
+ */
+void func0f020d44(struct prop *prop, bool removechr)
+{
+	struct chrdata *chr = prop->chr;
+	struct model *model = chr->model;
+	struct defaultobj *eyespyobj = NULL;
+	struct prop *child;
+	u32 stack[2];
+
+	freeFireslotWrapper(chr->fireslot[0]);
+	freeFireslotWrapper(chr->fireslot[1]);
+
+	if (chr->proppreset1 >= 0) {
+		struct prop *proppreset = &g_Vars.props[chr->proppreset1];
+		struct defaultobj *chair = proppreset->obj;
+		chair->hidden &= ~OBJHFLAG_00200000;
+	}
+
+	func0f14159c(prop);
+	func0f0926bc(prop, 1, 0xffff);
+	func0f0292bc(prop);
+	func0f089a94(0, model);
+	func0f065c44(prop);
+
+	if (g_Vars.stagenum == STAGE_CITRAINING) {
+		eyespyobj = objFindByTagId(0x26);
+	}
+
+	child = prop->child;
+
+	while (child) {
+		struct defaultobj *obj = child->obj;
+		struct prop *next = child->next;
+
+		if ((obj->hidden & OBJHFLAG_00000400) == 0
+				&& obj != eyespyobj
+				&& (prop->type != PROPTYPE_PLAYER || (obj->flags3 & OBJFLAG3_00400000) == 0)) {
+			func0f082f88(child);
+			setupParseObjectWithArg2False(obj, true);
+		}
+
+		child = next;
+	}
+
+	modelFree(model);
+	chr->model = NULL;
+
+	if (removechr) {
+		chrRemoveFromChrsC(chr->chrnum);
+
+		if (chr->cover != -1) {
+			coverSetFlag0002(chr->cover, false);
+			chr->cover = -1;
+		}
+
+		propClearReferences(prop - g_Vars.props);
+		func0f0682fc(prop);
+
+		if (g_Vars.normmplayerisrunning == false && g_MissionConfig.iscoop) {
+			s32 i;
+
+			for (i = 0; i < g_Vars.numaibuddies && i < 4; i++) {
+				if (g_Vars.aibuddies[i] == prop) {
+					g_Vars.aibuddies[i] = NULL;
+				}
+			}
+		}
+
+		chr->chrnum = -1;
+
+		rebuildTeams();
+		rebuildSquadrons();
+	}
+}
 
 void propClearReferences(s32 propnum)
 {

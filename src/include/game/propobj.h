@@ -54,7 +54,7 @@ u32 func0f06803c(void);
 struct defaultobj *objFindByPadNum(s32 padnum);
 u32 func0f068218(void);
 void func0f0682dc(struct obj48 *obj48);
-u32 func0f0682fc(void);
+void func0f0682fc(struct prop *prop);
 u32 func0f068368(void);
 u32 func0f06843c(void);
 void func0f0685e4(struct prop *prop);
