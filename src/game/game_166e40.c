@@ -418,27 +418,16 @@ glabel func0f1672a8
 /*  f1672ec:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f1672f0
-/*  f1672f0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f1672f4:	308300ff */ 	andi	$v1,$a0,0xff
-/*  f1672f8:	3c05800a */ 	lui	$a1,%hi(g_FileInfo)
-/*  f1672fc:	24a56680 */ 	addiu	$a1,$a1,%lo(g_FileInfo)
-/*  f167300:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f167304:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f167308:	240607de */ 	addiu	$a2,$zero,0x7de
-.L0f16730c:
-/*  f16730c:	14830003 */ 	bne	$a0,$v1,.L0f16731c
-/*  f167310:	000278c0 */ 	sll	$t7,$v0,0x3
-/*  f167314:	00afc021 */ 	addu	$t8,$a1,$t7
-/*  f167318:	af000000 */ 	sw	$zero,0x0($t8)
-.L0f16731c:
-/*  f16731c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f167320:	1446fffa */ 	bne	$v0,$a2,.L0f16730c
-/*  f167324:	00000000 */ 	nop
-/*  f167328:	03e00008 */ 	jr	$ra
-/*  f16732c:	00000000 */ 	nop
-);
+void func0f1672f0(u8 arg0)
+{
+	s32 i;
+
+	for (i = 1; i < 2014; i++) {
+		if (arg0 == 4) {
+			g_FileInfo[i].size = 0;
+		}
+	}
+}
 
 void func0f167330(void)
 {
