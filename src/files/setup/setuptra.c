@@ -1641,16 +1641,26 @@ u8 func1013_spawngroup2_guard[] = {
 };
 
 /**
- * SA/PA only. Waits until medpack is started, then spawns 4 guards.
+ * SA/PA only. Waits until medpack is started, then spawns up to 4 guards.
  *
  * The intended behavior is to spawn them all pretty much immediately with a
  * random delay in between, then wait for them all to be dead, then complete the
- * medpack. But an error makes this not work as intended.
+ * medpack. But two errors make make this not work as intended.
  *
- * The error is that if any spawn fails (eg. due to blocked pad) then the
- * function jumps straight to the end where it waits for the group to be dead.
- * The pad can be blocked if the guard hasn't moved off it fast enough, keeping
- * in mind that the next spawn occurs after a random amount of frames.
+ * The first error is that if any spawn fails (eg. due to the player looking at
+ * the pad) then the ailist jumps straight to the end where it waits for the
+ * group to be dead, and does not spawn any more guards.
+ *
+ * The second error is in the handler for if_all_chrs_in_squadron_are_dead. The
+ * implementation of this command has a bug which makes it only check if the
+ * most recently spawned guard is dead. If there are no chrs in the squadron
+ * (eg. if the first guard fails to spawn) then this check doesn't pass either.
+ *
+ * In other words:
+ * 1) killing the most recently spawned guard will cause the medpack to finish,
+ * 2) the spawning proces stops if any spawn fails due to the player looking at
+ *    the pad, and
+ * 3) at least one guard must spawn for an early medpack finish.
  */
 u8 func1014_spawngroup3[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x32)
@@ -1660,7 +1670,7 @@ u8 func1014_spawngroup3[] = {
 	label(0x32)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
-	// SA nad PA
+	// SA and PA
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_MEDPACK_STARTED, TRUE, /*goto*/ 0x06)
 	endloop(0x04)
@@ -1673,11 +1683,14 @@ u8 func1014_spawngroup3[] = {
 		call_rng
 		if_rand_gt(128, /*goto*/ 0x32)
 
-		// @bug: If either of these fail to spawn, the function jumps straight
-		// to the end rather than attempting to respawn them.
+		// @bug: If either of these fail to spawn, the ailist jumps straight to
+		// the end rather than attempting to respawn them.
+
+		// Spawn at top of ramp
 		try_spawn_chr_at_pad(BODY_AREA51GUARD, HEAD_RANDOM, 0x0117, AILIST_SPAWNGROUP3_GUARD, 0x00000200, /*goto*/ 0x60)
 		goto_next(0x06)
 
+		// Spawn in mine room
 		label(0x32)
 		try_spawn_chr_at_pad(BODY_AREA51GUARD, HEAD_RANDOM, 0x013e, AILIST_SPAWNGROUP3_GUARD, 0x00000200, /*goto*/ 0x60)
 		goto_next(0x06)
@@ -1690,8 +1703,9 @@ u8 func1014_spawngroup3[] = {
 		rebuild_teams
 		rebuild_squadrons
 
-		// Wait for Elvis to be revived, for someone to die, or 5 in 256 chance
-		// of spawning another guard anyway.
+		// Wait for Elvis to be revived, or 5 in 256 chance of spawning another
+		// guard anyway. Note that the if_num_chrs_in_squadron_gt check can't
+		// pass because this squadron never has more than 4 chrs in it.
 		label(0x08)
 		yield
 		if_stage_flag_eq(STAGEFLAG_ELVIS_REVIVED, TRUE, /*goto*/ 0x06)
