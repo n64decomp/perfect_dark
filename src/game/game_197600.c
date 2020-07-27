@@ -2598,17 +2598,10 @@ glabel func0f19978c
 /*  f199960:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel func0f199964
-/*  f199964:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f199968:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19996c:	0fc665e3 */ 	jal	func0f19978c
-/*  f199970:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f199974:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f199978:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19997c:	03e00008 */ 	jr	$ra
-/*  f199980:	00000000 */ 	nop
-);
+void func0f199964(struct chrdata *chr, u32 weaponnum)
+{
+	func0f19978c(chr, weaponnum, true);
+}
 
 GLOBAL_ASM(
 glabel func0f199984
