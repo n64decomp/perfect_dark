@@ -50,7 +50,7 @@ void func0f065c44(struct prop *prop);
 void func0f065cb0(struct prop *prop);
 u32 func0f065d1c(void);
 u32 func0f065dd8(void);
-u32 func0f065dfc(void);
+void func0f065dfc(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms, u32 arg4, u32 arg5);
 void func0f065e74(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms);
 void func0f065e98(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2);
 void roomGetProps(s16 *room, s16 *propnums, u32 size);
