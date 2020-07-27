@@ -317,20 +317,10 @@ u32 var80075d54 = 0x00000000;
 u32 var80075d58 = 0x00000000;
 u32 var80075d5c = 0x00000000;
 
-GLOBAL_ASM(
-glabel func0f1165d0
-/*  f1165d0:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f1165d4:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f1165d8:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f1165dc:	15e10003 */ 	bne	$t7,$at,.L0f1165ec
-/*  f1165e0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f1165e4:	03e00008 */ 	jr	$ra
-/*  f1165e8:	24020010 */ 	addiu	$v0,$zero,0x10
-.L0f1165ec:
-/*  f1165ec:	24030020 */ 	addiu	$v1,$zero,0x20
-/*  f1165f0:	03e00008 */ 	jr	$ra
-/*  f1165f4:	00601025 */ 	or	$v0,$v1,$zero
-);
+u32 func0f1165d0(s8 arg0)
+{
+	return arg0 == 4 ? 0x10 : 0x20;
+}
 
 GLOBAL_ASM(
 glabel func0f1165f8
