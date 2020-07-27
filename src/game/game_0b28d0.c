@@ -728,7 +728,7 @@ glabel modelFree
 .L0f0b3254:
 /*  f0b3254:	50800006 */ 	beqzl	$a0,.L0f0b3270
 /*  f0b3258:	acc00008 */ 	sw	$zero,0x8($a2)
-/*  f0b325c:	0fc2ccce */ 	jal	func0f0b3338
+/*  f0b325c:	0fc2ccce */ 	jal	animTurnOff
 /*  f0b3260:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f0b3264:	8fa60018 */ 	lw	$a2,0x18($sp)
 /*  f0b3268:	acc00020 */ 	sw	$zero,0x20($a2)
@@ -801,12 +801,7 @@ glabel func0f0b32e4
 /*  f0b3334:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f0b3338
-/*  f0b3338:	240effff */ 	addiu	$t6,$zero,-1
-/*  f0b333c:	03e00008 */ 	jr	$ra
-/*  f0b3340:	a48e0000 */ 	sh	$t6,0x0($a0)
-/*  f0b3344:	00000000 */ 	nop
-/*  f0b3348:	00000000 */ 	nop
-/*  f0b334c:	00000000 */ 	nop
-);
+void animTurnOff(struct anim *anim)
+{
+	anim->animnum = -1;
+}

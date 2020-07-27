@@ -28002,7 +28002,7 @@ s32 objTick(struct prop *prop)
 		if (g_Anims[model->anim->animnum].flags & 0x02) {
 			if (g_Vars.tickmode != TICKMODE_6
 					&& modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
-				func0f0b3338(model->anim);
+				animTurnOff(model->anim);
 				model->anim = NULL;
 			} else {
 				// In cutscene
@@ -28147,7 +28147,7 @@ s32 objTick(struct prop *prop)
 				}
 
 				if (modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
-					func0f0b3338(model->anim);
+					animTurnOff(model->anim);
 					model->anim = NULL;
 					func00015be4(currentPlayerGetUnk174c(), model->unk0c, sp248);
 					func00015da0(sp248, obj->realrot);
