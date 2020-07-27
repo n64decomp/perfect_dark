@@ -311,20 +311,10 @@ glabel func0f000b24
 /*  f000c24:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel roomGetBrightness
-/*  f000c28:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f000c2c:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f000c30:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f000c34:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f000c38:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000c3c:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f000c40:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000c44:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f000c48:	87190050 */ 	lh	$t9,0x50($t8)
-/*  f000c4c:	03e00008 */ 	jr	$ra
-/*  f000c50:	332200ff */ 	andi	$v0,$t9,0xff
-);
+u8 roomGetBrightness(s32 room)
+{
+	return g_Rooms[room].brightness & 0xff;
+}
 
 GLOBAL_ASM(
 glabel func0f000c54
