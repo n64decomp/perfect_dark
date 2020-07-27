@@ -2603,17 +2603,7 @@ void func0f199964(struct chrdata *chr, u32 weaponnum)
 	func0f19978c(chr, weaponnum, true);
 }
 
-GLOBAL_ASM(
-glabel func0f199984
-/*  f199984:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f199988:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19998c:	0fc665e3 */ 	jal	func0f19978c
-/*  f199990:	00003025 */ 	or	$a2,$zero,$zero
-/*  f199994:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f199998:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19999c:	03e00008 */ 	jr	$ra
-/*  f1999a0:	00000000 */ 	nop
-/*  f1999a4:	00000000 */ 	nop
-/*  f1999a8:	00000000 */ 	nop
-/*  f1999ac:	00000000 */ 	nop
-);
+void func0f199984(struct chrdata *chr, u32 weaponnum)
+{
+	func0f19978c(chr, weaponnum, false);
+}
