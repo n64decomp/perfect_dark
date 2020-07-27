@@ -501,19 +501,10 @@ glabel func0f1167b0
 /*  f1167d4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1167d8
-/*  f1167d8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1167dc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1167e0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1167e4:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f1167e8:	0fc464a6 */ 	jal	func0f119298
-/*  f1167ec:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f1167f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1167f4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1167f8:	03e00008 */ 	jr	$ra
-/*  f1167fc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 func0f1167d8(s8 arg0)
+{
+	return func0f119298(arg0);
+}
 
 GLOBAL_ASM(
 glabel func0f116800
