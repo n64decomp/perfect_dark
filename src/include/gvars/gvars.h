@@ -762,6 +762,7 @@ extern u32 var800aa5a0;
 extern struct audiohandle *g_BoostAndSlayerAudioHandles[3];
 extern s32 g_BoostAndSlayerActiveTypes[3];
 extern u32 var800aa5cc;
+extern s32 var800aa5d0; // stage number
 extern u32 var800aa5d8;
 extern u32 var800aaa38;
 extern u32 var800aaa68;

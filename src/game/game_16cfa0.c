@@ -801,12 +801,10 @@ glabel func0f16d9a8
 /*  f16d9ec:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f16d9f0
-/*  f16d9f0:	3c01800b */ 	lui	$at,%hi(var800aa5d0)
-/*  f16d9f4:	03e00008 */ 	jr	$ra
-/*  f16d9f8:	ac24a5d0 */ 	sw	$a0,%lo(var800aa5d0)($at)
-);
+void func0f16d9f0(s32 stagenum)
+{
+	var800aa5d0 = stagenum;
+}
 
 GLOBAL_ASM(
 glabel func0f16d9fc
