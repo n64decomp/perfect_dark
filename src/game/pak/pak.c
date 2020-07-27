@@ -1137,20 +1137,14 @@ glabel func0f11702c
 /*  f117068:	8c4225e4 */ 	lw	$v0,%lo(var800a2380+0x264)($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f11706c
-/*  f11706c:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f117070:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f117074:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f117078:	11e10003 */ 	beq	$t7,$at,.L0f117088
-/*  f11707c:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f117080:	03e00008 */ 	jr	$ra
-/*  f117084:	240204c0 */ 	addiu	$v0,$zero,0x4c0
-.L0f117088:
-/*  f117088:	24020100 */ 	addiu	$v0,$zero,0x100
-/*  f11708c:	03e00008 */ 	jr	$ra
-/*  f117090:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f11706c(s8 arg0)
+{
+	if (arg0 != 4) {
+		return 0x4c0;
+	}
+
+	return 0x100;
+}
 
 s32 func0f117094(s8 arg0, u32 arg1)
 {
