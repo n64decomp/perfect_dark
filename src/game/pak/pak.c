@@ -377,11 +377,10 @@ glabel func0f116658
 /*  f116680:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f116684
-/*  f116684:	03e00008 */ 	jr	$ra
-/*  f116688:	2482fff0 */ 	addiu	$v0,$a0,-16
-);
+u32 func0f116684(u32 arg0)
+{
+	return arg0 - 16;
+}
 
 GLOBAL_ASM(
 glabel func0f11668c
