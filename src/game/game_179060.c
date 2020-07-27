@@ -464,10 +464,10 @@ char *menuhandlerMpWeaponSetDropdown(u32 operation, struct menuitem *item, s32 *
 	case MENUOP_GETOPTIONTEXT:
 		return mpGetWeaponSetName(*value);
 	case MENUOP_SET:
-		func0f1895bc(*value);
+		mpSetWeaponSet(*value);
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		*value = func0f18961c();
+		*value = mpGetWeaponSet();
 		break;
 	}
 
@@ -5916,7 +5916,7 @@ char *mpMenuTextArenaName(struct menuitem *item)
 
 char *mpMenuTextWeaponSetName(struct menuitem *item)
 {
-	return mpGetWeaponSetName(func0f18961c());
+	return mpGetWeaponSetName(mpGetWeaponSet());
 }
 
 bool menudialogMpGameSetup(u32 operation, struct menudialog *dialog, struct menu *menu)
@@ -6571,8 +6571,8 @@ s32 menuhandlerMpQuickTeamOption(u32 operation, struct menuitem *item, s32 *valu
 	if (operation == MENUOP_SET) {
 		g_Vars.mpquickteam = item->param;
 
-		if (func0f18961c() >= func0f189058(0)) {
-			func0f1895bc(0);
+		if (mpGetWeaponSet() >= func0f189058(0)) {
+			mpSetWeaponSet(0);
 		}
 
 		if (g_Vars.mpquickteam == MPQUICKTEAM_PLAYERSONLY ||

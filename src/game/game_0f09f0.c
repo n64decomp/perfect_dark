@@ -10948,7 +10948,7 @@ glabel var7f1b2a64
 /*  f0f9f68:	0018cb00 */ 	sll	$t9,$t8,0xc
 /*  f0f9f6c:	07210009 */ 	bgez	$t9,.L0f0f9f94
 /*  f0f9f70:	00000000 */ 	nop
-/*  f0f9f74:	0fc62587 */ 	jal	func0f18961c
+/*  f0f9f74:	0fc62587 */ 	jal	mpGetWeaponSet
 /*  f0f9f78:	00000000 */ 	nop
 /*  f0f9f7c:	0fc62422 */ 	jal	func0f189088
 /*  f0f9f80:	00408025 */ 	or	$s0,$v0,$zero

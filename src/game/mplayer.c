@@ -830,12 +830,12 @@ glabel func0f188210
 /*  f1882c0:	0c004c04 */ 	jal	func00013010
 /*  f1882c4:	24a58a44 */ 	addiu	$a1,$a1,%lo(var7f1b8a44)
 /*  f1882c8:	90440000 */ 	lbu	$a0,0x0($v0)
-/*  f1882cc:	0fc6256f */ 	jal	func0f1895bc
+/*  f1882cc:	0fc6256f */ 	jal	mpSetWeaponSet
 /*  f1882d0:	2484ffd0 */ 	addiu	$a0,$a0,-48
 /*  f1882d4:	10000003 */ 	b	.L0f1882e4
 /*  f1882d8:	00000000 */ 	nop
 .L0f1882dc:
-/*  f1882dc:	0fc6256f */ 	jal	func0f1895bc
+/*  f1882dc:	0fc6256f */ 	jal	mpSetWeaponSet
 /*  f1882e0:	00002025 */ 	or	$a0,$zero,$zero
 .L0f1882e4:
 /*  f1882e4:	3c02800b */ 	lui	$v0,%hi(g_MpLockPlayerNum)
@@ -2216,20 +2216,11 @@ glabel func0f1892dc
 /*  f1895b8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f1895bc
-/*  f1895bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1895c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1895c4:	0fc623e7 */ 	jal	func0f188f9c
-/*  f1895c8:	00000000 */ 	nop
-/*  f1895cc:	3c018008 */ 	lui	$at,%hi(var800874c8)
-/*  f1895d0:	0fc624b7 */ 	jal	func0f1892dc
-/*  f1895d4:	ac2274c8 */ 	sw	$v0,%lo(var800874c8)($at)
-/*  f1895d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1895dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1895e0:	03e00008 */ 	jr	$ra
-/*  f1895e4:	00000000 */ 	nop
-);
+void mpSetWeaponSet(s32 weaponsetnum)
+{
+	var800874c8 = func0f188f9c(weaponsetnum);
+	func0f1892dc();
+}
 
 GLOBAL_ASM(
 glabel func0f1895e8
@@ -2250,7 +2241,7 @@ glabel func0f1895e8
 );
 
 GLOBAL_ASM(
-glabel func0f18961c
+glabel mpGetWeaponSet
 /*  f18961c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f189620:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f189624:	3c048008 */ 	lui	$a0,%hi(var800874c8)
