@@ -6882,21 +6882,10 @@ glabel func0f09ceac
 /*  f09cf54:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel func0f09cf58
-/*  f09cf58:	00047900 */ 	sll	$t7,$a0,0x4
-/*  f09cf5c:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f09cf60:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f09cf64:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f09cf68:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f09cf6c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f09cf70:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f09cf74:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f09cf78:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f09cf7c:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f09cf80:	03e00008 */ 	jr	$ra
-/*  f09cf84:	c7000840 */ 	lwc1	$f0,0x840($t8)
-);
+f32 func0f09cf58(u32 hand)
+{
+	return g_Vars.currentplayer->hands[hand].unk0840;
+}
 
 GLOBAL_ASM(
 glabel func0f09cf88
