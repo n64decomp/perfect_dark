@@ -11056,77 +11056,43 @@ glabel func0f028f7c
 /*  f0291d0:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f0291d4
-/*  f0291d4:	3c098006 */ 	lui	$t1,%hi(var80062a90)
-/*  f0291d8:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f0291dc:	25292a90 */ 	addiu	$t1,$t1,%lo(var80062a90)
-/*  f0291e0:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f0291e4:	ad200000 */ 	sw	$zero,0x0($t1)
-/*  f0291e8:	3c068006 */ 	lui	$a2,%hi(var80062a8c)
-/*  f0291ec:	8cc62a8c */ 	lw	$a2,%lo(var80062a8c)($a2)
-/*  f0291f0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0291f4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0291f8:	00c04025 */ 	or	$t0,$a2,$zero
-.L0f0291fc:
-/*  f0291fc:	8d0e0000 */ 	lw	$t6,0x0($t0)
-/*  f029200:	24e7005c */ 	addiu	$a3,$a3,0x5c
-/*  f029204:	28e10730 */ 	slti	$at,$a3,0x730
-/*  f029208:	11c00003 */ 	beqz	$t6,.L0f029218
-/*  f02920c:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f029210:	10000003 */ 	b	.L0f029220
-/*  f029214:	ad2f0000 */ 	sw	$t7,0x0($t1)
-.L0f029218:
-/*  f029218:	1420fff8 */ 	bnez	$at,.L0f0291fc
-/*  f02921c:	2508005c */ 	addiu	$t0,$t0,0x5c
-.L0f029220:
-/*  f029220:	00003825 */ 	or	$a3,$zero,$zero
-/*  f029224:	00c04025 */ 	or	$t0,$a2,$zero
-/*  f029228:	24040730 */ 	addiu	$a0,$zero,0x730
-.L0f02922c:
-/*  f02922c:	8d180000 */ 	lw	$t8,0x0($t0)
-/*  f029230:	24e7005c */ 	addiu	$a3,$a3,0x5c
-/*  f029234:	14780003 */ 	bne	$v1,$t8,.L0f029244
-/*  f029238:	00000000 */ 	nop
-/*  f02923c:	10000003 */ 	b	.L0f02924c
-/*  f029240:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f029244:
-/*  f029244:	14e4fff9 */ 	bne	$a3,$a0,.L0f02922c
-/*  f029248:	2508005c */ 	addiu	$t0,$t0,0x5c
-.L0f02924c:
-/*  f02924c:	14400019 */ 	bnez	$v0,.L0f0292b4
-/*  f029250:	00000000 */ 	nop
-/*  f029254:	90620000 */ 	lbu	$v0,0x0($v1)
-/*  f029258:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f02925c:	10410003 */ 	beq	$v0,$at,.L0f02926c
-/*  f029260:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f029264:	54410007 */ 	bnel	$v0,$at,.L0f029284
-/*  f029268:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f02926c:
-/*  f02926c:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f029270:	94590192 */ 	lhu	$t9,0x192($v0)
-/*  f029274:	332afffd */ 	andi	$t2,$t9,0xfffd
-/*  f029278:	03e00008 */ 	jr	$ra
-/*  f02927c:	a44a0192 */ 	sh	$t2,0x192($v0)
-/*  f029280:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f029284:
-/*  f029284:	10410005 */ 	beq	$v0,$at,.L0f02929c
-/*  f029288:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f02928c:	10410003 */ 	beq	$v0,$at,.L0f02929c
-/*  f029290:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f029294:	14410007 */ 	bne	$v0,$at,.L0f0292b4
-/*  f029298:	00000000 */ 	nop
-.L0f02929c:
-/*  f02929c:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f0292a0:	3c01fffd */ 	lui	$at,0xfffd
-/*  f0292a4:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f0292a8:	8c4b0010 */ 	lw	$t3,0x10($v0)
-/*  f0292ac:	01616024 */ 	and	$t4,$t3,$at
-/*  f0292b0:	ac4c0010 */ 	sw	$t4,0x10($v0)
-.L0f0292b4:
-/*  f0292b4:	03e00008 */ 	jr	$ra
-/*  f0292b8:	00000000 */ 	nop
-);
+void func0f0291d4(struct var80062a8c *thing)
+{
+	s32 exists = false;
+	s32 i;
+	struct prop *prop = thing->prop;
+	thing->prop = NULL;
+
+	// Check if the var80062a8c array has any props in it
+	var80062a90 = false;
+
+	for (i = 0; i < 20; i++) {
+		if (var80062a8c[i].prop) {
+			var80062a90 = true;
+			break;
+		}
+	}
+
+	// Check if the passed prop exists in the array
+	for (i = 0; i < 20; i++) {
+		if (prop == var80062a8c[i].prop) {
+			exists = true;
+			break;
+		}
+	}
+
+	if (!exists) {
+		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+			struct chrdata *chr = prop->chr;
+			chr->hidden2 &= ~CHRH2FLAG_0002;
+		} else if (prop->type == PROPTYPE_OBJ
+				|| prop->type == PROPTYPE_WEAPON
+				|| prop->type == PROPTYPE_DOOR) {
+			struct defaultobj *obj = prop->obj;
+			obj->flags3 &= ~OBJFLAG3_00020000;
+		}
+	}
+}
 
 void func0f0292bc(struct prop *prop)
 {

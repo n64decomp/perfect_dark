@@ -393,6 +393,7 @@
 
 // chr->hidden2
 #define CHRH2FLAG_0001        0x0001
+#define CHRH2FLAG_0002        0x0002 // Equivalent to OBJFLAG3_00020000
 #define CHRH2FLAG_0040        0x0040
 #define CHRH2FLAG_0080        0x0080
 #define CHRH2FLAG_HEADSHOTTED 0x1000
@@ -2018,7 +2019,7 @@
 #define OBJFLAG3_00004000           0x00004000 // Not used in scripts
 #define OBJFLAG3_00008000           0x00008000 // Not used in scripts
 #define OBJFLAG3_00010000           0x00010000 // Editor: "Can be activated"
-#define OBJFLAG3_00020000           0x00020000 // Not used in scripts
+#define OBJFLAG3_00020000           0x00020000 // Equivalent to CHRH2FLAG_0002
 #define OBJFLAG3_00040000           0x00040000 // Not used in scripts
 #define OBJFLAG3_00080000           0x00080000 // Not used in scripts
 #define OBJFLAG3_00100000           0x00100000 // Ruins spikes
