@@ -63,20 +63,14 @@ glabel func0f1531b8
 /*  f1531d8:	ac24fad4 */ 	sw	$a0,%lo(var8007fad4)($at)
 );
 
-GLOBAL_ASM(
-glabel func0f1531dc
-/*  f1531dc:	10800005 */ 	beqz	$a0,.L0f1531f4
-/*  f1531e0:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f1531e4:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f1531e8:	3c018008 */ 	lui	$at,%hi(var8007fad0)
-/*  f1531ec:	03e00008 */ 	jr	$ra
-/*  f1531f0:	ac2efad0 */ 	sw	$t6,%lo(var8007fad0)($at)
-.L0f1531f4:
-/*  f1531f4:	3c018008 */ 	lui	$at,%hi(var8007fad0)
-/*  f1531f8:	ac2ffad0 */ 	sw	$t7,%lo(var8007fad0)($at)
-/*  f1531fc:	03e00008 */ 	jr	$ra
-/*  f153200:	00000000 */ 	nop
-);
+void func0f1531dc(bool arg0)
+{
+	if (arg0) {
+		var8007fad0 = 2;
+	} else {
+		var8007fad0 = 1;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f153204
