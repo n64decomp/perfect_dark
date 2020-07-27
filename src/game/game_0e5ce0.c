@@ -11165,11 +11165,10 @@ glabel func0f0ebec8
 /*  f0ec21c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0ec220
-/*  f0ec220:	03e00008 */ 	jr	$ra
-/*  f0ec224:	a4800000 */ 	sh	$zero,0x0($a0)
-);
+void func0f0ec220(u16 *arg0)
+{
+	*arg0 = 0;
+}
 
 GLOBAL_ASM(
 glabel menuRenderItemCarousel
