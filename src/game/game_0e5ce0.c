@@ -13603,11 +13603,10 @@ glabel func0f0ee574
 /*  f0ee63c:	24020001 */ 	addiu	$v0,$zero,0x1
 );
 
-GLOBAL_ASM(
-glabel func0f0ee640
-/*  f0ee640:	03e00008 */ 	jr	$ra
-/*  f0ee644:	a4800000 */ 	sh	$zero,0x0($a0)
-);
+void func0f0ee640(u16 *arg0)
+{
+	*arg0 = 0;
+}
 
 GLOBAL_ASM(
 glabel menuRenderItemPlayerStats
@@ -15878,7 +15877,7 @@ glabel var7f1b1f48
 /*  f0f085c:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-void func0f0f0860(struct menuitem *item, u32 *arg1)
+void func0f0f0860(struct menuitem *item, u16 *arg1)
 {
 	switch (item->type) {
 	case MENUITEMTYPE_CUSTOM:
