@@ -651,7 +651,7 @@ glabel mainTick
 /*     dc0c:	2401005a */ 	addiu	$at,$zero,0x5a
 /*     dc10:	10810016 */ 	beq	$a0,$at,.L0000dc6c
 /*     dc14:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
-/*     dc18:	0fc06c55 */ 	jal	func0f01b154
+/*     dc18:	0fc06c55 */ 	jal	titleSetNextStage
 /*     dc1c:	00000000 */ 	nop
 /*     dc20:	3c0c8006 */ 	lui	$t4,%hi(g_StageNum)
 /*     dc24:	8d8cd9b4 */ 	lw	$t4,%lo(g_StageNum)($t4)

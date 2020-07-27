@@ -133,7 +133,7 @@ glabel func0f187864
 /*  f187900:	00000000 */ 	nop
 /*  f187904:	00402025 */ 	or	$a0,$v0,$zero
 .L0f187908:
-/*  f187908:	0fc06c55 */ 	jal	func0f01b154
+/*  f187908:	0fc06c55 */ 	jal	titleSetNextStage
 /*  f18790c:	afa40024 */ 	sw	$a0,0x24($sp)
 /*  f187910:	0c003a57 */ 	jal	func0000e95c
 /*  f187914:	8fa40024 */ 	lw	$a0,0x24($sp)

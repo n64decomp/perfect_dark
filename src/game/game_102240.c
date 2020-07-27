@@ -691,7 +691,7 @@ glabel menuhandlerAcceptMission
 /*  f103434:	00000000 */ 	nop
 /*  f103438:	ac43046c */ 	sw	$v1,0x46c($v0)
 .START:
-/*  f10343c:	0fc06c55 */ 	jal	func0f01b154
+/*  f10343c:	0fc06c55 */ 	jal	titleSetNextStage
 /*  f103440:	00000000 */ 	nop
 /*  f103444:	3c06800a */ 	lui	$a2,%hi(g_MissionConfig)
 /*  f103448:	24c6dfe8 */ 	addiu	$a2,$a2,%lo(g_MissionConfig)
@@ -783,7 +783,7 @@ glabel menuhandlerAcceptMission
 //			g_Vars.restartlevel = true;
 //		}
 //
-//		func0f01b154(g_MissionConfig.stagenum);
+//		titleSetNextStage(g_MissionConfig.stagenum);
 //
 //		if (g_MissionConfig.iscoop) {
 //			if (g_Vars.numaibuddies == 0) {

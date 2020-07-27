@@ -63,12 +63,10 @@ glabel func0f01b148
 /*  f01b150:	ac2424e0 */ 	sw	$a0,%lo(var800624e0)($at)
 );
 
-GLOBAL_ASM(
-glabel func0f01b154
-/*  f01b154:	3c018006 */ 	lui	$at,%hi(g_TitleNextStage)
-/*  f01b158:	03e00008 */ 	jr	$ra
-/*  f01b15c:	ac2424e4 */ 	sw	$a0,%lo(g_TitleNextStage)($at)
-);
+void titleSetNextStage(s32 stagenum)
+{
+	g_TitleNextStage = stagenum;
+}
 
 GLOBAL_ASM(
 glabel activemenuTick

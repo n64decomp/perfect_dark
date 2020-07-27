@@ -488,7 +488,7 @@ void endscreenHandleContinue(s32 context)
 						g_MissionConfig.stageindex++;
 						g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
 
-						func0f01b154(g_MissionConfig.stagenum);
+						titleSetNextStage(g_MissionConfig.stagenum);
 
 						if (g_MissionConfig.iscoop) {
 							if (g_Vars.numaibuddies == 0) {
@@ -517,7 +517,7 @@ void endscreenHandleContinue(s32 context)
 				} else if (g_Vars.stagenum == STAGE_SKEDARRUINS) {
 					// Commit to starting credits
 					g_MissionConfig.stagenum = STAGE_CREDITS;
-					func0f01b154(g_MissionConfig.stagenum);
+					titleSetNextStage(g_MissionConfig.stagenum);
 					setDifficulty(g_MissionConfig.difficulty);
 					titleSetNextMode(TITLEMODE_SKIP);
 					func0000e95c(g_MissionConfig.stagenum);
