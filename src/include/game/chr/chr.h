@@ -49,7 +49,7 @@ u32 func0f028d50(void);
 u32 func0f028e18(void);
 u32 func0f028e6c(void);
 u32 func0f028f7c(void);
-u32 func0f0291d4(void);
+void func0f0291d4(struct var80062a8c *thing);
 void func0f0292bc(struct prop *prop);
 u32 func0f02932c(void);
 u32 func0f0293ec(void);

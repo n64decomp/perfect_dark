@@ -6268,4 +6268,30 @@ struct rend_vidat {
 	/*0x28*/ u32 unk28;
 };
 
+struct var80062a8c {
+	/*0x00*/ struct prop *prop;
+	/*0x04*/ u32 unk004;
+	/*0x08*/ u32 unk008;
+	/*0x0c*/ u32 unk00c;
+	/*0x10*/ u32 unk010;
+	/*0x14*/ u32 unk014;
+	/*0x18*/ u32 unk018;
+	/*0x1c*/ u32 unk01c;
+	/*0x20*/ u32 unk020;
+	/*0x24*/ u32 unk024;
+	/*0x28*/ u32 unk028;
+	/*0x2c*/ u32 unk02c;
+	/*0x30*/ u32 unk030;
+	/*0x34*/ u32 unk034;
+	/*0x38*/ u32 unk038;
+	/*0x3c*/ u32 unk03c;
+	/*0x40*/ u32 unk040;
+	/*0x44*/ u32 unk044;
+	/*0x48*/ u32 unk048;
+	/*0x4c*/ u32 unk04c;
+	/*0x50*/ u32 unk050;
+	/*0x54*/ u32 unk054;
+	/*0x58*/ u32 unk058;
+};
+
 #endif

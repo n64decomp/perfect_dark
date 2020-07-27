@@ -102,7 +102,7 @@ extern u32 var800629fc;
 extern u32 var80062a3c;
 extern u8 var80062a48[];
 extern u32 var80062a4c;
-extern u32 var80062a8c;
+extern struct var80062a8c *var80062a8c;
 extern u32 var80062a90;
 extern u32 var80062a94;
 extern u32 var80062aa0;
