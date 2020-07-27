@@ -2240,18 +2240,10 @@ glabel func0f1895e8
 /*  f189618:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel mpGetWeaponSet
-/*  f18961c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f189620:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f189624:	3c048008 */ 	lui	$a0,%hi(var800874c8)
-/*  f189628:	0fc623b5 */ 	jal	mpCountWeaponSetThing
-/*  f18962c:	8c8474c8 */ 	lw	$a0,%lo(var800874c8)($a0)
-/*  f189630:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f189634:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f189638:	03e00008 */ 	jr	$ra
-/*  f18963c:	00000000 */ 	nop
-);
+s32 mpGetWeaponSet(void)
+{
+	return mpCountWeaponSetThing(var800874c8);
+}
 
 bool mpIsPaused(void)
 {
