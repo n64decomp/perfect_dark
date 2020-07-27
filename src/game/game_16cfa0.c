@@ -778,28 +778,16 @@ glabel func0f16d91c
 /*  f16d9a4:	ac3840c0 */ 	sw	$t8,%lo(var800840c0)($at)
 );
 
-GLOBAL_ASM(
-glabel func0f16d9a8
-/*  f16d9a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16d9ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16d9b0:	3c01800b */ 	lui	$at,%hi(var800aa5d0)
-/*  f16d9b4:	44806000 */ 	mtc1	$zero,$f12
-/*  f16d9b8:	0fc5b52e */ 	jal	func0f16d4b8
-/*  f16d9bc:	ac24a5d0 */ 	sw	$a0,%lo(var800aa5d0)($at)
-/*  f16d9c0:	3c04800b */ 	lui	$a0,%hi(var800aa5d0)
-/*  f16d9c4:	0fc5db36 */ 	jal	func0f176cd8
-/*  f16d9c8:	8c84a5d0 */ 	lw	$a0,%lo(var800aa5d0)($a0)
-/*  f16d9cc:	04420005 */ 	bltzl	$v0,.L0f16d9e4
-/*  f16d9d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16d9d4:	44806000 */ 	mtc1	$zero,$f12
-/*  f16d9d8:	0fc5b552 */ 	jal	func0f16d548
-/*  f16d9dc:	00000000 */ 	nop
-/*  f16d9e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f16d9e4:
-/*  f16d9e4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16d9e8:	03e00008 */ 	jr	$ra
-/*  f16d9ec:	00000000 */ 	nop
-);
+void func0f16d9a8(s32 stagenum)
+{
+	var800aa5d0 = stagenum;
+
+	func0f16d4b8(0);
+
+	if (func0f176cd8(var800aa5d0) >= 0) {
+		func0f16d548(0);
+	}
+}
 
 void func0f16d9f0(s32 stagenum)
 {
