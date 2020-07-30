@@ -44,7 +44,7 @@ u32 func0f0657d8(void);
 bool arrayIntersects(s16 *a, s16 *b);
 u32 func0f0658e8(void);
 u32 func0f06593c(void);
-u32 func0f0659e4(void);
+void func0f0659e4(struct prop *prop, s16 room);
 void func0f065ae0(struct prop *prop, s16 room);
 void func0f065c44(struct prop *prop);
 void func0f065cb0(struct prop *prop);
