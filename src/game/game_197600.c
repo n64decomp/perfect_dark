@@ -409,41 +409,18 @@ void mpAibotApplyCommand(struct chrdata *chr, u32 command)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f197c00
-/*  f197c00:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f197c04:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f197c08:	10800015 */ 	beqz	$a0,.L0f197c60
-/*  f197c0c:	00803025 */ 	or	$a2,$a0,$zero
-/*  f197c10:	8c8202d4 */ 	lw	$v0,0x2d4($a0)
-/*  f197c14:	50400013 */ 	beqzl	$v0,.L0f197c64
-/*  f197c18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f197c1c:	804e0018 */ 	lb	$t6,0x18($v0)
-/*  f197c20:	00001825 */ 	or	$v1,$zero,$zero
-/*  f197c24:	00002025 */ 	or	$a0,$zero,$zero
-/*  f197c28:	19c0000b */ 	blez	$t6,.L0f197c58
-/*  f197c2c:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f197c30:	8c4f0014 */ 	lw	$t7,0x14($v0)
-.L0f197c34:
-/*  f197c34:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f197c38:	01e4c021 */ 	addu	$t8,$t7,$a0
-/*  f197c3c:	af050000 */ 	sw	$a1,0x0($t8)
-/*  f197c40:	8cc202d4 */ 	lw	$v0,0x2d4($a2)
-/*  f197c44:	24840014 */ 	addiu	$a0,$a0,0x14
-/*  f197c48:	80590018 */ 	lb	$t9,0x18($v0)
-/*  f197c4c:	0079082a */ 	slt	$at,$v1,$t9
-/*  f197c50:	5420fff8 */ 	bnezl	$at,.L0f197c34
-/*  f197c54:	8c4f0014 */ 	lw	$t7,0x14($v0)
-.L0f197c58:
-/*  f197c58:	0fc47bba */ 	jal	dprint
-/*  f197c5c:	00000000 */ 	nop
-.L0f197c60:
-/*  f197c60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f197c64:
-/*  f197c64:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f197c68:	03e00008 */ 	jr	$ra
-/*  f197c6c:	00000000 */ 	nop
-);
+void func0f197c00(struct chrdata *chr)
+{
+	if (chr && chr->aibot) {
+		s32 i = 0;
+
+		for (i = 0; i < chr->aibot->unk018; i++) {
+			chr->aibot->unk014[i].unk00 = -1;
+		}
+
+		dprint();
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f197c70

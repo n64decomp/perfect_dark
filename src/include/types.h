@@ -337,6 +337,14 @@ struct waypoint {
 	s32 padnum;
 };
 
+struct aibot014 {
+	s32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+};
+
 struct aibot {
 	/*0x000*/ u8 unk000;
 	/*0x004*/ struct mpsim *simulant;
@@ -344,8 +352,8 @@ struct aibot {
 	/*0x008*/ s16 followingplayernum;
 	/*0x00c*/ s16 dangerouspropnum; // index into g_DangerousProps
 	/*0x010*/ struct prop *prop;
-	/*0x014*/ u32 unk014;
-	/*0x018*/ u32 unk018;
+	/*0x014*/ struct aibot014 *unk014;
+	/*0x018*/ s8 unk018; // count of unk014
 	/*0x01c*/ s32 *ammoheld;
 	/*0x020*/ u32 weaponnum;
 	/*0x024*/ s32 unk024[2]; // probably current clip count or reserve count
