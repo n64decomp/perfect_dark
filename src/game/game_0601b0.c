@@ -6661,40 +6661,18 @@ glabel func0f065dd8
 /*  f065df8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f065dfc
-/*  f065dfc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f065e00:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*  f065e04:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f065e08:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f065e0c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f065e10:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f065e14:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f065e18:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f065e1c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f065e20:	0fc19747 */ 	jal	func0f065d1c
-/*  f065e24:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f065e28:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f065e2c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f065e30:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f065e34:	84f80000 */ 	lh	$t8,0x0($a3)
-/*  f065e38:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f065e3c:	5701000a */ 	bnel	$t8,$at,.L0f065e68
-/*  f065e40:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f065e44:	0fc197a6 */ 	jal	func0f065e98
-/*  f065e48:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f065e4c:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f065e50:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f065e54:	50a00004 */ 	beqzl	$a1,.L0f065e68
-/*  f065e58:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f065e5c:	0fc195f6 */ 	jal	func0f0657d8
-/*  f065e60:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f065e64:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f065e68:
-/*  f065e68:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f065e6c:	03e00008 */ 	jr	$ra
-/*  f065e70:	00000000 */ 	nop
-);
+void func0f065dfc(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms, u32 arg4, u32 arg5)
+{
+	func0f065d1c(pos, rooms, newpos, newrooms, arg4, arg5);
+
+	if (newrooms[0] == -1) {
+		func0f065e98(pos, rooms, newpos, newrooms);
+
+		if (arg4) {
+			func0f0657d8(newrooms, arg4, arg5);
+		}
+	}
+}
 
 void func0f065e74(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms)
 {
