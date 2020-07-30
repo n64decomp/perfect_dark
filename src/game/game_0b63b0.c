@@ -13473,22 +13473,14 @@ glabel func0f0c1840
 /*  f0c1ba0:	27bd00c0 */ 	addiu	$sp,$sp,0xc0
 );
 
-GLOBAL_ASM(
-glabel func0f0c1ba4
-/*  f0c1ba4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0c1ba8:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*  f0c1bac:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0c1bb0:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f0c1bb4:	27b80024 */ 	addiu	$t8,$sp,0x24
-/*  f0c1bb8:	a7af0026 */ 	sh	$t7,0x26($sp)
-/*  f0c1bbc:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f0c1bc0:	0fc30610 */ 	jal	func0f0c1840
-/*  f0c1bc4:	a7ae0024 */ 	sh	$t6,0x24($sp)
-/*  f0c1bc8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0c1bcc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0c1bd0:	03e00008 */ 	jr	$ra
-/*  f0c1bd4:	00000000 */ 	nop
-);
+void func0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struct coord *memcampos, s32 memcamroom)
+{
+	s16 rooms[2];
+	rooms[0] = memcamroom;
+	rooms[1] = -1;
+
+	func0f0c1840(pos, up, look, memcampos, rooms);
+}
 
 void func0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look)
 {

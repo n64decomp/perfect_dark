@@ -70,7 +70,7 @@ void currentPlayerDieByShooter(u32 shooter, bool force);
 u32 func0f0c160c(void);
 u32 func0f0c16f4(void);
 void func0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, s16 *rooms);
-void func0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struct coord *memcampos, s16 memcamroom);
+void func0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struct coord *memcampos, s32 memcamroom);
 void func0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look);
 void func0f0c1d20(void);
 void func0f0c1e54(struct prop *prop, bool enable);
