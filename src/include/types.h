@@ -6307,4 +6307,11 @@ struct healthdamagetype {
 	s32 unk10;
 };
 
+struct var8009d0b0 {
+	u32 unk00;
+	u16 unk04;
+	struct var8009d0b0 *next;
+	struct defaultobj *obj;
+};
+
 #endif

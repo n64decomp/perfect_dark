@@ -207,33 +207,22 @@ struct tag *tagFindById(s32 tag_id)
 	return tag;
 }
 
-GLOBAL_ASM(
-glabel func0f095560
-/*  f095560:	3c03800a */ 	lui	$v1,%hi(var8009d0b0)
-/*  f095564:	1080000f */ 	beqz	$a0,.L0f0955a4
-/*  f095568:	8c63d0b0 */ 	lw	$v1,%lo(var8009d0b0)($v1)
-/*  f09556c:	8c8e0040 */ 	lw	$t6,0x40($a0)
-/*  f095570:	31cf0010 */ 	andi	$t7,$t6,0x10
-/*  f095574:	51e0000c */ 	beqzl	$t7,.L0f0955a8
-/*  f095578:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f09557c:	5060000a */ 	beqzl	$v1,.L0f0955a8
-/*  f095580:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f095584:	8c78000c */ 	lw	$t8,0xc($v1)
-.L0f095588:
-/*  f095588:	54980004 */ 	bnel	$a0,$t8,.L0f09559c
-/*  f09558c:	8c630008 */ 	lw	$v1,0x8($v1)
-/*  f095590:	03e00008 */ 	jr	$ra
-/*  f095594:	94620004 */ 	lhu	$v0,0x4($v1)
-/*  f095598:	8c630008 */ 	lw	$v1,0x8($v1)
-.L0f09559c:
-/*  f09559c:	5460fffa */ 	bnezl	$v1,.L0f095588
-/*  f0955a0:	8c78000c */ 	lw	$t8,0xc($v1)
-.L0f0955a4:
-/*  f0955a4:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f0955a8:
-/*  f0955a8:	03e00008 */ 	jr	$ra
-/*  f0955ac:	00000000 */ 	nop
-);
+s32 func0f095560(struct defaultobj *obj)
+{
+	struct var8009d0b0 *thing = var8009d0b0;
+
+	if (obj && (obj->hidden & OBJHFLAG_00000010)) {
+		while (thing) {
+			if (obj == thing->obj) {
+				return thing->unk04;
+			}
+
+			thing = thing->next;
+		}
+	}
+
+	return -1;
+}
 
 struct defaultobj *objFindByTagId(s32 tag_id)
 {
@@ -244,7 +233,7 @@ struct defaultobj *objFindByTagId(s32 tag_id)
 		obj = tag->obj;
 	}
 
-	if (obj && (obj->hidden & 0x10) == 0) {
+	if (obj && (obj->hidden & OBJHFLAG_00000010) == 0) {
 		obj = NULL;
 	}
 
