@@ -1045,17 +1045,17 @@ void scenarioCtcInit(void)
 
 	for (i = 0; i < 4; i++) {
 		s32 j;
-		g_ScenarioData.ctc.unk18[i].unk00 = i;
-		g_ScenarioData.ctc.unk18[i].unk02 = 0;
+		g_ScenarioData.ctc.spawnpadsperteam[i].teamindex = i;
+		g_ScenarioData.ctc.spawnpadsperteam[i].numspawnpads = 0;
 
 		for (j = 0; j < 6; j++) {
-			g_ScenarioData.ctc.unk18[i].unk04[j] = -1;
+			g_ScenarioData.ctc.spawnpadsperteam[i].spawnpads[j] = -1;
 		}
 	}
 
 	for (i = 0; i != 4; i++) {
 		g_ScenarioData.ctc.unk00[i] = 0;
-		g_ScenarioData.ctc.unk08[i] = -1;
+		g_ScenarioData.ctc.teamindexes[i] = -1;
 	}
 
 	for (k = 0; k < MAX_MPCHRS; k++) {
@@ -1669,15 +1669,15 @@ glabel func0f181800
 /*  f181898:	00000000 */ 	nop
 );
 
-bool scenarioCtcCallback2c(f32 arg0, struct coord *pos, s16 *arg2, struct prop *prop, f32 *arg4)
+bool scenarioCtcCallback2c(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4)
 {
 	struct chrdata *chr = prop->chr;
 	s32 index = teamGetIndex(chr->team);
 
-	if (g_ScenarioData.ctc.unk18[g_ScenarioData.ctc.unk08[index]].unk02 > 0) {
-		*arg4 = func0f0b69d0(arg0, pos, arg2, prop,
-				&g_ScenarioData.ctc.unk18[g_ScenarioData.ctc.unk08[index]].unk04[0],
-				g_ScenarioData.ctc.unk18[g_ScenarioData.ctc.unk08[index]].unk02);
+	if (g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[index]].numspawnpads > 0) {
+		*arg4 = func0f0b69d0(arg0, pos, rooms, prop,
+				g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[index]].spawnpads,
+				g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[index]].numspawnpads);
 		return true;
 	}
 
@@ -1694,7 +1694,7 @@ bool scenarioCtcIsRoomHighlighted(s16 room)
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		if (g_ScenarioData.ctc.baserooms[i] == room && g_ScenarioData.ctc.unk08[i] != -1) {
+		if (g_ScenarioData.ctc.baserooms[i] == room && g_ScenarioData.ctc.teamindexes[i] != -1) {
 			return true;
 		}
 	}
@@ -6289,16 +6289,16 @@ glabel var7f1b89b8
 /*  f186178:	00000000 */ 	nop
 );
 
-f32 scenarioCallback2c(f32 arg0, struct coord *pos, s16 *arg2, struct prop *prop)
+f32 scenarioCallback2c(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop)
 {
 	f32 result;
 
 	if (g_Vars.normmplayerisrunning && g_MpScenarios[g_MpSetup.scenario].unk2c &&
-			g_MpScenarios[g_MpSetup.scenario].unk2c(arg0, pos, arg2, prop, &result)) {
+			g_MpScenarios[g_MpSetup.scenario].unk2c(arg0, pos, rooms, prop, &result)) {
 		return result;
 	}
 
-	return func0f0b72a8(arg0, pos, arg2, prop);
+	return func0f0b72a8(arg0, pos, rooms, prop);
 }
 
 GLOBAL_ASM(

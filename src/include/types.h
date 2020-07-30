@@ -4315,7 +4315,7 @@ struct mpscenario {
 	Gfx *(*radarfunc)(Gfx *gdl);
 	bool (*radar2func)(Gfx **gdl, struct prop *prop);
 	bool (*highlightfunc)(struct prop *prop, u32 *colour);
-	bool (*unk2c)(f32 arg0, struct coord *pos, s16 *arg2, struct prop *prop, f32 *arg4);
+	bool (*unk2c)(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4);
 	s32 (*maxteamsfunc)(void);
 	bool (*isroomhighlightedfunc)(s16 room);
 	void (*unk38)(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
@@ -4690,17 +4690,17 @@ struct scenariodata_koh {
 	/*0x800ac148*/ f32 unk38;
 };
 
-struct ctcthing {
-	s16 unk00;
-	s16 unk02;
-	s16 unk04[6];
+struct ctcspawnpadsperteam {
+	s16 teamindex;
+	s16 numspawnpads;
+	s16 spawnpads[6];
 };
 
 struct scenariodata_ctc {
-	/*0x00*/ s16 unk00[4];
-	/*0x08*/ s16 unk08[4];
+	/*0x00*/ s16 unk00[4]; // teams enabled?
+	/*0x08*/ s16 teamindexes[4];
 	/*0x10*/ s16 baserooms[4];
-	/*0x18*/ struct ctcthing unk18[4];
+	/*0x18*/ struct ctcspawnpadsperteam spawnpadsperteam[4];
 	/*0x58*/ struct prop *tokens[4];
 };
 

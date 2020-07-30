@@ -23,7 +23,7 @@ void scenarioCtcCallback14();
 void scenarioCtcKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3);
 Gfx *scenarioCtcRadar(Gfx *gdl);
 bool scenarioCtcRadar2(Gfx **gdl, struct prop *prop);
-bool scenarioCtcCallback2c(f32 arg0, struct coord *pos, s16 *arg2, struct prop *prop, f32 *arg4);
+bool scenarioCtcCallback2c(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4);
 s32 scenarioCtcGetMaxTeams(void);
 bool scenarioCtcIsRoomHighlighted(s16 room);
 s32 menuhandlerMpHillTime(u32 operation, struct menuitem *item, struct numandtext *value);
@@ -54,7 +54,7 @@ void scenarioCallback10(void);
 void scenarioCallback14(struct chrdata *chr);
 Gfx *scenarioRadar(Gfx *gdl);
 bool scenarioRadar2(Gfx **gdl, struct prop *prop);
-f32 scenarioCallback2c(f32 arg0, struct coord *pos, s16 *arg2, struct prop *prop);
+f32 scenarioCallback2c(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop);
 s32 scenarioGetMaxTeams(void);
 void scenarioCallback38(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 

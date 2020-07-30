@@ -1322,22 +1322,10 @@ glabel func0f0b69d0
 /*  f0b72a4:	46001006 */ 	mov.s	$f0,$f2
 );
 
-GLOBAL_ASM(
-glabel func0f0b72a8
-/*  f0b72a8:	3c0f800a */ 	lui	$t7,%hi(g_NumSpawnPoints)
-/*  f0b72ac:	8defde68 */ 	lw	$t7,%lo(g_NumSpawnPoints)($t7)
-/*  f0b72b0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b72b4:	3c0e800a */ 	lui	$t6,%hi(g_SpawnPoints)
-/*  f0b72b8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0b72bc:	25cede38 */ 	addiu	$t6,$t6,%lo(g_SpawnPoints)
-/*  f0b72c0:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0b72c4:	0fc2da74 */ 	jal	func0f0b69d0
-/*  f0b72c8:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0b72cc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0b72d0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0b72d4:	03e00008 */ 	jr	$ra
-/*  f0b72d8:	00000000 */ 	nop
-);
+f32 func0f0b72a8(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop)
+{
+	return func0f0b69d0(arg0, pos, rooms, prop, g_SpawnPoints, g_NumSpawnPoints);
+}
 
 GLOBAL_ASM(
 glabel func0f0b72dc
