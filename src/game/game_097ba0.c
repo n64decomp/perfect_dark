@@ -11304,24 +11304,14 @@ glabel func0f0a0bec
 /*  f0a0c04:	e4a60000 */ 	swc1	$f6,0x0($a1)
 );
 
-GLOBAL_ASM(
-glabel func0f0a0c08
-/*  f0a0c08:	44800000 */ 	mtc1	$zero,$f0
-/*  f0a0c0c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a0c10:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a0c14:	e4800000 */ 	swc1	$f0,0x0($a0)
-/*  f0a0c18:	e4800004 */ 	swc1	$f0,0x4($a0)
-/*  f0a0c1c:	e4800008 */ 	swc1	$f0,0x8($a0)
-/*  f0a0c20:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x284)
-/*  f0a0c24:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
-/*  f0a0c28:	3c063f80 */ 	lui	$a2,0x3f80
-/*  f0a0c2c:	0fc2d30f */ 	jal	func0f0b4c3c
-/*  f0a0c30:	24841660 */ 	addiu	$a0,$a0,5728
-/*  f0a0c34:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a0c38:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0a0c3c:	03e00008 */ 	jr	$ra
-/*  f0a0c40:	00000000 */ 	nop
-);
+void func0f0a0c08(struct coord *arg0, struct coord *arg1)
+{
+	arg0->x = 0;
+	arg0->y = 0;
+	arg0->z = 0;
+
+	func0f0b4c3c(g_Vars.currentplayer->crosspos, arg1, 1);
+}
 
 GLOBAL_ASM(
 glabel func0f0a0c44

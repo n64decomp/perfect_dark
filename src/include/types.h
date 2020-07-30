@@ -2363,8 +2363,7 @@ struct player {
 	/*0x1620*/ u32 aimtype;
 	/*0x1624*/ struct threat lookingatprop;
 	/*0x1630*/ struct threat cmpfollowprops[4];
-	/*0x1660*/ u32 unk1660;
-	/*0x1664*/ u32 unk1664;
+	/*0x1660*/ f32 crosspos[2];
 	/*0x1668*/ u32 unk1668;
 	/*0x166c*/ u32 unk166c;
 	/*0x1670*/ u32 unk1670;
