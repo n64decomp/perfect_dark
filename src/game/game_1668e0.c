@@ -376,17 +376,10 @@ glabel func0f166d7c
 /*  f166dcc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f166dd0
-/*  f166dd0:	3c0f800a */ 	lui	$t7,%hi(var800a4cc4)
-/*  f166dd4:	8def4cc4 */ 	lw	$t7,%lo(var800a4cc4)($t7)
-/*  f166dd8:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f166ddc:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f166de0:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f166de4:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f166de8:	03e00008 */ 	jr	$ra
-/*  f166dec:	24420004 */ 	addiu	$v0,$v0,0x4
-);
+struct coord *func0f166dd0(s32 room)
+{
+	return &var800a4cc4[room].pos;
+}
 
 void func0f166df0(s32 room, struct coord *globaldrawworldoffset)
 {
