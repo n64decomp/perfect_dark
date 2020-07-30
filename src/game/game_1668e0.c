@@ -388,26 +388,9 @@ glabel func0f166dd0
 /*  f166dec:	24420004 */ 	addiu	$v0,$v0,0x4
 );
 
-GLOBAL_ASM(
-glabel func0f166df0
-/*  f166df0:	3c03800a */ 	lui	$v1,%hi(var800a4cc4)
-/*  f166df4:	24634cc4 */ 	addiu	$v1,$v1,%lo(var800a4cc4)
-/*  f166df8:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f166dfc:	00041080 */ 	sll	$v0,$a0,0x2
-/*  f166e00:	00441021 */ 	addu	$v0,$v0,$a0
-/*  f166e04:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f166e08:	01c27821 */ 	addu	$t7,$t6,$v0
-/*  f166e0c:	c5e40004 */ 	lwc1	$f4,0x4($t7)
-/*  f166e10:	e4a40000 */ 	swc1	$f4,0x0($a1)
-/*  f166e14:	8c780000 */ 	lw	$t8,0x0($v1)
-/*  f166e18:	0302c821 */ 	addu	$t9,$t8,$v0
-/*  f166e1c:	c7260008 */ 	lwc1	$f6,0x8($t9)
-/*  f166e20:	e4a60004 */ 	swc1	$f6,0x4($a1)
-/*  f166e24:	8c680000 */ 	lw	$t0,0x0($v1)
-/*  f166e28:	01024821 */ 	addu	$t1,$t0,$v0
-/*  f166e2c:	c528000c */ 	lwc1	$f8,0xc($t1)
-/*  f166e30:	03e00008 */ 	jr	$ra
-/*  f166e34:	e4a80008 */ 	swc1	$f8,0x8($a1)
-/*  f166e38:	00000000 */ 	nop
-/*  f166e3c:	00000000 */ 	nop
-);
+void func0f166df0(s32 room, struct coord *globaldrawworldoffset)
+{
+	globaldrawworldoffset->x = var800a4cc4[room].pos.x;
+	globaldrawworldoffset->y = var800a4cc4[room].pos.y;
+	globaldrawworldoffset->z = var800a4cc4[room].pos.z;
+}

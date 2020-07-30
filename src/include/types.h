@@ -6293,4 +6293,10 @@ struct var80062a8c {
 	/*0x58*/ u32 unk058;
 };
 
+struct var800a4cc4 {
+	u32 unk00;
+	struct coord pos;
+	u32 unk10;
+};
+
 #endif
