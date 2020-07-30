@@ -13372,7 +13372,7 @@ glabel var7f1b2afc
 .L0f0fc118:
 /*  f0fc118:	0fc35272 */ 	jal	func0f0d49c8
 /*  f0fc11c:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f0fc120:	0fc2efde */ 	jal	func0f0bbf78
+/*  f0fc120:	0fc2efde */ 	jal	hudRenderHealthBar
 /*  f0fc124:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0fc128:	0fc351e7 */ 	jal	func0f0d479c
 /*  f0fc12c:	00402025 */ 	or	$a0,$v0,$zero

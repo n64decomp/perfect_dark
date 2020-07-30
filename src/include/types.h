@@ -2038,8 +2038,8 @@ struct player {
 	/*0x00ec*/ f32 unk00ec;
 	/*0x00f0*/ f32 unk00f0;
 	/*0x00f4*/ u32 unk00f4;
-	/*0x00f8*/ u32 unk00f8;
-	/*0x00fc*/ u32 unk00fc;
+	/*0x00f8*/ f32 healthshowtime;
+	/*0x00fc*/ u32 healthshowmode;
 	/*0x0100*/ bool docentreupdown;
 	/*0x0104*/ u32 unk0104;
 	/*0x0108*/ bool prevupdown;
@@ -2465,7 +2465,7 @@ struct player {
 	/*0x1920*/ u8 buthistindex;
 	/*0x1921*/ u8 buthistlen;
 	/*0x1922*/ u8 invincible;
-	/*0x1924*/ u32 healthdamagetype;
+	/*0x1924*/ u32 healthdamagetype; // 0-7, decreases based on amount of damage taken
 	/*0x1928*/ f32 bondleandown;
 	/*0x192c*/ bool mpmenuon;
 	/*0x1930*/ u32 mpmenumode;
@@ -6297,6 +6297,14 @@ struct var800a4cc4 {
 	u32 unk00;
 	struct coord pos;
 	u32 unk10;
+};
+
+struct healthdamagetype {
+	s32 openduration;
+	s32 unk04;
+	s32 unk08;
+	s32 unk0c;
+	s32 unk10;
 };
 
 #endif

@@ -677,6 +677,13 @@
 #define HANGARBIO_MAIANVESSEL    21
 #define HANGARBIO_SKEDARSHUTTLE  22
 
+#define HEALTHSHOWMODE_HIDDEN   0 // health bar not visible
+#define HEALTHSHOWMODE_OPENING  1 // height expanding
+#define HEALTHSHOWMODE_PREVIOUS 2 // full height, showing previous health amount
+#define HEALTHSHOWMODE_UPDATING 3 // full height, transitioning from previous amount to current amount
+#define HEALTHSHOWMODE_CURRENT  4 // full height, showing current amount
+#define HEALTHSHOWMODE_CLOSING  5 // height collapsing
+
 #define HUDMSGFLAG_ONLYIFALIVE 0x1
 #define HUDMSGFLAG_2           0x2
 #define HUDMSGFLAG_4           0x4

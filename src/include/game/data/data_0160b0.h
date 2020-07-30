@@ -81,7 +81,7 @@ extern u32 var80070830;
 extern u32 var8007083c;
 extern u32 g_PauseMode;
 extern u32 var80070844;
-extern u32 var80070924;
+extern struct healthdamagetype g_HealthDamageTypes[];
 extern u32 var800709c4;
 extern u32 var800709d0;
 extern u32 var800709dc;

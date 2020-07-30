@@ -493,7 +493,7 @@ glabel func0f0d5d8c
 /*  f0d6000:	00000000 */ 	nop
 /*  f0d6004:	46064102 */ 	mul.s	$f4,$f8,$f6
 /*  f0d6008:	e7a40134 */ 	swc1	$f4,0x134($sp)
-/*  f0d600c:	0fc305bd */ 	jal	func0f0c16f4
+/*  f0d600c:	0fc305bd */ 	jal	currentPlayerGetHealthBarHeightFrac
 /*  f0d6010:	e7aa0138 */ 	swc1	$f10,0x138($sp)
 /*  f0d6014:	1000001c */ 	b	.L0f0d6088
 /*  f0d6018:	e7a0012c */ 	swc1	$f0,0x12c($sp)

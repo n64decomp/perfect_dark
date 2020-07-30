@@ -3791,11 +3791,11 @@ glabel var7f1adef4
 /*  f0dfd84:	8e0e01b4 */ 	lw	$t6,0x1b4($s0)
 /*  f0dfd88:	55c10011 */ 	bnel	$t6,$at,.L0f0dfdd0
 /*  f0dfd8c:	8e0901b4 */ 	lw	$t1,0x1b4($s0)
-/*  f0dfd90:	0fc305f3 */ 	jal	currentPlayerGet00fc
+/*  f0dfd90:	0fc305f3 */ 	jal	currentPlayerIsHealthVisible
 /*  f0dfd94:	00000000 */ 	nop
 /*  f0dfd98:	5040000d */ 	beqzl	$v0,.L0f0dfdd0
 /*  f0dfd9c:	8e0901b4 */ 	lw	$t1,0x1b4($s0)
-/*  f0dfda0:	0fc305bd */ 	jal	func0f0c16f4
+/*  f0dfda0:	0fc305bd */ 	jal	currentPlayerGetHealthBarHeightFrac
 /*  f0dfda4:	00000000 */ 	nop
 /*  f0dfda8:	3c014180 */ 	lui	$at,0x4180
 /*  f0dfdac:	44818000 */ 	mtc1	$at,$f16
