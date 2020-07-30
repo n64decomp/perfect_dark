@@ -40,7 +40,7 @@ glabel func0f015280
 /*  f0152d8:	00000000 */ 	nop
 /*  f0152dc:	8e390000 */ 	lw	$t9,0x0($s1)
 /*  f0152e0:	03304021 */ 	addu	$t0,$t9,$s0
-/*  f0152e4:	0fc180c0 */ 	jal	func0f060300
+/*  f0152e4:	0fc180c0 */ 	jal	propHide
 /*  f0152e8:	8d040000 */ 	lw	$a0,0x0($t0)
 /*  f0152ec:	8e290000 */ 	lw	$t1,0x0($s1)
 /*  f0152f0:	01305021 */ 	addu	$t2,$t1,$s0

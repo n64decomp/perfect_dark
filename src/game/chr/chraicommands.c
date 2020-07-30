@@ -2469,7 +2469,7 @@ bool aiGiveObjectToChr(void)
 			} else {
 				func0f065c44(obj->prop);
 				func0f0605c4(obj->prop);
-				func0f060300(obj->prop);
+				propHide(obj->prop);
 			}
 
 			if (obj->type != OBJTYPE_WEAPON || func0f08ae54(obj, chr) == 0) {
@@ -5399,7 +5399,7 @@ bool aiHideChr(void)
 	if (chr && chr->prop && chr->model) {
 		func0f065c44(chr->prop);
 		func0f0605c4(chr->prop);
-		func0f060300(chr->prop);
+		propHide(chr->prop);
 	}
 
 	g_Vars.aioffset += 3;
@@ -5447,7 +5447,7 @@ bool aiHideObj(void)
 		} else {
 			func0f065c44(obj->prop);
 			func0f0605c4(obj->prop);
-			func0f060300(obj->prop);
+			propHide(obj->prop);
 		}
 	}
 
@@ -9601,7 +9601,7 @@ glabel ai0172
 /*  f05cae0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f05cae4:	0fc18171 */ 	jal	func0f0605c4
 /*  f05cae8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f05caec:	0fc180c0 */ 	jal	func0f060300
+/*  f05caec:	0fc180c0 */ 	jal	propHide
 /*  f05caf0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f05caf4:	8e040004 */ 	lw	$a0,0x4($s0)
 /*  f05caf8:	0fc22b95 */ 	jal	func0f08ae54
@@ -9631,7 +9631,7 @@ glabel ai0172
 //	if (prop && prop->weapon && prop->parent == NULL && prop->type == PROPTYPE_WEAPON) {
 //		func0f065c44(prop);
 //		func0f0605c4(prop);
-//		func0f060300(prop);
+//		propHide(prop);
 //		func0f08ae54(prop->weapon, g_Vars.chrdata);
 //	}
 //

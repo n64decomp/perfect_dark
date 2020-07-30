@@ -1338,7 +1338,7 @@ void func0f1691c0(void)
 	campos.y = g_Vars.currentplayer->cam_pos.y;
 	campos.z = g_Vars.currentplayer->cam_pos.z;
 
-	while (propptr >= g_Vars.unk000348) {
+	while (propptr >= g_Vars.tangibleprops) {
 		prop = *propptr;
 
 		if (prop) {
@@ -1358,7 +1358,7 @@ void func0f1691c0(void)
 
 	propptr = g_Vars.unk00034c - 1;
 
-	while (propptr >= g_Vars.unk000348) {
+	while (propptr >= g_Vars.tangibleprops) {
 		prop = *propptr;
 
 		if (prop) {

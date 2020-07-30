@@ -24,7 +24,7 @@ void func0f014f10(void)
 				&& g_ChrsA[i].prop->type == PROPTYPE_CHR) {
 			func0f020d44(g_ChrsA[i].prop, true);
 			func0f0605c4(g_ChrsA[i].prop);
-			func0f060300(g_ChrsA[i].prop);
+			propHide(g_ChrsA[i].prop);
 			propFree(g_ChrsA[i].prop);
 		}
 	}

@@ -5,7 +5,7 @@
 
 u32 func0f0601b0(void);
 void propShow(struct prop *prop);
-void func0f060300(struct prop *prop);
+void propHide(struct prop *prop);
 struct prop *propAllocate(void);
 void propFree(struct prop *prop);
 void func0f0604bc(struct prop *prop);

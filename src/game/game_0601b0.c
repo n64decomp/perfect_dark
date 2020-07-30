@@ -145,34 +145,18 @@ void propShow(struct prop *prop)
 	prop->flags |= PROPFLAG_TANGIBLE;
 }
 
-GLOBAL_ASM(
-glabel func0f060300
-/*  f060300:	908e0001 */ 	lbu	$t6,0x1($a0)
-/*  f060304:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f060308:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f06030c:	31cffffb */ 	andi	$t7,$t6,0xfffb
-/*  f060310:	a08f0001 */ 	sb	$t7,0x1($a0)
-/*  f060314:	8ca3034c */ 	lw	$v1,0x34c($a1)
-/*  f060318:	8ca20348 */ 	lw	$v0,0x348($a1)
-/*  f06031c:	0043082b */ 	sltu	$at,$v0,$v1
-/*  f060320:	1020000b */ 	beqz	$at,.L0f060350
-/*  f060324:	00000000 */ 	nop
-/*  f060328:	8c580000 */ 	lw	$t8,0x0($v0)
-.L0f06032c:
-/*  f06032c:	54980005 */ 	bnel	$a0,$t8,.L0f060344
-/*  f060330:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f060334:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  f060338:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x34c)
-/*  f06033c:	8c63a30c */ 	lw	$v1,%lo(g_Vars+0x34c)($v1)
-/*  f060340:	24420004 */ 	addiu	$v0,$v0,0x4
-.L0f060344:
-/*  f060344:	0043082b */ 	sltu	$at,$v0,$v1
-/*  f060348:	5420fff8 */ 	bnezl	$at,.L0f06032c
-/*  f06034c:	8c580000 */ 	lw	$t8,0x0($v0)
-.L0f060350:
-/*  f060350:	03e00008 */ 	jr	$ra
-/*  f060354:	00000000 */ 	nop
-);
+void propHide(struct prop *prop)
+{
+	struct prop **ptr;
+
+	prop->flags &= ~PROPFLAG_TANGIBLE;
+
+	for (ptr = g_Vars.tangibleprops; ptr < g_Vars.unk00034c; ptr++) {
+		if (*ptr == prop) {
+			*ptr = NULL;
+		}
+	}
+}
 
 struct prop *propAllocate(void)
 {
@@ -3075,7 +3059,7 @@ glabel func0f062b64
 /*  f062bd8:	ac6a0040 */ 	sw	$t2,0x40($v1)
 /*  f062bdc:	0fc19711 */ 	jal	func0f065c44
 /*  f062be0:	a06c0002 */ 	sb	$t4,0x2($v1)
-/*  f062be4:	0fc180c0 */ 	jal	func0f060300
+/*  f062be4:	0fc180c0 */ 	jal	propHide
 /*  f062be8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062bec:	8e0d003c */ 	lw	$t5,0x3c($s0)
 /*  f062bf0:	000d7ec0 */ 	sll	$t7,$t5,0x1b
@@ -3090,7 +3074,7 @@ glabel func0f062b64
 /*  f062c10:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062c14:	0fc18171 */ 	jal	func0f0605c4
 /*  f062c18:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c1c:	0fc180c0 */ 	jal	func0f060300
+/*  f062c1c:	0fc180c0 */ 	jal	propHide
 /*  f062c20:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062c24:	0fc1810e */ 	jal	propFree
 /*  f062c28:	02002025 */ 	or	$a0,$s0,$zero
@@ -3104,7 +3088,7 @@ glabel func0f062b64
 /*  f062c44:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062c48:	0fc18171 */ 	jal	func0f0605c4
 /*  f062c4c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c50:	0fc180c0 */ 	jal	func0f060300
+/*  f062c50:	0fc180c0 */ 	jal	propHide
 /*  f062c54:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062c58:	10000014 */ 	b	.L0f062cac
 /*  f062c5c:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -3116,7 +3100,7 @@ glabel func0f062b64
 /*  f062c70:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062c74:	0fc18171 */ 	jal	func0f0605c4
 /*  f062c78:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c7c:	0fc180c0 */ 	jal	func0f060300
+/*  f062c7c:	0fc180c0 */ 	jal	propHide
 /*  f062c80:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062c84:	0fc20be2 */ 	jal	func0f082f88
 /*  f062c88:	02002025 */ 	or	$a0,$s0,$zero
