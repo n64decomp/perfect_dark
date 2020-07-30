@@ -79,7 +79,7 @@ u32 func0f09fa84(void);
 void func0f0a0394(void);
 void func0f0a0b30(f32 autoaimx, f32 autoaimy);
 u32 func0f0a0b98(void);
-u32 func0f0a0bec(void);
+void currentPlayerGetCrossPos(f32 *x, f32 *y);
 void func0f0a0c08(struct coord *arg0, struct coord *arg1);
 u32 func0f0a0c44(void);
 u32 func0f0a0cb0(void);

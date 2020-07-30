@@ -11293,16 +11293,13 @@ glabel func0f0a0b98
 /*  f0a0be8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0a0bec
-/*  f0a0bec:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0a0bf0:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0a0bf4:	c4441660 */ 	lwc1	$f4,0x1660($v0)
-/*  f0a0bf8:	e4840000 */ 	swc1	$f4,0x0($a0)
-/*  f0a0bfc:	c4461664 */ 	lwc1	$f6,0x1664($v0)
-/*  f0a0c00:	03e00008 */ 	jr	$ra
-/*  f0a0c04:	e4a60000 */ 	swc1	$f6,0x0($a1)
-);
+void currentPlayerGetCrossPos(f32 *x, f32 *y)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	*x = player->crosspos[0];
+	*y = player->crosspos[1];
+}
 
 void func0f0a0c08(struct coord *arg0, struct coord *arg1)
 {
