@@ -13490,30 +13490,14 @@ glabel func0f0c1ba4
 /*  f0c1bd4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0c1bd8
-/*  f0c1bd8:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0c1bdc:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0c1be0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0c1be4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0c1be8:	8c430014 */ 	lw	$v1,0x14($v0)
-/*  f0c1bec:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0c1bf0:	04600006 */ 	bltz	$v1,.L0f0c1c0c
-/*  f0c1bf4:	00000000 */ 	nop
-/*  f0c1bf8:	24470004 */ 	addiu	$a3,$v0,0x4
-/*  f0c1bfc:	0fc306e9 */ 	jal	func0f0c1ba4
-/*  f0c1c00:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0c1c04:	10000004 */ 	b	.L0f0c1c18
-/*  f0c1c08:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0c1c0c:
-/*  f0c1c0c:	0fc30610 */ 	jal	func0f0c1840
-/*  f0c1c10:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0c1c14:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0c1c18:
-/*  f0c1c18:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0c1c1c:	03e00008 */ 	jr	$ra
-/*  f0c1c20:	00000000 */ 	nop
-);
+void func0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look)
+{
+	if (g_Vars.currentplayer->memcamroom >= 0) {
+		func0f0c1ba4(pos, up, look, &g_Vars.currentplayer->memcampos, g_Vars.currentplayer->memcamroom);
+	} else {
+		func0f0c1840(pos, up, look, NULL, NULL);
+	}
+}
 
 void currentPlayerSetCamPropertiesWithRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room)
 {
