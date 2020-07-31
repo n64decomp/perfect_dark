@@ -269,53 +269,28 @@ glabel func0f09220c
 /*  f092300:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-bool func0f092304(struct defaultobj *obj, u32 arg1, u32 arg2)
+bool func0f092304(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 {
 	return func0f09220c(obj, &obj->prop->pos, obj->realrot, arg1, arg2);
 }
 
-GLOBAL_ASM(
-glabel func0f09233c
-/*  f09233c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f092340:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f092344:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*  f092348:	27ae0028 */ 	addiu	$t6,$sp,0x28
-/*  f09234c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f092350:	0fc24883 */ 	jal	func0f09220c
-/*  f092354:	27a70034 */ 	addiu	$a3,$sp,0x34
-/*  f092358:	1040001a */ 	beqz	$v0,.L0f0923c4
-/*  f09235c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f092360:	44810000 */ 	mtc1	$at,$f0
-/*  f092364:	c7a40034 */ 	lwc1	$f4,0x34($sp)
-/*  f092368:	c7a80038 */ 	lwc1	$f8,0x38($sp)
-/*  f09236c:	c7b0003c */ 	lwc1	$f16,0x3c($sp)
-/*  f092370:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f092374:	c7a40028 */ 	lwc1	$f4,0x28($sp)
-/*  f092378:	27a40034 */ 	addiu	$a0,$sp,0x34
-/*  f09237c:	46004281 */ 	sub.s	$f10,$f8,$f0
-/*  f092380:	c7a8002c */ 	lwc1	$f8,0x2c($sp)
-/*  f092384:	e7a60034 */ 	swc1	$f6,0x34($sp)
-/*  f092388:	46008481 */ 	sub.s	$f18,$f16,$f0
-/*  f09238c:	c7b00030 */ 	lwc1	$f16,0x30($sp)
-/*  f092390:	e7aa0038 */ 	swc1	$f10,0x38($sp)
-/*  f092394:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f092398:	e7b2003c */ 	swc1	$f18,0x3c($sp)
-/*  f09239c:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*  f0923a0:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f0923a4:	e7a60028 */ 	swc1	$f6,0x28($sp)
-/*  f0923a8:	8fa6004c */ 	lw	$a2,0x4c($sp)
-/*  f0923ac:	46008480 */ 	add.s	$f18,$f16,$f0
-/*  f0923b0:	e7aa002c */ 	swc1	$f10,0x2c($sp)
-/*  f0923b4:	24070007 */ 	addiu	$a3,$zero,0x7
-/*  f0923b8:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0923bc:	0fc59434 */ 	jal	func0f1650d0
-/*  f0923c0:	e7b20030 */ 	swc1	$f18,0x30($sp)
-.L0f0923c4:
-/*  f0923c4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0923c8:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0923cc:	03e00008 */ 	jr	$ra
-/*  f0923d0:	00000000 */ 	nop
-);
+void func0f09233c(struct defaultobj *obj, struct coord *pos, f32 *realrot, s16 *rooms)
+{
+	struct coord a;
+	struct coord b;
+	u32 stack;
+
+	if (func0f09220c(obj, pos, realrot, &a, &b)) {
+		a.x -= 1;
+		a.y -= 1;
+		a.z -= 1;
+		b.x += 1;
+		b.y += 1;
+		b.z += 1;
+
+		func0f1650d0(&a, &b, rooms, 7, 0);
+	}
+}
 
 void func0f0923d4(struct defaultobj *obj)
 {
