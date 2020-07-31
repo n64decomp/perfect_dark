@@ -5294,7 +5294,7 @@ struct frtarget {
 	/*0x24*/ f32 unk24;
 	/*0x28*/ f32 unk28;
 	/*0x2c*/ f32 unk2c;
-	/*0x30*/ u8 unk30;
+	/*0x30*/ u8 flags;
 	/*0x31*/ u8 unk31;
 	/*0x32*/ u8 unk32;
 	/*0x33*/ u8 unk33;
