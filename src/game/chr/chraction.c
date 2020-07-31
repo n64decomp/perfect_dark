@@ -20693,50 +20693,18 @@ glabel func0f0446e0
 /*  f044804:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f044808
-/*  f044808:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04480c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f044810:	3c014316 */ 	lui	$at,0x4316
-/*  f044814:	44818000 */ 	mtc1	$at,$f16
-/*  f044818:	c4c00004 */ 	lwc1	$f0,0x4($a2)
-/*  f04481c:	c48c0004 */ 	lwc1	$f12,0x4($a0)
-/*  f044820:	44877000 */ 	mtc1	$a3,$f14
-/*  f044824:	46100081 */ 	sub.s	$f2,$f0,$f16
-/*  f044828:	4602603e */ 	c.le.s	$f12,$f2
-/*  f04482c:	00000000 */ 	nop
-/*  f044830:	45020009 */ 	bc1fl	.L0f044858
-/*  f044834:	46100080 */ 	add.s	$f2,$f0,$f16
-/*  f044838:	c4a40004 */ 	lwc1	$f4,0x4($a1)
-/*  f04483c:	4602203e */ 	c.le.s	$f4,$f2
-/*  f044840:	00000000 */ 	nop
-/*  f044844:	45020004 */ 	bc1fl	.L0f044858
-/*  f044848:	46100080 */ 	add.s	$f2,$f0,$f16
-/*  f04484c:	10000010 */ 	b	.L0f044890
-/*  f044850:	00001025 */ 	or	$v0,$zero,$zero
-/*  f044854:	46100080 */ 	add.s	$f2,$f0,$f16
-.L0f044858:
-/*  f044858:	460c103e */ 	c.le.s	$f2,$f12
-/*  f04485c:	00000000 */ 	nop
-/*  f044860:	45020009 */ 	bc1fl	.L0f044888
-/*  f044864:	44077000 */ 	mfc1	$a3,$f14
-/*  f044868:	c4a60004 */ 	lwc1	$f6,0x4($a1)
-/*  f04486c:	4606103e */ 	c.le.s	$f2,$f6
-/*  f044870:	00000000 */ 	nop
-/*  f044874:	45020004 */ 	bc1fl	.L0f044888
-/*  f044878:	44077000 */ 	mfc1	$a3,$f14
-/*  f04487c:	10000004 */ 	b	.L0f044890
-/*  f044880:	00001025 */ 	or	$v0,$zero,$zero
-/*  f044884:	44077000 */ 	mfc1	$a3,$f14
-.L0f044888:
-/*  f044888:	0fc111b8 */ 	jal	func0f0446e0
-/*  f04488c:	00000000 */ 	nop
-.L0f044890:
-/*  f044890:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f044894:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f044898:	03e00008 */ 	jr	$ra
-/*  f04489c:	00000000 */ 	nop
-);
+bool func0f044808(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 arg3)
+{
+	if (targetpos->y - 150 >= prevpos->y && targetpos->y - 150 >= curpos->y) {
+		return false;
+	}
+
+	if (targetpos->y + 150 <= prevpos->y && targetpos->y + 150 <= curpos->y) {
+		return false;
+	}
+
+	return func0f0446e0(prevpos, curpos, targetpos, arg3);
+}
 
 void chrTickRunPos(struct chrdata *chr)
 {
