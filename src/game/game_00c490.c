@@ -442,8 +442,8 @@ glabel func0f00c490
 /*  f00ca34:	44810000 */ 	mtc1	$at,$f0
 /*  f00ca38:	3c018007 */ 	lui	$at,%hi(var8006991c)
 /*  f00ca3c:	ac20991c */ 	sw	$zero,%lo(var8006991c)($at)
-/*  f00ca40:	3c018007 */ 	lui	$at,%hi(var80069920)
-/*  f00ca44:	ac209920 */ 	sw	$zero,%lo(var80069920)($at)
+/*  f00ca40:	3c018007 */ 	lui	$at,%hi(g_PadlockedDoors)
+/*  f00ca44:	ac209920 */ 	sw	$zero,%lo(g_PadlockedDoors)($at)
 /*  f00ca48:	3c018007 */ 	lui	$at,%hi(var80069924)
 /*  f00ca4c:	ac209924 */ 	sw	$zero,%lo(var80069924)($at)
 /*  f00ca50:	3c018007 */ 	lui	$at,%hi(var80069928)
@@ -581,8 +581,8 @@ glabel func0f00cc14
 
 GLOBAL_ASM(
 glabel func0f00cc2c
-/*  f00cc2c:	3c028007 */ 	lui	$v0,%hi(var80069920)
-/*  f00cc30:	24429920 */ 	addiu	$v0,$v0,%lo(var80069920)
+/*  f00cc2c:	3c028007 */ 	lui	$v0,%hi(g_PadlockedDoors)
+/*  f00cc30:	24429920 */ 	addiu	$v0,$v0,%lo(g_PadlockedDoors)
 /*  f00cc34:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*  f00cc38:	ac8e000c */ 	sw	$t6,0xc($a0)
 /*  f00cc3c:	03e00008 */ 	jr	$ra

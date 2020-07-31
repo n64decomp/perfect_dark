@@ -118,7 +118,7 @@ u32 var80069910 = 0x00000000;
 u32 var80069914 = 0x00000000;
 u32 var80069918 = 0x00000000;
 u32 var8006991c = 0x00000000;
-u32 var80069920 = 0x00000000;
+struct padlockeddoor *g_PadlockedDoors = NULL;
 u32 var80069924 = 0x00000000;
 u32 var80069928 = 0x00000000;
 u32 var8006992c = 0x00000000;
@@ -552,49 +552,29 @@ glabel func0f066310
 /*  f0665a8:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel func0f0665ac
-/*  f0665ac:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0665b0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0665b4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0665b8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0665bc:	8c8e0040 */ 	lw	$t6,0x40($a0)
-/*  f0665c0:	00808825 */ 	or	$s1,$a0,$zero
-/*  f0665c4:	3c108007 */ 	lui	$s0,%hi(var80069920)
-/*  f0665c8:	31cf2000 */ 	andi	$t7,$t6,0x2000
-/*  f0665cc:	51e00017 */ 	beqzl	$t7,.L0f06662c
-/*  f0665d0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0665d4:	8e109920 */ 	lw	$s0,%lo(var80069920)($s0)
-/*  f0665d8:	52000014 */ 	beqzl	$s0,.L0f06662c
-/*  f0665dc:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0665e0:	8e180004 */ 	lw	$t8,0x4($s0)
-.L0f0665e4:
-/*  f0665e4:	5638000e */ 	bnel	$s1,$t8,.L0f066620
-/*  f0665e8:	8e10000c */ 	lw	$s0,0xc($s0)
-/*  f0665ec:	8e040008 */ 	lw	$a0,0x8($s0)
-/*  f0665f0:	5080000b */ 	beqzl	$a0,.L0f066620
-/*  f0665f4:	8e10000c */ 	lw	$s0,0xc($s0)
-/*  f0665f8:	8c990014 */ 	lw	$t9,0x14($a0)
-/*  f0665fc:	53200008 */ 	beqzl	$t9,.L0f066620
-/*  f066600:	8e10000c */ 	lw	$s0,0xc($s0)
-/*  f066604:	0fc21a6a */ 	jal	objIsHealthy
-/*  f066608:	00000000 */ 	nop
-/*  f06660c:	50400004 */ 	beqzl	$v0,.L0f066620
-/*  f066610:	8e10000c */ 	lw	$s0,0xc($s0)
-/*  f066614:	10000005 */ 	b	.L0f06662c
-/*  f066618:	00001025 */ 	or	$v0,$zero,$zero
-/*  f06661c:	8e10000c */ 	lw	$s0,0xc($s0)
-.L0f066620:
-/*  f066620:	5600fff0 */ 	bnezl	$s0,.L0f0665e4
-/*  f066624:	8e180004 */ 	lw	$t8,0x4($s0)
-/*  f066628:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f06662c:
-/*  f06662c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f066630:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f066634:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f066638:	03e00008 */ 	jr	$ra
-/*  f06663c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+/**
+ * This function is a leftover from GoldenEye.
+ * It is called in PD, but g_PadlockedDoors is always null.
+ */
+bool doorIsPadlockFree(struct doorobj *door)
+{
+	if (door->base.hidden & OBJHFLAG_00002000) {
+		struct padlockeddoor *padlockeddoor = g_PadlockedDoors;
+
+		while (padlockeddoor) {
+			if (door == padlockeddoor->door
+					&& padlockeddoor->padlock
+					&& padlockeddoor->padlock->prop
+					&& objIsHealthy(padlockeddoor->padlock)) {
+				return false;
+			}
+
+			padlockeddoor = padlockeddoor->next;
+		}
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f066640
@@ -19520,7 +19500,7 @@ glabel var7f1aa43c
 /*  f0771ac:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0771b0:	10400007 */ 	beqz	$v0,.L0f0771d0
 /*  f0771b4:	00000000 */ 	nop
-/*  f0771b8:	0fc1996b */ 	jal	func0f0665ac
+/*  f0771b8:	0fc1996b */ 	jal	doorIsPadlockFree
 /*  f0771bc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0771c0:	10400003 */ 	beqz	$v0,.L0f0771d0
 /*  f0771c4:	8fa40078 */ 	lw	$a0,0x78($sp)
@@ -19701,7 +19681,7 @@ glabel var7f1aa43c
 //	// DOORTYPE_8 is unused - not sure what this does
 //	if (door->doortype == DOORTYPE_8
 //			&& doorIsClosed(door)
-//			&& func0f0665ac(door)) {
+//			&& doorIsPadlockFree(door)) {
 //		doorActivateWrapper(doorprop, false);
 //	}
 //
@@ -42375,7 +42355,7 @@ glabel func0f08bd00
 .L0f08bda8:
 /*  f08bda8:	00e02025 */ 	or	$a0,$a3,$zero
 .L0f08bdac:
-/*  f08bdac:	0fc1996b */ 	jal	func0f0665ac
+/*  f08bdac:	0fc1996b */ 	jal	doorIsPadlockFree
 /*  f08bdb0:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f08bdb4:	14400002 */ 	bnez	$v0,.L0f08bdc0
 /*  f08bdb8:	8fa30018 */ 	lw	$v1,0x18($sp)

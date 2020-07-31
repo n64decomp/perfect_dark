@@ -6323,4 +6323,11 @@ struct var8009d0b0 {
 	struct defaultobj *obj;
 };
 
+struct padlockeddoor {
+	u32 unk00;
+	struct doorobj *door;
+	struct defaultobj *padlock;
+	struct padlockeddoor *next;
+};
+
 #endif

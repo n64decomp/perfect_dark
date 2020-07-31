@@ -15,7 +15,7 @@ void countdownTimerSetValue(f32 frames);
 void countdownTimerSetVisible(u32 flag, bool show);
 void countdownTimerTick(void);
 bool func0f066310(struct prop *doorprop, bool arg1);
-bool func0f0665ac(struct doorobj *door);
+bool doorIsPadlockFree(struct doorobj *door);
 u32 func0f066640(void);
 u32 func0f0666cc(void);
 u32 func0f0667ac(void);
