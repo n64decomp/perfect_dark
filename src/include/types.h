@@ -339,7 +339,8 @@ struct waypoint {
 
 struct aibot014 {
 	s32 unk00;
-	u32 unk04;
+	s16 weaponnum;
+	s16 unk06;
 	u32 unk08;
 	u32 unk0c;
 	u32 unk10;
