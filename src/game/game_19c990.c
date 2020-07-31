@@ -259,7 +259,7 @@ bool frWeaponIsAvailable(s32 weapon)
 	return frIsWeaponFound(weapon);
 }
 
-u32 func0f19ccc0(u32 weaponnum)
+u32 frGetWeaponIndexByWeapon(u32 weaponnum)
 {
 	switch (weaponnum) {
 	case WEAPON_FALCON2:          return 0;
@@ -2410,48 +2410,21 @@ void frSetFailReason(s32 failreason)
 	g_FiringRangeData.unk464 = 60;
 }
 
-GLOBAL_ASM(
-glabel func0f19f18c
-/*  f19f18c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f19f190:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f19f194:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f19f198:	0fc67b37 */ 	jal	func0f19ecdc
-/*  f19f19c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19f1a0:	0fc67c1f */ 	jal	frWasTooInaccurate
-/*  f19f1a4:	00000000 */ 	nop
-/*  f19f1a8:	1040000a */ 	beqz	$v0,.L0f19f1d4
-/*  f19f1ac:	3c10800b */ 	lui	$s0,0x800b
-/*  f19f1b0:	3c10800b */ 	lui	$s0,%hi(g_FiringRangeData)
-/*  f19f1b4:	2610cd20 */ 	addiu	$s0,$s0,%lo(g_FiringRangeData)
-/*  f19f1b8:	920f0465 */ 	lbu	$t7,0x465($s0)
-/*  f19f1bc:	240e0004 */ 	addiu	$t6,$zero,0x4
-/*  f19f1c0:	a20e045b */ 	sb	$t6,0x45b($s0)
-/*  f19f1c4:	31f8ff1f */ 	andi	$t8,$t7,0xff1f
-/*  f19f1c8:	37190040 */ 	ori	$t9,$t8,0x40
-/*  f19f1cc:	1000000e */ 	b	.L0f19f208
-/*  f19f1d0:	a2190465 */ 	sb	$t9,0x465($s0)
-.L0f19f1d4:
-/*  f19f1d4:	2610cd20 */ 	addiu	$s0,$s0,-13024
-/*  f19f1d8:	0fc6749a */ 	jal	frGetWeaponBySlot
-/*  f19f1dc:	96040456 */ 	lhu	$a0,0x456($s0)
-/*  f19f1e0:	0fc67330 */ 	jal	func0f19ccc0
-/*  f19f1e4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f19f1e8:	92050448 */ 	lbu	$a1,0x448($s0)
-/*  f19f1ec:	00402025 */ 	or	$a0,$v0,$zero
-/*  f19f1f0:	0fc67279 */ 	jal	func0f19c9e4
-/*  f19f1f4:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f19f1f8:	92080465 */ 	lbu	$t0,0x465($s0)
-/*  f19f1fc:	3109ff1f */ 	andi	$t1,$t0,0xff1f
-/*  f19f200:	352a0060 */ 	ori	$t2,$t1,0x60
-/*  f19f204:	a20a0465 */ 	sb	$t2,0x465($s0)
-.L0f19f208:
-/*  f19f208:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19f20c:	240b003c */ 	addiu	$t3,$zero,0x3c
-/*  f19f210:	a20b0464 */ 	sb	$t3,0x464($s0)
-/*  f19f214:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f19f218:	03e00008 */ 	jr	$ra
-/*  f19f21c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void func0f19f18c(void)
+{
+	func0f19ecdc(0);
+
+	if (frWasTooInaccurate()) {
+		g_FiringRangeData.failreason = FRFAILREASON_INACCURATE;
+		g_FiringRangeData.unk465_00 = 2;
+	} else {
+		u32 frweaponindex = frGetWeaponIndexByWeapon(frGetWeaponBySlot(g_FiringRangeData.slot));
+		func0f19c9e4(frweaponindex, g_FiringRangeData.difficulty + 1);
+		g_FiringRangeData.unk465_00 = 3;
+	}
+
+	g_FiringRangeData.unk464 = 60;
+}
 
 bool func0f19f220(struct prop *prop)
 {
