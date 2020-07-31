@@ -2446,36 +2446,19 @@ bool func0f19f220(struct prop *prop)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f19f294
-.late_rodata
-glabel var7f1b94ac
-.word 0x40c907a9
-.text
-/*  f19f294:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19f298:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19f29c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f19f2a0:	c4c60000 */ 	lwc1	$f6,0x0($a2)
-/*  f19f2a4:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f19f2a8:	c4ca0008 */ 	lwc1	$f10,0x8($a2)
-/*  f19f2ac:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f19f2b0:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f19f2b4:	0fc259d4 */ 	jal	func0f096750
-/*  f19f2b8:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f19f2bc:	c7ae001c */ 	lwc1	$f14,0x1c($sp)
-/*  f19f2c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19f2c4:	3c017f1c */ 	lui	$at,%hi(var7f1b94ac)
-/*  f19f2c8:	460e003c */ 	c.lt.s	$f0,$f14
-/*  f19f2cc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19f2d0:	460e0301 */ 	sub.s	$f12,$f0,$f14
-/*  f19f2d4:	45000003 */ 	bc1f	.L0f19f2e4
-/*  f19f2d8:	46006086 */ 	mov.s	$f2,$f12
-/*  f19f2dc:	c43094ac */ 	lwc1	$f16,%lo(var7f1b94ac)($at)
-/*  f19f2e0:	46106080 */ 	add.s	$f2,$f12,$f16
-.L0f19f2e4:
-/*  f19f2e4:	03e00008 */ 	jr	$ra
-/*  f19f2e8:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 func0f19f294(struct coord *a, f32 argangle, struct coord *b)
+{
+	f32 xdiff = a->x - b->x;
+	f32 zdiff = a->z - b->z;
+	f32 calcedangle = func0f096750(xdiff, zdiff);
+	f32 diffangle = calcedangle - argangle;
+
+	if (calcedangle < argangle) {
+		diffangle += M_BADTAU;
+	}
+
+	return diffangle;
+}
 
 GLOBAL_ASM(
 glabel func0f19f2ec
