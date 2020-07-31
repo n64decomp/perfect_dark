@@ -2460,64 +2460,31 @@ f32 func0f19f294(struct coord *a, f32 argangle, struct coord *b)
 	return diffangle;
 }
 
-GLOBAL_ASM(
-glabel func0f19f2ec
-.late_rodata
-glabel var7f1b94b0
-.word 0x3fc90fdb
-glabel var7f1b94b4
-.word 0x4096c5bf
-.text
-/*  f19f2ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19f2f0:	3c02800b */ 	lui	$v0,%hi(g_FiringRangeData)
-/*  f19f2f4:	3c03800b */ 	lui	$v1,%hi(g_FiringRangeData+0x438)
-/*  f19f2f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19f2fc:	00803825 */ 	or	$a3,$a0,$zero
-/*  f19f300:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f19f304:	2463d158 */ 	addiu	$v1,$v1,%lo(g_FiringRangeData+0x438)
-/*  f19f308:	2442cd20 */ 	addiu	$v0,$v0,%lo(g_FiringRangeData)
-/*  f19f30c:	8c4e0014 */ 	lw	$t6,0x14($v0)
-.L0f19f310:
-/*  f19f310:	54ee001b */ 	bnel	$a3,$t6,.L0f19f380
-/*  f19f314:	2442003c */ 	addiu	$v0,$v0,0x3c
-/*  f19f318:	8c4f0010 */ 	lw	$t7,0x10($v0)
-/*  f19f31c:	24e40008 */ 	addiu	$a0,$a3,0x8
-/*  f19f320:	000fc880 */ 	sll	$t9,$t7,0x2
-/*  f19f324:	07210003 */ 	bgez	$t9,.L0f19f334
-/*  f19f328:	00000000 */ 	nop
-/*  f19f32c:	10000017 */ 	b	.L0f19f38c
-/*  f19f330:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19f334:
-/*  f19f334:	0fc67ca5 */ 	jal	func0f19f294
-/*  f19f338:	8c450038 */ 	lw	$a1,0x38($v0)
-/*  f19f33c:	3c017f1c */ 	lui	$at,%hi(var7f1b94b0)
-/*  f19f340:	c42494b0 */ 	lwc1	$f4,%lo(var7f1b94b0)($at)
-/*  f19f344:	3c017f1c */ 	lui	$at,%hi(var7f1b94b4)
-/*  f19f348:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f19f34c:	00000000 */ 	nop
-/*  f19f350:	45000008 */ 	bc1f	.L0f19f374
-/*  f19f354:	00000000 */ 	nop
-/*  f19f358:	c42694b4 */ 	lwc1	$f6,%lo(var7f1b94b4)($at)
-/*  f19f35c:	4606003c */ 	c.lt.s	$f0,$f6
-/*  f19f360:	00000000 */ 	nop
-/*  f19f364:	45000003 */ 	bc1f	.L0f19f374
-/*  f19f368:	00000000 */ 	nop
-/*  f19f36c:	10000007 */ 	b	.L0f19f38c
-/*  f19f370:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19f374:
-/*  f19f374:	10000005 */ 	b	.L0f19f38c
-/*  f19f378:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f19f37c:	2442003c */ 	addiu	$v0,$v0,0x3c
-.L0f19f380:
-/*  f19f380:	5443ffe3 */ 	bnel	$v0,$v1,.L0f19f310
-/*  f19f384:	8c4e0014 */ 	lw	$t6,0x14($v0)
-/*  f19f388:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f19f38c:
-/*  f19f38c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19f390:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19f394:	03e00008 */ 	jr	$ra
-/*  f19f398:	00000000 */ 	nop
-);
+bool func0f19f2ec(struct prop *prop, struct coord *pos)
+{
+	s32 i;
+
+	for (i = 0; i < 18; i++) {
+		if (prop == g_FiringRangeData.targets[i].prop) {
+			f32 angle;
+
+			if (g_FiringRangeData.targets[i].unk00_03) {
+				return false;
+			}
+
+			angle = func0f19f294(&prop->pos, g_FiringRangeData.targets[i].unk28, pos);
+
+			//if (angle > DEG2RAD(90) && angle < DEG2RAD(270)) {
+			if (angle > 1.5707963705063f && angle < 4.7116389274597f) {
+				return false;
+			}
+
+			return true;
+		}
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f19f39c

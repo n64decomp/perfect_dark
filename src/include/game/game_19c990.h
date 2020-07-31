@@ -52,7 +52,7 @@ void frSetFailReason(s32 failreason);
 void func0f19f18c(void);
 bool func0f19f220(struct prop *prop);
 f32 func0f19f294(struct coord *a, f32 angle, struct coord *b);
-u32 func0f19f2ec(void);
+bool func0f19f2ec(struct prop *prop, struct coord *pos);
 u32 func0f19f39c(void);
 u32 func0f19f524(void);
 void frTick(void);
