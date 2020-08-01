@@ -195,29 +195,17 @@ glabel frIsWeaponFound
 /*  f19cb34:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel frSetWeaponFound
-/*  f19cb38:	28810030 */ 	slti	$at,$a0,0x30
-/*  f19cb3c:	1020000e */ 	beqz	$at,.L0f19cb78
-/*  f19cb40:	000470c3 */ 	sra	$t6,$a0,0x3
-/*  f19cb44:	3c0f800a */ 	lui	$t7,%hi(g_SoloSaveFile)
-/*  f19cb48:	25ef2200 */ 	addiu	$t7,$t7,%lo(g_SoloSaveFile)
-/*  f19cb4c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f19cb50:	906200b5 */ 	lbu	$v0,0xb5($v1)
-/*  f19cb54:	04810004 */ 	bgez	$a0,.L0f19cb68
-/*  f19cb58:	30980007 */ 	andi	$t8,$a0,0x7
-/*  f19cb5c:	13000002 */ 	beqz	$t8,.L0f19cb68
-/*  f19cb60:	00000000 */ 	nop
-/*  f19cb64:	2718fff8 */ 	addiu	$t8,$t8,-8
-.L0f19cb68:
-/*  f19cb68:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f19cb6c:	03194004 */ 	sllv	$t0,$t9,$t8
-/*  f19cb70:	00481025 */ 	or	$v0,$v0,$t0
-/*  f19cb74:	a06200b5 */ 	sb	$v0,0xb5($v1)
-.L0f19cb78:
-/*  f19cb78:	03e00008 */ 	jr	$ra
-/*  f19cb7c:	00000000 */ 	nop
-);
+void frSetWeaponFound(s32 weaponnum)
+{
+	if (weaponnum < (s32)sizeof(g_SoloSaveFile.weaponsfound) * 8) {
+		u32 byteindex = weaponnum >> 3;
+		u32 value = g_SoloSaveFile.weaponsfound[byteindex];
+
+		value |= (1 << (weaponnum % 8));
+
+		g_SoloSaveFile.weaponsfound[byteindex] = value;
+	}
+}
 
 s32 stageIsComplete(s32 stageindex)
 {
