@@ -836,39 +836,24 @@ glabel func0f19d7d8
 /*  f19d8a0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f19d8a4
-/*  f19d8a4:	3c02800b */ 	lui	$v0,%hi(g_FiringRangeData+0x448)
-/*  f19d8a8:	9042d168 */ 	lbu	$v0,%lo(g_FiringRangeData+0x448)($v0)
-/*  f19d8ac:	308e0001 */ 	andi	$t6,$a0,0x1
-/*  f19d8b0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f19d8b4:	14400005 */ 	bnez	$v0,.L0f19d8cc
-/*  f19d8b8:	00000000 */ 	nop
-/*  f19d8bc:	55c00011 */ 	bnezl	$t6,.L0f19d904
-/*  f19d8c0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f19d8c4:	03e00008 */ 	jr	$ra
-/*  f19d8c8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19d8cc:
-/*  f19d8cc:	14410005 */ 	bne	$v0,$at,.L0f19d8e4
-/*  f19d8d0:	308f0002 */ 	andi	$t7,$a0,0x2
-/*  f19d8d4:	55e0000b */ 	bnezl	$t7,.L0f19d904
-/*  f19d8d8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f19d8dc:	03e00008 */ 	jr	$ra
-/*  f19d8e0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19d8e4:
-/*  f19d8e4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f19d8e8:	14410005 */ 	bne	$v0,$at,.L0f19d900
-/*  f19d8ec:	30980004 */ 	andi	$t8,$a0,0x4
-/*  f19d8f0:	57000004 */ 	bnezl	$t8,.L0f19d904
-/*  f19d8f4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f19d8f8:	03e00008 */ 	jr	$ra
-/*  f19d8fc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19d900:
-/*  f19d900:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f19d904:
-/*  f19d904:	03e00008 */ 	jr	$ra
-/*  f19d908:	00000000 */ 	nop
-);
+bool frIsDifficulty(u32 difficulties)
+{
+	if (g_FiringRangeData.difficulty == FRDIFFICULTY_BRONZE) {
+		if ((difficulties & FRDIFFBIT_BRONZE) == 0) {
+			return false;
+		}
+	} else if (g_FiringRangeData.difficulty == FRDIFFICULTY_SILVER) {
+		if ((difficulties & FRDIFFBIT_SILVER) == 0) {
+			return false;
+		}
+	} else if (g_FiringRangeData.difficulty == FRDIFFICULTY_GOLD) {
+		if ((difficulties & FRDIFFBIT_GOLD) == 0) {
+			return false;
+		}
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f19d90c
@@ -950,7 +935,7 @@ glabel var7f1b93ec
 /*  f19d9c4:	a20b0470 */ 	sb	$t3,0x470($s0)
 /*  f19d9c8:	10000106 */ 	b	.L0f19dde4
 /*  f19d9cc:	92220000 */ 	lbu	$v0,0x0($s1)
-/*  f19d9d0:	0fc67629 */ 	jal	func0f19d8a4
+/*  f19d9d0:	0fc67629 */ 	jal	frIsDifficulty
 /*  f19d9d4:	92240004 */ 	lbu	$a0,0x4($s1)
 /*  f19d9d8:	54400006 */ 	bnezl	$v0,.L0f19d9f4
 /*  f19d9dc:	920c0454 */ 	lbu	$t4,0x454($s0)

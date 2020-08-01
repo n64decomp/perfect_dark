@@ -31,7 +31,7 @@ u32 frGetDifficulty(void);
 void func0f19d5f4(void);
 struct frdata *getFiringRangeData(void);
 u32 func0f19d7d8(void);
-u32 func0f19d8a4(void);
+bool frIsDifficulty(u32 difficulties);
 u32 func0f19d90c(void);
 void func0f19de24(void);
 bool func0f19def4(s32 index);
