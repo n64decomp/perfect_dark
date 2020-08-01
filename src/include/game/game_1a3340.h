@@ -46,7 +46,7 @@ bool menudialog001a6aa4(u32 operation, struct menudialog *dialog, struct menu *m
 bool menudialogFiringRangeResults(u32 operation, struct menudialog *dialog, struct menu *menu);
 s32 menudialog001a737c(u32, u32, u32 *);
 s32 frDetailsOkMenuHandler(u32 operation, struct menuitem *item, s32 *value);
-s32 menuhandler001a3448(u32 operation, struct menuitem *item, s32 *value);
+s32 frAbortMenuHandler(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandler001a348c(u32, u32, u32 *);
 s32 menuhandler001a44c0(u32, u32, u32 *);
 s32 menuhandlerFrFailedContinue(u32 operation, struct menuitem *item, s32 *value);

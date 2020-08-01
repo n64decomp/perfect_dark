@@ -995,7 +995,7 @@ glabel var7f1b784c
 //				pass = true;
 //				break;
 //			case WEAPON_DRAGON:
-//				if (weapon->dragonthrown == 1U) {
+//				if (weapon->thrown == 1U) {
 //					pass = true;
 //				}
 //				break;

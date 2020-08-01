@@ -565,7 +565,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				qty = weaponGetPickupAmmoQty(weapon);
 
 				if (qty) {
-					aibotGiveAmmoByWeapon(chr->aibot, weapon->weaponnum, weapon->dragonthrown, qty);
+					aibotGiveAmmoByWeapon(chr->aibot, weapon->weaponnum, weapon->thrown, qty);
 				}
 
 				if (itemtype) {
@@ -1067,7 +1067,7 @@ s32 mpObjIsSafe(struct defaultobj *obj)
 				weapon->weaponnum == WEAPON_REMOTEMINE ||
 				weapon->weaponnum == WEAPON_TIMEDMINE ||
 				weapon->weaponnum == WEAPON_ROCKET2 ||
-				(weapon->weaponnum == WEAPON_DRAGON && weapon->dragonthrown == 1)) {
+				(weapon->weaponnum == WEAPON_DRAGON && weapon->thrown == 1)) {
 			return false;
 		}
 

@@ -6661,22 +6661,22 @@ glabel func0f065dd8
 /*  f065df8:	00000000 */ 	nop
 );
 
-void func0f065dfc(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms, u32 arg4, u32 arg5)
+void func0f065dfc(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms, s16 *morerooms, u32 arg5)
 {
-	func0f065d1c(pos, rooms, newpos, newrooms, arg4, arg5);
+	func0f065d1c(pos, rooms, newpos, newrooms, morerooms, arg5);
 
 	if (newrooms[0] == -1) {
 		func0f065e98(pos, rooms, newpos, newrooms);
 
-		if (arg4) {
-			func0f0657d8(newrooms, arg4, arg5);
+		if (morerooms) {
+			func0f0657d8(newrooms, morerooms, arg5);
 		}
 	}
 }
 
 void func0f065e74(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms)
 {
-	func0f065dfc(pos, rooms, newpos, newrooms, 0, 0);
+	func0f065dfc(pos, rooms, newpos, newrooms, NULL, 0);
 }
 
 GLOBAL_ASM(

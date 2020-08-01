@@ -6183,7 +6183,12 @@ glabel setupParseObject
 /*  f06b348:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-void setupParseObjectWithArg2False(void *ptr, bool arg1)
+/**
+ * When called with arg1 = true, the object is removed.
+ * I'm unsure if that's due to arg1 being true or whether
+ * removing is determined by setupParseObject's arg2 being false.
+ */
+void setupParseObjectWithArg2False(void *ptr, s32 arg1)
 {
 	setupParseObject(ptr, arg1, false);
 }

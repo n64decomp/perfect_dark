@@ -78,11 +78,11 @@ s32 frDetailsOkMenuHandler(u32 operation, struct menuitem *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandler001a3448(u32 operation, struct menuitem *item, s32 *value)
+s32 frAbortMenuHandler(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		if (frIsInTraining()) {
-			func0f19ecdc(1);
+			frEndSession(true);
 		}
 	}
 
@@ -559,7 +559,7 @@ glabel var7f1b9944
 /*  f1a3acc:	00000000 */ 	nop
 /*  f1a3ad0:	54400004 */ 	bnezl	$v0,.L0f1a3ae4
 /*  f1a3ad4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3ad8:	0fc67b37 */ 	jal	func0f19ecdc
+/*  f1a3ad8:	0fc67b37 */ 	jal	frEndSession
 /*  f1a3adc:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0f1a3ae0:
 /*  f1a3ae0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -582,7 +582,7 @@ glabel menudialog001a3af4
 /*  f1a3b10:	00000000 */ 	nop
 /*  f1a3b14:	54400004 */ 	bnezl	$v0,.L0f1a3b28
 /*  f1a3b18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3b1c:	0fc67b37 */ 	jal	func0f19ecdc
+/*  f1a3b1c:	0fc67b37 */ 	jal	frEndSession
 /*  f1a3b20:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0f1a3b24:
 /*  f1a3b24:	8fbf0014 */ 	lw	$ra,0x14($sp)

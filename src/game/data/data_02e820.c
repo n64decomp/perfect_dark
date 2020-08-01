@@ -92,7 +92,7 @@ struct menuitem menuitems_frtraininginfo[] = {
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_FRWEAPON, 0x00004000, 0x0000010e,                                0x0000005f,                                NULL                   },
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS(3),                              L_MPMENU(428),                             frDetailsOkMenuHandler }, // "", "Resume"
-	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS(3),                              L_MPMENU(430),                             menuhandler001a3448    }, // "", "Abort"
+	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS(3),                              L_MPMENU(430),                             frAbortMenuHandler    }, // "", "Abort"
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
 };
 
@@ -117,7 +117,7 @@ struct menuitem menuitems_frtraininginfo2[] = {
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_FRWEAPON, 0x00004000, 0x0000010e,                                0x0000005f,                                NULL                   },
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS(3),                              L_MPMENU(427),                             frDetailsOkMenuHandler }, // "", "Ok"
-	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS(3),                              L_MPMENU(429),                             menuhandler001a3448    }, // "", "Cancel"
+	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS(3),                              L_MPMENU(429),                             frAbortMenuHandler    }, // "", "Cancel"
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
 };
 

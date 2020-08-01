@@ -1207,7 +1207,7 @@ struct weaponobj { // objtype 0x08
 	/*0x5c*/ u8 weaponnum;
 	/*0x5d*/ s8 unk5d;
 	/*0x5e*/ s8 unk5e;
-	/*0x5f*/ u8 dragonthrown;
+	/*0x5f*/ u8 thrown; // Dragon and Laptop Gun
 	/*0x60*/ s8 unk60;
 	/*0x61*/ s8 dualweaponnum;
 
@@ -4839,6 +4839,15 @@ struct explosiontype {
 	/*0x28*/ f32 damage;
 };
 
+struct explosion08 {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u16 unk14;
+};
+
 struct explosionbb { // billboards?
 	struct coord unk00;
 	struct coord unk0c;
@@ -4847,8 +4856,11 @@ struct explosionbb { // billboards?
 };
 
 struct explosion {
-	u8 unk[0x3c8];
-	/*0x3c8*/ s32 frame60;
+	u32 unk00;
+	u32 unk04;
+	struct explosion08 unk08[40];
+	/*0x3c8*/ s16 age;
+	/*0x3ca*/ s16 frame60;
 	/*0x3cc*/ s8 type;
 	/*0x3cd*/ s8 makescorch;
 	/*0x3ce*/ s8 owner;
@@ -4859,7 +4871,8 @@ struct explosion {
 	/*0x3dc*/ u32 unk3dc;
 	/*0x3e0*/ u32 unk3e0;
 	/*0x3e4*/ u32 unk3e4;
-	/*0x3e8*/ struct explosionbb bbs[1]; // length unknown
+	/*0x3e8*/ struct explosionbb bbs[5]; // may be smaller
+	/*0x474*/ u32 unk474;
 };
 
 struct smoketype {
