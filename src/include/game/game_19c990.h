@@ -10,7 +10,7 @@ extern u8 var800888a0;
 bool ciIsTourDone(void);
 u8 ciGetFiringRangeScore(s32 weaponnum);
 void func0f19c9e4(u32 frweaponindex, u32 frdifficulty);
-u32 frIsWeaponFound(s32 weapon);
+u8 frIsWeaponFound(s32 weapon);
 void frSetWeaponFound(s32 weaponnum);
 s32 stageIsComplete(s32 stageindex);
 bool func0f19cbcc(s32 weapon);

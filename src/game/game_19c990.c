@@ -163,37 +163,19 @@ s32 func0f19ca78(u32 weaponnum)
 	return -1;
 }
 
-GLOBAL_ASM(
-glabel frIsWeaponFound
-/*  f19cad4:	28810002 */ 	slti	$at,$a0,0x2
-/*  f19cad8:	50200004 */ 	beqzl	$at,.L0f19caec
-/*  f19cadc:	28810030 */ 	slti	$at,$a0,0x30
-/*  f19cae0:	03e00008 */ 	jr	$ra
-/*  f19cae4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f19cae8:	28810030 */ 	slti	$at,$a0,0x30
-.L0f19caec:
-/*  f19caec:	10200010 */ 	beqz	$at,.L0f19cb30
-/*  f19caf0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19caf4:	000470c3 */ 	sra	$t6,$a0,0x3
-/*  f19caf8:	3c0f800a */ 	lui	$t7,%hi(g_SoloSaveFile+0xb5)
-/*  f19cafc:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f19cb00:	91ef22b5 */ 	lbu	$t7,%lo(g_SoloSaveFile+0xb5)($t7)
-/*  f19cb04:	04810004 */ 	bgez	$a0,.L0f19cb18
-/*  f19cb08:	30980007 */ 	andi	$t8,$a0,0x7
-/*  f19cb0c:	13000002 */ 	beqz	$t8,.L0f19cb18
-/*  f19cb10:	00000000 */ 	nop
-/*  f19cb14:	2718fff8 */ 	addiu	$t8,$t8,-8
-.L0f19cb18:
-/*  f19cb18:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f19cb1c:	03194004 */ 	sllv	$t0,$t9,$t8
-/*  f19cb20:	01e81024 */ 	and	$v0,$t7,$t0
-/*  f19cb24:	304900ff */ 	andi	$t1,$v0,0xff
-/*  f19cb28:	03e00008 */ 	jr	$ra
-/*  f19cb2c:	01201025 */ 	or	$v0,$t1,$zero
-.L0f19cb30:
-/*  f19cb30:	03e00008 */ 	jr	$ra
-/*  f19cb34:	00000000 */ 	nop
-);
+u8 frIsWeaponFound(s32 weaponnum)
+{
+	if (weaponnum <= WEAPON_UNARMED) {
+		return true;
+	}
+
+	if (weaponnum < (s32)sizeof(g_SoloSaveFile.weaponsfound) * 8) {
+		u32 byteindex = weaponnum >> 3;
+		return g_SoloSaveFile.weaponsfound[byteindex] & (1 << (weaponnum % 8));
+	}
+
+	return false;
+}
 
 void frSetWeaponFound(s32 weaponnum)
 {
