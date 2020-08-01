@@ -11,7 +11,7 @@
 #include "game/data/data_02da90.h"
 #include "game/game_111600.h"
 #include "game/game_127910.h"
-#include "game/game_19c990.h"
+#include "game/training.h"
 #include "game/gamefile.h"
 #include "game/lang.h"
 #include "game/pak/pak.h"

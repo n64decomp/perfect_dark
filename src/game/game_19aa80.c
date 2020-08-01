@@ -15,7 +15,7 @@
 #include "game/game_179060.h"
 #include "game/game_190260.h"
 #include "game/game_19aa80.h"
-#include "game/game_19c990.h"
+#include "game/training.h"
 #include "game/lang.h"
 #include "game/mplayer.h"
 #include "game/pad.h"

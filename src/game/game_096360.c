@@ -10,7 +10,7 @@
 #include "game/game_095320.h"
 #include "game/game_096360.h"
 #include "game/game_0b3350.h"
-#include "game/game_19c990.h"
+#include "game/training.h"
 #include "game/propobj.h"
 #include "gvars/gvars.h"
 #include "lib/lib_12dc0.h"

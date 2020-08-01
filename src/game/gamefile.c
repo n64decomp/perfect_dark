@@ -14,7 +14,7 @@
 #include "game/game_0d4690.h"
 #include "game/game_157db0.h"
 #include "game/game_19aa80.h"
-#include "game/game_19c990.h"
+#include "game/training.h"
 #include "game/gamefile.h"
 #include "game/mplayer.h"
 #include "game/pak/pak.h"

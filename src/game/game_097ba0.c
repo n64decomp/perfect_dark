@@ -36,7 +36,7 @@
 #include "game/game_167ae0.h"
 #include "game/game_16e810.h"
 #include "game/game_176080.h"
-#include "game/game_19c990.h"
+#include "game/training.h"
 #include "game/game_1a3340.h"
 #include "game/lang.h"
 #include "game/mplayer.h"

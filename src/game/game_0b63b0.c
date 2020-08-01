@@ -47,7 +47,7 @@
 #include "game/game_177e00.h"
 #include "game/game_17f930.h"
 #include "game/game_18e5a0.h"
-#include "game/game_19c990.h"
+#include "game/training.h"
 #include "game/game_1a3340.h"
 #include "game/mplayer.h"
 #include "game/pad.h"

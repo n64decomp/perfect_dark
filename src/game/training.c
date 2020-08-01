@@ -25,7 +25,7 @@
 #include "game/game_150820.h"
 #include "game/game_1531a0.h"
 #include "game/game_157db0.h"
-#include "game/game_19c990.h"
+#include "game/training.h"
 #include "game/game_1a3340.h"
 #include "game/gamefile.h"
 #include "game/lang.h"

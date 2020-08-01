@@ -17,7 +17,7 @@
 #include "game/game_111600.h"
 #include "game/game_127910.h"
 #include "game/game_167ae0.h"
-#include "game/game_19c990.h"
+#include "game/training.h"
 #include "game/lang.h"
 #include "game/propobj.h"
 #include "gvars/gvars.h"
