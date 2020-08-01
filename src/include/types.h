@@ -2042,11 +2042,11 @@ struct player {
 	/*0x00d8*/ bool isdead;
 	/*0x00dc*/ f32 bondhealth;
 	/*0x00e0*/ u32 unk00e0;
-	/*0x00e4*/ f32 unk00e4;
-	/*0x00e8*/ f32 unk00e8;
-	/*0x00ec*/ f32 unk00ec;
-	/*0x00f0*/ f32 unk00f0;
-	/*0x00f4*/ u32 unk00f4;
+	/*0x00e4*/ f32 oldhealth;
+	/*0x00e8*/ f32 oldarmour;
+	/*0x00ec*/ f32 apparenthealth;
+	/*0x00f0*/ f32 apparentarmour;
+	/*0x00f4*/ u32 damageshowtime;
 	/*0x00f8*/ f32 healthshowtime;
 	/*0x00fc*/ u32 healthshowmode;
 	/*0x0100*/ bool docentreupdown;

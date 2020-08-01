@@ -5724,131 +5724,46 @@ glabel func0f0bb5ec
 /*  f0bb698:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0bb69c
-.late_rodata
-glabel var7f1ad634
-.word func0f0bb69c+0x38 # f0bb6d4
-glabel var7f1ad638
-.word func0f0bb69c+0xa4 # f0bb740
-glabel var7f1ad63c
-.word func0f0bb69c+0xa4 # f0bb740
-glabel var7f1ad640
-.word func0f0bb69c+0x60 # f0bb6fc
-glabel var7f1ad644
-.word func0f0bb69c+0x60 # f0bb6fc
-glabel var7f1ad648
-.word func0f0bb69c+0x80 # f0bb71c
-glabel var7f1ad64c
-.word func0f0bb69c+0xc4 # f0bb760
-glabel var7f1ad650
-.word func0f0bb69c+0x168 # f0bb804
-glabel var7f1ad654
-.word func0f0bb69c+0x168 # f0bb804
-glabel var7f1ad658
-.word func0f0bb69c+0xdc # f0bb778
-glabel var7f1ad65c
-.word func0f0bb69c+0xdc # f0bb778
-glabel var7f1ad660
-.word func0f0bb69c+0x118 # f0bb7b4
-.text
-/*  f0bb69c:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0bb6a0:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0bb6a4:	8c820284 */ 	lw	$v0,0x284($a0)
-/*  f0bb6a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0bb6ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0bb6b0:	8c4300fc */ 	lw	$v1,0xfc($v0)
-/*  f0bb6b4:	2c610006 */ 	sltiu	$at,$v1,0x6
-/*  f0bb6b8:	10200021 */ 	beqz	$at,.L0f0bb740
-/*  f0bb6bc:	00037080 */ 	sll	$t6,$v1,0x2
-/*  f0bb6c0:	3c017f1b */ 	lui	$at,%hi(var7f1ad634)
-/*  f0bb6c4:	002e0821 */ 	addu	$at,$at,$t6
-/*  f0bb6c8:	8c2ed634 */ 	lw	$t6,%lo(var7f1ad634)($at)
-/*  f0bb6cc:	01c00008 */ 	jr	$t6
-/*  f0bb6d0:	00000000 */ 	nop
-/*  f0bb6d4:	c44400dc */ 	lwc1	$f4,0xdc($v0)
-/*  f0bb6d8:	0fc30869 */ 	jal	func0f0c21a4
-/*  f0bb6dc:	e44400e4 */ 	swc1	$f4,0xe4($v0)
-/*  f0bb6e0:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0bb6e4:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0bb6e8:	8c8f0284 */ 	lw	$t7,0x284($a0)
-/*  f0bb6ec:	e5e000e8 */ 	swc1	$f0,0xe8($t7)
-/*  f0bb6f0:	8c820284 */ 	lw	$v0,0x284($a0)
-/*  f0bb6f4:	10000012 */ 	b	.L0f0bb740
-/*  f0bb6f8:	8c4300fc */ 	lw	$v1,0xfc($v0)
-/*  f0bb6fc:	c44600ec */ 	lwc1	$f6,0xec($v0)
-/*  f0bb700:	e44600e4 */ 	swc1	$f6,0xe4($v0)
-/*  f0bb704:	8c820284 */ 	lw	$v0,0x284($a0)
-/*  f0bb708:	c44800f0 */ 	lwc1	$f8,0xf0($v0)
-/*  f0bb70c:	e44800e8 */ 	swc1	$f8,0xe8($v0)
-/*  f0bb710:	8c820284 */ 	lw	$v0,0x284($a0)
-/*  f0bb714:	1000000a */ 	b	.L0f0bb740
-/*  f0bb718:	8c4300fc */ 	lw	$v1,0xfc($v0)
-/*  f0bb71c:	c44a00dc */ 	lwc1	$f10,0xdc($v0)
-/*  f0bb720:	0fc30869 */ 	jal	func0f0c21a4
-/*  f0bb724:	e44a00e4 */ 	swc1	$f10,0xe4($v0)
-/*  f0bb728:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0bb72c:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0bb730:	8c980284 */ 	lw	$t8,0x284($a0)
-/*  f0bb734:	e70000e8 */ 	swc1	$f0,0xe8($t8)
-/*  f0bb738:	8c820284 */ 	lw	$v0,0x284($a0)
-/*  f0bb73c:	8c4300fc */ 	lw	$v1,0xfc($v0)
-.L0f0bb740:
-/*  f0bb740:	2c610006 */ 	sltiu	$at,$v1,0x6
-/*  f0bb744:	1020002f */ 	beqz	$at,.L0f0bb804
-/*  f0bb748:	0003c880 */ 	sll	$t9,$v1,0x2
-/*  f0bb74c:	3c017f1b */ 	lui	$at,%hi(var7f1ad64c)
-/*  f0bb750:	00390821 */ 	addu	$at,$at,$t9
-/*  f0bb754:	8c39d64c */ 	lw	$t9,%lo(var7f1ad64c)($at)
-/*  f0bb758:	03200008 */ 	jr	$t9
-/*  f0bb75c:	00000000 */ 	nop
-/*  f0bb760:	44808000 */ 	mtc1	$zero,$f16
-/*  f0bb764:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0bb768:	e45000f8 */ 	swc1	$f16,0xf8($v0)
-/*  f0bb76c:	8c890284 */ 	lw	$t1,0x284($a0)
-/*  f0bb770:	10000024 */ 	b	.L0f0bb804
-/*  f0bb774:	ad2800fc */ 	sw	$t0,0xfc($t1)
-/*  f0bb778:	8c4a1924 */ 	lw	$t2,0x1924($v0)
-/*  f0bb77c:	3c0c8007 */ 	lui	$t4,%hi(g_HealthDamageTypes+0x4)
-/*  f0bb780:	240d0003 */ 	addiu	$t5,$zero,0x3
-/*  f0bb784:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f0bb788:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f0bb78c:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f0bb790:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f0bb794:	8d8c0928 */ 	lw	$t4,%lo(g_HealthDamageTypes+0x4)($t4)
-/*  f0bb798:	448c9000 */ 	mtc1	$t4,$f18
-/*  f0bb79c:	00000000 */ 	nop
-/*  f0bb7a0:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f0bb7a4:	e44400f8 */ 	swc1	$f4,0xf8($v0)
-/*  f0bb7a8:	8c8e0284 */ 	lw	$t6,0x284($a0)
-/*  f0bb7ac:	10000015 */ 	b	.L0f0bb804
-/*  f0bb7b0:	adcd00fc */ 	sw	$t5,0xfc($t6)
-/*  f0bb7b4:	0fc305bd */ 	jal	currentPlayerGetHealthBarHeightFrac
-/*  f0bb7b8:	00000000 */ 	nop
-/*  f0bb7bc:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0bb7c0:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0bb7c4:	8c820284 */ 	lw	$v0,0x284($a0)
-/*  f0bb7c8:	3c198007 */ 	lui	$t9,%hi(g_HealthDamageTypes)
-/*  f0bb7cc:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0bb7d0:	8c4f1924 */ 	lw	$t7,0x1924($v0)
-/*  f0bb7d4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f0bb7d8:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f0bb7dc:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f0bb7e0:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f0bb7e4:	8f390924 */ 	lw	$t9,%lo(g_HealthDamageTypes)($t9)
-/*  f0bb7e8:	44993000 */ 	mtc1	$t9,$f6
-/*  f0bb7ec:	00000000 */ 	nop
-/*  f0bb7f0:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f0bb7f4:	46080282 */ 	mul.s	$f10,$f0,$f8
-/*  f0bb7f8:	e44a00f8 */ 	swc1	$f10,0xf8($v0)
-/*  f0bb7fc:	8c890284 */ 	lw	$t1,0x284($a0)
-/*  f0bb800:	ad2800fc */ 	sw	$t0,0xfc($t1)
-.L0f0bb804:
-/*  f0bb804:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0bb808:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0bb80c:	03e00008 */ 	jr	$ra
-/*  f0bb810:	00000000 */ 	nop
-);
+void func0f0bb69c(void)
+{
+	switch (g_Vars.currentplayer->healthshowmode) {
+	case HEALTHSHOWMODE_HIDDEN:
+		g_Vars.currentplayer->oldhealth = g_Vars.currentplayer->bondhealth;
+		g_Vars.currentplayer->oldarmour = func0f0c21a4();
+		break;
+	case HEALTHSHOWMODE_OPENING:
+	case HEALTHSHOWMODE_PREVIOUS:
+		break;
+	case HEALTHSHOWMODE_UPDATING:
+	case HEALTHSHOWMODE_CURRENT:
+		g_Vars.currentplayer->oldhealth = g_Vars.currentplayer->apparenthealth;
+		g_Vars.currentplayer->oldarmour = g_Vars.currentplayer->apparentarmour;
+		break;
+	case HEALTHSHOWMODE_CLOSING:
+		g_Vars.currentplayer->oldhealth = g_Vars.currentplayer->bondhealth;
+		g_Vars.currentplayer->oldarmour = func0f0c21a4();
+		break;
+	}
+
+	switch (g_Vars.currentplayer->healthshowmode) {
+	case HEALTHSHOWMODE_HIDDEN:
+		g_Vars.currentplayer->healthshowtime = 0;
+		g_Vars.currentplayer->healthshowmode = HEALTHSHOWMODE_OPENING;
+		break;
+	case HEALTHSHOWMODE_OPENING:
+	case HEALTHSHOWMODE_PREVIOUS:
+		break;
+	case HEALTHSHOWMODE_UPDATING:
+	case HEALTHSHOWMODE_CURRENT:
+		g_Vars.currentplayer->healthshowtime = g_HealthDamageTypes[g_Vars.currentplayer->healthdamagetype].unk04;
+		g_Vars.currentplayer->healthshowmode = HEALTHSHOWMODE_UPDATING;
+		break;
+	case HEALTHSHOWMODE_CLOSING:
+		g_Vars.currentplayer->healthshowtime = g_HealthDamageTypes[g_Vars.currentplayer->healthdamagetype].openduration * currentPlayerGetHealthBarHeightFrac();
+		g_Vars.currentplayer->healthshowmode = HEALTHSHOWMODE_OPENING;
+		break;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0bb814
@@ -12827,10 +12742,10 @@ Gfx *func0f0c07c8(Gfx *gdl)
 										// Back to the player who died
 										setCurrentPlayerNum(prevplayernum);
 										g_Vars.currentplayer->dostartnewlife = true;
-										g_Vars.currentplayer->unk00e4 = 0;
-										g_Vars.currentplayer->unk00e8 = 0;
-										g_Vars.currentplayer->unk00ec = 0;
-										g_Vars.currentplayer->unk00f0 = 0;
+										g_Vars.currentplayer->oldhealth = 0;
+										g_Vars.currentplayer->oldarmour = 0;
+										g_Vars.currentplayer->apparenthealth = 0;
+										g_Vars.currentplayer->apparentarmour = 0;
 										g_Vars.currentplayer->stealhealth = stealhealth;
 									} else {
 										setCurrentPlayerNum(prevplayernum);
@@ -12857,10 +12772,10 @@ Gfx *func0f0c07c8(Gfx *gdl)
 									// Back to the player who died
 									setCurrentPlayerNum(prevplayernum);
 									g_Vars.currentplayer->dostartnewlife = true;
-									g_Vars.currentplayer->unk00e4 = 0;
-									g_Vars.currentplayer->unk00e8 = 0;
-									g_Vars.currentplayer->unk00ec = 0;
-									g_Vars.currentplayer->unk00f0 = 0;
+									g_Vars.currentplayer->oldhealth = 0;
+									g_Vars.currentplayer->oldarmour = 0;
+									g_Vars.currentplayer->apparenthealth = 0;
+									g_Vars.currentplayer->apparentarmour = 0;
 									g_Vars.currentplayer->stealhealth = stealhealth;
 								} else {
 									setCurrentPlayerNum(prevplayernum);
