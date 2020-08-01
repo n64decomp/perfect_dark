@@ -64,54 +64,26 @@ bool ciIsTourDone(void)
 	return savefileHasFlag(SAVEFILEFLAG_CI_TOUR_DONE);
 }
 
-u8 ciGetFiringRangeScore(s32 weaponnum)
+u8 ciGetFiringRangeScore(s32 weaponindex)
 {
 	// Data at firingrangescores is a u8 array where each score uses 2 bits
-	return (g_SoloSaveFile.firingrangescores[weaponnum >> 2] >> (weaponnum % 4) * 2) & 3;
+	return (g_SoloSaveFile.firingrangescores[weaponindex >> 2] >> (weaponindex % 4) * 2) & 3;
 }
 
-GLOBAL_ASM(
-glabel func0f19c9e4
-/*  f19c9e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19c9e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19c9ec:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f19c9f0:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19c9f4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f19c9f8:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f19c9fc:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f19ca00:	3c0f800a */ 	lui	$t7,%hi(g_SoloSaveFile)
-/*  f19ca04:	0047082a */ 	slt	$at,$v0,$a3
-/*  f19ca08:	10200017 */ 	beqz	$at,.L0f19ca68
-/*  f19ca0c:	00067083 */ 	sra	$t6,$a2,0x2
-/*  f19ca10:	25ef2200 */ 	addiu	$t7,$t7,%lo(g_SoloSaveFile)
-/*  f19ca14:	01cf2021 */ 	addu	$a0,$t6,$t7
-/*  f19ca18:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f19ca1c:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f19ca20:	908200ac */ 	lbu	$v0,0xac($a0)
-/*  f19ca24:	04c10004 */ 	bgez	$a2,.L0f19ca38
-/*  f19ca28:	30c30003 */ 	andi	$v1,$a2,0x3
-/*  f19ca2c:	10600002 */ 	beqz	$v1,.L0f19ca38
-/*  f19ca30:	00000000 */ 	nop
-/*  f19ca34:	2463fffc */ 	addiu	$v1,$v1,-4
-.L0f19ca38:
-/*  f19ca38:	0003c040 */ 	sll	$t8,$v1,0x1
-/*  f19ca3c:	27090001 */ 	addiu	$t1,$t8,0x1
-/*  f19ca40:	012a5804 */ 	sllv	$t3,$t2,$t1
-/*  f19ca44:	03194004 */ 	sllv	$t0,$t9,$t8
-/*  f19ca48:	010b2821 */ 	addu	$a1,$t0,$t3
-/*  f19ca4c:	240c00ff */ 	addiu	$t4,$zero,0xff
-/*  f19ca50:	01856823 */ 	subu	$t5,$t4,$a1
-/*  f19ca54:	03077004 */ 	sllv	$t6,$a3,$t8
-/*  f19ca58:	01c57824 */ 	and	$t7,$t6,$a1
-/*  f19ca5c:	004d1024 */ 	and	$v0,$v0,$t5
-/*  f19ca60:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f19ca64:	a08200ac */ 	sb	$v0,0xac($a0)
-.L0f19ca68:
-/*  f19ca68:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ca6c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19ca70:	03e00008 */ 	jr	$ra
-/*  f19ca74:	00000000 */ 	nop
-);
+void frSaveScoreIfBest(s32 weaponindex, s32 difficulty)
+{
+	if (ciGetFiringRangeScore(weaponindex) < difficulty) {
+		u32 byteindex = weaponindex >> 2;
+		u32 shiftamount = (weaponindex % 4) * 2;
+		u32 value = g_SoloSaveFile.firingrangescores[byteindex];
+		u32 mask = (1 << shiftamount) + (1 << (shiftamount + 1));
+
+		value &= 255 - mask;
+		value += (difficulty << shiftamount) & mask;
+
+		g_SoloSaveFile.firingrangescores[byteindex] = value;
+	}
+}
 
 s32 func0f19ca78(u32 weaponnum)
 {
@@ -2212,7 +2184,7 @@ void func0f19f18c(void)
 		g_FiringRangeData.unk465_00 = 2;
 	} else {
 		u32 frweaponindex = frGetWeaponIndexByWeapon(frGetWeaponBySlot(g_FiringRangeData.slot));
-		func0f19c9e4(frweaponindex, g_FiringRangeData.difficulty + 1);
+		frSaveScoreIfBest(frweaponindex, g_FiringRangeData.difficulty + 1);
 		g_FiringRangeData.unk465_00 = 3;
 	}
 
