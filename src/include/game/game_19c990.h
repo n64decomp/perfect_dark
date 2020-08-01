@@ -38,7 +38,7 @@ bool func0f19def4(s32 index);
 u32 func0f19df18(void);
 u32 func0f19df58(void);
 u32 func0f19e090(void);
-u32 func0f19e3e0(void);
+void frHideAllTargets(void);
 void func0f19e44c(void);
 void frCloseAndLockDoor(void);
 void frUnlockDoor(void);

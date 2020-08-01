@@ -1635,37 +1635,19 @@ glabel var7f1b941c
 /*  f19e3dc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f19e3e0
-/*  f19e3e0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f19e3e4:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f19e3e8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f19e3ec:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f19e3f0:	3c10800b */ 	lui	$s0,%hi(g_FiringRangeData)
-/*  f19e3f4:	3c12800b */ 	lui	$s2,%hi(g_FiringRangeData+0x438)
-/*  f19e3f8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f19e3fc:	2652d158 */ 	addiu	$s2,$s2,%lo(g_FiringRangeData+0x438)
-/*  f19e400:	2610cd20 */ 	addiu	$s0,$s0,%lo(g_FiringRangeData)
-/*  f19e404:	3c110008 */ 	lui	$s1,0x8
-/*  f19e408:	8e040014 */ 	lw	$a0,0x14($s0)
-.L0f19e40c:
-/*  f19e40c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f19e410:	3406ffff */ 	dli	$a2,0xffff
-/*  f19e414:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f19e418:	8c4e000c */ 	lw	$t6,0xc($v0)
-/*  f19e41c:	01d17825 */ 	or	$t7,$t6,$s1
-/*  f19e420:	0fc249af */ 	jal	func0f0926bc
-/*  f19e424:	ac4f000c */ 	sw	$t7,0xc($v0)
-/*  f19e428:	2610003c */ 	addiu	$s0,$s0,0x3c
-/*  f19e42c:	5612fff7 */ 	bnel	$s0,$s2,.L0f19e40c
-/*  f19e430:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f19e434:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f19e438:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f19e43c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f19e440:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f19e444:	03e00008 */ 	jr	$ra
-/*  f19e448:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void frHideAllTargets(void)
+{
+	s32 i;
+
+	for (i = 0; i < 18; i++) {
+		struct prop *prop = g_FiringRangeData.targets[i].prop;
+		struct defaultobj *target = prop->obj;
+
+		target->flags2 |= OBJFLAG2_INVISIBLE;
+
+		func0f0926bc(prop, 1, 0xffff);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f19e44c
@@ -2140,7 +2122,7 @@ glabel func0f19ecdc
 /*  f19ed64:	a0208804 */ 	sb	$zero,%lo(var80088804)($at)
 /*  f19ed68:	12000003 */ 	beqz	$s0,.L0f19ed78
 /*  f19ed6c:	00000000 */ 	nop
-/*  f19ed70:	0fc678f8 */ 	jal	func0f19e3e0
+/*  f19ed70:	0fc678f8 */ 	jal	frHideAllTargets
 /*  f19ed74:	00000000 */ 	nop
 .L0f19ed78:
 /*  f19ed78:	3c048007 */ 	lui	$a0,%hi(g_ThrownLaptops)
