@@ -50,7 +50,7 @@ u32 var80088800 = 0;
 u8 var80088804 = 0;
 u8 var80088808 = 0;
 u8 var8008880c = 0;
-void *var80088810 = NULL;
+u8 *g_FrRomData = NULL;
 
 u16 g_FrPads[] = {
 	0x00d6, 0x00d7, 0x00d9, 0x00d8, 0x00da, 0x00db, 0x00dc, 0x00dd,
@@ -498,7 +498,7 @@ void func0f19d4ec(void)
 	var80088800 = 0;
 	var80088808 = 0;
 	var80088804 = 0;
-	var80088810 = 0;
+	g_FrRomData = NULL;
 
 	g_FiringRangeData.unk466 = 0;
 	g_FiringRangeData.unk467 = 0;
@@ -515,14 +515,14 @@ void func0f19d4ec(void)
 	var8008880c = 0;
 }
 
-void *func0f19d560(u32 len)
+void *frLoadRomData(u32 len)
 {
 	extern u32 _addr007e9d20;
 
-	var80088810 = malloc(ALIGN16(len), 4);
+	g_FrRomData = malloc(ALIGN16(len), 4);
 
-	if (var80088810) {
-		return func0000d488(var80088810, &_addr007e9d20, len);
+	if (g_FrRomData) {
+		return func0000d488(g_FrRomData, &_addr007e9d20, len);
 	}
 
 	return NULL;
@@ -530,12 +530,12 @@ void *func0f19d560(u32 len)
 
 void frSetDifficulty(s32 difficulty)
 {
-	if (difficulty < DIFF_A) {
-		difficulty = DIFF_A;
+	if (difficulty < FRDIFFICULTY_BRONZE) {
+		difficulty = FRDIFFICULTY_BRONZE;
 	}
 
-	if (difficulty > DIFF_PA) {
-		difficulty = DIFF_PA;
+	if (difficulty > FRDIFFICULTY_GOLD) {
+		difficulty = FRDIFFICULTY_GOLD;
 	}
 
 	g_FiringRangeData.difficulty = difficulty;
@@ -875,10 +875,10 @@ glabel var7f1b93ec
 /*  f19d948:	3c0e8009 */ 	lui	$t6,%hi(var80088800)
 /*  f19d94c:	8dce8800 */ 	lw	$t6,%lo(var80088800)($t6)
 /*  f19d950:	00047840 */ 	sll	$t7,$a0,0x1
-/*  f19d954:	3c088009 */ 	lui	$t0,%hi(var80088810)
+/*  f19d954:	3c088009 */ 	lui	$t0,%hi(g_FrRomData)
 /*  f19d958:	01cfc021 */ 	addu	$t8,$t6,$t7
 /*  f19d95c:	97190000 */ 	lhu	$t9,0x0($t8)
-/*  f19d960:	8d088810 */ 	lw	$t0,%lo(var80088810)($t0)
+/*  f19d960:	8d088810 */ 	lw	$t0,%lo(g_FrRomData)($t0)
 /*  f19d964:	24010013 */ 	addiu	$at,$zero,0x13
 /*  f19d968:	24160001 */ 	addiu	$s6,$zero,0x1
 /*  f19d96c:	0328a021 */ 	addu	$s4,$t9,$t0
@@ -1134,10 +1134,10 @@ glabel var7f1b93ec
 /*  f19dd24:	24630071 */ 	addiu	$v1,$v1,0x71
 /*  f19dd28:	0003c040 */ 	sll	$t8,$v1,0x1
 /*  f19dd2c:	92020448 */ 	lbu	$v0,0x448($s0)
-/*  f19dd30:	3c0b8009 */ 	lui	$t3,%hi(var80088810)
+/*  f19dd30:	3c0b8009 */ 	lui	$t3,%hi(g_FrRomData)
 /*  f19dd34:	01d84021 */ 	addu	$t0,$t6,$t8
 /*  f19dd38:	95090000 */ 	lhu	$t1,0x0($t0)
-/*  f19dd3c:	8d6b8810 */ 	lw	$t3,%lo(var80088810)($t3)
+/*  f19dd3c:	8d6b8810 */ 	lw	$t3,%lo(g_FrRomData)($t3)
 /*  f19dd40:	26520002 */ 	addiu	$s2,$s2,0x2
 /*  f19dd44:	26310002 */ 	addiu	$s1,$s1,0x2
 /*  f19dd48:	14400003 */ 	bnez	$v0,.L0f19dd58
@@ -1232,25 +1232,23 @@ bool func0f19def4(s32 index)
 	return g_FiringRangeData.targets[index].unk21 == false;
 }
 
-GLOBAL_ASM(
-glabel func0f19df18
-/*  f19df18:	3c0f8009 */ 	lui	$t7,%hi(var80088810)
-/*  f19df1c:	8def8810 */ 	lw	$t7,%lo(var80088810)($t7)
-/*  f19df20:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19df24:	00047040 */ 	sll	$t6,$a0,0x1
-/*  f19df28:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19df2c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f19df30:	90590000 */ 	lbu	$t9,0x0($v0)
-/*  f19df34:	90580001 */ 	lbu	$t8,0x1($v0)
-/*  f19df38:	00194a00 */ 	sll	$t1,$t9,0x8
-/*  f19df3c:	03091825 */ 	or	$v1,$t8,$t1
-/*  f19df40:	0fc5b9f1 */ 	jal	langGet
-/*  f19df44:	3064ffff */ 	andi	$a0,$v1,0xffff
-/*  f19df48:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19df4c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19df50:	03e00008 */ 	jr	$ra
-/*  f19df54:	00000000 */ 	nop
-);
+/**
+ * 0 => "FIRING\n Press Z Button to fire gun.\n"
+ * 1 => "AUTO RELOAD\n Release Z Button when out of ammo.\n"
+ * 2 => "MANUAL RELOAD\n Press B Button to reload early if magazine not full.\n"
+ * 3 => "Aiming: Hold down R Button to enter Aim mode.\n"
+ * 4 => "Use Control Stick to move aiming sight.\n"
+ * 5 => "AUTO FIRE\n Hold Z Button to repeatedly fire automatically.\n"
+ * 6 => "ALTER AIM\n Press Up C Button or Down C Button to move sight up/down.\n"
+ * 7 => "ZOOM\n Hold R Button to enter Zoom mode.\n"
+ * 8 => "FAST FIRE\n Press Z Button quickly to fire faster.\n"
+ */
+char *frGetInstructionalText(u32 index)
+{
+	u16 textid = (u16)(g_FrRomData[index * 2] << 8) | g_FrRomData[index * 2 + 1];
+
+	return langGet(textid);
+}
 
 GLOBAL_ASM(
 glabel func0f19df58
@@ -1267,12 +1265,12 @@ glabel func0f19df58
 /*  f19df80:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f19df84:	8ce2046c */ 	lw	$v0,0x46c($a3)
 /*  f19df88:	3c188009 */ 	lui	$t8,%hi(var80088800)
-/*  f19df8c:	3c0b8009 */ 	lui	$t3,%hi(var80088810)
+/*  f19df8c:	3c0b8009 */ 	lui	$t3,%hi(g_FrRomData)
 /*  f19df90:	54400037 */ 	bnezl	$v0,.L0f19e070
 /*  f19df94:	8c6a0038 */ 	lw	$t2,0x38($v1)
 /*  f19df98:	90e30466 */ 	lbu	$v1,0x466($a3)
 /*  f19df9c:	8f188800 */ 	lw	$t8,%lo(var80088800)($t8)
-/*  f19dfa0:	8d6b8810 */ 	lw	$t3,%lo(var80088810)($t3)
+/*  f19dfa0:	8d6b8810 */ 	lw	$t3,%lo(g_FrRomData)($t3)
 /*  f19dfa4:	24630071 */ 	addiu	$v1,$v1,0x71
 /*  f19dfa8:	0003c840 */ 	sll	$t9,$v1,0x1
 /*  f19dfac:	03194821 */ 	addu	$t1,$t8,$t9
@@ -1300,7 +1298,7 @@ glabel func0f19df58
 /*  f19e000:	1000001f */ 	b	.L0f19e080
 /*  f19e004:	a0e00468 */ 	sb	$zero,0x468($a3)
 .L0f19e008:
-/*  f19e008:	0fc677c6 */ 	jal	func0f19df18
+/*  f19e008:	0fc677c6 */ 	jal	frGetInstructionalText
 /*  f19e00c:	90c40001 */ 	lbu	$a0,0x1($a2)
 /*  f19e010:	00402025 */ 	or	$a0,$v0,$zero
 /*  f19e014:	0fc377c7 */ 	jal	hudmsgCreateViaPreset
@@ -1377,7 +1375,7 @@ glabel var7f1b941c
 /*  f19e0a4:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*  f19e0a8:	afa400d0 */ 	sw	$a0,0xd0($sp)
 /*  f19e0ac:	3c0a8009 */ 	lui	$t2,%hi(var80088800)
-/*  f19e0b0:	3c0e8009 */ 	lui	$t6,%hi(var80088810)
+/*  f19e0b0:	3c0e8009 */ 	lui	$t6,%hi(g_FrRomData)
 /*  f19e0b4:	00007812 */ 	mflo	$t7
 /*  f19e0b8:	01f81821 */ 	addu	$v1,$t7,$t8
 /*  f19e0bc:	8c670010 */ 	lw	$a3,0x10($v1)
@@ -1386,7 +1384,7 @@ glabel var7f1b941c
 /*  f19e0c8:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f19e0cc:	90620012 */ 	lbu	$v0,0x12($v1)
 /*  f19e0d0:	8d4a8800 */ 	lw	$t2,%lo(var80088800)($t2)
-/*  f19e0d4:	8dce8810 */ 	lw	$t6,%lo(var80088810)($t6)
+/*  f19e0d4:	8dce8810 */ 	lw	$t6,%lo(g_FrRomData)($t6)
 /*  f19e0d8:	24420022 */ 	addiu	$v0,$v0,0x22
 /*  f19e0dc:	00025840 */ 	sll	$t3,$v0,0x1
 /*  f19e0e0:	014b6021 */ 	addu	$t4,$t2,$t3
@@ -1838,7 +1836,7 @@ glabel func0f19e7a8
 /*  f19e7e0:	afa70020 */ 	sw	$a3,0x20($sp)
 /*  f19e7e4:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f19e7e8:	afa4002c */ 	sw	$a0,0x2c($sp)
-/*  f19e7ec:	0fc67558 */ 	jal	func0f19d560
+/*  f19e7ec:	0fc67558 */ 	jal	frLoadRomData
 /*  f19e7f0:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f19e7f4:	8faa0018 */ 	lw	$t2,0x18($sp)
 /*  f19e7f8:	8fa60028 */ 	lw	$a2,0x28($sp)
@@ -1847,8 +1845,8 @@ glabel func0f19e7a8
 /*  f19e804:	8fa9002c */ 	lw	$t1,0x2c($sp)
 /*  f19e808:	1420000c */ 	bnez	$at,.L0f19e83c
 /*  f19e80c:	24030012 */ 	addiu	$v1,$zero,0x12
-/*  f19e810:	3c028009 */ 	lui	$v0,%hi(var80088810)
-/*  f19e814:	8c428810 */ 	lw	$v0,%lo(var80088810)($v0)
+/*  f19e810:	3c028009 */ 	lui	$v0,%hi(g_FrRomData)
+/*  f19e814:	8c428810 */ 	lw	$v0,%lo(g_FrRomData)($v0)
 /*  f19e818:	240800fe */ 	addiu	$t0,$zero,0xfe
 /*  f19e81c:	24420012 */ 	addiu	$v0,$v0,0x12
 .L0f19e820:
@@ -1878,8 +1876,8 @@ glabel func0f19e7a8
 /*  f19e874:	10400015 */ 	beqz	$v0,.L0f19e8cc
 /*  f19e878:	8fa9002c */ 	lw	$t1,0x2c($sp)
 /*  f19e87c:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f19e880:	3c028009 */ 	lui	$v0,%hi(var80088810)
-/*  f19e884:	24428810 */ 	addiu	$v0,$v0,%lo(var80088810)
+/*  f19e880:	3c028009 */ 	lui	$v0,%hi(g_FrRomData)
+/*  f19e884:	24428810 */ 	addiu	$v0,$v0,%lo(g_FrRomData)
 /*  f19e888:	2de10013 */ 	sltiu	$at,$t7,0x13
 /*  f19e88c:	1420000f */ 	bnez	$at,.L0f19e8cc
 /*  f19e890:	24030012 */ 	addiu	$v1,$zero,0x12
