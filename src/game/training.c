@@ -5010,88 +5010,46 @@ bool frGetMinAccuracy(char *buffer, f32 accuracy)
 	return accuracy < g_FiringRangeData.goalaccuracy;
 }
 
-const char var7f1b91c4[] = "%02d:%02d\n";
+/**
+ * Formats either the time taken or time limit into buffer, and returns true if
+ * the time should induce a failure.
+ *
+ * The time limit will be used if it exists and the time take exceeds it,
+ * otherwise time taken will be used.
+ *
+ * Negative time taken (such as when the player aborts before the challenge
+ * starts) is wrapped to positive and will induce a failure.
+ */
+bool frFormatTime(char *buffer)
+{
+	s32 mins = 0;
+	s32 mult = 1;
+	f32 secs = g_FiringRangeData.timetaken / 60.0f;
+	u8 failed = false;
 
-GLOBAL_ASM(
-glabel func0f1a29b8
-/*  f1a29b8:	3c06800b */ 	lui	$a2,%hi(g_FiringRangeData)
-/*  f1a29bc:	24c6cd20 */ 	addiu	$a2,$a2,%lo(g_FiringRangeData)
-/*  f1a29c0:	8cc3044c */ 	lw	$v1,0x44c($a2)
-/*  f1a29c4:	3c014270 */ 	lui	$at,0x4270
-/*  f1a29c8:	44814000 */ 	mtc1	$at,$f8
-/*  f1a29cc:	44832000 */ 	mtc1	$v1,$f4
-/*  f1a29d0:	90c50005 */ 	lbu	$a1,0x5($a2)
-/*  f1a29d4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a29d8:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f1a29dc:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f1a29e0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a29e4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a29e8:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f1a29ec:	00004025 */ 	or	$t0,$zero,$zero
-/*  f1a29f0:	10a1000f */ 	beq	$a1,$at,.L0f1a2a30
-/*  f1a29f4:	46083083 */ 	div.s	$f2,$f6,$f8
-/*  f1a29f8:	44855000 */ 	mtc1	$a1,$f10
-/*  f1a29fc:	3c014f80 */ 	lui	$at,0x4f80
-/*  f1a2a00:	04a10004 */ 	bgez	$a1,.L0f1a2a14
-/*  f1a2a04:	46805020 */ 	cvt.s.w	$f0,$f10
-/*  f1a2a08:	44818000 */ 	mtc1	$at,$f16
-/*  f1a2a0c:	00000000 */ 	nop
-/*  f1a2a10:	46100000 */ 	add.s	$f0,$f0,$f16
-.L0f1a2a14:
-/*  f1a2a14:	4602003e */ 	c.le.s	$f0,$f2
-/*  f1a2a18:	00000000 */ 	nop
-/*  f1a2a1c:	45000004 */ 	bc1f	.L0f1a2a30
-/*  f1a2a20:	00000000 */ 	nop
-/*  f1a2a24:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f1a2a28:	10000004 */ 	b	.L0f1a2a3c
-/*  f1a2a2c:	46000086 */ 	mov.s	$f2,$f0
-.L0f1a2a30:
-/*  f1a2a30:	04630003 */ 	bgezl	$v1,.L0f1a2a40
-/*  f1a2a34:	44809000 */ 	mtc1	$zero,$f18
-/*  f1a2a38:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f1a2a3c:
-/*  f1a2a3c:	44809000 */ 	mtc1	$zero,$f18
-.L0f1a2a40:
-/*  f1a2a40:	3c014270 */ 	lui	$at,0x4270
-/*  f1a2a44:	44810000 */ 	mtc1	$at,$f0
-/*  f1a2a48:	4612103c */ 	c.lt.s	$f2,$f18
-/*  f1a2a4c:	00000000 */ 	nop
-/*  f1a2a50:	45020004 */ 	bc1fl	.L0f1a2a64
-/*  f1a2a54:	4602003e */ 	c.le.s	$f0,$f2
-/*  f1a2a58:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f1a2a5c:	46001087 */ 	neg.s	$f2,$f2
-/*  f1a2a60:	4602003e */ 	c.le.s	$f0,$f2
-.L0f1a2a64:
-/*  f1a2a64:	00000000 */ 	nop
-/*  f1a2a68:	4500000b */ 	bc1f	.L0f1a2a98
-/*  f1a2a6c:	00000000 */ 	nop
-/*  f1a2a70:	4602003e */ 	c.le.s	$f0,$f2
-/*  f1a2a74:	00000000 */ 	nop
-/*  f1a2a78:	45000007 */ 	bc1f	.L0f1a2a98
-/*  f1a2a7c:	00000000 */ 	nop
-/*  f1a2a80:	46001081 */ 	sub.s	$f2,$f2,$f0
-.L0f1a2a84:
-/*  f1a2a84:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f1a2a88:	4602003e */ 	c.le.s	$f0,$f2
-/*  f1a2a8c:	00000000 */ 	nop
-/*  f1a2a90:	4503fffc */ 	bc1tl	.L0f1a2a84
-/*  f1a2a94:	46001081 */ 	sub.s	$f2,$f2,$f0
-.L0f1a2a98:
-/*  f1a2a98:	01220019 */ 	multu	$t1,$v0
-/*  f1a2a9c:	4600110d */ 	trunc.w.s	$f4,$f2
-/*  f1a2aa0:	3c057f1c */ 	lui	$a1,%hi(var7f1b91c4)
-/*  f1a2aa4:	24a591c4 */ 	addiu	$a1,$a1,%lo(var7f1b91c4)
-/*  f1a2aa8:	a3a8001b */ 	sb	$t0,0x1b($sp)
-/*  f1a2aac:	44072000 */ 	mfc1	$a3,$f4
-/*  f1a2ab0:	00003012 */ 	mflo	$a2
-/*  f1a2ab4:	0c004dad */ 	jal	sprintf
-/*  f1a2ab8:	00000000 */ 	nop
-/*  f1a2abc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a2ac0:	93a2001b */ 	lbu	$v0,0x1b($sp)
-/*  f1a2ac4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f1a2ac8:	03e00008 */ 	jr	$ra
-/*  f1a2acc:	00000000 */ 	nop
-);
+	if (g_FiringRangeData.timelimit != 255 && secs >= g_FiringRangeData.timelimit) {
+		failed = true;
+		secs = g_FiringRangeData.timelimit;
+	} else if (g_FiringRangeData.timetaken < 0) {
+		failed = true;
+	}
+
+	if (secs < 0) {
+		mult = -1;
+		secs = -secs;
+	}
+
+	if (secs >= 60) {
+		while (secs >= 60) {
+			secs -= 60;
+			mins++;
+		}
+	}
+
+	sprintf(buffer, "%02d:%02d\n", mult * mins, (s32)secs);
+
+	return failed;
+}
 
 bool frGetHudMiddleSubtext(char *buffer)
 {
@@ -5353,7 +5311,7 @@ glabel var7f1b97cc
 /*  f1a3004:	0fc54d8a */ 	jal	func0f153628
 /*  f1a3008:	8fa40158 */ 	lw	$a0,0x158($sp)
 /*  f1a300c:	afa20158 */ 	sw	$v0,0x158($sp)
-/*  f1a3010:	0fc68a6e */ 	jal	func0f1a29b8
+/*  f1a3010:	0fc68a6e */ 	jal	frFormatTime
 /*  f1a3014:	27a400d8 */ 	addiu	$a0,$sp,0xd8
 /*  f1a3018:	afa20054 */ 	sw	$v0,0x54($sp)
 /*  f1a301c:	0fc68ab4 */ 	jal	frGetHudMiddleSubtext
