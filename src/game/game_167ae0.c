@@ -3185,8 +3185,8 @@ glabel var7f1b7868
 /*  f16ad74:	02402025 */ 	or	$a0,$s2,$zero
 /*  f16ad78:	0fc5a176 */ 	jal	fadeRender
 /*  f16ad7c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f16ad80:	3c0c8009 */ 	lui	$t4,%hi(var80088804)
-/*  f16ad84:	918c8804 */ 	lbu	$t4,%lo(var80088804)($t4)
+/*  f16ad80:	3c0c8009 */ 	lui	$t4,%hi(g_FrIsValidWeapon)
+/*  f16ad84:	918c8804 */ 	lbu	$t4,%lo(g_FrIsValidWeapon)($t4)
 /*  f16ad88:	00409025 */ 	or	$s2,$v0,$zero
 /*  f16ad8c:	11800004 */ 	beqz	$t4,.L0f16ada0
 /*  f16ad90:	00000000 */ 	nop

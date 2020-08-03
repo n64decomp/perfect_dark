@@ -68,7 +68,7 @@ s32 frDetailsOkMenuHandler(u32 operation, struct menuitem *item, s32 *value)
 				g_Vars.currentplayer->hands[1].unk0d74[i] = 0;
 			}
 
-			func0f19e9c0(weapon);
+			frBeginSession(weapon);
 		}
 
 		func0f0f8120();
@@ -516,7 +516,7 @@ glabel var7f1b9944
 /*  f1a3a28:	00000000 */ 	nop
 /*  f1a3a2c:	5440002d */ 	bnezl	$v0,.L0f1a3ae4
 /*  f1a3a30:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3a34:	0fc67a40 */ 	jal	func0f19e900
+/*  f1a3a34:	0fc67a40 */ 	jal	frInitAmmo
 /*  f1a3a38:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f1a3a3c:	10000029 */ 	b	.L0f1a3ae4
 /*  f1a3a40:	8fbf0014 */ 	lw	$ra,0x14($sp)

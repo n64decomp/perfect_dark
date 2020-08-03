@@ -589,7 +589,6 @@ void activemenuApply(s32 slot)
 	s32 invindex;
 	bool pass;
 	s32 lVar4;
-	s32 uVar6;
 	s32 weaponnum;
 	s32 i;
 
@@ -623,10 +622,10 @@ void activemenuApply(s32 slot)
 			if (pass) {
 				pass = true;
 
-				if (var80088804 != 0) {
-					uVar6 = frGetWeaponBySlot(frGetSlot());
+				if (g_FrIsValidWeapon) {
+					s32 weaponnum = frGetWeaponBySlot(frGetSlot());
 
-					if (g_Vars.currentplayer->hands[0].weaponnum == uVar6) {
+					if (g_Vars.currentplayer->hands[0].weaponnum == weaponnum) {
 						pass = false;
 					}
 				}
@@ -655,7 +654,7 @@ void activemenuApply(s32 slot)
 			}
 		}
 		break;
-	case 1: // Function - 0c8
+	case 1: // Function
 		if (g_Vars.currentplayer->weaponnum >= WEAPON_UNARMED
 				&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST
 				&& g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->weaponnum - 1 & 7))) {
@@ -668,7 +667,7 @@ void activemenuApply(s32 slot)
 			}
 		}
 		break;
-	default: // 148
+	default:
 		if (g_MissionConfig.iscoop) {
 			if (activemenuGetFirstBuddyIndex() > -1) {
 				if (slot == 1) {

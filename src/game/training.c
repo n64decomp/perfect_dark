@@ -47,7 +47,7 @@
 #include "types.h"
 
 u16 *var80088800 = NULL;
-u8 var80088804 = 0;
+u8 g_FrIsValidWeapon = false;
 u8 var80088808 = 0;
 u8 var8008880c = 0;
 u8 *g_FrRomData = NULL;
@@ -497,7 +497,7 @@ void func0f19d4ec(void)
 
 	var80088800 = NULL;
 	var80088808 = 0;
-	var80088804 = 0;
+	g_FrIsValidWeapon = false;
 	g_FrRomData = NULL;
 
 	g_FiringRangeData.unk466 = 0;
@@ -1954,63 +1954,34 @@ glabel func0f19e7a8
 /*  f19e8fc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f19e900
-/*  f19e900:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f19e904:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19e908:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f19e90c:	0fc2a685 */ 	jal	weaponGetAmmoType
-/*  f19e910:	00002825 */ 	or	$a1,$zero,$zero
-/*  f19e914:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f19e918:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
-/*  f19e91c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f19e920:	0fc6757d */ 	jal	func0f19d5f4
-/*  f19e924:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f19e928:	0fc6737c */ 	jal	func0f19cdf0
-/*  f19e92c:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f19e930:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f19e934:	0fc67643 */ 	jal	func0f19d90c
-/*  f19e938:	00402025 */ 	or	$a0,$v0,$zero
-/*  f19e93c:	3c05800b */ 	lui	$a1,%hi(g_FiringRangeData+0x6)
-/*  f19e940:	90a5cd26 */ 	lbu	$a1,%lo(g_FiringRangeData+0x6)($a1)
-/*  f19e944:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f19e948:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f19e94c:	14a10005 */ 	bne	$a1,$at,.L0f19e964
-/*  f19e950:	00000000 */ 	nop
-/*  f19e954:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
-/*  f19e958:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f19e95c:	10000004 */ 	b	.L0f19e970
-/*  f19e960:	8fae0028 */ 	lw	$t6,0x28($sp)
-.L0f19e964:
-/*  f19e964:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
-/*  f19e968:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f19e96c:	8fae0028 */ 	lw	$t6,0x28($sp)
-.L0f19e970:
-/*  f19e970:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f19e974:	3c05800b */ 	lui	$a1,%hi(g_FiringRangeData+0x7)
-/*  f19e978:	55c1000d */ 	bnel	$t6,$at,.L0f19e9b0
-/*  f19e97c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19e980:	90a5cd27 */ 	lbu	$a1,%lo(g_FiringRangeData+0x7)($a1)
-/*  f19e984:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f19e988:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f19e98c:	14a10005 */ 	bne	$a1,$at,.L0f19e9a4
-/*  f19e990:	00000000 */ 	nop
-/*  f19e994:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
-/*  f19e998:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f19e99c:	10000004 */ 	b	.L0f19e9b0
-/*  f19e9a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19e9a4:
-/*  f19e9a4:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
-/*  f19e9a8:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f19e9ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19e9b0:
-/*  f19e9b0:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*  f19e9b4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f19e9b8:	03e00008 */ 	jr	$ra
-/*  f19e9bc:	00000000 */ 	nop
-);
+u32 frInitAmmo(s32 weaponnum)
+{
+	u32 weaponindex;
+	u32 ammotype = weaponGetAmmoType(weaponnum, 0);
+	u32 capacity = ammotypeGetMaxCapacity(ammotype);
 
-void func0f19e9c0(s32 weapon)
+	func0f19d5f4();
+	weaponindex = func0f19cdf0(weaponnum);
+	func0f19d90c(weaponindex);
+
+	if (g_FiringRangeData.ammolimit == 255) {
+		currentPlayerSetAmmoQuantity(ammotype, capacity);
+	} else {
+		currentPlayerSetAmmoQuantity(ammotype, g_FiringRangeData.ammolimit);
+	}
+
+	if (weaponnum == WEAPON_SUPERDRAGON) {
+		if (g_FiringRangeData.sdgrenadelimit == 255) {
+			currentPlayerSetAmmoQuantity(AMMOTYPE_DEVASTATOR, capacity);
+		} else {
+			currentPlayerSetAmmoQuantity(AMMOTYPE_DEVASTATOR, g_FiringRangeData.sdgrenadelimit);
+		}
+	}
+
+	return weaponindex;
+}
+
+void frBeginSession(s32 weapon)
 {
 	s32 i;
 	struct defaultobj *obj = objFindByTagId(0x7f); // computer
@@ -2028,7 +1999,7 @@ void func0f19e9c0(s32 weapon)
 		}
 	}
 
-	var80088804 = func0f19e900(weapon) == false ? false : true;
+	g_FrIsValidWeapon = frInitAmmo(weapon) == 0 ? false : true;
 	func0f19e44c();
 	playersSetPassiveMode(false);
 }
@@ -2102,7 +2073,7 @@ void frEndSession(bool hidetargets)
 
 		playersSetPassiveMode(true);
 
-		var80088804 = 0;
+		g_FrIsValidWeapon = 0;
 
 		func0f19d414();
 
@@ -2746,8 +2717,8 @@ glabel var7f1b94e4
 .word 0x40490fdb
 .text
 /*  f19f994:	27bdfe90 */ 	addiu	$sp,$sp,-368
-/*  f19f998:	3c0e8009 */ 	lui	$t6,%hi(var80088804)
-/*  f19f99c:	91ce8804 */ 	lbu	$t6,%lo(var80088804)($t6)
+/*  f19f998:	3c0e8009 */ 	lui	$t6,%hi(g_FrIsValidWeapon)
+/*  f19f99c:	91ce8804 */ 	lbu	$t6,%lo(g_FrIsValidWeapon)($t6)
 /*  f19f9a0:	afbf007c */ 	sw	$ra,0x7c($sp)
 /*  f19f9a4:	afb60078 */ 	sw	$s6,0x78($sp)
 /*  f19f9a8:	afb50074 */ 	sw	$s5,0x74($sp)
@@ -2905,10 +2876,10 @@ glabel var7f1b94e4
 /*  f19fbe4:	8fbf007c */ 	lw	$ra,0x7c($sp)
 /*  f19fbe8:	8ec20284 */ 	lw	$v0,0x284($s6)
 .L0f19fbec:
-/*  f19fbec:	3c038009 */ 	lui	$v1,%hi(var80088804)
+/*  f19fbec:	3c038009 */ 	lui	$v1,%hi(g_FrIsValidWeapon)
 /*  f19fbf0:	2401000a */ 	addiu	$at,$zero,0xa
 /*  f19fbf4:	8c4d00bc */ 	lw	$t5,0xbc($v0)
-/*  f19fbf8:	90638804 */ 	lbu	$v1,%lo(var80088804)($v1)
+/*  f19fbf8:	90638804 */ 	lbu	$v1,%lo(g_FrIsValidWeapon)($v1)
 /*  f19fbfc:	85ae0028 */ 	lh	$t6,0x28($t5)
 /*  f19fc00:	11c10024 */ 	beq	$t6,$at,.L0f19fc94
 /*  f19fc04:	00000000 */ 	nop
@@ -3998,7 +3969,7 @@ s32 frIsInTraining(void)
 	}
 
 	return g_Vars.currentplayer->prop->rooms[0] == CIROOM_FIRINGRANGE
-		&& var80088804
+		&& g_FrIsValidWeapon
 		&& getCurrentStageId() == STAGE_CITRAINING;
 }
 
@@ -4009,8 +3980,8 @@ glabel var7f1b94e8
 .word 0x3dcccccd
 .text
 /*  f1a0cc0:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f1a0cc4:	3c0e8009 */ 	lui	$t6,%hi(var80088804)
-/*  f1a0cc8:	91ce8804 */ 	lbu	$t6,%lo(var80088804)($t6)
+/*  f1a0cc4:	3c0e8009 */ 	lui	$t6,%hi(g_FrIsValidWeapon)
+/*  f1a0cc8:	91ce8804 */ 	lbu	$t6,%lo(g_FrIsValidWeapon)($t6)
 /*  f1a0ccc:	f7be0040 */ 	sdc1	$f30,0x40($sp)
 /*  f1a0cd0:	4486f000 */ 	mtc1	$a2,$f30
 /*  f1a0cd4:	afb20050 */ 	sw	$s2,0x50($sp)
@@ -5476,7 +5447,7 @@ glabel var7f1b97cc
 /*  f1a2f74:	afae004c */ 	sw	$t6,0x4c($sp)
 /*  f1a2f78:	28410191 */ 	slti	$at,$v0,0x191
 /*  f1a2f7c:	14200005 */ 	bnez	$at,.L0f1a2f94
-/*  f1a2f80:	3c0f8009 */ 	lui	$t7,%hi(var80088804)
+/*  f1a2f80:	3c0f8009 */ 	lui	$t7,%hi(g_FrIsValidWeapon)
 /*  f1a2f84:	3c014000 */ 	lui	$at,0x4000
 /*  f1a2f88:	44812000 */ 	mtc1	$at,$f4
 /*  f1a2f8c:	10000005 */ 	b	.L0f1a2fa4
@@ -5487,7 +5458,7 @@ glabel var7f1b97cc
 /*  f1a2f9c:	00000000 */ 	nop
 /*  f1a2fa0:	e7a60048 */ 	swc1	$f6,0x48($sp)
 .L0f1a2fa4:
-/*  f1a2fa4:	91ef8804 */ 	lbu	$t7,%lo(var80088804)($t7)
+/*  f1a2fa4:	91ef8804 */ 	lbu	$t7,%lo(g_FrIsValidWeapon)($t7)
 /*  f1a2fa8:	3c18800b */ 	lui	$t8,%hi(g_FiringRangeData+0x464)
 /*  f1a2fac:	3c02800b */ 	lui	$v0,%hi(g_FiringRangeData+0x464)
 /*  f1a2fb0:	15e00006 */ 	bnez	$t7,.L0f1a2fcc

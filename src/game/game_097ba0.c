@@ -1692,8 +1692,8 @@ glabel func0f098df8
 /*  f098e74:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f098e78:	0fc25f43 */ 	jal	func0f097d0c
 /*  f098e7c:	afa50030 */ 	sw	$a1,0x30($sp)
-/*  f098e80:	3c0b8009 */ 	lui	$t3,%hi(var80088804)
-/*  f098e84:	916b8804 */ 	lbu	$t3,%lo(var80088804)($t3)
+/*  f098e80:	3c0b8009 */ 	lui	$t3,%hi(g_FrIsValidWeapon)
+/*  f098e84:	916b8804 */ 	lbu	$t3,%lo(g_FrIsValidWeapon)($t3)
 /*  f098e88:	8fa3002c */ 	lw	$v1,0x2c($sp)
 /*  f098e8c:	8fa50030 */ 	lw	$a1,0x30($sp)
 /*  f098e90:	8fa60020 */ 	lw	$a2,0x20($sp)
@@ -5397,8 +5397,8 @@ glabel var7f1ac480
 
 GLOBAL_ASM(
 glabel func0f09bd58
-/*  f09bd58:	3c0e8009 */ 	lui	$t6,%hi(var80088804)
-/*  f09bd5c:	91ce8804 */ 	lbu	$t6,%lo(var80088804)($t6)
+/*  f09bd58:	3c0e8009 */ 	lui	$t6,%hi(g_FrIsValidWeapon)
+/*  f09bd5c:	91ce8804 */ 	lbu	$t6,%lo(g_FrIsValidWeapon)($t6)
 /*  f09bd60:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f09bd64:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x284)
 /*  f09bd68:	afbf0014 */ 	sw	$ra,0x14($sp)

@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-extern u8 var80088804;
+extern u8 g_FrIsValidWeapon;
 extern s32 g_FrWeaponNum;
 extern u8 var800888a0;
 
@@ -32,7 +32,7 @@ void func0f19d5f4(void);
 struct frdata *getFiringRangeData(void);
 u32 func0f19d7d8(void);
 bool frIsDifficulty(u32 difficulties);
-u32 func0f19d90c(void);
+void func0f19d90c(u32 weaponindex);
 void func0f19de24(void);
 bool func0f19def4(s32 index);
 char *frGetInstructionalText(u32 index);
@@ -43,8 +43,8 @@ void func0f19e44c(void);
 void frCloseAndLockDoor(void);
 void frUnlockDoor(void);
 u32 func0f19e7a8(void);
-u32 func0f19e900(s32 weapon);
-void func0f19e9c0(s32 weapon);
+u32 frInitAmmo(s32 weapon);
+void frBeginSession(s32 weapon);
 char *frGetWeaponDescription(void);
 void frEndSession(bool hidetargets);
 bool frWasTooInaccurate(void);
