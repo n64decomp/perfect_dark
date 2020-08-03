@@ -581,6 +581,14 @@
 #define FLOORTYPE_DIRT   7
 #define FLOORTYPE_SNOW   8
 
+#define FRCMD_HUDMSG         0x10
+#define FRCMD_WAITUNTILSHOOT 0x11
+#define FRCMD_WAITSECONDS    0x12
+#define FRCMD_13             0x13
+#define FRCMD_FB             0xfb
+#define FRCMD_FC             0xfc
+#define FRCMD_FD             0xfd
+
 #define FRDIFFBIT_BRONZE 1
 #define FRDIFFBIT_SILVER 2
 #define FRDIFFBIT_GOLD   4
@@ -709,6 +717,7 @@
 #define HUDMSGTYPE_3                 3
 #define HUDMSGTYPE_4                 4
 #define HUDMSGTYPE_SUBTITLE          6
+#define HUDMSGTYPE_TRAINING          10
 
 // chr->ivebeenhit values
 #define IBH_LFOOT    1

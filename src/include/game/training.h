@@ -36,7 +36,7 @@ u32 func0f19d90c(void);
 void func0f19de24(void);
 bool func0f19def4(s32 index);
 char *frGetInstructionalText(u32 index);
-u32 func0f19df58(void);
+void func0f19df58(void);
 u32 func0f19e090(void);
 void frHideAllTargets(void);
 void func0f19e44c(void);

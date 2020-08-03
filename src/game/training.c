@@ -46,7 +46,7 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
-u32 var80088800 = 0;
+u16 *var80088800 = NULL;
 u8 var80088804 = 0;
 u8 var80088808 = 0;
 u8 var8008880c = 0;
@@ -495,15 +495,15 @@ void func0f19d4ec(void)
 {
 	s32 i;
 
-	var80088800 = 0;
+	var80088800 = NULL;
 	var80088808 = 0;
 	var80088804 = 0;
 	g_FrRomData = NULL;
 
 	g_FiringRangeData.unk466 = 0;
-	g_FiringRangeData.unk467 = 0;
-	g_FiringRangeData.unk468 = 0;
-	g_FiringRangeData.unk46c = 0;
+	g_FiringRangeData.scriptoffset = 0;
+	g_FiringRangeData.scriptenabled = false;
+	g_FiringRangeData.scriptsleep = 0;
 	g_FiringRangeData.unk464 = 0;
 	g_FiringRangeData.unk000 = 0;
 
@@ -735,9 +735,9 @@ glabel func0f19d5f4
 //	g_FiringRangeData.numhitstype2 = 0;
 //	g_FiringRangeData.numhitstype1 = 0;
 //	g_FiringRangeData.unk466 = 0;
-//	g_FiringRangeData.unk467 = 0;
-//	g_FiringRangeData.unk468 = 0;
-//	g_FiringRangeData.unk46c = 0;
+//	g_FiringRangeData.scriptoffset = 0;
+//	g_FiringRangeData.scriptenabled = false;
+//	g_FiringRangeData.scriptsleep = 0;
 //	g_FiringRangeData.unk474 = 0;
 //	g_FiringRangeData.unk465_04 = false;
 //}
@@ -1338,6 +1338,46 @@ glabel func0f19df58
 /*  f19e088:	03e00008 */ 	jr	$ra
 /*  f19e08c:	00000000 */ 	nop
 );
+
+//void func0f19df58(void)
+//{
+//	if (!g_FiringRangeData.scriptenabled || g_Vars.lvupdate240 == 0) {
+//		return;
+//	}
+//
+//	if (g_FiringRangeData.scriptsleep == 0) {
+//		s32 offset = g_FiringRangeData.unk466 + 0x71;
+//		u8 *cmd = g_FrRomData + var80088800[offset] + g_FiringRangeData.scriptoffset;
+//
+//		switch (cmd[0]) {
+//		case FRCMD_13:
+//		case FRCMD_FB:
+//		case FRCMD_FC:
+//		case FRCMD_FD:
+//			g_FiringRangeData.scriptenabled = false;
+//			break;
+//		case FRCMD_HUDMSG:
+//			hudmsgCreateViaPreset(frGetInstructionalText(cmd[1]), HUDMSGTYPE_TRAINING);
+//			g_FiringRangeData.scriptoffset += 2;
+//			break;
+//		case FRCMD_WAITSECONDS:
+//			g_FiringRangeData.scriptsleep = cmd[1] * 60;
+//			g_FiringRangeData.scriptoffset += 2;
+//			break;
+//		case FRCMD_WAITUNTILSHOOT:
+//			if (g_FiringRangeData.numshots) {
+//				g_FiringRangeData.scriptoffset++;
+//			}
+//			break;
+//		}
+//	} else {
+//		g_FiringRangeData.scriptsleep -= g_Vars.lvupdate240_60;
+//
+//		if (g_FiringRangeData.scriptsleep <= 0) {
+//			g_FiringRangeData.scriptsleep = 0;
+//		}
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f19e090

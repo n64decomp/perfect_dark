@@ -5347,9 +5347,9 @@ struct frdata {
 	/*0x465*/ u8 unk465_05 : 1;
 	/*0x465*/ u8 unk465_06 : 2;
 	/*0x466*/ u8 unk466;
-	/*0x467*/ u8 unk467;
-	/*0x468*/ u8 unk468;
-	/*0x46c*/ u32 unk46c;
+	/*0x467*/ u8 scriptoffset;
+	/*0x468*/ u8 scriptenabled;
+	/*0x46c*/ s32 scriptsleep;
 	/*0x470*/ u8 unk470;
 	/*0x471*/ u8 feedbackzone;
 	/*0x472*/ s8 feedbackttl;
