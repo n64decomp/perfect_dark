@@ -370,70 +370,28 @@ s32 frGetNumWeaponsAvailable(void)
 	return count;
 }
 
-GLOBAL_ASM(
-glabel func0f19d338
-/*  f19d338:	3c0e800b */ 	lui	$t6,%hi(g_FiringRangeData+0x464)
-/*  f19d33c:	8dced184 */ 	lw	$t6,%lo(g_FiringRangeData+0x464)($t6)
-/*  f19d340:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f19d344:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f19d348:	000ec2c0 */ 	sll	$t8,$t6,0xb
-/*  f19d34c:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f19d350:	07000028 */ 	bltz	$t8,.L0f19d3f4
-/*  f19d354:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f19d358:	24100007 */ 	addiu	$s0,$zero,0x7
-/*  f19d35c:	2411000a */ 	addiu	$s1,$zero,0xa
-/*  f19d360:	24190020 */ 	addiu	$t9,$zero,0x20
-.L0f19d364:
-/*  f19d364:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f19d368:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19d36c:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f19d370:	24060032 */ 	addiu	$a2,$zero,0x32
-/*  f19d374:	0fc00b0a */ 	jal	roomSetLighting
-/*  f19d378:	24070064 */ 	addiu	$a3,$zero,0x64
-/*  f19d37c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19d380:	5611fff8 */ 	bnel	$s0,$s1,.L0f19d364
-/*  f19d384:	24190020 */ 	addiu	$t9,$zero,0x20
-/*  f19d388:	24080020 */ 	addiu	$t0,$zero,0x20
-/*  f19d38c:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f19d390:	2404000a */ 	addiu	$a0,$zero,0xa
-/*  f19d394:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f19d398:	24060019 */ 	addiu	$a2,$zero,0x19
-/*  f19d39c:	0fc00b0a */ 	jal	roomSetLighting
-/*  f19d3a0:	24070064 */ 	addiu	$a3,$zero,0x64
-/*  f19d3a4:	3c09800b */ 	lui	$t1,%hi(g_FiringRangeData+0x465)
-/*  f19d3a8:	912ad185 */ 	lbu	$t2,%lo(g_FiringRangeData+0x465)($t1)
-/*  f19d3ac:	3c01800b */ 	lui	$at,%hi(g_FiringRangeData+0x465)
-/*  f19d3b0:	3c048009 */ 	lui	$a0,%hi(var80095200)
-/*  f19d3b4:	354b0010 */ 	ori	$t3,$t2,0x10
-/*  f19d3b8:	a02bd185 */ 	sb	$t3,%lo(g_FiringRangeData+0x465)($at)
-/*  f19d3bc:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f19d3c0:	44812000 */ 	mtc1	$at,$f4
-/*  f19d3c4:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f19d3c8:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f19d3cc:	240effff */ 	addiu	$t6,$zero,-1
-/*  f19d3d0:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f19d3d4:	afad0018 */ 	sw	$t5,0x18($sp)
-/*  f19d3d8:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f19d3dc:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*  f19d3e0:	240505d5 */ 	addiu	$a1,$zero,0x5d5
-/*  f19d3e4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f19d3e8:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f19d3ec:	0c004241 */ 	jal	audioStart
-/*  f19d3f0:	e7a40014 */ 	swc1	$f4,0x14($sp)
-.L0f19d3f4:
-/*  f19d3f4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19d3f8:	0fc127cb */ 	jal	chrSetStageFlag
-/*  f19d3fc:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f19d400:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f19d404:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f19d408:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f19d40c:	03e00008 */ 	jr	$ra
-/*  f19d410:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void frInitLighting(void)
+{
+	if (g_FiringRangeData.donelighting == false) {
+		s32 roomnum;
+
+		for (roomnum = 7; roomnum < 10; roomnum++) {
+			roomSetLighting(roomnum, LIGHTOP_3, 50, 100, 32);
+		}
+
+		roomSetLighting(CIROOM_FIRINGRANGE, LIGHTOP_3, 25, 100, 32);
+
+		g_FiringRangeData.donelighting = true;
+
+		audioStart(var80095200, 0x5d5, NULL, -1, -1, -1, -1, -1);
+	}
+
+	chrSetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
+}
 
 void frRestoreLighting(void)
 {
-	if (g_FiringRangeData.unk465_03 == 1) {
+	if (g_FiringRangeData.donelighting == true) {
 		s32 roomnum;
 
 		for (roomnum = 7; roomnum < 10; roomnum++) {
@@ -442,7 +400,7 @@ void frRestoreLighting(void)
 
 		roomSetLighting(CIROOM_FIRINGRANGE, LIGHTOP_3, 100, 25, 8);
 
-		g_FiringRangeData.unk465_03 = 0;
+		g_FiringRangeData.donelighting = false;
 
 		audioStart(var80095200, 0x5d6, NULL, -1, -1, -1, -1, -1);
 	}
@@ -3051,7 +3009,7 @@ glabel var7f1b94e4
 /*  f19fef4:	2b01ff20 */ 	slti	$at,$t8,-224
 /*  f19fef8:	5420027e */ 	bnezl	$at,.L0f1a08f4
 /*  f19fefc:	8fbf007c */ 	lw	$ra,0x7c($sp)
-/*  f19ff00:	0fc674ce */ 	jal	func0f19d338
+/*  f19ff00:	0fc674ce */ 	jal	frInitLighting
 /*  f19ff04:	00000000 */ 	nop
 /*  f19ff08:	1000027a */ 	b	.L0f1a08f4
 /*  f19ff0c:	8fbf007c */ 	lw	$ra,0x7c($sp)
@@ -3060,7 +3018,7 @@ glabel var7f1b94e4
 /*  f19ff14:	001952c0 */ 	sll	$t2,$t9,0xb
 /*  f19ff18:	05420004 */ 	bltzl	$t2,.L0f19ff2c
 /*  f19ff1c:	92ac0465 */ 	lbu	$t4,0x465($s5)
-/*  f19ff20:	0fc674ce */ 	jal	func0f19d338
+/*  f19ff20:	0fc674ce */ 	jal	frInitLighting
 /*  f19ff24:	00000000 */ 	nop
 /*  f19ff28:	92ac0465 */ 	lbu	$t4,0x465($s5)
 .L0f19ff2c:

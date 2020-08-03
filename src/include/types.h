@@ -5342,7 +5342,7 @@ struct frdata {
 	/*0x462*/ u16 numhitstype4;
 	/*0x464*/ s8 unk464;
 	/*0x465*/ u8 unk465_00 : 3;
-	/*0x465*/ u8 unk465_03 : 1;
+	/*0x465*/ u8 donelighting : 1;
 	/*0x465*/ u8 unk465_04 : 1;
 	/*0x465*/ u8 unk465_05 : 1;
 	/*0x465*/ u8 unk465_06 : 2;
