@@ -662,66 +662,17 @@ struct frdata *getFiringRangeData(void)
 	return &g_FiringRangeData;
 }
 
-GLOBAL_ASM(
-glabel func0f19d7d8
-/*  f19d7d8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19d7dc:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f19d7e0:	1081000a */ 	beq	$a0,$at,.L0f19d80c
-/*  f19d7e4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19d7e8:	24010020 */ 	addiu	$at,$zero,0x20
-/*  f19d7ec:	1081000f */ 	beq	$a0,$at,.L0f19d82c
-/*  f19d7f0:	24010021 */ 	addiu	$at,$zero,0x21
-/*  f19d7f4:	10810015 */ 	beq	$a0,$at,.L0f19d84c
-/*  f19d7f8:	24010022 */ 	addiu	$at,$zero,0x22
-/*  f19d7fc:	1081001b */ 	beq	$a0,$at,.L0f19d86c
-/*  f19d800:	3c08800b */ 	lui	$t0,%hi(g_FiringRangeData+0x470)
-/*  f19d804:	10000021 */ 	b	.L0f19d88c
-/*  f19d808:	00000000 */ 	nop
-.L0f19d80c:
-/*  f19d80c:	0c004b70 */ 	jal	random
-/*  f19d810:	00000000 */ 	nop
-/*  f19d814:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f19d818:	0041001b */ 	divu	$zero,$v0,$at
-/*  f19d81c:	00007010 */ 	mfhi	$t6
-/*  f19d820:	25c20004 */ 	addiu	$v0,$t6,0x4
-/*  f19d824:	1000001c */ 	b	.L0f19d898
-/*  f19d828:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19d82c:
-/*  f19d82c:	0c004b70 */ 	jal	random
-/*  f19d830:	00000000 */ 	nop
-/*  f19d834:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f19d838:	0041001b */ 	divu	$zero,$v0,$at
-/*  f19d83c:	00007810 */ 	mfhi	$t7
-/*  f19d840:	25e2000d */ 	addiu	$v0,$t7,0xd
-/*  f19d844:	10000014 */ 	b	.L0f19d898
-/*  f19d848:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19d84c:
-/*  f19d84c:	0c004b70 */ 	jal	random
-/*  f19d850:	00000000 */ 	nop
-/*  f19d854:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f19d858:	0041001b */ 	divu	$zero,$v0,$at
-/*  f19d85c:	0000c010 */ 	mfhi	$t8
-/*  f19d860:	27020016 */ 	addiu	$v0,$t8,0x16
-/*  f19d864:	1000000c */ 	b	.L0f19d898
-/*  f19d868:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19d86c:
-/*  f19d86c:	0c004b70 */ 	jal	random
-/*  f19d870:	00000000 */ 	nop
-/*  f19d874:	2401001b */ 	addiu	$at,$zero,0x1b
-/*  f19d878:	0041001b */ 	divu	$zero,$v0,$at
-/*  f19d87c:	0000c810 */ 	mfhi	$t9
-/*  f19d880:	27220004 */ 	addiu	$v0,$t9,0x4
-/*  f19d884:	10000004 */ 	b	.L0f19d898
-/*  f19d888:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19d88c:
-/*  f19d88c:	9108d190 */ 	lbu	$t0,%lo(g_FiringRangeData+0x470)($t0)
-/*  f19d890:	01041021 */ 	addu	$v0,$t0,$a0
-/*  f19d894:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19d898:
-/*  f19d898:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19d89c:	03e00008 */ 	jr	$ra
-/*  f19d8a0:	00000000 */ 	nop
-);
+u32 func0f19d7d8(u32 arg0)
+{
+	switch (arg0) {
+	case 0x1f: return random() % 9 + 4;  // 4 - 12
+	case 0x20: return random() % 9 + 13; // 13 - 21
+	case 0x21: return random() % 9 + 22; // 22 - 30
+	case 0x22: return random() % 27 + 4; // 4 - 30
+	}
+
+	return g_FiringRangeData.unk470 + arg0;
+}
 
 bool frIsDifficulty(u32 difficulties)
 {

@@ -30,7 +30,7 @@ void frSetDifficulty(s32 difficulty);
 u32 frGetDifficulty(void);
 void func0f19d5f4(void);
 struct frdata *getFiringRangeData(void);
-u32 func0f19d7d8(void);
+u32 func0f19d7d8(u32 arg0);
 bool frIsDifficulty(u32 difficulties);
 void func0f19d90c(u32 weaponindex);
 void func0f19de24(void);
