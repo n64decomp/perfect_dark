@@ -2089,14 +2089,14 @@ u8 func041b_labtech_keycardguy[] = {
 };
 
 u8 func100c_keycardguy_lights[] = {
-	set_lights_state(0x0088, 0x01, 0x00, 0x00, 0x00)
+	set_lights_state(0x0088, LIGHTOP_1, 0x00, 0x00, 0x00)
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_KEYCARDGUY_ANGRY, TRUE, /*goto*/ 0x2d)
 	endloop(0x04)
 
 	label(0x2d)
-	set_lights_state(0x0088, 0x01, 0x64, 0x00, 0x00)
+	set_lights_state(0x0088, LIGHTOP_1, 0x64, 0x00, 0x00)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

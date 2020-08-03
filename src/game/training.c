@@ -388,7 +388,7 @@ glabel func0f19d338
 /*  f19d368:	02002025 */ 	or	$a0,$s0,$zero
 /*  f19d36c:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f19d370:	24060032 */ 	addiu	$a2,$zero,0x32
-/*  f19d374:	0fc00b0a */ 	jal	func0f002c28
+/*  f19d374:	0fc00b0a */ 	jal	roomSetLighting
 /*  f19d378:	24070064 */ 	addiu	$a3,$zero,0x64
 /*  f19d37c:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f19d380:	5611fff8 */ 	bnel	$s0,$s1,.L0f19d364
@@ -398,7 +398,7 @@ glabel func0f19d338
 /*  f19d390:	2404000a */ 	addiu	$a0,$zero,0xa
 /*  f19d394:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f19d398:	24060019 */ 	addiu	$a2,$zero,0x19
-/*  f19d39c:	0fc00b0a */ 	jal	func0f002c28
+/*  f19d39c:	0fc00b0a */ 	jal	roomSetLighting
 /*  f19d3a0:	24070064 */ 	addiu	$a3,$zero,0x64
 /*  f19d3a4:	3c09800b */ 	lui	$t1,%hi(g_FiringRangeData+0x465)
 /*  f19d3a8:	912ad185 */ 	lbu	$t2,%lo(g_FiringRangeData+0x465)($t1)
@@ -431,65 +431,22 @@ glabel func0f19d338
 /*  f19d410:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f19d414
-/*  f19d414:	3c0e800b */ 	lui	$t6,%hi(g_FiringRangeData+0x464)
-/*  f19d418:	8dced184 */ 	lw	$t6,%lo(g_FiringRangeData+0x464)($t6)
-/*  f19d41c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f19d420:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f19d424:	000e7ac0 */ 	sll	$t7,$t6,0xb
-/*  f19d428:	000fc7c2 */ 	srl	$t8,$t7,0x1f
-/*  f19d42c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f19d430:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f19d434:	17010028 */ 	bne	$t8,$at,.L0f19d4d8
-/*  f19d438:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f19d43c:	24100007 */ 	addiu	$s0,$zero,0x7
-/*  f19d440:	2411000a */ 	addiu	$s1,$zero,0xa
-/*  f19d444:	24190008 */ 	addiu	$t9,$zero,0x8
-.L0f19d448:
-/*  f19d448:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f19d44c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19d450:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f19d454:	24060064 */ 	addiu	$a2,$zero,0x64
-/*  f19d458:	0fc00b0a */ 	jal	func0f002c28
-/*  f19d45c:	24070032 */ 	addiu	$a3,$zero,0x32
-/*  f19d460:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19d464:	5611fff8 */ 	bnel	$s0,$s1,.L0f19d448
-/*  f19d468:	24190008 */ 	addiu	$t9,$zero,0x8
-/*  f19d46c:	24080008 */ 	addiu	$t0,$zero,0x8
-/*  f19d470:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f19d474:	2404000a */ 	addiu	$a0,$zero,0xa
-/*  f19d478:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f19d47c:	24060064 */ 	addiu	$a2,$zero,0x64
-/*  f19d480:	0fc00b0a */ 	jal	func0f002c28
-/*  f19d484:	24070019 */ 	addiu	$a3,$zero,0x19
-/*  f19d488:	3c09800b */ 	lui	$t1,%hi(g_FiringRangeData+0x465)
-/*  f19d48c:	9129d185 */ 	lbu	$t1,%lo(g_FiringRangeData+0x465)($t1)
-/*  f19d490:	3c01800b */ 	lui	$at,%hi(g_FiringRangeData+0x465)
-/*  f19d494:	3c048009 */ 	lui	$a0,%hi(var80095200)
-/*  f19d498:	312affef */ 	andi	$t2,$t1,0xffef
-/*  f19d49c:	a02ad185 */ 	sb	$t2,%lo(g_FiringRangeData+0x465)($at)
-/*  f19d4a0:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f19d4a4:	44812000 */ 	mtc1	$at,$f4
-/*  f19d4a8:	240bffff */ 	addiu	$t3,$zero,-1
-/*  f19d4ac:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f19d4b0:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f19d4b4:	afad001c */ 	sw	$t5,0x1c($sp)
-/*  f19d4b8:	afac0018 */ 	sw	$t4,0x18($sp)
-/*  f19d4bc:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f19d4c0:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*  f19d4c4:	240505d6 */ 	addiu	$a1,$zero,0x5d6
-/*  f19d4c8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f19d4cc:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f19d4d0:	0c004241 */ 	jal	audioStart
-/*  f19d4d4:	e7a40014 */ 	swc1	$f4,0x14($sp)
-.L0f19d4d8:
-/*  f19d4d8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f19d4dc:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f19d4e0:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f19d4e4:	03e00008 */ 	jr	$ra
-/*  f19d4e8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void frRestoreLighting(void)
+{
+	if (g_FiringRangeData.unk465_03 == 1) {
+		s32 roomnum;
+
+		for (roomnum = 7; roomnum < 10; roomnum++) {
+			roomSetLighting(roomnum, LIGHTOP_3, 100, 50, 8);
+		}
+
+		roomSetLighting(CIROOM_FIRINGRANGE, LIGHTOP_3, 100, 25, 8);
+
+		g_FiringRangeData.unk465_03 = 0;
+
+		audioStart(var80095200, 0x5d6, NULL, -1, -1, -1, -1, -1);
+	}
+}
 
 void func0f19d4ec(void)
 {
@@ -2075,7 +2032,7 @@ void frEndSession(bool hidetargets)
 
 		g_FrIsValidWeapon = 0;
 
-		func0f19d414();
+		frRestoreLighting();
 
 		if (hidetargets) {
 			frHideAllTargets();

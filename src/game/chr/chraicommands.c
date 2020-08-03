@@ -6170,19 +6170,19 @@ bool aiNoOp0101(void)
 bool aiSetLights(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u16 room_id = cmd[3] | (cmd[2] << 8);
-	s32 thing = chrGetPadRoom(g_Vars.chrdata, room_id);
+	u16 padnum = cmd[3] | (cmd[2] << 8);
+	s32 roomnum = chrGetPadRoom(g_Vars.chrdata, padnum);
 
-	if (thing >= 0) {
+	if (roomnum >= 0) {
 		switch (cmd[4]) {
 		case 7:
-			func0f002b58(thing, false);
+			func0f002b58(roomnum, false);
 			break;
 		case 6:
-			func0f002b58(thing, true);
+			func0f002b58(roomnum, true);
 			break;
 		default:
-			func0f002c28(thing, cmd[4], cmd[5], cmd[6], cmd[7]);
+			roomSetLighting(roomnum, cmd[4], cmd[5], cmd[6], cmd[7]);
 		}
 	}
 

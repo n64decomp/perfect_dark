@@ -1467,7 +1467,7 @@ glabel scenarioCtcReset
 /*  f181398:	00003025 */ 	or	$a2,$zero,$zero
 /*  f18139c:	11040004 */ 	beq	$t0,$a0,.L0f1813b0
 /*  f1813a0:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1813a4:	0fc00b0a */ 	jal	func0f002c28
+/*  f1813a4:	0fc00b0a */ 	jal	roomSetLighting
 /*  f1813a8:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f1813ac:	2408ffff */ 	addiu	$t0,$zero,-1
 .L0f1813b0:
@@ -1842,7 +1842,7 @@ void scenarioKohReset(void)
 	g_ScenarioData.koh.hillpos.z = pad.pos.z;
 	g_ScenarioData.koh.hillpos.y = func0002a36c(&g_ScenarioData.koh.hillpos, &g_ScenarioData.koh.hillroom, 0, 0);
 	g_ScenarioData.koh.unk08 = 0;
-	func0f002c28(g_ScenarioData.koh.hillroom, 5, 0, 0, 0);
+	roomSetLighting(g_ScenarioData.koh.hillroom, LIGHTOP_5, 0, 0, 0);
 }
 
 GLOBAL_ASM(
@@ -1903,7 +1903,7 @@ glabel var7f1b8950
 /*  f181d8c:	4500003b */ 	bc1f	.L0f181e7c
 /*  f181d90:	00000000 */ 	nop
 /*  f181d94:	8664000e */ 	lh	$a0,0xe($s3)
-/*  f181d98:	0fc00b0a */ 	jal	func0f002c28
+/*  f181d98:	0fc00b0a */ 	jal	roomSetLighting
 /*  f181d9c:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f181da0:	8679000c */ 	lh	$t9,0xc($s3)
 /*  f181da4:	00002025 */ 	or	$a0,$zero,$zero
@@ -1956,7 +1956,7 @@ glabel var7f1b8950
 /*  f181e54:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f181e58:	00003025 */ 	or	$a2,$zero,$zero
 /*  f181e5c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f181e60:	0fc00b0a */ 	jal	func0f002c28
+/*  f181e60:	0fc00b0a */ 	jal	roomSetLighting
 /*  f181e64:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f181e68:	240effff */ 	addiu	$t6,$zero,-1
 /*  f181e6c:	a66e0004 */ 	sh	$t6,0x4($s3)

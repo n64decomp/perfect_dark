@@ -914,6 +914,14 @@
 #define LANGUAGE_ENGLISH  0
 #define LANGUAGE_JAPANESE 1
 
+#define LIGHTOP_1 1
+#define LIGHTOP_2 2
+#define LIGHTOP_3 3
+#define LIGHTOP_4 4
+#define LIGHTOP_5 5
+#define LIGHTOP_6 6
+#define LIGHTOP_7 7
+
 // These actions are assigned to chr->myaction
 #define MA_NONE            0
 #define MA_NORMAL          1

@@ -2595,18 +2595,18 @@ glabel func0f002b58
 );
 
 GLOBAL_ASM(
-glabel func0f002c28
+glabel roomSetLighting
 .late_rodata
 glabel var7f1a7d98
-.word func0f002c28+0x98 # f002cc0
+.word roomSetLighting+0x98 # f002cc0
 glabel var7f1a7d9c
-.word func0f002c28+0xd0 # f002cf8
+.word roomSetLighting+0xd0 # f002cf8
 glabel var7f1a7da0
-.word func0f002c28+0x174 # f002d9c
+.word roomSetLighting+0x174 # f002d9c
 glabel var7f1a7da4
-.word func0f002c28+0x21c # f002e44
+.word roomSetLighting+0x21c # f002e44
 glabel var7f1a7da8
-.word func0f002c28+0x2c0 # f002ee8
+.word roomSetLighting+0x2c0 # f002ee8
 glabel var7f1a7dac
 .word 0x3c23d70a
 glabel var7f1a7db0
@@ -3536,7 +3536,7 @@ glabel var7f1a7dd4
 /*  f003920:	00003825 */ 	or	$a3,$zero,$zero
 /*  f003924:	35090100 */ 	ori	$t1,$t0,0x100
 /*  f003928:	a6090000 */ 	sh	$t1,0x0($s0)
-/*  f00392c:	0fc00b0a */ 	jal	func0f002c28
+/*  f00392c:	0fc00b0a */ 	jal	roomSetLighting
 /*  f003930:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f003934:	8e6a0000 */ 	lw	$t2,0x0($s3)
 /*  f003938:	100000a5 */ 	b	.L0f003bd0
@@ -3637,7 +3637,7 @@ glabel var7f1a7dd4
 .L0f003aa4:
 /*  f003aa4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f003aa8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f003aac:	0fc00b0a */ 	jal	func0f002c28
+/*  f003aac:	0fc00b0a */ 	jal	roomSetLighting
 /*  f003ab0:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f003ab4:	8e790000 */ 	lw	$t9,0x0($s3)
 /*  f003ab8:	03328021 */ 	addu	$s0,$t9,$s2

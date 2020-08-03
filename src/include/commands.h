@@ -2257,9 +2257,9 @@
 	mkshort(0x0101), \
 	u1,
 
-#define set_lights_state(room, operation, u1, u2, u3) \
+#define set_lights_state(pad, operation, u1, u2, u3) \
 	mkshort(0x0102), \
-	mkshort(room), \
+	mkshort(pad), \
 	operation, \
 	u1, \
 	u2, \

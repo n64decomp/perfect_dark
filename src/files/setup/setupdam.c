@@ -1123,7 +1123,7 @@ u8 func100a_reactor_switch[] = {
 	mute_channel(CHANNEL_1)
 	assign_sound(0x8147, CHANNEL_0)
 	control_sound_from_object(CHANNEL_0, OBJ_REACTOR_SWITCH, TRUE)
-	set_lights_state(0x007f, 0x03, 0xff, 0x06, 0x78)
+	set_lights_state(0x007f, LIGHTOP_3, 0xff, 0x06, 0x78)
 	set_object_image(OBJ_REACTOR_SWITCH, 0x00, 0x12)
 	set_object_image(OBJ_REACTOR_SWITCH, 0x01, 0x12)
 	set_object_image(OBJ_REACTOR_SWITCH, 0x02, 0x12)

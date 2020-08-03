@@ -23,7 +23,7 @@ void frSetSlot(s32 slot);
 u32 frGetWeaponBySlot(s32 slot);
 s32 frGetNumWeaponsAvailable(void);
 u32 func0f19d338(void);
-void func0f19d414(void);
+void frRestoreLighting(void);
 void func0f19d4ec(void);
 void *frLoadRomData(u32 len);
 void frSetDifficulty(s32 difficulty);

@@ -2169,7 +2169,7 @@ u8 func1010_bunker_lighting[] = {
 	yield
 	assign_sound(0x04ac, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, 0x10, 0x0320, 0x044c)
-	set_lights_state(0x0009, 0x03, 0xff, 0x32, 0x78)
+	set_lights_state(0x0009, LIGHTOP_3, 0xff, 0x32, 0x78)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x0e)
 	restart_timer
 
