@@ -78,7 +78,8 @@ SECTIONS
 	_checksum7f15c9ac = 0x2c7b42f8;
 #endif
 
-	_addr007e9d20 = 0x007e9d20;
+	_frdataSegmentRomStart = 0x007e9d20;
+	_frdataSegmentRomEnd = 0x007eb270;
 
 	_antipiracyUncloakWriteAddress = 0x7002a324;
 

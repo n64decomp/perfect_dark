@@ -42,7 +42,7 @@ void frHideAllTargets(void);
 void func0f19e44c(void);
 void frCloseAndLockDoor(void);
 void frUnlockDoor(void);
-u32 func0f19e7a8(void);
+void func0f19e7a8(void);
 u32 frInitAmmo(s32 weapon);
 void frBeginSession(s32 weapon);
 char *frGetWeaponDescription(void);

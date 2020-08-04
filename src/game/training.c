@@ -46,6 +46,9 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
+extern u8 *_frdataSegmentRomStart;
+extern u8 *_frdataSegmentRomEnd;
+
 u16 *var80088800 = NULL;
 u8 g_FrIsValidWeapon = false;
 u8 var80088808 = 0;
@@ -432,12 +435,10 @@ void func0f19d4ec(void)
 
 void *frLoadRomData(u32 len)
 {
-	extern u32 _addr007e9d20;
-
 	g_FrRomData = malloc(ALIGN16(len), 4);
 
 	if (g_FrRomData) {
-		return func0000d488(g_FrRomData, &_addr007e9d20, len);
+		return func0000d488(g_FrRomData, &_frdataSegmentRomStart, len);
 	}
 
 	return NULL;
@@ -1819,6 +1820,53 @@ glabel func0f19e7a8
 /*  f19e8f8:	03e00008 */ 	jr	$ra
 /*  f19e8fc:	00000000 */ 	nop
 );
+
+//void func0f19e7a8(void)
+//{
+//	// 7bc
+//	if (var80088808 == false) {
+//		u32 len = (u32)&_frdataSegmentRomEnd - (u32)&_frdataSegmentRomStart;
+//		u32 index = 0;
+//		s32 i;
+//		s32 count = 1;
+//		s32 j;
+//		u32 len2 = (u32)&_frdataSegmentRomEnd - (u32)&_frdataSegmentRomStart;
+//
+//		var80088808 = true;
+//
+//		// 7ec
+//		frLoadRomData(len2);
+//
+//		if (len > 0x12) {
+//			for (i = 0x12; i != len2; i++) {
+//				if (g_FrRomData[i] == 0xfe) {
+//					count++;
+//				}
+//			}
+//		}
+//
+//		// 83c
+//		var80088800 = malloc(ALIGN16(count * 2), 4);
+//
+//		// 860
+//		if (var80088800) {
+//			if (len > 0x12) {
+//				for (j = 0x12; j != len; j++) {
+//					if (g_FrRomData[j] == 0xfe) {
+//						var80088800[index++] = j + 1;
+//					}
+//				}
+//			}
+//		}
+//
+//		// 8cc
+//		func0f19de24();
+//
+//		g_FiringRangeData.slot = 0;
+//		g_FiringRangeData.difficulty = FRDIFFICULTY_BRONZE;
+//		g_FiringRangeData.donelighting = false;
+//	}
+//}
 
 u32 frInitAmmo(s32 weaponnum)
 {
