@@ -2160,7 +2160,7 @@ bool func0f19f2ec(struct prop *prop, struct coord *pos)
 				return false;
 			}
 
-			angle = func0f19f294(&prop->pos, g_FiringRangeData.targets[i].unk28, pos);
+			angle = func0f19f294(&prop->pos, g_FiringRangeData.targets[i].angle, pos);
 
 			//if (angle > DEG2RAD(90) && angle < DEG2RAD(270)) {
 			if (angle > 1.5707963705063f && angle < 4.7116389274597f) {
@@ -2175,7 +2175,7 @@ bool func0f19f2ec(struct prop *prop, struct coord *pos)
 }
 
 GLOBAL_ASM(
-glabel func0f19f39c
+glabel frChooseAutogunTarget
 .late_rodata
 glabel var7f1b94b8
 .word 0x4096c5bf
@@ -2288,6 +2288,47 @@ glabel var7f1b94bc
 /*  f19f51c:	03e00008 */ 	jr	$ra
 /*  f19f520:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
 );
+
+// Regalloc: s3 and s4 are swapped.
+// s3 should be autogunpos and s4 should be facingtargets.
+//struct prop *frChooseAutogunTarget(struct coord *autogunpos)
+//{
+//	f32 closestdist = 0x20000000;
+//	s32 facingtargets[ARRAYCOUNT(g_FiringRangeData.targets)];
+//	s32 len = 0;
+//	struct prop *closesttarget = NULL;
+//	s32 i;
+//
+//	// Make list of targets which are facing the laptop gun
+//	for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
+//		if (g_FiringRangeData.targets[i].unk00_01
+//				&& g_FiringRangeData.targets[i].unk00_03 == 0
+//				&& g_FiringRangeData.targets[i].unk00_02) {
+//			f32 angle = func0f19f294(&g_FiringRangeData.targets[i].prop->pos, g_FiringRangeData.targets[i].angle, autogunpos);
+//
+//			//if (!(angle > BADDEG2RAD(90) && angle < BADDEG2RAD(270))) {
+//			if (!(angle > 1.5707963705063f && angle < 4.7116389274597f)) {
+//				facingtargets[len++] = i;
+//			}
+//		}
+//	}
+//
+//	// Determine which of the facing targets is closest
+//	for (i = 0; i < len; i++) {
+//		struct prop *prop = g_FiringRangeData.targets[facingtargets[i]].prop;
+//		f32 xdiff = prop->pos.x - autogunpos->x;
+//		f32 ydiff = prop->pos.y - autogunpos->y;
+//		f32 zdiff = prop->pos.z - autogunpos->z;
+//		f32 dist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
+//
+//		if (dist < closestdist) {
+//			closestdist = dist;
+//			closesttarget = prop;
+//		}
+//	}
+//
+//	return closesttarget;
+//}
 
 GLOBAL_ASM(
 glabel func0f19f524
