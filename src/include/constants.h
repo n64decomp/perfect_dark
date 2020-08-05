@@ -604,6 +604,7 @@
 #define FRFAILREASON_INACCURATE        4
 
 #define FRTARGETFLAG_20 0x20
+#define FRTARGETFLAG_40 0x40
 
 #define FRZONE_RING3    1
 #define FRZONE_RING2    2

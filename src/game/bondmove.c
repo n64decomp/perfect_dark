@@ -4847,7 +4847,7 @@ glabel var7f1ad8e4
 //			g_Vars.currentplayer->gunzoomfovs[1] = fStack436;
 //
 //			func00015b68(currentPlayerGetMatrix(),
-//					&g_Vars.currentplayer->unk025c->pos, &fStack456.pos);
+//					&g_Vars.currentplayer->autoeraserprop->pos, &fStack456.pos);
 //
 //			func0f0b4eb8(&fStack456.pos, (struct coord *)&fStack456, fStack436,
 //					g_Vars.currentplayer->c_perspaspect);

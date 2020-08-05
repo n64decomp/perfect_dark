@@ -57,7 +57,7 @@ struct prop *frChooseAutogunTarget(struct coord *arg0);
 u32 func0f19f524(void);
 void frTick(void);
 void func0f1a0924(struct prop *prop);
-u32 func0f1a0a70(void);
+bool frChooseFarsightTarget(void);
 s32 frIsInTraining(void);
 u32 func0f1a0cc0(void);
 void func0f1a0fc8(void);

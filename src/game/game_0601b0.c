@@ -5493,7 +5493,7 @@ glabel func0f064ce8
 /*  f064d78:	24140003 */ 	addiu	$s4,$zero,0x3
 /*  f064d7c:	10400009 */ 	beqz	$v0,.L0f064da4
 /*  f064d80:	00000000 */ 	nop
-/*  f064d84:	0fc6829c */ 	jal	func0f1a0a70
+/*  f064d84:	0fc6829c */ 	jal	frChooseFarsightTarget
 /*  f064d88:	00000000 */ 	nop
 /*  f064d8c:	14400007 */ 	bnez	$v0,.L0f064dac
 /*  f064d90:	00000000 */ 	nop

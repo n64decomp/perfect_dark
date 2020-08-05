@@ -3797,7 +3797,7 @@ void func0f1a0924(struct prop *prop)
 }
 
 GLOBAL_ASM(
-glabel func0f1a0a70
+glabel frChooseFarsightTarget
 /*  f1a0a70:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f1a0a74:	f7bc0030 */ 	sdc1	$f28,0x30($sp)
 /*  f1a0a78:	3c013f80 */ 	lui	$at,0x3f80
@@ -3915,6 +3915,52 @@ glabel func0f1a0a70
 /*  f1a0c28:	03e00008 */ 	jr	$ra
 /*  f1a0c2c:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
+
+// Mismatch because f26 and f28 are swapped and the multiplication order for
+// unk1c is different. f26 should be constant 0 (used in dist > 0 and value < 0
+// checks) and f28 should be bestvalue.
+//bool frChooseFarsightTarget(void)
+//{
+//	f32 bestvalue = 1;
+//	f32 bestdist = -1;
+//	struct prop *bestprop = NULL;
+//	bool found = false;
+//	s32 i;
+//
+//	if (getCurrentPlayerWeaponId(0) == WEAPON_FARSIGHTXR20) {
+//		for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
+//			if (g_FiringRangeData.targets[i].unk00_01
+//					&& g_FiringRangeData.targets[i].unk00_03 == 0
+//					&& g_FiringRangeData.targets[i].unk00_02
+//					&& g_FiringRangeData.targets[i].flags & FRTARGETFLAG_40) {
+//				struct prop *prop = g_FiringRangeData.targets[i].prop;
+//				f32 xdiff = g_Vars.currentplayer->bond2.unk10.x - prop->pos.x;
+//				f32 ydiff = g_Vars.currentplayer->bond2.unk10.y - prop->pos.y;
+//				f32 zdiff = g_Vars.currentplayer->bond2.unk10.z - prop->pos.z;
+//				f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+//
+//				if (dist > 0) {
+//					f32 value = (
+//							g_Vars.currentplayer->bond2.unk1c.x * xdiff +
+//							g_Vars.currentplayer->bond2.unk1c.y * ydiff +
+//							g_Vars.currentplayer->bond2.unk1c.z * zdiff) / dist;
+//
+//					if (value < 0 && value < bestvalue) {
+//						bestvalue = value;
+//						bestprop = prop;
+//						bestdist = dist;
+//						found = true;
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	g_Vars.currentplayer->autoeraserdist = bestdist;
+//	g_Vars.currentplayer->autoerasertarget = bestprop;
+//
+//	return found;
+//}
 
 s32 frIsInTraining(void)
 {

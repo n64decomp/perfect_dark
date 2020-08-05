@@ -2138,7 +2138,7 @@ struct player {
 	/*0x0250*/ u8 activemenumode;
 	/*0x0254*/ u32 erasertime; // related to FarSight's auto tracking
 	/*0x0258*/ f32 autoeraserdist;
-	/*0x025c*/ struct prop *unk025c; // eraser target?
+	/*0x025c*/ struct prop *autoerasertarget;
 	/*0x0260*/ s32 aimtaptime;
 	/*0x0264*/ struct weaponobj *slayerrocket;
 	/*0x0268*/ bool eyesshut;
