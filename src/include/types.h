@@ -5290,19 +5290,20 @@ struct hudmessage {
 };
 
 struct frtarget {
-	/*0x00*/ u32 unk00_01 : 1;
-	/*0x00*/ u32 unk00_02 : 1;
-	/*0x00*/ u32 unk00_03 : 1;
-	/*0x00*/ u32 unk00_04 : 1;
-	/*0x00*/ u32 unk00_05 : 1;
-	/*0x00*/ u32 unk00_06 : 1;
-	/*0x00*/ u32 frpadindex : 2;
+	/*0x00*/ u8 unk00_01 : 1;
+	/*0x00*/ u8 unk00_02 : 1;
+	/*0x00*/ u8 unk00_03 : 1;
+	/*0x00*/ u8 unk00_04 : 1;
+	/*0x00*/ u8 unk00_05 : 1;
+	/*0x00*/ u8 unk00_06 : 1;
+	/*0x00*/ u8 frpadindex : 2;
+	/*0x01*/ u8 unk01;
 	/*0x04*/ struct prop *prop;
 	/*0x08*/ struct coord unk08;
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ f32 unk1c;
-	/*0x20*/ u8 unk20;
+	/*0x20*/ u8 damage;
 	/*0x21*/ u8 unk21;
 	/*0x24*/ f32 unk24;
 	/*0x28*/ f32 angle;
@@ -5312,7 +5313,7 @@ struct frtarget {
 	/*0x32*/ u8 unk32;
 	/*0x33*/ u8 unk33;
 	/*0x34*/ s8 unk34;
-	/*0x38*/ u32 unk38;
+	/*0x38*/ s32 unk38;
 };
 
 struct frdata {
@@ -5335,10 +5336,10 @@ struct frdata {
 	/*0x458*/ u16 numshots;
 	/*0x45a*/ u8 unk45a;
 	/*0x45b*/ u8 failreason;
-	/*0x45c*/ u16 numhitstype1;
-	/*0x45e*/ u16 numhitstype2;
-	/*0x460*/ u16 numhitstype3;
-	/*0x462*/ u16 numhitstype4;
+	/*0x45c*/ u16 numhitsbullseye;
+	/*0x45e*/ u16 numhitsring1;
+	/*0x460*/ u16 numhitsring2;
+	/*0x462*/ u16 numhitsring3;
 	/*0x464*/ s8 unk464;
 	/*0x465*/ u8 unk465_00 : 3;
 	/*0x465*/ u8 donelighting : 1;

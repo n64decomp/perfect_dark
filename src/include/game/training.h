@@ -59,7 +59,7 @@ void frTick(void);
 void func0f1a0924(struct prop *prop);
 bool frChooseFarsightTarget(void);
 s32 frIsInTraining(void);
-u32 func0f1a0cc0(void);
+void frCalculateHit(struct defaultobj *obj, struct coord *hitpos, f32 maulercharge);
 void func0f1a0fc8(void);
 bool ciIsChrBioUnlocked(u32 bodynum);
 struct chrbio *ciGetChrBioByBodynum(u32 bodynum);

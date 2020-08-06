@@ -613,7 +613,7 @@ glabel func0f19d5f4
 //		g_FiringRangeData.targets[i].unk00_01 = false;
 //		g_FiringRangeData.targets[i].unk00_06 = false;
 //		g_FiringRangeData.targets[i].unk00_03 = false;
-//		g_FiringRangeData.targets[i].unk20 = 0;
+//		g_FiringRangeData.targets[i].damage = 0;
 //		g_FiringRangeData.targets[i].unk21 = 0;
 //
 //		g_FiringRangeData.targets[i].unk1c = 0;
@@ -646,10 +646,10 @@ glabel func0f19d5f4
 //	g_FiringRangeData.feedbackttl = 0;
 //	g_FiringRangeData.failreason = 0;
 //	g_FiringRangeData.numshots = 0;
-//	g_FiringRangeData.numhitstype4 = 0;
-//	g_FiringRangeData.numhitstype3 = 0;
-//	g_FiringRangeData.numhitstype2 = 0;
-//	g_FiringRangeData.numhitstype1 = 0;
+//	g_FiringRangeData.numhitsring3 = 0;
+//	g_FiringRangeData.numhitsring2 = 0;
+//	g_FiringRangeData.numhitsring1 = 0;
+//	g_FiringRangeData.numhitsbullseye = 0;
 //	g_FiringRangeData.unk466 = 0;
 //	g_FiringRangeData.scriptoffset = 0;
 //	g_FiringRangeData.scriptenabled = false;
@@ -1977,10 +1977,10 @@ void frEndSession(bool hidetargets)
 
 bool frWasTooInaccurate(void)
 {
-	f32 sum = (g_FiringRangeData.numhitstype4 +
-		+ g_FiringRangeData.numhitstype1
-		+ g_FiringRangeData.numhitstype2
-		+ g_FiringRangeData.numhitstype3) * 100.0f;
+	f32 sum = (g_FiringRangeData.numhitsring3 +
+		+ g_FiringRangeData.numhitsbullseye
+		+ g_FiringRangeData.numhitsring1
+		+ g_FiringRangeData.numhitsring2) * 100.0f;
 
 	if (g_FiringRangeData.numshots) {
 		f32 accuracy = sum / g_FiringRangeData.numshots;
@@ -3878,223 +3878,52 @@ s32 frIsInTraining(void)
 		&& getCurrentStageId() == STAGE_CITRAINING;
 }
 
-GLOBAL_ASM(
-glabel func0f1a0cc0
-.late_rodata
-glabel var7f1b94e8
-.word 0x3dcccccd
-.text
-/*  f1a0cc0:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f1a0cc4:	3c0e8009 */ 	lui	$t6,%hi(g_FrIsValidWeapon)
-/*  f1a0cc8:	91ce8804 */ 	lbu	$t6,%lo(g_FrIsValidWeapon)($t6)
-/*  f1a0ccc:	f7be0040 */ 	sdc1	$f30,0x40($sp)
-/*  f1a0cd0:	4486f000 */ 	mtc1	$a2,$f30
-/*  f1a0cd4:	afb20050 */ 	sw	$s2,0x50($sp)
-/*  f1a0cd8:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f1a0cdc:	afbf006c */ 	sw	$ra,0x6c($sp)
-/*  f1a0ce0:	afbe0068 */ 	sw	$s8,0x68($sp)
-/*  f1a0ce4:	afb70064 */ 	sw	$s7,0x64($sp)
-/*  f1a0ce8:	afb60060 */ 	sw	$s6,0x60($sp)
-/*  f1a0cec:	afb5005c */ 	sw	$s5,0x5c($sp)
-/*  f1a0cf0:	afb40058 */ 	sw	$s4,0x58($sp)
-/*  f1a0cf4:	afb30054 */ 	sw	$s3,0x54($sp)
-/*  f1a0cf8:	afb1004c */ 	sw	$s1,0x4c($sp)
-/*  f1a0cfc:	afb00048 */ 	sw	$s0,0x48($sp)
-/*  f1a0d00:	f7bc0038 */ 	sdc1	$f28,0x38($sp)
-/*  f1a0d04:	f7ba0030 */ 	sdc1	$f26,0x30($sp)
-/*  f1a0d08:	f7b80028 */ 	sdc1	$f24,0x28($sp)
-/*  f1a0d0c:	f7b60020 */ 	sdc1	$f22,0x20($sp)
-/*  f1a0d10:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f1a0d14:	11c0009a */ 	beqz	$t6,.L0f1a0f80
-/*  f1a0d18:	afa40070 */ 	sw	$a0,0x70($sp)
-/*  f1a0d1c:	3c017f1c */ 	lui	$at,%hi(var7f1b94e8)
-/*  f1a0d20:	c43c94e8 */ 	lwc1	$f28,%lo(var7f1b94e8)($at)
-/*  f1a0d24:	3c014260 */ 	lui	$at,0x4260
-/*  f1a0d28:	4481d000 */ 	mtc1	$at,$f26
-/*  f1a0d2c:	3c014214 */ 	lui	$at,0x4214
-/*  f1a0d30:	4481c000 */ 	mtc1	$at,$f24
-/*  f1a0d34:	3c014190 */ 	lui	$at,0x4190
-/*  f1a0d38:	3c11800b */ 	lui	$s1,%hi(g_FiringRangeData)
-/*  f1a0d3c:	3c15800b */ 	lui	$s5,%hi(g_FiringRangeData+0x438)
-/*  f1a0d40:	3c10800b */ 	lui	$s0,%hi(g_FiringRangeData)
-/*  f1a0d44:	4481b000 */ 	mtc1	$at,$f22
-/*  f1a0d48:	2610cd20 */ 	addiu	$s0,$s0,%lo(g_FiringRangeData)
-/*  f1a0d4c:	26b5d158 */ 	addiu	$s5,$s5,%lo(g_FiringRangeData+0x438)
-/*  f1a0d50:	2631cd20 */ 	addiu	$s1,$s1,%lo(g_FiringRangeData)
-/*  f1a0d54:	241e0001 */ 	addiu	$s8,$zero,0x1
-/*  f1a0d58:	24170002 */ 	addiu	$s7,$zero,0x2
-/*  f1a0d5c:	24160005 */ 	addiu	$s6,$zero,0x5
-/*  f1a0d60:	2414003c */ 	addiu	$s4,$zero,0x3c
-/*  f1a0d64:	2413000a */ 	addiu	$s3,$zero,0xa
-/*  f1a0d68:	8e220014 */ 	lw	$v0,0x14($s1)
-.L0f1a0d6c:
-/*  f1a0d6c:	8faf0070 */ 	lw	$t7,0x70($sp)
-/*  f1a0d70:	8c580004 */ 	lw	$t8,0x4($v0)
-/*  f1a0d74:	55f80080 */ 	bnel	$t7,$t8,.L0f1a0f78
-/*  f1a0d78:	2631003c */ 	addiu	$s1,$s1,0x3c
-/*  f1a0d7c:	c6440000 */ 	lwc1	$f4,0x0($s2)
-/*  f1a0d80:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f1a0d84:	c6480004 */ 	lwc1	$f8,0x4($s2)
-/*  f1a0d88:	c44a000c */ 	lwc1	$f10,0xc($v0)
-/*  f1a0d8c:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f1a0d90:	c6500008 */ 	lwc1	$f16,0x8($s2)
-/*  f1a0d94:	c4520010 */ 	lwc1	$f18,0x10($v0)
-/*  f1a0d98:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f1a0d9c:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f1a0da0:	46128381 */ 	sub.s	$f14,$f16,$f18
-/*  f1a0da4:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f1a0da8:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f1a0dac:	460e7282 */ 	mul.s	$f10,$f14,$f14
-/*  f1a0db0:	0c012974 */ 	jal	sqrtf
-/*  f1a0db4:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f1a0db8:	92390040 */ 	lbu	$t9,0x40($s1)
-/*  f1a0dbc:	46000506 */ 	mov.s	$f20,$f0
-/*  f1a0dc0:	33280020 */ 	andi	$t0,$t9,0x20
-/*  f1a0dc4:	11000004 */ 	beqz	$t0,.L0f1a0dd8
-/*  f1a0dc8:	00000000 */ 	nop
-/*  f1a0dcc:	92290011 */ 	lbu	$t1,0x11($s1)
-/*  f1a0dd0:	10000044 */ 	b	.L0f1a0ee4
-/*  f1a0dd4:	a2290030 */ 	sb	$t1,0x30($s1)
-.L0f1a0dd8:
-/*  f1a0dd8:	0fc6749a */ 	jal	frGetWeaponBySlot
-/*  f1a0ddc:	96040456 */ 	lhu	$a0,0x456($s0)
-/*  f1a0de0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1a0de4:	54410035 */ 	bnel	$v0,$at,.L0f1a0ebc
-/*  f1a0de8:	92380040 */ 	lbu	$t8,0x40($s1)
-/*  f1a0dec:	461cf182 */ 	mul.s	$f6,$f30,$f28
-/*  f1a0df0:	922a0030 */ 	lbu	$t2,0x30($s1)
-/*  f1a0df4:	3c014f80 */ 	lui	$at,0x4f80
-/*  f1a0df8:	448a8000 */ 	mtc1	$t2,$f16
-/*  f1a0dfc:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f1a0e00:	05410004 */ 	bgez	$t2,.L0f1a0e14
-/*  f1a0e04:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f1a0e08:	44812000 */ 	mtc1	$at,$f4
-/*  f1a0e0c:	00000000 */ 	nop
-/*  f1a0e10:	46049480 */ 	add.s	$f18,$f18,$f4
-.L0f1a0e14:
-/*  f1a0e14:	440c4000 */ 	mfc1	$t4,$f8
-/*  f1a0e18:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f1a0e1c:	3c014f00 */ 	lui	$at,0x4f00
-/*  f1a0e20:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f1a0e24:	448d5000 */ 	mtc1	$t5,$f10
-/*  f1a0e28:	00000000 */ 	nop
-/*  f1a0e2c:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f1a0e30:	46109100 */ 	add.s	$f4,$f18,$f16
-/*  f1a0e34:	444ef800 */ 	cfc1	$t6,$31
-/*  f1a0e38:	44cff800 */ 	ctc1	$t7,$31
-/*  f1a0e3c:	00000000 */ 	nop
-/*  f1a0e40:	460021a4 */ 	cvt.w.s	$f6,$f4
-/*  f1a0e44:	444ff800 */ 	cfc1	$t7,$31
-/*  f1a0e48:	00000000 */ 	nop
-/*  f1a0e4c:	31ef0078 */ 	andi	$t7,$t7,0x78
-/*  f1a0e50:	51e00013 */ 	beqzl	$t7,.L0f1a0ea0
-/*  f1a0e54:	440f3000 */ 	mfc1	$t7,$f6
-/*  f1a0e58:	44813000 */ 	mtc1	$at,$f6
-/*  f1a0e5c:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f1a0e60:	46062181 */ 	sub.s	$f6,$f4,$f6
-/*  f1a0e64:	44cff800 */ 	ctc1	$t7,$31
-/*  f1a0e68:	00000000 */ 	nop
-/*  f1a0e6c:	460031a4 */ 	cvt.w.s	$f6,$f6
-/*  f1a0e70:	444ff800 */ 	cfc1	$t7,$31
-/*  f1a0e74:	00000000 */ 	nop
-/*  f1a0e78:	31ef0078 */ 	andi	$t7,$t7,0x78
-/*  f1a0e7c:	15e00005 */ 	bnez	$t7,.L0f1a0e94
-/*  f1a0e80:	00000000 */ 	nop
-/*  f1a0e84:	440f3000 */ 	mfc1	$t7,$f6
-/*  f1a0e88:	3c018000 */ 	lui	$at,0x8000
-/*  f1a0e8c:	10000007 */ 	b	.L0f1a0eac
-/*  f1a0e90:	01e17825 */ 	or	$t7,$t7,$at
-.L0f1a0e94:
-/*  f1a0e94:	10000005 */ 	b	.L0f1a0eac
-/*  f1a0e98:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f1a0e9c:	440f3000 */ 	mfc1	$t7,$f6
-.L0f1a0ea0:
-/*  f1a0ea0:	00000000 */ 	nop
-/*  f1a0ea4:	05e0fffb */ 	bltz	$t7,.L0f1a0e94
-/*  f1a0ea8:	00000000 */ 	nop
-.L0f1a0eac:
-/*  f1a0eac:	44cef800 */ 	ctc1	$t6,$31
-/*  f1a0eb0:	1000000c */ 	b	.L0f1a0ee4
-/*  f1a0eb4:	a22f0030 */ 	sb	$t7,0x30($s1)
-/*  f1a0eb8:	92380040 */ 	lbu	$t8,0x40($s1)
-.L0f1a0ebc:
-/*  f1a0ebc:	33190080 */ 	andi	$t9,$t8,0x80
-/*  f1a0ec0:	53200006 */ 	beqzl	$t9,.L0f1a0edc
-/*  f1a0ec4:	92290030 */ 	lbu	$t1,0x30($s1)
-/*  f1a0ec8:	8e280048 */ 	lw	$t0,0x48($s1)
-/*  f1a0ecc:	2901012c */ 	slti	$at,$t0,0x12c
-/*  f1a0ed0:	54200005 */ 	bnezl	$at,.L0f1a0ee8
-/*  f1a0ed4:	4616a03c */ 	c.lt.s	$f20,$f22
-/*  f1a0ed8:	92290030 */ 	lbu	$t1,0x30($s1)
-.L0f1a0edc:
-/*  f1a0edc:	252a0001 */ 	addiu	$t2,$t1,0x1
-/*  f1a0ee0:	a22a0030 */ 	sb	$t2,0x30($s1)
-.L0f1a0ee4:
-/*  f1a0ee4:	4616a03c */ 	c.lt.s	$f20,$f22
-.L0f1a0ee8:
-/*  f1a0ee8:	00000000 */ 	nop
-/*  f1a0eec:	45020007 */ 	bc1fl	.L0f1a0f0c
-/*  f1a0ef0:	4618a03c */ 	c.lt.s	$f20,$f24
-/*  f1a0ef4:	960b045c */ 	lhu	$t3,0x45c($s0)
-/*  f1a0ef8:	a2130471 */ 	sb	$s3,0x471($s0)
-/*  f1a0efc:	256c0001 */ 	addiu	$t4,$t3,0x1
-/*  f1a0f00:	10000017 */ 	b	.L0f1a0f60
-/*  f1a0f04:	a60c045c */ 	sh	$t4,0x45c($s0)
-/*  f1a0f08:	4618a03c */ 	c.lt.s	$f20,$f24
-.L0f1a0f0c:
-/*  f1a0f0c:	00000000 */ 	nop
-/*  f1a0f10:	45020007 */ 	bc1fl	.L0f1a0f30
-/*  f1a0f14:	461aa03c */ 	c.lt.s	$f20,$f26
-/*  f1a0f18:	960d045e */ 	lhu	$t5,0x45e($s0)
-/*  f1a0f1c:	a2160471 */ 	sb	$s6,0x471($s0)
-/*  f1a0f20:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*  f1a0f24:	1000000e */ 	b	.L0f1a0f60
-/*  f1a0f28:	a60e045e */ 	sh	$t6,0x45e($s0)
-/*  f1a0f2c:	461aa03c */ 	c.lt.s	$f20,$f26
-.L0f1a0f30:
-/*  f1a0f30:	00000000 */ 	nop
-/*  f1a0f34:	45020007 */ 	bc1fl	.L0f1a0f54
-/*  f1a0f38:	96190462 */ 	lhu	$t9,0x462($s0)
-/*  f1a0f3c:	960f0460 */ 	lhu	$t7,0x460($s0)
-/*  f1a0f40:	a2170471 */ 	sb	$s7,0x471($s0)
-/*  f1a0f44:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*  f1a0f48:	10000005 */ 	b	.L0f1a0f60
-/*  f1a0f4c:	a6180460 */ 	sh	$t8,0x460($s0)
-/*  f1a0f50:	96190462 */ 	lhu	$t9,0x462($s0)
-.L0f1a0f54:
-/*  f1a0f54:	a21e0471 */ 	sb	$s8,0x471($s0)
-/*  f1a0f58:	27280001 */ 	addiu	$t0,$t9,0x1
-/*  f1a0f5c:	a6080462 */ 	sh	$t0,0x462($s0)
-.L0f1a0f60:
-/*  f1a0f60:	8e090450 */ 	lw	$t1,0x450($s0)
-/*  f1a0f64:	920a0471 */ 	lbu	$t2,0x471($s0)
-/*  f1a0f68:	a2140472 */ 	sb	$s4,0x472($s0)
-/*  f1a0f6c:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f1a0f70:	ae0b0450 */ 	sw	$t3,0x450($s0)
-/*  f1a0f74:	2631003c */ 	addiu	$s1,$s1,0x3c
-.L0f1a0f78:
-/*  f1a0f78:	5635ff7c */ 	bnel	$s1,$s5,.L0f1a0d6c
-/*  f1a0f7c:	8e220014 */ 	lw	$v0,0x14($s1)
-.L0f1a0f80:
-/*  f1a0f80:	8fbf006c */ 	lw	$ra,0x6c($sp)
-/*  f1a0f84:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f1a0f88:	d7b60020 */ 	ldc1	$f22,0x20($sp)
-/*  f1a0f8c:	d7b80028 */ 	ldc1	$f24,0x28($sp)
-/*  f1a0f90:	d7ba0030 */ 	ldc1	$f26,0x30($sp)
-/*  f1a0f94:	d7bc0038 */ 	ldc1	$f28,0x38($sp)
-/*  f1a0f98:	d7be0040 */ 	ldc1	$f30,0x40($sp)
-/*  f1a0f9c:	8fb00048 */ 	lw	$s0,0x48($sp)
-/*  f1a0fa0:	8fb1004c */ 	lw	$s1,0x4c($sp)
-/*  f1a0fa4:	8fb20050 */ 	lw	$s2,0x50($sp)
-/*  f1a0fa8:	8fb30054 */ 	lw	$s3,0x54($sp)
-/*  f1a0fac:	8fb40058 */ 	lw	$s4,0x58($sp)
-/*  f1a0fb0:	8fb5005c */ 	lw	$s5,0x5c($sp)
-/*  f1a0fb4:	8fb60060 */ 	lw	$s6,0x60($sp)
-/*  f1a0fb8:	8fb70064 */ 	lw	$s7,0x64($sp)
-/*  f1a0fbc:	8fbe0068 */ 	lw	$s8,0x68($sp)
-/*  f1a0fc0:	03e00008 */ 	jr	$ra
-/*  f1a0fc4:	27bd0070 */ 	addiu	$sp,$sp,0x70
-);
+void frCalculateHit(struct defaultobj *obj, struct coord *hitpos, f32 maulercharge)
+{
+	s32 i;
+
+	if (g_FrIsValidWeapon == false) {
+		return;
+	}
+
+	for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
+		struct prop *prop = g_FiringRangeData.targets[i].prop;
+
+		if (obj == prop->obj) {
+			f32 xdiff = hitpos->x - prop->pos.x;
+			f32 ydiff = hitpos->y - prop->pos.y;
+			f32 zdiff = hitpos->z - prop->pos.z;
+
+			f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+
+			if (g_FiringRangeData.targets[i].flags & FRTARGETFLAG_20) {
+				g_FiringRangeData.targets[i].damage = g_FiringRangeData.targets[i].unk01;
+			} else if (frGetWeaponBySlot(g_FiringRangeData.slot) == WEAPON_MAULER) {
+				g_FiringRangeData.targets[i].damage += (f32)((s32)(maulercharge * 0.1f) + 1);
+			} else if ((g_FiringRangeData.targets[i].flags & FRTARGETFLAG_80) == 0
+					|| g_FiringRangeData.targets[i].unk38 >= 300) {
+				g_FiringRangeData.targets[i].damage++;
+			}
+
+			if (dist < 18) {
+				g_FiringRangeData.feedbackzone = FRZONE_BULLSEYE;
+				g_FiringRangeData.numhitsbullseye++;
+			} else if (dist < 37) {
+				g_FiringRangeData.feedbackzone = FRZONE_RING1;
+				g_FiringRangeData.numhitsring1++;
+			} else if (dist < 56) {
+				g_FiringRangeData.feedbackzone = FRZONE_RING2;
+				g_FiringRangeData.numhitsring2++;
+			} else {
+				g_FiringRangeData.feedbackzone = FRZONE_RING3;
+				g_FiringRangeData.numhitsring3++;
+			}
+
+			g_FiringRangeData.feedbackttl = 60;
+			g_FiringRangeData.score += g_FiringRangeData.feedbackzone;
+		}
+	}
+}
 
 void func0f1a0fc8(void)
 {
@@ -5022,10 +4851,10 @@ void frGetGoalScoreText(char *buffer)
 
 f32 frGetAccuracy(char *buffer)
 {
-	f32 sum = (g_FiringRangeData.numhitstype4
-		+ g_FiringRangeData.numhitstype1
-		+ g_FiringRangeData.numhitstype2
-		+ g_FiringRangeData.numhitstype3) * 100.0f;
+	f32 sum = (g_FiringRangeData.numhitsring3
+		+ g_FiringRangeData.numhitsbullseye
+		+ g_FiringRangeData.numhitsring1
+		+ g_FiringRangeData.numhitsring2) * 100.0f;
 	f32 accuracy = 100.0f;
 
 	if (g_FiringRangeData.numshots) {
