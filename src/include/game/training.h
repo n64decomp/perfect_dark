@@ -28,7 +28,7 @@ void func0f19d4ec(void);
 void *frLoadRomData(u32 len);
 void frSetDifficulty(s32 difficulty);
 u32 frGetDifficulty(void);
-void func0f19d5f4(void);
+void frInitDefaults(void);
 struct frdata *getFiringRangeData(void);
 u32 frResolveFrPad(u32 arg0);
 bool frIsDifficulty(u32 difficulties);

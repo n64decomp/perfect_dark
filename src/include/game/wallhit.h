@@ -5,7 +5,7 @@
 
 u32 func0f13e0e0(void);
 u32 func0f13e1b0(void);
-void func0f13e40c(u32 arg0, bool arg1);
+void func0f13e40c(struct prop *prop, bool arg1);
 bool func0f13e4a8(struct chrdata *chr);
 u32 func0f13e5c8(void);
 u32 func0f13e640(void);

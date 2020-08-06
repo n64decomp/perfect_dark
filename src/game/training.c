@@ -462,201 +462,77 @@ u32 frGetDifficulty(void)
 	return g_FiringRangeData.difficulty;
 }
 
-GLOBAL_ASM(
-glabel func0f19d5f4
-/*  f19d5f4:	27bdff60 */ 	addiu	$sp,$sp,-160
-/*  f19d5f8:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f19d5fc:	3c018009 */ 	lui	$at,%hi(g_FrNumSounds)
-/*  f19d600:	3c048009 */ 	lui	$a0,%hi(g_FrPads)
-/*  f19d604:	afb50038 */ 	sw	$s5,0x38($sp)
-/*  f19d608:	afb40034 */ 	sw	$s4,0x34($sp)
-/*  f19d60c:	afb30030 */ 	sw	$s3,0x30($sp)
-/*  f19d610:	afb2002c */ 	sw	$s2,0x2c($sp)
-/*  f19d614:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f19d618:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f19d61c:	f7b60018 */ 	sdc1	$f22,0x18($sp)
-/*  f19d620:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f19d624:	a020880c */ 	sb	$zero,%lo(g_FrNumSounds)($at)
-/*  f19d628:	94848814 */ 	lhu	$a0,%lo(g_FrPads)($a0)
-/*  f19d62c:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f19d630:	0fc456ac */ 	jal	padUnpack
-/*  f19d634:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f19d638:	3c12800b */ 	lui	$s2,%hi(g_FiringRangeData)
-/*  f19d63c:	2652cd20 */ 	addiu	$s2,$s2,%lo(g_FiringRangeData)
-/*  f19d640:	3c013f80 */ 	lui	$at,0x3f80
-/*  f19d644:	44812000 */ 	mtc1	$at,$f4
-/*  f19d648:	240200ff */ 	addiu	$v0,$zero,0xff
-/*  f19d64c:	3c0140c0 */ 	lui	$at,0x40c0
-/*  f19d650:	240e00c8 */ 	addiu	$t6,$zero,0xc8
-/*  f19d654:	3c10800b */ 	lui	$s0,%hi(g_FiringRangeData)
-/*  f19d658:	4481b000 */ 	mtc1	$at,$f22
-/*  f19d65c:	4480a000 */ 	mtc1	$zero,$f20
-/*  f19d660:	a2400000 */ 	sb	$zero,0x0($s2)
-/*  f19d664:	a6400002 */ 	sh	$zero,0x2($s2)
-/*  f19d668:	a24e0005 */ 	sb	$t6,0x5($s2)
-/*  f19d66c:	a2420006 */ 	sb	$v0,0x6($s2)
-/*  f19d670:	a2420007 */ 	sb	$v0,0x7($s2)
-/*  f19d674:	a2400008 */ 	sb	$zero,0x8($s2)
-/*  f19d678:	a2420004 */ 	sb	$v0,0x4($s2)
-/*  f19d67c:	2610cd20 */ 	addiu	$s0,$s0,%lo(g_FiringRangeData)
-/*  f19d680:	00008825 */ 	or	$s1,$zero,$zero
-/*  f19d684:	2415ffff */ 	addiu	$s5,$zero,-1
-/*  f19d688:	24140012 */ 	addiu	$s4,$zero,0x12
-/*  f19d68c:	24133bc4 */ 	addiu	$s3,$zero,0x3bc4
-/*  f19d690:	e644000c */ 	swc1	$f4,0xc($s2)
-.L0f19d694:
-/*  f19d694:	44918000 */ 	mtc1	$s1,$f16
-/*  f19d698:	920f0010 */ 	lbu	$t7,0x10($s0)
-/*  f19d69c:	c7a60048 */ 	lwc1	$f6,0x48($sp)
-/*  f19d6a0:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f19d6a4:	c7aa0050 */ 	lwc1	$f10,0x50($sp)
-/*  f19d6a8:	31f9ff7f */ 	andi	$t9,$t7,0xff7f
-/*  f19d6ac:	332900fb */ 	andi	$t1,$t9,0xfb
-/*  f19d6b0:	e6060018 */ 	swc1	$f6,0x18($s0)
-/*  f19d6b4:	a2190010 */ 	sb	$t9,0x10($s0)
-/*  f19d6b8:	4612b102 */ 	mul.s	$f4,$f22,$f18
-/*  f19d6bc:	312b00df */ 	andi	$t3,$t1,0xdf
-/*  f19d6c0:	c7a8004c */ 	lwc1	$f8,0x4c($sp)
-/*  f19d6c4:	a2090010 */ 	sb	$t1,0x10($s0)
-/*  f19d6c8:	a20b0010 */ 	sb	$t3,0x10($s0)
-/*  f19d6cc:	316c00f7 */ 	andi	$t4,$t3,0xf7
-/*  f19d6d0:	a2000030 */ 	sb	$zero,0x30($s0)
-/*  f19d6d4:	46045180 */ 	add.s	$f6,$f10,$f4
-/*  f19d6d8:	a2000031 */ 	sb	$zero,0x31($s0)
-/*  f19d6dc:	e614002c */ 	swc1	$f20,0x2c($s0)
-/*  f19d6e0:	ae130024 */ 	sw	$s3,0x24($s0)
-/*  f19d6e4:	e6060020 */ 	swc1	$f6,0x20($s0)
-/*  f19d6e8:	ae000028 */ 	sw	$zero,0x28($s0)
-/*  f19d6ec:	a20c0010 */ 	sb	$t4,0x10($s0)
-/*  f19d6f0:	e6140034 */ 	swc1	$f20,0x34($s0)
-/*  f19d6f4:	e6140038 */ 	swc1	$f20,0x38($s0)
-/*  f19d6f8:	e614003c */ 	swc1	$f20,0x3c($s0)
-/*  f19d6fc:	a2000041 */ 	sb	$zero,0x41($s0)
-/*  f19d700:	a2000042 */ 	sb	$zero,0x42($s0)
-/*  f19d704:	a2000043 */ 	sb	$zero,0x43($s0)
-/*  f19d708:	ae000048 */ 	sw	$zero,0x48($s0)
-/*  f19d70c:	a2150044 */ 	sb	$s5,0x44($s0)
-/*  f19d710:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f19d714:	00002825 */ 	or	$a1,$zero,$zero
-/*  f19d718:	0fc4f903 */ 	jal	func0f13e40c
-/*  f19d71c:	e608001c */ 	swc1	$f8,0x1c($s0)
-/*  f19d720:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f19d724:	0fc4f903 */ 	jal	func0f13e40c
-/*  f19d728:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f19d72c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f19d730:	1634ffd8 */ 	bne	$s1,$s4,.L0f19d694
-/*  f19d734:	2610003c */ 	addiu	$s0,$s0,0x3c
-/*  f19d738:	924e0465 */ 	lbu	$t6,0x465($s2)
-/*  f19d73c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f19d740:	240dff10 */ 	addiu	$t5,$zero,-240
-/*  f19d744:	31d9fff7 */ 	andi	$t9,$t6,0xfff7
-/*  f19d748:	a2590465 */ 	sb	$t9,0x465($s2)
-/*  f19d74c:	37280004 */ 	ori	$t0,$t9,0x4
-/*  f19d750:	a6550476 */ 	sh	$s5,0x476($s2)
-/*  f19d754:	ae4d044c */ 	sw	$t5,0x44c($s2)
-/*  f19d758:	ae400450 */ 	sw	$zero,0x450($s2)
-/*  f19d75c:	a2400454 */ 	sb	$zero,0x454($s2)
-/*  f19d760:	a2400455 */ 	sb	$zero,0x455($s2)
-/*  f19d764:	a2400464 */ 	sb	$zero,0x464($s2)
-/*  f19d768:	a2400470 */ 	sb	$zero,0x470($s2)
-/*  f19d76c:	a2400471 */ 	sb	$zero,0x471($s2)
-/*  f19d770:	a2400472 */ 	sb	$zero,0x472($s2)
-/*  f19d774:	a240045b */ 	sb	$zero,0x45b($s2)
-/*  f19d778:	a6400458 */ 	sh	$zero,0x458($s2)
-/*  f19d77c:	a6400462 */ 	sh	$zero,0x462($s2)
-/*  f19d780:	a6400460 */ 	sh	$zero,0x460($s2)
-/*  f19d784:	a640045e */ 	sh	$zero,0x45e($s2)
-/*  f19d788:	a640045c */ 	sh	$zero,0x45c($s2)
-/*  f19d78c:	a2400466 */ 	sb	$zero,0x466($s2)
-/*  f19d790:	a2400467 */ 	sb	$zero,0x467($s2)
-/*  f19d794:	a2400468 */ 	sb	$zero,0x468($s2)
-/*  f19d798:	ae40046c */ 	sw	$zero,0x46c($s2)
-/*  f19d79c:	a6400474 */ 	sh	$zero,0x474($s2)
-/*  f19d7a0:	a2480465 */ 	sb	$t0,0x465($s2)
-/*  f19d7a4:	8fb2002c */ 	lw	$s2,0x2c($sp)
-/*  f19d7a8:	8fb50038 */ 	lw	$s5,0x38($sp)
-/*  f19d7ac:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f19d7b0:	d7b60018 */ 	ldc1	$f22,0x18($sp)
-/*  f19d7b4:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f19d7b8:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f19d7bc:	8fb30030 */ 	lw	$s3,0x30($sp)
-/*  f19d7c0:	8fb40034 */ 	lw	$s4,0x34($sp)
-/*  f19d7c4:	03e00008 */ 	jr	$ra
-/*  f19d7c8:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
-);
+void frInitDefaults(void)
+{
+	s32 i;
+	struct pad pad;
 
-// Mismatch due to something weird with the unk465 bitfield, plus some f32
-// regalloc near pad.pos.z.
-//void func0f19d5f4(void)
-//{
-//	s32 i;
-//	struct pad pad;
-//
-//	g_FrNumSounds = 0;
-//
-//	padUnpack(g_FrPads[0], PADFIELD_POS, &pad);
-//
-//	g_FiringRangeData.numtargets = 0;
-//	g_FiringRangeData.goalscore = 0;
-//	g_FiringRangeData.timelimit = 200;
-//	g_FiringRangeData.ammolimit = 255;
-//	g_FiringRangeData.sdgrenadelimit = 255;
-//	g_FiringRangeData.goalaccuracy = 0;
-//	g_FiringRangeData.goaltargets = 255;
-//	g_FiringRangeData.unk00c = 1;
-//
-//	for (i = 0; i < 18; i++) {
-//		g_FiringRangeData.targets[i].unk08.x = pad.pos.x;
-//		g_FiringRangeData.targets[i].unk08.y = pad.pos.y;
-//		g_FiringRangeData.targets[i].unk08.z = pad.pos.z + i * 6.0f;
-//
-//		g_FiringRangeData.targets[i].unk00_01 = false;
-//		g_FiringRangeData.targets[i].unk00_06 = false;
-//		g_FiringRangeData.targets[i].unk00_03 = false;
-//		g_FiringRangeData.targets[i].damage = 0;
-//		g_FiringRangeData.targets[i].scriptoffset = 0;
-//
-//		g_FiringRangeData.targets[i].unk1c = 0;
-//		g_FiringRangeData.targets[i].unk14 = 255 * 60;
-//		g_FiringRangeData.targets[i].unk18 = 0;
-//
-//		g_FiringRangeData.targets[i].unk00_05 = false;
-//		g_FiringRangeData.targets[i].unk24 = 0;
-//		g_FiringRangeData.targets[i].unk28 = 0;
-//		g_FiringRangeData.targets[i].unk2c = 0;
-//		g_FiringRangeData.targets[i].unk31 = 0;
-//		g_FiringRangeData.targets[i].unk32 = 0;
-//		g_FiringRangeData.targets[i].unk33 = 0;
-//		g_FiringRangeData.targets[i].unk38 = 0;
-//		g_FiringRangeData.targets[i].frpadnum = -1;
-//
-//		func0f13e40c(g_FiringRangeData.targets[i].unk04, false);
-//		func0f13e40c(g_FiringRangeData.targets[i].unk04, true);
-//	}
-//
-//	g_FiringRangeData.unk465_05 = true;
-//	g_FiringRangeData.timetaken = -240;
-//	g_FiringRangeData.unk476 = -1;
-//	g_FiringRangeData.score = 0;
-//	g_FiringRangeData.unk454 = 0;
-//	g_FiringRangeData.targetsdestroyed = 0;
-//	g_FiringRangeData.unk464 = 0;
-//	g_FiringRangeData.unk470 = 0;
-//	g_FiringRangeData.feedbackzone = 0;
-//	g_FiringRangeData.feedbackttl = 0;
-//	g_FiringRangeData.failreason = 0;
-//	g_FiringRangeData.numshots = 0;
-//	g_FiringRangeData.numhitsring3 = 0;
-//	g_FiringRangeData.numhitsring2 = 0;
-//	g_FiringRangeData.numhitsring1 = 0;
-//	g_FiringRangeData.numhitsbullseye = 0;
-//	g_FiringRangeData.unk466 = 0;
-//	g_FiringRangeData.scriptoffset = 0;
-//	g_FiringRangeData.scriptenabled = false;
-//	g_FiringRangeData.scriptsleep = 0;
-//	g_FiringRangeData.unk474 = 0;
-//	g_FiringRangeData.unk465_04 = false;
-//}
+	g_FrNumSounds = 0;
+
+	padUnpack(g_FrPads[0], PADFIELD_POS, &pad);
+
+	g_FiringRangeData.numtargets = 0;
+	g_FiringRangeData.goalscore = 0;
+	g_FiringRangeData.timelimit = 200;
+	g_FiringRangeData.ammolimit = 255;
+	g_FiringRangeData.sdgrenadelimit = 255;
+	g_FiringRangeData.goalaccuracy = 0;
+	g_FiringRangeData.goaltargets = 255;
+	g_FiringRangeData.unk00c = 1;
+
+	for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
+		g_FiringRangeData.targets[i].unk08.x = pad.pos.x;
+		g_FiringRangeData.targets[i].unk08.y = pad.pos.y;
+		g_FiringRangeData.targets[i].unk08.z = pad.pos.z;
+		g_FiringRangeData.targets[i].unk08.z += 6.0f * i;
+
+		g_FiringRangeData.targets[i].unk00_01 = false;
+		g_FiringRangeData.targets[i].unk00_06 = false;
+		g_FiringRangeData.targets[i].unk00_03 = false;
+		g_FiringRangeData.targets[i].damage = 0;
+		g_FiringRangeData.targets[i].scriptoffset = 0;
+
+		g_FiringRangeData.targets[i].unk1c = 0;
+		g_FiringRangeData.targets[i].unk14 = 255 * 60;
+		g_FiringRangeData.targets[i].unk18 = 0;
+
+		g_FiringRangeData.targets[i].unk00_05 = false;
+		g_FiringRangeData.targets[i].unk24 = 0;
+		g_FiringRangeData.targets[i].angle = 0;
+		g_FiringRangeData.targets[i].unk2c = 0;
+		g_FiringRangeData.targets[i].unk31 = 0;
+		g_FiringRangeData.targets[i].unk32 = 0;
+		g_FiringRangeData.targets[i].unk33 = 0;
+		g_FiringRangeData.targets[i].unk38 = 0;
+		g_FiringRangeData.targets[i].frpadnum = -1;
+
+		func0f13e40c(g_FiringRangeData.targets[i].prop, false);
+		func0f13e40c(g_FiringRangeData.targets[i].prop, true);
+	}
+
+	g_FiringRangeData.timetaken = -240;
+	g_FiringRangeData.score = 0;
+	g_FiringRangeData.unk454 = 0;
+	g_FiringRangeData.targetsdestroyed = 0;
+	g_FiringRangeData.unk464 = 0;
+	g_FiringRangeData.unk470 = 0;
+	g_FiringRangeData.feedbackzone = 0;
+	g_FiringRangeData.feedbackttl = 0;
+	g_FiringRangeData.failreason = 0;
+	g_FiringRangeData.numshots = 0;
+	g_FiringRangeData.numhitsring3 = 0;
+	g_FiringRangeData.numhitsring2 = 0;
+	g_FiringRangeData.numhitsring1 = 0;
+	g_FiringRangeData.numhitsbullseye = 0;
+	g_FiringRangeData.unk466 = 0;
+	g_FiringRangeData.scriptoffset = 0;
+	g_FiringRangeData.scriptenabled = false;
+	g_FiringRangeData.scriptsleep = 0;
+	g_FiringRangeData.unk474 = 0;
+	g_FiringRangeData.unk465_04 = false;
+	g_FiringRangeData.unk465_05 = true;
+	g_FiringRangeData.unk476 = -1;
+}
 
 struct frdata *getFiringRangeData(void)
 {
@@ -1770,7 +1646,7 @@ u32 frInitAmmo(s32 weaponnum)
 	u32 ammotype = weaponGetAmmoType(weaponnum, 0);
 	u32 capacity = ammotypeGetMaxCapacity(ammotype);
 
-	func0f19d5f4();
+	frInitDefaults();
 	weaponindex = func0f19cdf0(weaponnum);
 	func0f19d90c(weaponindex);
 
