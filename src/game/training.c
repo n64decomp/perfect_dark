@@ -1117,134 +1117,46 @@ char *frGetInstructionalText(u32 index)
 	return langGet(textid);
 }
 
-GLOBAL_ASM(
-glabel frExecuteMainScript
-/*  f19df58:	3c07800b */ 	lui	$a3,%hi(g_FiringRangeData)
-/*  f19df5c:	24e7cd20 */ 	addiu	$a3,$a3,%lo(g_FiringRangeData)
-/*  f19df60:	90ee0468 */ 	lbu	$t6,0x468($a3)
-/*  f19df64:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19df68:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19df6c:	11c00044 */ 	beqz	$t6,.L0f19e080
-/*  f19df70:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f19df74:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f19df78:	8c6f0034 */ 	lw	$t7,0x34($v1)
-/*  f19df7c:	51e00041 */ 	beqzl	$t7,.L0f19e084
-/*  f19df80:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19df84:	8ce2046c */ 	lw	$v0,0x46c($a3)
-/*  f19df88:	3c188009 */ 	lui	$t8,%hi(g_FrOffsets)
-/*  f19df8c:	3c0b8009 */ 	lui	$t3,%hi(g_FrRomData)
-/*  f19df90:	54400037 */ 	bnezl	$v0,.L0f19e070
-/*  f19df94:	8c6a0038 */ 	lw	$t2,0x38($v1)
-/*  f19df98:	90e30466 */ 	lbu	$v1,0x466($a3)
-/*  f19df9c:	8f188800 */ 	lw	$t8,%lo(g_FrOffsets)($t8)
-/*  f19dfa0:	8d6b8810 */ 	lw	$t3,%lo(g_FrRomData)($t3)
-/*  f19dfa4:	24630071 */ 	addiu	$v1,$v1,0x71
-/*  f19dfa8:	0003c840 */ 	sll	$t9,$v1,0x1
-/*  f19dfac:	03194821 */ 	addu	$t1,$t8,$t9
-/*  f19dfb0:	952a0000 */ 	lhu	$t2,0x0($t1)
-/*  f19dfb4:	90e80467 */ 	lbu	$t0,0x467($a3)
-/*  f19dfb8:	24010010 */ 	addiu	$at,$zero,0x10
-/*  f19dfbc:	014b2021 */ 	addu	$a0,$t2,$t3
-/*  f19dfc0:	00883021 */ 	addu	$a2,$a0,$t0
-/*  f19dfc4:	90c20000 */ 	lbu	$v0,0x0($a2)
-/*  f19dfc8:	1041000f */ 	beq	$v0,$at,.L0f19e008
-/*  f19dfcc:	24010011 */ 	addiu	$at,$zero,0x11
-/*  f19dfd0:	10410020 */ 	beq	$v0,$at,.L0f19e054
-/*  f19dfd4:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f19dfd8:	10410016 */ 	beq	$v0,$at,.L0f19e034
-/*  f19dfdc:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f19dfe0:	10410007 */ 	beq	$v0,$at,.L0f19e000
-/*  f19dfe4:	240100fb */ 	addiu	$at,$zero,0xfb
-/*  f19dfe8:	10410005 */ 	beq	$v0,$at,.L0f19e000
-/*  f19dfec:	240100fc */ 	addiu	$at,$zero,0xfc
-/*  f19dff0:	10410003 */ 	beq	$v0,$at,.L0f19e000
-/*  f19dff4:	240100fd */ 	addiu	$at,$zero,0xfd
-/*  f19dff8:	54410022 */ 	bnel	$v0,$at,.L0f19e084
-/*  f19dffc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19e000:
-/*  f19e000:	1000001f */ 	b	.L0f19e080
-/*  f19e004:	a0e00468 */ 	sb	$zero,0x468($a3)
-.L0f19e008:
-/*  f19e008:	0fc677c6 */ 	jal	frGetInstructionalText
-/*  f19e00c:	90c40001 */ 	lbu	$a0,0x1($a2)
-/*  f19e010:	00402025 */ 	or	$a0,$v0,$zero
-/*  f19e014:	0fc377c7 */ 	jal	hudmsgCreateViaPreset
-/*  f19e018:	2405000a */ 	addiu	$a1,$zero,0xa
-/*  f19e01c:	3c07800b */ 	lui	$a3,%hi(g_FiringRangeData)
-/*  f19e020:	24e7cd20 */ 	addiu	$a3,$a3,%lo(g_FiringRangeData)
-/*  f19e024:	90ec0467 */ 	lbu	$t4,0x467($a3)
-/*  f19e028:	258d0002 */ 	addiu	$t5,$t4,0x2
-/*  f19e02c:	10000014 */ 	b	.L0f19e080
-/*  f19e030:	a0ed0467 */ 	sb	$t5,0x467($a3)
-.L0f19e034:
-/*  f19e034:	90ce0001 */ 	lbu	$t6,0x1($a2)
-/*  f19e038:	25180002 */ 	addiu	$t8,$t0,0x2
-/*  f19e03c:	a0f80467 */ 	sb	$t8,0x467($a3)
-/*  f19e040:	000e7900 */ 	sll	$t7,$t6,0x4
-/*  f19e044:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f19e048:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f19e04c:	1000000c */ 	b	.L0f19e080
-/*  f19e050:	acef046c */ 	sw	$t7,0x46c($a3)
-.L0f19e054:
-/*  f19e054:	94f90458 */ 	lhu	$t9,0x458($a3)
-/*  f19e058:	25090001 */ 	addiu	$t1,$t0,0x1
-/*  f19e05c:	53200009 */ 	beqzl	$t9,.L0f19e084
-/*  f19e060:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19e064:	10000006 */ 	b	.L0f19e080
-/*  f19e068:	a0e90467 */ 	sb	$t1,0x467($a3)
-/*  f19e06c:	8c6a0038 */ 	lw	$t2,0x38($v1)
-.L0f19e070:
-/*  f19e070:	004a5823 */ 	subu	$t3,$v0,$t2
-/*  f19e074:	1d600002 */ 	bgtz	$t3,.L0f19e080
-/*  f19e078:	aceb046c */ 	sw	$t3,0x46c($a3)
-/*  f19e07c:	ace0046c */ 	sw	$zero,0x46c($a3)
-.L0f19e080:
-/*  f19e080:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19e084:
-/*  f19e084:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19e088:	03e00008 */ 	jr	$ra
-/*  f19e08c:	00000000 */ 	nop
-);
+void frExecuteMainScript(void)
+{
+	if (!g_FiringRangeData.scriptenabled || g_Vars.lvupdate240 == 0) {
+		return;
+	}
 
-//void frExecuteMainScript(void)
-//{
-//	if (!g_FiringRangeData.scriptenabled || g_Vars.lvupdate240 == 0) {
-//		return;
-//	}
-//
-//	if (g_FiringRangeData.scriptsleep == 0) {
-//		s32 offset = g_FiringRangeData.unk466 + 0x71;
-//		u8 *cmd = g_FrRomData + g_FrOffsets[offset] + g_FiringRangeData.scriptoffset;
-//
-//		switch (cmd[0]) {
-//		case FRCMD_13:
-//		case FRCMD_FB:
-//		case FRCMD_FC:
-//		case FRCMD_FD:
-//			g_FiringRangeData.scriptenabled = false;
-//			break;
-//		case FRCMD_HUDMSG:
-//			hudmsgCreateViaPreset(frGetInstructionalText(cmd[1]), HUDMSGTYPE_TRAINING);
-//			g_FiringRangeData.scriptoffset += 2;
-//			break;
-//		case FRCMD_WAITSECONDS:
-//			g_FiringRangeData.scriptsleep = cmd[1] * 60;
-//			g_FiringRangeData.scriptoffset += 2;
-//			break;
-//		case FRCMD_WAITUNTILSHOOT:
-//			if (g_FiringRangeData.numshots) {
-//				g_FiringRangeData.scriptoffset++;
-//			}
-//			break;
-//		}
-//	} else {
-//		g_FiringRangeData.scriptsleep -= g_Vars.lvupdate240_60;
-//
-//		if (g_FiringRangeData.scriptsleep <= 0) {
-//			g_FiringRangeData.scriptsleep = 0;
-//		}
-//	}
-//}
+	if (g_FiringRangeData.scriptsleep == 0) {
+		s32 index = g_FiringRangeData.unk466 + 0x71;
+		u8 *script = &g_FrRomData[g_FrOffsets[index]];
+		u32 offset = g_FiringRangeData.scriptoffset;
+
+		switch (script[offset]) {
+		case FRCMD_13:
+		case FRCMD_FB:
+		case FRCMD_FC:
+		case FRCMD_FD:
+			g_FiringRangeData.scriptenabled = false;
+			break;
+		case FRCMD_HUDMSG:
+			hudmsgCreateViaPreset(frGetInstructionalText(script[offset + 1]), HUDMSGTYPE_TRAINING);
+			g_FiringRangeData.scriptoffset += 2;
+			break;
+		case FRCMD_WAITSECONDS:
+			g_FiringRangeData.scriptsleep = script[offset + 1] * 60;
+			g_FiringRangeData.scriptoffset += 2;
+			break;
+		case FRCMD_WAITUNTILSHOOT:
+			if (g_FiringRangeData.numshots) {
+				g_FiringRangeData.scriptoffset++;
+			}
+			break;
+		}
+	} else {
+		g_FiringRangeData.scriptsleep -= g_Vars.lvupdate240_60;
+
+		if (g_FiringRangeData.scriptsleep <= 0) {
+			g_FiringRangeData.scriptsleep = 0;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel frExecuteTargetScript
