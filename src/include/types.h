@@ -5298,13 +5298,14 @@ struct frtarget {
 	/*0x00*/ u8 unk00_06 : 1;
 	/*0x00*/ u8 frpadindex : 2;
 	/*0x01*/ u8 unk01;
+	/*0x02*/ u8 unk02;
 	/*0x04*/ struct prop *prop;
 	/*0x08*/ struct coord unk08;
-	/*0x14*/ u32 unk14;
+	/*0x14*/ s32 unk14; // scriptsleep?
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ f32 unk1c;
 	/*0x20*/ u8 damage;
-	/*0x21*/ u8 unk21;
+	/*0x21*/ u8 scriptoffset;
 	/*0x24*/ f32 unk24;
 	/*0x28*/ f32 angle;
 	/*0x2c*/ f32 unk2c;
@@ -5312,7 +5313,7 @@ struct frtarget {
 	/*0x31*/ u8 unk31;
 	/*0x32*/ u8 unk32;
 	/*0x33*/ u8 unk33;
-	/*0x34*/ s8 unk34;
+	/*0x34*/ s8 frpadnum;
 	/*0x38*/ s32 unk38;
 };
 

@@ -49,10 +49,10 @@
 extern u8 *_frdataSegmentRomStart;
 extern u8 *_frdataSegmentRomEnd;
 
-u16 *var80088800 = NULL;
+u16 *g_FrOffsets = NULL;
 u8 g_FrIsValidWeapon = false;
 u8 var80088808 = 0;
-u8 var8008880c = 0;
+u8 g_FrNumSounds = 0;
 u8 *g_FrRomData = NULL;
 
 u16 g_FrPads[] = {
@@ -413,7 +413,7 @@ void func0f19d4ec(void)
 {
 	s32 i;
 
-	var80088800 = NULL;
+	g_FrOffsets = NULL;
 	var80088808 = 0;
 	g_FrIsValidWeapon = false;
 	g_FrRomData = NULL;
@@ -430,7 +430,7 @@ void func0f19d4ec(void)
 		g_FiringRangeData.targets[i].unk00_01 = false;
 	}
 
-	var8008880c = 0;
+	g_FrNumSounds = 0;
 }
 
 void *frLoadRomData(u32 len)
@@ -466,7 +466,7 @@ GLOBAL_ASM(
 glabel func0f19d5f4
 /*  f19d5f4:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f19d5f8:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f19d5fc:	3c018009 */ 	lui	$at,%hi(var8008880c)
+/*  f19d5fc:	3c018009 */ 	lui	$at,%hi(g_FrNumSounds)
 /*  f19d600:	3c048009 */ 	lui	$a0,%hi(g_FrPads)
 /*  f19d604:	afb50038 */ 	sw	$s5,0x38($sp)
 /*  f19d608:	afb40034 */ 	sw	$s4,0x34($sp)
@@ -476,7 +476,7 @@ glabel func0f19d5f4
 /*  f19d618:	afb00024 */ 	sw	$s0,0x24($sp)
 /*  f19d61c:	f7b60018 */ 	sdc1	$f22,0x18($sp)
 /*  f19d620:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f19d624:	a020880c */ 	sb	$zero,%lo(var8008880c)($at)
+/*  f19d624:	a020880c */ 	sb	$zero,%lo(g_FrNumSounds)($at)
 /*  f19d628:	94848814 */ 	lhu	$a0,%lo(g_FrPads)($a0)
 /*  f19d62c:	27a60048 */ 	addiu	$a2,$sp,0x48
 /*  f19d630:	0fc456ac */ 	jal	padUnpack
@@ -592,7 +592,7 @@ glabel func0f19d5f4
 //	s32 i;
 //	struct pad pad;
 //
-//	var8008880c = 0;
+//	g_FrNumSounds = 0;
 //
 //	padUnpack(g_FrPads[0], PADFIELD_POS, &pad);
 //
@@ -614,10 +614,10 @@ glabel func0f19d5f4
 //		g_FiringRangeData.targets[i].unk00_06 = false;
 //		g_FiringRangeData.targets[i].unk00_03 = false;
 //		g_FiringRangeData.targets[i].damage = 0;
-//		g_FiringRangeData.targets[i].unk21 = 0;
+//		g_FiringRangeData.targets[i].scriptoffset = 0;
 //
 //		g_FiringRangeData.targets[i].unk1c = 0;
-//		g_FiringRangeData.targets[i].unk14 = 15300;
+//		g_FiringRangeData.targets[i].unk14 = 255 * 60;
 //		g_FiringRangeData.targets[i].unk18 = 0;
 //
 //		g_FiringRangeData.targets[i].unk00_05 = false;
@@ -628,7 +628,7 @@ glabel func0f19d5f4
 //		g_FiringRangeData.targets[i].unk32 = 0;
 //		g_FiringRangeData.targets[i].unk33 = 0;
 //		g_FiringRangeData.targets[i].unk38 = 0;
-//		g_FiringRangeData.targets[i].unk34 = -1;
+//		g_FiringRangeData.targets[i].frpadnum = -1;
 //
 //		func0f13e40c(g_FiringRangeData.targets[i].unk04, false);
 //		func0f13e40c(g_FiringRangeData.targets[i].unk04, true);
@@ -663,13 +663,13 @@ struct frdata *getFiringRangeData(void)
 	return &g_FiringRangeData;
 }
 
-u32 func0f19d7d8(u32 arg0)
+u32 frResolveFrPad(u32 arg0)
 {
 	switch (arg0) {
-	case 0x1f: return random() % 9 + 4;  // 4 - 12
-	case 0x20: return random() % 9 + 13; // 13 - 21
-	case 0x21: return random() % 9 + 22; // 22 - 30
-	case 0x22: return random() % 27 + 4; // 4 - 30
+	case 31: return random() % 9 + 4;  // 4 - 12
+	case 32: return random() % 9 + 13; // 13 - 21
+	case 33: return random() % 9 + 22; // 22 - 30
+	case 34: return random() % 27 + 4; // 4 - 30
 	}
 
 	return g_FiringRangeData.unk470 + arg0;
@@ -739,8 +739,8 @@ glabel var7f1b93ec
 /*  f19d93c:	00009025 */ 	or	$s2,$zero,$zero
 /*  f19d940:	28810022 */ 	slti	$at,$a0,0x22
 /*  f19d944:	1020012b */ 	beqz	$at,.L0f19ddf4
-/*  f19d948:	3c0e8009 */ 	lui	$t6,%hi(var80088800)
-/*  f19d94c:	8dce8800 */ 	lw	$t6,%lo(var80088800)($t6)
+/*  f19d948:	3c0e8009 */ 	lui	$t6,%hi(g_FrOffsets)
+/*  f19d94c:	8dce8800 */ 	lw	$t6,%lo(g_FrOffsets)($t6)
 /*  f19d950:	00047840 */ 	sll	$t7,$a0,0x1
 /*  f19d954:	3c088009 */ 	lui	$t0,%hi(g_FrRomData)
 /*  f19d958:	01cfc021 */ 	addu	$t8,$t6,$t7
@@ -787,7 +787,7 @@ glabel var7f1b93ec
 /*  f19d9f4:	29810012 */ 	slti	$at,$t4,0x12
 /*  f19d9f8:	5020003e */ 	beqzl	$at,.L0f19daf4
 /*  f19d9fc:	26520005 */ 	addiu	$s2,$s2,0x5
-/*  f19da00:	0fc675f6 */ 	jal	func0f19d7d8
+/*  f19da00:	0fc675f6 */ 	jal	frResolveFrPad
 /*  f19da04:	92240001 */ 	lbu	$a0,0x1($s1)
 /*  f19da08:	920d0454 */ 	lbu	$t5,0x454($s0)
 /*  f19da0c:	30580003 */ 	andi	$t8,$v0,0x3
@@ -994,9 +994,9 @@ glabel var7f1b93ec
 /*  f19dd08:	92220000 */ 	lbu	$v0,0x0($s1)
 /*  f19dd0c:	922d0001 */ 	lbu	$t5,0x1($s1)
 /*  f19dd10:	a21e0468 */ 	sb	$s8,0x468($s0)
-/*  f19dd14:	3c0e8009 */ 	lui	$t6,%hi(var80088800)
+/*  f19dd14:	3c0e8009 */ 	lui	$t6,%hi(g_FrOffsets)
 /*  f19dd18:	a20d0466 */ 	sb	$t5,0x466($s0)
-/*  f19dd1c:	8dce8800 */ 	lw	$t6,%lo(var80088800)($t6)
+/*  f19dd1c:	8dce8800 */ 	lw	$t6,%lo(g_FrOffsets)($t6)
 /*  f19dd20:	31a300ff */ 	andi	$v1,$t5,0xff
 /*  f19dd24:	24630071 */ 	addiu	$v1,$v1,0x71
 /*  f19dd28:	0003c040 */ 	sll	$t8,$v1,0x1
@@ -1094,9 +1094,9 @@ void func0f19de24(void)
 
 s32 g_FrWeaponNum = WEAPON_UNARMED;
 
-bool func0f19def4(s32 index)
+bool frTargetIsAtScriptStart(s32 targetnum)
 {
-	return g_FiringRangeData.targets[index].unk21 == false;
+	return g_FiringRangeData.targets[targetnum].scriptoffset == 0;
 }
 
 /**
@@ -1118,7 +1118,7 @@ char *frGetInstructionalText(u32 index)
 }
 
 GLOBAL_ASM(
-glabel func0f19df58
+glabel frExecuteMainScript
 /*  f19df58:	3c07800b */ 	lui	$a3,%hi(g_FiringRangeData)
 /*  f19df5c:	24e7cd20 */ 	addiu	$a3,$a3,%lo(g_FiringRangeData)
 /*  f19df60:	90ee0468 */ 	lbu	$t6,0x468($a3)
@@ -1131,12 +1131,12 @@ glabel func0f19df58
 /*  f19df7c:	51e00041 */ 	beqzl	$t7,.L0f19e084
 /*  f19df80:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f19df84:	8ce2046c */ 	lw	$v0,0x46c($a3)
-/*  f19df88:	3c188009 */ 	lui	$t8,%hi(var80088800)
+/*  f19df88:	3c188009 */ 	lui	$t8,%hi(g_FrOffsets)
 /*  f19df8c:	3c0b8009 */ 	lui	$t3,%hi(g_FrRomData)
 /*  f19df90:	54400037 */ 	bnezl	$v0,.L0f19e070
 /*  f19df94:	8c6a0038 */ 	lw	$t2,0x38($v1)
 /*  f19df98:	90e30466 */ 	lbu	$v1,0x466($a3)
-/*  f19df9c:	8f188800 */ 	lw	$t8,%lo(var80088800)($t8)
+/*  f19df9c:	8f188800 */ 	lw	$t8,%lo(g_FrOffsets)($t8)
 /*  f19dfa0:	8d6b8810 */ 	lw	$t3,%lo(g_FrRomData)($t3)
 /*  f19dfa4:	24630071 */ 	addiu	$v1,$v1,0x71
 /*  f19dfa8:	0003c840 */ 	sll	$t9,$v1,0x1
@@ -1206,7 +1206,7 @@ glabel func0f19df58
 /*  f19e08c:	00000000 */ 	nop
 );
 
-//void func0f19df58(void)
+//void frExecuteMainScript(void)
 //{
 //	if (!g_FiringRangeData.scriptenabled || g_Vars.lvupdate240 == 0) {
 //		return;
@@ -1214,7 +1214,7 @@ glabel func0f19df58
 //
 //	if (g_FiringRangeData.scriptsleep == 0) {
 //		s32 offset = g_FiringRangeData.unk466 + 0x71;
-//		u8 *cmd = g_FrRomData + var80088800[offset] + g_FiringRangeData.scriptoffset;
+//		u8 *cmd = g_FrRomData + g_FrOffsets[offset] + g_FiringRangeData.scriptoffset;
 //
 //		switch (cmd[0]) {
 //		case FRCMD_13:
@@ -1247,24 +1247,24 @@ glabel func0f19df58
 //}
 
 GLOBAL_ASM(
-glabel func0f19e090
+glabel frExecuteTargetScript
 .late_rodata
 glabel var7f1b93f0
-.word func0f19e090+0xa8 # f19e138
+.word frExecuteTargetScript+0xa8 # f19e138
 glabel var7f1b93f4
-.word func0f19e090+0x254 # f19e2e4
+.word frExecuteTargetScript+0x254 # f19e2e4
 glabel var7f1b93f8
-.word func0f19e090+0x260 # f19e2f0
+.word frExecuteTargetScript+0x260 # f19e2f0
 glabel var7f1b93fc
-.word func0f19e090+0x290 # f19e320
+.word frExecuteTargetScript+0x290 # f19e320
 glabel var7f1b9400
-.word func0f19e090+0x33c # f19e3cc
+.word frExecuteTargetScript+0x33c # f19e3cc
 glabel var7f1b9404
-.word func0f19e090+0x33c # f19e3cc
+.word frExecuteTargetScript+0x33c # f19e3cc
 glabel var7f1b9408
-.word func0f19e090+0x33c # f19e3cc
+.word frExecuteTargetScript+0x33c # f19e3cc
 glabel var7f1b940c
-.word func0f19e090+0x8c # f19e11c
+.word frExecuteTargetScript+0x8c # f19e11c
 glabel var7f1b9410
 .word 0xbfc90fdb
 glabel var7f1b9414
@@ -1281,7 +1281,7 @@ glabel var7f1b941c
 /*  f19e0a0:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f19e0a4:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*  f19e0a8:	afa400d0 */ 	sw	$a0,0xd0($sp)
-/*  f19e0ac:	3c0a8009 */ 	lui	$t2,%hi(var80088800)
+/*  f19e0ac:	3c0a8009 */ 	lui	$t2,%hi(g_FrOffsets)
 /*  f19e0b0:	3c0e8009 */ 	lui	$t6,%hi(g_FrRomData)
 /*  f19e0b4:	00007812 */ 	mflo	$t7
 /*  f19e0b8:	01f81821 */ 	addu	$v1,$t7,$t8
@@ -1290,7 +1290,7 @@ glabel var7f1b941c
 /*  f19e0c4:	532000c2 */ 	beqzl	$t9,.L0f19e3d0
 /*  f19e0c8:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f19e0cc:	90620012 */ 	lbu	$v0,0x12($v1)
-/*  f19e0d0:	8d4a8800 */ 	lw	$t2,%lo(var80088800)($t2)
+/*  f19e0d0:	8d4a8800 */ 	lw	$t2,%lo(g_FrOffsets)($t2)
 /*  f19e0d4:	8dce8810 */ 	lw	$t6,%lo(g_FrRomData)($t6)
 /*  f19e0d8:	24420022 */ 	addiu	$v0,$v0,0x22
 /*  f19e0dc:	00025840 */ 	sll	$t3,$v0,0x1
@@ -1318,7 +1318,7 @@ glabel var7f1b941c
 /*  f19e134:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f19e138:	91040001 */ 	lbu	$a0,0x1($t0)
 /*  f19e13c:	afa8004c */ 	sw	$t0,0x4c($sp)
-/*  f19e140:	0fc675f6 */ 	jal	func0f19d7d8
+/*  f19e140:	0fc675f6 */ 	jal	frResolveFrPad
 /*  f19e144:	afa30058 */ 	sw	$v1,0x58($sp)
 /*  f19e148:	8fa30058 */ 	lw	$v1,0x58($sp)
 /*  f19e14c:	00403825 */ 	or	$a3,$v0,$zero
@@ -1355,8 +1355,8 @@ glabel var7f1b941c
 /*  f19e1c4:	8fa8004c */ 	lw	$t0,0x4c($sp)
 /*  f19e1c8:	46104482 */ 	mul.s	$f18,$f8,$f16
 /*  f19e1cc:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f19e1d0:	3c098009 */ 	lui	$t1,%hi(var8008880c)
-/*  f19e1d4:	2529880c */ 	addiu	$t1,$t1,%lo(var8008880c)
+/*  f19e1d0:	3c098009 */ 	lui	$t1,%hi(g_FrNumSounds)
+/*  f19e1d4:	2529880c */ 	addiu	$t1,$t1,%lo(g_FrNumSounds)
 /*  f19e1d8:	240a0001 */ 	addiu	$t2,$zero,0x1
 /*  f19e1dc:	46122180 */ 	add.s	$f6,$f4,$f18
 /*  f19e1e0:	e4660020 */ 	swc1	$f6,0x20($v1)
@@ -1497,6 +1497,86 @@ glabel var7f1b941c
 /*  f19e3dc:	00000000 */ 	nop
 );
 
+// Regalloc when calculating script and offset
+//bool frExecuteTargetScript(s32 targetnum)
+//{
+//	if (g_FiringRangeData.targets[targetnum].unk00_01) {
+//		s32 index = g_FiringRangeData.targets[targetnum].unk02 + 0x22;
+//		u8 *script = &g_FrRomData[g_FrOffsets[index]];
+//		u32 offset = g_FiringRangeData.targets[targetnum].scriptoffset;
+//		struct pad pad;
+//		s32 frpadnum;
+//
+//		switch (script[offset]) {
+//		case FRCMD_13:
+//			g_FiringRangeData.targets[targetnum].unk00_04 = true;
+//			g_FiringRangeData.targets[targetnum].unk14 = 255 * 60;
+//			return true;
+//		case FRCMD_0C:
+//			frpadnum = frResolveFrPad(script[offset + 1]);
+//
+//			if (frpadnum == g_FiringRangeData.targets[targetnum].frpadnum) {
+//				g_FiringRangeData.targets[targetnum].scriptoffset += 4;
+//				return false;
+//			}
+//
+//			g_FiringRangeData.targets[targetnum].frpadnum = frpadnum;
+//
+//			padUnpack(g_FrPads[frpadnum], PADFIELD_POS, &pad);
+//
+//			g_FiringRangeData.targets[targetnum].unk08.x = pad.pos.x;
+//			g_FiringRangeData.targets[targetnum].unk08.y = pad.pos.y;
+//			g_FiringRangeData.targets[targetnum].unk08.z = pad.pos.z;
+//			g_FiringRangeData.targets[targetnum].unk08.z += 6.0f * targetnum;
+//
+//			if (script[offset + 2] == 0xff) {
+//				g_FiringRangeData.targets[targetnum].unk1c = -1;
+//				g_FiringRangeData.targets[targetnum].unk33 = 1;
+//			} else {
+//				if (g_FrNumSounds < 3) {
+//					g_FrNumSounds++;
+//					func0f0939f8(NULL, g_FiringRangeData.targets[targetnum].prop, 0x5d9, -1,
+//							-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+//				}
+//
+//				g_FiringRangeData.targets[targetnum].unk1c = (script[offset + 2] / 60.0f) * g_FiringRangeData.unk00c;
+//				g_FiringRangeData.targets[targetnum].unk33 = 1;
+//			}
+//
+//			g_FiringRangeData.targets[targetnum].unk14 = script[offset + 3] * 60;
+//			g_FiringRangeData.targets[targetnum].unk32 = 0;
+//			g_FiringRangeData.targets[targetnum].scriptoffset += 4;
+//			return true;
+//		case FRCMD_RESTART:
+//			g_FiringRangeData.targets[targetnum].scriptoffset = 0;
+//			return true;
+//		case FRCMD_0E:
+//			g_FiringRangeData.targets[targetnum].unk00_04 = true;
+//			g_FiringRangeData.targets[targetnum].unk14 = script[offset + 1] * 60;
+//			g_FiringRangeData.targets[targetnum].scriptoffset += 2;
+//			return true;
+//		case FRCMD_ROTATE:
+//			if (g_FiringRangeData.targets[targetnum].unk00_06 == false) {
+//				f32 angles[4];
+//				angles[0] = DEG2RAD(-90);
+//				angles[1] = DEG2RAD(-180);
+//				angles[2] = DEG2RAD(90);
+//				angles[3] = DEG2RAD(180);
+//
+//				g_FiringRangeData.targets[targetnum].unk2c = g_FiringRangeData.targets[targetnum].angle + angles[script[offset + 1]];
+//				g_FiringRangeData.targets[targetnum].unk24 = angles[script[offset + 1]] / (script[offset + 2] * 15);
+//				g_FiringRangeData.targets[targetnum].unk00_05 = true;
+//				g_FiringRangeData.targets[targetnum].unk00_04 = false;
+//			}
+//
+//			g_FiringRangeData.targets[targetnum].scriptoffset += 3;
+//			return true;
+//		}
+//	}
+//
+//	return true;
+//}
+
 void frHideAllTargets(void)
 {
 	s32 i;
@@ -1568,7 +1648,7 @@ void frInitTargets(void)
 				pospad.pos.z = pospad.pad.pos.z;
 				pospad.pos.z += 6.0f * i;
 
-				func0f19e090(i);
+				frExecuteTargetScript(i);
 
 				if (g_FiringRangeData.targets[i].unk1c == -1) {
 					pospad.pos.x = g_FiringRangeData.targets[i].unk08.x;
@@ -1679,8 +1759,8 @@ glabel func0f19e7a8
 /*  f19e854:	afa70020 */ 	sw	$a3,0x20($sp)
 /*  f19e858:	0c0048f2 */ 	jal	malloc
 /*  f19e85c:	afa9002c */ 	sw	$t1,0x2c($sp)
-/*  f19e860:	3c048009 */ 	lui	$a0,%hi(var80088800)
-/*  f19e864:	24848800 */ 	addiu	$a0,$a0,%lo(var80088800)
+/*  f19e860:	3c048009 */ 	lui	$a0,%hi(g_FrOffsets)
+/*  f19e864:	24848800 */ 	addiu	$a0,$a0,%lo(g_FrOffsets)
 /*  f19e868:	ac820000 */ 	sw	$v0,0x0($a0)
 /*  f19e86c:	8fa60028 */ 	lw	$a2,0x28($sp)
 /*  f19e870:	240800fe */ 	addiu	$t0,$zero,0xfe
@@ -1750,14 +1830,14 @@ glabel func0f19e7a8
 //		}
 //
 //		// 83c
-//		var80088800 = malloc(ALIGN16(count * 2), 4);
+//		g_FrOffsets = malloc(ALIGN16(count * 2), 4);
 //
 //		// 860
-//		if (var80088800) {
+//		if (g_FrOffsets) {
 //			if (len > 0x12) {
 //				for (j = 0x12; j != len; j++) {
 //					if (g_FrRomData[j] == 0xfe) {
-//						var80088800[index++] = j + 1;
+//						g_FrOffsets[index++] = j + 1;
 //					}
 //				}
 //			}
@@ -2823,7 +2903,7 @@ glabel var7f1b94e4
 .L0f19fd20:
 /*  f19fd20:	8ecc0284 */ 	lw	$t4,0x284($s6)
 /*  f19fd24:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f19fd28:	0fc677d6 */ 	jal	func0f19df58
+/*  f19fd28:	0fc677d6 */ 	jal	frExecuteMainScript
 /*  f19fd2c:	ad8b1c08 */ 	sw	$t3,0x1c08($t4)
 /*  f19fd30:	92ad045a */ 	lbu	$t5,0x45a($s5)
 /*  f19fd34:	51a0004b */ 	beqzl	$t5,.L0f19fe64
@@ -3118,17 +3198,17 @@ glabel var7f1b94e4
 .L0f1a0150:
 /*  f1a0150:	0fc1a2bd */ 	jal	func0f068af4
 /*  f1a0154:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a0158:	3c038009 */ 	lui	$v1,%hi(var8008880c)
-/*  f1a015c:	9063880c */ 	lbu	$v1,%lo(var8008880c)($v1)
+/*  f1a0158:	3c038009 */ 	lui	$v1,%hi(g_FrNumSounds)
+/*  f1a015c:	9063880c */ 	lbu	$v1,%lo(g_FrNumSounds)($v1)
 /*  f1a0160:	00404025 */ 	or	$t0,$v0,$zero
 /*  f1a0164:	5060000d */ 	beqzl	$v1,.L0f1a019c
 /*  f1a0168:	c5100004 */ 	lwc1	$f16,0x4($t0)
 /*  f1a016c:	920c0043 */ 	lbu	$t4,0x43($s0)
 /*  f1a0170:	246dffff */ 	addiu	$t5,$v1,-1
-/*  f1a0174:	3c018009 */ 	lui	$at,%hi(var8008880c)
+/*  f1a0174:	3c018009 */ 	lui	$at,%hi(g_FrNumSounds)
 /*  f1a0178:	11800007 */ 	beqz	$t4,.L0f1a0198
 /*  f1a017c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f1a0180:	a02d880c */ 	sb	$t5,%lo(var8008880c)($at)
+/*  f1a0180:	a02d880c */ 	sb	$t5,%lo(g_FrNumSounds)($at)
 /*  f1a0184:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f1a0188:	3406ffff */ 	dli	$a2,0xffff
 /*  f1a018c:	0fc249af */ 	jal	func0f0926bc
@@ -3407,8 +3487,8 @@ glabel var7f1b94e4
 /*  f1a0584:	e7b00150 */ 	swc1	$f16,0x150($sp)
 /*  f1a0588:	15400020 */ 	bnez	$t2,.L0f1a060c
 /*  f1a058c:	e7b20154 */ 	swc1	$f18,0x154($sp)
-/*  f1a0590:	3c028009 */ 	lui	$v0,%hi(var8008880c)
-/*  f1a0594:	2442880c */ 	addiu	$v0,$v0,%lo(var8008880c)
+/*  f1a0590:	3c028009 */ 	lui	$v0,%hi(g_FrNumSounds)
+/*  f1a0594:	2442880c */ 	addiu	$v0,$v0,%lo(g_FrNumSounds)
 /*  f1a0598:	90430000 */ 	lbu	$v1,0x0($v0)
 /*  f1a059c:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*  f1a05a0:	a20b0042 */ 	sb	$t3,0x42($s0)
@@ -3617,26 +3697,26 @@ glabel var7f1b94e4
 /*  f1a0884:	920b0010 */ 	lbu	$t3,0x10($s0)
 /*  f1a0888:	02402025 */ 	or	$a0,$s2,$zero
 /*  f1a088c:	316cffef */ 	andi	$t4,$t3,0xffef
-/*  f1a0890:	0fc67824 */ 	jal	func0f19e090
+/*  f1a0890:	0fc67824 */ 	jal	frExecuteTargetScript
 /*  f1a0894:	a20c0010 */ 	sb	$t4,0x10($s0)
 /*  f1a0898:	14400005 */ 	bnez	$v0,.L0f1a08b0
 /*  f1a089c:	00000000 */ 	nop
 .L0f1a08a0:
-/*  f1a08a0:	0fc67824 */ 	jal	func0f19e090
+/*  f1a08a0:	0fc67824 */ 	jal	frExecuteTargetScript
 /*  f1a08a4:	02402025 */ 	or	$a0,$s2,$zero
 /*  f1a08a8:	1040fffd */ 	beqz	$v0,.L0f1a08a0
 /*  f1a08ac:	00000000 */ 	nop
 .L0f1a08b0:
-/*  f1a08b0:	0fc677bd */ 	jal	func0f19def4
+/*  f1a08b0:	0fc677bd */ 	jal	frTargetIsAtScriptStart
 /*  f1a08b4:	02402025 */ 	or	$a0,$s2,$zero
 /*  f1a08b8:	5040000a */ 	beqzl	$v0,.L0f1a08e4
 /*  f1a08bc:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f1a08c0:	0fc67824 */ 	jal	func0f19e090
+/*  f1a08c0:	0fc67824 */ 	jal	frExecuteTargetScript
 /*  f1a08c4:	02402025 */ 	or	$a0,$s2,$zero
 /*  f1a08c8:	54400006 */ 	bnezl	$v0,.L0f1a08e4
 /*  f1a08cc:	26520001 */ 	addiu	$s2,$s2,0x1
 .L0f1a08d0:
-/*  f1a08d0:	0fc67824 */ 	jal	func0f19e090
+/*  f1a08d0:	0fc67824 */ 	jal	frExecuteTargetScript
 /*  f1a08d4:	02402025 */ 	or	$a0,$s2,$zero
 /*  f1a08d8:	1040fffd */ 	beqz	$v0,.L0f1a08d0
 /*  f1a08dc:	00000000 */ 	nop

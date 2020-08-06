@@ -581,6 +581,10 @@
 #define FLOORTYPE_DIRT   7
 #define FLOORTYPE_SNOW   8
 
+#define FRCMD_0C             0x0c
+#define FRCMD_RESTART        0x0d
+#define FRCMD_0E             0x0e
+#define FRCMD_ROTATE         0x0f
 #define FRCMD_HUDMSG         0x10
 #define FRCMD_WAITUNTILSHOOT 0x11
 #define FRCMD_WAITSECONDS    0x12
