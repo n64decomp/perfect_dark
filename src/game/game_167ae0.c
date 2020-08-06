@@ -3190,7 +3190,7 @@ glabel var7f1b7868
 /*  f16ad88:	00409025 */ 	or	$s2,$v0,$zero
 /*  f16ad8c:	11800004 */ 	beqz	$t4,.L0f16ada0
 /*  f16ad90:	00000000 */ 	nop
-/*  f16ad94:	0fc68bd8 */ 	jal	func0f1a2f60
+/*  f16ad94:	0fc68bd8 */ 	jal	frRenderHud
 /*  f16ad98:	00402025 */ 	or	$a0,$v0,$zero
 /*  f16ad9c:	00409025 */ 	or	$s2,$v0,$zero
 .L0f16ada0:

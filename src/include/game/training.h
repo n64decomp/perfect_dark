@@ -116,7 +116,7 @@ bool frGetMinAccuracy(char *buffer, f32 accuracy);
 bool frFormatTime(char *buffer);
 bool frGetHudMiddleSubtext(char *buffer);
 bool frGetFeedback(char *score, char *zone);
-u32 func0f1a2d88(void);
-u32 func0f1a2f60(void);
+Gfx *func0f1a2d88(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, u32 colour, u8 alpha);
+Gfx *frRenderHud(Gfx *gdl);
 
 #endif
