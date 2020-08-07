@@ -12,7 +12,7 @@ Gfx *func0f153628(Gfx *gdl);
 Gfx *func0f153780(Gfx *gdl);
 Gfx *func0f1537dc(Gfx *gdl, u32 colour);
 Gfx *func0f153838(Gfx *gdl);
-u32 func0f153858(void);
+Gfx *func0f153858(Gfx *gdl, s32 *x, s32 *y, s32 *textwidth, s32 *textheight);
 u32 func0f1538e4(void);
 u32 func0f153990(void);
 Gfx *func0f153a34(Gfx *gdl, u32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5);

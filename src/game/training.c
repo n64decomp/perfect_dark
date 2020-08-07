@@ -4870,128 +4870,38 @@ bool frGetFeedback(char *scorebuffer, char *zonebuffer)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f1a2d88
-/*  f1a2d88:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f1a2d8c:	afa60070 */ 	sw	$a2,0x70($sp)
-/*  f1a2d90:	3c0e8008 */ 	lui	$t6,%hi(var8007fb14)
-/*  f1a2d94:	8dcefb14 */ 	lw	$t6,%lo(var8007fb14)($t6)
-/*  f1a2d98:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f1a2d9c:	afa70074 */ 	sw	$a3,0x74($sp)
-/*  f1a2da0:	00e03025 */ 	or	$a2,$a3,$zero
-/*  f1a2da4:	00808025 */ 	or	$s0,$a0,$zero
-/*  f1a2da8:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f1a2dac:	afa5006c */ 	sw	$a1,0x6c($sp)
-/*  f1a2db0:	3c078008 */ 	lui	$a3,%hi(var8007fb18)
-/*  f1a2db4:	8ce7fb18 */ 	lw	$a3,%lo(var8007fb18)($a3)
-/*  f1a2db8:	27a50060 */ 	addiu	$a1,$sp,0x60
-/*  f1a2dbc:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f1a2dc0:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f1a2dc4:	0fc55cbe */ 	jal	textMeasure
-/*  f1a2dc8:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f1a2dcc:	8fb80060 */ 	lw	$t8,0x60($sp)
-/*  f1a2dd0:	8faf006c */ 	lw	$t7,0x6c($sp)
-/*  f1a2dd4:	8fab0070 */ 	lw	$t3,0x70($sp)
-/*  f1a2dd8:	0018c843 */ 	sra	$t9,$t8,0x1
-/*  f1a2ddc:	27ac0064 */ 	addiu	$t4,$sp,0x64
-/*  f1a2de0:	01f95023 */ 	subu	$t2,$t7,$t9
-/*  f1a2de4:	afaa005c */ 	sw	$t2,0x5c($sp)
-/*  f1a2de8:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f1a2dec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a2df0:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f1a2df4:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f1a2df8:	27a70060 */ 	addiu	$a3,$sp,0x60
-/*  f1a2dfc:	0fc54e16 */ 	jal	func0f153858
-/*  f1a2e00:	afab0058 */ 	sw	$t3,0x58($sp)
-/*  f1a2e04:	0c002f02 */ 	jal	viGetX
-/*  f1a2e08:	00408025 */ 	or	$s0,$v0,$zero
-/*  f1a2e0c:	0c002f06 */ 	jal	viGetY
-/*  f1a2e10:	a7a2004c */ 	sh	$v0,0x4c($sp)
-/*  f1a2e14:	93a30083 */ 	lbu	$v1,0x83($sp)
-/*  f1a2e18:	8fb8007c */ 	lw	$t8,0x7c($sp)
-/*  f1a2e1c:	3c0d8008 */ 	lui	$t5,%hi(var8007fb18)
-/*  f1a2e20:	3c0e8008 */ 	lui	$t6,%hi(var8007fb14)
-/*  f1a2e24:	2401ff00 */ 	addiu	$at,$zero,-256
-/*  f1a2e28:	8dcefb14 */ 	lw	$t6,%lo(var8007fb14)($t6)
-/*  f1a2e2c:	8dadfb18 */ 	lw	$t5,%lo(var8007fb18)($t5)
-/*  f1a2e30:	87b9004c */ 	lh	$t9,0x4c($sp)
-/*  f1a2e34:	03017824 */ 	and	$t7,$t8,$at
-/*  f1a2e38:	01e34825 */ 	or	$t1,$t7,$v1
-/*  f1a2e3c:	00034043 */ 	sra	$t0,$v1,0x1
-/*  f1a2e40:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f1a2e44:	afa80048 */ 	sw	$t0,0x48($sp)
-/*  f1a2e48:	afa90018 */ 	sw	$t1,0x18($sp)
-/*  f1a2e4c:	afa90044 */ 	sw	$t1,0x44($sp)
-/*  f1a2e50:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a2e54:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f1a2e58:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f1a2e5c:	8fa70074 */ 	lw	$a3,0x74($sp)
-/*  f1a2e60:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f1a2e64:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f1a2e68:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f1a2e6c:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f1a2e70:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f1a2e74:	0fc55b92 */ 	jal	textRender
-/*  f1a2e78:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f1a2e7c:	8fa60078 */ 	lw	$a2,0x78($sp)
-/*  f1a2e80:	00408025 */ 	or	$s0,$v0,$zero
-/*  f1a2e84:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f1a2e88:	10c00030 */ 	beqz	$a2,.L0f1a2f4c
-/*  f1a2e8c:	27a50060 */ 	addiu	$a1,$sp,0x60
-/*  f1a2e90:	3c0a8008 */ 	lui	$t2,%hi(var8007fb04)
-/*  f1a2e94:	8d4afb04 */ 	lw	$t2,%lo(var8007fb04)($t2)
-/*  f1a2e98:	3c078008 */ 	lui	$a3,%hi(var8007fb08)
-/*  f1a2e9c:	8ce7fb08 */ 	lw	$a3,%lo(var8007fb08)($a3)
-/*  f1a2ea0:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f1a2ea4:	0fc55cbe */ 	jal	textMeasure
-/*  f1a2ea8:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f1a2eac:	8fac0060 */ 	lw	$t4,0x60($sp)
-/*  f1a2eb0:	8fab006c */ 	lw	$t3,0x6c($sp)
-/*  f1a2eb4:	8fb80070 */ 	lw	$t8,0x70($sp)
-/*  f1a2eb8:	000c6843 */ 	sra	$t5,$t4,0x1
-/*  f1a2ebc:	27b90064 */ 	addiu	$t9,$sp,0x64
-/*  f1a2ec0:	016d7023 */ 	subu	$t6,$t3,$t5
-/*  f1a2ec4:	270f0011 */ 	addiu	$t7,$t8,0x11
-/*  f1a2ec8:	afae005c */ 	sw	$t6,0x5c($sp)
-/*  f1a2ecc:	afaf0058 */ 	sw	$t7,0x58($sp)
-/*  f1a2ed0:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f1a2ed4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a2ed8:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f1a2edc:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f1a2ee0:	0fc54e16 */ 	jal	func0f153858
-/*  f1a2ee4:	27a70060 */ 	addiu	$a3,$sp,0x60
-/*  f1a2ee8:	0c002f02 */ 	jal	viGetX
-/*  f1a2eec:	00408025 */ 	or	$s0,$v0,$zero
-/*  f1a2ef0:	0c002f06 */ 	jal	viGetY
-/*  f1a2ef4:	a7a2004c */ 	sh	$v0,0x4c($sp)
-/*  f1a2ef8:	3c0a8008 */ 	lui	$t2,%hi(var8007fb08)
-/*  f1a2efc:	3c0c8008 */ 	lui	$t4,%hi(var8007fb04)
-/*  f1a2f00:	8d8cfb04 */ 	lw	$t4,%lo(var8007fb04)($t4)
-/*  f1a2f04:	8d4afb08 */ 	lw	$t2,%lo(var8007fb08)($t2)
-/*  f1a2f08:	8fab0044 */ 	lw	$t3,0x44($sp)
-/*  f1a2f0c:	8fad0048 */ 	lw	$t5,0x48($sp)
-/*  f1a2f10:	87ae004c */ 	lh	$t6,0x4c($sp)
-/*  f1a2f14:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a2f18:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f1a2f1c:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f1a2f20:	8fa70078 */ 	lw	$a3,0x78($sp)
-/*  f1a2f24:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f1a2f28:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f1a2f2c:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f1a2f30:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f1a2f34:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f1a2f38:	afab0018 */ 	sw	$t3,0x18($sp)
-/*  f1a2f3c:	afad001c */ 	sw	$t5,0x1c($sp)
-/*  f1a2f40:	0fc55b92 */ 	jal	textRender
-/*  f1a2f44:	afae0020 */ 	sw	$t6,0x20($sp)
-/*  f1a2f48:	00408025 */ 	or	$s0,$v0,$zero
-.L0f1a2f4c:
-/*  f1a2f4c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f1a2f50:	02001025 */ 	or	$v0,$s0,$zero
-/*  f1a2f54:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f1a2f58:	03e00008 */ 	jr	$ra
-/*  f1a2f5c:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
+Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, u32 colour, u8 alpha)
+{
+	s32 textheight;
+	s32 textwidth;
+	s32 x2;
+	s32 y2;
+
+	u32 halfalpha = alpha >> 1;
+	u32 fullcolour = (colour & 0xffffff00) | alpha;
+
+	textMeasure(&textheight, &textwidth, string1, var8007fb18, var8007fb14, 0);
+
+	x2 = x - (textwidth >> 1);
+	y2 = y;
+	gdl = func0f153858(gdl, &x2, &y2, &textwidth, &textheight);
+
+	gdl = textRender(gdl, &x2, &y2, string1,
+			var8007fb18, var8007fb14, fullcolour, halfalpha, viGetX(), viGetY(), 0, 0);
+
+	if (string2) {
+		textMeasure(&textheight, &textwidth, string2, var8007fb08, var8007fb04, 0);
+
+		x2 = x - (textwidth >> 1);
+		y2 = y + 17;
+		gdl = func0f153858(gdl, &x2, &y2, &textwidth, &textheight);
+
+		gdl = textRender(gdl, &x2, &y2, string2,
+			var8007fb08, var8007fb04, fullcolour, halfalpha, viGetX(), viGetY(), 0, 0);
+	}
+
+	return gdl;
+}
 
 Gfx *frRenderHud(Gfx *gdl)
 {
@@ -5022,7 +4932,7 @@ Gfx *frRenderHud(Gfx *gdl)
 	red = frFormatTime(string1);
 	exists = frGetHudMiddleSubtext(string2);
 
-	gdl = func0f1a2d88(gdl, viGetViewX() >> 1, viGetViewTop() + 12,
+	gdl = frRenderHudElement(gdl, viGetViewX() >> 1, viGetViewTop() + 12,
 			string1, exists ? string2 : NULL,
 			red ? 0xff000000 | 0xa0 : 0x00ff0000 | 0xa0,
 			alpha);
@@ -5030,19 +4940,19 @@ Gfx *frRenderHud(Gfx *gdl)
 	// Score
 	frGetScoreValue(string1);
 	frGetGoalScoreText(string2);
-	gdl = func0f1a2d88(gdl, viGetViewLeft() + 65.0f * mult, viGetViewTop() + 12,
+	gdl = frRenderHudElement(gdl, viGetViewLeft() + 65.0f * mult, viGetViewTop() + 12,
 			string1, string2, 0x00ff00a0, alpha);
 
 	// Feedback
 	if (frGetFeedback(string1, string2)) {
-		gdl = func0f1a2d88(gdl,viGetViewLeft() + 65.0f * mult, viGetViewTop() + 40,
+		gdl = frRenderHudElement(gdl,viGetViewLeft() + 65.0f * mult, viGetViewTop() + 40,
 				string1, string2, 0x00ff00a0, alpha);
 	}
 
 	if (g_FiringRangeData.goalaccuracy > 0) {
 		red = frGetMinAccuracy(string2, frGetAccuracy(string1));
 
-		gdl = func0f1a2d88(gdl, viGetViewLeft() + viGetViewX() - 70.0f * mult, viGetViewTop() + 12,
+		gdl = frRenderHudElement(gdl, viGetViewLeft() + viGetViewX() - 70.0f * mult, viGetViewTop() + 12,
 				string1, string2,
 				red ? 0xff000000 | 0xa0 : 0x00ff0000 | 0xa0,
 				alpha);
@@ -5054,7 +4964,7 @@ Gfx *frRenderHud(Gfx *gdl)
 			mult = 2.4;
 		}
 
-		gdl = func0f1a2d88(gdl, viGetViewLeft() + viGetViewX() - 70.0f * mult, viGetViewTop() + 12,
+		gdl = frRenderHudElement(gdl, viGetViewLeft() + viGetViewX() - 70.0f * mult, viGetViewTop() + 12,
 				string1, string2, 0x00ff00a0, alpha);
 	}
 
