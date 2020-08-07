@@ -54,7 +54,7 @@ bool func0f19f220(struct prop *prop);
 f32 func0f19f294(struct coord *a, f32 angle, struct coord *b);
 bool func0f19f2ec(struct prop *prop, struct coord *pos);
 struct prop *frChooseAutogunTarget(struct coord *arg0);
-u32 func0f19f524(void);
+bool frIsAmmoWasted(void);
 void frTick(void);
 void func0f1a0924(struct prop *prop);
 bool frChooseFarsightTarget(void);

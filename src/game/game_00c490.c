@@ -739,10 +739,10 @@ glabel func0f00cc8c
 
 GLOBAL_ASM(
 glabel func0f00ce3c
-/*  f00ce3c:	3c03800a */ 	lui	$v1,%hi(var8009cdc0)
+/*  f00ce3c:	3c03800a */ 	lui	$v1,%hi(g_ProxyMines)
 /*  f00ce40:	3c02800a */ 	lui	$v0,%hi(var8009ce38)
 /*  f00ce44:	2442ce38 */ 	addiu	$v0,$v0,%lo(var8009ce38)
-/*  f00ce48:	2463cdc0 */ 	addiu	$v1,$v1,%lo(var8009cdc0)
+/*  f00ce48:	2463cdc0 */ 	addiu	$v1,$v1,%lo(g_ProxyMines)
 .L0f00ce4c:
 /*  f00ce4c:	24630004 */ 	addiu	$v1,$v1,0x4
 /*  f00ce50:	1462fffe */ 	bne	$v1,$v0,.L0f00ce4c

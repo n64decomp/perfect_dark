@@ -1214,6 +1214,7 @@ struct weaponobj { // objtype 0x08
 	/**
 	 * Appears to have multiple uses:
 	 * Grenades = timer?
+	 * Proxy mines = timer? Or isarmed
 	 * CTC briefcase = team index
 	 */
 	/*0x62*/ s16 unk62;
@@ -5345,7 +5346,7 @@ struct frdata {
 	/*0x465*/ u8 unk465_00 : 3;
 	/*0x465*/ u8 donelighting : 1;
 	/*0x465*/ u8 unk465_04 : 1;
-	/*0x465*/ u8 unk465_05 : 1;
+	/*0x465*/ u8 ammohasgrace : 1;
 	/*0x465*/ u8 unk465_06 : 2;
 	/*0x466*/ u8 unk466;
 	/*0x467*/ u8 scriptoffset;
@@ -5354,7 +5355,7 @@ struct frdata {
 	/*0x470*/ u8 unk470;
 	/*0x471*/ u8 feedbackzone;
 	/*0x472*/ s8 feedbackttl;
-	/*0x474*/ u16 unk474;
+	/*0x474*/ s16 proxyendtimer;
 	/*0x476*/ s16 unk476;
 	/*0x478*/ u32 unk478;
 	/*0x47c*/ u32 unk47c;

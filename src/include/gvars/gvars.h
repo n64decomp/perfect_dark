@@ -552,7 +552,7 @@ extern u32 var8009cda0;
 extern u32 var8009cda4;
 extern u32 var8009cdac;
 extern u32 var8009cdb0;
-extern u32 var8009cdc0;
+extern struct weaponobj *g_ProxyMines[30];
 extern u32 var8009ce38;
 extern u32 var8009ce40;
 extern u32 var8009ce44;

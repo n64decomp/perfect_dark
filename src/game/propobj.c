@@ -40967,10 +40967,10 @@ struct weaponobj *weaponFindThrown(s32 weaponnum)
 
 GLOBAL_ASM(
 glabel func0f08ab64
-/*  f08ab64:	3c03800a */ 	lui	$v1,%hi(var8009cdc0)
+/*  f08ab64:	3c03800a */ 	lui	$v1,%hi(g_ProxyMines)
 /*  f08ab68:	3c02800a */ 	lui	$v0,%hi(var8009ce38)
 /*  f08ab6c:	2442ce38 */ 	addiu	$v0,$v0,%lo(var8009ce38)
-/*  f08ab70:	2463cdc0 */ 	addiu	$v1,$v1,%lo(var8009cdc0)
+/*  f08ab70:	2463cdc0 */ 	addiu	$v1,$v1,%lo(g_ProxyMines)
 /*  f08ab74:	8c6e0000 */ 	lw	$t6,0x0($v1)
 .L0f08ab78:
 /*  f08ab78:	55c00004 */ 	bnezl	$t6,.L0f08ab8c
@@ -40987,10 +40987,10 @@ glabel func0f08ab64
 
 GLOBAL_ASM(
 glabel func0f08ab9c
-/*  f08ab9c:	3c03800a */ 	lui	$v1,%hi(var8009cdc0)
+/*  f08ab9c:	3c03800a */ 	lui	$v1,%hi(g_ProxyMines)
 /*  f08aba0:	3c02800a */ 	lui	$v0,%hi(var8009ce38)
 /*  f08aba4:	2442ce38 */ 	addiu	$v0,$v0,%lo(var8009ce38)
-/*  f08aba8:	2463cdc0 */ 	addiu	$v1,$v1,%lo(var8009cdc0)
+/*  f08aba8:	2463cdc0 */ 	addiu	$v1,$v1,%lo(g_ProxyMines)
 /*  f08abac:	8c6e0000 */ 	lw	$t6,0x0($v1)
 .L0f08abb0:
 /*  f08abb0:	548e0004 */ 	bnel	$a0,$t6,.L0f08abc4
@@ -41013,7 +41013,7 @@ glabel var7f1aae88
 .text
 /*  f08abd4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f08abd8:	f7b60010 */ 	sdc1	$f22,0x10($sp)
-/*  f08abdc:	3c03800a */ 	lui	$v1,%hi(var8009cdc0)
+/*  f08abdc:	3c03800a */ 	lui	$v1,%hi(g_ProxyMines)
 /*  f08abe0:	3c017f1b */ 	lui	$at,%hi(var7f1aae88)
 /*  f08abe4:	3c0b800a */ 	lui	$t3,%hi(var8009ce38)
 /*  f08abe8:	f7b40008 */ 	sdc1	$f20,0x8($sp)
@@ -41021,7 +41021,7 @@ glabel var7f1aae88
 /*  f08abf0:	00a03825 */ 	or	$a3,$a1,$zero
 /*  f08abf4:	256bce38 */ 	addiu	$t3,$t3,%lo(var8009ce38)
 /*  f08abf8:	c436ae88 */ 	lwc1	$f22,%lo(var7f1aae88)($at)
-/*  f08abfc:	2463cdc0 */ 	addiu	$v1,$v1,%lo(var8009cdc0)
+/*  f08abfc:	2463cdc0 */ 	addiu	$v1,$v1,%lo(g_ProxyMines)
 /*  f08ac00:	240a001e */ 	addiu	$t2,$zero,0x1e
 /*  f08ac04:	2409000f */ 	addiu	$t1,$zero,0xf
 /*  f08ac08:	24080001 */ 	addiu	$t0,$zero,0x1
