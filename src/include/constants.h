@@ -581,21 +581,29 @@
 #define FLOORTYPE_DIRT   7
 #define FLOORTYPE_SNOW   8
 
-#define FRCMD_0C             0x0c
-#define FRCMD_RESTART        0x0d
-#define FRCMD_0E             0x0e
-#define FRCMD_ROTATE         0x0f
-#define FRCMD_HUDMSG         0x10
-#define FRCMD_WAITUNTILSHOOT 0x11
-#define FRCMD_WAITSECONDS    0x12
-#define FRCMD_13             0x13
-#define FRCMD_FB             0xfb
-#define FRCMD_FC             0xfc
-#define FRCMD_FD             0xfd
-
-#define FRDIFFBIT_BRONZE 1
-#define FRDIFFBIT_SILVER 2
-#define FRDIFFBIT_GOLD   4
+#define FRCMD_SETUPTARGET        0x00
+#define FRCMD_SETNUMTARGETS      0x01
+#define FRCMD_SETGOALSCORE       0x02
+#define FRCMD_SETTIMELIMIT       0x03
+#define FRCMD_SETAMMOLIMIT       0x04
+#define FRCMD_SETEXTRASPEED      0x05
+#define FRCMD_SETGOALACCURACY    0x06
+#define FRCMD_SETGOALTARGETS     0x07
+#define FRCMD_SETMAINSCRIPT      0x08
+#define FRCMD_SETGRENADELIMIT    0x09
+#define FRCMD_0A                 0x0a
+#define FRCMD_SETSCOREMULTIPLIER 0x0b
+#define FRCMD_GOTOPAD            0x0c
+#define FRCMD_RESTART            0x0d
+#define FRCMD_0E                 0x0e
+#define FRCMD_ROTATE             0x0f
+#define FRCMD_HUDMSG             0x10
+#define FRCMD_WAITUNTILSHOOT     0x11
+#define FRCMD_WAITSECONDS        0x12
+#define FRCMD_END                0x13
+#define FRCMD_ENDIFBRONZE        0xfb
+#define FRCMD_ENDIFSILVER        0xfc
+#define FRCMD_ENDIFGOLD          0xfd
 
 #define FRDIFFICULTY_BRONZE 0
 #define FRDIFFICULTY_SILVER 1
@@ -607,10 +615,14 @@
 #define FRFAILREASON_SCOREUNATTAINABLE 3
 #define FRFAILREASON_INACCURATE        4
 
-#define FRTARGETFLAG_10 0x10
-#define FRTARGETFLAG_20 0x20
-#define FRTARGETFLAG_40 0x40
-#define FRTARGETFLAG_80 0x80
+#define FRTARGETFLAG_BRONZE 0x01
+#define FRTARGETFLAG_SILVER 0x02
+#define FRTARGETFLAG_GOLD   0x04
+#define FRTARGETFLAG_08     0x08
+#define FRTARGETFLAG_10     0x10
+#define FRTARGETFLAG_20     0x20
+#define FRTARGETFLAG_40     0x40
+#define FRTARGETFLAG_80     0x80
 
 #define FRZONE_RING3    1
 #define FRZONE_RING2    2

@@ -5298,8 +5298,8 @@ struct frtarget {
 	/*0x00*/ u8 unk00_05 : 1;
 	/*0x00*/ u8 unk00_06 : 1;
 	/*0x00*/ u8 frpadindex : 2;
-	/*0x01*/ u8 unk01;
-	/*0x02*/ u8 unk02;
+	/*0x01*/ u8 maxdamage;
+	/*0x02*/ u8 scriptindex;
 	/*0x04*/ struct prop *prop;
 	/*0x08*/ struct coord unk08;
 	/*0x14*/ s32 unk14; // scriptsleep?
@@ -5327,12 +5327,12 @@ struct frdata {
 	/*0x006*/ u8 ammolimit;
 	/*0x007*/ u8 sdgrenadelimit;
 	/*0x008*/ u8 goalaccuracy;
-	/*0x00c*/ f32 unk00c;
+	/*0x00c*/ f32 speed;
 	/*0x010*/ struct frtarget targets[18];
 	/*0x448*/ u8 difficulty;
 	/*0x44c*/ s32 timetaken;
 	/*0x450*/ u32 score;
-	/*0x454*/ u8 unk454;
+	/*0x454*/ u8 curtarget;
 	/*0x455*/ u8 targetsdestroyed;
 	/*0x456*/ u16 slot;
 	/*0x458*/ u16 numshots;
@@ -5348,7 +5348,7 @@ struct frdata {
 	/*0x465*/ u8 unk465_04 : 1;
 	/*0x465*/ u8 ammohasgrace : 1;
 	/*0x465*/ u8 unk465_06 : 2;
-	/*0x466*/ u8 unk466;
+	/*0x466*/ u8 mainscriptindex;
 	/*0x467*/ u8 scriptoffset;
 	/*0x468*/ u8 scriptenabled;
 	/*0x46c*/ s32 scriptsleep;
@@ -5356,8 +5356,8 @@ struct frdata {
 	/*0x471*/ u8 feedbackzone;
 	/*0x472*/ s8 feedbackttl;
 	/*0x474*/ s16 proxyendtimer;
-	/*0x476*/ s16 unk476;
-	/*0x478*/ u32 unk478;
+	/*0x476*/ s16 ammoextra;
+	/*0x478*/ u16 sdgrenadeextra;
 	/*0x47c*/ u32 unk47c;
 };
 

@@ -46,10 +46,14 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
+#define FRSCRIPTINDEX_WEAPONS 0x00
+#define FRSCRIPTINDEX_TARGETS 0x22
+#define FRSCRIPTINDEX_MAINS   0x71
+
 extern u8 *_frdataSegmentRomStart;
 extern u8 *_frdataSegmentRomEnd;
 
-u16 *g_FrOffsets = NULL;
+u16 *g_FrScriptOffsets = NULL;
 u8 g_FrIsValidWeapon = false;
 u8 var80088808 = 0;
 u8 g_FrNumSounds = 0;
@@ -244,7 +248,7 @@ u32 frGetWeaponIndexByWeapon(u32 weaponnum)
 	return 0;
 }
 
-u32 func0f19cdf0(u32 weaponnum)
+u32 frGetWeaponScriptIndex(u32 weaponnum)
 {
 	switch (weaponnum) {
 	case WEAPON_FALCON2:          return 1;
@@ -413,12 +417,12 @@ void func0f19d4ec(void)
 {
 	s32 i;
 
-	g_FrOffsets = NULL;
+	g_FrScriptOffsets = NULL;
 	var80088808 = 0;
 	g_FrIsValidWeapon = false;
 	g_FrRomData = NULL;
 
-	g_FiringRangeData.unk466 = 0;
+	g_FiringRangeData.mainscriptindex = 0;
 	g_FiringRangeData.scriptoffset = 0;
 	g_FiringRangeData.scriptenabled = false;
 	g_FiringRangeData.scriptsleep = 0;
@@ -478,7 +482,7 @@ void frInitDefaults(void)
 	g_FiringRangeData.sdgrenadelimit = 255;
 	g_FiringRangeData.goalaccuracy = 0;
 	g_FiringRangeData.goaltargets = 255;
-	g_FiringRangeData.unk00c = 1;
+	g_FiringRangeData.speed = 1;
 
 	for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
 		g_FiringRangeData.targets[i].unk08.x = pad.pos.x;
@@ -512,7 +516,7 @@ void frInitDefaults(void)
 
 	g_FiringRangeData.timetaken = -240;
 	g_FiringRangeData.score = 0;
-	g_FiringRangeData.unk454 = 0;
+	g_FiringRangeData.curtarget = 0;
 	g_FiringRangeData.targetsdestroyed = 0;
 	g_FiringRangeData.unk464 = 0;
 	g_FiringRangeData.unk470 = 0;
@@ -524,14 +528,14 @@ void frInitDefaults(void)
 	g_FiringRangeData.numhitsring2 = 0;
 	g_FiringRangeData.numhitsring1 = 0;
 	g_FiringRangeData.numhitsbullseye = 0;
-	g_FiringRangeData.unk466 = 0;
+	g_FiringRangeData.mainscriptindex = 0;
 	g_FiringRangeData.scriptoffset = 0;
 	g_FiringRangeData.scriptenabled = false;
 	g_FiringRangeData.scriptsleep = 0;
 	g_FiringRangeData.proxyendtimer = 0;
 	g_FiringRangeData.unk465_04 = false;
 	g_FiringRangeData.ammohasgrace = true;
-	g_FiringRangeData.unk476 = -1;
+	g_FiringRangeData.ammoextra = -1;
 }
 
 struct frdata *getFiringRangeData(void)
@@ -551,18 +555,18 @@ u32 frResolveFrPad(u32 arg0)
 	return g_FiringRangeData.unk470 + arg0;
 }
 
-bool frIsDifficulty(u32 difficulties)
+bool frIsDifficulty(u32 flags)
 {
 	if (g_FiringRangeData.difficulty == FRDIFFICULTY_BRONZE) {
-		if ((difficulties & FRDIFFBIT_BRONZE) == 0) {
+		if ((flags & FRTARGETFLAG_BRONZE) == 0) {
 			return false;
 		}
 	} else if (g_FiringRangeData.difficulty == FRDIFFICULTY_SILVER) {
-		if ((difficulties & FRDIFFBIT_SILVER) == 0) {
+		if ((flags & FRTARGETFLAG_SILVER) == 0) {
 			return false;
 		}
 	} else if (g_FiringRangeData.difficulty == FRDIFFICULTY_GOLD) {
-		if ((difficulties & FRDIFFBIT_GOLD) == 0) {
+		if ((flags & FRTARGETFLAG_GOLD) == 0) {
 			return false;
 		}
 	}
@@ -571,32 +575,32 @@ bool frIsDifficulty(u32 difficulties)
 }
 
 GLOBAL_ASM(
-glabel func0f19d90c
+glabel frExecuteWeaponScript
 .late_rodata
 glabel var7f1b93bc
-.word func0f19d90c+0xc4 # f19d9d0
+.word frExecuteWeaponScript+0xc4 # f19d9d0
 glabel var7f1b93c0
-.word func0f19d90c+0x1f4 # f19db00
+.word frExecuteWeaponScript+0x1f4 # f19db00
 glabel var7f1b93c4
-.word func0f19d90c+0x24c # f19db58
+.word frExecuteWeaponScript+0x24c # f19db58
 glabel var7f1b93c8
-.word func0f19d90c+0x278 # f19db84
+.word frExecuteWeaponScript+0x278 # f19db84
 glabel var7f1b93cc
-.word func0f19d90c+0x2ac # f19dbb8
+.word frExecuteWeaponScript+0x2ac # f19dbb8
 glabel var7f1b93d0
-.word func0f19d90c+0x360 # f19dc6c
+.word frExecuteWeaponScript+0x360 # f19dc6c
 glabel var7f1b93d4
-.word func0f19d90c+0x3b8 # f19dcc4
+.word frExecuteWeaponScript+0x3b8 # f19dcc4
 glabel var7f1b93d8
-.word func0f19d90c+0x3dc # f19dce8
+.word frExecuteWeaponScript+0x3dc # f19dce8
 glabel var7f1b93dc
-.word func0f19d90c+0x400 # f19dd0c
+.word frExecuteWeaponScript+0x400 # f19dd0c
 glabel var7f1b93e0
-.word func0f19d90c+0x310 # f19dc1c
+.word frExecuteWeaponScript+0x310 # f19dc1c
 glabel var7f1b93e4
-.word func0f19d90c+0xac # f19d9b8
+.word frExecuteWeaponScript+0xac # f19d9b8
 glabel var7f1b93e8
-.word func0f19d90c+0x218 # f19db24
+.word frExecuteWeaponScript+0x218 # f19db24
 glabel var7f1b93ec
 .word 0x3dcccccd
 .text
@@ -615,8 +619,8 @@ glabel var7f1b93ec
 /*  f19d93c:	00009025 */ 	or	$s2,$zero,$zero
 /*  f19d940:	28810022 */ 	slti	$at,$a0,0x22
 /*  f19d944:	1020012b */ 	beqz	$at,.L0f19ddf4
-/*  f19d948:	3c0e8009 */ 	lui	$t6,%hi(g_FrOffsets)
-/*  f19d94c:	8dce8800 */ 	lw	$t6,%lo(g_FrOffsets)($t6)
+/*  f19d948:	3c0e8009 */ 	lui	$t6,%hi(g_FrScriptOffsets)
+/*  f19d94c:	8dce8800 */ 	lw	$t6,%lo(g_FrScriptOffsets)($t6)
 /*  f19d950:	00047840 */ 	sll	$t7,$a0,0x1
 /*  f19d954:	3c088009 */ 	lui	$t0,%hi(g_FrRomData)
 /*  f19d958:	01cfc021 */ 	addu	$t8,$t6,$t7
@@ -870,9 +874,9 @@ glabel var7f1b93ec
 /*  f19dd08:	92220000 */ 	lbu	$v0,0x0($s1)
 /*  f19dd0c:	922d0001 */ 	lbu	$t5,0x1($s1)
 /*  f19dd10:	a21e0468 */ 	sb	$s8,0x468($s0)
-/*  f19dd14:	3c0e8009 */ 	lui	$t6,%hi(g_FrOffsets)
+/*  f19dd14:	3c0e8009 */ 	lui	$t6,%hi(g_FrScriptOffsets)
 /*  f19dd18:	a20d0466 */ 	sb	$t5,0x466($s0)
-/*  f19dd1c:	8dce8800 */ 	lw	$t6,%lo(g_FrOffsets)($t6)
+/*  f19dd1c:	8dce8800 */ 	lw	$t6,%lo(g_FrScriptOffsets)($t6)
 /*  f19dd20:	31a300ff */ 	andi	$v1,$t5,0xff
 /*  f19dd24:	24630071 */ 	addiu	$v1,$v1,0x71
 /*  f19dd28:	0003c040 */ 	sll	$t8,$v1,0x1
@@ -950,6 +954,147 @@ glabel var7f1b93ec
 /*  f19de20:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
+// Mismatch around d7c
+//void frExecuteWeaponScript(s32 scriptindex)
+//{
+//	s32 offset = 0;
+//
+//	if (scriptindex >= FRSCRIPTINDEX_WEAPONS && scriptindex < FRSCRIPTINDEX_TARGETS) {
+//		u8 *script = &g_FrRomData[g_FrScriptOffsets[scriptindex]];
+//		s32 mult = 1;
+//		s32 end;
+//		s32 capacity;
+//		s32 index;
+//		u8 *subscript;
+//
+//		while (script[offset] != FRCMD_END) {
+//			switch (script[offset]) {
+//			case FRCMD_0A: // f19d9b8
+//				g_FiringRangeData.unk470 = script[offset + 1];
+//				offset += 2;
+//				break;
+//			case FRCMD_SETUPTARGET: // f19d9d0
+//				if (!frIsDifficulty(script[offset + 4])) {
+//					offset += 5;
+//					break;
+//				}
+//				if (g_FiringRangeData.curtarget < ARRAYCOUNT(g_FiringRangeData.targets)) {
+//					g_FiringRangeData.targets[g_FiringRangeData.curtarget].frpadindex = frResolveFrPad(script[offset + 1]);
+//					g_FiringRangeData.targets[g_FiringRangeData.curtarget].scriptindex = script[offset + 2];
+//					g_FiringRangeData.targets[g_FiringRangeData.curtarget].maxdamage = script[offset + 3];
+//					g_FiringRangeData.targets[g_FiringRangeData.curtarget].unk00_01 = true;
+//					g_FiringRangeData.targets[g_FiringRangeData.curtarget].flags = script[offset + 4];
+//
+//					if (g_FiringRangeData.targets[g_FiringRangeData.curtarget].flags & FRTARGETFLAG_08) {
+//						g_FiringRangeData.targets[g_FiringRangeData.curtarget].unk00_06 = true;
+//					}
+//
+//					if (g_FiringRangeData.targets[g_FiringRangeData.curtarget].flags & FRTARGETFLAG_20) {
+//						g_FiringRangeData.targets[g_FiringRangeData.curtarget].maxdamage = 1;
+//					}
+//
+//					g_FiringRangeData.curtarget++;
+//				}
+//				offset += 5;
+//				break;
+//			case FRCMD_SETNUMTARGETS: // f19db00
+//				g_FiringRangeData.numtargets = script[offset + 1 + g_FiringRangeData.difficulty];
+//				offset += 4;
+//				break;
+//			case FRCMD_SETSCOREMULTIPLIER: // f19db24
+//				if (script[offset + 1 + g_FiringRangeData.difficulty] > 0) {
+//					mult = script[offset + 1 + g_FiringRangeData.difficulty];
+//				} else {
+//					mult = 1;
+//				}
+//				offset += 4;
+//				break;
+//			case FRCMD_SETGOALSCORE: // f19db58
+//				g_FiringRangeData.goalscore = script[offset + 1 + g_FiringRangeData.difficulty] * mult;
+//				offset += 4;
+//				break;
+//			case FRCMD_SETTIMELIMIT: // f19db84
+//				g_FiringRangeData.timelimit = script[offset + 1 + g_FiringRangeData.difficulty];
+//				if (g_FiringRangeData.timelimit == 255) {
+//					g_FiringRangeData.timelimit = 120;
+//				}
+//				offset += 4;
+//				break;
+//			case FRCMD_SETAMMOLIMIT: // f19dbb8
+//				capacity = ammotypeGetMaxCapacity(weaponGetAmmoType(frGetWeaponBySlot(g_FiringRangeData.slot), 0));
+//				g_FiringRangeData.ammolimit = script[offset + 1 + g_FiringRangeData.difficulty];
+//
+//				if (g_FiringRangeData.ammolimit != 255) {
+//					if (g_FiringRangeData.ammolimit > capacity) {
+//						g_FiringRangeData.ammoextra = g_FiringRangeData.ammolimit - capacity;
+//					} else {
+//						g_FiringRangeData.ammoextra = 0;
+//					}
+//				}
+//
+//				offset += 4;
+//				break;
+//			case FRCMD_SETGRENADELIMIT: // f19dc1c
+//				capacity = ammotypeGetMaxCapacity(AMMOTYPE_DEVASTATOR);
+//				g_FiringRangeData.sdgrenadelimit = script[offset + 1 + g_FiringRangeData.difficulty];
+//
+//				if (g_FiringRangeData.sdgrenadelimit != 255) {
+//					if (g_FiringRangeData.sdgrenadelimit > capacity) {
+//						g_FiringRangeData.sdgrenadeextra = g_FiringRangeData.sdgrenadelimit - capacity;
+//					} else {
+//						g_FiringRangeData.sdgrenadeextra = 0;
+//					}
+//				}
+//
+//				offset += 4;
+//				break;
+//			case FRCMD_SETEXTRASPEED: // f19dc6c
+//				g_FiringRangeData.speed = script[offset + 1 + g_FiringRangeData.difficulty] * 0.1f + 1.0f;
+//				offset += 4;
+//				break;
+//			case FRCMD_SETGOALACCURACY: // f19dcc4
+//				g_FiringRangeData.goalaccuracy = script[offset + 1 + g_FiringRangeData.difficulty];
+//				offset += 4;
+//				break;
+//			case FRCMD_SETGOALTARGETS: // f19dce8
+//				g_FiringRangeData.goaltargets = script[offset + 1 + g_FiringRangeData.difficulty];
+//				offset += 4;
+//				break;
+//			case FRCMD_SETMAINSCRIPT: // f19dd0c
+//				g_FiringRangeData.mainscriptindex = script[offset + 1];
+//				g_FiringRangeData.scriptenabled = true;
+//				index = FRSCRIPTINDEX_MAINS + g_FiringRangeData.mainscriptindex;
+//				subscript = &g_FrRomData[g_FrScriptOffsets[index]];
+//				offset += 2;
+//
+//				// d48
+//				if (g_FiringRangeData.difficulty == FRDIFFICULTY_BRONZE) {
+//					end = FRCMD_ENDIFBRONZE;
+//				} else /*d58*/ if (g_FiringRangeData.difficulty == FRDIFFICULTY_SILVER) {
+//					end = FRCMD_ENDIFSILVER;
+//				} else /*d6c*/ if (g_FiringRangeData.difficulty == FRDIFFICULTY_GOLD) {
+//					end = FRCMD_ENDIFGOLD;
+//				}
+//
+//				// d7c
+//				g_FiringRangeData.scriptoffset = 0;
+//
+//				while (subscript[g_FiringRangeData.scriptoffset++] != end);
+//
+//				if (subscript[g_FiringRangeData.scriptoffset] >= FRCMD_ENDIFBRONZE) {
+//					g_FiringRangeData.scriptoffset++;
+//				}
+//
+//				if (subscript[g_FiringRangeData.scriptoffset] >= FRCMD_ENDIFBRONZE) {
+//					g_FiringRangeData.scriptoffset++;
+//				}
+//
+//				break;
+//			}
+//		}
+//	}
+//}
+
 void func0f19de24(void)
 {
 	s32 i;
@@ -1000,15 +1145,15 @@ void frExecuteMainScript(void)
 	}
 
 	if (g_FiringRangeData.scriptsleep == 0) {
-		s32 index = g_FiringRangeData.unk466 + 0x71;
-		u8 *script = &g_FrRomData[g_FrOffsets[index]];
+		s32 index = FRSCRIPTINDEX_MAINS + g_FiringRangeData.mainscriptindex;
+		u8 *script = &g_FrRomData[g_FrScriptOffsets[index]];
 		u32 offset = g_FiringRangeData.scriptoffset;
 
 		switch (script[offset]) {
-		case FRCMD_13:
-		case FRCMD_FB:
-		case FRCMD_FC:
-		case FRCMD_FD:
+		case FRCMD_END:
+		case FRCMD_ENDIFBRONZE:
+		case FRCMD_ENDIFSILVER:
+		case FRCMD_ENDIFGOLD:
 			g_FiringRangeData.scriptenabled = false;
 			break;
 		case FRCMD_HUDMSG:
@@ -1069,7 +1214,7 @@ glabel var7f1b941c
 /*  f19e0a0:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f19e0a4:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*  f19e0a8:	afa400d0 */ 	sw	$a0,0xd0($sp)
-/*  f19e0ac:	3c0a8009 */ 	lui	$t2,%hi(g_FrOffsets)
+/*  f19e0ac:	3c0a8009 */ 	lui	$t2,%hi(g_FrScriptOffsets)
 /*  f19e0b0:	3c0e8009 */ 	lui	$t6,%hi(g_FrRomData)
 /*  f19e0b4:	00007812 */ 	mflo	$t7
 /*  f19e0b8:	01f81821 */ 	addu	$v1,$t7,$t8
@@ -1078,7 +1223,7 @@ glabel var7f1b941c
 /*  f19e0c4:	532000c2 */ 	beqzl	$t9,.L0f19e3d0
 /*  f19e0c8:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f19e0cc:	90620012 */ 	lbu	$v0,0x12($v1)
-/*  f19e0d0:	8d4a8800 */ 	lw	$t2,%lo(g_FrOffsets)($t2)
+/*  f19e0d0:	8d4a8800 */ 	lw	$t2,%lo(g_FrScriptOffsets)($t2)
 /*  f19e0d4:	8dce8810 */ 	lw	$t6,%lo(g_FrRomData)($t6)
 /*  f19e0d8:	24420022 */ 	addiu	$v0,$v0,0x22
 /*  f19e0dc:	00025840 */ 	sll	$t3,$v0,0x1
@@ -1289,18 +1434,18 @@ glabel var7f1b941c
 //bool frExecuteTargetScript(s32 targetnum)
 //{
 //	if (g_FiringRangeData.targets[targetnum].unk00_01) {
-//		s32 index = g_FiringRangeData.targets[targetnum].unk02 + 0x22;
-//		u8 *script = &g_FrRomData[g_FrOffsets[index]];
+//		s32 index = FRSCRIPTINDEX_TARGETS + g_FiringRangeData.targets[targetnum].scriptindex;
+//		u8 *script = &g_FrRomData[g_FrScriptOffsets[index]];
 //		u32 offset = g_FiringRangeData.targets[targetnum].scriptoffset;
 //		struct pad pad;
 //		s32 frpadnum;
 //
 //		switch (script[offset]) {
-//		case FRCMD_13:
+//		case FRCMD_END:
 //			g_FiringRangeData.targets[targetnum].unk00_04 = true;
 //			g_FiringRangeData.targets[targetnum].unk14 = 255 * 60;
 //			return true;
-//		case FRCMD_0C:
+//		case FRCMD_GOTOPAD:
 //			frpadnum = frResolveFrPad(script[offset + 1]);
 //
 //			if (frpadnum == g_FiringRangeData.targets[targetnum].frpadnum) {
@@ -1327,7 +1472,7 @@ glabel var7f1b941c
 //							-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 //				}
 //
-//				g_FiringRangeData.targets[targetnum].unk1c = (script[offset + 2] / 60.0f) * g_FiringRangeData.unk00c;
+//				g_FiringRangeData.targets[targetnum].unk1c = (script[offset + 2] / 60.0f) * g_FiringRangeData.speed;
 //				g_FiringRangeData.targets[targetnum].unk33 = 1;
 //			}
 //
@@ -1547,8 +1692,8 @@ glabel func0f19e7a8
 /*  f19e854:	afa70020 */ 	sw	$a3,0x20($sp)
 /*  f19e858:	0c0048f2 */ 	jal	malloc
 /*  f19e85c:	afa9002c */ 	sw	$t1,0x2c($sp)
-/*  f19e860:	3c048009 */ 	lui	$a0,%hi(g_FrOffsets)
-/*  f19e864:	24848800 */ 	addiu	$a0,$a0,%lo(g_FrOffsets)
+/*  f19e860:	3c048009 */ 	lui	$a0,%hi(g_FrScriptOffsets)
+/*  f19e864:	24848800 */ 	addiu	$a0,$a0,%lo(g_FrScriptOffsets)
 /*  f19e868:	ac820000 */ 	sw	$v0,0x0($a0)
 /*  f19e86c:	8fa60028 */ 	lw	$a2,0x28($sp)
 /*  f19e870:	240800fe */ 	addiu	$t0,$zero,0xfe
@@ -1618,14 +1763,14 @@ glabel func0f19e7a8
 //		}
 //
 //		// 83c
-//		g_FrOffsets = malloc(ALIGN16(count * 2), 4);
+//		g_FrScriptOffsets = malloc(ALIGN16(count * 2), 4);
 //
 //		// 860
-//		if (g_FrOffsets) {
+//		if (g_FrScriptOffsets) {
 //			if (len > 0x12) {
 //				for (j = 0x12; j != len; j++) {
 //					if (g_FrRomData[j] == 0xfe) {
-//						g_FrOffsets[index++] = j + 1;
+//						g_FrScriptOffsets[index++] = j + 1;
 //					}
 //				}
 //			}
@@ -1642,13 +1787,13 @@ glabel func0f19e7a8
 
 u32 frInitAmmo(s32 weaponnum)
 {
-	u32 weaponindex;
+	u32 scriptindex;
 	u32 ammotype = weaponGetAmmoType(weaponnum, 0);
 	u32 capacity = ammotypeGetMaxCapacity(ammotype);
 
 	frInitDefaults();
-	weaponindex = func0f19cdf0(weaponnum);
-	func0f19d90c(weaponindex);
+	scriptindex = frGetWeaponScriptIndex(weaponnum);
+	frExecuteWeaponScript(scriptindex);
 
 	if (g_FiringRangeData.ammolimit == 255) {
 		currentPlayerSetAmmoQuantity(ammotype, capacity);
@@ -1664,7 +1809,7 @@ u32 frInitAmmo(s32 weaponnum)
 		}
 	}
 
-	return weaponindex;
+	return scriptindex;
 }
 
 void frBeginSession(s32 weapon)
@@ -3589,7 +3734,7 @@ void frCalculateHit(struct defaultobj *obj, struct coord *hitpos, f32 maulerchar
 			f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 
 			if (g_FiringRangeData.targets[i].flags & FRTARGETFLAG_20) {
-				g_FiringRangeData.targets[i].damage = g_FiringRangeData.targets[i].unk01;
+				g_FiringRangeData.targets[i].damage = g_FiringRangeData.targets[i].maxdamage;
 			} else if (frGetWeaponBySlot(g_FiringRangeData.slot) == WEAPON_MAULER) {
 				g_FiringRangeData.targets[i].damage += (f32)((s32)(maulercharge * 0.1f) + 1);
 			} else if ((g_FiringRangeData.targets[i].flags & FRTARGETFLAG_80) == 0
