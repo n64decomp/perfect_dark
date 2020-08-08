@@ -2012,6 +2012,7 @@ f0068491f441172310f2b6868c03739d  build/pal-beta/files/bgdata/bg_wax_padsZ
 ea5a2ff4e5e0a68822f62feff2c40af4  build/pal-beta/files/bgdata/bg_wax_tilesZ
 d41d8cd98f00b204e9800998ecf8427e  build/pal-beta/files/ob/ob_mid.seg
 541e374b58a36056f73ad02a2bbb5f75  build/pal-beta/ucode/boot.bin
+333e8b4f6fe9dc9b59cf3e61b4e0c224  build/pal-beta/ucode/firingrange.bin
 ad5835b91b7e252ef8f4a421a44eb12b  build/pal-beta/ucode/game.bin
 bca5001a5dd0ef9aab24ba085f27eb40  build/pal-beta/ucode/gamedata.bin
 843285fdc0e80a77576eeb73940d2fd3  build/pal-beta/ucode/inflate.bin

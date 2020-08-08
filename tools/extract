@@ -24,6 +24,7 @@ class Extractor:
         self.extract_ucodes()
         self.extract_mpconfigs()
         self.extract_mpstrings()
+        self.extract_firingrange()
 
     #
     # Audio
@@ -152,6 +153,14 @@ class Extractor:
         self.write('ucode/mpstrings%s.bin' % lang, self.rom[addr:addr+0x3700])
 
     #
+    # Firing Range
+    #
+
+    def extract_firingrange(self):
+        addr = self.val('firingrange')
+        self.write('ucode/firingrange.bin', self.rom[addr:addr+0x1550])
+
+    #
     # Fonts
     #
 
@@ -249,6 +258,7 @@ class Extractor:
             'files': 0x28080,
             'gamedata': 0x39850,
             'mpconfigs': 0x7d0a40,
+            'firingrange': 0x7e9d20,
             'sfxctl': 0x80a250,
             'textures': 0x01d65f40,
         },
@@ -257,6 +267,7 @@ class Extractor:
             'files': 0x28080,
             'gamedata': 0x39850,
             'mpconfigs': 0x7d0a40,
+            'firingrange': 0x7e9d20,
             'sfxctl': 0x80a250,
             'textures': 0x01d65f40,
         },
@@ -265,6 +276,7 @@ class Extractor:
             'files': 0x29160,
             'gamedata': 0x30850,
             'mpconfigs': 0x785130,
+            'firingrange': 0x79e410,
             'sfxctl': 0x7be940,
             'textures': 0x01d12fe0,
         },
@@ -273,6 +285,7 @@ class Extractor:
             'files': 0x28910,
             'gamedata': 0x39850,
             'mpconfigs': 0x7bc240,
+            'firingrange': 0x7d5520,
             'sfxctl': 0x7f87e0,
             'textures': 0x01d5ca20,
         },
@@ -281,6 +294,7 @@ class Extractor:
             'files': 0x29b90,
             'gamedata': 0x39850,
             'mpconfigs': 0x7bc240,
+            'firingrange': 0x7d5520,
             'sfxctl': 0x7f87e0,
             'textures': 0x01d5bb50,
         },
@@ -289,6 +303,7 @@ class Extractor:
             'files': 0x28800,
             'gamedata': 0x39850,
             'mpconfigs': 0x7c00d0,
+            'firingrange': 0x7d93b0,
             'sfxctl': 0x7fc670,
             'textures': 0x01d61f90,
         },

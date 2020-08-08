@@ -48,10 +48,10 @@
 
 #define FRSCRIPTINDEX_WEAPONS 0x00
 #define FRSCRIPTINDEX_TARGETS 0x22
-#define FRSCRIPTINDEX_MAINS   0x71
+#define FRSCRIPTINDEX_HELP    0x71
 
-extern u8 *_frdataSegmentRomStart;
-extern u8 *_frdataSegmentRomEnd;
+extern u8 *_firingrangeSegmentRomStart;
+extern u8 *_firingrangeSegmentRomEnd;
 
 u16 *g_FrScriptOffsets = NULL;
 u8 g_FrIsValidWeapon = false;
@@ -422,10 +422,10 @@ void func0f19d4ec(void)
 	g_FrIsValidWeapon = false;
 	g_FrRomData = NULL;
 
-	g_FiringRangeData.mainscriptindex = 0;
-	g_FiringRangeData.scriptoffset = 0;
-	g_FiringRangeData.scriptenabled = false;
-	g_FiringRangeData.scriptsleep = 0;
+	g_FiringRangeData.helpscriptindex = 0;
+	g_FiringRangeData.helpscriptoffset = 0;
+	g_FiringRangeData.helpscriptenabled = false;
+	g_FiringRangeData.helpscriptsleep = 0;
 	g_FiringRangeData.unk464 = 0;
 	g_FiringRangeData.numtargets = 0;
 
@@ -442,7 +442,7 @@ void *frLoadRomData(u32 len)
 	g_FrRomData = malloc(ALIGN16(len), 4);
 
 	if (g_FrRomData) {
-		return func0000d488(g_FrRomData, &_frdataSegmentRomStart, len);
+		return func0000d488(g_FrRomData, &_firingrangeSegmentRomStart, len);
 	}
 
 	return NULL;
@@ -528,10 +528,10 @@ void frInitDefaults(void)
 	g_FiringRangeData.numhitsring2 = 0;
 	g_FiringRangeData.numhitsring1 = 0;
 	g_FiringRangeData.numhitsbullseye = 0;
-	g_FiringRangeData.mainscriptindex = 0;
-	g_FiringRangeData.scriptoffset = 0;
-	g_FiringRangeData.scriptenabled = false;
-	g_FiringRangeData.scriptsleep = 0;
+	g_FiringRangeData.helpscriptindex = 0;
+	g_FiringRangeData.helpscriptoffset = 0;
+	g_FiringRangeData.helpscriptenabled = false;
+	g_FiringRangeData.helpscriptsleep = 0;
 	g_FiringRangeData.proxyendtimer = 0;
 	g_FiringRangeData.unk465_04 = false;
 	g_FiringRangeData.ammohasgrace = true;
@@ -962,7 +962,7 @@ glabel var7f1b93ec
 //	if (scriptindex >= FRSCRIPTINDEX_WEAPONS && scriptindex < FRSCRIPTINDEX_TARGETS) {
 //		u8 *script = &g_FrRomData[g_FrScriptOffsets[scriptindex]];
 //		s32 mult = 1;
-//		s32 end;
+//		s32 start;
 //		s32 capacity;
 //		s32 index;
 //		u8 *subscript;
@@ -973,7 +973,7 @@ glabel var7f1b93ec
 //				g_FiringRangeData.unk470 = script[offset + 1];
 //				offset += 2;
 //				break;
-//			case FRCMD_SETUPTARGET: // f19d9d0
+//			case FRCMD_ADDTARGET: // f19d9d0
 //				if (!frIsDifficulty(script[offset + 4])) {
 //					offset += 5;
 //					break;
@@ -1060,33 +1060,33 @@ glabel var7f1b93ec
 //				g_FiringRangeData.goaltargets = script[offset + 1 + g_FiringRangeData.difficulty];
 //				offset += 4;
 //				break;
-//			case FRCMD_SETMAINSCRIPT: // f19dd0c
-//				g_FiringRangeData.mainscriptindex = script[offset + 1];
-//				g_FiringRangeData.scriptenabled = true;
-//				index = FRSCRIPTINDEX_MAINS + g_FiringRangeData.mainscriptindex;
+//			case FRCMD_SETHELPSCRIPT: // f19dd0c
+//				g_FiringRangeData.helpscriptindex = script[offset + 1];
+//				g_FiringRangeData.helpscriptenabled = true;
+//				index = FRSCRIPTINDEX_HELP + g_FiringRangeData.helpscriptindex;
 //				subscript = &g_FrRomData[g_FrScriptOffsets[index]];
 //				offset += 2;
 //
 //				// d48
 //				if (g_FiringRangeData.difficulty == FRDIFFICULTY_BRONZE) {
-//					end = FRCMD_ENDIFBRONZE;
+//					start = FRCMD_IFBRONZE;
 //				} else /*d58*/ if (g_FiringRangeData.difficulty == FRDIFFICULTY_SILVER) {
-//					end = FRCMD_ENDIFSILVER;
+//					start = FRCMD_IFSILVER;
 //				} else /*d6c*/ if (g_FiringRangeData.difficulty == FRDIFFICULTY_GOLD) {
-//					end = FRCMD_ENDIFGOLD;
+//					start = FRCMD_IFGOLD;
 //				}
 //
 //				// d7c
-//				g_FiringRangeData.scriptoffset = 0;
+//				g_FiringRangeData.helpscriptoffset = 0;
 //
-//				while (subscript[g_FiringRangeData.scriptoffset++] != end);
+//				while (subscript[g_FiringRangeData.helpscriptoffset++] != start);
 //
-//				if (subscript[g_FiringRangeData.scriptoffset] >= FRCMD_ENDIFBRONZE) {
-//					g_FiringRangeData.scriptoffset++;
+//				if (subscript[g_FiringRangeData.helpscriptoffset] >= FRCMD_IFBRONZE) {
+//					g_FiringRangeData.helpscriptoffset++;
 //				}
 //
-//				if (subscript[g_FiringRangeData.scriptoffset] >= FRCMD_ENDIFBRONZE) {
-//					g_FiringRangeData.scriptoffset++;
+//				if (subscript[g_FiringRangeData.helpscriptoffset] >= FRCMD_IFBRONZE) {
+//					g_FiringRangeData.helpscriptoffset++;
 //				}
 //
 //				break;
@@ -1138,43 +1138,43 @@ char *frGetInstructionalText(u32 index)
 	return langGet(textid);
 }
 
-void frExecuteMainScript(void)
+void frExecuteHelpScript(void)
 {
-	if (!g_FiringRangeData.scriptenabled || g_Vars.lvupdate240 == 0) {
+	if (!g_FiringRangeData.helpscriptenabled || g_Vars.lvupdate240 == 0) {
 		return;
 	}
 
-	if (g_FiringRangeData.scriptsleep == 0) {
-		s32 index = FRSCRIPTINDEX_MAINS + g_FiringRangeData.mainscriptindex;
+	if (g_FiringRangeData.helpscriptsleep == 0) {
+		s32 index = FRSCRIPTINDEX_HELP + g_FiringRangeData.helpscriptindex;
 		u8 *script = &g_FrRomData[g_FrScriptOffsets[index]];
-		u32 offset = g_FiringRangeData.scriptoffset;
+		u32 offset = g_FiringRangeData.helpscriptoffset;
 
 		switch (script[offset]) {
 		case FRCMD_END:
-		case FRCMD_ENDIFBRONZE:
-		case FRCMD_ENDIFSILVER:
-		case FRCMD_ENDIFGOLD:
-			g_FiringRangeData.scriptenabled = false;
+		case FRCMD_IFBRONZE:
+		case FRCMD_IFSILVER:
+		case FRCMD_IFGOLD:
+			g_FiringRangeData.helpscriptenabled = false;
 			break;
 		case FRCMD_HUDMSG:
 			hudmsgCreateViaPreset(frGetInstructionalText(script[offset + 1]), HUDMSGTYPE_TRAINING);
-			g_FiringRangeData.scriptoffset += 2;
+			g_FiringRangeData.helpscriptoffset += 2;
 			break;
 		case FRCMD_WAITSECONDS:
-			g_FiringRangeData.scriptsleep = script[offset + 1] * 60;
-			g_FiringRangeData.scriptoffset += 2;
+			g_FiringRangeData.helpscriptsleep = script[offset + 1] * 60;
+			g_FiringRangeData.helpscriptoffset += 2;
 			break;
 		case FRCMD_WAITUNTILSHOOT:
 			if (g_FiringRangeData.numshots) {
-				g_FiringRangeData.scriptoffset++;
+				g_FiringRangeData.helpscriptoffset++;
 			}
 			break;
 		}
 	} else {
-		g_FiringRangeData.scriptsleep -= g_Vars.lvupdate240_60;
+		g_FiringRangeData.helpscriptsleep -= g_Vars.lvupdate240_60;
 
-		if (g_FiringRangeData.scriptsleep <= 0) {
-			g_FiringRangeData.scriptsleep = 0;
+		if (g_FiringRangeData.helpscriptsleep <= 0) {
+			g_FiringRangeData.helpscriptsleep = 0;
 		}
 	}
 }
@@ -1742,12 +1742,12 @@ glabel func0f19e7a8
 //{
 //	// 7bc
 //	if (var80088808 == false) {
-//		u32 len = (u32)&_frdataSegmentRomEnd - (u32)&_frdataSegmentRomStart;
+//		u32 len = (u32)&_firingrangeSegmentRomEnd - (u32)&_firingrangeSegmentRomStart;
 //		u32 index = 0;
 //		s32 i;
 //		s32 count = 1;
 //		s32 j;
-//		u32 len2 = (u32)&_frdataSegmentRomEnd - (u32)&_frdataSegmentRomStart;
+//		u32 len2 = (u32)&_firingrangeSegmentRomEnd - (u32)&_firingrangeSegmentRomStart;
 //
 //		var80088808 = true;
 //
@@ -2660,7 +2660,7 @@ glabel var7f1b94e4
 .L0f19fd20:
 /*  f19fd20:	8ecc0284 */ 	lw	$t4,0x284($s6)
 /*  f19fd24:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f19fd28:	0fc677d6 */ 	jal	frExecuteMainScript
+/*  f19fd28:	0fc677d6 */ 	jal	frExecuteHelpScript
 /*  f19fd2c:	ad8b1c08 */ 	sw	$t3,0x1c08($t4)
 /*  f19fd30:	92ad045a */ 	lbu	$t5,0x45a($s5)
 /*  f19fd34:	51a0004b */ 	beqzl	$t5,.L0f19fe64

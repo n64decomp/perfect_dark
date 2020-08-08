@@ -2011,6 +2011,7 @@ c6f0dd6193685637763d426dfce837fb  build/ntsc-beta/files/bgdata/bg_wax_padsZ
 ea5a2ff4e5e0a68822f62feff2c40af4  build/ntsc-beta/files/bgdata/bg_wax_tilesZ
 d41d8cd98f00b204e9800998ecf8427e  build/ntsc-beta/files/ob/ob_mid.seg
 74cb41628ed5784a8ad48c6398b0ce83  build/ntsc-beta/ucode/boot.bin
+a12b5437510403bb09b3cceb45dd2a10  build/ntsc-beta/ucode/firingrange.bin
 daae19f7ce11d3f3e1f98d543ad856f5  build/ntsc-beta/ucode/game.bin
 cab47b8c30b1be608c1c5c1db08342de  build/ntsc-beta/ucode/gamedata.bin
 d13f25c1c59fb96346ac23301ccd9d7d  build/ntsc-beta/ucode/inflate.bin

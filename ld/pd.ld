@@ -78,8 +78,8 @@ SECTIONS
 	_checksum7f15c9ac = 0x2c7b42f8;
 #endif
 
-	_frdataSegmentRomStart = 0x007e9d20;
-	_frdataSegmentRomEnd = 0x007eb270;
+	_firingrangeSegmentRomStart = 0x007e9d20;
+	_firingrangeSegmentRomEnd = 0x007eb270;
 
 	_antipiracyUncloakWriteAddress = 0x7002a324;
 
@@ -125,6 +125,11 @@ SECTIONS
 		build/ROMID/mpconfigs/mpconfigs.o (.data);
 	}
 	__rompos += SIZEOF(.mpconfigs);
+
+	.firingrange : AT(__rompos) {
+		build/ROMID/firingrange/firingrange.o (.data);
+	}
+	__rompos += SIZEOF(.firingrange);
 
 	MPSTRINGS(E)
 	MPSTRINGS(J)

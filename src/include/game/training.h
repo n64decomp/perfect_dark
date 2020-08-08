@@ -36,7 +36,7 @@ void frExecuteWeaponScript(s32 scriptindex);
 void func0f19de24(void);
 bool frTargetIsAtScriptStart(s32 targetnum);
 char *frGetInstructionalText(u32 index);
-void frExecuteMainScript(void);
+void frExecuteHelpScript(void);
 bool frExecuteTargetScript(s32 targetnum);
 void frHideAllTargets(void);
 void frInitTargets(void);

@@ -581,7 +581,7 @@
 #define FLOORTYPE_DIRT   7
 #define FLOORTYPE_SNOW   8
 
-#define FRCMD_SETUPTARGET        0x00
+#define FRCMD_ADDTARGET          0x00
 #define FRCMD_SETNUMTARGETS      0x01
 #define FRCMD_SETGOALSCORE       0x02
 #define FRCMD_SETTIMELIMIT       0x03
@@ -589,7 +589,7 @@
 #define FRCMD_SETEXTRASPEED      0x05
 #define FRCMD_SETGOALACCURACY    0x06
 #define FRCMD_SETGOALTARGETS     0x07
-#define FRCMD_SETMAINSCRIPT      0x08
+#define FRCMD_SETHELPSCRIPT      0x08
 #define FRCMD_SETGRENADELIMIT    0x09
 #define FRCMD_0A                 0x0a
 #define FRCMD_SETSCOREMULTIPLIER 0x0b
@@ -601,9 +601,9 @@
 #define FRCMD_WAITUNTILSHOOT     0x11
 #define FRCMD_WAITSECONDS        0x12
 #define FRCMD_END                0x13
-#define FRCMD_ENDIFBRONZE        0xfb
-#define FRCMD_ENDIFSILVER        0xfc
-#define FRCMD_ENDIFGOLD          0xfd
+#define FRCMD_IFBRONZE           0xfb
+#define FRCMD_IFSILVER           0xfc
+#define FRCMD_IFGOLD             0xfd
 
 #define FRDIFFICULTY_BRONZE 0
 #define FRDIFFICULTY_SILVER 1

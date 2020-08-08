@@ -36,6 +36,7 @@ def main():
     write_binary(fd, 0x7df820, get_mpstrings('F'))
     write_binary(fd, 0x7e2f20, get_mpstrings('S'))
     write_binary(fd, 0x7e6620, get_mpstrings('I'))
+    write_binary(fd, 0x7e9d20, get_firingrange())
     write_binary(fd, 0x7f2388, get_fonts())
     write_binary(fd, 0x80a250, get_sfxctl())
     write_binary(fd, 0x839dd0, get_sfxtbl())
@@ -94,6 +95,9 @@ def get_mpconfigs():
 
 def get_mpstrings(lang):
     return getfilecontents(bdir() + '/ucode/mpstrings%s.bin' % lang)
+
+def get_firingrange():
+    return getfilecontents(bdir() + '/ucode/firingrange.bin')
 
 def get_fonts():
     return getfrombaserom(0x7f2388, 0x17ec8)

@@ -837,7 +837,7 @@ char *frMenuTextTargetsDestroyedValue(struct menuitem *item)
 char *frMenuTextAccuracyValue(struct menuitem *item)
 {
 	struct frdata *frdata = getFiringRangeData();
-	f32 totalhits = (frdata->numhitstype4 + frdata->numhitstype1 + frdata->numhitstype2 + frdata->numhitstype3) * 100.0f;
+	f32 totalhits = (frdata->numhitsring3 + frdata->numhitsbullseye + frdata->numhitsring1 + frdata->numhitsring2) * 100.0f;
 	f32 accuracy = 0;
 
 	if (frdata->numshots) {

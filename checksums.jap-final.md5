@@ -2014,6 +2014,7 @@ f0068491f441172310f2b6868c03739d  build/jap-final/files/bgdata/bg_wax_padsZ
 ea5a2ff4e5e0a68822f62feff2c40af4  build/jap-final/files/bgdata/bg_wax_tilesZ
 d41d8cd98f00b204e9800998ecf8427e  build/jap-final/files/ob/ob_mid.seg
 39ef58f5babf5d619bec8b2629c26bc8  build/jap-final/ucode/boot.bin
+333e8b4f6fe9dc9b59cf3e61b4e0c224  build/jap-final/ucode/firingrange.bin
 bd6e5fc360d5e0c35ea3605e2514f205  build/jap-final/ucode/game.bin
 22d5e92bffcc67b222cf3697e96106f6  build/jap-final/ucode/gamedata.bin
 843285fdc0e80a77576eeb73940d2fd3  build/jap-final/ucode/inflate.bin

@@ -2012,6 +2012,7 @@ f0068491f441172310f2b6868c03739d  build/ntsc-1.0/files/bgdata/bg_wax_padsZ
 ea5a2ff4e5e0a68822f62feff2c40af4  build/ntsc-1.0/files/bgdata/bg_wax_tilesZ
 d41d8cd98f00b204e9800998ecf8427e  build/ntsc-1.0/files/ob/ob_mid.seg
 402561223a33f48461e302e1cca12129  build/ntsc-1.0/ucode/boot.bin
+cb373c94109322d081a57b142fdd9999  build/ntsc-1.0/ucode/firingrange.bin
 5181a0d11cf8f24370a3f2d3b29e522e  build/ntsc-1.0/ucode/game.bin
 b21679a1b2dabd721bc4afee11bf5266  build/ntsc-1.0/ucode/gamedata.bin
 843285fdc0e80a77576eeb73940d2fd3  build/ntsc-1.0/ucode/inflate.bin
