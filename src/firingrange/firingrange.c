@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "firingrange/frcommands.h"
 
+#if NTSC
 u16 texts[] = {
 	/*0*/ L_MISC(281), // "FIRING\n Press Z Button to fire gun.\n"
 	/*1*/ L_MISC(282), // "AUTO RELOAD\n Release Z Button when out of ammo.\n"
@@ -13,6 +14,19 @@ u16 texts[] = {
 	/*7*/ L_MISC(288), // "ZOOM\n Hold R Button to enter Zoom mode.\n"
 	/*8*/ L_MISC(289), // "FAST FIRE\n Press Z Button quickly to fire faster.\n"
 };
+#else
+u16 texts[] = {
+	/*0*/ L_DISH(187),
+	/*1*/ L_DISH(188),
+	/*2*/ L_DISH(189),
+	/*3*/ L_DISH(190),
+	/*4*/ L_DISH(191),
+	/*5*/ L_DISH(192),
+	/*6*/ L_DISH(193),
+	/*7*/ L_DISH(194),
+	/*8*/ L_DISH(195),
+};
+#endif
 
 u8 weapon_dummy[] = {
 	start(),
@@ -623,7 +637,13 @@ u8 weapon_crossbow[] = {
 	start(),
 	set_max_active_targets(3, 3, 1),
 	set_score_multiplier(0, 0, 1),
+
+#if VERSION == VERSION_NTSC_BETA
+	set_goal_score(72, 90, 200),
+#else
 	set_goal_score(72, 90, 150),
+#endif
+
 	set_time_limit(255, 255, 30),
 	set_ammo_limit(255, 20, 255),
 	set_extra_speed(0, 1, 3),
