@@ -21,6 +21,7 @@
 #define PLAYERCOUNT()         ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0))
 #define PLAYERCOUNT3012()     ((g_Vars.players[3] ? 1 : 0) + (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0))
 #define SECSTOFRAMES240(secs) (secs * 240)
+#define SECSTOFRAMES60(secs)  (secs * 60)
 #define TEXT(bankid, index)   ((bankid << 9) | index)
 
 // These actions are assigned to chr->actiontype
@@ -560,6 +561,7 @@
 
 #define EXPLOSIONTYPE_0  0
 #define EXPLOSIONTYPE_3  3
+#define EXPLOSIONTYPE_5  5
 #define EXPLOSIONTYPE_8  8
 #define EXPLOSIONTYPE_12 12
 #define EXPLOSIONTYPE_14 14
@@ -581,29 +583,29 @@
 #define FLOORTYPE_DIRT   7
 #define FLOORTYPE_SNOW   8
 
-#define FRCMD_ADDTARGET          0x00
-#define FRCMD_SETNUMTARGETS      0x01
-#define FRCMD_SETGOALSCORE       0x02
-#define FRCMD_SETTIMELIMIT       0x03
-#define FRCMD_SETAMMOLIMIT       0x04
-#define FRCMD_SETEXTRASPEED      0x05
-#define FRCMD_SETGOALACCURACY    0x06
-#define FRCMD_SETGOALTARGETS     0x07
-#define FRCMD_SETHELPSCRIPT      0x08
-#define FRCMD_SETGRENADELIMIT    0x09
-#define FRCMD_0A                 0x0a
-#define FRCMD_SETSCOREMULTIPLIER 0x0b
-#define FRCMD_GOTOPAD            0x0c
-#define FRCMD_RESTART            0x0d
-#define FRCMD_0E                 0x0e
-#define FRCMD_ROTATE             0x0f
-#define FRCMD_HUDMSG             0x10
-#define FRCMD_WAITUNTILSHOOT     0x11
-#define FRCMD_WAITSECONDS        0x12
-#define FRCMD_END                0x13
-#define FRCMD_IFBRONZE           0xfb
-#define FRCMD_IFSILVER           0xfc
-#define FRCMD_IFGOLD             0xfd
+#define FRCMD_ADDTARGET           0x00
+#define FRCMD_SETMAXACTIVETARGETS 0x01
+#define FRCMD_SETGOALSCORE        0x02
+#define FRCMD_SETTIMELIMIT        0x03
+#define FRCMD_SETAMMOLIMIT        0x04
+#define FRCMD_SETEXTRASPEED       0x05
+#define FRCMD_SETGOALACCURACY     0x06
+#define FRCMD_SETGOALTARGETS      0x07
+#define FRCMD_SETHELPSCRIPT       0x08
+#define FRCMD_SETGRENADELIMIT     0x09
+#define FRCMD_0A                  0x0a
+#define FRCMD_SETSCOREMULTIPLIER  0x0b
+#define FRCMD_GOTOPAD             0x0c
+#define FRCMD_RESTART             0x0d
+#define FRCMD_0E                  0x0e
+#define FRCMD_ROTATE              0x0f
+#define FRCMD_HUDMSG              0x10
+#define FRCMD_WAITUNTILSHOOT      0x11
+#define FRCMD_WAITSECONDS         0x12
+#define FRCMD_END                 0x13
+#define FRCMD_IFBRONZE            0xfb
+#define FRCMD_IFSILVER            0xfc
+#define FRCMD_IFGOLD              0xfd
 
 #define FRDIFFICULTY_BRONZE 0
 #define FRDIFFICULTY_SILVER 1
@@ -615,14 +617,19 @@
 #define FRFAILREASON_SCOREUNATTAINABLE 3
 #define FRFAILREASON_INACCURATE        4
 
-#define FRTARGETFLAG_BRONZE 0x01
-#define FRTARGETFLAG_SILVER 0x02
-#define FRTARGETFLAG_GOLD   0x04
-#define FRTARGETFLAG_08     0x08
-#define FRTARGETFLAG_10     0x10
-#define FRTARGETFLAG_20     0x20
-#define FRTARGETFLAG_40     0x40
-#define FRTARGETFLAG_80     0x80
+#define FRMENUTYPE_WEAPONLIST 0
+#define FRMENUTYPE_DETAILS    1
+#define FRMENUTYPE_FAILED     2
+#define FRMENUTYPE_COMPLETED  3
+
+#define FRTARGETFLAG_BRONZE                 0x01
+#define FRTARGETFLAG_SILVER                 0x02
+#define FRTARGETFLAG_GOLD                   0x04
+#define FRTARGETFLAG_ROTATEONCLOAK          0x08
+#define FRTARGETFLAG_SPAWNFACINGAWAY        0x10
+#define FRTARGETFLAG_ONEHITEXPLODE          0x20
+#define FRTARGETFLAG_FARSIGHTAUTOTARGETABLE 0x40
+#define FRTARGETFLAG_TMPINVINCIBLE          0x80
 
 #define FRZONE_RING3    1
 #define FRZONE_RING2    2

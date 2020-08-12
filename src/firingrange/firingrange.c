@@ -21,7 +21,7 @@ u8 weapon_dummy[] = {
 
 u8 weapon_falcon2[] = {
 	start(),
-	set_num_targets(3, 1, 3),
+	set_max_active_targets(3, 1, 3),
 	set_goal_score(120, 80, 170),
 	set_time_limit(255, 15, 10),
 	set_ammo_limit(255, 255, 24),
@@ -48,7 +48,7 @@ u8 weapon_falcon2[] = {
 
 u8 weapon_falcon2_scope[] = {
 	start(),
-	set_num_targets(1, 1, 3),
+	set_max_active_targets(1, 1, 3),
 	set_goal_score(120, 120, 80),
 	set_time_limit(255, 255, 10),
 	set_ammo_limit(255, 255, 8),
@@ -74,7 +74,7 @@ u8 weapon_falcon2_scope[] = {
 
 u8 weapon_falcon2_silencer[] = {
 	start(),
-	set_num_targets(1, 9, 3),
+	set_max_active_targets(1, 9, 3),
 	set_goal_score(120, 30, 80),
 	set_time_limit(255, 255, 30),
 	set_ammo_limit(255, 255, 255),
@@ -108,7 +108,7 @@ u8 weapon_falcon2_silencer[] = {
 
 u8 weapon_magsec4[] = {
 	start(),
-	set_num_targets(1, 7, 4),
+	set_max_active_targets(1, 7, 4),
 	set_goal_score(135, 135, 80),
 	set_time_limit(255, 255, 12),
 	set_ammo_limit(255, 18, 255),
@@ -118,23 +118,23 @@ u8 weapon_magsec4[] = {
 	add_target(0x01, 0x2b, 0x09, FRTARGETFLAG_BRONZE),
 	add_target(0x01, 0x2a, 0x09, FRTARGETFLAG_BRONZE),
 	add_target(0x01, 0x29, 0x09, FRTARGETFLAG_BRONZE),
-	add_target(0x00, 0x42, 0xff, FRTARGETFLAG_SILVER | FRTARGETFLAG_10),
+	add_target(0x00, 0x42, 0xff, FRTARGETFLAG_SILVER | FRTARGETFLAG_SPAWNFACINGAWAY),
 	add_target(0x00, 0x32, 0x03, FRTARGETFLAG_SILVER),
 	add_target(0x00, 0x33, 0x03, FRTARGETFLAG_SILVER),
 	add_target(0x00, 0x34, 0x03, FRTARGETFLAG_SILVER),
 	add_target(0x00, 0x35, 0x03, FRTARGETFLAG_SILVER),
 	add_target(0x00, 0x36, 0x03, FRTARGETFLAG_SILVER),
 	add_target(0x00, 0x37, 0x03, FRTARGETFLAG_SILVER),
-	add_target(0x00, 0x3e, 0x03, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x41, 0x03, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x40, 0x03, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x3f, 0x03, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
+	add_target(0x00, 0x3e, 0x03, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x41, 0x03, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x40, 0x03, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x3f, 0x03, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
 	end(),
 };
 
 u8 weapon_mauler[] = {
 	start(),
-	set_num_targets(1, 8, 6),
+	set_max_active_targets(1, 8, 6),
 	set_goal_score(200, 0, 0),
 	set_time_limit(255, 255, 15),
 	set_ammo_limit(255, 50, 35),
@@ -158,18 +158,18 @@ u8 weapon_mauler[] = {
 	add_target(0x00, 0x1a, 0x05, FRTARGETFLAG_SILVER),
 	add_target(0x00, 0x1b, 0x05, FRTARGETFLAG_SILVER),
 	add_target(0x00, 0x1c, 0x05, FRTARGETFLAG_SILVER),
-	add_target(0x00, 0x35, 0x05, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x36, 0x05, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x37, 0x05, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x38, 0x05, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x39, 0x05, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x3a, 0x05, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
+	add_target(0x00, 0x35, 0x05, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x36, 0x05, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x37, 0x05, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x38, 0x05, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x39, 0x05, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x3a, 0x05, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
 	end(),
 };
 
 u8 weapon_phoenix[] = {
 	start(),
-	set_num_targets(2, 3, 6),
+	set_max_active_targets(2, 3, 6),
 	set_goal_score(90, 0, 0),
 	set_time_limit(255, 255, 20),
 	set_ammo_limit(255, 18, 3),
@@ -184,15 +184,15 @@ u8 weapon_phoenix[] = {
 	add_target(0x00, 0x40, 0x08, FRTARGETFLAG_BRONZE),
 	add_target(0x00, 0x41, 0x08, FRTARGETFLAG_BRONZE),
 	add_target(0x00, 0x3f, 0x08, FRTARGETFLAG_BRONZE),
-	add_target(0x00, 0x3b, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_80),
-	add_target(0x00, 0x3c, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_80),
-	add_target(0x00, 0x3d, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_80),
-	add_target(0x00, 0x3b, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_80),
-	add_target(0x00, 0x3c, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_80),
-	add_target(0x00, 0x3d, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_80),
-	add_target(0x00, 0x3b, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_80),
-	add_target(0x00, 0x3c, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_80),
-	add_target(0x00, 0x3d, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_80),
+	add_target(0x00, 0x3b, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_TMPINVINCIBLE),
+	add_target(0x00, 0x3c, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_TMPINVINCIBLE),
+	add_target(0x00, 0x3d, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_TMPINVINCIBLE),
+	add_target(0x00, 0x3b, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_TMPINVINCIBLE),
+	add_target(0x00, 0x3c, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_TMPINVINCIBLE),
+	add_target(0x00, 0x3d, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_TMPINVINCIBLE),
+	add_target(0x00, 0x3b, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_TMPINVINCIBLE),
+	add_target(0x00, 0x3c, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_TMPINVINCIBLE),
+	add_target(0x00, 0x3d, 0x0c, FRTARGETFLAG_SILVER | FRTARGETFLAG_TMPINVINCIBLE),
 	add_target(0x00, 0x22, 0x01, FRTARGETFLAG_GOLD),
 	add_target(0x00, 0x21, 0x01, FRTARGETFLAG_GOLD),
 	add_target(0x00, 0x20, 0x01, FRTARGETFLAG_GOLD),
@@ -204,7 +204,7 @@ u8 weapon_phoenix[] = {
 
 u8 weapon_dy357magnum[] = {
 	start(),
-	set_num_targets(1, 9, 9),
+	set_max_active_targets(1, 9, 9),
 	set_goal_score(90, 80, 50),
 	set_time_limit(255, 255, 12),
 	set_ammo_limit(255, 3, 5),
@@ -228,21 +228,21 @@ u8 weapon_dy357magnum[] = {
 	add_target(0x00, 0x12, 0x01, FRTARGETFLAG_SILVER),
 	add_target(0x01, 0x13, 0x01, FRTARGETFLAG_SILVER),
 	add_target(0x02, 0x14, 0x01, FRTARGETFLAG_SILVER),
-	add_target(0x00, 0x32, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x2a, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x2b, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x2c, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x36, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x2e, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x38, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x30, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x3a, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
+	add_target(0x00, 0x32, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x2a, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x2b, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x2c, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x36, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x2e, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x38, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x30, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x3a, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
 	end(),
 };
 
 u8 weapon_dy357lx[] = {
 	start(),
-	set_num_targets(1, 3, 1),
+	set_max_active_targets(1, 3, 1),
 	set_goal_score(90, 200, 100),
 	set_time_limit(255, 30, 50),
 	set_ammo_limit(255, 255, 12),
@@ -269,7 +269,7 @@ u8 weapon_dy357lx[] = {
 
 u8 weapon_cmp150[] = {
 	start(),
-	set_num_targets(3, 4, 3),
+	set_max_active_targets(3, 4, 3),
 	set_score_multiplier(1, 0, 2),
 	set_goal_score(240, 0, 175),
 	set_time_limit(255, 255, 20),
@@ -301,7 +301,7 @@ u8 weapon_cmp150[] = {
 
 u8 weapon_cyclone[] = {
 	start(),
-	set_num_targets(3, 2, 3),
+	set_max_active_targets(3, 2, 3),
 	set_score_multiplier(3, 0, 2),
 	set_goal_score(250, 0, 200),
 	set_time_limit(255, 20, 18),
@@ -328,7 +328,7 @@ u8 weapon_cyclone[] = {
 
 u8 weapon_callistontg[] = {
 	start(),
-	set_num_targets(6, 4, 9),
+	set_max_active_targets(6, 4, 9),
 	set_score_multiplier(2, 0, 1),
 	set_goal_score(240, 0, 250),
 	set_time_limit(255, 30, 20),
@@ -360,22 +360,26 @@ u8 weapon_callistontg[] = {
 
 u8 weapon_rcp120[] = {
 	start(),
-	set_num_targets(1, 3, 9),
+	set_max_active_targets(1, 3, 9),
 	set_score_multiplier(4, 2, 1),
 	set_goal_score(250, 150, 0),
 	set_time_limit(255, 20, 20),
 	set_ammo_limit(255, 255, 180),
 	set_extra_speed(0, 1, 3),
+
+	// @bug: This causes the RC-P120 to show help messages.
+	// It's likely a copy/paste error from the Falcon 2.
 	set_help_script(0),
+
 	cmd_0a(0x09),
 	set_goal_targets(255, 255, 9),
 	add_target(0x01, 0x07, 0xff, FRTARGETFLAG_BRONZE),
-	add_target(0x00, 0x14, 0x14, FRTARGETFLAG_SILVER | FRTARGETFLAG_08 | FRTARGETFLAG_10),
-	add_target(0x00, 0x13, 0x14, FRTARGETFLAG_SILVER | FRTARGETFLAG_08 | FRTARGETFLAG_10),
-	add_target(0x00, 0x12, 0x14, FRTARGETFLAG_SILVER | FRTARGETFLAG_08 | FRTARGETFLAG_10),
-	add_target(0x00, 0x14, 0x04, FRTARGETFLAG_GOLD | FRTARGETFLAG_08 | FRTARGETFLAG_10),
-	add_target(0x00, 0x13, 0x04, FRTARGETFLAG_GOLD | FRTARGETFLAG_08 | FRTARGETFLAG_10),
-	add_target(0x00, 0x12, 0x04, FRTARGETFLAG_GOLD | FRTARGETFLAG_08 | FRTARGETFLAG_10),
+	add_target(0x00, 0x14, 0x14, FRTARGETFLAG_SILVER | FRTARGETFLAG_SPAWNFACINGAWAY | FRTARGETFLAG_ROTATEONCLOAK),
+	add_target(0x00, 0x13, 0x14, FRTARGETFLAG_SILVER | FRTARGETFLAG_SPAWNFACINGAWAY | FRTARGETFLAG_ROTATEONCLOAK),
+	add_target(0x00, 0x12, 0x14, FRTARGETFLAG_SILVER | FRTARGETFLAG_SPAWNFACINGAWAY | FRTARGETFLAG_ROTATEONCLOAK),
+	add_target(0x00, 0x14, 0x04, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY | FRTARGETFLAG_ROTATEONCLOAK),
+	add_target(0x00, 0x13, 0x04, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY | FRTARGETFLAG_ROTATEONCLOAK),
+	add_target(0x00, 0x12, 0x04, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY | FRTARGETFLAG_ROTATEONCLOAK),
 	add_target(0x00, 0x11, 0x0a, FRTARGETFLAG_GOLD),
 	add_target(0x00, 0x10, 0x0a, FRTARGETFLAG_GOLD),
 	add_target(0x00, 0x0f, 0x0a, FRTARGETFLAG_GOLD),
@@ -387,7 +391,7 @@ u8 weapon_rcp120[] = {
 
 u8 weapon_laptopgun[] = {
 	start(),
-	set_num_targets(3, 3, 3),
+	set_max_active_targets(3, 3, 3),
 	set_score_multiplier(5, 0, 3),
 	set_goal_score(150, 90, 250),
 	set_time_limit(30, 20, 15),
@@ -401,9 +405,9 @@ u8 weapon_laptopgun[] = {
 	add_target(0x01, 0x12, 0x32, FRTARGETFLAG_BRONZE),
 	add_target(0x01, 0x13, 0x32, FRTARGETFLAG_BRONZE),
 	add_target(0x02, 0x14, 0x32, FRTARGETFLAG_BRONZE),
-	add_target(0x00, 0x12, 0x1e, FRTARGETFLAG_SILVER | FRTARGETFLAG_10),
-	add_target(0x00, 0x13, 0x1e, FRTARGETFLAG_SILVER | FRTARGETFLAG_10),
-	add_target(0x00, 0x14, 0x1e, FRTARGETFLAG_SILVER | FRTARGETFLAG_10),
+	add_target(0x00, 0x12, 0x1e, FRTARGETFLAG_SILVER | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x13, 0x1e, FRTARGETFLAG_SILVER | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x14, 0x1e, FRTARGETFLAG_SILVER | FRTARGETFLAG_SPAWNFACINGAWAY),
 	add_target(0x00, 0x49, 0x32, FRTARGETFLAG_GOLD),
 	add_target(0x00, 0x4a, 0x32, FRTARGETFLAG_GOLD),
 	add_target(0x00, 0x4b, 0x32, FRTARGETFLAG_GOLD),
@@ -412,7 +416,7 @@ u8 weapon_laptopgun[] = {
 
 u8 weapon_dragon[] = {
 	start(),
-	set_num_targets(3, 1, 5),
+	set_max_active_targets(3, 1, 5),
 	set_score_multiplier(3, 0, 2),
 	set_goal_score(150, 0, 250),
 	set_time_limit(255, 10, 15),
@@ -441,7 +445,7 @@ u8 weapon_dragon[] = {
 
 u8 weapon_k7avenger[] = {
 	start(),
-	set_num_targets(1, 5, 3),
+	set_max_active_targets(1, 5, 3),
 	set_score_multiplier(3, 0, 0),
 	set_goal_score(125, 0, 0),
 	set_time_limit(255, 255, 15),
@@ -453,13 +457,13 @@ u8 weapon_k7avenger[] = {
 	add_target(0x01, 0x0d, 0x19, FRTARGETFLAG_BRONZE),
 	add_target(0x01, 0x0e, 0x19, FRTARGETFLAG_BRONZE),
 	add_target(0x00, 0x0c, 0xff, FRTARGETFLAG_SILVER),
-	add_target(0x00, 0x0d, 0xff, FRTARGETFLAG_SILVER | FRTARGETFLAG_20),
+	add_target(0x00, 0x0d, 0xff, FRTARGETFLAG_SILVER | FRTARGETFLAG_ONEHITEXPLODE),
 	add_target(0x00, 0x0e, 0xff, FRTARGETFLAG_SILVER),
-	add_target(0x00, 0x0f, 0xff, FRTARGETFLAG_SILVER | FRTARGETFLAG_20),
+	add_target(0x00, 0x0f, 0xff, FRTARGETFLAG_SILVER | FRTARGETFLAG_ONEHITEXPLODE),
 	add_target(0x00, 0x10, 0xff, FRTARGETFLAG_SILVER),
-	add_target(0x00, 0x11, 0xff, FRTARGETFLAG_SILVER | FRTARGETFLAG_20),
+	add_target(0x00, 0x11, 0xff, FRTARGETFLAG_SILVER | FRTARGETFLAG_ONEHITEXPLODE),
 	add_target(0x00, 0x12, 0xff, FRTARGETFLAG_SILVER),
-	add_target(0x00, 0x13, 0xff, FRTARGETFLAG_SILVER | FRTARGETFLAG_20),
+	add_target(0x00, 0x13, 0xff, FRTARGETFLAG_SILVER | FRTARGETFLAG_ONEHITEXPLODE),
 	add_target(0x00, 0x14, 0xff, FRTARGETFLAG_SILVER),
 	add_target(0x00, 0x2b, 0x0a, FRTARGETFLAG_GOLD),
 	add_target(0x00, 0x33, 0x0a, FRTARGETFLAG_GOLD),
@@ -469,7 +473,7 @@ u8 weapon_k7avenger[] = {
 
 u8 weapon_ar34[] = {
 	start(),
-	set_num_targets(3, 3, 1),
+	set_max_active_targets(3, 3, 1),
 	set_score_multiplier(3, 0, 5),
 	set_goal_score(150, 0, 100),
 	set_time_limit(255, 255, 20),
@@ -496,7 +500,7 @@ u8 weapon_ar34[] = {
 
 u8 weapon_superdragon[] = {
 	start(),
-	set_num_targets(1, 9, 5),
+	set_max_active_targets(1, 9, 5),
 	set_score_multiplier(3, 0, 1),
 	set_goal_score(150, 0, 0),
 	set_time_limit(255, 255, 30),
@@ -531,7 +535,7 @@ u8 weapon_superdragon[] = {
 
 u8 weapon_shotgun[] = {
 	start(),
-	set_num_targets(1, 3, 1),
+	set_max_active_targets(1, 3, 1),
 	set_goal_score(240, 0, 170),
 	set_time_limit(255, 30, 20),
 	set_ammo_limit(255, 255, 30),
@@ -560,7 +564,7 @@ u8 weapon_shotgun[] = {
 
 u8 weapon_sniperrifle[] = {
 	start(),
-	set_num_targets(3, 3, 3),
+	set_max_active_targets(3, 3, 3),
 	set_goal_score(120, 120, 150),
 	set_time_limit(255, 255, 12),
 	set_ammo_limit(255, 255, 15),
@@ -587,37 +591,37 @@ u8 weapon_sniperrifle[] = {
 
 u8 weapon_farsightxr20[] = {
 	start(),
-	set_num_targets(3, 9, 6),
+	set_max_active_targets(3, 9, 6),
 	set_goal_score(0, 0, 40),
 	set_time_limit(255, 15, 20),
 	set_ammo_limit(255, 255, 3),
 	set_extra_speed(0, 1, 3),
 	cmd_0a(0x12),
 	set_goal_targets(3, 6, 6),
-	add_target(0x01, 0x0c, 0x03, FRTARGETFLAG_BRONZE | FRTARGETFLAG_40),
-	add_target(0x01, 0x10, 0x03, FRTARGETFLAG_BRONZE | FRTARGETFLAG_40),
-	add_target(0x01, 0x14, 0x03, FRTARGETFLAG_BRONZE | FRTARGETFLAG_40),
-	add_target(0x01, 0x29, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_40),
-	add_target(0x01, 0x2a, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_40),
-	add_target(0x01, 0x2b, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_40),
-	add_target(0x01, 0x2c, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_40),
-	add_target(0x01, 0x2d, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_40),
-	add_target(0x01, 0x2e, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_40),
-	add_target(0x01, 0x12, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_10),
-	add_target(0x01, 0x13, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_10),
-	add_target(0x01, 0x14, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_10),
-	add_target(0x01, 0x0c, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_40),
+	add_target(0x01, 0x0c, 0x03, FRTARGETFLAG_BRONZE | FRTARGETFLAG_FARSIGHTAUTOTARGETABLE),
+	add_target(0x01, 0x10, 0x03, FRTARGETFLAG_BRONZE | FRTARGETFLAG_FARSIGHTAUTOTARGETABLE),
+	add_target(0x01, 0x14, 0x03, FRTARGETFLAG_BRONZE | FRTARGETFLAG_FARSIGHTAUTOTARGETABLE),
+	add_target(0x01, 0x29, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_FARSIGHTAUTOTARGETABLE),
+	add_target(0x01, 0x2a, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_FARSIGHTAUTOTARGETABLE),
+	add_target(0x01, 0x2b, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_FARSIGHTAUTOTARGETABLE),
+	add_target(0x01, 0x2c, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_FARSIGHTAUTOTARGETABLE),
+	add_target(0x01, 0x2d, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_FARSIGHTAUTOTARGETABLE),
+	add_target(0x01, 0x2e, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_FARSIGHTAUTOTARGETABLE),
+	add_target(0x01, 0x12, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x01, 0x13, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x01, 0x14, 0x01, FRTARGETFLAG_SILVER | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x01, 0x0c, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_FARSIGHTAUTOTARGETABLE),
 	add_target(0x01, 0x12, 0x01, FRTARGETFLAG_GOLD),
-	add_target(0x01, 0x0e, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_40),
+	add_target(0x01, 0x0e, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_FARSIGHTAUTOTARGETABLE),
 	add_target(0x01, 0x14, 0x01, FRTARGETFLAG_GOLD),
 	add_target(0x01, 0x10, 0x01, FRTARGETFLAG_GOLD),
-	add_target(0x00, 0x1f, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_40),
+	add_target(0x00, 0x1f, 0x01, FRTARGETFLAG_GOLD | FRTARGETFLAG_FARSIGHTAUTOTARGETABLE),
 	end(),
 };
 
 u8 weapon_crossbow[] = {
 	start(),
-	set_num_targets(3, 3, 1),
+	set_max_active_targets(3, 3, 1),
 	set_score_multiplier(0, 0, 1),
 	set_goal_score(72, 90, 150),
 	set_time_limit(255, 255, 30),
@@ -636,7 +640,7 @@ u8 weapon_crossbow[] = {
 
 u8 weapon_tranquilizer[] = {
 	start(),
-	set_num_targets(8, 3, 1),
+	set_max_active_targets(8, 3, 1),
 	set_goal_score(120, 250, 0),
 	set_time_limit(255, 20, 15),
 	set_ammo_limit(255, 255, 18),
@@ -683,7 +687,7 @@ u8 weapon_tranquilizer[] = {
 
 u8 weapon_reaper[] = {
 	start(),
-	set_num_targets(3, 3, 3),
+	set_max_active_targets(3, 3, 3),
 	set_score_multiplier(5, 0, 3),
 	set_goal_score(200, 0, 250),
 	set_time_limit(255, 30, 30),
@@ -720,7 +724,7 @@ u8 weapon_reaper[] = {
 
 u8 weapon_devastator[] = {
 	start(),
-	set_num_targets(3, 6, 1),
+	set_max_active_targets(3, 6, 1),
 	set_goal_score(0, 0, 0),
 	set_time_limit(255, 50, 30),
 	set_ammo_limit(255, 10, 6),
@@ -739,18 +743,18 @@ u8 weapon_devastator[] = {
 	add_target(0x01, 0x45, 0x05, FRTARGETFLAG_SILVER),
 	add_target(0x01, 0x46, 0x05, FRTARGETFLAG_SILVER),
 	add_target(0x01, 0x47, 0x05, FRTARGETFLAG_SILVER),
-	add_target(0x00, 0x2c, 0x08, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x2f, 0x08, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x2d, 0x08, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x31, 0x08, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x2e, 0x08, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
-	add_target(0x00, 0x30, 0x08, FRTARGETFLAG_GOLD | FRTARGETFLAG_10),
+	add_target(0x00, 0x2c, 0x08, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x2f, 0x08, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x2d, 0x08, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x31, 0x08, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x2e, 0x08, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
+	add_target(0x00, 0x30, 0x08, FRTARGETFLAG_GOLD | FRTARGETFLAG_SPAWNFACINGAWAY),
 	end(),
 };
 
 u8 weapon_rocketlauncher[] = {
 	start(),
-	set_num_targets(9, 8, 4),
+	set_max_active_targets(9, 8, 4),
 	set_goal_score(0, 0, 40),
 	set_time_limit(255, 255, 30),
 	set_ammo_limit(255, 18, 4),
@@ -783,7 +787,7 @@ u8 weapon_rocketlauncher[] = {
 
 u8 weapon_slayer[] = {
 	start(),
-	set_num_targets(1, 4, 3),
+	set_max_active_targets(1, 4, 3),
 	set_goal_score(0, 40, 60),
 	set_time_limit(255, 255, 40),
 	set_ammo_limit(255, 6, 8),
@@ -811,7 +815,7 @@ u8 weapon_slayer[] = {
 
 u8 weapon_combatknife[] = {
 	start(),
-	set_num_targets(1, 3, 8),
+	set_max_active_targets(1, 3, 8),
 	set_goal_score(72, 90, 80),
 	set_time_limit(255, 255, 30),
 	set_ammo_limit(255, 18, 255),
@@ -837,7 +841,7 @@ u8 weapon_combatknife[] = {
 
 u8 weapon_laser[] = {
 	start(),
-	set_num_targets(3, 1, 3),
+	set_max_active_targets(3, 1, 3),
 	set_goal_score(250, 180, 250),
 	set_time_limit(255, 20, 20),
 	set_ammo_limit(255, 255, 255),
@@ -857,7 +861,7 @@ u8 weapon_laser[] = {
 
 u8 weapon_grenade[] = {
 	start(),
-	set_num_targets(1, 3, 1),
+	set_max_active_targets(1, 3, 1),
 	set_goal_score(0, 0, 0),
 	set_time_limit(255, 30, 30),
 	set_ammo_limit(255, 255, 6),
@@ -894,7 +898,7 @@ u8 weapon_grenade[] = {
 
 u8 weapon_1e[] = {
 	start(),
-	set_num_targets(3, 9, 4),
+	set_max_active_targets(3, 9, 4),
 	set_goal_score(72, 90, 80),
 	set_time_limit(255, 255, 12),
 	set_ammo_limit(255, 18, 255),
@@ -930,7 +934,7 @@ u8 weapon_1e[] = {
 
 u8 weapon_timedmine[] = {
 	start(),
-	set_num_targets(3, 6, 6),
+	set_max_active_targets(3, 6, 6),
 	set_goal_score(0, 0, 60),
 	set_time_limit(255, 255, 12),
 	set_ammo_limit(255, 6, 1),
@@ -957,7 +961,7 @@ u8 weapon_timedmine[] = {
 
 u8 weapon_proximitymine[] = {
 	start(),
-	set_num_targets(3, 3, 5),
+	set_max_active_targets(3, 3, 5),
 	set_goal_score(0, 0, 0),
 	set_time_limit(255, 255, 30),
 	set_ammo_limit(255, 6, 4),
@@ -980,7 +984,7 @@ u8 weapon_proximitymine[] = {
 
 u8 weapon_remotemine[] = {
 	start(),
-	set_num_targets(3, 4, 7),
+	set_max_active_targets(3, 4, 7),
 	set_goal_score(0, 0, 0),
 	set_time_limit(255, 255, 12),
 	set_ammo_limit(255, 4, 2),

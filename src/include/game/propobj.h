@@ -69,7 +69,7 @@ u32 func0f06896c(void);
 u32 func0f068998(void);
 u32 func0f068aa8(void);
 u32 func0f068ad4(void);
-u32 func0f068af4(void);
+struct model08thing *func0f068af4(struct defaultobj *obj);
 u32 func0f068b14(void);
 u32 func0f068c04(void);
 u32 func0f068fc8(void);

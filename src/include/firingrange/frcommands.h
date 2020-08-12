@@ -1,7 +1,7 @@
 #define add_target(frpadnum, script, target01, flags) \
 	0x00, frpadnum, script, target01, flags
 
-#define set_num_targets(bronze, silver, gold) \
+#define set_max_active_targets(bronze, silver, gold) \
 	0x01, bronze, silver, gold
 
 #define set_goal_score(bronze, silver, gold) \

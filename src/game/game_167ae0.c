@@ -766,7 +766,7 @@ glabel var7f1b784c
 .L0f168c88:
 /*  f168c88:	14a10007 */ 	bne	$a1,$at,.L0f168ca8
 /*  f168c8c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f168c90:	0fc67c88 */ 	jal	func0f19f220
+/*  f168c90:	0fc67c88 */ 	jal	frIsTargetOneHitExplodable
 /*  f168c94:	afa8005c */ 	sw	$t0,0x5c($sp)
 /*  f168c98:	8fa8005c */ 	lw	$t0,0x5c($sp)
 /*  f168c9c:	10400002 */ 	beqz	$v0,.L0f168ca8
@@ -1002,7 +1002,7 @@ glabel var7f1b784c
 //			}
 //		}
 //
-//		if (obj->modelnum == MODEL_TARGET && func0f19f220(prop)) {
+//		if (obj->modelnum == MODEL_TARGET && frIsTargetOneHitExplodable(prop)) {
 //			pass = true;
 //		}
 //

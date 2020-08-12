@@ -426,8 +426,8 @@ void func0f19d4ec(void)
 	g_FiringRangeData.helpscriptoffset = 0;
 	g_FiringRangeData.helpscriptenabled = false;
 	g_FiringRangeData.helpscriptsleep = 0;
-	g_FiringRangeData.unk464 = 0;
-	g_FiringRangeData.numtargets = 0;
+	g_FiringRangeData.menucountdown = 0;
+	g_FiringRangeData.maxactivetargets = 0;
 
 	for (i = 0; i < 18; i++) {
 		g_FiringRangeData.targets[i].prop = NULL;
@@ -475,7 +475,7 @@ void frInitDefaults(void)
 
 	padUnpack(g_FrPads[0], PADFIELD_POS, &pad);
 
-	g_FiringRangeData.numtargets = 0;
+	g_FiringRangeData.maxactivetargets = 0;
 	g_FiringRangeData.goalscore = 0;
 	g_FiringRangeData.timelimit = 200;
 	g_FiringRangeData.ammolimit = 255;
@@ -485,29 +485,29 @@ void frInitDefaults(void)
 	g_FiringRangeData.speed = 1;
 
 	for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
-		g_FiringRangeData.targets[i].unk08.x = pad.pos.x;
-		g_FiringRangeData.targets[i].unk08.y = pad.pos.y;
-		g_FiringRangeData.targets[i].unk08.z = pad.pos.z;
-		g_FiringRangeData.targets[i].unk08.z += 6.0f * i;
+		g_FiringRangeData.targets[i].dstpos.x = pad.pos.x;
+		g_FiringRangeData.targets[i].dstpos.y = pad.pos.y;
+		g_FiringRangeData.targets[i].dstpos.z = pad.pos.z;
+		g_FiringRangeData.targets[i].dstpos.z += 6.0f * i;
 
 		g_FiringRangeData.targets[i].unk00_01 = false;
-		g_FiringRangeData.targets[i].unk00_06 = false;
-		g_FiringRangeData.targets[i].unk00_03 = false;
+		g_FiringRangeData.targets[i].rotateoncloak = false;
+		g_FiringRangeData.targets[i].destroyed = false;
 		g_FiringRangeData.targets[i].damage = 0;
 		g_FiringRangeData.targets[i].scriptoffset = 0;
 
-		g_FiringRangeData.targets[i].unk1c = 0;
-		g_FiringRangeData.targets[i].unk14 = 255 * 60;
-		g_FiringRangeData.targets[i].unk18 = 0;
+		g_FiringRangeData.targets[i].travelspeed = 0;
+		g_FiringRangeData.targets[i].scriptsleep = SECSTOFRAMES60(255);
+		g_FiringRangeData.targets[i].timeuntilrotate = 0;
 
-		g_FiringRangeData.targets[i].unk00_05 = false;
-		g_FiringRangeData.targets[i].unk24 = 0;
+		g_FiringRangeData.targets[i].rotating = false;
+		g_FiringRangeData.targets[i].rotatespeed = 0;
 		g_FiringRangeData.targets[i].angle = 0;
-		g_FiringRangeData.targets[i].unk2c = 0;
+		g_FiringRangeData.targets[i].rotatetoangle = 0;
 		g_FiringRangeData.targets[i].unk31 = 0;
 		g_FiringRangeData.targets[i].unk32 = 0;
-		g_FiringRangeData.targets[i].unk33 = 0;
-		g_FiringRangeData.targets[i].unk38 = 0;
+		g_FiringRangeData.targets[i].travelling = false;
+		g_FiringRangeData.targets[i].invincibletimer = 0;
 		g_FiringRangeData.targets[i].frpadnum = -1;
 
 		func0f13e40c(g_FiringRangeData.targets[i].prop, false);
@@ -516,9 +516,9 @@ void frInitDefaults(void)
 
 	g_FiringRangeData.timetaken = -240;
 	g_FiringRangeData.score = 0;
-	g_FiringRangeData.curtarget = 0;
+	g_FiringRangeData.numtargets = 0;
 	g_FiringRangeData.targetsdestroyed = 0;
-	g_FiringRangeData.unk464 = 0;
+	g_FiringRangeData.menucountdown = 0;
 	g_FiringRangeData.unk470 = 0;
 	g_FiringRangeData.feedbackzone = 0;
 	g_FiringRangeData.feedbackttl = 0;
@@ -533,7 +533,7 @@ void frInitDefaults(void)
 	g_FiringRangeData.helpscriptenabled = false;
 	g_FiringRangeData.helpscriptsleep = 0;
 	g_FiringRangeData.proxyendtimer = 0;
-	g_FiringRangeData.unk465_04 = false;
+	g_FiringRangeData.donealarm = false;
 	g_FiringRangeData.ammohasgrace = true;
 	g_FiringRangeData.ammoextra = -1;
 }
@@ -978,27 +978,27 @@ glabel var7f1b93ec
 //					offset += 5;
 //					break;
 //				}
-//				if (g_FiringRangeData.curtarget < ARRAYCOUNT(g_FiringRangeData.targets)) {
-//					g_FiringRangeData.targets[g_FiringRangeData.curtarget].frpadindex = frResolveFrPad(script[offset + 1]);
-//					g_FiringRangeData.targets[g_FiringRangeData.curtarget].scriptindex = script[offset + 2];
-//					g_FiringRangeData.targets[g_FiringRangeData.curtarget].maxdamage = script[offset + 3];
-//					g_FiringRangeData.targets[g_FiringRangeData.curtarget].unk00_01 = true;
-//					g_FiringRangeData.targets[g_FiringRangeData.curtarget].flags = script[offset + 4];
+//				if (g_FiringRangeData.numtargets < ARRAYCOUNT(g_FiringRangeData.targets)) {
+//					g_FiringRangeData.targets[g_FiringRangeData.numtargets].frpadindex = frResolveFrPad(script[offset + 1]);
+//					g_FiringRangeData.targets[g_FiringRangeData.numtargets].scriptindex = script[offset + 2];
+//					g_FiringRangeData.targets[g_FiringRangeData.numtargets].maxdamage = script[offset + 3];
+//					g_FiringRangeData.targets[g_FiringRangeData.numtargets].unk00_01 = true;
+//					g_FiringRangeData.targets[g_FiringRangeData.numtargets].flags = script[offset + 4];
 //
-//					if (g_FiringRangeData.targets[g_FiringRangeData.curtarget].flags & FRTARGETFLAG_08) {
-//						g_FiringRangeData.targets[g_FiringRangeData.curtarget].unk00_06 = true;
+//					if (g_FiringRangeData.targets[g_FiringRangeData.numtargets].flags & FRTARGETFLAG_ROTATEONCLOAK) {
+//						g_FiringRangeData.targets[g_FiringRangeData.numtargets].rotateoncloak = true;
 //					}
 //
-//					if (g_FiringRangeData.targets[g_FiringRangeData.curtarget].flags & FRTARGETFLAG_20) {
-//						g_FiringRangeData.targets[g_FiringRangeData.curtarget].maxdamage = 1;
+//					if (g_FiringRangeData.targets[g_FiringRangeData.numtargets].flags & FRTARGETFLAG_ONEHITEXPLODE) {
+//						g_FiringRangeData.targets[g_FiringRangeData.numtargets].maxdamage = 1;
 //					}
 //
-//					g_FiringRangeData.curtarget++;
+//					g_FiringRangeData.numtargets++;
 //				}
 //				offset += 5;
 //				break;
-//			case FRCMD_SETNUMTARGETS: // f19db00
-//				g_FiringRangeData.numtargets = script[offset + 1 + g_FiringRangeData.difficulty];
+//			case FRCMD_SETMAXACTIVETARGETS: // f19db00
+//				g_FiringRangeData.maxactivetargets = script[offset + 1 + g_FiringRangeData.difficulty];
 //				offset += 4;
 //				break;
 //			case FRCMD_SETSCOREMULTIPLIER: // f19db24
@@ -1161,7 +1161,7 @@ void frExecuteHelpScript(void)
 			g_FiringRangeData.helpscriptoffset += 2;
 			break;
 		case FRCMD_WAITSECONDS:
-			g_FiringRangeData.helpscriptsleep = script[offset + 1] * 60;
+			g_FiringRangeData.helpscriptsleep = SECSTOFRAMES60(script[offset + 1]);
 			g_FiringRangeData.helpscriptoffset += 2;
 			break;
 		case FRCMD_WAITUNTILSHOOT:
@@ -1442,8 +1442,8 @@ glabel var7f1b941c
 //
 //		switch (script[offset]) {
 //		case FRCMD_END:
-//			g_FiringRangeData.targets[targetnum].unk00_04 = true;
-//			g_FiringRangeData.targets[targetnum].unk14 = 255 * 60;
+//			g_FiringRangeData.targets[targetnum].scriptenabled = true;
+//			g_FiringRangeData.targets[targetnum].scriptsleep = SECSTOFRAMES60(255);
 //			return true;
 //		case FRCMD_GOTOPAD:
 //			frpadnum = frResolveFrPad(script[offset + 1]);
@@ -1457,14 +1457,14 @@ glabel var7f1b941c
 //
 //			padUnpack(g_FrPads[frpadnum], PADFIELD_POS, &pad);
 //
-//			g_FiringRangeData.targets[targetnum].unk08.x = pad.pos.x;
-//			g_FiringRangeData.targets[targetnum].unk08.y = pad.pos.y;
-//			g_FiringRangeData.targets[targetnum].unk08.z = pad.pos.z;
-//			g_FiringRangeData.targets[targetnum].unk08.z += 6.0f * targetnum;
+//			g_FiringRangeData.targets[targetnum].dstpos.x = pad.pos.x;
+//			g_FiringRangeData.targets[targetnum].dstpos.y = pad.pos.y;
+//			g_FiringRangeData.targets[targetnum].dstpos.z = pad.pos.z;
+//			g_FiringRangeData.targets[targetnum].dstpos.z += 6.0f * targetnum;
 //
 //			if (script[offset + 2] == 0xff) {
-//				g_FiringRangeData.targets[targetnum].unk1c = -1;
-//				g_FiringRangeData.targets[targetnum].unk33 = 1;
+//				g_FiringRangeData.targets[targetnum].travelspeed = -1;
+//				g_FiringRangeData.targets[targetnum].travelling = true;
 //			} else {
 //				if (g_FrNumSounds < 3) {
 //					g_FrNumSounds++;
@@ -1472,11 +1472,11 @@ glabel var7f1b941c
 //							-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 //				}
 //
-//				g_FiringRangeData.targets[targetnum].unk1c = (script[offset + 2] / 60.0f) * g_FiringRangeData.speed;
-//				g_FiringRangeData.targets[targetnum].unk33 = 1;
+//				g_FiringRangeData.targets[targetnum].travelspeed = (script[offset + 2] / 60.0f) * g_FiringRangeData.speed;
+//				g_FiringRangeData.targets[targetnum].travelling = true;
 //			}
 //
-//			g_FiringRangeData.targets[targetnum].unk14 = script[offset + 3] * 60;
+//			g_FiringRangeData.targets[targetnum].scriptsleep = SECSTOFRAMES60(script[offset + 3]);
 //			g_FiringRangeData.targets[targetnum].unk32 = 0;
 //			g_FiringRangeData.targets[targetnum].scriptoffset += 4;
 //			return true;
@@ -1484,22 +1484,22 @@ glabel var7f1b941c
 //			g_FiringRangeData.targets[targetnum].scriptoffset = 0;
 //			return true;
 //		case FRCMD_0E:
-//			g_FiringRangeData.targets[targetnum].unk00_04 = true;
-//			g_FiringRangeData.targets[targetnum].unk14 = script[offset + 1] * 60;
+//			g_FiringRangeData.targets[targetnum].scriptenabled = true;
+//			g_FiringRangeData.targets[targetnum].scriptsleep = SECSTOFRAMES60(script[offset + 1]);
 //			g_FiringRangeData.targets[targetnum].scriptoffset += 2;
 //			return true;
 //		case FRCMD_ROTATE:
-//			if (g_FiringRangeData.targets[targetnum].unk00_06 == false) {
+//			if (g_FiringRangeData.targets[targetnum].rotateoncloak == false) {
 //				f32 angles[4];
 //				angles[0] = DEG2RAD(-90);
 //				angles[1] = DEG2RAD(-180);
 //				angles[2] = DEG2RAD(90);
 //				angles[3] = DEG2RAD(180);
 //
-//				g_FiringRangeData.targets[targetnum].unk2c = g_FiringRangeData.targets[targetnum].angle + angles[script[offset + 1]];
-//				g_FiringRangeData.targets[targetnum].unk24 = angles[script[offset + 1]] / (script[offset + 2] * 15);
-//				g_FiringRangeData.targets[targetnum].unk00_05 = true;
-//				g_FiringRangeData.targets[targetnum].unk00_04 = false;
+//				g_FiringRangeData.targets[targetnum].rotatetoangle = g_FiringRangeData.targets[targetnum].angle + angles[script[offset + 1]];
+//				g_FiringRangeData.targets[targetnum].rotatespeed = angles[script[offset + 1]] / (script[offset + 2] * 15);
+//				g_FiringRangeData.targets[targetnum].rotating = true;
+//				g_FiringRangeData.targets[targetnum].scriptenabled = false;
 //			}
 //
 //			g_FiringRangeData.targets[targetnum].scriptoffset += 3;
@@ -1563,15 +1563,15 @@ void frInitTargets(void)
 			prop->timetoregen = 0;
 
 			if (g_FiringRangeData.targets[i].unk00_01) {
-				g_FiringRangeData.targets[i].unk00_04 = false;
-				g_FiringRangeData.targets[i].unk00_03 = false;
+				g_FiringRangeData.targets[i].scriptenabled = false;
+				g_FiringRangeData.targets[i].destroyed = false;
 
-				if (count < g_FiringRangeData.numtargets) {
+				if (count < g_FiringRangeData.maxactivetargets) {
 					obj->flags2 &= ~OBJFLAG2_INVISIBLE;
-					g_FiringRangeData.targets[i].unk00_02 = true;
+					g_FiringRangeData.targets[i].active = true;
 				} else {
 					obj->flags2 |= OBJFLAG2_INVISIBLE;
-					g_FiringRangeData.targets[i].unk00_02 = false;
+					g_FiringRangeData.targets[i].active = false;
 				}
 
 				padUnpack(g_FrPads[g_FiringRangeData.targets[i].frpadindex], PADFIELD_POS, &pospad.pad);
@@ -1583,10 +1583,10 @@ void frInitTargets(void)
 
 				frExecuteTargetScript(i);
 
-				if (g_FiringRangeData.targets[i].unk1c == -1) {
-					pospad.pos.x = g_FiringRangeData.targets[i].unk08.x;
-					pospad.pos.y = g_FiringRangeData.targets[i].unk08.y;
-					pospad.pos.z = g_FiringRangeData.targets[i].unk08.z;
+				if (g_FiringRangeData.targets[i].travelspeed == -1) {
+					pospad.pos.x = g_FiringRangeData.targets[i].dstpos.x;
+					pospad.pos.y = g_FiringRangeData.targets[i].dstpos.y;
+					pospad.pos.z = g_FiringRangeData.targets[i].dstpos.z;
 				}
 
 				count++;
@@ -1600,7 +1600,7 @@ void frInitTargets(void)
 				pospad.pos.z = 6.0f * i;
 			}
 
-			if (g_FiringRangeData.targets[i].flags & FRTARGETFLAG_10) {
+			if (g_FiringRangeData.targets[i].flags & FRTARGETFLAG_SPAWNFACINGAWAY) {
 				func00016374(0.0f, sp144);
 				g_FiringRangeData.targets[i].angle = M_PI;
 			} else {
@@ -2011,36 +2011,36 @@ void frSetFailReason(s32 failreason)
 	frEndSession(false);
 
 	g_FiringRangeData.failreason = frWasTooInaccurate() ? FRFAILREASON_INACCURATE : failreason;
-	g_FiringRangeData.unk465_00 = 2;
-	g_FiringRangeData.unk464 = 60;
+	g_FiringRangeData.menutype = FRMENUTYPE_FAILED;
+	g_FiringRangeData.menucountdown = 60;
 }
 
-void func0f19f18c(void)
+void frSetCompleted(void)
 {
 	frEndSession(false);
 
 	if (frWasTooInaccurate()) {
 		g_FiringRangeData.failreason = FRFAILREASON_INACCURATE;
-		g_FiringRangeData.unk465_00 = 2;
+		g_FiringRangeData.menutype = FRMENUTYPE_FAILED;
 	} else {
 		u32 frweaponindex = frGetWeaponIndexByWeapon(frGetWeaponBySlot(g_FiringRangeData.slot));
 		frSaveScoreIfBest(frweaponindex, g_FiringRangeData.difficulty + 1);
-		g_FiringRangeData.unk465_00 = 3;
+		g_FiringRangeData.menutype = FRMENUTYPE_COMPLETED;
 	}
 
-	g_FiringRangeData.unk464 = 60;
+	g_FiringRangeData.menucountdown = 60;
 }
 
-bool func0f19f220(struct prop *prop)
+bool frIsTargetOneHitExplodable(struct prop *prop)
 {
 	s32 i;
 
-	for (i = 0; i < 18; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
 		if (g_FiringRangeData.targets[i].unk00_01
-				&& g_FiringRangeData.targets[i].unk00_03 == 0
-				&& g_FiringRangeData.targets[i].unk00_02
+				&& g_FiringRangeData.targets[i].destroyed == false
+				&& g_FiringRangeData.targets[i].active
 				&& prop == g_FiringRangeData.targets[i].prop) {
-			if (g_FiringRangeData.targets[i].flags & FRTARGETFLAG_20) {
+			if (g_FiringRangeData.targets[i].flags & FRTARGETFLAG_ONEHITEXPLODE) {
 				return true;
 			}
 
@@ -2073,7 +2073,7 @@ bool func0f19f2ec(struct prop *prop, struct coord *pos)
 		if (prop == g_FiringRangeData.targets[i].prop) {
 			f32 angle;
 
-			if (g_FiringRangeData.targets[i].unk00_03) {
+			if (g_FiringRangeData.targets[i].destroyed) {
 				return false;
 			}
 
@@ -2219,8 +2219,8 @@ glabel var7f1b94bc
 //	// Make list of targets which are facing the laptop gun
 //	for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
 //		if (g_FiringRangeData.targets[i].unk00_01
-//				&& g_FiringRangeData.targets[i].unk00_03 == 0
-//				&& g_FiringRangeData.targets[i].unk00_02) {
+//				&& g_FiringRangeData.targets[i].destroyed == false
+//				&& g_FiringRangeData.targets[i].active) {
 //			f32 angle = func0f19f294(&g_FiringRangeData.targets[i].prop->pos, g_FiringRangeData.targets[i].angle, autogunpos);
 //
 //			//if (!(angle > BADDEG2RAD(90) && angle < BADDEG2RAD(270))) {
@@ -3068,7 +3068,7 @@ glabel var7f1b94e4
 /*  f1a02f4:	0182082a */ 	slt	$at,$t4,$v0
 /*  f1a02f8:	14200005 */ 	bnez	$at,.L0f1a0310
 /*  f1a02fc:	00000000 */ 	nop
-/*  f1a0300:	0fc67c63 */ 	jal	func0f19f18c
+/*  f1a0300:	0fc67c63 */ 	jal	frSetCompleted
 /*  f1a0304:	00000000 */ 	nop
 /*  f1a0308:	1000017a */ 	b	.L0f1a08f4
 /*  f1a030c:	8fbf007c */ 	lw	$ra,0x7c($sp)
@@ -3088,7 +3088,7 @@ glabel var7f1b94e4
 /*  f1a033c:	54200006 */ 	bnezl	$at,.L0f1a0358
 /*  f1a0340:	92ae0454 */ 	lbu	$t6,0x454($s5)
 .L0f1a0344:
-/*  f1a0344:	0fc67c63 */ 	jal	func0f19f18c
+/*  f1a0344:	0fc67c63 */ 	jal	frSetCompleted
 /*  f1a0348:	00000000 */ 	nop
 /*  f1a034c:	10000169 */ 	b	.L0f1a08f4
 /*  f1a0350:	8fbf007c */ 	lw	$ra,0x7c($sp)
@@ -3500,6 +3500,530 @@ glabel var7f1b94e4
 /*  f1a0920:	27bd0170 */ 	addiu	$sp,$sp,0x170
 );
 
+// Mismatch issues:
+// - Floating point math at 448 is very different
+// - g_FrNumSounds at 590 is calculated differently
+// - Goal has extra mov.s instruction near 730
+//void frTick(void)
+//{
+//	struct coord diff; // sp344
+//	struct coord newpos; // sp332
+//	f32 s5[9]; // sp152
+//	f32 s4[21]; // sp188
+//	s32 ammotype;
+//	s32 capacity;
+//	s32 weaponnum;
+//	u8 weaponnum2;
+//	struct prop *prop;
+//	struct defaultobj *obj;
+//	struct defaultobj *obj2;
+//	s32 invincible;
+//	u8 exploding;
+//	s32 i;
+//	s32 j;
+//	f32 dist;
+//	f32 mult;
+//	struct inventory_ammo *ammo;
+//	struct model08thing *model08thing;
+//	bool oldside;
+//	bool newside;
+//
+//	// 9c8
+//	if (g_FrIsValidWeapon
+//			&& g_Vars.currentplayer->unk1583_04 == 0
+//			&& currentPlayerCanHaveWeapon(frGetWeaponBySlot(g_FiringRangeData.slot))) {
+//		// a0c
+//		currentPlayerEquipWeapon(frGetWeaponBySlot(g_FiringRangeData.slot));
+//	}
+//
+//	// a1c
+//	// Handle the menu countdown
+//	if (g_FiringRangeData.menucountdown != 0) {
+//		g_FiringRangeData.menucountdown -= g_Vars.lvupdate240_60;
+//
+//		// Prevent showing the menu until gun is put away
+//		if (g_FiringRangeData.menucountdown <= 0) {
+//			if ((g_FiringRangeData.menutype == FRMENUTYPE_FAILED || g_FiringRangeData.menutype == FRMENUTYPE_COMPLETED)
+//					&& g_Vars.currentplayer->hands[0].weaponnum != WEAPON_UNARMED) {
+//				g_FiringRangeData.menucountdown = 1;
+//			}
+//		}
+//
+//		if (g_FiringRangeData.menucountdown <= 0) {
+//			g_FiringRangeData.menucountdown = 0;
+//
+//			for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
+//				if (g_FiringRangeData.targets[i].prop) {
+//					func0f0926bc(g_FiringRangeData.targets[i].prop, 1, 0xffff);
+//				}
+//			}
+//
+//			switch (g_FiringRangeData.menutype) {
+//			case FRMENUTYPE_WEAPONLIST:
+//				func0f0f85e0(ciGetFrWeaponListMenuDialog(), MENUROOT_TRAINING);
+//				break;
+//			case FRMENUTYPE_DETAILS:
+//				func0f0f85e0(&menudialog_frtraininginfo2, MENUROOT_TRAINING);
+//				break;
+//			case FRMENUTYPE_FAILED:
+//				audioStart(var80095200, 0x5db, NULL, -1, -1, -1, -1, -1);
+//				func0f0f85e0(&menudialog_frtrainingstats2, MENUROOT_TRAINING);
+//				break;
+//			case FRMENUTYPE_COMPLETED:
+//				audioStart(var80095200, 0x5dc, NULL, -1, -1, -1, -1, -1);
+//				func0f0f85e0(&menudialog_frtrainingstats, MENUROOT_TRAINING);
+//				func0f1094e4(&var800a22c0, 0, 0);
+//				break;
+//			}
+//		}
+//		return;
+//	}
+//
+//	// be8
+//	// End the session if the player slipped through the door before it closed
+//	if (g_Vars.currentplayer->prop->rooms[0] != CIROOM_FIRINGRANGE) {
+//		if (g_FrIsValidWeapon) {
+//			for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
+//				if (g_FiringRangeData.targets[i].unk00_01
+//						&& g_FiringRangeData.targets[i].destroyed == false
+//						&& g_FiringRangeData.targets[i].unk31 == 0
+//						&& g_FiringRangeData.targets[i].travelling) {
+//					g_FiringRangeData.targets[i].unk31 = 1;
+//					func0f0926bc(g_FiringRangeData.targets[i].prop, 1, 0xffff);
+//				}
+//			}
+//
+//			g_Vars.currentplayer->training = false;
+//			frEndSession(true);
+//			chrUnsetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
+//		}
+//		return;
+//	}
+//
+//	// c94
+//	if (!g_FrIsValidWeapon) {
+//		return;
+//	}
+//
+//	if (g_Vars.currentplayer->isdead) {
+//		frEndSession(false);
+//	}
+//
+//	// If paused, stop any target sounds
+//	if (g_Vars.lvupdate240 == 0) {
+//		for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
+//			if (g_FiringRangeData.targets[i].unk00_01
+//					&& g_FiringRangeData.targets[i].destroyed == false
+//					&& g_FiringRangeData.targets[i].unk31 == 0
+//					&& g_FiringRangeData.targets[i].travelling) {
+//				g_FiringRangeData.targets[i].unk31 = 1;
+//				func0f0926bc(g_FiringRangeData.targets[i].prop, 1, 0xffff);
+//			}
+//		}
+//		return;
+//	}
+//
+//	g_Vars.currentplayer->training = true;
+//	frExecuteHelpScript();
+//
+//	// d34
+//	// Top up the player's ammo if the config defined more ammo than the
+//	// weapon allows, or if it defined unlimited ammo
+//	if (g_FiringRangeData.numshotssincetopup != 0) {
+//		u32 tmp;
+//		weaponnum = frGetWeaponBySlot(g_FiringRangeData.slot);
+//		ammotype = weaponGetAmmoType(weaponnum, 0);
+//		capacity = ammotypeGetMaxCapacity(ammotype);
+//		ammo = weaponGetAmmoByFunction(weaponnum, 0);
+//		capacity -= (ammo ? ammo->clipsize : 0);
+//
+//		// d8c
+//		if (g_FiringRangeData.ammoextra > 0) {
+//			tmp = ammoGetQuantity(ammotype);
+//			g_FiringRangeData.ammoextra -= g_FiringRangeData.numshotssincetopup;
+//
+//			if (g_FiringRangeData.ammoextra < 0) {
+//				g_FiringRangeData.ammoextra = 0;
+//			}
+//
+//			capacity = tmp + g_FiringRangeData.numshotssincetopup;
+//			currentPlayerSetAmmoQuantity(ammotype, capacity);
+//		} else /*dd4*/ if (g_FiringRangeData.ammoextra == -1) {
+//			currentPlayerSetAmmoQuantity(ammotype, capacity);
+//		}
+//
+//		// de8
+//		if (weaponnum == WEAPON_SUPERDRAGON) {
+//			capacity = ammotypeGetMaxCapacity(AMMOTYPE_DEVASTATOR);
+//
+//			// e04
+//			if (g_FiringRangeData.sdgrenadeextra > 0) {
+//				tmp = ammoGetQuantity(AMMOTYPE_DEVASTATOR);
+//				g_FiringRangeData.sdgrenadeextra -= g_FiringRangeData.numshotssincetopup;
+//
+//				if (g_FiringRangeData.sdgrenadeextra < 0) {
+//					g_FiringRangeData.sdgrenadeextra = 0;
+//				}
+//
+//				capacity = tmp + g_FiringRangeData.numshotssincetopup;
+//				currentPlayerSetAmmoQuantity(AMMOTYPE_DEVASTATOR, capacity);
+//			} else /*e4c*/ if (g_FiringRangeData.sdgrenadeextra == -1) {
+//				currentPlayerSetAmmoQuantity(AMMOTYPE_DEVASTATOR, capacity);
+//			}
+//		}
+//
+//		// e60
+//		g_FiringRangeData.numshotssincetopup = 0;
+//	}
+//
+//	g_FiringRangeData.timetaken += g_Vars.lvupdate240_60;
+//
+//	// e6c
+//	// Handle prestart
+//	if (g_FiringRangeData.timetaken < 0) {
+//		if (g_FiringRangeData.numshots == 0) {
+//			if (g_FiringRangeData.donealarm == false && g_FiringRangeData.timetaken > -180) {
+//				g_FiringRangeData.donealarm = true;
+//				audioStart(var80095200, 0x5d4, NULL, -1, -1, -1, -1, -1);
+//			}
+//
+//			if (!g_FiringRangeData.donelighting && g_FiringRangeData.timetaken > -225) {
+//				frInitLighting();
+//			}
+//
+//			return;
+//		}
+//
+//		// Fired a shot during prestart
+//		if (!g_FiringRangeData.donelighting) {
+//			frInitLighting();
+//		}
+//
+//		g_FiringRangeData.timetaken = 0;
+//		g_FiringRangeData.donealarm = true;
+//	}
+//
+//	// f38
+//	for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
+//		if (g_FiringRangeData.targets[i].unk00_01
+//				&& g_FiringRangeData.targets[i].destroyed == false
+//				&& g_FiringRangeData.targets[i].active) {
+//			// f7c
+//			invincible = false;
+//			exploding = false;
+//			weaponnum2 = frGetWeaponBySlot(g_FiringRangeData.slot);
+//			prop = g_FiringRangeData.targets[i].prop;
+//			obj = prop->obj;
+//
+//			// f94
+//			switch (weaponnum2) {
+//			case WEAPON_GRENADE:
+//			case WEAPON_PROXIMITYMINE:
+//				func0f08abd4(&prop->pos, 1);
+//				break;
+//			}
+//
+//			// fb0
+//			if (g_FiringRangeData.targets[i].travelling
+//					&& g_FiringRangeData.targets[i].unk31
+//					&& g_FiringRangeData.targets[i].travelspeed != -1) {
+//				g_FiringRangeData.targets[i].unk31 = 0;
+//				func0f0939f8(NULL, g_FiringRangeData.targets[i].prop, 0x5d9, -1,
+//						-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+//			}
+//
+//			// 028
+//			if (g_FiringRangeData.targets[i].angle > 2.2915925979614f
+//					&& g_FiringRangeData.targets[i].angle < 3.9915928840637f) {
+//				obj->damage = 0;
+//			}
+//
+//			// 058
+//			if (g_FiringRangeData.targets[i].flags & FRTARGETFLAG_TMPINVINCIBLE
+//					&& g_FiringRangeData.targets[i].invincibletimer < 300) {
+//				invincible = true;
+//				g_FiringRangeData.targets[i].invincibletimer += g_Vars.lvupdate240_60;
+//			}
+//
+//			// 088
+//			if (obj->damage > 0) {
+//				// 090
+//				if (invincible || g_FiringRangeData.targets[i].angle == M_PI) {
+//					obj->damage = 0;
+//				} else /*0bc*/ if (g_FiringRangeData.targets[i].flags & FRTARGETFLAG_ONEHITEXPLODE
+//						|| obj->damage >= obj->maxdamage
+//						|| frGetWeaponBySlot(g_FiringRangeData.slot) == WEAPON_PHOENIX) {
+//					g_FiringRangeData.numhitsbullseye++;
+//					g_FiringRangeData.score += 10;
+//					exploding = true;
+//					g_FiringRangeData.feedbackttl = 60;
+//					g_FiringRangeData.feedbackzone = FRZONE_EXPLODE;
+//				}
+//			}
+//
+//			// 11c
+//			// Handle target being destroyed
+//			if (exploding || (g_FiringRangeData.targets[i].maxdamage != 255 && g_FiringRangeData.targets[i].damage >= g_FiringRangeData.targets[i].maxdamage)) {
+//				// 150
+//				model08thing = func0f068af4(obj);
+//
+//				if (g_FrNumSounds && g_FiringRangeData.targets[i].travelling) {
+//					g_FrNumSounds--;
+//					func0f0926bc(prop, 1, 0xffff);
+//				}
+//
+//				// 1d0
+//				func0f150820(&prop->pos, &obj->realrot[0], &obj->realrot[3], &obj->realrot[6],
+//						model08thing->unk04[0], model08thing->unk04[1], model08thing->unk04[2],
+//						model08thing->unk04[3], 2, prop);
+//
+//				g_FiringRangeData.targetsdestroyed++;
+//
+//				if (g_FiringRangeData.targets[i].flags & FRTARGETFLAG_ONEHITEXPLODE) {
+//					explosionCreateSimple(g_FiringRangeData.targets[i].prop, &g_FiringRangeData.targets[i].prop->pos, g_FiringRangeData.targets[i].prop->rooms, EXPLOSIONTYPE_5, 1);
+//				}
+//
+//				// 210
+//				g_FiringRangeData.targets[i].travelling = false;
+//				g_FiringRangeData.targets[i].active = false;
+//				g_FiringRangeData.targets[i].destroyed = true;
+//
+//				obj->flags2 |= OBJFLAG2_INVISIBLE;
+//
+//				prop->pos.x = 0;
+//				prop->pos.y = -5000;
+//				prop->pos.z = 0;
+//
+//				func0f069c70(obj, true, false);
+//
+//				// 25c
+//				// Activate another target
+//				for (j = 0; j < ARRAYCOUNT(g_FiringRangeData.targets); j++) {
+//					if (g_FiringRangeData.targets[j].destroyed == false
+//							&& g_FiringRangeData.targets[j].unk00_01
+//							&& g_FiringRangeData.targets[j].active == false) {
+//						obj2 = g_FiringRangeData.targets[j].prop->obj;
+//						g_FiringRangeData.targets[j].active = true;
+//						obj2->flags2 &= ~OBJFLAG2_INVISIBLE;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//
+//		// 2bc
+//	}
+//
+//	// 2dc
+//	if (g_FiringRangeData.goaltargets == 255) {
+//		if (g_FiringRangeData.goalscore && g_FiringRangeData.score >= g_FiringRangeData.goalscore) {
+//			frSetCompleted();
+//			return;
+//		}
+//	} else if (g_FiringRangeData.targetsdestroyed >= g_FiringRangeData.goaltargets
+//			&& (g_FiringRangeData.goalscore == 0 || g_FiringRangeData.score >= g_FiringRangeData.goalscore)) {
+//		frSetCompleted();
+//		return;
+//	}
+//
+//	// 354
+//	if (g_FiringRangeData.targetsdestroyed >= g_FiringRangeData.numtargets) {
+//		frSetFailReason(FRFAILREASON_SCOREUNATTAINABLE);
+//		return;
+//	}
+//
+//	// 374
+//	if (frIsAmmoWasted()) {
+//		frSetFailReason(FRFAILREASON_OUTOFAMMO);
+//		return;
+//	}
+//
+//	// 398
+//	if (g_FiringRangeData.timelimit != 255
+//			&& g_FiringRangeData.timetaken >= SECSTOFRAMES60(g_FiringRangeData.timelimit)) {
+//		frSetFailReason(FRFAILREASON_TIMEOVER);
+//		return;
+//	}
+//
+//	// 3d0
+//	// Iterate targets and handle travelling, rotation and script execution
+//	for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
+//		if (g_FiringRangeData.targets[i].unk00_01
+//				&& g_FiringRangeData.targets[i].destroyed == false
+//				&& g_FiringRangeData.targets[i].active) {
+//			prop = g_FiringRangeData.targets[i].prop;
+//			obj = prop->obj;
+//
+//			// 410
+//			if (g_FiringRangeData.targets[i].travelling) {
+//				// 430
+//				if (g_FiringRangeData.targets[i].travelspeed == -1) {
+//					g_FiringRangeData.targets[i].unk32 = 1;
+//					g_FiringRangeData.targets[i].travelling = false;
+//					mult = 1;
+//					dist = -2;
+//				} else {
+//					// 448
+//					f32 sum = 0;
+//					diff.x = g_FiringRangeData.targets[i].dstpos.x - prop->pos.x;
+//					diff.y = g_FiringRangeData.targets[i].dstpos.y - prop->pos.y;
+//					diff.z = g_FiringRangeData.targets[i].dstpos.z - prop->pos.z;
+//					sum = sum + diff.x * diff.x;
+//					sum = sum + diff.y * diff.y;
+//					sum = sum + diff.z * diff.z;
+//
+//					dist = sqrtf(sum);
+//					mult = 1;
+//
+//					// 4b0
+//					if (dist != 0) {
+//						mult = (g_FiringRangeData.targets[i].travelspeed * g_Vars.lvupdate240) * 0.25f;
+//						diff.x *= 1.0f / dist;
+//						diff.y *= 1.0f / dist;
+//						diff.z *= 1.0f / dist;
+//						newpos.x = diff.x * mult + prop->pos.x;
+//						newpos.y = diff.y * mult + prop->pos.y;
+//						newpos.z = diff.z * mult + prop->pos.z;
+//					} else {
+//						dist = -2;
+//					}
+//				}
+//
+//				// 550
+//				if (mult >= dist) {
+//					// Stopping
+//					newpos.x = g_FiringRangeData.targets[i].dstpos.x;
+//					newpos.y = g_FiringRangeData.targets[i].dstpos.y;
+//					newpos.z = g_FiringRangeData.targets[i].dstpos.z;
+//
+//					g_FiringRangeData.targets[i].scriptenabled = true;
+//					g_FiringRangeData.targets[i].travelling = false;
+//
+//					if (g_FiringRangeData.targets[i].unk32 == false) {
+//						// 590
+//						g_FiringRangeData.targets[i].unk32 = true;
+//
+//						if (g_FrNumSounds) {
+//							g_FrNumSounds--;
+//						}
+//
+//						// 5b8
+//						func0f0926bc(prop, 1, 0xffff);
+//						func0f0939f8(NULL, prop, 0x5da, -1,
+//								-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+//					}
+//				}
+//
+//				prop->pos.x = newpos.x;
+//				prop->pos.y = newpos.y;
+//				prop->pos.z = newpos.z;
+//
+//				func0f069c70(obj, true, false);
+//			}
+//
+//			// 63c
+//			if (g_FiringRangeData.targets[i].rotateoncloak
+//					&& g_FiringRangeData.targets[i].rotating == false) {
+//				// 650
+//				if (g_FiringRangeData.targets[i].timeuntilrotate == 0) {
+//					struct chrdata *chr = g_Vars.currentplayer->prop->chr;
+//					bool cloaked = chr->hidden & CHRHFLAG_CLOAKED;
+//
+//					// 670
+//					if (cloaked) {
+//						// 690
+//						if (g_FiringRangeData.targets[i].angle == M_PI) {
+//							g_FiringRangeData.targets[i].timeuntilrotate = 60;
+//							g_FiringRangeData.targets[i].rotatetoangle = 0;
+//							g_FiringRangeData.targets[i].rotatespeed = -M_PI / 90;
+//						}
+//					} else {
+//						// 6ac
+//						if (g_FiringRangeData.targets[i].angle == 0) {
+//							g_FiringRangeData.targets[i].timeuntilrotate = 60;
+//							g_FiringRangeData.targets[i].rotatetoangle = M_PI;
+//							g_FiringRangeData.targets[i].rotatespeed = M_PI / 90;
+//						}
+//					}
+//				} else {
+//					// 6e4
+//					g_FiringRangeData.targets[i].timeuntilrotate -= g_Vars.lvupdate240_60;
+//
+//					if (g_FiringRangeData.targets[i].timeuntilrotate <= 0) {
+//						g_FiringRangeData.targets[i].timeuntilrotate = 0;
+//						g_FiringRangeData.targets[i].rotating = true;
+//					}
+//				}
+//			} else /*70c*/ if (g_FiringRangeData.targets[i].rotating) {
+//				f32 speed = g_FiringRangeData.targets[i].rotatespeed;
+//				f32 toangle = g_FiringRangeData.targets[i].rotatetoangle;
+//				oldside = 0;
+//
+//				// 730
+//				if (g_FiringRangeData.targets[i].angle < toangle) {
+//					oldside = 1;
+//				}
+//
+//				oldside = (u8)oldside;
+//
+//				// 73c
+//				g_FiringRangeData.targets[i].angle += (speed * g_Vars.lvupdate240) * 0.25f;
+//
+//				newside = 0;
+//
+//				// 778
+//				if (g_FiringRangeData.targets[i].angle < toangle) {
+//					newside = 1;
+//				}
+//
+//				newside = (u8)newside;
+//
+//				// 78c
+//				if (newside != oldside || g_FiringRangeData.targets[i].angle == toangle) {
+//					// 7b0
+//					// Reached desired angle
+//					g_FiringRangeData.targets[i].angle = toangle;
+//					g_FiringRangeData.targets[i].rotating = false;
+//					g_FiringRangeData.targets[i].scriptenabled = true;
+//					g_FiringRangeData.targets[i].scriptsleep = 0;
+//
+//					while (g_FiringRangeData.targets[i].angle > M_TAU) {
+//						g_FiringRangeData.targets[i].angle -= M_TAU;
+//					}
+//
+//					while (g_FiringRangeData.targets[i].angle < 0) {
+//						g_FiringRangeData.targets[i].angle += M_TAU;
+//					}
+//				}
+//
+//				// 81c
+//				func00016374(g_FiringRangeData.targets[i].angle + M_PI, s4);
+//				func00015f04(obj->model->unk14, s4);
+//				func00015da0(s4, s5);
+//				func00015cd8(s5, obj->realrot);
+//			}
+//
+//			// 854
+//			if (g_FiringRangeData.targets[i].scriptenabled
+//					&& g_FiringRangeData.targets[i].scriptsleep != SECSTOFRAMES60(255)) {
+//				// 874
+//				g_FiringRangeData.targets[i].scriptsleep -= g_Vars.lvupdate240_60;
+//
+//				// 87c
+//				if (g_FiringRangeData.targets[i].scriptsleep <= 0) {
+//					g_FiringRangeData.targets[i].scriptenabled = false;
+//
+//					while (!frExecuteTargetScript(i));
+//
+//					if (frTargetIsAtScriptStart(i)) {
+//						while (!frExecuteTargetScript(i));
+//					}
+//				}
+//			}
+//		}
+//	}
+//}
+
 void func0f1a0924(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
@@ -3658,8 +4182,8 @@ glabel frChooseFarsightTarget
 );
 
 // Mismatch because f26 and f28 are swapped and the multiplication order for
-// unk1c is different. f26 should be constant 0 (used in dist > 0 and value < 0
-// checks) and f28 should be bestvalue.
+// travelspeed is different. f26 should be constant 0 (used in dist > 0 and
+// value < 0 checks) and f28 should be bestvalue.
 //bool frChooseFarsightTarget(void)
 //{
 //	f32 bestvalue = 1;
@@ -3671,9 +4195,9 @@ glabel frChooseFarsightTarget
 //	if (getCurrentPlayerWeaponId(0) == WEAPON_FARSIGHTXR20) {
 //		for (i = 0; i < ARRAYCOUNT(g_FiringRangeData.targets); i++) {
 //			if (g_FiringRangeData.targets[i].unk00_01
-//					&& g_FiringRangeData.targets[i].unk00_03 == 0
-//					&& g_FiringRangeData.targets[i].unk00_02
-//					&& g_FiringRangeData.targets[i].flags & FRTARGETFLAG_40) {
+//					&& g_FiringRangeData.targets[i].destroyed == false
+//					&& g_FiringRangeData.targets[i].active
+//					&& g_FiringRangeData.targets[i].flags & FRTARGETFLAG_FARSIGHTAUTOTARGETABLE) {
 //				struct prop *prop = g_FiringRangeData.targets[i].prop;
 //				f32 xdiff = g_Vars.currentplayer->bond2.unk10.x - prop->pos.x;
 //				f32 ydiff = g_Vars.currentplayer->bond2.unk10.y - prop->pos.y;
@@ -3705,8 +4229,8 @@ glabel frChooseFarsightTarget
 
 s32 frIsInTraining(void)
 {
-	if (g_FiringRangeData.unk464 > 0 &&
-			(g_FiringRangeData.unk465_00 == 2 || g_FiringRangeData.unk465_00 == 3)) {
+	if (g_FiringRangeData.menucountdown > 0 &&
+			(g_FiringRangeData.menutype == FRMENUTYPE_FAILED || g_FiringRangeData.menutype == FRMENUTYPE_COMPLETED)) {
 		return true;
 	}
 
@@ -3733,12 +4257,12 @@ void frCalculateHit(struct defaultobj *obj, struct coord *hitpos, f32 maulerchar
 
 			f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 
-			if (g_FiringRangeData.targets[i].flags & FRTARGETFLAG_20) {
+			if (g_FiringRangeData.targets[i].flags & FRTARGETFLAG_ONEHITEXPLODE) {
 				g_FiringRangeData.targets[i].damage = g_FiringRangeData.targets[i].maxdamage;
 			} else if (frGetWeaponBySlot(g_FiringRangeData.slot) == WEAPON_MAULER) {
 				g_FiringRangeData.targets[i].damage += (f32)((s32)(maulercharge * 0.1f) + 1);
-			} else if ((g_FiringRangeData.targets[i].flags & FRTARGETFLAG_80) == 0
-					|| g_FiringRangeData.targets[i].unk38 >= 300) {
+			} else if ((g_FiringRangeData.targets[i].flags & FRTARGETFLAG_TMPINVINCIBLE) == 0
+					|| g_FiringRangeData.targets[i].invincibletimer >= 300) {
 				g_FiringRangeData.targets[i].damage++;
 			}
 
@@ -3765,7 +4289,7 @@ void frCalculateHit(struct defaultobj *obj, struct coord *hitpos, f32 maulerchar
 void func0f1a0fc8(void)
 {
 	g_FiringRangeData.numshots++;
-	g_FiringRangeData.unk45a++;
+	g_FiringRangeData.numshotssincetopup++;
 }
 
 bool ciIsChrBioUnlocked(u32 bodynum)
@@ -4887,12 +5411,12 @@ Gfx *frRenderHud(Gfx *gdl)
 		mult = 1;
 	}
 
-	if (!g_FrIsValidWeapon && g_FiringRangeData.unk464 <= 0) {
+	if (!g_FrIsValidWeapon && g_FiringRangeData.menucountdown <= 0) {
 		return gdl;
 	}
 
-	if (g_FiringRangeData.unk464 != 0) {
-		alpha = (f32)(g_FiringRangeData.unk464 * 160) / 60.0f;
+	if (g_FiringRangeData.menucountdown != 0) {
+		alpha = (f32)(g_FiringRangeData.menucountdown * 160) / 60.0f;
 	}
 
 	gdl = func0f153628(gdl);

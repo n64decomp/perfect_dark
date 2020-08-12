@@ -5292,34 +5292,34 @@ struct hudmessage {
 
 struct frtarget {
 	/*0x00*/ u8 unk00_01 : 1;
-	/*0x00*/ u8 unk00_02 : 1;
-	/*0x00*/ u8 unk00_03 : 1;
-	/*0x00*/ u8 unk00_04 : 1;
-	/*0x00*/ u8 unk00_05 : 1;
-	/*0x00*/ u8 unk00_06 : 1;
+	/*0x00*/ u8 active : 1;
+	/*0x00*/ u8 destroyed : 1;
+	/*0x00*/ u8 scriptenabled : 1;
+	/*0x00*/ u8 rotating : 1;
+	/*0x00*/ u8 rotateoncloak : 1;
 	/*0x00*/ u8 frpadindex : 2;
 	/*0x01*/ u8 maxdamage;
 	/*0x02*/ u8 scriptindex;
 	/*0x04*/ struct prop *prop;
-	/*0x08*/ struct coord unk08;
-	/*0x14*/ s32 unk14; // scriptsleep?
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ f32 unk1c;
+	/*0x08*/ struct coord dstpos;
+	/*0x14*/ s32 scriptsleep;
+	/*0x18*/ s32 timeuntilrotate;
+	/*0x1c*/ f32 travelspeed;
 	/*0x20*/ u8 damage;
 	/*0x21*/ u8 scriptoffset;
-	/*0x24*/ f32 unk24;
+	/*0x24*/ f32 rotatespeed; // negative for reverse direction
 	/*0x28*/ f32 angle;
-	/*0x2c*/ f32 unk2c;
+	/*0x2c*/ f32 rotatetoangle;
 	/*0x30*/ u8 flags;
 	/*0x31*/ u8 unk31;
 	/*0x32*/ u8 unk32;
-	/*0x33*/ u8 unk33;
+	/*0x33*/ u8 travelling;
 	/*0x34*/ s8 frpadnum;
-	/*0x38*/ s32 unk38;
+	/*0x38*/ s32 invincibletimer;
 };
 
 struct frdata {
-	/*0x000*/ u8 numtargets;
+	/*0x000*/ u8 maxactivetargets;
 	/*0x001*/ u8 unk001;
 	/*0x002*/ u16 goalscore;
 	/*0x004*/ u8 goaltargets;
@@ -5331,21 +5331,21 @@ struct frdata {
 	/*0x010*/ struct frtarget targets[18];
 	/*0x448*/ u8 difficulty;
 	/*0x44c*/ s32 timetaken;
-	/*0x450*/ u32 score;
-	/*0x454*/ u8 curtarget;
+	/*0x450*/ s32 score;
+	/*0x454*/ u8 numtargets;
 	/*0x455*/ u8 targetsdestroyed;
 	/*0x456*/ u16 slot;
 	/*0x458*/ u16 numshots;
-	/*0x45a*/ u8 unk45a;
+	/*0x45a*/ u8 numshotssincetopup;
 	/*0x45b*/ u8 failreason;
 	/*0x45c*/ u16 numhitsbullseye;
 	/*0x45e*/ u16 numhitsring1;
 	/*0x460*/ u16 numhitsring2;
 	/*0x462*/ u16 numhitsring3;
-	/*0x464*/ s8 unk464;
-	/*0x465*/ u8 unk465_00 : 3;
+	/*0x464*/ s8 menucountdown;
+	/*0x465*/ u8 menutype : 3;
 	/*0x465*/ u8 donelighting : 1;
-	/*0x465*/ u8 unk465_04 : 1;
+	/*0x465*/ u8 donealarm : 1;
 	/*0x465*/ u8 ammohasgrace : 1;
 	/*0x465*/ u8 unk465_06 : 2;
 	/*0x466*/ u8 helpscriptindex;
@@ -5357,7 +5357,7 @@ struct frdata {
 	/*0x472*/ s8 feedbackttl;
 	/*0x474*/ s16 proxyendtimer;
 	/*0x476*/ s16 ammoextra;
-	/*0x478*/ u16 sdgrenadeextra;
+	/*0x478*/ s16 sdgrenadeextra;
 	/*0x47c*/ u32 unk47c;
 };
 
@@ -6343,6 +6343,11 @@ struct padlockeddoor {
 	struct doorobj *door;
 	struct defaultobj *padlock;
 	struct padlockeddoor *next;
+};
+
+struct model08thing {
+	u32 unk00;
+	f32 unk04[4];
 };
 
 #endif
