@@ -6,7 +6,6 @@
 extern u32 var80088c20;
 extern u32 var80088c3c;
 extern u32 var80088c58;
-extern u32 var80088c70;
 extern u16 g_FiringRangeFailReasons[5];
 extern u16 g_FiringRangeDifficultyNames[3];
 extern u32 var80088c8c;

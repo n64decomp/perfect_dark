@@ -18,24 +18,6 @@
 #include "stagesetup.h"
 #include "types.h"
 
-u32 var80088c70 = 0x51b751b8;
-u32 var80088c74 = 0x51b90000;
-
-u16 g_FiringRangeFailReasons[] = {
-	L_MPMENU(456), // "Not Failed"
-	L_MPMENU(457), // "Out of Ammo"
-	L_MPMENU(458), // "Time Over"
-	L_MPMENU(459), // "Score Unattainable"
-	L_MPMENU(460), // "Too Inaccurate"
-};
-
-u16 g_FiringRangeDifficultyNames[] = {
-	L_MPMENU(439), // "Bronze"
-	L_MPMENU(440), // "Silver"
-	L_MPMENU(441), // "Gold"
-};
-
-u32 var80088c8c = 0x00000000;
 u32 var80088c90 = 0x00000000;
 u32 var80088c94 = 0x00000000;
 u32 var80088c98 = 0x00000000;

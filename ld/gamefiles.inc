@@ -175,6 +175,6 @@
 	build/ROMID/game/game_1999b0.o (section); \
 	build/ROMID/game/game_19aa80.o (section); \
 	build/ROMID/game/training.o (section); \
-	build/ROMID/game/data/data_02e820.o (section); \
 	build/ROMID/game/game_1a3340.o (section); \
+	build/ROMID/game/data/data_02e820.o (section); \
 	build/ROMID/game/game_1a78b0.o (section);

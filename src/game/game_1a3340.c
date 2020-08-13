@@ -588,70 +588,41 @@ glabel menudialog001a3af4
 /*  f1a3b2c:	00001025 */ 	or	$v0,$zero,$zero
 /*  f1a3b30:	03e00008 */ 	jr	$ra
 /*  f1a3b34:	00000000 */ 	nop
-/*  f1a3b38:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a3b3c:	3c0e8009 */ 	lui	$t6,%hi(var80088c70)
-/*  f1a3b40:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a3b44:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f1a3b48:	25ce8c70 */ 	addiu	$t6,$t6,%lo(var80088c70)
-/*  f1a3b4c:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1a3b50:	27a20020 */ 	addiu	$v0,$sp,0x20
-/*  f1a3b54:	ac410000 */ 	sw	$at,0x0($v0)
-/*  f1a3b58:	95c10004 */ 	lhu	$at,0x4($t6)
-/*  f1a3b5c:	a4410004 */ 	sh	$at,0x4($v0)
-/*  f1a3b60:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1a3b64:	10810009 */ 	beq	$a0,$at,.L0f1a3b8c
-/*  f1a3b68:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f1a3b6c:	10810013 */ 	beq	$a0,$at,.L0f1a3bbc
-/*  f1a3b70:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1a3b74:	10810018 */ 	beq	$a0,$at,.L0f1a3bd8
-/*  f1a3b78:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f1a3b7c:	1081001d */ 	beq	$a0,$at,.L0f1a3bf4
-/*  f1a3b80:	00000000 */ 	nop
-/*  f1a3b84:	10000020 */ 	b	.L0f1a3c08
-/*  f1a3b88:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a3b8c:
-/*  f1a3b8c:	0fc67494 */ 	jal	frGetSlot
-/*  f1a3b90:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f1a3b94:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f1a3b98:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a3b9c:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f1a3ba0:	24430001 */ 	addiu	$v1,$v0,0x1
-/*  f1a3ba4:	2c610004 */ 	sltiu	$at,$v1,0x4
-/*  f1a3ba8:	14200016 */ 	bnez	$at,.L0f1a3c04
-/*  f1a3bac:	acc30000 */ 	sw	$v1,0x0($a2)
-/*  f1a3bb0:	24080003 */ 	addiu	$t0,$zero,0x3
-/*  f1a3bb4:	10000013 */ 	b	.L0f1a3c04
-/*  f1a3bb8:	acc80000 */ 	sw	$t0,0x0($a2)
-.L0f1a3bbc:
-/*  f1a3bbc:	8cc90000 */ 	lw	$t1,0x0($a2)
-/*  f1a3bc0:	00095040 */ 	sll	$t2,$t1,0x1
-/*  f1a3bc4:	004a5821 */ 	addu	$t3,$v0,$t2
-/*  f1a3bc8:	0fc5b9f1 */ 	jal	langGet
-/*  f1a3bcc:	95640000 */ 	lhu	$a0,0x0($t3)
-/*  f1a3bd0:	1000000e */ 	b	.L0f1a3c0c
-/*  f1a3bd4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a3bd8:
-/*  f1a3bd8:	0fc67570 */ 	jal	frSetDifficulty
-/*  f1a3bdc:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f1a3be0:	3c048009 */ 	lui	$a0,%hi(menudialog_frtraininginfo2)
-/*  f1a3be4:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1a3be8:	24848f60 */ 	addiu	$a0,$a0,%lo(menudialog_frtraininginfo2)
-/*  f1a3bec:	10000006 */ 	b	.L0f1a3c08
-/*  f1a3bf0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a3bf4:
-/*  f1a3bf4:	0fc6757a */ 	jal	frGetDifficulty
-/*  f1a3bf8:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f1a3bfc:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f1a3c00:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f1a3c04:
-/*  f1a3c04:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a3c08:
-/*  f1a3c08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a3c0c:
-/*  f1a3c0c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f1a3c10:	03e00008 */ 	jr	$ra
-/*  f1a3c14:	00000000 */ 	nop
 );
+
+/**
+ * This is an unused menu handler which implements the difficulty selection
+ * using a dropdown.
+ */
+char *frDifficultyDropdownMenuHandler(u32 operation, struct menuitem *item, u32 *value)
+{
+	u16 names[] = {
+		L_MPMENU(439), // "Bronze"
+		L_MPMENU(440), // "Silver"
+		L_MPMENU(441), // "Gold"
+	};
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = ciGetFiringRangeScore(frGetSlot()) + 1;
+
+		if (*value > 3) {
+			*value = 3;
+		}
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return langGet(names[*value]);
+	case MENUOP_SET:
+		frSetDifficulty(*value);
+		menuPushDialog(&menudialog_frtraininginfo2);
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = frGetDifficulty();
+		break;
+	}
+
+	return NULL;
+}
 
 s32 frDifficultyMenuHandler(u32 operation, struct menuitem *item, s32 *value)
 {
@@ -699,7 +670,14 @@ char *frSecondaryFunctionMenuText(struct menuitem *item)
 
 char *frMenuTextFailReason(struct menuitem *item)
 {
-	u16 reasons[5] = g_FiringRangeFailReasons;
+	u16 reasons[] = {
+		L_MPMENU(456), // "Not Failed"
+		L_MPMENU(457), // "Out of Ammo"
+		L_MPMENU(458), // "Time Over"
+		L_MPMENU(459), // "Score Unattainable"
+		L_MPMENU(460), // "Too Inaccurate"
+	};
+
 	struct frdata *frdata = frGetData();
 
 	return langGet(reasons[frdata->failreason]);
@@ -707,7 +685,11 @@ char *frMenuTextFailReason(struct menuitem *item)
 
 char *frMenuTextDifficultyName(struct menuitem *item)
 {
-	u16 names[3] = g_FiringRangeDifficultyNames;
+	u16 names[] = {
+		L_MPMENU(439), // "Bronze"
+		L_MPMENU(440), // "Silver"
+		L_MPMENU(441), // "Gold"
+	};
 
 	struct frdata *frdata = frGetData();
 
@@ -913,6 +895,8 @@ char *frMenuTextAmmoLimitValue(struct menuitem *item)
 
 	return g_StringPointer2;
 }
+
+u32 var80088c8c = 0;
 
 GLOBAL_ASM(
 glabel menuhandler001a44c0
