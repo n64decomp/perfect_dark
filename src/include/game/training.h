@@ -6,6 +6,7 @@
 extern u8 g_FrIsValidWeapon;
 extern s32 g_FrWeaponNum;
 extern u8 var800888a0;
+extern u8 var80088bb4;
 
 bool ciIsTourDone(void);
 u8 ciGetFiringRangeScore(s32 weaponindex);

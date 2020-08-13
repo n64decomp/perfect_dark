@@ -382,7 +382,7 @@ struct menuitem menuitems_2f614[] = {
 // 2f68c
 struct menudialog g_HoloTrainingDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f1a6a04,
+	(u32)&htMenuTextName,
 	menuitems_2f614,
 	menudialog001a6aa4,
 	0x00000206,

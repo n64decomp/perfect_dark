@@ -26,7 +26,7 @@ u32 func0f1a64a0(void);
 char *dtMenuTextOkOrResume(struct menuitem *item);
 char *dtMenuTextCancelOrAbort(struct menuitem *item);
 char *dtMenuTextTimeTakenValue(struct menuitem *item);
-u32 func0f1a6a04(void);
+char *htMenuTextName(struct menuitem *item);
 char *htMenuTextOkOrResume(struct menuitem *item);
 char *htMenuTextCancelOrAbort(struct menuitem *item);
 char *htMenuTextTimeTakenValue(struct menuitem *item);

@@ -3433,21 +3433,10 @@ glabel var7f1b99b4
 /*  f1a6a00:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f1a6a04
-/*  f1a6a04:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a6a08:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a6a0c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6a10:	3c048009 */ 	lui	$a0,%hi(var80088bb4)
-/*  f1a6a14:	0fc68937 */ 	jal	htGetIndexBySlot
-/*  f1a6a18:	90848bb4 */ 	lbu	$a0,%lo(var80088bb4)($a0)
-/*  f1a6a1c:	0fc68955 */ 	jal	htGetName
-/*  f1a6a20:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a6a24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a6a28:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a6a2c:	03e00008 */ 	jr	$ra
-/*  f1a6a30:	00000000 */ 	nop
-);
+char *htMenuTextName(struct menuitem *item)
+{
+	return htGetName(htGetIndexBySlot(var80088bb4));
+}
 
 s32 menuhandler001a6a34(u32 operation, struct menuitem *item, s32 *value)
 {
