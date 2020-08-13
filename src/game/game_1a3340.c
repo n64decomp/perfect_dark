@@ -3499,45 +3499,24 @@ char *bioMenuTextName(struct menuitem *item)
 	return langGet(bio->name);
 }
 
-GLOBAL_ASM(
-glabel func0f1a6cc4
-/*  f1a6cc4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1a6cc8:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f1a6ccc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6cd0:	3c048009 */ 	lui	$a0,%hi(g_HangarBioSlot)
-/*  f1a6cd4:	90848964 */ 	lbu	$a0,%lo(g_HangarBioSlot)($a0)
-/*  f1a6cd8:	0fc685db */ 	jal	ciGetHangarBioIndexBySlot
-/*  f1a6cdc:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f1a6ce0:	0fc6852d */ 	jal	ciGetHangarBio
-/*  f1a6ce4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a6ce8:	0fc5b9f1 */ 	jal	langGet
-/*  f1a6cec:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f1a6cf0:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f1a6cf4:	2404007c */ 	addiu	$a0,$zero,0x7c
-/*  f1a6cf8:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f1a6cfc:	108e0007 */ 	beq	$a0,$t6,.L0f1a6d1c
-/*  f1a6d00:	00403825 */ 	or	$a3,$v0,$zero
-/*  f1a6d04:	00431021 */ 	addu	$v0,$v0,$v1
-/*  f1a6d08:	904f0001 */ 	lbu	$t7,0x1($v0)
-.L0f1a6d0c:
-/*  f1a6d0c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f1a6d10:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f1a6d14:	548ffffd */ 	bnel	$a0,$t7,.L0f1a6d0c
-/*  f1a6d18:	904f0001 */ 	lbu	$t7,0x1($v0)
-.L0f1a6d1c:
-/*  f1a6d1c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a6d20:	3c057f1c */ 	lui	$a1,%hi(var7f1b98f0)
-/*  f1a6d24:	00673021 */ 	addu	$a2,$v1,$a3
-/*  f1a6d28:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f1a6d2c:	24a598f0 */ 	addiu	$a1,$a1,%lo(var7f1b98f0)
-/*  f1a6d30:	0c004dad */ 	jal	sprintf
-/*  f1a6d34:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a6d38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a6d3c:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a6d40:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1a6d44:	03e00008 */ 	jr	$ra
-/*  f1a6d48:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+/**
+ * The subheading is stored in the same string as the name, separated by a pipe.
+ * eg. "Lucerne Tower\0|Global headquarters\n"
+ */
+char *ciMenuTextHangarBioSubheading(struct menuitem *item)
+{
+	s32 index = 0;
+	struct hangarbio *bio = ciGetHangarBio(ciGetHangarBioIndexBySlot(g_HangarBioSlot));
+	char *name = langGet(bio->name);
+
+	while (name[index] != '|') {
+		index++;
+	}
+
+	sprintf(g_StringPointer, "%s\n", &name[index + 1]);
+
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel menuhandler001a6d4c
@@ -3906,7 +3885,7 @@ glabel menuhandler001a6ea4
 /*  f1a7278:	0fc5580f */ 	jal	textRenderWhite
 /*  f1a727c:	afab0018 */ 	sw	$t3,0x18($sp)
 /*  f1a7280:	afa200a4 */ 	sw	$v0,0xa4($sp)
-/*  f1a7284:	0fc69b31 */ 	jal	func0f1a6cc4
+/*  f1a7284:	0fc69b31 */ 	jal	ciMenuTextHangarBioSubheading
 /*  f1a7288:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1a728c:	3c0d8008 */ 	lui	$t5,%hi(var8007fb0c)
 /*  f1a7290:	8dadfb0c */ 	lw	$t5,%lo(var8007fb0c)($t5)
@@ -4300,6 +4279,3 @@ void *func0f1a7878(u16 fileid, u8 *arg1, s32 arg2)
 {
 	return func0f1a7794(fileid, arg1, arg2, 0);
 }
-
-const char var7f1b98f0[] = "%s\n";
-
