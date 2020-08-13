@@ -30,7 +30,7 @@ char *htMenuTextName(struct menuitem *item);
 char *htMenuTextOkOrResume(struct menuitem *item);
 char *htMenuTextCancelOrAbort(struct menuitem *item);
 char *htMenuTextTimeTakenValue(struct menuitem *item);
-u32 func0f1a6c8c(void);
+char *bioMenuTextName(struct menuitem *item);
 u32 func0f1a6cc4(void);
 struct menudialog *ciGetFrWeaponListMenuDialog(void);
 void func0f1a7560(void *ptr, u16 fileid, u32 arg2, void *arg3, s32 arg4, bool arg5);

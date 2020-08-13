@@ -486,7 +486,7 @@ struct menudialog menudialog_holograph = {
 // 2f938
 struct menudialog menudialog_2f938 = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f1a6c8c,
+	(u32)&bioMenuTextName,
 	menuitems_2f858,
 	NULL,
 	0x00000202,
@@ -496,7 +496,7 @@ struct menudialog menudialog_2f938 = {
 // 2f950
 struct menudialog menudialog_2f950 = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f1a6c8c,
+	(u32)&bioMenuTextName,
 	menuitems_2f858,
 	NULL,
 	0x00000202,

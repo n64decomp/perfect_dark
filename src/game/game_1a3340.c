@@ -3523,23 +3523,12 @@ bool menudialogFiringRangeResults(u32 operation, struct menudialog *dialog, stru
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f1a6c8c
-/*  f1a6c8c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a6c90:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a6c94:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6c98:	3c048009 */ 	lui	$a0,%hi(g_HangarBioSlot)
-/*  f1a6c9c:	0fc685db */ 	jal	ciGetHangarBioIndexBySlot
-/*  f1a6ca0:	90848964 */ 	lbu	$a0,%lo(g_HangarBioSlot)($a0)
-/*  f1a6ca4:	0fc6852d */ 	jal	ciGetHangarBio
-/*  f1a6ca8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a6cac:	0fc5b9f1 */ 	jal	langGet
-/*  f1a6cb0:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f1a6cb4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a6cb8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a6cbc:	03e00008 */ 	jr	$ra
-/*  f1a6cc0:	00000000 */ 	nop
-);
+char *bioMenuTextName(struct menuitem *item)
+{
+	struct hangarbio *bio = ciGetHangarBio(ciGetHangarBioIndexBySlot(g_HangarBioSlot));
+
+	return langGet(bio->name);
+}
 
 GLOBAL_ASM(
 glabel func0f1a6cc4
@@ -3894,7 +3883,7 @@ glabel menuhandler001a6ea4
 /*  f1a71a8:	0fc54d8a */ 	jal	func0f153628
 /*  f1a71ac:	8fa400a4 */ 	lw	$a0,0xa4($sp)
 /*  f1a71b0:	afa200a4 */ 	sw	$v0,0xa4($sp)
-/*  f1a71b4:	0fc69b23 */ 	jal	func0f1a6c8c
+/*  f1a71b4:	0fc69b23 */ 	jal	bioMenuTextName
 /*  f1a71b8:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1a71bc:	3c0a8008 */ 	lui	$t2,%hi(var8007fb14)
 /*  f1a71c0:	8d4afb14 */ 	lw	$t2,%lo(var8007fb14)($t2)
