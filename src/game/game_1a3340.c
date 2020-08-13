@@ -686,34 +686,16 @@ char *frPrimaryFunctionMenuText(struct menuitem *item)
 	return "\n";
 }
 
-const char var7f1b97d4[] = "\n";
+char *frSecondaryFunctionMenuText(struct menuitem *item)
+{
+	struct weaponfunc *func = weaponGetFunctionById(frGetWeaponBySlot(frGetSlot()), FUNC_SECONDARY);
 
-GLOBAL_ASM(
-glabel func0f1a3d44
-/*  f1a3d44:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a3d48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a3d4c:	0fc67494 */ 	jal	frGetSlot
-/*  f1a3d50:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a3d54:	0fc6749a */ 	jal	frGetWeaponBySlot
-/*  f1a3d58:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a3d5c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a3d60:	0fc2c401 */ 	jal	weaponGetFunctionById
-/*  f1a3d64:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1a3d68:	10400005 */ 	beqz	$v0,.L0f1a3d80
-/*  f1a3d6c:	00000000 */ 	nop
-/*  f1a3d70:	0fc5b9f1 */ 	jal	langGet
-/*  f1a3d74:	94440004 */ 	lhu	$a0,0x4($v0)
-/*  f1a3d78:	10000004 */ 	b	.L0f1a3d8c
-/*  f1a3d7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a3d80:
-/*  f1a3d80:	3c027f1c */ 	lui	$v0,%hi(var7f1b97d4)
-/*  f1a3d84:	244297d4 */ 	addiu	$v0,$v0,%lo(var7f1b97d4)
-/*  f1a3d88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a3d8c:
-/*  f1a3d8c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a3d90:	03e00008 */ 	jr	$ra
-/*  f1a3d94:	00000000 */ 	nop
-);
+	if (func) {
+		return langGet(func->name);
+	}
+
+	return "\n";
+}
 
 char *frMenuTextFailReason(struct menuitem *item)
 {
