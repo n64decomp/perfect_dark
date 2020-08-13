@@ -3334,73 +3334,33 @@ bool menudialogDeviceTrainingResults(u32 operation, struct menudialog *dialog, s
 	return false;
 }
 
-GLOBAL_ASM(
-glabel menuhandler001a6950
-.late_rodata
-glabel var7f1b999c
-.word menuhandler001a6950+0x30 # f1a6980
-glabel var7f1b99a0
-.word menuhandler001a6950+0x8c # f1a69dc
-glabel var7f1b99a4
-.word menuhandler001a6950+0x44 # f1a6994
-glabel var7f1b99a8
-.word menuhandler001a6950+0x94 # f1a69e4
-glabel var7f1b99ac
-.word menuhandler001a6950+0x9c # f1a69ec
-glabel var7f1b99b0
-.word menuhandler001a6950+0x5c # f1a69ac
-glabel var7f1b99b4
-.word menuhandler001a6950+0x7c # f1a69cc
-.text
-/*  f1a6950:	248effff */ 	addiu	$t6,$a0,-1
-/*  f1a6954:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a6958:	2dc10007 */ 	sltiu	$at,$t6,0x7
-/*  f1a695c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6960:	10200023 */ 	beqz	$at,.L0f1a69f0
-/*  f1a6964:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1a6968:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f1a696c:	3c017f1c */ 	lui	$at,%hi(var7f1b999c)
-/*  f1a6970:	002e0821 */ 	addu	$at,$at,$t6
-/*  f1a6974:	8c2e999c */ 	lw	$t6,%lo(var7f1b999c)($at)
-/*  f1a6978:	01c00008 */ 	jr	$t6
-/*  f1a697c:	00000000 */ 	nop
-/*  f1a6980:	0fc68921 */ 	jal	htGetNumUnlocked
-/*  f1a6984:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1a6988:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f1a698c:	10000018 */ 	b	.L0f1a69f0
-/*  f1a6990:	acc20000 */ 	sw	$v0,0x0($a2)
-/*  f1a6994:	0fc68937 */ 	jal	htGetIndexBySlot
-/*  f1a6998:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f1a699c:	0fc68955 */ 	jal	htGetName
-/*  f1a69a0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a69a4:	10000014 */ 	b	.L0f1a69f8
-/*  f1a69a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a69ac:	8ccf0000 */ 	lw	$t7,0x0($a2)
-/*  f1a69b0:	3c018009 */ 	lui	$at,%hi(var80088bb4)
-/*  f1a69b4:	3c048009 */ 	lui	$a0,%hi(g_HoloTrainingDetailsMenuDialog)
-/*  f1a69b8:	2484966c */ 	addiu	$a0,$a0,%lo(g_HoloTrainingDetailsMenuDialog)
-/*  f1a69bc:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1a69c0:	a02f8bb4 */ 	sb	$t7,%lo(var80088bb4)($at)
-/*  f1a69c4:	1000000b */ 	b	.L0f1a69f4
-/*  f1a69c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a69cc:	3c188009 */ 	lui	$t8,%hi(var80088bb4)
-/*  f1a69d0:	93188bb4 */ 	lbu	$t8,%lo(var80088bb4)($t8)
-/*  f1a69d4:	10000006 */ 	b	.L0f1a69f0
-/*  f1a69d8:	acd80000 */ 	sw	$t8,0x0($a2)
-/*  f1a69dc:	10000004 */ 	b	.L0f1a69f0
-/*  f1a69e0:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f1a69e4:	10000003 */ 	b	.L0f1a69f4
-/*  f1a69e8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a69ec:	acc00008 */ 	sw	$zero,0x8($a2)
-.L0f1a69f0:
-/*  f1a69f0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a69f4:
-/*  f1a69f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a69f8:
-/*  f1a69f8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a69fc:	03e00008 */ 	jr	$ra
-/*  f1a6a00:	00000000 */ 	nop
-);
+char *htHoloListMenuHandler(u32 operation, struct menuitem *item, s32 *value)
+{
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = htGetNumUnlocked();
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return htGetName(htGetIndexBySlot(*value));
+	case MENUOP_SET:
+		var80088bb4 = *value;
+		menuPushDialog(&g_HoloTrainingDetailsMenuDialog);
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = var80088bb4;
+		break;
+	case MENUOP_GETOPTGROUPCOUNT:
+		*value = 0;
+		break;
+	case MENUOP_GETOPTGROUPTEXT:
+		return NULL;
+	case MENUOP_GETGROUPSTARTINDEX:
+		value[2] = 0;
+		break;
+	}
+
+	return NULL;
+}
 
 char *htMenuTextName(struct menuitem *item)
 {

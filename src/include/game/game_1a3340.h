@@ -54,7 +54,7 @@ s32 menuhandler001a5dc0(u32, u32, u32 *);
 s32 menuhandler001a63e4(u32, u32, u32 *);
 s32 menuhandlerDtOkOrResume(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandler001a6514(u32 operation, struct menuitem *item, s32 *value);
-s32 menuhandler001a6950(u32, u32, u32 *);
+char *htHoloListMenuHandler(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandler001a6a34(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandler001a6a70(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandler001a6d4c(u32, u32, u32 *);

@@ -355,7 +355,7 @@ struct menudialog g_DeviceTrainingStatsCompletedMenuDialog = {
 
 // 2f5d4
 struct menuitem menuitems_holotraining[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000a0, 0x00000000, menuhandler001a6950 },
+	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000a0, 0x00000000, htHoloListMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
