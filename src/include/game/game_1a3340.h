@@ -22,7 +22,7 @@ char *ciMenuTextBioName(struct menuitem *item);
 char *ciMenuTextBioAge(struct menuitem *item);
 char *ciMenuTextBioRace(struct menuitem *item);
 u32 func0f1a6388(void);
-u32 func0f1a64a0(void);
+char *dtMenuTextName(struct menuitem *item);
 char *dtMenuTextOkOrResume(struct menuitem *item);
 char *dtMenuTextCancelOrAbort(struct menuitem *item);
 char *dtMenuTextTimeTakenValue(struct menuitem *item);

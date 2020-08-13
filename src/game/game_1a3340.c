@@ -3067,7 +3067,7 @@ glabel var7f1b9994
 /*  f1a641c:	8fa60020 */ 	lw	$a2,0x20($sp)
 /*  f1a6420:	1000001a */ 	b	.L0f1a648c
 /*  f1a6424:	acc20000 */ 	sw	$v0,0x0($a2)
-/*  f1a6428:	0fc6875a */ 	jal	func0f1a1d68
+/*  f1a6428:	0fc6875a */ 	jal	dtGetIndexBySlot
 /*  f1a642c:	8cc40000 */ 	lw	$a0,0x0($a2)
 /*  f1a6430:	0fc68778 */ 	jal	dtGetWeaponByDeviceIndex
 /*  f1a6434:	00402025 */ 	or	$a0,$v0,$zero
@@ -3076,15 +3076,15 @@ glabel var7f1b9994
 /*  f1a6440:	10000014 */ 	b	.L0f1a6494
 /*  f1a6444:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f1a6448:	8ccf0000 */ 	lw	$t7,0x0($a2)
-/*  f1a644c:	3c018009 */ 	lui	$at,%hi(var80088ad8)
+/*  f1a644c:	3c018009 */ 	lui	$at,%hi(g_DtSlot)
 /*  f1a6450:	3c048009 */ 	lui	$a0,%hi(g_DeviceTrainingDetailsMenuDialog)
 /*  f1a6454:	2484947c */ 	addiu	$a0,$a0,%lo(g_DeviceTrainingDetailsMenuDialog)
 /*  f1a6458:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1a645c:	a02f8ad8 */ 	sb	$t7,%lo(var80088ad8)($at)
+/*  f1a645c:	a02f8ad8 */ 	sb	$t7,%lo(g_DtSlot)($at)
 /*  f1a6460:	1000000b */ 	b	.L0f1a6490
 /*  f1a6464:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a6468:	3c188009 */ 	lui	$t8,%hi(var80088ad8)
-/*  f1a646c:	93188ad8 */ 	lbu	$t8,%lo(var80088ad8)($t8)
+/*  f1a6468:	3c188009 */ 	lui	$t8,%hi(g_DtSlot)
+/*  f1a646c:	93188ad8 */ 	lbu	$t8,%lo(g_DtSlot)($t8)
 /*  f1a6470:	10000006 */ 	b	.L0f1a648c
 /*  f1a6474:	acd80000 */ 	sw	$t8,0x0($a2)
 /*  f1a6478:	10000004 */ 	b	.L0f1a648c
@@ -3102,23 +3102,12 @@ glabel var7f1b9994
 /*  f1a649c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f1a64a0
-/*  f1a64a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a64a4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a64a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a64ac:	3c048009 */ 	lui	$a0,%hi(var80088ad8)
-/*  f1a64b0:	0fc6875a */ 	jal	func0f1a1d68
-/*  f1a64b4:	90848ad8 */ 	lbu	$a0,%lo(var80088ad8)($a0)
-/*  f1a64b8:	0fc68778 */ 	jal	dtGetWeaponByDeviceIndex
-/*  f1a64bc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a64c0:	0fc28857 */ 	jal	weaponGetName
-/*  f1a64c4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a64c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a64cc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a64d0:	03e00008 */ 	jr	$ra
-/*  f1a64d4:	00000000 */ 	nop
-);
+char *dtMenuTextName(struct menuitem *item)
+{
+	u32 weaponnum = dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot));
+
+	return weaponGetName(weaponnum);
+}
 
 s32 menuhandlerDtOkOrResume(u32 operation, struct menuitem *item, s32 *value)
 {
@@ -3160,9 +3149,9 @@ glabel var7f1b9998
 /*  f1a6570:	1000008b */ 	b	.L0f1a67a0
 /*  f1a6574:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f1a6578:
-/*  f1a6578:	3c048009 */ 	lui	$a0,%hi(var80088ad8)
-/*  f1a657c:	0fc6875a */ 	jal	func0f1a1d68
-/*  f1a6580:	90848ad8 */ 	lbu	$a0,%lo(var80088ad8)($a0)
+/*  f1a6578:	3c048009 */ 	lui	$a0,%hi(g_DtSlot)
+/*  f1a657c:	0fc6875a */ 	jal	dtGetIndexBySlot
+/*  f1a6580:	90848ad8 */ 	lbu	$a0,%lo(g_DtSlot)($a0)
 /*  f1a6584:	0fc68778 */ 	jal	dtGetWeaponByDeviceIndex
 /*  f1a6588:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1a658c:	3c0f8009 */ 	lui	$t7,%hi(var800893f8)
@@ -3251,11 +3240,11 @@ glabel var7f1b9998
 /*  f1a66cc:	50400034 */ 	beqzl	$v0,.L0f1a67a0
 /*  f1a66d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f1a66d4:	8c480000 */ 	lw	$t0,0x0($v0)
-/*  f1a66d8:	3c048009 */ 	lui	$a0,%hi(var80088ad8)
+/*  f1a66d8:	3c048009 */ 	lui	$a0,%hi(g_DtSlot)
 /*  f1a66dc:	54a80030 */ 	bnel	$a1,$t0,.L0f1a67a0
 /*  f1a66e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a66e4:	0fc6875a */ 	jal	func0f1a1d68
-/*  f1a66e8:	90848ad8 */ 	lbu	$a0,%lo(var80088ad8)($a0)
+/*  f1a66e4:	0fc6875a */ 	jal	dtGetIndexBySlot
+/*  f1a66e8:	90848ad8 */ 	lbu	$a0,%lo(g_DtSlot)($a0)
 /*  f1a66ec:	0fc68778 */ 	jal	dtGetWeaponByDeviceIndex
 /*  f1a66f0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1a66f4:	24010041 */ 	addiu	$at,$zero,0x41

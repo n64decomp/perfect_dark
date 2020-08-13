@@ -4540,7 +4540,7 @@ struct hangarbio *ciGetHangarBio(s32 index)
 	return NULL;
 }
 
-u8 var80088ad8 = 0;
+u8 g_DtSlot = 0;
 u8 var80088adc = 0;
 
 bool ciIsHangarBioUnlocked(u32 bioindex)
@@ -4678,7 +4678,7 @@ void dtRestorePlayer(void)
 
 	g_DtData.obj = NULL;
 
-	if (dtGetWeaponByDeviceIndex(func0f1a1d68(var80088ad8)) == WEAPON_ECMMINE) {
+	if (dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot)) == WEAPON_ECMMINE) {
 		currentPlayerSetAmmoQuantity(AMMOTYPE_ECM_MINE, 0);
 	}
 
@@ -4767,7 +4767,7 @@ void dtBegin(void)
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_DEVICE_ABORTING);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_SUCCESS);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_FAILURE);
-	chrSetStageFlag(NULL, ciGetStageFlagByDeviceIndex(func0f1a1d68(var80088ad8)));
+	chrSetStageFlag(NULL, ciGetStageFlagByDeviceIndex(dtGetIndexBySlot(g_DtSlot)));
 	g_Vars.currentplayer->training = true;
 	playersSetPassiveMode(false);
 	chrSetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
@@ -4780,7 +4780,7 @@ void dtEnd(void)
 	currentPlayerSetAmmoQuantity(AMMOTYPE_CLOAK, 0);
 	chrSetStageFlag(NULL, STAGEFLAG_CI_DEVICE_ABORTING);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_FAILURE);
-	chrUnsetStageFlag(NULL, ciGetStageFlagByDeviceIndex(func0f1a1d68(var80088ad8)));
+	chrUnsetStageFlag(NULL, ciGetStageFlagByDeviceIndex(dtGetIndexBySlot(g_DtSlot)));
 	g_Vars.currentplayer->training = false;
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
 	func0f0bb69c();
@@ -4829,7 +4829,7 @@ s32 dtGetNumAvailable(void)
 	return count;
 }
 
-s32 func0f1a1d68(s32 wantindex)
+s32 dtGetIndexBySlot(s32 wantindex)
 {
 	s32 index = -1;
 	s32 i;
@@ -4898,7 +4898,7 @@ char *dtGetDescription(void)
 		/*9*/ L_MISC(278), // Cloak
 	};
 
-	return langGet(texts[func0f1a1d68(var80088ad8)]);
+	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
 }
 
 char *dtGetTip1(void)
@@ -4916,7 +4916,7 @@ char *dtGetTip1(void)
 		/*9*/ L_MISC(366),
 	};
 
-	return langGet(texts[func0f1a1d68(var80088ad8)]);
+	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
 }
 
 char *dtGetTip2(void)
@@ -4934,7 +4934,7 @@ char *dtGetTip2(void)
 		/*9*/ L_MISC(376),
 	};
 
-	return langGet(texts[func0f1a1d68(var80088ad8)]);
+	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
 }
 
 struct trainingdata *getHoloTrainingData(void)

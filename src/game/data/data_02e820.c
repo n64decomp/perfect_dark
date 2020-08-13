@@ -306,7 +306,7 @@ struct menuitem menuitems_2f424[] = {
 // 2f49c
 struct menudialog g_DeviceTrainingDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f1a64a0,
+	(u32)&dtMenuTextName,
 	menuitems_2f424,
 	menudialog001a6548,
 	0x00000206,

@@ -8,6 +8,7 @@ extern s32 g_FrWeaponNum;
 extern u8 var800888a0;
 extern u8 var80088bb4;
 extern u8 g_HangarBioSlot;
+extern u8 g_DtSlot;
 
 bool ciIsTourDone(void);
 u8 ciGetFiringRangeScore(s32 weaponindex);
@@ -89,7 +90,7 @@ void dtBegin(void);
 void dtEnd(void);
 bool dtIsAvailable(s32 deviceindex);
 s32 dtGetNumAvailable(void);
-s32 func0f1a1d68(s32 wantindex);
+s32 dtGetIndexBySlot(s32 wantindex);
 u32 dtGetWeaponByDeviceIndex(s32 deviceindex);
 u32 ciGetStageFlagByDeviceIndex(u32 deviceindex);
 char *dtGetDescription(void);
