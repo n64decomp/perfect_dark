@@ -2981,7 +2981,7 @@ const char var7f1b9894[] = "%d\n";
 const char var7f1b9898[] = "%d\n";
 const char var7f1b989c[] = "%d\n";
 
-char *ciMenuTextBioName(struct menuitem *item)
+char *ciMenuTextChrBioName(struct menuitem *item)
 {
 	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->name));
@@ -2989,7 +2989,7 @@ char *ciMenuTextBioName(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *ciMenuTextBioAge(struct menuitem *item)
+char *ciMenuTextChrBioAge(struct menuitem *item)
 {
 	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->age));
@@ -2997,7 +2997,7 @@ char *ciMenuTextBioAge(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *ciMenuTextBioRace(struct menuitem *item)
+char *ciMenuTextChrBioRace(struct menuitem *item)
 {
 	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->race));
@@ -3005,32 +3005,14 @@ char *ciMenuTextBioRace(struct menuitem *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f1a6388
-/*  f1a6388:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a638c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6390:	0fc6846e */ 	jal	ciGetNumUnlockedChrBios
-/*  f1a6394:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a6398:	3c0e8009 */ 	lui	$t6,%hi(var800888a0)
-/*  f1a639c:	91ce88a0 */ 	lbu	$t6,%lo(var800888a0)($t6)
-/*  f1a63a0:	0fc684fc */ 	jal	ciGetMiscBioIndexBySlot
-/*  f1a63a4:	01c22023 */ 	subu	$a0,$t6,$v0
-/*  f1a63a8:	0fc684a2 */ 	jal	ciGetMiscBio
-/*  f1a63ac:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a63b0:	0fc5b9f1 */ 	jal	langGet
-/*  f1a63b4:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f1a63b8:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a63bc:	3c057f1c */ 	lui	$a1,%hi(var7f1b98ac)
-/*  f1a63c0:	24a598ac */ 	addiu	$a1,$a1,%lo(var7f1b98ac)
-/*  f1a63c4:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a63c8:	0c004dad */ 	jal	sprintf
-/*  f1a63cc:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1a63d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a63d4:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a63d8:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1a63dc:	03e00008 */ 	jr	$ra
-/*  f1a63e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *ciMenuTextMiscBioName(struct menuitem *item)
+{
+	struct miscbio *bio = ciGetMiscBio(ciGetMiscBioIndexBySlot(var800888a0 - ciGetNumUnlockedChrBios()));
+
+	sprintf(g_StringPointer, "%s\n", langGet(bio->name));
+
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel menuhandler001a63e4
@@ -3320,8 +3302,6 @@ char *dtMenuTextCancelOrAbort(struct menuitem *item)
 
 	return langGet(L_MPMENU(429)); // "Cancel"
 }
-
-const char var7f1b98ac[] = "%s\n";
 
 char *dtMenuTextTimeTakenValue(struct menuitem *item)
 {

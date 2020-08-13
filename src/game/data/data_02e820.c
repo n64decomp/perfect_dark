@@ -235,9 +235,9 @@ u32 var80089280 = 0x0300ff00;
 // 2f2a4
 struct menuitem menuitems_characterprofile[] = {
 	{ MENUITEMTYPE_MODEL,      0,                  0x00000002, 0x00000046,    0x00000096,              NULL },
-	{ MENUITEMTYPE_LABEL,      0,                  0x00000003, L_MPMENU(432), (u32)&ciMenuTextBioName, NULL }, // "Name:"
-	{ MENUITEMTYPE_LABEL,      0,                  0x00000002, L_MPMENU(433), (u32)&ciMenuTextBioAge,  NULL }, // "Age:"
-	{ MENUITEMTYPE_LABEL,      0,                  0x00000002, L_MPMENU(434), (u32)&ciMenuTextBioRace, NULL }, // "Race:"
+	{ MENUITEMTYPE_LABEL,      0,                  0x00000003, L_MPMENU(432), (u32)&ciMenuTextChrBioName, NULL }, // "Name:"
+	{ MENUITEMTYPE_LABEL,      0,                  0x00000002, L_MPMENU(433), (u32)&ciMenuTextChrBioAge,  NULL }, // "Age:"
+	{ MENUITEMTYPE_LABEL,      0,                  0x00000002, L_MPMENU(434), (u32)&ciMenuTextChrBioRace, NULL }, // "Race:"
 	{ MENUITEMTYPE_SEPARATOR,  0,                  0x00000002, 0x00000000,    0x00000000,              NULL },
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_CHRBIO, 0x00000000, 0x000000b4,    0x00000064,              NULL },
 	{ MENUITEMTYPE_SEPARATOR,  0,                  0x00000002, 0x00000000,    0x00000000,              NULL },
@@ -266,7 +266,7 @@ struct menuitem menuitems_2f370[] = {
 // 2f3c0
 struct menudialog menudialog_2f3c0 = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f1a6388,
+	(u32)&ciMenuTextMiscBioName,
 	menuitems_2f370,
 	NULL,
 	0x00000200,
