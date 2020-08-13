@@ -885,6 +885,13 @@ char *frMenuTextAmmoLimitValue(struct menuitem *item)
 }
 
 u32 var80088c8c = 0;
+u32 var80088c90 = 0;
+u32 var80088c94 = 0;
+u32 var80088c98 = 0;
+u32 var80088c9c = 0;
+u32 var80088ca0 = 0;
+u32 var80088ca4 = 0;
+u32 var80088ca8 = 0;
 
 GLOBAL_ASM(
 glabel menuhandler001a44c0
@@ -2506,6 +2513,140 @@ s32 menuhandlerFrFailedContinue(u32 operation, struct menuitem *item, s32 *value
 	return 0;
 }
 
+struct menuitem menuitems_frdifficulty[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000012, L_MPMENU(444), L_MPMENU(445), NULL }, // "Select Difficulty:"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPMENU(439), L_OPTIONS(3), frDifficultyMenuHandler }, // "Bronze"
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000020, L_MPMENU(440), L_OPTIONS(3), frDifficultyMenuHandler }, // "Silver"
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000020, L_MPMENU(441), L_OPTIONS(3), frDifficultyMenuHandler }, // "Gold"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU(429), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog menudialog_frdifficulty = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(442), // "Difficulty"
+	menuitems_frdifficulty,
+	NULL,
+	0x00000200,
+	NULL,
+};
+
+struct menuitem menuitems_frweapon[] = {
+	{ MENUITEMTYPE_CUSTOM,      0, 0x00200008, 0x000000aa, 0x00000000, menuhandler001a348c },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_FrWeaponListMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(446), // "Weapon"
+	menuitems_frweapon,
+	NULL,
+	0x00000200,
+	NULL,
+};
+
+struct menuitem menuitems_frtraininginfo[] = {
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU(443),                             (u32)&frMenuTextDifficultyName,            NULL                   }, // "Difficulty"
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextGoalScoreLabel,            (u32)&frMenuTextGoalScoreValue,            NULL                   },
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextMinAccuracyOrTargetsLabel, (u32)&frMenuTextMinAccuracyOrTargetsValue, NULL                   },
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextTimeLimitLabel,            (u32)&frMenuTextTimeLimitValue,            NULL                   },
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextAmmoLimitLabel,            (u32)&frMenuTextAmmoLimitValue,            NULL                   },
+	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_FRWEAPON, 0x00004000, 0x0000010e,                                0x0000005f,                                NULL                   },
+	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
+	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS(3),                              L_MPMENU(428),                             frDetailsOkMenuHandler }, // "", "Resume"
+	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS(3),                              L_MPMENU(430),                             frAbortMenuHandler    }, // "", "Abort"
+	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
+};
+
+struct menudialog g_FrTrainingInfoMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(447), // "Training Info"
+	menuitems_frtraininginfo,
+	menudialog001a39a8,
+	0x00000602,
+	NULL,
+};
+
+struct menuitem menuitems_frtraininginfo2[] = {
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU(443),                             (u32)&frMenuTextDifficultyName,            NULL                   }, // "Difficulty:"
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextGoalScoreLabel,            (u32)&frMenuTextGoalScoreValue,            NULL                   },
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextMinAccuracyOrTargetsLabel, (u32)&frMenuTextMinAccuracyOrTargetsValue, NULL                   },
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextTimeLimitLabel,            (u32)&frMenuTextTimeLimitValue,            NULL                   },
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextAmmoLimitLabel,            (u32)&frMenuTextAmmoLimitValue,            NULL                   },
+	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_FRWEAPON, 0x00004000, 0x0000010e,                                0x0000005f,                                NULL                   },
+	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
+	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS(3),                              L_MPMENU(427),                             frDetailsOkMenuHandler }, // "", "Ok"
+	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS(3),                              L_MPMENU(429),                             frAbortMenuHandler    }, // "", "Cancel"
+	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
+};
+
+struct menudialog menudialog_frtraininginfo2 = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(447), // "Training Info"
+	menuitems_frtraininginfo2,
+	menudialog001a39a8,
+	0x00000602,
+	NULL,
+};
+
+struct menuitem g_MenuItemsFrTrainingStatsCompleted[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, L_MPMENU(449), 0x00000000, NULL }, // "Completed!"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(450), (u32)&frMenuTextScoreValue, NULL }, // "Score:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(451), (u32)&frMenuTextTargetsDestroyedValue, NULL }, // "Targets Destroyed:"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(452), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(453), (u32)&frMenuTextTimeTakenValue, NULL }, // "Time Taken:"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(454), (u32)&frMenuTextWeaponName, NULL }, // "Weapon:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(455), (u32)&frMenuTextAccuracyValue, NULL }, // "Accuracy:"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_MODEL,       0, 0x00200002, 0x000000d2, 0x00000050, menuhandler001a44c0 },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(252), 0x00000000, menuhandlerFrFailedContinue }, // "Continue"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MenuDialogFrTrainingStatsCompleted = {
+	MENUDIALOGTYPE_SUCCESS,
+	L_MPMENU(448), // "Training Stats"
+	g_MenuItemsFrTrainingStatsCompleted,
+	frTrainingStatsMenuDialog,
+	0x00000004,
+	NULL,
+};
+
+struct menuitem g_MenuItemsFrTrainingStatsFailed[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&frMenuTextFailReason, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(450), (u32)&frMenuTextScoreValue, NULL }, // "Score:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(451), (u32)&frMenuTextTargetsDestroyedValue, NULL }, // "Targets Destroyed:"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(452), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(453), (u32)&frMenuTextTimeTakenValue, NULL }, // "Time Taken:"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(454), (u32)&frMenuTextWeaponName, NULL }, // "Weapon:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(455), (u32)&frMenuTextAccuracyValue, NULL }, // "Accuracy:"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_MODEL,       0, 0x00200002, 0x000000d2, 0x00000050, menuhandler001a44c0 },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(252), 0x00000000, menuhandlerFrFailedContinue }, // "Continue"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MenuDialogFrTrainingStatsFailed = {
+	MENUDIALOGTYPE_DANGER,
+	L_MPMENU(448), // "Training Stats"
+	g_MenuItemsFrTrainingStatsFailed,
+	frTrainingStatsMenuDialog,
+	0x00000004,
+	NULL,
+};
+
+struct optiongroup g_HangarBioGroups[] = {
+	{ 0, L_MPMENU(421) }, // "Character Profiles"
+	{ 0, L_MPMENU(422) }, // "Other Information"
+};
+
 GLOBAL_ASM(
 glabel menuhandler001a5dc0
 .late_rodata
@@ -2525,11 +2666,11 @@ glabel var7f1b9960
 .word menuhandler001a5dc0+0x120 # f1a5ee0
 .text
 /*  f1a5dc0:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f1a5dc4:	3c0f8009 */ 	lui	$t7,%hi(var800891b0)
+/*  f1a5dc4:	3c0f8009 */ 	lui	$t7,%hi(g_HangarBioGroups)
 /*  f1a5dc8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1a5dcc:	afa40040 */ 	sw	$a0,0x40($sp)
 /*  f1a5dd0:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f1a5dd4:	25ef91b0 */ 	addiu	$t7,$t7,%lo(var800891b0)
+/*  f1a5dd4:	25ef91b0 */ 	addiu	$t7,$t7,%lo(g_HangarBioGroups)
 /*  f1a5dd8:	8de10000 */ 	lw	$at,0x0($t7)
 /*  f1a5ddc:	8de80004 */ 	lw	$t0,0x4($t7)
 /*  f1a5de0:	27ae0030 */ 	addiu	$t6,$sp,0x30
@@ -3342,115 +3483,269 @@ char *ciMenuTextHangarBioSubheading(struct menuitem *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel menuhandler001a6d4c
-.late_rodata
-glabel var7f1b99b8
-.word menuhandler001a6d4c+0x74 # f1a6dc0
-glabel var7f1b99bc
-.word menuhandler001a6d4c+0x104 # f1a6e50
-glabel var7f1b99c0
-.word menuhandler001a6d4c+0x88 # f1a6dd4
-glabel var7f1b99c4
-.word menuhandler001a6d4c+0x110 # f1a6e5c
-glabel var7f1b99c8
-.word menuhandler001a6d4c+0x12c # f1a6e78
-glabel var7f1b99cc
-.word menuhandler001a6d4c+0xa8 # f1a6df4
-glabel var7f1b99d0
-.word menuhandler001a6d4c+0xf0 # f1a6e3c
-.text
-/*  f1a6d4c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f1a6d50:	3c0f8009 */ 	lui	$t7,%hi(var800897a4)
-/*  f1a6d54:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6d58:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f1a6d5c:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f1a6d60:	25ef97a4 */ 	addiu	$t7,$t7,%lo(var800897a4)
-/*  f1a6d64:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1a6d68:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f1a6d6c:	27ae0028 */ 	addiu	$t6,$sp,0x28
-/*  f1a6d70:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f1a6d74:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f1a6d78:	8de8000c */ 	lw	$t0,0xc($t7)
-/*  f1a6d7c:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f1a6d80:	adc8000c */ 	sw	$t0,0xc($t6)
-/*  f1a6d84:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f1a6d88:	0fc685a9 */ 	jal	ciGetNumUnlockedLocationBios
-/*  f1a6d8c:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f1a6d90:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*  f1a6d94:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f1a6d98:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f1a6d9c:	252affff */ 	addiu	$t2,$t1,-1
-/*  f1a6da0:	2d410007 */ 	sltiu	$at,$t2,0x7
-/*  f1a6da4:	1020003a */ 	beqz	$at,.L0f1a6e90
-/*  f1a6da8:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f1a6dac:	3c017f1c */ 	lui	$at,%hi(var7f1b99b8)
-/*  f1a6db0:	002a0821 */ 	addu	$at,$at,$t2
-/*  f1a6db4:	8c2a99b8 */ 	lw	$t2,%lo(var7f1b99b8)($at)
-/*  f1a6db8:	01400008 */ 	jr	$t2
-/*  f1a6dbc:	00000000 */ 	nop
-/*  f1a6dc0:	0fc685c5 */ 	jal	ciGetNumUnlockedHangarBios
-/*  f1a6dc4:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f1a6dc8:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f1a6dcc:	10000030 */ 	b	.L0f1a6e90
-/*  f1a6dd0:	acc20000 */ 	sw	$v0,0x0($a2)
-/*  f1a6dd4:	0fc685db */ 	jal	ciGetHangarBioIndexBySlot
-/*  f1a6dd8:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f1a6ddc:	0fc6852d */ 	jal	ciGetHangarBio
-/*  f1a6de0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a6de4:	0fc5b9f1 */ 	jal	langGet
-/*  f1a6de8:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f1a6dec:	1000002a */ 	b	.L0f1a6e98
-/*  f1a6df0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a6df4:	8ccb0000 */ 	lw	$t3,0x0($a2)
-/*  f1a6df8:	3c028009 */ 	lui	$v0,%hi(g_HangarBioSlot)
-/*  f1a6dfc:	24428964 */ 	addiu	$v0,$v0,%lo(g_HangarBioSlot)
-/*  f1a6e00:	a04b0000 */ 	sb	$t3,0x0($v0)
-/*  f1a6e04:	0fc685db */ 	jal	ciGetHangarBioIndexBySlot
-/*  f1a6e08:	316400ff */ 	andi	$a0,$t3,0xff
-/*  f1a6e0c:	2841000e */ 	slti	$at,$v0,0xe
-/*  f1a6e10:	10200006 */ 	beqz	$at,.L0f1a6e2c
-/*  f1a6e14:	3c048009 */ 	lui	$a0,%hi(menudialog_2f938)
-/*  f1a6e18:	3c048009 */ 	lui	$a0,%hi(menudialog_2f950)
-/*  f1a6e1c:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1a6e20:	24849930 */ 	addiu	$a0,$a0,%lo(menudialog_2f950)
-/*  f1a6e24:	1000001b */ 	b	.L0f1a6e94
-/*  f1a6e28:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a6e2c:
-/*  f1a6e2c:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1a6e30:	24849918 */ 	addiu	$a0,$a0,%lo(menudialog_2f938)
-/*  f1a6e34:	10000017 */ 	b	.L0f1a6e94
-/*  f1a6e38:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a6e3c:	3c028009 */ 	lui	$v0,%hi(g_HangarBioSlot)
-/*  f1a6e40:	24428964 */ 	addiu	$v0,$v0,%lo(g_HangarBioSlot)
-/*  f1a6e44:	904c0000 */ 	lbu	$t4,0x0($v0)
-/*  f1a6e48:	10000011 */ 	b	.L0f1a6e90
-/*  f1a6e4c:	accc0000 */ 	sw	$t4,0x0($a2)
-/*  f1a6e50:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f1a6e54:	1000000e */ 	b	.L0f1a6e90
-/*  f1a6e58:	accd0000 */ 	sw	$t5,0x0($a2)
-/*  f1a6e5c:	8cd90000 */ 	lw	$t9,0x0($a2)
-/*  f1a6e60:	0019c0c0 */ 	sll	$t8,$t9,0x3
-/*  f1a6e64:	03b82021 */ 	addu	$a0,$sp,$t8
-/*  f1a6e68:	0fc5b9f1 */ 	jal	langGet
-/*  f1a6e6c:	9484002c */ 	lhu	$a0,0x2c($a0)
-/*  f1a6e70:	10000009 */ 	b	.L0f1a6e98
-/*  f1a6e74:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a6e78:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f1a6e7c:	55c00004 */ 	bnezl	$t6,.L0f1a6e90
-/*  f1a6e80:	acc20008 */ 	sw	$v0,0x8($a2)
-/*  f1a6e84:	10000002 */ 	b	.L0f1a6e90
-/*  f1a6e88:	acc00008 */ 	sw	$zero,0x8($a2)
-/*  f1a6e8c:	acc20008 */ 	sw	$v0,0x8($a2)
-.L0f1a6e90:
-/*  f1a6e90:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a6e94:
-/*  f1a6e94:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a6e98:
-/*  f1a6e98:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f1a6e9c:	03e00008 */ 	jr	$ra
-/*  f1a6ea0:	00000000 */ 	nop
-);
+struct menuitem menuitems_information[] = {
+	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000c8, 0x00000000, menuhandler001a5dc0 },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog menudialog_information = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(418), // "Information"
+	menuitems_information,
+	NULL,
+	0x00000000,
+	NULL,
+};
+
+struct menuitem menuitems_nowsafe[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, L_MPMENU(437), 0x00000000, NULL }, // "It is now safe to turn off your computer"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(438), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog menudialog_nowsafe = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(436), // "Cheats"
+	menuitems_nowsafe,
+	NULL,
+	0x00000200,
+	NULL,
+};
+
+u32 var80089268 = 0x01000200;
+u32 var8008926c = 0x03000400;
+u32 var80089270 = 0x05000700;
+u32 var80089274 = 0x08000900;
+u32 var80089278 = 0x0a000b00;
+u32 var8008927c = 0xff000000;
+u32 var80089280 = 0x0300ff00;
+
+struct menuitem menuitems_characterprofile[] = {
+	{ MENUITEMTYPE_MODEL,      0,                  0x00000002, 0x00000046,    0x00000096,              NULL },
+	{ MENUITEMTYPE_LABEL,      0,                  0x00000003, L_MPMENU(432), (u32)&ciMenuTextChrBioName, NULL }, // "Name:"
+	{ MENUITEMTYPE_LABEL,      0,                  0x00000002, L_MPMENU(433), (u32)&ciMenuTextChrBioAge,  NULL }, // "Age:"
+	{ MENUITEMTYPE_LABEL,      0,                  0x00000002, L_MPMENU(434), (u32)&ciMenuTextChrBioRace, NULL }, // "Race:"
+	{ MENUITEMTYPE_SEPARATOR,  0,                  0x00000002, 0x00000000,    0x00000000,              NULL },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_CHRBIO, 0x00000000, 0x000000b4,    0x00000064,              NULL },
+	{ MENUITEMTYPE_SEPARATOR,  0,                  0x00000002, 0x00000000,    0x00000000,              NULL },
+	{ MENUITEMTYPE_LABEL,      0,                  0x00000022, L_MPMENU(435), 0x00000000,              NULL }, // "Press the B Button to go back."
+	{ MENUITEMTYPE_END,        0,                  0x00000000, 0x00000000,    0x00000000,              NULL },
+};
+
+struct menudialog menudialog_characterprofile = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(431), // "Character Profile"
+	menuitems_characterprofile,
+	menudialog001a5f48,
+	0x00000002,
+	NULL,
+};
+
+struct menuitem menuitems_2f370[] = {
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MISCBIO, 0x00000000, 0x000000c8,    0x00000096, NULL },
+	{ MENUITEMTYPE_SEPARATOR,  0,                   0x00000002, 0x00000000,    0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,      0,                   0x00000022, L_MPMENU(414), 0x00000000, NULL }, // "Press the B Button to go back."
+	{ MENUITEMTYPE_END,        0,                   0x00000000, 0x00000000,    0x00000000, NULL },
+};
+
+struct menudialog menudialog_2f3c0 = {
+	MENUDIALOGTYPE_DEFAULT,
+	(u32)&ciMenuTextMiscBioName,
+	menuitems_2f370,
+	NULL,
+	0x00000200,
+	NULL,
+};
+
+struct menuitem menuitems_devicelist[] = {
+	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000a0, 0x00000000, dtDeviceListMenuHandler },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_DeviceTrainingListMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(417), // "Device List"
+	menuitems_devicelist,
+	NULL,
+	0x00000000,
+	NULL,
+};
+
+u32 var800893f8 = 0xfafa9664;
+u32 var800893fc = 0x64326464;
+u32 var80089400 = 0x32960000;
+
+struct menuitem menuitems_2f424[] = {
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_DEVICETRAINING, 0x00000000, 0x000000aa,                    0x000000be, NULL                    },
+	{ MENUITEMTYPE_MODEL,      0,                          0x00000003, 0x0000008c,                    0x0000009c, NULL                    },
+	{ MENUITEMTYPE_SEPARATOR,  0,                          0x00000002, 0x00000000,                    0x00000000, NULL                    },
+	{ MENUITEMTYPE_SELECTABLE, 0,                          0x00000008, (u32)&dtMenuTextOkOrResume,    0x00000000, menuhandlerDtOkOrResume },
+	{ MENUITEMTYPE_SELECTABLE, 0,                          0x00000008, (u32)&dtMenuTextCancelOrAbort, 0x00000000, menuhandler001a6514     },
+	{ MENUITEMTYPE_END,        0,                          0x00000000, 0x00000000,                    0x00000000, NULL                    },
+};
+
+struct menudialog g_DeviceTrainingDetailsMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	(u32)&dtMenuTextName,
+	menuitems_2f424,
+	menudialog001a6548,
+	0x00000206,
+	NULL,
+};
+
+struct menuitem menuitems_trainingstats_failed[] = {
+	{ MENUITEMTYPE_LABEL,      0,                      0x00000032, L_MPMENU(426), 0x00000000,                     NULL }, // "Failed!"
+	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
+	{ MENUITEMTYPE_LABEL,      0,                      0x00000002, L_MPMENU(424), (u32)&dtMenuTextTimeTakenValue, NULL }, // "Time Taken:"
+	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_DEVICETIP1, 0x00000000, 0x00000082,    0x00000064,                     NULL },
+	{ MENUITEMTYPE_END,        0,                      0x00000000, 0x00000000,    0x00000000,                     NULL },
+};
+
+struct menudialog g_DeviceTrainingStatsFailedMenuDialog = {
+	MENUDIALOGTYPE_DANGER,
+	L_MPMENU(423), // "Training Stats"
+	menuitems_trainingstats_failed,
+	menudialogDeviceTrainingResults,
+	0x00000200,
+	&g_DeviceTrainingListMenuDialog,
+};
+
+struct menuitem menuitems_trainingstats_completed[] = {
+	{ MENUITEMTYPE_LABEL,      0,                      0x00000032, L_MPMENU(425), 0x00000000,                     NULL }, // "Completed!"
+	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
+	{ MENUITEMTYPE_LABEL,      0,                      0x00000002, L_MPMENU(424), (u32)&dtMenuTextTimeTakenValue, NULL }, // "Time Taken:"
+	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_DEVICETIP2, 0x00000000, 0x00000082,    0x00000064,                     NULL },
+	{ MENUITEMTYPE_END,        0,                      0x00000000, 0x00000000,    0x00000000,                     NULL },
+};
+
+struct menudialog g_DeviceTrainingStatsCompletedMenuDialog = {
+	MENUDIALOGTYPE_SUCCESS,
+	L_MPMENU(423), // "Training Stats"
+	menuitems_trainingstats_completed,
+	menudialogDeviceTrainingResults,
+	0x00000200,
+	&g_DeviceTrainingListMenuDialog,
+};
+
+struct menuitem menuitems_holotraining[] = {
+	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000a0, 0x00000000, htHoloListMenuHandler },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_HoloTrainingListMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(416), // "Holotraining"
+	menuitems_holotraining,
+	NULL,
+	0x00000000,
+	NULL,
+};
+
+struct menuitem menuitems_2f614[] = {
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTRAINING, 0x00000000, 0x000000aa,                    0x000000be, NULL                },
+	{ MENUITEMTYPE_MODEL,      0,                        0x00000003, 0x0000008c,                    0x0000009c, NULL                },
+	{ MENUITEMTYPE_SEPARATOR,  0,                        0x00000002, 0x00000000,                    0x00000000, NULL                },
+	{ MENUITEMTYPE_SELECTABLE, 0,                        0x00000008, (u32)&htMenuTextOkOrResume,    0x00000000, menuhandler001a6a34 },
+	{ MENUITEMTYPE_SELECTABLE, 0,                        0x00000008, (u32)&htMenuTextCancelOrAbort, 0x00000000, menuhandler001a6a70 },
+	{ MENUITEMTYPE_END,        0,                        0x00000000, 0x00000000,                    0x00000000, NULL                },
+};
+
+struct menudialog g_HoloTrainingDetailsMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	(u32)&htMenuTextName,
+	menuitems_2f614,
+	menudialog001a6aa4,
+	0x00000206,
+	NULL,
+};
+
+struct menuitem menuitems_trainingstats_failed2[] = {
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000032, L_MPMENU(426), 0x00000000,                     NULL }, // "Failed!"
+	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU(424), (u32)&htMenuTextTimeTakenValue, NULL }, // "Time Taken:"
+	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP1, 0x00000000, 0x00000082,    0x00000064,                     NULL },
+	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,    0x00000000,                     NULL },
+};
+
+struct menudialog g_HoloTrainingStatsFailedMenuDialog = {
+	MENUDIALOGTYPE_DANGER,
+	L_MPMENU(423), // "Training Stats"
+	menuitems_trainingstats_failed2,
+	menudialogFiringRangeResults,
+	0x00000200,
+	&g_HoloTrainingListMenuDialog,
+};
+
+struct menuitem menuitems_trainingstats_completed2[] = {
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000032, L_MPMENU(425), 0x00000000,                     NULL }, // "Completed!"
+	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
+	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU(424), (u32)&htMenuTextTimeTakenValue, NULL }, // "Time Taken:"
+	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP2, 0x00000000, 0x00000082,    0x00000064,                     NULL },
+	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,    0x00000000,                     NULL },
+};
+
+struct menudialog g_HoloTrainingStatsCompletedMenuDialog = {
+	MENUDIALOGTYPE_SUCCESS,
+	L_MPMENU(423), // "Training Stats"
+	menuitems_trainingstats_completed2,
+	menudialogFiringRangeResults,
+	0x00000200,
+	&g_HoloTrainingListMenuDialog,
+};
+
+char *ciHangarInformationMenuHandler(u32 operation, struct menuitem *item, s32 *value)
+{
+	struct optiongroup groups[2] = {
+		{ 0, L_MPMENU(419) }, // "Locations"
+		{ 0, L_MPMENU(420) }, // "Vehicles"
+	};
+
+	s32 bioindex;
+	struct hangarbio *bio;
+
+	groups[1].offset = ciGetNumUnlockedLocationBios();
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = ciGetNumUnlockedHangarBios();
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		bio = ciGetHangarBio(ciGetHangarBioIndexBySlot(*value));
+		return langGet(bio->name);
+	case MENUOP_SET:
+		g_HangarBioSlot = *value;
+		bioindex = ciGetHangarBioIndexBySlot(g_HangarBioSlot);
+
+		if (bioindex <= HANGARBIO_SKEDARRUINS) {
+			menuPushDialog(&menudialog_2f950);
+		} else {
+			menuPushDialog(&menudialog_2f938);
+		}
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = g_HangarBioSlot;
+		break;
+	case MENUOP_GETOPTGROUPCOUNT:
+		*value = 2;
+		break;
+	case MENUOP_GETOPTGROUPTEXT:
+		return langGet(groups[*value].name);
+	case MENUOP_GETGROUPSTARTINDEX:
+		value[2] = *value == 0 ? 0 : groups[1].offset;
+		break;
+	}
+
+	return NULL;
+}
+
+u32 var800897b4 = 0x1b0d0e10;
+u32 var800897b8 = 0x11121316;
+u32 var800897bc = 0x1718191a;
 
 GLOBAL_ASM(
 glabel menuhandler001a6ea4

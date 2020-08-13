@@ -57,7 +57,7 @@ s32 menuhandler001a6514(u32 operation, struct menuitem *item, s32 *value);
 char *htHoloListMenuHandler(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandler001a6a34(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandler001a6a70(u32 operation, struct menuitem *item, s32 *value);
-s32 menuhandler001a6d4c(u32, u32, u32 *);
+char *ciHangarInformationMenuHandler(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandler001a6ea4(u32, u32, u32 *);
 s32 frDifficultyMenuHandler(u32 operation, struct menuitem *item, s32 *value);
 

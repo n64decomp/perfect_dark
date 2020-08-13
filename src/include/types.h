@@ -6348,4 +6348,9 @@ struct model08thing {
 	f32 unk04[4];
 };
 
+struct optiongroup {
+	u32 offset;
+	u16 name;
+};
+
 #endif
