@@ -567,28 +567,16 @@ glabel var7f1b9944
 /*  f1a3af0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel menudialog001a3af4
-/*  f1a3af4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a3af8:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f1a3afc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a3b00:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1a3b04:	14810007 */ 	bne	$a0,$at,.L0f1a3b24
-/*  f1a3b08:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1a3b0c:	0fc6830c */ 	jal	frIsInTraining
-/*  f1a3b10:	00000000 */ 	nop
-/*  f1a3b14:	54400004 */ 	bnezl	$v0,.L0f1a3b28
-/*  f1a3b18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3b1c:	0fc67b37 */ 	jal	frEndSession
-/*  f1a3b20:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f1a3b24:
-/*  f1a3b24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a3b28:
-/*  f1a3b28:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a3b2c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a3b30:	03e00008 */ 	jr	$ra
-/*  f1a3b34:	00000000 */ 	nop
-);
+s32 frTrainingStatsMenuDialog(u32 operation, u32 arg1, u32 *arg2)
+{
+	if (operation == MENUOP_101) {
+		if (frIsInTraining() == false) {
+			frEndSession(true);
+		}
+	}
+
+	return 0;
+}
 
 /**
  * This is an unused menu handler which implements the difficulty selection

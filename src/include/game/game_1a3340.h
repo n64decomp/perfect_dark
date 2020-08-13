@@ -38,7 +38,7 @@ void func0f1a7730(void *ptr);
 void *func0f1a7794(u16 fileid, u8 *arg1, s32 arg2, s32 arg3);
 void *fileLoad(u16 fileid);
 s32 menudialog001a39a8(u32, u32, u32 *);
-s32 menudialog001a3af4(u32, u32, u32 *);
+s32 frTrainingStatsMenuDialog(u32 operation, u32 arg1, u32 *arg2);
 s32 menudialog001a5f48(u32, u32, u32 *);
 s32 menudialog001a6548(u32, u32, u32 *);
 bool menudialogDeviceTrainingResults(u32 operation, struct menudialog *dialog, struct menu *menu);

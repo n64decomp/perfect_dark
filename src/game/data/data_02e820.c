@@ -114,7 +114,7 @@ struct menudialog menudialog_frtraininginfo2 = {
 };
 
 // 2ef98
-struct menuitem menuitems_frtrainingstats[] = {
+struct menuitem g_MenuItemsFrTrainingStatsCompleted[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, L_MPMENU(449), 0x00000000, NULL }, // "Completed!"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(450), (u32)&frMenuTextScoreValue, NULL }, // "Score:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(451), (u32)&frMenuTextTargetsDestroyedValue, NULL }, // "Targets Destroyed:"
@@ -131,17 +131,17 @@ struct menuitem menuitems_frtrainingstats[] = {
 };
 
 // 2f09c
-struct menudialog menudialog_frtrainingstats = {
+struct menudialog g_MenuDialogFrTrainingStatsCompleted = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPMENU(448), // "Training Stats"
-	menuitems_frtrainingstats,
-	menudialog001a3af4,
+	g_MenuItemsFrTrainingStatsCompleted,
+	frTrainingStatsMenuDialog,
 	0x00000004,
 	NULL,
 };
 
 // 2f0b4
-struct menuitem menuitems_frtrainingstats2[] = {
+struct menuitem g_MenuItemsFrTrainingStatsFailed[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&frMenuTextFailReason, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(450), (u32)&frMenuTextScoreValue, NULL }, // "Score:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(451), (u32)&frMenuTextTargetsDestroyedValue, NULL }, // "Targets Destroyed:"
@@ -158,11 +158,11 @@ struct menuitem menuitems_frtrainingstats2[] = {
 };
 
 // 2f1b8
-struct menudialog menudialog_frtrainingstats2 = {
+struct menudialog g_MenuDialogFrTrainingStatsFailed = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPMENU(448), // "Training Stats"
-	menuitems_frtrainingstats2,
-	menudialog001a3af4,
+	g_MenuItemsFrTrainingStatsFailed,
+	frTrainingStatsMenuDialog,
 	0x00000004,
 	NULL,
 };

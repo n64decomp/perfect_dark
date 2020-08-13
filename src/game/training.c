@@ -2538,8 +2538,8 @@ glabel var7f1b94e4
 /*  f19fb60:	2407ffff */ 	addiu	$a3,$zero,-1
 /*  f19fb64:	0c004241 */ 	jal	audioStart
 /*  f19fb68:	e7b80014 */ 	swc1	$f24,0x14($sp)
-/*  f19fb6c:	3c048009 */ 	lui	$a0,%hi(menudialog_frtrainingstats2)
-/*  f19fb70:	24849198 */ 	addiu	$a0,$a0,%lo(menudialog_frtrainingstats2)
+/*  f19fb6c:	3c048009 */ 	lui	$a0,%hi(g_MenuDialogFrTrainingStatsFailed)
+/*  f19fb70:	24849198 */ 	addiu	$a0,$a0,%lo(g_MenuDialogFrTrainingStatsFailed)
 /*  f19fb74:	0fc3e178 */ 	jal	func0f0f85e0
 /*  f19fb78:	2405000d */ 	addiu	$a1,$zero,0xd
 /*  f19fb7c:	1000035d */ 	b	.L0f1a08f4
@@ -2559,8 +2559,8 @@ glabel var7f1b94e4
 /*  f19fbb0:	2407ffff */ 	addiu	$a3,$zero,-1
 /*  f19fbb4:	0c004241 */ 	jal	audioStart
 /*  f19fbb8:	e7b80014 */ 	swc1	$f24,0x14($sp)
-/*  f19fbbc:	3c048009 */ 	lui	$a0,%hi(menudialog_frtrainingstats)
-/*  f19fbc0:	2484907c */ 	addiu	$a0,$a0,%lo(menudialog_frtrainingstats)
+/*  f19fbbc:	3c048009 */ 	lui	$a0,%hi(g_MenuDialogFrTrainingStatsCompleted)
+/*  f19fbc0:	2484907c */ 	addiu	$a0,$a0,%lo(g_MenuDialogFrTrainingStatsCompleted)
 /*  f19fbc4:	0fc3e178 */ 	jal	func0f0f85e0
 /*  f19fbc8:	2405000d */ 	addiu	$a1,$zero,0xd
 /*  f19fbcc:	3c04800a */ 	lui	$a0,%hi(var800a22c0)
@@ -3567,11 +3567,11 @@ glabel var7f1b94e4
 //				break;
 //			case FRMENUTYPE_FAILED:
 //				audioStart(var80095200, 0x5db, NULL, -1, -1, -1, -1, -1);
-//				func0f0f85e0(&menudialog_frtrainingstats2, MENUROOT_TRAINING);
+//				func0f0f85e0(&g_MenuDialogFrTrainingStatsFailed, MENUROOT_TRAINING);
 //				break;
 //			case FRMENUTYPE_COMPLETED:
 //				audioStart(var80095200, 0x5dc, NULL, -1, -1, -1, -1, -1);
-//				func0f0f85e0(&menudialog_frtrainingstats, MENUROOT_TRAINING);
+//				func0f0f85e0(&g_MenuDialogFrTrainingStatsCompleted, MENUROOT_TRAINING);
 //				func0f1094e4(&var800a22c0, 0, 0);
 //				break;
 //			}
