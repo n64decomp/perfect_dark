@@ -33,9 +33,6 @@
 #include "lib/lib_1a500.h"
 #include "types.h"
 
-const char var7f1b97d0[] = "\n";
-const char var7f1b97d4[] = "\n";
-
 s32 frDetailsOkMenuHandler(u32 operation, struct menuitem *item, s32 *value)
 {
 	s32 i;
@@ -678,31 +675,21 @@ s32 frDifficultyMenuHandler(u32 operation, struct menuitem *item, s32 *value)
 	return 0;
 }
 
+char *frPrimaryFunctionMenuText(struct menuitem *item)
+{
+	struct weaponfunc *func = weaponGetFunctionById(frGetWeaponBySlot(frGetSlot()), FUNC_PRIMARY);
+
+	if (func) {
+		return langGet(func->name);
+	}
+
+	return "\n";
+}
+
+const char var7f1b97d4[] = "\n";
+
 GLOBAL_ASM(
-glabel func0f1a3cf0
-/*  f1a3cf0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a3cf4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a3cf8:	0fc67494 */ 	jal	frGetSlot
-/*  f1a3cfc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a3d00:	0fc6749a */ 	jal	frGetWeaponBySlot
-/*  f1a3d04:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a3d08:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a3d0c:	0fc2c401 */ 	jal	weaponGetFunctionById
-/*  f1a3d10:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1a3d14:	10400005 */ 	beqz	$v0,.L0f1a3d2c
-/*  f1a3d18:	00000000 */ 	nop
-/*  f1a3d1c:	0fc5b9f1 */ 	jal	langGet
-/*  f1a3d20:	94440004 */ 	lhu	$a0,0x4($v0)
-/*  f1a3d24:	10000004 */ 	b	.L0f1a3d38
-/*  f1a3d28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a3d2c:
-/*  f1a3d2c:	3c027f1c */ 	lui	$v0,%hi(var7f1b97d0)
-/*  f1a3d30:	244297d0 */ 	addiu	$v0,$v0,%lo(var7f1b97d0)
-/*  f1a3d34:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a3d38:
-/*  f1a3d38:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a3d3c:	03e00008 */ 	jr	$ra
-/*  f1a3d40:	00000000 */ 	nop
+glabel func0f1a3d44
 /*  f1a3d44:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a3d48:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1a3d4c:	0fc67494 */ 	jal	frGetSlot
