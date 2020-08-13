@@ -5291,8 +5291,8 @@ struct hudmessage {
 };
 
 struct frtarget {
-	/*0x00*/ u8 unk00_01 : 1;
-	/*0x00*/ u8 active : 1;
+	/*0x00*/ u8 inuse : 1;         // 1 if being used at all in this session
+	/*0x00*/ u8 active : 1;        // 1 if target has appeared
 	/*0x00*/ u8 destroyed : 1;
 	/*0x00*/ u8 scriptenabled : 1;
 	/*0x00*/ u8 rotating : 1;
@@ -5307,12 +5307,12 @@ struct frtarget {
 	/*0x1c*/ f32 travelspeed;
 	/*0x20*/ u8 damage;
 	/*0x21*/ u8 scriptoffset;
-	/*0x24*/ f32 rotatespeed; // negative for reverse direction
+	/*0x24*/ f32 rotatespeed;      // Negative for reverse direction
 	/*0x28*/ f32 angle;
 	/*0x2c*/ f32 rotatetoangle;
 	/*0x30*/ u8 flags;
-	/*0x31*/ u8 unk31;
-	/*0x32*/ u8 unk32;
+	/*0x31*/ u8 silent;            // 0 if playing the hum sound while travelling
+	/*0x32*/ u8 donestopsound;     // 1 if the clank sound has played when stopping travelling
 	/*0x33*/ u8 travelling;
 	/*0x34*/ s8 frpadnum;
 	/*0x38*/ s32 invincibletimer;
@@ -5320,7 +5320,6 @@ struct frtarget {
 
 struct frdata {
 	/*0x000*/ u8 maxactivetargets;
-	/*0x001*/ u8 unk001;
 	/*0x002*/ u16 goalscore;
 	/*0x004*/ u8 goaltargets;
 	/*0x005*/ u8 timelimit;
@@ -5347,12 +5346,11 @@ struct frdata {
 	/*0x465*/ u8 donelighting : 1;
 	/*0x465*/ u8 donealarm : 1;
 	/*0x465*/ u8 ammohasgrace : 1;
-	/*0x465*/ u8 unk465_06 : 2;
 	/*0x466*/ u8 helpscriptindex;
 	/*0x467*/ u8 helpscriptoffset;
 	/*0x468*/ u8 helpscriptenabled;
 	/*0x46c*/ s32 helpscriptsleep;
-	/*0x470*/ u8 unk470;
+	/*0x470*/ u8 padindexoffset;
 	/*0x471*/ u8 feedbackzone;
 	/*0x472*/ s8 feedbackttl;
 	/*0x474*/ s16 proxyendtimer;

@@ -1119,7 +1119,7 @@ glabel objectiveCheckHolograph
 /*  f0962fc:	8e4a04b4 */ 	lw	$t2,0x4b4($s2)
 /*  f096300:	566a0007 */ 	bnel	$s3,$t2,.L0f096320
 /*  f096304:	8e31000c */ 	lw	$s1,0xc($s1)
-/*  f096308:	0fc68606 */ 	jal	getDeviceTrainingData
+/*  f096308:	0fc68606 */ 	jal	dtGetData
 /*  f09630c:	00000000 */ 	nop
 /*  f096310:	904c0000 */ 	lbu	$t4,0x0($v0)
 /*  f096314:	358d0008 */ 	ori	$t5,$t4,0x8

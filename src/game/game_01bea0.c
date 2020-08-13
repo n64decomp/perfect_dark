@@ -1289,7 +1289,7 @@ glabel var7f1a863c
 /*  f01cf90:	1461001e */ 	bne	$v1,$at,.L0f01d00c
 /*  f01cf94:	00000000 */ 	nop
 .L0f01cf98:
-/*  f01cf98:	0fc68606 */ 	jal	getDeviceTrainingData
+/*  f01cf98:	0fc68606 */ 	jal	dtGetData
 /*  f01cf9c:	00000000 */ 	nop
 /*  f01cfa0:	8e6304b4 */ 	lw	$v1,0x4b4($s3)
 /*  f01cfa4:	24010026 */ 	addiu	$at,$zero,0x26

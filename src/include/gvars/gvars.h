@@ -827,8 +827,8 @@ extern u32 var800acc74;
 extern struct chrdata *g_MpSimulantChrs[MAX_SIMULANTS];
 extern u8 var800acca0[40];
 extern u8 g_MpChallengesCompleted[];
-extern struct frdata g_FiringRangeData;
-extern struct trainingdata g_DeviceTrainingData;
+extern struct frdata g_FrData;
+extern struct trainingdata g_DtData;
 extern struct trainingdata g_HoloTrainingData;
 extern u32 var800ad1c0;
 

@@ -47,7 +47,7 @@ s32 frDetailsOkMenuHandler(u32 operation, struct menuitem *item, s32 *value)
 		if (frIsInTraining() == false) {
 			s32 weapon = frGetWeaponBySlot(frGetSlot());
 
-			if (g_FrWeaponNum != 1) {
+			if (g_FrWeaponNum != WEAPON_UNARMED) {
 				currentPlayerRemoveWeapon(g_FrWeaponNum);
 			}
 
@@ -169,7 +169,7 @@ glabel var7f1b9940
 /*  f1a3510:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1a3514:	0fc6726c */ 	jal	ciGetFiringRangeScore
 /*  f1a3518:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a351c:	0fc679ea */ 	jal	func0f19e7a8
+/*  f1a351c:	0fc679ea */ 	jal	frLoadData
 /*  f1a3520:	afa200a0 */ 	sw	$v0,0xa0($sp)
 /*  f1a3524:	8fa600b0 */ 	lw	$a2,0xb0($sp)
 /*  f1a3528:	0fc67497 */ 	jal	frSetSlot
@@ -766,7 +766,7 @@ glabel menuhandlerFrDifficulty
 char *frMenuTextFailReason(struct menuitem *item)
 {
 	u16 reasons[5] = g_FiringRangeFailReasons;
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 
 	return langGet(reasons[frdata->failreason]);
 }
@@ -775,14 +775,14 @@ char *frMenuTextDifficultyName(struct menuitem *item)
 {
 	u16 names[3] = g_FiringRangeDifficultyNames;
 
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 
 	return langGet(names[frdata->difficulty]);
 }
 
 char *frMenuTextTimeTakenValue(struct menuitem *item)
 {
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 	f32 secs = frdata->timetaken / 60.0f;
 
 	if (secs > frdata->timelimit) {
@@ -808,7 +808,7 @@ char *frMenuTextTimeTakenValue(struct menuitem *item)
 
 char *frMenuTextScoreValue(struct menuitem *item)
 {
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 
 	sprintf(g_StringPointer, "%d\n", frdata->score);
 	return g_StringPointer;
@@ -816,7 +816,7 @@ char *frMenuTextScoreValue(struct menuitem *item)
 
 char *frMenuTextGoalScoreValueUnconditional(struct menuitem *item)
 {
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 	sprintf(g_StringPointer, "%d\n", frdata->goalscore);
 	return g_StringPointer;
 }
@@ -828,7 +828,7 @@ char *frMenuTextWeaponName(struct menuitem *item)
 
 char *frMenuTextTargetsDestroyedValue(struct menuitem *item)
 {
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 
 	sprintf(g_StringPointer, "%d\n", frdata->targetsdestroyed);
 	return g_StringPointer;
@@ -836,7 +836,7 @@ char *frMenuTextTargetsDestroyedValue(struct menuitem *item)
 
 char *frMenuTextAccuracyValue(struct menuitem *item)
 {
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 	f32 totalhits = (frdata->numhitsring3 + frdata->numhitsbullseye + frdata->numhitsring1 + frdata->numhitsring2) * 100.0f;
 	f32 accuracy = 0;
 
@@ -854,7 +854,7 @@ char *frMenuTextAccuracyValue(struct menuitem *item)
 
 char *frMenuTextGoalScoreLabel(struct menuitem *item)
 {
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 
 	if (frdata->goalscore > 0) {
 		sprintf(g_StringPointer, "%s", langGet(L_MPMENU(475))); // "Goal Score:"
@@ -866,7 +866,7 @@ char *frMenuTextGoalScoreLabel(struct menuitem *item)
 
 char *frMenuTextGoalScoreValue(struct menuitem *item)
 {
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 
 	if (frdata->goalscore > 0) {
 		sprintf(g_StringPointer2, "%d\n", frdata->goalscore);
@@ -878,7 +878,7 @@ char *frMenuTextGoalScoreValue(struct menuitem *item)
 
 char *frMenuTextMinAccuracyOrTargetsLabel(struct menuitem *item)
 {
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 
 	if (frdata->goalaccuracy > 0) {
 		sprintf(g_StringPointer, "%s", langGet(L_MPMENU(473))); // "Min Accuracy:"
@@ -893,7 +893,7 @@ char *frMenuTextMinAccuracyOrTargetsLabel(struct menuitem *item)
 
 char *frMenuTextMinAccuracyOrTargetsValue(struct menuitem *item)
 {
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 
 	if (frdata->goalaccuracy > 0) {
 		sprintf(g_StringPointer2, "%d%%\n", frdata->goalaccuracy);
@@ -908,7 +908,7 @@ char *frMenuTextMinAccuracyOrTargetsValue(struct menuitem *item)
 
 char *frMenuTextTimeLimitLabel(struct menuitem *item)
 {
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 
 	if (frdata->timelimit != 255) {
 		sprintf(g_StringPointer, "%s", langGet(L_MPMENU(472))); // "Time Limit:"
@@ -921,7 +921,7 @@ char *frMenuTextTimeLimitLabel(struct menuitem *item)
 
 char *frMenuTextTimeLimitValue(struct menuitem *item)
 {
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 
 	if (frdata->timelimit != 255) {
 		s32 secs = frdata->timelimit;
@@ -946,7 +946,7 @@ char *frMenuTextTimeLimitValue(struct menuitem *item)
 
 char *frMenuTextAmmoLimitLabel(struct menuitem *item)
 {
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 
 	if (frdata->ammolimit != 255) {
 		sprintf(g_StringPointer, "%s", langGet(L_MPMENU(471))); // "Ammo Limit:"
@@ -959,7 +959,7 @@ char *frMenuTextAmmoLimitLabel(struct menuitem *item)
 
 char *frMenuTextAmmoLimitValue(struct menuitem *item)
 {
-	struct frdata *frdata = getFiringRangeData();
+	struct frdata *frdata = frGetData();
 	char suffix[16];
 	s32 weaponnum;
 
@@ -994,7 +994,7 @@ glabel menuhandler001a44c0
 /*  f1a44e4:	afae015c */ 	sw	$t6,0x15c($sp)
 /*  f1a44e8:	8cd00008 */ 	lw	$s0,0x8($a2)
 /*  f1a44ec:	25f80258 */ 	addiu	$t8,$t7,0x258
-/*  f1a44f0:	0fc675f3 */ 	jal	getFiringRangeData
+/*  f1a44f0:	0fc675f3 */ 	jal	frGetData
 /*  f1a44f4:	afb80144 */ 	sw	$t8,0x144($sp)
 /*  f1a44f8:	afa20140 */ 	sw	$v0,0x140($sp)
 /*  f1a44fc:	90430465 */ 	lbu	$v1,0x465($v0)
@@ -3312,7 +3312,7 @@ glabel var7f1b9998
 
 char *dtMenuTextOkOrResume(struct menuitem *item)
 {
-	struct trainingdata *data = getDeviceTrainingData();
+	struct trainingdata *data = dtGetData();
 
 	if (data->intraining) {
 		return langGet(L_MPMENU(428)); // "Resume"
@@ -3323,7 +3323,7 @@ char *dtMenuTextOkOrResume(struct menuitem *item)
 
 char *dtMenuTextCancelOrAbort(struct menuitem *item)
 {
-	struct trainingdata *data = getDeviceTrainingData();
+	struct trainingdata *data = dtGetData();
 
 	if (data->intraining) {
 		return langGet(L_MPMENU(430)); // "Abort"
@@ -3336,7 +3336,7 @@ const char var7f1b98ac[] = "%s\n";
 
 char *dtMenuTextTimeTakenValue(struct menuitem *item)
 {
-	struct trainingdata *data = getDeviceTrainingData();
+	struct trainingdata *data = dtGetData();
 	f32 secs = data->timetaken / 60.0f;
 
 	if (secs >= 60.0f) {

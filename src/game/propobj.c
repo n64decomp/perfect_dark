@@ -22425,7 +22425,7 @@ glabel var7f1aa580
 /*  f07968c:	afa30044 */ 	sw	$v1,0x44($sp)
 /*  f079690:	afa800ac */ 	sw	$t0,0xac($sp)
 /*  f079694:	e7a00048 */ 	swc1	$f0,0x48($sp)
-/*  f079698:	0fc67cbb */ 	jal	func0f19f2ec
+/*  f079698:	0fc67cbb */ 	jal	frIsTargetFacingPos
 /*  f07969c:	e7b200a4 */ 	swc1	$f18,0xa4($sp)
 /*  f0796a0:	8fa30044 */ 	lw	$v1,0x44($sp)
 /*  f0796a4:	8fa800ac */ 	lw	$t0,0xac($sp)
@@ -37015,7 +37015,7 @@ bool propobjInteract(struct prop *prop)
 
 		if (ciIsTourDone()) {
 			if (tag_id == 0x10) {
-				struct trainingdata *data = getDeviceTrainingData();
+				struct trainingdata *data = dtGetData();
 				handled = true;
 
 				if (data->intraining) {
@@ -46654,7 +46654,7 @@ bool func0f09018c(struct prop *doorprop)
 			u8 intraining = false;
 
 			if (g_Vars.stagenum == STAGE_CITRAINING) {
-				struct trainingdata *devdata = getDeviceTrainingData();
+				struct trainingdata *devdata = dtGetData();
 				struct trainingdata *holodata = getHoloTrainingData();
 
 				intraining = (devdata && devdata->intraining)

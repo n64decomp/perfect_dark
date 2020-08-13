@@ -4572,7 +4572,7 @@ bool soloChoosePauseDialog(void)
 			bool handled = false;
 
 			if (ciIsTourDone()) {
-				struct trainingdata *dtdata = getDeviceTrainingData();
+				struct trainingdata *dtdata = dtGetData();
 				s32 room = g_Vars.currentplayer->prop->rooms[0];
 
 				if (room >= CIROOM_HOLOSTART && room <= CIROOM_HOLOEND) {

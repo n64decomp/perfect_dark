@@ -69,7 +69,7 @@ const u32 var7f1ab82c[] = {0x3e8e38e4};
 //						criteria->status = OBJECTIVE_COMPLETE;
 //
 //						if (g_Vars.stagenum == STAGE_CITRAINING) {
-//							struct trainingdata *data = getDeviceTrainingData();
+//							struct trainingdata *data = dtGetData();
 //							data->holographedpc = true;
 //						}
 //					}

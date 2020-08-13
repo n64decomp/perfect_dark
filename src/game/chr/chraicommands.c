@@ -10759,7 +10759,7 @@ glabel ai01bc
 bool aiIfTrainingPcHolographed(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	struct trainingdata *data = getDeviceTrainingData();
+	struct trainingdata *data = dtGetData();
 
 	if (data->holographedpc) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);

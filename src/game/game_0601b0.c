@@ -2835,7 +2835,7 @@ glabel var7f1a9ef4
 /*  f06289c:	318dffef */ 	andi	$t5,$t4,0xffef
 /*  f0628a0:	0fc2c6bc */ 	jal	func0f0b1af0
 /*  f0628a4:	a06d0d0f */ 	sb	$t5,0xd0f($v1)
-/*  f0628a8:	0fc683f2 */ 	jal	func0f1a0fc8
+/*  f0628a8:	0fc683f2 */ 	jal	frIncrementNumShots
 /*  f0628ac:	00000000 */ 	nop
 /*  f0628b0:	8fae0040 */ 	lw	$t6,0x40($sp)
 /*  f0628b4:	25cfffff */ 	addiu	$t7,$t6,-1

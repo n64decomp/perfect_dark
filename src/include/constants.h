@@ -593,15 +593,15 @@
 #define FRCMD_SETGOALTARGETS      0x07
 #define FRCMD_SETHELPSCRIPT       0x08
 #define FRCMD_SETGRENADELIMIT     0x09
-#define FRCMD_0A                  0x0a
+#define FRCMD_SETPADINDEXOFFSET   0x0a
 #define FRCMD_SETSCOREMULTIPLIER  0x0b
 #define FRCMD_GOTOPAD             0x0c
 #define FRCMD_RESTART             0x0d
-#define FRCMD_0E                  0x0e
+#define FRCMD_WAITSECONDS         0x0e
 #define FRCMD_ROTATE              0x0f
 #define FRCMD_HUDMSG              0x10
 #define FRCMD_WAITUNTILSHOOT      0x11
-#define FRCMD_WAITSECONDS         0x12
+#define FRCMD_HELPWAITSECONDS     0x12
 #define FRCMD_END                 0x13
 #define FRCMD_IFBRONZE            0xfb
 #define FRCMD_IFSILVER            0xfc
@@ -621,6 +621,11 @@
 #define FRMENUTYPE_DETAILS    1
 #define FRMENUTYPE_FAILED     2
 #define FRMENUTYPE_COMPLETED  3
+
+#define FRROTATE_90R  0
+#define FRROTATE_180R 1
+#define FRROTATE_90L  2
+#define FRROTATE_180L 3
 
 #define FRTARGETFLAG_BRONZE                 0x01
 #define FRTARGETFLAG_SILVER                 0x02
