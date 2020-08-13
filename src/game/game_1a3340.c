@@ -3014,75 +3014,33 @@ char *ciMenuTextMiscBioName(struct menuitem *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel menuhandler001a63e4
-.late_rodata
-glabel var7f1b997c
-.word menuhandler001a63e4+0x30 # f1a6414
-glabel var7f1b9980
-.word menuhandler001a63e4+0x94 # f1a6478
-glabel var7f1b9984
-.word menuhandler001a63e4+0x44 # f1a6428
-glabel var7f1b9988
-.word menuhandler001a63e4+0x9c # f1a6480
-glabel var7f1b998c
-.word menuhandler001a63e4+0xa4 # f1a6488
-glabel var7f1b9990
-.word menuhandler001a63e4+0x64 # f1a6448
-glabel var7f1b9994
-.word menuhandler001a63e4+0x84 # f1a6468
-.text
-/*  f1a63e4:	248effff */ 	addiu	$t6,$a0,-1
-/*  f1a63e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a63ec:	2dc10007 */ 	sltiu	$at,$t6,0x7
-/*  f1a63f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a63f4:	10200025 */ 	beqz	$at,.L0f1a648c
-/*  f1a63f8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1a63fc:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f1a6400:	3c017f1c */ 	lui	$at,%hi(var7f1b997c)
-/*  f1a6404:	002e0821 */ 	addu	$at,$at,$t6
-/*  f1a6408:	8c2e997c */ 	lw	$t6,%lo(var7f1b997c)($at)
-/*  f1a640c:	01c00008 */ 	jr	$t6
-/*  f1a6410:	00000000 */ 	nop
-/*  f1a6414:	0fc68744 */ 	jal	dtGetNumAvailable
-/*  f1a6418:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1a641c:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f1a6420:	1000001a */ 	b	.L0f1a648c
-/*  f1a6424:	acc20000 */ 	sw	$v0,0x0($a2)
-/*  f1a6428:	0fc6875a */ 	jal	dtGetIndexBySlot
-/*  f1a642c:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f1a6430:	0fc68778 */ 	jal	dtGetWeaponByDeviceIndex
-/*  f1a6434:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a6438:	0fc28857 */ 	jal	weaponGetName
-/*  f1a643c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a6440:	10000014 */ 	b	.L0f1a6494
-/*  f1a6444:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a6448:	8ccf0000 */ 	lw	$t7,0x0($a2)
-/*  f1a644c:	3c018009 */ 	lui	$at,%hi(g_DtSlot)
-/*  f1a6450:	3c048009 */ 	lui	$a0,%hi(g_DeviceTrainingDetailsMenuDialog)
-/*  f1a6454:	2484947c */ 	addiu	$a0,$a0,%lo(g_DeviceTrainingDetailsMenuDialog)
-/*  f1a6458:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1a645c:	a02f8ad8 */ 	sb	$t7,%lo(g_DtSlot)($at)
-/*  f1a6460:	1000000b */ 	b	.L0f1a6490
-/*  f1a6464:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a6468:	3c188009 */ 	lui	$t8,%hi(g_DtSlot)
-/*  f1a646c:	93188ad8 */ 	lbu	$t8,%lo(g_DtSlot)($t8)
-/*  f1a6470:	10000006 */ 	b	.L0f1a648c
-/*  f1a6474:	acd80000 */ 	sw	$t8,0x0($a2)
-/*  f1a6478:	10000004 */ 	b	.L0f1a648c
-/*  f1a647c:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f1a6480:	10000003 */ 	b	.L0f1a6490
-/*  f1a6484:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a6488:	acc00008 */ 	sw	$zero,0x8($a2)
-.L0f1a648c:
-/*  f1a648c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a6490:
-/*  f1a6490:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a6494:
-/*  f1a6494:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a6498:	03e00008 */ 	jr	$ra
-/*  f1a649c:	00000000 */ 	nop
-);
+char *dtDeviceListMenuHandler(u32 operation, struct menuitem *item, s32 *value)
+{
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = dtGetNumAvailable();
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return weaponGetName(dtGetWeaponByDeviceIndex(dtGetIndexBySlot(*value)));
+	case MENUOP_SET:
+		g_DtSlot = *value;
+		menuPushDialog(&g_DeviceTrainingDetailsMenuDialog);
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = g_DtSlot;
+		break;
+	case MENUOP_GETOPTGROUPCOUNT:
+		*value = 0;
+		break;
+	case MENUOP_GETOPTGROUPTEXT:
+		return NULL;
+	case MENUOP_GETGROUPSTARTINDEX:
+		value[2] = 0;
+		break;
+	}
+
+	return NULL;
+}
 
 char *dtMenuTextName(struct menuitem *item)
 {

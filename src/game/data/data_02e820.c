@@ -275,7 +275,7 @@ struct menudialog menudialog_2f3c0 = {
 
 // 2f3d8
 struct menuitem menuitems_devicelist[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000a0, 0x00000000, menuhandler001a63e4 },
+	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000a0, 0x00000000, dtDeviceListMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

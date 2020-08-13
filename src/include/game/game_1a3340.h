@@ -51,7 +51,7 @@ s32 menuhandler001a348c(u32, u32, u32 *);
 s32 menuhandler001a44c0(u32, u32, u32 *);
 s32 menuhandlerFrFailedContinue(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandler001a5dc0(u32, u32, u32 *);
-s32 menuhandler001a63e4(u32, u32, u32 *);
+char *dtDeviceListMenuHandler(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandlerDtOkOrResume(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandler001a6514(u32 operation, struct menuitem *item, s32 *value);
 char *htHoloListMenuHandler(u32 operation, struct menuitem *item, s32 *value);
