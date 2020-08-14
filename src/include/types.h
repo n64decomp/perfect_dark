@@ -6349,7 +6349,7 @@ struct model08thing {
 };
 
 struct optiongroup {
-	u32 offset;
+	s32 offset;
 	u16 name;
 };
 

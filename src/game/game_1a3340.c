@@ -2642,133 +2642,56 @@ struct menudialog g_MenuDialogFrTrainingStatsFailed = {
 	NULL,
 };
 
-struct optiongroup g_HangarBioGroups[] = {
-	{ 0, L_MPMENU(421) }, // "Character Profiles"
-	{ 0, L_MPMENU(422) }, // "Other Information"
-};
+char *ciOfficeInformationMenuHandler(u32 operation, struct menuitem *item, u32 *value)
+{
+	struct optiongroup groups[2] = {
+		{ 0, L_MPMENU(421) }, // "Character Profiles"
+		{ 0, L_MPMENU(422) }, // "Other Information"
+	};
 
-GLOBAL_ASM(
-glabel menuhandler001a5dc0
-.late_rodata
-glabel var7f1b9948
-.word menuhandler001a5dc0+0x80 # f1a5e40
-glabel var7f1b994c
-.word menuhandler001a5dc0+0x134 # f1a5ef4
-glabel var7f1b9950
-.word menuhandler001a5dc0+0x8c # f1a5e4c
-glabel var7f1b9954
-.word menuhandler001a5dc0+0x140 # f1a5f00
-glabel var7f1b9958
-.word menuhandler001a5dc0+0x15c # f1a5f1c
-glabel var7f1b995c
-.word menuhandler001a5dc0+0xdc # f1a5e9c
-glabel var7f1b9960
-.word menuhandler001a5dc0+0x120 # f1a5ee0
-.text
-/*  f1a5dc0:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f1a5dc4:	3c0f8009 */ 	lui	$t7,%hi(g_HangarBioGroups)
-/*  f1a5dc8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a5dcc:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f1a5dd0:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f1a5dd4:	25ef91b0 */ 	addiu	$t7,$t7,%lo(g_HangarBioGroups)
-/*  f1a5dd8:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1a5ddc:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f1a5de0:	27ae0030 */ 	addiu	$t6,$sp,0x30
-/*  f1a5de4:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f1a5de8:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f1a5dec:	8de8000c */ 	lw	$t0,0xc($t7)
-/*  f1a5df0:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f1a5df4:	adc8000c */ 	sw	$t0,0xc($t6)
-/*  f1a5df8:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f1a5dfc:	0fc6846e */ 	jal	ciGetNumUnlockedChrBios
-/*  f1a5e00:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f1a5e04:	0fc684e6 */ 	jal	ciGetNumUnlockedMiscBios
-/*  f1a5e08:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f1a5e0c:	8fa90040 */ 	lw	$t1,0x40($sp)
-/*  f1a5e10:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f1a5e14:	8fa60048 */ 	lw	$a2,0x48($sp)
-/*  f1a5e18:	252affff */ 	addiu	$t2,$t1,-1
-/*  f1a5e1c:	2d410007 */ 	sltiu	$at,$t2,0x7
-/*  f1a5e20:	10200044 */ 	beqz	$at,.L0f1a5f34
-/*  f1a5e24:	afa30038 */ 	sw	$v1,0x38($sp)
-/*  f1a5e28:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f1a5e2c:	3c017f1c */ 	lui	$at,%hi(var7f1b9948)
-/*  f1a5e30:	002a0821 */ 	addu	$at,$at,$t2
-/*  f1a5e34:	8c2a9948 */ 	lw	$t2,%lo(var7f1b9948)($at)
-/*  f1a5e38:	01400008 */ 	jr	$t2
-/*  f1a5e3c:	00000000 */ 	nop
-/*  f1a5e40:	00625821 */ 	addu	$t3,$v1,$v0
-/*  f1a5e44:	1000003b */ 	b	.L0f1a5f34
-/*  f1a5e48:	accb0000 */ 	sw	$t3,0x0($a2)
-/*  f1a5e4c:	8cc20000 */ 	lw	$v0,0x0($a2)
-/*  f1a5e50:	0043082b */ 	sltu	$at,$v0,$v1
-/*  f1a5e54:	10200009 */ 	beqz	$at,.L0f1a5e7c
-/*  f1a5e58:	00000000 */ 	nop
-/*  f1a5e5c:	0fc68484 */ 	jal	ciGetChrBioIndexBySlot
-/*  f1a5e60:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a5e64:	0fc68429 */ 	jal	ciGetChrBioByBodynum
-/*  f1a5e68:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a5e6c:	0fc5b9f1 */ 	jal	langGet
-/*  f1a5e70:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f1a5e74:	10000031 */ 	b	.L0f1a5f3c
-/*  f1a5e78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a5e7c:
-/*  f1a5e7c:	0fc684fc */ 	jal	ciGetMiscBioIndexBySlot
-/*  f1a5e80:	00432023 */ 	subu	$a0,$v0,$v1
-/*  f1a5e84:	0fc684a2 */ 	jal	ciGetMiscBio
-/*  f1a5e88:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a5e8c:	0fc5b9f1 */ 	jal	langGet
-/*  f1a5e90:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f1a5e94:	10000029 */ 	b	.L0f1a5f3c
-/*  f1a5e98:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a5e9c:	8ccc0000 */ 	lw	$t4,0x0($a2)
-/*  f1a5ea0:	3c028009 */ 	lui	$v0,%hi(var800888a0)
-/*  f1a5ea4:	244288a0 */ 	addiu	$v0,$v0,%lo(var800888a0)
-/*  f1a5ea8:	318d00ff */ 	andi	$t5,$t4,0xff
-/*  f1a5eac:	01a3082a */ 	slt	$at,$t5,$v1
-/*  f1a5eb0:	10200006 */ 	beqz	$at,.L0f1a5ecc
-/*  f1a5eb4:	a04c0000 */ 	sb	$t4,0x0($v0)
-/*  f1a5eb8:	3c048009 */ 	lui	$a0,%hi(menudialog_characterprofile)
-/*  f1a5ebc:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1a5ec0:	24849338 */ 	addiu	$a0,$a0,%lo(menudialog_characterprofile)
-/*  f1a5ec4:	1000001c */ 	b	.L0f1a5f38
-/*  f1a5ec8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a5ecc:
-/*  f1a5ecc:	3c048009 */ 	lui	$a0,%hi(menudialog_2f3c0)
-/*  f1a5ed0:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1a5ed4:	248493a0 */ 	addiu	$a0,$a0,%lo(menudialog_2f3c0)
-/*  f1a5ed8:	10000017 */ 	b	.L0f1a5f38
-/*  f1a5edc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a5ee0:	3c028009 */ 	lui	$v0,%hi(var800888a0)
-/*  f1a5ee4:	244288a0 */ 	addiu	$v0,$v0,%lo(var800888a0)
-/*  f1a5ee8:	90590000 */ 	lbu	$t9,0x0($v0)
-/*  f1a5eec:	10000011 */ 	b	.L0f1a5f34
-/*  f1a5ef0:	acd90000 */ 	sw	$t9,0x0($a2)
-/*  f1a5ef4:	24180002 */ 	addiu	$t8,$zero,0x2
-/*  f1a5ef8:	1000000e */ 	b	.L0f1a5f34
-/*  f1a5efc:	acd80000 */ 	sw	$t8,0x0($a2)
-/*  f1a5f00:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f1a5f04:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f1a5f08:	03af2021 */ 	addu	$a0,$sp,$t7
-/*  f1a5f0c:	0fc5b9f1 */ 	jal	langGet
-/*  f1a5f10:	94840034 */ 	lhu	$a0,0x34($a0)
-/*  f1a5f14:	10000009 */ 	b	.L0f1a5f3c
-/*  f1a5f18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a5f1c:	8cc80000 */ 	lw	$t0,0x0($a2)
-/*  f1a5f20:	55000004 */ 	bnezl	$t0,.L0f1a5f34
-/*  f1a5f24:	acc30008 */ 	sw	$v1,0x8($a2)
-/*  f1a5f28:	10000002 */ 	b	.L0f1a5f34
-/*  f1a5f2c:	acc00008 */ 	sw	$zero,0x8($a2)
-/*  f1a5f30:	acc30008 */ 	sw	$v1,0x8($a2)
-.L0f1a5f34:
-/*  f1a5f34:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a5f38:
-/*  f1a5f38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a5f3c:
-/*  f1a5f3c:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f1a5f40:	03e00008 */ 	jr	$ra
-/*  f1a5f44:	00000000 */ 	nop
-);
+	s32 numunlockedchrbios = ciGetNumUnlockedChrBios();
+	s32 numunlockedmiscbios = ciGetNumUnlockedMiscBios();
+	struct chrbio *chrbio;
+	struct miscbio *miscbio;
+
+	groups[1].offset = numunlockedchrbios;
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = numunlockedchrbios + numunlockedmiscbios;
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		if (*value < numunlockedchrbios) {
+			chrbio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(*value));
+			return langGet(chrbio->name);
+		} else {
+			miscbio = ciGetMiscBio(ciGetMiscBioIndexBySlot(*value - numunlockedchrbios));
+			return langGet(miscbio->name);
+		}
+		break;
+	case MENUOP_SET:
+		var800888a0 = *value;
+		if (var800888a0 < numunlockedchrbios) {
+			menuPushDialog(&menudialog_characterprofile);
+		} else {
+			menuPushDialog(&menudialog_2f3c0);
+		}
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = var800888a0;
+		break;
+	case MENUOP_GETOPTGROUPCOUNT:
+		*value = 2;
+		break;
+	case MENUOP_GETOPTGROUPTEXT:
+		return langGet(groups[*value].name);
+	case MENUOP_GETGROUPSTARTINDEX:
+		value[2] = *value == 0 ? 0 : numunlockedchrbios;
+		break;
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel menudialog001a5f48
@@ -3484,7 +3407,7 @@ char *ciMenuTextHangarBioSubheading(struct menuitem *item)
 }
 
 struct menuitem menuitems_information[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000c8, 0x00000000, menuhandler001a5dc0 },
+	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000c8, 0x00000000, ciOfficeInformationMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
