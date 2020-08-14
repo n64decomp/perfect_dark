@@ -11,7 +11,7 @@
 
 u8 var80062940 = 0;
 u8 var80062944 = 0;
-u32 var80062948 = 0x00000000;
+u8 var80062948 = 0;
 u32 var8006294c = 0x00000000;
 u32 var80062950 = 0x00000064;
 bool g_WeatherTickEnabled = true;

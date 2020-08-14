@@ -42,26 +42,15 @@ const char var7f1a85e0[] = "Live: %d\n";
 const char var7f1a85ec[] = "current:";
 const char var7f1a85f8[] = " numactive %d ";
 
-GLOBAL_ASM(
-glabel func0f01bea0
-/*  f01bea0:	3c028006 */ 	lui	$v0,%hi(var80062944)
-/*  f01bea4:	24422944 */ 	addiu	$v0,$v0,%lo(var80062944)
-/*  f01bea8:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f01beac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f01beb0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f01beb4:	11c00006 */ 	beqz	$t6,.L0f01bed0
-/*  f01beb8:	3c018006 */ 	lui	$at,%hi(var80062948)
-/*  f01bebc:	a0400000 */ 	sb	$zero,0x0($v0)
-/*  f01bec0:	0c004e72 */ 	jal	func000139c8
-/*  f01bec4:	a0202948 */ 	sb	$zero,%lo(var80062948)($at)
-/*  f01bec8:	0fc442fe */ 	jal	func0f110bf8
-/*  f01becc:	00000000 */ 	nop
-.L0f01bed0:
-/*  f01bed0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01bed4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f01bed8:	03e00008 */ 	jr	$ra
-/*  f01bedc:	00000000 */ 	nop
-);
+void func0f01bea0(void)
+{
+	if (var80062944) {
+		var80062944 = 0;
+		var80062948 = 0;
+		func000139c8();
+		func0f110bf8();
+	}
+}
 
 void menuCountDialogs(void)
 {

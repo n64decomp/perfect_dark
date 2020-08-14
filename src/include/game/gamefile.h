@@ -18,7 +18,7 @@ u32 func0f11080c(void);
 void func0f1109c0(void);
 void func0f110b68(void);
 void func0f110bf0(void);
-u32 func0f110bf8(void);
+void func0f110bf8(void);
 void func0f110c5c(s32 locationindex, u8 filetype);
 u32 func0f110cf8(void);
 u32 func0f110d90(void);
