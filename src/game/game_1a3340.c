@@ -569,7 +569,7 @@ glabel var7f1b9944
 
 s32 frTrainingStatsMenuDialog(u32 operation, u32 arg1, u32 *arg2)
 {
-	if (operation == MENUOP_101) {
+	if (operation == MENUOP_CLOSE) {
 		if (frIsInTraining() == false) {
 			frEndSession(true);
 		}
@@ -3255,7 +3255,7 @@ char *dtMenuTextTimeTakenValue(struct menuitem *item)
 
 bool menudialogDeviceTrainingResults(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
-	if (operation == MENUOP_101) {
+	if (operation == MENUOP_CLOSE) {
 		chrSetStageFlag(NULL, 0x08000000);
 	}
 
@@ -3317,10 +3317,10 @@ s32 menuhandler001a6a70(u32 operation, struct menuitem *item, s32 *value)
 bool menudialog001a6aa4(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
 	switch (operation) {
-	case MENUOP_100:
+	case MENUOP_OPEN:
 		func0f1a2198();
 		break;
-	case MENUOP_101:
+	case MENUOP_CLOSE:
 		break;
 	}
 
@@ -3373,7 +3373,7 @@ char *htMenuTextTimeTakenValue(struct menuitem *item)
 
 bool menudialogFiringRangeResults(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
-	if (operation == MENUOP_101) {
+	if (operation == MENUOP_CLOSE) {
 		chrSetStageFlag(NULL, 0x08000000);
 	}
 

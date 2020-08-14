@@ -843,14 +843,14 @@ char *soloMenuTitleStageOverview(struct menudialog *dialog)
 s32 menudialog00103608(u32 operation, struct menudialog *dialog, struct menuthing **thingptr)
 {
 	switch (operation) {
-	case MENUOP_100:
+	case MENUOP_OPEN:
 		g_Menus[g_MpPlayerNum].unk850 = 0;
 
 		func0f00e980(g_MissionConfig.stagenum,
 				g_Menus[g_MpPlayerNum].unk844,
 				g_Menus[g_MpPlayerNum].unk848, &g_Briefing);
 		break;
-	case MENUOP_101:
+	case MENUOP_CLOSE:
 		langClearBank(var8009dfe0[1]);
 		break;
 	}
@@ -1447,7 +1447,7 @@ glabel menudialogCoopAntiOptions
 // It uses offset 0x0a, but 0x08 is a 4 byte pointer.
 //bool menudialogCoopAntiOptions(u32 operation, struct menudialog *dialog, struct menu *menu)
 //{
-//	if (operation == MENUOP_100) {
+//	if (operation == MENUOP_OPEN) {
 //		s32 max = getMaxAiBuddies();
 //
 //		if (g_Vars.numaibuddies > max) {
@@ -1455,7 +1455,7 @@ glabel menudialogCoopAntiOptions
 //		}
 //	}
 //
-//	if (operation == MENUOP_102) {
+//	if (operation == MENUOP_TICK) {
 //		if (g_Menus[g_MpPlayerNum].curframe &&
 //				g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
 //			struct menuframe *curframe = menu->curframe;
@@ -2841,9 +2841,9 @@ glabel var7f1b2dfc
 s32 menudialog0010559c(u32 operation, struct menudialog *dialog, s32 *arg2)
 {
 	switch (operation) {
-	case MENUOP_100:
+	case MENUOP_OPEN:
 		break;
-	case MENUOP_101:
+	case MENUOP_CLOSE:
 		if ((g_Vars.unk000458 & 1) && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
 			if (func0f1094e4(&var800a22c0, 1, 0) == 0) {
 				*arg2 = 1;
@@ -4153,7 +4153,7 @@ struct menudialog g_SoloAbortShortMenuDialog = {
 
 s32 soloMenuDialogPauseStatus(u32 operation, s32 arg1, s32 arg2)
 {
-	if (operation == MENUOP_100) {
+	if (operation == MENUOP_OPEN) {
 		struct objectivething *thing = var8009d0b4;
 		struct objective *objective;
 		s32 iVar3 = 1;
@@ -4497,10 +4497,10 @@ s32 menuhandlerMainMenuCounterOperative(u32 operation, struct menuitem *item, s3
 bool menudialogMainMenu(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
 	switch (operation) {
-	case MENUOP_100:
+	case MENUOP_OPEN:
 		g_Menus[g_MpPlayerNum].data.main.unke2c = 0;
 		break;
-	case MENUOP_102:
+	case MENUOP_TICK:
 		if (g_Menus[g_MpPlayerNum].curframe &&
 				g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
 			g_MissionConfig.iscoop = false;

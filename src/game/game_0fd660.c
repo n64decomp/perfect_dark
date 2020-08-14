@@ -491,13 +491,13 @@ glabel var7f1b2cd8
 bool menudialogMpPickTarget(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
 	switch (operation) {
-	case MENUOP_100:
+	case MENUOP_OPEN:
 		g_PlayersWithControl[g_Vars.currentplayernum] = false;
 		break;
-	case MENUOP_102:
+	case MENUOP_TICK:
 		g_PlayersWithControl[g_Vars.currentplayernum] = false;
 		break;
-	case MENUOP_101:
+	case MENUOP_CLOSE:
 		g_PlayersWithControl[g_Vars.currentplayernum] = true;
 		break;
 	}

@@ -47,7 +47,7 @@ s32 menuhandlerDeclineMission(u32 operation, struct menuitem *item, s32 *value)
 void menudialogRetryMission(u32 operation, struct menudialog *dialog, struct menuthing **thingptr)
 {
 	switch (operation) {
-	case MENUOP_102:
+	case MENUOP_TICK:
 		{
 			/**
 			 * NTSC Final adds this check to make sure the given dialog is

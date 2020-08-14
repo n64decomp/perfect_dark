@@ -92,7 +92,7 @@ void func0f10cb2c(void)
 
 bool menudialog4MbMainMenu(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
-	if (operation == MENUOP_100) {
+	if (operation == MENUOP_OPEN) {
 		g_Vars.unk000494 = 0;
 		g_Vars.unk000495 = 0;
 		g_Vars.unk000496 = 0;
@@ -101,7 +101,7 @@ bool menudialog4MbMainMenu(u32 operation, struct menudialog *dialog, struct menu
 
 	if (g_Menus[g_MpPlayerNum].curframe &&
 			g_Menus[g_MpPlayerNum].curframe->dialog == &g_4MbMainMenu &&
-			operation == MENUOP_102) {
+			operation == MENUOP_TICK) {
 		g_Vars.unk000490 = 2;
 		g_Vars.mpquickteam = MPQUICKTEAM_5;
 		g_Vars.unk00049c = 0;

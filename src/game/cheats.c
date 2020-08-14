@@ -533,7 +533,7 @@ glabel cheatMenuHandleDialog
 // It's calculating it as &func00002148 + 24 rather than ptr + 4.
 //bool cheatMenuHandleDialog(u32 operation, struct menudialog *dialog, struct menu *menu)
 //{
-//	if (operation == MENUOP_100) {
+//	if (operation == MENUOP_OPEN) {
 //		func0f14a52c();
 //
 //		if (func0f11e78c()) {
@@ -564,7 +564,7 @@ glabel cheatMenuHandleDialog
 //#endif
 //	}
 //
-//	if (operation == MENUOP_101) {
+//	if (operation == MENUOP_CLOSE) {
 //		if (func0f11e78c()) {
 //			savefileSetFlag(SAVEFILEFLAG_USED_TRANSFERPAK);
 //		}

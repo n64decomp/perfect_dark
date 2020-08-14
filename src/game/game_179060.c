@@ -3571,7 +3571,7 @@ s32 menuhandlerMpRestoreHandicapDefaults(u32 operation, struct menuitem *item, s
 
 bool menudialogMpReady(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
-	if (operation == MENUOP_100) {
+	if (operation == MENUOP_OPEN) {
 		if (g_MpPlayers[g_MpPlayerNum].saved && g_MpPlayers[g_MpPlayerNum].unk50) {
 			func0f1094e4(&g_MpPlayers[g_MpPlayerNum].saved, 3, g_MpPlayerNum);
 		}
@@ -3582,7 +3582,7 @@ bool menudialogMpReady(u32 operation, struct menudialog *dialog, struct menu *me
 
 bool menudialogMpSimulant(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
-	if (operation == MENUOP_102) {
+	if (operation == MENUOP_TICK) {
 		if ((u8)g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.name[0] == '\0') {
 			menuPopDialog();
 		}
@@ -4294,7 +4294,7 @@ glabel func0f17d378
 
 bool menudialogMpSimulants(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
-	if (operation == MENUOP_100) {
+	if (operation == MENUOP_OPEN) {
 		g_Menus[g_MpPlayerNum].data.mpsetup.slotcount = 0;
 	}
 
@@ -4950,11 +4950,11 @@ glabel var7f1b8228
 
 bool menudialogMpSelectTune(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
-	if (operation == MENUOP_100) {
+	if (operation == MENUOP_OPEN) {
 		var800840e0 = 80;
 	}
 
-	if (operation == MENUOP_101) {
+	if (operation == MENUOP_CLOSE) {
 		var800840e0 = 15;
 	}
 
@@ -5921,7 +5921,7 @@ char *mpMenuTextWeaponSetName(struct menuitem *item)
 
 bool menudialogMpGameSetup(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
-	if (operation == MENUOP_100) {
+	if (operation == MENUOP_OPEN) {
 		g_Vars.unk000490 = 1;
 		g_Vars.unk00049c = 1;
 	}
@@ -5931,7 +5931,7 @@ bool menudialogMpGameSetup(u32 operation, struct menudialog *dialog, struct menu
 
 bool menudialogMpQuickGo(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
-	if (operation == MENUOP_100) {
+	if (operation == MENUOP_OPEN) {
 		g_Vars.unk000490 = 3;
 	}
 

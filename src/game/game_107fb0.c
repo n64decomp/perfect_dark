@@ -1165,7 +1165,7 @@ glabel func0f108d8c
 
 bool menudialog00108e58(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
-	if (operation == MENUOP_102) {
+	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curframe &&
 				g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
 			func0f109038(0);

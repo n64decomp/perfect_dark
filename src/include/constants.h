@@ -1064,9 +1064,9 @@
 #define MENUOP_SETTEXT            18
 #define MENUOP_GETCOLOUR          22
 #define MENUOP_CHECKHIDDEN        24
-#define MENUOP_100                100
-#define MENUOP_101                101
-#define MENUOP_102                102
+#define MENUOP_OPEN               100
+#define MENUOP_CLOSE              101
+#define MENUOP_TICK               102
 
 #define MENUROOT_ENDSCREEN   1
 #define MENUROOT_MAINMENU    2
