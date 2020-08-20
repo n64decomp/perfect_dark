@@ -8094,14 +8094,10 @@ glabel var7f1ac6cc
 /*  f09df4c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f09df50
-/*  f09df50:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x284)
-/*  f09df54:	8defa244 */ 	lw	$t7,%lo(g_Vars+0x284)($t7)
-/*  f09df58:	240e000b */ 	addiu	$t6,$zero,0xb
-/*  f09df5c:	03e00008 */ 	jr	$ra
-/*  f09df60:	a1ee15ea */ 	sb	$t6,0x15ea($t7)
-);
+void func0f09df50(void)
+{
+	g_Vars.currentplayer->unk15ea = 11;
+}
 
 GLOBAL_ASM(
 glabel func0f09df64
