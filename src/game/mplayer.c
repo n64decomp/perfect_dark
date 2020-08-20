@@ -838,8 +838,8 @@ glabel func0f188210
 /*  f1882dc:	0fc6256f */ 	jal	mpSetWeaponSet
 /*  f1882e0:	00002025 */ 	or	$a0,$zero,$zero
 .L0f1882e4:
-/*  f1882e4:	3c02800b */ 	lui	$v0,%hi(g_MpLockPlayerNum)
-/*  f1882e8:	2442cc20 */ 	addiu	$v0,$v0,%lo(g_MpLockPlayerNum)
+/*  f1882e4:	3c02800b */ 	lui	$v0,%hi(g_MpLockInfo)
+/*  f1882e8:	2442cc20 */ 	addiu	$v0,$v0,%lo(g_MpLockInfo)
 /*  f1882ec:	2403ffff */ 	addiu	$v1,$zero,-1
 /*  f1882f0:	3c04800a */ 	lui	$a0,%hi(g_Vars)
 /*  f1882f4:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
@@ -1276,8 +1276,8 @@ glabel func0f1885e4
 /*  f1888d4:	1490ffcf */ 	bne	$a0,$s0,.L0f188814
 /*  f1888d8:	24c60004 */ 	addiu	$a2,$a2,0x4
 .L0f1888dc:
-/*  f1888dc:	3c11800b */ 	lui	$s1,%hi(g_MpLockPlayerNum)
-/*  f1888e0:	2631cc20 */ 	addiu	$s1,$s1,%lo(g_MpLockPlayerNum)
+/*  f1888dc:	3c11800b */ 	lui	$s1,%hi(g_MpLockInfo)
+/*  f1888e0:	2631cc20 */ 	addiu	$s1,$s1,%lo(g_MpLockInfo)
 /*  f1888e4:	a22d0001 */ 	sb	$t5,0x1($s1)
 /*  f1888e8:	a23f0002 */ 	sb	$ra,0x2($s1)
 /*  f1888ec:	3c19800b */ 	lui	$t9,%hi(g_MpSetup+0x88)
@@ -5204,9 +5204,9 @@ bool mpSetLock(s32 locktype, s32 playernum)
 	g_MpSetupSaveFile.locktype = locktype;
 
 	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_RANDOM) {
-		g_MpLockPlayerNum = mpChooseRandomLockPlayer();
+		g_MpLockInfo.lockedplayernum = mpChooseRandomLockPlayer();
 	} else {
-		g_MpLockPlayerNum = playernum;
+		g_MpLockInfo.lockedplayernum = playernum;
 	}
 
 	return true;
@@ -5219,7 +5219,7 @@ u32 mpGetLockType(void)
 
 u32 mpGetLockPlayerNum(void)
 {
-	return g_MpLockPlayerNum;
+	return g_MpLockInfo.lockedplayernum;
 }
 
 bool mpIsPlayerLockedOut(u32 playernum)
@@ -5228,64 +5228,30 @@ bool mpIsPlayerLockedOut(u32 playernum)
 		return false;
 	}
 
-	if (g_MpLockPlayerNum == playernum) {
+	if (g_MpLockInfo.lockedplayernum == playernum) {
 		return false;
 	}
 
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f18c014
-/*  f18c014:	3c04800b */ 	lui	$a0,%hi(g_MpSetup+0x88)
-/*  f18c018:	9084cc10 */ 	lbu	$a0,%lo(g_MpSetup+0x88)($a0)
-/*  f18c01c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18c020:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f18c024:	14810007 */ 	bne	$a0,$at,.L0f18c044
-/*  f18c028:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c02c:	3c03800b */ 	lui	$v1,%hi(g_MpLockPlayerNum)
-/*  f18c030:	2463cc20 */ 	addiu	$v1,$v1,%lo(g_MpLockPlayerNum)
-/*  f18c034:	80620001 */ 	lb	$v0,0x1($v1)
-/*  f18c038:	04400002 */ 	bltz	$v0,.L0f18c044
-/*  f18c03c:	00000000 */ 	nop
-/*  f18c040:	a0620000 */ 	sb	$v0,0x0($v1)
-.L0f18c044:
-/*  f18c044:	3c03800b */ 	lui	$v1,%hi(g_MpLockPlayerNum)
-/*  f18c048:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f18c04c:	14810005 */ 	bne	$a0,$at,.L0f18c064
-/*  f18c050:	2463cc20 */ 	addiu	$v1,$v1,%lo(g_MpLockPlayerNum)
-/*  f18c054:	80620002 */ 	lb	$v0,0x2($v1)
-/*  f18c058:	04420003 */ 	bltzl	$v0,.L0f18c068
-/*  f18c05c:	80620000 */ 	lb	$v0,0x0($v1)
-/*  f18c060:	a0620000 */ 	sb	$v0,0x0($v1)
-.L0f18c064:
-/*  f18c064:	80620000 */ 	lb	$v0,0x0($v1)
-.L0f18c068:
-/*  f18c068:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f18c06c:	04420011 */ 	bltzl	$v0,.L0f18c0b4
-/*  f18c070:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18c074:	1081000e */ 	beq	$a0,$at,.L0f18c0b0
-/*  f18c078:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x16)
-/*  f18c07c:	95cecb9e */ 	lhu	$t6,%lo(g_MpSetup+0x16)($t6)
-/*  f18c080:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f18c084:	004fc004 */ 	sllv	$t8,$t7,$v0
-/*  f18c088:	01d8c824 */ 	and	$t9,$t6,$t8
-/*  f18c08c:	17200008 */ 	bnez	$t9,.L0f18c0b0
-/*  f18c090:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f18c094:	a0680002 */ 	sb	$t0,0x2($v1)
-/*  f18c098:	80690002 */ 	lb	$t1,0x2($v1)
-/*  f18c09c:	0fc62fba */ 	jal	mpChooseRandomLockPlayer
-/*  f18c0a0:	a0690001 */ 	sb	$t1,0x1($v1)
-/*  f18c0a4:	3c03800b */ 	lui	$v1,%hi(g_MpLockPlayerNum)
-/*  f18c0a8:	2463cc20 */ 	addiu	$v1,$v1,%lo(g_MpLockPlayerNum)
-/*  f18c0ac:	a0620000 */ 	sb	$v0,0x0($v1)
-.L0f18c0b0:
-/*  f18c0b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f18c0b4:
-/*  f18c0b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f18c0b8:	03e00008 */ 	jr	$ra
-/*  f18c0bc:	00000000 */ 	nop
-);
+void mpCalculateLockIfLastWinnerOrLoser(void)
+{
+	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_LASTWINNER && g_MpLockInfo.lastwinner >= 0) {
+		g_MpLockInfo.lockedplayernum = g_MpLockInfo.lastwinner;
+	}
+
+	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_LASTLOSER && g_MpLockInfo.lastloser >= 0) {
+		g_MpLockInfo.lockedplayernum = g_MpLockInfo.lastloser;
+	}
+
+	if (g_MpLockInfo.lockedplayernum >= 0
+			&& g_MpSetupSaveFile.locktype != MPLOCKTYPE_CHALLENGE
+			&& (g_MpSetup.chrslots & (1 << g_MpLockInfo.lockedplayernum)) == 0) {
+		g_MpLockInfo.lastwinner = g_MpLockInfo.lastloser = -1;
+		g_MpLockInfo.lockedplayernum = mpChooseRandomLockPlayer();
+	}
+}
 
 GLOBAL_ASM(
 glabel mpIsTrackUnlocked
@@ -5514,8 +5480,8 @@ glabel func0f18c4c0
 /*  f18c524:	00000000 */ 	nop
 .L0f18c528:
 /*  f18c528:	16a0001e */ 	bnez	$s5,.L0f18c5a4
-/*  f18c52c:	3c16800b */ 	lui	$s6,%hi(g_MpLockPlayerNum)
-/*  f18c530:	26d6cc20 */ 	addiu	$s6,$s6,%lo(g_MpLockPlayerNum)
+/*  f18c52c:	3c16800b */ 	lui	$s6,%hi(g_MpLockInfo)
+/*  f18c530:	26d6cc20 */ 	addiu	$s6,$s6,%lo(g_MpLockInfo)
 .L0f18c534:
 /*  f18c534:	0c004b70 */ 	jal	random
 /*  f18c538:	00000000 */ 	nop
@@ -5547,8 +5513,8 @@ glabel func0f18c4c0
 /*  f18c59c:	10000073 */ 	b	.L0f18c76c
 /*  f18c5a0:	00031242 */ 	srl	$v0,$v1,0x9
 .L0f18c5a4:
-/*  f18c5a4:	3c16800b */ 	lui	$s6,%hi(g_MpLockPlayerNum)
-/*  f18c5a8:	26d6cc20 */ 	addiu	$s6,$s6,%lo(g_MpLockPlayerNum)
+/*  f18c5a4:	3c16800b */ 	lui	$s6,%hi(g_MpLockInfo)
+/*  f18c5a8:	26d6cc20 */ 	addiu	$s6,$s6,%lo(g_MpLockInfo)
 /*  f18c5ac:	00008025 */ 	or	$s0,$zero,$zero
 .L0f18c5b0:
 /*  f18c5b0:	0c004b70 */ 	jal	random
@@ -5621,9 +5587,9 @@ glabel func0f18c4c0
 /*  f18c69c:	00409825 */ 	or	$s3,$v0,$zero
 /*  f18c6a0:	0fc63080 */ 	jal	func0f18c200
 /*  f18c6a4:	00000000 */ 	nop
-/*  f18c6a8:	3c16800b */ 	lui	$s6,%hi(g_MpLockPlayerNum)
+/*  f18c6a8:	3c16800b */ 	lui	$s6,%hi(g_MpLockInfo)
 /*  f18c6ac:	00408025 */ 	or	$s0,$v0,$zero
-/*  f18c6b0:	26d6cc20 */ 	addiu	$s6,$s6,%lo(g_MpLockPlayerNum)
+/*  f18c6b0:	26d6cc20 */ 	addiu	$s6,$s6,%lo(g_MpLockInfo)
 .L0f18c6b4:
 /*  f18c6b4:	0c004b70 */ 	jal	random
 /*  f18c6b8:	00000000 */ 	nop
@@ -5658,9 +5624,9 @@ glabel func0f18c4c0
 /*  f18c724:	0fc63065 */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18c728:	02602025 */ 	or	$a0,$s3,$zero
 /*  f18c72c:	00024080 */ 	sll	$t0,$v0,0x2
-/*  f18c730:	3c16800b */ 	lui	$s6,%hi(g_MpLockPlayerNum)
+/*  f18c730:	3c16800b */ 	lui	$s6,%hi(g_MpLockInfo)
 /*  f18c734:	01024023 */ 	subu	$t0,$t0,$v0
-/*  f18c738:	26d6cc20 */ 	addiu	$s6,$s6,%lo(g_MpLockPlayerNum)
+/*  f18c738:	26d6cc20 */ 	addiu	$s6,$s6,%lo(g_MpLockInfo)
 /*  f18c73c:	00084040 */ 	sll	$t0,$t0,0x1
 /*  f18c740:	3c038008 */ 	lui	$v1,%hi(g_MpTracks)
 /*  f18c744:	aec20004 */ 	sw	$v0,0x4($s6)

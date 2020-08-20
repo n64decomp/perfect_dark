@@ -561,7 +561,7 @@ glabel var7f1a863c
 .L0f01c588:
 /*  f01c588:	1621fff0 */ 	bne	$s1,$at,.L0f01c54c
 /*  f01c58c:	24630e70 */ 	addiu	$v1,$v1,0x0e70
-/*  f01c590:	0fc63005 */ 	jal	func0f18c014
+/*  f01c590:	0fc63005 */ 	jal	mpCalculateLockIfLastWinnerOrLoser
 /*  f01c594:	00000000 */ 	nop
 /*  f01c598:	0fc66d50 */ 	jal	func0f19b540
 /*  f01c59c:	00000000 */ 	nop
@@ -2114,7 +2114,7 @@ glabel var7f1a863c
 //				}
 //			}
 //
-//			func0f18c014();
+//			mpCalculateLockIfLastWinnerOrLoser();
 //			func0f19b540();
 //		}
 //

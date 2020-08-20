@@ -817,7 +817,7 @@ extern struct mpplayer g_MpPlayers[6];
 extern u8 g_ActiveMenuMpBotCommands[16];
 extern struct mpsetup g_MpSetup;
 extern struct savefile_setup g_MpSetupSaveFile;
-extern s8 g_MpLockPlayerNum;
+extern struct mplockinfo g_MpLockInfo;
 extern u32 var800acc28[18];
 extern u32 var800acc70;
 extern u32 var800acc74;

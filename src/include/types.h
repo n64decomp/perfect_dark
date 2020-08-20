@@ -6398,4 +6398,10 @@ struct var8009d510 {
 	/*0x40*/ u32 unk40;
 };
 
+struct mplockinfo {
+	s8 lockedplayernum;
+	s8 lastwinner;
+	s8 lastloser;
+};
+
 #endif

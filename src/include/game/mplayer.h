@@ -61,7 +61,7 @@ bool mpSetLock(s32 locktype, s32 playernum);
 u32 mpGetLockType(void);
 u32 mpGetLockPlayerNum(void);
 bool mpIsPlayerLockedOut(u32 playernum);
-void func0f18c014(void);
+void mpCalculateLockIfLastWinnerOrLoser(void);
 bool mpIsTrackUnlocked(s32 tracknum);
 s32 mpGetTrackSlotIndex(s32 tracknum);
 s32 mpGetTrackNumAtSlotIndex(s32 slotindex);
