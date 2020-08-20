@@ -3,13 +3,13 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f16cfa0(void);
+u16 func0f16cfa0(void);
 void func0f16cfe8(u16 volume);
 u32 func0f16d0a8(void);
 u32 func0f16d124(void);
-void func0f16d1bc(u32 arg0, u32 trackid, f32 arg2, u32 arg3);
-u32 func0f16d240(void);
-u32 func0f16d2ac(void);
+void func0f16d1bc(u32 arg0, u32 trackid, f32 arg2, u16 arg3);
+void func0f16d240(s32 arg0);
+void func0f16d2ac(s32 arg0, f32 arg1, s32 arg2);
 void func0f16d324(void);
 void func0f16d3d0(void);
 u32 func0f16d430(void);

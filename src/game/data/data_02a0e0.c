@@ -18,7 +18,7 @@
 #include "stagesetup.h"
 #include "types.h"
 
-u32 var800840c0 = 0xffffffff;
+s32 g_AudioCurrentBgMusicNum = -1;
 u32 var800840c4 = 0x00000000;
 u32 var800840c8 = 0xffffffff;
 u32 var800840cc = 0xffffffff;

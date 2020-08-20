@@ -2,6 +2,7 @@
 #define IN_GAME_DATA_02A0E0_H
 #include <ultra64.h>
 
+extern s32 g_AudioCurrentBgMusicNum;
 extern u32 var800840c4;
 extern u32 var800840d4;
 extern u32 var800840e0;

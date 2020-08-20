@@ -322,8 +322,8 @@ glabel func0f16d324
 /*  f16d394:	3c018008 */ 	lui	$at,%hi(var800840f0)
 /*  f16d398:	ac2040f0 */ 	sw	$zero,%lo(var800840f0)($at)
 /*  f16d39c:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f16d3a0:	3c018008 */ 	lui	$at,%hi(var800840c0)
-/*  f16d3a4:	ac2240c0 */ 	sw	$v0,%lo(var800840c0)($at)
+/*  f16d3a0:	3c018008 */ 	lui	$at,%hi(g_AudioCurrentBgMusicNum)
+/*  f16d3a4:	ac2240c0 */ 	sw	$v0,%lo(g_AudioCurrentBgMusicNum)($at)
 /*  f16d3a8:	3c018008 */ 	lui	$at,%hi(var800840c8)
 /*  f16d3ac:	ac2240c8 */ 	sw	$v0,%lo(var800840c8)($at)
 /*  f16d3b0:	3c018008 */ 	lui	$at,%hi(var800840cc)
@@ -724,45 +724,19 @@ glabel func0f16d89c
 /*  f16d918:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel audioSetBgMusic
-/*  f16d91c:	3c0f8008 */ 	lui	$t7,%hi(var800840c0)
-/*  f16d920:	8def40c0 */ 	lw	$t7,%lo(var800840c0)($t7)
-/*  f16d924:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16d928:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16d92c:	108f0018 */ 	beq	$a0,$t7,.L0f16d990
-/*  f16d930:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f16d934:	0fc5b490 */ 	jal	func0f16d240
-/*  f16d938:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f16d93c:	0fc5b490 */ 	jal	func0f16d240
-/*  f16d940:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f16d944:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f16d948:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f16d94c:	0fc5b4ab */ 	jal	func0f16d2ac
-/*  f16d950:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f16d954:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f16d958:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f16d95c:	0fc5b4ab */ 	jal	func0f16d2ac
-/*  f16d960:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f16d964:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f16d968:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f16d96c:	0fc5b4ab */ 	jal	func0f16d2ac
-/*  f16d970:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f16d974:	0fc5b3e8 */ 	jal	func0f16cfa0
-/*  f16d978:	00000000 */ 	nop
-/*  f16d97c:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f16d980:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f16d984:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f16d988:	0fc5b46f */ 	jal	func0f16d1bc
-/*  f16d98c:	3047ffff */ 	andi	$a3,$v0,0xffff
-.L0f16d990:
-/*  f16d990:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16d994:	8fb80018 */ 	lw	$t8,0x18($sp)
-/*  f16d998:	3c018008 */ 	lui	$at,%hi(var800840c0)
-/*  f16d99c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16d9a0:	03e00008 */ 	jr	$ra
-/*  f16d9a4:	ac3840c0 */ 	sw	$t8,%lo(var800840c0)($at)
-);
+void audioSetBgMusic(s32 tracknum)
+{
+	if (tracknum != g_AudioCurrentBgMusicNum) {
+		func0f16d240(3);
+		func0f16d240(4);
+		func0f16d2ac(1, 0.5f, 1);
+		func0f16d2ac(2, 0.5f, 1);
+		func0f16d2ac(5, 0.5f, 1);
+		func0f16d1bc(3, tracknum, 0, func0f16cfa0());
+	}
+
+	g_AudioCurrentBgMusicNum = tracknum;
+}
 
 void func0f16d9a8(s32 stagenum)
 {
@@ -897,8 +871,8 @@ glabel func0f16db3c
 /*  f16db8c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f16db90:
 /*  f16db90:	240effff */ 	addiu	$t6,$zero,-1
-/*  f16db94:	3c018008 */ 	lui	$at,%hi(var800840c0)
-/*  f16db98:	ac2e40c0 */ 	sw	$t6,%lo(var800840c0)($at)
+/*  f16db94:	3c018008 */ 	lui	$at,%hi(g_AudioCurrentBgMusicNum)
+/*  f16db98:	ac2e40c0 */ 	sw	$t6,%lo(g_AudioCurrentBgMusicNum)($at)
 /*  f16db9c:	03e00008 */ 	jr	$ra
 /*  f16dba0:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
