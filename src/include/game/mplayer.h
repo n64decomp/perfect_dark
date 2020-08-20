@@ -5,7 +5,7 @@
 
 f32 func0f187770(u8 value);
 u32 func0f187838(void);
-void func0f187864(void);
+void mpStartMatch(void);
 u32 func0f187944(void);
 void func0f187e70(void);
 void func0f187fbc(s32 playernum);

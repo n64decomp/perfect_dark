@@ -1090,7 +1090,7 @@ glabel var7f1a863c
 /*  f01ccd0:	2401fffb */ 	addiu	$at,$zero,-5
 /*  f01ccd4:	54a10011 */ 	bnel	$a1,$at,.L0f01cd1c
 /*  f01ccd8:	2401fffa */ 	addiu	$at,$zero,-6
-/*  f01ccdc:	0fc61e19 */ 	jal	func0f187864
+/*  f01ccdc:	0fc61e19 */ 	jal	mpStartMatch
 /*  f01cce0:	afa40158 */ 	sw	$a0,0x158($sp)
 /*  f01cce4:	0fc06fa8 */ 	jal	func0f01bea0
 /*  f01cce8:	00000000 */ 	nop
@@ -2325,7 +2325,7 @@ glabel var7f1a863c
 //		// ccc8
 //		if (g_MenuData.unk008 != -1) {
 //			if (g_MenuData.unk008 == -5) {
-//				func0f187864();
+//				mpStartMatch();
 //				func0f01bea0();
 //
 //				if (g_Vars.unk000458 & 0x00000002) {

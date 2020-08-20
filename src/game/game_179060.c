@@ -126,7 +126,7 @@ u32 func0f1790fc(void)
 }
 
 GLOBAL_ASM(
-glabel func0f179104
+glabel mpChooseRandomStage
 /*  f179104:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f179108:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f17910c:	afb00018 */ 	sw	$s0,0x18($sp)

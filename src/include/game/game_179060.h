@@ -4,7 +4,7 @@
 #include "types.h"
 
 char *mpGetCurrentPlayerName(struct menuitem *item);
-u32 func0f179104(void);
+u32 mpChooseRandomStage(void);
 s32 menuhandler001791c8(u32, u32, u32 *);
 char *mpMenuTextWeaponNameForSlot(struct menuitem *item);
 char *mpMenuTextSetupName(struct menuitem *item);
@@ -63,7 +63,7 @@ char *mpMenuTextSavePlayerOrCopy(struct menuitem *item);
 char *mpMenuTextArenaName(struct menuitem *item);
 char *mpMenuTextWeaponSetName(struct menuitem *item);
 u32 func0f17f100(void);
-u32 func0f17f260(void);
+void func0f17f260(void);
 u32 func0f17f428(void);
 s32 menuhandlerPlayerTeam(u32 operation, struct menuitem *item, s32 *value);
 u32 menuhandlerMpNumberOfSimulants(u32 operation, struct menuitem *item, s32 *value);
