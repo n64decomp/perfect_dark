@@ -22,7 +22,7 @@ void func0f110bf8(void);
 void func0f110c5c(s32 locationindex, u8 filetype);
 u32 func0f110cf8(void);
 u32 func0f110d90(void);
-u32 func0f110da8(void);
+void func0f110da8(void);
 u32 func0f110f4c(void);
 u32 func0f111460(void);
 

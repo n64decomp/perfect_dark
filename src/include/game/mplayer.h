@@ -5,7 +5,7 @@
 
 f32 func0f187770(u8 value);
 u32 func0f187838(void);
-u32 func0f187864(void);
+void func0f187864(void);
 u32 func0f187944(void);
 void func0f187e70(void);
 void func0f187fbc(s32 playernum);
@@ -61,7 +61,7 @@ bool mpSetLock(s32 locktype, s32 playernum);
 u32 mpGetLockType(void);
 u32 mpGetLockPlayerNum(void);
 bool mpIsPlayerLockedOut(u32 playernum);
-u32 func0f18c014(void);
+void func0f18c014(void);
 bool mpIsTrackUnlocked(s32 tracknum);
 s32 mpGetTrackSlotIndex(s32 tracknum);
 s32 mpGetTrackNumAtSlotIndex(s32 slotindex);

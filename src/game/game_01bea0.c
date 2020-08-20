@@ -6,6 +6,7 @@
 #include "game/data/data_0160b0.h"
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
+#include "game/data/data_02a0e0.h"
 #include "game/data/data_02da90.h"
 #include "game/game_005fd0.h"
 #include "game/title.h"
@@ -65,36 +66,36 @@ void menuCountDialogs(void)
 }
 
 GLOBAL_ASM(
-glabel menuTick
+glabel menuTickAll
 .late_rodata
 glabel var7f1a8608
 .word 0x3ca3d70a
 glabel var7f1a860c
-.word menuTick+0x168c # f01d5b4
+.word menuTickAll+0x168c # f01d5b4
 glabel var7f1a8610
-.word menuTick+0x168c # f01d5b4
+.word menuTickAll+0x168c # f01d5b4
 glabel var7f1a8614
-.word menuTick+0x168c # f01d5b4
+.word menuTickAll+0x168c # f01d5b4
 glabel var7f1a8618
-.word menuTick+0x16c0 # f01d5e8
+.word menuTickAll+0x16c0 # f01d5e8
 glabel var7f1a861c
-.word menuTick+0x168c # f01d5b4
+.word menuTickAll+0x168c # f01d5b4
 glabel var7f1a8620
-.word menuTick+0x168c # f01d5b4
+.word menuTickAll+0x168c # f01d5b4
 glabel var7f1a8624
-.word menuTick+0x168c # f01d5b4
+.word menuTickAll+0x168c # f01d5b4
 glabel var7f1a8628
-.word menuTick+0x16c0 # f01d5e8
+.word menuTickAll+0x16c0 # f01d5e8
 glabel var7f1a862c
-.word menuTick+0x16c0 # f01d5e8
+.word menuTickAll+0x16c0 # f01d5e8
 glabel var7f1a8630
-.word menuTick+0x168c # f01d5b4
+.word menuTickAll+0x168c # f01d5b4
 glabel var7f1a8634
-.word menuTick+0x168c # f01d5b4
+.word menuTickAll+0x168c # f01d5b4
 glabel var7f1a8638
-.word menuTick+0x16c0 # f01d5e8
+.word menuTickAll+0x16c0 # f01d5e8
 glabel var7f1a863c
-.word menuTick+0x168c # f01d5b4
+.word menuTickAll+0x168c # f01d5b4
 .text
 /*  f01bf28:	27bdfe98 */ 	addiu	$sp,$sp,-360
 /*  f01bf2c:	3c0e8007 */ 	lui	$t6,%hi(g_HiResActive)
@@ -112,12 +113,12 @@ glabel var7f1a863c
 /*  f01bf5c:	16ce0005 */ 	bne	$s6,$t6,.L0f01bf74
 /*  f01bf60:	00008025 */ 	or	$s0,$zero,$zero
 /*  f01bf64:	240f0002 */ 	addiu	$t7,$zero,0x2
-/*  f01bf68:	3c018008 */ 	lui	$at,%hi(var8007fac0)
+/*  f01bf68:	3c018008 */ 	lui	$at,%hi(g_ScreenWidthMultiplier)
 /*  f01bf6c:	10000003 */ 	b	.L0f01bf7c
-/*  f01bf70:	ac2ffac0 */ 	sw	$t7,%lo(var8007fac0)($at)
+/*  f01bf70:	ac2ffac0 */ 	sw	$t7,%lo(g_ScreenWidthMultiplier)($at)
 .L0f01bf74:
-/*  f01bf74:	3c018008 */ 	lui	$at,%hi(var8007fac0)
-/*  f01bf78:	ac36fac0 */ 	sw	$s6,%lo(var8007fac0)($at)
+/*  f01bf74:	3c018008 */ 	lui	$at,%hi(g_ScreenWidthMultiplier)
+/*  f01bf78:	ac36fac0 */ 	sw	$s6,%lo(g_ScreenWidthMultiplier)($at)
 .L0f01bf7c:
 /*  f01bf7c:	0fc01a77 */ 	jal	func0f0069dc
 /*  f01bf80:	00000000 */ 	nop
@@ -1816,8 +1817,8 @@ glabel var7f1a863c
 /*  f01d714:	8e780314 */ 	lw	$t8,0x314($s3)
 .L0f01d718:
 /*  f01d718:	8fae0158 */ 	lw	$t6,0x158($sp)
-/*  f01d71c:	3c018008 */ 	lui	$at,%hi(var8007fac0)
-/*  f01d720:	ac36fac0 */ 	sw	$s6,%lo(var8007fac0)($at)
+/*  f01d71c:	3c018008 */ 	lui	$at,%hi(g_ScreenWidthMultiplier)
+/*  f01d720:	ac36fac0 */ 	sw	$s6,%lo(g_ScreenWidthMultiplier)($at)
 /*  f01d724:	51c00006 */ 	beqzl	$t6,.L0f01d740
 /*  f01d728:	92af05d5 */ 	lbu	$t7,0x5d5($s5)
 /*  f01d72c:	92ad05d5 */ 	lbu	$t5,0x5d5($s5)
@@ -1840,3 +1841,749 @@ glabel var7f1a863c
 /*  f01d768:	03e00008 */ 	jr	$ra
 /*  f01d76c:	27bd0168 */ 	addiu	$sp,$sp,0x168
 );
+
+//void menuTickAll(void)
+//{
+//	s32 i;
+//	s32 j;
+//	s32 stack;
+//	s32 sp344;
+//	s32 sp340 = true;
+//	s32 anyopen = false;
+//
+//	// bf5c
+//	g_ScreenWidthMultiplier = g_HiResActive == true ? 2 : 1;
+//
+//	// bf7c
+//	func0f0069dc();
+//
+//	if (g_MenuData.count) {
+//		// empty
+//	}
+//
+//	menuCountDialogs();
+//
+//	// @mismatch: End address for this loop is stored in a0 but should be a1.
+//	for (i = 0; i < 4; i++) {
+//		if (g_Menus[i].unk83c > 0) {
+//			g_Menus[i].unk83c--;
+//		}
+//
+//		if (g_Menus[i].curframe) {
+//			anyopen = true;
+//		}
+//	}
+//
+//	// bfcc
+//	if (!anyopen && g_MenuData.unk014 != 0 && g_MenuData.unk015 == 255) {
+//		g_MenuData.unk015 = 0;
+//	}
+//
+//	// bff4
+//	if (anyopen && g_MenuData.unk66e > 0 && var8009dfc0) {
+//		s32 bVar12 = 50;
+//		s32 bVar11 = false;
+//
+//		for (j = 0; j < 4; j++) {
+//			if (g_Menus[j].curframe) {
+//				if (g_Menus[j].curframe->unk60 == 1
+//						|| g_Menus[j].curframe->unk60 == 2
+//						|| g_Menus[j].curframe->unk60 == 0) {
+//					bVar11 = true;
+//				}
+//			}
+//		}
+//
+//		if (g_Vars.normmplayerisrunning) {
+//			bVar12 = 40;
+//		}
+//
+//		if (g_MenuData.unk66f > bVar12 || !bVar11) {
+//			func0f0f3220(g_MenuData.unk66e - 1);
+//		} else {
+//			g_MenuData.unk66f++;
+//		}
+//	}
+//
+//	// c0b0
+//	if (g_MenuData.unk015 != 255) {
+//		// c0d0
+//		if (g_MenuData.unk015 == g_MenuData.unk014) {
+//			g_MenuData.unk015 = 255;
+//		} else {
+//			// c0e4
+//			f32 mult = 0.02f;
+//
+//			// c0ec
+//			if (g_MenuData.unk014 == 0) {
+//				mult = mult + mult;
+//			}
+//
+//			// c0f8
+//			if (g_MenuData.unk015 == 0) {
+//				mult = mult + mult;
+//			}
+//
+//			// c104
+//			if (g_MenuData.unk015 == 8) {
+//				mult = mult / 5.0f;
+//			}
+//
+//			// c11c
+//			if (g_MenuData.unk015 == 7) {
+//				mult = mult / 3.0f;
+//			}
+//
+//			// c134
+//			if (g_MenuData.unk015 == 6) {
+//				mult = mult / 10.0f;
+//			}
+//
+//			// c148
+//			if (g_MenuData.unk015 == 0) {
+//				var8009dfc0 = false;
+//
+//				if (g_Vars.currentplayer->unk15ea) {
+//					g_Vars.currentplayer->unk1583_06 = true;
+//				}
+//			}
+//
+//			// c170
+//			if (g_MenuData.unk016 == 0 || g_MenuData.unk014 != 0) {
+//				f32 diffframe = g_Vars.diffframe60f;
+//
+//				if (diffframe > 4) {
+//					diffframe = 4;
+//				}
+//
+//				g_MenuData.unk010 += mult * diffframe;
+//			}
+//
+//			// c1b8
+//			if (g_MenuData.unk010 > 1) {
+//				// c1e0
+//				if (g_MenuData.unk015) {
+//					var8009dfc0 = true;
+//				}
+//
+//				// c1ec
+//				g_MenuData.unk010 = 0;
+//				g_MenuData.unk014 = g_MenuData.unk015;
+//				g_MenuData.unk015 = 255;
+//
+//				// c1f8
+//				if (g_MenuData.root == MENUROOT_ENDSCREEN) {
+//					if (g_MenuData.unk014 == 1) {
+//						g_MenuData.unk015 = 6;
+//					}
+//
+//					if (g_MenuData.unk014 == 6) {
+//						func0f0e4fd4();
+//						g_MenuData.unk014 = 1;
+//						g_MenuData.unk015 = 8;
+//					}
+//
+//					if (g_MenuData.unk014 == 8) {
+//						g_MenuData.unk015 = 7;
+//					}
+//				}
+//
+//				if (g_MenuData.unk014 == 0) {
+//					func0f0fa6ac();
+//				}
+//			}
+//
+//			// c254
+//			if (g_MenuData.unk015 == 3) {
+//				var8009dfc0 = true;
+//			}
+//
+//			// c26c
+//			// @mismatch: These conditions should branch to c28c then c2ac,
+//			// but the below branches to c2ac directly. The branches can be
+//			// fixed by uncommenting the else-if, but this breaks regalloc.
+//			if (var8009dfc0 && g_Vars.currentplayer->unk1bd4) {
+//				func0f0b9538();
+//			}
+//			//else if (var8009dfc0) {}
+//
+//			// c28c
+//		}
+//	} else {
+//		g_MenuData.unk010 = 0;
+//		var8009dfc0 = g_MenuData.unk014 == 0 ? false : true;
+//	}
+//
+//	// c2ac
+//	if (var80087260 > 0) {
+//		if (g_Vars.lvframenum >= 4) {
+//			// c2cc
+//			if (g_Vars.stagenum == STAGE_CITRAINING || g_Vars.stagenum == STAGE_4MBMENU) {
+//				func00009ec4(false);
+//				var800714d8 = 0;
+//
+//				// c2f8
+//				if (g_Vars.unk00049c) {
+//					g_Vars.unk000490 = 1;
+//				} else {
+//					g_Vars.unk000490 = 2;
+//				}
+//
+//				// c310
+//				for (i = 0; i < 4; i++) { // s1
+//					g_Vars.unk000494[i] = 0;
+//
+//					if (g_MpSetup.chrslots & (1 << i)) {
+//						g_MpPlayerNum = i;
+//
+//						if (g_Vars.unk000490 == 1) {
+//							var800714d8++;
+//							func0f17fcb0(true);
+//						} else if (var800714d8 == 0) {
+//							var800714d8++;
+//
+//							// c38c
+//							if (g_Is4Mb == true) {
+//								menuPushRootDialog(&g_4MbMainMenu, MENUROOT_4MBMAINMENU);
+//							} else {
+//								menuPushRootDialog(&g_CombatSimulatorMenuDialog, MENUROOT_MPSETUP);
+//							}
+//						} else {
+//							g_Vars.unk000494[i] = 1;
+//						}
+//					}
+//				}
+//
+//				// c3dc
+//				g_MpPlayerNum = 0;
+//
+//				if (g_MpSetup.chrslots & 0xf) {
+//					// Explosion sound
+//					audioStart(var80095200, 0x8098, 0, -1, -1, -1, -1, -1);
+//
+//					// c444
+//					currentPlayerPause(g_Is4Mb == true ? MENUROOT_4MBMAINMENU : MENUROOT_MPSETUP);
+//				}
+//			}
+//
+//			var80087260 = 0;
+//		} else {
+//			func00009ec4(true);
+//			g_PlayersWithControl[0] = false;
+//		}
+//	}
+//
+//	// c468
+//	if (var80062940 == 0 && g_Vars.stagenum == STAGE_CITRAINING) {
+//		g_PlayersWithControl[0] = false;
+//
+//		if (g_Vars.lvframenum > 30 && g_Vars.tickmode != TICKMODE_6) {
+//			g_Menus[0].unk83c = 0;
+//			g_Menus[1].unk83c = 0;
+//			g_Menus[2].unk83c = 0;
+//			g_Menus[3].unk83c = 0;
+//			g_Vars.currentplayer->pausemode = PAUSEMODE_UNPAUSED;
+//			currentPlayerPause(MENUROOT_FILESELECT);
+//			var80062940 = 1;
+//		}
+//	}
+//
+//	// c4e4
+//	g_Vars.unk000498 = 0;
+//
+//	if (g_MenuData.count > 0) {
+//		var8006294c = 1;
+//
+//		// c508
+//		if (g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU) {
+//			// c518
+//			if (g_MenuData.unk008 == -1) {
+//				g_MpSetup.chrslots &= 0xfff0;
+//			}
+//
+//			var800714d8 = 0;
+//
+//			// c540
+//			for (i = 0; i < 4; i++) { // s1
+//				if (g_Menus[i].curframe) {
+//					g_Menus[i].playernum = var800714d8++;
+//
+//					if (g_MenuData.unk008 == -1) {
+//						g_MpSetup.chrslots |= (1 << i);
+//					}
+//				}
+//			}
+//
+//			func0f18c014();
+//			func0f19b540();
+//		}
+//
+//		// c5a0
+//		for (i = 0; i < 4; i++) { // s1
+//			g_MpPlayerNum = i;
+//
+//			if (g_Menus[g_MpPlayerNum].curframe) {
+//				if (g_Menus[g_MpPlayerNum].curframe->dialog == &g_MpReadyMenuDialog) {
+//					g_Vars.unk000498 = 1;
+//				} else {
+//					sp340 = false;
+//				}
+//			}
+//		}
+//
+//		// c604
+//		for (i = 0; i < 4; i++) { // s1
+//			g_MpPlayerNum = i;
+//
+//			// c644
+//			if (g_Menus[g_MpPlayerNum].curframe) {
+//				s32 prevplayernum = g_Vars.currentplayernum;
+//
+//				if (g_Menus[g_MpPlayerNum].playernum < PLAYERCOUNT()) {
+//					setCurrentPlayerNum(g_Menus[g_MpPlayerNum].playernum);
+//				}
+//
+//				func0f0fa704();
+//				setCurrentPlayerNum(prevplayernum);
+//			} else {
+//				// c6dc
+//				if (g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU) {
+//					s32 pass2;
+//					u16 buttons = func00015020(i, 0xffff);
+//
+//					// c714
+//					if (g_MenuData.root == MENUROOT_4MBMAINMENU) {
+//						if (g_Vars.unk000490 == 2) {
+//							pass2 = true;
+//
+//							for (j = 0; j < 4; j++) { // s2
+//								if (g_Vars.unk000494[j]) {
+//									pass2 = false;
+//								}
+//							}
+//						} else {
+//							pass2 = var800714d8 < 2;
+//						}
+//					} else {
+//						// c768
+//						pass2 = true;
+//					}
+//
+//					// c76c
+//					if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
+//						g_MpPlayers[i].base.team = 0;
+//					}
+//
+//					// c790
+//					if (pass2 && (buttons & START_BUTTON)) {
+//						g_MpPlayers[i].handicap = 128;
+//
+//						if (g_Vars.unk000490 == 2) {
+//							if (g_Vars.unk000494[i] == 0) {
+//								// Explosion sound
+//								audioStart(var80095200, 0x809a, 0, -1, -1, -1, -1, -1);
+//							}
+//
+//							g_Vars.unk000494[i] = 1;
+//						} else if (g_Vars.unk000490 == 3) {
+//							var800714d8++;
+//
+//							if (g_Is4Mb == true) {
+//								menuPushRootDialog(&menudialog_mpquickgo2, MENUROOT_4MBMAINMENU);
+//							} else {
+//								menuPushRootDialog(&g_MpQuickGoMenuDialog, MENUROOT_MPSETUP);
+//							}
+//						} else {
+//							var800714d8++;
+//							func0f17fcb0(false);
+//						}
+//					}
+//
+//					// c880
+//					if ((buttons & START_BUTTON) == 0) {
+//						if (buttons & B_BUTTON) {
+//							if (g_Vars.unk000490 == 2) {
+//								g_Vars.unk000494[i] = 0;
+//							}
+//						} else if (g_Vars.unk000494[i]) {
+//							if (g_Vars.unk000490 == 3) {
+//								g_Vars.unk000494[i] = 0;
+//								var800714d8++;
+//
+//								if (g_Is4Mb == true) {
+//									menuPushRootDialog(&menudialog_mpquickgo2, MENUROOT_4MBMAINMENU);
+//								} else {
+//									menuPushRootDialog(&g_MpQuickGoMenuDialog, MENUROOT_MPSETUP);
+//								}
+//							} else if (g_Vars.unk000490 == 1) {
+//								g_Vars.unk000494[i] = 0;
+//								var800714d8++;
+//								func0f17fcb0(false);
+//							}
+//						}
+//					}
+//				} else {
+//					// c940
+//					g_Vars.unk000490 = 0;
+//					g_Vars.unk000494[i] = 0;
+//				}
+//
+//				if (g_MenuData.root == MENUROOT_MPENDSCREEN) {
+//					u16 buttons2 = func00015020(g_MpPlayers[i].base.unk45, 0xffff);
+//
+//					if (buttons2 & B_BUTTON) {
+//						s32 playernum = -1;
+//						s32 k;
+//
+//						for (k = 0; k < PLAYERCOUNT(); k++) {
+//							if (g_Vars.playerstats[k].mpindex == i) {
+//								playernum = k;
+//							}
+//						}
+//
+//						if (playernum >= 0) {
+//							if (g_Vars.coopplayernum >= 0) {
+//								s32 prevplayernum2 = g_Vars.currentplayernum;
+//								setCurrentPlayerNum(playernum);
+//								soloPushCoopModeEndscreen();
+//								setCurrentPlayerNum(prevplayernum2);
+//							} else if (g_Vars.antiplayernum >= 0) {
+//								s32 prevplayernum2 = g_Vars.currentplayernum;
+//								setCurrentPlayerNum(playernum);
+//								soloPushAntiModeEndscreen();
+//								setCurrentPlayerNum(prevplayernum2);
+//							} else {
+//								mpPushEndscreenDialog(playernum, i);
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//
+//		// cae8
+//		if (sp340 &&
+//				(g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU)) {
+//			func0f0f820c(NULL, -5);
+//		}
+//	} else {
+//		// cb28
+//		var8006294c = 0;
+//	}
+//
+//	// cb30
+//	if (var8006294c) {
+//		if (var80062948 == 0 &&
+//				(g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU)) {
+//			var80062948 = 1;
+//			func0f110c5c(0, FILETYPE_MPPLAYER);
+//			func0f110c5c(1, FILETYPE_MPSETUP);
+//		}
+//
+//		if (var80062944) {
+//			func0f110da8();
+//		}
+//	} else {
+//		// cba8
+//		if (var80062944 == 1) {
+//			func0f01bea0();
+//		}
+//	}
+//
+//	// cbc0
+//	g_MpPlayerNum = 0;
+//	sp344 = false;
+//
+//	for (i = 0; i < 4; i++) {
+//		if (g_Menus[i].curframe) {
+//			sp344 = true;
+//		}
+//	}
+//
+//	// cbfc
+//	if ((g_MenuData.unk5d5_06 || g_MenuData.unk008 != -1) && sp344 == false) {
+//		// cc28
+//		if ((g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU)
+//				&& g_MenuData.unk008 == -1) {
+//			// cc4c
+//			if (g_Vars.unk000490 == 2) {
+//				g_MenuData.unk008 = MENUROOT_MAINMENU;
+//				g_MenuData.unk00c = g_Is4Mb == true ? &g_CiMainMenuDialogViaPause : &g_MainMenuMenuDialog;
+//			} else {
+//				// cc90
+//				if (g_Is4Mb == true) {
+//					g_MenuData.unk008 = MENUROOT_4MBMAINMENU;
+//					g_MenuData.unk00c = &g_4MbMainMenu;
+//				} else {
+//					// ccc0
+//					g_MenuData.unk008 = MENUROOT_MPSETUP;
+//					g_MenuData.unk00c = &g_CombatSimulatorMenuDialog;
+//				}
+//			}
+//		}
+//
+//		// ccc8
+//		if (g_MenuData.unk008 != -1) {
+//			if (g_MenuData.unk008 == -5) {
+//				func0f187864();
+//				func0f01bea0();
+//
+//				if (g_Vars.unk000458 & 0x00000002) {
+//					func0f1109c0();
+//					g_Vars.unk000458 &= ~0x00000002;
+//				}
+//			} else /*cd1c*/ if (g_MenuData.unk008 == -6) {
+//				s32 sp288 = 0;
+//
+//				if (g_Vars.normmplayerisrunning) {
+//					func0f0fd548(4);
+//				}
+//
+//				// cd40
+//				for (i = 0; i < 4; i++) { // s1
+//					// cd64
+//					if (g_MpSetup.chrslots & (1 << i)) {
+//						// cd70
+//						if (g_Vars.coopplayernum >= 0) {
+//							// cd78
+//							if (g_Vars.stagenum == STAGE_DEEPSEA) {
+//								// cd8c
+//								g_MissionConfig.stageindex++;
+//								g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
+//								titleSetNextStage(g_MissionConfig.stagenum);
+//								setDifficulty(g_MissionConfig.difficulty);
+//								titleSetNextMode(TITLEMODE_SKIP);
+//								func0000e95c(g_MissionConfig.stagenum);
+//							} else {
+//								// cde8
+//								s32 prevplayernum = g_Vars.currentplayernum;
+//								setCurrentPlayerNum(sp288);
+//								soloPushCoopModeEndscreen();
+//								sp344 = true;
+//								setCurrentPlayerNum(prevplayernum);
+//							}
+//						} else /*ce10*/ if (g_Vars.antiplayernum >= 0) {
+//							s32 prevplayernum = g_Vars.currentplayernum;
+//							setCurrentPlayerNum(sp288);
+//							soloPushAntiModeEndscreen();
+//							sp344 = true;
+//							setCurrentPlayerNum(prevplayernum);
+//						} else {
+//							// ce44
+//							mpPushEndscreenDialog(sp288, i);
+//							sp344 = true;
+//
+//							if (g_MpPlayers[i].saved && g_MpPlayers[i].unk50) {
+//								func0f0fd548(i);
+//							}
+//						}
+//
+//						sp288++;
+//					}
+//				}
+//			} else /*ceb0*/ if (g_MenuData.unk008 == -7) {
+//				func0f01bea0();
+//				var80062940 = 2;
+//				savefileLoadDefaults(&g_SoloSaveFile);
+//				savefileApplyOptions(&g_SoloSaveFile);
+//				func0000e95c(g_Is4Mb == true ? STAGE_4MBMENU : STAGE_CITRAINING);
+//				func0f16d3d0();
+//			} else {
+//				// cf1c
+//				s32 pass = false;
+//				menuPushRootDialog(g_MenuData.unk00c, g_MenuData.unk008);
+//				sp344 = true;
+//
+//				if (g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU) {
+//					pass = true;
+//					// Explosion sound
+//					audioStart(var80095200, 0x8098, 0, -1, -1, -1, -1, -1);
+//				}
+//
+//				if (g_MenuData.root == MENUROOT_MAINMENU || g_MenuData.root == MENUROOT_TRAINING) {
+//					struct trainingdata *dtdata = dtGetData();
+//
+//					if ((g_Vars.stagenum == STAGE_CITRAINING || g_Vars.stagenum == STAGE_4MBMENU)
+//							&& ((g_Vars.currentplayer->prop->rooms[0] >= 0x16 && g_Vars.currentplayer->prop->rooms[0] <= 0x19)
+//								|| g_Vars.currentplayer->prop->rooms[0] == 0x0a
+//								|| g_Vars.currentplayer->prop->rooms[0] == 0x1e
+//								|| (dtdata && dtdata->intraining))) {
+//						pass = false;
+//					} else {
+//						pass = true;
+//					}
+//				}
+//
+//				if (pass) {
+//					func0f16db14();
+//				}
+//			}
+//
+//			// d020
+//			g_MenuData.unk00c = NULL;
+//			g_MenuData.unk008 = -1;
+//		} else {
+//			// d02c
+//			switch (g_MenuData.root) {
+//			case MENUROOT_ENDSCREEN: // d058
+//				if (g_Vars.restartlevel) {
+//					func0000e95c(getCurrentStageId());
+//				} else {
+//					func0000e95c(STAGE_TITLE);
+//				}
+//				break;
+//			case MENUROOT_MPPAUSE: // d398
+//				break;
+//			case MENUROOT_MPENDSCREEN: // d08c
+//				if (g_Vars.normmplayerisrunning) {
+//					var80087260 = 3;
+//				} else {
+//					// d0ac
+//					if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+//						struct mpplayer tmp;
+//
+//						tmp = g_MpPlayers[4];
+//						g_MpPlayers[4] = g_MpPlayers[0];
+//						g_MpPlayers[0] = tmp;
+//
+//						tmp = g_MpPlayers[5];
+//						g_MpPlayers[5] = g_MpPlayers[1];
+//						g_MpPlayers[1] = tmp;
+//					}
+//				}
+//
+//				// d230
+//				if (g_Vars.coopplayernum >= 0
+//						&& g_MissionConfig.stageindex <= SOLOSTAGEINDEX_SKEDARRUINS
+//						&& ((!g_CheatsActiveBank0 && !g_CheatsActiveBank1) || isStageDifficultyUnlocked(g_MissionConfig.stageindex + 1, g_MissionConfig.difficulty))) {
+//					soloPushSoloModeEndscreen();
+//				} else if (g_Vars.restartlevel) {
+//					func0000e95c(getCurrentStageId());
+//				} else {
+//					mpSetPaused(0);
+//					g_Vars.mplayerisrunning = false;
+//					g_Vars.normmplayerisrunning = false;
+//					g_Vars.unk00031c = 0;
+//
+//					if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
+//						g_MpSetupSaveFile.locktype = MPLOCKTYPE_NONE;
+//					}
+//
+//					// d2ec
+//					if (g_Is4Mb != true) {
+//						titleSetNextStage(STAGE_CITRAINING);
+//						setNumPlayers(1);
+//						titleSetNextMode(TITLEMODE_SKIP);
+//						func0000e95c(STAGE_CITRAINING);
+//					} else {
+//						titleSetNextStage(STAGE_4MBMENU);
+//						setNumPlayers(1);
+//						titleSetNextMode(TITLEMODE_SKIP);
+//						func0000e95c(STAGE_4MBMENU);
+//					}
+//				}
+//				break;
+//			case MENUROOT_9: // d348
+//				if (g_Vars.coopplayernum >= 0) {
+//					mpSetPaused(0);
+//					g_Vars.mplayerisrunning = false;
+//					g_Vars.normmplayerisrunning = false;
+//					g_Vars.unk00031c = 0;
+//					titleSetNextStage(STAGE_CITRAINING);
+//					setNumPlayers(1);
+//					titleSetNextMode(TITLEMODE_SKIP);
+//					func0000e95c(STAGE_CITRAINING);
+//					g_MissionConfig.iscoop = false;
+//				}
+//				break;
+//			}
+//		}
+//	}
+//
+//	// d398
+//	menuCountDialogs();
+//
+//	if (g_MenuData.count == 0) {
+//		if (g_MenuData.unk015 != 255) {
+//			if (g_MenuData.unk015 != 0) {
+//				g_MenuData.unk014 = g_MenuData.unk015;
+//				g_MenuData.unk015 = 0;
+//				g_MenuData.unk010 = 1.0f - g_MenuData.unk010;
+//			}
+//		} else {
+//			// d3e0
+//			if (g_MenuData.unk014 != 0) {
+//				g_MenuData.unk015 = 0;
+//			}
+//		}
+//
+//		// d3f0
+//		if (g_Vars.currentplayer->unk15ea == 1 && g_Vars.stagenum != STAGE_CITRAINING) {
+//			// d410
+//			g_MenuData.unk5d5_01 = true;
+//
+//			if (g_Menus[0].unk844) {
+//				func0f09df50();
+//				g_Menus[0].unk844 = 0;
+//			}
+//		}
+//	}
+//
+//	// d440
+//	g_Vars.unk0004d0 = 0;
+//
+//	for (i = 0; i < PLAYERCOUNT(); i++) { // s1
+//		s32 mpindex = -1; // v1
+//
+//		// d4c8
+//		if (g_Vars.mplayerisrunning) {
+//			mpindex = g_Vars.playerstats[i].mpindex;
+//		} else if (i == 0) {
+//			mpindex = 0;
+//		}
+//
+//		// d4e4
+//		if (mpindex >= 0 && g_Vars.players[i]) {
+//			// d504
+//			if (g_MenuData.unk015 != 255U
+//					|| g_MenuData.unk014
+//					|| g_MenuData.unk5d5_05
+//					|| g_MenuData.unk5d4
+//					|| g_Menus[mpindex].curframe
+//					|| g_MenuData.unk01b != -1) {
+//				g_Vars.players[i]->unk1c50_01 = true;
+//			} else {
+//				g_Vars.players[i]->unk1c50_01 = false;
+//			}
+//
+//			// d58c
+//			switch (g_MenuData.root) {
+//			case MENUROOT_ENDSCREEN:
+//			case MENUROOT_MAINMENU:
+//			case MENUROOT_MPSETUP:
+//			case MENUROOT_MPENDSCREEN:
+//			case MENUROOT_FILESELECT:
+//			case MENUROOT_BOOTPAKMGR:
+//			case MENUROOT_10:
+//			case MENUROOT_4MBMAINMENU:
+//			case MENUROOT_TRAINING: // f01d5b4
+//				if (g_Menus[mpindex].curframe) {
+//					g_Vars.unk0004d0 = 31;
+//				}
+//				break;
+//			}
+//
+//			// d5e8
+//			g_Vars.players[i]->unk1c54 = 0;
+//
+//			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
+//					&& PLAYERCOUNT() >= 2
+//					&& g_Menus[mpindex].curframe) {
+//				g_Vars.players[i]->unk1c54 = 15;
+//			}
+//		}
+//	}
+//
+//	g_ScreenWidthMultiplier = 1;
+//	g_MenuData.unk5d5_06 = sp344 ? true : false;
+//}

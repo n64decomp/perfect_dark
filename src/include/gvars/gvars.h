@@ -166,14 +166,11 @@ struct g_vars {
 	// 1 when entering game setup
 	// 2 when entering combat simulator
 	// 3 when entering Quick Go
-	/*000490*/ u32 unk000490;
+	/*000490*/ s32 unk000490;
 
-	/*000494*/ u8 unk000494;
-	/*000495*/ u8 unk000495;
-	/*000496*/ u8 unk000496;
-	/*000497*/ u8 unk000497;
-	/*000498*/ u32 unk000498;
-	/*00049c*/ u32 unk00049c;
+	/*000494*/ s8 unk000494[4];
+	/*000498*/ s32 unk000498;
+	/*00049c*/ s32 unk00049c;
 	/*0004a0*/ s32 unk0004a0;
 	/*0004a4*/ s32 mpquickteamnumsims;
 	/*0004a8*/ s32 unk0004a8;
@@ -636,7 +633,7 @@ extern u32 g_NextHudMessageId;
 extern u32 var8009deb0;
 extern char g_CheatMarqueeString[];
 extern u32 var8009dfbc;
-extern u32 var8009dfc0;
+extern s32 var8009dfc0;
 extern struct briefing g_Briefing;
 extern u16 var8009dfe0[2];
 extern struct missionconfig g_MissionConfig;

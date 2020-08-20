@@ -35,7 +35,7 @@ u32 func00014c98(u32 arg0, s8 contpadnum, u32 buttons);
 s32 func00014e10(u32 arg0);
 s32 func00014eb8(u32 arg0);
 s32 func00014f60(s8 arg0, u16 arg1);
-s32 func00015020(u32 arg0, u16 arg1);
+u16 func00015020(s8 arg0, u16 arg1);
 u32 func000150c4(void);
 u32 func000150e8(void);
 u32 func00015144(void);

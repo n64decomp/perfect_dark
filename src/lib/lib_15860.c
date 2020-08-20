@@ -56,10 +56,10 @@ void initGlobalVariables(void)
 	g_Vars.restartlevel = 0;
 	g_Vars.unk00048c = 0;
 	g_Vars.unk000490 = 0;
-	g_Vars.unk000494 = 0;
-	g_Vars.unk000495 = 0;
-	g_Vars.unk000496 = 0;
-	g_Vars.unk000497 = 0;
+	g_Vars.unk000494[0] = 0;
+	g_Vars.unk000494[1] = 0;
+	g_Vars.unk000494[2] = 0;
+	g_Vars.unk000494[3] = 0;
 	g_Vars.unk000498 = 0;
 	g_Vars.unk00049c = 0;
 	g_Vars.unk0004a0 = 1;

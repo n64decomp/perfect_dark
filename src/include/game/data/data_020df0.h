@@ -214,7 +214,7 @@ extern u8 g_CutsceneSubtitles;
 extern s32 g_ScreenSize;
 extern s32 g_ScreenRatio;
 extern u8 g_ScreenSplit;
-extern s32 var8007fac0;
+extern s32 g_ScreenWidthMultiplier;
 extern u32 var8007fac4;
 extern u32 var8007facc;
 extern u32 var8007fad0;

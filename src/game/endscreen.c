@@ -466,7 +466,7 @@ struct menudialog g_MenuDialogContinueOrReplay = {
  * Context is:
  *
  * 0 when closing a completed endscreen
- * 1 unsure - is invoked directly by menuTick
+ * 1 unsure - is invoked directly by menuTickAll
  * 2 when pressing continue
  */
 void endscreenHandleContinue(s32 context)
@@ -1749,7 +1749,7 @@ void soloPushCoopModeEndscreen(void)
  * (ie. retry, next mission or continue), and it looks like it might be for coop
  * only but I'm not 100% sure.
  *
- * This function is only called from menuTick, which is a bit weird...
+ * This function is only called from menuTickAll, which is a bit weird...
  */
 void soloPushSoloModeEndscreen(void)
 {

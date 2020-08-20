@@ -2906,8 +2906,8 @@ glabel func0f10a630
 /*  f10a7f0:	ade00004 */ 	sw	$zero,0x4($t7)
 /*  f10a7f4:	ade80000 */ 	sw	$t0,0x0($t7)
 /*  f10a7f8:	8fb90038 */ 	lw	$t9,0x38($sp)
-/*  f10a7fc:	3c078008 */ 	lui	$a3,%hi(var8007fac0)
-/*  f10a800:	24e7fac0 */ 	addiu	$a3,$a3,%lo(var8007fac0)
+/*  f10a7fc:	3c078008 */ 	lui	$a3,%hi(g_ScreenWidthMultiplier)
+/*  f10a800:	24e7fac0 */ 	addiu	$a3,$a3,%lo(g_ScreenWidthMultiplier)
 /*  f10a804:	272a0008 */ 	addiu	$t2,$t9,0x8
 /*  f10a808:	afaa0038 */ 	sw	$t2,0x38($sp)
 /*  f10a80c:	af200004 */ 	sw	$zero,0x4($t9)
@@ -4731,8 +4731,8 @@ glabel var7f1b385c
 /*  f10c1fc:	adb80004 */ 	sw	$t8,0x4($t5)
 /*  f10c200:	adaf0000 */ 	sw	$t7,0x0($t5)
 /*  f10c204:	8fb90130 */ 	lw	$t9,0x130($sp)
-/*  f10c208:	3c088008 */ 	lui	$t0,%hi(var8007fac0)
-/*  f10c20c:	2508fac0 */ 	addiu	$t0,$t0,%lo(var8007fac0)
+/*  f10c208:	3c088008 */ 	lui	$t0,%hi(g_ScreenWidthMultiplier)
+/*  f10c20c:	2508fac0 */ 	addiu	$t0,$t0,%lo(g_ScreenWidthMultiplier)
 /*  f10c210:	272b0008 */ 	addiu	$t3,$t9,0x8
 /*  f10c214:	afab0130 */ 	sw	$t3,0x130($sp)
 /*  f10c218:	8cec0000 */ 	lw	$t4,0x0($a3)
@@ -5625,18 +5625,18 @@ struct menudialog menudialog_controllerpakmenu = {
 
 // 1ac70
 struct menuitem menuitems_gamefiles[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(100), 0x00000000, NULL }, // "Copy:"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(103), 0x00000000, menuhandlerOpenCopyFile }, // "Single Player Agent File"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, L_OPTIONS(104), 0x00000000, menuhandlerOpenCopyFile }, // "Combat Simulator Settings File"
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, L_OPTIONS(105), 0x00000000, menuhandlerOpenCopyFile }, // "Combat Simulator Player File"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(101), 0x00000000, NULL }, // "Delete:"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(103), 0x00000000, menuhandlerOpenDeleteFile }, // "Single Player Agent File"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, L_OPTIONS(104), 0x00000000, menuhandlerOpenDeleteFile }, // "Combat Simulator Settings File"
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, L_OPTIONS(105), 0x00000000, menuhandlerOpenDeleteFile }, // "Combat Simulator Player File"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(102), 0x00000000, &menudialog_controllerpakmenu }, // "Delete Game Notes..."
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0,                 0x00004010, L_OPTIONS(100), 0x00000000, NULL }, // "Copy:"
+	{ MENUITEMTYPE_SELECTABLE,  FILETYPE_SOLO,     0x00000000, L_OPTIONS(103), 0x00000000, menuhandlerOpenCopyFile }, // "Single Player Agent File"
+	{ MENUITEMTYPE_SELECTABLE,  FILETYPE_MPSETUP , 0x00000000, L_OPTIONS(104), 0x00000000, menuhandlerOpenCopyFile }, // "Combat Simulator Settings File"
+	{ MENUITEMTYPE_SELECTABLE,  FILETYPE_MPPLAYER, 0x00000000, L_OPTIONS(105), 0x00000000, menuhandlerOpenCopyFile }, // "Combat Simulator Player File"
+	{ MENUITEMTYPE_SEPARATOR,   0,                 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0,                 0x00004010, L_OPTIONS(101), 0x00000000, NULL }, // "Delete:"
+	{ MENUITEMTYPE_SELECTABLE,  FILETYPE_SOLO,     0x00000000, L_OPTIONS(103), 0x00000000, menuhandlerOpenDeleteFile }, // "Single Player Agent File"
+	{ MENUITEMTYPE_SELECTABLE,  FILETYPE_MPSETUP,  0x00000000, L_OPTIONS(104), 0x00000000, menuhandlerOpenDeleteFile }, // "Combat Simulator Settings File"
+	{ MENUITEMTYPE_SELECTABLE,  FILETYPE_MPPLAYER, 0x00000000, L_OPTIONS(105), 0x00000000, menuhandlerOpenDeleteFile }, // "Combat Simulator Player File"
+	{ MENUITEMTYPE_SEPARATOR,   0,                 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0,                 0x00000004, L_OPTIONS(102), 0x00000000, &menudialog_controllerpakmenu }, // "Delete Game Notes..."
+	{ MENUITEMTYPE_END,         0,                 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 1ad60

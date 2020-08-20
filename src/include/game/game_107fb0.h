@@ -22,7 +22,7 @@ u32 func0f108d8c(void);
 u32 func0f108f90(void);
 void func0f109038(s32 arg0);
 u32 func0f1091e0(void);
-bool func0f1094e4(bool *saved, s32 arg1, s32 arg2);
+bool func0f1094e4(bool *saved, s32 arg1, u32 arg2);
 u32 pakDeleteFile(void);
 u32 func0f1097d0(void);
 u32 func0f109954(void);

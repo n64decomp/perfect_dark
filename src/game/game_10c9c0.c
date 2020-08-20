@@ -93,10 +93,10 @@ void func0f10cb2c(void)
 bool menudialog4MbMainMenu(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
 	if (operation == MENUOP_OPEN) {
-		g_Vars.unk000494 = 0;
-		g_Vars.unk000495 = 0;
-		g_Vars.unk000496 = 0;
-		g_Vars.unk000497 = 0;
+		g_Vars.unk000494[0] = 0;
+		g_Vars.unk000494[1] = 0;
+		g_Vars.unk000494[2] = 0;
+		g_Vars.unk000494[3] = 0;
 	}
 
 	if (g_Menus[g_MpPlayerNum].curframe &&

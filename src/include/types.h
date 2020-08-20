@@ -2354,7 +2354,9 @@ struct player {
 	/*0x15dc*/ u32 unk15dc;
 	/*0x15e0*/ u32 unk15e0;
 	/*0x15e4*/ s8 equippedammotypes[2];
-	/*0x15e8*/ u32 unk15e8;
+	/*0x15e6*/ u16 unk15e6;
+	/*0x15e8*/ u16 unk15e8;
+	/*0x15ea*/ u8 unk15ea;
 	/*0x15ec*/ u32 unk15ec;
 	/*0x15f0*/ u32 unk15f0;
 	/*0x15f4*/ u32 unk15f4;
@@ -2628,7 +2630,7 @@ struct player {
 	/*0x1c44*/ f32 unk1c44;
 	/*0x1c48*/ f32 unk1c48;
 	/*0x1c4c*/ f32 unk1c4c;
-	/*0x1c50*/ u32 unk1c50;
+	/*0x1c50*/ u8 unk1c50_01 : 1;
 	/*0x1c54*/ u32 unk1c54;
 	/*0x1c58*/ f32 unk1c58;
 	/*0x1c5c*/ f32 stealhealth;
@@ -3459,7 +3461,7 @@ struct menuframe {
 	/*0x54*/ u32 unk54;
 	/*0x58*/ u32 unk58;
 	/*0x5c*/ u32 unk5c;
-	/*0x60*/ u32 unk60;
+	/*0x60*/ u8 unk60;
 	/*0x64*/ u32 unk64;
 	/*0x68*/ u32 unk68;
 	/*0x6c*/ u8 unk6c;
@@ -3768,7 +3770,8 @@ struct menu {
 
 	/*0x84c*/ u32 unk84c;
 	/*0x850*/ u32 unk850;
-	/*0x854*/ u32 unk854;
+	/*0x854*/ u8 unk854;
+	/*0x855*/ u8 unk855;
 	/*0x858*/ u32 unk858;
 	/*0x85c*/ u32 unk85c;
 	/*0x860*/ u32 unk860;
@@ -4218,7 +4221,7 @@ struct mpchr {
 	/*0x3e*/ s16 unk3e;
 	/*0x40*/ u32 unk40;
 	/*0x44*/ u8 controlmode;
-	/*0x45*/ s8 unk45;
+	/*0x45*/ s8 unk45; // controller index?
 	/*0x46*/ s8 unk46;
 	/*0x47*/ u8 simtype;
 };
@@ -5360,16 +5363,16 @@ struct frdata {
 };
 
 struct menudata {
-	/*0x000*/ u32 count;
-	/*0x004*/ u32 root;
-	/*0x008*/ u32 unk008;
-	/*0x00c*/ u32 unk00c;
-	/*0x010*/ u32 unk010;
+	/*0x000*/ s32 count;
+	/*0x004*/ s32 root;
+	/*0x008*/ s32 unk008;
+	/*0x00c*/ struct menudialog *unk00c;
+	/*0x010*/ f32 unk010;
 	/*0x014*/ u8 unk014;
 	/*0x015*/ u8 unk015;
 	/*0x016*/ u8 unk016;
 	/*0x017*/ u8 unk017[4];
-	/*0x01b*/ u8 unk01b;
+	/*0x01b*/ s8 unk01b;
 	/*0x01c*/ u32 unk01c;
 	/*0x020*/ u32 unk020;
 	/*0x024*/ u32 unk024;
@@ -5737,6 +5740,14 @@ struct menudata {
 	/*0x5cc*/ u32 unk5cc;
 	/*0x5d0*/ u32 unk5d0;
 	/*0x5d4*/ u8 unk5d4;
+	/*0x5d5*/ u8 unk5d5_01 : 1;
+	/*0x5d5*/ u8 unk5d5_02 : 1;
+	/*0x5d5*/ u8 unk5d5_03 : 1;
+	/*0x5d5*/ u8 unk5d5_04 : 1;
+	/*0x5d5*/ u8 unk5d5_05 : 1;
+	/*0x5d5*/ u8 unk5d5_06 : 1;
+	/*0x5d5*/ u8 unk5d5_07 : 1;
+	/*0x5d5*/ u8 unk5d5_08 : 1;
 	/*0x5d8*/ u32 unk5d8;
 	/*0x5dc*/ u32 unk5dc;
 	/*0x5e0*/ u32 unk5e0;

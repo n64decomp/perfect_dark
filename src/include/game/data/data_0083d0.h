@@ -85,6 +85,7 @@ extern s32 g_NumPlayers;
 extern u8 var80062940;
 extern u8 var80062944;
 extern u8 var80062948;
+extern u8 var8006294c;
 extern u32 var80062950;
 extern bool g_WeatherTickEnabled;
 extern u32 var80062960;

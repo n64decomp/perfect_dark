@@ -76,10 +76,10 @@ const char var7f1b88c0[] = "%d:%02d";
 bool menudialogCombatSimulator(u32 operation, struct menudialog *dialog, struct menu *menu)
 {
 	if (operation == MENUOP_OPEN) {
-		g_Vars.unk000494 = 0;
-		g_Vars.unk000495 = 0;
-		g_Vars.unk000496 = 0;
-		g_Vars.unk000497 = 0;
+		g_Vars.unk000494[0] = 0;
+		g_Vars.unk000494[1] = 0;
+		g_Vars.unk000494[2] = 0;
+		g_Vars.unk000494[3] = 0;
 	}
 
 	if (g_Menus[g_MpPlayerNum].curframe
@@ -289,7 +289,7 @@ glabel func0f17fa28
 /*  f17fcac:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-void func0f17fcb0(bool silent)
+void func0f17fcb0(s32 silent)
 {
 	g_Menus[g_MpPlayerNum].playernum = g_MpPlayerNum;
 

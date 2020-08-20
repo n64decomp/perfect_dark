@@ -571,6 +571,10 @@
 #define EYESPYMODE_DRUGSPY 1
 #define EYESPYMODE_BOMBSPY 2
 
+#define FILETYPE_SOLO     0
+#define FILETYPE_MPSETUP  1
+#define FILETYPE_MPPLAYER 2
+
 #define FLOORFLAG_0100 0x0100
 #define FLOORFLAG_DIE  0x4000
 
@@ -2263,6 +2267,8 @@
 #define PATHFLAG_FLYING   2
 #define PATHFLAG_04       4
 
+// These are suspected to be the same as the MENUROOT constants,
+// but pausemode is the name used in the original source
 #define PAUSEMODE_UNPAUSED 0
 #define PAUSEMODE_1        1
 #define PAUSEMODE_2        2
