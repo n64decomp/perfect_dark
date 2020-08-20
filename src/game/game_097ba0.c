@@ -8099,24 +8099,19 @@ void func0f09df50(void)
 	g_Vars.currentplayer->unk15ea = 11;
 }
 
-GLOBAL_ASM(
-glabel func0f09df64
-/*  f09df64:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f09df68:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f09df6c:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f09df70:	904e15ea */ 	lbu	$t6,0x15ea($v0)
-/*  f09df74:	55c00007 */ 	bnezl	$t6,.L0f09df94
-/*  f09df78:	ac441584 */ 	sw	$a0,0x1584($v0)
-/*  f09df7c:	a04015b0 */ 	sb	$zero,0x15b0($v0)
-/*  f09df80:	a04015b1 */ 	sb	$zero,0x15b1($v0)
-/*  f09df84:	ac441584 */ 	sw	$a0,0x1584($v0)
-/*  f09df88:	03e00008 */ 	jr	$ra
-/*  f09df8c:	a04f15eb */ 	sb	$t7,0x15eb($v0)
-/*  f09df90:	ac441584 */ 	sw	$a0,0x1584($v0)
-.L0f09df94:
-/*  f09df94:	03e00008 */ 	jr	$ra
-/*  f09df98:	00000000 */ 	nop
-);
+void func0f09df64(s32 arg0)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	if (player->unk15ea == 0) {
+		player->unk15b0 = 0;
+		player->unk15b1 = 0;
+		player->unk1584 = arg0;
+		player->unk15eb = -1;
+	} else {
+		player->unk1584 = arg0;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f09df9c
