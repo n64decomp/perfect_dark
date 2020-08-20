@@ -2117,8 +2117,8 @@ void bullettailTick(struct bullettail *tail)
 
 GLOBAL_ASM(
 glabel func0f0adcc8
-/*  f0adcc8:	3c0e800a */ 	lui	$t6,%hi(var8009d550)
-/*  f0adccc:	8dced550 */ 	lw	$t6,%lo(var8009d550)($t6)
+/*  f0adcc8:	3c0e800a */ 	lui	$t6,%hi(var8009d510+0x40)
+/*  f0adccc:	8dced550 */ 	lw	$t6,%lo(var8009d510+0x40)($t6)
 /*  f0adcd0:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f0adcd4:	3c08800a */ 	lui	$t0,%hi(var8009d510)
 /*  f0adcd8:	afbf0014 */ 	sw	$ra,0x14($sp)

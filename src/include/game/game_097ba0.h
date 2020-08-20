@@ -61,7 +61,7 @@ u32 func0f09ddec(void);
 u32 func0f09ddfc(void);
 void func0f09df50(void);
 void func0f09df64(s32 arg0);
-u32 func0f09df9c(void);
+void func0f09df9c(void);
 u32 func0f09e004(void);
 u32 func0f09e144(void);
 u32 func0f09e4e0(void);

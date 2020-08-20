@@ -8144,6 +8144,24 @@ glabel func0f09df9c
 /*  f09e000:	ac200524 */ 	sw	$zero,%lo(var80070524)($at)
 );
 
+//void func0f09df9c(void)
+//{
+//	s32 i;
+//
+//	g_Vars.currentplayer->unk159c = 0xffff;
+//	g_Vars.currentplayer->unk1594 = 0;
+//	g_Vars.currentplayer->unk15a0 = 0;
+//	g_Vars.currentplayer->unk15a4 = 0;
+//	g_Vars.currentplayer->unk15b0 = 0;
+//	g_Vars.currentplayer->unk15b1 = 0;
+//
+//	for (i = 0; i < 20; i++) {
+//		var8009d510[i].unk40 = 0;
+//	}
+//
+//	var80070524 = 0;
+//}
+
 GLOBAL_ASM(
 glabel func0f09e004
 .late_rodata
