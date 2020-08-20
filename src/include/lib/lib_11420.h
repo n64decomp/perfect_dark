@@ -8,7 +8,7 @@ u32 func00011700(void);
 u32 func00011780(void);
 u32 func00011884(void);
 u32 func000118f4(void);
-void func0001190c(s32 arg0);
+void func0001190c(void);
 void func00011d84(void);
 
 #endif

@@ -6,6 +6,7 @@
 #include "game/data/data_0160b0.h"
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
+#include "game/data/data_02a0e0.h"
 #include "game/data/data_02da90.h"
 #include "game/game_0f09f0.h"
 #include "game/game_167ae0.h"
@@ -336,33 +337,18 @@ glabel func0f16d324
 /*  f16d3cc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f16d3d0
-/*  f16d3d0:	3c02800b */ 	lui	$v0,%hi(var800aa5d8)
-/*  f16d3d4:	3c048008 */ 	lui	$a0,%hi(var800840d4)
-/*  f16d3d8:	248440d4 */ 	addiu	$a0,$a0,%lo(var800840d4)
-/*  f16d3dc:	2442a5d8 */ 	addiu	$v0,$v0,%lo(var800aa5d8)
-/*  f16d3e0:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f16d3e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16d3e8:	240e0006 */ 	addiu	$t6,$zero,0x6
-/*  f16d3ec:	240f0004 */ 	addiu	$t7,$zero,0x4
-/*  f16d3f0:	24780001 */ 	addiu	$t8,$v1,0x1
-/*  f16d3f4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16d3f8:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*  f16d3fc:	a44f0012 */ 	sh	$t7,0x12($v0)
-/*  f16d400:	ac980000 */ 	sw	$t8,0x0($a0)
-/*  f16d404:	a4400018 */ 	sh	$zero,0x18($v0)
-/*  f16d408:	a4400016 */ 	sh	$zero,0x16($v0)
-/*  f16d40c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f16d410:	3c018008 */ 	lui	$at,%hi(var800840c4)
-/*  f16d414:	a4430014 */ 	sh	$v1,0x14($v0)
-/*  f16d418:	0c004643 */ 	jal	func0001190c
-/*  f16d41c:	ac3940c4 */ 	sw	$t9,%lo(var800840c4)($at)
-/*  f16d420:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16d424:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16d428:	03e00008 */ 	jr	$ra
-/*  f16d42c:	00000000 */ 	nop
-);
+void func0f16d3d0(void)
+{
+	var800aa5d8.unk00 = 6;
+	var800aa5d8.unk12 = 4;
+	var800aa5d8.unk14 = var800840d4++;
+	var800aa5d8.unk18 = 0;
+	var800aa5d8.unk16 = 0;
+
+	var800840c4 = 1;
+
+	func0001190c();
+}
 
 GLOBAL_ASM(
 glabel func0f16d430

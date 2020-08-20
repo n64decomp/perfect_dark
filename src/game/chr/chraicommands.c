@@ -11298,7 +11298,7 @@ bool aiMiscellaneous(void)
 		func00010db0(value);
 		break;
 	case 11:
-		func0001190c(room_id);
+		func0001190c();
 		break;
 	case 12:
 		func0f001a64(room_id, value);

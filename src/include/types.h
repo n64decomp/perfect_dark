@@ -6364,4 +6364,16 @@ struct optiongroup {
 	u16 name;
 };
 
+struct var800aa5d8 {
+	s32 unk00;
+	s32 unk04;
+	s32 unk08;
+	s32 unk0c;
+	s16 unk10;
+	s16 unk12;
+	s16 unk14;
+	s16 unk16;
+	s16 unk18;
+};
+
 #endif
