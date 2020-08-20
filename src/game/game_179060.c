@@ -125,65 +125,32 @@ u32 func0f1790fc(void)
 	return 17;
 }
 
-GLOBAL_ASM(
-glabel mpChooseRandomStage
-/*  f179104:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f179108:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f17910c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f179110:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f179114:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
-/*  f179118:	3c118008 */ 	lui	$s1,%hi(g_MpArenas+0x60)
-/*  f17911c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f179120:	00009025 */ 	or	$s2,$zero,$zero
-/*  f179124:	26314bf8 */ 	addiu	$s1,$s1,%lo(g_MpArenas+0x60)
-/*  f179128:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
-.L0f17912c:
-/*  f17912c:	0fc67244 */ 	jal	mpIsChallengeComplete
-/*  f179130:	92040002 */ 	lbu	$a0,0x2($s0)
-/*  f179134:	10400002 */ 	beqz	$v0,.L0f179140
-/*  f179138:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f17913c:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f179140:
-/*  f179140:	0211082b */ 	sltu	$at,$s0,$s1
-/*  f179144:	1420fff9 */ 	bnez	$at,.L0f17912c
-/*  f179148:	00000000 */ 	nop
-/*  f17914c:	0c004b70 */ 	jal	random
-/*  f179150:	00000000 */ 	nop
-/*  f179154:	0052001b */ 	divu	$zero,$v0,$s2
-/*  f179158:	16400002 */ 	bnez	$s2,.L0f179164
-/*  f17915c:	00000000 */ 	nop
-/*  f179160:	0007000d */ 	break	0x7
-.L0f179164:
-/*  f179164:	00008810 */ 	mfhi	$s1
-/*  f179168:	3c128008 */ 	lui	$s2,%hi(g_MpArenas+0x60)
-/*  f17916c:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
-/*  f179170:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
-/*  f179174:	26524bf8 */ 	addiu	$s2,$s2,%lo(g_MpArenas+0x60)
-/*  f179178:	00001825 */ 	or	$v1,$zero,$zero
-.L0f17917c:
-/*  f17917c:	0fc67244 */ 	jal	mpIsChallengeComplete
-/*  f179180:	92040002 */ 	lbu	$a0,0x2($s0)
-/*  f179184:	50400007 */ 	beqzl	$v0,.L0f1791a4
-/*  f179188:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f17918c:	56200004 */ 	bnezl	$s1,.L0f1791a0
-/*  f179190:	2631ffff */ 	addiu	$s1,$s1,-1
-/*  f179194:	10000006 */ 	b	.L0f1791b0
-/*  f179198:	86020000 */ 	lh	$v0,0x0($s0)
-/*  f17919c:	2631ffff */ 	addiu	$s1,$s1,-1
-.L0f1791a0:
-/*  f1791a0:	26100006 */ 	addiu	$s0,$s0,0x6
-.L0f1791a4:
-/*  f1791a4:	1612fff5 */ 	bne	$s0,$s2,.L0f17917c
-/*  f1791a8:	00000000 */ 	nop
-/*  f1791ac:	24020032 */ 	addiu	$v0,$zero,0x32
-.L0f1791b0:
-/*  f1791b0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1791b4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1791b8:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f1791bc:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1791c0:	03e00008 */ 	jr	$ra
-/*  f1791c4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s16 mpChooseRandomStage(void)
+{
+	s32 i;
+	s32 numchallengescomplete = 0;
+	s32 index;
+
+	for (i = 0; i < 16; i++) {
+		if (mpIsChallengeComplete(g_MpArenas[i].unlock)) {
+			numchallengescomplete++;
+		}
+	}
+
+	index = random() % numchallengescomplete;
+
+	for (i = 0; i < 16; i++) {
+		if (mpIsChallengeComplete(g_MpArenas[i].unlock)) {
+			if (index == 0) {
+				return g_MpArenas[i].stagenum;
+			}
+
+			index--;
+		}
+	}
+
+	return STAGE_MP_SKEDAR;
+}
 
 GLOBAL_ASM(
 glabel menuhandler001791c8

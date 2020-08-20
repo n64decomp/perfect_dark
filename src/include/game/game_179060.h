@@ -4,7 +4,7 @@
 #include "types.h"
 
 char *mpGetCurrentPlayerName(struct menuitem *item);
-u32 mpChooseRandomStage(void);
+s16 mpChooseRandomStage(void);
 s32 menuhandler001791c8(u32, u32, u32 *);
 char *mpMenuTextWeaponNameForSlot(struct menuitem *item);
 char *mpMenuTextSetupName(struct menuitem *item);
