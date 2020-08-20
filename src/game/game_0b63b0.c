@@ -5252,7 +5252,7 @@ glabel var7f1ad630
 /*  f0baea4:	55800016 */ 	bnezl	$t4,.L0f0baf00
 /*  f0baea8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f0baeac:
-/*  f0baeac:	0fc5b6c5 */ 	jal	func0f16db14
+/*  f0baeac:	0fc5b6c5 */ 	jal	audioSetBgMusicForMenu
 /*  f0baeb0:	00000000 */ 	nop
 /*  f0baeb4:	10000012 */ 	b	.L0f0baf00
 /*  f0baeb8:	8fbf0014 */ 	lw	$ra,0x14($sp)

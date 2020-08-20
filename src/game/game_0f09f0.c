@@ -9074,7 +9074,7 @@ glabel var7f1b29f8
 /*  f0f8538:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f0f853c:	1000001e */ 	b	.L0f0f85b8
 /*  f0f8540:	00000000 */ 	nop
-/*  f0f8544:	0fc5b6c5 */ 	jal	func0f16db14
+/*  f0f8544:	0fc5b6c5 */ 	jal	audioSetBgMusicForMenu
 /*  f0f8548:	00000000 */ 	nop
 /*  f0f854c:	3c03800a */ 	lui	$v1,%hi(g_MenuData)
 /*  f0f8550:	246319c0 */ 	addiu	$v1,$v1,%lo(g_MenuData)
@@ -9098,7 +9098,7 @@ glabel var7f1b29f8
 /*  f0f8594:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0f8598:	10000007 */ 	b	.L0f0f85b8
 /*  f0f859c:	00000000 */ 	nop
-/*  f0f85a0:	0fc5b6c5 */ 	jal	func0f16db14
+/*  f0f85a0:	0fc5b6c5 */ 	jal	audioSetBgMusicForMenu
 /*  f0f85a4:	00000000 */ 	nop
 /*  f0f85a8:	3c03800a */ 	lui	$v1,%hi(g_MenuData)
 /*  f0f85ac:	246319c0 */ 	addiu	$v1,$v1,%lo(g_MenuData)
@@ -9121,7 +9121,7 @@ glabel var7f1b29f8
 void func0f0f85e0(struct menudialog *dialog, s32 root)
 {
 	if (dialog == &g_MainMenuMenuDialog) {
-		func0f16db14();
+		audioSetBgMusicForMenu();
 	}
 
 	menuPushRootDialog(dialog, root);

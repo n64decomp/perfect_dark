@@ -725,7 +725,7 @@ glabel func0f16d89c
 );
 
 GLOBAL_ASM(
-glabel func0f16d91c
+glabel audioSetBgMusic
 /*  f16d91c:	3c0f8008 */ 	lui	$t7,%hi(var800840c0)
 /*  f16d920:	8def40c0 */ 	lw	$t7,%lo(var800840c0)($t7)
 /*  f16d924:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -866,19 +866,10 @@ glabel func0f16daa4
 /*  f16db10:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f16db14
-/*  f16db14:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16db18:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16db1c:	0fc3f27d */ 	jal	menuChooseMusic
-/*  f16db20:	00000000 */ 	nop
-/*  f16db24:	0fc5b647 */ 	jal	func0f16d91c
-/*  f16db28:	00402025 */ 	or	$a0,$v0,$zero
-/*  f16db2c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16db30:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16db34:	03e00008 */ 	jr	$ra
-/*  f16db38:	00000000 */ 	nop
-);
+void audioSetBgMusicForMenu(void)
+{
+	audioSetBgMusic(menuChooseMusic());
+}
 
 GLOBAL_ASM(
 glabel func0f16db3c

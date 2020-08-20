@@ -4458,7 +4458,7 @@ glabel var7f1b5930
 .L0f13af10:
 /*  f13af10:	0fc5b67c */ 	jal	func0f16d9f0
 /*  f13af14:	2404005c */ 	addiu	$a0,$zero,0x5c
-/*  f13af18:	0fc5b647 */ 	jal	func0f16d91c
+/*  f13af18:	0fc5b647 */ 	jal	audioSetBgMusic
 /*  f13af1c:	24040058 */ 	addiu	$a0,$zero,0x58
 /*  f13af20:	3c04800a */ 	lui	$a0,%hi(var800a416c)
 /*  f13af24:	3c06800a */ 	lui	$a2,%hi(var800a416c)
