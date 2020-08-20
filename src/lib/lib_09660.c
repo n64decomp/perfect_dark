@@ -673,13 +673,11 @@ glabel func00009c3c
 /*     9ec0:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel func00009ec4
-/*     9ec4:	24840002 */ 	addiu	$a0,$a0,0x2
-/*     9ec8:	3c018006 */ 	lui	$at,%hi(var8005ce90)
-/*     9ecc:	03e00008 */ 	jr	$ra
-/*     9ed0:	ac24ce90 */ 	sw	$a0,%lo(var8005ce90)($at)
-);
+void func00009ec4(s32 arg0)
+{
+	arg0 += 2;
+	var8005ce90 = arg0;
+}
 
 GLOBAL_ASM(
 glabel func00009ed4
