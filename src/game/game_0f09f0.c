@@ -8806,50 +8806,23 @@ glabel func0f0f8120
 /*  f0f8208:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f0f820c
-/*  f0f820c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0f8210:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0f8214:	3c138007 */ 	lui	$s3,%hi(g_MpPlayerNum)
-/*  f0f8218:	26731448 */ 	addiu	$s3,$s3,%lo(g_MpPlayerNum)
-/*  f0f821c:	8e6e0000 */ 	lw	$t6,0x0($s3)
-/*  f0f8220:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0f8224:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0f8228:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0f822c:	3c11800a */ 	lui	$s1,0x800a
-/*  f0f8230:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0f8234:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f0f8238:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f0f823c:	2631e000 */ 	addiu	$s1,$s1,-8192
-/*  f0f8240:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0f8244:	24120004 */ 	addiu	$s2,$zero,0x4
-/*  f0f8248:	afae0028 */ 	sw	$t6,0x28($sp)
-.L0f0f824c:
-/*  f0f824c:	8e2f04f8 */ 	lw	$t7,0x4f8($s1)
-/*  f0f8250:	51e00004 */ 	beqzl	$t7,.L0f0f8264
-/*  f0f8254:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0f8258:	0fc3e048 */ 	jal	func0f0f8120
-/*  f0f825c:	ae700000 */ 	sw	$s0,0x0($s3)
-/*  f0f8260:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f0f8264:
-/*  f0f8264:	1612fff9 */ 	bne	$s0,$s2,.L0f0f824c
-/*  f0f8268:	26310e70 */ 	addiu	$s1,$s1,0xe70
-/*  f0f826c:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*  f0f8270:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0f8274:	8fb90034 */ 	lw	$t9,0x34($sp)
-/*  f0f8278:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f0f827c:	3c02800a */ 	lui	$v0,%hi(g_MenuData)
-/*  f0f8280:	ae780000 */ 	sw	$t8,0x0($s3)
-/*  f0f8284:	244219c0 */ 	addiu	$v0,$v0,%lo(g_MenuData)
-/*  f0f8288:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0f828c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0f8290:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0f8294:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0f8298:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0f829c:	ac590008 */ 	sw	$t9,0x8($v0)
-/*  f0f82a0:	03e00008 */ 	jr	$ra
-/*  f0f82a4:	ac48000c */ 	sw	$t0,0xc($v0)
-);
+void func0f0f820c(struct menudialog *dialog, s32 arg1)
+{
+	s32 i;
+	s32 prevplayernum = g_MpPlayerNum;
+
+	for (i = 0; i < 4; i++) {
+		if (g_Menus[i].curframe) {
+			g_MpPlayerNum = i;
+			func0f0f8120();
+		}
+	}
+
+	g_MpPlayerNum = prevplayernum;
+
+	g_MenuData.unk008 = arg1;
+	g_MenuData.unk00c = dialog;
+}
 
 bool func0f0f82a8(s32 arg0)
 {
