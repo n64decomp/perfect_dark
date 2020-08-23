@@ -20,8 +20,8 @@ const char var7f1b5968[] = "ripsize";
 
 GLOBAL_ASM(
 glabel func0f13b670
-/*  f13b670:	3c018006 */ 	lui	$at,0x8006
-/*  f13b674:	c4241634 */ 	lwc1	$f4,0x1634($at)
+/*  f13b670:	3c018006 */ 	lui	$at,%hi(var80061634)
+/*  f13b674:	c4241634 */ 	lwc1	$f4,%lo(var80061634)($at)
 /*  f13b678:	3c014120 */ 	lui	$at,0x4120
 /*  f13b67c:	44813000 */ 	mtc1	$at,$f6
 /*  f13b680:	3c014580 */ 	lui	$at,0x4580
@@ -116,8 +116,8 @@ glabel func0f13b754
 
 GLOBAL_ASM(
 glabel func0f13b7bc
-/*  f13b7bc:	3c018006 */ 	lui	$at,0x8006
-/*  f13b7c0:	c4241634 */ 	lwc1	$f4,0x1634($at)
+/*  f13b7bc:	3c018006 */ 	lui	$at,%hi(var80061634)
+/*  f13b7c0:	c4241634 */ 	lwc1	$f4,%lo(var80061634)($at)
 /*  f13b7c4:	3c014080 */ 	lui	$at,0x4080
 /*  f13b7c8:	44813000 */ 	mtc1	$at,$f6
 /*  f13b7cc:	3c014580 */ 	lui	$at,0x4580
@@ -185,8 +185,8 @@ glabel var7f1b5970
 .word 0x40c907a9
 .text
 /*  f13b8a0:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f13b8a4:	3c018006 */ 	lui	$at,0x8006
-/*  f13b8a8:	c4241634 */ 	lwc1	$f4,0x1634($at)
+/*  f13b8a4:	3c018006 */ 	lui	$at,%hi(var80061634)
+/*  f13b8a8:	c4241634 */ 	lwc1	$f4,%lo(var80061634)($at)
 /*  f13b8ac:	3c0140a0 */ 	lui	$at,0x40a0
 /*  f13b8b0:	44813000 */ 	mtc1	$at,$f6
 /*  f13b8b4:	afb50040 */ 	sw	$s5,0x40($sp)
@@ -375,8 +375,8 @@ GLOBAL_ASM(
 glabel func0f13bb5c
 /*  f13bb5c:	3c013f80 */ 	lui	$at,0x3f80
 /*  f13bb60:	44812000 */ 	mtc1	$at,$f4
-/*  f13bb64:	3c018006 */ 	lui	$at,0x8006
-/*  f13bb68:	c4261634 */ 	lwc1	$f6,0x1634($at)
+/*  f13bb64:	3c018006 */ 	lui	$at,%hi(var80061634)
+/*  f13bb68:	c4261634 */ 	lwc1	$f6,%lo(var80061634)($at)
 /*  f13bb6c:	3c014270 */ 	lui	$at,0x4270
 /*  f13bb70:	44815000 */ 	mtc1	$at,$f10
 /*  f13bb74:	46062201 */ 	sub.s	$f8,$f4,$f6

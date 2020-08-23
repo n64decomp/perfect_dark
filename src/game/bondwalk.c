@@ -2417,8 +2417,8 @@ glabel var7f1ad854
 /*  f0c6f28:	e4640198 */ 	swc1	$f4,0x198($v1)
 /*  f0c6f2c:	8d030284 */ 	lw	$v1,0x284($t0)
 .L0f0c6f30:
-/*  f0c6f30:	3c018007 */ 	lui	$at,0x8007
-/*  f0c6f34:	c4265c24 */ 	lwc1	$f6,0x5c24($at)
+/*  f0c6f30:	3c018007 */ 	lui	$at,%hi(var80075c00+0x24)
+/*  f0c6f34:	c4265c24 */ 	lwc1	$f6,%lo(var80075c00+0x24)($at)
 /*  f0c6f38:	3c013f00 */ 	lui	$at,0x3f00
 /*  f0c6f3c:	44815000 */ 	mtc1	$at,$f10
 /*  f0c6f40:	c504004c */ 	lwc1	$f4,0x4c($t0)

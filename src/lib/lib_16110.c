@@ -510,10 +510,10 @@ GLOBAL_ASM(
 glabel func00016748
 /*    16748:	3c014780 */ 	lui	$at,0x4780
 /*    1674c:	44812000 */ 	mtc1	$at,$f4
-/*    16750:	3c018006 */ 	lui	$at,0x8006
+/*    16750:	3c018006 */ 	lui	$at,%hi(var8005ef10)
 /*    16754:	460c2182 */ 	mul.s	$f6,$f4,$f12
 /*    16758:	03e00008 */ 	jr	$ra
-/*    1675c:	e426ef10 */ 	swc1	$f6,-0x10f0($at)
+/*    1675c:	e426ef10 */ 	swc1	$f6,%lo(var8005ef10)($at)
 );
 
 GLOBAL_ASM(
@@ -521,8 +521,8 @@ glabel func00016760
 /*    16760:	3c028006 */ 	lui	$v0,%hi(var8005ef10)
 /*    16764:	2442ef10 */ 	addiu	$v0,$v0,%lo(var8005ef10)
 /*    16768:	c4440000 */ 	lwc1	$f4,0x0($v0)
-/*    1676c:	3c01800a */ 	lui	$at,0x800a
-/*    16770:	e424a4d0 */ 	swc1	$f4,-0x5b30($at)
+/*    1676c:	3c01800a */ 	lui	$at,%hi(g_Vars+0x510)
+/*    16770:	e424a4d0 */ 	swc1	$f4,%lo(g_Vars+0x510)($at)
 /*    16774:	3c014780 */ 	lui	$at,0x4780
 /*    16778:	44813000 */ 	mtc1	$at,$f6
 /*    1677c:	03e00008 */ 	jr	$ra
@@ -531,11 +531,11 @@ glabel func00016760
 
 GLOBAL_ASM(
 glabel func00016784
-/*    16784:	3c01800a */ 	lui	$at,0x800a
-/*    16788:	c424a4d0 */ 	lwc1	$f4,-0x5b30($at)
-/*    1678c:	3c018006 */ 	lui	$at,0x8006
+/*    16784:	3c01800a */ 	lui	$at,%hi(g_Vars+0x510)
+/*    16788:	c424a4d0 */ 	lwc1	$f4,%lo(g_Vars+0x510)($at)
+/*    1678c:	3c018006 */ 	lui	$at,%hi(var8005ef10)
 /*    16790:	03e00008 */ 	jr	$ra
-/*    16794:	e424ef10 */ 	swc1	$f4,-0x10f0($at)
+/*    16794:	e424ef10 */ 	swc1	$f4,%lo(var8005ef10)($at)
 );
 
 GLOBAL_ASM(
@@ -2162,12 +2162,12 @@ glabel func00017e30
 /*    17f54:	46120280 */ 	add.s	$f10,$f0,$f18
 /*    17f58:	46062201 */ 	sub.s	$f8,$f4,$f6
 /*    17f5c:	44812000 */ 	mtc1	$at,$f4
-/*    17f60:	3c018008 */ 	lui	$at,0x8008
+/*    17f60:	3c018008 */ 	lui	$at,%hi(var8007fcb4)
 /*    17f64:	46045182 */ 	mul.s	$f6,$f10,$f4
 /*    17f68:	e7a80068 */ 	swc1	$f8,0x68($sp)
 /*    17f6c:	c508000c */ 	lwc1	$f8,0xc($t0)
 /*    17f70:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*    17f74:	e42afcb4 */ 	swc1	$f10,-0x34c($at)
+/*    17f74:	e42afcb4 */ 	swc1	$f10,%lo(var8007fcb4)($at)
 /*    17f78:	906b0000 */ 	lbu	$t3,0x0($v1)
 /*    17f7c:	59600068 */ 	blezl	$t3,.L00018120
 /*    17f80:	c506000c */ 	lwc1	$f6,0xc($t0)

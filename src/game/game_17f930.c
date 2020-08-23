@@ -161,8 +161,8 @@ glabel func0f17fa28
 /*  f17faf4:	afa20044 */ 	sw	$v0,0x44($sp)
 /*  f17faf8:	8fe20000 */ 	lw	$v0,0x0($ra)
 .L0f17fafc:
-/*  f17fafc:	3c0f800a */ 	lui	$t7,0x800a
-/*  f17fb00:	25efe000 */ 	addiu	$t7,$t7,-8192
+/*  f17fafc:	3c0f800a */ 	lui	$t7,%hi(g_Menus)
+/*  f17fb00:	25efe000 */ 	addiu	$t7,$t7,%lo(g_Menus)
 /*  f17fb04:	000270c0 */ 	sll	$t6,$v0,0x3
 /*  f17fb08:	01c27023 */ 	subu	$t6,$t6,$v0
 /*  f17fb0c:	000e7080 */ 	sll	$t6,$t6,0x2

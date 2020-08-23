@@ -716,7 +716,7 @@ glabel func0001190c
 /*    11d38:	8c6340e0 */ 	lw	$v1,%lo(var800840e0)($v1)
 .L00011d3c:
 /*    11d3c:	10600009 */ 	beqz	$v1,.L00011d64
-/*    11d40:	3c018008 */ 	lui	$at,0x8008
+/*    11d40:	3c018008 */ 	lui	$at,%hi(var800840e4)
 /*    11d44:	3c198008 */ 	lui	$t9,%hi(var800840e4)
 /*    11d48:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x40)
 /*    11d4c:	8d8ca000 */ 	lw	$t4,%lo(g_Vars+0x40)($t4)
@@ -726,7 +726,7 @@ glabel func0001190c
 /*    11d5c:	10000002 */ 	b	.L00011d68
 /*    11d60:	ac2d40e4 */ 	sw	$t5,%lo(var800840e4)($at)
 .L00011d64:
-/*    11d64:	ac2040e4 */ 	sw	$zero,0x40e4($at)
+/*    11d64:	ac2040e4 */ 	sw	$zero,%lo(var800840e4)($at)
 .L00011d68:
 /*    11d68:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*    11d6c:	8fb00014 */ 	lw	$s0,0x14($sp)

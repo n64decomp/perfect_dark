@@ -125,10 +125,10 @@ glabel var7f1a863c
 /*  f01bf84:	3c15800a */ 	lui	$s5,%hi(g_MenuData)
 /*  f01bf88:	0fc06fb8 */ 	jal	menuCountDialogs
 /*  f01bf8c:	26b519c0 */ 	addiu	$s5,$s5,%lo(g_MenuData)
-/*  f01bf90:	3c03800a */ 	lui	$v1,0x800a
+/*  f01bf90:	3c03800a */ 	lui	$v1,%hi(g_Menus)
 /*  f01bf94:	3c05800a */ 	lui	$a1,%hi(g_MenuData)
 /*  f01bf98:	24a519c0 */ 	addiu	$a1,$a1,%lo(g_MenuData)
-/*  f01bf9c:	2463e000 */ 	addiu	$v1,$v1,-8192
+/*  f01bf9c:	2463e000 */ 	addiu	$v1,$v1,%lo(g_Menus)
 /*  f01bfa0:	9062083c */ 	lbu	$v0,0x83c($v1)
 .L0f01bfa4:
 /*  f01bfa4:	18400002 */ 	blez	$v0,.L0f01bfb0
@@ -165,10 +165,10 @@ glabel var7f1a863c
 /*  f01c014:	24070032 */ 	addiu	$a3,$zero,0x32
 /*  f01c018:	00003025 */ 	or	$a2,$zero,$zero
 /*  f01c01c:	11e00024 */ 	beqz	$t7,.L0f01c0b0
-/*  f01c020:	3c04800a */ 	lui	$a0,0x800a
+/*  f01c020:	3c04800a */ 	lui	$a0,%hi(g_Menus)
 /*  f01c024:	3c05800a */ 	lui	$a1,%hi(g_MenuData)
 /*  f01c028:	24a519c0 */ 	addiu	$a1,$a1,%lo(g_MenuData)
-/*  f01c02c:	2484e000 */ 	addiu	$a0,$a0,-8192
+/*  f01c02c:	2484e000 */ 	addiu	$a0,$a0,%lo(g_Menus)
 /*  f01c030:	24090002 */ 	addiu	$t1,$zero,0x2
 /*  f01c034:	8c8304f8 */ 	lw	$v1,0x4f8($a0)
 .L0f01c038:
@@ -497,9 +497,9 @@ glabel var7f1a863c
 /*  f01c4a0:	8ead0000 */ 	lw	$t5,0x0($s5)
 /*  f01c4a4:	8e6f02ac */ 	lw	$t7,0x2ac($s3)
 /*  f01c4a8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f01c4ac:	3c02800a */ 	lui	$v0,0x800a
+/*  f01c4ac:	3c02800a */ 	lui	$v0,%hi(g_Menus)
 /*  f01c4b0:	11e1000c */ 	beq	$t7,$at,.L0f01c4e4
-/*  f01c4b4:	2442e000 */ 	addiu	$v0,$v0,-8192
+/*  f01c4b4:	2442e000 */ 	addiu	$v0,$v0,%lo(g_Menus)
 /*  f01c4b8:	8e780284 */ 	lw	$t8,0x284($s3)
 /*  f01c4bc:	a040083c */ 	sb	$zero,0x83c($v0)
 /*  f01c4c0:	a04016ac */ 	sb	$zero,0x16ac($v0)
@@ -531,7 +531,7 @@ glabel var7f1a863c
 /*  f01c51c:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f01c520:	ae800000 */ 	sw	$zero,0x0($s4)
 /*  f01c524:	14c50006 */ 	bne	$a2,$a1,.L0f01c540
-/*  f01c528:	3c03800a */ 	lui	$v1,0x800a
+/*  f01c528:	3c03800a */ 	lui	$v1,%hi(g_Menus)
 /*  f01c52c:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
 /*  f01c530:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
 /*  f01c534:	948f0016 */ 	lhu	$t7,0x16($a0)
@@ -540,7 +540,7 @@ glabel var7f1a863c
 .L0f01c540:
 /*  f01c540:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
 /*  f01c544:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f01c548:	2463e000 */ 	addiu	$v1,$v1,-8192
+/*  f01c548:	2463e000 */ 	addiu	$v1,$v1,%lo(g_Menus)
 .L0f01c54c:
 /*  f01c54c:	8c7904f8 */ 	lw	$t9,0x4f8($v1)
 /*  f01c550:	24010004 */ 	addiu	$at,$zero,0x4
@@ -567,10 +567,10 @@ glabel var7f1a863c
 /*  f01c59c:	00000000 */ 	nop
 .L0f01c5a0:
 /*  f01c5a0:	3c068007 */ 	lui	$a2,%hi(g_MpPlayerNum)
-/*  f01c5a4:	3c05800a */ 	lui	$a1,0x800a
+/*  f01c5a4:	3c05800a */ 	lui	$a1,%hi(g_Menus)
 /*  f01c5a8:	3c038008 */ 	lui	$v1,%hi(g_MpReadyMenuDialog)
 /*  f01c5ac:	246357b8 */ 	addiu	$v1,$v1,%lo(g_MpReadyMenuDialog)
-/*  f01c5b0:	24a5e000 */ 	addiu	$a1,$a1,-8192
+/*  f01c5b0:	24a5e000 */ 	addiu	$a1,$a1,%lo(g_Menus)
 /*  f01c5b4:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MpPlayerNum)
 /*  f01c5b8:	00008825 */ 	or	$s1,$zero,$zero
 /*  f01c5bc:	24040e70 */ 	addiu	$a0,$zero,0xe70
@@ -603,8 +603,8 @@ glabel var7f1a863c
 /*  f01c61c:	01b16821 */ 	addu	$t5,$t5,$s1
 /*  f01c620:	000d68c0 */ 	sll	$t5,$t5,0x3
 /*  f01c624:	01b16823 */ 	subu	$t5,$t5,$s1
-/*  f01c628:	3c0f800a */ 	lui	$t7,0x800a
-/*  f01c62c:	25efe000 */ 	addiu	$t7,$t7,-8192
+/*  f01c628:	3c0f800a */ 	lui	$t7,%hi(g_Menus)
+/*  f01c62c:	25efe000 */ 	addiu	$t7,$t7,%lo(g_Menus)
 /*  f01c630:	000d6900 */ 	sll	$t5,$t5,0x4
 /*  f01c634:	01af1821 */ 	addu	$v1,$t5,$t7
 /*  f01c638:	8c6e04f8 */ 	lw	$t6,0x4f8($v1)
@@ -1010,12 +1010,12 @@ glabel var7f1a863c
 /*  f01cbbc:	00000000 */ 	nop
 .L0f01cbc0:
 /*  f01cbc0:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
-/*  f01cbc4:	3c03800a */ 	lui	$v1,0x800a
+/*  f01cbc4:	3c03800a */ 	lui	$v1,%hi(g_Menus)
 /*  f01cbc8:	3c02800a */ 	lui	$v0,%hi(g_MenuData)
 /*  f01cbcc:	ac201448 */ 	sw	$zero,%lo(g_MpPlayerNum)($at)
 /*  f01cbd0:	00002025 */ 	or	$a0,$zero,$zero
 /*  f01cbd4:	244219c0 */ 	addiu	$v0,$v0,%lo(g_MenuData)
-/*  f01cbd8:	2463e000 */ 	addiu	$v1,$v1,-8192
+/*  f01cbd8:	2463e000 */ 	addiu	$v1,$v1,%lo(g_Menus)
 /*  f01cbdc:	8c6d04f8 */ 	lw	$t5,0x4f8($v1)
 .L0f01cbe0:
 /*  f01cbe0:	24630e70 */ 	addiu	$v1,$v1,0x0e70

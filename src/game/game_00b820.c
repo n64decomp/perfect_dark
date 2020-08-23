@@ -180,7 +180,7 @@ glabel func0f00b820
 /*  f00ba48:	0fc41b99 */ 	jal	cheatIsActive
 /*  f00ba4c:	24040010 */ 	addiu	$a0,$zero,0x10
 /*  f00ba50:	10400006 */ 	beqz	$v0,.L0f00ba6c
-/*  f00ba54:	3c148006 */ 	lui	$s4,0x8006
+/*  f00ba54:	3c148006 */ 	lui	$s4,%hi(var80062c58)
 /*  f00ba58:	3c148006 */ 	lui	$s4,%hi(var80062c6c)
 /*  f00ba5c:	3c138006 */ 	lui	$s3,%hi(var80062b10)
 /*  f00ba60:	26942c6c */ 	addiu	$s4,$s4,%lo(var80062c6c)
@@ -188,7 +188,7 @@ glabel func0f00b820
 /*  f00ba68:	8e732b10 */ 	lw	$s3,%lo(var80062b10)($s3)
 .L0f00ba6c:
 /*  f00ba6c:	3c138006 */ 	lui	$s3,%hi(var80062b08)
-/*  f00ba70:	26942c58 */ 	addiu	$s4,$s4,11352
+/*  f00ba70:	26942c58 */ 	addiu	$s4,$s4,%lo(var80062c58)
 /*  f00ba74:	8e732b08 */ 	lw	$s3,%lo(var80062b08)($s3)
 .L0f00ba78:
 /*  f00ba78:	8ea50000 */ 	lw	$a1,0x0($s5)

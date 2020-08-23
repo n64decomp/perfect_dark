@@ -15,6 +15,7 @@
 #include "game/game_1a3340.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
+#include "gvars/gvars.h"
 #include "stagesetup.h"
 #include "types.h"
 
@@ -7073,7 +7074,7 @@ u32 var8007fc14 = 0x00000000;
 u32 var8007fc18 = 0x01000100;
 u32 var8007fc1c = 0x00000000;
 s32 var8007fc20 = 0x00000001;
-u32 var8007fc24 = 0x800a4910;
+u32 var8007fc24 = (u32) &var800a4640 + 0x2d0;
 u32 var8007fc28 = 0x00000000;
 u32 var8007fc2c = 0x00000000;
 s32 var8007fc30 = 0x00000000;

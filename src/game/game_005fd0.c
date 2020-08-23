@@ -717,8 +717,8 @@ glabel func0f006b08
 glabel var7f1a7e70
 .word 0x40490fdb
 .text
-/*  f006b08:	3c018006 */ 	lui	$at,0x8006
-/*  f006b0c:	c4241630 */ 	lwc1	$f4,0x1630($at)
+/*  f006b08:	3c018006 */ 	lui	$at,%hi(var80061630)
+/*  f006b0c:	c4241630 */ 	lwc1	$f4,%lo(var80061630)($at)
 /*  f006b10:	3c017f1a */ 	lui	$at,%hi(var7f1a7e70)
 /*  f006b14:	c4287e70 */ 	lwc1	$f8,%lo(var7f1a7e70)($at)
 /*  f006b18:	46046002 */ 	mul.s	$f0,$f12,$f4
@@ -744,8 +744,8 @@ glabel func0f006b54
 glabel var7f1a7e74
 .word 0x40490fdb
 .text
-/*  f006b54:	3c018006 */ 	lui	$at,0x8006
-/*  f006b58:	c4241630 */ 	lwc1	$f4,0x1630($at)
+/*  f006b54:	3c018006 */ 	lui	$at,%hi(var80061630)
+/*  f006b58:	c4241630 */ 	lwc1	$f4,%lo(var80061630)($at)
 /*  f006b5c:	3c017f1a */ 	lui	$at,%hi(var7f1a7e74)
 /*  f006b60:	c4287e74 */ 	lwc1	$f8,%lo(var7f1a7e74)($at)
 /*  f006b64:	46046002 */ 	mul.s	$f0,$f12,$f4
@@ -767,8 +767,8 @@ glabel var7f1a7e74
 
 GLOBAL_ASM(
 glabel func0f006ba0
-/*  f006ba0:	3c018006 */ 	lui	$at,0x8006
-/*  f006ba4:	c4241630 */ 	lwc1	$f4,0x1630($at)
+/*  f006ba0:	3c018006 */ 	lui	$at,%hi(var80061630)
+/*  f006ba4:	c4241630 */ 	lwc1	$f4,%lo(var80061630)($at)
 /*  f006ba8:	460c2082 */ 	mul.s	$f2,$f4,$f12
 /*  f006bac:	4600118d */ 	trunc.w.s	$f6,$f2
 /*  f006bb0:	440f3000 */ 	mfc1	$t7,$f6

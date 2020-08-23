@@ -25,9 +25,9 @@ const char var7005400c[] = "";
 
 GLOBAL_ASM(
 glabel random
-/*    12dc0:	3c048006 */ 	lui	$a0,0x8006
-/*    12dc4:	dc84ee00 */ 	ld	$a0,-0x1200($a0)
-/*    12dc8:	3c018006 */ 	lui	$at,0x8006
+/*    12dc0:	3c048006 */ 	lui	$a0,%hi(rand_seed)
+/*    12dc4:	dc84ee00 */ 	ld	$a0,%lo(rand_seed)($a0)
+/*    12dc8:	3c018006 */ 	lui	$at,%hi(rand_seed)
 /*    12dcc:	000437fc */ 	dsll32	$a2,$a0,0x1f
 /*    12dd0:	00042ff8 */ 	dsll	$a1,$a0,0x1f
 /*    12dd4:	000637fa */ 	dsrl	$a2,$a2,0x1f
@@ -40,7 +40,7 @@ glabel random
 /*    12df0:	30840fff */ 	andi	$a0,$a0,0xfff
 /*    12df4:	00862026 */ 	xor	$a0,$a0,$a2
 /*    12df8:	0004103c */ 	dsll32	$v0,$a0,0x0
-/*    12dfc:	fc24ee00 */ 	sd	$a0,-0x1200($at)
+/*    12dfc:	fc24ee00 */ 	sd	$a0,%lo(rand_seed)($at)
 /*    12e00:	03e00008 */ 	jr	$ra
 /*    12e04:	0002103f */ 	dsra32	$v0,$v0,0x0
 );
@@ -57,8 +57,8 @@ glabel random
 GLOBAL_ASM(
 glabel func00012e08
 /*    12e08:	64840001 */ 	daddiu	$a0,$a0,0x1
-/*    12e0c:	3c018006 */ 	lui	$at,0x8006
-/*    12e10:	fc24ee00 */ 	sd	$a0,-0x1200($at)
+/*    12e0c:	3c018006 */ 	lui	$at,%hi(rand_seed)
+/*    12e10:	fc24ee00 */ 	sd	$a0,%lo(rand_seed)($at)
 /*    12e14:	03e00008 */ 	jr	$ra
 /*    12e18:	24040000 */ 	addiu	$a0,$zero,0x0
 );

@@ -1911,9 +1911,9 @@ glabel func00024c14
 
 GLOBAL_ASM(
 glabel func00024e40
-/*    24e40:	3c01800a */ 	lui	$at,0x800a
+/*    24e40:	3c01800a */ 	lui	$at,%hi(var8009a8f0)
 /*    24e44:	03e00008 */ 	jr	$ra
-/*    24e48:	c420a8f0 */ 	lwc1	$f0,-0x5710($at)
+/*    24e48:	c420a8f0 */ 	lwc1	$f0,%lo(var8009a8f0)($at)
 );
 
 void func00024e4c(struct coord *a, struct coord *b, u32 line, char *file)
@@ -1929,9 +1929,9 @@ void func00024e4c(struct coord *a, struct coord *b, u32 line, char *file)
 
 GLOBAL_ASM(
 glabel func00024e98
-/*    24e98:	3c01800a */ 	lui	$at,0x800a
+/*    24e98:	3c01800a */ 	lui	$at,%hi(var8009a8b0)
 /*    24e9c:	03e00008 */ 	jr	$ra
-/*    24ea0:	c420a8b0 */ 	lwc1	$f0,-0x5750($at)
+/*    24ea0:	c420a8b0 */ 	lwc1	$f0,%lo(var8009a8b0)($at)
 );
 
 GLOBAL_ASM(
@@ -2070,9 +2070,9 @@ glabel func00024fb0
 GLOBAL_ASM(
 glabel func00025038
 /*    25038:	44876000 */ 	mtc1	$a3,$f12
-/*    2503c:	3c01800a */ 	lui	$at,0x800a
+/*    2503c:	3c01800a */ 	lui	$at,%hi(var8009a8b0)
 /*    25040:	3c02800a */ 	lui	$v0,%hi(var8009a8b8)
-/*    25044:	e42ca8b0 */ 	swc1	$f12,-0x5750($at)
+/*    25044:	e42ca8b0 */ 	swc1	$f12,%lo(var8009a8b0)($at)
 /*    25048:	c4840000 */ 	lwc1	$f4,0x0($a0)
 /*    2504c:	2442a8b8 */ 	addiu	$v0,$v0,%lo(var8009a8b8)
 /*    25050:	3c03800a */ 	lui	$v1,%hi(var8009a8c8)
@@ -2142,8 +2142,8 @@ glabel func000250cc
 /*    25140:	0fc55e73 */ 	jal	func0f1579cc
 /*    25144:	e7a60028 */ 	swc1	$f6,0x28($sp)
 /*    25148:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    2514c:	3c01800a */ 	lui	$at,0x800a
-/*    25150:	e420a8b0 */ 	swc1	$f0,-0x5750($at)
+/*    2514c:	3c01800a */ 	lui	$at,%hi(var8009a8b0)
+/*    25150:	e420a8b0 */ 	swc1	$f0,%lo(var8009a8b0)($at)
 /*    25154:	3c01800a */ 	lui	$at,%hi(var8009a8ac)
 /*    25158:	24180001 */ 	addiu	$t8,$zero,0x1
 /*    2515c:	ac38a8ac */ 	sw	$t8,%lo(var8009a8ac)($at)
@@ -2255,8 +2255,8 @@ glabel func00025254
 /*    252d4:	ac27a8d4 */ 	sw	$a3,%lo(var8009a8d4)($at)
 /*    252d8:	3c01800a */ 	lui	$at,%hi(var8009a8d8)
 /*    252dc:	ac29a8d8 */ 	sw	$t1,%lo(var8009a8d8)($at)
-/*    252e0:	3c01800a */ 	lui	$at,0x800a
-/*    252e4:	e42aa8f0 */ 	swc1	$f10,-0x5710($at)
+/*    252e0:	3c01800a */ 	lui	$at,%hi(var8009a8f0)
+/*    252e4:	e42aa8f0 */ 	swc1	$f10,%lo(var8009a8f0)($at)
 /*    252e8:	3c01800a */ 	lui	$at,%hi(var8009a8ec)
 /*    252ec:	ac29a8ec */ 	sw	$t1,%lo(var8009a8ec)($at)
 /*    252f0:	3c01800a */ 	lui	$at,%hi(var8009a8f4)

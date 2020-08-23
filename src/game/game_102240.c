@@ -3551,8 +3551,8 @@ glabel var7f1b2e04
 /*  f105c64:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f105c68:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f105c6c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f105c70:	3c18800a */ 	lui	$t8,0x800a
-/*  f105c74:	2718e000 */ 	addiu	$t8,$t8,-8192
+/*  f105c70:	3c18800a */ 	lui	$t8,%hi(g_Menus)
+/*  f105c74:	2718e000 */ 	addiu	$t8,$t8,%lo(g_Menus)
 /*  f105c78:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f105c7c:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f105c80:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -3563,7 +3563,7 @@ glabel var7f1b2e04
 /*  f105c94:	01f81021 */ 	addu	$v0,$t7,$t8
 /*  f105c98:	8c4304f8 */ 	lw	$v1,0x4f8($v0)
 /*  f105c9c:	240800ff */ 	addiu	$t0,$zero,0xff
-/*  f105ca0:	3c018007 */ 	lui	$at,0x8007
+/*  f105ca0:	3c018007 */ 	lui	$at,%hi(var80072d88)
 /*  f105ca4:	10600037 */ 	beqz	$v1,.L0f105d84
 /*  f105ca8:	00000000 */ 	nop
 /*  f105cac:	8c790000 */ 	lw	$t9,0x0($v1)
@@ -3577,8 +3577,8 @@ glabel var7f1b2e04
 /*  f105ccc:	01095023 */ 	subu	$t2,$t0,$t1
 /*  f105cd0:	ac4a0db4 */ 	sw	$t2,0xdb4($v0)
 /*  f105cd4:	c4242e04 */ 	lwc1	$f4,%lo(var7f1b2e04)($at)
-/*  f105cd8:	3c018006 */ 	lui	$at,0x8006
-/*  f105cdc:	c4261630 */ 	lwc1	$f6,0x1630($at)
+/*  f105cd8:	3c018006 */ 	lui	$at,%hi(var80061630)
+/*  f105cdc:	c4261630 */ 	lwc1	$f6,%lo(var80061630)($at)
 /*  f105ce0:	e4420d68 */ 	swc1	$f2,0xd68($v0)
 /*  f105ce4:	e4420d90 */ 	swc1	$f2,0xd90($v0)
 /*  f105ce8:	46062002 */ 	mul.s	$f0,$f4,$f6
@@ -3605,8 +3605,8 @@ glabel var7f1b2e04
 /*  f105d38:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f105d3c:
 /*  f105d3c:	8d8c1448 */ 	lw	$t4,%lo(g_MpPlayerNum)($t4)
-/*  f105d40:	3c0e800a */ 	lui	$t6,0x800a
-/*  f105d44:	25cee000 */ 	addiu	$t6,$t6,-8192
+/*  f105d40:	3c0e800a */ 	lui	$t6,%hi(g_Menus)
+/*  f105d44:	25cee000 */ 	addiu	$t6,$t6,%lo(g_Menus)
 /*  f105d48:	000c68c0 */ 	sll	$t5,$t4,0x3
 /*  f105d4c:	01ac6823 */ 	subu	$t5,$t5,$t4
 /*  f105d50:	000d6880 */ 	sll	$t5,$t5,0x2
@@ -3623,7 +3623,7 @@ glabel var7f1b2e04
 /*  f105d7c:	10000002 */ 	b	.L0f105d88
 /*  f105d80:	ac590db4 */ 	sw	$t9,0xdb4($v0)
 .L0f105d84:
-/*  f105d84:	a0282d88 */ 	sb	$t0,0x2d88($at)
+/*  f105d84:	a0282d88 */ 	sb	$t0,%lo(var80072d88)($at)
 .L0f105d88:
 /*  f105d88:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f105d8c:

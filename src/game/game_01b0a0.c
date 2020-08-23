@@ -932,12 +932,12 @@ glabel activemenuTick
 .L0f01bd4c:
 /*  f01bd4c:	44816000 */ 	mtc1	$at,$f12
 /*  f01bd50:	c6000018 */ 	lwc1	$f0,0x18($s0)
-/*  f01bd54:	3c01800a */ 	lui	$at,0x800a
+/*  f01bd54:	3c01800a */ 	lui	$at,%hi(g_Vars+0x44)
 /*  f01bd58:	460c003c */ 	c.lt.s	$f0,$f12
 /*  f01bd5c:	00000000 */ 	nop
 /*  f01bd60:	45000009 */ 	bc1f	.L0f01bd88
 /*  f01bd64:	00000000 */ 	nop
-/*  f01bd68:	c428a004 */ 	lwc1	$f8,-0x5ffc($at)
+/*  f01bd68:	c428a004 */ 	lwc1	$f8,%lo(g_Vars+0x44)($at)
 /*  f01bd6c:	3c0141f0 */ 	lui	$at,0x41f0
 /*  f01bd70:	44815000 */ 	mtc1	$at,$f10
 /*  f01bd74:	00000000 */ 	nop
@@ -946,9 +946,9 @@ glabel activemenuTick
 /*  f01bd80:	e6120018 */ 	swc1	$f18,0x18($s0)
 /*  f01bd84:	c6000018 */ 	lwc1	$f0,0x18($s0)
 .L0f01bd88:
-/*  f01bd88:	3c01800a */ 	lui	$at,0x800a
+/*  f01bd88:	3c01800a */ 	lui	$at,%hi(g_Vars+0x44)
 /*  f01bd8c:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f01bd90:	c422a004 */ 	lwc1	$f2,-0x5ffc($at)
+/*  f01bd90:	c422a004 */ 	lwc1	$f2,%lo(g_Vars+0x44)($at)
 /*  f01bd94:	3c0140a0 */ 	lui	$at,0x40a0
 /*  f01bd98:	44813000 */ 	mtc1	$at,$f6
 /*  f01bd9c:	45000002 */ 	bc1f	.L0f01bda8

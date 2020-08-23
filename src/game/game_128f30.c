@@ -189,9 +189,9 @@ glabel func0f12906c
 
 GLOBAL_ASM(
 glabel func0f1291b0
-/*  f1291b0:	3c048008 */ 	lui	$a0,0x8008
-/*  f1291b4:	dc84e3c0 */ 	ld	$a0,-0x1c40($a0)
-/*  f1291b8:	3c018008 */ 	lui	$at,0x8008
+/*  f1291b0:	3c048008 */ 	lui	$a0,%hi(var8007e3c0)
+/*  f1291b4:	dc84e3c0 */ 	ld	$a0,%lo(var8007e3c0)($a0)
+/*  f1291b8:	3c018008 */ 	lui	$at,%hi(var8007e3c0)
 /*  f1291bc:	000437fc */ 	dsll32	$a2,$a0,0x1f
 /*  f1291c0:	00042ff8 */ 	dsll	$a1,$a0,0x1f
 /*  f1291c4:	000637fa */ 	dsrl	$a2,$a2,0x1f
@@ -204,7 +204,7 @@ glabel func0f1291b0
 /*  f1291e0:	30840fff */ 	andi	$a0,$a0,0xfff
 /*  f1291e4:	00862026 */ 	xor	$a0,$a0,$a2
 /*  f1291e8:	0004103c */ 	dsll32	$v0,$a0,0x0
-/*  f1291ec:	fc24e3c0 */ 	sd	$a0,-0x1c40($at)
+/*  f1291ec:	fc24e3c0 */ 	sd	$a0,%lo(var8007e3c0)($at)
 /*  f1291f0:	03e00008 */ 	jr	$ra
 /*  f1291f4:	0002103f */ 	dsra32	$v0,$v0,0x0
 );
@@ -212,8 +212,8 @@ glabel func0f1291b0
 GLOBAL_ASM(
 glabel func0f1291f8
 /*  f1291f8:	64840001 */ 	daddiu	$a0,$a0,0x1
-/*  f1291fc:	3c018008 */ 	lui	$at,0x8008
-/*  f129200:	fc24e3c0 */ 	sd	$a0,-0x1c40($at)
+/*  f1291fc:	3c018008 */ 	lui	$at,%hi(var8007e3c0)
+/*  f129200:	fc24e3c0 */ 	sd	$a0,%lo(var8007e3c0)($at)
 /*  f129204:	03e00008 */ 	jr	$ra
 /*  f129208:	24040000 */ 	addiu	$a0,$zero,0x0
 /*  f12920c:	00000000 */ 	nop

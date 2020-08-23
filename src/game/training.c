@@ -1342,8 +1342,8 @@ glabel var7f1b941c
 .L0f19e294:
 /*  f19e294:	3c014270 */ 	lui	$at,0x4270
 /*  f19e298:	44812000 */ 	mtc1	$at,$f4
-/*  f19e29c:	3c01800b */ 	lui	$at,0x800b
-/*  f19e2a0:	c426cd2c */ 	lwc1	$f6,-0x32d4($at)
+/*  f19e29c:	3c01800b */ 	lui	$at,%hi(g_FrData+0xc)
+/*  f19e2a0:	c426cd2c */ 	lwc1	$f6,%lo(g_FrData+0xc)($at)
 /*  f19e2a4:	46044483 */ 	div.s	$f18,$f8,$f4
 /*  f19e2a8:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f19e2ac:	a06e0043 */ 	sb	$t6,0x43($v1)

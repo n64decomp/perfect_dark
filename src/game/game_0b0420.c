@@ -1510,8 +1510,8 @@ glabel func0f0b1d28
 /*  f0b1d6c:	24010014 */ 	addiu	$at,$zero,0x14
 /*  f0b1d70:	c4420014 */ 	lwc1	$f2,0x14($v0)
 /*  f0b1d74:	15e10004 */ 	bne	$t7,$at,.L0f0b1d88
-/*  f0b1d78:	3c01800a */ 	lui	$at,0x800a
-/*  f0b1d7c:	c424a004 */ 	lwc1	$f4,-0x5ffc($at)
+/*  f0b1d78:	3c01800a */ 	lui	$at,%hi(g_Vars+0x44)
+/*  f0b1d7c:	c424a004 */ 	lwc1	$f4,%lo(g_Vars+0x44)($at)
 /*  f0b1d80:	46041082 */ 	mul.s	$f2,$f2,$f4
 /*  f0b1d84:	00000000 */ 	nop
 .L0f0b1d88:
