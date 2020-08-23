@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f0dcdb0(void);
+u8 func0f0dcdb0(void);
 s32 hudIsZoomRangeVisible(void);
 Gfx *hudRenderMissionTimer(Gfx *gdl, u32 arg1);
 Gfx *hudRenderZoomRange(Gfx *gdl, s32 arg1);

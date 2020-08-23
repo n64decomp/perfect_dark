@@ -38,7 +38,7 @@ const char var7f1ade98[] = "%s%s%4.2fX";
 const char var7f1adea4[] = "";
 const char var7f1adea8[] = "";
 
-u32 var80070fb0 = 0x00000000;
+u8 var80070fb0 = 0;
 
 u32 g_Colours[] = {
 	/* 0*/ 0x00ff0000, // green
@@ -83,12 +83,10 @@ u32 var80071184 = 0x00000000;
 u32 var80071188 = 0x00000000;
 u32 var8007118c = 0x00000000;
 
-GLOBAL_ASM(
-glabel func0f0dcdb0
-/*  f0dcdb0:	3c028007 */ 	lui	$v0,%hi(var80070fb0)
-/*  f0dcdb4:	03e00008 */ 	jr	$ra
-/*  f0dcdb8:	90420fb0 */ 	lbu	$v0,%lo(var80070fb0)($v0)
-);
+u8 func0f0dcdb0(void)
+{
+	return var80070fb0;
+}
 
 s32 hudIsZoomRangeVisible(void)
 {
