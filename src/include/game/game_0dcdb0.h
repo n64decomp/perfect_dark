@@ -4,10 +4,10 @@
 #include "types.h"
 
 u32 func0f0dcdb0(void);
-s32 func0f0dcdbc(void);
-u32 func0f0dcef4(void);
-u32 func0f0dd2ac(void);
-u32 func0f0dd848(void);
+s32 hudIsZoomRangeVisible(void);
+Gfx *hudRenderMissionTimer(Gfx *gdl, s32 arg1);
+Gfx *hudRenderZoomRange(Gfx *gdl, s32 arg1);
+Gfx *hudRenderMessageBox(Gfx *gdl, s32 x, s32 y, s32 width, s32 height, f32 bgopacity, u32 bordercolour, f32 textopacity);
 s32 func0f0ddb1c(u32 *arg0, u32 arg1);
 void func0f0ddd44(s32 value);
 void hudmsgSystemInit(void);
@@ -27,7 +27,7 @@ void func0f0df364(void);
 void currentPlayerUnsetFlag(u32 flag);
 void currentPlayerSetFlag(u32 flag);
 void hudmsgRemoveForDeadPlayer(s32 playernum);
-Gfx *func0f0dfad0(Gfx *gdl);
+Gfx *hudRenderMessages(Gfx *gdl);
 void hudmsgsReset(void);
 
 #endif

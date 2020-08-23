@@ -90,7 +90,7 @@ glabel func0f0dcdb0
 /*  f0dcdb8:	90420fb0 */ 	lbu	$v0,%lo(var80070fb0)($v0)
 );
 
-s32 func0f0dcdbc(void)
+s32 hudIsZoomRangeVisible(void)
 {
 	return optionsGetShowZoomRange(g_Vars.currentplayerstats->mpindex)
 		&& (PLAYERCOUNT() == 1
@@ -104,7 +104,7 @@ s32 func0f0dcdbc(void)
 }
 
 GLOBAL_ASM(
-glabel func0f0dcef4
+glabel hudRenderMissionTimer
 /*  f0dcef4:	27bdff70 */ 	addiu	$sp,$sp,-144
 /*  f0dcef8:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f0dcefc:	afa40090 */ 	sw	$a0,0x90($sp)
@@ -229,7 +229,7 @@ glabel func0f0dcef4
 /*  f0dd0b0:	01c87821 */ 	addu	$t7,$t6,$t0
 /*  f0dd0b4:	01ea1821 */ 	addu	$v1,$t7,$t2
 /*  f0dd0b8:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f0dd0bc:	0fc3736f */ 	jal	func0f0dcdbc
+/*  f0dd0bc:	0fc3736f */ 	jal	hudIsZoomRangeVisible
 /*  f0dd0c0:	afa70080 */ 	sw	$a3,0x80($sp)
 /*  f0dd0c4:	8fa3003c */ 	lw	$v1,0x3c($sp)
 /*  f0dd0c8:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -368,7 +368,7 @@ glabel func0f0dcef4
 
 #if VERSION >= VERSION_NTSC_FINAL
 GLOBAL_ASM(
-glabel func0f0dd2ac
+glabel hudRenderZoomRange
 /*  f0dd2ac:	27bdff40 */ 	addiu	$sp,$sp,-192
 /*  f0dd2b0:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f0dd2b4:	afb00038 */ 	sw	$s0,0x38($sp)
@@ -752,7 +752,7 @@ glabel func0f0dd2ac
 );
 #else
 GLOBAL_ASM(
-glabel func0f0dd2ac
+glabel hudRenderZoomRange
 /*  f0dd28c:	27bdff40 */ 	addiu	$sp,$sp,-192
 /*  f0dd290:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f0dd294:	afb00038 */ 	sw	$s0,0x38($sp)
@@ -1137,7 +1137,7 @@ glabel func0f0dd2ac
 #endif
 
 GLOBAL_ASM(
-glabel func0f0dd848
+glabel hudRenderMessageBox
 .late_rodata
 glabel var7f1adeac
 .word 0x40490fdb
@@ -2932,7 +2932,7 @@ glabel hudmsgCreate
 // g_HudMessages[index].playernum == g_Vars.currentplayernum
 //void hudmsgCreate(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02,
 //		struct hudmessagething *conf04, struct hudmessagething *conf08,
-//		u32 textcolour, u32 shadowcolour,
+//		u32 textcolour, u32 glowcolour,
 //		u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14, u32 flags)
 //{
 //	char *pos;
@@ -2964,8 +2964,8 @@ glabel hudmsgCreate
 //			s32 dupeofindex = -1;
 //
 //			for (index = 0; index < g_NumHudMessages; index++) {
-//				if (g_HudMessages[index].state
-//						&& g_HudMessages[index].state != HUDMSGSTATE_ONSCREEN
+//				if (g_HudMessages[index].state != HUDMSGSTATE_FREE
+//						&& g_HudMessages[index].state != HUDMSGSTATE_FADINGOUT
 //						&& g_HudMessages[index].playernum == g_Vars.currentplayernum
 //						&& g_HudMessages[index].hash == hash) {
 //					dupeofindex = index;
@@ -3041,18 +3041,18 @@ glabel hudmsgCreate
 //			msg->type = type;
 //			msg->id = g_NextHudMessageId++;
 //			msg->state = HUDMSGSTATE_QUEUED;
-//			msg->unk006 = 0;
-//			msg->unk001 = conf00;
+//			msg->timer = 0;
+//			msg->boxed = conf00;
 //			msg->unk002 = conf01;
-//			msg->unk003 = conf02;
-//			msg->unk008 = conf04->unk00;
-//			msg->unk00c = conf08->unk00;
+//			msg->flash = conf02;
+//			msg->font1 = conf04->unk00;
+//			msg->font2 = conf08->unk00;
 //			msg->textcolour = textcolour;
-//			msg->shadowcolour = shadowcolour;
+//			msg->glowcolour = glowcolour;
 //			msg->alignh = alignh;
 //			msg->alignv = alignv;
-//			msg->unk01c = uStack24;
-//			msg->unk01e = uStack28;
+//			msg->width = uStack24;
+//			msg->height = uStack28;
 //			msg->unk1cc = uStack32;
 //			msg->unk1d0 = conf16;
 //			msg->unk1d4 = conf18;
@@ -3575,28 +3575,28 @@ void hudmsgRemoveForDeadPlayer(s32 playernum)
 				&& g_HudMessages[i].playernum == playernum
 				&& (g_HudMessages[i].flags & HUDMSGFLAG_ONLYIFALIVE)) {
 			g_HudMessages[i].state = HUDMSGSTATE_FREE;
-			g_HudMessages[i].unk006 = 0;
+			g_HudMessages[i].timer = 0;
 		}
 	}
 }
 
 GLOBAL_ASM(
-glabel func0f0dfad0
+glabel hudRenderMessages
 .late_rodata
 glabel var7f1adedc
 .word 0x40490fdb
 glabel var7f1adee0
-.word func0f0dfad0+0xa34 # f0e0504
+.word hudRenderMessages+0xa34 # f0e0504
 glabel var7f1adee4
-.word func0f0dfad0+0xa34 # f0e0504
+.word hudRenderMessages+0xa34 # f0e0504
 glabel var7f1adee8
-.word func0f0dfad0+0xa34 # f0e0504
+.word hudRenderMessages+0xa34 # f0e0504
 glabel var7f1adeec
-.word func0f0dfad0+0x3ec # f0dfebc
+.word hudRenderMessages+0x3ec # f0dfebc
 glabel var7f1adef0
-.word func0f0dfad0+0x644 # f0e0114
+.word hudRenderMessages+0x644 # f0e0114
 glabel var7f1adef4
-.word func0f0dfad0+0x7c8 # f0e0298
+.word hudRenderMessages+0x7c8 # f0e0298
 .text
 /*  f0dfad0:	27bdff00 */ 	addiu	$sp,$sp,-256
 /*  f0dfad4:	3c0f8007 */ 	lui	$t7,%hi(g_HiResActive)
@@ -3961,7 +3961,7 @@ glabel var7f1adef4
 /*  f0e000c:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f0e0010:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0e0014:	2706fffd */ 	addiu	$a2,$t8,-3
-/*  f0e0018:	0fc37612 */ 	jal	func0f0dd848
+/*  f0e0018:	0fc37612 */ 	jal	hudRenderMessageBox
 /*  f0e001c:	25c5fffd */ 	addiu	$a1,$t6,-3
 /*  f0e0020:	0c002f02 */ 	jal	viGetX
 /*  f0e0024:	00409025 */ 	or	$s2,$v0,$zero
@@ -4064,7 +4064,7 @@ glabel var7f1adef4
 /*  f0e0194:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f0e0198:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f0e019c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0e01a0:	0fc37612 */ 	jal	func0f0dd848
+/*  f0e01a0:	0fc37612 */ 	jal	hudRenderMessageBox
 /*  f0e01a4:	2566fffd */ 	addiu	$a2,$t3,-3
 /*  f0e01a8:	0c002f02 */ 	jal	viGetX
 /*  f0e01ac:	00409025 */ 	or	$s2,$v0,$zero
@@ -4229,7 +4229,7 @@ glabel var7f1adef4
 /*  f0e0408:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f0e040c:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0e0410:	2565fffd */ 	addiu	$a1,$t3,-3
-/*  f0e0414:	0fc37612 */ 	jal	func0f0dd848
+/*  f0e0414:	0fc37612 */ 	jal	hudRenderMessageBox
 /*  f0e0418:	2586fffd */ 	addiu	$a2,$t4,-3
 /*  f0e041c:	0c002f02 */ 	jal	viGetX
 /*  f0e0420:	00409025 */ 	or	$s2,$v0,$zero
@@ -4399,15 +4399,15 @@ glabel var7f1adef4
 /*  f0e0690:	00000000 */ 	nop
 /*  f0e0694:	10410004 */ 	beq	$v0,$at,.L0f0e06a8
 /*  f0e0698:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0e069c:	0fc373bd */ 	jal	func0f0dcef4
+/*  f0e069c:	0fc373bd */ 	jal	hudRenderMissionTimer
 /*  f0e06a0:	8fa500e0 */ 	lw	$a1,0xe0($sp)
 /*  f0e06a4:	00409025 */ 	or	$s2,$v0,$zero
 .L0f0e06a8:
-/*  f0e06a8:	0fc3736f */ 	jal	func0f0dcdbc
+/*  f0e06a8:	0fc3736f */ 	jal	hudIsZoomRangeVisible
 /*  f0e06ac:	00000000 */ 	nop
 /*  f0e06b0:	10400004 */ 	beqz	$v0,.L0f0e06c4
 /*  f0e06b4:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0e06b8:	0fc374ab */ 	jal	func0f0dd2ac
+/*  f0e06b8:	0fc374ab */ 	jal	hudRenderZoomRange
 /*  f0e06bc:	8fa500e0 */ 	lw	$a1,0xe0($sp)
 /*  f0e06c0:	00409025 */ 	or	$s2,$v0,$zero
 .L0f0e06c4:
@@ -4437,6 +4437,265 @@ glabel var7f1adef4
 /*  f0e071c:	03e00008 */ 	jr	$ra
 /*  f0e0720:	27bd0100 */ 	addiu	$sp,$sp,0x100
 );
+
+// Mismatch most likely due to variable re-use.
+//Gfx *hudRenderMessages(Gfx *gdl)
+//{
+//	s32 i;
+//	u32 textcolour; // s3
+//	u32 glowcolour; // s4
+//	u32 stack;
+//	f32 sin;
+//	s32 x; // e8
+//	s32 y; // e4
+//	s32 timerthing = 255; // e0
+//	s32 spdc = true; // dc
+//
+//	// b24
+//	if (g_HiResActive == true) {
+//		g_ScreenWidthMultiplier = 2;
+//	} else {
+//		g_ScreenWidthMultiplier = 1;
+//	}
+//
+//	// b44
+//	gdl = func0f153628(gdl);
+//
+//	// b4c
+//	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
+//			&& var80070764
+//			&& var8005d9d0 == 0
+//			&& g_Vars.currentplayernum == 0) {
+//		// ba4
+//		spdc = false;
+//	}
+//
+//	// bac
+//	for (i = 0; i < g_NumHudMessages; i++) {
+//		// bbc
+//		struct hudmessage *msg = &g_HudMessages[i];
+//
+//		// c04
+//		if (msg->opacity == 0) {
+//			continue;
+//		}
+//
+//		// c14
+//		if (msg->state == HUDMSGSTATE_FREE
+//				|| msg->state == HUDMSGSTATE_QUEUED
+//				|| (spdc && g_Vars.currentplayernum != msg->playernum)) {
+//			continue;
+//		}
+//
+//		// c60
+//		if (msg->flash) {
+//			s32 alpha;
+//			sin = sinf((msg->timer * M_PI) / 60.0f);
+//
+//			if (sin < 0.0f) {
+//				sin = -sin;
+//			}
+//
+//			alpha = 192.0f * sin;
+//
+//			textcolour = (msg->textcolour & 0xffffff00) + alpha;
+//			glowcolour = msg->glowcolour;
+//		} else {
+//			// ce8
+//			textcolour = msg->textcolour | 0xa0;
+//			glowcolour = msg->glowcolour;
+//		}
+//
+//		// cf8
+//		if (msg->opacity != 255) {
+//			u32 alpha;
+//			alpha = (msg->opacity * (textcolour & 0xff)) / 255;
+//			textcolour = (textcolour & 0xffffff00) + (alpha & 0xff);
+//			alpha = (msg->opacity * (glowcolour & 0xff)) / 255;
+//			glowcolour = (glowcolour & 0xffffff00) + (alpha & 0xff);
+//		}
+//
+//		// d70
+//		x = msg->x;
+//		y = msg->y;
+//
+//		if (msg->type == HUDMSGTYPE_SUBTITLE && currentPlayerIsHealthVisible()) {
+//			y += (s32)(16.0f * currentPlayerGetHealthBarHeightFrac());
+//		}
+//
+//		// dd0
+//		if (msg->type == HUDMSGTYPE_11) {
+//			gDPSetScissor(gdl++, 0,
+//					(x - 4) * g_ScreenWidthMultiplier, 0,
+//					(x + msg->width + 3) * g_ScreenWidthMultiplier, viGetBufY());
+//		}
+//
+//		// e9c
+//		switch (msg->state) {
+//		case HUDMSGSTATE_FREE:
+//		case HUDMSGSTATE_QUEUED:
+//			break;
+//		case HUDMSGSTATE_FADINGIN: // f0dfebc
+//			{
+//				u32 bordercolour = msg->textcolour | 0x40;
+//				f32 tmp;
+//				f32 spc0;
+//
+//				if (msg->opacity != 255) {
+//					u32 alpha = (msg->opacity * (bordercolour & 0xff)) / 255;
+//					bordercolour = (bordercolour & 0xffffff00) + (alpha & 0xff);
+//				}
+//
+//				// f08
+//				spc0 = (sqrtf(msg->width * msg->width + msg->height * msg->height) + 132.0f) / 7.0f;
+//
+//				// f58
+//				if (spc0 > 30.0f) {
+//					spc0 = 30.0f;
+//				}
+//
+//				spc0 = msg->timer / spc0;
+//
+//				// fa0
+//				if (spc0 > 1.0f) {
+//					spc0 = 1.0f;
+//				}
+//
+//				// fcc
+//				if (spc0 < 0.0f) {
+//					spc0 = 0.0f;
+//				}
+//
+//				tmp = msg->timer * 7.0f;
+//
+//				func0f153c20(x, y, tmp, 0);
+//
+//				// fd8
+//				if (msg->boxed) {
+//					// fe0
+//					gdl = hudRenderMessageBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, spc0);
+//					// 020
+//					gdl = textRenderWhite(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetX(), viGetY(), 0, 0);
+//				} else {
+//					// 078
+//					gdl = func0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
+//					// 0e4
+//					gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetX(), viGetY(), 0, 0);
+//				}
+//
+//				if (msg->alignv == 6) {
+//					timerthing = 0;
+//				}
+//
+//				func0f153e4c();
+//			}
+//			break;
+//		case HUDMSGSTATE_ONSCREEN: // f0e0114
+//			if (msg->boxed) {
+//				u32 bordercolour = msg->textcolour | 0x40;
+//
+//				if (msg->opacity != 255) {
+//					u32 alpha = (msg->opacity * (bordercolour & 0xff)) / 255;
+//					bordercolour = (bordercolour & 0xffffff00) + (alpha & 0xff);
+//				}
+//
+//				// 1a0
+//				gdl = hudRenderMessageBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f);
+//				// 1f0
+//				gdl = textRenderWhite(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetX(), viGetY(), 0, 0);
+//			} else {
+//				// 200
+//				gdl = func0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
+//				// 274
+//				gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetX(), viGetY(), 0, 0);
+//			}
+//			if (msg->alignv == 6) {
+//				timerthing = 0;
+//			}
+//			break;
+//		case HUDMSGSTATE_FADINGOUT: // f0e0298
+//			{
+//				u32 bordercolour;
+//				u32 stack;
+//				f32 spa8 = (sqrtf(msg->width * msg->width + msg->height * msg->height) + 92.0f) / 7.0f;
+//				f32 tmp;
+//
+//				bordercolour = msg->textcolour | 0x40;
+//
+//				if (msg->opacity != 255) {
+//					u32 alpha = (msg->opacity * (bordercolour & 0xff)) / 255;
+//					bordercolour = (bordercolour & 0xffffff00) + (alpha & 0xff);
+//				}
+//
+//				tmp = (spa8 - msg->timer) * 7.0f;
+//
+//				// 370
+//				func0f153c20(x + msg->width, y + msg->height, tmp, 2);
+//
+//				// 394
+//				if (spa8 > 30.0f) {
+//					spa8 = 30.0f;
+//				}
+//
+//				// 3bc
+//				spa8 = msg->timer / spa8;
+//
+//				if (spa8 > 1.0f) {
+//					spa8 = 1.0f;
+//				}
+//
+//				// 3d8
+//				if (msg->boxed) {
+//					// 414
+//					gdl = hudRenderMessageBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f - spa8);
+//					// 464
+//					gdl = textRenderWhite(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetX(), viGetY(), 0, 0);
+//				} else {
+//					// 474
+//					gdl = func0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
+//					// 4dc
+//					gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetX(), viGetY(), 0, 0);
+//				}
+//
+//				if (msg->alignv == 6) {
+//					timerthing = 0;
+//				}
+//
+//				func0f153e4c();
+//			}
+//			break;
+//		}
+//
+//		if (msg->type == HUDMSGTYPE_11) {
+//			gDPSetScissor(gdl++, 0,
+//					viGetViewLeft(), viGetViewTop(),
+//					viGetViewLeft() + viGetViewX(), viGetViewTop() + viGetViewY());
+//		}
+//	}
+//
+//	if (timerthing) {
+//		if (optionsGetShowMissionTime(g_Vars.currentplayerstats->mpindex)
+//				&& var80075d60 == 2
+//				&& g_Vars.normmplayerisrunning == false
+//				&& g_Vars.stagenum != STAGE_CITRAINING
+//				&& g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
+//				&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON) {
+//			gdl = hudRenderMissionTimer(gdl, timerthing);
+//		}
+//
+//		if (hudIsZoomRangeVisible()) {
+//			gdl = hudRenderZoomRange(gdl, timerthing);
+//		}
+//
+//		gdl = func0f0908b8(gdl);
+//	}
+//
+//	gdl = func0f153780(gdl);
+//
+//	g_ScreenWidthMultiplier = 1;
+//
+//	return gdl;
+//}
 
 void hudmsgsReset(void)
 {

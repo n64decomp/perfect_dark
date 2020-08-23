@@ -5268,18 +5268,19 @@ struct hudmessageconfig {
 
 struct hudmessage {
 	/*0x000*/ u8 state;
-	/*0x001*/ u8 unk001;
+	/*0x001*/ u8 boxed;
 	/*0x002*/ u8 unk002;
-	/*0x003*/ u8 unk003;
-	/*0x004*/ u16 unk004;
-	/*0x006*/ u16 unk006;
-	/*0x008*/ u32 unk008;
-	/*0x00c*/ u32 unk00c;
+	/*0x003*/ u8 flash;
+	/*0x004*/ u8 opacity;
+	/*0x006*/ u16 timer;
+	/*0x008*/ u32 font1;
+	/*0x00c*/ u32 font2;
 	/*0x010*/ u32 textcolour;
-	/*0x014*/ u32 shadowcolour;
-	/*0x018*/ u32 unk018;
-	/*0x01c*/ u16 unk01c;
-	/*0x01e*/ u16 unk01e;
+	/*0x014*/ u32 glowcolour;
+	/*0x018*/ u16 x;
+	/*0x01a*/ u16 y;
+	/*0x01c*/ u16 width;
+	/*0x01e*/ u16 height;
 	/*0x020*/ char text[400];
 	/*0x1b0*/ s32 unk1b0;
 	/*0x1b4*/ u32 type;

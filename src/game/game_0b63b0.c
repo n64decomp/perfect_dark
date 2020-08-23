@@ -12491,7 +12491,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 	if (g_Vars.currentplayer->cameramode == CAMERAMODE_THIRDPERSON) {
 		gdl = func0f0aeed8(gdl);
 		gdl = func0f15b114(gdl);
-		gdl = func0f0dfad0(gdl);
+		gdl = hudRenderMessages(gdl);
 
 		if (g_Vars.currentplayer->isdead == false) {
 			gdl = currentPlayerDrawFade(gdl);
@@ -12782,7 +12782,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 		}
 
 		gdl = func0f18f874(gdl);
-		gdl = func0f0dfad0(gdl);
+		gdl = hudRenderMessages(gdl);
 		gdl = currentPlayerDrawFade(gdl);
 	} else {
 		gdl = func0f15b114(gdl);
@@ -12820,7 +12820,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 			gdl = func0f153780(gdl);
 		}
 
-		gdl = func0f0dfad0(gdl);
+		gdl = hudRenderMessages(gdl);
 		gdl = currentPlayerDrawFade(gdl);
 	}
 

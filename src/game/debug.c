@@ -11,7 +11,7 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-u32 var80075d60 = 0x00000002;
+s32 var80075d60 = 0x00000002;
 u32 var80075d64 = 0x00000002;
 u32 var80075d68 = 0x00000002;
 u32 var80075d6c = 0x00000002;

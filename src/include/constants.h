@@ -742,9 +742,11 @@
 #define HUDMSGFLAG_4           0x4
 #define HUDMSGFLAG_ALLOWDUPES  0x8
 
-#define HUDMSGSTATE_FREE     0
-#define HUDMSGSTATE_QUEUED   1
-#define HUDMSGSTATE_ONSCREEN 5
+#define HUDMSGSTATE_FREE      0
+#define HUDMSGSTATE_QUEUED    1
+#define HUDMSGSTATE_FADINGIN  3
+#define HUDMSGSTATE_ONSCREEN  4
+#define HUDMSGSTATE_FADINGOUT 5
 
 #define HUDMSGTYPE_DEFAULT           0
 #define HUDMSGTYPE_OBJECTIVECOMPLETE 1
@@ -753,6 +755,7 @@
 #define HUDMSGTYPE_4                 4
 #define HUDMSGTYPE_SUBTITLE          6
 #define HUDMSGTYPE_TRAINING          10
+#define HUDMSGTYPE_11                11
 
 // chr->ivebeenhit values
 #define IBH_LFOOT    1
