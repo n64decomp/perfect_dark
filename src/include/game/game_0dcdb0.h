@@ -5,7 +5,7 @@
 
 u32 func0f0dcdb0(void);
 s32 hudIsZoomRangeVisible(void);
-Gfx *hudRenderMissionTimer(Gfx *gdl, s32 arg1);
+Gfx *hudRenderMissionTimer(Gfx *gdl, u32 arg1);
 Gfx *hudRenderZoomRange(Gfx *gdl, s32 arg1);
 Gfx *hudRenderMessageBox(Gfx *gdl, s32 x, s32 y, s32 width, s32 height, f32 bgopacity, u32 bordercolour, f32 textopacity);
 s32 func0f0ddb1c(u32 *arg0, u32 arg1);

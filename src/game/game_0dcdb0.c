@@ -54,8 +54,8 @@ u32 g_Colours[] = {
 	/*10*/ 0xaa55ff00, // purple
 };
 
-u32 var80070fe0 = 0x0000000a;
-u32 var80070fe4 = 0x00000018;
+s32 g_HudPaddingY = 10;
+s32 g_HudPaddingX = 24;
 s32 g_NumHudMessages = 0;
 struct hudmessage *g_HudMessages = NULL;
 
@@ -141,7 +141,7 @@ glabel hudRenderMissionTimer
 /*  f0dcf70:	00005025 */ 	or	$t2,$zero,$zero
 .L0f0dcf74:
 /*  f0dcf74:	8c990068 */ 	lw	$t9,0x68($a0)
-/*  f0dcf78:	3c188007 */ 	lui	$t8,%hi(var80070fe0)
+/*  f0dcf78:	3c188007 */ 	lui	$t8,%hi(g_HudPaddingY)
 /*  f0dcf7c:	53200004 */ 	beqzl	$t9,.L0f0dcf90
 /*  f0dcf80:	00004025 */ 	or	$t0,$zero,$zero
 /*  f0dcf84:	10000002 */ 	b	.L0f0dcf90
@@ -164,7 +164,7 @@ glabel hudRenderMissionTimer
 /*  f0dcfc0:	24060001 */ 	addiu	$a2,$zero,0x1
 .L0f0dcfc4:
 /*  f0dcfc4:	87ae0056 */ 	lh	$t6,0x56($sp)
-/*  f0dcfc8:	8f180fe0 */ 	lw	$t8,%lo(var80070fe0)($t8)
+/*  f0dcfc8:	8f180fe0 */ 	lw	$t8,%lo(g_HudPaddingY)($t8)
 /*  f0dcfcc:	93390af0 */ 	lbu	$t9,%lo(g_Is4Mb)($t9)
 /*  f0dcfd0:	8c8d028c */ 	lw	$t5,0x28c($a0)
 /*  f0dcfd4:	004e7821 */ 	addu	$t7,$v0,$t6
@@ -329,8 +329,8 @@ glabel hudRenderMissionTimer
 /*  f0dd214:	00402825 */ 	or	$a1,$v0,$zero
 /*  f0dd218:	0fc355f8 */ 	jal	formatTime
 /*  f0dd21c:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f0dd220:	3c198007 */ 	lui	$t9,%hi(var80070fe4)
-/*  f0dd224:	8f390fe4 */ 	lw	$t9,%lo(var80070fe4)($t9)
+/*  f0dd220:	3c198007 */ 	lui	$t9,%hi(g_HudPaddingX)
+/*  f0dd224:	8f390fe4 */ 	lw	$t9,%lo(g_HudPaddingX)($t9)
 /*  f0dd228:	8fb80084 */ 	lw	$t8,0x84($sp)
 /*  f0dd22c:	8fa70080 */ 	lw	$a3,0x80($sp)
 /*  f0dd230:	03195821 */ 	addu	$t3,$t8,$t9
@@ -365,6 +365,86 @@ glabel hudRenderMissionTimer
 /*  f0dd2a4:	03e00008 */ 	jr	$ra
 /*  f0dd2a8:	00000000 */ 	nop
 );
+
+//Gfx *hudRenderMissionTimer(Gfx *gdl, u32 arg1)
+//{
+//	s32 sp8c;
+//	s32 sp88;
+//	s32 sp84;
+//	s32 sp80;
+//	char buffer[24];
+//	u32 textcolour;
+//	u32 alpha;
+//	s32 viewy;
+//	s32 playernum;
+//	s16 top;
+//	s32 playercount;
+//
+//	sp84 = viGetViewLeft() / g_ScreenWidthMultiplier;
+//	top = viGetViewTop();
+//	viewy = viGetViewY();
+//	playercount = PLAYERCOUNT();
+//	playernum = g_Vars.currentplayernum;
+//
+//	sp80 = (top + viewy) - g_HudPaddingY;
+//	sp80 -= 8;
+//
+//	// fe0
+//	if ((g_Is4Mb == true || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL)
+//			&& countdownTimerIsHidden()) {
+//		sp80 -= 8;
+//	}
+//
+//	// 054
+//	if ((g_Is4Mb == true || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || playercount >= 3)
+//			&& hudIsZoomRangeVisible()) {
+//		sp80 -= 8;
+//	}
+//
+//	// 0d8
+//	if (playercount == 2) {
+//		// 0e4
+//		if (g_Is4Mb == true || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 0)) {
+//			// 118
+//			sp80 += 10;
+//		} else {
+//			// 120
+//			sp80 += 2;
+//		}
+//	} else /*128*/ if (playercount >= 3) {
+//		if (playernum < 2) {
+//			sp80 += 10;
+//		} else {
+//			sp80 += 2;
+//		}
+//	} else {
+//		// 150
+//		if (optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
+//			sp80 += 8;
+//		}
+//	}
+//
+//	// 170
+//	// If this is a second player with their viewport on the right side of the
+//	// screen, move the timer left a bit as the safe zone doesn't need to be
+//	// considered.
+//	if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Is4Mb == true) && playernum == 1) {
+//		sp84 -= 14;
+//	} else if (playercount >= 3 && (playernum & 1) == 1) {
+//		sp84 -= 14;
+//	}
+//
+//	// 1e0
+//	sp8c = sp84 + g_HudPaddingX + 3;
+//
+//	alpha = (arg1 * 160) / 255;
+//	textcolour = alpha | 0x00ff0000;
+//
+//	// 208
+//	formatTime(buffer, getMissionTime(), 4);
+//
+//	return textRender(gdl, &sp8c, &sp88, buffer, var8007fb00, var8007fafc, textcolour, 0x000000a0, viGetX(), viGetY(), 0, 0);
+//}
 
 #if VERSION >= VERSION_NTSC_FINAL
 GLOBAL_ASM(
