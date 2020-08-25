@@ -110,8 +110,8 @@ glabel func000010a4
 /*     10d8:	00042300 */ 	sll	$a0,$a0,0xc
 /*     10dc:	3c028009 */ 	lui	$v0,%hi(var8008ae20)
 /*     10e0:	8c42ae20 */ 	lw	$v0,%lo(var8008ae20)($v0)
-/*     10e4:	3c097f1c */ 	lui	$t1,%hi(_bssSegmentEnd)
-/*     10e8:	252999e0 */ 	addiu	$t1,$t1,%lo(_bssSegmentEnd)
+/*     10e4:	3c097f1c */ 	lui	$t1,%hi(_gameSegmentEnd)
+/*     10e8:	252999e0 */ 	addiu	$t1,$t1,%lo(_gameSegmentEnd)
 /*     10ec:	3c0a7f00 */ 	lui	$t2,%hi(func0f000000)
 /*     10f0:	254a0000 */ 	addiu	$t2,$t2,%lo(func0f000000)
 /*     10f4:	012a4823 */ 	subu	$t1,$t1,$t2
@@ -511,20 +511,20 @@ glabel func00001634
 /*     166c:	00000000 */ 	nop
 );
 
-extern void *_gamedataSegmentStart;
+extern void *_dataSegmentStart;
 
 // func00001670
 void *getSetupRamAddr(void)
 {
-	return &_gamedataSegmentStart;
+	return &_dataSegmentStart;
 }
 
-extern void *_gamedataSegmentRomStart;
+extern void *_datazipSegmentRomStart;
 
 // func0000167c
 void *getSetupRomAddr(void)
 {
-	return &_gamedataSegmentRomStart;
+	return &_datazipSegmentRomStart;
 }
 
 extern void *_inflateSegmentRomStart;
@@ -541,11 +541,11 @@ void *getInflateRomAddr2(void)
 	return &_inflateSegmentRomStart;
 }
 
-extern void *_ziplistSegmentRomStart;
+extern void *_gamezipSegmentRomStart;
 
 void *getZiplistSegmentRomstart(void)
 {
-	return &_ziplistSegmentRomStart;
+	return &_gamezipSegmentRomStart;
 }
 
 GLOBAL_ASM(
@@ -1353,8 +1353,8 @@ glabel func00002148
 /*     228c:	1420fffc */ 	bnez	$at,.L00002280
 /*     2290:	006e1826 */ 	xor	$v1,$v1,$t6
 .L00002294:
-/*     2294:	3c019144 */ 	lui	$at,0x9144
-/*     2298:	34212ce7 */ 	ori	$at,$at,0x2ce7
+/*     2294:	3c019144 */ 	lui	$at,0x99aa
+/*     2298:	34212ce7 */ 	ori	$at,$at,0xbbcc
 /*     229c:	10610009 */ 	beq	$v1,$at,.L000022c4
 /*     22a0:	00001025 */ 	or	$v0,$zero,$zero
 /*     22a4:	3c038009 */ 	lui	$v1,%hi(var80095210)

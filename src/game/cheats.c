@@ -494,8 +494,8 @@ glabel cheatMenuHandleDialog
 /*  f1079fc:	1420fffb */ 	bnez	$at,.L0f1079ec
 /*  f107a00:	00781826 */ 	xor	$v1,$v1,$t8
 .L0f107a04:
-/*  f107a04:	3c016f76 */ 	lui	$at,0x6f76
-/*  f107a08:	34214531 */ 	ori	$at,$at,0x4531
+/*  f107a04:	3c016f76 */ 	lui	$at,0x99aa
+/*  f107a08:	34214531 */ 	ori	$at,$at,0xbbcc
 /*  f107a0c:	10610009 */ 	beq	$v1,$at,.L0f107a34
 /*  f107a10:	24c20050 */ 	addiu	$v0,$a2,0x50
 /*  f107a14:	24440010 */ 	addiu	$a0,$v0,0x10

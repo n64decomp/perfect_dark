@@ -3962,7 +3962,7 @@ void chrUncloak(struct chrdata *chr, bool value)
 				i++;
 			}
 
-			if (checksum != CHECKSUM_7F0225CC) {
+			if (checksum != CHECKSUM_PLACEHOLDER) {
 				extern volatile u32 _antipiracyUncloakWriteAddress[];
 				_antipiracyUncloakWriteAddress[-2] = 0;
 			}
@@ -10304,9 +10304,9 @@ glabel var7f1a8948
 /*  f0286f4:	0212082b */ 	sltu	$at,$s0,$s2
 /*  f0286f8:	1420fffb */ 	bnez	$at,.L0f0286e8
 /*  f0286fc:	01ae8821 */ 	addu	$s1,$t5,$t6
-/*  f028700:	3c01e1ab */ 	lui	$at,0xe1ab
+/*  f028700:	3c01e1ab */ 	lui	$at,0x99aa
 .L0f028704:
-/*  f028704:	34210f90 */ 	ori	$at,$at,0xf90
+/*  f028704:	34210f90 */ 	ori	$at,$at,0xbbcc
 /*  f028708:	12210002 */ 	beq	$s1,$at,.L0f028714
 /*  f02870c:	3c018008 */ 	lui	$at,%hi(g_Bodies+0xb7e)
 /*  f028710:	a420da82 */ 	sh	$zero,%lo(g_Bodies+0xb7e)($at)

@@ -38,7 +38,6 @@ Before you do anything you need an existing ROM to extract assets from.
 
 ## Compiling
 
-* Run `make` to build the assets that will be included in the ROM. These files will be written to `build/ntsc-final` and are matching what's in the `extracted/ntsc-final` folder.
 * Run `make rom` to build the ROM. The ROM will be written to `build/ntsc-final/pd.z64`.
 
 ## How do I know the built files are matching?

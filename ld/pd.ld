@@ -8,36 +8,57 @@
 #define VERSION_PAL_FINAL  4
 #define VERSION_JAP_FINAL  5
 
+#define BEGIN_SEG(name) \
+	_##name##SegmentStart = ADDR(.name); \
+	_##name##SegmentRomStart = __rompos; \
+	.name __rampos : AT(__rompos)
+
+#define END_SEG(name) \
+	__rompos += SIZEOF(.name); \
+	__rampos = ADDR(.name) + SIZEOF(.name); \
+	_##name##SegmentEnd = ADDR(.name) + SIZEOF(.name); \
+	_##name##SegmentRomEnd = __rompos;
+
+#define BEGIN_NOLOAD(name) \
+	_##name##SegmentStart = ADDR(.name); \
+	_##name##SegmentRomStart = __rompos; \
+	.name (NOLOAD) : AT(__rompos)
+
+#define END_NOLOAD(name) \
+	__rompos += SIZEOF(.name); \
+	_##name##SegmentEnd = ADDR(.name) + SIZEOF(.name); \
+	_##name##SegmentRomEnd = __rompos;
+
 #define MPSTRINGS(lang) \
-	.mpstrings##lang : AT(__rompos) { \
+	BEGIN_SEG(mpstrings##lang) \
+	{ \
 		build/ROMID/mpstrings/ROMID/mpstrings##lang.o (.data); \
 	} \
-	__rompos += SIZEOF(.mpstrings##lang);
+	END_SEG(mpstrings##lang)
+
+/******************************************************************************
+ * ROM Allocations
+ * ----------------------------------------------------------------------------
+ * The lib, data and game segments are compressed in the final ROM. To do this,
+ * we build them uncompressed here but place them past the end of the ROM, then
+ * a later script compresses them and writes them into the ROM.
+ *
+ * These constants are defining how much space is reserved for the compressed
+ * segments. If these segments are edited and grow to a point that their
+ * compressed size exceeds the allocation then their allocations will need to be
+ * increased.
+ */
+
+#define ROMALLOCATION_LIB   0x036800
+#define ROMALLOCATION_DATA  0x015000
+#define ROMALLOCATION_GAME  0x151980
+#define ROMALLOCATION_FILES 0xe8dba0
 
 OUTPUT_ARCH (mips)
 
 SECTIONS
 {
-	_gamedataSegmentStart = 0x80059fe0;
-	_gamedataSegmentRomStart = 0x39850;
-	_inflateSegmentRomStart = 0x4e850;
-	_ziplistSegmentRomStart = 0x4fc40;
-	_textureSegmentRomStart = 0x01ff7ca0;
-	_textureSegmentRomEnd = 0x01ffea20;
-	_rspMicrocodeStart = 0x80059fe0;
-	_rspMicrocodeStartPlusOne = 0x80059fe1;
-	_rspMicrocodeEnd = 0x8005afe0;
-	_mpconfigsSegmentRomStart = 0x7d0a40;
-	_mpstringsESegmentRomStart = 0x007d1c20; _mpstringsESegmentRomEnd = 0x007d5320;
-	_mpstringsJSegmentRomStart = 0x007d5320; _mpstringsJSegmentRomEnd = 0x007d8a20;
-	_mpstringsPSegmentRomStart = 0x007d8a20; _mpstringsPSegmentRomEnd = 0x007dc120;
-	_mpstringsGSegmentRomStart = 0x007dc120; _mpstringsGSegmentRomEnd = 0x007df820;
-	_mpstringsFSegmentRomStart = 0x007df820; _mpstringsFSegmentRomEnd = 0x007e2f20;
-	_mpstringsSSegmentRomStart = 0x007e2f20; _mpstringsSSegmentRomEnd = 0x007e6620;
-	_mpstringsISegmentRomStart = 0x007e6620; _mpstringsISegmentRomEnd = 0x007e9d20;
-
 #if VERSION >= VERSION_NTSC_FINAL
-	_bssSegmentEnd = 0x7f1b99e0;
 	_val7f116f34 = 0x0339;
 	_val7f117634 = 0x0422;
 	_val7f1183f8 = 0x070a;
@@ -55,9 +76,7 @@ SECTIONS
 	_val7f11bb48 = 0x112a;
 	_val7f11c1d0 = 0x1286;
 	_val7f11c378 = 0x12c1;
-	_checksum7f15c9ac = 0x2c7a82c8;
 #else
-	_bssSegmentEnd = 0x7f1b9870;
 	_val7f116f34 = 0x0336;
 	_val7f117634 = 0x041f;
 	_val7f1183f8 = 0x06fc;
@@ -75,61 +94,200 @@ SECTIONS
 	_val7f11bb48 = 0x1067;
 	_val7f11c1d0 = 0x11c3;
 	_val7f11c378 = 0x11fe;
-	_checksum7f15c9ac = 0x2c7b42f8;
 #endif
-
-	_firingrangeSegmentRomStart = 0x007e9d20;
-	_firingrangeSegmentRomEnd = 0x007eb270;
 
 	_antipiracyUncloakWriteAddress = 0x7002a324;
 
 	osResetType = 0x8000030c;
 	osCicId = 0x80000310;
 
+	/***************************************************************************
+	 * romheader
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x00000000 - 0x00000040
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
 	__rompos = 0;
-	.boot 0x70001000 : AT(__rompos) {
+
+	BEGIN_SEG(romheader)
+	{
+		build/ROMID/romheader.o (.data);
+	}
+	END_SEG(romheader)
+
+	/***************************************************************************
+	 * rspboot
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x00000040 - 0x00001000
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	__rompos = 0x40;
+
+	BEGIN_SEG(rspboot)
+	{
+		build/ROMID/rspboot.o (.data);
+	}
+	END_SEG(rspboot)
+
+	/***************************************************************************
+	 * boot
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x00001000 - 0x00003050
+	 * RAM range: 0x70001000 - 0x70003050
+	 * -------------------------------------------------------------------------
+	 */
+
+	__rampos = 0x70001000;
+
+	BEGIN_SEG(boot)
+	{
 		build/ROMID/boot/boot.o (.text);
 		build/ROMID/boot/boot.o (.data);
 	}
-	__rompos += SIZEOF(.boot);
+	END_SEG(boot)
 
-	.lib 0x70003050 : AT(__rompos) {
+	/***************************************************************************
+	 * lib
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x00003050 - 0x00039850 (compressed)
+	 * RAM range: 0x70003050 - 0x70059fe0
+	 * -------------------------------------------------------------------------
+	 */
+
+	_libzipSegmentRomStart = __rompos;
+	__rompos = 0x20000000;
+
+	BEGIN_SEG(lib)
+	{
 		LIBFILES(.text)
 		LIBFILES(.rodata)
 	}
-	__rompos += SIZEOF(.lib);
+	END_SEG(lib)
 
-	.gamedata 0x80059fe0 : AT(__rompos) {
+	/***************************************************************************
+	 * data
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x00039850 - 0x0004e850 (compressed)
+	 * RAM range: 0x80059fe0 - 0x8008ae20
+	 * -------------------------------------------------------------------------
+	 * For some reason we can't just add 0x10000000 to __rampos, but we can
+	 * recalculate it so that's what we do.
+	 */
+
+	_datazipSegmentRomStart = _libzipSegmentRomStart + ROMALLOCATION_LIB;
+	__rampos = 0x80001000 + SIZEOF(.boot) + SIZEOF(.lib);
+
+	BEGIN_SEG(data)
+	{
 		GAMEFILES(.data)
 	}
-	__rompos += SIZEOF(.gamedata);
+	END_SEG(data)
 
-	.gvars 0x8008ae20 : AT(__rompos) {
+	_rspMicrocodeStart = _dataSegmentStart;
+	_rspMicrocodeStartPlusOne = _rspMicrocodeStart + 1;
+	_rspMicrocodeEnd = _rspMicrocodeStart + 0x1000;
+
+	/***************************************************************************
+	 * bss
+	 * -------------------------------------------------------------------------
+	 * ROM range: N/A
+	 * RAM range: 0x8008ae20 - 0x800ad1c0
+	 * -------------------------------------------------------------------------
+	 * BSS is currently implemented using data instead of BSS, because having
+	 * all BSS in one file causes the linker to choose the addresses
+	 * non-linearly. Eventually this file will be spread out into the code files
+	 * and it can become BSS at that point.
+	 *
+	 * For now, place it past the end of the ROM, where it'll be truncated.
+	 * We can do this because we only memory addresses for this segment, not
+	 * ROM addresses.
+	 */
+
+	BEGIN_NOLOAD(gvars)
+	{
 		build/ROMID/gvars/gvars.o (.data);
 	}
-	__rompos += SIZEOF(.gvars);
+	END_NOLOAD(gvars)
 
-	.game 0x7f000000 : AT(__rompos) {
-		GAMEFILES(.text)
-		GAMEFILES(.rodata)
-	}
-	__rompos += SIZEOF(.game);
+	/***************************************************************************
+	 * inflate
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x0004e850 - 0x0004fc40
+	 * RAM range: 0x70200000 - 0x702013f0
+	 * -------------------------------------------------------------------------
+	 */
 
-	.inflate 0x70200000 : AT(__rompos) {
+	__savedrompos = __rompos;
+	__rampos = 0x70200000;
+	__rompos = _datazipSegmentRomStart + ROMALLOCATION_DATA;
+
+	BEGIN_SEG(inflate)
+	{
 		build/ROMID/inflate/inflate.o (.text);
 		build/ROMID/inflate/inflate.o (.data);
 	}
-	__rompos += SIZEOF(.inflate);
+	END_SEG(inflate)
 
-	.mpconfigs : AT(__rompos) {
+	/***************************************************************************
+	 * game
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x0004fc40 - 0x001a15c0 (compressed)
+	 * RAM range: 0x7f000000 - 0x7f1b99e0
+	 * -------------------------------------------------------------------------
+	 */
+
+	_gamezipSegmentRomStart = __rompos;
+	__rompos = __savedrompos;
+	__rampos = 0x7f000000;
+
+	BEGIN_SEG(game)
+	{
+		GAMEFILES(.text)
+		GAMEFILES(.rodata)
+	}
+	END_SEG(game)
+
+	/***************************************************************************
+	 * animations
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x001a15c0 - 0x007d0a40
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	__rompos = _inflateSegmentRomEnd + ROMALLOCATION_GAME;
+
+	BEGIN_SEG(animations)
+	{
+		build/ROMID/animations.o (.data);
+	}
+	END_SEG(animations)
+
+	/***************************************************************************
+	 * mpconfigs
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x007d0a40 - 0x007d1c20
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	BEGIN_SEG(mpconfigs)
+	{
 		build/ROMID/mpconfigs/mpconfigs.o (.data);
 	}
-	__rompos += SIZEOF(.mpconfigs);
+	END_SEG(mpconfigs)
 
-	.firingrange : AT(__rompos) {
-		build/ROMID/firingrange/firingrange.o (.data);
-	}
-	__rompos += SIZEOF(.firingrange);
+	/***************************************************************************
+	 * mpstrings
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x007d1c20 - 0x007e9d20
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
 
 	MPSTRINGS(E)
 	MPSTRINGS(J)
@@ -139,13 +297,213 @@ SECTIONS
 	MPSTRINGS(S)
 	MPSTRINGS(I)
 
-	__rompos = 0xed83a0;
+	/***************************************************************************
+	 * firingrange
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x007e9d20 - 0x007eb270
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	BEGIN_SEG(firingrange)
+	{
+		build/ROMID/firingrange/firingrange.o (.data);
+	}
+	END_SEG(firingrange)
+
+	/***************************************************************************
+	 * unknown1
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x007eb270 - 0x007ebdc0
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	BEGIN_SEG(unknown1)
+	{
+		build/ROMID/unknown1.o (.data);
+	}
+	END_SEG(unknown1)
+
+	/***************************************************************************
+	 * unknown2
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x007ebdc0 - 0x007f2390
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	BEGIN_SEG(unknown2)
+	{
+		build/ROMID/unknown2.o (.data);
+	}
+	END_SEG(unknown2)
+
+	/***************************************************************************
+	 * fonts
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x007f2390 - 0x0080a250
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	BEGIN_SEG(fonts)
+	{
+		build/ROMID/fonts.o (.data);
+	}
+	END_SEG(fonts)
+
+	/***************************************************************************
+	 * sfxctl
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x0080a250 - 0x00839dd0
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	BEGIN_SEG(sfxctl)
+	{
+		build/ROMID/sfx.ctl.o (.data);
+	}
+	END_SEG(sfxctl)
+
+	/***************************************************************************
+	 * sfxtbl
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x00839dd0 - 0x00cfbf30
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	BEGIN_SEG(sfxtbl)
+	{
+		build/ROMID/sfx.tbl.o (.data);
+	}
+	END_SEG(sfxtbl)
+
+	/***************************************************************************
+	 * seqctl
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x00cfbf30 - 0x00d05f90
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	BEGIN_SEG(seqctl)
+	{
+		build/ROMID/seq.ctl.o (.data);
+	}
+	END_SEG(seqctl)
+
+	/***************************************************************************
+	 * seqtbl
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x00d05f90 - 0x00e82000
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	BEGIN_SEG(seqtbl)
+	{
+		build/ROMID/seq.tbl.o (.data);
+	}
+	END_SEG(seqtbl)
+
+	/***************************************************************************
+	 * sequences
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x00e82000 - 0x00ed83a0
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	BEGIN_SEG(sequences)
+	{
+		build/ROMID/sequences.o (.data);
+	}
+	END_SEG(sequences)
+
+	/***************************************************************************
+	 * files
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x00ed83a0 - 0x01d5ca00
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	. = 0;
 	_filesSegmentRomStart = __rompos;
-	_filesSegmentRamStart = .;
 
 #include "filesegments.inc"
 
 	_filesSegmentRomEnd = __rompos;
+
+	/***************************************************************************
+	 * filenames
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x01d5ca00 - 0x01d5e980
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	__rampos = 0;
+
+	BEGIN_SEG(filenames)
+	{
+		build/ROMID/filenames/filenames.o (.data);
+		build/ROMID/filenames/filenames.o (.rodata);
+	}
+	END_SEG(filenames)
+
+	/***************************************************************************
+	 * textures
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x01d65f40 - 0x01fffe00
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	__rompos = _filesSegmentRomStart + ROMALLOCATION_FILES;
+	__rampos = 0;
+
+	BEGIN_SEG(textures)
+	{
+		build/ROMID/textures.o (.data);
+	}
+	END_SEG(textures)
+
+	_texturesSegmentTableStart = _texturesSegmentRomEnd - 0x6d80;
+	_texturesSegmentTableEnd = _texturesSegmentRomEnd;
+
+	/***************************************************************************
+	 * copyright
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x01ffea20 - 0x01fff550
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	__rampos = 0;
+
+	BEGIN_SEG(copyright)
+	{
+		build/ROMID/copyright.o (.data);
+	}
+	END_SEG(copyright)
+
+	/***************************************************************************
+	 * accessingpak
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x01fff550 - 0x01fffe00
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 */
+
+	BEGIN_SEG(accessingpak)
+	{
+		build/ROMID/accessingpak.o (.data);
+	}
+	END_SEG(accessingpak)
 
 	/DISCARD/ : {
 		* (.MIPS.abiflags);

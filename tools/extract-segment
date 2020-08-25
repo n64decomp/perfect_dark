@@ -7,5 +7,6 @@ segment=$1
 pos=$(grep "^\.$segment " $B_DIR/pd.map | awk '{print $6}')
 len=$(grep "^\.$segment " $B_DIR/pd.map | awk '{print $3}')
 
-dd if=$B_DIR/pd.bin of=$B_DIR/ucode/$segment.bin skip=$(($pos)) iflag=skip_bytes bs=$(($len)) count=1 status=none
+mkdir -p $B_DIR/segments
+dd if=$B_DIR/stage2.bin of=$B_DIR/segments/$segment.bin skip=$(($pos)) iflag=skip_bytes bs=$(($len)) count=1 status=none
 

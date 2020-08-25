@@ -1,0 +1,148 @@
+#!/usr/bin/env python3
+
+import os
+import re
+import subprocess
+import sys
+
+"""
+packrom - performs code compression, writing of garbage data (required for a
+matching ROM), ROM truncation to 32MB, and filling the tail end of the ROM with
+0xff bytes.
+
+Usage:
+packrom <rom>
+"""
+
+def zip(binary):
+    filename = bdir() + '/tmp.bin';
+
+    fd = open(filename, 'wb')
+    fd.write(binary)
+    fd.close()
+
+    zipped = subprocess.check_output(['tools/rarezip', filename])
+    os.remove(filename)
+    return zipped
+
+def bdir():
+    return 'build/%s' % os.environ['ROMID']
+
+def edir():
+    return 'extracted/%s' % os.environ['ROMID']
+
+def get_start(locations, segname):
+    return next(filter(lambda l: l['name'] == segname, locations))['addr']
+
+def get_end(locations, start):
+    best = 0xffffffff
+
+    for location in locations:
+        if location['addr'] > start and location['addr'] < best:
+            best = location['addr']
+
+    return best;
+
+def attempt(fd, locations, segname, payload, constname):
+    # Get location to write to
+    start = get_start(locations, segname + 'zip')
+    end = get_end(locations, start)
+
+    # Check it'll fit
+    allocation = end - start
+
+    if len(payload) > allocation:
+        print('The %s segment is too big after compression to fit the allocation of 0x%x. In ld/pd.ld, increase the value of %s to 0x%x or higher.' % (
+            segname, allocation, constname, len(payload)
+        ))
+        exit(1)
+
+    # Write it
+    fd.seek(start)
+    fd.write(payload)
+
+def get_segment(fd, locations, segname):
+    start = get_start(locations, segname)
+    end = get_end(locations, start)
+
+    fd.seek(start)
+    return fd.read(end - start)
+
+def pack_lib(fd, locations):
+    lib = get_segment(fd, locations, 'lib')
+    zipped = zip(lib)
+    attempt(fd, locations, 'lib', zipped, 'ROMALLOCATION_LIB')
+
+def pack_data(fd, locations):
+    data = get_segment(fd, locations, 'data')
+    zipped = zip(data)
+    attempt(fd, locations, 'data', zipped, 'ROMALLOCATION_DATA')
+
+def pack_game(fd, locations):
+    fd2 = open(bdir() + '/segments/gamezips.bin', 'rb')
+    zips = fd2.read()
+    fd2.close()
+
+    attempt(fd, locations, 'game', zips, 'ROMALLOCATION_GAME')
+
+def get_locations():
+    fd = open(bdir() + '/pd.map', 'r')
+    ldmap = fd.read()
+    fd.close()
+
+    matches = re.findall(r'^\s*0x([0-9a-f]+)\s+_(\S+)SegmentRomStart', ldmap, re.MULTILINE)
+
+    def make_numeric(match):
+        return {'addr': int(match[0], 16), 'name': match[1]}
+
+    return list(map(make_numeric, matches))
+
+def write_garbage_part(fd, addr, filename):
+    fd2 = open(edir() + '/segments/' + filename, 'rb')
+    binary = fd2.read()
+    fd2.close()
+
+    fd.seek(addr)
+    fd.write(binary)
+
+def write_garbage(fd, locations):
+    if os.environ['ROMID'] == 'ntsc-final':
+        write_garbage_part(fd, 0x2ea6c, 'garbage1.bin')
+        write_garbage_part(fd, 0x157800, 'garbage2.bin')
+    else:
+        write_garbage_part(fd, 0x2ea22, 'garbage1.bin')
+        write_garbage_part(fd, 0x1574a0, 'garbage2.bin')
+
+def fill_tail(fd):
+    fd2 = open(bdir() + '/pd.map', 'r')
+    ldmap = fd2.read()
+    fd2.close()
+
+    match = re.findall(r'^\s*0x([0-9a-f]+)\s+_accessingpakSegmentRomEnd', ldmap, re.MULTILINE)
+
+    pos = int(match[0], 16)
+    fd.seek(pos)
+
+    while pos < 1024 * 1024 * 32:
+        fd.write(b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff')
+        pos += 0x10
+
+def main():
+    locations = get_locations()
+
+    fd = open(sys.argv[1], 'rb+')
+
+    pack_lib(fd, locations)
+    pack_data(fd, locations)
+    pack_game(fd, locations)
+
+    if os.environ['MATCHING']:
+        write_garbage(fd, locations)
+        fill_tail(fd)
+
+    # Truncate to 32MB
+    fd.seek(0)
+    fd.truncate(1024 * 1024 * 32)
+    fd.close()
+
+main()

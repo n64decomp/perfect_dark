@@ -11764,7 +11764,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 					i++;
 				}
 
-				if (checksum != CHECKSUM_7F03B7B4) {
+				if (checksum != CHECKSUM_PLACEHOLDER) {
 					// Make player explode continuously
 					g_Vars.currentplayer->bondexploding = true;
 					g_Vars.currentplayer->bondnextexplode = g_Vars.lvframe60 + 120;

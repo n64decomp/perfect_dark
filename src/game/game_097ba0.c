@@ -8502,8 +8502,8 @@ glabel func0f09e144
 /*  f09e488:	1420fffb */ 	bnez	$at,.L0f09e478
 /*  f09e48c:	00982023 */ 	subu	$a0,$a0,$t8
 .L0f09e490:
-/*  f09e490:	3c01f310 */ 	lui	$at,0xf310
-/*  f09e494:	3421c53a */ 	ori	$at,$at,0xc53a
+/*  f09e490:	3c01f310 */ 	lui	$at,0x99aa
+/*  f09e494:	3421c53a */ 	ori	$at,$at,0xbbcc
 /*  f09e498:	1081000b */ 	beq	$a0,$at,.L0f09e4c8
 /*  f09e49c:	2523000c */ 	addiu	$v1,$t1,0xc
 /*  f09e4a0:	2465001c */ 	addiu	$a1,$v1,0x1c

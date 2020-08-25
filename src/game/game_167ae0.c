@@ -459,7 +459,7 @@ void func0f167e7c(s32 stagenum)
 			i++;
 		}
 
-		if (checksum != CHECKSUM_7F168500) {
+		if (checksum != CHECKSUM_PLACEHOLDER) {
 			u32 address = 0;
 			u32 buffer[4];
 			buffer[0] = 0xbb8b80bd;

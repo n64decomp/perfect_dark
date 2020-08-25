@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+echo -e "\n.data\n.incbin \"$1\"\n.balign 0x10" > build/$ROMID/file.s
+
+$TOOLCHAIN-as -mabi=32 -mips2 -I src/include -EB -o "$2" build/$ROMID/file.s
+
+rm -f build/$ROMID/file.s
+

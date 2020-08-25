@@ -187,7 +187,7 @@ void explosionAlertChrs(f32 *radius, struct coord *noisepos)
 			ptr++;
 		}
 
-		if (checksum != 0xa17a4ca0) {
+		if (checksum != CHECKSUM_PLACEHOLDER) {
 			struct explosiontype *type = &g_ExplosionTypes[0];
 			s32 i;
 

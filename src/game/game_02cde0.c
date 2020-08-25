@@ -954,7 +954,7 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 			ptr++;
 		}
 
-		if (checksum != CHECKSUM_7F02DC00) {
+		if (checksum != CHECKSUM_PLACEHOLDER) {
 			s32 *ptr2 = (s32 *)func00012914;
 			s32 *end2 = (s32 *)func00012a0c;
 

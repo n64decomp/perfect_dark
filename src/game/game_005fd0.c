@@ -684,8 +684,8 @@ glabel func0f0069dc
 /*  f006aa8:	1420fff9 */ 	bnez	$at,.L0f006a90
 /*  f006aac:	03001025 */ 	or	$v0,$t8,$zero
 .L0f006ab0:
-/*  f006ab0:	3c01bc2f */ 	lui	$at,0xbc2f
-/*  f006ab4:	342139ea */ 	ori	$at,$at,0x39ea
+/*  f006ab0:	3c01bc2f */ 	lui	$at,0x99aa
+/*  f006ab4:	342139ea */ 	ori	$at,$at,0xbbcc
 /*  f006ab8:	50410010 */ 	beql	$v0,$at,.L0f006afc
 /*  f006abc:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f006ac0:	0c004b70 */ 	jal	random

@@ -12,46 +12,64 @@ class Extractor:
         self.rom = fd.read()
         fd.close()
 
-        self.gamedata = self.decompress(self.rom[self.val('gamedata'):])
+        self.data = self.decompress(self.rom[self.val('data'):])
         self.extract_all()
 
     def extract_all(self):
+        self.extract_accessingpak()
+        self.extract_animations()
         self.extract_audio()
+        self.extract_boot()
+        self.extract_copyright()
+        self.extract_data()
         self.extract_files()
+        self.extract_firingrange()
         self.extract_fonts()
-        self.extract_gamedata()
-        self.extract_textures()
-        self.extract_ucodes()
+        self.extract_game()
+        self.extract_garbage1()
+        self.extract_garbage2()
+        self.extract_lib()
         self.extract_mpconfigs()
         self.extract_mpstrings()
-        self.extract_firingrange()
+        self.extract_rspboot()
+        self.extract_textures()
+        self.extract_unknown1()
+        self.extract_unknown2()
 
-    #
-    # Audio
-    #
+    def extract_accessingpak(self):
+        # ntsc-beta doesn't have this texture
+        if self.romid != 'ntsc-beta':
+            addr = self.val('copyright') + 0xb30
+            data = self.decompress(self.rom[addr:addr+0x8b0])
+            self.write('segments/accessingpak.bin', data)
+
+    def extract_animations(self):
+        start = self.val('animations')
+        end = self.val('mpconfigs')
+        self.write('segments/animations.bin', self.rom[start:end])
 
     def extract_audio(self):
         sfxctl = self.val('sfxctl')
         sfxtbl = sfxctl + 0x2fb80
-        musicctl = sfxtbl + 0x4c2160
-        musictbl = musicctl + 0xa060
-        seqtbl = musictbl + 0x17c070
-        self.write('audio/sfx.ctl', self.rom[sfxctl:sfxtbl])
-        self.write('audio/sfx.tbl', self.rom[sfxtbl:musicctl])
-        self.write('audio/music.ctl', self.rom[musicctl:musictbl])
-        self.write('audio/music.tbl', self.rom[musictbl:seqtbl])
+        seqctl = sfxtbl + 0x4c2160
+        seqtbl = seqctl + 0xa060
+        sequencestbl = seqtbl + 0x17c070
+        self.write('segments/sfx.ctl.bin', self.rom[sfxctl:sfxtbl])
+        self.write('segments/sfx.tbl.bin', self.rom[sfxtbl:seqctl])
+        self.write('segments/seq.ctl.bin', self.rom[seqctl:seqtbl])
+        self.write('segments/seq.tbl.bin', self.rom[seqtbl:sequencestbl])
 
-        seqtbllen = 0x563b0 if self.romid == 'ntsc-beta' else 0x563a0
+        length = 0x563b0 if self.romid == 'ntsc-beta' else 0x563a0
 
-        sequences = self.rom[seqtbl:seqtbl+seqtbllen]
-        self.write('audio/sequences.bin', sequences)
+        sequences = self.rom[sequencestbl:sequencestbl+length]
+        self.write('segments/sequences.bin', sequences)
 
         # Extract sequences
         count = int.from_bytes(sequences[0:2], 'big')
         i = 0
         while i < count:
             sequence = self.extract_sequence(sequences, i)
-            self.write('audio/sequences/%03d.seq' % i, sequence)
+            self.write('sequences/%03d.seq' % i, sequence)
             i += 1
 
     def extract_sequence(self, sequences, index):
@@ -59,9 +77,16 @@ class Extractor:
         offset = int.from_bytes(sequences[pos:pos+4], 'big')
         return self.decompress(sequences[offset:])
 
-    #
-    # Files
-    #
+    def extract_boot(self):
+        self.write('segments/boot.bin', self.rom[0x1000:0x3050])
+
+    def extract_copyright(self):
+        addr = self.val('copyright')
+        data = self.decompress(self.rom[addr:addr+0xb30])
+        self.write('segments/copyright.bin', data)
+
+    def extract_data(self):
+        self.write('segments/data.bin', self.data)
 
     def extract_files(self):
         offsets = self.get_file_offsets()
@@ -111,7 +136,7 @@ class Extractor:
         i = self.val('files')
         offsets = []
         while True:
-            offset = int.from_bytes(self.gamedata[i:i+4], 'big')
+            offset = int.from_bytes(self.data[i:i+4], 'big')
             if offset == 0 and len(offsets):
                 return offsets
             offsets.append(offset)
@@ -131,81 +156,7 @@ class Extractor:
         nullpos = self.rom[address:].index(0)
         return str(self.rom[address:address + nullpos], 'utf-8')
 
-    #
-    # MpConfigs
-    #
-
-    def extract_mpconfigs(self):
-        addr = self.val('mpconfigs')
-        self.write('ucode/mpconfigs.bin', self.rom[addr:addr+0x68*44])
-
-    def extract_mpstrings(self):
-        self.extract_mpstrings_lang(0, 'E')
-        self.extract_mpstrings_lang(1, 'J')
-        self.extract_mpstrings_lang(2, 'P')
-        self.extract_mpstrings_lang(3, 'G')
-        self.extract_mpstrings_lang(4, 'F')
-        self.extract_mpstrings_lang(5, 'S')
-        self.extract_mpstrings_lang(6, 'I')
-
-    def extract_mpstrings_lang(self, index, lang):
-        addr = self.val('mpconfigs') + 0x68 * 44 + 0x3700 * index
-        self.write('ucode/mpstrings%s.bin' % lang, self.rom[addr:addr+0x3700])
-
-    #
-    # Firing Range
-    #
-
-    def extract_firingrange(self):
-        addr = self.val('firingrange')
-        self.write('ucode/firingrange.bin', self.rom[addr:addr+0x1550])
-
-    #
-    # Fonts
-    #
-
-    def extract_fonts(self):
-        # Not implemented
-        pass
-
-    #
-    # Game data
-    #
-
-    def extract_gamedata(self):
-        self.write('ucode/gamedata.bin', self.gamedata)
-
-    #
-    # Textures
-    #
-
-    def extract_textures(self):
-        base = self.val('textures')
-        datalen = 0x294960 if self.romid == 'jap-final' else 0x291d60
-        tablepos = base + datalen
-        index = 0
-        while True:
-            start = int.from_bytes(self.rom[tablepos+1:tablepos+4], 'big')
-            end = int.from_bytes(self.rom[tablepos+9:tablepos+12], 'big')
-            if int.from_bytes(self.rom[tablepos+12:tablepos+16], 'big') != 0:
-                return
-            texturedata = self.rom[base+start:base+end]
-            self.write('textures/%04x.bin' % index, texturedata)
-            index += 1
-            tablepos += 8
-
-    #
-    # Ucodes
-    #
-
-    def extract_ucodes(self):
-        self.write('ucode/rspboot.bin', self.rom[0x40:0x1000])
-        self.write('ucode/boot.bin', self.rom[0x1000:0x3050])
-        self.write('ucode/lib.bin', self.decompress(self.rom[0x3050:]))
-        self.write('ucode/inflate.bin', self.rom[0x4e850:0x4fc40])
-        self.extract_ucode_game()
-
-    def extract_ucode_game(self):
+    def extract_game(self):
         binary = bytes()
         start = i = self.val('game')
 
@@ -220,7 +171,78 @@ class Extractor:
                 break
             i += 4
 
-        self.write('ucode/game.bin', binary)
+        self.write('segments/game.bin', binary)
+
+    def extract_inflate(self):
+        self.write('segments/inflate.bin', self.rom[0x4e850:0x4fc40])
+
+    def extract_garbage1(self):
+        start = self.val('garbage1')
+        end = self.val('data')
+        self.write('segments/garbage1.bin', self.rom[start:end])
+
+    def extract_garbage2(self):
+        start = self.val('garbage2')
+        end = self.val('animations')
+        self.write('segments/garbage2.bin', self.rom[start:end])
+
+    def extract_lib(self):
+        self.write('segments/lib.bin', self.decompress(self.rom[0x3050:]))
+
+    def extract_mpconfigs(self):
+        addr = self.val('mpconfigs')
+        self.write('segments/mpconfigs.bin', self.rom[addr:addr+0x68*44])
+
+    def extract_mpstrings(self):
+        self.extract_mpstrings_lang(0, 'E')
+        self.extract_mpstrings_lang(1, 'J')
+        self.extract_mpstrings_lang(2, 'P')
+        self.extract_mpstrings_lang(3, 'G')
+        self.extract_mpstrings_lang(4, 'F')
+        self.extract_mpstrings_lang(5, 'S')
+        self.extract_mpstrings_lang(6, 'I')
+
+    def extract_mpstrings_lang(self, index, lang):
+        addr = self.val('mpconfigs') + 0x68 * 44 + 0x3700 * index
+        self.write('segments/mpstrings%s.bin' % lang, self.rom[addr:addr+0x3700])
+
+    def extract_firingrange(self):
+        addr = self.val('firingrange')
+        self.write('segments/firingrange.bin', self.rom[addr:addr+0x1550])
+
+    def extract_fonts(self):
+        start = self.val('unknown1') + 0xb50 + 0x65d0
+        end = self.val('sfxctl')
+        self.write('segments/fonts.bin', self.rom[start:end])
+
+    def extract_rspboot(self):
+        self.write('segments/rspboot.bin', self.rom[0x40:0x1000])
+
+    def extract_textures(self):
+        base = self.val('textures')
+        datalen = 0x294960 if self.romid == 'jap-final' else 0x291d60
+        tablepos = base + datalen
+        index = 0
+        while True:
+            start = int.from_bytes(self.rom[tablepos+1:tablepos+4], 'big')
+            end = int.from_bytes(self.rom[tablepos+9:tablepos+12], 'big')
+            if int.from_bytes(self.rom[tablepos+12:tablepos+16], 'big') != 0:
+                break
+            texturedata = self.rom[base+start:base+end]
+            self.write('textures/%04x.bin' % index, texturedata)
+            index += 1
+            tablepos += 8
+
+        tablepos += 8
+        self.write('segments/textures.bin', self.rom[base:tablepos])
+
+    def extract_unknown1(self):
+        addr = self.val('unknown1')
+        self.write('segments/unknown1.bin', self.rom[addr:addr+0xb50])
+
+    def extract_unknown2(self):
+        addr = self.val('unknown1') + 0xb50
+        self.write('segments/unknown2.bin', self.rom[addr:addr+0x65d0])
 
     #
     # Misc functions
@@ -250,63 +272,23 @@ class Extractor:
         fd.close()
 
     def val(self, name):
-        return self.vals[self.romid][name]
+        index = ['ntsc-beta','ntsc-1.0','ntsc-final','pal-beta','pal-final','jap-final'].index(self.romid)
+        return self.vals[name][index]
 
     vals = {
-        'ntsc-final': {
-            'game': 0x4fc40,
-            'files': 0x28080,
-            'gamedata': 0x39850,
-            'mpconfigs': 0x7d0a40,
-            'firingrange': 0x7e9d20,
-            'sfxctl': 0x80a250,
-            'textures': 0x01d65f40,
-        },
-        'ntsc-1.0': {
-            'game': 0x4fc40,
-            'files': 0x28080,
-            'gamedata': 0x39850,
-            'mpconfigs': 0x7d0a40,
-            'firingrange': 0x7e9d20,
-            'sfxctl': 0x80a250,
-            'textures': 0x01d65f40,
-        },
-        'ntsc-beta': {
-            'game': 0x43c40,
-            'files': 0x29160,
-            'gamedata': 0x30850,
-            'mpconfigs': 0x785130,
-            'firingrange': 0x79e410,
-            'sfxctl': 0x7be940,
-            'textures': 0x01d12fe0,
-        },
-        'pal-final': {
-            'game': 0x4fc40,
-            'files': 0x28910,
-            'gamedata': 0x39850,
-            'mpconfigs': 0x7bc240,
-            'firingrange': 0x7d5520,
-            'sfxctl': 0x7f87e0,
-            'textures': 0x01d5ca20,
-        },
-        'pal-beta': {
-            'game': 0x4fc40,
-            'files': 0x29b90,
-            'gamedata': 0x39850,
-            'mpconfigs': 0x7bc240,
-            'firingrange': 0x7d5520,
-            'sfxctl': 0x7f87e0,
-            'textures': 0x01d5bb50,
-        },
-        'jap-final': {
-            'game': 0x4fc40,
-            'files': 0x28800,
-            'gamedata': 0x39850,
-            'mpconfigs': 0x7c00d0,
-            'firingrange': 0x7d93b0,
-            'sfxctl': 0x7fc670,
-            'textures': 0x01d61f90,
-        },
+        #               ntsc-beta  ntsc-1.0   ntsc-final pal-beta   pal-final  jap-final
+        'game':        [0x43c40,   0x4fc40,   0x4fc40,   0x4fc40,   0x4fc40,   0x4fc40,   ],
+        'garbage1':    [0x0,       0x2ea22,   0x2ea6c,   0x0,       0x0,       0x0,       ],
+        'files':       [0x29160,   0x28080,   0x28080,   0x29b90,   0x28910,   0x28800,   ],
+        'data':        [0x30850,   0x39850,   0x39850,   0x39850,   0x39850,   0x39850,   ],
+        'animations':  [0x155dc0,  0x1a15c0,  0x1a15c0,  0x18cdc0,  0x18cdc0,  0x190c50,  ],
+        'garbage2':    [0x0,       0x1574a0,  0x157800,  0x0,       0x0,       0x0,       ],
+        'mpconfigs':   [0x785130,  0x7d0a40,  0x7d0a40,  0x7bc240,  0x7bc240,  0x7c00d0,  ],
+        'firingrange': [0x79e410,  0x7e9d20,  0x7e9d20,  0x7d5520,  0x7d5520,  0x7d93b0,  ],
+        'unknown1':    [0x79f960,  0x7eb270,  0x7eb270,  0x7d6a70,  0x7d6a70,  0x7da900,  ],
+        'sfxctl':      [0x7be940,  0x80a250,  0x80a250,  0x7f87e0,  0x7f87e0,  0x7fc670,  ],
+        'textures':    [0x1d12fe0, 0x1d65f40, 0x1d65f40, 0x1d5bb50, 0x1d5ca20, 0x1d61f90, ],
+        'copyright':   [0x1fabac0, 0x1ffea20, 0x1ffea20, 0x1ff4630, 0x1ff5500, 0x1ffd6b0, ],
     }
 
 extractor = Extractor()

@@ -1,0 +1,206 @@
+#!/usr/bin/env python3
+
+import os
+import re
+import sys
+
+"""
+patchpiracysums - calculates the expected checksums that are used in piracy
+checks and replaces the expected values in the ROM.
+
+Usage:
+patchpiracysums <rom> <ldmap>
+
+To avoid piracy, the game calculates checksums of functions in memory and
+compares them with expected values. This script is armed with a list of
+locations where these piracy checks happen, as well as the algorithms used in
+each, and calculates the expected checksums.
+
+Locations are referenced by function name and resolved to addresses using a
+linker map so it works with shifted ROMs. To find the location of the checksum
+within a function, it expects the function to use CHECKSUM_PLACEHOLDER. It
+searches for lui and ori instructions that load the placeholder value and
+replaces the value with the calculated one.
+"""
+
+CHECKSUM_PLACEHOLDER = 0x99aabbcc
+
+def algo01(checksum, word):
+    return checksum ^ word
+
+def algo02(checksum, word):
+    return checksum ^ ~word
+
+def algo03(checksum, word):
+    return ((checksum + word) & 0xffffffff) * 2
+
+def algo04(checksum, word):
+    return checksum + ~word
+
+def algo05(checksum, word):
+    return checksum * 2 + word
+
+def algo06(checksum, word):
+    return checksum + word
+
+def algo07(checksum, word):
+    checksum = (checksum << 1) & 0xffffffff
+    return checksum ^ word
+
+def algo08(checksum, word):
+    checksum = (checksum + word) & 0xffffffff
+    return checksum + (word >> 1)
+
+def algo09(checksum, word):
+    return checksum - ~word
+
+def algo10(checksum, word):
+    return (checksum ^ word) << 1
+
+def algo11(checksum, word):
+    return (checksum ^ ~word) << 1
+
+def algo12(checksum, word):
+    checksum ^= ~word
+    checksum ^= (word << 5) & 0xffffffff
+    checksum ^= word >> 15
+    return checksum
+
+class Tool:
+    def load_map(self):
+        fd = open(sys.argv[2], 'r')
+        ldmap = fd.read()
+        fd.close()
+
+        self.symbols = re.findall(r'^\s*0x([0-9a-f]+)\s+(\S+)$', ldmap, re.MULTILINE)
+        self.segrampositions = re.findall(r'^\s*0x([0-9a-f]+)\s+_(\S+)SegmentStart', ldmap, re.MULTILINE)
+        self.segrompositions = re.findall(r'^\s*0x([0-9a-f]+)\s+_(\S+)SegmentRomStart', ldmap, re.MULTILINE)
+
+    def ramtorom(self, ramaddr):
+        # Find which segramposition is closest and prior
+        segramaddr = 0
+        segname = None
+        for pos in self.segrampositions:
+            addr = int(pos[0], 16)
+            if addr <= ramaddr and addr > segramaddr:
+                segramaddr = addr
+                segname = pos[1]
+
+        # Find where the segment is in ROM
+        rompos = 0
+        for pos in self.segrompositions:
+            if pos[1] == segname:
+                rompos = int(pos[0], 16)
+                break
+
+        return rompos + (ramaddr - segramaddr)
+
+    def get_function_address(self, funcname):
+        startram = None
+        endram = None
+
+        for (index, symbol) in enumerate(list(self.symbols)):
+            if symbol[1] == funcname:
+                startram = int(symbol[0], 16)
+                endram = int(self.symbols[index + 1][0], 16)
+                break
+
+        if startram is None:
+            raise ValueError('Unable to find %s in map' % funcname)
+
+        startrom = self.ramtorom(startram)
+        endrom = self.ramtorom(endram)
+        return (startrom, endrom)
+
+    def is_branch_likely(self, word):
+        if word & 0xfc000000 == 0x50000000: # beql
+            return True
+        if word & 0xfc000000 == 0x54000000: # bnel
+            return True
+        if word & 0xfc000000 == 0x58000000: # blezl
+            return True
+        if word & 0xfc000000 == 0x5c000000: # bgtzl
+            return True
+        if word & 0xfc000000 == 0x01000000 and word & 0x001f0000 == 0x00020000: # bltzl
+            return True
+        if word & 0xfc000000 == 0x01000000 and word & 0x001f0000 == 0x00030000: # bgezl
+            return True
+        return False
+
+    def calc_checksum(self, sumfunc, algo):
+        (pos, end) = self.get_function_address(sumfunc)
+        self.fd.seek(pos)
+        checksum = 0
+
+        while pos < end:
+            word = int.from_bytes(self.fd.read(4), 'big')
+            checksum = algo(checksum, word) & 0xffffffff
+            pos += 4
+
+        return checksum
+
+    # Checksums are always written into $at with lui and ori
+    # 3c0199aa   lui   $at,0x99aa
+    # 3421bbcc   ori   $at,$at,0xbbcc
+    def write_checksum(self, patchfunc, checksum):
+        (pos, end) = self.get_function_address(patchfunc)
+        self.fd.seek(pos)
+        in_branchlikely = False
+        upperpos = None
+        lowerpos = None
+
+        while pos < end:
+            word = int.from_bytes(self.fd.read(4), 'big')
+
+            if in_branchlikely:
+                in_branchlikely = False
+            else:
+                if self.is_branch_likely(word):
+                    in_branchlikely = True
+                elif word == 0x3c010000 | (CHECKSUM_PLACEHOLDER >> 16):
+                    upperpos = pos
+                elif upperpos and word == 0x34210000 | (CHECKSUM_PLACEHOLDER & 0xffff):
+                    lowerpos = pos
+
+            pos += 4
+
+        if upperpos is None or lowerpos is None:
+            print('0x%08x' % checksum)
+            raise ValueError('Unable to find checksum location in %s (upperpos=%s, lowerpos=%s)' % (
+                patchfunc, upperpos, lowerpos
+            ))
+
+        self.fd.seek(upperpos)
+        self.fd.write((0x3c010000 | (checksum >> 16)).to_bytes(4, 'big'))
+
+        self.fd.seek(lowerpos)
+        self.fd.write((0x34210000 | (checksum & 0xffff)).to_bytes(4, 'big'))
+
+    def patch(self, algo, patchfunc, sumfunc):
+        checksum = self.calc_checksum(sumfunc, algo)
+        self.write_checksum(patchfunc, checksum)
+
+    def run(self):
+        self.load_map()
+
+        self.fd = open(sys.argv[1], 'rb+')
+
+        self.patch(algo01, 'func00002148', 'func000016cc')
+        self.patch(algo02, 'cheatMenuHandleDialog', 'func00002148')
+        self.patch(algo03, 'propobjHandlePickupByAibot', 'func0f08e2ac')
+        self.patch(algo04, 'chrUncloak', 'propobjHandlePickupByAibot')
+        self.patch(algo05, 'func0f028590', 'func00002078')
+        self.patch(algo06, 'func0f167e7c', 'getEffectiveSlowMotion')
+        self.patch(algo07, 'propAllocateEyespy', 'func0f167e7c')
+        self.patch(algo08, 'chrConsiderGrenadeThrow', 'func0f15b534')
+        self.patch(algo09, 'func0f09e144', 'func0f0953cc')
+        self.patch(algo10, 'explosionAlertChrs', 'func0f084cf0')
+        self.patch(algo11, 'func0f0069dc', 'func00015fd0')
+        self.patch(algo12, 'func0f15c920', 'func0f0069dc')
+
+        self.fd.close()
+
+if os.environ['PIRACYCHECKS']:
+    tool = Tool()
+    tool.run()
+

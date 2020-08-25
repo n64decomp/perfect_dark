@@ -4,7 +4,7 @@ import os
 import zlib
 
 """
-mkgamezips - Creates the ucode/gamezips.bin from ucode/game.bin
+mkgamezips - Creates the segments/gamezips.bin from segments/game.bin
 
 game.bin is the compiled game code from ld. This game code is split into
 4KB chunks. Each chunk is individually zipped.
@@ -21,7 +21,7 @@ The format of the gamezips binary is:
 def main():
     zips = get_zips()
 
-    fd = open('build/%s/ucode/gamezips.bin' % os.environ['ROMID'], 'wb')
+    fd = open('build/%s/segments/gamezips.bin' % os.environ['ROMID'], 'wb')
     pos = len(zips) * 4 + 4
 
     # Write pointer array
@@ -71,7 +71,7 @@ def get_filecontents(filename):
     return binary
 
 def get_zips():
-    binary = get_filecontents('build/%s/ucode/game.bin' % os.environ['ROMID'])
+    binary = get_filecontents('build/%s/segments/game.bin' % os.environ['ROMID'])
     parts = [binary[i:i+0x1000] for i in range(0, len(binary), 0x1000)]
     return [zip(part) for part in parts]
 
