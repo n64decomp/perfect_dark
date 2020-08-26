@@ -32343,8 +32343,8 @@ glabel func0f082d74
 /*  f082d90:	55e0fffe */ 	bnezl	$t7,.L0f082d8c
 /*  f082d94:	24e70004 */ 	addiu	$a3,$a3,0x4
 .L0f082d98:
-/*  f082d98:	3c0501d6 */ 	lui	$a1,0x1d6
-/*  f082d9c:	24a55740 */ 	addiu	$a1,$a1,0x5740
+/*  f082d98:	3c0501d6 */ 	lui	$a1,%hi(_blankSegmentRomStart)
+/*  f082d9c:	24a55740 */ 	addiu	$a1,$a1,%lo(_blankSegmentRomStart)
 /*  f082da0:	afa50020 */ 	sw	$a1,0x20($sp)
 /*  f082da4:	00e02025 */ 	or	$a0,$a3,$zero
 /*  f082da8:	24060040 */ 	addiu	$a2,$zero,0x40

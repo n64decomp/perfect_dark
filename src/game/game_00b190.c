@@ -14,12 +14,12 @@
 
 void loadTextureList(void)
 {
-	extern u8 _texturesSegmentTableStart;
-	extern u8 _texturesSegmentTableEnd;
+	extern u8 _texturesTableRomStart;
+	extern u8 _texturesTableRomEnd;
 
-	u32 len = ((&_texturesSegmentTableEnd - &_texturesSegmentTableStart) + 15) & -16;
+	u32 len = ((&_texturesTableRomEnd - &_texturesTableRomStart) + 15) & -16;
 
 	g_Textures = malloc(len, 6);
 
-	func0000d410(g_Textures, &_texturesSegmentTableStart, len);
+	func0000d410(g_Textures, &_texturesTableRomStart, len);
 }

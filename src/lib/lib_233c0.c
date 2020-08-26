@@ -35,11 +35,11 @@ const u32 var700546ac[] = {0x3a83126f};
 GLOBAL_ASM(
 glabel func000233c0
 /*    233c0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    233c4:	3c0e007d */ 	lui	$t6,0x7d
-/*    233c8:	3c0f007d */ 	lui	$t7,0x7d
+/*    233c4:	3c0e007d */ 	lui	$t6,%hi(_animationsTableRomEnd)
+/*    233c8:	3c0f007d */ 	lui	$t7,%hi(_animationsTableRomStart)
 /*    233cc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    233d0:	25efd1a0 */ 	addiu	$t7,$t7,-11872
-/*    233d4:	25ce0a40 */ 	addiu	$t6,$t6,0xa40
+/*    233d0:	25efd1a0 */ 	addiu	$t7,$t7,%lo(_animationsTableRomStart)
+/*    233d4:	25ce0a40 */ 	addiu	$t6,$t6,%lo(_animationsTableRomEnd)
 /*    233d8:	01cf8023 */ 	subu	$s0,$t6,$t7
 /*    233dc:	2610003f */ 	addiu	$s0,$s0,0x3f
 /*    233e0:	3618003f */ 	ori	$t8,$s0,0x3f
@@ -48,8 +48,8 @@ glabel func000233c0
 /*    233ec:	00808025 */ 	or	$s0,$a0,$zero
 /*    233f0:	0c0048f2 */ 	jal	malloc
 /*    233f4:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    233f8:	3c05007d */ 	lui	$a1,0x7d
-/*    233fc:	24a5d1a0 */ 	addiu	$a1,$a1,-11872
+/*    233f8:	3c05007d */ 	lui	$a1,%hi(_animationsTableRomStart)
+/*    233fc:	24a5d1a0 */ 	addiu	$a1,$a1,%lo(_animationsTableRomStart)
 /*    23400:	00402025 */ 	or	$a0,$v0,$zero
 /*    23404:	02003025 */ 	or	$a2,$s0,$zero
 /*    23408:	0c003504 */ 	jal	func0000d410

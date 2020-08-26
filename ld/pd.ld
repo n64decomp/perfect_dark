@@ -59,7 +59,6 @@
 #define ROMALLOCATION_LIB   0x036800
 #define ROMALLOCATION_DATA  0x015000
 #define ROMALLOCATION_GAME  0x151980
-#define ROMALLOCATION_FILES 0xe8dba0
 
 OUTPUT_ARCH (mips)
 
@@ -163,6 +162,8 @@ SECTIONS
 	 * ROM range: 0x00003050 - 0x00039850 (compressed)
 	 * RAM range: 0x70003050 - 0x70059fe0
 	 * -------------------------------------------------------------------------
+	 * This compressed segment must be placed immediately after boot, because
+	 * the boot code calculates the lib address as boot start + boot length.
 	 */
 
 	_libzipSegmentRomStart = __rompos;
@@ -232,7 +233,7 @@ SECTIONS
 
 	__savedrompos = __rompos;
 	__rampos = 0x70200000;
-	__rompos = _datazipSegmentRomStart + ROMALLOCATION_DATA;
+	__rompos = _datazipSegmentRomEnd;
 
 	BEGIN_SEG(inflate)
 	{
@@ -275,6 +276,9 @@ SECTIONS
 		build/ROMID/animations.o (.data);
 	}
 	END_SEG(animations)
+
+	_animationsTableRomStart = _animationsSegmentRomEnd - 0x38a0;
+	_animationsTableRomEnd = _animationsSegmentRomEnd;
 
 	/***************************************************************************
 	 * mpconfigs
@@ -455,7 +459,7 @@ SECTIONS
 	/***************************************************************************
 	 * filenames
 	 * -------------------------------------------------------------------------
-	 * ROM range: 0x01d5ca00 - 0x01d5e980
+	 * ROM range: 0x01d5ca00 - 0x01d65740
 	 * RAM range: N/A
 	 * -------------------------------------------------------------------------
 	 */
@@ -470,6 +474,19 @@ SECTIONS
 	END_SEG(filenames)
 
 	/***************************************************************************
+	 * blank
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x01d65740 - 0x01d65f40
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 * Yes, this segment is blank and it has to exist. The game loads it.
+	 */
+
+	_blankSegmentRomStart = __rompos;
+	__rompos += 0x800;
+	_blankSegmentRomEnd = __rompos;
+
+	/***************************************************************************
 	 * textures
 	 * -------------------------------------------------------------------------
 	 * ROM range: 0x01d65f40 - 0x01fffe00
@@ -477,7 +494,6 @@ SECTIONS
 	 * -------------------------------------------------------------------------
 	 */
 
-	__rompos = _filesSegmentRomStart + ROMALLOCATION_FILES;
 	__rampos = 0;
 
 	BEGIN_SEG(textures)
@@ -486,8 +502,8 @@ SECTIONS
 	}
 	END_SEG(textures)
 
-	_texturesSegmentTableStart = _texturesSegmentRomEnd - 0x6d80;
-	_texturesSegmentTableEnd = _texturesSegmentRomEnd;
+	_texturesTableRomStart = _texturesSegmentRomEnd - 0x6d80;
+	_texturesTableRomEnd = _texturesSegmentRomEnd;
 
 	/***************************************************************************
 	 * copyright

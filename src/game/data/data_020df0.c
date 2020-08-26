@@ -2032,7 +2032,7 @@ extern void *_file_Ap29_15_joM;
 extern void *_file_Ap16_03_joM;
 extern void *_file_Acarrbye02M;
 extern void *_file_Asaucerexp1M;
-extern void *_filesSegmentRomEnd;
+extern void *_filenamesSegmentRomStart;
 
 // 20df0
 u16 var8007add0[] = {
@@ -9571,7 +9571,7 @@ void *filetable[] = {
 	/*0x07db*/ &_file_Ap16_03_joM,
 	/*0x07dc*/ &_file_Acarrbye02M,
 	/*0x07dd*/ &_file_Asaucerexp1M,
-	/*0x07de*/ &_filesSegmentRomEnd,
+	/*0x07de*/ &_filenamesSegmentRomStart,
 	/*0x07df*/ NULL,
 };
 
