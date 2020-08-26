@@ -3277,30 +3277,20 @@ glabel func0f0aec54
 /*  f0aeca4:	00601025 */ 	or	$v0,$v1,$zero
 );
 
+s32 func0f0aeca8(s32 arg0)
+{
+	s32 index = func0f0aec54(-1);
+
+	if (index >= 0) {
+		var8009da60[index].unk05 = 0;
+		var8009da60[index].unk00 = arg0;
+	}
+
+	return index;
+}
+
 GLOBAL_ASM(
-glabel func0f0aeca8
-/*  f0aeca8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0aecac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0aecb0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0aecb4:	0fc2bb15 */ 	jal	func0f0aec54
-/*  f0aecb8:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f0aecbc:	0440000a */ 	bltz	$v0,.L0f0aece8
-/*  f0aecc0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0aecc4:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f0aecc8:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f0aeccc:	3c0f800a */ 	lui	$t7,%hi(var8009da60)
-/*  f0aecd0:	8fb80018 */ 	lw	$t8,0x18($sp)
-/*  f0aecd4:	25efda60 */ 	addiu	$t7,$t7,%lo(var8009da60)
-/*  f0aecd8:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f0aecdc:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f0aece0:	a0600005 */ 	sb	$zero,0x5($v1)
-/*  f0aece4:	ac780000 */ 	sw	$t8,0x0($v1)
-.L0f0aece8:
-/*  f0aece8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0aecec:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0aecf0:	00801025 */ 	or	$v0,$a0,$zero
-/*  f0aecf4:	03e00008 */ 	jr	$ra
-/*  f0aecf8:	00000000 */ 	nop
+glabel func0f0aecfc
 /*  f0aecfc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0aed00:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0aed04:	0fc2bb15 */ 	jal	func0f0aec54
