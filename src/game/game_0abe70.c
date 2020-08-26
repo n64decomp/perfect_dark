@@ -3424,21 +3424,12 @@ glabel func0f0aeda4
 /*  f0aeea4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0aeea8
-/*  f0aeea8:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0aeeac:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f0aeeb0:	3c0f800a */ 	lui	$t7,%hi(var8009da60)
-/*  f0aeeb4:	25efda60 */ 	addiu	$t7,$t7,%lo(var8009da60)
-/*  f0aeeb8:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f0aeebc:	44856000 */ 	mtc1	$a1,$f12
-/*  f0aeec0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0aeec4:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f0aeec8:	a0580005 */ 	sb	$t8,0x5($v0)
-/*  f0aeecc:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  f0aeed0:	03e00008 */ 	jr	$ra
-/*  f0aeed4:	e44c002c */ 	swc1	$f12,0x2c($v0)
-);
+void func0f0aeea8(s32 index, f32 arg1)
+{
+	var8009da60[index].unk05 = 1;
+	var8009da60[index].unk00 = 0;
+	var8009da60[index].unk2c = arg1;
+}
 
 Gfx *func0f0aeed8(Gfx *gdl)
 {

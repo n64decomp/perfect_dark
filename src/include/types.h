@@ -6407,7 +6407,8 @@ struct mplockinfo {
 
 struct var8009da60 {
 	s32 unk00;
-	u32 unk04;
+	u8 unk04;
+	u8 unk05;
 	u32 unk08;
 	u32 unk0c;
 	u32 unk10;
@@ -6417,7 +6418,7 @@ struct var8009da60 {
 	u32 unk20;
 	u32 unk24;
 	u32 unk28;
-	u32 unk2c;
+	f32 unk2c;
 };
 
 #endif

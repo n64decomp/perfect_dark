@@ -17,7 +17,7 @@ u32 func0f0aeca8(void);
 u32 func0f0aed3c(void);
 u32 func0f0aed70(void);
 u32 func0f0aeda4(void);
-u32 func0f0aeea8(void);
+void func0f0aeea8(s32 index, f32 arg1);
 Gfx *func0f0aeed8(Gfx *gdl);
 void func0f0aefb8(void);
 u32 func0f0af0d4(void);
