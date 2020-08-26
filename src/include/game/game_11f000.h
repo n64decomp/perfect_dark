@@ -22,7 +22,7 @@ u32 func0f125a6c(void);
 u32 func0f126384(void);
 u32 func0f126c3c(void);
 u32 func0f126de8(void);
-u32 func0f12715c(void);
+Gfx *func0f12715c(Gfx *gdl);
 u32 func0f127334(void);
 u32 func0f127490(void);
 u32 func0f1274d8(void);

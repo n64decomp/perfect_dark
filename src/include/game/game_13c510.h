@@ -9,8 +9,8 @@ u32 func0f13c574(void);
 u32 func0f13c710(void);
 u32 func0f13c780(void);
 u32 func0f13d3c4(void);
-u32 func0f13d40c(void);
-u32 func0f13d54c(void);
-u32 func0f13d568(void);
+Gfx *func0f13d40c(Gfx *gdl);
+Gfx *func0f13d54c(Gfx *gdl);
+Gfx *func0f13d568(Gfx *gdl, u32 arg1);
 
 #endif

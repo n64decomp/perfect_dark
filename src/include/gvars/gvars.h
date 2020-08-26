@@ -724,7 +724,7 @@ extern u8 *g_MpRoomVisibility;
 extern s16 var800a4930[1];
 extern u32 var800a4bec;
 extern u32 var800a4bf0;
-extern u32 var800a4bf8;
+extern s16 var800a4bf8[100];
 extern u32 var800a4cc0;
 extern struct var800a4cc4 *var800a4cc4;
 extern struct portal *g_Portals;
