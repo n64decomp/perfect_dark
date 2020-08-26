@@ -3320,22 +3320,12 @@ glabel func0f0aeca8
 /*  f0aed38:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0aed3c
-/*  f0aed3c:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0aed40:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f0aed44:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f0aed48:	3c0f800a */ 	lui	$t7,%hi(var8009da60)
-/*  f0aed4c:	25efda60 */ 	addiu	$t7,$t7,%lo(var8009da60)
-/*  f0aed50:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f0aed54:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0aed58:	e4440014 */ 	swc1	$f4,0x14($v0)
-/*  f0aed5c:	c4a60004 */ 	lwc1	$f6,0x4($a1)
-/*  f0aed60:	e4460018 */ 	swc1	$f6,0x18($v0)
-/*  f0aed64:	c4a80008 */ 	lwc1	$f8,0x8($a1)
-/*  f0aed68:	03e00008 */ 	jr	$ra
-/*  f0aed6c:	e448001c */ 	swc1	$f8,0x1c($v0)
-);
+void func0f0aed3c(s32 index, struct coord *coord)
+{
+	var8009da60[index].unk14.x = coord->x;
+	var8009da60[index].unk14.y = coord->y;
+	var8009da60[index].unk14.z = coord->z;
+}
 
 void func0f0aed70(s32 index, struct coord *coord)
 {

@@ -6412,9 +6412,7 @@ struct var8009da60 {
 	u32 unk08;
 	u32 unk0c;
 	u32 unk10;
-	u32 unk14;
-	u32 unk18;
-	u32 unk1c;
+	struct coord unk14;
 	struct coord unk20;
 	f32 unk2c;
 };
