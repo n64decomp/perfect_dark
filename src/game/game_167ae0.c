@@ -283,7 +283,7 @@ void func0f167e7c(s32 stagenum)
 	func0f011124(true);
 	func0f013b80();
 	func0f1735c0();
-	func0f1532ec();
+	fontsLoadForCurrentStage();
 	hudmsgSystemInit();
 
 	if (stagenum == STAGE_TEST_OLD) {

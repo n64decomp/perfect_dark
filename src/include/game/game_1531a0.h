@@ -6,8 +6,8 @@
 u32 func0f1531a0(void);
 u32 func0f1531b8(void);
 void func0f1531dc(bool arg0);
-u32 func0f153204(void);
-void func0f1532ec(void);
+void fontLoad(void *start, void *end, u32 *arg2, u32 *arg3, u32 arg4);
+void fontsLoadForCurrentStage(void);
 Gfx *func0f153628(Gfx *gdl);
 Gfx *func0f153780(Gfx *gdl);
 Gfx *func0f1537dc(Gfx *gdl, u32 colour);
