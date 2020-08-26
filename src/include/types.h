@@ -6405,4 +6405,19 @@ struct mplockinfo {
 	s8 lastloser;
 };
 
+struct var8009da60 {
+	s32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	u32 unk24;
+	u32 unk28;
+	u32 unk2c;
+};
+
 #endif
