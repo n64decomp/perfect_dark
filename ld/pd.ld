@@ -36,6 +36,13 @@
 	} \
 	END_SEG(mpstrings##lang)
 
+#define FONT(index) \
+	BEGIN_SEG(font##index) \
+	{ \
+		build/ROMID/font##index.o (.data); \
+	} \
+	END_SEG(font##index)
+
 /******************************************************************************
  * ROM Allocations
  * ----------------------------------------------------------------------------
@@ -186,6 +193,8 @@ SECTIONS
 		GAMEFILES(.data)
 	}
 	END_SEG(data)
+
+	_datazipSegmentRomEnd = _datazipSegmentRomStart + ROMALLOCATION_DATA;
 
 	_rspMicrocodeStart = _dataSegmentStart;
 	_rspMicrocodeStartPlusOne = _rspMicrocodeStart + 1;
@@ -347,11 +356,16 @@ SECTIONS
 	 * -------------------------------------------------------------------------
 	 */
 
-	BEGIN_SEG(fonts)
-	{
-		build/ROMID/fonts.o (.data);
-	}
-	END_SEG(fonts)
+	FONT(0)
+	FONT(1)
+	FONT(2)
+	FONT(3)
+	FONT(4)
+	FONT(5)
+	FONT(6)
+	FONT(7)
+	FONT(8)
+	FONT(9)
 
 	/***************************************************************************
 	 * sfxctl

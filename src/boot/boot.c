@@ -44,7 +44,7 @@
 
 GLOBAL_ASM(
 glabel func00001000
-/* 1000:	3c088009 */ 	lui	$t0,%hi(var8008ae20)
+/*     1000:	3c088009 */ 	lui	$t0,%hi(var8008ae20)
 /*     1004:	3c090002 */ 	lui	$t1,0x2
 /*     1008:	2508ae20 */ 	addiu	$t0,$t0,%lo(var8008ae20)
 /*     100c:	352923a0 */ 	ori	$t1,$t1,0x23a0
@@ -588,14 +588,14 @@ glabel func000016cc
 /*     1714:	ac590000 */ 	sw	$t9,0x0($v0)
 /*     1718:	ad5950b8 */ 	sw	$t9,0x50b8($t2)
 .L0000171c:
-/*     171c:	3c040004 */ 	lui	$a0,0x4
-/*     1720:	3c0b0005 */ 	lui	$t3,0x5
-/*     1724:	3c0c0005 */ 	lui	$t4,0x5
-/*     1728:	3c0d0005 */ 	lui	$t5,0x5
-/*     172c:	25ade850 */ 	addiu	$t5,$t5,-6064
-/*     1730:	258cfc40 */ 	addiu	$t4,$t4,-960
-/*     1734:	256be850 */ 	addiu	$t3,$t3,-6064
-/*     1738:	24849850 */ 	addiu	$a0,$a0,-26544
+/*     171c:	3c040004 */ 	lui	$a0,%hi(_datazipSegmentRomStart)
+/*     1720:	3c0b0005 */ 	lui	$t3,%hi(_datazipSegmentRomEnd)
+/*     1724:	3c0c0005 */ 	lui	$t4,%hi(_inflateSegmentRomEnd)
+/*     1728:	3c0d0005 */ 	lui	$t5,%hi(_inflateSegmentRomStart)
+/*     172c:	25ade850 */ 	addiu	$t5,$t5,%lo(_inflateSegmentRomStart)
+/*     1730:	258cfc40 */ 	addiu	$t4,$t4,%lo(_inflateSegmentRomEnd)
+/*     1734:	256be850 */ 	addiu	$t3,$t3,%lo(_datazipSegmentRomEnd)
+/*     1738:	24849850 */ 	addiu	$a0,$a0,%lo(_datazipSegmentRomStart)
 /*     173c:	01644023 */ 	subu	$t0,$t3,$a0
 /*     1740:	018d7023 */ 	subu	$t6,$t4,$t5
 /*     1744:	010e1821 */ 	addu	$v1,$t0,$t6

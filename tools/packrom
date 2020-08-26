@@ -136,7 +136,7 @@ def main():
     pack_data(fd, locations)
     pack_game(fd, locations)
 
-    if os.environ['MATCHING']:
+    if os.environ['MATCHING'] == '1':
         write_garbage(fd, locations)
         fill_tail(fd)
 
