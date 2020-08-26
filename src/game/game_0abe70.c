@@ -3337,22 +3337,12 @@ glabel func0f0aed3c
 /*  f0aed6c:	e448001c */ 	swc1	$f8,0x1c($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f0aed70
-/*  f0aed70:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0aed74:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f0aed78:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f0aed7c:	3c0f800a */ 	lui	$t7,%hi(var8009da60)
-/*  f0aed80:	25efda60 */ 	addiu	$t7,$t7,%lo(var8009da60)
-/*  f0aed84:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f0aed88:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0aed8c:	e4440020 */ 	swc1	$f4,0x20($v0)
-/*  f0aed90:	c4a60004 */ 	lwc1	$f6,0x4($a1)
-/*  f0aed94:	e4460024 */ 	swc1	$f6,0x24($v0)
-/*  f0aed98:	c4a80008 */ 	lwc1	$f8,0x8($a1)
-/*  f0aed9c:	03e00008 */ 	jr	$ra
-/*  f0aeda0:	e4480028 */ 	swc1	$f8,0x28($v0)
-);
+void func0f0aed70(s32 index, struct coord *coord)
+{
+	var8009da60[index].unk20.x = coord->x;
+	var8009da60[index].unk20.y = coord->y;
+	var8009da60[index].unk20.z = coord->z;
+}
 
 GLOBAL_ASM(
 glabel func0f0aeda4

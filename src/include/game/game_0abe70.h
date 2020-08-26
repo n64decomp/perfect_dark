@@ -5,7 +5,7 @@
 
 u32 func0f0abe70(void);
 u32 func0f0ac138(void);
-Gfx *func0f0ac4b8(Gfx *gdl, u32 arg1, f32 arg2, u32 *arg3, u32 colour1, f32 arg5, u32 *arg6, u32 colour2);
+Gfx *func0f0ac4b8(Gfx *gdl, u32 arg1, f32 arg2, u32 *arg3, u32 colour1, f32 arg5, struct coord *arg6, u32 colour2);
 u32 func0f0acb90(void);
 void bullettailTick(struct bullettail *bullettail);
 u32 func0f0adcc8(void);
@@ -15,7 +15,7 @@ u32 func0f0aebe0(void);
 u32 func0f0aec54(void);
 u32 func0f0aeca8(void);
 u32 func0f0aed3c(void);
-u32 func0f0aed70(void);
+void func0f0aed70(s32 index, struct coord *coord);
 u32 func0f0aeda4(void);
 void func0f0aeea8(s32 index, f32 arg1);
 Gfx *func0f0aeed8(Gfx *gdl);
