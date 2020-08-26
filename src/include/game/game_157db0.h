@@ -5,7 +5,7 @@
 
 u32 func0f157db0(void);
 void func0f157e94(s32 room, s32 arg1, struct screenbox *arg2);
-u32 func0f158108(void);
+void func0f158108(s32 index, u8 *arg1, u8 *arg2);
 u32 func0f158140(void);
 u32 func0f158184(void);
 u32 func0f158400(void);

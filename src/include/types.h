@@ -6332,7 +6332,8 @@ struct var80062a8c {
 struct var800a4cc4 {
 	u32 unk00;
 	struct coord pos;
-	u32 unk10;
+	u8 unk10;
+	u8 unk11;
 };
 
 struct healthdamagetype {
