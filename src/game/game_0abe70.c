@@ -3289,26 +3289,14 @@ s32 func0f0aeca8(s32 arg0)
 	return index;
 }
 
-GLOBAL_ASM(
-glabel func0f0aecfc
-/*  f0aecfc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0aed00:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0aed04:	0fc2bb15 */ 	jal	func0f0aec54
-/*  f0aed08:	00000000 */ 	nop
-/*  f0aed0c:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f0aed10:	10430006 */ 	beq	$v0,$v1,.L0f0aed2c
-/*  f0aed14:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f0aed18:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f0aed1c:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f0aed20:	3c01800a */ 	lui	$at,%hi(var8009da60)
-/*  f0aed24:	002e0821 */ 	addu	$at,$at,$t6
-/*  f0aed28:	ac23da60 */ 	sw	$v1,%lo(var8009da60)($at)
-.L0f0aed2c:
-/*  f0aed2c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0aed30:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0aed34:	03e00008 */ 	jr	$ra
-/*  f0aed38:	00000000 */ 	nop
-);
+void func0f0aecfc(s32 arg0)
+{
+	s32 index = func0f0aec54(arg0);
+
+	if (index != -1) {
+		var8009da60[index].unk00 = -1;
+	}
+}
 
 void func0f0aed3c(s32 index, struct coord *coord)
 {
