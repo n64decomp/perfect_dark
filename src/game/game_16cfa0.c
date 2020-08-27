@@ -985,50 +985,24 @@ glabel func0f16dc78
 /*  f16dd10:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f16dd14
-/*  f16dd14:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16dd18:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16dd1c:	0fc5b50c */ 	jal	func0f16d430
-/*  f16dd20:	00000000 */ 	nop
-/*  f16dd24:	0fc5b490 */ 	jal	func0f16d240
-/*  f16dd28:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f16dd2c:	0fc5b490 */ 	jal	func0f16d240
-/*  f16dd30:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f16dd34:	0fc5b490 */ 	jal	func0f16d240
-/*  f16dd38:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f16dd3c:	3c0e8008 */ 	lui	$t6,%hi(var800840d8)
-/*  f16dd40:	8dce40d8 */ 	lw	$t6,%lo(var800840d8)($t6)
-/*  f16dd44:	3c053dcc */ 	lui	$a1,0x3dcc
-/*  f16dd48:	34a5cccd */ 	ori	$a1,$a1,0xcccd
-/*  f16dd4c:	11c00008 */ 	beqz	$t6,.L0f16dd70
-/*  f16dd50:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f16dd54:	3c053dcc */ 	lui	$a1,0x3dcc
-/*  f16dd58:	34a5cccd */ 	ori	$a1,$a1,0xcccd
-/*  f16dd5c:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f16dd60:	0fc5b4ab */ 	jal	func0f16d2ac
-/*  f16dd64:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f16dd68:	10000004 */ 	b	.L0f16dd7c
-/*  f16dd6c:	44806000 */ 	mtc1	$zero,$f12
-.L0f16dd70:
-/*  f16dd70:	0fc5b4ab */ 	jal	func0f16d2ac
-/*  f16dd74:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f16dd78:	44806000 */ 	mtc1	$zero,$f12
-.L0f16dd7c:
-/*  f16dd7c:	0fc5b71e */ 	jal	func0f16dc78
-/*  f16dd80:	00000000 */ 	nop
-/*  f16dd84:	240f04b0 */ 	addiu	$t7,$zero,0x4b0
-/*  f16dd88:	3c018008 */ 	lui	$at,%hi(var800840f0)
-/*  f16dd8c:	ac2f40f0 */ 	sw	$t7,%lo(var800840f0)($at)
-/*  f16dd90:	3c018008 */ 	lui	$at,%hi(var800840dc)
-/*  f16dd94:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f16dd98:	0fc5b513 */ 	jal	func0f16d44c
-/*  f16dd9c:	ac3840dc */ 	sw	$t8,%lo(var800840dc)($at)
-/*  f16dda0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16dda4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16dda8:	03e00008 */ 	jr	$ra
-/*  f16ddac:	00000000 */ 	nop
-);
+void func0f16dd14(void)
+{
+	func0f16d430();
+	func0f16d240(3);
+	func0f16d240(4);
+	func0f16d240(5);
+
+	if (var800840d8) {
+		func0f16d2ac(2, 0.1f, 1);
+	} else {
+		func0f16d2ac(1, 0.1f, 1);
+	}
+
+	func0f16dc78(0);
+	var800840f0 = 1200;
+	var800840dc = 1;
+	func0f16d44c();
+}
 
 void func0f16ddb0(void)
 {
