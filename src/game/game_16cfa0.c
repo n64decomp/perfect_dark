@@ -853,8 +853,7 @@ void func0f16e138(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f16e1cc
-/*  f16e1cc:	03e00008 */ 	jr	$ra
-/*  f16e1d0:	00000000 */ 	nop
-);
+void func0f16e1cc(void)
+{
+	// empty
+}
