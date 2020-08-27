@@ -350,16 +350,11 @@ void func0f16d3d0(void)
 	func0001190c();
 }
 
-GLOBAL_ASM(
-glabel func0f16d430
-/*  f16d430:	3c028008 */ 	lui	$v0,%hi(var800840e0)
-/*  f16d434:	244240e0 */ 	addiu	$v0,$v0,%lo(var800840e0)
-/*  f16d438:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f16d43c:	3c018008 */ 	lui	$at,%hi(var800840d0)
-/*  f16d440:	ac2e40d0 */ 	sw	$t6,%lo(var800840d0)($at)
-/*  f16d444:	03e00008 */ 	jr	$ra
-/*  f16d448:	ac400000 */ 	sw	$zero,0x0($v0)
-);
+void func0f16d430(void)
+{
+	var800840d0 = var800840e0;
+	var800840e0 = 0;
+}
 
 void func0f16d44c(void)
 {
