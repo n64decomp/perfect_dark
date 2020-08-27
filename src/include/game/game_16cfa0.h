@@ -21,7 +21,7 @@ void func0f16d89c(f32 arg0);
 void audioSetBgMusic(s32 tracknum);
 void func0f16d9a8(s32 stagenum);
 void func0f16d9f0(s32 stagenum);
-u32 func0f16d9fc(void);
+void func0f16d9fc(void);
 void func0f16da2c(void);
 void func0f16daa4(void);
 void audioSetBgMusicForMenu(void);

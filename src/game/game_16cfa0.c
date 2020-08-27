@@ -754,21 +754,12 @@ void func0f16d9f0(s32 stagenum)
 	var800aa5d0 = stagenum;
 }
 
-GLOBAL_ASM(
-glabel func0f16d9fc
-/*  f16d9fc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16da00:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16da04:	0fc5b50c */ 	jal	func0f16d430
-/*  f16da08:	00000000 */ 	nop
-/*  f16da0c:	0fc5b4f4 */ 	jal	func0f16d3d0
-/*  f16da10:	00000000 */ 	nop
-/*  f16da14:	0fc5b513 */ 	jal	func0f16d44c
-/*  f16da18:	00000000 */ 	nop
-/*  f16da1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16da20:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16da24:	03e00008 */ 	jr	$ra
-/*  f16da28:	00000000 */ 	nop
-);
+void func0f16d9fc(void)
+{
+	func0f16d430();
+	func0f16d3d0();
+	func0f16d44c();
+}
 
 void func0f16da2c(void)
 {
