@@ -1099,25 +1099,14 @@ void audioRestartTrack(void)
 	func0f16d4b8(0.5f);
 }
 
-GLOBAL_ASM(
-glabel func0f16deb8
-/*  f16deb8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16debc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16dec0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f16dec4:	0fc5b490 */ 	jal	func0f16d240
-/*  f16dec8:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f16decc:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f16ded0:	3c018008 */ 	lui	$at,%hi(var800840c8)
-/*  f16ded4:	ac2e40c8 */ 	sw	$t6,%lo(var800840c8)($at)
-/*  f16ded8:	3c013f00 */ 	lui	$at,0x3f00
-/*  f16dedc:	44816000 */ 	mtc1	$at,$f12
-/*  f16dee0:	0fc5b52e */ 	jal	func0f16d4b8
-/*  f16dee4:	00000000 */ 	nop
-/*  f16dee8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16deec:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16def0:	03e00008 */ 	jr	$ra
-/*  f16def4:	00000000 */ 	nop
-);
+void func0f16deb8(s32 tracknum)
+{
+	func0f16d240(1);
+
+	var800840c8 = tracknum;
+
+	func0f16d4b8(0.5f);
+}
 
 void audioSetTrack(s32 tracknum)
 {

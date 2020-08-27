@@ -20,7 +20,7 @@
 
 s32 g_AudioCurrentBgMusicNum = -1;
 u32 var800840c4 = 0x00000000;
-u32 var800840c8 = 0xffffffff;
+s32 var800840c8 = -1;
 s32 var800840cc = -1;
 u32 var800840d0 = 0xffffffff;
 u32 var800840d4 = 0x00000000;
