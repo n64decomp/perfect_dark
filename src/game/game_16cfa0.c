@@ -1223,20 +1223,11 @@ glabel audioSetAuxTrack
 /*  f16e028:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel audioRestartAuxTrack
-/*  f16e02c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16e030:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16e034:	240effff */ 	addiu	$t6,$zero,-1
-/*  f16e038:	3c018008 */ 	lui	$at,%hi(var800840cc)
-/*  f16e03c:	ac2e40cc */ 	sw	$t6,%lo(var800840cc)($at)
-/*  f16e040:	0fc5b490 */ 	jal	func0f16d240
-/*  f16e044:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f16e048:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16e04c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16e050:	03e00008 */ 	jr	$ra
-/*  f16e054:	00000000 */ 	nop
-);
+void audioRestartAuxTrack(void)
+{
+	var800840cc = -1;
+	func0f16d240(5);
+}
 
 void audioPlayXTrack(s32 index, u32 arg1, u32 duration)
 {
