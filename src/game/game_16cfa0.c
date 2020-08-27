@@ -183,43 +183,20 @@ glabel func0f16d124
 /*  f16d1b8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f16d1bc
-/*  f16d1bc:	3c0f8006 */ 	lui	$t7,%hi(var8005dda0)
-/*  f16d1c0:	8defdda0 */ 	lw	$t7,%lo(var8005dda0)($t7)
-/*  f16d1c4:	44866000 */ 	mtc1	$a2,$f12
-/*  f16d1c8:	afa7000c */ 	sw	$a3,0xc($sp)
-/*  f16d1cc:	15e0001a */ 	bnez	$t7,.L0f16d238
-/*  f16d1d0:	30eeffff */ 	andi	$t6,$a3,0xffff
-/*  f16d1d4:	3c088008 */ 	lui	$t0,%hi(var800840c4)
-/*  f16d1d8:	250840c4 */ 	addiu	$t0,$t0,%lo(var800840c4)
-/*  f16d1dc:	8d020000 */ 	lw	$v0,0x0($t0)
-/*  f16d1e0:	3c19800b */ 	lui	$t9,%hi(var800aa5d8)
-/*  f16d1e4:	2739a5d8 */ 	addiu	$t9,$t9,%lo(var800aa5d8)
-/*  f16d1e8:	0002c0c0 */ 	sll	$t8,$v0,0x3
-/*  f16d1ec:	0302c023 */ 	subu	$t8,$t8,$v0
-/*  f16d1f0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f16d1f4:	03191821 */ 	addu	$v1,$t8,$t9
-/*  f16d1f8:	3c098008 */ 	lui	$t1,%hi(var800840d4)
-/*  f16d1fc:	252940d4 */ 	addiu	$t1,$t1,%lo(var800840d4)
-/*  f16d200:	8d260000 */ 	lw	$a2,0x0($t1)
-/*  f16d204:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f16d208:	244c0001 */ 	addiu	$t4,$v0,0x1
-/*  f16d20c:	24cb0001 */ 	addiu	$t3,$a2,0x1
-/*  f16d210:	ac640000 */ 	sw	$a0,0x0($v1)
-/*  f16d214:	ac650004 */ 	sw	$a1,0x4($v1)
-/*  f16d218:	e46c000c */ 	swc1	$f12,0xc($v1)
-/*  f16d21c:	a46e0010 */ 	sh	$t6,0x10($v1)
-/*  f16d220:	a46a0012 */ 	sh	$t2,0x12($v1)
-/*  f16d224:	ad2b0000 */ 	sw	$t3,0x0($t1)
-/*  f16d228:	a4600018 */ 	sh	$zero,0x18($v1)
-/*  f16d22c:	a4600016 */ 	sh	$zero,0x16($v1)
-/*  f16d230:	ad0c0000 */ 	sw	$t4,0x0($t0)
-/*  f16d234:	a4660014 */ 	sh	$a2,0x14($v1)
-.L0f16d238:
-/*  f16d238:	03e00008 */ 	jr	$ra
-/*  f16d23c:	00000000 */ 	nop
-);
+void func0f16d1bc(u32 arg0, u32 tracknum, f32 arg2, u16 volume)
+{
+	if (var8005dda0 == 0) {
+		var800aa5d8[var800840c4].unk00 = arg0;
+		var800aa5d8[var800840c4].tracknum = tracknum;
+		var800aa5d8[var800840c4].unk0c = arg2;
+		var800aa5d8[var800840c4].volume = volume;
+		var800aa5d8[var800840c4].unk12 = 1;
+		var800aa5d8[var800840c4].unk14 = var800840d4++;
+		var800aa5d8[var800840c4].unk18 = 0;
+		var800aa5d8[var800840c4].unk16 = 0;
+		var800840c4++;
+	}
+}
 
 void func0f16d240(s32 arg0)
 {
@@ -295,7 +272,7 @@ void func0f16d44c(void)
 	var800aa5d8[var800840c4].unk00 = 6;
 	var800aa5d8[var800840c4].unk12 = 5;
 	var800aa5d8[var800840c4].unk14 = var800840d4++;
-	var800aa5d8[var800840c4].unk04 = var800840d0;
+	var800aa5d8[var800840c4].tracknum = var800840d0;
 	var800840c4++;
 
 	var800aa5d8[0].unk18 = 0;
