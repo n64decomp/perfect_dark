@@ -23,7 +23,7 @@ void func0f16d9a8(s32 stagenum);
 void func0f16d9f0(s32 stagenum);
 u32 func0f16d9fc(void);
 u32 func0f16da2c(void);
-u32 func0f16daa4(void);
+void func0f16daa4(void);
 void audioSetBgMusicForMenu(void);
 void func0f16db3c(void);
 void audioPlaySoloDeathTrack(void);
