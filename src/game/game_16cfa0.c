@@ -392,50 +392,14 @@ glabel func0f16d44c
 /*  f16d4b4:	a4a00016 */ 	sh	$zero,0x16($a1)
 );
 
-GLOBAL_ASM(
-glabel func0f16d4b8
-/*  f16d4b8:	3c028008 */ 	lui	$v0,%hi(var800840c8)
-/*  f16d4bc:	8c4240c8 */ 	lw	$v0,%lo(var800840c8)($v0)
-/*  f16d4c0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f16d4c4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f16d4c8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16d4cc:	10410003 */ 	beq	$v0,$at,.L0f16d4dc
-/*  f16d4d0:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f16d4d4:	10000005 */ 	b	.L0f16d4ec
-/*  f16d4d8:	00402825 */ 	or	$a1,$v0,$zero
-.L0f16d4dc:
-/*  f16d4dc:	3c04800b */ 	lui	$a0,%hi(var800aa5d0)
-/*  f16d4e0:	0fc5db10 */ 	jal	func0f176c40
-/*  f16d4e4:	8c84a5d0 */ 	lw	$a0,%lo(var800aa5d0)($a0)
-/*  f16d4e8:	00402825 */ 	or	$a1,$v0,$zero
-.L0f16d4ec:
-/*  f16d4ec:	04a00012 */ 	bltz	$a1,.L0f16d538
-/*  f16d4f0:	3c028008 */ 	lui	$v0,%hi(var800840c8)
-/*  f16d4f4:	8c4240c8 */ 	lw	$v0,%lo(var800840c8)($v0)
-/*  f16d4f8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f16d4fc:	3c04800b */ 	lui	$a0,%hi(var800aa5d0)
-/*  f16d500:	10410003 */ 	beq	$v0,$at,.L0f16d510
-/*  f16d504:	00000000 */ 	nop
-/*  f16d508:	10000004 */ 	b	.L0f16d51c
-/*  f16d50c:	00402825 */ 	or	$a1,$v0,$zero
-.L0f16d510:
-/*  f16d510:	0fc5db10 */ 	jal	func0f176c40
-/*  f16d514:	8c84a5d0 */ 	lw	$a0,%lo(var800aa5d0)($a0)
-/*  f16d518:	00402825 */ 	or	$a1,$v0,$zero
-.L0f16d51c:
-/*  f16d51c:	0fc5b3e8 */ 	jal	func0f16cfa0
-/*  f16d520:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f16d524:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f16d528:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f16d52c:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f16d530:	0fc5b46f */ 	jal	func0f16d1bc
-/*  f16d534:	3047ffff */ 	andi	$a3,$v0,0xffff
-.L0f16d538:
-/*  f16d538:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16d53c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f16d540:	03e00008 */ 	jr	$ra
-/*  f16d544:	00000000 */ 	nop
-);
+#define TRACKNUM2() (var800840c8 != -1 ? var800840c8 : func0f176c40(var800aa5d0))
+
+void func0f16d4b8(f32 arg0)
+{
+	if (TRACKNUM2() >= 0) {
+		func0f16d1bc(1, TRACKNUM2(), arg0, func0f16cfa0());
+	}
+}
 
 #define TRACKNUM() (var800840cc != -1 ? var800840cc : func0f176cd8(var800aa5d0))
 
