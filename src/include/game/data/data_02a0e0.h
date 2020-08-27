@@ -8,6 +8,7 @@ extern s32 var800840c8;
 extern s32 var800840cc;
 extern u32 var800840d4;
 extern u32 var800840d8;
+extern s32 var800840dc;
 extern u32 var800840e0;
 extern u32 var800840f0;
 extern u32 var800840f4;

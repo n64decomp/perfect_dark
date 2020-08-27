@@ -1030,34 +1030,18 @@ glabel func0f16dd14
 /*  f16ddac:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f16ddb0
-/*  f16ddb0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16ddb4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16ddb8:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f16ddbc:	3c054000 */ 	lui	$a1,0x4000
-/*  f16ddc0:	0fc5b4ab */ 	jal	func0f16d2ac
-/*  f16ddc4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f16ddc8:	3c0e8008 */ 	lui	$t6,%hi(var800840d8)
-/*  f16ddcc:	8dce40d8 */ 	lw	$t6,%lo(var800840d8)($t6)
-/*  f16ddd0:	3c014000 */ 	lui	$at,0x4000
-/*  f16ddd4:	44816000 */ 	mtc1	$at,$f12
-/*  f16ddd8:	11c00005 */ 	beqz	$t6,.L0f16ddf0
-/*  f16dddc:	00000000 */ 	nop
-/*  f16dde0:	0fc5b627 */ 	jal	func0f16d89c
-/*  f16dde4:	00000000 */ 	nop
-/*  f16dde8:	10000004 */ 	b	.L0f16ddfc
-/*  f16ddec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f16ddf0:
-/*  f16ddf0:	0fc5b52e */ 	jal	func0f16d4b8
-/*  f16ddf4:	00000000 */ 	nop
-/*  f16ddf8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f16ddfc:
-/*  f16ddfc:	3c018008 */ 	lui	$at,%hi(var800840dc)
-/*  f16de00:	ac2040dc */ 	sw	$zero,%lo(var800840dc)($at)
-/*  f16de04:	03e00008 */ 	jr	$ra
-/*  f16de08:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void func0f16ddb0(void)
+{
+	func0f16d2ac(4, 2, 0);
+
+	if (var800840d8) {
+		func0f16d89c(2);
+	} else {
+		func0f16d4b8(2);
+	}
+
+	var800840dc = 0;
+}
 
 void audioPlayTrack(s32 tracknum)
 {
