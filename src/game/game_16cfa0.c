@@ -96,45 +96,22 @@ glabel func0f16cfe8
 /*  f16d0a4:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel func0f16d0a8
-/*  f16d0a8:	3c03800b */ 	lui	$v1,%hi(var800aaa38)
-/*  f16d0ac:	3c07800b */ 	lui	$a3,%hi(var800aaa68)
-/*  f16d0b0:	24e7aa68 */ 	addiu	$a3,$a3,%lo(var800aaa68)
-/*  f16d0b4:	2463aa38 */ 	addiu	$v1,$v1,%lo(var800aaa38)
-/*  f16d0b8:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f16d0bc:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f16d0c0:	8c6e0000 */ 	lw	$t6,0x0($v1)
-.L0f16d0c4:
-/*  f16d0c4:	548e0012 */ 	bnel	$a0,$t6,.L0f16d110
-/*  f16d0c8:	24630010 */ 	addiu	$v1,$v1,0x10
-/*  f16d0cc:	50a00008 */ 	beqzl	$a1,.L0f16d0f0
-/*  f16d0d0:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f16d0d4:	10a20009 */ 	beq	$a1,$v0,.L0f16d0fc
-/*  f16d0d8:	00000000 */ 	nop
-/*  f16d0dc:	10a60009 */ 	beq	$a1,$a2,.L0f16d104
-/*  f16d0e0:	00000000 */ 	nop
-/*  f16d0e4:	1000000a */ 	b	.L0f16d110
-/*  f16d0e8:	24630010 */ 	addiu	$v1,$v1,0x10
-/*  f16d0ec:	8c620004 */ 	lw	$v0,0x4($v1)
-.L0f16d0f0:
-/*  f16d0f0:	2c4f0001 */ 	sltiu	$t7,$v0,0x1
-/*  f16d0f4:	03e00008 */ 	jr	$ra
-/*  f16d0f8:	01e01025 */ 	or	$v0,$t7,$zero
-.L0f16d0fc:
-/*  f16d0fc:	03e00008 */ 	jr	$ra
-/*  f16d100:	8c620004 */ 	lw	$v0,0x4($v1)
-.L0f16d104:
-/*  f16d104:	03e00008 */ 	jr	$ra
-/*  f16d108:	8c620008 */ 	lw	$v0,0x8($v1)
-/*  f16d10c:	24630010 */ 	addiu	$v1,$v1,0x10
-.L0f16d110:
-/*  f16d110:	5467ffec */ 	bnel	$v1,$a3,.L0f16d0c4
-/*  f16d114:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f16d118:	00001025 */ 	or	$v0,$zero,$zero
-/*  f16d11c:	03e00008 */ 	jr	$ra
-/*  f16d120:	00000000 */ 	nop
-);
+bool func0f16d0a8(s32 arg0, s32 arg1)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
+		if (var800aaa38[i].unk00 == arg0) {
+			switch (arg1) {
+			case 0: return var800aaa38[i].unk04 <= 0;
+			case 1: return var800aaa38[i].unk04;
+			case 2: return var800aaa38[i].unk08;
+			}
+		}
+	}
+
+	return false;
+}
 
 s32 func0f16d124(s32 arg0)
 {
