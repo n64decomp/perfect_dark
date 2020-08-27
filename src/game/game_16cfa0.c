@@ -688,25 +688,13 @@ glabel func0f16d6c0
 /*  f16d898:	00000000 */ 	nop
 );
 
+void func0f16d89c(f32 arg0)
+{
+	func0f16d1bc(2, func0f176d20(var800aa5d0), arg0, func0f16cfa0());
+}
+
 GLOBAL_ASM(
-glabel func0f16d89c
-/*  f16d89c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f16d8a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16d8a4:	3c04800b */ 	lui	$a0,%hi(var800aa5d0)
-/*  f16d8a8:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f16d8ac:	0fc5db48 */ 	jal	func0f176d20
-/*  f16d8b0:	8c84a5d0 */ 	lw	$a0,%lo(var800aa5d0)($a0)
-/*  f16d8b4:	0fc5b3e8 */ 	jal	func0f16cfa0
-/*  f16d8b8:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f16d8bc:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f16d8c0:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f16d8c4:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f16d8c8:	0fc5b46f */ 	jal	func0f16d1bc
-/*  f16d8cc:	3047ffff */ 	andi	$a3,$v0,0xffff
-/*  f16d8d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16d8d4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f16d8d8:	03e00008 */ 	jr	$ra
-/*  f16d8dc:	00000000 */ 	nop
+glabel func0f16d8e0
 /*  f16d8e0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f16d8e4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f16d8e8:	0fc3f27d */ 	jal	menuChooseMusic
