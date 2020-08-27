@@ -6250,4 +6250,11 @@ struct var800a4ce8 {
 	s16 unk02;
 };
 
+struct var800aaa38 {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+};
+
 #endif
