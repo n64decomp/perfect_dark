@@ -381,7 +381,7 @@ s32 menuhandlerHiRes(u32 operation, struct menuitem *item, bool *enable)
 {
 	switch (operation) {
 	case MENUOP_CHECKHIDDEN:
-		if (g_Is4Mb == 1) {
+		if (IS4MB()) {
 			return true;
 		}
 		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {

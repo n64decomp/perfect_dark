@@ -5366,7 +5366,7 @@ glabel func0f16b96c
 //	}
 //
 //	// a20
-//	if (g_Is4Mb == true) {
+//	if (IS4MB()) {
 //		func0f19ab40();
 //	}
 //

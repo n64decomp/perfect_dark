@@ -2043,7 +2043,7 @@ glabel var7f1a863c
 //							var800714d8++;
 //
 //							// c38c
-//							if (g_Is4Mb == true) {
+//							if (IS4MB()) {
 //								menuPushRootDialog(&g_4MbMainMenu, MENUROOT_4MBMAINMENU);
 //							} else {
 //								menuPushRootDialog(&g_CombatSimulatorMenuDialog, MENUROOT_MPSETUP);
@@ -2062,7 +2062,7 @@ glabel var7f1a863c
 //					audioStart(var80095200, 0x8098, 0, -1, -1, -1, -1, -1);
 //
 //					// c444
-//					currentPlayerPause(g_Is4Mb == true ? MENUROOT_4MBMAINMENU : MENUROOT_MPSETUP);
+//					currentPlayerPause(IS4MB() ? MENUROOT_4MBMAINMENU : MENUROOT_MPSETUP);
 //				}
 //			}
 //
@@ -2188,7 +2188,7 @@ glabel var7f1a863c
 //						} else if (g_Vars.unk000490 == 3) {
 //							var800714d8++;
 //
-//							if (g_Is4Mb == true) {
+//							if (IS4MB()) {
 //								menuPushRootDialog(&menudialog_mpquickgo2, MENUROOT_4MBMAINMENU);
 //							} else {
 //								menuPushRootDialog(&g_MpQuickGoMenuDialog, MENUROOT_MPSETUP);
@@ -2210,7 +2210,7 @@ glabel var7f1a863c
 //								g_Vars.unk000494[i] = 0;
 //								var800714d8++;
 //
-//								if (g_Is4Mb == true) {
+//								if (IS4MB()) {
 //									menuPushRootDialog(&menudialog_mpquickgo2, MENUROOT_4MBMAINMENU);
 //								} else {
 //									menuPushRootDialog(&g_MpQuickGoMenuDialog, MENUROOT_MPSETUP);
@@ -2308,10 +2308,10 @@ glabel var7f1a863c
 //			// cc4c
 //			if (g_Vars.unk000490 == 2) {
 //				g_MenuData.unk008 = MENUROOT_MAINMENU;
-//				g_MenuData.unk00c = g_Is4Mb == true ? &g_CiMainMenuDialogViaPause : &g_MainMenuMenuDialog;
+//				g_MenuData.unk00c = IS4MB() ? &g_CiMainMenuDialogViaPause : &g_MainMenuMenuDialog;
 //			} else {
 //				// cc90
-//				if (g_Is4Mb == true) {
+//				if (IS4MB()) {
 //					g_MenuData.unk008 = MENUROOT_4MBMAINMENU;
 //					g_MenuData.unk00c = &g_4MbMainMenu;
 //				} else {
@@ -2386,7 +2386,7 @@ glabel var7f1a863c
 //				var80062940 = 2;
 //				savefileLoadDefaults(&g_SoloSaveFile);
 //				savefileApplyOptions(&g_SoloSaveFile);
-//				func0000e95c(g_Is4Mb == true ? STAGE_4MBMENU : STAGE_CITRAINING);
+//				func0000e95c(IS4MB() ? STAGE_4MBMENU : STAGE_CITRAINING);
 //				func0f16d3d0();
 //			} else {
 //				// cf1c

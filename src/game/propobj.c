@@ -37252,7 +37252,7 @@ void ammotypeGetDeterminer(char *dst, s32 ammotype, s32 qty)
 
 	s32 playercount = PLAYERCOUNT();
 	s32 full = playercount <= 2
-		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Is4Mb == true));
+		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()));
 
 	switch (ammotype) {
 	case AMMOTYPE_CLOAK:
@@ -37700,7 +37700,7 @@ void ammotypeGetPickupMessage(char *dst, s32 ammotype, s32 qty)
 {
 	s32 playercount = PLAYERCOUNT();
 	s32 full = playercount <= 2
-		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Is4Mb == true));
+		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()));
 
 	*dst = '\0';
 
@@ -37931,7 +37931,7 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 {
 	s32 playercount = PLAYERCOUNT();
 	s32 full = playercount <= 2
-		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Is4Mb == true));
+		&& !(playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()));
 	s32 textid;
 	bool plural = false;
 

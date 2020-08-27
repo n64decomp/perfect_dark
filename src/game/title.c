@@ -4443,7 +4443,7 @@ void titleInitSkip(void)
 		var800624a4++;
 	}
 
-	if (g_Is4Mb == true) {
+	if (IS4MB()) {
 		g_TitleNextStage = STAGE_4MBMENU;
 		viSetAspect(1.4545454978943f);
 		viSetXY(320, 220);

@@ -3749,7 +3749,7 @@ glabel var7f1ad5b4
 void func0f0b9538(void)
 {
 	if (g_Vars.currentplayer->haschrbody) {
-		if (!g_Vars.mplayerisrunning || (g_Is4Mb == true && PLAYERCOUNT() == 1)) {
+		if (!g_Vars.mplayerisrunning || (IS4MB() && PLAYERCOUNT() == 1)) {
 			g_Vars.currentplayer->haschrbody = false;
 			func0f020d44(g_Vars.currentplayer->prop, false);
 			g_Vars.currentplayer->unk00d4 = 0;

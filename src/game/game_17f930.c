@@ -293,7 +293,7 @@ void func0f17fcb0(s32 silent)
 {
 	g_Menus[g_MpPlayerNum].playernum = g_MpPlayerNum;
 
-	if (g_Is4Mb == true) {
+	if (IS4MB()) {
 		menuPushRootDialog(&g_4MbAdvancedSetupMenuDialog, MENUROOT_4MBMAINMENU);
 		func0f0f8300();
 	} else {

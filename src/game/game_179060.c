@@ -4170,7 +4170,7 @@ s32 menuhandlerMpSimulantSlot(u32 operation, struct menuitem *item, s32 *value)
 
 		if ((g_MpSetup.chrslots & (1 << (item->param + 4))) == 0) {
 			menuPushDialog(&g_MpAddSimulantMenuDialog);
-		} else if (g_Is4Mb == 1) {
+		} else if (IS4MB()) {
 			menuPushDialog(&g_MpEditSimulant4MbMenuDialog);
 		} else {
 			menuPushDialog(&g_MpEditSimulantMenuDialog);
@@ -5841,7 +5841,7 @@ s32 menuhandler0017ef30(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		if (g_Vars.stagenum == STAGE_CITRAINING) {
-			if (g_Is4Mb == 1) {
+			if (IS4MB()) {
 				func0f0f820c(&g_CiMainMenuDialogViaPause, 2);
 			} else {
 				func0f0f820c(&g_MainMenuMenuDialog, 2);

@@ -114,7 +114,7 @@ void savefileApplyOptions(struct savefile_solo *file)
 	g_Vars.langfilteron = bitGetByIndex(SAVEFILEFLAG_LANGFILTERON, &file->flags);
 
 	if (bitGetByIndex(SAVEFILEFLAG_HIRES, &file->flags)) {
-		if (g_Is4Mb == true) {
+		if (IS4MB()) {
 			optionsSetHiRes(false);
 		} else {
 			optionsSetHiRes(true);
@@ -123,7 +123,7 @@ void savefileApplyOptions(struct savefile_solo *file)
 		optionsSetHiRes(false);
 	}
 
-	if (g_Is4Mb == true) {
+	if (IS4MB()) {
 		optionsSetScreenSplit(SCREENSPLIT_HORIZONTAL);
 		optionsSetScreenRatio(SCREENRATIO_NORMAL);
 	} else {

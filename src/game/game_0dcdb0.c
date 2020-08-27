@@ -388,13 +388,13 @@ glabel hudRenderMissionTimer
 //	sp80 -= 8;
 //
 //	// fe0
-//	if ((g_Is4Mb == true || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL)
+//	if ((IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL)
 //			&& countdownTimerIsHidden()) {
 //		sp80 -= 8;
 //	}
 //
 //	// 054
-//	if ((g_Is4Mb == true || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || playercount >= 3)
+//	if ((IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || playercount >= 3)
 //			&& hudIsZoomRangeVisible()) {
 //		sp80 -= 8;
 //	}
@@ -402,7 +402,7 @@ glabel hudRenderMissionTimer
 //	// 0d8
 //	if (playercount == 2) {
 //		// 0e4
-//		if (g_Is4Mb == true || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 0)) {
+//		if (IS4MB() || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 0)) {
 //			// 118
 //			sp80 += 10;
 //		} else {
@@ -426,7 +426,7 @@ glabel hudRenderMissionTimer
 //	// If this is a second player with their viewport on the right side of the
 //	// screen, move the timer left a bit as the safe zone doesn't need to be
 //	// considered.
-//	if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Is4Mb == true) && playernum == 1) {
+//	if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 1) {
 //		sp84 -= 14;
 //	} else if (playercount >= 3 && (playernum & 1) == 1) {
 //		sp84 -= 14;
