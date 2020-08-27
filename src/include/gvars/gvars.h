@@ -765,9 +765,9 @@ extern u32 var800aa5cc;
 extern s32 var800aa5d0; // stage number
 extern struct var800aa5d8 var800aa5d8;
 extern u32 var800aaa38;
-extern u32 var800aaa68;
-extern u32 var800aaa78;
-extern u32 var800aaa88;
+extern u32 var800aaa68[4];
+extern u32 var800aaa78[4];
+extern u32 var800aaa88[4];
 extern u32 var800aaa98;
 extern char *g_LangBanks[69];
 extern void *var800aabb4;

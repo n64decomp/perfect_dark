@@ -1238,33 +1238,14 @@ glabel audioRestartAuxTrack
 /*  f16e054:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel audioPlayXTrack
-/*  f16e058:	3c0e800b */ 	lui	$t6,%hi(var800aaa68)
-/*  f16e05c:	25ceaa68 */ 	addiu	$t6,$t6,%lo(var800aaa68)
-/*  f16e060:	00041080 */ 	sll	$v0,$a0,0x2
-/*  f16e064:	004e1821 */ 	addu	$v1,$v0,$t6
-/*  f16e068:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*  f16e06c:	240400f0 */ 	addiu	$a0,$zero,0xf0
-/*  f16e070:	15e0000e */ 	bnez	$t7,.L0f16e0ac
-/*  f16e074:	00000000 */ 	nop
-/*  f16e078:	00a40019 */ 	multu	$a1,$a0
-/*  f16e07c:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f16e080:	3c01800b */ 	lui	$at,%hi(var800aaa78)
-/*  f16e084:	ac780000 */ 	sw	$t8,0x0($v1)
-/*  f16e088:	00220821 */ 	addu	$at,$at,$v0
-/*  f16e08c:	0000c812 */ 	mflo	$t9
-/*  f16e090:	ac39aa78 */ 	sw	$t9,%lo(var800aaa78)($at)
-/*  f16e094:	3c01800b */ 	lui	$at,%hi(var800aaa88)
-/*  f16e098:	00c40019 */ 	multu	$a2,$a0
-/*  f16e09c:	00220821 */ 	addu	$at,$at,$v0
-/*  f16e0a0:	00004012 */ 	mflo	$t0
-/*  f16e0a4:	ac28aa88 */ 	sw	$t0,%lo(var800aaa88)($at)
-/*  f16e0a8:	00000000 */ 	nop
-.L0f16e0ac:
-/*  f16e0ac:	03e00008 */ 	jr	$ra
-/*  f16e0b0:	00000000 */ 	nop
-);
+void audioPlayXTrack(s32 index, u32 arg1, u32 duration)
+{
+	if (var800aaa68[index] == 0) {
+		var800aaa68[index] = 1;
+		var800aaa78[index] = arg1 * 240;
+		var800aaa88[index] = duration * 240;
+	}
+}
 
 GLOBAL_ASM(
 glabel audioStopTrack
