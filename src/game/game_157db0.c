@@ -317,27 +317,16 @@ void func0f158108(s32 index, u8 *arg1, u8 *arg2)
 	*arg2 = var800a4cc4[index].unk11;
 }
 
-GLOBAL_ASM(
-glabel func0f158140
-/*  f158140:	3c0e800a */ 	lui	$t6,%hi(var800a4ce8)
-/*  f158144:	8dce4ce8 */ 	lw	$t6,%lo(var800a4ce8)($t6)
-/*  f158148:	00047880 */ 	sll	$t7,$a0,0x2
-/*  f15814c:	3c188008 */ 	lui	$t8,%hi(var8007fc3c)
-/*  f158150:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f158154:	94590000 */ 	lhu	$t9,0x0($v0)
-/*  f158158:	9718fc3c */ 	lhu	$t8,%lo(var8007fc3c)($t8)
-/*  f15815c:	3c09800a */ 	lui	$t1,%hi(var800a4640)
-/*  f158160:	2403003c */ 	addiu	$v1,$zero,0x3c
-/*  f158164:	17190002 */ 	bne	$t8,$t9,.L0f158170
-/*  f158168:	25294640 */ 	addiu	$t1,$t1,%lo(var800a4640)
-/*  f15816c:	84430002 */ 	lh	$v1,0x2($v0)
-.L0f158170:
-/*  f158170:	00034080 */ 	sll	$t0,$v1,0x2
-/*  f158174:	01034023 */ 	subu	$t0,$t0,$v1
-/*  f158178:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f15817c:	03e00008 */ 	jr	$ra
-/*  f158180:	01091021 */ 	addu	$v0,$t0,$t1
-);
+struct var800a4640_00 *func0f158140(s32 arg0)
+{
+	s32 index = 60;
+
+	if (var8007fc3c == var800a4ce8[arg0].unk00) {
+		index = var800a4ce8[arg0].unk02;
+	}
+
+	return &var800a4640.unk000[index];
+}
 
 GLOBAL_ASM(
 glabel func0f158184
