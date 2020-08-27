@@ -693,24 +693,10 @@ void func0f16d89c(f32 arg0)
 	func0f16d1bc(2, func0f176d20(var800aa5d0), arg0, func0f16cfa0());
 }
 
-GLOBAL_ASM(
-glabel func0f16d8e0
-/*  f16d8e0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f16d8e4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16d8e8:	0fc3f27d */ 	jal	menuChooseMusic
-/*  f16d8ec:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f16d8f0:	0fc5b3e8 */ 	jal	func0f16cfa0
-/*  f16d8f4:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f16d8f8:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f16d8fc:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f16d900:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f16d904:	0fc5b46f */ 	jal	func0f16d1bc
-/*  f16d908:	3047ffff */ 	andi	$a3,$v0,0xffff
-/*  f16d90c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16d910:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f16d914:	03e00008 */ 	jr	$ra
-/*  f16d918:	00000000 */ 	nop
-);
+void func0f16d8e0(f32 arg0)
+{
+	func0f16d1bc(3, menuChooseMusic(), arg0, func0f16cfa0());
+}
 
 void audioSetBgMusic(s32 tracknum)
 {
