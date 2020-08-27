@@ -938,52 +938,12 @@ glabel func0f16dba4
 /*  f16dc74:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f16dc78
-/*  f16dc78:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f16dc7c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16dc80:	0fc5b50c */ 	jal	func0f16d430
-/*  f16dc84:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f16dc88:	3c028006 */ 	lui	$v0,%hi(g_SfxVolume)
-/*  f16dc8c:	9442ddc8 */ 	lhu	$v0,%lo(g_SfxVolume)($v0)
-/*  f16dc90:	28415001 */ 	slti	$at,$v0,0x5001
-/*  f16dc94:	14200003 */ 	bnez	$at,.L0f16dca4
-/*  f16dc98:	00401825 */ 	or	$v1,$v0,$zero
-/*  f16dc9c:	10000001 */ 	b	.L0f16dca4
-/*  f16dca0:	24035000 */ 	addiu	$v1,$zero,0x5000
-.L0f16dca4:
-/*  f16dca4:	0fc5b3e8 */ 	jal	func0f16cfa0
-/*  f16dca8:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f16dcac:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f16dcb0:	0043082a */ 	slt	$at,$v0,$v1
-/*  f16dcb4:	10200009 */ 	beqz	$at,.L0f16dcdc
-/*  f16dcb8:	3c028006 */ 	lui	$v0,%hi(g_SfxVolume)
-/*  f16dcbc:	9442ddc8 */ 	lhu	$v0,%lo(g_SfxVolume)($v0)
-/*  f16dcc0:	28415001 */ 	slti	$at,$v0,0x5001
-/*  f16dcc4:	14200003 */ 	bnez	$at,.L0f16dcd4
-/*  f16dcc8:	00401825 */ 	or	$v1,$v0,$zero
-/*  f16dccc:	10000006 */ 	b	.L0f16dce8
-/*  f16dcd0:	24085000 */ 	addiu	$t0,$zero,0x5000
-.L0f16dcd4:
-/*  f16dcd4:	10000004 */ 	b	.L0f16dce8
-/*  f16dcd8:	00604025 */ 	or	$t0,$v1,$zero
-.L0f16dcdc:
-/*  f16dcdc:	0fc5b3e8 */ 	jal	func0f16cfa0
-/*  f16dce0:	00000000 */ 	nop
-/*  f16dce4:	00404025 */ 	or	$t0,$v0,$zero
-.L0f16dce8:
-/*  f16dce8:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f16dcec:	24050019 */ 	addiu	$a1,$zero,0x19
-/*  f16dcf0:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f16dcf4:	0fc5b46f */ 	jal	func0f16d1bc
-/*  f16dcf8:	3107ffff */ 	andi	$a3,$t0,0xffff
-/*  f16dcfc:	0fc5b513 */ 	jal	func0f16d44c
-/*  f16dd00:	00000000 */ 	nop
-/*  f16dd04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16dd08:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f16dd0c:	03e00008 */ 	jr	$ra
-/*  f16dd10:	00000000 */ 	nop
-);
+void audioPlayMpDeathTrack(f32 arg0)
+{
+	func0f16d430();
+	func0f16d1bc(4, MUSIC_DEATH_MP, arg0, VOLUME(g_SfxVolume) > func0f16cfa0() ? VOLUME(g_SfxVolume) : func0f16cfa0());
+	func0f16d44c();
+}
 
 void func0f16dd14(void)
 {
@@ -998,7 +958,7 @@ void func0f16dd14(void)
 		func0f16d2ac(1, 0.1f, 1);
 	}
 
-	func0f16dc78(0);
+	audioPlayMpDeathTrack(0);
 	var800840f0 = 1200;
 	var800840dc = 1;
 	func0f16d44c();
@@ -1083,7 +1043,7 @@ void audioSetAuxTrack(s32 tracknum)
 	var800840cc = tracknum;
 	func0f16d240(5);
 
-	func0f16d1bc(5, tracknum, 0, g_SfxVolume > 0x5000 ? 0x5000 : g_SfxVolume);
+	func0f16d1bc(5, tracknum, 0, VOLUME(g_SfxVolume));
 }
 
 void audioRestartAuxTrack(void)

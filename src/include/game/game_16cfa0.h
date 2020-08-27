@@ -27,7 +27,7 @@ u32 func0f16daa4(void);
 void audioSetBgMusicForMenu(void);
 void func0f16db3c(void);
 void func0f16dba4(void);
-void func0f16dc78(f32 arg0);
+void audioPlayMpDeathTrack(f32 arg0);
 void func0f16dd14(void);
 void func0f16ddb0(void);
 void audioPlayTrack(s32 tracknum);

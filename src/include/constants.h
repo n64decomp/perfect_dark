@@ -24,6 +24,7 @@
 #define SECSTOFRAMES240(secs) (secs * 240)
 #define SECSTOFRAMES60(secs)  (secs * 60)
 #define TEXT(bankid, index)   ((bankid << 9) | index)
+#define VOLUME(volume)        (volume > 0x5000 ? 0x5000 : volume)
 
 // These actions are assigned to chr->actiontype
 #define ACT_INIT             0
