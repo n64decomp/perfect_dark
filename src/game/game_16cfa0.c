@@ -1130,45 +1130,26 @@ glabel func0f16deb8
 /*  f16def4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel audioSetTrack
-/*  f16def8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16defc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16df00:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f16df04:	0fc5b490 */ 	jal	func0f16d240
-/*  f16df08:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f16df0c:	0fc5b490 */ 	jal	func0f16d240
-/*  f16df10:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f16df14:	0fc5b82d */ 	jal	audioStopTrack
-/*  f16df18:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f16df1c:	0fc5b490 */ 	jal	func0f16d240
-/*  f16df20:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f16df24:	0fc5b490 */ 	jal	func0f16d240
-/*  f16df28:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f16df2c:	0fc5b3e8 */ 	jal	func0f16cfa0
-/*  f16df30:	00000000 */ 	nop
-/*  f16df34:	3c038006 */ 	lui	$v1,%hi(g_SfxVolume)
-/*  f16df38:	9463ddc8 */ 	lhu	$v1,%lo(g_SfxVolume)($v1)
-/*  f16df3c:	0062082a */ 	slt	$at,$v1,$v0
-/*  f16df40:	10200005 */ 	beqz	$at,.L0f16df58
-/*  f16df44:	00604025 */ 	or	$t0,$v1,$zero
-/*  f16df48:	0fc5b3e8 */ 	jal	func0f16cfa0
-/*  f16df4c:	00000000 */ 	nop
-/*  f16df50:	10000001 */ 	b	.L0f16df58
-/*  f16df54:	00404025 */ 	or	$t0,$v0,$zero
-.L0f16df58:
-/*  f16df58:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f16df5c:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f16df60:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f16df64:	0fc5b46f */ 	jal	func0f16d1bc
-/*  f16df68:	3107ffff */ 	andi	$a3,$t0,0xffff
-/*  f16df6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16df70:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f16df74:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4c8)
-/*  f16df78:	ac2ea488 */ 	sw	$t6,%lo(g_Vars+0x4c8)($at)
-/*  f16df7c:	03e00008 */ 	jr	$ra
-/*  f16df80:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void audioSetTrack(s32 tracknum)
+{
+	u32 volume;
+
+	func0f16d240(3);
+	func0f16d240(4);
+	audioStopTrack(-1);
+	func0f16d240(2);
+	func0f16d240(1);
+
+	if (g_SfxVolume < func0f16cfa0()) {
+		volume = func0f16cfa0();
+	} else {
+		volume = g_SfxVolume;
+	}
+
+	func0f16d1bc(1, tracknum, 0, volume);
+
+	g_Vars.unk0004c8 = 1;
+}
 
 void audioRestartDefaultTrack(void)
 {
