@@ -34,7 +34,7 @@ u32 audioPlayTrack(u32 arg0);
 u32 audioRestartTrack(void);
 u32 func0f16deb8(u32 arg0);
 u32 audioSetTrack(u32 arg0);
-u32 audioRestartDefaultTrack(void);
+void audioRestartDefaultTrack(void);
 void audioSetAuxTrack(s32 tracknum);
 void audioRestartAuxTrack(void);
 void audioPlayXTrack(s32 index, u32 arg1, u32 duration);
