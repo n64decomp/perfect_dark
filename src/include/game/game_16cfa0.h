@@ -16,7 +16,7 @@ void func0f16d430(void);
 void func0f16d44c(void);
 void func0f16d4b8(f32 arg0);
 void func0f16d548(f32 arg0);
-u32 func0f16d6c0(void);
+bool audioIsAnyPlayerInRoomWithFlag4000(void);
 void func0f16d89c(f32 arg0);
 void audioSetBgMusic(s32 tracknum);
 void func0f16d9a8(s32 stagenum);
