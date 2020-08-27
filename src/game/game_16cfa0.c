@@ -339,11 +339,11 @@ glabel func0f16d324
 
 void func0f16d3d0(void)
 {
-	var800aa5d8.unk00 = 6;
-	var800aa5d8.unk12 = 4;
-	var800aa5d8.unk14 = var800840d4++;
-	var800aa5d8.unk18 = 0;
-	var800aa5d8.unk16 = 0;
+	var800aa5d8[0].unk00 = 6;
+	var800aa5d8[0].unk12 = 4;
+	var800aa5d8[0].unk14 = var800840d4++;
+	var800aa5d8[0].unk18 = 0;
+	var800aa5d8[0].unk16 = 0;
 
 	var800840c4 = 1;
 
@@ -361,36 +361,17 @@ glabel func0f16d430
 /*  f16d448:	ac400000 */ 	sw	$zero,0x0($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f16d44c
-/*  f16d44c:	3c068008 */ 	lui	$a2,%hi(var800840c4)
-/*  f16d450:	24c640c4 */ 	addiu	$a2,$a2,%lo(var800840c4)
-/*  f16d454:	8cc20000 */ 	lw	$v0,0x0($a2)
-/*  f16d458:	3c078008 */ 	lui	$a3,%hi(var800840d4)
-/*  f16d45c:	24e740d4 */ 	addiu	$a3,$a3,%lo(var800840d4)
-/*  f16d460:	000270c0 */ 	sll	$t6,$v0,0x3
-/*  f16d464:	3c05800b */ 	lui	$a1,%hi(var800aa5d8)
-/*  f16d468:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f16d46c:	8ce40000 */ 	lw	$a0,0x0($a3)
-/*  f16d470:	24a5a5d8 */ 	addiu	$a1,$a1,%lo(var800aa5d8)
-/*  f16d474:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f16d478:	00ae1821 */ 	addu	$v1,$a1,$t6
-/*  f16d47c:	240f0006 */ 	addiu	$t7,$zero,0x6
-/*  f16d480:	24180005 */ 	addiu	$t8,$zero,0x5
-/*  f16d484:	24990001 */ 	addiu	$t9,$a0,0x1
-/*  f16d488:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*  f16d48c:	a4780012 */ 	sh	$t8,0x12($v1)
-/*  f16d490:	acf90000 */ 	sw	$t9,0x0($a3)
-/*  f16d494:	3c088008 */ 	lui	$t0,%hi(var800840d0)
-/*  f16d498:	a4640014 */ 	sh	$a0,0x14($v1)
-/*  f16d49c:	8d0840d0 */ 	lw	$t0,%lo(var800840d0)($t0)
-/*  f16d4a0:	24490001 */ 	addiu	$t1,$v0,0x1
-/*  f16d4a4:	acc90000 */ 	sw	$t1,0x0($a2)
-/*  f16d4a8:	ac680004 */ 	sw	$t0,0x4($v1)
-/*  f16d4ac:	a4a00018 */ 	sh	$zero,0x18($a1)
-/*  f16d4b0:	03e00008 */ 	jr	$ra
-/*  f16d4b4:	a4a00016 */ 	sh	$zero,0x16($a1)
-);
+void func0f16d44c(void)
+{
+	var800aa5d8[var800840c4].unk00 = 6;
+	var800aa5d8[var800840c4].unk12 = 5;
+	var800aa5d8[var800840c4].unk14 = var800840d4++;
+	var800aa5d8[var800840c4].unk04 = var800840d0;
+	var800840c4++;
+
+	var800aa5d8[0].unk18 = 0;
+	var800aa5d8[0].unk16 = 0;
+}
 
 #define TRACKNUM2() (var800840c8 != -1 ? var800840c8 : func0f176c40(var800aa5d0))
 
