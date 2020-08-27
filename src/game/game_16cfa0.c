@@ -288,54 +288,29 @@ glabel func0f16d2ac
 /*  f16d320:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f16d324
-/*  f16d324:	3c0e8006 */ 	lui	$t6,%hi(var8005dda0)
-/*  f16d328:	8dcedda0 */ 	lw	$t6,%lo(var8005dda0)($t6)
-/*  f16d32c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16d330:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16d334:	15c00022 */ 	bnez	$t6,.L0f16d3c0
-/*  f16d338:	3c03800b */ 	lui	$v1,%hi(var800aaa68)
-/*  f16d33c:	3c04800b */ 	lui	$a0,%hi(var800aaa78)
-/*  f16d340:	3c02800b */ 	lui	$v0,%hi(var800aaa88)
-/*  f16d344:	3c05800b */ 	lui	$a1,%hi(var800aaa98)
-/*  f16d348:	24a5aa98 */ 	addiu	$a1,$a1,%lo(var800aaa98)
-/*  f16d34c:	2442aa88 */ 	addiu	$v0,$v0,%lo(var800aaa88)
-/*  f16d350:	2484aa78 */ 	addiu	$a0,$a0,%lo(var800aaa78)
-/*  f16d354:	2463aa68 */ 	addiu	$v1,$v1,%lo(var800aaa68)
-.L0f16d358:
-/*  f16d358:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f16d35c:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f16d360:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f16d364:	ac60fffc */ 	sw	$zero,-0x4($v1)
-/*  f16d368:	ac80fffc */ 	sw	$zero,-0x4($a0)
-/*  f16d36c:	1445fffa */ 	bne	$v0,$a1,.L0f16d358
-/*  f16d370:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*  f16d374:	0fc5b50c */ 	jal	func0f16d430
-/*  f16d378:	00000000 */ 	nop
-/*  f16d37c:	0fc5b4f4 */ 	jal	func0f16d3d0
-/*  f16d380:	00000000 */ 	nop
-/*  f16d384:	0fc5b513 */ 	jal	func0f16d44c
-/*  f16d388:	00000000 */ 	nop
-/*  f16d38c:	3c018008 */ 	lui	$at,%hi(var800840e8)
-/*  f16d390:	ac2040e8 */ 	sw	$zero,%lo(var800840e8)($at)
-/*  f16d394:	3c018008 */ 	lui	$at,%hi(var800840f0)
-/*  f16d398:	ac2040f0 */ 	sw	$zero,%lo(var800840f0)($at)
-/*  f16d39c:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f16d3a0:	3c018008 */ 	lui	$at,%hi(g_AudioCurrentBgMusicNum)
-/*  f16d3a4:	ac2240c0 */ 	sw	$v0,%lo(g_AudioCurrentBgMusicNum)($at)
-/*  f16d3a8:	3c018008 */ 	lui	$at,%hi(var800840c8)
-/*  f16d3ac:	ac2240c8 */ 	sw	$v0,%lo(var800840c8)($at)
-/*  f16d3b0:	3c018008 */ 	lui	$at,%hi(var800840cc)
-/*  f16d3b4:	ac2240cc */ 	sw	$v0,%lo(var800840cc)($at)
-/*  f16d3b8:	3c018008 */ 	lui	$at,%hi(var800840d8)
-/*  f16d3bc:	ac2040d8 */ 	sw	$zero,%lo(var800840d8)($at)
-.L0f16d3c0:
-/*  f16d3c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16d3c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16d3c8:	03e00008 */ 	jr	$ra
-/*  f16d3cc:	00000000 */ 	nop
-);
+void func0f16d324(void)
+{
+	s32 i;
+
+	if (var8005dda0 == 0) {
+		for (i = 0; i < 4; i++) {
+			var800aaa68[i] = 0;
+			var800aaa78[i] = 0;
+			var800aaa88[i] = 0;
+		}
+
+		func0f16d430();
+		func0f16d3d0();
+		func0f16d44c();
+
+		var800840e8 = 0;
+		var800840f0 = 0;
+		g_AudioCurrentBgMusicNum = -1;
+		var800840c8 = -1;
+		var800840cc = -1;
+		var800840d8 = 0;
+	}
+}
 
 void func0f16d3d0(void)
 {
