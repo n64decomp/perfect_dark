@@ -1194,34 +1194,13 @@ glabel audioRestartDefaultTrack
 /*  f16dfcc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel audioSetAuxTrack
-/*  f16dfd0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16dfd4:	3c018008 */ 	lui	$at,%hi(var800840cc)
-/*  f16dfd8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16dfdc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f16dfe0:	ac2440cc */ 	sw	$a0,%lo(var800840cc)($at)
-/*  f16dfe4:	0fc5b490 */ 	jal	func0f16d240
-/*  f16dfe8:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f16dfec:	3c028006 */ 	lui	$v0,%hi(g_SfxVolume)
-/*  f16dff0:	9442ddc8 */ 	lhu	$v0,%lo(g_SfxVolume)($v0)
-/*  f16dff4:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f16dff8:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f16dffc:	28415001 */ 	slti	$at,$v0,0x5001
-/*  f16e000:	14200003 */ 	bnez	$at,.L0f16e010
-/*  f16e004:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f16e008:	10000002 */ 	b	.L0f16e014
-/*  f16e00c:	24035000 */ 	addiu	$v1,$zero,0x5000
-.L0f16e010:
-/*  f16e010:	00401825 */ 	or	$v1,$v0,$zero
-.L0f16e014:
-/*  f16e014:	0fc5b46f */ 	jal	func0f16d1bc
-/*  f16e018:	3067ffff */ 	andi	$a3,$v1,0xffff
-/*  f16e01c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16e020:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16e024:	03e00008 */ 	jr	$ra
-/*  f16e028:	00000000 */ 	nop
-);
+void audioSetAuxTrack(s32 tracknum)
+{
+	var800840cc = tracknum;
+	func0f16d240(5);
+
+	func0f16d1bc(5, tracknum, 0, g_SfxVolume > 0x5000 ? 0x5000 : g_SfxVolume);
+}
 
 void audioRestartAuxTrack(void)
 {
