@@ -6,7 +6,7 @@
 u16 func0f16cfa0(void);
 void func0f16cfe8(u16 volume);
 bool func0f16d0a8(s32 arg0, s32 arg1);
-u32 func0f16d124(void);
+s32 func0f16d124(s32 arg0);
 void func0f16d1bc(u32 arg0, u32 tracknum, f32 arg2, u16 volume);
 void func0f16d240(s32 arg0);
 void func0f16d2ac(s32 arg0, f32 arg1, s32 arg2);
@@ -39,6 +39,6 @@ void audioSetAuxTrack(s32 tracknum);
 void audioRestartAuxTrack(void);
 void audioPlayXTrack(s32 index, u32 arg1, u32 duration);
 void audioStopTrack(s32 index);
-u32 func0f16e138(void);
+void func0f16e138(void);
 
 #endif

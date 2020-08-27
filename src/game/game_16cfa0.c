@@ -838,52 +838,23 @@ void audioStopTrack(s32 index)
 	}
 }
 
+void func0f16e138(void)
+{
+	if (var800840cc == -1) {
+		if (audioIsAnyPlayerInRoomWithFlag4000()) {
+			func0f16d548(1);
+		} else if (func0f16d124(5) == 1) {
+			func0f16d2ac(5, 1, 1);
+		}
+	} else {
+		if (func0f176cd8(var800aa5d0) >= 0) {
+			func0f16d548(1);
+		}
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f16e138
-/*  f16e138:	3c0e8008 */ 	lui	$t6,%hi(var800840cc)
-/*  f16e13c:	8dce40cc */ 	lw	$t6,%lo(var800840cc)($t6)
-/*  f16e140:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16e144:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f16e148:	15c10014 */ 	bne	$t6,$at,.L0f16e19c
-/*  f16e14c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16e150:	0fc5b5b0 */ 	jal	audioIsAnyPlayerInRoomWithFlag4000
-/*  f16e154:	00000000 */ 	nop
-/*  f16e158:	10400006 */ 	beqz	$v0,.L0f16e174
-/*  f16e15c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f16e160:	44816000 */ 	mtc1	$at,$f12
-/*  f16e164:	0fc5b552 */ 	jal	func0f16d548
-/*  f16e168:	00000000 */ 	nop
-/*  f16e16c:	10000014 */ 	b	.L0f16e1c0
-/*  f16e170:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f16e174:
-/*  f16e174:	0fc5b449 */ 	jal	func0f16d124
-/*  f16e178:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f16e17c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f16e180:	1441000e */ 	bne	$v0,$at,.L0f16e1bc
-/*  f16e184:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f16e188:	3c053f80 */ 	lui	$a1,0x3f80
-/*  f16e18c:	0fc5b4ab */ 	jal	func0f16d2ac
-/*  f16e190:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f16e194:	1000000a */ 	b	.L0f16e1c0
-/*  f16e198:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f16e19c:
-/*  f16e19c:	3c04800b */ 	lui	$a0,%hi(var800aa5d0)
-/*  f16e1a0:	0fc5db36 */ 	jal	func0f176cd8
-/*  f16e1a4:	8c84a5d0 */ 	lw	$a0,%lo(var800aa5d0)($a0)
-/*  f16e1a8:	04400004 */ 	bltz	$v0,.L0f16e1bc
-/*  f16e1ac:	3c013f80 */ 	lui	$at,0x3f80
-/*  f16e1b0:	44816000 */ 	mtc1	$at,$f12
-/*  f16e1b4:	0fc5b552 */ 	jal	func0f16d548
-/*  f16e1b8:	00000000 */ 	nop
-.L0f16e1bc:
-/*  f16e1bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f16e1c0:
-/*  f16e1c0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16e1c4:	03e00008 */ 	jr	$ra
-/*  f16e1c8:	00000000 */ 	nop
+glabel func0f16e1cc
 /*  f16e1cc:	03e00008 */ 	jr	$ra
 /*  f16e1d0:	00000000 */ 	nop
-/*  f16e1d4:	00000000 */ 	nop
-/*  f16e1d8:	00000000 */ 	nop
-/*  f16e1dc:	00000000 */ 	nop
 );
