@@ -1240,53 +1240,31 @@ glabel audioRestartAuxTrack
 
 void audioPlayXTrack(s32 index, u32 arg1, u32 duration)
 {
-	if (var800aaa68[index] == 0) {
-		var800aaa68[index] = 1;
+	if (var800aaa68[index] == false) {
+		var800aaa68[index] = true;
 		var800aaa78[index] = arg1 * 240;
 		var800aaa88[index] = duration * 240;
 	}
 }
 
-GLOBAL_ASM(
-glabel audioStopTrack
-/*  f16e0b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16e0b8:	04800006 */ 	bltz	$a0,.L0f16e0d4
-/*  f16e0bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16e0c0:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f16e0c4:	3c01800b */ 	lui	$at,%hi(var800aaa68)
-/*  f16e0c8:	002e0821 */ 	addu	$at,$at,$t6
-/*  f16e0cc:	10000016 */ 	b	.L0f16e128
-/*  f16e0d0:	ac20aa68 */ 	sw	$zero,%lo(var800aaa68)($at)
-.L0f16e0d4:
-/*  f16e0d4:	3c03800b */ 	lui	$v1,%hi(var800aaa68)
-/*  f16e0d8:	3c04800b */ 	lui	$a0,%hi(var800aaa78)
-/*  f16e0dc:	3c02800b */ 	lui	$v0,%hi(var800aaa88)
-/*  f16e0e0:	3c05800b */ 	lui	$a1,%hi(var800aaa98)
-/*  f16e0e4:	24a5aa98 */ 	addiu	$a1,$a1,%lo(var800aaa98)
-/*  f16e0e8:	2442aa88 */ 	addiu	$v0,$v0,%lo(var800aaa88)
-/*  f16e0ec:	2484aa78 */ 	addiu	$a0,$a0,%lo(var800aaa78)
-/*  f16e0f0:	2463aa68 */ 	addiu	$v1,$v1,%lo(var800aaa68)
-.L0f16e0f4:
-/*  f16e0f4:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f16e0f8:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f16e0fc:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f16e100:	ac60fffc */ 	sw	$zero,-0x4($v1)
-/*  f16e104:	ac80fffc */ 	sw	$zero,-0x4($a0)
-/*  f16e108:	1445fffa */ 	bne	$v0,$a1,.L0f16e0f4
-/*  f16e10c:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*  f16e110:	3c0f8008 */ 	lui	$t7,%hi(var800840d8)
-/*  f16e114:	8def40d8 */ 	lw	$t7,%lo(var800840d8)($t7)
-/*  f16e118:	51e00004 */ 	beqzl	$t7,.L0f16e12c
-/*  f16e11c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16e120:	0fc5b6a9 */ 	jal	func0f16daa4
-/*  f16e124:	00000000 */ 	nop
-.L0f16e128:
-/*  f16e128:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f16e12c:
-/*  f16e12c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16e130:	03e00008 */ 	jr	$ra
-/*  f16e134:	00000000 */ 	nop
-);
+void audioStopTrack(s32 index)
+{
+	s32 i;
+
+	if (index >= 0) {
+		var800aaa68[index] = false;
+	} else {
+		for (i = 0; i < 4; i++) {
+			var800aaa68[i] = false;
+			var800aaa78[i] = 0;
+			var800aaa88[i] = 0;
+		}
+
+		if (var800840d8) {
+			func0f16daa4();
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f16e138

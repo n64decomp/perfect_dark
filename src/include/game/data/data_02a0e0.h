@@ -5,6 +5,7 @@
 extern s32 g_AudioCurrentBgMusicNum;
 extern u32 var800840c4;
 extern u32 var800840d4;
+extern u32 var800840d8;
 extern u32 var800840e0;
 extern u32 var800840f0;
 extern u32 var800840f4;
