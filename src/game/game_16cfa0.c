@@ -437,115 +437,34 @@ glabel func0f16d4b8
 /*  f16d544:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f16d548
-/*  f16d548:	3c028008 */ 	lui	$v0,%hi(var800840cc)
-/*  f16d54c:	8c4240cc */ 	lw	$v0,%lo(var800840cc)($v0)
-/*  f16d550:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f16d554:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f16d558:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16d55c:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f16d560:	10410003 */ 	beq	$v0,$at,.L0f16d570
-/*  f16d564:	00002825 */ 	or	$a1,$zero,$zero
-/*  f16d568:	10000007 */ 	b	.L0f16d588
-/*  f16d56c:	00401825 */ 	or	$v1,$v0,$zero
-.L0f16d570:
-/*  f16d570:	3c04800b */ 	lui	$a0,%hi(var800aa5d0)
-/*  f16d574:	8c84a5d0 */ 	lw	$a0,%lo(var800aa5d0)($a0)
-/*  f16d578:	0fc5db36 */ 	jal	func0f176cd8
-/*  f16d57c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f16d580:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f16d584:	00401825 */ 	or	$v1,$v0,$zero
-.L0f16d588:
-/*  f16d588:	0460002c */ 	bltz	$v1,.L0f16d63c
-/*  f16d58c:	3c0e8008 */ 	lui	$t6,%hi(var800840cc)
-/*  f16d590:	8dce40cc */ 	lw	$t6,%lo(var800840cc)($t6)
-/*  f16d594:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f16d598:	11c10003 */ 	beq	$t6,$at,.L0f16d5a8
-/*  f16d59c:	00000000 */ 	nop
-/*  f16d5a0:	10000026 */ 	b	.L0f16d63c
-/*  f16d5a4:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f16d5a8:
-/*  f16d5a8:	0fc5b5b0 */ 	jal	audioIsAnyPlayerInRoomWithFlag4000
-/*  f16d5ac:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f16d5b0:	10400022 */ 	beqz	$v0,.L0f16d63c
-/*  f16d5b4:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f16d5b8:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x2ac)
-/*  f16d5bc:	8defa26c */ 	lw	$t7,%lo(g_Vars+0x2ac)($t7)
-/*  f16d5c0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f16d5c4:	3c028008 */ 	lui	$v0,%hi(var800840cc)
-/*  f16d5c8:	51e1001c */ 	beql	$t7,$at,.L0f16d63c
-/*  f16d5cc:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f16d5d0:	8c4240cc */ 	lw	$v0,%lo(var800840cc)($v0)
-/*  f16d5d4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f16d5d8:	3c04800b */ 	lui	$a0,%hi(var800aa5d0)
-/*  f16d5dc:	10410003 */ 	beq	$v0,$at,.L0f16d5ec
-/*  f16d5e0:	00000000 */ 	nop
-/*  f16d5e4:	10000004 */ 	b	.L0f16d5f8
-/*  f16d5e8:	00401825 */ 	or	$v1,$v0,$zero
-.L0f16d5ec:
-/*  f16d5ec:	0fc5db36 */ 	jal	func0f176cd8
-/*  f16d5f0:	8c84a5d0 */ 	lw	$a0,%lo(var800aa5d0)($a0)
-/*  f16d5f4:	00401825 */ 	or	$v1,$v0,$zero
-.L0f16d5f8:
-/*  f16d5f8:	3c04800b */ 	lui	$a0,%hi(var800aa5d0)
-/*  f16d5fc:	8c84a5d0 */ 	lw	$a0,%lo(var800aa5d0)($a0)
-/*  f16d600:	0fc5db36 */ 	jal	func0f176cd8
-/*  f16d604:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f16d608:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f16d60c:	5043000b */ 	beql	$v0,$v1,.L0f16d63c
-/*  f16d610:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f16d614:	0fc5b490 */ 	jal	func0f16d240
-/*  f16d618:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f16d61c:	3c04800b */ 	lui	$a0,%hi(var800aa5d0)
-/*  f16d620:	0fc5db36 */ 	jal	func0f176cd8
-/*  f16d624:	8c84a5d0 */ 	lw	$a0,%lo(var800aa5d0)($a0)
-/*  f16d628:	0fc5b7f4 */ 	jal	audioSetAuxTrack
-/*  f16d62c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f16d630:	10000020 */ 	b	.L0f16d6b4
-/*  f16d634:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16d638:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f16d63c:
-/*  f16d63c:	50a0001d */ 	beqzl	$a1,.L0f16d6b4
-/*  f16d640:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16d644:	0fc5b449 */ 	jal	func0f16d124
-/*  f16d648:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f16d64c:	10400002 */ 	beqz	$v0,.L0f16d658
-/*  f16d650:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f16d654:	14410016 */ 	bne	$v0,$at,.L0f16d6b0
-.L0f16d658:
-/*  f16d658:	3c028008 */ 	lui	$v0,%hi(var800840cc)
-/*  f16d65c:	8c4240cc */ 	lw	$v0,%lo(var800840cc)($v0)
-/*  f16d660:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f16d664:	3c04800b */ 	lui	$a0,%hi(var800aa5d0)
-/*  f16d668:	10410003 */ 	beq	$v0,$at,.L0f16d678
-/*  f16d66c:	00000000 */ 	nop
-/*  f16d670:	10000004 */ 	b	.L0f16d684
-/*  f16d674:	00402825 */ 	or	$a1,$v0,$zero
-.L0f16d678:
-/*  f16d678:	0fc5db36 */ 	jal	func0f176cd8
-/*  f16d67c:	8c84a5d0 */ 	lw	$a0,%lo(var800aa5d0)($a0)
-/*  f16d680:	00402825 */ 	or	$a1,$v0,$zero
-.L0f16d684:
-/*  f16d684:	3c028006 */ 	lui	$v0,%hi(g_SfxVolume)
-/*  f16d688:	9442ddc8 */ 	lhu	$v0,%lo(g_SfxVolume)($v0)
-/*  f16d68c:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f16d690:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f16d694:	28415001 */ 	slti	$at,$v0,0x5001
-/*  f16d698:	14200003 */ 	bnez	$at,.L0f16d6a8
-/*  f16d69c:	00401825 */ 	or	$v1,$v0,$zero
-/*  f16d6a0:	10000001 */ 	b	.L0f16d6a8
-/*  f16d6a4:	24035000 */ 	addiu	$v1,$zero,0x5000
-.L0f16d6a8:
-/*  f16d6a8:	0fc5b46f */ 	jal	func0f16d1bc
-/*  f16d6ac:	3067ffff */ 	andi	$a3,$v1,0xffff
-.L0f16d6b0:
-/*  f16d6b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f16d6b4:
-/*  f16d6b4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f16d6b8:	03e00008 */ 	jr	$ra
-/*  f16d6bc:	00000000 */ 	nop
-);
+#define TRACKNUM() (var800840cc != -1 ? var800840cc : func0f176cd8(var800aa5d0))
+
+void func0f16d548(f32 arg0)
+{
+	s32 pass = false;
+
+	if (TRACKNUM() >= 0) {
+		if (var800840cc != -1) {
+			pass = true;
+		} else if (audioIsAnyPlayerInRoomWithFlag4000()) {
+			if (g_Vars.tickmode != TICKMODE_6 && TRACKNUM() != func0f176cd8(var800aa5d0)) {
+				func0f16d240(5);
+				audioSetAuxTrack(func0f176cd8(var800aa5d0));
+				return;
+			}
+
+			pass = true;
+		}
+	}
+
+	if (pass) {
+		pass = func0f16d124(5);
+
+		if (pass == 0 || pass == 2) {
+			func0f16d1bc(5, TRACKNUM(), arg0, VOLUME(g_SfxVolume));
+		}
+	}
+}
 
 bool audioIsAnyPlayerInRoomWithFlag4000(void)
 {
