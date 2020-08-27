@@ -155,26 +155,18 @@ s32 func0f16d124(s32 arg0)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f16d180
-/*  f16d180:	3c02800b */ 	lui	$v0,%hi(var800aaa38)
-/*  f16d184:	2442aa38 */ 	addiu	$v0,$v0,%lo(var800aaa38)
-/*  f16d188:	00001825 */ 	or	$v1,$zero,$zero
-/*  f16d18c:	24050003 */ 	addiu	$a1,$zero,0x3
-.L0f16d190:
-/*  f16d190:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f16d194:	548e0004 */ 	bnel	$a0,$t6,.L0f16d1a8
-/*  f16d198:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f16d19c:	03e00008 */ 	jr	$ra
-/*  f16d1a0:	00601025 */ 	or	$v0,$v1,$zero
-/*  f16d1a4:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f16d1a8:
-/*  f16d1a8:	1465fff9 */ 	bne	$v1,$a1,.L0f16d190
-/*  f16d1ac:	24420010 */ 	addiu	$v0,$v0,0x10
-/*  f16d1b0:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f16d1b4:	03e00008 */ 	jr	$ra
-/*  f16d1b8:	00000000 */ 	nop
-);
+s32 func0f16d180(s32 arg0)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
+		if (var800aaa38[i].unk00 == arg0) {
+			return i;
+		}
+	}
+
+	return -1;
+}
 
 void func0f16d1bc(u32 arg0, u32 tracknum, f32 arg2, u16 volume)
 {
