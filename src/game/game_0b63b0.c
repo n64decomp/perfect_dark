@@ -12600,7 +12600,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 
 			if (pass) {
 				if (g_Vars.mplayerisrunning == false) {
-					func0f16dba4();
+					audioPlaySoloDeathTrack();
 				} else {
 					func0f16dd14();
 				}

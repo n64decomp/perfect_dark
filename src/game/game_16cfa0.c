@@ -877,66 +877,20 @@ glabel func0f16db3c
 /*  f16dba0:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f16dba4
-/*  f16dba4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f16dba8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16dbac:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f16dbb0:	3c018008 */ 	lui	$at,%hi(var800840e8)
-/*  f16dbb4:	0fc5b50c */ 	jal	func0f16d430
-/*  f16dbb8:	ac2e40e8 */ 	sw	$t6,%lo(var800840e8)($at)
-/*  f16dbbc:	0fc5b490 */ 	jal	func0f16d240
-/*  f16dbc0:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f16dbc4:	0fc5b490 */ 	jal	func0f16d240
-/*  f16dbc8:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f16dbcc:	0fc5b82d */ 	jal	audioStopTrack
-/*  f16dbd0:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f16dbd4:	0fc5b490 */ 	jal	func0f16d240
-/*  f16dbd8:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f16dbdc:	0fc5b490 */ 	jal	func0f16d240
-/*  f16dbe0:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f16dbe4:	0fc5b490 */ 	jal	func0f16d240
-/*  f16dbe8:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f16dbec:	3c028006 */ 	lui	$v0,%hi(g_SfxVolume)
-/*  f16dbf0:	9442ddc8 */ 	lhu	$v0,%lo(g_SfxVolume)($v0)
-/*  f16dbf4:	28415001 */ 	slti	$at,$v0,0x5001
-/*  f16dbf8:	14200003 */ 	bnez	$at,.L0f16dc08
-/*  f16dbfc:	00401825 */ 	or	$v1,$v0,$zero
-/*  f16dc00:	10000001 */ 	b	.L0f16dc08
-/*  f16dc04:	24035000 */ 	addiu	$v1,$zero,0x5000
-.L0f16dc08:
-/*  f16dc08:	0fc5b3e8 */ 	jal	func0f16cfa0
-/*  f16dc0c:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f16dc10:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f16dc14:	0043082a */ 	slt	$at,$v0,$v1
-/*  f16dc18:	10200009 */ 	beqz	$at,.L0f16dc40
-/*  f16dc1c:	3c028006 */ 	lui	$v0,%hi(g_SfxVolume)
-/*  f16dc20:	9442ddc8 */ 	lhu	$v0,%lo(g_SfxVolume)($v0)
-/*  f16dc24:	28415001 */ 	slti	$at,$v0,0x5001
-/*  f16dc28:	14200003 */ 	bnez	$at,.L0f16dc38
-/*  f16dc2c:	00401825 */ 	or	$v1,$v0,$zero
-/*  f16dc30:	10000006 */ 	b	.L0f16dc4c
-/*  f16dc34:	24085000 */ 	addiu	$t0,$zero,0x5000
-.L0f16dc38:
-/*  f16dc38:	10000004 */ 	b	.L0f16dc4c
-/*  f16dc3c:	00604025 */ 	or	$t0,$v1,$zero
-.L0f16dc40:
-/*  f16dc40:	0fc5b3e8 */ 	jal	func0f16cfa0
-/*  f16dc44:	00000000 */ 	nop
-/*  f16dc48:	00404025 */ 	or	$t0,$v0,$zero
-.L0f16dc4c:
-/*  f16dc4c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f16dc50:	2405000a */ 	addiu	$a1,$zero,0xa
-/*  f16dc54:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f16dc58:	0fc5b46f */ 	jal	func0f16d1bc
-/*  f16dc5c:	3107ffff */ 	andi	$a3,$t0,0xffff
-/*  f16dc60:	0fc5b513 */ 	jal	func0f16d44c
-/*  f16dc64:	00000000 */ 	nop
-/*  f16dc68:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16dc6c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f16dc70:	03e00008 */ 	jr	$ra
-/*  f16dc74:	00000000 */ 	nop
-);
+void audioPlaySoloDeathTrack(void)
+{
+	var800840e8 = 1;
+
+	func0f16d430();
+	func0f16d240(3);
+	func0f16d240(4);
+	audioStopTrack(-1);
+	func0f16d240(2);
+	func0f16d240(1);
+	func0f16d240(5);
+	func0f16d1bc(1, MUSIC_DEATH_SOLO, 0, VOLUME(g_SfxVolume) > func0f16cfa0() ? VOLUME(g_SfxVolume) : func0f16cfa0());
+	func0f16d44c();
+}
 
 void audioPlayMpDeathTrack(f32 arg0)
 {
