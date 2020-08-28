@@ -384,7 +384,7 @@ u32 var800844f8 = 0x00000000;
 u32 var800844fc = 0x00000000;
 
 // 2a520
-struct stagemusic stagemusictable[] = {
+struct stagemusic g_StageTracks[] = {
 	// stage,              main theme,           background sfx,          X theme
 	{ STAGE_CITRAINING,    MUSIC_CI,             -1,                      MUSIC_DEFENSE_X       },
 	{ STAGE_DEFECTION,     MUSIC_DEFECTION,      MUSIC_DDTOWER_SFX,       MUSIC_DEFECTION_X     },

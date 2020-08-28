@@ -848,13 +848,13 @@ s32 stageGetPrimaryTrack(s32 stagenum)
 
 	i = 0;
 
-	while (stagemusictable[i].stagenum) {
-		if (stagemusictable[i].stagenum == stagenum) {
-			if (stagemusictable[i].primarytrack == -1) {
+	while (g_StageTracks[i].stagenum) {
+		if (g_StageTracks[i].stagenum == stagenum) {
+			if (g_StageTracks[i].primarytrack == -1) {
 				return func0f18c4c0();
 			}
 
-			return stagemusictable[i].primarytrack;
+			return g_StageTracks[i].primarytrack;
 		}
 
 		i++;
@@ -863,37 +863,27 @@ s32 stageGetPrimaryTrack(s32 stagenum)
 	return func0f18c4c0();
 }
 
-GLOBAL_ASM(
-glabel func0f176cd8
-/*  f176cd8:	3c0e8008 */ 	lui	$t6,%hi(stagemusictable)
-/*  f176cdc:	85ce4500 */ 	lh	$t6,%lo(stagemusictable)($t6)
-/*  f176ce0:	3c0f8008 */ 	lui	$t7,%hi(stagemusictable)
-/*  f176ce4:	25e34500 */ 	addiu	$v1,$t7,%lo(stagemusictable)
-/*  f176ce8:	51c0000b */ 	beqzl	$t6,.L0f176d18
-/*  f176cec:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f176cf0:	84620000 */ 	lh	$v0,0x0($v1)
-.L0f176cf4:
-/*  f176cf4:	54820004 */ 	bnel	$a0,$v0,.L0f176d08
-/*  f176cf8:	84620008 */ 	lh	$v0,0x8($v1)
-/*  f176cfc:	03e00008 */ 	jr	$ra
-/*  f176d00:	84620004 */ 	lh	$v0,0x4($v1)
-/*  f176d04:	84620008 */ 	lh	$v0,0x8($v1)
-.L0f176d08:
-/*  f176d08:	24630008 */ 	addiu	$v1,$v1,0x8
-/*  f176d0c:	1440fff9 */ 	bnez	$v0,.L0f176cf4
-/*  f176d10:	00000000 */ 	nop
-/*  f176d14:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f176d18:
-/*  f176d18:	03e00008 */ 	jr	$ra
-/*  f176d1c:	00000000 */ 	nop
-);
+s16 stageGetAmbientTrack(s32 stagenum)
+{
+	s32 i = 0;
+
+	while (g_StageTracks[i].stagenum) {
+		if (g_StageTracks[i].stagenum == stagenum) {
+			return g_StageTracks[i].ambienttrack;
+		}
+
+		i++;
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel func0f176d20
-/*  f176d20:	3c0e8008 */ 	lui	$t6,%hi(stagemusictable)
-/*  f176d24:	85ce4500 */ 	lh	$t6,%lo(stagemusictable)($t6)
-/*  f176d28:	3c0f8008 */ 	lui	$t7,%hi(stagemusictable)
-/*  f176d2c:	25e34500 */ 	addiu	$v1,$t7,%lo(stagemusictable)
+/*  f176d20:	3c0e8008 */ 	lui	$t6,%hi(g_StageTracks)
+/*  f176d24:	85ce4500 */ 	lh	$t6,%lo(g_StageTracks)($t6)
+/*  f176d28:	3c0f8008 */ 	lui	$t7,%hi(g_StageTracks)
+/*  f176d2c:	25e34500 */ 	addiu	$v1,$t7,%lo(g_StageTracks)
 /*  f176d30:	51c0000b */ 	beqzl	$t6,.L0f176d60
 /*  f176d34:	2402ffff */ 	addiu	$v0,$zero,-1
 /*  f176d38:	84620000 */ 	lh	$v0,0x0($v1)

@@ -12,7 +12,7 @@ u32 func0f1763f4(void);
 u32 func0f176668(void);
 u32 func0f1766b4(void);
 s32 stageGetPrimaryTrack(s32 stagenum);
-s32 func0f176cd8(s32 stagenum);
+s16 stageGetAmbientTrack(s32 stagenum);
 s32 func0f176d20(s32 stagenum);
 
 #endif
