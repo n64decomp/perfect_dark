@@ -6,6 +6,7 @@
 #include "game/data/data_0160b0.h"
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
+#include "game/data/data_02a0e0.h"
 #include "game/data/data_02da90.h"
 #include "game/game_0b63b0.h"
 #include "game/game_176080.h"
@@ -837,54 +838,30 @@ glabel func0f1766b4
 /*  f176c3c:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-GLOBAL_ASM(
-glabel func0f176c40
-/*  f176c40:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x318)
-/*  f176c44:	8dcea2d8 */ 	lw	$t6,%lo(g_Vars+0x318)($t6)
-/*  f176c48:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f176c4c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f176c50:	11c00005 */ 	beqz	$t6,.L0f176c68
-/*  f176c54:	3c0f8008 */ 	lui	$t7,%hi(stagemusictable)
-/*  f176c58:	0fc63130 */ 	jal	func0f18c4c0
-/*  f176c5c:	00000000 */ 	nop
-/*  f176c60:	1000001a */ 	b	.L0f176ccc
-/*  f176c64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f176c68:
-/*  f176c68:	85ef4500 */ 	lh	$t7,%lo(stagemusictable)($t7)
-/*  f176c6c:	3c188008 */ 	lui	$t8,%hi(stagemusictable)
-/*  f176c70:	27024500 */ 	addiu	$v0,$t8,%lo(stagemusictable)
-/*  f176c74:	11e00012 */ 	beqz	$t7,.L0f176cc0
-/*  f176c78:	00000000 */ 	nop
-/*  f176c7c:	84430000 */ 	lh	$v1,0x0($v0)
-.L0f176c80:
-/*  f176c80:	5483000c */ 	bnel	$a0,$v1,.L0f176cb4
-/*  f176c84:	84430008 */ 	lh	$v1,0x8($v0)
-/*  f176c88:	84430002 */ 	lh	$v1,0x2($v0)
-/*  f176c8c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f176c90:	14610005 */ 	bne	$v1,$at,.L0f176ca8
-/*  f176c94:	00000000 */ 	nop
-/*  f176c98:	0fc63130 */ 	jal	func0f18c4c0
-/*  f176c9c:	00000000 */ 	nop
-/*  f176ca0:	1000000a */ 	b	.L0f176ccc
-/*  f176ca4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f176ca8:
-/*  f176ca8:	10000007 */ 	b	.L0f176cc8
-/*  f176cac:	00601025 */ 	or	$v0,$v1,$zero
-/*  f176cb0:	84430008 */ 	lh	$v1,0x8($v0)
-.L0f176cb4:
-/*  f176cb4:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f176cb8:	1460fff1 */ 	bnez	$v1,.L0f176c80
-/*  f176cbc:	00000000 */ 	nop
-.L0f176cc0:
-/*  f176cc0:	0fc63130 */ 	jal	func0f18c4c0
-/*  f176cc4:	00000000 */ 	nop
-.L0f176cc8:
-/*  f176cc8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f176ccc:
-/*  f176ccc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f176cd0:	03e00008 */ 	jr	$ra
-/*  f176cd4:	00000000 */ 	nop
-);
+s32 stageGetPrimaryTrack(s32 stagenum)
+{
+	s32 i;
+
+	if (g_Vars.normmplayerisrunning) {
+		return func0f18c4c0();
+	}
+
+	i = 0;
+
+	while (stagemusictable[i].stagenum) {
+		if (stagemusictable[i].stagenum == stagenum) {
+			if (stagemusictable[i].primarytrack == -1) {
+				return func0f18c4c0();
+			}
+
+			return stagemusictable[i].primarytrack;
+		}
+
+		i++;
+	}
+
+	return func0f18c4c0();
+}
 
 GLOBAL_ASM(
 glabel func0f176cd8

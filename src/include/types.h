@@ -3157,10 +3157,10 @@ struct stageoverviewentry {
 };
 
 struct stagemusic {
-	u16 stage;
-	s16 main_music;
-	s16 sfx_music;
-	s16 x_music;
+	s16 stagenum;
+	s16 primarytrack;
+	s16 ambienttrack;
+	s16 xtrack;
 };
 
 struct mission {

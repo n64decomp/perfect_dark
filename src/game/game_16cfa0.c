@@ -196,7 +196,7 @@ void func0f16d44c(void)
 	var800aa5d8[0].unk16 = 0;
 }
 
-#define TRACKNUM2() (var800840c8 != -1 ? var800840c8 : func0f176c40(var800aa5d0))
+#define TRACKNUM2() (var800840c8 != -1 ? var800840c8 : stageGetPrimaryTrack(var800aa5d0))
 
 void func0f16d4b8(f32 arg0)
 {

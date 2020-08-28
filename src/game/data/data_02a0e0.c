@@ -410,10 +410,9 @@ struct stagemusic stagemusictable[] = {
 	{ STAGE_WAR,           MUSIC_ALIEN_CONFLICT, MUSIC_SKEDAR_WIND,       MUSIC_ALIEN_CONFLICT  },
 	{ STAGE_DUEL,          MUSIC_CREDITS,        -1,                      MUSIC_CREDITS         },
 	{ STAGE_CREDITS,       MUSIC_ALIEN_CONFLICT, -1,                      MUSIC_ALIEN_CONFLICT  },
+	{ 0,                   0,                    0,                       0  },
 };
 
-u32 var800845c0 = 0x00000000;
-u32 var800845c4 = 0x00000000;
 u32 var800845c8 = 0x00000000;
 u32 var800845cc = 0x00000000;
 u32 var800845d0 = 0x497423f0;
