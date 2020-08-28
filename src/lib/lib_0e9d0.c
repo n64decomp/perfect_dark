@@ -1681,14 +1681,14 @@ glabel func0000fe88
 /*    1003c:	24010006 */ 	addiu	$at,$zero,0x6
 /*    10040:	15410014 */ 	bne	$t2,$at,.L00010094
 /*    10044:	00000000 */ 	nop
-/*    10048:	0fc5b3e8 */ 	jal	func0f16cfa0
+/*    10048:	0fc5b3e8 */ 	jal	audioGetVolume
 /*    1004c:	00000000 */ 	nop
 /*    10050:	3c038006 */ 	lui	$v1,%hi(g_SfxVolume)
 /*    10054:	9463ddc8 */ 	lhu	$v1,%lo(g_SfxVolume)($v1)
 /*    10058:	0062082a */ 	slt	$at,$v1,$v0
 /*    1005c:	10200005 */ 	beqz	$at,.L00010074
 /*    10060:	00608025 */ 	or	$s0,$v1,$zero
-/*    10064:	0fc5b3e8 */ 	jal	func0f16cfa0
+/*    10064:	0fc5b3e8 */ 	jal	audioGetVolume
 /*    10068:	00000000 */ 	nop
 /*    1006c:	10000001 */ 	b	.L00010074
 /*    10070:	00408025 */ 	or	$s0,$v0,$zero

@@ -17,29 +17,22 @@
 #include "lib/lib_11420.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f16cfa0
-/*  f16cfa0:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x4b4)
-/*  f16cfa4:	8dcea474 */ 	lw	$t6,%lo(g_Vars+0x4b4)($t6)
-/*  f16cfa8:	2401005c */ 	addiu	$at,$zero,0x5c
-/*  f16cfac:	3c028008 */ 	lui	$v0,%hi(var800840ec)
-/*  f16cfb0:	15c10003 */ 	bne	$t6,$at,.L0f16cfc0
-/*  f16cfb4:	00000000 */ 	nop
-/*  f16cfb8:	03e00008 */ 	jr	$ra
-/*  f16cfbc:	24025000 */ 	addiu	$v0,$zero,0x5000
-.L0f16cfc0:
-/*  f16cfc0:	944240ec */ 	lhu	$v0,%lo(var800840ec)($v0)
-/*  f16cfc4:	24035000 */ 	addiu	$v1,$zero,0x5000
-/*  f16cfc8:	28415000 */ 	slti	$at,$v0,0x5000
-/*  f16cfcc:	10200003 */ 	beqz	$at,.L0f16cfdc
-/*  f16cfd0:	00000000 */ 	nop
-/*  f16cfd4:	10000001 */ 	b	.L0f16cfdc
-/*  f16cfd8:	00401825 */ 	or	$v1,$v0,$zero
-.L0f16cfdc:
-/*  f16cfdc:	3062ffff */ 	andi	$v0,$v1,0xffff
-/*  f16cfe0:	03e00008 */ 	jr	$ra
-/*  f16cfe4:	00000000 */ 	nop
-);
+u16 audioGetVolume(void)
+{
+	u32 volume;
+
+	if (g_Vars.stagenum == STAGE_CREDITS) {
+		return 0x5000;
+	}
+
+	if (var800840ec < 0x5000) {
+		volume = var800840ec;
+	} else {
+		volume = 0x5000;
+	}
+
+	return volume;
+}
 
 void func0f16cfe8(u16 volume)
 {
@@ -208,7 +201,7 @@ void func0f16d44c(void)
 void func0f16d4b8(f32 arg0)
 {
 	if (TRACKNUM2() >= 0) {
-		func0f16d1bc(1, TRACKNUM2(), arg0, func0f16cfa0());
+		func0f16d1bc(1, TRACKNUM2(), arg0, audioGetVolume());
 	}
 }
 
@@ -284,12 +277,12 @@ bool audioIsAnyPlayerInRoomWithFlag4000(void)
 
 void func0f16d89c(f32 arg0)
 {
-	func0f16d1bc(2, func0f176d20(var800aa5d0), arg0, func0f16cfa0());
+	func0f16d1bc(2, func0f176d20(var800aa5d0), arg0, audioGetVolume());
 }
 
 void func0f16d8e0(f32 arg0)
 {
-	func0f16d1bc(3, menuChooseMusic(), arg0, func0f16cfa0());
+	func0f16d1bc(3, menuChooseMusic(), arg0, audioGetVolume());
 }
 
 void audioSetBgMusic(s32 tracknum)
@@ -300,7 +293,7 @@ void audioSetBgMusic(s32 tracknum)
 		func0f16d2ac(1, 0.5f, 1);
 		func0f16d2ac(2, 0.5f, 1);
 		func0f16d2ac(5, 0.5f, 1);
-		func0f16d1bc(3, tracknum, 0, func0f16cfa0());
+		func0f16d1bc(3, tracknum, 0, audioGetVolume());
 	}
 
 	g_AudioCurrentBgMusicNum = tracknum;
@@ -386,14 +379,14 @@ void audioPlaySoloDeathTrack(void)
 	func0f16d240(2);
 	func0f16d240(1);
 	func0f16d240(5);
-	func0f16d1bc(1, MUSIC_DEATH_SOLO, 0, VOLUME(g_SfxVolume) > func0f16cfa0() ? VOLUME(g_SfxVolume) : func0f16cfa0());
+	func0f16d1bc(1, MUSIC_DEATH_SOLO, 0, VOLUME(g_SfxVolume) > audioGetVolume() ? VOLUME(g_SfxVolume) : audioGetVolume());
 	func0f16d44c();
 }
 
 void audioPlayMpDeathTrack(f32 arg0)
 {
 	func0f16d430();
-	func0f16d1bc(4, MUSIC_DEATH_MP, arg0, VOLUME(g_SfxVolume) > func0f16cfa0() ? VOLUME(g_SfxVolume) : func0f16cfa0());
+	func0f16d1bc(4, MUSIC_DEATH_MP, arg0, VOLUME(g_SfxVolume) > audioGetVolume() ? VOLUME(g_SfxVolume) : audioGetVolume());
 	func0f16d44c();
 }
 
@@ -438,7 +431,7 @@ void audioPlayTrack(s32 tracknum)
 	func0f16d240(2);
 	func0f16d240(1);
 	func0f16d240(5);
-	func0f16d1bc(1, tracknum, 0, func0f16cfa0());
+	func0f16d1bc(1, tracknum, 0, audioGetVolume());
 	func0f16d44c();
 }
 
@@ -468,8 +461,8 @@ void audioSetTrack(s32 tracknum)
 	func0f16d240(2);
 	func0f16d240(1);
 
-	if (g_SfxVolume < func0f16cfa0()) {
-		volume = func0f16cfa0();
+	if (g_SfxVolume < audioGetVolume()) {
+		volume = audioGetVolume();
 	} else {
 		volume = g_SfxVolume;
 	}

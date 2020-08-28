@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u16 func0f16cfa0(void);
+u16 audioGetVolume(void);
 void func0f16cfe8(u16 volume);
 bool func0f16d0a8(s32 arg0, s32 arg1);
 s32 func0f16d124(s32 arg0);
