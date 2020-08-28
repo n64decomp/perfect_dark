@@ -863,7 +863,7 @@ s32 stageGetPrimaryTrack(s32 stagenum)
 	return func0f18c4c0();
 }
 
-s16 stageGetAmbientTrack(s32 stagenum)
+s32 stageGetAmbientTrack(s32 stagenum)
 {
 	s32 i = 0;
 
@@ -878,29 +878,17 @@ s16 stageGetAmbientTrack(s32 stagenum)
 	return -1;
 }
 
-GLOBAL_ASM(
-glabel func0f176d20
-/*  f176d20:	3c0e8008 */ 	lui	$t6,%hi(g_StageTracks)
-/*  f176d24:	85ce4500 */ 	lh	$t6,%lo(g_StageTracks)($t6)
-/*  f176d28:	3c0f8008 */ 	lui	$t7,%hi(g_StageTracks)
-/*  f176d2c:	25e34500 */ 	addiu	$v1,$t7,%lo(g_StageTracks)
-/*  f176d30:	51c0000b */ 	beqzl	$t6,.L0f176d60
-/*  f176d34:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f176d38:	84620000 */ 	lh	$v0,0x0($v1)
-.L0f176d3c:
-/*  f176d3c:	54820004 */ 	bnel	$a0,$v0,.L0f176d50
-/*  f176d40:	84620008 */ 	lh	$v0,0x8($v1)
-/*  f176d44:	03e00008 */ 	jr	$ra
-/*  f176d48:	84620006 */ 	lh	$v0,0x6($v1)
-/*  f176d4c:	84620008 */ 	lh	$v0,0x8($v1)
-.L0f176d50:
-/*  f176d50:	24630008 */ 	addiu	$v1,$v1,0x8
-/*  f176d54:	1440fff9 */ 	bnez	$v0,.L0f176d3c
-/*  f176d58:	00000000 */ 	nop
-/*  f176d5c:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f176d60:
-/*  f176d60:	03e00008 */ 	jr	$ra
-/*  f176d64:	00000000 */ 	nop
-/*  f176d68:	00000000 */ 	nop
-/*  f176d6c:	00000000 */ 	nop
-);
+s32 stageGetXTrack(s32 stagenum)
+{
+	s32 i = 0;
+
+	while (g_StageTracks[i].stagenum) {
+		if (g_StageTracks[i].stagenum == stagenum) {
+			return g_StageTracks[i].xtrack;
+		}
+
+		i++;
+	}
+
+	return -1;
+}

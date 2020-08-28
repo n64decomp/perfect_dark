@@ -277,7 +277,7 @@ bool audioIsAnyPlayerInRoomWithFlag4000(void)
 
 void func0f16d89c(f32 arg0)
 {
-	func0f16d1bc(2, func0f176d20(var800aa5d0), arg0, audioGetVolume());
+	func0f16d1bc(2, stageGetXTrack(var800aa5d0), arg0, audioGetVolume());
 }
 
 void func0f16d8e0(f32 arg0)
@@ -324,7 +324,7 @@ void func0f16d9fc(void)
 
 void func0f16da2c(void)
 {
-	if (var800840d8 == 0 && func0f176d20(var800aa5d0) >= 0) {
+	if (var800840d8 == 0 && stageGetXTrack(var800aa5d0) >= 0) {
 		func0f16d240(2);
 		func0f16d240(3);
 		func0f16d240(4);
