@@ -24,24 +24,15 @@ glabel func0f176080
 /*  f176088:	8c4244f0 */ 	lw	$v0,%lo(var800844f0)($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f17608c
-/*  f17608c:	3c018008 */ 	lui	$at,%hi(var800844f0)
-/*  f176090:	ac2044f0 */ 	sw	$zero,%lo(var800844f0)($at)
-/*  f176094:	3c018008 */ 	lui	$at,%hi(var800844f4)
-/*  f176098:	ac2044f4 */ 	sw	$zero,%lo(var800844f4)($at)
-/*  f17609c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1760a0:	2401005a */ 	addiu	$at,$zero,0x5a
-/*  f1760a4:	10810003 */ 	beq	$a0,$at,.L0f1760b4
-/*  f1760a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1760ac:	0fc5d831 */ 	jal	func0f1760c4
-/*  f1760b0:	00000000 */ 	nop
-.L0f1760b4:
-/*  f1760b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1760b8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1760bc:	03e00008 */ 	jr	$ra
-/*  f1760c0:	00000000 */ 	nop
-);
+void func0f17608c(s32 stagenum)
+{
+	var800844f0 = 0;
+	var800844f4 = 0;
+
+	if (stagenum != STAGE_TITLE) {
+		func0f1760c4();
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1760c4
