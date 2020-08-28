@@ -24,7 +24,7 @@ u32 func0000fba0(void);
 u32 func0000fbc4(void);
 u32 func0000fc48(void);
 u32 func0000fd74(void);
-u32 func0000fd9c(void);
+void func0000fd9c(struct var80094ed8 *arg0, u16 volume);
 void func0000fe18(void);
 void func0000fe20(void);
 void func0000fe50(void);

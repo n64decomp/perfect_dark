@@ -41,60 +41,22 @@ glabel func0f16cfa0
 /*  f16cfe4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f16cfe8
-/*  f16cfe8:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f16cfec:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f16cff0:	3096ffff */ 	andi	$s6,$a0,0xffff
-/*  f16cff4:	2ac15001 */ 	slti	$at,$s6,0x5001
-/*  f16cff8:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f16cffc:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f16d000:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f16d004:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f16d008:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f16d00c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f16d010:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f16d014:	14200002 */ 	bnez	$at,.L0f16d020
-/*  f16d018:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f16d01c:	24165000 */ 	addiu	$s6,$zero,0x5000
-.L0f16d020:
-/*  f16d020:	3c11800b */ 	lui	$s1,%hi(var800aaa38)
-/*  f16d024:	3c138009 */ 	lui	$s3,%hi(var80094ed8)
-/*  f16d028:	26734ed8 */ 	addiu	$s3,$s3,%lo(var80094ed8)
-/*  f16d02c:	2631aa38 */ 	addiu	$s1,$s1,%lo(var800aaa38)
-/*  f16d030:	00008025 */ 	or	$s0,$zero,$zero
-/*  f16d034:	24150003 */ 	addiu	$s5,$zero,0x3
-/*  f16d038:	24140108 */ 	addiu	$s4,$zero,0x108
-/*  f16d03c:	24120005 */ 	addiu	$s2,$zero,0x5
-.L0f16d040:
-/*  f16d040:	8e220000 */ 	lw	$v0,0x0($s1)
-/*  f16d044:	5040000a */ 	beqzl	$v0,.L0f16d070
-/*  f16d048:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f16d04c:	52420008 */ 	beql	$s2,$v0,.L0f16d070
-/*  f16d050:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f16d054:	02140019 */ 	multu	$s0,$s4
-/*  f16d058:	32c5ffff */ 	andi	$a1,$s6,0xffff
-/*  f16d05c:	00007012 */ 	mflo	$t6
-/*  f16d060:	026e2021 */ 	addu	$a0,$s3,$t6
-/*  f16d064:	0c003f67 */ 	jal	func0000fd9c
-/*  f16d068:	00000000 */ 	nop
-/*  f16d06c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f16d070:
-/*  f16d070:	1615fff3 */ 	bne	$s0,$s5,.L0f16d040
-/*  f16d074:	26310010 */ 	addiu	$s1,$s1,0x10
-/*  f16d078:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f16d07c:	3c018008 */ 	lui	$at,%hi(var800840ec)
-/*  f16d080:	a43640ec */ 	sh	$s6,%lo(var800840ec)($at)
-/*  f16d084:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f16d088:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f16d08c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f16d090:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f16d094:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f16d098:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f16d09c:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f16d0a0:	03e00008 */ 	jr	$ra
-/*  f16d0a4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void func0f16cfe8(u16 volume)
+{
+	s32 i;
+
+	if (volume > 0x5000) {
+		volume = 0x5000;
+	}
+
+	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
+		if (var800aaa38[i].unk00 != 0 && var800aaa38[i].unk00 != 5) {
+			func0000fd9c(&var80094ed8[i], volume);
+		}
+	}
+
+	var800840ec = volume;
+}
 
 bool func0f16d0a8(s32 arg0, s32 arg1)
 {
