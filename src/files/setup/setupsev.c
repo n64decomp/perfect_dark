@@ -1520,7 +1520,7 @@ u8 func100b_check_medlab_escapable[] = {
 u8 func1002_intro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_G5_INTRO)
+	play_cutscene_track(MUSIC_G5_INTRO)
 	camera_movement(0x0476)
 	cmd0175(60)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
@@ -1573,8 +1573,8 @@ u8 func1002_intro[] = {
 	unset_object_flag2(OBJ_TROLLEY, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_TROLLEY, OBJFLAG3_00000010)
 	object_do_animation(0x0478, OBJ_TROLLEY, 0x04, 0xfffe)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	enter_firstperson
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1584,7 +1584,7 @@ u8 func041b_outro[] = {
 	set_invincible(CHR_BOND)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_G5_OUTRO)
+	play_cutscene_track(MUSIC_G5_OUTRO)
 	camera_movement(0x0479)
 
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)

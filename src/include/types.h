@@ -6196,7 +6196,7 @@ struct optiongroup {
 };
 
 struct var800aa5d8 {
-	s32 unk00;
+	s32 tracktype;
 	s32 tracknum;
 	s32 unk08;
 	f32 unk0c;
@@ -6251,7 +6251,7 @@ struct var800a4ce8 {
 };
 
 struct var800aaa38 {
-	u32 unk00;
+	u32 tracktype;
 	u32 unk04;
 	u32 unk08;
 	u32 unk0c;

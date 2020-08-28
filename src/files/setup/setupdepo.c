@@ -1363,7 +1363,7 @@ u8 func1010_safe_cracking[] = {
 
 	label(0x06)
 	speak(CHR_BOND, L_DEPO(38), 0x7754, CHANNEL_5, COLOR_00_GREEN) // "INTRUDER ALERT - all security to the vault."
-	play_x_music(CHANNEL_10, 180)
+	play_x_track(XREASON_DEFAULT, 10, 180)
 	yield
 	set_countdown_timer(60)
 	show_hudmsg(CHR_P1P2, L_DEPO(36)) // "Initiating cracking routines."
@@ -1572,7 +1572,7 @@ u8 func1017_check_lasers_closed[] = {
 u8 func040d_intro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_G5_INTRO)
+	play_cutscene_track(MUSIC_G5_INTRO)
 	camera_movement(0x0165)
 	cmd0175(60)
 
@@ -1796,8 +1796,8 @@ u8 func040d_intro[] = {
 	set_chr_chrflag(CHR_INTRO_VICTIM, CHRCFLAG_00010000)
 	chr_do_animation(0x0167, -2, -1, 0x06, 0x00, CHR_INTRO_VICTIM, 2)
 
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	enter_firstperson
 	chr_do_animation(0x022a, -1, -1, 0x06, 0x00, CHR_INTRO_VICTIM, 2)
 	chr_drop_weapon(CHR_INTRO_VICTIM)
@@ -1825,7 +1825,7 @@ u8 func040e_meeting_cutscene[] = {
 	deactivate_alarm
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_G5_MIDCUTSCENE)
+	play_cutscene_track(MUSIC_G5_MIDCUTSCENE)
 	camera_movement(0x0191)
 	set_stage_flag(STAGEFLAG_MEETING_STARTED)
 	set_ailist(CHR_BLONDE, GAILIST_IDLE)
@@ -2049,8 +2049,8 @@ u8 func040e_meeting_cutscene[] = {
 
 	label(0x54)
 	label(0x06)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	enter_firstperson
 	set_stage_flag(STAGEFLAG_MEETING_FINISHED)
 	mute_channel(CHANNEL_10)
@@ -2092,7 +2092,7 @@ u8 func040f_outro_from_menu[] = {
 
 u8 func040f_outro[] = {
 	camera_movement(0x0196)
-	set_music_track(MUSIC_G5_OUTRO)
+	play_cutscene_track(MUSIC_G5_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)

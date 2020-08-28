@@ -2775,7 +2775,7 @@ u8 func0422_intro[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_INTRO)
 	yield
 #else
-	set_sfx_track(MUSIC_DEFECTION_INTRO_SFX)
+	play_temporary_track(MUSIC_DEFECTION_INTRO_SFX)
 
 	// No yield in this loop!
 	label(0x07)
@@ -2787,7 +2787,7 @@ u8 func0422_intro[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_INTRO)
 	yield
-	set_music_track(MUSIC_DEFECTION_INTRO)
+	play_cutscene_track(MUSIC_DEFECTION_INTRO)
 
 	label(0x08)
 	cmd01dd_if_something(0x01, /*goto*/ 0x2c)
@@ -3146,8 +3146,8 @@ u8 func0422_intro_042d[] = {
 	endloop(0x09)
 
 	label(0x06)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	set_savefile_flag(SAVEFILEFLAG_CI_TOUR_DONE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3160,7 +3160,7 @@ u8 func0416_outro_from_menu[] = {
 
 u8 func0416_outro[] = {
 	camera_movement(0x00f2)
-	set_music_track(MUSIC_DEFECTION_OUTRO)
+	play_cutscene_track(MUSIC_DEFECTION_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
@@ -3337,7 +3337,7 @@ u8 func1012_trigger_x_music[] = {
 	// the flag is only set during the outro cutscene, not during gameplay.
 	label(0x06)
 	if_stage_flag_eq(STAGEFLAG_LAB_ELEVATOR_CLOSED, TRUE, /*goto*/ 0x2c)
-	play_x_music(CHANNEL_10, 60)
+	play_x_track(XREASON_DEFAULT, 10, 60)
 	label(0x2c)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3478,7 +3478,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0xb7)
 
 	label(0x2c)
-	set_sfx_track(MUSIC_DEFECTION_INTRO_SFX)
+	play_temporary_track(MUSIC_DEFECTION_INTRO_SFX)
 
 	// No yield in this loop!
 	label(0xb8)
@@ -3487,7 +3487,7 @@ u8 func0422_intro_speaking[] = {
 	goto_first(0xb8)
 
 	label(0x2c)
-	set_music_track(MUSIC_DEFECTION_INTRO)
+	play_cutscene_track(MUSIC_DEFECTION_INTRO)
 
 	label(0xb9)
 	cmd01dd_if_something(0x01, /*goto*/ 0x2c)

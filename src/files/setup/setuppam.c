@@ -1492,7 +1492,7 @@ u8 func0c01_midcutscene[] = {
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_ELVIS, GAILIST_IDLE)
-	set_music_track(MUSIC_DEEPSEA_MIDCUTSCENE)
+	play_cutscene_track(MUSIC_DEEPSEA_MIDCUTSCENE)
 	camera_movement(0x01d4)
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
@@ -1843,9 +1843,9 @@ u8 func0c01_midcutscene[] = {
 	chr_move_to_pad(CHR_BOND, 0x019f, 0x01, /*goto*/ 0x2e)
 	label(0x2e)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	restart_default_music
-	reset_ambience
-	play_x_music(CHANNEL_10, 60)
+	stop_cutscene_track
+	stop_ambient_track
+	play_x_track(XREASON_DEFAULT, 10, 60)
 	set_ailist(CHR_ELVIS, GAILIST_IDLE)
 	chr_move_to_pad(CHR_ELVIS, 0x0017, 0x01, /*goto*/ 0x2e)
 	label(0x2e)
@@ -1878,7 +1878,7 @@ u8 func0c02_outro[] = {
 	hide_countdown_timer
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_DEEPSEA_OUTRO)
+	play_cutscene_track(MUSIC_DEEPSEA_OUTRO)
 	camera_movement(0x02d7)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
@@ -2029,7 +2029,7 @@ u8 func1002_intro[] = {
 	chr_draw_weapon_in_cutscene(CHR_BOND, WEAPON_FALCON2_SCOPE)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_DEEPSEA_INTRO)
+	play_cutscene_track(MUSIC_DEEPSEA_INTRO)
 	camera_movement(0x01ef)
 	cmd0175(60)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
@@ -2206,8 +2206,8 @@ u8 func1002_intro[] = {
 	label(0x45)
 	hide_object(0x07)
 	label(0x46)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	label(0x0d)
 	enter_firstperson
 	yield

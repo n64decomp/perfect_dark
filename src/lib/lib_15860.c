@@ -70,7 +70,7 @@ void initGlobalVariables(void)
 	g_Vars.mpplayerteams[2] = 2;
 	g_Vars.mpplayerteams[3] = 3;
 	g_Vars.mpquickteam = MPQUICKTEAM_5;
-	g_Vars.unk0004c8 = 0;
+	g_Vars.dontplaynrg = false;
 	g_Vars.in_cutscene = false;
 	g_Vars.unk0004d2 = -1;
 	g_Vars.unk0004d3 = 0;

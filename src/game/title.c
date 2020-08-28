@@ -1948,7 +1948,7 @@ void func0f017980(void)
 	g_TitleTimer = 549;
 	var80062730 = 0;
 
-	func0f16deb8(1);
+	musicStartTemporaryPrimary(1);
 }
 
 GLOBAL_ASM(
@@ -3960,7 +3960,7 @@ void titleTickRareLogo(void)
 		g_TitleTimer++;
 	} else {
 		if (g_TitleTimer == 0) {
-			func0f16d1bc(1, MUSIC_TITLE1, 0, 0x7fff);
+			musicStart(TRACKTYPE_PRIMARY, MUSIC_TITLE1, 0, 0x7fff);
 		}
 
 		g_TitleTimer += g_Vars.lvupdate240_60;

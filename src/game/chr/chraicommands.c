@@ -5953,11 +5953,11 @@ bool aiIfPlayerIsInvincible(void)
 /**
  * @cmd 00f9
  */
-bool aiAudioPlayXMusic(void)
+bool aiPlayXTrack(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	g_Vars.aioffset += 5;
-	audioPlayXTrack((s8)cmd[2], cmd[3], cmd[4]);
+	musicSetXReason((s8)cmd[2], cmd[3], cmd[4]);
 
 	return false;
 }
@@ -5965,11 +5965,11 @@ bool aiAudioPlayXMusic(void)
 /**
  * @cmd 00fa
  */
-bool aiAudioStopChannel(void)
+bool aiStopXTrack(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	g_Vars.aioffset += 3;
-	audioStopTrack((s8)cmd[2]);
+	musicUnsetXReason((s8)cmd[2]);
 
 	return false;
 }
@@ -5977,16 +5977,16 @@ bool aiAudioStopChannel(void)
 /**
  * @cmd 015b
  */
-bool aiAudioPlayMusic(void)
+bool aiPlayTrackIsolated(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if (cmd[2] == MUSIC_CI_TRAINING) {
 		u16 volume = optionsGetMusicVolume();
-		audioPlayTrack(cmd[2]);
+		musicPlayTrackIsolated(cmd[2]);
 		optionsSetMusicVolume(volume);
 	} else {
-		audioPlayTrack(cmd[2]);
+		musicPlayTrackIsolated(cmd[2]);
 	}
 
 	g_Vars.aioffset += 3;
@@ -5997,10 +5997,10 @@ bool aiAudioPlayMusic(void)
 /**
  * @cmd 015c
  */
-bool aiAudioRestartMusic(void)
+bool aiPlayDefaultTracks(void)
 {
 	g_Vars.aioffset += 2;
-	audioRestartTrack();
+	musicPlayDefaultTracks();
 
 	return false;
 }
@@ -6008,10 +6008,10 @@ bool aiAudioRestartMusic(void)
 /**
  * @cmd 017d
  */
-bool aiAudioSetMusicTrack(void)
+bool aiPlayCutsceneTrack(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	audioSetTrack(cmd[2]);
+	musicStartCutscene(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -6020,10 +6020,10 @@ bool aiAudioSetMusicTrack(void)
 /**
  * @cmd 017e
  */
-bool aiAudioRestartDefaultMusic(void)
+bool aiStopCutsceneTrack(void)
 {
 	g_Vars.aioffset += 2;
-	audioRestartDefaultTrack();
+	musicEndCutscene();
 
 	return false;
 }
@@ -6031,10 +6031,10 @@ bool aiAudioRestartDefaultMusic(void)
 /**
  * @cmd 017f
  */
-bool aiAudioSetSfxTrack(void)
+bool aiPlayTemporaryTrack(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	audioSetAuxTrack(cmd[2]);
+	musicStartTemporary(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -6043,10 +6043,10 @@ bool aiAudioSetSfxTrack(void)
 /**
  * @cmd 0180
  */
-bool aiAudioRestartSfx(void)
+bool aiStopAmbientTrack(void)
 {
 	g_Vars.aioffset += 2;
-	audioRestartAuxTrack();
+	musicEndAmbient();
 
 	return false;
 }
@@ -11268,9 +11268,9 @@ bool aiMiscellaneous(void)
 		var8006ae28 = value;
 		break;
 	case 5:
-		g_Rooms[room_id].flags &= ~ROOMFLAG_4000;
+		g_Rooms[room_id].flags &= ~ROOMFLAG_PLAYAMBIENTTRACK;
 		if (value) {
-			g_Rooms[room_id].flags |= ROOMFLAG_4000;
+			g_Rooms[room_id].flags |= ROOMFLAG_PLAYAMBIENTTRACK;
 		}
 		break;
 	case 6:
@@ -11288,9 +11288,9 @@ bool aiMiscellaneous(void)
 	case 9:
 		for (i = 1; i < g_Vars.roomcount; i++) {
 			if (value) {
-				g_Rooms[i].flags |= ROOMFLAG_4000;
+				g_Rooms[i].flags |= ROOMFLAG_PLAYAMBIENTTRACK;
 			} else {
-				g_Rooms[i].flags &= ~ROOMFLAG_4000;
+				g_Rooms[i].flags &= ~ROOMFLAG_PLAYAMBIENTTRACK;
 			}
 		}
 		break;
@@ -11376,10 +11376,10 @@ bool aiPlaySoundFromProp(void)
 /**
  * @cmd 01da
  */
-bool aiPlayMusicContinuously(void)
+bool aiPlayTemporaryPrimaryTrack(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f16deb8(cmd[2]);
+	musicStartTemporaryPrimary(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;

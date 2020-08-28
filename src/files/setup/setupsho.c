@@ -1852,7 +1852,7 @@ u8 func100a_army_room[] = {
 	set_lights_state(0x0082, LIGHTOP_3, 0x06, 0xff, 0x78)
 	set_lights_state(0x0087, LIGHTOP_3, 0x06, 0xff, 0x78)
 	set_stage_flag(STAGEFLAG_TRIGGER_SKEDAR_ARMY)
-	play_x_music(CHANNEL_10, 60)
+	play_x_track(XREASON_DEFAULT, 10, 60)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	goto_first(0x04)
 
@@ -1944,8 +1944,8 @@ u8 func040c_king_waiting[] = {
 	endloop(0x08)
 
 	label(0x2d)
-	stop_music_channel(-1)
-	play_music_track(MUSIC_SKEDARRUINS_KING)
+	stop_x_track(-1)
+	play_track_isolated(MUSIC_SKEDARRUINS_KING)
 	restart_timer
 
 	beginloop(0x09)
@@ -2543,7 +2543,7 @@ u8 func040f_update_spike_stageflags[] = {
 u8 func0c00_intro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_SKEDARRUINS_INTRO)
+	play_cutscene_track(MUSIC_SKEDARRUINS_INTRO)
 	set_stage_flag(STAGEFLAG_IN_INTRO)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_RUNFASTER)
 	set_chr_chrflag(CHR_KING2, CHRCFLAG_HIDDEN)
@@ -2797,8 +2797,8 @@ u8 func0c00_intro[] = {
 	set_object_flag2(0x2e, OBJFLAG2_04000000)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	enter_firstperson
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2825,7 +2825,7 @@ u8 func0414_outro[] = {
 	label(0x06)
 	set_chr_chrflag(CHR_TARGET, CHRCFLAG_KILLCOUNTABLE)
 	camera_movement(0x044c)
-	set_music_track(MUSIC_SKEDARRUINS_OUTRO)
+	play_cutscene_track(MUSIC_SKEDARRUINS_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
@@ -2985,8 +2985,8 @@ u8 func0414_outro[] = {
 	hide_object(0x25)
 	hide_object(0x26)
 	label(0x06)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

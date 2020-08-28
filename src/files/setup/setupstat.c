@@ -1067,7 +1067,7 @@ u8 unregistered_function[] = {
 u8 func1002_intro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_G5_INTRO)
+	play_cutscene_track(MUSIC_G5_INTRO)
 	set_chr_hiddenflag(CHR_ANTI, CHRHFLAG_00020000)
 	set_chr_hiddenflag(CHR_BLONDE, CHRHFLAG_00020000)
 	camera_movement(0x047c)
@@ -1134,8 +1134,8 @@ u8 func1002_intro[] = {
 
 	set_ailist(CHR_MAIAN1, AILIST_INIT_MAIAN)
 	set_ailist(CHR_MAIAN2, AILIST_INIT_MAIAN)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	enter_firstperson
 	yield
 	label(0x2d)
@@ -1147,7 +1147,7 @@ u8 func040b_outro[] = {
 	set_invincible(CHR_BOND)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_G5_OUTRO)
+	play_cutscene_track(MUSIC_G5_OUTRO)
 	camera_movement(0x0480)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)

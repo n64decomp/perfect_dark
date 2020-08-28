@@ -403,7 +403,7 @@ u8 func1011_setup_snow[] = {
 u8 func1002_intro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_CRASHSITE_INTRO)
+	play_cutscene_track(MUSIC_CRASHSITE_INTRO)
 	camera_movement(0x01b5)
 	cmd0175(60)
 
@@ -515,8 +515,8 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x01b6, -2, -1, 0x06, 0x00, CHR_BOND, 2)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	set_chr_hudpiece_visible(CHR_BOND, FALSE)
 	enter_firstperson
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -550,7 +550,7 @@ u8 func0402_outro[] = {
 	set_target_chr(CHR_COOP)
 	label(0x08)
 	camera_movement(0x01d9)
-	set_music_track(MUSIC_CRASHSITE_OUTRO)
+	play_cutscene_track(MUSIC_CRASHSITE_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)

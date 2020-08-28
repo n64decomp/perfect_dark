@@ -1937,7 +1937,7 @@ u8 func0416_intro[] = {
 	unset_object_flag(0x62, OBJFLAG_00000100)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_G5_INTRO)
+	play_cutscene_track(MUSIC_G5_INTRO)
 	camera_movement(0x0472)
 	cmd0175(60)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
@@ -2004,8 +2004,8 @@ u8 func0416_intro[] = {
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x0473, -2, -1, 0x06, 0x00, CHR_BOND, 2)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	enter_firstperson
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2016,7 +2016,7 @@ u8 func0417_outro[] = {
 	hide_object(OBJ_SHUTTLE1)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_G5_OUTRO)
+	play_cutscene_track(MUSIC_G5_OUTRO)
 	camera_movement(0x0474)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)

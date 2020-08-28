@@ -178,7 +178,7 @@ struct g_vars {
 	/*0004b0*/ u32 mpquickteam;
 	/*0004b4*/ s32 stagenum;
 	/*0004b8*/ struct prop *aibuddies[4];
-	/*0004c8*/ u32 unk0004c8;
+	/*0004c8*/ u32 dontplaynrg; // allow X music to be played (NRG = energy track)
 	/*0004cc*/ s32 in_cutscene;
 	/*0004d0*/ u8 unk0004d0;
 	/*0004d1*/ u8 unk0004d1;
@@ -762,12 +762,12 @@ extern u32 var800aa5a0;
 extern struct audiohandle *g_BoostAndSlayerAudioHandles[3];
 extern s32 g_BoostAndSlayerActiveTypes[3];
 extern u32 var800aa5cc;
-extern s32 var800aa5d0; // stage number
+extern s32 g_MusicStageNum; // stage number
 extern struct var800aa5d8 var800aa5d8[40];
 extern struct var800aaa38 var800aaa38[3];
-extern u32 var800aaa68[4];
+extern u32 g_AudioXReasonsActive[4];
 extern u32 var800aaa78[4];
-extern u32 var800aaa88[4];
+extern u32 g_AudioXReasonDurations[4];
 extern u32 var800aaa98;
 extern char *g_LangBanks[69];
 extern void *var800aabb4;

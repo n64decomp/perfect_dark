@@ -363,8 +363,8 @@ u8 func1005_main[] = {
 };
 
 u8 func1003_init_audio[] = {
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

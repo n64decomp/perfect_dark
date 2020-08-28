@@ -17,7 +17,7 @@
 #include "lib/lib_11420.h"
 #include "types.h"
 
-u16 audioGetVolume(void)
+u16 musicGetVolume(void)
 {
 	u32 volume;
 
@@ -34,7 +34,7 @@ u16 audioGetVolume(void)
 	return volume;
 }
 
-void func0f16cfe8(u16 volume)
+void musicSetVolume(u16 volume)
 {
 	s32 i;
 
@@ -43,7 +43,7 @@ void func0f16cfe8(u16 volume)
 	}
 
 	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
-		if (var800aaa38[i].unk00 != 0 && var800aaa38[i].unk00 != 5) {
+		if (var800aaa38[i].tracktype != 0 && var800aaa38[i].tracktype != TRACKTYPE_AMBIENT) {
 			func0000fd9c(&var80094ed8[i], volume);
 		}
 	}
@@ -51,12 +51,12 @@ void func0f16cfe8(u16 volume)
 	var800840ec = volume;
 }
 
-bool func0f16d0a8(s32 arg0, s32 arg1)
+bool func0f16d0a8(s32 tracktype, s32 arg1)
 {
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
-		if (var800aaa38[i].unk00 == arg0) {
+		if (var800aaa38[i].tracktype == tracktype) {
 			switch (arg1) {
 			case 0: return var800aaa38[i].unk04 <= 0;
 			case 1: return var800aaa38[i].unk04;
@@ -68,12 +68,12 @@ bool func0f16d0a8(s32 arg0, s32 arg1)
 	return false;
 }
 
-s32 func0f16d124(s32 arg0)
+s32 func0f16d124(s32 tracktype)
 {
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
-		if (var800aaa38[i].unk00 == arg0) {
+		if (var800aaa38[i].tracktype == tracktype) {
 			if (var800aaa38[i].unk08) {
 				return 2;
 			}
@@ -87,12 +87,12 @@ s32 func0f16d124(s32 arg0)
 	return 0;
 }
 
-s32 func0f16d180(s32 arg0)
+s32 func0f16d180(s32 tracktype)
 {
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
-		if (var800aaa38[i].unk00 == arg0) {
+		if (var800aaa38[i].tracktype == tracktype) {
 			return i;
 		}
 	}
@@ -100,10 +100,10 @@ s32 func0f16d180(s32 arg0)
 	return -1;
 }
 
-void func0f16d1bc(u32 arg0, u32 tracknum, f32 arg2, u16 volume)
+void musicStart(u32 tracktype, u32 tracknum, f32 arg2, u16 volume)
 {
 	if (var8005dda0 == 0) {
-		var800aa5d8[var800840c4].unk00 = arg0;
+		var800aa5d8[var800840c4].tracktype = tracktype;
 		var800aa5d8[var800840c4].tracknum = tracknum;
 		var800aa5d8[var800840c4].unk0c = arg2;
 		var800aa5d8[var800840c4].volume = volume;
@@ -115,10 +115,10 @@ void func0f16d1bc(u32 arg0, u32 tracknum, f32 arg2, u16 volume)
 	}
 }
 
-void func0f16d240(s32 arg0)
+void musicEnd(s32 tracktype)
 {
 	if (var8005dda0 == 0) {
-		var800aa5d8[var800840c4].unk00 = arg0;
+		var800aa5d8[var800840c4].tracktype = tracktype;
 		var800aa5d8[var800840c4].unk12 = 2;
 		var800aa5d8[var800840c4].unk14 = var800840d4++;
 		var800aa5d8[var800840c4].unk18 = 0;
@@ -127,10 +127,10 @@ void func0f16d240(s32 arg0)
 	}
 }
 
-void func0f16d2ac(s32 arg0, f32 arg1, s32 arg2)
+void func0f16d2ac(s32 tracktype, f32 arg1, s32 arg2)
 {
 	if (var8005dda0 == 0) {
-		var800aa5d8[var800840c4].unk00 = arg0;
+		var800aa5d8[var800840c4].tracktype = tracktype;
 		var800aa5d8[var800840c4].unk0c = arg1;
 		var800aa5d8[var800840c4].unk08 = arg2;
 		var800aa5d8[var800840c4].unk12 = 3;
@@ -147,9 +147,9 @@ void func0f16d324(void)
 
 	if (var8005dda0 == 0) {
 		for (i = 0; i < 4; i++) {
-			var800aaa68[i] = 0;
+			g_AudioXReasonsActive[i] = 0;
 			var800aaa78[i] = 0;
-			var800aaa88[i] = 0;
+			g_AudioXReasonDurations[i] = 0;
 		}
 
 		func0f16d430();
@@ -158,16 +158,16 @@ void func0f16d324(void)
 
 		var800840e8 = 0;
 		var800840f0 = 0;
-		g_AudioCurrentBgMusicNum = -1;
-		var800840c8 = -1;
-		var800840cc = -1;
+		g_MenuTrack = -1;
+		g_TemporaryPrimaryTrack = -1;
+		g_TemporaryAmbientTrack = -1;
 		var800840d8 = 0;
 	}
 }
 
 void func0f16d3d0(void)
 {
-	var800aa5d8[0].unk00 = 6;
+	var800aa5d8[0].tracktype = TRACKTYPE_6;
 	var800aa5d8[0].unk12 = 4;
 	var800aa5d8[0].unk14 = var800840d4++;
 	var800aa5d8[0].unk18 = 0;
@@ -186,7 +186,7 @@ void func0f16d430(void)
 
 void func0f16d44c(void)
 {
-	var800aa5d8[var800840c4].unk00 = 6;
+	var800aa5d8[var800840c4].tracktype = TRACKTYPE_6;
 	var800aa5d8[var800840c4].unk12 = 5;
 	var800aa5d8[var800840c4].unk14 = var800840d4++;
 	var800aa5d8[var800840c4].tracknum = var800840d0;
@@ -196,28 +196,28 @@ void func0f16d44c(void)
 	var800aa5d8[0].unk16 = 0;
 }
 
-#define TRACKNUM2() (var800840c8 != -1 ? var800840c8 : stageGetPrimaryTrack(var800aa5d0))
+#define PRIMARYTRACK() (g_TemporaryPrimaryTrack != -1 ? g_TemporaryPrimaryTrack : stageGetPrimaryTrack(g_MusicStageNum))
 
-void func0f16d4b8(f32 arg0)
+void musicStartPrimary(f32 arg0)
 {
-	if (TRACKNUM2() >= 0) {
-		func0f16d1bc(1, TRACKNUM2(), arg0, audioGetVolume());
+	if (PRIMARYTRACK() >= 0) {
+		musicStart(TRACKTYPE_PRIMARY, PRIMARYTRACK(), arg0, musicGetVolume());
 	}
 }
 
-#define TRACKNUM() (var800840cc != -1 ? var800840cc : stageGetAmbientTrack(var800aa5d0))
+#define AMBIENTTRACK() (g_TemporaryAmbientTrack != -1 ? g_TemporaryAmbientTrack : stageGetAmbientTrack(g_MusicStageNum))
 
-void func0f16d548(f32 arg0)
+void musicStartAmbient(f32 arg0)
 {
 	s32 pass = false;
 
-	if (TRACKNUM() >= 0) {
-		if (var800840cc != -1) {
+	if (AMBIENTTRACK() >= 0) {
+		if (g_TemporaryAmbientTrack != -1) {
 			pass = true;
-		} else if (audioIsAnyPlayerInRoomWithFlag4000()) {
-			if (g_Vars.tickmode != TICKMODE_6 && TRACKNUM() != stageGetAmbientTrack(var800aa5d0)) {
-				func0f16d240(5);
-				audioSetAuxTrack(stageGetAmbientTrack(var800aa5d0));
+		} else if (musicIsAnyPlayerInAmbientRoom()) {
+			if (g_Vars.tickmode != TICKMODE_6 && AMBIENTTRACK() != stageGetAmbientTrack(g_MusicStageNum)) {
+				musicEnd(TRACKTYPE_AMBIENT);
+				musicStartTemporary(stageGetAmbientTrack(g_MusicStageNum));
 				return;
 			}
 
@@ -226,15 +226,15 @@ void func0f16d548(f32 arg0)
 	}
 
 	if (pass) {
-		pass = func0f16d124(5);
+		pass = func0f16d124(TRACKTYPE_AMBIENT);
 
 		if (pass == 0 || pass == 2) {
-			func0f16d1bc(5, TRACKNUM(), arg0, VOLUME(g_SfxVolume));
+			musicStart(TRACKTYPE_AMBIENT, AMBIENTTRACK(), arg0, VOLUME(g_SfxVolume));
 		}
 	}
 }
 
-bool audioIsAnyPlayerInRoomWithFlag4000(void)
+bool musicIsAnyPlayerInAmbientRoom(void)
 {
 	s32 i;
 
@@ -260,7 +260,7 @@ bool audioIsAnyPlayerInRoomWithFlag4000(void)
 				&& g_Vars.players[i]->prop->rooms[0] != -1) {
 			bool hasflag;
 
-			if (g_Rooms[g_Vars.players[i]->prop->rooms[0]].flags & ROOMFLAG_4000) {
+			if (g_Rooms[g_Vars.players[i]->prop->rooms[0]].flags & ROOMFLAG_PLAYAMBIENTTRACK) {
 				hasflag = true;
 			} else {
 				hasflag = false;
@@ -275,44 +275,44 @@ bool audioIsAnyPlayerInRoomWithFlag4000(void)
 	return false;
 }
 
-void func0f16d89c(f32 arg0)
+void musicStartX(f32 arg0)
 {
-	func0f16d1bc(2, stageGetXTrack(var800aa5d0), arg0, audioGetVolume());
+	musicStart(TRACKTYPE_X, stageGetXTrack(g_MusicStageNum), arg0, musicGetVolume());
 }
 
-void func0f16d8e0(f32 arg0)
+void musicStartMenu(f32 arg0)
 {
-	func0f16d1bc(3, menuChooseMusic(), arg0, audioGetVolume());
+	musicStart(TRACKTYPE_MENU, menuChooseMusic(), arg0, musicGetVolume());
 }
 
-void audioSetBgMusic(s32 tracknum)
+void musicStartMenu2(s32 tracknum)
 {
-	if (tracknum != g_AudioCurrentBgMusicNum) {
-		func0f16d240(3);
-		func0f16d240(4);
-		func0f16d2ac(1, 0.5f, 1);
-		func0f16d2ac(2, 0.5f, 1);
-		func0f16d2ac(5, 0.5f, 1);
-		func0f16d1bc(3, tracknum, 0, audioGetVolume());
+	if (tracknum != g_MenuTrack) {
+		musicEnd(TRACKTYPE_MENU);
+		musicEnd(TRACKTYPE_DEATH);
+		func0f16d2ac(TRACKTYPE_PRIMARY, 0.5f, 1);
+		func0f16d2ac(TRACKTYPE_X, 0.5f, 1);
+		func0f16d2ac(TRACKTYPE_AMBIENT, 0.5f, 1);
+		musicStart(TRACKTYPE_MENU, tracknum, 0, musicGetVolume());
 	}
 
-	g_AudioCurrentBgMusicNum = tracknum;
+	g_MenuTrack = tracknum;
 }
 
-void func0f16d9a8(s32 stagenum)
+void musicSetStageAndStartMusic(s32 stagenum)
 {
-	var800aa5d0 = stagenum;
+	g_MusicStageNum = stagenum;
 
-	func0f16d4b8(0);
+	musicStartPrimary(0);
 
-	if (stageGetAmbientTrack(var800aa5d0) >= 0) {
-		func0f16d548(0);
+	if (stageGetAmbientTrack(g_MusicStageNum) >= 0) {
+		musicStartAmbient(0);
 	}
 }
 
-void func0f16d9f0(s32 stagenum)
+void musicSetStage(s32 stagenum)
 {
-	var800aa5d0 = stagenum;
+	g_MusicStageNum = stagenum;
 }
 
 void func0f16d9fc(void)
@@ -324,12 +324,12 @@ void func0f16d9fc(void)
 
 void func0f16da2c(void)
 {
-	if (var800840d8 == 0 && stageGetXTrack(var800aa5d0) >= 0) {
-		func0f16d240(2);
-		func0f16d240(3);
-		func0f16d240(4);
-		func0f16d2ac(1, 0.5, 1);
-		func0f16d89c(0);
+	if (var800840d8 == 0 && stageGetXTrack(g_MusicStageNum) >= 0) {
+		musicEnd(TRACKTYPE_X);
+		musicEnd(TRACKTYPE_MENU);
+		musicEnd(TRACKTYPE_DEATH);
+		func0f16d2ac(TRACKTYPE_PRIMARY, 0.5, 1);
+		musicStartX(0);
 
 		var800840d8 = 1;
 	}
@@ -338,72 +338,72 @@ void func0f16da2c(void)
 void func0f16daa4(void)
 {
 	if (var800840d8) {
-		func0f16d240(3);
-		func0f16d240(4);
-		func0f16d2ac(2, 1, 0);
+		musicEnd(TRACKTYPE_MENU);
+		musicEnd(TRACKTYPE_DEATH);
+		func0f16d2ac(TRACKTYPE_X, 1, 0);
 
-		if (g_Vars.unk0004c8 == 0) {
-			func0f16d4b8(0.5);
+		if (g_Vars.dontplaynrg == false) {
+			musicStartPrimary(0.5);
 		}
 
 		var800840d8 = 0;
 	}
 }
 
-void audioSetBgMusicForMenu(void)
+void musicStartForMenu(void)
 {
-	audioSetBgMusic(menuChooseMusic());
+	musicStartMenu2(menuChooseMusic());
 }
 
 void func0f16db3c(void)
 {
-	func0f16d2ac(3, 1, 0);
+	func0f16d2ac(TRACKTYPE_MENU, 1, 0);
 
-	if (func0f16d0a8(2, 1)) {
-		func0f16d89c(1);
+	if (func0f16d0a8(TRACKTYPE_X, 1)) {
+		musicStartX(1);
 	} else {
-		func0f16d4b8(1);
+		musicStartPrimary(1);
 	}
 
-	g_AudioCurrentBgMusicNum = -1;
+	g_MenuTrack = -1;
 }
 
-void audioPlaySoloDeathTrack(void)
+void musicStartSoloDeath(void)
 {
 	var800840e8 = 1;
 
 	func0f16d430();
-	func0f16d240(3);
-	func0f16d240(4);
-	audioStopTrack(-1);
-	func0f16d240(2);
-	func0f16d240(1);
-	func0f16d240(5);
-	func0f16d1bc(1, MUSIC_DEATH_SOLO, 0, VOLUME(g_SfxVolume) > audioGetVolume() ? VOLUME(g_SfxVolume) : audioGetVolume());
+	musicEnd(TRACKTYPE_MENU);
+	musicEnd(TRACKTYPE_DEATH);
+	musicUnsetXReason(-1);
+	musicEnd(TRACKTYPE_X);
+	musicEnd(TRACKTYPE_PRIMARY);
+	musicEnd(TRACKTYPE_AMBIENT);
+	musicStart(TRACKTYPE_PRIMARY, MUSIC_DEATH_SOLO, 0, VOLUME(g_SfxVolume) > musicGetVolume() ? VOLUME(g_SfxVolume) : musicGetVolume());
 	func0f16d44c();
 }
 
-void audioPlayMpDeathTrack(f32 arg0)
+void musicStartMpDeath(f32 arg0)
 {
 	func0f16d430();
-	func0f16d1bc(4, MUSIC_DEATH_MP, arg0, VOLUME(g_SfxVolume) > audioGetVolume() ? VOLUME(g_SfxVolume) : audioGetVolume());
+	musicStart(TRACKTYPE_DEATH, MUSIC_DEATH_MP, arg0, VOLUME(g_SfxVolume) > musicGetVolume() ? VOLUME(g_SfxVolume) : musicGetVolume());
 	func0f16d44c();
 }
 
 void func0f16dd14(void)
 {
 	func0f16d430();
-	func0f16d240(3);
-	func0f16d240(4);
-	func0f16d240(5);
+	musicEnd(TRACKTYPE_MENU);
+	musicEnd(TRACKTYPE_DEATH);
+	musicEnd(TRACKTYPE_AMBIENT);
 
 	if (var800840d8) {
-		func0f16d2ac(2, 0.1f, 1);
+		func0f16d2ac(TRACKTYPE_X, 0.1f, 1);
 	} else {
-		func0f16d2ac(1, 0.1f, 1);
+		func0f16d2ac(TRACKTYPE_PRIMARY, 0.1f, 1);
 	}
 
-	audioPlayMpDeathTrack(0);
+	musicStartMpDeath(0);
 	var800840f0 = 1200;
 	var800840dc = 1;
 	func0f16d44c();
@@ -411,112 +411,112 @@ void func0f16dd14(void)
 
 void func0f16ddb0(void)
 {
-	func0f16d2ac(4, 2, 0);
+	func0f16d2ac(TRACKTYPE_DEATH, 2, 0);
 
 	if (var800840d8) {
-		func0f16d89c(2);
+		musicStartX(2);
 	} else {
-		func0f16d4b8(2);
+		musicStartPrimary(2);
 	}
 
 	var800840dc = 0;
 }
 
-void audioPlayTrack(s32 tracknum)
+void musicPlayTrackIsolated(s32 tracknum)
 {
 	func0f16d430();
-	func0f16d240(3);
-	func0f16d240(4);
-	audioStopTrack(-1);
-	func0f16d240(2);
-	func0f16d240(1);
-	func0f16d240(5);
-	func0f16d1bc(1, tracknum, 0, audioGetVolume());
+	musicEnd(TRACKTYPE_MENU);
+	musicEnd(TRACKTYPE_DEATH);
+	musicUnsetXReason(-1);
+	musicEnd(TRACKTYPE_X);
+	musicEnd(TRACKTYPE_PRIMARY);
+	musicEnd(TRACKTYPE_AMBIENT);
+	musicStart(TRACKTYPE_PRIMARY, tracknum, 0, musicGetVolume());
 	func0f16d44c();
 }
 
-void audioRestartTrack(void)
+void musicPlayDefaultTracks(void)
 {
-	func0f16d240(1);
-	func0f16d240(5);
-	func0f16d4b8(0.5f);
+	musicEnd(TRACKTYPE_PRIMARY);
+	musicEnd(TRACKTYPE_AMBIENT);
+	musicStartPrimary(0.5f);
 }
 
-void func0f16deb8(s32 tracknum)
+void musicStartTemporaryPrimary(s32 tracknum)
 {
-	func0f16d240(1);
+	musicEnd(TRACKTYPE_PRIMARY);
 
-	var800840c8 = tracknum;
+	g_TemporaryPrimaryTrack = tracknum;
 
-	func0f16d4b8(0.5f);
+	musicStartPrimary(0.5f);
 }
 
-void audioSetTrack(s32 tracknum)
+void musicStartCutscene(s32 tracknum)
 {
 	u32 volume;
 
-	func0f16d240(3);
-	func0f16d240(4);
-	audioStopTrack(-1);
-	func0f16d240(2);
-	func0f16d240(1);
+	musicEnd(TRACKTYPE_MENU);
+	musicEnd(TRACKTYPE_DEATH);
+	musicUnsetXReason(-1);
+	musicEnd(TRACKTYPE_X);
+	musicEnd(TRACKTYPE_PRIMARY);
 
-	if (g_SfxVolume < audioGetVolume()) {
-		volume = audioGetVolume();
+	if (g_SfxVolume < musicGetVolume()) {
+		volume = musicGetVolume();
 	} else {
 		volume = g_SfxVolume;
 	}
 
-	func0f16d1bc(1, tracknum, 0, volume);
+	musicStart(TRACKTYPE_PRIMARY, tracknum, 0, volume);
 
-	g_Vars.unk0004c8 = 1;
+	g_Vars.dontplaynrg = true;
 }
 
-void audioRestartDefaultTrack(void)
+void musicEndCutscene(void)
 {
-	g_Vars.unk0004c8 = 0;
+	g_Vars.dontplaynrg = false;
 
 	if (var800624a4 == 0) {
-		func0f16d240(1);
-		func0f16d240(5);
-		func0f16d4b8(0.5f);
+		musicEnd(TRACKTYPE_PRIMARY);
+		musicEnd(TRACKTYPE_AMBIENT);
+		musicStartPrimary(0.5f);
 	}
 }
 
-void audioSetAuxTrack(s32 tracknum)
+void musicStartTemporary(s32 tracknum)
 {
-	var800840cc = tracknum;
-	func0f16d240(5);
+	g_TemporaryAmbientTrack = tracknum;
+	musicEnd(TRACKTYPE_AMBIENT);
 
-	func0f16d1bc(5, tracknum, 0, VOLUME(g_SfxVolume));
+	musicStart(TRACKTYPE_AMBIENT, tracknum, 0, VOLUME(g_SfxVolume));
 }
 
-void audioRestartAuxTrack(void)
+void musicEndAmbient(void)
 {
-	var800840cc = -1;
-	func0f16d240(5);
+	g_TemporaryAmbientTrack = -1;
+	musicEnd(TRACKTYPE_AMBIENT);
 }
 
-void audioPlayXTrack(s32 index, u32 arg1, u32 duration)
+void musicSetXReason(s32 reason, u32 arg1, u32 duration)
 {
-	if (var800aaa68[index] == false) {
-		var800aaa68[index] = true;
-		var800aaa78[index] = arg1 * 240;
-		var800aaa88[index] = duration * 240;
+	if (g_AudioXReasonsActive[reason] == false) {
+		g_AudioXReasonsActive[reason] = true;
+		var800aaa78[reason] = arg1 * 240;
+		g_AudioXReasonDurations[reason] = duration * 240;
 	}
 }
 
-void audioStopTrack(s32 index)
+void musicUnsetXReason(s32 reason)
 {
 	s32 i;
 
-	if (index >= 0) {
-		var800aaa68[index] = false;
+	if (reason >= 0) {
+		g_AudioXReasonsActive[reason] = false;
 	} else {
 		for (i = 0; i < 4; i++) {
-			var800aaa68[i] = false;
+			g_AudioXReasonsActive[i] = false;
 			var800aaa78[i] = 0;
-			var800aaa88[i] = 0;
+			g_AudioXReasonDurations[i] = 0;
 		}
 
 		if (var800840d8) {
@@ -527,16 +527,14 @@ void audioStopTrack(s32 index)
 
 void func0f16e138(void)
 {
-	if (var800840cc == -1) {
-		if (audioIsAnyPlayerInRoomWithFlag4000()) {
-			func0f16d548(1);
-		} else if (func0f16d124(5) == 1) {
-			func0f16d2ac(5, 1, 1);
+	if (g_TemporaryAmbientTrack == -1) {
+		if (musicIsAnyPlayerInAmbientRoom()) {
+			musicStartAmbient(1);
+		} else if (func0f16d124(TRACKTYPE_AMBIENT) == 1) {
+			func0f16d2ac(TRACKTYPE_AMBIENT, 1, 1);
 		}
-	} else {
-		if (stageGetAmbientTrack(var800aa5d0) >= 0) {
-			func0f16d548(1);
-		}
+	} else if (stageGetAmbientTrack(g_MusicStageNum) >= 0) {
+		musicStartAmbient(1);
 	}
 }
 

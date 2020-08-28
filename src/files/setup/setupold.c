@@ -45,7 +45,7 @@ struct path paths[] = {
 u8 func0c00_017c[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_G5_INTRO)
+	play_cutscene_track(MUSIC_G5_INTRO)
 	camera_movement(0x045d)
 	title_init_mode(TITLEAIMODE_RARELOGO)
 
@@ -155,8 +155,8 @@ u8 func0c00_017c[] = {
 	endloop(0x15)
 
 	label(0x59)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	enter_firstperson
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

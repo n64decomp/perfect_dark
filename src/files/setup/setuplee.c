@@ -1917,7 +1917,7 @@ u8 func100c_engineroom[] = {
 	if_chr_dead(CHR_ELVIS, /*goto*/ 0x2c)
 	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x2c)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_RUN_FROM_ENGINEROOM)
-	play_x_music(CHANNEL_10, 10)
+	play_x_track(XREASON_DEFAULT, 10, 10)
 	speak(CHR_BOND, L_LEE(46), 0x73d7, CHANNEL_6, COLOR_04_ORANGE) // "We have to get out of here!"
 	label(0x2c)
 	set_countdown_timer(10)
@@ -2532,7 +2532,7 @@ u8 func1011_check_end_level[] = {
 u8 func1003_intro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_ATTACKSHIP_INTRO)
+	play_cutscene_track(MUSIC_ATTACKSHIP_INTRO)
 	camera_movement(0x01c2)
 	cmd0175(60)
 
@@ -2782,8 +2782,8 @@ u8 func1003_intro[] = {
 	chr_move_to_pad(CHR_CASS, 0x00df, 0x01, /*goto*/ 0x2c)
 	label(0x2c)
 	set_ailist(CHR_CASS, AILIST_CASS)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2798,7 +2798,7 @@ u8 func0c01_outro[] = {
 	label(0x06)
 	hide_object(0x2c)
 	camera_movement(0x01e1)
-	set_music_track(MUSIC_ATTACKSHIP_OUTRO)
+	play_cutscene_track(MUSIC_ATTACKSHIP_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
@@ -3468,7 +3468,7 @@ u8 func101e_bridge_music[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	play_x_music(CHANNEL_10, 60)
+	play_x_track(XREASON_DEFAULT, 10, 60)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

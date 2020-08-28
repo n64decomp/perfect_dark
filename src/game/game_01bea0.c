@@ -1314,7 +1314,7 @@ glabel var7f1a863c
 .L0f01d00c:
 /*  f01d00c:	52000004 */ 	beqzl	$s0,.L0f01d020
 /*  f01d010:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f01d014:	0fc5b6c5 */ 	jal	audioSetBgMusicForMenu
+/*  f01d014:	0fc5b6c5 */ 	jal	musicStartForMenu
 /*  f01d018:	00000000 */ 	nop
 .L0f01d01c:
 /*  f01d01c:	2419ffff */ 	addiu	$t9,$zero,-1
@@ -2415,7 +2415,7 @@ glabel var7f1a863c
 //				}
 //
 //				if (pass) {
-//					audioSetBgMusicForMenu();
+//					musicStartForMenu();
 //				}
 //			}
 //

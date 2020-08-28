@@ -1350,7 +1350,7 @@ u8 func100b_final_hangar[] = {
 
 	label(0x2e)
 	set_stage_flag(STAGEFLAG_ENTERED_FINAL_HANGAR)
-	play_x_music(CHANNEL_10, 60)
+	play_x_track(XREASON_DEFAULT, 10, 60)
 	restart_timer
 	unlock_door(0x11, 0x08)
 	unlock_door(0x12, 0x08)
@@ -1778,7 +1778,7 @@ u8 func040e_outro[] = {
 	open_door(0x11)
 	hide_object(OBJ_HOVERBIKE)
 	camera_movement(0x017d)
-	set_music_track(MUSIC_INFILTRATION_OUTRO)
+	play_cutscene_track(MUSIC_INFILTRATION_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
@@ -1922,7 +1922,7 @@ u8 func0410_intro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	if_controller_button_pressed(/*goto*/ 0x54)
-	set_music_track(MUSIC_INFILTRATION_INTRO)
+	play_cutscene_track(MUSIC_INFILTRATION_INTRO)
 	camera_movement(0x0181)
 	set_chr_chrflag(0x0c, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0x0d, CHRCFLAG_HIDDEN)
@@ -2132,8 +2132,8 @@ u8 func0410_intro[] = {
 	unset_object_flag2(OBJ_INTERCEPTOR1, OBJFLAG2_INVISIBLE)
 	unset_object_flag2(OBJ_INTERCEPTOR2, OBJFLAG2_INVISIBLE)
 	unset_object_flag2(OBJ_INTERCEPTOR3, OBJFLAG2_INVISIBLE)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	enter_firstperson
 	set_stage_flag(STAGEFLAG_INTRO_FINISHED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2426,7 +2426,7 @@ u8 func1011_bunker_explosives[] = {
 	label(0x2e)
 	show_hudmsg(CHR_P1P2, L_LUE(75)) // "Foreign object detected - security alerted."
 	label(0x06)
-	play_x_music(CHANNEL_10, 20)
+	play_x_track(XREASON_DEFAULT, 10, 20)
 	yield
 	show_countdown_timer
 	start_countdown_timer

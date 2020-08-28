@@ -18,10 +18,10 @@
 #include "stagesetup.h"
 #include "types.h"
 
-s32 g_AudioCurrentBgMusicNum = -1;
+s32 g_MenuTrack = -1;
 u32 var800840c4 = 0x00000000;
-s32 var800840c8 = -1;
-s32 var800840cc = -1;
+s32 g_TemporaryPrimaryTrack = -1;
+s32 g_TemporaryAmbientTrack = -1;
 s32 var800840d0 = -1;
 u32 var800840d4 = 0x00000000;
 u32 var800840d8 = 0x00000000;

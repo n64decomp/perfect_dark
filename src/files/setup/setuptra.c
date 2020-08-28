@@ -979,7 +979,7 @@ u8 func0404_jonathan_following_and_mine[] = {
 	endloop(0x0c)
 
 	label(0x06)
-	play_x_music(CHANNEL_10, 30)
+	play_x_track(XREASON_DEFAULT, 10, 30)
 	restart_timer
 	try_face_entity(ENTITYTYPE_PAD, 0x0173, /*goto*/ 0xc4)
 
@@ -1279,7 +1279,7 @@ u8 func0413_jonathan_hangar[] = {
 		// Jon is up the ramp
 		label(0x33)
 		set_stage_flag(STAGEFLAG_HANGAR_X_MUSIC_STARTED)
-		play_x_music(CHANNEL_10, 90)
+		play_x_track(XREASON_DEFAULT, 10, 90)
 		run_to_pad(0x016f)
 		set_stage_flag(STAGEFLAG_HANGAR_X_MUSIC_STARTED)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -1353,7 +1353,7 @@ u8 func0413_jonathan_hangar[] = {
 	label(0x06)
 	set_stage_flag(STAGEFLAG_JO_DOING_TERMINALS)
 	set_stage_flag(STAGEFLAG_HANGAR_X_MUSIC_STARTED)
-	play_x_music(CHANNEL_10, 90)
+	play_x_track(XREASON_DEFAULT, 10, 90)
 	set_ailist(CHR_SELF, AILIST_JONATHAN_AFTER_TERMINALS)
 
 	// Elvis dead
@@ -2468,7 +2468,7 @@ u8 func1019_enable_biotechs_after_stash[] = {
 u8 func1002_intro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_ESCAPE_INTRO)
+	play_cutscene_track(MUSIC_ESCAPE_INTRO)
 	camera_movement(0x019c)
 	cmd0175(60)
 
@@ -2783,8 +2783,8 @@ u8 func1002_intro[] = {
 
 	drop_concealed_items(0x23)
 	drop_concealed_items(0x24)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	enter_firstperson
 	revoke_control(CHR_BOND, 0)
 	yield
@@ -2800,7 +2800,7 @@ u8 func1002_intro[] = {
 u8 func0c01_midcutscene[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_ESCAPE_MIDCUTSCENE)
+	play_cutscene_track(MUSIC_ESCAPE_MIDCUTSCENE)
 	camera_movement(0x01cb)
 	cmd0175(60)
 	hide_object(OBJ_HOVERBED)
@@ -2961,8 +2961,8 @@ u8 func0c01_midcutscene[] = {
 	label(0x68)
 	set_stage_flag(STAGEFLAG_INTRO_DONE)
 	mute_channel(CHANNEL_7)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_TARGET, CHRCFLAG_UNPLAYABLE)
@@ -3016,7 +3016,7 @@ u8 func0c02_outro[] = {
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_ESCAPE_OUTRO_LONG)
+	play_cutscene_track(MUSIC_ESCAPE_OUTRO_LONG)
 	camera_movement(0x02d2)
 	label(0x32)
 	hide_object(OBJ_UFO2)
@@ -3072,8 +3072,8 @@ u8 func0c02_outro[] = {
 	label(0x06)
 	hide_object(OBJ_UFO2)
 	if_stage_flag_eq(STAGEFLAG_JO_DOING_TERMINALS, FALSE, /*goto*/ 0x32)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 
 	label(0x32)
 	goto_next(0x06)
@@ -3123,7 +3123,7 @@ u8 func0415_ufo_exit[] = {
 
 	label(0x06)
 	misc_command(0x0000, 0x0f, 0x00)
-	reset_ambience
+	stop_ambient_track
 	hide_object(OBJ_UFO1)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3161,7 +3161,7 @@ u8 func1021_jo_escaping[] = {
 	stop_countdown_timer
 	label(0x62)
 	set_savefile_flag(SAVEFILEFLAG_DEFENSE_JON)
-	set_music_track(MUSIC_ESCAPE_OUTRO_LONG)
+	play_cutscene_track(MUSIC_ESCAPE_OUTRO_LONG)
 	camera_movement(0x02d4)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)

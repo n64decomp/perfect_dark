@@ -1933,7 +1933,7 @@ u8 func100c_cockpit[] = {
 	set_object_image(0x03, 0x00, 0x13)
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
 	show_hudmsg(CHR_BOND, L_RIT(28)) // "Pilots have been saved."
-	reset_ambience
+	stop_ambient_track
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Unreachable
@@ -2020,7 +2020,7 @@ u8 func0428_start_path02[] = {
 u8 func1002_intro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_AIRFORCEONE_INTRO)
+	play_cutscene_track(MUSIC_AIRFORCEONE_INTRO)
 	camera_movement(0x018c)
 	set_chr_chrflag(0x30, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x30, CHRCFLAG_HIDDEN)
@@ -2184,8 +2184,8 @@ u8 func1002_intro[] = {
 	label(0x06)
 	chr_do_animation(0x01d1, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	label(0x2d)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	unset_chr_chrflag(0x13, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x14, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_PRESIDENT, AILIST_INIT_PRESIDENT)
@@ -3440,7 +3440,7 @@ u8 func0423_outro[] = {
 	set_target_chr(CHR_COOP)
 	label(0x06)
 	camera_movement(0x02d8)
-	set_music_track(MUSIC_AIRFORCEONE_OUTRO)
+	play_cutscene_track(MUSIC_AIRFORCEONE_OUTRO)
 	misc_command(0x0000, 0x0d, 0x00)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
@@ -3552,7 +3552,7 @@ u8 func0423_outro[] = {
 	label(0x5f)
 	mute_channel(CHANNEL_10)
 	label(0x06)
-	restart_default_music
+	stop_cutscene_track
 	misc_command(0x0000, 0x0d, 0x00)
 	hide_object(0x19)
 	hide_object(0x1a)
@@ -3573,7 +3573,7 @@ u8 func1019_midcutscene[] = {
 	if_stage_flag_eq(STAGEFLAG_MIDCUTSCENE_STARTED, TRUE, /*goto*/ 0x2d)
 	set_stage_flag(STAGEFLAG_MIDCUTSCENE_STARTED)
 	dprint 'm','i','d',' ','c','u','t','s','c','e','n','e','\n',0,
-	set_music_track(MUSIC_AIRFORCEONE_MIDCUTSCENE)
+	play_cutscene_track(MUSIC_AIRFORCEONE_MIDCUTSCENE)
 	label(0x2d)
 	camera_movement(0x02df)
 
@@ -3607,8 +3607,8 @@ u8 func1019_midcutscene[] = {
 	hide_object(0x19)
 	label(0x06)
 	set_stage_flag(STAGEFLAG_MIDCUTSCENE_FINISHED)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_SELF, GAILIST_END_CINEMA)

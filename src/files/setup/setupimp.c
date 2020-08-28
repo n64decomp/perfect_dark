@@ -867,7 +867,7 @@ u8 func1009_autogun_switch3[] = {
 
 u8 func0c01_outro[] = {
 	camera_movement(0x01a2)
-	set_music_track(MUSIC_DEFENSE_OUTRO)
+	play_cutscene_track(MUSIC_DEFENSE_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
@@ -1148,15 +1148,15 @@ u8 func0c01_outro[] = {
 
 	label(0xb8)
 	mute_channel(CHANNEL_10)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
 u8 func1002_intro[] = {
-	set_music_track(MUSIC_DEFENSE_INTRO)
+	play_cutscene_track(MUSIC_DEFENSE_INTRO)
 	camera_movement(0x02bc)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
@@ -1523,8 +1523,8 @@ u8 func1002_intro[] = {
 	set_object_flag3(0x53, OBJFLAG3_00000010)
 	object_do_animation(0x02c6, 0x53, 0x04, 0xfffe)
 	set_stage_flag(STAGEFLAG_INTRO_FINISHED)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	remove_chr(0x19)
@@ -2862,7 +2862,7 @@ u8 func1014_carrington_messages[] = {
 	endloop(0xc6)
 
 	label(0x08)
-	play_x_music(CHANNEL_10, 120)
+	play_x_track(XREASON_DEFAULT, 10, 120)
 	set_countdown_timer(120)
 	show_countdown_timer
 	start_countdown_timer

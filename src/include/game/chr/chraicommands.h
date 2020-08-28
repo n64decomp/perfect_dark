@@ -249,8 +249,8 @@
 /*0x00f6*/ bool ai00f6(void);
 /*0x00f7*/ bool aiIfAllObjectivesComplete(void);
 /*0x00f8*/ bool aiIfPlayerIsInvincible(void);
-/*0x00f9*/ bool aiAudioPlayXMusic(void);
-/*0x00fa*/ bool aiAudioStopChannel(void);
+/*0x00f9*/ bool aiPlayXTrack(void);
+/*0x00fa*/ bool aiStopXTrack(void);
 /*0x00fb*/ bool aiChrExplosions(void);
 /*0x00fc*/ bool aiIfKillCountGreaterThan(void);
 /*0x00fd*/ bool ai00fd(void);
@@ -332,8 +332,8 @@
 /*0x014b*/ bool aiIfNotListening(void);
 /*0x0152*/ bool aiIfNumChrsInSquadronGreaterThan(void);
 /*0x0157*/ bool aiSetTintedGlassEnabled(void);
-/*0x015b*/ bool aiAudioPlayMusic(void);
-/*0x015c*/ bool aiAudioRestartMusic(void);
+/*0x015b*/ bool aiPlayTrackIsolated(void);
+/*0x015c*/ bool aiPlayDefaultTracks(void);
 /*0x0165*/ bool aiIfChrInjured(void);
 /*0x0166*/ bool aiIfAction(void);
 /*0x0167*/ bool aiHovercopterFireRocket(void);
@@ -358,10 +358,10 @@
 /*0x017a*/ bool aiIfCanSeeAttackTarget(void);
 /*0x017b*/ bool aiIfChrKnockedOut(void);
 /*0x017c*/ bool aiAssignSound(void);
-/*0x017d*/ bool aiAudioSetMusicTrack(void);
-/*0x017e*/ bool aiAudioRestartDefaultMusic(void);
-/*0x017f*/ bool aiAudioSetSfxTrack(void);
-/*0x0180*/ bool aiAudioRestartSfx(void);
+/*0x017d*/ bool aiPlayCutsceneTrack(void);
+/*0x017e*/ bool aiStopCutsceneTrack(void);
+/*0x017f*/ bool aiPlayTemporaryTrack(void);
+/*0x0180*/ bool aiStopAmbientTrack(void);
 /*0x0181*/ bool aiIfPlayerLookingAtObject(void);
 /*0x0182*/ bool aiPunchOrKick(void);
 /*0x0183*/ bool aiIfTargetIsPlayer(void);
@@ -437,7 +437,7 @@
 /*0x01d7*/ bool aiIfDistanceToTarget2LessThan(void);
 /*0x01d8*/ bool aiIfDistanceToTarget2GreaterThan(void);
 /*0x01d9*/ bool aiPlaySoundFromProp(void);
-/*0x01da*/ bool aiPlayMusicContinuously(void);
+/*0x01da*/ bool aiPlayTemporaryPrimaryTrack(void);
 /*0x01db*/ bool aiChrKill(void);
 /*0x01dc*/ bool aiRemoveWeaponFromInventory(void);
 /*0x01dd*/ bool ai01dd(void);

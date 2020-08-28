@@ -2225,7 +2225,7 @@ u8 func100e_experiment_terminals_destroyed[] = {
 };
 
 u8 func0416_intro[] = {
-	set_music_track(MUSIC_INVESTIGATION_INTRO)
+	play_cutscene_track(MUSIC_INVESTIGATION_INTRO)
 	camera_movement(0x00f5)
 	cmd0175(60)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
@@ -2339,8 +2339,8 @@ u8 func0416_intro[] = {
 
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	enter_firstperson
 	yield
 	chr_do_animation(0x020b, -1, -1, 0x06, 0x00, CHR_INTRO_GUARD, 2)
@@ -2351,7 +2351,7 @@ u8 func0416_intro[] = {
 };
 
 u8 func0417_outro[] = {
-	set_music_track(MUSIC_INVESTIGATION_OUTRO)
+	play_cutscene_track(MUSIC_INVESTIGATION_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_stage_flag(STAGEFLAG_TRIGGER_OUTRO_AUDIO)

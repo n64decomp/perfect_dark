@@ -271,7 +271,7 @@ void func0f167e7c(s32 stagenum)
 	g_Vars.unk000488 = 0;
 	g_Vars.unk000440 = -1;
 	g_Vars.unk000444 = -1;
-	g_Vars.unk0004c8 = 0;
+	g_Vars.dontplaynrg = false;
 	g_Vars.in_cutscene = 0;
 	g_Vars.unk0004d3 = 0;
 	g_Vars.unk0004d6 = 0;
@@ -308,9 +308,9 @@ void func0f167e7c(s32 stagenum)
 		func0f0147a0(g_Vars.stagenum);
 
 		if (g_Vars.normmplayerisrunning) {
-			func0f16d9a8(stagenum);
+			musicSetStageAndStartMusic(stagenum);
 		} else {
-			func0f16d9f0(stagenum);
+			musicSetStage(stagenum);
 		}
 
 		if (g_Vars.normmplayerisrunning) {

@@ -2192,20 +2192,35 @@
 
 /**
  * Starts the X music theme. The music will play for the given number of seconds
- * before reverting to the standard level theme.
+ * before reverting to the primary track.
+ *
+ * The xreason argument is expected to be an XREASON constant. The command can
+ * be called multiple times with different XREASONs and durations, essentially
+ * overlapping them and causing the X music to continue playing while any reason
+ * is still in its duration. In practice this feature is not used - xreason is
+ * always 1 (XREASON_DEFAULT).
+ *
+ * The u2 argument appears to be a timer value as well, but its purpose is
+ * unknown.
  */
-#define play_x_music(channel, seconds) \
+#define play_x_track(xreason, u2, seconds) \
 	mkshort(0x00f9), \
-	0x01, \
-	channel, \
+	xreason, \
+	u2, \
 	seconds,
 
 /**
- * Stops the music in the given channel.
+ * Stops the X music which has the given reason. If there is no other reason to
+ * play X music then the level's primary track will be played.
+ *
+ * See the description of play_x_track for an explanation of xreasons.
+ *
+ * The special xreason value of -1 can be used to stop the X music regardless of
+ * reason.
  */
-#define stop_music_channel(channel) \
+#define stop_x_track(xreason) \
 	mkshort(0x00fa), \
-	channel,
+	xreason,
 
 /**
  * Surround the given player in infinite explosions.
@@ -3043,16 +3058,23 @@
 	bool,
 
 /**
- * Plays the given music track.
+ * Plays the given track in isolation.
+ *
+ * Any existing X track and ambient track is stopped, and the given track will
+ * play.
+ *
+ * It's used to start the CI training music and the Skedar King battle music.
  */
-#define play_music_track(id) \
+#define play_track_isolated(id) \
 	mkshort(0x015b), \
 	id,
 
 /**
- * Restarts the default stage music from the beginning.
+ * Restarts the default tracks (primary and ambient, if any) from the beginning.
+ *
+ * It's used to restart the default CI music after a training session.
  */
-#define restart_music \
+#define play_default_tracks \
 	mkshort(0x015c),
 
 /**
@@ -3270,30 +3292,39 @@
 	channel,
 
 /**
- * Sets the music track for this stage.
+ * Plays the given track for the purpose of a cutscene.
+ *
+ * When playing via this command, the X music will be impossible to trigger
+ * until stop_cutscene_track is called.
  */
-#define set_music_track(id) \
+#define play_cutscene_track(tracknum) \
 	mkshort(0x017d), \
-	id,
+	tracknum,
 
 /**
- * Restarts the default stage music.
+ * Stops the cutscene track and restarts the default tracks for the current
+ * stage.
  */
-#define restart_default_music \
+#define stop_cutscene_track \
 	mkshort(0x017e),
 
 /**
- * Sets the sound effects track. This is typically background noise like wind,
- * waves and the Area 51 announcements.
+ * Overrides the ambient track temporarily to the given one and plays it.
+ *
+ * It is used to change the ambient theme for the Defection intro and Extraction
+ * outro to traffic noises.
  */
-#define set_sfx_track(id) \
+#define play_temporary_track(tracknum) \
 	mkshort(0x017f), \
-	id,
+	tracknum,
 
 /**
- * Resets the sound effects track.
+ * Stops the ambient track.
+ *
+ * Typically used when ending a cutscene, because cutscenes can have their own
+ * ambient tracks.
  */
-#define reset_ambience \
+#define stop_ambient_track \
 	mkshort(0x0180),
 
 /**

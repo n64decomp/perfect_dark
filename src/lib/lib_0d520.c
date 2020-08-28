@@ -1483,7 +1483,7 @@ glabel func0000e684
 .L0000e7d0:
 /*     e7d0:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*     e7d4:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*     e7d8:	0fc5b6c5 */ 	jal	audioSetBgMusicForMenu
+/*     e7d8:	0fc5b6c5 */ 	jal	musicStartForMenu
 /*     e7dc:	00000000 */ 	nop
 /*     e7e0:	10000057 */ 	b	.L0000e940
 /*     e7e4:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -1569,7 +1569,7 @@ glabel func0000e684
 .L0000e8f8:
 /*     e8f8:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*     e8fc:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*     e900:	0fc5b6c5 */ 	jal	audioSetBgMusicForMenu
+/*     e900:	0fc5b6c5 */ 	jal	musicStartForMenu
 /*     e904:	00000000 */ 	nop
 /*     e908:	1000000d */ 	b	.L0000e940
 /*     e90c:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -1584,7 +1584,7 @@ glabel func0000e684
 .L0000e92c:
 /*     e92c:	0fc43988 */ 	jal	endscreenPrepare
 /*     e930:	00000000 */ 	nop
-/*     e934:	0fc5b6c5 */ 	jal	audioSetBgMusicForMenu
+/*     e934:	0fc5b6c5 */ 	jal	musicStartForMenu
 /*     e938:	00000000 */ 	nop
 /*     e93c:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0000e940:

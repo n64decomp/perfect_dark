@@ -5744,15 +5744,15 @@ u8 func1035_manage_music[] = {
 		reloop(0x8f)
 
 		label(0x2f)
-		play_music_track(MUSIC_CI_TRAINING)
+		play_track_isolated(MUSIC_CI_TRAINING)
 
 		beginloop(0x08)
 			if_stage_flag_eq(STAGEFLAG_IN_TRAINING, FALSE, /*goto*/ 0x06)
 		endloop(0x08)
 
 		label(0x06)
-		restart_music
-		reset_ambience
+		play_default_tracks
+		stop_ambient_track
 	endloop(0x8f)
 
 	endlist
@@ -5822,7 +5822,7 @@ u8 func1000_jo_typing[] = {
 	camera_movement(0x0484)
 	cmd0175(60)
 	if_controller_button_pressed(/*goto*/ 0x7b)
-	set_music_track(MUSIC_CI_INTRO)
+	play_cutscene_track(MUSIC_CI_INTRO)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
@@ -5869,8 +5869,8 @@ u8 func1000_jo_typing[] = {
 	yield
 	yield
 	yield
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

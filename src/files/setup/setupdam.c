@@ -683,7 +683,7 @@ u8 func0408_guard_unalerted[] = {
 };
 
 u8 func1002_intro[] = {
-	set_music_track(MUSIC_PELAGIC_INTRO)
+	play_cutscene_track(MUSIC_PELAGIC_INTRO)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	camera_movement(0x02ce)
@@ -828,15 +828,15 @@ u8 func1002_intro[] = {
 	endloop(0x0c)
 
 	label(0x04)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
 u8 func0c01_outro[] = {
 	camera_movement(0x02e2)
-	set_music_track(MUSIC_PELAGIC_OUTRO)
+	play_cutscene_track(MUSIC_PELAGIC_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)

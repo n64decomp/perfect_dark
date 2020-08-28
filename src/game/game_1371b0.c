@@ -3512,7 +3512,7 @@ glabel var7f1b5874
 /*  f13a308:	8e2b0000 */ 	lw	$t3,0x0($s1)
 /*  f13a30c:	0fc5b6cf */ 	jal	func0f16db3c
 /*  f13a310:	a1604208 */ 	sb	$zero,0x4208($t3)
-/*  f13a314:	0fc5b52e */ 	jal	func0f16d4b8
+/*  f13a314:	0fc5b52e */ 	jal	musicStartPrimary
 /*  f13a318:	4600a306 */ 	mov.s	$f12,$f20
 .L0f13a31c:
 /*  f13a31c:	5200000a */ 	beqzl	$s0,.L0f13a348
@@ -4445,10 +4445,10 @@ glabel var7f1b5930
 /*  f13aedc:	8d29f138 */ 	lw	$t1,%lo(var8007f138)($t1)
 /*  f13aee0:	1120000b */ 	beqz	$t1,.L0f13af10
 /*  f13aee4:	00000000 */ 	nop
-/*  f13aee8:	0fc5b67c */ 	jal	func0f16d9f0
+/*  f13aee8:	0fc5b67c */ 	jal	musicSetStage
 /*  f13aeec:	2404005c */ 	addiu	$a0,$zero,0x5c
 /*  f13aef0:	44806000 */ 	mtc1	$zero,$f12
-/*  f13aef4:	0fc5b52e */ 	jal	func0f16d4b8
+/*  f13aef4:	0fc5b52e */ 	jal	musicStartPrimary
 /*  f13aef8:	00000000 */ 	nop
 /*  f13aefc:	3c04800a */ 	lui	$a0,%hi(var800a416c)
 /*  f13af00:	3c06800a */ 	lui	$a2,%hi(var800a416c)
@@ -4456,9 +4456,9 @@ glabel var7f1b5930
 /*  f13af08:	10000009 */ 	b	.L0f13af30
 /*  f13af0c:	8c84416c */ 	lw	$a0,%lo(var800a416c)($a0)
 .L0f13af10:
-/*  f13af10:	0fc5b67c */ 	jal	func0f16d9f0
+/*  f13af10:	0fc5b67c */ 	jal	musicSetStage
 /*  f13af14:	2404005c */ 	addiu	$a0,$zero,0x5c
-/*  f13af18:	0fc5b647 */ 	jal	audioSetBgMusic
+/*  f13af18:	0fc5b647 */ 	jal	musicStartMenu2
 /*  f13af1c:	24040058 */ 	addiu	$a0,$zero,0x58
 /*  f13af20:	3c04800a */ 	lui	$a0,%hi(var800a416c)
 /*  f13af24:	3c06800a */ 	lui	$a2,%hi(var800a416c)

@@ -2053,7 +2053,7 @@ u8 func040d_cass[] = {
 	endloop(0x2c)
 
 	label(0x00)
-	play_x_music(CHANNEL_10, 60)
+	play_x_track(XREASON_DEFAULT, 10, 60)
 
 	beginloop(0x3f)
 		if_timer_gt(180, /*goto*/ 0x00)
@@ -2297,7 +2297,7 @@ u8 func1400_setup_counterop[] = {
 };
 
 u8 func100d_intro[] = {
-	set_music_track(MUSIC_EXTRACTION_INTRO)
+	play_cutscene_track(MUSIC_EXTRACTION_INTRO)
 	camera_movement(0x0138)
 	cmd0175(60)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
@@ -2394,8 +2394,8 @@ u8 func100d_intro[] = {
 	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_00010000)
 	chr_do_animation(0x013a, -2, -1, 0x06, 0x00, CHR_INTRO_GUARD, 2)
 
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	enter_firstperson
 	yield
 	chr_do_animation(0x020c, -1, -1, 0x06, 0x00, CHR_INTRO_GUARD, 2)
@@ -2407,8 +2407,8 @@ u8 func100d_intro[] = {
 };
 
 u8 func0412_outro[] = {
-	set_music_track(MUSIC_EXTRACTION_OUTRO)
-	set_sfx_track(MUSIC_EXTRACTION_OUTRO_SFX)
+	play_cutscene_track(MUSIC_EXTRACTION_OUTRO)
+	play_temporary_track(MUSIC_EXTRACTION_OUTRO_SFX)
 	camera_movement(0x0157)
 	set_object_flag2(OBJ_HOVERCOPTER, OBJFLAG2_INVISIBLE)
 	hide_object(OBJ_HOVERCOPTER)

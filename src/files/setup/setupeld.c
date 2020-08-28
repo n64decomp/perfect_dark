@@ -783,10 +783,10 @@ u8 func1002_intro[] = {
 	label(0x2e)
 	chr_do_animation(0x0172, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	remove_chr(CHR_NEGOTIATOR)
-	set_music_track(MUSIC_VILLA_INTRO3)
+	play_cutscene_track(MUSIC_VILLA_INTRO3)
 	goto_next(0x06)
 	label(0x2d)
-	set_music_track(MUSIC_VILLA_INTRO2)
+	play_cutscene_track(MUSIC_VILLA_INTRO2)
 	chr_do_animation(0x0172, -1, -1, 0x06, 0x00, CHR_NEGOTIATOR, 4)
 	label(0x06)
 	set_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
@@ -1116,9 +1116,9 @@ u8 func1002_intro[] = {
 	chr_do_animation(0x01ba, -2, -1, 0x06, 0x00, CHR_TAKER2, 2)
 
 	hide_object(OBJ_DROPSHIP)
-	restart_default_music
-	reset_ambience
-	play_x_music(CHANNEL_10, 30)
+	stop_cutscene_track
+	stop_ambient_track
+	play_x_track(XREASON_DEFAULT, 10, 30)
 	unset_stage_flag(STAGEFLAG_PLAYING_INTRO_FROM_MENU)
 	enter_firstperson
 	yield
@@ -1212,9 +1212,9 @@ u8 func1002_intro[] = {
 	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_00000001)
 	chr_do_animation(0x01c1, -2, -1, 0x06, 0x00, CHR_TAKER2, 2)
 	hide_object(OBJ_DROPSHIP)
-	restart_default_music
-	reset_ambience
-	play_x_music(CHANNEL_10, 30)
+	stop_cutscene_track
+	stop_ambient_track
+	play_x_track(XREASON_DEFAULT, 10, 30)
 	enter_firstperson
 	yield
 	set_ailist(CHR_TAKER1, AILIST_TAKER)
@@ -1233,7 +1233,7 @@ u8 func0c02_outro_from_menu[] = {
 
 u8 func0408_outro[] = {
 	camera_movement(0x017a)
-	set_music_track(MUSIC_VILLA_OUTRO)
+	play_cutscene_track(MUSIC_VILLA_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
@@ -1383,8 +1383,8 @@ u8 func0408_outro[] = {
 	mute_channel(CHANNEL_7)
 	mute_channel(CHANNEL_6)
 	mute_channel(CHANNEL_5)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1682,7 +1682,7 @@ u8 func0403_negotiator[] = {
 	label(0x06)
 	show_hudmsg(CHR_BOND, L_ELD(13)) // "Negotiator has escaped to safety."
 	set_stage_flag(STAGEFLAG_NEGOTIATOR_ESCAPED)
-	stop_music_channel(CHANNEL_1)
+	stop_x_track(XREASON_DEFAULT)
 	remove_chr(CHR_SELF)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2183,7 +2183,7 @@ u8 func100b_invoke_hackers[] = {
 	unset_chr_chrflag(CHR_HACKER3, CHRCFLAG_HIDDEN)
 	rebuild_teams
 	rebuild_squadrons
-	play_x_music(CHANNEL_10, 60)
+	play_x_track(XREASON_DEFAULT, 10, 60)
 	set_countdown_timer(60)
 	show_countdown_timer
 	start_countdown_timer

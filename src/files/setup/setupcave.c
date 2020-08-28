@@ -781,7 +781,7 @@ u8 func0401_unused_cutscene[] = {
 	chr_draw_weapon_in_cutscene(CHR_BOND, WEAPON_FALCON2)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_AIRBASE_OUTRO_LONG)
+	play_cutscene_track(MUSIC_AIRBASE_OUTRO_LONG)
 	camera_movement(0x016b)
 	cmd0175(60)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
@@ -827,8 +827,8 @@ u8 func0401_unused_cutscene[] = {
 	set_ailist(0x01, 0x0405)
 	remove_chr(0x02)
 	set_ailist(CHR_STEWARDESS, 0x040b)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	set_ailist(CHR_SELF, GAILIST_END_CINEMA)
 	endlist
 };
@@ -837,7 +837,7 @@ u8 func0425_outro[] = {
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 110)
 	camera_movement(0x031a)
-	set_music_track(MUSIC_AIRBASE_OUTRO)
+	play_cutscene_track(MUSIC_AIRBASE_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
@@ -1767,7 +1767,7 @@ u8 func1007_console_activation[] = {
 
 	label(0x31)
 	set_object_image(OBJ_CONSOLE, 0x01, 0x14)
-	play_x_music(0x58, 88) // @bug? Invalid channel
+	play_x_track(XREASON_DEFAULT, 88, 88)
 
 	beginloop(0x06)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1775,7 +1775,7 @@ u8 func1007_console_activation[] = {
 	endloop(0x06)
 
 	label(0x02)
-	stop_music_channel(CHANNEL_1)
+	stop_x_track(XREASON_DEFAULT)
 
 	label(0x0c)
 	mute_channel(CHANNEL_1)
@@ -3591,7 +3591,7 @@ u8 func1003_intro[] = {
 	label(0x31)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_AIRBASE_INTRO)
+	play_cutscene_track(MUSIC_AIRBASE_INTRO)
 	camera_movement(0x01e5)
 	cmd0175(60)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
@@ -3850,8 +3850,8 @@ u8 func1003_intro[] = {
 	set_ailist(0x00, 0x0405)
 	set_ailist(0x01, 0x0405)
 	set_ailist(CHR_STEWARDESS, AILIST_STEWARDESS)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	enter_firstperson
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

@@ -2386,11 +2386,11 @@
 #define RACE_EYESPY   3
 #define RACE_ROBOT    4
 
-#define ROOMFLAG_DISABLED        0x0001
-#define ROOMFLAG_VISIBLEBYPLAYER 0x0004
-#define ROOMFLAG_VISIBLEBYAIBOT  0x0008
-#define ROOMFLAG_4000            0x4000
-#define ROOMFLAG_8000            0x8000
+#define ROOMFLAG_DISABLED         0x0001
+#define ROOMFLAG_VISIBLEBYPLAYER  0x0004
+#define ROOMFLAG_VISIBLEBYAIBOT   0x0008
+#define ROOMFLAG_PLAYAMBIENTTRACK 0x4000
+#define ROOMFLAG_8000             0x8000
 
 #define SAVEFILEFLAG_P1_FORWARDPITCH      0x00
 #define SAVEFILEFLAG_P1_AUTOAIM           0x01
@@ -2788,10 +2788,29 @@
 #define TITLEAIMODE_RAREPRESENTS2 4
 #define TITLEAIMODE_PDLOGO        5
 
+#define TRACKTYPE_PRIMARY 1
+#define TRACKTYPE_X       2
+#define TRACKTYPE_MENU    3
+#define TRACKTYPE_DEATH   4
+#define TRACKTYPE_AMBIENT 5
+#define TRACKTYPE_6       6
+
+#define VERSION_NTSC_BETA  0
+#define VERSION_NTSC_1_0   1
+#define VERSION_NTSC_FINAL 2
+#define VERSION_PAL_BETA   3
+#define VERSION_PAL_FINAL  4
+#define VERSION_JAP_FINAL  5
+
 #define VISIONMODE_NORMAL       0
 #define VISIONMODE_XRAY         1
 #define VISIONMODE_SLAYERROCKET 2
 #define VISIONMODE_3            3
+
+#define VOICEBOX_0 0
+#define VOICEBOX_1 1
+#define VOICEBOX_2 2
+#define VOICEBOX_3 3
 
 #define WAYMODE_EXPENSIVE 0
 #define WAYMODE_CHEAP     6
@@ -2910,6 +2929,12 @@
 
 #define WEATHERTYPE_RAIN 0
 #define WEATHERTYPE_SNOW 1
+
+// Reasons for playing X music
+#define XREASON_0       0
+#define XREASON_DEFAULT 1
+#define XREASON_2       2
+#define XREASON_3       3
 
 // Heads and bodies
 #define HEAD_RANDOM           -1
@@ -3064,15 +3089,3 @@
 #define BODY_ELVISWAISTCOAT   0x94
 #define BODY_DARK_LEATHER     0x95
 #define BODY_DARK_NEGOTIATOR  0x96
-
-#define VERSION_NTSC_BETA  0
-#define VERSION_NTSC_1_0   1
-#define VERSION_NTSC_FINAL 2
-#define VERSION_PAL_BETA   3
-#define VERSION_PAL_FINAL  4
-#define VERSION_JAP_FINAL  5
-
-#define VOICEBOX_0 0
-#define VOICEBOX_1 1
-#define VOICEBOX_2 2
-#define VOICEBOX_3 3

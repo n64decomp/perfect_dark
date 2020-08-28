@@ -501,7 +501,7 @@ u8 func0401_3ae8[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_INTRO)
 	if_controller_button_pressed(/*goto*/ 0x00)
 	camera_movement(0x00cf)
-	set_music_track(MUSIC_CHICAGO_INTRO)
+	play_cutscene_track(MUSIC_CHICAGO_INTRO)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 
 	chicago_car_do_animation(OBJ_CAR1, 0x00d6)
@@ -638,8 +638,8 @@ u8 func0405_3d50[] = {
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x00df, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	set_stage_flag(STAGEFLAG_INTRO_FINISHED)
 	enter_firstperson
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2244,7 +2244,7 @@ u8 func100d_spawn_alarm_responders[] = {
 	endloop(0x1e)
 
 	label(0x03)
-	play_x_music(CHANNEL_10, 60)
+	play_x_track(XREASON_DEFAULT, 10, 60)
 	goto_next(0x04)
 
 	// When the alarm sounds, there are 4 groups of people who respond.
@@ -2674,7 +2674,7 @@ u8 func040a_intro_sfx[] = {
 
 u8 func040b_outro[] = {
 	camera_movement(0x0178)
-	set_music_track(MUSIC_CHICAGO_OUTRO)
+	play_cutscene_track(MUSIC_CHICAGO_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)

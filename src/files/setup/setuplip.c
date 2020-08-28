@@ -2127,7 +2127,7 @@ u8 func100e_elvis_timer[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_ENTERED_ELVIS_AREA)
-	play_x_music(CHANNEL_10, 60)
+	play_x_track(XREASON_DEFAULT, 10, 60)
 	set_countdown_timer(60)
 	show_countdown_timer
 	start_countdown_timer
@@ -3646,7 +3646,7 @@ u8 func1023_setup_door_locks[] = {
 u8 func0c01_outro[] = {
 	set_invincible(CHR_BOND)
 	camera_movement(0x0198)
-	set_music_track(MUSIC_RESCUE_OUTRO)
+	play_cutscene_track(MUSIC_RESCUE_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
@@ -3743,8 +3743,8 @@ u8 func0c01_outro[] = {
 
 	label(0x8b)
 	mute_channel(CHANNEL_10)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3753,7 +3753,7 @@ u8 func0c01_outro[] = {
 u8 func1002_intro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_music_track(MUSIC_RESCUE_INTRO)
+	play_cutscene_track(MUSIC_RESCUE_INTRO)
 	camera_movement(0x01c6)
 	cmd0175(60)
 
@@ -3927,8 +3927,8 @@ u8 func1002_intro[] = {
 	object_do_animation(0x01ca, OBJ_CRATE, 0x01, 0xfffe)
 	close_door(0x33)
 	close_door(0x34)
-	restart_default_music
-	reset_ambience
+	stop_cutscene_track
+	stop_ambient_track
 	enter_firstperson
 	yield
 	set_chr_chrflag(CHR_INTRO_DEAD_GUARD, CHRCFLAG_00010000)

@@ -280,10 +280,10 @@ void optionsSetScreenSplit(u8 split)
 
 s32 optionsGetMusicVolume(void)
 {
-	return audioGetVolume();
+	return musicGetVolume();
 }
 
 void optionsSetMusicVolume(u16 volume)
 {
-	func0f16cfe8(volume);
+	musicSetVolume(volume);
 }
