@@ -6,7 +6,7 @@
 u32 func0f176080(void);
 u32 func0f17608c(void);
 u32 func0f1760c4(void);
-u32 func0f176298(void);
+void func0f176298(void);
 u32 func0f1762ac(void);
 u32 func0f1763f4(void);
 u32 func0f176668(void);

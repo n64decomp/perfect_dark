@@ -23,6 +23,7 @@ extern u32 var80084220;
 extern struct something *somethings[];
 extern u32 var800844d0;
 extern u32 var800844f0;
+extern u32 var800844f4;
 extern struct stagemusic g_StageTracks[];
 extern s32 var800845d8;
 extern u32 var800845dc;
