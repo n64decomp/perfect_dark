@@ -4299,8 +4299,7 @@ struct mpsetup {
 	 * Bits 0xf000 are probably not used
 	 */
 	/*0x800acb9e*/ u16 chrslots;
-	/*0x800acba0*/ u32 unk18;
-	/*0x800acba4*/ u16 unk1c;
+	/*0x800acba0*/ u8 weapons[6];
 	/*0x800acba6*/ u8 paused;
 	/*0x800acba8*/ bool saved;
 	/*0x800acbac*/ u16 unk24;
@@ -5981,7 +5980,7 @@ struct mpweapon {
 	u8 unk01;
 	u8 unk02;
 	u8 unk03;
-	u16 unk04;
+	u16 unlock;
 	u16 model;
 	u8 unk08;
 	u8 unk09;

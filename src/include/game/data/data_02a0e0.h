@@ -81,7 +81,7 @@ extern struct mpscenariooverview g_MpScenarioOverviews[];
 extern u32 var8008716c;
 extern u32 var800871fc;
 extern u32 var80087264;
-extern struct mpweapon mpweaponstable[];
+extern struct mpweapon g_MpWeapons[];
 extern struct mpweaponset g_MpWeaponSets[12];
 extern u32 var800874c8;
 extern u32 var800874cc;

@@ -22,7 +22,7 @@ s32 func0f188a84(struct mpteaminfo *info);
 u32 func0f188bcc(void);
 u32 mpGetNumWeaponOptions(void);
 char *mpGetWeaponLabel(s32 weaponnum);
-void mpSetWeaponSlot(s32 slot, s32 weaponnum);
+void mpSetWeaponSlot(s32 slot, s32 mpweaponnum);
 s32 mpGetWeaponSlot(s32 slot);
 u32 func0f188e24(void);
 s32 mpCountWeaponSetThing(s32 weaponsetindex);
