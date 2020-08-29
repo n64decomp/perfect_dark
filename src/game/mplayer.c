@@ -747,7 +747,7 @@ void func0f1881d4(s32 index)
 	g_MpSimulants[index].base.headnum = 0;
 	g_MpSimulants[index].base.bodynum = 0;
 	g_MpSimulants[index].base.simtype = SIMTYPE_GENERAL;
-	g_MpSimulants[index].unk48 = 6;
+	g_MpSimulants[index].skill = SIMSKILL_6;
 }
 
 GLOBAL_ASM(
@@ -3151,30 +3151,26 @@ u32 table_0x2d678[] = {
 };
 
 // 2d74c
-struct mpsimulant g_MpGeneralSimulants[] = {
+struct mpsimulanttype g_MpSimulantTypes[] = {
 	// type,       skill,   name,   body, unlock value
-	{ SIMTYPE_GENERAL, 0, L_MISC(88), 0x001a, 0x00 },
-	{ SIMTYPE_GENERAL, 1, L_MISC(89), 0x0019, 0x00 },
-	{ SIMTYPE_GENERAL, 2, L_MISC(90), 0x001b, 0x00 },
-	{ SIMTYPE_GENERAL, 3, L_MISC(91), 0x0017, 0x19 },
-	{ SIMTYPE_GENERAL, 4, L_MISC(92), 0x0029, 0x1a },
-	{ SIMTYPE_GENERAL, 5, L_MISC(93), 0x003a, 0x1c },
-};
-
-// 2d77c
-struct mpsimulant mpspecialsimulants[] = {
-	{ SIMTYPE_PEACE,   2, L_MISC(94),  0x002c, 0x00 },
-	{ SIMTYPE_SHIELD,  2, L_MISC(95),  0x0022, 0x00 },
-	{ SIMTYPE_ROCKET,  2, L_MISC(96),  0x0021, 0x00 },
-	{ SIMTYPE_KAZE,    2, L_MISC(97),  0x0035, 0x00 },
-	{ SIMTYPE_FIST,    2, L_MISC(98),  0x0037, 0x00 },
-	{ SIMTYPE_PREY,    2, L_MISC(99),  0x0017, 0x00 },
-	{ SIMTYPE_COWARD,  2, L_MISC(100), 0x0033, 0x00 },
-	{ SIMTYPE_JUDGE,   2, L_MISC(101), 0x0030, 0x00 },
-	{ SIMTYPE_FEUD,    2, L_MISC(102), 0x0034, 0x00 },
-	{ SIMTYPE_SPEED,   2, L_MISC(103), 0x0010, 0x00 },
-	{ SIMTYPE_TURTLE,  2, L_MISC(104), 0x000e, 0x00 },
-	{ SIMTYPE_VENGE,   2, L_MISC(105), 0x002e, 0x00 },
+	{ SIMTYPE_GENERAL, SIMSKILL_MEAT,    L_MISC(88),  MPBODY_DD_GUARD,      0x00 },
+	{ SIMTYPE_GENERAL, SIMSKILL_EASY,    L_MISC(89),  MPBODY_DD_SECGUARD,   0x00 },
+	{ SIMTYPE_GENERAL, SIMSKILL_NORMAL,  L_MISC(90),  MPBODY_DD_SHOCK_INF,  0x00 },
+	{ SIMTYPE_GENERAL, SIMSKILL_HARD,    L_MISC(91),  MPBODY_DDSHOCK,       0x19 },
+	{ SIMTYPE_GENERAL, SIMSKILL_PERFECT, L_MISC(92),  MPBODY_STRIPES,       0x1a },
+	{ SIMTYPE_GENERAL, SIMSKILL_DARK,    L_MISC(93),  MPBODY_MOORE,         0x1c },
+	{ SIMTYPE_PEACE,   SIMSKILL_NORMAL,  L_MISC(94),  MPBODY_DD_LABTECH,    0x00 },
+	{ SIMTYPE_SHIELD,  SIMSKILL_NORMAL,  L_MISC(95),  MPBODY_G5_SWAT_GUARD, 0x00 },
+	{ SIMTYPE_ROCKET,  SIMSKILL_NORMAL,  L_MISC(96),  MPBODY_G5_GUARD,      0x00 },
+	{ SIMTYPE_KAZE,    SIMSKILL_NORMAL,  L_MISC(97),  MPBODY_PRES_SECURITY, 0x00 },
+	{ SIMTYPE_FIST,    SIMSKILL_NORMAL,  L_MISC(98),  MPBODY_PELAGIC_GUARD, 0x00 },
+	{ SIMTYPE_PREY,    SIMSKILL_NORMAL,  L_MISC(99),  MPBODY_DDSHOCK,       0x00 },
+	{ SIMTYPE_COWARD,  SIMSKILL_NORMAL,  L_MISC(100), MPBODY_PRESIDENT,     0x00 },
+	{ SIMTYPE_JUDGE,   SIMSKILL_NORMAL,  L_MISC(101), MPBODY_STEWARD,       0x00 },
+	{ SIMTYPE_FEUD,    SIMSKILL_NORMAL,  L_MISC(102), MPBODY_NSA_LACKEY,    0x00 },
+	{ SIMTYPE_SPEED,   SIMSKILL_NORMAL,  L_MISC(103), MPBODY_MRBLONDE,      0x00 },
+	{ SIMTYPE_TURTLE,  SIMSKILL_NORMAL,  L_MISC(104), MPBODY_CARRINGTON,    0x00 },
+	{ SIMTYPE_VENGE,   SIMSKILL_NORMAL,  L_MISC(105), MPBODY_ALASKAN_GUARD, 0x00 },
 };
 
 // 2d7dc
@@ -5692,8 +5688,8 @@ glabel func0f18c984
 /*  f18c9c0:	afa0005c */ 	sw	$zero,0x5c($sp)
 /*  f18c9c4:	2415004c */ 	addiu	$s5,$zero,0x4c
 /*  f18c9c8:	02150019 */ 	multu	$s0,$s5
-/*  f18c9cc:	3c188008 */ 	lui	$t8,%hi(g_MpGeneralSimulants)
-/*  f18c9d0:	2718772c */ 	addiu	$t8,$t8,%lo(g_MpGeneralSimulants)
+/*  f18c9cc:	3c188008 */ 	lui	$t8,%hi(g_MpSimulantTypes)
+/*  f18c9d0:	2718772c */ 	addiu	$t8,$t8,%lo(g_MpSimulantTypes)
 /*  f18c9d4:	001278c0 */ 	sll	$t7,$s2,0x3
 /*  f18c9d8:	01f83821 */ 	addu	$a3,$t7,$t8
 /*  f18c9dc:	90e80001 */ 	lbu	$t0,0x1($a3)
@@ -5918,43 +5914,30 @@ bool mpIsSimSlotEnabled(s32 slot)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f18cd68
-/*  f18cd68:	1480000d */ 	bnez	$a0,.L0f18cda0
-/*  f18cd6c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18cd70:	3c028008 */ 	lui	$v0,%hi(g_MpGeneralSimulants)
-/*  f18cd74:	2442772c */ 	addiu	$v0,$v0,%lo(g_MpGeneralSimulants)
-/*  f18cd78:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18cd7c:	24060012 */ 	addiu	$a2,$zero,0x12
-.L0f18cd80:
-/*  f18cd80:	904e0001 */ 	lbu	$t6,0x1($v0)
-/*  f18cd84:	50ae0010 */ 	beql	$a1,$t6,.L0f18cdc8
-/*  f18cd88:	28610012 */ 	slti	$at,$v1,0x12
-/*  f18cd8c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18cd90:	1466fffb */ 	bne	$v1,$a2,.L0f18cd80
-/*  f18cd94:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f18cd98:	1000000b */ 	b	.L0f18cdc8
-/*  f18cd9c:	28610012 */ 	slti	$at,$v1,0x12
-.L0f18cda0:
-/*  f18cda0:	3c028008 */ 	lui	$v0,%hi(g_MpGeneralSimulants)
-/*  f18cda4:	2442772c */ 	addiu	$v0,$v0,%lo(g_MpGeneralSimulants)
-/*  f18cda8:	24060012 */ 	addiu	$a2,$zero,0x12
-.L0f18cdac:
-/*  f18cdac:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*  f18cdb0:	508f0005 */ 	beql	$a0,$t7,.L0f18cdc8
-/*  f18cdb4:	28610012 */ 	slti	$at,$v1,0x12
-/*  f18cdb8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18cdbc:	1466fffb */ 	bne	$v1,$a2,.L0f18cdac
-/*  f18cdc0:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f18cdc4:	28610012 */ 	slti	$at,$v1,0x12
-.L0f18cdc8:
-/*  f18cdc8:	14200002 */ 	bnez	$at,.L0f18cdd4
-/*  f18cdcc:	00000000 */ 	nop
-/*  f18cdd0:	2403ffff */ 	addiu	$v1,$zero,-1
-.L0f18cdd4:
-/*  f18cdd4:	03e00008 */ 	jr	$ra
-/*  f18cdd8:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 mpGetSimTypeIndex(s32 type, s32 skill)
+{
+	s32 i;
+
+	if (type == SIMTYPE_GENERAL) {
+		for (i = 0; i < ARRAYCOUNT(g_MpSimulantTypes); i++) {
+			if (g_MpSimulantTypes[i].skill == skill) {
+				break;
+			}
+		}
+	} else {
+		for (i = 0; i < ARRAYCOUNT(g_MpSimulantTypes); i++) {
+			if (g_MpSimulantTypes[i].type == type) {
+				break;
+			}
+		}
+	}
+
+	if (i >= ARRAYCOUNT(g_MpSimulantTypes)) {
+		i = -1;
+	}
+
+	return i;
+}
 
 GLOBAL_ASM(
 glabel func0f18cddc
@@ -5994,7 +5977,7 @@ glabel func0f18cddc
 /*  f18ce58:	00004012 */ 	mflo	$t0
 /*  f18ce5c:	02e88021 */ 	addu	$s0,$s7,$t0
 /*  f18ce60:	9204ff17 */ 	lbu	$a0,-0xe9($s0)
-/*  f18ce64:	0fc6335a */ 	jal	func0f18cd68
+/*  f18ce64:	0fc6335a */ 	jal	mpGetSimTypeIndex
 /*  f18ce68:	9205ff18 */ 	lbu	$a1,-0xe8($s0)
 /*  f18ce6c:	04400007 */ 	bltz	$v0,.L0f18ce8c
 /*  f18ce70:	28410012 */ 	slti	$at,$v0,0x12
@@ -6026,8 +6009,8 @@ glabel func0f18cddc
 /*  f18cec8:	0044082b */ 	sltu	$at,$v0,$a0
 /*  f18cecc:	5420fff7 */ 	bnezl	$at,.L0f18ceac
 /*  f18ced0:	8c4c0000 */ 	lw	$t4,0x0($v0)
-/*  f18ced4:	3c148008 */ 	lui	$s4,%hi(g_MpGeneralSimulants)
-/*  f18ced8:	2694772c */ 	addiu	$s4,$s4,%lo(g_MpGeneralSimulants)
+/*  f18ced4:	3c148008 */ 	lui	$s4,%hi(g_MpSimulantTypes)
+/*  f18ced8:	2694772c */ 	addiu	$s4,$s4,%lo(g_MpSimulantTypes)
 /*  f18cedc:	24110004 */ 	addiu	$s1,$zero,0x4
 /*  f18cee0:	27b30050 */ 	addiu	$s3,$sp,0x50
 /*  f18cee4:	96cd0016 */ 	lhu	$t5,0x16($s6)
@@ -6041,7 +6024,7 @@ glabel func0f18cddc
 /*  f18cf00:	0000c812 */ 	mflo	$t9
 /*  f18cf04:	02f98021 */ 	addu	$s0,$s7,$t9
 /*  f18cf08:	9204ff17 */ 	lbu	$a0,-0xe9($s0)
-/*  f18cf0c:	0fc6335a */ 	jal	func0f18cd68
+/*  f18cf0c:	0fc6335a */ 	jal	mpGetSimTypeIndex
 /*  f18cf10:	9205ff18 */ 	lbu	$a1,-0xe8($s0)
 /*  f18cf14:	04400028 */ 	bltz	$v0,.L0f18cfb8
 /*  f18cf18:	00401825 */ 	or	$v1,$v0,$zero
@@ -7357,7 +7340,7 @@ glabel func0f18e16c
 /*  f18e288:	1441000f */ 	bne	$v0,$at,.L0f18e2c8
 /*  f18e28c:	00402825 */ 	or	$a1,$v0,$zero
 /*  f18e290:	92040047 */ 	lbu	$a0,0x47($s0)
-/*  f18e294:	0fc6335a */ 	jal	func0f18cd68
+/*  f18e294:	0fc6335a */ 	jal	mpGetSimTypeIndex
 /*  f18e298:	92050048 */ 	lbu	$a1,0x48($s0)
 /*  f18e29c:	04400004 */ 	bltz	$v0,.L0f18e2b0
 /*  f18e2a0:	00401825 */ 	or	$v1,$v0,$zero
@@ -7368,10 +7351,10 @@ glabel func0f18e16c
 /*  f18e2b0:	00001825 */ 	or	$v1,$zero,$zero
 /*  f18e2b4:	000368c0 */ 	sll	$t5,$v1,0x3
 .L0f18e2b8:
-/*  f18e2b8:	3c058008 */ 	lui	$a1,%hi(g_MpGeneralSimulants+0x4)
+/*  f18e2b8:	3c058008 */ 	lui	$a1,%hi(g_MpSimulantTypes+0x4)
 /*  f18e2bc:	00ad2821 */ 	addu	$a1,$a1,$t5
 /*  f18e2c0:	10000001 */ 	b	.L0f18e2c8
-/*  f18e2c4:	84a57730 */ 	lh	$a1,%lo(g_MpGeneralSimulants+0x4)($a1)
+/*  f18e2c4:	84a57730 */ 	lh	$a1,%lo(g_MpSimulantTypes+0x4)($a1)
 .L0f18e2c8:
 /*  f18e2c8:	02402025 */ 	or	$a0,$s2,$zero
 /*  f18e2cc:	0fc354be */ 	jal	scenarioDefaultCallback44

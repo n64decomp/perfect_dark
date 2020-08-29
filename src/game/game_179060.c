@@ -3624,10 +3624,10 @@ glabel var7f1b81e8
 /*  f17c710:	8c2881ac */ 	lw	$t0,%lo(var7f1b81ac)($at)
 /*  f17c714:	01000008 */ 	jr	$t0
 /*  f17c718:	00000000 */ 	nop
-/*  f17c71c:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
+/*  f17c71c:	3c108008 */ 	lui	$s0,%hi(g_MpSimulantTypes)
 /*  f17c720:	3c118008 */ 	lui	$s1,%hi(g_MpBodies)
 /*  f17c724:	263177bc */ 	addiu	$s1,$s1,%lo(g_MpBodies)
-/*  f17c728:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
+/*  f17c728:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpSimulantTypes)
 .L0f17c72c:
 /*  f17c72c:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f17c730:	92040006 */ 	lbu	$a0,0x6($s0)
@@ -3639,10 +3639,10 @@ glabel var7f1b81e8
 /*  f17c744:	00000000 */ 	nop
 /*  f17c748:	100000b4 */ 	b	.L0f17ca1c
 /*  f17c74c:	ae920000 */ 	sw	$s2,0x0($s4)
-/*  f17c750:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
+/*  f17c750:	3c108008 */ 	lui	$s0,%hi(g_MpSimulantTypes)
 /*  f17c754:	3c118008 */ 	lui	$s1,%hi(g_MpBodies)
 /*  f17c758:	263177bc */ 	addiu	$s1,$s1,%lo(g_MpBodies)
-/*  f17c75c:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
+/*  f17c75c:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpSimulantTypes)
 .L0f17c760:
 /*  f17c760:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f17c764:	92040006 */ 	lbu	$a0,0x6($s0)
@@ -3696,8 +3696,8 @@ glabel var7f1b81e8
 /*  f17c818:	240a0001 */ 	addiu	$t2,$zero,0x1
 /*  f17c81c:	afaa0038 */ 	sw	$t2,0x38($sp)
 .L0f17c820:
-/*  f17c820:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
-/*  f17c824:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
+/*  f17c820:	3c108008 */ 	lui	$s0,%hi(g_MpSimulantTypes)
+/*  f17c824:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpSimulantTypes)
 /*  f17c828:	00008825 */ 	or	$s1,$zero,$zero
 /*  f17c82c:	24130012 */ 	addiu	$s3,$zero,0x12
 .L0f17c830:
@@ -3754,8 +3754,8 @@ glabel var7f1b81e8
 /*  f17c8e8:	002a0821 */ 	addu	$at,$at,$t2
 /*  f17c8ec:	1000004b */ 	b	.L0f17ca1c
 /*  f17c8f0:	ac28ee20 */ 	sw	$t0,%lo(g_Menus+0xe20)($at)
-/*  f17c8f4:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
-/*  f17c8f8:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
+/*  f17c8f4:	3c108008 */ 	lui	$s0,%hi(g_MpSimulantTypes)
+/*  f17c8f8:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpSimulantTypes)
 /*  f17c8fc:	00008825 */ 	or	$s1,$zero,$zero
 /*  f17c900:	24130012 */ 	addiu	$s3,$zero,0x12
 .L0f17c904:
@@ -3808,8 +3808,8 @@ glabel var7f1b81e8
 /*  f17c9b4:	1000001b */ 	b	.L0f17ca24
 /*  f17c9b8:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*  f17c9bc:	8e8b0000 */ 	lw	$t3,0x0($s4)
-/*  f17c9c0:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
-/*  f17c9c4:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
+/*  f17c9c0:	3c108008 */ 	lui	$s0,%hi(g_MpSimulantTypes)
+/*  f17c9c4:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpSimulantTypes)
 /*  f17c9c8:	000b60c0 */ 	sll	$t4,$t3,0x3
 /*  f17c9cc:	026c6821 */ 	addu	$t5,$s3,$t4
 /*  f17c9d0:	8daf0000 */ 	lw	$t7,0x0($t5)
@@ -4010,10 +4010,10 @@ glabel menuhandlerMpSimulantDifficulty
 /*  f17cea4:	10000023 */ 	b	.L0f17cf34
 /*  f17cea8:	ae800000 */ 	sw	$zero,0x0($s4)
 .L0f17ceac:
-/*  f17ceac:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
-/*  f17ceb0:	3c118008 */ 	lui	$s1,%hi(mpspecialsimulants)
-/*  f17ceb4:	2631775c */ 	addiu	$s1,$s1,%lo(mpspecialsimulants)
-/*  f17ceb8:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
+/*  f17ceac:	3c108008 */ 	lui	$s0,%hi(g_MpSimulantTypes)
+/*  f17ceb0:	3c118008 */ 	lui	$s1,%hi(g_MpSimulantTypes+0x30)
+/*  f17ceb4:	2631775c */ 	addiu	$s1,$s1,%lo(g_MpSimulantTypes+0x30)
+/*  f17ceb8:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpSimulantTypes)
 .L0f17cebc:
 /*  f17cebc:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f17cec0:	92040006 */ 	lbu	$a0,0x6($s0)
@@ -4026,8 +4026,8 @@ glabel menuhandlerMpSimulantDifficulty
 /*  f17ced8:	10000016 */ 	b	.L0f17cf34
 /*  f17cedc:	ae920000 */ 	sw	$s2,0x0($s4)
 .L0f17cee0:
-/*  f17cee0:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
-/*  f17cee4:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
+/*  f17cee0:	3c108008 */ 	lui	$s0,%hi(g_MpSimulantTypes)
+/*  f17cee4:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpSimulantTypes)
 /*  f17cee8:	24130006 */ 	addiu	$s3,$zero,0x6
 .L0f17ceec:
 /*  f17ceec:	0fc67244 */ 	jal	mpIsChallengeComplete
@@ -4116,12 +4116,12 @@ s32 menuhandlerMpChangeSimulantType(u32 operation, struct menuitem *item, s32 *v
 	if (operation == MENUOP_SET) {
 		s32 i;
 		s32 count = 0;
-		s32 maxunlocked = func0f18cd68(
+		s32 simtypeindex = mpGetSimTypeIndex(
 				g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.simtype,
-				g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].unk48);
+				g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].skill);
 
-		for (i = 0; i < maxunlocked; i++) {
-			if (mpIsChallengeComplete(g_MpGeneralSimulants[i].unlockvalue)) {
+		for (i = 0; i < simtypeindex; i++) {
+			if (mpIsChallengeComplete(g_MpSimulantTypes[i].unlockvalue)) {
 				count++;
 			}
 		}
@@ -6461,10 +6461,10 @@ glabel var7f1b8430
 /*  f17f78c:	8c2e83d4 */ 	lw	$t6,%lo(var7f1b83d4)($at)
 /*  f17f790:	01c00008 */ 	jr	$t6
 /*  f17f794:	00000000 */ 	nop
-/*  f17f798:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
-/*  f17f79c:	3c118008 */ 	lui	$s1,%hi(mpspecialsimulants)
-/*  f17f7a0:	2631775c */ 	addiu	$s1,$s1,%lo(mpspecialsimulants)
-/*  f17f7a4:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
+/*  f17f798:	3c108008 */ 	lui	$s0,%hi(g_MpSimulantTypes)
+/*  f17f79c:	3c118008 */ 	lui	$s1,%hi(g_MpSimulantTypes+0x30)
+/*  f17f7a0:	2631775c */ 	addiu	$s1,$s1,%lo(g_MpSimulantTypes+0x30)
+/*  f17f7a4:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpSimulantTypes)
 .L0f17f7a8:
 /*  f17f7a8:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f17f7ac:	92040006 */ 	lbu	$a0,0x6($s0)
@@ -6476,8 +6476,8 @@ glabel var7f1b8430
 /*  f17f7c0:	00000000 */ 	nop
 /*  f17f7c4:	10000029 */ 	b	.L0f17f86c
 /*  f17f7c8:	ae920000 */ 	sw	$s2,0x0($s4)
-/*  f17f7cc:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
-/*  f17f7d0:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
+/*  f17f7cc:	3c108008 */ 	lui	$s0,%hi(g_MpSimulantTypes)
+/*  f17f7d0:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpSimulantTypes)
 /*  f17f7d4:	00008825 */ 	or	$s1,$zero,$zero
 /*  f17f7d8:	24130006 */ 	addiu	$s3,$zero,0x6
 .L0f17f7dc:

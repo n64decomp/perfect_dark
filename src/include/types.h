@@ -3126,7 +3126,7 @@ struct mphead {
 	u8 unlockvalue;
 };
 
-struct mpsimulant {
+struct mpsimulanttype {
 	u8 type;
 	u8 skill;
 	u16 name;
@@ -4259,7 +4259,7 @@ struct mpplayer {
 
 struct mpsim {
 	/*0x00*/ struct mpchr base;
-	/*0x48*/ u8 unk48;
+	/*0x48*/ u8 skill;
 };
 
 struct missionconfig {
@@ -5165,7 +5165,7 @@ struct propdefinition {
 	u16 scale;
 };
 
-struct var80087d14 {
+struct simskill {
 	u8 unk00;
 	f32 unk04;
 	f32 unk08;

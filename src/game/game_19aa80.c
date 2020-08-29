@@ -1402,16 +1402,16 @@ glabel func0f19bd4c
 /*  f19bd80:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f19bd84:	0fc66ee6 */ 	jal	func0f19bb98
 /*  f19bd88:	afa7006c */ 	sw	$a3,0x6c($sp)
-/*  f19bd8c:	3c158008 */ 	lui	$s5,%hi(g_MpGeneralSimulants)
+/*  f19bd8c:	3c158008 */ 	lui	$s5,%hi(g_MpSimulantTypes)
 /*  f19bd90:	00409025 */ 	or	$s2,$v0,$zero
-/*  f19bd94:	26b5772c */ 	addiu	$s5,$s5,%lo(g_MpGeneralSimulants)
+/*  f19bd94:	26b5772c */ 	addiu	$s5,$s5,%lo(g_MpSimulantTypes)
 /*  f19bd98:	0000f025 */ 	or	$s8,$zero,$zero
 /*  f19bd9c:	0200b825 */ 	or	$s7,$s0,$zero
 /*  f19bda0:	afb00040 */ 	sw	$s0,0x40($sp)
 /*  f19bda4:	24160004 */ 	addiu	$s6,$zero,0x4
 .L0f19bda8:
 /*  f19bda8:	92e40028 */ 	lbu	$a0,0x28($s7)
-/*  f19bdac:	0fc6335a */ 	jal	func0f18cd68
+/*  f19bdac:	0fc6335a */ 	jal	mpGetSimTypeIndex
 /*  f19bdb0:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f19bdb4:	0440000a */ 	bltz	$v0,.L0f19bde0
 /*  f19bdb8:	000270c0 */ 	sll	$t6,$v0,0x3
@@ -1430,7 +1430,7 @@ glabel func0f19bd4c
 /*  f19bde4:	8fb10040 */ 	lw	$s1,0x40($sp)
 .L0f19bde8:
 /*  f19bde8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19bdec:	0fc6335a */ 	jal	func0f18cd68
+/*  f19bdec:	0fc6335a */ 	jal	mpGetSimTypeIndex
 /*  f19bdf0:	9225002c */ 	lbu	$a1,0x2c($s1)
 /*  f19bdf4:	0440000a */ 	bltz	$v0,.L0f19be20
 /*  f19bdf8:	0002c0c0 */ 	sll	$t8,$v0,0x3
@@ -1578,16 +1578,16 @@ glabel func0f19bfa0
 /*  f19bff0:	3c1e800b */ 	lui	$s8,%hi(var800ac798)
 /*  f19bff4:	3c178008 */ 	lui	$s7,%hi(g_MpHeads)
 /*  f19bff8:	3c168008 */ 	lui	$s6,%hi(g_MpBodies)
-/*  f19bffc:	3c148008 */ 	lui	$s4,%hi(g_MpGeneralSimulants)
+/*  f19bffc:	3c148008 */ 	lui	$s4,%hi(g_MpSimulantTypes)
 /*  f19c000:	00408025 */ 	or	$s0,$v0,$zero
-/*  f19c004:	2694772c */ 	addiu	$s4,$s4,%lo(g_MpGeneralSimulants)
+/*  f19c004:	2694772c */ 	addiu	$s4,$s4,%lo(g_MpSimulantTypes)
 /*  f19c008:	26d677bc */ 	addiu	$s6,$s6,%lo(g_MpBodies)
 /*  f19c00c:	26f7752c */ 	addiu	$s7,$s7,%lo(g_MpHeads)
 /*  f19c010:	27dec798 */ 	addiu	$s8,$s8,%lo(var800ac798)
 /*  f19c014:	2631c538 */ 	addiu	$s1,$s1,%lo(g_MpSimulants)
 /*  f19c018:	92240047 */ 	lbu	$a0,0x47($s1)
 .L0f19c01c:
-/*  f19c01c:	0fc6335a */ 	jal	func0f18cd68
+/*  f19c01c:	0fc6335a */ 	jal	mpGetSimTypeIndex
 /*  f19c020:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f19c024:	0440000a */ 	bltz	$v0,.L0f19c050
 /*  f19c028:	000270c0 */ 	sll	$t6,$v0,0x3
@@ -1603,7 +1603,7 @@ glabel func0f19bfa0
 .L0f19c050:
 /*  f19c050:	00002025 */ 	or	$a0,$zero,$zero
 .L0f19c054:
-/*  f19c054:	0fc6335a */ 	jal	func0f18cd68
+/*  f19c054:	0fc6335a */ 	jal	mpGetSimTypeIndex
 /*  f19c058:	92250048 */ 	lbu	$a1,0x48($s1)
 /*  f19c05c:	0440000b */ 	bltz	$v0,.L0f19c08c
 /*  f19c060:	00409025 */ 	or	$s2,$v0,$zero
