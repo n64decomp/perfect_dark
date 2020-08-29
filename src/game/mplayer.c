@@ -5985,41 +5985,27 @@ glabel func0f18cc8c
 /*  f18ccf4:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel mpIsSimSlotEnabled
-/*  f18ccf8:	3c03800b */ 	lui	$v1,%hi(g_MpSetup+0x16)
-/*  f18ccfc:	9463cb9e */ 	lhu	$v1,%lo(g_MpSetup+0x16)($v1)
-/*  f18cd00:	248e0004 */ 	addiu	$t6,$a0,0x4
-/*  f18cd04:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f18cd08:	01cfc004 */ 	sllv	$t8,$t7,$t6
-/*  f18cd0c:	0078c824 */ 	and	$t9,$v1,$t8
-/*  f18cd10:	17200012 */ 	bnez	$t9,.L0f18cd5c
-/*  f18cd14:	24020008 */ 	addiu	$v0,$zero,0x8
-/*  f18cd18:	00002025 */ 	or	$a0,$zero,$zero
-/*  f18cd1c:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f18cd20:	24880004 */ 	addiu	$t0,$a0,0x4
-.L0f18cd24:
-/*  f18cd24:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f18cd28:	01095004 */ 	sllv	$t2,$t1,$t0
-/*  f18cd2c:	006a5824 */ 	and	$t3,$v1,$t2
-/*  f18cd30:	11600002 */ 	beqz	$t3,.L0f18cd3c
-/*  f18cd34:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f18cd38:	2442ffff */ 	addiu	$v0,$v0,-1
-.L0f18cd3c:
-/*  f18cd3c:	5485fff9 */ 	bnel	$a0,$a1,.L0f18cd24
-/*  f18cd40:	24880004 */ 	addiu	$t0,$a0,0x4
-/*  f18cd44:	18400003 */ 	blez	$v0,.L0f18cd54
-/*  f18cd48:	00000000 */ 	nop
-/*  f18cd4c:	03e00008 */ 	jr	$ra
-/*  f18cd50:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f18cd54:
-/*  f18cd54:	03e00008 */ 	jr	$ra
-/*  f18cd58:	00001025 */ 	or	$v0,$zero,$zero
-.L0f18cd5c:
-/*  f18cd5c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f18cd60:	03e00008 */ 	jr	$ra
-/*  f18cd64:	00000000 */ 	nop
-);
+bool mpIsSimSlotEnabled(s32 slot)
+{
+	s32 numfree = 8;
+	s32 i;
+
+	if ((g_MpSetup.chrslots & (1 << (slot + 4))) == 0) {
+		for (i = 0; i < 8; i++) {
+			if (g_MpSetup.chrslots & (1 << (i + 4))) {
+				numfree--;
+			}
+		}
+
+		if (numfree > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f18cd68
