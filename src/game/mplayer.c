@@ -1576,48 +1576,19 @@ void mpSetWeaponSlot(s32 slot, s32 mpweaponnum)
 	g_MpSetup.weapons[slot] = optionindex;
 }
 
-GLOBAL_ASM(
-glabel mpGetWeaponSlot
-/*  f188d94:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f188d98:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup)
-/*  f188d9c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f188da0:	25cecb88 */ 	addiu	$t6,$t6,%lo(g_MpSetup)
-/*  f188da4:	008e9821 */ 	addu	$s3,$a0,$t6
-/*  f188da8:	926f0018 */ 	lbu	$t7,0x18($s3)
-/*  f188dac:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f188db0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f188db4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f188db8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f188dbc:	00009025 */ 	or	$s2,$zero,$zero
-/*  f188dc0:	19e00010 */ 	blez	$t7,.L0f188e04
-/*  f188dc4:	00008825 */ 	or	$s1,$zero,$zero
-/*  f188dc8:	3c108008 */ 	lui	$s0,%hi(g_MpWeapons)
-/*  f188dcc:	26107268 */ 	addiu	$s0,$s0,%lo(g_MpWeapons)
-/*  f188dd0:	96040004 */ 	lhu	$a0,0x4($s0)
-.L0f188dd4:
-/*  f188dd4:	3098007f */ 	andi	$t8,$a0,0x7f
-/*  f188dd8:	0fc67244 */ 	jal	mpIsChallengeComplete
-/*  f188ddc:	03002025 */ 	or	$a0,$t8,$zero
-/*  f188de0:	50400003 */ 	beqzl	$v0,.L0f188df0
-/*  f188de4:	92790018 */ 	lbu	$t9,0x18($s3)
-/*  f188de8:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f188dec:	92790018 */ 	lbu	$t9,0x18($s3)
-.L0f188df0:
-/*  f188df0:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f188df4:	2610000a */ 	addiu	$s0,$s0,0xa
-/*  f188df8:	0239082a */ 	slt	$at,$s1,$t9
-/*  f188dfc:	5420fff5 */ 	bnezl	$at,.L0f188dd4
-/*  f188e00:	96040004 */ 	lhu	$a0,0x4($s0)
-.L0f188e04:
-/*  f188e04:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f188e08:	02401025 */ 	or	$v0,$s2,$zero
-/*  f188e0c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f188e10:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f188e14:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f188e18:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f188e1c:	03e00008 */ 	jr	$ra
-/*  f188e20:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 mpGetWeaponSlot(s32 slot)
+{
+	s32 count = 0;
+	s32 i;
+
+	for (i = 0; i < g_MpSetup.weapons[slot]; i++) {
+		if (mpIsChallengeComplete(g_MpWeapons[i].unlock & 0x7f)) {
+			count++;
+		}
+	}
+
+	return count;
+}
 
 GLOBAL_ASM(
 glabel func0f188e24
