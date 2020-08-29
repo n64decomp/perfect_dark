@@ -5160,63 +5160,25 @@ void mpCalculateLockIfLastWinnerOrLoser(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel mpIsTrackUnlocked
-/*  f18c0c0:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f18c0c4:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f18c0c8:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f18c0cc:	3c028008 */ 	lui	$v0,%hi(g_MpTracks+0x4)
-/*  f18c0d0:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f18c0d4:	84427a74 */ 	lh	$v0,%lo(g_MpTracks+0x4)($v0)
-/*  f18c0d8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18c0dc:	04400003 */ 	bltz	$v0,.L0f18c0ec
-/*  f18c0e0:	28410011 */ 	slti	$at,$v0,0x11
-/*  f18c0e4:	14200003 */ 	bnez	$at,.L0f18c0f4
-/*  f18c0e8:	00002825 */ 	or	$a1,$zero,$zero
-.L0f18c0ec:
-/*  f18c0ec:	03e00008 */ 	jr	$ra
-/*  f18c0f0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f18c0f4:
-/*  f18c0f4:	00027880 */ 	sll	$t7,$v0,0x2
-/*  f18c0f8:	01e27823 */ 	subu	$t7,$t7,$v0
-/*  f18c0fc:	3c18800a */ 	lui	$t8,%hi(g_SoloSaveFile)
-/*  f18c100:	27182200 */ 	addiu	$t8,$t8,%lo(g_SoloSaveFile)
-/*  f18c104:	000f7840 */ 	sll	$t7,$t7,0x1
-/*  f18c108:	01f83021 */ 	addu	$a2,$t7,$t8
-/*  f18c10c:	24020006 */ 	addiu	$v0,$zero,0x6
-.L0f18c110:
-/*  f18c110:	94d90020 */ 	lhu	$t9,0x20($a2)
-/*  f18c114:	24a50002 */ 	addiu	$a1,$a1,0x2
-/*  f18c118:	13200003 */ 	beqz	$t9,.L0f18c128
-/*  f18c11c:	00000000 */ 	nop
-/*  f18c120:	03e00008 */ 	jr	$ra
-/*  f18c124:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f18c128:
-/*  f18c128:	14a2fff9 */ 	bne	$a1,$v0,.L0f18c110
-/*  f18c12c:	24c60002 */ 	addiu	$a2,$a2,0x2
-/*  f18c130:	03e00008 */ 	jr	$ra
-/*  f18c134:	00601025 */ 	or	$v0,$v1,$zero
-);
+bool mpIsTrackUnlocked(s32 tracknum)
+{
+	s16 stageindex = g_MpTracks[tracknum].unlockstage;
+	bool unlocked = false;
+	u32 i;
 
-// Mismatch because the compiler optimises out the unlocked variable
-//bool mpIsTrackUnlocked(s32 tracknum)
-//{
-//	s16 stageindex = g_MpTracks[tracknum].unlockstage;
-//	bool unlocked = false;
-//	u32 i;
-//
-//	if (stageindex < 0 || stageindex >= NUM_SOLONORMALSTAGES) {
-//		return true;
-//	}
-//
-//	for (i = 0; i != 3; i++) {
-//		if (g_SoloSaveFile.besttimes[stageindex][i]) {
-//			return true;
-//		}
-//	}
-//
-//	return unlocked;
-//}
+	if (stageindex < 0 || stageindex >= NUM_SOLONORMALSTAGES) {
+		unlocked = true;
+	} else {
+		for (i = 0; i != 3; i++) {
+			if (g_SoloSaveFile.besttimes[stageindex][i]) {
+				unlocked = true;
+				break;
+			}
+		}
+	}
+
+	return unlocked;
+}
 
 s32 mpGetTrackSlotIndex(s32 tracknum)
 {
