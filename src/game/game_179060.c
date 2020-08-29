@@ -14,7 +14,7 @@
 #include "game/game_0f09f0.h"
 #include "game/game_107fb0.h"
 #include "game/game_1531a0.h"
-#include "game/game_16cfa0.h"
+#include "game/music.h"
 #include "game/game_179060.h"
 #include "game/game_17f930.h"
 #include "game/game_19aa80.h"

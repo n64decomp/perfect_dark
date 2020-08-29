@@ -155,7 +155,7 @@
 	build/ROMID/game/game_167ae0.o (section); \
 	build/ROMID/game/data/data_02a0e0.o (section); \
 	build/ROMID/game/timing.o (section); \
-	build/ROMID/game/game_16cfa0.o (section); \
+	build/ROMID/game/music.o (section); \
 	build/ROMID/game/lang.o (section); \
 	build/ROMID/game/game_16e810.o (section); \
 	build/ROMID/game/game_173a00.o (section); \

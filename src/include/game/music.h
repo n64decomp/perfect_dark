@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_16CFA0_H
-#define IN_GAME_GAME_16CFA0_H
+#ifndef IN_GAME_MUSIC_H
+#define IN_GAME_MUSIC_H
 #include <ultra64.h>
 #include "types.h"
 

@@ -26,7 +26,7 @@
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
 #include "game/game_167ae0.h"
-#include "game/game_16cfa0.h"
+#include "game/music.h"
 #include "game/game_16e810.h"
 #include "game/game_179060.h"
 #include "game/game_19aa80.h"

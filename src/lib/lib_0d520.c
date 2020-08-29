@@ -37,7 +37,7 @@
 #include "game/game_166e40.h"
 #include "game/game_167ae0.h"
 #include "game/timing.h"
-#include "game/game_16cfa0.h"
+#include "game/music.h"
 #include "game/game_175f50.h"
 #include "game/game_175f90.h"
 #include "game/game_176080.h"

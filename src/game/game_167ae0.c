@@ -83,7 +83,7 @@
 #include "game/game_157db0.h"
 #include "game/game_165670.h"
 #include "game/game_167ae0.h"
-#include "game/game_16cfa0.h"
+#include "game/music.h"
 #include "game/game_16e810.h"
 #include "game/game_176080.h"
 #include "game/game_179060.h"
