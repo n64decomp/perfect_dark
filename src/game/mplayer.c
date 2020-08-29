@@ -1772,23 +1772,10 @@ glabel func0f188f9c
 /*  f189054:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f189058
-/*  f189058:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18905c:	10800003 */ 	beqz	$a0,.L0f18906c
-/*  f189060:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f189064:	10000002 */ 	b	.L0f189070
-/*  f189068:	2404000f */ 	addiu	$a0,$zero,0xf
-.L0f18906c:
-/*  f18906c:	2404000c */ 	addiu	$a0,$zero,0xc
-.L0f189070:
-/*  f189070:	0fc623b5 */ 	jal	mpCountWeaponSetThing
-/*  f189074:	00000000 */ 	nop
-/*  f189078:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18907c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f189080:	03e00008 */ 	jr	$ra
-/*  f189084:	00000000 */ 	nop
-);
+s32 func0f189058(s32 arg0)
+{
+	return mpCountWeaponSetThing(arg0 ? 15 : 12);
+}
 
 GLOBAL_ASM(
 glabel func0f189088
