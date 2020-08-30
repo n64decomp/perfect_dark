@@ -964,45 +964,26 @@ s32 mpGetCurrentChallengeIndex(void)
 	return g_MpChallengeIndex;
 }
 
+bool mpIsChallengeCompletedByAnyChrWithNumPlayersBySlot(s32 slot, s32 numplayers)
+{
+	s32 availableindex = 0;
+	s32 i;
+
+	for (i = 0; i < 30; i++) {
+		if (mpIsChallengeAvailable(i)) {
+			if (availableindex == slot) {
+				return mpIsChallengeCompletedByAnyChrWithNumPlayers(i, numplayers);
+			}
+
+			availableindex++;
+		}
+	}
+
+	return false;
+}
+
 GLOBAL_ASM(
-glabel func0f19b800
-/*  f19b800:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f19b804:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f19b808:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f19b80c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f19b810:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f19b814:	00809825 */ 	or	$s3,$a0,$zero
-/*  f19b818:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f19b81c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f19b820:	00008825 */ 	or	$s1,$zero,$zero
-/*  f19b824:	00008025 */ 	or	$s0,$zero,$zero
-/*  f19b828:	2412001e */ 	addiu	$s2,$zero,0x1e
-.L0f19b82c:
-/*  f19b82c:	0fc66be6 */ 	jal	mpIsChallengeAvailable
-/*  f19b830:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19b834:	50400009 */ 	beqzl	$v0,.L0f19b85c
-/*  f19b838:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19b83c:	16330005 */ 	bne	$s1,$s3,.L0f19b854
-/*  f19b840:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19b844:	0fc670f7 */ 	jal	mpIsChallengeCompletedByAnyChrWithNumPlayers
-/*  f19b848:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f19b84c:	10000007 */ 	b	.L0f19b86c
-/*  f19b850:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f19b854:
-/*  f19b854:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f19b858:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f19b85c:
-/*  f19b85c:	1612fff3 */ 	bne	$s0,$s2,.L0f19b82c
-/*  f19b860:	00000000 */ 	nop
-/*  f19b864:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19b868:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f19b86c:
-/*  f19b86c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f19b870:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f19b874:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f19b878:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f19b87c:	03e00008 */ 	jr	$ra
-/*  f19b880:	27bd0028 */ 	addiu	$sp,$sp,0x28
+glabel func0f19b884
 /*  f19b884:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f19b888:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f19b88c:	afb2001c */ 	sw	$s2,0x1c($sp)

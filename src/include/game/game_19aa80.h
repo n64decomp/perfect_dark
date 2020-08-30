@@ -12,7 +12,7 @@ u32 func0f19ab70(void);
 void func0f19afdc(void);
 void func0f19b540(void);
 char *mpGetChallengeNameBySlot(s32 slot);
-u32 func0f19b800(void);
+bool mpIsChallengeCompletedByAnyChrWithNumPlayersBySlot(s32 slot, s32 numplayers);
 struct mpconfigfull *mpLoadConfig(s32 confignum, u8 *buffer, s32 len);
 s32 func0f19bb50(s32 unlockvalue, u8 *array, s32 index, s32 len);
 s32 func0f19bb98(struct mpsetup *mpsetup, u8 *array, s32 len);

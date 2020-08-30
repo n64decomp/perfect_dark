@@ -5493,7 +5493,7 @@ glabel var7f1b8288
 /*  f17e7dc:	24510001 */ 	addiu	$s1,$v0,0x1
 .L0f17e7e0:
 /*  f17e7e0:	02202825 */ 	or	$a1,$s1,$zero
-/*  f17e7e4:	0fc66e00 */ 	jal	func0f19b800
+/*  f17e7e4:	0fc66e00 */ 	jal	mpIsChallengeCompletedByAnyChrWithNumPlayersBySlot
 /*  f17e7e8:	8ec40004 */ 	lw	$a0,0x4($s6)
 /*  f17e7ec:	1040000f */ 	beqz	$v0,.L0f17e82c
 /*  f17e7f0:	8faf00b4 */ 	lw	$t7,0xb4($sp)
