@@ -982,49 +982,23 @@ bool mpIsChallengeCompletedByAnyChrWithNumPlayersBySlot(s32 slot, s32 numplayers
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f19b884
-/*  f19b884:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f19b888:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f19b88c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f19b890:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f19b894:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f19b898:	00a09825 */ 	or	$s3,$a1,$zero
-/*  f19b89c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f19b8a0:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f19b8a4:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f19b8a8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f19b8ac:	00008025 */ 	or	$s0,$zero,$zero
-/*  f19b8b0:	2412001e */ 	addiu	$s2,$zero,0x1e
-.L0f19b8b4:
-/*  f19b8b4:	0fc66be6 */ 	jal	mpIsChallengeAvailable
-/*  f19b8b8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19b8bc:	5040000b */ 	beqzl	$v0,.L0f19b8ec
-/*  f19b8c0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19b8c4:	56330008 */ 	bnel	$s1,$s3,.L0f19b8e8
-/*  f19b8c8:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f19b8cc:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f19b8d0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19b8d4:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19b8d8:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f19b8dc:	10000007 */ 	b	.L0f19b8fc
-/*  f19b8e0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f19b8e4:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f19b8e8:
-/*  f19b8e8:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f19b8ec:
-/*  f19b8ec:	1612fff1 */ 	bne	$s0,$s2,.L0f19b8b4
-/*  f19b8f0:	00000000 */ 	nop
-/*  f19b8f4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19b8f8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f19b8fc:
-/*  f19b8fc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f19b900:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f19b904:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f19b908:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f19b90c:	03e00008 */ 	jr	$ra
-/*  f19b910:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+bool mpIsChallengeCompletedByChrWithNumPlayersBySlot(s32 mpchrnum, s32 slot, s32 numplayers)
+{
+	s32 availableindex = 0;
+	s32 i;
+
+	for (i = 0; i < 30; i++) {
+		if (mpIsChallengeAvailable(i)) {
+			if (availableindex == slot) {
+				return mpIsChallengeCompletedByChrWithNumPlayers(mpchrnum, i, numplayers);
+			}
+
+			availableindex++;
+		}
+	}
+
+	return false;
+}
 
 extern u32 _mpstringsESegmentRomStart;
 extern u32 _mpstringsJSegmentRomStart;
