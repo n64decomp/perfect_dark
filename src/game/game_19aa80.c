@@ -1237,31 +1237,26 @@ struct mpconfigfull *mpLoadCurrentChallenge(u8 *buffer, s32 len)
 	return mpLoadChallenge(g_MpChallengeIndex, buffer, len);
 }
 
-GLOBAL_ASM(
-glabel func0f19bb50
-/*  f19bb50:	18c00008 */ 	blez	$a2,.L0f19bb74
-/*  f19bb54:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19bb58:	00a01825 */ 	or	$v1,$a1,$zero
-.L0f19bb5c:
-/*  f19bb5c:	906e0000 */ 	lbu	$t6,0x0($v1)
-/*  f19bb60:	508e0005 */ 	beql	$a0,$t6,.L0f19bb78
-/*  f19bb64:	0046082a */ 	slt	$at,$v0,$a2
-/*  f19bb68:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f19bb6c:	1446fffb */ 	bne	$v0,$a2,.L0f19bb5c
-/*  f19bb70:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f19bb74:
-/*  f19bb74:	0046082a */ 	slt	$at,$v0,$a2
-.L0f19bb78:
-/*  f19bb78:	14200005 */ 	bnez	$at,.L0f19bb90
-/*  f19bb7c:	00c7082a */ 	slt	$at,$a2,$a3
-/*  f19bb80:	10200003 */ 	beqz	$at,.L0f19bb90
-/*  f19bb84:	00a67821 */ 	addu	$t7,$a1,$a2
-/*  f19bb88:	a1e40000 */ 	sb	$a0,0x0($t7)
-/*  f19bb8c:	24c60001 */ 	addiu	$a2,$a2,0x1
-.L0f19bb90:
-/*  f19bb90:	03e00008 */ 	jr	$ra
-/*  f19bb94:	00c01025 */ 	or	$v0,$a2,$zero
-);
+/**
+ * This is adding unlockvalue to the array, provided it's unique.
+ */
+s32 func0f19bb50(s32 unlockvalue, u8 *array, s32 index, s32 len)
+{
+	s32 i;
+
+	for (i = 0; i < index; i++) {
+		if (array[i] == unlockvalue) {
+			break;
+		}
+	}
+
+	if (i >= index && index < len) {
+		array[index] = unlockvalue;
+		index++;
+	}
+
+	return index;
+}
 
 GLOBAL_ASM(
 glabel func0f19bb98
