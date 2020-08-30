@@ -471,7 +471,7 @@ glabel var7f1a82b4
 /*  f014e6c:	ac20cc80 */ 	sw	$zero,%lo(g_MpSimulantChrs)($at)
 .L0f014e70:
 /*  f014e70:	02002025 */ 	or	$a0,$s0,$zero
-/*  f014e74:	0fc053a4 */ 	jal	func0f014e90
+/*  f014e74:	0fc053a4 */ 	jal	aibotAllocateUnk014
 /*  f014e78:	2405000a */ 	addiu	$a1,$zero,0xa
 .L0f014e7c:
 /*  f014e7c:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -481,41 +481,16 @@ glabel var7f1a82b4
 /*  f014e8c:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-GLOBAL_ASM(
-glabel func0f014e90
-/*  f014e90:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f014e94:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f014e98:	00803825 */ 	or	$a3,$a0,$zero
-/*  f014e9c:	10800016 */ 	beqz	$a0,.L0f014ef8
-/*  f014ea0:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f014ea4:	8c8202d4 */ 	lw	$v0,0x2d4($a0)
-/*  f014ea8:	50400014 */ 	beqzl	$v0,.L0f014efc
-/*  f014eac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f014eb0:	18a00011 */ 	blez	$a1,.L0f014ef8
-/*  f014eb4:	28a10100 */ 	slti	$at,$a1,0x100
-/*  f014eb8:	14200002 */ 	bnez	$at,.L0f014ec4
-/*  f014ebc:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f014ec0:	240600ff */ 	addiu	$a2,$zero,0xff
-.L0f014ec4:
-/*  f014ec4:	00062080 */ 	sll	$a0,$a2,0x2
-/*  f014ec8:	00862021 */ 	addu	$a0,$a0,$a2
-/*  f014ecc:	00042080 */ 	sll	$a0,$a0,0x2
-/*  f014ed0:	2484000f */ 	addiu	$a0,$a0,0xf
-/*  f014ed4:	a0460018 */ 	sb	$a2,0x18($v0)
-/*  f014ed8:	348e000f */ 	ori	$t6,$a0,0xf
-/*  f014edc:	39c4000f */ 	xori	$a0,$t6,0xf
-/*  f014ee0:	0c0048f2 */ 	jal	malloc
-/*  f014ee4:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f014ee8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f014eec:	8c9802d4 */ 	lw	$t8,0x2d4($a0)
-/*  f014ef0:	0fc65f00 */ 	jal	func0f197c00
-/*  f014ef4:	af020014 */ 	sw	$v0,0x14($t8)
-.L0f014ef8:
-/*  f014ef8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f014efc:
-/*  f014efc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f014f00:	03e00008 */ 	jr	$ra
-/*  f014f04:	00000000 */ 	nop
-/*  f014f08:	00000000 */ 	nop
-/*  f014f0c:	00000000 */ 	nop
-);
+void aibotAllocateUnk014(struct chrdata *chr, s32 count)
+{
+	if (chr && chr->aibot && count > 0) {
+		if (count > 255) {
+			count = 255;
+		}
+
+		chr->aibot->unk018 = count;
+		chr->aibot->unk014 = malloc(ALIGN16(count * sizeof(struct aibot014)), 4);
+
+		func0f197c00(chr);
+	}
+}
