@@ -10,7 +10,7 @@ extern struct challenge g_MpChallenges[NUM_CHALLENGES];
 bool ai0176(void);
 u32 func0f19ab70(void);
 void func0f19afdc(void);
-void func0f19b540(void);
+void mpPerformSanityChecks(void);
 char *mpGetChallengeNameBySlot(s32 slot);
 bool mpIsChallengeCompletedByAnyChrWithNumPlayersBySlot(s32 slot, s32 numplayers);
 struct mpconfigfull *mpLoadConfig(s32 confignum, u8 *buffer, s32 len);

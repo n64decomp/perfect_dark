@@ -563,7 +563,7 @@ glabel var7f1a863c
 /*  f01c58c:	24630e70 */ 	addiu	$v1,$v1,0x0e70
 /*  f01c590:	0fc63005 */ 	jal	mpCalculateLockIfLastWinnerOrLoser
 /*  f01c594:	00000000 */ 	nop
-/*  f01c598:	0fc66d50 */ 	jal	func0f19b540
+/*  f01c598:	0fc66d50 */ 	jal	mpPerformSanityChecks
 /*  f01c59c:	00000000 */ 	nop
 .L0f01c5a0:
 /*  f01c5a0:	3c068007 */ 	lui	$a2,%hi(g_MpPlayerNum)
@@ -2115,7 +2115,7 @@ glabel var7f1a863c
 //			}
 //
 //			mpCalculateLockIfLastWinnerOrLoser();
-//			func0f19b540();
+//			mpPerformSanityChecks();
 //		}
 //
 //		// c5a0

@@ -2488,13 +2488,13 @@
 #define SIGHT_MAIAN    6
 #define SIGHT_NONE     7
 
-#define SIMSKILL_MEAT    0
-#define SIMSKILL_EASY    1
-#define SIMSKILL_NORMAL  2
-#define SIMSKILL_HARD    3
-#define SIMSKILL_PERFECT 4
-#define SIMSKILL_DARK    5
-#define SIMSKILL_6       6
+#define SIMSKILL_MEAT     0
+#define SIMSKILL_EASY     1
+#define SIMSKILL_NORMAL   2
+#define SIMSKILL_HARD     3
+#define SIMSKILL_PERFECT  4
+#define SIMSKILL_DARK     5
+#define SIMSKILL_DISABLED 6
 
 #define SIMTYPE_GENERAL 0
 #define SIMTYPE_PEACE   1

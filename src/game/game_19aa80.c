@@ -780,128 +780,40 @@ glabel func0f19afdc
 /*  f19b53c:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel func0f19b540
-/*  f19b540:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x88)
-/*  f19b544:	91cecc10 */ 	lbu	$t6,%lo(g_MpSetup+0x88)($t6)
-/*  f19b548:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19b54c:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f19b550:	15c10038 */ 	bne	$t6,$at,.L0f19b634
-/*  f19b554:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19b558:	3c07800b */ 	lui	$a3,%hi(g_MpSetup+0x16)
-/*  f19b55c:	3c03800b */ 	lui	$v1,%hi(g_MpPlayers)
-/*  f19b560:	00002825 */ 	or	$a1,$zero,$zero
-/*  f19b564:	2463c7b8 */ 	addiu	$v1,$v1,%lo(g_MpPlayers)
-/*  f19b568:	94e7cb9e */ 	lhu	$a3,%lo(g_MpSetup+0x16)($a3)
-/*  f19b56c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19b570:	24060080 */ 	addiu	$a2,$zero,0x80
-/*  f19b574:	240400a0 */ 	addiu	$a0,$zero,0xa0
-/*  f19b578:	240f0001 */ 	addiu	$t7,$zero,0x1
-.L0f19b57c:
-/*  f19b57c:	004fc004 */ 	sllv	$t8,$t7,$v0
-/*  f19b580:	00f8c824 */ 	and	$t9,$a3,$t8
-/*  f19b584:	53200007 */ 	beqzl	$t9,.L0f19b5a4
-/*  f19b588:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f19b58c:	00440019 */ 	multu	$v0,$a0
-/*  f19b590:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f19b594:	00004012 */ 	mflo	$t0
-/*  f19b598:	00684821 */ 	addu	$t1,$v1,$t0
-/*  f19b59c:	a126009d */ 	sb	$a2,0x9d($t1)
-/*  f19b5a0:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f19b5a4:
-/*  f19b5a4:	28410004 */ 	slti	$at,$v0,0x4
-/*  f19b5a8:	5420fff4 */ 	bnezl	$at,.L0f19b57c
-/*  f19b5ac:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f19b5b0:	3c0b800b */ 	lui	$t3,%hi(var800ac798)
-/*  f19b5b4:	3c06800b */ 	lui	$a2,%hi(g_MpSetup)
-/*  f19b5b8:	30ea000f */ 	andi	$t2,$a3,0xf
-/*  f19b5bc:	256bc798 */ 	addiu	$t3,$t3,%lo(var800ac798)
-/*  f19b5c0:	24c6cb88 */ 	addiu	$a2,$a2,%lo(g_MpSetup)
-/*  f19b5c4:	00ab2021 */ 	addu	$a0,$a1,$t3
-/*  f19b5c8:	3c03800b */ 	lui	$v1,%hi(g_MpSimulants)
-/*  f19b5cc:	a4ca0016 */ 	sh	$t2,0x16($a2)
-/*  f19b5d0:	2463c538 */ 	addiu	$v1,$v1,%lo(g_MpSimulants)
-/*  f19b5d4:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f19b5d8:	24070008 */ 	addiu	$a3,$zero,0x8
-/*  f19b5dc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19b5e0:
-/*  f19b5e0:	908cffff */ 	lbu	$t4,-0x1($a0)
-/*  f19b5e4:	2463004c */ 	addiu	$v1,$v1,0x4c
-/*  f19b5e8:	244f0004 */ 	addiu	$t7,$v0,0x4
-/*  f19b5ec:	318d00ff */ 	andi	$t5,$t4,0xff
-/*  f19b5f0:	10ad0006 */ 	beq	$a1,$t5,.L0f19b60c
-/*  f19b5f4:	a06cfffc */ 	sb	$t4,-0x4($v1)
-/*  f19b5f8:	94ce0016 */ 	lhu	$t6,0x16($a2)
-/*  f19b5fc:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f19b600:	01f8c804 */ 	sllv	$t9,$t8,$t7
-/*  f19b604:	01d94025 */ 	or	$t0,$t6,$t9
-/*  f19b608:	a4c80016 */ 	sh	$t0,0x16($a2)
-.L0f19b60c:
-/*  f19b60c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f19b610:	1447fff3 */ 	bne	$v0,$a3,.L0f19b5e0
-/*  f19b614:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f19b618:	90c90010 */ 	lbu	$t1,0x10($a2)
-/*  f19b61c:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f19b620:	240a000a */ 	addiu	$t2,$zero,0xa
-/*  f19b624:	1521000b */ 	bne	$t1,$at,.L0f19b654
-/*  f19b628:	3c01800a */ 	lui	$at,%hi(g_Vars+0x484)
-/*  f19b62c:	10000009 */ 	b	.L0f19b654
-/*  f19b630:	ac2aa444 */ 	sw	$t2,%lo(g_Vars+0x484)($at)
-.L0f19b634:
-/*  f19b634:	0fc67244 */ 	jal	mpIsChallengeComplete
-/*  f19b638:	24040040 */ 	addiu	$a0,$zero,0x40
-/*  f19b63c:	14400005 */ 	bnez	$v0,.L0f19b654
-/*  f19b640:	3c06800b */ 	lui	$a2,%hi(g_MpSetup)
-/*  f19b644:	24c6cb88 */ 	addiu	$a2,$a2,%lo(g_MpSetup)
-/*  f19b648:	94cb0016 */ 	lhu	$t3,0x16($a2)
-/*  f19b64c:	316c00ff */ 	andi	$t4,$t3,0xff
-/*  f19b650:	a4cc0016 */ 	sh	$t4,0x16($a2)
-.L0f19b654:
-/*  f19b654:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19b658:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19b65c:	03e00008 */ 	jr	$ra
-/*  f19b660:	00000000 */ 	nop
-);
+void mpPerformSanityChecks(void)
+{
+	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
+		s32 numplayers = 0;
+		s32 i;
 
-// Mismatch because it's doing something weird with the chrslots, and also
-// writing to negative mpsim offsets. This code below might not be functionally
-// identical.
-//void func0f19b540(void)
-//{
-//	if (g_MpSetup.locktype == MPLOCKTYPE_CHALLENGE) {
-//		s32 slot = 0;
-//		s32 i;
-//		u32 *ptr;
-//
-//		for (i = 0; i < 4; i++) {
-//			if (g_MpSetup.chrslots & (1 << i)) {
-//				g_MpPlayers[i].unk9d = 0x80;
-//				slot++;
-//			}
-//		}
-//
-//		g_MpSetup.chrslots &= 0x000f;
-//		ptr = &var800ac798[slot];
-//
-//		for (i = 0; i != MAX_SIMULANTS; i++) {
-//			g_MpSimulants[i].unk48 = *(ptr - 1);
-//
-//			if (*(ptr - 1) != 6) {
-//				g_MpSetup.chrslots |= 1 << (i + 4);
-//			}
-//
-//			ptr++;
-//		}
-//
-//		if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL) {
-//			g_Vars.mphilltime = 10;
-//		}
-//	} else {
-//		if (!mpIsChallengeComplete(CHALLENGE_UNK64)) {
-//			g_MpSetup.chrslots &= 0x00ff;
-//		}
-//	}
-//}
+		// Reset player handicaps
+		for (i = 0; i < 4; i++) {
+			if (g_MpSetup.chrslots & (1 << i)) {
+				g_MpPlayers[i].handicap = 0x80;
+				numplayers++;
+			}
+		}
+
+		// Turn off all simulants and turn them on if enabled
+		// for this number of players
+		g_MpSetup.chrslots &= 0x000f;
+
+		for (i = 0; i != MAX_SIMULANTS; i++) {
+			g_MpSimulants[i].skill = g_MpSimulantSkillsPerNumPlayers[i * 4 + numplayers - 1];
+
+			if (g_MpSimulants[i].skill != SIMSKILL_DISABLED) {
+				g_MpSetup.chrslots |= 1 << (i + 4);
+			}
+		}
+
+		if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL) {
+			g_Vars.mphilltime = 10;
+		}
+	} else if (!mpIsChallengeComplete(CHALLENGE_UNK64)) {
+		// Limit to 4 players and 4 simulants
+		g_MpSetup.chrslots &= 0x00ff;
+	}
+}
 
 s32 mpGetNumAvailableChallenges(void)
 {
