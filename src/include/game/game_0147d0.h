@@ -4,7 +4,7 @@
 #include "types.h"
 
 void func0f0147d0(void);
-u32 func0f0147f8(void);
+void func0f0147f8(void);
 void mpRemoveAllSimulants(void);
 u32 func0f014848(void);
 u32 func0f014e90(void);

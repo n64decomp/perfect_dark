@@ -35,20 +35,14 @@ glabel func0f0147d0
 /*  f0147f4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0147f8
-/*  f0147f8:	3c03800a */ 	lui	$v1,%hi(var8009dbe0)
-/*  f0147fc:	3c04800a */ 	lui	$a0,%hi(var8009dd00)
-/*  f014800:	2484dd00 */ 	addiu	$a0,$a0,%lo(var8009dd00)
-/*  f014804:	2463dbe0 */ 	addiu	$v1,$v1,%lo(var8009dbe0)
-/*  f014808:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f01480c:
-/*  f01480c:	24630048 */ 	addiu	$v1,$v1,0x48
-/*  f014810:	1464fffe */ 	bne	$v1,$a0,.L0f01480c
-/*  f014814:	ac62ffb8 */ 	sw	$v0,-0x48($v1)
-/*  f014818:	03e00008 */ 	jr	$ra
-/*  f01481c:	00000000 */ 	nop
-);
+void func0f0147f8(void)
+{
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		var8009dbe0[i].unk00 = -1;
+	}
+}
 
 void mpRemoveAllSimulants(void)
 {

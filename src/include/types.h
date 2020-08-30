@@ -6325,4 +6325,25 @@ struct var80094ed8 {
 	/*0x104*/ u32 unk104;
 };
 
+struct var8009dbe0 {
+	s32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	u32 unk24;
+	u32 unk28;
+	u32 unk2c;
+	u32 unk30;
+	u32 unk34;
+	u32 unk38;
+	u32 unk3c;
+	u32 unk40;
+	u32 unk44;
+};
+
 #endif
