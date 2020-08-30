@@ -3127,18 +3127,18 @@ struct mphead {
 };
 
 struct mpsimulanttype {
-	u8 type;
-	u8 skill;
-	u16 name;
-	u16 body;
-	u8 unlockvalue;
+	/*0x00*/ u8 type;
+	/*0x01*/ u8 skill;
+	/*0x02*/ u16 name;
+	/*0x04*/ u16 body;
+	/*0x06*/ u8 unlockvalue;
 };
 
 struct mpbody {
 	s16 bodynum;
 	s16 name;
 	s16 headnum;
-	u8 unk06;
+	u8 unlockvalue;
 };
 
 struct mptrack {

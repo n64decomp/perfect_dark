@@ -4930,7 +4930,7 @@ u8 mpGetBodyUnk06(u8 bodynum)
 		bodynum = 0;
 	}
 
-	return g_MpBodies[bodynum].unk06;
+	return g_MpBodies[bodynum].unlockvalue;
 }
 
 s32 mpBodyGetMpHeadIndex(s32 bodynum)

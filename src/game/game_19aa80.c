@@ -8,6 +8,7 @@
 #include "game/data/data_0160b0.h"
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
+#include "game/data/data_02a0e0.h"
 #include "game/data/data_02da90.h"
 #include "game/game_0601b0.h"
 #include "game/game_096750.h"
@@ -1553,145 +1554,64 @@ glabel func0f19bd4c
 /*  f19bf9c:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-GLOBAL_ASM(
-glabel func0f19bfa0
-/*  f19bfa0:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f19bfa4:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f19bfa8:	3c13800b */ 	lui	$s3,%hi(var800acca0)
-/*  f19bfac:	2673cca0 */ 	addiu	$s3,$s3,%lo(var800acca0)
-/*  f19bfb0:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f19bfb4:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f19bfb8:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f19bfbc:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f19bfc0:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f19bfc4:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f19bfc8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f19bfcc:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f19bfd0:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f19bfd4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f19bfd8:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f19bfdc:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f19bfe0:	02602825 */ 	or	$a1,$s3,$zero
-/*  f19bfe4:	0fc66ee6 */ 	jal	func0f19bb98
-/*  f19bfe8:	24060028 */ 	addiu	$a2,$zero,0x28
-/*  f19bfec:	3c11800b */ 	lui	$s1,%hi(g_MpSimulants)
-/*  f19bff0:	3c1e800b */ 	lui	$s8,%hi(var800ac798)
-/*  f19bff4:	3c178008 */ 	lui	$s7,%hi(g_MpHeads)
-/*  f19bff8:	3c168008 */ 	lui	$s6,%hi(g_MpBodies)
-/*  f19bffc:	3c148008 */ 	lui	$s4,%hi(g_MpSimulantTypes)
-/*  f19c000:	00408025 */ 	or	$s0,$v0,$zero
-/*  f19c004:	2694772c */ 	addiu	$s4,$s4,%lo(g_MpSimulantTypes)
-/*  f19c008:	26d677bc */ 	addiu	$s6,$s6,%lo(g_MpBodies)
-/*  f19c00c:	26f7752c */ 	addiu	$s7,$s7,%lo(g_MpHeads)
-/*  f19c010:	27dec798 */ 	addiu	$s8,$s8,%lo(var800ac798)
-/*  f19c014:	2631c538 */ 	addiu	$s1,$s1,%lo(g_MpSimulants)
-/*  f19c018:	92240047 */ 	lbu	$a0,0x47($s1)
-.L0f19c01c:
-/*  f19c01c:	0fc6335a */ 	jal	mpGetSimTypeIndex
-/*  f19c020:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f19c024:	0440000a */ 	bltz	$v0,.L0f19c050
-/*  f19c028:	000270c0 */ 	sll	$t6,$v0,0x3
-/*  f19c02c:	028e7821 */ 	addu	$t7,$s4,$t6
-/*  f19c030:	91e40006 */ 	lbu	$a0,0x6($t7)
-/*  f19c034:	02602825 */ 	or	$a1,$s3,$zero
-/*  f19c038:	02003025 */ 	or	$a2,$s0,$zero
-/*  f19c03c:	50800005 */ 	beqzl	$a0,.L0f19c054
-/*  f19c040:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19c044:	0fc66ed4 */ 	jal	func0f19bb50
-/*  f19c048:	24070028 */ 	addiu	$a3,$zero,0x28
-/*  f19c04c:	00408025 */ 	or	$s0,$v0,$zero
-.L0f19c050:
-/*  f19c050:	00002025 */ 	or	$a0,$zero,$zero
-.L0f19c054:
-/*  f19c054:	0fc6335a */ 	jal	mpGetSimTypeIndex
-/*  f19c058:	92250048 */ 	lbu	$a1,0x48($s1)
-/*  f19c05c:	0440000b */ 	bltz	$v0,.L0f19c08c
-/*  f19c060:	00409025 */ 	or	$s2,$v0,$zero
-/*  f19c064:	0002c0c0 */ 	sll	$t8,$v0,0x3
-/*  f19c068:	0298c821 */ 	addu	$t9,$s4,$t8
-/*  f19c06c:	93240006 */ 	lbu	$a0,0x6($t9)
-/*  f19c070:	02602825 */ 	or	$a1,$s3,$zero
-/*  f19c074:	02003025 */ 	or	$a2,$s0,$zero
-/*  f19c078:	10800004 */ 	beqz	$a0,.L0f19c08c
-/*  f19c07c:	00000000 */ 	nop
-/*  f19c080:	0fc66ed4 */ 	jal	func0f19bb50
-/*  f19c084:	24070028 */ 	addiu	$a3,$zero,0x28
-/*  f19c088:	00408025 */ 	or	$s0,$v0,$zero
-.L0f19c08c:
-/*  f19c08c:	06420003 */ 	bltzl	$s2,.L0f19c09c
-/*  f19c090:	92220010 */ 	lbu	$v0,0x10($s1)
-/*  f19c094:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f19c098:	92220010 */ 	lbu	$v0,0x10($s1)
-.L0f19c09c:
-/*  f19c09c:	2841003d */ 	slti	$at,$v0,0x3d
-/*  f19c0a0:	1020000a */ 	beqz	$at,.L0f19c0cc
-/*  f19c0a4:	000240c0 */ 	sll	$t0,$v0,0x3
-/*  f19c0a8:	02c84821 */ 	addu	$t1,$s6,$t0
-/*  f19c0ac:	91240006 */ 	lbu	$a0,0x6($t1)
-/*  f19c0b0:	02602825 */ 	or	$a1,$s3,$zero
-/*  f19c0b4:	02003025 */ 	or	$a2,$s0,$zero
-/*  f19c0b8:	50800005 */ 	beqzl	$a0,.L0f19c0d0
-/*  f19c0bc:	9222000f */ 	lbu	$v0,0xf($s1)
-/*  f19c0c0:	0fc66ed4 */ 	jal	func0f19bb50
-/*  f19c0c4:	24070028 */ 	addiu	$a3,$zero,0x28
-/*  f19c0c8:	00408025 */ 	or	$s0,$v0,$zero
-.L0f19c0cc:
-/*  f19c0cc:	9222000f */ 	lbu	$v0,0xf($s1)
-.L0f19c0d0:
-/*  f19c0d0:	2841004b */ 	slti	$at,$v0,0x4b
-/*  f19c0d4:	1020000a */ 	beqz	$at,.L0f19c100
-/*  f19c0d8:	00025080 */ 	sll	$t2,$v0,0x2
-/*  f19c0dc:	02ea5821 */ 	addu	$t3,$s7,$t2
-/*  f19c0e0:	91640002 */ 	lbu	$a0,0x2($t3)
-/*  f19c0e4:	02602825 */ 	or	$a1,$s3,$zero
-/*  f19c0e8:	02003025 */ 	or	$a2,$s0,$zero
-/*  f19c0ec:	50800005 */ 	beqzl	$a0,.L0f19c104
-/*  f19c0f0:	2631004c */ 	addiu	$s1,$s1,0x4c
-/*  f19c0f4:	0fc66ed4 */ 	jal	func0f19bb50
-/*  f19c0f8:	24070028 */ 	addiu	$a3,$zero,0x28
-/*  f19c0fc:	00408025 */ 	or	$s0,$v0,$zero
-.L0f19c100:
-/*  f19c100:	2631004c */ 	addiu	$s1,$s1,0x4c
-.L0f19c104:
-/*  f19c104:	023e082b */ 	sltu	$at,$s1,$s8
-/*  f19c108:	5420ffc4 */ 	bnezl	$at,.L0f19c01c
-/*  f19c10c:	92240047 */ 	lbu	$a0,0x47($s1)
-/*  f19c110:	2aa10005 */ 	slti	$at,$s5,0x5
-/*  f19c114:	14200006 */ 	bnez	$at,.L0f19c130
-/*  f19c118:	24040040 */ 	addiu	$a0,$zero,0x40
-/*  f19c11c:	02602825 */ 	or	$a1,$s3,$zero
-/*  f19c120:	02003025 */ 	or	$a2,$s0,$zero
-/*  f19c124:	0fc66ed4 */ 	jal	func0f19bb50
-/*  f19c128:	24070028 */ 	addiu	$a3,$zero,0x28
-/*  f19c12c:	00408025 */ 	or	$s0,$v0,$zero
-.L0f19c130:
-/*  f19c130:	2a010028 */ 	slti	$at,$s0,0x28
-/*  f19c134:	10200008 */ 	beqz	$at,.L0f19c158
-/*  f19c138:	3c0c800b */ 	lui	$t4,%hi(var800acca0)
-/*  f19c13c:	258ccca0 */ 	addiu	$t4,$t4,%lo(var800acca0)
-/*  f19c140:	3c03800b */ 	lui	$v1,%hi(g_MpChallengesCompleted)
-/*  f19c144:	2463ccc8 */ 	addiu	$v1,$v1,%lo(g_MpChallengesCompleted)
-/*  f19c148:	020c1021 */ 	addu	$v0,$s0,$t4
-.L0f19c14c:
-/*  f19c14c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f19c150:	1443fffe */ 	bne	$v0,$v1,.L0f19c14c
-/*  f19c154:	a040ffff */ 	sb	$zero,-0x1($v0)
-.L0f19c158:
-/*  f19c158:	0fc66bf7 */ 	jal	func0f19afdc
-/*  f19c15c:	00000000 */ 	nop
-/*  f19c160:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f19c164:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f19c168:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f19c16c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f19c170:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f19c174:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f19c178:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f19c17c:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f19c180:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f19c184:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f19c188:	03e00008 */ 	jr	$ra
-/*  f19c18c:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+void func0f19bfa0(void)
+{
+	s32 numsims = 0;
+	s32 index = func0f19bb98(&g_MpSetup, var800acca0, 40);
+	s32 i;
+
+	for (i = 0; i < 8; i++) {
+		s32 simtypeindex = mpGetSimTypeIndex(g_MpSimulants[i].base.simtype, SIMSKILL_NORMAL);
+
+		if (simtypeindex >= 0) {
+			s32 unlockvalue = g_MpSimulantTypes[simtypeindex].unlockvalue;
+
+			if (unlockvalue) {
+				index = func0f19bb50(unlockvalue, var800acca0, index, 40);
+			}
+		}
+
+		simtypeindex = mpGetSimTypeIndex(SIMTYPE_GENERAL, g_MpSimulants[i].skill);
+
+		if (simtypeindex >= 0) {
+			s32 unlockvalue = g_MpSimulantTypes[simtypeindex].unlockvalue;
+
+			if (unlockvalue) {
+				index = func0f19bb50(unlockvalue, var800acca0, index, 40);
+			}
+		}
+
+		if (simtypeindex >= 0) {
+			numsims++;
+		}
+
+		if (g_MpSimulants[i].base.bodynum < ARRAYCOUNT(g_MpBodies)) {
+			s32 unlockvalue = g_MpBodies[g_MpSimulants[i].base.bodynum].unlockvalue;
+
+			if (unlockvalue) {
+				index = func0f19bb50(unlockvalue, var800acca0, index, 40);
+			}
+		}
+
+		if (g_MpSimulants[i].base.headnum < ARRAYCOUNT(g_MpHeads)) {
+			s32 unlockvalue = g_MpHeads[g_MpSimulants[i].base.headnum].unlockvalue;
+
+			if (unlockvalue) {
+				index = func0f19bb50(unlockvalue, var800acca0, index, 40);
+			}
+		}
+	}
+
+	if (numsims > 4) {
+		index = func0f19bb50(64, var800acca0, index, 40);
+	}
+
+	for (i = index; i < 40; i++) {
+		var800acca0[i] = 0;
+	}
+
+	func0f19afdc();
+}
 
 void func0f19c190(void)
 {
