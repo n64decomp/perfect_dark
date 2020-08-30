@@ -50,20 +50,16 @@ glabel func0f0147f8
 /*  f01481c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f014820
-/*  f014820:	3c03800b */ 	lui	$v1,%hi(g_MpSimulantChrs)
-/*  f014824:	3c02800b */ 	lui	$v0,%hi(var800acca0)
-/*  f014828:	2442cca0 */ 	addiu	$v0,$v0,%lo(var800acca0)
-/*  f01482c:	2463cc80 */ 	addiu	$v1,$v1,%lo(g_MpSimulantChrs)
-.L0f014830:
-/*  f014830:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f014834:	1462fffe */ 	bne	$v1,$v0,.L0f014830
-/*  f014838:	ac60fffc */ 	sw	$zero,-0x4($v1)
-/*  f01483c:	3c018008 */ 	lui	$at,%hi(g_NumMpSimulantChrs)
-/*  f014840:	03e00008 */ 	jr	$ra
-/*  f014844:	a0207d10 */ 	sb	$zero,%lo(g_NumMpSimulantChrs)($at)
-);
+void mpRemoveAllSimulants(void)
+{
+	s32 i;
+
+	for (i = 0; i < 8; i++) {
+		g_MpSimulantChrs[i] = NULL;
+	}
+
+	g_NumMpSimulantChrs = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f014848

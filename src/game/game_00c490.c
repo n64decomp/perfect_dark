@@ -3863,7 +3863,7 @@ glabel var7f1a8224
 /*  f00f5ac:	0281c825 */ 	or	$t9,$s4,$at
 /*  f00f5b0:	0320a025 */ 	or	$s4,$t9,$zero
 .L0f00f5b4:
-/*  f00f5b4:	0fc05208 */ 	jal	func0f014820
+/*  f00f5b4:	0fc05208 */ 	jal	mpRemoveAllSimulants
 /*  f00f5b8:	00000000 */ 	nop
 /*  f00f5bc:	3c12800a */ 	lui	$s2,%hi(g_StageSetup+0x10)
 /*  f00f5c0:	8e52d040 */ 	lw	$s2,%lo(g_StageSetup+0x10)($s2)
