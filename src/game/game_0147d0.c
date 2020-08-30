@@ -20,20 +20,14 @@
 #include "lib/lib_1a500.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f0147d0
-/*  f0147d0:	3c03800a */ 	lui	$v1,%hi(var8009da60)
-/*  f0147d4:	3c04800a */ 	lui	$a0,%hi(var8009dbe0)
-/*  f0147d8:	2484dbe0 */ 	addiu	$a0,$a0,%lo(var8009dbe0)
-/*  f0147dc:	2463da60 */ 	addiu	$v1,$v1,%lo(var8009da60)
-/*  f0147e0:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f0147e4:
-/*  f0147e4:	24630030 */ 	addiu	$v1,$v1,0x30
-/*  f0147e8:	1464fffe */ 	bne	$v1,$a0,.L0f0147e4
-/*  f0147ec:	ac62ffd0 */ 	sw	$v0,-0x30($v1)
-/*  f0147f0:	03e00008 */ 	jr	$ra
-/*  f0147f4:	00000000 */ 	nop
-);
+void func0f0147d0(void)
+{
+	s32 i;
+
+	for (i = 0; i < 8; i++) {
+		var8009da60[i].unk00 = -1;
+	}
+}
 
 void func0f0147f8(void)
 {
