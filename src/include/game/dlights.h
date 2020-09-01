@@ -38,7 +38,7 @@ void func0f0033b0(void);
 u32 func0f003444(void);
 u32 func0f0035c0(void);
 u32 func0f00372c(void);
-u32 func0f0037ac(void);
+void func0f0037ac(void);
 u32 func0f004314(void);
 u32 func0f00438c(void);
 u32 func0f004558(void);

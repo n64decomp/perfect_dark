@@ -2909,49 +2909,22 @@ glabel func0f002ef8
 /*  f0033ac:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0033b0
-/*  f0033b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0033b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0033b8:	0fc00deb */ 	jal	func0f0037ac
-/*  f0033bc:	00000000 */ 	nop
-/*  f0033c0:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f0033c4:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f0033c8:	90ee04e1 */ 	lbu	$t6,0x4e1($a3)
-/*  f0033cc:	51c0001a */ 	beqzl	$t6,.L0f003438
-/*  f0033d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0033d4:	0fc5048d */ 	jal	func0f141234
-/*  f0033d8:	00000000 */ 	nop
-/*  f0033dc:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f0033e0:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f0033e4:	8cef02bc */ 	lw	$t7,0x2bc($a3)
-/*  f0033e8:	a0e004e1 */ 	sb	$zero,0x4e1($a3)
-/*  f0033ec:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0033f0:	29e10002 */ 	slti	$at,$t7,0x2
-/*  f0033f4:	1420000f */ 	bnez	$at,.L0f003434
-/*  f0033f8:	2404008c */ 	addiu	$a0,$zero,0x8c
-/*  f0033fc:	3c05800a */ 	lui	$a1,%hi(g_Rooms)
-/*  f003400:	24a54928 */ 	addiu	$a1,$a1,%lo(g_Rooms)
-/*  f003404:	2406efff */ 	addiu	$a2,$zero,-4097
-/*  f003408:	8cb80000 */ 	lw	$t8,0x0($a1)
-.L0f00340c:
-/*  f00340c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f003410:	03041021 */ 	addu	$v0,$t8,$a0
-/*  f003414:	94590000 */ 	lhu	$t9,0x0($v0)
-/*  f003418:	2484008c */ 	addiu	$a0,$a0,0x8c
-/*  f00341c:	03264024 */ 	and	$t0,$t9,$a2
-/*  f003420:	a4480000 */ 	sh	$t0,0x0($v0)
-/*  f003424:	8ce902bc */ 	lw	$t1,0x2bc($a3)
-/*  f003428:	0069082a */ 	slt	$at,$v1,$t1
-/*  f00342c:	5420fff7 */ 	bnezl	$at,.L0f00340c
-/*  f003430:	8cb80000 */ 	lw	$t8,0x0($a1)
-.L0f003434:
-/*  f003434:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f003438:
-/*  f003438:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f00343c:	03e00008 */ 	jr	$ra
-/*  f003440:	00000000 */ 	nop
-);
+void func0f0033b0(void)
+{
+	s32 i;
+
+	func0f0037ac();
+
+	if (g_Vars.unk0004e1) {
+		func0f141234();
+
+		g_Vars.unk0004e1 = 0;
+
+		for (i = 1; i < g_Vars.roomcount; i++) {
+			g_Rooms[i].flags &= ~ROOMFLAG_1000;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f003444
