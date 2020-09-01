@@ -11,7 +11,7 @@ u32 func0f000b24(void);
 u8 roomGetBrightness(s32 room);
 s32 func0f000c54(s32 roomnum);
 u32 func0f000cc4(void);
-u32 func0f000dbc(void);
+f32 func0f000dbc(s32 roomnum);
 u32 func0f000dfc(void);
 u32 func0f000f50(void);
 u32 func0f000f94(void);
