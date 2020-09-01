@@ -1665,61 +1665,27 @@ s32 mpCountWeaponSetThing(s32 weaponsetindex)
 	return count;
 }
 
-GLOBAL_ASM(
-glabel func0f188f9c
-/*  f188f9c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f188fa0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f188fa4:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f188fa8:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f188fac:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f188fb0:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f188fb4:	3c108008 */ 	lui	$s0,%hi(g_MpWeaponSets)
-/*  f188fb8:	00809025 */ 	or	$s2,$a0,$zero
-/*  f188fbc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f188fc0:	261073f0 */ 	addiu	$s0,$s0,%lo(g_MpWeaponSets)
-/*  f188fc4:	00008825 */ 	or	$s1,$zero,$zero
-/*  f188fc8:	2413005c */ 	addiu	$s3,$zero,0x5c
-/*  f188fcc:	2414000c */ 	addiu	$s4,$zero,0xc
-.L0f188fd0:
-/*  f188fd0:	0fc67244 */ 	jal	mpIsChallengeComplete
-/*  f188fd4:	92040008 */ 	lbu	$a0,0x8($s0)
-/*  f188fd8:	5040000e */ 	beqzl	$v0,.L0f189014
-/*  f188fdc:	920e000c */ 	lbu	$t6,0xc($s0)
-/*  f188fe0:	0fc67244 */ 	jal	mpIsChallengeComplete
-/*  f188fe4:	92040009 */ 	lbu	$a0,0x9($s0)
-/*  f188fe8:	5040000a */ 	beqzl	$v0,.L0f189014
-/*  f188fec:	920e000c */ 	lbu	$t6,0xc($s0)
-/*  f188ff0:	0fc67244 */ 	jal	mpIsChallengeComplete
-/*  f188ff4:	9204000a */ 	lbu	$a0,0xa($s0)
-/*  f188ff8:	50400006 */ 	beqzl	$v0,.L0f189014
-/*  f188ffc:	920e000c */ 	lbu	$t6,0xc($s0)
-/*  f189000:	0fc67244 */ 	jal	mpIsChallengeComplete
-/*  f189004:	9204000b */ 	lbu	$a0,0xb($s0)
-/*  f189008:	14400004 */ 	bnez	$v0,.L0f18901c
-/*  f18900c:	00000000 */ 	nop
-/*  f189010:	920e000c */ 	lbu	$t6,0xc($s0)
-.L0f189014:
-/*  f189014:	526e0005 */ 	beql	$s3,$t6,.L0f18902c
-/*  f189018:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f18901c:
-/*  f18901c:	52400006 */ 	beqzl	$s2,.L0f189038
-/*  f189020:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f189024:	2652ffff */ 	addiu	$s2,$s2,-1
-/*  f189028:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f18902c:
-/*  f18902c:	1634ffe8 */ 	bne	$s1,$s4,.L0f188fd0
-/*  f189030:	26100012 */ 	addiu	$s0,$s0,0x12
-/*  f189034:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f189038:
-/*  f189038:	02321021 */ 	addu	$v0,$s1,$s2
-/*  f18903c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f189040:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f189044:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f189048:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f18904c:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f189050:	03e00008 */ 	jr	$ra
-/*  f189054:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+s32 func0f188f9c(s32 arg0)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(g_MpWeaponSets); i++) {
+		// @bug? Shouldn't the disabled check be == WEAPON_DISABLED?
+		if ((mpIsChallengeComplete(g_MpWeaponSets[i].unlocks[0])
+					&& mpIsChallengeComplete(g_MpWeaponSets[i].unlocks[1])
+					&& mpIsChallengeComplete(g_MpWeaponSets[i].unlocks[2])
+					&& mpIsChallengeComplete(g_MpWeaponSets[i].unlocks[3]))
+				|| g_MpWeaponSets[i].unk0c != WEAPON_DISABLED) {
+			if (arg0 == 0) {
+				break;
+			}
+
+			arg0--;
+		}
+	}
+
+	return i + arg0;
+}
 
 s32 func0f189058(s32 arg0)
 {
