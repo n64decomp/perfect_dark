@@ -289,40 +289,18 @@ u8 roomGetBrightness(s32 room)
 	return g_Rooms[room].brightness & 0xff;
 }
 
-GLOBAL_ASM(
-glabel func0f000c54
-/*  f000c54:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f000c58:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f000c5c:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f000c60:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f000c64:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000c68:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f000c6c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000c70:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f000c74:	84430052 */ 	lh	$v1,0x52($v0)
-/*  f000c78:	28610100 */ 	slti	$at,$v1,0x100
-/*  f000c7c:	14200003 */ 	bnez	$at,.L0f000c8c
-/*  f000c80:	00000000 */ 	nop
-/*  f000c84:	03e00008 */ 	jr	$ra
-/*  f000c88:	240200ff */ 	addiu	$v0,$zero,0xff
-.L0f000c8c:
-/*  f000c8c:	04630004 */ 	bgezl	$v1,.L0f000ca0
-/*  f000c90:	94580000 */ 	lhu	$t8,0x0($v0)
-/*  f000c94:	03e00008 */ 	jr	$ra
-/*  f000c98:	00001025 */ 	or	$v0,$zero,$zero
-/*  f000c9c:	94580000 */ 	lhu	$t8,0x0($v0)
-.L0f000ca0:
-/*  f000ca0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f000ca4:	33190040 */ 	andi	$t9,$t8,0x40
-/*  f000ca8:	13200003 */ 	beqz	$t9,.L0f000cb8
-/*  f000cac:	00000000 */ 	nop
-/*  f000cb0:	10000001 */ 	b	.L0f000cb8
-/*  f000cb4:	00602025 */ 	or	$a0,$v1,$zero
-.L0f000cb8:
-/*  f000cb8:	00801025 */ 	or	$v0,$a0,$zero
-/*  f000cbc:	03e00008 */ 	jr	$ra
-/*  f000cc0:	00000000 */ 	nop
-);
+s32 func0f000c54(s32 roomnum)
+{
+	if (g_Rooms[roomnum].unk52 > 255) {
+		return 255;
+	}
+
+	if (g_Rooms[roomnum].unk52 < 0) {
+		return 0;
+	}
+
+	return (g_Rooms[roomnum].flags & ROOMFLAG_0040) ? g_Rooms[roomnum].unk52 : 0;
+}
 
 GLOBAL_ASM(
 glabel func0f000cc4
