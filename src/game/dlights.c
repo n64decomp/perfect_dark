@@ -106,26 +106,10 @@ glabel func0f000920
 /*  f000978:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel roomGetLight
-/*  f00097c:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f000980:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f000984:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f000988:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f00098c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000990:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f000994:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000998:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f00099c:	9719000a */ 	lhu	$t9,0xa($t8)
-/*  f0009a0:	3c0a800a */ 	lui	$t2,%hi(g_LightsFileData)
-/*  f0009a4:	8d4a4cd8 */ 	lw	$t2,%lo(g_LightsFileData)($t2)
-/*  f0009a8:	03254021 */ 	addu	$t0,$t9,$a1
-/*  f0009ac:	00084900 */ 	sll	$t1,$t0,0x4
-/*  f0009b0:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f0009b4:	00094840 */ 	sll	$t1,$t1,0x1
-/*  f0009b8:	03e00008 */ 	jr	$ra
-/*  f0009bc:	012a1021 */ 	addu	$v0,$t1,$t2
-);
+struct light *roomGetLight(s32 roomnum, s32 lightnum)
+{
+	return (struct light *)&g_LightsFileData[(g_Rooms[roomnum].lightindex + lightnum) * 0x22];
+}
 
 GLOBAL_ASM(
 glabel func0f0009c0
