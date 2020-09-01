@@ -3367,17 +3367,24 @@ struct roombitfield {
 	u8 b : 4;
 };
 
+struct screenbox {
+	s16 xmin;
+	s16 ymin;
+	s16 xmax;
+	s16 ymax;
+};
+
 struct room {
 	/*0x00*/ u16 flags;
 	/*0x02*/ s16 unk02;
-	/*0x04*/ u8 unk04;
-	/*0x05*/ u8 unk05;
+	/*0x04*/ u8 portalrecursioncount;
+	/*0x05*/ s8 unk05;
 	/*0x06*/ u8 unk06;
 	/*0x07*/ u8 unk07;
 	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
+	/*0x0c*/ u16 unk0c;
+	/*0x0e*/ s16 unk0e;
+	/*0x10*/ struct screenbox screenbox;
 	/*0x18*/ struct coord unk18;
 	/*0x24*/ struct coord unk24;
 	/*0x30*/ u32 unk30;
@@ -5911,13 +5918,6 @@ struct portalcmd {
 	s32 param;
 };
 
-struct screenbox {
-	s16 xmin;
-	s16 ymin;
-	s16 xmax;
-	s16 ymax;
-};
-
 struct var800a4640_00 {
 	u32 unk00;
 	u32 unk04;
@@ -5937,11 +5937,21 @@ struct zrange {
 	f32 far;
 };
 
+struct var800a4d00 {
+	/*0x00*/ s16 roomnum;
+	/*0x02*/ s16 unk02[5]; // also roomnums
+	/*0x0c*/ s8 unk0c;
+	/*0x0d*/ s8 unk0d;
+	/*0x0e*/ s16 unk0e;
+	/*0x10*/ struct screenbox screenbox;
+};
+
 struct var800a4cf0 {
 	u16 unk00;
-	u16 unk02;
-	u16 unk04;
+	s16 index; // index into unk10
+	s16 unk04; // also an index into unk10
 	struct zrange zrange;
+	struct var800a4d00 unk10[250];
 };
 
 struct menuthing {
