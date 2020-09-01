@@ -6175,10 +6175,10 @@ bool aiSetLights(void)
 
 	if (roomnum >= 0) {
 		switch (cmd[4]) {
-		case 7:
+		case LIGHTOP_7:
 			func0f002b58(roomnum, false);
 			break;
-		case 6:
+		case LIGHTOP_6:
 			func0f002b58(roomnum, true);
 			break;
 		default:

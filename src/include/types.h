@@ -3363,7 +3363,7 @@ struct spark {
 };
 
 struct roombitfield {
-	u8 a : 4;
+	u8 prevop : 4;
 	u8 b : 4;
 };
 
@@ -3398,12 +3398,13 @@ struct room {
 	/*0x4d*/ u8 unk4d;
 	/*0x4e*/ struct roombitfield bitfield;
 	/*0x50*/ s16 brightness;
-	/*0x54*/ u32 unk54;
+	/*0x52*/ u16 unk52;
+	/*0x54*/ u16 unk54;
 	/*0x58*/ u32 unk58;
 	/*0x5c*/ u32 unk5c;
-	/*0x60*/ u32 unk60;
-	/*0x64*/ u32 unk64;
-	/*0x68*/ u32 unk68;
+	/*0x60*/ f32 unk60;
+	/*0x64*/ f32 unk64;
+	/*0x68*/ f32 unk68;
 	/*0x6c*/ u32 unk6c;
 	/*0x70*/ u32 unk70;
 	/*0x74*/ u32 unk74;
