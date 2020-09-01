@@ -6367,6 +6367,8 @@ struct light {
 	/*0x05*/ u8 unk05_00 : 1;
 	/*0x05*/ u8 healthy : 1; // just a guess based on context
 	/*0x05*/ u8 on : 1;
+	/*0x05*/ u8 unk05_03 : 1;
+	/*0x05*/ u8 unk05_04 : 1;
 	/*0x06*/ u16 unk06;
 	/*0x08*/ u16 unk08;
 	/*0x0a*/ s16 x1;

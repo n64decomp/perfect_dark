@@ -494,19 +494,12 @@ glabel func0f000f50
 /*  f000f90:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f000f94
-/*  f000f94:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f000f98:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f000f9c:	0fc0025f */ 	jal	roomGetLight
-/*  f000fa0:	00000000 */ 	nop
-/*  f000fa4:	94420004 */ 	lhu	$v0,0x4($v0)
-/*  f000fa8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f000fac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f000fb0:	00027700 */ 	sll	$t6,$v0,0x1c
-/*  f000fb4:	03e00008 */ 	jr	$ra
-/*  f000fb8:	000e17c2 */ 	srl	$v0,$t6,0x1f
-);
+bool func0f000f94(s32 roomnum, s32 lightnum)
+{
+	struct light *light = roomGetLight(roomnum, lightnum);
+
+	return light->unk05_04;
+}
 
 GLOBAL_ASM(
 glabel func0f000fbc
