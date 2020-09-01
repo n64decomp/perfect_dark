@@ -4270,40 +4270,40 @@ u8 func1030_setup_rtracker[] = {
 	endlist
 };
 
-u8 func1031_setup_lighting[] = {
+u8 func1031_setup_environment[] = {
 	yield
-	misc_command(0x0000, 0x00, 0x00)
-	misc_command(0x0000, 0x01, 0x00)
-	misc_command(0x0000, 0x02, 0x00)
-	misc_command(0x0000, 0x03, 0x00)
-	misc_command(0x0000, 0x04, 0x00)
-	misc_command(0x007b, 0x05, 0x01)
-	misc_command(0x007b, 0x06, 0x01)
-	misc_command(0x007c, 0x05, 0x01)
-	misc_command(0x007c, 0x06, 0x01)
-	misc_command(0x007d, 0x05, 0x01)
-	misc_command(0x007d, 0x06, 0x01)
-	misc_command(0x007f, 0x05, 0x01)
-	misc_command(0x007f, 0x06, 0x01)
-	misc_command(0x0080, 0x06, 0x01)
-	misc_command(0x0081, 0x05, 0x01)
-	misc_command(0x0081, 0x06, 0x01)
-	misc_command(0x0082, 0x05, 0x01)
-	misc_command(0x0082, 0x06, 0x01)
-	misc_command(0x0083, 0x05, 0x01)
-	misc_command(0x0083, 0x06, 0x01)
-	misc_command(0x0084, 0x06, 0x01)
-	misc_command(0x0085, 0x06, 0x01)
-	misc_command(0x0086, 0x05, 0x01)
-	misc_command(0x0086, 0x06, 0x01)
-	misc_command(0x0087, 0x05, 0x01)
-	misc_command(0x0087, 0x06, 0x01)
-	misc_command(0x0088, 0x05, 0x01)
-	misc_command(0x0088, 0x06, 0x01)
-	misc_command(0x0089, 0x05, 0x01)
-	misc_command(0x008f, 0x05, 0x01)
-	misc_command(0x0090, 0x06, 0x01)
-	misc_command(0x0091, 0x06, 0x01)
+	configure_environment(0x0000, AIENVCMD_00, FALSE)
+	configure_environment(0x0000, AIENVCMD_01, FALSE)
+	configure_environment(0x0000, AIENVCMD_02, FALSE)
+	configure_environment(0x0000, AIENVCMD_03, FALSE)
+	configure_environment(0x0000, AIENVCMD_04, FALSE)
+	configure_environment(0x007b, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x007b, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x007c, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x007c, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x007d, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x007d, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x007f, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x007f, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0080, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0081, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0081, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0082, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0082, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0083, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0083, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0084, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0085, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0086, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0086, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0087, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0087, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0088, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0088, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0089, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x008f, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0090, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0091, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4400,7 +4400,7 @@ struct ailist ailists[] = {
 	{ func102e_check_base_entered,         0x102e },
 	{ func102f_undisguise_on_alarm,        0x102f },
 	{ func1030_setup_rtracker,             0x1030 },
-	{ func1031_setup_lighting,             0x1031 },
+	{ func1031_setup_environment,          0x1031 },
 	{ func1032_unhide_guards_near_plane,   0x1032 },
 	{ func1420_setup_portals,              0x1420 },
 	{ func0404_laser_guard,                0x0404 },

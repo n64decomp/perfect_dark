@@ -2691,7 +2691,7 @@ glabel func00010ae4
 );
 
 GLOBAL_ASM(
-glabel func00010db0
+glabel envPlayNosedive
 /*    10db0:	00047100 */ 	sll	$t6,$a0,0x4
 /*    10db4:	01c47023 */ 	subu	$t6,$t6,$a0
 /*    10db8:	000e7100 */ 	sll	$t6,$t6,0x4
@@ -2707,7 +2707,7 @@ glabel func00010db0
 );
 
 GLOBAL_ASM(
-glabel func00010de0
+glabel envStopNosedive
 /*    10de0:	3c028006 */ 	lui	$v0,%hi(var8005ddac)
 /*    10de4:	2442ddac */ 	addiu	$v0,$v0,%lo(var8005ddac)
 /*    10de8:	8c4e0000 */ 	lw	$t6,0x0($v0)
@@ -2909,7 +2909,7 @@ glabel func00010e10
 );
 
 GLOBAL_ASM(
-glabel func000110bc
+glabel envPlayUfoHum
 /*    110bc:	00047100 */ 	sll	$t6,$a0,0x4
 /*    110c0:	01c47023 */ 	subu	$t6,$t6,$a0
 /*    110c4:	000e7100 */ 	sll	$t6,$t6,0x4
@@ -2925,7 +2925,7 @@ glabel func000110bc
 );
 
 GLOBAL_ASM(
-glabel func000110ec
+glabel envStopUfoHum
 /*    110ec:	3c028006 */ 	lui	$v0,%hi(var8005ddb8)
 /*    110f0:	2442ddb8 */ 	addiu	$v0,$v0,%lo(var8005ddb8)
 /*    110f4:	8c4e0000 */ 	lw	$t6,0x0($v0)

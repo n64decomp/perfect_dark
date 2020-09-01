@@ -4678,17 +4678,17 @@ u8 func1032_setup_rtracker[] = {
 	endlist
 };
 
-u8 func1433_setup_lighting[] = {
+u8 func1433_setup_environment[] = {
 	yield
-	misc_command(0x0000, 0x09, 0x01)
-	misc_command(0x0002, 0x05, 0x00)
-	misc_command(0x0003, 0x05, 0x00)
-	misc_command(0x0004, 0x05, 0x00)
-	misc_command(0x0006, 0x05, 0x00)
-	misc_command(0x0007, 0x05, 0x00)
-	misc_command(0x0008, 0x05, 0x00)
-	misc_command(0x000c, 0x05, 0x00)
-	misc_command(0x000d, 0x05, 0x00)
+	configure_environment(0x0000, AIENVCMD_SETAMBIENT, TRUE)
+	configure_environment(0x0002, AIENVCMD_ROOM_SETAMBIENT, FALSE)
+	configure_environment(0x0003, AIENVCMD_ROOM_SETAMBIENT, FALSE)
+	configure_environment(0x0004, AIENVCMD_ROOM_SETAMBIENT, FALSE)
+	configure_environment(0x0006, AIENVCMD_ROOM_SETAMBIENT, FALSE)
+	configure_environment(0x0007, AIENVCMD_ROOM_SETAMBIENT, FALSE)
+	configure_environment(0x0008, AIENVCMD_ROOM_SETAMBIENT, FALSE)
+	configure_environment(0x000c, AIENVCMD_ROOM_SETAMBIENT, FALSE)
+	configure_environment(0x000d, AIENVCMD_ROOM_SETAMBIENT, FALSE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4803,7 +4803,7 @@ struct ailist ailists[] = {
 	{ func1030_unlock_agent_teleport_door,            0x1030 },
 	{ func1031_unset_trigger_buddy_warp,              0x1031 },
 	{ func1032_setup_rtracker,                        0x1032 },
-	{ func1433_setup_lighting,                        0x1433 },
+	{ func1433_setup_environment,                     0x1433 },
 	{ func1034_enable_blondes,                        0x1034 },
 	{ func1002_intro,                                 0x0c00 },
 	{ func0c01_midcutscene,                           0x0c01 },

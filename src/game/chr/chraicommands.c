@@ -11244,7 +11244,7 @@ bool aiShowCutsceneChrs(void)
 /**
  * @cmd 01d6
  */
-bool aiMiscellaneous(void)
+bool aiConfigureEnvironment(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 room_id = (cmd[3] | (cmd[2] << 8));
@@ -11252,40 +11252,40 @@ bool aiMiscellaneous(void)
 	s32 i;
 
 	switch (cmd[4]) {
-	case 0:
+	case AIENVCMD_00:
 		var8006ae18 = value;
 		break;
-	case 1:
+	case AIENVCMD_01:
 		var8006ae1c = value;
 		break;
-	case 2:
+	case AIENVCMD_02:
 		var8006ae20 = value;
 		break;
-	case 3:
+	case AIENVCMD_03:
 		var8006ae24 = value;
 		break;
-	case 4:
+	case AIENVCMD_04:
 		var8006ae28 = value;
 		break;
-	case 5:
+	case AIENVCMD_ROOM_SETAMBIENT:
 		g_Rooms[room_id].flags &= ~ROOMFLAG_PLAYAMBIENTTRACK;
 		if (value) {
 			g_Rooms[room_id].flags |= ROOMFLAG_PLAYAMBIENTTRACK;
 		}
 		break;
-	case 6:
-		g_Rooms[room_id].flags &= ~ROOMFLAG_8000;
+	case AIENVCMD_ROOM_SETOUTDOORS:
+		g_Rooms[room_id].flags &= ~ROOMFLAG_OUTDOORS;
 		if (value) {
-			g_Rooms[room_id].flags |= ROOMFLAG_8000;
+			g_Rooms[room_id].flags |= ROOMFLAG_OUTDOORS;
 		}
 		break;
-	case 7:
+	case AIENVCMD_07:
 		g_Rooms[room_id].bitfield.b = value;
 		break;
-	case 8:
+	case AIENVCMD_08:
 		g_Rooms[room_id].unk4d = value;
 		break;
-	case 9:
+	case AIENVCMD_SETAMBIENT:
 		for (i = 1; i < g_Vars.roomcount; i++) {
 			if (value) {
 				g_Rooms[i].flags |= ROOMFLAG_PLAYAMBIENTTRACK;
@@ -11294,23 +11294,23 @@ bool aiMiscellaneous(void)
 			}
 		}
 		break;
-	case 10:
-		func00010db0(value);
+	case AIENVCMD_PLAYNOSEDIVE:
+		envPlayNosedive(value);
 		break;
-	case 11:
+	case AIENVCMD_0B:
 		func0001190c();
 		break;
-	case 12:
-		func0f001a64(room_id, value);
+	case AIENVCMD_ROOM_SETFAULTYLIGHTS:
+		roomSetFaultyLights(room_id, value);
 		break;
-	case 13:
-		func00010de0(room_id);
+	case AIENVCMD_STOPNOSEDIVE:
+		envStopNosedive();
 		break;
-	case 14:
-		func000110bc(value);
+	case AIENVCMD_PLAYUFOHUM:
+		envPlayUfoHum(value);
 		break;
-	case 15:
-		func000110ec(room_id);
+	case AIENVCMD_STOPUFOHUM:
+		envStopUfoHum();
 		break;
 	}
 

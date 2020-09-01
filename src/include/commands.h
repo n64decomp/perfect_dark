@@ -3999,35 +3999,64 @@
 	bool,
 
 /**
- * Run a miscellaneous command.
+ * Configures the environment in some way. The operation done is determined by
+ * an AIENVCMD constant.
  *
- * Operations 0 through 4 aren't known yet. They copy the given value to some
- * global variables. Value is expected to be 0 or 1.
+ * AIENVCMD_00:
+ * AIENVCMD_01:
+ * AIENVCMD_02:
+ * AIENVCMD_03:
+ * AIENVCMD_04:
+ * - These operations are not known and don't appear to do anything. They may
+ *   have been for debug purposes.
  *
- * Operation 5 is unknown but operates on the given room ID.
+ * AIENVCMD_ROOM_SETAMBIENT:
+ * - Allows the stage's ambient track (background noise such as wind) to play
+ *   while the player is in the given room. The value argument should be TRUE
+ *   or FALSE.
  *
- * Operation 6 marks a room as internal or external. External rooms don't light
- * up when shots are fired. This operation expects the room ID to be supplied
- * and for value to be 0 (for internal) or 1 (for external).
+ * AIENVCMD_SETAMBIENT:
+ * - Allows the stage's ambient track (background noise such as wind) to play
+ *   for all rooms in the stage. The value argument should be TRUE
+ *   or FALSE. Typically this is called first to set all rooms, then selectively
+ *   changed for individual rooms using AIENVCMD_ROOM_SETAMBIENT.
  *
- * Operations 7 and 8 are unknown.
+ * AIENVCMD_ROOM_SETOUTDOORS:
+ * - Marks the room as being outdoors, which prevents the room from lighting up
+ *   when a shot is fired. The value argument should be TRUE or FALSE.
  *
- * Operation 9 is the same as operation 5, but applies to all rooms.
+ * AIENVCMD_07:
+ * AIENVCMD_08:
+ * - Both unused and unknown, and testing these don't produce any noticeable
+ *   results.
  *
- * Operation 0xa plays the AF1 nosedive noise. In this operation value is the
- * duration of the noise in seconds.
+ * AIENVCMD_0B:
+ * - Used in the Defection intro but unknown, and testing it doesn't produce any
+ *   noticeable results.
  *
- * Operation 0xb is unknown.
+ * AIENVCMD_ROOM_SETFAULTYLIGHTS:
+ * - Sets the lights in the given room number to be faulty. It's used for the
+ *   lights virus in Rescue. The value argument appears to control what
+ *   percentage of lights in the room will be faulty. The exact usage of this
+ *   argument is unknown, but higher numbers mean more faulty lights.
  *
- * Operation 0xc is related to the Rescue lights being overloaded, but specifics
- * are not known.
+ * AIENVCMD_PLAYNOSEDIVE:
+ * - Plays the Air Force One nosedive noise. The value argument is the number of
+ *   seconds the track should play for. The audio speed will be adjusted
+ *   automatically to make it last the desired duration.
  *
- * Operation 0xd is believed to stop the AF1 nosedive noise.
+ * AIENVCMD_STOPNOSEDIVE:
+ * - Stops the nosedive noise.
  *
- * Operation 0xe and 0xf are related to the UFO exit on Escape. They probably
- * start and stop the UFO noise but this hasn't been tested.
+ * AIENVCMD_PLAYUFOHUM:
+ * - Plays the UFO humming noise. The value argument is the number of seconds
+ *   the track should play for. The audio speed will be adjusted automatically
+ *   make it last the desired duration.
+ *
+ * AIENVCMD_STOPUFOHUM:
+ * - Stops the UFO humming noise.
  */
-#define misc_command(room, operation, value) \
+#define configure_environment(room, operation, value) \
 	mkshort(0x01d6), \
 	mkshort(room), \
 	operation, \

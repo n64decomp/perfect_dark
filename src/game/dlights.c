@@ -1332,7 +1332,7 @@ glabel func0f001734
 );
 
 GLOBAL_ASM(
-glabel func0f001a64
+glabel roomSetFaultyLights
 /*  f001a64:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f001a68:	afb40024 */ 	sw	$s4,0x24($sp)
 /*  f001a6c:	afb30020 */ 	sw	$s3,0x20($sp)

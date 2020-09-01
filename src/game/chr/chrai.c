@@ -488,7 +488,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01d3*/ aiSetDrCarollImages,
 	/*0x01d4*/ ai01d4,
 	/*0x01d5*/ aiShowCutsceneChrs,
-	/*0x01d6*/ aiMiscellaneous,
+	/*0x01d6*/ aiConfigureEnvironment,
 	/*0x01d7*/ aiIfDistanceToTarget2LessThan,
 	/*0x01d8*/ aiIfDistanceToTarget2GreaterThan,
 	/*0x01d9*/ aiPlaySoundFromProp,

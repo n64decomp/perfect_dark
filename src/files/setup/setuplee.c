@@ -3613,9 +3613,9 @@ u8 unregistered_function1[] = {
 	endlist
 };
 
-u8 func1423_setup_lighting[] = {
+u8 func1423_setup_environment[] = {
 	yield
-	misc_command(0x0000, 0x09, 0x01)
+	configure_environment(0x0000, AIENVCMD_SETAMBIENT, TRUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3823,7 +3823,7 @@ struct ailist ailists[] = {
 	{ func1020_engine_hum_noise,                 0x1020 },
 	{ func1021_check_ammo_wasted,                0x1021 },
 	{ func1022_setup_rtracker,                   0x1022 },
-	{ func1423_setup_lighting,                   0x1423 },
+	{ func1423_setup_environment,                0x1423 },
 	{ func1024_set_bridge_skedar_invincible,     0x1024 },
 	{ func1025_toggle_chrs,                      0x1025 },
 	{ func1026_hide_necklace,                    0x1026 },

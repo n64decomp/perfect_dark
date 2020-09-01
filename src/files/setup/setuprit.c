@@ -1160,7 +1160,7 @@ u8 func100a_autopilot_switch[] = {
 	endloop(0x0e)
 
 	label(0x06)
-	misc_command(0x0000, 0x0d, 0x00)
+	configure_environment(0x0000, AIENVCMD_STOPNOSEDIVE, 0)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Switch destroyed
@@ -1892,7 +1892,7 @@ u8 func100c_cockpit[] = {
 	endloop(0x0f)
 
 	label(0x2d)
-	misc_command(0x0000, 0x0a, 0x3c)
+	configure_environment(0x0000, AIENVCMD_PLAYNOSEDIVE, 60)
 
 	// Wait 40 seconds or for autopilot
 	restart_timer
@@ -3432,7 +3432,7 @@ u8 func0c02_outro_from_menu[] = {
 };
 
 u8 func0423_outro[] = {
-	misc_command(0x0000, 0x0d, 0x00)
+	configure_environment(0x0000, AIENVCMD_STOPNOSEDIVE, 0)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2d)
 	set_target_chr(CHR_BOND)
 	goto_next(0x06)
@@ -3441,7 +3441,7 @@ u8 func0423_outro[] = {
 	label(0x06)
 	camera_movement(0x02d8)
 	play_cutscene_track(MUSIC_AIRFORCEONE_OUTRO)
-	misc_command(0x0000, 0x0d, 0x00)
+	configure_environment(0x0000, AIENVCMD_STOPNOSEDIVE, 0)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
@@ -3553,7 +3553,7 @@ u8 func0423_outro[] = {
 	mute_channel(CHANNEL_10)
 	label(0x06)
 	stop_cutscene_track
-	misc_command(0x0000, 0x0d, 0x00)
+	configure_environment(0x0000, AIENVCMD_STOPNOSEDIVE, 0)
 	hide_object(0x19)
 	hide_object(0x1a)
 	set_chr_hudpiece_visible(CHR_TARGET, FALSE)
@@ -3859,33 +3859,33 @@ u8 func101f_setup_rtracker[] = {
 	endlist
 };
 
-u8 func1420_setup_lighting[] = {
+u8 func1420_setup_environment[] = {
 	yield
-	misc_command(0x001a, 0x05, 0x01)
-	misc_command(0x001b, 0x05, 0x01)
-	misc_command(0x002b, 0x05, 0x01)
-	misc_command(0x002d, 0x05, 0x01)
-	misc_command(0x002e, 0x05, 0x01)
-	misc_command(0x002f, 0x05, 0x01)
-	misc_command(0x0030, 0x05, 0x01)
-	misc_command(0x0031, 0x05, 0x01)
-	misc_command(0x0032, 0x05, 0x01)
-	misc_command(0x0033, 0x05, 0x01)
-	misc_command(0x0034, 0x05, 0x01)
-	misc_command(0x0035, 0x05, 0x01)
-	misc_command(0x0036, 0x05, 0x01)
-	misc_command(0x0037, 0x05, 0x01)
-	misc_command(0x0038, 0x05, 0x01)
-	misc_command(0x0039, 0x05, 0x01)
-	misc_command(0x003b, 0x05, 0x01)
-	misc_command(0x003c, 0x05, 0x01)
-	misc_command(0x003e, 0x05, 0x01)
-	misc_command(0x003f, 0x05, 0x01)
-	misc_command(0x0040, 0x05, 0x01)
-	misc_command(0x0041, 0x05, 0x01)
-	misc_command(0x0042, 0x05, 0x01)
-	misc_command(0x0043, 0x05, 0x01)
-	misc_command(0x0059, 0x05, 0x01)
+	configure_environment(0x001a, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x001b, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x002b, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x002d, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x002e, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x002f, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0030, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0031, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0032, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0033, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0034, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0035, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0036, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0037, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0038, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0039, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x003b, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x003c, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x003e, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x003f, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0040, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0041, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0042, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0043, AIENVCMD_ROOM_SETAMBIENT, TRUE)
+	configure_environment(0x0059, AIENVCMD_ROOM_SETAMBIENT, TRUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -4031,7 +4031,7 @@ struct ailist ailists[] = {
 	{ func101d_handle_early_president_death,           0x101d },
 	{ func101e_blow_mines,                             0x101e },
 	{ func101f_setup_rtracker,                         0x101f },
-	{ func1420_setup_lighting,                         0x1420 },
+	{ func1420_setup_environment,                      0x1420 },
 	{ func1021_check_mine_wasted_coop,                 0x1021 },
 	{ func1022_pilots_stabilizing,                     0x1022 },
 	{ func1023_check_pilots_dead,                      0x1023 },

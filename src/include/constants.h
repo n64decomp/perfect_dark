@@ -81,6 +81,24 @@
 #define AIBOTCMD_POPCAP   12
 #define AIBOTCMD_PROTECT  13
 
+// AI environment commands
+#define AIENVCMD_00                   0x00
+#define AIENVCMD_01                   0x01
+#define AIENVCMD_02                   0x02
+#define AIENVCMD_03                   0x03
+#define AIENVCMD_04                   0x04
+#define AIENVCMD_ROOM_SETAMBIENT      0x05
+#define AIENVCMD_ROOM_SETOUTDOORS     0x06
+#define AIENVCMD_07                   0x07
+#define AIENVCMD_08                   0x08
+#define AIENVCMD_SETAMBIENT           0x09
+#define AIENVCMD_PLAYNOSEDIVE         0x0a
+#define AIENVCMD_0B                   0x0b
+#define AIENVCMD_ROOM_SETFAULTYLIGHTS 0x0c
+#define AIENVCMD_STOPNOSEDIVE         0x0d
+#define AIENVCMD_PLAYUFOHUM           0x0e
+#define AIENVCMD_STOPUFOHUM           0x0f
+
 #define AIMCONTROL_HOLD   0
 #define AIMCONTROL_TOGGLE 1
 
@@ -2390,7 +2408,7 @@
 #define ROOMFLAG_VISIBLEBYPLAYER  0x0004
 #define ROOMFLAG_VISIBLEBYAIBOT   0x0008
 #define ROOMFLAG_PLAYAMBIENTTRACK 0x4000
-#define ROOMFLAG_8000             0x8000
+#define ROOMFLAG_OUTDOORS         0x8000
 
 #define SAVEFILEFLAG_P1_FORWARDPITCH      0x00
 #define SAVEFILEFLAG_P1_AUTOAIM           0x01

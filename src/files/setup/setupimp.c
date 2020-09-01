@@ -3831,14 +3831,14 @@ u8 func1029_setup_rtracker[] = {
 	endlist
 };
 
-u8 func102a_setup_lighting[] = {
+u8 func102a_setup_environment[] = {
 	yield
-	misc_command(0x0045, 0x06, 0x01)
-	misc_command(0x0046, 0x06, 0x01)
-	misc_command(0x0047, 0x06, 0x01)
-	misc_command(0x0048, 0x06, 0x01)
-	misc_command(0x0055, 0x06, 0x01)
-	misc_command(0x0056, 0x06, 0x01)
+	configure_environment(0x0045, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0046, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0047, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0048, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0055, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0056, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4036,7 +4036,7 @@ struct ailist ailists[] = {
 	{ func1027_uplink,                          0x1027 },
 	{ func1028_shuttle_immunity,                0x1028 },
 	{ func1029_setup_rtracker,                  0x1029 },
-	{ func102a_setup_lighting,                  0x102a },
+	{ func102a_setup_environment,               0x102a },
 	{ func102b_safedoor_immunity,               0x102b },
 	{ func102c_door_flags,                      0x102c },
 	{ func102d_firingrange_taker_invincibility, 0x102d },

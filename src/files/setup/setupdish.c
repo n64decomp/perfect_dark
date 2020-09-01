@@ -6029,14 +6029,14 @@ u8 func1042_check_jo_in_training_room[] = {
 	endlist
 };
 
-u8 func1041_setup_lighting[] = {
+u8 func1041_setup_environment[] = {
 	yield
-	misc_command(0x0045, 0x06, 0x01)
-	misc_command(0x0046, 0x06, 0x01)
-	misc_command(0x0047, 0x06, 0x01)
-	misc_command(0x0048, 0x06, 0x01)
-	misc_command(0x0055, 0x06, 0x01)
-	misc_command(0x0056, 0x06, 0x01)
+	configure_environment(0x0045, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0046, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0047, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0048, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0055, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
+	configure_environment(0x0056, AIENVCMD_ROOM_SETOUTDOORS, TRUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -6134,7 +6134,7 @@ struct ailist ailists[] = {
 	{ func103e_msg_m16,                        0x103e },
 	{ func103f_msg_fnp90,                      0x103f },
 	{ func1040_lift_door_sounds,               0x1040 },
-	{ func1041_setup_lighting,                 0x1041 },
+	{ func1041_setup_environment,              0x1041 },
 	{ func1042_check_jo_in_training_room,      0x1042 },
 	{ func1043_remove_hovercrate,              0x1043 },
 	{ func041b_holo2_part1,                    0x041b },

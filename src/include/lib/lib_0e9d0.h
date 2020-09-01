@@ -35,11 +35,11 @@ void audioAdjust(struct audiohandle **handle, u32 arg1, u32 arg2, s32 speakerwei
 void func00010718(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8);
 s32 audioStart(s32 arg0, s16 sound, struct audiohandle **handle, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7);
 u32 func00010ae4(void);
-void func00010db0(s32 room_id);
-void func00010de0(s32 room_id);
+void envPlayNosedive(s32 room_id);
+void envStopNosedive(void);
 u32 func00010e10(void);
-void func000110bc(s32 value);
-void func000110ec(s32 room_id);
+void envPlayUfoHum(s32 value);
+void envStopUfoHum(void);
 u32 func0001111c(void);
 
 #endif
