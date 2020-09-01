@@ -4036,9 +4036,9 @@
  *
  * AIENVCMD_ROOM_SETFAULTYLIGHTS:
  * - Sets the lights in the given room number to be faulty. It's used for the
- *   lights virus in Rescue. The value argument appears to control what
- *   percentage of lights in the room will be faulty. The exact usage of this
- *   argument is unknown, but higher numbers mean more faulty lights.
+ *   lights virus in Rescue. The value argument determines the chance of any
+ *   given light being faulty, where 0 is guaranteed fine and 100 is guaranteed
+ *   faulty.
  *
  * AIENVCMD_PLAYNOSEDIVE:
  * - Plays the Air Force One nosedive noise. The value argument is the number of

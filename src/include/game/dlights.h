@@ -22,7 +22,7 @@ u32 func0f001138(void);
 u32 func0f001300(void);
 u32 func0f0013c8(void);
 u32 func0f001734(void);
-void roomSetFaultyLights(s32, s32 value);
+void roomSetLightsFaulty(s32 roomnum, s32 chance);
 u32 func0f001b78(void);
 void func0f001bdc(void);
 u32 func0f001c0c(void);

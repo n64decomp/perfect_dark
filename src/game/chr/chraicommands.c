@@ -11301,7 +11301,7 @@ bool aiConfigureEnvironment(void)
 		func0001190c();
 		break;
 	case AIENVCMD_ROOM_SETFAULTYLIGHTS:
-		roomSetFaultyLights(room_id, value);
+		roomSetLightsFaulty(room_id, value);
 		break;
 	case AIENVCMD_STOPNOSEDIVE:
 		envStopNosedive();
