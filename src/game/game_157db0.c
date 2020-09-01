@@ -4089,15 +4089,15 @@ glabel func0f15b534
 /*  f15b8a8:	ac2e4cd4 */ 	sw	$t6,%lo(g_PortalCommands)($at)
 .L0f15b8ac:
 /*  f15b8ac:	8ca20010 */ 	lw	$v0,0x10($a1)
-/*  f15b8b0:	3c01800a */ 	lui	$at,%hi(var800a4cd8)
+/*  f15b8b0:	3c01800a */ 	lui	$at,%hi(g_LightsFileData)
 /*  f15b8b4:	14400004 */ 	bnez	$v0,.L0f15b8c8
 /*  f15b8b8:	00447821 */ 	addu	$t7,$v0,$a0
-/*  f15b8bc:	3c01800a */ 	lui	$at,%hi(var800a4cd8)
+/*  f15b8bc:	3c01800a */ 	lui	$at,%hi(g_LightsFileData)
 /*  f15b8c0:	10000003 */ 	b	.L0f15b8d0
-/*  f15b8c4:	ac204cd8 */ 	sw	$zero,%lo(var800a4cd8)($at)
+/*  f15b8c4:	ac204cd8 */ 	sw	$zero,%lo(g_LightsFileData)($at)
 .L0f15b8c8:
 /*  f15b8c8:	01e7c021 */ 	addu	$t8,$t7,$a3
-/*  f15b8cc:	ac384cd8 */ 	sw	$t8,%lo(var800a4cd8)($at)
+/*  f15b8cc:	ac384cd8 */ 	sw	$t8,%lo(g_LightsFileData)($at)
 .L0f15b8d0:
 /*  f15b8d0:	8ca20014 */ 	lw	$v0,0x14($a1)
 /*  f15b8d4:	3c01800a */ 	lui	$at,%hi(var800a4cdc)
@@ -4349,15 +4349,15 @@ glabel func0f15b534
 /*  f15b66c:	ac2e4cd4 */ 	sw	$t6,%lo(g_PortalCommands)($at)
 .L0f15b670:
 /*  f15b670:	8ca20010 */ 	lw	$v0,0x10($a1)
-/*  f15b674:	3c01800a */ 	lui	$at,%hi(var800a4cd8)
+/*  f15b674:	3c01800a */ 	lui	$at,%hi(g_LightsFileData)
 /*  f15b678:	14400004 */ 	bnez	$v0,.L0f15b68c
 /*  f15b67c:	00447821 */ 	addu	$t7,$v0,$a0
-/*  f15b680:	3c01800a */ 	lui	$at,%hi(var800a4cd8)
+/*  f15b680:	3c01800a */ 	lui	$at,%hi(g_LightsFileData)
 /*  f15b684:	10000003 */ 	b	.L0f15b694
-/*  f15b688:	ac204cd8 */ 	sw	$zero,%lo(var800a4cd8)($at)
+/*  f15b688:	ac204cd8 */ 	sw	$zero,%lo(g_LightsFileData)($at)
 .L0f15b68c:
 /*  f15b68c:	01e7c021 */ 	addu	$t8,$t7,$a3
-/*  f15b690:	ac384cd8 */ 	sw	$t8,%lo(var800a4cd8)($at)
+/*  f15b690:	ac384cd8 */ 	sw	$t8,%lo(g_LightsFileData)($at)
 .L0f15b694:
 /*  f15b694:	8ca20014 */ 	lw	$v0,0x14($a1)
 /*  f15b698:	3c01800a */ 	lui	$at,%hi(var800a4cdc)

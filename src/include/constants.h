@@ -974,13 +974,13 @@
 #define LANGUAGE_ENGLISH  0
 #define LANGUAGE_JAPANESE 1
 
-#define LIGHTOP_1 1
-#define LIGHTOP_2 2
-#define LIGHTOP_3 3
-#define LIGHTOP_4 4
-#define LIGHTOP_5 5
-#define LIGHTOP_6 6
-#define LIGHTOP_7 7
+#define LIGHTOP_1       1
+#define LIGHTOP_2       2
+#define LIGHTOP_3       3
+#define LIGHTOP_4       4
+#define LIGHTOP_5       5
+#define LIGHTOP_TURNON  6
+#define LIGHTOP_TURNOFF 7
 
 // These actions are assigned to chr->myaction
 #define MA_NONE            0
@@ -2407,6 +2407,8 @@
 #define ROOMFLAG_DISABLED         0x0001
 #define ROOMFLAG_VISIBLEBYPLAYER  0x0004
 #define ROOMFLAG_VISIBLEBYAIBOT   0x0008
+#define ROOMFLAG_0100             0x0100
+#define ROOMFLAG_LIGHTSOFF        0x2000
 #define ROOMFLAG_PLAYAMBIENTTRACK 0x4000
 #define ROOMFLAG_OUTDOORS         0x8000
 

@@ -31,7 +31,7 @@ u32 func0f0023b8(void);
 u32 func0f00259c(void);
 u32 func0f002844(void);
 u32 func0f002a98(void);
-void func0f002b58(s32 roomthing, bool enable);
+void roomSetLightsOn(s32 roomnum, s32 enable);
 void roomSetLighting(s32 roomnum, s32 operation, u8 arg2, u8 arg3, u8 arg4);
 u32 func0f002ef8(void);
 void func0f0033b0(void);

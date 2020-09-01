@@ -117,8 +117,8 @@ glabel func0f00097c
 /*  f000994:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f000998:	01cfc021 */ 	addu	$t8,$t6,$t7
 /*  f00099c:	9719000a */ 	lhu	$t9,0xa($t8)
-/*  f0009a0:	3c0a800a */ 	lui	$t2,%hi(var800a4cd8)
-/*  f0009a4:	8d4a4cd8 */ 	lw	$t2,%lo(var800a4cd8)($t2)
+/*  f0009a0:	3c0a800a */ 	lui	$t2,%hi(g_LightsFileData)
+/*  f0009a4:	8d4a4cd8 */ 	lw	$t2,%lo(g_LightsFileData)($t2)
 /*  f0009a8:	03254021 */ 	addu	$t0,$t9,$a1
 /*  f0009ac:	00084900 */ 	sll	$t1,$t0,0x4
 /*  f0009b0:	01284821 */ 	addu	$t1,$t1,$t0
@@ -455,9 +455,9 @@ glabel func0f000dfc
 /*  f000e14:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f000e18:	01cfc021 */ 	addu	$t8,$t6,$t7
 /*  f000e1c:	9719000a */ 	lhu	$t9,0xa($t8)
-/*  f000e20:	3c09800a */ 	lui	$t1,%hi(var800a4cd8)
+/*  f000e20:	3c09800a */ 	lui	$t1,%hi(g_LightsFileData)
 /*  f000e24:	44800000 */ 	mtc1	$zero,$f0
-/*  f000e28:	8d294cd8 */ 	lw	$t1,%lo(var800a4cd8)($t1)
+/*  f000e28:	8d294cd8 */ 	lw	$t1,%lo(g_LightsFileData)($t1)
 /*  f000e2c:	00194100 */ 	sll	$t0,$t9,0x4
 /*  f000e30:	00055100 */ 	sll	$t2,$a1,0x4
 /*  f000e34:	01194021 */ 	addu	$t0,$t0,$t9
@@ -616,8 +616,8 @@ glabel func0f001000
 /*  f001040:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f001044:	01cfc021 */ 	addu	$t8,$t6,$t7
 /*  f001048:	9719000a */ 	lhu	$t9,0xa($t8)
-/*  f00104c:	3c09800a */ 	lui	$t1,%hi(var800a4cd8)
-/*  f001050:	8d294cd8 */ 	lw	$t1,%lo(var800a4cd8)($t1)
+/*  f00104c:	3c09800a */ 	lui	$t1,%hi(g_LightsFileData)
+/*  f001050:	8d294cd8 */ 	lw	$t1,%lo(g_LightsFileData)($t1)
 /*  f001054:	00194100 */ 	sll	$t0,$t9,0x4
 /*  f001058:	00055100 */ 	sll	$t2,$a1,0x4
 /*  f00105c:	01194021 */ 	addu	$t0,$t0,$t9
@@ -1048,9 +1048,9 @@ glabel func0f0013c8
 /*  f001640:	01e7c021 */ 	addu	$t8,$t7,$a3
 /*  f001644:	9719000a */ 	lhu	$t9,0xa($t8)
 /*  f001648:	81180008 */ 	lb	$t8,0x8($t0)
-/*  f00164c:	3c0f800a */ 	lui	$t7,%hi(var800a4cd8)
+/*  f00164c:	3c0f800a */ 	lui	$t7,%hi(g_LightsFileData)
 /*  f001650:	00197100 */ 	sll	$t6,$t9,0x4
-/*  f001654:	8def4cd8 */ 	lw	$t7,%lo(var800a4cd8)($t7)
+/*  f001654:	8def4cd8 */ 	lw	$t7,%lo(g_LightsFileData)($t7)
 /*  f001658:	01d97021 */ 	addu	$t6,$t6,$t9
 /*  f00165c:	000e7040 */ 	sll	$t6,$t6,0x1
 /*  f001660:	1b000030 */ 	blez	$t8,.L0f001724
@@ -1200,8 +1200,8 @@ glabel func0f001734
 /*  f00186c:	46009083 */ 	div.s	$f2,$f18,$f0
 /*  f001870:	c7a80094 */ 	lwc1	$f8,0x94($sp)
 /*  f001874:	8fc90000 */ 	lw	$t1,0x0($s8)
-/*  f001878:	3c0c800a */ 	lui	$t4,%hi(var800a4cd8)
-/*  f00187c:	8d8c4cd8 */ 	lw	$t4,%lo(var800a4cd8)($t4)
+/*  f001878:	3c0c800a */ 	lui	$t4,%hi(g_LightsFileData)
+/*  f00187c:	8d8c4cd8 */ 	lw	$t4,%lo(g_LightsFileData)($t4)
 /*  f001880:	01371021 */ 	addu	$v0,$t1,$s7
 /*  f001884:	00009825 */ 	or	$s3,$zero,$zero
 /*  f001888:	27b6008c */ 	addiu	$s6,$sp,0x8c
@@ -1352,9 +1352,9 @@ glabel roomSetFaultyLights
 /*  f001aa4:	01d31021 */ 	addu	$v0,$t6,$s3
 /*  f001aa8:	944f000a */ 	lhu	$t7,0xa($v0)
 /*  f001aac:	80430008 */ 	lb	$v1,0x8($v0)
-/*  f001ab0:	3c19800a */ 	lui	$t9,%hi(var800a4cd8)
+/*  f001ab0:	3c19800a */ 	lui	$t9,%hi(g_LightsFileData)
 /*  f001ab4:	000fc100 */ 	sll	$t8,$t7,0x4
-/*  f001ab8:	8f394cd8 */ 	lw	$t9,%lo(var800a4cd8)($t9)
+/*  f001ab8:	8f394cd8 */ 	lw	$t9,%lo(g_LightsFileData)($t9)
 /*  f001abc:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f001ac0:	0018c040 */ 	sll	$t8,$t8,0x1
 /*  f001ac4:	00a0a825 */ 	or	$s5,$a1,$zero
@@ -2533,66 +2533,29 @@ glabel func0f002a98
 /*  f002b54:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f002b58
-/*  f002b58:	3c08800a */ 	lui	$t0,%hi(g_Rooms)
-/*  f002b5c:	000418c0 */ 	sll	$v1,$a0,0x3
-/*  f002b60:	25084928 */ 	addiu	$t0,$t0,%lo(g_Rooms)
-/*  f002b64:	00641821 */ 	addu	$v1,$v1,$a0
-/*  f002b68:	8d0e0000 */ 	lw	$t6,0x0($t0)
-/*  f002b6c:	00031880 */ 	sll	$v1,$v1,0x2
-/*  f002b70:	00641823 */ 	subu	$v1,$v1,$a0
-/*  f002b74:	00031880 */ 	sll	$v1,$v1,0x2
-/*  f002b78:	01c33021 */ 	addu	$a2,$t6,$v1
-/*  f002b7c:	94cf000a */ 	lhu	$t7,0xa($a2)
-/*  f002b80:	80c70008 */ 	lb	$a3,0x8($a2)
-/*  f002b84:	3c19800a */ 	lui	$t9,%hi(var800a4cd8)
-/*  f002b88:	000fc100 */ 	sll	$t8,$t7,0x4
-/*  f002b8c:	8f394cd8 */ 	lw	$t9,%lo(var800a4cd8)($t9)
-/*  f002b90:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f002b94:	0018c040 */ 	sll	$t8,$t8,0x1
-/*  f002b98:	10e00014 */ 	beqz	$a3,.L0f002bec
-/*  f002b9c:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f002ba0:	18e00012 */ 	blez	$a3,.L0f002bec
-/*  f002ba4:	00002025 */ 	or	$a0,$zero,$zero
-.L0f002ba8:
-/*  f002ba8:	94490004 */ 	lhu	$t1,0x4($v0)
-/*  f002bac:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f002bb0:	00095e40 */ 	sll	$t3,$t1,0x19
-/*  f002bb4:	0563000b */ 	bgezl	$t3,.L0f002be4
-/*  f002bb8:	0087082a */ 	slt	$at,$a0,$a3
-/*  f002bbc:	904f0005 */ 	lbu	$t7,0x5($v0)
-/*  f002bc0:	00056940 */ 	sll	$t5,$a1,0x5
-/*  f002bc4:	31ae0020 */ 	andi	$t6,$t5,0x20
-/*  f002bc8:	31f8ffdf */ 	andi	$t8,$t7,0xffdf
-/*  f002bcc:	01d8c825 */ 	or	$t9,$t6,$t8
-/*  f002bd0:	a0590005 */ 	sb	$t9,0x5($v0)
-/*  f002bd4:	8d090000 */ 	lw	$t1,0x0($t0)
-/*  f002bd8:	01233021 */ 	addu	$a2,$t1,$v1
-/*  f002bdc:	80c70008 */ 	lb	$a3,0x8($a2)
-/*  f002be0:	0087082a */ 	slt	$at,$a0,$a3
-.L0f002be4:
-/*  f002be4:	1420fff0 */ 	bnez	$at,.L0f002ba8
-/*  f002be8:	24420022 */ 	addiu	$v0,$v0,0x22
-.L0f002bec:
-/*  f002bec:	50a00006 */ 	beqzl	$a1,.L0f002c08
-/*  f002bf0:	94cc0000 */ 	lhu	$t4,0x0($a2)
-/*  f002bf4:	94ca0000 */ 	lhu	$t2,0x0($a2)
-/*  f002bf8:	314bdfff */ 	andi	$t3,$t2,0xdfff
-/*  f002bfc:	10000004 */ 	b	.L0f002c10
-/*  f002c00:	a4cb0000 */ 	sh	$t3,0x0($a2)
-/*  f002c04:	94cc0000 */ 	lhu	$t4,0x0($a2)
-.L0f002c08:
-/*  f002c08:	358d2000 */ 	ori	$t5,$t4,0x2000
-/*  f002c0c:	a4cd0000 */ 	sh	$t5,0x0($a2)
-.L0f002c10:
-/*  f002c10:	8d0f0000 */ 	lw	$t7,0x0($t0)
-/*  f002c14:	01e33021 */ 	addu	$a2,$t7,$v1
-/*  f002c18:	94ce0000 */ 	lhu	$t6,0x0($a2)
-/*  f002c1c:	35d80100 */ 	ori	$t8,$t6,0x100
-/*  f002c20:	03e00008 */ 	jr	$ra
-/*  f002c24:	a4d80000 */ 	sh	$t8,0x0($a2)
-);
+void roomSetLightsOn(s32 roomnum, s32 enable)
+{
+	struct light *light = (struct light *)&g_LightsFileData[g_Rooms[roomnum].lightindex * 0x22];
+	s32 i;
+
+	if (g_Rooms[roomnum].numlights) {
+		for (i = 0; i < g_Rooms[roomnum].numlights; i++) {
+			if (light->healthy) {
+				light->on = enable;
+			}
+
+			light++;
+		}
+	}
+
+	if (enable) {
+		g_Rooms[roomnum].flags &= ~ROOMFLAG_LIGHTSOFF;
+	} else {
+		g_Rooms[roomnum].flags |= ROOMFLAG_LIGHTSOFF;
+	}
+
+	g_Rooms[roomnum].flags |= ROOMFLAG_0100;
+}
 
 void roomSetLighting(s32 roomnum, s32 operation, u8 arg2, u8 arg3, u8 arg4)
 {
@@ -2642,8 +2605,8 @@ glabel func0f002ef8
 /*  f002f20:	afa500dc */ 	sw	$a1,0xdc($sp)
 /*  f002f24:	01d8c821 */ 	addu	$t9,$t6,$t8
 /*  f002f28:	972a000a */ 	lhu	$t2,0xa($t9)
-/*  f002f2c:	3c0f800a */ 	lui	$t7,%hi(var800a4cd8)
-/*  f002f30:	8def4cd8 */ 	lw	$t7,%lo(var800a4cd8)($t7)
+/*  f002f2c:	3c0f800a */ 	lui	$t7,%hi(g_LightsFileData)
+/*  f002f30:	8def4cd8 */ 	lw	$t7,%lo(g_LightsFileData)($t7)
 /*  f002f34:	01456021 */ 	addu	$t4,$t2,$a1
 /*  f002f38:	000c6900 */ 	sll	$t5,$t4,0x4
 /*  f002f3c:	01ac6821 */ 	addu	$t5,$t5,$t4
@@ -3010,11 +2973,11 @@ glabel func0f003444
 /*  f003480:	0000a025 */ 	or	$s4,$zero,$zero
 /*  f003484:	3c013f00 */ 	lui	$at,0x3f00
 /*  f003488:	3c02800a */ 	lui	$v0,%hi(g_Rooms)
-/*  f00348c:	3c16800a */ 	lui	$s6,%hi(var800a4cd8)
+/*  f00348c:	3c16800a */ 	lui	$s6,%hi(g_LightsFileData)
 /*  f003490:	3c12800a */ 	lui	$s2,%hi(g_Rooms)
 /*  f003494:	4481a000 */ 	mtc1	$at,$f20
 /*  f003498:	26524928 */ 	addiu	$s2,$s2,%lo(g_Rooms)
-/*  f00349c:	26d64cd8 */ 	addiu	$s6,$s6,%lo(var800a4cd8)
+/*  f00349c:	26d64cd8 */ 	addiu	$s6,$s6,%lo(g_LightsFileData)
 /*  f0034a0:	8c424928 */ 	lw	$v0,%lo(g_Rooms)($v0)
 /*  f0034a4:	00009825 */ 	or	$s3,$zero,$zero
 /*  f0034a8:	24150022 */ 	addiu	$s5,$zero,0x22
@@ -3114,11 +3077,11 @@ glabel func0f0035c0
 /*  f0035f8:	19c00040 */ 	blez	$t6,.L0f0036fc
 /*  f0035fc:	0000a025 */ 	or	$s4,$zero,$zero
 /*  f003600:	3c02800a */ 	lui	$v0,%hi(g_Rooms)
-/*  f003604:	3c16800a */ 	lui	$s6,%hi(var800a4cd8)
+/*  f003604:	3c16800a */ 	lui	$s6,%hi(g_LightsFileData)
 /*  f003608:	3c12800a */ 	lui	$s2,%hi(g_Rooms)
 /*  f00360c:	4480a000 */ 	mtc1	$zero,$f20
 /*  f003610:	26524928 */ 	addiu	$s2,$s2,%lo(g_Rooms)
-/*  f003614:	26d64cd8 */ 	addiu	$s6,$s6,%lo(var800a4cd8)
+/*  f003614:	26d64cd8 */ 	addiu	$s6,$s6,%lo(g_LightsFileData)
 /*  f003618:	8c424928 */ 	lw	$v0,%lo(g_Rooms)($v0)
 /*  f00361c:	00009825 */ 	or	$s3,$zero,$zero
 /*  f003620:	24150022 */ 	addiu	$s5,$zero,0x22
@@ -3555,8 +3518,8 @@ glabel var7f1a7dd4
 /*  f003c10:	10800032 */ 	beqz	$a0,.L0f003cdc
 /*  f003c14:	00001825 */ 	or	$v1,$zero,$zero
 /*  f003c18:	9609000a */ 	lhu	$t1,0xa($s0)
-/*  f003c1c:	3c0b800a */ 	lui	$t3,%hi(var800a4cd8)
-/*  f003c20:	8d6b4cd8 */ 	lw	$t3,%lo(var800a4cd8)($t3)
+/*  f003c1c:	3c0b800a */ 	lui	$t3,%hi(g_LightsFileData)
+/*  f003c20:	8d6b4cd8 */ 	lw	$t3,%lo(g_LightsFileData)($t3)
 /*  f003c24:	00095100 */ 	sll	$t2,$t1,0x4
 /*  f003c28:	01495021 */ 	addu	$t2,$t2,$t1
 /*  f003c2c:	000a5040 */ 	sll	$t2,$t2,0x1
@@ -3628,14 +3591,14 @@ glabel var7f1a7dd4
 .L0f003d14:
 /*  f003d14:	c610005c */ 	lwc1	$f16,0x5c($s0)
 .L0f003d18:
-/*  f003d18:	3c0f800a */ 	lui	$t7,%hi(var800a4cd8)
+/*  f003d18:	3c0f800a */ 	lui	$t7,%hi(g_LightsFileData)
 /*  f003d1c:	46100002 */ 	mul.s	$f0,$f0,$f16
 /*  f003d20:	4600028d */ 	trunc.w.s	$f10,$f0
 /*  f003d24:	440b5000 */ 	mfc1	$t3,$f10
 /*  f003d28:	00000000 */ 	nop
 /*  f003d2c:	a60b0050 */ 	sh	$t3,0x50($s0)
 /*  f003d30:	8e6c0000 */ 	lw	$t4,0x0($s3)
-/*  f003d34:	8def4cd8 */ 	lw	$t7,%lo(var800a4cd8)($t7)
+/*  f003d34:	8def4cd8 */ 	lw	$t7,%lo(g_LightsFileData)($t7)
 /*  f003d38:	01928021 */ 	addu	$s0,$t4,$s2
 /*  f003d3c:	960d000a */ 	lhu	$t5,0xa($s0)
 /*  f003d40:	82040008 */ 	lb	$a0,0x8($s0)

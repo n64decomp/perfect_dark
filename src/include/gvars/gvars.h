@@ -731,7 +731,7 @@ extern struct portal *g_Portals;
 extern u32 var800a4ccc;
 extern u8 *var800a4cd0;
 extern struct portalcmd *g_PortalCommands;
-extern u32 var800a4cd8;
+extern u8 *g_LightsFileData;
 extern u32 var800a4ce0;
 extern s16 var800a4ce4[2];
 extern struct var800a4ce8 *var800a4ce8;

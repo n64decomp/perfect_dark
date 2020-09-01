@@ -6175,11 +6175,11 @@ bool aiSetLights(void)
 
 	if (roomnum >= 0) {
 		switch (cmd[4]) {
-		case LIGHTOP_7:
-			func0f002b58(roomnum, false);
+		case LIGHTOP_TURNOFF:
+			roomSetLightsOn(roomnum, false);
 			break;
-		case LIGHTOP_6:
-			func0f002b58(roomnum, true);
+		case LIGHTOP_TURNON:
+			roomSetLightsOn(roomnum, true);
 			break;
 		default:
 			roomSetLighting(roomnum, cmd[4], cmd[5], cmd[6], cmd[7]);

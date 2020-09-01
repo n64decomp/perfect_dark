@@ -3381,7 +3381,8 @@ struct room {
 	/*0x05*/ s8 unk05;
 	/*0x06*/ u8 unk06;
 	/*0x07*/ u8 unk07;
-	/*0x08*/ u32 unk08;
+	/*0x08*/ s8 numlights;
+	/*0x0a*/ u16 lightindex; // index of start of this room's lights in data file
 	/*0x0c*/ u16 unk0c;
 	/*0x0e*/ s16 unk0e;
 	/*0x10*/ struct screenbox screenbox;
@@ -6355,6 +6356,29 @@ struct var8009dbe0 {
 	u32 unk3c;
 	u32 unk40;
 	u32 unk44;
+};
+
+struct light {
+	/*0x00*/ u16 roomnum;
+	/*0x02*/ u16 unk02;
+	/*0x04*/ u8 unk04;
+	/*0x05*/ u8 unk05_00 : 1;
+	/*0x05*/ u8 healthy : 1; // just a guess based on context
+	/*0x05*/ u8 on : 1;
+	/*0x06*/ u16 unk06;
+	/*0x08*/ u16 unk08;
+	/*0x0a*/ s16 x1;
+	/*0x0c*/ s16 y1;
+	/*0x0e*/ s16 z1;
+	/*0x10*/ s16 x2;
+	/*0x12*/ s16 y2;
+	/*0x14*/ s16 z2;
+	/*0x16*/ s16 x3;
+	/*0x18*/ s16 y3;
+	/*0x1a*/ s16 z3;
+	/*0x1c*/ s16 x4;
+	/*0x1e*/ s16 y4;
+	/*0x20*/ s16 z4;
 };
 
 #endif
