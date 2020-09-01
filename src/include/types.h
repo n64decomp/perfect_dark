@@ -3394,12 +3394,14 @@ struct room {
 	/*0x3c*/ u32 unk3c;
 	/*0x40*/ u32 unk40;
 	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
+	/*0x48*/ u16 unk48;
+	/*0x4a*/ u8 unk4a;
+	/*0x4b*/ u8 unk4b;
 	/*0x4c*/ u8 unk4c;
 	/*0x4d*/ u8 unk4d;
 	/*0x4e*/ struct roombitfield bitfield;
 	/*0x50*/ s16 brightness;
-	/*0x52*/ u16 unk52;
+	/*0x52*/ s16 unk52;
 	/*0x54*/ u16 unk54;
 	/*0x58*/ u32 unk58;
 	/*0x5c*/ u32 unk5c;

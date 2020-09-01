@@ -111,31 +111,20 @@ struct light *roomGetLight(s32 roomnum, s32 lightnum)
 	return (struct light *)&g_LightsFileData[(g_Rooms[roomnum].lightindex + lightnum) * 0x22];
 }
 
-GLOBAL_ASM(
-glabel func0f0009c0
-/*  f0009c0:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f0009c4:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f0009c8:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f0009cc:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f0009d0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0009d4:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f0009d8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0009dc:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0009e0:	9058004b */ 	lbu	$t8,0x4b($v0)
-/*  f0009e4:	84590052 */ 	lh	$t9,0x52($v0)
-/*  f0009e8:	03191821 */ 	addu	$v1,$t8,$t9
-/*  f0009ec:	28610100 */ 	slti	$at,$v1,0x100
-/*  f0009f0:	14200002 */ 	bnez	$at,.L0f0009fc
-/*  f0009f4:	00000000 */ 	nop
-/*  f0009f8:	240300ff */ 	addiu	$v1,$zero,0xff
-.L0f0009fc:
-/*  f0009fc:	04610002 */ 	bgez	$v1,.L0f000a08
-/*  f000a00:	00000000 */ 	nop
-/*  f000a04:	00001825 */ 	or	$v1,$zero,$zero
-.L0f000a08:
-/*  f000a08:	03e00008 */ 	jr	$ra
-/*  f000a0c:	306200ff */ 	andi	$v0,$v1,0xff
-);
+u8 func0f0009c0(s32 roomnum)
+{
+	s32 value = g_Rooms[roomnum].unk52 + g_Rooms[roomnum].unk4b;
+
+	if (value > 255) {
+		value = 255;
+	}
+
+	if (value < 0) {
+		value = 0;
+	}
+
+	return value;
+}
 
 GLOBAL_ASM(
 glabel func0f000a10
