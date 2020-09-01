@@ -107,7 +107,7 @@ glabel func0f000920
 );
 
 GLOBAL_ASM(
-glabel func0f00097c
+glabel roomGetLight
 /*  f00097c:	000478c0 */ 	sll	$t7,$a0,0x3
 /*  f000980:	01e47821 */ 	addu	$t7,$t7,$a0
 /*  f000984:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
@@ -540,7 +540,7 @@ glabel func0f000f50
 /*  f000f50:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f000f54:	10800009 */ 	beqz	$a0,.L0f000f7c
 /*  f000f58:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f000f5c:	0fc0025f */ 	jal	func0f00097c
+/*  f000f5c:	0fc0025f */ 	jal	roomGetLight
 /*  f000f60:	00000000 */ 	nop
 /*  f000f64:	944e0004 */ 	lhu	$t6,0x4($v0)
 /*  f000f68:	000ec640 */ 	sll	$t8,$t6,0x19
@@ -562,7 +562,7 @@ GLOBAL_ASM(
 glabel func0f000f94
 /*  f000f94:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f000f98:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f000f9c:	0fc0025f */ 	jal	func0f00097c
+/*  f000f9c:	0fc0025f */ 	jal	roomGetLight
 /*  f000fa0:	00000000 */ 	nop
 /*  f000fa4:	94420004 */ 	lhu	$v0,0x4($v0)
 /*  f000fa8:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -577,7 +577,7 @@ glabel func0f000fbc
 /*  f000fbc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f000fc0:	10800009 */ 	beqz	$a0,.L0f000fe8
 /*  f000fc4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f000fc8:	0fc0025f */ 	jal	func0f00097c
+/*  f000fc8:	0fc0025f */ 	jal	roomGetLight
 /*  f000fcc:	00000000 */ 	nop
 /*  f000fd0:	944e0004 */ 	lhu	$t6,0x4($v0)
 /*  f000fd4:	000ec680 */ 	sll	$t8,$t6,0x1a
@@ -1278,7 +1278,7 @@ glabel func0f001734
 /*  f00199c:	448a9000 */ 	mtc1	$t2,$f18
 /*  f0019a0:	00000000 */ 	nop
 /*  f0019a4:	468092a0 */ 	cvt.s.w	$f10,$f18
-/*  f0019a8:	0fc006de */ 	jal	func0f001b78
+/*  f0019a8:	0fc006de */ 	jal	roomSetLightBroken
 /*  f0019ac:	e7aa0084 */ 	swc1	$f10,0x84($sp)
 /*  f0019b0:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f0019b4:	44810000 */ 	mtc1	$at,$f0
@@ -1348,37 +1348,17 @@ void roomSetLightsFaulty(s32 roomnum, s32 chance)
 	}
 
 	g_Rooms[roomnum].unk4c = 50;
-	g_Rooms[roomnum].flags |= ROOMFLAG_0100;
+	g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
 }
 
-GLOBAL_ASM(
-glabel func0f001b78
-/*  f001b78:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f001b7c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f001b80:	0fc0025f */ 	jal	func0f00097c
-/*  f001b84:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f001b88:	904e0005 */ 	lbu	$t6,0x5($v0)
-/*  f001b8c:	3c08800a */ 	lui	$t0,%hi(g_Rooms)
-/*  f001b90:	31d8ffbf */ 	andi	$t8,$t6,0xffbf
-/*  f001b94:	a0580005 */ 	sb	$t8,0x5($v0)
-/*  f001b98:	331900df */ 	andi	$t9,$t8,0xdf
-/*  f001b9c:	a0590005 */ 	sb	$t9,0x5($v0)
-/*  f001ba0:	8fa90018 */ 	lw	$t1,0x18($sp)
-/*  f001ba4:	8d084928 */ 	lw	$t0,%lo(g_Rooms)($t0)
-/*  f001ba8:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f001bac:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f001bb0:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f001bb4:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f001bb8:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f001bbc:	010a1821 */ 	addu	$v1,$t0,$t2
-/*  f001bc0:	946b0000 */ 	lhu	$t3,0x0($v1)
-/*  f001bc4:	356c0100 */ 	ori	$t4,$t3,0x100
-/*  f001bc8:	a46c0000 */ 	sh	$t4,0x0($v1)
-/*  f001bcc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f001bd0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f001bd4:	03e00008 */ 	jr	$ra
-/*  f001bd8:	00000000 */ 	nop
-);
+void roomSetLightBroken(s32 roomnum, s32 lightnum)
+{
+	struct light *light = roomGetLight(roomnum, lightnum);
+	light->healthy = false;
+	light->on = false;
+
+	g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
+}
 
 GLOBAL_ASM(
 glabel func0f001bdc
@@ -2497,7 +2477,7 @@ void roomSetLightsOn(s32 roomnum, s32 enable)
 		g_Rooms[roomnum].flags |= ROOMFLAG_LIGHTSOFF;
 	}
 
-	g_Rooms[roomnum].flags |= ROOMFLAG_0100;
+	g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
 }
 
 void roomSetLighting(s32 roomnum, s32 operation, u8 arg2, u8 arg3, u8 arg4)

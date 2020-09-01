@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f000920(void);
-u32 func0f00097c(void);
+struct light *roomGetLight(s32 roomnum, s32 lightnum);
 u32 func0f0009c0(void);
 u32 func0f000a10(void);
 u32 func0f000b24(void);
@@ -23,7 +23,7 @@ u32 func0f001300(void);
 u32 func0f0013c8(void);
 u32 func0f001734(void);
 void roomSetLightsFaulty(s32 roomnum, s32 chance);
-u32 func0f001b78(void);
+void roomSetLightBroken(s32 roomnum, s32 lightnum);
 void func0f001bdc(void);
 u32 func0f001c0c(void);
 u32 func0f00215c(void);

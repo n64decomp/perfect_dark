@@ -1539,7 +1539,7 @@ glabel var7f1b559c
 /*  f12b370:	e7a60150 */ 	swc1	$f6,0x150($sp)
 /*  f12b374:	10400003 */ 	beqz	$v0,.L0f12b384
 /*  f12b378:	02202025 */ 	or	$a0,$s1,$zero
-/*  f12b37c:	0fc006de */ 	jal	func0f001b78
+/*  f12b37c:	0fc006de */ 	jal	roomSetLightBroken
 /*  f12b380:	02002825 */ 	or	$a1,$s0,$zero
 .L0f12b384:
 /*  f12b384:	26100001 */ 	addiu	$s0,$s0,0x1
