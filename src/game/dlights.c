@@ -304,19 +304,14 @@ void lightGetUnk07(s32 roomnum, u32 lightnum, struct coord *coord)
 	coord->z = light->unk09;
 }
 
-GLOBAL_ASM(
-glabel func0f0010b4
-/*  f0010b4:	3c028006 */ 	lui	$v0,%hi(var80061424)
-/*  f0010b8:	24421424 */ 	addiu	$v0,$v0,%lo(var80061424)
-/*  f0010bc:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f0010c0:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f0010c4:	11c00002 */ 	beqz	$t6,.L0f0010d0
-/*  f0010c8:	00000000 */ 	nop
-/*  f0010cc:	ac400000 */ 	sw	$zero,0x0($v0)
-.L0f0010d0:
-/*  f0010d0:	03e00008 */ 	jr	$ra
-/*  f0010d4:	ac4f0000 */ 	sw	$t7,0x0($v0)
-);
+void func0f0010b4(void)
+{
+	if (var80061424) {
+		var80061424 = 0;
+	}
+
+	var80061424 = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f0010d8
