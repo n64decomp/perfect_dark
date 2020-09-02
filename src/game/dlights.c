@@ -126,83 +126,37 @@ u8 func0f0009c0(s32 roomnum)
 	return value;
 }
 
+u8 func0f000a10(s32 roomnum)
+{
+	s32 uVar3 = g_Rooms[roomnum].unk52;
+
+	if ((g_Vars.currentplayer->isdead == false
+			&& var80070764 == 0
+			&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
+			&& (g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54 & 1))
+		||
+			(g_Vars.currentplayer->isdead == false
+			&& var80070764 == 0
+			&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
+			&& (g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54 & 8))) {
+		uVar3 += var8009caec;
+	} else {
+		uVar3 += g_Rooms[roomnum].unk4b;
+	}
+
+	if (uVar3 > 255) {
+		uVar3 = 255;
+	}
+
+	if (uVar3 < 0) {
+		uVar3 = 0;
+	}
+
+	return uVar3;
+}
+
 GLOBAL_ASM(
-glabel func0f000a10
-/*  f000a10:	3c05800a */ 	lui	$a1,%hi(g_Vars+0x284)
-/*  f000a14:	8ca5a244 */ 	lw	$a1,%lo(g_Vars+0x284)($a1)
-/*  f000a18:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f000a1c:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f000a20:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f000a24:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f000a28:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000a2c:	8ca600d8 */ 	lw	$a2,0xd8($a1)
-/*  f000a30:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f000a34:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000a38:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f000a3c:	14c00014 */ 	bnez	$a2,.L0f000a90
-/*  f000a40:	84430052 */ 	lh	$v1,0x52($v0)
-/*  f000a44:	3c188007 */ 	lui	$t8,%hi(var80070764)
-/*  f000a48:	8f180764 */ 	lw	$t8,%lo(var80070764)($t8)
-/*  f000a4c:	17000010 */ 	bnez	$t8,.L0f000a90
-/*  f000a50:	00000000 */ 	nop
-/*  f000a54:	8ca40480 */ 	lw	$a0,0x480($a1)
-/*  f000a58:	50800007 */ 	beqzl	$a0,.L0f000a78
-/*  f000a5c:	8ca91c54 */ 	lw	$t1,0x1c54($a1)
-/*  f000a60:	1080000b */ 	beqz	$a0,.L0f000a90
-/*  f000a64:	00000000 */ 	nop
-/*  f000a68:	80990037 */ 	lb	$t9,0x37($a0)
-/*  f000a6c:	17200008 */ 	bnez	$t9,.L0f000a90
-/*  f000a70:	00000000 */ 	nop
-/*  f000a74:	8ca91c54 */ 	lw	$t1,0x1c54($a1)
-.L0f000a78:
-/*  f000a78:	8ca800c4 */ 	lw	$t0,0xc4($a1)
-/*  f000a7c:	01205027 */ 	nor	$t2,$t1,$zero
-/*  f000a80:	010a5824 */ 	and	$t3,$t0,$t2
-/*  f000a84:	316c0001 */ 	andi	$t4,$t3,0x1
-/*  f000a88:	15800014 */ 	bnez	$t4,.L0f000adc
-/*  f000a8c:	00000000 */ 	nop
-.L0f000a90:
-/*  f000a90:	14c00016 */ 	bnez	$a2,.L0f000aec
-/*  f000a94:	3c0d8007 */ 	lui	$t5,%hi(var80070764)
-/*  f000a98:	8dad0764 */ 	lw	$t5,%lo(var80070764)($t5)
-/*  f000a9c:	55a00014 */ 	bnezl	$t5,.L0f000af0
-/*  f000aa0:	904b004b */ 	lbu	$t3,0x4b($v0)
-/*  f000aa4:	8ca40480 */ 	lw	$a0,0x480($a1)
-/*  f000aa8:	50800007 */ 	beqzl	$a0,.L0f000ac8
-/*  f000aac:	8cb81c54 */ 	lw	$t8,0x1c54($a1)
-/*  f000ab0:	5080000f */ 	beqzl	$a0,.L0f000af0
-/*  f000ab4:	904b004b */ 	lbu	$t3,0x4b($v0)
-/*  f000ab8:	808e0037 */ 	lb	$t6,0x37($a0)
-/*  f000abc:	55c0000c */ 	bnezl	$t6,.L0f000af0
-/*  f000ac0:	904b004b */ 	lbu	$t3,0x4b($v0)
-/*  f000ac4:	8cb81c54 */ 	lw	$t8,0x1c54($a1)
-.L0f000ac8:
-/*  f000ac8:	8caf00c4 */ 	lw	$t7,0xc4($a1)
-/*  f000acc:	0300c827 */ 	nor	$t9,$t8,$zero
-/*  f000ad0:	01f94824 */ 	and	$t1,$t7,$t9
-/*  f000ad4:	31280008 */ 	andi	$t0,$t1,0x8
-/*  f000ad8:	11000004 */ 	beqz	$t0,.L0f000aec
-.L0f000adc:
-/*  f000adc:	3c0a800a */ 	lui	$t2,%hi(var8009caec)
-/*  f000ae0:	914acaec */ 	lbu	$t2,%lo(var8009caec)($t2)
-/*  f000ae4:	10000003 */ 	b	.L0f000af4
-/*  f000ae8:	006a1821 */ 	addu	$v1,$v1,$t2
-.L0f000aec:
-/*  f000aec:	904b004b */ 	lbu	$t3,0x4b($v0)
-.L0f000af0:
-/*  f000af0:	006b1821 */ 	addu	$v1,$v1,$t3
-.L0f000af4:
-/*  f000af4:	28610100 */ 	slti	$at,$v1,0x100
-/*  f000af8:	14200002 */ 	bnez	$at,.L0f000b04
-/*  f000afc:	00000000 */ 	nop
-/*  f000b00:	240300ff */ 	addiu	$v1,$zero,0xff
-.L0f000b04:
-/*  f000b04:	04610002 */ 	bgez	$v1,.L0f000b10
-/*  f000b08:	00000000 */ 	nop
-/*  f000b0c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f000b10:
-/*  f000b10:	03e00008 */ 	jr	$ra
-/*  f000b14:	306200ff */ 	andi	$v0,$v1,0xff
+glabel func0f000b18
 /*  f000b18:	afa40000 */ 	sw	$a0,0x0($sp)
 /*  f000b1c:	03e00008 */ 	jr	$ra
 /*  f000b20:	240200ff */ 	addiu	$v0,$zero,0xff

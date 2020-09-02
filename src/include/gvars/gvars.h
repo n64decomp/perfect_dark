@@ -520,6 +520,7 @@ extern u32 var8009ca84;
 extern u32 var8009cad0;
 extern u32 var8009cadc;
 extern u32 var8009cae0;
+extern u8 var8009caec;
 extern u32 var8009cb08;
 extern u32 var8009cbf8;
 extern struct prop *g_DangerousProps[MAX_DANGEROUSPROPS];
