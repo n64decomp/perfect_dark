@@ -6360,6 +6360,12 @@ struct var8009dbe0 {
 	u32 unk44;
 };
 
+struct vec3s16 {
+	s16 x;
+	s16 y;
+	s16 z;
+};
+
 struct light {
 	/*0x00*/ u16 roomnum;
 	/*0x02*/ u16 unk02;
@@ -6371,18 +6377,7 @@ struct light {
 	/*0x05*/ u8 unk05_04 : 1;
 	/*0x06*/ u16 unk06;
 	/*0x08*/ u16 unk08;
-	/*0x0a*/ s16 x1;
-	/*0x0c*/ s16 y1;
-	/*0x0e*/ s16 z1;
-	/*0x10*/ s16 x2;
-	/*0x12*/ s16 y2;
-	/*0x14*/ s16 z2;
-	/*0x16*/ s16 x3;
-	/*0x18*/ s16 y3;
-	/*0x1a*/ s16 z3;
-	/*0x1c*/ s16 x4;
-	/*0x1e*/ s16 y4;
-	/*0x20*/ s16 z4;
+	/*0x0a*/ struct vec3s16 bbox[4];
 };
 
 #endif

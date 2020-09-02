@@ -380,96 +380,28 @@ f32 func0f000dbc(s32 roomnum)
 	return g_Rooms[roomnum].brightness / 255.0f;
 }
 
-GLOBAL_ASM(
-glabel func0f000dfc
-/*  f000dfc:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f000e00:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f000e04:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f000e08:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f000e0c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000e10:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f000e14:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000e18:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f000e1c:	9719000a */ 	lhu	$t9,0xa($t8)
-/*  f000e20:	3c09800a */ 	lui	$t1,%hi(g_LightsFileData)
-/*  f000e24:	44800000 */ 	mtc1	$zero,$f0
-/*  f000e28:	8d294cd8 */ 	lw	$t1,%lo(g_LightsFileData)($t1)
-/*  f000e2c:	00194100 */ 	sll	$t0,$t9,0x4
-/*  f000e30:	00055100 */ 	sll	$t2,$a1,0x4
-/*  f000e34:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f000e38:	00084040 */ 	sll	$t0,$t0,0x1
-/*  f000e3c:	01455021 */ 	addu	$t2,$t2,$a1
-/*  f000e40:	000a5040 */ 	sll	$t2,$t2,0x1
-/*  f000e44:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f000e48:	004a3821 */ 	addu	$a3,$v0,$t2
-/*  f000e4c:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f000e50:	00001825 */ 	or	$v1,$zero,$zero
-/*  f000e54:	e4c00000 */ 	swc1	$f0,0x0($a2)
-/*  f000e58:	e4c00004 */ 	swc1	$f0,0x4($a2)
-/*  f000e5c:	e4c00008 */ 	swc1	$f0,0x8($a2)
-/*  f000e60:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f000e64:	10620018 */ 	beq	$v1,$v0,.L0f000ec8
-/*  f000e68:	84eb000a */ 	lh	$t3,0xa($a3)
-.L0f000e6c:
-/*  f000e6c:	448b9000 */ 	mtc1	$t3,$f18
-/*  f000e70:	c4d00000 */ 	lwc1	$f16,0x0($a2)
-/*  f000e74:	c4ce0004 */ 	lwc1	$f14,0x4($a2)
-/*  f000e78:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*  f000e7c:	c4cc0008 */ 	lwc1	$f12,0x8($a2)
-/*  f000e80:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f000e84:	24e70006 */ 	addiu	$a3,$a3,0x6
-/*  f000e88:	46128480 */ 	add.s	$f18,$f16,$f18
-/*  f000e8c:	e4d20000 */ 	swc1	$f18,0x0($a2)
-/*  f000e90:	84ec0006 */ 	lh	$t4,0x6($a3)
-/*  f000e94:	448c9000 */ 	mtc1	$t4,$f18
-/*  f000e98:	00000000 */ 	nop
-/*  f000e9c:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*  f000ea0:	46127480 */ 	add.s	$f18,$f14,$f18
-/*  f000ea4:	e4d20004 */ 	swc1	$f18,0x4($a2)
-/*  f000ea8:	84ed0008 */ 	lh	$t5,0x8($a3)
-/*  f000eac:	448d9000 */ 	mtc1	$t5,$f18
-/*  f000eb0:	00000000 */ 	nop
-/*  f000eb4:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*  f000eb8:	46126480 */ 	add.s	$f18,$f12,$f18
-/*  f000ebc:	e4d20008 */ 	swc1	$f18,0x8($a2)
-/*  f000ec0:	1462ffea */ 	bne	$v1,$v0,.L0f000e6c
-/*  f000ec4:	84eb000a */ 	lh	$t3,0xa($a3)
-.L0f000ec8:
-/*  f000ec8:	448b9000 */ 	mtc1	$t3,$f18
-/*  f000ecc:	c4d00000 */ 	lwc1	$f16,0x0($a2)
-/*  f000ed0:	c4ce0004 */ 	lwc1	$f14,0x4($a2)
-/*  f000ed4:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*  f000ed8:	c4cc0008 */ 	lwc1	$f12,0x8($a2)
-/*  f000edc:	24e70006 */ 	addiu	$a3,$a3,0x6
-/*  f000ee0:	46128480 */ 	add.s	$f18,$f16,$f18
-/*  f000ee4:	e4d20000 */ 	swc1	$f18,0x0($a2)
-/*  f000ee8:	84ec0006 */ 	lh	$t4,0x6($a3)
-/*  f000eec:	448c9000 */ 	mtc1	$t4,$f18
-/*  f000ef0:	00000000 */ 	nop
-/*  f000ef4:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*  f000ef8:	46127480 */ 	add.s	$f18,$f14,$f18
-/*  f000efc:	e4d20004 */ 	swc1	$f18,0x4($a2)
-/*  f000f00:	84ed0008 */ 	lh	$t5,0x8($a3)
-/*  f000f04:	448d9000 */ 	mtc1	$t5,$f18
-/*  f000f08:	00000000 */ 	nop
-/*  f000f0c:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*  f000f10:	46126480 */ 	add.s	$f18,$f12,$f18
-/*  f000f14:	e4d20008 */ 	swc1	$f18,0x8($a2)
-/*  f000f18:	3c013e80 */ 	lui	$at,0x3e80
-/*  f000f1c:	44810000 */ 	mtc1	$at,$f0
-/*  f000f20:	c4c60000 */ 	lwc1	$f6,0x0($a2)
-/*  f000f24:	c4ca0004 */ 	lwc1	$f10,0x4($a2)
-/*  f000f28:	c4d20008 */ 	lwc1	$f18,0x8($a2)
-/*  f000f2c:	46003102 */ 	mul.s	$f4,$f6,$f0
-/*  f000f30:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f000f34:	46005202 */ 	mul.s	$f8,$f10,$f0
-/*  f000f38:	00000000 */ 	nop
-/*  f000f3c:	46009402 */ 	mul.s	$f16,$f18,$f0
-/*  f000f40:	e4c40000 */ 	swc1	$f4,0x0($a2)
-/*  f000f44:	e4c80004 */ 	swc1	$f8,0x4($a2)
-/*  f000f48:	03e00008 */ 	jr	$ra
-/*  f000f4c:	e4d00008 */ 	swc1	$f16,0x8($a2)
-);
+bool lightGetBboxCentre(s32 roomnum, u32 lightnum, struct coord *pos)
+{
+	struct light *light = (struct light *)&g_LightsFileData[g_Rooms[roomnum].lightindex * 0x22];
+	s32 i;
+	light += lightnum;
+
+	pos->x = 0;
+	pos->y = 0;
+	pos->z = 0;
+
+	for (i = 0; i < 4; i++) {
+		pos->x += light->bbox[i].x;
+		pos->y += light->bbox[i].y;
+		pos->z += light->bbox[i].z;
+	}
+
+	pos->x *= 0.25f;
+	pos->y *= 0.25f;
+	pos->z *= 0.25f;
+
+	return true;
+}
 
 bool lightIsHealthy(s32 roomnum, s32 lightnum)
 {
@@ -2647,7 +2579,7 @@ glabel func0f002ef8
 .L0f003248:
 /*  f003248:	8fa500dc */ 	lw	$a1,0xdc($sp)
 /*  f00324c:	27a60074 */ 	addiu	$a2,$sp,0x74
-/*  f003250:	0fc0037f */ 	jal	func0f000dfc
+/*  f003250:	0fc0037f */ 	jal	lightGetBboxCentre
 /*  f003254:	afa90068 */ 	sw	$t1,0x68($sp)
 /*  f003258:	3c0b800a */ 	lui	$t3,%hi(var800a4cc4)
 /*  f00325c:	8d6b4cc4 */ 	lw	$t3,%lo(var800a4cc4)($t3)

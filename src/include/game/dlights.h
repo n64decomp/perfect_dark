@@ -12,7 +12,7 @@ u8 roomGetBrightness(s32 room);
 s32 func0f000c54(s32 roomnum);
 u32 func0f000cc4(void);
 f32 func0f000dbc(s32 roomnum);
-u32 func0f000dfc(void);
+bool lightGetBboxCentre(s32 roomnum, u32 lightnum, struct coord *pos);
 bool lightIsHealthy(s32 roomnum, s32 lightnum);
 bool func0f000f94(s32 roomnum, s32 lightnum);
 bool lightIsOn(s32 roomnum, s32 lightnum);
