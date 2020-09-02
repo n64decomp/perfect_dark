@@ -501,28 +501,18 @@ bool func0f000f94(s32 roomnum, s32 lightnum)
 	return light->unk05_04;
 }
 
-GLOBAL_ASM(
-glabel func0f000fbc
-/*  f000fbc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f000fc0:	10800009 */ 	beqz	$a0,.L0f000fe8
-/*  f000fc4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f000fc8:	0fc0025f */ 	jal	roomGetLight
-/*  f000fcc:	00000000 */ 	nop
-/*  f000fd0:	944e0004 */ 	lhu	$t6,0x4($v0)
-/*  f000fd4:	000ec680 */ 	sll	$t8,$t6,0x1a
-/*  f000fd8:	07030004 */ 	bgezl	$t8,.L0f000fec
-/*  f000fdc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f000fe0:	10000002 */ 	b	.L0f000fec
-/*  f000fe4:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f000fe8:
-/*  f000fe8:	00001825 */ 	or	$v1,$zero,$zero
-.L0f000fec:
-/*  f000fec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f000ff0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f000ff4:	00601025 */ 	or	$v0,$v1,$zero
-/*  f000ff8:	03e00008 */ 	jr	$ra
-/*  f000ffc:	00000000 */ 	nop
-);
+bool lightIsOn(s32 roomnum, s32 lightnum)
+{
+	bool on;
+
+	if (roomnum && roomGetLight(roomnum, lightnum)->on) {
+		on = true;
+	} else {
+		on = false;
+	}
+
+	return on;
+}
 
 GLOBAL_ASM(
 glabel func0f001000

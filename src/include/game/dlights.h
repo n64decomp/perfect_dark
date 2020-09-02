@@ -15,7 +15,7 @@ f32 func0f000dbc(s32 roomnum);
 u32 func0f000dfc(void);
 u32 func0f000f50(void);
 bool func0f000f94(s32 roomnum, s32 lightnum);
-u32 func0f000fbc(void);
+bool lightIsOn(s32 roomnum, s32 lightnum);
 u32 func0f001000(void);
 u32 func0f0010d8(void);
 u32 func0f001138(void);
