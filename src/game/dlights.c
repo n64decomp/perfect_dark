@@ -307,46 +307,23 @@ f32 roomGetUnk5c(s32 roomnum)
 	return g_Rooms[roomnum].unk5c;
 }
 
+f32 func0f000cec(s32 roomnum)
+{
+	f32 value = (g_Rooms[roomnum].unk52 + g_Rooms[roomnum].unk4b) / 0.0039215688593686f;
+
+	if (value > 1) {
+		value = 1;
+	}
+
+	if (value < 0) {
+		value = 0;
+	}
+
+	return value;
+}
+
 GLOBAL_ASM(
-glabel func0f000cec
-.late_rodata
-glabel var7f1a7d88
-.word 0x3b808081
-.text
-/*  f000cec:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f000cf0:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f000cf4:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f000cf8:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f000cfc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000d00:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f000d04:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000d08:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f000d0c:	9058004b */ 	lbu	$t8,0x4b($v0)
-/*  f000d10:	84590052 */ 	lh	$t9,0x52($v0)
-/*  f000d14:	3c013f80 */ 	lui	$at,0x3f80
-/*  f000d18:	44810000 */ 	mtc1	$at,$f0
-/*  f000d1c:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f000d20:	44882000 */ 	mtc1	$t0,$f4
-/*  f000d24:	3c017f1a */ 	lui	$at,%hi(var7f1a7d88)
-/*  f000d28:	c4287d88 */ 	lwc1	$f8,%lo(var7f1a7d88)($at)
-/*  f000d2c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f000d30:	46083083 */ 	div.s	$f2,$f6,$f8
-/*  f000d34:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f000d38:	00000000 */ 	nop
-/*  f000d3c:	45020003 */ 	bc1fl	.L0f000d4c
-/*  f000d40:	44800000 */ 	mtc1	$zero,$f0
-/*  f000d44:	46000086 */ 	mov.s	$f2,$f0
-/*  f000d48:	44800000 */ 	mtc1	$zero,$f0
-.L0f000d4c:
-/*  f000d4c:	00000000 */ 	nop
-/*  f000d50:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f000d54:	00000000 */ 	nop
-/*  f000d58:	45000002 */ 	bc1f	.L0f000d64
-/*  f000d5c:	00000000 */ 	nop
-/*  f000d60:	46000086 */ 	mov.s	$f2,$f0
-.L0f000d64:
-/*  f000d64:	03e00008 */ 	jr	$ra
-/*  f000d68:	46001006 */ 	mov.s	$f0,$f2
+glabel func0f000d6c
 /*  f000d6c:	000478c0 */ 	sll	$t7,$a0,0x3
 /*  f000d70:	01e47821 */ 	addu	$t7,$t7,$a0
 /*  f000d74:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
