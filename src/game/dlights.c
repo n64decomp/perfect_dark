@@ -841,22 +841,12 @@ void roomSetLightBroken(s32 roomnum, s32 lightnum)
 	g_Rooms[roomnum].flags |= ROOMFLAG_DIRTY;
 }
 
-GLOBAL_ASM(
-glabel func0f001bdc
-/*  f001bdc:	3c0e8006 */ 	lui	$t6,%hi(var80061444)
-/*  f001be0:	8dce1444 */ 	lw	$t6,%lo(var80061444)($t6)
-/*  f001be4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f001be8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f001bec:	51c00004 */ 	beqzl	$t6,.L0f001c00
-/*  f001bf0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f001bf4:	0fc0131b */ 	jal	func0f004c6c
-/*  f001bf8:	00000000 */ 	nop
-/*  f001bfc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f001c00:
-/*  f001c00:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f001c04:	03e00008 */ 	jr	$ra
-/*  f001c08:	00000000 */ 	nop
-);
+void func0f001bdc(void)
+{
+	if (var80061444) {
+		func0f004c6c();
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f001c0c
