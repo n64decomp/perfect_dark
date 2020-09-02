@@ -311,10 +311,10 @@ glabel func0f157e94
 /*  f158104:	00000000 */ 	nop
 );
 
-void func0f158108(s32 index, u8 *arg1, u8 *arg2)
+void func0f158108(s32 roomnum, u8 *arg1, u8 *arg2)
 {
-	*arg1 = var800a4cc4[index].unk10;
-	*arg2 = var800a4cc4[index].unk11;
+	*arg1 = var800a4cc4[roomnum].unk10;
+	*arg2 = var800a4cc4[roomnum].unk11;
 }
 
 struct var800a4640_00 *func0f158140(s32 arg0)
@@ -5298,7 +5298,7 @@ glabel var7f1b75d0
 /*  f15c644:	5420000a */ 	bnezl	$at,.L0f15c670
 /*  f15c648:	2a210002 */ 	slti	$at,$s1,0x2
 .L0f15c64c:
-/*  f15c64c:	0fc004f2 */ 	jal	func0f0013c8
+/*  f15c64c:	0fc004f2 */ 	jal	roomInitLights
 /*  f15c650:	02802025 */ 	or	$a0,$s4,$zero
 /*  f15c654:	8fd102bc */ 	lw	$s1,0x2bc($s8)
 /*  f15c658:	26940001 */ 	addiu	$s4,$s4,0x1
