@@ -313,7 +313,7 @@ void func0f0010b4(void)
 	var80061424 = 1;
 }
 
-void func0f0010d8(struct room *room)
+void roomSetDefaults(struct room *room)
 {
 	room->unk48 = 0;
 	room->unk49 = 255;
@@ -1847,60 +1847,25 @@ glabel func0f002844
 /*  f002a94:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
-GLOBAL_ASM(
-glabel func0f002a98
-/*  f002a98:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f002a9c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f002aa0:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f002aa4:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*  f002aa8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f002aac:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f002ab0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f002ab4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f002ab8:	0fc5db62 */ 	jal	align4
-/*  f002abc:	8e6402bc */ 	lw	$a0,0x2bc($s3)
-/*  f002ac0:	3c01800a */ 	lui	$at,%hi(var8009cae0)
-/*  f002ac4:	ac22cae0 */ 	sw	$v0,%lo(var8009cae0)($at)
-/*  f002ac8:	3c018006 */ 	lui	$at,%hi(var80061458)
-/*  f002acc:	ac201458 */ 	sw	$zero,%lo(var80061458)($at)
-/*  f002ad0:	8e6e02bc */ 	lw	$t6,0x2bc($s3)
-/*  f002ad4:	a26004e1 */ 	sb	$zero,0x4e1($s3)
-/*  f002ad8:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f002adc:	29c10002 */ 	slti	$at,$t6,0x2
-/*  f002ae0:	1420000e */ 	bnez	$at,.L0f002b1c
-/*  f002ae4:	2411008c */ 	addiu	$s1,$zero,0x8c
-/*  f002ae8:	3c12800a */ 	lui	$s2,%hi(g_Rooms)
-/*  f002aec:	26524928 */ 	addiu	$s2,$s2,%lo(g_Rooms)
-/*  f002af0:	8e4f0000 */ 	lw	$t7,0x0($s2)
-.L0f002af4:
-/*  f002af4:	0fc00436 */ 	jal	func0f0010d8
-/*  f002af8:	022f2021 */ 	addu	$a0,$s1,$t7
-/*  f002afc:	0fc004f2 */ 	jal	roomInitLights
-/*  f002b00:	02002025 */ 	or	$a0,$s0,$zero
-/*  f002b04:	8e7802bc */ 	lw	$t8,0x2bc($s3)
-/*  f002b08:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f002b0c:	2631008c */ 	addiu	$s1,$s1,0x8c
-/*  f002b10:	0218082a */ 	slt	$at,$s0,$t8
-/*  f002b14:	5420fff7 */ 	bnezl	$at,.L0f002af4
-/*  f002b18:	8e4f0000 */ 	lw	$t7,0x0($s2)
-.L0f002b1c:
-/*  f002b1c:	3c198009 */ 	lui	$t9,%hi(g_Is4Mb)
-/*  f002b20:	93390af0 */ 	lbu	$t9,%lo(g_Is4Mb)($t9)
-/*  f002b24:	3c018006 */ 	lui	$at,%hi(var80061420)
-/*  f002b28:	ac201420 */ 	sw	$zero,%lo(var80061420)($at)
-/*  f002b2c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f002b30:	17210002 */ 	bne	$t9,$at,.L0f002b3c
-/*  f002b34:	3c018006 */ 	lui	$at,%hi(var80061444)
-/*  f002b38:	ac201444 */ 	sw	$zero,%lo(var80061444)($at)
-.L0f002b3c:
-/*  f002b3c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f002b40:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f002b44:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f002b48:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f002b4c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f002b50:	03e00008 */ 	jr	$ra
-/*  f002b54:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f002a98(void)
+{
+	s32 i;
+
+	var8009cae0 = align4(g_Vars.roomcount);
+	var80061458 = 0;
+	g_Vars.unk0004e1 = 0;
+
+	for (i = 1; i < g_Vars.roomcount; i++) {
+		roomSetDefaults(&g_Rooms[i]);
+		roomInitLights(i);
+	}
+
+	var80061420 = 0;
+
+	if (IS4MB()) {
+		var80061444 = 0;
+	}
+}
 
 void roomSetLightsOn(s32 roomnum, s32 enable)
 {
