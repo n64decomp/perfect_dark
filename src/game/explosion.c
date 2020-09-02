@@ -1510,7 +1510,7 @@ glabel var7f1b559c
 /*  f12b300:	4606c601 */ 	sub.s	$f24,$f24,$f6
 /*  f12b304:	02202025 */ 	or	$a0,$s1,$zero
 .L0f12b308:
-/*  f12b308:	0fc003d4 */ 	jal	func0f000f50
+/*  f12b308:	0fc003d4 */ 	jal	lightIsHealthy
 /*  f12b30c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f12b310:	1040001c */ 	beqz	$v0,.L0f12b384
 /*  f12b314:	02202025 */ 	or	$a0,$s1,$zero

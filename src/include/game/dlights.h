@@ -13,7 +13,7 @@ s32 func0f000c54(s32 roomnum);
 u32 func0f000cc4(void);
 f32 func0f000dbc(s32 roomnum);
 u32 func0f000dfc(void);
-u32 func0f000f50(void);
+bool lightIsHealthy(s32 roomnum, s32 lightnum);
 bool func0f000f94(s32 roomnum, s32 lightnum);
 bool lightIsOn(s32 roomnum, s32 lightnum);
 u32 func0f001000(void);

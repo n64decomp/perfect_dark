@@ -1392,7 +1392,7 @@ glabel func0f13d568
 /*  f13d838:	87190010 */ 	lh	$t9,0x10($t8)
 /*  f13d83c:	02392823 */ 	subu	$a1,$s1,$t9
 /*  f13d840:	46083602 */ 	mul.s	$f24,$f6,$f8
-/*  f13d844:	0fc003d4 */ 	jal	func0f000f50
+/*  f13d844:	0fc003d4 */ 	jal	lightIsHealthy
 /*  f13d848:	00000000 */ 	nop
 /*  f13d84c:	1040000f */ 	beqz	$v0,.L0f13d88c
 /*  f13d850:	3c19800a */ 	lui	$t9,%hi(g_Rooms)

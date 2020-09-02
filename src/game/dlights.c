@@ -471,28 +471,18 @@ glabel func0f000dfc
 /*  f000f4c:	e4d00008 */ 	swc1	$f16,0x8($a2)
 );
 
-GLOBAL_ASM(
-glabel func0f000f50
-/*  f000f50:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f000f54:	10800009 */ 	beqz	$a0,.L0f000f7c
-/*  f000f58:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f000f5c:	0fc0025f */ 	jal	roomGetLight
-/*  f000f60:	00000000 */ 	nop
-/*  f000f64:	944e0004 */ 	lhu	$t6,0x4($v0)
-/*  f000f68:	000ec640 */ 	sll	$t8,$t6,0x19
-/*  f000f6c:	07030004 */ 	bgezl	$t8,.L0f000f80
-/*  f000f70:	00001825 */ 	or	$v1,$zero,$zero
-/*  f000f74:	10000002 */ 	b	.L0f000f80
-/*  f000f78:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f000f7c:
-/*  f000f7c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f000f80:
-/*  f000f80:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f000f84:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f000f88:	00601025 */ 	or	$v0,$v1,$zero
-/*  f000f8c:	03e00008 */ 	jr	$ra
-/*  f000f90:	00000000 */ 	nop
-);
+bool lightIsHealthy(s32 roomnum, s32 lightnum)
+{
+	bool healthy;
+
+	if (roomnum && roomGetLight(roomnum, lightnum)->healthy) {
+		healthy = true;
+	} else {
+		healthy = false;
+	}
+
+	return healthy;
+}
 
 bool func0f000f94(s32 roomnum, s32 lightnum)
 {
