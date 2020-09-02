@@ -6375,8 +6375,10 @@ struct light {
 	/*0x05*/ u8 on : 1;
 	/*0x05*/ u8 unk05_03 : 1;
 	/*0x05*/ u8 unk05_04 : 1;
-	/*0x06*/ u16 unk06;
-	/*0x08*/ u16 unk08;
+	/*0x06*/ u8 unk06;
+	/*0x07*/ s8 unk07;
+	/*0x08*/ s8 unk08;
+	/*0x09*/ s8 unk09;
 	/*0x0a*/ struct vec3s16 bbox[4];
 };
 

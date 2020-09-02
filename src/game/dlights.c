@@ -294,43 +294,18 @@ void roomSetUnk52(s32 roomnum, s32 value)
 	g_Rooms[roomnum].unk52 = value;
 }
 
+void lightGetUnk07(s32 roomnum, u32 lightnum, struct coord *coord)
+{
+	struct light *light = (struct light *)&g_LightsFileData[g_Rooms[roomnum].lightindex * 0x22];
+	light += lightnum;
+
+	coord->x = light->unk07;
+	coord->y = light->unk08;
+	coord->z = light->unk09;
+}
+
 GLOBAL_ASM(
-glabel func0f001028
-/*  f001028:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f00102c:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f001030:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f001034:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f001038:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f00103c:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f001040:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f001044:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f001048:	9719000a */ 	lhu	$t9,0xa($t8)
-/*  f00104c:	3c09800a */ 	lui	$t1,%hi(g_LightsFileData)
-/*  f001050:	8d294cd8 */ 	lw	$t1,%lo(g_LightsFileData)($t1)
-/*  f001054:	00194100 */ 	sll	$t0,$t9,0x4
-/*  f001058:	00055100 */ 	sll	$t2,$a1,0x4
-/*  f00105c:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f001060:	00084040 */ 	sll	$t0,$t0,0x1
-/*  f001064:	01455021 */ 	addu	$t2,$t2,$a1
-/*  f001068:	000a5040 */ 	sll	$t2,$t2,0x1
-/*  f00106c:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f001070:	004a1021 */ 	addu	$v0,$v0,$t2
-/*  f001074:	804b0007 */ 	lb	$t3,0x7($v0)
-/*  f001078:	448b2000 */ 	mtc1	$t3,$f4
-/*  f00107c:	00000000 */ 	nop
-/*  f001080:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f001084:	e4c60000 */ 	swc1	$f6,0x0($a2)
-/*  f001088:	804c0008 */ 	lb	$t4,0x8($v0)
-/*  f00108c:	448c4000 */ 	mtc1	$t4,$f8
-/*  f001090:	00000000 */ 	nop
-/*  f001094:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f001098:	e4ca0004 */ 	swc1	$f10,0x4($a2)
-/*  f00109c:	804d0009 */ 	lb	$t5,0x9($v0)
-/*  f0010a0:	448d8000 */ 	mtc1	$t5,$f16
-/*  f0010a4:	00000000 */ 	nop
-/*  f0010a8:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f0010ac:	03e00008 */ 	jr	$ra
-/*  f0010b0:	e4d20008 */ 	swc1	$f18,0x8($a2)
+glabel func0f0010b4
 /*  f0010b4:	3c028006 */ 	lui	$v0,%hi(var80061424)
 /*  f0010b8:	24421424 */ 	addiu	$v0,$v0,%lo(var80061424)
 /*  f0010bc:	8c4e0000 */ 	lw	$t6,0x0($v0)
