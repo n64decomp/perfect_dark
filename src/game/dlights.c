@@ -289,18 +289,13 @@ bool lightIsOn(s32 roomnum, s32 lightnum)
 	return on;
 }
 
+void roomSetUnk52(s32 roomnum, s32 value)
+{
+	g_Rooms[roomnum].unk52 = value;
+}
+
 GLOBAL_ASM(
-glabel func0f001000
-/*  f001000:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f001004:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f001008:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f00100c:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f001010:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f001014:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f001018:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f00101c:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f001020:	03e00008 */ 	jr	$ra
-/*  f001024:	a7050052 */ 	sh	$a1,0x52($t8)
+glabel func0f001028
 /*  f001028:	000478c0 */ 	sll	$t7,$a0,0x3
 /*  f00102c:	01e47821 */ 	addu	$t7,$t7,$a0
 /*  f001030:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)

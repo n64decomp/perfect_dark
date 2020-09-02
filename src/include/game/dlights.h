@@ -16,7 +16,7 @@ bool lightGetBboxCentre(s32 roomnum, u32 lightnum, struct coord *pos);
 bool lightIsHealthy(s32 roomnum, s32 lightnum);
 bool func0f000f94(s32 roomnum, s32 lightnum);
 bool lightIsOn(s32 roomnum, s32 lightnum);
-u32 func0f001000(void);
+void roomSetUnk52(s32 roomnum, s32 value);
 u32 func0f0010d8(void);
 u32 func0f001138(void);
 u32 func0f001300(void);
