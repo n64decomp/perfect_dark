@@ -17,7 +17,7 @@ bool lightIsHealthy(s32 roomnum, s32 lightnum);
 bool func0f000f94(s32 roomnum, s32 lightnum);
 bool lightIsOn(s32 roomnum, s32 lightnum);
 void roomSetUnk52(s32 roomnum, s32 value);
-u32 func0f0010d8(void);
+void func0f0010d8(struct room *room);
 u32 func0f001138(void);
 u32 func0f001300(void);
 u32 func0f0013c8(void);

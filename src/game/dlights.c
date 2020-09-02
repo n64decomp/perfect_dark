@@ -313,33 +313,23 @@ void func0f0010b4(void)
 	var80061424 = 1;
 }
 
-GLOBAL_ASM(
-glabel func0f0010d8
-/*  f0010d8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0010dc:	44810000 */ 	mtc1	$at,$f0
-/*  f0010e0:	44801000 */ 	mtc1	$zero,$f2
-/*  f0010e4:	9098004e */ 	lbu	$t8,0x4e($a0)
-/*  f0010e8:	94880000 */ 	lhu	$t0,0x0($a0)
-/*  f0010ec:	240e00ff */ 	addiu	$t6,$zero,0xff
-/*  f0010f0:	240f0080 */ 	addiu	$t7,$zero,0x80
-/*  f0010f4:	3319ff0f */ 	andi	$t9,$t8,0xff0f
-/*  f0010f8:	3109fc3f */ 	andi	$t1,$t0,0xfc3f
-/*  f0010fc:	a0800048 */ 	sb	$zero,0x48($a0)
-/*  f001100:	a08e0049 */ 	sb	$t6,0x49($a0)
-/*  f001104:	a080004a */ 	sb	$zero,0x4a($a0)
-/*  f001108:	a48f0050 */ 	sh	$t7,0x50($a0)
-/*  f00110c:	a4800052 */ 	sh	$zero,0x52($a0)
-/*  f001110:	a080004b */ 	sb	$zero,0x4b($a0)
-/*  f001114:	a099004e */ 	sb	$t9,0x4e($a0)
-/*  f001118:	a4890000 */ 	sh	$t1,0x0($a0)
-/*  f00111c:	e480006c */ 	swc1	$f0,0x6c($a0)
-/*  f001120:	e4800070 */ 	swc1	$f0,0x70($a0)
-/*  f001124:	e480005c */ 	swc1	$f0,0x5c($a0)
-/*  f001128:	e4820060 */ 	swc1	$f2,0x60($a0)
-/*  f00112c:	e4820064 */ 	swc1	$f2,0x64($a0)
-/*  f001130:	03e00008 */ 	jr	$ra
-/*  f001134:	e4820068 */ 	swc1	$f2,0x68($a0)
-);
+void func0f0010d8(struct room *room)
+{
+	room->unk48 = 0;
+	room->unk49 = 255;
+	room->unk4a = 0;
+	room->brightness = 128;
+	room->unk52 = 0;
+	room->unk4b = 0;
+	room->bitfield.prevop = 0;
+	room->flags &= ~(ROOMFLAG_0200 | ROOMFLAG_DIRTY | ROOMFLAG_0080 | ROOMFLAG_0040);
+	room->unk6c = 1;
+	room->unk70 = 1;
+	room->unk5c = 1;
+	room->unk60 = 0;
+	room->unk64 = 0;
+	room->unk68 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f001138

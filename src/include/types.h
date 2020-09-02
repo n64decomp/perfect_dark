@@ -3394,7 +3394,8 @@ struct room {
 	/*0x3c*/ u32 unk3c;
 	/*0x40*/ u32 unk40;
 	/*0x44*/ u32 unk44;
-	/*0x48*/ u16 unk48;
+	/*0x48*/ u8 unk48;
+	/*0x49*/ u8 unk49;
 	/*0x4a*/ u8 unk4a;
 	/*0x4b*/ u8 unk4b;
 	/*0x4c*/ u8 unk4c;
@@ -3408,8 +3409,8 @@ struct room {
 	/*0x60*/ f32 unk60;
 	/*0x64*/ f32 unk64;
 	/*0x68*/ f32 unk68;
-	/*0x6c*/ u32 unk6c;
-	/*0x70*/ u32 unk70;
+	/*0x6c*/ f32 unk6c;
+	/*0x70*/ f32 unk70;
 	/*0x74*/ u32 unk74;
 	/*0x78*/ u32 unk78;
 	/*0x7c*/ u32 unk7c;
