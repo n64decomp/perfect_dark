@@ -3404,7 +3404,7 @@ struct room {
 	/*0x52*/ s16 unk52;
 	/*0x54*/ u16 unk54;
 	/*0x58*/ u32 unk58;
-	/*0x5c*/ u32 unk5c;
+	/*0x5c*/ f32 unk5c;
 	/*0x60*/ f32 unk60;
 	/*0x64*/ f32 unk64;
 	/*0x68*/ f32 unk68;

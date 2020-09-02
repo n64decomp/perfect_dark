@@ -302,22 +302,17 @@ s32 func0f000c54(s32 roomnum)
 	return (g_Rooms[roomnum].flags & ROOMFLAG_0040) ? g_Rooms[roomnum].unk52 : 0;
 }
 
+f32 roomGetUnk5c(s32 roomnum)
+{
+	return g_Rooms[roomnum].unk5c;
+}
+
 GLOBAL_ASM(
-glabel func0f000cc4
+glabel func0f000cec
 .late_rodata
 glabel var7f1a7d88
 .word 0x3b808081
 .text
-/*  f000cc4:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f000cc8:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f000ccc:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f000cd0:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f000cd4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000cd8:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f000cdc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f000ce0:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f000ce4:	03e00008 */ 	jr	$ra
-/*  f000ce8:	c700005c */ 	lwc1	$f0,0x5c($t8)
 /*  f000cec:	000478c0 */ 	sll	$t7,$a0,0x3
 /*  f000cf0:	01e47821 */ 	addu	$t7,$t7,$a0
 /*  f000cf4:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
