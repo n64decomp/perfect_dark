@@ -7,7 +7,7 @@ u32 func0f000920(void);
 struct light *roomGetLight(s32 roomnum, s32 lightnum);
 u8 func0f0009c0(s32 roomnum);
 u8 func0f000a10(s32 roomnum);
-u32 func0f000b24(void);
+u8 func0f000b24(s32 roomnum);
 u8 roomGetBrightness(s32 room);
 s32 func0f000c54(s32 roomnum);
 f32 roomGetUnk5c(s32 roomnum);

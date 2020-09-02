@@ -128,7 +128,7 @@ u8 func0f0009c0(s32 roomnum)
 
 u8 func0f000a10(s32 roomnum)
 {
-	s32 uVar3 = g_Rooms[roomnum].unk52;
+	s32 value = g_Rooms[roomnum].unk52;
 
 	if ((g_Vars.currentplayer->isdead == false
 			&& var80070764 == 0
@@ -139,20 +139,20 @@ u8 func0f000a10(s32 roomnum)
 			&& var80070764 == 0
 			&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 			&& (g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54 & 8))) {
-		uVar3 += var8009caec;
+		value += var8009caec;
 	} else {
-		uVar3 += g_Rooms[roomnum].unk4b;
+		value += g_Rooms[roomnum].unk4b;
 	}
 
-	if (uVar3 > 255) {
-		uVar3 = 255;
+	if (value > 255) {
+		value = 255;
 	}
 
-	if (uVar3 < 0) {
-		uVar3 = 0;
+	if (value < 0) {
+		value = 0;
 	}
 
-	return uVar3;
+	return value;
 }
 
 u8 func0f000b18(u32 arg0)
@@ -160,81 +160,30 @@ u8 func0f000b18(u32 arg0)
 	return 255;
 }
 
-GLOBAL_ASM(
-glabel func0f000b24
-/*  f000b24:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f000b28:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f000b2c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f000b30:	3c0e8007 */ 	lui	$t6,%hi(var80070764)
-/*  f000b34:	8c4300d8 */ 	lw	$v1,0xd8($v0)
-/*  f000b38:	14600013 */ 	bnez	$v1,.L0f000b88
-/*  f000b3c:	00000000 */ 	nop
-/*  f000b40:	8dce0764 */ 	lw	$t6,%lo(var80070764)($t6)
-/*  f000b44:	15c00010 */ 	bnez	$t6,.L0f000b88
-/*  f000b48:	00000000 */ 	nop
-/*  f000b4c:	8c440480 */ 	lw	$a0,0x480($v0)
-/*  f000b50:	50800007 */ 	beqzl	$a0,.L0f000b70
-/*  f000b54:	8c591c54 */ 	lw	$t9,0x1c54($v0)
-/*  f000b58:	1080000b */ 	beqz	$a0,.L0f000b88
-/*  f000b5c:	00000000 */ 	nop
-/*  f000b60:	808f0037 */ 	lb	$t7,0x37($a0)
-/*  f000b64:	15e00008 */ 	bnez	$t7,.L0f000b88
-/*  f000b68:	00000000 */ 	nop
-/*  f000b6c:	8c591c54 */ 	lw	$t9,0x1c54($v0)
-.L0f000b70:
-/*  f000b70:	8c5800c4 */ 	lw	$t8,0xc4($v0)
-/*  f000b74:	03204027 */ 	nor	$t0,$t9,$zero
-/*  f000b78:	03084824 */ 	and	$t1,$t8,$t0
-/*  f000b7c:	312a0001 */ 	andi	$t2,$t1,0x1
-/*  f000b80:	15400014 */ 	bnez	$t2,.L0f000bd4
-/*  f000b84:	00000000 */ 	nop
-.L0f000b88:
-/*  f000b88:	14600015 */ 	bnez	$v1,.L0f000be0
-/*  f000b8c:	3c0b8007 */ 	lui	$t3,%hi(var80070764)
-/*  f000b90:	8d6b0764 */ 	lw	$t3,%lo(var80070764)($t3)
-/*  f000b94:	55600013 */ 	bnezl	$t3,.L0f000be4
-/*  f000b98:	000548c0 */ 	sll	$t1,$a1,0x3
-/*  f000b9c:	8c440480 */ 	lw	$a0,0x480($v0)
-/*  f000ba0:	50800007 */ 	beqzl	$a0,.L0f000bc0
-/*  f000ba4:	8c4e1c54 */ 	lw	$t6,0x1c54($v0)
-/*  f000ba8:	5080000e */ 	beqzl	$a0,.L0f000be4
-/*  f000bac:	000548c0 */ 	sll	$t1,$a1,0x3
-/*  f000bb0:	808c0037 */ 	lb	$t4,0x37($a0)
-/*  f000bb4:	5580000b */ 	bnezl	$t4,.L0f000be4
-/*  f000bb8:	000548c0 */ 	sll	$t1,$a1,0x3
-/*  f000bbc:	8c4e1c54 */ 	lw	$t6,0x1c54($v0)
-.L0f000bc0:
-/*  f000bc0:	8c4d00c4 */ 	lw	$t5,0xc4($v0)
-/*  f000bc4:	01c07827 */ 	nor	$t7,$t6,$zero
-/*  f000bc8:	01afc824 */ 	and	$t9,$t5,$t7
-/*  f000bcc:	33380008 */ 	andi	$t8,$t9,0x8
-/*  f000bd0:	13000003 */ 	beqz	$t8,.L0f000be0
-.L0f000bd4:
-/*  f000bd4:	3c02800a */ 	lui	$v0,%hi(var8009caec)
-/*  f000bd8:	03e00008 */ 	jr	$ra
-/*  f000bdc:	9042caec */ 	lbu	$v0,%lo(var8009caec)($v0)
-.L0f000be0:
-/*  f000be0:	000548c0 */ 	sll	$t1,$a1,0x3
-.L0f000be4:
-/*  f000be4:	01254821 */ 	addu	$t1,$t1,$a1
-/*  f000be8:	3c08800a */ 	lui	$t0,%hi(g_Rooms)
-/*  f000bec:	8d084928 */ 	lw	$t0,%lo(g_Rooms)($t0)
-/*  f000bf0:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f000bf4:	01254823 */ 	subu	$t1,$t1,$a1
-/*  f000bf8:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f000bfc:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f000c00:	944a0000 */ 	lhu	$t2,0x0($v0)
-/*  f000c04:	240300ff */ 	addiu	$v1,$zero,0xff
-/*  f000c08:	314b0040 */ 	andi	$t3,$t2,0x40
-/*  f000c0c:	11600003 */ 	beqz	$t3,.L0f000c1c
-/*  f000c10:	00000000 */ 	nop
-/*  f000c14:	10000001 */ 	b	.L0f000c1c
-/*  f000c18:	9043004b */ 	lbu	$v1,0x4b($v0)
-.L0f000c1c:
-/*  f000c1c:	306200ff */ 	andi	$v0,$v1,0xff
-/*  f000c20:	03e00008 */ 	jr	$ra
-/*  f000c24:	00000000 */ 	nop
-);
+u8 func0f000b24(s32 roomnum)
+{
+	u32 value;
+
+	if ((g_Vars.currentplayer->isdead == false
+			&& var80070764 == 0
+			&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
+			&& (g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54 & 1))
+		||
+			(g_Vars.currentplayer->isdead == false
+			&& var80070764 == 0
+			&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
+			&& (g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54 & 8))) {
+		return var8009caec;
+	}
+
+	if (g_Rooms[roomnum].flags & ROOMFLAG_0040) {
+		value = g_Rooms[roomnum].unk4b;
+	} else {
+		value = 255;
+	}
+
+	return value;
+}
 
 u8 roomGetBrightness(s32 room)
 {
