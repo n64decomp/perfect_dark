@@ -1349,43 +1349,18 @@ glabel func0f00215c
 /*  f002330:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f002334
-/*  f002334:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f002338:	44806000 */ 	mtc1	$zero,$f12
-/*  f00233c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f002340:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f002344:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f002348:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f00234c:	10c10004 */ 	beq	$a2,$at,.L0f002360
-/*  f002350:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f002354:	0fc56c9d */ 	jal	func0f15b274
-/*  f002358:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f00235c:	46000306 */ 	mov.s	$f12,$f0
-.L0f002360:
-/*  f002360:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f002364:	0fc56c9d */ 	jal	func0f15b274
-/*  f002368:	e7ac001c */ 	swc1	$f12,0x1c($sp)
-/*  f00236c:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*  f002370:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f002374:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f002378:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f00237c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f002380:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f002384:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f002388:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f00238c:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*  f002390:	c7240070 */ 	lwc1	$f4,0x70($t9)
-/*  f002394:	c7ac001c */ 	lwc1	$f12,0x1c($sp)
-/*  f002398:	c7aa0024 */ 	lwc1	$f10,0x24($sp)
-/*  f00239c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0023a0:	460c2181 */ 	sub.s	$f6,$f4,$f12
-/*  f0023a4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0023a8:	46060203 */ 	div.s	$f8,$f0,$f6
-/*  f0023ac:	460a4082 */ 	mul.s	$f2,$f8,$f10
-/*  f0023b0:	03e00008 */ 	jr	$ra
-/*  f0023b4:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 func0f002334(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2)
+{
+	f32 fVar2 = 0;
+	f32 result;
+
+	if (portalnum1 != -1) {
+		fVar2 = func0f15b274(portalnum1);
+	}
+
+	result = (func0f15b274(portalnum2) / (g_Rooms[roomnum].unk70 - fVar2)) * mult;
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f0023b8
