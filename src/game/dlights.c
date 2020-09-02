@@ -155,12 +155,10 @@ u8 func0f000a10(s32 roomnum)
 	return uVar3;
 }
 
-GLOBAL_ASM(
-glabel func0f000b18
-/*  f000b18:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f000b1c:	03e00008 */ 	jr	$ra
-/*  f000b20:	240200ff */ 	addiu	$v0,$zero,0xff
-);
+u8 func0f000b18(u32 arg0)
+{
+	return 255;
+}
 
 GLOBAL_ASM(
 glabel func0f000b24
