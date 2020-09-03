@@ -1624,10 +1624,7 @@ void func0000e990(void)
 	func0000e684();
 }
 
-GLOBAL_ASM(
-glabel func0000e9c0
-/*     e9c0:	03e00008 */ 	jr	$ra
-/*     e9c4:	00000000 */ 	nop
-/*     e9c8:	00000000 */ 	nop
-/*     e9cc:	00000000 */ 	nop
-);
+void func0000e9c0(void)
+{
+	// empty
+}
