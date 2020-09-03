@@ -188,7 +188,7 @@ extern u32 var800613a0;
 extern struct var80061420 *var80061420;
 extern u32 var80061424;
 extern u32 var8006142c;
-extern u32 var80061430;
+extern u16 **var80061430;
 extern u32 var80061434;
 extern u32 var80061438;
 extern u32 var80061440;

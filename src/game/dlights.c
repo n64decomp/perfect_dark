@@ -75,36 +75,22 @@ const char var7f1a7d10[] = "L2 -> Allocated %uK for the compressed acoustic shad
 const char var7f1a7d50[] = "L2(%d) -> ";
 const char var7f1a7d5c[] = "L2 -> Finished building portal range table\n";
 
-GLOBAL_ASM(
-glabel func0f000920
-/*  f000920:	10850014 */ 	beq	$a0,$a1,.L0f000974
-/*  f000924:	00001025 */ 	or	$v0,$zero,$zero
-/*  f000928:	00a4082a */ 	slt	$at,$a1,$a0
-/*  f00092c:	10200003 */ 	beqz	$at,.L0f00093c
-/*  f000930:	3c0e8006 */ 	lui	$t6,%hi(var80061430)
-/*  f000934:	10000002 */ 	b	.L0f000940
-/*  f000938:	00801825 */ 	or	$v1,$a0,$zero
-.L0f00093c:
-/*  f00093c:	00a01825 */ 	or	$v1,$a1,$zero
-.L0f000940:
-/*  f000940:	0085082a */ 	slt	$at,$a0,$a1
-/*  f000944:	10200003 */ 	beqz	$at,.L0f000954
-/*  f000948:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f00094c:	10000001 */ 	b	.L0f000954
-/*  f000950:	00803025 */ 	or	$a2,$a0,$zero
-.L0f000954:
-/*  f000954:	8dce1430 */ 	lw	$t6,%lo(var80061430)($t6)
-/*  f000958:	00037880 */ 	sll	$t7,$v1,0x2
-/*  f00095c:	00064040 */ 	sll	$t0,$a2,0x1
-/*  f000960:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f000964:	8f190000 */ 	lw	$t9,0x0($t8)
-/*  f000968:	03284821 */ 	addu	$t1,$t9,$t0
-/*  f00096c:	03e00008 */ 	jr	$ra
-/*  f000970:	95220000 */ 	lhu	$v0,0x0($t1)
-.L0f000974:
-/*  f000974:	03e00008 */ 	jr	$ra
-/*  f000978:	00000000 */ 	nop
-);
+/**
+ * These numbers are suspected to be portal indexes, based on the size of the
+ * array and the number of portals in CI Training. No idea what the returned
+ * values are though.
+ */
+s32 func0f000920(s32 num1, s32 num2)
+{
+	if (num1 != num2) {
+		s32 upper = (num1 > num2) ? num1 : num2;
+		s32 lower = (num1 < num2) ? num1 : num2;
+
+		return var80061430[upper][lower];
+	}
+
+	return 0;
+}
 
 struct light *roomGetLight(s32 roomnum, s32 lightnum)
 {
