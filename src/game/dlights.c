@@ -3147,8 +3147,8 @@ void func0f004314(void)
 
 	func0f005bb0();
 
-	if (hand1->unk063d || hand2->unk063d) {
-		func0f00438c(g_Vars.currentplayer->prop->rooms[0], 0x40, 0x50);
+	if (hand1->torchon || hand2->torchon) {
+		func0f00438c(g_Vars.currentplayer->prop->rooms[0], 64, 80);
 	}
 }
 
@@ -3288,54 +3288,32 @@ glabel var7f1a7dd8
 /*  f004554:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 
-GLOBAL_ASM(
-glabel func0f004558
-/*  f004558:	10800028 */ 	beqz	$a0,.L0f0045fc
-/*  f00455c:	3c07800a */ 	lui	$a3,%hi(g_Rooms)
-/*  f004560:	000410c0 */ 	sll	$v0,$a0,0x3
-/*  f004564:	24e74928 */ 	addiu	$a3,$a3,%lo(g_Rooms)
-/*  f004568:	00441021 */ 	addu	$v0,$v0,$a0
-/*  f00456c:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*  f004570:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f004574:	00441023 */ 	subu	$v0,$v0,$a0
-/*  f004578:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f00457c:	01c21821 */ 	addu	$v1,$t6,$v0
-/*  f004580:	946f0000 */ 	lhu	$t7,0x0($v1)
-/*  f004584:	31f80004 */ 	andi	$t8,$t7,0x4
-/*  f004588:	1300001c */ 	beqz	$t8,.L0f0045fc
-/*  f00458c:	00000000 */ 	nop
-/*  f004590:	58a0000f */ 	blezl	$a1,.L0f0045d0
-/*  f004594:	84640052 */ 	lh	$a0,0x52($v1)
-/*  f004598:	84640052 */ 	lh	$a0,0x52($v1)
-/*  f00459c:	0086082a */ 	slt	$at,$a0,$a2
-/*  f0045a0:	10200016 */ 	beqz	$at,.L0f0045fc
-/*  f0045a4:	0085c821 */ 	addu	$t9,$a0,$a1
-/*  f0045a8:	a4790052 */ 	sh	$t9,0x52($v1)
-/*  f0045ac:	8ce80000 */ 	lw	$t0,0x0($a3)
-/*  f0045b0:	01021821 */ 	addu	$v1,$t0,$v0
-/*  f0045b4:	84690052 */ 	lh	$t1,0x52($v1)
-/*  f0045b8:	00c9082a */ 	slt	$at,$a2,$t1
-/*  f0045bc:	1020000f */ 	beqz	$at,.L0f0045fc
-/*  f0045c0:	00000000 */ 	nop
-/*  f0045c4:	03e00008 */ 	jr	$ra
-/*  f0045c8:	a4660052 */ 	sh	$a2,0x52($v1)
-/*  f0045cc:	84640052 */ 	lh	$a0,0x52($v1)
-.L0f0045d0:
-/*  f0045d0:	00c4082a */ 	slt	$at,$a2,$a0
-/*  f0045d4:	10200009 */ 	beqz	$at,.L0f0045fc
-/*  f0045d8:	00855021 */ 	addu	$t2,$a0,$a1
-/*  f0045dc:	a46a0052 */ 	sh	$t2,0x52($v1)
-/*  f0045e0:	8ceb0000 */ 	lw	$t3,0x0($a3)
-/*  f0045e4:	01621821 */ 	addu	$v1,$t3,$v0
-/*  f0045e8:	846c0052 */ 	lh	$t4,0x52($v1)
-/*  f0045ec:	0186082a */ 	slt	$at,$t4,$a2
-/*  f0045f0:	10200002 */ 	beqz	$at,.L0f0045fc
-/*  f0045f4:	00000000 */ 	nop
-/*  f0045f8:	a4660052 */ 	sh	$a2,0x52($v1)
-.L0f0045fc:
-/*  f0045fc:	03e00008 */ 	jr	$ra
-/*  f004600:	00000000 */ 	nop
-);
+void func0f004558(s32 roomnum, s32 increment, s32 limit)
+{
+	if (roomnum) {
+		if (g_Rooms[roomnum].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+			if (increment > 0) {
+				// Increasing
+				if (g_Rooms[roomnum].unk52 < limit) {
+					g_Rooms[roomnum].unk52 += increment;
+
+					if (g_Rooms[roomnum].unk52 > limit) {
+						g_Rooms[roomnum].unk52 = limit;
+					}
+				}
+			} else {
+				// Decreasing
+				if (g_Rooms[roomnum].unk52 > limit) {
+					g_Rooms[roomnum].unk52 += increment;
+
+					if (g_Rooms[roomnum].unk52 < limit) {
+						g_Rooms[roomnum].unk52 = limit;
+					}
+				}
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f004604

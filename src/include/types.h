@@ -1502,7 +1502,7 @@ struct hand {
 	/*0x063a*/ u8 unk063a;
 	/*0x063b*/ u8 weaponfunc; // 0 or 1
 	/*0x063c*/ u8 unk063c;
-	/*0x063d*/ s8 unk063d;
+	/*0x063d*/ s8 torchon;
 	/*0x063e*/ u8 unk063e;
 	/*0x063f*/ u8 unk063f;
 	/*0x0640*/ s8 unk0640;
