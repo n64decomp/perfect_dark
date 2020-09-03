@@ -36,7 +36,7 @@ void roomSetLighting(s32 roomnum, s32 operation, u8 arg2, u8 arg3, u8 arg4);
 u32 func0f002ef8(void);
 void func0f0033b0(void);
 void func0f003444(void);
-u32 func0f0035c0(void);
+void func0f0035c0(void);
 u32 func0f00372c(void);
 void func0f0037ac(void);
 u32 func0f004314(void);

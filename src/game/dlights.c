@@ -2283,106 +2283,28 @@ void func0f003444(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0035c0
-/*  f0035c0:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0035c4:	afb70038 */ 	sw	$s7,0x38($sp)
-/*  f0035c8:	3c17800a */ 	lui	$s7,%hi(g_Vars)
-/*  f0035cc:	26f79fc0 */ 	addiu	$s7,$s7,%lo(g_Vars)
-/*  f0035d0:	8eee02bc */ 	lw	$t6,0x2bc($s7)
-/*  f0035d4:	afb4002c */ 	sw	$s4,0x2c($sp)
-/*  f0035d8:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0035dc:	afb60034 */ 	sw	$s6,0x34($sp)
-/*  f0035e0:	afb50030 */ 	sw	$s5,0x30($sp)
-/*  f0035e4:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f0035e8:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f0035ec:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f0035f0:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f0035f4:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f0035f8:	19c00040 */ 	blez	$t6,.L0f0036fc
-/*  f0035fc:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f003600:	3c02800a */ 	lui	$v0,%hi(g_Rooms)
-/*  f003604:	3c16800a */ 	lui	$s6,%hi(g_LightsFileData)
-/*  f003608:	3c12800a */ 	lui	$s2,%hi(g_Rooms)
-/*  f00360c:	4480a000 */ 	mtc1	$zero,$f20
-/*  f003610:	26524928 */ 	addiu	$s2,$s2,%lo(g_Rooms)
-/*  f003614:	26d64cd8 */ 	addiu	$s6,$s6,%lo(g_LightsFileData)
-/*  f003618:	8c424928 */ 	lw	$v0,%lo(g_Rooms)($v0)
-/*  f00361c:	00009825 */ 	or	$s3,$zero,$zero
-/*  f003620:	24150022 */ 	addiu	$s5,$zero,0x22
-.L0f003624:
-/*  f003624:	9048004e */ 	lbu	$t0,0x4e($v0)
-/*  f003628:	944f000a */ 	lhu	$t7,0xa($v0)
-/*  f00362c:	8ed90000 */ 	lw	$t9,0x0($s6)
-/*  f003630:	3109ff0f */ 	andi	$t1,$t0,0xff0f
-/*  f003634:	352a0010 */ 	ori	$t2,$t1,0x10
-/*  f003638:	a04a004e */ 	sb	$t2,0x4e($v0)
-/*  f00363c:	8e4b0000 */ 	lw	$t3,0x0($s2)
-/*  f003640:	01f50019 */ 	multu	$t7,$s5
-/*  f003644:	00008825 */ 	or	$s1,$zero,$zero
-/*  f003648:	01736021 */ 	addu	$t4,$t3,$s3
-/*  f00364c:	e5940060 */ 	swc1	$f20,0x60($t4)
-/*  f003650:	8e4d0000 */ 	lw	$t5,0x0($s2)
-/*  f003654:	01b31021 */ 	addu	$v0,$t5,$s3
-/*  f003658:	804e0008 */ 	lb	$t6,0x8($v0)
-/*  f00365c:	0000c012 */ 	mflo	$t8
-/*  f003660:	03198021 */ 	addu	$s0,$t8,$t9
-/*  f003664:	59c00020 */ 	blezl	$t6,.L0f0036e8
-/*  f003668:	8eeb02bc */ 	lw	$t3,0x2bc($s7)
-.L0f00366c:
-/*  f00366c:	0c004b70 */ 	jal	random
-/*  f003670:	00000000 */ 	nop
-/*  f003674:	304f0001 */ 	andi	$t7,$v0,0x1
-/*  f003678:	51e00006 */ 	beqzl	$t7,.L0f003694
-/*  f00367c:	92090005 */ 	lbu	$t1,0x5($s0)
-/*  f003680:	92190005 */ 	lbu	$t9,0x5($s0)
-/*  f003684:	37280080 */ 	ori	$t0,$t9,0x80
-/*  f003688:	10000004 */ 	b	.L0f00369c
-/*  f00368c:	a2080005 */ 	sb	$t0,0x5($s0)
-/*  f003690:	92090005 */ 	lbu	$t1,0x5($s0)
-.L0f003694:
-/*  f003694:	312aff7f */ 	andi	$t2,$t1,0xff7f
-/*  f003698:	a20a0005 */ 	sb	$t2,0x5($s0)
-.L0f00369c:
-/*  f00369c:	920b0005 */ 	lbu	$t3,0x5($s0)
-/*  f0036a0:	a2000004 */ 	sb	$zero,0x4($s0)
-/*  f0036a4:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0036a8:	316dffbf */ 	andi	$t5,$t3,0xffbf
-/*  f0036ac:	31af00df */ 	andi	$t7,$t5,0xdf
-/*  f0036b0:	a20d0005 */ 	sb	$t5,0x5($s0)
-/*  f0036b4:	31f900ef */ 	andi	$t9,$t7,0xef
-/*  f0036b8:	a20f0005 */ 	sb	$t7,0x5($s0)
-/*  f0036bc:	a2190005 */ 	sb	$t9,0x5($s0)
-/*  f0036c0:	332800f7 */ 	andi	$t0,$t9,0xf7
-/*  f0036c4:	a2080005 */ 	sb	$t0,0x5($s0)
-/*  f0036c8:	8e490000 */ 	lw	$t1,0x0($s2)
-/*  f0036cc:	26100022 */ 	addiu	$s0,$s0,0x22
-/*  f0036d0:	01331021 */ 	addu	$v0,$t1,$s3
-/*  f0036d4:	804a0008 */ 	lb	$t2,0x8($v0)
-/*  f0036d8:	022a082a */ 	slt	$at,$s1,$t2
-/*  f0036dc:	1420ffe3 */ 	bnez	$at,.L0f00366c
-/*  f0036e0:	00000000 */ 	nop
-/*  f0036e4:	8eeb02bc */ 	lw	$t3,0x2bc($s7)
-.L0f0036e8:
-/*  f0036e8:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f0036ec:	2673008c */ 	addiu	$s3,$s3,0x8c
-/*  f0036f0:	028b082a */ 	slt	$at,$s4,$t3
-/*  f0036f4:	1420ffcb */ 	bnez	$at,.L0f003624
-/*  f0036f8:	2442008c */ 	addiu	$v0,$v0,140
-.L0f0036fc:
-/*  f0036fc:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f003700:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f003704:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f003708:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f00370c:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f003710:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f003714:	8fb4002c */ 	lw	$s4,0x2c($sp)
-/*  f003718:	8fb50030 */ 	lw	$s5,0x30($sp)
-/*  f00371c:	8fb60034 */ 	lw	$s6,0x34($sp)
-/*  f003720:	8fb70038 */ 	lw	$s7,0x38($sp)
-/*  f003724:	03e00008 */ 	jr	$ra
-/*  f003728:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+void func0f0035c0(void)
+{
+	s32 i;
+	s32 j;
+
+	for (i = 0; i < g_Vars.roomcount; i++) {
+		struct light *light = (struct light *)&g_LightsFileData[g_Rooms[i].lightindex * 0x22];
+		g_Rooms[i].bitfield.prevop = 1;
+		g_Rooms[i].unk60 = 0;
+
+		for (j = 0; j < g_Rooms[i].numlights; j++) {
+			light->unk05_00 = random() % 2 ? true : false;
+			light->healthy = false;
+			light->on = false;
+			light->unk05_03 = false;
+			light->vulnerable = false;
+			light->unk04 = 0;
+
+			light++;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f00372c
