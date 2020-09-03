@@ -3152,11 +3152,10 @@ void func0f004314(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f004384
-/*  f004384:	03e00008 */ 	jr	$ra
-/*  f004388:	00000000 */ 	nop
-);
+void func0f004384(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0f00438c
