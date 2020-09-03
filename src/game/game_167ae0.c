@@ -4931,7 +4931,7 @@ glabel func0f16b96c
 /*  f16c54c:	0246082a */ 	slt	$at,$s2,$a2
 /*  f16c550:	54200006 */ 	bnezl	$at,.L0f16c56c
 /*  f16c554:	24ccfda8 */ 	addiu	$t4,$a2,-600
-/*  f16c558:	0c0039a1 */ 	jal	func0000e684
+/*  f16c558:	0c0039a1 */ 	jal	mainEndStage
 /*  f16c55c:	00000000 */ 	nop
 /*  f16c560:	3c068008 */ 	lui	$a2,%hi(g_MpTimeLimit)
 /*  f16c564:	8cc64028 */ 	lw	$a2,%lo(g_MpTimeLimit)($a2)
@@ -5141,7 +5141,7 @@ glabel func0f16b96c
 /*  f16c82c:	00000000 */ 	nop
 /*  f16c830:	16000003 */ 	bnez	$s0,.L0f16c840
 /*  f16c834:	00000000 */ 	nop
-/*  f16c838:	0c0039a1 */ 	jal	func0000e684
+/*  f16c838:	0c0039a1 */ 	jal	mainEndStage
 /*  f16c83c:	00000000 */ 	nop
 .L0f16c840:
 /*  f16c840:	3c198008 */ 	lui	$t9,%hi(g_MpTimeElapsed)
@@ -5553,7 +5553,7 @@ glabel func0f16b96c
 //
 //			if (g_MpTimeElapsed < g_MpTimeLimit && nexttime >= g_MpTimeLimit) {
 //				// Match is ending due to time limit reached
-//				func0000e684();
+//				mainEndStage();
 //			}
 //
 //			// Sound alarm at 10 seconds remaining
@@ -5609,7 +5609,7 @@ glabel func0f16b96c
 //
 //			// 820
 //			if (var80084038 > 0 && numdying == 0) {
-//				func0000e684();
+//				mainEndStage();
 //			}
 //		}
 //	}

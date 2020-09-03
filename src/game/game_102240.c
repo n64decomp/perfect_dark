@@ -4101,7 +4101,7 @@ s32 menuhandlerAbortMission(u32 operation, struct menuitem *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		g_Vars.currentplayer->aborted = true;
-		func0000e684();
+		mainEndStage();
 	}
 
 	return 0;

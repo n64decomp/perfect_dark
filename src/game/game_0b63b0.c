@@ -10338,7 +10338,7 @@ glabel var7f1ad6ac
 /*  f0bfac8:	8e6d0314 */ 	lw	$t5,0x314($s3)
 /*  f0bfacc:	55a00006 */ 	bnezl	$t5,.L0f0bfae8
 /*  f0bfad0:	8e6c0298 */ 	lw	$t4,0x298($s3)
-/*  f0bfad4:	0c0039a1 */ 	jal	func0000e684
+/*  f0bfad4:	0c0039a1 */ 	jal	mainEndStage
 /*  f0bfad8:	00000000 */ 	nop
 /*  f0bfadc:	10000022 */ 	b	.L0f0bfb68
 /*  f0bfae0:	8e6b02ac */ 	lw	$t3,0x2ac($s3)
@@ -10359,7 +10359,7 @@ glabel var7f1ad6ac
 /*  f0bfb18:	8c490330 */ 	lw	$t1,0x330($v0)
 /*  f0bfb1c:	11200005 */ 	beqz	$t1,.L0f0bfb34
 /*  f0bfb20:	00000000 */ 	nop
-/*  f0bfb24:	0c0039a1 */ 	jal	func0000e684
+/*  f0bfb24:	0c0039a1 */ 	jal	mainEndStage
 /*  f0bfb28:	00000000 */ 	nop
 /*  f0bfb2c:	1000000e */ 	b	.L0f0bfb68
 /*  f0bfb30:	8e6b02ac */ 	lw	$t3,0x2ac($s3)
@@ -10375,7 +10375,7 @@ glabel var7f1ad6ac
 /*  f0bfb50:	8e6a02a0 */ 	lw	$t2,0x2a0($s3)
 /*  f0bfb54:	55500004 */ 	bnel	$t2,$s0,.L0f0bfb68
 /*  f0bfb58:	8e6b02ac */ 	lw	$t3,0x2ac($s3)
-/*  f0bfb5c:	0c0039a1 */ 	jal	func0000e684
+/*  f0bfb5c:	0c0039a1 */ 	jal	mainEndStage
 /*  f0bfb60:	00000000 */ 	nop
 /*  f0bfb64:	8e6b02ac */ 	lw	$t3,0x2ac($s3)
 .L0f0bfb68:
@@ -10386,7 +10386,7 @@ glabel var7f1ad6ac
 /*  f0bfb78:	00000000 */ 	nop
 /*  f0bfb7c:	50400004 */ 	beqzl	$v0,.L0f0bfb90
 /*  f0bfb80:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f0bfb84:	0c0039a1 */ 	jal	func0000e684
+/*  f0bfb84:	0c0039a1 */ 	jal	mainEndStage
 /*  f0bfb88:	00000000 */ 	nop
 /*  f0bfb8c:	8fbf004c */ 	lw	$ra,0x4c($sp)
 .L0f0bfb90:
@@ -11351,18 +11351,18 @@ glabel var7f1ad6ac
 //		if (g_Vars.currentplayer->redbloodfinished
 //				&& g_Vars.currentplayer->deathanimfinished) {
 //			if (g_Vars.mplayerisrunning == false) {
-//				func0000e684();
+//				mainEndStage();
 //			} else {
 //				if (g_Vars.coopplayernum < 0) {
 //					if (g_Vars.antiplayernum >= 0 && g_Vars.bond == g_Vars.currentplayer) {
-//						func0000e684();
+//						mainEndStage();
 //					}
 //				} else {
 //					if (g_Vars.bond == g_Vars.currentplayer
 //							&& g_Vars.coop->isdead
 //							&& g_Vars.coop->redbloodfinished
 //							&& g_Vars.coop->deathanimfinished) {
-//						func0000e684();
+//						mainEndStage();
 //					} else {
 //						func0f049644(g_Vars.currentplayernum);
 //					}
@@ -11372,7 +11372,7 @@ glabel var7f1ad6ac
 //	}
 //
 //	if (g_Vars.tickmode == TICKMODE_5 && currentPlayerIsFadeComplete()) {
-//		func0000e684();
+//		mainEndStage();
 //	}
 //}
 
