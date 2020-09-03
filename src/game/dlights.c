@@ -2306,44 +2306,18 @@ void func0f0035c0(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f00372c
-/*  f00372c:	3c038006 */ 	lui	$v1,%hi(var80061458)
-/*  f003730:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x2ac)
-/*  f003734:	8c42a26c */ 	lw	$v0,%lo(g_Vars+0x2ac)($v0)
-/*  f003738:	8c631458 */ 	lw	$v1,%lo(var80061458)($v1)
-/*  f00373c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f003740:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f003744:	10620015 */ 	beq	$v1,$v0,.L0f00379c
-/*  f003748:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f00374c:	54440009 */ 	bnel	$v0,$a0,.L0f003774
-/*  f003750:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f003754:	50640007 */ 	beql	$v1,$a0,.L0f003774
-/*  f003758:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f00375c:	0fc00d11 */ 	jal	func0f003444
-/*  f003760:	00000000 */ 	nop
-/*  f003764:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x2ac)
-/*  f003768:	1000000a */ 	b	.L0f003794
-/*  f00376c:	8c42a26c */ 	lw	$v0,%lo(g_Vars+0x2ac)($v0)
-/*  f003770:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f003774:
-/*  f003774:	14440007 */ 	bne	$v0,$a0,.L0f003794
-/*  f003778:	00000000 */ 	nop
-/*  f00377c:	10640005 */ 	beq	$v1,$a0,.L0f003794
-/*  f003780:	00000000 */ 	nop
-/*  f003784:	0fc00d70 */ 	jal	func0f0035c0
-/*  f003788:	00000000 */ 	nop
-/*  f00378c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x2ac)
-/*  f003790:	8c42a26c */ 	lw	$v0,%lo(g_Vars+0x2ac)($v0)
-.L0f003794:
-/*  f003794:	3c018006 */ 	lui	$at,%hi(var80061458)
-/*  f003798:	ac221458 */ 	sw	$v0,%lo(var80061458)($at)
-.L0f00379c:
-/*  f00379c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0037a0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0037a4:	03e00008 */ 	jr	$ra
-/*  f0037a8:	00000000 */ 	nop
-);
+void func0f00372c(void)
+{
+	if (g_Vars.tickmode != var80061458) {
+		if (TICKMODE_6 == g_Vars.tickmode && TICKMODE_6 != var80061458) {
+			func0f003444();
+		} else if (TICKMODE_1 == g_Vars.tickmode && TICKMODE_1 != var80061458) {
+			func0f0035c0();
+		}
+
+		var80061458 = g_Vars.tickmode;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0037ac
@@ -3166,38 +3140,20 @@ glabel var7f1a7dd4
 /*  f004310:	27bd00d8 */ 	addiu	$sp,$sp,0xd8
 );
 
+void func0f004314(void)
+{
+	struct hand *hand1 = &g_Vars.currentplayer->hands[0];
+	struct hand *hand2 = &g_Vars.currentplayer->hands[1];
+
+	func0f005bb0();
+
+	if (hand1->unk063d || hand2->unk063d) {
+		func0f00438c(g_Vars.currentplayer->prop->rooms[0], 0x40, 0x50);
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f004314
-/*  f004314:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f004318:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f00431c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f004320:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f004324:	244e0638 */ 	addiu	$t6,$v0,0x638
-/*  f004328:	244f0ddc */ 	addiu	$t7,$v0,0xddc
-/*  f00432c:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f004330:	0fc016ec */ 	jal	func0f005bb0
-/*  f004334:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f004338:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*  f00433c:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*  f004340:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x284)
-/*  f004344:	83190005 */ 	lb	$t9,0x5($t8)
-/*  f004348:	17200004 */ 	bnez	$t9,.L0f00435c
-/*  f00434c:	00000000 */ 	nop
-/*  f004350:	81090005 */ 	lb	$t1,0x5($t0)
-/*  f004354:	51200008 */ 	beqzl	$t1,.L0f004378
-/*  f004358:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f00435c:
-/*  f00435c:	8d4aa244 */ 	lw	$t2,%lo(g_Vars+0x284)($t2)
-/*  f004360:	24050040 */ 	addiu	$a1,$zero,0x40
-/*  f004364:	24060050 */ 	addiu	$a2,$zero,0x50
-/*  f004368:	8d4b00bc */ 	lw	$t3,0xbc($t2)
-/*  f00436c:	0fc010e3 */ 	jal	func0f00438c
-/*  f004370:	85640028 */ 	lh	$a0,0x28($t3)
-/*  f004374:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f004378:
-/*  f004378:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f00437c:	03e00008 */ 	jr	$ra
-/*  f004380:	00000000 */ 	nop
+glabel func0f004384
 /*  f004384:	03e00008 */ 	jr	$ra
 /*  f004388:	00000000 */ 	nop
 );
