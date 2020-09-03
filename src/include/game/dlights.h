@@ -40,7 +40,7 @@ void func0f0035c0(void);
 void func0f00372c(void);
 void func0f0037ac(void);
 void func0f004314(void);
-void func0f00438c(s16 roomnum, u32 arg1, u32 arg2);
+void func0f00438c(s32 roomnum, s32 start, s32 limit);
 void func0f004558(s32 roomnum, s32 increment, s32 limit);
 u32 func0f004604(void);
 void func0f004c6c(void);

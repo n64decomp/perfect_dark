@@ -17,6 +17,6 @@ u32 func0f17776c(void);
 void func0f1777f8(void);
 u32 func0f177a54(void);
 u32 func0f177bb4(void);
-u32 func0f177c8c(void);
+s32 func0f177c8c(s32 arg0, s32 *arg1, s32 *arg2);
 
 #endif

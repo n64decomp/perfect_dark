@@ -3157,136 +3157,37 @@ void func0f004384(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f00438c
-.late_rodata
-glabel var7f1a7dd8
-.word 0x3b808081
-.text
-/*  f00438c:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f004390:	afbe0050 */ 	sw	$s8,0x50($sp)
-/*  f004394:	3c1e8006 */ 	lui	$s8,%hi(var80061420)
-/*  f004398:	27de1420 */ 	addiu	$s8,$s8,%lo(var80061420)
-/*  f00439c:	8fc30000 */ 	lw	$v1,0x0($s8)
-/*  f0043a0:	afb7004c */ 	sw	$s7,0x4c($sp)
-/*  f0043a4:	afb60048 */ 	sw	$s6,0x48($sp)
-/*  f0043a8:	00a0b025 */ 	or	$s6,$a1,$zero
-/*  f0043ac:	00c0b825 */ 	or	$s7,$a2,$zero
-/*  f0043b0:	afbf0054 */ 	sw	$ra,0x54($sp)
-/*  f0043b4:	afb50044 */ 	sw	$s5,0x44($sp)
-/*  f0043b8:	afb40040 */ 	sw	$s4,0x40($sp)
-/*  f0043bc:	afb3003c */ 	sw	$s3,0x3c($sp)
-/*  f0043c0:	afb20038 */ 	sw	$s2,0x38($sp)
-/*  f0043c4:	afb10034 */ 	sw	$s1,0x34($sp)
-/*  f0043c8:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f0043cc:	f7b80028 */ 	sdc1	$f24,0x28($sp)
-/*  f0043d0:	f7b60020 */ 	sdc1	$f22,0x20($sp)
-/*  f0043d4:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f0043d8:	10600050 */ 	beqz	$v1,.L0f00451c
-/*  f0043dc:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0043e0:	3c15800a */ 	lui	$s5,%hi(g_Rooms)
-/*  f0043e4:	000488c0 */ 	sll	$s1,$a0,0x3
-/*  f0043e8:	02248821 */ 	addu	$s1,$s1,$a0
-/*  f0043ec:	26b54928 */ 	addiu	$s5,$s5,%lo(g_Rooms)
-/*  f0043f0:	8eae0000 */ 	lw	$t6,0x0($s5)
-/*  f0043f4:	00118880 */ 	sll	$s1,$s1,0x2
-/*  f0043f8:	02248823 */ 	subu	$s1,$s1,$a0
-/*  f0043fc:	00118880 */ 	sll	$s1,$s1,0x2
-/*  f004400:	01d17821 */ 	addu	$t7,$t6,$s1
-/*  f004404:	95f80000 */ 	lhu	$t8,0x0($t7)
-/*  f004408:	00001025 */ 	or	$v0,$zero,$zero
-/*  f00440c:	27b20078 */ 	addiu	$s2,$sp,0x78
-/*  f004410:	33198000 */ 	andi	$t9,$t8,0x8000
-/*  f004414:	13200003 */ 	beqz	$t9,.L0f004424
-/*  f004418:	27b30074 */ 	addiu	$s3,$sp,0x74
-/*  f00441c:	10000001 */ 	b	.L0f004424
-/*  f004420:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f004424:
-/*  f004424:	1440003d */ 	bnez	$v0,.L0f00451c
-/*  f004428:	000780c0 */ 	sll	$s0,$a3,0x3
-/*  f00442c:	afa00078 */ 	sw	$zero,0x78($sp)
-/*  f004430:	afa00074 */ 	sw	$zero,0x74($sp)
-/*  f004434:	00704021 */ 	addu	$t0,$v1,$s0
-/*  f004438:	8d040004 */ 	lw	$a0,0x4($t0)
-/*  f00443c:	02402825 */ 	or	$a1,$s2,$zero
-/*  f004440:	0fc5df23 */ 	jal	func0f177c8c
-/*  f004444:	02603025 */ 	or	$a2,$s3,$zero
-/*  f004448:	2414ffff */ 	addiu	$s4,$zero,-1
-/*  f00444c:	10540033 */ 	beq	$v0,$s4,.L0f00451c
-/*  f004450:	3c0140a0 */ 	lui	$at,0x40a0
-/*  f004454:	44962000 */ 	mtc1	$s6,$f4
-/*  f004458:	4481c000 */ 	mtc1	$at,$f24
-/*  f00445c:	3c017f1a */ 	lui	$at,%hi(var7f1a7dd8)
-/*  f004460:	c4367dd8 */ 	lwc1	$f22,%lo(var7f1a7dd8)($at)
-/*  f004464:	46802520 */ 	cvt.s.w	$f20,$f4
-/*  f004468:	44823000 */ 	mtc1	$v0,$f6
-.L0f00446c:
-/*  f00446c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f004470:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f004474:	46164282 */ 	mul.s	$f10,$f8,$f22
-/*  f004478:	00000000 */ 	nop
-/*  f00447c:	46145402 */ 	mul.s	$f16,$f10,$f20
-/*  f004480:	00000000 */ 	nop
-/*  f004484:	46188002 */ 	mul.s	$f0,$f16,$f24
-/*  f004488:	1ac00007 */ 	blez	$s6,.L0f0044a8
-/*  f00448c:	46000086 */ 	mov.s	$f2,$f0
-/*  f004490:	4600a03c */ 	c.lt.s	$f20,$f0
-/*  f004494:	00000000 */ 	nop
-/*  f004498:	45020009 */ 	bc1fl	.L0f0044c0
-/*  f00449c:	8ea90000 */ 	lw	$t1,0x0($s5)
-/*  f0044a0:	10000006 */ 	b	.L0f0044bc
-/*  f0044a4:	4600a086 */ 	mov.s	$f2,$f20
-.L0f0044a8:
-/*  f0044a8:	4614003c */ 	c.lt.s	$f0,$f20
-/*  f0044ac:	00000000 */ 	nop
-/*  f0044b0:	45020003 */ 	bc1fl	.L0f0044c0
-/*  f0044b4:	8ea90000 */ 	lw	$t1,0x0($s5)
-/*  f0044b8:	4600a086 */ 	mov.s	$f2,$f20
-.L0f0044bc:
-/*  f0044bc:	8ea90000 */ 	lw	$t1,0x0($s5)
-.L0f0044c0:
-/*  f0044c0:	01315021 */ 	addu	$t2,$t1,$s1
-/*  f0044c4:	954b0000 */ 	lhu	$t3,0x0($t2)
-/*  f0044c8:	316c8000 */ 	andi	$t4,$t3,0x8000
-/*  f0044cc:	11800003 */ 	beqz	$t4,.L0f0044dc
-/*  f0044d0:	00000000 */ 	nop
-/*  f0044d4:	10000001 */ 	b	.L0f0044dc
-/*  f0044d8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0044dc:
-/*  f0044dc:	54400008 */ 	bnezl	$v0,.L0f004500
-/*  f0044e0:	8fce0000 */ 	lw	$t6,0x0($s8)
-/*  f0044e4:	4600148d */ 	trunc.w.s	$f18,$f2
-/*  f0044e8:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*  f0044ec:	02e03025 */ 	or	$a2,$s7,$zero
-/*  f0044f0:	44059000 */ 	mfc1	$a1,$f18
-/*  f0044f4:	0fc01156 */ 	jal	func0f004558
-/*  f0044f8:	00000000 */ 	nop
-/*  f0044fc:	8fce0000 */ 	lw	$t6,0x0($s8)
-.L0f004500:
-/*  f004500:	02402825 */ 	or	$a1,$s2,$zero
-/*  f004504:	02603025 */ 	or	$a2,$s3,$zero
-/*  f004508:	01d07821 */ 	addu	$t7,$t6,$s0
-/*  f00450c:	0fc5df23 */ 	jal	func0f177c8c
-/*  f004510:	8de40004 */ 	lw	$a0,0x4($t7)
-/*  f004514:	5454ffd5 */ 	bnel	$v0,$s4,.L0f00446c
-/*  f004518:	44823000 */ 	mtc1	$v0,$f6
-.L0f00451c:
-/*  f00451c:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f004520:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f004524:	d7b60020 */ 	ldc1	$f22,0x20($sp)
-/*  f004528:	d7b80028 */ 	ldc1	$f24,0x28($sp)
-/*  f00452c:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*  f004530:	8fb10034 */ 	lw	$s1,0x34($sp)
-/*  f004534:	8fb20038 */ 	lw	$s2,0x38($sp)
-/*  f004538:	8fb3003c */ 	lw	$s3,0x3c($sp)
-/*  f00453c:	8fb40040 */ 	lw	$s4,0x40($sp)
-/*  f004540:	8fb50044 */ 	lw	$s5,0x44($sp)
-/*  f004544:	8fb60048 */ 	lw	$s6,0x48($sp)
-/*  f004548:	8fb7004c */ 	lw	$s7,0x4c($sp)
-/*  f00454c:	8fbe0050 */ 	lw	$s8,0x50($sp)
-/*  f004550:	03e00008 */ 	jr	$ra
-/*  f004554:	27bd0080 */ 	addiu	$sp,$sp,0x80
-);
+void func0f00438c(s32 roomnum, s32 start, s32 limit)
+{
+	if (var80061420 && !(g_Rooms[roomnum].flags & ROOMFLAG_OUTDOORS ? 1 : 0)) {
+		s32 value;
+		s32 sp78 = 0;
+		s32 neighbournum = 0;
+
+		value = func0f177c8c(var80061420[roomnum].unk04, &sp78, &neighbournum);
+
+		while (value != -1) {
+			f32 increment = value * 0.0039215688593686f * start * 5.0f;
+
+			if (start > 0) {
+				if (increment > start) {
+					increment = start;
+				}
+			} else {
+				if (increment < start) {
+					increment = start;
+				}
+			}
+
+			// @bug: Should be checking neighbournum flags, not roomnum
+			if (!(g_Rooms[roomnum].flags & ROOMFLAG_OUTDOORS ? 1 : 0)) {
+				func0f004558(neighbournum, increment, limit);
+			}
+
+			value = func0f177c8c(var80061420[roomnum].unk04, &sp78, &neighbournum);
+		}
+	}
+}
 
 void func0f004558(s32 roomnum, s32 increment, s32 limit)
 {

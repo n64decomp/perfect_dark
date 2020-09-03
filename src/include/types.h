@@ -6383,4 +6383,9 @@ struct light {
 	/*0x0a*/ struct vec3s16 bbox[4];
 };
 
+struct var80061420 {
+	s32 unk00;
+	s32 unk04;
+};
+
 #endif
