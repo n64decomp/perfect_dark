@@ -1597,21 +1597,13 @@ glabel func0000e684
 /*     e958:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0000e95c
-/*     e95c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     e960:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     e964:	0fc471b4 */ 	jal	func0f11c6d0
-/*     e968:	afa40018 */ 	sw	$a0,0x18($sp)
-/*     e96c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     e970:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*     e974:	3c018006 */ 	lui	$at,%hi(var8005dd54)
-/*     e978:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     e97c:	03e00008 */ 	jr	$ra
-/*     e980:	ac2edd54 */ 	sw	$t6,%lo(var8005dd54)($at)
-);
+void func0000e95c(s32 stagenum)
+{
+	func0f11c6d0();
 
-// func0000e984
+	var8005dd54 = stagenum;
+}
+
 s32 getCurrentStageId(void)
 {
 	return g_StageNum;

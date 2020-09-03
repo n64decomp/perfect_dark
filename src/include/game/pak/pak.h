@@ -94,7 +94,7 @@ u32 func0f11bc54(s8 arg0, u32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 
 bool pakRepair(s32 arg0);
 u32 func0f11c39c(u32 arg0, u32 arg1, u32 ar2, u32 arg3);
 void func0f11c54c(void);
-u32 func0f11c6d0(void);
+void func0f11c6d0(void);
 void func0f11c7a0(void);
 u32 func0f11ca30(void);
 void func0f11cb9c(u32 arg0);
