@@ -1617,21 +1617,12 @@ s32 getCurrentStageId(void)
 	return g_StageNum;
 }
 
-GLOBAL_ASM(
-glabel func0000e990
-/*     e990:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     e994:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     e998:	0fc25759 */ 	jal	func0f095d64
-/*     e99c:	00000000 */ 	nop
-/*     e9a0:	0fc256fd */ 	jal	func0f095bf4
-/*     e9a4:	00000000 */ 	nop
-/*     e9a8:	0c0039a1 */ 	jal	func0000e684
-/*     e9ac:	00000000 */ 	nop
-/*     e9b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     e9b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     e9b8:	03e00008 */ 	jr	$ra
-/*     e9bc:	00000000 */ 	nop
-);
+void func0000e990(void)
+{
+	func0f095d64();
+	func0f095bf4();
+	func0000e684();
+}
 
 GLOBAL_ASM(
 glabel func0000e9c0
