@@ -120,6 +120,7 @@ extern u32 var8005eeac;
 extern u32 var8005eeb8;
 extern u32 var8005eebc;
 extern u32 var8005eecc;
+extern u32 var8005eedc;
 extern u32 var8005eee0;
 extern u32 var8005eee4;
 extern u32 var8005eee8;
