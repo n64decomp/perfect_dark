@@ -44,42 +44,29 @@ u32 xorBoobless(u32 value)
 	return value ^ 0xb00b1e55;
 }
 
-GLOBAL_ASM(
-glabel func0f095350
-/*  f095350:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f095354:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f095358:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f09535c:	0c0126b8 */ 	jal	func00049ae0
-/*  f095360:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f095364:	3c04b46b */ 	lui	$a0,0xb46b
-/*  f095368:	0fc254d0 */ 	jal	xorBoobless
-/*  f09536c:	34841e45 */ 	ori	$a0,$a0,0x1e45
-/*  f095370:	3c05a000 */ 	lui	$a1,0xa000
-/*  f095374:	00452025 */ 	or	$a0,$v0,$a1
-/*  f095378:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f09537c:	3c188000 */ 	lui	$t8,0x8000
-/*  f095380:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*  f095384:	306e0003 */ 	andi	$t6,$v1,0x3
-/*  f095388:	11c00005 */ 	beqz	$t6,.L0f0953a0
-/*  f09538c:	00000000 */ 	nop
-/*  f095390:	8c830000 */ 	lw	$v1,0x0($a0)
-.L0f095394:
-/*  f095394:	306f0003 */ 	andi	$t7,$v1,0x3
-/*  f095398:	55e0fffe */ 	bnezl	$t7,.L0f095394
-/*  f09539c:	8c830000 */ 	lw	$v1,0x0($a0)
-.L0f0953a0:
-/*  f0953a0:	8f180308 */ 	lw	$t8,0x308($t8)
-/*  f0953a4:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*  f0953a8:	03194025 */ 	or	$t0,$t8,$t9
-/*  f0953ac:	01054825 */ 	or	$t1,$t0,$a1
-/*  f0953b0:	8d2a0000 */ 	lw	$t2,0x0($t1)
-/*  f0953b4:	0c0126c9 */ 	jal	func00049b24
-/*  f0953b8:	ad6a0000 */ 	sw	$t2,0x0($t3)
-/*  f0953bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0953c0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0953c4:	03e00008 */ 	jr	$ra
-/*  f0953c8:	00000000 */ 	nop
-);
+/**
+ * This is very likely to be an unused piracy check.
+ * This function is never called.
+ */
+void func0f095350(u32 arg0, u32 *arg1)
+{
+	volatile u32 *ptr;
+	u32 value;
+
+	func00049ae0();
+
+	ptr = (u32 *)(xorBoobless(0x04600010 ^ 0xb00b1e55) | 0xa0000000);
+
+	value = *ptr;
+
+	while (value & 3) {
+		value = *ptr;
+	}
+
+	*arg1 = *(u32 *)(osRomBase | arg0 | 0xa0000000);
+
+	func00049b24();
+}
 
 GLOBAL_ASM(
 glabel func0f0953cc

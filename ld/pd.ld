@@ -104,6 +104,7 @@ SECTIONS
 
 	_antipiracyUncloakWriteAddress = 0x7002a324;
 
+	osRomBase = 0x80000308;
 	osResetType = 0x8000030c;
 	osCicId = 0x80000310;
 
