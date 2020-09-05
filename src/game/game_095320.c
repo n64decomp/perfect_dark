@@ -638,110 +638,21 @@ void objectivesDisableChecking(void)
 	g_ObjectiveChecksDisabled = true;
 }
 
-GLOBAL_ASM(
-glabel objectivesShowHudmsg
-/*  f095c04:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f095c08:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f095c0c:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f095c10:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f095c14:	8e0f006c */ 	lw	$t7,0x6c($s0)
-/*  f095c18:	8e0e028c */ 	lw	$t6,0x28c($s0)
-/*  f095c1c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f095c20:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f095c24:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f095c28:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f095c2c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f095c30:	11e00003 */ 	beqz	$t7,.L0f095c40
-/*  f095c34:	afae0024 */ 	sw	$t6,0x24($sp)
-/*  f095c38:	10000002 */ 	b	.L0f095c44
-/*  f095c3c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f095c40:
-/*  f095c40:	00002825 */ 	or	$a1,$zero,$zero
-.L0f095c44:
-/*  f095c44:	8e180068 */ 	lw	$t8,0x68($s0)
-/*  f095c48:	00002025 */ 	or	$a0,$zero,$zero
-/*  f095c4c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f095c50:	13000003 */ 	beqz	$t8,.L0f095c60
-/*  f095c54:	00001025 */ 	or	$v0,$zero,$zero
-/*  f095c58:	10000001 */ 	b	.L0f095c60
-/*  f095c5c:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f095c60:
-/*  f095c60:	8e190064 */ 	lw	$t9,0x64($s0)
-/*  f095c64:	13200003 */ 	beqz	$t9,.L0f095c74
-/*  f095c68:	00000000 */ 	nop
-/*  f095c6c:	10000001 */ 	b	.L0f095c74
-/*  f095c70:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f095c74:
-/*  f095c74:	8e080070 */ 	lw	$t0,0x70($s0)
-/*  f095c78:	11000003 */ 	beqz	$t0,.L0f095c88
-/*  f095c7c:	00000000 */ 	nop
-/*  f095c80:	10000001 */ 	b	.L0f095c88
-/*  f095c84:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f095c88:
-/*  f095c88:	00434821 */ 	addu	$t1,$v0,$v1
-/*  f095c8c:	01245021 */ 	addu	$t2,$t1,$a0
-/*  f095c90:	01455821 */ 	addu	$t3,$t2,$a1
-/*  f095c94:	1960002c */ 	blez	$t3,.L0f095d48
-/*  f095c98:	00000000 */ 	nop
-.L0f095c9c:
-/*  f095c9c:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f095ca0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f095ca4:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f095ca8:	8e0c02a0 */ 	lw	$t4,0x2a0($s0)
-/*  f095cac:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f095cb0:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f095cb4:	11820004 */ 	beq	$t4,$v0,.L0f095cc8
-/*  f095cb8:	00000000 */ 	nop
-/*  f095cbc:	8e0d02a4 */ 	lw	$t5,0x2a4($s0)
-/*  f095cc0:	55a20004 */ 	bnel	$t5,$v0,.L0f095cd4
-/*  f095cc4:	8e0e006c */ 	lw	$t6,0x6c($s0)
-.L0f095cc8:
-/*  f095cc8:	0fc377e9 */ 	jal	func0f0ddfa4
-/*  f095ccc:	24060018 */ 	addiu	$a2,$zero,0x18
-/*  f095cd0:	8e0e006c */ 	lw	$t6,0x6c($s0)
-.L0f095cd4:
-/*  f095cd4:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f095cd8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f095cdc:	11c00003 */ 	beqz	$t6,.L0f095cec
-/*  f095ce0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f095ce4:	10000001 */ 	b	.L0f095cec
-/*  f095ce8:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f095cec:
-/*  f095cec:	8e0f0068 */ 	lw	$t7,0x68($s0)
-/*  f095cf0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f095cf4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f095cf8:	11e00003 */ 	beqz	$t7,.L0f095d08
-/*  f095cfc:	00000000 */ 	nop
-/*  f095d00:	10000001 */ 	b	.L0f095d08
-/*  f095d04:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f095d08:
-/*  f095d08:	8e180064 */ 	lw	$t8,0x64($s0)
-/*  f095d0c:	13000003 */ 	beqz	$t8,.L0f095d1c
-/*  f095d10:	00000000 */ 	nop
-/*  f095d14:	10000001 */ 	b	.L0f095d1c
-/*  f095d18:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f095d1c:
-/*  f095d1c:	8e190070 */ 	lw	$t9,0x70($s0)
-/*  f095d20:	13200003 */ 	beqz	$t9,.L0f095d30
-/*  f095d24:	00000000 */ 	nop
-/*  f095d28:	10000001 */ 	b	.L0f095d30
-/*  f095d2c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f095d30:
-/*  f095d30:	00434021 */ 	addu	$t0,$v0,$v1
-/*  f095d34:	01044821 */ 	addu	$t1,$t0,$a0
-/*  f095d38:	01255021 */ 	addu	$t2,$t1,$a1
-/*  f095d3c:	022a082a */ 	slt	$at,$s1,$t2
-/*  f095d40:	1420ffd6 */ 	bnez	$at,.L0f095c9c
-/*  f095d44:	00000000 */ 	nop
-.L0f095d48:
-/*  f095d48:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f095d4c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f095d50:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f095d54:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f095d58:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f095d5c:	03e00008 */ 	jr	$ra
-/*  f095d60:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void objectivesShowHudmsg(char *buffer, s32 hudmsgtype)
+{
+	s32 prevplayernum = g_Vars.currentplayernum;
+	s32 i;
+
+	for (i = 0; i < PLAYERCOUNT(); i++) {
+		setCurrentPlayerNum(i);
+
+		if (g_Vars.currentplayer == g_Vars.bond || g_Vars.currentplayer == g_Vars.coop) {
+			func0f0ddfa4(buffer, hudmsgtype, 24);
+		}
+	}
+
+	setCurrentPlayerNum(prevplayernum);
+}
 
 void objectivesCheckAll(void)
 {
