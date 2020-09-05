@@ -15,8 +15,8 @@ void func0f0151f0(void)
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_Objectives); i++) {
-		if (g_Objectives[i] && (g_Objectives[i]->unk0e & 1) && var8009d088[i] != 2) {
-			var8009d088[i] = 1;
+		if (g_Objectives[i] && (g_Objectives[i]->unk0e & 1) && g_ObjectiveStatuses[i] != 2) {
+			g_ObjectiveStatuses[i] = 1;
 		}
 	}
 }

@@ -1440,8 +1440,8 @@ s32 getCurrentStageId(void)
 
 void func0000e990(void)
 {
-	func0f095d64();
-	func0f095bf4();
+	objectivesCheckAll();
+	objectivesDisableChecking();
 	mainEndStage();
 }
 

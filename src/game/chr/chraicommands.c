@@ -2679,7 +2679,7 @@ bool aiIfObjectiveComplete(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if (cmd[2] < objectiveGetCount() &&
-			objectiveGetStatus(cmd[2]) == OBJECTIVE_COMPLETE &&
+			objectiveCheck(cmd[2]) == OBJECTIVE_COMPLETE &&
 			objectiveGetDifficultyBits(cmd[2]) & (1 << getDifficulty())) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
@@ -2697,7 +2697,7 @@ bool aiIfObjectiveFailed(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if (cmd[2] < objectiveGetCount() &&
-			objectiveGetStatus(cmd[2]) == OBJECTIVE_FAILED &&
+			objectiveCheck(cmd[2]) == OBJECTIVE_FAILED &&
 			objectiveGetDifficultyBits(cmd[2]) & (1 << getDifficulty())) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {

@@ -2947,7 +2947,7 @@ glabel var7f1a8d44
 .L0f031cec:
 /*  f031cec:	05e0000a */ 	bltz	$t7,.L0f031d18
 /*  f031cf0:	00000000 */ 	nop
-/*  f031cf4:	0fc255a1 */ 	jal	objectiveGetStatus
+/*  f031cf4:	0fc255a1 */ 	jal	objectiveCheck
 /*  f031cf8:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f031cfc:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f031d00:	10410005 */ 	beq	$v0,$at,.L0f031d18

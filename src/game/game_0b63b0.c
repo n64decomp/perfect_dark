@@ -12583,7 +12583,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 	}
 
 	if (g_Vars.normmplayerisrunning == false) {
-		func0f095d64();
+		objectivesCheckAll();
 	}
 
 	if (g_Vars.currentplayer->isdead) {

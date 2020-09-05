@@ -29,22 +29,6 @@
 #include "lib/lib_49a90.h"
 #include "types.h"
 
-const u32 var7f1ab790[] = {0x00000000};
-const u32 var7f1ab794[] = {0x00000000};
-const u32 var7f1ab798[] = {0x00000000};
-const u32 var7f1ab79c[] = {0x00000000};
-const u32 var7f1ab7a0[] = {0x00000000};
-const u32 var7f1ab7a4[] = {0x00000000};
-const u32 var7f1ab7a8[] = {0x00000000};
-const u32 var7f1ab7ac[] = {0x00000000};
-const u32 var7f1ab7b0[] = {0x00000000};
-const u32 var7f1ab7b4[] = {0x00000000};
-const u32 var7f1ab7b8[] = {0x00000000};
-const u32 var7f1ab7bc[] = {0x00000000};
-const u32 var7f1ab7c0[] = {0x00000000};
-
-const char var7f1ab7c4[] = "%s %d: ";
-
 u32 xorBaffbeff(u32 value)
 {
 	return value ^ 0xbaffbeff;
@@ -242,7 +226,7 @@ struct defaultobj *objFindByTagId(s32 tag_id)
 
 s32 objectiveGetCount(void)
 {
-	return var8006ae70 + 1;
+	return g_ObjectiveLastIndex + 1;
 }
 
 char *objectiveGetText(s32 index)
@@ -264,30 +248,30 @@ u32 objectiveGetDifficultyBits(s32 index)
 }
 
 GLOBAL_ASM(
-glabel objectiveGetStatus
+glabel objectiveCheck
 .late_rodata
 glabel var7f1ab7cc
-.word objectiveGetStatus+0x454 # f095ad8
+.word objectiveCheck+0x454 # f095ad8
 glabel var7f1ab7d0
-.word objectiveGetStatus+0x454 # f095ad8
+.word objectiveCheck+0x454 # f095ad8
 glabel var7f1ab7d4
-.word objectiveGetStatus+0x98 # f09571c
+.word objectiveCheck+0x98 # f09571c
 glabel var7f1ab7d8
-.word objectiveGetStatus+0xcc # f095750
+.word objectiveCheck+0xcc # f095750
 glabel var7f1ab7dc
-.word objectiveGetStatus+0xe8 # f09576c
+.word objectiveCheck+0xe8 # f09576c
 glabel var7f1ab7e0
-.word objectiveGetStatus+0x104 # f095788
+.word objectiveCheck+0x104 # f095788
 glabel var7f1ab7e4
-.word objectiveGetStatus+0x288 # f09590c
+.word objectiveCheck+0x288 # f09590c
 glabel var7f1ab7e8
-.word objectiveGetStatus+0x3e4 # f095a68
+.word objectiveCheck+0x3e4 # f095a68
 glabel var7f1ab7ec
-.word objectiveGetStatus+0x454 # f095ad8
+.word objectiveCheck+0x454 # f095ad8
 glabel var7f1ab7f0
-.word objectiveGetStatus+0x430 # f095ab4
+.word objectiveCheck+0x430 # f095ab4
 glabel var7f1ab7f4
-.word objectiveGetStatus+0x444 # f095ac8
+.word objectiveCheck+0x444 # f095ac8
 .text
 /*  f095684:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f095688:	afb60030 */ 	sw	$s6,0x30($sp)
@@ -307,10 +291,10 @@ glabel var7f1ab7f4
 /*  f0956c0:	8c84d060 */ 	lw	$a0,%lo(g_Objectives)($a0)
 /*  f0956c4:	54800006 */ 	bnezl	$a0,.L0f0956e0
 /*  f0956c8:	90830003 */ 	lbu	$v1,0x3($a0)
-/*  f0956cc:	3c16800a */ 	lui	$s6,%hi(var8009d088)
+/*  f0956cc:	3c16800a */ 	lui	$s6,%hi(g_ObjectiveStatuses)
 /*  f0956d0:	02c2b021 */ 	addu	$s6,$s6,$v0
 /*  f0956d4:	10000114 */ 	b	.L0f095b28
-/*  f0956d8:	8ed6d088 */ 	lw	$s6,%lo(var8009d088)($s6)
+/*  f0956d8:	8ed6d088 */ 	lw	$s6,%lo(g_ObjectiveStatuses)($s6)
 /*  f0956dc:	90830003 */ 	lbu	$v1,0x3($a0)
 .L0f0956e0:
 /*  f0956e0:	24010018 */ 	addiu	$at,$zero,0x18
@@ -654,7 +638,7 @@ bool objectiveIsAllComplete(void)
 		u32 diffbits = objectiveGetDifficultyBits(i);
 
 		if ((1 << getDifficulty() & diffbits) &&
-				objectiveGetStatus(i) != OBJECTIVE_COMPLETE) {
+				objectiveCheck(i) != OBJECTIVE_COMPLETE) {
 			return false;
 		}
 	}
@@ -662,13 +646,13 @@ bool objectiveIsAllComplete(void)
 	return true;
 }
 
-void func0f095bf4(void)
+void objectivesDisableChecking(void)
 {
-	var8006ae74 = 1;
+	g_ObjectiveChecksDisabled = true;
 }
 
 GLOBAL_ASM(
-glabel func0f095c04
+glabel objectivesShowHudmsg
 /*  f095c04:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f095c08:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f095c0c:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -772,144 +756,41 @@ glabel func0f095c04
 /*  f095d60:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f095d64
-/*  f095d64:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f095d68:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f095d6c:	3c0e7f1b */ 	lui	$t6,%hi(var7f1ab790)
-/*  f095d70:	27b20054 */ 	addiu	$s2,$sp,0x54
-/*  f095d74:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f095d78:	25ceb790 */ 	addiu	$t6,$t6,%lo(var7f1ab790)
-/*  f095d7c:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f095d80:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f095d84:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f095d88:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f095d8c:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f095d90:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f095d94:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f095d98:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f095d9c:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f095da0:	25d90030 */ 	addiu	$t9,$t6,0x30
-/*  f095da4:	02404025 */ 	or	$t0,$s2,$zero
-.L0f095da8:
-/*  f095da8:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f095dac:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f095db0:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f095db4:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f095db8:	8dc1fff8 */ 	lw	$at,-0x8($t6)
-/*  f095dbc:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f095dc0:	8dc1fffc */ 	lw	$at,-0x4($t6)
-/*  f095dc4:	15d9fff8 */ 	bne	$t6,$t9,.L0f095da8
-/*  f095dc8:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f095dcc:	95c10000 */ 	lhu	$at,0x0($t6)
-/*  f095dd0:	3c098007 */ 	lui	$t1,%hi(var8006ae74)
-/*  f095dd4:	3c168007 */ 	lui	$s6,%hi(var8006ae70)
-/*  f095dd8:	a5010000 */ 	sh	$at,0x0($t0)
-/*  f095ddc:	8d29ae74 */ 	lw	$t1,%lo(var8006ae74)($t1)
-/*  f095de0:	26d6ae70 */ 	addiu	$s6,$s6,%lo(var8006ae70)
-/*  f095de4:	55200053 */ 	bnezl	$t1,.L0f095f34
-/*  f095de8:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f095dec:	8eca0000 */ 	lw	$t2,0x0($s6)
-/*  f095df0:	3c14800a */ 	lui	$s4,%hi(var8009d088)
-/*  f095df4:	2694d088 */ 	addiu	$s4,$s4,%lo(var8009d088)
-/*  f095df8:	0540004d */ 	bltz	$t2,.L0f095f30
-/*  f095dfc:	00009825 */ 	or	$s3,$zero,$zero
-/*  f095e00:	3c177f1b */ 	lui	$s7,%hi(var7f1ab7c4)
-/*  f095e04:	26f7b7c4 */ 	addiu	$s7,$s7,%lo(var7f1ab7c4)
-/*  f095e08:	241e0001 */ 	addiu	$s8,$zero,0x1
-.L0f095e0c:
-/*  f095e0c:	0fc255a1 */ 	jal	objectiveGetStatus
-/*  f095e10:	02602025 */ 	or	$a0,$s3,$zero
-/*  f095e14:	8e8b0000 */ 	lw	$t3,0x0($s4)
-/*  f095e18:	00408825 */ 	or	$s1,$v0,$zero
-/*  f095e1c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f095e20:	104b0033 */ 	beq	$v0,$t3,.L0f095ef0
-/*  f095e24:	00000000 */ 	nop
-/*  f095e28:	0fc25594 */ 	jal	objectiveGetDifficultyBits
-/*  f095e2c:	ae820000 */ 	sw	$v0,0x0($s4)
-/*  f095e30:	0fc5b367 */ 	jal	getDifficulty
-/*  f095e34:	00408025 */ 	or	$s0,$v0,$zero
-/*  f095e38:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f095e3c:	004c6804 */ 	sllv	$t5,$t4,$v0
-/*  f095e40:	01b0c024 */ 	and	$t8,$t5,$s0
-/*  f095e44:	1300002a */ 	beqz	$t8,.L0f095ef0
-/*  f095e48:	2404582c */ 	addiu	$a0,$zero,0x582c
-/*  f095e4c:	0fc5b9f1 */ 	jal	langGet
-/*  f095e50:	26b00001 */ 	addiu	$s0,$s5,0x1
-/*  f095e54:	02402025 */ 	or	$a0,$s2,$zero
-/*  f095e58:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f095e5c:	00403025 */ 	or	$a2,$v0,$zero
-/*  f095e60:	0c004dad */ 	jal	sprintf
-/*  f095e64:	02003825 */ 	or	$a3,$s0,$zero
-/*  f095e68:	163e000b */ 	bne	$s1,$s8,.L0f095e98
-/*  f095e6c:	00000000 */ 	nop
-/*  f095e70:	0fc5b9f1 */ 	jal	langGet
-/*  f095e74:	2404582d */ 	addiu	$a0,$zero,0x582d
-/*  f095e78:	02402025 */ 	or	$a0,$s2,$zero
-/*  f095e7c:	0c004c89 */ 	jal	strcat
-/*  f095e80:	00402825 */ 	or	$a1,$v0,$zero
-/*  f095e84:	02402025 */ 	or	$a0,$s2,$zero
-/*  f095e88:	0fc25701 */ 	jal	func0f095c04
-/*  f095e8c:	03c02825 */ 	or	$a1,$s8,$zero
-/*  f095e90:	10000017 */ 	b	.L0f095ef0
-/*  f095e94:	00000000 */ 	nop
-.L0f095e98:
-/*  f095e98:	1620000b */ 	bnez	$s1,.L0f095ec8
-/*  f095e9c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f095ea0:	0fc5b9f1 */ 	jal	langGet
-/*  f095ea4:	2404582e */ 	addiu	$a0,$zero,0x582e
-/*  f095ea8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f095eac:	0c004c89 */ 	jal	strcat
-/*  f095eb0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f095eb4:	02402025 */ 	or	$a0,$s2,$zero
-/*  f095eb8:	0fc25701 */ 	jal	func0f095c04
-/*  f095ebc:	03c02825 */ 	or	$a1,$s8,$zero
-/*  f095ec0:	1000000b */ 	b	.L0f095ef0
-/*  f095ec4:	00000000 */ 	nop
-.L0f095ec8:
-/*  f095ec8:	16210009 */ 	bne	$s1,$at,.L0f095ef0
-/*  f095ecc:	00000000 */ 	nop
-/*  f095ed0:	0fc5b9f1 */ 	jal	langGet
-/*  f095ed4:	2404582f */ 	addiu	$a0,$zero,0x582f
-/*  f095ed8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f095edc:	0c004c89 */ 	jal	strcat
-/*  f095ee0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f095ee4:	02402025 */ 	or	$a0,$s2,$zero
-/*  f095ee8:	0fc25701 */ 	jal	func0f095c04
-/*  f095eec:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f095ef0:
-/*  f095ef0:	0fc25594 */ 	jal	objectiveGetDifficultyBits
-/*  f095ef4:	02602025 */ 	or	$a0,$s3,$zero
-/*  f095ef8:	0fc5b367 */ 	jal	getDifficulty
-/*  f095efc:	00408025 */ 	or	$s0,$v0,$zero
-/*  f095f00:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f095f04:	004fc804 */ 	sllv	$t9,$t7,$v0
-/*  f095f08:	03307024 */ 	and	$t6,$t9,$s0
-/*  f095f0c:	51c00003 */ 	beqzl	$t6,.L0f095f1c
-/*  f095f10:	8ec80000 */ 	lw	$t0,0x0($s6)
-/*  f095f14:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f095f18:	8ec80000 */ 	lw	$t0,0x0($s6)
-.L0f095f1c:
-/*  f095f1c:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f095f20:	26940004 */ 	addiu	$s4,$s4,0x4
-/*  f095f24:	0113082a */ 	slt	$at,$t0,$s3
-/*  f095f28:	1020ffb8 */ 	beqz	$at,.L0f095e0c
-/*  f095f2c:	00000000 */ 	nop
-.L0f095f30:
-/*  f095f30:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f095f34:
-/*  f095f34:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f095f38:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f095f3c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f095f40:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f095f44:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f095f48:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f095f4c:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f095f50:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f095f54:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f095f58:	03e00008 */ 	jr	$ra
-/*  f095f5c:	27bd0090 */ 	addiu	$sp,$sp,0x90
-);
+void objectivesCheckAll(void)
+{
+	s32 availableindex = 0;
+	s32 i;
+	char buffer[50] = "";
+
+	if (!g_ObjectiveChecksDisabled) {
+		for (i = 0; i <= g_ObjectiveLastIndex; i++) {
+			s32 status = objectiveCheck(i);
+
+			if (g_ObjectiveStatuses[i] != status) {
+				g_ObjectiveStatuses[i] = status;
+
+				if (objectiveGetDifficultyBits(i) & (1 << getDifficulty())) {
+					sprintf(buffer, "%s %d: ", langGet(L_MISC(44)), availableindex + 1); // "Objective"
+
+					if (status == OBJECTIVE_COMPLETE) {
+						strcat(buffer, langGet(L_MISC(45))); // "Completed"
+						objectivesShowHudmsg(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE);
+					} else if (status == OBJECTIVE_INCOMPLETE) {
+						strcat(buffer, langGet(L_MISC(46))); // "Incomplete"
+						objectivesShowHudmsg(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE);
+					} else if (status == OBJECTIVE_FAILED) {
+						strcat(buffer, langGet(L_MISC(47))); // "Failed"
+						objectivesShowHudmsg(buffer, HUDMSGTYPE_OBJECTIVEFAILED);
+					}
+				}
+			}
+
+			if (objectiveGetDifficultyBits(i) & (1 << getDifficulty())) {
+				availableindex++;
+			}
+		}
+	}
+}
 
 void objectiveCheckRoomEntered(s32 currentroom)
 {
