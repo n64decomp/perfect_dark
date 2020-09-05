@@ -662,13 +662,10 @@ bool objectiveIsAllComplete(void)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f095bf4
-/*  f095bf4:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f095bf8:	3c018007 */ 	lui	$at,%hi(var8006ae74)
-/*  f095bfc:	03e00008 */ 	jr	$ra
-/*  f095c00:	ac2eae74 */ 	sw	$t6,%lo(var8006ae74)($at)
-);
+void func0f095bf4(void)
+{
+	var8006ae74 = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f095c04
