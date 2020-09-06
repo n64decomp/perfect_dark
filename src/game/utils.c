@@ -700,25 +700,13 @@ bool func0f17776c(struct coord *a, struct coord *b, f32 mult, struct coord *out)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f1777b8
-/*  f1777b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1777bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1777c0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1777c4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1777c8:	0fc5ddb3 */ 	jal	func0f1776cc
-/*  f1777cc:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f1777d0:	44060000 */ 	mfc1	$a2,$f0
-/*  f1777d4:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f1777d8:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f1777dc:	0fc5dddb */ 	jal	func0f17776c
-/*  f1777e0:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f1777e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1777e8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1777ec:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1777f0:	03e00008 */ 	jr	$ra
-/*  f1777f4:	00000000 */ 	nop
-);
+bool func0f1777b8(struct coord *a, struct coord *b, struct coord *c, struct coord *out)
+{
+	f32 mult = func0f1776cc(a, b, c, out);
+	func0f17776c(a, b, mult, out);
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f1777f8

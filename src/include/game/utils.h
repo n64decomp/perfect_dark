@@ -12,7 +12,7 @@ u32 func0f1770ac(void);
 bool func0f177164(struct coord *arg0, struct coord *arg1, u32 line, char *file);
 u32 func0f1773c8(void);
 f32 coordsGetDistance(struct coord *a, struct coord *b);
-u32 func0f1776cc(void);
+f32 func0f1776cc(struct coord *a, struct coord *b, struct coord *c, struct coord *out);
 bool func0f17776c(struct coord *a, struct coord *b, f32 mult, struct coord *out);
 void func0f1777f8(void);
 u32 func0f177a54(void);
