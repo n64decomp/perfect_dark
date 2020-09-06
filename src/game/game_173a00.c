@@ -444,23 +444,18 @@ glabel func0f173f18
 /*  f173f44:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f173f48
-/*  f173f48:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f173f4c:	54810004 */ 	bnel	$a0,$at,.L0f173f60
-/*  f173f50:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f173f54:	03e00008 */ 	jr	$ra
-/*  f173f58:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f173f5c:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f173f60:
-/*  f173f60:	14810003 */ 	bne	$a0,$at,.L0f173f70
-/*  f173f64:	00001025 */ 	or	$v0,$zero,$zero
-/*  f173f68:	03e00008 */ 	jr	$ra
-/*  f173f6c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f173f70:
-/*  f173f70:	03e00008 */ 	jr	$ra
-/*  f173f74:	00000000 */ 	nop
-);
+u32 func0f173f48(u32 arg0)
+{
+	if (arg0 == 1) {
+		return 2;
+	}
+
+	if (arg0 == 2) {
+		return 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f173f78
