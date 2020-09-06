@@ -4791,7 +4791,7 @@ struct activemenuthing {
 	/*0x34*/ u8 unk34;
 };
 
-struct objective {
+struct objective { // representation of setup file beginobjective macro
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 text;

@@ -204,7 +204,7 @@ void debugSetTurboMode(bool enabled)
 	g_DebugTurboMode = enabled;
 }
 
-bool debug0f11ee20(void)
+bool debugForceAllObjectivesComplete(void)
 {
 	return false;
 }

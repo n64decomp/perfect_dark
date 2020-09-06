@@ -10,7 +10,7 @@ void func0f0953cc(void);
 s32 func0f095560(struct defaultobj *obj);
 s32 objectiveGetCount(void);
 u32 objectiveGetDifficultyBits(s32 index);
-u32 objectiveCheck(u32 arg0);
+s32 objectiveCheck(s32 index);
 u32 objectiveIsAllComplete(void);
 void objectivesDisableChecking(void);
 void objectivesShowHudmsg(char *buffer, s32 hudmsgtype);

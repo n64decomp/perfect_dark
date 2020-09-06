@@ -2026,6 +2026,10 @@
 #define NUM_TEXTURES         3504
 #define NUM_WEAPONS          94
 
+#define OBJECTIVE_INCOMPLETE 0
+#define OBJECTIVE_COMPLETE   1
+#define OBJECTIVE_FAILED     2
+
 // obj->flags
 #define OBJFLAG_00000001            0x00000001 // Editor: "Fall to Ground"
 #define OBJFLAG_00000002            0x00000002 // Editor: "In Air Rotated 90 Deg Upside-Down"
@@ -2214,10 +2218,6 @@
 #define OBJTYPE_CHOPPER          0x39 // Extraction hovercopter and A51 interceptors
 #define OBJTYPE_MINE             0x3a
 #define OBJTYPE_ESCALATOR        0x3b
-
-#define OBJECTIVE_INCOMPLETE 0
-#define OBJECTIVE_COMPLETE   1
-#define OBJECTIVE_FAILED     2
 
 #define OPERATOR_LESS_THAN    0
 #define OPERATOR_GREATER_THAN 1

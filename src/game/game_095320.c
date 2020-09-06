@@ -234,388 +234,157 @@ u32 objectiveGetDifficultyBits(s32 index)
 	return DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD;
 }
 
-GLOBAL_ASM(
-glabel objectiveCheck
-.late_rodata
-glabel var7f1ab7cc
-.word objectiveCheck+0x454 # f095ad8
-glabel var7f1ab7d0
-.word objectiveCheck+0x454 # f095ad8
-glabel var7f1ab7d4
-.word objectiveCheck+0x98 # f09571c
-glabel var7f1ab7d8
-.word objectiveCheck+0xcc # f095750
-glabel var7f1ab7dc
-.word objectiveCheck+0xe8 # f09576c
-glabel var7f1ab7e0
-.word objectiveCheck+0x104 # f095788
-glabel var7f1ab7e4
-.word objectiveCheck+0x288 # f09590c
-glabel var7f1ab7e8
-.word objectiveCheck+0x3e4 # f095a68
-glabel var7f1ab7ec
-.word objectiveCheck+0x454 # f095ad8
-glabel var7f1ab7f0
-.word objectiveCheck+0x430 # f095ab4
-glabel var7f1ab7f4
-.word objectiveCheck+0x444 # f095ac8
-.text
-/*  f095684:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f095688:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f09568c:	2881000a */ 	slti	$at,$a0,0xa
-/*  f095690:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f095694:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f095698:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f09569c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f0956a0:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0956a4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0956a8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0956ac:	1020011e */ 	beqz	$at,.L0f095b28
-/*  f0956b0:	24160001 */ 	addiu	$s6,$zero,0x1
-/*  f0956b4:	00041080 */ 	sll	$v0,$a0,0x2
-/*  f0956b8:	3c04800a */ 	lui	$a0,%hi(g_Objectives)
-/*  f0956bc:	00822021 */ 	addu	$a0,$a0,$v0
-/*  f0956c0:	8c84d060 */ 	lw	$a0,%lo(g_Objectives)($a0)
-/*  f0956c4:	54800006 */ 	bnezl	$a0,.L0f0956e0
-/*  f0956c8:	90830003 */ 	lbu	$v1,0x3($a0)
-/*  f0956cc:	3c16800a */ 	lui	$s6,%hi(g_ObjectiveStatuses)
-/*  f0956d0:	02c2b021 */ 	addu	$s6,$s6,$v0
-/*  f0956d4:	10000114 */ 	b	.L0f095b28
-/*  f0956d8:	8ed6d088 */ 	lw	$s6,%lo(g_ObjectiveStatuses)($s6)
-/*  f0956dc:	90830003 */ 	lbu	$v1,0x3($a0)
-.L0f0956e0:
-/*  f0956e0:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f0956e4:	0080a825 */ 	or	$s5,$a0,$zero
-/*  f0956e8:	1061010f */ 	beq	$v1,$at,.L0f095b28
-/*  f0956ec:	3c12800a */ 	lui	$s2,%hi(g_Vars)
-/*  f0956f0:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
-/*  f0956f4:	246effe9 */ 	addiu	$t6,$v1,-23
-.L0f0956f8:
-/*  f0956f8:	2dc1000b */ 	sltiu	$at,$t6,0xb
-/*  f0956fc:	102000f6 */ 	beqz	$at,.L0f095ad8
-/*  f095700:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f095704:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f095708:	3c017f1b */ 	lui	$at,%hi(var7f1ab7cc)
-/*  f09570c:	002e0821 */ 	addu	$at,$at,$t6
-/*  f095710:	8c2eb7cc */ 	lw	$t6,%lo(var7f1ab7cc)($at)
-/*  f095714:	01c00008 */ 	jr	$t6
-/*  f095718:	00000000 */ 	nop
-/*  f09571c:	0fc2556c */ 	jal	objFindByTagId
-/*  f095720:	8ea40004 */ 	lw	$a0,0x4($s5)
-/*  f095724:	104000ec */ 	beqz	$v0,.L0f095ad8
-/*  f095728:	00402025 */ 	or	$a0,$v0,$zero
-/*  f09572c:	8c4f0014 */ 	lw	$t7,0x14($v0)
-/*  f095730:	51e000ea */ 	beqzl	$t7,.L0f095adc
-/*  f095734:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f095738:	0fc21a6a */ 	jal	objIsHealthy
-/*  f09573c:	00000000 */ 	nop
-/*  f095740:	504000e6 */ 	beqzl	$v0,.L0f095adc
-/*  f095744:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f095748:	100000e3 */ 	b	.L0f095ad8
-/*  f09574c:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f095750:	00002025 */ 	or	$a0,$zero,$zero
-/*  f095754:	0fc127da */ 	jal	chrHasStageFlag
-/*  f095758:	8ea50004 */ 	lw	$a1,0x4($s5)
-/*  f09575c:	544000df */ 	bnezl	$v0,.L0f095adc
-/*  f095760:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f095764:	100000dc */ 	b	.L0f095ad8
-/*  f095768:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f09576c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f095770:	0fc127da */ 	jal	chrHasStageFlag
-/*  f095774:	8ea50004 */ 	lw	$a1,0x4($s5)
-/*  f095778:	504000d8 */ 	beqzl	$v0,.L0f095adc
-/*  f09577c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f095780:	100000d5 */ 	b	.L0f095ad8
-/*  f095784:	24140002 */ 	addiu	$s4,$zero,0x2
-/*  f095788:	8ea40004 */ 	lw	$a0,0x4($s5)
-/*  f09578c:	0fc2556c */ 	jal	objFindByTagId
-/*  f095790:	afa00048 */ 	sw	$zero,0x48($sp)
-/*  f095794:	10400008 */ 	beqz	$v0,.L0f0957b8
-/*  f095798:	00409825 */ 	or	$s3,$v0,$zero
-/*  f09579c:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f0957a0:	13000005 */ 	beqz	$t8,.L0f0957b8
-/*  f0957a4:	00000000 */ 	nop
-/*  f0957a8:	0fc21a6a */ 	jal	objIsHealthy
-/*  f0957ac:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0957b0:	54400004 */ 	bnezl	$v0,.L0f0957c4
-/*  f0957b4:	8e48006c */ 	lw	$t0,0x6c($s2)
-.L0f0957b8:
-/*  f0957b8:	100000c7 */ 	b	.L0f095ad8
-/*  f0957bc:	24140002 */ 	addiu	$s4,$zero,0x2
-/*  f0957c0:	8e48006c */ 	lw	$t0,0x6c($s2)
-.L0f0957c4:
-/*  f0957c4:	8e59028c */ 	lw	$t9,0x28c($s2)
-/*  f0957c8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0957cc:	11000003 */ 	beqz	$t0,.L0f0957dc
-/*  f0957d0:	afb9004c */ 	sw	$t9,0x4c($sp)
-/*  f0957d4:	10000002 */ 	b	.L0f0957e0
-/*  f0957d8:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f0957dc:
-/*  f0957dc:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0957e0:
-/*  f0957e0:	8e490068 */ 	lw	$t1,0x68($s2)
-/*  f0957e4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0957e8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0957ec:	11200003 */ 	beqz	$t1,.L0f0957fc
-/*  f0957f0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0957f4:	10000001 */ 	b	.L0f0957fc
-/*  f0957f8:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0957fc:
-/*  f0957fc:	8e4a0064 */ 	lw	$t2,0x64($s2)
-/*  f095800:	00117880 */ 	sll	$t7,$s1,0x2
-/*  f095804:	024f8021 */ 	addu	$s0,$s2,$t7
-/*  f095808:	11400003 */ 	beqz	$t2,.L0f095818
-/*  f09580c:	00000000 */ 	nop
-/*  f095810:	10000001 */ 	b	.L0f095818
-/*  f095814:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f095818:
-/*  f095818:	8e4b0070 */ 	lw	$t3,0x70($s2)
-/*  f09581c:	11600003 */ 	beqz	$t3,.L0f09582c
-/*  f095820:	00000000 */ 	nop
-/*  f095824:	10000001 */ 	b	.L0f09582c
-/*  f095828:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f09582c:
-/*  f09582c:	00436021 */ 	addu	$t4,$v0,$v1
-/*  f095830:	01856821 */ 	addu	$t5,$t4,$a1
-/*  f095834:	01a67021 */ 	addu	$t6,$t5,$a2
-/*  f095838:	19c0002d */ 	blez	$t6,.L0f0958f0
-/*  f09583c:	00000000 */ 	nop
-/*  f095840:	8e020064 */ 	lw	$v0,0x64($s0)
-.L0f095844:
-/*  f095844:	8e5802a0 */ 	lw	$t8,0x2a0($s2)
-/*  f095848:	13020004 */ 	beq	$t8,$v0,.L0f09585c
-/*  f09584c:	00000000 */ 	nop
-/*  f095850:	8e5902a4 */ 	lw	$t9,0x2a4($s2)
-/*  f095854:	5722000a */ 	bnel	$t9,$v0,.L0f095880
-/*  f095858:	8e49006c */ 	lw	$t1,0x6c($s2)
-.L0f09585c:
-/*  f09585c:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f095860:	02202025 */ 	or	$a0,$s1,$zero
-/*  f095864:	0fc44a33 */ 	jal	currentPlayerHasProp
-/*  f095868:	8e640014 */ 	lw	$a0,0x14($s3)
-/*  f09586c:	10400003 */ 	beqz	$v0,.L0f09587c
-/*  f095870:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f095874:	1000001e */ 	b	.L0f0958f0
-/*  f095878:	afa80048 */ 	sw	$t0,0x48($sp)
-.L0f09587c:
-/*  f09587c:	8e49006c */ 	lw	$t1,0x6c($s2)
-.L0f095880:
-/*  f095880:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f095884:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f095888:	8e420068 */ 	lw	$v0,0x68($s2)
-/*  f09588c:	8e430064 */ 	lw	$v1,0x64($s2)
-/*  f095890:	11200003 */ 	beqz	$t1,.L0f0958a0
-/*  f095894:	8e440070 */ 	lw	$a0,0x70($s2)
-/*  f095898:	10000002 */ 	b	.L0f0958a4
-/*  f09589c:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f0958a0:
-/*  f0958a0:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0958a4:
-/*  f0958a4:	10400003 */ 	beqz	$v0,.L0f0958b4
-/*  f0958a8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0958ac:	10000001 */ 	b	.L0f0958b4
-/*  f0958b0:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0958b4:
-/*  f0958b4:	10600003 */ 	beqz	$v1,.L0f0958c4
-/*  f0958b8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0958bc:	10000002 */ 	b	.L0f0958c8
-/*  f0958c0:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0958c4:
-/*  f0958c4:	00001825 */ 	or	$v1,$zero,$zero
-.L0f0958c8:
-/*  f0958c8:	10800003 */ 	beqz	$a0,.L0f0958d8
-/*  f0958cc:	00000000 */ 	nop
-/*  f0958d0:	10000001 */ 	b	.L0f0958d8
-/*  f0958d4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0958d8:
-/*  f0958d8:	00435021 */ 	addu	$t2,$v0,$v1
-/*  f0958dc:	01455821 */ 	addu	$t3,$t2,$a1
-/*  f0958e0:	01666021 */ 	addu	$t4,$t3,$a2
-/*  f0958e4:	022c082a */ 	slt	$at,$s1,$t4
-/*  f0958e8:	5420ffd6 */ 	bnezl	$at,.L0f095844
-/*  f0958ec:	8e020064 */ 	lw	$v0,0x64($s0)
-.L0f0958f0:
-/*  f0958f0:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0958f4:	8fa4004c */ 	lw	$a0,0x4c($sp)
-/*  f0958f8:	8fad0048 */ 	lw	$t5,0x48($sp)
-/*  f0958fc:	55a00077 */ 	bnezl	$t5,.L0f095adc
-/*  f095900:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f095904:	10000074 */ 	b	.L0f095ad8
-/*  f095908:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f09590c:	0fc2556c */ 	jal	objFindByTagId
-/*  f095910:	8ea40004 */ 	lw	$a0,0x4($s5)
-/*  f095914:	10400070 */ 	beqz	$v0,.L0f095ad8
-/*  f095918:	00409825 */ 	or	$s3,$v0,$zero
-/*  f09591c:	8c4e0014 */ 	lw	$t6,0x14($v0)
-/*  f095920:	51c0006e */ 	beqzl	$t6,.L0f095adc
-/*  f095924:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f095928:	8e58006c */ 	lw	$t8,0x6c($s2)
-/*  f09592c:	8e4f028c */ 	lw	$t7,0x28c($s2)
-/*  f095930:	00008825 */ 	or	$s1,$zero,$zero
-/*  f095934:	13000003 */ 	beqz	$t8,.L0f095944
-/*  f095938:	afaf0038 */ 	sw	$t7,0x38($sp)
-/*  f09593c:	10000002 */ 	b	.L0f095948
-/*  f095940:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f095944:
-/*  f095944:	00003025 */ 	or	$a2,$zero,$zero
-.L0f095948:
-/*  f095948:	8e590068 */ 	lw	$t9,0x68($s2)
-/*  f09594c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f095950:	00001825 */ 	or	$v1,$zero,$zero
-/*  f095954:	13200003 */ 	beqz	$t9,.L0f095964
-/*  f095958:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09595c:	10000001 */ 	b	.L0f095964
-/*  f095960:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f095964:
-/*  f095964:	8e480064 */ 	lw	$t0,0x64($s2)
-/*  f095968:	00116880 */ 	sll	$t5,$s1,0x2
-/*  f09596c:	024d8021 */ 	addu	$s0,$s2,$t5
-/*  f095970:	11000003 */ 	beqz	$t0,.L0f095980
-/*  f095974:	00000000 */ 	nop
-/*  f095978:	10000001 */ 	b	.L0f095980
-/*  f09597c:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f095980:
-/*  f095980:	8e490070 */ 	lw	$t1,0x70($s2)
-/*  f095984:	11200003 */ 	beqz	$t1,.L0f095994
-/*  f095988:	00000000 */ 	nop
-/*  f09598c:	10000001 */ 	b	.L0f095994
-/*  f095990:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f095994:
-/*  f095994:	00435021 */ 	addu	$t2,$v0,$v1
-/*  f095998:	01455821 */ 	addu	$t3,$t2,$a1
-/*  f09599c:	01666021 */ 	addu	$t4,$t3,$a2
-/*  f0959a0:	1980002d */ 	blez	$t4,.L0f095a58
-/*  f0959a4:	00000000 */ 	nop
-/*  f0959a8:	8e020064 */ 	lw	$v0,0x64($s0)
-.L0f0959ac:
-/*  f0959ac:	8e4e02a0 */ 	lw	$t6,0x2a0($s2)
-/*  f0959b0:	11c20004 */ 	beq	$t6,$v0,.L0f0959c4
-/*  f0959b4:	00000000 */ 	nop
-/*  f0959b8:	8e4f02a4 */ 	lw	$t7,0x2a4($s2)
-/*  f0959bc:	55e2000a */ 	bnel	$t7,$v0,.L0f0959e8
-/*  f0959c0:	8e58006c */ 	lw	$t8,0x6c($s2)
-.L0f0959c4:
-/*  f0959c4:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0959c8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0959cc:	0fc44a33 */ 	jal	currentPlayerHasProp
-/*  f0959d0:	8e640014 */ 	lw	$a0,0x14($s3)
-/*  f0959d4:	50400004 */ 	beqzl	$v0,.L0f0959e8
-/*  f0959d8:	8e58006c */ 	lw	$t8,0x6c($s2)
-/*  f0959dc:	1000001e */ 	b	.L0f095a58
-/*  f0959e0:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f0959e4:	8e58006c */ 	lw	$t8,0x6c($s2)
-.L0f0959e8:
-/*  f0959e8:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0959ec:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f0959f0:	8e420068 */ 	lw	$v0,0x68($s2)
-/*  f0959f4:	8e430064 */ 	lw	$v1,0x64($s2)
-/*  f0959f8:	13000003 */ 	beqz	$t8,.L0f095a08
-/*  f0959fc:	8e440070 */ 	lw	$a0,0x70($s2)
-/*  f095a00:	10000002 */ 	b	.L0f095a0c
-/*  f095a04:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f095a08:
-/*  f095a08:	00003025 */ 	or	$a2,$zero,$zero
-.L0f095a0c:
-/*  f095a0c:	10400003 */ 	beqz	$v0,.L0f095a1c
-/*  f095a10:	00002825 */ 	or	$a1,$zero,$zero
-/*  f095a14:	10000001 */ 	b	.L0f095a1c
-/*  f095a18:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f095a1c:
-/*  f095a1c:	10600003 */ 	beqz	$v1,.L0f095a2c
-/*  f095a20:	00001025 */ 	or	$v0,$zero,$zero
-/*  f095a24:	10000002 */ 	b	.L0f095a30
-/*  f095a28:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f095a2c:
-/*  f095a2c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f095a30:
-/*  f095a30:	10800003 */ 	beqz	$a0,.L0f095a40
-/*  f095a34:	00000000 */ 	nop
-/*  f095a38:	10000001 */ 	b	.L0f095a40
-/*  f095a3c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f095a40:
-/*  f095a40:	0043c821 */ 	addu	$t9,$v0,$v1
-/*  f095a44:	03254021 */ 	addu	$t0,$t9,$a1
-/*  f095a48:	01064821 */ 	addu	$t1,$t0,$a2
-/*  f095a4c:	0229082a */ 	slt	$at,$s1,$t1
-/*  f095a50:	5420ffd6 */ 	bnezl	$at,.L0f0959ac
-/*  f095a54:	8e020064 */ 	lw	$v0,0x64($s0)
-.L0f095a58:
-/*  f095a58:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f095a5c:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f095a60:	1000001e */ 	b	.L0f095adc
-/*  f095a64:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f095a68:	0fc2556c */ 	jal	objFindByTagId
-/*  f095a6c:	8ea40004 */ 	lw	$a0,0x4($s5)
-/*  f095a70:	8eaa0008 */ 	lw	$t2,0x8($s5)
-/*  f095a74:	00402025 */ 	or	$a0,$v0,$zero
-/*  f095a78:	55400018 */ 	bnezl	$t2,.L0f095adc
-/*  f095a7c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f095a80:	10400008 */ 	beqz	$v0,.L0f095aa4
-/*  f095a84:	00000000 */ 	nop
-/*  f095a88:	8c4b0014 */ 	lw	$t3,0x14($v0)
-/*  f095a8c:	11600005 */ 	beqz	$t3,.L0f095aa4
-/*  f095a90:	00000000 */ 	nop
-/*  f095a94:	0fc21a6a */ 	jal	objIsHealthy
-/*  f095a98:	00000000 */ 	nop
-/*  f095a9c:	14400003 */ 	bnez	$v0,.L0f095aac
-/*  f095aa0:	00000000 */ 	nop
-.L0f095aa4:
-/*  f095aa4:	1000000c */ 	b	.L0f095ad8
-/*  f095aa8:	24140002 */ 	addiu	$s4,$zero,0x2
-.L0f095aac:
-/*  f095aac:	1000000a */ 	b	.L0f095ad8
-/*  f095ab0:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f095ab4:	8eac0008 */ 	lw	$t4,0x8($s5)
-/*  f095ab8:	55800008 */ 	bnezl	$t4,.L0f095adc
-/*  f095abc:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f095ac0:	10000005 */ 	b	.L0f095ad8
-/*  f095ac4:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f095ac8:	8ead000c */ 	lw	$t5,0xc($s5)
-/*  f095acc:	55a00003 */ 	bnezl	$t5,.L0f095adc
-/*  f095ad0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f095ad4:	0000a025 */ 	or	$s4,$zero,$zero
-.L0f095ad8:
-/*  f095ad8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f095adc:
-/*  f095adc:	16c20005 */ 	bne	$s6,$v0,.L0f095af4
-/*  f095ae0:	00000000 */ 	nop
-/*  f095ae4:	12820008 */ 	beq	$s4,$v0,.L0f095b08
-/*  f095ae8:	00000000 */ 	nop
-/*  f095aec:	10000006 */ 	b	.L0f095b08
-/*  f095af0:	0280b025 */ 	or	$s6,$s4,$zero
-.L0f095af4:
-/*  f095af4:	16c00004 */ 	bnez	$s6,.L0f095b08
-/*  f095af8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f095afc:	16810002 */ 	bne	$s4,$at,.L0f095b08
-/*  f095b00:	00000000 */ 	nop
-/*  f095b04:	0280b025 */ 	or	$s6,$s4,$zero
-.L0f095b08:
-/*  f095b08:	0fc24784 */ 	jal	setupGetCommandLength
-/*  f095b0c:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f095b10:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f095b14:	01d5a821 */ 	addu	$s5,$t6,$s5
-/*  f095b18:	92a30003 */ 	lbu	$v1,0x3($s5)
-/*  f095b1c:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f095b20:	5461fef5 */ 	bnel	$v1,$at,.L0f0956f8
-/*  f095b24:	246effe9 */ 	addiu	$t6,$v1,-23
-.L0f095b28:
-/*  f095b28:	0fc47b88 */ 	jal	debug0f11ee20
-/*  f095b2c:	00000000 */ 	nop
-/*  f095b30:	10400002 */ 	beqz	$v0,.L0f095b3c
-/*  f095b34:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f095b38:	24160001 */ 	addiu	$s6,$zero,0x1
-.L0f095b3c:
-/*  f095b3c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f095b40:	02c01025 */ 	or	$v0,$s6,$zero
-/*  f095b44:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f095b48:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f095b4c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f095b50:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f095b54:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f095b58:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f095b5c:	03e00008 */ 	jr	$ra
-/*  f095b60:	27bd0078 */ 	addiu	$sp,$sp,0x78
-);
+/**
+ * Check if an objective is complete.
+ *
+ * It starts be setting the objective's status to complete, then iterates each
+ * requirement in the objective to decide whether to change it to incomplete or
+ * failed.
+ */
+s32 objectiveCheck(s32 index)
+{
+	u32 stack[5];
+	s32 objstatus = OBJECTIVE_COMPLETE;
+
+	if (index < ARRAYCOUNT(g_Objectives)) {
+		if (g_Objectives[index] == NULL) {
+			objstatus = g_ObjectiveStatuses[index];
+		} else {
+			// Note: This is setting the cmd pointer to the start of the
+			// beginobjective macro in the stage's setup file. The first
+			// iteration of the while loop below will skip past it.
+			u32 *cmd = (u32 *)g_Objectives[index];
+
+			while ((u8)cmd[0] != OBJTYPE_ENDOBJECTIVE) {
+				// The status of this requirement
+				s32 reqstatus = OBJECTIVE_COMPLETE;
+
+				switch ((u8)cmd[0]) {
+				case OBJECTIVETYPE_DESTROYOBJ:
+					{
+						struct defaultobj *obj = objFindByTagId(cmd[1]);
+						if (obj && obj->prop && objIsHealthy(obj)) {
+							reqstatus = OBJECTIVE_INCOMPLETE;
+						}
+					}
+					break;
+				case OBJECTIVETYPE_COMPFLAGS:
+					if (!chrHasStageFlag(NULL, cmd[1])) {
+						reqstatus = OBJECTIVE_INCOMPLETE;
+					}
+					break;
+				case OBJECTIVETYPE_FAILFLAGS:
+					if (chrHasStageFlag(NULL, cmd[1])) {
+						reqstatus = OBJECTIVE_FAILED;
+					}
+					break;
+				case OBJECTIVETYPE_COLLECTOBJ:
+					{
+						struct defaultobj *obj = objFindByTagId(cmd[1]);
+						s32 prevplayernum;
+						s32 collected = false;
+						s32 i;
+
+						if (!obj || !obj->prop || !objIsHealthy(obj)) {
+							reqstatus = OBJECTIVE_FAILED;
+						} else {
+							prevplayernum = g_Vars.currentplayernum;
+
+							for (i = 0; i < PLAYERCOUNT(); i++) {
+								if (g_Vars.players[i] == g_Vars.bond || g_Vars.players[i] == g_Vars.coop) {
+									setCurrentPlayerNum(i);
+
+									if (currentPlayerHasProp(obj->prop)) {
+										collected = true;
+										break;
+									}
+								}
+							}
+
+							setCurrentPlayerNum(prevplayernum);
+
+							if (!collected) {
+								reqstatus = OBJECTIVE_INCOMPLETE;
+							}
+						}
+					}
+					break;
+				case OBJECTIVETYPE_THROWOBJ:
+					{
+						struct defaultobj *obj = objFindByTagId(cmd[1]);
+
+						if (obj && obj->prop) {
+							s32 i;
+							s32 prevplayernum = g_Vars.currentplayernum;
+
+							for (i = 0; i < PLAYERCOUNT(); i++) {
+								if (g_Vars.players[i] == g_Vars.bond || g_Vars.players[i] == g_Vars.coop) {
+									setCurrentPlayerNum(i);
+
+									if (currentPlayerHasProp(obj->prop)) {
+										reqstatus = OBJECTIVE_INCOMPLETE;
+										break;
+									}
+								}
+							}
+
+							setCurrentPlayerNum(prevplayernum);
+						}
+					}
+					break;
+				case OBJECTIVETYPE_HOLOGRAPH:
+					{
+						struct defaultobj *obj = objFindByTagId(cmd[1]);
+
+						if (cmd[2] == 0) {
+							if (!obj || !obj->prop || !objIsHealthy(obj)) {
+								reqstatus = OBJECTIVE_FAILED;
+							} else {
+								reqstatus = OBJECTIVE_INCOMPLETE;
+							}
+						}
+					}
+					break;
+				case OBJECTIVETYPE_ENTERROOM:
+					if (cmd[2] == 0) {
+						reqstatus = OBJECTIVE_INCOMPLETE;
+					}
+					break;
+				case OBJECTIVETYPE_ATTACHOBJ:
+					if (cmd[3] == 0) {
+						reqstatus = OBJECTIVE_INCOMPLETE;
+					}
+					break;
+				case OBJTYPE_BEGINOBJECTIVE:
+				case OBJTYPE_ENDOBJECTIVE:
+					break;
+				}
+
+				if (objstatus == OBJECTIVE_COMPLETE) {
+					if (reqstatus != OBJECTIVE_COMPLETE) {
+						// This is the first requirement that is causing the
+						// objective to not be complete, so apply it.
+						objstatus = reqstatus;
+					}
+				} else if (objstatus == OBJECTIVE_INCOMPLETE) {
+					if (reqstatus == OBJECTIVE_FAILED) {
+						// An earlier requirement was incomplete,
+						// and this requirement is failed.
+						objstatus = reqstatus;
+					}
+				}
+
+				cmd = cmd + setupGetCommandLength(cmd);
+			}
+		}
+	}
+
+	if (debugForceAllObjectivesComplete()) {
+		objstatus = OBJECTIVE_COMPLETE;
+	}
+
+	return objstatus;
+}
 
 bool objectiveIsAllComplete(void)
 {
