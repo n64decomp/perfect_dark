@@ -21,17 +21,6 @@ const char var7f1b7cf4[] = "Utils -> UM_fVec3_NormaliseTo - Vec = %s%s (%f,%f,%f
 const char var7f1b7d2c[] = "";
 const char var7f1b7d30[] = "";
 const char var7f1b7d34[] = "Utils -> Attempt to normalise zeo length vector\n";
-const char var7f1b7d68[] = "utils.c";
-const char var7f1b7d70[] = "UTILS -> DEBUG ERROR - UM_fVec3_MakeNormalTo - Cant normalise\n";
-const char var7f1b7db0[] = "utils.c";
-const char var7f1b7db8[] = "UTILS -> DEBUG ERROR - UM_fVec3_MakeNormalTo - Cant normalise\n";
-const char var7f1b7df8[] = "utils.c";
-const char var7f1b7e00[] = "WARNING - UTILS -> DEBUG - Triangle passed to Planar Poly Test\n";
-const char var7f1b7e40[] = "utils.c";
-const char var7f1b7e48[] = "utils.c";
-const char var7f1b7e50[] = "UM_ZeroRunVerify_U8 - FAILED on item %d\n";
-
-const u32 var7f1b7e7c[] = {0x3a83126f};
 
 void func0f176d70(s32 arg0)
 {
@@ -530,65 +519,46 @@ f32 coordsGetDistance(struct coord *a, struct coord *b)
 	return sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 }
 
+bool func0f1774b4(struct coord *arg0, struct coord *arg1, struct coord *out)
+{
+	struct coord a;
+	struct coord b;
+	struct coord c;
+	f32 mult;
+
+	if (!func0f177164(arg1, &a, 702, "utils.c")) {
+		osSyncPrintf("UTILS -> DEBUG ERROR - UM_fVec3_MakeNormalTo - Cant normalise\n");
+		return false;
+	}
+
+	if (!func0f177164(arg0, &b, 710, "utils.c")) {
+		osSyncPrintf("UTILS -> DEBUG ERROR - UM_fVec3_MakeNormalTo - Cant normalise\n");
+		return false;
+	}
+
+	mult = -(a.x * b.x + a.y * b.y + a.z * b.z);
+
+	c.x = mult * a.x;
+	c.y = mult * a.y;
+	c.z = mult * a.z;
+
+	out->x = b.x + c.x;
+	out->y = b.y + c.y;
+	out->z = b.z + c.z;
+
+	return true;
+}
+
+const char var7f1b7df8[] = "utils.c";
+const char var7f1b7e00[] = "WARNING - UTILS -> DEBUG - Triangle passed to Planar Poly Test\n";
+const char var7f1b7e40[] = "utils.c";
+const char var7f1b7e48[] = "utils.c";
+const char var7f1b7e50[] = "UM_ZeroRunVerify_U8 - FAILED on item %d\n";
+
+const u32 var7f1b7e7c[] = {0x3a83126f};
+
 GLOBAL_ASM(
-glabel func0f1774b4
-/*  f1774b4:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f1774b8:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f1774bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1774c0:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f1774c4:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f1774c8:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f1774cc:	3c077f1b */ 	lui	$a3,%hi(var7f1b7d68)
-/*  f1774d0:	24e77d68 */ 	addiu	$a3,$a3,%lo(var7f1b7d68)
-/*  f1774d4:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f1774d8:	0fc5dc59 */ 	jal	func0f177164
-/*  f1774dc:	240602be */ 	addiu	$a2,$zero,0x2be
-/*  f1774e0:	14400003 */ 	bnez	$v0,.L0f1774f0
-/*  f1774e4:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*  f1774e8:	10000024 */ 	b	.L0f17757c
-/*  f1774ec:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1774f0:
-/*  f1774f0:	3c077f1b */ 	lui	$a3,%hi(var7f1b7db0)
-/*  f1774f4:	24e77db0 */ 	addiu	$a3,$a3,%lo(var7f1b7db0)
-/*  f1774f8:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*  f1774fc:	0fc5dc59 */ 	jal	func0f177164
-/*  f177500:	240602c6 */ 	addiu	$a2,$zero,0x2c6
-/*  f177504:	14400003 */ 	bnez	$v0,.L0f177514
-/*  f177508:	8fa30048 */ 	lw	$v1,0x48($sp)
-/*  f17750c:	1000001b */ 	b	.L0f17757c
-/*  f177510:	00001025 */ 	or	$v0,$zero,$zero
-.L0f177514:
-/*  f177514:	c7a40034 */ 	lwc1	$f4,0x34($sp)
-/*  f177518:	c7a60028 */ 	lwc1	$f6,0x28($sp)
-/*  f17751c:	c7aa0038 */ 	lwc1	$f10,0x38($sp)
-/*  f177520:	c7b0002c */ 	lwc1	$f16,0x2c($sp)
-/*  f177524:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f177528:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f17752c:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f177530:	46124400 */ 	add.s	$f16,$f8,$f18
-/*  f177534:	c7b20030 */ 	lwc1	$f18,0x30($sp)
-/*  f177538:	c7a8003c */ 	lwc1	$f8,0x3c($sp)
-/*  f17753c:	46124482 */ 	mul.s	$f18,$f8,$f18
-/*  f177540:	46128000 */ 	add.s	$f0,$f16,$f18
-/*  f177544:	46000007 */ 	neg.s	$f0,$f0
-/*  f177548:	460a0082 */ 	mul.s	$f2,$f0,$f10
-/*  f17754c:	00000000 */ 	nop
-/*  f177550:	46080302 */ 	mul.s	$f12,$f0,$f8
-/*  f177554:	00000000 */ 	nop
-/*  f177558:	46040402 */ 	mul.s	$f16,$f0,$f4
-/*  f17755c:	46103480 */ 	add.s	$f18,$f6,$f16
-/*  f177560:	e4720000 */ 	swc1	$f18,0x0($v1)
-/*  f177564:	c7aa002c */ 	lwc1	$f10,0x2c($sp)
-/*  f177568:	46025200 */ 	add.s	$f8,$f10,$f2
-/*  f17756c:	e4680004 */ 	swc1	$f8,0x4($v1)
-/*  f177570:	c7a40030 */ 	lwc1	$f4,0x30($sp)
-/*  f177574:	460c2180 */ 	add.s	$f6,$f4,$f12
-/*  f177578:	e4660008 */ 	swc1	$f6,0x8($v1)
-.L0f17757c:
-/*  f17757c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f177580:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f177584:	03e00008 */ 	jr	$ra
-/*  f177588:	00000000 */ 	nop
+glabel func0f17758c
 /*  f17758c:	c4820000 */ 	lwc1	$f2,0x0($a0)
 /*  f177590:	c4a40000 */ 	lwc1	$f4,0x0($a1)
 /*  f177594:	c4860004 */ 	lwc1	$f6,0x4($a0)
