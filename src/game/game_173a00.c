@@ -32,11 +32,10 @@ const char var7f1b7c24[] = "";
 const char var7f1b7c28[] = "";
 const char var7f1b7c2c[] = "";
 
-GLOBAL_ASM(
-glabel func0f173a00
-/*  f173a00:	03e00008 */ 	jr	$ra
-/*  f173a04:	00000000 */ 	nop
-);
+void func0f173a00(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0f173a08
