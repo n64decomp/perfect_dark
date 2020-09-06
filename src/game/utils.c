@@ -842,14 +842,16 @@ glabel func0f17781c
 /*  f1779e4:	8fb50038 */ 	lw	$s5,0x38($sp)
 /*  f1779e8:	03e00008 */ 	jr	$ra
 /*  f1779ec:	27bd0088 */ 	addiu	$sp,$sp,0x88
-/*  f1779f0:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f1779f4:	afa40008 */ 	sw	$a0,0x8($sp)
-/*  f1779f8:	afa5000c */ 	sw	$a1,0xc($sp)
-/*  f1779fc:	afa60010 */ 	sw	$a2,0x10($sp)
-/*  f177a00:	afa70014 */ 	sw	$a3,0x14($sp)
-/*  f177a04:	03e00008 */ 	jr	$ra
-/*  f177a08:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
+
+void func0f1779f0(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
+{
+	u32 stack[2];
+
+	if (stack[0]) {
+		// empty
+	}
+}
 
 void func0f177a10(u32 arg0)
 {
