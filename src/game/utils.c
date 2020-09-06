@@ -860,14 +860,16 @@ glabel func0f17781c
 /*  f177a2c:	27bd0008 */ 	addiu	$sp,$sp,0x8
 /*  f177a30:	03e00008 */ 	jr	$ra
 /*  f177a34:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f177a38:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f177a3c:	afa40008 */ 	sw	$a0,0x8($sp)
-/*  f177a40:	afa5000c */ 	sw	$a1,0xc($sp)
-/*  f177a44:	afa60010 */ 	sw	$a2,0x10($sp)
-/*  f177a48:	afa70014 */ 	sw	$a3,0x14($sp)
-/*  f177a4c:	03e00008 */ 	jr	$ra
-/*  f177a50:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
+
+void func0f177a38(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
+{
+	u32 stack[2];
+
+	if (stack[0]) {
+		// empty
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f177a54
