@@ -6381,4 +6381,26 @@ struct var80061420 {
 	s32 unk04;
 };
 
+struct var800ab5b8 {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	u32 unk24;
+	u32 unk28;
+};
+
+struct var800ab718 {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+};
+
 #endif

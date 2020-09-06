@@ -37,25 +37,17 @@ void func0f173a00(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f173a08
-/*  f173a08:	3c03800b */ 	lui	$v1,%hi(var800ab5b8)
-/*  f173a0c:	3c04800b */ 	lui	$a0,%hi(var800ab718)
-/*  f173a10:	3c02800b */ 	lui	$v0,%hi(var800ab7b8)
-/*  f173a14:	2442b7b8 */ 	addiu	$v0,$v0,%lo(var800ab7b8)
-/*  f173a18:	2484b718 */ 	addiu	$a0,$a0,%lo(var800ab718)
-/*  f173a1c:	2463b5b8 */ 	addiu	$v1,$v1,%lo(var800ab5b8)
-.L0f173a20:
-/*  f173a20:	24840014 */ 	addiu	$a0,$a0,0x14
-/*  f173a24:	2463002c */ 	addiu	$v1,$v1,0x2c
-/*  f173a28:	ac60ffd4 */ 	sw	$zero,-0x2c($v1)
-/*  f173a2c:	1482fffc */ 	bne	$a0,$v0,.L0f173a20
-/*  f173a30:	ac80ffec */ 	sw	$zero,-0x14($a0)
-/*  f173a34:	240effff */ 	addiu	$t6,$zero,-1
-/*  f173a38:	3c01800b */ 	lui	$at,%hi(var800ab5b0)
-/*  f173a3c:	03e00008 */ 	jr	$ra
-/*  f173a40:	ac2eb5b0 */ 	sw	$t6,%lo(var800ab5b0)($at)
-);
+void func0f173a08(void)
+{
+	s32 i;
+
+	for (i = 0; i < 8; i++) {
+		var800ab5b8[i].unk00 = 0;
+		var800ab718[i].unk00 = 0;
+	}
+
+	var800ab5b0 = -1;
+}
 
 bool func0f173a44(u32 value)
 {
