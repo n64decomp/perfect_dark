@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f173a08(void);
-u32 func0f173a44(void);
+bool func0f173a44(u32 value);
 u32 func0f173a70(void);
 u32 func0f173b8c(void);
 u32 func0f173c10(void);
