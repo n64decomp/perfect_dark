@@ -708,18 +708,17 @@ bool func0f1777b8(struct coord *a, struct coord *b, struct coord *c, struct coor
 	return true;
 }
 
+void func0f1777f8(void)
+{
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		var800ac0f8[i] = 0;
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f1777f8
-/*  f1777f8:	3c03800b */ 	lui	$v1,%hi(var800ac0f8)
-/*  f1777fc:	3c02800b */ 	lui	$v0,%hi(var800ac108)
-/*  f177800:	2442c108 */ 	addiu	$v0,$v0,%lo(var800ac108)
-/*  f177804:	2463c0f8 */ 	addiu	$v1,$v1,%lo(var800ac0f8)
-.L0f177808:
-/*  f177808:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f17780c:	1462fffe */ 	bne	$v1,$v0,.L0f177808
-/*  f177810:	ac60fffc */ 	sw	$zero,-0x4($v1)
-/*  f177814:	03e00008 */ 	jr	$ra
-/*  f177818:	00000000 */ 	nop
+glabel func0f17781c
 /*  f17781c:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f177820:	afb50038 */ 	sw	$s5,0x38($sp)
 /*  f177824:	afb10028 */ 	sw	$s1,0x28($sp)

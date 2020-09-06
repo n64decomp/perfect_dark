@@ -801,7 +801,7 @@ extern u32 var800ab7c8;
 extern u32 var800abac8;
 extern u32 var800abdc8;
 extern u32 var800ac0e8;
-extern u32 var800ac0f8;
+extern u32 var800ac0f8[4];
 extern u32 var800ac108;
 extern struct scenariodata g_ScenarioData;
 extern u32 var800ac258;
