@@ -230,61 +230,22 @@ glabel func0f148b80
 /*  f148e50:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f148e54
-/*  f148e54:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f148e58:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f148e5c:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f148e60:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f148e64:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f148e68:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*  f148e6c:	8c880004 */ 	lw	$t0,0x4($a0)
-/*  f148e70:	91020334 */ 	lbu	$v0,0x334($t0)
-/*  f148e74:	28410007 */ 	slti	$at,$v0,0x7
-/*  f148e78:	10200002 */ 	beqz	$at,.L0f148e84
-/*  f148e7c:	244f0001 */ 	addiu	$t7,$v0,0x1
-/*  f148e80:	a10f0334 */ 	sb	$t7,0x334($t0)
-.L0f148e84:
-/*  f148e84:	8fb80054 */ 	lw	$t8,0x54($sp)
-/*  f148e88:	57000020 */ 	bnezl	$t8,.L0f148f0c
-/*  f148e8c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f148e90:	0c004b70 */ 	jal	random
-/*  f148e94:	afa8003c */ 	sw	$t0,0x3c($sp)
-/*  f148e98:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f148e9c:	0041001b */ 	divu	$zero,$v0,$at
-/*  f148ea0:	00002010 */ 	mfhi	$a0
-/*  f148ea4:	8fa8003c */ 	lw	$t0,0x3c($sp)
-/*  f148ea8:	10800017 */ 	beqz	$a0,.L0f148f08
-/*  f148eac:	3c053f4c */ 	lui	$a1,0x3f4c
-/*  f148eb0:	8fb90048 */ 	lw	$t9,0x48($sp)
-/*  f148eb4:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f148eb8:	8faa0050 */ 	lw	$t2,0x50($sp)
-/*  f148ebc:	8fab0054 */ 	lw	$t3,0x54($sp)
-/*  f148ec0:	8fad0058 */ 	lw	$t5,0x58($sp)
-/*  f148ec4:	240c0032 */ 	addiu	$t4,$zero,0x32
-/*  f148ec8:	afac0020 */ 	sw	$t4,0x20($sp)
-/*  f148ecc:	34a5cccd */ 	ori	$a1,$a1,0xcccd
-/*  f148ed0:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f148ed4:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f148ed8:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f148edc:	afa8003c */ 	sw	$t0,0x3c($sp)
-/*  f148ee0:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f148ee4:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f148ee8:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*  f148eec:	afab001c */ 	sw	$t3,0x1c($sp)
-/*  f148ef0:	0fc523c6 */ 	jal	func0f148f18
-/*  f148ef4:	afad0024 */ 	sw	$t5,0x24($sp)
-/*  f148ef8:	8fa8003c */ 	lw	$t0,0x3c($sp)
-/*  f148efc:	910e0339 */ 	lbu	$t6,0x339($t0)
-/*  f148f00:	01c27821 */ 	addu	$t7,$t6,$v0
-/*  f148f04:	a10f0339 */ 	sb	$t7,0x339($t0)
-.L0f148f08:
-/*  f148f08:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f148f0c:
-/*  f148f0c:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f148f10:	03e00008 */ 	jr	$ra
-/*  f148f14:	00000000 */ 	nop
-);
+void func0f148e54(struct prop *prop, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6)
+{
+	struct chrdata *chr = prop->chr;
+
+	if (chr->bulletstaken < 7) {
+		chr->bulletstaken++;
+	}
+
+	if (arg5 == 0) {
+		u32 rand = random() % 3;
+
+		if (rand) {
+			chr->stdsplatsadded += func0f148f18(rand, 0.8f, prop, arg1, arg2, arg3, arg4, arg5, 50, arg6, 0);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f148f18
