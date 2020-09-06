@@ -686,27 +686,22 @@ glabel func0f1776cc
 /*  f177768:	00000000 */ 	nop
 );
 
+bool func0f17776c(struct coord *a, struct coord *b, f32 mult, struct coord *out)
+{
+	struct coord tmp;
+	tmp.x = b->x * mult;
+	tmp.y = b->y * mult;
+	tmp.z = b->z * mult;
+
+	out->x = a->x + tmp.x;
+	out->y = a->y + tmp.y;
+	out->z = a->z + tmp.z;
+
+	return true;
+}
+
 GLOBAL_ASM(
-glabel func0f17776c
-/*  f17776c:	44866000 */ 	mtc1	$a2,$f12
-/*  f177770:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f177774:	c48a0000 */ 	lwc1	$f10,0x0($a0)
-/*  f177778:	c4a60004 */ 	lwc1	$f6,0x4($a1)
-/*  f17777c:	460c2002 */ 	mul.s	$f0,$f4,$f12
-/*  f177780:	c4a80008 */ 	lwc1	$f8,0x8($a1)
-/*  f177784:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f177788:	460c3082 */ 	mul.s	$f2,$f6,$f12
-/*  f17778c:	00000000 */ 	nop
-/*  f177790:	460c4382 */ 	mul.s	$f14,$f8,$f12
-/*  f177794:	46005400 */ 	add.s	$f16,$f10,$f0
-/*  f177798:	e4f00000 */ 	swc1	$f16,0x0($a3)
-/*  f17779c:	c4920004 */ 	lwc1	$f18,0x4($a0)
-/*  f1777a0:	46029100 */ 	add.s	$f4,$f18,$f2
-/*  f1777a4:	e4e40004 */ 	swc1	$f4,0x4($a3)
-/*  f1777a8:	c4860008 */ 	lwc1	$f6,0x8($a0)
-/*  f1777ac:	460e3200 */ 	add.s	$f8,$f6,$f14
-/*  f1777b0:	03e00008 */ 	jr	$ra
-/*  f1777b4:	e4e80008 */ 	swc1	$f8,0x8($a3)
+glabel func0f1777b8
 /*  f1777b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1777bc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1777c0:	afa40018 */ 	sw	$a0,0x18($sp)
