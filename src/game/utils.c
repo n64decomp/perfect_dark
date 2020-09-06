@@ -858,9 +858,12 @@ glabel func0f17781c
 /*  f177a24:	afa70014 */ 	sw	$a3,0x14($sp)
 /*  f177a28:	03e00008 */ 	jr	$ra
 /*  f177a2c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-/*  f177a30:	03e00008 */ 	jr	$ra
-/*  f177a34:	afa40000 */ 	sw	$a0,0x0($sp)
 );
+
+void func0f177a30(u32 arg0)
+{
+	// empty
+}
 
 void func0f177a38(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 {
