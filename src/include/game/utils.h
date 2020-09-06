@@ -11,7 +11,7 @@ u32 func0f176ddc(void);
 u32 func0f1770ac(void);
 u32 func0f177164(void);
 u32 func0f1773c8(void);
-f32 coordsGetDistance(struct coord *lastdroppedpos, struct coord *proppos);
+f32 coordsGetDistance(struct coord *a, struct coord *b);
 u32 func0f1776cc(void);
 u32 func0f17776c(void);
 void func0f1777f8(void);

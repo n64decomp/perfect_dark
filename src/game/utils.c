@@ -521,29 +521,17 @@ glabel func0f1773c8
 /*  f17745c:	00000000 */ 	nop
 );
 
+f32 coordsGetDistance(struct coord *a, struct coord *b)
+{
+	f32 xdiff = b->x - a->x;
+	f32 ydiff = b->y - a->y;
+	f32 zdiff = b->z - a->z;
+
+	return sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+}
+
 GLOBAL_ASM(
-glabel coordsGetDistance
-/*  f177460:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f177464:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f177468:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*  f17746c:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f177470:	c48a0004 */ 	lwc1	$f10,0x4($a0)
-/*  f177474:	c4a80004 */ 	lwc1	$f8,0x4($a1)
-/*  f177478:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f17747c:	c4920008 */ 	lwc1	$f18,0x8($a0)
-/*  f177480:	c4b00008 */ 	lwc1	$f16,0x8($a1)
-/*  f177484:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f177488:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f17748c:	46128381 */ 	sub.s	$f14,$f16,$f18
-/*  f177490:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f177494:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f177498:	460e7282 */ 	mul.s	$f10,$f14,$f14
-/*  f17749c:	0c012974 */ 	jal	sqrtf
-/*  f1774a0:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f1774a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1774a8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1774ac:	03e00008 */ 	jr	$ra
-/*  f1774b0:	00000000 */ 	nop
+glabel func0f1774b4
 /*  f1774b4:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f1774b8:	afa40040 */ 	sw	$a0,0x40($sp)
 /*  f1774bc:	afbf0014 */ 	sw	$ra,0x14($sp)
