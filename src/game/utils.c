@@ -522,7 +522,7 @@ glabel func0f1773c8
 );
 
 GLOBAL_ASM(
-glabel func0f177460
+glabel coordsGetDistance
 /*  f177460:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f177464:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f177468:	c4860000 */ 	lwc1	$f6,0x0($a0)

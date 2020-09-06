@@ -20,215 +20,75 @@
 #include "lib/lib_1a500.h"
 #include "types.h"
 
-const char var7f1b5f70[] = "Splat Tick - P=%x, B=%d, T=%d, S=%d, W=%d, D=%d, H=%d\n";
-const char var7f1b5fa8[] = "SPLAT : Not Dead Enough %s%s%f";
-const char var7f1b5fc8[] = "";
-const char var7f1b5fcc[] = "";
+void splatTick(struct prop *prop)
+{
+	struct chrdata *chr = prop->chr;
+	u32 unk350 = chr->unk350;
+	s32 race;
 
-const char var7f1b5fd0[] = "splat.c";
-const char var7f1b5fd8[] = "splat.c";
-const char var7f1b5fe0[] = "Splat : Out of range\n";
-const char var7f1b5ff8[] = "Splat_ResetChr : Reset One Char : chrdata = %x\n";
+	if (chr->unk32c_19 || (chr->chrflags & CHRCFLAG_HIDDEN) || chr->bulletstaken == 0) {
+		return;
+	}
 
-GLOBAL_ASM(
-glabel func0f148b80
-/*  f148b80:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f148b84:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f148b88:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f148b8c:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f148b90:	8c6f0350 */ 	lw	$t7,0x350($v1)
-/*  f148b94:	afaf0048 */ 	sw	$t7,0x48($sp)
-/*  f148b98:	8c78032c */ 	lw	$t8,0x32c($v1)
-/*  f148b9c:	00184cc0 */ 	sll	$t1,$t8,0x13
-/*  f148ba0:	052200a9 */ 	bltzl	$t1,.L0f148e48
-/*  f148ba4:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f148ba8:	8c6a0018 */ 	lw	$t2,0x18($v1)
-/*  f148bac:	314b0400 */ 	andi	$t3,$t2,0x400
-/*  f148bb0:	556000a5 */ 	bnezl	$t3,.L0f148e48
-/*  f148bb4:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f148bb8:	90640334 */ 	lbu	$a0,0x334($v1)
-/*  f148bbc:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f148bc0:	508000a1 */ 	beqzl	$a0,.L0f148e48
-/*  f148bc4:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f148bc8:	10600003 */ 	beqz	$v1,.L0f148bd8
-/*  f148bcc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f148bd0:	10000001 */ 	b	.L0f148bd8
-/*  f148bd4:	906202fe */ 	lbu	$v0,0x2fe($v1)
-.L0f148bd8:
-/*  f148bd8:	10410095 */ 	beq	$v0,$at,.L0f148e30
-/*  f148bdc:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f148be0:	10450093 */ 	beq	$v0,$a1,.L0f148e30
-/*  f148be4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f148be8:	10410005 */ 	beq	$v0,$at,.L0f148c00
-/*  f148bec:	00004025 */ 	or	$t0,$zero,$zero
-/*  f148bf0:	846c0010 */ 	lh	$t4,0x10($v1)
-/*  f148bf4:	2401005b */ 	addiu	$at,$zero,0x5b
-/*  f148bf8:	55810003 */ 	bnel	$t4,$at,.L0f148c08
-/*  f148bfc:	80620007 */ 	lb	$v0,0x7($v1)
-.L0f148c00:
-/*  f148c00:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f148c04:	80620007 */ 	lb	$v0,0x7($v1)
-.L0f148c08:
-/*  f148c08:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f148c0c:	50410003 */ 	beql	$v0,$at,.L0f148c1c
-/*  f148c10:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f148c14:	14a20048 */ 	bne	$a1,$v0,.L0f148d38
-/*  f148c18:	3c01bf80 */ 	lui	$at,0xbf80
-.L0f148c1c:
-/*  f148c1c:	44816000 */ 	mtc1	$at,$f12
-/*  f148c20:	14a2000e */ 	bne	$a1,$v0,.L0f148c5c
-/*  f148c24:	46006086 */ 	mov.s	$f2,$f12
-/*  f148c28:	c4600034 */ 	lwc1	$f0,0x34($v1)
-/*  f148c2c:	46006032 */ 	c.eq.s	$f12,$f0
-/*  f148c30:	00000000 */ 	nop
-/*  f148c34:	45030004 */ 	bc1tl	.L0f148c48
-/*  f148c38:	c4600030 */ 	lwc1	$f0,0x30($v1)
-/*  f148c3c:	10000007 */ 	b	.L0f148c5c
-/*  f148c40:	46000086 */ 	mov.s	$f2,$f0
-/*  f148c44:	c4600030 */ 	lwc1	$f0,0x30($v1)
-.L0f148c48:
-/*  f148c48:	46006032 */ 	c.eq.s	$f12,$f0
-/*  f148c4c:	00000000 */ 	nop
-/*  f148c50:	45030003 */ 	bc1tl	.L0f148c60
-/*  f148c54:	460c1032 */ 	c.eq.s	$f2,$f12
-/*  f148c58:	46000086 */ 	mov.s	$f2,$f0
-.L0f148c5c:
-/*  f148c5c:	460c1032 */ 	c.eq.s	$f2,$f12
-.L0f148c60:
-/*  f148c60:	00000000 */ 	nop
-/*  f148c64:	45030013 */ 	bc1tl	.L0f148cb4
-/*  f148c68:	946d0336 */ 	lhu	$t5,0x336($v1)
-/*  f148c6c:	8c640020 */ 	lw	$a0,0x20($v1)
-/*  f148c70:	e7a20038 */ 	swc1	$f2,0x38($sp)
-/*  f148c74:	a3a80043 */ 	sb	$t0,0x43($sp)
-/*  f148c78:	0c00745f */ 	jal	modelGetCurAnimFrame
-/*  f148c7c:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f148c80:	c7a20038 */ 	lwc1	$f2,0x38($sp)
-/*  f148c84:	8fa3004c */ 	lw	$v1,0x4c($sp)
-/*  f148c88:	93a80043 */ 	lbu	$t0,0x43($sp)
-/*  f148c8c:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f148c90:	00000000 */ 	nop
-/*  f148c94:	45020007 */ 	bc1fl	.L0f148cb4
-/*  f148c98:	946d0336 */ 	lhu	$t5,0x336($v1)
-/*  f148c9c:	8c640020 */ 	lw	$a0,0x20($v1)
-/*  f148ca0:	0c00745f */ 	jal	modelGetCurAnimFrame
-/*  f148ca4:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f148ca8:	10000061 */ 	b	.L0f148e30
-/*  f148cac:	8fa3004c */ 	lw	$v1,0x4c($sp)
-/*  f148cb0:	946d0336 */ 	lhu	$t5,0x336($v1)
-.L0f148cb4:
-/*  f148cb4:	29a1001f */ 	slti	$at,$t5,0x1f
-/*  f148cb8:	1420005d */ 	bnez	$at,.L0f148e30
-/*  f148cbc:	00000000 */ 	nop
-/*  f148cc0:	906e033a */ 	lbu	$t6,0x33a($v1)
-/*  f148cc4:	29c10006 */ 	slti	$at,$t6,0x6
-/*  f148cc8:	10200059 */ 	beqz	$at,.L0f148e30
-/*  f148ccc:	00000000 */ 	nop
-/*  f148cd0:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f148cd4:	0c004b70 */ 	jal	random
-/*  f148cd8:	a3a80043 */ 	sb	$t0,0x43($sp)
-/*  f148cdc:	93a80043 */ 	lbu	$t0,0x43($sp)
-/*  f148ce0:	8fb90048 */ 	lw	$t9,0x48($sp)
-/*  f148ce4:	3c053f8c */ 	lui	$a1,0x3f8c
-/*  f148ce8:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f148cec:	24180096 */ 	addiu	$t8,$zero,0x96
-/*  f148cf0:	30490008 */ 	andi	$t1,$v0,0x8
-/*  f148cf4:	afa90028 */ 	sw	$t1,0x28($sp)
-/*  f148cf8:	afb80020 */ 	sw	$t8,0x20($sp)
-/*  f148cfc:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*  f148d00:	34a5cccd */ 	ori	$a1,$a1,0xcccd
-/*  f148d04:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f148d08:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f148d0c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f148d10:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f148d14:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f148d18:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f148d1c:	0fc523c6 */ 	jal	func0f148f18
-/*  f148d20:	afb90024 */ 	sw	$t9,0x24($sp)
-/*  f148d24:	8fa3004c */ 	lw	$v1,0x4c($sp)
-/*  f148d28:	906a033a */ 	lbu	$t2,0x33a($v1)
-/*  f148d2c:	01425821 */ 	addu	$t3,$t2,$v0
-/*  f148d30:	1000003f */ 	b	.L0f148e30
-/*  f148d34:	a06b033a */ 	sb	$t3,0x33a($v1)
-.L0f148d38:
-/*  f148d38:	946c0336 */ 	lhu	$t4,0x336($v1)
-/*  f148d3c:	8fa50050 */ 	lw	$a1,0x50($sp)
-/*  f148d40:	008c0019 */ 	multu	$a0,$t4
-/*  f148d44:	2464033c */ 	addiu	$a0,$v1,0x33c
-/*  f148d48:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f148d4c:	00001012 */ 	mflo	$v0
-/*  f148d50:	2c4100f1 */ 	sltiu	$at,$v0,0xf1
-/*  f148d54:	5420002b */ 	bnezl	$at,.L0f148e04
-/*  f148d58:	906a0335 */ 	lbu	$t2,0x335($v1)
-/*  f148d5c:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f148d60:	0fc5dd18 */ 	jal	func0f177460
-/*  f148d64:	a3a80043 */ 	sb	$t0,0x43($sp)
-/*  f148d68:	3c014220 */ 	lui	$at,0x4220
-/*  f148d6c:	44812000 */ 	mtc1	$at,$f4
-/*  f148d70:	3c053e99 */ 	lui	$a1,0x3e99
-/*  f148d74:	8fa3004c */ 	lw	$v1,0x4c($sp)
-/*  f148d78:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f148d7c:	93a80043 */ 	lbu	$t0,0x43($sp)
-/*  f148d80:	00001025 */ 	or	$v0,$zero,$zero
-/*  f148d84:	34a5999a */ 	ori	$a1,$a1,0x999a
-/*  f148d88:	45000004 */ 	bc1f	.L0f148d9c
-/*  f148d8c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f148d90:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f148d94:	10000007 */ 	b	.L0f148db4
-/*  f148d98:	a0600338 */ 	sb	$zero,0x338($v1)
-.L0f148d9c:
-/*  f148d9c:	90640338 */ 	lbu	$a0,0x338($v1)
-/*  f148da0:	28810008 */ 	slti	$at,$a0,0x8
-/*  f148da4:	10200003 */ 	beqz	$at,.L0f148db4
-/*  f148da8:	248d0001 */ 	addiu	$t5,$a0,0x1
-/*  f148dac:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f148db0:	a06d0338 */ 	sb	$t5,0x338($v1)
-.L0f148db4:
-/*  f148db4:	10400012 */ 	beqz	$v0,.L0f148e00
-/*  f148db8:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f148dbc:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f148dc0:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f148dc4:	240f0050 */ 	addiu	$t7,$zero,0x50
-/*  f148dc8:	afaf0020 */ 	sw	$t7,0x20($sp)
-/*  f148dcc:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f148dd0:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f148dd4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f148dd8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f148ddc:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f148de0:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f148de4:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f148de8:	0fc523c6 */ 	jal	func0f148f18
-/*  f148dec:	afb80024 */ 	sw	$t8,0x24($sp)
-/*  f148df0:	8fa3004c */ 	lw	$v1,0x4c($sp)
-/*  f148df4:	90790335 */ 	lbu	$t9,0x335($v1)
-/*  f148df8:	03224821 */ 	addu	$t1,$t9,$v0
-/*  f148dfc:	a0690335 */ 	sb	$t1,0x335($v1)
-.L0f148e00:
-/*  f148e00:	906a0335 */ 	lbu	$t2,0x335($v1)
-.L0f148e04:
-/*  f148e04:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f148e08:	29410028 */ 	slti	$at,$t2,0x28
-/*  f148e0c:	54200008 */ 	bnezl	$at,.L0f148e30
-/*  f148e10:	a060033a */ 	sb	$zero,0x33a($v1)
-/*  f148e14:	0fc505c1 */ 	jal	func0f141704
-/*  f148e18:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f148e1c:	8fa3004c */ 	lw	$v1,0x4c($sp)
-/*  f148e20:	906b0335 */ 	lbu	$t3,0x335($v1)
-/*  f148e24:	256cffff */ 	addiu	$t4,$t3,-1
-/*  f148e28:	a06c0335 */ 	sb	$t4,0x335($v1)
-/*  f148e2c:	a060033a */ 	sb	$zero,0x33a($v1)
-.L0f148e30:
-/*  f148e30:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x38)
-/*  f148e34:	8dce9ff8 */ 	lw	$t6,%lo(g_Vars+0x38)($t6)
-/*  f148e38:	946d0336 */ 	lhu	$t5,0x336($v1)
-/*  f148e3c:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*  f148e40:	a46f0336 */ 	sh	$t7,0x336($v1)
-/*  f148e44:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f148e48:
-/*  f148e48:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f148e4c:	03e00008 */ 	jr	$ra
-/*  f148e50:	00000000 */ 	nop
-);
+	race = CHRRACE(chr);
+
+	if (race != RACE_DRCAROLL && race != RACE_ROBOT) {
+		u8 isskedar = false;
+
+		if (race == RACE_SKEDAR || chr->bodynum == BODY_MRBLONDE) {
+			isskedar = true;
+		}
+
+		osSyncPrintf("Splat Tick - P=%x, B=%d, T=%d, S=%d, W=%d, D=%d, H=%d\n");
+
+		if (chr->actiontype == ACT_DEAD || chr->actiontype == ACT_DIE) {
+			u32 stack;
+			f32 thudframe = -1.0f;
+
+			if (chr->actiontype == ACT_DIE) {
+				if (chr->act_die.thudframe2 != -1) {
+					thudframe = chr->act_die.thudframe2;
+				} else if (chr->act_die.thudframe1 != -1) {
+					thudframe = chr->act_die.thudframe1;
+				}
+			}
+
+			if (thudframe != -1.0f && modelGetCurAnimFrame(chr->model) < thudframe) {
+				osSyncPrintf("SPLAT : Not Dead Enough %s%s%f", "", "", modelGetCurAnimFrame(chr->model));
+			} else if (chr->tickssincesplat > 30 && chr->deaddropsplatsadded < 6) {
+				chr->deaddropsplatsadded += func0f148f18(1, 1.1f, prop, 0, 0, 0, isskedar, 1, 150, unk350, random() & 8);
+			}
+		} else {
+			u32 value = chr->bulletstaken * chr->tickssincesplat;
+
+			if (value > 240) {
+				f32 dist = coordsGetDistance(&chr->lastdroppos, &prop->pos);
+				s32 addmore = false;
+
+				if (dist > 40) {
+					addmore = true;
+					chr->splatsdroppedhe = 0;
+				} else if (chr->splatsdroppedhe < 8) {
+					addmore = true;
+					chr->splatsdroppedhe++;
+				}
+
+				if (addmore) {
+					chr->woundedsplatsadded += func0f148f18(1, 0.3f, prop, 0, 0, 0, isskedar, 2, 80, unk350, 0);
+				}
+			}
+
+			if (chr->woundedsplatsadded >= 40) {
+				func0f141704(prop);
+				chr->woundedsplatsadded--;
+			}
+
+			chr->deaddropsplatsadded = 0;
+		}
+	}
+
+	chr->tickssincesplat += g_Vars.lvupdate240_60;
+}
 
 void func0f148e54(struct prop *prop, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6)
 {
@@ -246,6 +106,11 @@ void func0f148e54(struct prop *prop, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32
 		}
 	}
 }
+
+const char var7f1b5fd0[] = "splat.c";
+const char var7f1b5fd8[] = "splat.c";
+const char var7f1b5fe0[] = "Splat : Out of range\n";
+const char var7f1b5ff8[] = "Splat_ResetChr : Reset One Char : chrdata = %x\n";
 
 GLOBAL_ASM(
 glabel func0f148f18
@@ -287,7 +152,7 @@ glabel var7f1b6030
 /*  f148f7c:	15e00029 */ 	bnez	$t7,.L0f149024
 /*  f148f80:	26e4001c */ 	addiu	$a0,$s7,0x1c
 /*  f148f84:	02002825 */ 	or	$a1,$s0,$zero
-/*  f148f88:	0fc5dd18 */ 	jal	func0f177460
+/*  f148f88:	0fc5dd18 */ 	jal	coordsGetDistance
 /*  f148f8c:	afa60560 */ 	sw	$a2,0x560($sp)
 /*  f148f90:	46000606 */ 	mov.s	$f24,$f0
 /*  f148f94:	27a400fc */ 	addiu	$a0,$sp,0xfc
@@ -712,7 +577,7 @@ glabel func0f149274
 /*  f1495a4:	3c017f1b */ 	lui	$at,%hi(var7f1b6030)
 /*  f1495a8:	13200019 */ 	beqz	$t9,.L0f149610
 /*  f1495ac:	00000000 */ 	nop
-/*  f1495b0:	0fc5dd18 */ 	jal	func0f177460
+/*  f1495b0:	0fc5dd18 */ 	jal	coordsGetDistance
 /*  f1495b4:	27a50580 */ 	addiu	$a1,$sp,0x580
 /*  f1495b8:	3c018008 */ 	lui	$at,%hi(var8007f8b0)
 /*  f1495bc:	c428f8b0 */ 	lwc1	$f8,%lo(var8007f8b0)($at)
@@ -1016,7 +881,7 @@ glabel var7f1b6048
 .L0f1499b8:
 /*  f1499b8:	2605000c */ 	addiu	$a1,$s0,0xc
 /*  f1499bc:	afa5006c */ 	sw	$a1,0x6c($sp)
-/*  f1499c0:	0fc5dd18 */ 	jal	func0f177460
+/*  f1499c0:	0fc5dd18 */ 	jal	coordsGetDistance
 /*  f1499c4:	26040024 */ 	addiu	$a0,$s0,0x24
 /*  f1499c8:	3c018008 */ 	lui	$at,%hi(var8007f8a0)
 /*  f1499cc:	c42af8a0 */ 	lwc1	$f10,%lo(var8007f8a0)($at)
