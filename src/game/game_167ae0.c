@@ -358,7 +358,7 @@ void func0f167e7c(s32 stagenum)
 	func0f00b510();
 	func0f00b820(stagenum);
 	func0f00f174(stagenum);
-	func0f0953cc();
+	tagsAllocatePtrs();
 	func0f013010();
 	func0f013130();
 	sparksReset();

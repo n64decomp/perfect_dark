@@ -68,104 +68,51 @@ void func0f095350(u32 arg0, u32 *arg1)
 	func00049b24();
 }
 
-GLOBAL_ASM(
-glabel func0f0953cc
-/*  f0953cc:	3c02800a */ 	lui	$v0,%hi(var8009d0b0)
-/*  f0953d0:	8c42d0b0 */ 	lw	$v0,%lo(var8009d0b0)($v0)
-/*  f0953d4:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0953d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0953dc:	10400009 */ 	beqz	$v0,.L0f095404
-/*  f0953e0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0953e4:	94430004 */ 	lhu	$v1,0x4($v0)
-.L0f0953e8:
-/*  f0953e8:	0066082a */ 	slt	$at,$v1,$a2
-/*  f0953ec:	54200003 */ 	bnezl	$at,.L0f0953fc
-/*  f0953f0:	8c420008 */ 	lw	$v0,0x8($v0)
-/*  f0953f4:	24660001 */ 	addiu	$a2,$v1,0x1
-/*  f0953f8:	8c420008 */ 	lw	$v0,0x8($v0)
-.L0f0953fc:
-/*  f0953fc:	5440fffa */ 	bnezl	$v0,.L0f0953e8
-/*  f095400:	94430004 */ 	lhu	$v1,0x4($v0)
-.L0f095404:
-/*  f095404:	3c07800a */ 	lui	$a3,%hi(g_NumTags)
-/*  f095408:	24e7d0c4 */ 	addiu	$a3,$a3,%lo(g_NumTags)
-/*  f09540c:	10c0001b */ 	beqz	$a2,.L0f09547c
-/*  f095410:	ace60000 */ 	sw	$a2,0x0($a3)
-/*  f095414:	00062080 */ 	sll	$a0,$a2,0x2
-/*  f095418:	2484000f */ 	addiu	$a0,$a0,0xf
-/*  f09541c:	348f000f */ 	ori	$t7,$a0,0xf
-/*  f095420:	39e4000f */ 	xori	$a0,$t7,0xf
-/*  f095424:	00003025 */ 	or	$a2,$zero,$zero
-/*  f095428:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f09542c:	0c0048f2 */ 	jal	malloc
-/*  f095430:	afa00034 */ 	sw	$zero,0x34($sp)
-/*  f095434:	3c07800a */ 	lui	$a3,%hi(g_NumTags)
-/*  f095438:	24e7d0c4 */ 	addiu	$a3,$a3,%lo(g_NumTags)
-/*  f09543c:	8cf90000 */ 	lw	$t9,0x0($a3)
-/*  f095440:	3c03800a */ 	lui	$v1,%hi(g_TagPtrs)
-/*  f095444:	2463d0c8 */ 	addiu	$v1,$v1,%lo(g_TagPtrs)
-/*  f095448:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f09544c:	1b20000b */ 	blez	$t9,.L0f09547c
-/*  f095450:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f095454:	00001025 */ 	or	$v0,$zero,$zero
-/*  f095458:	8c680000 */ 	lw	$t0,0x0($v1)
-.L0f09545c:
-/*  f09545c:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f095460:	01024821 */ 	addu	$t1,$t0,$v0
-/*  f095464:	ad200000 */ 	sw	$zero,0x0($t1)
-/*  f095468:	8cea0000 */ 	lw	$t2,0x0($a3)
-/*  f09546c:	24420004 */ 	addiu	$v0,$v0,4
-/*  f095470:	00ca082a */ 	slt	$at,$a2,$t2
-/*  f095474:	5420fff9 */ 	bnezl	$at,.L0f09545c
-/*  f095478:	8c680000 */ 	lw	$t0,0x0($v1)
-.L0f09547c:
-/*  f09547c:	3c02800a */ 	lui	$v0,%hi(var8009d0b0)
-/*  f095480:	8c42d0b0 */ 	lw	$v0,%lo(var8009d0b0)($v0)
-/*  f095484:	3c03800a */ 	lui	$v1,%hi(g_TagPtrs)
-/*  f095488:	2463d0c8 */ 	addiu	$v1,$v1,%lo(g_TagPtrs)
-/*  f09548c:	10400009 */ 	beqz	$v0,.L0f0954b4
-/*  f095490:	3c040aff */ 	lui	$a0,0xaff
-/*  f095494:	944c0004 */ 	lhu	$t4,0x4($v0)
-.L0f095498:
-/*  f095498:	8c6b0000 */ 	lw	$t3,0x0($v1)
-/*  f09549c:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f0954a0:	016d7021 */ 	addu	$t6,$t3,$t5
-/*  f0954a4:	adc20000 */ 	sw	$v0,0x0($t6)
-/*  f0954a8:	8c420008 */ 	lw	$v0,0x8($v0)
-/*  f0954ac:	5440fffa */ 	bnezl	$v0,.L0f095498
-/*  f0954b0:	944c0004 */ 	lhu	$t4,0x4($v0)
-.L0f0954b4:
-/*  f0954b4:	0fc254c8 */ 	jal	xorBaffbeff
-/*  f0954b8:	3484b4a3 */ 	ori	$a0,$a0,0xb4a3
-/*  f0954bc:	3c04adfe */ 	lui	$a0,0xadfe
-/*  f0954c0:	0fc254cc */ 	jal	xorBabeffff
-/*  f0954c4:	34840006 */ 	ori	$a0,$a0,0x6
-/*  f0954c8:	0c0057f4 */ 	jal	func00015fd0
-/*  f0954cc:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f0954d0:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*  f0954d4:	504f0011 */ 	beql	$v0,$t7,.L0f09551c
-/*  f0954d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0954dc:	0c004b70 */ 	jal	random
-/*  f0954e0:	00000000 */ 	nop
-/*  f0954e4:	0c004b70 */ 	jal	random
-/*  f0954e8:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0954ec:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0954f0:	3c010001 */ 	lui	$at,0x1
-/*  f0954f4:	3421fff8 */ 	ori	$at,$at,0xfff8
-/*  f0954f8:	0081c024 */ 	and	$t8,$a0,$at
-/*  f0954fc:	3c018001 */ 	lui	$at,0x8001
-/*  f095500:	03012021 */ 	addu	$a0,$t8,$at
-/*  f095504:	3c010001 */ 	lui	$at,0x1
-/*  f095508:	3421fffe */ 	ori	$at,$at,0xfffe
-/*  f09550c:	00412824 */ 	and	$a1,$v0,$at
-/*  f095510:	0c003504 */ 	jal	func0000d410
-/*  f095514:	24061000 */ 	addiu	$a2,$zero,0x1000
-/*  f095518:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f09551c:
-/*  f09551c:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f095520:	03e00008 */ 	jr	$ra
-/*  f095524:	00000000 */ 	nop
-);
+void tagsAllocatePtrs(void)
+{
+	s32 index = 0;
+	struct tag *tag = g_TagsLinkedList;
+
+	while (tag) {
+		if (tag->tagnum >= index) {
+			index = tag->tagnum + 1;
+		}
+
+		tag = tag->next;
+	}
+
+	g_NumTags = index;
+
+	if (g_NumTags) {
+		u32 size = index * 4;
+		g_TagPtrs = malloc(ALIGN16(size), 4);
+
+		for (index = 0; index < g_NumTags; index++) {
+			g_TagPtrs[index] = NULL;
+		}
+	}
+
+	tag = g_TagsLinkedList;
+
+	while (tag) {
+		g_TagPtrs[tag->tagnum] = tag;
+		tag = tag->next;
+	}
+
+#if PIRACYCHECKS
+	{
+		u32 a = xorBaffbeff(0xb0000a5c ^ 0xbaffbeff);
+		u32 b = xorBabeffff(0x1740fff9 ^ 0xbabeffff);
+
+		if (func00015fd0() != b) {
+			// Read 4KB from a random ROM location within 128KB from the start of
+			// the ROM, and write it to a random memory location between 0x80010000
+			// and 0x80030ff8. This will corrupt instructions in the lib segment.
+			func0000d410((u8 *)((random() & 0x1fff8) + 0x80010000), (u8 *)(random() & 0x1fffe), 0x1000);
+		}
+	}
+#endif
+}
 
 struct tag *tagFindById(s32 tag_id)
 {
@@ -178,17 +125,17 @@ struct tag *tagFindById(s32 tag_id)
 	return tag;
 }
 
-s32 func0f095560(struct defaultobj *obj)
+s32 objGetTagNum(struct defaultobj *obj)
 {
-	struct var8009d0b0 *thing = var8009d0b0;
+	struct tag *tag = g_TagsLinkedList;
 
 	if (obj && (obj->hidden & OBJHFLAG_00000010)) {
-		while (thing) {
-			if (obj == thing->obj) {
-				return thing->unk04;
+		while (tag) {
+			if (obj == tag->obj) {
+				return tag->tagnum;
 			}
 
-			thing = thing->next;
+			tag = tag->next;
 		}
 	}
 

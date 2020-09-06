@@ -576,7 +576,7 @@ extern struct stagesetup g_StageSetup;
 extern u8 *g_GeCreditsData;
 extern struct objective *g_Objectives[MAX_OBJECTIVES];
 extern u32 g_ObjectiveStatuses[MAX_OBJECTIVES];
-extern struct var8009d0b0 *var8009d0b0;
+extern struct tag *g_TagsLinkedList;
 extern struct objectivething *var8009d0b4;
 extern struct criteria_roomentered *g_RoomEnteredCriterias;
 extern struct criteria_multiroomentered *g_MultiroomEnteredCriterias;

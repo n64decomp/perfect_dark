@@ -28136,7 +28136,7 @@ s32 objTick(struct prop *prop)
 					model->anim = NULL;
 					func00015be4(currentPlayerGetUnk174c(), model->unk0c, sp248);
 					func00015da0(sp248, obj->realrot);
-					tagnum = func0f095560(obj);
+					tagnum = objGetTagNum(obj);
 
 					if (tagnum >= 0) {
 						numchrs = getNumChrs();

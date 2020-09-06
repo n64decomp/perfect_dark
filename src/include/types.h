@@ -1423,7 +1423,7 @@ struct tag {
 	/*0x00*/ u32 identifier; // always 0x00000016
 	/*0x04*/ u16 tagnum;
 	/*0x06*/ s16 cmdoffset;
-	/*0x08*/ u32 unk08;
+	/*0x08*/ struct tag *next;
 	/*0x0c*/ struct defaultobj *obj;
 };
 
@@ -6183,13 +6183,6 @@ struct healthdamagetype {
 	s32 unk08;
 	s32 unk0c;
 	s32 unk10;
-};
-
-struct var8009d0b0 {
-	u32 unk00;
-	u16 unk04;
-	struct var8009d0b0 *next;
-	struct defaultobj *obj;
 };
 
 struct padlockeddoor {
