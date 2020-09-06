@@ -12,7 +12,7 @@ u32 func0f173cb8(void);
 u32 func0f173d60(void);
 u32 func0f173e10(void);
 u32 func0f173e50(void);
-u32 func0f173f18(void);
+s32 func0f173f18(s32 arg0);
 u32 func0f173f48(u32 arg0);
 u32 func0f173f78(void);
 u32 func0f1742e4(void);
