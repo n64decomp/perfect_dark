@@ -227,18 +227,14 @@ glabel func0f176ddc
 /*  f177044:	46062201 */ 	sub.s	$f8,$f4,$f6
 /*  f177048:	03e00008 */ 	jr	$ra
 /*  f17704c:	e4c80008 */ 	swc1	$f8,0x8($a2)
-/*  f177050:	44856000 */ 	mtc1	$a1,$f12
-/*  f177054:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f177058:	460c2182 */ 	mul.s	$f6,$f4,$f12
-/*  f17705c:	e4c60000 */ 	swc1	$f6,0x0($a2)
-/*  f177060:	c4880004 */ 	lwc1	$f8,0x4($a0)
-/*  f177064:	460c4282 */ 	mul.s	$f10,$f8,$f12
-/*  f177068:	e4ca0004 */ 	swc1	$f10,0x4($a2)
-/*  f17706c:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f177070:	460c8482 */ 	mul.s	$f18,$f16,$f12
-/*  f177074:	03e00008 */ 	jr	$ra
-/*  f177078:	e4d20008 */ 	swc1	$f18,0x8($a2)
 );
+
+void func0f177050(struct coord *a, f32 mult, struct coord *out)
+{
+	out->x = a->x * mult;
+	out->y = a->y * mult;
+	out->z = a->z * mult;
+}
 
 f32 func0f17707c(struct coord *a, struct coord *b)
 {
