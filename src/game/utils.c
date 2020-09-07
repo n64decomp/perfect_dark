@@ -169,38 +169,12 @@ f32 func0f17707c(struct coord *a, struct coord *b)
 	return a->x * b->x + a->y * b->y + a->z * b->z;
 }
 
-GLOBAL_ASM(
-glabel func0f1770ac
-/*  f1770ac:	c4840004 */ 	lwc1	$f4,0x4($a0)
-/*  f1770b0:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*  f1770b4:	c48a0008 */ 	lwc1	$f10,0x8($a0)
-/*  f1770b8:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*  f1770bc:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f1770c0:	00000000 */ 	nop
-/*  f1770c4:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f1770c8:	46124101 */ 	sub.s	$f4,$f8,$f18
-/*  f1770cc:	e4c40000 */ 	swc1	$f4,0x0($a2)
-/*  f1770d0:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*  f1770d4:	c4aa0008 */ 	lwc1	$f10,0x8($a1)
-/*  f1770d8:	c4b20000 */ 	lwc1	$f18,0x0($a1)
-/*  f1770dc:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f1770e0:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f1770e4:	00000000 */ 	nop
-/*  f1770e8:	46124102 */ 	mul.s	$f4,$f8,$f18
-/*  f1770ec:	46048181 */ 	sub.s	$f6,$f16,$f4
-/*  f1770f0:	46003287 */ 	neg.s	$f10,$f6
-/*  f1770f4:	e4ca0004 */ 	swc1	$f10,0x4($a2)
-/*  f1770f8:	c4b20004 */ 	lwc1	$f18,0x4($a1)
-/*  f1770fc:	c4880000 */ 	lwc1	$f8,0x0($a0)
-/*  f177100:	c4a60000 */ 	lwc1	$f6,0x0($a1)
-/*  f177104:	c4840004 */ 	lwc1	$f4,0x4($a0)
-/*  f177108:	46124402 */ 	mul.s	$f16,$f8,$f18
-/*  f17710c:	00000000 */ 	nop
-/*  f177110:	46062282 */ 	mul.s	$f10,$f4,$f6
-/*  f177114:	460a8201 */ 	sub.s	$f8,$f16,$f10
-/*  f177118:	03e00008 */ 	jr	$ra
-/*  f17711c:	e4c80008 */ 	swc1	$f8,0x8($a2)
-);
+void func0f1770ac(struct coord *a, struct coord *b, struct coord *out)
+{
+	out->x = a->y * b->z - a->z * b->y;
+	out->y = -(a->x * b->z - a->z * b->x);
+	out->z = a->x * b->y - a->y * b->x;
+}
 
 void func0f177120(struct coord *in, struct coord *out)
 {
