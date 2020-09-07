@@ -200,14 +200,14 @@ glabel func0f1770ac
 /*  f177114:	460a8201 */ 	sub.s	$f8,$f16,$f10
 /*  f177118:	03e00008 */ 	jr	$ra
 /*  f17711c:	e4c80008 */ 	swc1	$f8,0x8($a2)
-/*  f177120:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f177124:	e4a40000 */ 	swc1	$f4,0x0($a1)
-/*  f177128:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*  f17712c:	e4a60004 */ 	swc1	$f6,0x4($a1)
-/*  f177130:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f177134:	03e00008 */ 	jr	$ra
-/*  f177138:	e4a80008 */ 	swc1	$f8,0x8($a1)
 );
+
+void func0f177120(struct coord *in, struct coord *out)
+{
+	out->x = in->x;
+	out->y = in->y;
+	out->z = in->z;
+}
 
 void func0f17713c(struct coord *in, struct coord *out)
 {
