@@ -207,17 +207,14 @@ glabel func0f1770ac
 /*  f177130:	c4880008 */ 	lwc1	$f8,0x8($a0)
 /*  f177134:	03e00008 */ 	jr	$ra
 /*  f177138:	e4a80008 */ 	swc1	$f8,0x8($a1)
-/*  f17713c:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f177140:	46002187 */ 	neg.s	$f6,$f4
-/*  f177144:	e4a60000 */ 	swc1	$f6,0x0($a1)
-/*  f177148:	c4880004 */ 	lwc1	$f8,0x4($a0)
-/*  f17714c:	46004287 */ 	neg.s	$f10,$f8
-/*  f177150:	e4aa0004 */ 	swc1	$f10,0x4($a1)
-/*  f177154:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f177158:	46008487 */ 	neg.s	$f18,$f16
-/*  f17715c:	03e00008 */ 	jr	$ra
-/*  f177160:	e4b20008 */ 	swc1	$f18,0x8($a1)
 );
+
+void func0f17713c(struct coord *in, struct coord *out)
+{
+	out->x = -in->x;
+	out->y = -in->y;
+	out->z = -in->z;
+}
 
 GLOBAL_ASM(
 glabel func0f177164
