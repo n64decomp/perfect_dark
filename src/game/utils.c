@@ -188,33 +188,14 @@ glabel func0f176ddc
 /*  f176fa8:	46062200 */ 	add.s	$f8,$f4,$f6
 /*  f176fac:	03e00008 */ 	jr	$ra
 /*  f176fb0:	e4e80008 */ 	swc1	$f8,0x8($a3)
-/*  f176fb4:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f176fb8:	c4a60000 */ 	lwc1	$f6,0x0($a1)
-/*  f176fbc:	c4ca0000 */ 	lwc1	$f10,0x0($a2)
-/*  f176fc0:	c4f20000 */ 	lwc1	$f18,0x0($a3)
-/*  f176fc4:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f176fc8:	8fae0010 */ 	lw	$t6,0x10($sp)
-/*  f176fcc:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f176fd0:	46128100 */ 	add.s	$f4,$f16,$f18
-/*  f176fd4:	e5c40000 */ 	swc1	$f4,0x0($t6)
-/*  f176fd8:	c4a80004 */ 	lwc1	$f8,0x4($a1)
-/*  f176fdc:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*  f176fe0:	c4d00004 */ 	lwc1	$f16,0x4($a2)
-/*  f176fe4:	c4e40004 */ 	lwc1	$f4,0x4($a3)
-/*  f176fe8:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f176fec:	46105480 */ 	add.s	$f18,$f10,$f16
-/*  f176ff0:	46049180 */ 	add.s	$f6,$f18,$f4
-/*  f176ff4:	e5c60004 */ 	swc1	$f6,0x4($t6)
-/*  f176ff8:	c4aa0008 */ 	lwc1	$f10,0x8($a1)
-/*  f176ffc:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f177000:	c4d20008 */ 	lwc1	$f18,0x8($a2)
-/*  f177004:	c4e60008 */ 	lwc1	$f6,0x8($a3)
-/*  f177008:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f17700c:	46128100 */ 	add.s	$f4,$f16,$f18
-/*  f177010:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f177014:	03e00008 */ 	jr	$ra
-/*  f177018:	e5c80008 */ 	swc1	$f8,0x8($t6)
 );
+
+void func0f176fb4(struct coord *a, struct coord *b, struct coord *c, struct coord *d, struct coord *out)
+{
+	out->x = a->x + b->x + c->x + d->x;
+	out->y = a->y + b->y + c->y + d->y;
+	out->z = a->z + b->z + c->z + d->z;
+}
 
 void func0f17701c(struct coord *a, struct coord *b, struct coord *out)
 {
