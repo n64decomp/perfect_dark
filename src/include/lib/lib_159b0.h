@@ -7,7 +7,7 @@ void func000159b0(f32 *matrix);
 void func000159fc(f32 *matrix, f32 *arg1);
 void func00015a00(f32 *matrix, f32 *arg1, f32 *arg2);
 void func00015b10(f32 *matrix, struct coord *coord);
-void func00015b14(f32 *matrix, struct coord *coord, s32 arg2);
+void func00015b14(f32 *matrix, f32 *coord, struct coord *arg2);
 void func00015b64(f32 *arg0, struct coord *coord);
 void func00015b68(f32 *matrix, f32 *arg1, struct coord *arg2);
 void func00015be0(f32 *matrix1, f32 *matrix2);
