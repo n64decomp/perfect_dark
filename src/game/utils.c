@@ -245,34 +245,17 @@ glabel func0f177164
 /*  f177224:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f177228:	03e00008 */ 	jr	$ra
 /*  f17722c:	00000000 */ 	nop
-/*  f177230:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f177234:	c4a60000 */ 	lwc1	$f6,0x0($a1)
-/*  f177238:	c4880004 */ 	lwc1	$f8,0x4($a0)
-/*  f17723c:	c4aa0004 */ 	lwc1	$f10,0x4($a1)
-/*  f177240:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f177244:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f177248:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f17724c:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f177250:	c4b20008 */ 	lwc1	$f18,0x8($a1)
-/*  f177254:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f177258:	c4c80004 */ 	lwc1	$f8,0x4($a2)
-/*  f17725c:	46128301 */ 	sub.s	$f12,$f16,$f18
-/*  f177260:	c4d20008 */ 	lwc1	$f18,0x8($a2)
-/*  f177264:	46081282 */ 	mul.s	$f10,$f2,$f8
-/*  f177268:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17726c:	46126102 */ 	mul.s	$f4,$f12,$f18
-/*  f177270:	460a3400 */ 	add.s	$f16,$f6,$f10
-/*  f177274:	44803000 */ 	mtc1	$zero,$f6
-/*  f177278:	46048200 */ 	add.s	$f8,$f16,$f4
-/*  f17727c:	4608303c */ 	c.lt.s	$f6,$f8
-/*  f177280:	00000000 */ 	nop
-/*  f177284:	45000002 */ 	bc1f	.L0f177290
-/*  f177288:	00000000 */ 	nop
-/*  f17728c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f177290:
-/*  f177290:	03e00008 */ 	jr	$ra
-/*  f177294:	00000000 */ 	nop
 );
+
+bool func0f177230(struct coord *a, struct coord *b, struct coord *c)
+{
+	struct coord diff;
+	diff.x = a->x - b->x;
+	diff.y = a->y - b->y;
+	diff.z = a->z - b->z;
+
+	return diff.x * c->x + diff.y * c->y + diff.z * c->z > 0;
+}
 
 bool func0f177298(struct coord *a, struct coord *b, struct coord *c)
 {
