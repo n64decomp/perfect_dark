@@ -156,20 +156,14 @@ glabel func0f176ddc
 /*  f176f28:	00000000 */ 	nop
 /*  f176f2c:	03e00008 */ 	jr	$ra
 /*  f176f30:	00000000 */ 	nop
-/*  f176f34:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f176f38:	c4a60000 */ 	lwc1	$f6,0x0($a1)
-/*  f176f3c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f176f40:	e4c80000 */ 	swc1	$f8,0x0($a2)
-/*  f176f44:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*  f176f48:	c48a0004 */ 	lwc1	$f10,0x4($a0)
-/*  f176f4c:	46105480 */ 	add.s	$f18,$f10,$f16
-/*  f176f50:	e4d20004 */ 	swc1	$f18,0x4($a2)
-/*  f176f54:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*  f176f58:	c4840008 */ 	lwc1	$f4,0x8($a0)
-/*  f176f5c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f176f60:	03e00008 */ 	jr	$ra
-/*  f176f64:	e4c80008 */ 	swc1	$f8,0x8($a2)
 );
+
+void func0f176f34(struct coord *a, struct coord *b, struct coord *out)
+{
+	out->x = a->x + b->x;
+	out->y = a->y + b->y;
+	out->z = a->z + b->z;
+}
 
 void func0f176f68(struct coord *a, struct coord *b, struct coord *c, struct coord *out)
 {
