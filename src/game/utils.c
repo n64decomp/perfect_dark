@@ -214,20 +214,14 @@ glabel func0f176ddc
 /*  f177010:	46062200 */ 	add.s	$f8,$f4,$f6
 /*  f177014:	03e00008 */ 	jr	$ra
 /*  f177018:	e5c80008 */ 	swc1	$f8,0x8($t6)
-/*  f17701c:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f177020:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*  f177024:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f177028:	e4c80000 */ 	swc1	$f8,0x0($a2)
-/*  f17702c:	c4900004 */ 	lwc1	$f16,0x4($a0)
-/*  f177030:	c4aa0004 */ 	lwc1	$f10,0x4($a1)
-/*  f177034:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f177038:	e4d20004 */ 	swc1	$f18,0x4($a2)
-/*  f17703c:	c4860008 */ 	lwc1	$f6,0x8($a0)
-/*  f177040:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*  f177044:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f177048:	03e00008 */ 	jr	$ra
-/*  f17704c:	e4c80008 */ 	swc1	$f8,0x8($a2)
 );
+
+void func0f17701c(struct coord *a, struct coord *b, struct coord *out)
+{
+	out->x = b->x - a->x;
+	out->y = b->y - a->y;
+	out->z = b->z - a->z;
+}
 
 void func0f177050(struct coord *a, f32 mult, struct coord *out)
 {
