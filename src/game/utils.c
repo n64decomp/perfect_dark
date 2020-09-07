@@ -169,26 +169,14 @@ glabel func0f176ddc
 /*  f176f5c:	46062200 */ 	add.s	$f8,$f4,$f6
 /*  f176f60:	03e00008 */ 	jr	$ra
 /*  f176f64:	e4c80008 */ 	swc1	$f8,0x8($a2)
-/*  f176f68:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f176f6c:	c4a60000 */ 	lwc1	$f6,0x0($a1)
-/*  f176f70:	c4ca0000 */ 	lwc1	$f10,0x0($a2)
-/*  f176f74:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f176f78:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f176f7c:	e4f00000 */ 	swc1	$f16,0x0($a3)
-/*  f176f80:	c4a40004 */ 	lwc1	$f4,0x4($a1)
-/*  f176f84:	c4920004 */ 	lwc1	$f18,0x4($a0)
-/*  f176f88:	c4c80004 */ 	lwc1	$f8,0x4($a2)
-/*  f176f8c:	46049180 */ 	add.s	$f6,$f18,$f4
-/*  f176f90:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f176f94:	e4ea0004 */ 	swc1	$f10,0x4($a3)
-/*  f176f98:	c4b20008 */ 	lwc1	$f18,0x8($a1)
-/*  f176f9c:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f176fa0:	c4c60008 */ 	lwc1	$f6,0x8($a2)
-/*  f176fa4:	46128100 */ 	add.s	$f4,$f16,$f18
-/*  f176fa8:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f176fac:	03e00008 */ 	jr	$ra
-/*  f176fb0:	e4e80008 */ 	swc1	$f8,0x8($a3)
 );
+
+void func0f176f68(struct coord *a, struct coord *b, struct coord *c, struct coord *out)
+{
+	out->x = a->x + b->x + c->x;
+	out->y = a->y + b->y + c->y;
+	out->z = a->z + b->z + c->z;
+}
 
 void func0f176fb4(struct coord *a, struct coord *b, struct coord *c, struct coord *d, struct coord *out)
 {
