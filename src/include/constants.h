@@ -11,7 +11,7 @@
 #define S32_MAX 2147483647
 #define U32_MAX 4294967295
 
-#define ABS(val)              (val > 0 ? val : -val)
+#define ABS(val)              ((val) > 0 ? (val) : -(val))
 #define ALIGN8(val)           (((val) + 0x7 | 0x7) ^ 0x7)
 #define ALIGN16(val)          (((val) + 0xf | 0xf) ^ 0xf)
 #define ALIGN64(val)          (((val) + 0x3f | 0x3f) ^ 0x3f)
