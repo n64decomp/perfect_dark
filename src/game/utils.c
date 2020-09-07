@@ -118,45 +118,16 @@ glabel func0f176ddc
 /*  f176ea4:	27bd0028 */ 	addiu	$sp,$sp,0x28
 /*  f176ea8:	03e00008 */ 	jr	$ra
 /*  f176eac:	ac2c4614 */ 	sw	$t4,%lo(var80084614)($at)
-/*  f176eb0:	0085001a */ 	div	$zero,$a0,$a1
-/*  f176eb4:	00007010 */ 	mfhi	$t6
-/*  f176eb8:	14a00002 */ 	bnez	$a1,.L0f176ec4
-/*  f176ebc:	00000000 */ 	nop
-/*  f176ec0:	0007000d */ 	break	0x7
-.L0f176ec4:
-/*  f176ec4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f176ec8:	14a10004 */ 	bne	$a1,$at,.L0f176edc
-/*  f176ecc:	3c018000 */ 	lui	$at,0x8000
-/*  f176ed0:	14810002 */ 	bne	$a0,$at,.L0f176edc
-/*  f176ed4:	00000000 */ 	nop
-/*  f176ed8:	0006000d */ 	break	0x6
-.L0f176edc:
-/*  f176edc:	15c00003 */ 	bnez	$t6,.L0f176eec
-/*  f176ee0:	00000000 */ 	nop
-/*  f176ee4:	03e00008 */ 	jr	$ra
-/*  f176ee8:	00801025 */ 	or	$v0,$a0,$zero
-.L0f176eec:
-/*  f176eec:	0085001a */ 	div	$zero,$a0,$a1
-/*  f176ef0:	00007812 */ 	mflo	$t7
-/*  f176ef4:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*  f176ef8:	14a00002 */ 	bnez	$a1,.L0f176f04
-/*  f176efc:	00000000 */ 	nop
-/*  f176f00:	0007000d */ 	break	0x7
-.L0f176f04:
-/*  f176f04:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f176f08:	14a10004 */ 	bne	$a1,$at,.L0f176f1c
-/*  f176f0c:	3c018000 */ 	lui	$at,0x8000
-/*  f176f10:	14810002 */ 	bne	$a0,$at,.L0f176f1c
-/*  f176f14:	00000000 */ 	nop
-/*  f176f18:	0006000d */ 	break	0x6
-.L0f176f1c:
-/*  f176f1c:	03050019 */ 	multu	$t8,$a1
-/*  f176f20:	00001012 */ 	mflo	$v0
-/*  f176f24:	00000000 */ 	nop
-/*  f176f28:	00000000 */ 	nop
-/*  f176f2c:	03e00008 */ 	jr	$ra
-/*  f176f30:	00000000 */ 	nop
 );
+
+s32 func0f176eb0(s32 arg0, s32 arg1)
+{
+	if (arg0 % arg1 == 0) {
+		return arg0;
+	}
+
+	return (arg0 / arg1 + 1) * arg1;
+}
 
 void func0f176f34(struct coord *a, struct coord *b, struct coord *out)
 {
