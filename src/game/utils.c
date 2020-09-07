@@ -286,48 +286,16 @@ bool func0f177300(struct coord *a, struct coord *b)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f1773c8
-/*  f1773c8:	c4800000 */ 	lwc1	$f0,0x0($a0)
-/*  f1773cc:	c4a20000 */ 	lwc1	$f2,0x0($a1)
-/*  f1773d0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1773d4:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f1773d8:	00000000 */ 	nop
-/*  f1773dc:	4500001e */ 	bc1f	.L0f177458
-/*  f1773e0:	00000000 */ 	nop
-/*  f1773e4:	46001107 */ 	neg.s	$f4,$f2
-/*  f1773e8:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f1773ec:	00000000 */ 	nop
-/*  f1773f0:	45000019 */ 	bc1f	.L0f177458
-/*  f1773f4:	00000000 */ 	nop
-/*  f1773f8:	c4800004 */ 	lwc1	$f0,0x4($a0)
-/*  f1773fc:	c4a20004 */ 	lwc1	$f2,0x4($a1)
-/*  f177400:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f177404:	00000000 */ 	nop
-/*  f177408:	45000013 */ 	bc1f	.L0f177458
-/*  f17740c:	00000000 */ 	nop
-/*  f177410:	46001187 */ 	neg.s	$f6,$f2
-/*  f177414:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f177418:	00000000 */ 	nop
-/*  f17741c:	4500000e */ 	bc1f	.L0f177458
-/*  f177420:	00000000 */ 	nop
-/*  f177424:	c4800008 */ 	lwc1	$f0,0x8($a0)
-/*  f177428:	c4a20008 */ 	lwc1	$f2,0x8($a1)
-/*  f17742c:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f177430:	00000000 */ 	nop
-/*  f177434:	45000008 */ 	bc1f	.L0f177458
-/*  f177438:	00000000 */ 	nop
-/*  f17743c:	46001207 */ 	neg.s	$f8,$f2
-/*  f177440:	4600403c */ 	c.lt.s	$f8,$f0
-/*  f177444:	00000000 */ 	nop
-/*  f177448:	45000003 */ 	bc1f	.L0f177458
-/*  f17744c:	00000000 */ 	nop
-/*  f177450:	03e00008 */ 	jr	$ra
-/*  f177454:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f177458:
-/*  f177458:	03e00008 */ 	jr	$ra
-/*  f17745c:	00000000 */ 	nop
-);
+bool func0f1773c8(struct coord *a, struct coord *b)
+{
+	if (a->x < b->x && -b->x < a->x
+			&& a->y < b->y && -b->y < a->y
+			&& a->z < b->z && -b->z < a->z) {
+		return true;
+	}
+
+	return false;
+}
 
 f32 coordsGetDistance(struct coord *a, struct coord *b)
 {
