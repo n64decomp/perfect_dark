@@ -19,7 +19,7 @@ void func0f00d978(struct defaultobj *obj, u32 arg1);
 u32 func0f00d998(void);
 u32 func0f00da10(void);
 u32 func0f00dc00(void);
-u32 func0f00dd9c(void);
+void func0f00dd9c(struct defaultobj *obj, u32 arg1);
 u32 func0f00ddbc(void);
 u32 func0f00e084(void);
 u32 func0f00e1f8(void);

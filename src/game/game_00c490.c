@@ -1766,17 +1766,10 @@ glabel var7f1a8054
 /*  f00dd98:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f00dd9c
-/*  f00dd9c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f00dda0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f00dda4:	0fc033b9 */ 	jal	func0f00cee4
-/*  f00dda8:	00000000 */ 	nop
-/*  f00ddac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00ddb0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f00ddb4:	03e00008 */ 	jr	$ra
-/*  f00ddb8:	00000000 */ 	nop
-);
+void func0f00dd9c(struct defaultobj *obj, u32 arg1)
+{
+	func0f00cee4(obj, arg1);
+}
 
 GLOBAL_ASM(
 glabel func0f00ddbc
