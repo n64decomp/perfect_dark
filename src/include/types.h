@@ -6186,6 +6186,13 @@ struct healthdamagetype {
 	s32 unk10;
 };
 
+struct var8006991c {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	struct var8006991c *next;
+};
+
 struct padlockeddoor {
 	u32 unk00;
 	struct doorobj *door;

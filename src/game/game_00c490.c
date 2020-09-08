@@ -569,15 +569,11 @@ glabel func0f00c490
 /*  f00cc10:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f00cc14
-/*  f00cc14:	3c028007 */ 	lui	$v0,%hi(var8006991c)
-/*  f00cc18:	2442991c */ 	addiu	$v0,$v0,%lo(var8006991c)
-/*  f00cc1c:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f00cc20:	ac8e000c */ 	sw	$t6,0xc($a0)
-/*  f00cc24:	03e00008 */ 	jr	$ra
-/*  f00cc28:	ac440000 */ 	sw	$a0,0x0($v0)
-);
+void func0f00cc14(struct var8006991c *thing)
+{
+	thing->next = var8006991c;
+	var8006991c = thing;
+}
 
 void func0f00cc2c(struct padlockeddoor *door)
 {

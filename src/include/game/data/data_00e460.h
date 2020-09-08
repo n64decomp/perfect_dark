@@ -37,7 +37,7 @@ extern u32 var800698fc;
 extern u32 var80069900;
 extern u32 var80069910;
 extern u32 var80069918;
-extern u32 var8006991c;
+extern struct var8006991c *var8006991c;
 extern struct padlockeddoor *g_PadlockedDoors;
 extern u32 var80069924;
 extern u32 var80069928;
