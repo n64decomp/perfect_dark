@@ -23,7 +23,7 @@ void func0f00dd9c(struct defaultobj *obj, u32 arg1);
 u32 func0f00ddbc(void);
 u32 func0f00e084(void);
 void func0f00e1f8(s32 padnum);
-u32 func0f00e2b0(void);
+void func0f00e2b0(s32 padnum);
 u32 func0f00e368(void);
 u32 func0f00e90c(void);
 void func0f00e980(s32 stagenum, s32 arg0, s32 arg1, struct briefing *briefing);

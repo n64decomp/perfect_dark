@@ -2042,55 +2042,29 @@ void func0f00e1f8(s32 padnum)
 	func0f164e8c(&centre, &coord);
 }
 
-GLOBAL_ASM(
-glabel func0f00e2b0
-/*  f00e2b0:	27bdff68 */ 	addiu	$sp,$sp,-152
-/*  f00e2b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f00e2b8:	afa40098 */ 	sw	$a0,0x98($sp)
-/*  f00e2bc:	0fc457cd */ 	jal	padGetCentre
-/*  f00e2c0:	27a50088 */ 	addiu	$a1,$sp,0x88
-/*  f00e2c4:	8fa40098 */ 	lw	$a0,0x98($sp)
-/*  f00e2c8:	24050030 */ 	addiu	$a1,$zero,0x30
-/*  f00e2cc:	0fc456ac */ 	jal	padUnpack
-/*  f00e2d0:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f00e2d4:	c7a40058 */ 	lwc1	$f4,0x58($sp)
-/*  f00e2d8:	c7a60054 */ 	lwc1	$f6,0x54($sp)
-/*  f00e2dc:	3c013f00 */ 	lui	$at,0x3f00
-/*  f00e2e0:	44815000 */ 	mtc1	$at,$f10
-/*  f00e2e4:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f00e2e8:	3c014120 */ 	lui	$at,0x4120
-/*  f00e2ec:	44813000 */ 	mtc1	$at,$f6
-/*  f00e2f0:	c7b00088 */ 	lwc1	$f16,0x88($sp)
-/*  f00e2f4:	460a4102 */ 	mul.s	$f4,$f8,$f10
-/*  f00e2f8:	c7a80048 */ 	lwc1	$f8,0x48($sp)
-/*  f00e2fc:	c7b2008c */ 	lwc1	$f18,0x8c($sp)
-/*  f00e300:	27a40088 */ 	addiu	$a0,$sp,0x88
-/*  f00e304:	27a5007c */ 	addiu	$a1,$sp,0x7c
-/*  f00e308:	46062000 */ 	add.s	$f0,$f4,$f6
-/*  f00e30c:	c7a4004c */ 	lwc1	$f4,0x4c($sp)
-/*  f00e310:	46004082 */ 	mul.s	$f2,$f8,$f0
-/*  f00e314:	c7a80050 */ 	lwc1	$f8,0x50($sp)
-/*  f00e318:	46002302 */ 	mul.s	$f12,$f4,$f0
-/*  f00e31c:	46101280 */ 	add.s	$f10,$f2,$f16
-/*  f00e320:	46004382 */ 	mul.s	$f14,$f8,$f0
-/*  f00e324:	46126180 */ 	add.s	$f6,$f12,$f18
-/*  f00e328:	e7aa007c */ 	swc1	$f10,0x7c($sp)
-/*  f00e32c:	c7aa0090 */ 	lwc1	$f10,0x90($sp)
-/*  f00e330:	46028401 */ 	sub.s	$f16,$f16,$f2
-/*  f00e334:	e7a60080 */ 	swc1	$f6,0x80($sp)
-/*  f00e338:	460c9481 */ 	sub.s	$f18,$f18,$f12
-/*  f00e33c:	e7b00088 */ 	swc1	$f16,0x88($sp)
-/*  f00e340:	460a7100 */ 	add.s	$f4,$f14,$f10
-/*  f00e344:	e7b2008c */ 	swc1	$f18,0x8c($sp)
-/*  f00e348:	460e5181 */ 	sub.s	$f6,$f10,$f14
-/*  f00e34c:	e7a40084 */ 	swc1	$f4,0x84($sp)
-/*  f00e350:	0fc593a3 */ 	jal	func0f164e8c
-/*  f00e354:	e7a60090 */ 	swc1	$f6,0x90($sp)
-/*  f00e358:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00e35c:	27bd0098 */ 	addiu	$sp,$sp,0x98
-/*  f00e360:	03e00008 */ 	jr	$ra
-/*  f00e364:	00000000 */ 	nop
-);
+void func0f00e2b0(s32 padnum)
+{
+	f32 mult;
+	struct coord centre;
+	struct coord coord;
+	u32 stack;
+	struct pad pad;
+
+	padGetCentre(padnum, &centre);
+	padUnpack(padnum, PADFIELD_BBOX | PADFIELD_NORMAL, &pad);
+
+	mult = (pad.bbox.xmax - pad.bbox.xmin) * 0.5f + 10;
+
+	coord.x = pad.normal.x * mult + centre.x;
+	coord.y = pad.normal.y * mult + centre.y;
+	coord.z = pad.normal.z * mult + centre.z;
+
+	centre.x = centre.x - pad.normal.x * mult;
+	centre.y = centre.y - pad.normal.y * mult;
+	centre.z = centre.z - pad.normal.z * mult;
+
+	func0f164e8c(&centre, &coord);
+}
 
 GLOBAL_ASM(
 glabel func0f00e368
