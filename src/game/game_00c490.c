@@ -1434,41 +1434,18 @@ void weaponAssignToHome(struct weaponobj *weapon, u32 arg1)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f00d904
-/*  f00d904:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f00d908:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f00d90c:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*  f00d910:	00803025 */ 	or	$a2,$a0,$zero
-/*  f00d914:	31cf4000 */ 	andi	$t7,$t6,0x4000
-/*  f00d918:	11e00011 */ 	beqz	$t7,.L0f00d960
-/*  f00d91c:	00000000 */ 	nop
-/*  f00d920:	84840006 */ 	lh	$a0,0x6($a0)
-/*  f00d924:	0fc0a1dd */ 	jal	chrFindByLiteralId
-/*  f00d928:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f00d92c:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f00d930:	1040000d */ 	beqz	$v0,.L0f00d968
-/*  f00d934:	00402825 */ 	or	$a1,$v0,$zero
-/*  f00d938:	8c58001c */ 	lw	$t8,0x1c($v0)
-/*  f00d93c:	5300000b */ 	beqzl	$t8,.L0f00d96c
-/*  f00d940:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00d944:	8c590020 */ 	lw	$t9,0x20($v0)
-/*  f00d948:	53200008 */ 	beqzl	$t9,.L0f00d96c
-/*  f00d94c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00d950:	0fc2276e */ 	jal	func0f089db8
-/*  f00d954:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f00d958:	10000004 */ 	b	.L0f00d96c
-/*  f00d95c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f00d960:
-/*  f00d960:	0fc033b9 */ 	jal	func0f00cee4
-/*  f00d964:	00c02025 */ 	or	$a0,$a2,$zero
-.L0f00d968:
-/*  f00d968:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f00d96c:
-/*  f00d96c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f00d970:	03e00008 */ 	jr	$ra
-/*  f00d974:	00000000 */ 	nop
-);
+void func0f00d904(struct defaultobj *obj, u32 arg1)
+{
+	if (obj->flags & OBJFLAG_ASSIGNEDTOCHR) {
+		struct chrdata *chr = chrFindByLiteralId(obj->pad);
+
+		if (chr && chr->prop && chr->model) {
+			func0f089db8(obj, chr);
+		}
+	} else {
+		func0f00cee4(obj, arg1);
+	}
+}
 
 void func0f00d978(struct defaultobj *obj, u32 arg1)
 {

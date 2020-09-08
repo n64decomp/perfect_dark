@@ -14,7 +14,7 @@ void setupClearProxyMines(void);
 u32 setupCountCommandType(u8 type);
 void func0f00cee4(struct defaultobj *obj, u32 arg1);
 void weaponAssignToHome(struct weaponobj *weapon, u32 arg1);
-u32 func0f00d904(void);
+void func0f00d904(struct defaultobj *obj, u32 arg1);
 void func0f00d978(struct defaultobj *obj, u32 arg1);
 u32 func0f00d998(void);
 u32 func0f00da10(void);
