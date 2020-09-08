@@ -1328,283 +1328,136 @@ glabel var7f1a7f80
 /*  f00d66c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f00d670
-.late_rodata
-glabel var7f1a7f84
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7f88
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7f8c
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7f90
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7f94
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7f98
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7f9c
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fa0
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fa4
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fa8
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fac
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fb0
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fb4
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fb8
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fbc
-.word func0f00d670+0x100 # f00d770
-glabel var7f1a7fc0
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fc4
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fc8
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fcc
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fd0
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fd4
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fd8
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fdc
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fe0
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fe4
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fe8
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7fec
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7ff0
-.word func0f00d670+0x144 # f00d7b4
-glabel var7f1a7ff4
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7ff8
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a7ffc
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a8000
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a8004
-.word func0f00d670+0xe4 # f00d754
-glabel var7f1a8008
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a800c
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a8010
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a8014
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a8018
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a801c
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a8020
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a8024
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a8028
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a802c
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a8030
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a8034
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a8038
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a803c
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a8040
-.word func0f00d670+0x1b0 # f00d820
-glabel var7f1a8044
-.word func0f00d670+0x1b0 # f00d820
-.text
-/*  f00d670:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f00d674:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f00d678:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f00d67c:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*  f00d680:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f00d684:	00803025 */ 	or	$a2,$a0,$zero
-/*  f00d688:	31cf4000 */ 	andi	$t7,$t6,0x4000
-/*  f00d68c:	11e00051 */ 	beqz	$t7,.L0f00d7d4
-/*  f00d690:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f00d694:	84840006 */ 	lh	$a0,0x6($a0)
-/*  f00d698:	0fc0a1dd */ 	jal	chrFindByLiteralId
-/*  f00d69c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f00d6a0:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f00d6a4:	10400093 */ 	beqz	$v0,.L0f00d8f4
-/*  f00d6a8:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f00d6ac:	8c58001c */ 	lw	$t8,0x1c($v0)
-/*  f00d6b0:	53000091 */ 	beqzl	$t8,.L0f00d8f8
-/*  f00d6b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00d6b8:	8c590020 */ 	lw	$t9,0x20($v0)
-/*  f00d6bc:	24040014 */ 	addiu	$a0,$zero,0x14
-/*  f00d6c0:	5320008d */ 	beqzl	$t9,.L0f00d8f8
-/*  f00d6c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00d6c8:	0fc41b99 */ 	jal	cheatIsActive
-/*  f00d6cc:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f00d6d0:	10400011 */ 	beqz	$v0,.L0f00d718
-/*  f00d6d4:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f00d6d8:	8cc80008 */ 	lw	$t0,0x8($a2)
-/*  f00d6dc:	3c01efff */ 	lui	$at,0xefff
-/*  f00d6e0:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f00d6e4:	01014824 */ 	and	$t1,$t0,$at
-/*  f00d6e8:	3c012000 */ 	lui	$at,0x2000
-/*  f00d6ec:	acc90008 */ 	sw	$t1,0x8($a2)
-/*  f00d6f0:	01215825 */ 	or	$t3,$t1,$at
-/*  f00d6f4:	accb0008 */ 	sw	$t3,0x8($a2)
-/*  f00d6f8:	90c4005c */ 	lbu	$a0,0x5c($a2)
-/*  f00d6fc:	0fc04558 */ 	jal	func0f011560
-/*  f00d700:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f00d704:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f00d708:	0fc22c97 */ 	jal	func0f08b25c
-/*  f00d70c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f00d710:	10000079 */ 	b	.L0f00d8f8
-/*  f00d714:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f00d718:
-/*  f00d718:	24040012 */ 	addiu	$a0,$zero,0x12
-/*  f00d71c:	0fc41b99 */ 	jal	cheatIsActive
-/*  f00d720:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f00d724:	10400023 */ 	beqz	$v0,.L0f00d7b4
-/*  f00d728:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f00d72c:	90cc005c */ 	lbu	$t4,0x5c($a2)
-/*  f00d730:	258dfffe */ 	addiu	$t5,$t4,-2
-/*  f00d734:	2da10021 */ 	sltiu	$at,$t5,0x21
-/*  f00d738:	1020001e */ 	beqz	$at,.L0f00d7b4
-/*  f00d73c:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f00d740:	3c017f1a */ 	lui	$at,%hi(var7f1a7f84)
-/*  f00d744:	002d0821 */ 	addu	$at,$at,$t5
-/*  f00d748:	8c2d7f84 */ 	lw	$t5,%lo(var7f1a7f84)($at)
-/*  f00d74c:	01a00008 */ 	jr	$t5
-/*  f00d750:	00000000 */ 	nop
-/*  f00d754:	240e0018 */ 	addiu	$t6,$zero,0x18
-/*  f00d758:	240f0108 */ 	addiu	$t7,$zero,0x108
-/*  f00d75c:	24180100 */ 	addiu	$t8,$zero,0x100
-/*  f00d760:	a0ce005c */ 	sb	$t6,0x5c($a2)
-/*  f00d764:	a4cf0004 */ 	sh	$t7,0x4($a2)
-/*  f00d768:	10000012 */ 	b	.L0f00d7b4
-/*  f00d76c:	a4d80000 */ 	sh	$t8,0x0($a2)
-/*  f00d770:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f00d774:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f00d778:	8c5904b4 */ 	lw	$t9,0x4b4($v0)
-/*  f00d77c:	24010033 */ 	addiu	$at,$zero,0x33
-/*  f00d780:	57210007 */ 	bnel	$t9,$at,.L0f00d7a0
-/*  f00d784:	24080018 */ 	addiu	$t0,$zero,0x18
-/*  f00d788:	0fc5b367 */ 	jal	getDifficulty
-/*  f00d78c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f00d790:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f00d794:	10410007 */ 	beq	$v0,$at,.L0f00d7b4
-/*  f00d798:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f00d79c:	24080018 */ 	addiu	$t0,$zero,0x18
-.L0f00d7a0:
-/*  f00d7a0:	24090108 */ 	addiu	$t1,$zero,0x108
-/*  f00d7a4:	240a0100 */ 	addiu	$t2,$zero,0x100
-/*  f00d7a8:	a0c8005c */ 	sb	$t0,0x5c($a2)
-/*  f00d7ac:	a4c90004 */ 	sh	$t1,0x4($a2)
-/*  f00d7b0:	a4ca0000 */ 	sh	$t2,0x0($a2)
-.L0f00d7b4:
-/*  f00d7b4:	90c4005c */ 	lbu	$a0,0x5c($a2)
-/*  f00d7b8:	0fc04558 */ 	jal	func0f011560
-/*  f00d7bc:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f00d7c0:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f00d7c4:	0fc22c97 */ 	jal	func0f08b25c
-/*  f00d7c8:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f00d7cc:	1000004a */ 	b	.L0f00d8f8
-/*  f00d7d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f00d7d4:
-/*  f00d7d4:	8c4b0318 */ 	lw	$t3,0x318($v0)
-/*  f00d7d8:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f00d7dc:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f00d7e0:	15600004 */ 	bnez	$t3,.L0f00d7f4
-/*  f00d7e4:	3c01800a */ 	lui	$at,%hi(var8009cc30)
-/*  f00d7e8:	8c4c031c */ 	lw	$t4,0x31c($v0)
-/*  f00d7ec:	51800038 */ 	beqzl	$t4,.L0f00d8d0
-/*  f00d7f0:	90c5005c */ 	lbu	$a1,0x5c($a2)
-.L0f00d7f4:
-/*  f00d7f4:	ac2dcc30 */ 	sw	$t5,%lo(var8009cc30)($at)
-/*  f00d7f8:	90c5005c */ 	lbu	$a1,0x5c($a2)
-/*  f00d7fc:	24aeff10 */ 	addiu	$t6,$a1,-240
-/*  f00d800:	2dc10010 */ 	sltiu	$at,$t6,0x10
-/*  f00d804:	10200031 */ 	beqz	$at,.L0f00d8cc
-/*  f00d808:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f00d80c:	3c017f1b */ 	lui	$at,%hi(var7f1a8008)
-/*  f00d810:	002e0821 */ 	addu	$at,$at,$t6
-/*  f00d814:	8c2e8008 */ 	lw	$t6,%lo(var7f1a8008)($at)
-/*  f00d818:	01c00008 */ 	jr	$t6
-/*  f00d81c:	00000000 */ 	nop
-/*  f00d820:	24a4ff10 */ 	addiu	$a0,$a1,-240
-/*  f00d824:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f00d828:	0fc62389 */ 	jal	func0f188e24
-/*  f00d82c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f00d830:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f00d834:	3c01800a */ 	lui	$at,%hi(var8009cc30)
-/*  f00d838:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f00d83c:	ac24cc30 */ 	sw	$a0,%lo(var8009cc30)($at)
-/*  f00d840:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*  f00d844:	2401005b */ 	addiu	$at,$zero,0x5b
-/*  f00d848:	240a00f4 */ 	addiu	$t2,$zero,0xf4
-/*  f00d84c:	a0cf005c */ 	sb	$t7,0x5c($a2)
-/*  f00d850:	84580006 */ 	lh	$t8,0x6($v0)
-/*  f00d854:	240b0015 */ 	addiu	$t3,$zero,0x15
-/*  f00d858:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f00d85c:	a4d80004 */ 	sh	$t8,0x4($a2)
-/*  f00d860:	84590008 */ 	lh	$t9,0x8($v0)
-/*  f00d864:	a4d90000 */ 	sh	$t9,0x0($a2)
-/*  f00d868:	90430005 */ 	lbu	$v1,0x5($v0)
-/*  f00d86c:	90490000 */ 	lbu	$t1,0x0($v0)
-/*  f00d870:	000341c2 */ 	srl	$t0,$v1,0x7
-/*  f00d874:	15210015 */ 	bne	$t1,$at,.L0f00d8cc
-/*  f00d878:	01001825 */ 	or	$v1,$t0,$zero
-/*  f00d87c:	8ccc0008 */ 	lw	$t4,0x8($a2)
-/*  f00d880:	3c013f80 */ 	lui	$at,0x3f80
-/*  f00d884:	44810000 */ 	mtc1	$at,$f0
-/*  f00d888:	3c010102 */ 	lui	$at,0x102
-/*  f00d88c:	8cce000c */ 	lw	$t6,0xc($a2)
-/*  f00d890:	01816825 */ 	or	$t5,$t4,$at
-/*  f00d894:	3c010020 */ 	lui	$at,0x20
-/*  f00d898:	34214000 */ 	ori	$at,$at,0x4000
-/*  f00d89c:	01c17825 */ 	or	$t7,$t6,$at
-/*  f00d8a0:	a4ca0004 */ 	sh	$t2,0x4($a2)
-/*  f00d8a4:	a0cb0003 */ 	sb	$t3,0x3($a2)
-/*  f00d8a8:	accd0008 */ 	sw	$t5,0x8($a2)
-/*  f00d8ac:	accf000c */ 	sw	$t7,0xc($a2)
-/*  f00d8b0:	e4c0005c */ 	swc1	$f0,0x5c($a2)
-/*  f00d8b4:	e4c00060 */ 	swc1	$f0,0x60($a2)
-/*  f00d8b8:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f00d8bc:	0fc033b9 */ 	jal	func0f00cee4
-/*  f00d8c0:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f00d8c4:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f00d8c8:	00001825 */ 	or	$v1,$zero,$zero
-.L0f00d8cc:
-/*  f00d8cc:	90c5005c */ 	lbu	$a1,0x5c($a2)
-.L0f00d8d0:
-/*  f00d8d0:	50a00009 */ 	beqzl	$a1,.L0f00d8f8
-/*  f00d8d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00d8d8:	10600006 */ 	beqz	$v1,.L0f00d8f4
-/*  f00d8dc:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f00d8e0:	0fc04558 */ 	jal	func0f011560
-/*  f00d8e4:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f00d8e8:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f00d8ec:	0fc033b9 */ 	jal	func0f00cee4
-/*  f00d8f0:	8fa50034 */ 	lw	$a1,0x34($sp)
-.L0f00d8f4:
-/*  f00d8f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f00d8f8:
-/*  f00d8f8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f00d8fc:	03e00008 */ 	jr	$ra
-/*  f00d900:	00000000 */ 	nop
-);
+/**
+ * Assigns a weapon to its home.
+ *
+ * Its home is a chr's hand or a pad, as defined in the stage's setup file.
+ *
+ * The Marquis of Queensbury Rules (everyone unarmed) and Enemy Rockets cheats
+ * are implemented here.
+ */
+void weaponAssignToHome(struct weaponobj *weapon, u32 arg1)
+{
+	if (weapon->base.flags & OBJFLAG_ASSIGNEDTOCHR) {
+		u32 stack[2];
+		struct chrdata *chr = chrFindByLiteralId(weapon->base.pad);
+
+		if (chr && chr->prop && chr->model) {
+			if (cheatIsActive(CHEAT_MARQUIS)) {
+				weapon->base.flags &= ~OBJFLAG_DEACTIVATED;
+				weapon->base.flags |= OBJFLAG_20000000;
+				func0f011560(weapon->weaponnum);
+				func0f08b25c(weapon, chr);
+			} else {
+				if (cheatIsActive(CHEAT_ENEMYROCKETS)) {
+					switch (weapon->weaponnum) {
+					case WEAPON_FALCON2:
+					case WEAPON_FALCON2_SILENCER:
+					case WEAPON_FALCON2_SCOPE:
+					case WEAPON_MAGSEC4:
+					case WEAPON_MAULER:
+					case WEAPON_PHOENIX:
+					case WEAPON_DY357MAGNUM:
+					case WEAPON_DY357LX:
+					case WEAPON_CMP150:
+					case WEAPON_CYCLONE:
+					case WEAPON_CALLISTONTG:
+					case WEAPON_RCP120:
+					case WEAPON_LAPTOPGUN:
+					case WEAPON_DRAGON:
+					case WEAPON_AR34:
+					case WEAPON_SUPERDRAGON:
+					case WEAPON_SHOTGUN:
+					case WEAPON_REAPER:
+					case WEAPON_SNIPERRIFLE:
+					case WEAPON_FARSIGHTXR20:
+					case WEAPON_DEVASTATOR:
+					case WEAPON_ROCKETLAUNCHER:
+					case WEAPON_SLAYER:
+					case WEAPON_COMBATKNIFE:
+					case WEAPON_CROSSBOW:
+					case WEAPON_TRANQUILIZER:
+					case WEAPON_GRENADE:
+					case WEAPON_NBOMB:
+					case WEAPON_TIMEDMINE:
+					case WEAPON_PROXIMITYMINE:
+					case WEAPON_REMOTEMINE:
+						weapon->weaponnum = WEAPON_ROCKETLAUNCHER;
+						weapon->base.modelnum = MODEL_CHRDYROCKET;
+						weapon->base.extrascale = 256;
+						break;
+					case WEAPON_K7AVENGER:
+						// Don't replace the K7 guard's weapon in Investigation
+						// because it would make an objective impossible
+						if (g_Vars.stagenum != STAGE_INVESTIGATION || getDifficulty() != DIFF_PA) {
+							weapon->weaponnum = WEAPON_ROCKETLAUNCHER;
+							weapon->base.modelnum = MODEL_CHRDYROCKET;
+							weapon->base.extrascale = 256;
+						}
+						break;
+					}
+				}
+
+				func0f011560(weapon->weaponnum);
+				func0f08b25c(weapon, chr);
+			}
+		}
+	} else {
+		bool giveweapon = true;
+
+		if (g_Vars.normmplayerisrunning || g_Vars.unk00031c) {
+			struct mpweapon *mpweapon;
+			s32 mpweaponnum;
+
+			var8009cc30 = -1;
+
+			// Seems like a weaponnum >= 240 means an mpweaponnum...
+			switch (weapon->weaponnum) {
+			case 0xf0:
+			case 0xf1:
+			case 0xf2:
+			case 0xf3:
+			case 0xf4:
+			case 0xf5:
+			case 0xf6:
+			case 0xf7:
+			case 0xf8:
+			case 0xf9:
+			case 0xfa:
+			case 0xfb:
+			case 0xfc:
+			case 0xfd:
+			case 0xfe:
+			case 0xff:
+				mpweaponnum = weapon->weaponnum - 0xf0;
+				mpweapon = func0f188e24(mpweaponnum);
+				var8009cc30 = mpweaponnum;
+				weapon->weaponnum = mpweapon->weaponnum;
+				weapon->base.modelnum = mpweapon->model;
+				weapon->base.extrascale = mpweapon->extrascale;
+				giveweapon = mpweapon->giveweapon;
+
+				if (mpweapon->weaponnum == WEAPON_MPSHIELD) {
+					struct shieldobj *shield = (struct shieldobj *)weapon;
+					shield->base.modelnum = MODEL_CHRSHIELD;
+					shield->base.type = OBJTYPE_SHIELD;
+					shield->base.flags |= OBJFLAG_01000000 | OBJFLAG_INVINCIBLE;
+					shield->base.flags2 |= OBJFLAG2_00200000 | OBJFLAG2_00004000;
+					shield->initialamount = 1;
+					shield->amount = 1;
+					func0f00cee4(&shield->base, arg1);
+					giveweapon = false;
+				}
+				break;
+			}
+		}
+
+		if (weapon->weaponnum != WEAPON_NONE && giveweapon) {
+			func0f011560(weapon->weaponnum);
+			func0f00cee4(&weapon->base, arg1);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f00d904
@@ -3936,7 +3789,7 @@ glabel var7f1a8224
 /*  f00f6c8:	01746024 */ 	and	$t4,$t3,$s4
 /*  f00f6cc:	158002f0 */ 	bnez	$t4,.L0f010290
 /*  f00f6d0:	00000000 */ 	nop
-/*  f00f6d4:	0fc0359c */ 	jal	func0f00d670
+/*  f00f6d4:	0fc0359c */ 	jal	weaponAssignToHome
 /*  f00f6d8:	02602825 */ 	or	$a1,$s3,$zero
 /*  f00f6dc:	100002ec */ 	b	.L0f010290
 /*  f00f6e0:	00000000 */ 	nop

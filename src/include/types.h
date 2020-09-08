@@ -5991,14 +5991,15 @@ struct mpconfig {
 };
 
 struct mpweapon {
-	u8 weaponnum;
-	u8 unk01;
-	u8 unk02;
-	u8 unk03;
-	u16 unlock;
-	u16 model;
-	u8 unk08;
-	u8 unk09;
+	/*0x00*/ u8 weaponnum;
+	/*0x01*/ u8 unk01;
+	/*0x02*/ u8 unk02;
+	/*0x03*/ u8 unk03;
+	/*0x04*/ u8 unk04;
+	/*0x05*/ u8 giveweapon : 1;
+	/*0x05*/ u8 unlock : 7;
+	/*0x06*/ s16 model;
+	/*0x08*/ s16 extrascale;
 };
 
 struct mpstrings {

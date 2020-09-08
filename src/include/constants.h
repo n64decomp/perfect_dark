@@ -2045,7 +2045,7 @@
 #define OBJFLAG_00000800            0x00000800 // Editor: "Free Standing Glass"
 #define OBJFLAG_00001000            0x00001000 // Editor: "Absolute Position"
 #define OBJFLAG_00002000            0x00002000 // AF1 commhubs. Editor suggests "Weapon Not Dropped"
-#define OBJFLAG_00004000            0x00004000 // Editor: "Assigned to Actor"
+#define OBJFLAG_ASSIGNEDTOCHR       0x00004000
 #define OBJFLAG_00008000            0x00008000 // Editor: "Embedded Object"
 #define OBJFLAG_00010000            0x00010000 // Not used in scripts
 #define OBJFLAG_INVINCIBLE          0x00020000

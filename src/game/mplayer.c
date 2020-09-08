@@ -1566,7 +1566,7 @@ void mpSetWeaponSlot(s32 slot, s32 mpweaponnum)
 	s32 i;
 
 	for (i = 0; i <= mpweaponnum; i++) {
-		if (mpIsChallengeComplete(g_MpWeapons[i].unlock & 0x7f) == 0) {
+		if (mpIsChallengeComplete(g_MpWeapons[i].unlock) == 0) {
 			mpweaponnum++;
 		}
 
@@ -1582,7 +1582,7 @@ s32 mpGetWeaponSlot(s32 slot)
 	s32 i;
 
 	for (i = 0; i < g_MpSetup.weapons[slot]; i++) {
-		if (mpIsChallengeComplete(g_MpWeapons[i].unlock & 0x7f)) {
+		if (mpIsChallengeComplete(g_MpWeapons[i].unlock)) {
 			count++;
 		}
 	}
