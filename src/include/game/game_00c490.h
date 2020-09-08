@@ -10,7 +10,7 @@ void func0f00cc44(struct var80069924 *thing);
 void func0f00cc5c(struct var80069928 *thing);
 void func0f00cc74(struct var8006992c *thing);
 u32 func0f00cc8c(void);
-u32 func0f00ce3c(void);
+void setupClearProxyMines(void);
 u32 setupCountCommandType(u8 type);
 void func0f00cee4(struct defaultobj *obj, u32 arg1);
 void weaponAssignToHome(struct weaponobj *weapon, u32 arg1);

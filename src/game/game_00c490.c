@@ -119,7 +119,7 @@ glabel func0f00c490
 .L0f00c57c:
 /*  f00c57c:	0fc03323 */ 	jal	func0f00cc8c
 /*  f00c580:	00000000 */ 	nop
-/*  f00c584:	0fc0338f */ 	jal	func0f00ce3c
+/*  f00c584:	0fc0338f */ 	jal	setupClearProxyMines
 /*  f00c588:	00000000 */ 	nop
 /*  f00c58c:	3c018007 */ 	lui	$at,%hi(g_AlarmTimer)
 /*  f00c590:	ac2098d4 */ 	sw	$zero,%lo(g_AlarmTimer)($at)
@@ -717,19 +717,14 @@ glabel func0f00cc8c
 /*  f00ce38:	ad890004 */ 	sw	$t1,0x4($t4)
 );
 
-GLOBAL_ASM(
-glabel func0f00ce3c
-/*  f00ce3c:	3c03800a */ 	lui	$v1,%hi(g_ProxyMines)
-/*  f00ce40:	3c02800a */ 	lui	$v0,%hi(var8009ce38)
-/*  f00ce44:	2442ce38 */ 	addiu	$v0,$v0,%lo(var8009ce38)
-/*  f00ce48:	2463cdc0 */ 	addiu	$v1,$v1,%lo(g_ProxyMines)
-.L0f00ce4c:
-/*  f00ce4c:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f00ce50:	1462fffe */ 	bne	$v1,$v0,.L0f00ce4c
-/*  f00ce54:	ac60fffc */ 	sw	$zero,-0x4($v1)
-/*  f00ce58:	03e00008 */ 	jr	$ra
-/*  f00ce5c:	00000000 */ 	nop
-);
+void setupClearProxyMines(void)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(g_ProxyMines); i++) {
+		g_ProxyMines[i] = NULL;
+	}
+}
 
 GLOBAL_ASM(
 glabel setupCountCommandType
