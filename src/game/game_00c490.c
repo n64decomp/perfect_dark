@@ -1475,17 +1475,10 @@ glabel func0f00d904
 /*  f00d974:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f00d978
-/*  f00d978:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f00d97c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f00d980:	0fc033b9 */ 	jal	func0f00cee4
-/*  f00d984:	00000000 */ 	nop
-/*  f00d988:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00d98c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f00d990:	03e00008 */ 	jr	$ra
-/*  f00d994:	00000000 */ 	nop
-);
+void func0f00d978(struct defaultobj *obj, u32 arg1)
+{
+	func0f00cee4(obj, arg1);
+}
 
 GLOBAL_ASM(
 glabel func0f00d998
