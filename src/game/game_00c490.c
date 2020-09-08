@@ -579,15 +579,11 @@ glabel func0f00cc14
 /*  f00cc28:	ac440000 */ 	sw	$a0,0x0($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f00cc2c
-/*  f00cc2c:	3c028007 */ 	lui	$v0,%hi(g_PadlockedDoors)
-/*  f00cc30:	24429920 */ 	addiu	$v0,$v0,%lo(g_PadlockedDoors)
-/*  f00cc34:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f00cc38:	ac8e000c */ 	sw	$t6,0xc($a0)
-/*  f00cc3c:	03e00008 */ 	jr	$ra
-/*  f00cc40:	ac440000 */ 	sw	$a0,0x0($v0)
-);
+void func0f00cc2c(struct padlockeddoor *door)
+{
+	door->next = g_PadlockedDoors;
+	g_PadlockedDoors = door;
+}
 
 GLOBAL_ASM(
 glabel func0f00cc44

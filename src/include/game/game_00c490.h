@@ -5,7 +5,7 @@
 
 void func0f00c490(void);
 u32 func0f00cc14(void);
-u32 func0f00cc2c(void);
+void func0f00cc2c(struct padlockeddoor *door);
 u32 func0f00cc44(void);
 u32 func0f00cc5c(void);
 u32 func0f00cc74(void);
