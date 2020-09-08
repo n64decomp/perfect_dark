@@ -22,7 +22,7 @@ u32 func0f00dc00(void);
 void func0f00dd9c(struct defaultobj *obj, u32 arg1);
 u32 func0f00ddbc(void);
 u32 func0f00e084(void);
-u32 func0f00e1f8(void);
+void func0f00e1f8(s32 padnum);
 u32 func0f00e2b0(void);
 u32 func0f00e368(void);
 u32 func0f00e90c(void);
