@@ -6,7 +6,7 @@
 void func0f00c490(void);
 void func0f00cc14(struct var8006991c *thing);
 void func0f00cc2c(struct padlockeddoor *door);
-u32 func0f00cc44(void);
+void func0f00cc44(struct var80069924 *thing);
 u32 func0f00cc5c(void);
 u32 func0f00cc74(void);
 u32 func0f00cc8c(void);

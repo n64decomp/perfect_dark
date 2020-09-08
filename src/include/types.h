@@ -6200,6 +6200,14 @@ struct padlockeddoor {
 	struct padlockeddoor *next;
 };
 
+struct var80069924 {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	struct var80069924 *next;
+};
+
 struct model08thing {
 	u32 unk00;
 	f32 unk04[4];
