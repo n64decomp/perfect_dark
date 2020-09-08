@@ -1452,41 +1452,18 @@ void func0f00d978(struct defaultobj *obj, u32 arg1)
 	func0f00cee4(obj, arg1);
 }
 
-GLOBAL_ASM(
-glabel func0f00d998
-/*  f00d998:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f00d99c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f00d9a0:	240e0008 */ 	addiu	$t6,$zero,0x8
-/*  f00d9a4:	a08e0003 */ 	sb	$t6,0x3($a0)
-/*  f00d9a8:	0fc033b9 */ 	jal	func0f00cee4
-/*  f00d9ac:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f00d9b0:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f00d9b4:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f00d9b8:	8c4f0298 */ 	lw	$t7,0x298($v0)
-/*  f00d9bc:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f00d9c0:	05e30005 */ 	bgezl	$t7,.L0f00d9d8
-/*  f00d9c4:	8c990040 */ 	lw	$t9,0x40($a0)
-/*  f00d9c8:	8c58029c */ 	lw	$t8,0x29c($v0)
-/*  f00d9cc:	07020009 */ 	bltzl	$t8,.L0f00d9f4
-/*  f00d9d0:	8c820014 */ 	lw	$v0,0x14($a0)
-/*  f00d9d4:	8c990040 */ 	lw	$t9,0x40($a0)
-.L0f00d9d8:
-/*  f00d9d8:	3c010fff */ 	lui	$at,0xfff
-/*  f00d9dc:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f00d9e0:	03214024 */ 	and	$t0,$t9,$at
-/*  f00d9e4:	3c012000 */ 	lui	$at,0x2000
-/*  f00d9e8:	01014825 */ 	or	$t1,$t0,$at
-/*  f00d9ec:	ac890040 */ 	sw	$t1,0x40($a0)
-/*  f00d9f0:	8c820014 */ 	lw	$v0,0x14($a0)
-.L0f00d9f4:
-/*  f00d9f4:	904b003f */ 	lbu	$t3,0x3f($v0)
-/*  f00d9f8:	356c0020 */ 	ori	$t4,$t3,0x20
-/*  f00d9fc:	a04c003f */ 	sb	$t4,0x3f($v0)
-/*  f00da00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00da04:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f00da08:	03e00008 */ 	jr	$ra
-/*  f00da0c:	00000000 */ 	nop
-);
+void func0f00d998(struct defaultobj *obj, u32 arg1)
+{
+	obj->type = OBJTYPE_WEAPON;
+
+	func0f00cee4(obj, arg1);
+
+	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+		obj->hidden = obj->hidden & 0x0fffffff | OBJHFLAG_20000000;
+	}
+
+	obj->prop->unk3f_02 = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f00da10

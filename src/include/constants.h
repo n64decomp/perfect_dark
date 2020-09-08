@@ -2152,6 +2152,7 @@
 #define OBJHFLAG_00400000          0x00400000
 #define OBJHFLAG_04000000          0x04000000
 #define OBJHFLAG_GRABBED           0x08000000
+#define OBJHFLAG_20000000          0x20000000 // upper nibble might be a single 4-bit value
 
 // obj->hidden2
 #define OBJH2FLAG_04 0x04

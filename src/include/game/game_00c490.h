@@ -16,7 +16,7 @@ void func0f00cee4(struct defaultobj *obj, u32 arg1);
 void weaponAssignToHome(struct weaponobj *weapon, u32 arg1);
 void func0f00d904(struct defaultobj *obj, u32 arg1);
 void func0f00d978(struct defaultobj *obj, u32 arg1);
-u32 func0f00d998(void);
+void func0f00d998(struct defaultobj *obj, u32 arg1);
 u32 func0f00da10(void);
 u32 func0f00dc00(void);
 void func0f00dd9c(struct defaultobj *obj, u32 arg1);
