@@ -593,15 +593,11 @@ void func0f00cc5c(struct var80069928 *thing)
 	var80069928 = thing;
 }
 
-GLOBAL_ASM(
-glabel func0f00cc74
-/*  f00cc74:	3c028007 */ 	lui	$v0,%hi(var8006992c)
-/*  f00cc78:	2442992c */ 	addiu	$v0,$v0,%lo(var8006992c)
-/*  f00cc7c:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f00cc80:	ac8e000c */ 	sw	$t6,0xc($a0)
-/*  f00cc84:	03e00008 */ 	jr	$ra
-/*  f00cc88:	ac440000 */ 	sw	$a0,0x0($v0)
-);
+void func0f00cc74(struct var8006992c *thing)
+{
+	thing->next = var8006992c;
+	var8006992c = thing;
+}
 
 GLOBAL_ASM(
 glabel func0f00cc8c

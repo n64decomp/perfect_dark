@@ -6216,6 +6216,13 @@ struct var80069928 {
 	struct var80069928 *next;
 };
 
+struct var8006992c {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	struct var8006992c *next;
+};
+
 struct model08thing {
 	u32 unk00;
 	f32 unk04[4];
