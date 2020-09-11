@@ -102,7 +102,7 @@ char *getSaveLocationName(s32 index)
 	return NULL;
 }
 
-s32 menuhandler00108014(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandler00108014(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		if ((g_Menus[g_MpPlayerNum].unke3c & 0x7f) > 4) {
@@ -228,7 +228,7 @@ glabel func0f1080d0
 /*  f108250:	00000000 */ 	nop
 );
 
-s32 menuhandler00108254(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandler00108254(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		if (g_Menus[g_MpPlayerNum].unke38 == 0) {
@@ -987,7 +987,7 @@ glabel var7f1b3664
 /*  f108bec:	00000000 */ 	nop
 );
 
-s32 menuhandlerPakErrorTryAgain(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerPakErrorTryAgain(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		func0f109038(2);
@@ -1065,7 +1065,7 @@ glabel var7f1b3688
 /*  f108ccc:	00000000 */ 	nop
 );
 
-s32 menuhandlerPakCancelSave2(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerPakCancelSave2(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		func0f0f33bc();
@@ -1094,7 +1094,7 @@ glabel func0f108d14
 /*  f108d44:	00000000 */ 	nop
 );
 
-s32 menuhandlerAcknowledgePakFileLost(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerAcknowledgePakFileLost(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		func0f0f33bc();
@@ -1163,7 +1163,7 @@ glabel func0f108d8c
 /*  f108e54:	00000000 */ 	nop
 );
 
-bool menudialog00108e58(u32 operation, struct menudialog *dialog, struct menu *menu)
+s32 menudialog00108e58(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curframe &&
@@ -1175,7 +1175,7 @@ bool menudialog00108e58(u32 operation, struct menudialog *dialog, struct menu *m
 	return false;
 }
 
-s32 menuhandler00108ecc(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandler00108ecc(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		func0f11c7a0();
@@ -1185,7 +1185,7 @@ s32 menuhandler00108ecc(u32 operation, struct menuitem *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandler00108f08(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandler00108f08(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (g_Menus[g_MpPlayerNum].unke42 < 100 && g_Menus[g_MpPlayerNum].unke42 != 1) {
@@ -2482,9 +2482,9 @@ glabel func0f109ec4
 /*  f10a0ac:	00000000 */ 	nop
 );
 
-s32 menuhandlerRenameFile(u32 operation, struct menuitem *item, char **value)
+s32 menuhandlerRenameFile(u32 operation, struct menuitem *item, union handlerdata *data)
 {
-	char *name = *value;
+	char *name = data->ptrs[0];
 
 	switch (operation) {
 	case MENUOP_GETTEXT:
@@ -2501,7 +2501,7 @@ s32 menuhandlerRenameFile(u32 operation, struct menuitem *item, char **value)
 	return 0;
 }
 
-s32 menuhandlerPakRenameDuplicateSave(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerPakRenameDuplicateSave(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -2511,7 +2511,7 @@ s32 menuhandlerPakRenameDuplicateSave(u32 operation, struct menuitem *item, s32 
 	return 0;
 }
 
-s32 menuhandlerPakCancelDuplicateSave(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerPakCancelDuplicateSave(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -2676,7 +2676,7 @@ glabel func0f10a2ec
 /*  f10a3a0:	00000000 */ 	nop
 );
 
-s32 menuhandlerSaveLocation(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerSaveLocation(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (g_SaveLocations[g_Menus[g_MpPlayerNum].unke3f] == NULL) {
 		return 0;
@@ -2696,7 +2696,7 @@ s32 menuhandlerSaveLocation(u32 operation, struct menuitem *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandlerPakCancelSave(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerPakCancelSave(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -2705,7 +2705,7 @@ s32 menuhandlerPakCancelSave(u32 operation, struct menuitem *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandlerDeleteFiles(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerDeleteFiles(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		func0f10b0c4(g_Menus[g_MpPlayerNum].unke3f);
@@ -2755,7 +2755,7 @@ glabel func0f10a51c
 /*  f10a5a8:	00000000 */ 	nop
 );
 
-s32 menuhandlerPakConfirmDelete(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerPakConfirmDelete(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -4214,7 +4214,7 @@ glabel func0f10b924
 /*  f10b970:	00000000 */ 	nop
 );
 
-s32 menuhandlerPakSelection(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerPakSelection(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
 		if (pakIsConnected((s8)item->param) == 0) {
@@ -4316,7 +4316,7 @@ glabel menudialog0010ba10
 /*  f10bb34:	00000000 */ 	nop
 );
 
-s32 menuhandlerOpenCopyFile(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerOpenCopyFile(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_Menus[g_MpPlayerNum].data.filesel.slotindex = item->param + 1;
@@ -4329,7 +4329,7 @@ s32 menuhandlerOpenCopyFile(u32 operation, struct menuitem *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandlerOpenDeleteFile(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerOpenDeleteFile(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_Menus[g_MpPlayerNum].data.filesel.slotindex = item->param + 1;
@@ -4341,9 +4341,9 @@ s32 menuhandlerOpenDeleteFile(u32 operation, struct menuitem *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandlerAgentName(u32 operation, struct menuitem *item, char **value)
+s32 menuhandlerAgentName(u32 operation, struct menuitem *item, union handlerdata *data)
 {
-	char *ptr = *value;
+	char *name = data->ptrs[0];
 
 	if (!g_SaveLocations[0]) {
 		return 0;
@@ -4351,10 +4351,10 @@ s32 menuhandlerAgentName(u32 operation, struct menuitem *item, char **value)
 
 	switch (operation) {
 	case MENUOP_GETTEXT:
-		strcpy(ptr, g_SoloSaveFile.name);
+		strcpy(name, g_SoloSaveFile.name);
 		break;
 	case MENUOP_SETTEXT:
-		strcpy(g_SoloSaveFile.name, ptr);
+		strcpy(g_SoloSaveFile.name, name);
 		break;
 	case MENUOP_SET:
 		func0f10a51c(0, 0);

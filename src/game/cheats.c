@@ -410,7 +410,7 @@ glabel cheatMenuHandleCheatCheckbox
 //	return 0;
 //}
 
-s32 cheatMenuHandleBuddyCheckbox(s32 operation, struct menuitem *item, s32 arg2)
+s32 cheatMenuHandleBuddyCheckbox(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GET:
@@ -582,10 +582,13 @@ char *cheatGetMarquee(struct menuitem *arg0)
 	char difficultyname[256];
 	char cheatname[256];
 
-	if (g_Menus[g_MpPlayerNum].curframe && g_Menus[g_MpPlayerNum].curframe->item && g_Menus[g_MpPlayerNum].curframe->item->type == MENUITEMTYPE_CHECKBOX) {
-		cheat_id = g_Menus[g_MpPlayerNum].curframe->item->param;
+	if (g_Menus[g_MpPlayerNum].curframe
+			&& g_Menus[g_MpPlayerNum].curframe->focuseditem
+			&& g_Menus[g_MpPlayerNum].curframe->focuseditem->type == MENUITEMTYPE_CHECKBOX) {
+		cheat_id = g_Menus[g_MpPlayerNum].curframe->focuseditem->param;
 
-		if (g_Menus[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog && g_Menus[g_MpPlayerNum].curframe->item == &g_CheatsBuddiesMenuItems[0]) {
+		if (g_Menus[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog
+				&& g_Menus[g_MpPlayerNum].curframe->focuseditem == &g_CheatsBuddiesMenuItems[0]) {
 			// Velvet
 			sprintf(g_CheatMarqueeString, "%s: %s", langGet(L_MPWEAPONS(143)), langGet(L_MPWEAPONS(117))); // "Buddy Available", "Velvet Dark"
 			return g_CheatMarqueeString;
@@ -656,7 +659,7 @@ char *cheatGetMarquee(struct menuitem *arg0)
 	return langGet(L_MPWEAPONS(142)); // "Select cheat for information"
 }
 
-bool cheatMenuHandleTurnOffAllCheats(u32 operation, u32 arg1, u32 *arg2)
+s32 cheatMenuHandleTurnOffAllCheats(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_CheatsEnabledBank0 = 0;

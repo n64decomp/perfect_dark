@@ -222,7 +222,7 @@ s32 menuhandlerMpInGameLimitLabel(u32 operation, struct menuitem *item, s32 *val
 	return 0;
 }
 
-s32 menuhandlerMpPause(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerMpPause(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (mpIsPaused()) {

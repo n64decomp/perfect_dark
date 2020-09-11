@@ -15713,7 +15713,7 @@ glabel func0f0f057c
 Gfx *menuRenderItem(Gfx *gdl, struct menuframe *frame)
 {
 
-	switch (frame->item->type) {
+	switch (frame->focuseditem->type) {
 	case MENUITEMTYPE_CUSTOM:      return menuRenderItemCustom(gdl);
 	case MENUITEMTYPE_SELECTABLE:  return menuRenderItemSelectable(gdl);
 	case MENUITEMTYPE_SLIDER:      return menuRenderItemSlider(gdl);

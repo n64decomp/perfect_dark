@@ -3245,20 +3245,31 @@ struct hoverprop {
 	u16 size;
 };
 
+union handlerdata {
+	s32 words[4];
+	s32 word;
+	void *ptrs[4];
+};
+
 struct menuitem {
 	u8 type;
 	u8 param;
 	u32 param1;
 	u32 param2;
 	u32 param3;
-	void *handler;
+
+	union {
+		void *handler;
+		//struct menudialog *dialog;
+		//s32 (*handler)(u32 operation, struct menuitem *item, union handlerdata *data);
+	} ptr;
 };
 
 struct menudialog {
 	u8 type;
 	u32 title;
 	struct menuitem *items;
-	void *unk0c;
+	s32 (*handler)(u32 operation, struct menudialog *dialog, union handlerdata *data);
 	u32 unk10;
 	struct menudialog *nextsibling;
 };
@@ -3453,7 +3464,7 @@ struct menulayer {
 struct menuframe {
 	struct menudialog *dialog;
 	u32 unk04;
-	struct menuitem *item;
+	struct menuitem *focuseditem;
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ s32 unk14;
@@ -3466,12 +3477,12 @@ struct menuframe {
 	/*0x30*/ u32 unk30;
 	/*0x34*/ u32 unk34;
 	/*0x38*/ u32 unk38;
-	/*0x3c*/ u8 unk3c;
-	/*0x40*/ u32 unk40;
+	/*0x3c*/ u8 dialogtype;
+	/*0x40*/ f32 unk40;
 	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
-	/*0x4c*/ u32 unk4c;
-	/*0x50*/ u32 unk50;
+	/*0x48*/ f32 unk48;
+	/*0x4c*/ f32 unk4c;
+	/*0x50*/ f32 unk50;
 	/*0x54*/ u32 unk54;
 	/*0x58*/ u32 unk58;
 	/*0x5c*/ u32 unk5c;
@@ -3480,6 +3491,7 @@ struct menuframe {
 	/*0x68*/ u32 unk68;
 	/*0x6c*/ u8 unk6c;
 	/*0x6d*/ s8 unk6d;
+	/*0x6e*/ s8 unk6e;
 };
 
 struct menudfc {
@@ -4360,12 +4372,6 @@ struct mparena {
 	s16 stagenum;
 	u8 unlock;
 	u16 name;
-};
-
-// Throwaway struct for passing two values to menu handlers
-struct numandtext {
-	s32 num;
-	char *text;
 };
 
 struct savelocation {

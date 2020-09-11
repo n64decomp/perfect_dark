@@ -23,6 +23,6 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum);
 s32 menuhandlerMpEndGame(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandler00178018(u32 operation, struct menuitem *item, s32 *value);
 s32 menuhandlerMpInGameLimitLabel(u32 operation, struct menuitem *item, s32 *value);
-s32 menuhandlerMpPause(u32 operation, struct menuitem *item, s32 *value);
+s32 menuhandlerMpPause(u32 operation, struct menuitem *item, union handlerdata *data);
 
 #endif

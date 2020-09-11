@@ -488,7 +488,7 @@ glabel var7f1b2cd8
 /*  f0fdc70:	00000000 */ 	nop
 );
 
-bool menudialogMpPickTarget(u32 operation, struct menudialog *dialog, struct menu *menu)
+s32 menudialogMpPickTarget(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:

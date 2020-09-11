@@ -21,12 +21,12 @@ u32 func0f0ff6f4(void);
 u32 func0f0ff7bc(void);
 u32 func0f100128(void);
 u32 func0f100ad0(void);
-s32 menudialog000fcd48(u32, u32, u32 *);
-bool menudialogMpPickTarget(u32 operation, struct menudialog *dialog, struct menu *menu);
-s32 menuhandler000fcc34(u32, u32, u32 *);
-s32 menuhandler000fd6f0(u32, u32, u32 *);
-s32 menuhandlerRepairPak(u32 operation, struct menuitem *item, s32 *value);
-s32 menuhandlerRetrySavePak(u32 operation, struct menuitem *item, s32 *value);
-s32 menuhandlerWarnRepairPak(u32 operation, struct menuitem *item, s32 *value);
+s32 menudialog000fcd48(u32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 menudialogMpPickTarget(u32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 menuhandler000fcc34(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandler000fd6f0(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerRepairPak(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerRetrySavePak(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerWarnRepairPak(u32 operation, struct menuitem *item, union handlerdata *data);
 
 #endif

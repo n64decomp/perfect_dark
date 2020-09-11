@@ -3,10 +3,10 @@
 #include <ultra64.h>
 #include "types.h"
 
-bool menudialogCombatSimulator(u32 operation, struct menudialog *dialog, struct menu *menu);
-s32 menuhandlerMpAdvancedSetup(u32 operation, struct menuitem *item, s32 *value);
-s32 menuhandlerMpDisplayTeam(u32 operation, struct menuitem *item, s32 *value);
-s32 menuhandlerMpOneHitKills(u32 operation, struct menuitem *item, s32 *value);
+s32 menudialogCombatSimulator(u32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 menuhandlerMpAdvancedSetup(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerMpDisplayTeam(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerMpOneHitKills(u32 operation, struct menuitem *item, union handlerdata *data);
 void scenarioHtbInit(void);
 s32 scenarioHtbCallback08(void);
 void scenarioHtbReset(void);
@@ -26,7 +26,7 @@ bool scenarioCtcRadar2(Gfx **gdl, struct prop *prop);
 bool scenarioCtcCallback2c(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4);
 s32 scenarioCtcGetMaxTeams(void);
 bool scenarioCtcIsRoomHighlighted(s16 room);
-s32 menuhandlerMpHillTime(u32 operation, struct menuitem *item, struct numandtext *value);
+s32 menuhandlerMpHillTime(u32 operation, struct menuitem *item, union handlerdata *data);
 void scenarioKohCallback40(s32 *arg0);
 void scenarioKohCallback44(s32 *arg0);
 void scenarioKohInit(void);
@@ -44,7 +44,7 @@ void scenarioPacInit(void);
 void scenarioPacReset(void);
 void scenarioPacKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3);
 Gfx *scenarioPacRadar(Gfx *gdl);
-s32 menuhandlerMpOpenOptions(u32 operation, struct menuitem *item, s32 *value);
+s32 menuhandlerMpOpenOptions(u32 operation, struct menuitem *item, union handlerdata *data);
 void scenarioCallback40(s32 *arg0);
 void scenarioCallback44(s32 *arg0);
 void scenarioInit(void);

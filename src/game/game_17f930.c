@@ -73,7 +73,7 @@ const char var7f1b8878[] = "PopACapReset -> Done\n";
 const char var7f1b8890[] = "PopACapTick : Current Victim = %d (Player %d)\n";
 const char var7f1b88c0[] = "%d:%02d";
 
-bool menudialogCombatSimulator(u32 operation, struct menudialog *dialog, struct menu *menu)
+s32 menudialogCombatSimulator(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Vars.unk000494[0] = 0;
@@ -95,7 +95,7 @@ bool menudialogCombatSimulator(u32 operation, struct menudialog *dialog, struct 
 	return false;
 }
 
-s32 menuhandlerMpAdvancedSetup(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerMpAdvancedSetup(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		func0f0f820c(&menudialog_mpgamesetup3, 3);
@@ -312,7 +312,7 @@ void func0f17fcb0(s32 silent)
 	}
 }
 
-s32 menuhandlerMpDisplayTeam(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerMpDisplayTeam(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
 		if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
@@ -322,10 +322,10 @@ s32 menuhandlerMpDisplayTeam(u32 operation, struct menuitem *item, s32 *value)
 		return true;
 	}
 
-	return menuhandlerMpCheckboxOption(operation, item, value);
+	return menuhandlerMpCheckboxOption(operation, item, data);
 }
 
-s32 menuhandlerMpOneHitKills(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerMpOneHitKills(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED || operation == MENUOP_CHECKHIDDEN) {
 		if (mpIsChallengeComplete(CHALLENGE_7)) {
@@ -335,7 +335,7 @@ s32 menuhandlerMpOneHitKills(u32 operation, struct menuitem *item, s32 *value)
 		return true;
 	}
 
-	return menuhandlerMpCheckboxOption(operation, item, value);
+	return menuhandlerMpCheckboxOption(operation, item, data);
 }
 
 GLOBAL_ASM(
@@ -1769,17 +1769,17 @@ glabel scenarioCtcCallback38
 /*  f181a94:	00000000 */ 	nop
 );
 
-s32 menuhandlerMpHillTime(u32 operation, struct menuitem *item, struct numandtext *value)
+s32 menuhandlerMpHillTime(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GETSLIDER:
-		value->num = g_Vars.mphilltime;
+		data->word = g_Vars.mphilltime;
 		break;
 	case MENUOP_SET:
-		g_Vars.mphilltime = (u8)value->num;
+		g_Vars.mphilltime = (u8)data->word;
 		break;
 	case MENUOP_GETSLIDERLABEL:
-		sprintf(value->text, langGet(L_MPWEAPONS(23)), value->num + 10); // "%ds/Point"
+		sprintf(data->ptrs[1], langGet(L_MPWEAPONS(23)), data->word + 10); // "%ds/Point"
 		break;
 	}
 
@@ -5437,7 +5437,7 @@ glabel var7f1b897c
 /*  f18537c:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-s32 menuhandlerMpOpenOptions(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerMpOpenOptions(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPushDialog(g_MpScenarios[g_MpSetup.scenario].optionsdialog);

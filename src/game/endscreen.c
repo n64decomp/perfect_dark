@@ -34,7 +34,7 @@
 #include "lib/lib_13130.h"
 #include "types.h"
 
-s32 menuhandlerDeclineMission(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerDeclineMission(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -44,7 +44,7 @@ s32 menuhandlerDeclineMission(u32 operation, struct menuitem *item, s32 *value)
 	return 0;
 }
 
-void menudialogRetryMission(u32 operation, struct menudialog *dialog, struct menuthing **thingptr)
+s32 menudialogRetryMission(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_TICK:
@@ -60,7 +60,7 @@ void menudialogRetryMission(u32 operation, struct menudialog *dialog, struct men
 				if (dialog == g_Menus[g_MpPlayerNum].curframe->dialog
 						|| (dialog->nextsibling && dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog)) {
 #endif
-					struct menuthing *thing = *thingptr;
+					struct menuthing *thing = data->ptrs[0];
 					bool pass = false;
 
 					if (thing->unk03) {
@@ -85,8 +85,8 @@ void menudialogRetryMission(u32 operation, struct menudialog *dialog, struct men
 					}
 
 					if (pass) {
-						s32 values[4];
-						menuhandlerAcceptMission(MENUOP_SET, &dialog->items[1], values);
+						union handlerdata data2;
+						menuhandlerAcceptMission(MENUOP_SET, &dialog->items[1], &data2);
 					}
 #if VERSION >= VERSION_NTSC_FINAL
 				}
@@ -95,7 +95,7 @@ void menudialogRetryMission(u32 operation, struct menudialog *dialog, struct men
 		}
 	}
 
-	menudialog00103608(operation, dialog, thingptr);
+	menudialog00103608(operation, dialog, data);
 }
 
 char *menuDialogTitleRetryStageName(struct menudialog *dialog)
@@ -132,14 +132,14 @@ char *menuDialogTitleNextMissionStageName(struct menudialog *dialog)
 	return g_StringPointer;
 }
 
-s32 menuhandlerReplayPreviousMission(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerReplayPreviousMission(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.stageindex--;
 		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
 	}
 
-	return menuhandlerAcceptMission(operation, NULL, value);
+	return menuhandlerAcceptMission(operation, NULL, data);
 }
 
 struct menuitem g_MenuItemsRetryMission[] = {
@@ -374,11 +374,11 @@ void func0f10d770(void)
 	g_Menus[3].unk844 = func0f09ddec() + func0f0e4fe0();
 }
 
-s32 menuhandlerReplayLastLevel(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerReplayLastLevel(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
-		return menuhandlerAcceptMission(operation, NULL, value);
+		return menuhandlerAcceptMission(operation, NULL, data);
 	}
 
 	return 0;
@@ -438,7 +438,7 @@ struct menudialog g_MenuDialogObjectivesCompletedNarrow = {
 /**
  * Displayed after Defense and Skedar Ruins completion screens.
  */
-s32 menuhandlerContinueMission(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerContinueMission(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		endscreenHandleContinue(2);
@@ -869,7 +869,7 @@ struct menuitem g_MenuItemsSoloEndscreenWide[] = {
  * 5 = timed cheat name
  * 6 = limb shots
  */
-s32 menuhandlerEndscreenCheats(u32 operation, struct menuitem *item, u32 *values)
+s32 menuhandlerEndscreenCheats(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_GETCOLOUR
 			&& ((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x200) || item->param == 5)) {
@@ -883,14 +883,14 @@ s32 menuhandlerEndscreenCheats(u32 operation, struct menuitem *item, u32 *values
 			return 0;
 		}
 
-		values[1] = colourBlend(values[1], g_CheatColour, weight);
+		data->words[1] = colourBlend(data->words[1], g_CheatColour, weight);
 
 		if (item->param == 3) { // completion cheat name
-			values[0] = colourBlend(values[0], g_CheatColour, weight);
+			data->words[0] = colourBlend(data->words[0], g_CheatColour, weight);
 		}
 
 		if (item->param == 5) { // timed cheat name
-			values[0] = colourBlend(values[0], g_CheatColour, weight);
+			data->words[0] = colourBlend(data->words[0], g_CheatColour, weight);
 		}
 	}
 

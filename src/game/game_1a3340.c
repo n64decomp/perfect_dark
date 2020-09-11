@@ -33,7 +33,7 @@
 #include "lib/lib_1a500.h"
 #include "types.h"
 
-s32 frDetailsOkMenuHandler(u32 operation, struct menuitem *item, s32 *value)
+s32 frDetailsOkMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	s32 i;
 
@@ -75,7 +75,7 @@ s32 frDetailsOkMenuHandler(u32 operation, struct menuitem *item, s32 *value)
 	return 0;
 }
 
-s32 frAbortMenuHandler(u32 operation, struct menuitem *item, s32 *value)
+s32 frAbortMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (frIsInTraining()) {
@@ -567,7 +567,7 @@ glabel var7f1b9944
 /*  f1a3af0:	00000000 */ 	nop
 );
 
-s32 frTrainingStatsMenuDialog(u32 operation, u32 arg1, u32 *arg2)
+s32 frTrainingStatsMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
 		if (frIsInTraining() == false) {
@@ -582,7 +582,7 @@ s32 frTrainingStatsMenuDialog(u32 operation, u32 arg1, u32 *arg2)
  * This is an unused menu handler which implements the difficulty selection
  * using a dropdown.
  */
-char *frDifficultyDropdownMenuHandler(u32 operation, struct menuitem *item, u32 *value)
+s32 frDifficultyDropdownMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	u16 names[] = {
 		L_MPMENU(439), // "Bronze"
@@ -592,27 +592,27 @@ char *frDifficultyDropdownMenuHandler(u32 operation, struct menuitem *item, u32 
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		*value = ciGetFiringRangeScore(frGetSlot()) + 1;
+		data->word = ciGetFiringRangeScore(frGetSlot()) + 1;
 
-		if (*value > 3) {
-			*value = 3;
+		if ((u32)data->word > 3) {
+			data->word = 3;
 		}
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return langGet(names[*value]);
+		return (s32) langGet(names[data->word]);
 	case MENUOP_SET:
-		frSetDifficulty(*value);
+		frSetDifficulty(data->word);
 		menuPushDialog(&menudialog_frtraininginfo2);
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		*value = frGetDifficulty();
+		data->word = frGetDifficulty();
 		break;
 	}
 
-	return NULL;
+	return 0;
 }
 
-s32 frDifficultyMenuHandler(u32 operation, struct menuitem *item, s32 *value)
+s32 frDifficultyMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_CHECKHIDDEN:
@@ -2500,7 +2500,7 @@ glabel menuhandler001a44c0
 /*  f1a5d58:	00000000 */ 	nop
 );
 
-s32 menuhandlerFrFailedContinue(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerFrFailedContinue(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (g_Vars.currentplayer->prop->rooms[0] == 0xa) {
@@ -2642,7 +2642,7 @@ struct menudialog g_MenuDialogFrTrainingStatsFailed = {
 	NULL,
 };
 
-char *ciOfficeInformationMenuHandler(u32 operation, struct menuitem *item, u32 *value)
+s32 ciOfficeInformationMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct optiongroup groups[2] = {
 		{ 0, L_MPMENU(421) }, // "Character Profiles"
@@ -2658,19 +2658,19 @@ char *ciOfficeInformationMenuHandler(u32 operation, struct menuitem *item, u32 *
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		*value = numunlockedchrbios + numunlockedmiscbios;
+		data->word = numunlockedchrbios + numunlockedmiscbios;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		if (*value < numunlockedchrbios) {
-			chrbio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(*value));
-			return langGet(chrbio->name);
+		if ((u32)data->words[0] < numunlockedchrbios) {
+			chrbio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot((u32)data->words[0]));
+			return (s32) langGet(chrbio->name);
 		} else {
-			miscbio = ciGetMiscBio(ciGetMiscBioIndexBySlot(*value - numunlockedchrbios));
-			return langGet(miscbio->name);
+			miscbio = ciGetMiscBio(ciGetMiscBioIndexBySlot((u32)data->words[0] - numunlockedchrbios));
+			return (s32) langGet(miscbio->name);
 		}
 		break;
 	case MENUOP_SET:
-		var800888a0 = *value;
+		var800888a0 = data->word;
 		if (var800888a0 < numunlockedchrbios) {
 			menuPushDialog(&menudialog_characterprofile);
 		} else {
@@ -2678,19 +2678,19 @@ char *ciOfficeInformationMenuHandler(u32 operation, struct menuitem *item, u32 *
 		}
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		*value = var800888a0;
+		data->word = var800888a0;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		*value = 2;
+		data->word = 2;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return langGet(groups[*value].name);
+		return (s32) langGet(groups[data->word].name);
 	case MENUOP_GETGROUPSTARTINDEX:
-		value[2] = *value == 0 ? 0 : numunlockedchrbios;
+		data->words[2] = data->word == 0 ? 0 : numunlockedchrbios;
 		break;
 	}
 
-	return NULL;
+	return 0;
 }
 
 GLOBAL_ASM(
@@ -2984,32 +2984,32 @@ char *ciMenuTextMiscBioName(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *dtDeviceListMenuHandler(u32 operation, struct menuitem *item, s32 *value)
+s32 dtDeviceListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		*value = dtGetNumAvailable();
+		data->word = dtGetNumAvailable();
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return weaponGetName(dtGetWeaponByDeviceIndex(dtGetIndexBySlot(*value)));
+		return (s32) weaponGetName(dtGetWeaponByDeviceIndex(dtGetIndexBySlot(data->word)));
 	case MENUOP_SET:
-		g_DtSlot = *value;
+		g_DtSlot = data->word;
 		menuPushDialog(&g_DeviceTrainingDetailsMenuDialog);
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		*value = g_DtSlot;
+		data->word = g_DtSlot;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		*value = 0;
+		data->word = 0;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return NULL;
+		return 0;
 	case MENUOP_GETGROUPSTARTINDEX:
-		value[2] = 0;
+		data->words[2] = 0;
 		break;
 	}
 
-	return NULL;
+	return 0;
 }
 
 char *dtMenuTextName(struct menuitem *item)
@@ -3019,7 +3019,7 @@ char *dtMenuTextName(struct menuitem *item)
 	return weaponGetName(weaponnum);
 }
 
-s32 menuhandlerDtOkOrResume(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerDtOkOrResume(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		// @bug: dtBegin() should not be called if training is already in
@@ -3031,7 +3031,7 @@ s32 menuhandlerDtOkOrResume(u32 operation, struct menuitem *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandler001a6514(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandler001a6514(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		dtEnd();
@@ -3253,7 +3253,7 @@ char *dtMenuTextTimeTakenValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-bool menudialogDeviceTrainingResults(u32 operation, struct menudialog *dialog, struct menu *menu)
+s32 menudialogDeviceTrainingResults(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
 		chrSetStageFlag(NULL, 0x08000000);
@@ -3262,32 +3262,32 @@ bool menudialogDeviceTrainingResults(u32 operation, struct menudialog *dialog, s
 	return false;
 }
 
-char *htHoloListMenuHandler(u32 operation, struct menuitem *item, s32 *value)
+s32 htHoloListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		*value = htGetNumUnlocked();
+		data->word = htGetNumUnlocked();
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return htGetName(htGetIndexBySlot(*value));
+		return (s32) htGetName(htGetIndexBySlot(data->word));
 	case MENUOP_SET:
-		var80088bb4 = *value;
+		var80088bb4 = data->word;
 		menuPushDialog(&g_HoloTrainingDetailsMenuDialog);
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		*value = var80088bb4;
+		data->word = var80088bb4;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		*value = 0;
+		data->word = 0;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return NULL;
+		return 0;
 	case MENUOP_GETGROUPSTARTINDEX:
-		value[2] = 0;
+		data->words[2] = 0;
 		break;
 	}
 
-	return NULL;
+	return 0;
 }
 
 char *htMenuTextName(struct menuitem *item)
@@ -3295,7 +3295,7 @@ char *htMenuTextName(struct menuitem *item)
 	return htGetName(htGetIndexBySlot(var80088bb4));
 }
 
-s32 menuhandler001a6a34(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandler001a6a34(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		htBegin();
@@ -3305,7 +3305,7 @@ s32 menuhandler001a6a34(u32 operation, struct menuitem *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandler001a6a70(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandler001a6a70(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		htEnd();
@@ -3314,7 +3314,7 @@ s32 menuhandler001a6a70(u32 operation, struct menuitem *item, s32 *value)
 	return 0;
 }
 
-bool menudialog001a6aa4(u32 operation, struct menudialog *dialog, struct menu *menu)
+s32 menudialog001a6aa4(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -3371,7 +3371,7 @@ char *htMenuTextTimeTakenValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-bool menudialogFiringRangeResults(u32 operation, struct menudialog *dialog, struct menu *menu)
+s32 menudialogFiringRangeResults(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
 		chrSetStageFlag(NULL, 0x08000000);
@@ -3621,7 +3621,7 @@ struct menudialog g_HoloTrainingStatsCompletedMenuDialog = {
 	&g_HoloTrainingListMenuDialog,
 };
 
-char *ciHangarInformationMenuHandler(u32 operation, struct menuitem *item, s32 *value)
+s32 ciHangarInformationMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct optiongroup groups[2] = {
 		{ 0, L_MPMENU(419) }, // "Locations"
@@ -3635,13 +3635,13 @@ char *ciHangarInformationMenuHandler(u32 operation, struct menuitem *item, s32 *
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		*value = ciGetNumUnlockedHangarBios();
+		data->word = ciGetNumUnlockedHangarBios();
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		bio = ciGetHangarBio(ciGetHangarBioIndexBySlot(*value));
-		return langGet(bio->name);
+		bio = ciGetHangarBio(ciGetHangarBioIndexBySlot(data->word));
+		return (s32) langGet(bio->name);
 	case MENUOP_SET:
-		g_HangarBioSlot = *value;
+		g_HangarBioSlot = data->word;
 		bioindex = ciGetHangarBioIndexBySlot(g_HangarBioSlot);
 
 		if (bioindex <= HANGARBIO_SKEDARRUINS) {
@@ -3651,19 +3651,19 @@ char *ciHangarInformationMenuHandler(u32 operation, struct menuitem *item, s32 *
 		}
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		*value = g_HangarBioSlot;
+		data->word = g_HangarBioSlot;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		*value = 2;
+		data->word = 2;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return langGet(groups[*value].name);
+		return (s32) langGet(groups[data->word].name);
 	case MENUOP_GETGROUPSTARTINDEX:
-		value[2] = *value == 0 ? 0 : groups[1].offset;
+		data->words[2] = data->words[0] == 0 ? 0 : groups[1].offset;
 		break;
 	}
 
-	return NULL;
+	return 0;
 }
 
 u32 var800897b4 = 0x1b0d0e10;
