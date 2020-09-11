@@ -958,74 +958,35 @@ s32 menuhandlerPakErrorTryAgain(u32 operation, struct menuitem *item, union hand
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerSaveElsewhere
-.late_rodata
-glabel var7f1b3668
-.word menuhandlerSaveElsewhere+0x70 # f108c94
-glabel var7f1b366c
-.word menuhandlerSaveElsewhere+0x70 # f108c94
-glabel var7f1b3670
-.word menuhandlerSaveElsewhere+0x70 # f108c94
-glabel var7f1b3674
-.word menuhandlerSaveElsewhere+0x78 # f108c9c
-glabel var7f1b3678
-.word menuhandlerSaveElsewhere+0x84 # f108ca8
-glabel var7f1b367c
-.word menuhandlerSaveElsewhere+0x8c # f108cb0
-glabel var7f1b3680
-.word menuhandlerSaveElsewhere+0x70 # f108c94
-glabel var7f1b3684
-.word menuhandlerSaveElsewhere+0x84 # f108ca8
-glabel var7f1b3688
-.word menuhandlerSaveElsewhere+0x78 # f108c9c
-.text
-/*  f108c24:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f108c28:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f108c2c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f108c30:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f108c34:	14810021 */ 	bne	$a0,$at,.L0f108cbc
-/*  f108c38:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f108c3c:	0fc3ccef */ 	jal	menuCloseDialog
-/*  f108c40:	00000000 */ 	nop
-/*  f108c44:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f108c48:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f108c4c:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe42)
-/*  f108c50:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f108c54:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f108c58:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f108c5c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f108c60:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f108c64:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f108c68:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f108c6c:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f108c70:	9042ee42 */ 	lbu	$v0,%lo(g_Menus+0xe42)($v0)
-/*  f108c74:	2c410009 */ 	sltiu	$at,$v0,0x9
-/*  f108c78:	1020000d */ 	beqz	$at,.L0f108cb0
-/*  f108c7c:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f108c80:	3c017f1b */ 	lui	$at,%hi(var7f1b3668)
-/*  f108c84:	00380821 */ 	addu	$at,$at,$t8
-/*  f108c88:	8c383668 */ 	lw	$t8,%lo(var7f1b3668)($at)
-/*  f108c8c:	03000008 */ 	jr	$t8
-/*  f108c90:	00000000 */ 	nop
-/*  f108c94:	10000006 */ 	b	.L0f108cb0
-/*  f108c98:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f108c9c:	24190002 */ 	addiu	$t9,$zero,0x2
-/*  f108ca0:	10000003 */ 	b	.L0f108cb0
-/*  f108ca4:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f108ca8:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f108cac:	afa8001c */ 	sw	$t0,0x1c($sp)
-.L0f108cb0:
-/*  f108cb0:	24440009 */ 	addiu	$a0,$v0,0x9
-/*  f108cb4:	0fc42947 */ 	jal	func0f10a51c
-/*  f108cb8:	8fa5001c */ 	lw	$a1,0x1c($sp)
-.L0f108cbc:
-/*  f108cbc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108cc0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f108cc4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f108cc8:	03e00008 */ 	jr	$ra
-/*  f108ccc:	00000000 */ 	nop
-);
+s32 menuhandlerSaveElsewhere(u32 operation, struct menuitem *item, union handlerdata *data)
+{
+	if (operation == MENUOP_SET) {
+		s32 sp1c;
+
+		menuCloseDialog();
+
+		switch (g_Menus[g_MpPlayerNum].unke42) {
+		case 0:
+		case 1:
+		case 2:
+		case 6:
+			sp1c = 0;
+			break;
+		case 3:
+		case 8:
+			sp1c = 2;
+			break;
+		case 4:
+		case 7:
+			sp1c = 1;
+			break;
+		}
+
+		func0f10a51c(g_Menus[g_MpPlayerNum].unke42 + 9, sp1c);
+	}
+
+	return 0;
+}
 
 s32 menuhandlerPakCancelSave2(u32 operation, struct menuitem *item, union handlerdata *data)
 {
