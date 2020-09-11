@@ -75,15 +75,6 @@ const char var7f1b7ffc[] = "";
 const char var7f1b8000[] = "";
 const char var7f1b8004[] = "";
 const char var7f1b8008[] = "";
-const char var7f1b800c[] = "%s%s%.00f%%\n";
-const char var7f1b801c[] = "";
-const char var7f1b8020[] = "";
-const char var7f1b8024[] = "";
-const char var7f1b8028[] = "\n";
-const char var7f1b802c[] = "%s";
-const char var7f1b8030[] = "";
-const char var7f1b8034[] = "";
-const char var7f1b8038[] = "%d:\n";
 
 s32 menuhandlerMpDropOut(u32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -3425,80 +3416,34 @@ s32 menuhandlerMpRestoreScoreDefaults(u32 operation, struct menuitem *item, unio
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerMpHandicapPlayer
-/*  f17c41c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f17c420:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17c424:	1081001a */ 	beq	$a0,$at,.L0f17c490
-/*  f17c428:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f17c42c:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f17c430:	1081000e */ 	beq	$a0,$at,.L0f17c46c
-/*  f17c434:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f17c438:	1081001e */ 	beq	$a0,$at,.L0f17c4b4
-/*  f17c43c:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f17c440:	14810033 */ 	bne	$a0,$at,.L0f17c510
-/*  f17c444:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x16)
-/*  f17c448:	90af0001 */ 	lbu	$t7,0x1($a1)
-/*  f17c44c:	95cecb9e */ 	lhu	$t6,%lo(g_MpSetup+0x16)($t6)
-/*  f17c450:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f17c454:	01f8c804 */ 	sllv	$t9,$t8,$t7
-/*  f17c458:	01d94024 */ 	and	$t0,$t6,$t9
-/*  f17c45c:	5500002d */ 	bnezl	$t0,.L0f17c514
-/*  f17c460:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17c464:	1000002b */ 	b	.L0f17c514
-/*  f17c468:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f17c46c:
-/*  f17c46c:	90a90001 */ 	lbu	$t1,0x1($a1)
-/*  f17c470:	3c0b800b */ 	lui	$t3,%hi(g_MpPlayers+0x9d)
-/*  f17c474:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f17c478:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f17c47c:	000a5140 */ 	sll	$t2,$t2,0x5
-/*  f17c480:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f17c484:	916bc855 */ 	lbu	$t3,%lo(g_MpPlayers+0x9d)($t3)
-/*  f17c488:	10000021 */ 	b	.L0f17c510
-/*  f17c48c:	accb0000 */ 	sw	$t3,0x0($a2)
-.L0f17c490:
-/*  f17c490:	90ad0001 */ 	lbu	$t5,0x1($a1)
-/*  f17c494:	94cc0002 */ 	lhu	$t4,0x2($a2)
-/*  f17c498:	3c01800b */ 	lui	$at,%hi(g_MpPlayers+0x9d)
-/*  f17c49c:	000dc080 */ 	sll	$t8,$t5,0x2
-/*  f17c4a0:	030dc021 */ 	addu	$t8,$t8,$t5
-/*  f17c4a4:	0018c140 */ 	sll	$t8,$t8,0x5
-/*  f17c4a8:	00380821 */ 	addu	$at,$at,$t8
-/*  f17c4ac:	10000018 */ 	b	.L0f17c510
-/*  f17c4b0:	a02cc855 */ 	sb	$t4,%lo(g_MpPlayers+0x9d)($at)
-.L0f17c4b4:
-/*  f17c4b4:	90af0001 */ 	lbu	$t7,0x1($a1)
-/*  f17c4b8:	3c04800b */ 	lui	$a0,%hi(g_MpPlayers+0x9d)
-/*  f17c4bc:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f17c4c0:	000f7080 */ 	sll	$t6,$t7,0x2
-/*  f17c4c4:	01cf7021 */ 	addu	$t6,$t6,$t7
-/*  f17c4c8:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f17c4cc:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f17c4d0:	0fc61ddc */ 	jal	func0f187770
-/*  f17c4d4:	9084c855 */ 	lbu	$a0,%lo(g_MpPlayers+0x9d)($a0)
-/*  f17c4d8:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f17c4dc:	44812000 */ 	mtc1	$at,$f4
-/*  f17c4e0:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f17c4e4:	3c057f1c */ 	lui	$a1,%hi(var7f1b800c)
-/*  f17c4e8:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f17c4ec:	3c067f1c */ 	lui	$a2,%hi(var7f1b801c)
-/*  f17c4f0:	3c077f1c */ 	lui	$a3,%hi(var7f1b8020)
-/*  f17c4f4:	8f240004 */ 	lw	$a0,0x4($t9)
-/*  f17c4f8:	24e78020 */ 	addiu	$a3,$a3,%lo(var7f1b8020)
-/*  f17c4fc:	24c6801c */ 	addiu	$a2,$a2,%lo(var7f1b801c)
-/*  f17c500:	24a5800c */ 	addiu	$a1,$a1,%lo(var7f1b800c)
-/*  f17c504:	46003221 */ 	cvt.d.s	$f8,$f6
-/*  f17c508:	0c004dad */ 	jal	sprintf
-/*  f17c50c:	f7a80010 */ 	sdc1	$f8,0x10($sp)
-.L0f17c510:
-/*  f17c510:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17c514:
-/*  f17c514:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f17c518:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f17c51c:	03e00008 */ 	jr	$ra
-/*  f17c520:	00000000 */ 	nop
-);
+s32 menuhandlerMpHandicapPlayer(u32 operation, struct menuitem *item, union handlerdata *data)
+{
+	switch (operation) {
+	case MENUOP_CHECKHIDDEN:
+		if ((g_MpSetup.chrslots & (1 << item->param)) == 0) {
+			return 1;
+		}
+		break;
+	case MENUOP_GETSLIDER:
+		data->slider.value = g_MpPlayers[item->param].handicap;
+		break;
+	case MENUOP_SET:
+		g_MpPlayers[item->param].handicap = (u16)data->slider.value;
+		break;
+	case MENUOP_GETSLIDERLABEL:
+		sprintf(data->slider.label, "%s%s%.00f%%\n", "", "", func0f187770(g_MpPlayers[item->param].handicap) * 100);
+		break;
+	}
+
+	return 0;
+}
+
+const char var7f1b8024[] = "";
+const char var7f1b8028[] = "\n";
+const char var7f1b802c[] = "%s";
+const char var7f1b8030[] = "";
+const char var7f1b8034[] = "";
+const char var7f1b8038[] = "%d:\n";
 
 GLOBAL_ASM(
 glabel func0f17c524
