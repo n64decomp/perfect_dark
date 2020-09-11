@@ -1007,49 +1007,24 @@ s32 menuhandlerMpCharacterBody(u32 operation, struct menuitem *item, union handl
 			g_MpPlayers[g_MpPlayerNum].base.headnum, 1);
 }
 
-GLOBAL_ASM(
-glabel menudialog0017a174
-/*  f17a174:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f17a178:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f17a17c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17a180:	1081001d */ 	beq	$a0,$at,.L0f17a1f8
-/*  f17a184:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f17a188:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f17a18c:	1081001a */ 	beq	$a0,$at,.L0f17a1f8
-/*  f17a190:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f17a194:	14810018 */ 	bne	$a0,$at,.L0f17a1f8
-/*  f17a198:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17a19c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17a1a0:	3c02800a */ 	lui	$v0,%hi(g_Menus+0x4f8)
-/*  f17a1a4:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f17a1a8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17a1ac:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17a1b0:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17a1b4:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f17a1b8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17a1bc:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17a1c0:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f17a1c4:	8c42e4f8 */ 	lw	$v0,%lo(g_Menus+0x4f8)($v0)
-/*  f17a1c8:	8c580000 */ 	lw	$t8,0x0($v0)
-/*  f17a1cc:	54b8000b */ 	bnel	$a1,$t8,.L0f17a1fc
-/*  f17a1d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17a1d4:	8ca30008 */ 	lw	$v1,0x8($a1)
-/*  f17a1d8:	8c440008 */ 	lw	$a0,0x8($v0)
-/*  f17a1dc:	24790014 */ 	addiu	$t9,$v1,0x14
-/*  f17a1e0:	13240005 */ 	beq	$t9,$a0,.L0f17a1f8
-/*  f17a1e4:	24650028 */ 	addiu	$a1,$v1,0x28
-/*  f17a1e8:	10a40003 */ 	beq	$a1,$a0,.L0f17a1f8
-/*  f17a1ec:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f17a1f0:	0fc5e80a */ 	jal	menuhandlerMpCharacterBody
-/*  f17a1f4:	2404000b */ 	addiu	$a0,$zero,0xb
-.L0f17a1f8:
-/*  f17a1f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17a1fc:
-/*  f17a1fc:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f17a200:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17a204:	03e00008 */ 	jr	$ra
-/*  f17a208:	00000000 */ 	nop
-);
+s32 menudialog0017a174(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	switch (operation) {
+	case MENUOP_OPEN:
+		break;
+	case MENUOP_CLOSE:
+		break;
+	case MENUOP_TICK:
+		if (g_Menus[g_MpPlayerNum].curframe->dialog == dialog
+				&& g_Menus[g_MpPlayerNum].curframe->focuseditem != &dialog->items[1]
+				&& &dialog->items[2] != g_Menus[g_MpPlayerNum].curframe->focuseditem) {
+			union handlerdata data;
+			menuhandlerMpCharacterBody(MENUOP_11, &dialog->items[2], &data);
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandler0017a20c

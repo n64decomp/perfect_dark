@@ -1085,6 +1085,7 @@
 #define MENUOP_GET                8
 #define MENUOP_GETSLIDER          9
 #define MENUOP_GETSLIDERLABEL     10
+#define MENUOP_11                 11
 #define MENUOP_CHECKDISABLED      12
 #define MENUOP_FOCUS              13
 #define MENUOP_CHECKPREFOCUSED    15
