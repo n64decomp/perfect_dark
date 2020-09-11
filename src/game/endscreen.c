@@ -70,11 +70,11 @@ s32 menudialogRetryMission(u32 operation, struct menudialog *dialog, union handl
 
 					thing->unk03 = 0;
 
-					if (thing->unk0a) {
+					if (thing->start) {
 						pass = true;
 					}
 
-					thing->unk0a = 0;
+					thing->start = 0;
 
 					if (thing->unk02
 							&& g_Menus[g_MpPlayerNum].curframe

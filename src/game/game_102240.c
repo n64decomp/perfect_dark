@@ -611,47 +611,23 @@ s32 menuhandlerSfxVolume(u32 operation, struct menuitem *item, union handlerdata
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menudialog00103368
-/*  f103368:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10336c:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f103370:	1481001c */ 	bne	$a0,$at,.L0f1033e4
-/*  f103374:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f103378:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10337c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f103380:	3c02800a */ 	lui	$v0,%hi(g_Menus+0x4f8)
-/*  f103384:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f103388:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10338c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f103390:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f103394:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f103398:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10339c:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f1033a0:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f1033a4:	8c42e4f8 */ 	lw	$v0,%lo(g_Menus+0x4f8)($v0)
-/*  f1033a8:	5040000f */ 	beqzl	$v0,.L0f1033e8
-/*  f1033ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1033b0:	8c580000 */ 	lw	$t8,0x0($v0)
-/*  f1033b4:	54b8000c */ 	bnel	$a1,$t8,.L0f1033e8
-/*  f1033b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1033bc:	8cc20000 */ 	lw	$v0,0x0($a2)
-/*  f1033c0:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f1033c4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1033c8:	8059000a */ 	lb	$t9,0xa($v0)
-/*  f1033cc:	53200005 */ 	beqzl	$t9,.L0f1033e4
-/*  f1033d0:	a040000a */ 	sb	$zero,0xa($v0)
-/*  f1033d4:	0fc40cfe */ 	jal	menuhandlerAcceptMission
-/*  f1033d8:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f1033dc:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f1033e0:	a040000a */ 	sb	$zero,0xa($v0)
-.L0f1033e4:
-/*  f1033e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1033e8:
-/*  f1033e8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1033ec:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1033f0:	03e00008 */ 	jr	$ra
-/*  f1033f4:	00000000 */ 	nop
-);
+s32 menudialogBriefing(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	if (operation == MENUOP_TICK) {
+		if (g_Menus[g_MpPlayerNum].curframe
+				&& g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
+			struct menuthing *thing = data->dialog2.ptr;
+
+			if (thing->start) {
+				menuhandlerAcceptMission(MENUOP_SET, NULL, data);
+			}
+
+			thing->start = 0;
+		}
+	}
+
+	return 0;
+}
 
 struct menuitem menuitems_briefing[] = {
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_BRIEFING, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -662,7 +638,7 @@ struct menudialog menudialog_briefing = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(247), // "Briefing"
 	menuitems_briefing,
-	menudialog00103368,
+	menudialogBriefing,
 	0x00000008,
 	NULL,
 };
@@ -1291,11 +1267,11 @@ s32 menudialogCoopAntiOptions(u32 operation, struct menudialog *dialog, union ha
 				g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
 			struct menuthing *thing = data->dialog2.ptr;
 
-			if (thing->unk0a) {
+			if (thing->start) {
 				menuhandlerBuddyOptionsContinue(MENUOP_SET, NULL, NULL);
 			}
 
-			thing->unk0a = 0;
+			thing->start = 0;
 		}
 	}
 

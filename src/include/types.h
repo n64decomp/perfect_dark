@@ -6010,6 +6010,7 @@ struct var800a4cf0 {
 	struct var800a4d00 unk10[250];
 };
 
+// Suspected to be a representation of controller inputs
 struct menuthing {
 	u8 unk00;
 	u8 unk01;
@@ -6018,7 +6019,7 @@ struct menuthing {
 	u32 unk04;
 	u8 unk08;
 	u8 unk09;
-	s8 unk0a;
+	s8 start;
 };
 
 struct mpconfigsim {
