@@ -13883,44 +13883,21 @@ glabel menuhandler000fcc34
 /*  f0fcd44:	00001025 */ 	or	$v0,$zero,$zero
 );
 
+s32 menudialog000fcd48(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	if (operation == MENUOP_TICK) {
+		if (g_Menus[g_MpPlayerNum].curframe
+				&& g_Menus[g_MpPlayerNum].curframe->dialog == dialog
+				&& func000155b4(g_Menus[g_MpPlayerNum].savedevice) == 0) {
+			func0f0f3704(&menudialog_pakremoved);
+		}
+	}
+
+	return 0;
+}
+
 GLOBAL_ASM(
-glabel menudialog000fcd48
-/*  f0fcd48:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0fcd4c:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f0fcd50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0fcd54:	14810019 */ 	bne	$a0,$at,.L0f0fcdbc
-/*  f0fcd58:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0fcd5c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f0fcd60:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f0fcd64:	3c18800a */ 	lui	$t8,%hi(g_Menus)
-/*  f0fcd68:	2718e000 */ 	addiu	$t8,$t8,%lo(g_Menus)
-/*  f0fcd6c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0fcd70:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0fcd74:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0fcd78:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0fcd7c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0fcd80:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0fcd84:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0fcd88:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f0fcd8c:	8c4304f8 */ 	lw	$v1,0x4f8($v0)
-/*  f0fcd90:	5060000b */ 	beqzl	$v1,.L0f0fcdc0
-/*  f0fcd94:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0fcd98:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f0fcd9c:	54b90008 */ 	bnel	$a1,$t9,.L0f0fcdc0
-/*  f0fcda0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0fcda4:	0c00556d */ 	jal	func000155b4
-/*  f0fcda8:	80440e6c */ 	lb	$a0,0xe6c($v0)
-/*  f0fcdac:	14400003 */ 	bnez	$v0,.L0f0fcdbc
-/*  f0fcdb0:	3c048007 */ 	lui	$a0,%hi(menudialog_pakremoved)
-/*  f0fcdb4:	0fc3cdc1 */ 	jal	func0f0f3704
-/*  f0fcdb8:	24841548 */ 	addiu	$a0,$a0,%lo(menudialog_pakremoved)
-.L0f0fcdbc:
-/*  f0fcdbc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0fcdc0:
-/*  f0fcdc0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0fcdc4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0fcdc8:	03e00008 */ 	jr	$ra
-/*  f0fcdcc:	00000000 */ 	nop
+glabel func0f0fcdd0
 /*  f0fcdd0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0fcdd4:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f0fcdd8:	afbf0014 */ 	sw	$ra,0x14($sp)

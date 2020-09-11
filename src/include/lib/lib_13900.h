@@ -42,7 +42,7 @@ u32 func00015144(void);
 u32 func0001519c(void);
 u32 func000152d0(void);
 u32 func000153c4(void);
-u32 func000155b4(void);
+bool func000155b4(u32 arg0);
 u32 func000155f4(void);
 u32 func0001561c(void);
 
