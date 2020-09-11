@@ -3938,13 +3938,14 @@ s32 menuhandlerAbortMission(u32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menudialog001063d4
-/*  f1063d4:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f1063d8:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f1063dc:	03e00008 */ 	jr	$ra
-/*  f1063e0:	00001025 */ 	or	$v0,$zero,$zero
-);
+s32 menudialogAbortMission(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	if (operation == MENUOP_TICK) {
+		// empty
+	}
+
+	return 0;
+}
 
 struct menuitem g_SoloAbortMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000012, L_OPTIONS(175), 0x00000000, NULL }, // "Do you want to abort the mission?"
@@ -3957,7 +3958,7 @@ struct menudialog g_SoloAbortMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(174), // "Warning"
 	g_SoloAbortMenuItems,
-	menudialog001063d4,
+	menudialogAbortMission,
 	0x00000000,
 	NULL,
 };
@@ -3973,7 +3974,7 @@ struct menudialog g_SoloAbortShortMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(174), // "Warning"
 	g_SoloAbortShortMenuItems,
-	menudialog001063d4,
+	menudialogAbortMission,
 	0x00000000,
 	NULL,
 };

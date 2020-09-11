@@ -27,7 +27,7 @@ s32 menudialog00103608(u32 operation, struct menudialog *dialog, union handlerda
 s32 menudialogCoopAntiOptions(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialog0010559c(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialog00105c54(u32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 menudialog001063d4(u32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 menudialogAbortMission(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 soloMenuDialogPauseStatus(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menuhandler001024dc(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandler001024fc(u32 operation, struct menuitem *item, union handlerdata *data);
