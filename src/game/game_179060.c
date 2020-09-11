@@ -5068,67 +5068,28 @@ s32 menuhandler0017e38c(u32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menudialog0017e3fc
-/*  f17e3fc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17e400:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f17e404:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17e408:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17e40c:	10810008 */ 	beq	$a0,$at,.L0f17e430
-/*  f17e410:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17e414:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f17e418:	10810029 */ 	beq	$a0,$at,.L0f17e4c0
-/*  f17e41c:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f17e420:	10810021 */ 	beq	$a0,$at,.L0f17e4a8
-/*  f17e424:	3c09800b */ 	lui	$t1,%hi(g_MpSetup+0x88)
-/*  f17e428:	10000026 */ 	b	.L0f17e4c4
-/*  f17e42c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17e430:
-/*  f17e430:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17e434:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17e438:	3c18800a */ 	lui	$t8,%hi(g_Menus)
-/*  f17e43c:	2718e000 */ 	addiu	$t8,$t8,%lo(g_Menus)
-/*  f17e440:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f17e444:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17e448:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17e44c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17e450:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f17e454:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17e458:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17e45c:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f17e460:	ac400850 */ 	sw	$zero,0x850($v0)
-/*  f17e464:	8c440e1c */ 	lw	$a0,0xe1c($v0)
-/*  f17e468:	8c450844 */ 	lw	$a1,0x844($v0)
-/*  f17e46c:	0fc66ea5 */ 	jal	mpGetNthAvailableChallengeSomething
-/*  f17e470:	8c460848 */ 	lw	$a2,0x848($v0)
-/*  f17e474:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
-/*  f17e478:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f17e47c:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe20)
-/*  f17e480:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f17e484:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f17e488:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f17e48c:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f17e490:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f17e494:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f17e498:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f17e49c:	00280821 */ 	addu	$at,$at,$t0
-/*  f17e4a0:	10000007 */ 	b	.L0f17e4c0
-/*  f17e4a4:	ac22ee20 */ 	sw	$v0,%lo(g_Menus+0xe20)($at)
-.L0f17e4a8:
-/*  f17e4a8:	9129cc10 */ 	lbu	$t1,%lo(g_MpSetup+0x88)($t1)
-/*  f17e4ac:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f17e4b0:	55210004 */ 	bnel	$t1,$at,.L0f17e4c4
-/*  f17e4b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17e4b8:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f17e4bc:	00000000 */ 	nop
-.L0f17e4c0:
-/*  f17e4c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17e4c4:
-/*  f17e4c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17e4c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17e4cc:	03e00008 */ 	jr	$ra
-/*  f17e4d0:	00000000 */ 	nop
-);
+s32 menudialog0017e3fc(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	switch (operation) {
+	case MENUOP_OPEN:
+		g_Menus[g_MpPlayerNum].unk850 = 0;
+
+		g_Menus[g_MpPlayerNum].data.train.mpconfig = mpGetNthAvailableChallengeSomething(
+				g_Menus[g_MpPlayerNum].data.train.unke1c,
+				g_Menus[g_MpPlayerNum].mpconfigbuffer,
+				g_Menus[g_MpPlayerNum].mpconfigbufferlen);
+		break;
+	case MENUOP_CLOSE:
+		break;
+	case MENUOP_TICK:
+		if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
+			menuPopDialog();
+		}
+		break;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandler0017e4d4
