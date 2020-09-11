@@ -87,33 +87,29 @@ s32 menuhandlerControlStyleImpl(u32 operation, struct menuitem *item, union hand
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->word = 8;
+		data->custom.value = 8;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		data->word = 2;
+		data->custom.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(g_ControlStyleOptions[data->word]);
+		return (s32) langGet(g_ControlStyleOptions[data->custom.value]);
 	case MENUOP_GETOPTGROUPTEXT:
-		return (s32) langGet(categories[data->word]);
+		return (s32) langGet(categories[data->custom.value]);
 	case MENUOP_GETGROUPSTARTINDEX:
-		if (data->words[0] == 0) {
-			data->words[2] = 0;
-		} else {
-			data->words[2] = 4;
-		}
+		data->custom.groupstartindex = data->custom.value == 0 ? 0 : 4;
 		break;
 	case MENUOP_SET:
-		optionsSetControlMode(mpindex, data->word);
+		optionsSetControlMode(mpindex, data->custom.value);
 		g_Vars.unk000458 |= 1;
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->word = optionsGetControlMode(mpindex);
+		data->custom.value = optionsGetControlMode(mpindex);
 		g_Menus[g_MpPlayerNum].data.main.mpindex = mpindex;
 		break;
 	case MENUOP_16:
 		if (g_MenuData.root == MENUROOT_MAINMENU) {
-			g_Menus[g_MpPlayerNum].data.main.unke20 = data->word;
+			g_Menus[g_MpPlayerNum].data.main.unke20 = data->custom.value;
 		}
 		break;
 	}
@@ -145,7 +141,7 @@ s32 menuhandlerReversePitch(u32 operation, struct menuitem *item, union handlerd
 	case MENUOP_GET:
 		return !optionsGetForwardPitch(mpchrnum);
 	case MENUOP_SET:
-		optionsSetForwardPitch(mpchrnum, data->word == 0);
+		optionsSetForwardPitch(mpchrnum, data->checkbox.value == 0);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -164,16 +160,16 @@ s32 menuhandlerAimControl(u32 operation, struct menuitem *item, union handlerdat
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->word = 2;
+		data->dropdown.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(options[data->word]);
+		return (s32) langGet(options[data->dropdown.value]);
 	case MENUOP_SET:
-		optionsSetAimControl(playernum, data->word);
+		optionsSetAimControl(playernum, data->dropdown.value);
 		g_Vars.unk000458 |= 1;
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->word = optionsGetAimControl(playernum);
+		data->dropdown.value = optionsGetAimControl(playernum);
 	}
 
 	return 0;
@@ -190,16 +186,16 @@ s32 menuhandlerSoundMode(u32 operation, struct menuitem *item, union handlerdata
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->word = 4;
+		data->dropdown.value = 4;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(options[data->word]);
+		return (s32) langGet(options[data->dropdown.value]);
 	case MENUOP_SET:
-		audioSetSoundMode(data->word);
+		audioSetSoundMode(data->dropdown.value);
 		g_Vars.unk000458 |= 1;
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->word = g_SoundMode;
+		data->dropdown.value = g_SoundMode;
 	}
 
 	return 0;
@@ -215,16 +211,16 @@ s32 menuhandlerScreenSize(u32 operation, struct menuitem *item, union handlerdat
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->word = 3;
+		data->dropdown.value = 3;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(options[data->word]);
+		return (s32) langGet(options[data->dropdown.value]);
 	case MENUOP_SET:
-		optionsSetScreenSize(data->word);
+		optionsSetScreenSize(data->dropdown.value);
 		g_Vars.unk000458 |= 1;
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->word = optionsGetEffectiveScreenSize();
+		data->dropdown.value = optionsGetEffectiveScreenSize();
 	}
 
 	return 0;
@@ -239,16 +235,16 @@ s32 menuhandlerScreenRatio(u32 operation, struct menuitem *item, union handlerda
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->word = 2;
+		data->dropdown.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(options[data->word]);
+		return (s32) langGet(options[data->dropdown.value]);
 	case MENUOP_SET:
-		optionsSetScreenRatio(data->word);
+		optionsSetScreenRatio(data->dropdown.value);
 		g_Vars.unk000458 |= 1;
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->word = optionsGetScreenRatio();
+		data->dropdown.value = optionsGetScreenRatio();
 	}
 
 	return 0;
@@ -263,13 +259,13 @@ s32 menuhandlerScreenSplit(u32 operation, struct menuitem *item, union handlerda
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->word = 2;
+		data->dropdown.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(options[data->word]);
+		return (s32) langGet(options[data->dropdown.value]);
 	case MENUOP_SET:
-		if (optionsGetScreenSplit() != data->word) {
-			optionsSetScreenSplit(data->word);
+		if (data->dropdown.value != (u32)optionsGetScreenSplit()) {
+			optionsSetScreenSplit(data->dropdown.value);
 
 			g_Vars.unk000458 |= 1;
 
@@ -284,7 +280,7 @@ s32 menuhandlerScreenSplit(u32 operation, struct menuitem *item, union handlerda
 		}
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->word = optionsGetScreenSplit();
+		data->dropdown.value = optionsGetScreenSplit();
 		break;
 	}
 
@@ -305,7 +301,7 @@ s32 menuhandlerLookAhead(u32 operation, struct menuitem *item, union handlerdata
 	case MENUOP_GET:
 		return optionsGetLookAhead(mpchrnum);
 	case MENUOP_SET:
-		optionsSetLookAhead(mpchrnum, data->word);
+		optionsSetLookAhead(mpchrnum, data->checkbox.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -326,7 +322,7 @@ s32 menuhandlerHeadRoll(u32 operation, struct menuitem *item, union handlerdata 
 	case MENUOP_GET:
 		return optionsGetHeadRoll(mpchrnum);
 	case MENUOP_SET:
-		optionsSetHeadRoll(mpchrnum, data->word);
+		optionsSetHeadRoll(mpchrnum, data->checkbox.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -339,7 +335,7 @@ s32 menuhandlerInGameSubtitles(u32 operation, struct menuitem *item, union handl
 	case MENUOP_GET:
 		return optionsGetInGameSubtitles();
 	case MENUOP_SET:
-		optionsSetInGameSubtitles(data->word);
+		optionsSetInGameSubtitles(data->checkbox.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -352,7 +348,7 @@ s32 menuhandlerCutsceneSubtitles(u32 operation, struct menuitem *item, union han
 	case MENUOP_GET:
 		return optionsGetCutsceneSubtitles();
 	case MENUOP_SET:
-		optionsSetCutsceneSubtitles(data->word);
+		optionsSetCutsceneSubtitles(data->checkbox.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -370,7 +366,7 @@ s32 menuhandlerAlternativeTitle(u32 operation, struct menuitem *item, union hand
 	case MENUOP_GET:
 		return g_AltTitle;
 	case MENUOP_SET:
-		g_AltTitle = data->word;
+		g_AltTitle = data->checkbox.value;
 		g_Vars.unk000458 |= 4;
 	}
 
@@ -393,7 +389,7 @@ s32 menuhandlerHiRes(u32 operation, struct menuitem *item, union handlerdata *da
 	case MENUOP_GET:
 		return g_HiResEnabled == true;
 	case MENUOP_SET:
-		optionsSetHiRes(data->word ? 1 : 0);
+		optionsSetHiRes(data->checkbox.value ? 1 : 0);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -414,7 +410,7 @@ s32 menuhandlerAmmoOnScreen(u32 operation, struct menuitem *item, union handlerd
 	case MENUOP_GET:
 		return optionsGetAmmoOnScreen(mpchrnum);
 	case MENUOP_SET:
-		optionsSetAmmoOnScreen(mpchrnum, data->word);
+		optionsSetAmmoOnScreen(mpchrnum, data->checkbox.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -440,7 +436,7 @@ s32 menuhandlerShowGunFunction(u32 operation, struct menuitem *item, union handl
 	case MENUOP_GET:
 		return optionsGetShowGunFunction(mpchrnum);
 	case MENUOP_SET:
-		optionsSetShowGunFunction(mpchrnum, data->word);
+		optionsSetShowGunFunction(mpchrnum, data->checkbox.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -461,7 +457,7 @@ s32 menuhandlerShowMissionTime(u32 operation, struct menuitem *item, union handl
 	case MENUOP_GET:
 		return optionsGetShowMissionTime(mpchrnum);
 	case MENUOP_SET:
-		optionsSetShowMissionTime(mpchrnum, data->word);
+		optionsSetShowMissionTime(mpchrnum, data->checkbox.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -487,7 +483,7 @@ s32 menuhandlerAlwaysShowTarget(u32 operation, struct menuitem *item, union hand
 	case MENUOP_GET:
 		return optionsGetAlwaysShowTarget(mpchrnum);
 	case MENUOP_SET:
-		optionsSetAlwaysShowTarget(mpchrnum, data->word);
+		optionsSetAlwaysShowTarget(mpchrnum, data->checkbox.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -513,7 +509,7 @@ s32 menuhandlerShowZoomRange(u32 operation, struct menuitem *item, union handler
 	case MENUOP_GET:
 		return optionsGetShowZoomRange(mpchrnum);
 	case MENUOP_SET:
-		optionsSetShowZoomRange(mpchrnum, data->word);
+		optionsSetShowZoomRange(mpchrnum, data->checkbox.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -534,7 +530,7 @@ s32 menuhandlerPaintball(u32 operation, struct menuitem *item, union handlerdata
 	case MENUOP_GET:
 		return optionsGetPaintball(mpchrnum);
 	case MENUOP_SET:
-		optionsSetPaintball(mpchrnum, data->word);
+		optionsSetPaintball(mpchrnum, data->checkbox.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -555,7 +551,7 @@ s32 menuhandlerSightOnScreen(u32 operation, struct menuitem *item, union handler
 	case MENUOP_GET:
 		return optionsGetSightOnScreen(mpchrnum);
 	case MENUOP_SET:
-		optionsSetSightOnScreen(mpchrnum, data->word);
+		optionsSetSightOnScreen(mpchrnum, data->checkbox.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -576,7 +572,7 @@ s32 menuhandlerAutoAim(u32 operation, struct menuitem *item, union handlerdata *
 	case MENUOP_GET:
 		return optionsGetAutoAim(mpchrnum);
 	case MENUOP_SET:
-		optionsSetAutoAim(mpchrnum, data->word);
+		optionsSetAutoAim(mpchrnum, data->checkbox.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -587,10 +583,10 @@ s32 menuhandlerMusicVolume(u32 operation, struct menuitem *item, union handlerda
 {
 	switch (operation) {
 	case MENUOP_GETSLIDER:
-		data->word = optionsGetMusicVolume();
+		data->slider.value = optionsGetMusicVolume();
 		break;
 	case MENUOP_SET:
-		optionsSetMusicVolume(data->word);
+		optionsSetMusicVolume(data->slider.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -602,13 +598,13 @@ s32 menuhandlerSfxVolume(u32 operation, struct menuitem *item, union handlerdata
 	switch (operation) {
 	case MENUOP_GETSLIDER:
 		if (g_SfxVolume > 0x5000) {
-			data->word = 0x5000;
+			data->slider.value = 0x5000;
 		} else {
-			data->word = g_SfxVolume;
+			data->slider.value = g_SfxVolume;
 		}
 		break;
 	case MENUOP_SET:
-		audioSetSfxVolume(data->word);
+		audioSetSfxVolume(data->slider.value);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -898,17 +894,17 @@ s32 menuhandlerPdModeSetting(u32 operation, struct menuitem *item, union handler
 
 	switch (operation) {
 	case MENUOP_GETSLIDER:
-		data->word = *property;
+		data->slider.value = *property;
 		break;
 	case MENUOP_SET:
-		*property = (u16)data->word;
+		*property = (u16)data->slider.value;
 		break;
 	case MENUOP_GETSLIDERLABEL:
 		fvalue = func0f1036ac(*property, item->param);
 		if (item->param == 0) {
 			fvalue = fvalue * 4 + 1.0f;
 		}
-		sprintf(data->ptrs[1], "%s%s%.00f%%\n", "", "", fvalue * 100.0f);
+		sprintf(data->slider.label, "%s%s%.00f%%\n", "", "", fvalue * 100.0f);
 		break;
 	}
 
@@ -1477,7 +1473,7 @@ s32 menuhandlerCoopRadar(u32 operation, struct menuitem *item, union handlerdata
 	case MENUOP_GET:
 		return g_Vars.coopradaron;
 	case MENUOP_SET:
-		g_Vars.coopradaron = data->word ? 1 : 0;
+		g_Vars.coopradaron = data->checkbox.value ? 1 : 0;
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -1490,7 +1486,7 @@ s32 menuhandlerCoopFriendlyFire(u32 operation, struct menuitem *item, union hand
 	case MENUOP_GET:
 		return g_Vars.coopfriendlyfire;
 	case MENUOP_SET:
-		g_Vars.coopfriendlyfire = data->word ? 1 : 0;
+		g_Vars.coopfriendlyfire = data->checkbox.value ? 1 : 0;
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -1635,7 +1631,7 @@ s32 menuhandlerAntiRadar(u32 operation, struct menuitem *item, union handlerdata
 	case MENUOP_GET:
 		return g_Vars.antiradaron;
 	case MENUOP_SET:
-		g_Vars.antiradaron = data->word ? 1 : 0;
+		g_Vars.antiradaron = data->checkbox.value ? 1 : 0;
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -1648,16 +1644,16 @@ s32 menuhandlerAntiPlayer(u32 operation, struct menuitem *item, union handlerdat
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->word = 2;
+		data->dropdown.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(labels[data->word]);
+		return (s32) langGet(labels[data->dropdown.value]);
 	case MENUOP_SET:
-		g_Vars.pendingantiplayernum = data->word;
+		g_Vars.pendingantiplayernum = data->dropdown.value;
 		g_Vars.unk000458 |= 1;
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->word = g_Vars.pendingantiplayernum;
+		data->dropdown.value = g_Vars.pendingantiplayernum;
 		break;
 	}
 
@@ -2846,7 +2842,7 @@ s32 menudialog0010559c(u32 operation, struct menudialog *dialog, union handlerda
 	case MENUOP_CLOSE:
 		if ((g_Vars.unk000458 & 1) && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
 			if (func0f1094e4(&var800a22c0, 1, 0) == 0) {
-				data->word = 1;
+				data->dialog1.value = 1;
 			}
 
 			g_Vars.unk000458 &= ~0x00000001;
@@ -2923,7 +2919,7 @@ s32 menuhandlerLangFilter(u32 operation, struct menuitem *item, union handlerdat
 	case MENUOP_GET:
 		return g_Vars.langfilteron;
 	case MENUOP_SET:
-		g_Vars.langfilteron = data->word;
+		g_Vars.langfilteron = data->checkbox.value;
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -4360,38 +4356,38 @@ s32 menuhandlerCinema(u32 operation, struct menuitem *item, union handlerdata *d
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->word = g_CutsceneIndexes[getNumCompletedMissions()] + 1;
+		data->custom.value = g_CutsceneIndexes[getNumCompletedMissions()] + 1;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		if (data->word == 0) {
+		if (data->custom.value == 0) {
 			sprintf(g_StringPointer, langGet(L_OPTIONS(448))); // "Play All"
 			return (s32) g_StringPointer;
 		}
-		return (s32) langGet(g_Cutscenes[data->word - 1].name);
+		return (s32) langGet(g_Cutscenes[data->custom.value - 1].name);
 	case MENUOP_SET:
-		if (data->word == 0) {
+		if (data->custom.value == 0) {
 			s32 index = getNumCompletedMissions();
 			g_Vars.unk0004d4 = 0;
 			g_Vars.unk0004d5 = g_CutsceneIndexes[index];
 			menuPopDialog();
 			func0f01bea0();
 		} else {
-			g_Vars.unk0004d4 = data->word - 1;
+			g_Vars.unk0004d4 = data->custom.value - 1;
 			g_Vars.unk0004d5 = 1;
 			menuPopDialog();
 			func0f01bea0();
 		}
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->word = 0xfffff;
+		data->custom.value = 0xfffff;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		data->word = ARRAYCOUNT(groups);
+		data->custom.value = ARRAYCOUNT(groups);
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return (s32) langGet(groups[data->word].name);
+		return (s32) langGet(groups[data->custom.value].name);
 	case MENUOP_GETGROUPSTARTINDEX:
-		data->words[2] = groups[data->words[0]].first_cutscene_index;
+		data->custom.groupstartindex = groups[data->custom.value].first_cutscene_index;
 		break;
 	}
 

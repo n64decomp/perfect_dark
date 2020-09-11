@@ -60,7 +60,7 @@ s32 menudialogRetryMission(u32 operation, struct menudialog *dialog, union handl
 				if (dialog == g_Menus[g_MpPlayerNum].curframe->dialog
 						|| (dialog->nextsibling && dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog)) {
 #endif
-					struct menuthing *thing = data->ptrs[0];
+					struct menuthing *thing = data->dialog2.ptr;
 					bool pass = false;
 
 					if (thing->unk03) {
@@ -883,14 +883,14 @@ s32 menuhandlerEndscreenCheats(u32 operation, struct menuitem *item, union handl
 			return 0;
 		}
 
-		data->words[1] = colourBlend(data->words[1], g_CheatColour, weight);
+		data->label.colour2 = colourBlend(data->label.colour2, g_CheatColour, weight);
 
 		if (item->param == 3) { // completion cheat name
-			data->words[0] = colourBlend(data->words[0], g_CheatColour, weight);
+			data->label.colour1 = colourBlend(data->label.colour1, g_CheatColour, weight);
 		}
 
 		if (item->param == 5) { // timed cheat name
-			data->words[0] = colourBlend(data->words[0], g_CheatColour, weight);
+			data->label.colour1 = colourBlend(data->label.colour1, g_CheatColour, weight);
 		}
 	}
 

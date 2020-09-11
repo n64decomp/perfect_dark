@@ -32,7 +32,7 @@ u32 func0f0f2928(void);
 u32 func0f0f29cc(void);
 u32 func0f0f2b2c(void);
 u32 func0f0f2c44(void);
-void func0f0f2cf4(struct menudialog *dialog, struct menuframe *arg1, struct menu *menu);
+void menuOpenDialog(struct menudialog *dialog, struct menuframe *arg1, struct menu *menu);
 void menuPushDialog(struct menudialog *dialog);
 u32 func0f0f3220(s32 arg0);
 u32 func0f0f33bc(void);

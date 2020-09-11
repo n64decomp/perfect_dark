@@ -1773,13 +1773,13 @@ s32 menuhandlerMpHillTime(u32 operation, struct menuitem *item, union handlerdat
 {
 	switch (operation) {
 	case MENUOP_GETSLIDER:
-		data->word = g_Vars.mphilltime;
+		data->slider.value = g_Vars.mphilltime;
 		break;
 	case MENUOP_SET:
-		g_Vars.mphilltime = (u8)data->word;
+		g_Vars.mphilltime = (u8)data->slider.value;
 		break;
 	case MENUOP_GETSLIDERLABEL:
-		sprintf(data->ptrs[1], langGet(L_MPWEAPONS(23)), data->word + 10); // "%ds/Point"
+		sprintf(data->slider.label, langGet(L_MPWEAPONS(23)), data->slider.value + 10); // "%ds/Point"
 		break;
 	}
 

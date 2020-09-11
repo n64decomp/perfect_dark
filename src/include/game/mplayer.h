@@ -58,7 +58,7 @@ u8 mpGetBodyUnk06(u8 bodynum);
 s32 mpBodyGetMpHeadIndex(s32 bodynum);
 u32 mpChooseRandomLockPlayer(void);
 bool mpSetLock(s32 locktype, s32 playernum);
-u32 mpGetLockType(void);
+s32 mpGetLockType(void);
 u32 mpGetLockPlayerNum(void);
 bool mpIsPlayerLockedOut(u32 playernum);
 void mpCalculateLockIfLastWinnerOrLoser(void);

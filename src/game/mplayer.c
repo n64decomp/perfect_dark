@@ -5081,7 +5081,7 @@ bool mpSetLock(s32 locktype, s32 playernum)
 	return true;
 }
 
-u32 mpGetLockType(void)
+s32 mpGetLockType(void)
 {
 	return g_MpSetupSaveFile.locktype;
 }

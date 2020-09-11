@@ -2484,7 +2484,7 @@ glabel func0f109ec4
 
 s32 menuhandlerRenameFile(u32 operation, struct menuitem *item, union handlerdata *data)
 {
-	char *name = data->ptrs[0];
+	char *name = data->keyboard.string;
 
 	switch (operation) {
 	case MENUOP_GETTEXT:
@@ -4343,7 +4343,7 @@ s32 menuhandlerOpenDeleteFile(u32 operation, struct menuitem *item, union handle
 
 s32 menuhandlerAgentName(u32 operation, struct menuitem *item, union handlerdata *data)
 {
-	char *name = data->ptrs[0];
+	char *name = data->keyboard.string;
 
 	if (!g_SaveLocations[0]) {
 		return 0;

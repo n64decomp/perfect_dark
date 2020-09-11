@@ -3245,10 +3245,59 @@ struct hoverprop {
 	u16 size;
 };
 
+struct handlerdata_carousel {
+	s32 value;
+	u32 unk04;
+};
+
+struct handlerdata_checkbox {
+	u32 value;
+};
+
+struct handlerdata_custom {
+	u32 value;
+	u32 unk04;
+	u32 groupstartindex;
+	u32 padding; // just extra padding to make the union 16 bytes
+};
+
+struct handlerdata_dropdown {
+	u32 value;
+};
+
+struct handlerdata_keyboard {
+	char *string;
+};
+
+struct handlerdata_label {
+	u32 colour1;
+	u32 colour2;
+};
+
+struct handlerdata_slider {
+	u32 value;
+	char *label;
+};
+
+struct handlerdata_dialog1 {
+	u32 value;
+};
+
+struct handlerdata_dialog2 {
+	void *ptr;
+};
+
 union handlerdata {
-	s32 words[4];
-	s32 word;
-	void *ptrs[4];
+	struct handlerdata_carousel carousel;
+	struct handlerdata_checkbox checkbox;
+	struct handlerdata_custom custom;
+	struct handlerdata_dropdown dropdown;
+	struct handlerdata_keyboard keyboard;
+	struct handlerdata_label label;
+	struct handlerdata_slider slider;
+
+	struct handlerdata_dialog1 dialog1;
+	struct handlerdata_dialog2 dialog2;
 };
 
 struct menuitem {
@@ -3257,12 +3306,7 @@ struct menuitem {
 	u32 param1;
 	u32 param2;
 	u32 param3;
-
-	union {
-		void *handler;
-		//struct menudialog *dialog;
-		//s32 (*handler)(u32 operation, struct menuitem *item, union handlerdata *data);
-	} ptr;
+	void *handler;
 };
 
 struct menudialog {
