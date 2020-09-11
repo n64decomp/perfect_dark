@@ -3597,6 +3597,9 @@ struct menudata_filesel {
 
 struct menudata_pak {
 	u32 unke1c;
+	u32 unke20;
+	u32 unke24;
+	u32 unke28;
 };
 
 struct menudata_main4mb {

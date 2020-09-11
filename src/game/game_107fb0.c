@@ -3434,55 +3434,19 @@ glabel menucustomFileToCopy
 /*  f10b010:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel menudialog0010b014
-/*  f10b014:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10b018:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f10b01c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10b020:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10b024:	14810022 */ 	bne	$a0,$at,.L0f10b0b0
-/*  f10b028:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10b02c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10b030:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10b034:	3c18800a */ 	lui	$t8,%hi(g_Menus)
-/*  f10b038:	2718e000 */ 	addiu	$t8,$t8,%lo(g_Menus)
-/*  f10b03c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10b040:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10b044:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10b048:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10b04c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10b050:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10b054:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10b058:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f10b05c:	8c590e28 */ 	lw	$t9,0xe28($v0)
-/*  f10b060:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10b064:	57210004 */ 	bnel	$t9,$at,.L0f10b078
-/*  f10b068:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10b06c:	10000010 */ 	b	.L0f10b0b0
-/*  f10b070:	ac400e28 */ 	sw	$zero,0xe28($v0)
-/*  f10b074:	00002025 */ 	or	$a0,$zero,$zero
-.L0f10b078:
-/*  f10b078:	0fc44317 */ 	jal	func0f110c5c
-/*  f10b07c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f10b080:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f10b084:	8d081448 */ 	lw	$t0,%lo(g_MpPlayerNum)($t0)
-/*  f10b088:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe1c)
-/*  f10b08c:	000848c0 */ 	sll	$t1,$t0,0x3
-/*  f10b090:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f10b094:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f10b098:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f10b09c:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f10b0a0:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f10b0a4:	00094900 */ 	sll	$t1,$t1,0x4
-/*  f10b0a8:	00290821 */ 	addu	$at,$at,$t1
-/*  f10b0ac:	ac20ee1c */ 	sw	$zero,%lo(g_Menus+0xe1c)($at)
-.L0f10b0b0:
-/*  f10b0b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10b0b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10b0b8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10b0bc:	03e00008 */ 	jr	$ra
-/*  f10b0c0:	00000000 */ 	nop
-);
+s32 menudialog0010b014(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	if (operation == MENUOP_CLOSE) {
+		if (g_Menus[g_MpPlayerNum].data.pak.unke28 == 1) {
+			g_Menus[g_MpPlayerNum].data.pak.unke28 = 0;
+		} else {
+			func0f110c5c(0, FILETYPE_SOLO);
+			g_Menus[g_MpPlayerNum].data.pak.unke1c = 0;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f10b0c4
