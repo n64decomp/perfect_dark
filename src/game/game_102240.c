@@ -2842,7 +2842,7 @@ s32 menudialog0010559c(u32 operation, struct menudialog *dialog, union handlerda
 	case MENUOP_CLOSE:
 		if ((g_Vars.unk000458 & 1) && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
 			if (func0f1094e4(&var800a22c0, 1, 0) == 0) {
-				data->dialog1.value = 1;
+				data->dialog1.preventclose = true;
 			}
 
 			g_Vars.unk000458 &= ~0x00000001;

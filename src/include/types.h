@@ -3280,7 +3280,7 @@ struct handlerdata_slider {
 };
 
 struct handlerdata_dialog1 {
-	u32 value;
+	u32 preventclose;
 };
 
 struct handlerdata_dialog2 {
@@ -3507,7 +3507,9 @@ struct menulayer {
 
 struct menuframe {
 	struct menudialog *dialog;
-	u32 unk04;
+	u8 unk04;
+	u8 unk05;
+	u16 unk06;
 	struct menuitem *focuseditem;
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ u32 unk10;
@@ -3700,11 +3702,10 @@ struct menu {
 	/*0x650*/ u32 unk650;
 	/*0x654*/ u32 unk654;
 	/*0x658*/ u32 unk658;
-	/*0x65c*/ u32 unk65c;
+	/*0x65c*/ s32 unk65c;
 	/*0x660*/ u32 unk660;
-	/*0x664*/ u32 unk664;
-	/*0x668*/ u32 unk668;
-	/*0x66c*/ u32 unk66c;
+	/*0x664*/ u16 unk664;
+	/*0x666*/ u16 unk666[1][5]; // length unknown
 	/*0x670*/ u32 unk670;
 	/*0x674*/ u32 unk674;
 	/*0x678*/ u32 unk678;
@@ -3731,7 +3732,7 @@ struct menu {
 	/*0x6cc*/ u32 unk6cc;
 	/*0x6d0*/ u32 unk6d0;
 	/*0x6d4*/ u32 unk6d4;
-	/*0x6d8*/ u32 unk6d8;
+	/*0x6d8*/ s32 unk6d8;
 	/*0x6dc*/ u32 unk6dc;
 	/*0x6e0*/ u32 unk6e0;
 	/*0x6e4*/ u32 unk6e4;
@@ -3812,7 +3813,7 @@ struct menu {
 	/*0x810*/ u32 unk810;
 	/*0x814*/ u32 unk814;
 	/*0x818*/ u32 unk818;
-	/*0x81c*/ u32 unk81c;
+	/*0x81c*/ s32 unk81c;
 	/*0x820*/ u32 unk820;
 	/*0x824*/ u32 unk824;
 	/*0x828*/ u32 unk828;

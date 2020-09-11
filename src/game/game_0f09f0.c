@@ -3253,172 +3253,54 @@ glabel func0f0f3220
 /*  f0f33b8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0f33bc
-/*  f0f33bc:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f0f33c0:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f0f33c4:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f0f33c8:	3c18800a */ 	lui	$t8,%hi(g_Menus)
-/*  f0f33cc:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0f33d0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f33d4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f33d8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0f33dc:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0f33e0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f33e4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0f33e8:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0f33ec:	2718e000 */ 	addiu	$t8,$t8,%lo(g_Menus)
-/*  f0f33f0:	01f88821 */ 	addu	$s1,$t7,$t8
-/*  f0f33f4:	862304f4 */ 	lh	$v1,0x4f4($s1)
-/*  f0f33f8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0f33fc:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f0f3400:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f0f3404:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0f3408:	18600055 */ 	blez	$v1,.L0f0f3560
-/*  f0f340c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0f3410:	0003c880 */ 	sll	$t9,$v1,0x2
-/*  f0f3414:	0323c823 */ 	subu	$t9,$t9,$v1
-/*  f0f3418:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f0f341c:	02399021 */ 	addu	$s2,$s1,$t9
-/*  f0f3420:	82420460 */ 	lb	$v0,0x460($s2)
-/*  f0f3424:	2652044c */ 	addiu	$s2,$s2,0x44c
-/*  f0f3428:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0f342c:	18400022 */ 	blez	$v0,.L0f0f34b8
-/*  f0f3430:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f0f3434:	02408825 */ 	or	$s1,$s2,$zero
-/*  f0f3438:	27b30050 */ 	addiu	$s3,$sp,0x50
-/*  f0f343c:	afa00050 */ 	sw	$zero,0x50($sp)
-.L0f0f3440:
-/*  f0f3440:	8e280000 */ 	lw	$t0,0x0($s1)
-/*  f0f3444:	24040065 */ 	addiu	$a0,$zero,0x65
-/*  f0f3448:	8d050000 */ 	lw	$a1,0x0($t0)
-/*  f0f344c:	8ca2000c */ 	lw	$v0,0xc($a1)
-/*  f0f3450:	50400004 */ 	beqzl	$v0,.L0f0f3464
-/*  f0f3454:	8fa90050 */ 	lw	$t1,0x50($sp)
-/*  f0f3458:	0040f809 */ 	jalr	$v0
-/*  f0f345c:	02603025 */ 	or	$a2,$s3,$zero
-/*  f0f3460:	8fa90050 */ 	lw	$t1,0x50($sp)
-.L0f0f3464:
-/*  f0f3464:	52890066 */ 	beql	$s4,$t1,.L0f0f3600
-/*  f0f3468:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0f346c:	82420014 */ 	lb	$v0,0x14($s2)
-/*  f0f3470:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0f3474:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f0f3478:	0202082a */ 	slt	$at,$s0,$v0
-/*  f0f347c:	5420fff0 */ 	bnezl	$at,.L0f0f3440
-/*  f0f3480:	afa00050 */ 	sw	$zero,0x50($sp)
-/*  f0f3484:	3c0a8007 */ 	lui	$t2,%hi(g_MpPlayerNum)
-/*  f0f3488:	8d4a1448 */ 	lw	$t2,%lo(g_MpPlayerNum)($t2)
-/*  f0f348c:	3c0c800a */ 	lui	$t4,%hi(g_Menus)
-/*  f0f3490:	258ce000 */ 	addiu	$t4,$t4,%lo(g_Menus)
-/*  f0f3494:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f0f3498:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f0f349c:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f0f34a0:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f0f34a4:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f0f34a8:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f0f34ac:	000b5900 */ 	sll	$t3,$t3,0x4
-/*  f0f34b0:	016c8821 */ 	addu	$s1,$t3,$t4
-/*  f0f34b4:	00008025 */ 	or	$s0,$zero,$zero
-.L0f0f34b8:
-/*  f0f34b8:	5840000a */ 	blezl	$v0,.L0f0f34e4
-/*  f0f34bc:	8e580000 */ 	lw	$t8,0x0($s2)
-/*  f0f34c0:	862d0460 */ 	lh	$t5,0x460($s1)
-.L0f0f34c4:
-/*  f0f34c4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0f34c8:	25aeffff */ 	addiu	$t6,$t5,-1
-/*  f0f34cc:	a62e0460 */ 	sh	$t6,0x460($s1)
-/*  f0f34d0:	824f0014 */ 	lb	$t7,0x14($s2)
-/*  f0f34d4:	020f082a */ 	slt	$at,$s0,$t7
-/*  f0f34d8:	5420fffa */ 	bnezl	$at,.L0f0f34c4
-/*  f0f34dc:	862d0460 */ 	lh	$t5,0x460($s1)
-/*  f0f34e0:	8e580000 */ 	lw	$t8,0x0($s2)
-.L0f0f34e4:
-/*  f0f34e4:	862f04f4 */ 	lh	$t7,0x4f4($s1)
-/*  f0f34e8:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f0f34ec:	93190004 */ 	lbu	$t9,0x4($t8)
-/*  f0f34f0:	25f8ffff */ 	addiu	$t8,$t7,-1
-/*  f0f34f4:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f0f34f8:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f0f34fc:	00084040 */ 	sll	$t0,$t0,0x1
-/*  f0f3500:	02284821 */ 	addu	$t1,$s1,$t0
-/*  f0f3504:	952a0666 */ 	lhu	$t2,0x666($t1)
-/*  f0f3508:	ae2a065c */ 	sw	$t2,0x65c($s1)
-/*  f0f350c:	8e4b0000 */ 	lw	$t3,0x0($s2)
-/*  f0f3510:	916c0004 */ 	lbu	$t4,0x4($t3)
-/*  f0f3514:	ae2c06d8 */ 	sw	$t4,0x6d8($s1)
-/*  f0f3518:	8e4d0000 */ 	lw	$t5,0x0($s2)
-/*  f0f351c:	95ae0006 */ 	lhu	$t6,0x6($t5)
-/*  f0f3520:	a63804f4 */ 	sh	$t8,0x4f4($s1)
-/*  f0f3524:	0fc3c27c */ 	jal	func0f0f09f0
-/*  f0f3528:	ae2e081c */ 	sw	$t6,0x81c($s1)
-/*  f0f352c:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
-/*  f0f3530:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f0f3534:	3c09800a */ 	lui	$t1,%hi(g_Menus)
-/*  f0f3538:	2529e000 */ 	addiu	$t1,$t1,%lo(g_Menus)
-/*  f0f353c:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f0f3540:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f0f3544:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f0f3548:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f0f354c:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f0f3550:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f0f3554:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f0f3558:	01098821 */ 	addu	$s1,$t0,$t1
-/*  f0f355c:	862304f4 */ 	lh	$v1,0x4f4($s1)
-.L0f0f3560:
-/*  f0f3560:	3c02800a */ 	lui	$v0,%hi(g_MenuData+0x66e)
-/*  f0f3564:	8042202e */ 	lb	$v0,%lo(g_MenuData+0x66e)($v0)
-/*  f0f3568:	18400017 */ 	blez	$v0,.L0f0f35c8
-/*  f0f356c:	00000000 */ 	nop
-/*  f0f3570:	14600015 */ 	bnez	$v1,.L0f0f35c8
-/*  f0f3574:	00000000 */ 	nop
-/*  f0f3578:	04400013 */ 	bltz	$v0,.L0f0f35c8
-/*  f0f357c:	00408025 */ 	or	$s0,$v0,$zero
-.L0f0f3580:
-/*  f0f3580:	0fc3cc88 */ 	jal	func0f0f3220
-/*  f0f3584:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0f3588:	2610ffff */ 	addiu	$s0,$s0,-1
-/*  f0f358c:	0601fffc */ 	bgez	$s0,.L0f0f3580
-/*  f0f3590:	00000000 */ 	nop
-/*  f0f3594:	3c0a8007 */ 	lui	$t2,%hi(g_MpPlayerNum)
-/*  f0f3598:	8d4a1448 */ 	lw	$t2,%lo(g_MpPlayerNum)($t2)
-/*  f0f359c:	3c0c800a */ 	lui	$t4,%hi(g_Menus)
-/*  f0f35a0:	258ce000 */ 	addiu	$t4,$t4,%lo(g_Menus)
-/*  f0f35a4:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f0f35a8:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f0f35ac:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f0f35b0:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f0f35b4:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f0f35b8:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f0f35bc:	000b5900 */ 	sll	$t3,$t3,0x4
-/*  f0f35c0:	016c8821 */ 	addu	$s1,$t3,$t4
-/*  f0f35c4:	862304f4 */ 	lh	$v1,0x4f4($s1)
-.L0f0f35c8:
-/*  f0f35c8:	14600003 */ 	bnez	$v1,.L0f0f35d8
-/*  f0f35cc:	00036880 */ 	sll	$t5,$v1,0x2
-/*  f0f35d0:	1000000a */ 	b	.L0f0f35fc
-/*  f0f35d4:	ae2004f8 */ 	sw	$zero,0x4f8($s1)
-.L0f0f35d8:
-/*  f0f35d8:	01a36823 */ 	subu	$t5,$t5,$v1
-/*  f0f35dc:	000d68c0 */ 	sll	$t5,$t5,0x3
-/*  f0f35e0:	022d1021 */ 	addu	$v0,$s1,$t5
-/*  f0f35e4:	804e0461 */ 	lb	$t6,0x461($v0)
-/*  f0f35e8:	2442044c */ 	addiu	$v0,$v0,1100
-/*  f0f35ec:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0f35f0:	004fc021 */ 	addu	$t8,$v0,$t7
-/*  f0f35f4:	8f190000 */ 	lw	$t9,0x0($t8)
-/*  f0f35f8:	ae3904f8 */ 	sw	$t9,0x4f8($s1)
-.L0f0f35fc:
-/*  f0f35fc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f0f3600:
-/*  f0f3600:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0f3604:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0f3608:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0f360c:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0f3610:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f0f3614:	03e00008 */ 	jr	$ra
-/*  f0f3618:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+void menuCloseDialog(void)
+{
+	if (g_Menus[g_MpPlayerNum].depth > 0) {
+		union handlerdata data;
+		struct menulayer *layer = &g_Menus[g_MpPlayerNum].layers[g_Menus[g_MpPlayerNum].depth - 1];
+		u32 value_prevent = 1; // constant value, but required for match
+		s32 i;
+
+		for (i = 0; i < layer->numsiblings; i++) {
+			data.dialog1.preventclose = false;
+
+			if (layer->siblings[i]->dialog->handler) {
+				layer->siblings[i]->dialog->handler(MENUOP_CLOSE, layer->siblings[i]->dialog, &data);
+			}
+
+			if (value_prevent == data.dialog1.preventclose) {
+				return;
+			}
+		}
+
+		for (i = 0; i < layer->numsiblings; i++) {
+			g_Menus[g_MpPlayerNum].numframes--;
+		}
+
+		g_Menus[g_MpPlayerNum].unk65c = g_Menus[g_MpPlayerNum].unk666[layer->siblings[0]->unk04][0];
+		g_Menus[g_MpPlayerNum].unk6d8 = layer->siblings[0]->unk04;
+		g_Menus[g_MpPlayerNum].unk81c = layer->siblings[0]->unk06;
+		g_Menus[g_MpPlayerNum].depth--;
+
+		func0f0f09f0(0xb);
+	}
+
+	if (g_MenuData.unk66e > 0 && g_Menus[g_MpPlayerNum].depth == 0) {
+		s32 value = g_MenuData.unk66e;
+
+		while (value >= 0) {
+			func0f0f3220(value);
+			value--;
+		}
+	}
+
+	if (g_Menus[g_MpPlayerNum].depth == 0) {
+		g_Menus[g_MpPlayerNum].curframe = NULL;
+	} else {
+		struct menulayer *layer = &g_Menus[g_MpPlayerNum].layers[g_Menus[g_MpPlayerNum].depth - 1];
+		g_Menus[g_MpPlayerNum].curframe = layer->siblings[layer->cursibling];
+	}
+}
 
 void menuUpdateCurFrame(void)
 {
@@ -3438,13 +3320,13 @@ void menuUpdateCurFrame(void)
 
 void menuPopDialog(void)
 {
-	func0f0f33bc();
+	menuCloseDialog();
 	menuUpdateCurFrame();
 }
 
 void func0f0f3704(struct menudialog *dialog)
 {
-	func0f0f33bc();
+	menuCloseDialog();
 	menuPushDialog(dialog);
 }
 

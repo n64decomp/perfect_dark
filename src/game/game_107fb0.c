@@ -1024,7 +1024,7 @@ glabel var7f1b3688
 /*  f108c30:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f108c34:	14810021 */ 	bne	$a0,$at,.L0f108cbc
 /*  f108c38:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f108c3c:	0fc3ccef */ 	jal	func0f0f33bc
+/*  f108c3c:	0fc3ccef */ 	jal	menuCloseDialog
 /*  f108c40:	00000000 */ 	nop
 /*  f108c44:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f108c48:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
@@ -1068,7 +1068,7 @@ glabel var7f1b3688
 s32 menuhandlerPakCancelSave2(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		func0f0f33bc();
+		menuCloseDialog();
 		func0f10898c();
 		menuUpdateCurFrame();
 	}
@@ -1097,7 +1097,7 @@ glabel func0f108d14
 s32 menuhandlerAcknowledgePakFileLost(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		func0f0f33bc();
+		menuCloseDialog();
 		func0f10898c();
 		menuUpdateCurFrame();
 	}
@@ -1550,7 +1550,7 @@ glabel var7f1b36c8
 /*  f109424:	8fad004c */ 	lw	$t5,0x4c($sp)
 /*  f109428:	11a00004 */ 	beqz	$t5,.L0f10943c
 /*  f10942c:	00000000 */ 	nop
-/*  f109430:	0fc3ccef */ 	jal	func0f0f33bc
+/*  f109430:	0fc3ccef */ 	jal	menuCloseDialog
 /*  f109434:	afa60044 */ 	sw	$a2,0x44($sp)
 /*  f109438:	8fa60044 */ 	lw	$a2,0x44($sp)
 .L0f10943c:
@@ -4017,7 +4017,7 @@ glabel menudialog0010b674
 /*  f10b6d8:	80440e23 */ 	lb	$a0,0xe23($v0)
 /*  f10b6dc:	5040001b */ 	beqzl	$v0,.L0f10b74c
 /*  f10b6e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10b6e4:	0fc3ccef */ 	jal	func0f0f33bc
+/*  f10b6e4:	0fc3ccef */ 	jal	menuCloseDialog
 /*  f10b6e8:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*  f10b6ec:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
 /*  f10b6f0:	8d081448 */ 	lw	$t0,%lo(g_MpPlayerNum)($t0)
