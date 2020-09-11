@@ -315,68 +315,30 @@ glabel func0f108484
 /*  f1084b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel menuhandler001084b8
-.late_rodata
-glabel var7f1b3548
-.word menuhandler001084b8+0x8c # f108544
-glabel var7f1b354c
-.word menuhandler001084b8+0x8c # f108544
-glabel var7f1b3550
-.word menuhandler001084b8+0x8c # f108544
-glabel var7f1b3554
-.word menuhandler001084b8+0x84 # f10853c
-glabel var7f1b3558
-.word menuhandler001084b8+0x84 # f10853c
-glabel var7f1b355c
-.word menuhandler001084b8+0x8c # f108544
-glabel var7f1b3560
-.word menuhandler001084b8+0x84 # f10853c
-glabel var7f1b3564
-.word menuhandler001084b8+0x8c # f108544
-.text
-/*  f1084b8:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f1084bc:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f1084c0:	14810020 */ 	bne	$a0,$at,.L0f108544
-/*  f1084c4:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f1084c8:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f1084cc:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f1084d0:	3c18800a */ 	lui	$t8,%hi(g_Menus)
-/*  f1084d4:	2718e000 */ 	addiu	$t8,$t8,%lo(g_Menus)
-/*  f1084d8:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f1084dc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1084e0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1084e4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1084e8:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1084ec:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1084f0:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f1084f4:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f1084f8:	90590e3c */ 	lbu	$t9,0xe3c($v0)
-/*  f1084fc:	3328007f */ 	andi	$t0,$t9,0x7f
-/*  f108500:	29010005 */ 	slti	$at,$t0,0x5
-/*  f108504:	54200004 */ 	bnezl	$at,.L0f108518
-/*  f108508:	94490e34 */ 	lhu	$t1,0xe34($v0)
-/*  f10850c:	03e00008 */ 	jr	$ra
-/*  f108510:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f108514:	94490e34 */ 	lhu	$t1,0xe34($v0)
-.L0f108518:
-/*  f108518:	252affff */ 	addiu	$t2,$t1,-1
-/*  f10851c:	2d410008 */ 	sltiu	$at,$t2,0x8
-/*  f108520:	10200006 */ 	beqz	$at,.L0f10853c
-/*  f108524:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f108528:	3c017f1b */ 	lui	$at,%hi(var7f1b3548)
-/*  f10852c:	002a0821 */ 	addu	$at,$at,$t2
-/*  f108530:	8c2a3548 */ 	lw	$t2,%lo(var7f1b3548)($at)
-/*  f108534:	01400008 */ 	jr	$t2
-/*  f108538:	00000000 */ 	nop
-.L0f10853c:
-/*  f10853c:	03e00008 */ 	jr	$ra
-/*  f108540:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f108544:
-/*  f108544:	00001025 */ 	or	$v0,$zero,$zero
-/*  f108548:	03e00008 */ 	jr	$ra
-/*  f10854c:	00000000 */ 	nop
-);
+s32 menuhandler001084b8(u32 operation, struct menuitem *item, union handlerdata *data)
+{
+	if (operation == MENUOP_CHECKHIDDEN) {
+		if ((g_Menus[g_MpPlayerNum].unke3c & 0x7f) > 4) {
+			return 1;
+		}
+
+		switch (g_Menus[g_MpPlayerNum].unke34) {
+		case 4:
+		case 5:
+		case 7:
+		default:
+			return 1;
+		case 1:
+		case 2:
+		case 3:
+		case 6:
+		case 8:
+			break;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f108550
