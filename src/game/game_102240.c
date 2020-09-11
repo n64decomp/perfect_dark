@@ -667,161 +667,58 @@ struct menudialog menudialog_briefing = {
 	NULL,
 };
 
-GLOBAL_ASM(
-glabel menuhandlerAcceptMission
-/*  f1033f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1033fc:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f103400:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f103404:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f103408:	1481004c */ 	bne	$a0,$at,.END
-/*  f10340c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f103410:	0fc06fa8 */ 	jal	func0f01bea0
-/*  f103414:	00000000 */ 	nop
-/*  f103418:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f10341c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f103420:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig+0x1)
-/*  f103424:	9084dfe9 */ 	lbu	$a0,%lo(g_MissionConfig+0x1)($a0)
-/*  f103428:	8c4e04b4 */ 	lw	$t6,0x4b4($v0)
-/*  f10342c:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f103430:	15c40002 */ 	bne	$t6,$a0,.START
-/*  f103434:	00000000 */ 	nop
-/*  f103438:	ac43046c */ 	sw	$v1,0x46c($v0)
-.START:
-/*  f10343c:	0fc06c55 */ 	jal	titleSetNextStage
-/*  f103440:	00000000 */ 	nop
-/*  f103444:	3c06800a */ 	lui	$a2,%hi(g_MissionConfig)
-/*  f103448:	24c6dfe8 */ 	addiu	$a2,$a2,%lo(g_MissionConfig)
-/*  f10344c:	80d80003 */ 	lb	$t8,0x3($a2)
-/*  f103450:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f103454:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f103458:	07010014 */ 	bgez	$t8,.NOTCOOP
-/*  f10345c:	24030001 */ 	addiu	$v1,$zero,0x1
-.COOP:
-/*  f103460:	8c590474 */ 	lw	$t9,0x474($v0)
-/*  f103464:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f103468:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f10346c:	5720000a */ 	bnezl	$t9,.COOPBUDDIES
-/*  f103470:	ac400294 */ 	sw	$zero,0x294($v0)
-.COOPNOBUDDIES:
-/*  f103474:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f103478:	ac400294 */ 	sw	$zero,0x294($v0)
-/*  f10347c:	ac430298 */ 	sw	$v1,0x298($v0)
-/*  f103480:	ac45029c */ 	sw	$a1,0x29c($v0)
-/*  f103484:	0fc068d5 */ 	jal	setNumPlayers
-/*  f103488:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f10348c:	1000001f */ 	b	.DONE
-/*  f103490:	00000000 */ 	nop
-/*  f103494:	ac400294 */ 	sw	$zero,0x294($v0)
-.COOPBUDDIES:
-/*  f103498:	ac450298 */ 	sw	$a1,0x298($v0)
-/*  f10349c:	0fc068d5 */ 	jal	setNumPlayers
-/*  f1034a0:	ac45029c */ 	sw	$a1,0x29c($v0)
-/*  f1034a4:	10000019 */ 	b	.DONE
-/*  f1034a8:	00000000 */ 	nop
-.NOTCOOP:
-/*  f1034ac:	8cc80000 */ 	lw	$t0,0x0($a2)
-/*  f1034b0:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f1034b4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f1034b8:	00085640 */ 	sll	$t2,$t0,0x19
-/*  f1034bc:	05430010 */ 	bgezl	$t2,.SOLO
-/*  f1034c0:	ac400294 */ 	sw	$zero,0x294($v0)
-.ANTI:
-/*  f1034c4:	8c4b0450 */ 	lw	$t3,0x450($v0)
-/*  f1034c8:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f1034cc:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f1034d0:	546b0005 */ 	bnel	$v1,$t3,.ANTIP0
-/*  f1034d4:	ac430294 */ 	sw	$v1,0x294($v0)
-.ANTIP1:
-/*  f1034d8:	ac400294 */ 	sw	$zero,0x294($v0)
-/*  f1034dc:	10000003 */ 	b	.ANTIEND
-/*  f1034e0:	ac43029c */ 	sw	$v1,0x29c($v0)
-/*  f1034e4:	ac430294 */ 	sw	$v1,0x294($v0)
-.ANTIP0:
-/*  f1034e8:	ac40029c */ 	sw	$zero,0x29c($v0)
-.ANTIEND:
-/*  f1034ec:	0fc068d5 */ 	jal	setNumPlayers
-/*  f1034f0:	ac450298 */ 	sw	$a1,0x298($v0)
-/*  f1034f4:	10000005 */ 	b	.DONE
-/*  f1034f8:	00000000 */ 	nop
-/*  f1034fc:	ac400294 */ 	sw	$zero,0x294($v0)
-.SOLO:
-/*  f103500:	ac450298 */ 	sw	$a1,0x298($v0)
-/*  f103504:	0fc068d5 */ 	jal	setNumPlayers
-/*  f103508:	ac45029c */ 	sw	$a1,0x29c($v0)
-.DONE:
-/*  f10350c:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig)
-/*  f103510:	8c84dfe8 */ 	lw	$a0,%lo(g_MissionConfig)($a0)
-/*  f103514:	00046642 */ 	srl	$t4,$a0,0x19
-/*  f103518:	0fc5b36a */ 	jal	setDifficulty
-/*  f10351c:	01802025 */ 	or	$a0,$t4,$zero
-/*  f103520:	0fc069f9 */ 	jal	titleSetNextMode
-/*  f103524:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f103528:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig+0x1)
-/*  f10352c:	0c003a57 */ 	jal	func0000e95c
-/*  f103530:	9084dfe9 */ 	lbu	$a0,%lo(g_MissionConfig+0x1)($a0)
-/*  f103534:	0c0027b1 */ 	jal	func00009ec4
-/*  f103538:	24040001 */ 	addiu	$a0,$zero,0x1
-.END:
-/*  f10353c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f103540:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f103544:	00001025 */ 	or	$v0,$zero,$zero
-/*  f103548:	03e00008 */ 	jr	$ra
-/*  f10354c:	00000000 */ 	nop
-);
+s32 menuhandlerAcceptMission(u32 operation, struct menuitem *item, union handlerdata *data)
+{
+	if (operation == MENUOP_SET) {
+		func0f01bea0();
 
-// Mismatching branch/branch-likelys
-//s32 menuhandlerAcceptMission(u32 operation, struct menuitem *item, s32 *value)
-//{
-//	if (operation == MENUOP_SET) {
-//		func0f01bea0();
-//
-//		if (g_Vars.stagenum == g_MissionConfig.stagenum) {
-//			g_Vars.restartlevel = true;
-//		}
-//
-//		titleSetNextStage(g_MissionConfig.stagenum);
-//
-//		if (g_MissionConfig.iscoop) {
-//			if (g_Vars.numaibuddies == 0) {
-//				// Coop with human buddy
-//				g_Vars.bondplayernum = 0;
-//				g_Vars.coopplayernum = 1;
-//				g_Vars.antiplayernum = -1;
-//				setNumPlayers(2);
-//			} else {
-//				// Coop with AI buddies
-//				g_Vars.bondplayernum = 0;
-//				g_Vars.coopplayernum = -1;
-//				g_Vars.antiplayernum = -1;
-//				setNumPlayers(1);
-//			}
-//		} else if (g_MissionConfig.isanti) {
-//			if (g_Vars.pendingantiplayernum == 1) {
-//				g_Vars.bondplayernum = 0;
-//				g_Vars.antiplayernum = 1;
-//			} else {
-//				g_Vars.bondplayernum = 1;
-//				g_Vars.antiplayernum = 0;
-//			}
-//
-//			g_Vars.coopplayernum = -1;
-//			setNumPlayers(2);
-//		} else {
-//			// Solo
-//			g_Vars.bondplayernum = 0;
-//			g_Vars.coopplayernum = -1;
-//			g_Vars.antiplayernum = -1;
-//			setNumPlayers(1);
-//		}
-//
-//		setDifficulty(g_MissionConfig.difficulty);
-//		titleSetNextMode(TITLEMODE_SKIP);
-//		func0000e95c(g_MissionConfig.stagenum);
-//		func00009ec4(1);
-//	}
-//
-//	return 0;
-//}
+		if (g_Vars.stagenum == g_MissionConfig.stagenum) {
+			g_Vars.restartlevel = true;
+		}
+
+		titleSetNextStage(g_MissionConfig.stagenum);
+
+		if (g_MissionConfig.iscoop) {
+			if (g_Vars.numaibuddies == 0) {
+				// Coop with human buddy
+				g_Vars.bondplayernum = 0;
+				g_Vars.coopplayernum = 1;
+				g_Vars.antiplayernum = -1;
+				setNumPlayers(2);
+			} else {
+				// Coop with AI buddies
+				g_Vars.bondplayernum = 0;
+				g_Vars.coopplayernum = -1;
+				g_Vars.antiplayernum = -1;
+				setNumPlayers(1);
+			}
+		} else if (g_MissionConfig.isanti) {
+			if (g_Vars.pendingantiplayernum == 1) {
+				g_Vars.bondplayernum = 0;
+				g_Vars.antiplayernum = 1;
+			} else {
+				g_Vars.bondplayernum = 1;
+				g_Vars.antiplayernum = 0;
+			}
+
+			g_Vars.coopplayernum = -1;
+			setNumPlayers(2);
+		} else {
+			// Solo
+			g_Vars.bondplayernum = 0;
+			g_Vars.coopplayernum = -1;
+			g_Vars.antiplayernum = -1;
+			setNumPlayers(1);
+		}
+
+		setDifficulty(g_MissionConfig.difficulty);
+		titleSetNextMode(TITLEMODE_SKIP);
+		func0000e95c(g_MissionConfig.stagenum);
+		func00009ec4(1);
+	}
+
+	return 0;
+}
 
 char *soloMenuTitleStageOverview(struct menudialog *dialog)
 {
