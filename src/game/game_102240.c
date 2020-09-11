@@ -1276,93 +1276,31 @@ s32 getMaxAiBuddies(void)
 	return max;
 }
 
-GLOBAL_ASM(
-glabel menudialogCoopAntiOptions
-/*  f104104:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f104108:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f10410c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f104110:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f104114:	1481000a */ 	bne	$a0,$at,.L0f104140
-/*  f104118:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f10411c:	0fc41023 */ 	jal	getMaxAiBuddies
-/*  f104120:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f104124:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x474)
-/*  f104128:	8dcea434 */ 	lw	$t6,%lo(g_Vars+0x474)($t6)
-/*  f10412c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f104130:	004e082a */ 	slt	$at,$v0,$t6
-/*  f104134:	10200002 */ 	beqz	$at,.L0f104140
-/*  f104138:	3c01800a */ 	lui	$at,%hi(g_Vars+0x474)
-/*  f10413c:	ac22a434 */ 	sw	$v0,%lo(g_Vars+0x474)($at)
-.L0f104140:
-/*  f104140:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f104144:	1481001e */ 	bne	$a0,$at,.L0f1041c0
-/*  f104148:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
-/*  f10414c:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f104150:	3c02800a */ 	lui	$v0,%hi(g_Menus+0x4f8)
-/*  f104154:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*  f104158:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f10415c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f104160:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f104164:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f104168:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f10416c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f104170:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f104174:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f104178:	8c42e4f8 */ 	lw	$v0,%lo(g_Menus+0x4f8)($v0)
-/*  f10417c:	50400011 */ 	beqzl	$v0,.L0f1041c4
-/*  f104180:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f104184:	8c480000 */ 	lw	$t0,0x0($v0)
-/*  f104188:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*  f10418c:	5728000d */ 	bnel	$t9,$t0,.L0f1041c4
-/*  f104190:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f104194:	8d230000 */ 	lw	$v1,0x0($t1)
-/*  f104198:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f10419c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1041a0:	806a000a */ 	lb	$t2,0xa($v1)
-/*  f1041a4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1041a8:	51400005 */ 	beqzl	$t2,.L0f1041c0
-/*  f1041ac:	a060000a */ 	sb	$zero,0xa($v1)
-/*  f1041b0:	0fc4100e */ 	jal	menuhandlerBuddyOptionsContinue
-/*  f1041b4:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f1041b8:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f1041bc:	a060000a */ 	sb	$zero,0xa($v1)
-.L0f1041c0:
-/*  f1041c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1041c4:
-/*  f1041c4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1041c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1041cc:	03e00008 */ 	jr	$ra
-/*  f1041d0:	00000000 */ 	nop
-);
+s32 menudialogCoopAntiOptions(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	if (operation == MENUOP_OPEN) {
+		s32 max = getMaxAiBuddies();
 
-// Commented because this function suggests that the 3rd argument to menudialog
-// functions is either not a menu or is using unions.
-// It uses offset 0x0a, but 0x08 is a 4 byte pointer.
-//bool menudialogCoopAntiOptions(u32 operation, struct menudialog *dialog, struct menu *menu)
-//{
-//	if (operation == MENUOP_OPEN) {
-//		s32 max = getMaxAiBuddies();
-//
-//		if (g_Vars.numaibuddies > max) {
-//			g_Vars.numaibuddies = max;
-//		}
-//	}
-//
-//	if (operation == MENUOP_TICK) {
-//		if (g_Menus[g_MpPlayerNum].curframe &&
-//				g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
-//			struct menuframe *curframe = menu->curframe;
-//
-//			if (curframe->unk0a) {
-//				menuhandlerBuddyOptionsContinue(MENUOP_SET, NULL, NULL);
-//			}
-//
-//			curframe->unk0a = 0;
-//		}
-//	}
-//
-//	return 0;
-//}
+		if (g_Vars.numaibuddies > max) {
+			g_Vars.numaibuddies = max;
+		}
+	}
+
+	if (operation == MENUOP_TICK) {
+		if (g_Menus[g_MpPlayerNum].curframe &&
+				g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
+			struct menuthing *thing = data->dialog2.ptr;
+
+			if (thing->unk0a) {
+				menuhandlerBuddyOptionsContinue(MENUOP_SET, NULL, NULL);
+			}
+
+			thing->unk0a = 0;
+		}
+	}
+
+	return 0;
+}
 
 s32 menuhandlerCoopRadar(u32 operation, struct menuitem *item, union handlerdata *data)
 {
