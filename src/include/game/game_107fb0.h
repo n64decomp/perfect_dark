@@ -12,7 +12,7 @@ u32 func0f1083b0(void);
 void func0f1083d0(s32 arg0, s32 arg1);
 char *pakMenuTextFailReason(struct menuitem *item);
 u32 func0f108550(void);
-u32 func0f10865c(void);
+void func0f10865c(u32 arg0);
 u32 func0f1086b8(void);
 u32 func0f10876c(void);
 u32 func0f1088a0(void);
@@ -53,7 +53,7 @@ s32 menucustomFileToCopy(u32 operation, struct menuitem *item, union handlerdata
 s32 menucustomFileToDelete(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menudialog00108e58(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialog0010b014(u32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 menudialog0010b674(u32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 pakGameNotesMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialog0010ba10(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialog0010c804(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menuhandler00108014(u32 operation, struct menuitem *item, union handlerdata *data);
