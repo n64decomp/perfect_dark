@@ -471,101 +471,39 @@ glabel var7f1b9940
 /*  f1a39a4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel menudialog001a39a8
-.late_rodata
-glabel var7f1b9944
-.word 0x4196cbe4
-.text
-/*  f1a39a8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1a39ac:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f1a39b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a39b4:	10810008 */ 	beq	$a0,$at,.L0f1a39d8
-/*  f1a39b8:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f1a39bc:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f1a39c0:	10810041 */ 	beq	$a0,$at,.L0f1a3ac8
-/*  f1a39c4:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f1a39c8:	1081001e */ 	beq	$a0,$at,.L0f1a3a44
-/*  f1a39cc:	3c188007 */ 	lui	$t8,%hi(g_MpPlayerNum)
-/*  f1a39d0:	10000044 */ 	b	.L0f1a3ae4
-/*  f1a39d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a39d8:
-/*  f1a39d8:	0fc67494 */ 	jal	frGetSlot
-/*  f1a39dc:	00000000 */ 	nop
-/*  f1a39e0:	0fc6749a */ 	jal	frGetWeaponBySlot
-/*  f1a39e4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a39e8:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f1a39ec:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f1a39f0:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe28)
-/*  f1a39f4:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f1a39f8:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f1a39fc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1a3a00:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1a3a04:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1a3a08:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1a3a0c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1a3a10:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f1a3a14:	002f0821 */ 	addu	$at,$at,$t7
-/*  f1a3a18:	ac22ee28 */ 	sw	$v0,%lo(g_Menus+0xe28)($at)
-/*  f1a3a1c:	0fc41652 */ 	jal	func0f105948
-/*  f1a3a20:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a3a24:	0fc6830c */ 	jal	frIsInTraining
-/*  f1a3a28:	00000000 */ 	nop
-/*  f1a3a2c:	5440002d */ 	bnezl	$v0,.L0f1a3ae4
-/*  f1a3a30:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3a34:	0fc67a40 */ 	jal	frInitAmmo
-/*  f1a3a38:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f1a3a3c:	10000029 */ 	b	.L0f1a3ae4
-/*  f1a3a40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a3a44:
-/*  f1a3a44:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f1a3a48:	3c08800a */ 	lui	$t0,%hi(g_Menus)
-/*  f1a3a4c:	2508e000 */ 	addiu	$t0,$t0,%lo(g_Menus)
-/*  f1a3a50:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f1a3a54:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f1a3a58:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f1a3a5c:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f1a3a60:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f1a3a64:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f1a3a68:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f1a3a6c:	03281021 */ 	addu	$v0,$t9,$t0
-/*  f1a3a70:	8c4304f8 */ 	lw	$v1,0x4f8($v0)
-/*  f1a3a74:	5060001b */ 	beqzl	$v1,.L0f1a3ae4
-/*  f1a3a78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3a7c:	8c690000 */ 	lw	$t1,0x0($v1)
-/*  f1a3a80:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
-/*  f1a3a84:	54a90017 */ 	bnel	$a1,$t1,.L0f1a3ae4
-/*  f1a3a88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3a8c:	8c4a0db4 */ 	lw	$t2,0xdb4($v0)
-/*  f1a3a90:	8d6b9fc0 */ 	lw	$t3,%lo(g_Vars)($t3)
-/*  f1a3a94:	3c017f1c */ 	lui	$at,%hi(var7f1b9944)
-/*  f1a3a98:	44801000 */ 	mtc1	$zero,$f2
-/*  f1a3a9c:	014b6023 */ 	subu	$t4,$t2,$t3
-/*  f1a3aa0:	ac4c0db4 */ 	sw	$t4,0xdb4($v0)
-/*  f1a3aa4:	c4249944 */ 	lwc1	$f4,%lo(var7f1b9944)($at)
-/*  f1a3aa8:	3c018006 */ 	lui	$at,%hi(var80061630)
-/*  f1a3aac:	c4261630 */ 	lwc1	$f6,%lo(var80061630)($at)
-/*  f1a3ab0:	e4420d68 */ 	swc1	$f2,0xd68($v0)
-/*  f1a3ab4:	e4420d90 */ 	swc1	$f2,0xd90($v0)
-/*  f1a3ab8:	46062002 */ 	mul.s	$f0,$f4,$f6
-/*  f1a3abc:	e4400d8c */ 	swc1	$f0,0xd8c($v0)
-/*  f1a3ac0:	10000007 */ 	b	.L0f1a3ae0
-/*  f1a3ac4:	e4400d64 */ 	swc1	$f0,0xd64($v0)
-.L0f1a3ac8:
-/*  f1a3ac8:	0fc6830c */ 	jal	frIsInTraining
-/*  f1a3acc:	00000000 */ 	nop
-/*  f1a3ad0:	54400004 */ 	bnezl	$v0,.L0f1a3ae4
-/*  f1a3ad4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3ad8:	0fc67b37 */ 	jal	frEndSession
-/*  f1a3adc:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f1a3ae0:
-/*  f1a3ae0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a3ae4:
-/*  f1a3ae4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1a3ae8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a3aec:	03e00008 */ 	jr	$ra
-/*  f1a3af0:	00000000 */ 	nop
-);
+s32 frTrainingInfoMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	u32 stack;
+	s32 weaponnum;
+
+	switch (operation) {
+	case MENUOP_OPEN:
+		weaponnum = frGetWeaponBySlot(frGetSlot());
+		g_Menus[g_MpPlayerNum].data.train.unke28 = weaponnum;
+		func0f105948(weaponnum);
+
+		if (!frIsInTraining()) {
+			frInitAmmo(weaponnum);
+		}
+		break;
+	case MENUOP_TICK:
+		if (g_Menus[g_MpPlayerNum].curframe && g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
+			g_Menus[g_MpPlayerNum].unkdb4 -= g_Vars.diffframe60;
+			g_Menus[g_MpPlayerNum].unkd8c = 18.849555969238f * var80061630;
+			g_Menus[g_MpPlayerNum].unkd64 = 18.849555969238f * var80061630;
+			g_Menus[g_MpPlayerNum].unkd68 = 0;
+			g_Menus[g_MpPlayerNum].unkd90 = 0;
+		}
+		break;
+	case MENUOP_CLOSE:
+		if (!frIsInTraining()) {
+			frEndSession(true);
+		}
+		break;
+	}
+
+	return 0;
+}
 
 s32 frTrainingStatsMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
@@ -2564,7 +2502,7 @@ struct menudialog g_FrTrainingInfoMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(447), // "Training Info"
 	menuitems_frtraininginfo,
-	menudialog001a39a8,
+	frTrainingInfoMenuDialog,
 	0x00000602,
 	NULL,
 };
@@ -2587,7 +2525,7 @@ struct menudialog menudialog_frtraininginfo2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(447), // "Training Info"
 	menuitems_frtraininginfo2,
-	menudialog001a39a8,
+	frTrainingInfoMenuDialog,
 	0x00000602,
 	NULL,
 };

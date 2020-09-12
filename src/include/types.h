@@ -3609,6 +3609,8 @@ struct menudata_main4mb {
 struct menudata_train {
 	u32 unke1c;
 	struct mpconfigfull *mpconfig;
+	u32 unke24;
+	u32 unke28;
 };
 
 struct menu {

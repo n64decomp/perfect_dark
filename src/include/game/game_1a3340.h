@@ -37,7 +37,7 @@ void func0f1a7560(void *ptr, u16 fileid, u32 arg2, void *arg3, s32 arg4, bool ar
 void func0f1a7730(void *ptr);
 void *func0f1a7794(u16 fileid, u8 *arg1, s32 arg2, s32 arg3);
 void *fileLoad(u16 fileid);
-s32 menudialog001a39a8(u32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 frTrainingInfoMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 frTrainingStatsMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialog001a5f48(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialog001a6548(u32 operation, struct menudialog *dialog, union handlerdata *data);
