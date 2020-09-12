@@ -4075,91 +4075,34 @@ s32 menuhandlerPakSelection(u32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menudialog0010ba10
-/*  f10ba10:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10ba14:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f10ba18:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10ba1c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10ba20:	10810009 */ 	beq	$a0,$at,.L0f10ba48
-/*  f10ba24:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10ba28:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f10ba2c:	10810018 */ 	beq	$a0,$at,.L0f10ba90
-/*  f10ba30:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f10ba34:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f10ba38:	10810012 */ 	beq	$a0,$at,.L0f10ba84
-/*  f10ba3c:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f10ba40:	10000039 */ 	b	.L0f10bb28
-/*  f10ba44:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10ba48:
-/*  f10ba48:	0c004e63 */ 	jal	func0001398c
-/*  f10ba4c:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f10ba50:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10ba54:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10ba58:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe24)
-/*  f10ba5c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10ba60:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10ba64:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10ba68:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10ba6c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10ba70:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10ba74:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10ba78:	002f0821 */ 	addu	$at,$at,$t7
-/*  f10ba7c:	10000029 */ 	b	.L0f10bb24
-/*  f10ba80:	ac20ee24 */ 	sw	$zero,%lo(g_Menus+0xe24)($at)
-.L0f10ba84:
-/*  f10ba84:	3c018006 */ 	lui	$at,%hi(var80062944)
-/*  f10ba88:	10000026 */ 	b	.L0f10bb24
-/*  f10ba8c:	a0382944 */ 	sb	$t8,%lo(var80062944)($at)
-.L0f10ba90:
-/*  f10ba90:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f10ba94:	8c5904b4 */ 	lw	$t9,0x4b4($v0)
-/*  f10ba98:	2401005b */ 	addiu	$at,$zero,0x5b
-/*  f10ba9c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f10baa0:	1321001e */ 	beq	$t9,$at,.L0f10bb1c
-/*  f10baa4:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f10baa8:	8d081448 */ 	lw	$t0,%lo(g_MpPlayerNum)($t0)
-/*  f10baac:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe24)
-/*  f10bab0:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f10bab4:	000848c0 */ 	sll	$t1,$t0,0x3
-/*  f10bab8:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f10babc:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f10bac0:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f10bac4:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f10bac8:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f10bacc:	00094900 */ 	sll	$t1,$t1,0x4
-/*  f10bad0:	00892021 */ 	addu	$a0,$a0,$t1
-/*  f10bad4:	8c84ee24 */ 	lw	$a0,%lo(g_Menus+0xe24)($a0)
-/*  f10bad8:	240a0001 */ 	addiu	$t2,$zero,0x1
-.L0f10badc:
-/*  f10badc:	006a5804 */ 	sllv	$t3,$t2,$v1
-/*  f10bae0:	008b6024 */ 	and	$t4,$a0,$t3
-/*  f10bae4:	1180000a */ 	beqz	$t4,.L0f10bb10
-/*  f10bae8:	24680008 */ 	addiu	$t0,$v1,0x8
-/*  f10baec:	944d04e4 */ 	lhu	$t5,0x4e4($v0)
-/*  f10baf0:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f10baf4:	01095004 */ 	sllv	$t2,$t1,$t0
-/*  f10baf8:	31affff0 */ 	andi	$t7,$t5,0xfff0
-/*  f10bafc:	35f90008 */ 	ori	$t9,$t7,0x8
-/*  f10bb00:	a44f04e4 */ 	sh	$t7,0x4e4($v0)
-/*  f10bb04:	a45904e4 */ 	sh	$t9,0x4e4($v0)
-/*  f10bb08:	032a5825 */ 	or	$t3,$t9,$t2
-/*  f10bb0c:	a44b04e4 */ 	sh	$t3,0x4e4($v0)
-.L0f10bb10:
-/*  f10bb10:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f10bb14:	5465fff1 */ 	bnel	$v1,$a1,.L0f10badc
-/*  f10bb18:	240a0001 */ 	addiu	$t2,$zero,0x1
-.L0f10bb1c:
-/*  f10bb1c:	0c004e72 */ 	jal	func000139c8
-/*  f10bb20:	00000000 */ 	nop
-.L0f10bb24:
-/*  f10bb24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10bb28:
-/*  f10bb28:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10bb2c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10bb30:	03e00008 */ 	jr	$ra
-/*  f10bb34:	00000000 */ 	nop
-);
+s32 pakControllerPakMenuMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	switch (operation) {
+	case MENUOP_OPEN:
+		func0001398c(3);
+		g_Menus[g_MpPlayerNum].data.pak.unke24 = 0;
+		break;
+	case MENUOP_TICK:
+		var80062944 = 1;
+		break;
+	case MENUOP_CLOSE:
+		if (g_Vars.stagenum != STAGE_BOOTPAKMENU) {
+			s32 i;
+
+			for (i = 0; i < 4; i++) {
+				if (g_Menus[g_MpPlayerNum].data.pak.unke24 & (1 << i)) {
+					g_Vars.unk0004e4 &= 0xfff0;
+					g_Vars.unk0004e4 |= 0x0008;
+					g_Vars.unk0004e4 |= 1 << (i + 8);
+				}
+			}
+		}
+		func000139c8();
+		break;
+	}
+
+	return 0;
+}
 
 s32 menuhandlerOpenCopyFile(u32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -5417,7 +5360,7 @@ struct menudialog menudialog_controllerpakmenu = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(107), // "Controller Pak Menu"
 	menuitems_controllerpakmenu,
-	menudialog0010ba10,
+	pakControllerPakMenuMenuDialog,
 	0x00000000,
 	NULL,
 };
