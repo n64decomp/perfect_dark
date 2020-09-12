@@ -564,94 +564,41 @@ void endscreenHandleContinue(s32 context)
 	}
 }
 
-GLOBAL_ASM(
-glabel menudialogSolo2PEndscreenCompleted
-/*  f10dd28:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10dd2c:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f10dd30:	1481000d */ 	bne	$a0,$at,.L0f10dd68
-/*  f10dd34:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10dd38:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10dd3c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10dd40:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe1c)
-/*  f10dd44:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10dd48:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10dd4c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10dd50:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10dd54:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10dd58:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10dd5c:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10dd60:	002f0821 */ 	addu	$at,$at,$t7
-/*  f10dd64:	ac20ee1c */ 	sw	$zero,%lo(g_Menus+0xe1c)($at)
-.L0f10dd68:
-/*  f10dd68:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f10dd6c:	14810035 */ 	bne	$a0,$at,.L0f10de44
-/*  f10dd70:	3c188007 */ 	lui	$t8,%hi(g_MpPlayerNum)
-/*  f10dd74:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f10dd78:	3c08800a */ 	lui	$t0,%hi(g_Menus)
-/*  f10dd7c:	2508e000 */ 	addiu	$t0,$t0,%lo(g_Menus)
-/*  f10dd80:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f10dd84:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10dd88:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f10dd8c:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f10dd90:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f10dd94:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10dd98:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f10dd9c:	03282021 */ 	addu	$a0,$t9,$t0
-/*  f10dda0:	8c8204f8 */ 	lw	$v0,0x4f8($a0)
-/*  f10dda4:	50400028 */ 	beqzl	$v0,.L0f10de48
-/*  f10dda8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10ddac:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f10ddb0:	50a30007 */ 	beql	$a1,$v1,.L0f10ddd0
-/*  f10ddb4:	8cc30000 */ 	lw	$v1,0x0($a2)
-/*  f10ddb8:	8ca20014 */ 	lw	$v0,0x14($a1)
-/*  f10ddbc:	50400022 */ 	beqzl	$v0,.L0f10de48
-/*  f10ddc0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10ddc4:	54430020 */ 	bnel	$v0,$v1,.L0f10de48
-/*  f10ddc8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10ddcc:	8cc30000 */ 	lw	$v1,0x0($a2)
-.L0f10ddd0:
-/*  f10ddd0:	240c0006 */ 	addiu	$t4,$zero,0x6
-/*  f10ddd4:	3c0d800a */ 	lui	$t5,%hi(var8009dfc0)
-/*  f10ddd8:	90690002 */ 	lbu	$t1,0x2($v1)
-/*  f10dddc:	55200008 */ 	bnezl	$t1,.L0f10de00
-/*  f10dde0:	ac8c0e1c */ 	sw	$t4,0xe1c($a0)
-/*  f10dde4:	906a0003 */ 	lbu	$t2,0x3($v1)
-/*  f10dde8:	55400005 */ 	bnezl	$t2,.L0f10de00
-/*  f10ddec:	ac8c0e1c */ 	sw	$t4,0xe1c($a0)
-/*  f10ddf0:	806b000a */ 	lb	$t3,0xa($v1)
-/*  f10ddf4:	51600003 */ 	beqzl	$t3,.L0f10de04
-/*  f10ddf8:	8c820e1c */ 	lw	$v0,0xe1c($a0)
-/*  f10ddfc:	ac8c0e1c */ 	sw	$t4,0xe1c($a0)
-.L0f10de00:
-/*  f10de00:	8c820e1c */ 	lw	$v0,0xe1c($a0)
-.L0f10de04:
-/*  f10de04:	5040000d */ 	beqzl	$v0,.L0f10de3c
-/*  f10de08:	a060000a */ 	sb	$zero,0xa($v1)
-/*  f10de0c:	8daddfc0 */ 	lw	$t5,%lo(var8009dfc0)($t5)
-/*  f10de10:	244effff */ 	addiu	$t6,$v0,-1
-/*  f10de14:	11a00003 */ 	beqz	$t5,.L0f10de24
-/*  f10de18:	00000000 */ 	nop
-/*  f10de1c:	ac8e0e1c */ 	sw	$t6,0xe1c($a0)
-/*  f10de20:	01c01025 */ 	or	$v0,$t6,$zero
-.L0f10de24:
-/*  f10de24:	14400004 */ 	bnez	$v0,.L0f10de38
-/*  f10de28:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10de2c:	0fc43644 */ 	jal	endscreenHandleContinue
-/*  f10de30:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f10de34:	8fa3001c */ 	lw	$v1,0x1c($sp)
-.L0f10de38:
-/*  f10de38:	a060000a */ 	sb	$zero,0xa($v1)
-.L0f10de3c:
-/*  f10de3c:	a0600003 */ 	sb	$zero,0x3($v1)
-/*  f10de40:	a0600002 */ 	sb	$zero,0x2($v1)
-.L0f10de44:
-/*  f10de44:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10de48:
-/*  f10de48:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f10de4c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10de50:	03e00008 */ 	jr	$ra
-/*  f10de54:	00000000 */ 	nop
-);
+s32 menudialogSolo2PEndscreenCompleted(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	if (operation == MENUOP_OPEN) {
+		g_Menus[g_MpPlayerNum].data.endscreen.unke1c = 0;
+	}
+
+	if (operation == MENUOP_TICK) {
+		if (g_Menus[g_MpPlayerNum].curframe) {
+			if (g_Menus[g_MpPlayerNum].curframe->dialog == dialog
+					|| (dialog->nextsibling && dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog)) {
+				struct menuthing *thing = data->dialog2.ptr;
+
+				if (thing->unk02 || thing->unk03 || thing->start) {
+					g_Menus[g_MpPlayerNum].data.endscreen.unke1c = 6;
+				}
+
+				if (g_Menus[g_MpPlayerNum].data.endscreen.unke1c) {
+					if (var8009dfc0) {
+						g_Menus[g_MpPlayerNum].data.endscreen.unke1c--;
+					}
+
+					if (g_Menus[g_MpPlayerNum].data.endscreen.unke1c == 0) {
+						endscreenHandleContinue(0);
+					}
+				}
+
+				thing->start = 0;
+				thing->unk03 = 0;
+				thing->unk02 = 0;
+			}
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menudialogSolo2PEndscreenFailed
