@@ -3163,7 +3163,7 @@ struct menudialog menudialog_18d90 = {
 	&menudialog_18058,
 };
 
-u32 var80072d88 = 0xff000000;
+u8 var80072d88 = 255;
 
 //-----------------------------------------------------------------------------\
 // @dialog Inventory ----------------------------------------------------------/
@@ -3345,100 +3345,33 @@ void func0f105948(s32 weaponnum)
 	}
 }
 
-GLOBAL_ASM(
-glabel menudialog00105c54
-.late_rodata
-glabel var7f1b2e04
-.word 0x4196cbe4
-.text
-/*  f105c54:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f105c58:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f105c5c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f105c60:	14810049 */ 	bne	$a0,$at,.L0f105d88
-/*  f105c64:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f105c68:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f105c6c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f105c70:	3c18800a */ 	lui	$t8,%hi(g_Menus)
-/*  f105c74:	2718e000 */ 	addiu	$t8,$t8,%lo(g_Menus)
-/*  f105c78:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f105c7c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f105c80:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f105c84:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f105c88:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f105c8c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f105c90:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f105c94:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f105c98:	8c4304f8 */ 	lw	$v1,0x4f8($v0)
-/*  f105c9c:	240800ff */ 	addiu	$t0,$zero,0xff
-/*  f105ca0:	3c018007 */ 	lui	$at,%hi(var80072d88)
-/*  f105ca4:	10600037 */ 	beqz	$v1,.L0f105d84
-/*  f105ca8:	00000000 */ 	nop
-/*  f105cac:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f105cb0:	3c09800a */ 	lui	$t1,%hi(g_Vars)
-/*  f105cb4:	14b90033 */ 	bne	$a1,$t9,.L0f105d84
-/*  f105cb8:	00000000 */ 	nop
-/*  f105cbc:	8c480db4 */ 	lw	$t0,0xdb4($v0)
-/*  f105cc0:	8d299fc0 */ 	lw	$t1,%lo(g_Vars)($t1)
-/*  f105cc4:	3c017f1b */ 	lui	$at,%hi(var7f1b2e04)
-/*  f105cc8:	44801000 */ 	mtc1	$zero,$f2
-/*  f105ccc:	01095023 */ 	subu	$t2,$t0,$t1
-/*  f105cd0:	ac4a0db4 */ 	sw	$t2,0xdb4($v0)
-/*  f105cd4:	c4242e04 */ 	lwc1	$f4,%lo(var7f1b2e04)($at)
-/*  f105cd8:	3c018006 */ 	lui	$at,%hi(var80061630)
-/*  f105cdc:	c4261630 */ 	lwc1	$f6,%lo(var80061630)($at)
-/*  f105ce0:	e4420d68 */ 	swc1	$f2,0xd68($v0)
-/*  f105ce4:	e4420d90 */ 	swc1	$f2,0xd90($v0)
-/*  f105ce8:	46062002 */ 	mul.s	$f0,$f4,$f6
-/*  f105cec:	3c04800a */ 	lui	$a0,%hi(g_InventoryWeapon)
-/*  f105cf0:	3c0b8007 */ 	lui	$t3,%hi(var80072d88)
-/*  f105cf4:	e4400d8c */ 	swc1	$f0,0xd8c($v0)
-/*  f105cf8:	e4400d64 */ 	swc1	$f0,0xd64($v0)
-/*  f105cfc:	916b2d88 */ 	lbu	$t3,%lo(var80072d88)($t3)
-/*  f105d00:	908421c0 */ 	lbu	$a0,%lo(g_InventoryWeapon)($a0)
-/*  f105d04:	508b0008 */ 	beql	$a0,$t3,.L0f105d28
-/*  f105d08:	24010040 */ 	addiu	$at,$zero,0x40
-/*  f105d0c:	0fc41652 */ 	jal	func0f105948
-/*  f105d10:	00000000 */ 	nop
-/*  f105d14:	3c02800a */ 	lui	$v0,%hi(g_InventoryWeapon)
-/*  f105d18:	904421c0 */ 	lbu	$a0,%lo(g_InventoryWeapon)($v0)
-/*  f105d1c:	3c018007 */ 	lui	$at,%hi(var80072d88)
-/*  f105d20:	a0242d88 */ 	sb	$a0,%lo(var80072d88)($at)
-/*  f105d24:	24010040 */ 	addiu	$at,$zero,0x40
-.L0f105d28:
-/*  f105d28:	10810004 */ 	beq	$a0,$at,.L0f105d3c
-/*  f105d2c:	3c0c8007 */ 	lui	$t4,%hi(g_MpPlayerNum)
-/*  f105d30:	24010041 */ 	addiu	$at,$zero,0x41
-/*  f105d34:	54810015 */ 	bnel	$a0,$at,.L0f105d8c
-/*  f105d38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f105d3c:
-/*  f105d3c:	8d8c1448 */ 	lw	$t4,%lo(g_MpPlayerNum)($t4)
-/*  f105d40:	3c0e800a */ 	lui	$t6,%hi(g_Menus)
-/*  f105d44:	25cee000 */ 	addiu	$t6,$t6,%lo(g_Menus)
-/*  f105d48:	000c68c0 */ 	sll	$t5,$t4,0x3
-/*  f105d4c:	01ac6823 */ 	subu	$t5,$t5,$t4
-/*  f105d50:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f105d54:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*  f105d58:	000d68c0 */ 	sll	$t5,$t5,0x3
-/*  f105d5c:	01ac6823 */ 	subu	$t5,$t5,$t4
-/*  f105d60:	000d6900 */ 	sll	$t5,$t5,0x4
-/*  f105d64:	01ae1021 */ 	addu	$v0,$t5,$t6
-/*  f105d68:	240f006a */ 	addiu	$t7,$zero,0x6a
-/*  f105d6c:	2418003c */ 	addiu	$t8,$zero,0x3c
-/*  f105d70:	24190078 */ 	addiu	$t9,$zero,0x78
-/*  f105d74:	a44f089c */ 	sh	$t7,0x89c($v0)
-/*  f105d78:	ac580db8 */ 	sw	$t8,0xdb8($v0)
-/*  f105d7c:	10000002 */ 	b	.L0f105d88
-/*  f105d80:	ac590db4 */ 	sw	$t9,0xdb4($v0)
-.L0f105d84:
-/*  f105d84:	a0282d88 */ 	sb	$t0,%lo(var80072d88)($at)
-.L0f105d88:
-/*  f105d88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f105d8c:
-/*  f105d8c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f105d90:	00001025 */ 	or	$v0,$zero,$zero
-/*  f105d94:	03e00008 */ 	jr	$ra
-/*  f105d98:	00000000 */ 	nop
-);
+s32 inventoryMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	if (operation == MENUOP_TICK) {
+		if (g_Menus[g_MpPlayerNum].curframe && g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
+			g_Menus[g_MpPlayerNum].unkdb4 -= g_Vars.diffframe60;
+			g_Menus[g_MpPlayerNum].unkd8c = 18.849555969238f * var80061630;
+			g_Menus[g_MpPlayerNum].unkd64 = 18.849555969238f * var80061630;
+			g_Menus[g_MpPlayerNum].unkd68 = 0;
+			g_Menus[g_MpPlayerNum].unkd90 = 0;
+
+			if (var80072d88 != g_InventoryWeapon) {
+				func0f105948(g_InventoryWeapon);
+				var80072d88 = g_InventoryWeapon;
+			}
+
+			if (g_InventoryWeapon == WEAPON_DISGUISE40 || g_InventoryWeapon == WEAPON_DISGUISE41) {
+				g_Menus[g_MpPlayerNum].unk89c = 0x6a;
+				g_Menus[g_MpPlayerNum].unkdb8 = 60;
+				g_Menus[g_MpPlayerNum].unkdb4 = 120;
+			}
+		} else {
+			var80072d88 = 255;
+		}
+	}
+
+	return 0;
+}
 
 /**
  * Return name, but if there is no manufacturer then return a blank value
@@ -3884,7 +3817,7 @@ struct menudialog menudialog_19534 = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(178), // "Inventory"
 	menuitems_inventory,
-	menudialog00105c54,
+	inventoryMenuDialog,
 	0x00000602,
 	&menudialog_18d30,
 };
@@ -3893,7 +3826,7 @@ struct menudialog menudialog_weaponsavailable = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(179), // "Weapons Available"
 	menuitems_weaponsavailable,
-	menudialog00105c54,
+	inventoryMenuDialog,
 	0x00000602,
 	NULL,
 };

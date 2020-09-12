@@ -3863,7 +3863,7 @@ struct menu {
 	/*0x890*/ u32 unk890;
 	/*0x894*/ u32 unk894;
 	/*0x898*/ u32 unk898;
-	/*0x89c*/ u32 unk89c;
+	/*0x89c*/ u16 unk89c;
 	/*0x8a0*/ u32 unk8a0;
 	/*0x8a4*/ u32 unk8a4;
 	/*0x8a8*/ u32 unk8a8;
