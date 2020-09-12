@@ -12,7 +12,7 @@ void func0f187fbc(s32 playernum);
 void func0f187fec(void);
 void func0f18800c(s32 playernum, bool arg1);
 void func0f1881d4(s32 index);
-u32 func0f188210(void);
+void func0f188210(void);
 void func0f18836c(void);
 u32 func0f18844c(void);
 void func0f188530(void);

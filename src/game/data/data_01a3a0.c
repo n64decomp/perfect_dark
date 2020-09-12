@@ -58,7 +58,7 @@ struct menudialog menudialog_fileselect2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(95), // "Perfect Dark"
 	menuitems_fileselect2,
-	menudialog0010c804,
+	fileSelectMenuDialog,
 	0x00000020,
 	&menudialog_gamefiles2,
 };

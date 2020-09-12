@@ -55,7 +55,7 @@ s32 menudialog00108e58(u32 operation, struct menudialog *dialog, union handlerda
 s32 menudialog0010b014(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 pakGameNotesMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialog0010ba10(u32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 menudialog0010c804(u32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 fileSelectMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menuhandler00108014(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandler00108254(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandler001084b8(u32 operation, struct menuitem *item, union handlerdata *data);

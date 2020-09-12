@@ -2106,7 +2106,6 @@ const char var7f1b3514[] = "\n";
 const char var7f1b3518[] = "%s %d:%02d:%02d";
 const char var7f1b3528[] = "%s %02d:%02d";
 const char var7f1b3538[] = ".%02d";
-const char var7f1b3540[] = "%s %d\n";
 
 GLOBAL_ASM(
 glabel func0f109c8c
@@ -4976,77 +4975,31 @@ glabel var7f1b385c
 /*  f10c800:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel menudialog0010c804
-/*  f10c804:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f10c808:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f10c80c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f10c810:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f10c814:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f10c818:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f10c81c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f10c820:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f10c824:	10810006 */ 	beq	$a0,$at,.L0f10c840
-/*  f10c828:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f10c82c:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f10c830:	10810029 */ 	beq	$a0,$at,.L0f10c8d8
-/*  f10c834:	00000000 */ 	nop
-/*  f10c838:	1000002a */ 	b	.L0f10c8e4
-/*  f10c83c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f10c840:
-/*  f10c840:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10c844:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10c848:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe1c)
-/*  f10c84c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10c850:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10c854:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10c858:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10c85c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10c860:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10c864:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10c868:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10c86c:	002f0821 */ 	addu	$at,$at,$t7
-/*  f10c870:	ac20ee1c */ 	sw	$zero,%lo(g_Menus+0xe1c)($at)
-/*  f10c874:	0fc44317 */ 	jal	func0f110c5c
-/*  f10c878:	00002825 */ 	or	$a1,$zero,$zero
-/*  f10c87c:	0fc62084 */ 	jal	func0f188210
-/*  f10c880:	00000000 */ 	nop
-/*  f10c884:	3c11800b */ 	lui	$s1,%hi(g_MpPlayers)
-/*  f10c888:	3c127f1b */ 	lui	$s2,%hi(var7f1b3540)
-/*  f10c88c:	26523540 */ 	addiu	$s2,$s2,%lo(var7f1b3540)
-/*  f10c890:	2631c7b8 */ 	addiu	$s1,$s1,%lo(g_MpPlayers)
-/*  f10c894:	00008025 */ 	or	$s0,$zero,$zero
-/*  f10c898:	24130004 */ 	addiu	$s3,$zero,0x4
-.L0f10c89c:
-/*  f10c89c:	92380000 */ 	lbu	$t8,0x0($s1)
-/*  f10c8a0:	57000009 */ 	bnezl	$t8,.L0f10c8c8
-/*  f10c8a4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10c8a8:	0fc5b9f1 */ 	jal	langGet
-/*  f10c8ac:	240459b5 */ 	addiu	$a0,$zero,0x59b5
-/*  f10c8b0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f10c8b4:	02402825 */ 	or	$a1,$s2,$zero
-/*  f10c8b8:	00403025 */ 	or	$a2,$v0,$zero
-/*  f10c8bc:	0c004dad */ 	jal	sprintf
-/*  f10c8c0:	26070001 */ 	addiu	$a3,$s0,0x1
-/*  f10c8c4:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f10c8c8:
-/*  f10c8c8:	1613fff4 */ 	bne	$s0,$s3,.L0f10c89c
-/*  f10c8cc:	263100a0 */ 	addiu	$s1,$s1,0xa0
-/*  f10c8d0:	10000004 */ 	b	.L0f10c8e4
-/*  f10c8d4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f10c8d8:
-/*  f10c8d8:	0fc442fe */ 	jal	func0f110bf8
-/*  f10c8dc:	00000000 */ 	nop
-/*  f10c8e0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f10c8e4:
-/*  f10c8e4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f10c8e8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f10c8ec:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f10c8f0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f10c8f4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f10c8f8:	03e00008 */ 	jr	$ra
-/*  f10c8fc:	00001025 */ 	or	$v0,$zero,$zero
-);
+s32 fileSelectMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	s32 i;
+
+	switch (operation) {
+	case MENUOP_OPEN:
+		g_Menus[g_MpPlayerNum].data.filesel.slotindex = 0;
+
+		func0f110c5c(0, FILETYPE_SOLO);
+		func0f188210();
+
+		// Set MP player names to "Player 1" through 4 if blank
+		for (i = 0; i < 4; i++) {
+			if (g_MpPlayers[i].base.name[0] == '\0') {
+				sprintf(g_MpPlayers[i].base.name, "%s %d\n", langGet(L_MISC(437)), i + 1);
+			}
+		}
+		break;
+	case MENUOP_CLOSE:
+		func0f110bf8();
+		break;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f10c900
@@ -5523,7 +5476,7 @@ struct menudialog menudialog_fileselect = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(95), // "Perfect Dark"
 	menuitems_fileselect,
-	menudialog0010c804,
+	fileSelectMenuDialog,
 	0x00000020,
 	&menudialog_gamefiles,
 };
