@@ -63,25 +63,25 @@ s32 menudialogRetryMission(u32 operation, struct menudialog *dialog, union handl
 					struct menuthing *thing = data->dialog2.ptr;
 					bool pass = false;
 
-					if (thing->unk03) {
+					if (thing->back) {
 						menuPopDialog();
 						menuPopDialog();
 					}
 
-					thing->unk03 = 0;
+					thing->back = false;
 
 					if (thing->start) {
 						pass = true;
 					}
 
-					thing->start = 0;
+					thing->start = false;
 
-					if (thing->unk02
+					if (thing->forward
 							&& g_Menus[g_MpPlayerNum].curframe
 							&& dialog->nextsibling
 							&& dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog) {
 						pass = true;
-						thing->unk02 = 0;
+						thing->forward = false;
 					}
 
 					if (pass) {
@@ -576,7 +576,7 @@ s32 menudialogSolo2PEndscreenCompleted(u32 operation, struct menudialog *dialog,
 					|| (dialog->nextsibling && dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog)) {
 				struct menuthing *thing = data->dialog2.ptr;
 
-				if (thing->unk02 || thing->unk03 || thing->start) {
+				if (thing->forward || thing->back || thing->start) {
 					g_Menus[g_MpPlayerNum].data.endscreen.unke1c = 6;
 				}
 
@@ -590,9 +590,7 @@ s32 menudialogSolo2PEndscreenCompleted(u32 operation, struct menudialog *dialog,
 					}
 				}
 
-				thing->start = 0;
-				thing->unk03 = 0;
-				thing->unk02 = 0;
+				thing->forward = thing->back = thing->start = 0;
 			}
 		}
 	}
@@ -600,156 +598,47 @@ s32 menudialogSolo2PEndscreenCompleted(u32 operation, struct menudialog *dialog,
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menudialogSolo2PEndscreenFailed
-/*  f10de58:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10de5c:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f10de60:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10de64:	1481000d */ 	bne	$a0,$at,.L0f10de9c
-/*  f10de68:	00c03825 */ 	or	$a3,$a2,$zero
-/*  f10de6c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10de70:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10de74:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe1c)
-/*  f10de78:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10de7c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10de80:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10de84:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10de88:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10de8c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10de90:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10de94:	002f0821 */ 	addu	$at,$at,$t7
-/*  f10de98:	ac20ee1c */ 	sw	$zero,%lo(g_Menus+0xe1c)($at)
-.L0f10de9c:
-/*  f10de9c:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f10dea0:	1481006b */ 	bne	$a0,$at,.L0f10e050
-/*  f10dea4:	3c188007 */ 	lui	$t8,%hi(g_MpPlayerNum)
-/*  f10dea8:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f10deac:	3c08800a */ 	lui	$t0,%hi(g_Menus)
-/*  f10deb0:	2508e000 */ 	addiu	$t0,$t0,%lo(g_Menus)
-/*  f10deb4:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f10deb8:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10debc:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f10dec0:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f10dec4:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f10dec8:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10decc:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f10ded0:	03281821 */ 	addu	$v1,$t9,$t0
-/*  f10ded4:	8c6204f8 */ 	lw	$v0,0x4f8($v1)
-/*  f10ded8:	5040005e */ 	beqzl	$v0,.L0f10e054
-/*  f10dedc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10dee0:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f10dee4:	50a40007 */ 	beql	$a1,$a0,.L0f10df04
-/*  f10dee8:	8ce60000 */ 	lw	$a2,0x0($a3)
-/*  f10deec:	8ca20014 */ 	lw	$v0,0x14($a1)
-/*  f10def0:	50400058 */ 	beqzl	$v0,.L0f10e054
-/*  f10def4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10def8:	54440056 */ 	bnel	$v0,$a0,.L0f10e054
-/*  f10defc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10df00:	8ce60000 */ 	lw	$a2,0x0($a3)
-.L0f10df04:
-/*  f10df04:	240c0006 */ 	addiu	$t4,$zero,0x6
-/*  f10df08:	3c0d800a */ 	lui	$t5,%hi(var8009dfc0)
-/*  f10df0c:	90c90002 */ 	lbu	$t1,0x2($a2)
-/*  f10df10:	55200008 */ 	bnezl	$t1,.L0f10df34
-/*  f10df14:	ac6c0e1c */ 	sw	$t4,0xe1c($v1)
-/*  f10df18:	90ca0003 */ 	lbu	$t2,0x3($a2)
-/*  f10df1c:	55400005 */ 	bnezl	$t2,.L0f10df34
-/*  f10df20:	ac6c0e1c */ 	sw	$t4,0xe1c($v1)
-/*  f10df24:	80cb000a */ 	lb	$t3,0xa($a2)
-/*  f10df28:	51600003 */ 	beqzl	$t3,.L0f10df38
-/*  f10df2c:	8c620e1c */ 	lw	$v0,0xe1c($v1)
-/*  f10df30:	ac6c0e1c */ 	sw	$t4,0xe1c($v1)
-.L0f10df34:
-/*  f10df34:	8c620e1c */ 	lw	$v0,0xe1c($v1)
-.L0f10df38:
-/*  f10df38:	50400043 */ 	beqzl	$v0,.L0f10e048
-/*  f10df3c:	a0c0000a */ 	sb	$zero,0xa($a2)
-/*  f10df40:	8daddfc0 */ 	lw	$t5,%lo(var8009dfc0)($t5)
-/*  f10df44:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f10df48:	244effff */ 	addiu	$t6,$v0,-1
-/*  f10df4c:	11a00003 */ 	beqz	$t5,.L0f10df5c
-/*  f10df50:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f10df54:	ac6e0e1c */ 	sw	$t6,0xe1c($v1)
-/*  f10df58:	01c01025 */ 	or	$v0,$t6,$zero
-.L0f10df5c:
-/*  f10df5c:	5440003a */ 	bnezl	$v0,.L0f10e048
-/*  f10df60:	a0c0000a */ 	sb	$zero,0xa($a2)
-/*  f10df64:	8caf029c */ 	lw	$t7,0x29c($a1)
-/*  f10df68:	05e1002c */ 	bgez	$t7,.L0f10e01c
-/*  f10df6c:	00000000 */ 	nop
-/*  f10df70:	8cb80298 */ 	lw	$t8,0x298($a1)
-/*  f10df74:	0700001d */ 	bltz	$t8,.L0f10dfec
-/*  f10df78:	00000000 */ 	nop
-/*  f10df7c:	8cb9006c */ 	lw	$t9,0x6c($a1)
-/*  f10df80:	00003825 */ 	or	$a3,$zero,$zero
-/*  f10df84:	00001825 */ 	or	$v1,$zero,$zero
-/*  f10df88:	13200003 */ 	beqz	$t9,.L0f10df98
-/*  f10df8c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10df90:	10000001 */ 	b	.L0f10df98
-/*  f10df94:	24070001 */ 	addiu	$a3,$zero,0x1
-.L0f10df98:
-/*  f10df98:	8ca80068 */ 	lw	$t0,0x68($a1)
-/*  f10df9c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10dfa0:	11000003 */ 	beqz	$t0,.L0f10dfb0
-/*  f10dfa4:	00000000 */ 	nop
-/*  f10dfa8:	10000001 */ 	b	.L0f10dfb0
-/*  f10dfac:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f10dfb0:
-/*  f10dfb0:	8ca90064 */ 	lw	$t1,0x64($a1)
-/*  f10dfb4:	11200003 */ 	beqz	$t1,.L0f10dfc4
-/*  f10dfb8:	00000000 */ 	nop
-/*  f10dfbc:	10000001 */ 	b	.L0f10dfc4
-/*  f10dfc0:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f10dfc4:
-/*  f10dfc4:	8caa0070 */ 	lw	$t2,0x70($a1)
-/*  f10dfc8:	11400003 */ 	beqz	$t2,.L0f10dfd8
-/*  f10dfcc:	00000000 */ 	nop
-/*  f10dfd0:	10000001 */ 	b	.L0f10dfd8
-/*  f10dfd4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f10dfd8:
-/*  f10dfd8:	00445821 */ 	addu	$t3,$v0,$a0
-/*  f10dfdc:	01636021 */ 	addu	$t4,$t3,$v1
-/*  f10dfe0:	01876821 */ 	addu	$t5,$t4,$a3
-/*  f10dfe4:	29a10002 */ 	slti	$at,$t5,0x2
-/*  f10dfe8:	1020000c */ 	beqz	$at,.L0f10e01c
-.L0f10dfec:
-/*  f10dfec:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig+0x1)
-/*  f10dff0:	9084dfe9 */ 	lbu	$a0,%lo(g_MissionConfig+0x1)($a0)
-/*  f10dff4:	0fc59585 */ 	jal	stageGetIndex
-/*  f10dff8:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f10dffc:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f10e000:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f10e004:	04400005 */ 	bltz	$v0,.L0f10e01c
-/*  f10e008:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f10e00c:	8cae04b4 */ 	lw	$t6,0x4b4($a1)
-/*  f10e010:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f10e014:	15c10005 */ 	bne	$t6,$at,.L0f10e02c
-/*  f10e018:	00000000 */ 	nop
-.L0f10e01c:
-/*  f10e01c:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10e020:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f10e024:	10000007 */ 	b	.L0f10e044
-/*  f10e028:	8fa6001c */ 	lw	$a2,0x1c($sp)
-.L0f10e02c:
-/*  f10e02c:	0fc435dc */ 	jal	func0f10d770
-/*  f10e030:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f10e034:	3c048007 */ 	lui	$a0,%hi(g_MenuDialogRetryMission)
-/*  f10e038:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10e03c:	248455a0 */ 	addiu	$a0,$a0,%lo(g_MenuDialogRetryMission)
-/*  f10e040:	8fa6001c */ 	lw	$a2,0x1c($sp)
-.L0f10e044:
-/*  f10e044:	a0c0000a */ 	sb	$zero,0xa($a2)
-.L0f10e048:
-/*  f10e048:	a0c00003 */ 	sb	$zero,0x3($a2)
-/*  f10e04c:	a0c00002 */ 	sb	$zero,0x2($a2)
-.L0f10e050:
-/*  f10e050:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10e054:
-/*  f10e054:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f10e058:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10e05c:	03e00008 */ 	jr	$ra
-/*  f10e060:	00000000 */ 	nop
-);
+s32 menudialogSolo2PEndscreenFailed(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	if (operation == MENUOP_OPEN) {
+		g_Menus[g_MpPlayerNum].data.endscreen.unke1c = 0;
+	}
+
+	if (operation == MENUOP_TICK) {
+		if (g_Menus[g_MpPlayerNum].curframe) {
+			if (g_Menus[g_MpPlayerNum].curframe->dialog == dialog
+					|| (dialog->nextsibling && dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog)) {
+				struct menuthing *thing = data->dialog2.ptr;
+
+				if (thing->forward || thing->back || thing->start) {
+					g_Menus[g_MpPlayerNum].data.endscreen.unke1c = 6;
+				}
+
+				if (g_Menus[g_MpPlayerNum].data.endscreen.unke1c) {
+					if (var8009dfc0) {
+						g_Menus[g_MpPlayerNum].data.endscreen.unke1c--;
+					}
+
+					if (g_Menus[g_MpPlayerNum].data.endscreen.unke1c == 0) {
+						if (g_Vars.antiplayernum >= 0
+								|| (g_Vars.coopplayernum >= 0 && PLAYERCOUNT() >= 2)
+								|| stageGetIndex(g_MissionConfig.stagenum) < 0
+								|| g_Vars.stagenum == STAGE_CITRAINING) {
+							menuPopDialog();
+						} else {
+							func0f10d770();
+							menuPushDialog(&g_MenuDialogRetryMission);
+						}
+					}
+				}
+
+				thing->forward = thing->back = thing->start = 0;
+			}
+		}
+	}
+
+	return 0;
+}
 
 struct menuitem g_MenuItemsSoloEndscreenNarrow[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_OPTIONS(278), 0x00000000, NULL }, // "Mission Status:"

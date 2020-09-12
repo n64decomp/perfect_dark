@@ -3284,7 +3284,7 @@ struct handlerdata_dialog1 {
 };
 
 struct handlerdata_dialog2 {
-	void *ptr;
+	struct menuthing *ptr;
 };
 
 union handlerdata {
@@ -6017,8 +6017,8 @@ struct var800a4cf0 {
 struct menuthing {
 	u8 unk00;
 	u8 unk01;
-	u8 unk02;
-	u8 unk03;
+	u8 forward;
+	u8 back;
 	u32 unk04;
 	u8 unk08;
 	u8 unk09;
