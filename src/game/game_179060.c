@@ -5532,88 +5532,29 @@ char *mpMenuTextChallengeName(struct menuitem *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel menudialog0017eb34
-/*  f17eb34:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17eb38:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f17eb3c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17eb40:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17eb44:	1481002c */ 	bne	$a0,$at,.L0f17ebf8
-/*  f17eb48:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17eb4c:	3c0f800b */ 	lui	$t7,%hi(g_MpSetup+0x88)
-/*  f17eb50:	91efcc10 */ 	lbu	$t7,%lo(g_MpSetup+0x88)($t7)
-/*  f17eb54:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f17eb58:	3c188007 */ 	lui	$t8,%hi(g_MpPlayerNum)
-/*  f17eb5c:	55e10027 */ 	bnel	$t7,$at,.L0f17ebfc
-/*  f17eb60:	8fad0018 */ 	lw	$t5,0x18($sp)
-/*  f17eb64:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f17eb68:	3c02800a */ 	lui	$v0,%hi(g_Menus+0x4f8)
-/*  f17eb6c:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f17eb70:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f17eb74:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f17eb78:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f17eb7c:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f17eb80:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f17eb84:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f17eb88:	00591021 */ 	addu	$v0,$v0,$t9
-/*  f17eb8c:	8c42e4f8 */ 	lw	$v0,%lo(g_Menus+0x4f8)($v0)
-/*  f17eb90:	5040001a */ 	beqzl	$v0,.L0f17ebfc
-/*  f17eb94:	8fad0018 */ 	lw	$t5,0x18($sp)
-/*  f17eb98:	8c480000 */ 	lw	$t0,0x0($v0)
-/*  f17eb9c:	54a80017 */ 	bnel	$a1,$t0,.L0f17ebfc
-/*  f17eba0:	8fad0018 */ 	lw	$t5,0x18($sp)
-/*  f17eba4:	0fc6709d */ 	jal	mpIsChallengeLoaded
-/*  f17eba8:	00000000 */ 	nop
-/*  f17ebac:	14400012 */ 	bnez	$v0,.L0f17ebf8
-/*  f17ebb0:	3c098007 */ 	lui	$t1,%hi(g_MpPlayerNum)
-/*  f17ebb4:	8d291448 */ 	lw	$t1,%lo(g_MpPlayerNum)($t1)
-/*  f17ebb8:	3c0b800a */ 	lui	$t3,%hi(g_Menus)
-/*  f17ebbc:	256be000 */ 	addiu	$t3,$t3,%lo(g_Menus)
-/*  f17ebc0:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f17ebc4:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f17ebc8:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f17ebcc:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f17ebd0:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f17ebd4:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f17ebd8:	000a5100 */ 	sll	$t2,$t2,0x4
-/*  f17ebdc:	014b1021 */ 	addu	$v0,$t2,$t3
-/*  f17ebe0:	3c0c4fac */ 	lui	$t4,0x4fac
-/*  f17ebe4:	358c5ace */ 	ori	$t4,$t4,0x5ace
-/*  f17ebe8:	ac4c0850 */ 	sw	$t4,0x850($v0)
-/*  f17ebec:	8c440844 */ 	lw	$a0,0x844($v0)
-/*  f17ebf0:	0fc67091 */ 	jal	mpLoadAndStoreCurrentChallenge
-/*  f17ebf4:	8c450848 */ 	lw	$a1,0x848($v0)
-.L0f17ebf8:
-/*  f17ebf8:	8fad0018 */ 	lw	$t5,0x18($sp)
-.L0f17ebfc:
-/*  f17ebfc:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f17ec00:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17ec04:	55a10013 */ 	bnel	$t5,$at,.L0f17ec54
-/*  f17ec08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17ec0c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17ec10:	3c18800a */ 	lui	$t8,%hi(g_Menus+0x850)
-/*  f17ec14:	3c014fac */ 	lui	$at,0x4fac
-/*  f17ec18:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f17ec1c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17ec20:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17ec24:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17ec28:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f17ec2c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17ec30:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17ec34:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f17ec38:	8f18e850 */ 	lw	$t8,%lo(g_Menus+0x850)($t8)
-/*  f17ec3c:	34215ace */ 	ori	$at,$at,0x5ace
-/*  f17ec40:	57010004 */ 	bnel	$t8,$at,.L0f17ec54
-/*  f17ec44:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17ec48:	0fc6709a */ 	jal	mpClearCurrentChallenge
-/*  f17ec4c:	00000000 */ 	nop
-/*  f17ec50:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17ec54:
-/*  f17ec54:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17ec58:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17ec5c:	03e00008 */ 	jr	$ra
-/*  f17ec60:	00000000 */ 	nop
-);
+s32 mpCombatChallengesMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	if (operation == MENUOP_TICK) {
+		if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE
+				&& g_Menus[g_MpPlayerNum].curframe
+				&& g_Menus[g_MpPlayerNum].curframe->dialog == dialog
+				&& !mpIsChallengeLoaded()) {
+			g_Menus[g_MpPlayerNum].unk850 = 0x4fac5ace;
+
+			mpLoadAndStoreCurrentChallenge(
+					g_Menus[g_MpPlayerNum].mpconfigbuffer,
+					g_Menus[g_MpPlayerNum].mpconfigbufferlen);
+		}
+	}
+
+	if (operation == MENUOP_CLOSE) {
+		if (g_Menus[g_MpPlayerNum].unk850 == 0x4fac5ace) {
+			mpClearCurrentChallenge();
+		}
+	}
+
+	return 0;
+}
 
 s32 menuhandler0017ec64(u32 operation, struct menuitem *item, union handlerdata *data)
 {

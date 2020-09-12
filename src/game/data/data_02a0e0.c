@@ -1443,7 +1443,7 @@ struct menudialog menudialog_mpchallengedetails = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&mpMenuTextChallengeName,
 	menuitems_mpchallengedetails,
-	menudialog0017eb34,
+	mpCombatChallengesMenuDialog,
 	0x00000808,
 	NULL,
 };
@@ -1455,7 +1455,7 @@ struct menudialog menudialog_mpchallengedetails2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&mpMenuTextChallengeName,
 	menuitems_mpchallengedetails,
-	menudialog0017eb34,
+	mpCombatChallengesMenuDialog,
 	0x00000808,
 	&menudialog_mpgamesetup2,
 };
@@ -1490,7 +1490,7 @@ struct menudialog menudialog_mpcombatchallenges2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(50), // "Combat Challenges"
 	menuitems_mpcombatchallenges2,
-	menudialog0017eb34,
+	mpCombatChallengesMenuDialog,
 	0x00000000,
 	NULL,
 };

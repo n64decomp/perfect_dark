@@ -58,7 +58,7 @@ u32 func0f17e318(void);
 s32 menudialog0017e3fc(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menuhandler0017e4d4(u32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextChallengeName(struct menuitem *item);
-s32 menudialog0017eb34(u32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 mpCombatChallengesMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data);
 char *mpMenuTextSavePlayerOrCopy(struct menuitem *item);
 char *mpMenuTextArenaName(struct menuitem *item);
 char *mpMenuTextWeaponSetName(struct menuitem *item);

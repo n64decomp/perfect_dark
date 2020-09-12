@@ -158,7 +158,7 @@ struct menudialog menudialog_mpcombatchallenges = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(50), // "Combat Challenges"
 	menuitems_mpcombatchallenges,
-	menudialog0017eb34,
+	mpCombatChallengesMenuDialog,
 	0x00000000,
 	NULL,
 };
