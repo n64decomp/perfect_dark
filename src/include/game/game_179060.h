@@ -99,7 +99,7 @@ u32 func0f1847b8(void);
 void scenarioPacCallback10(void);
 u32 scenarioPacCallback18(void);
 bool scenarioPacRadar2(Gfx **gdl, struct prop *prop);
-s32 menudialog00184ec0(u32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 mpOptionsMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data);
 char *mpMenuTextScenarioShortName(struct menuitem *item);
 char *mpMenuTextScenarioName(struct menuitem *item);
 s32 menuhandler00185068(u32 operation, struct menuitem *item, union handlerdata *data);

@@ -77,7 +77,7 @@ extern struct menudialog menudialog_mphilloptions;
 extern struct menudialog menudialog_mphackeroptions;
 extern u32 var80086e14;
 extern struct menudialog menudialog_mppopacapoptions;
-extern struct mpscenario g_MpScenarios[];
+extern struct mpscenario g_MpScenarios[6];
 extern struct mpscenariooverview g_MpScenarioOverviews[];
 extern u32 var8008716c;
 extern u32 var800871fc;

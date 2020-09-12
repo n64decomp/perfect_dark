@@ -5111,73 +5111,32 @@ glabel scenarioPacRadar2
 //	return false;
 //}
 
-GLOBAL_ASM(
-glabel menudialog00184ec0
-/*  f184ec0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f184ec4:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f184ec8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f184ecc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f184ed0:	14810032 */ 	bne	$a0,$at,.L0f184f9c
-/*  f184ed4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f184ed8:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f184edc:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f184ee0:	3c19800b */ 	lui	$t9,%hi(g_MpSetup+0x10)
-/*  f184ee4:	9339cb98 */ 	lbu	$t9,%lo(g_MpSetup+0x10)($t9)
-/*  f184ee8:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f184eec:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f184ef0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f184ef4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f184ef8:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f184efc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f184f00:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f184f04:	3c18800a */ 	lui	$t8,%hi(g_Menus+0x4f8)
-/*  f184f08:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f184f0c:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f184f10:	8f18e4f8 */ 	lw	$t8,%lo(g_Menus+0x4f8)($t8)
-/*  f184f14:	3c098008 */ 	lui	$t1,%hi(g_MpScenarios)
-/*  f184f18:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f184f1c:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f184f20:	25296f98 */ 	addiu	$t1,$t1,%lo(g_MpScenarios)
-/*  f184f24:	01095021 */ 	addu	$t2,$t0,$t1
-/*  f184f28:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*  f184f2c:	8f040000 */ 	lw	$a0,0x0($t8)
-/*  f184f30:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f184f34:	01201825 */ 	or	$v1,$t1,$zero
-/*  f184f38:	108b0018 */ 	beq	$a0,$t3,.L0f184f9c
-/*  f184f3c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f184f40:
-/*  f184f40:	8c6c0000 */ 	lw	$t4,0x0($v1)
-/*  f184f44:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f184f48:	0045082a */ 	slt	$at,$v0,$a1
-/*  f184f4c:	108c0003 */ 	beq	$a0,$t4,.L0f184f5c
-/*  f184f50:	00000000 */ 	nop
-/*  f184f54:	1420fffa */ 	bnez	$at,.L0f184f40
-/*  f184f58:	24630048 */ 	addiu	$v1,$v1,0x48
-.L0f184f5c:
-/*  f184f5c:	3c0d8008 */ 	lui	$t5,%hi(g_MpScenarioOverviews)
-/*  f184f60:	25ad7148 */ 	addiu	$t5,$t5,%lo(g_MpScenarioOverviews)
-/*  f184f64:	006d082b */ 	sltu	$at,$v1,$t5
-/*  f184f68:	5020000d */ 	beqzl	$at,.L0f184fa0
-/*  f184f6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f184f70:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f184f74:	00000000 */ 	nop
-/*  f184f78:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x10)
-/*  f184f7c:	91cecb98 */ 	lbu	$t6,%lo(g_MpSetup+0x10)($t6)
-/*  f184f80:	3c048008 */ 	lui	$a0,%hi(g_MpScenarios)
-/*  f184f84:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f184f88:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f184f8c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f184f90:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f184f94:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f184f98:	8c846f98 */ 	lw	$a0,%lo(g_MpScenarios)($a0)
-.L0f184f9c:
-/*  f184f9c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f184fa0:
-/*  f184fa0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f184fa4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f184fa8:	03e00008 */ 	jr	$ra
-/*  f184fac:	00000000 */ 	nop
-);
+/**
+ * While the options dialog is open, check if another player has changed the
+ * scenario to a different one. If so, replace this dialog with the new one.
+ */
+s32 mpOptionsMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	if (operation == MENUOP_TICK) {
+		if (g_Menus[g_MpPlayerNum].curframe->dialog != g_MpScenarios[g_MpSetup.scenario].optionsdialog) {
+			s32 i;
+			s32 end = ARRAYCOUNT(g_MpScenarios);
+
+			for (i = 0; i < end; i++) {
+				if (g_Menus[g_MpPlayerNum].curframe->dialog == g_MpScenarios[i].optionsdialog) {
+					break;
+				}
+			}
+
+			if (i < end) {
+				menuPopDialog();
+				menuPushDialog(g_MpScenarios[g_MpSetup.scenario].optionsdialog);
+			}
+		}
+	}
+
+	return 0;
+}
 
 char *mpMenuTextScenarioShortName(struct menuitem *item)
 {

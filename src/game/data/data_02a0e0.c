@@ -1764,7 +1764,7 @@ struct menudialog menudialog_mpcombatoptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(215), // "Combat Options"
 	menuitems_mpcombatoptions,
-	menudialog00184ec0,
+	mpOptionsMenuDialog,
 	0x00000010,
 	NULL,
 };
@@ -1791,7 +1791,7 @@ struct menudialog menudialog_mpbriefcaseoptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(216), // "Briefcase Options"
 	menuitems_mpbriefcaseoptions,
-	menudialog00184ec0,
+	mpOptionsMenuDialog,
 	0x00000010,
 	NULL,
 };
@@ -1845,7 +1845,7 @@ struct menudialog menudialog_mpcaptureoptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(220), // "Capture Options"
 	menuitems_mpcaptureoptions,
-	menudialog00184ec0,
+	mpOptionsMenuDialog,
 	0x00000010,
 	NULL,
 };
@@ -1900,7 +1900,7 @@ struct menudialog menudialog_mphilloptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(219), // "Hill Options"
 	menuitems_mphilloptions,
-	menudialog00184ec0,
+	mpOptionsMenuDialog,
 	0x00000010,
 	NULL,
 };
@@ -1927,7 +1927,7 @@ struct menudialog menudialog_mphackeroptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(217), // "Hacker Options"
 	menuitems_mphackeroptions,
-	menudialog00184ec0,
+	mpOptionsMenuDialog,
 	0x00000010,
 	NULL,
 };
@@ -1981,7 +1981,7 @@ struct menudialog menudialog_mppopacapoptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(218), // "Pop a Cap Options"
 	menuitems_mppopacapoptions,
-	menudialog00184ec0,
+	mpOptionsMenuDialog,
 	0x00000010,
 	NULL,
 };
