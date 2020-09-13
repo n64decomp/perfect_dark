@@ -40,7 +40,7 @@ void *fileLoad(u16 fileid);
 s32 frTrainingInfoMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 frTrainingStatsMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialog001a5f48(u32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 menudialog001a6548(u32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 dtTrainingDetailsMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialogDeviceTrainingResults(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialog001a6aa4(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialogFiringRangeResults(u32 operation, struct menudialog *dialog, union handlerdata *data);

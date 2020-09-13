@@ -29,7 +29,6 @@ extern u32 var80089280;
 extern struct menudialog menudialog_characterprofile;
 extern struct menudialog menudialog_2f3c0;
 extern struct menudialog g_DeviceTrainingListMenuDialog;
-extern u32 var800893f8;
 extern struct menudialog g_DeviceTrainingDetailsMenuDialog;
 extern struct menudialog g_DeviceTrainingStatsFailedMenuDialog;
 extern struct menudialog g_DeviceTrainingStatsCompletedMenuDialog;

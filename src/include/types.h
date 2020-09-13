@@ -3615,7 +3615,7 @@ struct menudata_train {
 	u32 unke1c;
 	struct mpconfigfull *mpconfig;
 	u32 unke24;
-	u32 unke28;
+	u32 weaponnum;
 };
 
 struct menu {
@@ -4212,7 +4212,7 @@ struct menu {
 	/*0xde8*/ u32 unkde8;
 	/*0xdec*/ u32 unkdec;
 	/*0xdf0*/ u32 unkdf0;
-	/*0xdf4*/ s8 *unkdf4;
+	/*0xdf4*/ struct modelpartvisibility *unkdf4;
 	/*0xdf8*/ u8 unkdf8;
 	/*0xdfc*/ struct menudfc unkdfc[4];
 

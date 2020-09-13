@@ -3283,7 +3283,7 @@ void func0f105948(s32 weaponnum)
 
 	s32 useindex;
 	struct weapon *weapon;
-	s8 *gptr;
+	u32 stack;
 	s32 wantindex;
 
 	useindex = weaponnum - 2;
@@ -3317,7 +3317,7 @@ void func0f105948(s32 weaponnum)
 		func0f0f372c(&g_Menus[g_MpPlayerNum].unk840, 0, 0, 0, 0, 0, 0, gunconfig[useindex][4], 1);
 
 		g_Menus[g_MpPlayerNum].unkd5c = 0;
-		g_Menus[g_MpPlayerNum].unkdf4 = weapon->gptr;
+		g_Menus[g_MpPlayerNum].unkdf4 = weapon->partvisibility;
 		g_Menus[g_MpPlayerNum].unkd94 = -1;
 
 		// These indexes correspond to WEAPON_DISGUISE40 and WEAPON_DISGUISE41

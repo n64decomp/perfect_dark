@@ -27535,7 +27535,7 @@ void func0f07e058(struct prop *prop)
 	struct defaultobj *obj = prop->obj;
 	struct model *model = obj->model;
 
-	struct modelnode *node = modelGetPart(model->unk08, MODELPART_006E);
+	struct modelnode *node = modelGetPart(model->unk08, MODELPART_6E);
 
 	if (node) {
 		struct modeldata_partid *data = modelGetNodeData(model, node);
