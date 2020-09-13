@@ -4179,7 +4179,7 @@ struct menu {
 	/*0xd78*/ f32 unkd78;
 	/*0xd7c*/ f32 unkd7c;
 	/*0xd80*/ f32 unkd80;
-	/*0xd84*/ u32 unkd84;
+	/*0xd84*/ f32 unkd84;
 	/*0xd88*/ f32 unkd88;
 	/*0xd8c*/ f32 unkd8c;
 	/*0xd90*/ f32 unkd90;

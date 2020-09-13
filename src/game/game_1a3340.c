@@ -3934,7 +3934,7 @@ glabel menuhandler001a6ea4
 );
 
 GLOBAL_ASM(
-glabel menudialog001a737c
+glabel ciHangarHolographMenuDialog
 .late_rodata
 glabel var7f1b99d4
 .word 0x3a83126f
@@ -4066,6 +4066,48 @@ glabel var7f1b99d8
 /*  f1a754c:	03e00008 */ 	jr	$ra
 /*  f1a7550:	00000000 */ 	nop
 );
+
+// Can't match the 4bc part
+//s32 ciHangarHolographMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+//{
+//	s32 index = ciGetHangarBioIndexBySlot(g_HangarBioSlot);
+//
+//	if (index >= 14) {
+//		struct hoverprop props[9] = hoverprops;
+//		static s8 tmp[] = {0xb7, 0, 5, 0};
+//
+//		switch (operation) {
+//		case MENUOP_OPEN:
+//			g_Menus[g_MpPlayerNum].unkd88 = 0;
+//			g_Menus[g_MpPlayerNum].unkd60 = 0;
+//			g_Menus[g_MpPlayerNum].unkd8c = 0;
+//			g_Menus[g_MpPlayerNum].unkd64 = 0;
+//			g_Menus[g_MpPlayerNum].unkd78 = 0;
+//			g_Menus[g_MpPlayerNum].unkd50 = 0;
+//			g_Menus[g_MpPlayerNum].unkd7c = 0;
+//			g_Menus[g_MpPlayerNum].unkd54 = 0;
+//			g_Menus[g_MpPlayerNum].unkd5c = 0;
+//			break;
+//		case MENUOP_CLOSE:
+//			break;
+//		case MENUOP_TICK:
+//			if (g_Menus[g_MpPlayerNum].curframe && g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
+//				// 4bc
+//				index -= 14;
+//				g_Menus[g_MpPlayerNum].unkd54 = props[index].y_offset;
+//				g_Menus[g_MpPlayerNum].unkd84 = props[index].size * 0.001f;
+//				g_Menus[g_MpPlayerNum].unkd7c = props[index].y_offset;
+//				g_Menus[g_MpPlayerNum].unk84c = props[index].fileid;
+//				g_Menus[g_MpPlayerNum].unkd8c = g_Menus[g_MpPlayerNum].unkd64 + 0.01f * g_Vars.diffframe60f;
+//				g_Menus[g_MpPlayerNum].unkd64 += 0.01f * g_Vars.diffframe60f;
+//				g_Menus[g_MpPlayerNum].unkdf4 = tmp;
+//			}
+//			break;
+//		}
+//	}
+//
+//	return 0;
+//}
 
 struct menudialog *ciGetFrWeaponListMenuDialog(void)
 {

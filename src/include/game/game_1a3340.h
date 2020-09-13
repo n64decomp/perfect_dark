@@ -44,7 +44,7 @@ s32 menudialog001a6548(u32 operation, struct menudialog *dialog, union handlerda
 s32 menudialogDeviceTrainingResults(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialog001a6aa4(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialogFiringRangeResults(u32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 menudialog001a737c(u32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 ciHangarHolographMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 frDetailsOkMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 frAbortMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandler001a348c(u32 operation, struct menuitem *item, union handlerdata *data);

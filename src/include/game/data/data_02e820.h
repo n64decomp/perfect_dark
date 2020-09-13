@@ -39,7 +39,7 @@ extern struct menudialog g_HoloTrainingStatsFailedMenuDialog;
 extern struct menudialog g_HoloTrainingStatsCompletedMenuDialog;
 extern u32 var800897a4;
 extern u32 var800897b4;
-extern u32 var800897c4;
+extern s8 var800897c4[];
 extern struct hoverprop hoverprops[];
 extern struct menudialog menudialog_2f938;
 extern struct menudialog menudialog_2f950;

@@ -19,7 +19,7 @@
 #include "types.h"
 
 u32 var800897c0 = 0x1c1d0000;
-u32 var800897c4 = 0xb7000500;
+s8 var800897c4[] = {-73, 0, 5, 0};
 u32 var800897c8 = 0x0400ff00;
 
 // 2f7ec
@@ -59,7 +59,7 @@ struct menudialog menudialog_holograph = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MISC(471), // "Holograph"
 	menuitems_holograph,
-	menudialog001a737c,
+	ciHangarHolographMenuDialog,
 	0x00000202,
 	NULL,
 };
