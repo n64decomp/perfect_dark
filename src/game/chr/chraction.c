@@ -18622,9 +18622,9 @@ void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool enabled)
 	s32 partnum;
 
 	if (right) {
-		partnum = MODELPART_MUZZLEFLASHRIGHT;
+		partnum = MODELPART_ROBOTMUZZLEFLASHR;
 	} else {
-		partnum = MODELPART_MUZZLEFLASHLEFT;
+		partnum = MODELPART_ROBOTMUZZLEFLASHL;
 	}
 
 	node = modelGetPart(chr->model->unk08, partnum);

@@ -1569,12 +1569,23 @@
 #define MODELNODETYPE_HEADSPOT     0x17
 #define MODELNODETYPE_DISPLAYLIST  0x18
 
-#define MODELPART_MUZZLEFLASHRIGHT 0x0002
-#define MODELPART_MUZZLEFLASHLEFT  0x0003
-#define MODELPART_HUDPIECE         0x0004
-#define MODELPART_NECKLACE         0x0007
-#define MODELPART_006E             0x006e
-#define MODELPART_SKGANGWAY        0x00b7
+#define MODELPART_ROBOTMUZZLEFLASHR 0x02
+#define MODELPART_ROBOTMUZZLEFLASHL 0x03
+#define MODELPART_HUDPIECE          0x04
+#define MODELPART_NECKLACE          0x07
+#define MODELPART_NEWCLIP           0x28
+#define MODELPART_NEWCLIP2          0x29
+#define MODELPART_NEWCLIP3          0x2a
+#define MODELPART_NEWCLIP4          0x2b
+#define MODELPART_SCOPE             0x2c
+#define MODELPART_SILENCER          0x2d
+#define MODELPART_2E                0x2e
+#define MODELPART_2F                0x2f
+#define MODELPART_MUZZLEFLASH       0x5a
+#define MODELPART_MUZZLEFLASH2      0x5b
+#define MODELPART_MUZZLEFLASH3      0x5c
+#define MODELPART_6E                0x6e
+#define MODELPART_SKGANGWAY         0xb7
 
 #define MOVEMODE_WALK     0
 #define MOVEMODE_BIKE     3

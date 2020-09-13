@@ -3034,6 +3034,11 @@ struct inventory_ammo {
 	u32 style;
 };
 
+struct modelpartvisibility {
+	u8 part;
+	u8 visible;
+};
+
 struct weapon {
 	/*0x00*/ u16 lo_model;
 	/*0x02*/ u16 hi_model;
@@ -3050,7 +3055,7 @@ struct weapon {
 	/*0x34*/ f32 frontback;
 	/*0x38*/ f32 unk38;
 	/*0x3c*/ struct inventory_typef *fptr;
-	/*0x40*/ s8 *gptr;
+	/*0x40*/ struct modelpartvisibility *partvisibility;
 	/*0x44*/ u16 shortname;
 	/*0x46*/ u16 name;
 	/*0x48*/ u16 manufacturer;
