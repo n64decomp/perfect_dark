@@ -4317,7 +4317,7 @@ bool ciIsChrBioUnlocked(u32 bodynum)
 	return false;
 }
 
-u8 var800888a0 = 0;
+u8 g_ChrBioSlot = 0;
 
 struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 {
@@ -4364,7 +4364,7 @@ struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 
 char *ciGetChrBioDescription(void)
 {
-	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
+	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(g_ChrBioSlot));
 	return langGet(bio->description);
 }
 
@@ -4382,7 +4382,7 @@ s32 ciGetNumUnlockedChrBios(void)
 	return count;
 }
 
-s32 ciGetChrBioIndexBySlot(s32 slot)
+s32 ciGetChrBioBodynumBySlot(s32 slot)
 {
 	s32 index = -1;
 	s32 bodynum;
@@ -4469,7 +4469,7 @@ s32 ciGetMiscBioIndexBySlot(s32 slot)
 
 char *ciGetMiscBioDescription(void)
 {
-	s32 index = ciGetMiscBioIndexBySlot(var800888a0 - ciGetNumUnlockedChrBios());
+	s32 index = ciGetMiscBioIndexBySlot(g_ChrBioSlot - ciGetNumUnlockedChrBios());
 	struct miscbio *bio = ciGetMiscBio(index);
 
 	return langGet(bio->description);

@@ -5,7 +5,7 @@
 
 extern u8 g_FrIsValidWeapon;
 extern s32 g_FrWeaponNum;
-extern u8 var800888a0;
+extern u8 g_ChrBioSlot;
 extern u8 var80088bb4;
 extern u8 g_HangarBioSlot;
 extern u8 g_DtSlot;
@@ -68,7 +68,7 @@ bool ciIsChrBioUnlocked(u32 bodynum);
 struct chrbio *ciGetChrBioByBodynum(u32 bodynum);
 char *ciGetChrBioDescription(void);
 s32 ciGetNumUnlockedChrBios(void);
-s32 ciGetChrBioIndexBySlot(s32 slot);
+s32 ciGetChrBioBodynumBySlot(s32 slot);
 struct miscbio *ciGetMiscBio(s32 index);
 bool ciIsMiscBioUnlocked(s32 index);
 s32 ciGetNumUnlockedMiscBios(void);

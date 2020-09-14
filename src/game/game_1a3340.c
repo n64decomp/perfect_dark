@@ -2600,7 +2600,7 @@ s32 ciOfficeInformationMenuHandler(u32 operation, struct menuitem *item, union h
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		if (data->custom.value < numunlockedchrbios) {
-			chrbio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(data->custom.value));
+			chrbio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(data->custom.value));
 			return (s32) langGet(chrbio->name);
 		} else {
 			miscbio = ciGetMiscBio(ciGetMiscBioIndexBySlot(data->custom.value - numunlockedchrbios));
@@ -2608,15 +2608,15 @@ s32 ciOfficeInformationMenuHandler(u32 operation, struct menuitem *item, union h
 		}
 		break;
 	case MENUOP_SET:
-		var800888a0 = data->custom.value;
-		if (var800888a0 < numunlockedchrbios) {
+		g_ChrBioSlot = data->custom.value;
+		if (g_ChrBioSlot < numunlockedchrbios) {
 			menuPushDialog(&menudialog_characterprofile);
 		} else {
 			menuPushDialog(&menudialog_2f3c0);
 		}
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->custom.value = var800888a0;
+		data->custom.value = g_ChrBioSlot;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
 		data->custom.value = 2;
@@ -2631,245 +2631,132 @@ s32 ciOfficeInformationMenuHandler(u32 operation, struct menuitem *item, union h
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menudialog001a5f48
-.late_rodata
-glabel var7f1b9964
-.word 0x3f333333
-glabel var7f1b9968
-.word 0x3f4ccccd
-glabel var7f1b996c
-.word 0x41033333
-glabel var7f1b9970
-.word 0xc0833333
-glabel var7f1b9974
-.word 0x3b80c73b
-glabel var7f1b9978
-.word 0x3c23d70a
-.text
-/*  f1a5f48:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f1a5f4c:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f1a5f50:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f1a5f54:	3c048009 */ 	lui	$a0,%hi(var800888a0)
-/*  f1a5f58:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f1a5f5c:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f1a5f60:	0fc68484 */ 	jal	ciGetChrBioIndexBySlot
-/*  f1a5f64:	908488a0 */ 	lbu	$a0,%lo(var800888a0)($a0)
-/*  f1a5f68:	3044ffff */ 	andi	$a0,$v0,0xffff
-/*  f1a5f6c:	0fc62ef6 */ 	jal	mpGetBodyIndexByBodyId
-/*  f1a5f70:	afa20044 */ 	sw	$v0,0x44($sp)
-/*  f1a5f74:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f1a5f78:	0fc62f27 */ 	jal	mpBodyGetMpHeadIndex
-/*  f1a5f7c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a5f80:	8fa30048 */ 	lw	$v1,0x48($sp)
-/*  f1a5f84:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f1a5f88:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*  f1a5f8c:	10610008 */ 	beq	$v1,$at,.L0f1a5fb0
-/*  f1a5f90:	240a0078 */ 	addiu	$t2,$zero,0x78
-/*  f1a5f94:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f1a5f98:	106100b7 */ 	beq	$v1,$at,.L0f1a6278
-/*  f1a5f9c:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f1a5fa0:	50610079 */ 	beql	$v1,$at,.L0f1a6188
-/*  f1a5fa4:	2401006b */ 	addiu	$at,$zero,0x6b
-/*  f1a5fa8:	100000b4 */ 	b	.L0f1a627c
-/*  f1a5fac:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f1a5fb0:
-/*  f1a5fb0:	2401006b */ 	addiu	$at,$zero,0x6b
-/*  f1a5fb4:	14a10013 */ 	bne	$a1,$at,.L0f1a6004
-/*  f1a5fb8:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
-/*  f1a5fbc:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f1a5fc0:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f1a5fc4:	3c017f1c */ 	lui	$at,%hi(var7f1b9964)
-/*  f1a5fc8:	c42c9964 */ 	lwc1	$f12,%lo(var7f1b9964)($at)
-/*  f1a5fcc:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f1a5fd0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1a5fd4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1a5fd8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1a5fdc:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1a5fe0:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f1a5fe4:	3c18800a */ 	lui	$t8,%hi(g_Menus)
-/*  f1a5fe8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1a5fec:	44812000 */ 	mtc1	$at,$f4
-/*  f1a5ff0:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f1a5ff4:	2718e000 */ 	addiu	$t8,$t8,%lo(g_Menus)
-/*  f1a5ff8:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f1a5ffc:	10000011 */ 	b	.L0f1a6044
-/*  f1a6000:	e4640d94 */ 	swc1	$f4,0xd94($v1)
-.L0f1a6004:
-/*  f1a6004:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f1a6008:	3c0141f0 */ 	lui	$at,0x41f0
-/*  f1a600c:	44813000 */ 	mtc1	$at,$f6
-/*  f1a6010:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f1a6014:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f1a6018:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f1a601c:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f1a6020:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f1a6024:	3c09800a */ 	lui	$t1,%hi(g_Menus)
-/*  f1a6028:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f1a602c:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f1a6030:	2529e000 */ 	addiu	$t1,$t1,%lo(g_Menus)
-/*  f1a6034:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1a6038:	01091821 */ 	addu	$v1,$t0,$t1
-/*  f1a603c:	44816000 */ 	mtc1	$at,$f12
-/*  f1a6040:	e4660d94 */ 	swc1	$f6,0xd94($v1)
-.L0f1a6044:
-/*  f1a6044:	3c01c302 */ 	lui	$at,0xc302
-/*  f1a6048:	44817000 */ 	mtc1	$at,$f14
-/*  f1a604c:	ac6a0db4 */ 	sw	$t2,0xdb4($v1)
-/*  f1a6050:	ac600dc0 */ 	sw	$zero,0xdc0($v1)
-/*  f1a6054:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f1a6058:	e7ac0030 */ 	swc1	$f12,0x30($sp)
-/*  f1a605c:	0fc54bc7 */ 	jal	optionsGetScreenRatio
-/*  f1a6060:	e7ae0038 */ 	swc1	$f14,0x38($sp)
-/*  f1a6064:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1a6068:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*  f1a606c:	c7ac0030 */ 	lwc1	$f12,0x30($sp)
-/*  f1a6070:	14410004 */ 	bne	$v0,$at,.L0f1a6084
-/*  f1a6074:	c7ae0038 */ 	lwc1	$f14,0x38($sp)
-/*  f1a6078:	3c01c2c8 */ 	lui	$at,0xc2c8
-/*  f1a607c:	44817000 */ 	mtc1	$at,$f14
-/*  f1a6080:	00000000 */ 	nop
-.L0f1a6084:
-/*  f1a6084:	3c01c170 */ 	lui	$at,0xc170
-/*  f1a6088:	44810000 */ 	mtc1	$at,$f0
-/*  f1a608c:	2401005b */ 	addiu	$at,$zero,0x5b
-/*  f1a6090:	14a10005 */ 	bne	$a1,$at,.L0f1a60a8
-/*  f1a6094:	46000086 */ 	mov.s	$f2,$f0
-/*  f1a6098:	3c014140 */ 	lui	$at,0x4140
-/*  f1a609c:	44814000 */ 	mtc1	$at,$f8
-/*  f1a60a0:	00000000 */ 	nop
-/*  f1a60a4:	46080081 */ 	sub.s	$f2,$f0,$f8
-.L0f1a60a8:
-/*  f1a60a8:	24010067 */ 	addiu	$at,$zero,0x67
-/*  f1a60ac:	14a10003 */ 	bne	$a1,$at,.L0f1a60bc
-/*  f1a60b0:	3c0b8007 */ 	lui	$t3,%hi(g_MpPlayerNum)
-/*  f1a60b4:	3c017f1c */ 	lui	$at,%hi(var7f1b9968)
-/*  f1a60b8:	c42c9968 */ 	lwc1	$f12,%lo(var7f1b9968)($at)
-.L0f1a60bc:
-/*  f1a60bc:	8d6b1448 */ 	lw	$t3,%lo(g_MpPlayerNum)($t3)
-/*  f1a60c0:	44800000 */ 	mtc1	$zero,$f0
-/*  f1a60c4:	3c0e800a */ 	lui	$t6,%hi(g_Menus)
-/*  f1a60c8:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*  f1a60cc:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f1a60d0:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f1a60d4:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f1a60d8:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*  f1a60dc:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f1a60e0:	000c6100 */ 	sll	$t4,$t4,0x4
-/*  f1a60e4:	258d0840 */ 	addiu	$t5,$t4,0x840
-/*  f1a60e8:	25cee000 */ 	addiu	$t6,$t6,%lo(g_Menus)
-/*  f1a60ec:	44057000 */ 	mfc1	$a1,$f14
-/*  f1a60f0:	44061000 */ 	mfc1	$a2,$f2
-/*  f1a60f4:	240f0007 */ 	addiu	$t7,$zero,0x7
-/*  f1a60f8:	44070000 */ 	mfc1	$a3,$f0
-/*  f1a60fc:	afaf0020 */ 	sw	$t7,0x20($sp)
-/*  f1a6100:	01ae2021 */ 	addu	$a0,$t5,$t6
-/*  f1a6104:	e7ac001c */ 	swc1	$f12,0x1c($sp)
-/*  f1a6108:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f1a610c:	e7a00014 */ 	swc1	$f0,0x14($sp)
-/*  f1a6110:	0fc3cdcb */ 	jal	func0f0f372c
-/*  f1a6114:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f1a6118:	3c188007 */ 	lui	$t8,%hi(g_MpPlayerNum)
-/*  f1a611c:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f1a6120:	3c017f1c */ 	lui	$at,%hi(var7f1b996c)
-/*  f1a6124:	c42a996c */ 	lwc1	$f10,%lo(var7f1b996c)($at)
-/*  f1a6128:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f1a612c:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f1a6130:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f1a6134:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f1a6138:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f1a613c:	3c08800a */ 	lui	$t0,%hi(g_Menus)
-/*  f1a6140:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f1a6144:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f1a6148:	2508e000 */ 	addiu	$t0,$t0,%lo(g_Menus)
-/*  f1a614c:	03281821 */ 	addu	$v1,$t9,$t0
-/*  f1a6150:	3c017f1c */ 	lui	$at,%hi(var7f1b9970)
-/*  f1a6154:	e46a0d50 */ 	swc1	$f10,0xd50($v1)
-/*  f1a6158:	c4309970 */ 	lwc1	$f16,%lo(var7f1b9970)($at)
-/*  f1a615c:	3c017f1c */ 	lui	$at,%hi(var7f1b9974)
-/*  f1a6160:	44800000 */ 	mtc1	$zero,$f0
-/*  f1a6164:	e4700d54 */ 	swc1	$f16,0xd54($v1)
-/*  f1a6168:	c4329974 */ 	lwc1	$f18,%lo(var7f1b9974)($at)
-/*  f1a616c:	2409003c */ 	addiu	$t1,$zero,0x3c
-/*  f1a6170:	ac690db8 */ 	sw	$t1,0xdb8($v1)
-/*  f1a6174:	e4600d64 */ 	swc1	$f0,0xd64($v1)
-/*  f1a6178:	e4600d8c */ 	swc1	$f0,0xd8c($v1)
-/*  f1a617c:	1000003e */ 	b	.L0f1a6278
-/*  f1a6180:	e4720d5c */ 	swc1	$f18,0xd5c($v1)
-/*  f1a6184:	2401006b */ 	addiu	$at,$zero,0x6b
-.L0f1a6188:
-/*  f1a6188:	14a10012 */ 	bne	$a1,$at,.L0f1a61d4
-/*  f1a618c:	3c0a8007 */ 	lui	$t2,%hi(g_MpPlayerNum)
-/*  f1a6190:	8d4a1448 */ 	lw	$t2,%lo(g_MpPlayerNum)($t2)
-/*  f1a6194:	3c0c800a */ 	lui	$t4,%hi(g_Menus)
-/*  f1a6198:	258ce000 */ 	addiu	$t4,$t4,%lo(g_Menus)
-/*  f1a619c:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f1a61a0:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f1a61a4:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f1a61a8:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f1a61ac:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f1a61b0:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f1a61b4:	000b5900 */ 	sll	$t3,$t3,0x4
-/*  f1a61b8:	3c0d8009 */ 	lui	$t5,%hi(var80089268)
-/*  f1a61bc:	25ad9268 */ 	addiu	$t5,$t5,%lo(var80089268)
-/*  f1a61c0:	016c1821 */ 	addu	$v1,$t3,$t4
-/*  f1a61c4:	240e013e */ 	addiu	$t6,$zero,0x13e
-/*  f1a61c8:	ac6d0df4 */ 	sw	$t5,0xdf4($v1)
-/*  f1a61cc:	1000000f */ 	b	.L0f1a620c
-/*  f1a61d0:	a46e089c */ 	sh	$t6,0x89c($v1)
-.L0f1a61d4:
-/*  f1a61d4:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
-/*  f1a61d8:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f1a61dc:	3c19800a */ 	lui	$t9,%hi(g_Menus)
-/*  f1a61e0:	2739e000 */ 	addiu	$t9,$t9,%lo(g_Menus)
-/*  f1a61e4:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f1a61e8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1a61ec:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1a61f0:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f1a61f4:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f1a61f8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1a61fc:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f1a6200:	03191821 */ 	addu	$v1,$t8,$t9
-/*  f1a6204:	2408006a */ 	addiu	$t0,$zero,0x6a
-/*  f1a6208:	a468089c */ 	sh	$t0,0x89c($v1)
-.L0f1a620c:
-/*  f1a620c:	24010067 */ 	addiu	$at,$zero,0x67
-/*  f1a6210:	14a10004 */ 	bne	$a1,$at,.L0f1a6224
-/*  f1a6214:	00025400 */ 	sll	$t2,$v0,0x10
-/*  f1a6218:	3c098009 */ 	lui	$t1,%hi(var80089280)
-/*  f1a621c:	25299280 */ 	addiu	$t1,$t1,%lo(var80089280)
-/*  f1a6220:	ac690df4 */ 	sw	$t1,0xdf4($v1)
-.L0f1a6224:
-/*  f1a6224:	8fac0040 */ 	lw	$t4,0x40($sp)
-/*  f1a6228:	8c640db8 */ 	lw	$a0,0xdb8($v1)
-/*  f1a622c:	354bffff */ 	ori	$t3,$t2,0xffff
-/*  f1a6230:	000c6e00 */ 	sll	$t5,$t4,0x18
-/*  f1a6234:	016d7025 */ 	or	$t6,$t3,$t5
-/*  f1a6238:	18800006 */ 	blez	$a0,.L0f1a6254
-/*  f1a623c:	ac6e084c */ 	sw	$t6,0x84c($v1)
-/*  f1a6240:	3c0f800a */ 	lui	$t7,%hi(g_Vars)
-/*  f1a6244:	8def9fc0 */ 	lw	$t7,%lo(g_Vars)($t7)
-/*  f1a6248:	008fc023 */ 	subu	$t8,$a0,$t7
-/*  f1a624c:	1000000a */ 	b	.L0f1a6278
-/*  f1a6250:	ac780db8 */ 	sw	$t8,0xdb8($v1)
-.L0f1a6254:
-/*  f1a6254:	3c017f1c */ 	lui	$at,%hi(var7f1b9978)
-/*  f1a6258:	c4249978 */ 	lwc1	$f4,%lo(var7f1b9978)($at)
-/*  f1a625c:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4)
-/*  f1a6260:	c4269fc4 */ 	lwc1	$f6,%lo(g_Vars+0x4)($at)
-/*  f1a6264:	c46a0d64 */ 	lwc1	$f10,0xd64($v1)
-/*  f1a6268:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f1a626c:	46085000 */ 	add.s	$f0,$f10,$f8
-/*  f1a6270:	e4600d8c */ 	swc1	$f0,0xd8c($v1)
-/*  f1a6274:	e4600d64 */ 	swc1	$f0,0xd64($v1)
-.L0f1a6278:
-/*  f1a6278:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f1a627c:
-/*  f1a627c:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f1a6280:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a6284:	03e00008 */ 	jr	$ra
-/*  f1a6288:	00000000 */ 	nop
-);
+struct menuitem menuitems_information[] = {
+	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000c8, 0x00000000, ciOfficeInformationMenuHandler },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog menudialog_information = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(418), // "Information"
+	menuitems_information,
+	NULL,
+	0x00000000,
+	NULL,
+};
+
+struct menuitem menuitems_nowsafe[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, L_MPMENU(437), 0x00000000, NULL }, // "It is now safe to turn off your computer"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(438), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog menudialog_nowsafe = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(436), // "Cheats"
+	menuitems_nowsafe,
+	NULL,
+	0x00000200,
+	NULL,
+};
+
+s32 ciCharacterProfileMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	u32 bodynum = ciGetChrBioBodynumBySlot(g_ChrBioSlot);
+	u32 mpbodynum = mpGetMpbodynumByBodynum(bodynum);
+	u32 mpheadnum = mpGetMpheadnumByMpbodynum(mpbodynum);
+	f32 x;
+	f32 y;
+	f32 scale;
+
+	switch (operation) {
+	case MENUOP_OPEN:
+		if (bodynum == BODY_DRCAROLL) {
+			scale = 0.7f;
+			g_Menus[g_MpPlayerNum].unkd94 = -1;
+		} else {
+			g_Menus[g_MpPlayerNum].unkd94 = 30;
+			scale = 1.0f;
+		}
+
+		g_Menus[g_MpPlayerNum].unkdb4 = 120;
+		g_Menus[g_MpPlayerNum].unkdc0 = 0;
+
+		x = -130;
+
+		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+			x = -100;
+		}
+
+		y = -15;
+
+		if (bodynum == BODY_MRBLONDE) {
+			y -= 12;
+		}
+
+		if (bodynum == BODY_THEKING) {
+			scale = 0.8f;
+		}
+
+		func0f0f372c(&g_Menus[g_MpPlayerNum].unk840, x, y, 0, 0, 0, 0, scale, 7);
+
+		g_Menus[g_MpPlayerNum].unkd50 = 8.2f;
+		g_Menus[g_MpPlayerNum].unkd54 = -4.1f;
+		g_Menus[g_MpPlayerNum].unkd5c = 0.00393f;
+		g_Menus[g_MpPlayerNum].unkd64 = 0;
+		g_Menus[g_MpPlayerNum].unkd8c = 0;
+		g_Menus[g_MpPlayerNum].unkdb8 = 60;
+		break;
+	case MENUOP_CLOSE:
+		break;
+	case MENUOP_TICK:
+		if (bodynum == BODY_DRCAROLL) {
+			static struct modelpartvisibility vis[] = {
+				{ MODELPART_DRCAROLL_01, false },
+				{ MODELPART_DRCAROLL_02, false },
+				{ MODELPART_DRCAROLL_03, false },
+				{ MODELPART_DRCAROLL_04, false },
+				{ MODELPART_DRCAROLL_05, false },
+				{ MODELPART_DRCAROLL_07, false },
+				{ MODELPART_DRCAROLL_08, false },
+				{ MODELPART_DRCAROLL_09, false },
+				{ MODELPART_DRCAROLL_0A, false },
+				{ MODELPART_DRCAROLL_0B, false },
+				{ 255 },
+			};
+			g_Menus[g_MpPlayerNum].partvisibility = vis;
+			g_Menus[g_MpPlayerNum].unk89c = 318;
+
+		} else {
+			g_Menus[g_MpPlayerNum].unk89c = 106;
+		}
+
+		if (bodynum == BODY_THEKING) {
+			static struct modelpartvisibility vis[] = {
+				{ MODELPART_ELVIS_03, false },
+				{ 255 },
+			};
+			g_Menus[g_MpPlayerNum].partvisibility = vis;
+		}
+
+		g_Menus[g_MpPlayerNum].unk84c = 0xffff;
+		g_Menus[g_MpPlayerNum].unk84c |= (mpheadnum << 16);
+		g_Menus[g_MpPlayerNum].unk84c |= (mpbodynum << 24);
+
+		if (g_Menus[g_MpPlayerNum].unkdb8 > 0) {
+			g_Menus[g_MpPlayerNum].unkdb8 -= g_Vars.diffframe60;
+		} else {
+			f32 tmp = g_Menus[g_MpPlayerNum].unkd64 + 0.01f * g_Vars.diffframe60f;
+			g_Menus[g_MpPlayerNum].unkd8c = tmp;
+			g_Menus[g_MpPlayerNum].unkd64 = tmp;
+		}
+
+		break;
+	}
+
+	return 0;
+}
 
 const char var7f1b985c[] = "x1";
 const char var7f1b9860[] = "x2";
@@ -2891,7 +2778,7 @@ const char var7f1b989c[] = "%d\n";
 
 char *ciMenuTextChrBioName(struct menuitem *item)
 {
-	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
+	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(g_ChrBioSlot));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->name));
 
 	return g_StringPointer;
@@ -2899,7 +2786,7 @@ char *ciMenuTextChrBioName(struct menuitem *item)
 
 char *ciMenuTextChrBioAge(struct menuitem *item)
 {
-	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
+	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(g_ChrBioSlot));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->age));
 
 	return g_StringPointer;
@@ -2907,7 +2794,7 @@ char *ciMenuTextChrBioAge(struct menuitem *item)
 
 char *ciMenuTextChrBioRace(struct menuitem *item)
 {
-	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
+	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(g_ChrBioSlot));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->race));
 
 	return g_StringPointer;
@@ -2915,7 +2802,7 @@ char *ciMenuTextChrBioRace(struct menuitem *item)
 
 char *ciMenuTextMiscBioName(struct menuitem *item)
 {
-	struct miscbio *bio = ciGetMiscBio(ciGetMiscBioIndexBySlot(var800888a0 - ciGetNumUnlockedChrBios()));
+	struct miscbio *bio = ciGetMiscBio(ciGetMiscBioIndexBySlot(g_ChrBioSlot - ciGetNumUnlockedChrBios()));
 
 	sprintf(g_StringPointer, "%s\n", langGet(bio->name));
 
@@ -2978,44 +2865,6 @@ s32 menuhandler001a6514(u32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 
-struct menuitem menuitems_information[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000c8, 0x00000000, ciOfficeInformationMenuHandler },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-struct menudialog menudialog_information = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU(418), // "Information"
-	menuitems_information,
-	NULL,
-	0x00000000,
-	NULL,
-};
-
-struct menuitem menuitems_nowsafe[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, L_MPMENU(437), 0x00000000, NULL }, // "It is now safe to turn off your computer"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(438), 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-struct menudialog menudialog_nowsafe = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU(436), // "Cheats"
-	menuitems_nowsafe,
-	NULL,
-	0x00000200,
-	NULL,
-};
-
-u32 var80089268 = 0x01000200;
-u32 var8008926c = 0x03000400;
-u32 var80089270 = 0x05000700;
-u32 var80089274 = 0x08000900;
-u32 var80089278 = 0x0a000b00;
-u32 var8008927c = 0xff000000;
-u32 var80089280 = 0x0300ff00;
-
 struct menuitem menuitems_characterprofile[] = {
 	{ MENUITEMTYPE_MODEL,      0,                  0x00000002, 0x00000046,    0x00000096,              NULL },
 	{ MENUITEMTYPE_LABEL,      0,                  0x00000003, L_MPMENU(432), (u32)&ciMenuTextChrBioName, NULL }, // "Name:"
@@ -3032,7 +2881,7 @@ struct menudialog menudialog_characterprofile = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(431), // "Character Profile"
 	menuitems_characterprofile,
-	menudialog001a5f48,
+	ciCharacterProfileMenuDialog,
 	0x00000002,
 	NULL,
 };
@@ -3972,7 +3821,7 @@ glabel var7f1b99d8
 //				g_Menus[g_MpPlayerNum].unk84c = props[index].fileid;
 //				g_Menus[g_MpPlayerNum].unkd8c = g_Menus[g_MpPlayerNum].unkd64 + 0.01f * g_Vars.diffframe60f;
 //				g_Menus[g_MpPlayerNum].unkd64 += 0.01f * g_Vars.diffframe60f;
-//				g_Menus[g_MpPlayerNum].unkdf4 = tmp;
+//				g_Menus[g_MpPlayerNum].partvisibility = tmp;
 //			}
 //			break;
 //		}

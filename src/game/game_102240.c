@@ -3317,7 +3317,7 @@ void func0f105948(s32 weaponnum)
 		func0f0f372c(&g_Menus[g_MpPlayerNum].unk840, 0, 0, 0, 0, 0, 0, gunconfig[useindex][4], 1);
 
 		g_Menus[g_MpPlayerNum].unkd5c = 0;
-		g_Menus[g_MpPlayerNum].unkdf4 = weapon->partvisibility;
+		g_Menus[g_MpPlayerNum].partvisibility = weapon->partvisibility;
 		g_Menus[g_MpPlayerNum].unkd94 = -1;
 
 		// These indexes correspond to WEAPON_DISGUISE40 and WEAPON_DISGUISE41
@@ -3328,7 +3328,7 @@ void func0f105948(s32 weaponnum)
 				g_Menus[g_MpPlayerNum].unk84c = 0x0400ffff;
 			}
 
-			g_Menus[g_MpPlayerNum].unkdf4 = NULL;
+			g_Menus[g_MpPlayerNum].partvisibility = NULL;
 			g_Menus[g_MpPlayerNum].unkdc0 = 0;
 
 			func0f0f372c(&g_Menus[g_MpPlayerNum].unk840, 0, 0, 0, 0, 0, 0, 1, 1);

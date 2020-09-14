@@ -657,7 +657,7 @@ glabel func0f18800c
 .L0f1880a0:
 /*  f1880a0:	a20a0010 */ 	sb	$t2,0x10($s0)
 .L0f1880a4:
-/*  f1880a4:	0fc62f27 */ 	jal	mpBodyGetMpHeadIndex
+/*  f1880a4:	0fc62f27 */ 	jal	mpGetMpheadnumByMpbodynum
 /*  f1880a8:	92040010 */ 	lbu	$a0,0x10($s0)
 /*  f1880ac:	240b000c */ 	addiu	$t3,$zero,0xc
 /*  f1880b0:	a202000f */ 	sb	$v0,0xf($s0)
@@ -4861,7 +4861,7 @@ s32 mpGetBodyId(u8 bodynum)
 	return g_MpBodies[bodynum].bodynum;
 }
 
-s32 mpGetBodyIndexByBodyId(u16 bodynum)
+s32 mpGetMpbodynumByBodynum(u16 bodynum)
 {
 	s32 i;
 
@@ -4899,20 +4899,20 @@ u8 mpGetBodyUnk06(u8 bodynum)
 	return g_MpBodies[bodynum].unlockvalue;
 }
 
-s32 mpBodyGetMpHeadIndex(s32 bodynum)
+s32 mpGetMpheadnumByMpbodynum(s32 mpbodynum)
 {
 	s32 headnum;
 	s32 index = 0;
 	s32 i;
 
-	if (bodynum >= HEAD_VD) {
-		bodynum = 0;
+	if (mpbodynum >= HEAD_VD) {
+		mpbodynum = 0;
 	}
 
-	headnum = g_MpBodies[bodynum].headnum;
+	headnum = g_MpBodies[mpbodynum].headnum;
 
 	if (headnum == 1000) {
-		if (g_Bodies[g_MpBodies[bodynum].bodynum].ismale) {
+		if (g_Bodies[g_MpBodies[mpbodynum].bodynum].ismale) {
 			headnum = g_MpMaleHeads[random() % ARRAYCOUNT(g_MpMaleHeads)];
 		} else {
 			headnum = g_MpFemaleHeads[random() % ARRAYCOUNT(g_MpFemaleHeads)];

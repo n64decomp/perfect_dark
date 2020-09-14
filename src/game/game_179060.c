@@ -989,7 +989,7 @@ s32 menuhandlerMpCharacterBody(u32 operation, struct menuitem *item, union handl
 	case MENUOP_SET:
 		if (g_MpPlayers[g_MpPlayerNum].base.headnum < mpGetNumHeads()) {
 			if (!data->carousel.unk04) {
-				g_MpPlayers[g_MpPlayerNum].base.headnum = mpBodyGetMpHeadIndex(data->carousel.value);
+				g_MpPlayers[g_MpPlayerNum].base.headnum = mpGetMpheadnumByMpbodynum(data->carousel.value);
 			}
 		}
 		g_MpPlayers[g_MpPlayerNum].base.bodynum = data->carousel.value;
