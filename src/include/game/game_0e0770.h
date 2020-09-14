@@ -17,7 +17,7 @@ u32 func0f0e26ec(void);
 u32 func0f0e2744(void);
 u32 func0f0e2aa4(void);
 u32 func0f0e2ee8(void);
-u32 func0f0e2f5c(void);
+Gfx *renderFilledRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colourleft, u32 colourright);
 u32 func0f0e2fe4(void);
 u32 func0f0e3324(void);
 u32 func0f0e37b0(void);

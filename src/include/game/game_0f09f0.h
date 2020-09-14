@@ -3,6 +3,8 @@
 #include <ultra64.h>
 #include "types.h"
 
+extern const struct menucolourpalette g_MenuColourPalettes[];
+
 void func0f0f09f0(s32 arg0);
 bool menuIsSoloMissionOrMp(void);
 bool currentPlayerIsMenuOpenInSoloOrMp(void);
