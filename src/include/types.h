@@ -6790,6 +6790,7 @@ struct menurenderthing {
 	s16 x;
 	s16 y;
 	s16 width;
+	s16 height;
 	struct menuitem *item;
 	u32 unk0c;
 	struct menurenderthing10 *unk10;

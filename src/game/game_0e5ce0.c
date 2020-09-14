@@ -8300,7 +8300,7 @@ Gfx *menuRenderItemSeparator(Gfx *gdl, struct menurenderthing *thing)
 }
 
 GLOBAL_ASM(
-glabel func0f0e98ac
+glabel menuRenderObjective
 /*  f0e98ac:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0e98b0:	8fae0154 */ 	lw	$t6,0x154($sp)
 /*  f0e98b4:	afbf003c */ 	sw	$ra,0x3c($sp)
@@ -8952,95 +8952,35 @@ glabel func0f0e98ac
 /*  f0ea28c:	27bd0130 */ 	addiu	$sp,$sp,0x130
 );
 
-GLOBAL_ASM(
-glabel menuRenderItemObjectives
-/*  f0ea290:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f0ea294:	afbf0054 */ 	sw	$ra,0x54($sp)
-/*  f0ea298:	afbe0050 */ 	sw	$s8,0x50($sp)
-/*  f0ea29c:	afb7004c */ 	sw	$s7,0x4c($sp)
-/*  f0ea2a0:	afb60048 */ 	sw	$s6,0x48($sp)
-/*  f0ea2a4:	afb50044 */ 	sw	$s5,0x44($sp)
-/*  f0ea2a8:	afb40040 */ 	sw	$s4,0x40($sp)
-/*  f0ea2ac:	afb3003c */ 	sw	$s3,0x3c($sp)
-/*  f0ea2b0:	afb20038 */ 	sw	$s2,0x38($sp)
-/*  f0ea2b4:	afb10034 */ 	sw	$s1,0x34($sp)
-/*  f0ea2b8:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f0ea2bc:	84b10002 */ 	lh	$s1,0x2($a1)
-/*  f0ea2c0:	3c14800a */ 	lui	$s4,%hi(g_Briefing)
-/*  f0ea2c4:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f0ea2c8:	0080b025 */ 	or	$s6,$a0,$zero
-/*  f0ea2cc:	24150001 */ 	addiu	$s5,$zero,0x1
-/*  f0ea2d0:	2694dfc8 */ 	addiu	$s4,$s4,%lo(g_Briefing)
-/*  f0ea2d4:	00009825 */ 	or	$s3,$zero,$zero
-/*  f0ea2d8:	24170002 */ 	addiu	$s7,$zero,0x2
-/*  f0ea2dc:	241e0001 */ 	addiu	$s8,$zero,0x1
-/*  f0ea2e0:	26310005 */ 	addiu	$s1,$s1,0x5
-.L0f0ea2e4:
-/*  f0ea2e4:	968e0002 */ 	lhu	$t6,0x2($s4)
-/*  f0ea2e8:	51c0002b */ 	beqzl	$t6,.L0f0ea398
-/*  f0ea2ec:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f0ea2f0:	0fc5b367 */ 	jal	getDifficulty
-/*  f0ea2f4:	00000000 */ 	nop
-/*  f0ea2f8:	9699000e */ 	lhu	$t9,0xe($s4)
-/*  f0ea2fc:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f0ea300:	004fc004 */ 	sllv	$t8,$t7,$v0
-/*  f0ea304:	03194024 */ 	and	$t0,$t8,$t9
-/*  f0ea308:	51000023 */ 	beqzl	$t0,.L0f0ea398
-/*  f0ea30c:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f0ea310:	86490000 */ 	lh	$t1,0x0($s2)
-/*  f0ea314:	8e450010 */ 	lw	$a1,0x10($s2)
-/*  f0ea318:	afb10014 */ 	sw	$s1,0x14($sp)
-/*  f0ea31c:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0ea320:	864a0004 */ 	lh	$t2,0x4($s2)
-/*  f0ea324:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f0ea328:	02603025 */ 	or	$a2,$s3,$zero
-/*  f0ea32c:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*  f0ea330:	864b0006 */ 	lh	$t3,0x6($s2)
-/*  f0ea334:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f0ea338:	afab001c */ 	sw	$t3,0x1c($sp)
-/*  f0ea33c:	8e4c0008 */ 	lw	$t4,0x8($s2)
-/*  f0ea340:	91900001 */ 	lbu	$s0,0x1($t4)
-/*  f0ea344:	03d06826 */ 	xor	$t5,$s8,$s0
-/*  f0ea348:	02f07026 */ 	xor	$t6,$s7,$s0
-/*  f0ea34c:	2dce0001 */ 	sltiu	$t6,$t6,0x1
-/*  f0ea350:	000d682b */ 	sltu	$t5,$zero,$t5
-/*  f0ea354:	afad0020 */ 	sw	$t5,0x20($sp)
-/*  f0ea358:	0fc3a62b */ 	jal	func0f0e98ac
-/*  f0ea35c:	afae0024 */ 	sw	$t6,0x24($sp)
-/*  f0ea360:	8e4f0008 */ 	lw	$t7,0x8($s2)
-/*  f0ea364:	0040b025 */ 	or	$s6,$v0,$zero
-/*  f0ea368:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f0ea36c:	91f00001 */ 	lbu	$s0,0x1($t7)
-/*  f0ea370:	16000003 */ 	bnez	$s0,.L0f0ea380
-/*  f0ea374:	00000000 */ 	nop
-/*  f0ea378:	10000006 */ 	b	.L0f0ea394
-/*  f0ea37c:	26310012 */ 	addiu	$s1,$s1,0x12
-.L0f0ea380:
-/*  f0ea380:	56f00004 */ 	bnel	$s7,$s0,.L0f0ea394
-/*  f0ea384:	2631000e */ 	addiu	$s1,$s1,0xe
-/*  f0ea388:	10000002 */ 	b	.L0f0ea394
-/*  f0ea38c:	2631001e */ 	addiu	$s1,$s1,0x1e
-/*  f0ea390:	2631000e */ 	addiu	$s1,$s1,0xe
-.L0f0ea394:
-/*  f0ea394:	26730001 */ 	addiu	$s3,$s3,0x1
-.L0f0ea398:
-/*  f0ea398:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0ea39c:	1661ffd1 */ 	bne	$s3,$at,.L0f0ea2e4
-/*  f0ea3a0:	26940002 */ 	addiu	$s4,$s4,0x2
-/*  f0ea3a4:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f0ea3a8:	02c01025 */ 	or	$v0,$s6,$zero
-/*  f0ea3ac:	8fb60048 */ 	lw	$s6,0x48($sp)
-/*  f0ea3b0:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*  f0ea3b4:	8fb10034 */ 	lw	$s1,0x34($sp)
-/*  f0ea3b8:	8fb20038 */ 	lw	$s2,0x38($sp)
-/*  f0ea3bc:	8fb3003c */ 	lw	$s3,0x3c($sp)
-/*  f0ea3c0:	8fb40040 */ 	lw	$s4,0x40($sp)
-/*  f0ea3c4:	8fb50044 */ 	lw	$s5,0x44($sp)
-/*  f0ea3c8:	8fb7004c */ 	lw	$s7,0x4c($sp)
-/*  f0ea3cc:	8fbe0050 */ 	lw	$s8,0x50($sp)
-/*  f0ea3d0:	03e00008 */ 	jr	$ra
-/*  f0ea3d4:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurenderthing *thing)
+{
+	s32 y = thing->y + 5;
+	s32 position = 1;
+	s32 i;
+
+	for (i = 0; i < 6; i++) {
+		if (g_Briefing.objectivenames[i + 1]
+				&& g_Briefing.objectivedifficulties[i + 1] & (1 << getDifficulty())) {
+			gdl = menuRenderObjective(gdl,
+					thing->unk10,
+					i, position, thing->x, y, thing->width, thing->height,
+					thing->item->param != 1,
+					thing->item->param == 2);
+
+			position++;
+
+            if (thing->item->param == 0) {
+            	y += 18;
+            } else if (thing->item->param == 2) {
+            	y += 30;
+			} else {
+				y += 14;
+			}
+		}
+	}
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel menuRenderItemModel
@@ -15682,7 +15622,7 @@ Gfx *menuRenderItem(Gfx *gdl, struct menurenderthing *thing)
 	case MENUITEMTYPE_LABEL:       return menuRenderItemLabel(gdl);
 	case MENUITEMTYPE_15:          return menuRenderItem15(gdl);
 	case MENUITEMTYPE_SEPARATOR:   return menuRenderItemSeparator(gdl, thing);
-	case MENUITEMTYPE_OBJECTIVES:  return menuRenderItemObjectives(gdl);
+	case MENUITEMTYPE_OBJECTIVES:  return menuRenderItemObjectives(gdl, thing);
 	case MENUITEMTYPE_07:          return menuRenderItem07(gdl);
 	case MENUITEMTYPE_DROPDOWN:    return menuRenderItemDropdown(gdl);
 	case MENUITEMTYPE_KEYBOARD:    return menuRenderItemKeyboard(gdl);
