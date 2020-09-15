@@ -22,7 +22,7 @@ Gfx *menuRenderObjective(Gfx *gfx, struct menurenderthing10 *thing10, s32 index,
 Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurenderthing *thing);
 Gfx *menuRenderItemModel(Gfx *gdl, struct menurenderthing *thing);
 Gfx *menuRenderItemLabel(Gfx *gdl);
-Gfx *menuRenderItem15(Gfx *gdl);
+Gfx *menuRenderItemMeter(Gfx *gdl, struct menurenderthing *thing);
 Gfx *menuRenderItemSelectable(Gfx *gdl);
 u32 func0f0eb46c(void);
 Gfx *menuRenderItemSlider(Gfx *gdl);

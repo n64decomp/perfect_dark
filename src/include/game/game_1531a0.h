@@ -38,7 +38,7 @@ u32 func0f1552d4(void);
 u32 func0f15568c(void);
 u32 func0f156024(void);
 u32 func0f156030(void);
-Gfx *textRenderWhite(Gfx *gdl, s32 *x, s32 *y, char *text, u32 arg4, u32 arg5, s32 arg6, s16 arg7, s16 arg8, u32 arg9, u32 arg10);
+Gfx *textRenderWhite(Gfx *gdl, s32 *x, s32 *y, char *text, u32 font1, u32 font2, s32 colour, s16 width, s16 height, u32 arg9, u32 arg10);
 u32 func0f1566cc(void);
 u32 func0f156790(void);
 u32 func0f156a24(void);
