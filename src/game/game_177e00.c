@@ -166,7 +166,7 @@ glabel menuhandler00177e00
 /*  f177fd4:	00000000 */ 	nop
 );
 
-s32 menuhandlerMpEndGame(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerMpEndGame(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_Vars.currentplayer->aborted = true;
@@ -179,7 +179,7 @@ s32 menuhandlerMpEndGame(u32 operation, struct menuitem *item, s32 *value)
 /**
  * This is something near the top of the "End Game" dialog during gameplay.
  */
-s32 menuhandler00178018(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandler00178018(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		if (g_MpSetupSaveFile.locktype != MPLOCKTYPE_CHALLENGE) {
@@ -209,7 +209,7 @@ char *mpMenuTextInGameLimit(struct menuitem *item)
 	return g_StringPointer;
 }
 
-s32 menuhandlerMpInGameLimitLabel(u32 operation, struct menuitem *item, s32 *value)
+s32 menuhandlerMpInGameLimitLabel(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		switch (item->param) {

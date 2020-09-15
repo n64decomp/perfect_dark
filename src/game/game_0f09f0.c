@@ -2791,7 +2791,6 @@ void menuOpenDialog(struct menudialog *dialog, struct menuframe *frame, struct m
 	struct menuitem *item;
 	union handlerdata data1;
 	union handlerdata data2;
-	s32 (*handler)(u32 operation, struct menuitem *item, union handlerdata *data);
 
 	frame->dialog = dialog;
 
@@ -2828,11 +2827,9 @@ void menuOpenDialog(struct menudialog *dialog, struct menuframe *frame, struct m
 	item = frame->dialog->items;
 
 	while (item->type != MENUITEMTYPE_END) {
-		handler = item->handler;
-
-		if (handler
+		if (item->handler
 				&& (item->param1 & 0x04) == 0
-				&& handler(MENUOP_CHECKPREFOCUSED, item, &data1)) {
+				&& item->handler(MENUOP_CHECKPREFOCUSED, item, &data1)) {
 			frame->focuseditem = item;
 		}
 
@@ -2840,12 +2837,10 @@ void menuOpenDialog(struct menudialog *dialog, struct menuframe *frame, struct m
 	}
 
 	// Run focus handler
-	if (frame->focuseditem) {
-		handler = frame->focuseditem->handler;
-
-		if (handler && (frame->focuseditem->param1 & 0x04) == 0) {
-			handler(MENUOP_FOCUS, frame->focuseditem, &data2);
-		}
+	if (frame->focuseditem
+			&& frame->focuseditem->handler
+			&& (frame->focuseditem->param1 & 0x04) == 0) {
+		frame->focuseditem->handler(MENUOP_FOCUS, frame->focuseditem, &data2);
 	}
 
 	frame->unk0c = 0;

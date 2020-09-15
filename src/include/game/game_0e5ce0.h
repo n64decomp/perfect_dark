@@ -20,7 +20,7 @@ void func0f0e9744(struct menuitem *item, u16 *arg1);
 Gfx *menuRenderItemSeparator(Gfx *gdl, struct menurenderthing *thing);
 Gfx *menuRenderObjective(Gfx *gfx, struct menurenderthing10 *thing10, s32 index, s32 position, s32 x, s32 y, s32 width, s32 height, s32 arg8, s32 arg9);
 Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurenderthing *thing);
-Gfx *menuRenderItemModel(Gfx *gdl);
+Gfx *menuRenderItemModel(Gfx *gdl, struct menurenderthing *thing);
 Gfx *menuRenderItemLabel(Gfx *gdl);
 Gfx *menuRenderItem15(Gfx *gdl);
 Gfx *menuRenderItemSelectable(Gfx *gdl);

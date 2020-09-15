@@ -3284,6 +3284,20 @@ struct handlerdata_slider {
 	char *label;
 };
 
+struct menuitemmodelrenderdata {
+	s32 x;
+	s32 y;
+	s32 width;
+	u32 colour;
+	u8 arg10;
+};
+
+struct handlerdata_type19 {
+	Gfx *gdl;
+	struct menuitemmodelrenderdata *renderdata1;
+	struct menuitemmodelrenderdata *renderdata2;
+};
+
 struct handlerdata_dialog1 {
 	u32 preventclose;
 };
@@ -3300,6 +3314,7 @@ union handlerdata {
 	struct handlerdata_keyboard keyboard;
 	struct handlerdata_label label;
 	struct handlerdata_slider slider;
+	struct handlerdata_type19 type19;
 
 	struct handlerdata_dialog1 dialog1;
 	struct handlerdata_dialog2 dialog2;
@@ -3311,7 +3326,7 @@ struct menuitem {
 	u32 param1;
 	u32 param2;
 	u32 param3;
-	void *handler;
+	s32 (*handler)(u32 operation, struct menuitem *item, union handlerdata *data);
 };
 
 struct menudialog {

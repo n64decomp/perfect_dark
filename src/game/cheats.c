@@ -870,12 +870,12 @@ struct menudialog g_CheatsBuddiesMenuDialog = {
 };
 
 struct menuitem g_CheatsMenuItems[] = {
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(118), 0x00000000, &g_CheatsFunMenuDialog            }, // "Fun"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(119), 0x00000000, &g_CheatsGameplayMenuDialog       }, // "Gameplay"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(122), 0x00000000, &g_CheatsSoloWeaponsMenuDialog    }, // "Weapons for Jo in Solo"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(123), 0x00000000, &g_CheatsClassicWeaponsMenuDialog }, // "Classic Weapons for Jo in Solo"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(120), 0x00000000, &g_CheatsWeaponsMenuDialog        }, // "Weapons"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(121), 0x00000000, &g_CheatsBuddiesMenuDialog        }, // "Buddies"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(118), 0x00000000, (void *)&g_CheatsFunMenuDialog            }, // "Fun"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(119), 0x00000000, (void *)&g_CheatsGameplayMenuDialog       }, // "Gameplay"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(122), 0x00000000, (void *)&g_CheatsSoloWeaponsMenuDialog    }, // "Weapons for Jo in Solo"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(123), 0x00000000, (void *)&g_CheatsClassicWeaponsMenuDialog }, // "Classic Weapons for Jo in Solo"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(120), 0x00000000, (void *)&g_CheatsWeaponsMenuDialog        }, // "Weapons"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(121), 0x00000000, (void *)&g_CheatsBuddiesMenuDialog        }, // "Buddies"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000096,       0x00000000, NULL                              },
 	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000000, L_MPWEAPONS(217), 0x00000000, cheatMenuHandleTurnOffAllCheats   }, // "Turn off all Cheats"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000096,       0x00000000, NULL                              },
