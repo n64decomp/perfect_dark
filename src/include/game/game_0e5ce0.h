@@ -28,7 +28,7 @@ u32 func0f0eb46c(void);
 Gfx *menuRenderItemSlider(Gfx *gdl);
 u32 func0f0ebec8(void);
 void func0f0ec220(u16 *arg0);
-Gfx *menuRenderItemCarousel(Gfx *gdl);
+Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurenderthing *thing);
 u32 func0f0ec4e4(void);
 Gfx *menuRenderItemCheckbox(Gfx *gdl);
 u32 func0f0ecbfc(void);

@@ -18,7 +18,7 @@ u32 func0f0e2744(void);
 u32 func0f0e2aa4(void);
 u32 func0f0e2ee8(void);
 Gfx *renderFilledRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colourleft, u32 colourright);
-u32 func0f0e2fe4(void);
+Gfx *menuRenderCarouselArrow(Gfx *gdl, s32 x, s32 y, u32 arg3, u32 arg4, s32 arg5, u32 colour);
 u32 func0f0e3324(void);
 u32 func0f0e37b0(void);
 u32 func0f0e39d0(void);

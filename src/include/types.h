@@ -6807,7 +6807,7 @@ struct menurenderthing {
 	s16 width;
 	s16 height;
 	struct menuitem *item;
-	u32 unk0c;
+	bool focused;
 	struct menurenderthing10 *unk10;
 };
 

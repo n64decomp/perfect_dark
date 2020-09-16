@@ -2788,7 +2788,7 @@ glabel renderFilledRect
 );
 
 GLOBAL_ASM(
-glabel func0f0e2fe4
+glabel menuRenderCarouselArrow
 /*  f0e2fe4:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f0e2fe8:	afa40060 */ 	sw	$a0,0x60($sp)
 /*  f0e2fec:	8fa40070 */ 	lw	$a0,0x70($sp)

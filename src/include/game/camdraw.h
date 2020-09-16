@@ -70,7 +70,7 @@ u32 func0f14ecd8(void);
 u32 func0f14eeb0(void);
 u32 func0f14ef50(void);
 u32 func0f14f008(void);
-u32 func0f14f07c(void);
+Gfx *func0f14f07c(Gfx *gdl, s32 headorbodynum, s32 x1, s32 y1, s32 x2, s32 y2);
 u32 func0f14f4b8(void);
 u32 func0f14f4e4(void);
 u32 func0f14f510(void);
