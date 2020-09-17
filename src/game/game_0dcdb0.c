@@ -1971,7 +1971,7 @@ glabel func0f0de160
 /*  f0de524:	8ce7fb10 */ 	lw	$a3,%lo(var8007fb10)($a3)
 /*  f0de528:	8fa404a4 */ 	lw	$a0,0x4a4($sp)
 /*  f0de52c:	27a601b0 */ 	addiu	$a2,$sp,0x1b0
-/*  f0de530:	0fc55d48 */ 	jal	func0f157520
+/*  f0de530:	0fc55d48 */ 	jal	textWrap
 /*  f0de534:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0de538:	93b801b0 */ 	lbu	$t8,0x1b0($sp)
 /*  f0de53c:	8fa800a4 */ 	lw	$t0,0xa4($sp)
@@ -2904,7 +2904,7 @@ glabel hudmsgCreate
 /*  f0df1dc:	8de70000 */ 	lw	$a3,0x0($t7)
 /*  f0df1e0:	afa901ec */ 	sw	$t1,0x1ec($sp)
 /*  f0df1e4:	02403025 */ 	or	$a2,$s2,$zero
-/*  f0df1e8:	0fc55d48 */ 	jal	func0f157520
+/*  f0df1e8:	0fc55d48 */ 	jal	textWrap
 /*  f0df1ec:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f0df1f0:	8fac0210 */ 	lw	$t4,0x210($sp)
 /*  f0df1f4:	8faa020c */ 	lw	$t2,0x20c($sp)
@@ -3107,7 +3107,7 @@ glabel hudmsgCreate
 //				stacktext[writeindex++] = '\n';
 //				stacktext[writeindex++] = '\0';
 //
-//				func0f157520(iStack36, stacktext, msg->text, conf04->unk00, conf08->unk00);
+//				textWrap(iStack36, stacktext, msg->text, conf04->unk00, conf08->unk00);
 //				textMeasure(&uStack28, &uStack24, msg->text, conf04->unk00, conf08->unk00, 0);
 //			} else {
 //				strncpy(msg->text, text, 399);

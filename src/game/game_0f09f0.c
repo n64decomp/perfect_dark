@@ -57,263 +57,31 @@
 
 const struct menucolourpalette g_MenuColourPalettes[] = {
 	{ 0x20202000, 0x20202000, 0x20202000, 0x4f4f4f00, 0x00000000, 0x00000000, 0x4f4f4f00, 0x4f4f4f00, 0x4f4f4f00, 0x4f4f4f00, 0x00000000, 0x00000000, 0x4f4f4f00, 0x00000000, 0x00000000 },
+	{ 0x0060bf7f, 0x0000507f, 0x00f0ff7f, 0xffffffff, 0x00002f7f, 0x00006f7f, 0x00ffffff, 0x007f7fff, 0xffffffff, 0x8fffffff, 0x000044ff, 0x000030ff, 0x7f7fffff, 0xffffffff, 0x6644ff7f },
+	{ 0xbf00007f, 0x5000007f, 0xff00007f, 0xffff00ff, 0x2f00007f, 0x6f00007f, 0xff7050ff, 0x7f0000ff, 0xffff00ff, 0xff9070ff, 0x440000ff, 0x003000ff, 0xffff00ff, 0xffffffff, 0xff44447f },
+	{ 0x00bf007f, 0x0050007f, 0x00ff007f, 0xffff00ff, 0x002f007f, 0x00ff0028, 0x55ff55ff, 0x006f00af, 0xffffffff, 0x00000000, 0x004400ff, 0x003000ff, 0xffff00ff, 0xffffffff, 0x44ff447f },
+	{ 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffff5f, 0xffffffff, 0xffffff7f, 0xffffffff },
+	{ 0xaaaaaaff, 0xaaaaaa7f, 0xaaaaaaff, 0xffffffff, 0xffffff2f, 0xffffffff, 0xffffffff, 0xffffffff, 0xff8888ff, 0xffffffff, 0x00000000, 0xffffff5f, 0xffffffff, 0xffffff7f, 0xffffffff },
 };
 
-const u32 var7f1b1fec[] = {0x0060bf7f};
-const u32 var7f1b1ff0[] = {0x0000507f};
-const u32 var7f1b1ff4[] = {0x00f0ff7f};
-const u32 var7f1b1ff8[] = {0xffffffff};
-const u32 var7f1b1ffc[] = {0x00002f7f};
-const u32 var7f1b2000[] = {0x00006f7f};
-const u32 var7f1b2004[] = {0x00ffffff};
-const u32 var7f1b2008[] = {0x007f7fff};
-const u32 var7f1b200c[] = {0xffffffff};
-const u32 var7f1b2010[] = {0x8fffffff};
-const u32 var7f1b2014[] = {0x000044ff};
-const u32 var7f1b2018[] = {0x000030ff};
-const u32 var7f1b201c[] = {0x7f7fffff};
-const u32 var7f1b2020[] = {0xffffffff};
-const u32 var7f1b2024[] = {0x6644ff7f};
-const u32 var7f1b2028[] = {0xbf00007f};
-const u32 var7f1b202c[] = {0x5000007f};
-const u32 var7f1b2030[] = {0xff00007f};
-const u32 var7f1b2034[] = {0xffff00ff};
-const u32 var7f1b2038[] = {0x2f00007f};
-const u32 var7f1b203c[] = {0x6f00007f};
-const u32 var7f1b2040[] = {0xff7050ff};
-const u32 var7f1b2044[] = {0x7f0000ff};
-const u32 var7f1b2048[] = {0xffff00ff};
-const u32 var7f1b204c[] = {0xff9070ff};
-const u32 var7f1b2050[] = {0x440000ff};
-const u32 var7f1b2054[] = {0x003000ff};
-const u32 var7f1b2058[] = {0xffff00ff};
-const u32 var7f1b205c[] = {0xffffffff};
-const u32 var7f1b2060[] = {0xff44447f};
-const u32 var7f1b2064[] = {0x00bf007f};
-const u32 var7f1b2068[] = {0x0050007f};
-const u32 var7f1b206c[] = {0x00ff007f};
-const u32 var7f1b2070[] = {0xffff00ff};
-const u32 var7f1b2074[] = {0x002f007f};
-const u32 var7f1b2078[] = {0x00ff0028};
-const u32 var7f1b207c[] = {0x55ff55ff};
-const u32 var7f1b2080[] = {0x006f00af};
-const u32 var7f1b2084[] = {0xffffffff};
-const u32 var7f1b2088[] = {0x00000000};
-const u32 var7f1b208c[] = {0x004400ff};
-const u32 var7f1b2090[] = {0x003000ff};
-const u32 var7f1b2094[] = {0xffff00ff};
-const u32 var7f1b2098[] = {0xffffffff};
-const u32 var7f1b209c[] = {0x44ff447f};
-const u32 var7f1b20a0[] = {0xffffffff};
-const u32 var7f1b20a4[] = {0xffffff7f};
-const u32 var7f1b20a8[] = {0xffffffff};
-const u32 var7f1b20ac[] = {0xffffffff};
-const u32 var7f1b20b0[] = {0xffffff7f};
-const u32 var7f1b20b4[] = {0xffffffff};
-const u32 var7f1b20b8[] = {0xffffffff};
-const u32 var7f1b20bc[] = {0xffffffff};
-const u32 var7f1b20c0[] = {0xffffffff};
-const u32 var7f1b20c4[] = {0xffffffff};
-const u32 var7f1b20c8[] = {0x00000000};
-const u32 var7f1b20cc[] = {0xffffff5f};
-const u32 var7f1b20d0[] = {0xffffffff};
-const u32 var7f1b20d4[] = {0xffffff7f};
-const u32 var7f1b20d8[] = {0xffffffff};
-const u32 var7f1b20dc[] = {0xaaaaaaff};
-const u32 var7f1b20e0[] = {0xaaaaaa7f};
-const u32 var7f1b20e4[] = {0xaaaaaaff};
-const u32 var7f1b20e8[] = {0xffffffff};
-const u32 var7f1b20ec[] = {0xffffff2f};
-const u32 var7f1b20f0[] = {0xffffffff};
-const u32 var7f1b20f4[] = {0xffffffff};
-const u32 var7f1b20f8[] = {0xffffffff};
-const u32 var7f1b20fc[] = {0xff8888ff};
-const u32 var7f1b2100[] = {0xffffffff};
-const u32 var7f1b2104[] = {0x00000000};
-const u32 var7f1b2108[] = {0xffffff5f};
-const u32 var7f1b210c[] = {0xffffffff};
-const u32 var7f1b2110[] = {0xffffff7f};
-const u32 var7f1b2114[] = {0xffffffff};
-const u32 var7f1b2118[] = {0xffffff00};
-const u32 var7f1b211c[] = {0xffffff00};
-const u32 var7f1b2120[] = {0xffffff00};
-const u32 var7f1b2124[] = {0xffffff00};
-const u32 var7f1b2128[] = {0xffffff00};
-const u32 var7f1b212c[] = {0xffffff00};
-const u32 var7f1b2130[] = {0xffffff00};
-const u32 var7f1b2134[] = {0x4f4f4f00};
-const u32 var7f1b2138[] = {0xffffff00};
-const u32 var7f1b213c[] = {0xffffff00};
-const u32 var7f1b2140[] = {0xffffff00};
-const u32 var7f1b2144[] = {0xffffff00};
-const u32 var7f1b2148[] = {0xffffff00};
-const u32 var7f1b214c[] = {0xffffff00};
-const u32 var7f1b2150[] = {0x00000000};
-const u32 var7f1b2154[] = {0xffffff00};
-const u32 var7f1b2158[] = {0xffffff00};
-const u32 var7f1b215c[] = {0xffffff00};
-const u32 var7f1b2160[] = {0xffffff00};
-const u32 var7f1b2164[] = {0xffffff00};
-const u32 var7f1b2168[] = {0xffffff00};
-const u32 var7f1b216c[] = {0xffffff00};
-const u32 var7f1b2170[] = {0x006f6faf};
-const u32 var7f1b2174[] = {0xffffff00};
-const u32 var7f1b2178[] = {0xffffff00};
-const u32 var7f1b217c[] = {0xffffff00};
-const u32 var7f1b2180[] = {0xffffff00};
-const u32 var7f1b2184[] = {0xffffff00};
-const u32 var7f1b2188[] = {0xffffff00};
-const u32 var7f1b218c[] = {0x00000000};
-const u32 var7f1b2190[] = {0xffffff00};
-const u32 var7f1b2194[] = {0xffffff00};
-const u32 var7f1b2198[] = {0xffffff00};
-const u32 var7f1b219c[] = {0xffffff00};
-const u32 var7f1b21a0[] = {0xffffff00};
-const u32 var7f1b21a4[] = {0xffffff00};
-const u32 var7f1b21a8[] = {0xffffff00};
-const u32 var7f1b21ac[] = {0x006f6faf};
-const u32 var7f1b21b0[] = {0xffffff00};
-const u32 var7f1b21b4[] = {0xffffff00};
-const u32 var7f1b21b8[] = {0xffffff00};
-const u32 var7f1b21bc[] = {0xffffff00};
-const u32 var7f1b21c0[] = {0xffffff00};
-const u32 var7f1b21c4[] = {0xffffff00};
-const u32 var7f1b21c8[] = {0x00000000};
-const u32 var7f1b21cc[] = {0xffffff00};
-const u32 var7f1b21d0[] = {0xffffff00};
-const u32 var7f1b21d4[] = {0xffffff00};
-const u32 var7f1b21d8[] = {0xff7f0000};
-const u32 var7f1b21dc[] = {0xffffff00};
-const u32 var7f1b21e0[] = {0xffffff00};
-const u32 var7f1b21e4[] = {0x00ffff00};
-const u32 var7f1b21e8[] = {0x006f6faf};
-const u32 var7f1b21ec[] = {0xffffff00};
-const u32 var7f1b21f0[] = {0xffffff00};
-const u32 var7f1b21f4[] = {0xffffff00};
-const u32 var7f1b21f8[] = {0xffffff00};
-const u32 var7f1b21fc[] = {0xffffff00};
-const u32 var7f1b2200[] = {0xffffff00};
-const u32 var7f1b2204[] = {0x00000000};
-const u32 var7f1b2208[] = {0xffffffff};
-const u32 var7f1b220c[] = {0xffffff7f};
-const u32 var7f1b2210[] = {0xffffffff};
-const u32 var7f1b2214[] = {0xffffffff};
-const u32 var7f1b2218[] = {0xffffff7f};
-const u32 var7f1b221c[] = {0xffffffff};
-const u32 var7f1b2220[] = {0xffffffff};
-const u32 var7f1b2224[] = {0xffffffff};
-const u32 var7f1b2228[] = {0xffffffff};
-const u32 var7f1b222c[] = {0xffffffff};
-const u32 var7f1b2230[] = {0xffffffff};
-const u32 var7f1b2234[] = {0xffffff5f};
-const u32 var7f1b2238[] = {0xffffffff};
-const u32 var7f1b223c[] = {0xffffff7f};
-const u32 var7f1b2240[] = {0xffffffff};
-const u32 var7f1b2244[] = {0xffffffff};
-const u32 var7f1b2248[] = {0xffffff7f};
-const u32 var7f1b224c[] = {0xffffffff};
-const u32 var7f1b2250[] = {0xffffffff};
-const u32 var7f1b2254[] = {0xffffff7f};
-const u32 var7f1b2258[] = {0xffffffff};
-const u32 var7f1b225c[] = {0xffffffff};
-const u32 var7f1b2260[] = {0xffffffff};
-const u32 var7f1b2264[] = {0xffffffff};
-const u32 var7f1b2268[] = {0xffffffff};
-const u32 var7f1b226c[] = {0xffffffff};
-const u32 var7f1b2270[] = {0xffffff5f};
-const u32 var7f1b2274[] = {0xffffffff};
-const u32 var7f1b2278[] = {0xffffff7f};
-const u32 var7f1b227c[] = {0xffffffff};
-const u32 var7f1b2280[] = {0x44444400};
-const u32 var7f1b2284[] = {0x44444400};
-const u32 var7f1b2288[] = {0x44444400};
-const u32 var7f1b228c[] = {0x44444400};
-const u32 var7f1b2290[] = {0x44444400};
-const u32 var7f1b2294[] = {0x44444400};
-const u32 var7f1b2298[] = {0x44444400};
-const u32 var7f1b229c[] = {0x4f4f4f00};
-const u32 var7f1b22a0[] = {0x44444400};
-const u32 var7f1b22a4[] = {0x44444400};
-const u32 var7f1b22a8[] = {0x44444400};
-const u32 var7f1b22ac[] = {0x44444400};
-const u32 var7f1b22b0[] = {0x44444400};
-const u32 var7f1b22b4[] = {0x44444400};
-const u32 var7f1b22b8[] = {0x00000000};
-const u32 var7f1b22bc[] = {0x44444400};
-const u32 var7f1b22c0[] = {0x44444400};
-const u32 var7f1b22c4[] = {0x44444400};
-const u32 var7f1b22c8[] = {0x44444400};
-const u32 var7f1b22cc[] = {0x44444400};
-const u32 var7f1b22d0[] = {0x44444400};
-const u32 var7f1b22d4[] = {0x44444400};
-const u32 var7f1b22d8[] = {0x006f6faf};
-const u32 var7f1b22dc[] = {0x44444400};
-const u32 var7f1b22e0[] = {0x44444400};
-const u32 var7f1b22e4[] = {0x44444400};
-const u32 var7f1b22e8[] = {0x44444400};
-const u32 var7f1b22ec[] = {0x44444400};
-const u32 var7f1b22f0[] = {0x44444400};
-const u32 var7f1b22f4[] = {0x00000000};
-const u32 var7f1b22f8[] = {0x44444400};
-const u32 var7f1b22fc[] = {0x44444400};
-const u32 var7f1b2300[] = {0x44444400};
-const u32 var7f1b2304[] = {0x44444400};
-const u32 var7f1b2308[] = {0x44444400};
-const u32 var7f1b230c[] = {0x44444400};
-const u32 var7f1b2310[] = {0x44444400};
-const u32 var7f1b2314[] = {0x006f6faf};
-const u32 var7f1b2318[] = {0x44444400};
-const u32 var7f1b231c[] = {0x44444400};
-const u32 var7f1b2320[] = {0x44444400};
-const u32 var7f1b2324[] = {0x44444400};
-const u32 var7f1b2328[] = {0x44444400};
-const u32 var7f1b232c[] = {0x44444400};
-const u32 var7f1b2330[] = {0x00000000};
-const u32 var7f1b2334[] = {0x44444400};
-const u32 var7f1b2338[] = {0x44444400};
-const u32 var7f1b233c[] = {0x44444400};
-const u32 var7f1b2340[] = {0x00ff0000};
-const u32 var7f1b2344[] = {0x44444400};
-const u32 var7f1b2348[] = {0x44444400};
-const u32 var7f1b234c[] = {0xffff0000};
-const u32 var7f1b2350[] = {0x006f6faf};
-const u32 var7f1b2354[] = {0x44444400};
-const u32 var7f1b2358[] = {0x44444400};
-const u32 var7f1b235c[] = {0x44444400};
-const u32 var7f1b2360[] = {0x44444400};
-const u32 var7f1b2364[] = {0x44444400};
-const u32 var7f1b2368[] = {0x44444400};
-const u32 var7f1b236c[] = {0x00000000};
-const u32 var7f1b2370[] = {0xffffffff};
-const u32 var7f1b2374[] = {0xffffff7f};
-const u32 var7f1b2378[] = {0xffffffff};
-const u32 var7f1b237c[] = {0xffffffff};
-const u32 var7f1b2380[] = {0xffffff7f};
-const u32 var7f1b2384[] = {0xffffffff};
-const u32 var7f1b2388[] = {0xffffffff};
-const u32 var7f1b238c[] = {0xffffffff};
-const u32 var7f1b2390[] = {0xffffffff};
-const u32 var7f1b2394[] = {0xffffffff};
-const u32 var7f1b2398[] = {0xffffffff};
-const u32 var7f1b239c[] = {0xffffff5f};
-const u32 var7f1b23a0[] = {0xffffffff};
-const u32 var7f1b23a4[] = {0xffffff7f};
-const u32 var7f1b23a8[] = {0xffffffff};
-const u32 var7f1b23ac[] = {0xffffffff};
-const u32 var7f1b23b0[] = {0xffffff7f};
-const u32 var7f1b23b4[] = {0xffffffff};
-const u32 var7f1b23b8[] = {0xffffffff};
-const u32 var7f1b23bc[] = {0xffffff7f};
-const u32 var7f1b23c0[] = {0xffffffff};
-const u32 var7f1b23c4[] = {0xffffffff};
-const u32 var7f1b23c8[] = {0xffffffff};
-const u32 var7f1b23cc[] = {0xffffffff};
-const u32 var7f1b23d0[] = {0xffffffff};
-const u32 var7f1b23d4[] = {0xffffffff};
-const u32 var7f1b23d8[] = {0xffffff5f};
-const u32 var7f1b23dc[] = {0xffffffff};
-const u32 var7f1b23e0[] = {0xffffff7f};
-const u32 var7f1b23e4[] = {0xffffffff};
+const struct menucolourpalette g_MenuColourPalettes2[] = {
+	{ 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0x4f4f4f00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0x00000000 },
+	{ 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0x006f6faf, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0x00000000 },
+	{ 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0x006f6faf, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0x00000000 },
+	{ 0xffffff00, 0xffffff00, 0xffffff00, 0xff7f0000, 0xffffff00, 0xffffff00, 0x00ffff00, 0x006f6faf, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0xffffff00, 0x00000000 },
+	{ 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffff5f, 0xffffffff, 0xffffff7f, 0xffffffff },
+	{ 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffff5f, 0xffffffff, 0xffffff7f, 0xffffffff },
+};
+
+const struct menucolourpalette g_MenuColourPalettes3[] = {
+	{ 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x4f4f4f00, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x00000000 },
+	{ 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x006f6faf, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x00000000 },
+	{ 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x006f6faf, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x00000000 },
+	{ 0x44444400, 0x44444400, 0x44444400, 0x00ff0000, 0x44444400, 0x44444400, 0xffff0000, 0x006f6faf, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x44444400, 0x00000000 },
+	{ 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffff5f, 0xffffffff, 0xffffff7f, 0xffffffff },
+	{ 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffff5f, 0xffffffff, 0xffffff7f, 0xffffffff },
+};
+
 const u32 var7f1b23e8[] = {0x544d0000};
 char *g_StringPointer = g_CheatMarqueeString;
 char *g_StringPointer2 = &g_CheatMarqueeString[125];
@@ -5901,16 +5669,16 @@ glabel func0f0f5360
 /*  f0f5bfc:	8fa301ec */ 	lw	$v1,0x1ec($sp)
 .L0f0f5c00:
 /*  f0f5c00:	9062003c */ 	lbu	$v0,0x3c($v1)
-/*  f0f5c04:	3c047f1b */ 	lui	$a0,%hi(var7f1b228c)
-/*  f0f5c08:	3c057f1b */ 	lui	$a1,%hi(var7f1b2124)
+/*  f0f5c04:	3c047f1b */ 	lui	$a0,%hi(g_MenuColourPalettes3+0xc)
+/*  f0f5c08:	3c057f1b */ 	lui	$a1,%hi(g_MenuColourPalettes2+0xc)
 /*  f0f5c0c:	00026100 */ 	sll	$t4,$v0,0x4
 /*  f0f5c10:	01826023 */ 	subu	$t4,$t4,$v0
 /*  f0f5c14:	000c1080 */ 	sll	$v0,$t4,0x2
 /*  f0f5c18:	00822021 */ 	addu	$a0,$a0,$v0
 /*  f0f5c1c:	00a22821 */ 	addu	$a1,$a1,$v0
-/*  f0f5c20:	8ca52124 */ 	lw	$a1,%lo(var7f1b2124)($a1)
+/*  f0f5c20:	8ca52124 */ 	lw	$a1,%lo(g_MenuColourPalettes2+0xc)($a1)
 /*  f0f5c24:	0fc54f8e */ 	jal	func0f153e38
-/*  f0f5c28:	8c84228c */ 	lw	$a0,%lo(var7f1b228c)($a0)
+/*  f0f5c28:	8c84228c */ 	lw	$a0,%lo(g_MenuColourPalettes3+0xc)($a0)
 /*  f0f5c2c:	8fa301e0 */ 	lw	$v1,0x1e0($sp)
 /*  f0f5c30:	8fa501dc */ 	lw	$a1,0x1dc($sp)
 /*  f0f5c34:	24630003 */ 	addiu	$v1,$v1,0x3

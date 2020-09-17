@@ -4544,7 +4544,7 @@ glabel textMeasure
 );
 
 GLOBAL_ASM(
-glabel func0f157520
+glabel textWrap
 /*  f157520:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f157524:	afb40030 */ 	sw	$s4,0x30($sp)
 /*  f157528:	afb3002c */ 	sw	$s3,0x2c($sp)

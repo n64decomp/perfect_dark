@@ -4,6 +4,8 @@
 #include "types.h"
 
 extern const struct menucolourpalette g_MenuColourPalettes[];
+extern const struct menucolourpalette g_MenuColourPalettes2[];
+extern const struct menucolourpalette g_MenuColourPalettes3[];
 
 void func0f0f09f0(s32 arg0);
 bool menuIsSoloMissionOrMp(void);
@@ -25,7 +27,7 @@ void func0f0f1d6c(struct menudialog *dialog, struct menuframe *frame, struct men
 u32 func0f0f1ef4(void);
 void func0f0f2134(struct menudialog *dialog, struct menuframe *frame, struct menu *menu);
 void func0f0f2354(u32 arg0, u8 *arg1, u32 *arg2, u32 *arg3);
-u32 func0f0f2534(void);
+bool func0f0f2534(struct menuitem *item);
 bool func0f0f2588(u8 *arg0, u32 arg1);
 bool func0f0f2674(u8 *arg0, u32 arg1, u32 arg2);
 u32 func0f0f26fc(void);
