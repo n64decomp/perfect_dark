@@ -6809,7 +6809,11 @@ struct menurenderthing {
 	struct menuitem *item;
 	bool focused;
 	struct menurenderthing10 *unk10;
-	s16 *unk14;
+
+	union {
+		s16 *s16;
+		u16 *u16;
+	} unk14;
 };
 
 struct menucolourpalette {

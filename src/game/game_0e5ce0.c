@@ -35,10 +35,10 @@ const char var7f1adfb8[] = "";
 const char var7f1adfbc[] = "";
 const char var7f1adfc0[] = "%d\n";
 
-u32 var80071190 = 0x00000000;
-u32 var80071194 = 0x00000000;
-u32 var80071198 = 0x00000000;
-u32 var8007119c = 0x00000000;
+s32 var80071190 = 0x00000000;
+s32 var80071194 = 0x00000000;
+s32 var80071198 = 0x00000000;
+s32 var8007119c = 0x00000000;
 u32 var800711a0 = 0x00000000;
 u32 var800711a4 = 0x00000000;
 u32 var800711a8 = 0x0000000b;
@@ -58,96 +58,6 @@ u32 var800711dc = 0x32330000;
 u32 var800711e0 = 0x573a573b;
 u32 var800711e4 = 0x573c573d;
 u32 var800711e8 = 0x00000000;
-u32 var800711ec = 0x20000000;
-u32 var800711f0 = 0x00000002;
-u32 var800711f4 = 0x0000000c;
-u32 var800711f8 = 0x0000000a;
-u32 var800711fc = 0xffffffff;
-u32 var80071200 = 0x00000003;
-u32 var80071204 = 0x00000033;
-u32 var80071208 = 0x0000000a;
-u32 var8007120c = 0xffffffff;
-u32 var80071210 = 0x00000003;
-u32 var80071214 = 0x0000000c;
-u32 var80071218 = 0x00000003;
-u32 var8007121c = 0x0000004b;
-u32 var80071220 = 0xffffffff;
-u32 var80071224 = 0x00000037;
-u32 var80071228 = 0x00000013;
-u32 var8007122c = 0x00000040;
-u32 var80071230 = 0xffffffff;
-u32 var80071234 = 0x0000003f;
-u32 var80071238 = 0x00000013;
-u32 var8007123c = 0xffffffff;
-u32 var80071240 = 0x0000000a;
-u32 var80071244 = 0x0000003f;
-u32 var80071248 = 0x0000000a;
-u32 var8007124c = 0x0000004b;
-u32 var80071250 = 0xffffffff;
-u32 var80071254 = 0x00000033;
-u32 var80071258 = 0x00000017;
-u32 var8007125c = 0x00000037;
-u32 var80071260 = 0xffffffff;
-u32 var80071264 = 0x0000003b;
-u32 var80071268 = 0x00000017;
-u32 var8007126c = 0x00000044;
-u32 var80071270 = 0xffffffff;
-u32 var80071274 = 0x00000043;
-u32 var80071278 = 0x00000017;
-u32 var8007127c = 0xffffffff;
-u32 var80071280 = 0x00000011;
-u32 var80071284 = 0x00000043;
-u32 var80071288 = 0x00000011;
-u32 var8007128c = 0x0000004b;
-u32 var80071290 = 0xffffffff;
-u32 var80071294 = 0x00000037;
-u32 var80071298 = 0x0000001b;
-u32 var8007129c = 0x00000048;
-u32 var800712a0 = 0xffffffff;
-u32 var800712a4 = 0x00000047;
-u32 var800712a8 = 0x0000001b;
-u32 var800712ac = 0xffffffff;
-u32 var800712b0 = 0x00000018;
-u32 var800712b4 = 0x00000047;
-u32 var800712b8 = 0x00000018;
-u32 var800712bc = 0x0000004b;
-u32 var800712c0 = 0xffffffff;
-u32 var800712c4 = 0x00000031;
-u32 var800712c8 = 0x0000001f;
-u32 var800712cc = 0x0000004b;
-u32 var800712d0 = 0xffffffff;
-u32 var800712d4 = 0x0000002b;
-u32 var800712d8 = 0x0000001c;
-u32 var800712dc = 0xffffffff;
-u32 var800712e0 = 0x00000026;
-u32 var800712e4 = 0x0000002b;
-u32 var800712e8 = 0x00000026;
-u32 var800712ec = 0x0000004b;
-u32 var800712f0 = 0xffffffff;
-u32 var800712f4 = 0x0000001e;
-u32 var800712f8 = 0x00000023;
-u32 var800712fc = 0x00000025;
-u32 var80071300 = 0xffffffff;
-u32 var80071304 = 0x00000025;
-u32 var80071308 = 0x00000023;
-u32 var8007130c = 0xffffffff;
-u32 var80071310 = 0x0000002d;
-u32 var80071314 = 0x00000025;
-u32 var80071318 = 0x0000002d;
-u32 var8007131c = 0x0000004b;
-u32 var80071320 = 0xffffffff;
-u32 var80071324 = 0x00000022;
-u32 var80071328 = 0x00000034;
-u32 var8007132c = 0x0000004b;
-u32 var80071330 = 0xffffffff;
-u32 var80071334 = 0x0000000c;
-u32 var80071338 = 0x0000001e;
-u32 var8007133c = 0xffffffff;
-u32 var80071340 = 0x0000003b;
-u32 var80071344 = 0x0000000c;
-u32 var80071348 = 0x0000003b;
-u32 var8007134c = 0x0000004b;
-u32 var80071350 = 0xffffffff;
 
 GLOBAL_ASM(
 glabel func0f0e5ce0
@@ -7526,7 +7436,7 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurenderthing *thing)
 	char *streams[2];
 	char *inptr;
 	s32 inheading;
-	s16 *unk14 = thing->unk14;
+	s16 *unk14 = thing->unk14.s16;
 	u32 colour;
 	s32 x;
 	s32 y;
@@ -10180,6 +10090,231 @@ glabel menuRenderItemMarquee
 /*  f0eda2c:	03e00008 */ 	jr	$ra
 /*  f0eda30:	27bd0088 */ 	addiu	$sp,$sp,0x88
 );
+
+u32 var800711ec = 0x20000000;
+
+// Mismatch at 718
+//Gfx *menuRenderItemMarquee(Gfx *gdl, struct menurenderthing *thing)
+//{
+//	u16 *unk14 = thing->unk14.u16; // 84
+//	char *text = menuResolveParam2Text(thing->item); // 80
+//	s32 x; // 7c
+//	s32 y; // 78
+//	u32 colour; // 74
+//	s32 i = 0; // 70
+//	s32 textwidth; // 6c
+//	s32 textheight; // 68
+//	char string[] = {' ', '\0'}; // 64 - var800711ec
+//	s32 hasmore;
+//	u32 font2 = var8007fb0c; // 5c
+//	u32 font1 = var8007fb10; // 58
+//
+//	if (thing->item->param1 & 0x00000200) {
+//		font2 = var8007fb04;
+//		font1 = var8007fb08;
+//	}
+//
+//	if (!text) {
+//		return gdl;
+//	}
+//
+//	// 5b8
+//	if (thing->unk10->unk40 < 0) {
+//		colour = g_MenuColourPalettes[thing->unk10->colour1index].unk18;
+//	} else {
+//		colour = colourBlend(
+//				g_MenuColourPalettes[thing->unk10->colour2index].unk18,
+//				g_MenuColourPalettes[thing->unk10->colour1index].unk18,
+//				thing->unk10->colourweight);
+//	}
+//
+//	// 644
+//	if (thing->unk10->unk0c) {
+//		colour = colourBlend(colour, 0, 127) & 0xffffff00 | colour & 0xff;
+//	}
+//
+//	// 674
+//	x = thing->x + thing->width - *unk14;
+//	y = thing->y + 2;
+//	hasmore = true;
+//
+//	while (hasmore == true) {
+//		if (text[i] == '\0') {
+//			hasmore = false;
+//		} else {
+//			string[0] = text[i];
+//			textMeasure(&textheight, &textwidth, string, font1, font2, 0);
+//
+//			if (x + textwidth > thing->x) {
+//				hasmore = false;
+//			} else {
+//				x += textwidth;
+//				hasmore = true;
+//				i++;
+//			}
+//		}
+//	}
+//
+//	// 718
+//	// thing->x is loaded into a0 but should be t4. Additionally, the loads of
+//	// thing->x and g_ScreenWidthMultiplier are swapped.
+//	var80071190 = thing->x * g_ScreenWidthMultiplier;
+//	var80071194 = (thing->x + thing->width) * g_ScreenWidthMultiplier;
+//	var80071198 = thing->y;
+//	var8007119c = thing->y + thing->height - 1;
+//
+//	if (var80071190 < 0) {
+//		var80071190 = 0;
+//	}
+//
+//	if (var80071194 < 0) {
+//		var80071194 = 0;
+//	}
+//
+//	if (var80071198 < 0) {
+//		var80071198 = 0;
+//	}
+//
+//	if (var8007119c < 0) {
+//		var8007119c = 0;
+//	}
+//
+//	if (var80071190 > viGetBufX()) {
+//		var80071190 = viGetBufX();
+//	}
+//
+//	if (var80071194 > viGetBufX()) {
+//		var80071194 = viGetBufX();
+//	}
+//
+//	if (var80071198 > viGetBufY()) {
+//		var80071198 = viGetBufY();
+//	}
+//
+//	if (var8007119c > viGetBufY()) {
+//		var8007119c = viGetBufY();
+//	}
+//
+//	if (var80071194 < var80071190) {
+//		var80071194 = var80071190;
+//	}
+//
+//	if (var8007119c < var80071198) {
+//		var8007119c = var80071198;
+//	}
+//
+//	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, var80071190, var80071198, var80071194, var8007119c);
+//
+//	func0f153d24();
+//
+//	if (thing->item->param1 & 0x00000800) {
+//		func0f153ce8(thing->x, thing->x + thing->width, 0xe);
+//	} else {
+//		func0f153ce8(thing->x, thing->x, 0xe);
+//	}
+//
+//	gdl = func0f153628(gdl);
+//	gdl = textRenderWhite(gdl, &x, &y, &text[i], font1, font2,
+//			colour, thing->width + thing->x - x, thing->height, 0, 0);
+//	gdl = func0f153780(gdl);
+//	gdl = func0f0f50fc(gdl);
+//
+//	func0f153d3c();
+//
+//	unk14[2] = thing->width;
+//
+//	return gdl;
+//}
+
+u32 var800711f0 = 0x00000002;
+u32 var800711f4 = 0x0000000c;
+u32 var800711f8 = 0x0000000a;
+u32 var800711fc = 0xffffffff;
+u32 var80071200 = 0x00000003;
+u32 var80071204 = 0x00000033;
+u32 var80071208 = 0x0000000a;
+u32 var8007120c = 0xffffffff;
+u32 var80071210 = 0x00000003;
+u32 var80071214 = 0x0000000c;
+u32 var80071218 = 0x00000003;
+u32 var8007121c = 0x0000004b;
+u32 var80071220 = 0xffffffff;
+u32 var80071224 = 0x00000037;
+u32 var80071228 = 0x00000013;
+u32 var8007122c = 0x00000040;
+u32 var80071230 = 0xffffffff;
+u32 var80071234 = 0x0000003f;
+u32 var80071238 = 0x00000013;
+u32 var8007123c = 0xffffffff;
+u32 var80071240 = 0x0000000a;
+u32 var80071244 = 0x0000003f;
+u32 var80071248 = 0x0000000a;
+u32 var8007124c = 0x0000004b;
+u32 var80071250 = 0xffffffff;
+u32 var80071254 = 0x00000033;
+u32 var80071258 = 0x00000017;
+u32 var8007125c = 0x00000037;
+u32 var80071260 = 0xffffffff;
+u32 var80071264 = 0x0000003b;
+u32 var80071268 = 0x00000017;
+u32 var8007126c = 0x00000044;
+u32 var80071270 = 0xffffffff;
+u32 var80071274 = 0x00000043;
+u32 var80071278 = 0x00000017;
+u32 var8007127c = 0xffffffff;
+u32 var80071280 = 0x00000011;
+u32 var80071284 = 0x00000043;
+u32 var80071288 = 0x00000011;
+u32 var8007128c = 0x0000004b;
+u32 var80071290 = 0xffffffff;
+u32 var80071294 = 0x00000037;
+u32 var80071298 = 0x0000001b;
+u32 var8007129c = 0x00000048;
+u32 var800712a0 = 0xffffffff;
+u32 var800712a4 = 0x00000047;
+u32 var800712a8 = 0x0000001b;
+u32 var800712ac = 0xffffffff;
+u32 var800712b0 = 0x00000018;
+u32 var800712b4 = 0x00000047;
+u32 var800712b8 = 0x00000018;
+u32 var800712bc = 0x0000004b;
+u32 var800712c0 = 0xffffffff;
+u32 var800712c4 = 0x00000031;
+u32 var800712c8 = 0x0000001f;
+u32 var800712cc = 0x0000004b;
+u32 var800712d0 = 0xffffffff;
+u32 var800712d4 = 0x0000002b;
+u32 var800712d8 = 0x0000001c;
+u32 var800712dc = 0xffffffff;
+u32 var800712e0 = 0x00000026;
+u32 var800712e4 = 0x0000002b;
+u32 var800712e8 = 0x00000026;
+u32 var800712ec = 0x0000004b;
+u32 var800712f0 = 0xffffffff;
+u32 var800712f4 = 0x0000001e;
+u32 var800712f8 = 0x00000023;
+u32 var800712fc = 0x00000025;
+u32 var80071300 = 0xffffffff;
+u32 var80071304 = 0x00000025;
+u32 var80071308 = 0x00000023;
+u32 var8007130c = 0xffffffff;
+u32 var80071310 = 0x0000002d;
+u32 var80071314 = 0x00000025;
+u32 var80071318 = 0x0000002d;
+u32 var8007131c = 0x0000004b;
+u32 var80071320 = 0xffffffff;
+u32 var80071324 = 0x00000022;
+u32 var80071328 = 0x00000034;
+u32 var8007132c = 0x0000004b;
+u32 var80071330 = 0xffffffff;
+u32 var80071334 = 0x0000000c;
+u32 var80071338 = 0x0000001e;
+u32 var8007133c = 0xffffffff;
+u32 var80071340 = 0x0000003b;
+u32 var80071344 = 0x0000000c;
+u32 var80071348 = 0x0000003b;
+u32 var8007134c = 0x0000004b;
+u32 var80071350 = 0xffffffff;
 
 GLOBAL_ASM(
 glabel func0f0eda34
@@ -13134,7 +13269,7 @@ Gfx *menuRenderItem(Gfx *gdl, struct menurenderthing *thing)
 	case MENUITEMTYPE_SLIDER:      return menuRenderItemSlider(gdl);
 	case MENUITEMTYPE_CHECKBOX:    return menuRenderItemCheckbox(gdl);
 	case MENUITEMTYPE_SCROLLABLE:  return menuRenderItemScrollable(gdl, thing);
-	case MENUITEMTYPE_MARQUEE:     return menuRenderItemMarquee(gdl);
+	case MENUITEMTYPE_MARQUEE:     return menuRenderItemMarquee(gdl, thing);
 	case MENUITEMTYPE_LABEL:       return menuRenderItemLabel(gdl);
 	case MENUITEMTYPE_METER:       return menuRenderItemMeter(gdl, thing);
 	case MENUITEMTYPE_SEPARATOR:   return menuRenderItemSeparator(gdl, thing);

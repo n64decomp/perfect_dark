@@ -47,7 +47,7 @@ void func0f0f372c(u8 *arg0, f32 x, f32 y, f32 arg3, f32 arg4, f32 arg5, f32 arg6
 void func0f0f37a4(u8 *arg0);
 u32 func0f0f38b0(void);
 u32 func0f0f5004(void);
-u32 func0f0f50fc(void);
+Gfx *func0f0f50fc(Gfx *gdl);
 u32 func0f0f5360(void);
 u32 func0f0f74a8(void);
 u32 func0f0f7594(void);

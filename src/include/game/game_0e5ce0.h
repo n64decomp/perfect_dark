@@ -36,7 +36,7 @@ char *menuItemScrollableGetText(u32 type);
 Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurenderthing *thing);
 u32 func0f0ed264(void);
 void func0f0ed514(u16 *arg0);
-Gfx *menuRenderItemMarquee(Gfx *gdl);
+Gfx *menuRenderItemMarquee(Gfx *gdl, struct menurenderthing *thing);
 u32 func0f0eda34(void);
 void func0f0edb50(u16 *arg0);
 Gfx *menuRenderItem07(Gfx *gdl);
