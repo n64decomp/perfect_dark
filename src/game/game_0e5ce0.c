@@ -31,9 +31,6 @@ const char var7f1adfa0[] = "brcol";
 const char var7f1adfa8[] = "%d: ";
 const char var7f1adfb0[] = "%s";
 const char var7f1adfb4[] = "";
-const char var7f1adfb8[] = "";
-const char var7f1adfbc[] = "";
-const char var7f1adfc0[] = "%d\n";
 
 s32 var80071190 = 0x00000000;
 s32 var80071194 = 0x00000000;
@@ -5846,6 +5843,131 @@ glabel menuRenderItemSelectable
 /*  f0eb468:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 
+const char var7f1adfb8[] = "";
+
+//Gfx *menuRenderItemSelectable(Gfx *gdl, struct menurenderthing *thing)
+//{
+//	u32 leftcolour;
+//	u32 rightcolour;
+//	char *text;
+//	s32 x = thing->x + 10;
+//	s32 y = thing->y + 2;
+//	u32 font1 = var8007fb10;
+//	u32 font2 = var8007fb0c;
+//
+//	if (thing->item->param1 & 0x00000010) {
+//		x -= 6;
+//	}
+//
+//	if (thing->item->param1 & 0x00400000) {
+//		font1 = var8007fb18;
+//		font2 = var8007fb14;
+//	}
+//
+//	text = menuResolveParam2Text(thing->item);
+//
+//	if (thing->unk10->unk40 < 0) {
+//		leftcolour = g_MenuColourPalettes[thing->unk10->colour1index].unk18;
+//	} else {
+//		leftcolour = colourBlend(
+//				g_MenuColourPalettes[thing->unk10->colour2index].unk18,
+//				g_MenuColourPalettes[thing->unk10->colour1index].unk18,
+//				thing->unk10->colourweight);
+//	}
+//
+//	if (thing->unk10->unk0c) {
+//		leftcolour = colourBlend(leftcolour, 0, 127) & 0xffffff00 | leftcolour & 0xff;
+//	}
+//
+//	rightcolour = leftcolour;
+//
+//	if (thing->focused) {
+//		// Mismatch: The addiu and lui at eb030 and eb034 are swapped. The addiu
+//		// is adding the lower half of the address of g_MenuColourPalettes for
+//		// use in the else branch. The lui is loading a value into $at for the
+//		// float to u32 conversion for weight.
+//		u32 colour2;
+//		u32 weight = func0f006b08(40) * 255;
+//
+//		if (thing->unk10->unk40 < 0) {
+//			colour2 = g_MenuColourPalettes[thing->unk10->colour1index].unk20;
+//		} else {
+//			colour2 = colourBlend(
+//					g_MenuColourPalettes[thing->unk10->colour2index].unk20,
+//					g_MenuColourPalettes[thing->unk10->colour1index].unk20,
+//					thing->unk10->colourweight);
+//		}
+//
+//		leftcolour = colourBlend(colourBlend(leftcolour, leftcolour & 0x000000ff, 127), colour2, weight);
+//
+//		func0f153e38(
+//				g_MenuColourPalettes3[thing->unk10->colour1index].unk20,
+//				g_MenuColourPalettes2[thing->unk10->colour1index].unk20);
+//	} else {
+//		func0f153e38(
+//				g_MenuColourPalettes3[thing->unk10->colour1index].unk18,
+//				g_MenuColourPalettes2[thing->unk10->colour1index].unk18);
+//	}
+//
+//	if (func0f0f2588(thing->item, thing->unk10)) {
+//		if (thing->unk10->unk40 < 0) {
+//			leftcolour = g_MenuColourPalettes[thing->unk10->colour1index].unk1c;
+//		} else {
+//			leftcolour = colourBlend(
+//					g_MenuColourPalettes[thing->unk10->colour2index].unk1c,
+//					g_MenuColourPalettes[thing->unk10->colour1index].unk1c,
+//					thing->unk10->colourweight);
+//		}
+//
+//		if (thing->unk10->unk0c) {
+//			leftcolour = colourBlend(leftcolour, 0x00000000, 127) & 0xffffff00 | leftcolour & 0xff;
+//		}
+//
+//		rightcolour = leftcolour;
+//
+//		func0f153e38(
+//				g_MenuColourPalettes3[thing->unk10->colour1index].unk1c,
+//				g_MenuColourPalettes2[thing->unk10->colour1index].unk1c);
+//	}
+//
+//	if (thing->item->param1 & 0x00000020) {
+//		// Center text
+//		s32 textheight;
+//		s32 textwidth;
+//		textMeasure(&textheight, &textwidth, text, font1, font2, 0);
+//		x = thing->x + (thing->width - textwidth) / 2;
+//	}
+//
+//	if (thing->item->param1 & 0x00400000) {
+//		x += 35;
+//		y += 6;
+//	}
+//
+//	gdl = func0f153628(gdl);
+//	gdl = textRenderWhite(gdl, &x, &y, text, font1, font2,
+//			leftcolour, thing->width, thing->height, 0, 0);
+//
+//	if ((thing->item->param1 & 0x00408000) == 0) {
+//		// Right side text
+//		text = menuResolveText(thing->item->param3, thing->item);
+//
+//		// This is not how you check if a string is empty...
+//		if (text != NULL && text != "") {
+//			s32 textheight;
+//			s32 textwidth;
+//
+//			y = thing->y + 2;
+//			textMeasure(&textheight, &textwidth, text, font1, font2, 0);
+//			x = thing->x + thing->width - textwidth - 10;
+//
+//			gdl = textRenderWhite(gdl, &x, &y, text, font1, font2,
+//					rightcolour, thing->width, thing->height, 0, 0);
+//		}
+//	}
+//
+//	return func0f153780(gdl);
+//}
+
 GLOBAL_ASM(
 glabel func0f0eb46c
 /*  f0eb46c:	27bdffd0 */ 	addiu	$sp,$sp,-48
@@ -5892,6 +6014,9 @@ glabel func0f0eb46c
 /*  f0eb500:	03e00008 */ 	jr	$ra
 /*  f0eb504:	00000000 */ 	nop
 );
+
+const char var7f1adfbc[] = "";
+const char var7f1adfc0[] = "%d\n";
 
 GLOBAL_ASM(
 glabel menuRenderItemSlider
@@ -6808,7 +6933,7 @@ Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurenderthing *thing)
 
 	if (thing->focused) {
 		u32 colour1;
-		u32 alpha = func0f006b08(40) * 255;
+		u32 weight = func0f006b08(40) * 255;
 
 		if (thing->unk10->unk40 < 0) {
 			colour1 = g_MenuColourPalettes[thing->unk10->colour1index].unk20;
@@ -6819,7 +6944,7 @@ Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurenderthing *thing)
 					thing->unk10->colourweight);
 		}
 
-		colour = colourBlend(colourBlend(colour, 0x000000ff, 127), colour1, alpha);
+		colour = colourBlend(colourBlend(colour, 0x000000ff, 127), colour1, weight);
 	}
 
 	// Left arrow
@@ -13265,7 +13390,7 @@ Gfx *menuRenderItem(Gfx *gdl, struct menurenderthing *thing)
 {
 	switch (thing->item->type) {
 	case MENUITEMTYPE_CUSTOM:      return menuRenderItemCustom(gdl);
-	case MENUITEMTYPE_SELECTABLE:  return menuRenderItemSelectable(gdl);
+	case MENUITEMTYPE_SELECTABLE:  return menuRenderItemSelectable(gdl, thing);
 	case MENUITEMTYPE_SLIDER:      return menuRenderItemSlider(gdl);
 	case MENUITEMTYPE_CHECKBOX:    return menuRenderItemCheckbox(gdl);
 	case MENUITEMTYPE_SCROLLABLE:  return menuRenderItemScrollable(gdl, thing);

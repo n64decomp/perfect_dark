@@ -2091,30 +2091,30 @@ glabel func0f0f2588
 /*  f0f2670:	00000000 */ 	nop
 );
 
-bool func0f0f2674(u8 *arg0, u32 arg1, u32 arg2)
+bool func0f0f2674(struct menuitem *item, struct menurenderthing10 *thing10, u32 arg2)
 {
 	u32 thing1;
 	u32 thing2;
 
-	switch (*arg0) {
-	case 1:
-	case 6:
-	case 7:
-	case 11:
-	case 18:
-	case 19:
-	case 21:
-	case 23:
-	case 25:
+	switch (item->type) {
+	case MENUITEMTYPE_LABEL:
+	case MENUITEMTYPE_OBJECTIVES:
+	case MENUITEMTYPE_07:
+	case MENUITEMTYPE_SEPARATOR:
+	case MENUITEMTYPE_MODEL:
+	case MENUITEMTYPE_13:
+	case MENUITEMTYPE_METER:
+	case MENUITEMTYPE_MARQUEE:
+	case MENUITEMTYPE_CONTROLLER:
 		return false;
-	case 16:
-	case 20:
-	case 22:
-	case 24:
-		func0f0f2354(arg1, arg0, &thing1, &thing2);
+	case MENUITEMTYPE_10:
+	case MENUITEMTYPE_14:
+	case MENUITEMTYPE_16:
+	case MENUITEMTYPE_18:
+		func0f0f2354(thing10, item, &thing1, &thing2);
 	}
 
-	if (func0f0f2588(arg0, arg1)) {
+	if (func0f0f2588(item, thing10)) {
 		return false;
 	}
 
