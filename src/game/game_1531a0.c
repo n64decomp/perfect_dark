@@ -771,25 +771,11 @@ void func0f153e4c(void)
 	var800a45d0.unk00 = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f153e58
-/*  f153e58:	3c04800a */ 	lui	$a0,%hi(var800a45d0)
-/*  f153e5c:	248445d0 */ 	addiu	$a0,$a0,%lo(var800a45d0)
-/*  f153e60:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f153e64:	304e0001 */ 	andi	$t6,$v0,0x1
-/*  f153e68:	000e102b */ 	sltu	$v0,$zero,$t6
-/*  f153e6c:	10400007 */ 	beqz	$v0,.L0f153e8c
-/*  f153e70:	00000000 */ 	nop
-/*  f153e74:	90830018 */ 	lbu	$v1,0x18($a0)
-/*  f153e78:	2c620001 */ 	sltiu	$v0,$v1,0x1
-/*  f153e7c:	14400003 */ 	bnez	$v0,.L0f153e8c
-/*  f153e80:	00000000 */ 	nop
-/*  f153e84:	38620002 */ 	xori	$v0,$v1,0x2
-/*  f153e88:	2c420001 */ 	sltiu	$v0,$v0,0x1
-.L0f153e8c:
-/*  f153e8c:	03e00008 */ 	jr	$ra
-/*  f153e90:	00000000 */ 	nop
-);
+s32 func0f153e58(void)
+{
+	return (var800a45d0.unk00 & 1)
+		&& (var800a45d0.unk18 == 0 || var800a45d0.unk18 == 2);
+}
 
 GLOBAL_ASM(
 glabel func0f153e94

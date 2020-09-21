@@ -29,7 +29,7 @@ u32 func0f153d50(void);
 u32 func0f153d88(void);
 void func0f153e38(u32 colour1, u32 colour2);
 void func0f153e4c(void);
-u32 func0f153e58(void);
+s32 func0f153e58(void);
 u32 func0f153e94(void);
 u32 func0f1543ac(void);
 u32 func0f154ecc(void);
