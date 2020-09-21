@@ -664,10 +664,12 @@ glabel func0f153ce8
 /*  f153d00:	a04f0000 */ 	sb	$t7,0x0($v0)
 /*  f153d04:	03e00008 */ 	jr	$ra
 /*  f153d08:	ac460040 */ 	sw	$a2,0x40($v0)
-/*  f153d0c:	3c01800a */ 	lui	$at,%hi(var800a45d0)
-/*  f153d10:	03e00008 */ 	jr	$ra
-/*  f153d14:	a02045d0 */ 	sb	$zero,%lo(var800a45d0)($at)
 );
+
+void func0f153d0c(void)
+{
+	var800a45d0.unk00 = 0;
+}
 
 void func0f153d18(void)
 {
