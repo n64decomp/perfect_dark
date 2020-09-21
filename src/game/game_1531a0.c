@@ -642,16 +642,15 @@ glabel func0f153c88
 /*  f153cb8:	e4440014 */ 	swc1	$f4,0x14($v0)
 /*  f153cbc:	03e00008 */ 	jr	$ra
 /*  f153cc0:	a0580018 */ 	sb	$t8,0x18($v0)
-/*  f153cc4:	3c02800a */ 	lui	$v0,%hi(var800a45d0)
-/*  f153cc8:	244245d0 */ 	addiu	$v0,$v0,%lo(var800a45d0)
-/*  f153ccc:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f153cd0:	ac44002c */ 	sw	$a0,0x2c($v0)
-/*  f153cd4:	ac450030 */ 	sw	$a1,0x30($v0)
-/*  f153cd8:	35cf0002 */ 	ori	$t7,$t6,0x2
-/*  f153cdc:	a04f0000 */ 	sb	$t7,0x0($v0)
-/*  f153ce0:	03e00008 */ 	jr	$ra
-/*  f153ce4:	ac460034 */ 	sw	$a2,0x34($v0)
 );
+
+void func0f153cc4(s32 arg0, s32 arg1, u32 arg2)
+{
+	var800a45d0.unk2c = arg0;
+	var800a45d0.unk30 = arg1;
+	var800a45d0.unk00 |= 0x02;
+	var800a45d0.unk34 = arg2;
+}
 
 void func0f153ce8(s32 x1, s32 x2, u32 arg2)
 {
