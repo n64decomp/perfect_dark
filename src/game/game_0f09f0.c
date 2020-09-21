@@ -2023,73 +2023,39 @@ glabel func0f0f2534
 /*  f0f2584:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel menuIsItemDisabled
-/*  f0f2588:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0f258c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0f2590:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0f2594:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f0f2598:	8c8e0004 */ 	lw	$t6,0x4($a0)
-/*  f0f259c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0f25a0:	3c048007 */ 	lui	$a0,%hi(g_MpPlayerNum)
-/*  f0f25a4:	31cf0400 */ 	andi	$t7,$t6,0x400
-/*  f0f25a8:	11e00003 */ 	beqz	$t7,.L0f0f25b8
-/*  f0f25ac:	00000000 */ 	nop
-/*  f0f25b0:	1000002b */ 	b	.L0f0f2660
-/*  f0f25b4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0f25b8:
-/*  f0f25b8:	0fc62ff6 */ 	jal	mpIsPlayerLockedOut
-/*  f0f25bc:	8c841448 */ 	lw	$a0,%lo(g_MpPlayerNum)($a0)
-/*  f0f25c0:	10400007 */ 	beqz	$v0,.L0f0f25e0
-/*  f0f25c4:	00000000 */ 	nop
-/*  f0f25c8:	8e180004 */ 	lw	$t8,0x4($s0)
-/*  f0f25cc:	0018cb40 */ 	sll	$t9,$t8,0xd
-/*  f0f25d0:	07210003 */ 	bgez	$t9,.L0f0f25e0
-/*  f0f25d4:	00000000 */ 	nop
-/*  f0f25d8:	10000021 */ 	b	.L0f0f2660
-/*  f0f25dc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0f25e0:
-/*  f0f25e0:	0fc3c94d */ 	jal	func0f0f2534
-/*  f0f25e4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0f25e8:	50400004 */ 	beqzl	$v0,.L0f0f25fc
-/*  f0f25ec:	8e020010 */ 	lw	$v0,0x10($s0)
-/*  f0f25f0:	1000001b */ 	b	.L0f0f2660
-/*  f0f25f4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0f25f8:	8e020010 */ 	lw	$v0,0x10($s0)
-.L0f0f25fc:
-/*  f0f25fc:	5040000e */ 	beqzl	$v0,.L0f0f2638
-/*  f0f2600:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0f2604:	8e080004 */ 	lw	$t0,0x4($s0)
-/*  f0f2608:	2404000c */ 	addiu	$a0,$zero,0xc
-/*  f0f260c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0f2610:	31090004 */ 	andi	$t1,$t0,0x4
-/*  f0f2614:	55200008 */ 	bnezl	$t1,.L0f0f2638
-/*  f0f2618:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0f261c:	0040f809 */ 	jalr	$v0
-/*  f0f2620:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f0f2624:	50400004 */ 	beqzl	$v0,.L0f0f2638
-/*  f0f2628:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0f262c:	1000000c */ 	b	.L0f0f2660
-/*  f0f2630:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0f2634:	02002025 */ 	or	$a0,$s0,$zero
-.L0f0f2638:
-/*  f0f2638:	27a5002e */ 	addiu	$a1,$sp,0x2e
-/*  f0f263c:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f0f2640:	0fc3c586 */ 	jal	func0f0f1618
-/*  f0f2644:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f0f2648:	87aa002c */ 	lh	$t2,0x2c($sp)
-/*  f0f264c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0f2650:	15400003 */ 	bnez	$t2,.L0f0f2660
-/*  f0f2654:	00000000 */ 	nop
-/*  f0f2658:	10000001 */ 	b	.L0f0f2660
-/*  f0f265c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0f2660:
-/*  f0f2660:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0f2664:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0f2668:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0f266c:	03e00008 */ 	jr	$ra
-/*  f0f2670:	00000000 */ 	nop
-);
+bool menuIsItemDisabled(struct menuitem *item, struct menurenderthing10 *thing10)
+{
+	union handlerdata sp30;
+	s16 sp2e;
+	s16 sp2c;
+	u32 stack[2];
+
+	if (item->param1 & 0x00000400) {
+		return true;
+	}
+
+	if (mpIsPlayerLockedOut(g_MpPlayerNum) && item->param1 & 0x00040000) {
+		return true;
+	}
+
+	if (func0f0f2534(item)) {
+		return true;
+	}
+
+	if (item->handler
+			&& (item->param1 & 0x00000004) == 0
+			&& item->handler(MENUOP_CHECKDISABLED, item, &sp30)) {
+		return true;
+	}
+
+	func0f0f1618(item, &sp2e, &sp2c, thing10);
+
+	if (sp2c == 0) {
+		return true;
+	}
+
+	return false;
+}
 
 bool func0f0f2674(struct menuitem *item, struct menurenderthing10 *thing10, u32 arg2)
 {
