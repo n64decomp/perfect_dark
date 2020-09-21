@@ -766,12 +766,10 @@ void func0f153e38(u32 colour1, u32 colour2)
 	var800a45d0.colour2 = colour2;
 }
 
-GLOBAL_ASM(
-glabel func0f153e4c
-/*  f153e4c:	3c01800a */ 	lui	$at,%hi(var800a45d0)
-/*  f153e50:	03e00008 */ 	jr	$ra
-/*  f153e54:	a02045d0 */ 	sb	$zero,%lo(var800a45d0)($at)
-);
+void func0f153e4c(void)
+{
+	var800a45d0.unk00 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f153e58
