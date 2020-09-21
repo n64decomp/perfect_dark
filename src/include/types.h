@@ -6795,9 +6795,9 @@ struct menurenderthing10 {
 	/*0x30*/ u32 unk30;
 	/*0x34*/ u32 unk34;
 	/*0x38*/ u32 unk38;
-	/*0x3c*/ u8 colour1index;
-	/*0x3c*/ u8 colour2index;
-	/*0x40*/ f32 unk40;
+	/*0x3c*/ u8 type; // dialog type
+	/*0x3c*/ u8 type2; // used when transitioning
+	/*0x40*/ f32 transitiontimer; // >= 0 means transitioning from one dialog type to another
 	/*0x44*/ u32 colourweight;
 };
 
@@ -6823,10 +6823,10 @@ struct menucolourpalette {
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
+	/*0x18*/ u32 unfocused;
+	/*0x1c*/ u32 disabled;
+	/*0x20*/ u32 focused;
+	/*0x24*/ u32 checkedunfocused;
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
 	/*0x30*/ u32 unk30;

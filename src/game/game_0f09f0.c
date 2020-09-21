@@ -2024,7 +2024,7 @@ glabel func0f0f2534
 );
 
 GLOBAL_ASM(
-glabel func0f0f2588
+glabel menuIsItemDisabled
 /*  f0f2588:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f0f258c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f0f2590:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -2114,7 +2114,7 @@ bool func0f0f2674(struct menuitem *item, struct menurenderthing10 *thing10, u32 
 		func0f0f2354(thing10, item, &thing1, &thing2);
 	}
 
-	if (func0f0f2588(item, thing10)) {
+	if (menuIsItemDisabled(item, thing10)) {
 		return false;
 	}
 
@@ -10515,7 +10515,7 @@ glabel var7f1b2a64
 .L0f0fa0c0:
 /*  f0fa0c0:	1200000d */ 	beqz	$s0,.L0f0fa0f8
 /*  f0fa0c4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0fa0c8:	0fc3c962 */ 	jal	func0f0f2588
+/*  f0fa0c8:	0fc3c962 */ 	jal	menuIsItemDisabled
 /*  f0fa0cc:	03c02825 */ 	or	$a1,$s8,$zero
 /*  f0fa0d0:	10400009 */ 	beqz	$v0,.L0f0fa0f8
 /*  f0fa0d4:	8faa0128 */ 	lw	$t2,0x128($sp)

@@ -1644,7 +1644,7 @@ glabel menuRenderItemCustom
 /*  f0e73a4:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f0e73a8:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0e73ac:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f0e73b0:	0fc38dec */ 	jal	func0f0e37b0
+/*  f0e73b0:	0fc38dec */ 	jal	renderCheckbox
 /*  f0e73b4:	24070006 */ 	addiu	$a3,$zero,0x6
 /*  f0e73b8:	00409025 */ 	or	$s2,$v0,$zero
 .L0f0e73bc:
@@ -2413,7 +2413,7 @@ glabel menuRenderItemDropdown
 /*  f0e7e80:	8c842298 */ 	lw	$a0,%lo(g_MenuColourPalettes3+0x18)($a0)
 /*  f0e7e84:	8e040008 */ 	lw	$a0,0x8($s0)
 .L0f0e7e88:
-/*  f0e7e88:	0fc3c962 */ 	jal	func0f0f2588
+/*  f0e7e88:	0fc3c962 */ 	jal	menuIsItemDisabled
 /*  f0e7e8c:	8e050010 */ 	lw	$a1,0x10($s0)
 /*  f0e7e90:	10400038 */ 	beqz	$v0,.L0f0e7f74
 /*  f0e7e94:	00000000 */ 	nop
@@ -4185,12 +4185,12 @@ Gfx *menuRenderItemSeparator(Gfx *gdl, struct menurenderthing *thing)
 	struct menurenderthing10 *thing10 = thing->unk10;
 	u32 colour;
 
-	if (thing10->unk40 < 0) {
-		colour = g_MenuColourPalettes[thing10->colour1index].unk18;
+	if (thing10->transitiontimer < 0) {
+		colour = g_MenuColourPalettes[thing10->type].unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[thing10->colour2index].unk18,
-				g_MenuColourPalettes[thing10->colour1index].unk18,
+				g_MenuColourPalettes[thing10->type2].unfocused,
+				g_MenuColourPalettes[thing10->type].unfocused,
 				thing10->colourweight);
 	}
 
@@ -4894,12 +4894,12 @@ Gfx *menuRenderItemModel(Gfx *gdl, struct menurenderthing *thing)
 		renderdata.y = thing->y;
 		renderdata.width = thing->width;
 
-		if (thing->unk10->unk40 < 0) {
-			renderdata.colour = g_MenuColourPalettes[thing->unk10->colour1index].unk20;
+		if (thing->unk10->transitiontimer < 0) {
+			renderdata.colour = g_MenuColourPalettes[thing->unk10->type].focused;
 		} else {
 			renderdata.colour = colourBlend(
-					g_MenuColourPalettes[thing->unk10->colour2index].unk20,
-					g_MenuColourPalettes[thing->unk10->colour1index].unk20,
+					g_MenuColourPalettes[thing->unk10->type2].focused,
+					g_MenuColourPalettes[thing->unk10->type].focused,
 					thing->unk10->colourweight);
 		}
 
@@ -5125,7 +5125,7 @@ glabel menuRenderItemLabel
 /*  f0ea820:	8c842298 */ 	lw	$a0,%lo(g_MenuColourPalettes3+0x18)($a0)
 /*  f0ea824:	8e040008 */ 	lw	$a0,0x8($s0)
 .L0f0ea828:
-/*  f0ea828:	0fc3c962 */ 	jal	func0f0f2588
+/*  f0ea828:	0fc3c962 */ 	jal	menuIsItemDisabled
 /*  f0ea82c:	8e050010 */ 	lw	$a1,0x10($s0)
 /*  f0ea830:	10400038 */ 	beqz	$v0,.L0f0ea914
 /*  f0ea834:	00000000 */ 	nop
@@ -5410,12 +5410,12 @@ Gfx *menuRenderItemMeter(Gfx *gdl, struct menurenderthing *thing)
 	s32 x2;
 	s32 x3;
 
-	if (thing->unk10->unk40 < 0) {
-		colour = g_MenuColourPalettes[thing->unk10->colour1index].unk18;
+	if (thing->unk10->transitiontimer < 0) {
+		colour = g_MenuColourPalettes[thing->unk10->type].unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[thing->unk10->colour2index].unk18,
-				g_MenuColourPalettes[thing->unk10->colour1index].unk18,
+				g_MenuColourPalettes[thing->unk10->type2].unfocused,
+				g_MenuColourPalettes[thing->unk10->type].unfocused,
 				thing->unk10->colourweight);
 	}
 
@@ -5663,7 +5663,7 @@ glabel menuRenderItemSelectable
 /*  f0eb1bc:	8c842298 */ 	lw	$a0,%lo(g_MenuColourPalettes3+0x18)($a0)
 /*  f0eb1c0:	8e040008 */ 	lw	$a0,0x8($s0)
 .L0f0eb1c4:
-/*  f0eb1c4:	0fc3c962 */ 	jal	func0f0f2588
+/*  f0eb1c4:	0fc3c962 */ 	jal	menuIsItemDisabled
 /*  f0eb1c8:	8e050010 */ 	lw	$a1,0x10($s0)
 /*  f0eb1cc:	5040003b */ 	beqzl	$v0,.L0f0eb2bc
 /*  f0eb1d0:	8e0d0008 */ 	lw	$t5,0x8($s0)
@@ -5866,12 +5866,12 @@ const char var7f1adfb8[] = "";
 //
 //	text = menuResolveParam2Text(thing->item);
 //
-//	if (thing->unk10->unk40 < 0) {
-//		leftcolour = g_MenuColourPalettes[thing->unk10->colour1index].unk18;
+//	if (thing->unk10->transitiontimer < 0) {
+//		leftcolour = g_MenuColourPalettes[thing->unk10->type].unfocused;
 //	} else {
 //		leftcolour = colourBlend(
-//				g_MenuColourPalettes[thing->unk10->colour2index].unk18,
-//				g_MenuColourPalettes[thing->unk10->colour1index].unk18,
+//				g_MenuColourPalettes[thing->unk10->type2].unfocused,
+//				g_MenuColourPalettes[thing->unk10->type].unfocused,
 //				thing->unk10->colourweight);
 //	}
 //
@@ -5889,33 +5889,33 @@ const char var7f1adfb8[] = "";
 //		u32 colour2;
 //		u32 weight = func0f006b08(40) * 255;
 //
-//		if (thing->unk10->unk40 < 0) {
-//			colour2 = g_MenuColourPalettes[thing->unk10->colour1index].unk20;
+//		if (thing->unk10->transitiontimer < 0) {
+//			colour2 = g_MenuColourPalettes[thing->unk10->type].focused;
 //		} else {
 //			colour2 = colourBlend(
-//					g_MenuColourPalettes[thing->unk10->colour2index].unk20,
-//					g_MenuColourPalettes[thing->unk10->colour1index].unk20,
+//					g_MenuColourPalettes[thing->unk10->type2].focused,
+//					g_MenuColourPalettes[thing->unk10->type].focused,
 //					thing->unk10->colourweight);
 //		}
 //
 //		leftcolour = colourBlend(colourBlend(leftcolour, leftcolour & 0x000000ff, 127), colour2, weight);
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[thing->unk10->colour1index].unk20,
-//				g_MenuColourPalettes2[thing->unk10->colour1index].unk20);
+//				g_MenuColourPalettes3[thing->unk10->type].focused,
+//				g_MenuColourPalettes2[thing->unk10->type].focused);
 //	} else {
 //		func0f153e38(
-//				g_MenuColourPalettes3[thing->unk10->colour1index].unk18,
-//				g_MenuColourPalettes2[thing->unk10->colour1index].unk18);
+//				g_MenuColourPalettes3[thing->unk10->type].unfocused,
+//				g_MenuColourPalettes2[thing->unk10->type].unfocused);
 //	}
 //
-//	if (func0f0f2588(thing->item, thing->unk10)) {
-//		if (thing->unk10->unk40 < 0) {
-//			leftcolour = g_MenuColourPalettes[thing->unk10->colour1index].unk1c;
+//	if (menuIsItemDisabled(thing->item, thing->unk10)) {
+//		if (thing->unk10->transitiontimer < 0) {
+//			leftcolour = g_MenuColourPalettes[thing->unk10->type].disabled;
 //		} else {
 //			leftcolour = colourBlend(
-//					g_MenuColourPalettes[thing->unk10->colour2index].unk1c,
-//					g_MenuColourPalettes[thing->unk10->colour1index].unk1c,
+//					g_MenuColourPalettes[thing->unk10->type2].disabled,
+//					g_MenuColourPalettes[thing->unk10->type].disabled,
 //					thing->unk10->colourweight);
 //		}
 //
@@ -5926,8 +5926,8 @@ const char var7f1adfb8[] = "";
 //		rightcolour = leftcolour;
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[thing->unk10->colour1index].unk1c,
-//				g_MenuColourPalettes2[thing->unk10->colour1index].unk1c);
+//				g_MenuColourPalettes3[thing->unk10->type].disabled,
+//				g_MenuColourPalettes2[thing->unk10->type].disabled);
 //	}
 //
 //	if (thing->item->param1 & 0x00000020) {
@@ -6935,12 +6935,12 @@ Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurenderthing *thing)
 		u32 colour1;
 		u32 weight = func0f006b08(40) * 255;
 
-		if (thing->unk10->unk40 < 0) {
-			colour1 = g_MenuColourPalettes[thing->unk10->colour1index].unk20;
+		if (thing->unk10->transitiontimer < 0) {
+			colour1 = g_MenuColourPalettes[thing->unk10->type].focused;
 		} else {
 			colour1 = colourBlend(
-					g_MenuColourPalettes[thing->unk10->colour2index].unk20,
-					g_MenuColourPalettes[thing->unk10->colour1index].unk20,
+					g_MenuColourPalettes[thing->unk10->type2].focused,
+					g_MenuColourPalettes[thing->unk10->type].focused,
 					thing->unk10->colourweight);
 		}
 
@@ -7355,7 +7355,7 @@ glabel menuRenderItemCheckbox
 /*  f0eca50:	8c8422a0 */ 	lw	$a0,%lo(g_MenuColourPalettes3+0x20)($a0)
 /*  f0eca54:	8e240008 */ 	lw	$a0,0x8($s1)
 .L0f0eca58:
-/*  f0eca58:	0fc3c962 */ 	jal	func0f0f2588
+/*  f0eca58:	0fc3c962 */ 	jal	menuIsItemDisabled
 /*  f0eca5c:	8e250010 */ 	lw	$a1,0x10($s1)
 /*  f0eca60:	5040003c */ 	beqzl	$v0,.L0f0ecb54
 /*  f0eca64:	862e0000 */ 	lh	$t6,0x0($s1)
@@ -7433,7 +7433,7 @@ glabel menuRenderItemCheckbox
 /*  f0ecb74:	24070006 */ 	addiu	$a3,$zero,0x6
 /*  f0ecb78:	24c60002 */ 	addiu	$a2,$a2,0x2
 /*  f0ecb7c:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f0ecb80:	0fc38dec */ 	jal	func0f0e37b0
+/*  f0ecb80:	0fc38dec */ 	jal	renderCheckbox
 /*  f0ecb84:	afa80018 */ 	sw	$t0,0x18($sp)
 /*  f0ecb88:	86290000 */ 	lh	$t1,0x0($s1)
 /*  f0ecb8c:	8fac0054 */ 	lw	$t4,0x54($sp)
@@ -7465,6 +7465,125 @@ glabel menuRenderItemCheckbox
 /*  f0ecbf4:	03e00008 */ 	jr	$ra
 /*  f0ecbf8:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
+
+//Gfx *menuRenderItemCheckbox(Gfx *gdl, struct menurenderthing *thing)
+//{
+//	u32 maincolour = 0x00000000;
+//	char *text;
+//	s32 x;
+//	s32 y;
+//	u8 data[3];
+//	bool checked = false;
+//	u32 fillcolour = 0xff002faf;
+//	u32 font2 = var8007fb0c;
+//	u32 font1 = var8007fb10;
+//
+//	if (thing->item->param1 & 0x00000200) {
+//		font2 = var8007fb04;
+//		font1 = var8007fb08;
+//	}
+//
+//	x = thing->x;
+//	y = thing->y;
+//	text = menuResolveParam2Text(thing->item);
+//	data[0] = 0;
+//
+//	if (thing->item->handler
+//			&& thing->item->handler(MENUOP_GET, thing->item, (union handlerdata *)data) == true) {
+//		checked = true;
+//
+//		if (thing->unk10->transitiontimer < 0) {
+//			maincolour = g_MenuColourPalettes[thing->unk10->type].checkedunfocused;
+//		} else {
+//			maincolour = colourBlend(
+//					g_MenuColourPalettes[thing->unk10->type2].checkedunfocused,
+//					g_MenuColourPalettes[thing->unk10->type].checkedunfocused,
+//					thing->unk10->colourweight);
+//		}
+//
+//		if (thing->unk10->unk0c) {
+//			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
+//		}
+//
+//		func0f153e38(
+//				g_MenuColourPalettes3[thing->unk10->type].checkedunfocused,
+//				g_MenuColourPalettes2[thing->unk10->type].checkedunfocused);
+//	} else {
+//		if (thing->unk10->transitiontimer < 0) {
+//			maincolour = g_MenuColourPalettes[thing->unk10->type].unfocused;
+//		} else {
+//			maincolour = colourBlend(
+//					g_MenuColourPalettes[thing->unk10->type2].unfocused,
+//					g_MenuColourPalettes[thing->unk10->type].unfocused,
+//					thing->unk10->colourweight);
+//		}
+//
+//		if (thing->unk10->unk0c) {
+//			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
+//		}
+//
+//		func0f153e38(
+//				g_MenuColourPalettes3[thing->unk10->type].unfocused,
+//				g_MenuColourPalettes2[thing->unk10->type].unfocused);
+//	}
+//
+//	gdl = func0f153628(gdl);
+//
+//	if (thing->focused) {
+//		// Mismatch: The addiu and lui at ec8fc and ec900 are swapped. The addiu
+//		// is adding the lower half of the address of g_MenuColourPalettes for
+//		// use in the else branch. The lui is loading a value into $at for the
+//		// float to u32 conversion for weight.
+//		u32 focuscolour;
+//		u32 weight = func0f006b08(40) * 255;
+//
+//		if (thing->unk10->transitiontimer < 0) {
+//			focuscolour = g_MenuColourPalettes[thing->unk10->type].focused;
+//		} else {
+//			focuscolour = colourBlend(
+//					g_MenuColourPalettes[thing->unk10->type2].focused,
+//					g_MenuColourPalettes[thing->unk10->type].focused,
+//					thing->unk10->colourweight);
+//		}
+//
+//		maincolour = colourBlend(colourBlend(maincolour, maincolour & 0xff, 127), focuscolour, weight);
+//
+//		func0f153e38(
+//				g_MenuColourPalettes3[thing->unk10->type].focused,
+//				g_MenuColourPalettes2[thing->unk10->type].focused);
+//	}
+//
+//	if (menuIsItemDisabled(thing->item, thing->unk10)) {
+//		if (thing->unk10->transitiontimer < 0) {
+//			maincolour = g_MenuColourPalettes[thing->unk10->type].disabled;
+//		} else {
+//			maincolour = colourBlend(
+//					g_MenuColourPalettes[thing->unk10->type2].disabled,
+//					g_MenuColourPalettes[thing->unk10->type].disabled,
+//					thing->unk10->colourweight);
+//		}
+//
+//		if (thing->unk10->unk0c) {
+//			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
+//		}
+//
+//		func0f153e38(
+//				g_MenuColourPalettes3[thing->unk10->type].disabled,
+//				g_MenuColourPalettes2[thing->unk10->type].disabled);
+//
+//		fillcolour = 0x7f002faf;
+//	}
+//
+//	gdl = renderCheckbox(gdl, thing->x + thing->width - 16, thing->y + 2, 6,
+//			checked, maincolour, fillcolour);
+//
+//	x = thing->x + 10;
+//	y = thing->y + 2;
+//	gdl = textRenderWhite(gdl, &x, &y, text, font1, font2,
+//			maincolour, thing->width, thing->height, 0, 0);
+//
+//	return func0f153780(gdl);
+//}
 
 GLOBAL_ASM(
 glabel func0f0ecbfc
@@ -7619,12 +7738,12 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurenderthing *thing)
 	x = thing->x + 2;
 	y = thing->y + 2;
 
-	if (thing->unk10->unk40 < 0) {
-		colour = g_MenuColourPalettes[thing->unk10->colour1index].unk18;
+	if (thing->unk10->transitiontimer < 0) {
+		colour = g_MenuColourPalettes[thing->unk10->type].unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[thing->unk10->colour2index].unk18,
-				g_MenuColourPalettes[thing->unk10->colour1index].unk18,
+				g_MenuColourPalettes[thing->unk10->type2].unfocused,
+				g_MenuColourPalettes[thing->unk10->type].unfocused,
 				thing->unk10->colourweight);
 	}
 
@@ -7633,8 +7752,8 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurenderthing *thing)
 	}
 
 	func0f153e38(
-			g_MenuColourPalettes3[thing->unk10->colour1index].unk18,
-			g_MenuColourPalettes2[thing->unk10->colour1index].unk18);
+			g_MenuColourPalettes3[thing->unk10->type].unfocused,
+			g_MenuColourPalettes2[thing->unk10->type].unfocused);
 
 	gdl = func0f153628(gdl);
 
@@ -10244,12 +10363,12 @@ u32 var800711ec = 0x20000000;
 //	}
 //
 //	// 5b8
-//	if (thing->unk10->unk40 < 0) {
-//		colour = g_MenuColourPalettes[thing->unk10->colour1index].unk18;
+//	if (thing->unk10->transitiontimer < 0) {
+//		colour = g_MenuColourPalettes[thing->unk10->type].unfocused;
 //	} else {
 //		colour = colourBlend(
-//				g_MenuColourPalettes[thing->unk10->colour2index].unk18,
-//				g_MenuColourPalettes[thing->unk10->colour1index].unk18,
+//				g_MenuColourPalettes[thing->unk10->type2].unfocused,
+//				g_MenuColourPalettes[thing->unk10->type].unfocused,
 //				thing->unk10->colourweight);
 //	}
 //
@@ -13392,7 +13511,7 @@ Gfx *menuRenderItem(Gfx *gdl, struct menurenderthing *thing)
 	case MENUITEMTYPE_CUSTOM:      return menuRenderItemCustom(gdl);
 	case MENUITEMTYPE_SELECTABLE:  return menuRenderItemSelectable(gdl, thing);
 	case MENUITEMTYPE_SLIDER:      return menuRenderItemSlider(gdl);
-	case MENUITEMTYPE_CHECKBOX:    return menuRenderItemCheckbox(gdl);
+	case MENUITEMTYPE_CHECKBOX:    return menuRenderItemCheckbox(gdl, thing);
 	case MENUITEMTYPE_SCROLLABLE:  return menuRenderItemScrollable(gdl, thing);
 	case MENUITEMTYPE_MARQUEE:     return menuRenderItemMarquee(gdl, thing);
 	case MENUITEMTYPE_LABEL:       return menuRenderItemLabel(gdl);

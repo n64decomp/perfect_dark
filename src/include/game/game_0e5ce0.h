@@ -30,7 +30,7 @@ u32 func0f0ebec8(void);
 void func0f0ec220(u16 *arg0);
 Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurenderthing *thing);
 u32 func0f0ec4e4(void);
-Gfx *menuRenderItemCheckbox(Gfx *gdl);
+Gfx *menuRenderItemCheckbox(Gfx *gdl, struct menurenderthing *thing);
 u32 func0f0ecbfc(void);
 char *menuItemScrollableGetText(u32 type);
 Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurenderthing *thing);

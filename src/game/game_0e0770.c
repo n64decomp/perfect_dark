@@ -3315,7 +3315,7 @@ glabel func0f0e3324
 );
 
 GLOBAL_ASM(
-glabel func0f0e37b0
+glabel renderCheckbox
 /*  f0e37b0:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f0e37b4:	8fae0058 */ 	lw	$t6,0x58($sp)
 /*  f0e37b8:	afb10018 */ 	sw	$s1,0x18($sp)
