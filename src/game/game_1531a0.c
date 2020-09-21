@@ -591,21 +591,14 @@ glabel func0f153b6c
 /*  f153c1c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f153c20
-/*  f153c20:	3c02800a */ 	lui	$v0,%hi(var800a45d0)
-/*  f153c24:	244245d0 */ 	addiu	$v0,$v0,%lo(var800a45d0)
-/*  f153c28:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*  f153c2c:	44866000 */ 	mtc1	$a2,$f12
-/*  f153c30:	afa7000c */ 	sw	$a3,0xc($sp)
-/*  f153c34:	35f80001 */ 	ori	$t8,$t7,0x1
-/*  f153c38:	a0580000 */ 	sb	$t8,0x0($v0)
-/*  f153c3c:	ac44000c */ 	sw	$a0,0xc($v0)
-/*  f153c40:	ac450010 */ 	sw	$a1,0x10($v0)
-/*  f153c44:	a0470018 */ 	sb	$a3,0x18($v0)
-/*  f153c48:	03e00008 */ 	jr	$ra
-/*  f153c4c:	e44c0014 */ 	swc1	$f12,0x14($v0)
-);
+void func0f153c20(s32 x, s32 y, f32 arg2, u8 arg3)
+{
+	var800a45d0.unk00 |= 0x01;
+	var800a45d0.unk0c = x;
+	var800a45d0.unk10 = y;
+	var800a45d0.unk14 = arg2;
+	var800a45d0.unk18 = arg3;
+}
 
 void func0f153c50(void)
 {
