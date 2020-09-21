@@ -625,38 +625,28 @@ glabel func0f153c50
 /*  f153c84:	a0580028 */ 	sb	$t8,0x28($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f153c88
-/*  f153c88:	3c02800a */ 	lui	$v0,%hi(var800a45d0)
-/*  f153c8c:	244245d0 */ 	addiu	$v0,$v0,%lo(var800a45d0)
-/*  f153c90:	90590000 */ 	lbu	$t9,0x0($v0)
-/*  f153c94:	90480029 */ 	lbu	$t0,0x29($v0)
-/*  f153c98:	8c4e001c */ 	lw	$t6,0x1c($v0)
-/*  f153c9c:	8c4f0020 */ 	lw	$t7,0x20($v0)
-/*  f153ca0:	c4440024 */ 	lwc1	$f4,0x24($v0)
-/*  f153ca4:	90580028 */ 	lbu	$t8,0x28($v0)
-/*  f153ca8:	03284825 */ 	or	$t1,$t9,$t0
-/*  f153cac:	a0490000 */ 	sb	$t1,0x0($v0)
-/*  f153cb0:	ac4e000c */ 	sw	$t6,0xc($v0)
-/*  f153cb4:	ac4f0010 */ 	sw	$t7,0x10($v0)
-/*  f153cb8:	e4440014 */ 	swc1	$f4,0x14($v0)
-/*  f153cbc:	03e00008 */ 	jr	$ra
-/*  f153cc0:	a0580018 */ 	sb	$t8,0x18($v0)
-);
+void func0f153c88(void)
+{
+	var800a45d0.unk0c = var800a45d0.unk1c;
+	var800a45d0.unk10 = var800a45d0.unk20;
+	var800a45d0.unk14 = var800a45d0.unk24;
+	var800a45d0.unk18 = var800a45d0.unk28;
+	var800a45d0.unk00 |= var800a45d0.unk29;
+}
 
 void func0f153cc4(s32 arg0, s32 arg1, u32 arg2)
 {
+	var800a45d0.unk00 |= 0x02;
 	var800a45d0.unk2c = arg0;
 	var800a45d0.unk30 = arg1;
-	var800a45d0.unk00 |= 0x02;
 	var800a45d0.unk34 = arg2;
 }
 
 void func0f153ce8(s32 x1, s32 x2, u32 arg2)
 {
+	var800a45d0.unk00 |= 0x10;
 	var800a45d0.x1 = x1;
 	var800a45d0.x2 = x2;
-	var800a45d0.unk00 |= 0x10;
 	var800a45d0.unk40 = arg2;
 }
 
