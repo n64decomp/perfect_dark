@@ -714,7 +714,7 @@ extern u32 var800a45a0;
 extern u32 var800a45a8;
 extern u32 var800a45c0;
 extern u32 var800a45c4;
-extern u32 var800a45d0;
+extern struct var800a45d0 var800a45d0;
 extern u32 var800a4634;
 extern struct var800a4640 var800a4640;
 extern u32 var800a491c;
