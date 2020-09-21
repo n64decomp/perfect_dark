@@ -1996,32 +1996,24 @@ glabel func0f0f2354
 /*  f0f2530:	27bd0010 */ 	addiu	$sp,$sp,0x10
 );
 
-GLOBAL_ASM(
-glabel func0f0f2534
-/*  f0f2534:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f0f2538:	24030005 */ 	addiu	$v1,$zero,0x5
-/*  f0f253c:	546e0010 */ 	bnel	$v1,$t6,.L0f0f2580
-/*  f0f2540:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0f2544:	90820001 */ 	lbu	$v0,0x1($a0)
-/*  f0f2548:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0f254c:	10410009 */ 	beq	$v0,$at,.L0f0f2574
-/*  f0f2550:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0f2554:	10410007 */ 	beq	$v0,$at,.L0f0f2574
-/*  f0f2558:	00000000 */ 	nop
-/*  f0f255c:	10620005 */ 	beq	$v1,$v0,.L0f0f2574
-/*  f0f2560:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0f2564:	10410003 */ 	beq	$v0,$at,.L0f0f2574
-/*  f0f2568:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f0f256c:	54410004 */ 	bnel	$v0,$at,.L0f0f2580
-/*  f0f2570:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0f2574:
-/*  f0f2574:	03e00008 */ 	jr	$ra
-/*  f0f2578:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0f257c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0f2580:
-/*  f0f2580:	03e00008 */ 	jr	$ra
-/*  f0f2584:	00000000 */ 	nop
-);
+/**
+ * If this returns true, the scrollable is rendered with less padding and
+ * scrolling is disabled.
+ */
+bool menuIsScrollableUnscrollable(struct menuitem *item)
+{
+	if (item->type == MENUITEMTYPE_SCROLLABLE) {
+		if (item->param == DESCRIPTION_MPCONFIG
+				|| item->param == DESCRIPTION_MPCHALLENGE
+				|| item->param == DESCRIPTION_DEVICETRAINING
+				|| item->param == DESCRIPTION_FRWEAPON
+				|| item->param == DESCRIPTION_HOLOTRAINING) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 bool menuIsItemDisabled(struct menuitem *item, struct menurenderthing10 *thing10)
 {
@@ -2038,7 +2030,7 @@ bool menuIsItemDisabled(struct menuitem *item, struct menurenderthing10 *thing10
 		return true;
 	}
 
-	if (func0f0f2534(item)) {
+	if (menuIsScrollableUnscrollable(item)) {
 		return true;
 	}
 

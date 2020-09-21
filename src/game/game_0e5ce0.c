@@ -7689,7 +7689,7 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurenderthing *thing)
 
 	rawtext = menuItemScrollableGetText(thing->item->param);
 
-	if (func0f0f2534(thing->item)) {
+	if (menuIsScrollableUnscrollable(thing->item)) {
 		paddingright = 10;
 	}
 
@@ -7770,7 +7770,7 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurenderthing *thing)
 			0xff4444ff, thing->width - 4, thing->height - 4, -*unk14, 0);
 
 	// Body text
-	x = func0f0f2534(thing->item) ? thing->x + 5 : thing->x + 12;
+	x = menuIsScrollableUnscrollable(thing->item) ? thing->x + 5 : thing->x + 12;
 	y = thing->y + 2;
 
 	gdl = textRenderWhite(gdl, &x, &y, bodytext, var8007fb10, var8007fb0c,
@@ -9846,7 +9846,7 @@ glabel func0f0ed264
 /*  f0ed33c:	851904fc */ 	lh	$t9,0x4fc($t0)
 /*  f0ed340:	8fa41f98 */ 	lw	$a0,0x1f98($sp)
 /*  f0ed344:	a7a5003e */ 	sh	$a1,0x3e($sp)
-/*  f0ed348:	0fc3c94d */ 	jal	func0f0f2534
+/*  f0ed348:	0fc3c94d */ 	jal	menuIsScrollableUnscrollable
 /*  f0ed34c:	a7b9003c */ 	sh	$t9,0x3c($sp)
 /*  f0ed350:	10400004 */ 	beqz	$v0,.L0f0ed364
 /*  f0ed354:	87a5003e */ 	lh	$a1,0x3e($sp)
@@ -9897,7 +9897,7 @@ glabel func0f0ed264
 /*  f0ed3f8:	8d8d0020 */ 	lw	$t5,0x20($t4)
 /*  f0ed3fc:	a60d0006 */ 	sh	$t5,0x6($s0)
 .L0f0ed400:
-/*  f0ed400:	0fc3c94d */ 	jal	func0f0f2534
+/*  f0ed400:	0fc3c94d */ 	jal	menuIsScrollableUnscrollable
 /*  f0ed404:	8fa41f98 */ 	lw	$a0,0x1f98($sp)
 /*  f0ed408:	10400003 */ 	beqz	$v0,.L0f0ed418
 /*  f0ed40c:	8faf1fa4 */ 	lw	$t7,0x1fa4($sp)
