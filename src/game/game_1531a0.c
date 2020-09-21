@@ -653,18 +653,13 @@ glabel func0f153c88
 /*  f153ce4:	ac460034 */ 	sw	$a2,0x34($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f153ce8
-/*  f153ce8:	3c02800a */ 	lui	$v0,%hi(var800a45d0)
-/*  f153cec:	244245d0 */ 	addiu	$v0,$v0,%lo(var800a45d0)
-/*  f153cf0:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f153cf4:	ac440038 */ 	sw	$a0,0x38($v0)
-/*  f153cf8:	ac45003c */ 	sw	$a1,0x3c($v0)
-/*  f153cfc:	35cf0010 */ 	ori	$t7,$t6,0x10
-/*  f153d00:	a04f0000 */ 	sb	$t7,0x0($v0)
-/*  f153d04:	03e00008 */ 	jr	$ra
-/*  f153d08:	ac460040 */ 	sw	$a2,0x40($v0)
-);
+void func0f153ce8(s32 x1, s32 x2, u32 arg2)
+{
+	var800a45d0.x1 = x1;
+	var800a45d0.x2 = x2;
+	var800a45d0.unk00 |= 0x10;
+	var800a45d0.unk40 = arg2;
+}
 
 void func0f153d0c(void)
 {
