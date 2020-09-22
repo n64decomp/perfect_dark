@@ -12389,7 +12389,7 @@ glabel func0f0ef394
 );
 
 GLOBAL_ASM(
-glabel func0f0ef4bc
+glabel menuRenderControllerTexture
 /*  f0ef4bc:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f0ef4c0:	afa40028 */ 	sw	$a0,0x28($sp)
 /*  f0ef4c4:	248f0008 */ 	addiu	$t7,$a0,0x8
@@ -12562,7 +12562,7 @@ glabel func0f0ef4bc
 );
 
 GLOBAL_ASM(
-glabel func0f0ef758
+glabel menuRenderControllerLines
 /*  f0ef758:	3c018006 */ 	lui	$at,%hi(var80061630)
 /*  f0ef75c:	c4241630 */ 	lwc1	$f4,%lo(var80061630)($at)
 /*  f0ef760:	3c014080 */ 	lui	$at,0x4080
@@ -12833,7 +12833,7 @@ u16 var8007142c[] = {
 };
 
 GLOBAL_ASM(
-glabel func0f0efbb4
+glabel menuRenderControllerText
 /*  f0efbb4:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0efbb8:	3c0f8007 */ 	lui	$t7,%hi(var8007142c)
 /*  f0efbbc:	afbf005c */ 	sw	$ra,0x5c($sp)
@@ -13004,93 +13004,25 @@ glabel func0f0efbb4
 /*  f0efe2c:	27bd0098 */ 	addiu	$sp,$sp,0x98
 );
 
-GLOBAL_ASM(
-glabel menuRenderControllerInfo
-/*  f0efe30:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0efe34:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f0efe38:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0efe3c:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f0efe40:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f0efe44:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*  f0efe48:	84ae0000 */ 	lh	$t6,0x0($a1)
-/*  f0efe4c:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f0efe50:	86380002 */ 	lh	$t8,0x2($s1)
-/*  f0efe54:	01c62821 */ 	addu	$a1,$t6,$a2
-/*  f0efe58:	8fb00054 */ 	lw	$s0,0x54($sp)
-/*  f0efe5c:	03073021 */ 	addu	$a2,$t8,$a3
-/*  f0efe60:	24c60004 */ 	addiu	$a2,$a2,0x4
-/*  f0efe64:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f0efe68:	24070033 */ 	addiu	$a3,$zero,0x33
-/*  f0efe6c:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f0efe70:	0fc3bd2f */ 	jal	func0f0ef4bc
-/*  f0efe74:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f0efe78:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f0efe7c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0efe80:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f0efe84:	24a50020 */ 	addiu	$a1,$a1,0x20
-/*  f0efe88:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f0efe8c:	24070034 */ 	addiu	$a3,$zero,0x34
-/*  f0efe90:	0fc3bd2f */ 	jal	func0f0ef4bc
-/*  f0efe94:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f0efe98:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f0efe9c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0efea0:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f0efea4:	24c60020 */ 	addiu	$a2,$a2,0x20
-/*  f0efea8:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f0efeac:	24070035 */ 	addiu	$a3,$zero,0x35
-/*  f0efeb0:	0fc3bd2f */ 	jal	func0f0ef4bc
-/*  f0efeb4:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f0efeb8:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f0efebc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0efec0:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f0efec4:	24070036 */ 	addiu	$a3,$zero,0x36
-/*  f0efec8:	0fc3bd2f */ 	jal	func0f0ef4bc
-/*  f0efecc:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f0efed0:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f0efed4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0efed8:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0efedc:	29010004 */ 	slti	$at,$t0,0x4
-/*  f0efee0:	1420000c */ 	bnez	$at,.L0f0eff14
-/*  f0efee4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0efee8:	8fa90048 */ 	lw	$t1,0x48($sp)
-/*  f0efeec:	8faa004c */ 	lw	$t2,0x4c($sp)
-/*  f0efef0:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0efef4:	2406000d */ 	addiu	$a2,$zero,0xd
-/*  f0efef8:	24070013 */ 	addiu	$a3,$zero,0x13
-/*  f0efefc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0eff00:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0eff04:	0fc3bdd6 */ 	jal	func0f0ef758
-/*  f0eff08:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f0eff0c:	10000009 */ 	b	.L0f0eff34
-/*  f0eff10:	00402025 */ 	or	$a0,$v0,$zero
-.L0f0eff14:
-/*  f0eff14:	8fab0048 */ 	lw	$t3,0x48($sp)
-/*  f0eff18:	8fac004c */ 	lw	$t4,0x4c($sp)
-/*  f0eff1c:	24070015 */ 	addiu	$a3,$zero,0x15
-/*  f0eff20:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0eff24:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0eff28:	0fc3bdd6 */ 	jal	func0f0ef758
-/*  f0eff2c:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f0eff30:	00402025 */ 	or	$a0,$v0,$zero
-.L0f0eff34:
-/*  f0eff34:	8fad004c */ 	lw	$t5,0x4c($sp)
-/*  f0eff38:	8fae0058 */ 	lw	$t6,0x58($sp)
-/*  f0eff3c:	8faf005c */ 	lw	$t7,0x5c($sp)
-/*  f0eff40:	83b80063 */ 	lb	$t8,0x63($sp)
-/*  f0eff44:	8fa50050 */ 	lw	$a1,0x50($sp)
-/*  f0eff48:	02203025 */ 	or	$a2,$s1,$zero
-/*  f0eff4c:	8fa70048 */ 	lw	$a3,0x48($sp)
-/*  f0eff50:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f0eff54:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f0eff58:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f0eff5c:	0fc3beed */ 	jal	func0f0efbb4
-/*  f0eff60:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f0eff64:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0eff68:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f0eff6c:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f0eff70:	03e00008 */ 	jr	$ra
-/*  f0eff74:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+Gfx *menuRenderControllerInfo(Gfx *gdl, struct menurenderthing *thing, s32 x, s32 y, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode)
+{
+	s32 rx = thing->x + x;
+	s32 ry = thing->y + y + 4;
+
+	// The controller graphic is split into 4 textures
+	gdl = menuRenderControllerTexture(gdl, rx, ry, 0x33, alpha);
+	gdl = menuRenderControllerTexture(gdl, rx + 32, ry, 0x34, alpha);
+	gdl = menuRenderControllerTexture(gdl, rx, ry + 32, 0x35, alpha);
+	gdl = menuRenderControllerTexture(gdl, rx + 32, ry + 32, 0x36, alpha);
+
+	if (curmode >= CONTROLMODE_21) {
+		gdl = menuRenderControllerLines(gdl, thing, 13, 19, x, y, alpha);
+	} else {
+		gdl = menuRenderControllerLines(gdl, thing, 0, 21, x, y, alpha);
+	}
+
+	return menuRenderControllerText(gdl, curmode, thing, x, y, colour1, colour2, prevmode);
+}
 
 Gfx *menuRenderItemController(Gfx *gdl, struct menurenderthing *thing)
 {
