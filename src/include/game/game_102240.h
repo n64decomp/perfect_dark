@@ -3,6 +3,8 @@
 #include <ultra64.h>
 #include "types.h"
 
+extern u16 g_ControlStyleOptions[];
+
 char *menuTextCurrentStageName(struct menuitem *item);
 char *soloMenuTextDifficulty(struct menuitem *item);
 s32 menuhandlerControlStyleImpl(u32 operation, struct menuitem *item, union handlerdata *data, s32 mpindex);

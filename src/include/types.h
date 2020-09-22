@@ -3584,7 +3584,7 @@ struct menudata_endscreen {
 
 struct menudata_main {
 	u32 unke1c;
-	u32 unke20;
+	u32 controlmode;
 	u32 mpindex;
 	u32 unke28;
 	u32 unke2c;
@@ -6801,6 +6801,14 @@ struct menurenderthing10 {
 	/*0x44*/ u32 colourweight;
 };
 
+struct menurenderthing14_controller {
+	u8 textfadetimer;
+	u8 contfadetimer;
+	u8 curmode;
+	u8 controlgroup;
+	s8 prevmode;
+};
+
 struct menurenderthing {
 	s16 x;
 	s16 y;
@@ -6810,9 +6818,11 @@ struct menurenderthing {
 	bool focused;
 	struct menurenderthing10 *unk10;
 
+	// Suspected to be handlerdata
 	union {
 		s16 *s16;
 		u16 *u16;
+		struct menurenderthing14_controller *controller;
 	} unk14;
 };
 

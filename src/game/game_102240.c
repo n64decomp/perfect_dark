@@ -109,7 +109,7 @@ s32 menuhandlerControlStyleImpl(u32 operation, struct menuitem *item, union hand
 		break;
 	case MENUOP_16:
 		if (g_MenuData.root == MENUROOT_MAINMENU) {
-			g_Menus[g_MpPlayerNum].data.main.unke20 = data->custom.value;
+			g_Menus[g_MpPlayerNum].data.main.controlmode = data->custom.value;
 		}
 		break;
 	}
