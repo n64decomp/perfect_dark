@@ -21,7 +21,7 @@ Gfx *menuRenderItemSeparator(Gfx *gdl, struct menurenderthing *thing);
 Gfx *menuRenderObjective(Gfx *gfx, struct menurenderthing10 *thing10, s32 index, s32 position, s32 x, s32 y, s32 width, s32 height, s32 arg8, s32 arg9);
 Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurenderthing *thing);
 Gfx *menuRenderItemModel(Gfx *gdl, struct menurenderthing *thing);
-Gfx *menuRenderItemLabel(Gfx *gdl);
+Gfx *menuRenderItemLabel(Gfx *gdl, struct menurenderthing *thing);
 Gfx *menuRenderItemMeter(Gfx *gdl, struct menurenderthing *thing);
 Gfx *menuRenderItemSelectable(Gfx *gdl, struct menurenderthing *thing);
 u32 func0f0eb46c(void);

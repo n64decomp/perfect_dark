@@ -3326,7 +3326,11 @@ struct menuitem {
 	u32 param1;
 	u32 param2;
 	u32 param3;
-	s32 (*handler)(u32 operation, struct menuitem *item, union handlerdata *data);
+
+	union {
+		s32 (*handler)(u32 operation, struct menuitem *item, union handlerdata *data);
+		void (*handlervoid)(u32 operation, struct menuitem *item, union handlerdata *data);
+	};
 };
 
 struct menudialog {
@@ -3561,7 +3565,7 @@ struct menuframe {
 };
 
 struct menudfc {
-	u32 unk00;
+	struct menuitem *item;
 	f32 unk04;
 };
 
@@ -6799,6 +6803,7 @@ struct menurenderthing10 {
 	/*0x3c*/ u8 type2; // used when transitioning
 	/*0x40*/ f32 transitiontimer; // >= 0 means transitioning from one dialog type to another
 	/*0x44*/ u32 colourweight;
+	/*0x48*/ f32 unk48;
 };
 
 struct menurenderthing14_controller {

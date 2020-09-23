@@ -713,12 +713,12 @@ glabel func0f0f0ce8
 /*  f0f1334:	27bd0090 */ 	addiu	$sp,$sp,0x90
 );
 
-struct menudfc *func0f0f1338(u32 arg0)
+struct menudfc *func0f0f1338(struct menuitem *item)
 {
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		if (g_Menus[g_MpPlayerNum].unkdfc[i].unk00 == arg0) {
+		if (g_Menus[g_MpPlayerNum].unkdfc[i].item == item) {
 			return &g_Menus[g_MpPlayerNum].unkdfc[i];
 		}
 	}
@@ -726,29 +726,29 @@ struct menudfc *func0f0f1338(u32 arg0)
 	return NULL;
 }
 
-void func0f0f139c(s32 arg0, f32 arg1)
+void func0f0f139c(struct menuitem *item, f32 arg1)
 {
-	struct menudfc *thing = func0f0f1338(arg0);
+	struct menudfc *thing = func0f0f1338(item);
 
 	if (thing) {
 		thing->unk04 = arg1;
 		return;
 	}
 
-	thing = func0f0f1338(0);
+	thing = func0f0f1338(NULL);
 
 	if (thing) {
-		thing->unk00 = arg0;
+		thing->item = item;
 		thing->unk04 = arg1;
 	}
 }
 
-void func0f0f13ec(s32 arg0)
+void func0f0f13ec(struct menuitem *item)
 {
-	struct menudfc *thing = func0f0f1338(arg0);
+	struct menudfc *thing = func0f0f1338(item);
 
 	if (thing) {
-		thing->unk00 = 0;
+		thing->item = NULL;
 	}
 }
 
@@ -757,7 +757,7 @@ void func0f0f1418(void)
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		if (g_Menus[g_MpPlayerNum].unkdfc[i].unk00) {
+		if (g_Menus[g_MpPlayerNum].unkdfc[i].item) {
 			g_Menus[g_MpPlayerNum].unkdfc[i].unk04 += g_Vars.diffframe60f / 60.0f;
 		}
 	}
@@ -768,7 +768,7 @@ void func0f0f1494(void)
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		g_Menus[g_MpPlayerNum].unkdfc[i].unk00 = 0;
+		g_Menus[g_MpPlayerNum].unkdfc[i].item = NULL;
 	}
 }
 
