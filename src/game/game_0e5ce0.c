@@ -12798,9 +12798,9 @@ u16 var80071354[][9] = {
 	/*11*/ { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(212), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(208), L_MPWEAPONS(205), L_OPTIONS(3)     },
 };
 
-u16 func0f0efa90(s32 row, s32 col)
+u16 menuControllerGetButtonAction(s32 mode, s32 buttonnum)
 {
-	u32 textid = var80071354[row][col];
+	u32 textid = var80071354[mode][buttonnum];
 
 	if (textid == L_MPWEAPONS(194) // "AIM"
 			&& optionsGetAimControl(g_Menus[g_MpPlayerNum].data.main.mpindex) == AIMCONTROL_TOGGLE) {
@@ -12820,189 +12820,86 @@ u16 func0f0efa90(s32 row, s32 col)
 	return textid;
 }
 
-u16 var8007142c[] = {
-	L_MPWEAPONS(185), // "L/R BUTTONS:"
-	L_MPWEAPONS(186), // "UP C BUTTON:"
-	L_MPWEAPONS(187), // "LEFT/RIGHT C BUTTONS:"
-	L_MPWEAPONS(188), // "DOWN C BUTTON:"
-	L_MPWEAPONS(189), // "A BUTTON:"
-	L_MPWEAPONS(190), // "B BUTTON:"
-	L_MPWEAPONS(191), // "CONTROL STICK:"
-	L_MPWEAPONS(192), // "Z BUTTON:"
-	L_MPWEAPONS(193), // "+ CONTROL PAD:"
-};
+/**
+ * Renders the button labels and actions for the control style dialog.
+ *
+ * When switching modes (control styles), a fade effect is used to fade in the
+ * action names, but only if they differ from the previous mode.
+ *
+ * Note that the valuecolour argument is mostly unused - only the alpha channel
+ * is used because the rest is bitwise or'ed to white.
+ */
+Gfx *menuRenderControllerText(Gfx *gdl, s32 curmode, struct menurenderthing *thing, s32 x, s32 y, u32 valuecolour, u32 labelcolour, s8 prevmode)
+{
+	s32 rx;
+	s32 ry;
+	u16 textnum;
+	u32 colour;
 
-GLOBAL_ASM(
-glabel menuRenderControllerText
-/*  f0efbb4:	27bdff68 */ 	addiu	$sp,$sp,-152
-/*  f0efbb8:	3c0f8007 */ 	lui	$t7,%hi(var8007142c)
-/*  f0efbbc:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f0efbc0:	afbe0058 */ 	sw	$s8,0x58($sp)
-/*  f0efbc4:	afb70054 */ 	sw	$s7,0x54($sp)
-/*  f0efbc8:	afb60050 */ 	sw	$s6,0x50($sp)
-/*  f0efbcc:	afb5004c */ 	sw	$s5,0x4c($sp)
-/*  f0efbd0:	afb40048 */ 	sw	$s4,0x48($sp)
-/*  f0efbd4:	afb30044 */ 	sw	$s3,0x44($sp)
-/*  f0efbd8:	afb20040 */ 	sw	$s2,0x40($sp)
-/*  f0efbdc:	afb1003c */ 	sw	$s1,0x3c($sp)
-/*  f0efbe0:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f0efbe4:	afa600a0 */ 	sw	$a2,0xa0($sp)
-/*  f0efbe8:	afa700a4 */ 	sw	$a3,0xa4($sp)
-/*  f0efbec:	25ef142c */ 	addiu	$t7,$t7,%lo(var8007142c)
-/*  f0efbf0:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f0efbf4:	27ae0074 */ 	addiu	$t6,$sp,0x74
-/*  f0efbf8:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f0efbfc:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f0efc00:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f0efc04:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f0efc08:	8de8000c */ 	lw	$t0,0xc($t7)
-/*  f0efc0c:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f0efc10:	95e10010 */ 	lhu	$at,0x10($t7)
-/*  f0efc14:	00a0b025 */ 	or	$s6,$a1,$zero
-/*  f0efc18:	adc8000c */ 	sw	$t0,0xc($t6)
-/*  f0efc1c:	0fc54d8a */ 	jal	func0f153628
-/*  f0efc20:	a5c10010 */ 	sh	$at,0x10($t6)
-/*  f0efc24:	0040a825 */ 	or	$s5,$v0,$zero
-/*  f0efc28:	00009825 */ 	or	$s3,$zero,$zero
-/*  f0efc2c:	0000b825 */ 	or	$s7,$zero,$zero
-/*  f0efc30:	83be00b7 */ 	lb	$s8,0xb7($sp)
-/*  f0efc34:	8fb400b0 */ 	lw	$s4,0xb0($sp)
-.L0f0efc38:
-/*  f0efc38:	8fa900a0 */ 	lw	$t1,0xa0($sp)
-/*  f0efc3c:	8fac00a8 */ 	lw	$t4,0xa8($sp)
-/*  f0efc40:	2ac10004 */ 	slti	$at,$s6,0x4
-/*  f0efc44:	852a0002 */ 	lh	$t2,0x2($t1)
-/*  f0efc48:	8fb900a0 */ 	lw	$t9,0xa0($sp)
-/*  f0efc4c:	8fae00a4 */ 	lw	$t6,0xa4($sp)
-/*  f0efc50:	02ea5821 */ 	addu	$t3,$s7,$t2
-/*  f0efc54:	016c6821 */ 	addu	$t5,$t3,$t4
-/*  f0efc58:	14200006 */ 	bnez	$at,.L0f0efc74
-/*  f0efc5c:	afad0090 */ 	sw	$t5,0x90($sp)
-/*  f0efc60:	2a610004 */ 	slti	$at,$s3,0x4
-/*  f0efc64:	14200022 */ 	bnez	$at,.L0f0efcf0
-/*  f0efc68:	2a610008 */ 	slti	$at,$s3,0x8
-/*  f0efc6c:	50200021 */ 	beqzl	$at,.L0f0efcf4
-/*  f0efc70:	02c02025 */ 	or	$a0,$s6,$zero
-.L0f0efc74:
-/*  f0efc74:	87380000 */ 	lh	$t8,0x0($t9)
-/*  f0efc78:	00134840 */ 	sll	$t1,$s3,0x1
-/*  f0efc7c:	03a92021 */ 	addu	$a0,$sp,$t1
-/*  f0efc80:	030e7821 */ 	addu	$t7,$t8,$t6
-/*  f0efc84:	25e8004c */ 	addiu	$t0,$t7,0x4c
-/*  f0efc88:	afa80094 */ 	sw	$t0,0x94($sp)
-/*  f0efc8c:	0fc5b9f1 */ 	jal	langGet
-/*  f0efc90:	94840074 */ 	lhu	$a0,0x74($a0)
-/*  f0efc94:	0c002f02 */ 	jal	viGetX
-/*  f0efc98:	00409025 */ 	or	$s2,$v0,$zero
-/*  f0efc9c:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f0efca0:	00105403 */ 	sra	$t2,$s0,0x10
-/*  f0efca4:	0c002f06 */ 	jal	viGetY
-/*  f0efca8:	01408025 */ 	or	$s0,$t2,$zero
-/*  f0efcac:	3c0b8008 */ 	lui	$t3,%hi(var8007fb08)
-/*  f0efcb0:	3c0c8008 */ 	lui	$t4,%hi(var8007fb04)
-/*  f0efcb4:	8d8cfb04 */ 	lw	$t4,%lo(var8007fb04)($t4)
-/*  f0efcb8:	8d6bfb08 */ 	lw	$t3,%lo(var8007fb08)($t3)
-/*  f0efcbc:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f0efcc0:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f0efcc4:	27a60090 */ 	addiu	$a2,$sp,0x90
-/*  f0efcc8:	02403825 */ 	or	$a3,$s2,$zero
-/*  f0efccc:	afb40018 */ 	sw	$s4,0x18($sp)
-/*  f0efcd0:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f0efcd4:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f0efcd8:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f0efcdc:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0efce0:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f0efce4:	0fc5580f */ 	jal	textRenderWhite
-/*  f0efce8:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0efcec:	0040a825 */ 	or	$s5,$v0,$zero
-.L0f0efcf0:
-/*  f0efcf0:	02c02025 */ 	or	$a0,$s6,$zero
-.L0f0efcf4:
-/*  f0efcf4:	0fc3bea4 */ 	jal	func0f0efa90
-/*  f0efcf8:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0efcfc:	3050ffff */ 	andi	$s0,$v0,0xffff
-/*  f0efd00:	07c00010 */ 	bltz	$s8,.L0f0efd44
-/*  f0efd04:	8fb100ac */ 	lw	$s1,0xac($sp)
-/*  f0efd08:	2ac10008 */ 	slti	$at,$s6,0x8
-/*  f0efd0c:	14200008 */ 	bnez	$at,.L0f0efd30
-/*  f0efd10:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f0efd14:	27c40004 */ 	addiu	$a0,$s8,0x4
-/*  f0efd18:	0fc3bea4 */ 	jal	func0f0efa90
-/*  f0efd1c:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0efd20:	56020009 */ 	bnel	$s0,$v0,.L0f0efd48
-/*  f0efd24:	2ac10004 */ 	slti	$at,$s6,0x4
-/*  f0efd28:	10000006 */ 	b	.L0f0efd44
-/*  f0efd2c:	02808825 */ 	or	$s1,$s4,$zero
-.L0f0efd30:
-/*  f0efd30:	0fc3bea4 */ 	jal	func0f0efa90
-/*  f0efd34:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0efd38:	56020003 */ 	bnel	$s0,$v0,.L0f0efd48
-/*  f0efd3c:	2ac10004 */ 	slti	$at,$s6,0x4
-/*  f0efd40:	02808825 */ 	or	$s1,$s4,$zero
-.L0f0efd44:
-/*  f0efd44:	2ac10004 */ 	slti	$at,$s6,0x4
-.L0f0efd48:
-/*  f0efd48:	1420000b */ 	bnez	$at,.L0f0efd78
-/*  f0efd4c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0efd50:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0efd54:	16610008 */ 	bne	$s3,$at,.L0f0efd78
-/*  f0efd58:	8fad00a0 */ 	lw	$t5,0xa0($sp)
-/*  f0efd5c:	85b90000 */ 	lh	$t9,0x0($t5)
-/*  f0efd60:	8fb800a4 */ 	lw	$t8,0xa4($sp)
-/*  f0efd64:	02808825 */ 	or	$s1,$s4,$zero
-/*  f0efd68:	03387021 */ 	addu	$t6,$t9,$t8
-/*  f0efd6c:	25cf003f */ 	addiu	$t7,$t6,0x3f
-/*  f0efd70:	10000004 */ 	b	.L0f0efd84
-/*  f0efd74:	afaf0094 */ 	sw	$t7,0x94($sp)
-.L0f0efd78:
-/*  f0efd78:	2401ff00 */ 	addiu	$at,$zero,-256
-/*  f0efd7c:	02214025 */ 	or	$t0,$s1,$at
-/*  f0efd80:	01008825 */ 	or	$s1,$t0,$zero
-.L0f0efd84:
-/*  f0efd84:	0fc5b9f1 */ 	jal	langGet
-/*  f0efd88:	00000000 */ 	nop
-/*  f0efd8c:	0c002f02 */ 	jal	viGetX
-/*  f0efd90:	00409025 */ 	or	$s2,$v0,$zero
-/*  f0efd94:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f0efd98:	00104c03 */ 	sra	$t1,$s0,0x10
-/*  f0efd9c:	0c002f06 */ 	jal	viGetY
-/*  f0efda0:	01208025 */ 	or	$s0,$t1,$zero
-/*  f0efda4:	3c0a8008 */ 	lui	$t2,%hi(var8007fb08)
-/*  f0efda8:	3c0b8008 */ 	lui	$t3,%hi(var8007fb04)
-/*  f0efdac:	8d6bfb04 */ 	lw	$t3,%lo(var8007fb04)($t3)
-/*  f0efdb0:	8d4afb08 */ 	lw	$t2,%lo(var8007fb08)($t2)
-/*  f0efdb4:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f0efdb8:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f0efdbc:	27a60090 */ 	addiu	$a2,$sp,0x90
-/*  f0efdc0:	02403825 */ 	or	$a3,$s2,$zero
-/*  f0efdc4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0efdc8:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f0efdcc:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f0efdd0:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f0efdd4:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0efdd8:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f0efddc:	0fc5580f */ 	jal	textRenderWhite
-/*  f0efde0:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f0efde4:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f0efde8:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f0efdec:	26f70007 */ 	addiu	$s7,$s7,0x7
-/*  f0efdf0:	1661ff91 */ 	bne	$s3,$at,.L0f0efc38
-/*  f0efdf4:	0040a825 */ 	or	$s5,$v0,$zero
-/*  f0efdf8:	0fc54de0 */ 	jal	func0f153780
-/*  f0efdfc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0efe00:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f0efe04:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f0efe08:	8fb1003c */ 	lw	$s1,0x3c($sp)
-/*  f0efe0c:	8fb20040 */ 	lw	$s2,0x40($sp)
-/*  f0efe10:	8fb30044 */ 	lw	$s3,0x44($sp)
-/*  f0efe14:	8fb40048 */ 	lw	$s4,0x48($sp)
-/*  f0efe18:	8fb5004c */ 	lw	$s5,0x4c($sp)
-/*  f0efe1c:	8fb60050 */ 	lw	$s6,0x50($sp)
-/*  f0efe20:	8fb70054 */ 	lw	$s7,0x54($sp)
-/*  f0efe24:	8fbe0058 */ 	lw	$s8,0x58($sp)
-/*  f0efe28:	03e00008 */ 	jr	$ra
-/*  f0efe2c:	27bd0098 */ 	addiu	$sp,$sp,0x98
-);
+	u16 labels[] = {
+		/*0*/ L_MPWEAPONS(185), // "L/R BUTTONS:"
+		/*1*/ L_MPWEAPONS(186), // "UP C BUTTON:"
+		/*2*/ L_MPWEAPONS(187), // "LEFT/RIGHT C BUTTONS:"
+		/*3*/ L_MPWEAPONS(188), // "DOWN C BUTTON:"
+		/*4*/ L_MPWEAPONS(189), // "A BUTTON:"
+		/*5*/ L_MPWEAPONS(190), // "B BUTTON:"
+		/*6*/ L_MPWEAPONS(191), // "CONTROL STICK:"
+		/*7*/ L_MPWEAPONS(192), // "Z BUTTON:"
+		/*8*/ L_MPWEAPONS(193), // "+ CONTROL PAD:"
+	};
+
+	s32 i;
+
+	gdl = func0f153628(gdl);
+
+	for (i = 0; i < ARRAYCOUNT(labels); i++) {
+		ry = i * 7 + thing->y + y;
+
+		// For the 2.x styles, only labels 4-7 are shown
+		if (curmode < CONTROLMODE_21 || (i >= 4 && i <= 7)) {
+			// Rendering a label such as "L/R BUTTONS:"
+			rx = thing->x + x + 76;
+			gdl = textRenderWhite(gdl, &rx, &ry, langGet(labels[i]),
+					var8007fb08, var8007fb04, labelcolour, viGetX(), viGetY(), 0, 0);
+		}
+
+		textnum = menuControllerGetButtonAction(curmode, i);
+		colour = valuecolour;
+
+		// If there's a prevmode, get the text ID that was in this position for
+		// prevmode. If it's the same text as curmode, don't fade the text.
+		if (prevmode >= 0) {
+			// I don't see how curmode can ever be > CONTROLMODE_24. Perhaps
+			// during development the second player in the 2.x styles had to
+			// choose their control style separately to player 1, in which case
+			// there would have been 2.5, 2.6, 2.7 and 2.8 for player 2.
+			if (curmode > CONTROLMODE_24) {
+				if (textnum == menuControllerGetButtonAction(prevmode + 4, i)) {
+					colour = labelcolour;
+				}
+			} else {
+				if (textnum == menuControllerGetButtonAction(prevmode, i)) {
+					colour = labelcolour;
+				}
+			}
+		}
+
+		if (curmode >= CONTROLMODE_21 && i == 2) {
+			// Rendering a "CONTROLLER 1" or "CONTROLLER 2" heading
+			rx = thing->x + x + 63;
+			colour = labelcolour;
+		} else {
+			// Rendering a value such as "WALK/TURN"
+			// Make it white but preserve alpha
+			colour |= 0xffffff00;
+		}
+
+		gdl = textRenderWhite(gdl, &rx, &ry, langGet(textnum),
+				var8007fb08, var8007fb04, colour, viGetX(), viGetY(), 0, 0);
+	}
+
+	return func0f153780(gdl);
+}
 
 Gfx *menuRenderControllerInfo(Gfx *gdl, struct menurenderthing *thing, s32 x, s32 y, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode)
 {
