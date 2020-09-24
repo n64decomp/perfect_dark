@@ -3254,6 +3254,7 @@ struct menuitemtickdata_marquee {
 	u16 totalmoved;
 	u16 sum;
 	u16 unk04;
+	u16 unk06;
 };
 
 struct menuitemtickdata_ranking {

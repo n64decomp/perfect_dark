@@ -10273,14 +10273,12 @@ bool menuTickItemMarquee(struct menuitem *item, union menuitemtickdata *data)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel menuInitItemMarquee
-/*  f0edb50:	240e0032 */ 	addiu	$t6,$zero,0x32
-/*  f0edb54:	a4800000 */ 	sh	$zero,0x0($a0)
-/*  f0edb58:	a48e0004 */ 	sh	$t6,0x4($a0)
-/*  f0edb5c:	03e00008 */ 	jr	$ra
-/*  f0edb60:	a4800006 */ 	sh	$zero,0x6($a0)
-);
+void menuInitItemMarquee(union menuitemtickdata *data)
+{
+	data->marquee.totalmoved = 0;
+	data->marquee.unk04 = 50;
+	data->marquee.unk06 = 0;
+}
 
 Gfx *menuRenderItem07(Gfx *gdl)
 {
