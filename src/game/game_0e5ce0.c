@@ -12667,17 +12667,14 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurenderthing *thing)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel menuInitItemController
-/*  f0f057c:	240200ff */ 	addiu	$v0,$zero,0xff
-/*  f0f0580:	240effff */ 	addiu	$t6,$zero,-1
-/*  f0f0584:	a0800000 */ 	sb	$zero,0x0($a0)
-/*  f0f0588:	a0800001 */ 	sb	$zero,0x1($a0)
-/*  f0f058c:	a0820002 */ 	sb	$v0,0x2($a0)
-/*  f0f0590:	a0820003 */ 	sb	$v0,0x3($a0)
-/*  f0f0594:	03e00008 */ 	jr	$ra
-/*  f0f0598:	a08e0004 */ 	sb	$t6,0x4($a0)
-);
+void menuInitItemController(union menuitemtickdata *data)
+{
+	data->controller.unk00 = 0;
+	data->controller.unk01 = 0;
+	data->controller.unk02 = 255;
+	data->controller.unk03 = 255;
+	data->controller.unk04 = -1;
+}
 
 Gfx *menuRenderItem(Gfx *gdl, struct menurenderthing *thing)
 {
