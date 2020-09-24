@@ -3261,6 +3261,13 @@ struct menuitemtickdata_ranking {
 	u16 unk00;
 };
 
+struct menuitemtickdata_scrollable {
+	s16 unk00;
+	u16 unk02;
+	u16 unk04;
+	s16 unk06;
+};
+
 struct menuitemtickdata_slider {
 	u16 unk00;
 };
@@ -3268,6 +3275,7 @@ struct menuitemtickdata_slider {
 union menuitemtickdata {
 	struct menuitemtickdata_marquee marquee;
 	struct menuitemtickdata_ranking ranking;
+	struct menuitemtickdata_scrollable scrollable;
 	struct menuitemtickdata_slider slider;
 };
 

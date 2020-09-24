@@ -9637,14 +9637,11 @@ glabel menuTickItemScrollable
 /*  f0ed510:	24020001 */ 	addiu	$v0,$zero,0x1
 );
 
-GLOBAL_ASM(
-glabel menuInitItemScrollable
-/*  f0ed514:	240effff */ 	addiu	$t6,$zero,-1
-/*  f0ed518:	240ffff6 */ 	addiu	$t7,$zero,-10
-/*  f0ed51c:	a48e0006 */ 	sh	$t6,0x6($a0)
-/*  f0ed520:	03e00008 */ 	jr	$ra
-/*  f0ed524:	a48f0000 */ 	sh	$t7,0x0($a0)
-);
+void menuInitItemScrollable(union menuitemtickdata *data)
+{
+	data->scrollable.unk06 = -1;
+	data->scrollable.unk00 = -10;
+}
 
 GLOBAL_ASM(
 glabel menuRenderItemMarquee
