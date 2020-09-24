@@ -7299,52 +7299,26 @@ glabel menuRenderItemCheckbox
 //	return func0f153780(gdl);
 //}
 
-GLOBAL_ASM(
-glabel menuTickItemCheckbox
-/*  f0ecbfc:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0ecc00:	30ce0002 */ 	andi	$t6,$a2,0x2
-/*  f0ecc04:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0ecc08:	11c0001e */ 	beqz	$t6,.L0f0ecc84
-/*  f0ecc0c:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f0ecc10:	90af0002 */ 	lbu	$t7,0x2($a1)
-/*  f0ecc14:	51e0001c */ 	beqzl	$t7,.L0f0ecc88
-/*  f0ecc18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ecc1c:	8c820010 */ 	lw	$v0,0x10($a0)
-/*  f0ecc20:	0080c025 */ 	or	$t8,$a0,$zero
-/*  f0ecc24:	03002825 */ 	or	$a1,$t8,$zero
-/*  f0ecc28:	1040000a */ 	beqz	$v0,.L0f0ecc54
-/*  f0ecc2c:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f0ecc30:	0040f809 */ 	jalr	$v0
-/*  f0ecc34:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f0ecc38:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0ecc3c:	14410005 */ 	bne	$v0,$at,.L0f0ecc54
-/*  f0ecc40:	24040009 */ 	addiu	$a0,$zero,0x9
-/*  f0ecc44:	0fc3c27c */ 	jal	func0f0f09f0
-/*  f0ecc48:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f0ecc4c:	10000006 */ 	b	.L0f0ecc68
-/*  f0ecc50:	8fa80030 */ 	lw	$t0,0x30($sp)
-.L0f0ecc54:
-/*  f0ecc54:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f0ecc58:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f0ecc5c:	0fc3c27c */ 	jal	func0f0f09f0
-/*  f0ecc60:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f0ecc64:	8fa80030 */ 	lw	$t0,0x30($sp)
-.L0f0ecc68:
-/*  f0ecc68:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f0ecc6c:	8d020010 */ 	lw	$v0,0x10($t0)
-/*  f0ecc70:	01002825 */ 	or	$a1,$t0,$zero
-/*  f0ecc74:	50400004 */ 	beqzl	$v0,.L0f0ecc88
-/*  f0ecc78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ecc7c:	0040f809 */ 	jalr	$v0
-/*  f0ecc80:	27a60020 */ 	addiu	$a2,$sp,0x20
-.L0f0ecc84:
-/*  f0ecc84:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0ecc88:
-/*  f0ecc88:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0ecc8c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0ecc90:	03e00008 */ 	jr	$ra
-/*  f0ecc94:	00000000 */ 	nop
-);
+bool menuTickItemCheckbox(struct menuitem *item, u8 *arg1, u32 arg2)
+{
+	union handlerdata data;
+
+	if ((arg2 & 2) && arg1[2]) {
+		if (item->handler && item->handler(MENUOP_GET, item, &data) == 1) {
+			data.checkbox.value = 0;
+			func0f0f09f0(9);
+		} else {
+			data.checkbox.value = 1;
+			func0f0f09f0(8);
+		}
+
+		if (item->handler) {
+			item->handler(MENUOP_SET, item, &data);
+		}
+	}
+
+	return true;
+}
 
 char *menuItemScrollableGetText(u32 type)
 {

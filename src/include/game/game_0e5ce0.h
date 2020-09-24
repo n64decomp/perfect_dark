@@ -31,7 +31,7 @@ void func0f0ec220(u16 *arg0);
 Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurenderthing *thing);
 bool menuTickItemCarousel(struct menuitem *item, void *arg1, u32 arg2);
 Gfx *menuRenderItemCheckbox(Gfx *gdl, struct menurenderthing *thing);
-bool menuTickItemCheckbox(struct menuitem *item, void *arg1, u32 arg2);
+bool menuTickItemCheckbox(struct menuitem *item, u8 *arg1, u32 arg2);
 char *menuItemScrollableGetText(u32 type);
 Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurenderthing *thing);
 bool menuTickItemScrollable(struct menuitem *item, void *arg1, void *arg2, u32 arg3, u16 *arg4);
