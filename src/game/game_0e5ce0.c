@@ -5682,52 +5682,25 @@ const char var7f1adfb8[] = "";
 //	return func0f153780(gdl);
 //}
 
-GLOBAL_ASM(
-glabel menuTickItemSelectable
-/*  f0eb46c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0eb470:	30ce0002 */ 	andi	$t6,$a2,0x2
-/*  f0eb474:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0eb478:	11c0001e */ 	beqz	$t6,.L0f0eb4f4
-/*  f0eb47c:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0eb480:	90af0002 */ 	lbu	$t7,0x2($a1)
-/*  f0eb484:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f0eb488:	51e0001b */ 	beqzl	$t7,.L0f0eb4f8
-/*  f0eb48c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0eb490:	0fc3c27c */ 	jal	func0f0f09f0
-/*  f0eb494:	afa70030 */ 	sw	$a3,0x30($sp)
-/*  f0eb498:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f0eb49c:	8ce20004 */ 	lw	$v0,0x4($a3)
-/*  f0eb4a0:	30580008 */ 	andi	$t8,$v0,0x8
-/*  f0eb4a4:	53000006 */ 	beqzl	$t8,.L0f0eb4c0
-/*  f0eb4a8:	30590004 */ 	andi	$t9,$v0,0x4
-/*  f0eb4ac:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f0eb4b0:	afa70030 */ 	sw	$a3,0x30($sp)
-/*  f0eb4b4:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f0eb4b8:	8ce20004 */ 	lw	$v0,0x4($a3)
-/*  f0eb4bc:	30590004 */ 	andi	$t9,$v0,0x4
-.L0f0eb4c0:
-/*  f0eb4c0:	53200006 */ 	beqzl	$t9,.L0f0eb4dc
-/*  f0eb4c4:	8ce20010 */ 	lw	$v0,0x10($a3)
-/*  f0eb4c8:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f0eb4cc:	8ce40010 */ 	lw	$a0,0x10($a3)
-/*  f0eb4d0:	10000009 */ 	b	.L0f0eb4f8
-/*  f0eb4d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0eb4d8:	8ce20010 */ 	lw	$v0,0x10($a3)
-.L0f0eb4dc:
-/*  f0eb4dc:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f0eb4e0:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f0eb4e4:	50400004 */ 	beqzl	$v0,.L0f0eb4f8
-/*  f0eb4e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0eb4ec:	0040f809 */ 	jalr	$v0
-/*  f0eb4f0:	27a60020 */ 	addiu	$a2,$sp,0x20
-.L0f0eb4f4:
-/*  f0eb4f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0eb4f8:
-/*  f0eb4f8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0eb4fc:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0eb500:	03e00008 */ 	jr	$ra
-/*  f0eb504:	00000000 */ 	nop
-);
+bool menuTickItemSelectable(struct menuitem *item, u8 *arg1, u32 arg2)
+{
+	if ((arg2 & 2) && arg1[2]) {
+		func0f0f09f0(3);
+
+		if (item->param1 & 0x00000008) {
+			menuPopDialog();
+		}
+
+		if (item->param1 & 0x00000004) {
+			menuPushDialog((struct menudialog *)item->handler);
+		} else if (item->handler) {
+			union handlerdata data;
+			item->handler(MENUOP_SET, item, &data);
+		}
+	}
+
+	return true;
+}
 
 const char var7f1adfbc[] = "";
 const char var7f1adfc0[] = "%d\n";

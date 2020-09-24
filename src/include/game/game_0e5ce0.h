@@ -24,7 +24,7 @@ Gfx *menuRenderItemModel(Gfx *gdl, struct menurenderthing *thing);
 Gfx *menuRenderItemLabel(Gfx *gdl, struct menurenderthing *thing);
 Gfx *menuRenderItemMeter(Gfx *gdl, struct menurenderthing *thing);
 Gfx *menuRenderItemSelectable(Gfx *gdl, struct menurenderthing *thing);
-bool menuTickItemSelectable(struct menuitem *item, void *arg1, u32 arg2);
+bool menuTickItemSelectable(struct menuitem *item, u8 *arg1, u32 arg2);
 Gfx *menuRenderItemSlider(Gfx *gdl);
 bool menuTickItemSlider(struct menuitem *item, void *arg1, void *arg2, u32 arg3, u16 *arg4);
 void func0f0ec220(u16 *arg0);
