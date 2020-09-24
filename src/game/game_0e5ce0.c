@@ -11912,22 +11912,13 @@ glabel func0f0ef2fc
 /*  f0ef35c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel menuInitItemPlayerStats
-/*  f0ef360:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0ef364:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0ef368:	a4a0000c */ 	sh	$zero,0xc($a1)
-/*  f0ef36c:	3c028007 */ 	lui	$v0,%hi(g_MpPlayerNum)
-/*  f0ef370:	8c421448 */ 	lw	$v0,%lo(g_MpPlayerNum)($v0)
-/*  f0ef374:	3c01800a */ 	lui	$at,%hi(var8009deb0)
-/*  f0ef378:	00220821 */ 	addu	$at,$at,$v0
-/*  f0ef37c:	0fc39e66 */ 	jal	func0f0e7998
-/*  f0ef380:	a022deb0 */ 	sb	$v0,%lo(var8009deb0)($at)
-/*  f0ef384:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ef388:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0ef38c:	03e00008 */ 	jr	$ra
-/*  f0ef390:	00000000 */ 	nop
-);
+void menuInitItemPlayerStats(struct menuitem *item, union menuitemtickdata *data)
+{
+	data->dropdown.unk0c = 0;
+	var8009deb0[g_MpPlayerNum] = g_MpPlayerNum;
+
+	func0f0e7998(item, data);
+}
 
 GLOBAL_ASM(
 glabel func0f0ef394

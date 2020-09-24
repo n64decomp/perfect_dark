@@ -3258,6 +3258,13 @@ struct menuitemtickdata_controller {
 	s8 unk04;
 };
 
+struct menuitemtickdata_dropdown {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u16 unk0c;
+};
+
 struct menuitemtickdata_marquee {
 	u16 totalmoved;
 	u16 sum;
@@ -3282,6 +3289,7 @@ struct menuitemtickdata_slider {
 
 union menuitemtickdata {
 	struct menuitemtickdata_controller controller;
+	struct menuitemtickdata_dropdown dropdown;
 	struct menuitemtickdata_marquee marquee;
 	struct menuitemtickdata_ranking ranking;
 	struct menuitemtickdata_scrollable scrollable;
