@@ -10221,89 +10221,58 @@ u32 var80071348 = 0x0000003b;
 u32 var8007134c = 0x0000004b;
 u32 var80071350 = 0xffffffff;
 
-GLOBAL_ASM(
-glabel menuTickItemMarquee
-/*  f0eda34:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f0eda38:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0eda3c:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0eda40:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f0eda44:	afa40058 */ 	sw	$a0,0x58($sp)
-/*  f0eda48:	0fc3c557 */ 	jal	menuResolveParam2Text
-/*  f0eda4c:	a7a0003e */ 	sh	$zero,0x3e($sp)
-/*  f0eda50:	8fae0058 */ 	lw	$t6,0x58($sp)
-/*  f0eda54:	afa20038 */ 	sw	$v0,0x38($sp)
-/*  f0eda58:	3c088008 */ 	lui	$t0,%hi(var8007fb0c)
-/*  f0eda5c:	8dcf0004 */ 	lw	$t7,0x4($t6)
-/*  f0eda60:	3c078008 */ 	lui	$a3,%hi(var8007fb10)
-/*  f0eda64:	97a6003e */ 	lhu	$a2,0x3e($sp)
-/*  f0eda68:	31f80200 */ 	andi	$t8,$t7,0x200
-/*  f0eda6c:	8d08fb0c */ 	lw	$t0,%lo(var8007fb0c)($t0)
-/*  f0eda70:	13000005 */ 	beqz	$t8,.L0f0eda88
-/*  f0eda74:	8ce7fb10 */ 	lw	$a3,%lo(var8007fb10)($a3)
-/*  f0eda78:	3c088008 */ 	lui	$t0,%hi(var8007fb04)
-/*  f0eda7c:	3c078008 */ 	lui	$a3,%hi(var8007fb08)
-/*  f0eda80:	8d08fb04 */ 	lw	$t0,%lo(var8007fb04)($t0)
-/*  f0eda84:	8ce7fb08 */ 	lw	$a3,%lo(var8007fb08)($a3)
-.L0f0eda88:
-/*  f0eda88:	14400003 */ 	bnez	$v0,.L0f0eda98
-/*  f0eda8c:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f0eda90:	1000002a */ 	b	.L0f0edb3c
-/*  f0eda94:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0eda98:
-/*  f0eda98:	90590000 */ 	lbu	$t9,0x0($v0)
-/*  f0eda9c:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0edaa0:	53200009 */ 	beqzl	$t9,.L0f0edac8
-/*  f0edaa4:	960a0002 */ 	lhu	$t2,0x2($s0)
-/*  f0edaa8:	90440000 */ 	lbu	$a0,0x0($v0)
-.L0f0edaac:
-/*  f0edaac:	00c43021 */ 	addu	$a2,$a2,$a0
-/*  f0edab0:	90640001 */ 	lbu	$a0,0x1($v1)
-/*  f0edab4:	30c9ffff */ 	andi	$t1,$a2,0xffff
-/*  f0edab8:	01203025 */ 	or	$a2,$t1,$zero
-/*  f0edabc:	1480fffb */ 	bnez	$a0,.L0f0edaac
-/*  f0edac0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0edac4:	960a0002 */ 	lhu	$t2,0x2($s0)
-.L0f0edac8:
-/*  f0edac8:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f0edacc:	50ca0004 */ 	beql	$a2,$t2,.L0f0edae0
-/*  f0edad0:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f0edad4:	a6000000 */ 	sh	$zero,0x0($s0)
-/*  f0edad8:	a6060002 */ 	sh	$a2,0x2($s0)
-/*  f0edadc:	8fa60038 */ 	lw	$a2,0x38($sp)
-.L0f0edae0:
-/*  f0edae0:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0edae4:	0fc55cbe */ 	jal	textMeasure
-/*  f0edae8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0edaec:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0edaf0:	8c429fc0 */ 	lw	$v0,%lo(g_Vars)($v0)
-/*  f0edaf4:	960b0004 */ 	lhu	$t3,0x4($s0)
-/*  f0edaf8:	8fac004c */ 	lw	$t4,0x4c($sp)
-/*  f0edafc:	016c1821 */ 	addu	$v1,$t3,$t4
-/*  f0edb00:	04410003 */ 	bgez	$v0,.L0f0edb10
-/*  f0edb04:	00026843 */ 	sra	$t5,$v0,0x1
-/*  f0edb08:	24410001 */ 	addiu	$at,$v0,0x1
-/*  f0edb0c:	00016843 */ 	sra	$t5,$at,0x1
-.L0f0edb10:
-/*  f0edb10:	1da00002 */ 	bgtz	$t5,.L0f0edb1c
-/*  f0edb14:	01a01025 */ 	or	$v0,$t5,$zero
-/*  f0edb18:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0edb1c:
-/*  f0edb1c:	960e0000 */ 	lhu	$t6,0x0($s0)
-/*  f0edb20:	01c27821 */ 	addu	$t7,$t6,$v0
-/*  f0edb24:	31f8ffff */ 	andi	$t8,$t7,0xffff
-/*  f0edb28:	0078082a */ 	slt	$at,$v1,$t8
-/*  f0edb2c:	10200002 */ 	beqz	$at,.L0f0edb38
-/*  f0edb30:	a60f0000 */ 	sh	$t7,0x0($s0)
-/*  f0edb34:	a6000000 */ 	sh	$zero,0x0($s0)
-.L0f0edb38:
-/*  f0edb38:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0edb3c:
-/*  f0edb3c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0edb40:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0edb44:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*  f0edb48:	03e00008 */ 	jr	$ra
-/*  f0edb4c:	00000000 */ 	nop
-);
+bool menuTickItemMarquee(struct menuitem *item, u16 *arg1)
+{
+	s32 i;
+	s32 textheight;
+	s32 textwidth;
+	u32 font1;
+	u32 font2;
+	s32 increment;
+	u16 sum = 0;
+	char *text = menuResolveParam2Text(item);
+	s32 value;
+
+	font2 = var8007fb0c;
+	font1 = var8007fb10;
+
+	if (item->param1 & 0x00000200) {
+		font2 = var8007fb04;
+		font1 = var8007fb08;
+	}
+
+	if (!text) {
+		return true;
+	}
+
+	i = 0;
+
+	while (text[i] != '\0') {
+		sum += text[i];
+		i++;
+	}
+
+	if (sum != arg1[1]) {
+		arg1[0] = 0;
+		arg1[1] = sum;
+	}
+
+	textMeasure(&textheight, &textwidth, text, font1, font2, 0);
+	value = arg1[2] + textwidth;
+	increment = g_Vars.diffframe60 / 2;
+
+	if (increment <= 0) {
+		increment = 1;
+	}
+
+	arg1[0] += increment;
+
+	if (value < arg1[0]) {
+		arg1[0] = 0;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f0edb50
