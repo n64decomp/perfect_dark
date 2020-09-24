@@ -6,13 +6,13 @@
 u32 func0f0e5d2c(void);
 u32 func0f0e5ef8(void);
 u32 func0f0e6038(void);
-u32 func0f0e6298(void);
+Gfx *func0f0e6298(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2);
 Gfx *menuRenderItemCustom(Gfx *gdl);
 bool menuTickItemCustom(struct menuitem *item, void *arg1, u32 arg2, u16 *arg3);
 void func0f0e7998(struct menuitem *item, u16 *arg1);
 Gfx *menuRenderItemDropdown(Gfx *gdl);
 bool menuTickItemDropdown(struct menuitem *item, void *arg1, void *arg2, u32 arg3, u16 *arg4);
-u32 func0f0e8290(void);
+Gfx *func0f0e8290(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7);
 u32 func0f0e855c(void);
 Gfx *menuRenderItemKeyboard(Gfx *gdl);
 bool menuTickItemKeyboard(struct menuitem *item, void *arg1, u32 arg2, u16 *arg3);
@@ -45,7 +45,7 @@ bool menuTickItemRanking(void *arg1, u32 arg2, u16 *arg3);
 void func0f0ee640(u16 *arg0);
 Gfx *menuRenderItemPlayerStats(Gfx *gdl);
 bool menuTickItemPlayerStats(struct menuitem *item, void *arg1, void *arg2, u32 arg3, u16 *arg4);
-u32 func0f0ef2fc(void);
+Gfx *func0f0ef2fc(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7);
 void func0f0ef360(struct menuitem *item, u16 *arg1);
 u32 func0f0ef394(void);
 Gfx *menuRenderControllerTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32 alpha);
@@ -58,6 +58,6 @@ void func0f0f057c(u16 *arg0);
 Gfx *menuRenderItem(Gfx *gdl, struct menurenderthing *thing);
 bool menuTickItem(struct menuitem *item, void *arg1, void *arg2, u32 arg3, u16 *arg4);
 void func0f0f0860(struct menuitem *ite, u16 *arg1);
-u32 func0f0f0918(void);
+Gfx *func0f0f0918(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7);
 
 #endif
