@@ -1782,7 +1782,7 @@ glabel menuRenderItemCustom
 );
 
 GLOBAL_ASM(
-glabel func0f0e75a0
+glabel menuTickItemCustom
 .late_rodata
 glabel var7f1b1e58
 .word 0x3eb33333
@@ -2596,7 +2596,7 @@ glabel menuRenderItemDropdown
 );
 
 GLOBAL_ASM(
-glabel func0f0e8138
+glabel menuTickItemDropdown
 /*  f0e8138:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0e813c:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f0e8140:	afb00014 */ 	sw	$s0,0x14($sp)
@@ -2618,7 +2618,7 @@ glabel func0f0e8138
 /*  f0e8180:	00e03025 */ 	or	$a2,$a3,$zero
 /*  f0e8184:	54880013 */ 	bnel	$a0,$t0,.L0f0e81d4
 /*  f0e8188:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*  f0e818c:	0fc39d68 */ 	jal	func0f0e75a0
+/*  f0e818c:	0fc39d68 */ 	jal	menuTickItemCustom
 /*  f0e8190:	8fa70048 */ 	lw	$a3,0x48($sp)
 /*  f0e8194:	3c048007 */ 	lui	$a0,%hi(g_MpPlayerNum)
 /*  f0e8198:	0fc62ff6 */ 	jal	mpIsPlayerLockedOut
@@ -3744,7 +3744,7 @@ glabel menuRenderItemKeyboard
 );
 
 GLOBAL_ASM(
-glabel func0f0e91d0
+glabel menuTickItemKeyboard
 /*  f0e91d0:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f0e91d4:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f0e91d8:	30ce0002 */ 	andi	$t6,$a2,0x2
@@ -5683,7 +5683,7 @@ const char var7f1adfb8[] = "";
 //}
 
 GLOBAL_ASM(
-glabel func0f0eb46c
+glabel menuTickItemSelectable
 /*  f0eb46c:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f0eb470:	30ce0002 */ 	andi	$t6,$a2,0x2
 /*  f0eb474:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -6401,7 +6401,7 @@ glabel menuRenderItemSlider
 );
 
 GLOBAL_ASM(
-glabel func0f0ebec8
+glabel menuTickItemSlider
 /*  f0ebec8:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f0ebecc:	30ee0002 */ 	andi	$t6,$a3,0x2
 /*  f0ebed0:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -6690,7 +6690,7 @@ Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurenderthing *thing)
 }
 
 GLOBAL_ASM(
-glabel func0f0ec4e4
+glabel menuTickItemCarousel
 /*  f0ec4e4:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f0ec4e8:	afb50028 */ 	sw	$s5,0x28($sp)
 /*  f0ec4ec:	afb30020 */ 	sw	$s3,0x20($sp)
@@ -7300,7 +7300,7 @@ glabel menuRenderItemCheckbox
 //}
 
 GLOBAL_ASM(
-glabel func0f0ecbfc
+glabel menuTickItemCheckbox
 /*  f0ecbfc:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f0ecc00:	30ce0002 */ 	andi	$t6,$a2,0x2
 /*  f0ecc04:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -9501,7 +9501,7 @@ const char var7f1b1e50[] = "%d\n";
 const char var7f1b1e54[] = "%d\n";
 
 GLOBAL_ASM(
-glabel func0f0ed264
+glabel menuTickItemScrollable
 /*  f0ed264:	27bde068 */ 	addiu	$sp,$sp,-8088
 /*  f0ed268:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f0ed26c:	8fb01fa8 */ 	lw	$s0,0x1fa8($sp)
@@ -10275,7 +10275,7 @@ u32 var8007134c = 0x0000004b;
 u32 var80071350 = 0xffffffff;
 
 GLOBAL_ASM(
-glabel func0f0eda34
+glabel menuTickItemMarquee
 /*  f0eda34:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f0eda38:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f0eda3c:	afb00020 */ 	sw	$s0,0x20($sp)
@@ -11052,7 +11052,7 @@ glabel menuRenderItemRanking
 );
 
 GLOBAL_ASM(
-glabel func0f0ee574
+glabel menuTickItemRanking
 /*  f0ee574:	30ae0002 */ 	andi	$t6,$a1,0x2
 /*  f0ee578:	11c0002f */ 	beqz	$t6,.L0f0ee638
 /*  f0ee57c:	3c0141a0 */ 	lui	$at,0x41a0
@@ -11901,7 +11901,7 @@ glabel menuRenderItemPlayerStats
 );
 
 GLOBAL_ASM(
-glabel func0f0ef200
+glabel menuTickItemPlayerStats
 /*  f0ef200:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0ef204:	30ee0002 */ 	andi	$t6,$a3,0x2
 /*  f0ef208:	11c00035 */ 	beqz	$t6,.L0f0ef2e0
@@ -11965,7 +11965,7 @@ glabel func0f0ef200
 .L0f0ef2e0:
 /*  f0ef2e0:	8fa20030 */ 	lw	$v0,0x30($sp)
 .L0f0ef2e4:
-/*  f0ef2e4:	0fc3a04e */ 	jal	func0f0e8138
+/*  f0ef2e4:	0fc3a04e */ 	jal	menuTickItemDropdown
 /*  f0ef2e8:	afa20010 */ 	sw	$v0,0x10($sp)
 /*  f0ef2ec:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f0ef2f0:	27bd0020 */ 	addiu	$sp,$sp,0x20
@@ -12795,144 +12795,27 @@ Gfx *menuRenderItem(Gfx *gdl, struct menurenderthing *thing)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f0f0704
-.late_rodata
-glabel var7f1b1ef4
-.word func0f0f0704+0x40 # f0f0744
-glabel var7f1b1ef8
-.word func0f0f0704+0x144 # f0f0848
-glabel var7f1b1efc
-.word func0f0f0704+0x58 # f0f075c
-glabel var7f1b1f00
-.word func0f0f0704+0x9c # f0f07a0
-glabel var7f1b1f04
-.word func0f0f0704+0x144 # f0f0848
-glabel var7f1b1f08
-.word func0f0f0704+0x144 # f0f0848
-glabel var7f1b1f0c
-.word func0f0f0704+0x6c # f0f0770
-glabel var7f1b1f10
-.word func0f0f0704+0x88 # f0f078c
-glabel var7f1b1f14
-.word func0f0f0704+0x144 # f0f0848
-glabel var7f1b1f18
-.word func0f0f0704+0x144 # f0f0848
-glabel var7f1b1f1c
-.word func0f0f0704+0xe0 # f0f07e4
-glabel var7f1b1f20
-.word func0f0f0704+0xfc # f0f0800
-glabel var7f1b1f24
-.word func0f0f0704+0xc8 # f0f07cc
-glabel var7f1b1f28
-.word func0f0f0704+0x128 # f0f082c
-glabel var7f1b1f2c
-.word func0f0f0704+0x144 # f0f0848
-glabel var7f1b1f30
-.word func0f0f0704+0x114 # f0f0818
-glabel var7f1b1f34
-.word func0f0f0704+0x144 # f0f0848
-glabel var7f1b1f38
-.word func0f0f0704+0x144 # f0f0848
-glabel var7f1b1f3c
-.word func0f0f0704+0x144 # f0f0848
-glabel var7f1b1f40
-.word func0f0f0704+0x144 # f0f0848
-glabel var7f1b1f44
-.word func0f0f0704+0x144 # f0f0848
-glabel var7f1b1f48
-.word func0f0f0704+0xb8 # f0f07bc
-.text
-/*  f0f0704:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0f0708:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0f070c:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f0f0710:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f0f0714:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f0f0718:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f0f071c:	00e08825 */ 	or	$s1,$a3,$zero
-/*  f0f0720:	25cffffe */ 	addiu	$t7,$t6,-2
-/*  f0f0724:	2de10016 */ 	sltiu	$at,$t7,0x16
-/*  f0f0728:	10200047 */ 	beqz	$at,.L0f0f0848
-/*  f0f072c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f0730:	3c017f1b */ 	lui	$at,%hi(var7f1b1ef4)
-/*  f0f0734:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0f0738:	8c2f1ef4 */ 	lw	$t7,%lo(var7f1b1ef4)($at)
-/*  f0f073c:	01e00008 */ 	jr	$t7
-/*  f0f0740:	00000000 */ 	nop
-/*  f0f0744:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0f0748:	02203025 */ 	or	$a2,$s1,$zero
-/*  f0f074c:	0fc39d68 */ 	jal	func0f0e75a0
-/*  f0f0750:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f0f0754:	1000003e */ 	b	.L0f0f0850
-/*  f0f0758:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0f075c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0f0760:	0fc3ad1b */ 	jal	func0f0eb46c
-/*  f0f0764:	02203025 */ 	or	$a2,$s1,$zero
-/*  f0f0768:	10000039 */ 	b	.L0f0f0850
-/*  f0f076c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0f0770:	8fb80038 */ 	lw	$t8,0x38($sp)
-/*  f0f0774:	02003025 */ 	or	$a2,$s0,$zero
-/*  f0f0778:	02203825 */ 	or	$a3,$s1,$zero
-/*  f0f077c:	0fc3afb2 */ 	jal	func0f0ebec8
-/*  f0f0780:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f0f0784:	10000032 */ 	b	.L0f0f0850
-/*  f0f0788:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0f078c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0f0790:	0fc3b2ff */ 	jal	func0f0ecbfc
-/*  f0f0794:	02203025 */ 	or	$a2,$s1,$zero
-/*  f0f0798:	1000002d */ 	b	.L0f0f0850
-/*  f0f079c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0f07a0:	8fb90038 */ 	lw	$t9,0x38($sp)
-/*  f0f07a4:	02003025 */ 	or	$a2,$s0,$zero
-/*  f0f07a8:	02203825 */ 	or	$a3,$s1,$zero
-/*  f0f07ac:	0fc3b499 */ 	jal	func0f0ed264
-/*  f0f07b0:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f0f07b4:	10000026 */ 	b	.L0f0f0850
-/*  f0f07b8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0f07bc:	0fc3b68d */ 	jal	func0f0eda34
-/*  f0f07c0:	8fa50038 */ 	lw	$a1,0x38($sp)
-/*  f0f07c4:	10000022 */ 	b	.L0f0f0850
-/*  f0f07c8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0f07cc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0f07d0:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0f07d4:	0fc3b95d */ 	jal	func0f0ee574
-/*  f0f07d8:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f0f07dc:	1000001c */ 	b	.L0f0f0850
-/*  f0f07e0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0f07e4:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*  f0f07e8:	02003025 */ 	or	$a2,$s0,$zero
-/*  f0f07ec:	02203825 */ 	or	$a3,$s1,$zero
-/*  f0f07f0:	0fc3a04e */ 	jal	func0f0e8138
-/*  f0f07f4:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0f07f8:	10000015 */ 	b	.L0f0f0850
-/*  f0f07fc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0f0800:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0f0804:	02203025 */ 	or	$a2,$s1,$zero
-/*  f0f0808:	0fc3a474 */ 	jal	func0f0e91d0
-/*  f0f080c:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f0f0810:	1000000f */ 	b	.L0f0f0850
-/*  f0f0814:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0f0818:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0f081c:	0fc3b139 */ 	jal	func0f0ec4e4
-/*  f0f0820:	02203025 */ 	or	$a2,$s1,$zero
-/*  f0f0824:	1000000a */ 	b	.L0f0f0850
-/*  f0f0828:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0f082c:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*  f0f0830:	02003025 */ 	or	$a2,$s0,$zero
-/*  f0f0834:	02203825 */ 	or	$a3,$s1,$zero
-/*  f0f0838:	0fc3bc80 */ 	jal	func0f0ef200
-/*  f0f083c:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0f0840:	10000003 */ 	b	.L0f0f0850
-/*  f0f0844:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0f0848:
-/*  f0f0848:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0f084c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0f0850:
-/*  f0f0850:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f0f0854:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f0f0858:	03e00008 */ 	jr	$ra
-/*  f0f085c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+/**
+ * Return true if default up/down/left/right/back behaviour should be used.
+ */
+bool menuTickItem(struct menuitem *item, void *arg1, void *arg2, u32 arg3, u16 *arg4)
+{
+	switch (item->type) {
+	case MENUITEMTYPE_CUSTOM:      return menuTickItemCustom(item, arg2, arg3, arg4);
+	case MENUITEMTYPE_SELECTABLE:  return menuTickItemSelectable(item, arg2, arg3);
+	case MENUITEMTYPE_SLIDER:      return menuTickItemSlider(item, arg1, arg2, arg3, arg4);
+	case MENUITEMTYPE_CHECKBOX:    return menuTickItemCheckbox(item, arg2, arg3);
+	case MENUITEMTYPE_SCROLLABLE:  return menuTickItemScrollable(item, arg1, arg2, arg3, arg4);
+	case MENUITEMTYPE_MARQUEE:     return menuTickItemMarquee(item, arg4);
+	case MENUITEMTYPE_RANKING:     return menuTickItemRanking(arg2, arg3, arg4);
+	case MENUITEMTYPE_DROPDOWN:    return menuTickItemDropdown(item, arg1, arg2, arg3, arg4);
+	case MENUITEMTYPE_KEYBOARD:    return menuTickItemKeyboard(item, arg2, arg3, arg4);
+	case MENUITEMTYPE_CAROUSEL:    return menuTickItemCarousel(item, arg2, arg3);
+	case MENUITEMTYPE_PLAYERSTATS: return menuTickItemPlayerStats(item, arg1, arg2, arg3, arg4);
+	}
+
+	return true;
+}
 
 void func0f0f0860(struct menuitem *item, u16 *arg1)
 {

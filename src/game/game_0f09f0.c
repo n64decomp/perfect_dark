@@ -10436,14 +10436,14 @@ glabel var7f1b2a64
 /*  f0fa044:	03c02825 */ 	or	$a1,$s8,$zero
 /*  f0fa048:	02203025 */ 	or	$a2,$s1,$zero
 /*  f0fa04c:	36070004 */ 	ori	$a3,$s0,0x4
-/*  f0fa050:	0fc3c1c1 */ 	jal	func0f0f0704
+/*  f0fa050:	0fc3c1c1 */ 	jal	menuTickItem
 /*  f0fa054:	afb30010 */ 	sw	$s3,0x10($sp)
 /*  f0fa058:	1000000c */ 	b	.L0f0fa08c
 /*  f0fa05c:	afa2011c */ 	sw	$v0,0x11c($sp)
 .L0f0fa060:
 /*  f0fa060:	02203025 */ 	or	$a2,$s1,$zero
 /*  f0fa064:	02003825 */ 	or	$a3,$s0,$zero
-/*  f0fa068:	0fc3c1c1 */ 	jal	func0f0f0704
+/*  f0fa068:	0fc3c1c1 */ 	jal	menuTickItem
 /*  f0fa06c:	afb30010 */ 	sw	$s3,0x10($sp)
 /*  f0fa070:	10000006 */ 	b	.L0f0fa08c
 /*  f0fa074:	afa2011c */ 	sw	$v0,0x11c($sp)
@@ -10452,7 +10452,7 @@ glabel var7f1b2a64
 .L0f0fa07c:
 /*  f0fa07c:	02203025 */ 	or	$a2,$s1,$zero
 /*  f0fa080:	02803825 */ 	or	$a3,$s4,$zero
-/*  f0fa084:	0fc3c1c1 */ 	jal	func0f0f0704
+/*  f0fa084:	0fc3c1c1 */ 	jal	menuTickItem
 /*  f0fa088:	afb30010 */ 	sw	$s3,0x10($sp)
 .L0f0fa08c:
 /*  f0fa08c:	92e90668 */ 	lbu	$t1,0x668($s7)
