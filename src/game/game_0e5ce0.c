@@ -2000,7 +2000,7 @@ glabel var7f1b1e5c
 /*  f0e789c:	02202825 */ 	or	$a1,$s1,$zero
 /*  f0e78a0:	0320f809 */ 	jalr	$t9
 /*  f0e78a4:	27a60054 */ 	addiu	$a2,$sp,0x54
-/*  f0e78a8:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0e78a8:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0e78ac:	2404000a */ 	addiu	$a0,$zero,0xa
 /*  f0e78b0:	8fa8006c */ 	lw	$t0,0x6c($sp)
 .L0f0e78b4:
@@ -2021,7 +2021,7 @@ glabel var7f1b1e5c
 /*  f0e78e8:	02202825 */ 	or	$a1,$s1,$zero
 /*  f0e78ec:	0320f809 */ 	jalr	$t9
 /*  f0e78f0:	27a60054 */ 	addiu	$a2,$sp,0x54
-/*  f0e78f4:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0e78f4:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0e78f8:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f0e78fc:	8fab0058 */ 	lw	$t3,0x58($sp)
 /*  f0e7900:	24010002 */ 	addiu	$at,$zero,0x2
@@ -2647,7 +2647,7 @@ glabel menuTickItemDropdown
 /*  f0e81ec:	ae00000c */ 	sw	$zero,0xc($s0)
 /*  f0e81f0:	8fa80040 */ 	lw	$t0,0x40($sp)
 /*  f0e81f4:	24040009 */ 	addiu	$a0,$zero,0x9
-/*  f0e81f8:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0e81f8:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0e81fc:	a1000003 */ 	sb	$zero,0x3($t0)
 /*  f0e8200:	8fae0040 */ 	lw	$t6,0x40($sp)
 .L0f0e8204:
@@ -2679,7 +2679,7 @@ glabel menuTickItemDropdown
 /*  f0e8264:	018d0019 */ 	multu	$t4,$t5
 /*  f0e8268:	00007812 */ 	mflo	$t7
 /*  f0e826c:	a70f000e */ 	sh	$t7,0xe($t8)
-/*  f0e8270:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0e8270:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0e8274:	00000000 */ 	nop
 .L0f0e8278:
 /*  f0e8278:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -3863,7 +3863,7 @@ glabel menuTickItemKeyboard
 /*  f0e9364:	50cf0008 */ 	beql	$a2,$t7,.L0f0e9388
 /*  f0e9368:	8fb8007c */ 	lw	$t8,0x7c($sp)
 .L0f0e936c:
-/*  f0e936c:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0e936c:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0e9370:	2404000c */ 	addiu	$a0,$zero,0xc
 /*  f0e9374:	24070004 */ 	addiu	$a3,$zero,0x4
 /*  f0e9378:	24090002 */ 	addiu	$t1,$zero,0x2
@@ -3892,7 +3892,7 @@ glabel menuTickItemKeyboard
 /*  f0e93cc:	240a0005 */ 	addiu	$t2,$zero,0x5
 /*  f0e93d0:	14400016 */ 	bnez	$v0,.L0f0e942c
 /*  f0e93d4:	240b0008 */ 	addiu	$t3,$zero,0x8
-/*  f0e93d8:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0e93d8:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0e93dc:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f0e93e0:	8fa50078 */ 	lw	$a1,0x78($sp)
 /*  f0e93e4:	afb00064 */ 	sw	$s0,0x64($sp)
@@ -3990,12 +3990,12 @@ glabel menuTickItemKeyboard
 /*  f0e9530:	27a60064 */ 	addiu	$a2,$sp,0x64
 /*  f0e9534:	0320f809 */ 	jalr	$t9
 /*  f0e9538:	00000000 */ 	nop
-/*  f0e953c:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0e953c:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0e9540:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f0e9544:	10000004 */ 	b	.L0f0e9558
 /*  f0e9548:	8fae007c */ 	lw	$t6,0x7c($sp)
 .L0f0e954c:
-/*  f0e954c:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0e954c:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0e9550:	2404000d */ 	addiu	$a0,$zero,0xd
 /*  f0e9554:	8fae007c */ 	lw	$t6,0x7c($sp)
 .L0f0e9558:
@@ -4062,7 +4062,7 @@ glabel menuTickItemKeyboard
 .L0f0e9634:
 /*  f0e9634:	57200004 */ 	bnezl	$t9,.L0f0e9648
 /*  f0e9638:	8fae0060 */ 	lw	$t6,0x60($sp)
-/*  f0e963c:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0e963c:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0e9640:	24040002 */ 	addiu	$a0,$zero,0x2
 .L0f0e9644:
 /*  f0e9644:	8fae0060 */ 	lw	$t6,0x60($sp)
@@ -4075,7 +4075,7 @@ glabel menuTickItemKeyboard
 /*  f0e965c:	51e0000f */ 	beqzl	$t7,.L0f0e969c
 /*  f0e9660:	8fb90034 */ 	lw	$t9,0x34($sp)
 /*  f0e9664:	afb8003c */ 	sw	$t8,0x3c($sp)
-/*  f0e9668:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0e9668:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0e966c:	afa00040 */ 	sw	$zero,0x40($sp)
 /*  f0e9670:	8fac003c */ 	lw	$t4,0x3c($sp)
 /*  f0e9674:	8fa30040 */ 	lw	$v1,0x40($sp)
@@ -4124,12 +4124,12 @@ glabel menuTickItemKeyboard
 /*  f0e970c:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f0e9710:	11c00005 */ 	beqz	$t6,.L0f0e9728
 /*  f0e9714:	00000000 */ 	nop
-/*  f0e9718:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0e9718:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0e971c:	24040008 */ 	addiu	$a0,$zero,0x8
 /*  f0e9720:	10000004 */ 	b	.L0f0e9734
 /*  f0e9724:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f0e9728:
-/*  f0e9728:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0e9728:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0e972c:	24040009 */ 	addiu	$a0,$zero,0x9
 /*  f0e9730:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f0e9734:
@@ -4140,7 +4140,7 @@ glabel menuTickItemKeyboard
 );
 
 GLOBAL_ASM(
-glabel func0f0e9744
+glabel menuInitItemKeyboard
 /*  f0e9744:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0e9748:	afa40038 */ 	sw	$a0,0x38($sp)
 /*  f0e974c:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -5028,7 +5028,6 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurenderthing *thing)
 	colour2 = colour1;
 
 	if (thing->item->param1 & 0x01000000) {
-		// 9a0
 		union handlerdata data;
 		data.label.colour2 = colour2;
 		data.label.colour1 = colour1;
@@ -5685,7 +5684,7 @@ const char var7f1adfb8[] = "";
 bool menuTickItemSelectable(struct menuitem *item, u8 *arg1, u32 arg2)
 {
 	if ((arg2 & 2) && arg1[2]) {
-		func0f0f09f0(3);
+		menuPlaySound(3);
 
 		if (item->param1 & 0x00000008) {
 			menuPopDialog();
@@ -6609,9 +6608,9 @@ glabel menuTickItemSlider
 /*  f0ec21c:	00000000 */ 	nop
 );
 
-void func0f0ec220(u16 *arg0)
+void menuInitItemSlider(union menuitemtickdata *data)
 {
-	*arg0 = 0;
+	data->slider.unk00 = 0;
 }
 
 Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurenderthing *thing)
@@ -7279,10 +7278,10 @@ bool menuTickItemCheckbox(struct menuitem *item, u8 *arg1, u32 arg2)
 	if ((arg2 & 2) && arg1[2]) {
 		if (item->handler && item->handler(MENUOP_GET, item, &data) == 1) {
 			data.checkbox.value = 0;
-			func0f0f09f0(9);
+			menuPlaySound(9);
 		} else {
 			data.checkbox.value = 1;
-			func0f0f09f0(8);
+			menuPlaySound(8);
 		}
 
 		if (item->handler) {
@@ -9639,7 +9638,7 @@ glabel menuTickItemScrollable
 );
 
 GLOBAL_ASM(
-glabel func0f0ed514
+glabel menuInitItemScrollable
 /*  f0ed514:	240effff */ 	addiu	$t6,$zero,-1
 /*  f0ed518:	240ffff6 */ 	addiu	$t7,$zero,-10
 /*  f0ed51c:	a48e0006 */ 	sh	$t6,0x6($a0)
@@ -10221,7 +10220,7 @@ u32 var80071348 = 0x0000003b;
 u32 var8007134c = 0x0000004b;
 u32 var80071350 = 0xffffffff;
 
-bool menuTickItemMarquee(struct menuitem *item, u16 *arg1)
+bool menuTickItemMarquee(struct menuitem *item, union menuitemtickdata *data)
 {
 	s32 i;
 	s32 textheight;
@@ -10231,7 +10230,7 @@ bool menuTickItemMarquee(struct menuitem *item, u16 *arg1)
 	s32 increment;
 	u16 sum = 0;
 	char *text = menuResolveParam2Text(item);
-	s32 value;
+	s32 limit;
 
 	font2 = var8007fb0c;
 	font1 = var8007fb10;
@@ -10252,30 +10251,30 @@ bool menuTickItemMarquee(struct menuitem *item, u16 *arg1)
 		i++;
 	}
 
-	if (sum != arg1[1]) {
-		arg1[0] = 0;
-		arg1[1] = sum;
+	if (data->marquee.sum != sum) {
+		data->marquee.totalmoved = 0;
+		data->marquee.sum = sum;
 	}
 
 	textMeasure(&textheight, &textwidth, text, font1, font2, 0);
-	value = arg1[2] + textwidth;
+	limit = data->marquee.unk04 + textwidth;
 	increment = g_Vars.diffframe60 / 2;
 
 	if (increment <= 0) {
 		increment = 1;
 	}
 
-	arg1[0] += increment;
+	data->marquee.totalmoved += increment;
 
-	if (value < arg1[0]) {
-		arg1[0] = 0;
+	if (data->marquee.totalmoved > limit) {
+		data->marquee.totalmoved = 0;
 	}
 
 	return true;
 }
 
 GLOBAL_ASM(
-glabel func0f0edb50
+glabel menuInitItemMarquee
 /*  f0edb50:	240e0032 */ 	addiu	$t6,$zero,0x32
 /*  f0edb54:	a4800000 */ 	sh	$zero,0x0($a0)
 /*  f0edb58:	a48e0004 */ 	sh	$t6,0x4($a0)
@@ -11027,9 +11026,9 @@ glabel menuTickItemRanking
 /*  f0ee63c:	24020001 */ 	addiu	$v0,$zero,0x1
 );
 
-void func0f0ee640(u16 *arg0)
+void menuInitItemRanking(union menuitemtickdata *data)
 {
-	*arg0 = 0;
+	data->ranking.unk00 = 0;
 }
 
 GLOBAL_ASM(
@@ -11919,7 +11918,7 @@ glabel func0f0ef2fc
 );
 
 GLOBAL_ASM(
-glabel func0f0ef360
+glabel menuInitItemPlayerStats
 /*  f0ef360:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0ef364:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0ef368:	a4a0000c */ 	sh	$zero,0xc($a1)
@@ -12674,7 +12673,7 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurenderthing *thing)
 }
 
 GLOBAL_ASM(
-glabel func0f0f057c
+glabel menuInitItemController
 /*  f0f057c:	240200ff */ 	addiu	$v0,$zero,0xff
 /*  f0f0580:	240effff */ 	addiu	$t6,$zero,-1
 /*  f0f0584:	a0800000 */ 	sb	$zero,0x0($a0)
@@ -12714,52 +12713,52 @@ Gfx *menuRenderItem(Gfx *gdl, struct menurenderthing *thing)
 /**
  * Return true if default up/down/left/right/back behaviour should be used.
  */
-bool menuTickItem(struct menuitem *item, void *arg1, void *arg2, u32 arg3, u16 *arg4)
+bool menuTickItem(struct menuitem *item, void *arg1, void *arg2, u32 arg3, union menuitemtickdata *data)
 {
 	switch (item->type) {
-	case MENUITEMTYPE_CUSTOM:      return menuTickItemCustom(item, arg2, arg3, arg4);
+	case MENUITEMTYPE_CUSTOM:      return menuTickItemCustom(item, arg2, arg3, data);
 	case MENUITEMTYPE_SELECTABLE:  return menuTickItemSelectable(item, arg2, arg3);
-	case MENUITEMTYPE_SLIDER:      return menuTickItemSlider(item, arg1, arg2, arg3, arg4);
+	case MENUITEMTYPE_SLIDER:      return menuTickItemSlider(item, arg1, arg2, arg3, data);
 	case MENUITEMTYPE_CHECKBOX:    return menuTickItemCheckbox(item, arg2, arg3);
-	case MENUITEMTYPE_SCROLLABLE:  return menuTickItemScrollable(item, arg1, arg2, arg3, arg4);
-	case MENUITEMTYPE_MARQUEE:     return menuTickItemMarquee(item, arg4);
-	case MENUITEMTYPE_RANKING:     return menuTickItemRanking(arg2, arg3, arg4);
-	case MENUITEMTYPE_DROPDOWN:    return menuTickItemDropdown(item, arg1, arg2, arg3, arg4);
-	case MENUITEMTYPE_KEYBOARD:    return menuTickItemKeyboard(item, arg2, arg3, arg4);
+	case MENUITEMTYPE_SCROLLABLE:  return menuTickItemScrollable(item, arg1, arg2, arg3, data);
+	case MENUITEMTYPE_MARQUEE:     return menuTickItemMarquee(item, data);
+	case MENUITEMTYPE_RANKING:     return menuTickItemRanking(arg2, arg3, data);
+	case MENUITEMTYPE_DROPDOWN:    return menuTickItemDropdown(item, arg1, arg2, arg3, data);
+	case MENUITEMTYPE_KEYBOARD:    return menuTickItemKeyboard(item, arg2, arg3, data);
 	case MENUITEMTYPE_CAROUSEL:    return menuTickItemCarousel(item, arg2, arg3);
-	case MENUITEMTYPE_PLAYERSTATS: return menuTickItemPlayerStats(item, arg1, arg2, arg3, arg4);
+	case MENUITEMTYPE_PLAYERSTATS: return menuTickItemPlayerStats(item, arg1, arg2, arg3, data);
 	}
 
 	return true;
 }
 
-void func0f0f0860(struct menuitem *item, u16 *arg1)
+void menuInitItem(struct menuitem *item, union menuitemtickdata *data)
 {
 	switch (item->type) {
 	case MENUITEMTYPE_CUSTOM:
 	case MENUITEMTYPE_DROPDOWN:
-		func0f0e7998(item, arg1);
+		func0f0e7998(item, data);
 		break;
 	case MENUITEMTYPE_SCROLLABLE:
-		func0f0ed514(arg1);
+		menuInitItemScrollable(data);
 		break;
 	case MENUITEMTYPE_MARQUEE:
-		func0f0edb50(arg1);
+		menuInitItemMarquee(data);
 		break;
 	case MENUITEMTYPE_RANKING:
-		func0f0ee640(arg1);
+		menuInitItemRanking(data);
 		break;
 	case MENUITEMTYPE_SLIDER:
-		func0f0ec220(arg1);
+		menuInitItemSlider(data);
 		break;
 	case MENUITEMTYPE_PLAYERSTATS:
-		func0f0ef360(item, arg1);
+		menuInitItemPlayerStats(item, data);
 		break;
 	case MENUITEMTYPE_KEYBOARD:
-		func0f0e9744(item, arg1);
+		menuInitItemKeyboard(item, data);
 		break;
 	case MENUITEMTYPE_CONTROLLER:
-		func0f0f057c(arg1);
+		menuInitItemController(data);
 		break;
 	}
 }

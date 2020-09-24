@@ -7,7 +7,7 @@ extern const struct menucolourpalette g_MenuColourPalettes[];
 extern const struct menucolourpalette g_MenuColourPalettes2[];
 extern const struct menucolourpalette g_MenuColourPalettes3[];
 
-void func0f0f09f0(s32 arg0);
+void menuPlaySound(s32 arg0);
 bool menuIsSoloMissionOrMp(void);
 bool currentPlayerIsMenuOpenInSoloOrMp(void);
 bool func0f0f0c68(void);

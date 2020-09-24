@@ -88,36 +88,36 @@ char *g_StringPointer2 = &g_CheatMarqueeString[125];
 s32 g_MpPlayerNum = 0;
 
 GLOBAL_ASM(
-glabel func0f0f09f0
+glabel menuPlaySound
 .late_rodata
 glabel var7f1b27c0
-.word func0f0f09f0+0x40 # f0f0a30
+.word menuPlaySound+0x40 # f0f0a30
 glabel var7f1b27c4
-.word func0f0f09f0+0x48 # f0f0a38
+.word menuPlaySound+0x48 # f0f0a38
 glabel var7f1b27c8
-.word func0f0f09f0+0x50 # f0f0a40
+.word menuPlaySound+0x50 # f0f0a40
 glabel var7f1b27cc
-.word func0f0f09f0+0x58 # f0f0a48
+.word menuPlaySound+0x58 # f0f0a48
 glabel var7f1b27d0
-.word func0f0f09f0+0x60 # f0f0a50
+.word menuPlaySound+0x60 # f0f0a50
 glabel var7f1b27d4
-.word func0f0f09f0+0x78 # f0f0a68
+.word menuPlaySound+0x78 # f0f0a68
 glabel var7f1b27d8
-.word func0f0f09f0+0xc8 # f0f0ab8
+.word menuPlaySound+0xc8 # f0f0ab8
 glabel var7f1b27dc
-.word func0f0f09f0+0xc8 # f0f0ab8
+.word menuPlaySound+0xc8 # f0f0ab8
 glabel var7f1b27e0
-.word func0f0f09f0+0x80 # f0f0a70
+.word menuPlaySound+0x80 # f0f0a70
 glabel var7f1b27e4
-.word func0f0f09f0+0x88 # f0f0a78
+.word menuPlaySound+0x88 # f0f0a78
 glabel var7f1b27e8
-.word func0f0f09f0+0x90 # f0f0a80
+.word menuPlaySound+0x90 # f0f0a80
 glabel var7f1b27ec
-.word func0f0f09f0+0xc8 # f0f0ab8
+.word menuPlaySound+0xc8 # f0f0ab8
 glabel var7f1b27f0
-.word func0f0f09f0+0x98 # f0f0a88
+.word menuPlaySound+0x98 # f0f0a88
 glabel var7f1b27f4
-.word func0f0f09f0+0xb4 # f0f0aa4
+.word menuPlaySound+0xb4 # f0f0aa4
 glabel var7f1b27f8
 .word 0x3ecccccd
 glabel var7f1b27fc
@@ -2747,14 +2747,14 @@ glabel menuPushDialog
 /*  f0f31a8:	5420ffd2 */ 	bnezl	$at,.L0f0f30f4
 /*  f0f31ac:	8eaf0000 */ 	lw	$t7,0x0($s5)
 .L0f0f31b0:
-/*  f0f31b0:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0f31b0:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0f31b4:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0f31b8:	8fa90040 */ 	lw	$t1,0x40($sp)
 /*  f0f31bc:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f0f31c0:	91220000 */ 	lbu	$v0,0x0($t1)
 /*  f0f31c4:	54410006 */ 	bnel	$v0,$at,.L0f0f31e0
 /*  f0f31c8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0f31cc:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0f31cc:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0f31d0:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f0f31d4:	8faa0040 */ 	lw	$t2,0x40($sp)
 /*  f0f31d8:	91420000 */ 	lbu	$v0,0x0($t2)
@@ -2762,7 +2762,7 @@ glabel menuPushDialog
 .L0f0f31e0:
 /*  f0f31e0:	54410004 */ 	bnel	$v0,$at,.L0f0f31f4
 /*  f0f31e4:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0f31e8:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0f31e8:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0f31ec:	2404000e */ 	addiu	$a0,$zero,0xe
 .L0f0f31f0:
 /*  f0f31f0:	8fbf003c */ 	lw	$ra,0x3c($sp)
@@ -2834,14 +2834,14 @@ glabel menuPushDialog
 //				}
 //			}
 //
-//			func0f0f09f0(1);
+//			menuPlaySound(1);
 //
 //			if (dialog->type == MENUDIALOGTYPE_DANGER) {
-//				func0f0f09f0(4);
+//				menuPlaySound(4);
 //			}
 //
 //			if (dialog->type == MENUDIALOGTYPE_SUCCESS) {
-//				func0f0f09f0(14);
+//				menuPlaySound(14);
 //			}
 //		}
 //	}
@@ -2992,7 +2992,7 @@ void menuCloseDialog(void)
 		g_Menus[g_MpPlayerNum].unk81c = layer->siblings[0]->unk06;
 		g_Menus[g_MpPlayerNum].depth--;
 
-		func0f0f09f0(0xb);
+		menuPlaySound(0xb);
 	}
 
 	if (g_MenuData.unk66e > 0 && g_Menus[g_MpPlayerNum].depth == 0) {
@@ -9473,7 +9473,7 @@ glabel func0f0f9030
 /*  f0f9324:	02782021 */ 	addu	$a0,$s3,$t8
 /*  f0f9328:	0fc3cde9 */ 	jal	func0f0f37a4
 /*  f0f932c:	24840840 */ 	addiu	$a0,$a0,0x840
-/*  f0f9330:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0f9330:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0f9334:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0f9338:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f0f933c:
@@ -10527,7 +10527,7 @@ glabel var7f1b2a64
 /*  f0fa190:	8fd80008 */ 	lw	$t8,0x8($s8)
 /*  f0fa194:	52380016 */ 	beql	$s1,$t8,.L0f0fa1f0
 /*  f0fa198:	8fa90124 */ 	lw	$t1,0x124($sp)
-/*  f0fa19c:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0fa19c:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0fa1a0:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f0fa1a4:	10000012 */ 	b	.L0f0fa1f0
 /*  f0fa1a8:	8fa90124 */ 	lw	$t1,0x124($sp)
@@ -10547,7 +10547,7 @@ glabel var7f1b2a64
 /*  f0fa1d8:	8fc80008 */ 	lw	$t0,0x8($s8)
 /*  f0fa1dc:	52280004 */ 	beql	$s1,$t0,.L0f0fa1f0
 /*  f0fa1e0:	8fa90124 */ 	lw	$t1,0x124($sp)
-/*  f0fa1e4:	0fc3c27c */ 	jal	func0f0f09f0
+/*  f0fa1e4:	0fc3c27c */ 	jal	menuPlaySound
 /*  f0fa1e8:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f0fa1ec:	8fa90124 */ 	lw	$t1,0x124($sp)
 .L0f0fa1f0:
@@ -10858,7 +10858,7 @@ glabel func0f0fa574
 /*  f0fa648:	02582821 */ 	addu	$a1,$s2,$t8
 /*  f0fa64c:	24a506dc */ 	addiu	$a1,$a1,0x6dc
 .L0f0fa650:
-/*  f0fa650:	0fc3c218 */ 	jal	func0f0f0860
+/*  f0fa650:	0fc3c218 */ 	jal	menuInitItem
 /*  f0fa654:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f0fa658:	92390668 */ 	lbu	$t9,0x668($s1)
 /*  f0fa65c:	26100001 */ 	addiu	$s0,$s0,0x1

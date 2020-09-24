@@ -3250,6 +3250,26 @@ struct hoverprop {
 	u16 size;
 };
 
+struct menuitemtickdata_marquee {
+	u16 totalmoved;
+	u16 sum;
+	u16 unk04;
+};
+
+struct menuitemtickdata_ranking {
+	u16 unk00;
+};
+
+struct menuitemtickdata_slider {
+	u16 unk00;
+};
+
+union menuitemtickdata {
+	struct menuitemtickdata_marquee marquee;
+	struct menuitemtickdata_ranking ranking;
+	struct menuitemtickdata_slider slider;
+};
+
 struct handlerdata_carousel {
 	s32 value;
 	u32 unk04;

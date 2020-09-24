@@ -5758,7 +5758,7 @@ void stageLoad(void)
 	func00033dd8();
 
 	if (var80062940 == 2) {
-		func0f0f09f0(5);
+		menuPlaySound(5);
 		var80062940 = 0;
 	}
 
