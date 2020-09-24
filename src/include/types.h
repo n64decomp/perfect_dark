@@ -3259,9 +3259,12 @@ struct menuitemtickdata_controller {
 };
 
 struct menuitemtickdata_dropdown {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
+	u16 unk00;
+	u16 unk02;
+	s16 unk04;
+	u16 unk06;
+	u16 unk08;
+	u16 unk0a;
 	u16 unk0c;
 };
 
@@ -3323,6 +3326,7 @@ struct handlerdata_custom {
 
 struct handlerdata_dropdown {
 	u32 value;
+	u32 unk04;
 };
 
 struct handlerdata_keyboard {

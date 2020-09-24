@@ -2070,74 +2070,47 @@ glabel var7f1b1e5c
 /*  f0e7994:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
-GLOBAL_ASM(
-glabel func0f0e7998
-/*  f0e7998:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0e799c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0e79a0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0e79a4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0e79a8:	a4a00000 */ 	sh	$zero,0x0($a1)
-/*  f0e79ac:	a4a00002 */ 	sh	$zero,0x2($a1)
-/*  f0e79b0:	a4a00008 */ 	sh	$zero,0x8($a1)
-/*  f0e79b4:	a4a0000a */ 	sh	$zero,0xa($a1)
-/*  f0e79b8:	afa00034 */ 	sw	$zero,0x34($sp)
-/*  f0e79bc:	8c8e0004 */ 	lw	$t6,0x4($a0)
-/*  f0e79c0:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0e79c4:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f0e79c8:	000e7a80 */ 	sll	$t7,$t6,0xa
-/*  f0e79cc:	05e10009 */ 	bgez	$t7,.L0f0e79f4
-/*  f0e79d0:	8c820010 */ 	lw	$v0,0x10($a0)
-/*  f0e79d4:	24040014 */ 	addiu	$a0,$zero,0x14
-/*  f0e79d8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0e79dc:	0040f809 */ 	jalr	$v0
-/*  f0e79e0:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f0e79e4:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*  f0e79e8:	3c018007 */ 	lui	$at,%hi(var800711a8)
-/*  f0e79ec:	10000004 */ 	b	.L0f0e7a00
-/*  f0e79f0:	ac3811a8 */ 	sw	$t8,%lo(var800711a8)($at)
-.L0f0e79f4:
-/*  f0e79f4:	2419000b */ 	addiu	$t9,$zero,0xb
-/*  f0e79f8:	3c018007 */ 	lui	$at,%hi(var800711a8)
-/*  f0e79fc:	ac3911a8 */ 	sw	$t9,%lo(var800711a8)($at)
-.L0f0e7a00:
-/*  f0e7a00:	8e190010 */ 	lw	$t9,0x10($s0)
-/*  f0e7a04:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f0e7a08:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0e7a0c:	0320f809 */ 	jalr	$t9
-/*  f0e7a10:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f0e7a14:	8fa80034 */ 	lw	$t0,0x34($sp)
-/*  f0e7a18:	3401ffff */ 	dli	$at,0xffff
-/*  f0e7a1c:	0101082b */ 	sltu	$at,$t0,$at
-/*  f0e7a20:	50200004 */ 	beqzl	$at,.L0f0e7a34
-/*  f0e7a24:	afa00034 */ 	sw	$zero,0x34($sp)
-/*  f0e7a28:	1000000a */ 	b	.L0f0e7a54
-/*  f0e7a2c:	a6280002 */ 	sh	$t0,0x2($s1)
-/*  f0e7a30:	afa00034 */ 	sw	$zero,0x34($sp)
-.L0f0e7a34:
-/*  f0e7a34:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f0e7a38:	8e190010 */ 	lw	$t9,0x10($s0)
-/*  f0e7a3c:	24040019 */ 	addiu	$a0,$zero,0x19
-/*  f0e7a40:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0e7a44:	0320f809 */ 	jalr	$t9
-/*  f0e7a48:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f0e7a4c:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*  f0e7a50:	a6290002 */ 	sh	$t1,0x2($s1)
-.L0f0e7a54:
-/*  f0e7a54:	86240002 */ 	lh	$a0,0x2($s1)
-/*  f0e7a58:	0fc397be */ 	jal	func0f0e5ef8
-/*  f0e7a5c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0e7a60:	a6220004 */ 	sh	$v0,0x4($s1)
-/*  f0e7a64:	8e190010 */ 	lw	$t9,0x10($s0)
-/*  f0e7a68:	24040010 */ 	addiu	$a0,$zero,0x10
-/*  f0e7a6c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0e7a70:	0320f809 */ 	jalr	$t9
-/*  f0e7a74:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f0e7a78:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0e7a7c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0e7a80:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0e7a84:	03e00008 */ 	jr	$ra
-/*  f0e7a88:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+void menuInitItemDropdown(struct menuitem *item, union menuitemtickdata *data)
+{
+	s32 (*handler)(u32 operation, struct menuitem *item, union handlerdata *data);
+	union handlerdata handlerdata;
+	union handlerdata handlerdata2;
+
+	data->dropdown.unk00 = 0;
+	data->dropdown.unk02 = 0;
+	data->dropdown.unk08 = 0;
+	data->dropdown.unk0a = 0;
+
+	handlerdata.dropdown.value = 0;
+
+	handler = item->handler;
+
+	if (item->param1 & 0x00200000) {
+		handler(MENUOP_20, item, &handlerdata2);
+		var800711a8 = handlerdata2.dropdown.value;
+	} else {
+		var800711a8 = 11;
+	}
+
+	item->handler(MENUOP_GETOPTIONVALUE, item, &handlerdata);
+
+	if (handlerdata.dropdown.value < 0xffff) {
+		data->dropdown.unk02 = handlerdata.dropdown.value;
+	} else {
+		// The value won't fit in unk02.
+		// Maybe MENUOP_25 is getting a scaled-down value?
+		// But then how does it know the value is scaled?
+		handlerdata.dropdown.value = 0;
+		handlerdata.dropdown.unk04 = 0;
+
+		item->handler(MENUOP_25, item, &handlerdata);
+		data->dropdown.unk02 = handlerdata.dropdown.value;
+	}
+
+	data->dropdown.unk04 = func0f0e5ef8(data->dropdown.unk02, item);
+
+	item->handler(MENUOP_16, item, &handlerdata);
+}
 
 GLOBAL_ASM(
 glabel menuRenderItemDropdown
@@ -2663,7 +2636,7 @@ glabel menuTickItemDropdown
 /*  f0e8228:	ae00000c */ 	sw	$zero,0xc($s0)
 /*  f0e822c:	ae0b000c */ 	sw	$t3,0xc($s0)
 .L0f0e8230:
-/*  f0e8230:	0fc39e66 */ 	jal	func0f0e7998
+/*  f0e8230:	0fc39e66 */ 	jal	menuInitItemDropdown
 /*  f0e8234:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f0e8238:	afa00024 */ 	sw	$zero,0x24($sp)
 /*  f0e823c:	8e390010 */ 	lw	$t9,0x10($s1)
@@ -11897,7 +11870,7 @@ void menuInitItemPlayerStats(struct menuitem *item, union menuitemtickdata *data
 	data->dropdown.unk0c = 0;
 	var8009deb0[g_MpPlayerNum] = g_MpPlayerNum;
 
-	func0f0e7998(item, data);
+	menuInitItemDropdown(item, data);
 }
 
 GLOBAL_ASM(
@@ -12700,7 +12673,7 @@ void menuInitItem(struct menuitem *item, union menuitemtickdata *data)
 	switch (item->type) {
 	case MENUITEMTYPE_CUSTOM:
 	case MENUITEMTYPE_DROPDOWN:
-		func0f0e7998(item, data);
+		menuInitItemDropdown(item, data);
 		break;
 	case MENUITEMTYPE_SCROLLABLE:
 		menuInitItemScrollable(data);
