@@ -4139,46 +4139,26 @@ glabel menuTickItemKeyboard
 /*  f0e9740:	24020001 */ 	addiu	$v0,$zero,0x1
 );
 
-GLOBAL_ASM(
-glabel menuInitItemKeyboard
-/*  f0e9744:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0e9748:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f0e974c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0e9750:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f0e9754:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f0e9758:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0e975c:	00a01825 */ 	or	$v1,$a1,$zero
-.L0f0e9760:
-/*  f0e9760:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0e9764:	a0600000 */ 	sb	$zero,0x0($v1)
-/*  f0e9768:	1444fffd */ 	bne	$v0,$a0,.L0f0e9760
-/*  f0e976c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0e9770:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*  f0e9774:	8dcf0010 */ 	lw	$t7,0x10($t6)
-/*  f0e9778:	51e0000a */ 	beqzl	$t7,.L0f0e97a4
-/*  f0e977c:	90e8000d */ 	lbu	$t0,0xd($a3)
-/*  f0e9780:	afa70020 */ 	sw	$a3,0x20($sp)
-/*  f0e9784:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f0e9788:	8dd90010 */ 	lw	$t9,0x10($t6)
-/*  f0e978c:	24040011 */ 	addiu	$a0,$zero,0x11
-/*  f0e9790:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f0e9794:	0320f809 */ 	jalr	$t9
-/*  f0e9798:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f0e979c:	8fa7003c */ 	lw	$a3,0x3c($sp)
-/*  f0e97a0:	90e8000d */ 	lbu	$t0,0xd($a3)
-.L0f0e97a4:
-/*  f0e97a4:	24180004 */ 	addiu	$t8,$zero,0x4
-/*  f0e97a8:	a0e0000b */ 	sb	$zero,0xb($a3)
-/*  f0e97ac:	310affbf */ 	andi	$t2,$t0,0xffbf
-/*  f0e97b0:	a0ea000d */ 	sb	$t2,0xd($a3)
-/*  f0e97b4:	314b007f */ 	andi	$t3,$t2,0x7f
-/*  f0e97b8:	a0f8000c */ 	sb	$t8,0xc($a3)
-/*  f0e97bc:	a0eb000d */ 	sb	$t3,0xd($a3)
-/*  f0e97c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0e97c4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0e97c8:	03e00008 */ 	jr	$ra
-/*  f0e97cc:	00000000 */ 	nop
-);
+void menuInitItemKeyboard(struct menuitem *item, union menuitemtickdata *data)
+{
+	u32 stack;
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(data->keyboard.string);) {
+		data->keyboard.string[i++] = '\0';
+	}
+
+	if (item->handler) {
+		union handlerdata handlerdata;
+		handlerdata.keyboard.string = data->keyboard.string;
+		item->handler(MENUOP_GETTEXT, item, &handlerdata);
+	}
+
+	data->keyboard.unk0b = 0;
+	data->keyboard.unk0c = 4;
+	data->keyboard.unk0d_02 = 0;
+	data->keyboard.unk0d_01 = 0;
+}
 
 Gfx *menuRenderItemSeparator(Gfx *gdl, struct menurenderthing *thing)
 {
