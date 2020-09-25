@@ -4071,16 +4071,15 @@ void menuInitItemKeyboard(struct menuitem *item, union menuitemtickdata *data)
 
 Gfx *menuRenderItemSeparator(Gfx *gdl, struct menurenderthing *thing)
 {
-	struct menurenderthing10 *thing10 = thing->unk10;
 	u32 colour;
 
-	if (thing10->transitiontimer < 0) {
-		colour = g_MenuColourPalettes[thing10->type].unfocused;
+	if (thing->frame->transitiontimer < 0) {
+		colour = g_MenuColourPalettes[thing->frame->type].unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[thing10->type2].unfocused,
-				g_MenuColourPalettes[thing10->type].unfocused,
-				thing10->colourweight);
+				g_MenuColourPalettes[thing->frame->type2].unfocused,
+				g_MenuColourPalettes[thing->frame->type].unfocused,
+				thing->frame->colourweight);
 	}
 
 	colour = (colour & 0xffffff00) | 0x3f;
@@ -4753,7 +4752,7 @@ Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurenderthing *thing)
 		if (g_Briefing.objectivenames[i + 1]
 				&& g_Briefing.objectivedifficulties[i + 1] & (1 << getDifficulty())) {
 			gdl = menuRenderObjective(gdl,
-					thing->unk10,
+					thing->frame,
 					i, position, thing->x, y, thing->width, thing->height,
 					thing->item->param != 1,
 					thing->item->param == 2);
@@ -4783,16 +4782,16 @@ Gfx *menuRenderItemModel(Gfx *gdl, struct menurenderthing *thing)
 		renderdata.y = thing->y;
 		renderdata.width = thing->width;
 
-		if (thing->unk10->transitiontimer < 0) {
-			renderdata.colour = g_MenuColourPalettes[thing->unk10->type].focused;
+		if (thing->frame->transitiontimer < 0) {
+			renderdata.colour = g_MenuColourPalettes[thing->frame->type].focused;
 		} else {
 			renderdata.colour = colourBlend(
-					g_MenuColourPalettes[thing->unk10->type2].focused,
-					g_MenuColourPalettes[thing->unk10->type].focused,
-					thing->unk10->colourweight);
+					g_MenuColourPalettes[thing->frame->type2].focused,
+					g_MenuColourPalettes[thing->frame->type].focused,
+					thing->frame->colourweight);
 		}
 
-		if (thing->unk10->unk0c) {
+		if (thing->frame->unk0c) {
 			renderdata.colour = (colourBlend(renderdata.colour, 0, 127) & 0xffffff00) | (renderdata.colour & 0xff);
 		}
 
@@ -4848,58 +4847,58 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurenderthing *thing)
 	}
 
 	if (thing->item->param1 & 0x00000100) {
-		if (thing->unk10->transitiontimer < 0) {
-			colour1 = g_MenuColourPalettes[thing->unk10->type].checkedunfocused;
+		if (thing->frame->transitiontimer < 0) {
+			colour1 = g_MenuColourPalettes[thing->frame->type].checkedunfocused;
 		} else {
 			colour1 = colourBlend(
-					g_MenuColourPalettes[thing->unk10->type2].checkedunfocused,
-					g_MenuColourPalettes[thing->unk10->type].checkedunfocused,
-					thing->unk10->colourweight);
+					g_MenuColourPalettes[thing->frame->type2].checkedunfocused,
+					g_MenuColourPalettes[thing->frame->type].checkedunfocused,
+					thing->frame->colourweight);
 		}
 
-		if (thing->unk10->unk0c) {
+		if (thing->frame->unk0c) {
 			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
 		func0f153e38(
-				g_MenuColourPalettes3[thing->unk10->type].checkedunfocused,
-				g_MenuColourPalettes2[thing->unk10->type].checkedunfocused);
+				g_MenuColourPalettes3[thing->frame->type].checkedunfocused,
+				g_MenuColourPalettes2[thing->frame->type].checkedunfocused);
 	} else {
-		if (thing->unk10->transitiontimer < 0) {
-			colour1 = g_MenuColourPalettes[thing->unk10->type].unfocused;
+		if (thing->frame->transitiontimer < 0) {
+			colour1 = g_MenuColourPalettes[thing->frame->type].unfocused;
 		} else {
 			colour1 = colourBlend(
-					g_MenuColourPalettes[thing->unk10->type2].unfocused,
-					g_MenuColourPalettes[thing->unk10->type].unfocused,
-					thing->unk10->colourweight);
+					g_MenuColourPalettes[thing->frame->type2].unfocused,
+					g_MenuColourPalettes[thing->frame->type].unfocused,
+					thing->frame->colourweight);
 		}
 
-		if (thing->unk10->unk0c) {
+		if (thing->frame->unk0c) {
 			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
 		func0f153e38(
-				g_MenuColourPalettes3[thing->unk10->type].unfocused,
-				g_MenuColourPalettes2[thing->unk10->type].unfocused);
+				g_MenuColourPalettes3[thing->frame->type].unfocused,
+				g_MenuColourPalettes2[thing->frame->type].unfocused);
 	}
 
-	if (menuIsItemDisabled(thing->item, thing->unk10)) {
-		if (thing->unk10->transitiontimer < 0) {
-			colour1 = g_MenuColourPalettes[thing->unk10->type].disabled;
+	if (menuIsItemDisabled(thing->item, thing->frame)) {
+		if (thing->frame->transitiontimer < 0) {
+			colour1 = g_MenuColourPalettes[thing->frame->type].disabled;
 		} else {
 			colour1 = colourBlend(
-					g_MenuColourPalettes[thing->unk10->type2].disabled,
-					g_MenuColourPalettes[thing->unk10->type].disabled,
-					thing->unk10->colourweight);
+					g_MenuColourPalettes[thing->frame->type2].disabled,
+					g_MenuColourPalettes[thing->frame->type].disabled,
+					thing->frame->colourweight);
 		}
 
-		if (thing->unk10->unk0c) {
+		if (thing->frame->unk0c) {
 			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
 		func0f153e38(
-				g_MenuColourPalettes3[thing->unk10->type].disabled,
-				g_MenuColourPalettes2[thing->unk10->type].disabled);
+				g_MenuColourPalettes3[thing->frame->type].disabled,
+				g_MenuColourPalettes2[thing->frame->type].disabled);
 	}
 
 	menudfc = func0f0f1338(thing->item);
@@ -4966,7 +4965,7 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurenderthing *thing)
 	gdl = func0f153780(gdl);
 
 	if (menudfc) {
-		if (thing->width + 200 < menudfc->unk04 * 300 && thing->unk10->unk48 < 0) {
+		if (thing->width + 200 < menudfc->unk04 * 300 && thing->frame->unk48 < 0) {
 			func0f0f13ec(thing->item);
 		}
 
@@ -5012,16 +5011,16 @@ Gfx *menuRenderItemMeter(Gfx *gdl, struct menurenderthing *thing)
 	s32 x2;
 	s32 x3;
 
-	if (thing->unk10->transitiontimer < 0) {
-		colour = g_MenuColourPalettes[thing->unk10->type].unfocused;
+	if (thing->frame->transitiontimer < 0) {
+		colour = g_MenuColourPalettes[thing->frame->type].unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[thing->unk10->type2].unfocused,
-				g_MenuColourPalettes[thing->unk10->type].unfocused,
-				thing->unk10->colourweight);
+				g_MenuColourPalettes[thing->frame->type2].unfocused,
+				g_MenuColourPalettes[thing->frame->type].unfocused,
+				thing->frame->colourweight);
 	}
 
-	if (thing->unk10->unk0c) {
+	if (thing->frame->unk0c) {
 		colour = (colourBlend(colour, 0, 127) & 0xffffff00) | (colour & 0xff);
 	}
 
@@ -5468,16 +5467,16 @@ const char var7f1adfb8[] = "";
 //
 //	text = menuResolveParam2Text(thing->item);
 //
-//	if (thing->unk10->transitiontimer < 0) {
-//		leftcolour = g_MenuColourPalettes[thing->unk10->type].unfocused;
+//	if (thing->frame->transitiontimer < 0) {
+//		leftcolour = g_MenuColourPalettes[thing->frame->type].unfocused;
 //	} else {
 //		leftcolour = colourBlend(
-//				g_MenuColourPalettes[thing->unk10->type2].unfocused,
-//				g_MenuColourPalettes[thing->unk10->type].unfocused,
-//				thing->unk10->colourweight);
+//				g_MenuColourPalettes[thing->frame->type2].unfocused,
+//				g_MenuColourPalettes[thing->frame->type].unfocused,
+//				thing->frame->colourweight);
 //	}
 //
-//	if (thing->unk10->unk0c) {
+//	if (thing->frame->unk0c) {
 //		leftcolour = colourBlend(leftcolour, 0, 127) & 0xffffff00 | leftcolour & 0xff;
 //	}
 //
@@ -5491,45 +5490,45 @@ const char var7f1adfb8[] = "";
 //		u32 colour2;
 //		u32 weight = func0f006b08(40) * 255;
 //
-//		if (thing->unk10->transitiontimer < 0) {
-//			colour2 = g_MenuColourPalettes[thing->unk10->type].focused;
+//		if (thing->frame->transitiontimer < 0) {
+//			colour2 = g_MenuColourPalettes[thing->frame->type].focused;
 //		} else {
 //			colour2 = colourBlend(
-//					g_MenuColourPalettes[thing->unk10->type2].focused,
-//					g_MenuColourPalettes[thing->unk10->type].focused,
-//					thing->unk10->colourweight);
+//					g_MenuColourPalettes[thing->frame->type2].focused,
+//					g_MenuColourPalettes[thing->frame->type].focused,
+//					thing->frame->colourweight);
 //		}
 //
 //		leftcolour = colourBlend(colourBlend(leftcolour, leftcolour & 0x000000ff, 127), colour2, weight);
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[thing->unk10->type].focused,
-//				g_MenuColourPalettes2[thing->unk10->type].focused);
+//				g_MenuColourPalettes3[thing->frame->type].focused,
+//				g_MenuColourPalettes2[thing->frame->type].focused);
 //	} else {
 //		func0f153e38(
-//				g_MenuColourPalettes3[thing->unk10->type].unfocused,
-//				g_MenuColourPalettes2[thing->unk10->type].unfocused);
+//				g_MenuColourPalettes3[thing->frame->type].unfocused,
+//				g_MenuColourPalettes2[thing->frame->type].unfocused);
 //	}
 //
-//	if (menuIsItemDisabled(thing->item, thing->unk10)) {
-//		if (thing->unk10->transitiontimer < 0) {
-//			leftcolour = g_MenuColourPalettes[thing->unk10->type].disabled;
+//	if (menuIsItemDisabled(thing->item, thing->frame)) {
+//		if (thing->frame->transitiontimer < 0) {
+//			leftcolour = g_MenuColourPalettes[thing->frame->type].disabled;
 //		} else {
 //			leftcolour = colourBlend(
-//					g_MenuColourPalettes[thing->unk10->type2].disabled,
-//					g_MenuColourPalettes[thing->unk10->type].disabled,
-//					thing->unk10->colourweight);
+//					g_MenuColourPalettes[thing->frame->type2].disabled,
+//					g_MenuColourPalettes[thing->frame->type].disabled,
+//					thing->frame->colourweight);
 //		}
 //
-//		if (thing->unk10->unk0c) {
+//		if (thing->frame->unk0c) {
 //			leftcolour = colourBlend(leftcolour, 0x00000000, 127) & 0xffffff00 | leftcolour & 0xff;
 //		}
 //
 //		rightcolour = leftcolour;
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[thing->unk10->type].disabled,
-//				g_MenuColourPalettes2[thing->unk10->type].disabled);
+//				g_MenuColourPalettes3[thing->frame->type].disabled,
+//				g_MenuColourPalettes2[thing->frame->type].disabled);
 //	}
 //
 //	if (thing->item->param1 & 0x00000020) {
@@ -6510,13 +6509,13 @@ Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurenderthing *thing)
 		u32 colour1;
 		u32 weight = func0f006b08(40) * 255;
 
-		if (thing->unk10->transitiontimer < 0) {
-			colour1 = g_MenuColourPalettes[thing->unk10->type].focused;
+		if (thing->frame->transitiontimer < 0) {
+			colour1 = g_MenuColourPalettes[thing->frame->type].focused;
 		} else {
 			colour1 = colourBlend(
-					g_MenuColourPalettes[thing->unk10->type2].focused,
-					g_MenuColourPalettes[thing->unk10->type].focused,
-					thing->unk10->colourweight);
+					g_MenuColourPalettes[thing->frame->type2].focused,
+					g_MenuColourPalettes[thing->frame->type].focused,
+					thing->frame->colourweight);
 		}
 
 		colour = colourBlend(colourBlend(colour, 0x000000ff, 127), colour1, weight);
@@ -7018,39 +7017,39 @@ glabel menuRenderItemCheckbox
 //			&& thing->item->handler(MENUOP_GET, thing->item, (union handlerdata *)data) == true) {
 //		checked = true;
 //
-//		if (thing->unk10->transitiontimer < 0) {
-//			maincolour = g_MenuColourPalettes[thing->unk10->type].checkedunfocused;
+//		if (thing->frame->transitiontimer < 0) {
+//			maincolour = g_MenuColourPalettes[thing->frame->type].checkedunfocused;
 //		} else {
 //			maincolour = colourBlend(
-//					g_MenuColourPalettes[thing->unk10->type2].checkedunfocused,
-//					g_MenuColourPalettes[thing->unk10->type].checkedunfocused,
-//					thing->unk10->colourweight);
+//					g_MenuColourPalettes[thing->frame->type2].checkedunfocused,
+//					g_MenuColourPalettes[thing->frame->type].checkedunfocused,
+//					thing->frame->colourweight);
 //		}
 //
-//		if (thing->unk10->unk0c) {
+//		if (thing->frame->unk0c) {
 //			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
 //		}
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[thing->unk10->type].checkedunfocused,
-//				g_MenuColourPalettes2[thing->unk10->type].checkedunfocused);
+//				g_MenuColourPalettes3[thing->frame->type].checkedunfocused,
+//				g_MenuColourPalettes2[thing->frame->type].checkedunfocused);
 //	} else {
-//		if (thing->unk10->transitiontimer < 0) {
-//			maincolour = g_MenuColourPalettes[thing->unk10->type].unfocused;
+//		if (thing->frame->transitiontimer < 0) {
+//			maincolour = g_MenuColourPalettes[thing->frame->type].unfocused;
 //		} else {
 //			maincolour = colourBlend(
-//					g_MenuColourPalettes[thing->unk10->type2].unfocused,
-//					g_MenuColourPalettes[thing->unk10->type].unfocused,
-//					thing->unk10->colourweight);
+//					g_MenuColourPalettes[thing->frame->type2].unfocused,
+//					g_MenuColourPalettes[thing->frame->type].unfocused,
+//					thing->frame->colourweight);
 //		}
 //
-//		if (thing->unk10->unk0c) {
+//		if (thing->frame->unk0c) {
 //			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
 //		}
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[thing->unk10->type].unfocused,
-//				g_MenuColourPalettes2[thing->unk10->type].unfocused);
+//				g_MenuColourPalettes3[thing->frame->type].unfocused,
+//				g_MenuColourPalettes2[thing->frame->type].unfocused);
 //	}
 //
 //	gdl = func0f153628(gdl);
@@ -7063,39 +7062,39 @@ glabel menuRenderItemCheckbox
 //		u32 focuscolour;
 //		u32 weight = func0f006b08(40) * 255;
 //
-//		if (thing->unk10->transitiontimer < 0) {
-//			focuscolour = g_MenuColourPalettes[thing->unk10->type].focused;
+//		if (thing->frame->transitiontimer < 0) {
+//			focuscolour = g_MenuColourPalettes[thing->frame->type].focused;
 //		} else {
 //			focuscolour = colourBlend(
-//					g_MenuColourPalettes[thing->unk10->type2].focused,
-//					g_MenuColourPalettes[thing->unk10->type].focused,
-//					thing->unk10->colourweight);
+//					g_MenuColourPalettes[thing->frame->type2].focused,
+//					g_MenuColourPalettes[thing->frame->type].focused,
+//					thing->frame->colourweight);
 //		}
 //
 //		maincolour = colourBlend(colourBlend(maincolour, maincolour & 0xff, 127), focuscolour, weight);
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[thing->unk10->type].focused,
-//				g_MenuColourPalettes2[thing->unk10->type].focused);
+//				g_MenuColourPalettes3[thing->frame->type].focused,
+//				g_MenuColourPalettes2[thing->frame->type].focused);
 //	}
 //
-//	if (menuIsItemDisabled(thing->item, thing->unk10)) {
-//		if (thing->unk10->transitiontimer < 0) {
-//			maincolour = g_MenuColourPalettes[thing->unk10->type].disabled;
+//	if (menuIsItemDisabled(thing->item, thing->frame)) {
+//		if (thing->frame->transitiontimer < 0) {
+//			maincolour = g_MenuColourPalettes[thing->frame->type].disabled;
 //		} else {
 //			maincolour = colourBlend(
-//					g_MenuColourPalettes[thing->unk10->type2].disabled,
-//					g_MenuColourPalettes[thing->unk10->type].disabled,
-//					thing->unk10->colourweight);
+//					g_MenuColourPalettes[thing->frame->type2].disabled,
+//					g_MenuColourPalettes[thing->frame->type].disabled,
+//					thing->frame->colourweight);
 //		}
 //
-//		if (thing->unk10->unk0c) {
+//		if (thing->frame->unk0c) {
 //			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
 //		}
 //
 //		func0f153e38(
-//				g_MenuColourPalettes3[thing->unk10->type].disabled,
-//				g_MenuColourPalettes2[thing->unk10->type].disabled);
+//				g_MenuColourPalettes3[thing->frame->type].disabled,
+//				g_MenuColourPalettes2[thing->frame->type].disabled);
 //
 //		fillcolour = 0x7f002faf;
 //	}
@@ -7238,22 +7237,22 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurenderthing *thing)
 	x = thing->x + 2;
 	y = thing->y + 2;
 
-	if (thing->unk10->transitiontimer < 0) {
-		colour = g_MenuColourPalettes[thing->unk10->type].unfocused;
+	if (thing->frame->transitiontimer < 0) {
+		colour = g_MenuColourPalettes[thing->frame->type].unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[thing->unk10->type2].unfocused,
-				g_MenuColourPalettes[thing->unk10->type].unfocused,
-				thing->unk10->colourweight);
+				g_MenuColourPalettes[thing->frame->type2].unfocused,
+				g_MenuColourPalettes[thing->frame->type].unfocused,
+				thing->frame->colourweight);
 	}
 
-	if (thing->unk10->unk0c) {
+	if (thing->frame->unk0c) {
 		colour = colourBlend(colour, 0, 0x7f) & 0xffffff00 | colour & 0xff;
 	}
 
 	func0f153e38(
-			g_MenuColourPalettes3[thing->unk10->type].unfocused,
-			g_MenuColourPalettes2[thing->unk10->type].unfocused);
+			g_MenuColourPalettes3[thing->frame->type].unfocused,
+			g_MenuColourPalettes2[thing->frame->type].unfocused);
 
 	gdl = func0f153628(gdl);
 
@@ -7279,2203 +7278,85 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurenderthing *thing)
 	return func0f153780(gdl);
 }
 
-const char var7f1aff04[] = "";
-const char var7f1aff08[] = "";
-const char var7f1aff0c[] = "";
-const char var7f1aff10[] = "";
-const char var7f1aff14[] = "";
-const char var7f1aff18[] = "";
-const char var7f1aff1c[] = "";
-const char var7f1aff20[] = "";
-const char var7f1aff24[] = "";
-const char var7f1aff28[] = "";
-const char var7f1aff2c[] = "";
-const char var7f1aff30[] = "";
-const char var7f1aff34[] = "";
-const char var7f1aff38[] = "";
-const char var7f1aff3c[] = "";
-const char var7f1aff40[] = "";
-const char var7f1aff44[] = "";
-const char var7f1aff48[] = "";
-const char var7f1aff4c[] = "";
-const char var7f1aff50[] = "";
-const char var7f1aff54[] = "";
-const char var7f1aff58[] = "";
-const char var7f1aff5c[] = "";
-const char var7f1aff60[] = "";
-const char var7f1aff64[] = "";
-const char var7f1aff68[] = "";
-const char var7f1aff6c[] = "";
-const char var7f1aff70[] = "";
-const char var7f1aff74[] = "";
-const char var7f1aff78[] = "";
-const char var7f1aff7c[] = "";
-const char var7f1aff80[] = "";
-const char var7f1aff84[] = "";
-const char var7f1aff88[] = "";
-const char var7f1aff8c[] = "";
-const char var7f1aff90[] = "";
-const char var7f1aff94[] = "";
-const char var7f1aff98[] = "";
-const char var7f1aff9c[] = "";
-const char var7f1affa0[] = "";
-const char var7f1affa4[] = "";
-const char var7f1affa8[] = "";
-const char var7f1affac[] = "";
-const char var7f1affb0[] = "";
-const char var7f1affb4[] = "";
-const char var7f1affb8[] = "";
-const char var7f1affbc[] = "";
-const char var7f1affc0[] = "";
-const char var7f1affc4[] = "";
-const char var7f1affc8[] = "";
-const char var7f1affcc[] = "";
-const char var7f1affd0[] = "";
-const char var7f1affd4[] = "";
-const char var7f1affd8[] = "";
-const char var7f1affdc[] = "";
-const char var7f1affe0[] = "";
-const char var7f1affe4[] = "";
-const char var7f1affe8[] = "";
-const char var7f1affec[] = "";
-const char var7f1afff0[] = "";
-const char var7f1afff4[] = "";
-const char var7f1afff8[] = "";
-const char var7f1afffc[] = "";
-const char var7f1b0000[] = "";
-const char var7f1b0004[] = "";
-const char var7f1b0008[] = "";
-const char var7f1b000c[] = "";
-const char var7f1b0010[] = "";
-const char var7f1b0014[] = "";
-const char var7f1b0018[] = "";
-const char var7f1b001c[] = "";
-const char var7f1b0020[] = "";
-const char var7f1b0024[] = "";
-const char var7f1b0028[] = "";
-const char var7f1b002c[] = "";
-const char var7f1b0030[] = "";
-const char var7f1b0034[] = "";
-const char var7f1b0038[] = "";
-const char var7f1b003c[] = "";
-const char var7f1b0040[] = "";
-const char var7f1b0044[] = "";
-const char var7f1b0048[] = "";
-const char var7f1b004c[] = "";
-const char var7f1b0050[] = "";
-const char var7f1b0054[] = "";
-const char var7f1b0058[] = "";
-const char var7f1b005c[] = "";
-const char var7f1b0060[] = "";
-const char var7f1b0064[] = "";
-const char var7f1b0068[] = "";
-const char var7f1b006c[] = "";
-const char var7f1b0070[] = "";
-const char var7f1b0074[] = "";
-const char var7f1b0078[] = "";
-const char var7f1b007c[] = "";
-const char var7f1b0080[] = "";
-const char var7f1b0084[] = "";
-const char var7f1b0088[] = "";
-const char var7f1b008c[] = "";
-const char var7f1b0090[] = "";
-const char var7f1b0094[] = "";
-const char var7f1b0098[] = "";
-const char var7f1b009c[] = "";
-const char var7f1b00a0[] = "";
-const char var7f1b00a4[] = "";
-const char var7f1b00a8[] = "";
-const char var7f1b00ac[] = "";
-const char var7f1b00b0[] = "";
-const char var7f1b00b4[] = "";
-const char var7f1b00b8[] = "";
-const char var7f1b00bc[] = "";
-const char var7f1b00c0[] = "";
-const char var7f1b00c4[] = "";
-const char var7f1b00c8[] = "";
-const char var7f1b00cc[] = "";
-const char var7f1b00d0[] = "";
-const char var7f1b00d4[] = "";
-const char var7f1b00d8[] = "";
-const char var7f1b00dc[] = "";
-const char var7f1b00e0[] = "";
-const char var7f1b00e4[] = "";
-const char var7f1b00e8[] = "";
-const char var7f1b00ec[] = "";
-const char var7f1b00f0[] = "";
-const char var7f1b00f4[] = "";
-const char var7f1b00f8[] = "";
-const char var7f1b00fc[] = "";
-const char var7f1b0100[] = "";
-const char var7f1b0104[] = "";
-const char var7f1b0108[] = "";
-const char var7f1b010c[] = "";
-const char var7f1b0110[] = "";
-const char var7f1b0114[] = "";
-const char var7f1b0118[] = "";
-const char var7f1b011c[] = "";
-const char var7f1b0120[] = "";
-const char var7f1b0124[] = "";
-const char var7f1b0128[] = "";
-const char var7f1b012c[] = "";
-const char var7f1b0130[] = "";
-const char var7f1b0134[] = "";
-const char var7f1b0138[] = "";
-const char var7f1b013c[] = "";
-const char var7f1b0140[] = "";
-const char var7f1b0144[] = "";
-const char var7f1b0148[] = "";
-const char var7f1b014c[] = "";
-const char var7f1b0150[] = "";
-const char var7f1b0154[] = "";
-const char var7f1b0158[] = "";
-const char var7f1b015c[] = "";
-const char var7f1b0160[] = "";
-const char var7f1b0164[] = "";
-const char var7f1b0168[] = "";
-const char var7f1b016c[] = "";
-const char var7f1b0170[] = "";
-const char var7f1b0174[] = "";
-const char var7f1b0178[] = "";
-const char var7f1b017c[] = "";
-const char var7f1b0180[] = "";
-const char var7f1b0184[] = "";
-const char var7f1b0188[] = "";
-const char var7f1b018c[] = "";
-const char var7f1b0190[] = "";
-const char var7f1b0194[] = "";
-const char var7f1b0198[] = "";
-const char var7f1b019c[] = "";
-const char var7f1b01a0[] = "";
-const char var7f1b01a4[] = "";
-const char var7f1b01a8[] = "";
-const char var7f1b01ac[] = "";
-const char var7f1b01b0[] = "";
-const char var7f1b01b4[] = "";
-const char var7f1b01b8[] = "";
-const char var7f1b01bc[] = "";
-const char var7f1b01c0[] = "";
-const char var7f1b01c4[] = "";
-const char var7f1b01c8[] = "";
-const char var7f1b01cc[] = "";
-const char var7f1b01d0[] = "";
-const char var7f1b01d4[] = "";
-const char var7f1b01d8[] = "";
-const char var7f1b01dc[] = "";
-const char var7f1b01e0[] = "";
-const char var7f1b01e4[] = "";
-const char var7f1b01e8[] = "";
-const char var7f1b01ec[] = "";
-const char var7f1b01f0[] = "";
-const char var7f1b01f4[] = "";
-const char var7f1b01f8[] = "";
-const char var7f1b01fc[] = "";
-const char var7f1b0200[] = "";
-const char var7f1b0204[] = "";
-const char var7f1b0208[] = "";
-const char var7f1b020c[] = "";
-const char var7f1b0210[] = "";
-const char var7f1b0214[] = "";
-const char var7f1b0218[] = "";
-const char var7f1b021c[] = "";
-const char var7f1b0220[] = "";
-const char var7f1b0224[] = "";
-const char var7f1b0228[] = "";
-const char var7f1b022c[] = "";
-const char var7f1b0230[] = "";
-const char var7f1b0234[] = "";
-const char var7f1b0238[] = "";
-const char var7f1b023c[] = "";
-const char var7f1b0240[] = "";
-const char var7f1b0244[] = "";
-const char var7f1b0248[] = "";
-const char var7f1b024c[] = "";
-const char var7f1b0250[] = "";
-const char var7f1b0254[] = "";
-const char var7f1b0258[] = "";
-const char var7f1b025c[] = "";
-const char var7f1b0260[] = "";
-const char var7f1b0264[] = "";
-const char var7f1b0268[] = "";
-const char var7f1b026c[] = "";
-const char var7f1b0270[] = "";
-const char var7f1b0274[] = "";
-const char var7f1b0278[] = "";
-const char var7f1b027c[] = "";
-const char var7f1b0280[] = "";
-const char var7f1b0284[] = "";
-const char var7f1b0288[] = "";
-const char var7f1b028c[] = "";
-const char var7f1b0290[] = "";
-const char var7f1b0294[] = "";
-const char var7f1b0298[] = "";
-const char var7f1b029c[] = "";
-const char var7f1b02a0[] = "";
-const char var7f1b02a4[] = "";
-const char var7f1b02a8[] = "";
-const char var7f1b02ac[] = "";
-const char var7f1b02b0[] = "";
-const char var7f1b02b4[] = "";
-const char var7f1b02b8[] = "";
-const char var7f1b02bc[] = "";
-const char var7f1b02c0[] = "";
-const char var7f1b02c4[] = "";
-const char var7f1b02c8[] = "";
-const char var7f1b02cc[] = "";
-const char var7f1b02d0[] = "";
-const char var7f1b02d4[] = "";
-const char var7f1b02d8[] = "";
-const char var7f1b02dc[] = "";
-const char var7f1b02e0[] = "";
-const char var7f1b02e4[] = "";
-const char var7f1b02e8[] = "";
-const char var7f1b02ec[] = "";
-const char var7f1b02f0[] = "";
-const char var7f1b02f4[] = "";
-const char var7f1b02f8[] = "";
-const char var7f1b02fc[] = "";
-const char var7f1b0300[] = "";
-const char var7f1b0304[] = "";
-const char var7f1b0308[] = "";
-const char var7f1b030c[] = "";
-const char var7f1b0310[] = "";
-const char var7f1b0314[] = "";
-const char var7f1b0318[] = "";
-const char var7f1b031c[] = "";
-const char var7f1b0320[] = "";
-const char var7f1b0324[] = "";
-const char var7f1b0328[] = "";
-const char var7f1b032c[] = "";
-const char var7f1b0330[] = "";
-const char var7f1b0334[] = "";
-const char var7f1b0338[] = "";
-const char var7f1b033c[] = "";
-const char var7f1b0340[] = "";
-const char var7f1b0344[] = "";
-const char var7f1b0348[] = "";
-const char var7f1b034c[] = "";
-const char var7f1b0350[] = "";
-const char var7f1b0354[] = "";
-const char var7f1b0358[] = "";
-const char var7f1b035c[] = "";
-const char var7f1b0360[] = "";
-const char var7f1b0364[] = "";
-const char var7f1b0368[] = "";
-const char var7f1b036c[] = "";
-const char var7f1b0370[] = "";
-const char var7f1b0374[] = "";
-const char var7f1b0378[] = "";
-const char var7f1b037c[] = "";
-const char var7f1b0380[] = "";
-const char var7f1b0384[] = "";
-const char var7f1b0388[] = "";
-const char var7f1b038c[] = "";
-const char var7f1b0390[] = "";
-const char var7f1b0394[] = "";
-const char var7f1b0398[] = "";
-const char var7f1b039c[] = "";
-const char var7f1b03a0[] = "";
-const char var7f1b03a4[] = "";
-const char var7f1b03a8[] = "";
-const char var7f1b03ac[] = "";
-const char var7f1b03b0[] = "";
-const char var7f1b03b4[] = "";
-const char var7f1b03b8[] = "";
-const char var7f1b03bc[] = "";
-const char var7f1b03c0[] = "";
-const char var7f1b03c4[] = "";
-const char var7f1b03c8[] = "";
-const char var7f1b03cc[] = "";
-const char var7f1b03d0[] = "";
-const char var7f1b03d4[] = "";
-const char var7f1b03d8[] = "";
-const char var7f1b03dc[] = "";
-const char var7f1b03e0[] = "";
-const char var7f1b03e4[] = "";
-const char var7f1b03e8[] = "";
-const char var7f1b03ec[] = "";
-const char var7f1b03f0[] = "";
-const char var7f1b03f4[] = "";
-const char var7f1b03f8[] = "";
-const char var7f1b03fc[] = "";
-const char var7f1b0400[] = "";
-const char var7f1b0404[] = "";
-const char var7f1b0408[] = "";
-const char var7f1b040c[] = "";
-const char var7f1b0410[] = "";
-const char var7f1b0414[] = "";
-const char var7f1b0418[] = "";
-const char var7f1b041c[] = "";
-const char var7f1b0420[] = "";
-const char var7f1b0424[] = "";
-const char var7f1b0428[] = "";
-const char var7f1b042c[] = "";
-const char var7f1b0430[] = "";
-const char var7f1b0434[] = "";
-const char var7f1b0438[] = "";
-const char var7f1b043c[] = "";
-const char var7f1b0440[] = "";
-const char var7f1b0444[] = "";
-const char var7f1b0448[] = "";
-const char var7f1b044c[] = "";
-const char var7f1b0450[] = "";
-const char var7f1b0454[] = "";
-const char var7f1b0458[] = "";
-const char var7f1b045c[] = "";
-const char var7f1b0460[] = "";
-const char var7f1b0464[] = "";
-const char var7f1b0468[] = "";
-const char var7f1b046c[] = "";
-const char var7f1b0470[] = "";
-const char var7f1b0474[] = "";
-const char var7f1b0478[] = "";
-const char var7f1b047c[] = "";
-const char var7f1b0480[] = "";
-const char var7f1b0484[] = "";
-const char var7f1b0488[] = "";
-const char var7f1b048c[] = "";
-const char var7f1b0490[] = "";
-const char var7f1b0494[] = "";
-const char var7f1b0498[] = "";
-const char var7f1b049c[] = "";
-const char var7f1b04a0[] = "";
-const char var7f1b04a4[] = "";
-const char var7f1b04a8[] = "";
-const char var7f1b04ac[] = "";
-const char var7f1b04b0[] = "";
-const char var7f1b04b4[] = "";
-const char var7f1b04b8[] = "";
-const char var7f1b04bc[] = "";
-const char var7f1b04c0[] = "";
-const char var7f1b04c4[] = "";
-const char var7f1b04c8[] = "";
-const char var7f1b04cc[] = "";
-const char var7f1b04d0[] = "";
-const char var7f1b04d4[] = "";
-const char var7f1b04d8[] = "";
-const char var7f1b04dc[] = "";
-const char var7f1b04e0[] = "";
-const char var7f1b04e4[] = "";
-const char var7f1b04e8[] = "";
-const char var7f1b04ec[] = "";
-const char var7f1b04f0[] = "";
-const char var7f1b04f4[] = "";
-const char var7f1b04f8[] = "";
-const char var7f1b04fc[] = "";
-const char var7f1b0500[] = "";
-const char var7f1b0504[] = "";
-const char var7f1b0508[] = "";
-const char var7f1b050c[] = "";
-const char var7f1b0510[] = "";
-const char var7f1b0514[] = "";
-const char var7f1b0518[] = "";
-const char var7f1b051c[] = "";
-const char var7f1b0520[] = "";
-const char var7f1b0524[] = "";
-const char var7f1b0528[] = "";
-const char var7f1b052c[] = "";
-const char var7f1b0530[] = "";
-const char var7f1b0534[] = "";
-const char var7f1b0538[] = "";
-const char var7f1b053c[] = "";
-const char var7f1b0540[] = "";
-const char var7f1b0544[] = "";
-const char var7f1b0548[] = "";
-const char var7f1b054c[] = "";
-const char var7f1b0550[] = "";
-const char var7f1b0554[] = "";
-const char var7f1b0558[] = "";
-const char var7f1b055c[] = "";
-const char var7f1b0560[] = "";
-const char var7f1b0564[] = "";
-const char var7f1b0568[] = "";
-const char var7f1b056c[] = "";
-const char var7f1b0570[] = "";
-const char var7f1b0574[] = "";
-const char var7f1b0578[] = "";
-const char var7f1b057c[] = "";
-const char var7f1b0580[] = "";
-const char var7f1b0584[] = "";
-const char var7f1b0588[] = "";
-const char var7f1b058c[] = "";
-const char var7f1b0590[] = "";
-const char var7f1b0594[] = "";
-const char var7f1b0598[] = "";
-const char var7f1b059c[] = "";
-const char var7f1b05a0[] = "";
-const char var7f1b05a4[] = "";
-const char var7f1b05a8[] = "";
-const char var7f1b05ac[] = "";
-const char var7f1b05b0[] = "";
-const char var7f1b05b4[] = "";
-const char var7f1b05b8[] = "";
-const char var7f1b05bc[] = "";
-const char var7f1b05c0[] = "";
-const char var7f1b05c4[] = "";
-const char var7f1b05c8[] = "";
-const char var7f1b05cc[] = "";
-const char var7f1b05d0[] = "";
-const char var7f1b05d4[] = "";
-const char var7f1b05d8[] = "";
-const char var7f1b05dc[] = "";
-const char var7f1b05e0[] = "";
-const char var7f1b05e4[] = "";
-const char var7f1b05e8[] = "";
-const char var7f1b05ec[] = "";
-const char var7f1b05f0[] = "";
-const char var7f1b05f4[] = "";
-const char var7f1b05f8[] = "";
-const char var7f1b05fc[] = "";
-const char var7f1b0600[] = "";
-const char var7f1b0604[] = "";
-const char var7f1b0608[] = "";
-const char var7f1b060c[] = "";
-const char var7f1b0610[] = "";
-const char var7f1b0614[] = "";
-const char var7f1b0618[] = "";
-const char var7f1b061c[] = "";
-const char var7f1b0620[] = "";
-const char var7f1b0624[] = "";
-const char var7f1b0628[] = "";
-const char var7f1b062c[] = "";
-const char var7f1b0630[] = "";
-const char var7f1b0634[] = "";
-const char var7f1b0638[] = "";
-const char var7f1b063c[] = "";
-const char var7f1b0640[] = "";
-const char var7f1b0644[] = "";
-const char var7f1b0648[] = "";
-const char var7f1b064c[] = "";
-const char var7f1b0650[] = "";
-const char var7f1b0654[] = "";
-const char var7f1b0658[] = "";
-const char var7f1b065c[] = "";
-const char var7f1b0660[] = "";
-const char var7f1b0664[] = "";
-const char var7f1b0668[] = "";
-const char var7f1b066c[] = "";
-const char var7f1b0670[] = "";
-const char var7f1b0674[] = "";
-const char var7f1b0678[] = "";
-const char var7f1b067c[] = "";
-const char var7f1b0680[] = "";
-const char var7f1b0684[] = "";
-const char var7f1b0688[] = "";
-const char var7f1b068c[] = "";
-const char var7f1b0690[] = "";
-const char var7f1b0694[] = "";
-const char var7f1b0698[] = "";
-const char var7f1b069c[] = "";
-const char var7f1b06a0[] = "";
-const char var7f1b06a4[] = "";
-const char var7f1b06a8[] = "";
-const char var7f1b06ac[] = "";
-const char var7f1b06b0[] = "";
-const char var7f1b06b4[] = "";
-const char var7f1b06b8[] = "";
-const char var7f1b06bc[] = "";
-const char var7f1b06c0[] = "";
-const char var7f1b06c4[] = "";
-const char var7f1b06c8[] = "";
-const char var7f1b06cc[] = "";
-const char var7f1b06d0[] = "";
-const char var7f1b06d4[] = "";
-const char var7f1b06d8[] = "";
-const char var7f1b06dc[] = "";
-const char var7f1b06e0[] = "";
-const char var7f1b06e4[] = "";
-const char var7f1b06e8[] = "";
-const char var7f1b06ec[] = "";
-const char var7f1b06f0[] = "";
-const char var7f1b06f4[] = "";
-const char var7f1b06f8[] = "";
-const char var7f1b06fc[] = "";
-const char var7f1b0700[] = "";
-const char var7f1b0704[] = "";
-const char var7f1b0708[] = "";
-const char var7f1b070c[] = "";
-const char var7f1b0710[] = "";
-const char var7f1b0714[] = "";
-const char var7f1b0718[] = "";
-const char var7f1b071c[] = "";
-const char var7f1b0720[] = "";
-const char var7f1b0724[] = "";
-const char var7f1b0728[] = "";
-const char var7f1b072c[] = "";
-const char var7f1b0730[] = "";
-const char var7f1b0734[] = "";
-const char var7f1b0738[] = "";
-const char var7f1b073c[] = "";
-const char var7f1b0740[] = "";
-const char var7f1b0744[] = "";
-const char var7f1b0748[] = "";
-const char var7f1b074c[] = "";
-const char var7f1b0750[] = "";
-const char var7f1b0754[] = "";
-const char var7f1b0758[] = "";
-const char var7f1b075c[] = "";
-const char var7f1b0760[] = "";
-const char var7f1b0764[] = "";
-const char var7f1b0768[] = "";
-const char var7f1b076c[] = "";
-const char var7f1b0770[] = "";
-const char var7f1b0774[] = "";
-const char var7f1b0778[] = "";
-const char var7f1b077c[] = "";
-const char var7f1b0780[] = "";
-const char var7f1b0784[] = "";
-const char var7f1b0788[] = "";
-const char var7f1b078c[] = "";
-const char var7f1b0790[] = "";
-const char var7f1b0794[] = "";
-const char var7f1b0798[] = "";
-const char var7f1b079c[] = "";
-const char var7f1b07a0[] = "";
-const char var7f1b07a4[] = "";
-const char var7f1b07a8[] = "";
-const char var7f1b07ac[] = "";
-const char var7f1b07b0[] = "";
-const char var7f1b07b4[] = "";
-const char var7f1b07b8[] = "";
-const char var7f1b07bc[] = "";
-const char var7f1b07c0[] = "";
-const char var7f1b07c4[] = "";
-const char var7f1b07c8[] = "";
-const char var7f1b07cc[] = "";
-const char var7f1b07d0[] = "";
-const char var7f1b07d4[] = "";
-const char var7f1b07d8[] = "";
-const char var7f1b07dc[] = "";
-const char var7f1b07e0[] = "";
-const char var7f1b07e4[] = "";
-const char var7f1b07e8[] = "";
-const char var7f1b07ec[] = "";
-const char var7f1b07f0[] = "";
-const char var7f1b07f4[] = "";
-const char var7f1b07f8[] = "";
-const char var7f1b07fc[] = "";
-const char var7f1b0800[] = "";
-const char var7f1b0804[] = "";
-const char var7f1b0808[] = "";
-const char var7f1b080c[] = "";
-const char var7f1b0810[] = "";
-const char var7f1b0814[] = "";
-const char var7f1b0818[] = "";
-const char var7f1b081c[] = "";
-const char var7f1b0820[] = "";
-const char var7f1b0824[] = "";
-const char var7f1b0828[] = "";
-const char var7f1b082c[] = "";
-const char var7f1b0830[] = "";
-const char var7f1b0834[] = "";
-const char var7f1b0838[] = "";
-const char var7f1b083c[] = "";
-const char var7f1b0840[] = "";
-const char var7f1b0844[] = "";
-const char var7f1b0848[] = "";
-const char var7f1b084c[] = "";
-const char var7f1b0850[] = "";
-const char var7f1b0854[] = "";
-const char var7f1b0858[] = "";
-const char var7f1b085c[] = "";
-const char var7f1b0860[] = "";
-const char var7f1b0864[] = "";
-const char var7f1b0868[] = "";
-const char var7f1b086c[] = "";
-const char var7f1b0870[] = "";
-const char var7f1b0874[] = "";
-const char var7f1b0878[] = "";
-const char var7f1b087c[] = "";
-const char var7f1b0880[] = "";
-const char var7f1b0884[] = "";
-const char var7f1b0888[] = "";
-const char var7f1b088c[] = "";
-const char var7f1b0890[] = "";
-const char var7f1b0894[] = "";
-const char var7f1b0898[] = "";
-const char var7f1b089c[] = "";
-const char var7f1b08a0[] = "";
-const char var7f1b08a4[] = "";
-const char var7f1b08a8[] = "";
-const char var7f1b08ac[] = "";
-const char var7f1b08b0[] = "";
-const char var7f1b08b4[] = "";
-const char var7f1b08b8[] = "";
-const char var7f1b08bc[] = "";
-const char var7f1b08c0[] = "";
-const char var7f1b08c4[] = "";
-const char var7f1b08c8[] = "";
-const char var7f1b08cc[] = "";
-const char var7f1b08d0[] = "";
-const char var7f1b08d4[] = "";
-const char var7f1b08d8[] = "";
-const char var7f1b08dc[] = "";
-const char var7f1b08e0[] = "";
-const char var7f1b08e4[] = "";
-const char var7f1b08e8[] = "";
-const char var7f1b08ec[] = "";
-const char var7f1b08f0[] = "";
-const char var7f1b08f4[] = "";
-const char var7f1b08f8[] = "";
-const char var7f1b08fc[] = "";
-const char var7f1b0900[] = "";
-const char var7f1b0904[] = "";
-const char var7f1b0908[] = "";
-const char var7f1b090c[] = "";
-const char var7f1b0910[] = "";
-const char var7f1b0914[] = "";
-const char var7f1b0918[] = "";
-const char var7f1b091c[] = "";
-const char var7f1b0920[] = "";
-const char var7f1b0924[] = "";
-const char var7f1b0928[] = "";
-const char var7f1b092c[] = "";
-const char var7f1b0930[] = "";
-const char var7f1b0934[] = "";
-const char var7f1b0938[] = "";
-const char var7f1b093c[] = "";
-const char var7f1b0940[] = "";
-const char var7f1b0944[] = "";
-const char var7f1b0948[] = "";
-const char var7f1b094c[] = "";
-const char var7f1b0950[] = "";
-const char var7f1b0954[] = "";
-const char var7f1b0958[] = "";
-const char var7f1b095c[] = "";
-const char var7f1b0960[] = "";
-const char var7f1b0964[] = "";
-const char var7f1b0968[] = "";
-const char var7f1b096c[] = "";
-const char var7f1b0970[] = "";
-const char var7f1b0974[] = "";
-const char var7f1b0978[] = "";
-const char var7f1b097c[] = "";
-const char var7f1b0980[] = "";
-const char var7f1b0984[] = "";
-const char var7f1b0988[] = "";
-const char var7f1b098c[] = "";
-const char var7f1b0990[] = "";
-const char var7f1b0994[] = "";
-const char var7f1b0998[] = "";
-const char var7f1b099c[] = "";
-const char var7f1b09a0[] = "";
-const char var7f1b09a4[] = "";
-const char var7f1b09a8[] = "";
-const char var7f1b09ac[] = "";
-const char var7f1b09b0[] = "";
-const char var7f1b09b4[] = "";
-const char var7f1b09b8[] = "";
-const char var7f1b09bc[] = "";
-const char var7f1b09c0[] = "";
-const char var7f1b09c4[] = "";
-const char var7f1b09c8[] = "";
-const char var7f1b09cc[] = "";
-const char var7f1b09d0[] = "";
-const char var7f1b09d4[] = "";
-const char var7f1b09d8[] = "";
-const char var7f1b09dc[] = "";
-const char var7f1b09e0[] = "";
-const char var7f1b09e4[] = "";
-const char var7f1b09e8[] = "";
-const char var7f1b09ec[] = "";
-const char var7f1b09f0[] = "";
-const char var7f1b09f4[] = "";
-const char var7f1b09f8[] = "";
-const char var7f1b09fc[] = "";
-const char var7f1b0a00[] = "";
-const char var7f1b0a04[] = "";
-const char var7f1b0a08[] = "";
-const char var7f1b0a0c[] = "";
-const char var7f1b0a10[] = "";
-const char var7f1b0a14[] = "";
-const char var7f1b0a18[] = "";
-const char var7f1b0a1c[] = "";
-const char var7f1b0a20[] = "";
-const char var7f1b0a24[] = "";
-const char var7f1b0a28[] = "";
-const char var7f1b0a2c[] = "";
-const char var7f1b0a30[] = "";
-const char var7f1b0a34[] = "";
-const char var7f1b0a38[] = "";
-const char var7f1b0a3c[] = "";
-const char var7f1b0a40[] = "";
-const char var7f1b0a44[] = "";
-const char var7f1b0a48[] = "";
-const char var7f1b0a4c[] = "";
-const char var7f1b0a50[] = "";
-const char var7f1b0a54[] = "";
-const char var7f1b0a58[] = "";
-const char var7f1b0a5c[] = "";
-const char var7f1b0a60[] = "";
-const char var7f1b0a64[] = "";
-const char var7f1b0a68[] = "";
-const char var7f1b0a6c[] = "";
-const char var7f1b0a70[] = "";
-const char var7f1b0a74[] = "";
-const char var7f1b0a78[] = "";
-const char var7f1b0a7c[] = "";
-const char var7f1b0a80[] = "";
-const char var7f1b0a84[] = "";
-const char var7f1b0a88[] = "";
-const char var7f1b0a8c[] = "";
-const char var7f1b0a90[] = "";
-const char var7f1b0a94[] = "";
-const char var7f1b0a98[] = "";
-const char var7f1b0a9c[] = "";
-const char var7f1b0aa0[] = "";
-const char var7f1b0aa4[] = "";
-const char var7f1b0aa8[] = "";
-const char var7f1b0aac[] = "";
-const char var7f1b0ab0[] = "";
-const char var7f1b0ab4[] = "";
-const char var7f1b0ab8[] = "";
-const char var7f1b0abc[] = "";
-const char var7f1b0ac0[] = "";
-const char var7f1b0ac4[] = "";
-const char var7f1b0ac8[] = "";
-const char var7f1b0acc[] = "";
-const char var7f1b0ad0[] = "";
-const char var7f1b0ad4[] = "";
-const char var7f1b0ad8[] = "";
-const char var7f1b0adc[] = "";
-const char var7f1b0ae0[] = "";
-const char var7f1b0ae4[] = "";
-const char var7f1b0ae8[] = "";
-const char var7f1b0aec[] = "";
-const char var7f1b0af0[] = "";
-const char var7f1b0af4[] = "";
-const char var7f1b0af8[] = "";
-const char var7f1b0afc[] = "";
-const char var7f1b0b00[] = "";
-const char var7f1b0b04[] = "";
-const char var7f1b0b08[] = "";
-const char var7f1b0b0c[] = "";
-const char var7f1b0b10[] = "";
-const char var7f1b0b14[] = "";
-const char var7f1b0b18[] = "";
-const char var7f1b0b1c[] = "";
-const char var7f1b0b20[] = "";
-const char var7f1b0b24[] = "";
-const char var7f1b0b28[] = "";
-const char var7f1b0b2c[] = "";
-const char var7f1b0b30[] = "";
-const char var7f1b0b34[] = "";
-const char var7f1b0b38[] = "";
-const char var7f1b0b3c[] = "";
-const char var7f1b0b40[] = "";
-const char var7f1b0b44[] = "";
-const char var7f1b0b48[] = "";
-const char var7f1b0b4c[] = "";
-const char var7f1b0b50[] = "";
-const char var7f1b0b54[] = "";
-const char var7f1b0b58[] = "";
-const char var7f1b0b5c[] = "";
-const char var7f1b0b60[] = "";
-const char var7f1b0b64[] = "";
-const char var7f1b0b68[] = "";
-const char var7f1b0b6c[] = "";
-const char var7f1b0b70[] = "";
-const char var7f1b0b74[] = "";
-const char var7f1b0b78[] = "";
-const char var7f1b0b7c[] = "";
-const char var7f1b0b80[] = "";
-const char var7f1b0b84[] = "";
-const char var7f1b0b88[] = "";
-const char var7f1b0b8c[] = "";
-const char var7f1b0b90[] = "";
-const char var7f1b0b94[] = "";
-const char var7f1b0b98[] = "";
-const char var7f1b0b9c[] = "";
-const char var7f1b0ba0[] = "";
-const char var7f1b0ba4[] = "";
-const char var7f1b0ba8[] = "";
-const char var7f1b0bac[] = "";
-const char var7f1b0bb0[] = "";
-const char var7f1b0bb4[] = "";
-const char var7f1b0bb8[] = "";
-const char var7f1b0bbc[] = "";
-const char var7f1b0bc0[] = "";
-const char var7f1b0bc4[] = "";
-const char var7f1b0bc8[] = "";
-const char var7f1b0bcc[] = "";
-const char var7f1b0bd0[] = "";
-const char var7f1b0bd4[] = "";
-const char var7f1b0bd8[] = "";
-const char var7f1b0bdc[] = "";
-const char var7f1b0be0[] = "";
-const char var7f1b0be4[] = "";
-const char var7f1b0be8[] = "";
-const char var7f1b0bec[] = "";
-const char var7f1b0bf0[] = "";
-const char var7f1b0bf4[] = "";
-const char var7f1b0bf8[] = "";
-const char var7f1b0bfc[] = "";
-const char var7f1b0c00[] = "";
-const char var7f1b0c04[] = "";
-const char var7f1b0c08[] = "";
-const char var7f1b0c0c[] = "";
-const char var7f1b0c10[] = "";
-const char var7f1b0c14[] = "";
-const char var7f1b0c18[] = "";
-const char var7f1b0c1c[] = "";
-const char var7f1b0c20[] = "";
-const char var7f1b0c24[] = "";
-const char var7f1b0c28[] = "";
-const char var7f1b0c2c[] = "";
-const char var7f1b0c30[] = "";
-const char var7f1b0c34[] = "";
-const char var7f1b0c38[] = "";
-const char var7f1b0c3c[] = "";
-const char var7f1b0c40[] = "";
-const char var7f1b0c44[] = "";
-const char var7f1b0c48[] = "";
-const char var7f1b0c4c[] = "";
-const char var7f1b0c50[] = "";
-const char var7f1b0c54[] = "";
-const char var7f1b0c58[] = "";
-const char var7f1b0c5c[] = "";
-const char var7f1b0c60[] = "";
-const char var7f1b0c64[] = "";
-const char var7f1b0c68[] = "";
-const char var7f1b0c6c[] = "";
-const char var7f1b0c70[] = "";
-const char var7f1b0c74[] = "";
-const char var7f1b0c78[] = "";
-const char var7f1b0c7c[] = "";
-const char var7f1b0c80[] = "";
-const char var7f1b0c84[] = "";
-const char var7f1b0c88[] = "";
-const char var7f1b0c8c[] = "";
-const char var7f1b0c90[] = "";
-const char var7f1b0c94[] = "";
-const char var7f1b0c98[] = "";
-const char var7f1b0c9c[] = "";
-const char var7f1b0ca0[] = "";
-const char var7f1b0ca4[] = "";
-const char var7f1b0ca8[] = "";
-const char var7f1b0cac[] = "";
-const char var7f1b0cb0[] = "";
-const char var7f1b0cb4[] = "";
-const char var7f1b0cb8[] = "";
-const char var7f1b0cbc[] = "";
-const char var7f1b0cc0[] = "";
-const char var7f1b0cc4[] = "";
-const char var7f1b0cc8[] = "";
-const char var7f1b0ccc[] = "";
-const char var7f1b0cd0[] = "";
-const char var7f1b0cd4[] = "";
-const char var7f1b0cd8[] = "";
-const char var7f1b0cdc[] = "";
-const char var7f1b0ce0[] = "";
-const char var7f1b0ce4[] = "";
-const char var7f1b0ce8[] = "";
-const char var7f1b0cec[] = "";
-const char var7f1b0cf0[] = "";
-const char var7f1b0cf4[] = "";
-const char var7f1b0cf8[] = "";
-const char var7f1b0cfc[] = "";
-const char var7f1b0d00[] = "";
-const char var7f1b0d04[] = "";
-const char var7f1b0d08[] = "";
-const char var7f1b0d0c[] = "";
-const char var7f1b0d10[] = "";
-const char var7f1b0d14[] = "";
-const char var7f1b0d18[] = "";
-const char var7f1b0d1c[] = "";
-const char var7f1b0d20[] = "";
-const char var7f1b0d24[] = "";
-const char var7f1b0d28[] = "";
-const char var7f1b0d2c[] = "";
-const char var7f1b0d30[] = "";
-const char var7f1b0d34[] = "";
-const char var7f1b0d38[] = "";
-const char var7f1b0d3c[] = "";
-const char var7f1b0d40[] = "";
-const char var7f1b0d44[] = "";
-const char var7f1b0d48[] = "";
-const char var7f1b0d4c[] = "";
-const char var7f1b0d50[] = "";
-const char var7f1b0d54[] = "";
-const char var7f1b0d58[] = "";
-const char var7f1b0d5c[] = "";
-const char var7f1b0d60[] = "";
-const char var7f1b0d64[] = "";
-const char var7f1b0d68[] = "";
-const char var7f1b0d6c[] = "";
-const char var7f1b0d70[] = "";
-const char var7f1b0d74[] = "";
-const char var7f1b0d78[] = "";
-const char var7f1b0d7c[] = "";
-const char var7f1b0d80[] = "";
-const char var7f1b0d84[] = "";
-const char var7f1b0d88[] = "";
-const char var7f1b0d8c[] = "";
-const char var7f1b0d90[] = "";
-const char var7f1b0d94[] = "";
-const char var7f1b0d98[] = "";
-const char var7f1b0d9c[] = "";
-const char var7f1b0da0[] = "";
-const char var7f1b0da4[] = "";
-const char var7f1b0da8[] = "";
-const char var7f1b0dac[] = "";
-const char var7f1b0db0[] = "";
-const char var7f1b0db4[] = "";
-const char var7f1b0db8[] = "";
-const char var7f1b0dbc[] = "";
-const char var7f1b0dc0[] = "";
-const char var7f1b0dc4[] = "";
-const char var7f1b0dc8[] = "";
-const char var7f1b0dcc[] = "";
-const char var7f1b0dd0[] = "";
-const char var7f1b0dd4[] = "";
-const char var7f1b0dd8[] = "";
-const char var7f1b0ddc[] = "";
-const char var7f1b0de0[] = "";
-const char var7f1b0de4[] = "";
-const char var7f1b0de8[] = "";
-const char var7f1b0dec[] = "";
-const char var7f1b0df0[] = "";
-const char var7f1b0df4[] = "";
-const char var7f1b0df8[] = "";
-const char var7f1b0dfc[] = "";
-const char var7f1b0e00[] = "";
-const char var7f1b0e04[] = "";
-const char var7f1b0e08[] = "";
-const char var7f1b0e0c[] = "";
-const char var7f1b0e10[] = "";
-const char var7f1b0e14[] = "";
-const char var7f1b0e18[] = "";
-const char var7f1b0e1c[] = "";
-const char var7f1b0e20[] = "";
-const char var7f1b0e24[] = "";
-const char var7f1b0e28[] = "";
-const char var7f1b0e2c[] = "";
-const char var7f1b0e30[] = "";
-const char var7f1b0e34[] = "";
-const char var7f1b0e38[] = "";
-const char var7f1b0e3c[] = "";
-const char var7f1b0e40[] = "";
-const char var7f1b0e44[] = "";
-const char var7f1b0e48[] = "";
-const char var7f1b0e4c[] = "";
-const char var7f1b0e50[] = "";
-const char var7f1b0e54[] = "";
-const char var7f1b0e58[] = "";
-const char var7f1b0e5c[] = "";
-const char var7f1b0e60[] = "";
-const char var7f1b0e64[] = "";
-const char var7f1b0e68[] = "";
-const char var7f1b0e6c[] = "";
-const char var7f1b0e70[] = "";
-const char var7f1b0e74[] = "";
-const char var7f1b0e78[] = "";
-const char var7f1b0e7c[] = "";
-const char var7f1b0e80[] = "";
-const char var7f1b0e84[] = "";
-const char var7f1b0e88[] = "";
-const char var7f1b0e8c[] = "";
-const char var7f1b0e90[] = "";
-const char var7f1b0e94[] = "";
-const char var7f1b0e98[] = "";
-const char var7f1b0e9c[] = "";
-const char var7f1b0ea0[] = "";
-const char var7f1b0ea4[] = "";
-const char var7f1b0ea8[] = "";
-const char var7f1b0eac[] = "";
-const char var7f1b0eb0[] = "";
-const char var7f1b0eb4[] = "";
-const char var7f1b0eb8[] = "";
-const char var7f1b0ebc[] = "";
-const char var7f1b0ec0[] = "";
-const char var7f1b0ec4[] = "";
-const char var7f1b0ec8[] = "";
-const char var7f1b0ecc[] = "";
-const char var7f1b0ed0[] = "";
-const char var7f1b0ed4[] = "";
-const char var7f1b0ed8[] = "";
-const char var7f1b0edc[] = "";
-const char var7f1b0ee0[] = "";
-const char var7f1b0ee4[] = "";
-const char var7f1b0ee8[] = "";
-const char var7f1b0eec[] = "";
-const char var7f1b0ef0[] = "";
-const char var7f1b0ef4[] = "";
-const char var7f1b0ef8[] = "";
-const char var7f1b0efc[] = "";
-const char var7f1b0f00[] = "";
-const char var7f1b0f04[] = "";
-const char var7f1b0f08[] = "";
-const char var7f1b0f0c[] = "";
-const char var7f1b0f10[] = "";
-const char var7f1b0f14[] = "";
-const char var7f1b0f18[] = "";
-const char var7f1b0f1c[] = "";
-const char var7f1b0f20[] = "";
-const char var7f1b0f24[] = "";
-const char var7f1b0f28[] = "";
-const char var7f1b0f2c[] = "";
-const char var7f1b0f30[] = "";
-const char var7f1b0f34[] = "";
-const char var7f1b0f38[] = "";
-const char var7f1b0f3c[] = "";
-const char var7f1b0f40[] = "";
-const char var7f1b0f44[] = "";
-const char var7f1b0f48[] = "";
-const char var7f1b0f4c[] = "";
-const char var7f1b0f50[] = "";
-const char var7f1b0f54[] = "";
-const char var7f1b0f58[] = "";
-const char var7f1b0f5c[] = "";
-const char var7f1b0f60[] = "";
-const char var7f1b0f64[] = "";
-const char var7f1b0f68[] = "";
-const char var7f1b0f6c[] = "";
-const char var7f1b0f70[] = "";
-const char var7f1b0f74[] = "";
-const char var7f1b0f78[] = "";
-const char var7f1b0f7c[] = "";
-const char var7f1b0f80[] = "";
-const char var7f1b0f84[] = "";
-const char var7f1b0f88[] = "";
-const char var7f1b0f8c[] = "";
-const char var7f1b0f90[] = "";
-const char var7f1b0f94[] = "";
-const char var7f1b0f98[] = "";
-const char var7f1b0f9c[] = "";
-const char var7f1b0fa0[] = "";
-const char var7f1b0fa4[] = "";
-const char var7f1b0fa8[] = "";
-const char var7f1b0fac[] = "";
-const char var7f1b0fb0[] = "";
-const char var7f1b0fb4[] = "";
-const char var7f1b0fb8[] = "";
-const char var7f1b0fbc[] = "";
-const char var7f1b0fc0[] = "";
-const char var7f1b0fc4[] = "";
-const char var7f1b0fc8[] = "";
-const char var7f1b0fcc[] = "";
-const char var7f1b0fd0[] = "";
-const char var7f1b0fd4[] = "";
-const char var7f1b0fd8[] = "";
-const char var7f1b0fdc[] = "";
-const char var7f1b0fe0[] = "";
-const char var7f1b0fe4[] = "";
-const char var7f1b0fe8[] = "";
-const char var7f1b0fec[] = "";
-const char var7f1b0ff0[] = "";
-const char var7f1b0ff4[] = "";
-const char var7f1b0ff8[] = "";
-const char var7f1b0ffc[] = "";
-const char var7f1b1000[] = "";
-const char var7f1b1004[] = "";
-const char var7f1b1008[] = "";
-const char var7f1b100c[] = "";
-const char var7f1b1010[] = "";
-const char var7f1b1014[] = "";
-const char var7f1b1018[] = "";
-const char var7f1b101c[] = "";
-const char var7f1b1020[] = "";
-const char var7f1b1024[] = "";
-const char var7f1b1028[] = "";
-const char var7f1b102c[] = "";
-const char var7f1b1030[] = "";
-const char var7f1b1034[] = "";
-const char var7f1b1038[] = "";
-const char var7f1b103c[] = "";
-const char var7f1b1040[] = "";
-const char var7f1b1044[] = "";
-const char var7f1b1048[] = "";
-const char var7f1b104c[] = "";
-const char var7f1b1050[] = "";
-const char var7f1b1054[] = "";
-const char var7f1b1058[] = "";
-const char var7f1b105c[] = "";
-const char var7f1b1060[] = "";
-const char var7f1b1064[] = "";
-const char var7f1b1068[] = "";
-const char var7f1b106c[] = "";
-const char var7f1b1070[] = "";
-const char var7f1b1074[] = "";
-const char var7f1b1078[] = "";
-const char var7f1b107c[] = "";
-const char var7f1b1080[] = "";
-const char var7f1b1084[] = "";
-const char var7f1b1088[] = "";
-const char var7f1b108c[] = "";
-const char var7f1b1090[] = "";
-const char var7f1b1094[] = "";
-const char var7f1b1098[] = "";
-const char var7f1b109c[] = "";
-const char var7f1b10a0[] = "";
-const char var7f1b10a4[] = "";
-const char var7f1b10a8[] = "";
-const char var7f1b10ac[] = "";
-const char var7f1b10b0[] = "";
-const char var7f1b10b4[] = "";
-const char var7f1b10b8[] = "";
-const char var7f1b10bc[] = "";
-const char var7f1b10c0[] = "";
-const char var7f1b10c4[] = "";
-const char var7f1b10c8[] = "";
-const char var7f1b10cc[] = "";
-const char var7f1b10d0[] = "";
-const char var7f1b10d4[] = "";
-const char var7f1b10d8[] = "";
-const char var7f1b10dc[] = "";
-const char var7f1b10e0[] = "";
-const char var7f1b10e4[] = "";
-const char var7f1b10e8[] = "";
-const char var7f1b10ec[] = "";
-const char var7f1b10f0[] = "";
-const char var7f1b10f4[] = "";
-const char var7f1b10f8[] = "";
-const char var7f1b10fc[] = "";
-const char var7f1b1100[] = "";
-const char var7f1b1104[] = "";
-const char var7f1b1108[] = "";
-const char var7f1b110c[] = "";
-const char var7f1b1110[] = "";
-const char var7f1b1114[] = "";
-const char var7f1b1118[] = "";
-const char var7f1b111c[] = "";
-const char var7f1b1120[] = "";
-const char var7f1b1124[] = "";
-const char var7f1b1128[] = "";
-const char var7f1b112c[] = "";
-const char var7f1b1130[] = "";
-const char var7f1b1134[] = "";
-const char var7f1b1138[] = "";
-const char var7f1b113c[] = "";
-const char var7f1b1140[] = "";
-const char var7f1b1144[] = "";
-const char var7f1b1148[] = "";
-const char var7f1b114c[] = "";
-const char var7f1b1150[] = "";
-const char var7f1b1154[] = "";
-const char var7f1b1158[] = "";
-const char var7f1b115c[] = "";
-const char var7f1b1160[] = "";
-const char var7f1b1164[] = "";
-const char var7f1b1168[] = "";
-const char var7f1b116c[] = "";
-const char var7f1b1170[] = "";
-const char var7f1b1174[] = "";
-const char var7f1b1178[] = "";
-const char var7f1b117c[] = "";
-const char var7f1b1180[] = "";
-const char var7f1b1184[] = "";
-const char var7f1b1188[] = "";
-const char var7f1b118c[] = "";
-const char var7f1b1190[] = "";
-const char var7f1b1194[] = "";
-const char var7f1b1198[] = "";
-const char var7f1b119c[] = "";
-const char var7f1b11a0[] = "";
-const char var7f1b11a4[] = "";
-const char var7f1b11a8[] = "";
-const char var7f1b11ac[] = "";
-const char var7f1b11b0[] = "";
-const char var7f1b11b4[] = "";
-const char var7f1b11b8[] = "";
-const char var7f1b11bc[] = "";
-const char var7f1b11c0[] = "";
-const char var7f1b11c4[] = "";
-const char var7f1b11c8[] = "";
-const char var7f1b11cc[] = "";
-const char var7f1b11d0[] = "";
-const char var7f1b11d4[] = "";
-const char var7f1b11d8[] = "";
-const char var7f1b11dc[] = "";
-const char var7f1b11e0[] = "";
-const char var7f1b11e4[] = "";
-const char var7f1b11e8[] = "";
-const char var7f1b11ec[] = "";
-const char var7f1b11f0[] = "";
-const char var7f1b11f4[] = "";
-const char var7f1b11f8[] = "";
-const char var7f1b11fc[] = "";
-const char var7f1b1200[] = "";
-const char var7f1b1204[] = "";
-const char var7f1b1208[] = "";
-const char var7f1b120c[] = "";
-const char var7f1b1210[] = "";
-const char var7f1b1214[] = "";
-const char var7f1b1218[] = "";
-const char var7f1b121c[] = "";
-const char var7f1b1220[] = "";
-const char var7f1b1224[] = "";
-const char var7f1b1228[] = "";
-const char var7f1b122c[] = "";
-const char var7f1b1230[] = "";
-const char var7f1b1234[] = "";
-const char var7f1b1238[] = "";
-const char var7f1b123c[] = "";
-const char var7f1b1240[] = "";
-const char var7f1b1244[] = "";
-const char var7f1b1248[] = "";
-const char var7f1b124c[] = "";
-const char var7f1b1250[] = "";
-const char var7f1b1254[] = "";
-const char var7f1b1258[] = "";
-const char var7f1b125c[] = "";
-const char var7f1b1260[] = "";
-const char var7f1b1264[] = "";
-const char var7f1b1268[] = "";
-const char var7f1b126c[] = "";
-const char var7f1b1270[] = "";
-const char var7f1b1274[] = "";
-const char var7f1b1278[] = "";
-const char var7f1b127c[] = "";
-const char var7f1b1280[] = "";
-const char var7f1b1284[] = "";
-const char var7f1b1288[] = "";
-const char var7f1b128c[] = "";
-const char var7f1b1290[] = "";
-const char var7f1b1294[] = "";
-const char var7f1b1298[] = "";
-const char var7f1b129c[] = "";
-const char var7f1b12a0[] = "";
-const char var7f1b12a4[] = "";
-const char var7f1b12a8[] = "";
-const char var7f1b12ac[] = "";
-const char var7f1b12b0[] = "";
-const char var7f1b12b4[] = "";
-const char var7f1b12b8[] = "";
-const char var7f1b12bc[] = "";
-const char var7f1b12c0[] = "";
-const char var7f1b12c4[] = "";
-const char var7f1b12c8[] = "";
-const char var7f1b12cc[] = "";
-const char var7f1b12d0[] = "";
-const char var7f1b12d4[] = "";
-const char var7f1b12d8[] = "";
-const char var7f1b12dc[] = "";
-const char var7f1b12e0[] = "";
-const char var7f1b12e4[] = "";
-const char var7f1b12e8[] = "";
-const char var7f1b12ec[] = "";
-const char var7f1b12f0[] = "";
-const char var7f1b12f4[] = "";
-const char var7f1b12f8[] = "";
-const char var7f1b12fc[] = "";
-const char var7f1b1300[] = "";
-const char var7f1b1304[] = "";
-const char var7f1b1308[] = "";
-const char var7f1b130c[] = "";
-const char var7f1b1310[] = "";
-const char var7f1b1314[] = "";
-const char var7f1b1318[] = "";
-const char var7f1b131c[] = "";
-const char var7f1b1320[] = "";
-const char var7f1b1324[] = "";
-const char var7f1b1328[] = "";
-const char var7f1b132c[] = "";
-const char var7f1b1330[] = "";
-const char var7f1b1334[] = "";
-const char var7f1b1338[] = "";
-const char var7f1b133c[] = "";
-const char var7f1b1340[] = "";
-const char var7f1b1344[] = "";
-const char var7f1b1348[] = "";
-const char var7f1b134c[] = "";
-const char var7f1b1350[] = "";
-const char var7f1b1354[] = "";
-const char var7f1b1358[] = "";
-const char var7f1b135c[] = "";
-const char var7f1b1360[] = "";
-const char var7f1b1364[] = "";
-const char var7f1b1368[] = "";
-const char var7f1b136c[] = "";
-const char var7f1b1370[] = "";
-const char var7f1b1374[] = "";
-const char var7f1b1378[] = "";
-const char var7f1b137c[] = "";
-const char var7f1b1380[] = "";
-const char var7f1b1384[] = "";
-const char var7f1b1388[] = "";
-const char var7f1b138c[] = "";
-const char var7f1b1390[] = "";
-const char var7f1b1394[] = "";
-const char var7f1b1398[] = "";
-const char var7f1b139c[] = "";
-const char var7f1b13a0[] = "";
-const char var7f1b13a4[] = "";
-const char var7f1b13a8[] = "";
-const char var7f1b13ac[] = "";
-const char var7f1b13b0[] = "";
-const char var7f1b13b4[] = "";
-const char var7f1b13b8[] = "";
-const char var7f1b13bc[] = "";
-const char var7f1b13c0[] = "";
-const char var7f1b13c4[] = "";
-const char var7f1b13c8[] = "";
-const char var7f1b13cc[] = "";
-const char var7f1b13d0[] = "";
-const char var7f1b13d4[] = "";
-const char var7f1b13d8[] = "";
-const char var7f1b13dc[] = "";
-const char var7f1b13e0[] = "";
-const char var7f1b13e4[] = "";
-const char var7f1b13e8[] = "";
-const char var7f1b13ec[] = "";
-const char var7f1b13f0[] = "";
-const char var7f1b13f4[] = "";
-const char var7f1b13f8[] = "";
-const char var7f1b13fc[] = "";
-const char var7f1b1400[] = "";
-const char var7f1b1404[] = "";
-const char var7f1b1408[] = "";
-const char var7f1b140c[] = "";
-const char var7f1b1410[] = "";
-const char var7f1b1414[] = "";
-const char var7f1b1418[] = "";
-const char var7f1b141c[] = "";
-const char var7f1b1420[] = "";
-const char var7f1b1424[] = "";
-const char var7f1b1428[] = "";
-const char var7f1b142c[] = "";
-const char var7f1b1430[] = "";
-const char var7f1b1434[] = "";
-const char var7f1b1438[] = "";
-const char var7f1b143c[] = "";
-const char var7f1b1440[] = "";
-const char var7f1b1444[] = "";
-const char var7f1b1448[] = "";
-const char var7f1b144c[] = "";
-const char var7f1b1450[] = "";
-const char var7f1b1454[] = "";
-const char var7f1b1458[] = "";
-const char var7f1b145c[] = "";
-const char var7f1b1460[] = "";
-const char var7f1b1464[] = "";
-const char var7f1b1468[] = "";
-const char var7f1b146c[] = "";
-const char var7f1b1470[] = "";
-const char var7f1b1474[] = "";
-const char var7f1b1478[] = "";
-const char var7f1b147c[] = "";
-const char var7f1b1480[] = "";
-const char var7f1b1484[] = "";
-const char var7f1b1488[] = "";
-const char var7f1b148c[] = "";
-const char var7f1b1490[] = "";
-const char var7f1b1494[] = "";
-const char var7f1b1498[] = "";
-const char var7f1b149c[] = "";
-const char var7f1b14a0[] = "";
-const char var7f1b14a4[] = "";
-const char var7f1b14a8[] = "";
-const char var7f1b14ac[] = "";
-const char var7f1b14b0[] = "";
-const char var7f1b14b4[] = "";
-const char var7f1b14b8[] = "";
-const char var7f1b14bc[] = "";
-const char var7f1b14c0[] = "";
-const char var7f1b14c4[] = "";
-const char var7f1b14c8[] = "";
-const char var7f1b14cc[] = "";
-const char var7f1b14d0[] = "";
-const char var7f1b14d4[] = "";
-const char var7f1b14d8[] = "";
-const char var7f1b14dc[] = "";
-const char var7f1b14e0[] = "";
-const char var7f1b14e4[] = "";
-const char var7f1b14e8[] = "";
-const char var7f1b14ec[] = "";
-const char var7f1b14f0[] = "";
-const char var7f1b14f4[] = "";
-const char var7f1b14f8[] = "";
-const char var7f1b14fc[] = "";
-const char var7f1b1500[] = "";
-const char var7f1b1504[] = "";
-const char var7f1b1508[] = "";
-const char var7f1b150c[] = "";
-const char var7f1b1510[] = "";
-const char var7f1b1514[] = "";
-const char var7f1b1518[] = "";
-const char var7f1b151c[] = "";
-const char var7f1b1520[] = "";
-const char var7f1b1524[] = "";
-const char var7f1b1528[] = "";
-const char var7f1b152c[] = "";
-const char var7f1b1530[] = "";
-const char var7f1b1534[] = "";
-const char var7f1b1538[] = "";
-const char var7f1b153c[] = "";
-const char var7f1b1540[] = "";
-const char var7f1b1544[] = "";
-const char var7f1b1548[] = "";
-const char var7f1b154c[] = "";
-const char var7f1b1550[] = "";
-const char var7f1b1554[] = "";
-const char var7f1b1558[] = "";
-const char var7f1b155c[] = "";
-const char var7f1b1560[] = "";
-const char var7f1b1564[] = "";
-const char var7f1b1568[] = "";
-const char var7f1b156c[] = "";
-const char var7f1b1570[] = "";
-const char var7f1b1574[] = "";
-const char var7f1b1578[] = "";
-const char var7f1b157c[] = "";
-const char var7f1b1580[] = "";
-const char var7f1b1584[] = "";
-const char var7f1b1588[] = "";
-const char var7f1b158c[] = "";
-const char var7f1b1590[] = "";
-const char var7f1b1594[] = "";
-const char var7f1b1598[] = "";
-const char var7f1b159c[] = "";
-const char var7f1b15a0[] = "";
-const char var7f1b15a4[] = "";
-const char var7f1b15a8[] = "";
-const char var7f1b15ac[] = "";
-const char var7f1b15b0[] = "";
-const char var7f1b15b4[] = "";
-const char var7f1b15b8[] = "";
-const char var7f1b15bc[] = "";
-const char var7f1b15c0[] = "";
-const char var7f1b15c4[] = "";
-const char var7f1b15c8[] = "";
-const char var7f1b15cc[] = "";
-const char var7f1b15d0[] = "";
-const char var7f1b15d4[] = "";
-const char var7f1b15d8[] = "";
-const char var7f1b15dc[] = "";
-const char var7f1b15e0[] = "";
-const char var7f1b15e4[] = "";
-const char var7f1b15e8[] = "";
-const char var7f1b15ec[] = "";
-const char var7f1b15f0[] = "";
-const char var7f1b15f4[] = "";
-const char var7f1b15f8[] = "";
-const char var7f1b15fc[] = "";
-const char var7f1b1600[] = "";
-const char var7f1b1604[] = "";
-const char var7f1b1608[] = "";
-const char var7f1b160c[] = "";
-const char var7f1b1610[] = "";
-const char var7f1b1614[] = "";
-const char var7f1b1618[] = "";
-const char var7f1b161c[] = "";
-const char var7f1b1620[] = "";
-const char var7f1b1624[] = "";
-const char var7f1b1628[] = "";
-const char var7f1b162c[] = "";
-const char var7f1b1630[] = "";
-const char var7f1b1634[] = "";
-const char var7f1b1638[] = "";
-const char var7f1b163c[] = "";
-const char var7f1b1640[] = "";
-const char var7f1b1644[] = "";
-const char var7f1b1648[] = "";
-const char var7f1b164c[] = "";
-const char var7f1b1650[] = "";
-const char var7f1b1654[] = "";
-const char var7f1b1658[] = "";
-const char var7f1b165c[] = "";
-const char var7f1b1660[] = "";
-const char var7f1b1664[] = "";
-const char var7f1b1668[] = "";
-const char var7f1b166c[] = "";
-const char var7f1b1670[] = "";
-const char var7f1b1674[] = "";
-const char var7f1b1678[] = "";
-const char var7f1b167c[] = "";
-const char var7f1b1680[] = "";
-const char var7f1b1684[] = "";
-const char var7f1b1688[] = "";
-const char var7f1b168c[] = "";
-const char var7f1b1690[] = "";
-const char var7f1b1694[] = "";
-const char var7f1b1698[] = "";
-const char var7f1b169c[] = "";
-const char var7f1b16a0[] = "";
-const char var7f1b16a4[] = "";
-const char var7f1b16a8[] = "";
-const char var7f1b16ac[] = "";
-const char var7f1b16b0[] = "";
-const char var7f1b16b4[] = "";
-const char var7f1b16b8[] = "";
-const char var7f1b16bc[] = "";
-const char var7f1b16c0[] = "";
-const char var7f1b16c4[] = "";
-const char var7f1b16c8[] = "";
-const char var7f1b16cc[] = "";
-const char var7f1b16d0[] = "";
-const char var7f1b16d4[] = "";
-const char var7f1b16d8[] = "";
-const char var7f1b16dc[] = "";
-const char var7f1b16e0[] = "";
-const char var7f1b16e4[] = "";
-const char var7f1b16e8[] = "";
-const char var7f1b16ec[] = "";
-const char var7f1b16f0[] = "";
-const char var7f1b16f4[] = "";
-const char var7f1b16f8[] = "";
-const char var7f1b16fc[] = "";
-const char var7f1b1700[] = "";
-const char var7f1b1704[] = "";
-const char var7f1b1708[] = "";
-const char var7f1b170c[] = "";
-const char var7f1b1710[] = "";
-const char var7f1b1714[] = "";
-const char var7f1b1718[] = "";
-const char var7f1b171c[] = "";
-const char var7f1b1720[] = "";
-const char var7f1b1724[] = "";
-const char var7f1b1728[] = "";
-const char var7f1b172c[] = "";
-const char var7f1b1730[] = "";
-const char var7f1b1734[] = "";
-const char var7f1b1738[] = "";
-const char var7f1b173c[] = "";
-const char var7f1b1740[] = "";
-const char var7f1b1744[] = "";
-const char var7f1b1748[] = "";
-const char var7f1b174c[] = "";
-const char var7f1b1750[] = "";
-const char var7f1b1754[] = "";
-const char var7f1b1758[] = "";
-const char var7f1b175c[] = "";
-const char var7f1b1760[] = "";
-const char var7f1b1764[] = "";
-const char var7f1b1768[] = "";
-const char var7f1b176c[] = "";
-const char var7f1b1770[] = "";
-const char var7f1b1774[] = "";
-const char var7f1b1778[] = "";
-const char var7f1b177c[] = "";
-const char var7f1b1780[] = "";
-const char var7f1b1784[] = "";
-const char var7f1b1788[] = "";
-const char var7f1b178c[] = "";
-const char var7f1b1790[] = "";
-const char var7f1b1794[] = "";
-const char var7f1b1798[] = "";
-const char var7f1b179c[] = "";
-const char var7f1b17a0[] = "";
-const char var7f1b17a4[] = "";
-const char var7f1b17a8[] = "";
-const char var7f1b17ac[] = "";
-const char var7f1b17b0[] = "";
-const char var7f1b17b4[] = "";
-const char var7f1b17b8[] = "";
-const char var7f1b17bc[] = "";
-const char var7f1b17c0[] = "";
-const char var7f1b17c4[] = "";
-const char var7f1b17c8[] = "";
-const char var7f1b17cc[] = "";
-const char var7f1b17d0[] = "";
-const char var7f1b17d4[] = "";
-const char var7f1b17d8[] = "";
-const char var7f1b17dc[] = "";
-const char var7f1b17e0[] = "";
-const char var7f1b17e4[] = "";
-const char var7f1b17e8[] = "";
-const char var7f1b17ec[] = "";
-const char var7f1b17f0[] = "";
-const char var7f1b17f4[] = "";
-const char var7f1b17f8[] = "";
-const char var7f1b17fc[] = "";
-const char var7f1b1800[] = "";
-const char var7f1b1804[] = "";
-const char var7f1b1808[] = "";
-const char var7f1b180c[] = "";
-const char var7f1b1810[] = "";
-const char var7f1b1814[] = "";
-const char var7f1b1818[] = "";
-const char var7f1b181c[] = "";
-const char var7f1b1820[] = "";
-const char var7f1b1824[] = "";
-const char var7f1b1828[] = "";
-const char var7f1b182c[] = "";
-const char var7f1b1830[] = "";
-const char var7f1b1834[] = "";
-const char var7f1b1838[] = "";
-const char var7f1b183c[] = "";
-const char var7f1b1840[] = "";
-const char var7f1b1844[] = "";
-const char var7f1b1848[] = "";
-const char var7f1b184c[] = "";
-const char var7f1b1850[] = "";
-const char var7f1b1854[] = "";
-const char var7f1b1858[] = "";
-const char var7f1b185c[] = "";
-const char var7f1b1860[] = "";
-const char var7f1b1864[] = "";
-const char var7f1b1868[] = "";
-const char var7f1b186c[] = "";
-const char var7f1b1870[] = "";
-const char var7f1b1874[] = "";
-const char var7f1b1878[] = "";
-const char var7f1b187c[] = "";
-const char var7f1b1880[] = "";
-const char var7f1b1884[] = "";
-const char var7f1b1888[] = "";
-const char var7f1b188c[] = "";
-const char var7f1b1890[] = "";
-const char var7f1b1894[] = "";
-const char var7f1b1898[] = "";
-const char var7f1b189c[] = "";
-const char var7f1b18a0[] = "";
-const char var7f1b18a4[] = "";
-const char var7f1b18a8[] = "";
-const char var7f1b18ac[] = "";
-const char var7f1b18b0[] = "";
-const char var7f1b18b4[] = "";
-const char var7f1b18b8[] = "";
-const char var7f1b18bc[] = "";
-const char var7f1b18c0[] = "";
-const char var7f1b18c4[] = "";
-const char var7f1b18c8[] = "";
-const char var7f1b18cc[] = "";
-const char var7f1b18d0[] = "";
-const char var7f1b18d4[] = "";
-const char var7f1b18d8[] = "";
-const char var7f1b18dc[] = "";
-const char var7f1b18e0[] = "";
-const char var7f1b18e4[] = "";
-const char var7f1b18e8[] = "";
-const char var7f1b18ec[] = "";
-const char var7f1b18f0[] = "";
-const char var7f1b18f4[] = "";
-const char var7f1b18f8[] = "";
-const char var7f1b18fc[] = "";
-const char var7f1b1900[] = "";
-const char var7f1b1904[] = "";
-const char var7f1b1908[] = "";
-const char var7f1b190c[] = "";
-const char var7f1b1910[] = "";
-const char var7f1b1914[] = "";
-const char var7f1b1918[] = "";
-const char var7f1b191c[] = "";
-const char var7f1b1920[] = "";
-const char var7f1b1924[] = "";
-const char var7f1b1928[] = "";
-const char var7f1b192c[] = "";
-const char var7f1b1930[] = "";
-const char var7f1b1934[] = "";
-const char var7f1b1938[] = "";
-const char var7f1b193c[] = "";
-const char var7f1b1940[] = "";
-const char var7f1b1944[] = "";
-const char var7f1b1948[] = "";
-const char var7f1b194c[] = "";
-const char var7f1b1950[] = "";
-const char var7f1b1954[] = "";
-const char var7f1b1958[] = "";
-const char var7f1b195c[] = "";
-const char var7f1b1960[] = "";
-const char var7f1b1964[] = "";
-const char var7f1b1968[] = "";
-const char var7f1b196c[] = "";
-const char var7f1b1970[] = "";
-const char var7f1b1974[] = "";
-const char var7f1b1978[] = "";
-const char var7f1b197c[] = "";
-const char var7f1b1980[] = "";
-const char var7f1b1984[] = "";
-const char var7f1b1988[] = "";
-const char var7f1b198c[] = "";
-const char var7f1b1990[] = "";
-const char var7f1b1994[] = "";
-const char var7f1b1998[] = "";
-const char var7f1b199c[] = "";
-const char var7f1b19a0[] = "";
-const char var7f1b19a4[] = "";
-const char var7f1b19a8[] = "";
-const char var7f1b19ac[] = "";
-const char var7f1b19b0[] = "";
-const char var7f1b19b4[] = "";
-const char var7f1b19b8[] = "";
-const char var7f1b19bc[] = "";
-const char var7f1b19c0[] = "";
-const char var7f1b19c4[] = "";
-const char var7f1b19c8[] = "";
-const char var7f1b19cc[] = "";
-const char var7f1b19d0[] = "";
-const char var7f1b19d4[] = "";
-const char var7f1b19d8[] = "";
-const char var7f1b19dc[] = "";
-const char var7f1b19e0[] = "";
-const char var7f1b19e4[] = "";
-const char var7f1b19e8[] = "";
-const char var7f1b19ec[] = "";
-const char var7f1b19f0[] = "";
-const char var7f1b19f4[] = "";
-const char var7f1b19f8[] = "";
-const char var7f1b19fc[] = "";
-const char var7f1b1a00[] = "";
-const char var7f1b1a04[] = "";
-const char var7f1b1a08[] = "";
-const char var7f1b1a0c[] = "";
-const char var7f1b1a10[] = "";
-const char var7f1b1a14[] = "";
-const char var7f1b1a18[] = "";
-const char var7f1b1a1c[] = "";
-const char var7f1b1a20[] = "";
-const char var7f1b1a24[] = "";
-const char var7f1b1a28[] = "";
-const char var7f1b1a2c[] = "";
-const char var7f1b1a30[] = "";
-const char var7f1b1a34[] = "";
-const char var7f1b1a38[] = "";
-const char var7f1b1a3c[] = "";
-const char var7f1b1a40[] = "";
-const char var7f1b1a44[] = "";
-const char var7f1b1a48[] = "";
-const char var7f1b1a4c[] = "";
-const char var7f1b1a50[] = "";
-const char var7f1b1a54[] = "";
-const char var7f1b1a58[] = "";
-const char var7f1b1a5c[] = "";
-const char var7f1b1a60[] = "";
-const char var7f1b1a64[] = "";
-const char var7f1b1a68[] = "";
-const char var7f1b1a6c[] = "";
-const char var7f1b1a70[] = "";
-const char var7f1b1a74[] = "";
-const char var7f1b1a78[] = "";
-const char var7f1b1a7c[] = "";
-const char var7f1b1a80[] = "";
-const char var7f1b1a84[] = "";
-const char var7f1b1a88[] = "";
-const char var7f1b1a8c[] = "";
-const char var7f1b1a90[] = "";
-const char var7f1b1a94[] = "";
-const char var7f1b1a98[] = "";
-const char var7f1b1a9c[] = "";
-const char var7f1b1aa0[] = "";
-const char var7f1b1aa4[] = "";
-const char var7f1b1aa8[] = "";
-const char var7f1b1aac[] = "";
-const char var7f1b1ab0[] = "";
-const char var7f1b1ab4[] = "";
-const char var7f1b1ab8[] = "";
-const char var7f1b1abc[] = "";
-const char var7f1b1ac0[] = "";
-const char var7f1b1ac4[] = "";
-const char var7f1b1ac8[] = "";
-const char var7f1b1acc[] = "";
-const char var7f1b1ad0[] = "";
-const char var7f1b1ad4[] = "";
-const char var7f1b1ad8[] = "";
-const char var7f1b1adc[] = "";
-const char var7f1b1ae0[] = "";
-const char var7f1b1ae4[] = "";
-const char var7f1b1ae8[] = "";
-const char var7f1b1aec[] = "";
-const char var7f1b1af0[] = "";
-const char var7f1b1af4[] = "";
-const char var7f1b1af8[] = "";
-const char var7f1b1afc[] = "";
-const char var7f1b1b00[] = "";
-const char var7f1b1b04[] = "";
-const char var7f1b1b08[] = "";
-const char var7f1b1b0c[] = "";
-const char var7f1b1b10[] = "";
-const char var7f1b1b14[] = "";
-const char var7f1b1b18[] = "";
-const char var7f1b1b1c[] = "";
-const char var7f1b1b20[] = "";
-const char var7f1b1b24[] = "";
-const char var7f1b1b28[] = "";
-const char var7f1b1b2c[] = "";
-const char var7f1b1b30[] = "";
-const char var7f1b1b34[] = "";
-const char var7f1b1b38[] = "";
-const char var7f1b1b3c[] = "";
-const char var7f1b1b40[] = "";
-const char var7f1b1b44[] = "";
-const char var7f1b1b48[] = "";
-const char var7f1b1b4c[] = "";
-const char var7f1b1b50[] = "";
-const char var7f1b1b54[] = "";
-const char var7f1b1b58[] = "";
-const char var7f1b1b5c[] = "";
-const char var7f1b1b60[] = "";
-const char var7f1b1b64[] = "";
-const char var7f1b1b68[] = "";
-const char var7f1b1b6c[] = "";
-const char var7f1b1b70[] = "";
-const char var7f1b1b74[] = "";
-const char var7f1b1b78[] = "";
-const char var7f1b1b7c[] = "";
-const char var7f1b1b80[] = "";
-const char var7f1b1b84[] = "";
-const char var7f1b1b88[] = "";
-const char var7f1b1b8c[] = "";
-const char var7f1b1b90[] = "";
-const char var7f1b1b94[] = "";
-const char var7f1b1b98[] = "";
-const char var7f1b1b9c[] = "";
-const char var7f1b1ba0[] = "";
-const char var7f1b1ba4[] = "";
-const char var7f1b1ba8[] = "";
-const char var7f1b1bac[] = "";
-const char var7f1b1bb0[] = "";
-const char var7f1b1bb4[] = "";
-const char var7f1b1bb8[] = "";
-const char var7f1b1bbc[] = "";
-const char var7f1b1bc0[] = "";
-const char var7f1b1bc4[] = "";
-const char var7f1b1bc8[] = "";
-const char var7f1b1bcc[] = "";
-const char var7f1b1bd0[] = "";
-const char var7f1b1bd4[] = "";
-const char var7f1b1bd8[] = "";
-const char var7f1b1bdc[] = "";
-const char var7f1b1be0[] = "";
-const char var7f1b1be4[] = "";
-const char var7f1b1be8[] = "";
-const char var7f1b1bec[] = "";
-const char var7f1b1bf0[] = "";
-const char var7f1b1bf4[] = "";
-const char var7f1b1bf8[] = "";
-const char var7f1b1bfc[] = "";
-const char var7f1b1c00[] = "";
-const char var7f1b1c04[] = "";
-const char var7f1b1c08[] = "";
-const char var7f1b1c0c[] = "";
-const char var7f1b1c10[] = "";
-const char var7f1b1c14[] = "";
-const char var7f1b1c18[] = "";
-const char var7f1b1c1c[] = "";
-const char var7f1b1c20[] = "";
-const char var7f1b1c24[] = "";
-const char var7f1b1c28[] = "";
-const char var7f1b1c2c[] = "";
-const char var7f1b1c30[] = "";
-const char var7f1b1c34[] = "";
-const char var7f1b1c38[] = "";
-const char var7f1b1c3c[] = "";
-const char var7f1b1c40[] = "";
-const char var7f1b1c44[] = "";
-const char var7f1b1c48[] = "";
-const char var7f1b1c4c[] = "";
-const char var7f1b1c50[] = "";
-const char var7f1b1c54[] = "";
-const char var7f1b1c58[] = "";
-const char var7f1b1c5c[] = "";
-const char var7f1b1c60[] = "";
-const char var7f1b1c64[] = "";
-const char var7f1b1c68[] = "";
-const char var7f1b1c6c[] = "";
-const char var7f1b1c70[] = "";
-const char var7f1b1c74[] = "";
-const char var7f1b1c78[] = "";
-const char var7f1b1c7c[] = "";
-const char var7f1b1c80[] = "";
-const char var7f1b1c84[] = "";
-const char var7f1b1c88[] = "";
-const char var7f1b1c8c[] = "";
-const char var7f1b1c90[] = "";
-const char var7f1b1c94[] = "";
-const char var7f1b1c98[] = "";
-const char var7f1b1c9c[] = "";
-const char var7f1b1ca0[] = "";
-const char var7f1b1ca4[] = "";
-const char var7f1b1ca8[] = "";
-const char var7f1b1cac[] = "";
-const char var7f1b1cb0[] = "";
-const char var7f1b1cb4[] = "";
-const char var7f1b1cb8[] = "";
-const char var7f1b1cbc[] = "";
-const char var7f1b1cc0[] = "";
-const char var7f1b1cc4[] = "";
-const char var7f1b1cc8[] = "";
-const char var7f1b1ccc[] = "";
-const char var7f1b1cd0[] = "";
-const char var7f1b1cd4[] = "";
-const char var7f1b1cd8[] = "";
-const char var7f1b1cdc[] = "";
-const char var7f1b1ce0[] = "";
-const char var7f1b1ce4[] = "";
-const char var7f1b1ce8[] = "";
-const char var7f1b1cec[] = "";
-const char var7f1b1cf0[] = "";
-const char var7f1b1cf4[] = "";
-const char var7f1b1cf8[] = "";
-const char var7f1b1cfc[] = "";
-const char var7f1b1d00[] = "";
-const char var7f1b1d04[] = "";
-const char var7f1b1d08[] = "";
-const char var7f1b1d0c[] = "";
-const char var7f1b1d10[] = "";
-const char var7f1b1d14[] = "";
-const char var7f1b1d18[] = "";
-const char var7f1b1d1c[] = "";
-const char var7f1b1d20[] = "";
-const char var7f1b1d24[] = "";
-const char var7f1b1d28[] = "";
-const char var7f1b1d2c[] = "";
-const char var7f1b1d30[] = "";
-const char var7f1b1d34[] = "";
-const char var7f1b1d38[] = "";
-const char var7f1b1d3c[] = "";
-const char var7f1b1d40[] = "";
-const char var7f1b1d44[] = "";
-const char var7f1b1d48[] = "";
-const char var7f1b1d4c[] = "";
-const char var7f1b1d50[] = "";
-const char var7f1b1d54[] = "";
-const char var7f1b1d58[] = "";
-const char var7f1b1d5c[] = "";
-const char var7f1b1d60[] = "";
-const char var7f1b1d64[] = "";
-const char var7f1b1d68[] = "";
-const char var7f1b1d6c[] = "";
-const char var7f1b1d70[] = "";
-const char var7f1b1d74[] = "";
-const char var7f1b1d78[] = "";
-const char var7f1b1d7c[] = "";
-const char var7f1b1d80[] = "";
-const char var7f1b1d84[] = "";
-const char var7f1b1d88[] = "";
-const char var7f1b1d8c[] = "";
-const char var7f1b1d90[] = "";
-const char var7f1b1d94[] = "";
-const char var7f1b1d98[] = "";
-const char var7f1b1d9c[] = "";
-const char var7f1b1da0[] = "";
-const char var7f1b1da4[] = "";
-const char var7f1b1da8[] = "";
-const char var7f1b1dac[] = "";
-const char var7f1b1db0[] = "";
-const char var7f1b1db4[] = "";
-const char var7f1b1db8[] = "";
-const char var7f1b1dbc[] = "";
-const char var7f1b1dc0[] = "";
-const char var7f1b1dc4[] = "";
-const char var7f1b1dc8[] = "";
-const char var7f1b1dcc[] = "";
-const char var7f1b1dd0[] = "";
-const char var7f1b1dd4[] = "";
-const char var7f1b1dd8[] = "";
-const char var7f1b1ddc[] = "";
-const char var7f1b1de0[] = "";
-const char var7f1b1de4[] = "";
-const char var7f1b1de8[] = "";
-const char var7f1b1dec[] = "";
-const char var7f1b1df0[] = "";
-const char var7f1b1df4[] = "";
-const char var7f1b1df8[] = "";
-const char var7f1b1dfc[] = "";
-const char var7f1b1e00[] = "";
-const char var7f1b1e04[] = "";
-const char var7f1b1e08[] = "";
-const char var7f1b1e0c[] = "";
-const char var7f1b1e10[] = "";
-const char var7f1b1e14[] = "";
-const char var7f1b1e18[] = "";
-const char var7f1b1e1c[] = "";
-const char var7f1b1e20[] = "";
-const char var7f1b1e24[] = "";
-const char var7f1b1e28[] = "";
-const char var7f1b1e2c[] = "";
-const char var7f1b1e30[] = "";
-const char var7f1b1e34[] = "";
-const char var7f1b1e38[] = "";
-const char var7f1b1e3c[] = "";
-const char var7f1b1e40[] = "";
+bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data)
+{
+	u32 stack;
 
-const char var7f1b1e44[] = "%d\n";
-const char var7f1b1e48[] = "%d\n";
-const char var7f1b1e4c[] = "%d\n";
-const char var7f1b1e50[] = "%d\n";
-const char var7f1b1e54[] = "%d\n";
+	if ((s16)frame->unk20 != data->scrollable.unk06) {
+		char wrapped[8000] = "";
+		char *rawtext;
+		s32 width;
+		s32 height;
+		u32 index1;
+		u32 index2;
+		s16 wvalue;
+		s16 hvalue;
 
-GLOBAL_ASM(
-glabel menuTickItemScrollable
-/*  f0ed264:	27bde068 */ 	addiu	$sp,$sp,-8088
-/*  f0ed268:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0ed26c:	8fb01fa8 */ 	lw	$s0,0x1fa8($sp)
-/*  f0ed270:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0ed274:	afa41f98 */ 	sw	$a0,0x1f98($sp)
-/*  f0ed278:	afa51f9c */ 	sw	$a1,0x1f9c($sp)
-/*  f0ed27c:	afa61fa0 */ 	sw	$a2,0x1fa0($sp)
-/*  f0ed280:	afa71fa4 */ 	sw	$a3,0x1fa4($sp)
-/*  f0ed284:	84b80022 */ 	lh	$t8,0x22($a1)
-/*  f0ed288:	860e0006 */ 	lh	$t6,0x6($s0)
-/*  f0ed28c:	3c087f1b */ 	lui	$t0,%hi(var7f1aff04)
-/*  f0ed290:	2508ff04 */ 	addiu	$t0,$t0,%lo(var7f1aff04)
-/*  f0ed294:	11d8005a */ 	beq	$t6,$t8,.L0f0ed400
-/*  f0ed298:	27b90054 */ 	addiu	$t9,$sp,0x54
-/*  f0ed29c:	250a1f38 */ 	addiu	$t2,$t0,0x1f38
-.L0f0ed2a0:
-/*  f0ed2a0:	8d010000 */ 	lw	$at,0x0($t0)
-/*  f0ed2a4:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f0ed2a8:	2739000c */ 	addiu	$t9,$t9,0xc
-/*  f0ed2ac:	af21fff4 */ 	sw	$at,-0xc($t9)
-/*  f0ed2b0:	8d01fff8 */ 	lw	$at,-0x8($t0)
-/*  f0ed2b4:	af21fff8 */ 	sw	$at,-0x8($t9)
-/*  f0ed2b8:	8d01fffc */ 	lw	$at,-0x4($t0)
-/*  f0ed2bc:	150afff8 */ 	bne	$t0,$t2,.L0f0ed2a0
-/*  f0ed2c0:	af21fffc */ 	sw	$at,-0x4($t9)
-/*  f0ed2c4:	8d010000 */ 	lw	$at,0x0($t0)
-/*  f0ed2c8:	8d0a0004 */ 	lw	$t2,0x4($t0)
-/*  f0ed2cc:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*  f0ed2d0:	af210000 */ 	sw	$at,0x0($t9)
-/*  f0ed2d4:	af2a0004 */ 	sw	$t2,0x4($t9)
-/*  f0ed2d8:	8fa51f98 */ 	lw	$a1,0x1f98($sp)
-/*  f0ed2dc:	8fa41f9c */ 	lw	$a0,0x1f9c($sp)
-/*  f0ed2e0:	0fc3c8d5 */ 	jal	func0f0f2354
-/*  f0ed2e4:	27a70040 */ 	addiu	$a3,$sp,0x40
-/*  f0ed2e8:	3c0b8007 */ 	lui	$t3,%hi(g_MpPlayerNum)
-/*  f0ed2ec:	8d6b1448 */ 	lw	$t3,%lo(g_MpPlayerNum)($t3)
-/*  f0ed2f0:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*  f0ed2f4:	8fa90044 */ 	lw	$t1,0x44($sp)
-/*  f0ed2f8:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*  f0ed2fc:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f0ed300:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f0ed304:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f0ed308:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*  f0ed30c:	3c0d800a */ 	lui	$t5,%hi(g_Menus)
-/*  f0ed310:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f0ed314:	000c6100 */ 	sll	$t4,$t4,0x4
-/*  f0ed318:	25ade000 */ 	addiu	$t5,$t5,%lo(g_Menus)
-/*  f0ed31c:	000f7080 */ 	sll	$t6,$t7,0x2
-/*  f0ed320:	018d1821 */ 	addu	$v1,$t4,$t5
-/*  f0ed324:	01cf7021 */ 	addu	$t6,$t6,$t7
-/*  f0ed328:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f0ed32c:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f0ed330:	006ec021 */ 	addu	$t8,$v1,$t6
-/*  f0ed334:	006a4021 */ 	addu	$t0,$v1,$t2
-/*  f0ed338:	87050660 */ 	lh	$a1,0x660($t8)
-/*  f0ed33c:	851904fc */ 	lh	$t9,0x4fc($t0)
-/*  f0ed340:	8fa41f98 */ 	lw	$a0,0x1f98($sp)
-/*  f0ed344:	a7a5003e */ 	sh	$a1,0x3e($sp)
-/*  f0ed348:	0fc3c94d */ 	jal	menuIsScrollableUnscrollable
-/*  f0ed34c:	a7b9003c */ 	sh	$t9,0x3c($sp)
-/*  f0ed350:	10400004 */ 	beqz	$v0,.L0f0ed364
-/*  f0ed354:	87a5003e */ 	lh	$a1,0x3e($sp)
-/*  f0ed358:	24abfff6 */ 	addiu	$t3,$a1,-10
-/*  f0ed35c:	10000003 */ 	b	.L0f0ed36c
-/*  f0ed360:	afab004c */ 	sw	$t3,0x4c($sp)
-.L0f0ed364:
-/*  f0ed364:	24acffe8 */ 	addiu	$t4,$a1,-24
-/*  f0ed368:	afac004c */ 	sw	$t4,0x4c($sp)
-.L0f0ed36c:
-/*  f0ed36c:	8fad1f98 */ 	lw	$t5,0x1f98($sp)
-/*  f0ed370:	0fc3b326 */ 	jal	menuItemScrollableGetText
-/*  f0ed374:	91a40001 */ 	lbu	$a0,0x1($t5)
-/*  f0ed378:	10400009 */ 	beqz	$v0,.L0f0ed3a0
-/*  f0ed37c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0ed380:	3c0f8008 */ 	lui	$t7,%hi(var8007fb0c)
-/*  f0ed384:	8deffb0c */ 	lw	$t7,%lo(var8007fb0c)($t7)
-/*  f0ed388:	3c078008 */ 	lui	$a3,%hi(var8007fb10)
-/*  f0ed38c:	8ce7fb10 */ 	lw	$a3,%lo(var8007fb10)($a3)
-/*  f0ed390:	8fa4004c */ 	lw	$a0,0x4c($sp)
-/*  f0ed394:	27a60054 */ 	addiu	$a2,$sp,0x54
-/*  f0ed398:	0fc55d48 */ 	jal	textWrap
-/*  f0ed39c:	afaf0010 */ 	sw	$t7,0x10($sp)
-.L0f0ed3a0:
-/*  f0ed3a0:	3c0e8008 */ 	lui	$t6,%hi(var8007fb0c)
-/*  f0ed3a4:	8dcefb0c */ 	lw	$t6,%lo(var8007fb0c)($t6)
-/*  f0ed3a8:	3c078008 */ 	lui	$a3,%hi(var8007fb10)
-/*  f0ed3ac:	8ce7fb10 */ 	lw	$a3,%lo(var8007fb10)($a3)
-/*  f0ed3b0:	27a40048 */ 	addiu	$a0,$sp,0x48
-/*  f0ed3b4:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f0ed3b8:	27a60054 */ 	addiu	$a2,$sp,0x54
-/*  f0ed3bc:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0ed3c0:	0fc55cbe */ 	jal	textMeasure
-/*  f0ed3c4:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0ed3c8:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f0ed3cc:	87a9003c */ 	lh	$t1,0x3c($sp)
-/*  f0ed3d0:	240bfff6 */ 	addiu	$t3,$zero,-10
-/*  f0ed3d4:	03095023 */ 	subu	$t2,$t8,$t1
-/*  f0ed3d8:	25480005 */ 	addiu	$t0,$t2,0x5
-/*  f0ed3dc:	a6080004 */ 	sh	$t0,0x4($s0)
-/*  f0ed3e0:	86190004 */ 	lh	$t9,0x4($s0)
-/*  f0ed3e4:	2b21fff6 */ 	slti	$at,$t9,-10
-/*  f0ed3e8:	50200003 */ 	beqzl	$at,.L0f0ed3f8
-/*  f0ed3ec:	8fac1f9c */ 	lw	$t4,0x1f9c($sp)
-/*  f0ed3f0:	a60b0004 */ 	sh	$t3,0x4($s0)
-/*  f0ed3f4:	8fac1f9c */ 	lw	$t4,0x1f9c($sp)
-.L0f0ed3f8:
-/*  f0ed3f8:	8d8d0020 */ 	lw	$t5,0x20($t4)
-/*  f0ed3fc:	a60d0006 */ 	sh	$t5,0x6($s0)
-.L0f0ed400:
-/*  f0ed400:	0fc3c94d */ 	jal	menuIsScrollableUnscrollable
-/*  f0ed404:	8fa41f98 */ 	lw	$a0,0x1f98($sp)
-/*  f0ed408:	10400003 */ 	beqz	$v0,.L0f0ed418
-/*  f0ed40c:	8faf1fa4 */ 	lw	$t7,0x1fa4($sp)
-/*  f0ed410:	1000003b */ 	b	.L0f0ed500
-/*  f0ed414:	a6000000 */ 	sh	$zero,0x0($s0)
-.L0f0ed418:
-/*  f0ed418:	31ee0002 */ 	andi	$t6,$t7,0x2
-/*  f0ed41c:	11c00038 */ 	beqz	$t6,.L0f0ed500
-/*  f0ed420:	8fb81fa0 */ 	lw	$t8,0x1fa0($sp)
-/*  f0ed424:	83020005 */ 	lb	$v0,0x5($t8)
-/*  f0ed428:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f0ed42c:	44811000 */ 	mtc1	$at,$f2
-/*  f0ed430:	04410006 */ 	bgez	$v0,.L0f0ed44c
-/*  f0ed434:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0ed438:	44822000 */ 	mtc1	$v0,$f4
-/*  f0ed43c:	00000000 */ 	nop
-/*  f0ed440:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f0ed444:	10000004 */ 	b	.L0f0ed458
-/*  f0ed448:	46000007 */ 	neg.s	$f0,$f0
-.L0f0ed44c:
-/*  f0ed44c:	44823000 */ 	mtc1	$v0,$f6
-/*  f0ed450:	00000000 */ 	nop
-/*  f0ed454:	46803020 */ 	cvt.s.w	$f0,$f6
-.L0f0ed458:
-/*  f0ed458:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0ed45c:	3c0140a0 */ 	lui	$at,0x40a0
-/*  f0ed460:	8fa81fa0 */ 	lw	$t0,0x1fa0($sp)
-/*  f0ed464:	3c0c800a */ 	lui	$t4,%hi(g_Vars)
-/*  f0ed468:	45000011 */ 	bc1f	.L0f0ed4b0
-/*  f0ed46c:	2418fff6 */ 	addiu	$t8,$zero,-10
-/*  f0ed470:	46020201 */ 	sub.s	$f8,$f0,$f2
-/*  f0ed474:	44815000 */ 	mtc1	$at,$f10
-/*  f0ed478:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4)
-/*  f0ed47c:	c4309fc4 */ 	lwc1	$f16,%lo(g_Vars+0x4)($at)
-/*  f0ed480:	460a4003 */ 	div.s	$f0,$f8,$f10
-/*  f0ed484:	46100002 */ 	mul.s	$f0,$f0,$f16
-/*  f0ed488:	04430006 */ 	bgezl	$v0,.L0f0ed4a4
-/*  f0ed48c:	4600010d */ 	trunc.w.s	$f4,$f0
-/*  f0ed490:	4600048d */ 	trunc.w.s	$f18,$f0
-/*  f0ed494:	44039000 */ 	mfc1	$v1,$f18
-/*  f0ed498:	10000006 */ 	b	.L0f0ed4b4
-/*  f0ed49c:	81190009 */ 	lb	$t9,0x9($t0)
-/*  f0ed4a0:	4600010d */ 	trunc.w.s	$f4,$f0
-.L0f0ed4a4:
-/*  f0ed4a4:	44032000 */ 	mfc1	$v1,$f4
-/*  f0ed4a8:	00000000 */ 	nop
-/*  f0ed4ac:	00031823 */ 	negu	$v1,$v1
-.L0f0ed4b0:
-/*  f0ed4b0:	81190009 */ 	lb	$t9,0x9($t0)
-.L0f0ed4b4:
-/*  f0ed4b4:	8d8c9fc0 */ 	lw	$t4,%lo(g_Vars)($t4)
-/*  f0ed4b8:	860f0000 */ 	lh	$t7,0x0($s0)
-/*  f0ed4bc:	00195840 */ 	sll	$t3,$t9,0x1
-/*  f0ed4c0:	016c0019 */ 	multu	$t3,$t4
-/*  f0ed4c4:	00006812 */ 	mflo	$t5
-/*  f0ed4c8:	006d1821 */ 	addu	$v1,$v1,$t5
-/*  f0ed4cc:	01e37021 */ 	addu	$t6,$t7,$v1
-/*  f0ed4d0:	a60e0000 */ 	sh	$t6,0x0($s0)
-/*  f0ed4d4:	86020000 */ 	lh	$v0,0x0($s0)
-/*  f0ed4d8:	2841fff6 */ 	slti	$at,$v0,-10
-/*  f0ed4dc:	50200004 */ 	beqzl	$at,.L0f0ed4f0
-/*  f0ed4e0:	86030004 */ 	lh	$v1,0x4($s0)
-/*  f0ed4e4:	a6180000 */ 	sh	$t8,0x0($s0)
-/*  f0ed4e8:	86020000 */ 	lh	$v0,0x0($s0)
-/*  f0ed4ec:	86030004 */ 	lh	$v1,0x4($s0)
-.L0f0ed4f0:
-/*  f0ed4f0:	0062082a */ 	slt	$at,$v1,$v0
-/*  f0ed4f4:	50200003 */ 	beqzl	$at,.L0f0ed504
-/*  f0ed4f8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0ed4fc:	a6030000 */ 	sh	$v1,0x0($s0)
-.L0f0ed500:
-/*  f0ed500:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0ed504:
-/*  f0ed504:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0ed508:	27bd1f98 */ 	addiu	$sp,$sp,0x1f98
-/*  f0ed50c:	03e00008 */ 	jr	$ra
-/*  f0ed510:	24020001 */ 	addiu	$v0,$zero,0x1
-);
+		func0f0f2354(frame, item, &index1, &index2);
+
+		wvalue = g_Menus[g_MpPlayerNum].unk660[index2][0];
+		hvalue = g_Menus[g_MpPlayerNum].unk4fc[index1][0];
+
+		if (menuIsScrollableUnscrollable(item)) {
+			width = wvalue - 10;
+		} else {
+			width = wvalue - 24;
+		}
+
+		rawtext = menuItemScrollableGetText(item->param);
+
+		if (rawtext) {
+			textWrap(width, rawtext, wrapped, var8007fb10, var8007fb0c);
+		}
+
+		textMeasure(&height, &width, wrapped, var8007fb10, var8007fb0c, 0);
+
+		data->scrollable.unk04 = height - hvalue + 5;
+
+		if (data->scrollable.unk04 < -10) {
+			data->scrollable.unk04 = -10;
+		}
+
+		data->scrollable.unk06 = frame->unk20;
+	}
+
+	if (menuIsScrollableUnscrollable(item)) {
+		data->scrollable.unk00 = 0;
+	} else if (arg3 & 2) {
+		f32 floatval;
+		s32 intval = 0;
+
+		if (arg2->unk05 < 0) {
+			floatval = -(f32)arg2->unk05;
+		} else {
+			floatval = arg2->unk05;
+		}
+
+		if (floatval > 20) {
+			floatval = (floatval - 20) / 5;
+			floatval *= g_Vars.diffframe60f;
+
+			if (arg2->unk05 < 0) {
+				intval = floatval;
+			} else {
+				intval = -(s32)floatval;
+			}
+		}
+
+		intval += arg2->unk09 * 2 * g_Vars.diffframe60;
+		data->scrollable.unk00 += intval;
+
+		if (data->scrollable.unk00 < -10) {
+			data->scrollable.unk00 = -10;
+		}
+
+		if (data->scrollable.unk00 > data->scrollable.unk04) {
+			data->scrollable.unk00 = data->scrollable.unk04;
+		}
+	}
+
+	return true;
+}
 
 void menuInitItemScrollable(union menuitemtickdata *data)
 {
@@ -9860,17 +7741,17 @@ u32 var800711ec = 0x20000000;
 //	}
 //
 //	// 5b8
-//	if (thing->unk10->transitiontimer < 0) {
-//		colour = g_MenuColourPalettes[thing->unk10->type].unfocused;
+//	if (thing->frame->transitiontimer < 0) {
+//		colour = g_MenuColourPalettes[thing->frame->type].unfocused;
 //	} else {
 //		colour = colourBlend(
-//				g_MenuColourPalettes[thing->unk10->type2].unfocused,
-//				g_MenuColourPalettes[thing->unk10->type].unfocused,
-//				thing->unk10->colourweight);
+//				g_MenuColourPalettes[thing->frame->type2].unfocused,
+//				g_MenuColourPalettes[thing->frame->type].unfocused,
+//				thing->frame->colourweight);
 //	}
 //
 //	// 644
-//	if (thing->unk10->unk0c) {
+//	if (thing->frame->unk0c) {
 //		colour = colourBlend(colour, 0, 127) & 0xffffff00 | colour & 0xff;
 //	}
 //
@@ -10121,6 +8002,12 @@ Gfx *menuRenderItem07(Gfx *gdl)
 {
 	return gdl;
 }
+
+const char var7f1b1e44[] = "%d\n";
+const char var7f1b1e48[] = "%d\n";
+const char var7f1b1e4c[] = "%d\n";
+const char var7f1b1e50[] = "%d\n";
+const char var7f1b1e54[] = "%d\n";
 
 GLOBAL_ASM(
 glabel menuRenderItemRanking
@@ -12304,7 +10191,7 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurenderthing *thing)
 	s32 x;
 	s32 y;
 	char text[32];
-	struct menurenderthing10 *thing10 = thing->unk10;
+	struct menuframe *frame = thing->frame;
 	u32 contalpha;
 	u32 textalpha;
 
@@ -12358,22 +10245,22 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurenderthing *thing)
 	contalpha = data->contfadetimer;
 	gdl = func0f153628(gdl);
 
-	if (thing10->transitiontimer < 0) {
-		colour = g_MenuColourPalettes[thing10->type].unfocused;
+	if (frame->transitiontimer < 0) {
+		colour = g_MenuColourPalettes[frame->type].unfocused;
 	} else {
 		colour = colourBlend(
-				g_MenuColourPalettes[thing10->type2].unfocused,
-				g_MenuColourPalettes[thing10->type].unfocused,
-				thing10->colourweight);
+				g_MenuColourPalettes[frame->type2].unfocused,
+				g_MenuColourPalettes[frame->type].unfocused,
+				frame->colourweight);
 	}
 
-	if (thing10->unk0c) {
+	if (frame->unk0c) {
 		colour = colourBlend(colour, 0, 44) & 0xffffff00 | colour & 0xff;
 	}
 
 	func0f153e38(
-			g_MenuColourPalettes3[thing10->type].unfocused,
-			g_MenuColourPalettes2[thing10->type].unfocused);
+			g_MenuColourPalettes3[frame->type].unfocused,
+			g_MenuColourPalettes2[frame->type].unfocused);
 
 	if (g_Menus[g_MpPlayerNum].data.main.controlmode >= CONTROLMODE_21) {
 		sprintf(text, langGet(L_MPWEAPONS(213)), // "Control Style %s %s"

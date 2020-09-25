@@ -3290,8 +3290,8 @@ struct menuitemtickdata_ranking {
 
 struct menuitemtickdata_scrollable {
 	s16 unk00;
-	u16 unk02;
-	u16 unk04;
+	s16 unk02;
+	s16 unk04;
 	s16 unk06;
 };
 
@@ -3607,9 +3607,10 @@ struct menuframe {
 	/*0x30*/ u32 unk30;
 	/*0x34*/ u32 unk34;
 	/*0x38*/ u32 unk38;
-	/*0x3c*/ u8 dialogtype;
-	/*0x40*/ f32 unk40;
-	/*0x44*/ u32 unk44;
+	/*0x3c*/ u8 type; // dialog type
+	/*0x3c*/ u8 type2; // used when transitioning
+	/*0x40*/ f32 transitiontimer; // >= 0 means transitioning from one dialog type to another
+	/*0x44*/ u32 colourweight;
 	/*0x48*/ f32 unk48;
 	/*0x4c*/ f32 unk4c;
 	/*0x50*/ f32 unk50;
@@ -3703,7 +3704,7 @@ struct menu {
 	/*0x464*/ struct menulayer layers[6];
 	/*0x4f4*/ s16 depth; // index into layers. 1-indexed?
 	/*0x4f8*/ struct menuframe *curframe;
-	/*0x4fc*/ u32 unk4fc;
+	/*0x4fc*/ s16 unk4fc[1][2];
 	/*0x500*/ u32 unk500;
 	/*0x504*/ u32 unk504;
 	/*0x508*/ u32 unk508;
@@ -3792,9 +3793,8 @@ struct menu {
 	/*0x654*/ u32 unk654;
 	/*0x658*/ u32 unk658;
 	/*0x65c*/ s32 unk65c;
-	/*0x660*/ u32 unk660;
-	/*0x664*/ u16 unk664;
-	/*0x666*/ u16 unk666[1][5]; // length unknown
+	/*0x660*/ u16 unk660[1][5]; // length unknown
+	/*0x66c*/ u32 unk66c;
 	/*0x670*/ u32 unk670;
 	/*0x674*/ u32 unk674;
 	/*0x678*/ u32 unk678;
@@ -6843,29 +6843,6 @@ struct splat {
 	/*0x440*/ u32 unk440;
 };
 
-struct menurenderthing10 {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u8 type; // dialog type
-	/*0x3c*/ u8 type2; // used when transitioning
-	/*0x40*/ f32 transitiontimer; // >= 0 means transitioning from one dialog type to another
-	/*0x44*/ u32 colourweight;
-	/*0x48*/ f32 unk48;
-};
-
 struct menurenderthing14_controller {
 	u8 textfadetimer;
 	u8 contfadetimer;
@@ -6881,7 +6858,7 @@ struct menurenderthing {
 	s16 height;
 	struct menuitem *item;
 	bool focused;
-	struct menurenderthing10 *unk10;
+	struct menuframe *frame;
 
 	// Suspected to be handlerdata
 	union {

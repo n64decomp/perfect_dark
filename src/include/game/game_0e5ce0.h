@@ -22,7 +22,7 @@ void menuInitItemKeyboard(struct menuitem *item, union menuitemtickdata *data);
 
 Gfx *menuRenderItemSeparator(Gfx *gdl, struct menurenderthing *thing);
 
-Gfx *menuRenderObjective(Gfx *gfx, struct menurenderthing10 *thing10, s32 index, s32 position, s32 x, s32 y, s32 width, s32 height, s32 arg8, s32 arg9);
+Gfx *menuRenderObjective(Gfx *gfx, struct menuframe *frame, s32 index, s32 position, s32 x, s32 y, s32 width, s32 height, s32 arg8, s32 arg9);
 Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurenderthing *thing);
 
 Gfx *menuRenderItemModel(Gfx *gdl, struct menurenderthing *thing);

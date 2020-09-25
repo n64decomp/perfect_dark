@@ -1938,7 +1938,7 @@ bool menuIsScrollableUnscrollable(struct menuitem *item)
 	return false;
 }
 
-bool menuIsItemDisabled(struct menuitem *item, struct menurenderthing10 *thing10)
+bool menuIsItemDisabled(struct menuitem *item, struct menuframe *frame)
 {
 	union handlerdata sp30;
 	s16 sp2e;
@@ -1963,7 +1963,7 @@ bool menuIsItemDisabled(struct menuitem *item, struct menurenderthing10 *thing10
 		return true;
 	}
 
-	func0f0f1618(item, &sp2e, &sp2c, thing10);
+	func0f0f1618(item, &sp2e, &sp2c, frame);
 
 	if (sp2c == 0) {
 		return true;
@@ -1972,7 +1972,7 @@ bool menuIsItemDisabled(struct menuitem *item, struct menurenderthing10 *thing10
 	return false;
 }
 
-bool func0f0f2674(struct menuitem *item, struct menurenderthing10 *thing10, u32 arg2)
+bool func0f0f2674(struct menuitem *item, struct menuframe *frame, u32 arg2)
 {
 	u32 thing1;
 	u32 thing2;
@@ -1992,10 +1992,10 @@ bool func0f0f2674(struct menuitem *item, struct menurenderthing10 *thing10, u32 
 	case MENUITEMTYPE_14:
 	case MENUITEMTYPE_16:
 	case MENUITEMTYPE_18:
-		func0f0f2354(thing10, item, &thing1, &thing2);
+		func0f0f2354(frame, item, &thing1, &thing2);
 	}
 
-	if (menuIsItemDisabled(item, thing10)) {
+	if (menuIsItemDisabled(item, frame)) {
 		return false;
 	}
 
@@ -2458,8 +2458,8 @@ void menuOpenDialog(struct menudialog *dialog, struct menuframe *frame, struct m
 	func0f0f1d6c(dialog, frame, menu);
 	func0f0fa574(frame);
 
-	frame->dialogtype = dialog->type;
-	frame->unk40 = -1;
+	frame->type = dialog->type;
+	frame->transitiontimer = -1;
 	frame->unk48 = 0;
 	frame->unk4c = random() * (1.0f / U32_MAX) * M_TAU;
 
@@ -2910,7 +2910,7 @@ void menuCloseDialog(void)
 			g_Menus[g_MpPlayerNum].numframes--;
 		}
 
-		g_Menus[g_MpPlayerNum].unk65c = g_Menus[g_MpPlayerNum].unk666[layer->siblings[0]->unk04][0];
+		g_Menus[g_MpPlayerNum].unk65c = g_Menus[g_MpPlayerNum].unk660[layer->siblings[0]->unk04][3];
 		g_Menus[g_MpPlayerNum].unk6d8 = layer->siblings[0]->unk04;
 		g_Menus[g_MpPlayerNum].unk81c = layer->siblings[0]->unk06;
 		g_Menus[g_MpPlayerNum].depth--;
