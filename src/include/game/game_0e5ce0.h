@@ -44,7 +44,7 @@ Gfx *menuRenderItemRanking(Gfx *gdl);
 bool menuTickItemRanking(s8 *arg0, u32 arg1, union menuitemtickdata *data);
 void menuInitItemRanking(union menuitemtickdata *data);
 Gfx *menuRenderItemPlayerStats(Gfx *gdl);
-bool menuTickItemPlayerStats(struct menuitem *item, void *arg1, void *arg2, u32 arg3, union menuitemtickdata *data);
+bool menuTickItemPlayerStats(struct menuitem *item, u32 *arg1, s8 *arg2, u32 arg3, union menuitemtickdata *data);
 Gfx *func0f0ef2fc(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7);
 void menuInitItemPlayerStats(struct menuitem *item, union menuitemtickdata *data);
 u32 func0f0ef394(void);

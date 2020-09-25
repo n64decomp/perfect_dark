@@ -11721,78 +11721,32 @@ glabel menuRenderItemPlayerStats
 /*  f0ef1fc:	27bd00c8 */ 	addiu	$sp,$sp,0xc8
 );
 
-GLOBAL_ASM(
-glabel menuTickItemPlayerStats
-/*  f0ef200:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0ef204:	30ee0002 */ 	andi	$t6,$a3,0x2
-/*  f0ef208:	11c00035 */ 	beqz	$t6,.L0f0ef2e0
-/*  f0ef20c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0ef210:	8caf000c */ 	lw	$t7,0xc($a1)
-/*  f0ef214:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f0ef218:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
-/*  f0ef21c:	55e00031 */ 	bnezl	$t7,.L0f0ef2e4
-/*  f0ef220:	8fa20030 */ 	lw	$v0,0x30($sp)
-/*  f0ef224:	80c20005 */ 	lb	$v0,0x5($a2)
-/*  f0ef228:	44811000 */ 	mtc1	$at,$f2
-/*  f0ef22c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0ef230:	04410006 */ 	bgez	$v0,.L0f0ef24c
-/*  f0ef234:	3c0140a0 */ 	lui	$at,0x40a0
-/*  f0ef238:	44822000 */ 	mtc1	$v0,$f4
-/*  f0ef23c:	00000000 */ 	nop
-/*  f0ef240:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f0ef244:	10000004 */ 	b	.L0f0ef258
-/*  f0ef248:	46000007 */ 	neg.s	$f0,$f0
-.L0f0ef24c:
-/*  f0ef24c:	44823000 */ 	mtc1	$v0,$f6
-/*  f0ef250:	00000000 */ 	nop
-/*  f0ef254:	46803020 */ 	cvt.s.w	$f0,$f6
-.L0f0ef258:
-/*  f0ef258:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0ef25c:	00000000 */ 	nop
-/*  f0ef260:	45020012 */ 	bc1fl	.L0f0ef2ac
-/*  f0ef264:	80c80009 */ 	lb	$t0,0x9($a2)
-/*  f0ef268:	46020201 */ 	sub.s	$f8,$f0,$f2
-/*  f0ef26c:	44815000 */ 	mtc1	$at,$f10
-/*  f0ef270:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4)
-/*  f0ef274:	c4309fc4 */ 	lwc1	$f16,%lo(g_Vars+0x4)($at)
-/*  f0ef278:	460a4003 */ 	div.s	$f0,$f8,$f10
-/*  f0ef27c:	46100002 */ 	mul.s	$f0,$f0,$f16
-/*  f0ef280:	04430006 */ 	bgezl	$v0,.L0f0ef29c
-/*  f0ef284:	4600010d */ 	trunc.w.s	$f4,$f0
-/*  f0ef288:	4600048d */ 	trunc.w.s	$f18,$f0
-/*  f0ef28c:	44039000 */ 	mfc1	$v1,$f18
-/*  f0ef290:	10000006 */ 	b	.L0f0ef2ac
-/*  f0ef294:	80c80009 */ 	lb	$t0,0x9($a2)
-/*  f0ef298:	4600010d */ 	trunc.w.s	$f4,$f0
-.L0f0ef29c:
-/*  f0ef29c:	44032000 */ 	mfc1	$v1,$f4
-/*  f0ef2a0:	00000000 */ 	nop
-/*  f0ef2a4:	00031823 */ 	negu	$v1,$v1
-/*  f0ef2a8:	80c80009 */ 	lb	$t0,0x9($a2)
-.L0f0ef2ac:
-/*  f0ef2ac:	8d4a9fc0 */ 	lw	$t2,%lo(g_Vars)($t2)
-/*  f0ef2b0:	8fa20030 */ 	lw	$v0,0x30($sp)
-/*  f0ef2b4:	00084840 */ 	sll	$t1,$t0,0x1
-/*  f0ef2b8:	012a0019 */ 	multu	$t1,$t2
-/*  f0ef2bc:	844c000c */ 	lh	$t4,0xc($v0)
-/*  f0ef2c0:	00005812 */ 	mflo	$t3
-/*  f0ef2c4:	006b1821 */ 	addu	$v1,$v1,$t3
-/*  f0ef2c8:	01836821 */ 	addu	$t5,$t4,$v1
-/*  f0ef2cc:	a44d000c */ 	sh	$t5,0xc($v0)
-/*  f0ef2d0:	844e000c */ 	lh	$t6,0xc($v0)
-/*  f0ef2d4:	05c30003 */ 	bgezl	$t6,.L0f0ef2e4
-/*  f0ef2d8:	8fa20030 */ 	lw	$v0,0x30($sp)
-/*  f0ef2dc:	a440000c */ 	sh	$zero,0xc($v0)
-.L0f0ef2e0:
-/*  f0ef2e0:	8fa20030 */ 	lw	$v0,0x30($sp)
-.L0f0ef2e4:
-/*  f0ef2e4:	0fc3a04e */ 	jal	menuTickItemDropdown
-/*  f0ef2e8:	afa20010 */ 	sw	$v0,0x10($sp)
-/*  f0ef2ec:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0ef2f0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0ef2f4:	03e00008 */ 	jr	$ra
-/*  f0ef2f8:	00000000 */ 	nop
-);
+bool menuTickItemPlayerStats(struct menuitem *item, u32 *arg1, s8 *arg2, u32 arg3, union menuitemtickdata *data)
+{
+	f32 floatval;
+	s32 intval;
+
+	if ((arg3 & 2) && arg1[3] == 0) {
+		intval = 0;
+		floatval = arg2[5] < 0 ? -(f32)arg2[5] : arg2[5];
+
+		if (floatval > 20) {
+			floatval = (floatval - 20) / 5;
+			floatval *= g_Vars.diffframe60f;
+
+			intval = arg2[5] < 0 ? (s32)floatval : -(s32)floatval;
+		}
+
+		intval += arg2[9] * 2 * g_Vars.diffframe60;
+		data->dropdown.unk0c += intval;
+
+		if (data->dropdown.unk0c < 0) {
+			data->dropdown.unk0c = 0;
+		}
+	}
+
+	menuTickItemDropdown(item, arg1, arg2, arg3, data);
+}
 
 GLOBAL_ASM(
 glabel func0f0ef2fc

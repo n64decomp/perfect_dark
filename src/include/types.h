@@ -3265,7 +3265,7 @@ struct menuitemtickdata_dropdown {
 	u16 unk06;
 	u16 unk08;
 	u16 unk0a;
-	u16 unk0c;
+	s16 unk0c;
 };
 
 struct menuitemtickdata_keyboard {
