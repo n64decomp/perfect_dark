@@ -1099,6 +1099,7 @@
 #define MENUOP_SETTEXT            18
 #define MENUOP_19                 19
 #define MENUOP_20                 20
+#define MENUOP_21                 21
 #define MENUOP_GETCOLOUR          22
 #define MENUOP_CHECKHIDDEN        24
 #define MENUOP_25                 25

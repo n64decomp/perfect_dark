@@ -6550,108 +6550,59 @@ Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurenderthing *thing)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel menuTickItemCarousel
-/*  f0ec4e4:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f0ec4e8:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0ec4ec:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0ec4f0:	30ce0002 */ 	andi	$t6,$a2,0x2
-/*  f0ec4f4:	00809825 */ 	or	$s3,$a0,$zero
-/*  f0ec4f8:	00a0a825 */ 	or	$s5,$a1,$zero
-/*  f0ec4fc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0ec500:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0ec504:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0ec508:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0ec50c:	15c00005 */ 	bnez	$t6,.L0f0ec524
-/*  f0ec510:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0ec514:	8c8f0004 */ 	lw	$t7,0x4($a0)
-/*  f0ec518:	000fc140 */ 	sll	$t8,$t7,0x5
-/*  f0ec51c:	07030042 */ 	bgezl	$t8,.L0f0ec628
-/*  f0ec520:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f0ec524:
-/*  f0ec524:	8e790010 */ 	lw	$t9,0x10($s3)
-/*  f0ec528:	5320003f */ 	beqzl	$t9,.L0f0ec628
-/*  f0ec52c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0ec530:	82a80000 */ 	lb	$t0,0x0($s5)
-/*  f0ec534:	3c048007 */ 	lui	$a0,%hi(g_MpPlayerNum)
-/*  f0ec538:	51000034 */ 	beqzl	$t0,.L0f0ec60c
-/*  f0ec53c:	8e620010 */ 	lw	$v0,0x10($s3)
-/*  f0ec540:	0fc62ff6 */ 	jal	mpIsPlayerLockedOut
-/*  f0ec544:	8c841448 */ 	lw	$a0,%lo(g_MpPlayerNum)($a0)
-/*  f0ec548:	10400005 */ 	beqz	$v0,.L0f0ec560
-/*  f0ec54c:	27b40048 */ 	addiu	$s4,$sp,0x48
-/*  f0ec550:	8e690004 */ 	lw	$t1,0x4($s3)
-/*  f0ec554:	00095380 */ 	sll	$t2,$t1,0xe
-/*  f0ec558:	0542002c */ 	bltzl	$t2,.L0f0ec60c
-/*  f0ec55c:	8e620010 */ 	lw	$v0,0x10($s3)
-.L0f0ec560:
-/*  f0ec560:	8e790010 */ 	lw	$t9,0x10($s3)
-/*  f0ec564:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0ec568:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0ec56c:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0ec570:	0320f809 */ 	jalr	$t9
-/*  f0ec574:	02803025 */ 	or	$a2,$s4,$zero
-/*  f0ec578:	8e790010 */ 	lw	$t9,0x10($s3)
-/*  f0ec57c:	8fb20048 */ 	lw	$s2,0x48($sp)
-/*  f0ec580:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f0ec584:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0ec588:	0320f809 */ 	jalr	$t9
-/*  f0ec58c:	02803025 */ 	or	$a2,$s4,$zero
-/*  f0ec590:	8fb00048 */ 	lw	$s0,0x48($sp)
-/*  f0ec594:	82ab0000 */ 	lb	$t3,0x0($s5)
-.L0f0ec598:
-/*  f0ec598:	01708021 */ 	addu	$s0,$t3,$s0
-/*  f0ec59c:	0212082a */ 	slt	$at,$s0,$s2
-/*  f0ec5a0:	14200002 */ 	bnez	$at,.L0f0ec5ac
-/*  f0ec5a4:	00000000 */ 	nop
-/*  f0ec5a8:	00008025 */ 	or	$s0,$zero,$zero
-.L0f0ec5ac:
-/*  f0ec5ac:	06030003 */ 	bgezl	$s0,.L0f0ec5bc
-/*  f0ec5b0:	afb00048 */ 	sw	$s0,0x48($sp)
-/*  f0ec5b4:	2650ffff */ 	addiu	$s0,$s2,-1
-/*  f0ec5b8:	afb00048 */ 	sw	$s0,0x48($sp)
-.L0f0ec5bc:
-/*  f0ec5bc:	8e790010 */ 	lw	$t9,0x10($s3)
-/*  f0ec5c0:	24040015 */ 	addiu	$a0,$zero,0x15
-/*  f0ec5c4:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0ec5c8:	0320f809 */ 	jalr	$t9
-/*  f0ec5cc:	02803025 */ 	or	$a2,$s4,$zero
-/*  f0ec5d0:	14400002 */ 	bnez	$v0,.L0f0ec5dc
-/*  f0ec5d4:	00000000 */ 	nop
-/*  f0ec5d8:	24110001 */ 	addiu	$s1,$zero,0x1
-.L0f0ec5dc:
-/*  f0ec5dc:	5220ffee */ 	beqzl	$s1,.L0f0ec598
-/*  f0ec5e0:	82ab0000 */ 	lb	$t3,0x0($s5)
-/*  f0ec5e4:	afb00048 */ 	sw	$s0,0x48($sp)
-/*  f0ec5e8:	92ac0006 */ 	lbu	$t4,0x6($s5)
-/*  f0ec5ec:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f0ec5f0:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0ec5f4:	afac004c */ 	sw	$t4,0x4c($sp)
-/*  f0ec5f8:	8e790010 */ 	lw	$t9,0x10($s3)
-/*  f0ec5fc:	02803025 */ 	or	$a2,$s4,$zero
-/*  f0ec600:	0320f809 */ 	jalr	$t9
-/*  f0ec604:	00000000 */ 	nop
-/*  f0ec608:	8e620010 */ 	lw	$v0,0x10($s3)
-.L0f0ec60c:
-/*  f0ec60c:	27b40048 */ 	addiu	$s4,$sp,0x48
-/*  f0ec610:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f0ec614:	10400003 */ 	beqz	$v0,.L0f0ec624
-/*  f0ec618:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0ec61c:	0040f809 */ 	jalr	$v0
-/*  f0ec620:	02803025 */ 	or	$a2,$s4,$zero
-.L0f0ec624:
-/*  f0ec624:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f0ec628:
-/*  f0ec628:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0ec62c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0ec630:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0ec634:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0ec638:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0ec63c:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0ec640:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*  f0ec644:	03e00008 */ 	jr	$ra
-/*  f0ec648:	24020001 */ 	addiu	$v0,$zero,0x1
-);
+bool menuTickItemCarousel(struct menuitem *item, struct somemenuitemtickarg *arg1, u32 arg2)
+{
+	union handlerdata data;
+	s32 index;
+	s32 numoptions;
+	bool done;
+	u32 stack;
+
+	if (((arg2 & 2) || (item->param1 & 0x04000000)) && item->handler) {
+		if (arg1->unk00) {
+			if (mpIsPlayerLockedOut(g_MpPlayerNum) == 0 || (item->param1 & 0x00020000) == 0) {
+				done = false;
+
+				item->handler(MENUOP_GETOPTIONCOUNT, item, &data);
+
+				numoptions = data.carousel.value;
+				item->handler(MENUOP_GETOPTIONVALUE, item, &data);
+
+				index = data.carousel.value;
+
+				while (!done) {
+					index = index + arg1->unk00;
+
+					if (index >= numoptions) {
+						index = 0;
+					}
+
+					if (index < 0) {
+						index = numoptions - 1;
+					}
+
+					// Some kind of option-is-locked check?
+					data.carousel.value = index;
+
+					if (!item->handler(MENUOP_21, item, &data)) {
+						done = true;
+					}
+				}
+
+				data.carousel.value = index;
+				data.carousel.unk04 = arg1->unk06;
+
+				item->handler(MENUOP_SET, item, &data);
+			}
+		}
+
+		if (item->handler) {
+			item->handler(MENUOP_11, item, &data);
+		}
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel menuRenderItemCheckbox

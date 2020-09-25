@@ -6939,7 +6939,7 @@ struct var800a45d0 {
 };
 
 struct somemenuitemtickarg {
-	/*0x00*/ u8 unk00;
+	/*0x00*/ s8 unk00;
 	/*0x01*/ u8 unk01;
 	/*0x02*/ u8 unk02;
 	/*0x03*/ u8 unk03;
