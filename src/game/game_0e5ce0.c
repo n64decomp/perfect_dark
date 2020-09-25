@@ -10905,65 +10905,32 @@ glabel menuRenderItemRanking
 /*  f0ee570:	27bd01b0 */ 	addiu	$sp,$sp,0x1b0
 );
 
-GLOBAL_ASM(
-glabel menuTickItemRanking
-/*  f0ee574:	30ae0002 */ 	andi	$t6,$a1,0x2
-/*  f0ee578:	11c0002f */ 	beqz	$t6,.L0f0ee638
-/*  f0ee57c:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f0ee580:	80830005 */ 	lb	$v1,0x5($a0)
-/*  f0ee584:	44811000 */ 	mtc1	$at,$f2
-/*  f0ee588:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0ee58c:	04610006 */ 	bgez	$v1,.L0f0ee5a8
-/*  f0ee590:	3c09800a */ 	lui	$t1,%hi(g_Vars)
-/*  f0ee594:	44832000 */ 	mtc1	$v1,$f4
-/*  f0ee598:	00000000 */ 	nop
-/*  f0ee59c:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f0ee5a0:	10000004 */ 	b	.L0f0ee5b4
-/*  f0ee5a4:	46000007 */ 	neg.s	$f0,$f0
-.L0f0ee5a8:
-/*  f0ee5a8:	44833000 */ 	mtc1	$v1,$f6
-/*  f0ee5ac:	00000000 */ 	nop
-/*  f0ee5b0:	46803020 */ 	cvt.s.w	$f0,$f6
-.L0f0ee5b4:
-/*  f0ee5b4:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0ee5b8:	3c0140a0 */ 	lui	$at,0x40a0
-/*  f0ee5bc:	45020012 */ 	bc1fl	.L0f0ee608
-/*  f0ee5c0:	80990009 */ 	lb	$t9,0x9($a0)
-/*  f0ee5c4:	46020201 */ 	sub.s	$f8,$f0,$f2
-/*  f0ee5c8:	44815000 */ 	mtc1	$at,$f10
-/*  f0ee5cc:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4)
-/*  f0ee5d0:	c4309fc4 */ 	lwc1	$f16,%lo(g_Vars+0x4)($at)
-/*  f0ee5d4:	460a4003 */ 	div.s	$f0,$f8,$f10
-/*  f0ee5d8:	46100002 */ 	mul.s	$f0,$f0,$f16
-/*  f0ee5dc:	04630006 */ 	bgezl	$v1,.L0f0ee5f8
-/*  f0ee5e0:	4600010d */ 	trunc.w.s	$f4,$f0
-/*  f0ee5e4:	4600048d */ 	trunc.w.s	$f18,$f0
-/*  f0ee5e8:	44029000 */ 	mfc1	$v0,$f18
-/*  f0ee5ec:	10000006 */ 	b	.L0f0ee608
-/*  f0ee5f0:	80990009 */ 	lb	$t9,0x9($a0)
-/*  f0ee5f4:	4600010d */ 	trunc.w.s	$f4,$f0
-.L0f0ee5f8:
-/*  f0ee5f8:	44022000 */ 	mfc1	$v0,$f4
-/*  f0ee5fc:	00000000 */ 	nop
-/*  f0ee600:	00021023 */ 	negu	$v0,$v0
-/*  f0ee604:	80990009 */ 	lb	$t9,0x9($a0)
-.L0f0ee608:
-/*  f0ee608:	8d299fc0 */ 	lw	$t1,%lo(g_Vars)($t1)
-/*  f0ee60c:	84cb0000 */ 	lh	$t3,0x0($a2)
-/*  f0ee610:	00194040 */ 	sll	$t0,$t9,0x1
-/*  f0ee614:	01090019 */ 	multu	$t0,$t1
-/*  f0ee618:	00005012 */ 	mflo	$t2
-/*  f0ee61c:	004a1021 */ 	addu	$v0,$v0,$t2
-/*  f0ee620:	01626021 */ 	addu	$t4,$t3,$v0
-/*  f0ee624:	a4cc0000 */ 	sh	$t4,0x0($a2)
-/*  f0ee628:	84cd0000 */ 	lh	$t5,0x0($a2)
-/*  f0ee62c:	05a10002 */ 	bgez	$t5,.L0f0ee638
-/*  f0ee630:	00000000 */ 	nop
-/*  f0ee634:	a4c00000 */ 	sh	$zero,0x0($a2)
-.L0f0ee638:
-/*  f0ee638:	03e00008 */ 	jr	$ra
-/*  f0ee63c:	24020001 */ 	addiu	$v0,$zero,0x1
-);
+bool menuTickItemRanking(s8 *arg0, u32 arg1, union menuitemtickdata *data)
+{
+	f32 floatval;
+	s32 intval;
+
+	if (arg1 & 2) {
+		intval = 0;
+		floatval = arg0[5] < 0 ? -(f32)arg0[5] : arg0[5];
+
+		if (floatval > 20) {
+			floatval = (floatval - 20) / 5;
+			floatval *= g_Vars.diffframe60f;
+
+			intval = arg0[5] < 0 ? (s32)floatval : -(s32)floatval;
+		}
+
+		intval += arg0[9] * 2 * g_Vars.diffframe60;
+		data->ranking.unk00 += intval;
+
+		if (data->ranking.unk00 < 0) {
+			data->ranking.unk00 = 0;
+		}
+	}
+
+	return true;
+}
 
 void menuInitItemRanking(union menuitemtickdata *data)
 {

@@ -3284,7 +3284,7 @@ struct menuitemtickdata_marquee {
 };
 
 struct menuitemtickdata_ranking {
-	u16 unk00;
+	s16 unk00;
 };
 
 struct menuitemtickdata_scrollable {

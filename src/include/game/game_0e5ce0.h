@@ -41,7 +41,7 @@ bool menuTickItemMarquee(struct menuitem *item, union menuitemtickdata *data);
 void menuInitItemMarquee(union menuitemtickdata *data);
 Gfx *menuRenderItem07(Gfx *gdl);
 Gfx *menuRenderItemRanking(Gfx *gdl);
-bool menuTickItemRanking(void *arg1, u32 arg2, union menuitemtickdata *data);
+bool menuTickItemRanking(s8 *arg0, u32 arg1, union menuitemtickdata *data);
 void menuInitItemRanking(union menuitemtickdata *data);
 Gfx *menuRenderItemPlayerStats(Gfx *gdl);
 bool menuTickItemPlayerStats(struct menuitem *item, void *arg1, void *arg2, u32 arg3, union menuitemtickdata *data);
