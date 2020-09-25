@@ -5637,7 +5637,7 @@ const char var7f1adfb8[] = "";
 bool menuTickItemSelectable(struct menuitem *item, u8 *arg1, u32 arg2)
 {
 	if ((arg2 & 2) && arg1[2]) {
-		menuPlaySound(3);
+		menuPlaySound(MENUSOUND_SELECT);
 
 		if (item->param1 & 0x00000008) {
 			menuPopDialog();
@@ -7231,10 +7231,10 @@ bool menuTickItemCheckbox(struct menuitem *item, u8 *arg1, u32 arg2)
 	if ((arg2 & 2) && arg1[2]) {
 		if (item->handler && item->handler(MENUOP_GET, item, &data) == 1) {
 			data.checkbox.value = 0;
-			menuPlaySound(9);
+			menuPlaySound(MENUSOUND_TOGGLEOFF);
 		} else {
 			data.checkbox.value = 1;
-			menuPlaySound(8);
+			menuPlaySound(MENUSOUND_TOGGLEON);
 		}
 
 		if (item->handler) {

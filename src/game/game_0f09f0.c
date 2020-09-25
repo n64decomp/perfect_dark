@@ -87,151 +87,74 @@ char *g_StringPointer = g_CheatMarqueeString;
 char *g_StringPointer2 = &g_CheatMarqueeString[125];
 s32 g_MpPlayerNum = 0;
 
-GLOBAL_ASM(
-glabel menuPlaySound
-.late_rodata
-glabel var7f1b27c0
-.word menuPlaySound+0x40 # f0f0a30
-glabel var7f1b27c4
-.word menuPlaySound+0x48 # f0f0a38
-glabel var7f1b27c8
-.word menuPlaySound+0x50 # f0f0a40
-glabel var7f1b27cc
-.word menuPlaySound+0x58 # f0f0a48
-glabel var7f1b27d0
-.word menuPlaySound+0x60 # f0f0a50
-glabel var7f1b27d4
-.word menuPlaySound+0x78 # f0f0a68
-glabel var7f1b27d8
-.word menuPlaySound+0xc8 # f0f0ab8
-glabel var7f1b27dc
-.word menuPlaySound+0xc8 # f0f0ab8
-glabel var7f1b27e0
-.word menuPlaySound+0x80 # f0f0a70
-glabel var7f1b27e4
-.word menuPlaySound+0x88 # f0f0a78
-glabel var7f1b27e8
-.word menuPlaySound+0x90 # f0f0a80
-glabel var7f1b27ec
-.word menuPlaySound+0xc8 # f0f0ab8
-glabel var7f1b27f0
-.word menuPlaySound+0x98 # f0f0a88
-glabel var7f1b27f4
-.word menuPlaySound+0xb4 # f0f0aa4
-glabel var7f1b27f8
-.word 0x3ecccccd
-glabel var7f1b27fc
-.word 0x3ed68d76
-.text
-/*  f0f09f0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0f09f4:	44812000 */ 	mtc1	$at,$f4
-/*  f0f09f8:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0f09fc:	2c81000e */ 	sltiu	$at,$a0,0xe
-/*  f0f0a00:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0f0a04:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f0f0a08:	00004025 */ 	or	$t0,$zero,$zero
-/*  f0f0a0c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0f0a10:	10200029 */ 	beqz	$at,.L0f0f0ab8
-/*  f0f0a14:	e7a40030 */ 	swc1	$f4,0x30($sp)
-/*  f0f0a18:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0f0a1c:	3c017f1b */ 	lui	$at,%hi(var7f1b27c0)
-/*  f0f0a20:	002e0821 */ 	addu	$at,$at,$t6
-/*  f0f0a24:	8c2e27c0 */ 	lw	$t6,%lo(var7f1b27c0)($at)
-/*  f0f0a28:	01c00008 */ 	jr	$t6
-/*  f0f0a2c:	00000000 */ 	nop
-/*  f0f0a30:	10000021 */ 	b	.L0f0f0ab8
-/*  f0f0a34:	240305bb */ 	addiu	$v1,$zero,0x5bb
-/*  f0f0a38:	1000001f */ 	b	.L0f0f0ab8
-/*  f0f0a3c:	240305bc */ 	addiu	$v1,$zero,0x5bc
-/*  f0f0a40:	1000001d */ 	b	.L0f0f0ab8
-/*  f0f0a44:	24030441 */ 	addiu	$v1,$zero,0x441
-/*  f0f0a48:	1000001b */ 	b	.L0f0f0ab8
-/*  f0f0a4c:	240305dd */ 	addiu	$v1,$zero,0x5dd
-/*  f0f0a50:	3c017f1b */ 	lui	$at,%hi(var7f1b27f8)
-/*  f0f0a54:	c42627f8 */ 	lwc1	$f6,%lo(var7f1b27f8)($at)
-/*  f0f0a58:	34038040 */ 	dli	$v1,0x8040
-/*  f0f0a5c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0f0a60:	10000015 */ 	b	.L0f0f0ab8
-/*  f0f0a64:	e7a60030 */ 	swc1	$f6,0x30($sp)
-/*  f0f0a68:	10000013 */ 	b	.L0f0f0ab8
-/*  f0f0a6c:	34038098 */ 	dli	$v1,0x8098
-/*  f0f0a70:	10000011 */ 	b	.L0f0f0ab8
-/*  f0f0a74:	240305dd */ 	addiu	$v1,$zero,0x5dd
-/*  f0f0a78:	1000000f */ 	b	.L0f0f0ab8
-/*  f0f0a7c:	2403043e */ 	addiu	$v1,$zero,0x43e
-/*  f0f0a80:	1000000d */ 	b	.L0f0f0ab8
-/*  f0f0a84:	2403043e */ 	addiu	$v1,$zero,0x43e
-/*  f0f0a88:	3c014060 */ 	lui	$at,0x4060
-/*  f0f0a8c:	44814000 */ 	mtc1	$at,$f8
-/*  f0f0a90:	240300ea */ 	addiu	$v1,$zero,0xea
-/*  f0f0a94:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0f0a98:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0f0a9c:	10000006 */ 	b	.L0f0f0ab8
-/*  f0f0aa0:	e7a80030 */ 	swc1	$f8,0x30($sp)
-/*  f0f0aa4:	3c017f1b */ 	lui	$at,%hi(var7f1b27fc)
-/*  f0f0aa8:	c42a27fc */ 	lwc1	$f10,%lo(var7f1b27fc)($at)
-/*  f0f0aac:	2403002b */ 	addiu	$v1,$zero,0x2b
-/*  f0f0ab0:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0f0ab4:	e7aa0030 */ 	swc1	$f10,0x30($sp)
-.L0f0f0ab8:
-/*  f0f0ab8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0f0abc:	10610030 */ 	beq	$v1,$at,.L0f0f0b80
-/*  f0f0ac0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0f0ac4:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f0f0ac8:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f0f0acc:	0c012230 */ 	jal	osGetThreadPri
-/*  f0f0ad0:	afa80038 */ 	sw	$t0,0x38($sp)
-/*  f0f0ad4:	3c048009 */ 	lui	$a0,%hi(var800915e0)
-/*  f0f0ad8:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f0f0adc:	0c012230 */ 	jal	osGetThreadPri
-/*  f0f0ae0:	248415e0 */ 	addiu	$a0,$a0,%lo(var800915e0)
-/*  f0f0ae4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0f0ae8:	0c01210c */ 	jal	osSetThreadPri
-/*  f0f0aec:	24450001 */ 	addiu	$a1,$v0,0x1
-/*  f0f0af0:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f0f0af4:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0f0af8:	44818000 */ 	mtc1	$at,$f16
-/*  f0f0afc:	00032c00 */ 	sll	$a1,$v1,0x10
-/*  f0f0b00:	00057c03 */ 	sra	$t7,$a1,0x10
-/*  f0f0b04:	3c048009 */ 	lui	$a0,%hi(var80095200)
-/*  f0f0b08:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f0f0b0c:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f0f0b10:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f0f0b14:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*  f0f0b18:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f0f0b1c:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f0f0b20:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*  f0f0b24:	01e02825 */ 	or	$a1,$t7,$zero
-/*  f0f0b28:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0f0b2c:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0f0b30:	0c004241 */ 	jal	audioStart
-/*  f0f0b34:	e7b00014 */ 	swc1	$f16,0x14($sp)
-/*  f0f0b38:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*  f0f0b3c:	10400007 */ 	beqz	$v0,.L0f0f0b5c
-/*  f0f0b40:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0f0b44:	11000005 */ 	beqz	$t0,.L0f0f0b5c
-/*  f0f0b48:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f0f0b4c:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f0f0b50:	0c00cf94 */ 	jal	func00033e50
-/*  f0f0b54:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f0f0b58:	8fa4002c */ 	lw	$a0,0x2c($sp)
-.L0f0f0b5c:
-/*  f0f0b5c:	10800005 */ 	beqz	$a0,.L0f0f0b74
-/*  f0f0b60:	8faa0034 */ 	lw	$t2,0x34($sp)
-/*  f0f0b64:	11400003 */ 	beqz	$t2,.L0f0f0b74
-/*  f0f0b68:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f0f0b6c:	0c00cf94 */ 	jal	func00033e50
-/*  f0f0b70:	24064000 */ 	addiu	$a2,$zero,0x4000
-.L0f0f0b74:
-/*  f0f0b74:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0f0b78:	0c01210c */ 	jal	osSetThreadPri
-/*  f0f0b7c:	8fa50028 */ 	lw	$a1,0x28($sp)
-.L0f0f0b80:
-/*  f0f0b80:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0f0b84:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0f0b88:	03e00008 */ 	jr	$ra
-/*  f0f0b8c:	00000000 */ 	nop
-);
+void menuPlaySound(s32 menusound)
+{
+	s32 sound = -1;
+	s32 flag1 = false;
+	s32 flag2 = false;
+	f32 speed = 1;
+
+	switch (menusound) {
+	case MENUSOUND_SWIPE:
+		sound = 0x5bb;
+		break;
+	case MENUSOUND_OPENDIALOG:
+		sound = 0x5bc;
+		break;
+	case MENUSOUND_FOCUS:
+		sound = 0x441;
+		break;
+	case MENUSOUND_SELECT:
+		sound = 0x5dd;
+		break;
+	case MENUSOUND_ERROR:
+		speed = 0.4f;
+		sound = 0x8040;
+		flag1 = true;
+		break;
+	case MENUSOUND_EXPLOSION:
+		sound = 0x8098;
+		break;
+	case MENUSOUND_TOGGLEON:
+		sound = 0x5dd;
+		break;
+	case MENUSOUND_TOGGLEOFF:
+		sound = 0x43e;
+		break;
+	case MENUSOUND_SUBFOCUS:
+		sound = 0x43e;
+		break;
+	case MENUSOUND_KEYBOARDFOCUS:
+		sound = 0xea;
+		flag1 = true;
+		flag2 = true;
+		speed = 3.5f;
+		break;
+	case MENUSOUND_KEYBOARDCANCEL:
+		sound = 0x2b;
+		flag1 = true;
+		speed = 0.41904801130295f;
+		break;
+	}
+
+	if (sound != -1) {
+		s32 handle;
+		OSPri prevpri = osGetThreadPri(NULL);
+		osSetThreadPri(0, osGetThreadPri(&var800915e0) + 1);
+
+		handle = audioStart(var80095200, sound, NULL, -1, -1, -1, -1, -1);
+
+		if (handle && flag1) {
+			func00033e50(handle, 16, *(u32 *)&speed);
+		}
+
+		if (handle && flag2) {
+			func00033e50(handle, 8, 0x4000);
+		}
+
+		osSetThreadPri(0, prevpri);
+	}
+}
 
 bool menuIsSoloMissionOrMp(void)
 {

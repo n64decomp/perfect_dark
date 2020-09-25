@@ -1118,6 +1118,18 @@
 #define MENUROOT_4MBMAINMENU 11
 #define MENUROOT_TRAINING    13
 
+#define MENUSOUND_SWIPE          0x00 // Navigating to left/right dialog
+#define MENUSOUND_OPENDIALOG     0x01
+#define MENUSOUND_FOCUS          0x02 // Focusing a different item
+#define MENUSOUND_SELECT         0x03
+#define MENUSOUND_ERROR          0x04
+#define MENUSOUND_EXPLOSION      0x05
+#define MENUSOUND_TOGGLEON       0x08 // Checking a checkbox
+#define MENUSOUND_TOGGLEOFF      0x09 // Unchecking a checkbox, opening a dropdown, cancelling a dropdown
+#define MENUSOUND_SUBFOCUS       0x0a // Changing focus within a list or dropdown
+#define MENUSOUND_KEYBOARDFOCUS  0x0c // Changing focus within a keyboard item
+#define MENUSOUND_KEYBOARDCANCEL 0x0d // Pressing A on a keyboard's cancel button
+
 #define MISCBIO_MAIANS     0
 #define MISCBIO_SKEDAR     1
 #define MISCBIO_BACKGROUND 2

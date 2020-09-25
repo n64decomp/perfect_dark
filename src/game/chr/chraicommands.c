@@ -10808,14 +10808,14 @@ bool aiChrBeginOrEndTeleport(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
-	f32 fvalue[1];
+	f32 fvalue;
 	struct chrdata *chr;
 	s32 a;
 	u32 playernum;
 	u32 prevplayernum;
 	s32 b;
 	s32 c;
-	fvalue[0] = 0.4;
+	fvalue = 0.4;
 	chr = chrFindById(g_Vars.chrdata, cmd[4]);
 	prevplayernum = g_Vars.currentplayernum;
 
@@ -10839,7 +10839,7 @@ bool aiChrBeginOrEndTeleport(void)
 		c = audioStart(var80095200, 0x0433, NULL, -1, -1, -1, -1, -1);
 
 		if (c) {
-			func00033e50(c, 16, fvalue[0]);
+			func00033e50(c, 16, *(u32 *)&fvalue);
 		}
 
 		osSetThreadPri(0, a);
@@ -10861,7 +10861,7 @@ bool aiIfChrTeleportFullWhite(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 	u32 prevplayernum = g_Vars.currentplayernum;
 	s32 a;
-	f32 fvalue[1];
+	f32 fvalue;
 	s32 b;
 	s32 c;
 
@@ -10873,14 +10873,14 @@ bool aiIfChrTeleportFullWhite(void)
 	if (g_Vars.currentplayer->teleportstate < TELEPORTSTATE_3) {
 		g_Vars.aioffset += 4;
 	} else {
-		fvalue[0] = 0.4;
+		fvalue = 0.4;
 		a = osGetThreadPri(0);
 		b = osGetThreadPri(&var800915e0);
 		osSetThreadPri(0, b + 1);
 		c = audioStart(var80095200, 0x8055, NULL, -1, -1, -1, -1, -1);
 
 		if (c) {
-			func00033e50(c, 16, fvalue[0]);
+			func00033e50(c, 16, *(u32 *)&fvalue);
 		}
 
 		osSetThreadPri(0, a);
