@@ -499,7 +499,7 @@ glabel func0f0e6298
 );
 
 GLOBAL_ASM(
-glabel menuRenderItemCustom
+glabel menuRenderItemList
 /*  f0e6328:	27bdfe90 */ 	addiu	$sp,$sp,-368
 /*  f0e632c:	afbf005c */ 	sw	$ra,0x5c($sp)
 /*  f0e6330:	afbe0058 */ 	sw	$s8,0x58($sp)
@@ -1773,7 +1773,7 @@ glabel menuRenderItemCustom
 );
 
 GLOBAL_ASM(
-glabel menuTickItemCustom
+glabel menuTickItemList
 .late_rodata
 glabel var7f1b1e58
 .word 0x3eb33333
@@ -2565,7 +2565,7 @@ bool menuTickItemDropdown(struct menuitem *item, struct menuframe *frame, struct
 
 	if ((arg3 & 2) && item->handler) {
 		if (frame->unk0c && item == frame->focuseditem) {
-			menuTickItemCustom(item, arg2, arg3, data);
+			menuTickItemList(item, arg2, arg3, data);
 
 			if (mpIsPlayerLockedOut(g_MpPlayerNum)) {
 				if ((item->param1 & 0x00040000) || (frame->dialog->unk10 & 0x10)) {
@@ -2779,7 +2779,7 @@ glabel func0f0e8290
 /*  f0e8518:	a7a8006e */ 	sh	$t0,0x6e($sp)
 .L0f0e851c:
 /*  f0e851c:	8fa400a0 */ 	lw	$a0,0xa0($sp)
-/*  f0e8520:	0fc398ca */ 	jal	menuRenderItemCustom
+/*  f0e8520:	0fc398ca */ 	jal	menuRenderItemList
 /*  f0e8524:	27a5006c */ 	addiu	$a1,$sp,0x6c
 /*  f0e8528:	afa200a0 */ 	sw	$v0,0xa0($sp)
 /*  f0e852c:	8fbf003c */ 	lw	$ra,0x3c($sp)
@@ -12431,7 +12431,7 @@ void menuInitItemController(union menuitemtickdata *data)
 Gfx *menuRenderItem(Gfx *gdl, struct menurenderthing *thing)
 {
 	switch (thing->item->type) {
-	case MENUITEMTYPE_CUSTOM:      return menuRenderItemCustom(gdl);
+	case MENUITEMTYPE_LIST:        return menuRenderItemList(gdl);
 	case MENUITEMTYPE_SELECTABLE:  return menuRenderItemSelectable(gdl, thing);
 	case MENUITEMTYPE_SLIDER:      return menuRenderItemSlider(gdl);
 	case MENUITEMTYPE_CHECKBOX:    return menuRenderItemCheckbox(gdl, thing);
@@ -12460,7 +12460,7 @@ Gfx *menuRenderItem(Gfx *gdl, struct menurenderthing *thing)
 bool menuTickItem(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data)
 {
 	switch (item->type) {
-	case MENUITEMTYPE_CUSTOM:      return menuTickItemCustom(item, arg2, arg3, data);
+	case MENUITEMTYPE_LIST:        return menuTickItemList(item, arg2, arg3, data);
 	case MENUITEMTYPE_SELECTABLE:  return menuTickItemSelectable(item, arg2, arg3);
 	case MENUITEMTYPE_SLIDER:      return menuTickItemSlider(item, frame, arg2, arg3, data);
 	case MENUITEMTYPE_CHECKBOX:    return menuTickItemCheckbox(item, arg2, arg3);
@@ -12479,7 +12479,7 @@ bool menuTickItem(struct menuitem *item, struct menuframe *frame, struct somemen
 void menuInitItem(struct menuitem *item, union menuitemtickdata *data)
 {
 	switch (item->type) {
-	case MENUITEMTYPE_CUSTOM:
+	case MENUITEMTYPE_LIST:
 	case MENUITEMTYPE_DROPDOWN:
 		menuInitItemDropdown(item, data);
 		break;
@@ -12510,7 +12510,7 @@ void menuInitItem(struct menuitem *item, union menuitemtickdata *data)
 Gfx *func0f0f0918(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7)
 {
 	switch (item->type) {
-	case MENUITEMTYPE_CUSTOM:      return func0f0e6298(gdl, x, y, x2, y2);
+	case MENUITEMTYPE_LIST:        return func0f0e6298(gdl, x, y, x2, y2);
 	case MENUITEMTYPE_DROPDOWN:    return func0f0e8290(gdl, x, y, x2, y2, item, arg6, arg7);
 	case MENUITEMTYPE_PLAYERSTATS: return func0f0ef2fc(gdl, x, y, x2, y2, item, arg6, arg7);
 	}

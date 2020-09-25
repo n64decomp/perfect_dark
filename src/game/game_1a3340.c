@@ -2471,7 +2471,7 @@ struct menudialog menudialog_frdifficulty = {
 };
 
 struct menuitem menuitems_frweapon[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00200008, 0x000000aa, 0x00000000, menuhandler001a348c },
+	{ MENUITEMTYPE_LIST,        0, 0x00200008, 0x000000aa, 0x00000000, menuhandler001a348c },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -2596,19 +2596,19 @@ s32 ciOfficeInformationMenuHandler(u32 operation, struct menuitem *item, union h
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->custom.value = numunlockedchrbios + numunlockedmiscbios;
+		data->list.value = numunlockedchrbios + numunlockedmiscbios;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		if (data->custom.value < numunlockedchrbios) {
-			chrbio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(data->custom.value));
+		if (data->list.value < numunlockedchrbios) {
+			chrbio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(data->list.value));
 			return (s32) langGet(chrbio->name);
 		} else {
-			miscbio = ciGetMiscBio(ciGetMiscBioIndexBySlot(data->custom.value - numunlockedchrbios));
+			miscbio = ciGetMiscBio(ciGetMiscBioIndexBySlot(data->list.value - numunlockedchrbios));
 			return (s32) langGet(miscbio->name);
 		}
 		break;
 	case MENUOP_SET:
-		g_ChrBioSlot = data->custom.value;
+		g_ChrBioSlot = data->list.value;
 		if (g_ChrBioSlot < numunlockedchrbios) {
 			menuPushDialog(&menudialog_characterprofile);
 		} else {
@@ -2616,15 +2616,15 @@ s32 ciOfficeInformationMenuHandler(u32 operation, struct menuitem *item, union h
 		}
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->custom.value = g_ChrBioSlot;
+		data->list.value = g_ChrBioSlot;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		data->custom.value = 2;
+		data->list.value = 2;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return (s32) langGet(groups[data->custom.value].name);
+		return (s32) langGet(groups[data->list.value].name);
 	case MENUOP_GETGROUPSTARTINDEX:
-		data->custom.groupstartindex = data->custom.value == 0 ? 0 : numunlockedchrbios;
+		data->list.groupstartindex = data->list.value == 0 ? 0 : numunlockedchrbios;
 		break;
 	}
 
@@ -2632,7 +2632,7 @@ s32 ciOfficeInformationMenuHandler(u32 operation, struct menuitem *item, union h
 }
 
 struct menuitem menuitems_information[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000c8, 0x00000000, ciOfficeInformationMenuHandler },
+	{ MENUITEMTYPE_LIST,        0, 0x00000008, 0x000000c8, 0x00000000, ciOfficeInformationMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -2813,24 +2813,24 @@ s32 dtDeviceListMenuHandler(u32 operation, struct menuitem *item, union handlerd
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->custom.value = dtGetNumAvailable();
+		data->list.value = dtGetNumAvailable();
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) weaponGetName(dtGetWeaponByDeviceIndex(dtGetIndexBySlot(data->custom.value)));
+		return (s32) weaponGetName(dtGetWeaponByDeviceIndex(dtGetIndexBySlot(data->list.value)));
 	case MENUOP_SET:
-		g_DtSlot = data->custom.value;
+		g_DtSlot = data->list.value;
 		menuPushDialog(&g_DeviceTrainingDetailsMenuDialog);
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->custom.value = g_DtSlot;
+		data->list.value = g_DtSlot;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		data->custom.value = 0;
+		data->list.value = 0;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
 		return 0;
 	case MENUOP_GETGROUPSTARTINDEX:
-		data->custom.groupstartindex = 0;
+		data->list.groupstartindex = 0;
 		break;
 	}
 
@@ -2903,7 +2903,7 @@ struct menudialog menudialog_2f3c0 = {
 };
 
 struct menuitem menuitems_devicelist[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000a0, 0x00000000, dtDeviceListMenuHandler },
+	{ MENUITEMTYPE_LIST,        0, 0x00000008, 0x000000a0, 0x00000000, dtDeviceListMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -3018,24 +3018,24 @@ s32 htHoloListMenuHandler(u32 operation, struct menuitem *item, union handlerdat
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->custom.value = htGetNumUnlocked();
+		data->list.value = htGetNumUnlocked();
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) htGetName(htGetIndexBySlot(data->custom.value));
+		return (s32) htGetName(htGetIndexBySlot(data->list.value));
 	case MENUOP_SET:
-		var80088bb4 = data->custom.value;
+		var80088bb4 = data->list.value;
 		menuPushDialog(&g_HoloTrainingDetailsMenuDialog);
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->custom.value = var80088bb4;
+		data->list.value = var80088bb4;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		data->custom.value = 0;
+		data->list.value = 0;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
 		return 0;
 	case MENUOP_GETGROUPSTARTINDEX:
-		data->custom.groupstartindex = 0;
+		data->list.groupstartindex = 0;
 		break;
 	}
 
@@ -3213,7 +3213,7 @@ struct menudialog g_DeviceTrainingStatsCompletedMenuDialog = {
 };
 
 struct menuitem menuitems_holotraining[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000a0, 0x00000000, htHoloListMenuHandler },
+	{ MENUITEMTYPE_LIST,        0, 0x00000008, 0x000000a0, 0x00000000, htHoloListMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -3294,13 +3294,13 @@ s32 ciHangarInformationMenuHandler(u32 operation, struct menuitem *item, union h
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->custom.value = ciGetNumUnlockedHangarBios();
+		data->list.value = ciGetNumUnlockedHangarBios();
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		bio = ciGetHangarBio(ciGetHangarBioIndexBySlot(data->custom.value));
+		bio = ciGetHangarBio(ciGetHangarBioIndexBySlot(data->list.value));
 		return (s32) langGet(bio->name);
 	case MENUOP_SET:
-		g_HangarBioSlot = data->custom.value;
+		g_HangarBioSlot = data->list.value;
 		bioindex = ciGetHangarBioIndexBySlot(g_HangarBioSlot);
 
 		if (bioindex <= HANGARBIO_SKEDARRUINS) {
@@ -3310,15 +3310,15 @@ s32 ciHangarInformationMenuHandler(u32 operation, struct menuitem *item, union h
 		}
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->custom.value = g_HangarBioSlot;
+		data->list.value = g_HangarBioSlot;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		data->custom.value = 2;
+		data->list.value = 2;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return (s32) langGet(groups[data->custom.value].name);
+		return (s32) langGet(groups[data->list.value].name);
 	case MENUOP_GETGROUPSTARTINDEX:
-		data->custom.groupstartindex = data->custom.value == 0 ? 0 : groups[1].offset;
+		data->list.groupstartindex = data->list.value == 0 ? 0 : groups[1].offset;
 		break;
 	}
 

@@ -5266,7 +5266,7 @@ struct menudialog menudialog_1a984 = {
 // 1a99c
 struct menuitem menuitems_deletefile[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(377), 0x00000000, NULL }, // "Select a file to delete:"
-	{ MENUITEMTYPE_CUSTOM,      1, 0x00200000, 0x00000000, 0x00000000, menucustomFileToDelete },
+	{ MENUITEMTYPE_LIST,        1, 0x00200000, 0x00000000, 0x00000000, menucustomFileToDelete },
 	{ MENUITEMTYPE_LABEL,       0, 0x00004030, L_OPTIONS(378), 0x00000000, NULL }, // "Press B Button to exit."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -5284,7 +5284,7 @@ struct menudialog menudialog_deletefile = {
 // 1aa04
 struct menuitem menuitems_copyfile[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(374), 0x00000000, NULL }, // "Select a file to copy:"
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x00000000, 0x00000000, menucustomFileToCopy },
+	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x00000000, 0x00000000, menucustomFileToCopy },
 	{ MENUITEMTYPE_LABEL,       0, 0x00004030, L_OPTIONS(375), 0x00000000, NULL }, // "Press B Button to exit."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -5324,7 +5324,7 @@ struct menuitem menuitems_gamenotes[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(388), (u32)&func0f10b924, NULL }, // "Delete Game Notes:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x0000010e, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(389), L_OPTIONS(390), NULL }, // "Note", "Pages"
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x000000c8, 0x0000006e, menucustomDeleteGameNote },
+	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000c8, 0x0000006e, menucustomDeleteGameNote },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f10b75c, (u32)&func0f10b7cc, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f10b83c, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, L_OPTIONS(391), 0x00000000, NULL }, // "Press the B Button to exit."
@@ -5410,7 +5410,7 @@ struct menudialog menudialog_enteragentname = {
 // 1adb8
 struct menuitem menuitems_fileselect[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(96), 0x00000000, NULL }, // "Choose Your Reality"
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x000000f5, 0x00000000, menucustomChooseAgent },
+	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000f5, 0x00000000, menucustomChooseAgent },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

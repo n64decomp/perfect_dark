@@ -87,29 +87,29 @@ s32 menuhandlerControlStyleImpl(u32 operation, struct menuitem *item, union hand
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->custom.value = 8;
+		data->list.value = 8;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		data->custom.value = 2;
+		data->list.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(g_ControlStyleOptions[data->custom.value]);
+		return (s32) langGet(g_ControlStyleOptions[data->list.value]);
 	case MENUOP_GETOPTGROUPTEXT:
-		return (s32) langGet(categories[data->custom.value]);
+		return (s32) langGet(categories[data->list.value]);
 	case MENUOP_GETGROUPSTARTINDEX:
-		data->custom.groupstartindex = data->custom.value == 0 ? 0 : 4;
+		data->list.groupstartindex = data->list.value == 0 ? 0 : 4;
 		break;
 	case MENUOP_SET:
-		optionsSetControlMode(mpindex, data->custom.value);
+		optionsSetControlMode(mpindex, data->list.value);
 		g_Vars.unk000458 |= 1;
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->custom.value = optionsGetControlMode(mpindex);
+		data->list.value = optionsGetControlMode(mpindex);
 		g_Menus[g_MpPlayerNum].data.main.mpindex = mpindex;
 		break;
 	case MENUOP_16:
 		if (g_MenuData.root == MENUROOT_MAINMENU) {
-			g_Menus[g_MpPlayerNum].data.main.controlmode = data->custom.value;
+			g_Menus[g_MpPlayerNum].data.main.controlmode = data->list.value;
 		}
 		break;
 	}
@@ -2769,7 +2769,7 @@ s32 menuhandlerChangeAgent(u32 operation, struct menuitem *item, union handlerda
 }
 
 struct menuitem menuitems_control[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00800000, 0x00000050, 0x00000000, menuhandler001024dc },
+	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000050, 0x00000000, menuhandler001024dc },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -2783,7 +2783,7 @@ struct menudialog g_ControlStyleMultiMenuDialog = {
 };
 
 struct menuitem menuitems_control2[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00800000, 0x00000028, 0x00000096, menuhandler001024dc },
+	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0x00000096, menuhandler001024dc },
 	{ MENUITEMTYPE_CONTROLLER,  0, 0x00000001, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -2798,7 +2798,7 @@ struct menudialog g_ControlStyleSingleMenuDialog = {
 };
 
 struct menuitem menuitems_control3[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00800000, 0x00000028, 0x00000096, menuhandler001024dc },
+	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0x00000096, menuhandler001024dc },
 	{ MENUITEMTYPE_CONTROLLER,  0, 0x00000001, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -2813,7 +2813,7 @@ struct menudialog menudialog_control3 = {
 };
 
 struct menuitem menuitems_control4[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00800000, 0x00000028, 0x00000096, menuhandler001024fc },
+	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0x00000096, menuhandler001024fc },
 	{ MENUITEMTYPE_CONTROLLER,  0, 0x00000001, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -3792,7 +3792,7 @@ glabel var7f1b2e84
 );
 
 struct menuitem menuitems_inventory[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106178 },
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106178 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000203, L_OPTIONS(3), (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
 	{ MENUITEMTYPE_LABEL,       0, 0x00000302, L_OPTIONS(3), (u32)&invMenuTextWeaponName, NULL }, // ""
 	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
@@ -3803,7 +3803,7 @@ struct menuitem menuitems_inventory[] = {
 };
 
 struct menuitem menuitems_weaponsavailable[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106028 },
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106028 },
 	{ MENUITEMTYPE_LABEL,       0, 0x0213, L_OPTIONS(3), (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
 	{ MENUITEMTYPE_LABEL,       0, 0x0312, L_OPTIONS(3), (u32)&invMenuTextWeaponName, NULL }, // ""
 	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
@@ -4101,38 +4101,38 @@ s32 menuhandlerCinema(u32 operation, struct menuitem *item, union handlerdata *d
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->custom.value = g_CutsceneIndexes[getNumCompletedMissions()] + 1;
+		data->list.value = g_CutsceneIndexes[getNumCompletedMissions()] + 1;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		if (data->custom.value == 0) {
+		if (data->list.value == 0) {
 			sprintf(g_StringPointer, langGet(L_OPTIONS(448))); // "Play All"
 			return (s32) g_StringPointer;
 		}
-		return (s32) langGet(g_Cutscenes[data->custom.value - 1].name);
+		return (s32) langGet(g_Cutscenes[data->list.value - 1].name);
 	case MENUOP_SET:
-		if (data->custom.value == 0) {
+		if (data->list.value == 0) {
 			s32 index = getNumCompletedMissions();
 			g_Vars.unk0004d4 = 0;
 			g_Vars.unk0004d5 = g_CutsceneIndexes[index];
 			menuPopDialog();
 			func0f01bea0();
 		} else {
-			g_Vars.unk0004d4 = data->custom.value - 1;
+			g_Vars.unk0004d4 = data->list.value - 1;
 			g_Vars.unk0004d5 = 1;
 			menuPopDialog();
 			func0f01bea0();
 		}
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		data->custom.value = 0xfffff;
+		data->list.value = 0xfffff;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		data->custom.value = ARRAYCOUNT(groups);
+		data->list.value = ARRAYCOUNT(groups);
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return (s32) langGet(groups[data->custom.value].name);
+		return (s32) langGet(groups[data->list.value].name);
 	case MENUOP_GETGROUPSTARTINDEX:
-		data->custom.groupstartindex = groups[data->custom.value].first_cutscene_index;
+		data->list.groupstartindex = groups[data->list.value].first_cutscene_index;
 		break;
 	}
 
@@ -4140,7 +4140,7 @@ s32 menuhandlerCinema(u32 operation, struct menuitem *item, union handlerdata *d
 }
 
 struct menuitem g_CinemaMenuItems[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x000000eb, 0x00000000, menuhandlerCinema },
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x000000eb, 0x00000000, menuhandlerCinema },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -4158,7 +4158,7 @@ struct menudialog g_CinemaMenuDialog = {
 //----------------------------------------------------------------------------/
 
 struct menuitem g_SelectMissionMenuItems[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x000000eb, 0x00000000, menuhandler0010476c },
+	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000eb, 0x00000000, menuhandler0010476c },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

@@ -485,7 +485,7 @@ struct menudialog g_MpPauseControlMenuDialog = {
 
 // 2a7ac
 struct menuitem g_MpInventoryMenuItems[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x00000078, 0x00000042, menuhandler00106178 },
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x00000078, 0x00000042, menuhandler00106178 },
 	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&mpMenuTextWeaponDescription, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -936,7 +936,7 @@ struct menudialog menudialog_mpcontrol = {
 
 // 2b19c
 struct menuitem menuitems_mpcompletedchallenges[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x00000078, 0x0000004d, menuhandler0017a20c },
+	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x00000078, 0x0000004d, menuhandler0017a20c },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -1041,7 +1041,7 @@ struct menudialog menudialog_mpplayername = {
 
 // 2b518
 struct menuitem menuitems_mploadgamesettingstype0[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x00000078, 0x00000042, menuhandler0017bab4 },
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x00000078, 0x00000042, menuhandler0017bab4 },
 	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&func0f17be2c, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -1058,7 +1058,7 @@ struct menudialog menudialog_mploadgamesettingstype0 = {
 
 // 2b56c
 struct menuitem menuitems_mploadgamesettingstype1[] = {
-	{ MENUITEMTYPE_CUSTOM,      1, 0x00000000, 0x00000078, 0x00000042, menuhandler0017bab4 },
+	{ MENUITEMTYPE_LIST,        1, 0x00000000, 0x00000078, 0x00000042, menuhandler0017bab4 },
 	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&func0f17be2c, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -1075,7 +1075,7 @@ struct menudialog menudialog_mploadgamesettingstype1 = {
 
 // 2b5c0
 struct menuitem menuitems_mploadplayer[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x0000007e, 0x00000042, menuhandler0017bfc0 },
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000007e, 0x00000042, menuhandler0017bfc0 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_MPMENU(138), 0x00000000, NULL }, // "B Button to cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -1092,7 +1092,7 @@ struct menudialog menudialog_mploadplayer = {
 
 // 2b614
 struct menuitem menuitems_mparena[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00020000, 0x00000078, 0x0000004d, menuhandler001791c8 },
+	{ MENUITEMTYPE_LIST,        0, 0x00020000, 0x00000078, 0x0000004d, menuhandler001791c8 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -1172,7 +1172,7 @@ u32 var800857dc = 0x50680000; // "Special Simulants"
 
 // 2b800
 struct menuitem menuitems_mpaddchangesimulant[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00020000, 0x00000078, 0x00000042, menuhandler0017c6a4 },
+	{ MENUITEMTYPE_LIST,        0, 0x00020000, 0x00000078, 0x00000042, menuhandler0017c6a4 },
 	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&mpMenuTextSimulantDescription, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -1332,7 +1332,7 @@ u32 var80085cf4 = L_MISC(169); // "Randomize"
 
 // 2bd18
 struct menuitem menuitems_2bd18[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00020000, 0x00000078, 0x0000004d, menuhandler0017dc84 },
+	{ MENUITEMTYPE_LIST,        0, 0x00020000, 0x00000078, 0x0000004d, menuhandler0017dc84 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -1430,7 +1430,7 @@ struct menudialog menudialog_2bfa8 = {
 
 // 2bfc0
 struct menuitem menuitems_mpchallengedetails[] = {
-	{ MENUITEMTYPE_CUSTOM,     0,                       0x00200000, 0x00000078,       0x0000004d, menuhandler0017e4d4         },
+	{ MENUITEMTYPE_LIST,       0,                       0x00200000, 0x00000078,       0x0000004d, menuhandler0017e4d4         },
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCHALLENGE, 0x00000000, 0x0000007c,       0x00000037, menuhandler0017e9d8         },
 	{ MENUITEMTYPE_SEPARATOR,  0,                       0x00000000, 0x00000000,       0x00000000, menuhandler0017e9d8         },
 	{ MENUITEMTYPE_SELECTABLE, 0,                       0x00000000, L_MPWEAPONS(171), 0x00000000, menuhandlerMpStartChallenge }, // "Start Challenge"
@@ -1481,7 +1481,7 @@ struct menudialog menudialog_2c0cc = {
 
 // 2c0e4
 struct menuitem menuitems_mpcombatchallenges2[] = {
-	{ MENUITEMTYPE_CUSTOM,      1, 0x00200000, 0x00000078, 0x0000004d, menuhandler0017e4d4 },
+	{ MENUITEMTYPE_LIST,        1, 0x00200000, 0x00000078, 0x0000004d, menuhandler0017e4d4 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -2014,7 +2014,7 @@ u32 var80087178 = 0x50f50000; // "-Teamwork-"
 
 // 2d19c
 struct menuitem menuitems_mpscenario[] = {
-	 { MENUITEMTYPE_CUSTOM,      0, 0x00020040, 0x00000078, 0x0000004d, menuhandler00185068 },
+	 { MENUITEMTYPE_LIST,        0, 0x00020040, 0x00000078, 0x0000004d, menuhandler00185068 },
 	 { MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -2030,7 +2030,7 @@ struct menudialog menudialog_mpscenario = {
 
 // 2d1dc
 struct menuitem menuitems_mpscenario2[] = {
-	 { MENUITEMTYPE_CUSTOM,      1, 0x00020040, 0x00000078, 0x0000004d, menuhandler00185068 },
+	 { MENUITEMTYPE_LIST,        1, 0x00020040, 0x00000078, 0x0000004d, menuhandler00185068 },
 	 { MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

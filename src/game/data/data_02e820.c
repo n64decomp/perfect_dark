@@ -86,7 +86,7 @@ struct menudialog menudialog_2f950 = {
 
 // 2f968
 struct menuitem menuitems_hangarinformation[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000008, 0x000000a0, 0x00000000, ciHangarInformationMenuHandler },
+	{ MENUITEMTYPE_LIST,        0, 0x00000008, 0x000000a0, 0x00000000, ciHangarInformationMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

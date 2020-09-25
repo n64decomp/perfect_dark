@@ -3318,7 +3318,7 @@ struct handlerdata_checkbox {
 	u32 value;
 };
 
-struct handlerdata_custom {
+struct handlerdata_list {
 	u32 value;
 	u32 unk04;
 	u32 groupstartindex;
@@ -3369,7 +3369,7 @@ struct handlerdata_dialog2 {
 union handlerdata {
 	struct handlerdata_carousel carousel;
 	struct handlerdata_checkbox checkbox;
-	struct handlerdata_custom custom;
+	struct handlerdata_list list;
 	struct handlerdata_dropdown dropdown;
 	struct handlerdata_keyboard keyboard;
 	struct handlerdata_label label;

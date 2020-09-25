@@ -49,7 +49,7 @@ struct menudialog menudialog_gamefiles2 = {
 // 1af18
 struct menuitem menuitems_fileselect2[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(96), 0x00000000, NULL }, // "Choose Your Reality"
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x000000f5, 0x00000000, menucustomChooseAgent },
+	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000f5, 0x00000000, menucustomChooseAgent },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -149,7 +149,7 @@ struct menudialog menudialog_1b1bc = {
 
 // 1b1d4
 struct menuitem menuitems_mpcombatchallenges[] = {
-	{ MENUITEMTYPE_CUSTOM,      1, 0x00200000, 0x00000078, 0x0000004d, menuhandler0017e4d4 },
+	{ MENUITEMTYPE_LIST,        1, 0x00200000, 0x00000078, 0x0000004d, menuhandler0017e4d4 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

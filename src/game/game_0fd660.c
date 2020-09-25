@@ -508,7 +508,7 @@ s32 menudialogMpPickTarget(u32 operation, struct menudialog *dialog, union handl
 
 // 17980
 struct menuitem menuitems_picktarget[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x0000005a, 0x00000000, menuhandler000fd6f0 },
+	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x0000005a, 0x00000000, menuhandler000fd6f0 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
