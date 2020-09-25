@@ -3266,6 +3266,7 @@ struct menuitemtickdata_dropdown {
 	u16 unk08;
 	u16 unk0a;
 	s16 unk0c;
+	u16 unk0e;
 };
 
 struct menuitemtickdata_keyboard {
@@ -6935,6 +6936,19 @@ struct var800a45d0 {
 	/*0x54*/ u32 unk54;
 	/*0x58*/ u32 colour1;
 	/*0x5c*/ u32 colour2;
+};
+
+struct somemenuitemtickarg {
+	/*0x00*/ u8 unk00;
+	/*0x01*/ u8 unk01;
+	/*0x02*/ u8 unk02;
+	/*0x03*/ u8 unk03;
+	/*0x04*/ u8 unk04;
+	/*0x05*/ s8 unk05;
+	/*0x06*/ u8 unk06;
+	/*0x07*/ u8 unk07;
+	/*0x08*/ u8 unk08;
+	/*0x09*/ s8 unk09;
 };
 
 #endif

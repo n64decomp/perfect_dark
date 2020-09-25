@@ -2559,101 +2559,46 @@ glabel menuRenderItemDropdown
 /*  f0e8134:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 
-GLOBAL_ASM(
-glabel menuTickItemDropdown
-/*  f0e8138:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0e813c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0e8140:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0e8144:	30ef0002 */ 	andi	$t7,$a3,0x2
-/*  f0e8148:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f0e814c:	00808825 */ 	or	$s1,$a0,$zero
-/*  f0e8150:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0e8154:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0e8158:	11e00047 */ 	beqz	$t7,.L0f0e8278
-/*  f0e815c:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f0e8160:	8c980010 */ 	lw	$t8,0x10($a0)
-/*  f0e8164:	53000045 */ 	beqzl	$t8,.L0f0e827c
-/*  f0e8168:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0e816c:	8cb9000c */ 	lw	$t9,0xc($a1)
-/*  f0e8170:	53200018 */ 	beqzl	$t9,.L0f0e81d4
-/*  f0e8174:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*  f0e8178:	8ca80008 */ 	lw	$t0,0x8($a1)
-/*  f0e817c:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f0e8180:	00e03025 */ 	or	$a2,$a3,$zero
-/*  f0e8184:	54880013 */ 	bnel	$a0,$t0,.L0f0e81d4
-/*  f0e8188:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*  f0e818c:	0fc39d68 */ 	jal	menuTickItemCustom
-/*  f0e8190:	8fa70048 */ 	lw	$a3,0x48($sp)
-/*  f0e8194:	3c048007 */ 	lui	$a0,%hi(g_MpPlayerNum)
-/*  f0e8198:	0fc62ff6 */ 	jal	mpIsPlayerLockedOut
-/*  f0e819c:	8c841448 */ 	lw	$a0,%lo(g_MpPlayerNum)($a0)
-/*  f0e81a0:	5040000c */ 	beqzl	$v0,.L0f0e81d4
-/*  f0e81a4:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*  f0e81a8:	8e290004 */ 	lw	$t1,0x4($s1)
-/*  f0e81ac:	00095340 */ 	sll	$t2,$t1,0xd
-/*  f0e81b0:	05420007 */ 	bltzl	$t2,.L0f0e81d0
-/*  f0e81b4:	ae00000c */ 	sw	$zero,0xc($s0)
-/*  f0e81b8:	8e0b0000 */ 	lw	$t3,0x0($s0)
-/*  f0e81bc:	8d6c0010 */ 	lw	$t4,0x10($t3)
-/*  f0e81c0:	318d0010 */ 	andi	$t5,$t4,0x10
-/*  f0e81c4:	51a00003 */ 	beqzl	$t5,.L0f0e81d4
-/*  f0e81c8:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*  f0e81cc:	ae00000c */ 	sw	$zero,0xc($s0)
-.L0f0e81d0:
-/*  f0e81d0:	8faf0040 */ 	lw	$t7,0x40($sp)
-.L0f0e81d4:
-/*  f0e81d4:	91f80003 */ 	lbu	$t8,0x3($t7)
-/*  f0e81d8:	5300000a */ 	beqzl	$t8,.L0f0e8204
-/*  f0e81dc:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f0e81e0:	8e19000c */ 	lw	$t9,0xc($s0)
-/*  f0e81e4:	53200007 */ 	beqzl	$t9,.L0f0e8204
-/*  f0e81e8:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f0e81ec:	ae00000c */ 	sw	$zero,0xc($s0)
-/*  f0e81f0:	8fa80040 */ 	lw	$t0,0x40($sp)
-/*  f0e81f4:	24040009 */ 	addiu	$a0,$zero,0x9
-/*  f0e81f8:	0fc3c27c */ 	jal	menuPlaySound
-/*  f0e81fc:	a1000003 */ 	sb	$zero,0x3($t0)
-/*  f0e8200:	8fae0040 */ 	lw	$t6,0x40($sp)
-.L0f0e8204:
-/*  f0e8204:	91c90002 */ 	lbu	$t1,0x2($t6)
-/*  f0e8208:	5120001c */ 	beqzl	$t1,.L0f0e827c
-/*  f0e820c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0e8210:	8e0a000c */ 	lw	$t2,0xc($s0)
-/*  f0e8214:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f0e8218:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0e821c:	51400004 */ 	beqzl	$t2,.L0f0e8230
-/*  f0e8220:	ae0b000c */ 	sw	$t3,0xc($s0)
-/*  f0e8224:	10000014 */ 	b	.L0f0e8278
-/*  f0e8228:	ae00000c */ 	sw	$zero,0xc($s0)
-/*  f0e822c:	ae0b000c */ 	sw	$t3,0xc($s0)
-.L0f0e8230:
-/*  f0e8230:	0fc39e66 */ 	jal	menuInitItemDropdown
-/*  f0e8234:	8fa50048 */ 	lw	$a1,0x48($sp)
-/*  f0e8238:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f0e823c:	8e390010 */ 	lw	$t9,0x10($s1)
-/*  f0e8240:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f0e8244:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0e8248:	0320f809 */ 	jalr	$t9
-/*  f0e824c:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f0e8250:	3c0d8007 */ 	lui	$t5,%hi(var800711a8)
-/*  f0e8254:	8dad11a8 */ 	lw	$t5,%lo(var800711a8)($t5)
-/*  f0e8258:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*  f0e825c:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f0e8260:	24040009 */ 	addiu	$a0,$zero,0x9
-/*  f0e8264:	018d0019 */ 	multu	$t4,$t5
-/*  f0e8268:	00007812 */ 	mflo	$t7
-/*  f0e826c:	a70f000e */ 	sh	$t7,0xe($t8)
-/*  f0e8270:	0fc3c27c */ 	jal	menuPlaySound
-/*  f0e8274:	00000000 */ 	nop
-.L0f0e8278:
-/*  f0e8278:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0e827c:
-/*  f0e827c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0e8280:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0e8284:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0e8288:	03e00008 */ 	jr	$ra
-/*  f0e828c:	24020001 */ 	addiu	$v0,$zero,0x1
-);
+bool menuTickItemDropdown(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data)
+{
+	u32 stack;
+
+	if ((arg3 & 2) && item->handler) {
+		if (frame->unk0c && item == frame->focuseditem) {
+			menuTickItemCustom(item, arg2, arg3, data);
+
+			if (mpIsPlayerLockedOut(g_MpPlayerNum)) {
+				if ((item->param1 & 0x00040000) || (frame->dialog->unk10 & 0x10)) {
+					frame->unk0c = 0;
+				}
+			}
+		}
+
+		if (arg2->unk03 && frame->unk0c) {
+			frame->unk0c = 0;
+			arg2->unk03 = 0;
+			menuPlaySound(MENUSOUND_TOGGLEOFF);
+		}
+
+		if (arg2->unk02) {
+			if (frame->unk0c) {
+				frame->unk0c = 0;
+			} else {
+				union handlerdata handlerdata;
+
+				frame->unk0c = 1;
+				menuInitItemDropdown(item, data);
+
+				handlerdata.dropdown.value = 0;
+				item->handler(MENUOP_GETOPTIONVALUE, item, &handlerdata);
+				data->dropdown.unk0e = handlerdata.dropdown.value * var800711a8;
+				menuPlaySound(MENUSOUND_TOGGLEOFF);
+			}
+		}
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f0e8290
@@ -5625,9 +5570,9 @@ const char var7f1adfb8[] = "";
 //	return func0f153780(gdl);
 //}
 
-bool menuTickItemSelectable(struct menuitem *item, u8 *arg1, u32 arg2)
+bool menuTickItemSelectable(struct menuitem *item, struct somemenuitemtickarg *arg1, u32 arg2)
 {
-	if ((arg2 & 2) && arg1[2]) {
+	if ((arg2 & 2) && arg1->unk02) {
 		menuPlaySound(MENUSOUND_SELECT);
 
 		if (item->param1 & 0x00000008) {
@@ -7215,11 +7160,11 @@ glabel menuRenderItemCheckbox
 //	return func0f153780(gdl);
 //}
 
-bool menuTickItemCheckbox(struct menuitem *item, u8 *arg1, u32 arg2)
+bool menuTickItemCheckbox(struct menuitem *item, struct somemenuitemtickarg *arg1, u32 arg2)
 {
 	union handlerdata data;
 
-	if ((arg2 & 2) && arg1[2]) {
+	if ((arg2 & 2) && arg1->unk02) {
 		if (item->handler && item->handler(MENUOP_GET, item, &data) == 1) {
 			data.checkbox.value = 0;
 			menuPlaySound(MENUSOUND_TOGGLEOFF);
@@ -10905,23 +10850,23 @@ glabel menuRenderItemRanking
 /*  f0ee570:	27bd01b0 */ 	addiu	$sp,$sp,0x1b0
 );
 
-bool menuTickItemRanking(s8 *arg0, u32 arg1, union menuitemtickdata *data)
+bool menuTickItemRanking(struct somemenuitemtickarg *arg0, u32 arg1, union menuitemtickdata *data)
 {
 	f32 floatval;
 	s32 intval;
 
 	if (arg1 & 2) {
 		intval = 0;
-		floatval = arg0[5] < 0 ? -(f32)arg0[5] : arg0[5];
+		floatval = arg0->unk05 < 0 ? -(f32)arg0->unk05 : arg0->unk05;
 
 		if (floatval > 20) {
 			floatval = (floatval - 20) / 5;
 			floatval *= g_Vars.diffframe60f;
 
-			intval = arg0[5] < 0 ? (s32)floatval : -(s32)floatval;
+			intval = arg0->unk05 < 0 ? (s32)floatval : -(s32)floatval;
 		}
 
-		intval += arg0[9] * 2 * g_Vars.diffframe60;
+		intval += arg0->unk09 * 2 * g_Vars.diffframe60;
 		data->ranking.unk00 += intval;
 
 		if (data->ranking.unk00 < 0) {
@@ -11721,23 +11666,23 @@ glabel menuRenderItemPlayerStats
 /*  f0ef1fc:	27bd00c8 */ 	addiu	$sp,$sp,0xc8
 );
 
-bool menuTickItemPlayerStats(struct menuitem *item, u32 *arg1, s8 *arg2, u32 arg3, union menuitemtickdata *data)
+bool menuTickItemPlayerStats(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data)
 {
 	f32 floatval;
 	s32 intval;
 
-	if ((arg3 & 2) && arg1[3] == 0) {
+	if ((arg3 & 2) && frame->unk0c == 0) {
 		intval = 0;
-		floatval = arg2[5] < 0 ? -(f32)arg2[5] : arg2[5];
+		floatval = arg2->unk05 < 0 ? -(f32)arg2->unk05 : arg2->unk05;
 
 		if (floatval > 20) {
 			floatval = (floatval - 20) / 5;
 			floatval *= g_Vars.diffframe60f;
 
-			intval = arg2[5] < 0 ? (s32)floatval : -(s32)floatval;
+			intval = arg2->unk05 < 0 ? (s32)floatval : -(s32)floatval;
 		}
 
-		intval += arg2[9] * 2 * g_Vars.diffframe60;
+		intval += arg2->unk09 * 2 * g_Vars.diffframe60;
 		data->dropdown.unk0c += intval;
 
 		if (data->dropdown.unk0c < 0) {
@@ -11745,7 +11690,7 @@ bool menuTickItemPlayerStats(struct menuitem *item, u32 *arg1, s8 *arg2, u32 arg
 		}
 	}
 
-	menuTickItemDropdown(item, arg1, arg2, arg3, data);
+	menuTickItemDropdown(item, frame, arg2, arg3, data);
 }
 
 GLOBAL_ASM(
@@ -12561,20 +12506,20 @@ Gfx *menuRenderItem(Gfx *gdl, struct menurenderthing *thing)
 /**
  * Return true if default up/down/left/right/back behaviour should be used.
  */
-bool menuTickItem(struct menuitem *item, void *arg1, void *arg2, u32 arg3, union menuitemtickdata *data)
+bool menuTickItem(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data)
 {
 	switch (item->type) {
 	case MENUITEMTYPE_CUSTOM:      return menuTickItemCustom(item, arg2, arg3, data);
 	case MENUITEMTYPE_SELECTABLE:  return menuTickItemSelectable(item, arg2, arg3);
-	case MENUITEMTYPE_SLIDER:      return menuTickItemSlider(item, arg1, arg2, arg3, data);
+	case MENUITEMTYPE_SLIDER:      return menuTickItemSlider(item, frame, arg2, arg3, data);
 	case MENUITEMTYPE_CHECKBOX:    return menuTickItemCheckbox(item, arg2, arg3);
-	case MENUITEMTYPE_SCROLLABLE:  return menuTickItemScrollable(item, arg1, arg2, arg3, data);
+	case MENUITEMTYPE_SCROLLABLE:  return menuTickItemScrollable(item, frame, arg2, arg3, data);
 	case MENUITEMTYPE_MARQUEE:     return menuTickItemMarquee(item, data);
 	case MENUITEMTYPE_RANKING:     return menuTickItemRanking(arg2, arg3, data);
-	case MENUITEMTYPE_DROPDOWN:    return menuTickItemDropdown(item, arg1, arg2, arg3, data);
+	case MENUITEMTYPE_DROPDOWN:    return menuTickItemDropdown(item, frame, arg2, arg3, data);
 	case MENUITEMTYPE_KEYBOARD:    return menuTickItemKeyboard(item, arg2, arg3, data);
 	case MENUITEMTYPE_CAROUSEL:    return menuTickItemCarousel(item, arg2, arg3);
-	case MENUITEMTYPE_PLAYERSTATS: return menuTickItemPlayerStats(item, arg1, arg2, arg3, data);
+	case MENUITEMTYPE_PLAYERSTATS: return menuTickItemPlayerStats(item, frame, arg2, arg3, data);
 	}
 
 	return true;
