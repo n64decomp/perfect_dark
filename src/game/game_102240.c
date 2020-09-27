@@ -616,13 +616,13 @@ s32 menudialogBriefing(u32 operation, struct menudialog *dialog, union handlerda
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curframe
 				&& g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
-			struct menuthing *thing = data->dialog2.ptr;
+			struct menuinputs *inputs = data->dialog2.inputs;
 
-			if (thing->start) {
+			if (inputs->start) {
 				menuhandlerAcceptMission(MENUOP_SET, NULL, data);
 			}
 
-			thing->start = 0;
+			inputs->start = false;
 		}
 	}
 
@@ -1265,13 +1265,13 @@ s32 menudialogCoopAntiOptions(u32 operation, struct menudialog *dialog, union ha
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curframe &&
 				g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
-			struct menuthing *thing = data->dialog2.ptr;
+			struct menuinputs *inputs = data->dialog2.inputs;
 
-			if (thing->start) {
+			if (inputs->start) {
 				menuhandlerBuddyOptionsContinue(MENUOP_SET, NULL, NULL);
 			}
 
-			thing->start = 0;
+			inputs->start = false;
 		}
 	}
 

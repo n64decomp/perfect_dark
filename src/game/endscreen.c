@@ -60,31 +60,31 @@ s32 menudialogRetryMission(u32 operation, struct menudialog *dialog, union handl
 				if (dialog == g_Menus[g_MpPlayerNum].curframe->dialog
 						|| (dialog->nextsibling && dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog)) {
 #endif
-					struct menuthing *thing = data->dialog2.ptr;
-					bool pass = false;
+					struct menuinputs *inputs = data->dialog2.inputs;
+					bool accept = false;
 
-					if (thing->back) {
+					if (inputs->back) {
 						menuPopDialog();
 						menuPopDialog();
 					}
 
-					thing->back = false;
+					inputs->back = false;
 
-					if (thing->start) {
-						pass = true;
+					if (inputs->start) {
+						accept = true;
 					}
 
-					thing->start = false;
+					inputs->start = false;
 
-					if (thing->forward
+					if (inputs->select
 							&& g_Menus[g_MpPlayerNum].curframe
 							&& dialog->nextsibling
 							&& dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog) {
-						pass = true;
-						thing->forward = false;
+						accept = true;
+						inputs->select = false;
 					}
 
-					if (pass) {
+					if (accept) {
 						union handlerdata data2;
 						menuhandlerAcceptMission(MENUOP_SET, &dialog->items[1], &data2);
 					}
@@ -574,9 +574,9 @@ s32 menudialogSolo2PEndscreenCompleted(u32 operation, struct menudialog *dialog,
 		if (g_Menus[g_MpPlayerNum].curframe) {
 			if (g_Menus[g_MpPlayerNum].curframe->dialog == dialog
 					|| (dialog->nextsibling && dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog)) {
-				struct menuthing *thing = data->dialog2.ptr;
+				struct menuinputs *inputs = data->dialog2.inputs;
 
-				if (thing->forward || thing->back || thing->start) {
+				if (inputs->select || inputs->back || inputs->start) {
 					g_Menus[g_MpPlayerNum].data.endscreen.unke1c = 6;
 				}
 
@@ -590,7 +590,7 @@ s32 menudialogSolo2PEndscreenCompleted(u32 operation, struct menudialog *dialog,
 					}
 				}
 
-				thing->forward = thing->back = thing->start = 0;
+				inputs->select = inputs->back = inputs->start = false;
 			}
 		}
 	}
@@ -608,9 +608,9 @@ s32 menudialogSolo2PEndscreenFailed(u32 operation, struct menudialog *dialog, un
 		if (g_Menus[g_MpPlayerNum].curframe) {
 			if (g_Menus[g_MpPlayerNum].curframe->dialog == dialog
 					|| (dialog->nextsibling && dialog->nextsibling == g_Menus[g_MpPlayerNum].curframe->dialog)) {
-				struct menuthing *thing = data->dialog2.ptr;
+				struct menuinputs *inputs = data->dialog2.inputs;
 
-				if (thing->forward || thing->back || thing->start) {
+				if (inputs->select || inputs->back || inputs->start) {
 					g_Menus[g_MpPlayerNum].data.endscreen.unke1c = 6;
 				}
 
@@ -632,7 +632,7 @@ s32 menudialogSolo2PEndscreenFailed(u32 operation, struct menudialog *dialog, un
 					}
 				}
 
-				thing->forward = thing->back = thing->start = 0;
+				inputs->select = inputs->back = inputs->start = false;
 			}
 		}
 	}

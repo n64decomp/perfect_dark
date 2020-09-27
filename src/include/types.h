@@ -3265,7 +3265,7 @@ struct menuitemtickdata_dropdown {
 	u16 unk06;
 	u16 unk08;
 	u16 unk0a;
-	s16 unk0c;
+	s16 scrolloffset;
 	u16 unk0e;
 };
 
@@ -3285,7 +3285,7 @@ struct menuitemtickdata_marquee {
 };
 
 struct menuitemtickdata_ranking {
-	s16 unk00;
+	s16 scrolloffset;
 };
 
 struct menuitemtickdata_scrollable {
@@ -3363,7 +3363,7 @@ struct handlerdata_dialog1 {
 };
 
 struct handlerdata_dialog2 {
-	struct menuthing *ptr;
+	struct menuinputs *inputs;
 };
 
 union handlerdata {
@@ -3595,7 +3595,7 @@ struct menuframe {
 	u8 unk05;
 	u16 unk06;
 	struct menuitem *focuseditem;
-	/*0x0c*/ bool unk0c;
+	/*0x0c*/ bool dimmed; // when dropdown is open or slider is active
 	/*0x10*/ u32 unk10;
 	/*0x14*/ s32 unk14;
 	/*0x18*/ u32 unk18;
@@ -6099,16 +6099,18 @@ struct var800a4cf0 {
 	struct var800a4d00 unk10[250];
 };
 
-// Suspected to be a representation of controller inputs
-struct menuthing {
-	u8 unk00;
-	u8 unk01;
-	u8 forward;
-	u8 back;
-	u32 unk04;
-	u8 unk08;
-	u8 unk09;
-	s8 start;
+struct menuinputs {
+	/*0x00*/ s8 leftright; // Both control stick and C/D buttons - set on initial press and key repeat
+	/*0x01*/ u8 unk01;
+	/*0x02*/ u8 select;    // A button
+	/*0x03*/ u8 back;      // B button
+	/*0x04*/ s8 xaxis;     // Control stick's current left/right position
+	/*0x05*/ s8 yaxis;     // Control stick's current up/down position
+	/*0x06*/ u8 shoulder;  // L or R buttons
+	/*0x07*/ u8 unk07;
+	/*0x08*/ s8 unk08;
+	/*0x09*/ s8 unk09;
+	/*0x0a*/ s8 start;
 };
 
 struct mpconfigsim {
@@ -6913,19 +6915,6 @@ struct var800a45d0 {
 	/*0x54*/ u32 unk54;
 	/*0x58*/ u32 colour1;
 	/*0x5c*/ u32 colour2;
-};
-
-struct somemenuitemtickarg {
-	/*0x00*/ s8 unk00;
-	/*0x01*/ u8 unk01;
-	/*0x02*/ u8 unk02;
-	/*0x03*/ u8 unk03;
-	/*0x04*/ s8 unk04;
-	/*0x05*/ s8 unk05;
-	/*0x06*/ u8 unk06;
-	/*0x07*/ u8 unk07;
-	/*0x08*/ s8 unk08;
-	/*0x09*/ s8 unk09;
 };
 
 #endif

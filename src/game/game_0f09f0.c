@@ -2492,7 +2492,7 @@ void menuOpenDialog(struct menudialog *dialog, struct menuframe *frame, struct m
 		frame->focuseditem->handler(MENUOP_FOCUS, frame->focuseditem, &data2);
 	}
 
-	frame->unk0c = 0;
+	frame->dimmed = false;
 	frame->unk64 = 0;
 	frame->unk68 = 0;
 

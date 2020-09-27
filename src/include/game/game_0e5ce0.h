@@ -8,16 +8,16 @@ s32 func0f0e5ef8(s16 arg0, struct menuitem *item);
 u32 func0f0e6038(void);
 Gfx *func0f0e6298(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2);
 Gfx *menuRenderItemList(Gfx *gdl);
-bool menuTickItemList(struct menuitem *item, struct somemenuitemtickarg *arg1, u32 arg2, union menuitemtickdata *data);
+bool menuTickItemList(struct menuitem *item, struct menuinputs *inputs, u32 arg2, union menuitemtickdata *data);
 
 void menuInitItemDropdown(struct menuitem *item, union menuitemtickdata *data);
 Gfx *menuRenderItemDropdown(Gfx *gdl);
-bool menuTickItemDropdown(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data);
+bool menuTickItemDropdown(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemtickdata *data);
 
 Gfx *func0f0e8290(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7);
 u32 func0f0e855c(void);
 Gfx *menuRenderItemKeyboard(Gfx *gdl);
-bool menuTickItemKeyboard(struct menuitem *item, struct somemenuitemtickarg *arg1, u32 arg2, union menuitemtickdata *data);
+bool menuTickItemKeyboard(struct menuitem *item, struct menuinputs *inputs, u32 arg2, union menuitemtickdata *data);
 void menuInitItemKeyboard(struct menuitem *item, union menuitemtickdata *data);
 
 Gfx *menuRenderItemSeparator(Gfx *gdl, struct menurenderthing *thing);
@@ -32,21 +32,21 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurenderthing *thing);
 Gfx *menuRenderItemMeter(Gfx *gdl, struct menurenderthing *thing);
 
 Gfx *menuRenderItemSelectable(Gfx *gdl, struct menurenderthing *thing);
-bool menuTickItemSelectable(struct menuitem *item, struct somemenuitemtickarg *arg1, u32 arg2);
+bool menuTickItemSelectable(struct menuitem *item, struct menuinputs *inputs, u32 arg2);
 
 Gfx *menuRenderItemSlider(Gfx *gdl);
-bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data);
+bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemtickdata *data);
 void menuInitItemSlider(union menuitemtickdata *data);
 
 Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurenderthing *thing);
-bool menuTickItemCarousel(struct menuitem *item, struct somemenuitemtickarg *arg1, u32 arg2);
+bool menuTickItemCarousel(struct menuitem *item, struct menuinputs *inputs, u32 arg2);
 
 Gfx *menuRenderItemCheckbox(Gfx *gdl, struct menurenderthing *thing);
-bool menuTickItemCheckbox(struct menuitem *item, struct somemenuitemtickarg *arg1, u32 arg2);
+bool menuTickItemCheckbox(struct menuitem *item, struct menuinputs *inputs, u32 arg2);
 
 char *menuItemScrollableGetText(u32 type);
 Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurenderthing *thing);
-bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data);
+bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemtickdata *data);
 void menuInitItemScrollable(union menuitemtickdata *data);
 
 Gfx *menuRenderItemMarquee(Gfx *gdl, struct menurenderthing *thing);
@@ -56,11 +56,11 @@ void menuInitItemMarquee(union menuitemtickdata *data);
 Gfx *menuRenderItem07(Gfx *gdl);
 
 Gfx *menuRenderItemRanking(Gfx *gdl);
-bool menuTickItemRanking(struct somemenuitemtickarg *arg0, u32 arg1, union menuitemtickdata *data);
+bool menuTickItemRanking(struct menuinputs *inputs, u32 arg1, union menuitemtickdata *data);
 void menuInitItemRanking(union menuitemtickdata *data);
 
 Gfx *menuRenderItemPlayerStats(Gfx *gdl);
-bool menuTickItemPlayerStats(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data);
+bool menuTickItemPlayerStats(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemtickdata *data);
 Gfx *func0f0ef2fc(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7);
 void menuInitItemPlayerStats(struct menuitem *item, union menuitemtickdata *data);
 
@@ -74,7 +74,7 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurenderthing *thing);
 void menuInitItemController(union menuitemtickdata *data);
 
 Gfx *menuRenderItem(Gfx *gdl, struct menurenderthing *thing);
-bool menuTickItem(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data);
+bool menuTickItem(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemtickdata *data);
 void menuInitItem(struct menuitem *item, union menuitemtickdata *data);
 Gfx *func0f0f0918(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7);
 

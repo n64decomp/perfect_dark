@@ -2559,34 +2559,34 @@ glabel menuRenderItemDropdown
 /*  f0e8134:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 
-bool menuTickItemDropdown(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data)
+bool menuTickItemDropdown(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemtickdata *data)
 {
 	u32 stack;
 
 	if ((arg3 & 2) && item->handler) {
-		if (frame->unk0c && item == frame->focuseditem) {
-			menuTickItemList(item, arg2, arg3, data);
+		if (frame->dimmed && item == frame->focuseditem) {
+			menuTickItemList(item, inputs, arg3, data);
 
 			if (mpIsPlayerLockedOut(g_MpPlayerNum)) {
 				if ((item->param1 & 0x00040000) || (frame->dialog->unk10 & 0x10)) {
-					frame->unk0c = 0;
+					frame->dimmed = false;
 				}
 			}
 		}
 
-		if (arg2->unk03 && frame->unk0c) {
-			frame->unk0c = 0;
-			arg2->unk03 = 0;
+		if (inputs->back && frame->dimmed) {
+			frame->dimmed = false;
+			inputs->back = false;
 			menuPlaySound(MENUSOUND_TOGGLEOFF);
 		}
 
-		if (arg2->unk02) {
-			if (frame->unk0c) {
-				frame->unk0c = 0;
+		if (inputs->select) {
+			if (frame->dimmed) {
+				frame->dimmed = false;
 			} else {
 				union handlerdata handlerdata;
 
-				frame->unk0c = 1;
+				frame->dimmed = true;
 				menuInitItemDropdown(item, data);
 
 				handlerdata.dropdown.value = 0;
@@ -4791,7 +4791,7 @@ Gfx *menuRenderItemModel(Gfx *gdl, struct menurenderthing *thing)
 					thing->frame->colourweight);
 		}
 
-		if (thing->frame->unk0c) {
+		if (thing->frame->dimmed) {
 			renderdata.colour = (colourBlend(renderdata.colour, 0, 127) & 0xffffff00) | (renderdata.colour & 0xff);
 		}
 
@@ -4856,7 +4856,7 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurenderthing *thing)
 					thing->frame->colourweight);
 		}
 
-		if (thing->frame->unk0c) {
+		if (thing->frame->dimmed) {
 			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
@@ -4873,7 +4873,7 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurenderthing *thing)
 					thing->frame->colourweight);
 		}
 
-		if (thing->frame->unk0c) {
+		if (thing->frame->dimmed) {
 			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
@@ -4892,7 +4892,7 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurenderthing *thing)
 					thing->frame->colourweight);
 		}
 
-		if (thing->frame->unk0c) {
+		if (thing->frame->dimmed) {
 			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
@@ -5020,7 +5020,7 @@ Gfx *menuRenderItemMeter(Gfx *gdl, struct menurenderthing *thing)
 				thing->frame->colourweight);
 	}
 
-	if (thing->frame->unk0c) {
+	if (thing->frame->dimmed) {
 		colour = (colourBlend(colour, 0, 127) & 0xffffff00) | (colour & 0xff);
 	}
 
@@ -5476,7 +5476,7 @@ const char var7f1adfb8[] = "";
 //				thing->frame->colourweight);
 //	}
 //
-//	if (thing->frame->unk0c) {
+//	if (thing->frame->dimmed) {
 //		leftcolour = colourBlend(leftcolour, 0, 127) & 0xffffff00 | leftcolour & 0xff;
 //	}
 //
@@ -5520,7 +5520,7 @@ const char var7f1adfb8[] = "";
 //					thing->frame->colourweight);
 //		}
 //
-//		if (thing->frame->unk0c) {
+//		if (thing->frame->dimmed) {
 //			leftcolour = colourBlend(leftcolour, 0x00000000, 127) & 0xffffff00 | leftcolour & 0xff;
 //		}
 //
@@ -5569,9 +5569,9 @@ const char var7f1adfb8[] = "";
 //	return func0f153780(gdl);
 //}
 
-bool menuTickItemSelectable(struct menuitem *item, struct somemenuitemtickarg *arg1, u32 arg2)
+bool menuTickItemSelectable(struct menuitem *item, struct menuinputs *inputs, u32 arg2)
 {
-	if ((arg2 & 2) && arg1->unk02) {
+	if ((arg2 & 2) && inputs->select) {
 		menuPlaySound(MENUSOUND_SELECT);
 
 		if (item->param1 & 0x00000008) {
@@ -6260,7 +6260,7 @@ glabel menuRenderItemSlider
 /*  f0ebec4:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
 );
 
-bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data)
+bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemtickdata *data)
 {
 	s32 index;
 	union handlerdata handlerdata;
@@ -6279,11 +6279,11 @@ bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct s
 			}
 
 			if ((item->param1 & 0x00000800) == 0 && !g_Menus[g_MpPlayerNum].unk82c) {
-				index = index + arg2->unk00;
+				index = index + inputs->leftright;
 			} else {
 				f0 = data->slider.unk00 / 1000.0f;
 				f0 = (f0 * 100.0f) / item->param3;
-				f0 = f0 + arg2->unk08 * g_Vars.diffframe60;
+				f0 = f0 + inputs->unk08 * g_Vars.diffframe60;
 				f0 = (item->param3 * f0) / 100.0f;
 
 				tmp = f0;
@@ -6293,23 +6293,23 @@ bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct s
 				data->slider.unk00 = f0 * 1000.0f;
 			}
 
-			if (arg2->unk04 < 0) {
-				f14 = arg2->unk04;
+			if (inputs->xaxis < 0) {
+				f14 = inputs->xaxis;
 				f2 = -f14;
 			} else {
-				f14 = arg2->unk04;
+				f14 = inputs->xaxis;
 				f2 = f14;
 			}
 
 			if ((item->param1 & 0x00000800) == 0 && f2 < 40) {
 				if (g_Menus[g_MpPlayerNum].unk82c) {
-					index = index + arg2->unk00;
+					index = index + inputs->leftright;
 				}
 			} else {
 				f0 = data->slider.unk00 / 1000.0f;
 				f0 = (f0 * 100.0f) / item->param3;
 
-				if (arg2->unk04 < 0) {
+				if (inputs->xaxis < 0) {
 					f2 = -f14;
 				} else {
 					f2 = f14;
@@ -6319,7 +6319,7 @@ bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct s
 					f2 = (f2 - 20) * 0.0625f;
 					f2 *= g_Vars.diffframe60f;
 
-					if (arg2->unk04 < 0) {
+					if (inputs->xaxis < 0) {
 						f0 -= f2;
 					} else {
 						f0 += f2;
@@ -6341,19 +6341,19 @@ bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct s
 				index = item->param3;
 			}
 
-			arg2->unk00 = 0;
+			inputs->leftright = 0;
 			handlerdata.slider.value = index;
 
 			if (item->handler) {
 				item->handler(MENUOP_SET, item, &handlerdata);
 			}
 
-			if (arg2->unk02) {
-				frame->unk0c = false;
+			if (inputs->select) {
+				frame->dimmed = false;
 			}
 		} else {
-			if (arg2->unk02) {
-				frame->unk0c = true;
+			if (inputs->select) {
+				frame->dimmed = true;
 			}
 		}
 	}
@@ -6414,7 +6414,7 @@ Gfx *menuRenderItemCarousel(Gfx *gdl, struct menurenderthing *thing)
 	return gdl;
 }
 
-bool menuTickItemCarousel(struct menuitem *item, struct somemenuitemtickarg *arg1, u32 arg2)
+bool menuTickItemCarousel(struct menuitem *item, struct menuinputs *inputs, u32 arg2)
 {
 	union handlerdata data;
 	s32 index;
@@ -6423,7 +6423,7 @@ bool menuTickItemCarousel(struct menuitem *item, struct somemenuitemtickarg *arg
 	u32 stack;
 
 	if (((arg2 & 2) || (item->param1 & 0x04000000)) && item->handler) {
-		if (arg1->unk00) {
+		if (inputs->leftright != 0) {
 			if (mpIsPlayerLockedOut(g_MpPlayerNum) == 0 || (item->param1 & 0x00020000) == 0) {
 				done = false;
 
@@ -6435,7 +6435,7 @@ bool menuTickItemCarousel(struct menuitem *item, struct somemenuitemtickarg *arg
 				index = data.carousel.value;
 
 				while (!done) {
-					index = index + arg1->unk00;
+					index = index + inputs->leftright;
 
 					if (index >= numoptions) {
 						index = 0;
@@ -6454,7 +6454,7 @@ bool menuTickItemCarousel(struct menuitem *item, struct somemenuitemtickarg *arg
 				}
 
 				data.carousel.value = index;
-				data.carousel.unk04 = arg1->unk06;
+				data.carousel.unk04 = inputs->shoulder;
 
 				item->handler(MENUOP_SET, item, &data);
 			}
@@ -6891,7 +6891,7 @@ glabel menuRenderItemCheckbox
 //					thing->frame->colourweight);
 //		}
 //
-//		if (thing->frame->unk0c) {
+//		if (thing->frame->dimmed) {
 //			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
 //		}
 //
@@ -6908,7 +6908,7 @@ glabel menuRenderItemCheckbox
 //					thing->frame->colourweight);
 //		}
 //
-//		if (thing->frame->unk0c) {
+//		if (thing->frame->dimmed) {
 //			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
 //		}
 //
@@ -6953,7 +6953,7 @@ glabel menuRenderItemCheckbox
 //					thing->frame->colourweight);
 //		}
 //
-//		if (thing->frame->unk0c) {
+//		if (thing->frame->dimmed) {
 //			maincolour = colourBlend(maincolour, 0, 127) & 0xffffff00 | maincolour & 0xff;
 //		}
 //
@@ -6975,11 +6975,11 @@ glabel menuRenderItemCheckbox
 //	return func0f153780(gdl);
 //}
 
-bool menuTickItemCheckbox(struct menuitem *item, struct somemenuitemtickarg *arg1, u32 arg2)
+bool menuTickItemCheckbox(struct menuitem *item, struct menuinputs *inputs, u32 arg2)
 {
 	union handlerdata data;
 
-	if ((arg2 & 2) && arg1->unk02) {
+	if ((arg2 & 2) && inputs->select) {
 		if (item->handler && item->handler(MENUOP_GET, item, &data) == 1) {
 			data.checkbox.value = 0;
 			menuPlaySound(MENUSOUND_TOGGLEOFF);
@@ -7111,7 +7111,7 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurenderthing *thing)
 				thing->frame->colourweight);
 	}
 
-	if (thing->frame->unk0c) {
+	if (thing->frame->dimmed) {
 		colour = colourBlend(colour, 0, 0x7f) & 0xffffff00 | colour & 0xff;
 	}
 
@@ -7143,7 +7143,7 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurenderthing *thing)
 	return func0f153780(gdl);
 }
 
-bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data)
+bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemtickdata *data)
 {
 	u32 stack;
 
@@ -7191,24 +7191,24 @@ bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, stru
 		f32 floatval;
 		s32 intval = 0;
 
-		if (arg2->unk05 < 0) {
-			floatval = -(f32)arg2->unk05;
+		if (inputs->yaxis < 0) {
+			floatval = -(f32)inputs->yaxis;
 		} else {
-			floatval = arg2->unk05;
+			floatval = inputs->yaxis;
 		}
 
 		if (floatval > 20) {
 			floatval = (floatval - 20) / 5;
 			floatval *= g_Vars.diffframe60f;
 
-			if (arg2->unk05 < 0) {
+			if (inputs->yaxis < 0) {
 				intval = floatval;
 			} else {
 				intval = -(s32)floatval;
 			}
 		}
 
-		intval += arg2->unk09 * 2 * g_Vars.diffframe60;
+		intval += inputs->unk09 * 2 * g_Vars.diffframe60;
 		data->scrollable.unk00 += intval;
 
 		if (data->scrollable.unk00 < -10) {
@@ -7616,7 +7616,7 @@ u32 var800711ec = 0x20000000;
 //	}
 //
 //	// 644
-//	if (thing->frame->unk0c) {
+//	if (thing->frame->dimmed) {
 //		colour = colourBlend(colour, 0, 127) & 0xffffff00 | colour & 0xff;
 //	}
 //
@@ -8553,27 +8553,27 @@ glabel menuRenderItemRanking
 /*  f0ee570:	27bd01b0 */ 	addiu	$sp,$sp,0x1b0
 );
 
-bool menuTickItemRanking(struct somemenuitemtickarg *arg0, u32 arg1, union menuitemtickdata *data)
+bool menuTickItemRanking(struct menuinputs *inputs, u32 arg1, union menuitemtickdata *data)
 {
 	f32 floatval;
 	s32 intval;
 
 	if (arg1 & 2) {
 		intval = 0;
-		floatval = arg0->unk05 < 0 ? -(f32)arg0->unk05 : arg0->unk05;
+		floatval = inputs->yaxis < 0 ? -(f32)inputs->yaxis : inputs->yaxis;
 
 		if (floatval > 20) {
 			floatval = (floatval - 20) / 5;
 			floatval *= g_Vars.diffframe60f;
 
-			intval = arg0->unk05 < 0 ? (s32)floatval : -(s32)floatval;
+			intval = inputs->yaxis < 0 ? (s32)floatval : -(s32)floatval;
 		}
 
-		intval += arg0->unk09 * 2 * g_Vars.diffframe60;
-		data->ranking.unk00 += intval;
+		intval += inputs->unk09 * 2 * g_Vars.diffframe60;
+		data->ranking.scrolloffset += intval;
 
-		if (data->ranking.unk00 < 0) {
-			data->ranking.unk00 = 0;
+		if (data->ranking.scrolloffset < 0) {
+			data->ranking.scrolloffset = 0;
 		}
 	}
 
@@ -8582,7 +8582,7 @@ bool menuTickItemRanking(struct somemenuitemtickarg *arg0, u32 arg1, union menui
 
 void menuInitItemRanking(union menuitemtickdata *data)
 {
-	data->ranking.unk00 = 0;
+	data->ranking.scrolloffset = 0;
 }
 
 GLOBAL_ASM(
@@ -9369,31 +9369,31 @@ glabel menuRenderItemPlayerStats
 /*  f0ef1fc:	27bd00c8 */ 	addiu	$sp,$sp,0xc8
 );
 
-bool menuTickItemPlayerStats(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data)
+bool menuTickItemPlayerStats(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemtickdata *data)
 {
 	f32 floatval;
 	s32 intval;
 
-	if ((arg3 & 2) && frame->unk0c == 0) {
+	if ((arg3 & 2) && !frame->dimmed) {
 		intval = 0;
-		floatval = arg2->unk05 < 0 ? -(f32)arg2->unk05 : arg2->unk05;
+		floatval = inputs->yaxis < 0 ? -(f32)inputs->yaxis : inputs->yaxis;
 
 		if (floatval > 20) {
 			floatval = (floatval - 20) / 5;
 			floatval *= g_Vars.diffframe60f;
 
-			intval = arg2->unk05 < 0 ? (s32)floatval : -(s32)floatval;
+			intval = inputs->yaxis < 0 ? (s32)floatval : -(s32)floatval;
 		}
 
-		intval += arg2->unk09 * 2 * g_Vars.diffframe60;
-		data->dropdown.unk0c += intval;
+		intval += inputs->unk09 * 2 * g_Vars.diffframe60;
+		data->dropdown.scrolloffset += intval;
 
-		if (data->dropdown.unk0c < 0) {
-			data->dropdown.unk0c = 0;
+		if (data->dropdown.scrolloffset < 0) {
+			data->dropdown.scrolloffset = 0;
 		}
 	}
 
-	menuTickItemDropdown(item, frame, arg2, arg3, data);
+	menuTickItemDropdown(item, frame, inputs, arg3, data);
 }
 
 GLOBAL_ASM(
@@ -9427,7 +9427,7 @@ glabel func0f0ef2fc
 
 void menuInitItemPlayerStats(struct menuitem *item, union menuitemtickdata *data)
 {
-	data->dropdown.unk0c = 0;
+	data->dropdown.scrolloffset = 0;
 	var8009deb0[g_MpPlayerNum] = g_MpPlayerNum;
 
 	menuInitItemDropdown(item, data);
@@ -10119,7 +10119,7 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurenderthing *thing)
 				frame->colourweight);
 	}
 
-	if (frame->unk0c) {
+	if (frame->dimmed) {
 		colour = colourBlend(colour, 0, 44) & 0xffffff00 | colour & 0xff;
 	}
 
@@ -10209,20 +10209,20 @@ Gfx *menuRenderItem(Gfx *gdl, struct menurenderthing *thing)
 /**
  * Return true if default up/down/left/right/back behaviour should be used.
  */
-bool menuTickItem(struct menuitem *item, struct menuframe *frame, struct somemenuitemtickarg *arg2, u32 arg3, union menuitemtickdata *data)
+bool menuTickItem(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemtickdata *data)
 {
 	switch (item->type) {
-	case MENUITEMTYPE_LIST:        return menuTickItemList(item, arg2, arg3, data);
-	case MENUITEMTYPE_SELECTABLE:  return menuTickItemSelectable(item, arg2, arg3);
-	case MENUITEMTYPE_SLIDER:      return menuTickItemSlider(item, frame, arg2, arg3, data);
-	case MENUITEMTYPE_CHECKBOX:    return menuTickItemCheckbox(item, arg2, arg3);
-	case MENUITEMTYPE_SCROLLABLE:  return menuTickItemScrollable(item, frame, arg2, arg3, data);
+	case MENUITEMTYPE_LIST:        return menuTickItemList(item, inputs, arg3, data);
+	case MENUITEMTYPE_SELECTABLE:  return menuTickItemSelectable(item, inputs, arg3);
+	case MENUITEMTYPE_SLIDER:      return menuTickItemSlider(item, frame, inputs, arg3, data);
+	case MENUITEMTYPE_CHECKBOX:    return menuTickItemCheckbox(item, inputs, arg3);
+	case MENUITEMTYPE_SCROLLABLE:  return menuTickItemScrollable(item, frame, inputs, arg3, data);
 	case MENUITEMTYPE_MARQUEE:     return menuTickItemMarquee(item, data);
-	case MENUITEMTYPE_RANKING:     return menuTickItemRanking(arg2, arg3, data);
-	case MENUITEMTYPE_DROPDOWN:    return menuTickItemDropdown(item, frame, arg2, arg3, data);
-	case MENUITEMTYPE_KEYBOARD:    return menuTickItemKeyboard(item, arg2, arg3, data);
-	case MENUITEMTYPE_CAROUSEL:    return menuTickItemCarousel(item, arg2, arg3);
-	case MENUITEMTYPE_PLAYERSTATS: return menuTickItemPlayerStats(item, frame, arg2, arg3, data);
+	case MENUITEMTYPE_RANKING:     return menuTickItemRanking(inputs, arg3, data);
+	case MENUITEMTYPE_DROPDOWN:    return menuTickItemDropdown(item, frame, inputs, arg3, data);
+	case MENUITEMTYPE_KEYBOARD:    return menuTickItemKeyboard(item, inputs, arg3, data);
+	case MENUITEMTYPE_CAROUSEL:    return menuTickItemCarousel(item, inputs, arg3);
+	case MENUITEMTYPE_PLAYERSTATS: return menuTickItemPlayerStats(item, frame, inputs, arg3, data);
 	}
 
 	return true;
