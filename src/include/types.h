@@ -3296,7 +3296,7 @@ struct menuitemtickdata_scrollable {
 };
 
 struct menuitemtickdata_slider {
-	u16 unk00;
+	s16 unk00;
 };
 
 union menuitemtickdata {
@@ -3385,7 +3385,7 @@ struct menuitem {
 	u8 param;
 	u32 param1;
 	u32 param2;
-	u32 param3;
+	s32 param3;
 
 	union {
 		s32 (*handler)(u32 operation, struct menuitem *item, union handlerdata *data);
@@ -3595,7 +3595,7 @@ struct menuframe {
 	u8 unk05;
 	u16 unk06;
 	struct menuitem *focuseditem;
-	/*0x0c*/ u32 unk0c;
+	/*0x0c*/ bool unk0c;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ s32 unk14;
 	/*0x18*/ u32 unk18;
@@ -3906,7 +3906,7 @@ struct menu {
 	/*0x820*/ u32 unk820;
 	/*0x824*/ u32 unk824;
 	/*0x828*/ u32 unk828;
-	/*0x82c*/ u32 unk82c;
+	/*0x82c*/ s16 unk82c;
 	/*0x830*/ u32 unk830;
 	/*0x834*/ u32 unk834;
 	/*0x838*/ u16 unk838;
@@ -6920,11 +6920,11 @@ struct somemenuitemtickarg {
 	/*0x01*/ u8 unk01;
 	/*0x02*/ u8 unk02;
 	/*0x03*/ u8 unk03;
-	/*0x04*/ u8 unk04;
+	/*0x04*/ s8 unk04;
 	/*0x05*/ s8 unk05;
 	/*0x06*/ u8 unk06;
 	/*0x07*/ u8 unk07;
-	/*0x08*/ u8 unk08;
+	/*0x08*/ s8 unk08;
 	/*0x09*/ s8 unk09;
 };
 

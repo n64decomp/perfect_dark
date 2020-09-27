@@ -434,7 +434,7 @@ s32 menuhandlerMpWeaponSetDropdown(u32 operation, struct menuitem *item, union h
 
 s32 menuhandlerMpControlCheckbox(u32 operation, struct menuitem *item, union handlerdata *data)
 {
-	u32 val;
+	s32 val;
 
 	switch (operation) {
 	case MENUOP_GET:
