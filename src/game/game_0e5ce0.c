@@ -9396,34 +9396,10 @@ bool menuTickItemPlayerStats(struct menuitem *item, struct menuframe *frame, str
 	menuTickItemDropdown(item, frame, inputs, arg3, data);
 }
 
-GLOBAL_ASM(
-glabel func0f0ef2fc
-/*  f0ef2fc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0ef300:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f0ef304:	87a5002e */ 	lh	$a1,0x2e($sp)
-/*  f0ef308:	87a8003a */ 	lh	$t0,0x3a($sp)
-/*  f0ef30c:	8fa9003c */ 	lw	$t1,0x3c($sp)
-/*  f0ef310:	8faa0040 */ 	lw	$t2,0x40($sp)
-/*  f0ef314:	8fab0044 */ 	lw	$t3,0x44($sp)
-/*  f0ef318:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f0ef31c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0ef320:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f0ef324:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f0ef328:	00067400 */ 	sll	$t6,$a2,0x10
-/*  f0ef32c:	0005c400 */ 	sll	$t8,$a1,0x10
-/*  f0ef330:	000e3403 */ 	sra	$a2,$t6,0x10
-/*  f0ef334:	00182c03 */ 	sra	$a1,$t8,0x10
-/*  f0ef338:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0ef33c:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0ef340:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f0ef344:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*  f0ef348:	0fc3a0a4 */ 	jal	func0f0e8290
-/*  f0ef34c:	afab001c */ 	sw	$t3,0x1c($sp)
-/*  f0ef350:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0ef354:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0ef358:	03e00008 */ 	jr	$ra
-/*  f0ef35c:	00000000 */ 	nop
-);
+Gfx *func0f0ef2fc(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7)
+{
+	return func0f0e8290(gdl, x + 1, y, -1, y2, item, arg6, arg7);
+}
 
 void menuInitItemPlayerStats(struct menuitem *item, union menuitemtickdata *data)
 {
