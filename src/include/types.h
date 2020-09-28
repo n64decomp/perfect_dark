@@ -3277,6 +3277,13 @@ struct menuitemtickdata_keyboard {
 	u8 unk0d_02 : 1;
 };
 
+struct menuitemtickdata_list {
+	s16 unk00;
+	s16 unk02;
+	s16 unk04;
+	s16 unk06;
+};
+
 struct menuitemtickdata_marquee {
 	u16 totalmoved;
 	u16 sum;
@@ -3303,6 +3310,7 @@ union menuitemtickdata {
 	struct menuitemtickdata_controller controller;
 	struct menuitemtickdata_dropdown dropdown;
 	struct menuitemtickdata_keyboard keyboard;
+	struct menuitemtickdata_list list;
 	struct menuitemtickdata_marquee marquee;
 	struct menuitemtickdata_ranking ranking;
 	struct menuitemtickdata_scrollable scrollable;
@@ -3322,7 +3330,15 @@ struct handlerdata_list {
 	u32 value;
 	u32 unk04;
 	u32 groupstartindex;
-	u32 padding; // just extra padding to make the union 16 bytes
+	u32 unk0c;
+};
+
+struct handlerdata_list2 {
+	s16 unk00;
+	s16 unk02;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
 };
 
 struct handlerdata_dropdown {
@@ -3370,6 +3386,7 @@ union handlerdata {
 	struct handlerdata_carousel carousel;
 	struct handlerdata_checkbox checkbox;
 	struct handlerdata_list list;
+	struct handlerdata_list2 list2;
 	struct handlerdata_dropdown dropdown;
 	struct handlerdata_keyboard keyboard;
 	struct handlerdata_label label;
@@ -6101,7 +6118,7 @@ struct var800a4cf0 {
 
 struct menuinputs {
 	/*0x00*/ s8 leftright; // Both control stick and C/D buttons - set on initial press and key repeat
-	/*0x01*/ u8 unk01;
+	/*0x01*/ s8 unk01;
 	/*0x02*/ u8 select;    // A button
 	/*0x03*/ u8 back;      // B button
 	/*0x04*/ s8 xaxis;     // Control stick's current left/right position
