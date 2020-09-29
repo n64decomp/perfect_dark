@@ -10451,51 +10451,18 @@ bool aiNoOp01bb(void)
 /**
  * @cmd 01bc
  */
-GLOBAL_ASM(
-glabel ai01bc
-/*  f05ead4:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05ead8:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05eadc:	8c6f0424 */ 	lw	$t7,0x424($v1)
-/*  f05eae0:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05eae4:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05eae8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05eaec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05eaf0:	8df8032c */ 	lw	$t8,0x32c($t7)
-/*  f05eaf4:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f05eaf8:	904e0002 */ 	lbu	$t6,0x2($v0)
-/*  f05eafc:	0018ca40 */ 	sll	$t9,$t8,0x9
-/*  f05eb00:	00194742 */ 	srl	$t0,$t9,0x1d
-/*  f05eb04:	15c80007 */ 	bne	$t6,$t0,.L0f05eb24
-/*  f05eb08:	24a90004 */ 	addiu	$t1,$a1,0x4
-/*  f05eb0c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05eb10:	90460003 */ 	lbu	$a2,0x3($v0)
-/*  f05eb14:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05eb18:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05eb1c:	10000002 */ 	b	.L0f05eb28
-/*  f05eb20:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f05eb24:
-/*  f05eb24:	ac690438 */ 	sw	$t1,0x438($v1)
-.L0f05eb28:
-/*  f05eb28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05eb2c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05eb30:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05eb34:	03e00008 */ 	jr	$ra
-/*  f05eb38:	00000000 */ 	nop
-);
+bool ai01bc(void)
+{
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
 
-// Mismatch due to different temporary registers
-//bool ai01bc(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//
-//	if (cmd[2] == g_Vars.chrdata->pouncebits) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
-//	} else {
-//		g_Vars.aioffset += 4;
-//	}
-//
-//	return false;
-//}
+	if (g_Vars.chrdata->pouncebits == cmd->b2) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b3);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 01bd
