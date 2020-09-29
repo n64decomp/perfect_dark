@@ -2059,98 +2059,36 @@ bool aiIfWeaponThrown(void)
 /**
  * @cmd 005f
  */
-GLOBAL_ASM(
-glabel aiIfWeaponThrownOnObject
-/*  f05167c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f051680:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f051684:	8d0e0434 */ 	lw	$t6,0x434($t0)
-/*  f051688:	8d0f0438 */ 	lw	$t7,0x438($t0)
-/*  f05168c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f051690:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f051694:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f051698:	90e40003 */ 	lbu	$a0,0x3($a3)
-/*  f05169c:	0fc2556c */ 	jal	objFindByTagId
-/*  f0516a0:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f0516a4:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f0516a8:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f0516ac:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f0516b0:	10400014 */ 	beqz	$v0,.L0f051704
-/*  f0516b4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0516b8:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f0516bc:	10800011 */ 	beqz	$a0,.L0f051704
-/*  f0516c0:	00000000 */ 	nop
-/*  f0516c4:	8c83001c */ 	lw	$v1,0x1c($a0)
-/*  f0516c8:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f0516cc:	1060000d */ 	beqz	$v1,.L0f051704
-/*  f0516d0:	00000000 */ 	nop
-/*  f0516d4:	90780000 */ 	lbu	$t8,0x0($v1)
-.L0f0516d8:
-/*  f0516d8:	54980008 */ 	bnel	$a0,$t8,.L0f0516fc
-/*  f0516dc:	8c630020 */ 	lw	$v1,0x20($v1)
-/*  f0516e0:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f0516e4:	90f90002 */ 	lbu	$t9,0x2($a3)
-/*  f0516e8:	9049005c */ 	lbu	$t1,0x5c($v0)
-/*  f0516ec:	57290003 */ 	bnel	$t9,$t1,.L0f0516fc
-/*  f0516f0:	8c630020 */ 	lw	$v1,0x20($v1)
-/*  f0516f4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0516f8:	8c630020 */ 	lw	$v1,0x20($v1)
-.L0f0516fc:
-/*  f0516fc:	5460fff6 */ 	bnezl	$v1,.L0f0516d8
-/*  f051700:	90780000 */ 	lbu	$t8,0x0($v1)
-.L0f051704:
-/*  f051704:	50a0000a */ 	beqzl	$a1,.L0f051730
-/*  f051708:	8d0a0438 */ 	lw	$t2,0x438($t0)
-/*  f05170c:	8d040434 */ 	lw	$a0,0x434($t0)
-/*  f051710:	8d050438 */ 	lw	$a1,0x438($t0)
-/*  f051714:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f051718:	90e60004 */ 	lbu	$a2,0x4($a3)
-/*  f05171c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f051720:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f051724:	10000004 */ 	b	.L0f051738
-/*  f051728:	ad020438 */ 	sw	$v0,0x438($t0)
-/*  f05172c:	8d0a0438 */ 	lw	$t2,0x438($t0)
-.L0f051730:
-/*  f051730:	254b0005 */ 	addiu	$t3,$t2,0x5
-/*  f051734:	ad0b0438 */ 	sw	$t3,0x438($t0)
-.L0f051738:
-/*  f051738:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05173c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f051740:	00001025 */ 	or	$v0,$zero,$zero
-/*  f051744:	03e00008 */ 	jr	$ra
-/*  f051748:	00000000 */ 	nop
-);
+bool aiIfWeaponThrownOnObject(void)
+{
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	struct defaultobj *obj = objFindByTagId(cmd->b3);
+	bool pass = false;
 
-// Mismatch due to different registers
-//bool aiIfWeaponThrownOnObject(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	struct defaultobj *obj = objFindByTagId(cmd[3]);
-//	bool pass = false;
-//
-//	if (obj && obj->prop) {
-//		struct prop *prop = obj->prop->child;
-//
-//		while (prop) {
-//			if (prop->type == PROPTYPE_WEAPON) {
-//				struct weaponobj *weapon = prop->weapon;
-//
-//				if (weapon->weaponnum == cmd[2]) {
-//					pass = true;
-//				}
-//			}
-//
-//			prop = prop->next;
-//		}
-//	}
-//
-//	if (pass) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
-//	} else {
-//		g_Vars.aioffset += 5;
-//	}
-//
-//	return false;
-//}
+	if (obj && obj->prop) {
+		struct prop *prop = obj->prop->child;
+
+		while (prop) {
+			if (prop->type == PROPTYPE_WEAPON) {
+				struct weaponobj *weapon = prop->weapon;
+
+				if (weapon->weaponnum == cmd->b2) {
+					pass = true;
+				}
+			}
+
+			prop = prop->next;
+		}
+	}
+
+	if (pass) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b4);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0060
