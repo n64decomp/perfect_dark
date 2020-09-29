@@ -9759,87 +9759,28 @@ bool aiLiftGoToStop(void)
 /**
  * @cmd 018a
  */
-GLOBAL_ASM(
-glabel aiIfLiftAtStop
-/*  f05d30c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05d310:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05d314:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05d318:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05d31c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05d320:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05d324:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f05d328:	90e40002 */ 	lbu	$a0,0x2($a3)
-/*  f05d32c:	0fc2556c */ 	jal	objFindByTagId
-/*  f05d330:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f05d334:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05d338:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05d33c:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f05d340:	10400013 */ 	beqz	$v0,.L0f05d390
-/*  f05d344:	00002025 */ 	or	$a0,$zero,$zero
-/*  f05d348:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f05d34c:	13000010 */ 	beqz	$t8,.L0f05d390
-/*  f05d350:	00000000 */ 	nop
-/*  f05d354:	90590003 */ 	lbu	$t9,0x3($v0)
-/*  f05d358:	24010030 */ 	addiu	$at,$zero,0x30
-/*  f05d35c:	1721000c */ 	bne	$t9,$at,.L0f05d390
-/*  f05d360:	00000000 */ 	nop
-/*  f05d364:	90e80003 */ 	lbu	$t0,0x3($a3)
-/*  f05d368:	80490085 */ 	lb	$t1,0x85($v0)
-/*  f05d36c:	15090008 */ 	bne	$t0,$t1,.L0f05d390
-/*  f05d370:	00000000 */ 	nop
-/*  f05d374:	44802000 */ 	mtc1	$zero,$f4
-/*  f05d378:	c4460074 */ 	lwc1	$f6,0x74($v0)
-/*  f05d37c:	46062032 */ 	c.eq.s	$f4,$f6
-/*  f05d380:	00000000 */ 	nop
-/*  f05d384:	45000002 */ 	bc1f	.L0f05d390
-/*  f05d388:	00000000 */ 	nop
-/*  f05d38c:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f05d390:
-/*  f05d390:	5080000a */ 	beqzl	$a0,.L0f05d3bc
-/*  f05d394:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f05d398:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05d39c:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05d3a0:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05d3a4:	90e60004 */ 	lbu	$a2,0x4($a3)
-/*  f05d3a8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05d3ac:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05d3b0:	10000004 */ 	b	.L0f05d3c4
-/*  f05d3b4:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f05d3b8:	8c6a0438 */ 	lw	$t2,0x438($v1)
-.L0f05d3bc:
-/*  f05d3bc:	254b0005 */ 	addiu	$t3,$t2,0x5
-/*  f05d3c0:	ac6b0438 */ 	sw	$t3,0x438($v1)
-.L0f05d3c4:
-/*  f05d3c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05d3c8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05d3cc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05d3d0:	03e00008 */ 	jr	$ra
-/*  f05d3d4:	00000000 */ 	nop
-);
+bool aiIfLiftAtStop(void)
+{
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	struct defaultobj *obj = objFindByTagId(cmd->b2);
+	bool pass = false;
 
-// Mismatch because the load order of lift->levelcur and cmd[3] are swapped
-//bool aiIfLiftAtStop(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	struct defaultobj *obj = objFindByTagId(cmd[2]);
-//	bool pass = false;
-//
-//	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
-//		struct liftobj *lift = (struct liftobj *)obj;
-//
-//		if (lift->levelcur == cmd[3] && lift->dist == 0) {
-//			pass = true;
-//		}
-//	}
-//
-//	if (pass) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
-//	} else {
-//		g_Vars.aioffset += 5;
-//	}
-//
-//	return false;
-//}
+	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
+		struct liftobj *lift = (struct liftobj *)obj;
+
+		if (lift->levelcur == cmd->b3 && lift->dist == 0) {
+			pass = true;
+		}
+	}
+
+	if (pass) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b4);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 018b

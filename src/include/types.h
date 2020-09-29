@@ -6934,4 +6934,17 @@ struct var800a45d0 {
 	/*0x5c*/ u32 colour2;
 };
 
+struct bytelist {
+	u8 b0;
+	u8 b1;
+	u8 b2;
+	u8 b3;
+	u8 b4;
+	u8 b5;
+	u8 b6;
+	u8 b7;
+	u8 b8;
+	u8 b9;
+};
+
 #endif
