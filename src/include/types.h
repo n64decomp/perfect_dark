@@ -2555,9 +2555,7 @@ struct player {
 	/*0x1a64*/ u32 unk1a64;
 	/*0x1a68*/ u32 unk1a68;
 	/*0x1a6c*/ struct prop *hoverbike;
-	/*0x1a70*/ f32 unk1a70;
-	/*0x1a74*/ f32 unk1a74;
-	/*0x1a78*/ f32 unk1a78;
+	/*0x1a70*/ struct coord unk1a70;
 	/*0x1a7c*/ u32 unk1a7c;
 	/*0x1a80*/ f32 unk1a80;
 	/*0x1a84*/ f32 unk1a84;

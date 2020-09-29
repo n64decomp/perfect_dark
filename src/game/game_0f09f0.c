@@ -13752,71 +13752,24 @@ s32 menuhandlerWarnRepairPak(u32 operation, struct menuitem *item, union handler
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f0fd118
-/*  f0fd118:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f0fd11c:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f0fd120:	8cee0318 */ 	lw	$t6,0x318($a3)
-/*  f0fd124:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0fd128:	3c0f800b */ 	lui	$t7,%hi(g_MpSetup+0x16)
-/*  f0fd12c:	51c0000a */ 	beqzl	$t6,.L0f0fd158
-/*  f0fd130:	8ce90298 */ 	lw	$t1,0x298($a3)
-/*  f0fd134:	95efcb9e */ 	lhu	$t7,%lo(g_MpSetup+0x16)($t7)
-/*  f0fd138:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f0fd13c:	0098c804 */ 	sllv	$t9,$t8,$a0
-/*  f0fd140:	01f94024 */ 	and	$t0,$t7,$t9
-/*  f0fd144:	11000029 */ 	beqz	$t0,.L0f0fd1ec
-/*  f0fd148:	00000000 */ 	nop
-/*  f0fd14c:	03e00008 */ 	jr	$ra
-/*  f0fd150:	00801025 */ 	or	$v0,$a0,$zero
-/*  f0fd154:	8ce90298 */ 	lw	$t1,0x298($a3)
-.L0f0fd158:
-/*  f0fd158:	05230005 */ 	bgezl	$t1,.L0f0fd170
-/*  f0fd15c:	8ceb006c */ 	lw	$t3,0x6c($a3)
-/*  f0fd160:	8cea029c */ 	lw	$t2,0x29c($a3)
-/*  f0fd164:	05400021 */ 	bltz	$t2,.L0f0fd1ec
-/*  f0fd168:	00000000 */ 	nop
-/*  f0fd16c:	8ceb006c */ 	lw	$t3,0x6c($a3)
-.L0f0fd170:
-/*  f0fd170:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0fd174:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0fd178:	11600003 */ 	beqz	$t3,.L0f0fd188
-/*  f0fd17c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0fd180:	10000001 */ 	b	.L0f0fd188
-/*  f0fd184:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0fd188:
-/*  f0fd188:	8cec0068 */ 	lw	$t4,0x68($a3)
-/*  f0fd18c:	11800003 */ 	beqz	$t4,.L0f0fd19c
-/*  f0fd190:	00000000 */ 	nop
-/*  f0fd194:	10000001 */ 	b	.L0f0fd19c
-/*  f0fd198:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0fd19c:
-/*  f0fd19c:	8ced0064 */ 	lw	$t5,0x64($a3)
-/*  f0fd1a0:	11a00003 */ 	beqz	$t5,.L0f0fd1b0
-/*  f0fd1a4:	00000000 */ 	nop
-/*  f0fd1a8:	10000001 */ 	b	.L0f0fd1b0
-/*  f0fd1ac:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f0fd1b0:
-/*  f0fd1b0:	8cee0070 */ 	lw	$t6,0x70($a3)
-/*  f0fd1b4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0fd1b8:	11c00003 */ 	beqz	$t6,.L0f0fd1c8
-/*  f0fd1bc:	00000000 */ 	nop
-/*  f0fd1c0:	10000001 */ 	b	.L0f0fd1c8
-/*  f0fd1c4:	24070001 */ 	addiu	$a3,$zero,0x1
-.L0f0fd1c8:
-/*  f0fd1c8:	00e6c021 */ 	addu	$t8,$a3,$a2
-/*  f0fd1cc:	03057821 */ 	addu	$t7,$t8,$a1
-/*  f0fd1d0:	01e2c821 */ 	addu	$t9,$t7,$v0
-/*  f0fd1d4:	2b210002 */ 	slti	$at,$t9,0x2
-/*  f0fd1d8:	14200004 */ 	bnez	$at,.L0f0fd1ec
-/*  f0fd1dc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0fd1e0:	14810002 */ 	bne	$a0,$at,.L0f0fd1ec
-/*  f0fd1e4:	00000000 */ 	nop
-/*  f0fd1e8:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0fd1ec:
-/*  f0fd1ec:	03e00008 */ 	jr	$ra
-/*  f0fd1f0:	00601025 */ 	or	$v0,$v1,$zero
-);
+u32 func0f0fd118(u32 playernum)
+{
+	u32 result = 0;
+
+	if (g_Vars.normmplayerisrunning) {
+		if (g_MpSetup.chrslots & (1 << playernum)) {
+			result = playernum;
+		}
+	} else {
+		if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
+				&& PLAYERCOUNT() >= 2
+				&& playernum == 1) {
+			result = 1;
+		}
+	}
+
+	return result;
+}
 
 bool func0f0fd1f4(u32 arg0, u32 arg1)
 {
