@@ -13967,56 +13967,24 @@ glabel var7f1b2b10
 /*  f0fd490:	ac2b1448 */ 	sw	$t3,%lo(g_MpPlayerNum)($at)
 );
 
-GLOBAL_ASM(
-glabel func0f0fd494
-/*  f0fd494:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0fd498:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0fd49c:	3c10800a */ 	lui	$s0,%hi(g_MenuData)
-/*  f0fd4a0:	261019c0 */ 	addiu	$s0,$s0,%lo(g_MenuData)
-/*  f0fd4a4:	920f05d5 */ 	lbu	$t7,0x5d5($s0)
-/*  f0fd4a8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0fd4ac:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f0fd4b0:	35f80010 */ 	ori	$t8,$t7,0x10
-/*  f0fd4b4:	0fc2d5be */ 	jal	currentPlayerGetMatrix
-/*  f0fd4b8:	a21805d5 */ 	sb	$t8,0x5d5($s0)
-/*  f0fd4bc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0fd4c0:	8fa50038 */ 	lw	$a1,0x38($sp)
-/*  f0fd4c4:	0c0056da */ 	jal	func00015b68
-/*  f0fd4c8:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f0fd4cc:	27a40024 */ 	addiu	$a0,$sp,0x24
-/*  f0fd4d0:	0fc2d341 */ 	jal	func0f0b4d04
-/*  f0fd4d4:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f0fd4d8:	0c002f02 */ 	jal	viGetX
-/*  f0fd4dc:	00000000 */ 	nop
-/*  f0fd4e0:	c7a40030 */ 	lwc1	$f4,0x30($sp)
-/*  f0fd4e4:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f0fd4e8:	44083000 */ 	mfc1	$t0,$f6
-/*  f0fd4ec:	04410003 */ 	bgez	$v0,.L0f0fd4fc
-/*  f0fd4f0:	00024843 */ 	sra	$t1,$v0,0x1
-/*  f0fd4f4:	24410001 */ 	addiu	$at,$v0,0x1
-/*  f0fd4f8:	00014843 */ 	sra	$t1,$at,0x1
-.L0f0fd4fc:
-/*  f0fd4fc:	01095023 */ 	subu	$t2,$t0,$t1
-/*  f0fd500:	0c002f06 */ 	jal	viGetY
-/*  f0fd504:	ae0a0670 */ 	sw	$t2,0x670($s0)
-/*  f0fd508:	c7a80034 */ 	lwc1	$f8,0x34($sp)
-/*  f0fd50c:	920f05d5 */ 	lbu	$t7,0x5d5($s0)
-/*  f0fd510:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0fd514:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f0fd518:	31f8fff7 */ 	andi	$t8,$t7,0xfff7
-/*  f0fd51c:	a21805d5 */ 	sb	$t8,0x5d5($s0)
-/*  f0fd520:	440c5000 */ 	mfc1	$t4,$f10
-/*  f0fd524:	04410003 */ 	bgez	$v0,.L0f0fd534
-/*  f0fd528:	00026843 */ 	sra	$t5,$v0,0x1
-/*  f0fd52c:	24410001 */ 	addiu	$at,$v0,0x1
-/*  f0fd530:	00016843 */ 	sra	$t5,$at,0x1
-.L0f0fd534:
-/*  f0fd534:	018d7023 */ 	subu	$t6,$t4,$t5
-/*  f0fd538:	ae0e0674 */ 	sw	$t6,0x674($s0)
-/*  f0fd53c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0fd540:	03e00008 */ 	jr	$ra
-/*  f0fd544:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void func0f0fd494(struct coord *pos)
+{
+	f32 xy[2];
+	struct coord coord;
+	f32 *matrix;
+
+	g_MenuData.unk5d5_04 = true;
+
+	matrix = currentPlayerGetMatrix();
+
+	func00015b68(matrix, pos, &coord);
+	func0f0b4d04(&coord, xy);
+
+	g_MenuData.unk670 = (s32)xy[0] - viGetX() / 2;
+	g_MenuData.unk674 = (s32)xy[1] - viGetY() / 2;
+
+	g_MenuData.unk5d5_05 = false;
+}
 
 void func0f0fd548(s32 arg0)
 {

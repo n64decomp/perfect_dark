@@ -9,7 +9,7 @@ void func00015a00(f32 *matrix, f32 *arg1, f32 *arg2);
 void func00015b10(f32 *matrix, struct coord *coord);
 void func00015b14(f32 *matrix, f32 *coord, struct coord *arg2);
 void func00015b64(f32 *arg0, struct coord *coord);
-void func00015b68(f32 *matrix, f32 *arg1, struct coord *arg2);
+void func00015b68(f32 *matrix, struct coord *arg1, struct coord *arg2);
 void func00015be0(f32 *matrix1, f32 *matrix2);
 void func00015be4(u32 arg0, struct model0c *model0c, f32 *arg2);
 void func00015cd8(f32 *arg0, f32 *realrot);

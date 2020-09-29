@@ -5960,6 +5960,8 @@ struct menudata {
 	/*0x66d*/ u8 unk66d;
 	/*0x66e*/ s8 unk66e; // index into 669
 	/*0x66f*/ u8 unk66f;
+	/*0x670*/ s32 unk670;
+	/*0x674*/ s32 unk674;
 };
 
 struct ammotype {
