@@ -948,10 +948,10 @@ struct chrdata {
 	/*0x291*/ u8 goposhitcount;
 	/*0x292*/ s16 cover;
 	/*0x294*/ struct coord targetlastseenp;
-	/*0x2a0*/ u8 myaction[1];
-	/*0x2a1*/ u8 orders[1];
+	/*0x2a0*/ u8 myaction;
+	/*0x2a1*/ u8 orders;
 	/*0x2a2*/ u8 squadron;
-	/*0x2a3*/ u8 listening[1];
+	/*0x2a3*/ u8 listening;
 	/*0x2a4*/ u32 convtalk;
 	/*0x2a8*/ s32 talktimer;
 	/*0x2ac*/ u8 question;
@@ -976,7 +976,7 @@ struct chrdata {
 	/*0x2e1*/ u8 cloakfadefrac : 7;
 	/*0x2e1*/ u8 cloakfadefinished : 1;
 	/*0x2e2*/ u8 teamscandist;
-	/*0x2e3*/ u8 naturalanim[1];
+	/*0x2e3*/ u8 naturalanim;
 	/*0x2e4*/ s32 myspecial; // This is an object tag ID
 	/*0x2e8*/ f32 timeextra;
 	/*0x2ec*/ f32 elapseextra;

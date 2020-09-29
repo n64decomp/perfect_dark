@@ -2459,10 +2459,10 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->targetlastseenp.x = 0;
 	chr->targetlastseenp.y = 0;
 	chr->targetlastseenp.z = 0;
-	chr->myaction[0] = MA_NONE;
-	chr->orders[0] = MA_NONE;
+	chr->myaction = MA_NONE;
+	chr->orders = MA_NONE;
 	chr->squadron = 0;
-	chr->listening[0] = 0;
+	chr->listening = 0;
 	chr->convtalk = 0;
 	chr->question = 0;
 	chr->runfrompos.x = 0;

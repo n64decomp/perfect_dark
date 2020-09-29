@@ -995,7 +995,7 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 			chr->maxdamage = 2;
 			chr->tude = random() & 3;
 			chr->voicebox = random() % 3;
-			chr->naturalanim[0] = 0;
+			chr->naturalanim = 0;
 			chr->myspecial = 0;
 			chr->yvisang = 0;
 			chr->teamscandist = 0;

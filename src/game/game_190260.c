@@ -3530,7 +3530,7 @@ bool mpIsChrFollowedByChr(struct chrdata *leader, struct chrdata *follower)
 	while (true) {
 		struct aibot *aibot = follower->aibot;
 
-		if (!aibot || follower->myaction[0] != MA_AIBOTFOLLOW || aibot->followingplayernum < 0) {
+		if (!aibot || follower->myaction != MA_AIBOTFOLLOW || aibot->followingplayernum < 0) {
 			break;
 		}
 
@@ -3550,7 +3550,7 @@ s32 func0f193530(struct chrdata *chr, f32 arg1)
 	s32 result = -1;
 
 	if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-		if (chr->myaction[0] != MA_AIBOTFOLLOW && (random() % 100) < chr->aibot->unk000) {
+		if (chr->myaction != MA_AIBOTFOLLOW && (random() % 100) < chr->aibot->unk000) {
 			f32 bestvalue = 0;
 			s32 bestindex = -1;
 			s32 i;
@@ -7908,7 +7908,7 @@ void func0f197544(struct chrdata *chr)
 	bool pass = false;
 	struct aibot *aibot = chr->aibot;
 
-	if (chr->myaction[0] == MA_AIBOTGETITEM) {
+	if (chr->myaction == MA_AIBOTGETITEM) {
 		if (chr->act_gopos.waypoints[chr->act_gopos.curindex] == 0) {
 			struct prop *prop = aibot->prop;
 

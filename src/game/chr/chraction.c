@@ -9279,7 +9279,7 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 							anim = 0x59;
 						}
 					} else {
-						if (chr->myaction[0] != MA_PANIC) {
+						if (chr->myaction != MA_PANIC) {
 							if (random() % 2) {
 								anim = 0x5d;
 							} else {
@@ -23242,7 +23242,7 @@ void chrTickGoPos(struct chrdata *chr)
 		pos.y = chr->act_gopos.pos.y;
 		pos.z = chr->act_gopos.pos.z;
 
-		if (chr->aibot && chr->myaction[0] == MA_AIBOTGETITEM) {
+		if (chr->aibot && chr->myaction == MA_AIBOTGETITEM) {
 			sp240 = false;
 		}
 	}

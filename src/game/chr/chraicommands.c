@@ -8465,11 +8465,11 @@ bool aiIncreaseSquadronAlertness(void)
  */
 bool aiSetAction(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	g_Vars.chrdata->myaction[0] = cmd[2];
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	g_Vars.chrdata->myaction = cmd->b2;
 
-	if (cmd[3] == 0) {
-		g_Vars.chrdata->orders[0] = 0;
+	if (cmd->b3 == 0) {
+		g_Vars.chrdata->orders = 0;
 	}
 
 	g_Vars.aioffset += 4;
@@ -8493,7 +8493,7 @@ bool aiSetTeamOrders(void)
 
 	chraction = chractions;
 	chraction->chrnum = g_Vars.chrdata->chrnum;
-	chraction->myaction = g_Vars.chrdata->myaction[0];
+	chraction->myaction = g_Vars.chrdata->myaction;
 	chraction++;
 
 	if (chrnums) {
@@ -8505,14 +8505,14 @@ bool aiSetTeamOrders(void)
 					&& chr->actiontype != ACT_DEAD
 					&& chrCompareTeams(g_Vars.chrdata, chr, true)
 					&& g_Vars.chrdata->chrnum != chr->chrnum) {
-				if (chr->myaction[0] == MA_COVERWAIT
-						|| chr->myaction[0] == MA_NORMAL
-						|| chr->myaction[0] == MA_WAITING
-						|| chr->myaction[0] == MA_SHOOTING) {
+				if (chr->myaction == MA_COVERWAIT
+						|| chr->myaction == MA_NORMAL
+						|| chr->myaction == MA_WAITING
+						|| chr->myaction == MA_SHOOTING) {
 					if (chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500) {
 						chrcount++;
 						chraction->chrnum = chr->chrnum;
-						chraction->myaction = chr->myaction[0];
+						chraction->myaction = chr->myaction;
 						chraction++;
 					}
 				}
@@ -8534,69 +8534,69 @@ bool aiSetTeamOrders(void)
 			switch (chractions[0].myaction) {
 			case MA_COVERGOTO:
 				if (func0f048e74(chr, 45) == 0) {
-					chr->orders[0] = MA_SHOOTING;
+					chr->orders = MA_SHOOTING;
 				}
 				break;
 			case MA_COVERBREAK:
 				if (func0f048e74(chr, 30) == 0) {
-					chr->orders[0] = MA_SHOOTING;
+					chr->orders = MA_SHOOTING;
 				}
 				num++;
 				break;
 			case MA_COVERSEEN:
 				if (func0f048e74(chr, 30) == 0) {
-					chr->orders[0] = MA_SHOOTING;
-					g_Vars.chrdata->orders[0] = MA_COVERGOTO;
+					chr->orders = MA_SHOOTING;
+					g_Vars.chrdata->orders = MA_COVERGOTO;
 				}
 				num++;
 				break;
 			case MA_FLANKLEFT:
 				if (func0f048e74(chr, 50)) {
-					chr->orders[0] = MA_FLANKRIGHT;
+					chr->orders = MA_FLANKRIGHT;
 				} else {
-					chr->orders[0] = MA_SHOOTING;
+					chr->orders = MA_SHOOTING;
 				}
 				num++;
-				g_Vars.chrdata->orders[0] = MA_FLANKLEFT;
+				g_Vars.chrdata->orders = MA_FLANKLEFT;
 				break;
 			case MA_FLANKRIGHT:
 				if (func0f048e74(chr, 50)) {
-					chr->orders[0] = MA_FLANKLEFT;
+					chr->orders = MA_FLANKLEFT;
 				} else {
-					chr->orders[0] = MA_SHOOTING;
+					chr->orders = MA_SHOOTING;
 				}
 				num++;
-				g_Vars.chrdata->orders[0] = MA_FLANKRIGHT;
+				g_Vars.chrdata->orders = MA_FLANKRIGHT;
 				break;
 			case MA_DODGE:
 				if (func0f048e74(chr, 30) == 0 &&
 						chrHasFlagById(chr, CHR_SELF, CHRFLAG0_CAN_BACKOFF, BANK_0)) {
-					chr->orders[0] = MA_WITHDRAW;
+					chr->orders = MA_WITHDRAW;
 				} else {
-					chr->orders[0] = MA_SHOOTING;
+					chr->orders = MA_SHOOTING;
 				}
 				num++;
 				break;
 			case MA_GRENADE:
 				if (num < 2) {
-					chr->orders[0] = MA_WAITING;
+					chr->orders = MA_WAITING;
 				} else if (chrHasFlagById(chr, CHR_SELF, CHRFLAG0_CAN_BACKOFF, BANK_0)) {
-					chr->orders[0] = MA_WITHDRAW;
+					chr->orders = MA_WITHDRAW;
 				}
 				num++;
 				break;
 			case MA_WAITSEEN:
 				if (func0f048e74(chr, 30) &&
 						chrHasFlagById(chr, CHR_SELF, CHRFLAG0_CAN_BACKOFF, BANK_0)) {
-					chr->orders[0] = MA_WITHDRAW;
+					chr->orders = MA_WITHDRAW;
 				} else {
-					chr->orders[0] = MA_SHOOTING;
+					chr->orders = MA_SHOOTING;
 				}
 				num++;
 				break;
 			case MA_WITHDRAW:
 				if (chrHasFlagById(chr, CHR_SELF, CHRFLAG0_CAN_BACKOFF, BANK_0)) {
-					chr->orders[0] = MA_WITHDRAW;
+					chr->orders = MA_WITHDRAW;
 				}
 				break;
 			}
@@ -8621,12 +8621,12 @@ bool aiSetTeamOrders(void)
  */
 bool aiIfOrders(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
 
-	if (cmd[3] == g_Vars.chrdata->orders[0]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	if (g_Vars.chrdata->orders == cmd->b3) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b4);
 
-		if (g_Vars.chrdata->orders[0] == MA_WITHDRAW) {
+		if (g_Vars.chrdata->orders == MA_WITHDRAW) {
 			// empty
 		}
 	} else {
@@ -8643,7 +8643,7 @@ bool aiIfHasOrders(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.chrdata->orders[0]) {
+	if (g_Vars.chrdata->orders) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -8681,7 +8681,7 @@ bool aiIfChrInSquadronDoingAction(void)
 {
 	s32 ret;
 	s16 *chrnums = squadronGetChrIds(g_Vars.chrdata->squadron);
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
 	ret = 1;
 
 	if (chrnums) {
@@ -8693,7 +8693,7 @@ bool aiIfChrInSquadronDoingAction(void)
 					chrCompareTeams(g_Vars.chrdata, chr, 1) &&
 					g_Vars.chrdata->chrnum != chr->chrnum &&
 					chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500 &&
-					cmd[2] == chr->myaction[0]) {
+					chr->myaction == cmd->b2) {
 				ret = 2;
 				break;
 			}
@@ -8701,7 +8701,7 @@ bool aiIfChrInSquadronDoingAction(void)
 	}
 
 	if (ret != 1) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b3);
 	} else {
 		g_Vars.aioffset += 4;
 	}
@@ -8735,8 +8735,8 @@ bool aiSetChrPresetToUnalertedTeammate(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
 
-	if (g_Vars.chrdata->talktimer >= 0x1e1 && g_Vars.chrdata->listening[0]) {
-		g_Vars.chrdata->listening[0] = 0;
+	if (g_Vars.chrdata->talktimer > 480 && g_Vars.chrdata->listening) {
+		g_Vars.chrdata->listening = 0;
 	}
 
 	for (; *chrnums != -2; chrnums++) {
@@ -9108,8 +9108,8 @@ bool aiChrSetListening(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->listening[0] == 0) {
-		chr->listening[0] = cmd[3];
+	if (chr && chr->listening == 0) {
+		chr->listening = cmd[3];
 	}
 
 	g_Vars.aioffset += 4;
@@ -9122,18 +9122,18 @@ bool aiChrSetListening(void)
  */
 bool aiIfChrListening(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd->b2);
 
-	if (cmd[4] == 0) {
-		if (cmd[3] == chr->listening[0]) {
-			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+	if (cmd->b4 == 0) {
+		if (chr->listening == cmd->b3) {
+			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b5);
 		} else {
 			g_Vars.aioffset += 6;
 		}
 	} else {
 		if (g_Vars.chrdata->convtalk == 0) {
-			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b5);
 		} else {
 			g_Vars.aioffset += 6;
 		}
@@ -9160,7 +9160,7 @@ bool aiIfNotListening(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.chrdata->listening[0] == 0) {
+	if (g_Vars.chrdata->listening == 0) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -9238,10 +9238,10 @@ bool aiIfChrInjured(void)
  */
 bool aiIfAction(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
 
-	if (cmd[2] == g_Vars.chrdata->myaction[0]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	if (g_Vars.chrdata->myaction == cmd->b2) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b3);
 	} else {
 		g_Vars.aioffset += 4;
 	}
@@ -9266,10 +9266,10 @@ bool aiHovercopterFireRocket(void)
  */
 bool aiIfNaturalAnim(void)
 {
-	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
 
-	if (cmd[2] == g_Vars.chrdata->naturalanim[0]) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	if (g_Vars.chrdata->naturalanim == cmd->b2) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd->b3);
 	} else {
 		g_Vars.aioffset += 4;
 	}
@@ -9527,7 +9527,7 @@ bool aiChrCopyProperties(void)
 		g_Vars.chrdata->accuracyrating = g_Vars.chrdata->accuracyrating;
 		g_Vars.chrdata->speedrating = g_Vars.chrdata->speedrating;
 
-		g_Vars.chrdata->naturalanim[0] = chr->naturalanim[0];
+		g_Vars.chrdata->naturalanim = chr->naturalanim;
 		g_Vars.chrdata->myspecial = chr->myspecial;
 		g_Vars.chrdata->yvisang = chr->yvisang;
 		g_Vars.chrdata->teamscandist = chr->teamscandist;
