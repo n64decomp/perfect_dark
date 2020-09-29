@@ -170,7 +170,7 @@ bool chopperStop(struct chopperobj *obj);
 bool chopperSetArmed(struct chopperobj *obj, bool armed);
 void chopperRestartTimer(struct chopperobj *obj);
 f32 chopperGetTimer(struct chopperobj *heli);
-void chopperSetMaxDamage(struct chopperobj *obj, s16 health);
+void chopperSetMaxDamage(struct chopperobj *obj, u16 health);
 u32 func0f07b164(void);
 u32 chopperFireRocket(struct chopperobj *obj, u32 arg1);
 u32 func0f07b3f0(void);

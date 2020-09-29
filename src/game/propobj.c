@@ -24192,7 +24192,7 @@ f32 chopperGetTimer(struct chopperobj *obj)
 	return chopper->timer60 * FRAMEDURATION;
 }
 
-void chopperSetMaxDamage(struct chopperobj *chopper, s16 health)
+void chopperSetMaxDamage(struct chopperobj *chopper, u16 health)
 {
 	chopper->base.maxdamage = health;
 }
