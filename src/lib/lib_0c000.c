@@ -203,6 +203,33 @@ glabel rmonLoop
 /*     c114:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
+// Mismatch because bss needs to be sprinkled around various files first
+//void rmonLoop(void *arg0)
+//{
+//	OSMesg msg = 0;
+//	OSIntMask mask;
+//	u8 stack2[4];
+//	u8 stack1[44];
+//	static u32 result; // var80094acc
+//
+//	osSetEventMesg(OS_EVENT_FAULT, &g_RmonMesgQueue, (OSMesg) 16);
+//	var80094ad0 = 0;
+//
+//	while (true) {
+//		do {
+//			osRecvMesg(&g_RmonMesgQueue, &msg, 1);
+//			mask = osSetIntMask(1);
+//			result = func0004e640();
+//		} while (!result);
+//
+//		osSetIntMask(mask);
+//
+//		// Beta versions have something like this here:
+//		//rmonDrawCrashScreen(result, stack1, stack2);
+//		//func00001b1c(true);
+//	}
+//}
+
 GLOBAL_ASM(
 glabel func0000c118
 /*     c118:	27bdfff0 */ 	addiu	$sp,$sp,-16
@@ -527,7 +554,7 @@ glabel func0000c4d4
 );
 
 GLOBAL_ASM(
-glabel func0000c548
+glabel rmonDrawCrashScreen
 /*     c548:	27bdff10 */ 	addiu	$sp,$sp,-240
 /*     c54c:	afa400f0 */ 	sw	$a0,0xf0($sp)
 /*     c550:	afbf003c */ 	sw	$ra,0x3c($sp)

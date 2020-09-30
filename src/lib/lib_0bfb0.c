@@ -12,17 +12,10 @@
 #include "lib/lib_2fa00.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0000bfb0
-/*     bfb0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     bfb4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     bfb8:	0c003000 */ 	jal	rmonCreateThread
-/*     bfbc:	00000000 */ 	nop
-/*     bfc0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     bfc4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     bfc8:	03e00008 */ 	jr	$ra
-/*     bfcc:	00000000 */ 	nop
-);
+void func0000bfb0(void)
+{
+	rmonCreateThread();
+}
 
 void func0000bfd0(char *arg0, char *arg1, s32 arg2)
 {
