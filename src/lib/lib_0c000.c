@@ -145,43 +145,21 @@ const char var70052c94[] = ">";
 const char var70052c98[] = "";
 const char var70052c9c[] = "";
 
-GLOBAL_ASM(
-glabel func0000c000
-/*     c000:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*     c004:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     c008:	3c048009 */ 	lui	$a0,%hi(var80094ab0)
-/*     c00c:	3c058009 */ 	lui	$a1,%hi(var80094ac8)
-/*     c010:	24a54ac8 */ 	addiu	$a1,$a1,%lo(var80094ac8)
-/*     c014:	24844ab0 */ 	addiu	$a0,$a0,%lo(var80094ab0)
-/*     c018:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*     c01c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     c020:	3c0e8009 */ 	lui	$t6,%hi(var80092eb0)
-/*     c024:	25ce2eb0 */ 	addiu	$t6,$t6,%lo(var80092eb0)
-/*     c028:	3c048009 */ 	lui	$a0,%hi(var80092880)
-/*     c02c:	3c067001 */ 	lui	$a2,%hi(func0000c06c)
-/*     c030:	240f0028 */ 	addiu	$t7,$zero,0x28
-/*     c034:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*     c038:	24c6c06c */ 	addiu	$a2,$a2,%lo(func0000c06c)
-/*     c03c:	24842880 */ 	addiu	$a0,$a0,%lo(var80092880)
-/*     c040:	afae0010 */ 	sw	$t6,0x10($sp)
-/*     c044:	24050005 */ 	addiu	$a1,$zero,0x5
-/*     c048:	0c000fb8 */ 	jal	osCreateThread
-/*     c04c:	00003825 */ 	or	$a3,$zero,$zero
-/*     c050:	3c048009 */ 	lui	$a0,%hi(var80092880)
-/*     c054:	0c01207c */ 	jal	osStartThread
-/*     c058:	24842880 */ 	addiu	$a0,$a0,%lo(var80092880)
-/*     c05c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     c060:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*     c064:	03e00008 */ 	jr	$ra
-/*     c068:	00000000 */ 	nop
-);
+void rmonLoop(void *arg0);
+
+void rmonCreateThread(void)
+{
+	osCreateMesgQueue(&g_RmonMesgQueue, &var80094ac8, 1);
+	osCreateThread(&g_RmonThread, THREAD_RMON, rmonLoop, NULL, &g_RmonSp, 40);
+	osStartThread(&g_RmonThread);
+}
 
 GLOBAL_ASM(
-glabel func0000c06c
+glabel rmonLoop
 /*     c06c:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*     c070:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*     c074:	3c118009 */ 	lui	$s1,%hi(var80094ab0)
-/*     c078:	26314ab0 */ 	addiu	$s1,$s1,%lo(var80094ab0)
+/*     c074:	3c118009 */ 	lui	$s1,%hi(g_RmonMesgQueue)
+/*     c078:	26314ab0 */ 	addiu	$s1,$s1,%lo(g_RmonMesgQueue)
 /*     c07c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*     c080:	afa40060 */ 	sw	$a0,0x60($sp)
 /*     c084:	afb20020 */ 	sw	$s2,0x20($sp)

@@ -16,7 +16,7 @@ GLOBAL_ASM(
 glabel func0000bfb0
 /*     bfb0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     bfb4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     bfb8:	0c003000 */ 	jal	func0000c000
+/*     bfb8:	0c003000 */ 	jal	rmonCreateThread
 /*     bfbc:	00000000 */ 	nop
 /*     bfc0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     bfc4:	27bd0018 */ 	addiu	$sp,$sp,0x18
