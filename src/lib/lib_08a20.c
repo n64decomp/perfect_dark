@@ -475,12 +475,12 @@ glabel func00008a48
 /*     9094:	2405003c */ 	addiu	$a1,$zero,0x3c
 /*     9098:	3c088009 */ 	lui	$t0,%hi(var800918f0)
 /*     909c:	8d0818f0 */ 	lw	$t0,%lo(var800918f0)($t0)
-/*     90a0:	3c048009 */ 	lui	$a0,%hi(var800915e0)
+/*     90a0:	3c048009 */ 	lui	$a0,%hi(g_AudioThread)
 /*     90a4:	3c067001 */ 	lui	$a2,%hi(func00009154)
 /*     90a8:	24090014 */ 	addiu	$t1,$zero,0x14
 /*     90ac:	afa90014 */ 	sw	$t1,0x14($sp)
 /*     90b0:	24c69154 */ 	addiu	$a2,$a2,%lo(func00009154)
-/*     90b4:	248415e0 */ 	addiu	$a0,$a0,%lo(var800915e0)
+/*     90b4:	248415e0 */ 	addiu	$a0,$a0,%lo(g_AudioThread)
 /*     90b8:	24050004 */ 	addiu	$a1,$zero,0x4
 /*     90bc:	00003825 */ 	or	$a3,$zero,$zero
 /*     90c0:	0c000fb8 */ 	jal	osCreateThread
@@ -496,20 +496,11 @@ glabel func00008a48
 /*     90e8:	27bd05c0 */ 	addiu	$sp,$sp,0x5c0
 );
 
-GLOBAL_ASM(
-glabel func000090ec
-/*     90ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     90f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     90f4:	3c048009 */ 	lui	$a0,%hi(var800915e0)
-/*     90f8:	0c01207c */ 	jal	osStartThread
-/*     90fc:	248415e0 */ 	addiu	$a0,$a0,%lo(var800915e0)
-/*     9100:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     9104:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*     9108:	3c018006 */ 	lui	$at,%hi(var8005d510)
-/*     910c:	a02ed510 */ 	sb	$t6,%lo(var8005d510)($at)
-/*     9110:	03e00008 */ 	jr	$ra
-/*     9114:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void audioStartThread(void)
+{
+	osStartThread(&g_AudioThread);
+	g_AudioIsThreadRunning = true;
+}
 
 GLOBAL_ASM(
 glabel func00009118
@@ -520,14 +511,14 @@ glabel func00009118
 
 GLOBAL_ASM(
 glabel func00009124
-/*     9124:	3c0e8006 */ 	lui	$t6,%hi(var8005d510)
-/*     9128:	81ced510 */ 	lb	$t6,%lo(var8005d510)($t6)
+/*     9124:	3c0e8006 */ 	lui	$t6,%hi(g_AudioIsThreadRunning)
+/*     9128:	81ced510 */ 	lb	$t6,%lo(g_AudioIsThreadRunning)($t6)
 /*     912c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     9130:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     9134:	11c00003 */ 	beqz	$t6,.L00009144
-/*     9138:	3c048009 */ 	lui	$a0,%hi(var800915e0)
+/*     9138:	3c048009 */ 	lui	$a0,%hi(g_AudioThread)
 /*     913c:	0c0120dc */ 	jal	osStopThread
-/*     9140:	248415e0 */ 	addiu	$a0,$a0,%lo(var800915e0)
+/*     9140:	248415e0 */ 	addiu	$a0,$a0,%lo(g_AudioThread)
 .L00009144:
 /*     9144:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     9148:	27bd0018 */ 	addiu	$sp,$sp,0x18

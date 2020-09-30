@@ -10545,7 +10545,7 @@ bool aiChrBeginOrEndTeleport(void)
 		g_Vars.currentplayer->teleportcamerapad = 0;
 
 		a = osGetThreadPri(0);
-		b = osGetThreadPri(&var800915e0);
+		b = osGetThreadPri(&g_AudioThread);
 		osSetThreadPri(0, b + 1);
 		c = audioStart(var80095200, 0x0433, NULL, -1, -1, -1, -1, -1);
 
@@ -10586,7 +10586,7 @@ bool aiIfChrTeleportFullWhite(void)
 	} else {
 		fvalue = 0.4;
 		a = osGetThreadPri(0);
-		b = osGetThreadPri(&var800915e0);
+		b = osGetThreadPri(&g_AudioThread);
 		osSetThreadPri(0, b + 1);
 		c = audioStart(var80095200, 0x8055, NULL, -1, -1, -1, -1, -1);
 

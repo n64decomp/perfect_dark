@@ -404,7 +404,7 @@ extern u32 var80091590;
 extern u32 var800915c8;
 extern u32 var800915d0;
 extern u32 var800915d4;
-extern OSThread var800915e0;
+extern OSThread g_AudioThread;
 extern u32 var80091810;
 extern u32 var80091828;
 extern u32 var80091848;
