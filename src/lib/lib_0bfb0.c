@@ -12,9 +12,9 @@
 #include "lib/lib_2fa00.h"
 #include "types.h"
 
-void func0000bfb0(void)
+void faultCreateThread(void)
 {
-	rmonCreateThread();
+	faultCreateThread2();
 }
 
 void func0000bfd0(char *arg0, char *arg1, s32 arg2)

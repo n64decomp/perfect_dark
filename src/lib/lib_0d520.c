@@ -186,7 +186,7 @@ GLOBAL_ASM(
 glabel mainInit
 /*     d520:	27bdeb28 */ 	addiu	$sp,$sp,-5336
 /*     d524:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     d528:	0c002fec */ 	jal	func0000bfb0
+/*     d528:	0c002fec */ 	jal	faultCreateThread
 /*     d52c:	afb00028 */ 	sw	$s0,0x28($sp)
 /*     d530:	0c003428 */ 	jal	func0000d0a0
 /*     d534:	00000000 */ 	nop

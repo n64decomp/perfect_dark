@@ -86,7 +86,7 @@ extern const char var700529a4[];
 extern const char var700529a8[];
 extern const char var700529ac[];
 
-void rmonCreateThread(void);
+void faultCreateThread2(void);
 u32 func0000c118(void);
 u32 func0000c240(void);
 u32 func0000c2b8(void);

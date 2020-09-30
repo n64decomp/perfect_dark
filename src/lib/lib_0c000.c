@@ -145,21 +145,21 @@ const char var70052c94[] = ">";
 const char var70052c98[] = "";
 const char var70052c9c[] = "";
 
-void rmonLoop(void *arg0);
+void faultproc(void *arg0);
 
-void rmonCreateThread(void)
+void faultCreateThread2(void)
 {
-	osCreateMesgQueue(&g_RmonMesgQueue, &var80094ac8, 1);
-	osCreateThread(&g_RmonThread, THREAD_RMON, rmonLoop, NULL, &g_RmonSp, 40);
-	osStartThread(&g_RmonThread);
+	osCreateMesgQueue(&g_FaultMesgQueue, &g_FaultMesg, 1);
+	osCreateThread(&g_FaultThread, THREAD_FAULT, faultproc, NULL, &g_FaultSp, 40);
+	osStartThread(&g_FaultThread);
 }
 
 GLOBAL_ASM(
-glabel rmonLoop
+glabel faultproc
 /*     c06c:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*     c070:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*     c074:	3c118009 */ 	lui	$s1,%hi(g_RmonMesgQueue)
-/*     c078:	26314ab0 */ 	addiu	$s1,$s1,%lo(g_RmonMesgQueue)
+/*     c074:	3c118009 */ 	lui	$s1,%hi(g_FaultMesgQueue)
+/*     c078:	26314ab0 */ 	addiu	$s1,$s1,%lo(g_FaultMesgQueue)
 /*     c07c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*     c080:	afa40060 */ 	sw	$a0,0x60($sp)
 /*     c084:	afb20020 */ 	sw	$s2,0x20($sp)
@@ -204,7 +204,7 @@ glabel rmonLoop
 );
 
 // Mismatch because bss needs to be sprinkled around various files first
-//void rmonLoop(void *arg0)
+//void faultproc(void *arg0)
 //{
 //	OSMesg msg = 0;
 //	OSIntMask mask;
@@ -212,12 +212,12 @@ glabel rmonLoop
 //	u8 stack1[44];
 //	static u32 result; // var80094acc
 //
-//	osSetEventMesg(OS_EVENT_FAULT, &g_RmonMesgQueue, (OSMesg) 16);
+//	osSetEventMesg(OS_EVENT_FAULT, &g_FaultMesgQueue, (OSMesg) 16);
 //	var80094ad0 = 0;
 //
 //	while (true) {
 //		do {
-//			osRecvMesg(&g_RmonMesgQueue, &msg, 1);
+//			osRecvMesg(&g_FaultMesgQueue, &msg, 1);
 //			mask = osSetIntMask(1);
 //			result = func0004e640();
 //		} while (!result);

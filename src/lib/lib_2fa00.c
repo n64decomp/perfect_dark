@@ -12,7 +12,7 @@
 #include "lib/lib_4e690.h"
 #include "types.h"
 
-void thread0Init()
+void rmonproc()
 {
 	// empty
 }

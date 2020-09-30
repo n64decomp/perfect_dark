@@ -735,21 +735,21 @@ glabel func000018ac
 /*     1930:	2442fff8 */ 	addiu	$v0,$v0,-8
 );
 
-void idle(void *data)
+void idleproc(void *data)
 {
 	while (true);
 }
 
 void idleCreateThread(void)
 {
-	osCreateThread(&g_IdleThread, THREAD_IDLE, &idle, NULL, func000018ac(1, 64), 0);
+	osCreateThread(&g_IdleThread, THREAD_IDLE, idleproc, NULL, func000018ac(1, 64), 0);
 	osStartThread(&g_IdleThread);
 }
 
-void thread0CreateThread(void)
+void rmonCreateThread(void)
 {
-	osCreateThread(&g_Thread0Thread, THREAD_0, thread0Init, NULL, func000018ac(0, 0x300), 250);
-	osStartThread(&g_Thread0Thread);
+	osCreateThread(&g_RmonThread, 0, rmonproc, NULL, func000018ac(0, 0x300), 250);
+	osStartThread(&g_RmonThread);
 }
 
 GLOBAL_ASM(
@@ -807,7 +807,7 @@ void mainproc(u32 value)
 	idleCreateThread();
 	func00013750();
 	func00013710();
-	thread0CreateThread();
+	rmonCreateThread();
 
 	if (func00012f30()) {
 		osStopThread(0);
@@ -2108,7 +2108,7 @@ glabel func00002d90
 );
 
 GLOBAL_ASM(
-glabel resetThreadInit
+glabel resetproc
 /*     2e00:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*     2e04:	afa40030 */ 	sw	$a0,0x30($sp)
 /*     2e08:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -2212,7 +2212,7 @@ void resetThreadCreate(void)
 {
 	osCreateMesgQueue(&g_ResetMesgQueue, &g_ResetMesg, 10);
 	osSetEventMesg(OS_EVENT_PRENMI, &g_ResetMesgQueue, (OSMesg) 669);
-	osCreateThread(&g_ResetThread, THREAD_RESET, resetThreadInit, 0, &var8008fdf0, 11);
+	osCreateThread(&g_ResetThread, THREAD_RESET, resetproc, 0, &var8008fdf0, 11);
 	osStartThread(&g_ResetThread);
 }
 
