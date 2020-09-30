@@ -509,22 +509,17 @@ glabel func00009118
 /*     9120:	24421810 */ 	addiu	$v0,$v0,%lo(var80091810)
 );
 
-GLOBAL_ASM(
-glabel func00009124
-/*     9124:	3c0e8006 */ 	lui	$t6,%hi(g_AudioIsThreadRunning)
-/*     9128:	81ced510 */ 	lb	$t6,%lo(g_AudioIsThreadRunning)($t6)
-/*     912c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     9130:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     9134:	11c00003 */ 	beqz	$t6,.L00009144
-/*     9138:	3c048009 */ 	lui	$a0,%hi(g_AudioThread)
-/*     913c:	0c0120dc */ 	jal	osStopThread
-/*     9140:	248415e0 */ 	addiu	$a0,$a0,%lo(g_AudioThread)
-.L00009144:
-/*     9144:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     9148:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     914c:	03e00008 */ 	jr	$ra
-/*     9150:	00000000 */ 	nop
-);
+/**
+ * This doesn't set g_AudioIsThreadRunning to false, but that's okay because
+ * this is only called when resetting the console, and when that happens the
+ * variable is likely reset too.
+ */
+void audioStopThread(void)
+{
+	if (g_AudioIsThreadRunning) {
+		osStopThread(&g_AudioThread);
+	}
+}
 
 GLOBAL_ASM(
 glabel func00009154

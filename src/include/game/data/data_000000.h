@@ -74,7 +74,7 @@ extern u32 var8005d390;
 extern u32 var8005d3b8;
 extern u32 var8005d4c0;
 extern u32 var8005d4e8;
-extern u8 g_AudioIsThreadRunning;
+extern s8 g_AudioIsThreadRunning;
 extern u32 var8005d520;
 extern struct rend_vidat var8005d530;
 extern u32 var8005d588;
