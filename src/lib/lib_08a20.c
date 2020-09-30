@@ -26,19 +26,10 @@
 #include "lib/lib_4e470.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func00008a20
-/*     8a20:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     8a24:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     8a28:	24040004 */ 	addiu	$a0,$zero,0x4
-/*     8a2c:	0c00062b */ 	jal	func000018ac
-/*     8a30:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*     8a34:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     8a38:	3c018009 */ 	lui	$at,%hi(var800918f0)
-/*     8a3c:	ac2218f0 */ 	sw	$v0,%lo(var800918f0)($at)
-/*     8a40:	03e00008 */ 	jr	$ra
-/*     8a44:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void audioAllocateStack(void)
+{
+	g_AudioSp = allocateStack(THREAD_AUDIO, 4096);
+}
 
 GLOBAL_ASM(
 glabel func00008a48
@@ -473,8 +464,8 @@ glabel func00008a48
 /*     908c:	00002025 */ 	or	$a0,$zero,$zero
 /*     9090:	0c00c2ff */ 	jal	func00030bfc
 /*     9094:	2405003c */ 	addiu	$a1,$zero,0x3c
-/*     9098:	3c088009 */ 	lui	$t0,%hi(var800918f0)
-/*     909c:	8d0818f0 */ 	lw	$t0,%lo(var800918f0)($t0)
+/*     9098:	3c088009 */ 	lui	$t0,%hi(g_AudioSp)
+/*     909c:	8d0818f0 */ 	lw	$t0,%lo(g_AudioSp)($t0)
 /*     90a0:	3c048009 */ 	lui	$a0,%hi(g_AudioThread)
 /*     90a4:	3c067001 */ 	lui	$a2,%hi(func00009154)
 /*     90a8:	24090014 */ 	addiu	$t1,$zero,0x14

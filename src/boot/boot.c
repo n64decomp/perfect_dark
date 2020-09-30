@@ -673,7 +673,7 @@ glabel func000016cc
 /*     1850:	0c012078 */ 	jal	__osSetFpcCsr
 /*     1854:	34440e80 */ 	ori	$a0,$v0,0xe80
 /*     1858:	24040003 */ 	addiu	$a0,$zero,0x3
-/*     185c:	0c00062b */ 	jal	func000018ac
+/*     185c:	0c00062b */ 	jal	allocateStack
 /*     1860:	34059800 */ 	dli	$a1,0x9800
 /*     1864:	3c108009 */ 	lui	$s0,%hi(var8008d6d0)
 /*     1868:	2610d6d0 */ 	addiu	$s0,$s0,%lo(var8008d6d0)
@@ -696,7 +696,7 @@ glabel func000016cc
 );
 
 GLOBAL_ASM(
-glabel func000018ac
+glabel allocateStack
 /*     18ac:	3c098006 */ 	lui	$t1,%hi(var8005ce48)
 /*     18b0:	2529ce48 */ 	addiu	$t1,$t1,%lo(var8005ce48)
 /*     18b4:	8d230000 */ 	lw	$v1,0x0($t1)
@@ -742,13 +742,13 @@ void idleproc(void *data)
 
 void idleCreateThread(void)
 {
-	osCreateThread(&g_IdleThread, THREAD_IDLE, idleproc, NULL, func000018ac(1, 64), 0);
+	osCreateThread(&g_IdleThread, THREAD_IDLE, idleproc, NULL, allocateStack(THREAD_IDLE, 64), 0);
 	osStartThread(&g_IdleThread);
 }
 
 void rmonCreateThread(void)
 {
-	osCreateThread(&g_RmonThread, 0, rmonproc, NULL, func000018ac(0, 0x300), 250);
+	osCreateThread(&g_RmonThread, 0, rmonproc, NULL, allocateStack(0, 0x300), 250);
 	osStartThread(&g_RmonThread);
 }
 
@@ -968,7 +968,7 @@ glabel func00001c4c
 /*     1ddc:	0c00070a */ 	jal	func00001c28
 /*     1de0:	00000000 */ 	nop
 /*     1de4:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     1de8:	0c00062b */ 	jal	func000018ac
+/*     1de8:	0c00062b */ 	jal	allocateStack
 /*     1dec:	24050400 */ 	addiu	$a1,$zero,0x400
 /*     1df0:	8e0400b0 */ 	lw	$a0,0xb0($s0)
 /*     1df4:	3c067000 */ 	lui	$a2,%hi(func00001e94)
@@ -1299,9 +1299,9 @@ glabel func00002148
 /*     225c:	5600fff4 */ 	bnezl	$s0,.L00002230
 /*     2260:	8e0b0008 */ 	lw	$t3,0x8($s0)
 .L00002264:
-/*     2264:	3c057000 */ 	lui	$a1,%hi(func000018ac)
+/*     2264:	3c057000 */ 	lui	$a1,%hi(allocateStack)
 /*     2268:	3c067000 */ 	lui	$a2,%hi(func000016cc)
-/*     226c:	24a418ac */ 	addiu	$a0,$a1,%lo(func000018ac)
+/*     226c:	24a418ac */ 	addiu	$a0,$a1,%lo(allocateStack)
 /*     2270:	24c216cc */ 	addiu	$v0,$a2,%lo(func000016cc)
 /*     2274:	0044082b */ 	sltu	$at,$v0,$a0
 /*     2278:	10200006 */ 	beqz	$at,.L00002294

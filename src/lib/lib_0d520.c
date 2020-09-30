@@ -190,7 +190,7 @@ glabel mainInit
 /*     d52c:	afb00028 */ 	sw	$s0,0x28($sp)
 /*     d530:	0c003428 */ 	jal	func0000d0a0
 /*     d534:	00000000 */ 	nop
-/*     d538:	0c002288 */ 	jal	func00008a20
+/*     d538:	0c002288 */ 	jal	audioAllocateStack
 /*     d53c:	00000000 */ 	nop
 /*     d540:	0c005618 */ 	jal	initGlobalVariables
 /*     d544:	00000000 */ 	nop

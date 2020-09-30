@@ -414,6 +414,7 @@ extern u32 var800918d0;
 extern u32 var800918e0;
 extern u32 var800918e8;
 extern u32 var800918ec;
+extern void *g_AudioSp;
 extern u32 var80091900;
 extern u32 var80091910;
 extern u32 var80091924;

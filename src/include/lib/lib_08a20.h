@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00008a20(void);
+void audioAllocateStack(void);
 u32 func00008a48(void);
 void audioStartThread(void);
 u32 func00009118(void);
