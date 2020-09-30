@@ -12,31 +12,50 @@
 #include "lib/lib_4e690.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel thread0Init
-/*    2fa00:	03e00008 */ 	jr	$ra
-/*    2fa04:	00000000 */ 	nop
-);
+void thread0Init()
+{
+	// empty
+}
 
-GLOBAL_ASM(
-glabel func0002fa08
-/*    2fa08:	03e00008 */ 	jr	$ra
-/*    2fa0c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    2fa10:	03e00008 */ 	jr	$ra
-/*    2fa14:	2402ffff */ 	addiu	$v0,$zero,-1
-/*    2fa18:	03e00008 */ 	jr	$ra
-/*    2fa1c:	00000000 */ 	nop
-/*    2fa20:	03e00008 */ 	jr	$ra
-/*    2fa24:	00000000 */ 	nop
-/*    2fa28:	03e00008 */ 	jr	$ra
-/*    2fa2c:	00000000 */ 	nop
-/*    2fa30:	03e00008 */ 	jr	$ra
-/*    2fa34:	00000000 */ 	nop
-/*    2fa38:	03e00008 */ 	jr	$ra
-/*    2fa3c:	00000000 */ 	nop
-/*    2fa40:	03e00008 */ 	jr	$ra
-/*    2fa44:	00000000 */ 	nop
-);
+bool func0002fa08(void)
+{
+	return true;
+}
+
+s32 func0002fa10(void)
+{
+	return -1;
+}
+
+void func0002fa18(void)
+{
+	// empty
+}
+
+void func0002fa20(void)
+{
+	// empty
+}
+
+void func0002fa28(void)
+{
+	// empty
+}
+
+void func0002fa30(void)
+{
+	// empty
+}
+
+void func0002fa38(void)
+{
+	// empty
+}
+
+void func0002fa40(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0002fa48
