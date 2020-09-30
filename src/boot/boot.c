@@ -882,7 +882,7 @@ glabel func00001c4c
 /*     1c8c:	ac8000c4 */ 	sw	$zero,0xc4($a0)
 /*     1c90:	a48e0000 */ 	sh	$t6,0x0($a0)
 /*     1c94:	a48f0020 */ 	sh	$t7,0x20($a0)
-/*     1c98:	0c000bdc */ 	jal	func00002f70
+/*     1c98:	0c000bdc */ 	jal	resetThreadCreate
 /*     1c9c:	ac8500b0 */ 	sw	$a1,0xb0($a0)
 /*     1ca0:	26110040 */ 	addiu	$s1,$s0,0x40
 /*     1ca4:	02202025 */ 	or	$a0,$s1,$zero
@@ -2108,13 +2108,13 @@ glabel func00002d90
 );
 
 GLOBAL_ASM(
-glabel func00002e00
+glabel resetThreadInit
 /*     2e00:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*     2e04:	afa40030 */ 	sw	$a0,0x30($sp)
 /*     2e08:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     2e0c:	3c048009 */ 	lui	$a0,%hi(var8008faa8)
+/*     2e0c:	3c048009 */ 	lui	$a0,%hi(g_ResetMesgQueue)
 /*     2e10:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*     2e14:	2484faa8 */ 	addiu	$a0,$a0,%lo(var8008faa8)
+/*     2e14:	2484faa8 */ 	addiu	$a0,$a0,%lo(g_ResetMesgQueue)
 /*     2e18:	27a5002c */ 	addiu	$a1,$sp,0x2c
 /*     2e1c:	0c0121bc */ 	jal	osRecvMesg
 /*     2e20:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -2208,41 +2208,13 @@ glabel func00002e00
 /*     2f6c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00002f70
-/*     2f70:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*     2f74:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     2f78:	3c048009 */ 	lui	$a0,%hi(var8008faa8)
-/*     2f7c:	3c058009 */ 	lui	$a1,%hi(var8008fa80)
-/*     2f80:	24a5fa80 */ 	addiu	$a1,$a1,%lo(var8008fa80)
-/*     2f84:	2484faa8 */ 	addiu	$a0,$a0,%lo(var8008faa8)
-/*     2f88:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*     2f8c:	2406000a */ 	addiu	$a2,$zero,0xa
-/*     2f90:	3c058009 */ 	lui	$a1,%hi(var8008faa8)
-/*     2f94:	24a5faa8 */ 	addiu	$a1,$a1,%lo(var8008faa8)
-/*     2f98:	2404000e */ 	addiu	$a0,$zero,0xe
-/*     2f9c:	0c012148 */ 	jal	osSetEventMesg
-/*     2fa0:	2406029d */ 	addiu	$a2,$zero,0x29d
-/*     2fa4:	3c0e8009 */ 	lui	$t6,%hi(var8008fdf0)
-/*     2fa8:	25cefdf0 */ 	addiu	$t6,$t6,%lo(var8008fdf0)
-/*     2fac:	3c048009 */ 	lui	$a0,%hi(var8008fac0)
-/*     2fb0:	3c067000 */ 	lui	$a2,%hi(func00002e00)
-/*     2fb4:	240f000b */ 	addiu	$t7,$zero,0xb
-/*     2fb8:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*     2fbc:	24c62e00 */ 	addiu	$a2,$a2,%lo(func00002e00)
-/*     2fc0:	2484fac0 */ 	addiu	$a0,$a0,%lo(var8008fac0)
-/*     2fc4:	afae0010 */ 	sw	$t6,0x10($sp)
-/*     2fc8:	24050006 */ 	addiu	$a1,$zero,0x6
-/*     2fcc:	0c000fb8 */ 	jal	osCreateThread
-/*     2fd0:	00003825 */ 	or	$a3,$zero,$zero
-/*     2fd4:	3c048009 */ 	lui	$a0,%hi(var8008fac0)
-/*     2fd8:	0c01207c */ 	jal	osStartThread
-/*     2fdc:	2484fac0 */ 	addiu	$a0,$a0,%lo(var8008fac0)
-/*     2fe0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     2fe4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*     2fe8:	03e00008 */ 	jr	$ra
-/*     2fec:	00000000 */ 	nop
-);
+void resetThreadCreate(void)
+{
+	osCreateMesgQueue(&g_ResetMesgQueue, &g_ResetMesg, 10);
+	osSetEventMesg(OS_EVENT_PRENMI, &g_ResetMesgQueue, (OSMesg) 669);
+	osCreateThread(&g_ResetThread, THREAD_RESET, resetThreadInit, 0, &var8008fdf0, 11);
+	osStartThread(&g_ResetThread);
+}
 
 GLOBAL_ASM(
 glabel osMapTLBRdb

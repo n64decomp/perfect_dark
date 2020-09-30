@@ -14,6 +14,7 @@ s32 func00002078(void);
 s32 func00002148(void);
 s32 func00002148(void);
 s32 func000022e0(void);
+void resetThreadInit(void *data);
 void osMapTLBRdb(void);
 
 #endif
