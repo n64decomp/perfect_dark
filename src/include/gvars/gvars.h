@@ -364,7 +364,7 @@ extern u32 var8008db30;
 extern u32 var8008db48;
 extern u32 var8008dbd0;
 extern u32 var8008dca8;
-extern u32 var8008dcb4;
+extern u32 g_OsMemSize;
 extern u32 var8008dcc0;
 extern u32 var8008dd60;
 extern u32 var8008dd64;

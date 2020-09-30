@@ -557,12 +557,10 @@ glabel func000016ac
 /*     16bc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel osGetMemSize
-/*     16c0:	3c028009 */ 	lui	$v0,%hi(var8008dcb4)
-/*     16c4:	03e00008 */ 	jr	$ra
-/*     16c8:	8c42dcb4 */ 	lw	$v0,%lo(var8008dcb4)($v0)
-);
+s32 osGetMemSize(void)
+{
+	return g_OsMemSize;
+}
 
 GLOBAL_ASM(
 glabel func000016cc
@@ -575,15 +573,15 @@ glabel func000016cc
 /*     16e4:	afb00020 */ 	sw	$s0,0x20($sp)
 /*     16e8:	3c0f803f */ 	lui	$t7,0x803f
 /*     16ec:	8df850b8 */ 	lw	$t8,0x50b8($t7)
-/*     16f0:	3c028009 */ 	lui	$v0,%hi(var8008dcb4)
-/*     16f4:	2442dcb4 */ 	addiu	$v0,$v0,%lo(var8008dcb4)
+/*     16f0:	3c028009 */ 	lui	$v0,%hi(g_OsMemSize)
+/*     16f4:	2442dcb4 */ 	addiu	$v0,$v0,%lo(g_OsMemSize)
 /*     16f8:	10000008 */ 	b	.L0000171c
 /*     16fc:	ac580000 */ 	sw	$t8,0x0($v0)
 .L00001700:
 /*     1700:	3c198000 */ 	lui	$t9,0x8000
 /*     1704:	8f390318 */ 	lw	$t9,0x318($t9)
-/*     1708:	3c028009 */ 	lui	$v0,%hi(var8008dcb4)
-/*     170c:	2442dcb4 */ 	addiu	$v0,$v0,%lo(var8008dcb4)
+/*     1708:	3c028009 */ 	lui	$v0,%hi(g_OsMemSize)
+/*     170c:	2442dcb4 */ 	addiu	$v0,$v0,%lo(g_OsMemSize)
 /*     1710:	3c0a803f */ 	lui	$t2,0x803f
 /*     1714:	ac590000 */ 	sw	$t9,0x0($v0)
 /*     1718:	ad5950b8 */ 	sw	$t9,0x50b8($t2)
