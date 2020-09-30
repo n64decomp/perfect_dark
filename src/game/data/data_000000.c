@@ -6,7 +6,7 @@
 #include "game/game_0dcdb0.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_00e460.h"
-#include "lib/lib_0bfb0.h"
+#include "lib/lib_0c000.h"
 #include "lib/lib_0d520.h"
 #include "lib/lib_3e730.h"
 #include "gvars/gvars.h"

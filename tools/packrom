@@ -132,12 +132,14 @@ def main():
 
     fd = open(sys.argv[1], 'rb+')
 
+    if os.environ['MATCHING'] == '1':
+        write_garbage(fd, locations)
+
     pack_lib(fd, locations)
     pack_data(fd, locations)
     pack_game(fd, locations)
 
     if os.environ['MATCHING'] == '1':
-        write_garbage(fd, locations)
         fill_tail(fd)
 
     # Truncate to 32MB

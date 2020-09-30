@@ -5,6 +5,6 @@
 
 u32 func0002fa00(void);
 u32 func0002fa08(void);
-u32 func0002faa4(void);
+void func0002faa4(char *format, ...);
 
 #endif
