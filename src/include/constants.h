@@ -2840,6 +2840,7 @@
 #define TELEPORTSTATE_3        3
 #define TELEPORTSTATE_4        4
 
+#define THREAD_IDLE 1
 #define THREAD_RMON 5
 
 #define TICKMODE_0        0

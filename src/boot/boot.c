@@ -739,30 +739,11 @@ void idle(void *data)
 	while (true);
 }
 
-GLOBAL_ASM(
-glabel func00001948
-/*     1948:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*     194c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     1950:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     1954:	0c00062b */ 	jal	func000018ac
-/*     1958:	24050040 */ 	addiu	$a1,$zero,0x40
-/*     195c:	3c048009 */ 	lui	$a0,%hi(var8008d4a0)
-/*     1960:	3c067000 */ 	lui	$a2,%hi(idle)
-/*     1964:	24c61934 */ 	addiu	$a2,$a2,%lo(idle)
-/*     1968:	2484d4a0 */ 	addiu	$a0,$a0,%lo(var8008d4a0)
-/*     196c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*     1970:	00003825 */ 	or	$a3,$zero,$zero
-/*     1974:	afa20010 */ 	sw	$v0,0x10($sp)
-/*     1978:	0c000fb8 */ 	jal	osCreateThread
-/*     197c:	afa00014 */ 	sw	$zero,0x14($sp)
-/*     1980:	3c048009 */ 	lui	$a0,%hi(var8008d4a0)
-/*     1984:	0c01207c */ 	jal	osStartThread
-/*     1988:	2484d4a0 */ 	addiu	$a0,$a0,%lo(var8008d4a0)
-/*     198c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     1990:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*     1994:	03e00008 */ 	jr	$ra
-/*     1998:	00000000 */ 	nop
-);
+void idleCreateThread(void)
+{
+	osCreateThread(&g_IdleThread, THREAD_IDLE, &idle, NULL, func000018ac(1, 64), 0);
+	osStartThread(&g_IdleThread);
+}
 
 GLOBAL_ASM(
 glabel func0000199c
@@ -842,7 +823,7 @@ glabel func000019f4
 
 void mainproc(u32 value)
 {
-	func00001948();
+	idleCreateThread();
 	func00013750();
 	func00013710();
 	func0000199c();

@@ -357,7 +357,7 @@ extern u32 var8008ae38;
 extern u32 var8008be38;
 extern u32 var8008d238;
 extern OSThread var8008d270;
-extern OSThread var8008d4a0;
+extern OSThread g_IdleThread;
 extern OSThread var8008d6d0;
 extern u32 var8008d900;
 extern u32 var8008db30;
