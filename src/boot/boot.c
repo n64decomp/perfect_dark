@@ -24,6 +24,7 @@
 #include "lib/lib_13710.h"
 #include "lib/lib_13750.h"
 #include "lib/lib_13900.h"
+#include "lib/lib_2fa00.h"
 #include "lib/lib_48120.h"
 #include "lib/lib_48150.h"
 #include "lib/lib_481d0.h"
@@ -745,31 +746,11 @@ void idleCreateThread(void)
 	osStartThread(&g_IdleThread);
 }
 
-GLOBAL_ASM(
-glabel func0000199c
-/*     199c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*     19a0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     19a4:	00002025 */ 	or	$a0,$zero,$zero
-/*     19a8:	0c00062b */ 	jal	func000018ac
-/*     19ac:	24050300 */ 	addiu	$a1,$zero,0x300
-/*     19b0:	3c048009 */ 	lui	$a0,%hi(var8008d270)
-/*     19b4:	3c067003 */ 	lui	$a2,%hi(func0002fa00)
-/*     19b8:	240e00fa */ 	addiu	$t6,$zero,0xfa
-/*     19bc:	afae0014 */ 	sw	$t6,0x14($sp)
-/*     19c0:	24c6fa00 */ 	addiu	$a2,$a2,%lo(func0002fa00)
-/*     19c4:	2484d270 */ 	addiu	$a0,$a0,%lo(var8008d270)
-/*     19c8:	00002825 */ 	or	$a1,$zero,$zero
-/*     19cc:	00003825 */ 	or	$a3,$zero,$zero
-/*     19d0:	0c000fb8 */ 	jal	osCreateThread
-/*     19d4:	afa20010 */ 	sw	$v0,0x10($sp)
-/*     19d8:	3c048009 */ 	lui	$a0,%hi(var8008d270)
-/*     19dc:	0c01207c */ 	jal	osStartThread
-/*     19e0:	2484d270 */ 	addiu	$a0,$a0,%lo(var8008d270)
-/*     19e4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     19e8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*     19ec:	03e00008 */ 	jr	$ra
-/*     19f0:	00000000 */ 	nop
-);
+void thread0CreateThread(void)
+{
+	osCreateThread(&g_Thread0Thread, THREAD_0, thread0Init, NULL, func000018ac(0, 0x300), 250);
+	osStartThread(&g_Thread0Thread);
+}
 
 GLOBAL_ASM(
 glabel func000019f4
@@ -826,7 +807,7 @@ void mainproc(u32 value)
 	idleCreateThread();
 	func00013750();
 	func00013710();
-	func0000199c();
+	thread0CreateThread();
 
 	if (func00012f30()) {
 		osStopThread(0);

@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0002fa00(void);
+void thread0Init(void *data);
 u32 func0002fa08(void);
 void func0002faa4(char *format, ...);
 

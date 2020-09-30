@@ -13,7 +13,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0002fa00
+glabel thread0Init
 /*    2fa00:	03e00008 */ 	jr	$ra
 /*    2fa04:	00000000 */ 	nop
 );
