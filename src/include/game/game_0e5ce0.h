@@ -15,7 +15,7 @@ Gfx *menuRenderItemDropdown(Gfx *gdl);
 bool menuTickItemDropdown(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemtickdata *data);
 
 Gfx *func0f0e8290(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7);
-u32 func0f0e855c(void);
+u32 func0f0e855c(char *text);
 Gfx *menuRenderItemKeyboard(Gfx *gdl);
 bool menuTickItemKeyboard(struct menuitem *item, struct menuinputs *inputs, u32 arg2, union menuitemtickdata *data);
 void menuInitItemKeyboard(struct menuitem *item, union menuitemtickdata *data);

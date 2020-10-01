@@ -3269,10 +3269,10 @@ struct menuitemtickdata_dropdown {
 
 struct menuitemtickdata_keyboard {
 	char string[11];
-	u8 unk0b;
-	u8 unk0c;
-	u8 unk0d_01 : 1;
-	u8 unk0d_02 : 1;
+	s8 col;
+	s8 row;
+	u8 capslock : 1;      // Pressed A on caps button
+	u8 capseffective : 1; // Same as above, but inverted if holding L or R
 };
 
 struct menuitemtickdata_list {
@@ -6118,13 +6118,13 @@ struct var800a4cf0 {
 
 struct menuinputs {
 	/*0x00*/ s8 leftright; // Both control stick and C/D buttons - set on initial press and key repeat
-	/*0x01*/ s8 unk01;
-	/*0x02*/ u8 select;    // A button
+	/*0x01*/ s8 updown;    // As above
+	/*0x02*/ u8 select;    // A/Z buttons
 	/*0x03*/ u8 back;      // B button
 	/*0x04*/ s8 xaxis;     // Control stick's current left/right position
 	/*0x05*/ s8 yaxis;     // Control stick's current up/down position
 	/*0x06*/ u8 shoulder;  // L or R buttons
-	/*0x07*/ u8 unk07;
+	/*0x07*/ u8 back2;     // Used in keyboard
 	/*0x08*/ s8 unk08;
 	/*0x09*/ s8 unk09;
 	/*0x0a*/ s8 start;

@@ -145,7 +145,7 @@ extern s32 var80071198;
 extern s32 var8007119c;
 extern s32 var800711a0;
 extern s32 var800711a4;
-extern u32 var800711ac;
+extern u8 g_KeyboardKeys[5][10];
 extern u32 var800711e0;
 extern u32 var800711e8;
 extern u32 var800711f4;
