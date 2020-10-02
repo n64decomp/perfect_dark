@@ -791,7 +791,7 @@ extern u32 var800ab574;
 extern u32 var800ab578;
 extern u32 var800ab57c;
 extern u32 var800ab5a0;
-extern u32 var800ab5a8;
+extern struct var800ab5a8 *var800ab5a8; // indexed by some kind of texturenum
 extern s32 var800ab5b0;
 extern struct var800ab5b8 var800ab5b8[8];
 extern struct var800ab718 var800ab718[8];

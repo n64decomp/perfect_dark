@@ -10,7 +10,7 @@ u32 func0f0b34d8(void);
 u32 func0f0b3548(void);
 u32 func0f0b35b8(void);
 u32 func0f0b3988(void);
-u32 func0f0b39c0(void);
+void func0f0b39c0(Gfx **gdl, struct var800ab5a8 *arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 arg6);
 void currentPlayerSetScreenSize(f32 width, f32 height);
 void currentPlayerSetScreenPosition(f32 left, f32 top);
 void currentPlayerSetPerspective(f32 near, f32 fovy, f32 aspect);

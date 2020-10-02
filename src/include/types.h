@@ -6572,6 +6572,12 @@ struct var80061420 {
 	s32 unk04;
 };
 
+struct var800ab5a8 {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+};
+
 struct var800ab5b8 {
 	u32 unk00;
 	u32 unk04;

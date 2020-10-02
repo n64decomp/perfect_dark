@@ -9115,178 +9115,35 @@ glabel func0f0ef394
 /*  f0ef4b8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel menuRenderControllerTexture
-/*  f0ef4bc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0ef4c0:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f0ef4c4:	248f0008 */ 	addiu	$t7,$a0,0x8
-/*  f0ef4c8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0ef4cc:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f0ef4d0:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f0ef4d4:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f0ef4d8:	afaf0028 */ 	sw	$t7,0x28($sp)
-/*  f0ef4dc:	3c18e700 */ 	lui	$t8,0xe700
-/*  f0ef4e0:	ac980000 */ 	sw	$t8,0x0($a0)
-/*  f0ef4e4:	ac800004 */ 	sw	$zero,0x4($a0)
-/*  f0ef4e8:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f0ef4ec:	3c0bba00 */ 	lui	$t3,0xba00
-/*  f0ef4f0:	356b1301 */ 	ori	$t3,$t3,0x1301
-/*  f0ef4f4:	272a0008 */ 	addiu	$t2,$t9,0x8
-/*  f0ef4f8:	afaa0028 */ 	sw	$t2,0x28($sp)
-/*  f0ef4fc:	af200004 */ 	sw	$zero,0x4($t9)
-/*  f0ef500:	af2b0000 */ 	sw	$t3,0x0($t9)
-/*  f0ef504:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*  f0ef508:	3c0eb900 */ 	lui	$t6,0xb900
-/*  f0ef50c:	35ce0002 */ 	ori	$t6,$t6,0x2
-/*  f0ef510:	258d0008 */ 	addiu	$t5,$t4,0x8
-/*  f0ef514:	afad0028 */ 	sw	$t5,0x28($sp)
-/*  f0ef518:	ad800004 */ 	sw	$zero,0x4($t4)
-/*  f0ef51c:	ad8e0000 */ 	sw	$t6,0x0($t4)
-/*  f0ef520:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*  f0ef524:	3c19ba00 */ 	lui	$t9,0xba00
-/*  f0ef528:	37391001 */ 	ori	$t9,$t9,0x1001
-/*  f0ef52c:	25f80008 */ 	addiu	$t8,$t7,0x8
-/*  f0ef530:	afb80028 */ 	sw	$t8,0x28($sp)
-/*  f0ef534:	ade00004 */ 	sw	$zero,0x4($t7)
-/*  f0ef538:	adf90000 */ 	sw	$t9,0x0($t7)
-/*  f0ef53c:	8faa0028 */ 	lw	$t2,0x28($sp)
-/*  f0ef540:	3c0cba00 */ 	lui	$t4,0xba00
-/*  f0ef544:	358c0903 */ 	ori	$t4,$t4,0x903
-/*  f0ef548:	254b0008 */ 	addiu	$t3,$t2,0x8
-/*  f0ef54c:	afab0028 */ 	sw	$t3,0x28($sp)
-/*  f0ef550:	240d0c00 */ 	addiu	$t5,$zero,0xc00
-/*  f0ef554:	ad4d0004 */ 	sw	$t5,0x4($t2)
-/*  f0ef558:	ad4c0000 */ 	sw	$t4,0x0($t2)
-/*  f0ef55c:	8fae0034 */ 	lw	$t6,0x34($sp)
-/*  f0ef560:	3c18800b */ 	lui	$t8,%hi(var800ab5a8)
-/*  f0ef564:	8f18b5a8 */ 	lw	$t8,%lo(var800ab5a8)($t8)
-/*  f0ef568:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0ef56c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0ef570:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0ef574:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0ef578:	24190002 */ 	addiu	$t9,$zero,0x2
-/*  f0ef57c:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f0ef580:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f0ef584:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0ef588:	27a40028 */ 	addiu	$a0,$sp,0x28
-/*  f0ef58c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0ef590:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0ef594:	0fc2ce70 */ 	jal	func0f0b39c0
-/*  f0ef598:	01f82821 */ 	addu	$a1,$t7,$t8
-/*  f0ef59c:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*  f0ef5a0:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f0ef5a4:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f0ef5a8:	256c0008 */ 	addiu	$t4,$t3,0x8
-/*  f0ef5ac:	afac0028 */ 	sw	$t4,0x28($sp)
-/*  f0ef5b0:	3c0dba00 */ 	lui	$t5,0xba00
-/*  f0ef5b4:	35ad1402 */ 	ori	$t5,$t5,0x1402
-/*  f0ef5b8:	ad6d0000 */ 	sw	$t5,0x0($t3)
-/*  f0ef5bc:	ad600004 */ 	sw	$zero,0x4($t3)
-/*  f0ef5c0:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*  f0ef5c4:	3c18ba00 */ 	lui	$t8,0xba00
-/*  f0ef5c8:	37180c02 */ 	ori	$t8,$t8,0xc02
-/*  f0ef5cc:	25cf0008 */ 	addiu	$t7,$t6,0x8
-/*  f0ef5d0:	afaf0028 */ 	sw	$t7,0x28($sp)
-/*  f0ef5d4:	add80000 */ 	sw	$t8,0x0($t6)
-/*  f0ef5d8:	adc00004 */ 	sw	$zero,0x4($t6)
-/*  f0ef5dc:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f0ef5e0:	01601025 */ 	or	$v0,$t3,$zero
-/*  f0ef5e4:	3c0bfcff */ 	lui	$t3,0xfcff
-/*  f0ef5e8:	272a0008 */ 	addiu	$t2,$t9,0x8
-/*  f0ef5ec:	afaa0028 */ 	sw	$t2,0x28($sp)
-/*  f0ef5f0:	3c0cfffc */ 	lui	$t4,0xfffc
-/*  f0ef5f4:	358cf279 */ 	ori	$t4,$t4,0xf279
-/*  f0ef5f8:	356bffff */ 	ori	$t3,$t3,0xffff
-/*  f0ef5fc:	af2b0000 */ 	sw	$t3,0x0($t9)
-/*  f0ef600:	af2c0004 */ 	sw	$t4,0x4($t9)
-/*  f0ef604:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*  f0ef608:	3c18ff37 */ 	lui	$t8,0xff37
-/*  f0ef60c:	3c0ffc12 */ 	lui	$t7,0xfc12
-/*  f0ef610:	25ae0008 */ 	addiu	$t6,$t5,0x8
-/*  f0ef614:	afae0028 */ 	sw	$t6,0x28($sp)
-/*  f0ef618:	35ef9a25 */ 	ori	$t7,$t7,0x9a25
-/*  f0ef61c:	3718ffff */ 	ori	$t8,$t8,0xffff
-/*  f0ef620:	adb80004 */ 	sw	$t8,0x4($t5)
-/*  f0ef624:	adaf0000 */ 	sw	$t7,0x0($t5)
-/*  f0ef628:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f0ef62c:	3c0bfb00 */ 	lui	$t3,0xfb00
-/*  f0ef630:	2401ff00 */ 	addiu	$at,$zero,-256
-/*  f0ef634:	272a0008 */ 	addiu	$t2,$t9,0x8
-/*  f0ef638:	afaa0028 */ 	sw	$t2,0x28($sp)
-/*  f0ef63c:	af2b0000 */ 	sw	$t3,0x0($t9)
-/*  f0ef640:	8fac0038 */ 	lw	$t4,0x38($sp)
-/*  f0ef644:	3c068008 */ 	lui	$a2,%hi(g_ScreenWidthMultiplier)
-/*  f0ef648:	24c6fac0 */ 	addiu	$a2,$a2,%lo(g_ScreenWidthMultiplier)
-/*  f0ef64c:	01816825 */ 	or	$t5,$t4,$at
-/*  f0ef650:	af2d0004 */ 	sw	$t5,0x4($t9)
-/*  f0ef654:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f0ef658:	24f80020 */ 	addiu	$t8,$a3,0x20
-/*  f0ef65c:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f0ef660:	032a0019 */ 	multu	$t9,$t2
-/*  f0ef664:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*  f0ef668:	3c01e400 */ 	lui	$at,0xe400
-/*  f0ef66c:	25cf0008 */ 	addiu	$t7,$t6,0x8
-/*  f0ef670:	afaf0028 */ 	sw	$t7,0x28($sp)
-/*  f0ef674:	250f0020 */ 	addiu	$t7,$t0,0x20
-/*  f0ef678:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f0ef67c:	01c01825 */ 	or	$v1,$t6,$zero
-/*  f0ef680:	33190fff */ 	andi	$t9,$t8,0xfff
-/*  f0ef684:	00005812 */ 	mflo	$t3
-/*  f0ef688:	316c0fff */ 	andi	$t4,$t3,0xfff
-/*  f0ef68c:	000c6b00 */ 	sll	$t5,$t4,0xc
-/*  f0ef690:	01a17025 */ 	or	$t6,$t5,$at
-/*  f0ef694:	01d95025 */ 	or	$t2,$t6,$t9
-/*  f0ef698:	ac6a0000 */ 	sw	$t2,0x0($v1)
-/*  f0ef69c:	8ccc0000 */ 	lw	$t4,0x0($a2)
-/*  f0ef6a0:	00075880 */ 	sll	$t3,$a3,0x2
-/*  f0ef6a4:	00087080 */ 	sll	$t6,$t0,0x2
-/*  f0ef6a8:	016c0019 */ 	multu	$t3,$t4
-/*  f0ef6ac:	31d90fff */ 	andi	$t9,$t6,0xfff
-/*  f0ef6b0:	00006812 */ 	mflo	$t5
-/*  f0ef6b4:	31af0fff */ 	andi	$t7,$t5,0xfff
-/*  f0ef6b8:	000fc300 */ 	sll	$t8,$t7,0xc
-/*  f0ef6bc:	03195025 */ 	or	$t2,$t8,$t9
-/*  f0ef6c0:	ac6a0004 */ 	sw	$t2,0x4($v1)
-/*  f0ef6c4:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*  f0ef6c8:	3c0f0010 */ 	lui	$t7,0x10
-/*  f0ef6cc:	35ef03f0 */ 	ori	$t7,$t7,0x3f0
-/*  f0ef6d0:	256c0008 */ 	addiu	$t4,$t3,0x8
-/*  f0ef6d4:	afac0028 */ 	sw	$t4,0x28($sp)
-/*  f0ef6d8:	3c0db400 */ 	lui	$t5,0xb400
-/*  f0ef6dc:	ad6d0000 */ 	sw	$t5,0x0($t3)
-/*  f0ef6e0:	ad6f0004 */ 	sw	$t7,0x4($t3)
-/*  f0ef6e4:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*  f0ef6e8:	3c19b300 */ 	lui	$t9,0xb300
-/*  f0ef6ec:	01602025 */ 	or	$a0,$t3,$zero
-/*  f0ef6f0:	25d80008 */ 	addiu	$t8,$t6,0x8
-/*  f0ef6f4:	afb80028 */ 	sw	$t8,0x28($sp)
-/*  f0ef6f8:	add90000 */ 	sw	$t9,0x0($t6)
-/*  f0ef6fc:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f0ef700:	240b0400 */ 	addiu	$t3,$zero,0x400
-/*  f0ef704:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f0ef708:	016a001a */ 	div	$zero,$t3,$t2
-/*  f0ef70c:	00006012 */ 	mflo	$t4
-/*  f0ef710:	318dffff */ 	andi	$t5,$t4,0xffff
-/*  f0ef714:	000d7c00 */ 	sll	$t7,$t5,0x10
-/*  f0ef718:	35eefc00 */ 	ori	$t6,$t7,0xfc00
-/*  f0ef71c:	acae0004 */ 	sw	$t6,0x4($a1)
-/*  f0ef720:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0ef724:	8fa20028 */ 	lw	$v0,0x28($sp)
-/*  f0ef728:	15400002 */ 	bnez	$t2,.L0f0ef734
-/*  f0ef72c:	00000000 */ 	nop
-/*  f0ef730:	0007000d */ 	break	0x7
-.L0f0ef734:
-/*  f0ef734:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0ef738:	15410004 */ 	bne	$t2,$at,.L0f0ef74c
-/*  f0ef73c:	3c018000 */ 	lui	$at,0x8000
-/*  f0ef740:	15610002 */ 	bne	$t3,$at,.L0f0ef74c
-/*  f0ef744:	00000000 */ 	nop
-/*  f0ef748:	0006000d */ 	break	0x6
-.L0f0ef74c:
-/*  f0ef74c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0ef750:	03e00008 */ 	jr	$ra
-/*  f0ef754:	00000000 */ 	nop
-);
+Gfx *menuRenderControllerTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32 alpha)
+{
+	gDPPipeSync(gdl++);
+	gDPSetTexturePersp(gdl++, G_TP_NONE);
+	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+	gDPSetTextureLOD(gdl++, G_TL_TILE);
+	gDPSetTextureConvert(gdl++, G_TC_FILT);
+
+	func0f0b39c0(&gdl, &var800ab5a8[texturenum], 2, 0, 2, 1, 0);
+
+	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+	gDPSetTextureFilter(gdl++, G_TF_POINT);
+	gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
+
+	gDPSetCombineLERP(gdl++,
+			TEXEL0, 0, ENVIRONMENT, 0,
+			TEXEL0, 0, ENVIRONMENT, 0,
+			TEXEL0, 0, ENVIRONMENT, 0,
+			TEXEL0, 0, ENVIRONMENT, 0);
+
+	gDPSetColor(gdl++, G_SETENVCOLOR, 0xffffff00 | alpha);
+
+	gSPTextureRectangle(gdl++,
+			(x << 2) * g_ScreenWidthMultiplier, y << 2,
+			((x + 32) << 2) * g_ScreenWidthMultiplier, (y + 32) << 2,
+			0, 16, 1008, 1024 / g_ScreenWidthMultiplier, 0xfc00);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel menuRenderControllerLines
