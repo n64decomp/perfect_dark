@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include <libultra_internal.h>
 #include "constants.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
@@ -12,52 +13,37 @@
 #include "lib/lib_4a810.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel osContStartReadData
-/*    4f400:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    4f404:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    4f408:	0c012a18 */ 	jal	__osSiGetAccess
-/*    4f40c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    4f410:	3c0e800a */ 	lui	$t6,%hi(var8009c820)
-/*    4f414:	91cec820 */ 	lbu	$t6,%lo(var8009c820)($t6)
-/*    4f418:	24010001 */ 	addiu	$at,$zero,0x1
-/*    4f41c:	11c1000b */ 	beq	$t6,$at,.L0004f44c
-/*    4f420:	00000000 */ 	nop
-/*    4f424:	0c013d44 */ 	jal	__osPackReadData
-/*    4f428:	00000000 */ 	nop
-/*    4f42c:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
-/*    4f430:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
-/*    4f434:	0c012a34 */ 	jal	__osSiRawStartDma
-/*    4f438:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    4f43c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    4f440:	00002825 */ 	or	$a1,$zero,$zero
-/*    4f444:	0c0121bc */ 	jal	osRecvMesg
-/*    4f448:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0004f44c:
-/*    4f44c:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
-/*    4f450:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
-/*    4f454:	0c012a34 */ 	jal	__osSiRawStartDma
-/*    4f458:	00002025 */ 	or	$a0,$zero,$zero
-/*    4f45c:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    4f460:	3c01800a */ 	lui	$at,%hi(var8009c820)
-/*    4f464:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    4f468:	0c012a29 */ 	jal	__osSiRelAccess
-/*    4f46c:	a02fc820 */ 	sb	$t7,%lo(var8009c820)($at)
-/*    4f470:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    4f474:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*    4f478:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    4f47c:	03e00008 */ 	jr	$ra
-/*    4f480:	00000000 */ 	nop
-);
+void __osPackReadData(void);
+
+s32 osContStartReadData(OSMesgQueue *mq)
+{
+	s32 ret = 0;
+	s32 i;
+
+	__osSiGetAccess();
+
+	if (__osContLastCmd != 1) {
+		__osPackReadData();
+		ret = __osSiRawStartDma(OS_WRITE, &__osContPifRam);
+		osRecvMesg(mq, NULL, OS_MESG_BLOCK);
+	}
+
+	ret = __osSiRawStartDma(OS_READ, &__osContPifRam);
+
+	__osContLastCmd = 1;
+	__osSiRelAccess();
+
+	return ret;
+}
 
 GLOBAL_ASM(
 glabel osContGetReadData
-/*    4f484:	3c05800a */ 	lui	$a1,%hi(var8009c820+0x1)
-/*    4f488:	24a5c821 */ 	addiu	$a1,$a1,%lo(var8009c820+0x1)
+/*    4f484:	3c05800a */ 	lui	$a1,%hi(__osContLastCmd+0x1)
+/*    4f488:	24a5c821 */ 	addiu	$a1,$a1,%lo(__osContLastCmd+0x1)
 /*    4f48c:	90ae0000 */ 	lbu	$t6,0x0($a1)
-/*    4f490:	3c02800a */ 	lui	$v0,%hi(var8009c7e0)
+/*    4f490:	3c02800a */ 	lui	$v0,%hi(__osContPifRam)
 /*    4f494:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*    4f498:	2442c7e0 */ 	addiu	$v0,$v0,%lo(var8009c7e0)
+/*    4f498:	2442c7e0 */ 	addiu	$v0,$v0,%lo(__osContPifRam)
 /*    4f49c:	19c0001a */ 	blez	$t6,.L0004f508
 /*    4f4a0:	00001825 */ 	or	$v1,$zero,$zero
 /*    4f4a4:	27a60004 */ 	addiu	$a2,$sp,0x4
@@ -94,21 +80,21 @@ glabel osContGetReadData
 
 GLOBAL_ASM(
 glabel __osPackReadData
-/*    4f510:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
-/*    4f514:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
-/*    4f518:	3c04800a */ 	lui	$a0,%hi(var8009c7e0)
+/*    4f510:	3c05800a */ 	lui	$a1,%hi(__osContPifRam)
+/*    4f514:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(__osContPifRam)
+/*    4f518:	3c04800a */ 	lui	$a0,%hi(__osContPifRam)
 /*    4f51c:	3c03800a */ 	lui	$v1,%hi(var8009c81c)
 /*    4f520:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    4f524:	00a01025 */ 	or	$v0,$a1,$zero
 /*    4f528:	2463c81c */ 	addiu	$v1,$v1,%lo(var8009c81c)
-/*    4f52c:	2484c7e0 */ 	addiu	$a0,$a0,%lo(var8009c7e0)
+/*    4f52c:	2484c7e0 */ 	addiu	$a0,$a0,%lo(__osContPifRam)
 .L0004f530:
 /*    4f530:	24840004 */ 	addiu	$a0,$a0,0x4
 /*    4f534:	0083082b */ 	sltu	$at,$a0,$v1
 /*    4f538:	1420fffd */ 	bnez	$at,.L0004f530
 /*    4f53c:	ac80fffc */ 	sw	$zero,-0x4($a0)
-/*    4f540:	3c04800a */ 	lui	$a0,%hi(var8009c820+0x1)
-/*    4f544:	2484c821 */ 	addiu	$a0,$a0,%lo(var8009c820+0x1)
+/*    4f540:	3c04800a */ 	lui	$a0,%hi(__osContLastCmd+0x1)
+/*    4f544:	2484c821 */ 	addiu	$a0,$a0,%lo(__osContLastCmd+0x1)
 /*    4f548:	908c0000 */ 	lbu	$t4,0x0($a0)
 /*    4f54c:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*    4f550:	240f00ff */ 	addiu	$t7,$zero,0xff

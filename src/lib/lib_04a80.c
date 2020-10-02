@@ -1010,10 +1010,10 @@ glabel func00005770
 /*     57a4:	0000a825 */ 	or	$s5,$zero,$zero
 /*     57a8:	0c012a18 */ 	jal	__osSiGetAccess
 /*     57ac:	24110001 */ 	addiu	$s1,$zero,0x1
-/*     57b0:	3c1e800a */ 	lui	$s8,%hi(var8009c820+0x1)
+/*     57b0:	3c1e800a */ 	lui	$s8,%hi(__osContLastCmd+0x1)
 /*     57b4:	3c138009 */ 	lui	$s3,%hi(var80090a20)
 /*     57b8:	26730a20 */ 	addiu	$s3,$s3,%lo(var80090a20)
-/*     57bc:	27dec821 */ 	addiu	$s8,$s8,%lo(var8009c820+0x1)
+/*     57bc:	27dec821 */ 	addiu	$s8,$s8,%lo(__osContLastCmd+0x1)
 /*     57c0:	00008025 */ 	or	$s0,$zero,$zero
 /*     57c4:	27b70054 */ 	addiu	$s7,$sp,0x54
 /*     57c8:	27b60067 */ 	addiu	$s6,$sp,0x67
@@ -1108,14 +1108,14 @@ GLOBAL_ASM(
 glabel func000058fc
 /*     58fc:	27bdfff0 */ 	addiu	$sp,$sp,-16
 /*     5900:	3c058009 */ 	lui	$a1,%hi(var80090a20)
-/*     5904:	3c01800a */ 	lui	$at,%hi(var8009c820)
+/*     5904:	3c01800a */ 	lui	$at,%hi(__osContLastCmd)
 /*     5908:	24a20a20 */ 	addiu	$v0,$a1,%lo(var80090a20)
 /*     590c:	afa40010 */ 	sw	$a0,0x10($sp)
-/*     5910:	a024c820 */ 	sb	$a0,%lo(var8009c820)($at)
+/*     5910:	a024c820 */ 	sb	$a0,%lo(__osContLastCmd)($at)
 /*     5914:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*     5918:	ac4f003c */ 	sw	$t7,0x3c($v0)
-/*     591c:	3c06800a */ 	lui	$a2,%hi(var8009c820+0x1)
-/*     5920:	24c6c821 */ 	addiu	$a2,$a2,%lo(var8009c820+0x1)
+/*     591c:	3c06800a */ 	lui	$a2,%hi(__osContLastCmd+0x1)
+/*     5920:	24c6c821 */ 	addiu	$a2,$a2,%lo(__osContLastCmd+0x1)
 /*     5924:	90cd0000 */ 	lbu	$t5,0x0($a2)
 /*     5928:	241800ff */ 	addiu	$t8,$zero,0xff
 /*     592c:	24190001 */ 	addiu	$t9,$zero,0x1
@@ -1157,8 +1157,8 @@ glabel func000058fc
 
 GLOBAL_ASM(
 glabel func000059b0
-/*     59b0:	3c07800a */ 	lui	$a3,%hi(var8009c820+0x1)
-/*     59b4:	24e7c821 */ 	addiu	$a3,$a3,%lo(var8009c820+0x1)
+/*     59b0:	3c07800a */ 	lui	$a3,%hi(__osContLastCmd+0x1)
+/*     59b4:	24e7c821 */ 	addiu	$a3,$a3,%lo(__osContLastCmd+0x1)
 /*     59b8:	90ee0000 */ 	lbu	$t6,0x0($a3)
 /*     59bc:	3c038009 */ 	lui	$v1,%hi(var80090a20)
 /*     59c0:	27bdffe8 */ 	addiu	$sp,$sp,-24

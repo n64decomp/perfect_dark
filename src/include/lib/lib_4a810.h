@@ -3,9 +3,4 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 __osSiCreateAccessQueue(void);
-u32 __osSiGetAccess(void);
-u32 __osSiRelAccess(void);
-u32 __osSiRawStartDma(void);
-
 #endif
