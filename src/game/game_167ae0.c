@@ -523,8 +523,8 @@ Gfx *fadeRender(Gfx *gdl)
 	}
 
 	gDPPipeSync(gdl++);
-	gDPSetRenderMode(gdl++, 0x500000, 0x4340);
-	gDPSetCombine(gdl++, 0xffffff, 0xfffdf6fb);
+	gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
+    gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
 	gDPSetPrimColor(gdl++, 0, 0, colour);
 
 	gDPFillRectangle(gdl++,

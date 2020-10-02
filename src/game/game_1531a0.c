@@ -294,9 +294,9 @@ glabel func0f153628
 Gfx *func0f153780(Gfx *gdl)
 {
 	gDPPipeSync(gdl++);
-	gDPSetColorDither(gdl++, 0x00000040);
-	gDPSetTexturePersp(gdl++, 0x00080000);
-	gDPSetTextureLOD(gdl++, 0x00010000);
+	gDPSetColorDither(gdl++, G_CD_BAYER);
+	gDPSetTexturePersp(gdl++, G_TP_PERSP);
+	gDPSetTextureLOD(gdl++, G_TL_LOD);
 
 	return gdl;
 }
@@ -304,8 +304,9 @@ Gfx *func0f153780(Gfx *gdl)
 Gfx *func0f1537dc(Gfx *gdl, u32 colour)
 {
 	gDPPipeSync(gdl++);
-	gDPSetRenderMode(gdl++, 0x00500000, 0x4240);
-	gDPSetCombine(gdl++, 0xffffff, 0xfffdf6fb);
+    gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+    gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
+
 	gDPSetPrimColor(gdl++, 0, 0, colour);
 
 	return gdl;
@@ -313,7 +314,7 @@ Gfx *func0f1537dc(Gfx *gdl, u32 colour)
 
 Gfx *func0f153838(Gfx *gdl)
 {
-	gDPSetCombine(gdl++, 0xff97ff, 0xff2dfeff);
+	gDPSetCombineLERP(gdl++, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0);
 
 	return gdl;
 }
