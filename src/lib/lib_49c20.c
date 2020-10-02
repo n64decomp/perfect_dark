@@ -473,8 +473,8 @@ glabel __osDestroyThread
 /*    4a270:	00408025 */ 	or	$s0,$v0,$zero
 /*    4a274:	15c00005 */ 	bnez	$t6,.L0004a28c
 /*    4a278:	00000000 */ 	nop
-/*    4a27c:	3c0f8006 */ 	lui	$t7,%hi(var80060940)
-/*    4a280:	8def0940 */ 	lw	$t7,%lo(var80060940)($t7)
+/*    4a27c:	3c0f8006 */ 	lui	$t7,%hi(__osRunningThread)
+/*    4a280:	8def0940 */ 	lw	$t7,%lo(__osRunningThread)($t7)
 /*    4a284:	10000009 */ 	b	.L0004a2ac
 /*    4a288:	afaf0038 */ 	sw	$t7,0x38($sp)
 .L0004a28c:
@@ -518,8 +518,8 @@ glabel __osDestroyThread
 /*    4a310:	15c1fff5 */ 	bne	$t6,$at,.L0004a2e8
 /*    4a314:	00000000 */ 	nop
 .L0004a318:
-/*    4a318:	3c198006 */ 	lui	$t9,%hi(var80060940)
-/*    4a31c:	8f390940 */ 	lw	$t9,%lo(var80060940)($t9)
+/*    4a318:	3c198006 */ 	lui	$t9,%hi(__osRunningThread)
+/*    4a31c:	8f390940 */ 	lw	$t9,%lo(__osRunningThread)($t9)
 /*    4a320:	8faf0038 */ 	lw	$t7,0x38($sp)
 /*    4a324:	15f90003 */ 	bne	$t7,$t9,.L0004a334
 /*    4a328:	00000000 */ 	nop

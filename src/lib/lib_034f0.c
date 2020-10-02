@@ -62,8 +62,8 @@ glabel __osException
 /*     352c:	af400018 */ 	sw	$zero,0x18($k0)
 /*     3530:	40086800 */ 	mfc0	$t0,$13
 /*     3534:	03404025 */ 	or	$t0,$k0,$zero
-/*     3538:	3c1a8006 */ 	lui	$k0,%hi(var80060940)
-/*     353c:	8f5a0940 */ 	lw	$k0,%lo(var80060940)($k0)
+/*     3538:	3c1a8006 */ 	lui	$k0,%hi(__osRunningThread)
+/*     353c:	8f5a0940 */ 	lw	$k0,%lo(__osRunningThread)($k0)
 /*     3540:	dd090020 */ 	ld	$t1,0x20($t0)
 /*     3544:	ff490020 */ 	sd	$t1,0x20($k0)
 /*     3548:	dd090118 */ 	ld	$t1,0x118($t0)
@@ -505,8 +505,8 @@ glabel func00003ab8
 
 GLOBAL_ASM(
 glabel __osEnqueueAndYield
-/*     3ba0:	3c058006 */ 	lui	$a1,%hi(var80060940)
-/*     3ba4:	8ca50940 */ 	lw	$a1,%lo(var80060940)($a1)
+/*     3ba0:	3c058006 */ 	lui	$a1,%hi(__osRunningThread)
+/*     3ba4:	8ca50940 */ 	lw	$a1,%lo(__osRunningThread)($a1)
 /*     3ba8:	40086000 */ 	mfc0	$t0,$12
 /*     3bac:	8cbb0018 */ 	lw	$k1,0x18($a1)
 /*     3bb0:	35080002 */ 	ori	$t0,$t0,0x2
@@ -618,8 +618,8 @@ glabel __osDispatchThread
 /*     3d10:	3c048006 */ 	lui	$a0,%hi(var80060938)
 /*     3d14:	0c000f40 */ 	jal	__osPopThread
 /*     3d18:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
-/*     3d1c:	3c018006 */ 	lui	$at,%hi(var80060940)
-/*     3d20:	ac220940 */ 	sw	$v0,%lo(var80060940)($at)
+/*     3d1c:	3c018006 */ 	lui	$at,%hi(__osRunningThread)
+/*     3d20:	ac220940 */ 	sw	$v0,%lo(__osRunningThread)($at)
 /*     3d24:	24080004 */ 	addiu	$t0,$zero,0x4
 /*     3d28:	a4480010 */ 	sh	$t0,0x10($v0)
 /*     3d2c:	0040d025 */ 	or	$k0,$v0,$zero

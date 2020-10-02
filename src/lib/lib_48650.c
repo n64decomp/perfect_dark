@@ -82,8 +82,8 @@ glabel osRecvMesg
 /*    48738:	10000036 */ 	b	.L00048814
 /*    4873c:	2402ffff */ 	addiu	$v0,$zero,-1
 .L00048740:
-/*    48740:	3c088006 */ 	lui	$t0,%hi(var80060940)
-/*    48744:	8d080940 */ 	lw	$t0,%lo(var80060940)($t0)
+/*    48740:	3c088006 */ 	lui	$t0,%hi(__osRunningThread)
+/*    48744:	8d080940 */ 	lw	$t0,%lo(__osRunningThread)($t0)
 /*    48748:	24190008 */ 	addiu	$t9,$zero,0x8
 /*    4874c:	a5190010 */ 	sh	$t9,0x10($t0)
 /*    48750:	0c000ee8 */ 	jal	__osEnqueueAndYield

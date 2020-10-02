@@ -53,8 +53,8 @@ glabel func00051ef0
 /*    51f30:	24010001 */ 	addiu	$at,$zero,0x1
 /*    51f34:	1721000a */ 	bne	$t9,$at,.L00051f60
 /*    51f38:	00000000 */ 	nop
-/*    51f3c:	3c098006 */ 	lui	$t1,%hi(var80060940)
-/*    51f40:	8d290940 */ 	lw	$t1,%lo(var80060940)($t1)
+/*    51f3c:	3c098006 */ 	lui	$t1,%hi(__osRunningThread)
+/*    51f40:	8d290940 */ 	lw	$t1,%lo(__osRunningThread)($t1)
 /*    51f44:	24080008 */ 	addiu	$t0,$zero,0x8
 /*    51f48:	a5280010 */ 	sh	$t0,0x10($t1)
 /*    51f4c:	8fa40028 */ 	lw	$a0,0x28($sp)

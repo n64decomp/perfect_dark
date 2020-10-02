@@ -59,15 +59,13 @@ glabel func000488b0
 /*    488bc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel osGetThreadPri
-/*    488c0:	14800003 */ 	bnez	$a0,.L000488d0
-/*    488c4:	00000000 */ 	nop
-/*    488c8:	3c048006 */ 	lui	$a0,%hi(var80060940)
-/*    488cc:	8c840940 */ 	lw	$a0,%lo(var80060940)($a0)
-.L000488d0:
-/*    488d0:	03e00008 */ 	jr	$ra
-/*    488d4:	8c820004 */ 	lw	$v0,0x4($a0)
-/*    488d8:	00000000 */ 	nop
-/*    488dc:	00000000 */ 	nop
-);
+extern OSThread *__osRunningThread;
+
+OSPri osGetThreadPri(OSThread *thread)
+{
+	if (thread == NULL) {
+		thread = __osRunningThread;
+	}
+
+	return thread->priority;
+}

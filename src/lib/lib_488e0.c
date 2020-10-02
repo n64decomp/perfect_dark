@@ -37,8 +37,8 @@ glabel osSendMesg
 /*    48924:	24010001 */ 	addiu	$at,$zero,0x1
 /*    48928:	1721000a */ 	bne	$t9,$at,.L00048954
 /*    4892c:	00000000 */ 	nop
-/*    48930:	3c098006 */ 	lui	$t1,%hi(var80060940)
-/*    48934:	8d290940 */ 	lw	$t1,%lo(var80060940)($t1)
+/*    48930:	3c098006 */ 	lui	$t1,%hi(__osRunningThread)
+/*    48934:	8d290940 */ 	lw	$t1,%lo(__osRunningThread)($t1)
 /*    48938:	24080008 */ 	addiu	$t0,$zero,0x8
 /*    4893c:	a5280010 */ 	sh	$t0,0x10($t1)
 /*    48940:	8fa40038 */ 	lw	$a0,0x38($sp)
