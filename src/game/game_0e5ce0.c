@@ -2603,33 +2603,26 @@ glabel func0f0e8290
 /*  f0e8558:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
 
-GLOBAL_ASM(
-glabel func0f0e855c
-/*  f0e855c:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f0e8560:	14400003 */ 	bnez	$v0,.L0f0e8570
-/*  f0e8564:	00000000 */ 	nop
-/*  f0e8568:	03e00008 */ 	jr	$ra
-/*  f0e856c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0e8570:
-/*  f0e8570:	1040000b */ 	beqz	$v0,.L0f0e85a0
-/*  f0e8574:	00801025 */ 	or	$v0,$a0,$zero
-/*  f0e8578:	90830000 */ 	lbu	$v1,0x0($a0)
-/*  f0e857c:	24040020 */ 	addiu	$a0,$zero,0x20
-.L0f0e8580:
-/*  f0e8580:	50830004 */ 	beql	$a0,$v1,.L0f0e8594
-/*  f0e8584:	90430001 */ 	lbu	$v1,0x1($v0)
-/*  f0e8588:	03e00008 */ 	jr	$ra
-/*  f0e858c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0e8590:	90430001 */ 	lbu	$v1,0x1($v0)
-.L0f0e8594:
-/*  f0e8594:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0e8598:	1460fff9 */ 	bnez	$v1,.L0f0e8580
-/*  f0e859c:	00000000 */ 	nop
-.L0f0e85a0:
-/*  f0e85a0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0e85a4:	03e00008 */ 	jr	$ra
-/*  f0e85a8:	00000000 */ 	nop
-);
+bool menuIsStringEmptyOrSpaces(char *text)
+{
+	s32 i;
+
+	if (text[0] == '\0') {
+		return true;
+	}
+
+	i = 0;
+
+	while (text[i] != '\0') {
+		if (text[i] != ' ') {
+			return false;
+		}
+
+		i++;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel menuRenderItemKeyboard
@@ -3187,7 +3180,7 @@ glabel menuRenderItemKeyboard
 /*  f0e8dc8:	030ec821 */ 	addu	$t9,$t8,$t6
 /*  f0e8dcc:	162b0035 */ 	bne	$s1,$t3,.L0f0e8ea4
 /*  f0e8dd0:	afb900ec */ 	sw	$t9,0xec($sp)
-/*  f0e8dd4:	0fc3a157 */ 	jal	func0f0e855c
+/*  f0e8dd4:	0fc3a157 */ 	jal	menuIsStringEmptyOrSpaces
 /*  f0e8dd8:	8fa400e4 */ 	lw	$a0,0xe4($sp)
 /*  f0e8ddc:	10400031 */ 	beqz	$v0,.L0f0e8ea4
 /*  f0e8de0:	00000000 */ 	nop
@@ -3266,7 +3259,7 @@ glabel menuRenderItemKeyboard
 /*  f0e8ef4:	27af00ae */ 	addiu	$t7,$sp,0xae
 /*  f0e8ef8:	162f004a */ 	bne	$s1,$t7,.L0f0e9024
 /*  f0e8efc:	afa200f8 */ 	sw	$v0,0xf8($sp)
-/*  f0e8f00:	0fc3a157 */ 	jal	func0f0e855c
+/*  f0e8f00:	0fc3a157 */ 	jal	menuIsStringEmptyOrSpaces
 /*  f0e8f04:	8fa400e4 */ 	lw	$a0,0xe4($sp)
 /*  f0e8f08:	50400047 */ 	beqzl	$v0,.L0f0e9028
 /*  f0e8f0c:	8fab0088 */ 	lw	$t3,0x88($sp)
@@ -3541,7 +3534,7 @@ bool menuTickItemKeyboard(struct menuitem *item, struct menuinputs *inputs, u32 
 		}
 
 		if (inputs->start) {
-			if (item->handler && func0f0e855c(kb->string) == 0) {
+			if (item->handler && !menuIsStringEmptyOrSpaces(kb->string)) {
 				menuPlaySound(MENUSOUND_SELECT);
 
 				handlerdata.keyboard.string = kb->string;
@@ -3569,7 +3562,7 @@ bool menuTickItemKeyboard(struct menuitem *item, struct menuinputs *inputs, u32 
 
 				// OK
 				if (kb->col == 8) {
-					if (item->handler && func0f0e855c(kb->string) == 0) {
+					if (item->handler && !menuIsStringEmptyOrSpaces(kb->string)) {
 						handlerdata.keyboard.string = kb->string;
 						item->handler(MENUOP_SETTEXT, item, &handlerdata);
 					}
@@ -3579,7 +3572,7 @@ bool menuTickItemKeyboard(struct menuitem *item, struct menuinputs *inputs, u32 
 				if (kb->col == 8 || kb->col == 5) {
 					s32 ok = (kb->col == 8);
 
-					if (kb->col == 5 || func0f0e855c(kb->string) == 0) {
+					if (kb->col == 5 || !menuIsStringEmptyOrSpaces(kb->string)) {
 						menuPopDialog();
 
 						if (ok) {
