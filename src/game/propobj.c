@@ -44515,6 +44515,8 @@ void func0f08e224(struct doorobj *door)
 	}
 }
 
+extern u32 osCicId;
+
 void func0f08e2ac(struct doorobj *door)
 {
 	bool pass = true;

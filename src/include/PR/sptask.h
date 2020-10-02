@@ -8,7 +8,6 @@
 #define M_HVQTASK 6
 #define M_HVQMTASK 7
 
-//gGfxSPTaskYieldBuffer has to be changed for this too
 #if (defined(F3DEX_GBI) || defined(F3DLP_GBI) || defined(F3DEX_GBI_2))
 #define OS_YIELD_DATA_SIZE 0xc00
 #else

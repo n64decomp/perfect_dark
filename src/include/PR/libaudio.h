@@ -1,6 +1,7 @@
 #ifndef _ULTRA64_LIBAUDIO_H_
 #define _ULTRA64_LIBAUDIO_H_
 
+#include "abi.h"
 
 typedef struct
 {

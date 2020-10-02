@@ -11,13 +11,13 @@ extern u64 rspF3DBootStart[], rspF3DBootEnd[];
 // F3D ucode
 extern u64 rspF3DStart[], rspF3DEnd[];
 
-// F3D data ucode
+// F3D ucode data
 extern u64 rspF3DDataStart[], rspF3DDataEnd[];
 
-// F3D audio ucode
-extern u64 rspF3DAudioStart[], rspF3DAudioEnd[];
+// aspMain (audio) ucode
+extern u64 rspAspMainStart[], rspAspMainEnd[];
 
-// F3D audio data ucode
-extern u64 rspF3DAudioDataStart[], rspF3DAudioDataEnd[];
+// aspMain ucode data
+extern u64 rspAspMainDataStart[], rspAspMainDataEnd[];
 
 #endif

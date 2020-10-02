@@ -3,27 +3,27 @@
 
 #include <math.h>
 
-#include <ultra64/types.h>
-#include <ultra64/interrupt.h>
-#include <ultra64/os_misc.h>
-#include <ultra64/rdp.h>
-#include <ultra64/thread.h>
-#include <ultra64/time.h>
-#include <ultra64/message.h>
-#include <ultra64/os_cont.h>
-#include <ultra64/tlb.h>
-#include <ultra64/sptask.h>
-#include <ultra64/ucode.h>
-#include <ultra64/cache.h>
-#include <ultra64/vi.h>
-#include <ultra64/pi.h>
-#include <ultra64/os_internal.h>
-#include <ultra64/gbi.h>
-#include <ultra64/eeprom.h>
-#include <ultra64/libc.h>
-#include <ultra64/gu.h>
-#include <ultra64/os_ai.h>
-#include <ultra64/libaudio.h>
-#include <ultra64/libultra.h>
+#include <PR/ultratypes.h>
+#include <PR/os_exception.h>
+#include <PR/os_misc.h>
+#include <PR/os_rdp.h>
+#include <PR/os_thread.h>
+#include <PR/os_time.h>
+#include <PR/os_message.h>
+#include <PR/os_cont.h>
+#include <PR/os_tlb.h>
+#include <PR/sptask.h>
+#include <PR/ucode.h>
+#include <PR/os_cache.h>
+#include <PR/os_vi.h>
+#include <PR/os_pi.h>
+#include <PR/os_internal.h>
+#include <PR/mbi.h>
+#include <PR/os_eeprom.h>
+#include <PR/os_libc.h>
+#include <PR/gu.h>
+#include <PR/os_ai.h>
+#include <PR/libaudio.h>
+#include <PR/libultra.h>
 
 #endif
