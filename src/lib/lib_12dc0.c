@@ -172,7 +172,7 @@ glabel func00012f30
 /*    12f70:	26109880 */ 	addiu	$s0,$s0,%lo(var80099880)
 .L00012f74:
 /*    12f74:	02202025 */ 	or	$a0,$s1,$zero
-/*    12f78:	0c013994 */ 	jal	func0004e650
+/*    12f78:	0c013994 */ 	jal	osPiReadIo
 /*    12f7c:	02002825 */ 	or	$a1,$s0,$zero
 /*    12f80:	26100004 */ 	addiu	$s0,$s0,0x4
 /*    12f84:	1612fffb */ 	bne	$s0,$s2,.L00012f74

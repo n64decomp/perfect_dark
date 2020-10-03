@@ -1178,7 +1178,7 @@ glabel func00002078
 /*     20b4:	15210015 */ 	bne	$t1,$at,.L0000210c
 .L000020b8:
 /*     20b8:	3c048009 */ 	lui	$a0,%hi(var8008de18)
-/*     20bc:	0c01228c */ 	jal	func00048a30
+/*     20bc:	0c01228c */ 	jal	osStopTimer
 /*     20c0:	2484de18 */ 	addiu	$a0,$a0,%lo(var8008de18)
 /*     20c4:	0c002446 */ 	jal	func00009118
 /*     20c8:	00000000 */ 	nop

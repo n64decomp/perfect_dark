@@ -14,7 +14,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004f350
+glabel osContStartQuery
 /*    4f350:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    4f354:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4f358:	afa40020 */ 	sw	$a0,0x20($sp)
@@ -52,12 +52,12 @@ glabel func0004f350
 );
 
 GLOBAL_ASM(
-glabel func0004f3d4
+glabel osContGetQuery
 /*    4f3d4:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    4f3d8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4f3dc:	afa40020 */ 	sw	$a0,0x20($sp)
 /*    4f3e0:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*    4f3e4:	0c012abc */ 	jal	func0004aaf0
+/*    4f3e4:	0c012abc */ 	jal	__osContGetInitData
 /*    4f3e8:	27a4001f */ 	addiu	$a0,$sp,0x1f
 /*    4f3ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4f3f0:	27bd0020 */ 	addiu	$sp,$sp,0x20

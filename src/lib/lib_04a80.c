@@ -1019,7 +1019,7 @@ glabel func00005770
 /*     57c8:	27b60067 */ 	addiu	$s6,$sp,0x67
 /*     57cc:	27b40068 */ 	addiu	$s4,$sp,0x68
 .L000057d0:
-/*     57d0:	0c00163f */ 	jal	func000058fc
+/*     57d0:	0c00163f */ 	jal	__osPfsRequestData
 /*     57d4:	00002025 */ 	or	$a0,$zero,$zero
 /*     57d8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*     57dc:	0c012a34 */ 	jal	__osSiRawStartDma
@@ -1105,7 +1105,7 @@ glabel func00005770
 );
 
 GLOBAL_ASM(
-glabel func000058fc
+glabel __osPfsRequestData
 /*     58fc:	27bdfff0 */ 	addiu	$sp,$sp,-16
 /*     5900:	3c058009 */ 	lui	$a1,%hi(var80090a20)
 /*     5904:	3c01800a */ 	lui	$at,%hi(__osContLastCmd)

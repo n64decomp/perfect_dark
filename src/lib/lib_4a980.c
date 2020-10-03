@@ -17,7 +17,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004a980
+glabel osContInit
 /*    4a980:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*    4a984:	3c0e8006 */ 	lui	$t6,%hi(var80060960)
 /*    4a988:	8dce0960 */ 	lw	$t6,%lo(var80060960)($t6)
@@ -96,7 +96,7 @@ glabel func0004a980
 /*    4aaa4:	0c0121bc */ 	jal	osRecvMesg
 /*    4aaa8:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    4aaac:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    4aab0:	0c012abc */ 	jal	func0004aaf0
+/*    4aab0:	0c012abc */ 	jal	__osContGetInitData
 /*    4aab4:	8fa50078 */ 	lw	$a1,0x78($sp)
 /*    4aab8:	3c01800a */ 	lui	$at,%hi(__osContLastCmd)
 /*    4aabc:	0c012a04 */ 	jal	__osSiCreateAccessQueue
@@ -116,7 +116,7 @@ glabel func0004a980
 );
 
 GLOBAL_ASM(
-glabel func0004aaf0
+glabel __osContGetInitData
 /*    4aaf0:	3c0f800a */ 	lui	$t7,%hi(__osContLastCmd+0x1)
 /*    4aaf4:	91efc821 */ 	lbu	$t7,%lo(__osContLastCmd+0x1)($t7)
 /*    4aaf8:	27bdffe8 */ 	addiu	$sp,$sp,-24

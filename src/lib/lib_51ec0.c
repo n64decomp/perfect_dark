@@ -32,7 +32,7 @@ glabel func00051ec0
 );
 
 GLOBAL_ASM(
-glabel func00051ef0
+glabel osJamMesg
 /*    51ef0:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    51ef4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    51ef8:	afa40028 */ 	sw	$a0,0x28($sp)
@@ -128,7 +128,7 @@ glabel func00051ef0
 );
 
 GLOBAL_ASM(
-glabel func00052040
+glabel osPiGetCmdQueue
 /*    52040:	3c0e8006 */ 	lui	$t6,%hi(var8005cf00)
 /*    52044:	8dcecf00 */ 	lw	$t6,%lo(var8005cf00)($t6)
 /*    52048:	15c00003 */ 	bnez	$t6,.L00052058

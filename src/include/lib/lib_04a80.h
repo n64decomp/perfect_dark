@@ -9,7 +9,7 @@ u32 func00004c50(void);
 u32 func000050ec(void);
 u32 func000051a4(void);
 u32 func00005770(void);
-u32 func000058fc(void);
+u32 __osPfsRequestData(void);
 u32 func000059b0(void);
 u32 func00005a60(void);
 u32 func00005a7c(void);

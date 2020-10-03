@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 __osPiCreateAccessQueue(void);
-u32 func00049ae0(void);
-u32 func00049b24(void);
+u32 __osPiGetAccess(void);
+u32 __osPiRelAccess(void);
 
 #endif

@@ -4,6 +4,6 @@
 #include "types.h"
 
 s32 osSendMesg(OSMesgQueue *mq, OSMesg msg, s32 flag);
-u32 func00048a30(void);
+u32 osStopTimer(void);
 
 #endif

@@ -14,7 +14,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00052070
+glabel osPiRawReadIo
 /*    52070:	3c03a460 */ 	lui	$v1,0xa460
 /*    52074:	34630010 */ 	ori	$v1,$v1,0x10
 /*    52078:	8c620000 */ 	lw	$v0,0x0($v1)

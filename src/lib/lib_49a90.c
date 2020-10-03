@@ -40,7 +40,7 @@ glabel __osPiCreateAccessQueue
 );
 
 GLOBAL_ASM(
-glabel func00049ae0
+glabel __osPiGetAccess
 /*    49ae0:	3c0e8006 */ 	lui	$t6,%hi(var80060920)
 /*    49ae4:	8dce0920 */ 	lw	$t6,%lo(var80060920)($t6)
 /*    49ae8:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -62,7 +62,7 @@ glabel func00049ae0
 );
 
 GLOBAL_ASM(
-glabel func00049b24
+glabel __osPiRelAccess
 /*    49b24:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    49b28:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    49b2c:	3c04800a */ 	lui	$a0,%hi(var8009c7a8)

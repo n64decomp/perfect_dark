@@ -3967,7 +3967,7 @@ glabel getEffectiveSlowMotion
 /*  f16b874:	3484d42a */ 	ori	$a0,$a0,0xd42a
 /*  f16b878:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f16b87c:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f16b880:	0c013994 */ 	jal	func0004e650
+/*  f16b880:	0c013994 */ 	jal	osPiReadIo
 /*  f16b884:	27a50028 */ 	addiu	$a1,$sp,0x28
 /*  f16b888:	8fae0028 */ 	lw	$t6,0x28($sp)
 /*  f16b88c:	8faf0024 */ 	lw	$t7,0x24($sp)
@@ -4039,10 +4039,10 @@ glabel getEffectiveSlowMotion
 //u32 getEffectiveSlowMotion(void)
 //{
 //#if PIRACYCHECKS
-//	u32 salt = sub54321(0xb000de8d);
+//	u32 addr = sub54321(0xb000de8d);
 //	u32 actual;
 //	u32 expected = sub54321(0x1741d42a);
-//	func0004e650(salt, &actual);
+//	osPiReadIo(addr, &actual);
 //
 //	if (actual != expected) {
 //		extern u32 _rspMicrocodeStart;

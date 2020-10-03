@@ -53,7 +53,7 @@ void func0f095350(u32 arg0, u32 *arg1)
 	volatile u32 *ptr;
 	u32 value;
 
-	func00049ae0();
+	__osPiGetAccess();
 
 	ptr = (u32 *)(xorBoobless(0x04600010 ^ 0xb00b1e55) | 0xa0000000);
 
@@ -65,7 +65,7 @@ void func0f095350(u32 arg0, u32 *arg1)
 
 	*arg1 = *(u32 *)(osRomBase | arg0 | 0xa0000000);
 
-	func00049b24();
+	__osPiRelAccess();
 }
 
 void tagsAllocatePtrs(void)

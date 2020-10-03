@@ -20,7 +20,7 @@ glabel func00051890
 );
 
 GLOBAL_ASM(
-glabel func000518a0
+glabel __osResetGlobalIntMask
 /*    518a0:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    518a4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    518a8:	afa40028 */ 	sw	$a0,0x28($sp)

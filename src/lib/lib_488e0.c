@@ -111,7 +111,7 @@ glabel osSendMesg
 );
 
 GLOBAL_ASM(
-glabel func00048a30
+glabel osStopTimer
 /*    48a30:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    48a34:	afa40030 */ 	sw	$a0,0x30($sp)
 /*    48a38:	8fae0030 */ 	lw	$t6,0x30($sp)

@@ -4,6 +4,6 @@
 #include "types.h"
 
 u32 func00051890(void);
-u32 func000518a0(void);
+u32 __osResetGlobalIntMask(void);
 
 #endif

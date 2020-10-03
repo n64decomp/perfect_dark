@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00051900(void);
+u32 osEPiRawWriteIo(void);
 
 #endif

@@ -161,7 +161,7 @@ glabel osEPiRawStartDma
 );
 
 GLOBAL_ASM(
-glabel func00049e00
+glabel __osDevMgrMain
 /*    49e00:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*    49e04:	afb3002c */ 	sw	$s3,0x2c($sp)
 /*    49e08:	afbe0040 */ 	sw	$s8,0x40($sp)
@@ -235,7 +235,7 @@ glabel func00049e00
 /*    49f04:	0c0121bc */ 	jal	osRecvMesg
 /*    49f08:	8e840010 */ 	lw	$a0,0x10($s4)
 /*    49f0c:	3c040010 */ 	lui	$a0,0x10
-/*    49f10:	0c014628 */ 	jal	func000518a0
+/*    49f10:	0c014628 */ 	jal	__osResetGlobalIntMask
 /*    49f14:	34840401 */ 	ori	$a0,$a0,0x401
 /*    49f18:	8e060010 */ 	lw	$a2,0x10($s0)
 /*    49f1c:	8faf0074 */ 	lw	$t7,0x74($sp)
@@ -243,7 +243,7 @@ glabel func00049e00
 /*    49f24:	00c1c025 */ 	or	$t8,$a2,$at
 /*    49f28:	03003025 */ 	or	$a2,$t8,$zero
 /*    49f2c:	02602825 */ 	or	$a1,$s3,$zero
-/*    49f30:	0c014640 */ 	jal	func00051900
+/*    49f30:	0c014640 */ 	jal	osEPiRawWriteIo
 /*    49f34:	8de40014 */ 	lw	$a0,0x14($t7)
 .L00049f38:
 /*    49f38:	8e84000c */ 	lw	$a0,0xc($s4)
@@ -265,18 +265,18 @@ glabel func00049e00
 /*    49f78:	3c011000 */ 	lui	$at,0x1000
 /*    49f7c:	02602825 */ 	or	$a1,$s3,$zero
 /*    49f80:	00c15825 */ 	or	$t3,$a2,$at
-/*    49f84:	0c014640 */ 	jal	func00051900
+/*    49f84:	0c014640 */ 	jal	osEPiRawWriteIo
 /*    49f88:	01603025 */ 	or	$a2,$t3,$zero
 /*    49f8c:	8fac0074 */ 	lw	$t4,0x74($sp)
 /*    49f90:	02602825 */ 	or	$a1,$s3,$zero
 /*    49f94:	8e060010 */ 	lw	$a2,0x10($s0)
-/*    49f98:	0c014640 */ 	jal	func00051900
+/*    49f98:	0c014640 */ 	jal	osEPiRawWriteIo
 /*    49f9c:	8d840014 */ 	lw	$a0,0x14($t4)
 /*    49fa0:	8fad0074 */ 	lw	$t5,0x74($sp)
 /*    49fa4:	3c050500 */ 	lui	$a1,0x500
 /*    49fa8:	34a50508 */ 	ori	$a1,$a1,0x508
 /*    49fac:	27a60054 */ 	addiu	$a2,$sp,0x54
-/*    49fb0:	0c014698 */ 	jal	func00051a60
+/*    49fb0:	0c014698 */ 	jal	osEPiRawReadIo
 /*    49fb4:	8da40014 */ 	lw	$a0,0x14($t5)
 /*    49fb8:	8fae0054 */ 	lw	$t6,0x54($sp)
 /*    49fbc:	8fb80074 */ 	lw	$t8,0x74($sp)
@@ -288,7 +288,7 @@ glabel func00049e00
 /*    49fd4:	3c010100 */ 	lui	$at,0x100
 /*    49fd8:	8f040014 */ 	lw	$a0,0x14($t8)
 /*    49fdc:	00c1c825 */ 	or	$t9,$a2,$at
-/*    49fe0:	0c014640 */ 	jal	func00051900
+/*    49fe0:	0c014640 */ 	jal	osEPiRawWriteIo
 /*    49fe4:	03203025 */ 	or	$a2,$t9,$zero
 /*    49fe8:	24080004 */ 	addiu	$t0,$zero,0x4
 .L00049fec:
@@ -297,7 +297,7 @@ glabel func00049e00
 /*    49ff4:	3c0aa460 */ 	lui	$t2,0xa460
 /*    49ff8:	3c040010 */ 	lui	$a0,0x10
 /*    49ffc:	ad490010 */ 	sw	$t1,0x10($t2)
-/*    4a000:	0c0146f0 */ 	jal	func00051bc0
+/*    4a000:	0c0146f0 */ 	jal	__osSetGlobalIntMask
 /*    4a004:	34840c01 */ 	ori	$a0,$a0,0xc01
 /*    4a008:	8fa50074 */ 	lw	$a1,0x74($sp)
 .L0004a00c:
@@ -323,7 +323,7 @@ glabel func00049e00
 /*    4a050:	9719001a */ 	lhu	$t9,0x1a($t8)
 /*    4a054:	56f9ff7e */ 	bnel	$s7,$t9,.L00049e50
 /*    4a058:	8e840008 */ 	lw	$a0,0x8($s4)
-/*    4a05c:	0c014704 */ 	jal	func00051c10
+/*    4a05c:	0c014704 */ 	jal	osYieldThread
 /*    4a060:	00000000 */ 	nop
 /*    4a064:	1000ff7a */ 	b	.L00049e50
 /*    4a068:	8e840008 */ 	lw	$a0,0x8($s4)

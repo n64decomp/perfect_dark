@@ -15,7 +15,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004e530
+glabel osPiStartDma
 /*    4e530:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    4e534:	3c0e8006 */ 	lui	$t6,%hi(var8005cf00)
 /*    4e538:	8dcecf00 */ 	lw	$t6,%lo(var8005cf00)($t6)
@@ -63,17 +63,17 @@ glabel func0004e530
 /*    4e5d4:	8fab002c */ 	lw	$t3,0x2c($sp)
 /*    4e5d8:	1561000a */ 	bne	$t3,$at,.L0004e604
 /*    4e5dc:	00000000 */ 	nop
-/*    4e5e0:	0c014810 */ 	jal	func00052040
+/*    4e5e0:	0c014810 */ 	jal	osPiGetCmdQueue
 /*    4e5e4:	00000000 */ 	nop
 /*    4e5e8:	00408825 */ 	or	$s1,$v0,$zero
 /*    4e5ec:	02202025 */ 	or	$a0,$s1,$zero
 /*    4e5f0:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*    4e5f4:	0c0147bc */ 	jal	func00051ef0
+/*    4e5f4:	0c0147bc */ 	jal	osJamMesg
 /*    4e5f8:	00003025 */ 	or	$a2,$zero,$zero
 /*    4e5fc:	10000009 */ 	b	.L0004e624
 /*    4e600:	00408025 */ 	or	$s0,$v0,$zero
 .L0004e604:
-/*    4e604:	0c014810 */ 	jal	func00052040
+/*    4e604:	0c014810 */ 	jal	osPiGetCmdQueue
 /*    4e608:	00000000 */ 	nop
 /*    4e60c:	00408825 */ 	or	$s1,$v0,$zero
 /*    4e610:	02202025 */ 	or	$a0,$s1,$zero
@@ -101,16 +101,16 @@ glabel func0004e640
 );
 
 GLOBAL_ASM(
-glabel func0004e650
+glabel osPiReadIo
 /*    4e650:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    4e654:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4e658:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    4e65c:	0c0126b8 */ 	jal	func00049ae0
+/*    4e65c:	0c0126b8 */ 	jal	__osPiGetAccess
 /*    4e660:	afa50024 */ 	sw	$a1,0x24($sp)
 /*    4e664:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    4e668:	0c01481c */ 	jal	func00052070
+/*    4e668:	0c01481c */ 	jal	osPiRawReadIo
 /*    4e66c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*    4e670:	0c0126c9 */ 	jal	func00049b24
+/*    4e670:	0c0126c9 */ 	jal	__osPiRelAccess
 /*    4e674:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    4e678:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4e67c:	8fa2001c */ 	lw	$v0,0x1c($sp)

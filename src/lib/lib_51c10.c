@@ -13,7 +13,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00051c10
+glabel osYieldThread
 /*    51c10:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    51c14:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    51c18:	0c01256c */ 	jal	__osDisableInt

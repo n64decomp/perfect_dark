@@ -12,7 +12,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00051a60
+glabel osEPiRawReadIo
 /*    51a60:	3c03a460 */ 	lui	$v1,0xa460
 /*    51a64:	34630010 */ 	ori	$v1,$v1,0x10
 /*    51a68:	8c620000 */ 	lw	$v0,0x0($v1)
@@ -116,7 +116,7 @@ glabel func00051a60
 );
 
 GLOBAL_ASM(
-glabel func00051bc0
+glabel __osSetGlobalIntMask
 /*    51bc0:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    51bc4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    51bc8:	afa40028 */ 	sw	$a0,0x28($sp)

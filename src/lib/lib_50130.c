@@ -15,7 +15,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00050130
+glabel osEepromProbe
 /*    50130:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    50134:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    50138:	0c012a18 */ 	jal	__osSiGetAccess
@@ -50,7 +50,7 @@ glabel func00050130
 );
 
 GLOBAL_ASM(
-glabel func000501a0
+glabel osEepromRead
 /*    501a0:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*    501a4:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*    501a8:	afbf0024 */ 	sw	$ra,0x24($sp)
@@ -216,7 +216,7 @@ glabel func00050364
 );
 
 GLOBAL_ASM(
-glabel func000503f0
+glabel osEepromLongRead
 /*    503f0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    503f4:	afa7002c */ 	sw	$a3,0x2c($sp)
 /*    503f8:	8fae002c */ 	lw	$t6,0x2c($sp)
@@ -229,7 +229,7 @@ glabel func000503f0
 .L00050414:
 /*    50414:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*    50418:	93a50027 */ 	lbu	$a1,0x27($sp)
-/*    5041c:	0c014068 */ 	jal	func000501a0
+/*    5041c:	0c014068 */ 	jal	osEepromRead
 /*    50420:	8fa60028 */ 	lw	$a2,0x28($sp)
 /*    50424:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    50428:	8faf001c */ 	lw	$t7,0x1c($sp)

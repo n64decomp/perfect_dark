@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00051c10(void);
+u32 osYieldThread(void);
 
 #endif

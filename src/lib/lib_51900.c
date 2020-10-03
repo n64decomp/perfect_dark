@@ -11,7 +11,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00051900
+glabel osEPiRawWriteIo
 /*    51900:	3c03a460 */ 	lui	$v1,0xa460
 /*    51904:	34630010 */ 	ori	$v1,$v1,0x10
 /*    51908:	8c620000 */ 	lw	$v0,0x0($v1)

@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00052070(void);
+u32 osPiRawReadIo(void);
 u32 func000520c0(void);
 
 #endif
