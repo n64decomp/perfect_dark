@@ -8,8 +8,6 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
-#include "lib/lib_481e0.h"
-#include "lib/lib_491b0.h"
 #include "lib/lib_4b500.h"
 #include "types.h"
 

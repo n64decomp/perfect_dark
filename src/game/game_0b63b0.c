@@ -70,7 +70,6 @@
 #include "lib/lib_233c0.h"
 #include "lib/lib_317f0.h"
 #include "lib/lib_4a360.h"
-#include "lib/lib_4b480.h"
 #include "types.h"
 
 const char var7f1ad160[] = "ACOUSTIC -> Allocating %d bytes for %d portal AV structures\n";

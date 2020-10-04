@@ -26,7 +26,6 @@
 #include "lib/lib_38d10.h"
 #include "lib/lib_38d30.h"
 #include "lib/lib_39c80.h"
-#include "lib/lib_481e0.h"
 #include "lib/lib_48830.h"
 #include "types.h"
 

@@ -8,7 +8,6 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
-#include "lib/lib_481e0.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4b5e0.h"
 #include "lib/lib_4c090.h"
@@ -553,7 +552,7 @@ glabel func0004c6b4
 /*    4c7d0:	02202025 */ 	or	$a0,$s1,$zero
 .L0004c7d4:
 /*    4c7d4:	2605000c */ 	addiu	$a1,$s0,0xc
-/*    4c7d8:	0c012c5c */ 	jal	alCopy
+/*    4c7d8:	0c012c5c */ 	jal	func0004b170
 /*    4c7dc:	24060020 */ 	addiu	$a2,$zero,0x20
 /*    4c7e0:	922e001b */ 	lbu	$t6,0x1b($s1)
 /*    4c7e4:	24090010 */ 	addiu	$t1,$zero,0x10
@@ -682,7 +681,7 @@ glabel func0004c934
 /*    4c98c:	2484c870 */ 	addiu	$a0,$a0,%lo(var8009c870)
 /*    4c990:	57280006 */ 	bnel	$t9,$t0,.L0004c9ac
 /*    4c994:	92490065 */ 	lbu	$t1,0x65($s2)
-/*    4c998:	0c012c5c */ 	jal	alCopy
+/*    4c998:	0c012c5c */ 	jal	func0004b170
 /*    4c99c:	24060100 */ 	addiu	$a2,$zero,0x100
 /*    4c9a0:	10000091 */ 	b	.L0004cbe8
 /*    4c9a4:	00001025 */ 	or	$v0,$zero,$zero
@@ -838,7 +837,7 @@ glabel func0004c934
 /*    4cbc4:	24a5c870 */ 	addiu	$a1,$a1,%lo(var8009c870)
 /*    4cbc8:	8fa4005c */ 	lw	$a0,0x5c($sp)
 /*    4cbcc:	24060100 */ 	addiu	$a2,$zero,0x100
-/*    4cbd0:	0c012c5c */ 	jal	alCopy
+/*    4cbd0:	0c012c5c */ 	jal	func0004b170
 /*    4cbd4:	a02b0984 */ 	sb	$t3,%lo(var80060984)($at)
 /*    4cbd8:	8e4e0008 */ 	lw	$t6,0x8($s2)
 /*    4cbdc:	3c018006 */ 	lui	$at,%hi(var80060980)

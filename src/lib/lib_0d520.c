@@ -47,7 +47,6 @@
 #include "game/splat.h"
 #include "game/utils.h"
 #include "gvars/gvars.h"
-#include "lib/lib_03050.h"
 #include "lib/lib_070d0.h"
 #include "lib/lib_074f0.h"
 #include "lib/lib_08a20.h"
@@ -68,10 +67,6 @@
 #include "lib/lib_233c0.h"
 #include "lib/lib_2f490.h"
 #include "lib/lib_2fa00.h"
-#include "lib/lib_481e0.h"
-#include "lib/lib_48650.h"
-#include "lib/lib_48b20.h"
-#include "lib/lib_4b480.h"
 #include "types.h"
 
 const char var70052ca0[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";

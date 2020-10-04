@@ -4,6 +4,5 @@
 #include "types.h"
 
 u32 func00049780(void);
-u32 __osViSwapContext(void);
 
 #endif

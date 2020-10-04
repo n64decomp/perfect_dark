@@ -12,13 +12,6 @@
 #include "lib/lib_04a80.h"
 #include "lib/lib_0d520.h"
 #include "lib/lib_13900.h"
-#include "lib/lib_481e0.h"
-#include "lib/lib_48520.h"
-#include "lib/lib_48650.h"
-#include "lib/lib_488e0.h"
-#include "lib/lib_4a980.h"
-#include "lib/lib_4f350.h"
-#include "lib/lib_4f400.h"
 #include "lib/lib_4f5e0.h"
 #include "types.h"
 
@@ -275,7 +268,7 @@ glabel func00013ab8
 /*    13be0:	3c04800a */ 	lui	$a0,%hi(var80099e78)
 /*    13be4:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
 /*    13be8:	27a50027 */ 	addiu	$a1,$sp,0x27
-/*    13bec:	0c0015dc */ 	jal	func00005770
+/*    13bec:	0c0015dc */ 	jal	osPfsIsPlug
 /*    13bf0:	afa70030 */ 	sw	$a3,0x30($sp)
 /*    13bf4:	8fa70030 */ 	lw	$a3,0x30($sp)
 /*    13bf8:	50e00005 */ 	beqzl	$a3,.L00013c10

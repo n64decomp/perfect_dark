@@ -13,7 +13,6 @@
 #include "game/game_166e40.h"
 #include "gvars/gvars.h"
 #include "lib/lib_0d520.h"
-#include "lib/lib_4b480.h"
 #include "types.h"
 
 const char var7f1adbf0[] = "radmax";

@@ -9,7 +9,6 @@
 #include "game/data/data_02da90.h"
 #include "game/timing.h"
 #include "gvars/gvars.h"
-#include "lib/lib_481e0.h"
 #include "types.h"
 
 const char var7f1b78c0[] = "null";

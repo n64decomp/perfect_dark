@@ -23,7 +23,6 @@
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_4a360.h"
-#include "lib/lib_4b480.h"
 #include "types.h"
 
 const char var7f1b5a10[] = "WallHit_MakeSpaceRoom : ERROR - Couldn't find any space in room %d\n";

@@ -12,7 +12,6 @@
 #include "lib/lib_13130.h"
 #include "lib/lib_2fa00.h"
 #include "lib/lib_4a5e0.h"
-#include "lib/lib_4e530.h"
 #include "types.h"
 
 const u32 var70053ff0[] = {0x00000000};

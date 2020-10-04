@@ -110,7 +110,6 @@
 #include "lib/lib_233c0.h"
 #include "lib/lib_317f0.h"
 #include "lib/lib_4a360.h"
-#include "lib/lib_4e530.h"
 #include "types.h"
 
 u32 var80084010 = 0;

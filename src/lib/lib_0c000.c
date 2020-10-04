@@ -8,14 +8,9 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
-#include "lib/lib_03ee0.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_0c000.h"
 #include "lib/lib_2fa00.h"
-#include "lib/lib_481e0.h"
-#include "lib/lib_48520.h"
-#include "lib/lib_48650.h"
-#include "lib/lib_4e530.h"
 #include "types.h"
 
 const char var70052700[] = "BD";

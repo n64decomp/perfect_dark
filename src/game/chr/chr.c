@@ -49,7 +49,6 @@
 #include "lib/lib_1a500.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_4a360.h"
-#include "lib/lib_4b480.h"
 #include "types.h"
 
 const char var7f1a8690[] = "chr/chr.c";

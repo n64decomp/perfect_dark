@@ -11,7 +11,6 @@
 #include "lib/lib_04a80.h"
 #include "lib/lib_4a5e0.h"
 #include "lib/lib_4e690.h"
-#include "lib/lib_52070.h"
 #include "types.h"
 
 GLOBAL_ASM(

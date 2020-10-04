@@ -22,7 +22,6 @@
 #include "lib/lib_1a500.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_4a360.h"
-#include "lib/lib_4b480.h"
 #include "lib/lib_4f5e0.h"
 #include "types.h"
 

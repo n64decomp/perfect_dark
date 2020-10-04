@@ -12,7 +12,6 @@
 #include "lib/lib_06330.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4b5e0.h"
-#include "lib/lib_4ba90.h"
 #include "lib/lib_4c090.h"
 #include "lib/lib_4cde0.h"
 #include "lib/lib_4d6f0.h"
@@ -136,12 +135,12 @@ glabel func00050a00
 /*    50b88:	a44f0008 */ 	sh	$t7,0x8($v0)
 /*    50b8c:	8fb80038 */ 	lw	$t8,0x38($sp)
 /*    50b90:	24060010 */ 	addiu	$a2,$zero,0x10
-/*    50b94:	0c012c5c */ 	jal	alCopy
+/*    50b94:	0c012c5c */ 	jal	func0004b170
 /*    50b98:	ac580004 */ 	sw	$t8,0x4($v0)
 /*    50b9c:	8fa50168 */ 	lw	$a1,0x168($sp)
 /*    50ba0:	27a40044 */ 	addiu	$a0,$sp,0x44
 /*    50ba4:	24060004 */ 	addiu	$a2,$zero,0x4
-/*    50ba8:	0c012c5c */ 	jal	alCopy
+/*    50ba8:	0c012c5c */ 	jal	func0004b170
 /*    50bac:	24a5000a */ 	addiu	$a1,$a1,0xa
 /*    50bb0:	8e640004 */ 	lw	$a0,0x4($s3)
 /*    50bb4:	0c012ea4 */ 	jal	__osPfsGetStatus
@@ -369,7 +368,7 @@ glabel func00050d60
 .L00050ebc:
 /*    50ebc:	8fa50094 */ 	lw	$a1,0x94($sp)
 /*    50ec0:	24060050 */ 	addiu	$a2,$zero,0x50
-/*    50ec4:	0c012c5c */ 	jal	alCopy
+/*    50ec4:	0c012c5c */ 	jal	func0004b170
 /*    50ec8:	afa70088 */ 	sw	$a3,0x88($sp)
 /*    50ecc:	8faa0094 */ 	lw	$t2,0x94($sp)
 /*    50ed0:	3c0b8006 */ 	lui	$t3,%hi(var80061220)

@@ -30,7 +30,6 @@
 #include "lib/lib_0d520.h"
 #include "lib/lib_13130.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_4b480.h"
 #include "types.h"
 
 const u32 var7f1b2b20[] = {0x00010603};

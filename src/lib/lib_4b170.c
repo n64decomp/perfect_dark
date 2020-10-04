@@ -11,7 +11,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel alCopy
+glabel func0004b170
 /*    4b170:	10c0001a */ 	beqz	$a2,.L0004b1dc
 /*    4b174:	00a03825 */ 	or	$a3,$a1,$zero
 /*    4b178:	10850018 */ 	beq	$a0,$a1,.L0004b1dc

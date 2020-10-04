@@ -4,7 +4,5 @@
 #include "types.h"
 
 u32 func0004b5e0(void);
-u32 __osContRamWrite(void);
-u32 __osContRamRead(void);
 
 #endif

@@ -8,8 +8,6 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
-#include "lib/lib_48650.h"
-#include "lib/lib_488e0.h"
 #include "types.h"
 
 GLOBAL_ASM(

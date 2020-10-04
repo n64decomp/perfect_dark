@@ -17,7 +17,6 @@
 #include "lib/lib_12dc0.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_4a360.h"
-#include "lib/lib_4b480.h"
 #include "types.h"
 
 const u32 var7f1b5600[] = {0xb8d1b717};

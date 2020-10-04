@@ -24,8 +24,6 @@
 #include "lib/lib_3d280.h"
 #include "lib/lib_3e3e0.h"
 #include "lib/lib_3e730.h"
-#include "lib/lib_48650.h"
-#include "lib/lib_488e0.h"
 #include "types.h"
 
 const u32 var70054740[] = {0x70031ce0};

@@ -12,7 +12,6 @@
 #include "lib/lib_2faf0.h"
 #include "lib/lib_3a100.h"
 #include "lib/lib_446d0.h"
-#include "lib/lib_4b480.h"
 #include "types.h"
 
 const u32 var70054a90[] = {0x3fb50481};

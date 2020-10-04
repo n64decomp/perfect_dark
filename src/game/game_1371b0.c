@@ -28,7 +28,6 @@
 #include "lib/lib_13900.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_4b480.h"
 #include "types.h"
 
 const u32 var7f1b57c0[] = {0x746c6f61};

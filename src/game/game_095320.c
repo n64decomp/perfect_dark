@@ -26,7 +26,6 @@
 #include "lib/lib_12dc0.h"
 #include "lib/lib_13130.h"
 #include "lib/lib_159b0.h"
-#include "lib/lib_49a90.h"
 #include "types.h"
 
 u32 xorBaffbeff(u32 value)

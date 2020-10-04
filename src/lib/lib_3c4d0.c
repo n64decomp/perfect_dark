@@ -11,7 +11,6 @@
 #include "lib/lib_30ce0.h"
 #include "lib/lib_3c4d0.h"
 #include "lib/lib_3e730.h"
-#include "lib/lib_48650.h"
 #include "lib/lib_4b170.h"
 #include "types.h"
 
@@ -81,7 +80,7 @@ glabel func0003c56c
 /*    3c5a8:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*    3c5ac:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*    3c5b0:	24060010 */ 	addiu	$a2,$zero,0x10
-/*    3c5b4:	0c012c5c */ 	jal	alCopy
+/*    3c5b4:	0c012c5c */ 	jal	func0004b170
 /*    3c5b8:	2484000c */ 	addiu	$a0,$a0,0xc
 /*    3c5bc:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*    3c5c0:	0c00c5dc */ 	jal	alLink
@@ -149,7 +148,7 @@ glabel alEvtqPostEvent
 /*    3c694:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*    3c698:	8fa40034 */ 	lw	$a0,0x34($sp)
 /*    3c69c:	24060010 */ 	addiu	$a2,$zero,0x10
-/*    3c6a0:	0c012c5c */ 	jal	alCopy
+/*    3c6a0:	0c012c5c */ 	jal	func0004b170
 /*    3c6a4:	24a5000c */ 	addiu	$a1,$a1,0xc
 /*    3c6a8:	8faa0038 */ 	lw	$t2,0x38($sp)
 /*    3c6ac:	3c017fff */ 	lui	$at,0x7fff

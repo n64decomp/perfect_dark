@@ -1,16 +1,22 @@
 #define LIBFILES(section) \
-	build/ROMID/lib/lib_03050.o (section); \
-	build/ROMID/lib/lib_034f0.o (section); \
-	build/ROMID/lib/lib_03ee0.o (section); \
+	build/ROMID/lib/ultra/io/vimgr.o (section); \
+	build/ROMID/lib/ultra/io/pimgr.o (section); \
+	build/ROMID/lib/lib_034d0.o (section); \
+	build/ROMID/lib/ultra/os/exceptasm.o (section); \
+	build/ROMID/lib/ultra/os/createthread.o (section); \
 	build/ROMID/lib/lib_03fb0.o (section); \
 	build/ROMID/lib/lib_04320.o (section); \
 	build/ROMID/lib/lib_04790.o (section); \
 	build/ROMID/lib/lib_04840.o (section); \
 	build/ROMID/lib/lib_04a80.o (section); \
+	build/ROMID/lib/ultra/io/pfsisplug.o (section); \
+	build/ROMID/lib/lib_05a60.o (section); \
+	build/ROMID/lib/ultra/os/initialize.o (section); \
+	build/ROMID/lib/lib_05dc0.o (section); \
 	build/ROMID/lib/lib_05e40.o (section); \
 	build/ROMID/lib/lib_06100.o (section); \
 	build/ROMID/lib/lib_06330.o (section); \
-	build/ROMID/lib/lib_06440.o (section); \
+	build/ROMID/lib/ultra/io/conteeplongwrite.o (section); \
 	build/ROMID/lib/lib_06550.o (section); \
 	build/ROMID/lib/lib_070d0.o (section); \
 	build/ROMID/lib/lib_074f0.o (section); \
@@ -72,43 +78,61 @@
 	build/ROMID/lib/lib_47a90.o (section); \
 	build/ROMID/lib/lib_47d20.o (section); \
 	build/ROMID/lib/lib_48120.o (section); \
-	build/ROMID/lib/lib_48150.o (section); \
+	build/ROMID/lib/ultra/os/invalicache.o (section); \
 	build/ROMID/lib/lib_481d0.o (section); \
-	build/ROMID/lib/lib_481e0.o (section); \
-	build/ROMID/lib/lib_48520.o (section); \
+	build/ROMID/lib/ultra/os/setfpccsr.o (section); \
+	build/ROMID/lib/ultra/os/startthread.o (section); \
+	build/ROMID/lib/ultra/os/createmesgqueue.o (section); \
+	build/ROMID/lib/ultra/os/stopthread.o (section); \
+	build/ROMID/lib/ultra/os/setthreadpri.o (section); \
+	build/ROMID/lib/ultra/os/getcount.o (section); \
+	build/ROMID/lib/ultra/os/seteventmesg.o (section); \
 	build/ROMID/lib/lib_485e0.o (section); \
-	build/ROMID/lib/lib_48650.o (section); \
+	build/ROMID/lib/ultra/os/setintmask.o (section); \
+	build/ROMID/lib/ultra/os/recvmesg.o (section); \
 	build/ROMID/lib/lib_48830.o (section); \
-	build/ROMID/lib/lib_488e0.o (section); \
-	build/ROMID/lib/lib_48b20.o (section); \
+	build/ROMID/lib/ultra/os/sendmesg.o (section); \
+	build/ROMID/lib/ultra/os/stoptimer.o (section); \
+	build/ROMID/lib/ultra/os/settimer.o (section); \
 	build/ROMID/lib/lib_48c00.o (section); \
 	build/ROMID/lib/lib_48cd0.o (section); \
 	build/ROMID/lib/lib_48dc0.o (section); \
 	build/ROMID/lib/lib_48ef0.o (section); \
 	build/ROMID/lib/lib_48f50.o (section); \
 	build/ROMID/lib/lib_490b0.o (section); \
-	build/ROMID/lib/lib_491b0.o (section); \
-	build/ROMID/lib/lib_49640.o (section); \
+	build/ROMID/lib/ultra/os/timerintr.o (section); \
+	build/ROMID/lib/ultra/os/interrupt.o (section); \
+	build/ROMID/lib/ultra/io/vi.o (section); \
 	build/ROMID/lib/lib_49780.o (section); \
-	build/ROMID/lib/lib_49a90.o (section); \
-	build/ROMID/lib/lib_49c20.o (section); \
+	build/ROMID/lib/ultra/io/viswapcontext.o (section); \
+	build/ROMID/lib/ultra/io/piacs.o (section); \
+	build/ROMID/lib/ultra/io/pirawdma.o (section); \
+	build/ROMID/lib/ultra/io/epirawdma.o (section); \
+	build/ROMID/lib/ultra/io/devmgr.o (section); \
+	build/ROMID/lib/ultra/os/thread.o (section); \
+	build/ROMID/lib/ultra/os/destroythread.o (section); \
 	build/ROMID/lib/lib_4a360.o (section); \
 	build/ROMID/lib/lib_4a5e0.o (section); \
 	build/ROMID/lib/lib_4a680.o (section); \
-	build/ROMID/lib/lib_4a810.o (section); \
-	build/ROMID/lib/lib_4a980.o (section); \
-	build/ROMID/lib/lib_4acc0.o (section); \
-	build/ROMID/lib/lib_4ace0.o (section); \
-	build/ROMID/lib/lib_4ad30.o (section); \
-	build/ROMID/lib/lib_4ad80.o (section); \
+	build/ROMID/lib/ultra/io/siacs.o (section); \
+	build/ROMID/lib/ultra/io/sirawdma.o (section); \
+	build/ROMID/lib/ultra/io/controller.o (section); \
+	build/ROMID/lib/ultra/os/setsr.o (section); \
+	build/ROMID/lib/ultra/os/getsr.o (section); \
+	build/ROMID/lib/ultra/io/sirawread.o (section); \
+	build/ROMID/lib/ultra/io/sirawwrite.o (section); \
+	build/ROMID/lib/ultra/os/writebackdcache.o (section); \
 	build/ROMID/lib/lib_4ae00.o (section); \
-	build/ROMID/lib/lib_4b160.o (section); \
+	build/ROMID/lib/ultra/os/getcause.o (section); \
 	build/ROMID/lib/lib_4b170.o (section); \
-	build/ROMID/lib/lib_4b480.o (section); \
+	build/ROMID/lib/ultra/os/virtualtophysical.o (section); \
 	build/ROMID/lib/lib_4b500.o (section); \
 	build/ROMID/lib/lib_4b550.o (section); \
 	build/ROMID/lib/lib_4b5e0.o (section); \
-	build/ROMID/lib/lib_4ba90.o (section); \
+	build/ROMID/lib/ultra/io/contramwrite.o (section); \
+	build/ROMID/lib/ultra/io/contramread.o (section); \
+	build/ROMID/lib/ultra/io/pfsgetstatus.o (section); \
+	build/ROMID/lib/ultra/io/conteepwrite.o (section); \
 	build/ROMID/lib/lib_4c090.o (section); \
 	build/ROMID/lib/lib_4cc10.o (section); \
 	build/ROMID/lib/lib_4cde0.o (section); \
@@ -116,29 +140,41 @@
 	build/ROMID/lib/lib_4d000.o (section); \
 	build/ROMID/lib/lib_4d480.o (section); \
 	build/ROMID/lib/lib_4d6f0.o (section); \
+	build/ROMID/lib/ultra/os/maptlb.o (section); \
 	build/ROMID/lib/lib_4e270.o (section); \
 	build/ROMID/lib/lib_4e3c0.o (section); \
 	build/ROMID/lib/lib_4e470.o (section); \
-	build/ROMID/lib/lib_4e530.o (section); \
+	build/ROMID/lib/ultra/os/invaldcache.o (section); \
+	build/ROMID/lib/ultra/io/pidma.o (section); \
+	build/ROMID/lib/lib_4e640.o (section); \
+	build/ROMID/lib/ultra/io/piread.o (section); \
 	build/ROMID/lib/lib_4e690.o (section); \
-	build/ROMID/lib/lib_4f350.o (section); \
-	build/ROMID/lib/lib_4f400.o (section); \
+	build/ROMID/lib/ultra/io/contquery.o (section); \
+	build/ROMID/lib/ultra/io/contreaddata.o (section); \
 	build/ROMID/lib/lib_4f5e0.o (section); \
 	build/ROMID/lib/lib_4fe20.o (section); \
 	build/ROMID/lib/lib_4fff0.o (section); \
 	build/ROMID/lib/lib_50090.o (section); \
-	build/ROMID/lib/lib_50130.o (section); \
+	build/ROMID/lib/ultra/io/conteepprobe.o (section); \
+	build/ROMID/lib/ultra/io/conteepread.o (section); \
+	build/ROMID/lib/ultra/io/conteeplongread.o (section); \
 	build/ROMID/lib/lib_50480.o (section); \
 	build/ROMID/lib/lib_50a00.o (section); \
 	build/ROMID/lib/lib_50f20.o (section); \
 	build/ROMID/lib/lib_513b0.o (section); \
-	build/ROMID/lib/lib_51880.o (section); \
+	build/ROMID/lib/ultra/os/setcompare.o (section); \
 	build/ROMID/lib/lib_51890.o (section); \
-	build/ROMID/lib/lib_51900.o (section); \
-	build/ROMID/lib/lib_51a60.o (section); \
-	build/ROMID/lib/lib_51c10.o (section); \
-	build/ROMID/lib/lib_51c60.o (section); \
+	build/ROMID/lib/ultra/os/resetglobalintmask.o (section); \
+	build/ROMID/lib/ultra/io/epirawwrite.o (section); \
+	build/ROMID/lib/ultra/io/epirawread.o (section); \
+	build/ROMID/lib/ultra/os/setglobalintmask.o (section); \
+	build/ROMID/lib/ultra/os/yieldthread.o (section); \
+	build/ROMID/lib/ultra/io/si.o (section); \
+	build/ROMID/lib/ultra/os/probetlb.o (section); \
 	build/ROMID/lib/lib_51d50.o (section); \
 	build/ROMID/lib/lib_51ec0.o (section); \
-	build/ROMID/lib/lib_52070.o (section); \
+	build/ROMID/lib/ultra/os/jammesg.o (section); \
+	build/ROMID/lib/ultra/io/pigetcmdq.o (section); \
+	build/ROMID/lib/ultra/io/pirawread.o (section); \
+	build/ROMID/lib/lib_520c0.o (section); \
 	build/ROMID/lib/lib_52360.o (section);

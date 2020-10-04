@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 alCopy(void);
+u32 func0004b170(void);
 
 #endif

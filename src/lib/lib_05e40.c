@@ -9,9 +9,7 @@
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
 #include "lib/lib_05e40.h"
-#include "lib/lib_4ad80.h"
 #include "lib/lib_4b170.h"
-#include "lib/lib_4b480.h"
 #include "lib/lib_4b500.h"
 #include "lib/lib_4b550.h"
 #include "lib/lib_4b5e0.h"
@@ -23,7 +21,7 @@ glabel func00005e40
 /*     5e44:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     5e48:	3c058009 */ 	lui	$a1,%hi(var80090a70)
 /*     5e4c:	24a50a70 */ 	addiu	$a1,$a1,%lo(var80090a70)
-/*     5e50:	0c012c5c */ 	jal	alCopy
+/*     5e50:	0c012c5c */ 	jal	func0004b170
 /*     5e54:	24060040 */ 	addiu	$a2,$zero,0x40
 /*     5e58:	3c048009 */ 	lui	$a0,%hi(var80090a80)
 /*     5e5c:	8c840a80 */ 	lw	$a0,%lo(var80090a80)($a0)

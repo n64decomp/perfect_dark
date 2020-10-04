@@ -9,10 +9,8 @@
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
 #include "lib/lib_06550.h"
-#include "lib/lib_4a810.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4b5e0.h"
-#include "lib/lib_4ba90.h"
 #include "lib/lib_4c090.h"
 #include "lib/lib_4cc10.h"
 #include "lib/lib_4cde0.h"
@@ -710,7 +708,7 @@ glabel func00006d60
 /*     6ec4:	8fa40044 */ 	lw	$a0,0x44($sp)
 .L00006ec8:
 /*     6ec8:	2605000c */ 	addiu	$a1,$s0,0xc
-/*     6ecc:	0c012c5c */ 	jal	alCopy
+/*     6ecc:	0c012c5c */ 	jal	func0004b170
 /*     6ed0:	24060020 */ 	addiu	$a2,$zero,0x20
 /*     6ed4:	8fab0044 */ 	lw	$t3,0x44($sp)
 /*     6ed8:	24190010 */ 	addiu	$t9,$zero,0x10

@@ -28,7 +28,6 @@
 #include "lib/lib_16110.h"
 #include "lib/lib_317f0.h"
 #include "lib/lib_4a360.h"
-#include "lib/lib_4b480.h"
 #include "types.h"
 
 const u32 var7f1a7e80[] = {0x00000092};

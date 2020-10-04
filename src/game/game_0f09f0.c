@@ -50,9 +50,7 @@
 #include "lib/lib_16110.h"
 #include "lib/lib_1a500.h"
 #include "lib/lib_317f0.h"
-#include "lib/lib_481e0.h"
 #include "lib/lib_48830.h"
-#include "lib/lib_4b480.h"
 #include "types.h"
 
 const struct menucolourpalette g_MenuColourPalettes[] = {

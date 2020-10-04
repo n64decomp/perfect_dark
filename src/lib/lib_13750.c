@@ -9,7 +9,6 @@
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
 #include "lib/lib_13750.h"
-#include "lib/lib_481e0.h"
 #include "types.h"
 
 void func00013750(void)

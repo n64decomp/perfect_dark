@@ -17,7 +17,6 @@
 #include "lib/lib_09660.h"
 #include "lib/lib_0d0a0.h"
 #include "lib/lib_317f0.h"
-#include "lib/lib_4b480.h"
 #include "types.h"
 
 const u32 var7f1a83b0[] = {0x459c4000};

@@ -19,17 +19,13 @@
 #include "lib/lib_159b0.h"
 #include "lib/lib_2faf0.h"
 #include "lib/lib_30ce0.h"
-#include "lib/lib_481e0.h"
-#include "lib/lib_48650.h"
 #include "lib/lib_48cd0.h"
 #include "lib/lib_48dc0.h"
 #include "lib/lib_48ef0.h"
 #include "lib/lib_48f50.h"
 #include "lib/lib_4a360.h"
 #include "lib/lib_4b170.h"
-#include "lib/lib_4b480.h"
 #include "lib/lib_4e470.h"
-#include "lib/lib_4e530.h"
 #include "types.h"
 
 const u32 var700526d0[] = {0x01400140};
@@ -1456,7 +1452,7 @@ glabel func0000a044
 /*     a9e4:	0000c012 */ 	mflo	$t8
 /*     a9e8:	00f87021 */ 	addu	$t6,$a3,$t8
 /*     a9ec:	ac2ed594 */ 	sw	$t6,%lo(g_ViData)($at)
-/*     a9f0:	0c012c5c */ 	jal	alCopy
+/*     a9f0:	0c012c5c */ 	jal	func0004b170
 /*     a9f4:	8ca5d594 */ 	lw	$a1,%lo(g_ViData)($a1)
 /*     a9f8:	3c038009 */ 	lui	$v1,%hi(var80092874+0x3)
 /*     a9fc:	24632877 */ 	addiu	$v1,$v1,%lo(var80092874+0x3)

@@ -10,7 +10,6 @@
 #include "gvars/gvars.h"
 #include "lib/lib_37b00.h"
 #include "lib/lib_3a100.h"
-#include "lib/lib_4b480.h"
 #include "types.h"
 
 GLOBAL_ASM(
