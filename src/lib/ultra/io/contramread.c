@@ -22,12 +22,12 @@ glabel __osContRamRead
 /*    4b8a4:	97a5006a */ 	lhu	$a1,0x6a($sp)
 /*    4b8a8:	3c1e8006 */ 	lui	$s8,%hi(var80060970)
 /*    4b8ac:	3c17800a */ 	lui	$s7,%hi(__osContLastCmd)
-/*    4b8b0:	3c148009 */ 	lui	$s4,%hi(var80090a20)
+/*    4b8b0:	3c148009 */ 	lui	$s4,%hi(__osPfsPifRam)
 /*    4b8b4:	000570c3 */ 	sra	$t6,$a1,0x3
 /*    4b8b8:	00057940 */ 	sll	$t7,$a1,0x5
 /*    4b8bc:	afaf0040 */ 	sw	$t7,0x40($sp)
 /*    4b8c0:	afae0044 */ 	sw	$t6,0x44($sp)
-/*    4b8c4:	26940a20 */ 	addiu	$s4,$s4,%lo(var80090a20)
+/*    4b8c4:	26940a20 */ 	addiu	$s4,$s4,%lo(__osPfsPifRam)
 /*    4b8c8:	26f7c820 */ 	addiu	$s7,$s7,%lo(__osContLastCmd)
 /*    4b8cc:	27de0970 */ 	addiu	$s8,$s8,%lo(var80060970)
 .L0004b8d0:

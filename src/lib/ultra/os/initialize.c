@@ -5,11 +5,11 @@ glabel osInitialize
 /*     5b60:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*     5b64:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*     5b68:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*     5b6c:	3c018009 */ 	lui	$at,%hi(var80090a60)
+/*     5b6c:	3c018009 */ 	lui	$at,%hi(__osFinalRom)
 /*     5b70:	afb10018 */ 	sw	$s1,0x18($sp)
 /*     5b74:	afb00014 */ 	sw	$s0,0x14($sp)
 /*     5b78:	0c012b34 */ 	jal	__osGetSR
-/*     5b7c:	ac2e0a60 */ 	sw	$t6,%lo(var80090a60)($at)
+/*     5b7c:	ac2e0a60 */ 	sw	$t6,%lo(__osFinalRom)($at)
 /*     5b80:	3c012000 */ 	lui	$at,0x2000
 /*     5b84:	0c012b30 */ 	jal	__osSetSR
 /*     5b88:	00412025 */ 	or	$a0,$v0,$at
@@ -126,21 +126,21 @@ glabel osInitialize
 /*     5d30:	354ab2d2 */ 	ori	$t2,$t2,0xb2d2
 /*     5d34:	14400004 */ 	bnez	$v0,.L00005d48
 /*     5d38:	24010002 */ 	addiu	$at,$zero,0x2
-/*     5d3c:	3c018006 */ 	lui	$at,%hi(var8005cf68)
+/*     5d3c:	3c018006 */ 	lui	$at,%hi(osViClock)
 /*     5d40:	1000000b */ 	b	.L00005d70
-/*     5d44:	ac2acf68 */ 	sw	$t2,%lo(var8005cf68)($at)
+/*     5d44:	ac2acf68 */ 	sw	$t2,%lo(osViClock)($at)
 .L00005d48:
 /*     5d48:	14410006 */ 	bne	$v0,$at,.L00005d64
 /*     5d4c:	3c0b02e6 */ 	lui	$t3,0x2e6
 /*     5d50:	3c0902e6 */ 	lui	$t1,0x2e6
 /*     5d54:	3529d354 */ 	ori	$t1,$t1,0xd354
-/*     5d58:	3c018006 */ 	lui	$at,%hi(var8005cf68)
+/*     5d58:	3c018006 */ 	lui	$at,%hi(osViClock)
 /*     5d5c:	10000004 */ 	b	.L00005d70
-/*     5d60:	ac29cf68 */ 	sw	$t1,%lo(var8005cf68)($at)
+/*     5d60:	ac29cf68 */ 	sw	$t1,%lo(osViClock)($at)
 .L00005d64:
 /*     5d64:	356bd354 */ 	ori	$t3,$t3,0xd354
-/*     5d68:	3c018006 */ 	lui	$at,%hi(var8005cf68)
-/*     5d6c:	ac2bcf68 */ 	sw	$t3,%lo(var8005cf68)($at)
+/*     5d68:	3c018006 */ 	lui	$at,%hi(osViClock)
+/*     5d6c:	ac2bcf68 */ 	sw	$t3,%lo(osViClock)($at)
 .L00005d70:
 /*     5d70:	0c012c58 */ 	jal	__osGetCause
 /*     5d74:	00000000 */ 	nop

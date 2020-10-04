@@ -16,11 +16,11 @@ glabel osEPiRawReadIo
 /*    51a88:	8c620000 */ 	lw	$v0,0x0($v1)
 /*    51a8c:	90820009 */ 	lbu	$v0,0x9($a0)
 .L00051a90:
-/*    51a90:	3c038006 */ 	lui	$v1,%hi(var8005cf20)
+/*    51a90:	3c038006 */ 	lui	$v1,%hi(__osCurrentHandle)
 /*    51a94:	90990004 */ 	lbu	$t9,0x4($a0)
 /*    51a98:	0002c080 */ 	sll	$t8,$v0,0x2
 /*    51a9c:	00781821 */ 	addu	$v1,$v1,$t8
-/*    51aa0:	8c63cf20 */ 	lw	$v1,%lo(var8005cf20)($v1)
+/*    51aa0:	8c63cf20 */ 	lw	$v1,%lo(__osCurrentHandle)($v1)
 /*    51aa4:	90680004 */ 	lbu	$t0,0x4($v1)
 /*    51aa8:	5328003d */ 	beql	$t9,$t0,.L00051ba0
 /*    51aac:	8c8a000c */ 	lw	$t2,0xc($a0)

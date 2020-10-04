@@ -3,8 +3,8 @@
 GLOBAL_ASM(
 glabel osPiStartDma
 /*    4e530:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    4e534:	3c0e8006 */ 	lui	$t6,%hi(var8005cf00)
-/*    4e538:	8dcecf00 */ 	lw	$t6,%lo(var8005cf00)($t6)
+/*    4e534:	3c0e8006 */ 	lui	$t6,%hi(__osPiDevMgr)
+/*    4e538:	8dcecf00 */ 	lw	$t6,%lo(__osPiDevMgr)($t6)
 /*    4e53c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    4e540:	afa40028 */ 	sw	$a0,0x28($sp)
 /*    4e544:	afa5002c */ 	sw	$a1,0x2c($sp)

@@ -16,8 +16,8 @@ glabel osStopTimer
 /*    48a58:	0c01256c */ 	jal	__osDisableInt
 /*    48a5c:	00000000 */ 	nop
 /*    48a60:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*    48a64:	3c088006 */ 	lui	$t0,%hi(var800608a0)
-/*    48a68:	8d0808a0 */ 	lw	$t0,%lo(var800608a0)($t0)
+/*    48a64:	3c088006 */ 	lui	$t0,%hi(__osTimerList)
+/*    48a68:	8d0808a0 */ 	lw	$t0,%lo(__osTimerList)($t0)
 /*    48a6c:	8f190000 */ 	lw	$t9,0x0($t8)
 /*    48a70:	00408025 */ 	or	$s0,$v0,$zero
 /*    48a74:	1328000d */ 	beq	$t9,$t0,.L00048aac
@@ -36,7 +36,7 @@ glabel osStopTimer
 /*    48aa8:	ad2f0004 */ 	sw	$t7,0x4($t1)
 .L00048aac:
 /*    48aac:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*    48ab0:	3c0f8006 */ 	lui	$t7,%hi(var800608a0)
+/*    48ab0:	3c0f8006 */ 	lui	$t7,%hi(__osTimerList)
 /*    48ab4:	8d190000 */ 	lw	$t9,0x0($t0)
 /*    48ab8:	8d180004 */ 	lw	$t8,0x4($t0)
 /*    48abc:	af190000 */ 	sw	$t9,0x0($t8)
@@ -48,7 +48,7 @@ glabel osStopTimer
 /*    48ad4:	ada00000 */ 	sw	$zero,0x0($t5)
 /*    48ad8:	8fae0030 */ 	lw	$t6,0x30($sp)
 /*    48adc:	adc00004 */ 	sw	$zero,0x4($t6)
-/*    48ae0:	8def08a0 */ 	lw	$t7,%lo(var800608a0)($t7)
+/*    48ae0:	8def08a0 */ 	lw	$t7,%lo(__osTimerList)($t7)
 /*    48ae4:	8de90000 */ 	lw	$t1,0x0($t7)
 /*    48ae8:	152f0003 */ 	bne	$t1,$t7,.L00048af8
 /*    48aec:	00000000 */ 	nop

@@ -3,8 +3,8 @@
 GLOBAL_ASM(
 glabel osContInit
 /*    4a980:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*    4a984:	3c0e8006 */ 	lui	$t6,%hi(var80060960)
-/*    4a988:	8dce0960 */ 	lw	$t6,%lo(var80060960)($t6)
+/*    4a984:	3c0e8006 */ 	lui	$t6,%hi(__osContInitialized)
+/*    4a988:	8dce0960 */ 	lw	$t6,%lo(__osContInitialized)($t6)
 /*    4a98c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*    4a990:	afa40070 */ 	sw	$a0,0x70($sp)
 /*    4a994:	afa50074 */ 	sw	$a1,0x74($sp)
@@ -15,9 +15,9 @@ glabel osContInit
 /*    4a9a8:	00001025 */ 	or	$v0,$zero,$zero
 .L0004a9ac:
 /*    4a9ac:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    4a9b0:	3c018006 */ 	lui	$at,%hi(var80060960)
+/*    4a9b0:	3c018006 */ 	lui	$at,%hi(__osContInitialized)
 /*    4a9b4:	0c012448 */ 	jal	func00049120
-/*    4a9b8:	ac2f0960 */ 	sw	$t7,%lo(var80060960)($at)
+/*    4a9b8:	ac2f0960 */ 	sw	$t7,%lo(__osContInitialized)($at)
 /*    4a9bc:	afa20060 */ 	sw	$v0,0x60($sp)
 /*    4a9c0:	8fb80060 */ 	lw	$t8,0x60($sp)
 /*    4a9c4:	afa30064 */ 	sw	$v1,0x64($sp)
@@ -85,10 +85,10 @@ glabel osContInit
 /*    4aab8:	3c01800a */ 	lui	$at,%hi(__osContLastCmd)
 /*    4aabc:	0c012a04 */ 	jal	__osSiCreateAccessQueue
 /*    4aac0:	a020c820 */ 	sb	$zero,%lo(__osContLastCmd)($at)
-/*    4aac4:	3c04800a */ 	lui	$a0,%hi(var8009c848)
-/*    4aac8:	3c05800a */ 	lui	$a1,%hi(var8009c860)
-/*    4aacc:	24a5c860 */ 	addiu	$a1,$a1,%lo(var8009c860)
-/*    4aad0:	2484c848 */ 	addiu	$a0,$a0,%lo(var8009c848)
+/*    4aac4:	3c04800a */ 	lui	$a0,%hi(__osEepromTimerQ)
+/*    4aac8:	3c05800a */ 	lui	$a1,%hi(__osEepromTimerMsg)
+/*    4aacc:	24a5c860 */ 	addiu	$a1,$a1,%lo(__osEepromTimerMsg)
+/*    4aad0:	2484c848 */ 	addiu	$a0,$a0,%lo(__osEepromTimerQ)
 /*    4aad4:	0c0120d0 */ 	jal	osCreateMesgQueue
 /*    4aad8:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    4aadc:	8fa20068 */ 	lw	$v0,0x68($sp)

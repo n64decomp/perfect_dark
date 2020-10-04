@@ -12,16 +12,16 @@ glabel __osPfsGetStatus
 /*    4baac:	a02e0984 */ 	sb	$t6,%lo(var80060984)($at)
 /*    4bab0:	0c012ed8 */ 	jal	__osPfsRequestOneChannel
 /*    4bab4:	00002825 */ 	or	$a1,$zero,$zero
-/*    4bab8:	3c058009 */ 	lui	$a1,%hi(var80090a20)
-/*    4babc:	24a50a20 */ 	addiu	$a1,$a1,%lo(var80090a20)
+/*    4bab8:	3c058009 */ 	lui	$a1,%hi(__osPfsPifRam)
+/*    4babc:	24a50a20 */ 	addiu	$a1,$a1,%lo(__osPfsPifRam)
 /*    4bac0:	0c012a34 */ 	jal	__osSiRawStartDma
 /*    4bac4:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    4bac8:	8fa40030 */ 	lw	$a0,0x30($sp)
 /*    4bacc:	27a50028 */ 	addiu	$a1,$sp,0x28
 /*    4bad0:	0c0121bc */ 	jal	osRecvMesg
 /*    4bad4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4bad8:	3c058009 */ 	lui	$a1,%hi(var80090a20)
-/*    4badc:	24a50a20 */ 	addiu	$a1,$a1,%lo(var80090a20)
+/*    4bad8:	3c058009 */ 	lui	$a1,%hi(__osPfsPifRam)
+/*    4badc:	24a50a20 */ 	addiu	$a1,$a1,%lo(__osPfsPifRam)
 /*    4bae0:	0c012a34 */ 	jal	__osSiRawStartDma
 /*    4bae4:	00002025 */ 	or	$a0,$zero,$zero
 /*    4bae8:	afa2002c */ 	sw	$v0,0x2c($sp)
@@ -63,10 +63,10 @@ glabel __osPfsGetStatus
 GLOBAL_ASM(
 glabel __osPfsRequestOneChannel
 /*    4bb60:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    4bb64:	3c068009 */ 	lui	$a2,%hi(var80090a20)
+/*    4bb64:	3c068009 */ 	lui	$a2,%hi(__osPfsPifRam)
 /*    4bb68:	240700fe */ 	addiu	$a3,$zero,0xfe
 /*    4bb6c:	3c01800a */ 	lui	$at,%hi(__osContLastCmd)
-/*    4bb70:	24c20a20 */ 	addiu	$v0,$a2,%lo(var80090a20)
+/*    4bb70:	24c20a20 */ 	addiu	$v0,$a2,%lo(__osPfsPifRam)
 /*    4bb74:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*    4bb78:	a027c820 */ 	sb	$a3,%lo(__osContLastCmd)($at)
 /*    4bb7c:	240f0001 */ 	addiu	$t7,$zero,0x1
@@ -118,9 +118,9 @@ glabel __osPfsRequestOneChannel
 
 GLOBAL_ASM(
 glabel __osPfsGetOneChannelData
-/*    4bc24:	3c028009 */ 	lui	$v0,%hi(var80090a20)
+/*    4bc24:	3c028009 */ 	lui	$v0,%hi(__osPfsPifRam)
 /*    4bc28:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    4bc2c:	24420a20 */ 	addiu	$v0,$v0,%lo(var80090a20)
+/*    4bc2c:	24420a20 */ 	addiu	$v0,$v0,%lo(__osPfsPifRam)
 /*    4bc30:	1880000b */ 	blez	$a0,.L0004bc60
 /*    4bc34:	00001825 */ 	or	$v1,$zero,$zero
 /*    4bc38:	30870003 */ 	andi	$a3,$a0,0x3

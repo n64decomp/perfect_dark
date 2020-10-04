@@ -2,8 +2,8 @@
 
 GLOBAL_ASM(
 glabel __osDisableInt
-/*    495b0:	3c0a8006 */ 	lui	$t2,%hi(var8005cf70)
-/*    495b4:	254acf70 */ 	addiu	$t2,$t2,%lo(var8005cf70)
+/*    495b0:	3c0a8006 */ 	lui	$t2,%hi(__osGlobalIntMask)
+/*    495b4:	254acf70 */ 	addiu	$t2,$t2,%lo(__osGlobalIntMask)
 /*    495b8:	8d4b0000 */ 	lw	$t3,0x0($t2)
 /*    495bc:	316bff00 */ 	andi	$t3,$t3,0xff00
 /*    495c0:	40086000 */ 	mfc0	$t0,$12

@@ -497,8 +497,8 @@ GLOBAL_ASM(
 glabel func00015fd0
 /*    15fd0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    15fd4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    15fd8:	3c04800a */ 	lui	$a0,%hi(var8009c7a8)
-/*    15fdc:	2484c7a8 */ 	addiu	$a0,$a0,%lo(var8009c7a8)
+/*    15fd8:	3c04800a */ 	lui	$a0,%hi(__osPiAccessQueue)
+/*    15fdc:	2484c7a8 */ 	addiu	$a0,$a0,%lo(__osPiAccessQueue)
 /*    15fe0:	24050000 */ 	addiu	$a1,$zero,0x0
 /*    15fe4:	0c0121bc */ 	jal	osRecvMesg
 /*    15fe8:	3c060001 */ 	lui	$a2,0x1
@@ -520,8 +520,8 @@ glabel func00015fd0
 /*    16024:	00852026 */ 	xor	$a0,$a0,$a1
 /*    16028:	8c820000 */ 	lw	$v0,0x0($a0)
 /*    1602c:	afa20018 */ 	sw	$v0,0x18($sp)
-/*    16030:	3c04800a */ 	lui	$a0,%hi(var8009c7a8)
-/*    16034:	2484c7a8 */ 	addiu	$a0,$a0,%lo(var8009c7a8)
+/*    16030:	3c04800a */ 	lui	$a0,%hi(__osPiAccessQueue)
+/*    16034:	2484c7a8 */ 	addiu	$a0,$a0,%lo(__osPiAccessQueue)
 /*    16038:	24050000 */ 	addiu	$a1,$zero,0x0
 /*    1603c:	0c012238 */ 	jal	osSendMesg
 /*    16040:	3c060000 */ 	lui	$a2,0x0

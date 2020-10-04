@@ -4,8 +4,8 @@ GLOBAL_ASM(
 glabel osSetIntMask
 /*    48650:	400c6000 */ 	mfc0	$t4,$12
 /*    48654:	3182ff01 */ 	andi	$v0,$t4,0xff01
-/*    48658:	3c088006 */ 	lui	$t0,%hi(var8005cf70)
-/*    4865c:	2508cf70 */ 	addiu	$t0,$t0,%lo(var8005cf70)
+/*    48658:	3c088006 */ 	lui	$t0,%hi(__osGlobalIntMask)
+/*    4865c:	2508cf70 */ 	addiu	$t0,$t0,%lo(__osGlobalIntMask)
 /*    48660:	8d0b0000 */ 	lw	$t3,0x0($t0)
 /*    48664:	2401ffff */ 	addiu	$at,$zero,-1
 /*    48668:	01614026 */ 	xor	$t0,$t3,$at

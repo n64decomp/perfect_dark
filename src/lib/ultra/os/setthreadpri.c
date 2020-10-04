@@ -40,8 +40,8 @@ glabel osSetThreadPri
 /*    484b8:	01802825 */ 	or	$a1,$t4,$zero
 .L000484bc:
 /*    484bc:	3c0d8006 */ 	lui	$t5,%hi(__osRunningThread)
-/*    484c0:	3c0f8006 */ 	lui	$t7,%hi(var80060938)
-/*    484c4:	8def0938 */ 	lw	$t7,%lo(var80060938)($t7)
+/*    484c0:	3c0f8006 */ 	lui	$t7,%hi(__osRunQueue)
+/*    484c4:	8def0938 */ 	lw	$t7,%lo(__osRunQueue)($t7)
 /*    484c8:	8dad0940 */ 	lw	$t5,%lo(__osRunningThread)($t5)
 /*    484cc:	8df90004 */ 	lw	$t9,0x4($t7)
 /*    484d0:	8dae0004 */ 	lw	$t6,0x4($t5)
@@ -49,10 +49,10 @@ glabel osSetThreadPri
 /*    484d8:	10200006 */ 	beqz	$at,.L000484f4
 /*    484dc:	00000000 */ 	nop
 /*    484e0:	24080002 */ 	addiu	$t0,$zero,0x2
-/*    484e4:	3c048006 */ 	lui	$a0,%hi(var80060938)
+/*    484e4:	3c048006 */ 	lui	$a0,%hi(__osRunQueue)
 /*    484e8:	a5a80010 */ 	sh	$t0,0x10($t5)
 /*    484ec:	0c000ee8 */ 	jal	__osEnqueueAndYield
-/*    484f0:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
+/*    484f0:	24840938 */ 	addiu	$a0,$a0,%lo(__osRunQueue)
 .L000484f4:
 /*    484f4:	0c012588 */ 	jal	__osRestoreInt
 /*    484f8:	02002025 */ 	or	$a0,$s0,$zero

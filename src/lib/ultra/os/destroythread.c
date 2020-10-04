@@ -27,18 +27,18 @@ glabel __osDestroyThread
 /*    4a2a4:	0c012884 */ 	jal	__osDequeueThread
 /*    4a2a8:	03002825 */ 	or	$a1,$t8,$zero
 .L0004a2ac:
-/*    4a2ac:	3c088006 */ 	lui	$t0,%hi(var8006093c)
-/*    4a2b0:	8d08093c */ 	lw	$t0,%lo(var8006093c)($t0)
+/*    4a2ac:	3c088006 */ 	lui	$t0,%hi(__osActiveQueue)
+/*    4a2b0:	8d08093c */ 	lw	$t0,%lo(__osActiveQueue)($t0)
 /*    4a2b4:	8fa90038 */ 	lw	$t1,0x38($sp)
 /*    4a2b8:	15090005 */ 	bne	$t0,$t1,.L0004a2d0
 /*    4a2bc:	00000000 */ 	nop
 /*    4a2c0:	8d0a000c */ 	lw	$t2,0xc($t0)
-/*    4a2c4:	3c018006 */ 	lui	$at,%hi(var8006093c)
+/*    4a2c4:	3c018006 */ 	lui	$at,%hi(__osActiveQueue)
 /*    4a2c8:	10000013 */ 	b	.L0004a318
-/*    4a2cc:	ac2a093c */ 	sw	$t2,%lo(var8006093c)($at)
+/*    4a2cc:	ac2a093c */ 	sw	$t2,%lo(__osActiveQueue)($at)
 .L0004a2d0:
-/*    4a2d0:	3c118006 */ 	lui	$s1,%hi(var8006093c)
-/*    4a2d4:	8e31093c */ 	lw	$s1,%lo(var8006093c)($s1)
+/*    4a2d0:	3c118006 */ 	lui	$s1,%hi(__osActiveQueue)
+/*    4a2d4:	8e31093c */ 	lw	$s1,%lo(__osActiveQueue)($s1)
 /*    4a2d8:	2401ffff */ 	addiu	$at,$zero,-1
 /*    4a2dc:	8e2b0004 */ 	lw	$t3,0x4($s1)
 /*    4a2e0:	1161000d */ 	beq	$t3,$at,.L0004a318

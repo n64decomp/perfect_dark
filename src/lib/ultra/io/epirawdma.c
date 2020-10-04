@@ -20,11 +20,11 @@ glabel osEPiRawStartDma
 /*    49c58:	8c620000 */ 	lw	$v0,0x0($v1)
 /*    49c5c:	92020009 */ 	lbu	$v0,0x9($s0)
 .L00049c60:
-/*    49c60:	3c048006 */ 	lui	$a0,%hi(var8005cf20)
+/*    49c60:	3c048006 */ 	lui	$a0,%hi(__osCurrentHandle)
 /*    49c64:	92190004 */ 	lbu	$t9,0x4($s0)
 /*    49c68:	0002c080 */ 	sll	$t8,$v0,0x2
 /*    49c6c:	00982021 */ 	addu	$a0,$a0,$t8
-/*    49c70:	8c84cf20 */ 	lw	$a0,%lo(var8005cf20)($a0)
+/*    49c70:	8c84cf20 */ 	lw	$a0,%lo(__osCurrentHandle)($a0)
 /*    49c74:	90880004 */ 	lbu	$t0,0x4($a0)
 /*    49c78:	5328003d */ 	beql	$t9,$t0,.L00049d70
 /*    49c7c:	00e02025 */ 	or	$a0,$a3,$zero

@@ -12,8 +12,8 @@
 
 GLOBAL_ASM(
 glabel func0004e270
-/*    4e270:	3c058006 */ 	lui	$a1,%hi(var8005cf68)
-/*    4e274:	24a5cf68 */ 	addiu	$a1,$a1,%lo(var8005cf68)
+/*    4e270:	3c058006 */ 	lui	$a1,%hi(osViClock)
+/*    4e274:	24a5cf68 */ 	addiu	$a1,$a1,%lo(osViClock)
 /*    4e278:	8cae0000 */ 	lw	$t6,0x0($a1)
 /*    4e27c:	44844000 */ 	mtc1	$a0,$f8
 /*    4e280:	3c014f80 */ 	lui	$at,0x4f80
