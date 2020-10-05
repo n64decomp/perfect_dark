@@ -300,7 +300,7 @@ Gfx *func0f153780(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *func0f1537dc(Gfx *gdl, u32 colour)
+Gfx *gfxSetPrimColour(Gfx *gdl, u32 colour)
 {
 	gDPPipeSync(gdl++);
     gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
@@ -325,7 +325,7 @@ glabel func0f153858
 /*  f153860:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f153864:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f153868:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f15386c:	0fc54df7 */ 	jal	func0f1537dc
+/*  f15386c:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f153870:	00002825 */ 	or	$a1,$zero,$zero
 /*  f153874:	8fae0028 */ 	lw	$t6,0x28($sp)
 /*  f153878:	8fa90024 */ 	lw	$t1,0x24($sp)
@@ -364,7 +364,7 @@ glabel func0f1538e4
 /*  f1538ec:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f1538f0:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f1538f4:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f1538f8:	0fc54df7 */ 	jal	func0f1537dc
+/*  f1538f8:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f1538fc:	00002825 */ 	or	$a1,$zero,$zero
 /*  f153900:	8fae0024 */ 	lw	$t6,0x24($sp)
 /*  f153904:	3c038008 */ 	lui	$v1,%hi(g_ScreenWidthMultiplier)
@@ -411,7 +411,7 @@ glabel func0f153990
 /*  f153998:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f15399c:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f1539a0:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f1539a4:	0fc54df7 */ 	jal	func0f1537dc
+/*  f1539a4:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f1539a8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f1539ac:	3c0f8008 */ 	lui	$t7,%hi(var8007fad0)
 /*  f1539b0:	8deffad0 */ 	lw	$t7,%lo(var8007fad0)($t7)
@@ -456,7 +456,7 @@ glabel func0f153a34
 /*  f153a3c:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f153a40:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f153a44:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f153a48:	0fc54df7 */ 	jal	func0f1537dc
+/*  f153a48:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f153a4c:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*  f153a50:	8fae0024 */ 	lw	$t6,0x24($sp)
 /*  f153a54:	8fa80028 */ 	lw	$t0,0x28($sp)

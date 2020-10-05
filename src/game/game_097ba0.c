@@ -21951,7 +21951,7 @@ glabel func0f0a9fc0
 /*  f0aa14c:	00d2082a */ 	slt	$at,$a2,$s2
 /*  f0aa150:	1020003f */ 	beqz	$at,.L0f0aa250
 /*  f0aa154:	00000000 */ 	nop
-/*  f0aa158:	0fc54df7 */ 	jal	func0f1537dc
+/*  f0aa158:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f0aa15c:	afa600bc */ 	sw	$a2,0xbc($sp)
 /*  f0aa160:	8faf00f8 */ 	lw	$t7,0xf8($sp)
 /*  f0aa164:	8fa600bc */ 	lw	$a2,0xbc($sp)
@@ -22019,7 +22019,7 @@ glabel func0f0a9fc0
 /*  f0aa250:	3c138008 */ 	lui	$s3,%hi(g_ScreenWidthMultiplier)
 /*  f0aa254:	2673fac0 */ 	addiu	$s3,$s3,%lo(g_ScreenWidthMultiplier)
 /*  f0aa258:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0aa25c:	0fc54df7 */ 	jal	func0f1537dc
+/*  f0aa25c:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f0aa260:	8fa500f4 */ 	lw	$a1,0xf4($sp)
 /*  f0aa264:	8fb900f8 */ 	lw	$t9,0xf8($sp)
 /*  f0aa268:	8fa900e0 */ 	lw	$t1,0xe0($sp)
@@ -22078,7 +22078,7 @@ glabel func0f0a9fc0
 .L0f0aa338:
 /*  f0aa338:	8fa500f0 */ 	lw	$a1,0xf0($sp)
 /*  f0aa33c:	afa600bc */ 	sw	$a2,0xbc($sp)
-/*  f0aa340:	0fc54df7 */ 	jal	func0f1537dc
+/*  f0aa340:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f0aa344:	e7a000b8 */ 	swc1	$f0,0xb8($sp)
 /*  f0aa348:	8fae00b4 */ 	lw	$t6,0xb4($sp)
 /*  f0aa34c:	8fa600bc */ 	lw	$a2,0xbc($sp)
@@ -22729,7 +22729,7 @@ glabel hudRenderAmmo
 .L0f0aac7c:
 /*  f0aac7c:	8fa40130 */ 	lw	$a0,0x130($sp)
 /*  f0aac80:	8fa500f4 */ 	lw	$a1,0xf4($sp)
-/*  f0aac84:	0fc54df7 */ 	jal	func0f1537dc
+/*  f0aac84:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f0aac88:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0aac8c:	3c068008 */ 	lui	$a2,%hi(g_ScreenWidthMultiplier)
 /*  f0aac90:	8faf0100 */ 	lw	$t7,0x100($sp)
@@ -22873,7 +22873,7 @@ glabel hudRenderAmmo
 /*  f0aaea0:	afb800d0 */ 	sw	$t8,0xd0($sp)
 .L0f0aaea4:
 /*  f0aaea4:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0aaea8:	0fc54df7 */ 	jal	func0f1537dc
+/*  f0aaea8:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f0aaeac:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0aaeb0:	3c038008 */ 	lui	$v1,%hi(g_ScreenWidthMultiplier)
 /*  f0aaeb4:	8fb90100 */ 	lw	$t9,0x100($sp)
@@ -23071,7 +23071,7 @@ glabel hudRenderAmmo
 /*  f0ab190:	afb800d0 */ 	sw	$t8,0xd0($sp)
 .L0f0ab194:
 /*  f0ab194:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0ab198:	0fc54df7 */ 	jal	func0f1537dc
+/*  f0ab198:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f0ab19c:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0ab1a0:	3c038008 */ 	lui	$v1,%hi(g_ScreenWidthMultiplier)
 /*  f0ab1a4:	2463fac0 */ 	addiu	$v1,$v1,%lo(g_ScreenWidthMultiplier)

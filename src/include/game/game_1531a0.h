@@ -10,7 +10,7 @@ void fontLoad(void *start, void *end, u32 *arg2, u32 *arg3, u32 arg4);
 void fontsLoadForCurrentStage(void);
 Gfx *func0f153628(Gfx *gdl);
 Gfx *func0f153780(Gfx *gdl);
-Gfx *func0f1537dc(Gfx *gdl, u32 colour);
+Gfx *gfxSetPrimColour(Gfx *gdl, u32 colour);
 Gfx *func0f153838(Gfx *gdl);
 Gfx *func0f153858(Gfx *gdl, s32 *x, s32 *y, s32 *textwidth, s32 *textheight);
 u32 func0f1538e4(void);

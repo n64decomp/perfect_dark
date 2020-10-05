@@ -2585,7 +2585,7 @@ glabel func0f100128
 /*  f1003ac:	2410006f */ 	addiu	$s0,$zero,0x6f
 /*  f1003b0:	02002825 */ 	or	$a1,$s0,$zero
 .L0f1003b4:
-/*  f1003b4:	0fc54df7 */ 	jal	func0f1537dc
+/*  f1003b4:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f1003b8:	afab0038 */ 	sw	$t3,0x38($sp)
 /*  f1003bc:	3c08800a */ 	lui	$t0,%hi(g_ActiveMenuIndex)
 /*  f1003c0:	250821b8 */ 	addiu	$t0,$t0,%lo(g_ActiveMenuIndex)
@@ -2743,7 +2743,7 @@ glabel func0f100128
 /*  f1005fc:	02002825 */ 	or	$a1,$s0,$zero
 .L0f100600:
 /*  f100600:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f100604:	0fc54df7 */ 	jal	func0f1537dc
+/*  f100604:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f100608:	afaa0028 */ 	sw	$t2,0x28($sp)
 /*  f10060c:	3c08800a */ 	lui	$t0,%hi(g_ActiveMenuIndex)
 /*  f100610:	250821b8 */ 	addiu	$t0,$t0,%lo(g_ActiveMenuIndex)
@@ -3741,7 +3741,7 @@ glabel func0f100ad0
 /*  f101490:	3c144f4f */ 	lui	$s4,0x4f4f
 /*  f101494:	36944f7f */ 	ori	$s4,$s4,0x4f7f
 .L0f101498:
-/*  f101498:	0fc54df7 */ 	jal	func0f1537dc
+/*  f101498:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f10149c:	02802825 */ 	or	$a1,$s4,$zero
 /*  f1014a0:	3c18800a */ 	lui	$t8,%hi(g_ActiveMenuIndex)
 /*  f1014a4:	8f1821b8 */ 	lw	$t8,%lo(g_ActiveMenuIndex)($t8)
