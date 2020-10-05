@@ -980,7 +980,7 @@ void scenarioHtbKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 		}
 	}
 
-	*arg3 = mpchr->unk3c;
+	*arg3 = mpchr->numdeaths;
 }
 
 Gfx *scenarioHtbRadar(Gfx *gdl)
@@ -1512,7 +1512,7 @@ void scenarioCtcKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 		}
 	}
 
-	*arg3 = mpchr->unk3c;
+	*arg3 = mpchr->numdeaths;
 }
 
 Gfx *scenarioCtcRadar(Gfx *gdl)
@@ -2744,7 +2744,7 @@ void scenarioKohKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 		}
 	}
 
-	*arg3 = mpchr->unk3c;
+	*arg3 = mpchr->numdeaths;
 }
 
 Gfx *scenarioKohRadar(Gfx *gdl)
@@ -3874,7 +3874,7 @@ void scenarioHtmKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 		}
 	}
 
-	*arg3 = mpchr->unk3c;
+	*arg3 = mpchr->numdeaths;
 }
 
 GLOBAL_ASM(
@@ -4991,7 +4991,7 @@ void scenarioPacKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 		}
 	}
 
-	*arg3 = mpchr->unk3c;
+	*arg3 = mpchr->numdeaths;
 }
 
 Gfx *scenarioPacRadar(Gfx *gdl)

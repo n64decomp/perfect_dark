@@ -4392,7 +4392,7 @@ struct mpchr {
 	/*0x1e*/ s8 placement;
 	/*0x20*/ u32 unk20;
 	/*0x24*/ s16 unk24[12];
-	/*0x3c*/ s16 unk3c;
+	/*0x3c*/ s16 numdeaths;
 	/*0x3e*/ s16 unk3e;
 	/*0x40*/ u32 unk40;
 	/*0x44*/ u8 controlmode;
@@ -5406,7 +5406,7 @@ struct chrbio {
 };
 
 struct mpteaminfo {
-	u32 unk00;
+	struct mpchr *mpchr;
 	u32 unk04;
 	u32 unk08;
 	u32 unk0c;

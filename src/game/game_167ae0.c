@@ -5079,7 +5079,7 @@ glabel func0f16b96c
 /*  f16c754:	27a4016c */ 	addiu	$a0,$sp,0x16c
 /*  f16c758:	1b000017 */ 	blez	$t8,.L0f16c7b8
 /*  f16c75c:	00000000 */ 	nop
-/*  f16c760:	0fc62179 */ 	jal	func0f1885e4
+/*  f16c760:	0fc62179 */ 	jal	mpGetPlayerRankings
 /*  f16c764:	00005825 */ 	or	$t3,$zero,$zero
 /*  f16c768:	18400013 */ 	blez	$v0,.L0f16c7b8
 /*  f16c76c:	00401825 */ 	or	$v1,$v0,$zero
@@ -5109,7 +5109,7 @@ glabel func0f16b96c
 /*  f16c7c0:	27a40078 */ 	addiu	$a0,$sp,0x78
 /*  f16c7c4:	5b000018 */ 	blezl	$t8,.L0f16c828
 /*  f16c7c8:	8e380000 */ 	lw	$t8,0x0($s1)
-/*  f16c7cc:	0fc622a1 */ 	jal	func0f188a84
+/*  f16c7cc:	0fc622a1 */ 	jal	mpGetTeamRankings
 /*  f16c7d0:	00005825 */ 	or	$t3,$zero,$zero
 /*  f16c7d4:	18400013 */ 	blez	$v0,.L0f16c824
 /*  f16c7d8:	00401825 */ 	or	$v1,$v0,$zero
@@ -5586,7 +5586,7 @@ glabel func0f16b96c
 //
 //			if (g_MpScoreLimit > 0) {
 //				struct mpteaminfo info[12];
-//				s32 count = func0f1885e4(info);
+//				s32 count = mpGetPlayerRankings(info);
 //
 //				for (i = 0; i < count; i++) {
 //					if (info[i].score >= g_MpScoreLimit) {
@@ -5597,7 +5597,7 @@ glabel func0f16b96c
 //
 //			if (g_MpTeamScoreLimit > 0) {
 //				struct mpteaminfo info[12];
-//				s32 count = func0f188a84(info);
+//				s32 count = mpGetTeamRankings(info);
 //
 //				for (i = 0; i < count; i++) {
 //					if (info[i].score >= g_MpTeamScoreLimit) {

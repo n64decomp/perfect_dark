@@ -1037,7 +1037,7 @@ glabel func0f188530
 );
 
 GLOBAL_ASM(
-glabel func0f1885e4
+glabel mpGetPlayerRankings
 /*  f1885e4:	27bdfdc8 */ 	addiu	$sp,$sp,-568
 /*  f1885e8:	afb40028 */ 	sw	$s4,0x28($sp)
 /*  f1885ec:	3c14800b */ 	lui	$s4,%hi(g_MpSetup)
@@ -1052,7 +1052,7 @@ glabel func0f1885e4
 /*  f188610:	afa40238 */ 	sw	$a0,0x238($sp)
 /*  f188614:	11e00004 */ 	beqz	$t7,.L0f188628
 /*  f188618:	00008025 */ 	or	$s0,$zero,$zero
-/*  f18861c:	0fc622a1 */ 	jal	func0f188a84
+/*  f18861c:	0fc622a1 */ 	jal	mpGetTeamRankings
 /*  f188620:	27a4007c */ 	addiu	$a0,$sp,0x7c
 /*  f188624:	afa2016c */ 	sw	$v0,0x16c($sp)
 .L0f188628:
@@ -1366,7 +1366,7 @@ glabel func0f188930
 );
 
 GLOBAL_ASM(
-glabel func0f188a84
+glabel mpGetTeamRankings
 /*  f188a84:	27bdff70 */ 	addiu	$sp,$sp,-144
 /*  f188a88:	afb60030 */ 	sw	$s6,0x30($sp)
 /*  f188a8c:	afb5002c */ 	sw	$s5,0x2c($sp)
@@ -3334,7 +3334,7 @@ glabel var7f1b8db0
 /*  f18a61c:	afb002fc */ 	sw	$s0,0x2fc($sp)
 /*  f18a620:	0c00cf76 */ 	jal	func00033dd8
 /*  f18a624:	afa202ec */ 	sw	$v0,0x2ec($sp)
-/*  f18a628:	0fc62179 */ 	jal	func0f1885e4
+/*  f18a628:	0fc62179 */ 	jal	mpGetPlayerRankings
 /*  f18a62c:	27a401e8 */ 	addiu	$a0,$sp,0x1e8
 /*  f18a630:	3c15800b */ 	lui	$s5,%hi(g_MpSetup)
 /*  f18a634:	26b5cb88 */ 	addiu	$s5,$s5,%lo(g_MpSetup)
@@ -3343,7 +3343,7 @@ glabel var7f1b8db0
 /*  f18a640:	33190002 */ 	andi	$t9,$t8,0x2
 /*  f18a644:	53200006 */ 	beqzl	$t9,.L0f18a660
 /*  f18a648:	afa001e0 */ 	sw	$zero,0x1e0($sp)
-/*  f18a64c:	0fc622a1 */ 	jal	func0f188a84
+/*  f18a64c:	0fc622a1 */ 	jal	mpGetTeamRankings
 /*  f18a650:	27a400f0 */ 	addiu	$a0,$sp,0xf0
 /*  f18a654:	10000002 */ 	b	.L0f18a660
 /*  f18a658:	afa201e0 */ 	sw	$v0,0x1e0($sp)

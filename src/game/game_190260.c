@@ -6532,7 +6532,7 @@ glabel var7f1b8fc8
 .L0f196198:
 /*  f196198:	54410028 */ 	bnel	$v0,$at,.L0f19623c
 /*  f19619c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1961a0:	0fc62179 */ 	jal	func0f1885e4
+/*  f1961a0:	0fc62179 */ 	jal	mpGetPlayerRankings
 /*  f1961a4:	27a400e4 */ 	addiu	$a0,$sp,0xe4
 /*  f1961a8:	18400063 */ 	blez	$v0,.L0f196338
 /*  f1961ac:	00408825 */ 	or	$s1,$v0,$zero

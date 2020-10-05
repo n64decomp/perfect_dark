@@ -1694,7 +1694,7 @@ glabel mpIsChallengeCompleteForEndscreen
 /*  f19c678:	8fa4013c */ 	lw	$a0,0x13c($sp)
 /*  f19c67c:	56400009 */ 	bnezl	$s2,.L0f19c6a4
 /*  f19c680:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f19c684:	0fc622a1 */ 	jal	func0f188a84
+/*  f19c684:	0fc622a1 */ 	jal	mpGetTeamRankings
 /*  f19c688:	27a4003c */ 	addiu	$a0,$sp,0x3c
 /*  f19c68c:	8fab0040 */ 	lw	$t3,0x40($sp)
 /*  f19c690:	240c0001 */ 	addiu	$t4,$zero,0x1
@@ -1712,8 +1712,8 @@ glabel mpIsChallengeCompleteForEndscreen
 );
 
 /**
- * This uses about 256 extra bytes of stack and passes it to func0f188a84.
- * Should decompile func0f188a84 first.
+ * This uses about 256 extra bytes of stack and passes it to mpGetTeamRankings.
+ * Should decompile mpGetTeamRankings first.
  */
 //bool mpIsChallengeCompleteForEndscreen(void)
 //{
@@ -1732,7 +1732,7 @@ glabel mpIsChallengeCompleteForEndscreen
 //
 //	setCurrentPlayerNum(prevplayernum);
 //
-//	if (!aborting && func0f188a84() == 0) {
+//	if (!aborting && mpGetTeamRankings() == 0) {
 //		result = true;
 //	}
 //

@@ -55,7 +55,7 @@ void menuInitItemMarquee(union menuitemtickdata *data);
 
 Gfx *menuRenderItem07(Gfx *gdl);
 
-Gfx *menuRenderItemRanking(Gfx *gdl);
+Gfx *menuRenderItemRanking(Gfx *gdl, struct menurenderthing *thing);
 bool menuTickItemRanking(struct menuinputs *inputs, u32 arg1, union menuitemtickdata *data);
 void menuInitItemRanking(union menuitemtickdata *data);
 
