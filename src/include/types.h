@@ -5407,7 +5407,7 @@ struct chrbio {
 
 struct mpteaminfo {
 	struct mpchr *mpchr;
-	u32 unk04;
+	u32 teamnum;
 	u32 unk08;
 	u32 unk0c;
 	s32 score;

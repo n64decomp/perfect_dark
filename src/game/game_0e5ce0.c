@@ -7089,7 +7089,7 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurenderthing *thing)
 		y = thing->y + i * 10 - data->scrolloffset + 14;
 
 		if (team) {
-			gdl = textRenderWhite(gdl, &x, &y, g_MpSetupSaveFile.teamnames[thisinfo->unk04],
+			gdl = textRenderWhite(gdl, &x, &y, g_MpSetupSaveFile.teamnames[thisinfo->teamnum],
 					var8007fb10, var8007fb0c, textcolour, thing->width, thing->height, 0, 0);
 		} else {
 			gdl = textRenderWhite(gdl, &x, &y, thisinfo->mpchr->name,

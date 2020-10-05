@@ -1598,146 +1598,35 @@ void mpSetChallengeCompletedByChrWithNumPlayers(u32 mpchrnum, s32 index, s32 num
 	g_MpChallenges[index].completions[numplayers] &= ~(2 << mpchrnum);
 }
 
-GLOBAL_ASM(
-glabel mpIsChallengeCompleteForEndscreen
-/*  f19c53c:	27bdfec0 */ 	addiu	$sp,$sp,-320
-/*  f19c540:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f19c544:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f19c548:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f19c54c:	8e0f006c */ 	lw	$t7,0x6c($s0)
-/*  f19c550:	8e0e028c */ 	lw	$t6,0x28c($s0)
-/*  f19c554:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f19c558:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f19c55c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f19c560:	afa00138 */ 	sw	$zero,0x138($sp)
-/*  f19c564:	00009025 */ 	or	$s2,$zero,$zero
-/*  f19c568:	00008825 */ 	or	$s1,$zero,$zero
-/*  f19c56c:	11e00003 */ 	beqz	$t7,.L0f19c57c
-/*  f19c570:	afae013c */ 	sw	$t6,0x13c($sp)
-/*  f19c574:	10000002 */ 	b	.L0f19c580
-/*  f19c578:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f19c57c:
-/*  f19c57c:	00002825 */ 	or	$a1,$zero,$zero
-.L0f19c580:
-/*  f19c580:	8e180068 */ 	lw	$t8,0x68($s0)
-/*  f19c584:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19c588:	00001825 */ 	or	$v1,$zero,$zero
-/*  f19c58c:	13000003 */ 	beqz	$t8,.L0f19c59c
-/*  f19c590:	00000000 */ 	nop
-/*  f19c594:	10000001 */ 	b	.L0f19c59c
-/*  f19c598:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f19c59c:
-/*  f19c59c:	8e190064 */ 	lw	$t9,0x64($s0)
-/*  f19c5a0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19c5a4:	13200003 */ 	beqz	$t9,.L0f19c5b4
-/*  f19c5a8:	00000000 */ 	nop
-/*  f19c5ac:	10000001 */ 	b	.L0f19c5b4
-/*  f19c5b0:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f19c5b4:
-/*  f19c5b4:	8e080070 */ 	lw	$t0,0x70($s0)
-/*  f19c5b8:	11000003 */ 	beqz	$t0,.L0f19c5c8
-/*  f19c5bc:	00000000 */ 	nop
-/*  f19c5c0:	10000001 */ 	b	.L0f19c5c8
-/*  f19c5c4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f19c5c8:
-/*  f19c5c8:	00434821 */ 	addu	$t1,$v0,$v1
-/*  f19c5cc:	01245021 */ 	addu	$t2,$t1,$a0
-/*  f19c5d0:	01455821 */ 	addu	$t3,$t2,$a1
-/*  f19c5d4:	19600027 */ 	blez	$t3,.L0f19c674
-/*  f19c5d8:	00000000 */ 	nop
-.L0f19c5dc:
-/*  f19c5dc:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f19c5e0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f19c5e4:	8e0c0284 */ 	lw	$t4,0x284($s0)
-/*  f19c5e8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f19c5ec:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19c5f0:	8d8d048c */ 	lw	$t5,0x48c($t4)
-/*  f19c5f4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f19c5f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19c5fc:	51a00003 */ 	beqzl	$t5,.L0f19c60c
-/*  f19c600:	8e0e006c */ 	lw	$t6,0x6c($s0)
-/*  f19c604:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f19c608:	8e0e006c */ 	lw	$t6,0x6c($s0)
-.L0f19c60c:
-/*  f19c60c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f19c610:	11c00003 */ 	beqz	$t6,.L0f19c620
-/*  f19c614:	00000000 */ 	nop
-/*  f19c618:	10000001 */ 	b	.L0f19c620
-/*  f19c61c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f19c620:
-/*  f19c620:	8e0f0068 */ 	lw	$t7,0x68($s0)
-/*  f19c624:	11e00003 */ 	beqz	$t7,.L0f19c634
-/*  f19c628:	00000000 */ 	nop
-/*  f19c62c:	10000001 */ 	b	.L0f19c634
-/*  f19c630:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f19c634:
-/*  f19c634:	8e180064 */ 	lw	$t8,0x64($s0)
-/*  f19c638:	13000003 */ 	beqz	$t8,.L0f19c648
-/*  f19c63c:	00000000 */ 	nop
-/*  f19c640:	10000001 */ 	b	.L0f19c648
-/*  f19c644:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f19c648:
-/*  f19c648:	8e190070 */ 	lw	$t9,0x70($s0)
-/*  f19c64c:	13200003 */ 	beqz	$t9,.L0f19c65c
-/*  f19c650:	00000000 */ 	nop
-/*  f19c654:	10000001 */ 	b	.L0f19c65c
-/*  f19c658:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f19c65c:
-/*  f19c65c:	00434021 */ 	addu	$t0,$v0,$v1
-/*  f19c660:	01044821 */ 	addu	$t1,$t0,$a0
-/*  f19c664:	01255021 */ 	addu	$t2,$t1,$a1
-/*  f19c668:	022a082a */ 	slt	$at,$s1,$t2
-/*  f19c66c:	1420ffdb */ 	bnez	$at,.L0f19c5dc
-/*  f19c670:	00000000 */ 	nop
-.L0f19c674:
-/*  f19c674:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f19c678:	8fa4013c */ 	lw	$a0,0x13c($sp)
-/*  f19c67c:	56400009 */ 	bnezl	$s2,.L0f19c6a4
-/*  f19c680:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f19c684:	0fc622a1 */ 	jal	mpGetTeamRankings
-/*  f19c688:	27a4003c */ 	addiu	$a0,$sp,0x3c
-/*  f19c68c:	8fab0040 */ 	lw	$t3,0x40($sp)
-/*  f19c690:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f19c694:	55600003 */ 	bnezl	$t3,.L0f19c6a4
-/*  f19c698:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f19c69c:	afac0138 */ 	sw	$t4,0x138($sp)
-/*  f19c6a0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f19c6a4:
-/*  f19c6a4:	8fa20138 */ 	lw	$v0,0x138($sp)
-/*  f19c6a8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f19c6ac:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f19c6b0:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f19c6b4:	03e00008 */ 	jr	$ra
-/*  f19c6b8:	27bd0140 */ 	addiu	$sp,$sp,0x140
-);
+bool mpIsChallengeCompleteForEndscreen(void)
+{
+	s32 prevplayernum = g_Vars.currentplayernum;
+	s32 result = false;
+	s32 aborted = false;
+	s32 i;
+	u32 stack;
 
-/**
- * This uses about 256 extra bytes of stack and passes it to mpGetTeamRankings.
- * Should decompile mpGetTeamRankings first.
- */
-//bool mpIsChallengeCompleteForEndscreen(void)
-//{
-//	bool result = false;
-//	bool aborting = false;
-//	s32 i;
-//	u32 prevplayernum = g_Vars.currentplayernum;
-//
-//	for (i = 0; i < PLAYERCOUNT(); i++) {
-//		setCurrentPlayerNum(i);
-//
-//		if (g_Vars.currentplayer->aborted) {
-//			aborting = true;
-//		}
-//	}
-//
-//	setCurrentPlayerNum(prevplayernum);
-//
-//	if (!aborting && mpGetTeamRankings() == 0) {
-//		result = true;
-//	}
-//
-//	return result;
-//}
+	for (i = 0; i < PLAYERCOUNT(); i++) {
+		setCurrentPlayerNum(i);
+
+		if (g_Vars.currentplayer->aborted) {
+			aborted = true;
+		}
+	}
+
+	setCurrentPlayerNum(prevplayernum);
+
+	if (!aborted) {
+		struct mpteaminfo info[12];
+		mpGetTeamRankings(info);
+
+		if (info[0].teamnum == 0) {
+			result = true;
+		}
+	}
+
+	return result;
+}
 
 void mpConsiderMarkingCurrentChallengeComplete(void)
 {
