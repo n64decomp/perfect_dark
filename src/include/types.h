@@ -3248,15 +3248,15 @@ struct hoverprop {
 	u16 size;
 };
 
-struct menuitemtickdata_controller {
-	u8 unk00;
-	u8 unk01;
-	u8 unk02;
-	u8 unk03;
-	s8 unk04;
+struct menuitemdata_controller {
+	u8 textfadetimer;
+	u8 contfadetimer;
+	u8 curmode;
+	u8 controlgroup;
+	s8 prevmode;
 };
 
-struct menuitemtickdata_dropdown {
+struct menuitemdata_dropdown {
 	u16 unk00;
 	u16 unk02;
 	s16 unk04;
@@ -3267,7 +3267,7 @@ struct menuitemtickdata_dropdown {
 	u16 unk0e;
 };
 
-struct menuitemtickdata_keyboard {
+struct menuitemdata_keyboard {
 	char string[11];
 	s8 col;
 	s8 row;
@@ -3275,44 +3275,44 @@ struct menuitemtickdata_keyboard {
 	u8 capseffective : 1; // Same as above, but inverted if holding L or R
 };
 
-struct menuitemtickdata_list {
+struct menuitemdata_list {
 	s16 unk00;
 	s16 unk02;
 	s16 unk04;
 	s16 unk06;
 };
 
-struct menuitemtickdata_marquee {
+struct menuitemdata_marquee {
 	u16 totalmoved;
 	u16 sum;
 	u16 unk04;
 	u16 unk06;
 };
 
-struct menuitemtickdata_ranking {
+struct menuitemdata_ranking {
 	s16 scrolloffset;
 };
 
-struct menuitemtickdata_scrollable {
+struct menuitemdata_scrollable {
 	s16 unk00;
 	s16 unk02;
 	s16 unk04;
 	s16 unk06;
 };
 
-struct menuitemtickdata_slider {
+struct menuitemdata_slider {
 	s16 unk00;
 };
 
-union menuitemtickdata {
-	struct menuitemtickdata_controller controller;
-	struct menuitemtickdata_dropdown dropdown;
-	struct menuitemtickdata_keyboard keyboard;
-	struct menuitemtickdata_list list;
-	struct menuitemtickdata_marquee marquee;
-	struct menuitemtickdata_ranking ranking;
-	struct menuitemtickdata_scrollable scrollable;
-	struct menuitemtickdata_slider slider;
+union menuitemdata {
+	struct menuitemdata_controller controller;
+	struct menuitemdata_dropdown dropdown;
+	struct menuitemdata_keyboard keyboard;
+	struct menuitemdata_list list;
+	struct menuitemdata_marquee marquee;
+	struct menuitemdata_ranking ranking;
+	struct menuitemdata_scrollable scrollable;
+	struct menuitemdata_slider slider;
 };
 
 struct handlerdata_carousel {
@@ -6868,15 +6868,7 @@ struct splat {
 	/*0x440*/ u32 unk440;
 };
 
-struct menurenderthing14_controller {
-	u8 textfadetimer;
-	u8 contfadetimer;
-	u8 curmode;
-	u8 controlgroup;
-	s8 prevmode;
-};
-
-struct menurenderthing {
+struct menurendercontext {
 	s16 x;
 	s16 y;
 	s16 width;
@@ -6884,13 +6876,7 @@ struct menurenderthing {
 	struct menuitem *item;
 	bool focused;
 	struct menuframe *frame;
-
-	// Suspected to be handlerdata
-	union {
-		s16 *s16;
-		u16 *u16;
-		struct menurenderthing14_controller *controller;
-	} unk14;
+	union menuitemdata *data;
 };
 
 struct menucolourpalette {

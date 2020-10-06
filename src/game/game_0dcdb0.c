@@ -4059,7 +4059,7 @@ glabel var7f1adef4
 /*  f0e005c:	afb30018 */ 	sw	$s3,0x18($sp)
 /*  f0e0060:	02e03025 */ 	or	$a2,$s7,$zero
 /*  f0e0064:	26070020 */ 	addiu	$a3,$s0,0x20
-/*  f0e0068:	0fc5580f */ 	jal	textRenderWhite
+/*  f0e0068:	0fc5580f */ 	jal	textRenderProjected
 /*  f0e006c:	afac0014 */ 	sw	$t4,0x14($sp)
 /*  f0e0070:	1000001f */ 	b	.L0f0e00f0
 /*  f0e0074:	00409025 */ 	or	$s2,$v0,$zero
@@ -4162,7 +4162,7 @@ glabel var7f1adef4
 /*  f0e01e4:	afb30018 */ 	sw	$s3,0x18($sp)
 /*  f0e01e8:	02e03025 */ 	or	$a2,$s7,$zero
 /*  f0e01ec:	26070020 */ 	addiu	$a3,$s0,0x20
-/*  f0e01f0:	0fc5580f */ 	jal	textRenderWhite
+/*  f0e01f0:	0fc5580f */ 	jal	textRenderProjected
 /*  f0e01f4:	afaf0014 */ 	sw	$t7,0x14($sp)
 /*  f0e01f8:	10000021 */ 	b	.L0f0e0280
 /*  f0e01fc:	00409025 */ 	or	$s2,$v0,$zero
@@ -4327,7 +4327,7 @@ glabel var7f1adef4
 /*  f0e0458:	afb30018 */ 	sw	$s3,0x18($sp)
 /*  f0e045c:	02e03025 */ 	or	$a2,$s7,$zero
 /*  f0e0460:	26070020 */ 	addiu	$a3,$s0,0x20
-/*  f0e0464:	0fc5580f */ 	jal	textRenderWhite
+/*  f0e0464:	0fc5580f */ 	jal	textRenderProjected
 /*  f0e0468:	afa80014 */ 	sw	$t0,0x14($sp)
 /*  f0e046c:	1000001e */ 	b	.L0f0e04e8
 /*  f0e0470:	00409025 */ 	or	$s2,$v0,$zero
@@ -4653,7 +4653,7 @@ glabel var7f1adef4
 //					// fe0
 //					gdl = hudRenderMessageBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, spc0);
 //					// 020
-//					gdl = textRenderWhite(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetX(), viGetY(), 0, 0);
+//					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetX(), viGetY(), 0, 0);
 //				} else {
 //					// 078
 //					gdl = func0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
@@ -4680,7 +4680,7 @@ glabel var7f1adef4
 //				// 1a0
 //				gdl = hudRenderMessageBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f);
 //				// 1f0
-//				gdl = textRenderWhite(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetX(), viGetY(), 0, 0);
+//				gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetX(), viGetY(), 0, 0);
 //			} else {
 //				// 200
 //				gdl = func0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
@@ -4727,7 +4727,7 @@ glabel var7f1adef4
 //					// 414
 //					gdl = hudRenderMessageBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f - spa8);
 //					// 464
-//					gdl = textRenderWhite(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetX(), viGetY(), 0, 0);
+//					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetX(), viGetY(), 0, 0);
 //				} else {
 //					// 474
 //					gdl = func0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);

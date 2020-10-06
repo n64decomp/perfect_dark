@@ -3054,7 +3054,7 @@ glabel func0f156030
 );
 
 GLOBAL_ASM(
-glabel textRenderWhite
+glabel textRenderProjected
 /*  f15603c:	27bdff40 */ 	addiu	$sp,$sp,-192
 /*  f156040:	3c0f8008 */ 	lui	$t7,%hi(var8007fac8)
 /*  f156044:	8deffac8 */ 	lw	$t7,%lo(var8007fac8)($t7)

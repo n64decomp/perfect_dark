@@ -533,7 +533,7 @@ glabel func0f0165f0
 /*  f0166c8:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0166cc:	afa90014 */ 	sw	$t1,0x14($sp)
 /*  f0166d0:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f0166d4:	0fc5580f */ 	jal	textRenderWhite
+/*  f0166d4:	0fc5580f */ 	jal	textRenderProjected
 /*  f0166d8:	afaa001c */ 	sw	$t2,0x1c($sp)
 /*  f0166dc:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*  f0166e0:	27bd0050 */ 	addiu	$sp,$sp,0x50
@@ -946,7 +946,7 @@ glabel var7f1a83e4
 /*  f016cc8:	afb4001c */ 	sw	$s4,0x1c($sp)
 /*  f016ccc:	afa20020 */ 	sw	$v0,0x20($sp)
 /*  f016cd0:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f016cd4:	0fc5580f */ 	jal	textRenderWhite
+/*  f016cd4:	0fc5580f */ 	jal	textRenderProjected
 /*  f016cd8:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f016cdc:	afa20128 */ 	sw	$v0,0x128($sp)
 .L0f016ce0:
@@ -3418,7 +3418,7 @@ glabel func0f018ebc
 /*  f019028:	afa00024 */ 	sw	$zero,0x24($sp)
 /*  f01902c:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f019030:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f019034:	0fc5580f */ 	jal	textRenderWhite
+/*  f019034:	0fc5580f */ 	jal	textRenderProjected
 /*  f019038:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f01903c:	8fa8008c */ 	lw	$t0,0x8c($sp)
 /*  f019040:	26940001 */ 	addiu	$s4,$s4,0x1
@@ -4575,7 +4575,7 @@ glabel titleRenderNoController
 /*  f01a668:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f01a66c:	afac0014 */ 	sw	$t4,0x14($sp)
 /*  f01a670:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f01a674:	0fc5580f */ 	jal	textRenderWhite
+/*  f01a674:	0fc5580f */ 	jal	textRenderProjected
 /*  f01a678:	afae001c */ 	sw	$t6,0x1c($sp)
 /*  f01a67c:	00408025 */ 	or	$s0,$v0,$zero
 .L0f01a680:
@@ -4660,7 +4660,7 @@ glabel titleRenderNoController
 /*  f01a7b0:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f01a7b4:	afad0014 */ 	sw	$t5,0x14($sp)
 /*  f01a7b8:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f01a7bc:	0fc5580f */ 	jal	textRenderWhite
+/*  f01a7bc:	0fc5580f */ 	jal	textRenderProjected
 /*  f01a7c0:	afaf001c */ 	sw	$t7,0x1c($sp)
 /*  f01a7c4:	00408025 */ 	or	$s0,$v0,$zero
 .L0f01a7c8:
@@ -4708,7 +4708,7 @@ glabel titleRenderNoController
 //		gdl = textRender(gdl, &x, &y, text, var8007fb20, var8007fb1c,
 //				-1, 0x008000ff, viGetX(), viGetY(), 0, 0);
 //	} else {
-//		gdl = textRenderWhite(gdl, &x, &y, text, var8007fb20, var8007fb1c,
+//		gdl = textRenderProjected(gdl, &x, &y, text, var8007fb20, var8007fb1c,
 //				-1, viGetX(), viGetY(), 0, 0);
 //	}
 //
@@ -4725,7 +4725,7 @@ glabel titleRenderNoController
 //	} else {
 //		s16 a = viGetX();
 //		s16 b = viGetY();
-//		gdl = textRenderWhite(gdl, &x, &y, text, var8007fb20, var8007fb1c,
+//		gdl = textRenderProjected(gdl, &x, &y, text, var8007fb20, var8007fb1c,
 //				-1, a, b, 0, 0);
 //	}
 //
