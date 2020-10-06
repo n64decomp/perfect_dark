@@ -4787,18 +4787,18 @@ glabel func0f0f50fc
 /*  f0f5118:	3c0f800a */ 	lui	$t7,%hi(var800a2038)
 /*  f0f511c:	8def2038 */ 	lw	$t7,%lo(var800a2038)($t7)
 /*  f0f5120:	8c63fac0 */ 	lw	$v1,%lo(g_ScreenWidthMultiplier)($v1)
-/*  f0f5124:	3c058007 */ 	lui	$a1,%hi(var80071190)
-/*  f0f5128:	24a51190 */ 	addiu	$a1,$a1,%lo(var80071190)
+/*  f0f5124:	3c058007 */ 	lui	$a1,%hi(g_ScissorX1)
+/*  f0f5128:	24a51190 */ 	addiu	$a1,$a1,%lo(g_ScissorX1)
 /*  f0f512c:	01e30019 */ 	multu	$t7,$v1
 /*  f0f5130:	3c19800a */ 	lui	$t9,%hi(var800a203c)
-/*  f0f5134:	3c068007 */ 	lui	$a2,%hi(var80071194)
-/*  f0f5138:	24c61194 */ 	addiu	$a2,$a2,%lo(var80071194)
+/*  f0f5134:	3c068007 */ 	lui	$a2,%hi(g_ScissorX2)
+/*  f0f5138:	24c61194 */ 	addiu	$a2,$a2,%lo(g_ScissorX2)
 /*  f0f513c:	3c0a800a */ 	lui	$t2,%hi(var800a2040)
-/*  f0f5140:	3c088007 */ 	lui	$t0,%hi(var80071198)
-/*  f0f5144:	25081198 */ 	addiu	$t0,$t0,%lo(var80071198)
+/*  f0f5140:	3c088007 */ 	lui	$t0,%hi(g_ScissorY1)
+/*  f0f5144:	25081198 */ 	addiu	$t0,$t0,%lo(g_ScissorY1)
 /*  f0f5148:	3c0b800a */ 	lui	$t3,%hi(var800a2044)
-/*  f0f514c:	3c078007 */ 	lui	$a3,%hi(var8007119c)
-/*  f0f5150:	24e7119c */ 	addiu	$a3,$a3,%lo(var8007119c)
+/*  f0f514c:	3c078007 */ 	lui	$a3,%hi(g_ScissorY2)
+/*  f0f5150:	24e7119c */ 	addiu	$a3,$a3,%lo(g_ScissorY2)
 /*  f0f5154:	0000c012 */ 	mflo	$t8
 /*  f0f5158:	acb80000 */ 	sw	$t8,0x0($a1)
 /*  f0f515c:	8f39203c */ 	lw	$t9,%lo(var800a203c)($t9)
@@ -4830,70 +4830,70 @@ glabel func0f0f50fc
 .L0f0f51b8:
 /*  f0f51b8:	0c002ef1 */ 	jal	viGetBufX
 /*  f0f51bc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0f51c0:	3c188007 */ 	lui	$t8,%hi(var80071190)
-/*  f0f51c4:	8f181190 */ 	lw	$t8,%lo(var80071190)($t8)
+/*  f0f51c0:	3c188007 */ 	lui	$t8,%hi(g_ScissorX1)
+/*  f0f51c4:	8f181190 */ 	lw	$t8,%lo(g_ScissorX1)($t8)
 /*  f0f51c8:	0058082a */ 	slt	$at,$v0,$t8
 /*  f0f51cc:	10200005 */ 	beqz	$at,.L0f0f51e4
 /*  f0f51d0:	00000000 */ 	nop
 /*  f0f51d4:	0c002ef1 */ 	jal	viGetBufX
 /*  f0f51d8:	00000000 */ 	nop
-/*  f0f51dc:	3c018007 */ 	lui	$at,%hi(var80071190)
-/*  f0f51e0:	ac221190 */ 	sw	$v0,%lo(var80071190)($at)
+/*  f0f51dc:	3c018007 */ 	lui	$at,%hi(g_ScissorX1)
+/*  f0f51e0:	ac221190 */ 	sw	$v0,%lo(g_ScissorX1)($at)
 .L0f0f51e4:
 /*  f0f51e4:	0c002ef1 */ 	jal	viGetBufX
 /*  f0f51e8:	00000000 */ 	nop
-/*  f0f51ec:	3c198007 */ 	lui	$t9,%hi(var80071194)
-/*  f0f51f0:	8f391194 */ 	lw	$t9,%lo(var80071194)($t9)
+/*  f0f51ec:	3c198007 */ 	lui	$t9,%hi(g_ScissorX2)
+/*  f0f51f0:	8f391194 */ 	lw	$t9,%lo(g_ScissorX2)($t9)
 /*  f0f51f4:	0059082a */ 	slt	$at,$v0,$t9
 /*  f0f51f8:	10200005 */ 	beqz	$at,.L0f0f5210
 /*  f0f51fc:	00000000 */ 	nop
 /*  f0f5200:	0c002ef1 */ 	jal	viGetBufX
 /*  f0f5204:	00000000 */ 	nop
-/*  f0f5208:	3c018007 */ 	lui	$at,%hi(var80071194)
-/*  f0f520c:	ac221194 */ 	sw	$v0,%lo(var80071194)($at)
+/*  f0f5208:	3c018007 */ 	lui	$at,%hi(g_ScissorX2)
+/*  f0f520c:	ac221194 */ 	sw	$v0,%lo(g_ScissorX2)($at)
 .L0f0f5210:
 /*  f0f5210:	0c002ef5 */ 	jal	viGetBufY
 /*  f0f5214:	00000000 */ 	nop
-/*  f0f5218:	3c098007 */ 	lui	$t1,%hi(var80071198)
-/*  f0f521c:	8d291198 */ 	lw	$t1,%lo(var80071198)($t1)
+/*  f0f5218:	3c098007 */ 	lui	$t1,%hi(g_ScissorY1)
+/*  f0f521c:	8d291198 */ 	lw	$t1,%lo(g_ScissorY1)($t1)
 /*  f0f5220:	0049082a */ 	slt	$at,$v0,$t1
 /*  f0f5224:	10200005 */ 	beqz	$at,.L0f0f523c
 /*  f0f5228:	00000000 */ 	nop
 /*  f0f522c:	0c002ef5 */ 	jal	viGetBufY
 /*  f0f5230:	00000000 */ 	nop
-/*  f0f5234:	3c018007 */ 	lui	$at,%hi(var80071198)
-/*  f0f5238:	ac221198 */ 	sw	$v0,%lo(var80071198)($at)
+/*  f0f5234:	3c018007 */ 	lui	$at,%hi(g_ScissorY1)
+/*  f0f5238:	ac221198 */ 	sw	$v0,%lo(g_ScissorY1)($at)
 .L0f0f523c:
 /*  f0f523c:	0c002ef5 */ 	jal	viGetBufY
 /*  f0f5240:	00000000 */ 	nop
-/*  f0f5244:	3c078007 */ 	lui	$a3,%hi(var8007119c)
-/*  f0f5248:	24e7119c */ 	addiu	$a3,$a3,%lo(var8007119c)
+/*  f0f5244:	3c078007 */ 	lui	$a3,%hi(g_ScissorY2)
+/*  f0f5248:	24e7119c */ 	addiu	$a3,$a3,%lo(g_ScissorY2)
 /*  f0f524c:	8ce30000 */ 	lw	$v1,0x0($a3)
 /*  f0f5250:	0043082a */ 	slt	$at,$v0,$v1
 /*  f0f5254:	10200009 */ 	beqz	$at,.L0f0f527c
 /*  f0f5258:	00000000 */ 	nop
 /*  f0f525c:	0c002ef5 */ 	jal	viGetBufY
 /*  f0f5260:	00000000 */ 	nop
-/*  f0f5264:	3c018007 */ 	lui	$at,%hi(var8007119c)
-/*  f0f5268:	ac22119c */ 	sw	$v0,%lo(var8007119c)($at)
-/*  f0f526c:	3c038007 */ 	lui	$v1,%hi(var8007119c)
-/*  f0f5270:	3c078007 */ 	lui	$a3,%hi(var8007119c)
-/*  f0f5274:	24e7119c */ 	addiu	$a3,$a3,%lo(var8007119c)
-/*  f0f5278:	8c63119c */ 	lw	$v1,%lo(var8007119c)($v1)
+/*  f0f5264:	3c018007 */ 	lui	$at,%hi(g_ScissorY2)
+/*  f0f5268:	ac22119c */ 	sw	$v0,%lo(g_ScissorY2)($at)
+/*  f0f526c:	3c038007 */ 	lui	$v1,%hi(g_ScissorY2)
+/*  f0f5270:	3c078007 */ 	lui	$a3,%hi(g_ScissorY2)
+/*  f0f5274:	24e7119c */ 	addiu	$a3,$a3,%lo(g_ScissorY2)
+/*  f0f5278:	8c63119c */ 	lw	$v1,%lo(g_ScissorY2)($v1)
 .L0f0f527c:
-/*  f0f527c:	3c088007 */ 	lui	$t0,%hi(var80071194)
-/*  f0f5280:	3c048007 */ 	lui	$a0,%hi(var80071190)
-/*  f0f5284:	8c841190 */ 	lw	$a0,%lo(var80071190)($a0)
-/*  f0f5288:	25081194 */ 	addiu	$t0,$t0,%lo(var80071194)
+/*  f0f527c:	3c088007 */ 	lui	$t0,%hi(g_ScissorX2)
+/*  f0f5280:	3c048007 */ 	lui	$a0,%hi(g_ScissorX1)
+/*  f0f5284:	8c841190 */ 	lw	$a0,%lo(g_ScissorX1)($a0)
+/*  f0f5288:	25081194 */ 	addiu	$t0,$t0,%lo(g_ScissorX2)
 /*  f0f528c:	8d0a0000 */ 	lw	$t2,0x0($t0)
 /*  f0f5290:	44842000 */ 	mtc1	$a0,$f4
-/*  f0f5294:	3c058007 */ 	lui	$a1,%hi(var80071198)
+/*  f0f5294:	3c058007 */ 	lui	$a1,%hi(g_ScissorY1)
 /*  f0f5298:	0144082a */ 	slt	$at,$t2,$a0
 /*  f0f529c:	10200002 */ 	beqz	$at,.L0f0f52a8
 /*  f0f52a0:	468021a0 */ 	cvt.s.w	$f6,$f4
 /*  f0f52a4:	ad040000 */ 	sw	$a0,0x0($t0)
 .L0f0f52a8:
-/*  f0f52a8:	8ca51198 */ 	lw	$a1,%lo(var80071198)($a1)
+/*  f0f52a8:	8ca51198 */ 	lw	$a1,%lo(g_ScissorY1)($a1)
 /*  f0f52ac:	0065082a */ 	slt	$at,$v1,$a1
 /*  f0f52b0:	50200003 */ 	beqzl	$at,.L0f0f52c0
 /*  f0f52b4:	44858000 */ 	mtc1	$a1,$f16

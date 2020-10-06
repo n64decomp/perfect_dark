@@ -950,7 +950,7 @@ glabel scenarioHtbCallback18
 /*  f18095c:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-void scenarioHtbKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
+void scenarioHtbKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
 	struct mpchr *loopmpchr;
 	s32 i;
@@ -960,8 +960,8 @@ void scenarioHtbKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
 		for (i = 0; i != MAX_MPCHRS; i++) {
-			if (i == arg1) {
-				*score -= mpchr->unk24[i];
+			if (i == mpchrnum) {
+				*score -= mpchr->killcounts[i];
 			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 				if (i < 4) {
 					loopmpchr = &g_MpPlayers[i].base;
@@ -970,12 +970,12 @@ void scenarioHtbKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 				}
 
 				if (loopmpchr->team == mpchr->team) {
-					*score -= mpchr->unk24[i];
+					*score -= mpchr->killcounts[i];
 				} else {
-					*score += mpchr->unk24[i];
+					*score += mpchr->killcounts[i];
 				}
 			} else {
-				*score += mpchr->unk24[i];
+				*score += mpchr->killcounts[i];
 			}
 		}
 	}
@@ -1484,7 +1484,7 @@ glabel scenarioCtcReset
 /*  f1813d4:	27bd00d8 */ 	addiu	$sp,$sp,0xd8
 );
 
-void scenarioCtcKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
+void scenarioCtcKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
 	struct mpchr *loopmpchr;
 	s32 i;
@@ -1494,8 +1494,8 @@ void scenarioCtcKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
 		for (i = 0; i != MAX_MPCHRS; i++) {
-			if (i == arg1) {
-				*score -= mpchr->unk24[i];
+			if (i == mpchrnum) {
+				*score -= mpchr->killcounts[i];
 			} else {
 				if (i < 4) {
 					loopmpchr = &g_MpPlayers[i].base;
@@ -1504,9 +1504,9 @@ void scenarioCtcKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 				}
 
 				if (loopmpchr->team == mpchr->team) {
-					*score -= mpchr->unk24[i];
+					*score -= mpchr->killcounts[i];
 				} else {
-					*score += mpchr->unk24[i];
+					*score += mpchr->killcounts[i];
 				}
 			}
 		}
@@ -2716,7 +2716,7 @@ glabel scenarioKohCallback18
 /*  f182904:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
 );
 
-void scenarioKohKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
+void scenarioKohKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
 	struct mpchr *loopmpchr;
 	s32 i;
@@ -2726,8 +2726,8 @@ void scenarioKohKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
 		for (i = 0; i != MAX_MPCHRS; i++) {
-			if (i == arg1) {
-				*score -= mpchr->unk24[i];
+			if (i == mpchrnum) {
+				*score -= mpchr->killcounts[i];
 			} else {
 				if (i < 4) {
 					loopmpchr = &g_MpPlayers[i].base;
@@ -2736,9 +2736,9 @@ void scenarioKohKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 				}
 
 				if (loopmpchr->team == mpchr->team) {
-					*score -= mpchr->unk24[i];
+					*score -= mpchr->killcounts[i];
 				} else {
-					*score += mpchr->unk24[i];
+					*score += mpchr->killcounts[i];
 				}
 			}
 		}
@@ -3839,14 +3839,14 @@ glabel scenarioHtmCallback18
 /*  f183bb0:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
-void scenarioHtmKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
+void scenarioHtmKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
 	struct mpchr *loopmpchr;
 	s32 i;
 	s32 index;
 
 	*score = 0;
-	index = func0f18d0e8(arg1);
+	index = func0f18d0e8(mpchrnum);
 
 	if (index >= 0) {
 		*score += g_ScenarioData.htm.unk0d8[index] * 2;
@@ -3854,8 +3854,8 @@ void scenarioHtmKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
 		for (i = 0; i != MAX_MPCHRS; i++) {
-			if (i == arg1) {
-				*score -= mpchr->unk24[i];
+			if (i == mpchrnum) {
+				*score -= mpchr->killcounts[i];
 			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 				if (i < 4) {
 					loopmpchr = &g_MpPlayers[i].base;
@@ -3864,12 +3864,12 @@ void scenarioHtmKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 				}
 
 				if (loopmpchr->team == mpchr->team) {
-					*score -= mpchr->unk24[i];
+					*score -= mpchr->killcounts[i];
 				} else {
-					*score += mpchr->unk24[i];
+					*score += mpchr->killcounts[i];
 				}
 			} else {
-				*score += mpchr->unk24[i];
+				*score += mpchr->killcounts[i];
 			}
 		}
 	}
@@ -4955,14 +4955,14 @@ glabel scenarioPacCallback18
 /*  f184c14:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-void scenarioPacKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
+void scenarioPacKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3)
 {
 	struct mpchr *loopmpchr;
 	s32 i;
 	s32 index;
 
 	*score = 0;
-	index = func0f18d0e8(arg1);
+	index = func0f18d0e8(mpchrnum);
 
 	if (index >= 0) {
 		*score += g_ScenarioData.pac.unk20[index] * 2;
@@ -4971,8 +4971,8 @@ void scenarioPacKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
 		for (i = 0; i != MAX_MPCHRS; i++) {
-			if (i == arg1) {
-				*score -= mpchr->unk24[i];
+			if (i == mpchrnum) {
+				*score -= mpchr->killcounts[i];
 			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 				if (i < 4) {
 					loopmpchr = &g_MpPlayers[i].base;
@@ -4981,12 +4981,12 @@ void scenarioPacKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 				}
 
 				if (loopmpchr->team == mpchr->team) {
-					*score -= mpchr->unk24[i];
+					*score -= mpchr->killcounts[i];
 				} else {
-					*score += mpchr->unk24[i];
+					*score += mpchr->killcounts[i];
 				}
 			} else {
-				*score += mpchr->unk24[i];
+				*score += mpchr->killcounts[i];
 			}
 		}
 	}
