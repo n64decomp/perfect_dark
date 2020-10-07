@@ -3613,9 +3613,9 @@ struct menuframe {
 	/*0x0c*/ bool dimmed; // when dropdown is open or slider is active
 	/*0x10*/ u32 unk10;
 	/*0x14*/ s32 unk14;
-	/*0x18*/ u32 unk18;
+	/*0x18*/ s32 y;
 	/*0x1c*/ s32 unk1c;
-	/*0x20*/ s32 unk20;
+	/*0x20*/ s32 height;
 	/*0x24*/ u32 unk24;
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ s32 unk2c;
@@ -3637,7 +3637,7 @@ struct menuframe {
 	/*0x68*/ u32 unk68;
 	/*0x6c*/ u8 unk6c;
 	/*0x6d*/ s8 unk6d;
-	/*0x6e*/ s8 unk6e;
+	/*0x6e*/ u8 unk6e;
 };
 
 struct menudfc {

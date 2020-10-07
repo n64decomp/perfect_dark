@@ -2502,9 +2502,9 @@ void menuOpenDialog(struct menudialog *dialog, struct menuframe *frame, struct m
 	func0f0f7e98(frame);
 
 	frame->unk14 = frame->unk2c;
-	frame->unk18 = frame->unk30;
+	frame->y = frame->unk30;
 	frame->unk1c = frame->unk34;
-	frame->unk20 = frame->unk38;
+	frame->height = frame->unk38;
 }
 
 GLOBAL_ASM(
@@ -6736,7 +6736,7 @@ glabel func0f0f5360
 /*  f0f6d74:	afa90014 */ 	sw	$t1,0x14($sp)
 /*  f0f6d78:	8fa401e8 */ 	lw	$a0,0x1e8($sp)
 /*  f0f6d7c:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f0f6d80:	0fc3c246 */ 	jal	func0f0f0918
+/*  f0f6d80:	0fc3c246 */ 	jal	menuRenderOverlay
 /*  f0f6d84:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f0f6d88:	8fac01c0 */ 	lw	$t4,0x1c0($sp)
 /*  f0f6d8c:	8fae007c */ 	lw	$t6,0x7c($sp)

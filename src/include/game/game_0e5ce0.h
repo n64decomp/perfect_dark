@@ -6,15 +6,15 @@
 u32 func0f0e5d2c(void);
 s32 func0f0e5ef8(s16 arg0, struct menuitem *item);
 u32 func0f0e6038(void);
-Gfx *func0f0e6298(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2);
-Gfx *menuRenderItemList(Gfx *gdl);
+Gfx *menuRenderOverlayList(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2);
+Gfx *menuRenderItemList(Gfx *gdl, struct menurendercontext *context);
 bool menuTickItemList(struct menuitem *item, struct menuinputs *inputs, u32 arg2, union menuitemdata *data);
 
 void menuInitItemDropdown(struct menuitem *item, union menuitemdata *data);
 Gfx *menuRenderItemDropdown(Gfx *gdl);
 bool menuTickItemDropdown(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemdata *data);
 
-Gfx *func0f0e8290(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7);
+Gfx *menuRenderOverlayDropdown(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menuframe *frame, union menuitemdata *data);
 bool menuIsStringEmptyOrSpaces(char *text);
 Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *thing);
 bool menuTickItemKeyboard(struct menuitem *item, struct menuinputs *inputs, u32 arg2, union menuitemdata *data);
@@ -61,7 +61,7 @@ void menuInitItemRanking(union menuitemdata *data);
 
 Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context);
 bool menuTickItemPlayerStats(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemdata *data);
-Gfx *func0f0ef2fc(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7);
+Gfx *menuRenderOverlayPlayerStats(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menuframe *frame, union menuitemdata *data);
 void menuInitItemPlayerStats(struct menuitem *item, union menuitemdata *data);
 
 u32 func0f0ef394(void);
@@ -76,6 +76,6 @@ void menuInitItemController(union menuitemdata *data);
 Gfx *menuRenderItem(Gfx *gdl, struct menurendercontext *context);
 bool menuTickItem(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemdata *data);
 void menuInitItem(struct menuitem *item, union menuitemdata *data);
-Gfx *func0f0f0918(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7);
+Gfx *menuRenderOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menuframe *frame, union menuitemdata *data);
 
 #endif

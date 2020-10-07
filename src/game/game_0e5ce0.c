@@ -38,7 +38,7 @@ s32 g_ScissorY1 = 0x00000000;
 s32 g_ScissorY2 = 0x00000000;
 s32 var800711a0 = 0;
 s32 var800711a4 = 0;
-u32 var800711a8 = 0x0000000b;
+u32 g_LineHeight = 11;
 
 u8 g_KeyboardKeys[5][10] = {
 	{ '0','1','2','3','4','5','6','7','8','9' },
@@ -93,8 +93,8 @@ glabel func0f0e5d2c
 /*  f0e5d8c:	8fa70060 */ 	lw	$a3,0x60($sp)
 /*  f0e5d90:	54c00011 */ 	bnezl	$a2,.L0f0e5dd8
 /*  f0e5d94:	00c0a025 */ 	or	$s4,$a2,$zero
-/*  f0e5d98:	3c0f8007 */ 	lui	$t7,%hi(var800711a8)
-/*  f0e5d9c:	8def11a8 */ 	lw	$t7,%lo(var800711a8)($t7)
+/*  f0e5d98:	3c0f8007 */ 	lui	$t7,%hi(g_LineHeight)
+/*  f0e5d9c:	8def11a8 */ 	lw	$t7,%lo(g_LineHeight)($t7)
 /*  f0e5da0:	00ef001a */ 	div	$zero,$a3,$t7
 /*  f0e5da4:	00008812 */ 	mflo	$s1
 /*  f0e5da8:	15e00002 */ 	bnez	$t7,.L0f0e5db4
@@ -120,15 +120,15 @@ glabel func0f0e5d2c
 /*  f0e5dec:	00d4082a */ 	slt	$at,$a2,$s4
 .L0f0e5df0:
 /*  f0e5df0:	10200018 */ 	beqz	$at,.L0f0e5e54
-/*  f0e5df4:	3c038007 */ 	lui	$v1,%hi(var800711a8)
+/*  f0e5df4:	3c038007 */ 	lui	$v1,%hi(g_LineHeight)
 /*  f0e5df8:	afa60050 */ 	sw	$a2,0x50($sp)
 /*  f0e5dfc:	8e790010 */ 	lw	$t9,0x10($s3)
 /*  f0e5e00:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f0e5e04:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f0e5e08:	0320f809 */ 	jalr	$t9
 /*  f0e5e0c:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0e5e10:	3c038007 */ 	lui	$v1,%hi(var800711a8)
-/*  f0e5e14:	8c6311a8 */ 	lw	$v1,%lo(var800711a8)($v1)
+/*  f0e5e10:	3c038007 */ 	lui	$v1,%hi(g_LineHeight)
+/*  f0e5e14:	8c6311a8 */ 	lw	$v1,%lo(g_LineHeight)($v1)
 /*  f0e5e18:	8fa40058 */ 	lw	$a0,0x58($sp)
 /*  f0e5e1c:	8fa60050 */ 	lw	$a2,0x50($sp)
 /*  f0e5e20:	0203001a */ 	div	$zero,$s0,$v1
@@ -147,7 +147,7 @@ glabel func0f0e5d2c
 /*  f0e5e4c:	1000000f */ 	b	.L0f0e5e8c
 /*  f0e5e50:	00512821 */ 	addu	$a1,$v0,$s1
 .L0f0e5e54:
-/*  f0e5e54:	8c6311a8 */ 	lw	$v1,%lo(var800711a8)($v1)
+/*  f0e5e54:	8c6311a8 */ 	lw	$v1,%lo(g_LineHeight)($v1)
 /*  f0e5e58:	2404270f */ 	addiu	$a0,$zero,0x270f
 /*  f0e5e5c:	0203001a */ 	div	$zero,$s0,$v1
 /*  f0e5e60:	00001012 */ 	mflo	$v0
@@ -233,8 +233,8 @@ glabel func0f0e5ef8
 /*  f0e5f6c:	00008825 */ 	or	$s1,$zero,$zero
 /*  f0e5f70:	14400008 */ 	bnez	$v0,.L0f0e5f94
 /*  f0e5f74:	00409825 */ 	or	$s3,$v0,$zero
-/*  f0e5f78:	3c188007 */ 	lui	$t8,%hi(var800711a8)
-/*  f0e5f7c:	8f1811a8 */ 	lw	$t8,%lo(var800711a8)($t8)
+/*  f0e5f78:	3c188007 */ 	lui	$t8,%hi(g_LineHeight)
+/*  f0e5f7c:	8f1811a8 */ 	lw	$t8,%lo(g_LineHeight)($t8)
 /*  f0e5f80:	02980019 */ 	multu	$s4,$t8
 /*  f0e5f84:	00001012 */ 	mflo	$v0
 /*  f0e5f88:	00024400 */ 	sll	$t0,$v0,0x10
@@ -265,8 +265,8 @@ glabel func0f0e5ef8
 /*  f0e5fe0:	1420ffef */ 	bnez	$at,.L0f0e5fa0
 /*  f0e5fe4:	afa20040 */ 	sw	$v0,0x40($sp)
 .L0f0e5fe8:
-/*  f0e5fe8:	3c0b8007 */ 	lui	$t3,%hi(var800711a8)
-/*  f0e5fec:	8d6b11a8 */ 	lw	$t3,%lo(var800711a8)($t3)
+/*  f0e5fe8:	3c0b8007 */ 	lui	$t3,%hi(g_LineHeight)
+/*  f0e5fec:	8d6b11a8 */ 	lw	$t3,%lo(g_LineHeight)($t3)
 /*  f0e5ff0:	00116880 */ 	sll	$t5,$s1,0x2
 /*  f0e5ff4:	01b16823 */ 	subu	$t5,$t5,$s1
 /*  f0e5ff8:	028b0019 */ 	multu	$s4,$t3
@@ -450,7 +450,7 @@ glabel func0f0e6038
 /*  f0e6294:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-Gfx *func0f0e6298(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2)
+Gfx *menuRenderOverlayList(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2)
 {
 	gDPFillRectangle(gdl++, x * g_ScreenWidthMultiplier, y, (x + x2) * g_ScreenWidthMultiplier, y + y2);
 	return gdl;
@@ -497,13 +497,13 @@ glabel menuRenderItemList
 /*  f0e63b8:	0320f809 */ 	jalr	$t9
 /*  f0e63bc:	27a600d4 */ 	addiu	$a2,$sp,0xd4
 /*  f0e63c0:	8fae00d4 */ 	lw	$t6,0xd4($sp)
-/*  f0e63c4:	3c018007 */ 	lui	$at,%hi(var800711a8)
+/*  f0e63c4:	3c018007 */ 	lui	$at,%hi(g_LineHeight)
 /*  f0e63c8:	10000004 */ 	b	.L0f0e63dc
-/*  f0e63cc:	ac2e11a8 */ 	sw	$t6,%lo(var800711a8)($at)
+/*  f0e63cc:	ac2e11a8 */ 	sw	$t6,%lo(g_LineHeight)($at)
 /*  f0e63d0:	240f000b */ 	addiu	$t7,$zero,0xb
 .L0f0e63d4:
-/*  f0e63d4:	3c018007 */ 	lui	$at,%hi(var800711a8)
-/*  f0e63d8:	ac2f11a8 */ 	sw	$t7,%lo(var800711a8)($at)
+/*  f0e63d4:	3c018007 */ 	lui	$at,%hi(g_LineHeight)
+/*  f0e63d8:	ac2f11a8 */ 	sw	$t7,%lo(g_LineHeight)($at)
 .L0f0e63dc:
 /*  f0e63dc:	8e2a0008 */ 	lw	$t2,0x8($s1)
 /*  f0e63e0:	8e380010 */ 	lw	$t8,0x10($s1)
@@ -625,7 +625,7 @@ glabel menuRenderItemList
 /*  f0e6584:	3c01ed00 */ 	lui	$at,0xed00
 /*  f0e6588:	46003202 */ 	mul.s	$f8,$f6,$f0
 /*  f0e658c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0e6590:	3c058007 */ 	lui	$a1,%hi(var800711a8)
+/*  f0e6590:	3c058007 */ 	lui	$a1,%hi(g_LineHeight)
 /*  f0e6594:	26520008 */ 	addiu	$s2,$s2,0x8
 /*  f0e6598:	46009102 */ 	mul.s	$f4,$f18,$f0
 /*  f0e659c:	4600428d */ 	trunc.w.s	$f10,$f8
@@ -657,7 +657,7 @@ glabel menuRenderItemList
 /*  f0e6604:	018e7825 */ 	or	$t7,$t4,$t6
 /*  f0e6608:	ac8f0004 */ 	sw	$t7,0x4($a0)
 /*  f0e660c:	86220006 */ 	lh	$v0,0x6($s1)
-/*  f0e6610:	8ca511a8 */ 	lw	$a1,%lo(var800711a8)($a1)
+/*  f0e6610:	8ca511a8 */ 	lw	$a1,%lo(g_LineHeight)($a1)
 /*  f0e6614:	8fb8016c */ 	lw	$t8,0x16c($sp)
 /*  f0e6618:	04410003 */ 	bgez	$v0,.L0f0e6628
 /*  f0e661c:	0002b043 */ 	sra	$s6,$v0,0x1
@@ -893,8 +893,8 @@ glabel menuRenderItemList
 /*  f0e6988:	00e02825 */ 	or	$a1,$a3,$zero
 /*  f0e698c:	0320f809 */ 	jalr	$t9
 /*  f0e6990:	00000000 */ 	nop
-/*  f0e6994:	3c0b8007 */ 	lui	$t3,%hi(var800711a8)
-/*  f0e6998:	8d6b11a8 */ 	lw	$t3,%lo(var800711a8)($t3)
+/*  f0e6994:	3c0b8007 */ 	lui	$t3,%hi(g_LineHeight)
+/*  f0e6998:	8d6b11a8 */ 	lw	$t3,%lo(g_LineHeight)($t3)
 /*  f0e699c:	87ad00ee */ 	lh	$t5,0xee($sp)
 /*  f0e69a0:	240c000b */ 	addiu	$t4,$zero,0xb
 /*  f0e69a4:	028b5021 */ 	addu	$t2,$s4,$t3
@@ -1204,10 +1204,10 @@ glabel menuRenderItemList
 /*  f0e6e0c:	afb3015c */ 	sw	$s3,0x15c($sp)
 /*  f0e6e10:	86240000 */ 	lh	$a0,0x0($s1)
 /*  f0e6e14:	8fb9016c */ 	lw	$t9,0x16c($sp)
-/*  f0e6e18:	3c0d8007 */ 	lui	$t5,%hi(var800711a8)
+/*  f0e6e18:	3c0d8007 */ 	lui	$t5,%hi(g_LineHeight)
 /*  f0e6e1c:	afa40098 */ 	sw	$a0,0x98($sp)
 /*  f0e6e20:	862a0002 */ 	lh	$t2,0x2($s1)
-/*  f0e6e24:	8dad11a8 */ 	lw	$t5,%lo(var800711a8)($t5)
+/*  f0e6e24:	8dad11a8 */ 	lw	$t5,%lo(g_LineHeight)($t5)
 /*  f0e6e28:	8fb80098 */ 	lw	$t8,0x98($sp)
 /*  f0e6e2c:	01542821 */ 	addu	$a1,$t2,$s4
 /*  f0e6e30:	afa5009c */ 	sw	$a1,0x9c($sp)
@@ -1604,8 +1604,8 @@ glabel menuRenderItemList
 /*  f0e73cc:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0e73d0:	8fb80108 */ 	lw	$t8,0x108($sp)
 .L0f0e73d4:
-/*  f0e73d4:	3c0d8007 */ 	lui	$t5,%hi(var800711a8)
-/*  f0e73d8:	8dad11a8 */ 	lw	$t5,%lo(var800711a8)($t5)
+/*  f0e73d4:	3c0d8007 */ 	lui	$t5,%hi(g_LineHeight)
+/*  f0e73d8:	8dad11a8 */ 	lw	$t5,%lo(g_LineHeight)($t5)
 /*  f0e73dc:	26730001 */ 	addiu	$s3,$s3,0x1
 /*  f0e73e0:	0278082a */ 	slt	$at,$s3,$t8
 /*  f0e73e4:	14200003 */ 	bnez	$at,.L0f0e73f4
@@ -1748,16 +1748,16 @@ bool menuTickItemList(struct menuitem *item, struct menuinputs *inputs, u32 arg2
 	}
 
 	if (item->param1 & 0x00200000) {
-		item->handler(MENUOP_20, item, &handlerdata2);
-		var800711a8 = handlerdata2.list.value;
+		item->handler(MENUOP_GETOPTIONHEIGHT, item, &handlerdata2);
+		g_LineHeight = handlerdata2.list.value;
 	} else {
-		var800711a8 = 11;
+		g_LineHeight = 11;
 	}
 
 	if (item->type == MENUITEMTYPE_DROPDOWN || item->type == MENUITEMTYPE_PLAYERSTATS) {
 		min = data->list.unk06 / 2;
-		min = min / (s32)var800711a8;
-		min *= (s32)var800711a8;
+		min = min / (s32)g_LineHeight;
+		min *= (s32)g_LineHeight;
 
 		data->list.unk04 = func0f0e5ef8(data->list.unk02, item);
 
@@ -1767,7 +1767,7 @@ bool menuTickItemList(struct menuitem *item, struct menuinputs *inputs, u32 arg2
 
 		item->handler(MENUOP_GETOPTIONCOUNT, item, &handlerdata);
 
-		max = handlerdata.list2.unk02 * (s32)var800711a8 - data->list.unk06 + min;
+		max = handlerdata.list2.unk02 * (s32)g_LineHeight - data->list.unk06 + min;
 
 		if (data->list.unk04 > max) {
 			data->list.unk04 = max;
@@ -1879,10 +1879,10 @@ void menuInitItemDropdown(struct menuitem *item, union menuitemdata *data)
 	handler = item->handler;
 
 	if (item->param1 & 0x00200000) {
-		handler(MENUOP_20, item, &handlerdata2);
-		var800711a8 = handlerdata2.dropdown.value;
+		handler(MENUOP_GETOPTIONHEIGHT, item, &handlerdata2);
+		g_LineHeight = handlerdata2.dropdown.value;
 	} else {
-		var800711a8 = 11;
+		g_LineHeight = 11;
 	}
 
 	item->handler(MENUOP_GETOPTIONVALUE, item, &handlerdata);
@@ -2393,7 +2393,7 @@ bool menuTickItemDropdown(struct menuitem *item, struct menuframe *frame, struct
 
 				handlerdata.dropdown.value = 0;
 				item->handler(MENUOP_GETOPTIONVALUE, item, &handlerdata);
-				data->dropdown.unk0e = handlerdata.dropdown.value * var800711a8;
+				data->dropdown.unk0e = handlerdata.dropdown.value * g_LineHeight;
 				menuPlaySound(MENUSOUND_TOGGLEOFF);
 			}
 		}
@@ -2403,7 +2403,7 @@ bool menuTickItemDropdown(struct menuitem *item, struct menuframe *frame, struct
 }
 
 GLOBAL_ASM(
-glabel func0f0e8290
+glabel menuRenderOverlayDropdown
 /*  f0e8290:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f0e8294:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*  f0e8298:	8fb000b8 */ 	lw	$s0,0xb8($sp)
@@ -2470,7 +2470,7 @@ glabel func0f0e8290
 /*  f0e837c:	8fbf003c */ 	lw	$ra,0x3c($sp)
 /*  f0e8380:	8e2d0004 */ 	lw	$t5,0x4($s1)
 /*  f0e8384:	2418000b */ 	addiu	$t8,$zero,0xb
-/*  f0e8388:	3c018007 */ 	lui	$at,%hi(var800711a8)
+/*  f0e8388:	3c018007 */ 	lui	$at,%hi(g_LineHeight)
 /*  f0e838c:	000d7280 */ 	sll	$t6,$t5,0xa
 /*  f0e8390:	05c10009 */ 	bgez	$t6,.L0f0e83b8
 /*  f0e8394:	24040014 */ 	addiu	$a0,$zero,0x14
@@ -2479,11 +2479,11 @@ glabel func0f0e8290
 /*  f0e83a0:	0040f809 */ 	jalr	$v0
 /*  f0e83a4:	a7b200a6 */ 	sh	$s2,0xa6($sp)
 /*  f0e83a8:	8faf004c */ 	lw	$t7,0x4c($sp)
-/*  f0e83ac:	3c018007 */ 	lui	$at,%hi(var800711a8)
+/*  f0e83ac:	3c018007 */ 	lui	$at,%hi(g_LineHeight)
 /*  f0e83b0:	10000003 */ 	b	.L0f0e83c0
-/*  f0e83b4:	ac2f11a8 */ 	sw	$t7,%lo(var800711a8)($at)
+/*  f0e83b4:	ac2f11a8 */ 	sw	$t7,%lo(g_LineHeight)($at)
 .L0f0e83b8:
-/*  f0e83b8:	ac3811a8 */ 	sw	$t8,%lo(var800711a8)($at)
+/*  f0e83b8:	ac3811a8 */ 	sw	$t8,%lo(g_LineHeight)($at)
 /*  f0e83bc:	a7b200a6 */ 	sh	$s2,0xa6($sp)
 .L0f0e83c0:
 /*  f0e83c0:	8e390010 */ 	lw	$t9,0x10($s1)
@@ -2493,9 +2493,9 @@ glabel func0f0e8290
 /*  f0e83d0:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0e83d4:	0320f809 */ 	jalr	$t9
 /*  f0e83d8:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0e83dc:	3c088007 */ 	lui	$t0,%hi(var800711a8)
+/*  f0e83dc:	3c088007 */ 	lui	$t0,%hi(g_LineHeight)
 /*  f0e83e0:	8fb6005c */ 	lw	$s6,0x5c($sp)
-/*  f0e83e4:	8d0811a8 */ 	lw	$t0,%lo(var800711a8)($t0)
+/*  f0e83e4:	8d0811a8 */ 	lw	$t0,%lo(g_LineHeight)($t0)
 /*  f0e83e8:	a7a00070 */ 	sh	$zero,0x70($sp)
 /*  f0e83ec:	00008025 */ 	or	$s0,$zero,$zero
 /*  f0e83f0:	01160019 */ 	multu	$t0,$s6
@@ -2559,8 +2559,8 @@ glabel func0f0e8290
 /*  f0e84c8:	10200014 */ 	beqz	$at,.L0f0e851c
 /*  f0e84cc:	006a082a */ 	slt	$at,$v1,$t2
 /*  f0e84d0:	1020000e */ 	beqz	$at,.L0f0e850c
-/*  f0e84d4:	3c028007 */ 	lui	$v0,%hi(var800711a8)
-/*  f0e84d8:	8c4211a8 */ 	lw	$v0,%lo(var800711a8)($v0)
+/*  f0e84d4:	3c028007 */ 	lui	$v0,%hi(g_LineHeight)
+/*  f0e84d8:	8c4211a8 */ 	lw	$v0,%lo(g_LineHeight)($v0)
 /*  f0e84dc:	00608025 */ 	or	$s0,$v1,$zero
 /*  f0e84e0:	0062001b */ 	divu	$zero,$v1,$v0
 /*  f0e84e4:	00008012 */ 	mflo	$s0
@@ -2598,6 +2598,99 @@ glabel func0f0e8290
 /*  f0e8554:	03e00008 */ 	jr	$ra
 /*  f0e8558:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
+
+// Mismatch due to register initialisation order near 380.
+// 0x14 (MENUOP_GETOPTIONHEIGHT) is loaded into a0 earlier than it should be.
+//Gfx *menuRenderOverlayDropdown(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menuframe *frame, union menuitemdata *data)
+//{
+//	s32 stack;
+//	s32 textwidth; // 98
+//	s32 textheight; // 94
+//	s32 numoptions;
+//	s32 i;
+//	char *text;
+//	s32 stack2;
+//	struct menurendercontext context; // 6c
+//
+//	// 2e0
+//	if (frame->unk6e) {
+//		context.x = x + 78;
+//	} else if (x2 < 0) {
+//		context.x = x + 2;
+//	} else {
+//		context.x = x + x2 - 62;
+//	}
+//
+//	// 334
+//	if (item->param1 & 0x00000080) {
+//		context.x = x + 30;
+//	}
+//
+//	// 340
+//	context.y = y + 1;
+//	context.width = 56;
+//	context.item = item;
+//	context.focused = true;
+//	context.frame = frame;
+//	context.data = data;
+//
+//	// 360
+//	if (frame->dimmed && item->handler && frame->focuseditem == item) {
+//		// 380
+//		union handlerdata handlerdata; // 5c
+//
+//		if (item->param1 & 0x00200000) {
+//			union handlerdata handlerdata2; // 4c
+//			item->handler(MENUOP_GETOPTIONHEIGHT, item, &handlerdata2);
+//			g_LineHeight = handlerdata2.dropdown.value;
+//		} else {
+//			g_LineHeight = 11;
+//		}
+//
+//		// 3c0
+//		item->handler(MENUOP_GETOPTIONCOUNT, item, &handlerdata);
+//		numoptions = handlerdata.dropdown.value;
+//
+//		context.width = 0;
+//		context.height = (s32)g_LineHeight * numoptions;
+//
+//		for (i = 0; i != numoptions; i++) {
+//			// 420
+//			handlerdata.dropdown.value = i;
+//			text = (char *)item->handler(MENUOP_GETOPTIONTEXT, item, &handlerdata);
+//			textMeasure(&textheight, &textwidth, text, var8007fb10, var8007fb0c, 0);
+//			textwidth += 6;
+//
+//			if (textwidth > context.width) {
+//				context.width = textwidth;
+//			}
+//		}
+//
+//		// 480
+//		if (x2 > 0) {
+//			context.x = x + x2 - context.width - 7;
+//		}
+//
+//		// 4a4
+//		if (context.y + context.height > frame->y + frame->height + 2) {
+//			// 4d0
+//			if (context.height > frame->height) {
+//				i = frame->height;
+//				i = i / g_LineHeight;
+//				i = i * g_LineHeight;
+//				context.height = i;
+//			}
+//
+//			// 50c
+//			context.y = frame->y + frame->height - context.height + 2;
+//		}
+//
+//		// 51c
+//		gdl = menuRenderItemList(gdl, &context);
+//	}
+//
+//	return gdl;
+//}
 
 bool menuIsStringEmptyOrSpaces(char *text)
 {
@@ -6199,7 +6292,7 @@ bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, stru
 {
 	u32 stack;
 
-	if ((s16)frame->unk20 != data->scrollable.unk06) {
+	if ((s16)frame->height != data->scrollable.unk06) {
 		char wrapped[8000] = "";
 		char *rawtext;
 		s32 width;
@@ -6234,7 +6327,7 @@ bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, stru
 			data->scrollable.unk04 = -10;
 		}
 
-		data->scrollable.unk06 = frame->unk20;
+		data->scrollable.unk06 = frame->height;
 	}
 
 	if (menuIsScrollableUnscrollable(item)) {
@@ -7393,9 +7486,9 @@ bool menuTickItemPlayerStats(struct menuitem *item, struct menuframe *frame, str
 	menuTickItemDropdown(item, frame, inputs, arg3, data);
 }
 
-Gfx *func0f0ef2fc(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7)
+Gfx *menuRenderOverlayPlayerStats(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menuframe *frame, union menuitemdata *data)
 {
-	return func0f0e8290(gdl, x + 1, y, -1, y2, item, arg6, arg7);
+	return menuRenderOverlayDropdown(gdl, x + 1, y, -1, y2, item, frame, data);
 }
 
 void menuInitItemPlayerStats(struct menuitem *item, union menuitemdata *data)
@@ -8013,7 +8106,7 @@ void menuInitItemController(union menuitemdata *data)
 Gfx *menuRenderItem(Gfx *gdl, struct menurendercontext *context)
 {
 	switch (context->item->type) {
-	case MENUITEMTYPE_LIST:        return menuRenderItemList(gdl);
+	case MENUITEMTYPE_LIST:        return menuRenderItemList(gdl, context);
 	case MENUITEMTYPE_SELECTABLE:  return menuRenderItemSelectable(gdl, context);
 	case MENUITEMTYPE_SLIDER:      return menuRenderItemSlider(gdl);
 	case MENUITEMTYPE_CHECKBOX:    return menuRenderItemCheckbox(gdl, context);
@@ -8089,12 +8182,12 @@ void menuInitItem(struct menuitem *item, union menuitemdata *data)
 	}
 }
 
-Gfx *func0f0f0918(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, u32 arg6, u32 arg7)
+Gfx *menuRenderOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menuframe *frame, union menuitemdata *data)
 {
 	switch (item->type) {
-	case MENUITEMTYPE_LIST:        return func0f0e6298(gdl, x, y, x2, y2);
-	case MENUITEMTYPE_DROPDOWN:    return func0f0e8290(gdl, x, y, x2, y2, item, arg6, arg7);
-	case MENUITEMTYPE_PLAYERSTATS: return func0f0ef2fc(gdl, x, y, x2, y2, item, arg6, arg7);
+	case MENUITEMTYPE_LIST:        return menuRenderOverlayList(gdl, x, y, x2, y2);
+	case MENUITEMTYPE_DROPDOWN:    return menuRenderOverlayDropdown(gdl, x, y, x2, y2, item, frame, data);
+	case MENUITEMTYPE_PLAYERSTATS: return menuRenderOverlayPlayerStats(gdl, x, y, x2, y2, item, frame, data);
 	}
 
 	return gdl;
