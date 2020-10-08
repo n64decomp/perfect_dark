@@ -12756,7 +12756,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 
 						if (func00014f60(optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex), 0xb000)
 								&& !mpIsPaused()
-								&& var80084038 == 0) {
+								&& g_NumReasonsToEndMpMatch == 0) {
 							canrestart = true;
 						}
 
