@@ -69,100 +69,117 @@
 #include "lib/lib_2fa00.h"
 #include "types.h"
 
-const char var70052ca0[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-const char var70052cc4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-const char var70052cf4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-const char var70052d24[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-const char var70052d54[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-const char var70052d84[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-const char var70052db4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma600";
-const char var70052de4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500";
-const char var70052e14[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500";
-const char var70052e44[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500";
-const char var70052e74[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-const char var70052ea4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-const char var70052ed4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-const char var70052f04[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-const char var70052f34[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-const char var70052f64[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-const char var70052f94[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-const char var70052fc4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-const char var70052ff4[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var70053018[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var7005303c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var70053060[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var70053084[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var700530a8[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var700530cc[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var700530f0[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var70053114[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var70053138[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var7005315c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var70053180[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var700531a4[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var700531c8[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var700531ec[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var70053210[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var70053234[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var70053258[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var7005327c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var700532a0[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var700532c4[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var700532e8[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var7005330c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var70053330[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var70053354[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var70053378[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var7005339c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var700533c0[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-const char var700533e4[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-const char var70053408[] = "-ml0 -me0 -mgfx120 -mvtx100 -ma700";
-const char var7005342c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var70053450[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-const char var70053474[] = "-ml0 -me0 -mgfx120 -mvtx100 -ma500";
-const char var70053498[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-const char var700534bc[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-const char var700534e0[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-const char var70053504[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-const char var70053528[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-const char var7005354c[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-const char var70053570[] = "-ml0 -me0 -mgfx120 -mvtx100 -ma700";
-const char var70053594[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-const char var700535b8[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-const char var700535dc[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma300";
-const char var70053600[] = "-ml0 -me0 -mgfx80 -mvtx20 -ma001";
-const char var70053624[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma300";
-const char var70053648[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var7005366c[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var70053690[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var700536b4[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var700536d8[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var700536fc[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var70053720[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var70053744[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var70053768[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var7005378c[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var700537b0[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var700537d4[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var700537f8[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var7005381c[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var70053840[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var70053864[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma130";
-const char var70053888[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-const char var700538ac[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-const char var700538d0[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-const char var700538f4[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-const char var70053918[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-const char var7005393c[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-const char var70053960[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-const char var70053984[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-const char var700539a8[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-const char var700539cc[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-const char var700539f0[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-const char var70053a14[] = "-ml0 -me0 -mgfx100 -mvtx96 -ma120";
-const char var70053a38[] = "-mgfx100 -mvtx50 -ma50";
-const char var70053a50[] = "-ml0 -me0 -mgfx80 -mvtx20 -ma001";
-const char var70053a74[] = "-ml0 -me0 -mgfx100 -mvtx96 -ma300";
+u32 var8005d9b0 = 0x00000000;
+s32 g_StageNum = STAGE_TITLE;
+u32 var8005d9b8 = 0x0004b000;
+u32 var8005d9bc = 0x00000000;
+u32 var8005d9c0 = 0x00000000;
+u32 var8005d9c4 = 0x00000000;
+u32 var8005d9c8 = 0x00000001;
+u32 var8005d9cc = 0x00000000;
+s32 var8005d9d0 = 0x00000000;
+u32 var8005d9d4 = 0x00000000;
+
+struct stageallocation g_StageAllocations8Mb[] = {
+	{ STAGE_CITRAINING,    "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
+	{ STAGE_DEFECTION,     "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
+	{ STAGE_INVESTIGATION, "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
+	{ STAGE_EXTRACTION,    "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
+	{ STAGE_CHICAGO,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
+	{ STAGE_G5BUILDING,    "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
+	{ STAGE_VILLA,         "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma600" },
+	{ STAGE_INFILTRATION,  "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500" },
+	{ STAGE_RESCUE,        "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500" },
+	{ STAGE_ESCAPE,        "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500" },
+	{ STAGE_AIRBASE,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
+	{ STAGE_AIRFORCEONE,   "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
+	{ STAGE_CRASHSITE,     "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
+	{ STAGE_PELAGIC,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
+	{ STAGE_DEEPSEA,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
+	{ STAGE_DEFENSE,       "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
+	{ STAGE_ATTACKSHIP,    "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
+	{ STAGE_SKEDARRUINS,   "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700" },
+	{ STAGE_MP_SKEDAR,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_RAVINE,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_PIPES,      "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_G5BUILDING, "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_SEWERS,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_WAREHOUSE,  "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_BASE,       "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_COMPLEX,    "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_TEMPLE,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_FELICITY,   "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_AREA52,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_GRID,       "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_CARPARK,    "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_RUINS,      "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_FORTRESS,   "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_MP_VILLA,      "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_TEST_RUN,      "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_TEST_MP2,      "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_TEST_MP6,      "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_TEST_MP7,      "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_TEST_MP8,      "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_TEST_MP14,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_TEST_MP16,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_TEST_MP17,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_TEST_MP18,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_TEST_MP19,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_TEST_MP20,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_TEST_ASH,      "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
+	{ STAGE_28,            "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
+	{ STAGE_MBR,           "-ml0 -me0 -mgfx120 -mvtx100 -ma700"            },
+	{ STAGE_TEST_SILO,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_24,            "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
+	{ STAGE_MAIANSOS,      "-ml0 -me0 -mgfx120 -mvtx100 -ma500"            },
+	{ STAGE_RETAKING,      "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
+	{ STAGE_TEST_DEST,     "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
+	{ STAGE_2B,            "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
+	{ STAGE_WAR,           "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
+	{ STAGE_TEST_UFF,      "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
+	{ STAGE_TEST_OLD,      "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
+	{ STAGE_DUEL,          "-ml0 -me0 -mgfx120 -mvtx100 -ma700"            },
+	{ STAGE_TEST_LAM,      "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
+	{ STAGE_TEST_ARCH,     "-ml0 -me0 -mgfx200 -mvtx200 -ma400"            },
+	{ STAGE_TEST_LEN,      "-ml0 -me0 -mgfx120 -mvtx98 -ma300"             },
+	{ STAGE_TITLE,         "-ml0 -me0 -mgfx80 -mvtx20 -ma001"              },
+	{ 0,                   "-ml0 -me0 -mgfx120 -mvtx98 -ma300"             },
+};
+
+struct stageallocation g_StageAllocations4Mb[] = {
+	{ STAGE_MP_SKEDAR,     "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_PIPES,      "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_AREA52,     "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_RAVINE,     "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_G5BUILDING, "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_SEWERS,     "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_WAREHOUSE,  "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_BASE,       "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_COMPLEX,    "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_TEMPLE,     "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_FELICITY,   "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_GRID,       "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_TEST_RUN,      "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_CARPARK,    "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_RUINS,      "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_MP_FORTRESS,   "-ml0 -me0 -mgfx96 -mvtx96 -ma130"              },
+	{ STAGE_MP_VILLA,      "-ml0 -me0 -mgfx96 -mvtx96 -ma140"              },
+	{ STAGE_TEST_MP2,      "-ml0 -me0 -mgfx96 -mvtx96 -ma115"              },
+	{ STAGE_TEST_MP6,      "-ml0 -me0 -mgfx96 -mvtx96 -ma115"              },
+	{ STAGE_TEST_MP7,      "-ml0 -me0 -mgfx96 -mvtx96 -ma115"              },
+	{ STAGE_TEST_MP8,      "-ml0 -me0 -mgfx96 -mvtx96 -ma115"              },
+	{ STAGE_TEST_MP14,     "-ml0 -me0 -mgfx96 -mvtx96 -ma115"              },
+	{ STAGE_TEST_MP16,     "-ml0 -me0 -mgfx96 -mvtx96 -ma115"              },
+	{ STAGE_TEST_MP17,     "-ml0 -me0 -mgfx96 -mvtx96 -ma115"              },
+	{ STAGE_TEST_MP18,     "-ml0 -me0 -mgfx96 -mvtx96 -ma115"              },
+	{ STAGE_TEST_MP19,     "-ml0 -me0 -mgfx96 -mvtx96 -ma115"              },
+	{ STAGE_TEST_MP20,     "-ml0 -me0 -mgfx96 -mvtx96 -ma115"              },
+	{ STAGE_TEST_LEN,      "-ml0 -me0 -mgfx100 -mvtx96 -ma120"             },
+	{ STAGE_4MBMENU,       "-mgfx100 -mvtx50 -ma50"                        },
+	{ STAGE_TITLE,         "-ml0 -me0 -mgfx80 -mvtx20 -ma001"              },
+	{ 0,                   "-ml0 -me0 -mgfx100 -mvtx96 -ma300"             },
+};
+
 const char var70053a98[] = "-level_";
 const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 const char var70053ad4[] = "-hard";
@@ -176,114 +193,6 @@ const char var70053b04[] = "-anti";
 const char var70053b0c[] = "-mpbots";
 const char var70053b14[] = "-play";
 const char var70053b1c[] = "";
-
-u32 var8005d9b0 = 0x00000000;
-s32 g_StageNum = STAGE_TITLE;
-u32 var8005d9b8 = 0x0004b000;
-u32 var8005d9bc = 0x00000000;
-u32 var8005d9c0 = 0x00000000;
-u32 var8005d9c4 = 0x00000000;
-u32 var8005d9c8 = 0x00000001;
-u32 var8005d9cc = 0x00000000;
-s32 var8005d9d0 = 0x00000000;
-u32 var8005d9d4 = 0x00000000;
-
-u32 var8005d9d8[] = {
-	/*0x00*/ 0x00000026, (u32) &var70052ca0,
-	/*0x01*/ 0x00000030, (u32) &var70052cc4,
-	/*0x02*/ 0x00000033, (u32) &var70052cf4,
-	/*0x03*/ 0x00000022, (u32) &var70052d24,
-	/*0x04*/ 0x0000001d, (u32) &var70052d54,
-	/*0x05*/ 0x0000001e, (u32) &var70052d84,
-	/*0x06*/ 0x0000002c, (u32) &var70052db4,
-	/*0x07*/ 0x0000002f, (u32) &var70052de4,
-	/*0x08*/ 0x00000035, (u32) &var70052e14,
-	/*0x09*/ 0x00000019, (u32) &var70052e44,
-	/*0x0a*/ 0x00000027, (u32) &var70052e74,
-	/*0x0b*/ 0x00000031, (u32) &var70052ea4,
-	/*0x0c*/ 0x0000001c, (u32) &var70052ed4,
-	/*0x0d*/ 0x00000021, (u32) &var70052f04,
-	/*0x0e*/ 0x00000038, (u32) &var70052f34,
-	/*0x0f*/ 0x0000002d, (u32) &var70052f64,
-	/*0x10*/ 0x00000034, (u32) &var70052f94,
-	/*0x11*/ 0x0000002a, (u32) &var70052fc4,
-	/*0x12*/ 0x00000032, (u32) &var70052ff4,
-	/*0x13*/ 0x00000017, (u32) &var70053018,
-	/*0x14*/ 0x00000029, (u32) &var7005303c,
-	/*0x15*/ 0x00000020, (u32) &var70053060,
-	/*0x16*/ 0x00000042, (u32) &var70053084,
-	/*0x17*/ 0x0000003c, (u32) &var700530a8,
-	/*0x18*/ 0x00000039, (u32) &var700530cc,
-	/*0x19*/ 0x0000001f, (u32) &var700530f0,
-	/*0x1a*/ 0x00000025, (u32) &var70053114,
-	/*0x1b*/ 0x00000043, (u32) &var70053138,
-	/*0x1c*/ 0x0000003b, (u32) &var7005315c,
-	/*0x1d*/ 0x00000047, (u32) &var70053180,
-	/*0x1e*/ 0x0000003d, (u32) &var700531a4,
-	/*0x1f*/ 0x00000041, (u32) &var700531c8,
-	/*0x20*/ 0x00000044, (u32) &var700531ec,
-	/*0x21*/ 0x00000045, (u32) &var70053210,
-	/*0x22*/ 0x00000023, (u32) &var70053234,
-	/*0x23*/ 0x0000003a, (u32) &var70053258,
-	/*0x24*/ 0x0000003e, (u32) &var7005327c,
-	/*0x25*/ 0x0000003f, (u32) &var700532a0,
-	/*0x26*/ 0x00000040, (u32) &var700532c4,
-	/*0x27*/ 0x00000046, (u32) &var700532e8,
-	/*0x28*/ 0x00000048, (u32) &var7005330c,
-	/*0x29*/ 0x00000049, (u32) &var70053330,
-	/*0x2a*/ 0x0000004a, (u32) &var70053354,
-	/*0x2b*/ 0x0000004b, (u32) &var70053378,
-	/*0x2c*/ 0x0000004c, (u32) &var7005339c,
-	/*0x2d*/ 0x0000002e, (u32) &var700533c0,
-	/*0x2e*/ 0x00000028, (u32) &var700533e4,
-	/*0x2f*/ 0x00000037, (u32) &var70053408,
-	/*0x30*/ 0x00000014, (u32) &var7005342c,
-	/*0x31*/ 0x00000024, (u32) &var70053450,
-	/*0x32*/ 0x00000009, (u32) &var70053474,
-	/*0x33*/ 0x0000001b, (u32) &var70053498,
-	/*0x34*/ 0x0000001a, (u32) &var700534bc,
-	/*0x35*/ 0x0000002b, (u32) &var700534e0,
-	/*0x36*/ 0x00000016, (u32) &var70053504,
-	/*0x37*/ 0x0000004d, (u32) &var70053528,
-	/*0x38*/ 0x0000004e, (u32) &var7005354c,
-	/*0x39*/ 0x0000004f, (u32) &var70053570,
-	/*0x3a*/ 0x00000050, (u32) &var70053594,
-	/*0x3b*/ 0x00000018, (u32) &var700535b8,
-	/*0x3c*/ 0x00000036, (u32) &var700535dc,
-	/*0x3d*/ 0x0000005a, (u32) &var70053600,
-	/*0x3e*/ 0x00000000, (u32) &var70053624,
-	/*0x3f*/ 0x00000032, (u32) &var70053648,
-	/*0x40*/ 0x00000029, (u32) &var7005366c,
-	/*0x41*/ 0x0000003b, (u32) &var70053690,
-	/*0x42*/ 0x00000017, (u32) &var700536b4,
-	/*0x43*/ 0x00000020, (u32) &var700536d8,
-	/*0x44*/ 0x00000042, (u32) &var700536fc,
-	/*0x45*/ 0x0000003c, (u32) &var70053720,
-	/*0x46*/ 0x00000039, (u32) &var70053744,
-	/*0x47*/ 0x0000001f, (u32) &var70053768,
-	/*0x48*/ 0x00000025, (u32) &var7005378c,
-	/*0x49*/ 0x00000043, (u32) &var700537b0,
-	/*0x4a*/ 0x00000047, (u32) &var700537d4,
-	/*0x4b*/ 0x00000023, (u32) &var700537f8,
-	/*0x4c*/ 0x0000003d, (u32) &var7005381c,
-	/*0x4d*/ 0x00000041, (u32) &var70053840,
-	/*0x4e*/ 0x00000044, (u32) &var70053864,
-	/*0x4f*/ 0x00000045, (u32) &var70053888,
-	/*0x50*/ 0x0000003a, (u32) &var700538ac,
-	/*0x51*/ 0x0000003e, (u32) &var700538d0,
-	/*0x52*/ 0x0000003f, (u32) &var700538f4,
-	/*0x53*/ 0x00000040, (u32) &var70053918,
-	/*0x54*/ 0x00000046, (u32) &var7005393c,
-	/*0x55*/ 0x00000048, (u32) &var70053960,
-	/*0x56*/ 0x00000049, (u32) &var70053984,
-	/*0x57*/ 0x0000004a, (u32) &var700539a8,
-	/*0x58*/ 0x0000004b, (u32) &var700539cc,
-	/*0x59*/ 0x0000004c, (u32) &var700539f0,
-	/*0x5a*/ 0x00000036, (u32) &var70053a14,
-	/*0x5b*/ 0x0000005d, (u32) &var70053a38,
-	/*0x5c*/ 0x0000005a, (u32) &var70053a50,
-	/*0x5d*/ 0x00000000, (u32) &var70053a74,
-};
 
 u32 var8005dcc8 = 0xbc000006;
 u32 var8005dccc = 0x00000000;
@@ -878,15 +787,15 @@ glabel mainTick
 /*     dd38:	28410002 */ 	slti	$at,$v0,0x2
 /*     dd3c:	14200019 */ 	bnez	$at,.L0000dda4
 /*     dd40:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*     dd44:	3c0a8006 */ 	lui	$t2,%hi(var8005d9d8+0x1f8)
-/*     dd48:	8d4adbd0 */ 	lw	$t2,%lo(var8005d9d8+0x1f8)($t2)
+/*     dd44:	3c0a8006 */ 	lui	$t2,%hi(g_StageAllocations4Mb)
+/*     dd48:	8d4adbd0 */ 	lw	$t2,%lo(g_StageAllocations4Mb)($t2)
 /*     dd4c:	00002825 */ 	or	$a1,$zero,$zero
 /*     dd50:	3c048006 */ 	lui	$a0,%hi(g_StageNum)
 /*     dd54:	1140000d */ 	beqz	$t2,.L0000dd8c
-/*     dd58:	3c0d8006 */ 	lui	$t5,%hi(var8005d9d8+0x1f8)
+/*     dd58:	3c0d8006 */ 	lui	$t5,%hi(g_StageAllocations4Mb)
 /*     dd5c:	8c84d9b4 */ 	lw	$a0,%lo(g_StageNum)($a0)
-/*     dd60:	3c0b8006 */ 	lui	$t3,%hi(var8005d9d8+0x1f8)
-/*     dd64:	2562dbd0 */ 	addiu	$v0,$t3,%lo(var8005d9d8+0x1f8)
+/*     dd60:	3c0b8006 */ 	lui	$t3,%hi(g_StageAllocations4Mb)
+/*     dd64:	2562dbd0 */ 	addiu	$v0,$t3,%lo(g_StageAllocations4Mb)
 /*     dd68:	8c430000 */ 	lw	$v1,0x0($v0)
 /*     dd6c:	24840190 */ 	addiu	$a0,$a0,400
 .L0000dd70:
@@ -901,19 +810,19 @@ glabel mainTick
 /*     dd8c:	000560c0 */ 	sll	$t4,$a1,0x3
 .L0000dd90:
 /*     dd90:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*     dd94:	8daddbd0 */ 	lw	$t5,%lo(var8005d9d8+0x1f8)($t5)
+/*     dd94:	8daddbd0 */ 	lw	$t5,%lo(g_StageAllocations4Mb)($t5)
 /*     dd98:	15a00002 */ 	bnez	$t5,.L0000dda4
 /*     dd9c:	00000000 */ 	nop
 /*     dda0:	02a02825 */ 	or	$a1,$s5,$zero
 .L0000dda4:
 /*     dda4:	04a10010 */ 	bgez	$a1,.L0000dde8
-/*     dda8:	3c198006 */ 	lui	$t9,%hi(var8005d9d8+0x1f8)
-/*     ddac:	8f39dbd0 */ 	lw	$t9,%lo(var8005d9d8+0x1f8)($t9)
+/*     dda8:	3c198006 */ 	lui	$t9,%hi(g_StageAllocations4Mb)
+/*     ddac:	8f39dbd0 */ 	lw	$t9,%lo(g_StageAllocations4Mb)($t9)
 /*     ddb0:	00002825 */ 	or	$a1,$zero,$zero
 /*     ddb4:	3c048006 */ 	lui	$a0,%hi(g_StageNum)
 /*     ddb8:	1320000b */ 	beqz	$t9,.L0000dde8
-/*     ddbc:	3c188006 */ 	lui	$t8,%hi(var8005d9d8+0x1f8)
-/*     ddc0:	2702dbd0 */ 	addiu	$v0,$t8,%lo(var8005d9d8+0x1f8)
+/*     ddbc:	3c188006 */ 	lui	$t8,%hi(g_StageAllocations4Mb)
+/*     ddc0:	2702dbd0 */ 	addiu	$v0,$t8,%lo(g_StageAllocations4Mb)
 /*     ddc4:	8c430000 */ 	lw	$v1,0x0($v0)
 /*     ddc8:	8c84d9b4 */ 	lw	$a0,%lo(g_StageNum)($a0)
 .L0000ddcc:
@@ -927,10 +836,10 @@ glabel mainTick
 .L0000dde8:
 /*     dde8:	000570c0 */ 	sll	$t6,$a1,0x3
 .L0000ddec:
-/*     ddec:	3c048006 */ 	lui	$a0,%hi(var8005d9d8+0x1fc)
+/*     ddec:	3c048006 */ 	lui	$a0,%hi(g_StageAllocations4Mb+0x4)
 /*     ddf0:	008e2021 */ 	addu	$a0,$a0,$t6
 /*     ddf4:	0c004bbf */ 	jal	func00012efc
-/*     ddf8:	8c84dbd4 */ 	lw	$a0,%lo(var8005d9d8+0x1fc)($a0)
+/*     ddf8:	8c84dbd4 */ 	lw	$a0,%lo(g_StageAllocations4Mb+0x4)($a0)
 /*     ddfc:	10000038 */ 	b	.L0000dee0
 /*     de00:	00000000 */ 	nop
 .L0000de04:
@@ -943,15 +852,15 @@ glabel mainTick
 /*     de1c:	28410002 */ 	slti	$at,$v0,0x2
 /*     de20:	14200019 */ 	bnez	$at,.L0000de88
 /*     de24:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*     de28:	3c088006 */ 	lui	$t0,%hi(var8005d9d8)
-/*     de2c:	8d08d9d8 */ 	lw	$t0,%lo(var8005d9d8)($t0)
+/*     de28:	3c088006 */ 	lui	$t0,%hi(g_StageAllocations8Mb)
+/*     de2c:	8d08d9d8 */ 	lw	$t0,%lo(g_StageAllocations8Mb)($t0)
 /*     de30:	00002825 */ 	or	$a1,$zero,$zero
 /*     de34:	3c048006 */ 	lui	$a0,%hi(g_StageNum)
 /*     de38:	1100000d */ 	beqz	$t0,.L0000de70
-/*     de3c:	3c0b8006 */ 	lui	$t3,%hi(var8005d9d8)
+/*     de3c:	3c0b8006 */ 	lui	$t3,%hi(g_StageAllocations8Mb)
 /*     de40:	8c84d9b4 */ 	lw	$a0,%lo(g_StageNum)($a0)
-/*     de44:	3c098006 */ 	lui	$t1,%hi(var8005d9d8)
-/*     de48:	2522d9d8 */ 	addiu	$v0,$t1,%lo(var8005d9d8)
+/*     de44:	3c098006 */ 	lui	$t1,%hi(g_StageAllocations8Mb)
+/*     de48:	2522d9d8 */ 	addiu	$v0,$t1,%lo(g_StageAllocations8Mb)
 /*     de4c:	8c430000 */ 	lw	$v1,0x0($v0)
 /*     de50:	24840190 */ 	addiu	$a0,$a0,400
 .L0000de54:
@@ -966,19 +875,19 @@ glabel mainTick
 /*     de70:	000550c0 */ 	sll	$t2,$a1,0x3
 .L0000de74:
 /*     de74:	016a5821 */ 	addu	$t3,$t3,$t2
-/*     de78:	8d6bd9d8 */ 	lw	$t3,%lo(var8005d9d8)($t3)
+/*     de78:	8d6bd9d8 */ 	lw	$t3,%lo(g_StageAllocations8Mb)($t3)
 /*     de7c:	15600002 */ 	bnez	$t3,.L0000de88
 /*     de80:	00000000 */ 	nop
 /*     de84:	02a02825 */ 	or	$a1,$s5,$zero
 .L0000de88:
 /*     de88:	04a10010 */ 	bgez	$a1,.L0000decc
-/*     de8c:	3c0c8006 */ 	lui	$t4,%hi(var8005d9d8)
-/*     de90:	8d8cd9d8 */ 	lw	$t4,%lo(var8005d9d8)($t4)
+/*     de8c:	3c0c8006 */ 	lui	$t4,%hi(g_StageAllocations8Mb)
+/*     de90:	8d8cd9d8 */ 	lw	$t4,%lo(g_StageAllocations8Mb)($t4)
 /*     de94:	00002825 */ 	or	$a1,$zero,$zero
 /*     de98:	3c048006 */ 	lui	$a0,%hi(g_StageNum)
 /*     de9c:	1180000b */ 	beqz	$t4,.L0000decc
-/*     dea0:	3c0d8006 */ 	lui	$t5,%hi(var8005d9d8)
-/*     dea4:	25a2d9d8 */ 	addiu	$v0,$t5,%lo(var8005d9d8)
+/*     dea0:	3c0d8006 */ 	lui	$t5,%hi(g_StageAllocations8Mb)
+/*     dea4:	25a2d9d8 */ 	addiu	$v0,$t5,%lo(g_StageAllocations8Mb)
 /*     dea8:	8c430000 */ 	lw	$v1,0x0($v0)
 /*     deac:	8c84d9b4 */ 	lw	$a0,%lo(g_StageNum)($a0)
 .L0000deb0:
@@ -992,10 +901,10 @@ glabel mainTick
 .L0000decc:
 /*     decc:	0005c8c0 */ 	sll	$t9,$a1,0x3
 .L0000ded0:
-/*     ded0:	3c048006 */ 	lui	$a0,%hi(var8005d9d8+0x4)
+/*     ded0:	3c048006 */ 	lui	$a0,%hi(g_StageAllocations8Mb+0x4)
 /*     ded4:	00992021 */ 	addu	$a0,$a0,$t9
 /*     ded8:	0c004bbf */ 	jal	func00012efc
-/*     dedc:	8c84d9dc */ 	lw	$a0,%lo(var8005d9d8+0x4)($a0)
+/*     dedc:	8c84d9dc */ 	lw	$a0,%lo(g_StageAllocations8Mb+0x4)($a0)
 .L0000dee0:
 /*     dee0:	3c018006 */ 	lui	$at,%hi(var8005d9c4)
 /*     dee4:	ac20d9c4 */ 	sw	$zero,%lo(var8005d9c4)($at)

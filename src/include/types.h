@@ -6939,4 +6939,9 @@ struct bytelist {
 	u8 b9;
 };
 
+struct stageallocation {
+	u32 stagenum;
+	char *allocationstring;
+};
+
 #endif
