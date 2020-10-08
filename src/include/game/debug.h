@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 dprint();
-bool debug0f11ed70(void);
+s32 debug0f11ed70(void);
 bool debug0f11ed78(void);
 bool debug0f11ed80(void);
 bool debug0f11edb0(void);

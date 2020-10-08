@@ -104,9 +104,9 @@ bool debug0f11ed58(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 	return false;
 }
 
-bool debug0f11ed70(void)
+s32 debug0f11ed70(void)
 {
-	return false;
+	return 0;
 }
 
 bool debug0f11ed78(void)

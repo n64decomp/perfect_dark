@@ -102,7 +102,7 @@ u32 mainInit(void);
 void mainLoop(void);
 void func0000db30(char *string, u32 *ptr);
 u32 mainTick(void);
-u32 func0000e324(void);
+void func0000e324(void);
 void mainEndStage(void);
 void func0000e95c(s32 stagenum);
 void func0000e990(void);

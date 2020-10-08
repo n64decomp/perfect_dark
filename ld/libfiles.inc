@@ -1,4 +1,5 @@
 #define LIBFILES(section) \
+	build/ROMID/game/data/data_000000.o (section); \
 	build/ROMID/lib/ultra/io/vimgr.o (section); \
 	build/ROMID/lib/ultra/io/pimgr.o (section); \
 	build/ROMID/lib/lib_034d0.o (section); \

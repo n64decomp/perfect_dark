@@ -4,6 +4,6 @@
 
 void func000034d0(void);
 void func000034d8(void);
-u32 func000034e0(void);
+void func000034e0(Gfx **gdl);
 
 #endif

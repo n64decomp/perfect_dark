@@ -192,6 +192,7 @@ SECTIONS
 
 	BEGIN_SEG(data)
 	{
+		LIBFILES(.data)
 		GAMEFILES(.data)
 	}
 	END_SEG(data)

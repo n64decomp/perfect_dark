@@ -363,9 +363,9 @@ glabel func00009aa0
 /*     9aa4:	afa40000 */ 	sw	$a0,0x0($sp)
 );
 
-u32 func00009aa8(u32 arg)
+Gfx *debugRenderSomething(Gfx *gdl)
 {
-	return arg;
+	return gdl;
 }
 
 GLOBAL_ASM(
