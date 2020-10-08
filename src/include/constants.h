@@ -1042,7 +1042,6 @@
 
 #define MAX_CHRWAYPOINTS   6
 #define MAX_DANGEROUSPROPS 12
-#define MAX_GUNHELD        10
 #define MAX_LIFTS          10
 #define MAX_MPCHRS         (4 + MAX_SIMULANTS)
 #define MAX_OBJECTIVES     10

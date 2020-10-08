@@ -1503,7 +1503,7 @@ void currentPlayerIncrementGunHeldTime(s32 weapon1, s32 weapon2)
 		weapon2 = 0;
 	}
 
-	for (i = 0; i < MAX_GUNHELD; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->gunheldarr); i++) {
 		s32 time = g_Vars.currentplayer->gunheldarr[i].totaltime240_60;
 
 		if (time >= 0) {
@@ -1519,70 +1519,32 @@ void currentPlayerIncrementGunHeldTime(s32 weapon1, s32 weapon2)
 			}
 		} else {
 			leastusedindex = i;
-			i = MAX_GUNHELD;
+			i = ARRAYCOUNT(g_Vars.currentplayer->gunheldarr);
 			break;
 		}
 	}
 
-	if (i == MAX_GUNHELD) {
+	if (i == ARRAYCOUNT(g_Vars.currentplayer->gunheldarr)) {
 		g_Vars.currentplayer->gunheldarr[leastusedindex].totaltime240_60 = g_Vars.lvupdate240_60;
 		g_Vars.currentplayer->gunheldarr[leastusedindex].weapon1 = weapon1;
 		g_Vars.currentplayer->gunheldarr[leastusedindex].weapon2 = weapon2;
 	}
 }
 
-GLOBAL_ASM(
-glabel currentPlayerGetWeaponOfChoice
-/*  f1131ac:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f1131b0:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f1131b4:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f1131b8:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f1131bc:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f1131c0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1131c4:	24090078 */ 	addiu	$t1,$zero,0x78
-/*  f1131c8:	8d0e0284 */ 	lw	$t6,0x284($t0)
-.L0f1131cc:
-/*  f1131cc:	01c61821 */ 	addu	$v1,$t6,$a2
-/*  f1131d0:	8c671880 */ 	lw	$a3,0x1880($v1)
-/*  f1131d4:	04e0000a */ 	bltz	$a3,.L0f113200
-/*  f1131d8:	0047082a */ 	slt	$at,$v0,$a3
-/*  f1131dc:	50200009 */ 	beqzl	$at,.L0f113204
-/*  f1131e0:	24c6000c */ 	addiu	$a2,$a2,0xc
-/*  f1131e4:	8c6f1878 */ 	lw	$t7,0x1878($v1)
-/*  f1131e8:	00e01025 */ 	or	$v0,$a3,$zero
-/*  f1131ec:	ac8f0000 */ 	sw	$t7,0x0($a0)
-/*  f1131f0:	8d180284 */ 	lw	$t8,0x284($t0)
-/*  f1131f4:	0306c821 */ 	addu	$t9,$t8,$a2
-/*  f1131f8:	8f2a187c */ 	lw	$t2,0x187c($t9)
-/*  f1131fc:	acaa0000 */ 	sw	$t2,0x0($a1)
-.L0f113200:
-/*  f113200:	24c6000c */ 	addiu	$a2,$a2,0xc
-.L0f113204:
-/*  f113204:	54c9fff1 */ 	bnel	$a2,$t1,.L0f1131cc
-/*  f113208:	8d0e0284 */ 	lw	$t6,0x284($t0)
-/*  f11320c:	03e00008 */ 	jr	$ra
-/*  f113210:	00000000 */ 	nop
-/*  f113214:	00000000 */ 	nop
-/*  f113218:	00000000 */ 	nop
-/*  f11321c:	00000000 */ 	nop
-);
+void currentPlayerGetWeaponOfChoice(s32 *weapon1, s32 *weapon2)
+{
+	s32 mosttime = -1;
+	s32 i;
 
-// regalloc
-//void currentPlayerGetWeaponOfChoice(s32 *weapon1, s32 *weapon2)
-//{
-//	s32 mosttime = -1;
-//	s32 i;
-//
-//	*weapon1 = 0;
-//	*weapon2 = 0;
-//
-//	for (i = 0; i != MAX_GUNHELD; i++) {
-//		s32 time = g_Vars.currentplayer->gunheldarr[i].totaltime240_60;
-//
-//		if (time >= 0 && time > mosttime) {
-//			*weapon1 = g_Vars.currentplayer->gunheldarr[i].weapon1;
-//			*weapon2 = g_Vars.currentplayer->gunheldarr[i].weapon2;
-//			mosttime = time;
-//		}
-//	}
-//}
+	*weapon1 = 0;
+	*weapon2 = 0;
+
+	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->gunheldarr); i++) {
+		if (g_Vars.currentplayer->gunheldarr[i].totaltime240_60 >= 0
+				&& g_Vars.currentplayer->gunheldarr[i].totaltime240_60 > mosttime) {
+			mosttime = g_Vars.currentplayer->gunheldarr[i].totaltime240_60;
+			*weapon1 = g_Vars.currentplayer->gunheldarr[i].weapon1;
+			*weapon2 = g_Vars.currentplayer->gunheldarr[i].weapon2;
+		}
+	}
+}
