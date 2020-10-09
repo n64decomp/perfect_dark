@@ -3,13 +3,13 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00012e08(void);
+void rngSetSeed(u32 amount);
 u32 func00012e1c(void);
 u32 func00012e60(void);
-u32 func00012efc(void);
+void func00012efc(char *string);
 s32 func00012f30(void);
 char *func00013010(s32 arg0, char *string);
-u32 func000130d4(void);
+void func000130d4(s32 *stagenum);
 u32 random(void);
 
 #endif

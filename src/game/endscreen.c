@@ -511,7 +511,7 @@ void endscreenHandleContinue(s32 context)
 
 						setDifficulty(g_MissionConfig.difficulty);
 						titleSetNextMode(TITLEMODE_SKIP);
-						func0000e95c(g_MissionConfig.stagenum);
+						mainSetStageNum(g_MissionConfig.stagenum);
 						func00009ec4(true);
 					}
 				} else if (g_Vars.stagenum == STAGE_SKEDARRUINS) {
@@ -520,7 +520,7 @@ void endscreenHandleContinue(s32 context)
 					titleSetNextStage(g_MissionConfig.stagenum);
 					setDifficulty(g_MissionConfig.difficulty);
 					titleSetNextMode(TITLEMODE_SKIP);
-					func0000e95c(g_MissionConfig.stagenum);
+					mainSetStageNum(g_MissionConfig.stagenum);
 					func00009ec4(true);
 				}
 			} else {

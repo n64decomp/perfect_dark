@@ -54,7 +54,7 @@ glabel random
 //}
 
 GLOBAL_ASM(
-glabel func00012e08
+glabel rngSetSeed
 /*    12e08:	64840001 */ 	daddiu	$a0,$a0,0x1
 /*    12e0c:	3c018006 */ 	lui	$at,%hi(rand_seed)
 /*    12e10:	fc24ee00 */ 	sd	$a0,%lo(rand_seed)($at)

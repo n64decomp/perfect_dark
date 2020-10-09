@@ -1321,7 +1321,7 @@ void titleTickPdLogo(void)
 			func0f13b660();
 			g_TitleNextStage = STAGE_CREDITS; // for alt title screen
 			setNumPlayers(1);
-			func0000e95c(g_TitleNextStage);
+			mainSetStageNum(g_TitleNextStage);
 
 			g_Vars.bondplayernum = 0;
 			g_Vars.coopplayernum = -1;
@@ -4452,7 +4452,7 @@ void titleInitSkip(void)
 		viSetViewSize(320, 220);
 	}
 
-	func0000e95c(g_TitleNextStage);
+	mainSetStageNum(g_TitleNextStage);
 
 	g_Vars.bondplayernum = 0;
 	g_Vars.coopplayernum = -1;

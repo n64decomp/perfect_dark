@@ -689,7 +689,7 @@ s32 menuhandlerAcceptMission(u32 operation, struct menuitem *item, union handler
 
 		setDifficulty(g_MissionConfig.difficulty);
 		titleSetNextMode(TITLEMODE_SKIP);
-		func0000e95c(g_MissionConfig.stagenum);
+		mainSetStageNum(g_MissionConfig.stagenum);
 		func00009ec4(1);
 	}
 

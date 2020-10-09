@@ -341,15 +341,15 @@ GLOBAL_ASM(
 glabel func0f111b88
 /*  f111b88:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f111b8c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f111b90:	0c003a61 */ 	jal	getCurrentStageId
+/*  f111b90:	0c003a61 */ 	jal	mainGetStageNum
 /*  f111b94:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f111b98:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f111b9c:	0c003a61 */ 	jal	getCurrentStageId
+/*  f111b9c:	0c003a61 */ 	jal	mainGetStageNum
 /*  f111ba0:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f111ba4:	24010034 */ 	addiu	$at,$zero,0x34
 /*  f111ba8:	1041000a */ 	beq	$v0,$at,.L0f111bd4
 /*  f111bac:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f111bb0:	0c003a61 */ 	jal	getCurrentStageId
+/*  f111bb0:	0c003a61 */ 	jal	mainGetStageNum
 /*  f111bb4:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f111bb8:	2401002a */ 	addiu	$at,$zero,0x2a
 /*  f111bbc:	10410005 */ 	beq	$v0,$at,.L0f111bd4
@@ -371,7 +371,7 @@ s32 currentStageForbidsSlayer(void)
 {
 	bool forbids = false;
 
-	if (getCurrentStageId() != STAGE_ATTACKSHIP && getCurrentStageId() != STAGE_SKEDARRUINS) {
+	if (mainGetStageNum() != STAGE_ATTACKSHIP && mainGetStageNum() != STAGE_SKEDARRUINS) {
 		forbids = true;
 	}
 
@@ -387,7 +387,7 @@ bool currentPlayerCanHaveAllGunsWeapon(s32 weaponnum)
 	}
 
 	// @bug: The stage conditions need an OR. This condition can never pass.
-	if ((getCurrentStageId() == STAGE_ATTACKSHIP && getCurrentStageId() == STAGE_SKEDARRUINS)
+	if ((mainGetStageNum() == STAGE_ATTACKSHIP && mainGetStageNum() == STAGE_SKEDARRUINS)
 			&& weaponnum == WEAPON_SLAYER) {
 		canhave = true;
 	}

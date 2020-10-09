@@ -46741,7 +46741,7 @@ glabel func0f09044c
 /*  f09047c:	c4880004 */ 	lwc1	$f8,0x4($a0)
 /*  f090480:	e4480004 */ 	swc1	$f8,0x4($v0)
 /*  f090484:	c48a0008 */ 	lwc1	$f10,0x8($a0)
-/*  f090488:	0c003a61 */ 	jal	getCurrentStageId
+/*  f090488:	0c003a61 */ 	jal	mainGetStageNum
 /*  f09048c:	e44a0008 */ 	swc1	$f10,0x8($v0)
 /*  f090490:	24010020 */ 	addiu	$at,$zero,0x20
 /*  f090494:	14410007 */ 	bne	$v0,$at,.L0f0904b4
@@ -47429,8 +47429,8 @@ void alarmTick(void)
 
 	// For G5, stop alarm after 55 seconds.
 	// For all other levels, stop alarm after 30 seconds.
-	if ((g_AlarmTimer > 1800 && getCurrentStageId() != STAGE_G5BUILDING)
-			|| (g_AlarmTimer > 3300 && getCurrentStageId() == STAGE_G5BUILDING)) {
+	if ((g_AlarmTimer > 1800 && mainGetStageNum() != STAGE_G5BUILDING)
+			|| (g_AlarmTimer > 3300 && mainGetStageNum() == STAGE_G5BUILDING)) {
 		alarmDeactivate();
 	}
 

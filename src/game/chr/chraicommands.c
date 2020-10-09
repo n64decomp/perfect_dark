@@ -2897,7 +2897,7 @@ bool aiIfStageIdLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (cmd[2] > getCurrentStageId()) {
+	if (cmd[2] > mainGetStageNum()) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2913,7 +2913,7 @@ bool aiIfStageIdGreaterThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (getCurrentStageId() > cmd[2]) {
+	if (mainGetStageNum() > cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -5004,7 +5004,7 @@ bool aiEndLevel(void)
 {
 	if (debugAllowEndLevel()) {
 		if (var800624a4) {
-			func0000e95c(STAGE_TITLE);
+			mainSetStageNum(STAGE_TITLE);
 		} else if (g_Vars.unk0004d3) {
 			g_Vars.unk0004d6 = 1;
 		} else {

@@ -5781,7 +5781,7 @@ glabel var7f1a8d98
 /*  f034650:	8c591c08 */ 	lw	$t9,0x1c08($v0)
 /*  f034654:	17200005 */ 	bnez	$t9,.L0f03466c
 /*  f034658:	00000000 */ 	nop
-/*  f03465c:	0c003a61 */ 	jal	getCurrentStageId
+/*  f03465c:	0c003a61 */ 	jal	mainGetStageNum
 /*  f034660:	afa7014c */ 	sw	$a3,0x14c($sp)
 /*  f034664:	24010026 */ 	addiu	$at,$zero,0x26
 /*  f034668:	10410735 */ 	beq	$v0,$at,.L0f036340

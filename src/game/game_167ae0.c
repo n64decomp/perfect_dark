@@ -3296,7 +3296,7 @@ glabel var7f1b7868
 /*  f16af0c:	826c04d5 */ 	lb	$t4,0x4d5($s3)
 /*  f16af10:	5d800004 */ 	bgtzl	$t4,.L0f16af24
 /*  f16af14:	826b04d3 */ 	lb	$t3,0x4d3($s3)
-/*  f16af18:	0c003a57 */ 	jal	func0000e95c
+/*  f16af18:	0c003a57 */ 	jal	mainSetStageNum
 /*  f16af1c:	2404005a */ 	addiu	$a0,$zero,0x5a
 .L0f16af20:
 /*  f16af20:	826b04d3 */ 	lb	$t3,0x4d3($s3)
@@ -3354,7 +3354,7 @@ glabel var7f1b7868
 /*  f16afec:	01740019 */ 	multu	$t3,$s4
 /*  f16aff0:	0000c812 */ 	mflo	$t9
 /*  f16aff4:	02395021 */ 	addu	$t2,$s1,$t9
-/*  f16aff8:	0c003a57 */ 	jal	func0000e95c
+/*  f16aff8:	0c003a57 */ 	jal	mainSetStageNum
 /*  f16affc:	85440000 */ 	lh	$a0,0x0($t2)
 /*  f16b000:	826e04d5 */ 	lb	$t6,0x4d5($s3)
 /*  f16b004:	25d8ffff */ 	addiu	$t8,$t6,-1
@@ -4226,7 +4226,7 @@ void func0f16b96c(void)
 				|| func00014eb8(3) < -10) && var800624a4) {
 		if (g_Vars.stagenum != STAGE_TITLE) {
 			titleSetNextMode(TITLEMODE_SKIP);
-			func0000e95c(STAGE_TITLE);
+			mainSetStageNum(STAGE_TITLE);
 		}
 
 		var800624a4 = 0;
@@ -4407,7 +4407,7 @@ void func0f16b96c(void)
 		func0f01d860();
 		func0f063dcc();
 
-		if (getCurrentStageId() == STAGE_CITRAINING) {
+		if (mainGetStageNum() == STAGE_CITRAINING) {
 			struct trainingdata *trainingdata = dtGetData();
 
 			if ((g_Vars.currentplayer->prop->rooms[0] < CIROOM_HOLOSTART || g_Vars.currentplayer->prop->rooms[0] > CIROOM_HOLOEND)

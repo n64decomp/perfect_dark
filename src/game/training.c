@@ -4236,7 +4236,7 @@ s32 frIsInTraining(void)
 
 	return g_Vars.currentplayer->prop->rooms[0] == CIROOM_FIRINGRANGE
 		&& g_FrIsValidWeapon
-		&& getCurrentStageId() == STAGE_CITRAINING;
+		&& mainGetStageNum() == STAGE_CITRAINING;
 }
 
 void frCalculateHit(struct defaultobj *obj, struct coord *hitpos, f32 maulercharge)

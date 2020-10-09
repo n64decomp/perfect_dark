@@ -10,7 +10,7 @@ u32 func000127b8(void);
 u32 func00012800(void);
 u32 func00012914(void);
 void func00012a0c(void);
-u32 func00012a14(void);
+void func00012a14(void *ptr, u32 arg1);
 void func00012a8c(void);
 void *func00012ab0(u32 size); // some kind of malloc for save files?
 u32 func00012c3c(void);

@@ -114,7 +114,7 @@ void mpStartMatch(void)
 	}
 
 	titleSetNextStage(stagenum);
-	func0000e95c(stagenum);
+	mainSetStageNum(stagenum);
 	setNumPlayers(numplayers);
 	titleSetNextMode(TITLEMODE_SKIP);
 

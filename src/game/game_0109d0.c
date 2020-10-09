@@ -16,7 +16,7 @@ GLOBAL_ASM(
 glabel func0f0109d0
 /*  f0109d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0109d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0109d8:	0c003a61 */ 	jal	getCurrentStageId
+/*  f0109d8:	0c003a61 */ 	jal	mainGetStageNum
 /*  f0109dc:	00000000 */ 	nop
 /*  f0109e0:	2841005a */ 	slti	$at,$v0,0x5a
 /*  f0109e4:	1020000a */ 	beqz	$at,.L0f010a10

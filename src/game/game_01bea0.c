@@ -1156,7 +1156,7 @@ glabel var7f1a863c
 /*  f01cdcc:	03202025 */ 	or	$a0,$t9,$zero
 /*  f01cdd0:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f01cdd4:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f01cdd8:	0c003a57 */ 	jal	func0000e95c
+/*  f01cdd8:	0c003a57 */ 	jal	mainSetStageNum
 /*  f01cddc:	92440001 */ 	lbu	$a0,0x1($s2)
 /*  f01cde0:	1000002b */ 	b	.L0f01ce90
 /*  f01cde4:	8fb80120 */ 	lw	$t8,0x120($sp)
@@ -1238,7 +1238,7 @@ glabel var7f1a863c
 /*  f01cefc:	10000001 */ 	b	.L0f01cf04
 /*  f01cf00:	2404005d */ 	addiu	$a0,$zero,0x5d
 .L0f01cf04:
-/*  f01cf04:	0c003a57 */ 	jal	func0000e95c
+/*  f01cf04:	0c003a57 */ 	jal	mainSetStageNum
 /*  f01cf08:	00000000 */ 	nop
 /*  f01cf0c:	0fc5b4f4 */ 	jal	func0f16d3d0
 /*  f01cf10:	00000000 */ 	nop
@@ -1338,14 +1338,14 @@ glabel var7f1a863c
 /*  f01d058:	8e6f046c */ 	lw	$t7,0x46c($s3)
 /*  f01d05c:	11e00007 */ 	beqz	$t7,.L0f01d07c
 /*  f01d060:	00000000 */ 	nop
-/*  f01d064:	0c003a61 */ 	jal	getCurrentStageId
+/*  f01d064:	0c003a61 */ 	jal	mainGetStageNum
 /*  f01d068:	00000000 */ 	nop
-/*  f01d06c:	0c003a57 */ 	jal	func0000e95c
+/*  f01d06c:	0c003a57 */ 	jal	mainSetStageNum
 /*  f01d070:	00402025 */ 	or	$a0,$v0,$zero
 /*  f01d074:	100000c8 */ 	b	.L0f01d398
 /*  f01d078:	00000000 */ 	nop
 .L0f01d07c:
-/*  f01d07c:	0c003a57 */ 	jal	func0000e95c
+/*  f01d07c:	0c003a57 */ 	jal	mainSetStageNum
 /*  f01d080:	2404005a */ 	addiu	$a0,$zero,0x5a
 /*  f01d084:	100000c4 */ 	b	.L0f01d398
 /*  f01d088:	00000000 */ 	nop
@@ -1495,9 +1495,9 @@ glabel var7f1a863c
 .L0f01d298:
 /*  f01d298:	11e00007 */ 	beqz	$t7,.L0f01d2b8
 /*  f01d29c:	00000000 */ 	nop
-/*  f01d2a0:	0c003a61 */ 	jal	getCurrentStageId
+/*  f01d2a0:	0c003a61 */ 	jal	mainGetStageNum
 /*  f01d2a4:	00000000 */ 	nop
-/*  f01d2a8:	0c003a57 */ 	jal	func0000e95c
+/*  f01d2a8:	0c003a57 */ 	jal	mainSetStageNum
 /*  f01d2ac:	00402025 */ 	or	$a0,$v0,$zero
 /*  f01d2b0:	10000039 */ 	b	.L0f01d398
 /*  f01d2b4:	00000000 */ 	nop
@@ -1524,7 +1524,7 @@ glabel var7f1a863c
 /*  f01d300:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f01d304:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f01d308:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f01d30c:	0c003a57 */ 	jal	func0000e95c
+/*  f01d30c:	0c003a57 */ 	jal	mainSetStageNum
 /*  f01d310:	24040026 */ 	addiu	$a0,$zero,0x26
 /*  f01d314:	10000020 */ 	b	.L0f01d398
 /*  f01d318:	00000000 */ 	nop
@@ -1535,7 +1535,7 @@ glabel var7f1a863c
 /*  f01d328:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f01d32c:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f01d330:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f01d334:	0c003a57 */ 	jal	func0000e95c
+/*  f01d334:	0c003a57 */ 	jal	mainSetStageNum
 /*  f01d338:	2404005d */ 	addiu	$a0,$zero,0x5d
 /*  f01d33c:	10000016 */ 	b	.L0f01d398
 /*  f01d340:	00000000 */ 	nop
@@ -1554,7 +1554,7 @@ glabel var7f1a863c
 /*  f01d370:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f01d374:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f01d378:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f01d37c:	0c003a57 */ 	jal	func0000e95c
+/*  f01d37c:	0c003a57 */ 	jal	mainSetStageNum
 /*  f01d380:	24040026 */ 	addiu	$a0,$zero,0x26
 /*  f01d384:	3c12800a */ 	lui	$s2,%hi(g_MissionConfig)
 /*  f01d388:	2652dfe8 */ 	addiu	$s2,$s2,%lo(g_MissionConfig)
@@ -2353,7 +2353,7 @@ glabel var7f1a863c
 //								titleSetNextStage(g_MissionConfig.stagenum);
 //								setDifficulty(g_MissionConfig.difficulty);
 //								titleSetNextMode(TITLEMODE_SKIP);
-//								func0000e95c(g_MissionConfig.stagenum);
+//								mainSetStageNum(g_MissionConfig.stagenum);
 //							} else {
 //								// cde8
 //								s32 prevplayernum = g_Vars.currentplayernum;
@@ -2386,7 +2386,7 @@ glabel var7f1a863c
 //				var80062940 = 2;
 //				savefileLoadDefaults(&g_SoloSaveFile);
 //				savefileApplyOptions(&g_SoloSaveFile);
-//				func0000e95c(IS4MB() ? STAGE_4MBMENU : STAGE_CITRAINING);
+//				mainSetStageNum(IS4MB() ? STAGE_4MBMENU : STAGE_CITRAINING);
 //				func0f16d3d0();
 //			} else {
 //				// cf1c
@@ -2427,9 +2427,9 @@ glabel var7f1a863c
 //			switch (g_MenuData.root) {
 //			case MENUROOT_ENDSCREEN: // d058
 //				if (g_Vars.restartlevel) {
-//					func0000e95c(getCurrentStageId());
+//					mainSetStageNum(mainGetStageNum());
 //				} else {
-//					func0000e95c(STAGE_TITLE);
+//					mainSetStageNum(STAGE_TITLE);
 //				}
 //				break;
 //			case MENUROOT_MPPAUSE: // d398
@@ -2458,7 +2458,7 @@ glabel var7f1a863c
 //						&& ((!g_CheatsActiveBank0 && !g_CheatsActiveBank1) || isStageDifficultyUnlocked(g_MissionConfig.stageindex + 1, g_MissionConfig.difficulty))) {
 //					soloPushSoloModeEndscreen();
 //				} else if (g_Vars.restartlevel) {
-//					func0000e95c(getCurrentStageId());
+//					mainSetStageNum(mainGetStageNum());
 //				} else {
 //					mpSetPaused(0);
 //					g_Vars.mplayerisrunning = false;
@@ -2474,12 +2474,12 @@ glabel var7f1a863c
 //						titleSetNextStage(STAGE_CITRAINING);
 //						setNumPlayers(1);
 //						titleSetNextMode(TITLEMODE_SKIP);
-//						func0000e95c(STAGE_CITRAINING);
+//						mainSetStageNum(STAGE_CITRAINING);
 //					} else {
 //						titleSetNextStage(STAGE_4MBMENU);
 //						setNumPlayers(1);
 //						titleSetNextMode(TITLEMODE_SKIP);
-//						func0000e95c(STAGE_4MBMENU);
+//						mainSetStageNum(STAGE_4MBMENU);
 //					}
 //				}
 //				break;
@@ -2492,7 +2492,7 @@ glabel var7f1a863c
 //					titleSetNextStage(STAGE_CITRAINING);
 //					setNumPlayers(1);
 //					titleSetNextMode(TITLEMODE_SKIP);
-//					func0000e95c(STAGE_CITRAINING);
+//					mainSetStageNum(STAGE_CITRAINING);
 //					g_MissionConfig.iscoop = false;
 //				}
 //				break;

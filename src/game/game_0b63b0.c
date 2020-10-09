@@ -3781,7 +3781,7 @@ void func0f0b9674(void)
 	var8009dde0 = 0;
 	var8009dde4 = 80;
 
-	func0f165eec(getCurrentStageId(), 0);
+	func0f165eec(mainGetStageNum(), 0);
 }
 
 GLOBAL_ASM(
@@ -4023,7 +4023,7 @@ void func0f0b9a20(void)
 	var80070744 = 0;
 	currentPlayerSetMoveMode(MOVEMODE_WALK);
 
-	if (getCurrentStageId() == STAGE_TEST_LEN) {
+	if (mainGetStageNum() == STAGE_TEST_LEN) {
 		currentPlayerSetFadeColour(0, 0, 0, 1);
 		currentPlayerSetFadeFrac(0, 1);
 	} else if (var80070748 != 0) {
@@ -4031,7 +4031,7 @@ void func0f0b9a20(void)
 		currentPlayerSetFadeFrac(60, 0);
 	}
 
-	func0f165eec(getCurrentStageId(), 0);
+	func0f165eec(mainGetStageNum(), 0);
 	currentPlayerEquipWeaponWrapper(1, g_DefaultWeaponArgument);
 	currentPlayerEquipWeaponWrapper(0, g_DefaultWeapon);
 	var8007074c = 0;
@@ -4040,7 +4040,7 @@ void func0f0b9a20(void)
 void func0f0b9afc(void)
 {
 	if (var800624a4) {
-		func0000e95c(STAGE_TITLE);
+		mainSetStageNum(STAGE_TITLE);
 	} else if (g_Vars.unk0004d3) {
 		g_Vars.unk0004d6 = 1;
 	} else {
@@ -9987,7 +9987,7 @@ glabel var7f1ad6ac
 /*  f0bf5b8:	27a60078 */ 	addiu	$a2,$sp,0x78
 /*  f0bf5bc:	0fc456ac */ 	jal	padUnpack
 /*  f0bf5c0:	85a41ba4 */ 	lh	$a0,0x1ba4($t5)
-/*  f0bf5c4:	0c003a61 */ 	jal	getCurrentStageId
+/*  f0bf5c4:	0c003a61 */ 	jal	mainGetStageNum
 /*  f0bf5c8:	00000000 */ 	nop
 /*  f0bf5cc:	3c0c8008 */ 	lui	$t4,%hi(g_Stages+0x310)
 /*  f0bf5d0:	858cffd0 */ 	lh	$t4,%lo(g_Stages+0x310)($t4)
@@ -11211,7 +11211,7 @@ glabel var7f1ad6ac
 //						func0f0b9538();
 //						padUnpack(g_Vars.currentplayer->autocontrol_aimpad, PADFIELD_POS, &pad);
 //
-//						if (getCurrentStageId() == g_Stages[STAGE_EXTRACTION].id
+//						if (mainGetStageNum() == g_Stages[STAGE_EXTRACTION].id
 //								&& g_Vars.currentplayer->autocontrol_aimpad == 0x19) {
 //							pad.pos.x -= 100;
 //						}
@@ -12664,7 +12664,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 								// the player could respawn on the other side of the exit trigger.
 								// Additionally, the logic for coopcanrestart is different.
 								if (totalhealth > 0.125f
-										&& !(getCurrentStageId() == STAGE_DEEPSEA && chrHasStageFlag(NULL, 0x00000200))) {
+										&& !(mainGetStageNum() == STAGE_DEEPSEA && chrHasStageFlag(NULL, 0x00000200))) {
 									if (canrestart) {
 										func0f0bb69c();
 

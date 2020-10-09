@@ -80,7 +80,7 @@ struct g_vars {
 	/*000310*/ u32 unk000310;
 	/*000314*/ bool mplayerisrunning;
 	/*000318*/ bool normmplayerisrunning;
-	/*00031c*/ u32 unk00031c;
+	/*00031c*/ s32 lvmpbotlevel;
 	/*000320*/ u32 unk000320;
 	/*000324*/ s32 unk000324;
 	/*000328*/ s32 unk000328;
@@ -360,7 +360,7 @@ extern OSThread g_RmonThread;
 extern OSThread g_IdleThread;
 extern OSThread var8008d6d0;
 extern u32 var8008d900;
-extern u32 var8008db30;
+extern OSMesgQueue var8008db30;
 extern u32 var8008db48;
 extern u32 var8008dbd0;
 extern u32 var8008dca8;

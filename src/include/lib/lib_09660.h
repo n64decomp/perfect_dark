@@ -15,7 +15,7 @@ Gfx *debugRenderSomething(Gfx *gdl);
 u32 func00009ab0(void);
 u32 func00009b50(void);
 u32 func00009bf8(void);
-u32 func00009c3c(void);
+void func00009c3c(s32 stagenum);
 void func00009ec4(s32 arg0);
 u32 func00009ed4(void);
 void func0000a044(void);

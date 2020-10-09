@@ -8156,7 +8156,7 @@ glabel func0f0f8040
 .L0f0f8100:
 /*  f0f8100:	54610004 */ 	bnel	$v1,$at,.L0f0f8114
 /*  f0f8104:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f8108:	0c003a57 */ 	jal	func0000e95c
+/*  f0f8108:	0c003a57 */ 	jal	mainSetStageNum
 /*  f0f810c:	2404005a */ 	addiu	$a0,$zero,0x5a
 /*  f0f8110:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f0f8114:

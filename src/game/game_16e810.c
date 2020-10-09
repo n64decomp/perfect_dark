@@ -5980,7 +5980,7 @@ glabel func0f1735c0
 /*  f1738a4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f1738a8:	0fc5cbd7 */ 	jal	func0f172f5c
 /*  f1738ac:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1738b0:	0c003a61 */ 	jal	getCurrentStageId
+/*  f1738b0:	0c003a61 */ 	jal	mainGetStageNum
 /*  f1738b4:	00000000 */ 	nop
 /*  f1738b8:	3c098009 */ 	lui	$t1,%hi(g_Is4Mb)
 /*  f1738bc:	91290af0 */ 	lbu	$t1,%lo(g_Is4Mb)($t1)

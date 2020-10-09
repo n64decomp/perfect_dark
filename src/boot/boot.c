@@ -808,7 +808,7 @@ void mainproc(u32 value)
 
 	osSetThreadPri(0, 10);
 	func000019f4();
-	mainLoop();
+	mainEntry();
 }
 
 void func00001b10(u32 value)
