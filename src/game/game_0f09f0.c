@@ -18,7 +18,7 @@
 #include "game/game_0b63b0.h"
 #include "game/game_0d4690.h"
 #include "game/game_0e0770.h"
-#include "game/game_0e5ce0.h"
+#include "game/menu/items.h"
 #include "game/game_0f09f0.h"
 #include "game/game_0fd660.h"
 #include "game/game_107fb0.h"

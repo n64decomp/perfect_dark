@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_0E5CE0_H
-#define IN_GAME_GAME_0E5CE0_H
+#ifndef IN_GAME_MENU_ITEMS_H
+#define IN_GAME_MENU_ITEMS_H
 #include <ultra64.h>
 #include "types.h"
 

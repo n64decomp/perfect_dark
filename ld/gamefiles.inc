@@ -106,7 +106,7 @@
 	build/ROMID/game/game_0d7070.o (section); \
 	build/ROMID/game/game_0dcdb0.o (section); \
 	build/ROMID/game/game_0e0770.o (section); \
-	build/ROMID/game/game_0e5ce0.o (section); \
+	build/ROMID/game/menu/items.o (section); \
 	build/ROMID/game/game_0f09f0.o (section); \
 	build/ROMID/game/game_0fd660.o (section); \
 	build/ROMID/game/game_102230.o (section); \
