@@ -13,7 +13,7 @@ u32 func00013320(void);
 u32 func00013358(void);
 u32 func00013378(void);
 u32 func000133b4(void);
-u32 func00013408(void);
+s32 func00013408(char *arg0, s32 *arg1, s32 arg2);
 int sprintf(char *dest, const char *format, ...);
 
 #endif

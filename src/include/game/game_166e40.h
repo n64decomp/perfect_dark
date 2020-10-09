@@ -18,7 +18,7 @@ u32 fileGetUnk04(s32 filenum);
 u32 func0f1672a8(void);
 void func0f1672f0(u8 arg0);
 void func0f167330(void);
-u32 func0f167350(void);
+void func0f167350(void);
 Gfx *func0f16793c(void);
 u32 func0f167964(void);
 u32 func0f167998(void);

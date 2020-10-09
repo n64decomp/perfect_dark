@@ -1879,8 +1879,8 @@ GLOBAL_ASM(
 glabel func0f0b5050
 /*  f0b5050:	3c02800b */ 	lui	$v0,%hi(var800aa5a0)
 /*  f0b5054:	9042a5a0 */ 	lbu	$v0,%lo(var800aa5a0)($v0)
-/*  f0b5058:	3c03800b */ 	lui	$v1,%hi(var800aa590)
-/*  f0b505c:	2463a590 */ 	addiu	$v1,$v1,%lo(var800aa590)
+/*  f0b5058:	3c03800b */ 	lui	$v1,%hi(g_VtxBuffers)
+/*  f0b505c:	2463a590 */ 	addiu	$v1,$v1,%lo(g_VtxBuffers)
 /*  f0b5060:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f0b5064:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f0b5068:	006e7821 */ 	addu	$t7,$v1,$t6
@@ -2122,8 +2122,8 @@ GLOBAL_ASM(
 glabel func0f0b53a4
 /*  f0b53a4:	3c02800b */ 	lui	$v0,%hi(var800aa5a0)
 /*  f0b53a8:	9042a5a0 */ 	lbu	$v0,%lo(var800aa5a0)($v0)
-/*  f0b53ac:	3c03800b */ 	lui	$v1,%hi(var800aa590)
-/*  f0b53b0:	2463a590 */ 	addiu	$v1,$v1,%lo(var800aa590)
+/*  f0b53ac:	3c03800b */ 	lui	$v1,%hi(g_VtxBuffers)
+/*  f0b53b0:	2463a590 */ 	addiu	$v1,$v1,%lo(g_VtxBuffers)
 /*  f0b53b4:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f0b53b8:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f0b53bc:	006e7821 */ 	addu	$t7,$v1,$t6

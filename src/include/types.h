@@ -2206,8 +2206,8 @@ struct player {
 	/*0x0458*/ s32 standcnt;
 	/*0x045c*/ struct model model;
 	/*0x0480*/ struct eyespy *eyespy;
-	/*0x0484*/ u32 unk0484;
-	/*0x0488*/ u32 unk0488;
+	/*0x0484*/ u8 *unk0484; // pointer to vtx buffer?
+	/*0x0488*/ u8 *unk0488; // pointer to vtx buffer?
 	/*0x048c*/ bool aborted;
 	/*0x0490*/ u32 unk0490;
 	/*0x0494*/ u32 unk0494;

@@ -9572,16 +9572,22 @@ void *filetable[] = {
 	/*0x07dc*/ &_file_Acarrbye02M,
 	/*0x07dd*/ &_file_Asaucerexp1M,
 	/*0x07de*/ &_filenamesSegmentRomStart,
-	/*0x07df*/ NULL,
 };
 
-u32 var80083fe0 = 0x00010000;
-u32 var80083fe4 = 0x00018000;
-u32 var80083fe8 = 0x00020000;
-u32 var80083fec = 0x00028000;
-u32 var80083ff0 = 0x00010000;
-u32 var80083ff4 = 0x00018000;
-u32 var80083ff8 = 0x00020000;
+u32 g_GfxSizesByPlayerCount[] = {
+	0x00000000,
+	0x00010000,
+	0x00018000,
+	0x00020000,
+};
+
+u32 g_VtxSizesByPlayerCount[] = {
+	0x00028000,
+	0x00010000,
+	0x00018000,
+	0x00020000,
+};
+
 u32 var80083ffc = 0x00028000;
 u32 var80084000 = 0x00000000;
 u32 var80084004 = 0x00000001;
