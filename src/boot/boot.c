@@ -17,7 +17,7 @@
 #include "lib/lib_08a20.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_0c000.h"
-#include "lib/lib_0d520.h"
+#include "lib/main.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_13710.h"

@@ -15,7 +15,7 @@
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_0d0a0.h"
-#include "lib/lib_0d520.h"
+#include "lib/main.h"
 #include "lib/lib_121e0.h"
 #include "lib/lib_4a360.h"
 #include "types.h"

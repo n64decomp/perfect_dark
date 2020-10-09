@@ -15,7 +15,7 @@
 #include "game/game_166e40.h"
 #include "game/game_167ae0.h"
 #include "gvars/gvars.h"
-#include "lib/lib_0d520.h"
+#include "lib/main.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_121e0.h"
 #include "lib/lib_12dc0.h"

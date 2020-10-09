@@ -9,7 +9,7 @@
 #include "game/data/data_02da90.h"
 #include "game/weather.h"
 #include "gvars/gvars.h"
-#include "lib/lib_0d520.h"
+#include "lib/main.h"
 #include "types.h"
 
 void weatherTick(void)

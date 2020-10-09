@@ -46,7 +46,7 @@
 #include "gvars/gvars.h"
 #include "lib/lib_04790.h"
 #include "lib/lib_04a80.h"
-#include "lib/lib_0d520.h"
+#include "lib/main.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_13900.h"

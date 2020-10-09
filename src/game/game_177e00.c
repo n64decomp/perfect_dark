@@ -22,7 +22,7 @@
 #include "game/mplayer.h"
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"
-#include "lib/lib_0d520.h"
+#include "lib/main.h"
 #include "lib/lib_13130.h"
 #include "types.h"
 

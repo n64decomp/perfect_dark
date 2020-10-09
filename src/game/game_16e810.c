@@ -12,7 +12,7 @@
 #include "gvars/gvars.h"
 #include "lib/lib_074f0.h"
 #include "lib/lib_0d0a0.h"
-#include "lib/lib_0d520.h"
+#include "lib/main.h"
 #include "lib/lib_121e0.h"
 #include "lib/lib_48120.h"
 #include "lib/lib_4b170.h"

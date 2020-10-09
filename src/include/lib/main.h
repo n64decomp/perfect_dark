@@ -1,5 +1,5 @@
-#ifndef _IN_LIB_LIB_0D520_H
-#define _IN_LIB_LIB_0D520_H
+#ifndef _IN_LIB_MAIN_H
+#define _IN_LIB_MAIN_H
 #include <ultra64.h>
 #include "types.h"
 

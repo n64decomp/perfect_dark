@@ -10,7 +10,7 @@
 #include "game/pak/pak.h"
 #include "gvars/gvars.h"
 #include "lib/lib_04a80.h"
-#include "lib/lib_0d520.h"
+#include "lib/main.h"
 #include "lib/lib_13900.h"
 #include "lib/lib_4f5e0.h"
 #include "types.h"

@@ -14,7 +14,7 @@
 #include "game/training.h"
 #include "game/lang.h"
 #include "gvars/gvars.h"
-#include "lib/lib_0d520.h"
+#include "lib/main.h"
 #include "types.h"
 
 void currentPlayerClearInventory(void)

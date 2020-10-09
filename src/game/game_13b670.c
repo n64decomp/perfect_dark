@@ -10,7 +10,7 @@
 #include "game/data/data_02da90.h"
 #include "game/game_13b670.h"
 #include "gvars/gvars.h"
-#include "lib/lib_0d520.h"
+#include "lib/main.h"
 #include "lib/lib_121e0.h"
 #include "lib/lib_16110.h"
 #include "types.h"

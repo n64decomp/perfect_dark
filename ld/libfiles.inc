@@ -26,7 +26,7 @@
 	build/ROMID/lib/lib_0bfb0.o (section); \
 	build/ROMID/lib/lib_0c000.o (section); \
 	build/ROMID/lib/lib_0d0a0.o (section); \
-	build/ROMID/lib/lib_0d520.o (section); \
+	build/ROMID/lib/main.o (section); \
 	build/ROMID/lib/lib_0e9d0.o (section); \
 	build/ROMID/lib/lib_11420.o (section); \
 	build/ROMID/lib/lib_121e0.o (section); \
