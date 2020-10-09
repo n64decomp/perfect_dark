@@ -423,7 +423,7 @@ void func0f167e7c(s32 stagenum)
 		setCurrentPlayerNum(0);
 	}
 
-	if (g_Vars.unk00031c) {
+	if (g_Vars.lvmpbotlevel) {
 		func0f187e70();
 	}
 
@@ -438,7 +438,7 @@ void func0f167e7c(s32 stagenum)
 		func0f10cb2c();
 	}
 
-	if (g_Is4Mb != true) {
+	if (!IS4MB()) {
 		func0f14a3c4();
 	}
 

@@ -16,7 +16,7 @@ void initGlobalVariables(void)
 	g_Vars.diffframe60f = 1;
 	g_Vars.lvframe60 = 0;
 	g_Vars.lvframenum = 0;
-	g_Vars.unk00031c = 0;
+	g_Vars.lvmpbotlevel = 0;
 	g_Vars.unk000320 = 0;
 	g_Vars.diffframe60 = 1;
 	g_Vars.lastframe240 = -1;

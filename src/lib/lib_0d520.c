@@ -644,7 +644,6 @@ void mainLoop(void)
 	OSMesg msg;
 	s32 index;
 	s32 numplayers;
-	s32 stagenum;
 
 	func0f175f98();
 

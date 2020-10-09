@@ -1380,7 +1380,7 @@ void weaponAssignToHome(struct weaponobj *weapon, u32 arg1)
 	} else {
 		bool giveweapon = true;
 
-		if (g_Vars.normmplayerisrunning || g_Vars.unk00031c) {
+		if (g_Vars.normmplayerisrunning || g_Vars.lvmpbotlevel) {
 			struct mpweapon *mpweapon;
 			s32 mpweaponnum;
 

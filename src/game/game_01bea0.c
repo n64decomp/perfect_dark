@@ -2463,7 +2463,7 @@ glabel var7f1a863c
 //					mpSetPaused(0);
 //					g_Vars.mplayerisrunning = false;
 //					g_Vars.normmplayerisrunning = false;
-//					g_Vars.unk00031c = 0;
+//					g_Vars.lvmpbotlevel = 0;
 //
 //					if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
 //						g_MpSetupSaveFile.locktype = MPLOCKTYPE_NONE;
@@ -2488,7 +2488,7 @@ glabel var7f1a863c
 //					mpSetPaused(0);
 //					g_Vars.mplayerisrunning = false;
 //					g_Vars.normmplayerisrunning = false;
-//					g_Vars.unk00031c = 0;
+//					g_Vars.lvmpbotlevel = 0;
 //					titleSetNextStage(STAGE_CITRAINING);
 //					setNumPlayers(1);
 //					titleSetNextMode(TITLEMODE_SKIP);

@@ -32028,7 +32028,7 @@ void propobjSetDropped(struct prop *prop, u32 reason)
 			obj->unk48->dropreason = reason;
 		}
 
-		if (g_Vars.unk00031c
+		if (g_Vars.lvmpbotlevel
 				&& obj->type == OBJTYPE_WEAPON
 				&& obj->modelnum != MODEL_CHRBRIEFCASE
 				&& obj->modelnum != MODEL_CHRDATATHIEF) {
