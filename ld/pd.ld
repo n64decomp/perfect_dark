@@ -1,3 +1,4 @@
+#include "bootfiles.inc"
 #include "gamefiles.inc"
 #include "libfiles.inc"
 
@@ -152,8 +153,7 @@ SECTIONS
 
 	BEGIN_SEG(boot)
 	{
-		build/ROMID/boot/boot.o (.text);
-		build/ROMID/boot/boot.o (.data);
+		BOOTFILES(.text)
 	}
 	END_SEG(boot)
 
