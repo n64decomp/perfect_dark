@@ -17843,5 +17843,3 @@ u8 g_MpChallengesCompleted[88] = {0}; // This is one *byte* per challenge, and l
 struct frdata g_FrData = {0};
 struct trainingdata g_DtData = {0};
 struct trainingdata g_HoloTrainingData = {0};
-u32 var800ad1c0 = 0;
-

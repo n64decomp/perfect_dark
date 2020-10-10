@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func000233c0(void);
+void func000233c0(void);
 u32 func00023640(void);
 void func0002373c(void);
 s32 animGetNumFrames(s16 anim_id);

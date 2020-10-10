@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 mainInit(void);
+void mainInit(void);
 void mainEntry(void);
 void func0000db30(char *string, u32 *ptr);
 void mainLoop(void);

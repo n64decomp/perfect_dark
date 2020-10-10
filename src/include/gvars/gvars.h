@@ -393,6 +393,7 @@ extern u32 var80090a70;
 extern u32 var80090ab0;
 extern u32 var80090ad0;
 extern u32 var80090ae8;
+extern u32 var80090b00;
 extern u32 var80090b10;
 extern u32 var80090b14;
 extern u32 var800914d8;
@@ -838,6 +839,5 @@ extern u8 g_MpChallengesCompleted[];
 extern struct frdata g_FrData;
 extern struct trainingdata g_DtData;
 extern struct trainingdata g_HoloTrainingData;
-extern u32 var800ad1c0;
 
 #endif

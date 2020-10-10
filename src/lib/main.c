@@ -78,7 +78,7 @@ s32 var8005d9c4 = 0;
 s32 var8005d9c8 = 1;
 u32 var8005d9cc = 0;
 s32 var8005d9d0 = 0;
-s32 var8005d9d4 = 0;
+s32 g_DoBootPakMenu = 0;
 
 struct stageallocation g_StageAllocations8Mb[] = {
 	{ STAGE_CITRAINING,    "-ml0 -me0 -mgfx120 -mvtx98 -ma400"             },
@@ -180,46 +180,23 @@ struct stageallocation g_StageAllocations4Mb[] = {
 	{ 0,                   "-ml0 -me0 -mgfx100 -mvtx96 -ma300"             },
 };
 
-const char var70053a98[] = "-level_";
-const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
+Gfx var8005dcc8[] = {
+	gsSPSegment(0x00, 0x00000000),
+	gsSPDisplayList(&var800613a0),
+	gsSPDisplayList(&var80061380),
+	gsDPFullSync(),
+	gsSPEndDisplayList(),
+};
 
-u32 var8005dcc8 = 0xbc000006;
-u32 var8005dccc = 0x00000000;
-u32 var8005dcd0 = 0x06000000;
-u32 var8005dcd4 = (u32) &var800613a0;
-u32 var8005dcd8 = 0x06000000;
-u32 var8005dcdc = (u32) &var80061380;
-u32 var8005dce0 = 0xe9000000;
-u32 var8005dce4 = 0x00000000;
-u32 var8005dce8 = 0xb8000000;
-u32 var8005dcec = 0x00000000;
-u32 var8005dcf0 = 0xbc000006;
-u32 var8005dcf4 = 0x00000000;
-u32 var8005dcf8 = 0x06000000;
-u32 var8005dcfc = (u32) &var800613a0;
-u32 var8005dd00 = 0x06000000;
-u32 var8005dd04 = (u32) &var80061380;
-u32 var8005dd08 = 0xe9000000;
-u32 var8005dd0c = 0x00000000;
-u32 var8005dd10 = 0xb8000000;
-u32 var8005dd14 = 0x00000000;
-u32 var8005dd18 = 0x00000001;
-u32 var8005dd1c = 0x00020000;
-u32 var8005dd20 = 0x00000000;
-u32 var8005dd24 = 0x00000000;
-u32 var8005dd28 = 0x00000000;
-u32 var8005dd2c = 0x00000000;
-u32 var8005dd30 = 0x00000000;
-u32 var8005dd34 = 0x00000000;
-u32 var8005dd38 = 0x00000000;
-u32 var8005dd3c = 0x00000000;
-u32 var8005dd40 = 0x00000000;
-u32 var8005dd44 = 0x00000000;
-u32 var8005dd48 = 0x00000000;
-u32 var8005dd4c = 0x00000000;
-u32 var8005dd50 = 0x00000000;
-s32 g_MainStageNum = -1;
-u32 var8005dd58 = 0x00000000;
+Gfx var8005dcf0[] = {
+	gsSPSegment(0x00, 0x00000000),
+	gsSPDisplayList(&var800613a0),
+	gsSPDisplayList(&var80061380),
+	gsDPFullSync(),
+	gsSPEndDisplayList(),
+};
+
+s32 var8005dd18 = 1;
 
 GLOBAL_ASM(
 glabel mainInit
@@ -312,13 +289,13 @@ glabel mainInit
 /*     d668:	0c0053d8 */ 	jal	func00014f60
 /*     d66c:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     d670:	14400004 */ 	bnez	$v0,.L0000d684
-/*     d674:	3c108006 */ 	lui	$s0,%hi(var8005d9d4)
-/*     d678:	2610d9d4 */ 	addiu	$s0,$s0,%lo(var8005d9d4)
+/*     d674:	3c108006 */ 	lui	$s0,%hi(g_DoBootPakMenu)
+/*     d678:	2610d9d4 */ 	addiu	$s0,$s0,%lo(g_DoBootPakMenu)
 /*     d67c:	10000005 */ 	b	.L0000d694
 /*     d680:	ae000000 */ 	sw	$zero,0x0($s0)
 .L0000d684:
-/*     d684:	3c108006 */ 	lui	$s0,%hi(var8005d9d4)
-/*     d688:	2610d9d4 */ 	addiu	$s0,$s0,%lo(var8005d9d4)
+/*     d684:	3c108006 */ 	lui	$s0,%hi(g_DoBootPakMenu)
+/*     d688:	2610d9d4 */ 	addiu	$s0,$s0,%lo(g_DoBootPakMenu)
 /*     d68c:	240c0001 */ 	addiu	$t4,$zero,0x1
 /*     d690:	ae0c0000 */ 	sw	$t4,0x0($s0)
 .L0000d694:
@@ -525,9 +502,9 @@ glabel mainInit
 /*     d97c:	0c004bbf */ 	jal	func00012efc
 /*     d980:	24843aa0 */ 	addiu	$a0,$a0,%lo(var70053aa0)
 .L0000d984:
-/*     d984:	3c04800b */ 	lui	$a0,%hi(var800ad1c0)
+/*     d984:	3c04800b */ 	lui	$a0,%hi(_gvarsSegmentEnd)
 /*     d988:	0c012d20 */ 	jal	osVirtualToPhysical
-/*     d98c:	2484d1c0 */ 	addiu	$a0,$a0,%lo(var800ad1c0)
+/*     d98c:	2484d1c0 */ 	addiu	$a0,$a0,%lo(_gvarsSegmentEnd)
 /*     d990:	3c038009 */ 	lui	$v1,%hi(var80090b00)
 /*     d994:	8c630b00 */ 	lw	$v1,%lo(var80090b00)($v1)
 /*     d998:	3c018000 */ 	lui	$at,0x8000
@@ -616,6 +593,236 @@ glabel mainInit
 /*     dae4:	27bd14d8 */ 	addiu	$sp,$sp,0x14d8
 );
 
+const char var70053a98[] = "-level_";
+const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
+
+//extern u8 _accessingpakSegmentRomStart;
+//extern u8 _accessingpakSegmentRomEnd;
+//extern u8 _copyrightSegmentRomStart;
+//extern u8 _copyrightSegmentRomEnd;
+//extern u8 _gvarsSegmentEnd;
+
+// Mismatch: goal saves j to stack in its loop and puts &sp1450 in s0, while the
+// below puts j in s0 and calculates &sp1450 each time. The key to solving this
+// will probably be to find out what sp1470 and sp1450 are.
+//void mainInit(void)
+//{
+//	s32 x;
+//	s32 y;
+//	OSMesg msg; // 14cc
+//	OSTimer timer; // 14a8
+//	OSMesgQueue queue; // 1490
+//	s32 j;
+//	s32 i;
+//	u16 *fb;
+//	u16 *texture; // 48?
+//	u32 uVar2;
+//	u32 iVar5;
+//	u32 tmp;
+//
+//	faultCreateThread();
+//	func0000d0a0();
+//	audioAllocateStack();
+//	initGlobalVariables();
+//	func000121e0();
+//	func00012a0c();
+//	func00013758();
+//	func00009ab0();
+//	var8005d9b0 = func0002fa08();
+//	func00013c94();
+//	osCreateMesgQueue(&queue, &msg, 1);
+//
+//	for (i = 0; i < 4; i++) {
+//		osSetTimer(&timer, 781250 * 6, 0, &queue, &msg);
+//		osRecvMesg(&queue, &msg, OS_MESG_BLOCK);
+//
+//		if (i == 1) {
+//			func00013dfc();
+//		} else if (i >= 2) {
+//			func000142f0();
+//		}
+//	}
+//
+//	if (func00013010(1, "-level_") == 0) {
+//		var8005d9b0 = 1;
+//	}
+//
+//	// If holding start on any controller, open boot pak menu
+//	if (func00014f60(0, START_BUTTON) == 0
+//			&& func00014f60(1, START_BUTTON) == 0
+//			&& func00014f60(2, START_BUTTON) == 0
+//			&& func00014f60(3, START_BUTTON) == 0) {
+//		g_DoBootPakMenu = false;
+//	} else {
+//		g_DoBootPakMenu = true;
+//	}
+//
+//	{
+//		OSMesg sp1470 = NULL;
+//		u32 sp1450[] = { 0x20000, 0, 0, 0, 0, 0, 0, 0 };
+//		u8 sp50[5120];
+//		u32 stack;
+//
+//		if (osGetMemSize() <= 4 * 1024 * 1024) {
+//			iVar5 = 0x803f50b8 - var8005cf84 * 8;
+//			iVar5 -= 548864 * 2;
+//			iVar5 = iVar5 - (iVar5 & 0x1fff) - 0x1c80;
+//		} else {
+//			iVar5 = 0x80800000;
+//		}
+//
+//		iVar5 -= 640 * 480 * 2;
+//		iVar5 -= 0x40;
+//		fb = (u16 *)ALIGN64(iVar5 | 0x80000000);
+//
+//		// DMA the texture from the ROM to the framebuffer.
+//		// It's using the framebuffer as temporary scratch memory, presumably so
+//		// the texture format can be changed then copied into the framebuffer in
+//		// the correct format.
+//		if (g_DoBootPakMenu) {
+//			func0000d410(fb, &_accessingpakSegmentRomStart, &_accessingpakSegmentRomEnd - &_accessingpakSegmentRomStart);
+//		} else {
+//			func0000d410(fb, &_copyrightSegmentRomStart, &_copyrightSegmentRomEnd - &_copyrightSegmentRomStart);
+//		}
+//
+//		// Prepare space for the texture immediately before the framebuffer
+//		// Both textures are 507x48
+//		texture = fb - 507 * 48;
+//
+//		// Convert the texture format? Probably reading from fb and writing to texture
+//		func000074f0(fb, texture, &sp50);
+//
+//		// Clear the framebuffer
+//		// This seems a bit wasteful. The buffer is 640x480, so the y increment
+//		// should be 640. But it's 576, so some bytes are zeroed multiple times.
+//		for (y = 0; y < 480 * 576; y += 576) {
+//			for (x = 0; x < 640; x++) {
+//				fb[y + x] = 0;
+//			}
+//		}
+//
+//		// Copy the texture to the framebuffer
+//		if (osTvType != TV_TYPE_PAL) {
+//			s32 fby = 0;
+//
+//			for (y = 0; y < 48 * 507; y += 507) {
+//				for (x = 0; x < 507; x++) {
+//					fb[fby + x + 69] = texture[y + x];
+//				}
+//
+//				fby += 576;
+//			}
+//		}
+//
+//		func0000aab0(2);
+//		func00009b50(fb);
+//
+//		var8005f044 = texture;
+//		var8005f040 = texture + 0x400; // 0x800 bytes, because texture is u16
+//
+//		while (osRecvMesg(&var8008db30, &sp1470, OS_MESG_NOBLOCK) == 0) {
+//			// empty
+//		}
+//
+//		// Mismatch begins here
+//		// 8bc
+//		j = 0;
+//
+//		while (j < 6) {
+//			osRecvMesg(&var8008db30, &sp1470, OS_MESG_BLOCK);
+//
+//			if (*(s16 *)sp1470 == 1) {
+//				func0000a044();
+//				func0002f8f4(var8005dcc8, var8005dcf0, 0, sp1450);
+//				j++;
+//			}
+//		}
+//	}
+//
+//	// From the N64 SDK:
+//	//
+//	//     Please design the game program so that it won't execute normally
+//	//     when an unexpected television system format is detected by osTvType.
+//	//     Design the program to either go into an infinite loop or display a
+//	//     message indicating a system error.
+//	//
+//	if (osTvType == TV_TYPE_PAL) {
+//		while (1);
+//	}
+//
+//	func000070d0();
+//	func0f1a78b0();
+//	func0f166f74();
+//	func0f175f50();
+//	func0f175f90();
+//
+//	if (var8005d9b0) {
+//		func00012efc("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
+//	}
+//
+//	uVar2 = osVirtualToPhysical(&_gvarsSegmentEnd) | 0x80000000;
+//	tmp = var80090b00;
+//	func000121e8(uVar2, tmp - uVar2);
+//
+//	func00012528(8);
+//	func00012528(6);
+//	func0000cef8();
+//	func0f00b210();
+//	func0f176ddc();
+//	func000034d0();
+//	loadTextureList();
+//	func0f000000();
+//	func0f167af8();
+//	cheatsDisableAll();
+//	func0000e9c0();
+//	func0f1531a0();
+//	func00013790();
+//	func0f127910();
+//	func0f16ce10();
+//	func0f00b200();
+//	func00009a80();
+//	func0f000870();
+//	func0f000880();
+//	func0f0008e0();
+//	func0f0008f0();
+//	func0f000900();
+//	func0f00b180();
+//	func0f000910();
+//	func0f000840();
+//	func0f188210();
+//	func0f14a328();
+//	func0f1189d8();
+//	func0f14a3bc();
+//	func000233c0();
+//	func0f000100();
+//	func0f000130();
+//	func0f000850();
+//	func0f000860();
+//	func0f000090();
+//	func00009bf8();
+//	func00009ec4(1);
+//
+//	var8005dd18 = 0;
+//}
+
+u32 var8005dd1c = 0x00020000;
+u32 var8005dd20 = 0x00000000;
+u32 var8005dd24 = 0x00000000;
+u32 var8005dd28 = 0x00000000;
+u32 var8005dd2c = 0x00000000;
+u32 var8005dd30 = 0x00000000;
+u32 var8005dd34 = 0x00000000;
+u32 var8005dd38 = 0x00000000;
+
+u32 var8005dd3c = 0x00000000;
+u32 var8005dd40 = 0x00000000;
+u32 var8005dd44 = 0x00000000;
+u32 var8005dd48 = 0x00000000;
+u32 var8005dd4c = 0x00000000;
+u32 var8005dd50 = 0x00000000;
+s32 g_MainStageNum = -1;
+u32 var8005dd58 = 0x00000000;
+
 void mainEntry(void)
 {
 	mainInit();
@@ -650,7 +857,7 @@ void mainLoop(void)
 	var8005d9c4 = 0;
 	func000130d4(&g_StageNum);
 
-	if (var8005d9d4 != 0) {
+	if (g_DoBootPakMenu) {
 		g_Vars.unk0004e4 = 253;
 		g_StageNum = STAGE_BOOTPAKMENU;
 	}
@@ -837,7 +1044,7 @@ void mainLoop(void)
 			// empty
 		}
 
-		while ((g_MainStageNum < 0 || var8005d9cc != 0)) {
+		while (g_MainStageNum < 0 || var8005d9cc != 0) {
 			s32 tmp;
 			osRecvMesg(&var8008db30, &msg, OS_MESG_BLOCK);
 

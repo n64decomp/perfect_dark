@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f1531a0(void);
+void func0f1531a0(void);
 u32 func0f1531b8(void);
 void func0f1531dc(bool arg0);
 void fontLoad(void *start, void *end, u32 *arg2, u32 *arg3, u32 arg4);

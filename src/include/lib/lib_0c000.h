@@ -100,7 +100,7 @@ u32 func0000cba0(void);
 u32 func0000cc34(void);
 u32 func0000cd4c(void);
 u32 func0000cdc8(void);
-u32 func0000cef8(void);
+void func0000cef8(void);
 void func0000cf54(u32 arg0);
 
 #endif
