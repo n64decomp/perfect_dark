@@ -357,11 +357,10 @@ void func00009a98(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func00009aa0
-/*     9aa0:	03e00008 */ 	jr	$ra
-/*     9aa4:	afa40000 */ 	sw	$a0,0x0($sp)
-);
+void func00009aa0(u32 value)
+{
+	// empty
+}
 
 Gfx *debugRenderSomething(Gfx *gdl)
 {
