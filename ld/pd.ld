@@ -328,18 +328,18 @@ SECTIONS
 	END_SEG(firingrange)
 
 	/***************************************************************************
-	 * unknown1
+	 * textureconfig
 	 * -------------------------------------------------------------------------
 	 * ROM range: 0x007eb270 - 0x007ebdc0
 	 * RAM range: N/A
 	 * -------------------------------------------------------------------------
 	 */
 
-	BEGIN_SEG(unknown1)
+	BEGIN_SEG(textureconfig)
 	{
-		build/ROMID/unknown1.o (.data);
+		build/ROMID/textureconfig/textureconfig.o (.data);
 	}
-	END_SEG(unknown1)
+	END_SEG(textureconfig)
 
 	/***************************************************************************
 	 * unknown2

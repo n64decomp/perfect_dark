@@ -68,7 +68,7 @@ CFLAGS := -DVERSION=$(VERSION) \
 	-I src/include \
 	-mips2
 
-C_FILES := $(shell find src/boot src/lib src/game src/inflate src/gvars src/mpconfigs src/mpstrings/$(ROMID) src/firingrange src/filenames -name '*.c')
+C_FILES := $(shell find src/boot src/lib src/game src/inflate src/gvars src/mpconfigs src/mpstrings/$(ROMID) src/firingrange src/filenames src/textureconfig -name '*.c')
 O_FILES := $(patsubst src/%.c, $(B_DIR)/%.o, $(C_FILES))
 
 ASSET_AUDIO_FILES := Arecep01M Arecep02M Arecep03M Arecep04M Arecep05M Arecep06M Arlguard1M Arltech01M Arltech02M Arltech03M Arltech04M Arltech05M Arltech06M Ascie2aM Ascie2bM Ascie2cM Ascie2dM Ascie2eM Ascie2fM Ascie2gM Ascie3aM Ascie3bM Ascie3cM Ascie3dM Ascie3eM Ascie3gM Ascien10aM Ascien2_aM Ascien3_aM Ascien4_aM Ascien5_aM Ascien6_aM Ascien7_aM Ascien9_aM AvilgrimM Awepgd01M Awepgd02M Awepgd03M Awepsc01M Awepsc02M Awepsc03M Aa51elv01M Aa51elv02M Aa51elv03M Aa51grd01M Aa51grd02M Aa51grd03M Aa51grd04M Aa51grd05M Aa51grd06M Aa51grd07M Aa51grd08M Aa51grd09M Aa51grd10M Aa51jo1M Aa51jo2M Aa51jo3M Aa51jo4M Aa51jo5M Aa51jo6M Aa51jon01M Aa51jon02M Aa51jon03M Aa51jon04M Aa51jon05M Aa51jon06M Aa51jon07M Aa51jon08M Aa51jon09M Aa51jon10M Aa51jon11M Aa51jon12M Aa51jon14M Aa51jon15M Aa51sci1M Aaf1jo01M Aaf1jo02M Aaf1jo03M Aaf1pr01M Aaf1pr02M Aaf1pr03M Aaf1pr04M Aaf1pr05M Aaf1pr06M Aaf1pr07M Aaf1pr08M Aaf1pr09M Aaf1pr10M Aaf1tr01M Aaf1tr02M Aaf1tr03M Aairbgd01M Aairbgd02M Aairbgd03M Aairbgd04M Aairbgd05M Aairbgd06M Aairbgd07M Aairbgd08M Aairbgd09M Aairbgd10M Aairbgd11M Aairbgd12M Aairbgd13M Aairbgd14M Aairbgd15M Aairbgd16M Aairstw01M Aairstw02M Aairstw03M Aassael01M Aassael02M Aassael03M Aassael04M Aassael05M Aassael06M Absewrk01M Absewrk02M Absewrk03M Absewrk04M Absewrk05M Acetael01M Achdroid1M Achdroid2M Acsec01M Acsec02M Acsec03M Acstan1M Acstan2M Adevr01M Adevr02M Adevr03M Adevr04M Adevr05M Adevr06M Adevr07M Adevr08M Adevr09M Adevr10M Adevr11M Adevr12M Aexec01M Aexec02M Aexec04M Aexec05M Aexec06M Aexec07M Aexec08M Aexec09M Aexec10M Aexec11M Aexec12M Aexec13M Aexec14M Ahelic01M Ahelic02M Ahelic03M Ahologd01M AholohopkM Ainvcar01M Ainvcar02M Ainvcar03M Ainvcar04M Ainvcar05M Ainvcar06M Ainvcar07M Ainvcar08M Ainvcar09M Ainvcar10M Ainvcar11M Ainvcar12M AinvfarrM AinvfemaM AinvfostM AinvgrimM AinvhopkM AinvmaleM Ajoexec01M Ajoexec02M Ajosci01M Ajosci02M Ajosci03M Alabacc1M Alabacc2M Alabacc3M Alabacc4M Alabacc5M Alabacc6M Alabtech1M Alabtech2M Alabtech3M Alabtech5M Alabtech6M Alabtech7M Alabtech8M Alabtech9M Aoffwrk01M Aoffwrk02M Aoffwrk03M Aoffwrk04M Am1_l1_aM Am1_l1_bM Am1_l1_cM Am1_l1_dM Am1_l2_aM Am1_l2_bM Am1_l2_cM Am1_l2_dM Am1_l3_aM Am1_l3_bM Am1_l3_cM Am1_l3_dM Am2_l1_aM Am2_l1_bM Am2_l1_cM Am2_l1_dM Am3_l1_aM Am3_l1_bM Am3_l1_cM Am3_l1_dM Am3_l2_aM Am3_l2_bM Am3_l2_cM Am3_l2_dM Am4_l1_aM Am4_l1_bM Am4_l1_cM Am4_l1_dM Am4_l2_aM Am4_l2_bM Am4_l2_cM Am4_l2_dM Am4_l3_aM Am4_l3_bM Am4_l3_cM Am4_l3_dM Am5_l1_aM Am5_l1_bM Am5_l1_cM Am5_l1_dM Am5_l2_aM Am5_l2_bM Am5_l2_cM Am5_l2_dM Am5_l3_aM Am5_l3_bM Am5_l3_cM Am5_l3_dM Am6_l1_aM Am6_l1_bM Am6_l1_cM Am6_l1_dM Am6_l2_aM Am6_l2_bM Am6_l2_cM Am6_l2_dM Am7_l1_aM Am7_l1_bM Am7_l1_cM Am7_l1_dM Am8_l1_aM Am8_l1_bM Am8_l1_cM Am8_l1_dM Am9_l1_aM Am9_l1_bM Am9_l1_cM Am9_l1_dM Ap1_01_joM Ap1_02_caM Ap1_03_joM Ap1_04_caM Ap1_05_joM Ap1_06_caM Ap1_07_joM Ap1_08_caM Ap2_01_joM Ap2_02_joM Ap2_03_drM Ap2_04_joM Ap2_05_joM Ap2_06_drM Ap2_07_drM Ap3_01_gdM Ap3_02_joM Ap3_03_joM Ap4_01_dvM Ap4_02_joM Ap4_03_dvM Ap4_04_joM Ap4_05_dvM Ap4_06_joM Ap4_07_blM Ap4_08_dvM Ap4_09_dvM Ap5_01_joM Ap5_02_joM Ap5_03_joM Ap6_01_joM Ap6_02_caM Ap6_03_joM Ap6_04_caM Ap6_05_joM Ap6_06_caM Ap7_01_caM Ap7_02_joM Ap7_03_caM Ap7_04_joM Ap8_01_dvM Ap8_02_blM Ap8_03_dvM Ap8_04_blM Ap8_06_blM Ap8_07_trM Ap8_08_dvM Ap8_09_trM Ap8_10_blM Ap9_01_joM Ap9_02_caM Ap9_03_joM Ap10_01_caM Ap10_02_caM Ap10_03_caM Ap10_04_caM Ap10_05_joM Ap10_06_caM Ap10_07_joM Ap10_08_caM Ap10_09_joM Ap11_01_jnM Ap11_02_joM Ap11_03_jnM Ap11_04_joM Ap11_05_jnM Ap11_06_joM Ap11_07_jnM Ap11_08_joM Ap12_01_jnM Ap12_02_joM Ap12_03_jnM Ap12_04_joM Ap12_05_jnM Ap12_06_joM Ap12_07_jnM Ap12_08_joM Ap12_09_jnM Ap12_10_joM Ap13_01_joM Ap13_02_suM Ap13_03_joM Ap13_04_suM Ap13_06_suM Ap14_03_suM Ap14_04_joM Ap14_05_suM Ap14_07_joM Ap15_01_elM Ap15_02_elM Ap15_03_joM Ap15_04_jnM Ap15_05_elM Ap15_06_joM Ap15_07_elM Ap15_08_joM Ap15_09_elM Ap15_10_joM Ap15_11_elM Ap16_01_joM Ap16_02_caM Ap16_04_caM Ap16_05_joM Ap16_06_caM Ap17_01_trM Ap17_02_prM Ap17_03_trM Ap17_04_prM Ap17_05_trM Ap17_06_trM Ap18_01_joM Ap18_02_elM Ap18_03_elM Ap18_04_joM Ap18_05_elM Ap19_01_caM Ap19_02_caM Ap19_03_joM Ap19_04_caM Ap19_05_joM Ap19_06_joM Ap20_01_joM Ap20_02_prM Ap20_03_joM Ap20_04_prM Ap20_05_joM Ap20_06_blM Ap20_07_trM Ap20_08_trM Ap21_01_elM Ap21_02_joM Ap21_03_elM Ap21_04_joM Ap22_01_elM Ap22_02_joM Ap22_03_elM Ap22_04_joM Ap23_01_joM Ap23_02_drM Ap23_03_joM Ap23_04_drM Ap23_05_joM Ap23_06_drM Ap23_07_joM Ap23_08_drM Ap24_01_caM Ap24_02_joM Ap24_03_caM Ap24_04_joM Ap24_05_caM Ap24_06_caM Ap24_07_joM Ap24_08_joM Ap25_01_joM Ap25_02_joM Ap26_01_joM Ap26_02_dvM Ap26_03_joM Ap26_04_dvM Ap26_05_dvM Ap26_06_joM Ap26_07_dvM Ap26_08_dvM Ap27_01_joM Ap27_02_elM Ap27_03_elM Ap27_04_joM Ap27_05_joM Ap27_06_elM Ap28_01_elM Ap28_02_joM Ap28_03_elM Ap28_04_joM Ap28_05_elM Ap28_06_joM Ap29_01_elM Ap29_02_joM Ap29_03_elM Ap29_04_joM Ap29_05_joM Ap29_06_elM Ap29_07_joM Ap29_08_elM Ap29_09_joM Ap29_10_elM Apelelv01M Apelgrd01M Ap29_11_joM Am3l2carrM Aelvcet01M Aelvcet02M Ajorep01M Ajorep02M Ajorep03M Ajorep04M Ajorpld01M Ajorpld02M Ajorpld03M Ajorpld04M Atrjo01M Atrgrim01M Atrgrim02M Atrcarr06M Atrcarr07M Atrcarr08M Atrcarr01M Atrcarr02M Atrcarr03M Atrcarr04M Atrcarr05M Atrcarr12M Abnblde01M Abncass01M Apelelv02M Avault2M Ap29_12_elM Ap14_09_joM Ap19_07_joM Ap19_08_joM Acicarr06M Acicarr11M Acifarr08M Acifarr12M Acifema01M Acifema04M Acifema07M Acifema08M Acifema09M Acifema14M Acifost08M Acifost12M Acigrim05M Acigrim06M Acigrim07M Acigrim08M Acigrim09M Acigrim10M Acihopk09M Acihopk11M Acimale02M Acimale03M Acimale07M Acimale09M Acimale11M Acimale13M Aciroge08M Aciroge12M Atrfost01M Atrfost02M Atrfost03M Atrcarr09M Atrcarr10M Atrcarr11M Acifarr01M Acifarr02M Acifarr03M Acigrim01M Acigrim03M Acigrim04M Acihopk01M Acihopk04M Acihopk06M Aciroge01M Aciroge02M Atrroge01M Acicarr07M Acicarr08M Ajoinst01M Ajoinst02M Ajoinst03M Ajoinst04M Ap25_03_joM Ap29_13_joM Ap29_14_joM Acicarr09M Acicarr10M Ap29_15_joM Ap16_03_joM Acarrbye02M Asaucerexp1M
@@ -136,7 +136,6 @@ SEGMENT_O_FILES := \
 	$(B_DIR)/sfx.tbl.o \
 	$(B_DIR)/sequences.o \
 	$(B_DIR)/textures.o \
-	$(B_DIR)/unknown1.o \
 	$(B_DIR)/unknown2.o
 
 default: rom
@@ -193,7 +192,8 @@ SEGMENT_FILES := \
 	$(B_DIR)/segments/mpstringsG.bin \
 	$(B_DIR)/segments/mpstringsF.bin \
 	$(B_DIR)/segments/mpstringsS.bin \
-	$(B_DIR)/segments/mpstringsI.bin
+	$(B_DIR)/segments/mpstringsI.bin \
+	$(B_DIR)/segments/textureconfig.bin
 
 test: $(SEGMENT_FILES) $(ASSET_FILES)
 	@md5sum --quiet -c checksums.$(ROMID).md5
@@ -229,9 +229,6 @@ $(B_DIR)/sequences.o: $(E_DIR)/segments/sequences.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/textures.o: $(E_DIR)/segments/textures.bin
-	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
-
-$(B_DIR)/unknown1.o: $(E_DIR)/segments/unknown1.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/unknown2.o: $(E_DIR)/segments/unknown2.bin
