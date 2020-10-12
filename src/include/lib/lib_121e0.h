@@ -6,7 +6,7 @@
 void func000121e0(void);
 void func000121e8(u32 arg0, u32 arg1);
 u32 func000122e0(void);
-u32 func00012324(void);
+void *func00012324(void);
 void *func00012354(struct memorypool *pools, u32 len, u8 pool);
 void *malloc(u32 len, u8 pool);
 void func00012430(void *ptr, u32 len, u8 pool);

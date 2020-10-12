@@ -108,22 +108,18 @@ glabel func000122e0
 /*    12320:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func00012324
-/*    12324:	3c0e8009 */ 	lui	$t6,%hi(g_Is4Mb)
-/*    12328:	91ce0af0 */ 	lbu	$t6,%lo(g_Is4Mb)($t6)
-/*    1232c:	24010001 */ 	addiu	$at,$zero,0x1
-/*    12330:	3c03800a */ 	lui	$v1,%hi(g_SecondaryMemoryPools+0x54)
-/*    12334:	15c10004 */ 	bne	$t6,$at,.L00012348
-/*    12338:	00000000 */ 	nop
-/*    1233c:	3c03800a */ 	lui	$v1,%hi(g_PrimaryMemoryPools+0x54)
-/*    12340:	03e00008 */ 	jr	$ra
-/*    12344:	8c629354 */ 	lw	$v0,%lo(g_PrimaryMemoryPools+0x54)($v1)
-.L00012348:
-/*    12348:	8c63940c */ 	lw	$v1,%lo(g_SecondaryMemoryPools+0x54)($v1)
-/*    1234c:	03e00008 */ 	jr	$ra
-/*    12350:	00601025 */ 	or	$v0,$v1,$zero
-);
+void *func00012324(void)
+{
+	void *addr;
+
+	if (IS4MB()) {
+		addr = g_PrimaryMemoryPools[4].unk04;
+	} else {
+		addr = g_SecondaryMemoryPools[4].unk04;
+	}
+
+	return addr;
+}
 
 GLOBAL_ASM(
 glabel func00012354
