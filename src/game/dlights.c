@@ -903,7 +903,7 @@ glabel func0f001c0c
 /*  f001d08:	000470c0 */ 	sll	$t6,$a0,0x3
 /*  f001d0c:	0fc5db69 */ 	jal	align16
 /*  f001d10:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f001d14:	0c0048b8 */ 	jal	func000122e0
+/*  f001d14:	0c0048b8 */ 	jal	memGetPool4Available
 /*  f001d18:	afa20068 */ 	sw	$v0,0x68($sp)
 /*  f001d1c:	0fc5d820 */ 	jal	func0f176080
 /*  f001d20:	00000000 */ 	nop
@@ -3762,7 +3762,7 @@ glabel func0f004c6c
 /*  f004dd8:	028c2021 */ 	addu	$a0,$s4,$t4
 /*  f004ddc:	0fc5db69 */ 	jal	align16
 /*  f004de0:	00000000 */ 	nop
-/*  f004de4:	0c0048c9 */ 	jal	func00012324
+/*  f004de4:	0c0048c9 */ 	jal	memGetNextPool4Allocation
 /*  f004de8:	00000000 */ 	nop
 /*  f004dec:	8fad0044 */ 	lw	$t5,0x44($sp)
 /*  f004df0:	3c01800a */ 	lui	$at,%hi(var8009cad0)

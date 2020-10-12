@@ -511,9 +511,9 @@ glabel mainInit
 /*     d99c:	00412025 */ 	or	$a0,$v0,$at
 /*     d9a0:	0c00487a */ 	jal	memInit
 /*     d9a4:	00642823 */ 	subu	$a1,$v1,$a0
-/*     d9a8:	0c00494a */ 	jal	func00012528
+/*     d9a8:	0c00494a */ 	jal	memResetPool
 /*     d9ac:	24040008 */ 	addiu	$a0,$zero,0x8
-/*     d9b0:	0c00494a */ 	jal	func00012528
+/*     d9b0:	0c00494a */ 	jal	memResetPool
 /*     d9b4:	24040006 */ 	addiu	$a0,$zero,0x6
 /*     d9b8:	0c0033be */ 	jal	func0000cef8
 /*     d9bc:	00000000 */ 	nop
@@ -764,8 +764,8 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	tmp = var80090b00;
 //	memInit(uVar2, tmp - uVar2);
 //
-//	func00012528(8);
-//	func00012528(6);
+//	memResetPool(8);
+//	memResetPool(6);
 //	func0000cef8();
 //	func0f00b210();
 //	func0f176ddc();
@@ -960,8 +960,8 @@ void mainLoop(void)
 
 		var8005d9c4 = 0;
 
-		func00012528(7);
-		func00012528(4);
+		memResetPool(7);
+		memResetPool(4);
 		func0f1672f0(4);
 
 		if (func00013010(1, "-ma")) {
@@ -1065,8 +1065,8 @@ void mainLoop(void)
 		}
 
 		stageLoad();
-		func00012594(4);
-		func00012594(7);
+		memDisablePool(4);
+		memDisablePool(7);
 		func0f1672f0(4);
 		func00009ec4(1);
 		func0f116994();

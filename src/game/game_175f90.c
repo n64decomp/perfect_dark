@@ -21,13 +21,13 @@ void func0f175f90(void)
 void func0f175f98(void)
 {
 	func0f167330();
-	func00012528(5);
+	memResetPool(5);
 	func0f1672f0(5);
 }
 
 void func0f175fc8(void)
 {
-	func00012594(5);
+	memDisablePool(5);
 	func0f1672f0(5);
 }
 

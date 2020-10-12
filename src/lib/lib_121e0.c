@@ -25,65 +25,65 @@ void memInit(u32 heapstart, u32 heaplen)
 	// Memory pool 9 is not cleared? Doesn't appear to be used anyway.
 	// Maybe the array is only 0-8?
 	for (i = 0; i < 9; i++) {
-		g_PrimaryMemoryPools[i].unk00 = 0;
-		g_PrimaryMemoryPools[i].unk04 = 0;
-		g_PrimaryMemoryPools[i].unk08 = 0;
-		g_PrimaryMemoryPools[i].unk10 = 0;
+		g_PrimaryMemoryPools[i].start = 0;
+		g_PrimaryMemoryPools[i].nextallocation = 0;
+		g_PrimaryMemoryPools[i].end = 0;
+		g_PrimaryMemoryPools[i].prevallocation = 0;
 
-		g_SecondaryMemoryPools[i].unk00 = 0;
-		g_SecondaryMemoryPools[i].unk04 = 0;
-		g_SecondaryMemoryPools[i].unk08 = 0;
-		g_SecondaryMemoryPools[i].unk10 = 0;
+		g_SecondaryMemoryPools[i].start = 0;
+		g_SecondaryMemoryPools[i].nextallocation = 0;
+		g_SecondaryMemoryPools[i].end = 0;
+		g_SecondaryMemoryPools[i].prevallocation = 0;
 	}
 
-	g_PrimaryMemoryPools[0].unk00 = heapstart;
-	g_PrimaryMemoryPools[0].unk08 = heapstart + heaplen;
-	g_PrimaryMemoryPools[6].unk00 = heapstart;
-	g_PrimaryMemoryPools[6].unk08 = heapstart + heaplen;
-	g_PrimaryMemoryPools[4].unk00 = heapstart;
-	g_PrimaryMemoryPools[4].unk08 = heapstart + heaplen;
+	g_PrimaryMemoryPools[0].start = heapstart;
+	g_PrimaryMemoryPools[0].end = heapstart + heaplen;
+	g_PrimaryMemoryPools[6].start = heapstart;
+	g_PrimaryMemoryPools[6].end = heapstart + heaplen;
+	g_PrimaryMemoryPools[4].start = heapstart;
+	g_PrimaryMemoryPools[4].end = heapstart + heaplen;
 
 	extraend = 0x80000000 + osGetMemSize();
 
 	if (osGetMemSize() > 4 * 1024 * 1024) {
-		g_SecondaryMemoryPools[4].unk00 = 0x80400000;
-		g_SecondaryMemoryPools[4].unk08 = extraend;
+		g_SecondaryMemoryPools[4].start = 0x80400000;
+		g_SecondaryMemoryPools[4].end = extraend;
 	}
 
 	for (i = 0; i < 9; i++) {
-		g_PrimaryMemoryPools[i].unk0c = g_PrimaryMemoryPools[i].unk08;
-		g_SecondaryMemoryPools[i].unk0c = g_SecondaryMemoryPools[i].unk08;
+		g_PrimaryMemoryPools[i].unk0c = g_PrimaryMemoryPools[i].end;
+		g_SecondaryMemoryPools[i].unk0c = g_SecondaryMemoryPools[i].end;
 	}
 }
 
-u32 func000122e0(void)
+u32 memGetPool4Available(void)
 {
 	u32 free;
 
 	if (IS4MB()) {
-		free = (u32)g_PrimaryMemoryPools[4].unk08 - (u32)g_PrimaryMemoryPools[4].unk04;
+		free = g_PrimaryMemoryPools[4].end - g_PrimaryMemoryPools[4].nextallocation;
 	} else {
-		free = (u32)g_SecondaryMemoryPools[4].unk08 - (u32)g_SecondaryMemoryPools[4].unk04;
+		free = g_SecondaryMemoryPools[4].end - g_SecondaryMemoryPools[4].nextallocation;
 	}
 
 	return free;
 }
 
-u32 func00012324(void)
+u32 memGetNextPool4Allocation(void)
 {
-	u32 addr;
+	u32 next;
 
 	if (IS4MB()) {
-		addr = g_PrimaryMemoryPools[4].unk04;
+		next = g_PrimaryMemoryPools[4].nextallocation;
 	} else {
-		addr = g_SecondaryMemoryPools[4].unk04;
+		next = g_SecondaryMemoryPools[4].nextallocation;
 	}
 
-	return addr;
+	return next;
 }
 
 GLOBAL_ASM(
-glabel func00012354
+glabel memAllocFromBank
 /*    12354:	30ce00ff */ 	andi	$t6,$a2,0xff
 /*    12358:	000e7880 */ 	sll	$t7,$t6,0x2
 /*    1235c:	01ee7821 */ 	addu	$t7,$t7,$t6
@@ -118,15 +118,44 @@ glabel func00012354
 /*    123c4:	00000000 */ 	nop
 );
 
+//u32 memAllocFromBank(struct memorypool *pool, u32 size, u8 poolnum)
+//{
+//	u32 allocation;
+//
+//	pool += poolnum;
+//
+//	allocation = pool->nextallocation;
+//
+//	if (pool->nextallocation == 0) {
+//		return allocation;
+//	}
+//
+//	if (pool->nextallocation > pool->end) {
+//		return 0;
+//	}
+//
+//	if (pool->nextallocation + size > pool->end) {
+//		return 0;
+//	}
+//
+//	// Mismatch because allocation in the following statement should be
+//	// pool->nextallocation, but when this is changed it reuses the computed
+//	// expression from above which results in different codegen.
+//	pool->nextallocation = allocation + size;
+//	pool->prevallocation = allocation;
+//
+//	return allocation;
+//}
+
 void *malloc(u32 len, u8 pool)
 {
-	void *allocation = func00012354(&g_PrimaryMemoryPools[0], len, pool);
+	void *allocation = (void *)memAllocFromBank(&g_PrimaryMemoryPools[0], len, pool);
 
 	if (allocation) {
 		return allocation;
 	}
 
-	allocation = func00012354(&g_SecondaryMemoryPools[0], len, pool);
+	allocation = (void *)memAllocFromBank(&g_SecondaryMemoryPools[0], len, pool);
 
 	if (allocation) {
 		return allocation;
@@ -185,42 +214,45 @@ void func000124cc(void)
 	// empty
 }
 
-u32 func000124d4(u8 poolnum, bool secondary)
+u32 memGetFree(u8 poolnum, u32 bank)
 {
 	struct memorypool *pool;
 
-	if (!secondary) {
+	if (bank == MEMBANK_PRIMARY) {
 		pool = &g_PrimaryMemoryPools[poolnum];
 	} else {
 		pool = &g_SecondaryMemoryPools[poolnum];
 	}
 
-	return pool->unk08 - pool->unk04;
+	return pool->end - pool->nextallocation;
+}
+
+void memResetPool(u8 pool)
+{
+	// When resetting mempool 4, put it immediately after mempool 6 and close
+	// off mempool 6. Perhaps mempool 6 is only allocated to during stage load
+	// and mempool 4 is dynamic stuff which can happen after?
+	if (pool == 4) {
+		g_PrimaryMemoryPools[4].start = g_PrimaryMemoryPools[6].nextallocation;
+		g_PrimaryMemoryPools[6].end = g_PrimaryMemoryPools[6].nextallocation;
+		g_PrimaryMemoryPools[6].unk0c = g_PrimaryMemoryPools[6].nextallocation;
+	}
+
+	g_PrimaryMemoryPools[pool].nextallocation = g_PrimaryMemoryPools[pool].start;
+	g_SecondaryMemoryPools[pool].nextallocation = g_SecondaryMemoryPools[pool].start;
+	g_PrimaryMemoryPools[pool].prevallocation = 0;
+	g_SecondaryMemoryPools[pool].prevallocation = 0;
 }
 
 /**
- * Suspected to be either initialising or freeing a pool.
+ * Setting nextallocation to 0 means that this pool will refuse all allocations.
  */
-void func00012528(u8 pool)
+void memDisablePool(u8 pool)
 {
-	if (pool == 4) {
-		g_PrimaryMemoryPools[4].unk00 = g_PrimaryMemoryPools[6].unk04;
-		g_PrimaryMemoryPools[6].unk08 = g_PrimaryMemoryPools[6].unk04;
-		g_PrimaryMemoryPools[6].unk0c = g_PrimaryMemoryPools[6].unk04;
-	}
-
-	g_PrimaryMemoryPools[pool].unk04 = g_PrimaryMemoryPools[pool].unk00;
-	g_SecondaryMemoryPools[pool].unk04 = g_SecondaryMemoryPools[pool].unk00;
-	g_PrimaryMemoryPools[pool].unk10 = 0;
-	g_SecondaryMemoryPools[pool].unk10 = 0;
-}
-
-void func00012594(u8 pool)
-{
-	g_PrimaryMemoryPools[pool].unk04 = 0;
-	g_SecondaryMemoryPools[pool].unk04 = 0;
-	g_PrimaryMemoryPools[pool].unk08 = g_PrimaryMemoryPools[pool].unk0c;
-	g_SecondaryMemoryPools[pool].unk08 = g_SecondaryMemoryPools[pool].unk0c;
+	g_PrimaryMemoryPools[pool].nextallocation = 0;
+	g_SecondaryMemoryPools[pool].nextallocation = 0;
+	g_PrimaryMemoryPools[pool].end = g_PrimaryMemoryPools[pool].unk0c;
+	g_SecondaryMemoryPools[pool].end = g_SecondaryMemoryPools[pool].unk0c;
 }
 
 GLOBAL_ASM(
