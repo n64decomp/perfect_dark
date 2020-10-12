@@ -221,9 +221,12 @@ glabel func00012430
 /*    124c0:	24020001 */ 	addiu	$v0,$zero,0x1
 /*    124c4:	03e00008 */ 	jr	$ra
 /*    124c8:	00000000 */ 	nop
-/*    124cc:	03e00008 */ 	jr	$ra
-/*    124d0:	00000000 */ 	nop
 );
+
+void func000124cc(void)
+{
+	// empty
+}
 
 s32 func000124d4(u8 poolnum, bool secondary)
 {
