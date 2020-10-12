@@ -252,37 +252,22 @@ glabel func000124d4
 /*    12524:	012a1023 */ 	subu	$v0,$t1,$t2
 );
 
-GLOBAL_ASM(
-glabel func00012528
-/*    12528:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    1252c:	308e00ff */ 	andi	$t6,$a0,0xff
-/*    12530:	24010004 */ 	addiu	$at,$zero,0x4
-/*    12534:	15c10007 */ 	bne	$t6,$at,.L00012554
-/*    12538:	01c02025 */ 	or	$a0,$t6,$zero
-/*    1253c:	3c06800a */ 	lui	$a2,%hi(g_PrimaryMemoryPools)
-/*    12540:	24c69300 */ 	addiu	$a2,$a2,%lo(g_PrimaryMemoryPools)
-/*    12544:	8cc2007c */ 	lw	$v0,0x7c($a2)
-/*    12548:	acc20050 */ 	sw	$v0,0x50($a2)
-/*    1254c:	acc20080 */ 	sw	$v0,0x80($a2)
-/*    12550:	acc20084 */ 	sw	$v0,0x84($a2)
-.L00012554:
-/*    12554:	00041080 */ 	sll	$v0,$a0,0x2
-/*    12558:	00441021 */ 	addu	$v0,$v0,$a0
-/*    1255c:	3c06800a */ 	lui	$a2,%hi(g_PrimaryMemoryPools)
-/*    12560:	00021080 */ 	sll	$v0,$v0,0x2
-/*    12564:	3c18800a */ 	lui	$t8,%hi(g_SecondaryMemoryPools)
-/*    12568:	24c69300 */ 	addiu	$a2,$a2,%lo(g_PrimaryMemoryPools)
-/*    1256c:	271893b8 */ 	addiu	$t8,$t8,%lo(g_SecondaryMemoryPools)
-/*    12570:	00c21821 */ 	addu	$v1,$a2,$v0
-/*    12574:	00582821 */ 	addu	$a1,$v0,$t8
-/*    12578:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*    1257c:	8cb90000 */ 	lw	$t9,0x0($a1)
-/*    12580:	ac600010 */ 	sw	$zero,0x10($v1)
-/*    12584:	aca00010 */ 	sw	$zero,0x10($a1)
-/*    12588:	ac6f0004 */ 	sw	$t7,0x4($v1)
-/*    1258c:	03e00008 */ 	jr	$ra
-/*    12590:	acb90004 */ 	sw	$t9,0x4($a1)
-);
+/**
+ * Suspected to be either initialising or freeing a pool.
+ */
+void func00012528(u8 pool)
+{
+	if (pool == 4) {
+		g_PrimaryMemoryPools[4].unk00 = g_PrimaryMemoryPools[6].unk04;
+		g_PrimaryMemoryPools[6].unk08 = g_PrimaryMemoryPools[6].unk04;
+		g_PrimaryMemoryPools[6].unk0c = g_PrimaryMemoryPools[6].unk04;
+	}
+
+	g_PrimaryMemoryPools[pool].unk04 = g_PrimaryMemoryPools[pool].unk00;
+	g_SecondaryMemoryPools[pool].unk04 = g_SecondaryMemoryPools[pool].unk00;
+	g_PrimaryMemoryPools[pool].unk10 = NULL;
+	g_SecondaryMemoryPools[pool].unk10 = NULL;
+}
 
 GLOBAL_ASM(
 glabel func00012594
