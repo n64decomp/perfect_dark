@@ -17,74 +17,44 @@ void func000121e0(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func000121e8
-/*    121e8:	00803025 */ 	or	$a2,$a0,$zero
-/*    121ec:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    121f0:	3c04800a */ 	lui	$a0,%hi(var8009946c)
-/*    121f4:	3c03800a */ 	lui	$v1,%hi(g_PrimaryMemoryPools)
-/*    121f8:	3c02800a */ 	lui	$v0,%hi(g_SecondaryMemoryPools)
-/*    121fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12200:	244293b8 */ 	addiu	$v0,$v0,%lo(g_SecondaryMemoryPools)
-/*    12204:	24639300 */ 	addiu	$v1,$v1,%lo(g_PrimaryMemoryPools)
-/*    12208:	2484946c */ 	addiu	$a0,$a0,%lo(var8009946c)
-.L0001220c:
-/*    1220c:	24420014 */ 	addiu	$v0,$v0,0x14
-/*    12210:	0044082b */ 	sltu	$at,$v0,$a0
-/*    12214:	24630014 */ 	addiu	$v1,$v1,0x14
-/*    12218:	ac60ffec */ 	sw	$zero,-0x14($v1)
-/*    1221c:	ac60fff0 */ 	sw	$zero,-0x10($v1)
-/*    12220:	ac60fff4 */ 	sw	$zero,-0xc($v1)
-/*    12224:	ac60fffc */ 	sw	$zero,-0x4($v1)
-/*    12228:	ac40ffec */ 	sw	$zero,-0x14($v0)
-/*    1222c:	ac40fff0 */ 	sw	$zero,-0x10($v0)
-/*    12230:	ac40fff4 */ 	sw	$zero,-0xc($v0)
-/*    12234:	1420fff5 */ 	bnez	$at,.L0001220c
-/*    12238:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*    1223c:	3c02800a */ 	lui	$v0,%hi(g_PrimaryMemoryPools)
-/*    12240:	24429300 */ 	addiu	$v0,$v0,%lo(g_PrimaryMemoryPools)
-/*    12244:	00c51821 */ 	addu	$v1,$a2,$a1
-/*    12248:	ac460000 */ 	sw	$a2,0x0($v0)
-/*    1224c:	ac430008 */ 	sw	$v1,0x8($v0)
-/*    12250:	ac460078 */ 	sw	$a2,0x78($v0)
-/*    12254:	ac430080 */ 	sw	$v1,0x80($v0)
-/*    12258:	ac460050 */ 	sw	$a2,0x50($v0)
-/*    1225c:	0c0005b0 */ 	jal	osGetMemSize
-/*    12260:	ac430058 */ 	sw	$v1,0x58($v0)
-/*    12264:	3c018000 */ 	lui	$at,0x8000
-/*    12268:	00417021 */ 	addu	$t6,$v0,$at
-/*    1226c:	0c0005b0 */ 	jal	osGetMemSize
-/*    12270:	afae0018 */ 	sw	$t6,0x18($sp)
-/*    12274:	3c010040 */ 	lui	$at,0x40
-/*    12278:	34210001 */ 	ori	$at,$at,0x1
-/*    1227c:	0041082a */ 	slt	$at,$v0,$at
-/*    12280:	14200007 */ 	bnez	$at,.L000122a0
-/*    12284:	3c03800a */ 	lui	$v1,%hi(g_PrimaryMemoryPools)
-/*    12288:	8fb80018 */ 	lw	$t8,0x18($sp)
-/*    1228c:	3c02800a */ 	lui	$v0,%hi(g_SecondaryMemoryPools)
-/*    12290:	244293b8 */ 	addiu	$v0,$v0,%lo(g_SecondaryMemoryPools)
-/*    12294:	3c0f8040 */ 	lui	$t7,0x8040
-/*    12298:	ac4f0050 */ 	sw	$t7,0x50($v0)
-/*    1229c:	ac580058 */ 	sw	$t8,0x58($v0)
-.L000122a0:
-/*    122a0:	3c02800a */ 	lui	$v0,%hi(g_SecondaryMemoryPools)
-/*    122a4:	3c04800a */ 	lui	$a0,%hi(var8009946c)
-/*    122a8:	2484946c */ 	addiu	$a0,$a0,%lo(var8009946c)
-/*    122ac:	244293b8 */ 	addiu	$v0,$v0,%lo(g_SecondaryMemoryPools)
-/*    122b0:	24639300 */ 	addiu	$v1,$v1,%lo(g_PrimaryMemoryPools)
-.L000122b4:
-/*    122b4:	8c790008 */ 	lw	$t9,0x8($v1)
-/*    122b8:	8c480008 */ 	lw	$t0,0x8($v0)
-/*    122bc:	24420014 */ 	addiu	$v0,$v0,0x14
-/*    122c0:	24630014 */ 	addiu	$v1,$v1,0x14
-/*    122c4:	ac79fff8 */ 	sw	$t9,-0x8($v1)
-/*    122c8:	1444fffa */ 	bne	$v0,$a0,.L000122b4
-/*    122cc:	ac48fff8 */ 	sw	$t0,-0x8($v0)
-/*    122d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    122d4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    122d8:	03e00008 */ 	jr	$ra
-/*    122dc:	00000000 */ 	nop
-);
+void memInit(u32 heapstart, u32 heaplen)
+{
+	s32 i;
+	u32 extraend;
+
+	// Memory pool 9 is not cleared? Doesn't appear to be used anyway.
+	// Maybe the array is only 0-8?
+	for (i = 0; i < 9; i++) {
+		g_PrimaryMemoryPools[i].unk00 = 0;
+		g_PrimaryMemoryPools[i].unk04 = 0;
+		g_PrimaryMemoryPools[i].unk08 = 0;
+		g_PrimaryMemoryPools[i].unk10 = 0;
+
+		g_SecondaryMemoryPools[i].unk00 = 0;
+		g_SecondaryMemoryPools[i].unk04 = 0;
+		g_SecondaryMemoryPools[i].unk08 = 0;
+		g_SecondaryMemoryPools[i].unk10 = 0;
+	}
+
+	g_PrimaryMemoryPools[0].unk00 = heapstart;
+	g_PrimaryMemoryPools[0].unk08 = heapstart + heaplen;
+	g_PrimaryMemoryPools[6].unk00 = heapstart;
+	g_PrimaryMemoryPools[6].unk08 = heapstart + heaplen;
+	g_PrimaryMemoryPools[4].unk00 = heapstart;
+	g_PrimaryMemoryPools[4].unk08 = heapstart + heaplen;
+
+	extraend = 0x80000000 + osGetMemSize();
+
+	if (osGetMemSize() > 4 * 1024 * 1024) {
+		g_SecondaryMemoryPools[4].unk00 = 0x80400000;
+		g_SecondaryMemoryPools[4].unk08 = extraend;
+	}
+
+	for (i = 0; i < 9; i++) {
+		g_PrimaryMemoryPools[i].unk0c = g_PrimaryMemoryPools[i].unk08;
+		g_SecondaryMemoryPools[i].unk0c = g_SecondaryMemoryPools[i].unk08;
+	}
+}
 
 u32 func000122e0(void)
 {
@@ -99,9 +69,9 @@ u32 func000122e0(void)
 	return free;
 }
 
-void *func00012324(void)
+u32 func00012324(void)
 {
-	void *addr;
+	u32 addr;
 
 	if (IS4MB()) {
 		addr = g_PrimaryMemoryPools[4].unk04;
@@ -215,7 +185,7 @@ void func000124cc(void)
 	// empty
 }
 
-s32 func000124d4(u8 poolnum, bool secondary)
+u32 func000124d4(u8 poolnum, bool secondary)
 {
 	struct memorypool *pool;
 
@@ -225,7 +195,7 @@ s32 func000124d4(u8 poolnum, bool secondary)
 		pool = &g_SecondaryMemoryPools[poolnum];
 	}
 
-	return (u32)pool->unk08 - (u32)pool->unk04;
+	return pool->unk08 - pool->unk04;
 }
 
 /**
@@ -241,14 +211,14 @@ void func00012528(u8 pool)
 
 	g_PrimaryMemoryPools[pool].unk04 = g_PrimaryMemoryPools[pool].unk00;
 	g_SecondaryMemoryPools[pool].unk04 = g_SecondaryMemoryPools[pool].unk00;
-	g_PrimaryMemoryPools[pool].unk10 = NULL;
-	g_SecondaryMemoryPools[pool].unk10 = NULL;
+	g_PrimaryMemoryPools[pool].unk10 = 0;
+	g_SecondaryMemoryPools[pool].unk10 = 0;
 }
 
 void func00012594(u8 pool)
 {
-	g_PrimaryMemoryPools[pool].unk04 = NULL;
-	g_SecondaryMemoryPools[pool].unk04 = NULL;
+	g_PrimaryMemoryPools[pool].unk04 = 0;
+	g_SecondaryMemoryPools[pool].unk04 = 0;
 	g_PrimaryMemoryPools[pool].unk08 = g_PrimaryMemoryPools[pool].unk0c;
 	g_SecondaryMemoryPools[pool].unk08 = g_SecondaryMemoryPools[pool].unk0c;
 }

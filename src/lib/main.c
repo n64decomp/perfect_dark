@@ -509,7 +509,7 @@ glabel mainInit
 /*     d994:	8c630b00 */ 	lw	$v1,%lo(var80090b00)($v1)
 /*     d998:	3c018000 */ 	lui	$at,0x8000
 /*     d99c:	00412025 */ 	or	$a0,$v0,$at
-/*     d9a0:	0c00487a */ 	jal	func000121e8
+/*     d9a0:	0c00487a */ 	jal	memInit
 /*     d9a4:	00642823 */ 	subu	$a1,$v1,$a0
 /*     d9a8:	0c00494a */ 	jal	func00012528
 /*     d9ac:	24040008 */ 	addiu	$a0,$zero,0x8
@@ -762,7 +762,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //
 //	uVar2 = osVirtualToPhysical(&_gvarsSegmentEnd) | 0x80000000;
 //	tmp = var80090b00;
-//	func000121e8(uVar2, tmp - uVar2);
+//	memInit(uVar2, tmp - uVar2);
 //
 //	func00012528(8);
 //	func00012528(6);

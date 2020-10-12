@@ -5287,11 +5287,11 @@ struct gecreditsdata {
 };
 
 struct memorypool {
-	/*0x00*/ void *unk00;
-	/*0x04*/ void *unk04;
-	/*0x08*/ void *unk08;
-	/*0x0c*/ void *unk0c;
-	/*0x10*/ void *unk10;
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
 };
 
 struct invitem_weap {
