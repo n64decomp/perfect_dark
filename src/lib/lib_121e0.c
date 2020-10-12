@@ -86,27 +86,18 @@ glabel func000121e8
 /*    122dc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func000122e0
-/*    122e0:	3c0e8009 */ 	lui	$t6,%hi(g_Is4Mb)
-/*    122e4:	91ce0af0 */ 	lbu	$t6,%lo(g_Is4Mb)($t6)
-/*    122e8:	24010001 */ 	addiu	$at,$zero,0x1
-/*    122ec:	3c02800a */ 	lui	$v0,%hi(g_PrimaryMemoryPools)
-/*    122f0:	15c10005 */ 	bne	$t6,$at,.L00012308
-/*    122f4:	24429300 */ 	addiu	$v0,$v0,%lo(g_PrimaryMemoryPools)
-/*    122f8:	8c4f0058 */ 	lw	$t7,0x58($v0)
-/*    122fc:	8c580054 */ 	lw	$t8,0x54($v0)
-/*    12300:	03e00008 */ 	jr	$ra
-/*    12304:	01f81023 */ 	subu	$v0,$t7,$t8
-.L00012308:
-/*    12308:	3c02800a */ 	lui	$v0,%hi(g_SecondaryMemoryPools)
-/*    1230c:	244293b8 */ 	addiu	$v0,$v0,%lo(g_SecondaryMemoryPools)
-/*    12310:	8c590058 */ 	lw	$t9,0x58($v0)
-/*    12314:	8c480054 */ 	lw	$t0,0x54($v0)
-/*    12318:	03281823 */ 	subu	$v1,$t9,$t0
-/*    1231c:	03e00008 */ 	jr	$ra
-/*    12320:	00601025 */ 	or	$v0,$v1,$zero
-);
+u32 func000122e0(void)
+{
+	u32 free;
+
+	if (IS4MB()) {
+		free = (u32)g_PrimaryMemoryPools[4].unk08 - (u32)g_PrimaryMemoryPools[4].unk04;
+	} else {
+		free = (u32)g_SecondaryMemoryPools[4].unk08 - (u32)g_SecondaryMemoryPools[4].unk04;
+	}
+
+	return free;
+}
 
 void *func00012324(void)
 {
