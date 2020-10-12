@@ -3942,7 +3942,7 @@ glabel func0f15b534
 /*  f15b67c:	3c04800a */ 	lui	$a0,%hi(var800a491c)
 /*  f15b680:	8c84491c */ 	lw	$a0,%lo(var800a491c)($a0)
 /*  f15b684:	02202825 */ 	or	$a1,$s1,$zero
-/*  f15b688:	0c00490c */ 	jal	func00012430
+/*  f15b688:	0c00490c */ 	jal	memReallocate
 /*  f15b68c:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f15b690:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f15b694:	8fa4002c */ 	lw	$a0,0x2c($sp)
@@ -3998,7 +3998,7 @@ glabel func0f15b534
 /*  f15b758:	8fa40064 */ 	lw	$a0,0x64($sp)
 .L0f15b75c:
 /*  f15b75c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f15b760:	0c00490c */ 	jal	func00012430
+/*  f15b760:	0c00490c */ 	jal	memReallocate
 /*  f15b764:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f15b768:	8fae0028 */ 	lw	$t6,0x28($sp)
 /*  f15b76c:	8faf0050 */ 	lw	$t7,0x50($sp)
@@ -5288,7 +5288,7 @@ glabel var7f1b75d0
 .L0f15c628:
 /*  f15c628:	8fa4008c */ 	lw	$a0,0x8c($sp)
 /*  f15c62c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f15c630:	0c00490c */ 	jal	func00012430
+/*  f15c630:	0c00490c */ 	jal	memReallocate
 /*  f15c634:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f15c638:	8fd102bc */ 	lw	$s1,0x2bc($s8)
 /*  f15c63c:	24140001 */ 	addiu	$s4,$zero,0x1

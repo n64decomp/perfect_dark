@@ -273,7 +273,7 @@ glabel func0f1670fc
 /*  f1671b4:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f1671b8:	11010007 */ 	beq	$t0,$at,.L0f1671d8
 /*  f1671bc:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f1671c0:	0c00490c */ 	jal	func00012430
+/*  f1671c0:	0c00490c */ 	jal	memReallocate
 /*  f1671c4:	8e050000 */ 	lw	$a1,0x0($s0)
 /*  f1671c8:	10000004 */ 	b	.L0f1671dc
 /*  f1671cc:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -320,7 +320,7 @@ glabel func0f1670fc
 //		func0f166eb4(ptr, info->unk00, &filetable[filenum], info);
 //
 //		if (arg1 != 0x11) {
-//			func00012430(ptr, info->unk00, 4);
+//			memReallocate(ptr, info->unk00, 4);
 //		}
 //	} else {
 //		while (true) {
@@ -394,7 +394,7 @@ glabel func0f1672a8
 /*  f1672cc:	ac460004 */ 	sw	$a2,0x4($v0)
 /*  f1672d0:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f1672d4:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f1672d8:	0c00490c */ 	jal	func00012430
+/*  f1672d8:	0c00490c */ 	jal	memReallocate
 /*  f1672dc:	24060004 */ 	addiu	$a2,$zero,0x4
 .L0f1672e0:
 /*  f1672e0:	8fbf0014 */ 	lw	$ra,0x14($sp)

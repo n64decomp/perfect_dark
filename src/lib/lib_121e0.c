@@ -164,50 +164,41 @@ void *malloc(u32 len, u8 pool)
 	return allocation;
 }
 
-GLOBAL_ASM(
-glabel func00012430
-/*    12430:	30ce00ff */ 	andi	$t6,$a2,0xff
-/*    12434:	000e1080 */ 	sll	$v0,$t6,0x2
-/*    12438:	004e1021 */ 	addu	$v0,$v0,$t6
-/*    1243c:	3c0f800a */ 	lui	$t7,%hi(g_PrimaryMemoryPools)
-/*    12440:	25ef9300 */ 	addiu	$t7,$t7,%lo(g_PrimaryMemoryPools)
-/*    12444:	00021080 */ 	sll	$v0,$v0,0x2
-/*    12448:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    1244c:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    12450:	004f1821 */ 	addu	$v1,$v0,$t7
-/*    12454:	8c780010 */ 	lw	$t8,0x10($v1)
-/*    12458:	3c19800a */ 	lui	$t9,%hi(g_SecondaryMemoryPools)
-/*    1245c:	273993b8 */ 	addiu	$t9,$t9,%lo(g_SecondaryMemoryPools)
-/*    12460:	50980008 */ 	beql	$a0,$t8,.L00012484
-/*    12464:	8c640004 */ 	lw	$a0,0x4($v1)
-/*    12468:	00591821 */ 	addu	$v1,$v0,$t9
-/*    1246c:	8c680010 */ 	lw	$t0,0x10($v1)
-/*    12470:	50880004 */ 	beql	$a0,$t0,.L00012484
-/*    12474:	8c640004 */ 	lw	$a0,0x4($v1)
-/*    12478:	03e00008 */ 	jr	$ra
-/*    1247c:	24020002 */ 	addiu	$v0,$zero,0x2
-/*    12480:	8c640004 */ 	lw	$a0,0x4($v1)
-.L00012484:
-/*    12484:	8c690010 */ 	lw	$t1,0x10($v1)
-/*    12488:	8faa0004 */ 	lw	$t2,0x4($sp)
-/*    1248c:	00891023 */ 	subu	$v0,$a0,$t1
-/*    12490:	01422823 */ 	subu	$a1,$t2,$v0
-/*    12494:	1ca00009 */ 	bgtz	$a1,.L000124bc
-/*    12498:	0085c021 */ 	addu	$t8,$a0,$a1
-/*    1249c:	00855821 */ 	addu	$t3,$a0,$a1
-/*    124a0:	256d000f */ 	addiu	$t5,$t3,0xf
-/*    124a4:	35ae000f */ 	ori	$t6,$t5,0xf
-/*    124a8:	ac6b0004 */ 	sw	$t3,0x4($v1)
-/*    124ac:	39cf000f */ 	xori	$t7,$t6,0xf
-/*    124b0:	ac6f0004 */ 	sw	$t7,0x4($v1)
-/*    124b4:	03e00008 */ 	jr	$ra
-/*    124b8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L000124bc:
-/*    124bc:	ac780004 */ 	sw	$t8,0x4($v1)
-/*    124c0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    124c4:	03e00008 */ 	jr	$ra
-/*    124c8:	00000000 */ 	nop
-);
+/**
+ * Reallocate the given allocation in the given pool.
+ * The pointer will remain unchanged.
+ *
+ * The allocation must be the most recent allocation.
+ *
+ * @dangerous: This function does not check the limits of the memory pool.
+ * If it allocates past the end of the pool it could lead to memory corruption.
+ */
+s32 memReallocate(u32 allocation, s32 newsize, u8 poolnum)
+{
+	struct memorypool *pool = &g_PrimaryMemoryPools[poolnum];
+	s32 origsize;
+	s32 growsize;
+
+	if (pool->prevallocation != allocation) {
+		pool = &g_SecondaryMemoryPools[poolnum];
+
+		if (pool->prevallocation != allocation) {
+			return 2;
+		}
+	}
+
+	origsize = pool->nextallocation - pool->prevallocation;
+	growsize = newsize - origsize;
+
+	if (growsize <= 0) {
+		pool->nextallocation += growsize;
+		pool->nextallocation = ALIGN16(pool->nextallocation);
+		return 1;
+	}
+
+	pool->nextallocation += growsize;
+	return 1;
+}
 
 void func000124cc(void)
 {

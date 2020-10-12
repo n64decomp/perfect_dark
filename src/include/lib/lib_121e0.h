@@ -9,7 +9,7 @@ u32 memGetPool4Available(void);
 u32 memGetNextPool4Allocation(void);
 u32 memAllocFromBank(struct memorypool *pool, u32 size, u8 poolnum);
 void *malloc(u32 len, u8 pool);
-void func00012430(void *ptr, u32 len, u8 pool);
+s32 memReallocate(u32 allocation, s32 size, u8 poolnum);
 u32 memGetFree(u8 poolnum, bool secondary);
 void memResetPool(u8 pool);
 void memDisablePool(u8 pool);
