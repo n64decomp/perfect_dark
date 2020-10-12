@@ -255,27 +255,13 @@ void func00012528(u8 pool)
 	g_SecondaryMemoryPools[pool].unk10 = NULL;
 }
 
-GLOBAL_ASM(
-glabel func00012594
-/*    12594:	308e00ff */ 	andi	$t6,$a0,0xff
-/*    12598:	000e1080 */ 	sll	$v0,$t6,0x2
-/*    1259c:	004e1021 */ 	addu	$v0,$v0,$t6
-/*    125a0:	00021080 */ 	sll	$v0,$v0,0x2
-/*    125a4:	3c0f800a */ 	lui	$t7,%hi(g_PrimaryMemoryPools)
-/*    125a8:	3c18800a */ 	lui	$t8,%hi(g_SecondaryMemoryPools)
-/*    125ac:	25ef9300 */ 	addiu	$t7,$t7,%lo(g_PrimaryMemoryPools)
-/*    125b0:	271893b8 */ 	addiu	$t8,$t8,%lo(g_SecondaryMemoryPools)
-/*    125b4:	004f1821 */ 	addu	$v1,$v0,$t7
-/*    125b8:	00582821 */ 	addu	$a1,$v0,$t8
-/*    125bc:	8c79000c */ 	lw	$t9,0xc($v1)
-/*    125c0:	8ca8000c */ 	lw	$t0,0xc($a1)
-/*    125c4:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    125c8:	ac600004 */ 	sw	$zero,0x4($v1)
-/*    125cc:	aca00004 */ 	sw	$zero,0x4($a1)
-/*    125d0:	ac790008 */ 	sw	$t9,0x8($v1)
-/*    125d4:	03e00008 */ 	jr	$ra
-/*    125d8:	aca80008 */ 	sw	$t0,0x8($a1)
-);
+void func00012594(u8 pool)
+{
+	g_PrimaryMemoryPools[pool].unk04 = NULL;
+	g_SecondaryMemoryPools[pool].unk04 = NULL;
+	g_PrimaryMemoryPools[pool].unk08 = g_PrimaryMemoryPools[pool].unk0c;
+	g_SecondaryMemoryPools[pool].unk08 = g_SecondaryMemoryPools[pool].unk0c;
+}
 
 GLOBAL_ASM(
 glabel func000125dc
