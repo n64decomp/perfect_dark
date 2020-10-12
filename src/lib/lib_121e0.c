@@ -225,32 +225,18 @@ glabel func00012430
 /*    124d0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func000124d4
-/*    124d4:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    124d8:	308e00ff */ 	andi	$t6,$a0,0xff
-/*    124dc:	14a00008 */ 	bnez	$a1,.L00012500
-/*    124e0:	01c02025 */ 	or	$a0,$t6,$zero
-/*    124e4:	000e7880 */ 	sll	$t7,$t6,0x2
-/*    124e8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*    124ec:	3c18800a */ 	lui	$t8,%hi(g_PrimaryMemoryPools)
-/*    124f0:	27189300 */ 	addiu	$t8,$t8,%lo(g_PrimaryMemoryPools)
-/*    124f4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    124f8:	10000007 */ 	b	.L00012518
-/*    124fc:	01f81821 */ 	addu	$v1,$t7,$t8
-.L00012500:
-/*    12500:	0004c880 */ 	sll	$t9,$a0,0x2
-/*    12504:	0324c821 */ 	addu	$t9,$t9,$a0
-/*    12508:	3c08800a */ 	lui	$t0,%hi(g_SecondaryMemoryPools)
-/*    1250c:	250893b8 */ 	addiu	$t0,$t0,%lo(g_SecondaryMemoryPools)
-/*    12510:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    12514:	03281821 */ 	addu	$v1,$t9,$t0
-.L00012518:
-/*    12518:	8c690008 */ 	lw	$t1,0x8($v1)
-/*    1251c:	8c6a0004 */ 	lw	$t2,0x4($v1)
-/*    12520:	03e00008 */ 	jr	$ra
-/*    12524:	012a1023 */ 	subu	$v0,$t1,$t2
-);
+s32 func000124d4(u8 poolnum, bool secondary)
+{
+	struct memorypool *pool;
+
+	if (!secondary) {
+		pool = &g_PrimaryMemoryPools[poolnum];
+	} else {
+		pool = &g_SecondaryMemoryPools[poolnum];
+	}
+
+	return (u32)pool->unk08 - (u32)pool->unk04;
+}
 
 /**
  * Suspected to be either initialising or freeing a pool.
