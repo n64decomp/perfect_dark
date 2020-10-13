@@ -542,7 +542,7 @@ extern u8 *var8009cca0;
 extern u8 *var8009cca8[2];
 extern u8 *var8009ccb0[2];
 extern u32 var8009ccb8;
-extern u32 var8009ccc0;
+extern void *var8009ccc0[20];
 extern s32 g_NumChrsC;
 extern s16 *g_ChrnumsC;
 extern s16 *g_ChrIndexesC;

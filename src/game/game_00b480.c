@@ -54,82 +54,38 @@ glabel func0f00b480
 /*  f00b50c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f00b510
-/*  f00b510:	3c013f80 */ 	lui	$at,0x3f80
-/*  f00b514:	44812000 */ 	mtc1	$at,$f4
-/*  f00b518:	3c018006 */ 	lui	$at,%hi(var80062968)
-/*  f00b51c:	240e1388 */ 	addiu	$t6,$zero,0x1388
-/*  f00b520:	e4242968 */ 	swc1	$f4,%lo(var80062968)($at)
-/*  f00b524:	3c018006 */ 	lui	$at,%hi(var8006296c)
-/*  f00b528:	ac20296c */ 	sw	$zero,%lo(var8006296c)($at)
-/*  f00b52c:	3c018006 */ 	lui	$at,%hi(var80062970)
-/*  f00b530:	ac202970 */ 	sw	$zero,%lo(var80062970)($at)
-/*  f00b534:	3c018006 */ 	lui	$at,%hi(var80062974)
-/*  f00b538:	ac202974 */ 	sw	$zero,%lo(var80062974)($at)
-/*  f00b53c:	3c018006 */ 	lui	$at,%hi(var80062978)
-/*  f00b540:	ac202978 */ 	sw	$zero,%lo(var80062978)($at)
-/*  f00b544:	3c018006 */ 	lui	$at,%hi(var8006297c)
-/*  f00b548:	ac20297c */ 	sw	$zero,%lo(var8006297c)($at)
-/*  f00b54c:	3c018006 */ 	lui	$at,%hi(g_NextChrId)
-/*  f00b550:	ac2e2984 */ 	sw	$t6,%lo(g_NextChrId)($at)
-/*  f00b554:	3c018006 */ 	lui	$at,%hi(g_ChrsA)
-/*  f00b558:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f00b55c:	ac202988 */ 	sw	$zero,%lo(g_ChrsA)($at)
-/*  f00b560:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f00b564:	3c018006 */ 	lui	$at,%hi(g_NumChrsA)
-/*  f00b568:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f00b56c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f00b570:	ac20298c */ 	sw	$zero,%lo(g_NumChrsA)($at)
-/*  f00b574:	24040730 */ 	addiu	$a0,$zero,0x730
-/*  f00b578:	0c0048f2 */ 	jal	malloc
-/*  f00b57c:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f00b580:	3c048006 */ 	lui	$a0,%hi(var80062a8c)
-/*  f00b584:	24842a8c */ 	addiu	$a0,$a0,%lo(var80062a8c)
-/*  f00b588:	ac820000 */ 	sw	$v0,0x0($a0)
-/*  f00b58c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f00b590:
-/*  f00b590:	8c8f0000 */ 	lw	$t7,0x0($a0)
-/*  f00b594:	01e3c021 */ 	addu	$t8,$t7,$v1
-/*  f00b598:	2463005c */ 	addiu	$v1,$v1,0x5c
-/*  f00b59c:	28610730 */ 	slti	$at,$v1,0x730
-/*  f00b5a0:	1420fffb */ 	bnez	$at,.L0f00b590
-/*  f00b5a4:	af000000 */ 	sw	$zero,0x0($t8)
-/*  f00b5a8:	3c018006 */ 	lui	$at,%hi(var80062a90)
-/*  f00b5ac:	ac202a90 */ 	sw	$zero,%lo(var80062a90)($at)
-/*  f00b5b0:	3c01800a */ 	lui	$at,%hi(g_NumChrsC)
-/*  f00b5b4:	ac20cd10 */ 	sw	$zero,%lo(g_NumChrsC)($at)
-/*  f00b5b8:	3c01800a */ 	lui	$at,%hi(g_ChrnumsC)
-/*  f00b5bc:	ac20cd14 */ 	sw	$zero,%lo(g_ChrnumsC)($at)
-/*  f00b5c0:	3c01800a */ 	lui	$at,%hi(g_ChrIndexesC)
-/*  f00b5c4:	ac20cd18 */ 	sw	$zero,%lo(g_ChrIndexesC)($at)
-/*  f00b5c8:	24041470 */ 	addiu	$a0,$zero,0x1470
-/*  f00b5cc:	0c0048f2 */ 	jal	malloc
-/*  f00b5d0:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f00b5d4:	3c018006 */ 	lui	$at,%hi(var80062960)
-/*  f00b5d8:	3c10800a */ 	lui	$s0,%hi(var8009ccc0)
-/*  f00b5dc:	3c11800a */ 	lui	$s1,%hi(g_NumChrsC)
-/*  f00b5e0:	ac222960 */ 	sw	$v0,%lo(var80062960)($at)
-/*  f00b5e4:	2631cd10 */ 	addiu	$s1,$s1,%lo(g_NumChrsC)
-/*  f00b5e8:	2610ccc0 */ 	addiu	$s0,$s0,%lo(var8009ccc0)
-.L0f00b5ec:
-/*  f00b5ec:	24040240 */ 	addiu	$a0,$zero,0x240
-/*  f00b5f0:	0c0048f2 */ 	jal	malloc
-/*  f00b5f4:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f00b5f8:	2459003f */ 	addiu	$t9,$v0,0x3f
-/*  f00b5fc:	3728003f */ 	ori	$t0,$t9,0x3f
-/*  f00b600:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f00b604:	3909003f */ 	xori	$t1,$t0,0x3f
-/*  f00b608:	1611fff8 */ 	bne	$s0,$s1,.L0f00b5ec
-/*  f00b60c:	ae09fffc */ 	sw	$t1,-0x4($s0)
-/*  f00b610:	0fc02edc */ 	jal	resetSomeStageThings
-/*  f00b614:	00000000 */ 	nop
-/*  f00b618:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f00b61c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f00b620:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f00b624:	03e00008 */ 	jr	$ra
-/*  f00b628:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void func0f00b510(void)
+{
+	s32 i;
+
+	var80062968 = 1;
+	var8006296c = 0;
+	var80062970 = 0;
+	var80062974 = 0;
+	var80062978 = 0;
+	var8006297c = 0;
+	g_NextChrId = 5000;
+	g_ChrsA = NULL;
+	g_NumChrsA = 0;
+
+	var80062a8c = malloc(sizeof(struct var80062a8c) * 20, 4);
+
+	for (i = 0; i < 20; i++) {
+		var80062a8c[i].prop = NULL;
+	}
+
+	var80062a90 = 0;
+	g_NumChrsC = 0;
+	g_ChrnumsC = NULL;
+	g_ChrIndexesC = NULL;
+	var80062960 = malloc(0x1470, 4);
+
+	for (i = 0; i < 20; i++) {
+		var8009ccc0[i] = (void *)ALIGN64(malloc(0x240, 4));
+	}
+
+	resetSomeStageThings();
+}
 
 GLOBAL_ASM(
 glabel func0f00b62c
