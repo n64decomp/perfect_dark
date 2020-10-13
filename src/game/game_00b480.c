@@ -9,50 +9,29 @@
 #include "game/data/data_02da90.h"
 #include "game/game_00b320.h"
 #include "game/game_00b820.h"
+#include "game/title.h"
 #include "gvars/gvars.h"
 #include "lib/lib_121e0.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f00b480
-/*  f00b480:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f00b484:	3c018006 */ 	lui	$at,%hi(g_TitleMode)
-/*  f00b488:	ac2224b4 */ 	sw	$v0,%lo(g_TitleMode)($at)
-/*  f00b48c:	3c018006 */ 	lui	$at,%hi(var800624d4)
-/*  f00b490:	ac2024d4 */ 	sw	$zero,%lo(var800624d4)($at)
-/*  f00b494:	3c018006 */ 	lui	$at,%hi(var800624d8)
-/*  f00b498:	ac2024d8 */ 	sw	$zero,%lo(var800624d8)($at)
-/*  f00b49c:	3c018006 */ 	lui	$at,%hi(var800624dc)
-/*  f00b4a0:	ac2024dc */ 	sw	$zero,%lo(var800624dc)($at)
-/*  f00b4a4:	3c018006 */ 	lui	$at,%hi(g_TitleDelayedTimer)
-/*  f00b4a8:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f00b4ac:	ac2e24bc */ 	sw	$t6,%lo(g_TitleDelayedTimer)($at)
-/*  f00b4b0:	3c188006 */ 	lui	$t8,%hi(var800624f0)
-/*  f00b4b4:	8f1824f0 */ 	lw	$t8,%lo(var800624f0)($t8)
-/*  f00b4b8:	3c018006 */ 	lui	$at,%hi(g_TitleDelayedMode)
-/*  f00b4bc:	ac2224c0 */ 	sw	$v0,%lo(g_TitleDelayedMode)($at)
-/*  f00b4c0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f00b4c4:	3c018006 */ 	lui	$at,%hi(var800624f4)
-/*  f00b4c8:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f00b4cc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f00b4d0:	13000004 */ 	beqz	$t8,.L0f00b4e4
-/*  f00b4d4:	ac2f24f4 */ 	sw	$t7,%lo(var800624f4)($at)
-/*  f00b4d8:	24190005 */ 	addiu	$t9,$zero,0x5
-/*  f00b4dc:	3c018006 */ 	lui	$at,%hi(g_TitleNextMode)
-/*  f00b4e0:	ac3924b8 */ 	sw	$t9,%lo(g_TitleNextMode)($at)
-.L0f00b4e4:
-/*  f00b4e4:	3c040004 */ 	lui	$a0,0x4
-/*  f00b4e8:	34847800 */ 	ori	$a0,$a0,0x7800
-/*  f00b4ec:	0c0048f2 */ 	jal	malloc
-/*  f00b4f0:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f00b4f4:	3c01800a */ 	lui	$at,%hi(var8009cca0)
-/*  f00b4f8:	0fc02d08 */ 	jal	func0f00b420
-/*  f00b4fc:	ac22cca0 */ 	sw	$v0,%lo(var8009cca0)($at)
-/*  f00b500:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00b504:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f00b508:	03e00008 */ 	jr	$ra
-/*  f00b50c:	00000000 */ 	nop
-);
+void func0f00b480(void)
+{
+	g_TitleMode = -1;
+	var800624d4 = 0;
+	var800624d8 = 0;
+	var800624dc = 0;
+	g_TitleDelayedTimer = 2;
+	g_TitleDelayedMode = -1;
+	var800624f4 = 1;
+
+	if (var800624f0) {
+		g_TitleNextMode = TITLEMODE_SKIP;
+	}
+
+	var8009cca0 = malloc(0x47800, 4);
+
+	func0f00b420();
+}
 
 void func0f00b510(void)
 {

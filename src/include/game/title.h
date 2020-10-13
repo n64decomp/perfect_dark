@@ -3,6 +3,10 @@
 #include <ultra64.h>
 #include "types.h"
 
+extern u32 var800624d4;
+extern u32 var800624d8;
+extern u32 var800624dc;
+
 char *mpPlayerGetWeaponOfChoiceName(u32 playernum, u32 slot);
 u32 func0f01616c(void);
 void titleInitLegal(void);
