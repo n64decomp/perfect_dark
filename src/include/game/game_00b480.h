@@ -5,6 +5,6 @@
 
 void func0f00b480(void);
 void func0f00b510(void);
-u32 func0f00b62c(void);
+void func0f00b62c(s32 numchrs);
 
 #endif
