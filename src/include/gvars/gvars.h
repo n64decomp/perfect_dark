@@ -571,7 +571,7 @@ extern u32 var8009ce68;
 extern u32 var8009ce6c;
 extern u32 var8009ce78;
 extern u32 var8009ce88;
-extern u32 var8009ce98;
+extern struct monitorscreen var8009ce98;
 extern u32 var8009cf10;
 extern u32 var8009cf88;
 extern struct stagesetup g_StageSetup;

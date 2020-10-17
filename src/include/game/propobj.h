@@ -192,7 +192,7 @@ u32 func0f07e474(struct prop *prop);
 s32 objTick(struct prop *prop);
 u32 func0f07f6d0(void);
 u32 func0f07f918(void);
-u32 imageSlotSetImage(struct image *image, u32 arg1, struct defaultobj *obj);
+void imageSlotSetImage(struct monitorscreen *screen, u32 arg1);
 u32 func0f07fbf0(void);
 u32 func0f07fbf8(void);
 u32 func0f0809c4(void);

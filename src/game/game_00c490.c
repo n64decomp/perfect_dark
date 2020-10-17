@@ -1890,106 +1890,22 @@ glabel var7f1a8058
 /*  f00e080:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel setupMultiMonitor
-/*  f00e084:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f00e088:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f00e08c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f00e090:	3c0e800a */ 	lui	$t6,%hi(var8009ce98)
-/*  f00e094:	25cece98 */ 	addiu	$t6,$t6,%lo(var8009ce98)
-/*  f00e098:	2484005c */ 	addiu	$a0,$a0,0x5c
-/*  f00e09c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f00e0a0:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f00e0a4:	00804025 */ 	or	$t0,$a0,$zero
-/*  f00e0a8:	25d9006c */ 	addiu	$t9,$t6,0x6c
-.L0f00e0ac:
-/*  f00e0ac:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f00e0b0:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f00e0b4:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f00e0b8:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f00e0bc:	8dc1fff8 */ 	lw	$at,-0x8($t6)
-/*  f00e0c0:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f00e0c4:	8dc1fffc */ 	lw	$at,-0x4($t6)
-/*  f00e0c8:	15d9fff8 */ 	bne	$t6,$t9,.L0f00e0ac
-/*  f00e0cc:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f00e0d0:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f00e0d4:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f00e0d8:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f00e0dc:	ad190004 */ 	sw	$t9,0x4($t0)
-/*  f00e0e0:	0fc1fe49 */ 	jal	imageSlotSetImage
-/*  f00e0e4:	9205022c */ 	lbu	$a1,0x22c($s0)
-/*  f00e0e8:	3c09800a */ 	lui	$t1,%hi(var8009ce98)
-/*  f00e0ec:	2529ce98 */ 	addiu	$t1,$t1,%lo(var8009ce98)
-/*  f00e0f0:	260400d0 */ 	addiu	$a0,$s0,0xd0
-/*  f00e0f4:	00806825 */ 	or	$t5,$a0,$zero
-/*  f00e0f8:	252c006c */ 	addiu	$t4,$t1,0x6c
-.L0f00e0fc:
-/*  f00e0fc:	8d210000 */ 	lw	$at,0x0($t1)
-/*  f00e100:	2529000c */ 	addiu	$t1,$t1,0xc
-/*  f00e104:	25ad000c */ 	addiu	$t5,$t5,0xc
-/*  f00e108:	ada1fff4 */ 	sw	$at,-0xc($t5)
-/*  f00e10c:	8d21fff8 */ 	lw	$at,-0x8($t1)
-/*  f00e110:	ada1fff8 */ 	sw	$at,-0x8($t5)
-/*  f00e114:	8d21fffc */ 	lw	$at,-0x4($t1)
-/*  f00e118:	152cfff8 */ 	bne	$t1,$t4,.L0f00e0fc
-/*  f00e11c:	ada1fffc */ 	sw	$at,-0x4($t5)
-/*  f00e120:	8d210000 */ 	lw	$at,0x0($t1)
-/*  f00e124:	ada10000 */ 	sw	$at,0x0($t5)
-/*  f00e128:	8d2c0004 */ 	lw	$t4,0x4($t1)
-/*  f00e12c:	adac0004 */ 	sw	$t4,0x4($t5)
-/*  f00e130:	0fc1fe49 */ 	jal	imageSlotSetImage
-/*  f00e134:	9205022d */ 	lbu	$a1,0x22d($s0)
-/*  f00e138:	3c18800a */ 	lui	$t8,%hi(var8009ce98)
-/*  f00e13c:	2718ce98 */ 	addiu	$t8,$t8,%lo(var8009ce98)
-/*  f00e140:	26040144 */ 	addiu	$a0,$s0,0x144
-/*  f00e144:	00804025 */ 	or	$t0,$a0,$zero
-/*  f00e148:	270e006c */ 	addiu	$t6,$t8,0x6c
-.L0f00e14c:
-/*  f00e14c:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f00e150:	2718000c */ 	addiu	$t8,$t8,0xc
-/*  f00e154:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f00e158:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f00e15c:	8f01fff8 */ 	lw	$at,-0x8($t8)
-/*  f00e160:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f00e164:	8f01fffc */ 	lw	$at,-0x4($t8)
-/*  f00e168:	170efff8 */ 	bne	$t8,$t6,.L0f00e14c
-/*  f00e16c:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f00e170:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f00e174:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f00e178:	8f0e0004 */ 	lw	$t6,0x4($t8)
-/*  f00e17c:	ad0e0004 */ 	sw	$t6,0x4($t0)
-/*  f00e180:	0fc1fe49 */ 	jal	imageSlotSetImage
-/*  f00e184:	9205022e */ 	lbu	$a1,0x22e($s0)
-/*  f00e188:	3c0b800a */ 	lui	$t3,%hi(var8009ce98)
-/*  f00e18c:	256bce98 */ 	addiu	$t3,$t3,%lo(var8009ce98)
-/*  f00e190:	260401b8 */ 	addiu	$a0,$s0,0x1b8
-/*  f00e194:	00806825 */ 	or	$t5,$a0,$zero
-/*  f00e198:	2569006c */ 	addiu	$t1,$t3,0x6c
-.L0f00e19c:
-/*  f00e19c:	8d610000 */ 	lw	$at,0x0($t3)
-/*  f00e1a0:	256b000c */ 	addiu	$t3,$t3,0xc
-/*  f00e1a4:	25ad000c */ 	addiu	$t5,$t5,0xc
-/*  f00e1a8:	ada1fff4 */ 	sw	$at,-0xc($t5)
-/*  f00e1ac:	8d61fff8 */ 	lw	$at,-0x8($t3)
-/*  f00e1b0:	ada1fff8 */ 	sw	$at,-0x8($t5)
-/*  f00e1b4:	8d61fffc */ 	lw	$at,-0x4($t3)
-/*  f00e1b8:	1569fff8 */ 	bne	$t3,$t1,.L0f00e19c
-/*  f00e1bc:	ada1fffc */ 	sw	$at,-0x4($t5)
-/*  f00e1c0:	8d610000 */ 	lw	$at,0x0($t3)
-/*  f00e1c4:	ada10000 */ 	sw	$at,0x0($t5)
-/*  f00e1c8:	8d690004 */ 	lw	$t1,0x4($t3)
-/*  f00e1cc:	ada90004 */ 	sw	$t1,0x4($t5)
-/*  f00e1d0:	0fc1fe49 */ 	jal	imageSlotSetImage
-/*  f00e1d4:	9205022f */ 	lbu	$a1,0x22f($s0)
-/*  f00e1d8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f00e1dc:	0fc033b9 */ 	jal	setupGenericObject
-/*  f00e1e0:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f00e1e4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f00e1e8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f00e1ec:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f00e1f0:	03e00008 */ 	jr	$ra
-/*  f00e1f4:	00000000 */ 	nop
-);
+void setupMultiMonitor(struct multimonitorobj *monitor, s32 cmdindex)
+{
+	monitor->screens[0] = var8009ce98;
+	imageSlotSetImage(&monitor->screens[0], monitor->imagenums[0]);
+
+	monitor->screens[1] = var8009ce98;
+	imageSlotSetImage(&monitor->screens[1], monitor->imagenums[1]);
+
+	monitor->screens[2] = var8009ce98;
+	imageSlotSetImage(&monitor->screens[2], monitor->imagenums[2]);
+
+	monitor->screens[3] = var8009ce98;
+	imageSlotSetImage(&monitor->screens[3], monitor->imagenums[3]);
+
+	setupGenericObject(&monitor->base, cmdindex);
+}
 
 s32 func0f00e1f8(s32 padnum)
 {
