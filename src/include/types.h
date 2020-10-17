@@ -274,7 +274,7 @@ struct model08 { // raw model file data
 	f32 unk10;
 };
 
-struct model0c {
+struct model0c { // matrix
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
@@ -297,11 +297,11 @@ struct model {
 	/*0x01*/ u8 unk01;
 	/*0x04*/ struct chrdata *chr;
 	/*0x08*/ struct model08 *unk08;
-	/*0x0c*/ struct model0c *unk0c;
+	/*0x0c*/ struct model0c *unk0c; // matrix
 	/*0x10*/ void *datas; // array of pointers to modeldata structs
 	/*0x14*/ f32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
+	/*0x18*/ struct model *attachedto;
+	/*0x1c*/ struct modelnode *unk1c;
 	/*0x20*/ struct anim *anim;
 };
 
@@ -1284,27 +1284,11 @@ struct weaponobj { // objtype 0x08
 };
 
 struct singlemonitorobj { // objtype 0x0a
-	/*0x00*/ u16 extrascale;
-	/*0x02*/ u8 hidden2;
-	/*0x03*/ u8 type;
-	/*0x04*/ u16 obj;
-	/*0x06*/ u16 pad;
-	/*0x08*/ u32 flags;
-	/*0x0c*/ u32 flags2;
-	/*0x10*/ u32 flags3;
-	/*0x14*/ struct prop *prop;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ f32 realrot[9];
-	/*0x40*/ u32 hidden;
-	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
-	/*0x4c*/ s16 damage;
-	/*0x4e*/ u16 maxdamage;
-	/*0x50*/ u32 shadecol;
-	/*0x54*/ u32 nextcol;
-	/*0x58*/ u16 floorcol;
-	/*0x5a*/ u8 numtiles;
+	struct defaultobj base;
 	/*0x5c*/ struct monitorscreen screen;
+	/*0xd0*/ s16 owneroffset;
+	/*0xd2*/ s8 ownerpart;
+	/*0xd3*/ u8 imagenum;
 };
 
 struct multimonitorobj { // objtype 0x0b

@@ -2115,6 +2115,7 @@
 #define OBJFLAG_08000000            0x08000000 // Not used in scripts
 #define OBJFLAG_DEACTIVATED         0x10000000
 #define OBJFLAG_20000000            0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
+#define OBJFLAG_40000000            0x40000000
 #define OBJFLAG_DOOR_KEEPOPEN       0x40000000 // Editor: "Door open by default/Empty weapon"
 #define OBJFLAG_LIFT_TRIGGERDISABLE 0x40000000
 #define OBJFLAG_CHOPPER_INACTIVE    0x80000000 // Or lift disabled, or hovercar something
@@ -2400,6 +2401,7 @@
 #define PORTALMODE_SHOW 0
 #define PORTALMODE_HIDE 1
 
+#define PROPFLAG_01       0x01
 #define PROPFLAG_02       0x02
 #define PROPFLAG_TANGIBLE 0x04
 #define PROPFLAG_08       0x08

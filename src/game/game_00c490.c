@@ -1626,202 +1626,70 @@ void setupHangingMonitors(struct hangingmonitorsobj *monitors, s32 cmdindex)
 	setupGenericObject(&monitors->base, cmdindex);
 }
 
-GLOBAL_ASM(
-glabel setupSingleMonitor
-.late_rodata
-glabel var7f1a8058
-.word 0x3ebba0c0
-.text
-/*  f00ddbc:	27bdff38 */ 	addiu	$sp,$sp,-200
-/*  f00ddc0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f00ddc4:	00808025 */ 	or	$s0,$a0,$zero
-/*  f00ddc8:	3c0e800a */ 	lui	$t6,%hi(var8009ce98)
-/*  f00ddcc:	25cece98 */ 	addiu	$t6,$t6,%lo(var8009ce98)
-/*  f00ddd0:	2484005c */ 	addiu	$a0,$a0,0x5c
-/*  f00ddd4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f00ddd8:	afa500cc */ 	sw	$a1,0xcc($sp)
-/*  f00dddc:	00804025 */ 	or	$t0,$a0,$zero
-/*  f00dde0:	25d9006c */ 	addiu	$t9,$t6,0x6c
-.L0f00dde4:
-/*  f00dde4:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f00dde8:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f00ddec:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f00ddf0:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f00ddf4:	8dc1fff8 */ 	lw	$at,-0x8($t6)
-/*  f00ddf8:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f00ddfc:	8dc1fffc */ 	lw	$at,-0x4($t6)
-/*  f00de00:	15d9fff8 */ 	bne	$t6,$t9,.L0f00dde4
-/*  f00de04:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f00de08:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f00de0c:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f00de10:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f00de14:	ad190004 */ 	sw	$t9,0x4($t0)
-/*  f00de18:	0fc1fe49 */ 	jal	imageSlotSetImage
-/*  f00de1c:	920500d3 */ 	lbu	$a1,0xd3($s0)
-/*  f00de20:	86090006 */ 	lh	$t1,0x6($s0)
-/*  f00de24:	8fa500cc */ 	lw	$a1,0xcc($sp)
-/*  f00de28:	05210085 */ 	bgez	$t1,.L0f00e040
-/*  f00de2c:	00000000 */ 	nop
-/*  f00de30:	8e0a0008 */ 	lw	$t2,0x8($s0)
-/*  f00de34:	314b8000 */ 	andi	$t3,$t2,0x8000
-/*  f00de38:	15600081 */ 	bnez	$t3,.L0f00e040
-/*  f00de3c:	00000000 */ 	nop
-/*  f00de40:	860c0004 */ 	lh	$t4,0x4($s0)
-/*  f00de44:	afac00bc */ 	sw	$t4,0xbc($sp)
-/*  f00de48:	860d00d0 */ 	lh	$t5,0xd0($s0)
-/*  f00de4c:	0fc24801 */ 	jal	setupGetPtrToCommandByIndex
-/*  f00de50:	01a52021 */ 	addu	$a0,$t5,$a1
-/*  f00de54:	afa200b8 */ 	sw	$v0,0xb8($sp)
-/*  f00de58:	0fc2486d */ 	jal	propLoad
-/*  f00de5c:	8fa400bc */ 	lw	$a0,0xbc($sp)
-/*  f00de60:	96180000 */ 	lhu	$t8,0x0($s0)
-/*  f00de64:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f00de68:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f00de6c:	44982000 */ 	mtc1	$t8,$f4
-/*  f00de70:	3c014f80 */ 	lui	$at,0x4f80
-/*  f00de74:	07010004 */ 	bgez	$t8,.L0f00de88
-/*  f00de78:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f00de7c:	44814000 */ 	mtc1	$at,$f8
-/*  f00de80:	00000000 */ 	nop
-/*  f00de84:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f00de88:
-/*  f00de88:	3c013b80 */ 	lui	$at,0x3b80
-/*  f00de8c:	44815000 */ 	mtc1	$at,$f10
-/*  f00de90:	8c6f0318 */ 	lw	$t7,0x318($v1)
-/*  f00de94:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f00de98:	15e00004 */ 	bnez	$t7,.L0f00deac
-/*  f00de9c:	e7b000b0 */ 	swc1	$f16,0xb0($sp)
-/*  f00dea0:	8c79031c */ 	lw	$t9,0x31c($v1)
-/*  f00dea4:	13200004 */ 	beqz	$t9,.L0f00deb8
-/*  f00dea8:	00000000 */ 	nop
-.L0f00deac:
-/*  f00deac:	920e0002 */ 	lbu	$t6,0x2($s0)
-/*  f00deb0:	35c80004 */ 	ori	$t0,$t6,0x4
-/*  f00deb4:	a2080002 */ 	sb	$t0,0x2($s0)
-.L0f00deb8:
-/*  f00deb8:	0fc1a954 */ 	jal	func0f06a550
-/*  f00debc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f00dec0:	0fc1a1bc */ 	jal	func0f0686f0
-/*  f00dec4:	afa200b4 */ 	sw	$v0,0xb4($sp)
-/*  f00dec8:	ae020048 */ 	sw	$v0,0x48($s0)
-/*  f00decc:	8fa900b4 */ 	lw	$t1,0xb4($sp)
-/*  f00ded0:	5120005e */ 	beqzl	$t1,.L0f00e04c
-/*  f00ded4:	8e020014 */ 	lw	$v0,0x14($s0)
-/*  f00ded8:	5040005c */ 	beqzl	$v0,.L0f00e04c
-/*  f00dedc:	8e020014 */ 	lw	$v0,0x14($s0)
-/*  f00dee0:	8e0b0040 */ 	lw	$t3,0x40($s0)
-/*  f00dee4:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f00dee8:	356c0040 */ 	ori	$t4,$t3,0x40
-/*  f00deec:	ae0c0040 */ 	sw	$t4,0x40($s0)
-/*  f00def0:	c7a400b0 */ 	lwc1	$f4,0xb0($sp)
-/*  f00def4:	c4920014 */ 	lwc1	$f18,0x14($a0)
-/*  f00def8:	46049202 */ 	mul.s	$f8,$f18,$f4
-/*  f00defc:	44054000 */ 	mfc1	$a1,$f8
-/*  f00df00:	0c006bd6 */ 	jal	modelSetUnk14
-/*  f00df04:	00000000 */ 	nop
-/*  f00df08:	8fa300b8 */ 	lw	$v1,0xb8($sp)
-/*  f00df0c:	8e180018 */ 	lw	$t8,0x18($s0)
-/*  f00df10:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f00df14:	8c6d0018 */ 	lw	$t5,0x18($v1)
-/*  f00df18:	af0d0018 */ 	sw	$t5,0x18($t8)
-/*  f00df1c:	820200d2 */ 	lb	$v0,0xd2($s0)
-/*  f00df20:	14400008 */ 	bnez	$v0,.L0f00df44
-/*  f00df24:	00000000 */ 	nop
-/*  f00df28:	8c6f0018 */ 	lw	$t7,0x18($v1)
-/*  f00df2c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f00df30:	0c006a47 */ 	jal	modelGetPart
-/*  f00df34:	8de40008 */ 	lw	$a0,0x8($t7)
-/*  f00df38:	8e190018 */ 	lw	$t9,0x18($s0)
-/*  f00df3c:	1000001a */ 	b	.L0f00dfa8
-/*  f00df40:	af22001c */ 	sw	$v0,0x1c($t9)
-.L0f00df44:
-/*  f00df44:	54410009 */ 	bnel	$v0,$at,.L0f00df6c
-/*  f00df48:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f00df4c:	8c6e0018 */ 	lw	$t6,0x18($v1)
-/*  f00df50:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f00df54:	0c006a47 */ 	jal	modelGetPart
-/*  f00df58:	8dc40008 */ 	lw	$a0,0x8($t6)
-/*  f00df5c:	8e080018 */ 	lw	$t0,0x18($s0)
-/*  f00df60:	10000011 */ 	b	.L0f00dfa8
-/*  f00df64:	ad02001c */ 	sw	$v0,0x1c($t0)
-/*  f00df68:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f00df6c:
-/*  f00df6c:	54410009 */ 	bnel	$v0,$at,.L0f00df94
-/*  f00df70:	8c6b0018 */ 	lw	$t3,0x18($v1)
-/*  f00df74:	8c690018 */ 	lw	$t1,0x18($v1)
-/*  f00df78:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f00df7c:	0c006a47 */ 	jal	modelGetPart
-/*  f00df80:	8d240008 */ 	lw	$a0,0x8($t1)
-/*  f00df84:	8e0a0018 */ 	lw	$t2,0x18($s0)
-/*  f00df88:	10000007 */ 	b	.L0f00dfa8
-/*  f00df8c:	ad42001c */ 	sw	$v0,0x1c($t2)
-/*  f00df90:	8c6b0018 */ 	lw	$t3,0x18($v1)
-.L0f00df94:
-/*  f00df94:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f00df98:	0c006a47 */ 	jal	modelGetPart
-/*  f00df9c:	8d640008 */ 	lw	$a0,0x8($t3)
-/*  f00dfa0:	8e0c0018 */ 	lw	$t4,0x18($s0)
-/*  f00dfa4:	ad82001c */ 	sw	$v0,0x1c($t4)
-.L0f00dfa8:
-/*  f00dfa8:	8fad00b8 */ 	lw	$t5,0xb8($sp)
-/*  f00dfac:	8fa400b4 */ 	lw	$a0,0xb4($sp)
-/*  f00dfb0:	0fc181a6 */ 	jal	propReparent
-/*  f00dfb4:	8da50014 */ 	lw	$a1,0x14($t5)
-/*  f00dfb8:	3c017f1b */ 	lui	$at,%hi(var7f1a8058)
-/*  f00dfbc:	c42c8058 */ 	lwc1	$f12,%lo(var7f1a8058)($at)
-/*  f00dfc0:	0c0058ba */ 	jal	func000162e8
-/*  f00dfc4:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f00dfc8:	8faf00b8 */ 	lw	$t7,0xb8($sp)
-/*  f00dfcc:	8e180018 */ 	lw	$t8,0x18($s0)
-/*  f00dfd0:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f00dfd4:	8df90018 */ 	lw	$t9,0x18($t7)
-/*  f00dfd8:	c7060014 */ 	lwc1	$f6,0x14($t8)
-/*  f00dfdc:	c72a0014 */ 	lwc1	$f10,0x14($t9)
-/*  f00dfe0:	0c0057c1 */ 	jal	func00015f04
-/*  f00dfe4:	460a3303 */ 	div.s	$f12,$f6,$f10
-/*  f00dfe8:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f00dfec:	0c006b43 */ 	jal	modelGetRootPosition
-/*  f00dff0:	27a500a4 */ 	addiu	$a1,$sp,0xa4
-/*  f00dff4:	c7b000a4 */ 	lwc1	$f16,0xa4($sp)
-/*  f00dff8:	c7a400a8 */ 	lwc1	$f4,0xa8($sp)
-/*  f00dffc:	c7a600ac */ 	lwc1	$f6,0xac($sp)
-/*  f00e000:	46008487 */ 	neg.s	$f18,$f16
-/*  f00e004:	46002207 */ 	neg.s	$f8,$f4
-/*  f00e008:	46003287 */ 	neg.s	$f10,$f6
-/*  f00e00c:	e7b200a4 */ 	swc1	$f18,0xa4($sp)
-/*  f00e010:	e7a800a8 */ 	swc1	$f8,0xa8($sp)
-/*  f00e014:	e7aa00ac */ 	swc1	$f10,0xac($sp)
-/*  f00e018:	27a400a4 */ 	addiu	$a0,$sp,0xa4
-/*  f00e01c:	0c0059b7 */ 	jal	func000166dc
-/*  f00e020:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f00e024:	8e060048 */ 	lw	$a2,0x48($s0)
-/*  f00e028:	27a40064 */ 	addiu	$a0,$sp,0x64
-/*  f00e02c:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f00e030:	0c0056f9 */ 	jal	func00015be4
-/*  f00e034:	24c60004 */ 	addiu	$a2,$a2,0x4
-/*  f00e038:	10000004 */ 	b	.L0f00e04c
-/*  f00e03c:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0f00e040:
-/*  f00e040:	0fc033b9 */ 	jal	setupGenericObject
-/*  f00e044:	02002025 */ 	or	$a0,$s0,$zero
-/*  f00e048:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0f00e04c:
-/*  f00e04c:	50400009 */ 	beqzl	$v0,.L0f00e074
-/*  f00e050:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f00e054:	8e0e0008 */ 	lw	$t6,0x8($s0)
-/*  f00e058:	000e4040 */ 	sll	$t0,$t6,0x1
-/*  f00e05c:	05030005 */ 	bgezl	$t0,.L0f00e074
-/*  f00e060:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f00e064:	90490001 */ 	lbu	$t1,0x1($v0)
-/*  f00e068:	352a0001 */ 	ori	$t2,$t1,0x1
-/*  f00e06c:	a04a0001 */ 	sb	$t2,0x1($v0)
-/*  f00e070:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f00e074:
-/*  f00e074:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f00e078:	27bd00c8 */ 	addiu	$sp,$sp,0xc8
-/*  f00e07c:	03e00008 */ 	jr	$ra
-/*  f00e080:	00000000 */ 	nop
-);
+void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
+{
+	u32 stack[2];
+
+	monitor->screen = var8009ce98;
+	imageSlotSetImage(&monitor->screen, monitor->imagenum);
+
+	// The setup files never place any monitors on a -1 pad, so this code is
+	// unreachable. It appears to allow attaching monitors to other objects.
+	if (monitor->base.pad < 0 && (monitor->base.flags & OBJFLAG_00008000) == 0) {
+		s32 modelnum = monitor->base.modelnum;
+		struct defaultobj *owner = (struct defaultobj *)setupGetPtrToCommandByIndex(cmdindex + monitor->owneroffset);
+		struct prop *prop;
+		f32 scale;
+		struct coord spa4;
+		f32 sp64[16];
+		f32 sp24[16];
+
+		propLoad(modelnum);
+
+		scale = monitor->base.extrascale * (1.0f / 256.0f);
+
+		if (g_Vars.normmplayerisrunning || g_Vars.lvmpbotlevel) {
+			monitor->base.hidden2 |= OBJH2FLAG_04;
+		}
+
+		prop = func0f06a550(monitor);
+		monitor->base.unk48 = func0f0686f0();
+
+		if (prop && monitor->base.unk48) {
+			monitor->base.hidden |= OBJHFLAG_00000040;
+			modelSetUnk14(monitor->base.model, monitor->base.model->unk14 * scale);
+			monitor->base.model->attachedto = owner->model;
+
+			if (monitor->ownerpart == 0) {
+				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, 0);
+			} else if (monitor->ownerpart == 1) {
+				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, 1);
+			} else if (monitor->ownerpart == 2) {
+				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, 2);
+			} else {
+				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, 3);
+			}
+
+			propReparent(prop, owner->prop);
+			func000162e8(0.3664608001709f, sp64);
+			func00015f04(monitor->base.model->unk14 / owner->model->unk14, sp64);
+			modelGetRootPosition(monitor->base.model, &spa4);
+
+			spa4.x = -spa4.x;
+			spa4.y = -spa4.y;
+			spa4.z = -spa4.z;
+
+			func000166dc(&spa4, sp24);
+			func00015be4((u32)sp64, (struct model0c *)sp24, (f32 *)&monitor->base.unk48->unk004);
+		}
+	} else {
+		setupGenericObject(&monitor->base, cmdindex);
+	}
+
+	if (monitor->base.prop && (monitor->base.flags & OBJFLAG_40000000)) {
+		monitor->base.prop->flags |= PROPFLAG_01;
+	}
+}
 
 void setupMultiMonitor(struct multimonitorobj *monitor, s32 cmdindex)
 {
