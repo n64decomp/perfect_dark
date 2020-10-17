@@ -20,62 +20,62 @@
 u32 setupGetCommandLength(u32 *cmd)
 {
 	switch ((u8)cmd[0]) {
-	case OBJTYPE_CHR:              return 11;
-	case OBJTYPE_DOOR:             return 55;
-	case OBJTYPE_DOORSCALE:        return 2;
-	case OBJTYPE_BASIC:            return 23;
-	case OBJTYPE_DEBRIS:           return 23;
-	case OBJTYPE_GLASS:            return 24;
-	case OBJTYPE_TINTEDGLASS:      return 26;
-	case OBJTYPE_2B:               return 23;
-	case OBJTYPE_24:               return 23;
-	case OBJTYPE_KEY:              return 24;
-	case OBJTYPE_ALARM:            return 23;
-	case OBJTYPE_CAMERA:           return 49;
-	case OBJTYPE_AMMOCRATE:        return 24;
-	case OBJTYPE_WEAPON:           return 26;
-	case OBJTYPE_SINGLEMONITOR:    return 53;
-	case OBJTYPE_MULTIMONITOR:     return 140;
-	case OBJTYPE_0C:               return 23;
-	case OBJTYPE_AUTOGUN:          return 43;
-	case OBJTYPE_LINKGUNS:         return 2;
-	case OBJTYPE_11:               return 23;
-	case OBJTYPE_12:               return 2;
-	case OBJTYPE_LINKOBJS:         return 5;
-	case OBJTYPE_2C:               return 5;
-	case OBJTYPE_MULTIAMMOCRATE:   return 42;
-	case OBJTYPE_SHIELD:           return 26;
-	case OBJTYPE_TAG:              return 4;
-	case OBJTYPE_RENAMEOBJ:        return 10;
-	case OBJTYPE_BEGINOBJECTIVE:   return 4;
-	case OBJTYPE_ENDOBJECTIVE:     return 1;
-	case OBJECTIVETYPE_DESTROYOBJ: return 2;
-	case OBJECTIVETYPE_COMPFLAGS:  return 2;
-	case OBJECTIVETYPE_FAILFLAGS:  return 2;
-	case OBJECTIVETYPE_COLLECTOBJ: return 2;
-	case OBJECTIVETYPE_THROWOBJ:   return 2;
-	case OBJECTIVETYPE_HOLOGRAPH:  return 4;
-	case OBJECTIVETYPE_1F:         return 1;
-	case OBJECTIVETYPE_ENTERROOM:  return 4;
-	case OBJECTIVETYPE_ATTACHOBJ:  return 5;
-	case OBJTYPE_22:               return 1;
-	case OBJTYPE_BRIEFING:         return 4;
-	case OBJTYPE_26:               return 4;
-	case OBJTYPE_TRUCK:            return 34;
-	case OBJTYPE_HELI:             return 35;
-	case OBJTYPE_2D:               return 32;
-	case OBJTYPE_CAMERA2:          return 7;
-	case OBJTYPE_LIFT:             return 37;
-	case OBJTYPE_LINKSCENERY:      return 5;
-	case OBJTYPE_LINKPATHS:        return 4;
-	case OBJTYPE_HOVERBIKE:        return 56;
-	case OBJTYPE_HOVERPROP:        return 39;
-	case OBJTYPE_FAN:          return 29;
-	case OBJTYPE_HOVERCAR:         return 38;
-	case OBJTYPE_CHOPPER:          return 58;
-	case OBJTYPE_PADEFFECT:        return 3;
-	case OBJTYPE_MINE:             return 26;
-	case OBJTYPE_ESCALATOR:        return 27;
+	case OBJTYPE_CHR:                return 11;
+	case OBJTYPE_DOOR:               return 55;
+	case OBJTYPE_DOORSCALE:          return 2;
+	case OBJTYPE_BASIC:              return 23;
+	case OBJTYPE_DEBRIS:             return 23;
+	case OBJTYPE_GLASS:              return 24;
+	case OBJTYPE_TINTEDGLASS:        return 26;
+	case OBJTYPE_SAFE:               return 23;
+	case OBJTYPE_24:                 return 23;
+	case OBJTYPE_KEY:                return 24;
+	case OBJTYPE_ALARM:              return 23;
+	case OBJTYPE_CAMERA:             return 49;
+	case OBJTYPE_AMMOCRATE:          return 24;
+	case OBJTYPE_WEAPON:             return 26;
+	case OBJTYPE_SINGLEMONITOR:      return 53;
+	case OBJTYPE_MULTIMONITOR:       return 140;
+	case OBJTYPE_HANGINGMONITORS:    return 23;
+	case OBJTYPE_AUTOGUN:            return 43;
+	case OBJTYPE_LINKGUNS:           return 2;
+	case OBJTYPE_HAT:                return 23;
+	case OBJTYPE_GRENADEPROB:        return 2;
+	case OBJTYPE_LINKLIFTDOOR:       return 5;
+	case OBJTYPE_SAFEITEM:           return 5;
+	case OBJTYPE_MULTIAMMOCRATE:     return 42;
+	case OBJTYPE_SHIELD:             return 26;
+	case OBJTYPE_TAG:                return 4;
+	case OBJTYPE_RENAMEOBJ:          return 10;
+	case OBJTYPE_BEGINOBJECTIVE:     return 4;
+	case OBJTYPE_ENDOBJECTIVE:       return 1;
+	case OBJECTIVETYPE_DESTROYOBJ:   return 2;
+	case OBJECTIVETYPE_COMPFLAGS:    return 2;
+	case OBJECTIVETYPE_FAILFLAGS:    return 2;
+	case OBJECTIVETYPE_COLLECTOBJ:   return 2;
+	case OBJECTIVETYPE_THROWOBJ:     return 2;
+	case OBJECTIVETYPE_HOLOGRAPH:    return 4;
+	case OBJECTIVETYPE_1F:           return 1;
+	case OBJECTIVETYPE_ENTERROOM:    return 4;
+	case OBJECTIVETYPE_ATTACHOBJ:    return 5;
+	case OBJTYPE_22:                 return 1;
+	case OBJTYPE_BRIEFING:           return 4;
+	case OBJTYPE_PADLOCKEDDOOR:      return 4;
+	case OBJTYPE_TRUCK:              return 34;
+	case OBJTYPE_HELI:               return 35;
+	case OBJTYPE_2D:                 return 32;
+	case OBJTYPE_CAMERA2:            return 7;
+	case OBJTYPE_LIFT:               return 37;
+	case OBJTYPE_CONDITIONALSCENERY: return 5;
+	case OBJTYPE_BLOCKEDPATH:        return 4;
+	case OBJTYPE_HOVERBIKE:          return 56;
+	case OBJTYPE_HOVERPROP:          return 39;
+	case OBJTYPE_FAN:                return 29;
+	case OBJTYPE_HOVERCAR:           return 38;
+	case OBJTYPE_CHOPPER:            return 58;
+	case OBJTYPE_PADEFFECT:          return 3;
+	case OBJTYPE_MINE:               return 26;
+	case OBJTYPE_ESCALATOR:          return 27;
 	}
 
 	return 1;
@@ -314,10 +314,10 @@ struct defaultobj *setupCommandGetObject(u32 cmdindex)
 		case OBJTYPE_WEAPON:
 		case OBJTYPE_SINGLEMONITOR:
 		case OBJTYPE_MULTIMONITOR:
-		case OBJTYPE_0C:
+		case OBJTYPE_HANGINGMONITORS:
 		case OBJTYPE_AUTOGUN:
 		case OBJTYPE_DEBRIS:
-		case OBJTYPE_11:
+		case OBJTYPE_HAT:
 		case OBJTYPE_MULTIAMMOCRATE:
 		case OBJTYPE_SHIELD:
 		case OBJTYPE_24:
@@ -325,7 +325,7 @@ struct defaultobj *setupCommandGetObject(u32 cmdindex)
 		case OBJTYPE_HELI:
 		case OBJTYPE_29:
 		case OBJTYPE_GLASS:
-		case OBJTYPE_2B:
+		case OBJTYPE_SAFE:
 		case OBJTYPE_2D:
 		case OBJTYPE_TINTEDGLASS:
 		case OBJTYPE_LIFT:
@@ -339,8 +339,8 @@ struct defaultobj *setupCommandGetObject(u32 cmdindex)
 		case OBJTYPE_DOORSCALE:
 		case OBJTYPE_CHR:
 		case OBJTYPE_LINKGUNS:
-		case OBJTYPE_12:
-		case OBJTYPE_LINKOBJS:
+		case OBJTYPE_GRENADEPROB:
+		case OBJTYPE_LINKLIFTDOOR:
 		case OBJTYPE_TAG:
 		case OBJTYPE_BEGINOBJECTIVE:
 		case OBJTYPE_ENDOBJECTIVE:
@@ -356,11 +356,11 @@ struct defaultobj *setupCommandGetObject(u32 cmdindex)
 		case OBJTYPE_22:
 		case OBJTYPE_BRIEFING:
 		case OBJTYPE_RENAMEOBJ:
-		case OBJTYPE_26:
-		case OBJTYPE_2C:
+		case OBJTYPE_PADLOCKEDDOOR:
+		case OBJTYPE_SAFEITEM:
 		case OBJTYPE_CAMERA2:
-		case OBJTYPE_LINKSCENERY:
-		case OBJTYPE_LINKPATHS:
+		case OBJTYPE_CONDITIONALSCENERY:
+		case OBJTYPE_BLOCKEDPATH:
 		case OBJTYPE_PADEFFECT:
 			return NULL;
 		}

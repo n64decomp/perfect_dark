@@ -58,7 +58,7 @@ glabel func0f0109d0
 );
 
 GLOBAL_ASM(
-glabel func0f010a68
+glabel tagInsert
 /*  f010a68:	3c02800a */ 	lui	$v0,%hi(g_TagsLinkedList)
 /*  f010a6c:	2442d0b0 */ 	addiu	$v0,$v0,%lo(g_TagsLinkedList)
 /*  f010a70:	8c4e0000 */ 	lw	$t6,0x0($v0)
@@ -68,7 +68,7 @@ glabel func0f010a68
 );
 
 GLOBAL_ASM(
-glabel func0f010a80
+glabel briefingInsert
 /*  f010a80:	3c02800a */ 	lui	$v0,%hi(var8009d0b4)
 /*  f010a84:	2442d0b4 */ 	addiu	$v0,$v0,%lo(var8009d0b4)
 /*  f010a88:	8c4e0000 */ 	lw	$t6,0x0($v0)

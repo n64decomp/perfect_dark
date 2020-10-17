@@ -1213,7 +1213,7 @@ s32 currentPlayerGetNumInvItems(void)
 
 				if (obj) {
 					if (prop->type == PROPTYPE_WEAPON) {
-						if (obj->hidden & OBJHFLAG_00000400) {
+						if (obj->hidden & OBJHFLAG_HASTEXTOVERRIDE) {
 							numitems++;
 						}
 					} else if (prop->type == PROPTYPE_OBJ) {
@@ -1263,7 +1263,7 @@ struct invitem *currentPlayerGetInvItemByIndex(s32 index)
 
 				if (obj) {
 					if (prop->type == PROPTYPE_WEAPON) {
-						if (obj->hidden & OBJHFLAG_00000400) {
+						if (obj->hidden & OBJHFLAG_HASTEXTOVERRIDE) {
 							if (index == 0) {
 								return item;
 							}
@@ -1319,7 +1319,7 @@ struct textoverride *weaponGetTextOverride(s32 weaponnum)
 	struct textoverride *override = g_Vars.textoverrides;
 
 	while (override) {
-		if (override->unk04 == 0 && override->weapon == weaponnum) {
+		if (override->objoffset == 0 && override->weapon == weaponnum) {
 			return override;
 		}
 

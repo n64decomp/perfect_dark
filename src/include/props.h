@@ -24,8 +24,7 @@
 	u48, u49, u50, u51,
 
 #define door_scale(scale) \
-	0x02, \
-	scale,
+	0x02, scale,
 
 #define stdobject(scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19) \
 	_generic_object(0x03, scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19),
@@ -118,16 +117,18 @@
 	u32, u33, u34, u35, \
 	u36, u37, u38, u39,
 
-#define link_collectibles(a, b) \
-	0x0e, \
-	_mkword(a, b),
+/**
+ * Link two guns together, which allows them to be dual wielded once both have
+ * been collected.
+ */
+#define link_guns(gun1offset, gun2offset) \
+	0x0e, _mkword(gun1offset, gun2offset),
 
 #define debris(scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19) \
 	_generic_object(0x0f, scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19),
 
-#define link_objects(u1, u2, u3, u4) \
-	0x13, \
-	u1, u2, u3, u4,
+#define lift_door(dooroffset, liftoffset, stopnum) \
+	0x13, dooroffset, liftoffset, 0, stopnum,
 
 #define ammocratemulti(scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19, u20, u21, u22, u23, u24, u25, u26, u27, u28, u29, u30, u31, u32, u33, u34, u35, u36, u37, u38) \
 	_generic_object(0x14, scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19), \
@@ -142,81 +143,59 @@
 	u20, u21, u22,
 
 #define tag(id, value) \
-	0x16, \
-	_mkword(id, value), \
-	0, \
-	0,
+	0x16, _mkword(id, value), 0, 0,
 
 #define beginobjective(value, text, diffbit) \
-	0x17, \
-	value, \
-	text, \
-	diffbit,
+	0x17, value, text, diffbit,
 
 #define endobjective \
 	0x18,
 
 #define require_object_destroyed(object) \
-	0x19, \
-	object,
+	0x19, object,
 
 #define complete_flags(stageflag) \
-	0x1a, \
-	stageflag,
+	0x1a, stageflag,
 
 #define fail_flags(stageflag) \
-	0x1b, \
-	stageflag,
+	0x1b, stageflag,
 
 #define require_object_collected(object) \
-	0x1c, \
-	object,
+	0x1c, object,
 
 #define require_object_thrown(object) \
-	0x1d, \
-	object,
+	0x1d, object,
 
 #define require_object_holographed(object, u1, u2) \
-	0x1e, \
-	object, \
-	u1, \
-	u2,
+	0x1e, object, u1, u2,
 
 #define require_room_entered(room) \
-	0x20, \
-	room,
+	0x20, room,
 
 #define require_object_thrown_on_target(throw_object, target_object, u1) \
-	0x21, \
-	throw_object, \
-	target_object, \
-	u1,
+	0x21, throw_object, target_object, u1,
 
-#define briefing(value, text1) \
-	0x23, \
-	value, \
-	text1, \
-	0,
+#define briefing(value, text) \
+	0x23, value, text, 0,
 
 #define rename_object(u1, id, text, text2, text3, text4, text5, u2, u3) \
-	0x25, \
-	u1, \
-	id, \
-	text, \
-	text2, \
-	text3, \
-	text4, \
-	text5, \
-	u2, u3,
+	0x25, u1, id, text, text2, text3, text4, text5, u2, u3,
+
+#define padlocked_door(dooroffset, lockoffset) \
+	0x26, door, lock, 0,
 
 #define glass(scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19, u20) \
 	_generic_object(0x2a, scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19), \
 	u20,
 
+#define safe(scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19) \
+	_generic_object(0x2b, scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19),
+
+#define safeitem(item, safe, door) \
+	0x2c, item, safe, door,
+
 #define camera2(scale, u1, u2, u3, u4, u5, u6) \
-	_mkword(scale, 0x2e), \
-	u1, u2, u3, u4, \
-	u5, u6,
+	_mkword(scale, 0x2e), u1, u2, u3, u4, u5, u6,
 
 #define tinted_glass(scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19, u20, u21, u22) \
 	_generic_object(0x2f, scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19), \
@@ -230,14 +209,30 @@
 	u28, u29, u30, u31, \
 	u32,
 
-#define link_scenery(unk1, unk2, unk3) \
-	0x31, \
-	unk1, unk2, unk3, \
-	0,
+/**
+ * Link some scenery objects together so they can be toggled as a group.
+ *
+ * The three arguments are all offsets to other objects.
+ *
+ * trigger - is the offset to the destructible object.
+ * unexp - will be visible when trigger is healthy.
+ * exp - will be visible when trigger is destroyed.
+ *
+ * Both unexp and exp are optional. Use 0 to disable.
+ *
+ * Note that the trigger itself can disappear when destroyed, so unexp works as
+ * an additional object which should be hidden.
+ */
+#define conditional_scenery(trigger, unexp, exp) \
+	0x31, trigger, unexp, exp, 0,
 
-#define link_paths(u1, u2, u3) \
-	0x32, \
-	u1, u2, u3,
+/**
+ * Define two waypoints which start off unlinked and become linked once an
+ * object is destroyed. It's used to activate a path through exploded walls in
+ * Rescue and Escape.
+ */
+#define blocked_path(objoffset, waypoint1, waypoint2) \
+	0x32, objoffset, _mkword(waypoint1, waypoint2), 0,
 
 #define hoverbike(scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19, u20, u21, u22, u23, u24, u25, u26, u27, u28, u29, u30, u31, u32, u33, u34, u35, u36, u37, u38, u39, u40, u41, u42, u43, u44, u45, u46, u47, u48, u49, u50, u51, u52) \
 	_generic_object(0x33, scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19), \
@@ -274,9 +269,7 @@
 	u32, u33, u34,
 
 #define pad_effect(effect, pad) \
-	0x38, \
-	effect, \
-	pad,
+	0x38, effect, pad,
 
 #define chopper(scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19, u20, u21, u22, u23, u24, u25, u26, u27, u28, u29, u30, u31, u32, u33, u34, u35, u36, u37, u38, u39, u40, u41, u42, u43, u44, u45, u46, u47, u48, u49, u50, u51, u52, u53, u54) \
 	_generic_object(0x39, scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19), \

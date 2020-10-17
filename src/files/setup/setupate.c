@@ -42,10 +42,10 @@ struct stagesetup setup = {
 };
 
 u32 props[] = {
-	briefing(0, L_ATE(1))
-	briefing(1, L_ATE(0))
-	briefing(2, L_ATE(2))
-	briefing(3, L_ATE(3))
+	briefing(BRIEFINGTYPE_LOCATION, L_ATE(1))
+	briefing(BRIEFINGTYPE_TEXT_PA,  L_ATE(0))
+	briefing(BRIEFINGTYPE_TEXT_SA,  L_ATE(2))
+	briefing(BRIEFINGTYPE_TEXT_A,   L_ATE(3))
 
 	beginobjective(0, L_ATE(4), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Defeat dataDyne guard"
 		complete_flags(STAGEFLAG_GUARD_DEAD)

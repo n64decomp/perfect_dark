@@ -74,10 +74,10 @@ struct stagesetup setup = {
 };
 
 u32 props[] = {
-	briefing(0, 0x0a01)
-	briefing(1, 0x0a00)
-	briefing(2, 0x0a02)
-	briefing(3, 0x0a03)
+	briefing(BRIEFINGTYPE_LOCATION, L_AZT(1))
+	briefing(BRIEFINGTYPE_TEXT_PA,  L_AZT(0))
+	briefing(BRIEFINGTYPE_TEXT_SA,  L_AZT(2))
+	briefing(BRIEFINGTYPE_TEXT_A,   L_AZT(3))
 
 	beginobjective(0, L_AZT(5), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Retrieve Presidential medical scanner"
 		require_object_collected(OBJ_MEDICALSCANNER)

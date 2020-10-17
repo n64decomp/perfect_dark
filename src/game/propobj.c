@@ -116,11 +116,11 @@ f32 g_CountdownTimerValue = 0; // 8006990c
 u32 var80069910 = 0x00000000;
 u32 var80069914 = 0x00000000;
 u32 var80069918 = 0x00000000;
-struct var8006991c *var8006991c = NULL;
-struct padlockeddoor *g_PadlockedDoors = NULL;
-struct var80069924 *var80069924 = NULL;
-struct var80069928 *var80069928 = NULL;
-struct var8006992c *var8006992c = NULL;
+struct linkliftdoorobj *g_LiftDoors = NULL;
+struct padlockeddoorobj *g_PadlockedDoors = NULL;
+struct safeitemobj *g_SafeItems = NULL;
+struct linksceneryobj *g_LinkedScenery = NULL;
+struct blockedpathobj *g_BlockedPaths = NULL;
 u32 var80069930 = 0x00000000;
 u32 var80069934 = 0x00000000;
 u32 var80069938 = 0x00000000;
@@ -133,8 +133,8 @@ u32 var80069950 = 0x3f800000;
 u32 var80069954 = 0x3f800000;
 u32 var80069958 = 0x3f800000;
 f32 g_AmmoMultiplier = 1;
-u32 var80069960 = 0x00000000;
-u32 var80069964 = 0xffffffff;
+struct padeffectobj *var80069960 = NULL;
+s32 var80069964 = -1;
 struct autogunobj *g_ThrownLaptops = NULL;
 u32 var8006996c = 0x00000000;
 u32 var80069970 = 0x00000000;
@@ -376,11 +376,11 @@ glabel func0f066310
 /*  f066344:	00a0f025 */ 	or	$s8,$a1,$zero
 /*  f066348:	0000b825 */ 	or	$s7,$zero,$zero
 /*  f06634c:	8ecf0040 */ 	lw	$t7,0x40($s6)
-/*  f066350:	3c138007 */ 	lui	$s3,%hi(var8006991c)
+/*  f066350:	3c138007 */ 	lui	$s3,%hi(g_LiftDoors)
 /*  f066354:	31f80001 */ 	andi	$t8,$t7,0x1
 /*  f066358:	53000088 */ 	beqzl	$t8,.L0f06657c
 /*  f06635c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f066360:	8e73991c */ 	lw	$s3,%lo(var8006991c)($s3)
+/*  f066360:	8e73991c */ 	lw	$s3,%lo(g_LiftDoors)($s3)
 /*  f066364:	3c14800a */ 	lui	$s4,%hi(g_Vars)
 /*  f066368:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
 /*  f06636c:	12600082 */ 	beqz	$s3,.L0f066578
@@ -551,20 +551,16 @@ glabel func0f066310
 /*  f0665a8:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-/**
- * This function is a leftover from GoldenEye.
- * It is called in PD, but g_PadlockedDoors is always null.
- */
 bool doorIsPadlockFree(struct doorobj *door)
 {
-	if (door->base.hidden & OBJHFLAG_00002000) {
-		struct padlockeddoor *padlockeddoor = g_PadlockedDoors;
+	if (door->base.hidden & OBJHFLAG_PADLOCKEDDOOR) {
+		struct padlockeddoorobj *padlockeddoor = g_PadlockedDoors;
 
 		while (padlockeddoor) {
 			if (door == padlockeddoor->door
-					&& padlockeddoor->padlock
-					&& padlockeddoor->padlock->prop
-					&& objIsHealthy(padlockeddoor->padlock)) {
+					&& padlockeddoor->lock
+					&& padlockeddoor->lock->prop
+					&& objIsHealthy(padlockeddoor->lock)) {
 				return false;
 			}
 
@@ -578,11 +574,11 @@ bool doorIsPadlockFree(struct doorobj *door)
 GLOBAL_ASM(
 glabel func0f066640
 /*  f066640:	8c8e000c */ 	lw	$t6,0xc($a0)
-/*  f066644:	3c028007 */ 	lui	$v0,%hi(var80069924)
+/*  f066644:	3c028007 */ 	lui	$v0,%hi(g_SafeItems)
 /*  f066648:	31cf0400 */ 	andi	$t7,$t6,0x400
 /*  f06664c:	51e0001d */ 	beqzl	$t7,.L0f0666c4
 /*  f066650:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f066654:	8c429924 */ 	lw	$v0,%lo(var80069924)($v0)
+/*  f066654:	8c429924 */ 	lw	$v0,%lo(g_SafeItems)($v0)
 /*  f066658:	3c013f00 */ 	lui	$at,0x3f00
 /*  f06665c:	50400019 */ 	beqzl	$v0,.L0f0666c4
 /*  f066660:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -626,11 +622,11 @@ glabel func0f0666cc
 /*  f0666dc:	05e30030 */ 	bgezl	$t7,.L0f0667a0
 /*  f0666e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0666e4:	8c980008 */ 	lw	$t8,0x8($a0)
-/*  f0666e8:	3c028007 */ 	lui	$v0,%hi(var80069928)
+/*  f0666e8:	3c028007 */ 	lui	$v0,%hi(g_LinkedScenery)
 /*  f0666ec:	0018cb80 */ 	sll	$t9,$t8,0xe
 /*  f0666f0:	0722002b */ 	bltzl	$t9,.L0f0667a0
 /*  f0666f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0666f8:	8c429928 */ 	lw	$v0,%lo(var80069928)($v0)
+/*  f0666f8:	8c429928 */ 	lw	$v0,%lo(g_LinkedScenery)($v0)
 /*  f0666fc:	50400028 */ 	beqzl	$v0,.L0f0667a0
 /*  f066700:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f066704:	8c480004 */ 	lw	$t0,0x4($v0)
@@ -5743,7 +5739,7 @@ glabel func0f06ac90
 );
 
 GLOBAL_ASM(
-glabel setupParseObject
+glabel func0f06ad2c
 /*  f06ad2c:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f06ad30:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f06ad34:	afb20020 */ 	sw	$s2,0x20($sp)
@@ -6130,7 +6126,7 @@ glabel setupParseObject
 .L0f06b290:
 /*  f06b290:	8c440004 */ 	lw	$a0,0x4($v0)
 /*  f06b294:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f06b298:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f06b298:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f06b29c:	afa3002c */ 	sw	$v1,0x2c($sp)
 /*  f06b2a0:	8fa2002c */ 	lw	$v0,0x2c($sp)
 /*  f06b2a4:	5440fffa */ 	bnezl	$v0,.L0f06b290
@@ -6185,11 +6181,11 @@ glabel setupParseObject
 /**
  * When called with arg1 = true, the object is removed.
  * I'm unsure if that's due to arg1 being true or whether
- * removing is determined by setupParseObject's arg2 being false.
+ * removing is determined by func0f06ad2c's arg2 being false.
  */
-void setupParseObjectWithArg2False(void *ptr, s32 arg1)
+void func0f06b34c(void *ptr, s32 arg1)
 {
-	setupParseObject(ptr, arg1, false);
+	func0f06ad2c(ptr, arg1, false);
 }
 
 GLOBAL_ASM(
@@ -12104,7 +12100,7 @@ void func0f0706f8(struct prop *prop, bool arg1)
 	struct prop *child;
 
 	if (obj->hidden & OBJHFLAG_00000004) {
-		setupParseObject(obj, true, obj->hidden2 & OBJHFLAG_00000004);
+		func0f06ad2c(obj, true, obj->hidden2 & OBJHFLAG_00000004);
 	} else {
 		prop->flags &= ~PROPFLAG_02;
 		func0f07063c(prop, arg1);
@@ -12139,7 +12135,7 @@ glabel func0f07079c
 /*  f0707d4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0707d8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0707dc:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f0707e0:	0fc1ab4b */ 	jal	setupParseObject
+/*  f0707e0:	0fc1ab4b */ 	jal	func0f06ad2c
 /*  f0707e4:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f0707e8:	1000004b */ 	b	.L0f070918
 /*  f0707ec:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -27964,7 +27960,7 @@ s32 objTick(struct prop *prop)
 
 		if (!pass) {
 			func0f070698(prop, true);
-			setupParseObject(obj, false, obj->hidden2 & OBJH2FLAG_04);
+			func0f06ad2c(obj, false, obj->hidden2 & OBJH2FLAG_04);
 			return 1;
 		}
 	}
@@ -34995,13 +34991,13 @@ bool func0f085158(struct defaultobj *obj)
 	case OBJTYPE_CAMERA:
 	case OBJTYPE_SINGLEMONITOR:
 	case OBJTYPE_MULTIMONITOR:
-	case OBJTYPE_0C:
+	case OBJTYPE_HANGINGMONITORS:
 	case OBJTYPE_AUTOGUN:
 	case OBJTYPE_DEBRIS:
 	case OBJTYPE_24:
 	case OBJTYPE_29:
 	case OBJTYPE_GLASS:
-	case OBJTYPE_2B:
+	case OBJTYPE_SAFE:
 	case OBJTYPE_TINTEDGLASS:
 	case OBJTYPE_LIFT:
 	case OBJTYPE_HOVERBIKE:
@@ -35021,7 +35017,7 @@ bool func0f085194(struct defaultobj *obj)
 	case OBJTYPE_KEY:
 	case OBJTYPE_AMMOCRATE:
 	case OBJTYPE_WEAPON:
-	case OBJTYPE_11:
+	case OBJTYPE_HAT:
 	case OBJTYPE_MULTIAMMOCRATE:
 	case OBJTYPE_SHIELD:
 	case OBJTYPE_ESCALATOR:
@@ -38650,7 +38646,7 @@ glabel var7f1aae70
 /*  f088fc4:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f088fc8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f088fcc:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f088fd0:	0fc1ab4b */ 	jal	setupParseObject
+/*  f088fd0:	0fc1ab4b */ 	jal	func0f06ad2c
 /*  f088fd4:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f088fd8:	1000000a */ 	b	.L0f089004
 /*  f088fdc:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -38770,7 +38766,7 @@ glabel var7f1aae70
 //			}
 //
 //			// af4
-//			if (obj->hidden & OBJHFLAG_00000400) {
+//			if (obj->hidden & OBJHFLAG_HASTEXTOVERRIDE) {
 //				if (weapon->weaponnum <= WEAPON_PSYCHOSISGUN) {
 //					count = func0f1120f0(prop);
 //					sp148[0] = 1;
@@ -38963,8 +38959,8 @@ glabel var7f1aae70
 //	}
 //
 //	// fa4
-//	if (v0 == 1 && (obj->hidden & OBJHFLAG_00000010) == 0) {
-//		setupParseObject(obj, 0, obj->hidden2 & OBJHFLAG_00000004);
+//	if (v0 == 1 && (obj->hidden & OBJHFLAG_TAGGED) == 0) {
+//		func0f06ad2c(obj, 0, obj->hidden2 & OBJHFLAG_00000004);
 //		return 1;
 //	}
 //
@@ -39975,7 +39971,7 @@ glabel func0f089d64
 );
 
 GLOBAL_ASM(
-glabel func0f089db8
+glabel hatAssignToChr
 /*  f089db8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f089dbc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f089dc0:	0fc22759 */ 	jal	func0f089d64
@@ -40286,7 +40282,7 @@ glabel func0f089f8c
 /*  f08a204:	00000000 */ 	nop
 /*  f08a208:	02092021 */ 	addu	$a0,$s0,$t1
 /*  f08a20c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a210:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f08a210:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f08a214:	afaa0040 */ 	sw	$t2,0x40($sp)
 /*  f08a218:	3c09800a */ 	lui	$t1,%hi(var8009ce58)
 /*  f08a21c:	8d29ce58 */ 	lw	$t1,%lo(var8009ce58)($t1)
@@ -40320,7 +40316,7 @@ glabel func0f089f8c
 /*  f08a27c:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f08a280:	11e00003 */ 	beqz	$t7,.L0f08a290
 /*  f08a284:	00000000 */ 	nop
-/*  f08a288:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f08a288:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f08a28c:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f08a290:
 /*  f08a290:	1000002f */ 	b	.L0f08a350
@@ -40338,7 +40334,7 @@ glabel func0f089f8c
 /*  f08a2bc:	00000000 */ 	nop
 /*  f08a2c0:	02092021 */ 	addu	$a0,$s0,$t1
 /*  f08a2c4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a2c8:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f08a2c8:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f08a2cc:	afab003c */ 	sw	$t3,0x3c($sp)
 /*  f08a2d0:	3c09800a */ 	lui	$t1,%hi(var8009ce58)
 /*  f08a2d4:	8d29ce58 */ 	lw	$t1,%lo(var8009ce58)($t1)
@@ -40372,7 +40368,7 @@ glabel func0f089f8c
 /*  f08a334:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f08a338:	13000003 */ 	beqz	$t8,.L0f08a348
 /*  f08a33c:	00000000 */ 	nop
-/*  f08a340:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f08a340:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f08a344:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f08a348:
 /*  f08a348:	10000001 */ 	b	.L0f08a350
@@ -40548,7 +40544,7 @@ glabel func0f08a38c
 /*  f08a5a0:	51600007 */ 	beqzl	$t3,.L0f08a5c0
 /*  f08a5a4:	8e8d0000 */ 	lw	$t5,0x0($s4)
 /*  f08a5a8:	02282021 */ 	addu	$a0,$s1,$t0
-/*  f08a5ac:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f08a5ac:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f08a5b0:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f08a5b4:	3c08800a */ 	lui	$t0,%hi(var8009ce5c)
 /*  f08a5b8:	8d08ce5c */ 	lw	$t0,%lo(var8009ce5c)($t0)
@@ -40580,7 +40576,7 @@ glabel func0f08a38c
 /*  f08a610:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f08a614:	13000003 */ 	beqz	$t8,.L0f08a624
 /*  f08a618:	00000000 */ 	nop
-/*  f08a61c:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f08a61c:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f08a620:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f08a624:
 /*  f08a624:	1000002d */ 	b	.L0f08a6dc
@@ -40597,7 +40593,7 @@ glabel func0f08a38c
 /*  f08a64c:	51400007 */ 	beqzl	$t2,.L0f08a66c
 /*  f08a650:	8e8c0000 */ 	lw	$t4,0x0($s4)
 /*  f08a654:	02082021 */ 	addu	$a0,$s0,$t0
-/*  f08a658:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f08a658:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f08a65c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f08a660:	3c08800a */ 	lui	$t0,%hi(var8009ce5c)
 /*  f08a664:	8d08ce5c */ 	lw	$t0,%lo(var8009ce5c)($t0)
@@ -40629,7 +40625,7 @@ glabel func0f08a38c
 /*  f08a6bc:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f08a6c0:	13000003 */ 	beqz	$t8,.L0f08a6d0
 /*  f08a6c4:	00000000 */ 	nop
-/*  f08a6c8:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f08a6c8:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f08a6cc:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f08a6d0:
 /*  f08a6d0:	10000002 */ 	b	.L0f08a6dc
@@ -40707,7 +40703,7 @@ glabel func0f08a724
 /*  f08a7c8:	15600009 */ 	bnez	$t3,.L0f08a7f0
 /*  f08a7cc:	00c72021 */ 	addu	$a0,$a2,$a3
 /*  f08a7d0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a7d4:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f08a7d4:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f08a7d8:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f08a7dc:	3c0c800a */ 	lui	$t4,%hi(var8009ce60)
 /*  f08a7e0:	8fa60018 */ 	lw	$a2,0x18($sp)
@@ -40742,7 +40738,7 @@ glabel func0f08a724
 /*  f08a844:	15000009 */ 	bnez	$t0,.L0f08a86c
 /*  f08a848:	00c72021 */ 	addu	$a0,$a2,$a3
 /*  f08a84c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a850:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f08a850:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f08a854:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f08a858:	3c09800a */ 	lui	$t1,%hi(var8009ce60)
 /*  f08a85c:	8fa60018 */ 	lw	$a2,0x18($sp)
@@ -40813,7 +40809,7 @@ glabel func0f08a88c
 /*  f08a930:	15600009 */ 	bnez	$t3,.L0f08a958
 /*  f08a934:	00c72021 */ 	addu	$a0,$a2,$a3
 /*  f08a938:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a93c:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f08a93c:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f08a940:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f08a944:	3c0c800a */ 	lui	$t4,%hi(var8009ce64)
 /*  f08a948:	8fa60018 */ 	lw	$a2,0x18($sp)
@@ -40848,7 +40844,7 @@ glabel func0f08a88c
 /*  f08a9ac:	15000009 */ 	bnez	$t0,.L0f08a9d4
 /*  f08a9b0:	00c72021 */ 	addu	$a0,$a2,$a3
 /*  f08a9b4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08a9b8:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f08a9b8:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f08a9bc:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f08a9c0:	3c09800a */ 	lui	$t1,%hi(var8009ce64)
 /*  f08a9c4:	8fa60018 */ 	lw	$a2,0x18($sp)
@@ -41561,7 +41557,7 @@ glabel var7f1aae98
 /*  f08b340:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f08b344:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f08b348:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08b34c:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f08b34c:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f08b350:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f08b354:
 /*  f08b354:	0fc180d6 */ 	jal	propAllocate
@@ -47464,7 +47460,7 @@ glabel func0f091030
 /*  f091074:	30680080 */ 	andi	$t0,$v1,0x80
 /*  f091078:	51000006 */ 	beqzl	$t0,.L0f091094
 /*  f09107c:	8c420020 */ 	lw	$v0,0x20($v0)
-/*  f091080:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
+/*  f091080:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f091084:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f091088:	10000005 */ 	b	.L0f0910a0
 /*  f09108c:	8fbf0014 */ 	lw	$ra,0x14($sp)

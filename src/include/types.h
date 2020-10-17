@@ -261,7 +261,7 @@ struct modelnode {
 	struct modelnode *relation; // unsure if parent or child
 };
 
-struct model08 {
+struct model08 { // raw model file data
 	struct modelnode *rootnode;
 	struct stagethinglist *unk04;
 
@@ -326,6 +326,10 @@ struct modeldata_partid { // type 0x12
 		u16 u16;
 		bool u32;
 	} visible;
+};
+
+struct modeldata_05 {
+	bool unk00;
 };
 
 struct modeldata_headspot { // type 0x17
@@ -1103,6 +1107,15 @@ struct obj48 {
 	/*0x105*/ u8 unk105;
 };
 
+struct image {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+};
+
 // I get the feeling this struct might be a regular f32 matrix...
 struct hov {
 	/*0x00*/ u32 unk00;
@@ -1143,7 +1156,7 @@ struct defaultobj {
 	/*0x50*/ u8 shadecol[4];
 	/*0x54*/ u8 nextcol[4];
 	/*0x58*/ u16 floorcol;
-	/*0x5a*/ u8 numtiles;
+	/*0x5a*/ s8 numtiles;
 };
 
 struct doorobj { // objtype 0x01
@@ -1183,18 +1196,44 @@ struct doorobj { // objtype 0x01
 	/*0xcc*/ u8 laserfade;
 };
 
+struct doorscaleobj { // objtype 0x02
+	u32 unk00;
+	s32 scale;
+};
+
 struct keyobj { // objtype 0x04
 	struct defaultobj base;
 	u32 keyflags;
 };
 
-struct image {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
+struct cameraobj { // objtype 0x06
+	struct defaultobj base;
+	/*0x5c*/ u32 unk5c;
+	/*0x60*/ u32 unk60;
+	/*0x64*/ u32 unk64;
+	/*0x68*/ u32 unk68;
+	/*0x6c*/ u32 unk6c;
+	/*0x70*/ u32 unk70;
+	/*0x74*/ u32 unk74;
+	/*0x78*/ u32 unk78;
+	/*0x7c*/ u32 unk7c;
+	/*0x80*/ u32 unk80;
+	/*0x84*/ u32 unk84;
+	/*0x88*/ u32 unk88;
+	/*0x8c*/ u32 unk8c;
+	/*0x90*/ u32 unk90;
+	/*0x94*/ u32 unk94;
+	/*0x98*/ u32 unk98;
+	/*0x9c*/ u32 unk9c;
+	/*0xa0*/ u32 unka0;
+	/*0xa4*/ u32 unka4;
+	/*0xa8*/ u32 unka8;
+	/*0xac*/ u32 unkac;
+	/*0xb0*/ u32 unkb0;
+	/*0xb4*/ u32 unkb4;
+	/*0xb8*/ u32 unkb8;
+	/*0xbc*/ u32 unkbc;
+	/*0xc0*/ u32 unkc0;
 };
 
 struct ammocrateobj { // objtype 0x07
@@ -1246,11 +1285,15 @@ struct singlemonitorobj { // objtype 0x0a
 	/*0x5c*/ struct image image;
 };
 
-struct multimonitorobj { // objtype 0b
+struct multimonitorobj { // objtype 0x0b
 	struct singlemonitorobj subobjs[4];
 };
 
-struct autogunobj { // objtype 0d
+struct hangingmonitorsobj { // objtype 0x0c
+	struct defaultobj base;
+};
+
+struct autogunobj { // objtype 0x0d
 	struct defaultobj base;
 	/*0x5c*/ u32 unk5c;
 	/*0x60*/ u32 unk60;
@@ -1275,55 +1318,142 @@ struct autogunobj { // objtype 0d
 	/*0xa9*/ u8 ammoquantity;
 };
 
-struct multiammocrateobj { // objtype 14
-	struct defaultobj base;
-	/*0x5c*/ u32 quantities[19]; // indexed by ammotype minus 1
+struct linkgunsobj { // objtype 0x0e
+	u32 unk00;
+	s16 offset1;
+	s16 offset2;
 };
 
-struct shieldobj { // objtype 15
+struct hatobj { // objtype 0x11
+	struct defaultobj base;
+};
+
+struct grenadeprobobj { // objtype 0x12
+	u32 unk00;
+	s16 chrnum;
+	u16 probability;
+};
+
+struct linkliftdoorobj {
+	u32 unk00;
+	struct prop *door;
+	struct prop *lift;
+	struct linkliftdoorobj *next;
+	u32 stopnum;
+};
+
+struct multiammocrateslot {
+	u16 unk00;
+	u16 unk02;
+};
+
+struct multiammocrateobj { // objtype 0x14
+	struct defaultobj base;
+	/*0x5c*/ struct multiammocrateslot quantities[19]; // indexed by ammotype minus 1
+};
+
+struct shieldobj { // objtype 0x15
 	struct defaultobj base;
 	/*0x5c*/ f32 initialamount;
 	/*0x60*/ f32 amount;
 };
 
-struct truckobj {
+struct tag { // objtype 0x16
+	/*0x00*/ u32 identifier; // always 0x00000016
+	/*0x04*/ u16 tagnum;
+	/*0x06*/ s16 cmdoffset;
+	/*0x08*/ struct tag *next;
+	/*0x0c*/ struct defaultobj *obj;
+};
+
+struct beginobjectiveobj { // objtype 0x17
+	u32 unk00;
+	u32 index;
+	u32 text;
+	u32 difficulty;
+};
+
+struct briefingobj { // objtype 0x23
+	u32 unk00;
+	u32 type;
+	u32 text;
+};
+
+struct padlockeddoorobj { // objtype 0x26
+	u32 unk00;
+	struct doorobj *door;
+	struct defaultobj *lock;
+	struct padlockeddoorobj *next;
+};
+
+struct truckobj { // objtype 0x27
 	struct defaultobj base;
 	/*0x5c*/ u8 *ailist;
 	/*0x60*/ u16 aioffset;
 	/*0x62*/ s16 aireturnlist;
-	/*0x64*/ u32 unk64;
-	/*0x68*/ u32 unk68;
-	/*0x6c*/ u32 unk6c;
+	/*0x64*/ f32 speed;
+	/*0x68*/ f32 wheelxrot;
+	/*0x6c*/ f32 wheelyrot;
 	/*0x70*/ f32 speedaim;
 	/*0x74*/ f32 speedtime60;
-	/*0x78*/ u32 unk78;
-	/*0x7c*/ u32 unk7c;
+	/*0x78*/ f32 turnrot60;
+	/*0x7c*/ f32 roty;
 	/*0x80*/ struct path *path;
 	/*0x84*/ s32 nextstep;
 };
 
-struct heliobj {
+struct heliobj { // objtype 0x28
 	struct defaultobj base;
 	/*0x5c*/ u8 *ailist;
 	/*0x60*/ u16 aioffset;
 	/*0x62*/ s16 aireturnlist;
-	/*0x64*/ u32 unk64;
-	/*0x68*/ f32 rotaryspeed;
-	/*0x6c*/ f32 rotaryspeedaim;
-	/*0x70*/ f32 rotaryspeedtime;
+	/*0x64*/ f32 rotoryrot;
+	/*0x68*/ f32 rotoryspeed;
+	/*0x6c*/ f32 rotoryspeedaim;
+	/*0x70*/ f32 rotoryspeedtime;
 	/*0x74*/ f32 speed;
 	/*0x78*/ f32 speedaim;
 	/*0x7c*/ f32 speedtime60;
+	/*0x80*/ f32 yrot;
+	/*0x84*/ struct path *path;
+	/*0x88*/ s32 nextstep;
 };
 
-struct tintedglassobj { // objtype 2f
+struct glassobj { // objtype 0x2a
+	struct defaultobj base;
+	/*0x5c*/ s16 portalnum;
+};
+
+struct safeobj { // objtype 0x2b
+	u32 unk00;
+};
+
+struct safeitemobj {
+	u32 unk00;
+	struct defaultobj *item;
+	struct safeobj *safe;
+	struct doorobj *door;
+	struct safeitemobj *next;
+};
+
+struct camera2obj { // objtype 0x2e
+	u32 unk00;
+	f32 unk04;
+	f32 unk08;
+	f32 unk0c;
+	f32 unk10;
+	f32 unk14;
+};
+
+struct tintedglassobj { // objtype 0x2f
 	struct defaultobj base;
 	/*0x5c*/ u32 unk5c;
 	/*0x60*/ u16 unk60;
 	/*0x62*/ s16 portalnum;
+	/*0x64*/ f32 unk64;
 };
 
-struct liftobj { // objtype 30
+struct liftobj { // objtype 0x30
 	struct defaultobj base;
 	/*0x5c*/ s16 pads[4];
 	/*0x64*/ struct doorobj *doors[4];
@@ -1337,29 +1467,45 @@ struct liftobj { // objtype 30
 	/*0x88*/ struct coord prevpos;
 };
 
-struct hoverbikeobj { // objtype 33
+struct linksceneryobj { // objtype 0x31
+	u32 unk00;
+	struct defaultobj *trigger;
+	struct defaultobj *unexp;
+	struct defaultobj *exp;
+	struct linksceneryobj *next;
+};
+
+struct blockedpathobj { // objtype 0x32
+	u32 unk00;
+	struct defaultobj *blocker;
+	s16 waypoint1;
+	s16 waypoint2;
+	struct blockedpathobj *next;
+};
+
+struct hoverbikeobj { // objtype 0x33
 	struct defaultobj base;
 	struct hov hov;
 	/*0x09c*/ f32 speed[2];
 	/*0x0a4*/ f32 prevpos[2];
 	/*0x0ac*/ f32 w;
-	/*0x0b0*/ u32 rels[2];
+	/*0x0b0*/ f32 rels[2];
 	/*0x0b8*/ f32 exreal;
 	/*0x0bc*/ f32 ezreal;
 	/*0x0c0*/ f32 ezreal2;
-	/*0x0c4*/ u32 leanspeed;
-	/*0x0c8*/ u32 leandiff;
+	/*0x0c4*/ f32 leanspeed;
+	/*0x0c8*/ f32 leandiff;
 	/*0x0cc*/ u32 maxspeedtime240;
-	/*0x0d0*/ u32 speedabs[2];
-	/*0x0d8*/ u32 speedrel[2];
+	/*0x0d0*/ f32 speedabs[2];
+	/*0x0d8*/ f32 speedrel[2];
 };
 
-struct hoverpropobj { // objtype 35
+struct hoverpropobj { // objtype 0x35
 	struct defaultobj base;
 	struct hov hov;
 };
 
-struct fanobj { // objtype 36
+struct fanobj { // objtype 0x36
 	struct defaultobj base;
 	/*0x5c*/ f32 yrot;
 	/*0x60*/ f32 yrotprev;
@@ -1369,14 +1515,29 @@ struct fanobj { // objtype 36
 	/*0x70*/ s8 on;
 };
 
-struct hovercarobj {
+struct hovercarobj { // objtype 0x37
 	struct defaultobj base;
 	/*0x5c*/ u8 *ailist;
 	/*0x60*/ u16 aioffset;
 	/*0x62*/ s16 aireturnlist;
+	/*0x64*/ f32 speed;
+	/*0x68*/ f32 speedaim;
+	/*0x6c*/ f32 speedtime60;
+	/*0x70*/ f32 turnyspeed60;
+	/*0x74*/ f32 turnxspeed60;
+	/*0x78*/ f32 turnrot60;
+	/*0x7c*/ f32 roty;
+	/*0x80*/ f32 rotx;
+	/*0x84*/ f32 rotz;
+	/*0x88*/ struct path *path;
+	/*0x8c*/ s32 nextstep;
 };
 
-struct chopperobj {
+struct padeffectobj { // objtype 0x38
+	u32 unk00;
+};
+
+struct chopperobj { // objtype 0x39
 	struct defaultobj base;
 	/*0x5c*/ u8 *ailist;
 	/*0x60*/ u16 aioffset;
@@ -1419,12 +1580,14 @@ struct chopperobj {
 	/*0xe4*/ bool dead;
 };
 
-struct tag {
-	/*0x00*/ u32 identifier; // always 0x00000016
-	/*0x04*/ u16 tagnum;
-	/*0x06*/ s16 cmdoffset;
-	/*0x08*/ struct tag *next;
-	/*0x0c*/ struct defaultobj *obj;
+struct mineobj { // objtype 0x3a
+	struct defaultobj base;
+};
+
+struct escalatorobj { // objtype 0x3b
+	struct defaultobj base;
+	/*0x5c*/ u32 frame;
+	/*0x60*/ struct coord prevpos;
 };
 
 struct eyespy {
@@ -3574,23 +3737,30 @@ struct room {
 };
 
 struct bullettail {
-	s8 age;
-	s8 unk01;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
-	u32 unk14;
-	u32 unk18;
-	f32 maxdist;
-	f32 speed;
-	u32 unk24;
-	f32 dist;
+	/*0x00*/ s8 age;
+	/*0x01*/ s8 unk01;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ f32 maxdist;
+	/*0x20*/ f32 speed;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ f32 dist;
 };
 
 struct fireslotthing {
-	/*0x00*/ u32 unk00;
+	/*0x00*/ u8 unk00;
+	/*0x01*/ u8 unk01;
 	/*0x04*/ struct bullettail *bullettail;
+	/*0x08*/ s32 unk08;
+	/*0x0c*/ f32 unk0c;
+	/*0x10*/ f32 unk10;
+	/*0x14*/ f32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
 };
 
 struct fireslot {
@@ -4956,7 +5126,7 @@ struct objective { // representation of setup file beginobjective macro
 };
 
 struct briefing {
-	u16 objectivenames[6];
+	u16 objectivenames[6]; // index 0 is the briefing, and the rest of objectives
 	u16 objectivedifficulties[6];
 };
 
@@ -5084,7 +5254,7 @@ struct smoke {
 
 struct textoverride {
 	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
+	/*0x04*/ s32 objoffset;
 	/*0x08*/ s32 weapon;
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ u32 unk10;
@@ -5327,7 +5497,7 @@ struct chrnumaction {
 };
 
 struct propdefinition {
-	void *filedata;
+	struct model08 *filedata;
 	u16 fileid;
 	u16 scale;
 };
@@ -6152,10 +6322,10 @@ struct mpconfig {
 
 struct mpweapon {
 	/*0x00*/ u8 weaponnum;
-	/*0x01*/ u8 unk01;
-	/*0x02*/ u8 unk02;
-	/*0x03*/ u8 unk03;
-	/*0x04*/ u8 unk04;
+	/*0x01*/ s8 weapon1ammotypeminusone;
+	/*0x02*/ u8 weapon1ammoqty;
+	/*0x03*/ s8 weapon2ammotypeminusone;
+	/*0x04*/ u8 weapon2ammoqty;
 	/*0x05*/ u8 giveweapon : 1;
 	/*0x05*/ u8 unlock : 7;
 	/*0x06*/ s16 model;
@@ -6344,43 +6514,6 @@ struct healthdamagetype {
 	s32 unk08;
 	s32 unk0c;
 	s32 unk10;
-};
-
-struct var8006991c {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	struct var8006991c *next;
-};
-
-struct padlockeddoor {
-	u32 unk00;
-	struct doorobj *door;
-	struct defaultobj *padlock;
-	struct padlockeddoor *next;
-};
-
-struct var80069924 {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	struct var80069924 *next;
-};
-
-struct var80069928 {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	struct var80069928 *next;
-};
-
-struct var8006992c {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	struct var8006992c *next;
 };
 
 struct model08thing {

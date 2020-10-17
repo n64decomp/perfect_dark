@@ -356,7 +356,7 @@ void func0f167e7c(s32 stagenum)
 	func0f00c490();
 	func0f00b510();
 	func0f00b820(stagenum);
-	func0f00f174(stagenum);
+	setupParseObjects(stagenum);
 	tagsAllocatePtrs();
 	func0f013010();
 	func0f013130();
@@ -4467,7 +4467,7 @@ void stageLoad(void)
 	func0f015420();
 	func0f0153f0();
 	func0f014fe0();
-	setupParseObjects();
+	func0f015010();
 	weatherFree();
 	func0f0151f0();
 	func0f015260();

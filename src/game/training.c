@@ -1557,7 +1557,7 @@ void frInitTargets(void)
 		if (prop) {
 			obj = prop->obj;
 
-			setupParseObject(obj, false, true);
+			func0f06ad2c(obj, false, true);
 
 			obj->damage = 0;
 			prop->timetoregen = 0;
@@ -1913,7 +1913,7 @@ void frEndSession(bool hidetargets)
 		}
 
 		if (g_ThrownLaptops->base.prop) {
-			setupParseObjectWithArg2False(g_ThrownLaptops, true);
+			func0f06b34c(g_ThrownLaptops, true);
 		}
 
 		roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
@@ -1936,7 +1936,7 @@ void frEndSession(bool hidetargets)
 
 				if (prop->type == PROPTYPE_WEAPON) {
 					if (obj->type == OBJTYPE_AUTOGUN) {
-						setupParseObjectWithArg2False(obj, true);
+						func0f06b34c(obj, true);
 					}
 
 					if (obj->type == OBJTYPE_WEAPON) {
@@ -1955,7 +1955,7 @@ void frEndSession(bool hidetargets)
 								|| weapon->weaponnum == WEAPON_ROCKET2
 								|| (weapon->weaponnum == WEAPON_DRAGON && weapon->thrown == true)
 								|| (weapon->weaponnum == WEAPON_LAPTOPGUN && weapon->thrown == true)) {
-							setupParseObjectWithArg2False(obj, true);
+							func0f06b34c(obj, true);
 						}
 					}
 				}
@@ -4673,7 +4673,7 @@ void dtRestorePlayer(void)
 	playersSetPassiveMode(true);
 
 	if (g_DtData.obj) {
-		setupParseObjectWithArg2False(g_DtData.obj, true);
+		func0f06b34c(g_DtData.obj, true);
 	}
 
 	g_DtData.obj = NULL;
@@ -5047,7 +5047,7 @@ void htEnd(void)
 			struct defaultobj *obj = prop->obj;
 
 			if (obj->type == OBJTYPE_WEAPON) {
-				setupParseObjectWithArg2False(obj, true);
+				func0f06b34c(obj, true);
 			}
 		}
 

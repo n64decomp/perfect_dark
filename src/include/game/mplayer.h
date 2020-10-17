@@ -24,7 +24,7 @@ u32 mpGetNumWeaponOptions(void);
 char *mpGetWeaponLabel(s32 weaponnum);
 void mpSetWeaponSlot(s32 slot, s32 mpweaponnum);
 s32 mpGetWeaponSlot(s32 slot);
-struct mpweapon *func0f188e24(u32 arg0);
+struct mpweapon *func0f188e24(s32 arg0);
 s32 mpCountWeaponSetThing(s32 weaponsetindex);
 s32 func0f188f9c(s32 arg0);
 s32 func0f189058(s32 arg0);

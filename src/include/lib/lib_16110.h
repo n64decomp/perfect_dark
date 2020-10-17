@@ -4,7 +4,7 @@
 #include "types.h"
 
 u8 *ailistFindById(s32 ailistid);
-u32 func00016110(void);
+void func00016110(f32 *matrix1, f32 *matrix2);
 u32 func00016140(void);
 u32 func000161b0(void);
 void func00016208(f32 *matrix, struct coord *coord);
@@ -42,7 +42,7 @@ u32 func00017ce0(void);
 u32 func00017dc4(void);
 u32 func00017e30(void);
 u32 func00018148(void);
-u32 func000185d0(void);
+void func000185d0(struct defaultobj *obj, s32 arg1);
 u32 func00018680(void);
 u32 func00019634(void);
 u32 func000198dc(void);

@@ -2623,11 +2623,11 @@ void func0f020d44(struct prop *prop, bool removechr)
 		struct defaultobj *obj = child->obj;
 		struct prop *next = child->next;
 
-		if ((obj->hidden & OBJHFLAG_00000400) == 0
+		if ((obj->hidden & OBJHFLAG_HASTEXTOVERRIDE) == 0
 				&& obj != eyespyobj
 				&& (prop->type != PROPTYPE_PLAYER || (obj->flags3 & OBJFLAG3_00400000) == 0)) {
 			func0f082f88(child);
-			setupParseObjectWithArg2False(obj, true);
+			func0f06b34c(obj, true);
 		}
 
 		child = next;
@@ -3779,7 +3779,7 @@ glabel var7f1a87a8
 /*  f022258:	02002025 */ 	or	$a0,$s0,$zero
 /*  f02225c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f022260:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f022264:	0fc1ab4b */ 	jal	setupParseObject
+/*  f022264:	0fc1ab4b */ 	jal	func0f06ad2c
 /*  f022268:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f02226c:	1000007e */ 	b	.L0f022468
 /*  f022270:	8fbf002c */ 	lw	$ra,0x2c($sp)

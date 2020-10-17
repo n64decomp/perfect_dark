@@ -217,7 +217,7 @@
 /*0x00d4*/ bool ai00d4(void);
 /*0x00d5*/ bool aiHovercarBeginPath(void);
 /*0x00d6*/ bool aiSetVehicleSpeed(void);
-/*0x00d7*/ bool aiSetRotarySpeed(void);
+/*0x00d7*/ bool aiSetRotorSpeed(void);
 /*0x00d8*/ bool aiNoOp00d8(void);
 /*0x00d9*/ bool aiNoOp00d9(void);
 /*0x00da*/ bool aiSetObjImage(void);

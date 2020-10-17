@@ -97,7 +97,7 @@ void portalSwapProps(u32 portal);
 u32 func0f164ab8(void);
 u32 func0f164c64(void);
 void portalSetEnabled(s32 portal, bool enable);
-void func0f164e8c(struct coord *arg0, struct coord *arg1);
+s32 func0f164e8c(struct coord *arg0, struct coord *arg1);
 u32 func0f164f9c(void);
 u32 func0f165004(void);
 void func0f1650d0(struct coord *lower, struct coord *upper, s16 *rooms, s32 arg3, s32 arg4);

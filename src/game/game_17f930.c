@@ -6567,7 +6567,7 @@ glabel func0f186508
 /*  f186678:	44cbf800 */ 	ctc1	$t3,$31
 /*  f18667c:	a44a0000 */ 	sh	$t2,0x0($v0)
 /*  f186680:	3189fffb */ 	andi	$t1,$t4,0xfffb
-/*  f186684:	0fc033b9 */ 	jal	func0f00cee4
+/*  f186684:	0fc033b9 */ 	jal	setupGenericObject
 /*  f186688:	a0490002 */ 	sb	$t1,0x2($v0)
 /*  f18668c:	8fad0018 */ 	lw	$t5,0x18($sp)
 /*  f186690:	0fc1812f */ 	jal	func0f0604bc
@@ -6917,7 +6917,7 @@ glabel chrGiveBriefcase
 .L0f186b44:
 /*  f186b44:	00002825 */ 	or	$a1,$zero,$zero
 /*  f186b48:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f186b4c:	0fc1ab4b */ 	jal	setupParseObject
+/*  f186b4c:	0fc1ab4b */ 	jal	func0f06ad2c
 /*  f186b50:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f186b54:	100001c7 */ 	b	.L0f187274
 /*  f186b58:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -7402,7 +7402,7 @@ glabel chrGiveBriefcase
 /*  f187220:	00002825 */ 	or	$a1,$zero,$zero
 /*  f187224:	90860002 */ 	lbu	$a2,0x2($a0)
 /*  f187228:	30ca0004 */ 	andi	$t2,$a2,0x4
-/*  f18722c:	0fc1ab4b */ 	jal	setupParseObject
+/*  f18722c:	0fc1ab4b */ 	jal	func0f06ad2c
 /*  f187230:	01403025 */ 	or	$a2,$t2,$zero
 /*  f187234:	1000000f */ 	b	.L0f187274
 /*  f187238:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -7586,7 +7586,7 @@ bool chrGiveUplink(struct chrdata *chr, struct prop *prop)
 			currentPlayerGiveWeapon(WEAPON_DATAUPLINK);
 			currentPlayerQueuePickupWeaponHudmsg(WEAPON_DATAUPLINK, false);
 			func0f087d10(WEAPON_DATAUPLINK);
-			setupParseObject(obj, 0, obj->hidden2 & OBJH2FLAG_04);
+			func0f06ad2c(obj, 0, obj->hidden2 & OBJH2FLAG_04);
 			return true;
 		}
 	} else if (chr->aibot) {

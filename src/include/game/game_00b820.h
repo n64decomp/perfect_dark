@@ -5,6 +5,6 @@
 
 void func0f00b820(s32 stagenum);
 void resetSomeStageThings(void);
-u32 func0f00bbc8(void);
+void func0f00bbc8(void);
 
 #endif

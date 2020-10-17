@@ -10,7 +10,7 @@ struct model *func0f02d338(u32 bodynum, u32 headnum, u32 arg2, u32 arg3, bool ar
 struct model *modelAllocateChr(u32 bodynum, u32 headnum, u32 flags);
 u32 func0f02d3f8(void);
 u32 bodyGetHead(u32 bodynum);
-u32 func0f02d4fc(void);
+void chrUnpack(s32 stagenum, void *cmddata, s32 cmdindex);
 struct prop *propAllocateEyespy(struct pad *pad, s16 room);
 u32 func0f02ddbc(void);
 

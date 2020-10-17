@@ -112,10 +112,10 @@ struct stagesetup setup = {
 };
 
 u32 props[] = {
-	briefing(0, 0x3001)
-	briefing(1, 0x3000)
-	briefing(2, 0x3002)
-	briefing(3, 0x3003)
+	briefing(BRIEFINGTYPE_LOCATION, L_PAM(1))
+	briefing(BRIEFINGTYPE_TEXT_PA,  L_PAM(0))
+	briefing(BRIEFINGTYPE_TEXT_SA,  L_PAM(2))
+	briefing(BRIEFINGTYPE_TEXT_A,   L_PAM(3))
 
 	beginobjective(0, L_PAM(5), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Reactivate teleportals"
 		complete_flags(STAGEFLAG_TELEPORTALS_ACTIVATED)

@@ -4928,15 +4928,15 @@ bool aiSetVehicleSpeed(void)
 /**
  * @cmd 00d7
  */
-bool aiSetRotarySpeed(void)
+bool aiSetRotorSpeed(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 speedtime = cmd[5] | (cmd[4] << 8);
 	f32 speedaim = (cmd[3] | (cmd[2] << 8)) * M_BADTAU / 3600;
 
 	if (g_Vars.heli) {
-		g_Vars.heli->rotaryspeedaim = speedaim;
-		g_Vars.heli->rotaryspeedtime = speedtime;
+		g_Vars.heli->rotoryspeedaim = speedaim;
+		g_Vars.heli->rotoryspeedtime = speedtime;
 	}
 
 	g_Vars.aioffset += 6;

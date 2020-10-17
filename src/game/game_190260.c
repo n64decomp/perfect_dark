@@ -495,7 +495,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			func0f0939f8(NULL, prop, 0xea, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
-			setupParseObject(obj, 0, obj->hidden2 & OBJH2FLAG_04);
+			func0f06ad2c(obj, 0, obj->hidden2 & OBJH2FLAG_04);
 
 			if (qty) {
 				dprint();
@@ -531,7 +531,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			dprint();
 
 			for (i = 0; i != 19; i++) {
-				qty = (u16)crate->quantities[i];
+				qty = crate->quantities[i].unk02;
 
 				if (qty) {
 					dprint();
@@ -546,7 +546,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			func0f0939f8(NULL, prop, 0xea, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
-			setupParseObject(obj, 0, obj->hidden2 & OBJH2FLAG_04);
+			func0f06ad2c(obj, 0, obj->hidden2 & OBJH2FLAG_04);
 		}
 		return 2;
 	case OBJTYPE_WEAPON:
@@ -587,7 +587,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 					result = 1;
 				}
 
-				setupParseObject(obj, 0, obj->hidden2 & OBJH2FLAG_04);
+				func0f06ad2c(obj, 0, obj->hidden2 & OBJH2FLAG_04);
 			}
 
 			return result;
@@ -601,7 +601,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 			chrSetShield(chr, shield->amount * 8);
-			setupParseObject(obj, 0, obj->hidden2 & OBJH2FLAG_04);
+			func0f06ad2c(obj, 0, obj->hidden2 & OBJH2FLAG_04);
 		}
 		return 3;
 	case OBJTYPE_BASIC:
@@ -610,26 +610,26 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 	case OBJTYPE_CHR:
 	case OBJTYPE_SINGLEMONITOR:
 	case OBJTYPE_MULTIMONITOR:
-	case OBJTYPE_0C:
+	case OBJTYPE_HANGINGMONITORS:
 	case OBJTYPE_AUTOGUN:
 	case OBJTYPE_LINKGUNS:
 	case OBJTYPE_DEBRIS:
 	case OBJTYPE_10:
-	case OBJTYPE_11:
-	case OBJTYPE_12:
-	case OBJTYPE_LINKOBJS:
+	case OBJTYPE_HAT:
+	case OBJTYPE_GRENADEPROB:
+	case OBJTYPE_LINKLIFTDOOR:
 	case OBJTYPE_TAG:
 	case OBJTYPE_22:
 	case OBJTYPE_BRIEFING:
 	case OBJTYPE_24:
 	case OBJTYPE_RENAMEOBJ:
-	case OBJTYPE_26:
+	case OBJTYPE_PADLOCKEDDOOR:
 	case OBJTYPE_TRUCK:
 	case OBJTYPE_HELI:
 	case OBJTYPE_29:
 	case OBJTYPE_GLASS:
-	case OBJTYPE_2B:
-	case OBJTYPE_2C:
+	case OBJTYPE_SAFE:
+	case OBJTYPE_SAFEITEM:
 	case OBJTYPE_2D:
 	case OBJTYPE_CAMERA2:
 	case OBJTYPE_TINTEDGLASS:

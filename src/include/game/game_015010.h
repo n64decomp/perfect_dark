@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-void setupParseObjects(void);
+void func0f015010(void);
 
 #endif

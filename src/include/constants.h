@@ -222,6 +222,11 @@
 #define BANK_0 0
 #define BANK_1 1
 
+#define BRIEFINGTYPE_LOCATION 0
+#define BRIEFINGTYPE_TEXT_PA  1
+#define BRIEFINGTYPE_TEXT_SA  2
+#define BRIEFINGTYPE_TEXT_A   3
+
 #define CAMERAMODE_DEFAULT     0
 #define CAMERAMODE_THIRDPERSON 1
 #define CAMERAMODE_EYESPY      2
@@ -1583,6 +1588,7 @@
 
 #define MODELNODETYPE_ROOT         0x01
 #define MODELNODETYPE_POSITION     0x02
+#define MODELNODETYPE_05           0x05
 #define MODELNODETYPE_NEARFAR      0x08
 #define MODELNODETYPE_HAT          0x09
 #define MODELNODETYPE_0B           0x0b
@@ -2111,20 +2117,20 @@
 #define OBJFLAG_20000000            0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
 #define OBJFLAG_DOOR_KEEPOPEN       0x40000000 // Editor: "Door open by default/Empty weapon"
 #define OBJFLAG_LIFT_TRIGGERDISABLE 0x40000000
-#define OBJFLAG_CHOPPER_INACTIVE    0x80000000 // Or lift disabled
+#define OBJFLAG_CHOPPER_INACTIVE    0x80000000 // Or lift disabled, or hovercar something
 
 // obj->flags2
 #define OBJFLAG2_00000001     0x00000001 // Used only in CI Training
 #define OBJFLAG2_00000002     0x00000002 // Ruins spikes
 #define OBJFLAG2_00000004     0x00000004 // Defense hostage doors - openable by AI?
 #define OBJFLAG2_00000008     0x00000008 // Editor: "Don't load in Multiplayer"
-#define OBJFLAG2_00000010     0x00000010 // Editor: "Don't Load on Agent Mode"
-#define OBJFLAG2_00000020     0x00000020 // Editor: "Don't Load on Secret Agent Mode"
-#define OBJFLAG2_00000040     0x00000040 // Editor: "Don't Load on Perfect Agent Mode"
-#define OBJFLAG2_00000080     0x00000080 // Not used in scripts
+#define OBJFLAG2_EXCLUDE_A    0x00000010
+#define OBJFLAG2_EXCLUDE_SA   0x00000020
+#define OBJFLAG2_EXCLUDE_PA   0x00000040
+#define OBJFLAG2_EXCLUDE_PD   0x00000080
 #define OBJFLAG2_00000100     0x00000100 // Editor: "Immobile"
 #define OBJFLAG2_00000200     0x00000200 // Editor: "Mines"
-#define OBJFLAG2_00000400     0x00000400 // Not used in scripts
+#define OBJFLAG2_LINKEDTOSAFE 0x00000400 // Applied to safe door and item
 #define OBJFLAG2_00000800     0x00000800 // Editor: "Don't activate if clipping gap Jo/Object"
 #define OBJFLAG2_00001000     0x00001000 // Investigation CMP150s, Air Base safe item and shield
 #define OBJFLAG2_00002000     0x00002000 // Ruins commhub - used as a "shown message" flag
@@ -2136,9 +2142,9 @@
 #define OBJFLAG2_INVISIBLE    0x00080000
 #define OBJFLAG2_00100000     0x00100000 // Editor: "Bulletproof Glass"
 #define OBJFLAG2_00200000     0x00200000 // Editor: "Immune to Explosions" (Ruins spikes)
-#define OBJFLAG2_00400000     0x00400000 // Editor: "Don't load on 2P (coop/anti)"
-#define OBJFLAG2_00800000     0x00800000 // Editor: "Don't load on 3P"
-#define OBJFLAG2_01000000     0x01000000 // Editor: "Don't load on 4P"
+#define OBJFLAG2_EXCLUDE_2P   0x00400000
+#define OBJFLAG2_EXCLUDE_3P   0x00800000
+#define OBJFLAG2_EXCLUDE_4P   0x01000000
 #define OBJFLAG2_THROWTHROUGH 0x02000000 // Rockets/mines/grenades etc pass through object
 #define OBJFLAG2_04000000     0x04000000 // Used quite a lot - gravity?
 #define OBJFLAG2_LOCKEDFRONT  0x08000000 // One-way door lock
@@ -2182,22 +2188,26 @@
 #define OBJFLAG3_80000000           0x80000000 // Not used in scripts
 
 // obj->hidden
+#define OBJHFLAG_LIFTDOOR          0x00000001
 #define OBJHFLAG_00000004          0x00000004
 #define OBJHFLAG_00000008          0x00000008
-#define OBJHFLAG_00000010          0x00000010
+#define OBJHFLAG_TAGGED            0x00000010
 #define OBJHFLAG_00000040          0x00000040
 #define OBJHFLAG_00000080          0x00000080
 #define OBJHFLAG_00000100          0x00000100
 #define OBJHFLAG_00000200          0x00000200
-#define OBJHFLAG_00000400          0x00000400
+#define OBJHFLAG_HASTEXTOVERRIDE   0x00000400
 #define OBJHFLAG_00000800          0x00000800
 #define OBJHFLAG_00001000          0x00001000
-#define OBJHFLAG_00002000          0x00002000
+#define OBJHFLAG_PADLOCKEDDOOR     0x00002000
 #define OBJHFLAG_ACTIVATED_BY_BOND 0x00004000
 #define OBJHFLAG_ACTIVATED_BY_COOP 0x00040000
+#define OBJHFLAG_HASOWNER          0x00080000
 #define OBJHFLAG_00100000          0x00100000
 #define OBJHFLAG_00200000          0x00200000 // Occupied chair?
 #define OBJHFLAG_00400000          0x00400000
+#define OBJHFLAG_01000000          0x01000000
+#define OBJHFLAG_02000000          0x02000000
 #define OBJHFLAG_04000000          0x04000000
 #define OBJHFLAG_GRABBED           0x08000000
 #define OBJHFLAG_20000000          0x20000000 // upper nibble might be a single 4-bit value
@@ -2208,65 +2218,65 @@
 #define OBJH2FLAG_10 0x10
 #define OBJH2FLAG_40 0x40
 
-#define OBJTYPE_DOOR             0x01
-#define OBJTYPE_DOORSCALE        0x02
-#define OBJTYPE_BASIC            0x03
-#define OBJTYPE_KEY              0x04
-#define OBJTYPE_ALARM            0x05
-#define OBJTYPE_CAMERA           0x06
-#define OBJTYPE_AMMOCRATE        0x07
-#define OBJTYPE_WEAPON           0x08
-#define OBJTYPE_CHR              0x09
-#define OBJTYPE_SINGLEMONITOR    0x0a
-#define OBJTYPE_MULTIMONITOR     0x0b
-#define OBJTYPE_0C               0x0c
-#define OBJTYPE_AUTOGUN          0x0d
-#define OBJTYPE_LINKGUNS         0x0e
-#define OBJTYPE_DEBRIS           0x0f
-#define OBJTYPE_10               0x10
-#define OBJTYPE_11               0x11
-#define OBJTYPE_12               0x12
-#define OBJTYPE_LINKOBJS         0x13
-#define OBJTYPE_MULTIAMMOCRATE   0x14
-#define OBJTYPE_SHIELD           0x15
-#define OBJTYPE_TAG              0x16
-#define OBJTYPE_BEGINOBJECTIVE   0x17
-#define OBJTYPE_ENDOBJECTIVE     0x18
-#define OBJECTIVETYPE_DESTROYOBJ 0x19
-#define OBJECTIVETYPE_COMPFLAGS  0x1a
-#define OBJECTIVETYPE_FAILFLAGS  0x1b
-#define OBJECTIVETYPE_COLLECTOBJ 0x1c
-#define OBJECTIVETYPE_THROWOBJ   0x1d
-#define OBJECTIVETYPE_HOLOGRAPH  0x1e
-#define OBJECTIVETYPE_1F         0x1f
-#define OBJECTIVETYPE_ENTERROOM  0x20
-#define OBJECTIVETYPE_ATTACHOBJ  0x21
-#define OBJTYPE_22               0x22
-#define OBJTYPE_BRIEFING         0x23
-#define OBJTYPE_24               0x24
-#define OBJTYPE_RENAMEOBJ        0x25
-#define OBJTYPE_26               0x26
-#define OBJTYPE_TRUCK            0x27
-#define OBJTYPE_HELI             0x28
-#define OBJTYPE_29               0x29
-#define OBJTYPE_GLASS            0x2a
-#define OBJTYPE_2B               0x2b
-#define OBJTYPE_2C               0x2c
-#define OBJTYPE_2D               0x2d
-#define OBJTYPE_CAMERA2          0x2e
-#define OBJTYPE_TINTEDGLASS      0x2f
-#define OBJTYPE_LIFT             0x30
-#define OBJTYPE_LINKSCENERY      0x31
-#define OBJTYPE_LINKPATHS        0x32
-#define OBJTYPE_HOVERBIKE        0x33
-#define OBJTYPE_END              0x34
-#define OBJTYPE_HOVERPROP        0x35 // Hovercrates and hoverbeds
-#define OBJTYPE_FAN              0x36
-#define OBJTYPE_HOVERCAR         0x37 // Datadyne cars, Chicago taxi and limo, and hoverbots
-#define OBJTYPE_PADEFFECT        0x38
-#define OBJTYPE_CHOPPER          0x39 // Extraction hovercopter and A51 interceptors
-#define OBJTYPE_MINE             0x3a
-#define OBJTYPE_ESCALATOR        0x3b
+#define OBJTYPE_DOOR               0x01
+#define OBJTYPE_DOORSCALE          0x02
+#define OBJTYPE_BASIC              0x03
+#define OBJTYPE_KEY                0x04
+#define OBJTYPE_ALARM              0x05
+#define OBJTYPE_CAMERA             0x06
+#define OBJTYPE_AMMOCRATE          0x07
+#define OBJTYPE_WEAPON             0x08
+#define OBJTYPE_CHR                0x09
+#define OBJTYPE_SINGLEMONITOR      0x0a
+#define OBJTYPE_MULTIMONITOR       0x0b
+#define OBJTYPE_HANGINGMONITORS    0x0c
+#define OBJTYPE_AUTOGUN            0x0d
+#define OBJTYPE_LINKGUNS           0x0e
+#define OBJTYPE_DEBRIS             0x0f
+#define OBJTYPE_10                 0x10
+#define OBJTYPE_HAT                0x11
+#define OBJTYPE_GRENADEPROB        0x12
+#define OBJTYPE_LINKLIFTDOOR       0x13
+#define OBJTYPE_MULTIAMMOCRATE     0x14
+#define OBJTYPE_SHIELD             0x15
+#define OBJTYPE_TAG                0x16
+#define OBJTYPE_BEGINOBJECTIVE     0x17
+#define OBJTYPE_ENDOBJECTIVE       0x18
+#define OBJECTIVETYPE_DESTROYOBJ   0x19
+#define OBJECTIVETYPE_COMPFLAGS    0x1a
+#define OBJECTIVETYPE_FAILFLAGS    0x1b
+#define OBJECTIVETYPE_COLLECTOBJ   0x1c
+#define OBJECTIVETYPE_THROWOBJ     0x1d
+#define OBJECTIVETYPE_HOLOGRAPH    0x1e
+#define OBJECTIVETYPE_1F           0x1f
+#define OBJECTIVETYPE_ENTERROOM    0x20
+#define OBJECTIVETYPE_ATTACHOBJ    0x21
+#define OBJTYPE_22                 0x22
+#define OBJTYPE_BRIEFING           0x23
+#define OBJTYPE_24                 0x24
+#define OBJTYPE_RENAMEOBJ          0x25
+#define OBJTYPE_PADLOCKEDDOOR      0x26
+#define OBJTYPE_TRUCK              0x27
+#define OBJTYPE_HELI               0x28
+#define OBJTYPE_29                 0x29
+#define OBJTYPE_GLASS              0x2a
+#define OBJTYPE_SAFE               0x2b
+#define OBJTYPE_SAFEITEM           0x2c
+#define OBJTYPE_2D                 0x2d
+#define OBJTYPE_CAMERA2            0x2e
+#define OBJTYPE_TINTEDGLASS        0x2f
+#define OBJTYPE_LIFT               0x30
+#define OBJTYPE_CONDITIONALSCENERY 0x31
+#define OBJTYPE_BLOCKEDPATH        0x32
+#define OBJTYPE_HOVERBIKE          0x33
+#define OBJTYPE_END                0x34
+#define OBJTYPE_HOVERPROP          0x35 // Hovercrates and hoverbeds
+#define OBJTYPE_FAN                0x36
+#define OBJTYPE_HOVERCAR           0x37 // Datadyne cars, Chicago taxi and limo, and hoverbots
+#define OBJTYPE_PADEFFECT          0x38
+#define OBJTYPE_CHOPPER            0x39 // Extraction hovercopter and A51 interceptors
+#define OBJTYPE_MINE               0x3a
+#define OBJTYPE_ESCALATOR          0x3b
 
 #define OPERATOR_LESS_THAN    0
 #define OPERATOR_GREATER_THAN 1

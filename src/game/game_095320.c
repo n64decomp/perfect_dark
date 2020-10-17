@@ -128,7 +128,7 @@ s32 objGetTagNum(struct defaultobj *obj)
 {
 	struct tag *tag = g_TagsLinkedList;
 
-	if (obj && (obj->hidden & OBJHFLAG_00000010)) {
+	if (obj && (obj->hidden & OBJHFLAG_TAGGED)) {
 		while (tag) {
 			if (obj == tag->obj) {
 				return tag->tagnum;
@@ -150,7 +150,7 @@ struct defaultobj *objFindByTagId(s32 tag_id)
 		obj = tag->obj;
 	}
 
-	if (obj && (obj->hidden & OBJHFLAG_00000010) == 0) {
+	if (obj && (obj->hidden & OBJHFLAG_TAGGED) == 0) {
 		obj = NULL;
 	}
 

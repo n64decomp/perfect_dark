@@ -462,7 +462,7 @@ u32 bodyGetHead(u32 bodynum)
 }
 
 GLOBAL_ASM(
-glabel func0f02d4fc
+glabel chrUnpack
 /*  f02d4fc:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f02d500:	afb00028 */ 	sw	$s0,0x28($sp)
 /*  f02d504:	afbf002c */ 	sw	$ra,0x2c($sp)

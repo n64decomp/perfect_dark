@@ -216,6 +216,7 @@ extern u32 var80061710;
 extern u32 var80061a80;
 extern u32 var80061af4;
 extern u32 var80061b68;
+extern f32 g_DoorScale;
 extern u32 var80061bf0;
 
 #endif

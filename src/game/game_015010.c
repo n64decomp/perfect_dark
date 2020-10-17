@@ -13,7 +13,7 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-void setupParseObjects(void)
+void func0f015010(void)
 {
 	u32 *ptr = g_StageSetup.props;
 
@@ -29,9 +29,9 @@ void setupParseObjects(void)
 			case OBJTYPE_WEAPON:
 			case OBJTYPE_SINGLEMONITOR:
 			case OBJTYPE_MULTIMONITOR:
-			case OBJTYPE_0C:
+			case OBJTYPE_HANGINGMONITORS:
 			case OBJTYPE_AUTOGUN:
-			case OBJTYPE_11:
+			case OBJTYPE_HAT:
 			case OBJTYPE_MULTIAMMOCRATE:
 			case OBJTYPE_SHIELD:
 			case OBJTYPE_24:
@@ -39,7 +39,7 @@ void setupParseObjects(void)
 			case OBJTYPE_HELI:
 			case OBJTYPE_29:
 			case OBJTYPE_GLASS:
-			case OBJTYPE_2B:
+			case OBJTYPE_SAFE:
 			case OBJTYPE_2D:
 			case OBJTYPE_TINTEDGLASS:
 			case OBJTYPE_LIFT:
@@ -49,15 +49,15 @@ void setupParseObjects(void)
 			case OBJTYPE_HOVERCAR:
 			case OBJTYPE_CHOPPER:
 			case OBJTYPE_ESCALATOR:
-				setupParseObjectWithArg2False(ptr, 1);
+				func0f06b34c(ptr, 1);
 				break;
 			case OBJTYPE_DOORSCALE:
 			case OBJTYPE_CHR:
 			case OBJTYPE_LINKGUNS:
 			case OBJTYPE_DEBRIS:
 			case OBJTYPE_10:
-			case OBJTYPE_12:
-			case OBJTYPE_LINKOBJS:
+			case OBJTYPE_GRENADEPROB:
+			case OBJTYPE_LINKLIFTDOOR:
 			case OBJTYPE_TAG:
 			case OBJTYPE_BEGINOBJECTIVE:
 			case OBJTYPE_ENDOBJECTIVE:
@@ -73,11 +73,11 @@ void setupParseObjects(void)
 			case OBJTYPE_22:
 			case OBJTYPE_BRIEFING:
 			case OBJTYPE_RENAMEOBJ:
-			case OBJTYPE_26:
-			case OBJTYPE_2C:
+			case OBJTYPE_PADLOCKEDDOOR:
+			case OBJTYPE_SAFEITEM:
 			case OBJTYPE_CAMERA2:
-			case OBJTYPE_LINKSCENERY:
-			case OBJTYPE_LINKPATHS:
+			case OBJTYPE_CONDITIONALSCENERY:
+			case OBJTYPE_BLOCKEDPATH:
 			case OBJTYPE_END:
 			case OBJTYPE_PADEFFECT:
 			case OBJTYPE_MINE:
