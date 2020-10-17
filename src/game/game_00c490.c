@@ -1573,120 +1573,53 @@ glabel var7f1a804c
 /*  f00dbfc:	27bd00c8 */ 	addiu	$sp,$sp,0xc8
 );
 
-GLOBAL_ASM(
-glabel setupAutogun
-.late_rodata
-glabel var7f1a8050
-.word 0x40c907a9
-glabel var7f1a8054
-.word 0xbfc907a9
-.text
-/*  f00dc00:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f00dc04:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f00dc08:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f00dc0c:	0fc033b9 */ 	jal	setupGenericObject
-/*  f00dc10:	00808025 */ 	or	$s0,$a0,$zero
-/*  f00dc14:	8e0e0080 */ 	lw	$t6,0x80($s0)
-/*  f00dc18:	8e0f0084 */ 	lw	$t7,0x84($s0)
-/*  f00dc1c:	3c014780 */ 	lui	$at,0x4780
-/*  f00dc20:	448e2000 */ 	mtc1	$t6,$f4
-/*  f00dc24:	44811000 */ 	mtc1	$at,$f2
-/*  f00dc28:	3c017f1b */ 	lui	$at,%hi(var7f1a8050)
-/*  f00dc2c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f00dc30:	c42c8050 */ 	lwc1	$f12,%lo(var7f1a8050)($at)
-/*  f00dc34:	448f8000 */ 	mtc1	$t7,$f16
-/*  f00dc38:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f00dc3c:	44812000 */ 	mtc1	$at,$f4
-/*  f00dc40:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f00dc44:	460c3202 */ 	mul.s	$f8,$f6,$f12
-/*  f00dc48:	8e180064 */ 	lw	$t8,0x64($s0)
-/*  f00dc4c:	8e190068 */ 	lw	$t9,0x68($s0)
-/*  f00dc50:	44800000 */ 	mtc1	$zero,$f0
-/*  f00dc54:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f00dc58:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f00dc5c:	a200005f */ 	sb	$zero,0x5f($s0)
-/*  f00dc60:	ae030090 */ 	sw	$v1,0x90($s0)
-/*  f00dc64:	ae030094 */ 	sw	$v1,0x94($s0)
-/*  f00dc68:	ae030098 */ 	sw	$v1,0x98($s0)
-/*  f00dc6c:	24040030 */ 	addiu	$a0,$zero,0x30
-/*  f00dc70:	46024283 */ 	div.s	$f10,$f8,$f2
-/*  f00dc74:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f00dc78:	e600006c */ 	swc1	$f0,0x6c($s0)
-/*  f00dc7c:	e6000070 */ 	swc1	$f0,0x70($s0)
-/*  f00dc80:	e6000060 */ 	swc1	$f0,0x60($s0)
-/*  f00dc84:	e6000078 */ 	swc1	$f0,0x78($s0)
-/*  f00dc88:	e600007c */ 	swc1	$f0,0x7c($s0)
-/*  f00dc8c:	e6000074 */ 	swc1	$f0,0x74($s0)
-/*  f00dc90:	e6000088 */ 	swc1	$f0,0x88($s0)
-/*  f00dc94:	e600008c */ 	swc1	$f0,0x8c($s0)
-/*  f00dc98:	46023203 */ 	div.s	$f8,$f6,$f2
-/*  f00dc9c:	e60a0080 */ 	swc1	$f10,0x80($s0)
-/*  f00dca0:	44985000 */ 	mtc1	$t8,$f10
-/*  f00dca4:	44993000 */ 	mtc1	$t9,$f6
-/*  f00dca8:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f00dcac:	460c8482 */ 	mul.s	$f18,$f16,$f12
-/*  f00dcb0:	e6080084 */ 	swc1	$f8,0x84($s0)
-/*  f00dcb4:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f00dcb8:	46029103 */ 	div.s	$f4,$f18,$f2
-/*  f00dcbc:	460c4282 */ 	mul.s	$f10,$f8,$f12
-/*  f00dcc0:	46025403 */ 	div.s	$f16,$f10,$f2
-/*  f00dcc4:	e6040064 */ 	swc1	$f4,0x64($s0)
-/*  f00dcc8:	0c0048f2 */ 	jal	malloc
-/*  f00dccc:	e6100068 */ 	swc1	$f16,0x68($s0)
-/*  f00dcd0:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f00dcd4:	ae02009c */ 	sw	$v0,0x9c($s0)
-/*  f00dcd8:	a0430000 */ 	sb	$v1,0x0($v0)
-/*  f00dcdc:	8604005c */ 	lh	$a0,0x5c($s0)
-/*  f00dce0:	44800000 */ 	mtc1	$zero,$f0
-/*  f00dce4:	240800ff */ 	addiu	$t0,$zero,0xff
-/*  f00dce8:	a200005e */ 	sb	$zero,0x5e($s0)
-/*  f00dcec:	a20800a9 */ 	sb	$t0,0xa9($s0)
-/*  f00dcf0:	0480001f */ 	bltz	$a0,.L0f00dd70
-/*  f00dcf4:	e60000a0 */ 	swc1	$f0,0xa0($s0)
-/*  f00dcf8:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f00dcfc:	0fc456ac */ 	jal	padUnpack
-/*  f00dd00:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f00dd04:	8e020014 */ 	lw	$v0,0x14($s0)
-/*  f00dd08:	c7a6002c */ 	lwc1	$f6,0x2c($sp)
-/*  f00dd0c:	c7b20028 */ 	lwc1	$f18,0x28($sp)
-/*  f00dd10:	c448000c */ 	lwc1	$f8,0xc($v0)
-/*  f00dd14:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f00dd18:	c7b00030 */ 	lwc1	$f16,0x30($sp)
-/*  f00dd1c:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*  f00dd20:	46049301 */ 	sub.s	$f12,$f18,$f4
-/*  f00dd24:	e7aa0084 */ 	swc1	$f10,0x84($sp)
-/*  f00dd28:	c4520010 */ 	lwc1	$f18,0x10($v0)
-/*  f00dd2c:	e7ac0088 */ 	swc1	$f12,0x88($sp)
-/*  f00dd30:	46128381 */ 	sub.s	$f14,$f16,$f18
-/*  f00dd34:	0fc259d4 */ 	jal	func0f096750
-/*  f00dd38:	e7ae0080 */ 	swc1	$f14,0x80($sp)
-/*  f00dd3c:	c7a20088 */ 	lwc1	$f2,0x88($sp)
-/*  f00dd40:	c7ae0080 */ 	lwc1	$f14,0x80($sp)
-/*  f00dd44:	e6000060 */ 	swc1	$f0,0x60($s0)
-/*  f00dd48:	46021102 */ 	mul.s	$f4,$f2,$f2
-/*  f00dd4c:	00000000 */ 	nop
-/*  f00dd50:	460e7182 */ 	mul.s	$f6,$f14,$f14
-/*  f00dd54:	0c012974 */ 	jal	sqrtf
-/*  f00dd58:	46062300 */ 	add.s	$f12,$f4,$f6
-/*  f00dd5c:	c7ac0084 */ 	lwc1	$f12,0x84($sp)
-/*  f00dd60:	0fc259d4 */ 	jal	func0f096750
-/*  f00dd64:	46000386 */ 	mov.s	$f14,$f0
-/*  f00dd68:	10000007 */ 	b	.L0f00dd88
-/*  f00dd6c:	e6000074 */ 	swc1	$f0,0x74($s0)
-.L0f00dd70:
-/*  f00dd70:	86090004 */ 	lh	$t1,0x4($s0)
-/*  f00dd74:	24010144 */ 	addiu	$at,$zero,0x144
-/*  f00dd78:	15210003 */ 	bne	$t1,$at,.L0f00dd88
-/*  f00dd7c:	3c017f1b */ 	lui	$at,%hi(var7f1a8054)
-/*  f00dd80:	c4288054 */ 	lwc1	$f8,%lo(var7f1a8054)($at)
-/*  f00dd84:	e6080074 */ 	swc1	$f8,0x74($s0)
-.L0f00dd88:
-/*  f00dd88:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f00dd8c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f00dd90:	27bd0090 */ 	addiu	$sp,$sp,0x90
-/*  f00dd94:	03e00008 */ 	jr	$ra
-/*  f00dd98:	00000000 */ 	nop
-);
+void setupAutogun(struct autogunobj *autogun, s32 cmdindex)
+{
+	setupGenericObject(&autogun->base, cmdindex);
+
+	autogun->unk5f = 0;
+	autogun->unk90 = -1;
+	autogun->unk94 = -1;
+	autogun->unk98 = -1;
+	autogun->unk6c = 0;
+	autogun->unk70 = 0;
+	autogun->angleh = 0;
+	autogun->unk78 = 0;
+	autogun->unk7c = 0;
+	autogun->anglev = 0;
+	autogun->unk88 = 0;
+	autogun->unk8c = 0;
+	autogun->unk80 = *(s32 *)&autogun->unk80 * M_BADTAU / 65536.0f;
+	autogun->unk84 = *(s32 *)&autogun->unk84 * 100.0f / 65536.0f;
+	autogun->unk64 = *(s32 *)&autogun->unk64 * M_BADTAU / 65536.0f;
+	autogun->unk68 = *(s32 *)&autogun->unk68 * M_BADTAU / 65536.0f;
+	autogun->bullettail = malloc(ALIGN16(sizeof(struct bullettail)), 4);
+	autogun->bullettail->age = -1;
+	autogun->unk5e = 0;
+	autogun->ammoquantity = 255;
+	autogun->unka0 = 0;
+
+	if (autogun->targetpad >= 0) {
+		u32 stack1;
+		f32 xdiff;
+		f32 ydiff;
+		f32 zdiff;
+		u32 stack2;
+		struct pad pad;
+
+		padUnpack(autogun->targetpad, PADFIELD_POS, &pad);
+
+		xdiff = pad.pos.x - autogun->base.prop->pos.x;
+		ydiff = pad.pos.y - autogun->base.prop->pos.y;
+		zdiff = pad.pos.z - autogun->base.prop->pos.z;
+
+		autogun->angleh = func0f096750(xdiff, zdiff);
+		autogun->anglev = func0f096750(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
+	} else if (autogun->base.modelnum == MODEL_CETROOFGUN) {
+		// Deep Sea roofgun
+		autogun->anglev = -1.5705462694168f;
+	}
+}
 
 void setupHangingMonitors(struct hangingmonitorsobj *monitors, s32 cmdindex)
 {
