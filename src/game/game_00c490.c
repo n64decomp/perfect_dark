@@ -2452,38 +2452,24 @@ glabel var7f1a8064
 /*  f00e908:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel setupHov
-/*  f00e90c:	44801000 */ 	mtc1	$zero,$f2
-/*  f00e910:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f00e914:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f00e918:	e4a20004 */ 	swc1	$f2,0x4($a1)
-/*  f00e91c:	e4a20008 */ 	swc1	$f2,0x8($a1)
-/*  f00e920:	e4a2000c */ 	swc1	$f2,0xc($a1)
-/*  f00e924:	c48e003c */ 	lwc1	$f14,0x3c($a0)
-/*  f00e928:	c48c0034 */ 	lwc1	$f12,0x34($a0)
-/*  f00e92c:	0fc259d4 */ 	jal	func0f096750
-/*  f00e930:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f00e934:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f00e938:	44801000 */ 	mtc1	$zero,$f2
-/*  f00e93c:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f00e940:	e4a00010 */ 	swc1	$f0,0x10($a1)
-/*  f00e944:	aca20038 */ 	sw	$v0,0x38($a1)
-/*  f00e948:	aca2003c */ 	sw	$v0,0x3c($a1)
-/*  f00e94c:	e4a20014 */ 	swc1	$f2,0x14($a1)
-/*  f00e950:	e4a20018 */ 	swc1	$f2,0x18($a1)
-/*  f00e954:	e4a2001c */ 	swc1	$f2,0x1c($a1)
-/*  f00e958:	e4a20020 */ 	swc1	$f2,0x20($a1)
-/*  f00e95c:	e4a20024 */ 	swc1	$f2,0x24($a1)
-/*  f00e960:	e4a20028 */ 	swc1	$f2,0x28($a1)
-/*  f00e964:	e4a2002c */ 	swc1	$f2,0x2c($a1)
-/*  f00e968:	e4a20030 */ 	swc1	$f2,0x30($a1)
-/*  f00e96c:	e4a20034 */ 	swc1	$f2,0x34($a1)
-/*  f00e970:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00e974:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f00e978:	03e00008 */ 	jr	$ra
-/*  f00e97c:	00000000 */ 	nop
-);
+void setupHov(struct defaultobj *obj, struct hov *hov)
+{
+	hov->unk04 = 0;
+	hov->unk08 = 0;
+	hov->unk0c = 0;
+	hov->unk10 = func0f096750(obj->realrot[6], obj->realrot[8]);
+	hov->unk14 = 0;
+	hov->unk18 = 0;
+	hov->unk1c = 0;
+	hov->unk20 = 0;
+	hov->unk24 = 0;
+	hov->unk28 = 0;
+	hov->unk2c = 0;
+	hov->unk30 = 0;
+	hov->unk34 = 0;
+	hov->unk38 = -1;
+	hov->unk3c = -1;
+}
 
 GLOBAL_ASM(
 glabel func0f00e980
