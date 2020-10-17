@@ -722,46 +722,23 @@ void setupClearProxyMines(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel setupCountCommandType
-/*  f00ce60:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f00ce64:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f00ce68:	3c10800a */ 	lui	$s0,%hi(g_StageSetup+0x10)
-/*  f00ce6c:	8e10d040 */ 	lw	$s0,%lo(g_StageSetup+0x10)($s0)
-/*  f00ce70:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f00ce74:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f00ce78:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f00ce7c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f00ce80:	12000010 */ 	beqz	$s0,.L0f00cec4
-/*  f00ce84:	00008825 */ 	or	$s1,$zero,$zero
-/*  f00ce88:	92030003 */ 	lbu	$v1,0x3($s0)
-/*  f00ce8c:	24130034 */ 	addiu	$s3,$zero,0x34
-/*  f00ce90:	309200ff */ 	andi	$s2,$a0,0xff
-/*  f00ce94:	5263000c */ 	beql	$s3,$v1,.L0f00cec8
-/*  f00ce98:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f00ce9c:
-/*  f00ce9c:	16430002 */ 	bne	$s2,$v1,.L0f00cea8
-/*  f00cea0:	00000000 */ 	nop
-/*  f00cea4:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f00cea8:
-/*  f00cea8:	0fc24784 */ 	jal	setupGetCommandLength
-/*  f00ceac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f00ceb0:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f00ceb4:	01d08021 */ 	addu	$s0,$t6,$s0
-/*  f00ceb8:	92030003 */ 	lbu	$v1,0x3($s0)
-/*  f00cebc:	1663fff7 */ 	bne	$s3,$v1,.L0f00ce9c
-/*  f00cec0:	00000000 */ 	nop
-.L0f00cec4:
-/*  f00cec4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f00cec8:
-/*  f00cec8:	02201025 */ 	or	$v0,$s1,$zero
-/*  f00cecc:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f00ced0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f00ced4:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f00ced8:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f00cedc:	03e00008 */ 	jr	$ra
-/*  f00cee0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 setupCountCommandType(u32 type)
+{
+	struct defaultobj *obj = (struct defaultobj *)g_StageSetup.props;
+	s32 count = 0;
+
+	if (obj) {
+		while (obj->type != OBJTYPE_END) {
+			if (obj->type == (u8)type) {
+				count++;
+			}
+
+			obj = (struct defaultobj *)((u32 *)obj + setupGetCommandLength((u32 *)obj));
+		}
+	}
+
+	return count;
+}
 
 GLOBAL_ASM(
 glabel setupGenericObject

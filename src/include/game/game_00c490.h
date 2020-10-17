@@ -11,7 +11,7 @@ void addConditionalScenery(struct linksceneryobj *link);
 void addBlockedPath(struct blockedpathobj *link);
 u32 func0f00cc8c(void);
 void setupClearProxyMines(void);
-s32 setupCountCommandType(u8 type);
+s32 setupCountCommandType(u32 type);
 void setupGenericObject(struct defaultobj *obj, s32 cmdindex);
 void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex);
 void setupHat(struct hatobj *hat, s32 cmdindex);
