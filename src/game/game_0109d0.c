@@ -44,8 +44,8 @@ glabel func0f0109d0
 /*  f010a30:	ac40fffc */ 	sw	$zero,-0x4($v0)
 /*  f010a34:	3c01800a */ 	lui	$at,%hi(g_TagsLinkedList)
 /*  f010a38:	ac20d0b0 */ 	sw	$zero,%lo(g_TagsLinkedList)($at)
-/*  f010a3c:	3c01800a */ 	lui	$at,%hi(var8009d0b4)
-/*  f010a40:	ac20d0b4 */ 	sw	$zero,%lo(var8009d0b4)($at)
+/*  f010a3c:	3c01800a */ 	lui	$at,%hi(g_BriefingObjs)
+/*  f010a40:	ac20d0b4 */ 	sw	$zero,%lo(g_BriefingObjs)($at)
 /*  f010a44:	3c01800a */ 	lui	$at,%hi(g_RoomEnteredCriterias)
 /*  f010a48:	ac20d0b8 */ 	sw	$zero,%lo(g_RoomEnteredCriterias)($at)
 /*  f010a4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -69,8 +69,8 @@ glabel tagInsert
 
 GLOBAL_ASM(
 glabel briefingInsert
-/*  f010a80:	3c02800a */ 	lui	$v0,%hi(var8009d0b4)
-/*  f010a84:	2442d0b4 */ 	addiu	$v0,$v0,%lo(var8009d0b4)
+/*  f010a80:	3c02800a */ 	lui	$v0,%hi(g_BriefingObjs)
+/*  f010a84:	2442d0b4 */ 	addiu	$v0,$v0,%lo(g_BriefingObjs)
 /*  f010a88:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*  f010a8c:	ac8e000c */ 	sw	$t6,0xc($a0)
 /*  f010a90:	03e00008 */ 	jr	$ra

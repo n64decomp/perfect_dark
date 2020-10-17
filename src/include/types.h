@@ -1377,6 +1377,7 @@ struct briefingobj { // objtype 0x23
 	u32 unk00;
 	u32 type;
 	u32 text;
+	struct briefingobj *next;
 };
 
 struct padlockeddoorobj { // objtype 0x26
@@ -5126,8 +5127,10 @@ struct objective { // representation of setup file beginobjective macro
 };
 
 struct briefing {
-	u16 objectivenames[6]; // index 0 is the briefing, and the rest of objectives
-	u16 objectivedifficulties[6];
+	u16 briefingtextnum;
+	u16 objectivenames[6]; // index 0 is the briefing, and the rest are objectives
+	u16 objectivedifficulties[6]; // index 0 is unused
+	u16 langbank;
 };
 
 struct criteria_roomentered {
@@ -5150,13 +5153,6 @@ struct criteria_holograph {
 	u32 obj;
 	u32 status;
 	struct criteria_holograph *next;
-};
-
-struct objectivething {
-	u32 unk00;
-	u32 unk04;
-	u32 name;
-	struct objectivething *next;
 };
 
 struct mppreset {

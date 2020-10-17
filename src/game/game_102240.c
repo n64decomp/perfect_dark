@@ -720,7 +720,7 @@ s32 menudialog00103608(u32 operation, struct menudialog *dialog, union handlerda
 				g_Menus[g_MpPlayerNum].unk848, &g_Briefing);
 		break;
 	case MENUOP_CLOSE:
-		langClearBank(var8009dfe0[1]);
+		langClearBank(g_Briefing.langbank);
 		break;
 	}
 
@@ -3895,38 +3895,38 @@ struct menudialog g_SoloAbortShortMenuDialog = {
 s32 soloMenuDialogPauseStatus(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
-		struct objectivething *thing = var8009d0b4;
+		struct briefingobj *briefing = g_BriefingObjs;
 		struct objective *objective;
-		s32 iVar3 = 1;
+		s32 wanttype = BRIEFINGTYPE_TEXT_PA;
 		s32 i;
 
 		if (getDifficulty() == DIFF_A) {
-			iVar3 = 3;
+			wanttype = BRIEFINGTYPE_TEXT_A;
 		}
 
 		if (getDifficulty() == DIFF_SA) {
-			iVar3 = 2;
+			wanttype = BRIEFINGTYPE_TEXT_SA;
 		}
 
-		g_Briefing.objectivenames[0] = L_MISC(42); // "No briefing for this mission"
+		g_Briefing.briefingtextnum = L_MISC(42); // "No briefing for this mission"
 
-		while (thing) {
-			if (thing->unk04 == 1) {
-				g_Briefing.objectivenames[0] = thing->name;
+		while (briefing) {
+			if (briefing->type == BRIEFINGTYPE_TEXT_PA) {
+				g_Briefing.briefingtextnum = briefing->text;
 			}
 
-			if (thing->unk04 == iVar3) {
-				g_Briefing.objectivenames[0] = thing->name;
+			if (briefing->type == wanttype) {
+				g_Briefing.briefingtextnum = briefing->text;
 				break;
 			}
 
-			thing = thing->next;
+			briefing = briefing->next;
 		}
 
 		for (i = 0; i < objectiveGetCount(); i++) {
 			if (g_Objectives[i]) {
-				g_Briefing.objectivenames[i + 1] = g_Objectives[i]->text;
-				g_Briefing.objectivedifficulties[i + 1] = objectiveGetDifficultyBits(i);
+				g_Briefing.objectivenames[i] = g_Objectives[i]->text;
+				g_Briefing.objectivedifficulties[i] = objectiveGetDifficultyBits(i);
 			}
 		}
 	}

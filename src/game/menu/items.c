@@ -3894,8 +3894,8 @@ Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurendercontext *context)
 	s32 i;
 
 	for (i = 0; i < 6; i++) {
-		if (g_Briefing.objectivenames[i + 1]
-				&& g_Briefing.objectivedifficulties[i + 1] & (1 << getDifficulty())) {
+		if (g_Briefing.objectivenames[i]
+				&& g_Briefing.objectivedifficulties[i] & (1 << getDifficulty())) {
 			gdl = menuRenderObjective(gdl,
 					context->frame,
 					i, position, context->x, y, context->width, context->height,
@@ -6164,7 +6164,7 @@ char *menuItemScrollableGetText(u32 type)
 	case DESCRIPTION_DEVICETIP2:     return dtGetTip2();
 	}
 
-	return langGet(g_Briefing.objectivenames[0]);
+	return langGet(g_Briefing.briefingtextnum);
 }
 
 /**

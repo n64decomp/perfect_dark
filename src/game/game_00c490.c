@@ -3058,11 +3058,11 @@ void setupParseObjects(s32 stagenum)
 	g_Vars.textoverrides = NULL;
 
 	for (j = 0; j != 6; j++) {
-		g_Briefing.objectivenames[j + 1] = 0;
-		g_Briefing.objectivedifficulties[j + 1] = 0;
+		g_Briefing.objectivenames[j] = 0;
+		g_Briefing.objectivedifficulties[j] = 0;
 	}
 
-	g_Briefing.objectivenames[0] = L_MISC(42); // "No briefing for this mission"
+	g_Briefing.briefingtextnum = L_MISC(42); // "No briefing for this mission"
 
 	if (stagenum < STAGE_TITLE) {
 		if (g_StageSetup.padfiledata) {
@@ -3556,7 +3556,7 @@ void setupParseObjects(s32 stagenum)
 						}
 
 						if (briefing->type == wanttype) {
-							g_Briefing.objectivenames[0] = briefing->text;
+							g_Briefing.briefingtextnum = briefing->text;
 						}
 					}
 					break;
@@ -3577,8 +3577,8 @@ void setupParseObjects(s32 stagenum)
 						func0f010a98(obj);
 
 						if (objective->index < 7) {
-							g_Briefing.objectivenames[objective->index + 1] = objective->text;
-							g_Briefing.objectivedifficulties[objective->index + 1] = (s8)objective->difficulty;
+							g_Briefing.objectivenames[objective->index] = objective->text;
+							g_Briefing.objectivedifficulties[objective->index] = (s8)objective->difficulty;
 						}
 					}
 					break;
