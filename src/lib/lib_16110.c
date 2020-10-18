@@ -128,25 +128,16 @@ glabel func000161b0
 /*    16204:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00016208
-/*    16208:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    1620c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    16210:	27a6001c */ 	addiu	$a2,$sp,0x1c
-/*    16214:	0c00586c */ 	jal	func000161b0
-/*    16218:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    1621c:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*    16220:	c7a4001c */ 	lwc1	$f4,0x1c($sp)
-/*    16224:	e4a40000 */ 	swc1	$f4,0x0($a1)
-/*    16228:	c7a60020 */ 	lwc1	$f6,0x20($sp)
-/*    1622c:	e4a60004 */ 	swc1	$f6,0x4($a1)
-/*    16230:	c7a80024 */ 	lwc1	$f8,0x24($sp)
-/*    16234:	e4a80008 */ 	swc1	$f8,0x8($a1)
-/*    16238:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1623c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    16240:	03e00008 */ 	jr	$ra
-/*    16244:	00000000 */ 	nop
-);
+void func00016208(f32 *matrix, struct coord *coord)
+{
+	struct coord tmp;
+
+	func000161b0(matrix, coord, &tmp);
+
+	coord->x = tmp.x;
+	coord->y = tmp.y;
+	coord->z = tmp.z;
+}
 
 void func00016248(struct coord *coord, f32 angle, f32 *matrix)
 {
