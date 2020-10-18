@@ -218,44 +218,31 @@ void func000162e8(f32 angle, f32 *matrix)
 	matrix[15] = 1;
 }
 
-GLOBAL_ASM(
-glabel func00016374
-/*    16374:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    16378:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1637c:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*    16380:	c7ac0020 */ 	lwc1	$f12,0x20($sp)
-/*    16384:	0c0068f4 */ 	jal	cosf
-/*    16388:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    1638c:	c7ac0020 */ 	lwc1	$f12,0x20($sp)
-/*    16390:	0c0068f7 */ 	jal	sinf
-/*    16394:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*    16398:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*    1639c:	c7ae001c */ 	lwc1	$f14,0x1c($sp)
-/*    163a0:	44801000 */ 	mtc1	$zero,$f2
-/*    163a4:	3c013f80 */ 	lui	$at,0x3f80
-/*    163a8:	44816000 */ 	mtc1	$at,$f12
-/*    163ac:	46000107 */ 	neg.s	$f4,$f0
-/*    163b0:	e4a00020 */ 	swc1	$f0,0x20($a1)
-/*    163b4:	e4a40008 */ 	swc1	$f4,0x8($a1)
-/*    163b8:	e4ae0000 */ 	swc1	$f14,0x0($a1)
-/*    163bc:	e4ae0028 */ 	swc1	$f14,0x28($a1)
-/*    163c0:	e4a20004 */ 	swc1	$f2,0x4($a1)
-/*    163c4:	e4a2000c */ 	swc1	$f2,0xc($a1)
-/*    163c8:	e4a20010 */ 	swc1	$f2,0x10($a1)
-/*    163cc:	e4a20018 */ 	swc1	$f2,0x18($a1)
-/*    163d0:	e4a2001c */ 	swc1	$f2,0x1c($a1)
-/*    163d4:	e4a20024 */ 	swc1	$f2,0x24($a1)
-/*    163d8:	e4a2002c */ 	swc1	$f2,0x2c($a1)
-/*    163dc:	e4a20030 */ 	swc1	$f2,0x30($a1)
-/*    163e0:	e4a20034 */ 	swc1	$f2,0x34($a1)
-/*    163e4:	e4a20038 */ 	swc1	$f2,0x38($a1)
-/*    163e8:	e4ac0014 */ 	swc1	$f12,0x14($a1)
-/*    163ec:	e4ac003c */ 	swc1	$f12,0x3c($a1)
-/*    163f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    163f4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    163f8:	03e00008 */ 	jr	$ra
-/*    163fc:	00000000 */ 	nop
-);
+void func00016374(f32 angle, f32 *matrix)
+{
+	f32 cos = cosf(angle);
+	f32 sin = sinf(angle);
+
+	matrix[0] = cos;
+	matrix[1] = 0;
+	matrix[2] = -sin;
+	matrix[3] = 0;
+
+	matrix[4] = 0;
+	matrix[5] = 1;
+	matrix[6] = 0;
+	matrix[7] = 0;
+
+	matrix[8] = sin;
+	matrix[9] = 0;
+	matrix[10] = cos;
+	matrix[11] = 0;
+
+	matrix[12] = 0;
+	matrix[13] = 0;
+	matrix[14] = 0;
+	matrix[15] = 1;
+}
 
 GLOBAL_ASM(
 glabel func00016400
