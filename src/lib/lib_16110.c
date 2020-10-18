@@ -270,92 +270,39 @@ void func00016400(f32 angle, f32 *matrix)
 	matrix[15] = 1;
 }
 
-GLOBAL_ASM(
-glabel func0001648c
-/*    1648c:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*    16490:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    16494:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    16498:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    1649c:	00a08025 */ 	or	$s0,$a1,$zero
-/*    164a0:	00808825 */ 	or	$s1,$a0,$zero
-/*    164a4:	0c0068f4 */ 	jal	cosf
-/*    164a8:	c48c0000 */ 	lwc1	$f12,0x0($a0)
-/*    164ac:	e7a00054 */ 	swc1	$f0,0x54($sp)
-/*    164b0:	0c0068f7 */ 	jal	sinf
-/*    164b4:	c62c0000 */ 	lwc1	$f12,0x0($s1)
-/*    164b8:	e7a00050 */ 	swc1	$f0,0x50($sp)
-/*    164bc:	0c0068f4 */ 	jal	cosf
-/*    164c0:	c62c0004 */ 	lwc1	$f12,0x4($s1)
-/*    164c4:	c62c0004 */ 	lwc1	$f12,0x4($s1)
-/*    164c8:	0c0068f7 */ 	jal	sinf
-/*    164cc:	e7a0004c */ 	swc1	$f0,0x4c($sp)
-/*    164d0:	c62c0008 */ 	lwc1	$f12,0x8($s1)
-/*    164d4:	0c0068f4 */ 	jal	cosf
-/*    164d8:	e7a00048 */ 	swc1	$f0,0x48($sp)
-/*    164dc:	c62c0008 */ 	lwc1	$f12,0x8($s1)
-/*    164e0:	0c0068f7 */ 	jal	sinf
-/*    164e4:	e7a00044 */ 	swc1	$f0,0x44($sp)
-/*    164e8:	c7ae004c */ 	lwc1	$f14,0x4c($sp)
-/*    164ec:	c7b00044 */ 	lwc1	$f16,0x44($sp)
-/*    164f0:	c7a20048 */ 	lwc1	$f2,0x48($sp)
-/*    164f4:	44806000 */ 	mtc1	$zero,$f12
-/*    164f8:	46107102 */ 	mul.s	$f4,$f14,$f16
-/*    164fc:	46001207 */ 	neg.s	$f8,$f2
-/*    16500:	e60c000c */ 	swc1	$f12,0xc($s0)
-/*    16504:	46007182 */ 	mul.s	$f6,$f14,$f0
-/*    16508:	e6080008 */ 	swc1	$f8,0x8($s0)
-/*    1650c:	3c013f80 */ 	lui	$at,0x3f80
-/*    16510:	e6040000 */ 	swc1	$f4,0x0($s0)
-/*    16514:	e6060004 */ 	swc1	$f6,0x4($s0)
-/*    16518:	c7aa0050 */ 	lwc1	$f10,0x50($sp)
-/*    1651c:	c7a60054 */ 	lwc1	$f6,0x54($sp)
-/*    16520:	46105102 */ 	mul.s	$f4,$f10,$f16
-/*    16524:	00000000 */ 	nop
-/*    16528:	46003202 */ 	mul.s	$f8,$f6,$f0
-/*    1652c:	00000000 */ 	nop
-/*    16530:	46022282 */ 	mul.s	$f10,$f4,$f2
-/*    16534:	e7a40024 */ 	swc1	$f4,0x24($sp)
-/*    16538:	e7a80028 */ 	swc1	$f8,0x28($sp)
-/*    1653c:	46085181 */ 	sub.s	$f6,$f10,$f8
-/*    16540:	e6060010 */ 	swc1	$f6,0x10($s0)
-/*    16544:	c7a40050 */ 	lwc1	$f4,0x50($sp)
-/*    16548:	c7aa0054 */ 	lwc1	$f10,0x54($sp)
-/*    1654c:	46002482 */ 	mul.s	$f18,$f4,$f0
-/*    16550:	00000000 */ 	nop
-/*    16554:	46105202 */ 	mul.s	$f8,$f10,$f16
-/*    16558:	00000000 */ 	nop
-/*    1655c:	46029182 */ 	mul.s	$f6,$f18,$f2
-/*    16560:	e7a80020 */ 	swc1	$f8,0x20($sp)
-/*    16564:	46083100 */ 	add.s	$f4,$f6,$f8
-/*    16568:	e6040014 */ 	swc1	$f4,0x14($s0)
-/*    1656c:	c7aa0050 */ 	lwc1	$f10,0x50($sp)
-/*    16570:	e60c001c */ 	swc1	$f12,0x1c($s0)
-/*    16574:	460e5182 */ 	mul.s	$f6,$f10,$f14
-/*    16578:	e6060018 */ 	swc1	$f6,0x18($s0)
-/*    1657c:	c7a80020 */ 	lwc1	$f8,0x20($sp)
-/*    16580:	46024102 */ 	mul.s	$f4,$f8,$f2
-/*    16584:	46122280 */ 	add.s	$f10,$f4,$f18
-/*    16588:	e60a0020 */ 	swc1	$f10,0x20($s0)
-/*    1658c:	c7a60028 */ 	lwc1	$f6,0x28($sp)
-/*    16590:	c7a40024 */ 	lwc1	$f4,0x24($sp)
-/*    16594:	46023202 */ 	mul.s	$f8,$f6,$f2
-/*    16598:	46044281 */ 	sub.s	$f10,$f8,$f4
-/*    1659c:	44812000 */ 	mtc1	$at,$f4
-/*    165a0:	e60a0024 */ 	swc1	$f10,0x24($s0)
-/*    165a4:	c7a60054 */ 	lwc1	$f6,0x54($sp)
-/*    165a8:	e60c002c */ 	swc1	$f12,0x2c($s0)
-/*    165ac:	e60c0030 */ 	swc1	$f12,0x30($s0)
-/*    165b0:	460e3202 */ 	mul.s	$f8,$f6,$f14
-/*    165b4:	e60c0034 */ 	swc1	$f12,0x34($s0)
-/*    165b8:	e60c0038 */ 	swc1	$f12,0x38($s0)
-/*    165bc:	e604003c */ 	swc1	$f4,0x3c($s0)
-/*    165c0:	e6080028 */ 	swc1	$f8,0x28($s0)
-/*    165c4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    165c8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    165cc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    165d0:	03e00008 */ 	jr	$ra
-/*    165d4:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+void func0001648c(f32 *src, f32 *dest)
+{
+	f32 xcos = cosf(src[0]);
+	f32 xsin = sinf(src[0]);
+	f32 ycos = cosf(src[1]);
+	f32 ysin = sinf(src[1]);
+	f32 zcos = cosf(src[2]);
+	f32 zsin = sinf(src[2]);
+	f32 a = xsin * zsin;
+	f32 b = xcos * zsin;
+	f32 c = xsin * zcos;
+	f32 d = xcos * zcos;
+
+	dest[0] = ycos * zcos;
+	dest[1] = ycos * zsin;
+	dest[2] = -ysin;
+	dest[3] = 0;
+
+	dest[4] = c * ysin - xcos * zsin;
+	dest[5] = a * ysin + xcos * zcos;
+	dest[6] = xsin * ycos;
+	dest[7] = 0;
+
+	dest[8] = d * ysin + xsin * zsin;
+	dest[9] = b * ysin - xsin * zcos;
+	dest[10] = xcos * ycos;
+	dest[11] = 0;
+
+	dest[12] = 0;
+	dest[13] = 0;
+	dest[14] = 0;
+	dest[15] = 1;
+}
 
 GLOBAL_ASM(
 glabel func000165d8
