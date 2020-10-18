@@ -8,7 +8,7 @@ void func00016110(f32 *matrix1, f32 *matrix2);
 u32 func00016140(void);
 u32 func000161b0(void);
 void func00016208(f32 *matrix, struct coord *coord);
-u32 func00016248(void);
+void func00016248(struct coord *coord, f32 angle, f32 *matrix);
 void func000162e8(f32 angle, f32 *matrix);
 void func00016374(f32 angle, f32 *matrix);
 void func00016400(f32 angle, f32 *matrix);

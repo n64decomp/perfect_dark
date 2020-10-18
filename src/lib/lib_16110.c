@@ -148,49 +148,31 @@ glabel func00016208
 /*    16244:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00016248
-/*    16248:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    1624c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    16250:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    16254:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    16258:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*    1625c:	0c0068f4 */ 	jal	cosf
-/*    16260:	afa60028 */ 	sw	$a2,0x28($sp)
-/*    16264:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*    16268:	0c0068f7 */ 	jal	sinf
-/*    1626c:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*    16270:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*    16274:	8fa20020 */ 	lw	$v0,0x20($sp)
-/*    16278:	c7ae001c */ 	lwc1	$f14,0x1c($sp)
-/*    1627c:	44801000 */ 	mtc1	$zero,$f2
-/*    16280:	3c013f80 */ 	lui	$at,0x3f80
-/*    16284:	44816000 */ 	mtc1	$at,$f12
-/*    16288:	46000107 */ 	neg.s	$f4,$f0
-/*    1628c:	e4c00020 */ 	swc1	$f0,0x20($a2)
-/*    16290:	e4c40008 */ 	swc1	$f4,0x8($a2)
-/*    16294:	e4ce0000 */ 	swc1	$f14,0x0($a2)
-/*    16298:	e4ce0028 */ 	swc1	$f14,0x28($a2)
-/*    1629c:	e4c20004 */ 	swc1	$f2,0x4($a2)
-/*    162a0:	e4c2000c */ 	swc1	$f2,0xc($a2)
-/*    162a4:	e4c20010 */ 	swc1	$f2,0x10($a2)
-/*    162a8:	e4c20018 */ 	swc1	$f2,0x18($a2)
-/*    162ac:	e4c2001c */ 	swc1	$f2,0x1c($a2)
-/*    162b0:	e4c20024 */ 	swc1	$f2,0x24($a2)
-/*    162b4:	e4c2002c */ 	swc1	$f2,0x2c($a2)
-/*    162b8:	e4cc0014 */ 	swc1	$f12,0x14($a2)
-/*    162bc:	c4460000 */ 	lwc1	$f6,0x0($v0)
-/*    162c0:	e4c60030 */ 	swc1	$f6,0x30($a2)
-/*    162c4:	c4480004 */ 	lwc1	$f8,0x4($v0)
-/*    162c8:	e4c80034 */ 	swc1	$f8,0x34($a2)
-/*    162cc:	c44a0008 */ 	lwc1	$f10,0x8($v0)
-/*    162d0:	e4cc003c */ 	swc1	$f12,0x3c($a2)
-/*    162d4:	e4ca0038 */ 	swc1	$f10,0x38($a2)
-/*    162d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    162dc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    162e0:	03e00008 */ 	jr	$ra
-/*    162e4:	00000000 */ 	nop
-);
+void func00016248(struct coord *coord, f32 angle, f32 *matrix)
+{
+	f32 cos = cosf(angle);
+	f32 sin = sinf(angle);
+
+	matrix[0] = cos;
+	matrix[1] = 0;
+	matrix[2] = -sin;
+	matrix[3] = 0;
+
+	matrix[4] = 0;
+	matrix[5] = 1;
+	matrix[6] = 0;
+	matrix[7] = 0;
+
+	matrix[8] = sin;
+	matrix[9] = 0;
+	matrix[10] = cos;
+	matrix[11] = 0;
+
+	matrix[12] = coord->x;
+	matrix[13] = coord->y;
+	matrix[14] = coord->z;
+	matrix[15] = 1;
+}
 
 void func000162e8(f32 angle, f32 *matrix)
 {
