@@ -101,42 +101,24 @@ glabel func00016140
 /*    161ac:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func000161b0
-/*    161b0:	00803825 */ 	or	$a3,$a0,$zero
-/*    161b4:	24040003 */ 	addiu	$a0,$zero,0x3
-/*    161b8:	00001025 */ 	or	$v0,$zero,$zero
-/*    161bc:	00c01825 */ 	or	$v1,$a2,$zero
-.L000161c0:
-/*    161c0:	c4f20000 */ 	lwc1	$f18,0x0($a3)
-/*    161c4:	c4b00000 */ 	lwc1	$f16,0x0($a1)
-/*    161c8:	c4ee000c */ 	lwc1	$f14,0xc($a3)
-/*    161cc:	c4ac0004 */ 	lwc1	$f12,0x4($a1)
-/*    161d0:	46109402 */ 	mul.s	$f16,$f18,$f16
-/*    161d4:	c4b20008 */ 	lwc1	$f18,0x8($a1)
-/*    161d8:	c4ea0018 */ 	lwc1	$f10,0x18($a3)
-/*    161dc:	460c7302 */ 	mul.s	$f12,$f14,$f12
-/*    161e0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    161e4:	24630004 */ 	addiu	$v1,$v1,0x4
-/*    161e8:	460a9282 */ 	mul.s	$f10,$f18,$f10
-/*    161ec:	24e70004 */ 	addiu	$a3,$a3,0x4
-/*    161f0:	460c8300 */ 	add.s	$f12,$f16,$f12
-/*    161f4:	460c5300 */ 	add.s	$f12,$f10,$f12
-/*    161f8:	1444fff1 */ 	bne	$v0,$a0,.L000161c0
-/*    161fc:	e46cfffc */ 	swc1	$f12,-0x4($v1)
-/*    16200:	03e00008 */ 	jr	$ra
-/*    16204:	00000000 */ 	nop
-);
+void func000161b0(f32 *matrix, f32 src[3], f32 dest[3])
+{
+	s32 i;
+
+	for (i = 0; i < 3; i++) {
+		dest[i] = matrix[i] * src[0] + matrix[3 + i] * src[1] + matrix[6 + i] * src[2];
+	}
+}
 
 void func00016208(f32 *matrix, struct coord *coord)
 {
-	struct coord tmp;
+	f32 tmp[3];
 
-	func000161b0(matrix, coord, &tmp);
+	func000161b0(matrix, (f32 *)coord, tmp);
 
-	coord->x = tmp.x;
-	coord->y = tmp.y;
-	coord->z = tmp.z;
+	coord->x = tmp[0];
+	coord->y = tmp[1];
+	coord->z = tmp[2];
 }
 
 void func00016248(struct coord *coord, f32 angle, f32 *matrix)
