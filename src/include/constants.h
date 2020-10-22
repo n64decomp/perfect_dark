@@ -544,6 +544,7 @@
 #define DOORFLAG_0004            0x0004
 #define DOORFLAG_0008            0x0008 // Changes the angle at which one-way doors can be opened
 #define DOORFLAG_0010            0x0010 // Rescue door bottoms, training doors in Defense
+#define DOORFLAG_0040            0x0040
 #define DOORFLAG_0200            0x0200 // dataDyne secret door near lobby elevator
 #define DOORFLAG_DAMAGEONCONTACT 0x0400 // Lasers
 #define DOORFLAG_0800            0x0800 // Non-CI lasers, and floor grates
@@ -2114,6 +2115,7 @@
 #define OBJFLAG_04000000            0x04000000 // Editor: "AI Sees Through Door/Object"
 #define OBJFLAG_08000000            0x08000000 // Not used in scripts
 #define OBJFLAG_DEACTIVATED         0x10000000
+#define OBJFLAG_DOOR_HASPORTAL      0x10000000
 #define OBJFLAG_20000000            0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
 #define OBJFLAG_40000000            0x40000000
 #define OBJFLAG_DOOR_KEEPOPEN       0x40000000 // Editor: "Door open by default/Empty weapon"

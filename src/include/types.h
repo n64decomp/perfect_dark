@@ -5092,6 +5092,12 @@ struct portalthing {
 	u32 unk0c;
 };
 
+struct var800a4ccc { // related to portals
+	struct coord coord;
+	f32 unk0c;
+	u32 unk10;
+};
+
 struct trainingdata {
 	u8 intraining : 1;
 	u8 failed : 1;

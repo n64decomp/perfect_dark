@@ -2146,6 +2146,163 @@ glabel var7f1a8064
 /*  f00e908:	00000000 */ 	nop
 );
 
+// Mismatch:
+// 1. Floating point math near 41c is vastly different
+// 2. Goal skips sp slots 164, 160 and 15c - related to the above
+// 3. Goal seems to have rooms array as rooms[8] instead of rooms[2] but this
+// causes too much stack usage, because of 4
+// 4. Mine allocates too many unused stack slots at the bottom
+//void setupDoor(struct doorobj *door, s32 cmdindex)
+//{
+//	f32 mult;
+//	s32 modelnum = door->base.modelnum; // 1c0
+//	s32 portalnum = -1; // 1bc
+//	struct pad pad; // 168
+//
+//	propLoad(modelnum);
+//
+//	if (door->doorflags & DOORFLAG_0040) {
+//		func0f116068(door->base.pad);
+//	}
+//
+//	if (door->base.flags & OBJFLAG_DOOR_HASPORTAL) {
+//		portalnum = func0f00e2b0(door->base.pad);
+//	}
+//
+//	padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX | PADFIELD_ROOM, &pad);
+//
+//	// 3f4
+//	if (g_DoorScale != 1) {
+//		pad.bbox.xmin *= g_DoorScale;
+//		pad.bbox.xmax *= g_DoorScale;
+//
+//		// 41c
+//		if (portalnum >= 0) {
+//			// Is this is adjusting the pad's bbox to match the portal's
+//			// dimensions?
+//			f32 f0 = pad.pos.x * var800a4ccc[portalnum].coord.x
+//				+ pad.pos.y * var800a4ccc[portalnum].coord.y
+//				+ pad.pos.z * var800a4ccc[portalnum].coord.z;
+//			struct coord sp150;
+//			f0 = (f0 - var800a4ccc[portalnum].unk0c) * (g_DoorScale - 1);
+//
+//			sp150.x = var800a4ccc[portalnum].coord.x * f0;
+//			sp150.y = var800a4ccc[portalnum].coord.y * f0;
+//			sp150.z = var800a4ccc[portalnum].coord.z * f0;
+//
+//			pad.bbox.xmin += pad.normal.x * sp150.x + pad.normal.y * sp150.y + pad.normal.z * sp150.z;
+//			pad.bbox.xmax += pad.normal.x * sp150.x + pad.normal.y * sp150.y + pad.normal.z * sp150.z;
+//			pad.bbox.ymin += pad.up.x * sp150.x + pad.up.y * sp150.y + pad.up.z * sp150.z;
+//			pad.bbox.ymax += pad.up.x * sp150.x + pad.up.y * sp150.y + pad.up.z * sp150.z;
+//			pad.bbox.zmin += pad.look.x * sp150.x + pad.look.y * sp150.y + pad.look.z * sp150.z;
+//			pad.bbox.zmax += pad.look.x * sp150.x + pad.look.y * sp150.y + pad.look.z * sp150.z;
+//		}
+//
+//		// Write the modified bbox into the pad file data
+//		padCopyBboxFromPad(door->base.pad, &pad);
+//	}
+//
+//	if (pad.room >= 1) {
+//		f32 sp110[16]; // 110 - 150
+//		struct prop *prop; // 10c
+//		struct coord pos; // fc - 108
+//		s16 rooms[2]; // ec - ?
+//		f32 spac[16]; // ac - ec
+//		struct coord spa0; // a0 - ac
+//		f32 sp60[16]; // 60 - a0
+//		struct coord sp54; // 54 - 60
+//		f32 sp50;
+//		f32 sp4c;
+//		f32 sp48;
+//		f32 *floats; // 44
+//
+//		floats = func0f06896c(g_Props[modelnum].filedata);
+//
+//		func00016d58(sp110, 0, 0, 0,
+//				-pad.look.x, -pad.look.y, -pad.look.z,
+//				pad.up.x, pad.up.y, pad.up.z);
+//		func000162e8(1.5705462694168f, spac);
+//		func00016400(1.5705462694168f, sp60);
+//		func000159fc(sp60, spac);
+//		func000159fc(sp110, spac);
+//
+//		padGetCentre(door->base.pad, &spa0);
+//
+//		sp50 = (pad.bbox.ymax - pad.bbox.ymin) / (floats[2] - floats[1]);
+//		sp4c = (pad.bbox.zmax - pad.bbox.zmin) / (floats[4] - floats[3]);
+//		sp48 = (pad.bbox.xmax - pad.bbox.xmin) / (floats[6] - floats[5]);
+//
+//		if (sp50 <= 0.00001f || sp4c <= 0.00001f || sp48 <= 0.00001f) {
+//			sp50 = 1;
+//			sp4c = 1;
+//			sp48 = 1;
+//		}
+//
+//		func00015e24(sp50, spac);
+//		func00015e80(sp4c, spac);
+//		func00015edc(sp48, spac);
+//
+//		pos.x = pad.pos.x;
+//		pos.y = pad.pos.y;
+//		pos.z = pad.pos.z;
+//
+//		rooms[0] = pad.room;
+//		rooms[1] = -1;
+//
+//		// 714
+//		if (door->doortype == DOORTYPE_VERTICAL || door->doortype == DOORTYPE_8) {
+//			sp54.x = (pad.bbox.zmax - pad.bbox.zmin) * pad.look.x;
+//			sp54.y = (pad.bbox.zmax - pad.bbox.zmin) * pad.look.y;
+//			sp54.z = (pad.bbox.zmax - pad.bbox.zmin) * pad.look.z;
+//		} else {
+//			sp54.x = (pad.bbox.ymin - pad.bbox.ymax) * pad.up.x;
+//			sp54.y = (pad.bbox.ymin - pad.bbox.ymax) * pad.up.y;
+//			sp54.z = (pad.bbox.ymin - pad.bbox.ymax) * pad.up.z;
+//		}
+//
+//		// 790
+//		door->maxfrac = *(s32 *)&door->maxfrac / 65536.0f;
+//		door->perimfrac = *(s32 *)&door->perimfrac / 65536.0f;
+//		door->accel = *(s32 *)&door->accel / 65536000.0f;
+//		door->decel = *(s32 *)&door->decel / 65536000.0f;
+//		door->maxspeed = *(s32 *)&door->maxspeed / 65536.0f;
+//
+//		if (door->sibling) {
+//			door->sibling = (struct doorobj *)setupGetPtrToCommandByIndex((s32)door->sibling + cmdindex);
+//		}
+//
+//		prop = func0f08d540(door, &pos, spac, rooms, &sp54, &spa0);
+//
+//		if (door->base.flags & OBJFLAG_DOOR_HASPORTAL) {
+//			door->portalnum = portalnum;
+//
+//			if (door->portalnum >= 0 && door->frac == 0) {
+//				doorDeactivatePortal(door);
+//			}
+//		}
+//
+//		// 898
+//		if (door->base.model) {
+//			mult = sp50;
+//
+//			if (sp4c > mult) {
+//				mult = sp4c;
+//			}
+//
+//			if (sp48 > mult) {
+//				mult = sp48;
+//			}
+//
+//			modelSetUnk14(door->base.model, door->base.model->unk14 * mult);
+//		}
+//
+//		func0f0604bc(prop);
+//		propShow(prop);
+//	} else {
+//		door->base.prop = NULL;
+//	}
+//}
+
 void setupHov(struct defaultobj *obj, struct hov *hov)
 {
 	hov->unk04 = 0;
