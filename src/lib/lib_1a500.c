@@ -406,12 +406,12 @@ struct modelnode *modelGetPart(struct model08 *model08, s32 partnum)
 	return NULL;
 }
 
-struct modelnode_partid *modelGetPartNodeData(struct model08 *model08, s32 partnum)
+union modelnode_data *modelGetPartNodeData(struct model08 *model08, s32 partnum)
 {
 	struct modelnode *node = modelGetPart(model08, partnum);
 
 	if (node) {
-		return node->data.partid;
+		return node->data;
 	}
 
 	return NULL;
@@ -443,28 +443,28 @@ void *modelGetNodeData(struct model *model, struct modelnode *node)
 
 	switch (node->type & 0xff) {
 	case MODELNODETYPE_ROOT:
-		index = node->data.root->index;
+		index = node->data->root.index;
 		break;
 	case MODELNODETYPE_DISPLAYLIST:
-		index = node->data.displaylist->index;
+		index = node->data->displaylist.index;
 		break;
 	case MODELNODETYPE_NEARFAR:
-		index = node->data.nearfar->index;
+		index = node->data->nearfar.index;
 		break;
 	case MODELNODETYPE_PARTID:
-		index = node->data.partid->index;
+		index = node->data->partid.index;
 		break;
 	case MODELNODETYPE_HAT:
-		index = node->data.hat->index;
+		index = node->data->hat.index;
 		break;
 	case MODELNODETYPE_0B:
-		index = node->data.unk0b->index;
+		index = node->data->unk0b.index;
 		break;
 	case MODELNODETYPE_GUNFIRE:
-		index = node->data.gunfire->index;
+		index = node->data->gunfire.index;
 		break;
 	case MODELNODETYPE_HEADSPOT:
-		index = node->data.headspot->index;
+		index = node->data->headspot.index;
 		break;
 	}
 
@@ -494,7 +494,7 @@ void modelNodeGetPosition(struct model *model, struct modelnode *node, struct co
 		break;
 	case MODELNODETYPE_POSITION:
 		{
-			struct modelnode_position *data = node->data.position;
+			struct modelnode_position *data = &node->data->position;
 			pos->x = data->pos.x;
 			pos->y = data->pos.y;
 			pos->z = data->pos.z;
@@ -502,7 +502,7 @@ void modelNodeGetPosition(struct model *model, struct modelnode *node, struct co
 		break;
 	case MODELNODETYPE_POSITIONHELD:
 		{
-			struct modelnode_positionheld *data = node->data.positionheld;
+			struct modelnode_positionheld *data = &node->data->positionheld;
 			pos->x = data->pos.x;
 			pos->y = data->pos.y;
 			pos->z = data->pos.z;
@@ -539,7 +539,7 @@ void modelNodeSetPosition(struct model *model, struct modelnode *node, struct co
 		break;
 	case MODELNODETYPE_POSITION:
 		{
-			struct modelnode_position *data = node->data.position;
+			struct modelnode_position *data = &node->data->position;
 			data->pos.x = pos->x;
 			data->pos.y = pos->y;
 			data->pos.z = pos->z;
@@ -547,7 +547,7 @@ void modelNodeSetPosition(struct model *model, struct modelnode *node, struct co
 		break;
 	case MODELNODETYPE_POSITIONHELD:
 		{
-			struct modelnode_positionheld *data = node->data.positionheld;
+			struct modelnode_positionheld *data = &node->data->positionheld;
 			data->pos.x = pos->x;
 			data->pos.y = pos->y;
 			data->pos.z = pos->z;

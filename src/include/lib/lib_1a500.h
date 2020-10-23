@@ -15,7 +15,7 @@ u32 func0001a784(void);
 u32 func0001a7cc(void);
 u32 func0001a85c(void);
 struct modelnode *modelGetPart(struct model08 *arg0, s32 partnum);
-struct modelnode_partid *modelGetPartNodeData(struct model08 *model08, s32 arg1);
+union modelnode_data *modelGetPartNodeData(struct model08 *model08, s32 partnum);
 u32 func0001a9e8(void);
 void *modelGetNodeData(struct model *model, struct modelnode *node);
 void modelNodeGetPosition(struct model *model, struct modelnode *node, struct coord *pos);

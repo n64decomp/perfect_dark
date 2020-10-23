@@ -1438,140 +1438,61 @@ void setupMine(struct mineobj *mine, s32 cmdindex)
 	mine->base.prop->unk3f_02 = 1;
 }
 
-GLOBAL_ASM(
-glabel setupCamera
-.late_rodata
-glabel var7f1a8048
-.word 0x40c907a9
-glabel var7f1a804c
-.word 0x40c907a9
-.text
-/*  f00da10:	27bdff38 */ 	addiu	$sp,$sp,-200
-/*  f00da14:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f00da18:	afb00040 */ 	sw	$s0,0x40($sp)
-/*  f00da1c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f00da20:	f7b60038 */ 	sdc1	$f22,0x38($sp)
-/*  f00da24:	0fc033b9 */ 	jal	setupGenericObject
-/*  f00da28:	f7b40030 */ 	sdc1	$f20,0x30($sp)
-/*  f00da2c:	860e005c */ 	lh	$t6,0x5c($s0)
-/*  f00da30:	05c2006e */ 	bltzl	$t6,.L0f00dbec
-/*  f00da34:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f00da38:	8e0f0018 */ 	lw	$t7,0x18($s0)
-/*  f00da3c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f00da40:	0c006a6f */ 	jal	modelGetPartNodeData
-/*  f00da44:	8de40008 */ 	lw	$a0,0x8($t7)
-/*  f00da48:	8604005c */ 	lh	$a0,0x5c($s0)
-/*  f00da4c:	afa200b4 */ 	sw	$v0,0xb4($sp)
-/*  f00da50:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f00da54:	0fc456ac */ 	jal	padUnpack
-/*  f00da58:	27a60060 */ 	addiu	$a2,$sp,0x60
-/*  f00da5c:	8fa300b4 */ 	lw	$v1,0xb4($sp)
-/*  f00da60:	2604001c */ 	addiu	$a0,$s0,0x1c
-/*  f00da64:	27a500b8 */ 	addiu	$a1,$sp,0xb8
-/*  f00da68:	c4640000 */ 	lwc1	$f4,0x0($v1)
-/*  f00da6c:	e7a400b8 */ 	swc1	$f4,0xb8($sp)
-/*  f00da70:	c4660004 */ 	lwc1	$f6,0x4($v1)
-/*  f00da74:	e7a600bc */ 	swc1	$f6,0xbc($sp)
-/*  f00da78:	c4680008 */ 	lwc1	$f8,0x8($v1)
-/*  f00da7c:	0c005882 */ 	jal	func00016208
-/*  f00da80:	e7a800c0 */ 	swc1	$f8,0xc0($sp)
-/*  f00da84:	8e180014 */ 	lw	$t8,0x14($s0)
-/*  f00da88:	c7aa00b8 */ 	lwc1	$f10,0xb8($sp)
-/*  f00da8c:	c7a600bc */ 	lwc1	$f6,0xbc($sp)
-/*  f00da90:	c7120008 */ 	lwc1	$f18,0x8($t8)
-/*  f00da94:	44800000 */ 	mtc1	$zero,$f0
-/*  f00da98:	3c013f80 */ 	lui	$at,0x3f80
-/*  f00da9c:	46125100 */ 	add.s	$f4,$f10,$f18
-/*  f00daa0:	c7b200c0 */ 	lwc1	$f18,0xc0($sp)
-/*  f00daa4:	26040060 */ 	addiu	$a0,$s0,0x60
-/*  f00daa8:	44050000 */ 	mfc1	$a1,$f0
-/*  f00daac:	e7a400b8 */ 	swc1	$f4,0xb8($sp)
-/*  f00dab0:	8e190014 */ 	lw	$t9,0x14($s0)
-/*  f00dab4:	44060000 */ 	mfc1	$a2,$f0
-/*  f00dab8:	44070000 */ 	mfc1	$a3,$f0
-/*  f00dabc:	c728000c */ 	lwc1	$f8,0xc($t9)
-/*  f00dac0:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f00dac4:	e7aa00bc */ 	swc1	$f10,0xbc($sp)
-/*  f00dac8:	8e080014 */ 	lw	$t0,0x14($s0)
-/*  f00dacc:	c5060010 */ 	lwc1	$f6,0x10($t0)
-/*  f00dad0:	afa4004c */ 	sw	$a0,0x4c($sp)
-/*  f00dad4:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f00dad8:	46069200 */ 	add.s	$f8,$f18,$f6
-/*  f00dadc:	c7b20060 */ 	lwc1	$f18,0x60($sp)
-/*  f00dae0:	c7a60064 */ 	lwc1	$f6,0x64($sp)
-/*  f00dae4:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*  f00dae8:	46122501 */ 	sub.s	$f20,$f4,$f18
-/*  f00daec:	c7a40068 */ 	lwc1	$f4,0x68($sp)
-/*  f00daf0:	44819000 */ 	mtc1	$at,$f18
-/*  f00daf4:	46065081 */ 	sub.s	$f2,$f10,$f6
-/*  f00daf8:	e7a800c0 */ 	swc1	$f8,0xc0($sp)
-/*  f00dafc:	e7b40010 */ 	swc1	$f20,0x10($sp)
-/*  f00db00:	46044581 */ 	sub.s	$f22,$f8,$f4
-/*  f00db04:	e7a20014 */ 	swc1	$f2,0x14($sp)
-/*  f00db08:	e7a20058 */ 	swc1	$f2,0x58($sp)
-/*  f00db0c:	e7b20020 */ 	swc1	$f18,0x20($sp)
-/*  f00db10:	0c005b56 */ 	jal	func00016d58
-/*  f00db14:	e7b60018 */ 	swc1	$f22,0x18($sp)
-/*  f00db18:	8e090018 */ 	lw	$t1,0x18($s0)
-/*  f00db1c:	8fa5004c */ 	lw	$a1,0x4c($sp)
-/*  f00db20:	0c0057c1 */ 	jal	func00015f04
-/*  f00db24:	c52c0014 */ 	lwc1	$f12,0x14($t1)
-/*  f00db28:	8e0a00a8 */ 	lw	$t2,0xa8($s0)
-/*  f00db2c:	3c014780 */ 	lui	$at,0x4780
-/*  f00db30:	44811000 */ 	mtc1	$at,$f2
-/*  f00db34:	448a5000 */ 	mtc1	$t2,$f10
-/*  f00db38:	3c017f1b */ 	lui	$at,%hi(var7f1a8048)
-/*  f00db3c:	c4308048 */ 	lwc1	$f16,%lo(var7f1a8048)($at)
-/*  f00db40:	468051a0 */ 	cvt.s.w	$f6,$f10
-/*  f00db44:	8e0b00ac */ 	lw	$t3,0xac($s0)
-/*  f00db48:	8e0c00b4 */ 	lw	$t4,0xb4($s0)
-/*  f00db4c:	8e0d00bc */ 	lw	$t5,0xbc($s0)
-/*  f00db50:	448b9000 */ 	mtc1	$t3,$f18
-/*  f00db54:	44800000 */ 	mtc1	$zero,$f0
-/*  f00db58:	46103202 */ 	mul.s	$f8,$f6,$f16
-/*  f00db5c:	a600005e */ 	sh	$zero,0x5e($s0)
-/*  f00db60:	4600a306 */ 	mov.s	$f12,$f20
-/*  f00db64:	4600b386 */ 	mov.s	$f14,$f22
-/*  f00db68:	e60000b0 */ 	swc1	$f0,0xb0($s0)
-/*  f00db6c:	468092a0 */ 	cvt.s.w	$f10,$f18
-/*  f00db70:	46024103 */ 	div.s	$f4,$f8,$f2
-/*  f00db74:	46105182 */ 	mul.s	$f6,$f10,$f16
-/*  f00db78:	46023203 */ 	div.s	$f8,$f6,$f2
-/*  f00db7c:	e60400a8 */ 	swc1	$f4,0xa8($s0)
-/*  f00db80:	448c2000 */ 	mtc1	$t4,$f4
-/*  f00db84:	00000000 */ 	nop
-/*  f00db88:	468024a0 */ 	cvt.s.w	$f18,$f4
-/*  f00db8c:	46109282 */ 	mul.s	$f10,$f18,$f16
-/*  f00db90:	e60800ac */ 	swc1	$f8,0xac($s0)
-/*  f00db94:	448d4000 */ 	mtc1	$t5,$f8
-/*  f00db98:	c61200a8 */ 	lwc1	$f18,0xa8($s0)
-/*  f00db9c:	46804120 */ 	cvt.s.w	$f4,$f8
-/*  f00dba0:	e61200a4 */ 	swc1	$f18,0xa4($s0)
-/*  f00dba4:	46025183 */ 	div.s	$f6,$f10,$f2
-/*  f00dba8:	e60400bc */ 	swc1	$f4,0xbc($s0)
-/*  f00dbac:	0fc259d4 */ 	jal	func0f096750
-/*  f00dbb0:	e60600b4 */ 	swc1	$f6,0xb4($s0)
-/*  f00dbb4:	4614a282 */ 	mul.s	$f10,$f20,$f20
-/*  f00dbb8:	e60000a0 */ 	swc1	$f0,0xa0($s0)
-/*  f00dbbc:	4616b182 */ 	mul.s	$f6,$f22,$f22
-/*  f00dbc0:	0c012974 */ 	jal	sqrtf
-/*  f00dbc4:	46065300 */ 	add.s	$f12,$f10,$f6
-/*  f00dbc8:	c7ac0058 */ 	lwc1	$f12,0x58($sp)
-/*  f00dbcc:	0fc259d4 */ 	jal	func0f096750
-/*  f00dbd0:	46000386 */ 	mov.s	$f14,$f0
-/*  f00dbd4:	3c017f1b */ 	lui	$at,%hi(var7f1a804c)
-/*  f00dbd8:	c428804c */ 	lwc1	$f8,%lo(var7f1a804c)($at)
-/*  f00dbdc:	ae0000b8 */ 	sw	$zero,0xb8($s0)
-/*  f00dbe0:	46004101 */ 	sub.s	$f4,$f8,$f0
-/*  f00dbe4:	e60400c0 */ 	swc1	$f4,0xc0($s0)
-/*  f00dbe8:	8fbf0044 */ 	lw	$ra,0x44($sp)
-.L0f00dbec:
-/*  f00dbec:	d7b40030 */ 	ldc1	$f20,0x30($sp)
-/*  f00dbf0:	d7b60038 */ 	ldc1	$f22,0x38($sp)
-/*  f00dbf4:	8fb00040 */ 	lw	$s0,0x40($sp)
-/*  f00dbf8:	03e00008 */ 	jr	$ra
-/*  f00dbfc:	27bd00c8 */ 	addiu	$sp,$sp,0xc8
-);
+void setupCamera(struct cameraobj *camera, s32 cmdindex)
+{
+	struct defaultobj *obj = &camera->base;
+
+	setupGenericObject(obj, cmdindex);
+
+	if (camera->lookatpadnum >= 0) {
+		struct coord lenspos;
+		union modelnode_data *lens = modelGetPartNodeData(obj->model->unk08, MODELPART_LENS);
+		struct pad pad;
+		f32 xdiff;
+		f32 ydiff;
+		f32 zdiff;
+
+		padUnpack(camera->lookatpadnum, PADFIELD_POS, &pad);
+
+		lenspos.x = lens->position.pos.x;
+		lenspos.y = lens->position.pos.y;
+		lenspos.z = lens->position.pos.z;
+
+		func00016208(obj->realrot, &lenspos);
+
+		lenspos.x += obj->prop->pos.x;
+		lenspos.y += obj->prop->pos.y;
+		lenspos.z += obj->prop->pos.z;
+
+		xdiff = lenspos.x - pad.pos.x;
+		ydiff = lenspos.y - pad.pos.y;
+		zdiff = lenspos.z - pad.pos.z;
+
+		if (ydiff) {
+			// empty
+		}
+
+		func00016d58(camera->camrotm, 0.0f, 0.0f, 0.0f, xdiff, ydiff, zdiff, 0.0f, 1.0f, 0.0f);
+		func00015f04(obj->model->unk14, camera->camrotm);
+
+		camera->toleft = 0;
+		camera->yleft = *(s32 *)&camera->yleft * M_BADTAU / 65536.0f;
+		camera->yright = *(s32 *)&camera->yright * M_BADTAU / 65536.0f;
+		camera->yspeed = 0.0f;
+		camera->ymaxspeed = *(s32 *)&camera->ymaxspeed * M_BADTAU / 65536.0f;
+		camera->maxdist = *(s32 *)&camera->maxdist;
+		camera->yrot = camera->yleft;
+
+		camera->yzero = func0f096750(xdiff, zdiff);
+		camera->xzero = M_BADTAU - func0f096750(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
+
+		if (xdiff || zdiff) {
+			// empty
+		}
+
+		camera->seebondtime60 = 0;
+	}
+}
 
 void setupAutogun(struct autogunobj *autogun, s32 cmdindex)
 {

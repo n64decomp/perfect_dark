@@ -242,22 +242,22 @@ struct modelnode_displaylist { // type 0x18
 	u16 index;
 };
 
+union modelnode_data {
+	struct modelnode_root root;
+	struct modelnode_position position;
+	struct modelnode_nearfar nearfar;
+	struct modelnode_hat hat;
+	struct modelnode_0b unk0b;
+	struct modelnode_gunfire gunfire;
+	struct modelnode_partid partid;
+	struct modelnode_positionheld positionheld;
+	struct modelnode_headspot headspot;
+	struct modelnode_displaylist displaylist;
+};
+
 struct modelnode {
 	u16 type;
-
-	union {
-		struct modelnode_root *root;
-		struct modelnode_position *position;
-		struct modelnode_nearfar *nearfar;
-		struct modelnode_hat *hat;
-		struct modelnode_0b *unk0b;
-		struct modelnode_gunfire *gunfire;
-		struct modelnode_partid *partid;
-		struct modelnode_positionheld *positionheld;
-		struct modelnode_headspot *headspot;
-		struct modelnode_displaylist *displaylist;
-	} data;
-
+	union modelnode_data *data;
 	struct modelnode *relation; // unsure if parent or child
 };
 
@@ -1230,32 +1230,20 @@ struct keyobj { // objtype 0x04
 
 struct cameraobj { // objtype 0x06
 	struct defaultobj base;
-	/*0x5c*/ u32 unk5c;
-	/*0x60*/ u32 unk60;
-	/*0x64*/ u32 unk64;
-	/*0x68*/ u32 unk68;
-	/*0x6c*/ u32 unk6c;
-	/*0x70*/ u32 unk70;
-	/*0x74*/ u32 unk74;
-	/*0x78*/ u32 unk78;
-	/*0x7c*/ u32 unk7c;
-	/*0x80*/ u32 unk80;
-	/*0x84*/ u32 unk84;
-	/*0x88*/ u32 unk88;
-	/*0x8c*/ u32 unk8c;
-	/*0x90*/ u32 unk90;
-	/*0x94*/ u32 unk94;
-	/*0x98*/ u32 unk98;
-	/*0x9c*/ u32 unk9c;
-	/*0xa0*/ u32 unka0;
-	/*0xa4*/ u32 unka4;
-	/*0xa8*/ u32 unka8;
-	/*0xac*/ u32 unkac;
-	/*0xb0*/ u32 unkb0;
-	/*0xb4*/ u32 unkb4;
-	/*0xb8*/ u32 unkb8;
-	/*0xbc*/ u32 unkbc;
-	/*0xc0*/ u32 unkc0;
+
+	// Note y is being used as an abbreviation for yaw
+	/*0x5c*/ s16 lookatpadnum;
+	/*0x5e*/ s16 toleft;
+	/*0x60*/ f32 camrotm[16];
+	/*0xa0*/ f32 yzero;
+	/*0xa4*/ f32 yrot;
+	/*0xa8*/ f32 yleft;
+	/*0xac*/ f32 yright;
+	/*0xb0*/ f32 yspeed;
+	/*0xb4*/ f32 ymaxspeed;
+	/*0xb8*/ s32 seebondtime60;
+	/*0xbc*/ f32 maxdist;
+	/*0xc0*/ f32 xzero;
 };
 
 struct ammocrateobj { // objtype 0x07
