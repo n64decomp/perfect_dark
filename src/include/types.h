@@ -1530,6 +1530,10 @@ struct hovercarobj { // objtype 0x37
 	/*0x84*/ f32 rotz;
 	/*0x88*/ struct path *path;
 	/*0x8c*/ s32 nextstep;
+	/*0x90*/ s16 status;
+	/*0x92*/ s16 dead;
+	/*0x94*/ s16 deadtimer60;
+	/*0x96*/ s16 sparkstimer60;
 };
 
 struct padeffectobj { // objtype 0x38

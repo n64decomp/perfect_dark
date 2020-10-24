@@ -225,14 +225,14 @@ void func00016400(f32 angle, f32 *matrix)
 	matrix[15] = 1;
 }
 
-void func0001648c(f32 *src, f32 *dest)
+void func0001648c(struct coord *src, f32 *dest)
 {
-	f32 xcos = cosf(src[0]);
-	f32 xsin = sinf(src[0]);
-	f32 ycos = cosf(src[1]);
-	f32 ysin = sinf(src[1]);
-	f32 zcos = cosf(src[2]);
-	f32 zsin = sinf(src[2]);
+	f32 xcos = cosf(src->x);
+	f32 xsin = sinf(src->x);
+	f32 ycos = cosf(src->y);
+	f32 ysin = sinf(src->y);
+	f32 zcos = cosf(src->z);
+	f32 zsin = sinf(src->z);
 	f32 a = xsin * zsin;
 	f32 b = xcos * zsin;
 	f32 c = xsin * zcos;

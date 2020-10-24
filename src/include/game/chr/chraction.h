@@ -150,7 +150,7 @@ void propPrintDangerous(void);
 void chrTickThrowGrenade(struct chrdata *chr);
 s32 func0f043f2c(struct chrdata *chr, struct coord *runpos, s32 arg2, f32 *arg3);
 void chrTickAttackWalk(struct chrdata *chr);
-u32 func0f0445c4(void);
+bool func0f0445c4(struct coord *arg0, struct coord *arg1, struct coord *arg2, f32 arg3);
 bool func0f0446e0(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 arg3);
 bool func0f044808(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 arg3);
 void chrTickRunPos(struct chrdata *chr);

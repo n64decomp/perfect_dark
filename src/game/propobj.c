@@ -27499,6 +27499,367 @@ glabel var7f1aa6e4
 /*  f07df70:	00000000 */ 	nop
 );
 
+//#define HOVVALUE() (active ? 15.0f : 5.0f)
+
+// Mismatch: float regalloc
+//void hovercarTick(struct prop *prop)
+//{
+//	s32 stopping; // 274
+//	struct pad pad; // 220
+//	struct coord sp214;
+//	s16 sp210[2];
+//	struct hovercarobj *hovercar = (struct hovercarobj *)prop->obj;
+//	struct defaultobj *obj = &hovercar->base;
+//	u32 stack;
+//	f32 sp200 = hovercar->roty;
+//	f32 sp1fc = hovercar->rotx;
+//	u32 active = obj->flags & OBJFLAG_80000000; // 1f8
+//	f32 sp1f4 = active ? 5 : 10;
+//	struct prop *doorprop; // 1f0
+//	struct coord sp1e4;
+//	struct coord sp1d8;
+//	s16 sp1d6;
+//	u32 stack2;
+//	u32 stack3;
+//	struct coord sp1c0; // 1c0
+//	s16 sp1b0[8]; // 1b0
+//	f32 tmp2;
+//	f32 tmp3;
+//	f32 tmp4;
+//	struct doorobj *door; // 1a0
+//	struct coord sp194;
+//	f32 sp190;
+//	f32 sp18c;
+//	f32 sp188;
+//	f32 sp184;
+//	f32 sp180;
+//	f32 sp15c[9];
+//	struct coord sp150;
+//	s16 sp140[8];
+//	f32 tmp;
+//	f32 sp138;
+//	struct coord sp12c;
+//	f32 spec[16];
+//	f32 spac[16];
+//	f32 sp6c[16];
+//	f32 dist;
+//	s32 *padnum;
+//
+//	doorprop = NULL;
+//
+//	// 23c
+//	if (active && hovercar->deadtimer60 < 0) {
+//		// Exploding
+//		tmp = func0f0667bc(func0f068aa8(hovercar->base.model));
+//		sp1d6 = prop->rooms[0];
+//
+//		sp1d8.x = hovercar->base.realrot[3];
+//		sp1d8.y = hovercar->base.realrot[4];
+//		sp1d8.z = hovercar->base.realrot[5];
+//
+//		sp1e4.x = hovercar->base.realrot[3] * tmp + prop->pos.x;
+//		sp1e4.y = hovercar->base.realrot[4] * tmp + prop->pos.y;
+//		sp1e4.z = hovercar->base.realrot[5] * tmp + prop->pos.z;
+//
+//		func0f0926bc(prop, 1, 0xffff);
+//		explosionCreate(NULL, &prop->pos, prop->rooms, EXPLOSIONTYPE_7, g_Vars.currentplayernum, true, &sp1e4, sp1d6, &sp1d8);
+//		hovercar->base.hidden |= OBJHFLAG_00000004;
+//		return;
+//	}
+//
+//	// 320
+//	if (hovercar->dead) {
+//		// 334
+//		if (active) {
+//			hovercar->deadtimer60 -= g_Vars.lvupdate240_60;
+//			hovercar->sparkstimer60 -= g_Vars.lvupdate240_60;
+//
+//			if (hovercar->sparkstimer60 < 0) {
+//				hovercar->sparkstimer60 = 50;
+//
+//				// Play damage sound
+//				func0f0939f8(NULL, prop, 0x64, -1,
+//						-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+//
+//				// Create sparks
+//				func0f12f9f0(prop->rooms[0], prop, &prop->pos, NULL, 0, 0);
+//			}
+//		} else {
+//			// 3e8
+//			if (hovercar->speedtime60 == 0) {
+//				// 404
+//				hovercar->speed += 6;
+//
+//				sp1c0.x = prop->pos.x;
+//				sp1c0.y = prop->pos.y - hovercar->speed;
+//				sp1c0.z = prop->pos.z;
+//
+//				if (sp1c0.y < hovercar->speedaim) {
+//					sp1c0.y = hovercar->speedaim;
+//					hovercar->speedtime60 = 1;
+//				}
+//
+//				func0f065e74(&prop->pos, prop->rooms, &sp1c0, sp1b0);
+//
+//				prop->pos.x = sp1c0.x;
+//				prop->pos.y = sp1c0.y;
+//				prop->pos.z = sp1c0.z;
+//
+//				func0f065c44(prop);
+//				roomsCopy(sp1b0, prop->rooms);
+//				func0f069c70(&hovercar->base, false, true);
+//			}
+//		}
+//
+//		return;
+//	}
+//
+//	// 4bc
+//	chraiExecute(obj, PROPTYPE_OBJ);
+//	stopping = false;
+//
+//	if (hovercar->path) {
+//		padnum = &hovercar->path->pads[hovercar->nextstep];
+//		padUnpack(*padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
+//
+//		sp214.x = pad.pos.x;
+//
+//		if (active) {
+//			sp210[0] = pad.room;
+//			sp210[1] = -1;
+//
+//			sp214.y = func0002a330(&pad.pos, 5, sp210, NULL, 0) + 35;
+//		} else {
+//			sp214.y = pad.pos.y;
+//		}
+//
+//		sp214.z = pad.pos.z;
+//
+//		if ((hovercar->base.flags & OBJFLAG_20000000)
+//				&& func0f0446e0(&prop->pos, &prop->pos, &sp214, sp1f4)) {
+//			func0f072774(obj);
+//			padnum = &hovercar->path->pads[hovercar->nextstep];
+//			padUnpack(*padnum, PADFIELD_POS, &pad);
+//		}
+//
+//		sp200 = func0f096750(sp214.x - prop->pos.x, sp214.z - prop->pos.z);
+//		sp1fc = func0f096750(sp214.y - prop->pos.y,
+//				sqrtf((sp214.x - prop->pos.x) * (sp214.x - prop->pos.x) + (sp214.z - prop->pos.z) * (sp214.z - prop->pos.z)));
+//
+//		// 630
+//		if (hovercar->base.flags & OBJFLAG_20000000) {
+//			hovercar->roty = sp200;
+//			hovercar->rotx = sp1fc;
+//			obj->flags &= ~OBJFLAG_20000000;
+//
+//			if (active) {
+//				prop->pos.y = sp214.y;
+//			}
+//		}
+//
+//		if (active) {
+//			if (func0002d7c0(&prop->pos, prop->rooms, &sp214, 0x5000, 0, 0, 0) == 0) {
+//				doorprop = func00024eb0();
+//			}
+//
+//			if (doorprop) {
+//				door = (struct doorobj *)doorprop->obj;
+//				dist = (doorprop->pos.x - prop->pos.x) * (doorprop->pos.x - prop->pos.x)
+//					+ (doorprop->pos.z - prop->pos.z) * (doorprop->pos.z - prop->pos.z);
+//
+//				if (dist < 200 * 200) {
+//					func0f0900c0(prop, door);
+//					doorActivate(door, DOORMODE_OPENING);
+//				}
+//
+//				if (dist < 195 * 195) {
+//					stopping = !doorIsOpen(door);
+//				}
+//			}
+//		}
+//	} else {
+//		// 750
+//		if (hovercar->base.flags & OBJFLAG_20000000) {
+//			hovercar->roty = func0f096750(hovercar->base.realrot[6], hovercar->base.realrot[8]);
+//			hovercar->rotx = func0f096750(hovercar->base.realrot[7], sqrtf(hovercar->base.realrot[8] * hovercar->base.realrot[8] + hovercar->base.realrot[6] * hovercar->base.realrot[6]));
+//			hovercar->base.flags &= ~OBJFLAG_20000000;
+//		}
+//	}
+//
+//	// 7ac
+//	if (hovercar->speedtime60 >= 0) {
+//		if (hovercar->speedtime60 <= g_Vars.lvupdate240freal) {
+//			hovercar->speed = hovercar->speedaim;
+//		} else {
+//			hovercar->speed += (hovercar->speedaim - hovercar->speed) * g_Vars.lvupdate240freal / hovercar->speedtime60;
+//		}
+//
+//		hovercar->speedtime60 -= g_Vars.lvupdate240freal;
+//	}
+//
+//	// 818
+//	if (active) {
+//		if (hovercar->turnyspeed60 > 0) {
+//			hovercar->speed -= hovercar->speedaim * (1.0f / 24.0f) * g_Vars.lvupdate240f;
+//
+//			if (hovercar->speed < 0) {
+//				hovercar->speed = 0.1f;
+//			}
+//		} else {
+//			if (hovercar->speed < hovercar->speedaim) {
+//				hovercar->speed += hovercar->speedaim * (1.0f / 24.0f) * g_Vars.lvupdate240f;
+//			}
+//		}
+//
+//		if (stopping) {
+//			hovercar->speed -= 50.0f / 240.f * g_Vars.lvupdate240f;
+//
+//			if (hovercar->speed < 0) {
+//				hovercar->speed = 0;
+//			}
+//		}
+//	}
+//
+//	// 900
+//	if (hovercar->speed > 0) {
+//		sp190 = hovercar->roty;
+//		sp18c = hovercar->rotx;
+//		sp188 = hovercar->rotz;
+//
+//		sp184 = hovercar->turnyspeed60;
+//		sp180 = hovercar->turnxspeed60;
+//
+//		// 94c
+//		sp194.x = sinf(hovercar->roty) * cosf(hovercar->rotx);
+//		sp194.y = sinf(hovercar->rotx);
+//		sp194.z = cosf(hovercar->rotx) * cosf(hovercar->roty);
+//
+//		if (func0f0445c4(&prop->pos, &sp194, &sp214, sp1f4)) {
+//			sp200 = hovercar->roty;
+//			sp1fc = hovercar->rotx;
+//		}
+//
+//		// 9c8
+//		// The multipliers below:
+//		// val * 0.013087885454297f   = val * M_BADPI / 240
+//		// val * 0.00021813141938765f = val * M_BADPI / 240 / 60
+//		tmp2 = HOVVALUE();
+//		tmp3 = HOVVALUE();
+//		tmp4 = HOVVALUE();
+//		func0f06db00(&sp190, sp200, &sp184,
+//				tmp2 * 0.00021813141938765f,
+//				tmp3 * 0.00021813141938765f + tmp3 * 0.00021813141938765f,
+//				tmp4 * 0.013087885454297f);
+//
+//		// a64
+//		if (sp190 == sp200) {
+//			tmp2 = HOVVALUE() * 0.00021813141938765f;
+//			if (tmp2 + tmp2 >= sp184) {
+//				tmp2 = -(HOVVALUE() * 0.00021813141938765f);
+//				if (tmp2 + tmp2 <= sp184) {
+//					sp184 = 0;
+//				}
+//			}
+//		}
+//
+//		// b04
+//		tmp2 = HOVVALUE();
+//		tmp3 = HOVVALUE();
+//		tmp4 = HOVVALUE();
+//		func0f06db00(&sp18c, sp1fc, &sp180,
+//				tmp2 * 0.00021813141938765f,
+//				tmp3 * 0.00021813141938765f + tmp3 * 0.00021813141938765f,
+//				tmp4 * 0.013087885454297f);
+//
+//		// b90
+//		if (sp18c == sp1fc) {
+//			tmp2 = HOVVALUE() * 0.00021813141938765f;
+//			if (tmp2 + tmp2 >= sp180) {
+//				tmp2 = -(HOVVALUE() * 0.00021813141938765f);
+//				if (tmp2 + tmp2 <= sp180) {
+//					sp180 = 0;
+//				}
+//			}
+//		}
+//
+//		// c34
+//		if (hovercar->base.flags & OBJFLAG_80000000) {
+//			sp188 = 0;
+//		} else {
+//			sp188 += (-sp184 * 120 - sp188) * 0.1f;
+//		}
+//
+//		// c84
+//		sp12c.x = active ? M_BADTAU - sp18c : 0;
+//		sp12c.y = sp190;
+//		sp12c.z = 0;
+//
+//		// cb4
+//		if (sp188 >= 0) {
+//			func00016400(sp188, sp6c);
+//		} else {
+//			func00016400(sp188 + M_BADTAU, sp6c);
+//		}
+//
+//		// cf0
+//		func0001648c(&sp12c, spac);
+//		func00015f04(hovercar->base.model->unk14, spac);
+//		func00015a00(spac, sp6c, spec);
+//		func00015da0(spec, sp15c);
+//		func00015cd8(sp15c, hovercar->base.realrot);
+//
+//		sp138 = cosf(sp18c);
+//
+//		// d50
+//		sp194.x = sinf(sp190) * sp138;
+//		sp194.y = active ? sinf(sp1fc) : sinf(sp18c);
+//		sp194.z = cosf(sp190) * sp138;
+//
+//		sp150.x = prop->pos.x + sp194.x * (hovercar->speed * g_Vars.lvupdate240freal);
+//		sp150.y = prop->pos.y + sp194.y * (hovercar->speed * g_Vars.lvupdate240freal);
+//		sp150.z = prop->pos.z + sp194.z * (hovercar->speed * g_Vars.lvupdate240freal);
+//
+//		func0f065e74(&prop->pos, prop->rooms, &sp150, sp140);
+//
+//		// e08
+//		if (active) {
+//			sp150.y = func0002a330(&sp150, 5, sp140, NULL, 0) + 35;
+//
+//			if (sp150.y < -100000) {
+//				sp150.y = prop->pos.y + sp194.y * (hovercar->speed * g_Vars.lvupdate240freal);
+//			}
+//		}
+//
+//		// e68
+//		prop->pos.x = sp150.x;
+//		prop->pos.y = sp150.y;
+//		prop->pos.z = sp150.z;
+//
+//		func0f065c44(prop);
+//		roomsCopy(sp140, prop->rooms);
+//
+//		hovercar->roty = sp190;
+//		hovercar->rotx = sp18c;
+//		hovercar->rotz = sp188;
+//		hovercar->turnyspeed60 = sp184;
+//		hovercar->turnxspeed60 = sp180;
+//
+//		if (hovercar->path) {
+//			if (hovercar->path->pads[hovercar->nextstep + 1] >= 0) {
+//				if (func0f0446e0(&prop->pos, &sp150, &sp214, hovercar->speed * sp1f4)) {
+//					func0f072774(obj);
+//				}
+//			} else {
+//				if (func0f0446e0(&prop->pos, &sp150, &sp214, hovercar->speed * sp1f4)) {
+//					func0f072774(obj);
+//				}
+//			}
+//		}
+//
+//		func0f069c70(&hovercar->base, false, true);
+//	}
+//}
+
 void hoverpropTick(struct prop *prop, bool arg1)
 {
 	struct hoverpropobj *obj = (struct hoverpropobj *)prop->obj;

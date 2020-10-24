@@ -590,6 +590,7 @@
 #define EXPLOSIONTYPE_0  0
 #define EXPLOSIONTYPE_3  3
 #define EXPLOSIONTYPE_5  5
+#define EXPLOSIONTYPE_7  7
 #define EXPLOSIONTYPE_8  8
 #define EXPLOSIONTYPE_12 12
 #define EXPLOSIONTYPE_14 14
@@ -2121,6 +2122,7 @@
 #define OBJFLAG_40000000            0x40000000
 #define OBJFLAG_DOOR_KEEPOPEN       0x40000000 // Editor: "Door open by default/Empty weapon"
 #define OBJFLAG_LIFT_TRIGGERDISABLE 0x40000000
+#define OBJFLAG_80000000            0x80000000
 #define OBJFLAG_CHOPPER_INACTIVE    0x80000000 // Or lift disabled, or hovercar something
 
 // obj->flags2
