@@ -37,15 +37,6 @@ u32 var80070e8c = 0x00000000;
 u32 var80070e90 = 0x00000000;
 u32 var80070e94 = 0x00000000;
 u32 var80070e98 = 0x00000000;
-u32 var80070e9c = 0x00000000;
-u32 var80070ea0 = 0x00000000;
-u32 var80070ea4 = 0x00000000;
-u32 var80070ea8 = 0x00000000;
-u32 var80070eac = 0x00000000;
-u32 var80070eb0 = 0x00000000;
-u32 var80070eb4 = 0x00000000;
-u32 var80070eb8 = 0x00000000;
-u32 var80070ebc = 0x00000000;
 
 void currentPlayerGrabInit(void)
 {
@@ -1194,34 +1185,14 @@ glabel func0f0cd970
 /*  f0cdb00:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0cdb04
-/*  f0cdb04:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0cdb08:	3c0e8007 */ 	lui	$t6,%hi(var80070e9c)
-/*  f0cdb0c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0cdb10:	25ce0e9c */ 	addiu	$t6,$t6,%lo(var80070e9c)
-/*  f0cdb14:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f0cdb18:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f0cdb1c:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x284)
-/*  f0cdb20:	ac810000 */ 	sw	$at,0x0($a0)
-/*  f0cdb24:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f0cdb28:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f0cdb2c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0cdb30:	ac990004 */ 	sw	$t9,0x4($a0)
-/*  f0cdb34:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f0cdb38:	44056000 */ 	mfc1	$a1,$f12
-/*  f0cdb3c:	ac810008 */ 	sw	$at,0x8($a0)
-/*  f0cdb40:	8d29a244 */ 	lw	$t1,%lo(g_Vars+0x284)($t1)
-/*  f0cdb44:	0fc3365c */ 	jal	func0f0cd970
-/*  f0cdb48:	ad281a1c */ 	sw	$t0,0x1a1c($t1)
-/*  f0cdb4c:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x284)
-/*  f0cdb50:	8d4aa244 */ 	lw	$t2,%lo(g_Vars+0x284)($t2)
-/*  f0cdb54:	ad401a1c */ 	sw	$zero,0x1a1c($t2)
-/*  f0cdb58:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cdb5c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0cdb60:	03e00008 */ 	jr	$ra
-/*  f0cdb64:	00000000 */ 	nop
-);
+void func0f0cdb04(f32 arg0, bool arg2)
+{
+	struct coord coord = {0, 0, 0};
+
+	g_Vars.currentplayer->grabbeddoextra = true;
+	func0f0cd970(&coord, arg0, arg2);
+	g_Vars.currentplayer->grabbeddoextra = false;
+}
 
 GLOBAL_ASM(
 glabel func0f0cdb68
@@ -1827,6 +1798,13 @@ void currentPlayerUpdateSpeedThetaGrab(void)
 
 	g_Vars.currentplayer->speedtheta = g_Vars.currentplayer->unk1b60 * 0.01529997587204f;
 }
+
+u32 var80070ea8 = 0x00000000;
+u32 var80070eac = 0x00000000;
+u32 var80070eb0 = 0x00000000;
+u32 var80070eb4 = 0x00000000;
+u32 var80070eb8 = 0x00000000;
+u32 var80070ebc = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f0ce924

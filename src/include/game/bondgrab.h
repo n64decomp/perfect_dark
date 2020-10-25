@@ -9,7 +9,7 @@ u32 func0f0ccbf0(void);
 bool func0f0cd05c(f32 y);
 u32 func0f0cd1a4(void);
 bool func0f0cd970(struct coord *delta, f32 arg1, bool arg2);
-u32 func0f0cdb04(void);
+void func0f0cdb04(f32 arg0, bool arg2);
 u32 func0f0cdb68(void);
 u32 func0f0cdef0(void);
 bool func0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2);
