@@ -84,77 +84,28 @@ void currentPlayerBikeInit(void)
 	hoverbike->base.hidden |= OBJHFLAG_04000000;
 }
 
-GLOBAL_ASM(
-glabel func0f0d2184
-/*  f0d2184:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0d2188:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0d218c:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f0d2190:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f0d2194:	8dcf1a6c */ 	lw	$t7,0x1a6c($t6)
-/*  f0d2198:	3c01fbff */ 	lui	$at,0xfbff
-/*  f0d219c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f0d21a0:	8de40004 */ 	lw	$a0,0x4($t7)
-/*  f0d21a4:	44803000 */ 	mtc1	$zero,$f6
-/*  f0d21a8:	27a50054 */ 	addiu	$a1,$sp,0x54
-/*  f0d21ac:	8c980040 */ 	lw	$t8,0x40($a0)
-/*  f0d21b0:	c484009c */ 	lwc1	$f4,0x9c($a0)
-/*  f0d21b4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0d21b8:	0301c824 */ 	and	$t9,$t8,$at
-/*  f0d21bc:	ac990040 */ 	sw	$t9,0x40($a0)
-/*  f0d21c0:	e7a60058 */ 	swc1	$f6,0x58($sp)
-/*  f0d21c4:	e7a40054 */ 	swc1	$f4,0x54($sp)
-/*  f0d21c8:	c48800a0 */ 	lwc1	$f8,0xa0($a0)
-/*  f0d21cc:	e7a8005c */ 	swc1	$f8,0x5c($sp)
-/*  f0d21d0:	c48000ac */ 	lwc1	$f0,0xac($a0)
-/*  f0d21d4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0d21d8:	afa40064 */ 	sw	$a0,0x64($sp)
-/*  f0d21dc:	44060000 */ 	mfc1	$a2,$f0
-/*  f0d21e0:	0fc20a87 */ 	jal	func0f082a1c
-/*  f0d21e4:	00000000 */ 	nop
-/*  f0d21e8:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
-/*  f0d21ec:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
-/*  f0d21f0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0d21f4:	3406ffff */ 	dli	$a2,0xffff
-/*  f0d21f8:	0fc249af */ 	jal	func0f0926bc
-/*  f0d21fc:	8d041a6c */ 	lw	$a0,0x1a6c($t0)
-/*  f0d2200:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x284)
-/*  f0d2204:	8d29a244 */ 	lw	$t1,%lo(g_Vars+0x284)($t1)
-/*  f0d2208:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0d220c:	3406ffff */ 	dli	$a2,0xffff
-/*  f0d2210:	0fc249af */ 	jal	func0f0926bc
-/*  f0d2214:	8d2400bc */ 	lw	$a0,0xbc($t1)
-/*  f0d2218:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x284)
-/*  f0d221c:	8d4aa244 */ 	lw	$t2,%lo(g_Vars+0x284)($t2)
-/*  f0d2220:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0d2224:	44810000 */ 	mtc1	$at,$f0
-/*  f0d2228:	8d451a6c */ 	lw	$a1,0x1a6c($t2)
-/*  f0d222c:	240bffff */ 	addiu	$t3,$zero,-1
-/*  f0d2230:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f0d2234:	afac002c */ 	sw	$t4,0x2c($sp)
-/*  f0d2238:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0d223c:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0d2240:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f0d2244:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0d2248:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0d224c:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0d2250:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0d2254:	240680af */ 	addiu	$a2,$zero,-32593
-/*  f0d2258:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0d225c:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f0d2260:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f0d2264:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f0d2268:	0fc24e7e */ 	jal	func0f0939f8
-/*  f0d226c:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f0d2270:	8fa20064 */ 	lw	$v0,0x64($sp)
-/*  f0d2274:	3c014000 */ 	lui	$at,0x4000
-/*  f0d2278:	8c4d0008 */ 	lw	$t5,0x8($v0)
-/*  f0d227c:	01a17025 */ 	or	$t6,$t5,$at
-/*  f0d2280:	ac4e0008 */ 	sw	$t6,0x8($v0)
-/*  f0d2284:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f0d2288:	27bd0068 */ 	addiu	$sp,$sp,0x68
-/*  f0d228c:	03e00008 */ 	jr	$ra
-/*  f0d2290:	00000000 */ 	nop
-);
+void func0f0d2184(void)
+{
+	struct defaultobj *obj = g_Vars.currentplayer->hoverbike->obj;
+	struct hoverbikeobj *bikeobj = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
+	struct coord coord;
+	f32 w;
+
+	obj->hidden &= ~OBJHFLAG_04000000;
+
+	coord.x = bikeobj->speed[0];
+	coord.y = 0;
+	coord.z = bikeobj->speed[1];
+	w = bikeobj->w;
+
+	func0f082a1c(obj, &coord, w, 0, 0);
+	func0f0926bc(g_Vars.currentplayer->hoverbike, 1, 0xffff);
+	func0f0926bc(g_Vars.currentplayer->prop, 1, 0xffff);
+	func0f0939f8(NULL, g_Vars.currentplayer->hoverbike, 0x80af, -1,
+			-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+
+	obj->flags |= OBJFLAG_40000000;
+}
 
 void func0f0d2294(void)
 {

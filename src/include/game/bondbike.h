@@ -4,7 +4,7 @@
 #include "types.h"
 
 void currentPlayerBikeInit(void);
-u32 func0f0d2184(void);
+void func0f0d2184(void);
 void func0f0d2294(void);
 u32 func0f0d22f8(void);
 u32 func0f0d2558(void);
