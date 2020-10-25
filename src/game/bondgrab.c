@@ -1185,13 +1185,16 @@ glabel func0f0cd970
 /*  f0cdb00:	00000000 */ 	nop
 );
 
-void func0f0cdb04(f32 arg0, bool arg2)
+bool func0f0cdb04(f32 angle, bool arg2)
 {
 	struct coord coord = {0, 0, 0};
+	bool result;
 
 	g_Vars.currentplayer->grabbeddoextra = true;
-	func0f0cd970(&coord, arg0, arg2);
+	result = func0f0cd970(&coord, angle, arg2);
 	g_Vars.currentplayer->grabbeddoextra = false;
+
+	return result;
 }
 
 GLOBAL_ASM(
@@ -1442,44 +1445,16 @@ glabel var7f1ad9c8
 /*  f0cdeec:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
 );
 
-GLOBAL_ASM(
-glabel func0f0cdef0
-.late_rodata
-glabel var7f1ad9cc
-.word 0x3c8ef461
-.text
-/*  f0cdef0:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0cdef4:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0cdef8:	8c4e0034 */ 	lw	$t6,0x34($v0)
-/*  f0cdefc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0cdf00:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0cdf04:	59c00014 */ 	blezl	$t6,.L0f0cdf58
-/*  f0cdf08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cdf0c:	8c4f0284 */ 	lw	$t7,0x284($v0)
-/*  f0cdf10:	c446004c */ 	lwc1	$f6,0x4c($v0)
-/*  f0cdf14:	3c017f1b */ 	lui	$at,%hi(var7f1ad9cc)
-/*  f0cdf18:	c5e40148 */ 	lwc1	$f4,0x148($t7)
-/*  f0cdf1c:	c42ad9cc */ 	lwc1	$f10,%lo(var7f1ad9cc)($at)
-/*  f0cdf20:	3c014060 */ 	lui	$at,0x4060
-/*  f0cdf24:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0cdf28:	44819000 */ 	mtc1	$at,$f18
-/*  f0cdf2c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cdf30:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f0cdf34:	00000000 */ 	nop
-/*  f0cdf38:	46128302 */ 	mul.s	$f12,$f16,$f18
-/*  f0cdf3c:	0fc336c1 */ 	jal	func0f0cdb04
-/*  f0cdf40:	e7ac001c */ 	swc1	$f12,0x1c($sp)
-/*  f0cdf44:	14400003 */ 	bnez	$v0,.L0f0cdf54
-/*  f0cdf48:	c7ac001c */ 	lwc1	$f12,0x1c($sp)
-/*  f0cdf4c:	0fc336da */ 	jal	func0f0cdb68
-/*  f0cdf50:	00000000 */ 	nop
-.L0f0cdf54:
-/*  f0cdf54:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0cdf58:
-/*  f0cdf58:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0cdf5c:	03e00008 */ 	jr	$ra
-/*  f0cdf60:	00000000 */ 	nop
-);
+void func0f0cdef0(void)
+{
+	if (g_Vars.lvupdate240 > 0) {
+		f32 angle = g_Vars.currentplayer->speedtheta * g_Vars.lvupdate240freal * 0.017450513318181f * 3.5f;
+
+		if (func0f0cdb04(angle, true) == 0) {
+			func0f0cdb68(angle);
+		}
+	}
+}
 
 bool func0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2)
 {
