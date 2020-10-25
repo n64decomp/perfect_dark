@@ -2734,7 +2734,7 @@ struct player {
 	/*0x1aec*/ u32 unk1aec;
 	/*0x1af0*/ struct prop *unk1af0;
 	/*0x1af4*/ u32 unk1af4;
-	/*0x1af8*/ u32 walkinitmove;
+	/*0x1af8*/ s32 walkinitmove;
 	/*0x1afc*/ struct coord walkinitpos;
 	/*0x1b08*/ f32 walkinitmtx[16];
 	/*0x1b48*/ f32 walkinitt;

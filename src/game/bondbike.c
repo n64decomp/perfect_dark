@@ -116,169 +116,70 @@ void func0f0d2294(void)
 	g_Vars.currentplayer->unk1a70.z = -50.0f / hoverbike->model->unk14;
 }
 
-GLOBAL_ASM(
-glabel func0f0d22f8
-.late_rodata
-glabel var7f1adb34
-.word 0x40c907a9
-.text
-/*  f0d22f8:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f0d22fc:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0d2300:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f0d2304:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f0d2308:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d230c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0d2310:	e7ac0070 */ 	swc1	$f12,0x70($sp)
-/*  f0d2314:	e7ae0074 */ 	swc1	$f14,0x74($sp)
-/*  f0d2318:	8c4e1af8 */ 	lw	$t6,0x1af8($v0)
-/*  f0d231c:	55c0008a */ 	bnezl	$t6,.L0f0d2548
-/*  f0d2320:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0d2324:	8c4f1a6c */ 	lw	$t7,0x1a6c($v0)
-/*  f0d2328:	8de40004 */ 	lw	$a0,0x4($t7)
-/*  f0d232c:	0fc1c836 */ 	jal	hoverpropGetTurnAngle
-/*  f0d2330:	afa40068 */ 	sw	$a0,0x68($sp)
-/*  f0d2334:	8e180284 */ 	lw	$t8,0x284($s0)
-/*  f0d2338:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f0d233c:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f0d2340:	8f0400bc */ 	lw	$a0,0xbc($t8)
-/*  f0d2344:	e7a00064 */ 	swc1	$f0,0x64($sp)
-/*  f0d2348:	0fc3082e */ 	jal	propPlayerGetBbox
-/*  f0d234c:	27a7003c */ 	addiu	$a3,$sp,0x3c
-/*  f0d2350:	3c017f1b */ 	lui	$at,%hi(var7f1adb34)
-/*  f0d2354:	c420db34 */ 	lwc1	$f0,%lo(var7f1adb34)($at)
-/*  f0d2358:	c7ac0064 */ 	lwc1	$f12,0x64($sp)
-/*  f0d235c:	c7b20070 */ 	lwc1	$f18,0x70($sp)
-/*  f0d2360:	3c014120 */ 	lui	$at,0x4120
-/*  f0d2364:	44813000 */ 	mtc1	$at,$f6
-/*  f0d2368:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*  f0d236c:	46126300 */ 	add.s	$f12,$f12,$f18
-/*  f0d2370:	c7aa0074 */ 	lwc1	$f10,0x74($sp)
-/*  f0d2374:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0d2378:	460c003e */ 	c.le.s	$f0,$f12
-/*  f0d237c:	46085400 */ 	add.s	$f16,$f10,$f8
-/*  f0d2380:	45000002 */ 	bc1f	.L0f0d238c
-/*  f0d2384:	e7b00074 */ 	swc1	$f16,0x74($sp)
-/*  f0d2388:	46006301 */ 	sub.s	$f12,$f12,$f0
-.L0f0d238c:
-/*  f0d238c:	0c0068f7 */ 	jal	sinf
-/*  f0d2390:	e7ac0064 */ 	swc1	$f12,0x64($sp)
-/*  f0d2394:	c7a40074 */ 	lwc1	$f4,0x74($sp)
-/*  f0d2398:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d239c:	c7ac0064 */ 	lwc1	$f12,0x64($sp)
-/*  f0d23a0:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f0d23a4:	8c591a6c */ 	lw	$t9,0x1a6c($v0)
-/*  f0d23a8:	c72a0008 */ 	lwc1	$f10,0x8($t9)
-/*  f0d23ac:	460a3200 */ 	add.s	$f8,$f6,$f10
-/*  f0d23b0:	e7a80058 */ 	swc1	$f8,0x58($sp)
-/*  f0d23b4:	8c491a6c */ 	lw	$t1,0x1a6c($v0)
-/*  f0d23b8:	c530000c */ 	lwc1	$f16,0xc($t1)
-/*  f0d23bc:	0c0068f4 */ 	jal	cosf
-/*  f0d23c0:	e7b0005c */ 	swc1	$f16,0x5c($sp)
-/*  f0d23c4:	c7b20074 */ 	lwc1	$f18,0x74($sp)
-/*  f0d23c8:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d23cc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0d23d0:	46120102 */ 	mul.s	$f4,$f0,$f18
-/*  f0d23d4:	8c4a1a6c */ 	lw	$t2,0x1a6c($v0)
-/*  f0d23d8:	c5460010 */ 	lwc1	$f6,0x10($t2)
-/*  f0d23dc:	46062280 */ 	add.s	$f10,$f4,$f6
-/*  f0d23e0:	e7aa0060 */ 	swc1	$f10,0x60($sp)
-/*  f0d23e4:	0fc1905e */ 	jal	func0f064178
-/*  f0d23e8:	8c441a6c */ 	lw	$a0,0x1a6c($v0)
-/*  f0d23ec:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f0d23f0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0d23f4:	0fc1905e */ 	jal	func0f064178
-/*  f0d23f8:	8d6400bc */ 	lw	$a0,0xbc($t3)
-/*  f0d23fc:	8e0c0284 */ 	lw	$t4,0x284($s0)
-/*  f0d2400:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0d2404:	27a70048 */ 	addiu	$a3,$sp,0x48
-/*  f0d2408:	8d8200bc */ 	lw	$v0,0xbc($t4)
-/*  f0d240c:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0d2410:	0fc1979d */ 	jal	func0f065e74
-/*  f0d2414:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f0d2418:	8e040284 */ 	lw	$a0,0x284($s0)
-/*  f0d241c:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f0d2420:	0fc32de7 */ 	jal	func0f0cb79c
-/*  f0d2424:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f0d2428:	8e0d0284 */ 	lw	$t5,0x284($s0)
-/*  f0d242c:	240e003f */ 	addiu	$t6,$zero,0x3f
-/*  f0d2430:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f0d2434:	8da200bc */ 	lw	$v0,0xbc($t5)
-/*  f0d2438:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0d243c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0d2440:	c440000c */ 	lwc1	$f0,0xc($v0)
-/*  f0d2444:	c7a80040 */ 	lwc1	$f8,0x40($sp)
-/*  f0d2448:	c7b2003c */ 	lwc1	$f18,0x3c($sp)
-/*  f0d244c:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0d2450:	46004401 */ 	sub.s	$f16,$f8,$f0
-/*  f0d2454:	27a70048 */ 	addiu	$a3,$sp,0x48
-/*  f0d2458:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0d245c:	46009101 */ 	sub.s	$f4,$f18,$f0
-/*  f0d2460:	e7b00018 */ 	swc1	$f16,0x18($sp)
-/*  f0d2464:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f0d2468:	0c00b5cb */ 	jal	func0002d72c
-/*  f0d246c:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*  f0d2470:	8e180284 */ 	lw	$t8,0x284($s0)
-/*  f0d2474:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0d2478:	8f041a6c */ 	lw	$a0,0x1a6c($t8)
-/*  f0d247c:	0fc1905e */ 	jal	func0f064178
-/*  f0d2480:	afa20044 */ 	sw	$v0,0x44($sp)
-/*  f0d2484:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f0d2488:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0d248c:	14680012 */ 	bne	$v1,$t0,.L0f0d24d8
-/*  f0d2490:	00000000 */ 	nop
-/*  f0d2494:	8e190284 */ 	lw	$t9,0x284($s0)
-/*  f0d2498:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0d249c:	c7a60040 */ 	lwc1	$f6,0x40($sp)
-/*  f0d24a0:	8f2900bc */ 	lw	$t1,0xbc($t9)
-/*  f0d24a4:	c7a8003c */ 	lwc1	$f8,0x3c($sp)
-/*  f0d24a8:	27a40058 */ 	addiu	$a0,$sp,0x58
-/*  f0d24ac:	c520000c */ 	lwc1	$f0,0xc($t1)
-/*  f0d24b0:	8fa50038 */ 	lw	$a1,0x38($sp)
-/*  f0d24b4:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f0d24b8:	46003281 */ 	sub.s	$f10,$f6,$f0
-/*  f0d24bc:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f0d24c0:	46004401 */ 	sub.s	$f16,$f8,$f0
-/*  f0d24c4:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f0d24c8:	0c00a9a1 */ 	jal	func0002a684
-/*  f0d24cc:	e7b00018 */ 	swc1	$f16,0x18($sp)
-/*  f0d24d0:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0d24d4:	00401825 */ 	or	$v1,$v0,$zero
-.L0f0d24d8:
-/*  f0d24d8:	54680017 */ 	bnel	$v1,$t0,.L0f0d2538
-/*  f0d24dc:	8e190284 */ 	lw	$t9,0x284($s0)
-/*  f0d24e0:	8e0a0284 */ 	lw	$t2,0x284($s0)
-/*  f0d24e4:	8fa20068 */ 	lw	$v0,0x68($sp)
-/*  f0d24e8:	44804000 */ 	mtc1	$zero,$f8
-/*  f0d24ec:	ad481af8 */ 	sw	$t0,0x1af8($t2)
-/*  f0d24f0:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f0d24f4:	c7b20058 */ 	lwc1	$f18,0x58($sp)
-/*  f0d24f8:	e5721afc */ 	swc1	$f18,0x1afc($t3)
-/*  f0d24fc:	8e0c0284 */ 	lw	$t4,0x284($s0)
-/*  f0d2500:	c7a4005c */ 	lwc1	$f4,0x5c($sp)
-/*  f0d2504:	e5841b00 */ 	swc1	$f4,0x1b00($t4)
-/*  f0d2508:	8e0d0284 */ 	lw	$t5,0x284($s0)
-/*  f0d250c:	c7a60060 */ 	lwc1	$f6,0x60($sp)
-/*  f0d2510:	e5a61b04 */ 	swc1	$f6,0x1b04($t5)
-/*  f0d2514:	8e0e0284 */ 	lw	$t6,0x284($s0)
-/*  f0d2518:	c44a009c */ 	lwc1	$f10,0x9c($v0)
-/*  f0d251c:	e5ca01a4 */ 	swc1	$f10,0x1a4($t6)
-/*  f0d2520:	8e0f0284 */ 	lw	$t7,0x284($s0)
-/*  f0d2524:	e5e801a8 */ 	swc1	$f8,0x1a8($t7)
-/*  f0d2528:	8e180284 */ 	lw	$t8,0x284($s0)
-/*  f0d252c:	c45000a0 */ 	lwc1	$f16,0xa0($v0)
-/*  f0d2530:	e71001ac */ 	swc1	$f16,0x1ac($t8)
-/*  f0d2534:	8e190284 */ 	lw	$t9,0x284($s0)
-.L0f0d2538:
-/*  f0d2538:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0d253c:	0fc1905e */ 	jal	func0f064178
-/*  f0d2540:	8f2400bc */ 	lw	$a0,0xbc($t9)
-/*  f0d2544:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f0d2548:
-/*  f0d2548:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f0d254c:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*  f0d2550:	03e00008 */ 	jr	$ra
-/*  f0d2554:	00000000 */ 	nop
-);
+void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance)
+{
+	u32 stack;
+	struct hoverbikeobj *bike;
+	f32 angle;
+	struct coord pos;
+	s16 rooms[8];
+	s32 usable;
+	f32 ymax;
+	f32 ymin;
+	f32 width;
+
+	if (g_Vars.currentplayer->walkinitmove == 0) {
+		bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
+		angle = hoverpropGetTurnAngle(&bike->base);
+
+		propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+
+		distance += width + 10;
+
+		angle += relativeangle;
+
+		if (angle >= M_BADTAU) {
+			angle -= M_BADTAU;
+		}
+
+		pos.x = g_Vars.currentplayer->hoverbike->pos.x + sinf(angle) * distance;
+		pos.y = g_Vars.currentplayer->hoverbike->pos.y;
+		pos.z = g_Vars.currentplayer->hoverbike->pos.z + cosf(angle) * distance;
+
+		func0f064178(g_Vars.currentplayer->hoverbike, false);
+		func0f064178(g_Vars.currentplayer->prop, false);
+
+		func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &pos, rooms);
+		func0f0cb79c(g_Vars.currentplayer, &pos, rooms);
+
+		usable = func0002d72c(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+				&pos, rooms, 0x3f, true,
+				ymax - g_Vars.currentplayer->prop->pos.y,
+				ymin - g_Vars.currentplayer->prop->pos.y);
+
+		func0f064178(g_Vars.currentplayer->hoverbike, true);
+
+		if (usable == true) {
+			usable = func0002a684(&pos, width, rooms, 0x3f, true,
+					ymax - g_Vars.currentplayer->prop->pos.y,
+					ymin - g_Vars.currentplayer->prop->pos.y);
+		}
+
+		if (usable == true) {
+			g_Vars.currentplayer->walkinitmove = true;
+
+			g_Vars.currentplayer->walkinitpos.x = pos.x;
+			g_Vars.currentplayer->walkinitpos.y = pos.y;
+			g_Vars.currentplayer->walkinitpos.z = pos.z;
+
+			g_Vars.currentplayer->moveinitspeed.x = bike->speed[0];
+			g_Vars.currentplayer->moveinitspeed.y = 0;
+			g_Vars.currentplayer->moveinitspeed.z = bike->speed[1];
+		}
+
+		func0f064178(g_Vars.currentplayer->prop, true);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0d2558
@@ -339,34 +240,34 @@ glabel var7f1adb50
 /*  f0d25f0:	3c017f1b */ 	lui	$at,%hi(var7f1adb38)
 /*  f0d25f4:	ad401af8 */ 	sw	$zero,0x1af8($t2)
 /*  f0d25f8:	46000586 */ 	mov.s	$f22,$f0
-/*  f0d25fc:	0fc348be */ 	jal	func0f0d22f8
+/*  f0d25fc:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
 /*  f0d2600:	c42cdb38 */ 	lwc1	$f12,%lo(var7f1adb38)($at)
 /*  f0d2604:	3c017f1b */ 	lui	$at,%hi(var7f1adb3c)
 /*  f0d2608:	c7ae002c */ 	lwc1	$f14,0x2c($sp)
-/*  f0d260c:	0fc348be */ 	jal	func0f0d22f8
+/*  f0d260c:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
 /*  f0d2610:	c42cdb3c */ 	lwc1	$f12,%lo(var7f1adb3c)($at)
 /*  f0d2614:	3c017f1b */ 	lui	$at,%hi(var7f1adb40)
 /*  f0d2618:	c42cdb40 */ 	lwc1	$f12,%lo(var7f1adb40)($at)
-/*  f0d261c:	0fc348be */ 	jal	func0f0d22f8
+/*  f0d261c:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
 /*  f0d2620:	4600b386 */ 	mov.s	$f14,$f22
 /*  f0d2624:	3c017f1b */ 	lui	$at,%hi(var7f1adb44)
 /*  f0d2628:	c42cdb44 */ 	lwc1	$f12,%lo(var7f1adb44)($at)
-/*  f0d262c:	0fc348be */ 	jal	func0f0d22f8
+/*  f0d262c:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
 /*  f0d2630:	4600b386 */ 	mov.s	$f14,$f22
 /*  f0d2634:	3c017f1b */ 	lui	$at,%hi(var7f1adb48)
 /*  f0d2638:	c42cdb48 */ 	lwc1	$f12,%lo(var7f1adb48)($at)
-/*  f0d263c:	0fc348be */ 	jal	func0f0d22f8
+/*  f0d263c:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
 /*  f0d2640:	4600b386 */ 	mov.s	$f14,$f22
 /*  f0d2644:	3c017f1b */ 	lui	$at,%hi(var7f1adb4c)
 /*  f0d2648:	c42cdb4c */ 	lwc1	$f12,%lo(var7f1adb4c)($at)
-/*  f0d264c:	0fc348be */ 	jal	func0f0d22f8
+/*  f0d264c:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
 /*  f0d2650:	4600b386 */ 	mov.s	$f14,$f22
 /*  f0d2654:	44806000 */ 	mtc1	$zero,$f12
-/*  f0d2658:	0fc348be */ 	jal	func0f0d22f8
+/*  f0d2658:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
 /*  f0d265c:	4600a386 */ 	mov.s	$f14,$f20
 /*  f0d2660:	3c017f1b */ 	lui	$at,%hi(var7f1adb50)
 /*  f0d2664:	c42cdb50 */ 	lwc1	$f12,%lo(var7f1adb50)($at)
-/*  f0d2668:	0fc348be */ 	jal	func0f0d22f8
+/*  f0d2668:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
 /*  f0d266c:	4600a386 */ 	mov.s	$f14,$f20
 /*  f0d2670:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
 /*  f0d2674:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)

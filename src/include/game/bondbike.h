@@ -6,7 +6,7 @@
 void currentPlayerBikeInit(void);
 void func0f0d2184(void);
 void func0f0d2294(void);
-u32 func0f0d22f8(void);
+void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance);
 u32 func0f0d2558(void);
 void currentPlayerUpdateSpeedBike(struct movedata *data);
 u32 func0f0d2b40(void);
