@@ -1592,28 +1592,24 @@ glabel func0f0cdfbc
 /*  f0ce0b8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0ce0bc
-/*  f0ce0bc:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0ce0c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0ce0c4:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f0ce0c8:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*  f0ce0cc:	0fc337d9 */ 	jal	func0f0cdf64
-/*  f0ce0d0:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f0ce0d4:	14400006 */ 	bnez	$v0,.L0f0ce0f0
-/*  f0ce0d8:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f0ce0dc:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*  f0ce0e0:	0fc337ef */ 	jal	func0f0cdfbc
-/*  f0ce0e4:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f0ce0e8:	5c400002 */ 	bgtzl	$v0,.L0f0ce0f4
-/*  f0ce0ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0ce0f0:
-/*  f0ce0f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0ce0f4:
-/*  f0ce0f4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0ce0f8:	03e00008 */ 	jr	$ra
-/*  f0ce0fc:	00000000 */ 	nop
-);
+void func0f0ce0bc(struct coord *arg0)
+{
+	struct coord a;
+	struct coord b;
+	s32 value = func0f0cdf64(arg0, &a, &b);
+
+	if (value == 0) {
+		value = func0f0cdfbc(arg0, &a, &b);
+
+		if (value <= 0) {
+			value = 1;
+		}
+	}
+
+	if (value) {
+		// empty
+	}
+}
 
 void currentPlayerUpdatePrevPosGrab(void)
 {
