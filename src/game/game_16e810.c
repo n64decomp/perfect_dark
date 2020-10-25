@@ -19,11 +19,10 @@
 #include "lib/lib_4e470.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f16e810
-/*  f16e810:	03e00008 */ 	jr	$ra
-/*  f16e814:	afa40000 */ 	sw	$a0,0x0($sp)
-);
+void func0f16e810(u32 arg0)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0f16e818

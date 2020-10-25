@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f16e810(void);
+void func0f16e810(u32 arg0);
 u32 func0f16edac(void);
 u32 func0f16ee58(void);
 u32 func0f16eefc(void);
