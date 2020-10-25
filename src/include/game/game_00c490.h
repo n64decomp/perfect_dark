@@ -9,7 +9,7 @@ void addPadlockedDoor(struct padlockeddoorobj *link);
 void addSafeItem(struct safeitemobj *link);
 void addConditionalScenery(struct linksceneryobj *link);
 void addBlockedPath(struct blockedpathobj *link);
-u32 func0f00cc8c(void);
+void func0f00cc8c(void);
 void setupClearProxyMines(void);
 s32 setupCountCommandType(u32 type);
 void setupGenericObject(struct defaultobj *obj, s32 cmdindex);

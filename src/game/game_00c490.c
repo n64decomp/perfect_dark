@@ -595,123 +595,21 @@ void addBlockedPath(struct blockedpathobj *blockedpath)
 	g_BlockedPaths = blockedpath;
 }
 
-GLOBAL_ASM(
-glabel func0f00cc8c
-/*  f00cc8c:	27bdfea0 */ 	addiu	$sp,$sp,-352
-/*  f00cc90:	3c0e8006 */ 	lui	$t6,%hi(var80061a80)
-/*  f00cc94:	27a200ec */ 	addiu	$v0,$sp,0xec
-/*  f00cc98:	25ce1a80 */ 	addiu	$t6,$t6,%lo(var80061a80)
-/*  f00cc9c:	27a30078 */ 	addiu	$v1,$sp,0x78
-/*  f00cca0:	27a40004 */ 	addiu	$a0,$sp,0x4
-/*  f00cca4:	25d9006c */ 	addiu	$t9,$t6,0x6c
-/*  f00cca8:	00404025 */ 	or	$t0,$v0,$zero
-.L0f00ccac:
-/*  f00ccac:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f00ccb0:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f00ccb4:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f00ccb8:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f00ccbc:	8dc1fff8 */ 	lw	$at,-0x8($t6)
-/*  f00ccc0:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f00ccc4:	8dc1fffc */ 	lw	$at,-0x4($t6)
-/*  f00ccc8:	15d9fff8 */ 	bne	$t6,$t9,.L0f00ccac
-/*  f00cccc:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f00ccd0:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f00ccd4:	3c09800a */ 	lui	$t1,%hi(var8009ce98)
-/*  f00ccd8:	2529ce98 */ 	addiu	$t1,$t1,%lo(var8009ce98)
-/*  f00ccdc:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f00cce0:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f00cce4:	00406825 */ 	or	$t5,$v0,$zero
-/*  f00cce8:	244c006c */ 	addiu	$t4,$v0,0x6c
-/*  f00ccec:	ad190004 */ 	sw	$t9,0x4($t0)
-.L0f00ccf0:
-/*  f00ccf0:	8da10000 */ 	lw	$at,0x0($t5)
-/*  f00ccf4:	25ad000c */ 	addiu	$t5,$t5,0xc
-/*  f00ccf8:	2529000c */ 	addiu	$t1,$t1,0xc
-/*  f00ccfc:	ad21fff4 */ 	sw	$at,-0xc($t1)
-/*  f00cd00:	8da1fff8 */ 	lw	$at,-0x8($t5)
-/*  f00cd04:	ad21fff8 */ 	sw	$at,-0x8($t1)
-/*  f00cd08:	8da1fffc */ 	lw	$at,-0x4($t5)
-/*  f00cd0c:	15acfff8 */ 	bne	$t5,$t4,.L0f00ccf0
-/*  f00cd10:	ad21fffc */ 	sw	$at,-0x4($t1)
-/*  f00cd14:	8da10000 */ 	lw	$at,0x0($t5)
-/*  f00cd18:	3c188006 */ 	lui	$t8,%hi(var80061af4)
-/*  f00cd1c:	27181af4 */ 	addiu	$t8,$t8,%lo(var80061af4)
-/*  f00cd20:	ad210000 */ 	sw	$at,0x0($t1)
-/*  f00cd24:	8dac0004 */ 	lw	$t4,0x4($t5)
-/*  f00cd28:	270e006c */ 	addiu	$t6,$t8,0x6c
-/*  f00cd2c:	00604025 */ 	or	$t0,$v1,$zero
-/*  f00cd30:	ad2c0004 */ 	sw	$t4,0x4($t1)
-.L0f00cd34:
-/*  f00cd34:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f00cd38:	2718000c */ 	addiu	$t8,$t8,0xc
-/*  f00cd3c:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f00cd40:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f00cd44:	8f01fff8 */ 	lw	$at,-0x8($t8)
-/*  f00cd48:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f00cd4c:	8f01fffc */ 	lw	$at,-0x4($t8)
-/*  f00cd50:	170efff8 */ 	bne	$t8,$t6,.L0f00cd34
-/*  f00cd54:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f00cd58:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f00cd5c:	3c0b800a */ 	lui	$t3,%hi(var8009cf10)
-/*  f00cd60:	256bcf10 */ 	addiu	$t3,$t3,%lo(var8009cf10)
-/*  f00cd64:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f00cd68:	8f0e0004 */ 	lw	$t6,0x4($t8)
-/*  f00cd6c:	00604825 */ 	or	$t1,$v1,$zero
-/*  f00cd70:	246d006c */ 	addiu	$t5,$v1,0x6c
-/*  f00cd74:	ad0e0004 */ 	sw	$t6,0x4($t0)
-.L0f00cd78:
-/*  f00cd78:	8d210000 */ 	lw	$at,0x0($t1)
-/*  f00cd7c:	2529000c */ 	addiu	$t1,$t1,0xc
-/*  f00cd80:	256b000c */ 	addiu	$t3,$t3,0xc
-/*  f00cd84:	ad61fff4 */ 	sw	$at,-0xc($t3)
-/*  f00cd88:	8d21fff8 */ 	lw	$at,-0x8($t1)
-/*  f00cd8c:	ad61fff8 */ 	sw	$at,-0x8($t3)
-/*  f00cd90:	8d21fffc */ 	lw	$at,-0x4($t1)
-/*  f00cd94:	152dfff8 */ 	bne	$t1,$t5,.L0f00cd78
-/*  f00cd98:	ad61fffc */ 	sw	$at,-0x4($t3)
-/*  f00cd9c:	8d210000 */ 	lw	$at,0x0($t1)
-/*  f00cda0:	3c198006 */ 	lui	$t9,%hi(var80061b68)
-/*  f00cda4:	27391b68 */ 	addiu	$t9,$t9,%lo(var80061b68)
-/*  f00cda8:	ad610000 */ 	sw	$at,0x0($t3)
-/*  f00cdac:	8d2d0004 */ 	lw	$t5,0x4($t1)
-/*  f00cdb0:	2738006c */ 	addiu	$t8,$t9,0x6c
-/*  f00cdb4:	00804025 */ 	or	$t0,$a0,$zero
-/*  f00cdb8:	ad6d0004 */ 	sw	$t5,0x4($t3)
-.L0f00cdbc:
-/*  f00cdbc:	8f210000 */ 	lw	$at,0x0($t9)
-/*  f00cdc0:	2739000c */ 	addiu	$t9,$t9,0xc
-/*  f00cdc4:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f00cdc8:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f00cdcc:	8f21fff8 */ 	lw	$at,-0x8($t9)
-/*  f00cdd0:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f00cdd4:	8f21fffc */ 	lw	$at,-0x4($t9)
-/*  f00cdd8:	1738fff8 */ 	bne	$t9,$t8,.L0f00cdbc
-/*  f00cddc:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f00cde0:	8f210000 */ 	lw	$at,0x0($t9)
-/*  f00cde4:	3c0c800a */ 	lui	$t4,%hi(var8009cf88)
-/*  f00cde8:	258ccf88 */ 	addiu	$t4,$t4,%lo(var8009cf88)
-/*  f00cdec:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f00cdf0:	8f380004 */ 	lw	$t8,0x4($t9)
-/*  f00cdf4:	00805825 */ 	or	$t3,$a0,$zero
-/*  f00cdf8:	2489006c */ 	addiu	$t1,$a0,0x6c
-/*  f00cdfc:	ad180004 */ 	sw	$t8,0x4($t0)
-.L0f00ce00:
-/*  f00ce00:	8d610000 */ 	lw	$at,0x0($t3)
-/*  f00ce04:	256b000c */ 	addiu	$t3,$t3,0xc
-/*  f00ce08:	258c000c */ 	addiu	$t4,$t4,0xc
-/*  f00ce0c:	ad81fff4 */ 	sw	$at,-0xc($t4)
-/*  f00ce10:	8d61fff8 */ 	lw	$at,-0x8($t3)
-/*  f00ce14:	ad81fff8 */ 	sw	$at,-0x8($t4)
-/*  f00ce18:	8d61fffc */ 	lw	$at,-0x4($t3)
-/*  f00ce1c:	1569fff8 */ 	bne	$t3,$t1,.L0f00ce00
-/*  f00ce20:	ad81fffc */ 	sw	$at,-0x4($t4)
-/*  f00ce24:	8d610000 */ 	lw	$at,0x0($t3)
-/*  f00ce28:	ad810000 */ 	sw	$at,0x0($t4)
-/*  f00ce2c:	8d690004 */ 	lw	$t1,0x4($t3)
-/*  f00ce30:	27bd0160 */ 	addiu	$sp,$sp,0x160
-/*  f00ce34:	03e00008 */ 	jr	$ra
-/*  f00ce38:	ad890004 */ 	sw	$t1,0x4($t4)
-);
+void func0f00cc8c(void)
+{
+	struct monitorscreen tmp1;
+	struct monitorscreen tmp2;
+	struct monitorscreen tmp3;
+
+	tmp1 = var80061a80;
+	var8009ce98 = tmp1;
+
+	tmp2 = var80061af4;
+	var8009cf10 = tmp2;
+
+	tmp3 = var80061b68;
+	var8009cf88 = tmp3;
+}
 
 void setupClearProxyMines(void)
 {
