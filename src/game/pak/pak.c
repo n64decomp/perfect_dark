@@ -3252,11 +3252,10 @@ glabel func0f118674
 //	return 4;
 //}
 
-GLOBAL_ASM(
-glabel func0f1189d0
-/*  f1189d0:	03e00008 */ 	jr	$ra
-/*  f1189d4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f1189d0(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0f1189d8
