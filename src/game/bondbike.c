@@ -46,22 +46,22 @@ void currentPlayerBikeInit(void)
 	f32 matrix[16];
 
 	g_Vars.currentplayer->bondmovemode = MOVEMODE_BIKE;
-	g_Vars.currentplayer->unk1a7c = 0;
+	g_Vars.currentplayer->bondvehiclemode = 0;
 	g_Vars.currentplayer->guncloseroffset = 0;
 	g_Vars.currentplayer->gunextraaimx = 0;
 	g_Vars.currentplayer->gunextraaimy = 0;
 
 	func0f0d2294();
 
-	g_Vars.currentplayer->unk1a80 = 0;
-	g_Vars.currentplayer->unk1a84 = 1;
+	g_Vars.currentplayer->bondentert = 0;
+	g_Vars.currentplayer->bondentert2 = 1;
 	g_Vars.currentplayer->bondenterpos.x = g_Vars.currentplayer->prop->pos.x;
 	g_Vars.currentplayer->bondenterpos.y = g_Vars.currentplayer->prop->pos.y;
 	g_Vars.currentplayer->bondenterpos.z = g_Vars.currentplayer->prop->pos.z;
 
 	func00015d54(hoverbike->base.realrot, matrix);
 	func00015dd4(&hoverbike->base.prop->pos, matrix);
-	func00015b68(matrix, &g_Vars.currentplayer->unk1a70, &g_Vars.currentplayer->bondenteraim);
+	func00015b68(matrix, &g_Vars.currentplayer->bondvehicleoffset, &g_Vars.currentplayer->bondenteraim);
 	func00016b58(g_Vars.currentplayer->bondentermtx,
 			0, 0, 0,
 			-g_Vars.currentplayer->bond2.unk1c.x, -g_Vars.currentplayer->bond2.unk1c.y, -g_Vars.currentplayer->bond2.unk1c.z,
@@ -111,9 +111,9 @@ void func0f0d2294(void)
 {
 	struct defaultobj *hoverbike = g_Vars.currentplayer->hoverbike->obj;
 
-	g_Vars.currentplayer->unk1a70.x = 0.0f / hoverbike->model->unk14;
-	g_Vars.currentplayer->unk1a70.y = 80.0f / hoverbike->model->unk14;
-	g_Vars.currentplayer->unk1a70.z = -50.0f / hoverbike->model->unk14;
+	g_Vars.currentplayer->bondvehicleoffset.x = 0.0f / hoverbike->model->unk14;
+	g_Vars.currentplayer->bondvehicleoffset.y = 80.0f / hoverbike->model->unk14;
+	g_Vars.currentplayer->bondvehicleoffset.z = -50.0f / hoverbike->model->unk14;
 }
 
 void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance)
@@ -181,112 +181,35 @@ void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0d2558
-.late_rodata
-glabel var7f1adb38
-.word 0x3fc907a9
-glabel var7f1adb3c
-.word 0x4096c5bf
-glabel var7f1adb40
-.word 0x3f4907a9
-glabel var7f1adb44
-.word 0x40afe6b4
-glabel var7f1adb48
-.word 0x4016c5bf
-glabel var7f1adb4c
-.word 0x407b4993
-glabel var7f1adb50
-.word 0x404907a9
-.text
-/*  f0d2558:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0d255c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0d2560:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0d2564:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0d2568:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0d256c:	f7b60018 */ 	sdc1	$f22,0x18($sp)
-/*  f0d2570:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f0d2574:	8c4e1a7c */ 	lw	$t6,0x1a7c($v0)
-/*  f0d2578:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0d257c:	55c10047 */ 	bnel	$t6,$at,.L0f0d269c
-/*  f0d2580:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0d2584:	8c6f0008 */ 	lw	$t7,0x8($v1)
-/*  f0d2588:	8c58019c */ 	lw	$t8,0x19c($v0)
-/*  f0d258c:	01f8c823 */ 	subu	$t9,$t7,$t8
-/*  f0d2590:	2b210019 */ 	slti	$at,$t9,0x19
-/*  f0d2594:	50200041 */ 	beqzl	$at,.L0f0d269c
-/*  f0d2598:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0d259c:	8c481a6c */ 	lw	$t0,0x1a6c($v0)
-/*  f0d25a0:	8d040004 */ 	lw	$a0,0x4($t0)
-/*  f0d25a4:	0fc1a2bd */ 	jal	func0f068af4
-/*  f0d25a8:	afa40034 */ 	sw	$a0,0x34($sp)
-/*  f0d25ac:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*  f0d25b0:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f0d25b4:	c4460018 */ 	lwc1	$f6,0x18($v0)
-/*  f0d25b8:	8c890018 */ 	lw	$t1,0x18($a0)
-/*  f0d25bc:	c5200014 */ 	lwc1	$f0,0x14($t1)
-/*  f0d25c0:	46002382 */ 	mul.s	$f14,$f4,$f0
-/*  f0d25c4:	00000000 */ 	nop
-/*  f0d25c8:	46003502 */ 	mul.s	$f20,$f6,$f0
-/*  f0d25cc:	00000000 */ 	nop
-/*  f0d25d0:	460e7202 */ 	mul.s	$f8,$f14,$f14
-/*  f0d25d4:	e7ae002c */ 	swc1	$f14,0x2c($sp)
-/*  f0d25d8:	4614a282 */ 	mul.s	$f10,$f20,$f20
-/*  f0d25dc:	0c012974 */ 	jal	sqrtf
-/*  f0d25e0:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f0d25e4:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x284)
-/*  f0d25e8:	8d4aa244 */ 	lw	$t2,%lo(g_Vars+0x284)($t2)
-/*  f0d25ec:	c7ae002c */ 	lwc1	$f14,0x2c($sp)
-/*  f0d25f0:	3c017f1b */ 	lui	$at,%hi(var7f1adb38)
-/*  f0d25f4:	ad401af8 */ 	sw	$zero,0x1af8($t2)
-/*  f0d25f8:	46000586 */ 	mov.s	$f22,$f0
-/*  f0d25fc:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
-/*  f0d2600:	c42cdb38 */ 	lwc1	$f12,%lo(var7f1adb38)($at)
-/*  f0d2604:	3c017f1b */ 	lui	$at,%hi(var7f1adb3c)
-/*  f0d2608:	c7ae002c */ 	lwc1	$f14,0x2c($sp)
-/*  f0d260c:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
-/*  f0d2610:	c42cdb3c */ 	lwc1	$f12,%lo(var7f1adb3c)($at)
-/*  f0d2614:	3c017f1b */ 	lui	$at,%hi(var7f1adb40)
-/*  f0d2618:	c42cdb40 */ 	lwc1	$f12,%lo(var7f1adb40)($at)
-/*  f0d261c:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
-/*  f0d2620:	4600b386 */ 	mov.s	$f14,$f22
-/*  f0d2624:	3c017f1b */ 	lui	$at,%hi(var7f1adb44)
-/*  f0d2628:	c42cdb44 */ 	lwc1	$f12,%lo(var7f1adb44)($at)
-/*  f0d262c:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
-/*  f0d2630:	4600b386 */ 	mov.s	$f14,$f22
-/*  f0d2634:	3c017f1b */ 	lui	$at,%hi(var7f1adb48)
-/*  f0d2638:	c42cdb48 */ 	lwc1	$f12,%lo(var7f1adb48)($at)
-/*  f0d263c:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
-/*  f0d2640:	4600b386 */ 	mov.s	$f14,$f22
-/*  f0d2644:	3c017f1b */ 	lui	$at,%hi(var7f1adb4c)
-/*  f0d2648:	c42cdb4c */ 	lwc1	$f12,%lo(var7f1adb4c)($at)
-/*  f0d264c:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
-/*  f0d2650:	4600b386 */ 	mov.s	$f14,$f22
-/*  f0d2654:	44806000 */ 	mtc1	$zero,$f12
-/*  f0d2658:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
-/*  f0d265c:	4600a386 */ 	mov.s	$f14,$f20
-/*  f0d2660:	3c017f1b */ 	lui	$at,%hi(var7f1adb50)
-/*  f0d2664:	c42cdb50 */ 	lwc1	$f12,%lo(var7f1adb50)($at)
-/*  f0d2668:	0fc348be */ 	jal	currentPlayerTryBikeDismountAngle
-/*  f0d266c:	4600a386 */ 	mov.s	$f14,$f20
-/*  f0d2670:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0d2674:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0d2678:	8c4b1af8 */ 	lw	$t3,0x1af8($v0)
-/*  f0d267c:	51600006 */ 	beqzl	$t3,.L0f0d2698
-/*  f0d2680:	ac4000d0 */ 	sw	$zero,0xd0($v0)
-/*  f0d2684:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
-/*  f0d2688:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0d268c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0d2690:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0d2694:	ac4000d0 */ 	sw	$zero,0xd0($v0)
-.L0f0d2698:
-/*  f0d2698:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0d269c:
-/*  f0d269c:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f0d26a0:	d7b60018 */ 	ldc1	$f22,0x18($sp)
-/*  f0d26a4:	03e00008 */ 	jr	$ra
-/*  f0d26a8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void currentPlayerDismountBike(void)
+{
+	if (g_Vars.currentplayer->bondvehiclemode == 2
+			&& g_Vars.lvframe60 - g_Vars.currentplayer->activatetimelast < 25) {
+		struct hoverbikeobj *bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
+		struct model08thing *thing = func0f068af4(&bike->base);
+
+		f32 fVar5 = thing->unk08 * bike->base.model->unk14;
+		f32 fVar3 = thing->unk18 * bike->base.model->unk14;
+		f32 uVar4 = sqrtf(fVar5 * fVar5 + fVar3 * fVar3);
+
+		g_Vars.currentplayer->walkinitmove = false;
+
+		currentPlayerTryBikeDismountAngle(1.5705462694168f, fVar5);
+		currentPlayerTryBikeDismountAngle(4.7116389274597f, fVar5);
+		currentPlayerTryBikeDismountAngle(0.7852731347084f, uVar4);
+		currentPlayerTryBikeDismountAngle(5.4969120025635f, uVar4);
+		currentPlayerTryBikeDismountAngle(2.3558194637299f, uVar4);
+		currentPlayerTryBikeDismountAngle(3.9263656139374f, uVar4);
+		currentPlayerTryBikeDismountAngle(0, fVar3);
+		currentPlayerTryBikeDismountAngle(3.1410925388336f, fVar3);
+
+		if (g_Vars.currentplayer->walkinitmove) {
+			currentPlayerSetMoveMode(MOVEMODE_WALK);
+		}
+
+		g_Vars.currentplayer->unk00d0 = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel currentPlayerUpdateSpeedBike

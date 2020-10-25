@@ -2721,12 +2721,12 @@ struct player {
 	/*0x1a64*/ u32 unk1a64;
 	/*0x1a68*/ u32 unk1a68;
 	/*0x1a6c*/ struct prop *hoverbike;
-	/*0x1a70*/ struct coord unk1a70;
-	/*0x1a7c*/ u32 unk1a7c;
-	/*0x1a80*/ f32 unk1a80;
-	/*0x1a84*/ f32 unk1a84;
-	/*0x1a88*/ u32 unk1a88;
-	/*0x1a8c*/ u32 unk1a8c;
+	/*0x1a70*/ struct coord bondvehicleoffset;
+	/*0x1a7c*/ u32 bondvehiclemode;
+	/*0x1a80*/ f32 bondentert;
+	/*0x1a84*/ f32 bondentert2;
+	/*0x1a88*/ u32 bondentertheta;
+	/*0x1a8c*/ u32 bondenterverta;
 	/*0x1a90*/ struct coord bondenterpos;
 	/*0x1a9c*/ f32 bondentermtx[16];
 	/*0x1adc*/ struct coord bondenteraim;
@@ -6522,7 +6522,12 @@ struct healthdamagetype {
 
 struct model08thing {
 	u32 unk00;
-	f32 unk04[4];
+	f32 unk04;
+	f32 unk08;
+	f32 unk0c;
+	f32 unk10;
+	u32 unk14;
+	f32 unk18;
 };
 
 struct optiongroup {

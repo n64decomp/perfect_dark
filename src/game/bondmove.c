@@ -234,7 +234,7 @@ void setMoveModeForAllPlayers(u32 movemode)
 void func0f0c7f2c(void)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		func0f0d2558();
+		currentPlayerDismountBike();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		func0f0ce450();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
@@ -5462,7 +5462,7 @@ void func0f0cc19c(struct coord *arg)
 
 	if (cheatIsActive(CHEAT_SMALLJO)) {
 		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-			mult = g_Vars.currentplayer->unk1a80 * 0.6f + 0.4f;
+			mult = g_Vars.currentplayer->bondentert * 0.6f + 0.4f;
 		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK && g_Vars.currentplayer->walkinitmove) {
 			mult = (1.0f - g_Vars.currentplayer->walkinitt) * 0.6f + 0.4f;
 			g_Vars.currentplayer->bond2.unk10.y += (g_Vars.currentplayer->crouchoffsetreal - g_Vars.currentplayer->crouchoffsetrealsmall) * g_Vars.currentplayer->walkinitt;
