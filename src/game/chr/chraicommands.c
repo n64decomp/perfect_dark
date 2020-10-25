@@ -3826,46 +3826,29 @@ bool aiChrCopyPadPreset(void)
 
 /**
  * @cmd 00b5
+ *
+ * The weirdness to do with result is required for a match.
+ * The original source likely had something similar and probably used ifdefs.
  */
-GLOBAL_ASM(
-glabel aiPrint
-/*  f054ec4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f054ec8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f054ecc:	0fc47bba */ 	jal	dprint
-/*  f054ed0:	00000000 */ 	nop
-/*  f054ed4:	10400001 */ 	beqz	$v0,.L0f054edc
-/*  f054ed8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-.L0f054edc:
-/*  f054edc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f054ee0:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f054ee4:	0fc136d0 */ 	jal	chraiGetCommandLength
-/*  f054ee8:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f054eec:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f054ef0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f054ef4:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f054ef8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f054efc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f054f00:	01c27821 */ 	addu	$t7,$t6,$v0
-/*  f054f04:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f054f08:	03e00008 */ 	jr	$ra
-/*  f054f0c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiPrint(void)
+{
+	u32 len;
+	u32 result = dprint();
 
-// Mismatch because the if statement gets optimised out
-//bool aiPrint(void)
-//{
-//	u32 len;
-//
-//	if (dprint()) {
-//		// empty
-//	}
-//
-//	len = chraiGetCommandLength(g_Vars.ailist, g_Vars.aioffset);
-//
-//	g_Vars.aioffset += len;
-//
-//	return false;
-//}
+	if (result) {
+		result = 2;
+	}
+
+	if (result == 2) {
+		// empty
+	}
+
+	len = chraiGetCommandLength(g_Vars.ailist, g_Vars.aioffset);
+
+	g_Vars.aioffset += len;
+
+	return false;
+}
 
 /**
  * @cmd 0091
