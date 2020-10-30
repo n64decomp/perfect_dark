@@ -839,7 +839,7 @@ glabel func000142f0
 /*    14398:	8defeec0 */ 	lw	$t7,%lo(var8005eec0)($t7)
 /*    1439c:	51e0000f */ 	beqzl	$t7,.L000143dc
 /*    143a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    143a4:	0c005207 */ 	jal	func0001481c
+/*    143a4:	0c005207 */ 	jal	contGetNumSamples
 /*    143a8:	00000000 */ 	nop
 /*    143ac:	5c40000b */ 	bgtzl	$v0,.L000143dc
 /*    143b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -910,7 +910,7 @@ glabel func000142f0
 /*    14398:	8defeec0 */ 	lw	$t7,%lo(var8005eec0)($t7)
 /*    1439c:	51e0000f */ 	beqzl	$t7,.L000143dc
 /*    143a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    143a4:	0c005207 */ 	jal	func0001481c
+/*    143a4:	0c005207 */ 	jal	contGetNumSamples
 /*    143a8:	00000000 */ 	nop
 /*    143ac:	5c40000b */ 	bgtzl	$v0,.L000143dc
 /*    143b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1239,20 +1239,10 @@ glabel func00014810
 /*    14818:	ac24eec0 */ 	sw	$a0,%lo(var8005eec0)($at)
 );
 
-GLOBAL_ASM(
-glabel func0001481c
-/*    1481c:	3c038006 */ 	lui	$v1,%hi(var8005ee60)
-/*    14820:	8c63ee60 */ 	lw	$v1,%lo(var8005ee60)($v1)
-/*    14824:	24010014 */ 	addiu	$at,$zero,0x14
-/*    14828:	8c6e01e0 */ 	lw	$t6,0x1e0($v1)
-/*    1482c:	8c6f01e4 */ 	lw	$t7,0x1e4($v1)
-/*    14830:	01cf1023 */ 	subu	$v0,$t6,$t7
-/*    14834:	24420014 */ 	addiu	$v0,$v0,0x14
-/*    14838:	0041001a */ 	div	$zero,$v0,$at
-/*    1483c:	00001010 */ 	mfhi	$v0
-/*    14840:	03e00008 */ 	jr	$ra
-/*    14844:	00000000 */ 	nop
-);
+s32 contGetNumSamples(void)
+{
+	return (var8005ee60->newestindex - var8005ee60->oldestindex + 20) % 20;
+}
 
 GLOBAL_ASM(
 glabel func00014848
@@ -1318,7 +1308,7 @@ s32 func00014904(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return var8005ee60->samples[(var8005ee60->unk1e4 + samplenum + 1) % 20].pads[contpadnum].stick_y;
+	return var8005ee60->samples[(var8005ee60->oldestindex + samplenum + 1) % 20].pads[contpadnum].stick_y;
 }
 
 s32 func000149c0(s32 samplenum, s8 contpadnum)
@@ -1332,7 +1322,7 @@ s32 func000149c0(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return var8005ee60->samples[(var8005ee60->unk1e4 + samplenum) % 20].pads[contpadnum].stick_y;
+	return var8005ee60->samples[(var8005ee60->oldestindex + samplenum) % 20].pads[contpadnum].stick_y;
 }
 
 u16 func00014a78(s32 samplenum, s8 contpadnum, u16 mask)
@@ -1348,7 +1338,7 @@ u16 func00014a78(s32 samplenum, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	button = var8005ee60->samples[(var8005ee60->unk1e4 + samplenum + 1) % 20].pads[contpadnum].button;
+	button = var8005ee60->samples[(var8005ee60->oldestindex + samplenum + 1) % 20].pads[contpadnum].button;
 
 	return button & mask;
 }
@@ -1367,8 +1357,8 @@ u16 func00014b50(s32 samplenum, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	button1 = var8005ee60->samples[(var8005ee60->unk1e4 + samplenum + 1) % 20].pads[contpadnum].button;
-	button2 = var8005ee60->samples[(var8005ee60->unk1e4 + samplenum) % 20].pads[contpadnum].button;
+	button1 = var8005ee60->samples[(var8005ee60->oldestindex + samplenum + 1) % 20].pads[contpadnum].button;
+	button2 = var8005ee60->samples[(var8005ee60->oldestindex + samplenum) % 20].pads[contpadnum].button;
 
 	return (button1 & ~button2) & mask;
 }
@@ -1493,7 +1483,7 @@ s8 contGetStickX(s8 contpadnum)
 		return 0;
 	}
 
-	return var8005ee60->samples[var8005ee60->index].pads[contpadnum].stick_x;
+	return var8005ee60->samples[var8005ee60->newestindex].pads[contpadnum].stick_x;
 }
 
 s8 contGetStickY(s8 contpadnum)
@@ -1507,7 +1497,7 @@ s8 contGetStickY(s8 contpadnum)
 		return 0;
 	}
 
-	return var8005ee60->samples[var8005ee60->index].pads[contpadnum].stick_y;
+	return var8005ee60->samples[var8005ee60->newestindex].pads[contpadnum].stick_y;
 }
 
 u16 contGetButtons(s8 contpadnum, u16 mask)
@@ -1521,7 +1511,7 @@ u16 contGetButtons(s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	return var8005ee60->samples[var8005ee60->index].pads[contpadnum].button & mask;
+	return var8005ee60->samples[var8005ee60->newestindex].pads[contpadnum].button & mask;
 }
 
 u16 func00015020(s8 contpadnum, u16 mask)

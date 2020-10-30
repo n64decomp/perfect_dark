@@ -915,7 +915,7 @@ glabel var7f1ad8e4
 /*  f0c8d1c:	01c87825 */ 	or	$t7,$t6,$t0
 /*  f0c8d20:	acaf1c40 */ 	sw	$t7,0x1c40($a1)
 .L0f0c8d24:
-/*  f0c8d24:	0c005207 */ 	jal	func0001481c
+/*  f0c8d24:	0c005207 */ 	jal	contGetNumSamples
 /*  f0c8d28:	00000000 */ 	nop
 /*  f0c8d2c:	0040b025 */ 	or	$s6,$v0,$zero
 /*  f0c8d30:	0fc322aa */ 	jal	movedataReset
@@ -4020,7 +4020,7 @@ glabel var7f1ad8e4
 //		g_Vars.currentplayer->joybutinhibit = (g_Vars.currentplayer->joybutinhibit & 0xffff0000) | inhibitedbuttons;
 //	}
 //
-//	numsamples = func0001481c();
+//	numsamples = contGetNumSamples();
 //	movedataReset(&movedata);
 //
 //	// 8d3c
