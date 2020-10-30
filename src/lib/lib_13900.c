@@ -1059,12 +1059,10 @@ void contPoll(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func00014810
-/*    14810:	3c018006 */ 	lui	$at,%hi(var8005eec0)
-/*    14814:	03e00008 */ 	jr	$ra
-/*    14818:	ac24eec0 */ 	sw	$a0,%lo(var8005eec0)($at)
-);
+void func00014810(bool value)
+{
+	var8005eec0 = value;
+}
 
 s32 contGetNumSamples(void)
 {

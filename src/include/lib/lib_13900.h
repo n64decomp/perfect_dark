@@ -24,7 +24,7 @@ void func000142f0(void);
 s32 contStartReadData(OSMesgQueue *mq);
 void contReadData(void);
 void contPoll(void);
-void func00014810(bool arg0);
+void func00014810(bool value);
 s32 contGetNumSamples(void);
 s32 func00014848(s32 samplenum, s8 contpadnum);
 s32 func00014904(s32 samplenum, s8 contpadnum);
