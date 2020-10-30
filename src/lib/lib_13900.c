@@ -1259,33 +1259,17 @@ glabel func000150c4
 /*    150e4:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func000150e8
-/*    150e8:	3c028006 */ 	lui	$v0,%hi(var8005eebc)
-/*    150ec:	8c42eebc */ 	lw	$v0,%lo(var8005eebc)($v0)
-/*    150f0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    150f4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    150f8:	1440000c */ 	bnez	$v0,.L0001512c
-/*    150fc:	3c04800a */ 	lui	$a0,%hi(var80099ec0)
-/*    15100:	24849ec0 */ 	addiu	$a0,$a0,%lo(var80099ec0)
-/*    15104:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    15108:	0c012238 */ 	jal	osSendMesg
-/*    1510c:	00003025 */ 	or	$a2,$zero,$zero
-/*    15110:	3c04800a */ 	lui	$a0,%hi(var80099ee0)
-/*    15114:	24849ee0 */ 	addiu	$a0,$a0,%lo(var80099ee0)
-/*    15118:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    1511c:	0c0121bc */ 	jal	osRecvMesg
-/*    15120:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    15124:	3c028006 */ 	lui	$v0,%hi(var8005eebc)
-/*    15128:	8c42eebc */ 	lw	$v0,%lo(var8005eebc)($v0)
-.L0001512c:
-/*    1512c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    15130:	244e0001 */ 	addiu	$t6,$v0,0x1
-/*    15134:	3c018006 */ 	lui	$at,%hi(var8005eebc)
-/*    15138:	ac2eeebc */ 	sw	$t6,%lo(var8005eebc)($at)
-/*    1513c:	03e00008 */ 	jr	$ra
-/*    15140:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void func000150e8(void)
+{
+	OSMesg msg;
+
+	if (var8005eebc == 0) {
+		osSendMesg(&var80099ec0, &msg, OS_MESG_NOBLOCK);
+		osRecvMesg(&var80099ee0, &msg, OS_MESG_BLOCK);
+	}
+
+	var8005eebc++;
+}
 
 GLOBAL_ASM(
 glabel func00015144
