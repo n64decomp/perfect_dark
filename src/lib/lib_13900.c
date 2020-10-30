@@ -1592,19 +1592,10 @@ bool func000155b4(s8 index)
 	return var800a2380[index].unk010;
 }
 
-GLOBAL_ASM(
-glabel func000155f4
-/*    155f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    155f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    155fc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    15600:	00047600 */ 	sll	$t6,$a0,0x18
-/*    15604:	0c00556d */ 	jal	func000155b4
-/*    15608:	000e2603 */ 	sra	$a0,$t6,0x18
-/*    1560c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    15610:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    15614:	03e00008 */ 	jr	$ra
-/*    15618:	00000000 */ 	nop
-);
+bool func000155f4(s8 index)
+{
+	return func000155b4(index);
+}
 
 GLOBAL_ASM(
 glabel func0001561c
