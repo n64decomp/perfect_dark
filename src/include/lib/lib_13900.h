@@ -5,7 +5,7 @@
 
 void func00013900(void);
 void func00013938(void);
-u32 func00013974(void);
+void func00013974(u32 value);
 u32 func00013980(void);
 void func0001398c(s32 value);
 void func000139c8(void);
