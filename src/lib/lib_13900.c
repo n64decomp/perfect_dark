@@ -53,7 +53,7 @@ u32 var8005eec8 = 0x00000000;
 u32 var8005eecc = 0x00000000;
 u32 var8005eed0 = 0x00000000;
 u32 var8005eed4 = 0x00000000;
-u32 var8005eed8 = 0x00000000;
+u8 var8005eed8 = 0;
 u32 var8005eedc = 0x00000001;
 u32 var8005eee0 = 0x00000000;
 u32 var8005eee4 = 0xffffffff;
@@ -331,27 +331,12 @@ glabel func00013ab8
 /*    13c48:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00013c4c
-/*    13c4c:	00042e00 */ 	sll	$a1,$a0,0x18
-/*    13c50:	3c0f8006 */ 	lui	$t7,%hi(var8005eed8)
-/*    13c54:	91efeed8 */ 	lbu	$t7,%lo(var8005eed8)($t7)
-/*    13c58:	00057603 */ 	sra	$t6,$a1,0x18
-/*    13c5c:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    13c60:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    13c64:	01d8c804 */ 	sllv	$t9,$t8,$t6
-/*    13c68:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    13c6c:	03204027 */ 	nor	$t0,$t9,$zero
-/*    13c70:	01e82024 */ 	and	$a0,$t7,$t0
-/*    13c74:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    13c78:	308900ff */ 	andi	$t1,$a0,0xff
-/*    13c7c:	0c004e90 */ 	jal	func00013a40
-/*    13c80:	01202025 */ 	or	$a0,$t1,$zero
-/*    13c84:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    13c88:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    13c8c:	03e00008 */ 	jr	$ra
-/*    13c90:	00000000 */ 	nop
-);
+void func00013c4c(s8 index)
+{
+	u8 value = var8005eed8 & ~(1 << index);
+
+	func00013a40(value);
+}
 
 GLOBAL_ASM(
 glabel func00013c94
