@@ -4207,23 +4207,23 @@ void func0f16b96c(void)
 	if ((func00015020(0, 0xffff) != 0
 				|| contGetStickX(0) > 10
 				|| contGetStickX(0) < -10
-				|| func00014eb8(0) > 10
-				|| func00014eb8(0) < -10
+				|| contGetStickY(0) > 10
+				|| contGetStickY(0) < -10
 				|| func00015020(1, 0xffff) != 0
 				|| contGetStickX(1) > 10
 				|| contGetStickX(1) < -10
-				|| func00014eb8(1) > 10
-				|| func00014eb8(1) < -10
+				|| contGetStickY(1) > 10
+				|| contGetStickY(1) < -10
 				|| func00015020(2, 0xffff) != 0
 				|| contGetStickX(2) > 10
 				|| contGetStickX(2) < -10
-				|| func00014eb8(2) > 10
-				|| func00014eb8(2) < -10
+				|| contGetStickY(2) > 10
+				|| contGetStickY(2) < -10
 				|| func00015020(3, 0xffff) != 0
 				|| contGetStickX(3) > 10
 				|| contGetStickX(3) < -10
-				|| func00014eb8(3) > 10
-				|| func00014eb8(3) < -10) && var800624a4) {
+				|| contGetStickY(3) > 10
+				|| contGetStickY(3) < -10) && var800624a4) {
 		if (g_Vars.stagenum != STAGE_TITLE) {
 			titleSetNextMode(TITLEMODE_SKIP);
 			mainSetStageNum(STAGE_TITLE);
@@ -4236,23 +4236,23 @@ void func0f16b96c(void)
 		if (func00014f60(0, 0xffff) == 0
 				&& contGetStickX(0) < 10
 				&& contGetStickX(0) > -10
-				&& func00014eb8(0) < 10
-				&& func00014eb8(0) > -10
+				&& contGetStickY(0) < 10
+				&& contGetStickY(0) > -10
 				&& func00014f60(1, 0xffff) == 0
 				&& contGetStickX(1) < 10
 				&& contGetStickX(1) > -10
-				&& func00014eb8(1) < 10
-				&& func00014eb8(1) > -10
+				&& contGetStickY(1) < 10
+				&& contGetStickY(1) > -10
 				&& func00014f60(2, 0xffff) == 0
 				&& contGetStickX(2) < 10
 				&& contGetStickX(2) > -10
-				&& func00014eb8(2) < 10
-				&& func00014eb8(2) > -10
+				&& contGetStickY(2) < 10
+				&& contGetStickY(2) > -10
 				&& func00014f60(3, 0xffff) == 0
 				&& contGetStickX(3) < 10
 				&& contGetStickX(3) > -10
-				&& func00014eb8(3) < 10
-				&& func00014eb8(3) > -10) {
+				&& contGetStickY(3) < 10
+				&& contGetStickY(3) > -10) {
 			var800624b0 += g_Vars.diffframe60;
 		} else {
 			var800624b0 = 0;

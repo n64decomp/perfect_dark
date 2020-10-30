@@ -1688,53 +1688,19 @@ s8 contGetStickX(s8 contpadnum)
 	return var8005ee60->samples[var8005ee60->index].pads[contpadnum].stick_x;
 }
 
-GLOBAL_ASM(
-glabel func00014eb8
-/*    14eb8:	3c038006 */ 	lui	$v1,%hi(var8005ee60)
-/*    14ebc:	8c63ee60 */ 	lw	$v1,%lo(var8005ee60)($v1)
-/*    14ec0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    14ec4:	00047600 */ 	sll	$t6,$a0,0x18
-/*    14ec8:	8c780200 */ 	lw	$t8,0x200($v1)
-/*    14ecc:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*    14ed0:	01e02025 */ 	or	$a0,$t7,$zero
-/*    14ed4:	0701000e */ 	bgez	$t8,.L00014f10
-/*    14ed8:	3c198006 */ 	lui	$t9,%hi(var8005eeac)
-/*    14edc:	9339eeac */ 	lbu	$t9,%lo(var8005eeac)($t9)
-/*    14ee0:	3c0b8006 */ 	lui	$t3,%hi(var8005ee7c)
-/*    14ee4:	256bee7c */ 	addiu	$t3,$t3,%lo(var8005ee7c)
-/*    14ee8:	01f94007 */ 	srav	$t0,$t9,$t7
-/*    14eec:	31090001 */ 	andi	$t1,$t0,0x1
-/*    14ef0:	15200007 */ 	bnez	$t1,.L00014f10
-/*    14ef4:	000f5080 */ 	sll	$t2,$t7,0x2
-/*    14ef8:	014b1821 */ 	addu	$v1,$t2,$t3
-/*    14efc:	8c6c0000 */ 	lw	$t4,0x0($v1)
-/*    14f00:	00001025 */ 	or	$v0,$zero,$zero
-/*    14f04:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*    14f08:	03e00008 */ 	jr	$ra
-/*    14f0c:	ac6d0000 */ 	sw	$t5,0x0($v1)
-.L00014f10:
-/*    14f10:	00047080 */ 	sll	$t6,$a0,0x2
-/*    14f14:	3c0f800a */ 	lui	$t7,%hi(var80099e68)
-/*    14f18:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*    14f1c:	8def9e68 */ 	lw	$t7,%lo(var80099e68)($t7)
-/*    14f20:	59e00004 */ 	blezl	$t7,.L00014f34
-/*    14f24:	8c7801e0 */ 	lw	$t8,0x1e0($v1)
-/*    14f28:	03e00008 */ 	jr	$ra
-/*    14f2c:	00001025 */ 	or	$v0,$zero,$zero
-/*    14f30:	8c7801e0 */ 	lw	$t8,0x1e0($v1)
-.L00014f34:
-/*    14f34:	00044880 */ 	sll	$t1,$a0,0x2
-/*    14f38:	01244823 */ 	subu	$t1,$t1,$a0
-/*    14f3c:	0018c880 */ 	sll	$t9,$t8,0x2
-/*    14f40:	0338c823 */ 	subu	$t9,$t9,$t8
-/*    14f44:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*    14f48:	00794021 */ 	addu	$t0,$v1,$t9
-/*    14f4c:	00094840 */ 	sll	$t1,$t1,0x1
-/*    14f50:	01095021 */ 	addu	$t2,$t0,$t1
-/*    14f54:	81420003 */ 	lb	$v0,0x3($t2)
-/*    14f58:	03e00008 */ 	jr	$ra
-/*    14f5c:	00000000 */ 	nop
-);
+s8 contGetStickY(s8 contpadnum)
+{
+	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+		var8005ee7c[contpadnum]++;
+		return 0;
+	}
+
+	if (var80099e68[contpadnum] > 0) {
+		return 0;
+	}
+
+	return var8005ee60->samples[var8005ee60->index].pads[contpadnum].stick_y;
+}
 
 GLOBAL_ASM(
 glabel func00014f60

@@ -8923,7 +8923,7 @@ glabel var7f1ad6ac
 /*  f0be610:	00122600 */ 	sll	$a0,$s2,0x18
 /*  f0be614:	00046e03 */ 	sra	$t5,$a0,0x18
 /*  f0be618:	a3a2023d */ 	sb	$v0,0x23d($sp)
-/*  f0be61c:	0c0053ae */ 	jal	func00014eb8
+/*  f0be61c:	0c0053ae */ 	jal	contGetStickY
 /*  f0be620:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f0be624:	10000002 */ 	b	.L0f0be630
 /*  f0be628:	a3a2023c */ 	sb	$v0,0x23c($sp)
@@ -9003,7 +9003,7 @@ glabel var7f1ad6ac
 /*  f0be730:	00122600 */ 	sll	$a0,$s2,0x18
 /*  f0be734:	00045e03 */ 	sra	$t3,$a0,0x18
 /*  f0be738:	a3a2023d */ 	sb	$v0,0x23d($sp)
-/*  f0be73c:	0c0053ae */ 	jal	func00014eb8
+/*  f0be73c:	0c0053ae */ 	jal	contGetStickY
 /*  f0be740:	01602025 */ 	or	$a0,$t3,$zero
 /*  f0be744:	10000002 */ 	b	.L0f0be750
 /*  f0be748:	a3a2023c */ 	sb	$v0,0x23c($sp)
@@ -10736,7 +10736,7 @@ glabel var7f1ad6ac
 //									}
 //
 //									cStack243 = contGetStickX(contpad1);
-//									cStack244 = func00014eb8(contpad1);
+//									cStack244 = contGetStickY(contpad1);
 //								} else {
 //									slow = true;
 //								}
@@ -10765,7 +10765,7 @@ glabel var7f1ad6ac
 //									}
 //
 //									cStack243 = contGetStickX(contpad1);
-//									cStack244 = func00014eb8(contpad1);
+//									cStack244 = contGetStickY(contpad1);
 //								} else {
 //									slow = true;
 //								}

@@ -853,7 +853,7 @@ glabel var7f1ad8e4
 /*  f0c8c3c:	12200008 */ 	beqz	$s1,.L0f0c8c60
 /*  f0c8c40:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0c8c44:	00044e03 */ 	sra	$t1,$a0,0x18
-/*  f0c8c48:	0c0053ae */ 	jal	func00014eb8
+/*  f0c8c48:	0c0053ae */ 	jal	contGetStickY
 /*  f0c8c4c:	01202025 */ 	or	$a0,$t1,$zero
 /*  f0c8c50:	00029e00 */ 	sll	$s3,$v0,0x18
 /*  f0c8c54:	00135603 */ 	sra	$t2,$s3,0x18
@@ -1077,7 +1077,7 @@ glabel var7f1ad8e4
 /*  f0c8f60:	00142600 */ 	sll	$a0,$s4,0x18
 /*  f0c8f64:	0004c603 */ 	sra	$t8,$a0,0x18
 /*  f0c8f68:	a3a200e9 */ 	sb	$v0,0xe9($sp)
-/*  f0c8f6c:	0c0053ae */ 	jal	func00014eb8
+/*  f0c8f6c:	0c0053ae */ 	jal	contGetStickY
 /*  f0c8f70:	03002025 */ 	or	$a0,$t8,$zero
 /*  f0c8f74:	00028600 */ 	sll	$s0,$v0,0x18
 /*  f0c8f78:	00142600 */ 	sll	$a0,$s4,0x18
@@ -1833,7 +1833,7 @@ glabel var7f1ad8e4
 /*  f0c9a08:	afa40234 */ 	sw	$a0,0x234($sp)
 /*  f0c9a0c:	00142600 */ 	sll	$a0,$s4,0x18
 /*  f0c9a10:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f0c9a14:	0c0053ae */ 	jal	func00014eb8
+/*  f0c9a14:	0c0053ae */ 	jal	contGetStickY
 /*  f0c9a18:	01002025 */ 	or	$a0,$t0,$zero
 /*  f0c9a1c:	2844ffe2 */ 	slti	$a0,$v0,-30
 .L0f0c9a20:
@@ -4000,7 +4000,7 @@ glabel var7f1ad8e4
 //	c1stickx = arg0 ? contGetStickX(contpad1) : 0;
 //
 //	// 8c3c
-//	c1sticky = arg1 ? func00014eb8(contpad1) : 0;
+//	c1sticky = arg1 ? contGetStickY(contpad1) : 0;
 //
 //	// 8c68
 //	sp1a2 = arg2 ? func00014f60(contpad1, 0xffff) : 0;
@@ -4091,7 +4091,7 @@ glabel var7f1ad8e4
 //				// s4 shifted to s8 and stored in a0 for next jal
 //				c2stickx = contGetStickX(contpad2); // sb v0,0xe9(sp)
 //				// s4 shifted to s8 and stored in a0 for next jal
-//				c2sticky = func00014eb8(contpad2); // shifted to s8 and stored in s0
+//				c2sticky = contGetStickY(contpad2); // shifted to s8 and stored in s0
 //				// s4 shifted to s8 and stored in a0 for next jal
 //				spe6 = func00014f60(contpad2, 0xffff); // sh v0,0xe6(sp)
 //				// s4 shifted to s8 and stored in a0 for next jal
@@ -4417,7 +4417,7 @@ glabel var7f1ad8e4
 //							&& g_Vars.coopplayernum < 0) {
 //						movedata.eyesshut = g_Vars.currentplayer->insightaimmode
 //							&& !sp1a8
-//							&& func00014eb8(contpad2) < -30;
+//							&& contGetStickY(contpad2) < -30;
 //					}
 //
 //					// 9a24
