@@ -841,7 +841,7 @@ glabel var7f1ad8e4
 /*  f0c8c14:	0300a825 */ 	or	$s5,$t8,$zero
 /*  f0c8c18:	00182600 */ 	sll	$a0,$t8,0x18
 /*  f0c8c1c:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f0c8c20:	0c005384 */ 	jal	func00014e10
+/*  f0c8c20:	0c005384 */ 	jal	contGetStickX
 /*  f0c8c24:	03202025 */ 	or	$a0,$t9,$zero
 /*  f0c8c28:	0002a600 */ 	sll	$s4,$v0,0x18
 /*  f0c8c2c:	00144603 */ 	sra	$t0,$s4,0x18
@@ -1072,7 +1072,7 @@ glabel var7f1ad8e4
 /*  f0c8f4c:	00147603 */ 	sra	$t6,$s4,0x18
 /*  f0c8f50:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f0c8f54:	01c0a025 */ 	or	$s4,$t6,$zero
-/*  f0c8f58:	0c005384 */ 	jal	func00014e10
+/*  f0c8f58:	0c005384 */ 	jal	contGetStickX
 /*  f0c8f5c:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f0c8f60:	00142600 */ 	sll	$a0,$s4,0x18
 /*  f0c8f64:	0004c603 */ 	sra	$t8,$a0,0x18
@@ -3997,7 +3997,7 @@ glabel var7f1ad8e4
 //	contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
 //
 //	// 8c10
-//	c1stickx = arg0 ? func00014e10(contpad1) : 0;
+//	c1stickx = arg0 ? contGetStickX(contpad1) : 0;
 //
 //	// 8c3c
 //	c1sticky = arg1 ? func00014eb8(contpad1) : 0;
@@ -4089,7 +4089,7 @@ glabel var7f1ad8e4
 //				// 8f38
 //				contpad2 = optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex); // shifted to s8 and stored in s4
 //				// s4 shifted to s8 and stored in a0 for next jal
-//				c2stickx = func00014e10(contpad2); // sb v0,0xe9(sp)
+//				c2stickx = contGetStickX(contpad2); // sb v0,0xe9(sp)
 //				// s4 shifted to s8 and stored in a0 for next jal
 //				c2sticky = func00014eb8(contpad2); // shifted to s8 and stored in s0
 //				// s4 shifted to s8 and stored in a0 for next jal

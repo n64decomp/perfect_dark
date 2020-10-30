@@ -4205,23 +4205,23 @@ void func0f16b96c(void)
 	func0f0df364();
 
 	if ((func00015020(0, 0xffff) != 0
-				|| func00014e10(0) > 10
-				|| func00014e10(0) < -10
+				|| contGetStickX(0) > 10
+				|| contGetStickX(0) < -10
 				|| func00014eb8(0) > 10
 				|| func00014eb8(0) < -10
 				|| func00015020(1, 0xffff) != 0
-				|| func00014e10(1) > 10
-				|| func00014e10(1) < -10
+				|| contGetStickX(1) > 10
+				|| contGetStickX(1) < -10
 				|| func00014eb8(1) > 10
 				|| func00014eb8(1) < -10
 				|| func00015020(2, 0xffff) != 0
-				|| func00014e10(2) > 10
-				|| func00014e10(2) < -10
+				|| contGetStickX(2) > 10
+				|| contGetStickX(2) < -10
 				|| func00014eb8(2) > 10
 				|| func00014eb8(2) < -10
 				|| func00015020(3, 0xffff) != 0
-				|| func00014e10(3) > 10
-				|| func00014e10(3) < -10
+				|| contGetStickX(3) > 10
+				|| contGetStickX(3) < -10
 				|| func00014eb8(3) > 10
 				|| func00014eb8(3) < -10) && var800624a4) {
 		if (g_Vars.stagenum != STAGE_TITLE) {
@@ -4234,23 +4234,23 @@ void func0f16b96c(void)
 
 	if (g_Vars.stagenum < STAGE_TITLE && !var800624a4 && !g_Vars.in_cutscene) {
 		if (func00014f60(0, 0xffff) == 0
-				&& func00014e10(0) < 10
-				&& func00014e10(0) > -10
+				&& contGetStickX(0) < 10
+				&& contGetStickX(0) > -10
 				&& func00014eb8(0) < 10
 				&& func00014eb8(0) > -10
 				&& func00014f60(1, 0xffff) == 0
-				&& func00014e10(1) < 10
-				&& func00014e10(1) > -10
+				&& contGetStickX(1) < 10
+				&& contGetStickX(1) > -10
 				&& func00014eb8(1) < 10
 				&& func00014eb8(1) > -10
 				&& func00014f60(2, 0xffff) == 0
-				&& func00014e10(2) < 10
-				&& func00014e10(2) > -10
+				&& contGetStickX(2) < 10
+				&& contGetStickX(2) > -10
 				&& func00014eb8(2) < 10
 				&& func00014eb8(2) > -10
 				&& func00014f60(3, 0xffff) == 0
-				&& func00014e10(3) < 10
-				&& func00014e10(3) > -10
+				&& contGetStickX(3) < 10
+				&& contGetStickX(3) > -10
 				&& func00014eb8(3) < 10
 				&& func00014eb8(3) > -10) {
 			var800624b0 += g_Vars.diffframe60;

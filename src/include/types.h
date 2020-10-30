@@ -7086,4 +7086,21 @@ struct stageallocation {
 	char *string;
 };
 
+struct contsample {
+	OSContPad pads[4];
+};
+
+struct contdata {
+	struct contsample samples[20];
+	s32 index;
+	s32 unk1e4;
+	s32 unk1e8;
+	s32 unk1ec;
+	s32 unk1f0;
+	s32 unk1f4;
+	s32 unk1f8;
+	s32 unk1fc;
+	s32 unk200;
+};
+
 #endif
