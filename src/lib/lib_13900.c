@@ -67,24 +67,13 @@ u32 var8005ef00 = 0xff000000;
 u32 var8005ef04 = 0x00000000;
 u32 var8005ef08 = 0x00000000;
 
-GLOBAL_ASM(
-glabel func00013900
-/*    13900:	3c0e8006 */ 	lui	$t6,%hi(var8005eef0)
-/*    13904:	8dceeef0 */ 	lw	$t6,%lo(var8005eef0)($t6)
-/*    13908:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1390c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    13910:	51c00006 */ 	beqzl	$t6,.L0001392c
-/*    13914:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    13918:	0c00543a */ 	jal	func000150e8
-/*    1391c:	00000000 */ 	nop
-/*    13920:	3c018006 */ 	lui	$at,%hi(var8005eef0)
-/*    13924:	ac20eef0 */ 	sw	$zero,%lo(var8005eef0)($at)
-/*    13928:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001392c:
-/*    1392c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    13930:	03e00008 */ 	jr	$ra
-/*    13934:	00000000 */ 	nop
-);
+void func00013900(void)
+{
+	if (var8005eef0) {
+		func000150e8();
+		var8005eef0 = false;
+	}
+}
 
 void func00013938(void)
 {
