@@ -30,7 +30,7 @@ u32 func00014848(void);
 s32 func00014904(s32 samplenum, s8 contpadnum);
 s32 func000149c0(s32 samplenum, s8 contpadnum);
 u16 func00014a78(s32 samplenum, s8 contpadnum, u16 mask);
-s32 func00014b50(s32 samplenum, s8 contpadnum, u32 buttons);
+u16 func00014b50(s32 samplenum, s8 contpadnum, u16 mask);
 u32 func00014c98(u32 *arg0, s8 contpadnum, u32 buttons);
 s8 contGetStickX(s8 contpadnum);
 s8 contGetStickY(s8 contpadnum);

@@ -1353,98 +1353,25 @@ u16 func00014a78(s32 samplenum, s8 contpadnum, u16 mask)
 	return button & mask;
 }
 
-GLOBAL_ASM(
-glabel func00014b50
-/*    14b50:	3c038006 */ 	lui	$v1,%hi(var8005ee60)
-/*    14b54:	8c63ee60 */ 	lw	$v1,%lo(var8005ee60)($v1)
-/*    14b58:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    14b5c:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    14b60:	8c780200 */ 	lw	$t8,0x200($v1)
-/*    14b64:	00057600 */ 	sll	$t6,$a1,0x18
-/*    14b68:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*    14b6c:	01e02825 */ 	or	$a1,$t7,$zero
-/*    14b70:	07010010 */ 	bgez	$t8,.L00014bb4
-/*    14b74:	00803825 */ 	or	$a3,$a0,$zero
-/*    14b78:	3c198006 */ 	lui	$t9,%hi(var8005eeac)
-/*    14b7c:	9339eeac */ 	lbu	$t9,%lo(var8005eeac)($t9)
-/*    14b80:	00056880 */ 	sll	$t5,$a1,0x2
-/*    14b84:	00b95807 */ 	srav	$t3,$t9,$a1
-/*    14b88:	316c0001 */ 	andi	$t4,$t3,0x1
-/*    14b8c:	5580000a */ 	bnezl	$t4,.L00014bb8
-/*    14b90:	0005c880 */ 	sll	$t9,$a1,0x2
-/*    14b94:	3c0e8006 */ 	lui	$t6,%hi(var8005ee9c)
-/*    14b98:	25ceee9c */ 	addiu	$t6,$t6,%lo(var8005ee9c)
-/*    14b9c:	01ae1821 */ 	addu	$v1,$t5,$t6
-/*    14ba0:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*    14ba4:	00001025 */ 	or	$v0,$zero,$zero
-/*    14ba8:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*    14bac:	03e00008 */ 	jr	$ra
-/*    14bb0:	ac780000 */ 	sw	$t8,0x0($v1)
-.L00014bb4:
-/*    14bb4:	0005c880 */ 	sll	$t9,$a1,0x2
-.L00014bb8:
-/*    14bb8:	3c0b800a */ 	lui	$t3,%hi(var80099e68)
-/*    14bbc:	01795821 */ 	addu	$t3,$t3,$t9
-/*    14bc0:	8d6b9e68 */ 	lw	$t3,%lo(var80099e68)($t3)
-/*    14bc4:	59600004 */ 	blezl	$t3,.L00014bd8
-/*    14bc8:	8c6c01e4 */ 	lw	$t4,0x1e4($v1)
-/*    14bcc:	03e00008 */ 	jr	$ra
-/*    14bd0:	00001025 */ 	or	$v0,$zero,$zero
-/*    14bd4:	8c6c01e4 */ 	lw	$t4,0x1e4($v1)
-.L00014bd8:
-/*    14bd8:	240a0014 */ 	addiu	$t2,$zero,0x14
-/*    14bdc:	00054080 */ 	sll	$t0,$a1,0x2
-/*    14be0:	01873021 */ 	addu	$a2,$t4,$a3
-/*    14be4:	24cd0001 */ 	addiu	$t5,$a2,0x1
-/*    14be8:	01aa001a */ 	div	$zero,$t5,$t2
-/*    14bec:	00007010 */ 	mfhi	$t6
-/*    14bf0:	000e7880 */ 	sll	$t7,$t6,0x2
-/*    14bf4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*    14bf8:	00ca001a */ 	div	$zero,$a2,$t2
-/*    14bfc:	00005810 */ 	mfhi	$t3
-/*    14c00:	000b6080 */ 	sll	$t4,$t3,0x2
-/*    14c04:	01054023 */ 	subu	$t0,$t0,$a1
-/*    14c08:	018b6023 */ 	subu	$t4,$t4,$t3
-/*    14c0c:	00084040 */ 	sll	$t0,$t0,0x1
-/*    14c10:	15400002 */ 	bnez	$t2,.L00014c1c
-/*    14c14:	00000000 */ 	nop
-/*    14c18:	0007000d */ 	break	0x7
-.L00014c1c:
-/*    14c1c:	2401ffff */ 	addiu	$at,$zero,-1
-/*    14c20:	15410004 */ 	bne	$t2,$at,.L00014c34
-/*    14c24:	3c018000 */ 	lui	$at,0x8000
-/*    14c28:	15a10002 */ 	bne	$t5,$at,.L00014c34
-/*    14c2c:	00000000 */ 	nop
-/*    14c30:	0006000d */ 	break	0x6
-.L00014c34:
-/*    14c34:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*    14c38:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*    14c3c:	006fc021 */ 	addu	$t8,$v1,$t7
-/*    14c40:	006c6821 */ 	addu	$t5,$v1,$t4
-/*    14c44:	0308c821 */ 	addu	$t9,$t8,$t0
-/*    14c48:	01a87021 */ 	addu	$t6,$t5,$t0
-/*    14c4c:	97240000 */ 	lhu	$a0,0x0($t9)
-/*    14c50:	95c90000 */ 	lhu	$t1,0x0($t6)
-/*    14c54:	97b9000a */ 	lhu	$t9,0xa($sp)
-/*    14c58:	15400002 */ 	bnez	$t2,.L00014c64
-/*    14c5c:	00000000 */ 	nop
-/*    14c60:	0007000d */ 	break	0x7
-.L00014c64:
-/*    14c64:	2401ffff */ 	addiu	$at,$zero,-1
-/*    14c68:	15410004 */ 	bne	$t2,$at,.L00014c7c
-/*    14c6c:	3c018000 */ 	lui	$at,0x8000
-/*    14c70:	14c10002 */ 	bne	$a2,$at,.L00014c7c
-/*    14c74:	00000000 */ 	nop
-/*    14c78:	0006000d */ 	break	0x6
-.L00014c7c:
-/*    14c7c:	01207827 */ 	nor	$t7,$t1,$zero
-/*    14c80:	008fc024 */ 	and	$t8,$a0,$t7
-/*    14c84:	03191024 */ 	and	$v0,$t8,$t9
-/*    14c88:	304bffff */ 	andi	$t3,$v0,0xffff
-/*    14c8c:	01601025 */ 	or	$v0,$t3,$zero
-/*    14c90:	03e00008 */ 	jr	$ra
-/*    14c94:	00000000 */ 	nop
-);
+u16 func00014b50(s32 samplenum, s8 contpadnum, u16 mask)
+{
+	u16 button1;
+	u16 button2;
+
+	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+		var8005ee9c[contpadnum]++;
+		return 0;
+	}
+
+	if (var80099e68[contpadnum] > 0) {
+		return 0;
+	}
+
+	button1 = var8005ee60->samples[(var8005ee60->unk1e4 + samplenum + 1) % 20].pads[contpadnum].button;
+	button2 = var8005ee60->samples[(var8005ee60->unk1e4 + samplenum) % 20].pads[contpadnum].button;
+
+	return (button1 & ~button2) & mask;
+}
 
 GLOBAL_ASM(
 glabel func00014c98
