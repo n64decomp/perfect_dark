@@ -1716,52 +1716,19 @@ u16 contGetButtons(s8 contpadnum, u16 mask)
 	return var8005ee60->samples[var8005ee60->index].pads[contpadnum].button & mask;
 }
 
-GLOBAL_ASM(
-glabel func00015020
-/*    15020:	3c038006 */ 	lui	$v1,%hi(var8005ee60)
-/*    15024:	8c63ee60 */ 	lw	$v1,%lo(var8005ee60)($v1)
-/*    15028:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    1502c:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    15030:	8c790200 */ 	lw	$t9,0x200($v1)
-/*    15034:	00047600 */ 	sll	$t6,$a0,0x18
-/*    15038:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*    1503c:	30b8ffff */ 	andi	$t8,$a1,0xffff
-/*    15040:	03002825 */ 	or	$a1,$t8,$zero
-/*    15044:	0721000f */ 	bgez	$t9,.L00015084
-/*    15048:	01e02025 */ 	or	$a0,$t7,$zero
-/*    1504c:	3c088006 */ 	lui	$t0,%hi(var8005eeac)
-/*    15050:	9108eeac */ 	lbu	$t0,%lo(var8005eeac)($t0)
-/*    15054:	3c0c8006 */ 	lui	$t4,%hi(var8005ee9c)
-/*    15058:	258cee9c */ 	addiu	$t4,$t4,%lo(var8005ee9c)
-/*    1505c:	01e84807 */ 	srav	$t1,$t0,$t7
-/*    15060:	312a0001 */ 	andi	$t2,$t1,0x1
-/*    15064:	15400007 */ 	bnez	$t2,.L00015084
-/*    15068:	000f5880 */ 	sll	$t3,$t7,0x2
-/*    1506c:	016c1821 */ 	addu	$v1,$t3,$t4
-/*    15070:	8c6d0000 */ 	lw	$t5,0x0($v1)
-/*    15074:	00001025 */ 	or	$v0,$zero,$zero
-/*    15078:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*    1507c:	03e00008 */ 	jr	$ra
-/*    15080:	ac6e0000 */ 	sw	$t6,0x0($v1)
-.L00015084:
-/*    15084:	00047880 */ 	sll	$t7,$a0,0x2
-/*    15088:	3c18800a */ 	lui	$t8,%hi(var80099e68)
-/*    1508c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*    15090:	8f189e68 */ 	lw	$t8,%lo(var80099e68)($t8)
-/*    15094:	5b000004 */ 	blezl	$t8,.L000150a8
-/*    15098:	0004c840 */ 	sll	$t9,$a0,0x1
-/*    1509c:	03e00008 */ 	jr	$ra
-/*    150a0:	00001025 */ 	or	$v0,$zero,$zero
-/*    150a4:	0004c840 */ 	sll	$t9,$a0,0x1
-.L000150a8:
-/*    150a8:	00794021 */ 	addu	$t0,$v1,$t9
-/*    150ac:	950901f0 */ 	lhu	$t1,0x1f0($t0)
-/*    150b0:	01251024 */ 	and	$v0,$t1,$a1
-/*    150b4:	304affff */ 	andi	$t2,$v0,0xffff
-/*    150b8:	01401025 */ 	or	$v0,$t2,$zero
-/*    150bc:	03e00008 */ 	jr	$ra
-/*    150c0:	00000000 */ 	nop
-);
+u16 func00015020(s8 contpadnum, u16 mask)
+{
+	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+		var8005ee9c[contpadnum]++;
+		return 0;
+	}
+
+	if (var80099e68[contpadnum] > 0) {
+		return 0;
+	}
+
+	return var8005ee60->unk1f0[contpadnum] & mask;
+}
 
 GLOBAL_ASM(
 glabel func000150c4
