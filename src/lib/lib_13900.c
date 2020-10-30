@@ -1322,114 +1322,43 @@ u16 func00014b50(s32 samplenum, s8 contpadnum, u16 mask)
 	return (button1 & ~button2) & mask;
 }
 
-GLOBAL_ASM(
-glabel func00014c98
-/*    14c98:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*    14c9c:	3c078006 */ 	lui	$a3,%hi(var8005ee60)
-/*    14ca0:	8ce7ee60 */ 	lw	$a3,%lo(var8005ee60)($a3)
-/*    14ca4:	afb1000c */ 	sw	$s1,0xc($sp)
-/*    14ca8:	afb00008 */ 	sw	$s0,0x8($sp)
-/*    14cac:	afa50014 */ 	sw	$a1,0x14($sp)
-/*    14cb0:	afa60018 */ 	sw	$a2,0x18($sp)
-/*    14cb4:	8cf80200 */ 	lw	$t8,0x200($a3)
-/*    14cb8:	00057600 */ 	sll	$t6,$a1,0x18
-/*    14cbc:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*    14cc0:	01e02825 */ 	or	$a1,$t7,$zero
-/*    14cc4:	00808025 */ 	or	$s0,$a0,$zero
-/*    14cc8:	30d1ffff */ 	andi	$s1,$a2,0xffff
-/*    14ccc:	00001825 */ 	or	$v1,$zero,$zero
-/*    14cd0:	07010010 */ 	bgez	$t8,.L00014d14
-/*    14cd4:	00001025 */ 	or	$v0,$zero,$zero
-/*    14cd8:	3c198006 */ 	lui	$t9,%hi(g_ConnectedControllers)
-/*    14cdc:	9339eeac */ 	lbu	$t9,%lo(g_ConnectedControllers)($t9)
-/*    14ce0:	00056880 */ 	sll	$t5,$a1,0x2
-/*    14ce4:	00b95807 */ 	srav	$t3,$t9,$a1
-/*    14ce8:	316c0001 */ 	andi	$t4,$t3,0x1
-/*    14cec:	5580000a */ 	bnezl	$t4,.L00014d18
-/*    14cf0:	0005c880 */ 	sll	$t9,$a1,0x2
-/*    14cf4:	3c0e8006 */ 	lui	$t6,%hi(var8005ee8c)
-/*    14cf8:	25ceee8c */ 	addiu	$t6,$t6,%lo(var8005ee8c)
-/*    14cfc:	01ae1821 */ 	addu	$v1,$t5,$t6
-/*    14d00:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*    14d04:	00001025 */ 	or	$v0,$zero,$zero
-/*    14d08:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*    14d0c:	1000003c */ 	b	.L00014e00
-/*    14d10:	ac780000 */ 	sw	$t8,0x0($v1)
-.L00014d14:
-/*    14d14:	0005c880 */ 	sll	$t9,$a1,0x2
-.L00014d18:
-/*    14d18:	3c0b800a */ 	lui	$t3,%hi(var80099e68)
-/*    14d1c:	01795821 */ 	addu	$t3,$t3,$t9
-/*    14d20:	8d6b9e68 */ 	lw	$t3,%lo(var80099e68)($t3)
-/*    14d24:	59600004 */ 	blezl	$t3,.L00014d38
-/*    14d28:	8cec01e4 */ 	lw	$t4,0x1e4($a3)
-/*    14d2c:	10000034 */ 	b	.L00014e00
-/*    14d30:	00001025 */ 	or	$v0,$zero,$zero
-/*    14d34:	8cec01e4 */ 	lw	$t4,0x1e4($a3)
-.L00014d38:
-/*    14d38:	24090014 */ 	addiu	$t1,$zero,0x14
-/*    14d3c:	8ce801e0 */ 	lw	$t0,0x1e0($a3)
-/*    14d40:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*    14d44:	01a9001a */ 	div	$zero,$t5,$t1
-/*    14d48:	00002010 */ 	mfhi	$a0
-/*    14d4c:	240a0006 */ 	addiu	$t2,$zero,0x6
-/*    14d50:	15200002 */ 	bnez	$t1,.L00014d5c
-/*    14d54:	00000000 */ 	nop
-/*    14d58:	0007000d */ 	break	0x7
-.L00014d5c:
-/*    14d5c:	2401ffff */ 	addiu	$at,$zero,-1
-/*    14d60:	15210004 */ 	bne	$t1,$at,.L00014d74
-/*    14d64:	3c018000 */ 	lui	$at,0x8000
-/*    14d68:	15a10002 */ 	bne	$t5,$at,.L00014d74
-/*    14d6c:	00000000 */ 	nop
-/*    14d70:	0006000d */ 	break	0x6
-.L00014d74:
-/*    14d74:	12000005 */ 	beqz	$s0,.L00014d8c
-/*    14d78:	00027080 */ 	sll	$t6,$v0,0x2
-/*    14d7c:	020e7821 */ 	addu	$t7,$s0,$t6
-/*    14d80:	8df80000 */ 	lw	$t8,0x0($t7)
-/*    14d84:	1300000d */ 	beqz	$t8,.L00014dbc
-/*    14d88:	00000000 */ 	nop
-.L00014d8c:
-/*    14d8c:	00aa0019 */ 	multu	$a1,$t2
-/*    14d90:	0004c880 */ 	sll	$t9,$a0,0x2
-/*    14d94:	0324c823 */ 	subu	$t9,$t9,$a0
-/*    14d98:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*    14d9c:	00f95821 */ 	addu	$t3,$a3,$t9
-/*    14da0:	00006012 */ 	mflo	$t4
-/*    14da4:	016c6821 */ 	addu	$t5,$t3,$t4
-/*    14da8:	95a60000 */ 	lhu	$a2,0x0($t5)
-/*    14dac:	00d17024 */ 	and	$t6,$a2,$s1
-/*    14db0:	11c00002 */ 	beqz	$t6,.L00014dbc
-/*    14db4:	00000000 */ 	nop
-/*    14db8:	24630001 */ 	addiu	$v1,$v1,0x1
-.L00014dbc:
-/*    14dbc:	1088000f */ 	beq	$a0,$t0,.L00014dfc
-/*    14dc0:	248f0001 */ 	addiu	$t7,$a0,0x1
-/*    14dc4:	01e9001a */ 	div	$zero,$t7,$t1
-/*    14dc8:	00002010 */ 	mfhi	$a0
-/*    14dcc:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    14dd0:	15200002 */ 	bnez	$t1,.L00014ddc
-/*    14dd4:	00000000 */ 	nop
-/*    14dd8:	0007000d */ 	break	0x7
-.L00014ddc:
-/*    14ddc:	2401ffff */ 	addiu	$at,$zero,-1
-/*    14de0:	15210004 */ 	bne	$t1,$at,.L00014df4
-/*    14de4:	3c018000 */ 	lui	$at,0x8000
-/*    14de8:	15e10002 */ 	bne	$t7,$at,.L00014df4
-/*    14dec:	00000000 */ 	nop
-/*    14df0:	0006000d */ 	break	0x6
-.L00014df4:
-/*    14df4:	1000ffdf */ 	b	.L00014d74
-/*    14df8:	00000000 */ 	nop
-.L00014dfc:
-/*    14dfc:	00601025 */ 	or	$v0,$v1,$zero
-.L00014e00:
-/*    14e00:	8fb00008 */ 	lw	$s0,0x8($sp)
-/*    14e04:	8fb1000c */ 	lw	$s1,0xc($sp)
-/*    14e08:	03e00008 */ 	jr	$ra
-/*    14e0c:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);
+s32 func00014c98(u32 *arg0, s8 contpadnum, u16 mask)
+{
+	s32 count = 0;
+	s32 index = 0;
+	s32 i;
+	u16 button;
+
+	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
+		var8005ee8c[contpadnum]++;
+		return 0;
+	}
+
+	if (var80099e68[contpadnum] > 0) {
+		return 0;
+	}
+
+	i = (var8005ee60->oldestindex + 1) % 20;
+
+	while (true) {
+		if (arg0 == NULL || arg0[index]) {
+			button = var8005ee60->samples[i].pads[contpadnum].button;
+
+			if (button & mask) {
+				count++;
+			}
+		}
+
+		if (i == var8005ee60->newestindex) {
+			break;
+		}
+
+		i = (i + 1) % 20;
+		index++;
+	}
+
+	return count;
+}
 
 s8 contGetStickX(s8 contpadnum)
 {
