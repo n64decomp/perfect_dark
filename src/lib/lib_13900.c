@@ -1702,59 +1702,19 @@ s8 contGetStickY(s8 contpadnum)
 	return var8005ee60->samples[var8005ee60->index].pads[contpadnum].stick_y;
 }
 
-GLOBAL_ASM(
-glabel func00014f60
-/*    14f60:	3c038006 */ 	lui	$v1,%hi(var8005ee60)
-/*    14f64:	8c63ee60 */ 	lw	$v1,%lo(var8005ee60)($v1)
-/*    14f68:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    14f6c:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    14f70:	8c790200 */ 	lw	$t9,0x200($v1)
-/*    14f74:	00047600 */ 	sll	$t6,$a0,0x18
-/*    14f78:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*    14f7c:	30b8ffff */ 	andi	$t8,$a1,0xffff
-/*    14f80:	03002825 */ 	or	$a1,$t8,$zero
-/*    14f84:	0721000f */ 	bgez	$t9,.L00014fc4
-/*    14f88:	01e02025 */ 	or	$a0,$t7,$zero
-/*    14f8c:	3c088006 */ 	lui	$t0,%hi(var8005eeac)
-/*    14f90:	9108eeac */ 	lbu	$t0,%lo(var8005eeac)($t0)
-/*    14f94:	3c0c8006 */ 	lui	$t4,%hi(var8005ee8c)
-/*    14f98:	258cee8c */ 	addiu	$t4,$t4,%lo(var8005ee8c)
-/*    14f9c:	01e84807 */ 	srav	$t1,$t0,$t7
-/*    14fa0:	312a0001 */ 	andi	$t2,$t1,0x1
-/*    14fa4:	15400007 */ 	bnez	$t2,.L00014fc4
-/*    14fa8:	000f5880 */ 	sll	$t3,$t7,0x2
-/*    14fac:	016c1821 */ 	addu	$v1,$t3,$t4
-/*    14fb0:	8c6d0000 */ 	lw	$t5,0x0($v1)
-/*    14fb4:	00001025 */ 	or	$v0,$zero,$zero
-/*    14fb8:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*    14fbc:	03e00008 */ 	jr	$ra
-/*    14fc0:	ac6e0000 */ 	sw	$t6,0x0($v1)
-.L00014fc4:
-/*    14fc4:	00047880 */ 	sll	$t7,$a0,0x2
-/*    14fc8:	3c18800a */ 	lui	$t8,%hi(var80099e68)
-/*    14fcc:	030fc021 */ 	addu	$t8,$t8,$t7
-/*    14fd0:	8f189e68 */ 	lw	$t8,%lo(var80099e68)($t8)
-/*    14fd4:	5b000004 */ 	blezl	$t8,.L00014fe8
-/*    14fd8:	8c7901e0 */ 	lw	$t9,0x1e0($v1)
-/*    14fdc:	03e00008 */ 	jr	$ra
-/*    14fe0:	00001025 */ 	or	$v0,$zero,$zero
-/*    14fe4:	8c7901e0 */ 	lw	$t9,0x1e0($v1)
-.L00014fe8:
-/*    14fe8:	00045080 */ 	sll	$t2,$a0,0x2
-/*    14fec:	01445023 */ 	subu	$t2,$t2,$a0
-/*    14ff0:	00194080 */ 	sll	$t0,$t9,0x2
-/*    14ff4:	01194023 */ 	subu	$t0,$t0,$t9
-/*    14ff8:	000840c0 */ 	sll	$t0,$t0,0x3
-/*    14ffc:	00684821 */ 	addu	$t1,$v1,$t0
-/*    15000:	000a5040 */ 	sll	$t2,$t2,0x1
-/*    15004:	012a5821 */ 	addu	$t3,$t1,$t2
-/*    15008:	956c0000 */ 	lhu	$t4,0x0($t3)
-/*    1500c:	01851024 */ 	and	$v0,$t4,$a1
-/*    15010:	304dffff */ 	andi	$t5,$v0,0xffff
-/*    15014:	01a01025 */ 	or	$v0,$t5,$zero
-/*    15018:	03e00008 */ 	jr	$ra
-/*    1501c:	00000000 */ 	nop
-);
+u16 contGetButtons(s8 contpadnum, u16 mask)
+{
+	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+		var8005ee8c[contpadnum]++;
+		return 0;
+	}
+
+	if (var80099e68[contpadnum] > 0) {
+		return 0;
+	}
+
+	return var8005ee60->samples[var8005ee60->index].pads[contpadnum].button & mask;
+}
 
 GLOBAL_ASM(
 glabel func00015020

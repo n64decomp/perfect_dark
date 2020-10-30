@@ -867,7 +867,7 @@ glabel var7f1ad8e4
 /*  f0c8c6c:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0c8c70:	00045e03 */ 	sra	$t3,$a0,0x18
 /*  f0c8c74:	01602025 */ 	or	$a0,$t3,$zero
-/*  f0c8c78:	0c0053d8 */ 	jal	func00014f60
+/*  f0c8c78:	0c0053d8 */ 	jal	contGetButtons
 /*  f0c8c7c:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8c80:	10000002 */ 	b	.L0f0c8c8c
 /*  f0c8c84:	a7a201a2 */ 	sh	$v0,0x1a2($sp)
@@ -897,7 +897,7 @@ glabel var7f1ad8e4
 /*  f0c8cd4:	0004ce03 */ 	sra	$t9,$a0,0x18
 /*  f0c8cd8:	a7b8019e */ 	sh	$t8,0x19e($sp)
 /*  f0c8cdc:	03202025 */ 	or	$a0,$t9,$zero
-/*  f0c8ce0:	0c0053d8 */ 	jal	func00014f60
+/*  f0c8ce0:	0c0053d8 */ 	jal	contGetButtons
 /*  f0c8ce4:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8ce8:	00508824 */ 	and	$s1,$v0,$s0
 /*  f0c8cec:	97a901a2 */ 	lhu	$t1,0x1a2($sp)
@@ -1085,7 +1085,7 @@ glabel var7f1ad8e4
 /*  f0c8f80:	00044603 */ 	sra	$t0,$a0,0x18
 /*  f0c8f84:	03208025 */ 	or	$s0,$t9,$zero
 /*  f0c8f88:	01002025 */ 	or	$a0,$t0,$zero
-/*  f0c8f8c:	0c0053d8 */ 	jal	func00014f60
+/*  f0c8f8c:	0c0053d8 */ 	jal	contGetButtons
 /*  f0c8f90:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8f94:	00142600 */ 	sll	$a0,$s4,0x18
 /*  f0c8f98:	00044e03 */ 	sra	$t1,$a0,0x18
@@ -1111,7 +1111,7 @@ glabel var7f1ad8e4
 /*  f0c8fe8:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f0c8fec:	a7ae00da */ 	sh	$t6,0xda($sp)
 /*  f0c8ff0:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f0c8ff4:	0c0053d8 */ 	jal	func00014f60
+/*  f0c8ff4:	0c0053d8 */ 	jal	contGetButtons
 /*  f0c8ff8:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8ffc:	97b900e6 */ 	lhu	$t9,0xe6($sp)
 /*  f0c9000:	97a900e4 */ 	lhu	$t1,0xe4($sp)
@@ -1919,7 +1919,7 @@ glabel var7f1ad8e4
 /*  f0c9b2c:	31252000 */ 	andi	$a1,$t1,0x2000
 /*  f0c9b30:	11000007 */ 	beqz	$t0,.L0f0c9b50
 /*  f0c9b34:	00000000 */ 	nop
-/*  f0c9b38:	0c0053d8 */ 	jal	func00014f60
+/*  f0c9b38:	0c0053d8 */ 	jal	contGetButtons
 /*  f0c9b3c:	83a400ef */ 	lb	$a0,0xef($sp)
 /*  f0c9b40:	14400003 */ 	bnez	$v0,.L0f0c9b50
 /*  f0c9b44:	00000000 */ 	nop
@@ -1960,7 +1960,7 @@ glabel var7f1ad8e4
 /*  f0c9bc4:	02e02025 */ 	or	$a0,$s7,$zero
 /*  f0c9bc8:	97aa00ea */ 	lhu	$t2,0xea($sp)
 /*  f0c9bcc:	83a400ef */ 	lb	$a0,0xef($sp)
-/*  f0c9bd0:	0c0053d8 */ 	jal	func00014f60
+/*  f0c9bd0:	0c0053d8 */ 	jal	contGetButtons
 /*  f0c9bd4:	31452000 */ 	andi	$a1,$t2,0x2000
 /*  f0c9bd8:	0002202b */ 	sltu	$a0,$zero,$v0
 /*  f0c9bdc:	5080000f */ 	beqzl	$a0,.L0f0c9c1c
@@ -2742,7 +2742,7 @@ glabel var7f1ad8e4
 /*  f0ca6d8:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0ca6dc:	00046603 */ 	sra	$t4,$a0,0x18
 /*  f0ca6e0:	01802025 */ 	or	$a0,$t4,$zero
-/*  f0ca6e4:	0c0053d8 */ 	jal	func00014f60
+/*  f0ca6e4:	0c0053d8 */ 	jal	contGetButtons
 /*  f0ca6e8:	31a50404 */ 	andi	$a1,$t5,0x404
 /*  f0ca6ec:	0002202b */ 	sltu	$a0,$zero,$v0
 .L0f0ca6f0:
@@ -4003,7 +4003,7 @@ glabel var7f1ad8e4
 //	c1sticky = arg1 ? contGetStickY(contpad1) : 0;
 //
 //	// 8c68
-//	sp1a2 = arg2 ? func00014f60(contpad1, 0xffff) : 0;
+//	sp1a2 = arg2 ? contGetButtons(contpad1, 0xffff) : 0;
 //
 //	// 8c8c
 //	sp1a0 = arg2 ? func00015020(contpad1, 0xffff) : 0;
@@ -4014,7 +4014,7 @@ glabel var7f1ad8e4
 //
 //	if (c1inhibitedbuttons) {
 //		c1allowedbuttons = ~c1inhibitedbuttons;
-//		inhibitedbuttons = func00014f60(contpad1, 0xffff) & (c1inhibitedbuttons & 0xffff);
+//		inhibitedbuttons = contGetButtons(contpad1, 0xffff) & (c1inhibitedbuttons & 0xffff);
 //		sp1a2 &= ~inhibitedbuttons;
 //		sp1a0 &= ~inhibitedbuttons;
 //		g_Vars.currentplayer->joybutinhibit = (g_Vars.currentplayer->joybutinhibit & 0xffff0000) | inhibitedbuttons;
@@ -4093,7 +4093,7 @@ glabel var7f1ad8e4
 //				// s4 shifted to s8 and stored in a0 for next jal
 //				c2sticky = contGetStickY(contpad2); // shifted to s8 and stored in s0
 //				// s4 shifted to s8 and stored in a0 for next jal
-//				spe6 = func00014f60(contpad2, 0xffff); // sh v0,0xe6(sp)
+//				spe6 = contGetButtons(contpad2, 0xffff); // sh v0,0xe6(sp)
 //				// s4 shifted to s8 and stored in a0 for next jal
 //				spe4 = func00015020(contpad2, 0xffff); // sh v0,0xe4(sp)
 //				c2stickx2 = c2stickx; // s3 = spe9
@@ -4105,7 +4105,7 @@ glabel var7f1ad8e4
 //				// 8fac
 //				if (c2inhibitedbuttons) {
 //					c2allowedbuttons = ~c2inhibitedbuttons;
-//					inhibitedbuttons = func00014f60(contpad2, 0xffff) & c2inhibitedbuttons;
+//					inhibitedbuttons = contGetButtons(contpad2, 0xffff) & c2inhibitedbuttons;
 //					spe6 &= ~inhibitedbuttons;
 //					spe4 &= ~inhibitedbuttons;
 //					g_Vars.currentplayer->joybutinhibit = (g_Vars.currentplayer->joybutinhibit & 0xffff) | (inhibitedbuttons << 16);
@@ -4455,7 +4455,7 @@ glabel var7f1ad8e4
 //				movedata.unk58 = g_Vars.currentplayer->insightaimmode;
 //
 //				if (g_Vars.currentplayer->waitforzrelease
-//						&& func00014f60(shootpad, shootallowedbuttons & Z_TRIG) == 0) {
+//						&& contGetButtons(shootpad, shootallowedbuttons & Z_TRIG) == 0) {
 //					g_Vars.currentplayer->waitforzrelease = false;
 //				}
 //
@@ -4468,7 +4468,7 @@ glabel var7f1ad8e4
 //				} else {
 //					movedata.triggeron = g_Vars.currentplayer->waitforzrelease == false
 //						&& arg2
-//						&& func00014f60(shootpad, shootallowedbuttons & Z_TRIG)
+//						&& contGetButtons(shootpad, shootallowedbuttons & Z_TRIG)
 //						&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
 //						&& (sp1a2 & A_BUTTON) == 0
 //						&& (spe6 & A_BUTTON) == 0;
@@ -4796,7 +4796,7 @@ glabel var7f1ad8e4
 //							&& g_Vars.coopplayernum <= -1) {
 //						movedata.eyesshut = g_Vars.currentplayer->insightaimmode
 //							&& sp1a8 == 0
-//							&& func00014f60(contpad1, c1allowedbuttons & (D_JPAD | D_CBUTTONS));
+//							&& contGetButtons(contpad1, c1allowedbuttons & (D_JPAD | D_CBUTTONS));
 //					}
 //
 //					if (getCurrentPlayerWeaponId(0) == WEAPON_FARSIGHTXR20) {

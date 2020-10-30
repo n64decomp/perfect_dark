@@ -1788,7 +1788,7 @@ glabel var7f1b5824
 /*  f138a78:	00000000 */ 	nop
 /*  f138a7c:	4500000d */ 	bc1f	.L0f138ab4
 /*  f138a80:	00000000 */ 	nop
-/*  f138a84:	0c0053d8 */ 	jal	func00014f60
+/*  f138a84:	0c0053d8 */ 	jal	contGetButtons
 /*  f138a88:	24050030 */ 	addiu	$a1,$zero,0x30
 /*  f138a8c:	14400009 */ 	bnez	$v0,.L0f138ab4
 /*  f138a90:	00000000 */ 	nop
@@ -1819,7 +1819,7 @@ glabel var7f1b5824
 /*  f138aec:	00000000 */ 	nop
 /*  f138af0:	4502000e */ 	bc1fl	.L0f138b2c
 /*  f138af4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f138af8:	0c0053d8 */ 	jal	func00014f60
+/*  f138af8:	0c0053d8 */ 	jal	contGetButtons
 /*  f138afc:	24050030 */ 	addiu	$a1,$zero,0x30
 /*  f138b00:	5440000a */ 	bnezl	$v0,.L0f138b2c
 /*  f138b04:	00002025 */ 	or	$a0,$zero,$zero
@@ -4521,7 +4521,7 @@ glabel var7f1b5930
 /*  f13affc:	00000000 */ 	nop
 /*  f13b000:	45020008 */ 	bc1fl	.L0f13b024
 /*  f13b004:	8e020000 */ 	lw	$v0,0x0($s0)
-/*  f13b008:	0c0053d8 */ 	jal	func00014f60
+/*  f13b008:	0c0053d8 */ 	jal	contGetButtons
 /*  f13b00c:	24050030 */ 	addiu	$a1,$zero,0x30
 /*  f13b010:	54400004 */ 	bnezl	$v0,.L0f13b024
 /*  f13b014:	8e020000 */ 	lw	$v0,0x0($s0)

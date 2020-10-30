@@ -274,19 +274,19 @@ glabel mainInit
 /*     d630:	3c018006 */ 	lui	$at,%hi(var8005d9b0)
 /*     d634:	ac2bd9b0 */ 	sw	$t3,%lo(var8005d9b0)($at)
 .L0000d638:
-/*     d638:	0c0053d8 */ 	jal	func00014f60
+/*     d638:	0c0053d8 */ 	jal	contGetButtons
 /*     d63c:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     d640:	14400010 */ 	bnez	$v0,.L0000d684
 /*     d644:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     d648:	0c0053d8 */ 	jal	func00014f60
+/*     d648:	0c0053d8 */ 	jal	contGetButtons
 /*     d64c:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     d650:	1440000c */ 	bnez	$v0,.L0000d684
 /*     d654:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     d658:	0c0053d8 */ 	jal	func00014f60
+/*     d658:	0c0053d8 */ 	jal	contGetButtons
 /*     d65c:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     d660:	14400008 */ 	bnez	$v0,.L0000d684
 /*     d664:	24040003 */ 	addiu	$a0,$zero,0x3
-/*     d668:	0c0053d8 */ 	jal	func00014f60
+/*     d668:	0c0053d8 */ 	jal	contGetButtons
 /*     d66c:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     d670:	14400004 */ 	bnez	$v0,.L0000d684
 /*     d674:	3c108006 */ 	lui	$s0,%hi(g_DoBootPakMenu)
@@ -648,10 +648,10 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	}
 //
 //	// If holding start on any controller, open boot pak menu
-//	if (func00014f60(0, START_BUTTON) == 0
-//			&& func00014f60(1, START_BUTTON) == 0
-//			&& func00014f60(2, START_BUTTON) == 0
-//			&& func00014f60(3, START_BUTTON) == 0) {
+//	if (contGetButtons(0, START_BUTTON) == 0
+//			&& contGetButtons(1, START_BUTTON) == 0
+//			&& contGetButtons(2, START_BUTTON) == 0
+//			&& contGetButtons(3, START_BUTTON) == 0) {
 //		g_DoBootPakMenu = false;
 //	} else {
 //		g_DoBootPakMenu = true;

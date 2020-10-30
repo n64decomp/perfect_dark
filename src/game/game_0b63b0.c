@@ -4490,7 +4490,7 @@ glabel var7f1ad5dc
 /*  f0ba2d8:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f0ba2dc:	12000005 */ 	beqz	$s0,.L0f0ba2f4
 /*  f0ba2e0:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f0ba2e4:	0c0053d8 */ 	jal	func00014f60
+/*  f0ba2e4:	0c0053d8 */ 	jal	contGetButtons
 /*  f0ba2e8:	3405ffff */ 	dli	$a1,0xffff
 /*  f0ba2ec:	10000002 */ 	b	.L0f0ba2f8
 /*  f0ba2f0:	a7a2010c */ 	sh	$v0,0x10c($sp)
@@ -8346,7 +8346,7 @@ glabel var7f1ad6ac
 /*  f0bdda8:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f0bddac:	13000005 */ 	beqz	$t8,.L0f0bddc4
 /*  f0bddb0:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f0bddb4:	0c0053d8 */ 	jal	func00014f60
+/*  f0bddb4:	0c0053d8 */ 	jal	contGetButtons
 /*  f0bddb8:	3405ffff */ 	dli	$a1,0xffff
 /*  f0bddbc:	10000002 */ 	b	.L0f0bddc8
 /*  f0bddc0:	3043ffff */ 	andi	$v1,$v0,0xffff
@@ -8857,19 +8857,19 @@ glabel var7f1ad6ac
 .L0f0be524:
 /*  f0be524:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f0be528:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f0be52c:	0c0053d8 */ 	jal	func00014f60
+/*  f0be52c:	0c0053d8 */ 	jal	contGetButtons
 /*  f0be530:	3405c000 */ 	dli	$a1,0xc000
 /*  f0be534:	1440000c */ 	bnez	$v0,.L0f0be568
 /*  f0be538:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0be53c:	00044e03 */ 	sra	$t1,$a0,0x18
 /*  f0be540:	01202025 */ 	or	$a0,$t1,$zero
-/*  f0be544:	0c0053d8 */ 	jal	func00014f60
+/*  f0be544:	0c0053d8 */ 	jal	contGetButtons
 /*  f0be548:	3405c000 */ 	dli	$a1,0xc000
 /*  f0be54c:	14400006 */ 	bnez	$v0,.L0f0be568
 /*  f0be550:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0be554:	00045603 */ 	sra	$t2,$a0,0x18
 /*  f0be558:	01402025 */ 	or	$a0,$t2,$zero
-/*  f0be55c:	0c0053d8 */ 	jal	func00014f60
+/*  f0be55c:	0c0053d8 */ 	jal	contGetButtons
 /*  f0be560:	24052000 */ 	addiu	$a1,$zero,0x2000
 /*  f0be564:	10400002 */ 	beqz	$v0,.L0f0be570
 .L0f0be568:
@@ -8888,19 +8888,19 @@ glabel var7f1ad6ac
 .L0f0be594:
 /*  f0be594:	00122600 */ 	sll	$a0,$s2,0x18
 /*  f0be598:	00047603 */ 	sra	$t6,$a0,0x18
-/*  f0be59c:	0c0053d8 */ 	jal	func00014f60
+/*  f0be59c:	0c0053d8 */ 	jal	contGetButtons
 /*  f0be5a0:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f0be5a4:	1440000c */ 	bnez	$v0,.L0f0be5d8
 /*  f0be5a8:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0be5ac:	0004ce03 */ 	sra	$t9,$a0,0x18
 /*  f0be5b0:	03202025 */ 	or	$a0,$t9,$zero
-/*  f0be5b4:	0c0053d8 */ 	jal	func00014f60
+/*  f0be5b4:	0c0053d8 */ 	jal	contGetButtons
 /*  f0be5b8:	3405c000 */ 	dli	$a1,0xc000
 /*  f0be5bc:	14400006 */ 	bnez	$v0,.L0f0be5d8
 /*  f0be5c0:	00122600 */ 	sll	$a0,$s2,0x18
 /*  f0be5c4:	0004c603 */ 	sra	$t8,$a0,0x18
 /*  f0be5c8:	03002025 */ 	or	$a0,$t8,$zero
-/*  f0be5cc:	0c0053d8 */ 	jal	func00014f60
+/*  f0be5cc:	0c0053d8 */ 	jal	contGetButtons
 /*  f0be5d0:	24052000 */ 	addiu	$a1,$zero,0x2000
 /*  f0be5d4:	10400002 */ 	beqz	$v0,.L0f0be5e0
 .L0f0be5d8:
@@ -8932,13 +8932,13 @@ glabel var7f1ad6ac
 /*  f0be630:	00122600 */ 	sll	$a0,$s2,0x18
 /*  f0be634:	00047603 */ 	sra	$t6,$a0,0x18
 /*  f0be638:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f0be63c:	0c0053d8 */ 	jal	func00014f60
+/*  f0be63c:	0c0053d8 */ 	jal	contGetButtons
 /*  f0be640:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*  f0be644:	14400006 */ 	bnez	$v0,.L0f0be660
 /*  f0be648:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0be64c:	0004ce03 */ 	sra	$t9,$a0,0x18
 /*  f0be650:	03202025 */ 	or	$a0,$t9,$zero
-/*  f0be654:	0c0053d8 */ 	jal	func00014f60
+/*  f0be654:	0c0053d8 */ 	jal	contGetButtons
 /*  f0be658:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*  f0be65c:	10400044 */ 	beqz	$v0,.L0f0be770
 .L0f0be660:
@@ -8972,7 +8972,7 @@ glabel var7f1ad6ac
 .L0f0be6c4:
 /*  f0be6c4:	00046603 */ 	sra	$t4,$a0,0x18
 /*  f0be6c8:	01802025 */ 	or	$a0,$t4,$zero
-/*  f0be6cc:	0c0053d8 */ 	jal	func00014f60
+/*  f0be6cc:	0c0053d8 */ 	jal	contGetButtons
 /*  f0be6d0:	24056030 */ 	addiu	$a1,$zero,0x6030
 /*  f0be6d4:	10400012 */ 	beqz	$v0,.L0f0be720
 /*  f0be6d8:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -8990,7 +8990,7 @@ glabel var7f1ad6ac
 .L0f0be704:
 /*  f0be704:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f0be708:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f0be70c:	0c0053d8 */ 	jal	func00014f60
+/*  f0be70c:	0c0053d8 */ 	jal	contGetButtons
 /*  f0be710:	3405c030 */ 	dli	$a1,0xc030
 /*  f0be714:	10400002 */ 	beqz	$v0,.L0f0be720
 /*  f0be718:	24090001 */ 	addiu	$t1,$zero,0x1
@@ -9012,7 +9012,7 @@ glabel var7f1ad6ac
 /*  f0be750:	00122600 */ 	sll	$a0,$s2,0x18
 /*  f0be754:	00046603 */ 	sra	$t4,$a0,0x18
 /*  f0be758:	01802025 */ 	or	$a0,$t4,$zero
-/*  f0be75c:	0c0053d8 */ 	jal	func00014f60
+/*  f0be75c:	0c0053d8 */ 	jal	contGetButtons
 /*  f0be760:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*  f0be764:	10400002 */ 	beqz	$v0,.L0f0be770
 /*  f0be768:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -10503,7 +10503,7 @@ glabel var7f1ad6ac
 //				// dd8c
 //				if (eyespy->active) {
 //					s8 contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
-//					u16 buttons = param_1 ? func00014f60(contpad1, 0xffff) : 0;
+//					u16 buttons = param_1 ? contGetButtons(contpad1, 0xffff) : 0;
 //
 //					if (g_Vars.currentplayer->isdead == false
 //							&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
@@ -10712,9 +10712,9 @@ glabel var7f1ad6ac
 //								if (g_PlayersWithControl[g_Vars.currentplayernum]) {
 //									if (mode == CONTROLMODE_21 || mode == CONTROLMODE_22) {
 //										// e52c
-//										if (func00014f60(contpad1, A_BUTTON | B_BUTTON)
-//												|| func00014f60(contpad2, A_BUTTON | B_BUTTON)
-//												|| func00014f60(contpad2, Z_TRIG)) {
+//										if (contGetButtons(contpad1, A_BUTTON | B_BUTTON)
+//												|| contGetButtons(contpad2, A_BUTTON | B_BUTTON)
+//												|| contGetButtons(contpad2, Z_TRIG)) {
 //											// 568
 //											slow = true;
 //										}
@@ -10724,9 +10724,9 @@ glabel var7f1ad6ac
 //											explode = true;
 //										}
 //									} else {
-//										if (func00014f60(contpad1, A_BUTTON | B_BUTTON)
-//												|| func00014f60(contpad2, A_BUTTON | B_BUTTON)
-//												|| func00014f60(contpad1, Z_TRIG)) {
+//										if (contGetButtons(contpad1, A_BUTTON | B_BUTTON)
+//												|| contGetButtons(contpad2, A_BUTTON | B_BUTTON)
+//												|| contGetButtons(contpad1, Z_TRIG)) {
 //											slow = true;
 //										}
 //
@@ -10741,7 +10741,7 @@ glabel var7f1ad6ac
 //									slow = true;
 //								}
 //
-//								if (func00014f60(contpad1, START_BUTTON) || func00014f60(contpad2, START_BUTTON)) {
+//								if (contGetButtons(contpad1, START_BUTTON) || contGetButtons(contpad2, START_BUTTON)) {
 //									pause = true;
 //								}
 //							} else {
@@ -10751,7 +10751,7 @@ glabel var7f1ad6ac
 //											explode = true;
 //										}
 //
-//										if (func00014f60(contpad1, B_BUTTON | Z_TRIG | L_TRIG | R_TRIG)) {
+//										if (contGetButtons(contpad1, B_BUTTON | Z_TRIG | L_TRIG | R_TRIG)) {
 //											slow = true;
 //										}
 //									} else {
@@ -10759,7 +10759,7 @@ glabel var7f1ad6ac
 //											explode = true;
 //										}
 //
-//										if (func00014f60(contpad1, A_BUTTON | B_BUTTON | L_TRIG | R_TRIG)) {
+//										if (contGetButtons(contpad1, A_BUTTON | B_BUTTON | L_TRIG | R_TRIG)) {
 //											slow = true;
 //										}
 //									}
@@ -10770,7 +10770,7 @@ glabel var7f1ad6ac
 //									slow = true;
 //								}
 //
-//								if (func00014f60(contpad1, START_BUTTON)) {
+//								if (contGetButtons(contpad1, START_BUTTON)) {
 //									pause = true;
 //								}
 //							}
@@ -12634,7 +12634,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 
 						if (g_Vars.antiplayernum >= 0 && g_Vars.currentplayer == g_Vars.anti) {
 							// Anti
-							if (func00014f60(optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex), 0xb000) && !mpIsPaused()) {
+							if (contGetButtons(optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex), 0xb000) && !mpIsPaused()) {
 								g_Vars.currentplayer->dostartnewlife = true;
 							}
 						} else {
@@ -12647,7 +12647,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 								f32 stealhealth;
 								f32 shield;
 
-								canrestart = func00014f60(optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex), 0xb000)
+								canrestart = contGetButtons(optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex), 0xb000)
 									&& !mpIsPaused();
 
 								// Get ready to respawn.
@@ -12754,7 +12754,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 							}
 						}
 
-						if (func00014f60(optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex), 0xb000)
+						if (contGetButtons(optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex), 0xb000)
 								&& !mpIsPaused()
 								&& g_NumReasonsToEndMpMatch == 0) {
 							canrestart = true;
