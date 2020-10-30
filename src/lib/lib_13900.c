@@ -120,24 +120,10 @@ glabel func00013980
 /*    13988:	8c42eeec */ 	lw	$v0,%lo(var8005eeec)($v0)
 );
 
-GLOBAL_ASM(
-glabel func0001398c
-/*    1398c:	00047080 */ 	sll	$t6,$a0,0x2
-/*    13990:	01c47023 */ 	subu	$t6,$t6,$a0
-/*    13994:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    13998:	01c47023 */ 	subu	$t6,$t6,$a0
-/*    1399c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    139a0:	01c47023 */ 	subu	$t6,$t6,$a0
-/*    139a4:	000e7140 */ 	sll	$t6,$t6,0x5
-/*    139a8:	3c028006 */ 	lui	$v0,%hi(var8005eee0)
-/*    139ac:	01c47023 */ 	subu	$t6,$t6,$a0
-/*    139b0:	2442eee0 */ 	addiu	$v0,$v0,%lo(var8005eee0)
-/*    139b4:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*    139b8:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*    139bc:	3c018006 */ 	lui	$at,%hi(var8005eee4)
-/*    139c0:	03e00008 */ 	jr	$ra
-/*    139c4:	ac2eeee4 */ 	sw	$t6,%lo(var8005eee4)($at)
-);
+void func0001398c(s32 value)
+{
+	var8005eee4 = var8005eee0 = value * 11000;
+}
 
 void func000139c8(void)
 {
