@@ -1587,25 +1587,10 @@ glabel func000153c4
 /*    155b0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func000155b4
-/*    155b4:	00047600 */ 	sll	$t6,$a0,0x18
-/*    155b8:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*    155bc:	000fc080 */ 	sll	$t8,$t7,0x2
-/*    155c0:	030fc023 */ 	subu	$t8,$t8,$t7
-/*    155c4:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    155c8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*    155cc:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    155d0:	030fc021 */ 	addu	$t8,$t8,$t7
-/*    155d4:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    155d8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*    155dc:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    155e0:	3c02800a */ 	lui	$v0,%hi(var800a2380+0x10)
-/*    155e4:	00581021 */ 	addu	$v0,$v0,$t8
-/*    155e8:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    155ec:	03e00008 */ 	jr	$ra
-/*    155f0:	8c422390 */ 	lw	$v0,%lo(var800a2380+0x10)($v0)
-);
+bool func000155b4(s8 index)
+{
+	return var800a2380[index].unk010;
+}
 
 GLOBAL_ASM(
 glabel func000155f4
