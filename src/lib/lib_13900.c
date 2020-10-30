@@ -139,17 +139,10 @@ glabel func0001398c
 /*    139c4:	ac2eeee4 */ 	sw	$t6,%lo(var8005eee4)($at)
 );
 
-GLOBAL_ASM(
-glabel func000139c8
-/*    139c8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    139cc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    139d0:	0c004e63 */ 	jal	func0001398c
-/*    139d4:	2404000a */ 	addiu	$a0,$zero,0xa
-/*    139d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    139dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    139e0:	03e00008 */ 	jr	$ra
-/*    139e4:	00000000 */ 	nop
-);
+void func000139c8(void)
+{
+	func0001398c(10);
+}
 
 GLOBAL_ASM(
 glabel func000139e8
