@@ -19,6 +19,7 @@
 
 const u32 var70053ca0[] = {0x00000000};
 const u32 var70053ca4[] = {0x00050000};
+
 const char var70053ca8[] = "OFF";
 const char var70053cac[] = "LEVELTUNE";
 const char var70053cb8[] = "NRGTUNE";
@@ -42,6 +43,7 @@ const char var70053f18[] = "MUSIC TICK : Queue size = %d\n";
 const char var70053f38[] = "MUSIC : Tick -> Channel %d (State=%d) has faded to stop : Dumping\n";
 const char var70053f7c[] = "MUSIC : WARNING -> Force fade termination\n";
 const char var70053fa8[] = "MUSIC TICK : Job Guid = %u\n";
+
 const u32 var70053fc4[] = {0x70011470};
 const u32 var70053fc8[] = {0x70011470};
 const u32 var70053fcc[] = {0x70011470};
@@ -53,6 +55,11 @@ const u32 var70053fe0[] = {0x70011c44};
 const u32 var70053fe4[] = {0x70011c58};
 const u32 var70053fe8[] = {0x70011c6c};
 const u32 var70053fec[] = {0x70011c7c};
+
+u32 var8005edf0 = 0xffffffff;
+u32 var8005edf4 = 0x00000000;
+u32 var8005edf8 = 0x00000000;
+u32 var8005edfc = 0x00000000;
 
 GLOBAL_ASM(
 glabel func00011420

@@ -40,6 +40,7 @@ const char var70053be0[] = "Snd_Play_Universal : Overriding -> Link = %d\n";
 const char var70053c10[] = "Snd_Play_Mpeg : SYSTEM IS DISABLED\n";
 const char var70053c34[] = "Snd_Play_Mpeg  : Lib called -> Adr=%x\n";
 const char var70053c5c[] = "Snd_Play_Mpeg  : Chunk size -> Adr=%x\n";
+
 const u32 var70053c84[] = {0x3ee147ae};
 const u32 var70053c88[] = {0x3f266666};
 const u32 var70053c8c[] = {0x3e99999a};
@@ -47,6 +48,613 @@ const u32 var70053c90[] = {0x3f333333};
 const u32 var70053c94[] = {0x3eb33333};
 const u32 var70053c98[] = {0x3f4ccccd};
 const u32 var70053c9c[] = {0x00000000};
+
+u32 var8005dda0 = 0x00000000;
+u32 var8005dda4 = 0x00000000;
+u32 var8005dda8 = 0x00000000;
+u32 var8005ddac = 0xffffffff;
+u32 var8005ddb0 = 0x00000000;
+u32 var8005ddb4 = 0x00000000;
+u32 var8005ddb8 = 0xffffffff;
+u32 var8005ddbc = 0x00000000;
+u32 var8005ddc0 = 0x00000000;
+u32 var8005ddc4 = 0x00000000;
+u16 g_SfxVolume = 32767;
+u32 g_SoundMode = SOUNDMODE_STEREO;
+u32 var8005ddd0 = 0x00000000;
+u32 var8005ddd4 = 0x00000000;
+u32 var8005ddd8 = 0x00000000;
+u32 var8005dddc = 0x00000000;
+u32 var8005dde0 = 0x00000000;
+
+// 3e04
+struct audiodefinition audiodefinitions[] = {
+	/*0x0000*/ { 0x85ba, 59 },
+	/*0x0001*/ { 0x85a5, 15 },
+	/*0x0002*/ { 0x85a6, 15 },
+	/*0x0003*/ { 0x80bb, 14 },
+	/*0x0004*/ { 0x80bc, 14 },
+	/*0x0005*/ { 0x8007, 14 },
+	/*0x0006*/ { 0x8007, 14 },
+	/*0x0007*/ { 0x80be, 14 },
+	/*0x0008*/ { 0x80bf, 14 },
+	/*0x0009*/ { 0x80bf, 14 },
+	/*0x000a*/ { 0x80c0, 14 },
+	/*0x000b*/ { 0x8007, 14 },
+	/*0x000c*/ { 0x80c2, 14 },
+	/*0x000d*/ { 0x80c3, 14 },
+	/*0x000e*/ { 0x80c4, 14 },
+	/*0x000f*/ { 0x80c5, 14 },
+	/*0x0010*/ { 0x8007, 14 },
+	/*0x0011*/ { 0x80c7, 14 },
+	/*0x0012*/ { 0x80c8, 14 },
+	/*0x0013*/ { 0x80c9, 14 },
+	/*0x0014*/ { 0x80ca, 15 },
+	/*0x0015*/ { 0x80cb, 15 },
+	/*0x0016*/ { 0x80cc, 15 },
+	/*0x0017*/ { 0x8007, 15 },
+	/*0x0018*/ { 0x8007, 15 },
+	/*0x0019*/ { 0x8007, 15 },
+	/*0x001a*/ { 0x80d2, 15 },
+	/*0x001b*/ { 0x80d3, 15 },
+	/*0x001c*/ { 0x8007, 15 },
+	/*0x001d*/ { 0x80c6, 14 },
+	/*0x001e*/ { 0x80d6, 15 },
+	/*0x001f*/ { 0x80d7, 15 },
+	/*0x0020*/ { 0x80d8, 15 },
+	/*0x0021*/ { 0x80db, 14 },
+	/*0x0022*/ { 0x80da, 14 },
+	/*0x0023*/ { 0x80bf, 14 },
+	/*0x0024*/ { 0x80bf, 14 },
+	/*0x0025*/ { 0x80de, 14 },
+	/*0x0026*/ { 0x80e1, 15 },
+	/*0x0027*/ { 0x80e2, 15 },
+	/*0x0028*/ { 0x977a, 60 }, // Carrington: "Hello Joanna"
+	/*0x0029*/ { 0x97b0, 60 }, // Carrington: "Joanna, it's good to see you"
+	/*0x002a*/ { 0x97b1, 60 }, // Carrington: "Good day to you, Jo"
+	/*0x002b*/ { 0x977c, 60 }, // Female: "Hi there"
+	/*0x002c*/ { 0x9786, 60 }, // Grimshaw: "Welcome to hacker central"
+	/*0x002d*/ { 0x9787, 60 }, // Grimshaw: "Hi there"
+	/*0x002e*/ { 0x9788, 60 }, // Grimshaw: "Um, er, hi"
+	/*0x002f*/ { 0x978c, 60 }, // Holo girl: "Hi. What can I do for you?"
+	/*0x0030*/ { 0x9794, 60 }, // Hangar guy: "What do you want?"
+	/*0x0031*/ { 0x9784, 60 }, // Foster: "Ah, our star agent"
+	/*0x0032*/ { 0x978e, 60 }, // Male: "Hey there"
+	/*0x0033*/ { 0x978f, 60 }, // Male: "Hi"
+	/*0x0034*/ { 0x9790, 60 }, // Male "How's it going?"
+	/*0x0035*/ { 0x977e, 60 }, // Female: "Hello"
+	/*0x0036*/ { 0x977f, 60 }, // Holo girl: "Hi Jo"
+	/*0x0037*/ { 0x9780, 60 }, // Holo girl: "How's it going?"
+	/*0x0038*/ { 0x802e, 32 },
+	/*0x0039*/ { 0x8037, 35 },
+	/*0x003a*/ { 0x8037, 35 },
+	/*0x003b*/ { 0x806a, 33 },
+	/*0x003c*/ { 0x8037, 35 },
+	/*0x003d*/ { 0x8037, 35 },
+	/*0x003e*/ { 0x8037, 35 },
+	/*0x003f*/ { 0x806d, 33 },
+	/*0x0040*/ { 0x806e, 33 },
+	/*0x0041*/ { 0x8037, 35 },
+	/*0x0042*/ { 0x8037, 35 },
+	/*0x0043*/ { 0x8070, 33 },
+	/*0x0044*/ { 0x8071, 33 },
+	/*0x0045*/ { 0x8037, 35 },
+	/*0x0046*/ { 0x8037, 35 },
+	/*0x0047*/ { 0x8037, 35 },
+	/*0x0048*/ { 0x8037, 35 },
+	/*0x0049*/ { 0x8075, 33 },
+	/*0x004a*/ { 0x8037, 35 },
+	/*0x004b*/ { 0x8037, 35 },
+	/*0x004c*/ { 0x8079, 31 },
+	/*0x004d*/ { 0x8066, 31 },
+	/*0x004e*/ { 0x8037, 35 },
+	/*0x004f*/ { 0x8032, 31 },
+	/*0x0050*/ { 0x8037, 35 },
+	/*0x0051*/ { 0x807a, 35 },
+	/*0x0052*/ { 0x8059, 31 },
+	/*0x0053*/ { 0x8001, 35 },
+	/*0x0054*/ { 0x847e, 32 },
+	/*0x0055*/ { 0x847d, 33 },
+	/*0x0056*/ { 0x84f1, 32 },
+	/*0x0057*/ { 0x84f2, 32 },
+	/*0x0058*/ { 0x84f3, 32 },
+	/*0x0059*/ { 0x84f4, 33 },
+	/*0x005a*/ { 0x84f6, 33 },
+	/*0x005b*/ { 0x8506, 31 },
+	/*0x005c*/ { 0x84fd, 33 },
+	/*0x005d*/ { 0x8504, 33 },
+	/*0x005e*/ { 0x84fe, 33 },
+	/*0x005f*/ { 0x8503, 33 },
+	/*0x0060*/ { 0x8500, 32 },
+	/*0x0061*/ { 0x8501, 32 },
+	/*0x0062*/ { 0x8502, 32 },
+	/*0x0063*/ { 0x85ca, 31 },
+	/*0x0064*/ { 0x85cb, 31 },
+	/*0x0065*/ { 0x85d2, 31 },
+	/*0x0066*/ { 0x8074, 33 },
+	/*0x0067*/ { 0x85eb, 35 },
+	/*0x0068*/ { 0x85ec, 35 },
+	/*0x0069*/ { 0x85ed, 31 },
+	/*0x006a*/ { 0x85ee, 31 },
+	/*0x006b*/ { 0x85ef, 33 },
+	/*0x006c*/ { 0x85f0, 33 },
+	/*0x006d*/ { 0x85f1, 33 },
+	/*0x006e*/ { 0x85f2, 33 },
+	/*0x006f*/ { 0x85f3, 33 },
+	/*0x0070*/ { 0x85f4, 33 },
+	/*0x0071*/ { 0x8508, 31 },
+	/*0x0072*/ { 0x850a, 31 },
+	/*0x0073*/ { 0x8076, 33 },
+	/*0x0074*/ { 0x85f5, 30 },
+	/*0x0075*/ { 0x8509, 33 },
+	/*0x0076*/ { 0x8045, 45 },
+	/*0x0077*/ { 0x8046, 45 },
+	/*0x0078*/ { 0x8047, 25 },
+	/*0x0079*/ { 0x8048, 45 },
+	/*0x007a*/ { 0x80f0, 45 },
+	/*0x007b*/ { 0x80ef, 45 },
+	/*0x007c*/ { 0x8049, 45 },
+	/*0x007d*/ { 0x804a, 45 },
+	/*0x007e*/ { 0x804b, 45 },
+	/*0x007f*/ { 0x80d9, 45 },
+	/*0x0080*/ { 0x804c, 45 },
+	/*0x0081*/ { 0x80e7, 45 },
+	/*0x0082*/ { 0x80e6, 45 },
+	/*0x0083*/ { 0x80e0, 45 },
+	/*0x0084*/ { 0x80dc, 45 },
+	/*0x0085*/ { 0x80b9, 45 },
+	/*0x0086*/ { 0x80d4, 45 },
+	/*0x0087*/ { 0x80d0, 45 },
+	/*0x0088*/ { 0x80d1, 45 },
+	/*0x0089*/ { 0x8078, 45 },
+	/*0x008a*/ { 0x80dd, 45 },
+	/*0x008b*/ { 0x8003, 45 },
+	/*0x008c*/ { 0x802d, 21 },
+	/*0x008d*/ { 0x807b, 21 },
+	/*0x008e*/ { 0x807c, 21 },
+	/*0x008f*/ { 0x807d, 21 },
+	/*0x0090*/ { 0x807e, 21 },
+	/*0x0091*/ { 0x807f, 21 },
+	/*0x0092*/ { 0x8080, 21 },
+	/*0x0093*/ { 0x8081, 21 },
+	/*0x0094*/ { 0x8082, 21 },
+	/*0x0095*/ { 0x8083, 21 },
+	/*0x0096*/ { 0x8084, 21 },
+	/*0x0097*/ { 0x8085, 21 },
+	/*0x0098*/ { 0x80b4, 18 },
+	/*0x0099*/ { 0x80b5, 18 },
+	/*0x009a*/ { 0x80b6, 17 },
+	/*0x009b*/ { 0x80a9, 18 },
+	/*0x009c*/ { 0x80aa, 18 },
+	/*0x009d*/ { 0x80ab, 17 },
+	/*0x009e*/ { 0x80ac, 18 },
+	/*0x009f*/ { 0x80ad, 18 },
+	/*0x00a0*/ { 0x80ae, 17 },
+	/*0x00a1*/ { 0x80b1, 18 },
+	/*0x00a2*/ { 0x80b2, 18 },
+	/*0x00a3*/ { 0x80b3, 18 },
+	/*0x00a4*/ { 0x818a, 19 },
+	/*0x00a5*/ { 0xefdd, 19 },
+	/*0x00a6*/ { 0x805f, 32 },
+	/*0x00a7*/ { 0x8060, 32 },
+	/*0x00a8*/ { 0x8061, 32 },
+	/*0x00a9*/ { 0x8004, 32 },
+	/*0x00aa*/ { 0x80f1, 32 },
+	/*0x00ab*/ { 0x80f3, 32 },
+	/*0x00ac*/ { 0x8055, 16 },
+	/*0x00ad*/ { 0x8056, 16 },
+	/*0x00ae*/ { 0x8057, 16 },
+	/*0x00af*/ { 0x85f7, 52 },
+	/*0x00b0*/ { 0x8127, 29 },
+	/*0x00b1*/ { 0x8128, 29 },
+	/*0x00b2*/ { 0x8129, 29 },
+	/*0x00b3*/ { 0x812a, 29 },
+	/*0x00b4*/ { 0x812b, 29 },
+	/*0x00b5*/ { 0x812c, 29 },
+	/*0x00b6*/ { 0x812d, 50 },
+	/*0x00b7*/ { 0x812e, 50 },
+	/*0x00b8*/ { 0x8138, 50 },
+	/*0x00b9*/ { 0x8138, 28 },
+	/*0x00ba*/ { 0x812f, 51 },
+	/*0x00bb*/ { 0x8151, 51 },
+	/*0x00bc*/ { 0x8154, 51 },
+	/*0x00bd*/ { 0x8157, 51 },
+	/*0x00be*/ { 0x815a, 51 },
+	/*0x00bf*/ { 0x8132, 51 },
+	/*0x00c0*/ { 0x8139, 51 },
+	/*0x00c1*/ { 0x813f, 51 },
+	/*0x00c2*/ { 0x8145, 51 },
+	/*0x00c3*/ { 0x814b, 51 },
+	/*0x00c4*/ { 0x8161, 4  },
+	/*0x00c5*/ { 0x8162, 4  },
+	/*0x00c6*/ { 0x8163, 4  },
+	/*0x00c7*/ { 0x8164, 4  },
+	/*0x00c8*/ { 0x8165, 4  },
+	/*0x00c9*/ { 0x8166, 4  },
+	/*0x00ca*/ { 0x8167, 4  },
+	/*0x00cb*/ { 0x8168, 4  },
+	/*0x00cc*/ { 0x8169, 4  },
+	/*0x00cd*/ { 0x816a, 4  },
+	/*0x00ce*/ { 0x816b, 4  },
+	/*0x00cf*/ { 0x816c, 4  },
+	/*0x00d0*/ { 0x816d, 4  },
+	/*0x00d1*/ { 0x816e, 4  },
+	/*0x00d2*/ { 0x816f, 4  },
+	/*0x00d3*/ { 0x8170, 4  },
+	/*0x00d4*/ { 0x8171, 4  },
+	/*0x00d5*/ { 0x8172, 4  },
+	/*0x00d6*/ { 0x8173, 4  },
+	/*0x00d7*/ { 0x8174, 4  },
+	/*0x00d8*/ { 0x8175, 4  },
+	/*0x00d9*/ { 0x8176, 4  },
+	/*0x00da*/ { 0x8177, 4  },
+	/*0x00db*/ { 0x8178, 4  },
+	/*0x00dc*/ { 0x8179, 4  },
+	/*0x00dd*/ { 0x817a, 4  },
+	/*0x00de*/ { 0x817b, 4  },
+	/*0x00df*/ { 0x817c, 4  },
+	/*0x00e0*/ { 0x817d, 4  },
+	/*0x00e1*/ { 0x817e, 4  },
+	/*0x00e2*/ { 0x817f, 4  },
+	/*0x00e3*/ { 0x8180, 4  },
+	/*0x00e4*/ { 0x804d, 4  },
+	/*0x00e5*/ { 0x804e, 4  },
+	/*0x00e6*/ { 0x85f8, 5  },
+	/*0x00e7*/ { 0x85f9, 5  },
+	/*0x00e8*/ { 0x85fa, 5  },
+	/*0x00e9*/ { 0x85fb, 5  },
+	/*0x00ea*/ { 0x85fc, 6  },
+	/*0x00eb*/ { 0x85fd, 6  },
+	/*0x00ec*/ { 0x85fe, 6  },
+	/*0x00ed*/ { 0x85ff, 6  },
+	/*0x00ee*/ { 0x8600, 4  },
+	/*0x00ef*/ { 0x8601, 4  },
+	/*0x00f0*/ { 0x8602, 4  },
+	/*0x00f1*/ { 0x8603, 4  },
+	/*0x00f2*/ { 0x8604, 4  },
+	/*0x00f3*/ { 0x8605, 4  },
+	/*0x00f4*/ { 0x8606, 4  },
+	/*0x00f5*/ { 0x8606, 4  },
+	/*0x00f6*/ { 0x81d9, 61 },
+	/*0x00f7*/ { 0x8267, 2  },
+	/*0x00f8*/ { 0x8268, 2  },
+	/*0x00f9*/ { 0x8286, 2  },
+	/*0x00fa*/ { 0x8288, 2  },
+	/*0x00fb*/ { 0x8291, 2  },
+	/*0x00fc*/ { 0x829f, 2  },
+	/*0x00fd*/ { 0x82a1, 2  },
+	/*0x00fe*/ { 0x8af9, 47 }, // Cass: "You've become quite an annoyance"
+	/*0x00ff*/ { 0x8afa, 47 }, // Cass: "We meet again, girl"
+	/*0x0100*/ { 0x8afb, 47 }, // Cass: "Good night, Miss Dark"
+	/*0x0101*/ { 0x92fc, 47 }, // Cass: "Get her!"
+	/*0x0102*/ { 0x92fd, 47 }, // Cass: (laughing)
+	/*0x0103*/ { 0x9285, 2  }, // Scientist: "Who the hell are you?"
+	/*0x0104*/ { 0x9306, 48 }, // Programmer: "Yes, yes, I agree. Personality..."
+	/*0x0105*/ { 0x9307, 48 }, // Programmer: "No. I can start the process..."
+	/*0x0106*/ { 0x9308, 48 }, // Programmer: "I'll begin at once. Goodbye"
+	/*0x0107*/ { 0x9309, 48 }, // Programmer: "Security, help me!"
+	/*0x0108*/ { 0x930a, 48 }, // Programmer: "Help! Help!"
+	/*0x0109*/ { 0x8435, 49 },
+	/*0x010a*/ { 0x81b5, 7  },
+	/*0x010b*/ { 0x81b6, 8  },
+	/*0x010c*/ { 0x81b5, 9  },
+	/*0x010d*/ { 0x81b6, 10 },
+	/*0x010e*/ { 0x85f3, 11 },
+	/*0x010f*/ { 0x81b5, 12 },
+	/*0x0110*/ { 0x81b6, 13 },
+	/*0x0111*/ { 0x81b7, 20 },
+	/*0x0112*/ { 0x81b8, 20 },
+	/*0x0113*/ { 0x81c7, 20 },
+	/*0x0114*/ { 0x8037, 20 },
+	/*0x0115*/ { 0x81b7, 56 },
+	/*0x0116*/ { 0x81b9, 0  },
+	/*0x0117*/ { 0x81ba, 0  },
+	/*0x0118*/ { 0x81bb, 0  },
+	/*0x0119*/ { 0x81cb, 36 },
+	/*0x011a*/ { 0x81cb, 37 },
+	/*0x011b*/ { 0x81cb, 38 },
+	/*0x011c*/ { 0x81c6, 55 },
+	/*0x011d*/ { 0x9278, 47 }, // "That's not how it goes"
+	/*0x011e*/ { 0x9279, 47 }, // "Give it to me. You're doing it wrong"
+	/*0x011f*/ { 0x927a, 47 }, // "Oh no, we're too late"
+	/*0x0120*/ { 0x927b, 47 }, // "Yes it is"
+	/*0x0121*/ { 0x927c, 47 }, // "Stop annoying me"
+	/*0x0122*/ { 0x927d, 47 }, // "She's here!"
+	/*0x0123*/ { 0x9277, 47 }, // "Will you just hurry up?"
+	/*0x0124*/ { 0x82fd, 2  }, // "Holy..."
+	/*0x0125*/ { 0x82fe, 2  }, // "What the hell?"
+	/*0x0126*/ { 0x8300, 2  }, // "Oh my god"
+	/*0x0127*/ { 0x8303, 2  }, // "Oh god I'm hit"
+	/*0x0128*/ { 0x830a, 2  }, // "Oh my god"
+	/*0x0129*/ { 0x8313, 62 }, // "Noooo!"
+	/*0x012a*/ { 0x8314, 2  }, // "Oh god he's dead!"
+	/*0x012b*/ { 0x832e, 2  }, // "Bloody stupid gun"
+	/*0x012c*/ { 0x8330, 2  }, // "Damn it"
+	/*0x012d*/ { 0x8333, 2  }, // "Damn, she's good"
+	/*0x012e*/ { 0x8334, 2  }, // "Cover my ass"
+	/*0x012f*/ { 0x834c, 62 }, // Death scream
+	/*0x0130*/ { 0x83a3, 2  }, // Female: "Damn she's good"
+	/*0x0131*/ { 0x83b9, 2  }, // Female: "My god"
+	/*0x0132*/ { 0x83c7, 2  }, // "Geez, that hurt"
+	/*0x0133*/ { 0x83cf, 2  }, // "Damn it, I'm taking fire"
+	/*0x0134*/ { 0x83d2, 2  }, // "God damn it"
+	/*0x0135*/ { 0x83d4, 2  }, // "Holy moley"
+	/*0x0136*/ { 0x83f3, 2  }, // "Damn, missed again"
+	/*0x0137*/ { 0x83f5, 2  }, // "Damn"
+	/*0x0138*/ { 0x83f6, 2  }, // "Hell, she's good"
+	/*0x0139*/ { 0x8400, 2  }, // "Let's get the hell out of here"
+	/*0x013a*/ { 0x8411, 62 }, // "Noooo!"
+	/*0x013b*/ { 0x8413, 2  }, // "Shoot, damn it"
+	/*0x013c*/ { 0x8414, 2  }, // "Oh god, I'm dying"
+	/*0x013d*/ { 0x8422, 2  }, // "God, run!"
+	/*0x013e*/ { 0x8432, 33 },
+	/*0x013f*/ { 0x843c, 58 },
+	/*0x0140*/ { 0x843d, 58 },
+	/*0x0141*/ { 0x84ab, 58 },
+	/*0x0142*/ { 0x843d, 58 },
+	/*0x0143*/ { 0x81b7, 58 },
+	/*0x0144*/ { 0x8477, 57 },
+	/*0x0145*/ { 0x8478, 57 },
+	/*0x0146*/ { 0x81c2, 54 },
+	/*0x0147*/ { 0x8479, 54 },
+	/*0x0148*/ { 0x81c3, 54 },
+	/*0x0149*/ { 0x81c4, 54 },
+	/*0x014a*/ { 0x8443, 2  }, // Civilian: "Oh my god"
+	/*0x014b*/ { 0x844e, 2  }, // "What the hell was that?"
+	/*0x014c*/ { 0x843c, 63 },
+	/*0x014d*/ { 0x847c, 63 },
+	/*0x014e*/ { 0x843d, 63 },
+	/*0x014f*/ { 0xf2ad, 1  }, // "Joanna, this is Jonathan. You're in grave danger"
+	/*0x0150*/ { 0xf2ae, 1  }, // "They've flooded the area with nerge gas"
+	/*0x0151*/ { 0xf2af, 1  }, // "Get our friend to the containment lab. There's a hiding place there"
+	/*0x0152*/ { 0xd2b0, 1  }, // "I'll contact you when you get there. Good luck"
+	/*0x0153*/ { 0xf2b1, 1  }, // "Good work Jo. We need to meet up. They're getting suspicious of me"
+	/*0x0154*/ { 0xd2b2, 1  }, // "Use the maintenance hatch I've opened in one of the containment labs. Hurry"
+	/*0x0155*/ { 0x92b8, 2  }, // "Damn it Joanna, cover me!"
+	/*0x0156*/ { 0x9b30, 2  }, // "Oh my god, a gun?!"
+	/*0x0157*/ { 0x9b27, 47 }, // "So you got here at last"
+	/*0x0158*/ { 0x9b28, 47 }, // "Hey, you're not, uh, security alert!"
+	/*0x0159*/ { 0x9b29, 47 }, // "No guns allowed in here. Put your weapon away"
+	/*0x015a*/ { 0x9b2a, 47 }, // "I won't tell you again. Lose the weapon"
+	/*0x015b*/ { 0x9b2b, 47 }, // "Right. I'm calling security"
+	/*0x015c*/ { 0x9b2c, 47 }, // "Everyone's been waiting for you"
+	/*0x015d*/ { 0x9a9d, 60 }, // "How's things?"
+	/*0x015e*/ { 0x9a9e, 60 }, // "Hey there"
+	/*0x015f*/ { 0x9a9f, 60 }, // "Hi. How are you?"
+	/*0x0160*/ { 0x8037, 4  },
+	/*0x0161*/ { 0x9271, 60 }, // Female: "Good afternoon"
+	/*0x0162*/ { 0x9275, 2  }, // Female: "Oh my god!"
+	/*0x0163*/ { 0x9acc, 60 }, // "Hi there"
+	/*0x0164*/ { 0x9acd, 60 }, // "How's things"
+	/*0x0165*/ { 0x9ad4, 60 }, // "Hello"
+	/*0x0166*/ { 0x9ad5, 60 }, // "Hey, what's up?"
+	/*0x0167*/ { 0x84c8, 2  }, // "What the hell?"
+	/*0x0168*/ { 0x84cd, 2  }, // "Geez"
+	/*0x0169*/ { 0x84ad, 46 },
+	/*0x016a*/ { 0x8507, 27 },
+	/*0x016b*/ { 0x84ee, 16 },
+	/*0x016c*/ { 0x84ef, 16 },
+	/*0x016d*/ { 0x84f0, 16 },
+	/*0x016e*/ { 0x92c8, 2  }, // President: "What the hell was that?"
+	/*0x016f*/ { 0x92c9, 2  }, // Trent: "How the hell did you get on board?"
+	/*0x0170*/ { 0xb3a0, 1  }, // Carrington: "We're getting a positive reading. The internal comms hub is nearby"
+	/*0x0171*/ { 0xb3a1, 1  }, // Carrington: "You're on the same floor as Cassandra's office"
+	/*0x0172*/ { 0xd3a3, 1  }, // Carrington: "The basement elevator must be around there somewhere"
+	/*0x0173*/ { 0xd3a4, 1  }, // Carrington: "That's the highest security sector. Dr Caroll has got to be nearby"
+	/*0x0174*/ { 0xd3a6, 1  }, // Grimshaw: "Reprogram the cleaning bot. It'll give you a way in"
+	/*0x0175*/ { 0xd3a7, 1  }, // Carrington: "Get out Jo! The levels are too high. Use the camspy"
+	/*0x0176*/ { 0xd3a8, 1  }, // Carrington: "They've locked down the ground floor. Get to the elevator"
+	/*0x0177*/ { 0xd3a9, 1  }, // Carrington: "That copter needs to be taken out of the jumpship will get shut down"
+	/*0x0178*/ { 0xd3ab, 1  }, // Carrington: "Don't keep the jumpship waiting. Get back to the landing pad"
+	/*0x0179*/ { 0xd3b0, 1  }, // Carrington: "The only place we could secure the equipment was a storm drain"
+	/*0x017a*/ { 0xd3b2, 1  }, // Grimshaw: "Reprogram that taxi. It's a mark 2 and should be compatible"
+	/*0x017b*/ { 0xd3b3, 1  }, // Carrington: The carpark lift is your only point of ingress"
+	/*0x017c*/ { 0xb3b6, 1  }, // Grimshaw: "The safe's heavily encrypted. The decoder's going to take a little longer"
+	/*0x017d*/ { 0xd3b8, 1  }, // Carrington: "The air intercept radar is controlled from that bunker"
+	/*0x017e*/ { 0xd3ba, 1  }, // Carrington: "The hangar lift is the other side of that huge door"
+	/*0x017f*/ { 0xd3bb, 1  }, // Jon: "Careful with that trigger finger, Agent Dark. You're closing in on my position"
+	/*0x0180*/ { 0xb3bd, 1  }, // Carrington: "The temperature's dropping. You must be close to the cryo room"
+	/*0x0181*/ { 0xd3bf, 1  }, // Carrington: "There he is Jo. Hurry or you'll be too late"
+	/*0x0182*/ { 0xb3c4, 1  }, // Carrington: "Now's your chance. Grab the stewardess's bag and get her uniform"
+	/*0x0183*/ { 0xb3c5, 1  }, // Carrington: "Use that case to conceal your equipment"
+	/*0x0184*/ { 0xb3c6, 1  }, // Carrington: "The case will get stopped unless you do something"
+	/*0x0185*/ { 0xb3c9, 1  }, // Carrington: "The president's room is on this level, Joanna"
+	/*0x0186*/ { 0xb3ca, 1  }, // Carrington: "Something's wrong. You have to get to the cockpit"
+	/*0x0187*/ { 0x8594, 4  }, // Footstep
+	/*0x0188*/ { 0x8595, 4  }, // Footstep
+	/*0x0189*/ { 0x8596, 4  }, // Footstep
+	/*0x018a*/ { 0x8597, 4  }, // Footstep
+	/*0x018b*/ { 0x8598, 4  }, // Footstep
+	/*0x018c*/ { 0x8599, 4  }, // Footstep
+	/*0x018d*/ { 0x859a, 4  }, // Footstep
+	/*0x018e*/ { 0x859b, 4  }, // Footstep
+	/*0x018f*/ { 0x85a0, 4  }, // Footstep
+	/*0x0190*/ { 0x85a1, 4  }, // Footstep
+	/*0x0191*/ { 0x85a2, 4  }, // Footstep
+	/*0x0192*/ { 0x85a3, 4  }, // Footstep
+	/*0x0193*/ { 0xf310, 1  }, // Carrington: "Joanna. We're under attack"
+	/*0x0194*/ { 0xd311, 1  }, // Carrington: "Get the guns back online. Hurry"
+	/*0x0195*/ { 0xf312, 1  }, // Carrington: "The Skedar have taken hostages"
+	/*0x0196*/ { 0xd313, 1  }, // Carrington: "Get up to the offices and save them"
+	/*0x0197*/ { 0xf314, 1  }, // Carrington: "They're using a new form of shield technology"
+	/*0x0198*/ { 0xd315, 1  }, // Carrington: "Foster was working on a new weapon which may be useful"
+	/*0x0199*/ { 0xf316, 3  }, // Carrington: "Damn it, my office. If they get access..."
+	/*0x019a*/ { 0xd317, 1  }, // Carrington: "Get there first, Jo and destroy the files"
+	/*0x019b*/ { 0xf318, 1  }, // Carrington: "Things are desparate. They've planted a bomb"
+	/*0x019c*/ { 0xd319, 1  }, // Carrington: "Find it and get it out of the building"
+	/*0x019d*/ { 0xf31a, 1  }, // Carrington: "Well done Joanna. We're nearly clear"
+	/*0x019e*/ { 0xd31b, 1  }, // Carrington: "The last dropship is waiting for you. Hurry"
+	/*0x019f*/ { 0xf293, 1  }, // Grimshaw: "Joanna, it's Grimshaw. We've got hackers at..."
+	/*0x01a0*/ { 0xf2df, 1  }, // Elvis: "We're outside, Joanna. Get the shields down and we can help you"
+	/*0x01a1*/ { 0xf2e0, 1  }, // Elvis: "You've got to open the hanger doors so we can dock"
+	/*0x01a2*/ { 0xd4ea, 1  }, // Carrington: "Stand back Joanna. We'll create your escape route"
+	/*0x01a3*/ { 0x8d24, 2  }, // Cass: "Get the hell out of my office"
+	/*0x01a4*/ { 0x9d62, 47 }, // Elvis: "Joanna, what took you so long? Follow me. Let's get off this old tub"
+	/*0x01a5*/ { 0x84aa, 43 },
+	/*0x01a6*/ { 0x81cf, 41 },
+	/*0x01a7*/ { 0x858f, 40 },
+	/*0x01a8*/ { 0x80d5, 39 }, // Lift mechanical sound
+	/*0x01a9*/ { 0x80ec, 39 }, // Lift mechanical sound
+	/*0x01aa*/ { 0x80ed, 40 }, // Lift mechanical sound
+	/*0x01ab*/ { 0x80d5, 41 }, // Lift mechanical sound
+	/*0x01ac*/ { 0x80ec, 41 }, // Lift mechanical sound
+	/*0x01ad*/ { 0x80ed, 42 }, // Lift mechanical sound
+	/*0x01ae*/ { 0x80d5, 41 }, // Lift mechanical sound
+	/*0x01af*/ { 0x80ec, 41 }, // Lift mechanical sound
+	/*0x01b0*/ { 0x803a, 41 }, // Lift call
+	/*0x01b1*/ { 0x84e8, 43 }, // Lift mechanical sound
+	/*0x01b2*/ { 0x84e9, 43 }, // Lift mechanical sound
+	/*0x01b3*/ { 0x80cd, 42 }, // Lift mechanical sound
+	/*0x01b4*/ { 0x80ce, 42 }, // Lift mechanical sound
+	/*0x01b5*/ { 0x8039, 42 }, // Lift mechanical sound
+	/*0x01b6*/ { 0x80cd, 44 }, // Lift mechanical sound
+	/*0x01b7*/ { 0x80db, 16 }, // Lift roller door
+	/*0x01b8*/ { 0x80da, 16 }, // Lift roller door
+	/*0x01b9*/ { 0xf41c, 2  }, // Joanna: "Oh my god"
+	/*0x01ba*/ { 0xf434, 2  }, // Lab guy: "What the hell do you think you're doing? This is supposed..."
+	/*0x01bb*/ { 0xf44f, 2  }, // President: "Damn it man. I say no and I mean no..."
+	/*0x01bc*/ { 0x0000, 0  },
+};
+
+// 44f8
+struct audioconfig audioconfigs[] = {
+	{ /* 0*/  200, 1000, 1200, -1, 100, -1,   0, 0x00 },
+	{ /* 1*/  400, 2500, 3000, -1, 100, 48,   0, 0x20 },
+	{ /* 2*/  400, 2500, 3000, -1, 100, -1,   0, 0x10 },
+	{ /* 3*/  400, 2500, 3000, -1, 100, 48,   0, 0x30 },
+	{ /* 4*/  200, 1000, 1200, -1, 100, -1,   0, 0x00 },
+	{ /* 5*/  200, 1000, 1200, -1, 100, -1,   0, 0x00 },
+	{ /* 6*/  200, 1000, 1200, -1, 100, -1,   0, 0x00 },
+	{ /* 7*/ 1000, 3500, 4000, -1, 100, -1, 120, 0x09 },
+	{ /* 8*/ 1000, 2500, 3000, -1, 100, -1,  30, 0x09 },
+	{ /* 9*/ 1000, 3500, 4000, -1, 100, -1, 120, 0x09 },
+	{ /*10*/ 1000, 2500, 3000, -1, 100, -1,  30, 0x09 },
+	{ /*11*/ 1600, 3000, 3500, -1, 100, -1,   0, 0x09 },
+	{ /*12*/  400, 1100, 1400, -1, 100, -1, 140, 0x09 },
+	{ /*13*/  400, 1100, 1400, -1, 100, -1,   0, 0x09 },
+	{ /*14*/  300, 1200, 1250, -1, 100, -1,   0, 0x01 },
+	{ /*15*/  500, 1800, 1900, -1, 100, -1,   0, 0x01 },
+	{ /*16*/ 1000, 2700, 2900, -1, 100, -1,   0, 0x01 },
+	{ /*17*/ 1500, 3000, 4000, -1, 100, -1,   0, 0x01 },
+	{ /*18*/ 2500, 4900, 5000, -1, 100, -1,   0, 0x01 },
+	{ /*19*/ 5500, 5600, 5700, -1, 100, -1,   0, 0x21 },
+	{ /*20*/   20,  400,  500, -1, 100, -1,   0, 0x00 },
+	{ /*21*/  300, 1700, 2000, -1, 100, -1,   0, 0x00 },
+	{ /*22*/  600, 3500, 5000, -1, 100, -1,   0, 0x00 },
+	{ /*23*/  600, 3500, 5000, -1, 100, -1,   0, 0x00 },
+	{ /*24*/  600, 3500, 5000, -1, 100, -1,   0, 0x00 },
+	{ /*25*/  600, 2500, 3000, -1, 100, -1,   0, 0x00 },
+	{ /*26*/ 1500, 4900, 5500, -1, 100, -1, 100, 0x01 },
+	{ /*27*/ 5500, 5740, 5800, -1, 100, -1, 100, 0x01 },
+	{ /*28*/  250, 1000, 1300,  2, 100, -1, 120, 0x01 },
+	{ /*29*/  200, 2600, 3000, -1, 100, -1,   0, 0x00 },
+	{ /*30*/  200,  750,  850, -1, 100, -1,   0, 0x00 },
+	{ /*31*/  600, 2000, 3000, -1, 100, -1,   0, 0x00 },
+	{ /*32*/  500, 1500, 1800, -1, 100, -1,   0, 0x00 },
+	{ /*33*/  800, 2500, 3000, -1, 100, -1,   0, 0x00 },
+	{ /*34*/  400, 1500, 2000, -1, 100, -1,   0, 0x00 },
+	{ /*35*/ 1000, 3500, 5000, -1, 100, -1,   0, 0x01 },
+	{ /*36*/   50,  225,  250, -1, 100, -1,   0, 0x01 },
+	{ /*37*/   50,  225,  250, -1, 100, -1,   0, 0x01 },
+	{ /*38*/ 2000, 2500, 2700, -1,  50, -1,   0, 0x09 },
+	{ /*39*/  300, 1000, 1200, -1, 100, -1,   0, 0x01 },
+	{ /*40*/  300, 1000, 1200, -1, 100, -1, 100, 0x01 },
+	{ /*41*/  600, 1500, 1800, -1, 100, -1,   0, 0x01 },
+	{ /*42*/  600, 1500, 1800, -1, 100, -1, 100, 0x01 },
+	{ /*43*/  800, 2600, 3500, -1, 100, -1,   0, 0x01 },
+	{ /*44*/  800, 2600, 3500, -1, 100, -1, 100, 0x01 },
+	{ /*45*/  200,  800, 1000, -1, 100, -1,   0, 0x00 },
+	{ /*46*/  200,  700, 1000, -1, 100, -1,   0, 0x00 },
+	{ /*47*/ 1000, 2500, 3000, -1, 100, -1,   0, 0x00 },
+	{ /*48*/  500, 1400, 1500, -1, 100, -1,   0, 0x00 },
+	{ /*49*/  500, 2000, 2200, -1, 100, -1,   0, 0x00 },
+	{ /*50*/  400, 2500, 3000, -1,  50, -1,   0, 0x00 },
+	{ /*51*/  400, 2500, 3000, -1,  75, -1,   0, 0x00 },
+	{ /*52*/  200,  500,  800, -1, 100, -1, 100, 0x00 },
+	{ /*53*/ 1000, 1100, 1600, -1, 100, -1,   0, 0x00 },
+	{ /*54*/  300, 1300, 1500, -1, 100, -1,   0, 0x01 },
+	{ /*55*/  300, 1300, 1500, -1, 100, -1, 200, 0x01 },
+	{ /*56*/  250,  600,  900, -1, 100, -1, 200, 0x01 },
+	{ /*57*/   50,  180,  250, -1, 100, -1, 200, 0x01 },
+	{ /*58*/  100,  400,  600, -1, 100, -1, 200, 0x01 },
+	{ /*59*/  700, 1100, 1400, -1, 100, -1, 200, 0x01 },
+	{ /*60*/  400, 2500, 3000, -1, 100, -1,   0, 0x04 },
+	{ /*61*/  300,  900, 1100, -1, 100, -1,   0, 0x00 },
+	{ /*62*/ 1000, 2500, 3000, -1, 100, -1,   0, 0x08 },
+	{ /*63*/  400, 1000, 1200, -1, 100, -1,   0, 0x00 },
+};
+
+u32 var8005ecd8 = 0x00000000;
+u32 var8005ecdc = 0x00000000;
+u32 var8005ece0 = 0x00000000;
+u32 var8005ece4 = 0x00000000;
+u32 var8005ece8 = 0x00000000;
+u32 var8005ecec = 0x00000000;
+u32 var8005ecf0 = 0x00000000;
+u32 var8005ecf4 = 0x00000000;
+u32 var8005ecf8 = 0x66655998;
+u32 var8005ecfc = 0x5fff4ccc;
+u32 var8005ed00 = 0x5fff2ccc;
+u32 var8005ed04 = 0x59986665;
+u32 var8005ed08 = 0x4ccc5998;
+u32 var8005ed0c = 0x59985998;
+u32 var8005ed10 = 0x5fff6665;
+u32 var8005ed14 = 0x66655fff;
+u32 var8005ed18 = 0x59986665;
+u32 var8005ed1c = 0x5fff5fff;
+u32 var8005ed20 = 0x5fff6665;
+u32 var8005ed24 = 0x5fff5fff;
+u32 var8005ed28 = 0x5fff7332;
+u32 var8005ed2c = 0x5fff6665;
+u32 var8005ed30 = 0x5fff5998;
+u32 var8005ed34 = 0x59985332;
+u32 var8005ed38 = 0x53325fff;
+u32 var8005ed3c = 0x33324ccc;
+u32 var8005ed40 = 0x5fff4ccc;
+u32 var8005ed44 = 0x3fff5fff;
+u32 var8005ed48 = 0x5fff5fff;
+u32 var8005ed4c = 0x5fff4ccc;
+u32 var8005ed50 = 0x4ccc4ccc;
+u32 var8005ed54 = 0x4ccc4ccc;
+u32 var8005ed58 = 0x4ccc4ccc;
+u32 var8005ed5c = 0x5fff5fff;
+u32 var8005ed60 = 0x5fff5fff;
+u32 var8005ed64 = 0x5fff5fff;
+u32 var8005ed68 = 0x5fff4ccc;
+u32 var8005ed6c = 0x5fff5fff;
+u32 var8005ed70 = 0x5fff5fff;
+u32 var8005ed74 = 0x5fff5fff;
+u32 var8005ed78 = 0x5fff4ccc;
+u32 var8005ed7c = 0x4ccc4ccc;
+u32 var8005ed80 = 0x4ccc4ccc;
+u32 var8005ed84 = 0x4ccc7332;
+u32 var8005ed88 = 0x73327332;
+u32 var8005ed8c = 0x4ccc3c28;
+u32 var8005ed90 = 0x4ccc4ccc;
+u32 var8005ed94 = 0x4ccc4ccc;
+u32 var8005ed98 = 0x4ccc4ccc;
+u32 var8005ed9c = 0x4ccc4ccc;
+u32 var8005eda0 = 0x4ccc4ccc;
+u32 var8005eda4 = 0x4ccc4ccc;
+u32 var8005eda8 = 0x73327332;
+u32 var8005edac = 0x4ccc4ccc;
+u32 var8005edb0 = 0x4ccc4ccc;
+u32 var8005edb4 = 0x4ccc6665;
+u32 var8005edb8 = 0x4ccc4ccc;
+u32 var8005edbc = 0x4ccc4ccc;
+u32 var8005edc0 = 0x6ccb5fff;
+u32 var8005edc4 = 0x59987998;
+u32 var8005edc8 = 0x59985998;
+u32 var8005edcc = 0x66655fff;
+u32 var8005edd0 = 0x5fff7332;
+u32 var8005edd4 = 0x73327332;
+u32 var8005edd8 = 0x73327332;
+u32 var8005eddc = 0x4ccc6665;
+u32 var8005ede0 = 0x66656665;
+u32 var8005ede4 = 0x4ccc6ccb;
+u32 var8005ede8 = 0xffff0000;
+u32 var8005edec = 0xffffffff;
+
 
 GLOBAL_ASM(
 glabel func0000e9d0
