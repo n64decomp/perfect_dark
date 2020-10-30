@@ -440,20 +440,14 @@ glabel func00013c94
 /*    13dd0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00013dd4
-/*    13dd4:	3c03800a */ 	lui	$v1,%hi(var80099e68)
-/*    13dd8:	3c04800a */ 	lui	$a0,%hi(var80099e78)
-/*    13ddc:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
-/*    13de0:	24639e68 */ 	addiu	$v1,$v1,%lo(var80099e68)
-/*    13de4:	2402003c */ 	addiu	$v0,$zero,0x3c
-.L00013de8:
-/*    13de8:	24630004 */ 	addiu	$v1,$v1,0x4
-/*    13dec:	1464fffe */ 	bne	$v1,$a0,.L00013de8
-/*    13df0:	ac62fffc */ 	sw	$v0,-0x4($v1)
-/*    13df4:	03e00008 */ 	jr	$ra
-/*    13df8:	00000000 */ 	nop
-);
+void func00013dd4(void)
+{
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		var80099e68[i] = 60;
+	}
+}
 
 GLOBAL_ASM(
 glabel func00013dfc
