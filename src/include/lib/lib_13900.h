@@ -26,7 +26,7 @@ u32 func00014408(void);
 u32 func00014484(void);
 void func00014810(bool arg0);
 s32 contGetNumSamples(void);
-u32 func00014848(void);
+s32 func00014848(s32 samplenum, s8 contpadnum);
 s32 func00014904(s32 samplenum, s8 contpadnum);
 s32 func000149c0(s32 samplenum, s8 contpadnum);
 u16 func00014a78(s32 samplenum, s8 contpadnum, u16 mask);

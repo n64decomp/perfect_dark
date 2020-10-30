@@ -1244,58 +1244,19 @@ s32 contGetNumSamples(void)
 	return (var8005ee60->newestindex - var8005ee60->oldestindex + 20) % 20;
 }
 
-GLOBAL_ASM(
-glabel func00014848
-/*    14848:	3c038006 */ 	lui	$v1,%hi(var8005ee60)
-/*    1484c:	8c63ee60 */ 	lw	$v1,%lo(var8005ee60)($v1)
-/*    14850:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    14854:	00057600 */ 	sll	$t6,$a1,0x18
-/*    14858:	8c780200 */ 	lw	$t8,0x200($v1)
-/*    1485c:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*    14860:	01e02825 */ 	or	$a1,$t7,$zero
-/*    14864:	0701000e */ 	bgez	$t8,.L000148a0
-/*    14868:	3c198006 */ 	lui	$t9,%hi(var8005eeac)
-/*    1486c:	9339eeac */ 	lbu	$t9,%lo(var8005eeac)($t9)
-/*    14870:	3c0b8006 */ 	lui	$t3,%hi(var8005ee6c)
-/*    14874:	256bee6c */ 	addiu	$t3,$t3,%lo(var8005ee6c)
-/*    14878:	01f94007 */ 	srav	$t0,$t9,$t7
-/*    1487c:	31090001 */ 	andi	$t1,$t0,0x1
-/*    14880:	15200007 */ 	bnez	$t1,.L000148a0
-/*    14884:	000f5080 */ 	sll	$t2,$t7,0x2
-/*    14888:	014b1821 */ 	addu	$v1,$t2,$t3
-/*    1488c:	8c6c0000 */ 	lw	$t4,0x0($v1)
-/*    14890:	00001025 */ 	or	$v0,$zero,$zero
-/*    14894:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*    14898:	03e00008 */ 	jr	$ra
-/*    1489c:	ac6d0000 */ 	sw	$t5,0x0($v1)
-.L000148a0:
-/*    148a0:	00057080 */ 	sll	$t6,$a1,0x2
-/*    148a4:	3c0f800a */ 	lui	$t7,%hi(var80099e68)
-/*    148a8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*    148ac:	8def9e68 */ 	lw	$t7,%lo(var80099e68)($t7)
-/*    148b0:	59e00004 */ 	blezl	$t7,.L000148c4
-/*    148b4:	8c7801e4 */ 	lw	$t8,0x1e4($v1)
-/*    148b8:	03e00008 */ 	jr	$ra
-/*    148bc:	00001025 */ 	or	$v0,$zero,$zero
-/*    148c0:	8c7801e4 */ 	lw	$t8,0x1e4($v1)
-.L000148c4:
-/*    148c4:	24010014 */ 	addiu	$at,$zero,0x14
-/*    148c8:	00056080 */ 	sll	$t4,$a1,0x2
-/*    148cc:	0304c821 */ 	addu	$t9,$t8,$a0
-/*    148d0:	27280001 */ 	addiu	$t0,$t9,0x1
-/*    148d4:	0101001a */ 	div	$zero,$t0,$at
-/*    148d8:	00004810 */ 	mfhi	$t1
-/*    148dc:	00095080 */ 	sll	$t2,$t1,0x2
-/*    148e0:	01495023 */ 	subu	$t2,$t2,$t1
-/*    148e4:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*    148e8:	01856023 */ 	subu	$t4,$t4,$a1
-/*    148ec:	000c6040 */ 	sll	$t4,$t4,0x1
-/*    148f0:	006a5821 */ 	addu	$t3,$v1,$t2
-/*    148f4:	016c6821 */ 	addu	$t5,$t3,$t4
-/*    148f8:	81a20002 */ 	lb	$v0,0x2($t5)
-/*    148fc:	03e00008 */ 	jr	$ra
-/*    14900:	00000000 */ 	nop
-);
+s32 func00014848(s32 samplenum, s8 contpadnum)
+{
+	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+		var8005ee6c[contpadnum]++;
+		return 0;
+	}
+
+	if (var80099e68[contpadnum] > 0) {
+		return 0;
+	}
+
+	return var8005ee60->samples[(var8005ee60->oldestindex + samplenum + 1) % 20].pads[contpadnum].stick_x;
+}
 
 s32 func00014904(s32 samplenum, s8 contpadnum)
 {
