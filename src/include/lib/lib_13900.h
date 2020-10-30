@@ -22,7 +22,7 @@ u32 func00014058(void);
 u32 func00014238(void);
 void func000142f0(void);
 void contStartReadData(OSMesgQueue *mq);
-u32 func00014408(void);
+void contReadData(void);
 u32 func00014484(void);
 void func00014810(bool arg0);
 s32 contGetNumSamples(void);

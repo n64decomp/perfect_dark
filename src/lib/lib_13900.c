@@ -921,41 +921,21 @@ void contStartReadData(OSMesgQueue *mq)
 	osContStartReadData(mq);
 }
 
-GLOBAL_ASM(
-glabel func00014408
-/*    14408:	3c03800a */ 	lui	$v1,%hi(var80099a60)
-/*    1440c:	24639a60 */ 	addiu	$v1,$v1,%lo(var80099a60)
-/*    14410:	8c6401e8 */ 	lw	$a0,0x1e8($v1)
-/*    14414:	24010014 */ 	addiu	$at,$zero,0x14
-/*    14418:	8c6f01e4 */ 	lw	$t7,0x1e4($v1)
-/*    1441c:	24820001 */ 	addiu	$v0,$a0,0x1
-/*    14420:	0041001a */ 	div	$zero,$v0,$at
-/*    14424:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    14428:	00001010 */ 	mfhi	$v0
-/*    1442c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    14430:	544f0003 */ 	bnel	$v0,$t7,.L00014440
-/*    14434:	0002c080 */ 	sll	$t8,$v0,0x2
-/*    14438:	00801025 */ 	or	$v0,$a0,$zero
-/*    1443c:	0002c080 */ 	sll	$t8,$v0,0x2
-.L00014440:
-/*    14440:	0302c023 */ 	subu	$t8,$t8,$v0
-/*    14444:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*    14448:	00782021 */ 	addu	$a0,$v1,$t8
-/*    1444c:	0c013d21 */ 	jal	osContGetReadData
-/*    14450:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    14454:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*    14458:	24010014 */ 	addiu	$at,$zero,0x14
-/*    1445c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    14460:	24480013 */ 	addiu	$t0,$v0,0x13
-/*    14464:	0101001a */ 	div	$zero,$t0,$at
-/*    14468:	3c03800a */ 	lui	$v1,%hi(var80099a60)
-/*    1446c:	24639a60 */ 	addiu	$v1,$v1,%lo(var80099a60)
-/*    14470:	00004810 */ 	mfhi	$t1
-/*    14474:	ac6901ec */ 	sw	$t1,0x1ec($v1)
-/*    14478:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    1447c:	03e00008 */ 	jr	$ra
-/*    14480:	ac6201e8 */ 	sw	$v0,0x1e8($v1)
-);
+void contReadData(void)
+{
+	s32 index = (var80099a60.unk1e8 + 1) % 20;
+
+	if (index == var80099a60.oldestindex) {
+		// If the sample queue is full, don't overwrite the oldest sample.
+		// Instead, overwrite the most recent.
+		index = var80099a60.unk1e8;
+	}
+
+	osContGetReadData(var80099a60.samples[index].pads);
+
+	var80099a60.unk1e8 = index;
+	var80099a60.unk1ec = (var80099a60.unk1e8 + 19) % 20;
+}
 
 GLOBAL_ASM(
 glabel func00014484
@@ -977,7 +957,7 @@ glabel func00014484
 /*    144c0:	0c0121bc */ 	jal	osRecvMesg
 /*    144c4:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    144c8:	3c018006 */ 	lui	$at,%hi(var8005ee64)
-/*    144cc:	0c005102 */ 	jal	func00014408
+/*    144cc:	0c005102 */ 	jal	contReadData
 /*    144d0:	ac20ee64 */ 	sw	$zero,%lo(var8005ee64)($at)
 /*    144d4:	3c0f800a */ 	lui	$t7,%hi(var80099a60+0x1e8)
 /*    144d8:	8def9c48 */ 	lw	$t7,%lo(var80099a60+0x1e8)($t7)
@@ -1093,7 +1073,7 @@ glabel func00014484
 /*    14668:	00003025 */ 	or	$a2,$zero,$zero
 /*    1466c:	14400064 */ 	bnez	$v0,.L00014800
 /*    14670:	3c018006 */ 	lui	$at,%hi(var8005ee64)
-/*    14674:	0c005102 */ 	jal	func00014408
+/*    14674:	0c005102 */ 	jal	contReadData
 /*    14678:	ac20ee64 */ 	sw	$zero,%lo(var8005ee64)($at)
 /*    1467c:	3c09800a */ 	lui	$t1,%hi(var80099a60+0x1e8)
 /*    14680:	8d299c48 */ 	lw	$t1,%lo(var80099a60+0x1e8)($t1)
