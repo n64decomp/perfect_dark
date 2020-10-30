@@ -916,17 +916,10 @@ glabel func000142f0
 );
 #endif
 
-GLOBAL_ASM(
-glabel func000143e8
-/*    143e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    143ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    143f0:	0c013d00 */ 	jal	osContStartReadData
-/*    143f4:	00000000 */ 	nop
-/*    143f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    143fc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    14400:	03e00008 */ 	jr	$ra
-/*    14404:	00000000 */ 	nop
-);
+void contStartReadData(OSMesgQueue *mq)
+{
+	osContStartReadData(mq);
+}
 
 GLOBAL_ASM(
 glabel func00014408
@@ -1067,7 +1060,7 @@ glabel func00014484
 /*    145f0:	25aeffff */ 	addiu	$t6,$t5,-1
 /*    145f4:	15c00006 */ 	bnez	$t6,.L00014610
 /*    145f8:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*    145fc:	0c0050fa */ 	jal	func000143e8
+/*    145fc:	0c0050fa */ 	jal	contStartReadData
 /*    14600:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
 /*    14604:	24180001 */ 	addiu	$t8,$zero,0x1
 /*    14608:	3c018006 */ 	lui	$at,%hi(var8005ee64)
@@ -1160,7 +1153,7 @@ glabel func00014484
 /*    14740:	0c004eae */ 	jal	func00013ab8
 /*    14744:	00002025 */ 	or	$a0,$zero,$zero
 /*    14748:	3c04800a */ 	lui	$a0,%hi(var80099e78)
-/*    1474c:	0c0050fa */ 	jal	func000143e8
+/*    1474c:	0c0050fa */ 	jal	contStartReadData
 /*    14750:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
 /*    14754:	3c038006 */ 	lui	$v1,%hi(var8005ef0c)
 /*    14758:	8c63ef0c */ 	lw	$v1,%lo(var8005ef0c)($v1)
