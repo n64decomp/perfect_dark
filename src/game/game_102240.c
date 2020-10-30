@@ -1336,7 +1336,7 @@ glabel menuhandlerCoopBuddy
 /*  f104304:	0fc41023 */ 	jal	getMaxAiBuddies
 /*  f104308:	00000000 */ 	nop
 /*  f10430c:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f104310:	0c005013 */ 	jal	getConnectedControllers
+/*  f104310:	0c005013 */ 	jal	contGetConnectedControllers
 /*  f104314:	afa0002c */ 	sw	$zero,0x2c($sp)
 /*  f104318:	30490002 */ 	andi	$t1,$v0,0x2
 /*  f10431c:	11200002 */ 	beqz	$t1,.L0f104328
@@ -1349,7 +1349,7 @@ glabel menuhandlerCoopBuddy
 /*  f104334:	10000035 */ 	b	.L0f10440c
 /*  f104338:	ad8b0000 */ 	sw	$t3,0x0($t4)
 .L0f10433c:
-/*  f10433c:	0c005013 */ 	jal	getConnectedControllers
+/*  f10433c:	0c005013 */ 	jal	contGetConnectedControllers
 /*  f104340:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f104344:	304d0002 */ 	andi	$t5,$v0,0x2
 /*  f104348:	11a00002 */ 	beqz	$t5,.L0f104354
@@ -1367,7 +1367,7 @@ glabel menuhandlerCoopBuddy
 /*  f104374:	10000027 */ 	b	.L0f104414
 /*  f104378:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f10437c:
-/*  f10437c:	0c005013 */ 	jal	getConnectedControllers
+/*  f10437c:	0c005013 */ 	jal	contGetConnectedControllers
 /*  f104380:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f104384:	30490002 */ 	andi	$t1,$v0,0x2
 /*  f104388:	11200002 */ 	beqz	$t1,.L0f104394
@@ -1385,7 +1385,7 @@ glabel menuhandlerCoopBuddy
 /*  f1043b4:	10000015 */ 	b	.L0f10440c
 /*  f1043b8:	ac590458 */ 	sw	$t9,0x458($v0)
 .L0f1043bc:
-/*  f1043bc:	0c005013 */ 	jal	getConnectedControllers
+/*  f1043bc:	0c005013 */ 	jal	contGetConnectedControllers
 /*  f1043c0:	afa50020 */ 	sw	$a1,0x20($sp)
 /*  f1043c4:	30580002 */ 	andi	$t8,$v0,0x2
 /*  f1043c8:	8fa30020 */ 	lw	$v1,0x20($sp)
@@ -4221,7 +4221,7 @@ s32 menuhandlerMainMenuCooperative(u32 operation, struct menuitem *item, union h
 s32 menuhandlerMainMenuCounterOperative(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
-		if ((getConnectedControllers() & 2) == 0) {
+		if ((contGetConnectedControllers() & 2) == 0) {
 			return true;
 		}
 	}

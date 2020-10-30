@@ -17,7 +17,7 @@ void func00013c94(void);
 void func00013dd4(void);
 void func00013dfc(void);
 u32 func00013e84(void);
-u32 getConnectedControllers(void);
+u32 contGetConnectedControllers(void);
 u32 func00014058(void);
 u32 func00014238(void);
 void func000142f0(void);

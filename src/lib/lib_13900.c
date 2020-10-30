@@ -472,13 +472,13 @@ glabel func00013e84
 /*    13e9c:	11c00018 */ 	beqz	$t6,.L00013f00
 /*    13ea0:	afb00014 */ 	sw	$s0,0x14($sp)
 /*    13ea4:	3c11800a */ 	lui	$s1,%hi(var80099e78)
-/*    13ea8:	3c058006 */ 	lui	$a1,%hi(var8005eeac)
+/*    13ea8:	3c058006 */ 	lui	$a1,%hi(g_ConnectedControllers)
 /*    13eac:	3c06800a */ 	lui	$a2,%hi(var80099f38)
 /*    13eb0:	26249e78 */ 	addiu	$a0,$s1,%lo(var80099e78)
 /*    13eb4:	ac400000 */ 	sw	$zero,0x0($v0)
 /*    13eb8:	24c69f38 */ 	addiu	$a2,$a2,%lo(var80099f38)
 /*    13ebc:	0c012a60 */ 	jal	osContInit
-/*    13ec0:	24a5eeac */ 	addiu	$a1,$a1,%lo(var8005eeac)
+/*    13ec0:	24a5eeac */ 	addiu	$a1,$a1,%lo(g_ConnectedControllers)
 /*    13ec4:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*    13ec8:	3c018006 */ 	lui	$at,%hi(var8005eeb4)
 /*    13ecc:	ac2feeb4 */ 	sw	$t7,%lo(var8005eeb4)($at)
@@ -524,13 +524,13 @@ glabel func00013e84
 .L00013f60:
 /*    13f60:	1451fff7 */ 	bne	$v0,$s1,.L00013f40
 /*    13f64:	24630004 */ 	addiu	$v1,$v1,0x4
-/*    13f68:	3c018006 */ 	lui	$at,%hi(var8005eeac)
-/*    13f6c:	a030eeac */ 	sb	$s0,%lo(var8005eeac)($at)
+/*    13f68:	3c018006 */ 	lui	$at,%hi(g_ConnectedControllers)
+/*    13f6c:	a030eeac */ 	sb	$s0,%lo(g_ConnectedControllers)($at)
 .L00013f70:
-/*    13f70:	3c068006 */ 	lui	$a2,%hi(var8005eeac)
+/*    13f70:	3c068006 */ 	lui	$a2,%hi(g_ConnectedControllers)
 /*    13f74:	3c0b8006 */ 	lui	$t3,%hi(var8005ef00)
 /*    13f78:	916bef00 */ 	lbu	$t3,%lo(var8005ef00)($t3)
-/*    13f7c:	90c6eeac */ 	lbu	$a2,%lo(var8005eeac)($a2)
+/*    13f7c:	90c6eeac */ 	lbu	$a2,%lo(g_ConnectedControllers)($a2)
 /*    13f80:	00001025 */ 	or	$v0,$zero,$zero
 /*    13f84:	00001825 */ 	or	$v1,$zero,$zero
 /*    13f88:	10cb000f */ 	beq	$a2,$t3,.L00013fc8
@@ -559,7 +559,7 @@ glabel func00013e84
 /*    13fd8:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*    13fdc:	3c0e8006 */ 	lui	$t6,%hi(var8005ee60)
 /*    13fe0:	8dceee60 */ 	lw	$t6,%lo(var8005ee60)($t6)
-/*    13fe4:	3c028006 */ 	lui	$v0,%hi(var8005eeac)
+/*    13fe4:	3c028006 */ 	lui	$v0,%hi(g_ConnectedControllers)
 /*    13fe8:	24040004 */ 	addiu	$a0,$zero,0x4
 /*    13fec:	8dc30200 */ 	lw	$v1,0x200($t6)
 /*    13ff0:	04620006 */ 	bltzl	$v1,.L0001400c
@@ -570,7 +570,7 @@ glabel func00013e84
 /*    14004:	01e01025 */ 	or	$v0,$t7,$zero
 /*    14008:	00001825 */ 	or	$v1,$zero,$zero
 .L0001400c:
-/*    1400c:	9042eeac */ 	lbu	$v0,%lo(var8005eeac)($v0)
+/*    1400c:	9042eeac */ 	lbu	$v0,%lo(g_ConnectedControllers)($v0)
 /*    14010:	24180001 */ 	addiu	$t8,$zero,0x1
 .L00014014:
 /*    14014:	0078c804 */ 	sllv	$t9,$t8,$v1
@@ -590,12 +590,10 @@ glabel func00013e84
 /*    14048:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel getConnectedControllers
-/*    1404c:	3c028006 */ 	lui	$v0,%hi(var8005eeac)
-/*    14050:	03e00008 */ 	jr	$ra
-/*    14054:	9042eeac */ 	lbu	$v0,%lo(var8005eeac)($v0)
-);
+u32 contGetConnectedControllers(void)
+{
+	return g_ConnectedControllers;
+}
 
 GLOBAL_ASM(
 glabel func00014058
@@ -1192,8 +1190,8 @@ glabel func00014484
 /*    14780:	3c048006 */ 	lui	$a0,%hi(var8005ee7c)
 /*    14784:	3c058006 */ 	lui	$a1,%hi(var8005ee8c)
 /*    14788:	3c028006 */ 	lui	$v0,%hi(var8005ee9c)
-/*    1478c:	3c068006 */ 	lui	$a2,%hi(var8005eeac)
-/*    14790:	24c6eeac */ 	addiu	$a2,$a2,%lo(var8005eeac)
+/*    1478c:	3c068006 */ 	lui	$a2,%hi(g_ConnectedControllers)
+/*    14790:	24c6eeac */ 	addiu	$a2,$a2,%lo(g_ConnectedControllers)
 /*    14794:	2442ee9c */ 	addiu	$v0,$v0,%lo(var8005ee9c)
 /*    14798:	24a5ee8c */ 	addiu	$a1,$a1,%lo(var8005ee8c)
 /*    1479c:	2484ee7c */ 	addiu	$a0,$a0,%lo(var8005ee7c)
@@ -1246,7 +1244,7 @@ s32 contGetNumSamples(void)
 
 s32 func00014848(s32 samplenum, s8 contpadnum)
 {
-	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
 		var8005ee6c[contpadnum]++;
 		return 0;
 	}
@@ -1260,7 +1258,7 @@ s32 func00014848(s32 samplenum, s8 contpadnum)
 
 s32 func00014904(s32 samplenum, s8 contpadnum)
 {
-	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
 		var8005ee7c[contpadnum]++;
 		return 0;
 	}
@@ -1274,7 +1272,7 @@ s32 func00014904(s32 samplenum, s8 contpadnum)
 
 s32 func000149c0(s32 samplenum, s8 contpadnum)
 {
-	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
 		var8005ee7c[contpadnum]++;
 		return 0;
 	}
@@ -1290,7 +1288,7 @@ u16 func00014a78(s32 samplenum, s8 contpadnum, u16 mask)
 {
 	u16 button;
 
-	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
 		var8005ee8c[contpadnum]++;
 		return 0;
 	}
@@ -1309,7 +1307,7 @@ u16 func00014b50(s32 samplenum, s8 contpadnum, u16 mask)
 	u16 button1;
 	u16 button2;
 
-	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
 		var8005ee9c[contpadnum]++;
 		return 0;
 	}
@@ -1342,8 +1340,8 @@ glabel func00014c98
 /*    14ccc:	00001825 */ 	or	$v1,$zero,$zero
 /*    14cd0:	07010010 */ 	bgez	$t8,.L00014d14
 /*    14cd4:	00001025 */ 	or	$v0,$zero,$zero
-/*    14cd8:	3c198006 */ 	lui	$t9,%hi(var8005eeac)
-/*    14cdc:	9339eeac */ 	lbu	$t9,%lo(var8005eeac)($t9)
+/*    14cd8:	3c198006 */ 	lui	$t9,%hi(g_ConnectedControllers)
+/*    14cdc:	9339eeac */ 	lbu	$t9,%lo(g_ConnectedControllers)($t9)
 /*    14ce0:	00056880 */ 	sll	$t5,$a1,0x2
 /*    14ce4:	00b95807 */ 	srav	$t3,$t9,$a1
 /*    14ce8:	316c0001 */ 	andi	$t4,$t3,0x1
@@ -1435,7 +1433,7 @@ glabel func00014c98
 
 s8 contGetStickX(s8 contpadnum)
 {
-	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
 		var8005ee6c[contpadnum]++;
 		return 0;
 	}
@@ -1449,7 +1447,7 @@ s8 contGetStickX(s8 contpadnum)
 
 s8 contGetStickY(s8 contpadnum)
 {
-	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
 		var8005ee7c[contpadnum]++;
 		return 0;
 	}
@@ -1463,7 +1461,7 @@ s8 contGetStickY(s8 contpadnum)
 
 u16 contGetButtons(s8 contpadnum, u16 mask)
 {
-	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
 		var8005ee8c[contpadnum]++;
 		return 0;
 	}
@@ -1477,7 +1475,7 @@ u16 contGetButtons(s8 contpadnum, u16 mask)
 
 u16 func00015020(s8 contpadnum, u16 mask)
 {
-	if (var8005ee60->unk200 < 0 && (var8005eeac >> contpadnum & 1) == 0) {
+	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
 		var8005ee9c[contpadnum]++;
 		return 0;
 	}

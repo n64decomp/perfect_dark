@@ -12917,7 +12917,7 @@ glabel var7f1b2afc
 /*  f0fc3e0:	02f28821 */ 	addu	$s1,$s7,$s2
 /*  f0fc3e4:	0fc55cbe */ 	jal	textMeasure
 /*  f0fc3e8:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0fc3ec:	0c005013 */ 	jal	getConnectedControllers
+/*  f0fc3ec:	0c005013 */ 	jal	contGetConnectedControllers
 /*  f0fc3f0:	00000000 */ 	nop
 /*  f0fc3f4:	3c19800b */ 	lui	$t9,%hi(g_MpSetup+0x16)
 /*  f0fc3f8:	9739cb9e */ 	lhu	$t9,%lo(g_MpSetup+0x16)($t9)

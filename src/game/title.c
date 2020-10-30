@@ -455,7 +455,7 @@ void titleTickCheckControllers(void)
 	viSetUseZBuf(false);
 
 	if (g_TitleTimer > 6) {
-		if ((getConnectedControllers() & 1) == 0) {
+		if ((contGetConnectedControllers() & 1) == 0) {
 			titleSetNextMode(TITLEMODE_NOCONTROLLER);
 		} else {
 			titleSetNextMode(TITLEMODE_RARELOGO);
@@ -4487,7 +4487,7 @@ glabel titleRenderNoController
 /*  f01a510:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f01a514:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f01a518:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f01a51c:	0c005013 */ 	jal	getConnectedControllers
+/*  f01a51c:	0c005013 */ 	jal	contGetConnectedControllers
 /*  f01a520:	00808025 */ 	or	$s0,$a0,$zero
 /*  f01a524:	0fc06bf0 */ 	jal	func0f01afc0
 /*  f01a528:	02002025 */ 	or	$a0,$s0,$zero
@@ -4692,7 +4692,7 @@ glabel titleRenderNoController
 //	u16 stack[6];
 //
 //	// This was likely printed to console
-//	getConnectedControllers();
+//	contGetConnectedControllers();
 //
 //	gdl = func0f01afc0(gdl);
 //	gdl = func0f153628(gdl);

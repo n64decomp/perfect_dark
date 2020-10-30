@@ -119,7 +119,7 @@ extern u32 var8005ee6c[4];
 extern u32 var8005ee7c[4];
 extern u32 var8005ee8c[4];
 extern u32 var8005ee9c[4];
-extern u8 var8005eeac;
+extern u8 g_ConnectedControllers;
 extern u32 var8005eeb8;
 extern u32 var8005eebc;
 extern u32 var8005eecc;
