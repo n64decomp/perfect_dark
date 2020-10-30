@@ -557,38 +557,24 @@ glabel func00013e84
 /*    13fd0:	8fb10018 */ 	lw	$s1,0x18($sp)
 /*    13fd4:	03e00008 */ 	jr	$ra
 /*    13fd8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    13fdc:	3c0e8006 */ 	lui	$t6,%hi(var8005ee60)
-/*    13fe0:	8dceee60 */ 	lw	$t6,%lo(var8005ee60)($t6)
-/*    13fe4:	3c028006 */ 	lui	$v0,%hi(g_ConnectedControllers)
-/*    13fe8:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    13fec:	8dc30200 */ 	lw	$v1,0x200($t6)
-/*    13ff0:	04620006 */ 	bltzl	$v1,.L0001400c
-/*    13ff4:	00001825 */ 	or	$v1,$zero,$zero
-/*    13ff8:	00031600 */ 	sll	$v0,$v1,0x18
-/*    13ffc:	00027e03 */ 	sra	$t7,$v0,0x18
-/*    14000:	03e00008 */ 	jr	$ra
-/*    14004:	01e01025 */ 	or	$v0,$t7,$zero
-/*    14008:	00001825 */ 	or	$v1,$zero,$zero
-.L0001400c:
-/*    1400c:	9042eeac */ 	lbu	$v0,%lo(g_ConnectedControllers)($v0)
-/*    14010:	24180001 */ 	addiu	$t8,$zero,0x1
-.L00014014:
-/*    14014:	0078c804 */ 	sllv	$t9,$t8,$v1
-/*    14018:	00594024 */ 	and	$t0,$v0,$t9
-/*    1401c:	55000006 */ 	bnezl	$t0,.L00014038
-/*    14020:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    14024:	00031600 */ 	sll	$v0,$v1,0x18
-/*    14028:	00024e03 */ 	sra	$t1,$v0,0x18
-/*    1402c:	03e00008 */ 	jr	$ra
-/*    14030:	01201025 */ 	or	$v0,$t1,$zero
-/*    14034:	24630001 */ 	addiu	$v1,$v1,0x1
-.L00014038:
-/*    14038:	5464fff6 */ 	bnel	$v1,$a0,.L00014014
-/*    1403c:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    14040:	24020004 */ 	addiu	$v0,$zero,0x4
-/*    14044:	03e00008 */ 	jr	$ra
-/*    14048:	00000000 */ 	nop
 );
+
+s8 contGetFreeSlot(void)
+{
+	s32 i;
+
+	if (var8005ee60->unk200 >= 0) {
+		return var8005ee60->unk200;
+	}
+
+	for (i = 0; i < 4; i++) {
+		if ((g_ConnectedControllers & (1 << i)) == 0) {
+			return i;
+		}
+	}
+
+	return 4;
+}
 
 u32 contGetConnectedControllers(void)
 {
