@@ -5219,7 +5219,7 @@ glabel var7f1ad630
 /*  f0baf08:	00000000 */ 	nop
 );
 
-void currentPlayerPause(u32 mode)
+void currentPlayerPause(s32 mode)
 {
 	g_PauseMode = mode;
 

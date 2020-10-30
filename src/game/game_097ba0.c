@@ -11246,7 +11246,7 @@ glabel var7f1ac764
 );
 
 GLOBAL_ASM(
-glabel func0f0a0b30
+glabel currentPlayerSwivelGunTowards
 /*  f0a0b30:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0a0b34:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0a0b38:	e7ac0018 */ 	swc1	$f12,0x18($sp)

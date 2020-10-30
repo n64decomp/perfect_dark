@@ -41227,7 +41227,7 @@ glabel func0f08a88c
 );
 
 GLOBAL_ASM(
-glabel func0f08a9f4
+glabel playerDetonateRemoteMines
 /*  f08a9f4:	3c028007 */ 	lui	$v0,%hi(var80069910)
 /*  f08a9f8:	24429910 */ 	addiu	$v0,$v0,%lo(var80069910)
 /*  f08a9fc:	8c4e0000 */ 	lw	$t6,0x0($v0)

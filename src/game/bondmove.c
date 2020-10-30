@@ -732,49 +732,49 @@ glabel var7f1ad8b4
 
 void movedataReset(struct movedata *data)
 {
-	data->unk00 = 0;
-	data->unk04 = 0;
-	data->unk08 = 0;
-	data->unk0c = 0;
-	data->unk10 = 0;
+	data->canswivelgun = 0;
+	data->canmanualaim = 0;
+	data->triggeron = false;
+	data->btapcount = 0;
+	data->canlookahead = false;
 	data->unk14 = 0;
-	data->unk18 = 0;
-	data->unk1c = 0;
-	data->stepforward = false;
-	data->stepback = false;
-	data->stepleft = false;
-	data->stepright = false;
-	data->unk48 = 0;
-	data->unk4c = 0;
+	data->cannaturalturn = false;
+	data->cannaturalpitch = false;
+	data->digitalstepforward = false;
+	data->digitalstepback = false;
+	data->digitalstepleft = false;
+	data->digitalstepright = false;
+	data->weaponbackoffset = 0;
+	data->weaponforwardoffset = 0;
 	data->unk50 = 0;
 	data->unk54 = 0;
 	data->unk58 = 0;
 	data->crouchdown = false;
 	data->crouchup = false;
-	data->swaynegative = false;
-	data->swaypositive = false;
-	data->unk74 = 0;
-	data->unk78 = 0;
-	data->unk7c = 0;
+	data->rleanleft = false;
+	data->rleanright = false;
+	data->detonating = false;
+	data->canautoaim = false;
+	data->farsighttempautoseek = false;
 	data->eyesshut = false;
 	data->unk30 = 0;
 	data->unk34 = 0;
-	data->unk38 = 0;
-	data->unk3c = 0;
-	data->unk40 = 0;
-	data->unk44 = 0;
-	data->unk5c = 0;
-	data->unk60 = 0;
-	data->unk84 = !optionsGetForwardPitch(g_Vars.currentplayerstats->mpindex);
-	data->unk88 = 0;
-	data->unk8c = 0;
-	data->unk90 = 0;
-	data->unk94 = 0;
-	data->unk98 = 0;
-	data->unk9c = 0;
-	data->unka0 = 0;
-	data->unka4 = 0;
-	data->unka8 = 0;
+	data->speedvertadown = 0;
+	data->speedvertaup = 0;
+	data->aimturnleftspeed = 0;
+	data->aimturnrightspeed = 0;
+	data->zoomoutfovpersec = 0;
+	data->zoominfovpersec = 0;
+	data->invertpitch = !optionsGetForwardPitch(g_Vars.currentplayerstats->mpindex);
+	data->disablelookahead = false;
+	data->c1stickxsafe = 0;
+	data->c1stickysafe = 0;
+	data->c1stickxraw = 0;
+	data->c1stickyraw = 0;
+	data->analogturn = 0;
+	data->analogpitch = 0;
+	data->analogstrafe = 0;
+	data->analogwalk = 0;
 }
 
 GLOBAL_ASM(
@@ -3700,7 +3700,7 @@ glabel var7f1ad8e4
 /*  f0cb464:	adc00658 */ 	sw	$zero,0x658($t6)
 /*  f0cb468:	8e4f0284 */ 	lw	$t7,0x284($s2)
 /*  f0cb46c:	ade0065c */ 	sw	$zero,0x65c($t7)
-/*  f0cb470:	0fc22a7d */ 	jal	func0f08a9f4
+/*  f0cb470:	0fc22a7d */ 	jal	playerDetonateRemoteMines
 /*  f0cb474:	8e44028c */ 	lw	$a0,0x28c($s2)
 /*  f0cb478:	8e5802ac */ 	lw	$t8,0x2ac($s2)
 .L0f0cb47c:
@@ -3843,7 +3843,7 @@ glabel var7f1ad8e4
 /*  f0cb664:	10000043 */ 	b	.L0f0cb774
 /*  f0cb668:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .L0f0cb66c:
-/*  f0cb66c:	0fc282cc */ 	jal	func0f0a0b30
+/*  f0cb66c:	0fc282cc */ 	jal	currentPlayerSwivelGunTowards
 /*  f0cb670:	8ca61b68 */ 	lw	$a2,0x1b68($a1)
 /*  f0cb674:	1000003f */ 	b	.L0f0cb774
 /*  f0cb678:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -3888,7 +3888,7 @@ glabel var7f1ad8e4
 /*  f0cb704:	44061000 */ 	mfc1	$a2,$f2
 /*  f0cb708:	46049300 */ 	add.s	$f12,$f18,$f4
 /*  f0cb70c:	c4b201b8 */ 	lwc1	$f18,0x1b8($a1)
-/*  f0cb710:	0fc282cc */ 	jal	func0f0a0b30
+/*  f0cb710:	0fc282cc */ 	jal	currentPlayerSwivelGunTowards
 /*  f0cb714:	46124380 */ 	add.s	$f14,$f8,$f18
 /*  f0cb718:	10000016 */ 	b	.L0f0cb774
 /*  f0cb71c:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -3928,71 +3928,133 @@ glabel var7f1ad8e4
 /*  f0cb798:	27bd0260 */ 	addiu	$sp,$sp,0x260
 );
 
-//void func0f0c8b90(bool arg0, bool arg1, bool arg2, bool arg3)
+/**
+ * Called with these arguments:
+ * 0, 0, 0, 1 = tickmode 6
+ * 0, 0, 0, 1 = eyespy
+ * 0, 0, 0, 1 = teleportstate 3
+ * 0, 0, 0, 1 = slayerrocket
+ * 0, 0, 0, 1 = tickmode 1 without control
+ * 1, 1, ?, 0 = tickmode 1 with control
+ * 1, 1, ?, 0 = tickmodes 0 and 5
+ * 0, 0, 0, 1 = tickmode 4
+ * 0, 0, 0, 1 = tickmode 3
+ * 1, 1, 0, 1 = autowalk
+ *
+ * Not yet functionally identical:
+ * - lookahead is applying when it shouldn't (eg. 1.2) and looks at the floor
+ * - Farsight seek doesn't work
+ */
+//void func0f0c8b90(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 //{
+//	struct movedata movedata; // 1b4 - 260
+//	s32 controlmode; // 1b0
+//	s32 weaponnum; // 1ac
+//	s32 sp1a8;
+//	s8 contpad1;
+//	s8 contpad2;
+//	u16 sp1a2;
+//	u16 sp1a0;
+//	u16 c1allowedbuttons; // 19e
+//	u16 c1inhibitedbuttons;
+//	u32 sp14c[20];
+//	u32 spfc[20];
+//	s8 shootpad;
+//	u16 aimallowedbuttons;
+//	u16 shootallowedbuttons;
+//	s8 c2stickx; // e9
+//	s8 c2stickx2;
+//	s8 c2sticky2;
+//	u16 spe6;
+//	u16 spe4;
+//	s8 c2sticky;
+//	u16 c2allowedbuttons;
+//	u16 c2inhibitedbuttons;
+//	s32 spbc;
+//	f32 spb4;
+//	f32 spb0;
+//	f32 spac;
+//	struct coord spa0;
+//	f32 sp98[2];
+//	s8 c1stickx;
+//	s8 c1sticky;
+//	s32 numsamples;
+//	s32 uVar18;
+//	u16 inhibitedbuttons;
+//	s32 lVar8;
+//	s8 aimpad;
+//	s32 uVar23;
+//	f32 lookahead;
+//	f32 fVar25;
+//	f32 fVar26;
+//	s32 offbike;
+//	s32 cancycleweapons;
+//	s32 i;
+//
 //	controlmode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
-//	uVar7 = getCurrentPlayerWeaponId(0);
-//	iStack180 = uVar7;
-//	iStack184 = weaponHasInvEFlag(uVar7, 1);
+//	weaponnum = getCurrentPlayerWeaponId(0);
+//	sp1a8 = weaponHasInvEFlag(weaponnum, 0x00000001);
 //	contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
 //
-//	iStack24 = arg0 ? func00014e10(contpad1) : 0;
-//	iStack20 = arg1 ? func00014eb8(contpad1) : 0;
+//	// 8c10
+//	c1stickx = arg0 ? func00014e10(contpad1) : 0;
 //
-//	bVar4 = arg2 != 0;
+//	// 8c3c
+//	c1sticky = arg1 ? func00014eb8(contpad1) : 0;
 //
-//	if (bVar4) {
-//		uStack190 = func00014f60(contpad1, 0xffff);
-//		uStack192 = func00015020(contpad1, 0xffff);
-//	} else {
-//		uStack190 = 0;
-//		uStack192 = 0;
-//	}
+//	// 8c68
+//	sp1a2 = arg2 ? func00014f60(contpad1, 0xffff) : 0;
 //
-//	uStack194 = 0xffff;
-//	uVar18 = g_Vars.currentplayer->joybutinhibit & 0xffff;
+//	// 8c8c
+//	sp1a0 = arg2 ? func00015020(contpad1, 0xffff) : 0;
 //
-//	if (uVar18) {
-//		uStack194 = ~uVar18;
-//		uVar9 = func00014f60(contpad1, 0xffff);
-//		uVar5 = ~(uVar9 & uVar18);
-//		uStack190 &= uVar5;
-//		uStack192 &= uVar5;
-//		g_Vars.currentplayer->joybutinhibit &= 0xffff0000 | uVar9 & uVar18;
+//	// 8cb0
+//	c1allowedbuttons = 0xffff;
+//	c1inhibitedbuttons = g_Vars.currentplayer->joybutinhibit & 0xffff;
+//
+//	if (c1inhibitedbuttons) {
+//		c1allowedbuttons = ~c1inhibitedbuttons;
+//		inhibitedbuttons = func00014f60(contpad1, 0xffff) & (c1inhibitedbuttons & 0xffff);
+//		sp1a2 &= ~inhibitedbuttons;
+//		sp1a0 &= ~inhibitedbuttons;
+//		g_Vars.currentplayer->joybutinhibit = (g_Vars.currentplayer->joybutinhibit & 0xffff0000) | inhibitedbuttons;
 //	}
 //
 //	numsamples = func0001481c();
-//	movedataReset(&uStack172);
+//	movedataReset(&movedata);
 //
-//	iStack32 = iStack24 + 5;
-//
-//	if (iStack24 > -6) {
-//		iStack32 = iStack24 - 5;
-//
-//		if (istack24 < 6) {
-//			iStack32 = 0;
-//		}
+//	// 8d3c
+//	if (c1stickx < -5) {
+//		movedata.c1stickxsafe = c1stickx + 5;
+//	} else if (c1stickx > 5) {
+//		movedata.c1stickxsafe = c1stickx - 5;
+//	} else {
+//		movedata.c1stickxsafe = 0;
 //	}
 //
-//	iStack28 = iStack20 + 5;
-//
-//	if (iStack20 > -6) {
-//		iStack28 = iStack20 - 5;
-//
-//		if (iStack20 < 6) {
-//			iStack28 = 0;
-//		}
+//	// 8d64
+//	if (c1sticky < -5) {
+//		movedata.c1stickysafe = c1sticky + 5;
+//	} else if (c1sticky > 5) {
+//		movedata.c1stickysafe = c1sticky - 5;
+//	} else {
+//		movedata.c1stickysafe = 0;
 //	}
 //
-//	iStack16 = iStack32;
-//	iStack8 = iStack32;
-//	iStack12 = iStack28;
-//	iStack4 = iStack28;
+//	// 8d90
+//	movedata.c1stickxraw = c1stickx;
+//	movedata.c1stickyraw = c1sticky;
+//
+//	// These are zeroed further down conditionally on control style
+//	movedata.analogturn = movedata.c1stickxsafe;
+//	movedata.analogstrafe = movedata.c1stickxsafe;
+//	movedata.analogpitch = movedata.c1stickysafe;
+//	movedata.analogwalk = movedata.c1stickysafe;
 //
 //	// Pausing
+//	// 8db8
 //	if (g_Vars.currentplayer->isdead == false) {
-//		if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED &&
-//				(uStack192 & START_BUTTON)) {
+//		if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED && (sp1a0 & START_BUTTON)) {
 //			if (g_Vars.mplayerisrunning == false) {
 //				if (g_Vars.lvframenum > 15) {
 //					currentPlayerPause(PAUSEMODE_2);
@@ -4002,197 +4064,201 @@ glabel var7f1ad8e4
 //			}
 //		}
 //	} else {
+//		// 8e14
 //		if (g_Vars.mplayerisrunning) {
 //			if (PLAYERCOUNT() == 1) {
-//				if (mpIsPaused() && (uStack192 & START_BUTTON) && g_MpSetup.paused != PAUSEMODE_2) {
+//				if (mpIsPaused() && (sp1a0 & START_BUTTON) && g_MpSetup.paused != PAUSEMODE_2) {
 //					mpSetPaused(PAUSEMODE_UNPAUSED);
 //				}
 //			} else {
-//				if (mpIsPaused() && (uStack192 & START_BUTTON)) {
+//				if (mpIsPaused() && (sp1a0 & START_BUTTON)) {
 //					mpPushPauseDialog();
 //				}
 //			}
 //		}
 //	}
 //
+//	// 8ef8
 //	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
 //		if (g_Vars.currentplayer->isdead == false) {
 //			if (controlmode == CONTROLMODE_23 || controlmode == CONTROLMODE_24 || controlmode == CONTROLMODE_22 || controlmode == CONTROLMODE_21) {
-//				contpad2 = optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex);
-//				cStack375 = func00014e10(contpad2);
-//				cVar12 = func00014eb8(contpad2);
-//				iStack388 = cVar12;
-//				uStack378 = func00014f60(contpad2, 0xffff);
-//				uStack380 = func00015020(contpad2, 0xffff);
-//				uStack390 = 0xffff;
-//				uVar18 = g_Vars.currentplayer->joybutinhibit;
-//				lVar8 = cStack375;
+//				// 2.1: ctrl1 stick = walk/turn, z = fire, ctrl2 stick = look/strafe, z = aim
+//				// 2.2: ctrl1 stick = look,      z = fire, ctrl2 stick = walk/strafe, z = aim
+//				// 2.3: ctrl1 stick = walk/turn, z = aim,  ctrl2 stick = look/strafe, z = fire
+//				// 2.4: ctrl1 stick = look,      z = aim,  ctrl2 stick = walk/strafe, z = fire
+//				// 8f38
+//				contpad2 = optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex); // shifted to s8 and stored in s4
+//				// s4 shifted to s8 and stored in a0 for next jal
+//				c2stickx = func00014e10(contpad2); // sb v0,0xe9(sp)
+//				// s4 shifted to s8 and stored in a0 for next jal
+//				c2sticky = func00014eb8(contpad2); // shifted to s8 and stored in s0
+//				// s4 shifted to s8 and stored in a0 for next jal
+//				spe6 = func00014f60(contpad2, 0xffff); // sh v0,0xe6(sp)
+//				// s4 shifted to s8 and stored in a0 for next jal
+//				spe4 = func00015020(contpad2, 0xffff); // sh v0,0xe4(sp)
+//				c2stickx2 = c2stickx; // s3 = spe9
+//				c2sticky2 = c2sticky; // a0 = s0
 //
-//				if (uVar18 >> 16 != 0) {
-//					uStack390 = ~(uVar18 >> 16);
-//					uVar9 = func00014f60(contpad2, 0xffff) & (uVar18 >> 16);
-//					uVar5 = ~uVar9;
-//					uStack378 &= uVar5;
-//					uStack380 &= uVar5;
-//					g_Vars.currentplayer->joybutinhibit &= 0xffff | uVar9 << 16;
+//				c2allowedbuttons = 0xffff;
+//				c2inhibitedbuttons = g_Vars.currentplayer->joybutinhibit >> 16;
+//
+//				// 8fac
+//				if (c2inhibitedbuttons) {
+//					c2allowedbuttons = ~c2inhibitedbuttons;
+//					inhibitedbuttons = func00014f60(contpad2, 0xffff) & c2inhibitedbuttons;
+//					spe6 &= ~inhibitedbuttons;
+//					spe4 &= ~inhibitedbuttons;
+//					g_Vars.currentplayer->joybutinhibit = (g_Vars.currentplayer->joybutinhibit & 0xffff) | (inhibitedbuttons << 16);
 //				}
 //
-//				lVar22 = lVar8;
-//
+//				// 9038
 //				if (arg3) {
-//					cStack375 = 0;
-//					uStack378 = 0;
-//					iStack388 = 0;
-//					uStack380 = 0;
-//					lVar22 = 0;
+//					c2stickx = 0;
+//					spe6 = 0;
+//					c2sticky = 0;
+//					spe4 = 0;
+//					c2stickx2 = 0;
 //				}
 //
-//				if (arg3 || lVar8 > -6) {
-//					if (lVar22 < 6) {
-//						iStack8 = 0;
-//					} else {
-//						iStack8 = lVar22 - 5;
-//					}
+//				// 9058
+//				if (c2stickx2 < -5) {
+//					c2stickx2 += 5;
+//				} else if (c2stickx2 > 5) {
+//					c2stickx2 -= 5;
 //				} else {
-//					iStack8 = lVar22 + 5;
+//					c2stickx2 = 0;
 //				}
 //
-//				if (iStack388 < -5) {
-//					iStack388 += 5;
+//				// 9084
+//				if (c2sticky2 < -5) {
+//					c2sticky2 += 5;
+//				} else if (c2sticky2 > 5) {
+//					c2sticky2 -= 5;
 //				} else {
-//					if (iStack388 < 6) {
-//						iStack388 = 0;
-//					} else {
-//						iStack388 -= 5;
-//					}
+//					c2sticky2 = 0;
 //				}
 //
-//				iVar19 = iStack388;
-//
-//				if (controlmode != CONTROLMODE_21 && (iVar19 = iStack388, controlmode != CONTROLMODE_23)) {
-//					iVar19 = iStack12;
-//					iStack4 = iStack388;
+//				// 90b0
+//				if (controlmode == CONTROLMODE_21 || controlmode == CONTROLMODE_23) {
+//					movedata.analogstrafe = c2stickx2;
+//					movedata.analogpitch = c2sticky2;
+//				} else {
+//					movedata.analogstrafe = c2stickx2;
+//					movedata.analogwalk = c2sticky2;
 //				}
 //
-//				iStack12 = iVar19;
-//
+//				// 90d8
 //				if (g_Vars.tickmode == TICKMODE_AUTOWALK) {
-//					uStack140 = 0;
-//					uStack136 = 0;
-//					iStack8 = 0;
-//					iStack4 = g_Vars.currentplayer->unk1bdc;
-//					iStack16 = g_Vars.currentplayer->unk1bd8;
-//					iStack12 = 0;
+//					movedata.digitalstepforward = false;
+//					movedata.digitalstepback = false;
+//					movedata.analogstrafe = 0;
+//					movedata.analogwalk = g_Vars.currentplayer->autocontrol_y;
+//					movedata.analogpitch = 0;
+//					movedata.analogturn = g_Vars.currentplayer->autocontrol_x;
 //				}
 //
+//				// 9110
 //				if (controlmode == CONTROLMODE_21 || controlmode == CONTROLMODE_22) {
-//					uStack372 = uStack390;
-//					uStack374 = uStack194;
-//					uVar21 = contpad2;
-//					uStack369 = contpad1;
+//					aimallowedbuttons = c2allowedbuttons;
+//					shootallowedbuttons = c1allowedbuttons;
+//					aimpad = contpad2;
+//					shootpad = contpad1;
 //				} else {
-//					uStack372 = uStack194;
-//					uStack374 = uStack390;
-//					uVar21 = contpad1;
-//					uStack369 = contpad2;
+//					// 9150
+//					aimallowedbuttons = c1allowedbuttons;
+//					shootallowedbuttons = c2allowedbuttons;
+//					aimpad = contpad1;
+//					shootpad = contpad2;
 //				}
 //
+//				// 9170
 //				if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == AIMCONTROL_HOLD) {
-//					piVar14 = aiStack280;
-//					puVar16 = auStack356;
-//
 //					for (i = 0; i < numsamples; i++) {
-//						piVar14++;
-//						uVar23 = bVar4;
-//
-//						if (bVar4) {
-//							uVar23 = func00014a78(i, uVar21, uStack372 & Z_TRIG) != 0;
-//						}
-//
-//						*piVar14 = uVar23;
-//						*puVar16 = !uVar23;
-//						puVar16++;
+//						sp14c[i] = arg2 && func00014a78(i, aimpad, aimallowedbuttons & Z_TRIG);
+//						spfc[i] = !sp14c[i];
 //					}
 //
-//					g_Vars.currentplayer->insightaimmode = aiStack280[numsamples];
+//					g_Vars.currentplayer->insightaimmode = sp14c[numsamples - 1];
 //				}
 //
+//				// 91fc
 //				if (soloIsPaused() == false) {
+//					// 920c
 //					if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) != AIMCONTROL_HOLD) {
-//						piVar14 = aiStack280;
-//						puVar16 = auStack356;
-//
 //						for (i = 0; i < numsamples; i++) {
-//							piVar14++;
-//
-//							if (bVar4 && func00014b50(i, uVar21, uStack372 & Z_TRIG)) {
+//							if (arg2 && func00014b50(i, aimpad, aimallowedbuttons & Z_TRIG)) {
 //								g_Vars.currentplayer->insightaimmode = !g_Vars.currentplayer->insightaimmode;
 //							}
 //
-//							iVar2 = g_Vars.currentplayer->insightaimmode;
-//							*puVar16 = !iVar2;
-//							*piVar14 = iVar2;
-//							puVar16++;
+//							sp14c[i] = g_Vars.currentplayer->insightaimmode;
+//							spfc[i] = !g_Vars.currentplayer->insightaimmode;
 //						}
 //					}
 //
+//					// 9298
 //					if (getCurrentPlayerWeaponId(0) == WEAPON_HORIZONSCANNER) {
 //						g_Vars.currentplayer->insightaimmode = true;
 //					}
 //
-//					uStack172 = !g_Vars.currentplayer->insightaimmode;
-//					iStack168 = g_Vars.currentplayer->insightaimmode;
-//					uStack140 = 0;
-//					uStack136 = 0;
-//					uStack52 = !g_Vars.currentplayer->insightaimmode;
-//					uStack132 = 0;
-//					uStack128 = 0;
-//					uStack152 = 1;
-//					uStack156 = !g_Vars.currentplayer->insightaimmode;
-//					uStack148 = !g_Vars.currentplayer->insightaimmode;
-//					uStack144 = !g_Vars.currentplayer->insightaimmode;
+//					// 92b8
+//					movedata.canswivelgun = !g_Vars.currentplayer->insightaimmode;
+//					movedata.canmanualaim = g_Vars.currentplayer->insightaimmode;
+//					movedata.digitalstepforward = false;
+//					movedata.digitalstepback = false;
+//					movedata.canautoaim = !g_Vars.currentplayer->insightaimmode;
+//					movedata.digitalstepleft = false;
+//					movedata.digitalstepright = false;
+//					movedata.unk14 = 1;
+//					movedata.canlookahead = !g_Vars.currentplayer->insightaimmode;
+//					movedata.cannaturalturn = !g_Vars.currentplayer->insightaimmode;
+//					movedata.cannaturalpitch = !g_Vars.currentplayer->insightaimmode;
 //
-//					if (g_Vars.currentplayer->insightaimmode == false || iStack20 <= 60) {
-//						fStack116 = 0;
-//					} else {
-//						fStack116 = (iStack20 - 60) / 10.0f;
+//					// 931c
+//					if (g_Vars.currentplayer->insightaimmode && movedata.c1stickyraw > 60) {
+//						movedata.speedvertadown = (movedata.c1stickyraw - 60) / 10.0f;
 //
-//						if (fStack116 > 1) {
-//							fStack116 = 1;
+//						if (movedata.speedvertadown > 1) {
+//							movedata.speedvertadown = 1;
 //						}
+//					} else {
+//						movedata.speedvertadown = 0;
 //					}
 //
-//					if (g_Vars.currentplayer->insightaimmode == false || iStack20 >= -60) {
-//						fStack112 = 0;
-//					} else {
-//						fStack112 = (-60 - iStack20) / 10.0f;
+//					// 9380
+//					if (g_Vars.currentplayer->insightaimmode && movedata.c1stickyraw < -60) {
+//						movedata.speedvertaup = (-60 - movedata.c1stickyraw) / 10.0f;
 //
-//						if (fStack112 > 1) {
-//							fStack112 = 1;
+//						if (movedata.speedvertaup > 1) {
+//							movedata.speedvertaup = 1;
 //						}
+//					} else {
+//						movedata.speedvertaup = 0;
 //					}
 //
-//					if (g_Vars.currentplayer->insightaimmode == false || iStack24 >= -60) {
-//						fStack108 = 0;
-//					} else {
-//						fStack108 = (-60 - iStack24) / 10.0f;
+//					// 93e0
+//					if (g_Vars.currentplayer->insightaimmode && movedata.c1stickxraw < -60) {
+//						movedata.aimturnleftspeed = (-60 - movedata.c1stickxraw) / 10.0f;
 //
-//						if (fStack108 > 1) {
-//							fStack108 = 1;
+//						if (movedata.aimturnleftspeed > 1) {
+//							movedata.aimturnleftspeed = 1;
 //						}
+//					} else {
+//						movedata.aimturnleftspeed = 0;
 //					}
 //
-//					if (g_Vars.currentplayer->insightaimmode == false || iStack24 <= 60) {
-//						fStack104 = 0;
-//					} else {
-//						fStack104 = (iStack24 - 60) / 10.0f;
+//					// 943c
+//					if (g_Vars.currentplayer->insightaimmode && movedata.c1stickxraw > 60) {
+//						movedata.aimturnrightspeed = (movedata.c1stickxraw - 60) / 10.0f;
 //
-//						if (fStack104 > 1) {
-//							fStack104 = 1;
+//						if (movedata.aimturnrightspeed > 1) {
+//							movedata.aimturnrightspeed = 1;
 //						}
+//					} else {
+//						movedata.aimturnrightspeed = 0;
 //					}
 //
-//					if (bVar4) {
+//					// 9494
+//					if (arg2) {
 //						if (g_Vars.currentplayer->invdowntime < -2) {
 //							g_Vars.currentplayer->invdowntime += numsamples;
 //
@@ -4200,70 +4266,51 @@ glabel var7f1ad8e4
 //								g_Vars.currentplayer->invdowntime = 0;
 //							}
 //						} else {
-//							uVar23 = uStack194;
-//
 //							for (i = 0; i < numsamples; i++) {
-//								if (func00014a78(i, contpad1, uVar23 & A_BUTTON) == 0
-//										&& func00014a78(i, contpad2, uStack390 & A_BUTTON) == 0) {
-//									if (g_Vars.currentplayer->invdowntime > 0 &&
-//											(!bVar4 || func00014a78(i, uStack369, uStack374 & Z_TRIG) == 0)) {
-//										iStack96++;
-//									}
-//
-//									g_Vars.currentplayer->invdowntime = 0;
-//								} else {
-//									uVar18 = uStack374;
-//
+//								if (func00014a78(i, contpad1, c1allowedbuttons & A_BUTTON)
+//										|| func00014a78(i, contpad2, c2allowedbuttons & A_BUTTON)) {
 //									if (g_Vars.currentplayer->invdowntime > -2) {
-//										if (func00014b50(i, uStack369)) {
-//											iStack100++;
+//										if (func00014b50(i, shootpad, shootallowedbuttons & Z_TRIG)) {
+//											movedata.weaponbackoffset++;
 //											g_Vars.currentplayer->invdowntime = -1;
 //										}
 //
 //										if (g_Vars.currentplayer->invdowntime > -1
-//												&& func00014a78(i, uStack369, uVar18 & Z_TRIG) == 0) {
-//											if (g_Vars.currentplayer->invdowntime <= 15) {
-//												g_Vars.currentplayer->invdowntime++;
-//											} else {
+//												&& func00014a78(i, shootpad, shootallowedbuttons & Z_TRIG) == 0) {
+//											if (g_Vars.currentplayer->invdowntime > 15) {
 //												activemenuOpen();
 //												g_Vars.currentplayer->invdowntime = -1;
+//											} else {
+//												g_Vars.currentplayer->invdowntime++;
 //											}
 //										}
 //									}
+//								} else {
+//									if (g_Vars.currentplayer->invdowntime > 0 &&
+//											(!arg2 || func00014a78(i, shootpad, shootallowedbuttons & Z_TRIG) == 0)) {
+//										movedata.weaponforwardoffset++;
+//									}
+//
+//									g_Vars.currentplayer->invdowntime = 0;
 //								}
 //							}
 //						}
 //					}
 //
-//					if (bVar4 && (iVar19 = 0, 0 < numsamples)) {
-//						uVar18 = uStack194;
-//
+//					// 9608
+//					if (arg2) {
 //						for (i = 0; i < numsamples; i++) {
-//							if (func00014a78(i, contpad1, uVar18 & B_BUTTON) == 0
-//									&& func00014a78(i, contpad2, uStack390 & B_BUTTON) == 0) {
-//								if (g_Vars.currentplayer->usedowntime > 0) {
-//									iStack160++;
-//								}
-//
-//								g_Vars.currentplayer->usedowntime = 0;
-//								func0f0a8c50();
-//							} else {
-//								if (g_Vars.currentplayer->usedowntime < -1) {
-//									if (g_Vars.currentplayer->usedowntime > -3) {
-//										currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
-//									}
-//								} else {
-//									if (func00014b50(i,uStack369, uStack374 & Z_TRIG)
+//							if (func00014a78(i, contpad1, c1allowedbuttons & B_BUTTON)
+//									|| func00014a78(i, contpad2, c2allowedbuttons & B_BUTTON)) {
+//								if (g_Vars.currentplayer->usedowntime >= -1) {
+//									if (func00014b50(i, shootpad, shootallowedbuttons & Z_TRIG)
 //											&& g_Vars.currentplayer->usedowntime > -1
 //											&& currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 1, 0)) {
 //										g_Vars.currentplayer->usedowntime = -3;
 //									}
 //
 //									if (g_Vars.currentplayer->usedowntime > -1) {
-//										if (g_Vars.currentplayer->usedowntime <= 25) {
-//											g_Vars.currentplayer->usedowntime++;
-//										}
-//										else {
+//										if (g_Vars.currentplayer->usedowntime > 25) {
 //											lVar8 = currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
 //
 //											if (lVar8 == 1) {
@@ -4273,152 +4320,167 @@ glabel var7f1ad8e4
 //											} else {
 //												g_Vars.currentplayer->usedowntime++;
 //											}
+//										} else {
+//											g_Vars.currentplayer->usedowntime++;
 //										}
 //									}
+//								} else if (g_Vars.currentplayer->usedowntime >= -2) {
+//									currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
 //								}
+//							} else {
+//								// Released B - activate or reload
+//								if (g_Vars.currentplayer->usedowntime > 0) {
+//									movedata.btapcount++;
+//								}
+//
+//								g_Vars.currentplayer->usedowntime = 0;
+//								func0f0a8c50();
 //							}
 //						}
 //					}
 //
-//					if (iStack184 && g_Vars.currentplayer->insightaimmode) {
-//						if (iStack388 < 0) {
-//							fStack80 = -iStack388 / 70.0f;
+//					// Zoom in and out - due to no buttons held?
+//					// 9784
+//					if (sp1a8 && g_Vars.currentplayer->insightaimmode) {
+//						if (c2sticky < 0) {
+//							movedata.zoomoutfovpersec = -c2sticky / 70.0f;
 //
-//							if (fStack80 > 1) {
-//								fStack80 = 2;
-//							} else {
-//								fStack80 = fStack80 + fStack80;
+//							if (movedata.zoomoutfovpersec > 1) {
+//								movedata.zoomoutfovpersec = 1;
 //							}
+//
+//							movedata.zoomoutfovpersec = movedata.zoomoutfovpersec + movedata.zoomoutfovpersec;
 //						}
 //
-//						if (iStack388 > 0) {
-//							fStack76 = iStack388 / 70.0f;
+//						if (c2sticky > 0) {
+//							movedata.zoominfovpersec = c2sticky / 70.0f;
 //
-//							if (fStack76 > 1) {
-//								fStack76 = 2;
-//							} else {
-//								fStack76 = fStack76 + fStack76;
+//							if (movedata.zoominfovpersec > 1) {
+//								movedata.zoominfovpersec = 1;
 //							}
+//
+//							movedata.zoominfovpersec = movedata.zoominfovpersec + movedata.zoominfovpersec;
 //						}
 //					}
 //
-//					if (bVar4) {
+//					// Crouch and uncrouch
+//					// 9838
+//					if (arg2) {
 //						for (i = 0; i < numsamples; i++) {
-//							if (iStack184 == 0 && aiStack280[i + 1]) {
-//								if (func00014904(i, contpad2) > 30 && (func000149c0(i, contpad2) <= 30)) {
-//									if (iStack72 == 0) {
-//										iStack68++;
+//							if (sp1a8 == 0 && sp14c[i]) {
+//								if (func00014904(i, contpad2) > 30 && func000149c0(i, contpad2) <= 30) {
+//									if (movedata.crouchdown) {
+//										movedata.crouchdown--;
 //									} else {
-//										iStack72--;
+//										movedata.crouchup++;
 //									}
 //
 //									g_Vars.currentplayer->aimtaptime = -1;
 //								}
 //
 //								if (func00014904(i, contpad2) < -30 && func000149c0(i, contpad2) >= -30) {
-//									if (iStack68 == 0) {
-//										iStack72++;
+//									if (movedata.crouchup) {
+//										movedata.crouchup--;
 //									} else {
-//										iStack68--;
+//										movedata.crouchdown++;
 //									}
 //
 //									g_Vars.currentplayer->aimtaptime = -1;
 //								}
 //							}
 //
-//							if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == 0) {
-//								if (aiStack280[i + 1] == 0) {
+//							if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == AIMCONTROL_HOLD) {
+//								if (sp14c[i]) {
+//									if (g_Vars.currentplayer->aimtaptime > -1) {
+//										g_Vars.currentplayer->aimtaptime++;
+//									}
+//								} else {
 //									if (g_Vars.currentplayer->aimtaptime > 0
 //											&& g_Vars.currentplayer->aimtaptime < 15) {
-//										if (iStack72 == 0) {
-//											iStack68++;
+//										if (movedata.crouchdown) {
+//											movedata.crouchdown--;
 //										} else {
-//											iStack72--;
+//											movedata.crouchup++;
 //										}
 //									}
 //
 //									g_Vars.currentplayer->aimtaptime = 0;
-//								} else {
-//									if (g_Vars.currentplayer->aimtaptime > -1) {
-//										g_Vars.currentplayer->aimtaptime++;
-//									}
 //								}
 //							}
 //						}
 //					}
 //
+//					// 99a4
 //					if (currentPlayerGetCrouchPos() == CROUCH_SQUAT
 //							&& g_Vars.currentplayer->crouchoffset == -90
 //							&& g_Vars.mplayerisrunning
 //							&& g_Vars.coopplayernum < 0) {
-//						uStack44 = g_Vars.currentplayer->insightaimmode
-//							&& !iStack184
+//						movedata.eyesshut = g_Vars.currentplayer->insightaimmode
+//							&& !sp1a8
 //							&& func00014eb8(contpad2) < -30;
 //					}
 //
+//					// 9a24
 //					if (getCurrentPlayerWeaponId(0) == WEAPON_FARSIGHTXR20) {
-//						numsamples = g_Vars.currentplayer->insightaimmode;
-//
-//						if (numsamples != 0) {
-//							uStack152 = 0;
-//							numsamples = g_Vars.currentplayer->insightaimmode;
+//						if (g_Vars.currentplayer->insightaimmode) {
+//							movedata.unk14 = 0;
 //						}
 //
-//						uStack48 = (numsamples != 0);
-//
-//						if (numsamples != 0) {
-//							if (cStack375 < -30) {
-//								uStack48 = (cStack375 < -30);
-//							} else {
-//								uStack48 = (cStack375 <= 30) ^ 1;
-//							}
-//						}
+//						movedata.farsighttempautoseek = g_Vars.currentplayer->insightaimmode
+//							&& (c2stickx < -30 || c2stickx > 30);
 //					}
 //
-//					uStack64 = 0;
-//					uStack60 = 0;
+//					// 9a78
+//					movedata.rleanleft = 0;
+//					movedata.rleanright = 0;
 //
-//					if ((((uStack190 & A_BUTTON) && (uStack192 & B_BUTTON))
-//								|| ((uStack190 & B_BUTTON) && (uStack192 & A_BUTTON))
-//								|| 	((uStack378 & A_BUTTON) && (uStack380 & B_BUTTON))
-//								|| ((uStack378 & B_BUTTON) && (uStack380 & A_BUTTON)))
-//							&& iStack180 == WEAPON_REMOTEMINE) {
-//						iStack56 = 1;
-//						iStack100 = 0;
-//						iStack96 = 0;
-//						iStack160 = 0;
+//					// Mine detonation
+//					if ((((sp1a2 & A_BUTTON) && (sp1a0 & B_BUTTON))
+//								|| ((sp1a2 & B_BUTTON) && (sp1a0 & A_BUTTON))
+//								|| ((spe6 & A_BUTTON) && (spe4 & B_BUTTON))
+//								|| ((spe6 & B_BUTTON) && (spe4 & A_BUTTON)))
+//							&& weaponnum == WEAPON_REMOTEMINE) {
+//						// 9af0
+//						movedata.detonating = true;
+//						movedata.weaponbackoffset = 0;
+//						movedata.weaponforwardoffset = 0;
+//						movedata.btapcount = 0;
 //						g_Vars.currentplayer->invdowntime = -2;
 //						g_Vars.currentplayer->usedowntime = -2;
 //					}
 //				}
 //
-//				uStack88 = g_Vars.currentplayer->insightaimmode;
-//				iStack84 = g_Vars.currentplayer->insightaimmode;
+//				// 9b10
+//				movedata.unk54 = g_Vars.currentplayer->insightaimmode;
+//				movedata.unk58 = g_Vars.currentplayer->insightaimmode;
 //
 //				if (g_Vars.currentplayer->waitforzrelease
-//						&& func00014f60(uStack369, uStack374 & Z_TRIG) == 0) {
+//						&& func00014f60(shootpad, shootallowedbuttons & Z_TRIG) == 0) {
 //					g_Vars.currentplayer->waitforzrelease = false;
 //				}
 //
-//				if (weaponHasFlag(getCurrentPlayerWeaponId(0), WEAPONFLAG_80000000) == 0) {
-//					uStack164 = g_Vars.currentplayer->waitforzrelease == false
-//						&& bVar4
-//						&& func00014f60(uStack369, uStack374 & Z_TRIG)
-//						&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
-//						&& (uStack190 & A_BUTTON) == 0
-//						&& (uStack378 & A_BUTTON) == 0;
-//				} else {
-//					if (bVar4
-//							&& func00015020(uStack369, uStack374 & Z_TRIG)
+//				if (weaponHasFlag(getCurrentPlayerWeaponId(0), WEAPONFLAG_80000000)) {
+//					if (arg2
+//							&& func00015020(shootpad, shootallowedbuttons & Z_TRIG)
 //							&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
-//						iStack160++;
+//						movedata.btapcount++;
 //					}
+//				} else {
+//					movedata.triggeron = g_Vars.currentplayer->waitforzrelease == false
+//						&& arg2
+//						&& func00014f60(shootpad, shootallowedbuttons & Z_TRIG)
+//						&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
+//						&& (sp1a2 & A_BUTTON) == 0
+//						&& (spe6 & A_BUTTON) == 0;
 //				}
+//
+//				movedata.disablelookahead = true;
 //			} else {
+//				// 9c2c
 //				// 1.x control style
-//				u16 shootbuttons;
-//				u16 aimbuttons;
-//				u16 invbuttons;
+//				u16 shootbuttons; // s4
+//				u16 aimbuttons; // s1
+//				u16 invbuttons; // spca
 //
 //				if (controlmode == CONTROLMODE_13 || controlmode == CONTROLMODE_14) {
 //					shootbuttons = A_BUTTON;
@@ -4430,155 +4492,152 @@ glabel var7f1ad8e4
 //					invbuttons = A_BUTTON;
 //				}
 //
+//				// 9c60
 //				if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == AIMCONTROL_HOLD) {
-//					piVar14 = aiStack280;
-//					puVar16 = auStack356;
-//
-//					for (i = 0; i != numsamples; i++) {
-//						piVar14++;
-//
-//						uVar15 = bVar4 && func00014a78(i, contpad1, aimbuttons & uStack194);
-//
-//						*piVar14 = uVar15;
-//						*puVar16 = (uVar15 == 0);
-//						puVar16++;
+//					for (i = 0; i < numsamples; i++) {
+//						sp14c[i] = arg2 && func00014a78(i, contpad1, aimbuttons & c1allowedbuttons);
+//						spfc[i] = !sp14c[i];
 //					}
 //
-//					g_Vars.currentplayer->insightaimmode = aiStack280[numsamples];
+//					g_Vars.currentplayer->insightaimmode = sp14c[numsamples - 1];
 //				}
 //
+//				// 9cf4
 //				if (soloIsPaused() == false) {
+//					// 9d04
 //					if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) != AIMCONTROL_HOLD) {
-//						piVar14 = aiStack280;
-//						puVar16 = auStack356;
-//
 //						for (i = 0; i < numsamples; i++) {
-//							piVar14++;
-//
-//							if (bVar4 && func00014b50(i, contpad1, aimbuttons & uStack194)) {
+//							if (arg2 && func00014b50(i, contpad1, aimbuttons & c1allowedbuttons)) {
 //								g_Vars.currentplayer->insightaimmode = !g_Vars.currentplayer->insightaimmode;
 //							}
 //
-//							*puVar16 = (g_Vars.currentplayer->insightaimmode == 0);
-//							*piVar14 = g_Vars.currentplayer->insightaimmode;
-//							puVar16++;
+//							sp14c[i] = !g_Vars.currentplayer->insightaimmode;
+//							spfc[i] = g_Vars.currentplayer->insightaimmode;
 //						}
 //					}
 //
-//					uVar5 = uStack190;
-//
+//					// 9d98
 //					if (getCurrentPlayerWeaponId(0) == WEAPON_HORIZONSCANNER) {
-//						g_Vars.currentplayer->insightaimmmode = true;
+//						g_Vars.currentplayer->insightaimmode = true;
 //					}
 //
-//					uStack172 = g_Vars.currentplayer->insightaimmode == 0;
-//					iStack168 = g_Vars.currentplayer->insightaimmode;
-//					uStack52 = g_Vars.currentplayer->insightaimmode == 0;
+//					// 9db8
+//					movedata.canswivelgun = !g_Vars.currentplayer->insightaimmode;
+//					movedata.canmanualaim = g_Vars.currentplayer->insightaimmode;
+//					movedata.canautoaim = !g_Vars.currentplayer->insightaimmode;
 //
 //					if (controlmode == CONTROLMODE_12 || controlmode == CONTROLMODE_14) {
+//						// 9df4
+//						// Side stepping
 //						if (g_Vars.currentplayer->insightaimmode == false) {
-//							if (bVar4) {
-//								uStack132 = func00014c98(auStack356, contpad1, uStack194 & (L_JPAD | L_CBUTTONS));
-//								uStack128 = func00014c98(auStack356, contpad1, uStack194 & (R_JPAD | R_CBUTTONS));
+//							if (arg2) {
+//								movedata.digitalstepleft = func00014c98(spfc, contpad1, c1allowedbuttons & (L_JPAD | L_CBUTTONS));
+//								movedata.digitalstepright = func00014c98(spfc, contpad1, c1allowedbuttons & (R_JPAD | R_CBUTTONS));
 //							}
 //						} else {
-//							if (uStack190 & (L_JPAD | L_CBUTTONS)) {
-//								uStack124 = 0x3f800000;
+//							// This doesn't appear to be r-leaning.
+//							// R-leaning still works when these are commented.
+//							if (sp1a2 & (L_JPAD | L_CBUTTONS)) {
+//								movedata.unk30 = 1;
 //							}
-//							if (uStack190 & (R_JPAD | R_CBUTTONS)) {
-//								uStack120 = 0x3f800000;
+//
+//							if (sp1a2 & (R_JPAD | R_CBUTTONS)) {
+//								movedata.unk34 = 1;
 //							}
 //						}
 //
-//						uStack140 = !g_Vars.currentplayer->insightaimmode && (uStack190 & (U_JPAD | U_CBUTTONS));
-//						uStack136 = !g_Vars.currentplayer->insightaimmode && (uStack190 & (D_JPAD | D_CBUTTONS));
-//
-//						uStack156 = 0;
-//						fStack116 = 0;
-//						fStack112 = 0;
-//						uStack144 = !g_Vars.currentplayer->insightaimmode;
-//						uStack148 = !g_Vars.currentplayer->insightaimmode;
-//						uVar5 = uStack190;
+//						movedata.digitalstepforward = !g_Vars.currentplayer->insightaimmode && (sp1a2 & (U_JPAD | U_CBUTTONS));
+//						movedata.digitalstepback = !g_Vars.currentplayer->insightaimmode && (sp1a2 & (D_JPAD | D_CBUTTONS));
+//						movedata.canlookahead = false;
+//						movedata.speedvertadown = 0;
+//						movedata.speedvertaup = 0;
+//						movedata.cannaturalpitch = !g_Vars.currentplayer->insightaimmode;
+//						movedata.cannaturalturn = !g_Vars.currentplayer->insightaimmode;
 //
 //						if (g_Vars.tickmode == TICKMODE_AUTOWALK) {
-//							uStack140 = (g_Vars.currentplayer->unk1bdc > 0);
-//							iStack8 = 0;
-//							iStack4 = 0;
-//							uStack136 = (g_Vars.currentplayer->unk1bdc < 0);
-//							iStack12 = 0;
-//							iStack16 = g_Vars.currentplayer->unk1bd8;
+//							movedata.digitalstepforward = (g_Vars.currentplayer->autocontrol_y > 0);
+//							movedata.analogstrafe = 0;
+//							movedata.analogwalk = 0;
+//							movedata.digitalstepback = (g_Vars.currentplayer->autocontrol_y < 0);
+//							movedata.analogpitch = 0;
+//							movedata.analogturn = g_Vars.currentplayer->autocontrol_x;
 //						}
 //					} else {
-//						if (uStack190 & (L_JPAD | L_CBUTTONS)) {
-//							uStack124 = 0x3f800000;
+//						// 1.1 or 1.3
+//						// 9f40
+//						if (sp1a2 & (L_JPAD | L_CBUTTONS)) {
+//							movedata.unk30 = 1;
 //						}
 //
-//						if (uStack190 & (R_JPAD | R_CBUTTONS)) {
-//							uStack120 = 0x3f800000;
+//						if (sp1a2 & (R_JPAD | R_CBUTTONS)) {
+//							movedata.unk34 = 1;
 //						}
 //
-//						if (g_Vars.currentplayer->insightaimmode == false && bVar4) {
-//							uStack132 = func00014c98(auStack356, contpad1, uStack194 & (L_JPAD | L_CBUTTONS));
-//							uStack128 = func00014c98(auStack356, contpad1, uStack194 & (R_JPAD | R_CBUTTONS));
+//						if (!g_Vars.currentplayer->insightaimmode && arg2) {
+//							movedata.digitalstepleft = func00014c98(spfc, contpad1, c1allowedbuttons & (L_JPAD | L_CBUTTONS));
+//							movedata.digitalstepright = func00014c98(spfc, contpad1, c1allowedbuttons & (R_JPAD | R_CBUTTONS));
 //						}
 //
-//						uStack140 = 0;
-//						uStack136 = 0;
-//						uStack144 = 0;
-//						uStack156 = !g_Vars.currentplayer->insightaimmode;
+//						movedata.digitalstepforward = false;
+//						movedata.digitalstepback = false;
+//						movedata.cannaturalpitch = false;
+//						movedata.canlookahead = !g_Vars.currentplayer->insightaimmode;
 //
-//						if (!g_Vars.currentplayer->insightaimmode && (uVar5 & (U_JPAD | U_CBUTTONS))) {
-//							fStack116 = 1;
+//						// Looking up/down
+//						if (!g_Vars.currentplayer->insightaimmode && (sp1a2 & (U_JPAD | U_CBUTTONS))) {
+//							movedata.speedvertadown = 1;
 //						}
 //
-//						if (!g_Vars.currentplayer->insightaimmode && (uVar5 & (D_JPAD | D_CBUTTONS))) {
-//							fStack112 = 1;
+//						if (!g_Vars.currentplayer->insightaimmode && (sp1a2 & (D_JPAD | D_CBUTTONS))) {
+//							movedata.speedvertaup = 1;
 //						}
 //
-//						uStack148 = !g_Vars.currentplayer->insightaimmode;
-//						uStack152 = 0;
+//						movedata.cannaturalturn = !g_Vars.currentplayer->insightaimmode;
+//						movedata.unk14 = 0;
 //
 //						if (g_Vars.tickmode == TICKMODE_AUTOWALK) {
-//							iStack8 = 0;
-//							iStack4 = g_Vars.currentplayer->unk1bdc;
-//							iStack12 = 0;
-//							iStack16 = g_Vars.currentplayer->unk1bd8;
+//							movedata.analogstrafe = 0;
+//							movedata.analogwalk = g_Vars.currentplayer->autocontrol_y;
+//							movedata.analogpitch = 0;
+//							movedata.analogturn = g_Vars.currentplayer->autocontrol_x;
 //						}
 //					}
 //
-//					if (g_Vars.currentplayer->insightaimmode == false || iStack20 <= 60) {
-//						if (g_Vars.currentplayer->insightaimmode && iStack20 < -60) {
-//							fStack112 = (-60 - iStack20) / 10.0f;
+//					// a078
+//					// Looking up/down while aiming
+//					if (g_Vars.currentplayer->insightaimmode && movedata.c1stickyraw > 60) {
+//						movedata.speedvertadown = (movedata.c1stickyraw - 60) / 10.0f;
 //
-//							if (fStack112 > 1) {
-//								fStack112 = 1;
-//							}
+//						if (movedata.speedvertadown > 1) {
+//							movedata.speedvertadown = 1;
 //						}
-//					} else {
-//						fStack116 = (iStack20 - 60) / 10.0f;
+//					} else if (g_Vars.currentplayer->insightaimmode && movedata.c1stickyraw < -60) {
+//						movedata.speedvertaup = (-60 - movedata.c1stickyraw) / 10.0f;
 //
-//						if (fStack116 > 1) {
-//							fStack116 = 1;
-//						}
-//					}
-//
-//					if (g_Vars.currentplayer->insightaimmode == false || iStack24 >= -60) {
-//						if (g_Vars.currentplayer->insightaimmode && iStack24 > 60) {
-//							fStack104 = (iStack24 - 60) / 10.0f;
-//
-//							if (fStack104 > 1) {
-//								fStack104 = 1;
-//							}
-//						}
-//					} else {
-//						fStack108 = (-60 - iStack24) / 10.0f;
-//
-//						if (fStack108 > 1) {
-//							fStack108 = 1;
+//						if (movedata.speedvertaup > 1) {
+//							movedata.speedvertaup = 1;
 //						}
 //					}
 //
-//					if (bVar4) {
+//					// a120
+//					// Looking left/right while aiming
+//					if (g_Vars.currentplayer->insightaimmode && movedata.c1stickxraw < -60) {
+//						movedata.aimturnleftspeed = (-60 - movedata.c1stickxraw) / 10.0f;
+//
+//						if (movedata.aimturnleftspeed > 1) {
+//							movedata.aimturnleftspeed = 1;
+//						}
+//					} else if (g_Vars.currentplayer->insightaimmode && movedata.c1stickxraw > 60) {
+//						movedata.aimturnrightspeed = (movedata.c1stickxraw - 60) / 10.0f;
+//
+//						if (movedata.aimturnrightspeed > 1) {
+//							movedata.aimturnrightspeed = 1;
+//						}
+//					}
+//
+//					// Holding A
+//					// a1c0
+//					if (arg2) {
 //						if (g_Vars.currentplayer->invdowntime < -2) {
 //							g_Vars.currentplayer->invdowntime += numsamples;
 //
@@ -4587,114 +4646,120 @@ glabel var7f1ad8e4
 //							}
 //						} else {
 //							for (i = 0; i < numsamples; i++) {
-//								if (func00014a78(i, contpad1, invbuttons & uStack194) == 0) {
-//									if (g_Vars.currentplayer->invdowntime > 0 &&
-//											(!bVar4 || func00014a78(i, contpad1, shootbuttons & uStack194) == 0)) {
-//										iStack96++;
-//									}
-//
-//									g_Vars.currentplayer->invdowntime = 0;
-//								} else {
+//								if (func00014a78(i, contpad1, invbuttons & c1allowedbuttons)) {
 //									if (g_Vars.currentplayer->invdowntime > -2) {
-//										if (func00014b50(i, contpad1, shootbuttons & uStack194)) {
-//											iStack100++;
+//										if (func00014b50(i, contpad1, shootbuttons & c1allowedbuttons)) {
+//											movedata.weaponbackoffset++;
 //											g_Vars.currentplayer->invdowntime = -1;
 //										}
 //
-//										if (g_Vars.currentplayer->invdowntime >= 0 && func00014a78(i, contpad1, shootbuttons & uStack194) == 0) {
-//											if (g_Vars.currentplayer->invdowntime <= 15) {
-//												g_Vars.currentplayer->invdowntime++;
-//											} else {
+//										if (g_Vars.currentplayer->invdowntime >= 0 && func00014a78(i, contpad1, shootbuttons & c1allowedbuttons) == 0) {
+//											// Holding A and haven't pressed Z
+//											if (g_Vars.currentplayer->invdowntime > 15) {
 //												activemenuOpen();
 //												g_Vars.currentplayer->invdowntime = -1;
+//											} else {
+//												g_Vars.currentplayer->invdowntime++;
 //											}
 //										}
 //									}
+//								} else {
+//									// Wasn't holding A on this sample
+//									if (g_Vars.currentplayer->invdowntime > 0 &&
+//											(!arg2 || func00014a78(i, contpad1, shootbuttons & c1allowedbuttons) == 0)) {
+//										// But was on previous sample, so cycle weapon
+//										movedata.weaponforwardoffset++;
+//									}
+//
+//									g_Vars.currentplayer->invdowntime = 0;
 //								}
 //							}
 //						}
 //					}
 //
-//					uVar6 = invbuttons;
-//
-//					if (bVar4) {
+//					// Holding B
+//					// a340
+//					if (arg2) {
 //						for (i = 0; i < numsamples; i++) {
-//							if (func00014a78(i, contpad1, uStack194 & B_BUTTON) == 0) {
-//								if (g_Vars.currentplayer->usedowntime > 0) {
-//									iStack160++;
-//								}
-//
-//								g_Vars.currentplayer->usedowntime = 0;
-//								func0f0a8c50();
-//							} else {
-//								if (g_Vars.currentplayer->usedowntime < -1) {
-//									if (g_Vars.currentplayer->usedowntime > -3) {
-//										currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
-//									}
-//								} else {
-//									if (func00014b50(i, contpad1, shootbuttons & uStack194)
+//							if (func00014a78(i, contpad1, c1allowedbuttons & B_BUTTON)) {
+//								if (g_Vars.currentplayer->usedowntime >= -1) {
+//									if (func00014b50(i, contpad1, shootbuttons & c1allowedbuttons)
 //											&& g_Vars.currentplayer->usedowntime >= 0
 //											&& currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 1, 0)) {
 //										g_Vars.currentplayer->usedowntime = -3;
 //									}
 //
-//									if (g_Vars.currentplayer->usedowntime > -1) {
-//										if (g_Vars.currentplayer->usedowntime <= 25) {
-//											g_Vars.currentplayer->usedowntime++;
-//										} else {
-//											lVar8 = currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
+//									if (g_Vars.currentplayer->usedowntime >= 0) {
+//										if (g_Vars.currentplayer->usedowntime > 25) {
+//											s32 result = currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
 //
-//											if (lVar8 == 1) {
+//											if (result == 1) {
 //												g_Vars.currentplayer->usedowntime = -1;
-//											} else if (lVar8 == 2) {
+//											} else if (result == 2) {
 //												g_Vars.currentplayer->usedowntime = -2;
 //											} else {
 //												g_Vars.currentplayer->usedowntime++;
 //											}
+//										} else {
+//											g_Vars.currentplayer->usedowntime++;
 //										}
 //									}
+//								} else {
+//									if (g_Vars.currentplayer->usedowntime >= -2) {
+//										currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 0, 0);
+//									}
 //								}
+//							} else {
+//								// Released B
+//								if (g_Vars.currentplayer->usedowntime > 0) {
+//									movedata.btapcount++;
+//								}
+//
+//								g_Vars.currentplayer->usedowntime = 0;
+//								func0f0a8c50();
 //							}
 //						}
 //					}
 //
 //					// Zoom in and out
-//					if (iStack184 && g_Vars.currentplayer->insightaimmode) {
-//						f32 increment = 1.0f;
+//					// a4ac
+//					if (sp1a8 && g_Vars.currentplayer->insightaimmode) {
+//						f32 increment = 1;
+//						spbc = 1;
 //
 //						if (getCurrentPlayerWeaponId(1) == WEAPON_FARSIGHTXR20) {
 //							increment = 0.5f;
 //						}
 //
-//						if (uVar5 & (D_JPAD | D_CBUTTONS)) {
-//							fStack80 = increment;
+//						if (sp1a2 & (D_JPAD | D_CBUTTONS)) {
+//							movedata.zoomoutfovpersec = increment;
 //						}
 //
-//						if (uVar5 & (U_JPAD | U_CBUTTONS)) {
-//							fStack76 = increment;
+//						if (sp1a2 & (U_JPAD | U_CBUTTONS)) {
+//							movedata.zoominfovpersec = increment;
 //						}
 //					}
 //
-//					if (bVar4) {
+//					// Crouch and uncrouch
+//					// a524
+//					if (arg2) {
 //						for (i = 0; i < numsamples; i++) {
-//							if (iStack184 == 0 && aiStack280[i + 1]) {
-//								uVar17 = uStack194 & (D_JPAD | D_CBUTTONS);
-//
-//								if (func00014b50(i, contpad1, uStack194 & (U_JPAD | U_CBUTTONS))) {
-//									if (iStack72 == 0) {
-//										iStack68++;
+//							if (sp1a8 == 0 && sp14c[i]) {
+//								if (func00014b50(i, contpad1, c1allowedbuttons & (U_JPAD | U_CBUTTONS))) {
+//									if (movedata.crouchdown) {
+//										movedata.crouchdown--;
 //									} else {
-//										iStack72--;
+//										movedata.crouchup++;
 //									}
 //
 //									g_Vars.currentplayer->aimtaptime = -1;
 //								}
 //
-//								if (func00014b50(i, contpad1, uStack194 & (D_JPAD | D_CBUTTONS))) {
-//									if (iStack68 == 0) {
-//										iStack72++;
+//								if (func00014b50(i, contpad1, c1allowedbuttons & (D_JPAD | D_CBUTTONS))) {
+//									if (movedata.crouchup) {
+//										movedata.crouchup--;
 //									} else {
-//										iStack68--;
+//										movedata.crouchdown++;
 //									}
 //
 //									g_Vars.currentplayer->aimtaptime = -1;
@@ -4702,196 +4767,197 @@ glabel var7f1ad8e4
 //							}
 //
 //							if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == AIMCONTROL_HOLD) {
-//								if (aiStack280[i + 1] == 0) {
+//								if (sp14c[i]) {
+//									if (g_Vars.currentplayer->aimtaptime >= 0) {
+//										g_Vars.currentplayer->aimtaptime++;
+//									}
+//								} else {
+//									// Released aim
 //									if (g_Vars.currentplayer->aimtaptime > 0 && g_Vars.currentplayer->aimtaptime < 15) {
-//										if (iStack72 == 0) {
-//											iStack68++;
+//										// Was only a tap, so uncrouch
+//										if (movedata.crouchdown) {
+//											movedata.crouchdown--;
 //										} else {
-//											iStack72--;
+//											movedata.crouchup++;
 //										}
 //									}
 //
 //									g_Vars.currentplayer->aimtaptime = 0;
-//								} else {
-//									if (g_Vars.currentplayer->aimtaptime >= 0) {
-//										g_Vars.currentplayer->aimtaptime++;
-//									}
 //								}
 //							}
 //						}
 //					}
 //
+//					// a670
+//					// Handle shutting eyes in multiplayer
 //					if (currentPlayerGetCrouchPos() == CROUCH_SQUAT
 //							&& g_Vars.currentplayer->crouchoffset == -90
 //							&& g_Vars.mplayerisrunning
 //							&& g_Vars.coopplayernum <= -1) {
-//						uStack44 = g_Vars.currentplayer->insightaimmode
-//							&& iStack184 == 0
-//							&& func00014f60(contpad1, uStack194 & (D_JPAD | D_CBUTTONS));
+//						movedata.eyesshut = g_Vars.currentplayer->insightaimmode
+//							&& sp1a8 == 0
+//							&& func00014f60(contpad1, c1allowedbuttons & (D_JPAD | D_CBUTTONS));
 //					}
 //
 //					if (getCurrentPlayerWeaponId(0) == WEAPON_FARSIGHTXR20) {
-//						uStack48 = g_Vars.currentplayer->insightaimmode && (uVar5 & (L_TRIG | R_TRIG | L_CBUTTONS | R_CBUTTONS));
+//						movedata.farsighttempautoseek = g_Vars.currentplayer->insightaimmode && (sp1a2 & (L_TRIG | R_TRIG | L_CBUTTONS | R_CBUTTONS));
 //					} else {
-//						uStack64 = g_Vars.currentplayer->insightaimmode && (uVar5 & (L_JPAD | L_CBUTTONS));
-//						uStack60 = g_Vars.currentplayer->insightaimmode && (uVar5 & (R_JPAD | R_CBUTTONS));
+//						movedata.rleanleft = g_Vars.currentplayer->insightaimmode && (sp1a2 & (L_JPAD | L_CBUTTONS));
+//						movedata.rleanright = g_Vars.currentplayer->insightaimmode && (sp1a2 & (R_JPAD | R_CBUTTONS));
 //					}
 //
-//					if (((uVar5 & invbuttons) && (uStack192 & B_BUTTON))
-//							|| ((uVar5 & B_BUTTON) && (uStack192 & invbuttons))
-//							&& iStack180 == WEAPON_REMOTEMINE) {
-//						iStack56 = 1;
-//						iStack100 = 0;
-//						iStack96 = 0;
-//						iStack160 = 0;
+//					// Mine detonation
+//					if (((sp1a2 & invbuttons) && (sp1a0 & B_BUTTON))
+//							|| ((sp1a2 & B_BUTTON) && (sp1a0 & invbuttons))
+//							&& weaponnum == WEAPON_REMOTEMINE) {
+//						movedata.detonating = true;
+//						movedata.weaponbackoffset = 0;
+//						movedata.weaponforwardoffset = 0;
+//						movedata.btapcount = 0;
 //						g_Vars.currentplayer->invdowntime = -2;
 //						g_Vars.currentplayer->usedowntime = -2;
 //					}
 //				}
 //
-//				uStack88 = g_Vars.currentplayer->insightaimmode;
-//				iStack84 = g_Vars.currentplayer->insightaimmode;
+//				// a7e8
+//				movedata.unk54 = g_Vars.currentplayer->insightaimmode;
+//				movedata.unk58 = g_Vars.currentplayer->insightaimmode;
 //
-//				if (g_Vars.currentplayer->waitforzrelease &&
-//						((uStack190 & shootbuttons) == 0)) {
+//				if (g_Vars.currentplayer->waitforzrelease
+//						&& (sp1a2 & shootbuttons) == 0) {
 //					g_Vars.currentplayer->waitforzrelease = false;
 //				}
 //
-//				if (weaponHasFlag(getCurrentPlayerWeaponId(0), WEAPONFLAG_80000000) == false) {
-//					uStack164 = g_Vars.currentplayer->waitforzrelease == false
-//						&& (uStack190 & shootbuttons)
-//						&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
-//						&& (uStack190 & invbuttons) == 0;
-//				} else {
-//					if ((uStack192 & shootbuttons)
+//				if (weaponHasFlag(getCurrentPlayerWeaponId(0), WEAPONFLAG_80000000)) {
+//					if ((sp1a0 & shootbuttons)
 //							&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
-//						iStack160++;
+//						movedata.btapcount++;
 //					}
+//				} else {
+//					movedata.triggeron = g_Vars.currentplayer->waitforzrelease == false
+//						&& (sp1a2 & shootbuttons)
+//						&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
+//						&& (sp1a2 & invbuttons) == 0;
 //				}
 //
-//				if (controlmode != CONTROLMODE_12 && controlmode != CONTROLMODE_14) {
-//					goto LAB_002ea8d4;
+//				if (controlmode == CONTROLMODE_12 || controlmode == CONTROLMODE_14) {
+//					movedata.disablelookahead = true;
 //				}
-//			} // end control mode
-//
-//			iStack36 = 1;
+//			} // end 1.x
 //		}
 //	}
 //
-//LAB_002ea8d4:
-//	g_Vars.currentplayer->unk00d0 = 0;
+//	// a8d0
+//	g_Vars.currentplayer->bondactivateorreload = 0;
 //
-//	if (iStack160) {
+//	if (movedata.btapcount) {
 //		g_Vars.currentplayer->activatetimelast = g_Vars.currentplayer->activatetimethis;
 //		g_Vars.currentplayer->activatetimethis = g_Vars.lvframe60;
-//		g_Vars.currentplayer->unk00d0 = iStack160;
+//		g_Vars.currentplayer->bondactivateorreload = movedata.btapcount;
+//
 //		func0f0c7f2c();
 //	}
 //
-//	fVar24 = fStack112;
-//
-//	if (iStack40 == 0) {
-//		iStack20 = -iStack20;
-//		iStack12 = -iStack12;
-//		fStack112 = fStack116;
-//		fStack116 = fVar24;
+//	if (!movedata.invertpitch) {
+//		f32 tmp = movedata.speedvertaup;
+//		movedata.analogpitch = -movedata.analogpitch;
+//		movedata.c1stickyraw = -movedata.c1stickyraw;
+//		movedata.speedvertaup = movedata.speedvertadown;
+//		movedata.speedvertadown = tmp;
 //	}
 //
-//	currentPlayerTickInventory(uStack164);
+//	currentPlayerTickInventory(movedata.triggeron);
 //
+//	// a944
+//	// I think this is checking which gun is making the loudest noise and is
+//	// alerting nearby chrs to it.
 //	if (g_Vars.unk000324 && (func0f0a20fc(0) || func0f0a20fc(1))) {
-//		fStack428 = 0;
+//		spb4 = 0;
 //
-//		if (func0f0a20fc(0) && func0f09cf58(0) > 0) {
-//			fStack428 = func0f09cf58(0);
+//		if (func0f0a20fc(0) && func0f09cf58(0) > spb4) {
+//			spb4 = func0f09cf58(0);
 //		}
 //
-//		if (func0f0a20fc(1) && func0f09cf58(1) > fStack428) {
-//			fStack428 = func0f09cf58(1);
+//		if (func0f0a20fc(1) && func0f09cf58(1) > spb4) {
+//			spb4 = func0f09cf58(1);
 //		}
 //
-//		func0f028590(fStack428);
+//		func0f028590(spb4);
 //	}
 //
-//	func0f0abc74(2, uStack88);
+//	func0f0abc74(2, movedata.unk54);
 //
-//	if (fStack80 > 0) {
-//		currentPlayerZoomOut();
+//	if (movedata.zoomoutfovpersec > 0) {
+//		currentPlayerZoomOut(movedata.zoomoutfovpersec);
 //	}
 //
-//	if (fStack76 > 0) {
-//		currentPlayerZoomIn();
+//	if (movedata.zoominfovpersec > 0) {
+//		currentPlayerZoomIn(movedata.zoominfovpersec);
 //	}
 //
+//	// aa48
 //	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED && var8005d9d0 == 0) {
-//		fStack432 = 60;
+//		spb0 = 60;
 //
 //		// FarSight in secondary function
 //		if (getCurrentPlayerWeaponId(0) == WEAPON_FARSIGHTXR20
 //				&& g_Vars.currentplayer->insightaimmode
-//				&& uStack48
+//				&& movedata.farsighttempautoseek == false
 //				&& g_Vars.currentplayer->hands[0].weaponfunc == FUNC_SECONDARY
 //				&& g_Vars.currentplayer->autoeraserdist > 0) {
-//			fVar25 = func0f0b49b8(500.0f / g_Vars.currentplayer->autoeraserdist);
-//			fStack436 = 2;
-//			fVar24 = fVar25;
+//			spac = func0f0b49b8(500.0f / g_Vars.currentplayer->autoeraserdist);
 //
-//			if (fVar25 > 60) {
-//				fVar24 = 60;
+//			if (spac > 60) {
+//				spac = 60;
 //			}
 //
-//			if (fVar25 > 60 || fVar25 >= 2) {
-//				fStack436 = fVar24;
+//			if (spac < 2) {
+//				spac = 2;
 //			}
 //
-//			g_Vars.currentplayer->gunzoomfovs[1] = fStack436;
+//			g_Vars.currentplayer->gunzoomfovs[1] = spac;
 //
-//			func00015b68(currentPlayerGetMatrix(),
-//					&g_Vars.currentplayer->autoeraserprop->pos, &fStack456.pos);
+//			func00015b68(currentPlayerGetMatrix(), &g_Vars.currentplayer->autoerasertarget->pos, &spa0);
 //
-//			func0f0b4eb8(&fStack456.pos, (struct coord *)&fStack456, fStack436,
-//					g_Vars.currentplayer->c_perspaspect);
+//			func0f0b4eb8(&spa0, sp98, spac, g_Vars.currentplayer->c_perspaspect);
 //
-//			if (fStack456 < (currentPlayerGetScreenWidth() * 0.5f + currentPlayerGetScreenLeft()) - 20.0f) {
-//				fStack108 = 0.25f;
-//			} else if (fStack456 > currentPlayerGetScreenWidth() * 0.5f + currentPlayerGetScreenLeft() + 20.0f) {
-//				fStack104 = 0.25f;
+//			if (spa0.x < (currentPlayerGetScreenLeft() + currentPlayerGetScreenWidth() * 0.5f) - 20.0f) {
+//				movedata.aimturnleftspeed = 0.25f;
+//			} else if (spa0.x > currentPlayerGetScreenLeft() + currentPlayerGetScreenWidth() * 0.5f + 20.0f) {
+//				movedata.aimturnrightspeed = 0.25f;
 //			}
 //
-//			if (fStack452 < (currentPlayerGetScreenHeight() * 0.5f + currentPlayerGetScreenTop()) - 20.0f) {
-//				fStack112 = 0.25f;
-//			} else if (fStack452 > currentPlayerGetScreenHeight() * 0.5f + currentPlayerGetScreenTop() + 20.0f) {
-//				fStack116 = 0.25f;
+//			if (sp98[1] < (currentPlayerGetScreenTop() + currentPlayerGetScreenHeight() * 0.5f) - 20.0f) {
+//				movedata.speedvertaup = 0.25f;
+//			} else if (sp98[1] > currentPlayerGetScreenTop() + currentPlayerGetScreenHeight() * 0.5f + 20.0f) {
+//				movedata.speedvertadown = 0.25f;
 //			}
 //		}
 //
-//		if (iStack84) {
-//			fStack432 = currentPlayerGetGunZoomFov();
+//		if (movedata.unk58) {
+//			spb0 = currentPlayerGetGunZoomFov();
 //		}
 //
 //		if (getCurrentPlayerWeaponId(0) == WEAPON_AR34
 //				&& g_Vars.currentplayer->hands[0].weaponfunc == FUNC_SECONDARY) {
-//			fStack432 = currentPlayerGetGunZoomFov();
+//			spb0 = currentPlayerGetGunZoomFov();
 //		}
 //
-//		func0f0ba8b0(fStack432 > 0 ? fStack432 : 0);
+//		if (spb0 <= 0) {
+//			spb0 = 60;
+//		}
+//
+//		func0f0ba8b0(spb0);
 //		currentPlayerUpdateZoom();
 //	}
 //
-//	currentPlayerUpdateSpeed(&uStack172);
+//	// ad28
+//	currentPlayerUpdateSpeed(&movedata);
 //
 //	// Speed boost
 //	// After 3 seconds of holding forward at max speed, apply boost multiplier.
 //	// The multiplier starts at 1 and reaches 1.25 after about 0.1 seconds.
-//	if (g_Vars.currentplayer->speedmaxtime60 < 180) {
-//		if (g_Vars.currentplayer->speedboost > 1) {
-//			g_Vars.currentplayer->speedboost -= g_Vars.lvupdate240freal * 0.01f;
-//		}
-//
-//		if (g_Vars.currentplayer->speedboost < 1) {
-//			g_Vars.currentplayer->speedboost = 1;
-//		}
-//	} else {
+//	if (g_Vars.currentplayer->speedmaxtime60 >= 180) {
 //		if (g_Vars.currentplayer->speedboost < 1.25f) {
 //			g_Vars.currentplayer->speedboost += g_Vars.lvupdate240freal * 0.01f;
 //		}
@@ -4900,261 +4966,263 @@ glabel var7f1ad8e4
 //			func0f082d74();
 //			g_Vars.currentplayer->speedboost = 1.25f;
 //		}
+//	} else {
+//		if (g_Vars.currentplayer->speedboost > 1) {
+//			g_Vars.currentplayer->speedboost -= g_Vars.lvupdate240freal * 0.01f;
+//		}
+//
+//		if (g_Vars.currentplayer->speedboost < 1) {
+//			g_Vars.currentplayer->speedboost = 1;
+//		}
 //	}
 //
 //	// Look ahead
+//	// ae14
 //	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
-//		fVar24 = -4;
+//		lookahead = -4;
 //
-//		bVar4 = g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
+//		offbike = g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
 //			|| g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB;
 //
 //		if (g_Vars.currentplayer->lookaheadcentreenabled) {
 //			if (g_Vars.lvframenum != g_Vars.currentplayer->lookaheadframe
-//					&& g_Vars.currentplayernum == (g_Vars.lvframenum & 3)) {
+//					&& g_Vars.currentplayernum == (g_Vars.lvframenum % 4)) {
 //				g_Vars.currentplayer->cachedlookahead = func0f0c8598();
 //			}
 //
-//			fVar24 = g_Vars.currentplayer->cachedlookahead;
+//			lookahead = g_Vars.currentplayer->cachedlookahead;
 //		}
 //
-//		if (g_Vars.currentplayer->movecentrerelease && iStack4 < 40 && iStack4 > -40) {
+//		// ae8c
+//		if (g_Vars.currentplayer->movecentrerelease
+//				&& movedata.analogwalk < 40 && movedata.analogwalk > -40) {
 //			g_Vars.currentplayer->movecentrerelease = false;
 //		}
 //
-//		if (bVar4) {
-//			if (fStack116 <= 0 && fStack112 <= 0) {
-//				if (iStack36) {
-//					g_Vars.currentplayer->automovecentre = false;
-//				} else {
-//					if (g_Vars.currentplayer->automovecentreenabled == false) {
-//						if (g_Vars.currentplayer->fastmovecentreenabled
-//								&& uStack156
-//								&& (iStack4 > 60 || iStack4 < -60)
-//								&& (g_Vars.currentplayer->vv_verta > fVar24 + 5.0f
-//									|| fVar24 - 10.0f > g_Vars.currentplayer->vv_verta)
-//								&& g_Vars.currentplayer->movecentrerelease == false) {
-//							g_Vars.currentplayer->docentreupdown = true;
-//						}
-//					} else {
-//						if (uStack156 && (iStack4 > 60 || iStack4 < -60)) {
-//							g_Vars.currentplayer->automovecentre = true;
-//						}
-//
-//						if (g_Vars.currentplayer->automovecentre
-//								&& (g_Vars.currentplayer->vv_verta > fVar24 + 5.0f
-//									|| g_Vars.currentplayer->vv_verta < fVar24 - 10.0f)
-//								&& g_Vars.currentplayer->movecentrerelease == false) {
-//							g_Vars.currentplayer->docentreupdown = true;
-//						}
-//					}
-//				}
-//
-//				g_Vars.currentplayer->prevupdown = false;
-//			} else {
+//		// aeb0
+//		if (offbike) {
+//			if (movedata.speedvertadown > 0 || movedata.speedvertaup > 0) {
+//				// aee8
 //				g_Vars.currentplayer->docentreupdown = false;
 //				g_Vars.currentplayer->prevupdown = true;
 //				g_Vars.currentplayer->automovecentre = false;
+//			} else {
+//				// af08
+//				if (movedata.disablelookahead) {
+//					g_Vars.currentplayer->automovecentre = false;
+//				} else if (g_Vars.currentplayer->automovecentreenabled) {
+//					if (movedata.canlookahead && (movedata.analogwalk > 60 || movedata.analogwalk < -60)) {
+//						g_Vars.currentplayer->automovecentre = true;
+//					}
+//
+//					if (g_Vars.currentplayer->automovecentre
+//							&& (g_Vars.currentplayer->vv_verta > lookahead + 5.0f || g_Vars.currentplayer->vv_verta < lookahead - 10.0f)
+//							&& g_Vars.currentplayer->movecentrerelease == false) {
+//						g_Vars.currentplayer->docentreupdown = true;
+//					}
+//				} else if (g_Vars.currentplayer->fastmovecentreenabled
+//						&& movedata.canlookahead
+//						&& (movedata.analogwalk > 60 || movedata.analogwalk < -60)
+//						&& (g_Vars.currentplayer->vv_verta > lookahead + 5.0f || g_Vars.currentplayer->vv_verta < lookahead - 10.0f)
+//						&& g_Vars.currentplayer->movecentrerelease == false) {
+//					g_Vars.currentplayer->docentreupdown = true;
+//				}
+//
+//				// b03c
+//				g_Vars.currentplayer->prevupdown = false;
 //			}
 //		}
 //
+//		// b044
 //		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 //			g_Vars.currentplayer->docentreupdown = false;
 //		}
 //
-//		if (g_Vars.currentplayer->docentreupdown == false) {
-//			if (uStack144 == 0) {
-//				if (fStack116 <= 0) {
-//					if (fStack112 > 0) {
-//						currentPlayerUpdateSpeedVerta(-fStack112);
+//		// b05c
+//		if (g_Vars.currentplayer->docentreupdown) {
+//			if (offbike) {
+//				// Determine direction for lookahead increment
+//				f32 increment = (g_Vars.currentplayer->speedverta * g_Vars.currentplayer->speedverta * 0.5f) / 0.05f;
+//				f32 newverta;
 //
-//						if (uStack156 && (iStack4 > 60 || iStack4 < -60)) {
-//							g_Vars.currentplayer->movecentrerelease = true;
-//						}
-//					} else {
-//						currentPlayerUpdateSpeedVerta(0);
-//					}
-//				} else {
-//					currentPlayerUpdateSpeedVerta(fStack116);
-//
-//					if (uStack156 && (iStack4 > 60 || iStack4 < -60)) {
-//						g_Vars.currentplayer->movecentrerelease = true;
-//					}
-//				}
-//			} else {
-//				fVar24 = viGetFovY();
-//				fVar25 = iStack12 / 70.0f;
-//
-//				if (fVar25 > 1) {
-//					fVar25 = 1;
-//					bVar4 = true;
-//				} else if (fVar25 < -1) {
-//					fVar25 = -1;
-//					bVar4 = false;
-//				} else {
-//					bVar4 = fVar25 >= 0;
-//				}
-//
-//				fVar26 = fVar25;
-//
-//				if (!bVar4) {
-//					fVar26 = -fVar25;
-//				}
-//
-//				g_Vars.currentplayer->speedverta = -(fVar25 * fVar26) * (fVar24 / 60.0f);
-//			}
-//
-//			g_Vars.currentplayer->vv_verta +=
-//				g_Vars.currentplayer->speedverta * g_Vars.lvupdate240freal * 3.5f;
-//		} else {
-//			if (bVar4) {
-//				fVar25 = (g_Vars.currentplayer->speedverta * g_Vars.currentplayer->speedverta * 0.5f) / 0.05f;
-//
-//				if (fVar24 + fVar25 < g_Vars.currentplayer->vv_verta) {
+//				// b0a8
+//				if (g_Vars.currentplayer->vv_verta > lookahead + increment) {
 //					currentPlayerUpdateSpeedVerta(1);
-//				} else if (g_Vars.currentplayer->vv_verta < fVar24 - fVar25) {
+//				} else if (g_Vars.currentplayer->vv_verta < lookahead - increment) {
 //					currentPlayerUpdateSpeedVerta(-1);
 //				} else {
 //					currentPlayerUpdateSpeedVerta(0);
 //				}
 //
-//				fVar25 = g_Vars.currentplayer->vv_verta;
-//				fVar26 = g_Vars.currentplayer->speedverta * g_Vars.lvupdate240freal;
-//				fVar26 = fVar25 + fVar26 + fVar26;
+//				// b100
+//				// Calculate new verta
+//				newverta = g_Vars.currentplayer->speedverta * g_Vars.lvupdate240freal;
+//				newverta = g_Vars.currentplayer->vv_verta + newverta + newverta;
 //
-//				if (fVar25 <= fVar24 || fVar26 <= fVar24) {
-//					if (fVar25 < fVar24) {
-//						if (fVar26 < fVar24) {
-//							g_Vars.currentplayer->vv_verta = fVar26;
-//							goto LAB_002eb32c;
-//						}
-//					}
-//
-//					g_Vars.currentplayer->vv_verta = fVar24;
+//				if (g_Vars.currentplayer->vv_verta > lookahead && newverta > lookahead) {
+//					g_Vars.currentplayer->vv_verta = newverta;
+//				} else if (g_Vars.currentplayer->vv_verta < lookahead && newverta < lookahead) {
+//					g_Vars.currentplayer->vv_verta = newverta;
+//				} else {
+//					g_Vars.currentplayer->vv_verta = lookahead;
 //					g_Vars.currentplayer->speedverta = 0;
 //
 //					if (g_Vars.currentplayer->prevupdown == false) {
 //						g_Vars.currentplayer->docentreupdown = false;
 //					}
-//				} else {
-//					g_Vars.currentplayer->vv_verta = fVar26;
 //				}
 //			}
+//		} else {
+//			// b190
+//			if (movedata.cannaturalpitch) {
+//				f32 fVar25 = movedata.analogpitch / 70.0f;
+//				f32 fVar26;
+//
+//				if (fVar25 > 1) {
+//					fVar25 = 1;
+//				} else if (fVar25 < -1) {
+//					fVar25 = -1;
+//				}
+//
+//				fVar26 = fVar25 >= 0 ? fVar25 : -fVar25;
+//
+//				g_Vars.currentplayer->speedverta = -(fVar25 * fVar26) * (viGetFovY() / 60.0f);
+//			} else if (movedata.speedvertadown > 0) {
+//				currentPlayerUpdateSpeedVerta(movedata.speedvertadown);
+//
+//				if (movedata.canlookahead && (movedata.analogwalk > 60 || movedata.analogwalk < -60)) {
+//					g_Vars.currentplayer->movecentrerelease = true;
+//				}
+//			} else if (movedata.speedvertaup > 0) {
+//				currentPlayerUpdateSpeedVerta(-movedata.speedvertaup);
+//
+//				if (movedata.canlookahead && (movedata.analogwalk > 60 || movedata.analogwalk < -60)) {
+//					g_Vars.currentplayer->movecentrerelease = true;
+//				}
+//			} else {
+//				currentPlayerUpdateSpeedVerta(0);
+//			}
+//
+//			g_Vars.currentplayer->vv_verta +=
+//				g_Vars.currentplayer->speedverta * g_Vars.lvupdate240freal * 3.5f;
 //		}
 //	}
 //
-//LAB_002eb32c:
-//	if (uStack148 == 0) {
-//		if (fStack108 > 0) {
-//			currentPlayerUpdateSpeedThetaControl(fStack108); // not sure on arg
-//		} else if (fStack104 <= 0) {
-//			currentPlayerUpdateSpeedThetaControl(0);
-//		} else {
-//			currentPlayerUpdateSpeedThetaControl(-fStack104);
-//		}
-//	} else {
-//		fVar24 = viGetFovY();
-//		fVar25 = iStack16 / 70.0f;
+//	// b32c
+//	if (movedata.cannaturalturn) {
+//		fVar25 = movedata.analogturn / 70.0f;
 //
 //		if (fVar25 > 1) {
 //			fVar25 = 1;
-//			bVar4 = true;
 //		} else if (fVar25 < -1) {
 //			fVar25 = -1;
-//			bVar4 = false;
-//		} else {
-//			bVar4 = fVar25 >= 0;
 //		}
 //
-//		fVar26 = fVar25;
+//		fVar26 = fVar25 >= 0 ? fVar25 : -fVar25;
 //
-//		if (!bVar4) {
-//			fVar26 = -fVar25;
-//		}
-//
-//		g_Vars.currentplayer->unk1b9c = fVar25 * fVar26 * (fVar24 / 60.0f);
+//		g_Vars.currentplayer->speedthetacontrol = fVar25 * fVar26 * (viGetFovY() / 60.0f);
+//	} else if (movedata.aimturnleftspeed > 0) {
+//		currentPlayerUpdateSpeedThetaControl(movedata.aimturnleftspeed);
+//	} else if (movedata.aimturnrightspeed > 0) {
+//		currentPlayerUpdateSpeedThetaControl(-movedata.aimturnrightspeed);
+//	} else {
+//		currentPlayerUpdateSpeedThetaControl(0);
 //	}
 //
+//	// b444
 //	g_Vars.currentplayer->speedtheta = g_Vars.currentplayer->speedthetacontrol;
 //	func0f0c8004();
 //
-//	if (iStack56) {
+//	if (movedata.detonating) {
 //		g_Vars.currentplayer->hands[0].unk0658 = 0;
 //		g_Vars.currentplayer->hands[0].unk065c = 0;
-//		func0f08a9f4(g_Vars.currentplayernum);
+//		playerDetonateRemoteMines(g_Vars.currentplayernum);
 //	}
 //
-//	iVar10 = iStack100;
+//	// b478
+//	cancycleweapons = true;
 //
-//	if (g_Vars.lvframenum > 9 && g_Vars.tickmode != TICKMODE_6) {
-//		while (iStack100 = iVar10 - 1, iVar19 = iStack96, 0 < iVar10) {
+//	if (g_Vars.tickmode == TICKMODE_6) {
+//		cancycleweapons = false;
+//	}
+//
+//	if (g_Vars.lvframenum < 10) {
+//		cancycleweapons = false;
+//	}
+//
+//	// b4a4
+//	if (cancycleweapons) {
+//		while (movedata.weaponbackoffset--) {
 //			func0f0a1c2c();
-//			iVar10 = iStack100;
 //		}
 //
-//		while (iStack96 = iVar19 - 1, iVar19 > 0) {
+//		while (movedata.weaponforwardoffset--) {
 //			func0f0a1b50();
-//			iVar19 = iStack96;
 //		}
 //	}
 //
-//	if (g_Vars.currentplayer->unk1c64 == 0) {
-//		if (uStack172 == 0) {
-//			if (iStack168) {
-//				currentPlayerSetAimType(0);
-//				func0f0a0b98(
-//						(iStack24 * 0.65f) / 80.0f,
-//						(iStack20 * 0.65f) / 80.0f, iStack20);
+//	// b50c
+//	if (g_Vars.currentplayer->unk1c64) {
+//		g_Vars.currentplayer->unk1c64 = 0;
+//	} else /*b528*/ if (movedata.canswivelgun) {
+//		currentPlayerSetAimType(0);
+//
+//		// b538
+//		if (
+//				(
+//				 movedata.canautoaim
+//				 && (func0f0c7bd0() || func0f0c7a8c())
+//				 && g_Vars.currentplayer->autoxaimprop
+//				 && g_Vars.currentplayer->autoyaimprop
+//				 && weaponHasInvEFlag(weaponnum, 0x00000002)
+//				)
+//				|| (getCurrentPlayerWeaponId(0) == WEAPON_CMP150 && g_Vars.currentplayer->hands[0].weaponfunc == FUNC_SECONDARY)) {
+//			// Auto aim - move crosshair towards target
+//			s32 followlockon = false;
+//
+//			if (getCurrentPlayerWeaponId(0) == WEAPON_CMP150
+//					&& g_Vars.currentplayer->hands[0].weaponfunc == FUNC_SECONDARY) {
+//				followlockon = true;
+//			}
+//
+//			if (g_Vars.currentplayer->autoaimdamp > 0.963f) {
+//				g_Vars.currentplayer->autoaimdamp -= g_Vars.lvupdate240freal * 0.00032f;
+//			}
+//
+//			if (g_Vars.currentplayer->autoaimdamp < 0.963f) {
+//				g_Vars.currentplayer->autoaimdamp = 0.963f;
+//			}
+//
+//			if (followlockon) {
+//				func0f0a0394(g_Vars.currentplayer->autoaimx, g_Vars.currentplayer->autoaimy,
+//						0.915f, 0.915f);
+//			} else {
+//				currentPlayerSwivelGunTowards(g_Vars.currentplayer->autoaimx, g_Vars.currentplayer->autoaimy,
+//						g_Vars.currentplayer->autoaimdamp);
 //			}
 //		} else {
-//			currentPlayerSetAimType(0);
-//
-//			if (
-//					(
-//					 uStack52 == 0
-//					 || (func0f0c7bd0() == 0 && func0f0c7a8c() == 0)
-//					 || g_Vars.currentplayer->autoxaimprop == NULL
-//					 || g_Vars.currentplayer->autoyaimprop == NULL
-//					 || weaponHasInvEFlag(iStack180, 2) == 0
-//					)
-//					&& (getCurrentPlayerWeaponId(0) != WEAPON_CMP150 || g_Vars.currentplayer->hands[0].weaponfunc != FUNC_SECONDARY)) {
-//
-//				if (g_Vars.currentplayer->unk1b68 < 0.979f) {
-//					g_Vars.currentplayer->unk1b68 += g_Vars.lvupdate240freal * 0.00032f;
-//				}
-//
-//				if (g_Vars.currentplayer->unk1b68 > 0.979f) {
-//					g_Vars.currentplayer->unk1b68 = 0.979f;
-//				}
-//
-//				func0f0a0b30(
-//						g_Vars.currentplayer->speedtheta * 0.3f + g_Vars.currentplayer->gunextraaimx,
-//						-g_Vars.currentplayer->speedverta * 0.1f + g_Vars.currentplayer->gunextraaimy);
-//			} else {
-//				bool followlockon = false;
-//
-//				if (getCurrentPlayerWeaponId(0) == WEAPON_CMP150
-//						&& g_Vars.currentplayer->hands[0].weaponfunc == FUNC_SECONDARY) {
-//					followlockon = true;
-//				}
-//
-//				if (g_Vars.currentplayer->unk1b68 > 0.963f) {
-//					g_Vars.currentplayer->unk1b68 -= g_Vars.lvupdate240freal * 0.00032f;
-//				}
-//
-//				if (g_Vars.currentplayer->unk1b68 < 0.963f) {
-//					g_Vars.currentplayer->unk1b68 = 0.963f;
-//				}
-//
-//				if (followlockon) {
-//					func0f0a0394();
-//				} else {
-//					func0f0a0b30(g_Vars.currentplayer->autoaimx, g_Vars.currentplayer->autoaimy);
-//				}
+//			// This code moves the crosshair as the player turns and makes
+//			// it return to the centre when not affected by anything else.
+//			if (g_Vars.currentplayer->autoaimdamp < 0.979f) {
+//				g_Vars.currentplayer->autoaimdamp += g_Vars.lvupdate240freal * 0.00032f;
 //			}
+//
+//			if (g_Vars.currentplayer->autoaimdamp > 0.979f) {
+//				g_Vars.currentplayer->autoaimdamp = 0.979f;
+//			}
+//
+//			currentPlayerSwivelGunTowards(
+//					g_Vars.currentplayer->speedtheta * 0.3f + g_Vars.currentplayer->gunextraaimx,
+//					-g_Vars.currentplayer->speedverta * 0.1f + g_Vars.currentplayer->gunextraaimy,
+//					g_Vars.currentplayer->autoaimdamp);
 //		}
-//	} else {
-//		g_Vars.currentplayer->unk1c64 = 0;
+//	} else if (movedata.canmanualaim) {
+//		// Adjust crosshair's position on screen
+//		// when holding aim and moving stick
+//		currentPlayerSetAimType(0);
+//		func0f0a0b98(
+//				(movedata.c1stickxraw * 0.65f) / 80.0f,
+//				(movedata.c1stickyraw * 0.65f) / 80.0f);
 //	}
 //}
 

@@ -1896,7 +1896,7 @@ void currentPlayerUpdatePrevPosWalk(void)
 void func0f0c65a8(void)
 {
 	if (g_Vars.currentplayer->walkinitmove) {
-		g_Vars.currentplayer->unk00d0 = 0;
+		g_Vars.currentplayer->bondactivateorreload = 0;
 	}
 }
 
@@ -1904,32 +1904,32 @@ void currentPlayerUpdateSpeedWalk(struct movedata *data)
 {
 	if (g_Vars.currentplayer->walkinitmove == false) {
 		// Sideways
-		if (data->stepleft) {
-			currentPlayerUpdateSpeedSidewaysWalk(-1, 0.2f, data->stepleft);
-		} else if (data->stepright) {
-			currentPlayerUpdateSpeedSidewaysWalk(1, 0.2f, data->stepright);
+		if (data->digitalstepleft) {
+			currentPlayerUpdateSpeedSidewaysWalk(-1, 0.2f, data->digitalstepleft);
+		} else if (data->digitalstepright) {
+			currentPlayerUpdateSpeedSidewaysWalk(1, 0.2f, data->digitalstepright);
 		} else if (data->unk14 == false) {
 			currentPlayerUpdateSpeedSidewaysWalk(0, 0.2f, g_Vars.lvupdate240_60);
 		}
 
 		if (data->unk14) {
-			currentPlayerUpdateSpeedSidewaysWalk(data->unka4 * 0.014285714365542f, 0.2f, g_Vars.lvupdate240_60);
+			currentPlayerUpdateSpeedSidewaysWalk(data->analogstrafe * 0.014285714365542f, 0.2f, g_Vars.lvupdate240_60);
 		}
 
 		// Forward/back
-		if (data->stepforward) {
+		if (data->digitalstepforward) {
 			currentPlayerUpdateSpeedForwardsWalk(1, 1);
 			g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate240_60;
-		} else if (data->stepback) {
+		} else if (data->digitalstepback) {
 			currentPlayerUpdateSpeedForwardsWalk(-1, 1);
-		} else if (data->unk10 == false) {
+		} else if (data->canlookahead == false) {
 			currentPlayerUpdateSpeedForwardsWalk(0, 1);
 		}
 
-		if (data->unk10) {
-			currentPlayerUpdateSpeedForwardsWalk(data->unka8 * 0.014285714365542f, 1);
+		if (data->canlookahead) {
+			currentPlayerUpdateSpeedForwardsWalk(data->analogwalk * 0.014285714365542f, 1);
 
-			if (data->unka8 > 60) {
+			if (data->analogwalk > 60) {
 				g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate240_60;
 			} else {
 				g_Vars.currentplayer->speedmaxtime60 = 0;
@@ -1956,14 +1956,14 @@ void currentPlayerUpdateSpeedWalk(struct movedata *data)
 		g_Vars.currentplayer->speedforwards *= 1.08f;
 		g_Vars.currentplayer->speedforwards *= g_Vars.currentplayer->speedboost;
 
-		if ((data->unk10 == 0 && data->stepforward == 0) ||
+		if ((data->canlookahead == false && data->digitalstepforward == false) ||
 				currentPlayerGetCrouchPos() != CROUCH_STAND) {
 			g_Vars.currentplayer->speedmaxtime60 = 0;
 		}
 
-		if (data->swaynegative) {
+		if (data->rleanleft) {
 			currentPlayerSetSwayTarget(-1);
-		} else if (data->swaypositive) {
+		} else if (data->rleanright) {
 			currentPlayerSetSwayTarget(1);
 		} else {
 			currentPlayerSetSwayTarget(0);

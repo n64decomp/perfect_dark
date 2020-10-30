@@ -34,7 +34,7 @@ f32 currentPlayerGetTeleportFovY(void);
 void currentPlayerUpdateZoom(void);
 void func0f0bace0(void);
 void func0f0bad6c(void);
-void currentPlayerPause(u32 mode);
+void currentPlayerPause(s32 mode);
 void func0f0baf38(void);
 Gfx *func0f0baf84(Gfx *gdl);
 Gfx *fadeDraw(Gfx *gdl, u32 r, u32 g, u32 b, f32 frac);

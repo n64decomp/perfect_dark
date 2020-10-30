@@ -30,7 +30,6 @@ const char var7f1acdbc[] = "%s %s";
 const char var7f1acdc4[] = "%s %s";
 
 const u32 var7f1acdcc[] = {0x00000000};
-//const u32 var7f1acdd0[] = {0x3dcccccd};
 
 GLOBAL_ASM(
 glabel func0f0b0420

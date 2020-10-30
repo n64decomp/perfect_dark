@@ -1657,9 +1657,9 @@ void func0f0ce1ac(void)
 void func0f0ce450(void)
 {
 	if (currentPlayerTryMountHoverbike(g_Vars.currentplayer->grabbedprop)) {
-		g_Vars.currentplayer->unk00d0 = 0;
+		g_Vars.currentplayer->bondactivateorreload = 0;
 	} else {
-		g_Vars.currentplayer->unk00d0 = 0;
+		g_Vars.currentplayer->bondactivateorreload = 0;
 		currentPlayerSetMoveMode(MOVEMODE_WALK);
 	}
 }
@@ -1705,32 +1705,32 @@ void currentPlayerUpdateSpeedForwardsGrab(f32 target, f32 speed)
 void currentPlayerUpdateSpeedGrab(struct movedata *data)
 {
 	// Sideways
-	if (data->stepleft) {
-		currentPlayerUpdateSpeedSidewaysGrab(-1, 0.2f / 3.0f, data->stepleft);
-	} else if (data->stepright) {
-		currentPlayerUpdateSpeedSidewaysGrab(1, 0.2f / 3.0f, data->stepright);
+	if (data->digitalstepleft) {
+		currentPlayerUpdateSpeedSidewaysGrab(-1, 0.2f / 3.0f, data->digitalstepleft);
+	} else if (data->digitalstepright) {
+		currentPlayerUpdateSpeedSidewaysGrab(1, 0.2f / 3.0f, data->digitalstepright);
 	} else if (data->unk14 == 0) {
 		currentPlayerUpdateSpeedSidewaysGrab(0, 0.2f / 3.0f, g_Vars.lvupdate240_60);
 	}
 
 	if (data->unk14) {
-		currentPlayerUpdateSpeedSidewaysGrab(data->unka4 * 0.014285714365542f, 0.2f / 3.0f, g_Vars.lvupdate240_60);
+		currentPlayerUpdateSpeedSidewaysGrab(data->analogstrafe * 0.014285714365542f, 0.2f / 3.0f, g_Vars.lvupdate240_60);
 	}
 
 	// Forward/back
-	if (data->stepforward) {
+	if (data->digitalstepforward) {
 		currentPlayerUpdateSpeedForwardsGrab(1, 0.2f / 3.0f);
 		g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate240_60;
-	} else if (data->stepback) {
+	} else if (data->digitalstepback) {
 		currentPlayerUpdateSpeedForwardsGrab(-1, 0.2f / 3.0f);
-	} else if (data->unk10 == 0) {
+	} else if (data->canlookahead == false) {
 		currentPlayerUpdateSpeedForwardsGrab(0, 0.2f / 3.0f);
 	}
 
-	if (data->unk10) {
-		currentPlayerUpdateSpeedForwardsGrab(data->unka8 * 0.014285714365542f, 0.2f / 3.0f);
+	if (data->canlookahead) {
+		currentPlayerUpdateSpeedForwardsGrab(data->analogwalk * 0.014285714365542f, 0.2f / 3.0f);
 
-		if (data->unka8 > 60) {
+		if (data->analogwalk > 60) {
 			g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate240_60;
 		} else {
 			g_Vars.currentplayer->speedmaxtime60 = 0;
@@ -1756,7 +1756,7 @@ void currentPlayerUpdateSpeedGrab(struct movedata *data)
 	g_Vars.currentplayer->speedforwards *= 1.08f;
 	g_Vars.currentplayer->speedforwards *= g_Vars.currentplayer->speedboost;
 
-	if (data->unk10 == 0 && data->stepforward == false) {
+	if (data->canlookahead == false && data->digitalstepforward == false) {
 		g_Vars.currentplayer->speedmaxtime60 = 0;
 	}
 }

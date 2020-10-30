@@ -207,7 +207,7 @@ void currentPlayerDismountBike(void)
 			currentPlayerSetMoveMode(MOVEMODE_WALK);
 		}
 
-		g_Vars.currentplayer->unk00d0 = 0;
+		g_Vars.currentplayer->bondactivateorreload = 0;
 	}
 }
 

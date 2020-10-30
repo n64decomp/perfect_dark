@@ -258,7 +258,7 @@ u32 func0f089f8c(void);
 u32 func0f08a38c(void);
 u32 func0f08a724(void);
 u32 func0f08a88c(void);
-u32 func0f08a9f4(void);
+void playerDetonateRemoteMines(s32 playernum);
 struct weaponobj *func0f08aa70(s32 weaponnum, struct prop *prop);
 struct weaponobj *weaponFindThrown(s32 weaponnum);
 u32 func0f08ab64(void);

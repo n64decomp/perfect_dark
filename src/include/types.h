@@ -2204,7 +2204,7 @@ struct player {
 
 	/*0x00c8*/ s32 badrockettime;
 	/*0x00cc*/ u32 unk00cc;
-	/*0x00d0*/ u32 unk00d0;
+	/*0x00d0*/ s32 bondactivateorreload;
 	/*0x00d4*/ u32 unk00d4;
 	/*0x00d8*/ bool isdead;
 	/*0x00dc*/ f32 bondhealth;
@@ -2216,15 +2216,15 @@ struct player {
 	/*0x00f4*/ u32 damageshowtime;
 	/*0x00f8*/ f32 healthshowtime;
 	/*0x00fc*/ u32 healthshowmode;
-	/*0x0100*/ bool docentreupdown;
+	/*0x0100*/ s32 docentreupdown;
 	/*0x0104*/ u32 unk0104;
-	/*0x0108*/ bool prevupdown;
-	/*0x010c*/ bool movecentrerelease;
-	/*0x0110*/ bool lookaheadcentreenabled;
-	/*0x0114*/ bool automovecentreenabled;
-	/*0x0118*/ bool fastmovecentreenabled;
-	/*0x011c*/ bool automovecentre;
-	/*0x0120*/ bool insightaimmode;
+	/*0x0108*/ s32 prevupdown;
+	/*0x010c*/ s32 movecentrerelease;
+	/*0x0110*/ s32 lookaheadcentreenabled;
+	/*0x0114*/ s32 automovecentreenabled;
+	/*0x0118*/ s32 fastmovecentreenabled;
+	/*0x011c*/ s32 automovecentre;
+	/*0x0120*/ s32 insightaimmode;
 
 	/*0x0124*/ bool autoyaimenabled;
 	/*0x0128*/ f32 autoaimy;
@@ -2617,7 +2617,7 @@ struct player {
 	/*0x1798*/ f32 screenyminf;
 	/*0x179c*/ f32 screenxmaxf;
 	/*0x17a0*/ f32 screenymaxf;
-	/*0x17a4*/ u32 unk17a4;
+	/*0x17a4*/ s32 gunsightoff;
 	/*0x17a8*/ s32 ammoheldarr[33]; // ammo quantities not loaded into a gun
 	/*0x182c*/ u32 unk182c;
 	/*0x1830*/ u32 unk1830;
@@ -2706,7 +2706,7 @@ struct player {
 	/*0x1a10*/ struct coord grabbedposoffset;
 	/*0x1a1c*/ s32 grabbeddoextra;
 	/*0x1a20*/ f32 grabbedrotextra;
-	/*0x1a24*/ u32 pausemode;
+	/*0x1a24*/ s32 pausemode;
 	/*0x1a28*/ u32 pausetime60;
 	/*0x1a2c*/ struct coord grabbedposextra;
 	/*0x1a38*/ f32 grabbedrotextrasum;
@@ -2743,7 +2743,7 @@ struct player {
 	/*0x1b5c*/ struct prop *grabbedprop;
 	/*0x1b60*/ f32 unk1b60;
 	/*0x1b64*/ s32 grabstarttime;
-	/*0x1b68*/ u32 unk1b68;
+	/*0x1b68*/ f32 autoaimdamp;
 	/*0x1b6c*/ struct coord bondforcespeed;
 	/*0x1b78*/ bool bondtankexplode;
 	/*0x1b7c*/ s32 bondviewlevtime60;
@@ -2764,9 +2764,9 @@ struct player {
 	/*0x1bbc*/ struct coord cam_look;
 	/*0x1bc8*/ struct coord cam_up;
 	/*0x1bd4*/ u32 unk1bd4;
-	/*0x1bd8*/ s32 unk1bd8;
-	/*0x1bdc*/ s32 unk1bdc;
-	/*0x1be0*/ u32 cachedlookahead;
+	/*0x1bd8*/ s32 autocontrol_x;
+	/*0x1bdc*/ s32 autocontrol_y;
+	/*0x1be0*/ s32 cachedlookahead;
 	/*0x1be4*/ u16 lookaheadframe;
 	/*0x1be6*/ u8 numaibuddies;
 	/*0x1be7*/ u8 aibuddynums[MAX_SIMULANTS];
@@ -6364,49 +6364,49 @@ struct tilething {
 };
 
 struct movedata {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ bool unk10;
-	/*0x14*/ bool unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ s32 stepforward;
-	/*0x24*/ s32 stepback;
-	/*0x28*/ s32 stepleft;
-	/*0x2c*/ s32 stepright;
+	/*0x00*/ s32 canswivelgun;
+	/*0x04*/ s32 canmanualaim;
+	/*0x08*/ s32 triggeron;
+	/*0x0c*/ s32 btapcount;
+	/*0x10*/ s32 canlookahead;
+	/*0x14*/ s32 unk14;
+	/*0x18*/ s32 cannaturalturn;
+	/*0x1c*/ s32 cannaturalpitch;
+	/*0x20*/ s32 digitalstepforward;
+	/*0x24*/ s32 digitalstepback;
+	/*0x28*/ s32 digitalstepleft;
+	/*0x2c*/ s32 digitalstepright;
 	/*0x30*/ f32 unk30;
 	/*0x34*/ f32 unk34;
-	/*0x38*/ f32 unk38;
-	/*0x3c*/ f32 unk3c;
-	/*0x40*/ f32 unk40;
-	/*0x44*/ f32 unk44;
-	/*0x48*/ u32 unk48;
-	/*0x4c*/ u32 unk4c;
+	/*0x38*/ f32 speedvertadown;
+	/*0x3c*/ f32 speedvertaup;
+	/*0x40*/ f32 aimturnleftspeed;
+	/*0x44*/ f32 aimturnrightspeed;
+	/*0x48*/ s32 weaponbackoffset;
+	/*0x4c*/ s32 weaponforwardoffset;
 	/*0x50*/ u32 unk50;
 	/*0x54*/ u32 unk54;
 	/*0x58*/ u32 unk58;
-	/*0x5c*/ f32 unk5c;
-	/*0x60*/ f32 unk60;
+	/*0x5c*/ f32 zoomoutfovpersec;
+	/*0x60*/ f32 zoominfovpersec;
 	/*0x64*/ s32 crouchdown;
 	/*0x68*/ s32 crouchup;
-	/*0x6c*/ u32 swaynegative;
-	/*0x70*/ u32 swaypositive;
-	/*0x74*/ u32 unk74;
-	/*0x78*/ u32 unk78;
-	/*0x7c*/ u32 unk7c;
-	/*0x80*/ bool eyesshut;
-	/*0x84*/ u32 unk84;
-	/*0x88*/ u32 unk88;
-	/*0x8c*/ u32 unk8c;
-	/*0x90*/ u32 unk90;
-	/*0x94*/ u32 unk94;
-	/*0x98*/ u32 unk98;
-	/*0x9c*/ u32 unk9c;
-	/*0xa0*/ u32 unka0;
-	/*0xa4*/ s32 unka4;
-	/*0xa8*/ s32 unka8;
+	/*0x6c*/ s32 rleanleft;
+	/*0x70*/ s32 rleanright;
+	/*0x74*/ s32 detonating;
+	/*0x78*/ s32 canautoaim;
+	/*0x7c*/ s32 farsighttempautoseek;
+	/*0x80*/ s32 eyesshut;
+	/*0x84*/ s32 invertpitch;
+	/*0x88*/ s32 disablelookahead;
+	/*0x8c*/ s32 c1stickxsafe; // raw values but adjusted to remove dead zone
+	/*0x90*/ s32 c1stickysafe;
+	/*0x94*/ s32 c1stickxraw; // raw values from control stick
+	/*0x98*/ s32 c1stickyraw;
+	/*0x9c*/ s32 analogturn;
+	/*0xa0*/ s32 analogpitch;
+	/*0xa4*/ s32 analogstrafe;
+	/*0xa8*/ s32 analogwalk;
 };
 
 struct var80065750 {

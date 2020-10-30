@@ -21,7 +21,7 @@ void func0f0b4d04(struct coord *in, f32 *out);
 void func0f0b4d68(struct coord *in, struct coord *out);
 void func0f0b4dec(struct coord *in, struct coord *out);
 void func0f0b4e68(struct coord *in, f32 divisor, struct coord *out);
-u32 func0f0b4eb8(void);
+void func0f0b4eb8(struct coord *arg0, f32 arg1[2], f32 zoom, f32 aspect);
 void currentPlayerSetUnk1738(u32 value);
 void currentPlayerSetUnk173c(u32 value);
 u32 currentPlayerGetUnk173c(void);
