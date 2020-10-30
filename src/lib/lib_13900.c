@@ -113,12 +113,10 @@ glabel func00013974
 /*    1397c:	ac24eeec */ 	sw	$a0,%lo(var8005eeec)($at)
 );
 
-GLOBAL_ASM(
-glabel func00013980
-/*    13980:	3c028006 */ 	lui	$v0,%hi(var8005eeec)
-/*    13984:	03e00008 */ 	jr	$ra
-/*    13988:	8c42eeec */ 	lw	$v0,%lo(var8005eeec)($v0)
-);
+u32 func00013980(void)
+{
+	return var8005eeec;
+}
 
 void func0001398c(s32 value)
 {
