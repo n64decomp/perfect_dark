@@ -306,44 +306,22 @@ void func00013dd4(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func00013dfc
-/*    13dfc:	3c0e8006 */ 	lui	$t6,%hi(var8005eeb0)
-/*    13e00:	8dceeeb0 */ 	lw	$t6,%lo(var8005eeb0)($t6)
-/*    13e04:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    13e08:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    13e0c:	11c00019 */ 	beqz	$t6,.L00013e74
-/*    13e10:	3c04800a */ 	lui	$a0,%hi(var80099ec0)
-/*    13e14:	24849ec0 */ 	addiu	$a0,$a0,%lo(var80099ec0)
-/*    13e18:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    13e1c:	0c012238 */ 	jal	osSendMesg
-/*    13e20:	00003025 */ 	or	$a2,$zero,$zero
-/*    13e24:	3c04800a */ 	lui	$a0,%hi(var80099ee0)
-/*    13e28:	24849ee0 */ 	addiu	$a0,$a0,%lo(var80099ee0)
-/*    13e2c:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    13e30:	0c0121bc */ 	jal	osRecvMesg
-/*    13e34:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    13e38:	0c004fa1 */ 	jal	func00013e84
-/*    13e3c:	00000000 */ 	nop
-/*    13e40:	3c04800a */ 	lui	$a0,%hi(var80099f00)
-/*    13e44:	24849f00 */ 	addiu	$a0,$a0,%lo(var80099f00)
-/*    13e48:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    13e4c:	0c012238 */ 	jal	osSendMesg
-/*    13e50:	00003025 */ 	or	$a2,$zero,$zero
-/*    13e54:	3c04800a */ 	lui	$a0,%hi(var80099f20)
-/*    13e58:	24849f20 */ 	addiu	$a0,$a0,%lo(var80099f20)
-/*    13e5c:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    13e60:	0c0121bc */ 	jal	osRecvMesg
-/*    13e64:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    13e68:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    13e6c:	3c018006 */ 	lui	$at,%hi(var8005eec0)
-/*    13e70:	ac2feec0 */ 	sw	$t7,%lo(var8005eec0)($at)
-.L00013e74:
-/*    13e74:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    13e78:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    13e7c:	03e00008 */ 	jr	$ra
-/*    13e80:	00000000 */ 	nop
-);
+void func00013dfc(void)
+{
+	OSMesg msg;
+
+	if (var8005eeb0) {
+		osSendMesg(&var80099ec0, &msg, OS_MESG_NOBLOCK);
+		osRecvMesg(&var80099ee0, &msg, OS_MESG_BLOCK);
+
+		func00013e84();
+
+		osSendMesg(&var80099f00, &msg, OS_MESG_NOBLOCK);
+		osRecvMesg(&var80099f20, &msg, OS_MESG_BLOCK);
+
+		var8005eec0 = 1;
+	}
+}
 
 GLOBAL_ASM(
 glabel func00013e84
