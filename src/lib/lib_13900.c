@@ -50,7 +50,7 @@ u32 var8005eebc = 0x00000000;
 u32 var8005eec0 = 0x00000001;
 u32 var8005eec4 = 0x00000000;
 u32 var8005eec8 = 0x00000000;
-u32 var8005eecc = 0x00000000;
+s32 var8005eecc = 0;
 u32 var8005eed0 = 0x00000000;
 u32 var8005eed4 = 0x00000000;
 u8 var8005eed8 = 0;
@@ -103,34 +103,29 @@ void func000139c8(void)
 	func0001398c(10);
 }
 
-GLOBAL_ASM(
-glabel func000139e8
-/*    139e8:	3c068006 */ 	lui	$a2,%hi(var8005eecc)
-/*    139ec:	24c6eecc */ 	addiu	$a2,$a2,%lo(var8005eecc)
-/*    139f0:	8cc20000 */ 	lw	$v0,0x0($a2)
-/*    139f4:	00001825 */ 	or	$v1,$zero,$zero
-/*    139f8:	1040000f */ 	beqz	$v0,.L00013a38
-/*    139fc:	28410002 */ 	slti	$at,$v0,0x2
-/*    13a00:	3c03800a */ 	lui	$v1,%hi(var80099f48)
-/*    13a04:	1420000c */ 	bnez	$at,.L00013a38
-/*    13a08:	90639f48 */ 	lbu	$v1,%lo(var80099f48)($v1)
-/*    13a0c:	18400009 */ 	blez	$v0,.L00013a34
-/*    13a10:	2458ffff */ 	addiu	$t8,$v0,-1
-/*    13a14:	3c0e800a */ 	lui	$t6,%hi(var80099f48)
-/*    13a18:	25c49f48 */ 	addiu	$a0,$t6,%lo(var80099f48)
-/*    13a1c:	00442821 */ 	addu	$a1,$v0,$a0
-.L00013a20:
-/*    13a20:	908f0001 */ 	lbu	$t7,0x1($a0)
-/*    13a24:	24840001 */ 	addiu	$a0,$a0,0x1
-/*    13a28:	0085082b */ 	sltu	$at,$a0,$a1
-/*    13a2c:	1420fffc */ 	bnez	$at,.L00013a20
-/*    13a30:	a08fffff */ 	sb	$t7,-0x1($a0)
-.L00013a34:
-/*    13a34:	acd80000 */ 	sw	$t8,0x0($a2)
-.L00013a38:
-/*    13a38:	03e00008 */ 	jr	$ra
-/*    13a3c:	00601025 */ 	or	$v0,$v1,$zero
-);
+/**
+ * Remove an item from the beginning of the var80099f48 array,
+ * shift the rest of the array back and return the removed item.
+ */
+s32 func000139e8(void)
+{
+	s32 result = 0;
+	s32 i;
+
+	if (var8005eecc) {
+		result = var80099f48[0];
+
+		if (var8005eecc > 1) {
+			for (i = 0; i < var8005eecc; i++) {
+				var80099f48[i] = var80099f48[i + 1];
+			}
+
+			var8005eecc--;
+		}
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func00013a40

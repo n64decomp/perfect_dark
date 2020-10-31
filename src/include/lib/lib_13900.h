@@ -9,7 +9,7 @@ void func00013974(u32 value);
 u32 func00013980(void);
 void func0001398c(s32 value);
 void func000139c8(void);
-u32 func000139e8(void);
+s32 func000139e8(void);
 void func00013a40(u32 arg0);
 void func00013ab8(u32 arg0);
 void func00013c4c(s8 index);

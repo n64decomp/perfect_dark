@@ -124,7 +124,7 @@ extern u8 g_ConnectedControllers;
 extern bool var8005eeb4;
 extern u32 var8005eeb8;
 extern u32 var8005eebc;
-extern u32 var8005eecc;
+extern s32 var8005eecc;
 extern u32 var8005eedc;
 extern u32 var8005eee0;
 extern u32 var8005eee4;

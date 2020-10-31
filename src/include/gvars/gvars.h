@@ -475,6 +475,7 @@ extern OSMesgQueue var80099f00;
 extern u32 var80099f18;
 extern OSMesgQueue var80099f20;
 extern u32 var80099f38;
+extern u8 var80099f48[];
 extern u32 var8009a874;
 extern u32 var8009a878;
 extern u32 var8009a87c;
