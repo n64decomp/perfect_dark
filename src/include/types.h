@@ -7092,13 +7092,12 @@ struct contsample {
 
 struct contdata {
 	struct contsample samples[20];
-	s32 newestindex;
-	s32 oldestindex;
+	s32 unk1e0;
+	s32 unk1e4;
 	s32 unk1e8;
 	s32 unk1ec;
 	u16 unk1f0[4];
-	s32 unk1f8;
-	s32 unk1fc;
+	u16 unk1f8[4];
 	s32 unk200;
 };
 

@@ -258,8 +258,8 @@ void contSystemInit(void)
 	var8005eec8 = NULL;
 
 	for (i = 0; i < 2; i++) {
-		var80099a60[i].newestindex = 0;
-		var80099a60[i].oldestindex = 0;
+		var80099a60[i].unk1e0 = 0;
+		var80099a60[i].unk1e4 = 0;
 		var80099a60[i].unk1e8 = 0;
 		var80099a60[i].unk1ec = 0;
 		var80099a60[i].unk200 = -1;
@@ -509,6 +509,55 @@ glabel func00014058
 /*    14234:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
+// Mismatch because goal calculates &var80099e68 before the % 20 on the marked
+// line, but the below does it after.
+//void func00014058(struct contdata *contdata)
+//{
+//	s8 i;
+//	s32 samplenum;
+//	u16 buttons1;
+//	u16 buttons2;
+//
+//	contdata->unk1e4 = contdata->unk1e0;
+//	contdata->unk1e0 = contdata->unk1e8;
+//
+//	for (i = 0; i < 4; i++) {
+//		contdata->unk1f0[i] = 0;
+//		contdata->unk1f8[i] = 0;
+//
+//		if (contdata->unk1e0 != contdata->unk1e4) {
+//			// Mismatch here
+//			samplenum = (contdata->unk1e4 + 1) % 20;
+//
+//			while (true) {
+//				buttons1 = contdata->samples[samplenum].pads[i].button;
+//				buttons2 = contdata->samples[(samplenum + 19) % 20].pads[i].button;
+//
+//				contdata->unk1f0[i] |= buttons1 & ~buttons2;
+//				contdata->unk1f8[i] |= ~buttons1 & buttons2;
+//
+//				if (var80099e68[i] > 0) {
+//					if (contdata->samples[samplenum].pads[i].button == 0
+//							&& contdata->samples[samplenum].pads[i].stick_x < 15
+//							&& contdata->samples[samplenum].pads[i].stick_x > -15
+//							&& contdata->samples[samplenum].pads[i].stick_y < 15
+//							&& contdata->samples[samplenum].pads[i].stick_y > -15) {
+//						var80099e68[i] = 0;
+//					} else {
+//						var80099e68[i]--;
+//					}
+//				}
+//
+//				if (samplenum == contdata->unk1e0) {
+//					break;
+//				}
+//
+//				samplenum = (samplenum + 1) % 20;
+//			}
+//		}
+//	}
+//}
+
 /**
  * The use of the static variable suggests that the function is able to be
  * called recursively, but its behaviour should not be run when recursing.
@@ -546,14 +595,14 @@ void contDebugJoy(void)
 	}
 
 	if (var8005eec4) {
-		var80099a60[1].unk1e8 = var8005eec4(var80099a60[1].samples, var80099a60[1].newestindex);
+		var80099a60[1].unk1e8 = var8005eec4(var80099a60[1].samples, var80099a60[1].unk1e0);
 		func00014058(&var80099a60[1]);
 	}
 
 	func00014058(&var80099a60[0]);
 
 	if (var8005eec8) {
-		var8005eec8(var80099a60[0].samples, var80099a60[0].oldestindex, var80099a60[0].newestindex);
+		var8005eec8(var80099a60[0].samples, var80099a60[0].unk1e4, var80099a60[0].unk1e0);
 	}
 
 	if (func000150c4() && var8005eec0 && contGetNumSamples() <= 0) {
@@ -589,7 +638,7 @@ void contReadData(void)
 {
 	s32 index = (var80099a60[0].unk1e8 + 1) % 20;
 
-	if (index == var80099a60[0].oldestindex) {
+	if (index == var80099a60[0].unk1e4) {
 		// If the sample queue is full, don't overwrite the oldest sample.
 		// Instead, overwrite the most recent.
 		index = var80099a60[0].unk1e8;
@@ -697,7 +746,7 @@ void func00014810(bool value)
 
 s32 contGetNumSamples(void)
 {
-	return (var8005ee60->newestindex - var8005ee60->oldestindex + 20) % 20;
+	return (var8005ee60->unk1e0 - var8005ee60->unk1e4 + 20) % 20;
 }
 
 s32 func00014848(s32 samplenum, s8 contpadnum)
@@ -711,7 +760,7 @@ s32 func00014848(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return var8005ee60->samples[(var8005ee60->oldestindex + samplenum + 1) % 20].pads[contpadnum].stick_x;
+	return var8005ee60->samples[(var8005ee60->unk1e4 + samplenum + 1) % 20].pads[contpadnum].stick_x;
 }
 
 s32 func00014904(s32 samplenum, s8 contpadnum)
@@ -725,7 +774,7 @@ s32 func00014904(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return var8005ee60->samples[(var8005ee60->oldestindex + samplenum + 1) % 20].pads[contpadnum].stick_y;
+	return var8005ee60->samples[(var8005ee60->unk1e4 + samplenum + 1) % 20].pads[contpadnum].stick_y;
 }
 
 s32 func000149c0(s32 samplenum, s8 contpadnum)
@@ -739,7 +788,7 @@ s32 func000149c0(s32 samplenum, s8 contpadnum)
 		return 0;
 	}
 
-	return var8005ee60->samples[(var8005ee60->oldestindex + samplenum) % 20].pads[contpadnum].stick_y;
+	return var8005ee60->samples[(var8005ee60->unk1e4 + samplenum) % 20].pads[contpadnum].stick_y;
 }
 
 u16 func00014a78(s32 samplenum, s8 contpadnum, u16 mask)
@@ -755,7 +804,7 @@ u16 func00014a78(s32 samplenum, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	button = var8005ee60->samples[(var8005ee60->oldestindex + samplenum + 1) % 20].pads[contpadnum].button;
+	button = var8005ee60->samples[(var8005ee60->unk1e4 + samplenum + 1) % 20].pads[contpadnum].button;
 
 	return button & mask;
 }
@@ -774,8 +823,8 @@ u16 func00014b50(s32 samplenum, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	button1 = var8005ee60->samples[(var8005ee60->oldestindex + samplenum + 1) % 20].pads[contpadnum].button;
-	button2 = var8005ee60->samples[(var8005ee60->oldestindex + samplenum) % 20].pads[contpadnum].button;
+	button1 = var8005ee60->samples[(var8005ee60->unk1e4 + samplenum + 1) % 20].pads[contpadnum].button;
+	button2 = var8005ee60->samples[(var8005ee60->unk1e4 + samplenum) % 20].pads[contpadnum].button;
 
 	return (button1 & ~button2) & mask;
 }
@@ -796,7 +845,7 @@ s32 func00014c98(u32 *arg0, s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	i = (var8005ee60->oldestindex + 1) % 20;
+	i = (var8005ee60->unk1e4 + 1) % 20;
 
 	while (true) {
 		if (arg0 == NULL || arg0[index]) {
@@ -807,7 +856,7 @@ s32 func00014c98(u32 *arg0, s8 contpadnum, u16 mask)
 			}
 		}
 
-		if (i == var8005ee60->newestindex) {
+		if (i == var8005ee60->unk1e0) {
 			break;
 		}
 
@@ -829,7 +878,7 @@ s8 contGetStickX(s8 contpadnum)
 		return 0;
 	}
 
-	return var8005ee60->samples[var8005ee60->newestindex].pads[contpadnum].stick_x;
+	return var8005ee60->samples[var8005ee60->unk1e0].pads[contpadnum].stick_x;
 }
 
 s8 contGetStickY(s8 contpadnum)
@@ -843,7 +892,7 @@ s8 contGetStickY(s8 contpadnum)
 		return 0;
 	}
 
-	return var8005ee60->samples[var8005ee60->newestindex].pads[contpadnum].stick_y;
+	return var8005ee60->samples[var8005ee60->unk1e0].pads[contpadnum].stick_y;
 }
 
 u16 contGetButtons(s8 contpadnum, u16 mask)
@@ -857,7 +906,7 @@ u16 contGetButtons(s8 contpadnum, u16 mask)
 		return 0;
 	}
 
-	return var8005ee60->samples[var8005ee60->newestindex].pads[contpadnum].button & mask;
+	return var8005ee60->samples[var8005ee60->unk1e0].pads[contpadnum].button & mask;
 }
 
 u16 func00015020(s8 contpadnum, u16 mask)
