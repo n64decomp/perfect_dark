@@ -36,7 +36,7 @@ s8 contGetStickX(s8 contpadnum);
 s8 contGetStickY(s8 contpadnum);
 u16 contGetButtons(s8 contpadnum, u16 mask);
 u16 func00015020(s8 contpadnum, u16 mask);
-u32 func000150c4(void);
+s32 func000150c4(void);
 void func000150e8(void);
 void func00015144(void);
 void func0001519c(void);

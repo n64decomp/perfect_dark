@@ -923,19 +923,10 @@ u16 func00015020(s8 contpadnum, u16 mask)
 	return var8005ee60->unk1f0[contpadnum] & mask;
 }
 
-GLOBAL_ASM(
-glabel func000150c4
-/*    150c4:	3c0e8006 */ 	lui	$t6,%hi(var8005eebc)
-/*    150c8:	8dceeebc */ 	lw	$t6,%lo(var8005eebc)($t6)
-/*    150cc:	24030001 */ 	addiu	$v1,$zero,0x1
-/*    150d0:	11c00003 */ 	beqz	$t6,.L000150e0
-/*    150d4:	00000000 */ 	nop
-/*    150d8:	03e00008 */ 	jr	$ra
-/*    150dc:	00001025 */ 	or	$v0,$zero,$zero
-.L000150e0:
-/*    150e0:	03e00008 */ 	jr	$ra
-/*    150e4:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 func000150c4(void)
+{
+	return var8005eebc ? false : true;
+}
 
 void func000150e8(void)
 {
