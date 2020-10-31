@@ -928,76 +928,23 @@ void func0001519c(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func000152d0
-/*    152d0:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*    152d4:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*    152d8:	8cf80318 */ 	lw	$t8,0x318($a3)
-/*    152dc:	00047600 */ 	sll	$t6,$a0,0x18
-/*    152e0:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*    152e4:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    152e8:	13000008 */ 	beqz	$t8,.L0001530c
-/*    152ec:	01e02025 */ 	or	$a0,$t7,$zero
-/*    152f0:	000fc9c0 */ 	sll	$t9,$t7,0x7
-/*    152f4:	00f94021 */ 	addu	$t0,$a3,$t9
-/*    152f8:	8d0900e4 */ 	lw	$t1,0xe4($t0)
-/*    152fc:	240affff */ 	addiu	$t2,$zero,-1
-/*    15300:	aca90000 */ 	sw	$t1,0x0($a1)
-/*    15304:	03e00008 */ 	jr	$ra
-/*    15308:	acca0000 */ 	sw	$t2,0x0($a2)
-.L0001530c:
-/*    1530c:	000459c0 */ 	sll	$t3,$a0,0x7
-/*    15310:	aca40000 */ 	sw	$a0,0x0($a1)
-/*    15314:	00eb6021 */ 	addu	$t4,$a3,$t3
-/*    15318:	8d8d00e4 */ 	lw	$t5,0xe4($t4)
-/*    1531c:	3c0f800b */ 	lui	$t7,%hi(g_MpPlayers+0x44)
-/*    15320:	000d7080 */ 	sll	$t6,$t5,0x2
-/*    15324:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*    15328:	000e7140 */ 	sll	$t6,$t6,0x5
-/*    1532c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*    15330:	91efc7fc */ 	lbu	$t7,%lo(g_MpPlayers+0x44)($t7)
-/*    15334:	240effff */ 	addiu	$t6,$zero,-1
-/*    15338:	29e10004 */ 	slti	$at,$t7,0x4
-/*    1533c:	5420001f */ 	bnezl	$at,.L000153bc
-/*    15340:	acce0000 */ 	sw	$t6,0x0($a2)
-/*    15344:	8cf8006c */ 	lw	$t8,0x6c($a3)
-/*    15348:	00001025 */ 	or	$v0,$zero,$zero
-/*    1534c:	00001825 */ 	or	$v1,$zero,$zero
-/*    15350:	13000003 */ 	beqz	$t8,.L00015360
-/*    15354:	00002825 */ 	or	$a1,$zero,$zero
-/*    15358:	10000001 */ 	b	.L00015360
-/*    1535c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L00015360:
-/*    15360:	8cf90068 */ 	lw	$t9,0x68($a3)
-/*    15364:	13200003 */ 	beqz	$t9,.L00015374
-/*    15368:	00000000 */ 	nop
-/*    1536c:	10000001 */ 	b	.L00015374
-/*    15370:	24030001 */ 	addiu	$v1,$zero,0x1
-.L00015374:
-/*    15374:	8ce80064 */ 	lw	$t0,0x64($a3)
-/*    15378:	11000003 */ 	beqz	$t0,.L00015388
-/*    1537c:	00000000 */ 	nop
-/*    15380:	10000001 */ 	b	.L00015388
-/*    15384:	24050001 */ 	addiu	$a1,$zero,0x1
-.L00015388:
-/*    15388:	8ce90070 */ 	lw	$t1,0x70($a3)
-/*    1538c:	00003825 */ 	or	$a3,$zero,$zero
-/*    15390:	11200003 */ 	beqz	$t1,.L000153a0
-/*    15394:	00000000 */ 	nop
-/*    15398:	10000001 */ 	b	.L000153a0
-/*    1539c:	24070001 */ 	addiu	$a3,$zero,0x1
-.L000153a0:
-/*    153a0:	00e55021 */ 	addu	$t2,$a3,$a1
-/*    153a4:	01435821 */ 	addu	$t3,$t2,$v1
-/*    153a8:	01626021 */ 	addu	$t4,$t3,$v0
-/*    153ac:	01846821 */ 	addu	$t5,$t4,$a0
-/*    153b0:	03e00008 */ 	jr	$ra
-/*    153b4:	accd0000 */ 	sw	$t5,0x0($a2)
-/*    153b8:	acce0000 */ 	sw	$t6,0x0($a2)
-.L000153bc:
-/*    153bc:	03e00008 */ 	jr	$ra
-/*    153c0:	00000000 */ 	nop
-);
+void func000152d0(s8 playernum, s32 *arg1, s32 *arg2)
+{
+	if (g_Vars.normmplayerisrunning) {
+		*arg1 = g_Vars.playerstats[playernum].mpindex;
+		*arg2 = -1;
+		return;
+	}
+
+	*arg1 = playernum;
+
+	if (g_MpPlayers[g_Vars.playerstats[playernum].mpindex].base.controlmode >= CONTROLMODE_21) {
+		*arg2 = PLAYERCOUNT() + playernum;
+		return;
+	}
+
+	*arg2 = -1;
+}
 
 GLOBAL_ASM(
 glabel func000153c4
