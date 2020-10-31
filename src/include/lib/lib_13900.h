@@ -39,7 +39,7 @@ u16 func00015020(s8 contpadnum, u16 mask);
 u32 func000150c4(void);
 void func000150e8(void);
 void func00015144(void);
-u32 func0001519c(void);
+void func0001519c(void);
 u32 func000152d0(void);
 u32 func000153c4(void);
 s32 func000155b4(s8 index);

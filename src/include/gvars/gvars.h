@@ -680,7 +680,7 @@ extern u16 *g_CoverNums;
 extern struct var800a2380 var800a2380[4];
 extern u32 var800a2eb0;
 extern u8 var800a316c[4];
-extern u32 var800a3180;
+extern struct var800a3180 var800a3180[4];
 extern u32 var800a33a0;
 extern u32 var800a33a4;
 extern u32 var800a33a8;
