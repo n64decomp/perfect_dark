@@ -5443,7 +5443,7 @@ struct var800a2380 {
 	/*0x2a8*/ u32 unk2a8;
 	/*0x2ac*/ u32 unk2ac;
 	/*0x2b0*/ u32 unk2b0;
-	/*0x2b4*/ u32 unk2b4;
+	/*0x2b4*/ f32 unk2b4;
 	/*0x2b8*/ u32 unk2b8;
 	/*0x2bc*/ u32 unk2bc;
 	/*0x2c0*/ u32 unk2c0;
