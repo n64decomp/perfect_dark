@@ -38,6 +38,7 @@
 	build/ROMID/lib/lib_13790.o (section); \
 	build/ROMID/lib/lib_13820.o (section); \
 	build/ROMID/lib/lib_13900.o (section); \
+	build/ROMID/lib/lib_15850.o (section); \
 	build/ROMID/lib/lib_15860.o (section); \
 	build/ROMID/lib/lib_159b0.o (section); \
 	build/ROMID/lib/lib_16110.o (section); \
