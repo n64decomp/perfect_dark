@@ -221,7 +221,7 @@ glabel mainInit
 /*     d568:	0c00be82 */ 	jal	func0002fa08
 /*     d56c:	00000000 */ 	nop
 /*     d570:	3c018006 */ 	lui	$at,%hi(var8005d9b0)
-/*     d574:	0c004f25 */ 	jal	func00013c94
+/*     d574:	0c004f25 */ 	jal	contSystemInit
 /*     d578:	ac22d9b0 */ 	sw	$v0,%lo(var8005d9b0)($at)
 /*     d57c:	27a41490 */ 	addiu	$a0,$sp,0x1490
 /*     d580:	27a514cc */ 	addiu	$a1,$sp,0x14cc
@@ -629,7 +629,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func00013758();
 //	func00009ab0();
 //	var8005d9b0 = func0002fa08();
-//	func00013c94();
+//	contSystemInit();
 //	osCreateMesgQueue(&queue, &msg, 1);
 //
 //	for (i = 0; i < 4; i++) {

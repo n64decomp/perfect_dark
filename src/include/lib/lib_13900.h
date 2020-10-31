@@ -13,7 +13,7 @@ s32 func000139e8(void);
 void func00013a40(u8 arg0);
 void func00013ab8(u32 arg0);
 void func00013c4c(s8 index);
-void func00013c94(void);
+void contSystemInit(void);
 void func00013dd4(void);
 void func00013dfc(void);
 void func00013e84(void);

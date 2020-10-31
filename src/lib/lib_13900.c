@@ -35,7 +35,7 @@ const u32 var700541f4[] = {0x7001581c};
 const u32 var700541f8[] = {0x7001580c};
 const u32 var700541fc[] = {0x00000000};
 
-struct contdata *var8005ee60 = &var80099a60;
+struct contdata *var8005ee60 = &var80099a60[0];
 bool g_ContBusy = false;
 u32 var8005ee68 = 0x00000000;
 u32 var8005ee6c[4] = {0};
@@ -260,92 +260,42 @@ void func00013c4c(s8 index)
 	func00013a40(value);
 }
 
-GLOBAL_ASM(
-glabel func00013c94
-/*    13c94:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    13c98:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    13c9c:	3c04800a */ 	lui	$a0,%hi(var80099ec0)
-/*    13ca0:	3c05800a */ 	lui	$a1,%hi(var80099eb8)
-/*    13ca4:	24a59eb8 */ 	addiu	$a1,$a1,%lo(var80099eb8)
-/*    13ca8:	24849ec0 */ 	addiu	$a0,$a0,%lo(var80099ec0)
-/*    13cac:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*    13cb0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    13cb4:	3c04800a */ 	lui	$a0,%hi(var80099ee0)
-/*    13cb8:	3c05800a */ 	lui	$a1,%hi(var80099ed8)
-/*    13cbc:	24a59ed8 */ 	addiu	$a1,$a1,%lo(var80099ed8)
-/*    13cc0:	24849ee0 */ 	addiu	$a0,$a0,%lo(var80099ee0)
-/*    13cc4:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*    13cc8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    13ccc:	3c04800a */ 	lui	$a0,%hi(var80099f00)
-/*    13cd0:	3c05800a */ 	lui	$a1,%hi(var80099ef8)
-/*    13cd4:	24a59ef8 */ 	addiu	$a1,$a1,%lo(var80099ef8)
-/*    13cd8:	24849f00 */ 	addiu	$a0,$a0,%lo(var80099f00)
-/*    13cdc:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*    13ce0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    13ce4:	3c04800a */ 	lui	$a0,%hi(var80099f20)
-/*    13ce8:	3c05800a */ 	lui	$a1,%hi(var80099f18)
-/*    13cec:	24a59f18 */ 	addiu	$a1,$a1,%lo(var80099f18)
-/*    13cf0:	24849f20 */ 	addiu	$a0,$a0,%lo(var80099f20)
-/*    13cf4:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*    13cf8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    13cfc:	3c04800a */ 	lui	$a0,%hi(var80099e78)
-/*    13d00:	3c05800a */ 	lui	$a1,%hi(var80099e90)
-/*    13d04:	24a59e90 */ 	addiu	$a1,$a1,%lo(var80099e90)
-/*    13d08:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
-/*    13d0c:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*    13d10:	2406000a */ 	addiu	$a2,$zero,0xa
-/*    13d14:	3c05800a */ 	lui	$a1,%hi(var80099e78)
-/*    13d18:	24a59e78 */ 	addiu	$a1,$a1,%lo(var80099e78)
-/*    13d1c:	24040005 */ 	addiu	$a0,$zero,0x5
-/*    13d20:	0c012148 */ 	jal	osSetEventMesg
-/*    13d24:	00003025 */ 	or	$a2,$zero,$zero
-/*    13d28:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    13d2c:	3c018006 */ 	lui	$at,%hi(var8005eeb0)
-/*    13d30:	ac2eeeb0 */ 	sw	$t6,%lo(var8005eeb0)($at)
-/*    13d34:	3c018006 */ 	lui	$at,%hi(var8005eec4)
-/*    13d38:	ac20eec4 */ 	sw	$zero,%lo(var8005eec4)($at)
-/*    13d3c:	3c0f800a */ 	lui	$t7,%hi(var80099a60)
-/*    13d40:	3c018006 */ 	lui	$at,%hi(var8005eec8)
-/*    13d44:	25e69a60 */ 	addiu	$a2,$t7,%lo(var80099a60)
-/*    13d48:	3c08800a */ 	lui	$t0,%hi(var80099e68)
-/*    13d4c:	ac20eec8 */ 	sw	$zero,%lo(var8005eec8)($at)
-/*    13d50:	25089e68 */ 	addiu	$t0,$t0,%lo(var80099e68)
-/*    13d54:	00c02825 */ 	or	$a1,$a2,$zero
-/*    13d58:	2407ffff */ 	addiu	$a3,$zero,-1
-/*    13d5c:	24040004 */ 	addiu	$a0,$zero,0x4
-.L00013d60:
-/*    13d60:	aca001e0 */ 	sw	$zero,0x1e0($a1)
-/*    13d64:	aca001e4 */ 	sw	$zero,0x1e4($a1)
-/*    13d68:	aca001e8 */ 	sw	$zero,0x1e8($a1)
-/*    13d6c:	aca001ec */ 	sw	$zero,0x1ec($a1)
-/*    13d70:	aca70200 */ 	sw	$a3,0x200($a1)
-/*    13d74:	00001825 */ 	or	$v1,$zero,$zero
-/*    13d78:	00c01025 */ 	or	$v0,$a2,$zero
-.L00013d7c:
-/*    13d7c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    13d80:	24420006 */ 	addiu	$v0,$v0,0x6
-/*    13d84:	a440fffa */ 	sh	$zero,-0x6($v0)
-/*    13d88:	a040fffc */ 	sb	$zero,-0x4($v0)
-/*    13d8c:	a040fffd */ 	sb	$zero,-0x3($v0)
-/*    13d90:	1464fffa */ 	bne	$v1,$a0,.L00013d7c
-/*    13d94:	a040fffe */ 	sb	$zero,-0x2($v0)
-/*    13d98:	24c60204 */ 	addiu	$a2,$a2,0x204
-/*    13d9c:	00c8082b */ 	sltu	$at,$a2,$t0
-/*    13da0:	1420ffef */ 	bnez	$at,.L00013d60
-/*    13da4:	24a50204 */ 	addiu	$a1,$a1,0x204
-/*    13da8:	3c02800a */ 	lui	$v0,%hi(var80099e68)
-/*    13dac:	3c03800a */ 	lui	$v1,%hi(var80099e78)
-/*    13db0:	24639e78 */ 	addiu	$v1,$v1,%lo(var80099e78)
-/*    13db4:	24429e68 */ 	addiu	$v0,$v0,%lo(var80099e68)
-.L00013db8:
-/*    13db8:	24420004 */ 	addiu	$v0,$v0,0x4
-/*    13dbc:	1443fffe */ 	bne	$v0,$v1,.L00013db8
-/*    13dc0:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*    13dc4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    13dc8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    13dcc:	03e00008 */ 	jr	$ra
-/*    13dd0:	00000000 */ 	nop
-);
+void contSystemInit(void)
+{
+	s32 i;
+	s32 j;
+
+	osCreateMesgQueue(&var80099ec0, &var80099eb8, 1);
+	osCreateMesgQueue(&var80099ee0, &var80099ed8, 1);
+	osCreateMesgQueue(&var80099f00, &var80099ef8, 1);
+	osCreateMesgQueue(&var80099f20, &var80099f18, 1);
+	osCreateMesgQueue(&var80099e78, &var80099e90, 10);
+
+	osSetEventMesg(OS_EVENT_SI, &var80099e78, NULL);
+
+	var8005eeb0 = 1;
+	var8005eec4 = 0;
+	var8005eec8 = 0;
+
+	for (i = 0; i < 2; i++) {
+		var80099a60[i].newestindex = 0;
+		var80099a60[i].oldestindex = 0;
+		var80099a60[i].unk1e8 = 0;
+		var80099a60[i].unk1ec = 0;
+		var80099a60[i].unk200 = -1;
+
+		for (j = 0; j < 4; j++) {
+			var80099a60[i].samples[0].pads[j].button = 0;
+			var80099a60[i].samples[0].pads[j].stick_x = 0;
+			var80099a60[i].samples[0].pads[j].stick_y = 0;
+			var80099a60[i].samples[0].pads[j].errno = 0;
+		}
+	}
+
+	for (i = 0; i < 4; i++) {
+		var80099e68[i] = 0;
+	}
+}
 
 void func00013dd4(void)
 {
@@ -725,17 +675,17 @@ glabel func000142f0
 .L00014324:
 /*    14324:	3c028006 */ 	lui	$v0,%hi(var8005eec4)
 /*    14328:	8c42eec4 */ 	lw	$v0,%lo(var8005eec4)($v0)
-/*    1432c:	3c04800a */ 	lui	$a0,%hi(var80099c64)
-/*    14330:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099c64)
+/*    1432c:	3c04800a */ 	lui	$a0,%hi(var80099a60+0x204)
+/*    14330:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099a60+0x204)
 /*    14334:	10400008 */ 	beqz	$v0,.L00014358
-/*    14338:	3c05800a */ 	lui	$a1,%hi(var80099e44)
+/*    14338:	3c05800a */ 	lui	$a1,%hi(var80099a60+0x3e4)
 /*    1433c:	0040f809 */ 	jalr	$v0
-/*    14340:	8ca59e44 */ 	lw	$a1,%lo(var80099e44)($a1)
-/*    14344:	3c01800a */ 	lui	$at,%hi(var80099e4c)
-/*    14348:	3c04800a */ 	lui	$a0,%hi(var80099c64)
-/*    1434c:	ac229e4c */ 	sw	$v0,%lo(var80099e4c)($at)
+/*    14340:	8ca59e44 */ 	lw	$a1,%lo(var80099a60+0x3e4)($a1)
+/*    14344:	3c01800a */ 	lui	$at,%hi(var80099a60+0x3ec)
+/*    14348:	3c04800a */ 	lui	$a0,%hi(var80099a60+0x204)
+/*    1434c:	ac229e4c */ 	sw	$v0,%lo(var80099a60+0x3ec)($at)
 /*    14350:	0c005016 */ 	jal	func00014058
-/*    14354:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099c64)
+/*    14354:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099a60+0x204)
 .L00014358:
 /*    14358:	3c04800a */ 	lui	$a0,%hi(var80099a60)
 /*    1435c:	0c005016 */ 	jal	func00014058
@@ -796,17 +746,17 @@ glabel func000142f0
 .L00014324:
 /*    14324:	3c028006 */ 	lui	$v0,%hi(var8005eec4)
 /*    14328:	8c42eec4 */ 	lw	$v0,%lo(var8005eec4)($v0)
-/*    1432c:	3c04800a */ 	lui	$a0,%hi(var80099c64)
-/*    14330:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099c64)
+/*    1432c:	3c04800a */ 	lui	$a0,%hi(var80099a60+0x204)
+/*    14330:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099a60+0x204)
 /*    14334:	10400008 */ 	beqz	$v0,.L00014358
-/*    14338:	3c05800a */ 	lui	$a1,%hi(var80099e44)
+/*    14338:	3c05800a */ 	lui	$a1,%hi(var80099a60+0x3e4)
 /*    1433c:	0040f809 */ 	jalr	$v0
-/*    14340:	8ca59e44 */ 	lw	$a1,%lo(var80099e44)($a1)
-/*    14344:	3c01800a */ 	lui	$at,%hi(var80099e4c)
-/*    14348:	3c04800a */ 	lui	$a0,%hi(var80099c64)
-/*    1434c:	ac229e4c */ 	sw	$v0,%lo(var80099e4c)($at)
+/*    14340:	8ca59e44 */ 	lw	$a1,%lo(var80099a60+0x3e4)($a1)
+/*    14344:	3c01800a */ 	lui	$at,%hi(var80099a60+0x3ec)
+/*    14348:	3c04800a */ 	lui	$a0,%hi(var80099a60+0x204)
+/*    1434c:	ac229e4c */ 	sw	$v0,%lo(var80099a60+0x3ec)($at)
 /*    14350:	0c005016 */ 	jal	func00014058
-/*    14354:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099c64)
+/*    14354:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099a60+0x204)
 .L00014358:
 /*    14358:	3c04800a */ 	lui	$a0,%hi(var80099a60)
 /*    1435c:	0c005016 */ 	jal	func00014058
@@ -857,18 +807,18 @@ s32 contStartReadData(OSMesgQueue *mq)
 
 void contReadData(void)
 {
-	s32 index = (var80099a60.unk1e8 + 1) % 20;
+	s32 index = (var80099a60[0].unk1e8 + 1) % 20;
 
-	if (index == var80099a60.oldestindex) {
+	if (index == var80099a60[0].oldestindex) {
 		// If the sample queue is full, don't overwrite the oldest sample.
 		// Instead, overwrite the most recent.
-		index = var80099a60.unk1e8;
+		index = var80099a60[0].unk1e8;
 	}
 
-	osContGetReadData(var80099a60.samples[index].pads);
+	osContGetReadData(var80099a60[0].samples[index].pads);
 
-	var80099a60.unk1e8 = index;
-	var80099a60.unk1ec = (var80099a60.unk1e8 + 19) % 20;
+	var80099a60[0].unk1e8 = index;
+	var80099a60[0].unk1ec = (var80099a60[0].unk1e8 + 19) % 20;
 }
 
 void contPoll(void)
@@ -885,8 +835,8 @@ void contPoll(void)
 
 			// Check if error state has changed for any controller
 			for (i = 0; i < 4; i++) {
-				if ((var80099a60.samples[var80099a60.unk1e8].pads[i].errno == 0 && var80099a60.samples[var80099a60.unk1ec].pads[i].errno != 0)
-						|| (var80099a60.samples[var80099a60.unk1e8].pads[i].errno != 0 && var80099a60.samples[var80099a60.unk1ec].pads[i].errno == 0)) {
+				if ((var80099a60[0].samples[var80099a60[0].unk1e8].pads[i].errno == 0 && var80099a60[0].samples[var80099a60[0].unk1ec].pads[i].errno != 0)
+						|| (var80099a60[0].samples[var80099a60[0].unk1e8].pads[i].errno != 0 && var80099a60[0].samples[var80099a60[0].unk1ec].pads[i].errno == 0)) {
 					func00013e84();
 					break;
 				}
@@ -927,8 +877,8 @@ void contPoll(void)
 
 			// Check if error state has changed for any controller
 			for (i = 0; i < 4; i++) {
-				if ((var80099a60.samples[var80099a60.unk1e8].pads[i].errno == 0 && var80099a60.samples[var80099a60.unk1ec].pads[i].errno != 0)
-						|| (var80099a60.samples[var80099a60.unk1e8].pads[i].errno != 0 && var80099a60.samples[var80099a60.unk1ec].pads[i].errno == 0)) {
+				if ((var80099a60[0].samples[var80099a60[0].unk1e8].pads[i].errno == 0 && var80099a60[0].samples[var80099a60[0].unk1ec].pads[i].errno != 0)
+						|| (var80099a60[0].samples[var80099a60[0].unk1e8].pads[i].errno != 0 && var80099a60[0].samples[var80099a60[0].unk1ec].pads[i].errno == 0)) {
 					func00013e84();
 					break;
 				}
