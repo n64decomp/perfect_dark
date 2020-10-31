@@ -64,8 +64,6 @@ u32 var8005eef4 = 0x00000000;
 u32 var8005eef8 = 0x00000000;
 u32 var8005eefc = 0x00000000;
 u32 var8005ef00 = 0xff000000;
-u32 var8005ef04 = 0x00000000;
-u32 var8005ef08 = 0x00000000;
 
 void func00013900(void)
 {
@@ -580,59 +578,33 @@ glabel func00014058
 /*    14234:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-GLOBAL_ASM(
-glabel func00014238
-/*    14238:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    1423c:	3c0e8006 */ 	lui	$t6,%hi(var8005ef04)
-/*    14240:	8dceef04 */ 	lw	$t6,%lo(var8005ef04)($t6)
-/*    14244:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    14248:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    1424c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*    14250:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    14254:	15c0001f */ 	bnez	$t6,.L000142d4
-/*    14258:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    1425c:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    14260:	3c018006 */ 	lui	$at,%hi(var8005ef04)
-/*    14264:	ac2fef04 */ 	sw	$t7,%lo(var8005ef04)($at)
-/*    14268:	00008825 */ 	or	$s1,$zero,$zero
-/*    1426c:	24130004 */ 	addiu	$s3,$zero,0x4
-/*    14270:	2412000d */ 	addiu	$s2,$zero,0xd
-/*    14274:	00118600 */ 	sll	$s0,$s1,0x18
-.L00014278:
-/*    14278:	0010c603 */ 	sra	$t8,$s0,0x18
-/*    1427c:	00182600 */ 	sll	$a0,$t8,0x18
-/*    14280:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*    14284:	03202025 */ 	or	$a0,$t9,$zero
-/*    14288:	0c00557d */ 	jal	func000155f4
-/*    1428c:	03008025 */ 	or	$s0,$t8,$zero
-/*    14290:	14520005 */ 	bne	$v0,$s2,.L000142a8
-/*    14294:	00102600 */ 	sll	$a0,$s0,0x18
-/*    14298:	00044603 */ 	sra	$t0,$a0,0x18
-/*    1429c:	01002025 */ 	or	$a0,$t0,$zero
-/*    142a0:	0fc45b6c */ 	jal	func0f116db0
-/*    142a4:	2405000b */ 	addiu	$a1,$zero,0xb
-.L000142a8:
-/*    142a8:	26310001 */ 	addiu	$s1,$s1,0x1
-/*    142ac:	5633fff2 */ 	bnel	$s1,$s3,.L00014278
-/*    142b0:	00118600 */ 	sll	$s0,$s1,0x18
-/*    142b4:	3c098006 */ 	lui	$t1,%hi(var8005eec4)
-/*    142b8:	8d29eec4 */ 	lw	$t1,%lo(var8005eec4)($t1)
-/*    142bc:	15200003 */ 	bnez	$t1,.L000142cc
-/*    142c0:	00000000 */ 	nop
-/*    142c4:	0c005587 */ 	jal	func0001561c
-/*    142c8:	00000000 */ 	nop
-.L000142cc:
-/*    142cc:	3c018006 */ 	lui	$at,%hi(var8005ef04)
-/*    142d0:	ac20ef04 */ 	sw	$zero,%lo(var8005ef04)($at)
-.L000142d4:
-/*    142d4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    142d8:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    142dc:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    142e0:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*    142e4:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*    142e8:	03e00008 */ 	jr	$ra
-/*    142ec:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+/**
+ * The use of the static variable suggests that the function is able to be
+ * called recursively, but its behaviour should not be run when recursing.
+ */
+void func00014238(void)
+{
+	static bool doingit = false;
+	s32 i;
+
+	if (doingit == false) {
+		doingit = true;
+
+		for (i = 0; i < 4; i++) {
+			if (func000155f4(i) == 13) {
+				func0f116db0(i, 11);
+			}
+		}
+
+		if (var8005eec4 == 0) {
+			func0001561c();
+		}
+
+		doingit = false;
+	}
+}
+
+u32 var8005ef08 = 0x00000000;
 
 #if VERSION >= VERSION_NTSC_FINAL
 GLOBAL_ASM(
@@ -1414,12 +1386,12 @@ glabel func000153c4
 /*    155b0:	00000000 */ 	nop
 );
 
-bool func000155b4(s8 index)
+s32 func000155b4(s8 index)
 {
 	return var800a2380[index].unk010;
 }
 
-bool func000155f4(s8 index)
+s32 func000155f4(s8 index)
 {
 	return func000155b4(index);
 }

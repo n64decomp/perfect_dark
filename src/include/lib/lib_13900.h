@@ -42,8 +42,8 @@ void func00015144(void);
 u32 func0001519c(void);
 u32 func000152d0(void);
 u32 func000153c4(void);
-bool func000155b4(s8 index);
-bool func000155f4(s8 index);
-u32 func0001561c(void);
+s32 func000155b4(s8 index);
+s32 func000155f4(s8 index);
+void func0001561c(void);
 
 #endif
