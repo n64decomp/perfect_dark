@@ -1,7 +1,6 @@
 # User configurable
 
 ROMID ?= ntsc-final
-MATCHING ?= 1
 PIRACYCHECKS ?= 1
 
 QEMU_IRIX ?= tools/irix/qemu-irix
@@ -152,7 +151,7 @@ $(B_DIR)/pd.z64: $(B_DIR)/stage3.bin $(ASSET_FILES)
 # the ROM to 32MB.
 $(B_DIR)/stage3.bin: $(B_DIR)/stage2.bin $(B_DIR)/segments/gamezips.bin
 	@cp $< $@.tmp
-	MATCHING=$(MATCHING) tools/packrom $@.tmp && mv $@.tmp $@
+	tools/packrom $@.tmp && mv $@.tmp $@
 
 # Stage2 takes stage1 and calculates the piracy checksums.
 $(B_DIR)/stage2.bin: $(B_DIR)/stage1.bin

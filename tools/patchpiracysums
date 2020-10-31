@@ -165,10 +165,14 @@ class Tool:
             pos += 4
 
         if upperpos is None or lowerpos is None:
-            print('0x%08x' % checksum)
-            raise ValueError('Unable to find checksum location in %s (upperpos=%s, lowerpos=%s)' % (
-                patchfunc, upperpos, lowerpos
-            ))
+            print('Unable to find placeholder checksum in %s.' % patchfunc)
+            print('This can happen if you\'ve turned PIRACYCHECKS off, built the files, then turned it on without rebuilding.')
+            print('To fix, try running the following:')
+            print('')
+            print('    touch $(grep -lr PIRACYCHECKS src)')
+            print('    make')
+            print('')
+            exit(1)
 
         self.fd.seek(upperpos)
         self.fd.write((0x3c010000 | (checksum >> 16)).to_bytes(4, 'big'))
@@ -200,7 +204,7 @@ class Tool:
 
         self.fd.close()
 
-if os.environ['PIRACYCHECKS']:
+if os.environ['PIRACYCHECKS'] == '1':
     tool = Tool()
     tool.run()
 
