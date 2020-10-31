@@ -17,23 +17,6 @@
 
 const char var70054080[] = "joyReset\n";
 const char var7005408c[] = "joyReset: doing nothing\n";
-const char var700540a8[] = "debugjoy";
-const char var700540b4[] = "JOY : g_EnableCyclicPolling=%d";
-const char var700540d4[] = "JOY : g_JoyReCheckInterval=%d";
-const char var700540f4[] = "JOY : g_JoyReCheckEventIn=%d";
-const char var70054114[] = "JOY : g_JoyRecheckDone=%d";
-const char var70054130[] = "osContStartReadData -> Failed - CONT_NO_RESPONSE_ERROR\n";
-const char var70054168[] = "osContStartReadData -> Failed - CONT_OVERRUN_ERROR\n";
-const char var7005419c[] = "joyTickRetrace:joy%derrno%d->%d\n";
-const char var700541c0[] = "joyTickRetrace:joy%derrno%d->%d\n";
-
-const u32 var700541e4[] = {0x700156a4};
-const u32 var700541e8[] = {0x700156d8};
-const u32 var700541ec[] = {0x700157a8};
-const u32 var700541f0[] = {0x700157d8};
-const u32 var700541f4[] = {0x7001581c};
-const u32 var700541f8[] = {0x7001580c};
-const u32 var700541fc[] = {0x00000000};
 
 struct contdata *var8005ee60 = &var80099a60[0];
 bool g_ContBusy = false;
@@ -48,8 +31,8 @@ bool var8005eeb4 = false;
 u32 var8005eeb8 = 0x00000001;
 u32 var8005eebc = 0x00000000;
 u32 var8005eec0 = 0x00000001;
-u32 var8005eec4 = 0x00000000;
-u32 var8005eec8 = 0x00000000;
+s32 (*var8005eec4)(struct contsample *samples, s32 samplenum) = NULL;
+void (*var8005eec8)(struct contsample *samples, s32 samplenum, s32 samplenum2) = NULL;
 s32 var8005eecc = 0;
 u32 var8005eed0 = 0x00000000;
 u32 var8005eed4 = 0x00000000;
@@ -272,8 +255,8 @@ void contSystemInit(void)
 	osSetEventMesg(OS_EVENT_SI, &var80099e78, NULL);
 
 	var8005eeb0 = 1;
-	var8005eec4 = 0;
-	var8005eec8 = 0;
+	var8005eec4 = NULL;
+	var8005eec8 = NULL;
 
 	for (i = 0; i < 2; i++) {
 		var80099a60[i].newestindex = 0;
@@ -596,7 +579,7 @@ void func00014238(void)
 			}
 		}
 
-		if (var8005eec4 == 0) {
+		if (var8005eec4 == NULL) {
 			func0001561c();
 		}
 
@@ -604,151 +587,50 @@ void func00014238(void)
 	}
 }
 
-u32 var8005ef08 = 0x00000000;
+u32 var8005ef08 = 0;
+
+void contDebugJoy(void)
+{
+	func0000db30("debugjoy", &var8005ef08);
+
+	if (g_Vars.unk0004d0) {
+		func00013ab8(1);
+	}
+
+	if (var8005eec4) {
+		var80099a60[1].unk1e8 = var8005eec4(var80099a60[1].samples, var80099a60[1].newestindex);
+		func00014058(&var80099a60[1]);
+	}
+
+	func00014058(&var80099a60[0]);
+
+	if (var8005eec8) {
+		var8005eec8(var80099a60[0].samples, var80099a60[0].oldestindex, var80099a60[0].newestindex);
+	}
+
+	if (func000150c4() && var8005eec0 && contGetNumSamples() <= 0) {
+		func000150e8();
 
 #if VERSION >= VERSION_NTSC_FINAL
-GLOBAL_ASM(
-glabel func000142f0
-/*    142f0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    142f4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    142f8:	3c047005 */ 	lui	$a0,%hi(var700540a8)
-/*    142fc:	3c058006 */ 	lui	$a1,%hi(var8005ef08)
-/*    14300:	24a5ef08 */ 	addiu	$a1,$a1,%lo(var8005ef08)
-/*    14304:	0c0036cc */ 	jal	func0000db30
-/*    14308:	248440a8 */ 	addiu	$a0,$a0,%lo(var700540a8)
-/*    1430c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x4d0)
-/*    14310:	91cea490 */ 	lbu	$t6,%lo(g_Vars+0x4d0)($t6)
-/*    14314:	11c00003 */ 	beqz	$t6,.L00014324
-/*    14318:	00000000 */ 	nop
-/*    1431c:	0c004eae */ 	jal	func00013ab8
-/*    14320:	24040001 */ 	addiu	$a0,$zero,0x1
-.L00014324:
-/*    14324:	3c028006 */ 	lui	$v0,%hi(var8005eec4)
-/*    14328:	8c42eec4 */ 	lw	$v0,%lo(var8005eec4)($v0)
-/*    1432c:	3c04800a */ 	lui	$a0,%hi(var80099a60+0x204)
-/*    14330:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099a60+0x204)
-/*    14334:	10400008 */ 	beqz	$v0,.L00014358
-/*    14338:	3c05800a */ 	lui	$a1,%hi(var80099a60+0x3e4)
-/*    1433c:	0040f809 */ 	jalr	$v0
-/*    14340:	8ca59e44 */ 	lw	$a1,%lo(var80099a60+0x3e4)($a1)
-/*    14344:	3c01800a */ 	lui	$at,%hi(var80099a60+0x3ec)
-/*    14348:	3c04800a */ 	lui	$a0,%hi(var80099a60+0x204)
-/*    1434c:	ac229e4c */ 	sw	$v0,%lo(var80099a60+0x3ec)($at)
-/*    14350:	0c005016 */ 	jal	func00014058
-/*    14354:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099a60+0x204)
-.L00014358:
-/*    14358:	3c04800a */ 	lui	$a0,%hi(var80099a60)
-/*    1435c:	0c005016 */ 	jal	func00014058
-/*    14360:	24849a60 */ 	addiu	$a0,$a0,%lo(var80099a60)
-/*    14364:	3c028006 */ 	lui	$v0,%hi(var8005eec8)
-/*    14368:	8c42eec8 */ 	lw	$v0,%lo(var8005eec8)($v0)
-/*    1436c:	3c04800a */ 	lui	$a0,%hi(var80099a60)
-/*    14370:	24849a60 */ 	addiu	$a0,$a0,%lo(var80099a60)
-/*    14374:	10400004 */ 	beqz	$v0,.L00014388
-/*    14378:	00000000 */ 	nop
-/*    1437c:	8c8501e4 */ 	lw	$a1,0x1e4($a0)
-/*    14380:	0040f809 */ 	jalr	$v0
-/*    14384:	8c8601e0 */ 	lw	$a2,0x1e0($a0)
-.L00014388:
-/*    14388:	0c005431 */ 	jal	func000150c4
-/*    1438c:	00000000 */ 	nop
-/*    14390:	10400011 */ 	beqz	$v0,.L000143d8
-/*    14394:	3c0f8006 */ 	lui	$t7,%hi(var8005eec0)
-/*    14398:	8defeec0 */ 	lw	$t7,%lo(var8005eec0)($t7)
-/*    1439c:	51e0000f */ 	beqzl	$t7,.L000143dc
-/*    143a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    143a4:	0c005207 */ 	jal	contGetNumSamples
-/*    143a8:	00000000 */ 	nop
-/*    143ac:	5c40000b */ 	bgtzl	$v0,.L000143dc
-/*    143b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    143b4:	0c00543a */ 	jal	func000150e8
-/*    143b8:	00000000 */ 	nop
-/*    143bc:	0c00508e */ 	jal	func00014238
-/*    143c0:	00000000 */ 	nop
-/*    143c4:	0c005451 */ 	jal	func00015144
-/*    143c8:	00000000 */ 	nop
-/*    143cc:	3c04800a */ 	lui	$a0,%hi(var80099a60)
-/*    143d0:	0c005016 */ 	jal	func00014058
-/*    143d4:	24849a60 */ 	addiu	$a0,$a0,%lo(var80099a60)
-.L000143d8:
-/*    143d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L000143dc:
-/*    143dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    143e0:	03e00008 */ 	jr	$ra
-/*    143e4:	00000000 */ 	nop
-);
+		func00014238();
+		func00015144();
+		func00014058(&var80099a60[0]);
 #else
-GLOBAL_ASM(
-glabel func000142f0
-/*    142f0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    142f4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    142f8:	3c047005 */ 	lui	$a0,%hi(var700540a8)
-/*    142fc:	3c058006 */ 	lui	$a1,%hi(var8005ef08)
-/*    14300:	24a5ef08 */ 	addiu	$a1,$a1,%lo(var8005ef08)
-/*    14304:	0c0036cc */ 	jal	func0000db30
-/*    14308:	248440a8 */ 	addiu	$a0,$a0,%lo(var700540a8)
-/*    1430c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x4d0)
-/*    14310:	91cea490 */ 	lbu	$t6,%lo(g_Vars+0x4d0)($t6)
-/*    14314:	11c00003 */ 	beqz	$t6,.L00014324
-/*    14318:	00000000 */ 	nop
-/*    1431c:	0c004eae */ 	jal	func00013ab8
-/*    14320:	24040001 */ 	addiu	$a0,$zero,0x1
-.L00014324:
-/*    14324:	3c028006 */ 	lui	$v0,%hi(var8005eec4)
-/*    14328:	8c42eec4 */ 	lw	$v0,%lo(var8005eec4)($v0)
-/*    1432c:	3c04800a */ 	lui	$a0,%hi(var80099a60+0x204)
-/*    14330:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099a60+0x204)
-/*    14334:	10400008 */ 	beqz	$v0,.L00014358
-/*    14338:	3c05800a */ 	lui	$a1,%hi(var80099a60+0x3e4)
-/*    1433c:	0040f809 */ 	jalr	$v0
-/*    14340:	8ca59e44 */ 	lw	$a1,%lo(var80099a60+0x3e4)($a1)
-/*    14344:	3c01800a */ 	lui	$at,%hi(var80099a60+0x3ec)
-/*    14348:	3c04800a */ 	lui	$a0,%hi(var80099a60+0x204)
-/*    1434c:	ac229e4c */ 	sw	$v0,%lo(var80099a60+0x3ec)($at)
-/*    14350:	0c005016 */ 	jal	func00014058
-/*    14354:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099a60+0x204)
-.L00014358:
-/*    14358:	3c04800a */ 	lui	$a0,%hi(var80099a60)
-/*    1435c:	0c005016 */ 	jal	func00014058
-/*    14360:	24849a60 */ 	addiu	$a0,$a0,%lo(var80099a60)
-/*    14364:	3c028006 */ 	lui	$v0,%hi(var8005eec8)
-/*    14368:	8c42eec8 */ 	lw	$v0,%lo(var8005eec8)($v0)
-/*    1436c:	3c04800a */ 	lui	$a0,%hi(var80099a60)
-/*    14370:	24849a60 */ 	addiu	$a0,$a0,%lo(var80099a60)
-/*    14374:	10400004 */ 	beqz	$v0,.L00014388
-/*    14378:	00000000 */ 	nop
-/*    1437c:	8c8501e4 */ 	lw	$a1,0x1e4($a0)
-/*    14380:	0040f809 */ 	jalr	$v0
-/*    14384:	8c8601e0 */ 	lw	$a2,0x1e0($a0)
-.L00014388:
-/*    14388:	0c005431 */ 	jal	func000150c4
-/*    1438c:	00000000 */ 	nop
-/*    14390:	10400011 */ 	beqz	$v0,.L000143d8
-/*    14394:	3c0f8006 */ 	lui	$t7,%hi(var8005eec0)
-/*    14398:	8defeec0 */ 	lw	$t7,%lo(var8005eec0)($t7)
-/*    1439c:	51e0000f */ 	beqzl	$t7,.L000143dc
-/*    143a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    143a4:	0c005207 */ 	jal	contGetNumSamples
-/*    143a8:	00000000 */ 	nop
-/*    143ac:	5c40000b */ 	bgtzl	$v0,.L000143dc
-/*    143b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    143b4:	0c00543a */ 	jal	func000150e8
-/*    143b8:	00000000 */ 	nop
-/*    143bc:	0c005451 */ 	jal	func00015144
-/*    143c0:	00000000 */ 	nop
-/*    143c4:	3c04800a */ 	lui	$a0,%hi(var80099a60)
-/*    143c8:	0c005016 */ 	jal	func00014058
-/*    143cc:	24849a60 */ 	addiu	$a0,$a0,%lo(var80099a60)
-/*    143d0:	0c00508e */ 	jal	func00014238
-/*    143d4:	00000000 */ 	nop
-.L000143d8:
-/*    143d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L000143dc:
-/*    143dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    143e0:	03e00008 */ 	jr	$ra
-/*    143e4:	00000000 */ 	nop
-);
+		func00015144();
+		func00014058(&var80099a60[0]);
+		func00014238();
 #endif
+	}
+}
+
+const char var700540b4[] = "JOY : g_EnableCyclicPolling=%d";
+const char var700540d4[] = "JOY : g_JoyReCheckInterval=%d";
+const char var700540f4[] = "JOY : g_JoyReCheckEventIn=%d";
+const char var70054114[] = "JOY : g_JoyRecheckDone=%d";
+const char var70054130[] = "osContStartReadData -> Failed - CONT_NO_RESPONSE_ERROR\n";
+const char var70054168[] = "osContStartReadData -> Failed - CONT_OVERRUN_ERROR\n";
+const char var7005419c[] = "joyTickRetrace:joy%derrno%d->%d\n";
+const char var700541c0[] = "joyTickRetrace:joy%derrno%d->%d\n";
 
 s32 contStartReadData(OSMesgQueue *mq)
 {
@@ -1398,6 +1280,22 @@ s32 func000155f4(s8 index)
 
 GLOBAL_ASM(
 glabel func0001561c
+.late_rodata
+glabel var700541e4
+.word 0x700156a4
+glabel var700541e8
+.word 0x700156d8
+glabel var700541ec
+.word 0x700157a8
+glabel var700541f0
+.word 0x700157d8
+glabel var700541f4
+.word 0x7001581c
+glabel var700541f8
+.word 0x7001580c
+glabel var700541fc
+.word 0x00000000
+.text
 /*    1561c:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    15620:	afb30020 */ 	sw	$s3,0x20($sp)
 /*    15624:	afb00014 */ 	sw	$s0,0x14($sp)

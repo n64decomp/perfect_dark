@@ -257,7 +257,7 @@ glabel mainInit
 .L0000d5f4:
 /*     d5f4:	54200004 */ 	bnezl	$at,.L0000d608
 /*     d5f8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     d5fc:	0c0050bc */ 	jal	func000142f0
+/*     d5fc:	0c0050bc */ 	jal	contDebugJoy
 /*     d600:	00000000 */ 	nop
 /*     d604:	26100001 */ 	addiu	$s0,$s0,0x1
 .L0000d608:
@@ -639,7 +639,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		if (i == 1) {
 //			func00013dfc();
 //		} else if (i >= 2) {
-//			func000142f0();
+//			contDebugJoy();
 //		}
 //	}
 //
@@ -1092,7 +1092,7 @@ void mainTick(void)
 		func00009a90();
 		func00009aa0(0x20000);
 		func000034d8();
-		func000142f0();
+		contDebugJoy();
 		func00001b28(0);
 
 		if (var8005d9c8) {
