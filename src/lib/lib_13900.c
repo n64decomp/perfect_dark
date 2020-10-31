@@ -27,8 +27,8 @@ u32 var8005ee8c[4] = {0};
 u32 var8005ee9c[4] = {0};
 u8 g_ConnectedControllers = 0;
 u32 var8005eeb0 = 0x00000000;
-bool var8005eeb4 = false;
-u32 var8005eeb8 = 0x00000001;
+bool g_ContInitDone = false;
+bool g_ContNeedsInit = true;
 u32 var8005eebc = 0x00000000;
 u32 var8005eec0 = 0x00000001;
 s32 (*var8005eec4)(struct contsample *samples, s32 samplenum) = NULL;
@@ -46,7 +46,6 @@ u32 var8005eef0 = 0x00000001;
 u32 var8005eef4 = 0x00000000;
 u32 var8005eef8 = 0x00000000;
 u32 var8005eefc = 0x00000000;
-u32 var8005ef00 = 0xff000000;
 
 void func00013900(void)
 {
@@ -114,7 +113,7 @@ void func00013a40(u8 arg0)
 		func000139e8();
 	}
 
-	if (var8005eecc == 0 || arg0 != var80099f44[var8005eecc + 3]) {
+	if (var8005eecc == 0 || arg0 != var80099f48[var8005eecc - 1]) {
 		var80099f48[var8005eecc] = arg0;
 		var8005eecc++;
 	}
@@ -304,103 +303,52 @@ void func00013dfc(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func00013e84
-/*    13e84:	3c028006 */ 	lui	$v0,%hi(var8005eeb8)
-/*    13e88:	2442eeb8 */ 	addiu	$v0,$v0,%lo(var8005eeb8)
-/*    13e8c:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*    13e90:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    13e94:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    13e98:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    13e9c:	11c00018 */ 	beqz	$t6,.L00013f00
-/*    13ea0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    13ea4:	3c11800a */ 	lui	$s1,%hi(var80099e78)
-/*    13ea8:	3c058006 */ 	lui	$a1,%hi(g_ConnectedControllers)
-/*    13eac:	3c06800a */ 	lui	$a2,%hi(var80099f38)
-/*    13eb0:	26249e78 */ 	addiu	$a0,$s1,%lo(var80099e78)
-/*    13eb4:	ac400000 */ 	sw	$zero,0x0($v0)
-/*    13eb8:	24c69f38 */ 	addiu	$a2,$a2,%lo(var80099f38)
-/*    13ebc:	0c012a60 */ 	jal	osContInit
-/*    13ec0:	24a5eeac */ 	addiu	$a1,$a1,%lo(g_ConnectedControllers)
-/*    13ec4:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    13ec8:	3c018006 */ 	lui	$at,%hi(var8005eeb4)
-/*    13ecc:	ac2feeb4 */ 	sw	$t7,%lo(var8005eeb4)($at)
-/*    13ed0:	00008025 */ 	or	$s0,$zero,$zero
-/*    13ed4:	24110004 */ 	addiu	$s1,$zero,0x4
-/*    13ed8:	00102600 */ 	sll	$a0,$s0,0x18
-.L00013edc:
-/*    13edc:	0004c603 */ 	sra	$t8,$a0,0x18
-/*    13ee0:	03002025 */ 	or	$a0,$t8,$zero
-/*    13ee4:	0c0054f1 */ 	jal	func000153c4
-/*    13ee8:	00002825 */ 	or	$a1,$zero,$zero
-/*    13eec:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    13ef0:	5611fffa */ 	bnel	$s0,$s1,.L00013edc
-/*    13ef4:	00102600 */ 	sll	$a0,$s0,0x18
-/*    13ef8:	1000001d */ 	b	.L00013f70
-/*    13efc:	00000000 */ 	nop
-.L00013f00:
-/*    13f00:	3c11800a */ 	lui	$s1,%hi(var80099e78)
-/*    13f04:	26319e78 */ 	addiu	$s1,$s1,%lo(var80099e78)
-/*    13f08:	2410000f */ 	addiu	$s0,$zero,0xf
-/*    13f0c:	0c013cd4 */ 	jal	osContStartQuery
-/*    13f10:	02202025 */ 	or	$a0,$s1,$zero
-/*    13f14:	02202025 */ 	or	$a0,$s1,$zero
-/*    13f18:	00002825 */ 	or	$a1,$zero,$zero
-/*    13f1c:	0c0121bc */ 	jal	osRecvMesg
-/*    13f20:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    13f24:	3c04800a */ 	lui	$a0,%hi(var80099f38)
-/*    13f28:	0c013cf5 */ 	jal	osContGetQuery
-/*    13f2c:	24849f38 */ 	addiu	$a0,$a0,%lo(var80099f38)
-/*    13f30:	3c03800a */ 	lui	$v1,%hi(var80099f38)
-/*    13f34:	24639f38 */ 	addiu	$v1,$v1,%lo(var80099f38)
-/*    13f38:	00001025 */ 	or	$v0,$zero,$zero
-/*    13f3c:	24110004 */ 	addiu	$s1,$zero,0x4
-.L00013f40:
-/*    13f40:	90790003 */ 	lbu	$t9,0x3($v1)
-/*    13f44:	24090001 */ 	addiu	$t1,$zero,0x1
-/*    13f48:	00495004 */ 	sllv	$t2,$t1,$v0
-/*    13f4c:	33280008 */ 	andi	$t0,$t9,0x8
-/*    13f50:	51000003 */ 	beqzl	$t0,.L00013f60
-/*    13f54:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    13f58:	020a8023 */ 	subu	$s0,$s0,$t2
-/*    13f5c:	24420001 */ 	addiu	$v0,$v0,0x1
-.L00013f60:
-/*    13f60:	1451fff7 */ 	bne	$v0,$s1,.L00013f40
-/*    13f64:	24630004 */ 	addiu	$v1,$v1,0x4
-/*    13f68:	3c018006 */ 	lui	$at,%hi(g_ConnectedControllers)
-/*    13f6c:	a030eeac */ 	sb	$s0,%lo(g_ConnectedControllers)($at)
-.L00013f70:
-/*    13f70:	3c068006 */ 	lui	$a2,%hi(g_ConnectedControllers)
-/*    13f74:	3c0b8006 */ 	lui	$t3,%hi(var8005ef00)
-/*    13f78:	916bef00 */ 	lbu	$t3,%lo(var8005ef00)($t3)
-/*    13f7c:	90c6eeac */ 	lbu	$a2,%lo(g_ConnectedControllers)($a2)
-/*    13f80:	00001025 */ 	or	$v0,$zero,$zero
-/*    13f84:	00001825 */ 	or	$v1,$zero,$zero
-/*    13f88:	10cb000f */ 	beq	$a2,$t3,.L00013fc8
-/*    13f8c:	00c02025 */ 	or	$a0,$a2,$zero
-/*    13f90:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*    13f94:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*    13f98:	240c0001 */ 	addiu	$t4,$zero,0x1
-.L00013f9c:
-/*    13f9c:	004c6804 */ 	sllv	$t5,$t4,$v0
-/*    13fa0:	008d7024 */ 	and	$t6,$a0,$t5
-/*    13fa4:	11c00003 */ 	beqz	$t6,.L00013fb4
-/*    13fa8:	00a37821 */ 	addu	$t7,$a1,$v1
-/*    13fac:	a1e204dc */ 	sb	$v0,0x4dc($t7)
-/*    13fb0:	24630001 */ 	addiu	$v1,$v1,0x1
-.L00013fb4:
-/*    13fb4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    13fb8:	5451fff8 */ 	bnel	$v0,$s1,.L00013f9c
-/*    13fbc:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*    13fc0:	3c018006 */ 	lui	$at,%hi(var8005ef00)
-/*    13fc4:	a026ef00 */ 	sb	$a2,%lo(var8005ef00)($at)
-.L00013fc8:
-/*    13fc8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    13fcc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    13fd0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    13fd4:	03e00008 */ 	jr	$ra
-/*    13fd8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void func00013e84(void)
+{
+	static u8 var8005ef00 = 0xff;
+
+	// osContInit should be called only once. The first time this function is
+	// called it'll take the first branch here, and all subsequent calls will
+	// take the second branch.
+	if (g_ContNeedsInit) {
+		s32 i;
+		g_ContNeedsInit = false;
+		osContInit(&var80099e78, &g_ConnectedControllers, var80099f38);
+		g_ContInitDone = true;
+
+		for (i = 0; i < 4; i++) {
+			func000153c4(i, 0);
+		}
+	} else {
+		u32 slots = 0xf;
+		s32 i;
+
+		osContStartQuery(&var80099e78);
+		osRecvMesg(&var80099e78, NULL, OS_MESG_BLOCK);
+		osContGetQuery(var80099f38);
+
+		for (i = 0; i < 4; i++) {
+			if (var80099f38[i].errno & CONT_NO_RESPONSE_ERROR) {
+				slots -= 1 << i;
+			}
+		}
+
+		g_ConnectedControllers = slots;
+	}
+
+	if (var8005ef00 != g_ConnectedControllers) {
+		s32 i = 0;
+		s32 index = 0;
+
+		for (; i < 4; i++) {
+			if (g_ConnectedControllers & (1 << i)) {
+				g_Vars.playertojoymap[index++] = i;
+			}
+		}
+
+		var8005ef00 = g_ConnectedControllers;
+	}
+}
 
 s8 contGetFreeSlot(void)
 {
@@ -695,7 +643,7 @@ void contPoll(void)
 		return;
 	}
 
-	if (var8005eeb4) {
+	if (g_ContInitDone) {
 		if (var8005ee68) {
 			func00013ab8(0);
 			return;

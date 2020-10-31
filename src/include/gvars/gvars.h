@@ -189,7 +189,7 @@ struct g_vars {
 	/*0004d6*/ s8 unk0004d6;
 	/*0004d7*/ u8 unk0004d7;
 	/*0004d8*/ s32 unk0004d8;
-	/*0004dc*/ u32 unk0004dc;
+	/*0004dc*/ u8 playertojoymap[4];
 	/*0004e0*/ u8 unk0004e0;
 	/*0004e1*/ u8 unk0004e1;
 	/*0004e2*/ u8 unk0004e2;
@@ -474,8 +474,7 @@ extern OSMesg var80099ef8;
 extern OSMesgQueue var80099f00;
 extern OSMesg var80099f18;
 extern OSMesgQueue var80099f20;
-extern u32 var80099f38;
-extern u8 var80099f44[4];
+extern OSContStatus var80099f38[4];
 extern u8 var80099f48[4];
 extern u32 var8009a874;
 extern u32 var8009a878;

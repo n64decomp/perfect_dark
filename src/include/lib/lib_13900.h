@@ -41,7 +41,7 @@ void func000150e8(void);
 void func00015144(void);
 void func0001519c(void);
 u32 func000152d0(void);
-u32 func000153c4(void);
+void func000153c4(s8 arg0, s32 arg1);
 s32 func000155b4(s8 index);
 s32 func000155f4(s8 index);
 void func0001561c(void);
