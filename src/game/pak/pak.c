@@ -1891,7 +1891,7 @@ glabel func0f117b4c
 /*  f117b58:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f117b5c:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f117b60:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f117b64:	0c004eae */ 	jal	func00013ab8
+/*  f117b64:	0c004eae */ 	jal	contCheckPfs
 /*  f117b68:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f117b6c:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f117b70:	93a6002b */ 	lbu	$a2,0x2b($sp)
@@ -8319,7 +8319,7 @@ glabel func0f11c54c
 /*  f11c5e0:	10000034 */ 	beqz	$zero,.L0f11c6b4
 /*  f11c5e4:	a64b04e4 */ 	sh	$t3,0x4e4($s2)
 .L0f11c5e8:
-/*  f11c5e8:	0c004eae */ 	jal	func00013ab8
+/*  f11c5e8:	0c004eae */ 	jal	contCheckPfs
 /*  f11c5ec:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f11c5f0:	00008025 */ 	or	$s0,$zero,$zero
 /*  f11c5f4:	24130004 */ 	addiu	$s3,$zero,0x4

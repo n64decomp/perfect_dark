@@ -38,14 +38,11 @@ u32 var8005eed0 = 0x00000000;
 u32 var8005eed4 = 0x00000000;
 u8 var8005eed8 = 0;
 u32 var8005eedc = 0x00000001;
-u32 var8005eee0 = 0x00000000;
-u32 var8005eee4 = 0xffffffff;
+s32 var8005eee0 = 0;
+s32 var8005eee4 = -1;
 u32 var8005eee8 = 0x00000000;
 u32 var8005eeec = 0x00000000;
 u32 var8005eef0 = 0x00000001;
-u32 var8005eef4 = 0x00000000;
-u32 var8005eef8 = 0x00000000;
-u32 var8005eefc = 0x00000000;
 
 void func00013900(void)
 {
@@ -119,119 +116,64 @@ void func00013a40(u8 arg0)
 	}
 }
 
-GLOBAL_ASM(
-glabel func00013ab8
-/*    13ab8:	3c0e8006 */ 	lui	$t6,%hi(var8005eedc)
-/*    13abc:	8dceeedc */ 	lw	$t6,%lo(var8005eedc)($t6)
-/*    13ac0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    13ac4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    13ac8:	11c0005c */ 	beqz	$t6,.L00013c3c
-/*    13acc:	00803825 */ 	or	$a3,$a0,$zero
-/*    13ad0:	24010002 */ 	addiu	$at,$zero,0x2
-/*    13ad4:	10810010 */ 	beq	$a0,$at,.L00013b18
-/*    13ad8:	3c0f8006 */ 	lui	$t7,%hi(var8005eee0)
-/*    13adc:	8defeee0 */ 	lw	$t7,%lo(var8005eee0)($t7)
-/*    13ae0:	51e00057 */ 	beqzl	$t7,.L00013c40
-/*    13ae4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    13ae8:	1480000b */ 	bnez	$a0,.L00013b18
-/*    13aec:	3c188006 */ 	lui	$t8,%hi(var8005eebc)
-/*    13af0:	8f18eebc */ 	lw	$t8,%lo(var8005eebc)($t8)
-/*    13af4:	3c198006 */ 	lui	$t9,%hi(var8005eef0)
-/*    13af8:	3c088006 */ 	lui	$t0,%hi(var8005eeec)
-/*    13afc:	13000004 */ 	beqz	$t8,.L00013b10
-/*    13b00:	00000000 */ 	nop
-/*    13b04:	8f39eef0 */ 	lw	$t9,%lo(var8005eef0)($t9)
-/*    13b08:	5720004d */ 	bnezl	$t9,.L00013c40
-/*    13b0c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L00013b10:
-/*    13b10:	8d08eeec */ 	lw	$t0,%lo(var8005eeec)($t0)
-/*    13b14:	11000049 */ 	beqz	$t0,.L00013c3c
-.L00013b18:
-/*    13b18:	3c098006 */ 	lui	$t1,%hi(var8005eefc)
-/*    13b1c:	8d29eefc */ 	lw	$t1,%lo(var8005eefc)($t1)
-/*    13b20:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*    13b24:	3c018006 */ 	lui	$at,%hi(var8005eefc)
-/*    13b28:	15200044 */ 	bnez	$t1,.L00013c3c
-/*    13b2c:	3c0b8006 */ 	lui	$t3,%hi(var8005eef4)
-/*    13b30:	8d6beef4 */ 	lw	$t3,%lo(var8005eef4)($t3)
-/*    13b34:	ac2aeefc */ 	sw	$t2,%lo(var8005eefc)($at)
-/*    13b38:	3c018006 */ 	lui	$at,%hi(var8005eef8)
-/*    13b3c:	afa70030 */ 	sw	$a3,0x30($sp)
-/*    13b40:	0c012144 */ 	jal	osGetCount
-/*    13b44:	ac2beef8 */ 	sw	$t3,%lo(var8005eef8)($at)
-/*    13b48:	3c0c8006 */ 	lui	$t4,%hi(var8005eef8)
-/*    13b4c:	8d8ceef8 */ 	lw	$t4,%lo(var8005eef8)($t4)
-/*    13b50:	3c068006 */ 	lui	$a2,%hi(var8005eee0)
-/*    13b54:	8cc6eee0 */ 	lw	$a2,%lo(var8005eee0)($a2)
-/*    13b58:	3c018006 */ 	lui	$at,%hi(var8005eef4)
-/*    13b5c:	004c1823 */ 	subu	$v1,$v0,$t4
-/*    13b60:	ac22eef4 */ 	sw	$v0,%lo(var8005eef4)($at)
-/*    13b64:	00032202 */ 	srl	$a0,$v1,0x8
-/*    13b68:	00062840 */ 	sll	$a1,$a2,0x1
-/*    13b6c:	00a4082b */ 	sltu	$at,$a1,$a0
-/*    13b70:	10200002 */ 	beqz	$at,.L00013b7c
-/*    13b74:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*    13b78:	00a02025 */ 	or	$a0,$a1,$zero
-.L00013b7c:
-/*    13b7c:	3c038006 */ 	lui	$v1,%hi(var8005eee4)
-/*    13b80:	2463eee4 */ 	addiu	$v1,$v1,%lo(var8005eee4)
-/*    13b84:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*    13b88:	24010002 */ 	addiu	$at,$zero,0x2
-/*    13b8c:	3c028006 */ 	lui	$v0,%hi(var8005eee8)
-/*    13b90:	01c47823 */ 	subu	$t7,$t6,$a0
-/*    13b94:	05e00009 */ 	bltz	$t7,.L00013bbc
-/*    13b98:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*    13b9c:	10e10007 */ 	beq	$a3,$at,.L00013bbc
-/*    13ba0:	24010001 */ 	addiu	$at,$zero,0x1
-/*    13ba4:	14e10023 */ 	bne	$a3,$at,.L00013c34
-/*    13ba8:	00000000 */ 	nop
-/*    13bac:	05e10021 */ 	bgez	$t7,.L00013c34
-/*    13bb0:	000fc023 */ 	negu	$t8,$t7
-/*    13bb4:	00d8082a */ 	slt	$at,$a2,$t8
-/*    13bb8:	1020001e */ 	beqz	$at,.L00013c34
-.L00013bbc:
-/*    13bbc:	2442eee8 */ 	addiu	$v0,$v0,%lo(var8005eee8)
-/*    13bc0:	8c590000 */ 	lw	$t9,0x0($v0)
-/*    13bc4:	a3a00027 */ 	sb	$zero,0x27($sp)
-/*    13bc8:	27280001 */ 	addiu	$t0,$t9,0x1
-/*    13bcc:	10e00004 */ 	beqz	$a3,.L00013be0
-/*    13bd0:	ac480000 */ 	sw	$t0,0x0($v0)
-/*    13bd4:	0c00543a */ 	jal	func000150e8
-/*    13bd8:	afa70030 */ 	sw	$a3,0x30($sp)
-/*    13bdc:	8fa70030 */ 	lw	$a3,0x30($sp)
-.L00013be0:
-/*    13be0:	3c04800a */ 	lui	$a0,%hi(var80099e78)
-/*    13be4:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
-/*    13be8:	27a50027 */ 	addiu	$a1,$sp,0x27
-/*    13bec:	0c0015dc */ 	jal	osPfsIsPlug
-/*    13bf0:	afa70030 */ 	sw	$a3,0x30($sp)
-/*    13bf4:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*    13bf8:	50e00005 */ 	beqzl	$a3,.L00013c10
-/*    13bfc:	93a40027 */ 	lbu	$a0,0x27($sp)
-/*    13c00:	0c005451 */ 	jal	func00015144
-/*    13c04:	afa70030 */ 	sw	$a3,0x30($sp)
-/*    13c08:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*    13c0c:	93a40027 */ 	lbu	$a0,0x27($sp)
-.L00013c10:
-/*    13c10:	afa70030 */ 	sw	$a3,0x30($sp)
-/*    13c14:	34890010 */ 	ori	$t1,$a0,0x10
-/*    13c18:	312400ff */ 	andi	$a0,$t1,0xff
-/*    13c1c:	0c004e90 */ 	jal	func00013a40
-/*    13c20:	a3a40027 */ 	sb	$a0,0x27($sp)
-/*    13c24:	3c0b8006 */ 	lui	$t3,%hi(var8005eee0)
-/*    13c28:	8d6beee0 */ 	lw	$t3,%lo(var8005eee0)($t3)
-/*    13c2c:	3c018006 */ 	lui	$at,%hi(var8005eee4)
-/*    13c30:	ac2beee4 */ 	sw	$t3,%lo(var8005eee4)($at)
-.L00013c34:
-/*    13c34:	3c018006 */ 	lui	$at,%hi(var8005eefc)
-/*    13c38:	ac20eefc */ 	sw	$zero,%lo(var8005eefc)($at)
-.L00013c3c:
-/*    13c3c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L00013c40:
-/*    13c40:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    13c44:	03e00008 */ 	jr	$ra
-/*    13c48:	00000000 */ 	nop
-);
+/**
+ * Scan controllers for controller paks, but only under certain conditions.
+ * Seems to be timer based, or can be forced by passing 2 as arg0.
+ */
+void contCheckPfs(s32 arg0)
+{
+	static u32 thiscount = 0; // 8005eef4
+	static u32 prevcount = 0; // 8005eef8
+	static u32 doingit = false; // 8005eefc
+	u32 diffcount;
+	u32 value;
+
+	if (var8005eedc
+			&& (arg0 == 2 || (var8005eee0 && (arg0 || ((var8005eebc == 0 || var8005eef0 == 0) && var8005eeec))))
+			&& !doingit) {
+		doingit = true;
+		prevcount = thiscount;
+		thiscount = osGetCount();
+		diffcount = (thiscount - prevcount) / 256;
+		value = var8005eee0 * 2;
+
+		if (diffcount > value) {
+			diffcount = value;
+		}
+
+		var8005eee4 -= diffcount;
+
+		if (var8005eee4 < 0
+				|| arg0 == 2
+				|| (arg0 == 1 && var8005eee4 < 0 && var8005eee0 < -var8005eee4)) {
+			u8 bitpattern = 0;
+
+			var8005eee8++;
+
+			if (arg0) {
+				func000150e8();
+			}
+
+			osPfsIsPlug(&var80099e78, &bitpattern);
+
+			if (arg0) {
+				func00015144();
+			}
+
+			bitpattern |= 0x10;
+
+			func00013a40(bitpattern);
+
+			var8005eee4 = var8005eee0;
+		}
+
+		doingit = false;
+	}
+
+	if (arg0) {
+		// empty
+	}
+}
 
 void func00013c4c(s8 index)
 {
@@ -591,7 +533,7 @@ void contDebugJoy(void)
 	func0000db30("debugjoy", &var8005ef08);
 
 	if (g_Vars.unk0004d0) {
-		func00013ab8(1);
+		contCheckPfs(1);
 	}
 
 	if (var8005eec4) {
@@ -676,7 +618,7 @@ void contPoll(void)
 
 		var8005ee68++;
 
-		func00013ab8(0);
+		contCheckPfs(0);
 		return;
 	}
 
@@ -694,7 +636,7 @@ void contPoll(void)
 
 	if (g_ContInitDone) {
 		if (var8005ee68) {
-			func00013ab8(0);
+			contCheckPfs(0);
 			return;
 		}
 
@@ -714,7 +656,7 @@ void contPoll(void)
 			}
 
 			func00014238();
-			func00013ab8(0);
+			contCheckPfs(0);
 
 			contStartReadData(&var80099e78);
 			g_ContBusy = true;

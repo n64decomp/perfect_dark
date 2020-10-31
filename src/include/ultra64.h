@@ -17,6 +17,7 @@
 #include <PR/os_cache.h>
 #include <PR/os_vi.h>
 #include <PR/os_pi.h>
+#include <PR/os_pfs.h>
 #include <PR/os_internal.h>
 #include <PR/mbi.h>
 #include <PR/os_eeprom.h>
