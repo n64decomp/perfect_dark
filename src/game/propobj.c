@@ -41232,7 +41232,7 @@ void playerActivateRemoteMineDetonator(s32 playernum)
 
 	audioStart(var80095200, 0x80ab, 0, -1, -1, -1, -1, -1);
 
-	func0f0a3104(playernum);
+	playerDetonateRemoteMines(playernum);
 }
 
 GLOBAL_ASM(

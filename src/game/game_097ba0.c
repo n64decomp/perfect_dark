@@ -13973,33 +13973,17 @@ glabel var7f1ac7c4
 /*  f0a3100:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel func0f0a3104
-/*  f0a3104:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x28c)
-/*  f0a3108:	8dcea24c */ 	lw	$t6,%lo(g_Vars+0x28c)($t6)
-/*  f0a310c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0a3110:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a3114:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0a3118:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f0a311c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0a3120:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0a3124:	24010022 */ 	addiu	$at,$zero,0x22
-/*  f0a3128:	3c048007 */ 	lui	$a0,%hi(var80070200)
-/*  f0a312c:	904f0ddc */ 	lbu	$t7,0xddc($v0)
-/*  f0a3130:	24840200 */ 	addiu	$a0,$a0,%lo(var80070200)
-/*  f0a3134:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0a3138:	15e10003 */ 	bne	$t7,$at,.L0f0a3148
-/*  f0a313c:	00000000 */ 	nop
-/*  f0a3140:	0fc26238 */ 	jal	func0f0988e0
-/*  f0a3144:	24460ddc */ 	addiu	$a2,$v0,0xddc
-.L0f0a3148:
-/*  f0a3148:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0a314c:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0a3150:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a3154:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0a3158:	03e00008 */ 	jr	$ra
-/*  f0a315c:	00000000 */ 	nop
-);
+void playerDetonateRemoteMines(s32 playernum)
+{
+	s32 prevplayernum = g_Vars.currentplayernum;
+	setCurrentPlayerNum(playernum);
+
+	if (g_Vars.currentplayer->hands[1].weaponnum == WEAPON_REMOTEMINE) {
+		func0f0988e0(&var80070200, 1, &g_Vars.currentplayer->hands[1]);
+	}
+
+	setCurrentPlayerNum(prevplayernum);
+}
 
 GLOBAL_ASM(
 glabel func0f0a3160
