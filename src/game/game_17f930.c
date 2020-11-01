@@ -802,7 +802,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 		if (chr->aibot->unk09c_00) {
 			chr->aibot->unk0a0 += g_Vars.lvupdate240;
 
-			if (chr->aibot->unk0a0 >= SECSTOFRAMES240(30)) {
+			if (chr->aibot->unk0a0 >= SECSTOTIME240(30)) {
 				// Point scored sound
 				audioStart(var80095200, 0x5b8, NULL, -1, -1, -1, -1, -1);
 				var800ac500[mpPlayerGetIndex(chr)]->unk3e++;
@@ -815,7 +815,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 		if (currentPlayerHasBriefcase()) {
 			g_Vars.currentplayerstats->tokenheldtime += g_Vars.lvupdate240;
 
-			if (g_Vars.currentplayerstats->tokenheldtime >= SECSTOFRAMES240(30)) {
+			if (g_Vars.currentplayerstats->tokenheldtime >= SECSTOTIME240(30)) {
 				// Point scored sound
 				audioStart(var80095200, 0x5b8, NULL, -1, -1, -1, -1, -1);
 				var800ac500[g_Vars.currentplayernum]->unk3e++;
@@ -4807,7 +4807,7 @@ glabel scenarioPacCallback10
 //				g_Vars.players[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]->isdead == false) {
 //			g_ScenarioData.pac.age240 += g_Vars.lvupdate240;
 //
-//			if (g_ScenarioData.pac.age240 > SECSTOFRAMES240(60)) {
+//			if (g_ScenarioData.pac.age240 > SECSTOTIME240(60)) {
 //				g_ScenarioData.pac.age240 = 0;
 //				g_ScenarioData.pac.wincounts[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]++;
 //				func0f1866b8(g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex], langGet(L_MPWEAPONS(7))); // "Have a point for living!"

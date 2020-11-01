@@ -23602,59 +23602,24 @@ glabel hudRenderAmmo
 /*  f0abacc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0abad0
-/*  f0abad0:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0abad4:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0abad8:	8c6e045c */ 	lw	$t6,0x45c($v1)
-/*  f0abadc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0abae0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0abae4:	01c47821 */ 	addu	$t7,$t6,$a0
-/*  f0abae8:	29e14651 */ 	slti	$at,$t7,0x4651
-/*  f0abaec:	14200003 */ 	bnez	$at,.L0f0abafc
-/*  f0abaf0:	ac6f045c */ 	sw	$t7,0x45c($v1)
-/*  f0abaf4:	24194650 */ 	addiu	$t9,$zero,0x4650
-/*  f0abaf8:	ac79045c */ 	sw	$t9,0x45c($v1)
-.L0f0abafc:
-/*  f0abafc:	8c680464 */ 	lw	$t0,0x464($v1)
-/*  f0abb00:	5500001b */ 	bnezl	$t0,.L0f0abb70
-/*  f0abb04:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0abb08:	0fc5ae15 */ 	jal	getEffectiveSlowMotion
-/*  f0abb0c:	00000000 */ 	nop
-/*  f0abb10:	10400003 */ 	beqz	$v0,.L0f0abb20
-/*  f0abb14:	3c048009 */ 	lui	$a0,%hi(var80095200)
-/*  f0abb18:	10000002 */ 	b	.L0f0abb24
-/*  f0abb1c:	240202ad */ 	addiu	$v0,$zero,0x2ad
-.L0f0abb20:
-/*  f0abb20:	240205c9 */ 	addiu	$v0,$zero,0x5c9
-.L0f0abb24:
-/*  f0abb24:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0abb28:	44812000 */ 	mtc1	$at,$f4
-/*  f0abb2c:	00022c00 */ 	sll	$a1,$v0,0x10
-/*  f0abb30:	00054c03 */ 	sra	$t1,$a1,0x10
-/*  f0abb34:	240affff */ 	addiu	$t2,$zero,-1
-/*  f0abb38:	240bffff */ 	addiu	$t3,$zero,-1
-/*  f0abb3c:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f0abb40:	afac001c */ 	sw	$t4,0x1c($sp)
-/*  f0abb44:	afab0018 */ 	sw	$t3,0x18($sp)
-/*  f0abb48:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f0abb4c:	01202825 */ 	or	$a1,$t1,$zero
-/*  f0abb50:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*  f0abb54:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0abb58:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0abb5c:	0c004241 */ 	jal	audioStart
-/*  f0abb60:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f0abb64:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0abb68:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0abb6c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0abb70:
-/*  f0abb70:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f0abb74:	ac6d0464 */ 	sw	$t5,0x464($v1)
-/*  f0abb78:	03e00008 */ 	jr	$ra
-/*  f0abb7c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void speedpillAddBoost(s32 amount)
+{
+	g_Vars.speedpilltime += amount;
 
-void func0f0abb80(s32 amount)
+	if (g_Vars.speedpilltime > 5 * 60 * 60) { // 5 minutes
+		g_Vars.speedpilltime = 5 * 60 * 60;
+	}
+
+	if (!g_Vars.speedpillwant) {
+		u32 sound = getEffectiveSlowMotion() ? 0x2ad : 0x5c9;
+
+		audioStart(var80095200, sound, 0, -1, -1, -1, -1, -1);
+	}
+
+	g_Vars.speedpillwant = true;
+}
+
+void speedpillRevert(s32 amount)
 {
 	g_Vars.speedpilltime -= amount;
 
@@ -23667,18 +23632,18 @@ void func0f0abb80(s32 amount)
 void func0f0abba8(void)
 {
 	if (getEffectiveSlowMotion()) {
-		func0f0abb80(1200);
+		speedpillRevert(SECSTOTIME60(20));
 	} else {
-		func0f0abad0(600);
+		speedpillAddBoost(SECSTOTIME60(10));
 	}
 }
 
 void func0f0abbe8(void)
 {
 	if (getEffectiveSlowMotion()) {
-		func0f0abad0(1200);
+		speedpillAddBoost(SECSTOTIME60(20));
 	} else {
-		func0f0abb80(600);
+		speedpillRevert(SECSTOTIME60(10));
 	}
 }
 

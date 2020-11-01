@@ -11,20 +11,20 @@
 #define S32_MAX 2147483647
 #define U32_MAX 4294967295
 
-#define ABS(val)              ((val) > 0 ? (val) : -(val))
-#define ALIGN8(val)           (((val) + 0x7 | 0x7) ^ 0x7)
-#define ALIGN16(val)          (((val) + 0xf | 0xf) ^ 0xf)
-#define ALIGN64(val)          ((((u32)val) + 0x3f | 0x3f) ^ 0x3f)
-#define ARRAYCOUNT(a)         (s32)(sizeof(a) / sizeof(a[0]))
-#define CHRRACE(chr)          (chr ? chr->race : RACE_HUMAN)
-#define FRAMEDURATION         (1 / 60.0f)
-#define IS4MB()               (g_Is4Mb == true)
-#define PLAYERCOUNT()         ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0))
-#define PLAYERCOUNT3012()     ((g_Vars.players[3] ? 1 : 0) + (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0))
-#define SECSTOFRAMES240(secs) (secs * 240)
-#define SECSTOFRAMES60(secs)  (secs * 60)
-#define TEXT(bankid, index)   ((bankid << 9) | index)
-#define VOLUME(volume)        (volume > 0x5000 ? 0x5000 : volume)
+#define ABS(val)            ((val) > 0 ? (val) : -(val))
+#define ALIGN8(val)         (((val) + 0x7 | 0x7) ^ 0x7)
+#define ALIGN16(val)        (((val) + 0xf | 0xf) ^ 0xf)
+#define ALIGN64(val)        ((((u32)val) + 0x3f | 0x3f) ^ 0x3f)
+#define ARRAYCOUNT(a)       (s32)(sizeof(a) / sizeof(a[0]))
+#define CHRRACE(chr)        (chr ? chr->race : RACE_HUMAN)
+#define FRAMEDURATION       (1 / 60.0f)
+#define IS4MB()             (g_Is4Mb == true)
+#define PLAYERCOUNT()       ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0))
+#define PLAYERCOUNT3012()   ((g_Vars.players[3] ? 1 : 0) + (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0))
+#define SECSTOTIME240(secs) (secs * 240)
+#define SECSTOTIME60(secs)  (secs * 60)
+#define TEXT(bankid, index) ((bankid << 9) | index)
+#define VOLUME(volume)      (volume > 0x5000 ? 0x5000 : volume)
 
 // These actions are assigned to chr->actiontype
 #define ACT_INIT             0

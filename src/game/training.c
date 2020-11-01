@@ -497,7 +497,7 @@ void frInitDefaults(void)
 		g_FrData.targets[i].scriptoffset = 0;
 
 		g_FrData.targets[i].travelspeed = 0;
-		g_FrData.targets[i].scriptsleep = SECSTOFRAMES60(255);
+		g_FrData.targets[i].scriptsleep = SECSTOTIME60(255);
 		g_FrData.targets[i].timeuntilrotate = 0;
 
 		g_FrData.targets[i].rotating = false;
@@ -1161,7 +1161,7 @@ void frExecuteHelpScript(void)
 			g_FrData.helpscriptoffset += 2;
 			break;
 		case FRCMD_HELPWAITSECONDS:
-			g_FrData.helpscriptsleep = SECSTOFRAMES60(script[offset + 1]);
+			g_FrData.helpscriptsleep = SECSTOTIME60(script[offset + 1]);
 			g_FrData.helpscriptoffset += 2;
 			break;
 		case FRCMD_WAITUNTILSHOOT:
@@ -1443,7 +1443,7 @@ glabel var7f1b941c
 //		switch (script[offset]) {
 //		case FRCMD_END:
 //			g_FrData.targets[targetnum].scriptenabled = true;
-//			g_FrData.targets[targetnum].scriptsleep = SECSTOFRAMES60(255);
+//			g_FrData.targets[targetnum].scriptsleep = SECSTOTIME60(255);
 //			return true;
 //		case FRCMD_GOTOPAD:
 //			frpadnum = frResolveFrPad(script[offset + 1]);
@@ -1476,7 +1476,7 @@ glabel var7f1b941c
 //				g_FrData.targets[targetnum].travelling = true;
 //			}
 //
-//			g_FrData.targets[targetnum].scriptsleep = SECSTOFRAMES60(script[offset + 3]);
+//			g_FrData.targets[targetnum].scriptsleep = SECSTOTIME60(script[offset + 3]);
 //			g_FrData.targets[targetnum].donestopsound = false;
 //			g_FrData.targets[targetnum].scriptoffset += 4;
 //			return true;
@@ -1485,7 +1485,7 @@ glabel var7f1b941c
 //			return true;
 //		case FRCMD_WAITSECONDS:
 //			g_FrData.targets[targetnum].scriptenabled = true;
-//			g_FrData.targets[targetnum].scriptsleep = SECSTOFRAMES60(script[offset + 1]);
+//			g_FrData.targets[targetnum].scriptsleep = SECSTOTIME60(script[offset + 1]);
 //			g_FrData.targets[targetnum].scriptoffset += 2;
 //			return true;
 //		case FRCMD_ROTATE:
@@ -3840,7 +3840,7 @@ glabel var7f1b94e4
 //
 //	// 398
 //	if (g_FrData.timelimit != 255
-//			&& g_FrData.timetaken >= SECSTOFRAMES60(g_FrData.timelimit)) {
+//			&& g_FrData.timetaken >= SECSTOTIME60(g_FrData.timelimit)) {
 //		frSetFailReason(FRFAILREASON_TIMEOVER);
 //		return;
 //	}
@@ -4005,7 +4005,7 @@ glabel var7f1b94e4
 //
 //			// 854
 //			if (g_FrData.targets[i].scriptenabled
-//					&& g_FrData.targets[i].scriptsleep != SECSTOFRAMES60(255)) {
+//					&& g_FrData.targets[i].scriptsleep != SECSTOTIME60(255)) {
 //				// 874
 //				g_FrData.targets[i].scriptsleep -= g_Vars.lvupdate240_60;
 //
