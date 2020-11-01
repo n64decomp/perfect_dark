@@ -215,7 +215,7 @@ void musicStartAmbient(f32 arg0)
 		if (g_TemporaryAmbientTrack != -1) {
 			pass = true;
 		} else if (musicIsAnyPlayerInAmbientRoom()) {
-			if (g_Vars.tickmode != TICKMODE_6 && AMBIENTTRACK() != stageGetAmbientTrack(g_MusicStageNum)) {
+			if (g_Vars.tickmode != TICKMODE_CUTSCENE && AMBIENTTRACK() != stageGetAmbientTrack(g_MusicStageNum)) {
 				musicEnd(TRACKTYPE_AMBIENT);
 				musicStartTemporary(stageGetAmbientTrack(g_MusicStageNum));
 				return;
@@ -238,7 +238,7 @@ bool musicIsAnyPlayerInAmbientRoom(void)
 {
 	s32 i;
 
-	if (g_Vars.tickmode == TICKMODE_6) {
+	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
 		return false;
 	}
 

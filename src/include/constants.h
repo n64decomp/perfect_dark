@@ -2869,7 +2869,7 @@
 #define TICKMODE_3        3
 #define TICKMODE_4        4
 #define TICKMODE_5        5
-#define TICKMODE_6        6
+#define TICKMODE_CUTSCENE 6
 #define TICKMODE_AUTOWALK 7
 
 #define TILEFLAG_0020 0x0020

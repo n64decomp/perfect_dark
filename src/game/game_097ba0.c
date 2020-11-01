@@ -20997,7 +20997,7 @@ void currentPlayerTickInventory(bool triggeron)
 		}
 	}
 
-	if (g_Vars.tickmode == TICKMODE_6) {
+	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
 		triggeron = false;
 		g_Vars.currentplayer->hands[1].unk063c = 0;
 		g_Vars.currentplayer->hands[0].unk063c = 0;

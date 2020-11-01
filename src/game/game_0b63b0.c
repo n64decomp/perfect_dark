@@ -4317,7 +4317,7 @@ glabel var7f1ad5cc
 
 void func0f0ba010(void)
 {
-	setTickMode(TICKMODE_6);
+	setTickMode(TICKMODE_CUTSCENE);
 	var80070744 = 0;
 	setMoveModeForAllPlayers(MOVEMODE_CUTSCENE);
 	func0f0c1d20();
@@ -4327,65 +4327,33 @@ void func0f0ba010(void)
 	var8009de2c = -1;
 	var80070764 = 1;
 	func0f11dcb0(1);
-	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_6 && var8009de10 < animGetNumFrames(var8009de18) - 1;
+	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_CUTSCENE && var8009de10 < animGetNumFrames(g_CameraAnimNum) - 1;
 	g_Vars.unk0004e2 = 0;
 }
 
-GLOBAL_ASM(
-glabel cameraDoAnimation
-/*  f0ba0d4:	3c0e8006 */ 	lui	$t6,%hi(var800624a4)
-/*  f0ba0d8:	8dce24a4 */ 	lw	$t6,%lo(var800624a4)($t6)
-/*  f0ba0dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0ba0e0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0ba0e4:	15c00004 */ 	bnez	$t6,.L0f0ba0f8
-/*  f0ba0e8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0ba0ec:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x4d3)
-/*  f0ba0f0:	81efa493 */ 	lb	$t7,%lo(g_Vars+0x4d3)($t7)
-/*  f0ba0f4:	11e00008 */ 	beqz	$t7,.L0f0ba118
-.L0f0ba0f8:
-/*  f0ba0f8:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x4cc)
-/*  f0ba0fc:	8f18a48c */ 	lw	$t8,%lo(g_Vars+0x4cc)($t8)
-/*  f0ba100:	3c19800a */ 	lui	$t9,%hi(var8009de24)
-/*  f0ba104:	13000004 */ 	beqz	$t8,.L0f0ba118
-/*  f0ba108:	00000000 */ 	nop
-/*  f0ba10c:	8f39de24 */ 	lw	$t9,%lo(var8009de24)($t9)
-/*  f0ba110:	5720001c */ 	bnezl	$t9,.L0f0ba184
-/*  f0ba114:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0ba118:
-/*  f0ba118:	0c004f75 */ 	jal	contDisableTemporarily
-/*  f0ba11c:	00000000 */ 	nop
-/*  f0ba120:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x2ac)
-/*  f0ba124:	8c42a26c */ 	lw	$v0,%lo(g_Vars+0x2ac)($v0)
-/*  f0ba128:	24030006 */ 	addiu	$v1,$zero,0x6
-/*  f0ba12c:	3c01800a */ 	lui	$at,%hi(var8009de24)
-/*  f0ba130:	10620005 */ 	beq	$v1,$v0,.L0f0ba148
-/*  f0ba134:	00000000 */ 	nop
-/*  f0ba138:	44802000 */ 	mtc1	$zero,$f4
-/*  f0ba13c:	ac20de24 */ 	sw	$zero,%lo(var8009de24)($at)
-/*  f0ba140:	3c01800a */ 	lui	$at,%hi(var8009de28)
-/*  f0ba144:	e424de28 */ 	swc1	$f4,%lo(var8009de28)($at)
-.L0f0ba148:
-/*  f0ba148:	50620004 */ 	beql	$v1,$v0,.L0f0ba15c
-/*  f0ba14c:	87a8001a */ 	lh	$t0,0x1a($sp)
-/*  f0ba150:	0fc2e17e */ 	jal	func0f0b85f8
-/*  f0ba154:	00000000 */ 	nop
-/*  f0ba158:	87a8001a */ 	lh	$t0,0x1a($sp)
-.L0f0ba15c:
-/*  f0ba15c:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x284)
-/*  f0ba160:	8d29a244 */ 	lw	$t1,%lo(g_Vars+0x284)($t1)
-/*  f0ba164:	3c01800a */ 	lui	$at,%hi(var8009de18)
-/*  f0ba168:	a428de18 */ 	sh	$t0,%lo(var8009de18)($at)
-/*  f0ba16c:	8d2a19c8 */ 	lw	$t2,0x19c8($t1)
-/*  f0ba170:	51400004 */ 	beqzl	$t2,.L0f0ba184
-/*  f0ba174:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ba178:	0fc2e804 */ 	jal	func0f0ba010
-/*  f0ba17c:	00000000 */ 	nop
-/*  f0ba180:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0ba184:
-/*  f0ba184:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0ba188:	03e00008 */ 	jr	$ra
-/*  f0ba18c:	00000000 */ 	nop
-);
+void cameraDoAnimation(s16 animnum)
+{
+	if ((!var800624a4 && g_Vars.unk0004d3 == 0)
+			|| g_Vars.in_cutscene == 0
+			|| var8009de24 == 0) {
+		contDisableTemporarily();
+
+		if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
+			var8009de24 = 0;
+			var8009de28 = 0;
+		}
+
+		if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
+			func0f0b85f8();
+		}
+
+		g_CameraAnimNum = animnum;
+
+		if (g_Vars.currentplayer->haschrbody) {
+			func0f0ba010();
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0ba190
@@ -4401,30 +4369,30 @@ glabel var7f1ad5d8
 /*  f0ba194:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f0ba198:	ac24de2c */ 	sw	$a0,%lo(var8009de2c)($at)
 /*  f0ba19c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0ba1a0:	3c04800a */ 	lui	$a0,%hi(var8009de18)
+/*  f0ba1a0:	3c04800a */ 	lui	$a0,%hi(g_CameraAnimNum)
 /*  f0ba1a4:	0c008dda */ 	jal	animGetNumFrames
-/*  f0ba1a8:	8484de18 */ 	lh	$a0,%lo(var8009de18)($a0)
+/*  f0ba1a8:	8484de18 */ 	lh	$a0,%lo(g_CameraAnimNum)($a0)
 /*  f0ba1ac:	244effff */ 	addiu	$t6,$v0,-1
-/*  f0ba1b0:	3c04800a */ 	lui	$a0,%hi(var8009de18)
+/*  f0ba1b0:	3c04800a */ 	lui	$a0,%hi(g_CameraAnimNum)
 /*  f0ba1b4:	afae0034 */ 	sw	$t6,0x34($sp)
 /*  f0ba1b8:	0c008f4e */ 	jal	func00023d38
-/*  f0ba1bc:	8484de18 */ 	lh	$a0,%lo(var8009de18)($a0)
-/*  f0ba1c0:	3c04800a */ 	lui	$a0,%hi(var8009de18)
-/*  f0ba1c4:	8484de18 */ 	lh	$a0,%lo(var8009de18)($a0)
+/*  f0ba1bc:	8484de18 */ 	lh	$a0,%lo(g_CameraAnimNum)($a0)
+/*  f0ba1c0:	3c04800a */ 	lui	$a0,%hi(g_CameraAnimNum)
+/*  f0ba1c4:	8484de18 */ 	lh	$a0,%lo(g_CameraAnimNum)($a0)
 /*  f0ba1c8:	0c008eac */ 	jal	func00023ab0
 /*  f0ba1cc:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*  f0ba1d0:	0c008f43 */ 	jal	func00023d0c
 /*  f0ba1d4:	a3a2007b */ 	sb	$v0,0x7b($sp)
 /*  f0ba1d8:	93af007b */ 	lbu	$t7,0x7b($sp)
 /*  f0ba1dc:	3c068008 */ 	lui	$a2,%hi(stagethinglist_221b4)
-/*  f0ba1e0:	3c07800a */ 	lui	$a3,%hi(var8009de18)
+/*  f0ba1e0:	3c07800a */ 	lui	$a3,%hi(g_CameraAnimNum)
 /*  f0ba1e4:	27b80094 */ 	addiu	$t8,$sp,0x94
 /*  f0ba1e8:	27b90088 */ 	addiu	$t9,$sp,0x88
 /*  f0ba1ec:	27a8007c */ 	addiu	$t0,$sp,0x7c
 /*  f0ba1f0:	afa8001c */ 	sw	$t0,0x1c($sp)
 /*  f0ba1f4:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f0ba1f8:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f0ba1fc:	84e7de18 */ 	lh	$a3,%lo(var8009de18)($a3)
+/*  f0ba1fc:	84e7de18 */ 	lh	$a3,%lo(g_CameraAnimNum)($a3)
 /*  f0ba200:	24c6c194 */ 	addiu	$a2,$a2,%lo(stagethinglist_221b4)
 /*  f0ba204:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0ba208:	00002825 */ 	or	$a1,$zero,$zero
@@ -4497,8 +4465,8 @@ glabel var7f1ad5dc
 .L0f0ba2f4:
 /*  f0ba2f4:	a7a0010c */ 	sh	$zero,0x10c($sp)
 .L0f0ba2f8:
-/*  f0ba2f8:	3c12800a */ 	lui	$s2,%hi(var8009de18)
-/*  f0ba2fc:	2652de18 */ 	addiu	$s2,$s2,%lo(var8009de18)
+/*  f0ba2f8:	3c12800a */ 	lui	$s2,%hi(g_CameraAnimNum)
+/*  f0ba2fc:	2652de18 */ 	addiu	$s2,$s2,%lo(g_CameraAnimNum)
 /*  f0ba300:	0c008f4e */ 	jal	func00023d38
 /*  f0ba304:	86440000 */ 	lh	$a0,0x0($s2)
 /*  f0ba308:	0c008dda */ 	jal	animGetNumFrames
@@ -10488,7 +10456,7 @@ glabel var7f1ad6ac
 //		u32 playernum = g_Vars.currentplayernum;
 //
 //		// dd28
-//		if (g_Vars.tickmode == TICKMODE_6) {
+//		if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
 //			struct chrdata *chr = eyespy->prop->chr;
 //			eyespy->initialised = false;
 //			eyespy->init = true;
@@ -10569,12 +10537,12 @@ glabel var7f1ad6ac
 //	}
 //
 //	// dfb8
-//	if (g_Vars.tickmode != TICKMODE_6) {
+//	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
 //		var80070764 = 0;
 //	}
 //
 //	// dfc8
-//	if (g_Vars.tickmode == TICKMODE_6) {
+//	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
 //		s32 i;
 //
 //		func0f0b8ba0();

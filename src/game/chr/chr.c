@@ -3723,7 +3723,7 @@ void func0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
 {
 	struct model *model = chr->model;
 
-	if (g_Vars.tickmode == TICKMODE_6) {
+	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
 		if (chr->prop->type == PROPTYPE_PLAYER) {
 			chr->hidden &= ~CHRHFLAG_KEEP_CORPSE;
 		}

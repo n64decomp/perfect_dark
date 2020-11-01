@@ -2294,7 +2294,7 @@ void func0f0035c0(void)
 void func0f00372c(void)
 {
 	if (g_Vars.tickmode != var80061458) {
-		if (TICKMODE_6 == g_Vars.tickmode && TICKMODE_6 != var80061458) {
+		if (TICKMODE_CUTSCENE == g_Vars.tickmode && TICKMODE_CUTSCENE != var80061458) {
 			func0f003444();
 		} else if (TICKMODE_1 == g_Vars.tickmode && TICKMODE_1 != var80061458) {
 			func0f0035c0();

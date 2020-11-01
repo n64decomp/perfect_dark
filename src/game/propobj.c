@@ -28341,7 +28341,7 @@ s32 objTick(struct prop *prop)
 
 	if (model->anim) {
 		if (g_Anims[model->anim->animnum].flags & 0x02) {
-			if (g_Vars.tickmode != TICKMODE_6
+			if (g_Vars.tickmode != TICKMODE_CUTSCENE
 					&& modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
 				animTurnOff(model->anim);
 				model->anim = NULL;
@@ -28356,7 +28356,7 @@ s32 objTick(struct prop *prop)
 				if (sp572) {
 					s32 iVar10 = g_Vars.lvupdate240;
 
-					if (g_Vars.tickmode == TICKMODE_6 && iVar10 > 0 && g_Vars.unk0004e2 > 0) {
+					if (g_Vars.tickmode == TICKMODE_CUTSCENE && iVar10 > 0 && g_Vars.unk0004e2 > 0) {
 						iVar10 += g_Vars.unk0004e2 * 4;
 					}
 
@@ -34230,8 +34230,8 @@ glabel func0f0841dc
 /*  f084234:	80c6be3c */ 	lb	$a2,%lo(propexplosiontypes+0x8)($a2)
 /*  f084238:	17210007 */ 	bne	$t9,$at,.L0f084258
 /*  f08423c:	00a01825 */ 	or	$v1,$a1,$zero
-/*  f084240:	3c08800a */ 	lui	$t0,%hi(var8009de18)
-/*  f084244:	8508de18 */ 	lh	$t0,%lo(var8009de18)($t0)
+/*  f084240:	3c08800a */ 	lui	$t0,%hi(g_CameraAnimNum)
+/*  f084244:	8508de18 */ 	lh	$t0,%lo(g_CameraAnimNum)($t0)
 /*  f084248:	240102d7 */ 	addiu	$at,$zero,0x2d7
 /*  f08424c:	55010003 */ 	bnel	$t0,$at,.L0f08425c
 /*  f084250:	8ca90018 */ 	lw	$t1,0x18($a1)

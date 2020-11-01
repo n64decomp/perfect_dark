@@ -2077,7 +2077,7 @@ glabel var7f1a863c
 //	if (var80062940 == 0 && g_Vars.stagenum == STAGE_CITRAINING) {
 //		g_PlayersWithControl[0] = false;
 //
-//		if (g_Vars.lvframenum > 30 && g_Vars.tickmode != TICKMODE_6) {
+//		if (g_Vars.lvframenum > 30 && g_Vars.tickmode != TICKMODE_CUTSCENE) {
 //			g_Menus[0].unk83c = 0;
 //			g_Menus[1].unk83c = 0;
 //			g_Menus[2].unk83c = 0;

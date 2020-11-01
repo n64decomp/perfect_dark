@@ -5142,7 +5142,7 @@ glabel var7f1ad8e4
 //	// b478
 //	cancycleweapons = true;
 //
-//	if (g_Vars.tickmode == TICKMODE_6) {
+//	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
 //		cancycleweapons = false;
 //	}
 //
