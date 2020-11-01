@@ -19,7 +19,7 @@ extern u32 var800701b8;
 extern u32 var800701c0;
 extern u32 var800701dc;
 extern u32 var800701e4;
-extern u32 var80070200;
+extern struct remoteminething var80070200[2];
 extern u32 var80070210;
 extern u32 var8007021c;
 extern u32 var8007022c;

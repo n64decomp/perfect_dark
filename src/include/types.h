@@ -2083,7 +2083,10 @@ struct hand {
 	/*0x0cbc*/ u32 unk0cbc;
 	/*0x0cc0*/ u32 unk0cc0;
 	/*0x0cc4*/ u32 unk0cc4;
-	/*0x0cc8*/ u32 unk0cc8;
+	/*0x0cc8*/ u8 unk0cc8_01 : 1;
+	/*0x0cc8*/ u8 unk0cc8_02 : 1;
+	/*0x0cc8*/ u8 unk0cc8_03 : 1;
+	/*0x0cc9*/ u8 unk0cc9;
 	/*0x0ccc*/ u32 unk0ccc;
 	/*0x0cd0*/ u32 unk0cd0;
 	/*0x0cd4*/ u32 unk0cd4;
@@ -2091,14 +2094,15 @@ struct hand {
 	/*0x0cdc*/ u32 unk0cdc;
 	/*0x0ce0*/ u32 unk0ce0;
 	/*0x0ce4*/ u32 unk0ce4;
-	/*0x0ce8*/ u32 unk0ce8;
+	/*0x0ce8*/ struct remoteminething *unk0ce8;
 	/*0x0cec*/ bool unk0cec;
 	/*0x0cf0*/ struct coord unk0cf0;
 	/*0x0cfc*/ struct coord unk0cfc;
 	/*0x0d08*/ u32 unk0d08;
 	/*0x0d0c*/ u8 unk0d0c;
 	/*0x0d0d*/ u8 unk0d0d;
-	/*0x0d0e*/ u8 unk0d0e;
+	/*0x0d0e*/ u8 unk0d0e_00 : 7;
+	/*0x0d0e*/ u8 unk0d0e_08 : 1;
 	/*0x0d0f*/ u8 unk0d0f_00 : 3;
 	/*0x0d0f*/ u8 unk0d0f_03 : 1;
 	/*0x0d0f*/ u8 unk0d0f_04 : 4;
@@ -2129,7 +2133,7 @@ struct hand {
 	/*0x0d70*/ u32 unk0d70;
 	/*0x0d74*/ u16 unk0d74[4];
 	/*0x0d7c*/ u32 unk0d7c;
-	/*0x0d80*/ u32 unk0d80;
+	/*0x0d80*/ struct remoteminething *unk0d80;
 	/*0x0d84*/ struct audiohandle *audiohandle;
 	/*0x0d88*/ u32 unk0d88;
 	/*0x0d8c*/ u32 unk0d8c;
@@ -7128,6 +7132,16 @@ struct var800a3180 {
 	/*0x5c*/ u32 unk5c;
 	/*0x60*/ u32 unk60;
 	/*0x64*/ u32 unk64;
+};
+
+struct remoteminething {
+	u8 unk00;
+	u16 unk02;
+
+	union {
+		u32 unk04;
+		struct remoteminething *next;
+	};
 };
 
 #endif
