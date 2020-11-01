@@ -23654,20 +23654,15 @@ glabel func0f0abad0
 /*  f0abb7c:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f0abb80
-/*  f0abb80:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0abb84:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0abb88:	8c4e045c */ 	lw	$t6,0x45c($v0)
-/*  f0abb8c:	01c47823 */ 	subu	$t7,$t6,$a0
-/*  f0abb90:	1de00003 */ 	bgtz	$t7,.L0f0abba0
-/*  f0abb94:	ac4f045c */ 	sw	$t7,0x45c($v0)
-/*  f0abb98:	ac40045c */ 	sw	$zero,0x45c($v0)
-/*  f0abb9c:	ac400464 */ 	sw	$zero,0x464($v0)
-.L0f0abba0:
-/*  f0abba0:	03e00008 */ 	jr	$ra
-/*  f0abba4:	00000000 */ 	nop
-);
+void func0f0abb80(s32 amount)
+{
+	g_Vars.speedpilltime -= amount;
+
+	if (g_Vars.speedpilltime <= 0) {
+		g_Vars.speedpilltime = 0;
+		g_Vars.speedpillwant = false;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0abba8
@@ -23707,7 +23702,7 @@ void speedpillTick(void)
 
 		if (g_Vars.speedpilltime <= 0) {
 			g_Vars.speedpilltime = 0;
-			g_Vars.speedpillwant = 0;
+			g_Vars.speedpillwant = false;
 		}
 	}
 }
