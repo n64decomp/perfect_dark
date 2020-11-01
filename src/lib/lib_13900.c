@@ -15,34 +15,62 @@
 #include "lib/lib_4f5e0.h"
 #include "types.h"
 
+/**
+ * PD uses use a separate thread (than the main game) for controller polling.
+ * This thread polls the controllers as frequently as possible and stores its
+ * results inside g_ContData->samples. This allows the main thread to access a
+ * history of controller states since the last rendered frame. For example,
+ * under laggy conditions the player might press and release a button between
+ * two frames and the main thread can tell that this has happened even if the
+ * button was unpressed during both the previous and current frame.
+ *
+ * The samples array contains 20 elements and is written to in a cyclic manner.
+ * These samples are split into two partitions: cur and next. cur refers to
+ * samples which are currently visible to the main thread on this frame, and
+ * samples in next are samples which have been added since the start of the
+ * current frame and will be made visible on the next frame.
+ *
+ * At the start of a frame, the main thread informs the cont system that it's
+ * ready to consume more samples. The cont system then moves the partition
+ * boundaries so that the old next partition becomes the new cur, and everything
+ * else becomes available for next.
+ *
+ * If all 20 samples are in use, the cont system will overwrite the most recent
+ * sample in the next partition.
+ */
+
 const char var70054080[] = "joyReset\n";
 const char var7005408c[] = "joyReset: doing nothing\n";
 
-struct contdata *var8005ee60 = &var80099a60[0];
+struct contdata *g_ContDataPtr = &g_ContData[0];
 bool g_ContBusy = false;
-u32 var8005ee68 = 0x00000000;
-u32 var8005ee6c[4] = {0};
-u32 var8005ee7c[4] = {0};
-u32 var8005ee8c[4] = {0};
-u32 var8005ee9c[4] = {0};
+u32 var8005ee68 = 0;
+
+// Number of times per pad that different inputs were attempted to be read
+// when controller was disconnected or not ready.
+u32 g_ContBadReadsStickX[4] = {0};
+u32 g_ContBadReadsStickY[4] = {0};
+u32 g_ContBadReadsButtons[4] = {0};
+u32 g_ContBadReadsButtonsPressed[4] = {0};
+
 u8 g_ConnectedControllers = 0;
-u32 var8005eeb0 = 0x00000000;
+bool g_ContQueuesCreated = false;
 bool g_ContInitDone = false;
 bool g_ContNeedsInit = true;
-u32 var8005eebc = 0x00000000;
-u32 var8005eec0 = 0x00000001;
+u32 var8005eebc = 0;
+u32 var8005eec0 = 1;
 s32 (*var8005eec4)(struct contsample *samples, s32 samplenum) = NULL;
 void (*var8005eec8)(struct contsample *samples, s32 samplenum, s32 samplenum2) = NULL;
-s32 var8005eecc = 0;
-u32 var8005eed0 = 0x00000000;
-u32 var8005eed4 = 0x00000000;
+s32 g_ContNextPfsStateIndex = 0;
+u32 var8005eed0 = 0;
+u32 var8005eed4 = 0;
 u8 var8005eed8 = 0;
-u32 var8005eedc = 0x00000001;
+u32 var8005eedc = 1;
 s32 var8005eee0 = 0;
 s32 var8005eee4 = -1;
-u32 var8005eee8 = 0x00000000;
-u32 var8005eeec = 0x00000000;
-u32 var8005eef0 = 0x00000001;
+u32 var8005eee8 = 0;
+u32 var8005eeec = 0;
+u32 var8005eef0 = 1;
 
 void func00013900(void)
 {
@@ -81,38 +109,38 @@ void func000139c8(void)
 }
 
 /**
- * Remove an item from the beginning of the var80099f48 array,
+ * Remove an item from the beginning of the g_ContPfsStates array,
  * shift the rest of the array back and return the removed item.
  */
-s32 func000139e8(void)
+s32 contShiftPfsStates(void)
 {
-	s32 result = 0;
+	s32 pfsstate = 0;
 	s32 i;
 
-	if (var8005eecc) {
-		result = var80099f48[0];
+	if (g_ContNextPfsStateIndex) {
+		pfsstate = g_ContPfsStates[0];
 
-		if (var8005eecc > 1) {
-			for (i = 0; i < var8005eecc; i++) {
-				var80099f48[i] = var80099f48[i + 1];
+		if (g_ContNextPfsStateIndex > 1) {
+			for (i = 0; i < g_ContNextPfsStateIndex; i++) {
+				g_ContPfsStates[i] = g_ContPfsStates[i + 1];
 			}
 
-			var8005eecc--;
+			g_ContNextPfsStateIndex--;
 		}
 	}
 
-	return result;
+	return pfsstate;
 }
 
-void func00013a40(u8 arg0)
+void contRecordPfsState(u8 pfsstate)
 {
-	if (var8005eecc + 1 >= 100) {
-		func000139e8();
+	if (g_ContNextPfsStateIndex + 1 >= 100) {
+		contShiftPfsStates();
 	}
 
-	if (var8005eecc == 0 || arg0 != var80099f48[var8005eecc - 1]) {
-		var80099f48[var8005eecc] = arg0;
-		var8005eecc++;
+	if (g_ContNextPfsStateIndex == 0 || pfsstate != g_ContPfsStates[g_ContNextPfsStateIndex - 1]) {
+		g_ContPfsStates[g_ContNextPfsStateIndex] = pfsstate;
+		g_ContNextPfsStateIndex++;
 	}
 }
 
@@ -162,7 +190,7 @@ void contCheckPfs(s32 arg0)
 
 			bitpattern |= 0x10;
 
-			func00013a40(bitpattern);
+			contRecordPfsState(bitpattern);
 
 			var8005eee4 = var8005eee0;
 		}
@@ -175,11 +203,18 @@ void contCheckPfs(s32 arg0)
 	}
 }
 
-void func00013c4c(s8 index)
+/**
+ * "Temporarily" because the next time contCheckPfs runs, the true state will be
+ * recorded.
+ *
+ * Note that var8005eed8 is always zero, so this record will suggest that this
+ * pak is the only one connected.
+ */
+void contSetPfsTemporarilyPlugged(s8 index)
 {
-	u8 value = var8005eed8 & ~(1 << index);
+	u8 bitpattern = var8005eed8 & ~(1 << index);
 
-	func00013a40(value);
+	contRecordPfsState(bitpattern);
 }
 
 void contSystemInit(void)
@@ -195,36 +230,45 @@ void contSystemInit(void)
 
 	osSetEventMesg(OS_EVENT_SI, &var80099e78, NULL);
 
-	var8005eeb0 = 1;
+	g_ContQueuesCreated = true;
+
 	var8005eec4 = NULL;
 	var8005eec8 = NULL;
 
 	for (i = 0; i < 2; i++) {
-		var80099a60[i].unk1e0 = 0;
-		var80099a60[i].unk1e4 = 0;
-		var80099a60[i].unk1e8 = 0;
-		var80099a60[i].unk1ec = 0;
-		var80099a60[i].unk200 = -1;
+		g_ContData[i].curlast = 0;
+		g_ContData[i].curstart = 0;
+		g_ContData[i].nextlast = 0;
+		g_ContData[i].nextsecondlast = 0;
+		g_ContData[i].unk200 = -1;
 
 		for (j = 0; j < 4; j++) {
-			var80099a60[i].samples[0].pads[j].button = 0;
-			var80099a60[i].samples[0].pads[j].stick_x = 0;
-			var80099a60[i].samples[0].pads[j].stick_y = 0;
-			var80099a60[i].samples[0].pads[j].errno = 0;
+			g_ContData[i].samples[0].pads[j].button = 0;
+			g_ContData[i].samples[0].pads[j].stick_x = 0;
+			g_ContData[i].samples[0].pads[j].stick_y = 0;
+			g_ContData[i].samples[0].pads[j].errno = 0;
 		}
 	}
 
 	for (i = 0; i < 4; i++) {
-		var80099e68[i] = 0;
+		g_ContDisableCooldown[i] = 0;
 	}
 }
 
-void func00013dd4(void)
+/**
+ * Disable all input on all controllers for 60 frames, or until the player has
+ * released all inputs.
+ *
+ * It's used to prevent the player from accidentally skipping cutscenes and
+ * progressing past endscreens if they are holding buttons when they are
+ * started.
+ */
+void contDisableTemporarily(void)
 {
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		var80099e68[i] = 60;
+		g_ContDisableCooldown[i] = 60;
 	}
 }
 
@@ -232,7 +276,7 @@ void func00013dfc(void)
 {
 	OSMesg msg;
 
-	if (var8005eeb0) {
+	if (g_ContQueuesCreated) {
 		osSendMesg(&var80099ec0, &msg, OS_MESG_NOBLOCK);
 		osRecvMesg(&var80099ee0, &msg, OS_MESG_BLOCK);
 
@@ -296,8 +340,8 @@ s8 contGetFreeSlot(void)
 {
 	s32 i;
 
-	if (var8005ee60->unk200 >= 0) {
-		return var8005ee60->unk200;
+	if (g_ContDataPtr->unk200 >= 0) {
+		return g_ContDataPtr->unk200;
 	}
 
 	for (i = 0; i < 4; i++) {
@@ -315,7 +359,7 @@ u32 contGetConnectedControllers(void)
 }
 
 GLOBAL_ASM(
-glabel func00014058
+glabel contConsumeSamples
 /*    14058:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*    1405c:	afb00004 */ 	sw	$s0,0x4($sp)
 /*    14060:	8c8e01e0 */ 	lw	$t6,0x1e0($a0)
@@ -331,8 +375,8 @@ glabel func00014058
 /*    14084:	a46001f8 */ 	sh	$zero,0x1f8($v1)
 /*    14088:	8c9901e0 */ 	lw	$t9,0x1e0($a0)
 /*    1408c:	8c8501e4 */ 	lw	$a1,0x1e4($a0)
-/*    14090:	3c18800a */ 	lui	$t8,%hi(var80099e68)
-/*    14094:	27189e68 */ 	addiu	$t8,$t8,%lo(var80099e68)
+/*    14090:	3c18800a */ 	lui	$t8,%hi(g_ContDisableCooldown)
+/*    14094:	27189e68 */ 	addiu	$t8,$t8,%lo(g_ContDisableCooldown)
 /*    14098:	10b9005e */ 	beq	$a1,$t9,.L00014214
 /*    1409c:	24ae0001 */ 	addiu	$t6,$a1,0x1
 /*    140a0:	01d0001a */ 	div	$zero,$t6,$s0
@@ -451,46 +495,46 @@ glabel func00014058
 /*    14234:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-// Mismatch because goal calculates &var80099e68 before the % 20 on the marked
-// line, but the below does it after.
-//void func00014058(struct contdata *contdata)
+// Mismatch because goal calculates &g_ContDisableCooldown before the % 20 on
+// the marked line, but the below does it after.
+//void contConsumeSamples(struct contdata *contdata)
 //{
 //	s8 i;
 //	s32 samplenum;
 //	u16 buttons1;
 //	u16 buttons2;
 //
-//	contdata->unk1e4 = contdata->unk1e0;
-//	contdata->unk1e0 = contdata->unk1e8;
+//	contdata->curstart = contdata->curlast;
+//	contdata->curlast = contdata->nextlast;
 //
 //	for (i = 0; i < 4; i++) {
-//		contdata->unk1f0[i] = 0;
-//		contdata->unk1f8[i] = 0;
+//		contdata->buttonspressed[i] = 0;
+//		contdata->buttonsreleased[i] = 0;
 //
-//		if (contdata->unk1e0 != contdata->unk1e4) {
+//		if (contdata->curlast != contdata->curstart) {
 //			// Mismatch here
-//			samplenum = (contdata->unk1e4 + 1) % 20;
+//			samplenum = (contdata->curstart + 1) % 20;
 //
 //			while (true) {
 //				buttons1 = contdata->samples[samplenum].pads[i].button;
 //				buttons2 = contdata->samples[(samplenum + 19) % 20].pads[i].button;
 //
-//				contdata->unk1f0[i] |= buttons1 & ~buttons2;
-//				contdata->unk1f8[i] |= ~buttons1 & buttons2;
+//				contdata->buttonspressed[i] |= buttons1 & ~buttons2;
+//				contdata->buttonsreleased[i] |= ~buttons1 & buttons2;
 //
-//				if (var80099e68[i] > 0) {
+//				if (g_ContDisableCooldown[i] > 0) {
 //					if (contdata->samples[samplenum].pads[i].button == 0
 //							&& contdata->samples[samplenum].pads[i].stick_x < 15
 //							&& contdata->samples[samplenum].pads[i].stick_x > -15
 //							&& contdata->samples[samplenum].pads[i].stick_y < 15
 //							&& contdata->samples[samplenum].pads[i].stick_y > -15) {
-//						var80099e68[i] = 0;
+//						g_ContDisableCooldown[i] = 0;
 //					} else {
-//						var80099e68[i]--;
+//						g_ContDisableCooldown[i]--;
 //					}
 //				}
 //
-//				if (samplenum == contdata->unk1e0) {
+//				if (samplenum == contdata->curlast) {
 //					break;
 //				}
 //
@@ -537,14 +581,14 @@ void contDebugJoy(void)
 	}
 
 	if (var8005eec4) {
-		var80099a60[1].unk1e8 = var8005eec4(var80099a60[1].samples, var80099a60[1].unk1e0);
-		func00014058(&var80099a60[1]);
+		g_ContData[1].nextlast = var8005eec4(g_ContData[1].samples, g_ContData[1].curlast);
+		contConsumeSamples(&g_ContData[1]);
 	}
 
-	func00014058(&var80099a60[0]);
+	contConsumeSamples(&g_ContData[0]);
 
 	if (var8005eec8) {
-		var8005eec8(var80099a60[0].samples, var80099a60[0].unk1e4, var80099a60[0].unk1e0);
+		var8005eec8(g_ContData[0].samples, g_ContData[0].curstart, g_ContData[0].curlast);
 	}
 
 	if (func000150c4() && var8005eec0 && contGetNumSamples() <= 0) {
@@ -553,10 +597,10 @@ void contDebugJoy(void)
 #if VERSION >= VERSION_NTSC_FINAL
 		func00014238();
 		func00015144();
-		func00014058(&var80099a60[0]);
+		contConsumeSamples(&g_ContData[0]);
 #else
 		func00015144();
-		func00014058(&var80099a60[0]);
+		contConsumeSamples(&g_ContData[0]);
 		func00014238();
 #endif
 	}
@@ -578,18 +622,18 @@ s32 contStartReadData(OSMesgQueue *mq)
 
 void contReadData(void)
 {
-	s32 index = (var80099a60[0].unk1e8 + 1) % 20;
+	s32 index = (g_ContData[0].nextlast + 1) % 20;
 
-	if (index == var80099a60[0].unk1e4) {
+	if (index == g_ContData[0].curstart) {
 		// If the sample queue is full, don't overwrite the oldest sample.
 		// Instead, overwrite the most recent.
-		index = var80099a60[0].unk1e8;
+		index = g_ContData[0].nextlast;
 	}
 
-	osContGetReadData(var80099a60[0].samples[index].pads);
+	osContGetReadData(g_ContData[0].samples[index].pads);
 
-	var80099a60[0].unk1e8 = index;
-	var80099a60[0].unk1ec = (var80099a60[0].unk1e8 + 19) % 20;
+	g_ContData[0].nextlast = index;
+	g_ContData[0].nextsecondlast = (g_ContData[0].nextlast + 19) % 20;
 }
 
 void contPoll(void)
@@ -606,8 +650,8 @@ void contPoll(void)
 
 			// Check if error state has changed for any controller
 			for (i = 0; i < 4; i++) {
-				if ((var80099a60[0].samples[var80099a60[0].unk1e8].pads[i].errno == 0 && var80099a60[0].samples[var80099a60[0].unk1ec].pads[i].errno != 0)
-						|| (var80099a60[0].samples[var80099a60[0].unk1e8].pads[i].errno != 0 && var80099a60[0].samples[var80099a60[0].unk1ec].pads[i].errno == 0)) {
+				if ((g_ContData[0].samples[g_ContData[0].nextlast].pads[i].errno == 0 && g_ContData[0].samples[g_ContData[0].nextsecondlast].pads[i].errno != 0)
+						|| (g_ContData[0].samples[g_ContData[0].nextlast].pads[i].errno != 0 && g_ContData[0].samples[g_ContData[0].nextsecondlast].pads[i].errno == 0)) {
 					func00013e84();
 					break;
 				}
@@ -648,8 +692,8 @@ void contPoll(void)
 
 			// Check if error state has changed for any controller
 			for (i = 0; i < 4; i++) {
-				if ((var80099a60[0].samples[var80099a60[0].unk1e8].pads[i].errno == 0 && var80099a60[0].samples[var80099a60[0].unk1ec].pads[i].errno != 0)
-						|| (var80099a60[0].samples[var80099a60[0].unk1e8].pads[i].errno != 0 && var80099a60[0].samples[var80099a60[0].unk1ec].pads[i].errno == 0)) {
+				if ((g_ContData[0].samples[g_ContData[0].nextlast].pads[i].errno == 0 && g_ContData[0].samples[g_ContData[0].nextsecondlast].pads[i].errno != 0)
+						|| (g_ContData[0].samples[g_ContData[0].nextlast].pads[i].errno != 0 && g_ContData[0].samples[g_ContData[0].nextsecondlast].pads[i].errno == 0)) {
 					func00013e84();
 					break;
 				}
@@ -667,11 +711,11 @@ void contPoll(void)
 				s32 i;
 
 				for (i = 0; i < 4; i++) {
-					if (var8005ee6c[i] || var8005ee7c[i] || var8005ee8c[i] || var8005ee9c[i]) {
-						var8005ee6c[i] = 0;
-						var8005ee7c[i] = 0;
-						var8005ee8c[i] = 0;
-						var8005ee9c[i] = 0;
+					if (g_ContBadReadsStickX[i] || g_ContBadReadsStickY[i] || g_ContBadReadsButtons[i] || g_ContBadReadsButtonsPressed[i]) {
+						g_ContBadReadsStickX[i] = 0;
+						g_ContBadReadsStickY[i] = 0;
+						g_ContBadReadsButtons[i] = 0;
+						g_ContBadReadsButtonsPressed[i] = 0;
 					}
 				}
 
@@ -688,117 +732,124 @@ void func00014810(bool value)
 
 s32 contGetNumSamples(void)
 {
-	return (var8005ee60->unk1e0 - var8005ee60->unk1e4 + 20) % 20;
+	return (g_ContDataPtr->curlast - g_ContDataPtr->curstart + 20) % 20;
 }
 
-s32 func00014848(s32 samplenum, s8 contpadnum)
+s32 contGetStickXOnSample(s32 samplenum, s8 contpadnum)
 {
-	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		var8005ee6c[contpadnum]++;
+	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
+		g_ContBadReadsStickX[contpadnum]++;
 		return 0;
 	}
 
-	if (var80099e68[contpadnum] > 0) {
+	if (g_ContDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return var8005ee60->samples[(var8005ee60->unk1e4 + samplenum + 1) % 20].pads[contpadnum].stick_x;
+	return g_ContDataPtr->samples[(g_ContDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].stick_x;
 }
 
-s32 func00014904(s32 samplenum, s8 contpadnum)
+s32 contGetStickYOnSample(s32 samplenum, s8 contpadnum)
 {
-	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		var8005ee7c[contpadnum]++;
+	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
+		g_ContBadReadsStickY[contpadnum]++;
 		return 0;
 	}
 
-	if (var80099e68[contpadnum] > 0) {
+	if (g_ContDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return var8005ee60->samples[(var8005ee60->unk1e4 + samplenum + 1) % 20].pads[contpadnum].stick_y;
+	return g_ContDataPtr->samples[(g_ContDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].stick_y;
 }
 
-s32 func000149c0(s32 samplenum, s8 contpadnum)
+s32 contGetStickYOnSampleIndex(s32 samplenum, s8 contpadnum)
 {
-	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		var8005ee7c[contpadnum]++;
+	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
+		g_ContBadReadsStickY[contpadnum]++;
 		return 0;
 	}
 
-	if (var80099e68[contpadnum] > 0) {
+	if (g_ContDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return var8005ee60->samples[(var8005ee60->unk1e4 + samplenum) % 20].pads[contpadnum].stick_y;
+	return g_ContDataPtr->samples[(g_ContDataPtr->curstart + samplenum) % 20].pads[contpadnum].stick_y;
 }
 
-u16 func00014a78(s32 samplenum, s8 contpadnum, u16 mask)
+u16 contGetButtonsOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 {
 	u16 button;
 
-	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		var8005ee8c[contpadnum]++;
+	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
+		g_ContBadReadsButtons[contpadnum]++;
 		return 0;
 	}
 
-	if (var80099e68[contpadnum] > 0) {
+	if (g_ContDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	button = var8005ee60->samples[(var8005ee60->unk1e4 + samplenum + 1) % 20].pads[contpadnum].button;
+	button = g_ContDataPtr->samples[(g_ContDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].button;
 
 	return button & mask;
 }
 
-u16 func00014b50(s32 samplenum, s8 contpadnum, u16 mask)
+u16 contGetButtonsPressedOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 {
 	u16 button1;
 	u16 button2;
 
-	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		var8005ee9c[contpadnum]++;
+	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
+		g_ContBadReadsButtonsPressed[contpadnum]++;
 		return 0;
 	}
 
-	if (var80099e68[contpadnum] > 0) {
+	if (g_ContDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	button1 = var8005ee60->samples[(var8005ee60->unk1e4 + samplenum + 1) % 20].pads[contpadnum].button;
-	button2 = var8005ee60->samples[(var8005ee60->unk1e4 + samplenum) % 20].pads[contpadnum].button;
+	button1 = g_ContDataPtr->samples[(g_ContDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].button;
+	button2 = g_ContDataPtr->samples[(g_ContDataPtr->curstart + samplenum) % 20].pads[contpadnum].button;
 
 	return (button1 & ~button2) & mask;
 }
 
-s32 func00014c98(u32 *arg0, s8 contpadnum, u16 mask)
+/**
+ * Count the number of times the buttons specified by mask were held during the
+ * specific samples given in checksamples.
+ *
+ * For example, if checksamples[5] is nonzero and a button was pressed on
+ * samplenum 5 which matches the mask, count is incremented.
+ */
+s32 contCountButtonsOnSpecificSamples(u32 *checksamples, s8 contpadnum, u16 mask)
 {
 	s32 count = 0;
 	s32 index = 0;
 	s32 i;
 	u16 button;
 
-	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		var8005ee8c[contpadnum]++;
+	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
+		g_ContBadReadsButtons[contpadnum]++;
 		return 0;
 	}
 
-	if (var80099e68[contpadnum] > 0) {
+	if (g_ContDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	i = (var8005ee60->unk1e4 + 1) % 20;
+	i = (g_ContDataPtr->curstart + 1) % 20;
 
 	while (true) {
-		if (arg0 == NULL || arg0[index]) {
-			button = var8005ee60->samples[i].pads[contpadnum].button;
+		if (checksamples == NULL || checksamples[index]) {
+			button = g_ContDataPtr->samples[i].pads[contpadnum].button;
 
 			if (button & mask) {
 				count++;
 			}
 		}
 
-		if (i == var8005ee60->unk1e0) {
+		if (i == g_ContDataPtr->curlast) {
 			break;
 		}
 
@@ -811,58 +862,58 @@ s32 func00014c98(u32 *arg0, s8 contpadnum, u16 mask)
 
 s8 contGetStickX(s8 contpadnum)
 {
-	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		var8005ee6c[contpadnum]++;
+	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
+		g_ContBadReadsStickX[contpadnum]++;
 		return 0;
 	}
 
-	if (var80099e68[contpadnum] > 0) {
+	if (g_ContDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return var8005ee60->samples[var8005ee60->unk1e0].pads[contpadnum].stick_x;
+	return g_ContDataPtr->samples[g_ContDataPtr->curlast].pads[contpadnum].stick_x;
 }
 
 s8 contGetStickY(s8 contpadnum)
 {
-	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		var8005ee7c[contpadnum]++;
+	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
+		g_ContBadReadsStickY[contpadnum]++;
 		return 0;
 	}
 
-	if (var80099e68[contpadnum] > 0) {
+	if (g_ContDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return var8005ee60->samples[var8005ee60->unk1e0].pads[contpadnum].stick_y;
+	return g_ContDataPtr->samples[g_ContDataPtr->curlast].pads[contpadnum].stick_y;
 }
 
 u16 contGetButtons(s8 contpadnum, u16 mask)
 {
-	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		var8005ee8c[contpadnum]++;
+	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
+		g_ContBadReadsButtons[contpadnum]++;
 		return 0;
 	}
 
-	if (var80099e68[contpadnum] > 0) {
+	if (g_ContDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return var8005ee60->samples[var8005ee60->unk1e0].pads[contpadnum].button & mask;
+	return g_ContDataPtr->samples[g_ContDataPtr->curlast].pads[contpadnum].button & mask;
 }
 
-u16 func00015020(s8 contpadnum, u16 mask)
+u16 contGetButtonsPressedThisFrame(s8 contpadnum, u16 mask)
 {
-	if (var8005ee60->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		var8005ee9c[contpadnum]++;
+	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
+		g_ContBadReadsButtonsPressed[contpadnum]++;
 		return 0;
 	}
 
-	if (var80099e68[contpadnum] > 0) {
+	if (g_ContDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return var8005ee60->unk1f0[contpadnum] & mask;
+	return g_ContDataPtr->buttonspressed[contpadnum] & mask;
 }
 
 s32 func000150c4(void)

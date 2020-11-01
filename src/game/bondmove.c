@@ -878,7 +878,7 @@ glabel var7f1ad8e4
 /*  f0c8c90:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0c8c94:	00046603 */ 	sra	$t4,$a0,0x18
 /*  f0c8c98:	01802025 */ 	or	$a0,$t4,$zero
-/*  f0c8c9c:	0c005408 */ 	jal	func00015020
+/*  f0c8c9c:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
 /*  f0c8ca0:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8ca4:	10000002 */ 	b	.L0f0c8cb0
 /*  f0c8ca8:	a7a201a0 */ 	sh	$v0,0x1a0($sp)
@@ -1091,7 +1091,7 @@ glabel var7f1ad8e4
 /*  f0c8f98:	00044e03 */ 	sra	$t1,$a0,0x18
 /*  f0c8f9c:	a7a200e6 */ 	sh	$v0,0xe6($sp)
 /*  f0c8fa0:	01202025 */ 	or	$a0,$t1,$zero
-/*  f0c8fa4:	0c005408 */ 	jal	func00015020
+/*  f0c8fa4:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
 /*  f0c8fa8:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8fac:	8e4b0284 */ 	lw	$t3,0x284($s2)
 /*  f0c8fb0:	340affff */ 	dli	$t2,0xffff
@@ -1238,7 +1238,7 @@ glabel var7f1ad8e4
 /*  f0c91ac:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c91b0:	afa3004c */ 	sw	$v1,0x4c($sp)
 /*  f0c91b4:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f0c91b8:	0c00529e */ 	jal	func00014a78
+/*  f0c91b8:	0c00529e */ 	jal	contGetButtonsOnSample
 /*  f0c91bc:	33262000 */ 	andi	$a2,$t9,0x2000
 /*  f0c91c0:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c91c4:	8fa70048 */ 	lw	$a3,0x48($sp)
@@ -1280,7 +1280,7 @@ glabel var7f1ad8e4
 /*  f0c9244:	01c02825 */ 	or	$a1,$t6,$zero
 /*  f0c9248:	afa3004c */ 	sw	$v1,0x4c($sp)
 /*  f0c924c:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f0c9250:	0c0052d4 */ 	jal	func00014b50
+/*  f0c9250:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
 /*  f0c9254:	31e62000 */ 	andi	$a2,$t7,0x2000
 /*  f0c9258:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c925c:	10400005 */ 	beqz	$v0,.L0f0c9274
@@ -1466,7 +1466,7 @@ glabel var7f1ad8e4
 /*  f0c94e4:	00057603 */ 	sra	$t6,$a1,0x18
 /*  f0c94e8:	01c02825 */ 	or	$a1,$t6,$zero
 /*  f0c94ec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0c94f0:	0c00529e */ 	jal	func00014a78
+/*  f0c94f0:	0c00529e */ 	jal	contGetButtonsOnSample
 /*  f0c94f4:	3226ffff */ 	andi	$a2,$s1,0xffff
 /*  f0c94f8:	14400009 */ 	bnez	$v0,.L0f0c9520
 /*  f0c94fc:	02002025 */ 	or	$a0,$s0,$zero
@@ -1474,7 +1474,7 @@ glabel var7f1ad8e4
 /*  f0c9504:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c9508:	00057e03 */ 	sra	$t7,$a1,0x18
 /*  f0c950c:	01e02825 */ 	or	$a1,$t7,$zero
-/*  f0c9510:	0c00529e */ 	jal	func00014a78
+/*  f0c9510:	0c00529e */ 	jal	contGetButtonsOnSample
 /*  f0c9514:	33068000 */ 	andi	$a2,$t8,0x8000
 /*  f0c9518:	50400028 */ 	beqzl	$v0,.L0f0c95bc
 /*  f0c951c:	8e490284 */ 	lw	$t1,0x284($s2)
@@ -1487,7 +1487,7 @@ glabel var7f1ad8e4
 /*  f0c9534:	14200031 */ 	bnez	$at,.L0f0c95fc
 /*  f0c9538:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c953c:	83a500ef */ 	lb	$a1,0xef($sp)
-/*  f0c9540:	0c0052d4 */ 	jal	func00014b50
+/*  f0c9540:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
 /*  f0c9544:	afa6004c */ 	sw	$a2,0x4c($sp)
 /*  f0c9548:	10400006 */ 	beqz	$v0,.L0f0c9564
 /*  f0c954c:	8fa6004c */ 	lw	$a2,0x4c($sp)
@@ -1502,7 +1502,7 @@ glabel var7f1ad8e4
 /*  f0c956c:	85f8024c */ 	lh	$t8,0x24c($t7)
 /*  f0c9570:	07020023 */ 	bltzl	$t8,.L0f0c9600
 /*  f0c9574:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0c9578:	0c00529e */ 	jal	func00014a78
+/*  f0c9578:	0c00529e */ 	jal	contGetButtonsOnSample
 /*  f0c957c:	83a500ef */ 	lb	$a1,0xef($sp)
 /*  f0c9580:	5440001f */ 	bnezl	$v0,.L0f0c9600
 /*  f0c9584:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -1528,7 +1528,7 @@ glabel var7f1ad8e4
 /*  f0c95cc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c95d0:	97ab00ea */ 	lhu	$t3,0xea($sp)
 /*  f0c95d4:	83a500ef */ 	lb	$a1,0xef($sp)
-/*  f0c95d8:	0c00529e */ 	jal	func00014a78
+/*  f0c95d8:	0c00529e */ 	jal	contGetButtonsOnSample
 /*  f0c95dc:	31662000 */ 	andi	$a2,$t3,0x2000
 /*  f0c95e0:	54400005 */ 	bnezl	$v0,.L0f0c95f8
 /*  f0c95e4:	8e4d0284 */ 	lw	$t5,0x284($s2)
@@ -1557,7 +1557,7 @@ glabel var7f1ad8e4
 /*  f0c9628:	0005c603 */ 	sra	$t8,$a1,0x18
 /*  f0c962c:	8fa60044 */ 	lw	$a2,0x44($sp)
 /*  f0c9630:	03002825 */ 	or	$a1,$t8,$zero
-/*  f0c9634:	0c00529e */ 	jal	func00014a78
+/*  f0c9634:	0c00529e */ 	jal	contGetButtonsOnSample
 /*  f0c9638:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c963c:	14400009 */ 	bnez	$v0,.L0f0c9664
 /*  f0c9640:	02002025 */ 	or	$a0,$s0,$zero
@@ -1565,7 +1565,7 @@ glabel var7f1ad8e4
 /*  f0c9648:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c964c:	0005ce03 */ 	sra	$t9,$a1,0x18
 /*  f0c9650:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0c9654:	0c00529e */ 	jal	func00014a78
+/*  f0c9654:	0c00529e */ 	jal	contGetButtonsOnSample
 /*  f0c9658:	31064000 */ 	andi	$a2,$t0,0x4000
 /*  f0c965c:	5040003e */ 	beqzl	$v0,.L0f0c9758
 /*  f0c9660:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -1578,7 +1578,7 @@ glabel var7f1ad8e4
 /*  f0c9678:	2881ffff */ 	slti	$at,$a0,-1
 /*  f0c967c:	5420002f */ 	bnezl	$at,.L0f0c973c
 /*  f0c9680:	2881fffe */ 	slti	$at,$a0,-2
-/*  f0c9684:	0c0052d4 */ 	jal	func00014b50
+/*  f0c9684:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
 /*  f0c9688:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c968c:	5040000e */ 	beqzl	$v0,.L0f0c96c8
 /*  f0c9690:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -1716,14 +1716,14 @@ glabel var7f1ad8e4
 /*  f0c9864:	00057603 */ 	sra	$t6,$a1,0x18
 /*  f0c9868:	11a0002e */ 	beqz	$t5,.L0f0c9924
 /*  f0c986c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0c9870:	0c005241 */ 	jal	func00014904
+/*  f0c9870:	0c005241 */ 	jal	contGetStickYOnSample
 /*  f0c9874:	01c02825 */ 	or	$a1,$t6,$zero
 /*  f0c9878:	2841001f */ 	slti	$at,$v0,0x1f
 /*  f0c987c:	14200011 */ 	bnez	$at,.L0f0c98c4
 /*  f0c9880:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9884:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c9888:	00057e03 */ 	sra	$t7,$a1,0x18
-/*  f0c988c:	0c005270 */ 	jal	func000149c0
+/*  f0c988c:	0c005270 */ 	jal	contGetStickYOnSampleIndex
 /*  f0c9890:	01e02825 */ 	or	$a1,$t7,$zero
 /*  f0c9894:	2841001f */ 	slti	$at,$v0,0x1f
 /*  f0c9898:	1020000a */ 	beqz	$at,.L0f0c98c4
@@ -1743,14 +1743,14 @@ glabel var7f1ad8e4
 /*  f0c98c4:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c98c8:	0005ce03 */ 	sra	$t9,$a1,0x18
 /*  f0c98cc:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0c98d0:	0c005241 */ 	jal	func00014904
+/*  f0c98d0:	0c005241 */ 	jal	contGetStickYOnSample
 /*  f0c98d4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c98d8:	2841ffe2 */ 	slti	$at,$v0,-30
 /*  f0c98dc:	10200011 */ 	beqz	$at,.L0f0c9924
 /*  f0c98e0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c98e4:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c98e8:	00054603 */ 	sra	$t0,$a1,0x18
-/*  f0c98ec:	0c005270 */ 	jal	func000149c0
+/*  f0c98ec:	0c005270 */ 	jal	contGetStickYOnSampleIndex
 /*  f0c98f0:	01002825 */ 	or	$a1,$t0,$zero
 /*  f0c98f4:	2841ffe2 */ 	slti	$at,$v0,-30
 /*  f0c98f8:	1420000a */ 	bnez	$at,.L0f0c9924
@@ -1936,7 +1936,7 @@ glabel var7f1ad8e4
 /*  f0c9b6c:	12e0000d */ 	beqz	$s7,.L0f0c9ba4
 /*  f0c9b70:	97ac00ea */ 	lhu	$t4,0xea($sp)
 /*  f0c9b74:	83a400ef */ 	lb	$a0,0xef($sp)
-/*  f0c9b78:	0c005408 */ 	jal	func00015020
+/*  f0c9b78:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
 /*  f0c9b7c:	31852000 */ 	andi	$a1,$t4,0x2000
 /*  f0c9b80:	10400008 */ 	beqz	$v0,.L0f0c9ba4
 /*  f0c9b84:	00000000 */ 	nop
@@ -2024,7 +2024,7 @@ glabel var7f1ad8e4
 /*  f0c9ca4:	01802825 */ 	or	$a1,$t4,$zero
 /*  f0c9ca8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9cac:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f0c9cb0:	0c00529e */ 	jal	func00014a78
+/*  f0c9cb0:	0c00529e */ 	jal	contGetButtonsOnSample
 /*  f0c9cb4:	afa70048 */ 	sw	$a3,0x48($sp)
 /*  f0c9cb8:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c9cbc:	8fa70048 */ 	lw	$a3,0x48($sp)
@@ -2068,7 +2068,7 @@ glabel var7f1ad8e4
 /*  f0c9d44:	01803025 */ 	or	$a2,$t4,$zero
 /*  f0c9d48:	01402825 */ 	or	$a1,$t2,$zero
 /*  f0c9d4c:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f0c9d50:	0c0052d4 */ 	jal	func00014b50
+/*  f0c9d50:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
 /*  f0c9d54:	afa70048 */ 	sw	$a3,0x48($sp)
 /*  f0c9d58:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c9d5c:	10400005 */ 	beqz	$v0,.L0f0c9d74
@@ -2126,7 +2126,7 @@ glabel var7f1ad8e4
 /*  f0c9e1c:	30cf0202 */ 	andi	$t7,$a2,0x202
 /*  f0c9e20:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f0c9e24:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f0c9e28:	0c005326 */ 	jal	func00014c98
+/*  f0c9e28:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
 /*  f0c9e2c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9e30:	00152e00 */ 	sll	$a1,$s5,0x18
 /*  f0c9e34:	02203025 */ 	or	$a2,$s1,$zero
@@ -2135,7 +2135,7 @@ glabel var7f1ad8e4
 /*  f0c9e40:	afa201dc */ 	sw	$v0,0x1dc($sp)
 /*  f0c9e44:	03002825 */ 	or	$a1,$t8,$zero
 /*  f0c9e48:	03203025 */ 	or	$a2,$t9,$zero
-/*  f0c9e4c:	0c005326 */ 	jal	func00014c98
+/*  f0c9e4c:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
 /*  f0c9e50:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9e54:	afa201e0 */ 	sw	$v0,0x1e0($sp)
 /*  f0c9e58:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -2232,7 +2232,7 @@ glabel var7f1ad8e4
 /*  f0c9fa0:	30cb0202 */ 	andi	$t3,$a2,0x202
 /*  f0c9fa4:	01603025 */ 	or	$a2,$t3,$zero
 /*  f0c9fa8:	01402825 */ 	or	$a1,$t2,$zero
-/*  f0c9fac:	0c005326 */ 	jal	func00014c98
+/*  f0c9fac:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
 /*  f0c9fb0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9fb4:	00152e00 */ 	sll	$a1,$s5,0x18
 /*  f0c9fb8:	02203025 */ 	or	$a2,$s1,$zero
@@ -2241,7 +2241,7 @@ glabel var7f1ad8e4
 /*  f0c9fc4:	afa201dc */ 	sw	$v0,0x1dc($sp)
 /*  f0c9fc8:	01802825 */ 	or	$a1,$t4,$zero
 /*  f0c9fcc:	01a03025 */ 	or	$a2,$t5,$zero
-/*  f0c9fd0:	0c005326 */ 	jal	func00014c98
+/*  f0c9fd0:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
 /*  f0c9fd4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9fd8:	afa201e0 */ 	sw	$v0,0x1e0($sp)
 /*  f0c9fdc:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -2403,7 +2403,7 @@ glabel var7f1ad8e4
 /*  f0ca21c:	00056603 */ 	sra	$t4,$a1,0x18
 /*  f0ca220:	8fa6003c */ 	lw	$a2,0x3c($sp)
 /*  f0ca224:	01802825 */ 	or	$a1,$t4,$zero
-/*  f0ca228:	0c00529e */ 	jal	func00014a78
+/*  f0ca228:	0c00529e */ 	jal	contGetButtonsOnSample
 /*  f0ca22c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0ca230:	5040002d */ 	beqzl	$v0,.L0f0ca2e8
 /*  f0ca234:	8e4f0284 */ 	lw	$t7,0x284($s2)
@@ -2418,7 +2418,7 @@ glabel var7f1ad8e4
 /*  f0ca258:	02913024 */ 	and	$a2,$s4,$s1
 /*  f0ca25c:	30d8ffff */ 	andi	$t8,$a2,0xffff
 /*  f0ca260:	03003025 */ 	or	$a2,$t8,$zero
-/*  f0ca264:	0c0052d4 */ 	jal	func00014b50
+/*  f0ca264:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
 /*  f0ca268:	afb8004c */ 	sw	$t8,0x4c($sp)
 /*  f0ca26c:	10400006 */ 	beqz	$v0,.L0f0ca288
 /*  f0ca270:	8fa6004c */ 	lw	$a2,0x4c($sp)
@@ -2435,7 +2435,7 @@ glabel var7f1ad8e4
 /*  f0ca298:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0ca29c:	05620026 */ 	bltzl	$t3,.L0f0ca338
 /*  f0ca2a0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0ca2a4:	0c00529e */ 	jal	func00014a78
+/*  f0ca2a4:	0c00529e */ 	jal	contGetButtonsOnSample
 /*  f0ca2a8:	01802825 */ 	or	$a1,$t4,$zero
 /*  f0ca2ac:	54400022 */ 	bnezl	$v0,.L0f0ca338
 /*  f0ca2b0:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -2464,7 +2464,7 @@ glabel var7f1ad8e4
 /*  f0ca304:	30c8ffff */ 	andi	$t0,$a2,0xffff
 /*  f0ca308:	0005ce03 */ 	sra	$t9,$a1,0x18
 /*  f0ca30c:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0ca310:	0c00529e */ 	jal	func00014a78
+/*  f0ca310:	0c00529e */ 	jal	contGetButtonsOnSample
 /*  f0ca314:	01003025 */ 	or	$a2,$t0,$zero
 /*  f0ca318:	54400005 */ 	bnezl	$v0,.L0f0ca330
 /*  f0ca31c:	8e490284 */ 	lw	$t1,0x284($s2)
@@ -2496,7 +2496,7 @@ glabel var7f1ad8e4
 /*  f0ca368:	00056e03 */ 	sra	$t5,$a1,0x18
 /*  f0ca36c:	01a02825 */ 	or	$a1,$t5,$zero
 /*  f0ca370:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0ca374:	0c00529e */ 	jal	func00014a78
+/*  f0ca374:	0c00529e */ 	jal	contGetButtonsOnSample
 /*  f0ca378:	97a60046 */ 	lhu	$a2,0x46($sp)
 /*  f0ca37c:	50400040 */ 	beqzl	$v0,.L0f0ca480
 /*  f0ca380:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -2510,7 +2510,7 @@ glabel var7f1ad8e4
 /*  f0ca3a0:	1420002f */ 	bnez	$at,.L0f0ca460
 /*  f0ca3a4:	01e02825 */ 	or	$a1,$t7,$zero
 /*  f0ca3a8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0ca3ac:	0c0052d4 */ 	jal	func00014b50
+/*  f0ca3ac:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
 /*  f0ca3b0:	03003025 */ 	or	$a2,$t8,$zero
 /*  f0ca3b4:	5040000e */ 	beqzl	$v0,.L0f0ca3f0
 /*  f0ca3b8:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -2638,7 +2638,7 @@ glabel var7f1ad8e4
 /*  f0ca568:	322a0404 */ 	andi	$t2,$s1,0x404
 /*  f0ca56c:	afaa0050 */ 	sw	$t2,0x50($sp)
 /*  f0ca570:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0ca574:	0c0052d4 */ 	jal	func00014b50
+/*  f0ca574:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
 /*  f0ca578:	01003025 */ 	or	$a2,$t0,$zero
 /*  f0ca57c:	1040000b */ 	beqz	$v0,.L0f0ca5ac
 /*  f0ca580:	02002025 */ 	or	$a0,$s0,$zero
@@ -2658,7 +2658,7 @@ glabel var7f1ad8e4
 /*  f0ca5ac:	00152e00 */ 	sll	$a1,$s5,0x18
 /*  f0ca5b0:	00056603 */ 	sra	$t4,$a1,0x18
 /*  f0ca5b4:	01802825 */ 	or	$a1,$t4,$zero
-/*  f0ca5b8:	0c0052d4 */ 	jal	func00014b50
+/*  f0ca5b8:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
 /*  f0ca5bc:	97a60052 */ 	lhu	$a2,0x52($sp)
 /*  f0ca5c0:	5040000c */ 	beqzl	$v0,.L0f0ca5f4
 /*  f0ca5c4:	8e4e0288 */ 	lw	$t6,0x288($s2)
@@ -4006,7 +4006,7 @@ glabel var7f1ad8e4
 //	sp1a2 = arg2 ? contGetButtons(contpad1, 0xffff) : 0;
 //
 //	// 8c8c
-//	sp1a0 = arg2 ? func00015020(contpad1, 0xffff) : 0;
+//	sp1a0 = arg2 ? contGetButtonsPressedThisFrame(contpad1, 0xffff) : 0;
 //
 //	// 8cb0
 //	c1allowedbuttons = 0xffff;
@@ -4095,7 +4095,7 @@ glabel var7f1ad8e4
 //				// s4 shifted to s8 and stored in a0 for next jal
 //				spe6 = contGetButtons(contpad2, 0xffff); // sh v0,0xe6(sp)
 //				// s4 shifted to s8 and stored in a0 for next jal
-//				spe4 = func00015020(contpad2, 0xffff); // sh v0,0xe4(sp)
+//				spe4 = contGetButtonsPressedThisFrame(contpad2, 0xffff); // sh v0,0xe4(sp)
 //				c2stickx2 = c2stickx; // s3 = spe9
 //				c2sticky2 = c2sticky; // a0 = s0
 //
@@ -4174,7 +4174,7 @@ glabel var7f1ad8e4
 //				// 9170
 //				if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == AIMCONTROL_HOLD) {
 //					for (i = 0; i < numsamples; i++) {
-//						sp14c[i] = arg2 && func00014a78(i, aimpad, aimallowedbuttons & Z_TRIG);
+//						sp14c[i] = arg2 && contGetButtonsOnSample(i, aimpad, aimallowedbuttons & Z_TRIG);
 //						spfc[i] = !sp14c[i];
 //					}
 //
@@ -4186,7 +4186,7 @@ glabel var7f1ad8e4
 //					// 920c
 //					if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) != AIMCONTROL_HOLD) {
 //						for (i = 0; i < numsamples; i++) {
-//							if (arg2 && func00014b50(i, aimpad, aimallowedbuttons & Z_TRIG)) {
+//							if (arg2 && contGetButtonsPressedOnSample(i, aimpad, aimallowedbuttons & Z_TRIG)) {
 //								g_Vars.currentplayer->insightaimmode = !g_Vars.currentplayer->insightaimmode;
 //							}
 //
@@ -4267,16 +4267,16 @@ glabel var7f1ad8e4
 //							}
 //						} else {
 //							for (i = 0; i < numsamples; i++) {
-//								if (func00014a78(i, contpad1, c1allowedbuttons & A_BUTTON)
-//										|| func00014a78(i, contpad2, c2allowedbuttons & A_BUTTON)) {
+//								if (contGetButtonsOnSample(i, contpad1, c1allowedbuttons & A_BUTTON)
+//										|| contGetButtonsOnSample(i, contpad2, c2allowedbuttons & A_BUTTON)) {
 //									if (g_Vars.currentplayer->invdowntime > -2) {
-//										if (func00014b50(i, shootpad, shootallowedbuttons & Z_TRIG)) {
+//										if (contGetButtonsPressedOnSample(i, shootpad, shootallowedbuttons & Z_TRIG)) {
 //											movedata.weaponbackoffset++;
 //											g_Vars.currentplayer->invdowntime = -1;
 //										}
 //
 //										if (g_Vars.currentplayer->invdowntime > -1
-//												&& func00014a78(i, shootpad, shootallowedbuttons & Z_TRIG) == 0) {
+//												&& contGetButtonsOnSample(i, shootpad, shootallowedbuttons & Z_TRIG) == 0) {
 //											if (g_Vars.currentplayer->invdowntime > 15) {
 //												activemenuOpen();
 //												g_Vars.currentplayer->invdowntime = -1;
@@ -4287,7 +4287,7 @@ glabel var7f1ad8e4
 //									}
 //								} else {
 //									if (g_Vars.currentplayer->invdowntime > 0 &&
-//											(!arg2 || func00014a78(i, shootpad, shootallowedbuttons & Z_TRIG) == 0)) {
+//											(!arg2 || contGetButtonsOnSample(i, shootpad, shootallowedbuttons & Z_TRIG) == 0)) {
 //										movedata.weaponforwardoffset++;
 //									}
 //
@@ -4300,10 +4300,10 @@ glabel var7f1ad8e4
 //					// 9608
 //					if (arg2) {
 //						for (i = 0; i < numsamples; i++) {
-//							if (func00014a78(i, contpad1, c1allowedbuttons & B_BUTTON)
-//									|| func00014a78(i, contpad2, c2allowedbuttons & B_BUTTON)) {
+//							if (contGetButtonsOnSample(i, contpad1, c1allowedbuttons & B_BUTTON)
+//									|| contGetButtonsOnSample(i, contpad2, c2allowedbuttons & B_BUTTON)) {
 //								if (g_Vars.currentplayer->usedowntime >= -1) {
-//									if (func00014b50(i, shootpad, shootallowedbuttons & Z_TRIG)
+//									if (contGetButtonsPressedOnSample(i, shootpad, shootallowedbuttons & Z_TRIG)
 //											&& g_Vars.currentplayer->usedowntime > -1
 //											&& currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 1, 0)) {
 //										g_Vars.currentplayer->usedowntime = -3;
@@ -4368,7 +4368,7 @@ glabel var7f1ad8e4
 //					if (arg2) {
 //						for (i = 0; i < numsamples; i++) {
 //							if (sp1a8 == 0 && sp14c[i]) {
-//								if (func00014904(i, contpad2) > 30 && func000149c0(i, contpad2) <= 30) {
+//								if (contGetStickYOnSample(i, contpad2) > 30 && contGetStickYOnSampleIndex(i, contpad2) <= 30) {
 //									if (movedata.crouchdown) {
 //										movedata.crouchdown--;
 //									} else {
@@ -4378,7 +4378,7 @@ glabel var7f1ad8e4
 //									g_Vars.currentplayer->aimtaptime = -1;
 //								}
 //
-//								if (func00014904(i, contpad2) < -30 && func000149c0(i, contpad2) >= -30) {
+//								if (contGetStickYOnSample(i, contpad2) < -30 && contGetStickYOnSampleIndex(i, contpad2) >= -30) {
 //									if (movedata.crouchup) {
 //										movedata.crouchup--;
 //									} else {
@@ -4461,7 +4461,7 @@ glabel var7f1ad8e4
 //
 //				if (weaponHasFlag(getCurrentPlayerWeaponId(0), WEAPONFLAG_80000000)) {
 //					if (arg2
-//							&& func00015020(shootpad, shootallowedbuttons & Z_TRIG)
+//							&& contGetButtonsPressedThisFrame(shootpad, shootallowedbuttons & Z_TRIG)
 //							&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
 //						movedata.btapcount++;
 //					}
@@ -4495,7 +4495,7 @@ glabel var7f1ad8e4
 //				// 9c60
 //				if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == AIMCONTROL_HOLD) {
 //					for (i = 0; i < numsamples; i++) {
-//						sp14c[i] = arg2 && func00014a78(i, contpad1, aimbuttons & c1allowedbuttons);
+//						sp14c[i] = arg2 && contGetButtonsOnSample(i, contpad1, aimbuttons & c1allowedbuttons);
 //						spfc[i] = !sp14c[i];
 //					}
 //
@@ -4507,7 +4507,7 @@ glabel var7f1ad8e4
 //					// 9d04
 //					if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) != AIMCONTROL_HOLD) {
 //						for (i = 0; i < numsamples; i++) {
-//							if (arg2 && func00014b50(i, contpad1, aimbuttons & c1allowedbuttons)) {
+//							if (arg2 && contGetButtonsPressedOnSample(i, contpad1, aimbuttons & c1allowedbuttons)) {
 //								g_Vars.currentplayer->insightaimmode = !g_Vars.currentplayer->insightaimmode;
 //							}
 //
@@ -4531,8 +4531,8 @@ glabel var7f1ad8e4
 //						// Side stepping
 //						if (g_Vars.currentplayer->insightaimmode == false) {
 //							if (arg2) {
-//								movedata.digitalstepleft = func00014c98(spfc, contpad1, c1allowedbuttons & (L_JPAD | L_CBUTTONS));
-//								movedata.digitalstepright = func00014c98(spfc, contpad1, c1allowedbuttons & (R_JPAD | R_CBUTTONS));
+//								movedata.digitalstepleft = contCountButtonsOnSpecificSamples(spfc, contpad1, c1allowedbuttons & (L_JPAD | L_CBUTTONS));
+//								movedata.digitalstepright = contCountButtonsOnSpecificSamples(spfc, contpad1, c1allowedbuttons & (R_JPAD | R_CBUTTONS));
 //							}
 //						} else {
 //							// This doesn't appear to be r-leaning.
@@ -4574,8 +4574,8 @@ glabel var7f1ad8e4
 //						}
 //
 //						if (!g_Vars.currentplayer->insightaimmode && arg2) {
-//							movedata.digitalstepleft = func00014c98(spfc, contpad1, c1allowedbuttons & (L_JPAD | L_CBUTTONS));
-//							movedata.digitalstepright = func00014c98(spfc, contpad1, c1allowedbuttons & (R_JPAD | R_CBUTTONS));
+//							movedata.digitalstepleft = contCountButtonsOnSpecificSamples(spfc, contpad1, c1allowedbuttons & (L_JPAD | L_CBUTTONS));
+//							movedata.digitalstepright = contCountButtonsOnSpecificSamples(spfc, contpad1, c1allowedbuttons & (R_JPAD | R_CBUTTONS));
 //						}
 //
 //						movedata.digitalstepforward = false;
@@ -4646,14 +4646,14 @@ glabel var7f1ad8e4
 //							}
 //						} else {
 //							for (i = 0; i < numsamples; i++) {
-//								if (func00014a78(i, contpad1, invbuttons & c1allowedbuttons)) {
+//								if (contGetButtonsOnSample(i, contpad1, invbuttons & c1allowedbuttons)) {
 //									if (g_Vars.currentplayer->invdowntime > -2) {
-//										if (func00014b50(i, contpad1, shootbuttons & c1allowedbuttons)) {
+//										if (contGetButtonsPressedOnSample(i, contpad1, shootbuttons & c1allowedbuttons)) {
 //											movedata.weaponbackoffset++;
 //											g_Vars.currentplayer->invdowntime = -1;
 //										}
 //
-//										if (g_Vars.currentplayer->invdowntime >= 0 && func00014a78(i, contpad1, shootbuttons & c1allowedbuttons) == 0) {
+//										if (g_Vars.currentplayer->invdowntime >= 0 && contGetButtonsOnSample(i, contpad1, shootbuttons & c1allowedbuttons) == 0) {
 //											// Holding A and haven't pressed Z
 //											if (g_Vars.currentplayer->invdowntime > 15) {
 //												activemenuOpen();
@@ -4666,7 +4666,7 @@ glabel var7f1ad8e4
 //								} else {
 //									// Wasn't holding A on this sample
 //									if (g_Vars.currentplayer->invdowntime > 0 &&
-//											(!arg2 || func00014a78(i, contpad1, shootbuttons & c1allowedbuttons) == 0)) {
+//											(!arg2 || contGetButtonsOnSample(i, contpad1, shootbuttons & c1allowedbuttons) == 0)) {
 //										// But was on previous sample, so cycle weapon
 //										movedata.weaponforwardoffset++;
 //									}
@@ -4681,9 +4681,9 @@ glabel var7f1ad8e4
 //					// a340
 //					if (arg2) {
 //						for (i = 0; i < numsamples; i++) {
-//							if (func00014a78(i, contpad1, c1allowedbuttons & B_BUTTON)) {
+//							if (contGetButtonsOnSample(i, contpad1, c1allowedbuttons & B_BUTTON)) {
 //								if (g_Vars.currentplayer->usedowntime >= -1) {
-//									if (func00014b50(i, contpad1, shootbuttons & c1allowedbuttons)
+//									if (contGetButtonsPressedOnSample(i, contpad1, shootbuttons & c1allowedbuttons)
 //											&& g_Vars.currentplayer->usedowntime >= 0
 //											&& currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 1, 0)) {
 //										g_Vars.currentplayer->usedowntime = -3;
@@ -4745,7 +4745,7 @@ glabel var7f1ad8e4
 //					if (arg2) {
 //						for (i = 0; i < numsamples; i++) {
 //							if (sp1a8 == 0 && sp14c[i]) {
-//								if (func00014b50(i, contpad1, c1allowedbuttons & (U_JPAD | U_CBUTTONS))) {
+//								if (contGetButtonsPressedOnSample(i, contpad1, c1allowedbuttons & (U_JPAD | U_CBUTTONS))) {
 //									if (movedata.crouchdown) {
 //										movedata.crouchdown--;
 //									} else {
@@ -4755,7 +4755,7 @@ glabel var7f1ad8e4
 //									g_Vars.currentplayer->aimtaptime = -1;
 //								}
 //
-//								if (func00014b50(i, contpad1, c1allowedbuttons & (D_JPAD | D_CBUTTONS))) {
+//								if (contGetButtonsPressedOnSample(i, contpad1, c1allowedbuttons & (D_JPAD | D_CBUTTONS))) {
 //									if (movedata.crouchup) {
 //										movedata.crouchup--;
 //									} else {

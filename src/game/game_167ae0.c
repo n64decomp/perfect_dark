@@ -4204,22 +4204,22 @@ void func0f16b96c(void)
 	func0f0abc28();
 	func0f0df364();
 
-	if ((func00015020(0, 0xffff) != 0
+	if ((contGetButtonsPressedThisFrame(0, 0xffff) != 0
 				|| contGetStickX(0) > 10
 				|| contGetStickX(0) < -10
 				|| contGetStickY(0) > 10
 				|| contGetStickY(0) < -10
-				|| func00015020(1, 0xffff) != 0
+				|| contGetButtonsPressedThisFrame(1, 0xffff) != 0
 				|| contGetStickX(1) > 10
 				|| contGetStickX(1) < -10
 				|| contGetStickY(1) > 10
 				|| contGetStickY(1) < -10
-				|| func00015020(2, 0xffff) != 0
+				|| contGetButtonsPressedThisFrame(2, 0xffff) != 0
 				|| contGetStickX(2) > 10
 				|| contGetStickX(2) < -10
 				|| contGetStickY(2) > 10
 				|| contGetStickY(2) < -10
-				|| func00015020(3, 0xffff) != 0
+				|| contGetButtonsPressedThisFrame(3, 0xffff) != 0
 				|| contGetStickX(3) > 10
 				|| contGetStickX(3) < -10
 				|| contGetStickY(3) > 10

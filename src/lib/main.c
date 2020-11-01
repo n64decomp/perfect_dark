@@ -1149,7 +1149,7 @@ void mainEndStage(void)
 
 	if (var8005d9d0 == 0) {
 		func0f11c6d0();
-		func00013dd4();
+		contDisableTemporarily();
 
 		if (g_Vars.coopplayernum >= 0) {
 			s32 prevplayernum = g_Vars.currentplayernum;

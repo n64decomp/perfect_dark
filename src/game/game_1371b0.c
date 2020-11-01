@@ -1833,7 +1833,7 @@ glabel var7f1b5824
 /*  f138b24:	00000000 */ 	nop
 /*  f138b28:	00002025 */ 	or	$a0,$zero,$zero
 .L0f138b2c:
-/*  f138b2c:	0c005408 */ 	jal	func00015020
+/*  f138b2c:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
 /*  f138b30:	24050010 */ 	addiu	$a1,$zero,0x10
 /*  f138b34:	10400014 */ 	beqz	$v0,.L0f138b88
 /*  f138b38:	00000000 */ 	nop
@@ -4389,7 +4389,7 @@ glabel var7f1b5930
 /*  f13ae10:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f13ae14:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f13ae18:	00002025 */ 	or	$a0,$zero,$zero
-/*  f13ae1c:	0c005408 */ 	jal	func00015020
+/*  f13ae1c:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
 /*  f13ae20:	24050020 */ 	addiu	$a1,$zero,0x20
 /*  f13ae24:	10400003 */ 	beqz	$v0,.L0f13ae34
 /*  f13ae28:	00000000 */ 	nop
@@ -4826,7 +4826,7 @@ glabel var7f1b5948
 /*  f13b44c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f13b450:	51800018 */ 	beqzl	$t4,.L0f13b4b4
 /*  f13b454:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f13b458:	0c005408 */ 	jal	func00015020
+/*  f13b458:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
 /*  f13b45c:	3405ffcf */ 	dli	$a1,0xffcf
 /*  f13b460:	10400013 */ 	beqz	$v0,.L0f13b4b0
 /*  f13b464:	240d0026 */ 	addiu	$t5,$zero,0x26

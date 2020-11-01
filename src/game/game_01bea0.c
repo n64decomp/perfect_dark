@@ -665,7 +665,7 @@ glabel var7f1a863c
 /*  f01c6f8:	0271c821 */ 	addu	$t9,$s3,$s1
 .L0f01c6fc:
 /*  f01c6fc:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f01c700:	0c005408 */ 	jal	func00015020
+/*  f01c700:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
 /*  f01c704:	3405ffff */ 	dli	$a1,0xffff
 /*  f01c708:	8eb80004 */ 	lw	$t8,0x4($s5)
 /*  f01c70c:	2401000b */ 	addiu	$at,$zero,0xb
@@ -837,7 +837,7 @@ glabel var7f1a863c
 /*  f01c95c:	3c04800b */ 	lui	$a0,%hi(g_MpPlayers+0x45)
 /*  f01c960:	008d2021 */ 	addu	$a0,$a0,$t5
 /*  f01c964:	8084c7fd */ 	lb	$a0,%lo(g_MpPlayers+0x45)($a0)
-/*  f01c968:	0c005408 */ 	jal	func00015020
+/*  f01c968:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
 /*  f01c96c:	3405ffff */ 	dli	$a1,0xffff
 /*  f01c970:	304f4000 */ 	andi	$t7,$v0,0x4000
 /*  f01c974:	51e0005c */ 	beqzl	$t7,.L0f01cae8
@@ -2149,7 +2149,7 @@ glabel var7f1a863c
 //				// c6dc
 //				if (g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU) {
 //					s32 pass2;
-//					u16 buttons = func00015020(i, 0xffff);
+//					u16 buttons = contGetButtonsPressedThisFrame(i, 0xffff);
 //
 //					// c714
 //					if (g_MenuData.root == MENUROOT_4MBMAINMENU) {
@@ -2229,7 +2229,7 @@ glabel var7f1a863c
 //				}
 //
 //				if (g_MenuData.root == MENUROOT_MPENDSCREEN) {
-//					u16 buttons2 = func00015020(g_MpPlayers[i].base.unk45, 0xffff);
+//					u16 buttons2 = contGetButtonsPressedThisFrame(g_MpPlayers[i].base.unk45, 0xffff);
 //
 //					if (buttons2 & B_BUTTON) {
 //						s32 playernum = -1;

@@ -277,13 +277,13 @@ glabel var7f1adb74
 /*  f0d274c:	8fa70060 */ 	lw	$a3,0x60($sp)
 /*  f0d2750:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0d2754:	83a5005b */ 	lb	$a1,0x5b($sp)
-/*  f0d2758:	0c005326 */ 	jal	func00014c98
+/*  f0d2758:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
 /*  f0d275c:	24060202 */ 	addiu	$a2,$zero,0x202
 /*  f0d2760:	8fac0060 */ 	lw	$t4,0x60($sp)
 /*  f0d2764:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0d2768:	24060101 */ 	addiu	$a2,$zero,0x101
 /*  f0d276c:	ad820028 */ 	sw	$v0,0x28($t4)
-/*  f0d2770:	0c005326 */ 	jal	func00014c98
+/*  f0d2770:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
 /*  f0d2774:	83a5005b */ 	lb	$a1,0x5b($sp)
 /*  f0d2778:	8fa70060 */ 	lw	$a3,0x60($sp)
 /*  f0d277c:	ace2002c */ 	sw	$v0,0x2c($a3)
@@ -575,8 +575,8 @@ glabel var7f1adb74
 //				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_13
 //				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_11)
 //			&& !soloIsPaused()) {
-//		data->stepleft = func00014c98(0, contnum, L_JPAD | L_CBUTTONS);
-//		data->stepright = func00014c98(0, contnum, R_JPAD | R_CBUTTONS);
+//		data->stepleft = contCountButtonsOnSpecificSamples(0, contnum, L_JPAD | L_CBUTTONS);
+//		data->stepright = contCountButtonsOnSpecificSamples(0, contnum, R_JPAD | R_CBUTTONS);
 //	}
 //
 //	// Forward/back

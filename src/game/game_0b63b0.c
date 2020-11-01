@@ -4352,7 +4352,7 @@ glabel cameraDoAnimation
 /*  f0ba110:	5720001c */ 	bnezl	$t9,.L0f0ba184
 /*  f0ba114:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f0ba118:
-/*  f0ba118:	0c004f75 */ 	jal	func00013dd4
+/*  f0ba118:	0c004f75 */ 	jal	contDisableTemporarily
 /*  f0ba11c:	00000000 */ 	nop
 /*  f0ba120:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x2ac)
 /*  f0ba124:	8c42a26c */ 	lw	$v0,%lo(g_Vars+0x2ac)($v0)
@@ -8879,7 +8879,7 @@ glabel var7f1ad6ac
 /*  f0be570:	00122600 */ 	sll	$a0,$s2,0x18
 /*  f0be574:	00046e03 */ 	sra	$t5,$a0,0x18
 /*  f0be578:	01a02025 */ 	or	$a0,$t5,$zero
-/*  f0be57c:	0c005408 */ 	jal	func00015020
+/*  f0be57c:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
 /*  f0be580:	24052000 */ 	addiu	$a1,$zero,0x2000
 /*  f0be584:	1040001e */ 	beqz	$v0,.L0f0be600
 /*  f0be588:	240c0001 */ 	addiu	$t4,$zero,0x1
@@ -8910,7 +8910,7 @@ glabel var7f1ad6ac
 /*  f0be5e0:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0be5e4:	00044e03 */ 	sra	$t1,$a0,0x18
 /*  f0be5e8:	01202025 */ 	or	$a0,$t1,$zero
-/*  f0be5ec:	0c005408 */ 	jal	func00015020
+/*  f0be5ec:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
 /*  f0be5f0:	24052000 */ 	addiu	$a1,$zero,0x2000
 /*  f0be5f4:	10400002 */ 	beqz	$v0,.L0f0be600
 /*  f0be5f8:	240a0001 */ 	addiu	$t2,$zero,0x1
@@ -8963,7 +8963,7 @@ glabel var7f1ad6ac
 .L0f0be6a4:
 /*  f0be6a4:	00045e03 */ 	sra	$t3,$a0,0x18
 /*  f0be6a8:	01602025 */ 	or	$a0,$t3,$zero
-/*  f0be6ac:	0c005408 */ 	jal	func00015020
+/*  f0be6ac:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
 /*  f0be6b0:	34058000 */ 	dli	$a1,0x8000
 /*  f0be6b4:	10400003 */ 	beqz	$v0,.L0f0be6c4
 /*  f0be6b8:	00122600 */ 	sll	$a0,$s2,0x18
@@ -8981,7 +8981,7 @@ glabel var7f1ad6ac
 .L0f0be6e4:
 /*  f0be6e4:	00122600 */ 	sll	$a0,$s2,0x18
 /*  f0be6e8:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f0be6ec:	0c005408 */ 	jal	func00015020
+/*  f0be6ec:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
 /*  f0be6f0:	03202025 */ 	or	$a0,$t9,$zero
 /*  f0be6f4:	10400003 */ 	beqz	$v0,.L0f0be704
 /*  f0be6f8:	00122600 */ 	sll	$a0,$s2,0x18
@@ -10249,7 +10249,7 @@ glabel var7f1ad6ac
 /*  f0bf980:	00102600 */ 	sll	$a0,$s0,0x18
 /*  f0bf984:	00046603 */ 	sra	$t4,$a0,0x18
 /*  f0bf988:	01802025 */ 	or	$a0,$t4,$zero
-/*  f0bf98c:	0c005408 */ 	jal	func00015020
+/*  f0bf98c:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
 /*  f0bf990:	3405f030 */ 	dli	$a1,0xf030
 /*  f0bf994:	10400024 */ 	beqz	$v0,.L0f0bfa28
 /*  f0bf998:	240e0002 */ 	addiu	$t6,$zero,0x2
@@ -10720,7 +10720,7 @@ glabel var7f1ad6ac
 //										}
 //
 //										// e57c
-//										if (func00015020(contpad1, Z_TRIG)) {
+//										if (contGetButtonsPressedThisFrame(contpad1, Z_TRIG)) {
 //											explode = true;
 //										}
 //									} else {
@@ -10730,7 +10730,7 @@ glabel var7f1ad6ac
 //											slow = true;
 //										}
 //
-//										if (func00015020(contpad2, Z_TRIG)) {
+//										if (contGetButtonsPressedThisFrame(contpad2, Z_TRIG)) {
 //											explode = true;
 //										}
 //									}
@@ -10747,7 +10747,7 @@ glabel var7f1ad6ac
 //							} else {
 //								if (g_PlayersWithControl[g_Vars.currentplayernum]) {
 //									if (mode == CONTROLMODE_13 || mode == CONTROLMODE_14) {
-//										if (func00015020(contpad1, A_BUTTON)) {
+//										if (contGetButtonsPressedThisFrame(contpad1, A_BUTTON)) {
 //											explode = true;
 //										}
 //
@@ -10755,7 +10755,7 @@ glabel var7f1ad6ac
 //											slow = true;
 //										}
 //									} else {
-//										if (func00015020(contpad1, Z_TRIG)) {
+//										if (contGetButtonsPressedThisFrame(contpad1, Z_TRIG)) {
 //											explode = true;
 //										}
 //
@@ -11316,7 +11316,7 @@ glabel var7f1ad6ac
 //
 //		if (soloIsPaused() == false
 //				&& param_1
-//				&& func00015020(contpad1, A_BUTTON | B_BUTTON | Z_TRIG | START_BUTTON | L_TRIG | R_TRIG)) {
+//				&& contGetButtonsPressedThisFrame(contpad1, A_BUTTON | B_BUTTON | Z_TRIG | START_BUTTON | L_TRIG | R_TRIG)) {
 //			var8007074c = 2;
 //
 //			if (currentPlayerIsFadeComplete()) {
