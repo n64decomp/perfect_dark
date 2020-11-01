@@ -41226,40 +41226,14 @@ glabel func0f08a88c
 /*  f08a9f0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel playerDetonateRemoteMines
-/*  f08a9f4:	3c028007 */ 	lui	$v0,%hi(var80069910)
-/*  f08a9f8:	24429910 */ 	addiu	$v0,$v0,%lo(var80069910)
-/*  f08a9fc:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f08aa00:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f08aa04:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f08aa08:	0098c804 */ 	sllv	$t9,$t8,$a0
-/*  f08aa0c:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f08aa10:	44812000 */ 	mtc1	$at,$f4
-/*  f08aa14:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f08aa18:	01d94025 */ 	or	$t0,$t6,$t9
-/*  f08aa1c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f08aa20:	ac480000 */ 	sw	$t0,0x0($v0)
-/*  f08aa24:	3c048009 */ 	lui	$a0,%hi(var80095200)
-/*  f08aa28:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f08aa2c:	240affff */ 	addiu	$t2,$zero,-1
-/*  f08aa30:	240bffff */ 	addiu	$t3,$zero,-1
-/*  f08aa34:	afab001c */ 	sw	$t3,0x1c($sp)
-/*  f08aa38:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*  f08aa3c:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f08aa40:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*  f08aa44:	240580ab */ 	addiu	$a1,$zero,-32597
-/*  f08aa48:	00003025 */ 	or	$a2,$zero,$zero
-/*  f08aa4c:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f08aa50:	0c004241 */ 	jal	audioStart
-/*  f08aa54:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f08aa58:	0fc28c41 */ 	jal	func0f0a3104
-/*  f08aa5c:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f08aa60:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f08aa64:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f08aa68:	03e00008 */ 	jr	$ra
-/*  f08aa6c:	00000000 */ 	nop
-);
+void playerActivateRemoteMineDetonator(s32 playernum)
+{
+	var80069910 |= 1 << playernum;
+
+	audioStart(var80095200, 0x80ab, 0, -1, -1, -1, -1, -1);
+
+	func0f0a3104(playernum);
+}
 
 GLOBAL_ASM(
 glabel func0f08aa70

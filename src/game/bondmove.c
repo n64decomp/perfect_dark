@@ -3700,7 +3700,7 @@ glabel var7f1ad8e4
 /*  f0cb464:	adc00658 */ 	sw	$zero,0x658($t6)
 /*  f0cb468:	8e4f0284 */ 	lw	$t7,0x284($s2)
 /*  f0cb46c:	ade0065c */ 	sw	$zero,0x65c($t7)
-/*  f0cb470:	0fc22a7d */ 	jal	playerDetonateRemoteMines
+/*  f0cb470:	0fc22a7d */ 	jal	playerActivateRemoteMineDetonator
 /*  f0cb474:	8e44028c */ 	lw	$a0,0x28c($s2)
 /*  f0cb478:	8e5802ac */ 	lw	$t8,0x2ac($s2)
 .L0f0cb47c:
@@ -5136,7 +5136,7 @@ glabel var7f1ad8e4
 //	if (movedata.detonating) {
 //		g_Vars.currentplayer->hands[0].unk0658 = 0;
 //		g_Vars.currentplayer->hands[0].unk065c = 0;
-//		playerDetonateRemoteMines(g_Vars.currentplayernum);
+//		playerActivateRemoteMineDetonator(g_Vars.currentplayernum);
 //	}
 //
 //	// b478

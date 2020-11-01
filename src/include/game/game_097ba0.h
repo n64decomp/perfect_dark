@@ -115,7 +115,7 @@ u32 func0f0a2ab0(void);
 u32 func0f0a2ae4(void);
 u32 func0f0a2da8(void);
 u32 func0f0a2e94(void);
-u32 func0f0a3104(void);
+void func0f0a3104(s32 playernum);
 u32 func0f0a3160(void);
 u32 func0f0a3490(void);
 u32 func0f0a37b4(void);
