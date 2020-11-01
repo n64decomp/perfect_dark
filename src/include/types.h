@@ -2621,7 +2621,7 @@ struct player {
 	/*0x1798*/ f32 screenyminf;
 	/*0x179c*/ f32 screenxmaxf;
 	/*0x17a0*/ f32 screenymaxf;
-	/*0x17a4*/ s32 gunsightoff;
+	/*0x17a4*/ u32 gunsightoff;
 	/*0x17a8*/ s32 ammoheldarr[33]; // ammo quantities not loaded into a gun
 	/*0x182c*/ u32 unk182c;
 	/*0x1830*/ u32 unk1830;

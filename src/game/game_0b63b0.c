@@ -5702,7 +5702,7 @@ glabel var7f1ad674
 /*  f0bb84c:	00000000 */ 	nop
 /*  f0bb850:	4502001d */ 	bc1fl	.L0f0bb8c8
 /*  f0bb854:	8c4900d8 */ 	lw	$t1,0xd8($v0)
-/*  f0bb858:	0fc2af1d */ 	jal	func0f0abc74
+/*  f0bb858:	0fc2af1d */ 	jal	currentPlayerSetGunSightVisible
 /*  f0bb85c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0bb860:	0fc30865 */ 	jal	currentPlayerGetHealth
 /*  f0bb864:	00000000 */ 	nop
@@ -5821,7 +5821,7 @@ glabel var7f1ad674
 /*  f0bba08:	8f1900d8 */ 	lw	$t9,0xd8($t8)
 /*  f0bba0c:	17200003 */ 	bnez	$t9,.L0f0bba1c
 /*  f0bba10:	00000000 */ 	nop
-/*  f0bba14:	0fc2af1d */ 	jal	func0f0abc74
+/*  f0bba14:	0fc2af1d */ 	jal	currentPlayerSetGunSightVisible
 /*  f0bba18:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f0bba1c:
 /*  f0bba1c:	0fc305f3 */ 	jal	currentPlayerIsHealthVisible
@@ -8236,7 +8236,7 @@ glabel var7f1ad6ac
 /*  f0bdc84:	0fc2a57b */ 	jal	func0f0a95ec
 /*  f0bdc88:	00402825 */ 	or	$a1,$v0,$zero
 /*  f0bdc8c:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f0bdc90:	0fc2af1d */ 	jal	func0f0abc74
+/*  f0bdc90:	0fc2af1d */ 	jal	currentPlayerSetGunSightVisible
 /*  f0bdc94:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0bdc98:	8e6302ac */ 	lw	$v1,0x2ac($s3)
 /*  f0bdc9c:	10600002 */ 	beqz	$v1,.L0f0bdca8
@@ -10431,7 +10431,7 @@ glabel var7f1ad6ac
 //	currentPlayerSetAutoAimX(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));
 //	currentPlayerSetAutoMoveCentreEnabled(optionsGetLookAhead(g_Vars.currentplayerstats->mpindex));
 //	func0f0a95ec(1, optionsGetAmmoOnScreen(g_Vars.currentplayerstats->mpindex));
-//	func0f0abc74(1, 1);
+//	currentPlayerSetGunSightVisible(GUNSIGHTREASON_1, true);
 //
 //	// dc9c
 //	if ((g_Vars.tickmode == TICKMODE_0 || g_Vars.tickmode == TICKMODE_1)

@@ -5275,7 +5275,7 @@ bool aiRevokeControl(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
-		func0f0abc74(4, false);
+		currentPlayerSetGunSightVisible(GUNSIGHTREASON_NOCONTROL, false);
 		func0f0a95ec(2, false);
 
 		if ((cmd[3] & 2) == 0) {
@@ -5306,7 +5306,7 @@ bool aiGrantControl(void)
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
 		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
-		func0f0abc74(4, true);
+		currentPlayerSetGunSightVisible(GUNSIGHTREASON_NOCONTROL, true);
 		func0f0a95ec(2, true);
 		currentPlayerUnsetFlag(PLAYERFLAG_NOCONTROL);
 		countdownTimerSetVisible(16, true);

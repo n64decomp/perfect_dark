@@ -23659,25 +23659,15 @@ void speedpillTick(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0abc74
-/*  f0abc74:	10a00008 */ 	beqz	$a1,.L0f0abc98
-/*  f0abc78:	3c02800a */ 	lui	$v0,%hi(g_Menus+0x37a4)
-/*  f0abc7c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0abc80:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0abc84:	00807827 */ 	nor	$t7,$a0,$zero
-/*  f0abc88:	8c4e17a4 */ 	lw	$t6,%lo(g_Menus+0x37a4)($v0)
-/*  f0abc8c:	01cfc024 */ 	and	$t8,$t6,$t7
-/*  f0abc90:	03e00008 */ 	jr	$ra
-/*  f0abc94:	ac5817a4 */ 	sw	$t8,0x17a4($v0)
-.L0f0abc98:
-/*  f0abc98:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0abc9c:	8c5917a4 */ 	lw	$t9,0x17a4($v0)
-/*  f0abca0:	03244025 */ 	or	$t0,$t9,$a0
-/*  f0abca4:	ac4817a4 */ 	sw	$t0,0x17a4($v0)
-/*  f0abca8:	03e00008 */ 	jr	$ra
-/*  f0abcac:	00000000 */ 	nop
-);
+void currentPlayerSetGunSightVisible(u32 reason, bool visible)
+{
+	if (visible) {
+		g_Vars.currentplayer->gunsightoff &= ~reason;
+		return;
+	}
+
+	g_Vars.currentplayer->gunsightoff |= reason;
+}
 
 GLOBAL_ASM(
 glabel func0f0abcb0

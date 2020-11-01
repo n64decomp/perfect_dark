@@ -735,6 +735,10 @@
 #define GOPOSFLAG_DUCK         0x40
 #define GOPOSFLAG_80           0x80
 
+#define GUNSIGHTREASON_1         1
+#define GUNSIGHTREASON_AIMING    2
+#define GUNSIGHTREASON_NOCONTROL 4
+
 #define HANGARBIO_INSTITUTE      0
 #define HANGARBIO_DDTOWER        1
 #define HANGARBIO_LABBASEMENT    2

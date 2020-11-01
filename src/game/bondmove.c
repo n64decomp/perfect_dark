@@ -2964,7 +2964,7 @@ glabel var7f1ad8e4
 /*  f0ca9f0:	c7ac00b4 */ 	lwc1	$f12,0xb4($sp)
 /*  f0ca9f4:	24040002 */ 	addiu	$a0,$zero,0x2
 .L0f0ca9f8:
-/*  f0ca9f8:	0fc2af1d */ 	jal	func0f0abc74
+/*  f0ca9f8:	0fc2af1d */ 	jal	currentPlayerSetGunSightVisible
 /*  f0ca9fc:	8fa50208 */ 	lw	$a1,0x208($sp)
 /*  f0caa00:	c7ac0210 */ 	lwc1	$f12,0x210($sp)
 /*  f0caa04:	44808000 */ 	mtc1	$zero,$f16
@@ -4885,7 +4885,7 @@ glabel var7f1ad8e4
 //		func0f028590(spb4);
 //	}
 //
-//	func0f0abc74(2, movedata.unk54);
+//	currentPlayerSetGunSightVisible(GUNSIGHTREASON_AIMING, movedata.unk54);
 //
 //	if (movedata.zoomoutfovpersec > 0) {
 //		currentPlayerZoomOut(movedata.zoomoutfovpersec);

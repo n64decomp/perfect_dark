@@ -172,7 +172,7 @@ void speedpillRevert(s32 arg0);
 void func0f0abba8(void);
 void func0f0abbe8(void);
 void speedpillTick(void);
-void func0f0abc74(u32 arg0, s32 arg1);
+void currentPlayerSetGunSightVisible(u32 bits, bool visible);
 Gfx *func0f0abcb0(Gfx *gdl);
 u32 func0f0abd30(void);
 u32 getCurrentPlayerWeaponIdWrapper(u32 arg0);
