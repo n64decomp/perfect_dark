@@ -23669,43 +23669,16 @@ void currentPlayerSetGunSightVisible(u32 reason, bool visible)
 	g_Vars.currentplayer->gunsightoff |= reason;
 }
 
-GLOBAL_ASM(
-glabel func0f0abcb0
-/*  f0abcb0:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0abcb4:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0abcb8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0abcbc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0abcc0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0abcc4:	8c4e17a4 */ 	lw	$t6,0x17a4($v0)
-/*  f0abcc8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0abccc:	15c0000c */ 	bnez	$t6,.L0f0abd00
-/*  f0abcd0:	00000000 */ 	nop
-/*  f0abcd4:	8c4f192c */ 	lw	$t7,0x192c($v0)
-/*  f0abcd8:	15e00009 */ 	bnez	$t7,.L0f0abd00
-/*  f0abcdc:	00000000 */ 	nop
-/*  f0abce0:	0fc2c7d6 */ 	jal	currentPlayerGetSight
-/*  f0abce4:	00000000 */ 	nop
-/*  f0abce8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0abcec:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0abcf0:	0fc37292 */ 	jal	func0f0dca48
-/*  f0abcf4:	00403025 */ 	or	$a2,$v0,$zero
-/*  f0abcf8:	10000008 */ 	b	.L0f0abd1c
-/*  f0abcfc:	00408025 */ 	or	$s0,$v0,$zero
-.L0f0abd00:
-/*  f0abd00:	0fc2c7d6 */ 	jal	currentPlayerGetSight
-/*  f0abd04:	00000000 */ 	nop
-/*  f0abd08:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0abd0c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0abd10:	0fc37292 */ 	jal	func0f0dca48
-/*  f0abd14:	00403025 */ 	or	$a2,$v0,$zero
-/*  f0abd18:	00408025 */ 	or	$s0,$v0,$zero
-.L0f0abd1c:
-/*  f0abd1c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0abd20:	02001025 */ 	or	$v0,$s0,$zero
-/*  f0abd24:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0abd28:	03e00008 */ 	jr	$ra
-/*  f0abd2c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+Gfx *func0f0abcb0(Gfx *gdl)
+{
+	if (g_Vars.currentplayer->gunsightoff == false && !g_Vars.currentplayer->mpmenuon) {
+		gdl = func0f0dca48(gdl, true, currentPlayerGetSight());
+	} else {
+		gdl = func0f0dca48(gdl, false, currentPlayerGetSight());
+	}
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f0abd30

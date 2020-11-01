@@ -22,6 +22,6 @@ u32 func0f0da2dc(void);
 u32 func0f0dc170(void);
 u32 func0f0dc6e4(void);
 u32 func0f0dca28(void);
-u32 func0f0dca48(void);
+Gfx *func0f0dca48(Gfx *gdl, bool arg1, u32 sight);
 
 #endif
