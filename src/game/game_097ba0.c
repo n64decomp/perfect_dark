@@ -23691,27 +23691,14 @@ glabel func0f0abba8
 /*  f0abbe4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0abbe8
-/*  f0abbe8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0abbec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0abbf0:	0fc5ae15 */ 	jal	getEffectiveSlowMotion
-/*  f0abbf4:	00000000 */ 	nop
-/*  f0abbf8:	10400005 */ 	beqz	$v0,.L0f0abc10
-/*  f0abbfc:	00000000 */ 	nop
-/*  f0abc00:	0fc2aeb4 */ 	jal	func0f0abad0
-/*  f0abc04:	240404b0 */ 	addiu	$a0,$zero,0x4b0
-/*  f0abc08:	10000004 */ 	b	.L0f0abc1c
-/*  f0abc0c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0abc10:
-/*  f0abc10:	0fc2aee0 */ 	jal	func0f0abb80
-/*  f0abc14:	24040258 */ 	addiu	$a0,$zero,0x258
-/*  f0abc18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0abc1c:
-/*  f0abc1c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0abc20:	03e00008 */ 	jr	$ra
-/*  f0abc24:	00000000 */ 	nop
-);
+void func0f0abbe8(void)
+{
+	if (getEffectiveSlowMotion()) {
+		func0f0abad0(1200);
+	} else {
+		func0f0abb80(600);
+	}
+}
 
 void speedpillTick(void)
 {
