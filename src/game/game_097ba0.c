@@ -23713,29 +23713,17 @@ glabel func0f0abbe8
 /*  f0abc24:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0abc28
-/*  f0abc28:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0abc2c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0abc30:	8c6e0468 */ 	lw	$t6,0x468($v1)
-/*  f0abc34:	11c0000d */ 	beqz	$t6,.L0f0abc6c
-/*  f0abc38:	00000000 */ 	nop
-/*  f0abc3c:	8c62045c */ 	lw	$v0,0x45c($v1)
-/*  f0abc40:	1840000a */ 	blez	$v0,.L0f0abc6c
-/*  f0abc44:	00000000 */ 	nop
-/*  f0abc48:	8c6f04cc */ 	lw	$t7,0x4cc($v1)
-/*  f0abc4c:	15e00007 */ 	bnez	$t7,.L0f0abc6c
-/*  f0abc50:	00000000 */ 	nop
-/*  f0abc54:	8c780038 */ 	lw	$t8,0x38($v1)
-/*  f0abc58:	0058c823 */ 	subu	$t9,$v0,$t8
-/*  f0abc5c:	1f200003 */ 	bgtz	$t9,.L0f0abc6c
-/*  f0abc60:	ac79045c */ 	sw	$t9,0x45c($v1)
-/*  f0abc64:	ac60045c */ 	sw	$zero,0x45c($v1)
-/*  f0abc68:	ac600464 */ 	sw	$zero,0x464($v1)
-.L0f0abc6c:
-/*  f0abc6c:	03e00008 */ 	jr	$ra
-/*  f0abc70:	00000000 */ 	nop
-);
+void speedpillTick(void)
+{
+	if (g_Vars.speedpillon && g_Vars.speedpilltime > 0 && !g_Vars.in_cutscene) {
+		g_Vars.speedpilltime -= g_Vars.lvupdate240_60;
+
+		if (g_Vars.speedpilltime <= 0) {
+			g_Vars.speedpilltime = 0;
+			g_Vars.speedpillwant = 0;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0abc74

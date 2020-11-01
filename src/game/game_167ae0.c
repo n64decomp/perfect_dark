@@ -4201,7 +4201,7 @@ void func0f16b96c(void)
 	g_Vars.lvupdate240frealprev = g_Vars.lvupdate240freal;
 	g_Vars.lvupdate240freal = g_Vars.lvupdate240f;
 
-	func0f0abc28();
+	speedpillTick();
 	func0f0df364();
 
 	if ((contGetButtonsPressedThisFrame(0, 0xffff) != 0

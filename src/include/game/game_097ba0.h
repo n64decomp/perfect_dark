@@ -171,7 +171,7 @@ u32 func0f0abad0(void);
 u32 func0f0abb80(void);
 u32 func0f0abba8(void);
 u32 func0f0abbe8(void);
-void func0f0abc28(void);
+void speedpillTick(void);
 void func0f0abc74(u32 arg0, s32 arg1);
 Gfx *func0f0abcb0(Gfx *gdl);
 u32 func0f0abd30(void);
