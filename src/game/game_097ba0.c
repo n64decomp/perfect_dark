@@ -20381,29 +20381,17 @@ glabel var7f1acaa0
 /*  f0a890c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0a8910
-/*  f0a8910:	00047900 */ 	sll	$t7,$a0,0x4
-/*  f0a8914:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f0a8918:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0a891c:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f0a8920:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0a8924:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0a8928:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0a892c:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f0a8930:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0a8934:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0a8938:	8c580644 */ 	lw	$t8,0x644($v0)
-/*  f0a893c:	24420638 */ 	addiu	$v0,$v0,0x638
-/*  f0a8940:	ac45000c */ 	sw	$a1,0xc($v0)
-/*  f0a8944:	14a00003 */ 	bnez	$a1,.L0f0a8954
-/*  f0a8948:	ac580010 */ 	sw	$t8,0x10($v0)
-/*  f0a894c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f0a8950:	ac590014 */ 	sw	$t9,0x14($v0)
-.L0f0a8954:
-/*  f0a8954:	03e00008 */ 	jr	$ra
-/*  f0a8958:	00000000 */ 	nop
-);
+void handSetFiring(s32 handnum, bool firing)
+{
+	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
+
+	hand->prevfiring = hand->firing;
+	hand->firing = firing;
+
+	if (!firing) {
+		hand->unk064c = true;
+	}
+}
 
 GLOBAL_ASM(
 glabel currentPlayerConsiderToggleGunFunction
@@ -20934,7 +20922,7 @@ void currentPlayerTickInventory(bool triggeron)
 				gunsfiring[player->curguntofire] = 1;
 
 				if (func0f099008(1 - player->curguntofire)
-						|| player->hands[1 - player->curguntofire].unk0644) {
+						|| player->hands[1 - player->curguntofire].firing) {
 					gunsfiring[1 - player->curguntofire] = 1;
 				}
 			} else {
@@ -20963,8 +20951,8 @@ void currentPlayerTickInventory(bool triggeron)
 		player->playertrigtime240 = 0;
 	}
 
-	func0f0a8910(0, gunsfiring[0]);
-	func0f0a8910(1, gunsfiring[1]);
+	handSetFiring(0, gunsfiring[0]);
+	handSetFiring(1, gunsfiring[1]);
 
 	if (g_Vars.tickmode == TICKMODE_1 && g_Vars.lvupdate240 > 0) {
 		func0f09cdc4(0);

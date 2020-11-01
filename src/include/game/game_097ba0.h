@@ -139,7 +139,7 @@ u32 func0f0a7d5c(void);
 void func0f0a7d98(u8 *arg0, struct prop *prop, s32 arg2);
 u32 func0f0a8404(void);
 u32 func0f0a84c8(void);
-void func0f0a8910(s32 hand, bool firing);
+void handSetFiring(s32 hand, bool firing);
 u32 currentPlayerConsiderToggleGunFunction(s32 usedowntime, bool firing, s32 arg2);
 void func0f0a8c50(void);
 bool currentPlayerIsUsingSecondaryFunction(void);

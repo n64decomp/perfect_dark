@@ -1672,9 +1672,9 @@ struct hand {
 	/*0x063e*/ u8 unk063e;
 	/*0x063f*/ u8 unk063f;
 	/*0x0640*/ s8 unk0640;
-	/*0x0644*/ u32 unk0644;
-	/*0x0648*/ u32 unk0648;
-	/*0x064c*/ u32 unk064c;
+	/*0x0644*/ bool firing;
+	/*0x0648*/ bool prevfiring;
+	/*0x064c*/ bool unk064c; // Set to true when firing stops. If set to false, pistols cannot rapid fire by tapping Z
 	/*0x0650*/ u32 unk0650;
 	/*0x0654*/ u32 unk0654;
 	/*0x0658*/ u32 unk0658;
