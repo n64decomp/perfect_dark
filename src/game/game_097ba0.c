@@ -23664,27 +23664,14 @@ void func0f0abb80(s32 amount)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0abba8
-/*  f0abba8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0abbac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0abbb0:	0fc5ae15 */ 	jal	getEffectiveSlowMotion
-/*  f0abbb4:	00000000 */ 	nop
-/*  f0abbb8:	10400005 */ 	beqz	$v0,.L0f0abbd0
-/*  f0abbbc:	00000000 */ 	nop
-/*  f0abbc0:	0fc2aee0 */ 	jal	func0f0abb80
-/*  f0abbc4:	240404b0 */ 	addiu	$a0,$zero,0x4b0
-/*  f0abbc8:	10000004 */ 	b	.L0f0abbdc
-/*  f0abbcc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0abbd0:
-/*  f0abbd0:	0fc2aeb4 */ 	jal	func0f0abad0
-/*  f0abbd4:	24040258 */ 	addiu	$a0,$zero,0x258
-/*  f0abbd8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0abbdc:
-/*  f0abbdc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0abbe0:	03e00008 */ 	jr	$ra
-/*  f0abbe4:	00000000 */ 	nop
-);
+void func0f0abba8(void)
+{
+	if (getEffectiveSlowMotion()) {
+		func0f0abb80(1200);
+	} else {
+		func0f0abad0(600);
+	}
+}
 
 void func0f0abbe8(void)
 {

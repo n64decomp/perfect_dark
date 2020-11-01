@@ -169,7 +169,7 @@ u32 func0f0a9fc0(void);
 Gfx *hudRenderAmmo(Gfx *gdl);
 void func0f0abad0(s32 arg0);
 void func0f0abb80(s32 arg0);
-u32 func0f0abba8(void);
+void func0f0abba8(void);
 void func0f0abbe8(void);
 void speedpillTick(void);
 void func0f0abc74(u32 arg0, s32 arg1);
