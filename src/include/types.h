@@ -7136,6 +7136,7 @@ struct var800a3180 {
 
 struct remoteminething {
 	u8 unk00;
+	u8 unk01;
 	u16 unk02;
 
 	union {

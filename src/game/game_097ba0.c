@@ -155,7 +155,7 @@ u32 var800701f8 = 0x00000000;
 u32 var800701fc = 0x00000000;
 
 struct remoteminething var80070200[2] = {
-	{ 0x0a, 0x0434, 10000 },
+	{ 0x0a, 0, 0x0434, 10000 },
 	{ 0 },
 };
 
@@ -1250,35 +1250,24 @@ glabel var7f1ac1b0
 /*  f098880:	27bd0158 */ 	addiu	$sp,$sp,0x158
 );
 
-GLOBAL_ASM(
-glabel func0f098884
-/*  f098884:	90820001 */ 	lbu	$v0,0x1($a0)
-/*  f098888:	00001825 */ 	or	$v1,$zero,$zero
-/*  f09888c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f098890:	14400003 */ 	bnez	$v0,.L0f0988a0
-/*  f098894:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f098898:	03e00008 */ 	jr	$ra
-/*  f09889c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0988a0:
-/*  f0988a0:	14820006 */ 	bne	$a0,$v0,.L0f0988bc
-/*  f0988a4:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0988a8:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0988ac:	81cf0de4 */ 	lb	$t7,0xde4($t6)
-/*  f0988b0:	148f0002 */ 	bne	$a0,$t7,.L0f0988bc
-/*  f0988b4:	00000000 */ 	nop
-/*  f0988b8:	00801825 */ 	or	$v1,$a0,$zero
-.L0f0988bc:
-/*  f0988bc:	54410006 */ 	bnel	$v0,$at,.L0f0988d8
-/*  f0988c0:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0988c4:	90b80003 */ 	lbu	$t8,0x3($a1)
-/*  f0988c8:	54980003 */ 	bnel	$a0,$t8,.L0f0988d8
-/*  f0988cc:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0988d0:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0988d4:	00601025 */ 	or	$v0,$v1,$zero
-.L0f0988d8:
-/*  f0988d8:	03e00008 */ 	jr	$ra
-/*  f0988dc:	00000000 */ 	nop
-);
+bool func0f098884(struct remoteminething *arg0, struct hand *hand)
+{
+	s32 result = false;
+
+	if (arg0->unk01 == 0) {
+		return true;
+	}
+
+	if (arg0->unk01 == 1 && g_Vars.currentplayer->hands[1].unk0640 == 1) {
+		result = true;
+	}
+
+	if (arg0->unk01 == 2 && hand->weaponfunc == FUNC_SECONDARY) {
+		result = true;
+	}
+
+	return result;
+}
 
 void func0f0988e0(struct remoteminething *arg0, bool arg1, struct hand *hand)
 {
