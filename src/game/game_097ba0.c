@@ -11172,36 +11172,17 @@ glabel var7f1ac764
 /*  f0a0b2c:	27bd00e0 */ 	addiu	$sp,$sp,0xe0
 );
 
-GLOBAL_ASM(
-glabel currentPlayerSwivelGunTowards
-/*  f0a0b30:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a0b34:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a0b38:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*  f0a0b3c:	e7ae001c */ 	swc1	$f14,0x1c($sp)
-/*  f0a0b40:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0a0b44:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
-/*  f0a0b48:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a0b4c:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0a0b50:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a0b54:	8c4e0024 */ 	lw	$t6,0x24($v0)
-/*  f0a0b58:	c7a20020 */ 	lwc1	$f2,0x20($sp)
-/*  f0a0b5c:	c7ac0018 */ 	lwc1	$f12,0x18($sp)
-/*  f0a0b60:	c5c00014 */ 	lwc1	$f0,0x14($t6)
-/*  f0a0b64:	44061000 */ 	mfc1	$a2,$f2
-/*  f0a0b68:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f0a0b6c:	00000000 */ 	nop
-/*  f0a0b70:	45020003 */ 	bc1fl	.L0f0a0b80
-/*  f0a0b74:	44070000 */ 	mfc1	$a3,$f0
-/*  f0a0b78:	46001006 */ 	mov.s	$f0,$f2
-/*  f0a0b7c:	44070000 */ 	mfc1	$a3,$f0
-.L0f0a0b80:
-/*  f0a0b80:	0fc280e5 */ 	jal	func0f0a0394
-/*  f0a0b84:	c7ae001c */ 	lwc1	$f14,0x1c($sp)
-/*  f0a0b88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a0b8c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0a0b90:	03e00008 */ 	jr	$ra
-/*  f0a0b94:	00000000 */ 	nop
-);
+void currentPlayerSwivelGunTowards(f32 screenx, f32 screeny, f32 damp)
+{
+	struct weapon *weapon = weaponFindById(getCurrentPlayerWeaponId(0));
+	f32 value = weapon->eptr->unk14;
+
+	if (value < damp) {
+		value = damp;
+	}
+
+	func0f0a0394(screenx, screeny, damp, value);
+}
 
 GLOBAL_ASM(
 glabel func0f0a0b98
