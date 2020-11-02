@@ -13189,24 +13189,14 @@ glabel func0f0a29c8
 /*  f0a2aac:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f0a2ab0
-/*  f0a2ab0:	24010020 */ 	addiu	$at,$zero,0x20
-/*  f0a2ab4:	10810007 */ 	beq	$a0,$at,.L0f0a2ad4
-/*  f0a2ab8:	24010022 */ 	addiu	$at,$zero,0x22
-/*  f0a2abc:	10810005 */ 	beq	$a0,$at,.L0f0a2ad4
-/*  f0a2ac0:	24010035 */ 	addiu	$at,$zero,0x35
-/*  f0a2ac4:	10810003 */ 	beq	$a0,$at,.L0f0a2ad4
-/*  f0a2ac8:	2401003e */ 	addiu	$at,$zero,0x3e
-/*  f0a2acc:	14810003 */ 	bne	$a0,$at,.L0f0a2adc
-/*  f0a2ad0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0a2ad4:
-/*  f0a2ad4:	03e00008 */ 	jr	$ra
-/*  f0a2ad8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0a2adc:
-/*  f0a2adc:	03e00008 */ 	jr	$ra
-/*  f0a2ae0:	00000000 */ 	nop
-);
+bool func0f0a2ab0(s32 value)
+{
+	if (value == 0x20 || value == 0x22 || value == 0x35 || value == 0x3e) {
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f0a2ae4
