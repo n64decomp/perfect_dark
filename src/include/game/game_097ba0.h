@@ -99,7 +99,7 @@ bool func0f0a1d14(u32 weaponnum);
 void func0f0a1df4(void);
 void currentPlayerEquipWeaponWrapper(bool arg0, s32 weaponnum);
 s32 func0f0a20fc(s32 handnum);
-u32 func0f0a212c(void);
+s32 func0f0a212c(s32 handnum);
 char *weaponGetName(s32 weaponnum);
 u16 weaponGetNameId(s32 weaponnum);
 char *weaponGetShortName(s32 arg0);

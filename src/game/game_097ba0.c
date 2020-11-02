@@ -12597,21 +12597,10 @@ s32 func0f0a20fc(s32 handnum)
 	return g_Vars.currentplayer->hands[handnum].unk063c;
 }
 
-GLOBAL_ASM(
-glabel func0f0a212c
-/*  f0a212c:	00047900 */ 	sll	$t7,$a0,0x4
-/*  f0a2130:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f0a2134:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0a2138:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f0a213c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0a2140:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0a2144:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0a2148:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f0a214c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0a2150:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0a2154:	03e00008 */ 	jr	$ra
-/*  f0a2158:	8f020ce4 */ 	lw	$v0,0xce4($t8)
-);
+s32 func0f0a212c(s32 handnum)
+{
+	return g_Vars.currentplayer->hands[handnum].unk0ce4;
+}
 
 char *weaponGetName(s32 weaponnum)
 {
