@@ -12592,21 +12592,10 @@ void currentPlayerEquipWeaponWrapper(bool arg0, s32 weaponnum)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0a20fc
-/*  f0a20fc:	00047900 */ 	sll	$t7,$a0,0x4
-/*  f0a2100:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f0a2104:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0a2108:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f0a210c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0a2110:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0a2114:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0a2118:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f0a211c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0a2120:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0a2124:	03e00008 */ 	jr	$ra
-/*  f0a2128:	8302063c */ 	lb	$v0,0x63c($t8)
-);
+s32 func0f0a20fc(s32 handnum)
+{
+	return g_Vars.currentplayer->hands[handnum].unk063c;
+}
 
 GLOBAL_ASM(
 glabel func0f0a212c
