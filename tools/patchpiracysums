@@ -73,27 +73,23 @@ class Tool:
         fd.close()
 
         self.symbols = re.findall(r'^\s*0x([0-9a-f]+)\s+(\S+)$', ldmap, re.MULTILINE)
-        self.segrampositions = re.findall(r'^\s*0x([0-9a-f]+)\s+_(\S+)SegmentStart', ldmap, re.MULTILINE)
-        self.segrompositions = re.findall(r'^\s*0x([0-9a-f]+)\s+_(\S+)SegmentRomStart', ldmap, re.MULTILINE)
+
+        # Matching the following line:
+        # .boot           0x0000000070001000     0x2050 load address 0x0000000000001000
+        self.segpositions = re.findall(r'^\.(\S+)\s+0x([0-9a-f]+)\s+0x([0-9a-f]+)\s+load address\s+0x([0-9a-f]+)', ldmap, re.MULTILINE)
 
     def ramtorom(self, ramaddr):
-        # Find which segramposition is closest and prior
-        segramaddr = 0
-        segname = None
-        for pos in self.segrampositions:
-            addr = int(pos[0], 16)
-            if addr <= ramaddr and addr > segramaddr:
-                segramaddr = addr
-                segname = pos[1]
+        for pos in self.segpositions:
+            segname = pos[0]
+            rampos = int(pos[1], 16)
+            length = int(pos[2], 16)
+            rompos = int(pos[3], 16)
 
-        # Find where the segment is in ROM
-        rompos = 0
-        for pos in self.segrompositions:
-            if pos[1] == segname:
-                rompos = int(pos[0], 16)
-                break
+            if ramaddr >= rampos and ramaddr < rampos + length:
+                return rompos + (ramaddr - rampos)
 
-        return rompos + (ramaddr - segramaddr)
+        print('Couldn\'t translate RAM address 0x%08x to ROM' & romaddr)
+        exit(1)
 
     def get_function_address(self, funcname):
         startram = None

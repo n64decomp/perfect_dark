@@ -44,6 +44,19 @@
 	} \
 	END_SEG(font##index)
 
+/**
+ * Placeholder segments are used to mark the locations where zipped content will
+ * go. It's really just here so it appears in the linker map which allows
+ * packrom to find it. We only care about the start address for this segment,
+ * so the romheader object is used as it's nice and short.
+ */
+#define PLACEHOLDER_SEGMENT(name) \
+	BEGIN_SEG(name) \
+	{ \
+		build/ROMID/romheader.o (.data); \
+	} \
+	END_SEG(name)
+
 /******************************************************************************
  * ROM Allocations
  * ----------------------------------------------------------------------------
@@ -168,8 +181,9 @@ SECTIONS
 	 * the boot code calculates the lib address as boot start + boot length.
 	 */
 
-	_libzipSegmentRomStart = __rompos;
-	__rompos = 0x20000000;
+	PLACEHOLDER_SEGMENT(libzip)
+
+	__rompos = 0x02000000;
 
 	BEGIN_SEG(lib)
 	{
@@ -188,7 +202,11 @@ SECTIONS
 	 * recalculate it so that's what we do.
 	 */
 
-	_datazipSegmentRomStart = _libzipSegmentRomStart + ROMALLOCATION_LIB;
+	__savedrompos = __rompos;
+	__rompos = _libzipSegmentRomStart + ROMALLOCATION_LIB;
+	PLACEHOLDER_SEGMENT(datazip)
+
+	__rompos = __savedrompos;
 	__rampos = 0x80001000 + SIZEOF(.boot) + SIZEOF(.lib);
 
 	BEGIN_SEG(data)
@@ -253,7 +271,7 @@ SECTIONS
 	 * -------------------------------------------------------------------------
 	 */
 
-	_gamezipSegmentRomStart = __rompos;
+	PLACEHOLDER_SEGMENT(gamezip)
 	__rompos = __savedrompos;
 	__rampos = 0x7f000000;
 

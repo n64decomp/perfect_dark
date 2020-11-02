@@ -42,10 +42,12 @@ endif
 E_DIR := extracted/$(ROMID)
 B_DIR := build/$(ROMID)
 
-ifeq ($(shell type mips64-elf-ld >/dev/null 2>/dev/null; echo $$?), 0)
-    TOOLCHAIN := mips64-elf
-else ifeq ($(shell type mips-linux-gnu-ld >/dev/null 2>/dev/null; echo $$?), 0)
+ifeq ($(shell type mips-linux-gnu-ld >/dev/null 2>/dev/null; echo $$?), 0)
+	# Debian, Ubuntu and Arch AUR
     TOOLCHAIN := mips-linux-gnu
+else ifeq ($(shell type mips64-elf-ld >/dev/null 2>/dev/null; echo $$?), 0)
+	# Arch AUR
+    TOOLCHAIN := mips64-elf
 else ifeq ($(shell type mips64-linux-gnu-ld >/dev/null 2>/dev/null; echo $$?), 0)
     TOOLCHAIN := mips64-linux-gnu
 else

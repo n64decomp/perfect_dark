@@ -90,10 +90,10 @@ def get_locations():
     ldmap = fd.read()
     fd.close()
 
-    matches = re.findall(r'^\s*0x([0-9a-f]+)\s+_(\S+)SegmentRomStart', ldmap, re.MULTILINE)
+    matches = re.findall(r'^\.(\S+)\s+0x[0-9a-f]+\s+0x[0-9a-f]+\s+load address\s+0x([0-9a-f]+)', ldmap, re.MULTILINE)
 
     def make_numeric(match):
-        return {'addr': int(match[0], 16), 'name': match[1]}
+        return {'addr': int(match[1], 16), 'name': match[0]}
 
     return list(map(make_numeric, matches))
 
