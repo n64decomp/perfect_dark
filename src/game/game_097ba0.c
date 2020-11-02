@@ -404,35 +404,26 @@ glabel func0f097ba0
 /*  f097d08:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f097d0c
-/*  f097d0c:	2401001b */ 	addiu	$at,$zero,0x1b
-/*  f097d10:	54810004 */ 	bnel	$a0,$at,.L0f097d24
-/*  f097d14:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f097d18:	03e00008 */ 	jr	$ra
-/*  f097d1c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f097d20:	24010013 */ 	addiu	$at,$zero,0x13
-.L0f097d24:
-/*  f097d24:	54810004 */ 	bnel	$a0,$at,.L0f097d38
-/*  f097d28:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f097d2c:	03e00008 */ 	jr	$ra
-/*  f097d30:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f097d34:	24010008 */ 	addiu	$at,$zero,0x8
-.L0f097d38:
-/*  f097d38:	54810004 */ 	bnel	$a0,$at,.L0f097d4c
-/*  f097d3c:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f097d40:	03e00008 */ 	jr	$ra
-/*  f097d44:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f097d48:	24010009 */ 	addiu	$at,$zero,0x9
-.L0f097d4c:
-/*  f097d4c:	14810003 */ 	bne	$a0,$at,.L0f097d5c
-/*  f097d50:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f097d54:	03e00008 */ 	jr	$ra
-/*  f097d58:	24020003 */ 	addiu	$v0,$zero,0x3
-.L0f097d5c:
-/*  f097d5c:	03e00008 */ 	jr	$ra
-/*  f097d60:	00000000 */ 	nop
-);
+s32 func0f097d0c(s32 value)
+{
+	if (value == 0x1b) {
+		return 0;
+	}
+
+	if (value == 0x13) {
+		return 1;
+	}
+
+	if (value == 0x08) {
+		return 2;
+	}
+
+	if (value == 0x09) {
+		return 3;
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel func0f097d64
