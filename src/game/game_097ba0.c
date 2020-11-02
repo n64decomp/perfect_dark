@@ -12126,32 +12126,18 @@ void currentPlayerEquipWeapon(s32 weaponnum)
 	player->unk1583_05 = 0;
 }
 
-GLOBAL_ASM(
-glabel getCurrentPlayerWeaponId
-/*  f0a19a8:	00047100 */ 	sll	$t6,$a0,0x4
-/*  f0a19ac:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f0a19b0:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0a19b4:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f0a19b8:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x284)
-/*  f0a19bc:	8c63a244 */ 	lw	$v1,%lo(g_Vars+0x284)($v1)
-/*  f0a19c0:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f0a19c4:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f0a19c8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0a19cc:	006e7821 */ 	addu	$t7,$v1,$t6
-/*  f0a19d0:	81f80640 */ 	lb	$t8,0x640($t7)
-/*  f0a19d4:	57000004 */ 	bnezl	$t8,.L0f0a19e8
-/*  f0a19d8:	80621580 */ 	lb	$v0,0x1580($v1)
-/*  f0a19dc:	03e00008 */ 	jr	$ra
-/*  f0a19e0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a19e4:	80621580 */ 	lb	$v0,0x1580($v1)
-.L0f0a19e8:
-/*  f0a19e8:	03e00008 */ 	jr	$ra
-/*  f0a19ec:	00000000 */ 	nop
-);
-
-u32 getCurrentPlayerWeaponIdWrapper(u32 arg0)
+s32 getCurrentPlayerWeaponId(s32 handnum)
 {
-	return getCurrentPlayerWeaponId(arg0);
+	if (!g_Vars.currentplayer->hands[handnum].unk0640) {
+		return WEAPON_NONE;
+	}
+
+	return g_Vars.currentplayer->weaponnum;
+}
+
+s32 getCurrentPlayerWeaponIdWrapper(s32 handnum)
+{
+	return getCurrentPlayerWeaponId(handnum);
 }
 
 GLOBAL_ASM(

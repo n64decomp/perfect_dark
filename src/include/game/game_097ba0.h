@@ -89,7 +89,7 @@ u32 func0f0a1318(void);
 u32 func0f0a134c(void);
 u32 func0f0a1528(void);
 void currentPlayerEquipWeapon(s32 weaponnum);
-u32 getCurrentPlayerWeaponId(u32 arg0);
+s32 getCurrentPlayerWeaponId(s32 handnum);
 u32 func0f0a1a10(void);
 u32 func0f0a1a68(void);
 u32 func0f0a1ab0(void);
@@ -175,7 +175,7 @@ void speedpillTick(void);
 void currentPlayerSetGunSightVisible(u32 bits, bool visible);
 Gfx *func0f0abcb0(Gfx *gdl);
 u32 func0f0abd30(void);
-u32 getCurrentPlayerWeaponIdWrapper(u32 arg0);
+s32 getCurrentPlayerWeaponIdWrapper(s32 handnum);
 s8 freeFireslotWrapper(s32 fireslot);
 s8 freeFireslot(s32 fireslot);
 
