@@ -1779,7 +1779,7 @@ struct hand {
 	/*0x07e4*/ u32 unk07e4;
 	/*0x07e8*/ u32 unk07e8;
 	/*0x07ec*/ u32 unk07ec;
-	/*0x07f0*/ u32 unk07f0;
+	/*0x07f0*/ f32 unk07f0;
 	/*0x07f4*/ f32 xoffset;
 	/*0x07f8*/ struct coord unk07f8;
 	/*0x0804*/ u32 unk0804;

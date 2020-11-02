@@ -12650,39 +12650,13 @@ void func0f0a2218(s32 handnum)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0a2290
-/*  f0a2290:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0a2294:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0a2298:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0a229c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a22a0:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f0a22a4:	c7ac0020 */ 	lwc1	$f12,0x20($sp)
-/*  f0a22a8:	0c0068f4 */ 	jal	cosf
-/*  f0a22ac:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f0a22b0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a22b4:	44812000 */ 	mtc1	$at,$f4
-/*  f0a22b8:	3c0140a0 */ 	lui	$at,0x40a0
-/*  f0a22bc:	44814000 */ 	mtc1	$at,$f8
-/*  f0a22c0:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f0a22c4:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f0a22c8:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f0a22cc:	e5ea07f0 */ 	swc1	$f10,0x7f0($t7)
-/*  f0a22d0:	0c0068f4 */ 	jal	cosf
-/*  f0a22d4:	c7ac0020 */ 	lwc1	$f12,0x20($sp)
-/*  f0a22d8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0a22dc:	44818000 */ 	mtc1	$at,$f16
-/*  f0a22e0:	3c0140a0 */ 	lui	$at,0x40a0
-/*  f0a22e4:	44812000 */ 	mtc1	$at,$f4
-/*  f0a22e8:	46008481 */ 	sub.s	$f18,$f16,$f0
-/*  f0a22ec:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*  f0a22f0:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f0a22f4:	e7060f94 */ 	swc1	$f6,0xf94($t8)
-/*  f0a22f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a22fc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0a2300:	03e00008 */ 	jr	$ra
-/*  f0a2304:	00000000 */ 	nop
-);
+void func0f0a2290(f32 angle)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	player->hands[0].unk07f0 = (1 - cosf(angle)) * 5;
+	player->hands[1].unk07f0 = (1 - cosf(angle)) * 5;
+}
 
 GLOBAL_ASM(
 glabel func0f0a2308

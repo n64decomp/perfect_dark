@@ -104,7 +104,7 @@ char *weaponGetName(s32 weaponnum);
 u16 weaponGetNameId(s32 weaponnum);
 char *weaponGetShortName(s32 arg0);
 void func0f0a2218(s32 handnum);
-u32 func0f0a2290(void);
+void func0f0a2290(f32 angle);
 u32 func0f0a2308(void);
 u32 func0f0a233c(void);
 u32 func0f0a2498(void);
