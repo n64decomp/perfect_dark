@@ -12167,52 +12167,22 @@ s32 func0f0a1a68(s32 arg0)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f0a1ab0
-/*  f0a1ab0:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0a1ab4:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0a1ab8:	8c4e02ac */ 	lw	$t6,0x2ac($v0)
-/*  f0a1abc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0a1ac0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0a1ac4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0a1ac8:	11c1001c */ 	beq	$t6,$at,.L0f0a1b3c
-/*  f0a1acc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0a1ad0:	8c500284 */ 	lw	$s0,0x284($v0)
-/*  f0a1ad4:	0fc44727 */ 	jal	currentPlayerCanHaveWeapon
-/*  f0a1ad8:	82041581 */ 	lb	$a0,0x1581($s0)
-/*  f0a1adc:	10400015 */ 	beqz	$v0,.L0f0a1b34
-/*  f0a1ae0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a1ae4:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
-/*  f0a1ae8:	82051581 */ 	lb	$a1,0x1581($s0)
-/*  f0a1aec:	82041581 */ 	lb	$a0,0x1581($s0)
-/*  f0a1af0:	0fc4473e */ 	jal	func0f111cf8
-/*  f0a1af4:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0a1af8:	820f1581 */ 	lb	$t7,0x1581($s0)
-/*  f0a1afc:	8e191580 */ 	lw	$t9,0x1580($s0)
-/*  f0a1b00:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0a1b04:	004f0019 */ 	multu	$v0,$t7
-/*  f0a1b08:	00194640 */ 	sll	$t0,$t9,0x19
-/*  f0a1b0c:	00084fc2 */ 	srl	$t1,$t0,0x1f
-/*  f0a1b10:	0000c012 */ 	mflo	$t8
-/*  f0a1b14:	00000000 */ 	nop
-/*  f0a1b18:	00000000 */ 	nop
-/*  f0a1b1c:	03090019 */ 	multu	$t8,$t1
-/*  f0a1b20:	00002812 */ 	mflo	$a1
-/*  f0a1b24:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
-/*  f0a1b28:	00000000 */ 	nop
-/*  f0a1b2c:	10000004 */ 	b	.L0f0a1b40
-/*  f0a1b30:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0a1b34:
-/*  f0a1b34:	0fc2877d */ 	jal	func0f0a1df4
-/*  f0a1b38:	00000000 */ 	nop
-.L0f0a1b3c:
-/*  f0a1b3c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0a1b40:
-/*  f0a1b40:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0a1b44:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0a1b48:	03e00008 */ 	jr	$ra
-/*  f0a1b4c:	00000000 */ 	nop
-);
+void func0f0a1ab0(void)
+{
+	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
+		struct player *player = g_Vars.currentplayer;
+		s32 value;
+
+		if (currentPlayerCanHaveWeapon(player->unk1581)) {
+			currentPlayerEquipWeaponWrapper(0, player->unk1581);
+
+			value = func0f111cf8(player->unk1581, player->unk1581) * player->unk1581 * player->unk1583_01;
+			currentPlayerEquipWeaponWrapper(1, value);
+		} else {
+			func0f0a1df4();
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0a1b50
