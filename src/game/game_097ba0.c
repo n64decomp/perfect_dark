@@ -12150,29 +12150,22 @@ bool func0f0a1a10(s32 weaponnum)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f0a1a68
-/*  f0a1a68:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0a1a6c:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0a1a70:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0a1a74:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0a1a78:	80431582 */ 	lb	$v1,0x1582($v0)
-/*  f0a1a7c:	04620004 */ 	bltzl	$v1,.L0f0a1a90
-/*  f0a1a80:	80441580 */ 	lb	$a0,0x1580($v0)
-/*  f0a1a84:	10000002 */ 	b	.L0f0a1a90
-/*  f0a1a88:	00602025 */ 	or	$a0,$v1,$zero
-/*  f0a1a8c:	80441580 */ 	lb	$a0,0x1580($v0)
-.L0f0a1a90:
-/*  f0a1a90:	804f1583 */ 	lb	$t7,0x1583($v0)
-/*  f0a1a94:	05e00004 */ 	bltz	$t7,.L0f0a1aa8
-/*  f0a1a98:	00000000 */ 	nop
-/*  f0a1a9c:	14a10002 */ 	bne	$a1,$at,.L0f0a1aa8
-/*  f0a1aa0:	00000000 */ 	nop
-/*  f0a1aa4:	00002025 */ 	or	$a0,$zero,$zero
-.L0f0a1aa8:
-/*  f0a1aa8:	03e00008 */ 	jr	$ra
-/*  f0a1aac:	00801025 */ 	or	$v0,$a0,$zero
-);
+s32 func0f0a1a68(s32 arg0)
+{
+	s32 result;
+
+	if (g_Vars.currentplayer->unk1582 >= 0) {
+		result = g_Vars.currentplayer->unk1582;
+	} else {
+		result = g_Vars.currentplayer->weaponnum;
+	}
+
+	if (!g_Vars.currentplayer->unk1583_00 && arg0 == 1) {
+		result = 0;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f0a1ab0
