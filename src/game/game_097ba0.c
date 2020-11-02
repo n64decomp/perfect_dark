@@ -12658,22 +12658,10 @@ void func0f0a2290(f32 angle)
 	player->hands[1].unk07f0 = (1 - cosf(angle)) * 5;
 }
 
-GLOBAL_ASM(
-glabel func0f0a2308
-/*  f0a2308:	0004c100 */ 	sll	$t8,$a0,0x4
-/*  f0a230c:	0304c023 */ 	subu	$t8,$t8,$a0
-/*  f0a2310:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f0a2314:	0304c021 */ 	addu	$t8,$t8,$a0
-/*  f0a2318:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x284)
-/*  f0a231c:	8defa244 */ 	lw	$t7,%lo(g_Vars+0x284)($t7)
-/*  f0a2320:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f0a2324:	0304c021 */ 	addu	$t8,$t8,$a0
-/*  f0a2328:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f0a232c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0a2330:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f0a2334:	03e00008 */ 	jr	$ra
-/*  f0a2338:	af2e084c */ 	sw	$t6,0x84c($t9)
-);
+void func0f0a2308(s32 handnum)
+{
+	g_Vars.currentplayer->hands[handnum].unk084c = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f0a233c
