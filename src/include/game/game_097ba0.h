@@ -81,7 +81,7 @@ void currentPlayerSwivelGunTowards(f32 screenx, f32 screeny, f32 damp);
 void func0f0a0b98(f32 arg0, f32 arg1);
 void currentPlayerGetCrossPos(f32 *x, f32 *y);
 void func0f0a0c08(struct coord *arg0, struct coord *arg1);
-u32 func0f0a0c44(void);
+void func0f0a0c44(s32 handnum, struct coord *param_2, struct coord *arg2);
 u32 func0f0a0cb0(void);
 u32 func0f0a0fac(void);
 u32 func0f0a12b0(void);

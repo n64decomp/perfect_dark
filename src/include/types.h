@@ -2087,8 +2087,7 @@ struct hand {
 	/*0x0cc8*/ u8 unk0cc8_02 : 1;
 	/*0x0cc8*/ u8 unk0cc8_03 : 1;
 	/*0x0cc9*/ u8 unk0cc9;
-	/*0x0ccc*/ u32 unk0ccc;
-	/*0x0cd0*/ u32 unk0cd0;
+	/*0x0ccc*/ f32 crosspos[2];
 	/*0x0cd4*/ u32 unk0cd4;
 	/*0x0cd8*/ u32 unk0cd8;
 	/*0x0cdc*/ u32 unk0cdc;

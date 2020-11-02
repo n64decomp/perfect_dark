@@ -11209,36 +11209,14 @@ void func0f0a0c08(struct coord *arg0, struct coord *arg1)
 	func0f0b4c3c(g_Vars.currentplayer->crosspos, arg1, 1);
 }
 
-GLOBAL_ASM(
-glabel func0f0a0c44
-/*  f0a0c44:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a0c48:	44800000 */ 	mtc1	$zero,$f0
-/*  f0a0c4c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a0c50:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0a0c54:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0a0c58:	e4a00000 */ 	swc1	$f0,0x0($a1)
-/*  f0a0c5c:	e4a00004 */ 	swc1	$f0,0x4($a1)
-/*  f0a0c60:	e4a00008 */ 	swc1	$f0,0x8($a1)
-/*  f0a0c64:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f0a0c68:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0a0c6c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0a0c70:	000fc100 */ 	sll	$t8,$t7,0x4
-/*  f0a0c74:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f0a0c78:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f0a0c7c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f0a0c80:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f0a0c84:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f0a0c88:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f0a0c8c:	01d82021 */ 	addu	$a0,$t6,$t8
-/*  f0a0c90:	24840ccc */ 	addiu	$a0,$a0,0xccc
-/*  f0a0c94:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f0a0c98:	0fc2d30f */ 	jal	func0f0b4c3c
-/*  f0a0c9c:	3c063f80 */ 	lui	$a2,0x3f80
-/*  f0a0ca0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a0ca4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0a0ca8:	03e00008 */ 	jr	$ra
-/*  f0a0cac:	00000000 */ 	nop
-);
+void func0f0a0c44(s32 handnum, struct coord *arg1, struct coord *arg2)
+{
+	arg1->x = 0;
+	arg1->y = 0;
+	arg1->z = 0;
+
+	func0f0b4c3c(g_Vars.currentplayer->hands[handnum].crosspos, arg2, 1);
+}
 
 GLOBAL_ASM(
 glabel func0f0a0cb0
