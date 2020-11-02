@@ -12640,41 +12640,15 @@ const char var7f1ac188[] = "%d\n";
 const char var7f1ac18c[] = "%02d:%02d:%02d\n";
 const char var7f1ac19c[] = "%02d:%02d\n";
 
-GLOBAL_ASM(
-glabel func0f0a2218
-/*  f0a2218:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0a221c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0a2220:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0a2224:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a2228:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0a222c:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
-/*  f0a2230:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f0a2234:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a2238:	0fc2a685 */ 	jal	weaponGetAmmoType
-/*  f0a223c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a2240:	1040000f */ 	beqz	$v0,.L0f0a2280
-/*  f0a2244:	8fb80020 */ 	lw	$t8,0x20($sp)
-/*  f0a2248:	0018c900 */ 	sll	$t9,$t8,0x4
-/*  f0a224c:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f0a2250:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0a2254:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f0a2258:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f0a225c:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f0a2260:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f0a2264:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0a2268:	01f91021 */ 	addu	$v0,$t7,$t9
-/*  f0a226c:	8c48065c */ 	lw	$t0,0x65c($v0)
-/*  f0a2270:	24090009 */ 	addiu	$t1,$zero,0x9
-/*  f0a2274:	55000003 */ 	bnezl	$t0,.L0f0a2284
-/*  f0a2278:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a227c:	ac49065c */ 	sw	$t1,0x65c($v0)
-.L0f0a2280:
-/*  f0a2280:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0a2284:
-/*  f0a2284:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0a2288:	03e00008 */ 	jr	$ra
-/*  f0a228c:	00000000 */ 	nop
-);
+void func0f0a2218(s32 handnum)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	if (weaponGetAmmoType(getCurrentPlayerWeaponId(handnum), 0)
+			&& player->hands[handnum].unk065c == 0) {
+		player->hands[handnum].unk065c = 9;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0a2290
