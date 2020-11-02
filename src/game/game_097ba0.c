@@ -11184,30 +11184,13 @@ void currentPlayerSwivelGunTowards(f32 screenx, f32 screeny, f32 damp)
 	func0f0a0394(screenx, screeny, damp, value);
 }
 
-GLOBAL_ASM(
-glabel func0f0a0b98
-/*  f0a0b98:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a0b9c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a0ba0:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*  f0a0ba4:	e7ae001c */ 	swc1	$f14,0x1c($sp)
-/*  f0a0ba8:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
-/*  f0a0bac:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a0bb0:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0a0bb4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a0bb8:	8c4e0024 */ 	lw	$t6,0x24($v0)
-/*  f0a0bbc:	3c063f71 */ 	lui	$a2,0x3f71
-/*  f0a0bc0:	34c6eb85 */ 	ori	$a2,$a2,0xeb85
-/*  f0a0bc4:	c5c00014 */ 	lwc1	$f0,0x14($t6)
-/*  f0a0bc8:	c7ac0018 */ 	lwc1	$f12,0x18($sp)
-/*  f0a0bcc:	c7ae001c */ 	lwc1	$f14,0x1c($sp)
-/*  f0a0bd0:	44070000 */ 	mfc1	$a3,$f0
-/*  f0a0bd4:	0fc280e5 */ 	jal	func0f0a0394
-/*  f0a0bd8:	00000000 */ 	nop
-/*  f0a0bdc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a0be0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0a0be4:	03e00008 */ 	jr	$ra
-/*  f0a0be8:	00000000 */ 	nop
-);
+void func0f0a0b98(f32 screenx, f32 screeny)
+{
+	struct weapon *weapon = weaponFindById(getCurrentPlayerWeaponId(0));
+	f32 value = weapon->eptr->unk14;
+
+	func0f0a0394(screenx, screeny, 0.945f, value);
+}
 
 void currentPlayerGetCrossPos(f32 *x, f32 *y)
 {
