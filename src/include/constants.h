@@ -3019,6 +3019,7 @@
 
 #define WEAPONFLAG_ONEHANDED         0x00000008 // Makes guards carry the gun with one hand
 #define WEAPONFLAG_00000010          0x00000010
+#define WEAPONFLAG_00000400          0x00000400
 #define WEAPONFLAG_TRACKTIMEUSED     0x00000200 // Allow tracking how long gun is used, for weapon of choice
 #define WEAPONFLAG_DUALWIELD         0x00001000 // Allow dual wielding
 #define WEAPONFLAG_HIDEMENUMODEL     0x00040000 // Don't display the rotating model in the inventory menu

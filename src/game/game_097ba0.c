@@ -12140,34 +12140,15 @@ s32 getCurrentPlayerWeaponIdWrapper(s32 handnum)
 	return getCurrentPlayerWeaponId(handnum);
 }
 
-GLOBAL_ASM(
-glabel func0f0a1a10
-/*  f0a1a10:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a1a14:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a1a18:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0a1a1c:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f0a1a20:	24050400 */ 	addiu	$a1,$zero,0x400
-/*  f0a1a24:	1040000b */ 	beqz	$v0,.L0f0a1a54
-/*  f0a1a28:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0a1a2c:	0fc2a685 */ 	jal	weaponGetAmmoType
-/*  f0a1a30:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a1a34:	10400005 */ 	beqz	$v0,.L0f0a1a4c
-/*  f0a1a38:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0a1a3c:	0fc2a69d */ 	jal	currentPlayerGetAmmoQuantityForWeapon
-/*  f0a1a40:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a1a44:	58400004 */ 	blezl	$v0,.L0f0a1a58
-/*  f0a1a48:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0a1a4c:
-/*  f0a1a4c:	10000002 */ 	b	.L0f0a1a58
-/*  f0a1a50:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0a1a54:
-/*  f0a1a54:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0a1a58:
-/*  f0a1a58:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a1a5c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0a1a60:	03e00008 */ 	jr	$ra
-/*  f0a1a64:	00000000 */ 	nop
-);
+bool func0f0a1a10(s32 weaponnum)
+{
+	if (weaponHasFlag(weaponnum, WEAPONFLAG_00000400)
+			&& (weaponGetAmmoType(weaponnum, FUNC_PRIMARY) == 0 || currentPlayerGetAmmoQuantityForWeapon(weaponnum, FUNC_PRIMARY) > 0)) {
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f0a1a68
@@ -21294,7 +21275,7 @@ u32 weaponGetAmmoType(u32 weaponnum, u32 func)
 	return weapon->ammos[func]->type;
 }
 
-u32 currentPlayerGetAmmoQuantityForWeapon(u32 weaponnum, u32 func)
+s32 currentPlayerGetAmmoQuantityForWeapon(u32 weaponnum, u32 func)
 {
 	struct weapon *weapon = weaponFindById(weaponnum);
 
