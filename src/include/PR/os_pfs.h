@@ -44,6 +44,30 @@ extern "C" {
  *
  */
 
+typedef struct {
+	int		status;
+	OSMesgQueue 	*queue;
+	int		channel;
+	u8		id[32];
+	u8		label[32];
+	int		version;
+	int		dir_size;
+	int		inode_table;		/* block location */
+	int		minode_table;		/* mirrioring inode_table */
+	int		dir_table;		/* block location */
+	int		inode_start_page;	/* page # */
+	u8		banks;
+	u8		activebank;
+} OSPfs;
+
+typedef struct {
+	u32	file_size;	/* bytes */
+  	u32 	game_code;
+  	u16 	company_code;
+  	char  	ext_name[4];
+  	char 	game_name[16];
+} OSPfsState;
+
 /**************************************************************************
  *
  * Global definitions

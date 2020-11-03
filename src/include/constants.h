@@ -26,6 +26,9 @@
 #define TEXT(bankid, index) ((bankid << 9) | index)
 #define VOLUME(volume)      (volume > 0x5000 ? 0x5000 : volume)
 
+#define ROM_COMPANYCODE 0x3459
+#define ROM_GAMECODE    0x4e504445 // "NPDE" in ASCII
+
 // These actions are assigned to chr->actiontype
 #define ACT_INIT             0
 #define ACT_STAND            1
