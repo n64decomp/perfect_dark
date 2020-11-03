@@ -540,24 +540,10 @@ glabel func0f116860
 /*  f116884:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel pakDeleteGameNote
-/*  f116888:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f11688c:	8fb90030 */ 	lw	$t9,0x30($sp)
-/*  f116890:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f116894:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f116898:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f11689c:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f1168a0:	30b8ffff */ 	andi	$t8,$a1,0xffff
-/*  f1168a4:	03002825 */ 	or	$a1,$t8,$zero
-/*  f1168a8:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f1168ac:	0fc45ba1 */ 	jal	func0f116e84
-/*  f1168b0:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f1168b4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1168b8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1168bc:	03e00008 */ 	jr	$ra
-/*  f1168c0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 pakDeleteGameNote(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name)
+{
+	return func0f116e84(device, company_code, game_code, game_name, ext_name);
+}
 
 GLOBAL_ASM(
 glabel func0f1168c4
