@@ -3447,44 +3447,22 @@ s32 menudialog0010b014(u32 operation, struct menudialog *dialog, union handlerda
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f10b0c4
-/*  f10b0c4:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10b0c8:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10b0cc:	3c18800a */ 	lui	$t8,%hi(g_Menus)
-/*  f10b0d0:	2718e000 */ 	addiu	$t8,$t8,%lo(g_Menus)
-/*  f10b0d4:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10b0d8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10b0dc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10b0e0:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10b0e4:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10b0e8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10b0ec:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10b0f0:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f10b0f4:	308800ff */ 	andi	$t0,$a0,0xff
-/*  f10b0f8:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f10b0fc:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f10b100:	3c038007 */ 	lui	$v1,%hi(g_SaveLocations)
-/*  f10b104:	a0440e3f */ 	sb	$a0,0xe3f($v0)
-/*  f10b108:	ac400e28 */ 	sw	$zero,0xe28($v0)
-/*  f10b10c:	ac590e1c */ 	sw	$t9,0xe1c($v0)
-/*  f10b110:	00691821 */ 	addu	$v1,$v1,$t1
-/*  f10b114:	8c635bc0 */ 	lw	$v1,%lo(g_SaveLocations)($v1)
-/*  f10b118:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10b11c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10b120:	10600004 */ 	beqz	$v1,.L0f10b134
-/*  f10b124:	3c048007 */ 	lui	$a0,%hi(menudialog_deletefile)
-/*  f10b128:	906a030b */ 	lbu	$t2,0x30b($v1)
-/*  f10b12c:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*  f10b130:	ac4b0e1c */ 	sw	$t3,0xe1c($v0)
-.L0f10b134:
-/*  f10b134:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10b138:	248449cc */ 	addiu	$a0,$a0,%lo(menudialog_deletefile)
-/*  f10b13c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10b140:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10b144:	03e00008 */ 	jr	$ra
-/*  f10b148:	00000000 */ 	nop
-);
+void func0f10b0c4(u32 arg0)
+{
+	struct savelocation *location;
+
+	g_Menus[g_MpPlayerNum].unke3f = arg0;
+	g_Menus[g_MpPlayerNum].data.pak.unke28 = 0;
+	g_Menus[g_MpPlayerNum].data.pak.unke1c = 1;
+
+	location = g_SaveLocations[g_Menus[g_MpPlayerNum].unke3f];
+
+	if (location) {
+		g_Menus[g_MpPlayerNum].data.pak.unke1c = location->filetype + 1;
+	}
+
+	menuPushDialog(&menudialog_deletefile);
+}
 
 s32 pakDeleteGameNoteMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {

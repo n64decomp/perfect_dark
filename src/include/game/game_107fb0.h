@@ -40,7 +40,7 @@ u32 func0f10a5e8(void);
 u32 func0f10a630(void);
 u32 func0f10a97c(void);
 u32 func0f10aad8(void);
-void func0f10b0c4(s32 arg0);
+void func0f10b0c4(u32 arg0);
 char *pakMenuTextPagesFree(struct menuitem *item);
 char *pakMenuTextPagesUsed(struct menuitem *item);
 char *pakMenuTextStatusMessage(struct menuitem *item);
