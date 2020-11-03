@@ -414,32 +414,12 @@ glabel func0f108550
 /*  f108658:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f10865c
-/*  f10865c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f108660:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f108664:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f108668:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10866c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f108670:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f108674:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f108678:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10867c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f108680:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f108684:	00802825 */ 	or	$a1,$a0,$zero
-/*  f108688:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10868c:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe34)
-/*  f108690:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f108694:	002f0821 */ 	addu	$at,$at,$t7
-/*  f108698:	3c048007 */ 	lui	$a0,%hi(menudialog_1a410)
-/*  f10869c:	a425ee34 */ 	sh	$a1,%lo(g_Menus+0xe34)($at)
-/*  f1086a0:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1086a4:	248443f0 */ 	addiu	$a0,$a0,%lo(menudialog_1a410)
-/*  f1086a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1086ac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1086b0:	03e00008 */ 	jr	$ra
-/*  f1086b4:	00000000 */ 	nop
-);
+void func0f10865c(u16 arg0)
+{
+	g_Menus[g_MpPlayerNum].unke34 = arg0;
+
+	menuPushDialog(&menudialog_1a410);
+}
 
 GLOBAL_ASM(
 glabel func0f1086b8
