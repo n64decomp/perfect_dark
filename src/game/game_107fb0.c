@@ -2687,29 +2687,14 @@ s32 menuhandlerPakConfirmDelete(u32 operation, struct menuitem *item, union hand
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f10a5e8
-/*  f10a5e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10a5ec:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10a5f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a5f4:	3c048007 */ 	lui	$a0,%hi(menudialog_copyfile)
-/*  f10a5f8:	0fc3f55c */ 	jal	func0f0fd570
-/*  f10a5fc:	24844a34 */ 	addiu	$a0,$a0,%lo(menudialog_copyfile)
-/*  f10a600:	10400005 */ 	beqz	$v0,.L0f10a618
-/*  f10a604:	00000000 */ 	nop
-/*  f10a608:	0fc5b9f1 */ 	jal	langGet
-/*  f10a60c:	240454f0 */ 	addiu	$a0,$zero,0x54f0
-/*  f10a610:	10000004 */ 	b	.L0f10a624
-/*  f10a614:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10a618:
-/*  f10a618:	0fc5b9f1 */ 	jal	langGet
-/*  f10a61c:	240454a0 */ 	addiu	$a0,$zero,0x54a0
-/*  f10a620:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10a624:
-/*  f10a624:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10a628:	03e00008 */ 	jr	$ra
-/*  f10a62c:	00000000 */ 	nop
-);
+char *pakMenuTextDeleteErrorDescription(struct menuitem *item)
+{
+	if (func0f0fd570(&menudialog_copyfile)) {
+		return langGet(L_MPWEAPONS(240)); // "The file you are copying cannot be deleted."
+	}
+
+	return langGet(L_MPWEAPONS(160)); // "Cannot delete file as it is being used."
+}
 
 GLOBAL_ASM(
 glabel func0f10a630
@@ -5069,7 +5054,7 @@ struct menudialog menudialog_confirmdelete = {
 struct menuitem menuitems_1a920[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f1082b0, 0x00000000, menuhandler00108254 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000230, (u32)&pakMenuTextLocationName, 0x00000000, menuhandler00108014 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f10a5e8, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextDeleteErrorDescription, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS(161), 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };

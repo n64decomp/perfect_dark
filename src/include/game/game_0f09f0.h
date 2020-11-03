@@ -81,7 +81,7 @@ bool func0f0fd1f4(u32 arg0, u32 arg1);
 u32 func0f0fd320(void);
 void func0f0fd494(struct coord *pos);
 void func0f0fd548(s32 arg0);
-u32 func0f0fd570(void);
+bool func0f0fd570(struct menudialog *dialog);
 bool currentPlayerGetUnk1c04(void);
 
 extern const char var7f1b2658[];
