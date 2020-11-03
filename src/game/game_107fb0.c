@@ -2082,7 +2082,6 @@ const char var7f1b3384[] = "()()()()()() Writing MPLAYER\n";
 const char var7f1b33a4[] = "()()()()()() Writing MGAME\n";
 const char var7f1b33c0[] = "Write Attempt Made...\n";
 const char var7f1b33d8[] = "decided location: %d\n";
-const char var7f1b33f0[] = "%s\n";
 
 GLOBAL_ASM(
 glabel func0f109c8c
@@ -2444,25 +2443,15 @@ glabel func0f10a19c
 /*  f10a1e8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f10a1ec
-/*  f10a1ec:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f10a1f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a1f4:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f10a1f8:	0fc4269a */ 	jal	func0f109a68
-/*  f10a1fc:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*  f10a200:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f10a204:	3c057f1b */ 	lui	$a1,%hi(var7f1b33f0)
-/*  f10a208:	24a533f0 */ 	addiu	$a1,$a1,%lo(var7f1b33f0)
-/*  f10a20c:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10a210:	0c004dad */ 	jal	sprintf
-/*  f10a214:	27a60018 */ 	addiu	$a2,$sp,0x18
-/*  f10a218:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10a21c:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f10a220:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f10a224:	03e00008 */ 	jr	$ra
-/*  f10a228:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+char *pakMenuTextDuplicateFilename(struct menuitem *item)
+{
+	char buffer[32];
+
+	func0f109a68(buffer);
+	sprintf(g_StringPointer, "%s\n", buffer);
+
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f10a22c
@@ -4914,7 +4903,7 @@ struct menuitem menuitems_duplicatefilename[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f10a19c, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(233), 0x00000000, NULL }, // "already contains"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(234), 0x00000000, NULL }, // "a file named"
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, (u32)&func0f10a1ec, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, (u32)&pakMenuTextDuplicateFilename, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS(235), 0x00000000, menuhandlerPakRenameDuplicateSave }, // "Rename File"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS(236), 0x00000000, NULL }, // "Change Location"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS(237), 0x00000000, menuhandlerPakCancelDuplicateSave }, // "Cancel"

@@ -32,7 +32,7 @@ void func0f109bb4(char *name);
 u32 func0f109c8c(void);
 void func0f109ec4(void);
 u32 func0f10a19c(void);
-u32 func0f10a1ec(void);
+char *pakMenuTextDuplicateFilename(struct menuitem *item);
 u32 func0f10a22c(void);
 char *pakMenuTextSaveLocationSpaces(struct menuitem *item);
 void func0f10a51c(s32 arg0, u32 arg1);
