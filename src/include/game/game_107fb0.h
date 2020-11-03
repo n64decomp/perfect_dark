@@ -69,7 +69,7 @@ s32 menuhandlerPakCancelDuplicateSave(u32 operation, struct menuitem *item, unio
 s32 menuhandlerPakCancelSave(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerDeleteFiles(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerPakConfirmDelete(u32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandler0010b14c(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 pakDeleteGameNoteMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerPakSelection(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerAgentName(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerOpenCopyFile(u32 operation, struct menuitem *item, union handlerdata *data);

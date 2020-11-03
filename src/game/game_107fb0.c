@@ -3486,82 +3486,28 @@ glabel func0f10b0c4
 /*  f10b148:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel menuhandler0010b14c
-/*  f10b14c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f10b150:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10b154:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f10b158:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f10b15c:	1481003e */ 	bne	$a0,$at,.L0f10b258
-/*  f10b160:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f10b164:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10b168:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10b16c:	3c18800a */ 	lui	$t8,%hi(g_Menus)
-/*  f10b170:	2718e000 */ 	addiu	$t8,$t8,%lo(g_Menus)
-/*  f10b174:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10b178:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10b17c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10b180:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10b184:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10b188:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10b18c:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10b190:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f10b194:	8c680e28 */ 	lw	$t0,0xe28($v1)
-/*  f10b198:	8c6a0e20 */ 	lw	$t2,0xe20($v1)
-/*  f10b19c:	3c198007 */ 	lui	$t9,%hi(g_EditingPak)
-/*  f10b1a0:	8f394a4c */ 	lw	$t9,%lo(g_EditingPak)($t9)
-/*  f10b1a4:	8c6d0e24 */ 	lw	$t5,0xe24($v1)
-/*  f10b1a8:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f10b1ac:	00084940 */ 	sll	$t1,$t0,0x5
-/*  f10b1b0:	014b6004 */ 	sllv	$t4,$t3,$t2
-/*  f10b1b4:	03291021 */ 	addu	$v0,$t9,$t1
-/*  f10b1b8:	018d7025 */ 	or	$t6,$t4,$t5
-/*  f10b1bc:	ac6e0e24 */ 	sw	$t6,0xe24($v1)
-/*  f10b1c0:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10b1c4:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f10b1c8:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
-/*  f10b1cc:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f10b1d0:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*  f10b1d4:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe23)
-/*  f10b1d8:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f10b1dc:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f10b1e0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f10b1e4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f10b1e8:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f10b1ec:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f10b1f0:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f10b1f4:	00982021 */ 	addu	$a0,$a0,$t8
-/*  f10b1f8:	94450008 */ 	lhu	$a1,0x8($v0)
-/*  f10b1fc:	8c460004 */ 	lw	$a2,0x4($v0)
-/*  f10b200:	2448000a */ 	addiu	$t0,$v0,0xa
-/*  f10b204:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f10b208:	8084ee23 */ 	lb	$a0,%lo(g_Menus+0xe23)($a0)
-/*  f10b20c:	0fc45a22 */ 	jal	func0f116888
-/*  f10b210:	2447000e */ 	addiu	$a3,$v0,0xe
-/*  f10b214:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
-/*  f10b218:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f10b21c:	3c0b800a */ 	lui	$t3,%hi(g_Menus)
-/*  f10b220:	256be000 */ 	addiu	$t3,$t3,%lo(g_Menus)
-/*  f10b224:	001948c0 */ 	sll	$t1,$t9,0x3
-/*  f10b228:	01394823 */ 	subu	$t1,$t1,$t9
-/*  f10b22c:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f10b230:	01394821 */ 	addu	$t1,$t1,$t9
-/*  f10b234:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f10b238:	01394823 */ 	subu	$t1,$t1,$t9
-/*  f10b23c:	00094900 */ 	sll	$t1,$t1,0x4
-/*  f10b240:	012b1821 */ 	addu	$v1,$t1,$t3
-/*  f10b244:	8c6a0e20 */ 	lw	$t2,0xe20($v1)
-/*  f10b248:	10400003 */ 	beqz	$v0,.L0f10b258
-/*  f10b24c:	a06a0e3c */ 	sb	$t2,0xe3c($v1)
-/*  f10b250:	0fc42197 */ 	jal	func0f10865c
-/*  f10b254:	24040008 */ 	addiu	$a0,$zero,0x8
-.L0f10b258:
-/*  f10b258:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f10b25c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f10b260:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10b264:	03e00008 */ 	jr	$ra
-/*  f10b268:	00000000 */ 	nop
-);
+s32 pakDeleteGameNoteMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+{
+	if (operation == MENUOP_SET) {
+		OSPfsState *file = &g_EditingPak->filestates[g_Menus[g_MpPlayerNum].data.pak.unke28];
+		s32 result;
+
+		g_Menus[g_MpPlayerNum].data.pak.unke24 = g_Menus[g_MpPlayerNum].data.pak.unke24 | (1 << g_Menus[g_MpPlayerNum].data.pak.device);
+
+		menuPopDialog();
+
+		result = pakDeleteGameNote(g_Menus[g_MpPlayerNum].data.pak.device,
+				file->company_code, file->game_code, file->game_name, file->ext_name);
+
+		g_Menus[g_MpPlayerNum].unke3c = g_Menus[g_MpPlayerNum].data.pak.device;
+
+		if (result) {
+			func0f10865c(8);
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menucustomDeleteGameNote
@@ -5202,7 +5148,7 @@ struct pakdata *g_EditingPak = NULL;
 struct menuitem menuitems_deletegamenote[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(384), 0x00000000, NULL }, // "Are you sure you want to delete this game note?"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS(385), 0x00000000, NULL }, // "No"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(386), 0x00000000, menuhandler0010b14c }, // "Yes"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(386), 0x00000000, pakDeleteGameNoteMenuHandler }, // "Yes"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

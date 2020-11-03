@@ -14,7 +14,7 @@ u32 func0f1167d8(s8 arg0);
 u32 func0f116800(void);
 u32 func0f116828(void);
 u32 func0f116860(void);
-u32 func0f116888(void);
+s32 pakDeleteGameNote(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name);
 s32 func0f1168c4(s8 device, struct pakdata **arg1);
 u32 func0f116914(void);
 u32 func0f11693c(void);

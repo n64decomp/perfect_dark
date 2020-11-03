@@ -541,7 +541,7 @@ glabel func0f116860
 );
 
 GLOBAL_ASM(
-glabel func0f116888
+glabel pakDeleteGameNote
 /*  f116888:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f11688c:	8fb90030 */ 	lw	$t9,0x30($sp)
 /*  f116890:	afbf001c */ 	sw	$ra,0x1c($sp)
