@@ -44,7 +44,7 @@ void func0f10b0c4(s32 arg0);
 char *pakMenuTextPagesFree(struct menuitem *item);
 char *pakMenuTextPagesUsed(struct menuitem *item);
 char *pakMenuTextStatusMessage(struct menuitem *item);
-u32 func0f10b924(void);
+char *pakMenuTextEditingPakName(struct menuitem *item);
 u32 func0f10c900(void);
 void func0f10c970(void);
 s32 menucustomChooseAgent(u32 operation, struct menuitem *item, union handlerdata *data);

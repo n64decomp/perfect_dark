@@ -3878,12 +3878,12 @@ s32 pakGameNotesMenuDialog(u32 operation, struct menudialog *dialog, union handl
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curframe
 				&& g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
-			s32 value = func0f1168c4(g_Menus[g_MpPlayerNum].data.pak.unke20, &g_EditingPak);
+			s32 value = func0f1168c4(g_Menus[g_MpPlayerNum].data.pak.device, &g_EditingPak);
 
 			if (value) {
 				menuCloseDialog();
 				g_EditingPak = NULL;
-				g_Menus[g_MpPlayerNum].unke3c = g_Menus[g_MpPlayerNum].data.pak.unke20;
+				g_Menus[g_MpPlayerNum].unke3c = g_Menus[g_MpPlayerNum].data.pak.device;
 
 				if (value == 1) {
 					func0f10865c(6);
@@ -3951,29 +3951,10 @@ char *pakMenuTextStatusMessage(struct menuitem *item)
 	return langGet(L_OPTIONS(399)); // "There is enough space for Perfect Dark note."
 }
 
-GLOBAL_ASM(
-glabel func0f10b924
-/*  f10b924:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10b928:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10b92c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10b930:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10b934:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10b938:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10b93c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10b940:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10b944:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10b948:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10b94c:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10b950:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe20)
-/*  f10b954:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10b958:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f10b95c:	0fc41fec */ 	jal	getSaveLocationName
-/*  f10b960:	8c84ee20 */ 	lw	$a0,%lo(g_Menus+0xe20)($a0)
-/*  f10b964:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10b968:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10b96c:	03e00008 */ 	jr	$ra
-/*  f10b970:	00000000 */ 	nop
-);
+char *pakMenuTextEditingPakName(struct menuitem *item)
+{
+	return getSaveLocationName(g_Menus[g_MpPlayerNum].data.pak.device);
+}
 
 s32 menuhandlerPakSelection(u32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -5237,7 +5218,7 @@ struct menudialog menudialog_deletegamenote = {
 
 // 1aad8
 struct menuitem menuitems_gamenotes[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(388), (u32)&func0f10b924, NULL }, // "Delete Game Notes:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(388), (u32)&pakMenuTextEditingPakName, NULL }, // "Delete Game Notes:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x0000010e, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(389), L_OPTIONS(390), NULL }, // "Note", "Pages"
 	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000c8, 0x0000006e, menucustomDeleteGameNote },

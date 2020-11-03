@@ -3873,7 +3873,7 @@ struct menudata_filesel {
 
 struct menudata_pak {
 	u32 unke1c;
-	u32 unke20;
+	u32 device;
 	u32 unke24;
 	u32 unke28;
 };
