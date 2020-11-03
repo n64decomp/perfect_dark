@@ -34,7 +34,7 @@ void func0f109ec4(void);
 u32 func0f10a19c(void);
 u32 func0f10a1ec(void);
 u32 func0f10a22c(void);
-u32 func0f10a2ec(void);
+char *pakMenuTextSaveLocationSpaces(struct menuitem *item);
 void func0f10a51c(s32 arg0, u32 arg1);
 char *pakMenuTextDeleteErrorDescription(struct menuitem *item);
 u32 func0f10a630(void);

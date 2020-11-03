@@ -2083,29 +2083,6 @@ const char var7f1b33a4[] = "()()()()()() Writing MGAME\n";
 const char var7f1b33c0[] = "Write Attempt Made...\n";
 const char var7f1b33d8[] = "decided location: %d\n";
 const char var7f1b33f0[] = "%s\n";
-const char var7f1b33f4[] = "\n";
-const char var7f1b33f8[] = "%d";
-const char var7f1b33fc[] = "GOT OKed!, item->data = %d\n";
-const char var7f1b3418[] = "GOT CANCELLED!\n";
-const char var7f1b3428[] = "Picking Location, type %d wadtype %d wad %d\n";
-const char var7f1b3458[] = "Torching file %d\n";
-const char var7f1b346c[] = "Copying file %d\n";
-const char var7f1b3480[] = "item: %x\n";
-const char var7f1b348c[] = "Switched Wads Back\n";
-const char var7f1b34a0[] = "MenuClosed\n";
-const char var7f1b34ac[] = "Deleting files, wad %d\n";
-const char var7f1b34c4[] = "%d:\n";
-const char var7f1b34cc[] = "%s\n";
-const char var7f1b34d0[] = "%s\n";
-const char var7f1b34d4[] = "%d\n";
-const char var7f1b34d8[] = "";
-const char var7f1b34dc[] = "GOT OKed!\n";
-const char var7f1b34e8[] = "Try to find last opened file...\n";
-const char var7f1b350c[] = "%s %s";
-const char var7f1b3514[] = "\n";
-const char var7f1b3518[] = "%s %d:%02d:%02d";
-const char var7f1b3528[] = "%s %02d:%02d";
-const char var7f1b3538[] = ".%02d";
 
 GLOBAL_ASM(
 glabel func0f109c8c
@@ -2543,60 +2520,49 @@ glabel func0f10a22c
 /*  f10a2e8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f10a2ec
-/*  f10a2ec:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10a2f0:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10a2f4:	3c18800a */ 	lui	$t8,%hi(g_Menus+0xe3f)
-/*  f10a2f8:	3c028007 */ 	lui	$v0,%hi(g_SaveLocations)
-/*  f10a2fc:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10a300:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10a304:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10a308:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10a30c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10a310:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10a314:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10a318:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f10a31c:	9318ee3f */ 	lbu	$t8,%lo(g_Menus+0xe3f)($t8)
-/*  f10a320:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10a324:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a328:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f10a32c:	00591021 */ 	addu	$v0,$v0,$t9
-/*  f10a330:	8c425bc0 */ 	lw	$v0,%lo(g_SaveLocations)($v0)
-/*  f10a334:	54400004 */ 	bnezl	$v0,.L0f10a348
-/*  f10a338:	90880001 */ 	lbu	$t0,0x1($a0)
-/*  f10a33c:	10000015 */ 	b	.L0f10a394
-/*  f10a340:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10a344:	90880001 */ 	lbu	$t0,0x1($a0)
-.L0f10a348:
-/*  f10a348:	00484821 */ 	addu	$t1,$v0,$t0
-/*  f10a34c:	812602d2 */ 	lb	$a2,0x2d2($t1)
-/*  f10a350:	3c027f1b */ 	lui	$v0,%hi(var7f1b33f4)
-/*  f10a354:	04c10003 */ 	bgez	$a2,.L0f10a364
-/*  f10a358:	00000000 */ 	nop
-/*  f10a35c:	1000000d */ 	b	.L0f10a394
-/*  f10a360:	244233f4 */ 	addiu	$v0,$v0,%lo(var7f1b33f4)
-.L0f10a364:
-/*  f10a364:	14c00005 */ 	bnez	$a2,.L0f10a37c
-/*  f10a368:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f10a36c:	0fc5b9f1 */ 	jal	langGet
-/*  f10a370:	24045774 */ 	addiu	$a0,$zero,0x5774
-/*  f10a374:	10000008 */ 	b	.L0f10a398
-/*  f10a378:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10a37c:
-/*  f10a37c:	3c057f1b */ 	lui	$a1,%hi(var7f1b33f8)
-/*  f10a380:	24a533f8 */ 	addiu	$a1,$a1,%lo(var7f1b33f8)
-/*  f10a384:	0c004dad */ 	jal	sprintf
-/*  f10a388:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10a38c:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f10a390:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-.L0f10a394:
-/*  f10a394:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10a398:
-/*  f10a398:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10a39c:	03e00008 */ 	jr	$ra
-/*  f10a3a0:	00000000 */ 	nop
-);
+char *pakMenuTextSaveLocationSpaces(struct menuitem *item)
+{
+	s32 spacesfree;
+
+	if (g_SaveLocations[g_Menus[g_MpPlayerNum].unke3f] == NULL) {
+		return NULL;
+	}
+
+	spacesfree = g_SaveLocations[g_Menus[g_MpPlayerNum].unke3f]->spacesfree[item->param];
+
+	if (spacesfree < 0) {
+		return "\n";
+	}
+
+	if (spacesfree == 0) {
+		return langGet(L_OPTIONS(372)); // "Full"
+	}
+
+	sprintf(g_StringPointer, "%d", spacesfree);
+	return g_StringPointer;
+}
+
+const char var7f1b33fc[] = "GOT OKed!, item->data = %d\n";
+const char var7f1b3418[] = "GOT CANCELLED!\n";
+const char var7f1b3428[] = "Picking Location, type %d wadtype %d wad %d\n";
+const char var7f1b3458[] = "Torching file %d\n";
+const char var7f1b346c[] = "Copying file %d\n";
+const char var7f1b3480[] = "item: %x\n";
+const char var7f1b348c[] = "Switched Wads Back\n";
+const char var7f1b34a0[] = "MenuClosed\n";
+const char var7f1b34ac[] = "Deleting files, wad %d\n";
+const char var7f1b34c4[] = "%d:\n";
+const char var7f1b34cc[] = "%s\n";
+const char var7f1b34d0[] = "%s\n";
+const char var7f1b34d4[] = "%d\n";
+const char var7f1b34d8[] = "";
+const char var7f1b34dc[] = "GOT OKed!\n";
+const char var7f1b34e8[] = "Try to find last opened file...\n";
+const char var7f1b350c[] = "%s %s";
+const char var7f1b3514[] = "\n";
+const char var7f1b3518[] = "%s %d:%02d:%02d";
+const char var7f1b3528[] = "%s %02d:%02d";
+const char var7f1b3538[] = ".%02d";
 
 s32 menuhandlerSaveLocation(u32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -2605,7 +2571,7 @@ s32 menuhandlerSaveLocation(u32 operation, struct menuitem *item, union handlerd
 	}
 
 	if (operation == MENUOP_CHECKDISABLED) {
-		if (g_SaveLocations[g_Menus[g_MpPlayerNum].unke3f]->unk2d2[item->param] < 1) {
+		if (g_SaveLocations[g_Menus[g_MpPlayerNum].unke3f]->spacesfree[item->param] < 1) {
 			return true;
 		}
 	}
@@ -4977,17 +4943,17 @@ u16 savelocations3[] = {
 
 // 1a79c
 struct menuitem menuitems_selectlocation[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(368), L_OPTIONS(369), NULL }, // "Where", "Spaces"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  4, 0x00000000, (u32)&func0f10a22c, (u32)&func0f10a2ec, menuhandlerSaveLocation },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, (u32)&func0f10a22c, (u32)&func0f10a2ec, menuhandlerSaveLocation },
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, (u32)&func0f10a22c, (u32)&func0f10a2ec, menuhandlerSaveLocation },
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, (u32)&func0f10a22c, (u32)&func0f10a2ec, menuhandlerSaveLocation },
-	{ MENUITEMTYPE_SELECTABLE,  3, 0x00000000, (u32)&func0f10a22c, (u32)&func0f10a2ec, menuhandlerSaveLocation },
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(370), 0x00000000, menuhandlerDeleteFiles }, // "Delete Files..."
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(371), 0x00000000, menuhandlerPakCancelSave }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0,                         0x00000010, L_OPTIONS(368), L_OPTIONS(369), NULL }, // "Where", "Spaces"
+	{ MENUITEMTYPE_SEPARATOR,   0,                         0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_GAMEPAK,        0x00000000, (u32)&func0f10a22c, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK1, 0x00000000, (u32)&func0f10a22c, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK2, 0x00000000, (u32)&func0f10a22c, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK3, 0x00000000, (u32)&func0f10a22c, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK4, 0x00000000, (u32)&func0f10a22c, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SEPARATOR,   0,                         0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0,                         0x00000000, L_OPTIONS(370), 0x00000000, menuhandlerDeleteFiles }, // "Delete Files..."
+	{ MENUITEMTYPE_SELECTABLE,  0,                         0x00000000, L_OPTIONS(371), 0x00000000, menuhandlerPakCancelSave }, // "Cancel"
+	{ MENUITEMTYPE_END,         0,                         0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 1a878

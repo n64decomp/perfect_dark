@@ -4881,7 +4881,7 @@ struct savelocation {
 	/*0x2c8*/ u32 unk2c8;
 	/*0x2cc*/ u32 unk2cc;
 	/*0x2d0*/ u16 unk2d0;
-	/*0x2d2*/ s8 unk2d2[4];
+	/*0x2d2*/ s8 spacesfree[4];
 	/*0x2d8*/ u32 unk2d8;
 	/*0x2dc*/ u32 unk2dc;
 	/*0x2e0*/ u32 unk2e0;
