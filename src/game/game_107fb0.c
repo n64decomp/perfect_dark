@@ -2419,29 +2419,10 @@ s32 menuhandlerPakCancelDuplicateSave(u32 operation, struct menuitem *item, unio
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f10a19c
-/*  f10a19c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10a1a0:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10a1a4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10a1a8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10a1ac:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10a1b0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10a1b4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10a1b8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10a1bc:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10a1c0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10a1c4:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10a1c8:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe52)
-/*  f10a1cc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a1d0:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f10a1d4:	0fc41fec */ 	jal	getSaveLocationName
-/*  f10a1d8:	9084ee52 */ 	lbu	$a0,%lo(g_Menus+0xe52)($a0)
-/*  f10a1dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10a1e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10a1e4:	03e00008 */ 	jr	$ra
-/*  f10a1e8:	00000000 */ 	nop
-);
+char *pakMenuTextDeviceNameContainingDuplicateFile(struct menuitem *item)
+{
+	return getSaveLocationName(g_Menus[g_MpPlayerNum].unke52);
+}
 
 char *pakMenuTextDuplicateFilename(struct menuitem *item)
 {
@@ -4900,7 +4881,7 @@ struct menudialog menudialog_changefilename = {
 
 // 1a6d8
 struct menuitem menuitems_duplicatefilename[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f10a19c, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&pakMenuTextDeviceNameContainingDuplicateFile, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(233), 0x00000000, NULL }, // "already contains"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(234), 0x00000000, NULL }, // "a file named"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, (u32)&pakMenuTextDuplicateFilename, 0x00000000, NULL },

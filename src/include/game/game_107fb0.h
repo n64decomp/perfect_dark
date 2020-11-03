@@ -31,7 +31,7 @@ void func0f109a68(char *name);
 void func0f109bb4(char *name);
 u32 func0f109c8c(void);
 void func0f109ec4(void);
-u32 func0f10a19c(void);
+char *pakMenuTextDeviceNameContainingDuplicateFile(struct menuitem *item);
 char *pakMenuTextDuplicateFilename(struct menuitem *item);
 u32 func0f10a22c(void);
 char *pakMenuTextSaveLocationSpaces(struct menuitem *item);
