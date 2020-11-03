@@ -3508,8 +3508,8 @@ glabel menuhandler0010b14c
 /*  f10b190:	01f81821 */ 	addu	$v1,$t7,$t8
 /*  f10b194:	8c680e28 */ 	lw	$t0,0xe28($v1)
 /*  f10b198:	8c6a0e20 */ 	lw	$t2,0xe20($v1)
-/*  f10b19c:	3c198007 */ 	lui	$t9,%hi(var80074a4c)
-/*  f10b1a0:	8f394a4c */ 	lw	$t9,%lo(var80074a4c)($t9)
+/*  f10b19c:	3c198007 */ 	lui	$t9,%hi(g_EditingPak)
+/*  f10b1a0:	8f394a4c */ 	lw	$t9,%lo(g_EditingPak)($t9)
 /*  f10b1a4:	8c6d0e24 */ 	lw	$t5,0xe24($v1)
 /*  f10b1a8:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*  f10b1ac:	00084940 */ 	sll	$t1,$t0,0x5
@@ -3607,8 +3607,8 @@ glabel var7f1b37f4
 glabel var7f1b37f8
 .word menucustomDeleteGameNote+0x38c # f10b5f8
 .text
-/*  f10b26c:	3c038007 */ 	lui	$v1,%hi(var80074a4c)
-/*  f10b270:	8c634a4c */ 	lw	$v1,%lo(var80074a4c)($v1)
+/*  f10b26c:	3c038007 */ 	lui	$v1,%hi(g_EditingPak)
+/*  f10b270:	8c634a4c */ 	lw	$v1,%lo(g_EditingPak)($v1)
 /*  f10b274:	27bdfea8 */ 	addiu	$sp,$sp,-344
 /*  f10b278:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f10b27c:	afb00038 */ 	sw	$s0,0x38($sp)
@@ -3677,9 +3677,9 @@ glabel var7f1b37f8
 /*  f10b374:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f10b378:	8faa0160 */ 	lw	$t2,0x160($sp)
 /*  f10b37c:	afa2014c */ 	sw	$v0,0x14c($sp)
-/*  f10b380:	3c098007 */ 	lui	$t1,%hi(var80074a4c)
+/*  f10b380:	3c098007 */ 	lui	$t1,%hi(g_EditingPak)
 /*  f10b384:	8d4b0004 */ 	lw	$t3,0x4($t2)
-/*  f10b388:	8d294a4c */ 	lw	$t1,%lo(var80074a4c)($t1)
+/*  f10b388:	8d294a4c */ 	lw	$t1,%lo(g_EditingPak)($t1)
 /*  f10b38c:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f10b390:	000b6080 */ 	sll	$t4,$t3,0x2
 /*  f10b394:	012c6821 */ 	addu	$t5,$t1,$t4
@@ -3878,11 +3878,11 @@ s32 pakGameNotesMenuDialog(u32 operation, struct menudialog *dialog, union handl
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curframe
 				&& g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
-			s32 value = func0f1168c4(g_Menus[g_MpPlayerNum].data.pak.unke20, &var80074a4c);
+			s32 value = func0f1168c4(g_Menus[g_MpPlayerNum].data.pak.unke20, &g_EditingPak);
 
 			if (value) {
 				menuCloseDialog();
-				var80074a4c = 0;
+				g_EditingPak = NULL;
 				g_Menus[g_MpPlayerNum].unke3c = g_Menus[g_MpPlayerNum].data.pak.unke20;
 
 				if (value == 1) {
@@ -3897,44 +3897,21 @@ s32 pakGameNotesMenuDialog(u32 operation, struct menudialog *dialog, union handl
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f10b75c
-/*  f10b75c:	3c0e8007 */ 	lui	$t6,%hi(var80074a4c)
-/*  f10b760:	8dce4a4c */ 	lw	$t6,%lo(var80074a4c)($t6)
-/*  f10b764:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10b768:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10b76c:	15c00009 */ 	bnez	$t6,.L0f10b794
-/*  f10b770:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10b774:	0fc5b9f1 */ 	jal	langGet
-/*  f10b778:	2404578a */ 	addiu	$a0,$zero,0x578a
-/*  f10b77c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f10b780:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10b784:	0c004dad */ 	jal	sprintf
-/*  f10b788:	00402825 */ 	or	$a1,$v0,$zero
-/*  f10b78c:	1000000b */ 	b	.L0f10b7bc
-/*  f10b790:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10b794:
-/*  f10b794:	0fc5b9f1 */ 	jal	langGet
-/*  f10b798:	2404578b */ 	addiu	$a0,$zero,0x578b
-/*  f10b79c:	3c0f8007 */ 	lui	$t7,%hi(var80074a4c)
-/*  f10b7a0:	8def4a4c */ 	lw	$t7,%lo(var80074a4c)($t7)
-/*  f10b7a4:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f10b7a8:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10b7ac:	00402825 */ 	or	$a1,$v0,$zero
-/*  f10b7b0:	0c004dad */ 	jal	sprintf
-/*  f10b7b4:	95e60242 */ 	lhu	$a2,0x242($t7)
-/*  f10b7b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10b7bc:
-/*  f10b7bc:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f10b7c0:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f10b7c4:	03e00008 */ 	jr	$ra
-/*  f10b7c8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *pakMenuTextPagesFree(struct menuitem *item)
+{
+	if (g_EditingPak == NULL) {
+		sprintf(g_StringPointer, langGet(L_OPTIONS(394))); // "Pages Free: "
+	} else {
+		sprintf(g_StringPointer, langGet(L_OPTIONS(395)), g_EditingPak->pagesfree); // "Pages Free: %d"
+	}
+
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f10b7cc
-/*  f10b7cc:	3c0e8007 */ 	lui	$t6,%hi(var80074a4c)
-/*  f10b7d0:	8dce4a4c */ 	lw	$t6,%lo(var80074a4c)($t6)
+/*  f10b7cc:	3c0e8007 */ 	lui	$t6,%hi(g_EditingPak)
+/*  f10b7d0:	8dce4a4c */ 	lw	$t6,%lo(g_EditingPak)($t6)
 /*  f10b7d4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f10b7d8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10b7dc:	15c00009 */ 	bnez	$t6,.L0f10b804
@@ -3950,8 +3927,8 @@ glabel func0f10b7cc
 .L0f10b804:
 /*  f10b804:	0fc5b9f1 */ 	jal	langGet
 /*  f10b808:	2404578d */ 	addiu	$a0,$zero,0x578d
-/*  f10b80c:	3c0f8007 */ 	lui	$t7,%hi(var80074a4c)
-/*  f10b810:	8def4a4c */ 	lw	$t7,%lo(var80074a4c)($t7)
+/*  f10b80c:	3c0f8007 */ 	lui	$t7,%hi(g_EditingPak)
+/*  f10b810:	8def4a4c */ 	lw	$t7,%lo(g_EditingPak)($t7)
 /*  f10b814:	3c048007 */ 	lui	$a0,%hi(g_StringPointer2)
 /*  f10b818:	8c841444 */ 	lw	$a0,%lo(g_StringPointer2)($a0)
 /*  f10b81c:	00402825 */ 	or	$a1,$v0,$zero
@@ -3967,8 +3944,8 @@ glabel func0f10b7cc
 
 GLOBAL_ASM(
 glabel func0f10b83c
-/*  f10b83c:	3c058007 */ 	lui	$a1,%hi(var80074a4c)
-/*  f10b840:	8ca54a4c */ 	lw	$a1,%lo(var80074a4c)($a1)
+/*  f10b83c:	3c058007 */ 	lui	$a1,%hi(g_EditingPak)
+/*  f10b840:	8ca54a4c */ 	lw	$a1,%lo(g_EditingPak)($a1)
 /*  f10b844:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f10b848:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10b84c:	afa40018 */ 	sw	$a0,0x18($sp)
@@ -5299,7 +5276,7 @@ struct menudialog menudialog_copyfile = {
 	NULL,
 };
 
-u32 var80074a4c = 0x00000000;
+struct pakdata *g_EditingPak = NULL;
 
 // 1aa70
 struct menuitem menuitems_deletegamenote[] = {
@@ -5325,7 +5302,7 @@ struct menuitem menuitems_gamenotes[] = {
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x0000010e, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(389), L_OPTIONS(390), NULL }, // "Note", "Pages"
 	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000c8, 0x0000006e, menucustomDeleteGameNote },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f10b75c, (u32)&func0f10b7cc, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextPagesFree, (u32)&func0f10b7cc, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f10b83c, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, L_OPTIONS(391), 0x00000000, NULL }, // "Press the B Button to exit."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },

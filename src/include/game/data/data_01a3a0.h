@@ -20,7 +20,7 @@ extern struct menudialog menudialog_confirmdelete;
 extern struct menudialog menudialog_1a984;
 extern struct menudialog menudialog_deletefile;
 extern struct menudialog menudialog_copyfile;
-extern u32 var80074a4c;
+extern struct pakdata *g_EditingPak;
 extern struct menudialog menudialog_deletegamenote;
 extern struct menudialog menudialog_gamenotes;
 extern struct menudialog menudialog_controllerpakmenu;
