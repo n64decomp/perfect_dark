@@ -2637,45 +2637,15 @@ s32 menuhandlerDeleteFiles(u32 operation, struct menuitem *item, union handlerda
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f10a51c
-/*  f10a51c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10a520:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10a524:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe3e)
-/*  f10a528:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10a52c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10a530:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10a534:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10a538:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10a53c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10a540:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10a544:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10a548:	002f0821 */ 	addu	$at,$at,$t7
-/*  f10a54c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a550:	a024ee3e */ 	sb	$a0,%lo(g_Menus+0xe3e)($at)
-/*  f10a554:	0fc4433e */ 	jal	func0f110cf8
-/*  f10a558:	30a400ff */ 	andi	$a0,$a1,0xff
-/*  f10a55c:	3c188007 */ 	lui	$t8,%hi(g_MpPlayerNum)
-/*  f10a560:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f10a564:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe3f)
-/*  f10a568:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f10a56c:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10a570:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f10a574:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f10a578:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f10a57c:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10a580:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f10a584:	00390821 */ 	addu	$at,$at,$t9
-/*  f10a588:	0fc4436a */ 	jal	func0f110da8
-/*  f10a58c:	a022ee3f */ 	sb	$v0,%lo(g_Menus+0xe3f)($at)
-/*  f10a590:	3c048007 */ 	lui	$a0,%hi(menudialog_selectlocation)
-/*  f10a594:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10a598:	24844858 */ 	addiu	$a0,$a0,%lo(menudialog_selectlocation)
-/*  f10a59c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10a5a0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10a5a4:	03e00008 */ 	jr	$ra
-/*  f10a5a8:	00000000 */ 	nop
-);
+void func0f10a51c(s32 arg0, u32 arg1)
+{
+	g_Menus[g_MpPlayerNum].unke3e = arg0;
+	g_Menus[g_MpPlayerNum].unke3f = func0f110cf8(arg1);
+
+	func0f110da8();
+
+	menuPushDialog(&menudialog_selectlocation);
+}
 
 s32 menuhandlerPakConfirmDelete(u32 operation, struct menuitem *item, union handlerdata *data)
 {
