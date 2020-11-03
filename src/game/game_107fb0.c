@@ -3908,39 +3908,16 @@ char *pakMenuTextPagesFree(struct menuitem *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f10b7cc
-/*  f10b7cc:	3c0e8007 */ 	lui	$t6,%hi(g_EditingPak)
-/*  f10b7d0:	8dce4a4c */ 	lw	$t6,%lo(g_EditingPak)($t6)
-/*  f10b7d4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10b7d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10b7dc:	15c00009 */ 	bnez	$t6,.L0f10b804
-/*  f10b7e0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10b7e4:	0fc5b9f1 */ 	jal	langGet
-/*  f10b7e8:	2404578c */ 	addiu	$a0,$zero,0x578c
-/*  f10b7ec:	3c048007 */ 	lui	$a0,%hi(g_StringPointer2)
-/*  f10b7f0:	8c841444 */ 	lw	$a0,%lo(g_StringPointer2)($a0)
-/*  f10b7f4:	0c004dad */ 	jal	sprintf
-/*  f10b7f8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f10b7fc:	1000000b */ 	b	.L0f10b82c
-/*  f10b800:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10b804:
-/*  f10b804:	0fc5b9f1 */ 	jal	langGet
-/*  f10b808:	2404578d */ 	addiu	$a0,$zero,0x578d
-/*  f10b80c:	3c0f8007 */ 	lui	$t7,%hi(g_EditingPak)
-/*  f10b810:	8def4a4c */ 	lw	$t7,%lo(g_EditingPak)($t7)
-/*  f10b814:	3c048007 */ 	lui	$a0,%hi(g_StringPointer2)
-/*  f10b818:	8c841444 */ 	lw	$a0,%lo(g_StringPointer2)($a0)
-/*  f10b81c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f10b820:	0c004dad */ 	jal	sprintf
-/*  f10b824:	95e60240 */ 	lhu	$a2,0x240($t7)
-/*  f10b828:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10b82c:
-/*  f10b82c:	3c028007 */ 	lui	$v0,%hi(g_StringPointer2)
-/*  f10b830:	8c421444 */ 	lw	$v0,%lo(g_StringPointer2)($v0)
-/*  f10b834:	03e00008 */ 	jr	$ra
-/*  f10b838:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *pakMenuTextPagesUsed(struct menuitem *item)
+{
+	if (g_EditingPak == NULL) {
+		sprintf(g_StringPointer2, langGet(L_OPTIONS(396))); // "Pages Used: "
+	} else {
+		sprintf(g_StringPointer2, langGet(L_OPTIONS(397)), g_EditingPak->pagesused); // "Pages Used: %d"
+	}
+
+	return g_StringPointer2;
+}
 
 GLOBAL_ASM(
 glabel func0f10b83c
@@ -5302,7 +5279,7 @@ struct menuitem menuitems_gamenotes[] = {
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x0000010e, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(389), L_OPTIONS(390), NULL }, // "Note", "Pages"
 	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000c8, 0x0000006e, menucustomDeleteGameNote },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextPagesFree, (u32)&func0f10b7cc, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextPagesFree, (u32)&pakMenuTextPagesUsed, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f10b83c, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, L_OPTIONS(391), 0x00000000, NULL }, // "Press the B Button to exit."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },

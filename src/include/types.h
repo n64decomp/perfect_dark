@@ -7289,7 +7289,7 @@ struct pakdata {
 	/*0x234*/ u32 unk234;
 	/*0x238*/ u32 unk238;
 	/*0x23c*/ u32 unk23c;
-	/*0x240*/ u16 unk240;
+	/*0x240*/ u16 pagesused;
 	/*0x242*/ u16 pagesfree;
 };
 
