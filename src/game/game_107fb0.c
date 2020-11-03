@@ -1121,54 +1121,32 @@ s32 menuhandler00108f08(u32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f108f90
-/*  f108f90:	27bdff08 */ 	addiu	$sp,$sp,-248
-/*  f108f94:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f108f98:	0fc42228 */ 	jal	func0f1088a0
-/*  f108f9c:	00000000 */ 	nop
-/*  f108fa0:	27a40030 */ 	addiu	$a0,$sp,0x30
-/*  f108fa4:	0c004dad */ 	jal	sprintf
-/*  f108fa8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f108fac:	93ae0030 */ 	lbu	$t6,0x30($sp)
-/*  f108fb0:	27a20030 */ 	addiu	$v0,$sp,0x30
-/*  f108fb4:	2404000a */ 	addiu	$a0,$zero,0xa
-/*  f108fb8:	11c0000a */ 	beqz	$t6,.L0f108fe4
-/*  f108fbc:	00000000 */ 	nop
-/*  f108fc0:	90430000 */ 	lbu	$v1,0x0($v0)
-.L0f108fc4:
-/*  f108fc4:	54830004 */ 	bnel	$a0,$v1,.L0f108fd8
-/*  f108fc8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f108fcc:	10000002 */ 	b	.L0f108fd8
-/*  f108fd0:	a0400000 */ 	sb	$zero,0x0($v0)
-/*  f108fd4:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f108fd8:
-/*  f108fd8:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f108fdc:	1460fff9 */ 	bnez	$v1,.L0f108fc4
-/*  f108fe0:	00000000 */ 	nop
-.L0f108fe4:
-/*  f108fe4:	0fc5b9f1 */ 	jal	langGet
-/*  f108fe8:	2404576b */ 	addiu	$a0,$zero,0x576b
-/*  f108fec:	27a40094 */ 	addiu	$a0,$sp,0x94
-/*  f108ff0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f108ff4:	0c004dad */ 	jal	sprintf
-/*  f108ff8:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f108ffc:	3c188008 */ 	lui	$t8,%hi(var8007fb0c)
-/*  f109000:	8f18fb0c */ 	lw	$t8,%lo(var8007fb0c)($t8)
-/*  f109004:	3c068007 */ 	lui	$a2,%hi(g_StringPointer)
-/*  f109008:	3c078008 */ 	lui	$a3,%hi(var8007fb10)
-/*  f10900c:	8ce7fb10 */ 	lw	$a3,%lo(var8007fb10)($a3)
-/*  f109010:	8cc61440 */ 	lw	$a2,%lo(g_StringPointer)($a2)
-/*  f109014:	24040078 */ 	addiu	$a0,$zero,0x78
-/*  f109018:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f10901c:	0fc55d48 */ 	jal	textWrap
-/*  f109020:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f109024:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f109028:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f10902c:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f109030:	03e00008 */ 	jr	$ra
-/*  f109034:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
-);
+char *pakMenuTextPleaseInsertOriginalPak(struct menuitem *item)
+{
+	char fullbuffer[100];
+	char namebuffer[100];
+	s32 i;
+
+	sprintf(namebuffer, func0f1088a0(item));
+
+	// Replace first line break in namebuffer with a terminator
+	i = 0;
+
+	while (namebuffer[i] != '\0') {
+		if (namebuffer[i] == '\n') {
+			namebuffer[i] = '\0';
+		} else {
+			i++;
+		}
+	}
+
+	// "Please insert the Controller Pak containing your %s into any controller."
+	sprintf(fullbuffer, langGet(L_OPTIONS(363)), namebuffer);
+
+	textWrap(120, fullbuffer, g_StringPointer, var8007fb10, var8007fb0c);
+
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f109038
@@ -4839,7 +4817,7 @@ struct menudialog g_SaveElsewhereMenuDialog = {
 
 // 1a604
 struct menuitem menuitems_1a604[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108f90, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextPleaseInsertOriginalPak, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(365), 0x00000000, menuhandler00108ecc }, // "OK"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(366), 0x00000000, menuhandler00108f08 }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
