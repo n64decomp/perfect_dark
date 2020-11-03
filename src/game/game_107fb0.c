@@ -36,54 +36,6 @@ const u32 var7f1b2f40[] = {0x00000031};
 const u32 var7f1b2f44[] = {0x0000004e};
 const u32 var7f1b2f48[] = {0x000004a0};
 
-const char var7f1b2f4c[] = "location: controller pak 1\n";
-const char var7f1b2f68[] = "%s";
-const char var7f1b2f6c[] = "FileMan: Failure Handler\n";
-const char var7f1b2f88[] = "Copy Memory Freed\n";
-const char var7f1b2f9c[] = "FileMan: Success Handler\n";
-const char var7f1b2fb8[] = "Copy Memory Freed\n";
-const char var7f1b2fcc[] = ">> block read going write, target file is %x-%x\n";
-const char var7f1b3000[] = "SaveElsewhere\n";
-const char var7f1b3010[] = "DELETING: %x-%x\n";
-const char var7f1b3024[] = "MyResult: %d\n";
-const char var7f1b3034[] = "PakOperationSearch>> Search for pak: %x = %d\n";
-
-const u32 var7f1b3064[] = {0x00000080};
-const u32 var7f1b3068[] = {0x00000040};
-const u32 var7f1b306c[] = {0x00000020};
-const u32 var7f1b3070[] = {0x00000008};
-
-const char var7f1b3074[] = "FileAttemptOperation - pak %d op %d\n";
-const char var7f1b309c[] = ">> blockWrite: file:%x pak:%x\n";
-const char var7f1b30bc[] = ">> blockRead: file:%x pak:%x\n";
-const char var7f1b30dc[] = "SUCCESS**->%d\n";
-const char var7f1b30ec[] = "SUCCESS**->%d\n";
-const char var7f1b30fc[] = ">>>>>>>>>>>>> FileWrite: type %d <<<<<<<<<<<<<<<\n";
-const char var7f1b3130[] = "!!!!!!!!!!!! Wanted: %d\n";
-const char var7f1b314c[] = "&&&&&&&&&&&&&&&&&&&&&&&&&&&PASSED**************\n";
-const char var7f1b3180[] = "guid: %x gives pakno: %d\n";
-const char var7f1b319c[] = "Invalidating pak %d\n";
-const char var7f1b31b4[] = "YOUR TARGET: %x-%x\n";
-const char var7f1b31c8[] = "MyResult: %d\n";
-const char var7f1b31d8[] = "COULD NOT DELETE\n";
-const char var7f1b31ec[] = "Multiplayer %d was using that file...\n";
-const char var7f1b3214[] = "GAM";
-const char var7f1b3218[] = "MPG";
-const char var7f1b321c[] = "MPP";
-const char var7f1b3220[] = "CAM";
-
-const u32 var7f1b3224[] = {0x00000080};
-const u32 var7f1b3228[] = {0x00000040};
-const u32 var7f1b322c[] = {0x00000020};
-const u32 var7f1b3230[] = {0x00000008};
-
-const char var7f1b3234[] = "DestPakNo: %d (guid F:%x-%x:P)\n";
-const char var7f1b3254[] = "Copy Memory Alloced\n";
-const char var7f1b326c[] = "COULDNT GET THE RAM!\n";
-const char var7f1b3284[] = "Saving...\n";
-const char var7f1b3290[] = "%s";
-const char var7f1b3294[] = "GETFileNameForThePurposesOfTheFileRenamingChecker: Unknown type %d\n";
-
 char *getSaveLocationName(s32 index)
 {
 	u16 names[] = {
@@ -298,22 +250,61 @@ char *pakMenuTextFailReason(struct menuitem *item)
 	return langGet(g_PakFailReasons[g_Menus[g_MpPlayerNum].unke34]);
 }
 
-GLOBAL_ASM(
-glabel func0f108484
-/*  f108484:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f108488:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10848c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f108490:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f108494:	3c057f1b */ 	lui	$a1,%hi(var7f1b2f4c)
-/*  f108498:	24a52f4c */ 	addiu	$a1,$a1,%lo(var7f1b2f4c)
-/*  f10849c:	0c004dad */ 	jal	sprintf
-/*  f1084a0:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1084a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1084a8:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1084ac:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1084b0:	03e00008 */ 	jr	$ra
-/*  f1084b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+/**
+ * Unused.
+ */
+char *func0f108484(struct menuitem *item)
+{
+	sprintf(g_StringPointer, "location: controller pak 1\n");
+	return g_StringPointer;
+}
+
+const char var7f1b2f68[] = "%s";
+const char var7f1b2f6c[] = "FileMan: Failure Handler\n";
+const char var7f1b2f88[] = "Copy Memory Freed\n";
+const char var7f1b2f9c[] = "FileMan: Success Handler\n";
+const char var7f1b2fb8[] = "Copy Memory Freed\n";
+const char var7f1b2fcc[] = ">> block read going write, target file is %x-%x\n";
+const char var7f1b3000[] = "SaveElsewhere\n";
+const char var7f1b3010[] = "DELETING: %x-%x\n";
+const char var7f1b3024[] = "MyResult: %d\n";
+const char var7f1b3034[] = "PakOperationSearch>> Search for pak: %x = %d\n";
+
+const u32 var7f1b3064[] = {0x00000080};
+const u32 var7f1b3068[] = {0x00000040};
+const u32 var7f1b306c[] = {0x00000020};
+const u32 var7f1b3070[] = {0x00000008};
+
+const char var7f1b3074[] = "FileAttemptOperation - pak %d op %d\n";
+const char var7f1b309c[] = ">> blockWrite: file:%x pak:%x\n";
+const char var7f1b30bc[] = ">> blockRead: file:%x pak:%x\n";
+const char var7f1b30dc[] = "SUCCESS**->%d\n";
+const char var7f1b30ec[] = "SUCCESS**->%d\n";
+const char var7f1b30fc[] = ">>>>>>>>>>>>> FileWrite: type %d <<<<<<<<<<<<<<<\n";
+const char var7f1b3130[] = "!!!!!!!!!!!! Wanted: %d\n";
+const char var7f1b314c[] = "&&&&&&&&&&&&&&&&&&&&&&&&&&&PASSED**************\n";
+const char var7f1b3180[] = "guid: %x gives pakno: %d\n";
+const char var7f1b319c[] = "Invalidating pak %d\n";
+const char var7f1b31b4[] = "YOUR TARGET: %x-%x\n";
+const char var7f1b31c8[] = "MyResult: %d\n";
+const char var7f1b31d8[] = "COULD NOT DELETE\n";
+const char var7f1b31ec[] = "Multiplayer %d was using that file...\n";
+const char var7f1b3214[] = "GAM";
+const char var7f1b3218[] = "MPG";
+const char var7f1b321c[] = "MPP";
+const char var7f1b3220[] = "CAM";
+
+const u32 var7f1b3224[] = {0x00000080};
+const u32 var7f1b3228[] = {0x00000040};
+const u32 var7f1b322c[] = {0x00000020};
+const u32 var7f1b3230[] = {0x00000008};
+
+const char var7f1b3234[] = "DestPakNo: %d (guid F:%x-%x:P)\n";
+const char var7f1b3254[] = "Copy Memory Alloced\n";
+const char var7f1b326c[] = "COULDNT GET THE RAM!\n";
+const char var7f1b3284[] = "Saving...\n";
+const char var7f1b3290[] = "%s";
+const char var7f1b3294[] = "GETFileNameForThePurposesOfTheFileRenamingChecker: Unknown type %d\n";
 
 s32 menuhandler001084b8(u32 operation, struct menuitem *item, union handlerdata *data)
 {
