@@ -5,7 +5,7 @@
 
 char *getSaveLocationName(s32 index);
 char *pakMenuTextLocationName(struct menuitem *item);
-void func0f1080d0(char *dst, u32 ar1, u32 arg2);
+void func0f1080d0(char *buffer, u32 ar1, u32 arg2);
 char *func0f1082b0(struct menuitem *item);
 void func0f108324(s32 arg0);
 u32 func0f1083b0(void);

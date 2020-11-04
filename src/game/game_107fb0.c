@@ -24,18 +24,6 @@
 #include "lib/lib_13900.h"
 #include "types.h"
 
-const char var7f1b2f00[] = "%s-";
-const char var7f1b2f04[] = "==:==";
-const char var7f1b2f0c[] = "%d:%02d";
-const char var7f1b2f14[] = "%d:%02d:%02d";
-const char var7f1b2f24[] = "%s\n";
-const char var7f1b2f28[] = "Setup: item = %x\n";
-
-const u32 var7f1b2f3c[] = {0x000000a0};
-const u32 var7f1b2f40[] = {0x00000031};
-const u32 var7f1b2f44[] = {0x0000004e};
-const u32 var7f1b2f48[] = {0x000004a0};
-
 char *getSaveLocationName(s32 index)
 {
 	u16 names[] = {
@@ -70,115 +58,63 @@ char *pakMenuTextLocationName(struct menuitem *item)
 	return getSaveLocationName(g_Menus[g_MpPlayerNum].unke3c & 0x7f);
 }
 
-GLOBAL_ASM(
-glabel func0f1080d0
-/*  f1080d0:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f1080d4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1080d8:	afa40078 */ 	sw	$a0,0x78($sp)
-/*  f1080dc:	10c00008 */ 	beqz	$a2,.L0f108100
-/*  f1080e0:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f1080e4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1080e8:	10c10005 */ 	beq	$a2,$at,.L0f108100
-/*  f1080ec:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1080f0:	10c10009 */ 	beq	$a2,$at,.L0f108118
-/*  f1080f4:	24e40006 */ 	addiu	$a0,$a3,0x6
-/*  f1080f8:	1000004d */ 	b	.L0f108230
-/*  f1080fc:	00000000 */ 	nop
-.L0f108100:
-/*  f108100:	24e40006 */ 	addiu	$a0,$a3,0x6
-/*  f108104:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f108108:	0fc35593 */ 	jal	func0f0d564c
-/*  f10810c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f108110:	10000047 */ 	b	.L0f108230
-/*  f108114:	00000000 */ 	nop
-.L0f108118:
-/*  f108118:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f10811c:	0fc63669 */ 	jal	func0f18d9a4
-/*  f108120:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f108124:	3c057f1b */ 	lui	$a1,%hi(var7f1b2f00)
-/*  f108128:	24a52f00 */ 	addiu	$a1,$a1,%lo(var7f1b2f00)
-/*  f10812c:	27a40058 */ 	addiu	$a0,$sp,0x58
-/*  f108130:	0c004dad */ 	jal	sprintf
-/*  f108134:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*  f108138:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*  f10813c:	3c0107ff */ 	lui	$at,0x7ff
-/*  f108140:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f108144:	00a1082b */ 	sltu	$at,$a1,$at
-/*  f108148:	14200008 */ 	bnez	$at,.L0f10816c
-/*  f10814c:	00404025 */ 	or	$t0,$v0,$zero
-/*  f108150:	27ae0058 */ 	addiu	$t6,$sp,0x58
-/*  f108154:	3c057f1b */ 	lui	$a1,%hi(var7f1b2f04)
-/*  f108158:	24a52f04 */ 	addiu	$a1,$a1,%lo(var7f1b2f04)
-/*  f10815c:	0c004dad */ 	jal	sprintf
-/*  f108160:	010e2021 */ 	addu	$a0,$t0,$t6
-/*  f108164:	10000032 */ 	b	.L0f108230
-/*  f108168:	00000000 */ 	nop
-.L0f10816c:
-/*  f10816c:	2404003c */ 	addiu	$a0,$zero,0x3c
-/*  f108170:	00a4001b */ 	divu	$zero,$a1,$a0
-/*  f108174:	00004810 */ 	mfhi	$t1
-/*  f108178:	00002812 */ 	mflo	$a1
-/*  f10817c:	24070018 */ 	addiu	$a3,$zero,0x18
-/*  f108180:	14800002 */ 	bnez	$a0,.L0f10818c
-/*  f108184:	00000000 */ 	nop
-/*  f108188:	0007000d */ 	break	0x7
-.L0f10818c:
-/*  f10818c:	00a4001b */ 	divu	$zero,$a1,$a0
-/*  f108190:	00001012 */ 	mflo	$v0
-/*  f108194:	00007810 */ 	mfhi	$t7
-/*  f108198:	afaf0034 */ 	sw	$t7,0x34($sp)
-/*  f10819c:	14800002 */ 	bnez	$a0,.L0f1081a8
-/*  f1081a0:	00000000 */ 	nop
-/*  f1081a4:	0007000d */ 	break	0x7
-.L0f1081a8:
-/*  f1081a8:	0047001a */ 	div	$zero,$v0,$a3
-/*  f1081ac:	00001812 */ 	mflo	$v1
-/*  f1081b0:	0000c010 */ 	mfhi	$t8
-/*  f1081b4:	00603025 */ 	or	$a2,$v1,$zero
-/*  f1081b8:	14e00002 */ 	bnez	$a3,.L0f1081c4
-/*  f1081bc:	00000000 */ 	nop
-/*  f1081c0:	0007000d */ 	break	0x7
-.L0f1081c4:
-/*  f1081c4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1081c8:	14e10004 */ 	bne	$a3,$at,.L0f1081dc
-/*  f1081cc:	3c018000 */ 	lui	$at,0x8000
-/*  f1081d0:	14410002 */ 	bne	$v0,$at,.L0f1081dc
-/*  f1081d4:	00000000 */ 	nop
-/*  f1081d8:	0006000d */ 	break	0x6
-.L0f1081dc:
-/*  f1081dc:	afb80038 */ 	sw	$t8,0x38($sp)
-/*  f1081e0:	1460000b */ 	bnez	$v1,.L0f108210
-/*  f1081e4:	afa50040 */ 	sw	$a1,0x40($sp)
-/*  f1081e8:	27b90058 */ 	addiu	$t9,$sp,0x58
-/*  f1081ec:	3c057f1b */ 	lui	$a1,%hi(var7f1b2f0c)
-/*  f1081f0:	24a52f0c */ 	addiu	$a1,$a1,%lo(var7f1b2f0c)
-/*  f1081f4:	01192021 */ 	addu	$a0,$t0,$t9
-/*  f1081f8:	03003025 */ 	or	$a2,$t8,$zero
-/*  f1081fc:	8fa70034 */ 	lw	$a3,0x34($sp)
-/*  f108200:	0c004dad */ 	jal	sprintf
-/*  f108204:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f108208:	10000009 */ 	b	.L0f108230
-/*  f10820c:	00000000 */ 	nop
-.L0f108210:
-/*  f108210:	8fab0034 */ 	lw	$t3,0x34($sp)
-/*  f108214:	27aa0058 */ 	addiu	$t2,$sp,0x58
-/*  f108218:	3c057f1b */ 	lui	$a1,%hi(var7f1b2f14)
-/*  f10821c:	24a52f14 */ 	addiu	$a1,$a1,%lo(var7f1b2f14)
-/*  f108220:	010a2021 */ 	addu	$a0,$t0,$t2
-/*  f108224:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f108228:	0c004dad */ 	jal	sprintf
-/*  f10822c:	afab0010 */ 	sw	$t3,0x10($sp)
-.L0f108230:
-/*  f108230:	3c057f1b */ 	lui	$a1,%hi(var7f1b2f24)
-/*  f108234:	24a52f24 */ 	addiu	$a1,$a1,%lo(var7f1b2f24)
-/*  f108238:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f10823c:	0c004dad */ 	jal	sprintf
-/*  f108240:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f108244:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f108248:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*  f10824c:	03e00008 */ 	jr	$ra
-/*  f108250:	00000000 */ 	nop
-);
+/**
+ * Concatenates an MP player name with the amount of time played
+ * for displaying in the copy/delete MP player menus.
+ *
+ * Suspected that arg2 is a save file type (solo, MP game, MP player)
+ * and that this builds the title for whatever the file type is.
+ */
+void func0f1080d0(char *buffer, u32 arg1, u32 arg2)
+{
+	s32 days;
+	char tmpbuffer1[28];
+	char namebuffer[20];
+	u32 totalinseconds;
+	s32 pos;
+	s32 hours;
+	s32 minutes;
+	s32 seconds;
+	s32 totalinhours;
+
+	switch (arg2) {
+	case 0:
+	case 1:
+		func0f0d564c(arg1 + 6, tmpbuffer1, 0);
+		break;
+	case 2:
+		func0f18d9a4(arg1 + 6, namebuffer, &totalinseconds);
+		pos = sprintf(tmpbuffer1, "%s-", namebuffer);
+
+		if (totalinseconds >= 0x7ffffff) { // about 4.25 years
+			sprintf(tmpbuffer1 + pos, "==:==");
+		} else {
+			seconds = totalinseconds % 60;
+			totalinseconds = totalinseconds / 60;
+			totalinhours = totalinseconds / 60;
+			minutes = totalinseconds % 60;
+			days = totalinhours / 24;
+			hours = totalinhours % 24;
+
+			if (days == 0) {
+				// seconds is passed but has no placeholder
+				sprintf(tmpbuffer1 + pos, "%d:%02d", hours, minutes, seconds);
+			} else {
+				sprintf(tmpbuffer1 + pos, "%d:%02d:%02d", days, hours, minutes);
+			}
+		}
+		break;
+	}
+
+	sprintf(buffer, "%s\n", tmpbuffer1);
+}
+
+const char var7f1b2f28[] = "Setup: item = %x\n";
+
+const u32 var7f1b2f3c[] = {0x000000a0};
+const u32 var7f1b2f40[] = {0x00000031};
+const u32 var7f1b2f44[] = {0x0000004e};
+const u32 var7f1b2f48[] = {0x000004a0};
 
 s32 menuhandler00108254(u32 operation, struct menuitem *item, union handlerdata *data)
 {
