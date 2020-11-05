@@ -1766,31 +1766,15 @@ const char var7f1b3294[] = "GETFileNameForThePurposesOfTheFileRenamingChecker: U
 u32 var8007465c = 0x01020304;
 u32 var80074660 = 0x00000000;
 
-GLOBAL_ASM(
-glabel func0f109954
-/*  f109954:	3c038007 */ 	lui	$v1,%hi(g_SaveLocations)
-/*  f109958:	8c635bc0 */ 	lw	$v1,%lo(g_SaveLocations)($v1)
-/*  f10995c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f109960:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f109964:	1060000c */ 	beqz	$v1,.L0f109998
-/*  f109968:	00803825 */ 	or	$a3,$a0,$zero
-/*  f10996c:	000770c0 */ 	sll	$t6,$a3,0x3
-/*  f109970:	006e1021 */ 	addu	$v0,$v1,$t6
-/*  f109974:	8c4f02d8 */ 	lw	$t7,0x2d8($v0)
-/*  f109978:	3c04800a */ 	lui	$a0,%hi(var800a22c0)
-/*  f10997c:	248422c0 */ 	addiu	$a0,$a0,%lo(var800a22c0)
-/*  f109980:	ac8f0000 */ 	sw	$t7,0x0($a0)
-/*  f109984:	945802dc */ 	lhu	$t8,0x2dc($v0)
-/*  f109988:	00002825 */ 	or	$a1,$zero,$zero
-/*  f10998c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f109990:	0fc42539 */ 	jal	func0f1094e4
-/*  f109994:	a4980004 */ 	sh	$t8,0x4($a0)
-.L0f109998:
-/*  f109998:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10999c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1099a0:	03e00008 */ 	jr	$ra
-/*  f1099a4:	00000000 */ 	nop
-);
+void func0f109954(s32 arg0)
+{
+	if (g_SaveLocations.locations[0]) {
+		var800a22c0.unk00 = g_SaveLocations.locations[0]->unk2d8[arg0].unk00;
+		var800a22c0.unk04 = g_SaveLocations.locations[0]->unk2d8[arg0].unk04;
+
+		func0f1094e4(&var800a22c0, 0, NULL);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1099a8

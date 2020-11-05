@@ -1574,7 +1574,7 @@ void soloPushCoopModeEndscreen(void)
 	}
 
 	if (g_Vars.currentplayer == g_Vars.bond) {
-		func0f1094e4(&var800a22c0, 0, 0);
+		func0f1094e4(&var800a22c0, 0, NULL);
 	}
 
 	g_MpPlayerNum = prevplayernum;

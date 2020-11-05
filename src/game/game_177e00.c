@@ -946,8 +946,8 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 	}
 
 	if ((g_MpPlayers[g_MpPlayerNum].options & OPTION_ASKEDSAVEPLAYER) == 0
-			&& g_MpPlayers[g_MpPlayerNum].saved == false
-			&& g_MpPlayers[g_MpPlayerNum].unk50 == 0) {
+			&& g_MpPlayers[g_MpPlayerNum].unk4c.unk00 == false
+			&& g_MpPlayers[g_MpPlayerNum].unk4c.unk04 == 0) {
 		g_MpPlayers[g_MpPlayerNum].options |= OPTION_ASKEDSAVEPLAYER;
 		menuPushDialog(&g_MpEndscreenSavePlayerMenuDialog);
 	}

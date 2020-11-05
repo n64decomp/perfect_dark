@@ -4577,11 +4577,15 @@ struct mpchr {
 	/*0x47*/ u8 simtype;
 };
 
+struct savelocation_2d8 {
+	u32 unk00;
+	u16 unk04;
+};
+
 struct mpplayer {
 	/*0x00*/ struct mpchr base;
 	/*0x48*/ u16 options;
-	/*0x4c*/ bool saved;
-	/*0x50*/ u16 unk50;
+	/*0x4c*/ struct savelocation_2d8 unk4c;
 	/*0x54*/ u32 kills;
 	/*0x58*/ u32 deaths;
 	/*0x5c*/ u32 gamesplayed;
@@ -4650,9 +4654,7 @@ struct mpsetup {
 	/*0x800acb9e*/ u16 chrslots;
 	/*0x800acba0*/ u8 weapons[6];
 	/*0x800acba6*/ u8 paused;
-	/*0x800acba8*/ bool saved;
-	/*0x800acbac*/ u16 unk24;
-	/*0x800acbae*/ u16 unk26;
+	/*0x800acba8*/ struct savelocation_2d8 unk20;
 };
 
 struct savefile_setup {
@@ -4697,11 +4699,6 @@ struct mparena {
 	s16 stagenum;
 	u8 unlock;
 	u16 name;
-};
-
-struct savelocation_2d8 {
-	u32 unk00;
-	u16 unk04;
 };
 
 struct savelocation {

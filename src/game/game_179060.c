@@ -575,7 +575,7 @@ s32 menuhandlerMpSaveSetupOverwrite(u32 operation, struct menuitem *item, union 
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
-		func0f1094e4(&g_MpSetup.saved, 4, 0);
+		func0f1094e4(&g_MpSetup.unk20, 4, NULL);
 	}
 
 	return 0;
@@ -3459,8 +3459,8 @@ s32 menuhandlerMpRestoreHandicapDefaults(u32 operation, struct menuitem *item, u
 s32 menudialogMpReady(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
-		if (g_MpPlayers[g_MpPlayerNum].saved && g_MpPlayers[g_MpPlayerNum].unk50) {
-			func0f1094e4(&g_MpPlayers[g_MpPlayerNum].saved, 3, (void *)g_MpPlayerNum);
+		if (g_MpPlayers[g_MpPlayerNum].unk4c.unk00 && g_MpPlayers[g_MpPlayerNum].unk4c.unk04) {
+			func0f1094e4(&g_MpPlayers[g_MpPlayerNum].unk4c, 3, (void *)g_MpPlayerNum);
 		}
 	}
 
@@ -5602,7 +5602,7 @@ s32 menuhandlerMpLock(u32 operation, struct menuitem *item, union handlerdata *d
 s32 menuhandlerMpSavePlayer(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		if (g_MpPlayers[g_MpPlayerNum].saved == false) {
+		if (g_MpPlayers[g_MpPlayerNum].unk4c.unk00 == false) {
 			func0f10a51c(6, 2);
 		} else {
 			menuPushDialog(&g_MpSaveChrMenuDialog);
@@ -5614,7 +5614,7 @@ s32 menuhandlerMpSavePlayer(u32 operation, struct menuitem *item, union handlerd
 
 char *mpMenuTextSavePlayerOrCopy(struct menuitem *item)
 {
-	if (g_MpPlayers[g_MpPlayerNum].saved == false) {
+	if (g_MpPlayers[g_MpPlayerNum].unk4c.unk00 == false) {
 		return langGet(L_MPMENU(38)); // "Save Player"
 	}
 
@@ -5641,10 +5641,10 @@ s32 menuhandler0017ef30(u32 operation, struct menuitem *item, union handlerdata 
 s32 menuhandlerMpSaveSettings(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		if (g_MpSetup.saved == false) {
+		if (g_MpSetup.unk20.unk00 == false) {
 			menuPushDialog(&menudialog_mpsavesetupname);
 		} else {
-			func0f108324(g_MpSetup.unk24);
+			func0f108324(g_MpSetup.unk20.unk04);
 			menuPushDialog(&menudialog_mpsavesetup);
 		}
 	}
