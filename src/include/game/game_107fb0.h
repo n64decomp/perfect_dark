@@ -45,7 +45,7 @@ char *pakMenuTextPagesFree(struct menuitem *item);
 char *pakMenuTextPagesUsed(struct menuitem *item);
 char *pakMenuTextStatusMessage(struct menuitem *item);
 char *pakMenuTextEditingPakName(struct menuitem *item);
-u32 func0f10c900(void);
+bool pakConsiderPushingFileSelectMenuDialog(void);
 void pakPushPakMenuDialog(void);
 s32 menucustomChooseAgent(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menucustomDeleteGameNote(u32 operation, struct menuitem *item, union handlerdata *data);
