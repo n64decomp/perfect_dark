@@ -332,60 +332,57 @@ void func0f10865c(u16 arg0)
 	menuPushDialog(&menudialog_1a410);
 }
 
-GLOBAL_ASM(
-glabel func0f1086b8
-/*  f1086b8:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f1086bc:	3c0e8007 */ 	lui	$t6,%hi(savelocations2)
-/*  f1086c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1086c4:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f1086c8:	25ce4408 */ 	addiu	$t6,$t6,%lo(savelocations2)
-/*  f1086cc:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1086d0:	27a8002c */ 	addiu	$t0,$sp,0x2c
-/*  f1086d4:	00044880 */ 	sll	$t1,$a0,0x2
-/*  f1086d8:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f1086dc:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f1086e0:	3c038007 */ 	lui	$v1,%hi(g_SaveLocations)
-/*  f1086e4:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f1086e8:	ad190004 */ 	sw	$t9,0x4($t0)
-/*  f1086ec:	95c10008 */ 	lhu	$at,0x8($t6)
-/*  f1086f0:	00691821 */ 	addu	$v1,$v1,$t1
-/*  f1086f4:	24060005 */ 	addiu	$a2,$zero,0x5
-/*  f1086f8:	a5010008 */ 	sh	$at,0x8($t0)
-/*  f1086fc:	8c635bc0 */ 	lw	$v1,%lo(g_SaveLocations)($v1)
-/*  f108700:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f108704:	00003825 */ 	or	$a3,$zero,$zero
-.L0f108708:
-/*  f108708:	80640300 */ 	lb	$a0,0x300($v1)
-/*  f10870c:	50a40010 */ 	beql	$a1,$a0,.L0f108750
-/*  f108710:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f108714:	5440000d */ 	bnezl	$v0,.L0f10874c
-/*  f108718:	2442ffff */ 	addiu	$v0,$v0,-1
-/*  f10871c:	8faa003c */ 	lw	$t2,0x3c($sp)
-/*  f108720:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f108724:	00075840 */ 	sll	$t3,$a3,0x1
-/*  f108728:	15410005 */ 	bne	$t2,$at,.L0f108740
-/*  f10872c:	010b6021 */ 	addu	$t4,$t0,$t3
-/*  f108730:	0fc5b9f1 */ 	jal	langGet
-/*  f108734:	95840000 */ 	lhu	$a0,0x0($t4)
-/*  f108738:	10000009 */ 	b	.L0f108760
-/*  f10873c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f108740:
-/*  f108740:	10000006 */ 	b	.L0f10875c
-/*  f108744:	00801025 */ 	or	$v0,$a0,$zero
-/*  f108748:	2442ffff */ 	addiu	$v0,$v0,-1
-.L0f10874c:
-/*  f10874c:	24e70001 */ 	addiu	$a3,$a3,0x1
-.L0f108750:
-/*  f108750:	14e6ffed */ 	bne	$a3,$a2,.L0f108708
-/*  f108754:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f108758:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10875c:
-/*  f10875c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f108760:
-/*  f108760:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f108764:	03e00008 */ 	jr	$ra
-/*  f108768:	00000000 */ 	nop
-);
+// 1a3c0
+struct menuitem menuitems_1a3c0[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108550, 0x00000000, menuhandler001084b8 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextFailReason, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS(321), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+// 1a410
+struct menudialog menudialog_1a410 = {
+	MENUDIALOGTYPE_DANGER,
+	L_OPTIONS(320), // "Error"
+	menuitems_1a3c0,
+	NULL,
+	0x00000080,
+	NULL,
+};
+
+/**
+ * This function is a bit weird. It can return a pointer to a string
+ * or return a regular s8 (ie. not a pointer). I'm casting the s8 below.
+ */
+char *func0f1086b8(s32 arg0, s32 arg1, s32 arg2)
+{
+	u16 names[] = {
+		L_OPTIONS(111), // "Game Pak"
+		L_OPTIONS(112), // "Controller Pak 1"
+		L_OPTIONS(113), // "Controller Pak 2"
+		L_OPTIONS(114), // "Controller Pak 3"
+		L_OPTIONS(115), // "Controller Pak 4"
+	};
+
+	s32 i;
+	s32 remaining = arg2;
+
+	for (i = 0; i < ARRAYCOUNT(names); i++) {
+		if (g_SaveLocations.locations[arg0]->unk300[i] != -1) {
+			if (remaining == 0) {
+				if (arg1 == 4) {
+					return langGet(names[i]);
+				}
+
+				return (char *)g_SaveLocations.locations[arg0]->unk300[i];
+			}
+
+			remaining--;
+		}
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f10876c
@@ -1592,34 +1589,6 @@ glabel pakDeleteFile
 /*  f1097c8:	03e00008 */ 	jr	$ra
 /*  f1097cc:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
-
-// 1a3c0
-struct menuitem menuitems_1a3c0[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108550, 0x00000000, menuhandler001084b8 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextFailReason, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS(321), 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-// 1a410
-struct menudialog menudialog_1a410 = {
-	MENUDIALOGTYPE_DANGER,
-	L_OPTIONS(320), // "Error"
-	menuitems_1a3c0,
-	NULL,
-	0x00000080,
-	NULL,
-};
-
-// 1a428
-u16 savelocations2[] = {
-	L_OPTIONS(111), // "Game Pak"
-	L_OPTIONS(112), // "Controller Pak 1"
-	L_OPTIONS(113), // "Controller Pak 2"
-	L_OPTIONS(114), // "Controller Pak 3"
-	L_OPTIONS(115), // "Controller Pak 4"
-	0x0000,
-};
 
 // 1a434
 u16 iomessages2[] = {

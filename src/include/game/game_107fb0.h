@@ -13,7 +13,7 @@ void func0f1083d0(s32 arg0, s32 arg1);
 char *pakMenuTextFailReason(struct menuitem *item);
 u32 func0f108550(void);
 void func0f10865c(u16 arg0);
-u32 func0f1086b8(void);
+char *func0f1086b8(s32 arg0, s32 arg1, s32 arg2);
 u32 func0f10876c(void);
 char *func0f1088a0(struct menuitem *item);
 u32 func0f10898c(void);
