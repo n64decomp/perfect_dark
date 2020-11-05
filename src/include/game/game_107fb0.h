@@ -26,7 +26,7 @@ bool func0f1094e4(struct savelocation_2d8 *arg0, s32 arg1, void *arg2);
 u32 pakDeleteFile(void);
 void func0f1097d0(s32 device);
 void func0f109954(s32 arg0);
-u32 func0f1099a8(void);
+void func0f1099a8(char *buffer, s32 arg1);
 void func0f109a68(char *name);
 void func0f109bb4(char *name);
 u32 func0f109c8c(void);

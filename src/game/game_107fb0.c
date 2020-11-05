@@ -1760,8 +1760,6 @@ const char var7f1b3234[] = "DestPakNo: %d (guid F:%x-%x:P)\n";
 const char var7f1b3254[] = "Copy Memory Alloced\n";
 const char var7f1b326c[] = "COULDNT GET THE RAM!\n";
 const char var7f1b3284[] = "Saving...\n";
-const char var7f1b3290[] = "%s";
-const char var7f1b3294[] = "GETFileNameForThePurposesOfTheFileRenamingChecker: Unknown type %d\n";
 
 u32 var8007465c = 0x01020304;
 u32 var80074660 = 0x00000000;
@@ -1776,60 +1774,27 @@ void func0f109954(s32 arg0)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f1099a8
-/*  f1099a8:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f1099ac:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f1099b0:	3c18800a */ 	lui	$t8,%hi(g_Menus+0xe3f)
-/*  f1099b4:	3c088007 */ 	lui	$t0,%hi(g_SaveLocations)
-/*  f1099b8:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f1099bc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1099c0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1099c4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1099c8:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1099cc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1099d0:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f1099d4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f1099d8:	9318ee3f */ 	lbu	$t8,%lo(g_Menus+0xe3f)($t8)
-/*  f1099dc:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f1099e0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1099e4:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f1099e8:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f1099ec:	8d085bc0 */ 	lw	$t0,%lo(g_SaveLocations)($t0)
-/*  f1099f0:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f1099f4:	a3a00024 */ 	sb	$zero,0x24($sp)
-/*  f1099f8:	9102030b */ 	lbu	$v0,0x30b($t0)
-/*  f1099fc:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f109a00:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f109a04:	10400007 */ 	beqz	$v0,.L0f109a24
-/*  f109a08:	24e40006 */ 	addiu	$a0,$a3,0x6
-/*  f109a0c:	10410005 */ 	beq	$v0,$at,.L0f109a24
-/*  f109a10:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f109a14:	10410008 */ 	beq	$v0,$at,.L0f109a38
-/*  f109a18:	24e40006 */ 	addiu	$a0,$a3,0x6
-/*  f109a1c:	10000009 */ 	b	.L0f109a44
-/*  f109a20:	00000000 */ 	nop
-.L0f109a24:
-/*  f109a24:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f109a28:	0fc35593 */ 	jal	func0f0d564c
-/*  f109a2c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f109a30:	10000004 */ 	b	.L0f109a44
-/*  f109a34:	00000000 */ 	nop
-.L0f109a38:
-/*  f109a38:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f109a3c:	0fc63669 */ 	jal	func0f18d9a4
-/*  f109a40:	27a60020 */ 	addiu	$a2,$sp,0x20
-.L0f109a44:
-/*  f109a44:	3c057f1b */ 	lui	$a1,%hi(var7f1b3290)
-/*  f109a48:	24a53290 */ 	addiu	$a1,$a1,%lo(var7f1b3290)
-/*  f109a4c:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f109a50:	0c004dad */ 	jal	sprintf
-/*  f109a54:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f109a58:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f109a5c:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f109a60:	03e00008 */ 	jr	$ra
-/*  f109a64:	00000000 */ 	nop
-);
+void func0f1099a8(char *buffer, s32 arg1)
+{
+	char localbuffer[20];
+	u32 sp20;
+
+	localbuffer[0] = '\0';
+
+	switch (g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f]->filetype) {
+	case 0:
+	case 1:
+		func0f0d564c(arg1 + 6, localbuffer, 0);
+		break;
+	case 2:
+		func0f18d9a4(arg1 + 6, localbuffer, &sp20);
+		break;
+	}
+
+	sprintf(buffer, "%s", localbuffer);
+}
+
+const char var7f1b3294[] = "GETFileNameForThePurposesOfTheFileRenamingChecker: Unknown type %d\n";
 
 GLOBAL_ASM(
 glabel func0f109a68
