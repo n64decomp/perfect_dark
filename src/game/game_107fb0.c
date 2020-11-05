@@ -910,63 +910,25 @@ s32 menuhandlerAcknowledgePakFileLost(u32 operation, struct menuitem *item, unio
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f108d8c
-/*  f108d8c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f108d90:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f108d94:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f108d98:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe4c)
-/*  f108d9c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f108da0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f108da4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f108da8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f108dac:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f108db0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f108db4:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f108db8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f108dbc:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f108dc0:	0fc479ac */ 	jal	func0f11e6b0
-/*  f108dc4:	8c84ee4c */ 	lw	$a0,%lo(g_Menus+0xe4c)($a0)
-/*  f108dc8:	04400010 */ 	bltz	$v0,.L0f108e0c
-/*  f108dcc:	00022600 */ 	sll	$a0,$v0,0x18
-/*  f108dd0:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
-/*  f108dd4:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f108dd8:	3c05800a */ 	lui	$a1,%hi(g_Menus+0xe48)
-/*  f108ddc:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f108de0:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f108de4:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f108de8:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f108dec:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f108df0:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f108df4:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f108df8:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f108dfc:	00a82821 */ 	addu	$a1,$a1,$t0
-/*  f108e00:	8ca5ee48 */ 	lw	$a1,%lo(g_Menus+0xe48)($a1)
-/*  f108e04:	0fc45a18 */ 	jal	func0f116860
-/*  f108e08:	03002025 */ 	or	$a0,$t8,$zero
-.L0f108e0c:
-/*  f108e0c:	3c028007 */ 	lui	$v0,%hi(g_SaveLocations)
-/*  f108e10:	3c058007 */ 	lui	$a1,%hi(g_SaveLocations+0x10)
-/*  f108e14:	24a55bd0 */ 	addiu	$a1,$a1,%lo(g_SaveLocations+0x10)
-/*  f108e18:	24425bc0 */ 	addiu	$v0,$v0,%lo(g_SaveLocations)
-/*  f108e1c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f108e20:	8c430000 */ 	lw	$v1,0x0($v0)
-.L0f108e24:
-/*  f108e24:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f108e28:	10600002 */ 	beqz	$v1,.L0f108e34
-/*  f108e2c:	00000000 */ 	nop
-/*  f108e30:	a064030c */ 	sb	$a0,0x30c($v1)
-.L0f108e34:
-/*  f108e34:	5445fffb */ 	bnel	$v0,$a1,.L0f108e24
-/*  f108e38:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f108e3c:	3c048007 */ 	lui	$a0,%hi(menudialog_savelost)
-/*  f108e40:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f108e44:	24844564 */ 	addiu	$a0,$a0,%lo(menudialog_savelost)
-/*  f108e48:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108e4c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f108e50:	03e00008 */ 	jr	$ra
-/*  f108e54:	00000000 */ 	nop
-);
+void func0f108d8c(void)
+{
+	s32 value;
+	s32 i;
+
+	value = func0f11e6b0(g_Menus[g_MpPlayerNum].unke4c);
+
+	if (value >= 0) {
+		func0f116860(value, g_Menus[g_MpPlayerNum].unke48);
+	}
+
+	for (i = 0; i < 4; i++) {
+		if (g_SaveLocations.locations[i]) {
+			g_SaveLocations.locations[i]->unk30c = 1;
+		}
+	}
+
+	menuPushDialog(&menudialog_savelost);
+}
 
 s32 menudialog00108e58(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {

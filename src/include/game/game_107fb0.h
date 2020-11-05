@@ -18,7 +18,7 @@ u32 func0f10876c(void);
 char *func0f1088a0(struct menuitem *item);
 u32 func0f10898c(void);
 u32 func0f108a80(void);
-u32 func0f108d8c(void);
+void func0f108d8c(void);
 char *pakMenuTextPleaseInsertOriginalPak(struct menuitem *item);
 void func0f109038(s32 arg0);
 u32 func0f1091e0(void);
