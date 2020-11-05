@@ -431,7 +431,7 @@ void func0f167e7c(s32 stagenum)
 	func0000eadc();
 
 	if (stagenum == STAGE_BOOTPAKMENU) {
-		func0f10c970();
+		pakPushPakMenuDialog();
 	}
 
 	if (stagenum == STAGE_4MBMENU) {

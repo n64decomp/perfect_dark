@@ -4485,29 +4485,13 @@ glabel func0f10c900
 /*  f10c96c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f10c970
-/*  f10c970:	3c028007 */ 	lui	$v0,%hi(g_MpPlayerNum)
-/*  f10c974:	24421448 */ 	addiu	$v0,$v0,%lo(g_MpPlayerNum)
-/*  f10c978:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f10c97c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10c980:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10c984:	3c048007 */ 	lui	$a0,%hi(menudialog_controllerpakmenu)
-/*  f10c988:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  f10c98c:	24844c38 */ 	addiu	$a0,$a0,%lo(menudialog_controllerpakmenu)
-/*  f10c990:	24050007 */ 	addiu	$a1,$zero,0x7
-/*  f10c994:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f10c998:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f10c99c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10c9a0:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f10c9a4:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
-/*  f10c9a8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f10c9ac:	03e00008 */ 	jr	$ra
-/*  f10c9b0:	ac2f1448 */ 	sw	$t7,%lo(g_MpPlayerNum)($at)
-/*  f10c9b4:	00000000 */ 	nop
-/*  f10c9b8:	00000000 */ 	nop
-/*  f10c9bc:	00000000 */ 	nop
-);
+void pakPushPakMenuDialog(void)
+{
+	s32 prevplayernum = g_MpPlayerNum;
+	g_MpPlayerNum = 0;
+	menuPushRootDialog(&menudialog_controllerpakmenu, MENUROOT_BOOTPAKMGR);
+	g_MpPlayerNum = prevplayernum;
+}
 
 // 1a684
 struct menuitem menuitems_changefilename[] = {
