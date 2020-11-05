@@ -1796,135 +1796,49 @@ void func0f1099a8(char *buffer, s32 arg1)
 
 const char var7f1b3294[] = "GETFileNameForThePurposesOfTheFileRenamingChecker: Unknown type %d\n";
 
-GLOBAL_ASM(
-glabel func0f109a68
-.late_rodata
-glabel var7f1b36cc
-.word func0f109a68+0x64 # f109acc
-glabel var7f1b36d0
-.word func0f109a68+0x7c # f109ae4
-glabel var7f1b36d4
-.word func0f109a68+0x7c # f109ae4
-glabel var7f1b36d8
-.word func0f109a68+0x7c # f109ae4
-glabel var7f1b36dc
-.word func0f109a68+0x7c # f109ae4
-glabel var7f1b36e0
-.word func0f109a68+0x138 # f109ba0
-glabel var7f1b36e4
-.word func0f109a68+0x90 # f109af8
-glabel var7f1b36e8
-.word func0f109a68+0x128 # f109b90
-glabel var7f1b36ec
-.word func0f109a68+0x138 # f109ba0
-glabel var7f1b36f0
-.word func0f109a68+0x64 # f109acc
-glabel var7f1b36f4
-.word func0f109a68+0x64 # f109acc
-glabel var7f1b36f8
-.word func0f109a68+0x64 # f109acc
-glabel var7f1b36fc
-.word func0f109a68+0x90 # f109af8
-glabel var7f1b3700
-.word func0f109a68+0x128 # f109b90
-glabel var7f1b3704
-.word func0f109a68+0x138 # f109ba0
-glabel var7f1b3708
-.word func0f109a68+0x7c # f109ae4
-glabel var7f1b370c
-.word func0f109a68+0x7c # f109ae4
-glabel var7f1b3710
-.word func0f109a68+0x7c # f109ae4
-.text
-/*  f109a68:	3c078007 */ 	lui	$a3,%hi(g_MpPlayerNum)
-/*  f109a6c:	8ce71448 */ 	lw	$a3,%lo(g_MpPlayerNum)($a3)
-/*  f109a70:	3c0f800a */ 	lui	$t7,%hi(g_Menus)
-/*  f109a74:	25efe000 */ 	addiu	$t7,$t7,%lo(g_Menus)
-/*  f109a78:	000770c0 */ 	sll	$t6,$a3,0x3
-/*  f109a7c:	01c77023 */ 	subu	$t6,$t6,$a3
-/*  f109a80:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f109a84:	01c77021 */ 	addu	$t6,$t6,$a3
-/*  f109a88:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f109a8c:	01c77023 */ 	subu	$t6,$t6,$a3
-/*  f109a90:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f109a94:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f109a98:	90580e3e */ 	lbu	$t8,0xe3e($v0)
-/*  f109a9c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f109aa0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f109aa4:	2f010012 */ 	sltiu	$at,$t8,0x12
-/*  f109aa8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f109aac:	1020003c */ 	beqz	$at,.L0f109ba0
-/*  f109ab0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f109ab4:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f109ab8:	3c017f1b */ 	lui	$at,%hi(var7f1b36cc)
-/*  f109abc:	00380821 */ 	addu	$at,$at,$t8
-/*  f109ac0:	8c3836cc */ 	lw	$t8,%lo(var7f1b36cc)($at)
-/*  f109ac4:	03000008 */ 	jr	$t8
-/*  f109ac8:	00000000 */ 	nop
-/*  f109acc:	3c05800a */ 	lui	$a1,%hi(g_SoloSaveFile)
-/*  f109ad0:	24a52200 */ 	addiu	$a1,$a1,%lo(g_SoloSaveFile)
-/*  f109ad4:	0c004c4c */ 	jal	strcpy
-/*  f109ad8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f109adc:	10000031 */ 	b	.L0f109ba4
-/*  f109ae0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f109ae4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f109ae8:	0c004c4c */ 	jal	strcpy
-/*  f109aec:	24450e53 */ 	addiu	$a1,$v0,0xe53
-/*  f109af0:	1000002c */ 	b	.L0f109ba4
-/*  f109af4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f109af8:	0007c880 */ 	sll	$t9,$a3,0x2
-/*  f109afc:	0327c821 */ 	addu	$t9,$t9,$a3
-/*  f109b00:	3c08800b */ 	lui	$t0,%hi(g_MpPlayers)
-/*  f109b04:	2508c7b8 */ 	addiu	$t0,$t0,%lo(g_MpPlayers)
-/*  f109b08:	0019c940 */ 	sll	$t9,$t9,0x5
-/*  f109b0c:	03284821 */ 	addu	$t1,$t9,$t0
-/*  f109b10:	912a0000 */ 	lbu	$t2,0x0($t1)
-/*  f109b14:	00002025 */ 	or	$a0,$zero,$zero
-/*  f109b18:	00003025 */ 	or	$a2,$zero,$zero
-/*  f109b1c:	11400019 */ 	beqz	$t2,.L0f109b84
-/*  f109b20:	00075880 */ 	sll	$t3,$a3,0x2
-/*  f109b24:	01675821 */ 	addu	$t3,$t3,$a3
-/*  f109b28:	000b5940 */ 	sll	$t3,$t3,0x5
-/*  f109b2c:	01681021 */ 	addu	$v0,$t3,$t0
-/*  f109b30:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f109b34:	2407000a */ 	addiu	$a3,$zero,0xa
-/*  f109b38:	00602825 */ 	or	$a1,$v1,$zero
-.L0f109b3c:
-/*  f109b3c:	10e5000c */ 	beq	$a3,$a1,.L0f109b70
-/*  f109b40:	02066021 */ 	addu	$t4,$s0,$a2
-/*  f109b44:	a1830000 */ 	sb	$v1,0x0($t4)
-/*  f109b48:	3c0d8007 */ 	lui	$t5,%hi(g_MpPlayerNum)
-/*  f109b4c:	8dad1448 */ 	lw	$t5,%lo(g_MpPlayerNum)($t5)
-/*  f109b50:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers)
-/*  f109b54:	2718c7b8 */ 	addiu	$t8,$t8,%lo(g_MpPlayers)
-/*  f109b58:	000d7080 */ 	sll	$t6,$t5,0x2
-/*  f109b5c:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f109b60:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f109b64:	01c47821 */ 	addu	$t7,$t6,$a0
-/*  f109b68:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f109b6c:	24c60001 */ 	addiu	$a2,$a2,0x1
-.L0f109b70:
-/*  f109b70:	90430001 */ 	lbu	$v1,0x1($v0)
-/*  f109b74:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f109b78:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f109b7c:	1460ffef */ 	bnez	$v1,.L0f109b3c
-/*  f109b80:	00602825 */ 	or	$a1,$v1,$zero
-.L0f109b84:
-/*  f109b84:	0206c821 */ 	addu	$t9,$s0,$a2
-/*  f109b88:	10000005 */ 	b	.L0f109ba0
-/*  f109b8c:	a3200000 */ 	sb	$zero,0x0($t9)
-/*  f109b90:	3c05800b */ 	lui	$a1,%hi(g_MpSetup)
-/*  f109b94:	24a5cb88 */ 	addiu	$a1,$a1,%lo(g_MpSetup)
-/*  f109b98:	0c004c4c */ 	jal	strcpy
-/*  f109b9c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f109ba0:
-/*  f109ba0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f109ba4:
-/*  f109ba4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f109ba8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f109bac:	03e00008 */ 	jr	$ra
-/*  f109bb0:	00000000 */ 	nop
-);
+void func0f109a68(char *buffer)
+{
+	s32 i;
+	s32 j;
+
+	switch (g_Menus[g_MpPlayerNum].unke3e) {
+	case 0:
+	case 9:
+	case 10:
+	case 11:
+		strcpy(buffer, g_SoloSaveFile.name);
+		break;
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+	case 15:
+	case 16:
+	case 17:
+		strcpy(buffer, g_Menus[g_MpPlayerNum].unke53);
+		break;
+	case 6:
+	case 12:
+		i = 0;
+		j = 0;
+
+		while (g_MpPlayers[g_MpPlayerNum].base.name[i] != '\0') {
+			if (g_MpPlayers[g_MpPlayerNum].base.name[i] != '\n') {
+				buffer[j] = g_MpPlayers[g_MpPlayerNum].base.name[i];
+				j++;
+			}
+
+			i++;
+		}
+
+		buffer[j] = '\0';
+		break;
+	case 7:
+	case 13:
+		strcpy(buffer, g_MpSetup.name);
+		break;
+	}
+}
 
 void func0f109bb4(char *name)
 {
@@ -1944,8 +1858,8 @@ void func0f109bb4(char *name)
 	case 17:
 		strcpy(g_Menus[g_MpPlayerNum].unke53, name);
 		break;
-	case 12:
 	case 6:
+	case 12:
 		sprintf(g_MpPlayers[g_MpPlayerNum].base.name, "%s\n", name);
 		break;
 	case 7:

@@ -27,7 +27,7 @@ u32 pakDeleteFile(void);
 void func0f1097d0(s32 device);
 void func0f109954(s32 arg0);
 void func0f1099a8(char *buffer, s32 arg1);
-void func0f109a68(char *name);
+void func0f109a68(char *buffer);
 void func0f109bb4(char *name);
 u32 func0f109c8c(void);
 void func0f109ec4(void);
