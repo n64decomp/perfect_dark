@@ -2198,61 +2198,66 @@ char *pakMenuTextDuplicateFilename(struct menuitem *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f10a22c
-/*  f10a22c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f10a230:	3c0e8007 */ 	lui	$t6,%hi(savelocations3)
-/*  f10a234:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a238:	25ce4770 */ 	addiu	$t6,$t6,%lo(savelocations3)
-/*  f10a23c:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f10a240:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f10a244:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f10a248:	aca10000 */ 	sw	$at,0x0($a1)
-/*  f10a24c:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f10a250:	3c0a800a */ 	lui	$t2,%hi(g_Menus+0xe3f)
-/*  f10a254:	3c028007 */ 	lui	$v0,%hi(g_SaveLocations)
-/*  f10a258:	acb90004 */ 	sw	$t9,0x4($a1)
-/*  f10a25c:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f10a260:	aca10008 */ 	sw	$at,0x8($a1)
-/*  f10a264:	8d081448 */ 	lw	$t0,%lo(g_MpPlayerNum)($t0)
-/*  f10a268:	000848c0 */ 	sll	$t1,$t0,0x3
-/*  f10a26c:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f10a270:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f10a274:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f10a278:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f10a27c:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f10a280:	00094900 */ 	sll	$t1,$t1,0x4
-/*  f10a284:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f10a288:	914aee3f */ 	lbu	$t2,%lo(g_Menus+0xe3f)($t2)
-/*  f10a28c:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f10a290:	004b1021 */ 	addu	$v0,$v0,$t3
-/*  f10a294:	8c425bc0 */ 	lw	$v0,%lo(g_SaveLocations)($v0)
-/*  f10a298:	54400004 */ 	bnezl	$v0,.L0f10a2ac
-/*  f10a29c:	90830001 */ 	lbu	$v1,0x1($a0)
-/*  f10a2a0:	1000000e */ 	b	.L0f10a2dc
-/*  f10a2a4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10a2a8:	90830001 */ 	lbu	$v1,0x1($a0)
-.L0f10a2ac:
-/*  f10a2ac:	00436021 */ 	addu	$t4,$v0,$v1
-/*  f10a2b0:	818d02d2 */ 	lb	$t5,0x2d2($t4)
-/*  f10a2b4:	0003c040 */ 	sll	$t8,$v1,0x1
-/*  f10a2b8:	00b87821 */ 	addu	$t7,$a1,$t8
-/*  f10a2bc:	05a10005 */ 	bgez	$t5,.L0f10a2d4
-/*  f10a2c0:	00000000 */ 	nop
-/*  f10a2c4:	0fc5b9f1 */ 	jal	langGet
-/*  f10a2c8:	97a4002e */ 	lhu	$a0,0x2e($sp)
-/*  f10a2cc:	10000004 */ 	b	.L0f10a2e0
-/*  f10a2d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10a2d4:
-/*  f10a2d4:	0fc5b9f1 */ 	jal	langGet
-/*  f10a2d8:	95e40000 */ 	lhu	$a0,0x0($t7)
-.L0f10a2dc:
-/*  f10a2dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10a2e0:
-/*  f10a2e0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f10a2e4:	03e00008 */ 	jr	$ra
-/*  f10a2e8:	00000000 */ 	nop
-);
+// 1a684
+struct menuitem menuitems_changefilename[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(239), 0x00000000, NULL }, // "Enter new file name:"
+	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandlerRenameFile },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+// 1a6c0
+struct menudialog menudialog_changefilename = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPWEAPONS(238), // "Change File Name"
+	menuitems_changefilename,
+	NULL,
+	0x00000080,
+	NULL,
+};
+
+// 1a6d8
+struct menuitem menuitems_duplicatefilename[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&pakMenuTextDeviceNameContainingDuplicateFile, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(233), 0x00000000, NULL }, // "already contains"
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(234), 0x00000000, NULL }, // "a file named"
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, (u32)&pakMenuTextDuplicateFilename, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS(235), 0x00000000, menuhandlerPakRenameDuplicateSave }, // "Rename File"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS(236), 0x00000000, NULL }, // "Change Location"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS(237), 0x00000000, menuhandlerPakCancelDuplicateSave }, // "Cancel"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+// 1a778
+struct menudialog menudialog_duplicatefilename = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPWEAPONS(232), // "Duplicate File Name"
+	menuitems_duplicatefilename,
+	NULL,
+	0x00000080,
+	NULL,
+};
+
+char *pakMenuTextLocationName2(struct menuitem *item)
+{
+	u16 names[] = {
+		L_OPTIONS(112), // "Controller Pak 1"
+		L_OPTIONS(113), // "Controller Pak 2"
+		L_OPTIONS(114), // "Controller Pak 3"
+		L_OPTIONS(115), // "Controller Pak 4"
+		L_OPTIONS(111), // "Game Pak"
+		L_OPTIONS(4),   // ""
+	};
+
+	if (g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f] == NULL) {
+		return NULL;
+	}
+
+	if (g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f]->spacesfree[item->param] < 0) {
+		return langGet(names[5]);
+	}
+
+	return langGet(names[item->param]);
+}
 
 char *pakMenuTextSaveLocationSpaces(struct menuitem *item)
 {
@@ -4439,64 +4444,15 @@ void pakPushPakMenuDialog(void)
 	g_MpPlayerNum = prevplayernum;
 }
 
-// 1a684
-struct menuitem menuitems_changefilename[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(239), 0x00000000, NULL }, // "Enter new file name:"
-	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandlerRenameFile },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-// 1a6c0
-struct menudialog menudialog_changefilename = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_MPWEAPONS(238), // "Change File Name"
-	menuitems_changefilename,
-	NULL,
-	0x00000080,
-	NULL,
-};
-
-// 1a6d8
-struct menuitem menuitems_duplicatefilename[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&pakMenuTextDeviceNameContainingDuplicateFile, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(233), 0x00000000, NULL }, // "already contains"
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(234), 0x00000000, NULL }, // "a file named"
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, (u32)&pakMenuTextDuplicateFilename, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS(235), 0x00000000, menuhandlerPakRenameDuplicateSave }, // "Rename File"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS(236), 0x00000000, NULL }, // "Change Location"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS(237), 0x00000000, menuhandlerPakCancelDuplicateSave }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-// 1a778
-struct menudialog menudialog_duplicatefilename = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_MPWEAPONS(232), // "Duplicate File Name"
-	menuitems_duplicatefilename,
-	NULL,
-	0x00000080,
-	NULL,
-};
-
-// 1a790
-u16 savelocations3[] = {
-	L_OPTIONS(112), // "Controller Pak 1"
-	L_OPTIONS(113), // "Controller Pak 2"
-	L_OPTIONS(114), // "Controller Pak 3"
-	L_OPTIONS(115), // "Controller Pak 4"
-	L_OPTIONS(111), // "Game Pak"
-	L_OPTIONS(4), // ""
-};
-
 // 1a79c
 struct menuitem menuitems_selectlocation[] = {
 	{ MENUITEMTYPE_LABEL,       0,                         0x00000010, L_OPTIONS(368), L_OPTIONS(369), NULL }, // "Where", "Spaces"
 	{ MENUITEMTYPE_SEPARATOR,   0,                         0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_GAMEPAK,        0x00000000, (u32)&func0f10a22c, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
-	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK1, 0x00000000, (u32)&func0f10a22c, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
-	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK2, 0x00000000, (u32)&func0f10a22c, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
-	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK3, 0x00000000, (u32)&func0f10a22c, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
-	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK4, 0x00000000, (u32)&func0f10a22c, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_GAMEPAK,        0x00000000, (u32)&pakMenuTextLocationName2, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK1, 0x00000000, (u32)&pakMenuTextLocationName2, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK2, 0x00000000, (u32)&pakMenuTextLocationName2, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK3, 0x00000000, (u32)&pakMenuTextLocationName2, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  SAVEDEVICE_CONTROLLERPAK4, 0x00000000, (u32)&pakMenuTextLocationName2, (u32)&pakMenuTextSaveLocationSpaces, menuhandlerSaveLocation },
 	{ MENUITEMTYPE_SEPARATOR,   0,                         0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0,                         0x00000000, L_OPTIONS(370), 0x00000000, menuhandlerDeleteFiles }, // "Delete Files..."
 	{ MENUITEMTYPE_SELECTABLE,  0,                         0x00000000, L_OPTIONS(371), 0x00000000, menuhandlerPakCancelSave }, // "Cancel"
