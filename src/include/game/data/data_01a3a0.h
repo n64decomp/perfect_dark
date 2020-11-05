@@ -33,7 +33,7 @@ extern struct menudialog g_4MbMainMenu;
 extern struct menudialog menudialog_mpdropout;
 extern struct menudialog g_MpEditSimulant4MbMenuDialog;
 extern struct menudialog g_4MbAdvancedSetupMenuDialog;
-extern struct savelocation *g_SaveLocations[];
+extern struct var80075bc0 g_SaveLocations;
 extern u32 var80075bd0;
 extern u32 var80075be0;
 extern struct var80075c00 var80075c00[];

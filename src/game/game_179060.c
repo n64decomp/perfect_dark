@@ -3460,7 +3460,7 @@ s32 menudialogMpReady(u32 operation, struct menudialog *dialog, union handlerdat
 {
 	if (operation == MENUOP_OPEN) {
 		if (g_MpPlayers[g_MpPlayerNum].saved && g_MpPlayers[g_MpPlayerNum].unk50) {
-			func0f1094e4(&g_MpPlayers[g_MpPlayerNum].saved, 3, g_MpPlayerNum);
+			func0f1094e4(&g_MpPlayers[g_MpPlayerNum].saved, 3, (void *)g_MpPlayerNum);
 		}
 	}
 

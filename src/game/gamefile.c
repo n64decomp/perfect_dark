@@ -29,12 +29,11 @@
 #include "lib/lib_4b170.h"
 #include "types.h"
 
-struct savelocation *g_SaveLocations[] = {NULL, NULL, NULL, NULL};
+struct var80075bc0 g_SaveLocations = {
+	NULL, NULL, NULL, NULL,
+	true, true, true, true,
+};
 
-u32 var80075bd0 = 1;
-u32 var80075bd4 = 1;
-u32 var80075bd8 = 1;
-u32 var80075bdc = 1;
 u32 var80075be0 = 0;
 u32 var80075be4 = 0;
 u32 var80075be8 = 0;
@@ -571,8 +570,8 @@ glabel func0f10feac
 /*  f10ff18:	10000001 */ 	b	.L0f10ff20
 /*  f10ff1c:	24110001 */ 	addiu	$s1,$zero,0x1
 .L0f10ff20:
-/*  f10ff20:	3c018007 */ 	lui	$at,%hi(var80075bd0)
-/*  f10ff24:	ac325bd0 */ 	sw	$s2,%lo(var80075bd0)($at)
+/*  f10ff20:	3c018007 */ 	lui	$at,%hi(g_SaveLocations+0x10)
+/*  f10ff24:	ac325bd0 */ 	sw	$s2,%lo(g_SaveLocations+0x10)($at)
 /*  f10ff28:	0fc549e0 */ 	jal	optionsGetForwardPitch
 /*  f10ff2c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ff30:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile+0x14)
@@ -1442,9 +1441,9 @@ glabel func0f110bf8
 /*  f110bfc:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f110c00:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f110c04:	3c108007 */ 	lui	$s0,%hi(g_SaveLocations)
-/*  f110c08:	3c118007 */ 	lui	$s1,%hi(var80075bd0)
+/*  f110c08:	3c118007 */ 	lui	$s1,%hi(g_SaveLocations+0x10)
 /*  f110c0c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f110c10:	26315bd0 */ 	addiu	$s1,$s1,%lo(var80075bd0)
+/*  f110c10:	26315bd0 */ 	addiu	$s1,$s1,%lo(g_SaveLocations+0x10)
 /*  f110c14:	26105bc0 */ 	addiu	$s0,$s0,%lo(g_SaveLocations)
 /*  f110c18:	8e0e0000 */ 	lw	$t6,0x0($s0)
 .L0f110c1c:
@@ -1469,13 +1468,13 @@ glabel func0f110bf8
 
 void func0f110c5c(s32 locationindex, u8 filetype)
 {
-	if (g_SaveLocations[locationindex] == NULL) {
+	if (g_SaveLocations.locations[locationindex] == NULL) {
 		func0f15e5b8(align16(0x310), 1);
-		g_SaveLocations[locationindex] = func00012ab0(align16(0x310));
+		g_SaveLocations.locations[locationindex] = func00012ab0(align16(0x310));
 	}
 
-	g_SaveLocations[locationindex]->unk30c = 1;
-	g_SaveLocations[locationindex]->filetype = filetype;
+	g_SaveLocations.locations[locationindex]->unk30c = 1;
+	g_SaveLocations.locations[locationindex]->filetype = filetype;
 
 	if (var80062944 == 0) {
 		func0001398c(3);
@@ -1598,10 +1597,10 @@ glabel func0f110da8
 /*  f110e6c:	5420ffe6 */ 	bnezl	$at,.L0f110e08
 /*  f110e70:	00128e00 */ 	sll	$s1,$s2,0x18
 /*  f110e74:	3c108007 */ 	lui	$s0,%hi(g_SaveLocations)
-/*  f110e78:	3c148007 */ 	lui	$s4,%hi(var80075bd0)
-/*  f110e7c:	3c118007 */ 	lui	$s1,%hi(var80075bd0)
-/*  f110e80:	26315bd0 */ 	addiu	$s1,$s1,%lo(var80075bd0)
-/*  f110e84:	26945bd0 */ 	addiu	$s4,$s4,%lo(var80075bd0)
+/*  f110e78:	3c148007 */ 	lui	$s4,%hi(g_SaveLocations+0x10)
+/*  f110e7c:	3c118007 */ 	lui	$s1,%hi(g_SaveLocations+0x10)
+/*  f110e80:	26315bd0 */ 	addiu	$s1,$s1,%lo(g_SaveLocations+0x10)
+/*  f110e84:	26945bd0 */ 	addiu	$s4,$s4,%lo(g_SaveLocations+0x10)
 /*  f110e88:	26105bc0 */ 	addiu	$s0,$s0,%lo(g_SaveLocations)
 /*  f110e8c:	24120001 */ 	addiu	$s2,$zero,0x1
 /*  f110e90:	8e040000 */ 	lw	$a0,0x0($s0)
@@ -1641,10 +1640,10 @@ glabel func0f110da8
 /*  f110f04:	0214082b */ 	sltu	$at,$s0,$s4
 /*  f110f08:	5420ffe2 */ 	bnezl	$at,.L0f110e94
 /*  f110f0c:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f110f10:	3c028007 */ 	lui	$v0,%hi(var80075bd0)
+/*  f110f10:	3c028007 */ 	lui	$v0,%hi(g_SaveLocations+0x10)
 /*  f110f14:	3c038007 */ 	lui	$v1,%hi(var80075be0)
 /*  f110f18:	24635be0 */ 	addiu	$v1,$v1,%lo(var80075be0)
-/*  f110f1c:	24425bd0 */ 	addiu	$v0,$v0,%lo(var80075bd0)
+/*  f110f1c:	24425bd0 */ 	addiu	$v0,$v0,%lo(g_SaveLocations+0x10)
 .L0f110f20:
 /*  f110f20:	24420004 */ 	addiu	$v0,$v0,0x4
 /*  f110f24:	1443fffe */ 	bne	$v0,$v1,.L0f110f20

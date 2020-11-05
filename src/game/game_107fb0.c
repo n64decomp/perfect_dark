@@ -225,22 +225,6 @@ const char var7f1b31b4[] = "YOUR TARGET: %x-%x\n";
 const char var7f1b31c8[] = "MyResult: %d\n";
 const char var7f1b31d8[] = "COULD NOT DELETE\n";
 const char var7f1b31ec[] = "Multiplayer %d was using that file...\n";
-const char var7f1b3214[] = "GAM";
-const char var7f1b3218[] = "MPG";
-const char var7f1b321c[] = "MPP";
-const char var7f1b3220[] = "CAM";
-
-const u32 var7f1b3224[] = {0x00000080};
-const u32 var7f1b3228[] = {0x00000040};
-const u32 var7f1b322c[] = {0x00000020};
-const u32 var7f1b3230[] = {0x00000008};
-
-const char var7f1b3234[] = "DestPakNo: %d (guid F:%x-%x:P)\n";
-const char var7f1b3254[] = "Copy Memory Alloced\n";
-const char var7f1b326c[] = "COULDNT GET THE RAM!\n";
-const char var7f1b3284[] = "Saving...\n";
-const char var7f1b3290[] = "%s";
-const char var7f1b3294[] = "GETFileNameForThePurposesOfTheFileRenamingChecker: Unknown type %d\n";
 
 s32 menuhandler001084b8(u32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -965,8 +949,8 @@ glabel func0f108d8c
 /*  f108e08:	03002025 */ 	or	$a0,$t8,$zero
 .L0f108e0c:
 /*  f108e0c:	3c028007 */ 	lui	$v0,%hi(g_SaveLocations)
-/*  f108e10:	3c058007 */ 	lui	$a1,%hi(var80075bd0)
-/*  f108e14:	24a55bd0 */ 	addiu	$a1,$a1,%lo(var80075bd0)
+/*  f108e10:	3c058007 */ 	lui	$a1,%hi(g_SaveLocations+0x10)
+/*  f108e14:	24a55bd0 */ 	addiu	$a1,$a1,%lo(g_SaveLocations+0x10)
 /*  f108e18:	24425bc0 */ 	addiu	$v0,$v0,%lo(g_SaveLocations)
 /*  f108e1c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f108e20:	8c430000 */ 	lw	$v1,0x0($v0)
@@ -1609,109 +1593,178 @@ glabel pakDeleteFile
 /*  f1097cc:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f1097d0
-/*  f1097d0:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f1097d4:	3c0f8007 */ 	lui	$t7,%hi(var8007464c)
-/*  f1097d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1097dc:	25ef464c */ 	addiu	$t7,$t7,%lo(var8007464c)
-/*  f1097e0:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1097e4:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f1097e8:	27ae0038 */ 	addiu	$t6,$sp,0x38
-/*  f1097ec:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f1097f0:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f1097f4:	8de8000c */ 	lw	$t0,0xc($t7)
-/*  f1097f8:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f1097fc:	3c0a7f1b */ 	lui	$t2,%hi(var7f1b3224)
-/*  f109800:	254a3224 */ 	addiu	$t2,$t2,%lo(var7f1b3224)
-/*  f109804:	adc8000c */ 	sw	$t0,0xc($t6)
-/*  f109808:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f10980c:	8d4d0004 */ 	lw	$t5,0x4($t2)
-/*  f109810:	8d410000 */ 	lw	$at,0x0($t2)
-/*  f109814:	27a90028 */ 	addiu	$t1,$sp,0x28
-/*  f109818:	ad2d0004 */ 	sw	$t5,0x4($t1)
-/*  f10981c:	ad210000 */ 	sw	$at,0x0($t1)
-/*  f109820:	8d410008 */ 	lw	$at,0x8($t2)
-/*  f109824:	8d4d000c */ 	lw	$t5,0xc($t2)
-/*  f109828:	3c038007 */ 	lui	$v1,%hi(g_SaveLocations)
-/*  f10982c:	ad210008 */ 	sw	$at,0x8($t1)
-/*  f109830:	ad2d000c */ 	sw	$t5,0xc($t1)
-/*  f109834:	8c635bc0 */ 	lw	$v1,%lo(g_SaveLocations)($v1)
-/*  f109838:	0004c8c0 */ 	sll	$t9,$a0,0x3
-/*  f10983c:	10600041 */ 	beqz	$v1,.L0f109944
-/*  f109840:	00791021 */ 	addu	$v0,$v1,$t9
-/*  f109844:	8c5802d8 */ 	lw	$t8,0x2d8($v0)
-/*  f109848:	3c05800a */ 	lui	$a1,%hi(var800a21e8)
-/*  f10984c:	24a521e8 */ 	addiu	$a1,$a1,%lo(var800a21e8)
-/*  f109850:	acb80000 */ 	sw	$t8,0x0($a1)
-/*  f109854:	944e02dc */ 	lhu	$t6,0x2dc($v0)
-/*  f109858:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
-/*  f10985c:	3c0c800a */ 	lui	$t4,%hi(g_Menus+0xe1c)
-/*  f109860:	a4ae0004 */ 	sh	$t6,0x4($a1)
-/*  f109864:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f109868:	3c047f1b */ 	lui	$a0,%hi(var7f1b2f3c-0x4)
-/*  f10986c:	000f40c0 */ 	sll	$t0,$t7,0x3
-/*  f109870:	010f4023 */ 	subu	$t0,$t0,$t7
-/*  f109874:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f109878:	010f4021 */ 	addu	$t0,$t0,$t7
-/*  f10987c:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f109880:	010f4023 */ 	subu	$t0,$t0,$t7
-/*  f109884:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f109888:	01886021 */ 	addu	$t4,$t4,$t0
-/*  f10988c:	8d8cee1c */ 	lw	$t4,%lo(g_Menus+0xe1c)($t4)
-/*  f109890:	000c5880 */ 	sll	$t3,$t4,0x2
-/*  f109894:	008b2021 */ 	addu	$a0,$a0,$t3
-/*  f109898:	0fc5db69 */ 	jal	align16
-/*  f10989c:	8c842f38 */ 	lw	$a0,%lo(var7f1b2f3c-0x4)($a0)
-/*  f1098a0:	0c004aac */ 	jal	func00012ab0
-/*  f1098a4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1098a8:	10400013 */ 	beqz	$v0,.L0f1098f8
-/*  f1098ac:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1098b0:	3c098007 */ 	lui	$t1,%hi(g_MpPlayerNum)
-/*  f1098b4:	8d291448 */ 	lw	$t1,%lo(g_MpPlayerNum)($t1)
-/*  f1098b8:	3c05800a */ 	lui	$a1,%hi(g_Menus+0xe1c)
-/*  f1098bc:	3c04800a */ 	lui	$a0,%hi(var800a21e0)
-/*  f1098c0:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f1098c4:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f1098c8:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f1098cc:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f1098d0:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f1098d4:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f1098d8:	000a5100 */ 	sll	$t2,$t2,0x4
-/*  f1098dc:	00aa2821 */ 	addu	$a1,$a1,$t2
-/*  f1098e0:	8ca5ee1c */ 	lw	$a1,%lo(g_Menus+0xe1c)($a1)
-/*  f1098e4:	248421e0 */ 	addiu	$a0,$a0,%lo(var800a21e0)
-/*  f1098e8:	0fc42539 */ 	jal	func0f1094e4
-/*  f1098ec:	24a50067 */ 	addiu	$a1,$a1,0x67
-/*  f1098f0:	10000003 */ 	b	.L0f109900
-/*  f1098f4:	00000000 */ 	nop
-.L0f1098f8:
-/*  f1098f8:	0fc42197 */ 	jal	func0f10865c
-/*  f1098fc:	24040004 */ 	addiu	$a0,$zero,0x4
-.L0f109900:
-/*  f109900:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
-/*  f109904:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f109908:	3c0e800a */ 	lui	$t6,%hi(g_Menus+0xe1c)
-/*  f10990c:	3c018007 */ 	lui	$at,%hi(g_SaveLocations+0xc)
-/*  f109910:	0019c0c0 */ 	sll	$t8,$t9,0x3
-/*  f109914:	0319c023 */ 	subu	$t8,$t8,$t9
-/*  f109918:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f10991c:	0319c021 */ 	addu	$t8,$t8,$t9
-/*  f109920:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f109924:	0319c023 */ 	subu	$t8,$t8,$t9
-/*  f109928:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f10992c:	01d87021 */ 	addu	$t6,$t6,$t8
-/*  f109930:	8dceee1c */ 	lw	$t6,%lo(g_Menus+0xe1c)($t6)
-/*  f109934:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f109938:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f10993c:	002f0821 */ 	addu	$at,$at,$t7
-/*  f109940:	ac2d5bcc */ 	sw	$t5,%lo(g_SaveLocations+0xc)($at)
-.L0f109944:
-/*  f109944:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f109948:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f10994c:	03e00008 */ 	jr	$ra
-/*  f109950:	00000000 */ 	nop
-);
+// 1a3c0
+struct menuitem menuitems_1a3c0[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108550, 0x00000000, menuhandler001084b8 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextFailReason, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS(321), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+// 1a410
+struct menudialog menudialog_1a410 = {
+	MENUDIALOGTYPE_DANGER,
+	L_OPTIONS(320), // "Error"
+	menuitems_1a3c0,
+	NULL,
+	0x00000080,
+	NULL,
+};
+
+// 1a428
+u16 savelocations2[] = {
+	L_OPTIONS(111), // "Game Pak"
+	L_OPTIONS(112), // "Controller Pak 1"
+	L_OPTIONS(113), // "Controller Pak 2"
+	L_OPTIONS(114), // "Controller Pak 3"
+	L_OPTIONS(115), // "Controller Pak 4"
+	0x0000,
+};
+
+// 1a434
+u16 iomessages2[] = {
+	L_OPTIONS(331), // "Error Loading Game"
+	L_OPTIONS(332), // "Error Saving Game"
+	L_OPTIONS(333), // "Error Loading Player"
+	L_OPTIONS(334), // "Error Saving Player"
+	L_OPTIONS(335), // "Error Loading PerfectHead"
+	L_OPTIONS(336), // "Error Saving PerfectHead"
+	L_OPTIONS(337), // "Error Reading File"
+	L_OPTIONS(338), // "Error Writing File"
+	L_OPTIONS(339), // "Error"
+	0x0000,
+};
+
+// 1a448
+u16 filetypenames[] = {
+	L_OPTIONS(103), // "Single Player Agent File"
+	L_OPTIONS(104), // "Combat Simulator Settings File"
+	L_OPTIONS(105), // "Combat Simulator Player File"
+	L_OPTIONS(106), // "PerfectHead Files"
+};
+
+// 1a450
+struct menuitem menuitems_filesaved[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(346), 0x00000000, NULL }, // "File Saved."
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS(347), 0x00000000, NULL }, // "OK"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+// 1a48c
+struct menudialog menudialog_filesaved = {
+	MENUDIALOGTYPE_SUCCESS,
+	L_OPTIONS(345), // "Cool!"
+	menuitems_filesaved,
+	NULL,
+	0x00000080,
+	NULL,
+};
+
+// 1a4a4
+struct menuitem menuitems_saveerror[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextLocationName, 0x00000000, menuhandler00108014 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(348), 0x00000000, NULL }, // "An error occurred while trying to save"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(349), 0x00000000, menuhandlerPakErrorTryAgain }, // "Try Again"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(350), 0x00000000, menuhandlerSaveElsewhere }, // "Save Elsewhere"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(351), 0x00000000, menuhandlerPakCancelSave2 }, // "Cancel"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+// 1a51c
+struct menudialog menudialog_saveerror = {
+	MENUDIALOGTYPE_DANGER,
+	(u32)&func0f10876c,
+	menuitems_saveerror,
+	NULL,
+	0x000000a0,
+	NULL,
+};
+
+// 1a534
+struct menuitem menuitems_savelost[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextLocationName, 0x00000000, menuhandler00108014 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(251), 0x00000000, NULL }, // "The saved file has been erased due to corruption or damage."
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(354), 0x00000000, menuhandlerAcknowledgePakFileLost }, // "Cancel"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+// 1a584
+struct menudialog menudialog_savelost = {
+	MENUDIALOGTYPE_DANGER,
+	(u32)&func0f10876c,
+	menuitems_savelost,
+	NULL,
+	0x000000a0,
+	NULL,
+};
+
+// 1a59c
+struct menuitem menuitems_saveelsewhere[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(360), 0x00000000, NULL }, // "Would you like to save your file elsewhere?"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(361), 0x00000000, menuhandlerSaveElsewhere }, // "Yes"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(362), 0x00000000, menuhandlerPakCancelSave2 }, // "No"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+// 1a5ec
+struct menudialog g_SaveElsewhereMenuDialog = {
+	MENUDIALOGTYPE_DANGER,
+	L_OPTIONS(359), // "Save"
+	menuitems_saveelsewhere,
+	NULL,
+	0x000000a0,
+	NULL,
+};
+
+// 1a604
+struct menuitem menuitems_1a604[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextPleaseInsertOriginalPak, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(365), 0x00000000, menuhandler00108ecc }, // "OK"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(366), 0x00000000, menuhandler00108f08 }, // "Cancel"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+// 1a654
+struct menudialog menudialog_1a654 = {
+	MENUDIALOGTYPE_DANGER,
+	(u32)&func0f10876c,
+	menuitems_1a604,
+	menudialog00108e58,
+	0x000000a0,
+	NULL,
+};
+
+void func0f1097d0(s32 device)
+{
+	char *types[] = {"GAM", "MPG", "MPP", "CAM"};
+	const u32 sizes[] = {0x80, 0x40, 0x20, 0x08};
+	void *thing;
+
+	if (g_SaveLocations.locations[0]) {
+		var800a21e8.unk00 = g_SaveLocations.locations[0]->unk2d8[device].unk00;
+		var800a21e8.unk04 = g_SaveLocations.locations[0]->unk2d8[device].unk04;
+
+		thing = func00012ab0(align16(var7f1b2f3c[g_Menus[g_MpPlayerNum].data.pak.unke1c - 1]));
+
+		if (thing) {
+			func0f1094e4(&var800a21e0, g_Menus[g_MpPlayerNum].data.pak.unke1c + 0x67, thing);
+		} else {
+			func0f10865c(4);
+		}
+
+		g_SaveLocations.unk10[g_Menus[g_MpPlayerNum].data.pak.unke1c - 1] = 1;
+	}
+}
+
+const char var7f1b3234[] = "DestPakNo: %d (guid F:%x-%x:P)\n";
+const char var7f1b3254[] = "Copy Memory Alloced\n";
+const char var7f1b326c[] = "COULDNT GET THE RAM!\n";
+const char var7f1b3284[] = "Saving...\n";
+const char var7f1b3290[] = "%s";
+const char var7f1b3294[] = "GETFileNameForThePurposesOfTheFileRenamingChecker: Unknown type %d\n";
+
+u32 var8007465c = 0x01020304;
+u32 var80074660 = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f109954
@@ -2373,11 +2426,11 @@ char *pakMenuTextSaveLocationSpaces(struct menuitem *item)
 {
 	s32 spacesfree;
 
-	if (g_SaveLocations[g_Menus[g_MpPlayerNum].unke3f] == NULL) {
+	if (g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f] == NULL) {
 		return NULL;
 	}
 
-	spacesfree = g_SaveLocations[g_Menus[g_MpPlayerNum].unke3f]->spacesfree[item->param];
+	spacesfree = g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f]->spacesfree[item->param];
 
 	if (spacesfree < 0) {
 		return "\n";
@@ -2415,12 +2468,12 @@ const char var7f1b3538[] = ".%02d";
 
 s32 menuhandlerSaveLocation(u32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (g_SaveLocations[g_Menus[g_MpPlayerNum].unke3f] == NULL) {
+	if (g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f] == NULL) {
 		return 0;
 	}
 
 	if (operation == MENUOP_CHECKDISABLED) {
-		if (g_SaveLocations[g_Menus[g_MpPlayerNum].unke3f]->spacesfree[item->param] < 1) {
+		if (g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f]->spacesfree[item->param] < 1) {
 			return true;
 		}
 	}
@@ -3225,7 +3278,7 @@ void func0f10b0c4(u32 arg0)
 	g_Menus[g_MpPlayerNum].data.pak.unke28 = 0;
 	g_Menus[g_MpPlayerNum].data.pak.unke1c = 1;
 
-	location = g_SaveLocations[g_Menus[g_MpPlayerNum].unke3f];
+	location = g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f];
 
 	if (location) {
 		g_Menus[g_MpPlayerNum].data.pak.unke1c = location->filetype + 1;
@@ -3724,7 +3777,7 @@ s32 menuhandlerAgentName(u32 operation, struct menuitem *item, union handlerdata
 {
 	char *name = data->keyboard.string;
 
-	if (!g_SaveLocations[0]) {
+	if (!g_SaveLocations.locations[0]) {
 		return 0;
 	}
 
@@ -4592,154 +4645,6 @@ glabel func0f10c970
 /*  f10c9b8:	00000000 */ 	nop
 /*  f10c9bc:	00000000 */ 	nop
 );
-
-// 1a3c0
-struct menuitem menuitems_1a3c0[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108550, 0x00000000, menuhandler001084b8 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextFailReason, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS(321), 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-// 1a410
-struct menudialog menudialog_1a410 = {
-	MENUDIALOGTYPE_DANGER,
-	L_OPTIONS(320), // "Error"
-	menuitems_1a3c0,
-	NULL,
-	0x00000080,
-	NULL,
-};
-
-// 1a428
-u16 savelocations2[] = {
-	L_OPTIONS(111), // "Game Pak"
-	L_OPTIONS(112), // "Controller Pak 1"
-	L_OPTIONS(113), // "Controller Pak 2"
-	L_OPTIONS(114), // "Controller Pak 3"
-	L_OPTIONS(115), // "Controller Pak 4"
-	0x0000,
-};
-
-// 1a434
-u16 iomessages2[] = {
-	L_OPTIONS(331), // "Error Loading Game"
-	L_OPTIONS(332), // "Error Saving Game"
-	L_OPTIONS(333), // "Error Loading Player"
-	L_OPTIONS(334), // "Error Saving Player"
-	L_OPTIONS(335), // "Error Loading PerfectHead"
-	L_OPTIONS(336), // "Error Saving PerfectHead"
-	L_OPTIONS(337), // "Error Reading File"
-	L_OPTIONS(338), // "Error Writing File"
-	L_OPTIONS(339), // "Error"
-	0x0000,
-};
-
-// 1a448
-u16 filetypenames[] = {
-	L_OPTIONS(103), // "Single Player Agent File"
-	L_OPTIONS(104), // "Combat Simulator Settings File"
-	L_OPTIONS(105), // "Combat Simulator Player File"
-	L_OPTIONS(106), // "PerfectHead Files"
-};
-
-// 1a450
-struct menuitem menuitems_filesaved[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(346), 0x00000000, NULL }, // "File Saved."
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS(347), 0x00000000, NULL }, // "OK"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-// 1a48c
-struct menudialog menudialog_filesaved = {
-	MENUDIALOGTYPE_SUCCESS,
-	L_OPTIONS(345), // "Cool!"
-	menuitems_filesaved,
-	NULL,
-	0x00000080,
-	NULL,
-};
-
-// 1a4a4
-struct menuitem menuitems_saveerror[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextLocationName, 0x00000000, menuhandler00108014 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(348), 0x00000000, NULL }, // "An error occurred while trying to save"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(349), 0x00000000, menuhandlerPakErrorTryAgain }, // "Try Again"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(350), 0x00000000, menuhandlerSaveElsewhere }, // "Save Elsewhere"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(351), 0x00000000, menuhandlerPakCancelSave2 }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-// 1a51c
-struct menudialog menudialog_saveerror = {
-	MENUDIALOGTYPE_DANGER,
-	(u32)&func0f10876c,
-	menuitems_saveerror,
-	NULL,
-	0x000000a0,
-	NULL,
-};
-
-// 1a534
-struct menuitem menuitems_savelost[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextLocationName, 0x00000000, menuhandler00108014 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(251), 0x00000000, NULL }, // "The saved file has been erased due to corruption or damage."
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(354), 0x00000000, menuhandlerAcknowledgePakFileLost }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-// 1a584
-struct menudialog menudialog_savelost = {
-	MENUDIALOGTYPE_DANGER,
-	(u32)&func0f10876c,
-	menuitems_savelost,
-	NULL,
-	0x000000a0,
-	NULL,
-};
-
-// 1a59c
-struct menuitem menuitems_saveelsewhere[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(360), 0x00000000, NULL }, // "Would you like to save your file elsewhere?"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(361), 0x00000000, menuhandlerSaveElsewhere }, // "Yes"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(362), 0x00000000, menuhandlerPakCancelSave2 }, // "No"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-// 1a5ec
-struct menudialog g_SaveElsewhereMenuDialog = {
-	MENUDIALOGTYPE_DANGER,
-	L_OPTIONS(359), // "Save"
-	menuitems_saveelsewhere,
-	NULL,
-	0x000000a0,
-	NULL,
-};
-
-// 1a604
-struct menuitem menuitems_1a604[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextPleaseInsertOriginalPak, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(365), 0x00000000, menuhandler00108ecc }, // "OK"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(366), 0x00000000, menuhandler00108f08 }, // "Cancel"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-// 1a654
-struct menudialog menudialog_1a654 = {
-	MENUDIALOGTYPE_DANGER,
-	(u32)&func0f10876c,
-	menuitems_1a604,
-	menudialog00108e58,
-	0x000000a0,
-	NULL,
-};
-
-u32 var8007464c = (u32)&var7f1b3214;
-u32 var80074650 = (u32)&var7f1b3218;
-u32 var80074654 = (u32)&var7f1b321c;
-u32 var80074658 = (u32)&var7f1b3220;
-u32 var8007465c = 0x01020304;
-u32 var80074660 = 0x00000000;
 
 // 1a684
 struct menuitem menuitems_changefilename[] = {

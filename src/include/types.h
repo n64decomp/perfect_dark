@@ -4699,14 +4699,16 @@ struct mparena {
 	u16 name;
 };
 
+struct savelocation_2d8 {
+	u32 unk00;
+	u16 unk04;
+};
+
 struct savelocation {
 	/*0x000*/ struct savelocation00 *unk000;
 	/*0x004*/ u32 unk004;
 	/*0x008*/ u32 unk008;
-	/*0x00c*/ u32 unk00c;
-	/*0x010*/ u32 unk010;
-	/*0x014*/ u32 unk014;
-	/*0x018*/ u32 unk018;
+	/*0x00c*/ u32 unk00c[4];
 	/*0x01c*/ u32 unk01c;
 	/*0x020*/ u32 unk020;
 	/*0x024*/ u32 unk024;
@@ -4882,14 +4884,7 @@ struct savelocation {
 	/*0x2cc*/ u32 unk2cc;
 	/*0x2d0*/ u16 unk2d0;
 	/*0x2d2*/ s8 spacesfree[4];
-	/*0x2d8*/ u32 unk2d8;
-	/*0x2dc*/ u32 unk2dc;
-	/*0x2e0*/ u32 unk2e0;
-	/*0x2e4*/ u32 unk2e4;
-	/*0x2e8*/ u32 unk2e8;
-	/*0x2ec*/ u32 unk2ec;
-	/*0x2f0*/ u32 unk2f0;
-	/*0x2f4*/ u32 unk2f4;
+	/*0x2d8*/ struct savelocation_2d8 unk2d8[4];
 	/*0x2f8*/ u32 unk2f8;
 	/*0x2fc*/ u32 unk2fc;
 	/*0x300*/ u32 unk300;
@@ -4899,6 +4894,11 @@ struct savelocation {
 	/*0x30a*/ u8 unk30a;
 	/*0x30b*/ u8 filetype;
 	/*0x30c*/ u8 unk30c; // inuse?
+};
+
+struct var80075bc0 {
+	struct savelocation *locations[4];
+	bool unk10[4];
 };
 
 struct challenge {
