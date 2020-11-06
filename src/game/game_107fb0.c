@@ -447,105 +447,51 @@ glabel var7f1b35a4
 /*  f10889c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f1088a0
-.late_rodata
-glabel var7f1b35a8
-.word func0f1088a0+0xa4 # f108944
-glabel var7f1b35ac
-.word func0f1088a0+0xc4 # f108964
-glabel var7f1b35b0
-.word func0f1088a0+0xb4 # f108954
-glabel var7f1b35b4
-.word func0f1088a0+0xd4 # f108974
-glabel var7f1b35b8
-.word func0f1088a0+0xa4 # f108944
-glabel var7f1b35bc
-.word func0f1088a0+0xb4 # f108954
-glabel var7f1b35c0
-.word func0f1088a0+0xc4 # f108964
-glabel var7f1b35c4
-.word func0f1088a0+0xa4 # f108944
-glabel var7f1b35c8
-.word func0f1088a0+0xa4 # f108944
-glabel var7f1b35cc
-.word func0f1088a0+0xa4 # f108944
-glabel var7f1b35d0
-.word func0f1088a0+0xc4 # f108964
-glabel var7f1b35d4
-.word func0f1088a0+0xb4 # f108954
-glabel var7f1b35d8
-.word func0f1088a0+0xd4 # f108974
-glabel var7f1b35dc
-.word func0f1088a0+0xa4 # f108944
-glabel var7f1b35e0
-.word func0f1088a0+0xb4 # f108954
-glabel var7f1b35e4
-.word func0f1088a0+0xc4 # f108964
-.text
-/*  f1088a0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1088a4:	3c0f8007 */ 	lui	$t7,%hi(filetypenames)
-/*  f1088a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1088ac:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f1088b0:	25ef4428 */ 	addiu	$t7,$t7,%lo(filetypenames)
-/*  f1088b4:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1088b8:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f1088bc:	27ae0020 */ 	addiu	$t6,$sp,0x20
-/*  f1088c0:	3c098007 */ 	lui	$t1,%hi(g_MpPlayerNum)
-/*  f1088c4:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f1088c8:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f1088cc:	8d291448 */ 	lw	$t1,%lo(g_MpPlayerNum)($t1)
-/*  f1088d0:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe42)
-/*  f1088d4:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f1088d8:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f1088dc:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f1088e0:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f1088e4:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f1088e8:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f1088ec:	000a5100 */ 	sll	$t2,$t2,0x4
-/*  f1088f0:	004a1021 */ 	addu	$v0,$v0,$t2
-/*  f1088f4:	9042ee42 */ 	lbu	$v0,%lo(g_Menus+0xe42)($v0)
-/*  f1088f8:	28410009 */ 	slti	$at,$v0,0x9
-/*  f1088fc:	14200009 */ 	bnez	$at,.L0f108924
-/*  f108900:	244bff9c */ 	addiu	$t3,$v0,-100
-/*  f108904:	2d610007 */ 	sltiu	$at,$t3,0x7
-/*  f108908:	1020001a */ 	beqz	$at,.L0f108974
-/*  f10890c:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f108910:	3c017f1b */ 	lui	$at,%hi(var7f1b35a8)
-/*  f108914:	002b0821 */ 	addu	$at,$at,$t3
-/*  f108918:	8c2b35a8 */ 	lw	$t3,%lo(var7f1b35a8)($at)
-/*  f10891c:	01600008 */ 	jr	$t3
-/*  f108920:	00000000 */ 	nop
-.L0f108924:
-/*  f108924:	2c410009 */ 	sltiu	$at,$v0,0x9
-/*  f108928:	10200012 */ 	beqz	$at,.L0f108974
-/*  f10892c:	00026080 */ 	sll	$t4,$v0,0x2
-/*  f108930:	3c017f1b */ 	lui	$at,%hi(var7f1b35c4)
-/*  f108934:	002c0821 */ 	addu	$at,$at,$t4
-/*  f108938:	8c2c35c4 */ 	lw	$t4,%lo(var7f1b35c4)($at)
-/*  f10893c:	01800008 */ 	jr	$t4
-/*  f108940:	00000000 */ 	nop
-/*  f108944:	0fc5b9f1 */ 	jal	langGet
-/*  f108948:	97a40020 */ 	lhu	$a0,0x20($sp)
-/*  f10894c:	1000000c */ 	b	.L0f108980
-/*  f108950:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108954:	0fc5b9f1 */ 	jal	langGet
-/*  f108958:	97a40022 */ 	lhu	$a0,0x22($sp)
-/*  f10895c:	10000008 */ 	b	.L0f108980
-/*  f108960:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108964:	0fc5b9f1 */ 	jal	langGet
-/*  f108968:	97a40024 */ 	lhu	$a0,0x24($sp)
-/*  f10896c:	10000004 */ 	b	.L0f108980
-/*  f108970:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f108974:
-/*  f108974:	0fc5b9f1 */ 	jal	langGet
-/*  f108978:	97a40020 */ 	lhu	$a0,0x20($sp)
-/*  f10897c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f108980:
-/*  f108980:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f108984:	03e00008 */ 	jr	$ra
-/*  f108988:	00000000 */ 	nop
-);
+// 1a434
+u16 iomessages2[] = {
+	L_OPTIONS(331), // "Error Loading Game"
+	L_OPTIONS(332), // "Error Saving Game"
+	L_OPTIONS(333), // "Error Loading Player"
+	L_OPTIONS(334), // "Error Saving Player"
+	L_OPTIONS(335), // "Error Loading PerfectHead"
+	L_OPTIONS(336), // "Error Saving PerfectHead"
+	L_OPTIONS(337), // "Error Reading File"
+	L_OPTIONS(338), // "Error Writing File"
+	L_OPTIONS(339), // "Error"
+	0x0000,
+};
+
+char *pakMenuTextFileType(struct menuitem *item)
+{
+	u16 names[] = {
+		L_OPTIONS(103), // "Single Player Agent File"
+		L_OPTIONS(104), // "Combat Simulator Settings File"
+		L_OPTIONS(105), // "Combat Simulator Player File"
+		L_OPTIONS(106), // "PerfectHead Files"
+	};
+
+	switch (g_Menus[g_MpPlayerNum].unke42) {
+	case 0:
+	case 1:
+	case 2:
+	case 6:
+	case 100:
+	case 104:
+		return langGet(names[0]);
+	case 4:
+	case 7:
+	case 102:
+	case 105:
+		return langGet(names[1]);
+	case 3:
+	case 8:
+	case 101:
+	case 106:
+		return langGet(names[2]);
+	}
+
+	return langGet(names[0]);
+}
 
 GLOBAL_ASM(
 glabel func0f10898c
@@ -916,7 +862,7 @@ char *pakMenuTextPleaseInsertOriginalPak(struct menuitem *item)
 	char namebuffer[100];
 	s32 i;
 
-	sprintf(namebuffer, func0f1088a0(item));
+	sprintf(namebuffer, pakMenuTextFileType(item));
 
 	// Replace first line break in namebuffer with a terminator
 	i = 0;
@@ -1439,28 +1385,6 @@ void pakDeleteFile(void)
 		}
 	}
 }
-
-// 1a434
-u16 iomessages2[] = {
-	L_OPTIONS(331), // "Error Loading Game"
-	L_OPTIONS(332), // "Error Saving Game"
-	L_OPTIONS(333), // "Error Loading Player"
-	L_OPTIONS(334), // "Error Saving Player"
-	L_OPTIONS(335), // "Error Loading PerfectHead"
-	L_OPTIONS(336), // "Error Saving PerfectHead"
-	L_OPTIONS(337), // "Error Reading File"
-	L_OPTIONS(338), // "Error Writing File"
-	L_OPTIONS(339), // "Error"
-	0x0000,
-};
-
-// 1a448
-u16 filetypenames[] = {
-	L_OPTIONS(103), // "Single Player Agent File"
-	L_OPTIONS(104), // "Combat Simulator Settings File"
-	L_OPTIONS(105), // "Combat Simulator Player File"
-	L_OPTIONS(106), // "PerfectHead Files"
-};
 
 // 1a450
 struct menuitem menuitems_filesaved[] = {

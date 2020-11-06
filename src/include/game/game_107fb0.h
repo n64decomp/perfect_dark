@@ -15,7 +15,7 @@ char *pakMenuTextDeviceNameForError(struct menuitem *item);
 void func0f10865c(u16 arg0);
 char *func0f1086b8(s32 arg0, s32 arg1, s32 arg2);
 u32 func0f10876c(void);
-char *func0f1088a0(struct menuitem *item);
+char *pakMenuTextFileType(struct menuitem *item);
 u32 func0f10898c(void);
 u32 func0f108a80(void);
 void func0f108d8c(void);
