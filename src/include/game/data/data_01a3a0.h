@@ -2,7 +2,7 @@
 #define IN_GAME_DATA_01A3A0_H
 #include <ultra64.h>
 
-extern struct menudialog menudialog_1a410;
+extern struct menudialog g_PakErrorMenuDialog;
 extern u16 savelocations2[];
 extern u16 iomessages2[];
 extern u16 filetypenames[];

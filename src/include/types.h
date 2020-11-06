@@ -4499,7 +4499,7 @@ struct menu {
 	} data;
 
 	/*0xe30*/ u32 unke30;
-	/*0xe34*/ u16 unke34; // I/O error code
+	/*0xe34*/ u16 errno;
 	/*0xe38*/ struct savelocation000 *unke38;
 	/*0xe3c*/ u8 unke3c;
 	/*0xe3d*/ u8 unke3d;

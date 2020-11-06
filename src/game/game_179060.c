@@ -3286,7 +3286,7 @@ glabel var7f1b81a8
 /*  f17c11c:	10000018 */ 	b	.L0f17c180
 /*  f17c120:	00001025 */ 	or	$v0,$zero,$zero
 .L0f17c124:
-/*  f17c124:	0fc42197 */ 	jal	func0f10865c
+/*  f17c124:	0fc42197 */ 	jal	pakPushErrorDialog
 /*  f17c128:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f17c12c:	10000014 */ 	b	.L0f17c180
 /*  f17c130:	00001025 */ 	or	$v0,$zero,$zero

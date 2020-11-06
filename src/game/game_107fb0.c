@@ -180,7 +180,7 @@ u16 g_PakFailReasons[] = {
 
 char *pakMenuTextFailReason(struct menuitem *item)
 {
-	return langGet(g_PakFailReasons[g_Menus[g_MpPlayerNum].unke34]);
+	return langGet(g_PakFailReasons[g_Menus[g_MpPlayerNum].errno]);
 }
 
 /**
@@ -199,29 +199,29 @@ s32 menuhandler001084b8(u32 operation, struct menuitem *item, union handlerdata 
 			return 1;
 		}
 
-		switch (g_Menus[g_MpPlayerNum].unke34) {
-		case 4:
-		case 5:
-		case 7:
+		switch (g_Menus[g_MpPlayerNum].errno) {
+		case PAKERROR_OUTOFMEMORY:
+		case PAKERROR_ALREADYLOADED:
+		case PAKERROR_PAKDAMAGED:
 		default:
-			return 1;
-		case 1:
-		case 2:
-		case 3:
-		case 6:
-		case 8:
+			return true;
+		case PAKERROR_SAVEFAILED:
+		case PAKERROR_LOADFAILED:
+		case PAKERROR_DELETEFAILED:
+		case PAKERROR_PAKREMOVED:
+		case PAKERROR_DELETENOTEFAILED:
 			break;
 		}
 	}
 
-	return 0;
+	return false;
 }
 
 char *pakMenuTextDeviceNameForError(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%s", getSaveLocationName(g_Menus[g_MpPlayerNum].unke3c & 0x7f));
 
-	if (g_Menus[g_MpPlayerNum].unke34 != 6) {
+	if (g_Menus[g_MpPlayerNum].errno != PAKERROR_PAKREMOVED) {
 		s32 i = 0;
 
 		while (g_StringPointer[i] != '\0') {
@@ -267,15 +267,15 @@ const char var7f1b31d8[] = "COULD NOT DELETE\n";
 const char var7f1b31ec[] = "Multiplayer %d was using that file...\n";
 
 
-void func0f10865c(u16 arg0)
+void pakPushErrorDialog(u16 errno)
 {
-	g_Menus[g_MpPlayerNum].unke34 = arg0;
+	g_Menus[g_MpPlayerNum].errno = errno;
 
-	menuPushDialog(&menudialog_1a410);
+	menuPushDialog(&g_PakErrorMenuDialog);
 }
 
 // 1a3c0
-struct menuitem menuitems_1a3c0[] = {
+struct menuitem g_PakErrorMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextDeviceNameForError, 0x00000000, menuhandler001084b8 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextFailReason, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS(321), 0x00000000, NULL }, // "Cancel"
@@ -283,10 +283,10 @@ struct menuitem menuitems_1a3c0[] = {
 };
 
 // 1a410
-struct menudialog menudialog_1a410 = {
+struct menudialog g_PakErrorMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(320), // "Error"
-	menuitems_1a3c0,
+	g_PakErrorMenuItems,
 	NULL,
 	0x00000080,
 	NULL,
@@ -806,122 +806,38 @@ char *pakMenuTextPleaseInsertOriginalPak(struct menuitem *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f109038
-/*  f109038:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10903c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f109040:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f109044:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f109048:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10904c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f109050:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f109054:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f109058:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10905c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f109060:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f109064:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe4c)
-/*  f109068:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10906c:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f109070:	0fc479ac */ 	jal	func0f11e6b0
-/*  f109074:	8c84ee4c */ 	lw	$a0,%lo(g_Menus+0xe4c)($a0)
-/*  f109078:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f10907c:	14410010 */ 	bne	$v0,$at,.L0f1090c0
-/*  f109080:	00402025 */ 	or	$a0,$v0,$zero
-/*  f109084:	8fb80020 */ 	lw	$t8,0x20($sp)
-/*  f109088:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10908c:	57010004 */ 	bnel	$t8,$at,.L0f1090a0
-/*  f109090:	8fb90020 */ 	lw	$t9,0x20($sp)
-/*  f109094:	0fc42197 */ 	jal	func0f10865c
-/*  f109098:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10909c:	8fb90020 */ 	lw	$t9,0x20($sp)
-.L0f1090a0:
-/*  f1090a0:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1090a4:	3c048007 */ 	lui	$a0,%hi(menudialog_1a654)
-/*  f1090a8:	5721004a */ 	bnel	$t9,$at,.L0f1091d4
-/*  f1090ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1090b0:	0fc3cdc1 */ 	jal	func0f0f3704
-/*  f1090b4:	24844634 */ 	addiu	$a0,$a0,%lo(menudialog_1a654)
-/*  f1090b8:	10000046 */ 	b	.L0f1091d4
-/*  f1090bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1090c0:
-/*  f1090c0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1090c4:	0fc42478 */ 	jal	func0f1091e0
-/*  f1090c8:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f1090cc:	10400040 */ 	beqz	$v0,.L0f1091d0
-/*  f1090d0:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f1090d4:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*  f1090d8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1090dc:	3c098007 */ 	lui	$t1,%hi(g_MpPlayerNum)
-/*  f1090e0:	15010019 */ 	bne	$t0,$at,.L0f109148
-/*  f1090e4:	3c0d8007 */ 	lui	$t5,%hi(g_MpPlayerNum)
-/*  f1090e8:	8d291448 */ 	lw	$t1,%lo(g_MpPlayerNum)($t1)
-/*  f1090ec:	3c0b800a */ 	lui	$t3,%hi(g_Menus)
-/*  f1090f0:	256be000 */ 	addiu	$t3,$t3,%lo(g_Menus)
-/*  f1090f4:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f1090f8:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f1090fc:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f109100:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f109104:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f109108:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f10910c:	000a5100 */ 	sll	$t2,$t2,0x4
-/*  f109110:	014b1021 */ 	addu	$v0,$t2,$t3
-/*  f109114:	904c0e42 */ 	lbu	$t4,0xe42($v0)
-/*  f109118:	a0440e3c */ 	sb	$a0,0xe3c($v0)
-/*  f10911c:	29810064 */ 	slti	$at,$t4,0x64
-/*  f109120:	10200005 */ 	beqz	$at,.L0f109138
-/*  f109124:	00000000 */ 	nop
-/*  f109128:	0fc42197 */ 	jal	func0f10865c
-/*  f10912c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f109130:	10000028 */ 	b	.L0f1091d4
-/*  f109134:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f109138:
-/*  f109138:	0fc42197 */ 	jal	func0f10865c
-/*  f10913c:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f109140:	10000024 */ 	b	.L0f1091d4
-/*  f109144:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f109148:
-/*  f109148:	8dad1448 */ 	lw	$t5,%lo(g_MpPlayerNum)($t5)
-/*  f10914c:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe4c)
-/*  f109150:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f109154:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*  f109158:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f10915c:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f109160:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f109164:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*  f109168:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f10916c:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f109170:	0fc420c9 */ 	jal	func0f108324
-/*  f109174:	8c84ee4c */ 	lw	$a0,%lo(g_Menus+0xe4c)($a0)
-/*  f109178:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
-/*  f10917c:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f109180:	3c19800a */ 	lui	$t9,%hi(g_Menus+0xe42)
-/*  f109184:	3c048007 */ 	lui	$a0,%hi(menudialog_saveerror)
-/*  f109188:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f10918c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f109190:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f109194:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f109198:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f10919c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1091a0:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f1091a4:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f1091a8:	9339ee42 */ 	lbu	$t9,%lo(g_Menus+0xe42)($t9)
-/*  f1091ac:	2b210064 */ 	slti	$at,$t9,0x64
-/*  f1091b0:	10200005 */ 	beqz	$at,.L0f1091c8
-/*  f1091b4:	00000000 */ 	nop
-/*  f1091b8:	0fc3cdc1 */ 	jal	func0f0f3704
-/*  f1091bc:	248444fc */ 	addiu	$a0,$a0,%lo(menudialog_saveerror)
-/*  f1091c0:	10000004 */ 	b	.L0f1091d4
-/*  f1091c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1091c8:
-/*  f1091c8:	0fc42363 */ 	jal	func0f108d8c
-/*  f1091cc:	00000000 */ 	nop
-.L0f1091d0:
-/*  f1091d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1091d4:
-/*  f1091d4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1091d8:	03e00008 */ 	jr	$ra
-/*  f1091dc:	00000000 */ 	nop
-);
+void func0f109038(s32 arg0)
+{
+	s32 value = func0f11e6b0(g_Menus[g_MpPlayerNum].unke4c);
+
+	if (value == -1) {
+		if (arg0 == 1) {
+			pakPushErrorDialog(PAKERROR_NOPAK);
+		}
+
+		if (arg0 == 2) {
+			func0f0f3704(&menudialog_1a654);
+		}
+	} else if (func0f1091e0(value, true)) {
+		if (arg0 == 2) {
+			g_Menus[g_MpPlayerNum].unke3c = value;
+
+			if (g_Menus[g_MpPlayerNum].unke42 < 100) {
+				pakPushErrorDialog(PAKERROR_SAVEFAILED);
+			} else {
+				pakPushErrorDialog(PAKERROR_LOADFAILED);
+			}
+		} else {
+			func0f108324(g_Menus[g_MpPlayerNum].unke4c);
+
+			if (g_Menus[g_MpPlayerNum].unke42 < 100) {
+				func0f0f3704(&menudialog_saveerror);
+			} else {
+				func0f108d8c();
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1091e0
@@ -1298,7 +1214,7 @@ void pakDeleteFile(void)
 
 	if (error) {
 		g_Menus[g_MpPlayerNum].unke3c = value;
-		func0f10865c(3);
+		pakPushErrorDialog(PAKERROR_DELETEFAILED);
 	} else {
 		for (i = 0; i < 4; i++) {
 			if (var800a21f0.unk00 == g_MpPlayers[i].unk4c.unk00
@@ -1415,7 +1331,7 @@ void func0f1097d0(s32 device)
 		if (thing) {
 			func0f1094e4(&var800a21e0, g_Menus[g_MpPlayerNum].data.pak.unke1c + 0x67, thing);
 		} else {
-			func0f10865c(4);
+			pakPushErrorDialog(PAKERROR_OUTOFMEMORY);
 		}
 
 		g_SaveLocations.unk10[g_Menus[g_MpPlayerNum].data.pak.unke1c - 1] = 1;
@@ -2648,7 +2564,7 @@ s32 pakDeleteGameNoteMenuHandler(u32 operation, struct menuitem *item, union han
 		g_Menus[g_MpPlayerNum].unke3c = g_Menus[g_MpPlayerNum].data.pak.device;
 
 		if (result) {
-			func0f10865c(8);
+			pakPushErrorDialog(PAKERROR_DELETENOTEFAILED);
 		}
 	}
 
@@ -2978,7 +2894,7 @@ s32 pakGameNotesMenuDialog(u32 operation, struct menudialog *dialog, union handl
 				g_Menus[g_MpPlayerNum].unke3c = g_Menus[g_MpPlayerNum].data.pak.device;
 
 				if (value == 1) {
-					func0f10865c(6);
+					pakPushErrorDialog(PAKERROR_PAKREMOVED);
 				}
 
 				menuUpdateCurFrame();
