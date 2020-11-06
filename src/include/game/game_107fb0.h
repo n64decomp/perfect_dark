@@ -23,7 +23,7 @@ char *pakMenuTextPleaseInsertOriginalPak(struct menuitem *item);
 void func0f109038(s32 arg0);
 u32 func0f1091e0(void);
 bool func0f1094e4(struct savelocation_2d8 *arg0, s32 arg1, void *arg2);
-u32 pakDeleteFile(void);
+void pakDeleteFile(void);
 void func0f1097d0(s32 device);
 void func0f109954(s32 arg0);
 void func0f1099a8(char *buffer, struct savelocation000 *arg1);

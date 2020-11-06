@@ -1411,91 +1411,34 @@ glabel func0f1094e4
 /*  f10969c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel pakDeleteFile
-/*  f1096a0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1096a4:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f1096a8:	3c13800a */ 	lui	$s3,%hi(var800a21f0)
-/*  f1096ac:	267321f0 */ 	addiu	$s3,$s3,%lo(var800a21f0)
-/*  f1096b0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1096b4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1096b8:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f1096bc:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1096c0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1096c4:	0fc479ac */ 	jal	func0f11e6b0
-/*  f1096c8:	96640004 */ 	lhu	$a0,0x4($s3)
-/*  f1096cc:	00028e00 */ 	sll	$s1,$v0,0x18
-/*  f1096d0:	00117603 */ 	sra	$t6,$s1,0x18
-/*  f1096d4:	0440000a */ 	bltz	$v0,.L0f109700
-/*  f1096d8:	01c08825 */ 	or	$s1,$t6,$zero
-/*  f1096dc:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f1096e0:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f1096e4:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f1096e8:	0fc45a18 */ 	jal	func0f116860
-/*  f1096ec:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f1096f0:	10400004 */ 	beqz	$v0,.L0f109704
-/*  f1096f4:	00000000 */ 	nop
-/*  f1096f8:	10000002 */ 	b	.L0f109704
-/*  f1096fc:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f109700:
-/*  f109700:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f109704:
-/*  f109704:	3c038007 */ 	lui	$v1,%hi(g_MpPlayerNum)
-/*  f109708:	24631448 */ 	addiu	$v1,$v1,%lo(g_MpPlayerNum)
-/*  f10970c:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f109710:	24050e70 */ 	addiu	$a1,$zero,0xe70
-/*  f109714:	3c02800a */ 	lui	$v0,%hi(g_Menus)
-/*  f109718:	03250019 */ 	multu	$t9,$a1
-/*  f10971c:	2442e000 */ 	addiu	$v0,$v0,%lo(g_Menus)
-/*  f109720:	3c0c8007 */ 	lui	$t4,%hi(g_SaveLocations)
-/*  f109724:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f109728:	24120004 */ 	addiu	$s2,$zero,0x4
-/*  f10972c:	00004012 */ 	mflo	$t0
-/*  f109730:	00484821 */ 	addu	$t1,$v0,$t0
-/*  f109734:	912a0e3f */ 	lbu	$t2,0xe3f($t1)
-/*  f109738:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f10973c:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f109740:	8d8c5bc0 */ 	lw	$t4,%lo(g_SaveLocations)($t4)
-/*  f109744:	1200000a */ 	beqz	$s0,.L0f109770
-/*  f109748:	a198030c */ 	sb	$t8,0x30c($t4)
-/*  f10974c:	8c6d0000 */ 	lw	$t5,0x0($v1)
-/*  f109750:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f109754:	01a50019 */ 	multu	$t5,$a1
-/*  f109758:	00007012 */ 	mflo	$t6
-/*  f10975c:	004e7821 */ 	addu	$t7,$v0,$t6
-/*  f109760:	0fc42197 */ 	jal	func0f10865c
-/*  f109764:	a1f10e3c */ 	sb	$s1,0xe3c($t7)
-/*  f109768:	10000013 */ 	b	.L0f1097b8
-/*  f10976c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f109770:
-/*  f109770:	3c11800b */ 	lui	$s1,%hi(g_MpPlayers)
-/*  f109774:	2631c7b8 */ 	addiu	$s1,$s1,%lo(g_MpPlayers)
-/*  f109778:	00008025 */ 	or	$s0,$zero,$zero
-.L0f10977c:
-/*  f10977c:	8e790000 */ 	lw	$t9,0x0($s3)
-/*  f109780:	8e28004c */ 	lw	$t0,0x4c($s1)
-/*  f109784:	57280009 */ 	bnel	$t9,$t0,.L0f1097ac
-/*  f109788:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10978c:	96690004 */ 	lhu	$t1,0x4($s3)
-/*  f109790:	962a0050 */ 	lhu	$t2,0x50($s1)
-/*  f109794:	02002025 */ 	or	$a0,$s0,$zero
-/*  f109798:	552a0004 */ 	bnel	$t1,$t2,.L0f1097ac
-/*  f10979c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1097a0:	0fc62003 */ 	jal	func0f18800c
-/*  f1097a4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1097a8:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f1097ac:
-/*  f1097ac:	1612fff3 */ 	bne	$s0,$s2,.L0f10977c
-/*  f1097b0:	263100a0 */ 	addiu	$s1,$s1,0xa0
-/*  f1097b4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f1097b8:
-/*  f1097b8:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f1097bc:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f1097c0:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f1097c4:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f1097c8:	03e00008 */ 	jr	$ra
-/*  f1097cc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void pakDeleteFile(void)
+{
+	bool error = false;
+	s8 value = func0f11e6b0(var800a21f0.unk04);
+	s32 i;
+
+	if (value >= 0) {
+		if (func0f116860(value, var800a21f0.unk00)) {
+			error = true;
+		}
+	} else {
+		error = true;
+	}
+
+	g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f]->unk30c = true;
+
+	if (error) {
+		g_Menus[g_MpPlayerNum].unke3c = value;
+		func0f10865c(3);
+	} else {
+		for (i = 0; i < 4; i++) {
+			if (var800a21f0.unk00 == g_MpPlayers[i].unk4c.unk00
+					&& var800a21f0.unk04 == g_MpPlayers[i].unk4c.unk04) {
+				func0f18800c(i, true);
+			}
+		}
+	}
+}
 
 // 1a434
 u16 iomessages2[] = {
