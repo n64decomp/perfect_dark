@@ -65,7 +65,7 @@ char *pakMenuTextLocationName(struct menuitem *item)
  * Suspected that arg2 is a save file type (solo, MP game, MP player)
  * and that this builds the title for whatever the file type is.
  */
-void func0f1080d0(char *buffer, u32 arg1, u32 arg2)
+void func0f1080d0(char *buffer, struct savelocation000 *arg1, u32 arg2)
 {
 	s32 days;
 	char tmpbuffer1[28];
@@ -80,10 +80,10 @@ void func0f1080d0(char *buffer, u32 arg1, u32 arg2)
 	switch (arg2) {
 	case 0:
 	case 1:
-		func0f0d564c(arg1 + 6, tmpbuffer1, 0);
+		func0f0d564c(arg1->unk06, tmpbuffer1, 0);
 		break;
 	case 2:
-		func0f18d9a4(arg1 + 6, namebuffer, &totalinseconds);
+		func0f18d9a4(arg1->unk06, namebuffer, &totalinseconds);
 		pos = sprintf(tmpbuffer1, "%s-", namebuffer);
 
 		if (totalinseconds >= 0x7ffffff) { // about 4.25 years
@@ -162,7 +162,7 @@ glabel func0f1083b0
 /*  f1083cc:	00000000 */ 	nop
 );
 
-void func0f1083d0(s32 arg0, s32 arg1)
+void func0f1083d0(struct savelocation000 *arg0, s32 arg1)
 {
 	g_Menus[g_MpPlayerNum].unke3d = arg1;
 	g_Menus[g_MpPlayerNum].unke38 = arg0;
@@ -1705,7 +1705,7 @@ void func0f109954(s32 arg0)
 	}
 }
 
-void func0f1099a8(char *buffer, s32 arg1)
+void func0f1099a8(char *buffer, struct savelocation000 *arg1)
 {
 	char localbuffer[20];
 	u32 sp20;
@@ -1715,10 +1715,10 @@ void func0f1099a8(char *buffer, s32 arg1)
 	switch (g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f]->filetype) {
 	case 0:
 	case 1:
-		func0f0d564c(arg1 + 6, localbuffer, 0);
+		func0f0d564c(arg1->unk06, localbuffer, 0);
 		break;
 	case 2:
-		func0f18d9a4(arg1 + 6, localbuffer, &sp20);
+		func0f18d9a4(arg1->unk06, localbuffer, &sp20);
 		break;
 	}
 
@@ -2982,78 +2982,28 @@ glabel menucustomFileToDelete
 /*  f10af08:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel menucustomFileToCopy
-/*  f10af0c:	3c028007 */ 	lui	$v0,%hi(g_SaveLocations)
-/*  f10af10:	8c425bc0 */ 	lw	$v0,%lo(g_SaveLocations)($v0)
-/*  f10af14:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10af18:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10af1c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10af20:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10af24:	14400003 */ 	bnez	$v0,.L0f10af34
-/*  f10af28:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10af2c:	10000035 */ 	b	.L0f10b004
-/*  f10af30:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10af34:
-/*  f10af34:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f10af38:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10af3c:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*  f10af40:	55c1002c */ 	bnel	$t6,$at,.L0f10aff4
-/*  f10af44:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f10af48:	8df80000 */ 	lw	$t8,0x0($t7)
-/*  f10af4c:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f10af50:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10af54:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f10af58:	00592821 */ 	addu	$a1,$v0,$t9
-/*  f10af5c:	50a00025 */ 	beqzl	$a1,.L0f10aff4
-/*  f10af60:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f10af64:	8ca80000 */ 	lw	$t0,0x0($a1)
-/*  f10af68:	3c02800a */ 	lui	$v0,%hi(var800a21e0)
-/*  f10af6c:	244221e0 */ 	addiu	$v0,$v0,%lo(var800a21e0)
-/*  f10af70:	ac480000 */ 	sw	$t0,0x0($v0)
-/*  f10af74:	94a90004 */ 	lhu	$t1,0x4($a1)
-/*  f10af78:	3c0a8007 */ 	lui	$t2,%hi(g_MpPlayerNum)
-/*  f10af7c:	3c0d800a */ 	lui	$t5,%hi(g_Menus)
-/*  f10af80:	a4490004 */ 	sh	$t1,0x4($v0)
-/*  f10af84:	8d4a1448 */ 	lw	$t2,%lo(g_MpPlayerNum)($t2)
-/*  f10af88:	25ade000 */ 	addiu	$t5,$t5,%lo(g_Menus)
-/*  f10af8c:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f10af90:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f10af94:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f10af98:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f10af9c:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f10afa0:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f10afa4:	000b5900 */ 	sll	$t3,$t3,0x4
-/*  f10afa8:	256c0e53 */ 	addiu	$t4,$t3,0xe53
-/*  f10afac:	0fc4266a */ 	jal	func0f1099a8
-/*  f10afb0:	018d2021 */ 	addu	$a0,$t4,$t5
-/*  f10afb4:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10afb8:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10afbc:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe1c)
-/*  f10afc0:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10afc4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10afc8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10afcc:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10afd0:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10afd4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10afd8:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10afdc:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f10afe0:	8c42ee1c */ 	lw	$v0,%lo(g_Menus+0xe1c)($v0)
-/*  f10afe4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f10afe8:	0fc42947 */ 	jal	func0f10a51c
-/*  f10afec:	2445ffff */ 	addiu	$a1,$v0,-1
-/*  f10aff0:	8fa40018 */ 	lw	$a0,0x18($sp)
-.L0f10aff4:
-/*  f10aff4:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f10aff8:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f10affc:	0fc42ab6 */ 	jal	func0f10aad8
-/*  f10b000:	00003825 */ 	or	$a3,$zero,$zero
-.L0f10b004:
-/*  f10b004:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10b008:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10b00c:	03e00008 */ 	jr	$ra
-/*  f10b010:	00000000 */ 	nop
-);
+s32 pakListFileToCopyMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+{
+	struct savelocation *location = g_SaveLocations.locations[0];
+
+	if (location == NULL) {
+		return 0;
+	}
+
+	if (operation == MENUOP_SET) {
+		struct savelocation000 *thing = &location->unk000[data->list.value];
+
+		if (thing) {
+			var800a21e0.unk00 = thing->unk00;
+			var800a21e0.unk04 = thing->unk04;
+
+			func0f1099a8(g_Menus[g_MpPlayerNum].unke53, thing);
+			func0f10a51c(g_Menus[g_MpPlayerNum].data.pak.unke1c, g_Menus[g_MpPlayerNum].data.pak.unke1c - 1);
+		}
+	}
+
+	return func0f10aad8(operation, item, data, 0);
+}
 
 s32 menudialog0010b014(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
@@ -4491,7 +4441,7 @@ struct menudialog menudialog_deletefile = {
 // 1aa04
 struct menuitem menuitems_copyfile[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(374), 0x00000000, NULL }, // "Select a file to copy:"
-	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x00000000, 0x00000000, menucustomFileToCopy },
+	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x00000000, 0x00000000, pakListFileToCopyMenuHandler },
 	{ MENUITEMTYPE_LABEL,       0, 0x00004030, L_OPTIONS(375), 0x00000000, NULL }, // "Press B Button to exit."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };

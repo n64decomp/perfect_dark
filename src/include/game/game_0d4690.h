@@ -18,7 +18,7 @@ u32 func0f0d5484(void);
 u32 func0f0d54c4(void);
 u32 func0f0d54e4(void);
 u32 func0f0d55a4(void);
-void func0f0d564c(s32 arg0, char *buffer, s32 arg2);
+void func0f0d564c(char *arg0, char *buffer, s32 arg2);
 u32 func0f0d5690(void);
 u32 func0f0d575c(void);
 u32 func0f0d579c(void);

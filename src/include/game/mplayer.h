@@ -100,7 +100,7 @@ u32 func0f18d1b8(void);
 u32 func0f18d238(void);
 u32 func0f18d2b8(void);
 u32 func0f18d5c4(void);
-void func0f18d9a4(s32 arg0, char *buffer, u32 *arg2);
+void func0f18d9a4(char *arg0, char *buffer, u32 *arg2);
 u32 func0f18d9fc(void);
 u32 func0f18dac0(void);
 u32 mpGetNumPresets(void);

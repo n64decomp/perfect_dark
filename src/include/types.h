@@ -4500,7 +4500,7 @@ struct menu {
 
 	/*0xe30*/ u32 unke30;
 	/*0xe34*/ u16 unke34; // I/O error code
-	/*0xe38*/ u32 unke38;
+	/*0xe38*/ struct savelocation000 *unke38;
 	/*0xe3c*/ u8 unke3c;
 	/*0xe3d*/ u8 unke3d;
 	/*0xe3e*/ u8 unke3e;
@@ -4701,11 +4701,18 @@ struct mparena {
 	u16 name;
 };
 
+struct savelocation000 {
+	u32 unk00;
+	u16 unk04;
+	char unk06[6]; // length unknown
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+};
+
 struct savelocation {
-	/*0x000*/ struct savelocation00 *unk000;
-	/*0x004*/ u32 unk004;
-	/*0x008*/ u32 unk008;
-	/*0x00c*/ u32 unk00c[4];
+	/*0x000*/ struct savelocation000 unk000[1];
+	/*0x018*/ u32 unk018;
 	/*0x01c*/ u32 unk01c;
 	/*0x020*/ u32 unk020;
 	/*0x024*/ u32 unk024;
