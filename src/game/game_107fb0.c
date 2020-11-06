@@ -326,137 +326,45 @@ char *func0f1086b8(s32 arg0, s32 arg1, s32 arg2)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f10876c
-.late_rodata
-glabel var7f1b3568
-.word func0f10876c+0xbc # f108828
-glabel var7f1b356c
-.word func0f10876c+0xdc # f108848
-glabel var7f1b3570
-.word func0f10876c+0xbc # f108828
-glabel var7f1b3574
-.word func0f10876c+0x11c # f108888
-glabel var7f1b3578
-.word func0f10876c+0xfc # f108868
-glabel var7f1b357c
-.word func0f10876c+0xfc # f108868
-glabel var7f1b3580
-.word func0f10876c+0xfc # f108868
-glabel var7f1b3584
-.word func0f10876c+0xcc # f108838
-glabel var7f1b3588
-.word func0f10876c+0xcc # f108838
-glabel var7f1b358c
-.word func0f10876c+0xcc # f108838
-glabel var7f1b3590
-.word func0f10876c+0xec # f108858
-glabel var7f1b3594
-.word func0f10876c+0xcc # f108838
-glabel var7f1b3598
-.word func0f10876c+0x11c # f108888
-glabel var7f1b359c
-.word func0f10876c+0x10c # f108878
-glabel var7f1b35a0
-.word func0f10876c+0x10c # f108878
-glabel var7f1b35a4
-.word func0f10876c+0x10c # f108878
-.text
-/*  f10876c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f108770:	3c0f8007 */ 	lui	$t7,%hi(iomessages2)
-/*  f108774:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f108778:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f10877c:	25ef4414 */ 	addiu	$t7,$t7,%lo(iomessages2)
-/*  f108780:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f108784:	27ae001c */ 	addiu	$t6,$sp,0x1c
-/*  f108788:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f10878c:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f108790:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f108794:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f108798:	8de8000c */ 	lw	$t0,0xc($t7)
-/*  f10879c:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f1087a0:	95e10010 */ 	lhu	$at,0x10($t7)
-/*  f1087a4:	3c098007 */ 	lui	$t1,%hi(g_MpPlayerNum)
-/*  f1087a8:	adc8000c */ 	sw	$t0,0xc($t6)
-/*  f1087ac:	a5c10010 */ 	sh	$at,0x10($t6)
-/*  f1087b0:	8d291448 */ 	lw	$t1,%lo(g_MpPlayerNum)($t1)
-/*  f1087b4:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe42)
-/*  f1087b8:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f1087bc:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f1087c0:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f1087c4:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f1087c8:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f1087cc:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f1087d0:	000a5100 */ 	sll	$t2,$t2,0x4
-/*  f1087d4:	004a1021 */ 	addu	$v0,$v0,$t2
-/*  f1087d8:	9042ee42 */ 	lbu	$v0,%lo(g_Menus+0xe42)($v0)
-/*  f1087dc:	28410009 */ 	slti	$at,$v0,0x9
-/*  f1087e0:	14200009 */ 	bnez	$at,.L0f108808
-/*  f1087e4:	244bff9c */ 	addiu	$t3,$v0,-100
-/*  f1087e8:	2d610007 */ 	sltiu	$at,$t3,0x7
-/*  f1087ec:	10200026 */ 	beqz	$at,.L0f108888
-/*  f1087f0:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f1087f4:	3c017f1b */ 	lui	$at,%hi(var7f1b3568)
-/*  f1087f8:	002b0821 */ 	addu	$at,$at,$t3
-/*  f1087fc:	8c2b3568 */ 	lw	$t3,%lo(var7f1b3568)($at)
-/*  f108800:	01600008 */ 	jr	$t3
-/*  f108804:	00000000 */ 	nop
-.L0f108808:
-/*  f108808:	2c410009 */ 	sltiu	$at,$v0,0x9
-/*  f10880c:	1020001e */ 	beqz	$at,.L0f108888
-/*  f108810:	00026080 */ 	sll	$t4,$v0,0x2
-/*  f108814:	3c017f1b */ 	lui	$at,%hi(var7f1b3584)
-/*  f108818:	002c0821 */ 	addu	$at,$at,$t4
-/*  f10881c:	8c2c3584 */ 	lw	$t4,%lo(var7f1b3584)($at)
-/*  f108820:	01800008 */ 	jr	$t4
-/*  f108824:	00000000 */ 	nop
-/*  f108828:	0fc5b9f1 */ 	jal	langGet
-/*  f10882c:	97a4001c */ 	lhu	$a0,0x1c($sp)
-/*  f108830:	10000018 */ 	b	.L0f108894
-/*  f108834:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108838:	0fc5b9f1 */ 	jal	langGet
-/*  f10883c:	97a4001e */ 	lhu	$a0,0x1e($sp)
-/*  f108840:	10000014 */ 	b	.L0f108894
-/*  f108844:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108848:	0fc5b9f1 */ 	jal	langGet
-/*  f10884c:	97a40020 */ 	lhu	$a0,0x20($sp)
-/*  f108850:	10000010 */ 	b	.L0f108894
-/*  f108854:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108858:	0fc5b9f1 */ 	jal	langGet
-/*  f10885c:	97a40022 */ 	lhu	$a0,0x22($sp)
-/*  f108860:	1000000c */ 	b	.L0f108894
-/*  f108864:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108868:	0fc5b9f1 */ 	jal	langGet
-/*  f10886c:	97a40028 */ 	lhu	$a0,0x28($sp)
-/*  f108870:	10000008 */ 	b	.L0f108894
-/*  f108874:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108878:	0fc5b9f1 */ 	jal	langGet
-/*  f10887c:	97a4002a */ 	lhu	$a0,0x2a($sp)
-/*  f108880:	10000004 */ 	b	.L0f108894
-/*  f108884:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f108888:
-/*  f108888:	0fc5b9f1 */ 	jal	langGet
-/*  f10888c:	97a4002c */ 	lhu	$a0,0x2c($sp)
-/*  f108890:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f108894:
-/*  f108894:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f108898:	03e00008 */ 	jr	$ra
-/*  f10889c:	00000000 */ 	nop
-);
+char *func0f10876c(struct menuitem *item)
+{
+	u16 messages[] = {
+		L_OPTIONS(331), // "Error Loading Game"
+		L_OPTIONS(332), // "Error Saving Game"
+		L_OPTIONS(333), // "Error Loading Player"
+		L_OPTIONS(334), // "Error Saving Player"
+		L_OPTIONS(335), // "Error Loading PerfectHead"
+		L_OPTIONS(336), // "Error Saving PerfectHead"
+		L_OPTIONS(337), // "Error Reading File"
+		L_OPTIONS(338), // "Error Writing File"
+		L_OPTIONS(339), // "Error"
+	};
 
-// 1a434
-u16 iomessages2[] = {
-	L_OPTIONS(331), // "Error Loading Game"
-	L_OPTIONS(332), // "Error Saving Game"
-	L_OPTIONS(333), // "Error Loading Player"
-	L_OPTIONS(334), // "Error Saving Player"
-	L_OPTIONS(335), // "Error Loading PerfectHead"
-	L_OPTIONS(336), // "Error Saving PerfectHead"
-	L_OPTIONS(337), // "Error Reading File"
-	L_OPTIONS(338), // "Error Writing File"
-	L_OPTIONS(339), // "Error"
-	0x0000,
-};
+	switch (g_Menus[g_MpPlayerNum].unke42) {
+	case 100:
+	case 102:
+		return langGet(messages[0]);
+	case 0:
+	case 1:
+	case 2:
+	case 4:
+		return langGet(messages[1]);
+	case 101:
+		return langGet(messages[2]);
+	case 3:
+		return langGet(messages[3]);
+	case 104:
+	case 105:
+	case 106:
+		return langGet(messages[6]);
+	case 6:
+	case 7:
+	case 8:
+		return langGet(messages[7]);
+	}
+
+	return langGet(messages[8]);
+}
 
 char *pakMenuTextFileType(struct menuitem *item)
 {
