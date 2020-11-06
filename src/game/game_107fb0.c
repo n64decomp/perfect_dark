@@ -2880,107 +2880,30 @@ glabel var7f1b37a8
 /*  f10ad94:	27bd0088 */ 	addiu	$sp,$sp,0x88
 );
 
-GLOBAL_ASM(
-glabel menucustomFileToDelete
-/*  f10ad98:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f10ad9c:	25081448 */ 	addiu	$t0,$t0,%lo(g_MpPlayerNum)
-/*  f10ada0:	8d0e0000 */ 	lw	$t6,0x0($t0)
-/*  f10ada4:	24090e70 */ 	addiu	$t1,$zero,0xe70
-/*  f10ada8:	3c07800a */ 	lui	$a3,%hi(g_Menus)
-/*  f10adac:	01c90019 */ 	multu	$t6,$t1
-/*  f10adb0:	24e7e000 */ 	addiu	$a3,$a3,%lo(g_Menus)
-/*  f10adb4:	3c038007 */ 	lui	$v1,%hi(g_SaveLocations)
-/*  f10adb8:	24635bc0 */ 	addiu	$v1,$v1,%lo(g_SaveLocations)
-/*  f10adbc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10adc0:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f10adc4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10adc8:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f10adcc:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f10add0:	8fac0020 */ 	lw	$t4,0x20($sp)
-/*  f10add4:	00007812 */ 	mflo	$t7
-/*  f10add8:	00efc021 */ 	addu	$t8,$a3,$t7
-/*  f10addc:	93190e3f */ 	lbu	$t9,0xe3f($t8)
-/*  f10ade0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10ade4:	00195080 */ 	sll	$t2,$t9,0x2
-/*  f10ade8:	006a5821 */ 	addu	$t3,$v1,$t2
-/*  f10adec:	8d620000 */ 	lw	$v0,0x0($t3)
-/*  f10adf0:	14400003 */ 	bnez	$v0,.L0f10ae00
-/*  f10adf4:	00000000 */ 	nop
-/*  f10adf8:	10000040 */ 	b	.L0f10aefc
-/*  f10adfc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10ae00:
-/*  f10ae00:	15810039 */ 	bne	$t4,$at,.L0f10aee8
-/*  f10ae04:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*  f10ae08:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*  f10ae0c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f10ae10:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10ae14:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10ae18:	004f3021 */ 	addu	$a2,$v0,$t7
-/*  f10ae1c:	10c00032 */ 	beqz	$a2,.L0f10aee8
-/*  f10ae20:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f10ae24:	0fc42a5f */ 	jal	func0f10a97c
-/*  f10ae28:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f10ae2c:	3c038007 */ 	lui	$v1,%hi(g_SaveLocations)
-/*  f10ae30:	3c07800a */ 	lui	$a3,%hi(g_Menus)
-/*  f10ae34:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f10ae38:	25081448 */ 	addiu	$t0,$t0,%lo(g_MpPlayerNum)
-/*  f10ae3c:	24e7e000 */ 	addiu	$a3,$a3,%lo(g_Menus)
-/*  f10ae40:	24635bc0 */ 	addiu	$v1,$v1,%lo(g_SaveLocations)
-/*  f10ae44:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f10ae48:	10400011 */ 	beqz	$v0,.L0f10ae90
-/*  f10ae4c:	24090e70 */ 	addiu	$t1,$zero,0xe70
-/*  f10ae50:	8d180000 */ 	lw	$t8,0x0($t0)
-/*  f10ae54:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f10ae58:	03090019 */ 	multu	$t8,$t1
-/*  f10ae5c:	0000c812 */ 	mflo	$t9
-/*  f10ae60:	00f95021 */ 	addu	$t2,$a3,$t9
-/*  f10ae64:	914b0e3f */ 	lbu	$t3,0xe3f($t2)
-/*  f10ae68:	000b6080 */ 	sll	$t4,$t3,0x2
-/*  f10ae6c:	006c6821 */ 	addu	$t5,$v1,$t4
-/*  f10ae70:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*  f10ae74:	0fc420f4 */ 	jal	func0f1083d0
-/*  f10ae78:	91c5030b */ 	lbu	$a1,0x30b($t6)
-/*  f10ae7c:	3c048007 */ 	lui	$a0,%hi(menudialog_1a984)
-/*  f10ae80:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10ae84:	24844964 */ 	addiu	$a0,$a0,%lo(menudialog_1a984)
-/*  f10ae88:	10000018 */ 	b	.L0f10aeec
-/*  f10ae8c:	8fa40020 */ 	lw	$a0,0x20($sp)
-.L0f10ae90:
-/*  f10ae90:	8d0f0000 */ 	lw	$t7,0x0($t0)
-/*  f10ae94:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f10ae98:	01e90019 */ 	multu	$t7,$t1
-/*  f10ae9c:	0000c012 */ 	mflo	$t8
-/*  f10aea0:	00f8c821 */ 	addu	$t9,$a3,$t8
-/*  f10aea4:	932a0e3f */ 	lbu	$t2,0xe3f($t9)
-/*  f10aea8:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f10aeac:	006b6021 */ 	addu	$t4,$v1,$t3
-/*  f10aeb0:	8d8d0000 */ 	lw	$t5,0x0($t4)
-/*  f10aeb4:	91a5030b */ 	lbu	$a1,0x30b($t5)
-/*  f10aeb8:	0fc420f4 */ 	jal	func0f1083d0
-/*  f10aebc:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f10aec0:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f10aec4:	3c02800a */ 	lui	$v0,%hi(var800a21f0)
-/*  f10aec8:	244221f0 */ 	addiu	$v0,$v0,%lo(var800a21f0)
-/*  f10aecc:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f10aed0:	3c048007 */ 	lui	$a0,%hi(menudialog_confirmdelete)
-/*  f10aed4:	248448e8 */ 	addiu	$a0,$a0,%lo(menudialog_confirmdelete)
-/*  f10aed8:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*  f10aedc:	94cf0004 */ 	lhu	$t7,0x4($a2)
-/*  f10aee0:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10aee4:	a44f0004 */ 	sh	$t7,0x4($v0)
-.L0f10aee8:
-/*  f10aee8:	8fa40020 */ 	lw	$a0,0x20($sp)
-.L0f10aeec:
-/*  f10aeec:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f10aef0:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f10aef4:	0fc42ab6 */ 	jal	func0f10aad8
-/*  f10aef8:	24070001 */ 	addiu	$a3,$zero,0x1
-.L0f10aefc:
-/*  f10aefc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10af00:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f10af04:	03e00008 */ 	jr	$ra
-/*  f10af08:	00000000 */ 	nop
-);
+s32 pakListFileToDeleteMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+{
+	if (g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f] == NULL) {
+		return 0;
+	}
+
+	if (operation == MENUOP_SET) {
+		struct savelocation000 *thing = &g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f]->unk000[data->list.value];
+
+		if (thing) {
+			if (func0f10a97c(thing)) {
+				func0f1083d0(thing, g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f]->filetype);
+				menuPushDialog(&menudialog_1a984);
+			} else {
+				func0f1083d0(thing, g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f]->filetype);
+				var800a21f0.unk00 = thing->unk00;
+				var800a21f0.unk04 = thing->unk04;
+				menuPushDialog(&menudialog_confirmdelete);
+			}
+		}
+	}
+
+	return func0f10aad8(operation, item, data, true);
+}
 
 s32 pakListFileToCopyMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -3002,7 +2925,7 @@ s32 pakListFileToCopyMenuHandler(u32 operation, struct menuitem *item, union han
 		}
 	}
 
-	return func0f10aad8(operation, item, data, 0);
+	return func0f10aad8(operation, item, data, false);
 }
 
 s32 menudialog0010b014(u32 operation, struct menudialog *dialog, union handlerdata *data)
@@ -4423,7 +4346,7 @@ struct menudialog menudialog_1a984 = {
 // 1a99c
 struct menuitem menuitems_deletefile[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(377), 0x00000000, NULL }, // "Select a file to delete:"
-	{ MENUITEMTYPE_LIST,        1, 0x00200000, 0x00000000, 0x00000000, menucustomFileToDelete },
+	{ MENUITEMTYPE_LIST,        1, 0x00200000, 0x00000000, 0x00000000, pakListFileToDeleteMenuHandler },
 	{ MENUITEMTYPE_LABEL,       0, 0x00004030, L_OPTIONS(378), 0x00000000, NULL }, // "Press B Button to exit."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };

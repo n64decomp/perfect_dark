@@ -661,7 +661,7 @@ extern u32 g_CheatsEnabledBank0;
 extern u32 g_CheatsEnabledBank1;
 extern struct savelocation_2d8 var800a21e0;
 extern struct savelocation_2d8 var800a21e8;
-extern u32 var800a21f0;
+extern struct savelocation_2d8 var800a21f0;
 extern struct savefile_solo g_SoloSaveFile;
 extern struct savelocation_2d8 var800a22c0;
 extern u32 var800a22d0;
