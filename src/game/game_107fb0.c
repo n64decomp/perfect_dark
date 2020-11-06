@@ -195,7 +195,50 @@ char *func0f108484(struct menuitem *item)
 	return g_StringPointer;
 }
 
-const char var7f1b2f68[] = "%s";
+s32 menuhandler001084b8(u32 operation, struct menuitem *item, union handlerdata *data)
+{
+	if (operation == MENUOP_CHECKHIDDEN) {
+		if ((g_Menus[g_MpPlayerNum].unke3c & 0x7f) > 4) {
+			return 1;
+		}
+
+		switch (g_Menus[g_MpPlayerNum].unke34) {
+		case 4:
+		case 5:
+		case 7:
+		default:
+			return 1;
+		case 1:
+		case 2:
+		case 3:
+		case 6:
+		case 8:
+			break;
+		}
+	}
+
+	return 0;
+}
+
+char *pakMenuTextDeviceNameForError(struct menuitem *item)
+{
+	sprintf(g_StringPointer, "%s", getSaveLocationName(g_Menus[g_MpPlayerNum].unke3c & 0x7f));
+
+	if (g_Menus[g_MpPlayerNum].unke34 != 6) {
+		s32 i = 0;
+
+		while (g_StringPointer[i] != '\0') {
+			i++;
+		}
+
+		g_StringPointer[i - 1] = ':';
+		g_StringPointer[i] = '\n';
+		g_StringPointer[i + 1] = '\0';
+	}
+
+	return g_StringPointer;
+}
+
 const char var7f1b2f6c[] = "FileMan: Failure Handler\n";
 const char var7f1b2f88[] = "Copy Memory Freed\n";
 const char var7f1b2f9c[] = "FileMan: Success Handler\n";
@@ -226,104 +269,6 @@ const char var7f1b31c8[] = "MyResult: %d\n";
 const char var7f1b31d8[] = "COULD NOT DELETE\n";
 const char var7f1b31ec[] = "Multiplayer %d was using that file...\n";
 
-s32 menuhandler001084b8(u32 operation, struct menuitem *item, union handlerdata *data)
-{
-	if (operation == MENUOP_CHECKHIDDEN) {
-		if ((g_Menus[g_MpPlayerNum].unke3c & 0x7f) > 4) {
-			return 1;
-		}
-
-		switch (g_Menus[g_MpPlayerNum].unke34) {
-		case 4:
-		case 5:
-		case 7:
-		default:
-			return 1;
-		case 1:
-		case 2:
-		case 3:
-		case 6:
-		case 8:
-			break;
-		}
-	}
-
-	return 0;
-}
-
-GLOBAL_ASM(
-glabel func0f108550
-/*  f108550:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f108554:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f108558:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10855c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f108560:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f108564:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f108568:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10856c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f108570:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f108574:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f108578:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10857c:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe3c)
-/*  f108580:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f108584:	9084ee3c */ 	lbu	$a0,%lo(g_Menus+0xe3c)($a0)
-/*  f108588:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10858c:	3098007f */ 	andi	$t8,$a0,0x7f
-/*  f108590:	0fc41fec */ 	jal	getSaveLocationName
-/*  f108594:	03002025 */ 	or	$a0,$t8,$zero
-/*  f108598:	3c078007 */ 	lui	$a3,%hi(g_StringPointer)
-/*  f10859c:	24e71440 */ 	addiu	$a3,$a3,%lo(g_StringPointer)
-/*  f1085a0:	3c057f1b */ 	lui	$a1,%hi(var7f1b2f68)
-/*  f1085a4:	24a52f68 */ 	addiu	$a1,$a1,%lo(var7f1b2f68)
-/*  f1085a8:	8ce40000 */ 	lw	$a0,0x0($a3)
-/*  f1085ac:	0c004dad */ 	jal	sprintf
-/*  f1085b0:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1085b4:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
-/*  f1085b8:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f1085bc:	3c09800a */ 	lui	$t1,%hi(g_Menus+0xe34)
-/*  f1085c0:	3c078007 */ 	lui	$a3,%hi(g_StringPointer)
-/*  f1085c4:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f1085c8:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f1085cc:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f1085d0:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f1085d4:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f1085d8:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f1085dc:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f1085e0:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f1085e4:	9529ee34 */ 	lhu	$t1,%lo(g_Menus+0xe34)($t1)
-/*  f1085e8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1085ec:	24e71440 */ 	addiu	$a3,$a3,%lo(g_StringPointer)
-/*  f1085f0:	11210015 */ 	beq	$t1,$at,.L0f108648
-/*  f1085f4:	240c003a */ 	addiu	$t4,$zero,0x3a
-/*  f1085f8:	8ce40000 */ 	lw	$a0,0x0($a3)
-/*  f1085fc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f108600:	908a0000 */ 	lbu	$t2,0x0($a0)
-/*  f108604:	00801025 */ 	or	$v0,$a0,$zero
-/*  f108608:	51400007 */ 	beqzl	$t2,.L0f108628
-/*  f10860c:	00836821 */ 	addu	$t5,$a0,$v1
-/*  f108610:	904b0001 */ 	lbu	$t3,0x1($v0)
-.L0f108614:
-/*  f108614:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f108618:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f10861c:	5560fffd */ 	bnezl	$t3,.L0f108614
-/*  f108620:	904b0001 */ 	lbu	$t3,0x1($v0)
-/*  f108624:	00836821 */ 	addu	$t5,$a0,$v1
-.L0f108628:
-/*  f108628:	a1acffff */ 	sb	$t4,-0x1($t5)
-/*  f10862c:	8cef0000 */ 	lw	$t7,0x0($a3)
-/*  f108630:	240e000a */ 	addiu	$t6,$zero,0xa
-/*  f108634:	01e3c021 */ 	addu	$t8,$t7,$v1
-/*  f108638:	a30e0000 */ 	sb	$t6,0x0($t8)
-/*  f10863c:	8cf90000 */ 	lw	$t9,0x0($a3)
-/*  f108640:	03234021 */ 	addu	$t0,$t9,$v1
-/*  f108644:	a1000001 */ 	sb	$zero,0x1($t0)
-.L0f108648:
-/*  f108648:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10864c:	8ce20000 */ 	lw	$v0,0x0($a3)
-/*  f108650:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f108654:	03e00008 */ 	jr	$ra
-/*  f108658:	00000000 */ 	nop
-);
 
 void func0f10865c(u16 arg0)
 {
@@ -334,7 +279,7 @@ void func0f10865c(u16 arg0)
 
 // 1a3c0
 struct menuitem menuitems_1a3c0[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108550, 0x00000000, menuhandler001084b8 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextDeviceNameForError, 0x00000000, menuhandler001084b8 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&pakMenuTextFailReason, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS(321), 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
