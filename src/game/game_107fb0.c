@@ -147,23 +147,16 @@ void func0f108324(s32 arg0)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f1083b0
-/*  f1083b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1083b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1083b8:	0fc420c9 */ 	jal	func0f108324
-/*  f1083bc:	94840004 */ 	lhu	$a0,0x4($a0)
-/*  f1083c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1083c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1083c8:	03e00008 */ 	jr	$ra
-/*  f1083cc:	00000000 */ 	nop
-);
+void func0f1083b0(struct savelocation000 *arg0)
+{
+	func0f108324(arg0->unk04);
+}
 
 void func0f1083d0(struct savelocation000 *arg0, s32 arg1)
 {
 	g_Menus[g_MpPlayerNum].unke3d = arg1;
 	g_Menus[g_MpPlayerNum].unke38 = arg0;
-	func0f1083b0();
+	func0f1083b0(arg0);
 }
 
 u16 g_PakFailReasons[] = {

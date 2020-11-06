@@ -8,7 +8,7 @@ char *pakMenuTextLocationName(struct menuitem *item);
 void func0f1080d0(char *buffer, struct savelocation000 *arg1, u32 arg2);
 char *func0f1082b0(struct menuitem *item);
 void func0f108324(s32 arg0);
-u32 func0f1083b0(void);
+void func0f1083b0(struct savelocation000 *arg0);
 void func0f1083d0(struct savelocation000 *arg0, s32 arg1);
 char *pakMenuTextFailReason(struct menuitem *item);
 char *pakMenuTextDeviceNameForError(struct menuitem *item);
