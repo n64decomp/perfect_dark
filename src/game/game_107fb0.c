@@ -1097,6 +1097,45 @@ glabel func0f1094e4
 /*  f10969c:	00000000 */ 	nop
 );
 
+// Mismatch when preparing argument for func0f11e6b0
+//bool func0f1094e4(struct savelocation_2d8 *arg0, s32 arg1, void *arg2)
+//{
+//	s32 value;
+//
+//	if (arg1 != -1) {
+//		g_Menus[g_MpPlayerNum].unke42 = arg1;
+//		g_Menus[g_MpPlayerNum].unke44 = arg2;
+//		g_Menus[g_MpPlayerNum].unke50 = 0;
+//		var800a21f8.unk00 = 0;
+//	}
+//
+//	g_Menus[g_MpPlayerNum].unke48 = arg0->unk00;
+//	g_Menus[g_MpPlayerNum].unke4c = arg0->unk04;
+//
+//	value = func0f11e6b0(g_Menus[g_MpPlayerNum].unke4c);
+//
+//	if (value == -1) {
+//		g_Menus[g_MpPlayerNum].unke50 |= 1;
+//		menuPushDialog(&menudialog_1a654);
+//		return false;
+//	}
+//
+//	if (func0f1091e0(value, false)) {
+//		g_Menus[g_MpPlayerNum].unke50 |= 1;
+//		func0f108324(g_Menus[g_MpPlayerNum].unke4c);
+//
+//		if (g_Menus[g_MpPlayerNum].unke42 < 100) {
+//			menuPushDialog(&menudialog_saveerror);
+//		} else {
+//			func0f108d8c();
+//		}
+//
+//		return false;
+//	}
+//
+//	return true;
+//}
+
 void pakDeleteFile(void)
 {
 	bool error = false;
