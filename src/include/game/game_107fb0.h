@@ -29,7 +29,7 @@ void func0f109954(s32 arg0);
 void func0f1099a8(char *buffer, struct savelocation000 *arg1);
 void func0f109a68(char *buffer);
 void func0f109bb4(char *name);
-u32 func0f109c8c(void);
+bool func0f109c8c(s32 arg0);
 void func0f109ec4(void);
 char *pakMenuTextDeviceNameContainingDuplicateFile(struct menuitem *item);
 char *pakMenuTextDuplicateFilename(struct menuitem *item);
