@@ -5715,7 +5715,7 @@ struct frdata {
 struct menudata {
 	/*0x000*/ s32 count;
 	/*0x004*/ s32 root;
-	/*0x008*/ s32 unk008;
+	/*0x008*/ s32 unk008; // also a menuroot constant
 	/*0x00c*/ struct menudialog *unk00c;
 	/*0x010*/ f32 unk010;
 	/*0x014*/ u8 unk014;

@@ -8183,7 +8183,7 @@ void func0f0f8120(void)
 	}
 }
 
-void func0f0f820c(struct menudialog *dialog, s32 arg1)
+void func0f0f820c(struct menudialog *dialog, s32 root)
 {
 	s32 i;
 	s32 prevplayernum = g_MpPlayerNum;
@@ -8197,7 +8197,7 @@ void func0f0f820c(struct menudialog *dialog, s32 arg1)
 
 	g_MpPlayerNum = prevplayernum;
 
-	g_MenuData.unk008 = arg1;
+	g_MenuData.unk008 = root;
 	g_MenuData.unk00c = dialog;
 }
 
