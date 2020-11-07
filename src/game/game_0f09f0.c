@@ -13870,8 +13870,8 @@ glabel var7f1b2b10
 /*  f0fd3e4:	00a62823 */ 	subu	$a1,$a1,$a2
 /*  f0fd3e8:	01244823 */ 	subu	$t1,$t1,$a0
 /*  f0fd3ec:	00094900 */ 	sll	$t1,$t1,0x4
-/*  f0fd3f0:	3c068007 */ 	lui	$a2,%hi(menudialog_controllerpakmenu)
-/*  f0fd3f4:	24c64c38 */ 	addiu	$a2,$a2,%lo(menudialog_controllerpakmenu)
+/*  f0fd3f0:	3c068007 */ 	lui	$a2,%hi(g_PakChoosePakMenuDialog)
+/*  f0fd3f4:	24c64c38 */ 	addiu	$a2,$a2,%lo(g_PakChoosePakMenuDialog)
 /*  f0fd3f8:	01391821 */ 	addu	$v1,$t1,$t9
 /*  f0fd3fc:	000528c0 */ 	sll	$a1,$a1,0x3
 .L0f0fd400:

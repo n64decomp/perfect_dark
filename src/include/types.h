@@ -3864,7 +3864,7 @@ struct menudata_mpend {
 };
 
 struct menudata_filesel {
-	u32 slotindex;
+	u32 filetypeplusone;
 	u32 slotcount;
 	u32 unke24;
 	u32 unke28;

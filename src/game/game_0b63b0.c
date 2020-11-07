@@ -5107,7 +5107,7 @@ glabel var7f1ad630
 /*  f0bade4:	00000000 */ 	nop
 /*  f0bade8:	10000006 */ 	b	.L0f0bae04
 /*  f0badec:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0badf0:	0fc43240 */ 	jal	pakConsiderPushingFileSelectMenuDialog
+/*  f0badf0:	0fc43240 */ 	jal	filemanConsiderPushingFileSelectDialog
 /*  f0badf4:	00000000 */ 	nop
 /*  f0badf8:	10000002 */ 	b	.L0f0bae04
 /*  f0badfc:	00402025 */ 	or	$a0,$v0,$zero

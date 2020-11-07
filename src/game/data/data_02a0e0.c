@@ -815,7 +815,7 @@ struct menudialog menudialog_mpsavesetupname = {
 // 2ad14
 struct menuitem menuitems_mpsavesetup[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_MPWEAPONS(230), (u32)&mpMenuTextSetupName, NULL }, // "Name:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000230, (u32)&pakMenuTextLocationName, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000230, (u32)&filemanMenuTextDeviceName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPMENU(184), 0x00000000, NULL }, // "Do you want to save over your original game file?"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPMENU(185), 0x00000000, menuhandlerMpSaveSetupOverwrite }, // "Save Over Original"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPMENU(186), 0x00000000, menuhandlerMpSaveSetupCopy }, // "Save Copy"

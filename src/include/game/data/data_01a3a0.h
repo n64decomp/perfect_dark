@@ -2,30 +2,30 @@
 #define IN_GAME_DATA_01A3A0_H
 #include <ultra64.h>
 
-extern struct menudialog g_PakErrorMenuDialog;
+extern struct menudialog g_FilemanErrorMenuDialog;
 extern u16 savelocations2[];
 extern u16 iomessages2[];
 extern u16 filetypenames[];
-extern struct menudialog menudialog_filesaved;
-extern struct menudialog menudialog_saveerror;
-extern struct menudialog menudialog_savelost;
-extern struct menudialog g_SaveElsewhereMenuDialog;
-extern struct menudialog menudialog_1a654;
+extern struct menudialog g_FilemanFileSavedMenuDialog;
+extern struct menudialog g_FilemanSaveErrorMenuDialog;
+extern struct menudialog g_FilemanFileLostMenuDialog;
+extern struct menudialog g_FilemanSaveElsewhereMenuDialog;
+extern struct menudialog g_FilemanInsertOriginalPakMenuDialog;
 extern u32 var8007464c;
-extern struct menudialog menudialog_changefilename;
-extern struct menudialog menudialog_duplicatefilename;
+extern struct menudialog g_FilemanChangeFileNameMenuDialog;
+extern struct menudialog g_FilemanDuplicateFileNameMenuDialog;
 extern u16 savelocations3[];
-extern struct menudialog menudialog_selectlocation;
-extern struct menudialog menudialog_confirmdelete;
-extern struct menudialog menudialog_1a984;
-extern struct menudialog menudialog_deletefile;
-extern struct menudialog menudialog_copyfile;
+extern struct menudialog g_FilemanSelectLocationMenuDialog;
+extern struct menudialog g_FilemanConfirmDeleteMenuDialog;
+extern struct menudialog g_FilemanFileInUseMenuDialog;
+extern struct menudialog g_FilemanDeleteFileMenuDialog;
+extern struct menudialog g_FilemanCopyListMenuDialog;
 extern struct pakdata *g_EditingPak;
-extern struct menudialog menudialog_deletegamenote;
-extern struct menudialog menudialog_gamenotes;
-extern struct menudialog menudialog_controllerpakmenu;
-extern struct menudialog menudialog_enteragentname;
-extern struct menudialog menudialog_fileselect;
+extern struct menudialog g_PakDeleteGameNoteMenuDialog;
+extern struct menudialog g_PakGameNotesMenuDialog;
+extern struct menudialog g_PakChoosePakMenuDialog;
+extern struct menudialog g_FilemanEnterAgentNameMenuDialog;
+extern struct menudialog g_FilemanMainMenuDialog;
 extern struct menudialog menudialog_fileselect2;
 extern struct menudialog menudialog_mpquickgo2;
 extern struct menudialog menudialog_1b1bc;

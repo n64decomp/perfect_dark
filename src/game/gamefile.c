@@ -1469,8 +1469,8 @@ glabel func0f110bf8
 void func0f110c5c(s32 locationindex, u8 filetype)
 {
 	if (g_SaveLocations.locations[locationindex] == NULL) {
-		func0f15e5b8(align16(0x310), 1);
-		g_SaveLocations.locations[locationindex] = func00012ab0(align16(0x310));
+		func0f15e5b8(align16(sizeof(struct savelocation)), 1);
+		g_SaveLocations.locations[locationindex] = func00012ab0(align16(sizeof(struct savelocation)));
 	}
 
 	g_SaveLocations.locations[locationindex]->unk30c = 1;
