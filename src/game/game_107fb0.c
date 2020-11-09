@@ -284,9 +284,9 @@ struct menudialog g_FilemanErrorMenuDialog = {
 
 /**
  * This function is a bit weird. It can return a pointer to a string
- * or return a regular s8 (ie. not a pointer). I'm casting the s8 below.
+ * or return a regular s8 (ie. not a pointer).
  */
-char *func0f1086b8(s32 arg0, s32 arg1, s32 arg2)
+s32 func0f1086b8(s32 arg0, s32 arg1, s32 arg2)
 {
 	u16 names[] = {
 		L_OPTIONS(111), // "Game Pak"
@@ -303,17 +303,17 @@ char *func0f1086b8(s32 arg0, s32 arg1, s32 arg2)
 		if (g_SaveLocations.locations[arg0]->unk300[i] != -1) {
 			if (remaining == 0) {
 				if (arg1 == 4) {
-					return langGet(names[i]);
+					return (s32)langGet(names[i]);
 				}
 
-				return (char *)g_SaveLocations.locations[arg0]->unk300[i];
+				return g_SaveLocations.locations[arg0]->unk300[i];
 			}
 
 			remaining--;
 		}
 	}
 
-	return NULL;
+	return 0;
 }
 
 char *filemanMenuTextErrorTitle(struct menuitem *item)
@@ -1970,235 +1970,78 @@ bool func0f10a97c(struct savelocation000 *arg0)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel filemanFileToCopyOrDeleteListMenuHandler
-.late_rodata
-glabel var7f1b375c
-.word filemanFileToCopyOrDeleteListMenuHandler+0xb4 # f10ab8c
-glabel var7f1b3760
-.word filemanFileToCopyOrDeleteListMenuHandler+0x268 # f10ad40
-glabel var7f1b3764
-.word filemanFileToCopyOrDeleteListMenuHandler+0x2a8 # f10ad80
-glabel var7f1b3768
-.word filemanFileToCopyOrDeleteListMenuHandler+0x274 # f10ad4c
-glabel var7f1b376c
-.word filemanFileToCopyOrDeleteListMenuHandler+0x28c # f10ad64
-glabel var7f1b3770
-.word filemanFileToCopyOrDeleteListMenuHandler+0x2a8 # f10ad80
-glabel var7f1b3774
-.word filemanFileToCopyOrDeleteListMenuHandler+0xa4 # f10ab7c
-glabel var7f1b3778
-.word filemanFileToCopyOrDeleteListMenuHandler+0x2a8 # f10ad80
-glabel var7f1b377c
-.word filemanFileToCopyOrDeleteListMenuHandler+0x2a8 # f10ad80
-glabel var7f1b3780
-.word filemanFileToCopyOrDeleteListMenuHandler+0x2a8 # f10ad80
-glabel var7f1b3784
-.word filemanFileToCopyOrDeleteListMenuHandler+0x2a8 # f10ad80
-glabel var7f1b3788
-.word filemanFileToCopyOrDeleteListMenuHandler+0x2a8 # f10ad80
-glabel var7f1b378c
-.word filemanFileToCopyOrDeleteListMenuHandler+0x2a8 # f10ad80
-glabel var7f1b3790
-.word filemanFileToCopyOrDeleteListMenuHandler+0x2a8 # f10ad80
-glabel var7f1b3794
-.word filemanFileToCopyOrDeleteListMenuHandler+0x2a8 # f10ad80
-glabel var7f1b3798
-.word filemanFileToCopyOrDeleteListMenuHandler+0x2a8 # f10ad80
-glabel var7f1b379c
-.word filemanFileToCopyOrDeleteListMenuHandler+0x2a8 # f10ad80
-glabel var7f1b37a0
-.word filemanFileToCopyOrDeleteListMenuHandler+0x2a8 # f10ad80
-glabel var7f1b37a4
-.word filemanFileToCopyOrDeleteListMenuHandler+0xc0 # f10ab98
-glabel var7f1b37a8
-.word filemanFileToCopyOrDeleteListMenuHandler+0x25c # f10ad34
-.text
-/*  f10aad8:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f10aadc:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f10aae0:	afb10038 */ 	sw	$s1,0x38($sp)
-/*  f10aae4:	afb00034 */ 	sw	$s0,0x34($sp)
-/*  f10aae8:	afa40088 */ 	sw	$a0,0x88($sp)
-/*  f10aaec:	90ae0001 */ 	lbu	$t6,0x1($a1)
-/*  f10aaf0:	3c088007 */ 	lui	$t0,%hi(g_SaveLocations)
-/*  f10aaf4:	25085bc0 */ 	addiu	$t0,$t0,%lo(g_SaveLocations)
-/*  f10aaf8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10aafc:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f10ab00:	8d030000 */ 	lw	$v1,0x0($t0)
-/*  f10ab04:	15c10010 */ 	bne	$t6,$at,.L0f10ab48
-/*  f10ab08:	00008825 */ 	or	$s1,$zero,$zero
-/*  f10ab0c:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
-/*  f10ab10:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f10ab14:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe3f)
-/*  f10ab18:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f10ab1c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f10ab20:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f10ab24:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f10ab28:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f10ab2c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f10ab30:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f10ab34:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f10ab38:	9051ee3f */ 	lbu	$s1,%lo(g_Menus+0xe3f)($v0)
-/*  f10ab3c:	0011c880 */ 	sll	$t9,$s1,0x2
-/*  f10ab40:	01194821 */ 	addu	$t1,$t0,$t9
-/*  f10ab44:	8d230000 */ 	lw	$v1,0x0($t1)
-.L0f10ab48:
-/*  f10ab48:	14600003 */ 	bnez	$v1,.L0f10ab58
-/*  f10ab4c:	8faa0088 */ 	lw	$t2,0x88($sp)
-/*  f10ab50:	1000008c */ 	b	.L0f10ad84
-/*  f10ab54:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10ab58:
-/*  f10ab58:	254bffff */ 	addiu	$t3,$t2,-1
-/*  f10ab5c:	2d610014 */ 	sltiu	$at,$t3,0x14
-/*  f10ab60:	10200087 */ 	beqz	$at,.L0f10ad80
-/*  f10ab64:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f10ab68:	3c017f1b */ 	lui	$at,%hi(var7f1b375c)
-/*  f10ab6c:	002b0821 */ 	addu	$at,$at,$t3
-/*  f10ab70:	8c2b375c */ 	lw	$t3,%lo(var7f1b375c)($at)
-/*  f10ab74:	01600008 */ 	jr	$t3
-/*  f10ab78:	00000000 */ 	nop
-/*  f10ab7c:	3c0c000f */ 	lui	$t4,0xf
-/*  f10ab80:	358cffff */ 	ori	$t4,$t4,0xffff
-/*  f10ab84:	1000007e */ 	b	.L0f10ad80
-/*  f10ab88:	ae0c0000 */ 	sw	$t4,0x0($s0)
-/*  f10ab8c:	846d02d0 */ 	lh	$t5,0x2d0($v1)
-/*  f10ab90:	1000007b */ 	b	.L0f10ad80
-/*  f10ab94:	ae0d0000 */ 	sw	$t5,0x0($s0)
-/*  f10ab98:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
-/*  f10ab9c:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f10aba0:	8e0e0004 */ 	lw	$t6,0x4($s0)
-/*  f10aba4:	3c0a800a */ 	lui	$t2,%hi(g_Menus+0xe1c)
-/*  f10aba8:	001948c0 */ 	sll	$t1,$t9,0x3
-/*  f10abac:	01394823 */ 	subu	$t1,$t1,$t9
-/*  f10abb0:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f10abb4:	01394821 */ 	addu	$t1,$t1,$t9
-/*  f10abb8:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f10abbc:	01394823 */ 	subu	$t1,$t1,$t9
-/*  f10abc0:	00094900 */ 	sll	$t1,$t1,0x4
-/*  f10abc4:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f10abc8:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f10abcc:	8d4aee1c */ 	lw	$t2,%lo(g_Menus+0xe1c)($t2)
-/*  f10abd0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10abd4:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10abd8:	8e110000 */ 	lw	$s1,0x0($s0)
-/*  f10abdc:	8e050008 */ 	lw	$a1,0x8($s0)
-/*  f10abe0:	006fc021 */ 	addu	$t8,$v1,$t7
-/*  f10abe4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f10abe8:	15410007 */ 	bne	$t2,$at,.L0f10ac08
-/*  f10abec:	afb8006c */ 	sw	$t8,0x6c($sp)
-/*  f10abf0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f10abf4:	8f060000 */ 	lw	$a2,0x0($t8)
-/*  f10abf8:	0fc4298c */ 	jal	func0f10a630
-/*  f10abfc:	97070004 */ 	lhu	$a3,0x4($t8)
-/*  f10ac00:	10000061 */ 	b	.L0f10ad88
-/*  f10ac04:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f10ac08:
-/*  f10ac08:	8cb0000c */ 	lw	$s0,0xc($a1)
-/*  f10ac0c:	10e00009 */ 	beqz	$a3,.L0f10ac34
-/*  f10ac10:	afa50070 */ 	sw	$a1,0x70($sp)
-/*  f10ac14:	8fa4006c */ 	lw	$a0,0x6c($sp)
-/*  f10ac18:	0fc42a5f */ 	jal	func0f10a97c
-/*  f10ac1c:	afa50070 */ 	sw	$a1,0x70($sp)
-/*  f10ac20:	10400004 */ 	beqz	$v0,.L0f10ac34
-/*  f10ac24:	320c00ff */ 	andi	$t4,$s0,0xff
-/*  f10ac28:	3c01ff33 */ 	lui	$at,0xff33
-/*  f10ac2c:	34213300 */ 	ori	$at,$at,0x3300
-/*  f10ac30:	01818025 */ 	or	$s0,$t4,$at
-.L0f10ac34:
-/*  f10ac34:	8fa50070 */ 	lw	$a1,0x70($sp)
-/*  f10ac38:	02202025 */ 	or	$a0,$s1,$zero
-/*  f10ac3c:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f10ac40:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f10ac44:	afaf0084 */ 	sw	$t7,0x84($sp)
-/*  f10ac48:	8cb80004 */ 	lw	$t8,0x4($a1)
-/*  f10ac4c:	27190002 */ 	addiu	$t9,$t8,0x2
-/*  f10ac50:	0fc54d8a */ 	jal	func0f153628
-/*  f10ac54:	afb90080 */ 	sw	$t9,0x80($sp)
-/*  f10ac58:	8fa9006c */ 	lw	$t1,0x6c($sp)
-/*  f10ac5c:	00408825 */ 	or	$s1,$v0,$zero
-/*  f10ac60:	3c0a8007 */ 	lui	$t2,%hi(g_MpPlayerNum)
-/*  f10ac64:	1120002e */ 	beqz	$t1,.L0f10ad20
-/*  f10ac68:	00000000 */ 	nop
-/*  f10ac6c:	8d4a1448 */ 	lw	$t2,%lo(g_MpPlayerNum)($t2)
-/*  f10ac70:	3c06800a */ 	lui	$a2,%hi(g_Menus+0xe1c)
-/*  f10ac74:	27a40048 */ 	addiu	$a0,$sp,0x48
-/*  f10ac78:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f10ac7c:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f10ac80:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f10ac84:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f10ac88:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f10ac8c:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f10ac90:	000b5900 */ 	sll	$t3,$t3,0x4
-/*  f10ac94:	00cb3021 */ 	addu	$a2,$a2,$t3
-/*  f10ac98:	8cc6ee1c */ 	lw	$a2,%lo(g_Menus+0xe1c)($a2)
-/*  f10ac9c:	01202825 */ 	or	$a1,$t1,$zero
-/*  f10aca0:	0fc42034 */ 	jal	func0f1080d0
-/*  f10aca4:	24c6ffff */ 	addiu	$a2,$a2,-1
-/*  f10aca8:	0c002f02 */ 	jal	viGetX
-/*  f10acac:	00000000 */ 	nop
-/*  f10acb0:	0c002f06 */ 	jal	viGetY
-/*  f10acb4:	a7a20044 */ 	sh	$v0,0x44($sp)
-/*  f10acb8:	3c0c8008 */ 	lui	$t4,%hi(var8007fb10)
-/*  f10acbc:	3c0d8008 */ 	lui	$t5,%hi(var8007fb0c)
-/*  f10acc0:	8dadfb0c */ 	lw	$t5,%lo(var8007fb0c)($t5)
-/*  f10acc4:	8d8cfb10 */ 	lw	$t4,%lo(var8007fb10)($t4)
-/*  f10acc8:	87ae0044 */ 	lh	$t6,0x44($sp)
-/*  f10accc:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f10acd0:	afaf0028 */ 	sw	$t7,0x28($sp)
-/*  f10acd4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f10acd8:	27a50084 */ 	addiu	$a1,$sp,0x84
-/*  f10acdc:	27a60080 */ 	addiu	$a2,$sp,0x80
-/*  f10ace0:	27a70048 */ 	addiu	$a3,$sp,0x48
-/*  f10ace4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f10ace8:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f10acec:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f10acf0:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f10acf4:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f10acf8:	0fc5580f */ 	jal	textRenderProjected
-/*  f10acfc:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f10ad00:	8fb80070 */ 	lw	$t8,0x70($sp)
-/*  f10ad04:	00408825 */ 	or	$s1,$v0,$zero
-/*  f10ad08:	8f190004 */ 	lw	$t9,0x4($t8)
-/*  f10ad0c:	2729000c */ 	addiu	$t1,$t9,0xc
-/*  f10ad10:	afa90080 */ 	sw	$t1,0x80($sp)
-/*  f10ad14:	8f0a0000 */ 	lw	$t2,0x0($t8)
-/*  f10ad18:	254b0002 */ 	addiu	$t3,$t2,0x2
-/*  f10ad1c:	afab0084 */ 	sw	$t3,0x84($sp)
-.L0f10ad20:
-/*  f10ad20:	0fc54de0 */ 	jal	func0f153780
-/*  f10ad24:	02202025 */ 	or	$a0,$s1,$zero
-/*  f10ad28:	00408825 */ 	or	$s1,$v0,$zero
-/*  f10ad2c:	10000015 */ 	b	.L0f10ad84
-/*  f10ad30:	02201025 */ 	or	$v0,$s1,$zero
-/*  f10ad34:	240c000b */ 	addiu	$t4,$zero,0xb
-/*  f10ad38:	10000011 */ 	b	.L0f10ad80
-/*  f10ad3c:	ae0c0000 */ 	sw	$t4,0x0($s0)
-/*  f10ad40:	906d030a */ 	lbu	$t5,0x30a($v1)
-/*  f10ad44:	1000000e */ 	b	.L0f10ad80
-/*  f10ad48:	ae0d0000 */ 	sw	$t5,0x0($s0)
-/*  f10ad4c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f10ad50:	8fa50088 */ 	lw	$a1,0x88($sp)
-/*  f10ad54:	0fc421ae */ 	jal	func0f1086b8
-/*  f10ad58:	8e060000 */ 	lw	$a2,0x0($s0)
-/*  f10ad5c:	1000000a */ 	b	.L0f10ad88
-/*  f10ad60:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f10ad64:	02202025 */ 	or	$a0,$s1,$zero
-/*  f10ad68:	8fa50088 */ 	lw	$a1,0x88($sp)
-/*  f10ad6c:	0fc421ae */ 	jal	func0f1086b8
-/*  f10ad70:	8e060000 */ 	lw	$a2,0x0($s0)
-/*  f10ad74:	ae020008 */ 	sw	$v0,0x8($s0)
-/*  f10ad78:	10000002 */ 	b	.L0f10ad84
-/*  f10ad7c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10ad80:
-/*  f10ad80:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10ad84:
-/*  f10ad84:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f10ad88:
-/*  f10ad88:	8fb00034 */ 	lw	$s0,0x34($sp)
-/*  f10ad8c:	8fb10038 */ 	lw	$s1,0x38($sp)
-/*  f10ad90:	03e00008 */ 	jr	$ra
-/*  f10ad94:	27bd0088 */ 	addiu	$sp,$sp,0x88
-);
+s32 filemanFileToCopyOrDeleteListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data, bool isdelete)
+{
+	s32 x;
+	s32 y;
+	struct savelocation *location = g_SaveLocations.locations[0];
+	s32 unke3f = 0;
+
+	if (item->param == 1) {
+		unke3f = g_Menus[g_MpPlayerNum].unke3f;
+		location = g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f];
+	}
+
+	if (location == NULL) {
+		return 0;
+	}
+
+	switch (operation) {
+	case MENUOP_GETOPTIONVALUE:
+		data->list.value = 0x0fffff;
+		break;
+	case MENUOP_GETOPTIONCOUNT:
+		data->list.value = location->unk2d0;
+		break;
+	case MENUOP_RENDER:
+		{
+			Gfx *gdl = data->type19.gdl;
+			struct menuitemmodelrenderdata *renderdata = data->type19.renderdata2;
+			struct savelocation000 *location000 = &location->unk000[data->list.unk04];
+
+			if (g_Menus[g_MpPlayerNum].data.filesel.filetypeplusone == 4) {
+				gdl = func0f10a630(gdl, renderdata, location000->unk00, location000->unk04);
+			} else {
+				u32 colour = renderdata->colour;
+				char text[32];
+
+				if (isdelete && func0f10a97c(location000)) {
+					colour = 0xff333300 | (colour & 0xff);
+				}
+
+				x = renderdata->x + 2;
+				y = renderdata->y + 2;
+
+				gdl = func0f153628(gdl);
+
+				if (location000) {
+					func0f1080d0(text, location000, g_Menus[g_MpPlayerNum].data.filesel.filetypeplusone - 1);
+					gdl = textRenderProjected(gdl, &x, &y, text, var8007fb10, var8007fb0c,
+							colour, viGetX(), viGetY(), 0, 1);
+					y = renderdata->y + 12;
+					x = renderdata->x + 2;
+				}
+
+				gdl = func0f153780(gdl);
+			}
+
+			return (u32)gdl;
+		}
+	case MENUOP_GETOPTIONHEIGHT:
+		data->list.value = 11;
+		break;
+	case MENUOP_GETOPTGROUPCOUNT:
+		data->list.value = location->unk30a;
+		break;
+	case MENUOP_GETOPTGROUPTEXT:
+		return func0f1086b8(unke3f, operation, data->list.value);
+	case MENUOP_GETGROUPSTARTINDEX:
+		data->list.groupstartindex = func0f1086b8(unke3f, operation, data->list.value);
+		return 0;
+	}
+
+	return 0;
+}
 
 s32 filemanFileToDeleteListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {

@@ -3946,7 +3946,7 @@ Gfx *menuRenderItemModel(Gfx *gdl, struct menurendercontext *context)
 		data.type19.renderdata1 = &renderdata;
 		data.type19.renderdata2 = &renderdata;
 
-		gdl = (Gfx *)context->item->handler(MENUOP_19, context->item, &data);
+		gdl = (Gfx *)context->item->handler(MENUOP_RENDER, context->item, &data);
 	}
 
 	return gdl;
@@ -4133,7 +4133,7 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 		data.type19.renderdata1 = NULL;
 		data.type19.renderdata2 = &renderdata;
 
-		gdl = (Gfx *) context->item->handler(MENUOP_19, context->item, &data);
+		gdl = (Gfx *) context->item->handler(MENUOP_RENDER, context->item, &data);
 	}
 
 	return gdl;

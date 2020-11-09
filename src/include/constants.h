@@ -1123,8 +1123,8 @@
 #define MENUOP_16                 16
 #define MENUOP_GETTEXT            17
 #define MENUOP_SETTEXT            18
-#define MENUOP_19                 19
-#define MENUOP_GETOPTIONHEIGHT                 20
+#define MENUOP_RENDER             19
+#define MENUOP_GETOPTIONHEIGHT    20
 #define MENUOP_21                 21
 #define MENUOP_GETCOLOUR          22
 #define MENUOP_CHECKHIDDEN        24

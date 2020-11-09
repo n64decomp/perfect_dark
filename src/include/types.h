@@ -3493,6 +3493,20 @@ struct handlerdata_checkbox {
 	u32 value;
 };
 
+struct handlerdata_dropdown {
+	u32 value;
+	u32 unk04;
+};
+
+struct handlerdata_keyboard {
+	char *string;
+};
+
+struct handlerdata_label {
+	u32 colour1;
+	u32 colour2;
+};
+
 struct handlerdata_list {
 	u32 value;
 	u32 unk04;
@@ -3506,20 +3520,6 @@ struct handlerdata_list2 {
 	u32 unk04;
 	u32 unk08;
 	u32 unk0c;
-};
-
-struct handlerdata_dropdown {
-	u32 value;
-	u32 unk04;
-};
-
-struct handlerdata_keyboard {
-	char *string;
-};
-
-struct handlerdata_label {
-	u32 colour1;
-	u32 colour2;
 };
 
 struct handlerdata_slider {
@@ -4886,7 +4886,7 @@ struct savelocation {
 	/*0x2c4*/ u32 unk2c4;
 	/*0x2c8*/ u32 unk2c8;
 	/*0x2cc*/ u32 unk2cc;
-	/*0x2d0*/ u16 unk2d0;
+	/*0x2d0*/ s16 unk2d0;
 	/*0x2d2*/ s8 spacesfree[4];
 	/*0x2d8*/ struct savelocation_2d8 unk2d8[4];
 	/*0x2f8*/ u32 unk2f8;
