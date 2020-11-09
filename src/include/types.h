@@ -3527,18 +3527,18 @@ struct handlerdata_slider {
 	char *label;
 };
 
-struct menuitemmodelrenderdata {
+struct menuitemrenderdata {
 	s32 x;
 	s32 y;
 	s32 width;
 	u32 colour;
-	u8 arg10;
+	u8 unk10;
 };
 
 struct handlerdata_type19 {
 	Gfx *gdl;
-	struct menuitemmodelrenderdata *renderdata1;
-	struct menuitemmodelrenderdata *renderdata2;
+	struct menuitemrenderdata *renderdata1;
+	struct menuitemrenderdata *renderdata2;
 };
 
 struct handlerdata_dialog1 {

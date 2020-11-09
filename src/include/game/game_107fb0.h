@@ -37,7 +37,7 @@ char *filemanMenuTextLocationName2(struct menuitem *item);
 char *filemanMenuTextSaveLocationSpaces(struct menuitem *item);
 void func0f10a51c(s32 arg0, u32 arg1);
 char *filemanMenuTextFileInUseDescription(struct menuitem *item);
-Gfx *func0f10a630(Gfx *gdl, struct menuitemmodelrenderdata *renderdata, u32 arg2, u32 arg3);
+Gfx *filemanRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *renderdata, u32 arg2, u32 arg3);
 bool func0f10a97c(struct savelocation000 *arg0);
 s32 filemanFileToCopyOrDeleteListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data, bool isdelete);
 void filemanPushDeleteFileDialog(u32 arg0);

@@ -3920,7 +3920,7 @@ Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurendercontext *context)
 Gfx *menuRenderItemModel(Gfx *gdl, struct menurendercontext *context)
 {
 	if (context->item->param1 & 0x00200000) {
-		struct menuitemmodelrenderdata renderdata;
+		struct menuitemrenderdata renderdata;
 		union handlerdata data;
 
 		renderdata.x = context->x;
@@ -3940,7 +3940,7 @@ Gfx *menuRenderItemModel(Gfx *gdl, struct menurendercontext *context)
 			renderdata.colour = (colourBlend(renderdata.colour, 0, 127) & 0xffffff00) | (renderdata.colour & 0xff);
 		}
 
-		renderdata.arg10 = true;
+		renderdata.unk10 = true;
 
 		data.type19.gdl = gdl;
 		data.type19.renderdata1 = &renderdata;
@@ -4120,14 +4120,14 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (context->item->param1 & 0x00200000) {
-		struct menuitemmodelrenderdata renderdata;
+		struct menuitemrenderdata renderdata;
 		union handlerdata data;
 
 		renderdata.x = context->x;
 		renderdata.y = context->y;
 		renderdata.width = context->width;
 		renderdata.colour = colour1;
-		renderdata.arg10 = 0;
+		renderdata.unk10 = false;
 
 		data.type19.gdl = gdl;
 		data.type19.renderdata1 = NULL;
