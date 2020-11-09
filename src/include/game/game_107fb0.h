@@ -21,7 +21,7 @@ void func0f108a80(void);
 void filemanEraseCorruptFile(void);
 char *filemanMenuTextInsertOriginalPak(struct menuitem *item);
 void func0f109038(s32 arg0);
-bool func0f1091e0(s32 arg0, bool arg1);
+bool fileSave(s32 arg0, bool arg1);
 bool func0f1094e4(struct savelocation_2d8 *arg0, s32 arg1, void *arg2);
 void filemanDeleteFile(void);
 void func0f1097d0(s32 device);
