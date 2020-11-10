@@ -4899,6 +4899,8 @@ struct savelocation {
 	/*0x30a*/ u8 unk30a;
 	/*0x30b*/ u8 filetype;
 	/*0x30c*/ u8 unk30c; // inuse?
+	/*0x30d*/ u8 unk30d;
+	/*0x30e*/ u8 unk30e;
 };
 
 struct var80075bc0 {

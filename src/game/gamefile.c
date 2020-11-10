@@ -1026,7 +1026,7 @@ glabel func0f10feac
 );
 
 GLOBAL_ASM(
-glabel func0f1105fc
+glabel savefileGetOverview
 /*  f1105fc:	27bdff08 */ 	addiu	$sp,$sp,-248
 /*  f110600:	afa500fc */ 	sw	$a1,0xfc($sp)
 /*  f110604:	00802825 */ 	or	$a1,$a0,$zero

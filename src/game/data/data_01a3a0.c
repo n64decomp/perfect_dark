@@ -49,7 +49,7 @@ struct menudialog menudialog_gamefiles2 = {
 // 1af18
 struct menuitem menuitems_fileselect2[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(96), 0x00000000, NULL }, // "Choose Your Reality"
-	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000f5, 0x00000000, fileListChooseAgentMenuHandler },
+	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000f5, 0x00000000, filemanChooseAgentListMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

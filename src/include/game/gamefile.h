@@ -11,7 +11,7 @@ void savefileApplyOptions(struct savefile_solo *file);
 void savefileLoadDefaults(struct savefile_solo *file);
 s32 func0f10fac8(s32 arg0);
 s32 func0f10feac(s32 arg0, s32 arg1, u16 arg2);
-u32 func0f1105fc(void);
+void savefileGetOverview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 *time);
 bool func0f1106c8(void);
 u32 func0f110720(void);
 u32 func0f11080c(void);

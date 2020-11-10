@@ -47,7 +47,7 @@ char *pakMenuTextStatusMessage(struct menuitem *item);
 char *pakMenuTextEditingPakName(struct menuitem *item);
 bool filemanConsiderPushingFileSelectDialog(void);
 void pakPushPakMenuDialog(void);
-s32 fileListChooseAgentMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 filemanChooseAgentListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 pakGameNoteListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 filemanFileToCopyListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 filemanFileToDeleteListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data);
