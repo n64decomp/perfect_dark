@@ -3863,9 +3863,10 @@ struct menudata_mpend {
 	u32 unke1c;
 };
 
-struct menudata_filesel {
+// Not sure if fileman and pak are the same struct
+struct menudata_fileman {
 	u32 filetypeplusone;
-	u32 slotcount;
+	u32 device;
 	u32 unke24;
 	u32 unke28;
 	u32 unke2c;
@@ -3875,7 +3876,7 @@ struct menudata_pak {
 	u32 unke1c;
 	u32 device;
 	u32 unke24;
-	u32 unke28;
+	u32 noteindex;
 };
 
 struct menudata_main4mb {
@@ -4492,7 +4493,7 @@ struct menu {
 		struct menudata_mpsetup mpsetup;
 		struct menudata_mppause mppause;
 		struct menudata_mpend mpend;
-		struct menudata_filesel filesel;
+		struct menudata_fileman fileman;
 		struct menudata_pak pak;
 		struct menudata_main4mb main4mb;
 		struct menudata_train train;
@@ -7149,8 +7150,8 @@ struct remoteminething {
 };
 
 struct pakdata {
-	/*0x000*/ OSPfsState filestates[16];
-	/*0x200*/ bool filesinuse[16];
+	/*0x000*/ OSPfsState notes[16];
+	/*0x200*/ bool notesinuse[16];
 	/*0x240*/ u16 pagesused;
 	/*0x242*/ u16 pagesfree;
 };

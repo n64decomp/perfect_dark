@@ -379,7 +379,7 @@ void func0f10898c(void)
 	case 104:
 	case 105:
 	case 106:
-		func00012cb4(g_Menus[g_MpPlayerNum].unke44, align16(var7f1b2f3c[g_Menus[g_MpPlayerNum].data.pak.unke1c - 1]));
+		func00012cb4(g_Menus[g_MpPlayerNum].unke44, align16(var7f1b2f3c[g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone - 1]));
 		break;
 	case 100:
 	case 101:
@@ -404,7 +404,7 @@ void func0f108a80(void)
 	case 7:
 	case 8:
 		func00012cb4(g_Menus[g_MpPlayerNum].unke44,
-				align16(var7f1b2f3c[g_Menus[g_MpPlayerNum].data.pak.unke1c - 1]));
+				align16(var7f1b2f3c[g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone - 1]));
 		break;
 	case 100:
 		g_Vars.unk00047c = g_Menus[g_MpPlayerNum].unke48;
@@ -1009,15 +1009,15 @@ void func0f1097d0(s32 device)
 		var800a21e8.unk00 = g_SaveLocations.locations[0]->unk2d8[device].unk00;
 		var800a21e8.unk04 = g_SaveLocations.locations[0]->unk2d8[device].unk04;
 
-		thing = func00012ab0(align16(var7f1b2f3c[g_Menus[g_MpPlayerNum].data.pak.unke1c - 1]));
+		thing = func00012ab0(align16(var7f1b2f3c[g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone - 1]));
 
 		if (thing) {
-			func0f1094e4(&var800a21e0, g_Menus[g_MpPlayerNum].data.pak.unke1c + 0x67, thing);
+			func0f1094e4(&var800a21e0, g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone + 103, thing);
 		} else {
 			filemanPushErrorDialog(FILEERROR_OUTOFMEMORY);
 		}
 
-		g_SaveLocations.unk10[g_Menus[g_MpPlayerNum].data.pak.unke1c - 1] = 1;
+		g_SaveLocations.unk10[g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone - 1] = 1;
 	}
 }
 
@@ -1482,18 +1482,6 @@ const char var7f1b3480[] = "item: %x\n";
 const char var7f1b348c[] = "Switched Wads Back\n";
 const char var7f1b34a0[] = "MenuClosed\n";
 const char var7f1b34ac[] = "Deleting files, wad %d\n";
-const char var7f1b34c4[] = "%d:\n";
-const char var7f1b34cc[] = "%s\n";
-const char var7f1b34d0[] = "%s\n";
-const char var7f1b34d4[] = "%d\n";
-const char var7f1b34d8[] = "";
-const char var7f1b34dc[] = "GOT OKed!\n";
-const char var7f1b34e8[] = "Try to find last opened file...\n";
-const char var7f1b350c[] = "%s %s";
-const char var7f1b3514[] = "\n";
-const char var7f1b3518[] = "%s %d:%02d:%02d";
-const char var7f1b3528[] = "%s %02d:%02d";
-const char var7f1b3538[] = ".%02d";
 
 s32 filemanSelectLocationMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -1528,7 +1516,7 @@ s32 filemanDeleteFilesForSaveMenuHandler(u32 operation, struct menuitem *item, u
 {
 	if (operation == MENUOP_SET) {
 		filemanPushDeleteFileDialog(g_Menus[g_MpPlayerNum].unke3f);
-		g_Menus[g_MpPlayerNum].data.filesel.unke28 = 1;
+		g_Menus[g_MpPlayerNum].data.fileman.unke28 = 1;
 	}
 
 	return 0;
@@ -1623,7 +1611,7 @@ bool func0f10a97c(struct savelocation000 *arg0)
 		return false;
 	}
 
-	if (g_MenuData.root == MENUROOT_FILESELECT) {
+	if (g_MenuData.root == MENUROOT_FILEMGR) {
 		return false;
 	}
 
@@ -1675,7 +1663,7 @@ s32 filemanFileToCopyOrDeleteListMenuHandler(u32 operation, struct menuitem *ite
 			struct menuitemrenderdata *renderdata = data->type19.renderdata2;
 			struct savelocation000 *location000 = &location->unk000[data->list.unk04];
 
-			if (g_Menus[g_MpPlayerNum].data.filesel.filetypeplusone == 4) {
+			if (g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone == 4) {
 				gdl = filemanRenderPerfectHeadThumbnail(gdl, renderdata, location000->unk00, location000->unk04);
 			} else {
 				u32 colour = renderdata->colour;
@@ -1691,7 +1679,7 @@ s32 filemanFileToCopyOrDeleteListMenuHandler(u32 operation, struct menuitem *ite
 				gdl = func0f153628(gdl);
 
 				if (location000) {
-					func0f1080d0(text, location000, g_Menus[g_MpPlayerNum].data.filesel.filetypeplusone - 1);
+					func0f1080d0(text, location000, g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone - 1);
 					gdl = textRenderProjected(gdl, &x, &y, text, var8007fb10, var8007fb0c,
 							colour, viGetX(), viGetY(), 0, 1);
 					y = renderdata->y + 12;
@@ -1760,7 +1748,7 @@ s32 filemanFileToCopyListMenuHandler(u32 operation, struct menuitem *item, union
 			var800a21e0.unk04 = thing->unk04;
 
 			func0f1099a8(g_Menus[g_MpPlayerNum].unke53, thing);
-			func0f10a51c(g_Menus[g_MpPlayerNum].data.pak.unke1c, g_Menus[g_MpPlayerNum].data.pak.unke1c - 1);
+			func0f10a51c(g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone, g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone - 1);
 		}
 	}
 
@@ -1770,11 +1758,11 @@ s32 filemanFileToCopyListMenuHandler(u32 operation, struct menuitem *item, union
 s32 filemanCopyOrDeleteListMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
-		if (g_Menus[g_MpPlayerNum].data.pak.unke28 == 1) {
-			g_Menus[g_MpPlayerNum].data.pak.unke28 = 0;
+		if (g_Menus[g_MpPlayerNum].data.fileman.unke28 == 1) {
+			g_Menus[g_MpPlayerNum].data.fileman.unke28 = 0;
 		} else {
 			func0f110c5c(0, FILETYPE_SOLO);
-			g_Menus[g_MpPlayerNum].data.pak.unke1c = 0;
+			g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone = 0;
 		}
 	}
 
@@ -1786,13 +1774,13 @@ void filemanPushDeleteFileDialog(u32 arg0)
 	struct savelocation *location;
 
 	g_Menus[g_MpPlayerNum].unke3f = arg0;
-	g_Menus[g_MpPlayerNum].data.pak.unke28 = 0;
-	g_Menus[g_MpPlayerNum].data.pak.unke1c = 1;
+	g_Menus[g_MpPlayerNum].data.fileman.unke28 = 0;
+	g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone = 1;
 
 	location = g_SaveLocations.locations[g_Menus[g_MpPlayerNum].unke3f];
 
 	if (location) {
-		g_Menus[g_MpPlayerNum].data.pak.unke1c = location->filetype + 1;
+		g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone = location->filetype + 1;
 	}
 
 	menuPushDialog(&g_FilemanDeleteFileMenuDialog);
@@ -1801,7 +1789,7 @@ void filemanPushDeleteFileDialog(u32 arg0)
 s32 pakDeleteGameNoteMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		OSPfsState *file = &g_EditingPak->filestates[g_Menus[g_MpPlayerNum].data.pak.unke28];
+		OSPfsState *note = &g_EditingPak->notes[g_Menus[g_MpPlayerNum].data.pak.noteindex];
 		s32 result;
 
 		g_Menus[g_MpPlayerNum].data.pak.unke24 = g_Menus[g_MpPlayerNum].data.pak.unke24 | (1 << g_Menus[g_MpPlayerNum].data.pak.device);
@@ -1809,7 +1797,7 @@ s32 pakDeleteGameNoteMenuHandler(u32 operation, struct menuitem *item, union han
 		menuPopDialog();
 
 		result = pakDeleteGameNote(g_Menus[g_MpPlayerNum].data.pak.device,
-				file->company_code, file->game_code, file->game_name, file->ext_name);
+				note->company_code, note->game_code, note->game_name, note->ext_name);
 
 		g_Menus[g_MpPlayerNum].unke3c = g_Menus[g_MpPlayerNum].data.pak.device;
 
@@ -1821,315 +1809,102 @@ s32 pakDeleteGameNoteMenuHandler(u32 operation, struct menuitem *item, union han
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel pakGameNoteListMenuHandler
-.late_rodata
-glabel var7f1b37ac
-.word pakGameNoteListMenuHandler+0x5c # f10b2c8
-glabel var7f1b37b0
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37b4
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37b8
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37bc
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37c0
-.word pakGameNoteListMenuHandler+0x398 # f10b604
-glabel var7f1b37c4
-.word pakGameNoteListMenuHandler+0x4c # f10b2b8
-glabel var7f1b37c8
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37cc
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37d0
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37d4
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37d8
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37dc
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37e0
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37e4
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37e8
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37ec
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37f0
-.word pakGameNoteListMenuHandler+0x3f0 # f10b65c
-glabel var7f1b37f4
-.word pakGameNoteListMenuHandler+0x68 # f10b2d4
-glabel var7f1b37f8
-.word pakGameNoteListMenuHandler+0x38c # f10b5f8
-.text
-/*  f10b26c:	3c038007 */ 	lui	$v1,%hi(g_EditingPak)
-/*  f10b270:	8c634a4c */ 	lw	$v1,%lo(g_EditingPak)($v1)
-/*  f10b274:	27bdfea8 */ 	addiu	$sp,$sp,-344
-/*  f10b278:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f10b27c:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f10b280:	afa5015c */ 	sw	$a1,0x15c($sp)
-/*  f10b284:	14600003 */ 	bnez	$v1,.L0f10b294
-/*  f10b288:	00c03825 */ 	or	$a3,$a2,$zero
-/*  f10b28c:	100000f4 */ 	b	.L0f10b660
-/*  f10b290:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10b294:
-/*  f10b294:	248effff */ 	addiu	$t6,$a0,-1
-/*  f10b298:	2dc10014 */ 	sltiu	$at,$t6,0x14
-/*  f10b29c:	102000ef */ 	beqz	$at,.L0f10b65c
-/*  f10b2a0:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f10b2a4:	3c017f1b */ 	lui	$at,%hi(var7f1b37ac)
-/*  f10b2a8:	002e0821 */ 	addu	$at,$at,$t6
-/*  f10b2ac:	8c2e37ac */ 	lw	$t6,%lo(var7f1b37ac)($at)
-/*  f10b2b0:	01c00008 */ 	jr	$t6
-/*  f10b2b4:	00000000 */ 	nop
-/*  f10b2b8:	3c0f000f */ 	lui	$t7,0xf
-/*  f10b2bc:	35efffff */ 	ori	$t7,$t7,0xffff
-/*  f10b2c0:	100000e6 */ 	b	.L0f10b65c
-/*  f10b2c4:	acef0000 */ 	sw	$t7,0x0($a3)
-/*  f10b2c8:	24180010 */ 	addiu	$t8,$zero,0x10
-/*  f10b2cc:	100000e3 */ 	b	.L0f10b65c
-/*  f10b2d0:	acf80000 */ 	sw	$t8,0x0($a3)
-/*  f10b2d4:	8cf90000 */ 	lw	$t9,0x0($a3)
-/*  f10b2d8:	3c057f1b */ 	lui	$a1,%hi(var7f1b34c4)
-/*  f10b2dc:	24a534c4 */ 	addiu	$a1,$a1,%lo(var7f1b34c4)
-/*  f10b2e0:	afb9014c */ 	sw	$t9,0x14c($sp)
-/*  f10b2e4:	8ce20004 */ 	lw	$v0,0x4($a3)
-/*  f10b2e8:	8cf00008 */ 	lw	$s0,0x8($a3)
-/*  f10b2ec:	afa70160 */ 	sw	$a3,0x160($sp)
-/*  f10b2f0:	00024140 */ 	sll	$t0,$v0,0x5
-/*  f10b2f4:	00684821 */ 	addu	$t1,$v1,$t0
-/*  f10b2f8:	afa90144 */ 	sw	$t1,0x144($sp)
-/*  f10b2fc:	27a400d4 */ 	addiu	$a0,$sp,0xd4
-/*  f10b300:	0c004dad */ 	jal	sprintf
-/*  f10b304:	24460001 */ 	addiu	$a2,$v0,0x1
-/*  f10b308:	8e0a0000 */ 	lw	$t2,0x0($s0)
-/*  f10b30c:	254b0004 */ 	addiu	$t3,$t2,0x4
-/*  f10b310:	afab0154 */ 	sw	$t3,0x154($sp)
-/*  f10b314:	8e0c0004 */ 	lw	$t4,0x4($s0)
-/*  f10b318:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f10b31c:	0c002f02 */ 	jal	viGetX
-/*  f10b320:	afad0150 */ 	sw	$t5,0x150($sp)
-/*  f10b324:	0c002f06 */ 	jal	viGetY
-/*  f10b328:	a7a20050 */ 	sh	$v0,0x50($sp)
-/*  f10b32c:	3c0e8008 */ 	lui	$t6,%hi(var8007fb10)
-/*  f10b330:	3c0f8008 */ 	lui	$t7,%hi(var8007fb0c)
-/*  f10b334:	8deffb0c */ 	lw	$t7,%lo(var8007fb0c)($t7)
-/*  f10b338:	8dcefb10 */ 	lw	$t6,%lo(var8007fb10)($t6)
-/*  f10b33c:	87b90050 */ 	lh	$t9,0x50($sp)
-/*  f10b340:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f10b344:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f10b348:	8e18000c */ 	lw	$t8,0xc($s0)
-/*  f10b34c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f10b350:	afa80028 */ 	sw	$t0,0x28($sp)
-/*  f10b354:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f10b358:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f10b35c:	8fa4014c */ 	lw	$a0,0x14c($sp)
-/*  f10b360:	27a50154 */ 	addiu	$a1,$sp,0x154
-/*  f10b364:	27a60150 */ 	addiu	$a2,$sp,0x150
-/*  f10b368:	27a700d4 */ 	addiu	$a3,$sp,0xd4
-/*  f10b36c:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f10b370:	0fc5580f */ 	jal	textRenderProjected
-/*  f10b374:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f10b378:	8faa0160 */ 	lw	$t2,0x160($sp)
-/*  f10b37c:	afa2014c */ 	sw	$v0,0x14c($sp)
-/*  f10b380:	3c098007 */ 	lui	$t1,%hi(g_EditingPak)
-/*  f10b384:	8d4b0004 */ 	lw	$t3,0x4($t2)
-/*  f10b388:	8d294a4c */ 	lw	$t1,%lo(g_EditingPak)($t1)
-/*  f10b38c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10b390:	000b6080 */ 	sll	$t4,$t3,0x2
-/*  f10b394:	012c6821 */ 	addu	$t5,$t1,$t4
-/*  f10b398:	8dae0200 */ 	lw	$t6,0x200($t5)
-/*  f10b39c:	15c10020 */ 	bne	$t6,$at,.L0f10b420
-/*  f10b3a0:	00000000 */ 	nop
-/*  f10b3a4:	8fa40144 */ 	lw	$a0,0x144($sp)
-/*  f10b3a8:	27a5011c */ 	addiu	$a1,$sp,0x11c
-/*  f10b3ac:	24060010 */ 	addiu	$a2,$zero,0x10
-/*  f10b3b0:	0fc47986 */ 	jal	func0f11e618
-/*  f10b3b4:	2484000e */ 	addiu	$a0,$a0,0xe
-/*  f10b3b8:	8fa40144 */ 	lw	$a0,0x144($sp)
-/*  f10b3bc:	27a50110 */ 	addiu	$a1,$sp,0x110
-/*  f10b3c0:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f10b3c4:	0fc47986 */ 	jal	func0f11e618
-/*  f10b3c8:	2484000a */ 	addiu	$a0,$a0,0xa
-/*  f10b3cc:	3c057f1b */ 	lui	$a1,%hi(var7f1b34cc)
-/*  f10b3d0:	a3a00111 */ 	sb	$zero,0x111($sp)
-/*  f10b3d4:	24a534cc */ 	addiu	$a1,$a1,%lo(var7f1b34cc)
-/*  f10b3d8:	27a400d4 */ 	addiu	$a0,$sp,0xd4
-/*  f10b3dc:	0c004dad */ 	jal	sprintf
-/*  f10b3e0:	27a6011c */ 	addiu	$a2,$sp,0x11c
-/*  f10b3e4:	3c057f1b */ 	lui	$a1,%hi(var7f1b34d0)
-/*  f10b3e8:	24a534d0 */ 	addiu	$a1,$a1,%lo(var7f1b34d0)
-/*  f10b3ec:	27a40098 */ 	addiu	$a0,$sp,0x98
-/*  f10b3f0:	0c004dad */ 	jal	sprintf
-/*  f10b3f4:	27a60110 */ 	addiu	$a2,$sp,0x110
-/*  f10b3f8:	8faf0144 */ 	lw	$t7,0x144($sp)
-/*  f10b3fc:	3c057f1b */ 	lui	$a1,%hi(var7f1b34d4)
-/*  f10b400:	24a534d4 */ 	addiu	$a1,$a1,%lo(var7f1b34d4)
-/*  f10b404:	8de60000 */ 	lw	$a2,0x0($t7)
-/*  f10b408:	27a4005c */ 	addiu	$a0,$sp,0x5c
-/*  f10b40c:	0006c202 */ 	srl	$t8,$a2,0x8
-/*  f10b410:	0c004dad */ 	jal	sprintf
-/*  f10b414:	03003025 */ 	or	$a2,$t8,$zero
-/*  f10b418:	10000012 */ 	b	.L0f10b464
-/*  f10b41c:	8e190000 */ 	lw	$t9,0x0($s0)
-.L0f10b420:
-/*  f10b420:	0fc5b9f1 */ 	jal	langGet
-/*  f10b424:	24045788 */ 	addiu	$a0,$zero,0x5788
-/*  f10b428:	27a400d4 */ 	addiu	$a0,$sp,0xd4
-/*  f10b42c:	0c004dad */ 	jal	sprintf
-/*  f10b430:	00402825 */ 	or	$a1,$v0,$zero
-/*  f10b434:	0fc5b9f1 */ 	jal	langGet
-/*  f10b438:	24045789 */ 	addiu	$a0,$zero,0x5789
-/*  f10b43c:	27a4005c */ 	addiu	$a0,$sp,0x5c
-/*  f10b440:	0c004dad */ 	jal	sprintf
-/*  f10b444:	00402825 */ 	or	$a1,$v0,$zero
-/*  f10b448:	3c057f1b */ 	lui	$a1,%hi(var7f1b34d8)
-/*  f10b44c:	24a534d8 */ 	addiu	$a1,$a1,%lo(var7f1b34d8)
-/*  f10b450:	27a40098 */ 	addiu	$a0,$sp,0x98
-/*  f10b454:	27a6011c */ 	addiu	$a2,$sp,0x11c
-/*  f10b458:	0c004dad */ 	jal	sprintf
-/*  f10b45c:	27a70110 */ 	addiu	$a3,$sp,0x110
-/*  f10b460:	8e190000 */ 	lw	$t9,0x0($s0)
-.L0f10b464:
-/*  f10b464:	27280014 */ 	addiu	$t0,$t9,0x14
-/*  f10b468:	afa80154 */ 	sw	$t0,0x154($sp)
-/*  f10b46c:	8e0a0004 */ 	lw	$t2,0x4($s0)
-/*  f10b470:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*  f10b474:	0c002f02 */ 	jal	viGetX
-/*  f10b478:	afab0150 */ 	sw	$t3,0x150($sp)
-/*  f10b47c:	0c002f06 */ 	jal	viGetY
-/*  f10b480:	a7a20050 */ 	sh	$v0,0x50($sp)
-/*  f10b484:	3c098008 */ 	lui	$t1,%hi(var8007fb10)
-/*  f10b488:	3c0c8008 */ 	lui	$t4,%hi(var8007fb0c)
-/*  f10b48c:	8d8cfb0c */ 	lw	$t4,%lo(var8007fb0c)($t4)
-/*  f10b490:	8d29fb10 */ 	lw	$t1,%lo(var8007fb10)($t1)
-/*  f10b494:	87ae0050 */ 	lh	$t6,0x50($sp)
-/*  f10b498:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f10b49c:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f10b4a0:	8e0d000c */ 	lw	$t5,0xc($s0)
-/*  f10b4a4:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f10b4a8:	afaf0028 */ 	sw	$t7,0x28($sp)
-/*  f10b4ac:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f10b4b0:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f10b4b4:	8fa4014c */ 	lw	$a0,0x14c($sp)
-/*  f10b4b8:	27a50154 */ 	addiu	$a1,$sp,0x154
-/*  f10b4bc:	27a60150 */ 	addiu	$a2,$sp,0x150
-/*  f10b4c0:	27a700d4 */ 	addiu	$a3,$sp,0xd4
-/*  f10b4c4:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f10b4c8:	0fc5580f */ 	jal	textRenderProjected
-/*  f10b4cc:	afad0018 */ 	sw	$t5,0x18($sp)
-/*  f10b4d0:	afa2014c */ 	sw	$v0,0x14c($sp)
-/*  f10b4d4:	8e180000 */ 	lw	$t8,0x0($s0)
-/*  f10b4d8:	271900be */ 	addiu	$t9,$t8,0xbe
-/*  f10b4dc:	afb90154 */ 	sw	$t9,0x154($sp)
-/*  f10b4e0:	8e080004 */ 	lw	$t0,0x4($s0)
-/*  f10b4e4:	250a0001 */ 	addiu	$t2,$t0,0x1
-/*  f10b4e8:	0c002f02 */ 	jal	viGetX
-/*  f10b4ec:	afaa0150 */ 	sw	$t2,0x150($sp)
-/*  f10b4f0:	0c002f06 */ 	jal	viGetY
-/*  f10b4f4:	a7a20050 */ 	sh	$v0,0x50($sp)
-/*  f10b4f8:	3c0b8008 */ 	lui	$t3,%hi(var8007fb10)
-/*  f10b4fc:	3c098008 */ 	lui	$t1,%hi(var8007fb0c)
-/*  f10b500:	8d29fb0c */ 	lw	$t1,%lo(var8007fb0c)($t1)
-/*  f10b504:	8d6bfb10 */ 	lw	$t3,%lo(var8007fb10)($t3)
-/*  f10b508:	87ad0050 */ 	lh	$t5,0x50($sp)
-/*  f10b50c:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f10b510:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f10b514:	8e0c000c */ 	lw	$t4,0xc($s0)
-/*  f10b518:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f10b51c:	afae0028 */ 	sw	$t6,0x28($sp)
-/*  f10b520:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f10b524:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f10b528:	8fa4014c */ 	lw	$a0,0x14c($sp)
-/*  f10b52c:	27a50154 */ 	addiu	$a1,$sp,0x154
-/*  f10b530:	27a60150 */ 	addiu	$a2,$sp,0x150
-/*  f10b534:	27a70098 */ 	addiu	$a3,$sp,0x98
-/*  f10b538:	afad001c */ 	sw	$t5,0x1c($sp)
-/*  f10b53c:	0fc5580f */ 	jal	textRenderProjected
-/*  f10b540:	afac0018 */ 	sw	$t4,0x18($sp)
-/*  f10b544:	3c0f8008 */ 	lui	$t7,%hi(var8007fb0c)
-/*  f10b548:	8deffb0c */ 	lw	$t7,%lo(var8007fb0c)($t7)
-/*  f10b54c:	3c078008 */ 	lui	$a3,%hi(var8007fb10)
-/*  f10b550:	afa2014c */ 	sw	$v0,0x14c($sp)
-/*  f10b554:	8ce7fb10 */ 	lw	$a3,%lo(var8007fb10)($a3)
-/*  f10b558:	27a40054 */ 	addiu	$a0,$sp,0x54
-/*  f10b55c:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f10b560:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f10b564:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f10b568:	0fc55cbe */ 	jal	textMeasure
-/*  f10b56c:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f10b570:	8e180000 */ 	lw	$t8,0x0($s0)
-/*  f10b574:	8e190008 */ 	lw	$t9,0x8($s0)
-/*  f10b578:	8faa0058 */ 	lw	$t2,0x58($sp)
-/*  f10b57c:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f10b580:	010a5823 */ 	subu	$t3,$t0,$t2
-/*  f10b584:	2569fffa */ 	addiu	$t1,$t3,-6
-/*  f10b588:	afa90154 */ 	sw	$t1,0x154($sp)
-/*  f10b58c:	8e0c0004 */ 	lw	$t4,0x4($s0)
-/*  f10b590:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f10b594:	0c002f02 */ 	jal	viGetX
-/*  f10b598:	afad0150 */ 	sw	$t5,0x150($sp)
-/*  f10b59c:	0c002f06 */ 	jal	viGetY
-/*  f10b5a0:	a7a20050 */ 	sh	$v0,0x50($sp)
-/*  f10b5a4:	3c0e8008 */ 	lui	$t6,%hi(var8007fb10)
-/*  f10b5a8:	3c0f8008 */ 	lui	$t7,%hi(var8007fb0c)
-/*  f10b5ac:	8deffb0c */ 	lw	$t7,%lo(var8007fb0c)($t7)
-/*  f10b5b0:	8dcefb10 */ 	lw	$t6,%lo(var8007fb10)($t6)
-/*  f10b5b4:	87b90050 */ 	lh	$t9,0x50($sp)
-/*  f10b5b8:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f10b5bc:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f10b5c0:	8e18000c */ 	lw	$t8,0xc($s0)
-/*  f10b5c4:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f10b5c8:	afa80028 */ 	sw	$t0,0x28($sp)
-/*  f10b5cc:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f10b5d0:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f10b5d4:	8fa4014c */ 	lw	$a0,0x14c($sp)
-/*  f10b5d8:	27a50154 */ 	addiu	$a1,$sp,0x154
-/*  f10b5dc:	27a60150 */ 	addiu	$a2,$sp,0x150
-/*  f10b5e0:	27a7005c */ 	addiu	$a3,$sp,0x5c
-/*  f10b5e4:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f10b5e8:	0fc5580f */ 	jal	textRenderProjected
-/*  f10b5ec:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f10b5f0:	1000001c */ 	b	.L0f10b664
-/*  f10b5f4:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f10b5f8:	240a000b */ 	addiu	$t2,$zero,0xb
-/*  f10b5fc:	10000017 */ 	b	.L0f10b65c
-/*  f10b600:	acea0000 */ 	sw	$t2,0x0($a3)
-/*  f10b604:	8ce20000 */ 	lw	$v0,0x0($a3)
-/*  f10b608:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10b60c:	3c0d8007 */ 	lui	$t5,%hi(g_MpPlayerNum)
-/*  f10b610:	00025880 */ 	sll	$t3,$v0,0x2
-/*  f10b614:	006b4821 */ 	addu	$t1,$v1,$t3
-/*  f10b618:	8d2c0200 */ 	lw	$t4,0x200($t1)
-/*  f10b61c:	3c048007 */ 	lui	$a0,%hi(g_PakDeleteGameNoteMenuDialog)
-/*  f10b620:	5581000f */ 	bnel	$t4,$at,.L0f10b660
-/*  f10b624:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10b628:	8dad1448 */ 	lw	$t5,%lo(g_MpPlayerNum)($t5)
-/*  f10b62c:	3c01800a */ 	lui	$at,%hi(g_Menus+0xe28)
-/*  f10b630:	24844aa0 */ 	addiu	$a0,$a0,%lo(g_PakDeleteGameNoteMenuDialog)
-/*  f10b634:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f10b638:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*  f10b63c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f10b640:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f10b644:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f10b648:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*  f10b64c:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f10b650:	002e0821 */ 	addu	$at,$at,$t6
-/*  f10b654:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10b658:	ac22ee28 */ 	sw	$v0,%lo(g_Menus+0xe28)($at)
-.L0f10b65c:
-/*  f10b65c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10b660:
-/*  f10b660:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f10b664:
-/*  f10b664:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f10b668:	27bd0158 */ 	addiu	$sp,$sp,0x158
-/*  f10b66c:	03e00008 */ 	jr	$ra
-/*  f10b670:	00000000 */ 	nop
-);
+s32 pakGameNoteListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+{
+	s32 x;
+	s32 y;
+	Gfx *gdl;
+	struct menuitemrenderdata *renderdata;
+	OSPfsState *note;
+	char tmpname[40];
+	char tmpext[12];
+	char generalbuffer[60];
+	char extbuffer[60];
+	char pagesbuffer[60];
+	s32 textwidth;
+	s32 textheight;
+
+	if (g_EditingPak == NULL) {
+		return 0;
+	}
+
+	switch (operation) {
+	case MENUOP_GETOPTIONVALUE:
+		data->list.value = 0x0fffff;
+		break;
+	case MENUOP_GETOPTIONCOUNT:
+		data->list.value = 16;
+		break;
+	case MENUOP_RENDER:
+		gdl = data->type19.gdl;
+		renderdata = data->type19.renderdata2;
+		note = &g_EditingPak->notes[data->list.unk04];
+
+		// Render note number (1-16)
+		sprintf(generalbuffer, "%d:\n", data->list.unk04 + 1);
+		x = renderdata->x + 4;
+		y = renderdata->y + 1;
+		gdl = textRenderProjected(gdl, &x, &y, generalbuffer, var8007fb10, var8007fb0c,
+				renderdata->colour, viGetX(), viGetY(), 0, 1);
+
+		// Prepare buffers for remaining text
+		if (g_EditingPak->notesinuse[data->list.unk04] == 1) {
+			func0f11e618(note->game_name, tmpname, 16);
+			func0f11e618(note->ext_name, tmpext, 4);
+
+			tmpext[1] = '\0';
+
+			sprintf(generalbuffer, "%s\n", tmpname);
+			sprintf(extbuffer, "%s\n", tmpext);
+			sprintf(pagesbuffer, "%d\n", note->file_size / 256);
+		} else {
+			sprintf(generalbuffer, langGet(L_OPTIONS(392))); // "Empty"
+			sprintf(pagesbuffer, langGet(L_OPTIONS(393))); // "--"
+			sprintf(extbuffer, "", tmpname, tmpext);
+		}
+
+		// Render note name
+		x = renderdata->x + 20;
+		y = renderdata->y + 1;
+		gdl = textRenderProjected(gdl, &x, &y, generalbuffer, var8007fb10, var8007fb0c,
+				renderdata->colour, viGetX(), viGetY(), 0, 1);
+
+		// Render ext character (for when a game has multiple notes)
+		x = renderdata->x + 190;
+		y = renderdata->y + 1;
+		gdl = textRenderProjected(gdl, &x, &y, extbuffer, var8007fb10, var8007fb0c,
+				renderdata->colour, viGetX(), viGetY(), 0, 1);
+
+		// Render number of pages
+		textMeasure(&textheight, &textwidth, pagesbuffer, var8007fb10, var8007fb0c, 0);
+
+		x = ((renderdata->x + renderdata->width) - textwidth) - 6;
+		y = renderdata->y + 1;
+		gdl = textRenderProjected(gdl, &x, &y, pagesbuffer, var8007fb10, var8007fb0c,
+				renderdata->colour, viGetX(), viGetY(), 0, 1);
+
+		return (u32)gdl;
+	case MENUOP_GETOPTIONHEIGHT:
+		data->list.value = 11;
+		break;
+	case MENUOP_SET:
+		if (g_EditingPak->notesinuse[data->list.value] == true) {
+			g_Menus[g_MpPlayerNum].data.pak.noteindex = data->list.value;
+			menuPushDialog(&g_PakDeleteGameNoteMenuDialog);
+		}
+		break;
+	}
+
+	return 0;
+}
+
+const char var7f1b34dc[] = "GOT OKed!\n";
+const char var7f1b34e8[] = "Try to find last opened file...\n";
+const char var7f1b350c[] = "%s %s";
+const char var7f1b3514[] = "\n";
+const char var7f1b3518[] = "%s %d:%02d:%02d";
+const char var7f1b3528[] = "%s %02d:%02d";
+const char var7f1b3538[] = ".%02d";
 
 s32 pakGameNotesMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
@@ -2187,10 +1962,10 @@ char *pakMenuTextStatusMessage(struct menuitem *item)
 		return langGet(L_OPTIONS(398)); // "Perfect Dark note already exists on this Controller Pak."
 	}
 
-	for (i = 0; i < ARRAYCOUNT(g_EditingPak->filestates); i++) {
-		if (g_EditingPak->filesinuse[i] == true) {
-			if (g_EditingPak->filestates[i].company_code == ROM_COMPANYCODE
-					&& g_EditingPak->filestates[i].game_code == ROM_GAMECODE) {
+	for (i = 0; i < ARRAYCOUNT(g_EditingPak->notes); i++) {
+		if (g_EditingPak->notesinuse[i] == true) {
+			if (g_EditingPak->notes[i].company_code == ROM_COMPANYCODE
+					&& g_EditingPak->notes[i].game_code == ROM_GAMECODE) {
 				haspdfile = true;
 			}
 		} else {
@@ -2223,7 +1998,7 @@ s32 pakSelectionMenuHandler(u32 operation, struct menuitem *item, union handlerd
 	}
 
 	if (operation == MENUOP_SET) {
-		g_Menus[g_MpPlayerNum].data.filesel.slotcount = item->param;
+		g_Menus[g_MpPlayerNum].data.pak.device = item->param;
 		menuPushDialog(&g_PakGameNotesMenuDialog);
 	}
 
@@ -2262,10 +2037,10 @@ s32 pakChoosePakMenuDialog(u32 operation, struct menudialog *dialog, union handl
 s32 filemanOpenCopyFileMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		g_Menus[g_MpPlayerNum].data.filesel.filetypeplusone = item->param + 1;
+		g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone = item->param + 1;
 		func0f110c5c(0, item->param);
 		g_Menus[g_MpPlayerNum].unke3f = 0;
-		g_Menus[g_MpPlayerNum].data.filesel.unke28 = 0;
+		g_Menus[g_MpPlayerNum].data.fileman.unke28 = 0;
 		menuPushDialog(&g_FilemanCopyListMenuDialog);
 	}
 
@@ -2275,7 +2050,7 @@ s32 filemanOpenCopyFileMenuHandler(u32 operation, struct menuitem *item, union h
 s32 filemanOpenDeleteFileMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		g_Menus[g_MpPlayerNum].data.filesel.filetypeplusone = item->param + 1;
+		g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone = item->param + 1;
 		func0f110c5c(0, item->param);
 		g_Menus[g_MpPlayerNum].unke3e = -1;
 		filemanPushDeleteFileDialog(0);
@@ -2301,7 +2076,7 @@ s32 filemanAgentNameKeyboardMenuHandler(u32 operation, struct menuitem *item, un
 		break;
 	case MENUOP_SET:
 		func0f10a51c(0, 0);
-		g_Menus[g_MpPlayerNum].data.filesel.unke2c = 1;
+		g_Menus[g_MpPlayerNum].data.fileman.unke2c = 1;
 		break;
 	}
 
@@ -3079,7 +2854,7 @@ s32 filemanMainMenuDialog(u32 operation, struct menudialog *dialog, union handle
 
 	switch (operation) {
 	case MENUOP_OPEN:
-		g_Menus[g_MpPlayerNum].data.filesel.filetypeplusone = 0;
+		g_Menus[g_MpPlayerNum].data.fileman.filetypeplusone = 0;
 
 		func0f110c5c(0, FILETYPE_SOLO);
 		func0f188210();
@@ -3103,7 +2878,7 @@ bool filemanConsiderPushingFileSelectDialog(void)
 {
 	if (g_Menus[g_MpPlayerNum].unk83c == 0) {
 		g_Menus[g_MpPlayerNum].playernum = 0;
-		menuPushRootDialog(&g_FilemanMainMenuDialog, MENUROOT_FILESELECT);
+		menuPushRootDialog(&g_FilemanMainMenuDialog, MENUROOT_FILEMGR);
 		return true;
 	}
 

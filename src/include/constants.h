@@ -1138,7 +1138,7 @@
 #define MENUROOT_MPSETUP     3
 #define MENUROOT_MPPAUSE     4
 #define MENUROOT_MPENDSCREEN 5
-#define MENUROOT_FILESELECT  6
+#define MENUROOT_FILEMGR     6
 #define MENUROOT_BOOTPAKMGR  7
 #define MENUROOT_9           9
 #define MENUROOT_10          10

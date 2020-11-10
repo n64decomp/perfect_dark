@@ -128,7 +128,7 @@ u32 func0f11e4d4(void);
 void bitSetByIndex(u32 value, u32 *flags, bool set);
 u32 bitGetByIndex(u32 value, u32 *flags);
 void func0f11e5bc(u32 *flags);
-u32 func0f11e618(void);
+void func0f11e618(char *src, char *dst, u32 len);
 s8 func0f11e6b0(s32 arg0);
 u32 func0f11e750(void);
 u32 func0f11e78c(void);

@@ -2083,7 +2083,7 @@ glabel var7f1a863c
 //			g_Menus[2].unk83c = 0;
 //			g_Menus[3].unk83c = 0;
 //			g_Vars.currentplayer->pausemode = PAUSEMODE_UNPAUSED;
-//			currentPlayerPause(MENUROOT_FILESELECT);
+//			currentPlayerPause(MENUROOT_FILEMGR);
 //			var80062940 = 1;
 //		}
 //	}
@@ -2562,7 +2562,7 @@ glabel var7f1a863c
 //			case MENUROOT_MAINMENU:
 //			case MENUROOT_MPSETUP:
 //			case MENUROOT_MPENDSCREEN:
-//			case MENUROOT_FILESELECT:
+//			case MENUROOT_FILEMGR:
 //			case MENUROOT_BOOTPAKMGR:
 //			case MENUROOT_10:
 //			case MENUROOT_4MBMAINMENU:

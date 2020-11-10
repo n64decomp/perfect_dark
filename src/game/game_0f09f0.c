@@ -10811,7 +10811,7 @@ void func0f0fa6ac(void)
 	switch (g_MenuData.root) {
 	case MENUROOT_MAINMENU:
 	case MENUROOT_MPSETUP:
-	case MENUROOT_FILESELECT:
+	case MENUROOT_FILEMGR:
 	case MENUROOT_4MBMAINMENU:
 	case MENUROOT_TRAINING:
 		func0f0baf38();
@@ -13387,7 +13387,7 @@ u32 menuChooseMusic(void)
 		}
 	}
 
-	if (g_MenuData.root == MENUROOT_FILESELECT) {
+	if (g_MenuData.root == MENUROOT_FILEMGR) {
 		return MUSIC_MAINMENU;
 	}
 
