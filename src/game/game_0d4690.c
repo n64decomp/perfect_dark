@@ -900,7 +900,7 @@ glabel func0f0d4d0c
 );
 
 GLOBAL_ASM(
-glabel scenarioDefaultCallback44
+glabel savefileGetSomething
 /*  f0d52f8:	24ce001f */ 	addiu	$t6,$a2,0x1f
 /*  f0d52fc:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f0d5300:	01cf1004 */ 	sllv	$v0,$t7,$t6
@@ -979,7 +979,7 @@ glabel func0f0d5360
 );
 
 GLOBAL_ASM(
-glabel scenarioDefaultCallback40
+glabel savefileGetInteger
 /*  f0d53f8:	24ae001f */ 	addiu	$t6,$a1,0x1f
 /*  f0d53fc:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f0d5400:	01cf1004 */ 	sllv	$v0,$t7,$t6
@@ -1079,7 +1079,7 @@ glabel func0f0d54e4
 /*  f0d551c:	2414000a */ 	addiu	$s4,$zero,0xa
 /*  f0d5520:	02602025 */ 	or	$a0,$s3,$zero
 .L0f0d5524:
-/*  f0d5524:	0fc354fe */ 	jal	scenarioDefaultCallback40
+/*  f0d5524:	0fc354fe */ 	jal	savefileGetInteger
 /*  f0d5528:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f0d552c:	56200008 */ 	bnezl	$s1,.L0f0d5550
 /*  f0d5530:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -1146,13 +1146,13 @@ glabel func0f0d55a4
 /*  f0d55fc:	24100001 */ 	addiu	$s0,$zero,0x1
 .L0f0d5600:
 /*  f0d5600:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0d5604:	0fc354be */ 	jal	scenarioDefaultCallback44
+/*  f0d5604:	0fc354be */ 	jal	savefileGetSomething
 /*  f0d5608:	24060008 */ 	addiu	$a2,$zero,0x8
 .L0f0d560c:
 /*  f0d560c:	12000004 */ 	beqz	$s0,.L0f0d5620
 /*  f0d5610:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0d5614:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0d5618:	0fc354be */ 	jal	scenarioDefaultCallback44
+/*  f0d5618:	0fc354be */ 	jal	savefileGetSomething
 /*  f0d561c:	24060008 */ 	addiu	$a2,$zero,0x8
 .L0f0d5620:
 /*  f0d5620:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -1256,12 +1256,12 @@ glabel func0f0d575c
 /*  f0d5764:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f0d5768:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0d576c:	8ca50000 */ 	lw	$a1,0x0($a1)
-/*  f0d5770:	0fc354be */ 	jal	scenarioDefaultCallback44
+/*  f0d5770:	0fc354be */ 	jal	savefileGetSomething
 /*  f0d5774:	24060007 */ 	addiu	$a2,$zero,0x7
 /*  f0d5778:	8faf001c */ 	lw	$t7,0x1c($sp)
 /*  f0d577c:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f0d5780:	2406000d */ 	addiu	$a2,$zero,0xd
-/*  f0d5784:	0fc354be */ 	jal	scenarioDefaultCallback44
+/*  f0d5784:	0fc354be */ 	jal	savefileGetSomething
 /*  f0d5788:	95e50004 */ 	lhu	$a1,0x4($t7)
 /*  f0d578c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0d5790:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -1275,12 +1275,12 @@ glabel func0f0d579c
 /*  f0d57a0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0d57a4:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0d57a8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0d57ac:	0fc354fe */ 	jal	scenarioDefaultCallback40
+/*  f0d57ac:	0fc354fe */ 	jal	savefileGetInteger
 /*  f0d57b0:	24050007 */ 	addiu	$a1,$zero,0x7
 /*  f0d57b4:	8fae001c */ 	lw	$t6,0x1c($sp)
 /*  f0d57b8:	2405000d */ 	addiu	$a1,$zero,0xd
 /*  f0d57bc:	adc20000 */ 	sw	$v0,0x0($t6)
-/*  f0d57c0:	0fc354fe */ 	jal	scenarioDefaultCallback40
+/*  f0d57c0:	0fc354fe */ 	jal	savefileGetInteger
 /*  f0d57c4:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f0d57c8:	8faf001c */ 	lw	$t7,0x1c($sp)
 /*  f0d57cc:	a5e20004 */ 	sh	$v0,0x4($t7)
