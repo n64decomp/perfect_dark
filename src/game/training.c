@@ -2563,8 +2563,8 @@ glabel var7f1b94e4
 /*  f19fbc0:	2484907c */ 	addiu	$a0,$a0,%lo(g_MenuDialogFrTrainingStatsCompleted)
 /*  f19fbc4:	0fc3e178 */ 	jal	func0f0f85e0
 /*  f19fbc8:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f19fbcc:	3c04800a */ 	lui	$a0,%hi(var800a22c0)
-/*  f19fbd0:	248422c0 */ 	addiu	$a0,$a0,%lo(var800a22c0)
+/*  f19fbcc:	3c04800a */ 	lui	$a0,%hi(g_FilemgrLoadedMainFile)
+/*  f19fbd0:	248422c0 */ 	addiu	$a0,$a0,%lo(g_FilemgrLoadedMainFile)
 /*  f19fbd4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f19fbd8:	0fc42539 */ 	jal	func0f1094e4
 /*  f19fbdc:	00003025 */ 	or	$a2,$zero,$zero
@@ -3572,7 +3572,7 @@ glabel var7f1b94e4
 //			case FRMENUTYPE_COMPLETED:
 //				audioStart(var80095200, 0x5dc, NULL, -1, -1, -1, -1, -1);
 //				func0f0f85e0(&g_MenuDialogFrTrainingStatsCompleted, MENUROOT_TRAINING);
-//				func0f1094e4(&var800a22c0, 0, 0);
+//				func0f1094e4(&g_FilemgrLoadedMainFile, 0, 0);
 //				break;
 //			}
 //		}

@@ -1313,8 +1313,8 @@ glabel endscreenPrepare
 /*  f10ec5c:	0fc44270 */ 	jal	func0f1109c0
 /*  f10ec60:	a02e232c */ 	sb	$t6,%lo(g_AltTitle)($at)
 .L0f10ec64:
-/*  f10ec64:	3c04800a */ 	lui	$a0,%hi(var800a22c0)
-/*  f10ec68:	248422c0 */ 	addiu	$a0,$a0,%lo(var800a22c0)
+/*  f10ec64:	3c04800a */ 	lui	$a0,%hi(g_FilemgrLoadedMainFile)
+/*  f10ec68:	248422c0 */ 	addiu	$a0,$a0,%lo(g_FilemgrLoadedMainFile)
 /*  f10ec6c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f10ec70:	0fc42539 */ 	jal	func0f1094e4
 /*  f10ec74:	00003025 */ 	or	$a2,$zero,$zero
@@ -1494,7 +1494,7 @@ glabel endscreenPrepare
 //			}
 //		}
 //
-//		func0f1094e4(&var800a22c0, 0, 0);
+//		func0f1094e4(&g_FilemgrLoadedMainFile, 0, 0);
 //	}
 //
 //	if (g_MenuData.root == MENUROOT_ENDSCREEN) {
@@ -1574,7 +1574,7 @@ void soloPushCoopModeEndscreen(void)
 	}
 
 	if (g_Vars.currentplayer == g_Vars.bond) {
-		func0f1094e4(&var800a22c0, 0, NULL);
+		func0f1094e4(&g_FilemgrLoadedMainFile, 0, NULL);
 	}
 
 	g_MpPlayerNum = prevplayernum;
@@ -1640,7 +1640,7 @@ void soloPushAntiModeEndscreen(void)
 			}
 		}
 
-		func0f1094e4(&var800a22c0, 0, 0);
+		func0f1094e4(&g_FilemgrLoadedMainFile, 0, 0);
 	} else {
 		if (g_Vars.anti->aborted == 0 &&
 				(g_Vars.bond->isdead || g_Vars.bond->aborted || objectiveIsAllComplete() == false)) {

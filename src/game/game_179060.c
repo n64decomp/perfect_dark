@@ -546,7 +546,7 @@ s32 menuhandlerMpConfirmSaveChr(u32 operation, struct menuitem *item, union hand
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
-		func0f10a51c(6, 2);
+		filemgrPushSelectLocationDialog(6, 2);
 	}
 
 	return 0;
@@ -564,7 +564,7 @@ s32 menuhandlerMpPlayerName(u32 operation, struct menuitem *item, union handlerd
 		strcpy(g_MpSetup.name, name);
 		break;
 	case MENUOP_SET:
-		func0f10a51c(7, 1);
+		filemgrPushSelectLocationDialog(7, 1);
 		break;
 	}
 
@@ -2846,9 +2846,9 @@ glabel var7f1b818c
 /*  f17baec:	0fc63703 */ 	jal	mpGetNumUnlockedPresets
 /*  f17baf0:	afa70038 */ 	sw	$a3,0x38($sp)
 /*  f17baf4:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f17baf8:	3c038007 */ 	lui	$v1,%hi(g_SaveLocations+0x4)
+/*  f17baf8:	3c038007 */ 	lui	$v1,%hi(g_FileLists+0x4)
 /*  f17bafc:	ace20000 */ 	sw	$v0,0x0($a3)
-/*  f17bb00:	8c635bc4 */ 	lw	$v1,%lo(g_SaveLocations+0x4)($v1)
+/*  f17bb00:	8c635bc4 */ 	lw	$v1,%lo(g_FileLists+0x4)($v1)
 /*  f17bb04:	506000c5 */ 	beqzl	$v1,.L0f17be1c
 /*  f17bb08:	00001025 */ 	or	$v0,$zero,$zero
 /*  f17bb0c:	847902d0 */ 	lh	$t9,0x2d0($v1)
@@ -2858,7 +2858,7 @@ glabel var7f1b818c
 /*  f17bb1c:	0fc63703 */ 	jal	mpGetNumUnlockedPresets
 /*  f17bb20:	afa70038 */ 	sw	$a3,0x38($sp)
 /*  f17bb24:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f17bb28:	3c098007 */ 	lui	$t1,%hi(g_SaveLocations+0x4)
+/*  f17bb28:	3c098007 */ 	lui	$t1,%hi(g_FileLists+0x4)
 /*  f17bb2c:	8ce30000 */ 	lw	$v1,0x0($a3)
 /*  f17bb30:	0062082b */ 	sltu	$at,$v1,$v0
 /*  f17bb34:	10200005 */ 	beqz	$at,.L0f17bb4c
@@ -2868,14 +2868,14 @@ glabel var7f1b818c
 /*  f17bb44:	100000b6 */ 	b	.L0f17be20
 /*  f17bb48:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f17bb4c:
-/*  f17bb4c:	8d295bc4 */ 	lw	$t1,%lo(g_SaveLocations+0x4)($t1)
+/*  f17bb4c:	8d295bc4 */ 	lw	$t1,%lo(g_FileLists+0x4)($t1)
 /*  f17bb50:	512000b2 */ 	beqzl	$t1,.L0f17be1c
 /*  f17bb54:	00001025 */ 	or	$v0,$zero,$zero
 /*  f17bb58:	0fc63703 */ 	jal	mpGetNumUnlockedPresets
 /*  f17bb5c:	afa70038 */ 	sw	$a3,0x38($sp)
 /*  f17bb60:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f17bb64:	3c0a8007 */ 	lui	$t2,%hi(g_SaveLocations+0x4)
-/*  f17bb68:	8d4a5bc4 */ 	lw	$t2,%lo(g_SaveLocations+0x4)($t2)
+/*  f17bb64:	3c0a8007 */ 	lui	$t2,%hi(g_FileLists+0x4)
+/*  f17bb68:	8d4a5bc4 */ 	lw	$t2,%lo(g_FileLists+0x4)($t2)
 /*  f17bb6c:	8ceb0000 */ 	lw	$t3,0x0($a3)
 /*  f17bb70:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f17bb74:	01c27023 */ 	subu	$t6,$t6,$v0
@@ -2899,7 +2899,7 @@ glabel var7f1b818c
 /*  f17bbbc:	0fc63703 */ 	jal	mpGetNumUnlockedPresets
 /*  f17bbc0:	00000000 */ 	nop
 /*  f17bbc4:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f17bbc8:	3c188007 */ 	lui	$t8,%hi(g_SaveLocations+0x4)
+/*  f17bbc8:	3c188007 */ 	lui	$t8,%hi(g_FileLists+0x4)
 /*  f17bbcc:	8ce30000 */ 	lw	$v1,0x0($a3)
 /*  f17bbd0:	0062082b */ 	sltu	$at,$v1,$v0
 /*  f17bbd4:	10200005 */ 	beqz	$at,.L0f17bbec
@@ -2909,14 +2909,14 @@ glabel var7f1b818c
 /*  f17bbe4:	1000001c */ 	b	.L0f17bc58
 /*  f17bbe8:	8faf0034 */ 	lw	$t7,0x34($sp)
 .L0f17bbec:
-/*  f17bbec:	8f185bc4 */ 	lw	$t8,%lo(g_SaveLocations+0x4)($t8)
+/*  f17bbec:	8f185bc4 */ 	lw	$t8,%lo(g_FileLists+0x4)($t8)
 /*  f17bbf0:	53000019 */ 	beqzl	$t8,.L0f17bc58
 /*  f17bbf4:	8faf0034 */ 	lw	$t7,0x34($sp)
 /*  f17bbf8:	0fc63703 */ 	jal	mpGetNumUnlockedPresets
 /*  f17bbfc:	afa70038 */ 	sw	$a3,0x38($sp)
 /*  f17bc00:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f17bc04:	3c198007 */ 	lui	$t9,%hi(g_SaveLocations+0x4)
-/*  f17bc08:	8f395bc4 */ 	lw	$t9,%lo(g_SaveLocations+0x4)($t9)
+/*  f17bc04:	3c198007 */ 	lui	$t9,%hi(g_FileLists+0x4)
+/*  f17bc08:	8f395bc4 */ 	lw	$t9,%lo(g_FileLists+0x4)($t9)
 /*  f17bc0c:	8ce80000 */ 	lw	$t0,0x0($a3)
 /*  f17bc10:	00025080 */ 	sll	$t2,$v0,0x2
 /*  f17bc14:	01425023 */ 	subu	$t2,$t2,$v0
@@ -2963,8 +2963,8 @@ glabel var7f1b818c
 /*  f17bcb0:	acf90000 */ 	sw	$t9,0x0($a3)
 /*  f17bcb4:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f17bcb8:	ace90000 */ 	sw	$t1,0x0($a3)
-/*  f17bcbc:	3c038007 */ 	lui	$v1,%hi(g_SaveLocations+0x4)
-/*  f17bcc0:	8c635bc4 */ 	lw	$v1,%lo(g_SaveLocations+0x4)($v1)
+/*  f17bcbc:	3c038007 */ 	lui	$v1,%hi(g_FileLists+0x4)
+/*  f17bcc0:	8c635bc4 */ 	lw	$v1,%lo(g_FileLists+0x4)($v1)
 /*  f17bcc4:	50600055 */ 	beqzl	$v1,.L0f17be1c
 /*  f17bcc8:	00001025 */ 	or	$v0,$zero,$zero
 /*  f17bccc:	906b030a */ 	lbu	$t3,0x30a($v1)
@@ -2972,7 +2972,7 @@ glabel var7f1b818c
 /*  f17bcd4:	10000050 */ 	b	.L0f17be18
 /*  f17bcd8:	acec0000 */ 	sw	$t4,0x0($a3)
 /*  f17bcdc:	8ce30000 */ 	lw	$v1,0x0($a3)
-/*  f17bce0:	3c0e8007 */ 	lui	$t6,%hi(g_SaveLocations+0x4)
+/*  f17bce0:	3c0e8007 */ 	lui	$t6,%hi(g_FileLists+0x4)
 /*  f17bce4:	14600005 */ 	bnez	$v1,.L0f17bcfc
 /*  f17bce8:	00000000 */ 	nop
 /*  f17bcec:	0fc5b9f1 */ 	jal	langGet
@@ -2980,12 +2980,12 @@ glabel var7f1b818c
 /*  f17bcf4:	1000004a */ 	b	.L0f17be20
 /*  f17bcf8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f17bcfc:
-/*  f17bcfc:	8dce5bc4 */ 	lw	$t6,%lo(g_SaveLocations+0x4)($t6)
+/*  f17bcfc:	8dce5bc4 */ 	lw	$t6,%lo(g_FileLists+0x4)($t6)
 /*  f17bd00:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f17bd04:	8fa50030 */ 	lw	$a1,0x30($sp)
 /*  f17bd08:	51c00044 */ 	beqzl	$t6,.L0f17be1c
 /*  f17bd0c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17bd10:	0fc421ae */ 	jal	func0f1086b8
+/*  f17bd10:	0fc421ae */ 	jal	filemgrGetDeviceNameOrStartIndex
 /*  f17bd14:	2466ffff */ 	addiu	$a2,$v1,-1
 /*  f17bd18:	10000041 */ 	b	.L0f17be20
 /*  f17bd1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -2998,16 +2998,16 @@ glabel var7f1b818c
 /*  f17bd34:	0fc63703 */ 	jal	mpGetNumUnlockedPresets
 /*  f17bd38:	afa70038 */ 	sw	$a3,0x38($sp)
 /*  f17bd3c:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f17bd40:	3c0f8007 */ 	lui	$t7,%hi(g_SaveLocations+0x4)
+/*  f17bd40:	3c0f8007 */ 	lui	$t7,%hi(g_FileLists+0x4)
 /*  f17bd44:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f17bd48:	ace20008 */ 	sw	$v0,0x8($a3)
-/*  f17bd4c:	8def5bc4 */ 	lw	$t7,%lo(g_SaveLocations+0x4)($t7)
+/*  f17bd4c:	8def5bc4 */ 	lw	$t7,%lo(g_FileLists+0x4)($t7)
 /*  f17bd50:	8fa50030 */ 	lw	$a1,0x30($sp)
 /*  f17bd54:	51e00031 */ 	beqzl	$t7,.L0f17be1c
 /*  f17bd58:	00001025 */ 	or	$v0,$zero,$zero
 /*  f17bd5c:	8ce60000 */ 	lw	$a2,0x0($a3)
 /*  f17bd60:	afa70038 */ 	sw	$a3,0x38($sp)
-/*  f17bd64:	0fc421ae */ 	jal	func0f1086b8
+/*  f17bd64:	0fc421ae */ 	jal	filemgrGetDeviceNameOrStartIndex
 /*  f17bd68:	24c6ffff */ 	addiu	$a2,$a2,-1
 /*  f17bd6c:	8fa70038 */ 	lw	$a3,0x38($sp)
 /*  f17bd70:	8cf80008 */ 	lw	$t8,0x8($a3)
@@ -3083,8 +3083,8 @@ glabel func0f17be2c
 /*  f17be68:	0041082b */ 	sltu	$at,$v0,$at
 /*  f17be6c:	1020004e */ 	beqz	$at,.L0f17bfa8
 /*  f17be70:	afa40058 */ 	sw	$a0,0x58($sp)
-/*  f17be74:	3c038007 */ 	lui	$v1,%hi(g_SaveLocations+0x4)
-/*  f17be78:	8c635bc4 */ 	lw	$v1,%lo(g_SaveLocations+0x4)($v1)
+/*  f17be74:	3c038007 */ 	lui	$v1,%hi(g_FileLists+0x4)
+/*  f17be78:	8c635bc4 */ 	lw	$v1,%lo(g_FileLists+0x4)($v1)
 /*  f17be7c:	0002c080 */ 	sll	$t8,$v0,0x2
 /*  f17be80:	2408ffff */ 	addiu	$t0,$zero,-1
 /*  f17be84:	10600048 */ 	beqz	$v1,.L0f17bfa8
@@ -3193,8 +3193,8 @@ glabel var7f1b81a8
 .word menuhandler0017bfc0+0x174 # f17c134
 .text
 /*  f17bfc0:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f17bfc4:	3c028007 */ 	lui	$v0,%hi(g_SaveLocations)
-/*  f17bfc8:	8c425bc0 */ 	lw	$v0,%lo(g_SaveLocations)($v0)
+/*  f17bfc4:	3c028007 */ 	lui	$v0,%hi(g_FileLists)
+/*  f17bfc8:	8c425bc0 */ 	lw	$v0,%lo(g_FileLists)($v0)
 /*  f17bfcc:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f17bfd0:	afa50054 */ 	sw	$a1,0x54($sp)
 /*  f17bfd4:	00802825 */ 	or	$a1,$a0,$zero
@@ -3230,7 +3230,7 @@ glabel var7f1b81a8
 /*  f17c048:	0019c8c0 */ 	sll	$t9,$t9,0x3
 /*  f17c04c:	00592821 */ 	addu	$a1,$v0,$t9
 /*  f17c050:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f17c054:	0fc42034 */ 	jal	func0f1080d0
+/*  f17c054:	0fc42034 */ 	jal	filemgrGetFileName
 /*  f17c058:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f17c05c:	10000048 */ 	b	.L0f17c180
 /*  f17c060:	8e020000 */ 	lw	$v0,0x0($s0)
@@ -3286,7 +3286,7 @@ glabel var7f1b81a8
 /*  f17c11c:	10000018 */ 	b	.L0f17c180
 /*  f17c120:	00001025 */ 	or	$v0,$zero,$zero
 .L0f17c124:
-/*  f17c124:	0fc42197 */ 	jal	filemanPushErrorDialog
+/*  f17c124:	0fc42197 */ 	jal	filemgrPushErrorDialog
 /*  f17c128:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f17c12c:	10000014 */ 	b	.L0f17c180
 /*  f17c130:	00001025 */ 	or	$v0,$zero,$zero
@@ -3298,12 +3298,12 @@ glabel var7f1b81a8
 /*  f17c148:	1000000c */ 	b	.L0f17c17c
 /*  f17c14c:	ae6b0000 */ 	sw	$t3,0x0($s3)
 /*  f17c150:	00002025 */ 	or	$a0,$zero,$zero
-/*  f17c154:	0fc421ae */ 	jal	func0f1086b8
+/*  f17c154:	0fc421ae */ 	jal	filemgrGetDeviceNameOrStartIndex
 /*  f17c158:	8e660000 */ 	lw	$a2,0x0($s3)
 /*  f17c15c:	10000009 */ 	b	.L0f17c184
 /*  f17c160:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*  f17c164:	00002025 */ 	or	$a0,$zero,$zero
-/*  f17c168:	0fc421ae */ 	jal	func0f1086b8
+/*  f17c168:	0fc421ae */ 	jal	filemgrGetDeviceNameOrStartIndex
 /*  f17c16c:	8e660000 */ 	lw	$a2,0x0($s3)
 /*  f17c170:	ae620008 */ 	sw	$v0,0x8($s3)
 /*  f17c174:	10000002 */ 	b	.L0f17c180
@@ -5603,7 +5603,7 @@ s32 menuhandlerMpSavePlayer(u32 operation, struct menuitem *item, union handlerd
 {
 	if (operation == MENUOP_SET) {
 		if (g_MpPlayers[g_MpPlayerNum].unk4c.unk00 == false) {
-			func0f10a51c(6, 2);
+			filemgrPushSelectLocationDialog(6, 2);
 		} else {
 			menuPushDialog(&g_MpSaveChrMenuDialog);
 		}

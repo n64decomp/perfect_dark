@@ -882,7 +882,7 @@ glabel menuhandler00178bf4
 /*  f178d98:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f178d9c:
 /*  f178d9c:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f178da0:	0fc42947 */ 	jal	func0f10a51c
+/*  f178da0:	0fc42947 */ 	jal	filemgrPushSelectLocationDialog
 /*  f178da4:	24050002 */ 	addiu	$a1,$zero,0x2
 .L0f178da8:
 /*  f178da8:	8fbf0014 */ 	lw	$ra,0x14($sp)

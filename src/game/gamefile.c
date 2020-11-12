@@ -29,10 +29,8 @@
 #include "lib/lib_4b170.h"
 #include "types.h"
 
-struct var80075bc0 g_SaveLocations = {
-	NULL, NULL, NULL, NULL,
-	true, true, true, true,
-};
+struct filelist *g_FileLists[] = { NULL, NULL, NULL, NULL };
+bool var80075bd0[] = { true, true, true, true };
 
 u32 var80075be0 = 0;
 u32 var80075be4 = 0;
@@ -300,8 +298,8 @@ glabel func0f10fac8
 /*  f10fb3c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f10fb40:	00102600 */ 	sll	$a0,$s0,0x18
 /*  f10fb44:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f10fb48:	3c05800a */ 	lui	$a1,%hi(var800a22c0)
-/*  f10fb4c:	8ca522c0 */ 	lw	$a1,%lo(var800a22c0)($a1)
+/*  f10fb48:	3c05800a */ 	lui	$a1,%hi(g_FilemgrLoadedMainFile)
+/*  f10fb4c:	8ca522c0 */ 	lw	$a1,%lo(g_FilemgrLoadedMainFile)($a1)
 /*  f10fb50:	03002025 */ 	or	$a0,$t8,$zero
 /*  f10fb54:	27a60050 */ 	addiu	$a2,$sp,0x50
 /*  f10fb58:	0fc45a00 */ 	jal	func0f116800
@@ -570,8 +568,8 @@ glabel func0f10feac
 /*  f10ff18:	10000001 */ 	b	.L0f10ff20
 /*  f10ff1c:	24110001 */ 	addiu	$s1,$zero,0x1
 .L0f10ff20:
-/*  f10ff20:	3c018007 */ 	lui	$at,%hi(g_SaveLocations+0x10)
-/*  f10ff24:	ac325bd0 */ 	sw	$s2,%lo(g_SaveLocations+0x10)($at)
+/*  f10ff20:	3c018007 */ 	lui	$at,%hi(g_FileLists+0x10)
+/*  f10ff24:	ac325bd0 */ 	sw	$s2,%lo(g_FileLists+0x10)($at)
 /*  f10ff28:	0fc549e0 */ 	jal	optionsGetForwardPitch
 /*  f10ff2c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ff30:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile+0x14)
@@ -1004,8 +1002,8 @@ glabel func0f10feac
 /*  f1105ac:	ac2221f8 */ 	sw	$v0,%lo(var800a21f8)($at)
 /*  f1105b0:	8fa80140 */ 	lw	$t0,0x140($sp)
 /*  f1105b4:	97a90152 */ 	lhu	$t1,0x152($sp)
-/*  f1105b8:	3c03800a */ 	lui	$v1,%hi(var800a22c0)
-/*  f1105bc:	246322c0 */ 	addiu	$v1,$v1,%lo(var800a22c0)
+/*  f1105b8:	3c03800a */ 	lui	$v1,%hi(g_FilemgrLoadedMainFile)
+/*  f1105bc:	246322c0 */ 	addiu	$v1,$v1,%lo(g_FilemgrLoadedMainFile)
 /*  f1105c0:	00001025 */ 	or	$v0,$zero,$zero
 /*  f1105c4:	ac680000 */ 	sw	$t0,0x0($v1)
 /*  f1105c8:	10000003 */ 	b	.L0f1105d8
@@ -1415,11 +1413,11 @@ glabel func0f110bf8
 /*  f110bf8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f110bfc:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f110c00:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f110c04:	3c108007 */ 	lui	$s0,%hi(g_SaveLocations)
-/*  f110c08:	3c118007 */ 	lui	$s1,%hi(g_SaveLocations+0x10)
+/*  f110c04:	3c108007 */ 	lui	$s0,%hi(g_FileLists)
+/*  f110c08:	3c118007 */ 	lui	$s1,%hi(g_FileLists+0x10)
 /*  f110c0c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f110c10:	26315bd0 */ 	addiu	$s1,$s1,%lo(g_SaveLocations+0x10)
-/*  f110c14:	26105bc0 */ 	addiu	$s0,$s0,%lo(g_SaveLocations)
+/*  f110c10:	26315bd0 */ 	addiu	$s1,$s1,%lo(g_FileLists+0x10)
+/*  f110c14:	26105bc0 */ 	addiu	$s0,$s0,%lo(g_FileLists)
 /*  f110c18:	8e0e0000 */ 	lw	$t6,0x0($s0)
 .L0f110c1c:
 /*  f110c1c:	51c00008 */ 	beqzl	$t6,.L0f110c40
@@ -1441,15 +1439,18 @@ glabel func0f110bf8
 /*  f110c58:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-void func0f110c5c(s32 locationindex, u8 filetype)
+/**
+ * Allocate and build a file list.
+ */
+void func0f110c5c(s32 listnum, u8 filetype)
 {
-	if (g_SaveLocations.locations[locationindex] == NULL) {
-		func0f15e5b8(align16(sizeof(struct savelocation)), 1);
-		g_SaveLocations.locations[locationindex] = func00012ab0(align16(sizeof(struct savelocation)));
+	if (g_FileLists[listnum] == NULL) {
+		func0f15e5b8(align16(sizeof(struct filelist)), 1);
+		g_FileLists[listnum] = func00012ab0(align16(sizeof(struct filelist)));
 	}
 
-	g_SaveLocations.locations[locationindex]->unk30c = 1;
-	g_SaveLocations.locations[locationindex]->filetype = filetype;
+	g_FileLists[listnum]->outdated = true;
+	g_FileLists[listnum]->filetype = filetype;
 
 	if (var80062944 == 0) {
 		func0001398c(3);
@@ -1464,10 +1465,10 @@ glabel func0f110cf8
 /*  f110cfc:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f110d00:	309000ff */ 	andi	$s0,$a0,0xff
 /*  f110d04:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f110d08:	3c058007 */ 	lui	$a1,%hi(g_SaveLocations)
+/*  f110d08:	3c058007 */ 	lui	$a1,%hi(g_FileLists)
 /*  f110d0c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f110d10:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f110d14:	24a55bc0 */ 	addiu	$a1,$a1,%lo(g_SaveLocations)
+/*  f110d14:	24a55bc0 */ 	addiu	$a1,$a1,%lo(g_FileLists)
 /*  f110d18:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f110d1c:	00001825 */ 	or	$v1,$zero,$zero
 /*  f110d20:	2407ffff */ 	addiu	$a3,$zero,-1
@@ -1571,12 +1572,12 @@ glabel func0f110da8
 /*  f110e68:	2a410005 */ 	slti	$at,$s2,0x5
 /*  f110e6c:	5420ffe6 */ 	bnezl	$at,.L0f110e08
 /*  f110e70:	00128e00 */ 	sll	$s1,$s2,0x18
-/*  f110e74:	3c108007 */ 	lui	$s0,%hi(g_SaveLocations)
-/*  f110e78:	3c148007 */ 	lui	$s4,%hi(g_SaveLocations+0x10)
-/*  f110e7c:	3c118007 */ 	lui	$s1,%hi(g_SaveLocations+0x10)
-/*  f110e80:	26315bd0 */ 	addiu	$s1,$s1,%lo(g_SaveLocations+0x10)
-/*  f110e84:	26945bd0 */ 	addiu	$s4,$s4,%lo(g_SaveLocations+0x10)
-/*  f110e88:	26105bc0 */ 	addiu	$s0,$s0,%lo(g_SaveLocations)
+/*  f110e74:	3c108007 */ 	lui	$s0,%hi(g_FileLists)
+/*  f110e78:	3c148007 */ 	lui	$s4,%hi(g_FileLists+0x10)
+/*  f110e7c:	3c118007 */ 	lui	$s1,%hi(g_FileLists+0x10)
+/*  f110e80:	26315bd0 */ 	addiu	$s1,$s1,%lo(g_FileLists+0x10)
+/*  f110e84:	26945bd0 */ 	addiu	$s4,$s4,%lo(g_FileLists+0x10)
+/*  f110e88:	26105bc0 */ 	addiu	$s0,$s0,%lo(g_FileLists)
 /*  f110e8c:	24120001 */ 	addiu	$s2,$zero,0x1
 /*  f110e90:	8e040000 */ 	lw	$a0,0x0($s0)
 .L0f110e94:
@@ -1615,10 +1616,10 @@ glabel func0f110da8
 /*  f110f04:	0214082b */ 	sltu	$at,$s0,$s4
 /*  f110f08:	5420ffe2 */ 	bnezl	$at,.L0f110e94
 /*  f110f0c:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f110f10:	3c028007 */ 	lui	$v0,%hi(g_SaveLocations+0x10)
+/*  f110f10:	3c028007 */ 	lui	$v0,%hi(g_FileLists+0x10)
 /*  f110f14:	3c038007 */ 	lui	$v1,%hi(var80075be0)
 /*  f110f18:	24635be0 */ 	addiu	$v1,$v1,%lo(var80075be0)
-/*  f110f1c:	24425bd0 */ 	addiu	$v0,$v0,%lo(g_SaveLocations+0x10)
+/*  f110f1c:	24425bd0 */ 	addiu	$v0,$v0,%lo(g_FileLists+0x10)
 .L0f110f20:
 /*  f110f20:	24420004 */ 	addiu	$v0,$v0,0x4
 /*  f110f24:	1443fffe */ 	bne	$v0,$v1,.L0f110f20
@@ -2029,7 +2030,7 @@ glabel func0f111460
 /*  f1114fc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f111500:	afa5003c */ 	sw	$a1,0x3c($sp)
 /*  f111504:	afa80030 */ 	sw	$t0,0x30($sp)
-/*  f111508:	0fc479ac */ 	jal	func0f11e6b0
+/*  f111508:	0fc479ac */ 	jal	pakSearch
 /*  f11150c:	afaa0024 */ 	sw	$t2,0x24($sp)
 /*  f111510:	00022600 */ 	sll	$a0,$v0,0x18
 /*  f111514:	00045e03 */ 	sra	$t3,$a0,0x18

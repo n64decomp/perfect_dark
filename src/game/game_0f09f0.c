@@ -2832,8 +2832,8 @@ glabel func0f0f3220
 /*  f0f32fc:	24080001 */ 	addiu	$t0,$zero,0x1
 .L0f0f3300:
 /*  f0f3300:	11000009 */ 	beqz	$t0,.L0f0f3328
-/*  f0f3304:	3c04800a */ 	lui	$a0,%hi(var800a22c0)
-/*  f0f3308:	248422c0 */ 	addiu	$a0,$a0,%lo(var800a22c0)
+/*  f0f3304:	3c04800a */ 	lui	$a0,%hi(g_FilemgrLoadedMainFile)
+/*  f0f3308:	248422c0 */ 	addiu	$a0,$a0,%lo(g_FilemgrLoadedMainFile)
 /*  f0f330c:	afa80024 */ 	sw	$t0,0x24($sp)
 /*  f0f3310:	0fc42539 */ 	jal	func0f1094e4
 /*  f0f3314:	afa9001c */ 	sw	$t1,0x1c($sp)
@@ -13944,7 +13944,7 @@ void func0f0fd548(s32 arg0)
 }
 
 GLOBAL_ASM(
-glabel func0f0fd570
+glabel menuIsDialogOpen
 /*  f0fd570:	3c028007 */ 	lui	$v0,%hi(g_MpPlayerNum)
 /*  f0fd574:	8c421448 */ 	lw	$v0,%lo(g_MpPlayerNum)($v0)
 /*  f0fd578:	3c0f800a */ 	lui	$t7,%hi(g_Menus)

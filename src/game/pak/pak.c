@@ -527,7 +527,7 @@ glabel func0f116828
 );
 
 GLOBAL_ASM(
-glabel func0f116860
+glabel filemgrDeleteFile
 /*  f116860:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f116864:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f116868:	afa40018 */ 	sw	$a0,0x18($sp)
@@ -3301,8 +3301,8 @@ glabel func0f1189d8
 /*  f118aa4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f118aa8:	0fc43c81 */ 	jal	savefileApplyOptions
 /*  f118aac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f118ab0:	3c01800a */ 	lui	$at,%hi(var800a22c0+0x4)
-/*  f118ab4:	a42022c4 */ 	sh	$zero,%lo(var800a22c0+0x4)($at)
+/*  f118ab0:	3c01800a */ 	lui	$at,%hi(g_FilemgrLoadedMainFile+0x4)
+/*  f118ab4:	a42022c4 */ 	sh	$zero,%lo(g_FilemgrLoadedMainFile+0x4)($at)
 /*  f118ab8:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f118abc:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4e4)
 /*  f118ac0:	240c00f5 */ 	addiu	$t4,$zero,0xf5
@@ -11090,7 +11090,7 @@ glabel func0f11e618
 );
 
 GLOBAL_ASM(
-glabel func0f11e6b0
+glabel pakSearch
 /*  f11e6b0:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f11e6b4:	afb40028 */ 	sw	$s4,0x28($sp)
 /*  f11e6b8:	afb30024 */ 	sw	$s3,0x24($sp)

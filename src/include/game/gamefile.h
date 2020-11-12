@@ -19,7 +19,7 @@ void func0f1109c0(void);
 void func0f110b68(void);
 void func0f110bf0(void);
 void func0f110bf8(void);
-void func0f110c5c(s32 locationindex, u8 filetype);
+void func0f110c5c(s32 listnum, u8 filetype);
 u8 func0f110cf8(u8 arg0);
 u32 func0f110d90(void);
 void func0f110da8(void);
