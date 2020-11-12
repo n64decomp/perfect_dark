@@ -45,233 +45,6 @@ const char var7f1b3bb8[] = "\n";
 const char var7f1b3bbc[] = "\nAddress = %u : ";
 const char var7f1b3bd0[] = "%2x ";
 const char var7f1b3bd8[] = "\n";
-const char var7f1b3bdc[] = "EEPROM DUMP";
-const char var7f1b3be8[] = "PakSaveAtGuid: new guid = %x\n";
-const char var7f1b3c08[] = "Call to osPfsReSizeFile -> pfs=%x, cc=%u, gc=%u, gn=%s, en=%s, l=%d\n";
-const char var7f1b3c50[] = "Pak %d -> Pak_AddOneCameraFile\n";
-const char var7f1b3c70[] = "Pak %d -> Pak_AddOneCameraFile - Making one default camera file\n";
-const char var7f1b3cb4[] = "Pak %d -> Pak_AddOneCameraFile : Got Space - No need for resize\n";
-const char var7f1b3cf8[] = "Pak %d -> Pak_AddOneCameraFile : No Space - Need to resize by %d pages\n";
-const char var7f1b3d40[] = "Pak %d -> Pak_AddOneCameraFile - Make of one default camera files failed\n";
-const char var7f1b3d8c[] = "Pak %d -> Pak_AddOneCameraFile : Error - No Room\n";
-const char var7f1b3dc0[] = "Pak %d -> Pak_GameNoteResetSize : New=%u\n";
-const char var7f1b3dec[] = "bDoUpdate7\n";
-const char var7f1b3df8[] = "Pak_SetThisGameSetupFile -> Pak=%d, File=%d, EEPROM=%d\n";
-#if VERSION >= VERSION_NTSC_FINAL
-const char var7f1b3e30[] = "pak/pak.c";
-#else
-const char var7f1b3e30[] = "pak.c";
-#endif
-const char var7f1b3e3c[] = "Pak %d -> Pak_Dir - ERROR : Pak Not Ready\n";
-const char var7f1b3e68[] = "Pak %d -> Pak_Dir - Done - Pak_GetOffsetEOF\n";
-const char var7f1b3e98[] = "Pak %d -> Pak_Dir - Done - ekPakErrorHeaderCrcCheckFail\n";
-const char var7f1b3ed4[] = "Pak Return Code = ekPakOk";
-const char var7f1b3ef0[] = "Pak Return Code = ekPakErrorNoPakPresent";
-const char var7f1b3f1c[] = "Pak Return Code = ekPakErrorPakFatal";
-const char var7f1b3f44[] = "Pak Return Code = ekPakErrorFileNotFound";
-const char var7f1b3f70[] = "Pak Return Code = ekPakErrorFileSystem";
-const char var7f1b3f98[] = "Pak Return Code = ekPakErrorOutOfMemory";
-const char var7f1b3fc0[] = "Pak Return Code = ekPakErrorPakWaitingForInit";
-const char var7f1b3ff0[] = "Pak Return Code = ekPakErrorHeaderCrcCheckFail";
-const char var7f1b4020[] = "Pak Return Code = ekPakErrorDataCrcCheckFail";
-const char var7f1b4050[] = "Pak Return Code = ekPakErrorDataNotValid";
-const char var7f1b407c[] = "Pak Return Code = Unknown - %d\n";
-#if VERSION < VERSION_NTSC_FINAL
-const char var7f1b407c_2[] = "Pak %d -> Pak_RepairAsBlank : Repairing as Blank, Offset=%u, pH=%x\n";
-const char var7f1b407c_3[] = "Pak %d -> Pak_RepairAsBlank -> Summing @ offset=%u, ret=%d\n";
-const char var7f1b407c_4[] = "Pak %d -> Pak_RepairAsBlank -> Fault Speads Over More Than One File - TERMINAL";
-#endif
-const char var7f1b409c[] = "Pak %d -> Pak_RepairAsBlank - St=%u, Ed=%u, Gap=%u, Blank Size=%u\n";
-const char var7f1b40e0[] = "Pak %d -> Pak_RepairAsBlank - Fatal Error at tOffset %u\n";
-const char var7f1b411c[] = "Pak %d -> Pak_ValidateVersion - Start - Game File Size = %d\n";
-const char var7f1b415c[] = "Pak %d -> Pak_ValidateVersion - Clearing cache 2\n";
-const char var7f1b4190[] = "Pak %d -> Pak_ValidateVersion 1 - Loaded with ret=%d at offset %u\n";
-const char var7f1b41d4[] = "Pak %d -> Pak_ValidateVersion 1 - Blank at %u\n";
-const char var7f1b4204[] = "Pak %d -> Pak_ValidateVersion 2 - Loaded  at offset %u\n";
-const char var7f1b423c[] = "BOS\n";
-const char var7f1b4244[] = "CAM\n";
-const char var7f1b424c[] = "MPP\n";
-const char var7f1b4254[] = "MPG\n";
-const char var7f1b425c[] = "GAM";
-const char var7f1b4260[] = "> Pak_DefragPak_Level1 - Merge of two blanks failed";
-const char var7f1b4294[] = "Pak %d - Pak_StartOne called from line %d in %s -> Flags = %0x\n";
-const char var7f1b42d4[] = "\nPak_StartOne -> Pak%d, Modes -\n";
-const char var7f1b42f8[] = "Memory,";
-const char var7f1b4300[] = "Rumble,";
-const char var7f1b4308[] = "Game Boy";
-const char var7f1b4314[] = "\n";
-const char var7f1b4318[] = "Pak %d -> %u Bytes of scratch for cache 2 memory at %0x\n";
-const char var7f1b4354[] = "\nPak%d -> Pak_EndOne - Called from line %d in %s : Modes -\n";
-const char var7f1b4390[] = "Memory,";
-const char var7f1b4398[] = "Rumble,";
-const char var7f1b43a0[] = "Game Boy";
-const char var7f1b43ac[] = "\n";
-const char var7f1b43b0[] = "Pak -> FATAL ERROR -> MEMORY INSTANCE ENDING IS NO LONGER SUPPORTED\n";
-const char var7f1b43f8[] = "Pak -> Pak_MakeOne - Id=%d is finished\n";
-const char var7f1b4420[] = "Pak %d -> Pak_Memory_UpdateNoteInfo\n";
-const char var7f1b4448[] = "Pak %d -> Couldn't assertain the game note size\n";
-const char var7f1b447c[] = "Pak %d -> Pak_AnalyseCurrentGameNote - Game note size = %uk\n";
-const char var7f1b44bc[] = "Pak %d -> Searching for the game file\n";
-const char var7f1b44e4[] = "Pak %d -> Game file wipe failed\n";
-const char var7f1b4508[] = "RWI : Warning : tOffset > gPakObj[PakNum].GameFileSize\n";
-const char var7f1b4540[] = "Pak %d -> Pak_DeleteFile_Offset - DataSize = %u\n";
-const char var7f1b4574[] = "Pak %d -> Delete file offset (file id %d) failed\n";
-const char var7f1b45a8[] = "Pak %d -> Delete file offset failed - Bad Offset passed\n";
-const char var7f1b45e4[] = "-forceversion";
-const char var7f1b45f4[] = "PakMac_PaksLive()=%x\n";
-const char var7f1b460c[] = "paksNeedToBeLive4Game=%x\n";
-const char var7f1b4628[] = "paksNeedToBeLive4Menu=%x\n";
-const char var7f1b4644[] = "g_LastPackPattern=%x\n";
-const char var7f1b465c[] = "forcescrub";
-const char var7f1b4668[] = "pakdump";
-const char var7f1b4670[] = "pakcache";
-const char var7f1b467c[] = "pakinit";
-const char var7f1b4684[] = "corruptme";
-const char var7f1b4690[] = "wipeeeprom";
-const char var7f1b469c[] = "dumpeeprom";
-const char var7f1b46a8[] = "\nOS_GBPAK_GBCART_ON       - ";
-const char var7f1b46c8[] = "\nOS_GBPAK_GBCART_PULL     - ";
-const char var7f1b46e8[] = "\nOS_GBPAK_POWER           - ";
-const char var7f1b4708[] = "\nOS_GBPAK_RSTB_DETECTION  - ";
-const char var7f1b4728[] = "Pak -> Dumping contents of Game Boy Pack(TM) Id file";
-const char var7f1b4760[] = "(u16) - Fixed1             - %d\n";
-const char var7f1b4784[] = "(u16) - StartAddress       - %d\n";
-const char var7f1b47a8[] = "(u8*) - Nintendo chr data  - %s\n";
-const char var7f1b47cc[] = "(u8*) - Game Title         - %s\n";
-const char var7f1b47f0[] = "(u16) - Company Code       - %d\n";
-const char var7f1b4814[] = "(u8 ) - Body Code          - %d\n";
-const char var7f1b4838[] = "(u8 ) - Rom Size           - %d\n";
-const char var7f1b485c[] = "(u8 ) - Ram Size           - %d\n";
-const char var7f1b4880[] = "(u8 ) - country_code       - %d\n";
-const char var7f1b48a4[] = "(u8 ) - Fixed 2 (0x33)     - %d\n";
-const char var7f1b48c8[] = "(u8 ) - Version Number     - %d\n";
-const char var7f1b48ec[] = "(u8 ) - isum               - %d\n";
-const char var7f1b4910[] = "(u16) - sum                - %d\n";
-const char var7f1b4934[] = "Pak -> Finished Dump";
-
-const u32 var7f1b494c[] = {0x43000000};
-const u32 var7f1b4950[] = {0x43140000};
-const u32 var7f1b4954[] = {0x435c0000};
-const u32 var7f1b4958[] = {0x437f0000};
-const u32 var7f1b495c[] = {0x43020000};
-const u32 var7f1b4960[] = {0x43150000};
-const u32 var7f1b4964[] = {0x43520000};
-const u32 var7f1b4968[] = {0x437f0000};
-const u32 var7f1b496c[] = {0x43040000};
-const u32 var7f1b4970[] = {0x43160000};
-const u32 var7f1b4974[] = {0x434a0000};
-const u32 var7f1b4978[] = {0x437f0000};
-const u32 var7f1b497c[] = {0x43060000};
-const u32 var7f1b4980[] = {0x43160000};
-const u32 var7f1b4984[] = {0x43440000};
-const u32 var7f1b4988[] = {0x437f0000};
-const u32 var7f1b498c[] = {0x43080000};
-const u32 var7f1b4990[] = {0x43170000};
-const u32 var7f1b4994[] = {0x433e0000};
-const u32 var7f1b4998[] = {0x437f0000};
-const u32 var7f1b499c[] = {0x430a0000};
-const u32 var7f1b49a0[] = {0x43170000};
-const u32 var7f1b49a4[] = {0x43380000};
-const u32 var7f1b49a8[] = {0x437f0000};
-const u32 var7f1b49ac[] = {0x430b0000};
-const u32 var7f1b49b0[] = {0x43180000};
-const u32 var7f1b49b4[] = {0x43320000};
-const u32 var7f1b49b8[] = {0x43750000};
-const u32 var7f1b49bc[] = {0x430c0000};
-const u32 var7f1b49c0[] = {0x43180000};
-const u32 var7f1b49c4[] = {0x432c0000};
-const u32 var7f1b49c8[] = {0x436b0000};
-const u32 var7f1b49cc[] = {0x430d0000};
-const u32 var7f1b49d0[] = {0x43180000};
-const u32 var7f1b49d4[] = {0x432a0000};
-const u32 var7f1b49d8[] = {0x435d0000};
-const u32 var7f1b49dc[] = {0x430e0000};
-const u32 var7f1b49e0[] = {0x43180000};
-const u32 var7f1b49e4[] = {0x43280000};
-const u32 var7f1b49e8[] = {0x43500000};
-const u32 var7f1b49ec[] = {0x430f0000};
-const u32 var7f1b49f0[] = {0x43180000};
-const u32 var7f1b49f4[] = {0x43260000};
-const u32 var7f1b49f8[] = {0x43440000};
-const u32 var7f1b49fc[] = {0x43100000};
-const u32 var7f1b4a00[] = {0x43180000};
-const u32 var7f1b4a04[] = {0x43240000};
-const u32 var7f1b4a08[] = {0x433a0000};
-const u32 var7f1b4a0c[] = {0x43120000};
-const u32 var7f1b4a10[] = {0x43180000};
-const u32 var7f1b4a14[] = {0x43210000};
-const u32 var7f1b4a18[] = {0x43310000};
-const u32 var7f1b4a1c[] = {0x43140000};
-const u32 var7f1b4a20[] = {0x43180000};
-const u32 var7f1b4a24[] = {0x431d0000};
-const u32 var7f1b4a28[] = {0x43280000};
-const u32 var7f1b4a2c[] = {0x43160000};
-const u32 var7f1b4a30[] = {0x43180000};
-const u32 var7f1b4a34[] = {0x43190000};
-const u32 var7f1b4a38[] = {0x43200000};
-const u32 var7f1b4a3c[] = {0x43180000};
-const u32 var7f1b4a40[] = {0x43180000};
-const u32 var7f1b4a44[] = {0x43180000};
-const u32 var7f1b4a48[] = {0x43180000};
-const u32 var7f1b4a4c[] = {0x00000000};
-const u32 var7f1b4a50[] = {0x00000000};
-const u32 var7f1b4a54[] = {0x00000000};
-const u32 var7f1b4a58[] = {0x00000000};
-const u32 var7f1b4a5c[] = {0x00000000};
-const u32 var7f1b4a60[] = {0x41000000};
-const u32 var7f1b4a64[] = {0x40000000};
-const u32 var7f1b4a68[] = {0x41200000};
-const u32 var7f1b4a6c[] = {0x41400000};
-const u32 var7f1b4a70[] = {0x40800000};
-const u32 var7f1b4a74[] = {0x41600000};
-const u32 var7f1b4a78[] = {0x40c00000};
-const u32 var7f1b4a7c[] = {0x40400000};
-const u32 var7f1b4a80[] = {0x41300000};
-const u32 var7f1b4a84[] = {0x3f800000};
-const u32 var7f1b4a88[] = {0x41100000};
-const u32 var7f1b4a8c[] = {0x41700000};
-const u32 var7f1b4a90[] = {0x40e00000};
-const u32 var7f1b4a94[] = {0x41500000};
-const u32 var7f1b4a98[] = {0x40a00000};
-const u32 var7f1b4a9c[] = {0x00000000};
-const u32 var7f1b4aa0[] = {0x41600000};
-const u32 var7f1b4aa4[] = {0x40400000};
-const u32 var7f1b4aa8[] = {0x41500000};
-const u32 var7f1b4aac[] = {0x41300000};
-const u32 var7f1b4ab0[] = {0x40a00000};
-const u32 var7f1b4ab4[] = {0x41000000};
-const u32 var7f1b4ab8[] = {0x40c00000};
-const u32 var7f1b4abc[] = {0x41400000};
-const u32 var7f1b4ac0[] = {0x40000000};
-const u32 var7f1b4ac4[] = {0x41700000};
-const u32 var7f1b4ac8[] = {0x3f800000};
-const u32 var7f1b4acc[] = {0x40e00000};
-const u32 var7f1b4ad0[] = {0x41100000};
-const u32 var7f1b4ad4[] = {0x40800000};
-const u32 var7f1b4ad8[] = {0x41200000};
-
-const char var7f1b4adc[] = "Pak_StartCapture -> Failed - Code = %d\n";
-const char var7f1b4b04[] = "Pak_DownloadNextBlockToPackBuffer : eQuality=ekCapQualityHeader, BufferNum=%d\n";
-const char var7f1b4b54[] = "Pak : Doing Frame - Top    = %d\n";
-const char var7f1b4b78[] = "Pak : Doing Frame - Height = %d\n";
-const char var7f1b4b9c[] = "Pak : Doing Frame - Bottom = %d\n";
-#if VERSION < VERSION_NTSC_FINAL
-const char var7f1b4b9c_2[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
-#endif
-const char var7f1b4bc0[] = "Pak %d - ekPakInitStatusError_CorruptedPak\n";
-const char var7f1b4bec[] = "Pak %d - ekPakInitStatusInitGameBoy_PDGB_Check_Error\n";
-const char var7f1b4c24[] = "Pak %d - ekPakInitStatusError_DamagedPak\n";
-const char var7f1b4c50[] = "Pak %d - ekPakInitStatusError_StuffedPak\n";
-const char var7f1b4c7c[] = "Pak %d - ekPakInitStatusError_StuffedAndCheckedPak\n";
-const char var7f1b4cb0[] = "Pak %d - ekPakInitStatusVoid\n";
-const char var7f1b4cd0[] = "Pak %d -> Unhandled Init Status - %d\n";
-#if VERSION >= VERSION_NTSC_FINAL
-const char var7f1b4cf8[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
-#endif
-const char var7f1b4d1c[] = "-scrub";
-const char var7f1b4d24[] = "Pak %d -> Pak_PdGameBoySetRWByte - Fatal Error\n";
-const char var7f1b4d54[] = "0123456789012345678901234567890123456789";
-const char var7f1b4d80[] = "PerfDark\n";
 
 char var80075cb0[] = "4Y";
 char var80075cb4[] = "PerfDark";
@@ -1646,30 +1419,243 @@ glabel func0f11776c
 /*  f117844:	27bd0240 */ 	addiu	$sp,$sp,0x240
 );
 
-GLOBAL_ASM(
-glabel func0f117848
-/*  f117848:	27bdf7e8 */ 	addiu	$sp,$sp,-2072
-/*  f11784c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f117850:	0c00543a */ 	jal	func000150e8
-/*  f117854:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f117858:	3c04800a */ 	lui	$a0,%hi(var80099e78)
-/*  f11785c:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
-/*  f117860:	00002825 */ 	or	$a1,$zero,$zero
-/*  f117864:	27a60018 */ 	addiu	$a2,$sp,0x18
-/*  f117868:	0c0140fc */ 	jal	osEepromLongRead
-/*  f11786c:	24070800 */ 	addiu	$a3,$zero,0x800
-/*  f117870:	0c005451 */ 	jal	func00015144
-/*  f117874:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f117878:	3c067f1b */ 	lui	$a2,%hi(var7f1b3bdc)
-/*  f11787c:	24c63bdc */ 	addiu	$a2,$a2,%lo(var7f1b3bdc)
-/*  f117880:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*  f117884:	0fc45ddb */ 	jal	func0f11776c
-/*  f117888:	24050800 */ 	addiu	$a1,$zero,0x800
-/*  f11788c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f117890:	27bd0818 */ 	addiu	$sp,$sp,0x818
-/*  f117894:	03e00008 */ 	jr	$ra
-/*  f117898:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *pakDumpEeprom(void)
+{
+	u8 buffer[2048];
+
+	func000150e8();
+	osEepromLongRead(&var80099e78, 0, buffer, 2048);
+	func00015144();
+
+	return func0f11776c(buffer, 2048, "EEPROM DUMP");
+}
+
+const char var7f1b3be8[] = "PakSaveAtGuid: new guid = %x\n";
+const char var7f1b3c08[] = "Call to osPfsReSizeFile -> pfs=%x, cc=%u, gc=%u, gn=%s, en=%s, l=%d\n";
+const char var7f1b3c50[] = "Pak %d -> Pak_AddOneCameraFile\n";
+const char var7f1b3c70[] = "Pak %d -> Pak_AddOneCameraFile - Making one default camera file\n";
+const char var7f1b3cb4[] = "Pak %d -> Pak_AddOneCameraFile : Got Space - No need for resize\n";
+const char var7f1b3cf8[] = "Pak %d -> Pak_AddOneCameraFile : No Space - Need to resize by %d pages\n";
+const char var7f1b3d40[] = "Pak %d -> Pak_AddOneCameraFile - Make of one default camera files failed\n";
+const char var7f1b3d8c[] = "Pak %d -> Pak_AddOneCameraFile : Error - No Room\n";
+const char var7f1b3dc0[] = "Pak %d -> Pak_GameNoteResetSize : New=%u\n";
+const char var7f1b3dec[] = "bDoUpdate7\n";
+const char var7f1b3df8[] = "Pak_SetThisGameSetupFile -> Pak=%d, File=%d, EEPROM=%d\n";
+#if VERSION >= VERSION_NTSC_FINAL
+const char var7f1b3e30[] = "pak/pak.c";
+#else
+const char var7f1b3e30[] = "pak.c";
+#endif
+const char var7f1b3e3c[] = "Pak %d -> Pak_Dir - ERROR : Pak Not Ready\n";
+const char var7f1b3e68[] = "Pak %d -> Pak_Dir - Done - Pak_GetOffsetEOF\n";
+const char var7f1b3e98[] = "Pak %d -> Pak_Dir - Done - ekPakErrorHeaderCrcCheckFail\n";
+const char var7f1b3ed4[] = "Pak Return Code = ekPakOk";
+const char var7f1b3ef0[] = "Pak Return Code = ekPakErrorNoPakPresent";
+const char var7f1b3f1c[] = "Pak Return Code = ekPakErrorPakFatal";
+const char var7f1b3f44[] = "Pak Return Code = ekPakErrorFileNotFound";
+const char var7f1b3f70[] = "Pak Return Code = ekPakErrorFileSystem";
+const char var7f1b3f98[] = "Pak Return Code = ekPakErrorOutOfMemory";
+const char var7f1b3fc0[] = "Pak Return Code = ekPakErrorPakWaitingForInit";
+const char var7f1b3ff0[] = "Pak Return Code = ekPakErrorHeaderCrcCheckFail";
+const char var7f1b4020[] = "Pak Return Code = ekPakErrorDataCrcCheckFail";
+const char var7f1b4050[] = "Pak Return Code = ekPakErrorDataNotValid";
+const char var7f1b407c[] = "Pak Return Code = Unknown - %d\n";
+#if VERSION < VERSION_NTSC_FINAL
+const char var7f1b407c_2[] = "Pak %d -> Pak_RepairAsBlank : Repairing as Blank, Offset=%u, pH=%x\n";
+const char var7f1b407c_3[] = "Pak %d -> Pak_RepairAsBlank -> Summing @ offset=%u, ret=%d\n";
+const char var7f1b407c_4[] = "Pak %d -> Pak_RepairAsBlank -> Fault Speads Over More Than One File - TERMINAL";
+#endif
+const char var7f1b409c[] = "Pak %d -> Pak_RepairAsBlank - St=%u, Ed=%u, Gap=%u, Blank Size=%u\n";
+const char var7f1b40e0[] = "Pak %d -> Pak_RepairAsBlank - Fatal Error at tOffset %u\n";
+const char var7f1b411c[] = "Pak %d -> Pak_ValidateVersion - Start - Game File Size = %d\n";
+const char var7f1b415c[] = "Pak %d -> Pak_ValidateVersion - Clearing cache 2\n";
+const char var7f1b4190[] = "Pak %d -> Pak_ValidateVersion 1 - Loaded with ret=%d at offset %u\n";
+const char var7f1b41d4[] = "Pak %d -> Pak_ValidateVersion 1 - Blank at %u\n";
+const char var7f1b4204[] = "Pak %d -> Pak_ValidateVersion 2 - Loaded  at offset %u\n";
+const char var7f1b423c[] = "BOS\n";
+const char var7f1b4244[] = "CAM\n";
+const char var7f1b424c[] = "MPP\n";
+const char var7f1b4254[] = "MPG\n";
+const char var7f1b425c[] = "GAM";
+const char var7f1b4260[] = "> Pak_DefragPak_Level1 - Merge of two blanks failed";
+const char var7f1b4294[] = "Pak %d - Pak_StartOne called from line %d in %s -> Flags = %0x\n";
+const char var7f1b42d4[] = "\nPak_StartOne -> Pak%d, Modes -\n";
+const char var7f1b42f8[] = "Memory,";
+const char var7f1b4300[] = "Rumble,";
+const char var7f1b4308[] = "Game Boy";
+const char var7f1b4314[] = "\n";
+const char var7f1b4318[] = "Pak %d -> %u Bytes of scratch for cache 2 memory at %0x\n";
+const char var7f1b4354[] = "\nPak%d -> Pak_EndOne - Called from line %d in %s : Modes -\n";
+const char var7f1b4390[] = "Memory,";
+const char var7f1b4398[] = "Rumble,";
+const char var7f1b43a0[] = "Game Boy";
+const char var7f1b43ac[] = "\n";
+const char var7f1b43b0[] = "Pak -> FATAL ERROR -> MEMORY INSTANCE ENDING IS NO LONGER SUPPORTED\n";
+const char var7f1b43f8[] = "Pak -> Pak_MakeOne - Id=%d is finished\n";
+const char var7f1b4420[] = "Pak %d -> Pak_Memory_UpdateNoteInfo\n";
+const char var7f1b4448[] = "Pak %d -> Couldn't assertain the game note size\n";
+const char var7f1b447c[] = "Pak %d -> Pak_AnalyseCurrentGameNote - Game note size = %uk\n";
+const char var7f1b44bc[] = "Pak %d -> Searching for the game file\n";
+const char var7f1b44e4[] = "Pak %d -> Game file wipe failed\n";
+const char var7f1b4508[] = "RWI : Warning : tOffset > gPakObj[PakNum].GameFileSize\n";
+const char var7f1b4540[] = "Pak %d -> Pak_DeleteFile_Offset - DataSize = %u\n";
+const char var7f1b4574[] = "Pak %d -> Delete file offset (file id %d) failed\n";
+const char var7f1b45a8[] = "Pak %d -> Delete file offset failed - Bad Offset passed\n";
+const char var7f1b45e4[] = "-forceversion";
+const char var7f1b45f4[] = "PakMac_PaksLive()=%x\n";
+const char var7f1b460c[] = "paksNeedToBeLive4Game=%x\n";
+const char var7f1b4628[] = "paksNeedToBeLive4Menu=%x\n";
+const char var7f1b4644[] = "g_LastPackPattern=%x\n";
+const char var7f1b465c[] = "forcescrub";
+const char var7f1b4668[] = "pakdump";
+const char var7f1b4670[] = "pakcache";
+const char var7f1b467c[] = "pakinit";
+const char var7f1b4684[] = "corruptme";
+const char var7f1b4690[] = "wipeeeprom";
+const char var7f1b469c[] = "dumpeeprom";
+const char var7f1b46a8[] = "\nOS_GBPAK_GBCART_ON       - ";
+const char var7f1b46c8[] = "\nOS_GBPAK_GBCART_PULL     - ";
+const char var7f1b46e8[] = "\nOS_GBPAK_POWER           - ";
+const char var7f1b4708[] = "\nOS_GBPAK_RSTB_DETECTION  - ";
+const char var7f1b4728[] = "Pak -> Dumping contents of Game Boy Pack(TM) Id file";
+const char var7f1b4760[] = "(u16) - Fixed1             - %d\n";
+const char var7f1b4784[] = "(u16) - StartAddress       - %d\n";
+const char var7f1b47a8[] = "(u8*) - Nintendo chr data  - %s\n";
+const char var7f1b47cc[] = "(u8*) - Game Title         - %s\n";
+const char var7f1b47f0[] = "(u16) - Company Code       - %d\n";
+const char var7f1b4814[] = "(u8 ) - Body Code          - %d\n";
+const char var7f1b4838[] = "(u8 ) - Rom Size           - %d\n";
+const char var7f1b485c[] = "(u8 ) - Ram Size           - %d\n";
+const char var7f1b4880[] = "(u8 ) - country_code       - %d\n";
+const char var7f1b48a4[] = "(u8 ) - Fixed 2 (0x33)     - %d\n";
+const char var7f1b48c8[] = "(u8 ) - Version Number     - %d\n";
+const char var7f1b48ec[] = "(u8 ) - isum               - %d\n";
+const char var7f1b4910[] = "(u16) - sum                - %d\n";
+const char var7f1b4934[] = "Pak -> Finished Dump";
+
+const u32 var7f1b494c[] = {0x43000000};
+const u32 var7f1b4950[] = {0x43140000};
+const u32 var7f1b4954[] = {0x435c0000};
+const u32 var7f1b4958[] = {0x437f0000};
+const u32 var7f1b495c[] = {0x43020000};
+const u32 var7f1b4960[] = {0x43150000};
+const u32 var7f1b4964[] = {0x43520000};
+const u32 var7f1b4968[] = {0x437f0000};
+const u32 var7f1b496c[] = {0x43040000};
+const u32 var7f1b4970[] = {0x43160000};
+const u32 var7f1b4974[] = {0x434a0000};
+const u32 var7f1b4978[] = {0x437f0000};
+const u32 var7f1b497c[] = {0x43060000};
+const u32 var7f1b4980[] = {0x43160000};
+const u32 var7f1b4984[] = {0x43440000};
+const u32 var7f1b4988[] = {0x437f0000};
+const u32 var7f1b498c[] = {0x43080000};
+const u32 var7f1b4990[] = {0x43170000};
+const u32 var7f1b4994[] = {0x433e0000};
+const u32 var7f1b4998[] = {0x437f0000};
+const u32 var7f1b499c[] = {0x430a0000};
+const u32 var7f1b49a0[] = {0x43170000};
+const u32 var7f1b49a4[] = {0x43380000};
+const u32 var7f1b49a8[] = {0x437f0000};
+const u32 var7f1b49ac[] = {0x430b0000};
+const u32 var7f1b49b0[] = {0x43180000};
+const u32 var7f1b49b4[] = {0x43320000};
+const u32 var7f1b49b8[] = {0x43750000};
+const u32 var7f1b49bc[] = {0x430c0000};
+const u32 var7f1b49c0[] = {0x43180000};
+const u32 var7f1b49c4[] = {0x432c0000};
+const u32 var7f1b49c8[] = {0x436b0000};
+const u32 var7f1b49cc[] = {0x430d0000};
+const u32 var7f1b49d0[] = {0x43180000};
+const u32 var7f1b49d4[] = {0x432a0000};
+const u32 var7f1b49d8[] = {0x435d0000};
+const u32 var7f1b49dc[] = {0x430e0000};
+const u32 var7f1b49e0[] = {0x43180000};
+const u32 var7f1b49e4[] = {0x43280000};
+const u32 var7f1b49e8[] = {0x43500000};
+const u32 var7f1b49ec[] = {0x430f0000};
+const u32 var7f1b49f0[] = {0x43180000};
+const u32 var7f1b49f4[] = {0x43260000};
+const u32 var7f1b49f8[] = {0x43440000};
+const u32 var7f1b49fc[] = {0x43100000};
+const u32 var7f1b4a00[] = {0x43180000};
+const u32 var7f1b4a04[] = {0x43240000};
+const u32 var7f1b4a08[] = {0x433a0000};
+const u32 var7f1b4a0c[] = {0x43120000};
+const u32 var7f1b4a10[] = {0x43180000};
+const u32 var7f1b4a14[] = {0x43210000};
+const u32 var7f1b4a18[] = {0x43310000};
+const u32 var7f1b4a1c[] = {0x43140000};
+const u32 var7f1b4a20[] = {0x43180000};
+const u32 var7f1b4a24[] = {0x431d0000};
+const u32 var7f1b4a28[] = {0x43280000};
+const u32 var7f1b4a2c[] = {0x43160000};
+const u32 var7f1b4a30[] = {0x43180000};
+const u32 var7f1b4a34[] = {0x43190000};
+const u32 var7f1b4a38[] = {0x43200000};
+const u32 var7f1b4a3c[] = {0x43180000};
+const u32 var7f1b4a40[] = {0x43180000};
+const u32 var7f1b4a44[] = {0x43180000};
+const u32 var7f1b4a48[] = {0x43180000};
+const u32 var7f1b4a4c[] = {0x00000000};
+const u32 var7f1b4a50[] = {0x00000000};
+const u32 var7f1b4a54[] = {0x00000000};
+const u32 var7f1b4a58[] = {0x00000000};
+const u32 var7f1b4a5c[] = {0x00000000};
+const u32 var7f1b4a60[] = {0x41000000};
+const u32 var7f1b4a64[] = {0x40000000};
+const u32 var7f1b4a68[] = {0x41200000};
+const u32 var7f1b4a6c[] = {0x41400000};
+const u32 var7f1b4a70[] = {0x40800000};
+const u32 var7f1b4a74[] = {0x41600000};
+const u32 var7f1b4a78[] = {0x40c00000};
+const u32 var7f1b4a7c[] = {0x40400000};
+const u32 var7f1b4a80[] = {0x41300000};
+const u32 var7f1b4a84[] = {0x3f800000};
+const u32 var7f1b4a88[] = {0x41100000};
+const u32 var7f1b4a8c[] = {0x41700000};
+const u32 var7f1b4a90[] = {0x40e00000};
+const u32 var7f1b4a94[] = {0x41500000};
+const u32 var7f1b4a98[] = {0x40a00000};
+const u32 var7f1b4a9c[] = {0x00000000};
+const u32 var7f1b4aa0[] = {0x41600000};
+const u32 var7f1b4aa4[] = {0x40400000};
+const u32 var7f1b4aa8[] = {0x41500000};
+const u32 var7f1b4aac[] = {0x41300000};
+const u32 var7f1b4ab0[] = {0x40a00000};
+const u32 var7f1b4ab4[] = {0x41000000};
+const u32 var7f1b4ab8[] = {0x40c00000};
+const u32 var7f1b4abc[] = {0x41400000};
+const u32 var7f1b4ac0[] = {0x40000000};
+const u32 var7f1b4ac4[] = {0x41700000};
+const u32 var7f1b4ac8[] = {0x3f800000};
+const u32 var7f1b4acc[] = {0x40e00000};
+const u32 var7f1b4ad0[] = {0x41100000};
+const u32 var7f1b4ad4[] = {0x40800000};
+const u32 var7f1b4ad8[] = {0x41200000};
+
+const char var7f1b4adc[] = "Pak_StartCapture -> Failed - Code = %d\n";
+const char var7f1b4b04[] = "Pak_DownloadNextBlockToPackBuffer : eQuality=ekCapQualityHeader, BufferNum=%d\n";
+const char var7f1b4b54[] = "Pak : Doing Frame - Top    = %d\n";
+const char var7f1b4b78[] = "Pak : Doing Frame - Height = %d\n";
+const char var7f1b4b9c[] = "Pak : Doing Frame - Bottom = %d\n";
+#if VERSION < VERSION_NTSC_FINAL
+const char var7f1b4b9c_2[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
+#endif
+const char var7f1b4bc0[] = "Pak %d - ekPakInitStatusError_CorruptedPak\n";
+const char var7f1b4bec[] = "Pak %d - ekPakInitStatusInitGameBoy_PDGB_Check_Error\n";
+const char var7f1b4c24[] = "Pak %d - ekPakInitStatusError_DamagedPak\n";
+const char var7f1b4c50[] = "Pak %d - ekPakInitStatusError_StuffedPak\n";
+const char var7f1b4c7c[] = "Pak %d - ekPakInitStatusError_StuffedAndCheckedPak\n";
+const char var7f1b4cb0[] = "Pak %d - ekPakInitStatusVoid\n";
+const char var7f1b4cd0[] = "Pak %d -> Unhandled Init Status - %d\n";
+#if VERSION >= VERSION_NTSC_FINAL
+const char var7f1b4cf8[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
+#endif
+const char var7f1b4d1c[] = "-scrub";
+const char var7f1b4d24[] = "Pak %d -> Pak_PdGameBoySetRWByte - Fatal Error\n";
+const char var7f1b4d54[] = "0123456789012345678901234567890123456789";
+const char var7f1b4d80[] = "PerfDark\n";
 
 GLOBAL_ASM(
 glabel func0f11789c
@@ -8467,7 +8453,7 @@ glabel var7f1b4f34
 /*  f11c87c:	3c018007 */ 	lui	$at,%hi(var80075d54)
 /*  f11c880:	13000003 */ 	beqz	$t8,.L0f11c890
 /*  f11c884:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11c888:	0fc45e12 */ 	jal	func0f117848
+/*  f11c888:	0fc45e12 */ 	jal	pakDumpEeprom
 /*  f11c88c:	ac205d54 */ 	sw	$zero,%lo(var80075d54)($at)
 .L0f11c890:
 /*  f11c890:	3c198007 */ 	lui	$t9,%hi(var80075cf0)
