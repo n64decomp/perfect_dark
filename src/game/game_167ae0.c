@@ -4360,12 +4360,12 @@ void func0f16b96c(void)
 		menuTickAll();
 		func00011d84();
 		func0f01d860();
-		func0f11c7a0();
+		pakExecuteDebugOperations();
 	} else if (g_Vars.stagenum == STAGE_4MBMENU) {
 		menuTickAll();
 		func00011d84();
 		func0f01d860();
-		func0f11c7a0();
+		pakExecuteDebugOperations();
 	} else if (g_Vars.stagenum == STAGE_CREDITS) {
 		func00011d84();
 		func0f01d860();
@@ -4391,7 +4391,7 @@ void func0f16b96c(void)
 
 		boostAndSlayerSfxUpdate();
 		func0000fe88();
-		func0f11c7a0();
+		pakExecuteDebugOperations();
 		func0f0033b0();
 		func0f0b2904();
 		func0f0aefb8();

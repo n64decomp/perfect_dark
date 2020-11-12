@@ -51,12 +51,12 @@ u32 var80075cd0 = 0x00000000;
 u32 var80075cd4 = 0x00000000;
 u32 var80075cd8 = 0x00000000;
 u32 var80075cdc = 0x00000000;
-u32 var80075ce0 = 0x00000000;
-u32 var80075ce4 = 0x00000000;
-u32 var80075ce8 = 0x00000001;
-u32 var80075cec = 0x00000000;
-u32 var80075cf0 = 0x00000000;
-u32 var80075cf4 = 0x00000000;
+u32 g_PakDebugForceScrub = 0x00000000;
+u32 g_PakDebugPakDump = 0x00000000;
+u32 g_PakDebugPakCache = 0x00000001;
+u32 g_PakDebugPakInit = 0x00000000;
+u32 g_PakDebugWipeEeprom = 0x00000000;
+u32 g_PakDebugCorruptMe = 0x00000000;
 u32 var80075cf8 = 0x291e2b1f;
 u32 var80075cfc = 0x1e1c2d0f;
 u32 var80075d00 = 0x1d1a2b24;
@@ -80,9 +80,6 @@ u32 var80075d44 = (u32)&var7f1b4244;
 u32 var80075d48 = (u32)&var7f1b424c;
 u32 var80075d4c = (u32)&var7f1b4254;
 u32 var80075d50 = (u32)&var7f1b425c;
-u32 var80075d54 = 0x00000000;
-u32 var80075d58 = 0x00000000;
-u32 var80075d5c = 0x00000000;
 
 u32 func0f1165d0(s8 arg0)
 {
@@ -1314,14 +1311,14 @@ glabel func0f117520
 /*  f1176e0:	00002825 */ 	or	$a1,$zero,$zero
 .L0f1176e4:
 /*  f1176e4:	8dcf000c */ 	lw	$t7,0xc($t6)
-/*  f1176e8:	3c198007 */ 	lui	$t9,%hi(var80075ce8)
+/*  f1176e8:	3c198007 */ 	lui	$t9,%hi(g_PakDebugPakCache)
 /*  f1176ec:	31f80001 */ 	andi	$t8,$t7,0x1
 /*  f1176f0:	10b80003 */ 	beq	$a1,$t8,.L0f117700
 /*  f1176f4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1176f8:	10000018 */ 	beqz	$zero,.L0f11775c
 /*  f1176fc:	24020009 */ 	addiu	$v0,$zero,0x9
 .L0f117700:
-/*  f117700:	8f395ce8 */ 	lw	$t9,%lo(var80075ce8)($t9)
+/*  f117700:	8f395ce8 */ 	lw	$t9,%lo(g_PakDebugPakCache)($t9)
 /*  f117704:	83a4007b */ 	lb	$a0,0x7b($sp)
 /*  f117708:	8fa50060 */ 	lw	$a1,0x60($sp)
 /*  f11770c:	5320000c */ 	beqzl	$t9,.L0f117740
@@ -1464,156 +1461,6 @@ const char var7f1b45f4[] = "PakMac_PaksLive()=%x\n";
 const char var7f1b460c[] = "paksNeedToBeLive4Game=%x\n";
 const char var7f1b4628[] = "paksNeedToBeLive4Menu=%x\n";
 const char var7f1b4644[] = "g_LastPackPattern=%x\n";
-const char var7f1b465c[] = "forcescrub";
-const char var7f1b4668[] = "pakdump";
-const char var7f1b4670[] = "pakcache";
-const char var7f1b467c[] = "pakinit";
-const char var7f1b4684[] = "corruptme";
-const char var7f1b4690[] = "wipeeeprom";
-const char var7f1b469c[] = "dumpeeprom";
-const char var7f1b46a8[] = "\nOS_GBPAK_GBCART_ON       - ";
-const char var7f1b46c8[] = "\nOS_GBPAK_GBCART_PULL     - ";
-const char var7f1b46e8[] = "\nOS_GBPAK_POWER           - ";
-const char var7f1b4708[] = "\nOS_GBPAK_RSTB_DETECTION  - ";
-const char var7f1b4728[] = "Pak -> Dumping contents of Game Boy Pack(TM) Id file";
-const char var7f1b4760[] = "(u16) - Fixed1             - %d\n";
-const char var7f1b4784[] = "(u16) - StartAddress       - %d\n";
-const char var7f1b47a8[] = "(u8*) - Nintendo chr data  - %s\n";
-const char var7f1b47cc[] = "(u8*) - Game Title         - %s\n";
-const char var7f1b47f0[] = "(u16) - Company Code       - %d\n";
-const char var7f1b4814[] = "(u8 ) - Body Code          - %d\n";
-const char var7f1b4838[] = "(u8 ) - Rom Size           - %d\n";
-const char var7f1b485c[] = "(u8 ) - Ram Size           - %d\n";
-const char var7f1b4880[] = "(u8 ) - country_code       - %d\n";
-const char var7f1b48a4[] = "(u8 ) - Fixed 2 (0x33)     - %d\n";
-const char var7f1b48c8[] = "(u8 ) - Version Number     - %d\n";
-const char var7f1b48ec[] = "(u8 ) - isum               - %d\n";
-const char var7f1b4910[] = "(u16) - sum                - %d\n";
-const char var7f1b4934[] = "Pak -> Finished Dump";
-
-const u32 var7f1b494c[] = {0x43000000};
-const u32 var7f1b4950[] = {0x43140000};
-const u32 var7f1b4954[] = {0x435c0000};
-const u32 var7f1b4958[] = {0x437f0000};
-const u32 var7f1b495c[] = {0x43020000};
-const u32 var7f1b4960[] = {0x43150000};
-const u32 var7f1b4964[] = {0x43520000};
-const u32 var7f1b4968[] = {0x437f0000};
-const u32 var7f1b496c[] = {0x43040000};
-const u32 var7f1b4970[] = {0x43160000};
-const u32 var7f1b4974[] = {0x434a0000};
-const u32 var7f1b4978[] = {0x437f0000};
-const u32 var7f1b497c[] = {0x43060000};
-const u32 var7f1b4980[] = {0x43160000};
-const u32 var7f1b4984[] = {0x43440000};
-const u32 var7f1b4988[] = {0x437f0000};
-const u32 var7f1b498c[] = {0x43080000};
-const u32 var7f1b4990[] = {0x43170000};
-const u32 var7f1b4994[] = {0x433e0000};
-const u32 var7f1b4998[] = {0x437f0000};
-const u32 var7f1b499c[] = {0x430a0000};
-const u32 var7f1b49a0[] = {0x43170000};
-const u32 var7f1b49a4[] = {0x43380000};
-const u32 var7f1b49a8[] = {0x437f0000};
-const u32 var7f1b49ac[] = {0x430b0000};
-const u32 var7f1b49b0[] = {0x43180000};
-const u32 var7f1b49b4[] = {0x43320000};
-const u32 var7f1b49b8[] = {0x43750000};
-const u32 var7f1b49bc[] = {0x430c0000};
-const u32 var7f1b49c0[] = {0x43180000};
-const u32 var7f1b49c4[] = {0x432c0000};
-const u32 var7f1b49c8[] = {0x436b0000};
-const u32 var7f1b49cc[] = {0x430d0000};
-const u32 var7f1b49d0[] = {0x43180000};
-const u32 var7f1b49d4[] = {0x432a0000};
-const u32 var7f1b49d8[] = {0x435d0000};
-const u32 var7f1b49dc[] = {0x430e0000};
-const u32 var7f1b49e0[] = {0x43180000};
-const u32 var7f1b49e4[] = {0x43280000};
-const u32 var7f1b49e8[] = {0x43500000};
-const u32 var7f1b49ec[] = {0x430f0000};
-const u32 var7f1b49f0[] = {0x43180000};
-const u32 var7f1b49f4[] = {0x43260000};
-const u32 var7f1b49f8[] = {0x43440000};
-const u32 var7f1b49fc[] = {0x43100000};
-const u32 var7f1b4a00[] = {0x43180000};
-const u32 var7f1b4a04[] = {0x43240000};
-const u32 var7f1b4a08[] = {0x433a0000};
-const u32 var7f1b4a0c[] = {0x43120000};
-const u32 var7f1b4a10[] = {0x43180000};
-const u32 var7f1b4a14[] = {0x43210000};
-const u32 var7f1b4a18[] = {0x43310000};
-const u32 var7f1b4a1c[] = {0x43140000};
-const u32 var7f1b4a20[] = {0x43180000};
-const u32 var7f1b4a24[] = {0x431d0000};
-const u32 var7f1b4a28[] = {0x43280000};
-const u32 var7f1b4a2c[] = {0x43160000};
-const u32 var7f1b4a30[] = {0x43180000};
-const u32 var7f1b4a34[] = {0x43190000};
-const u32 var7f1b4a38[] = {0x43200000};
-const u32 var7f1b4a3c[] = {0x43180000};
-const u32 var7f1b4a40[] = {0x43180000};
-const u32 var7f1b4a44[] = {0x43180000};
-const u32 var7f1b4a48[] = {0x43180000};
-const u32 var7f1b4a4c[] = {0x00000000};
-const u32 var7f1b4a50[] = {0x00000000};
-const u32 var7f1b4a54[] = {0x00000000};
-const u32 var7f1b4a58[] = {0x00000000};
-const u32 var7f1b4a5c[] = {0x00000000};
-const u32 var7f1b4a60[] = {0x41000000};
-const u32 var7f1b4a64[] = {0x40000000};
-const u32 var7f1b4a68[] = {0x41200000};
-const u32 var7f1b4a6c[] = {0x41400000};
-const u32 var7f1b4a70[] = {0x40800000};
-const u32 var7f1b4a74[] = {0x41600000};
-const u32 var7f1b4a78[] = {0x40c00000};
-const u32 var7f1b4a7c[] = {0x40400000};
-const u32 var7f1b4a80[] = {0x41300000};
-const u32 var7f1b4a84[] = {0x3f800000};
-const u32 var7f1b4a88[] = {0x41100000};
-const u32 var7f1b4a8c[] = {0x41700000};
-const u32 var7f1b4a90[] = {0x40e00000};
-const u32 var7f1b4a94[] = {0x41500000};
-const u32 var7f1b4a98[] = {0x40a00000};
-const u32 var7f1b4a9c[] = {0x00000000};
-const u32 var7f1b4aa0[] = {0x41600000};
-const u32 var7f1b4aa4[] = {0x40400000};
-const u32 var7f1b4aa8[] = {0x41500000};
-const u32 var7f1b4aac[] = {0x41300000};
-const u32 var7f1b4ab0[] = {0x40a00000};
-const u32 var7f1b4ab4[] = {0x41000000};
-const u32 var7f1b4ab8[] = {0x40c00000};
-const u32 var7f1b4abc[] = {0x41400000};
-const u32 var7f1b4ac0[] = {0x40000000};
-const u32 var7f1b4ac4[] = {0x41700000};
-const u32 var7f1b4ac8[] = {0x3f800000};
-const u32 var7f1b4acc[] = {0x40e00000};
-const u32 var7f1b4ad0[] = {0x41100000};
-const u32 var7f1b4ad4[] = {0x40800000};
-const u32 var7f1b4ad8[] = {0x41200000};
-
-const char var7f1b4adc[] = "Pak_StartCapture -> Failed - Code = %d\n";
-const char var7f1b4b04[] = "Pak_DownloadNextBlockToPackBuffer : eQuality=ekCapQualityHeader, BufferNum=%d\n";
-const char var7f1b4b54[] = "Pak : Doing Frame - Top    = %d\n";
-const char var7f1b4b78[] = "Pak : Doing Frame - Height = %d\n";
-const char var7f1b4b9c[] = "Pak : Doing Frame - Bottom = %d\n";
-#if VERSION < VERSION_NTSC_FINAL
-const char var7f1b4b9c_2[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
-#endif
-const char var7f1b4bc0[] = "Pak %d - ekPakInitStatusError_CorruptedPak\n";
-const char var7f1b4bec[] = "Pak %d - ekPakInitStatusInitGameBoy_PDGB_Check_Error\n";
-const char var7f1b4c24[] = "Pak %d - ekPakInitStatusError_DamagedPak\n";
-const char var7f1b4c50[] = "Pak %d - ekPakInitStatusError_StuffedPak\n";
-const char var7f1b4c7c[] = "Pak %d - ekPakInitStatusError_StuffedAndCheckedPak\n";
-const char var7f1b4cb0[] = "Pak %d - ekPakInitStatusVoid\n";
-const char var7f1b4cd0[] = "Pak %d -> Unhandled Init Status - %d\n";
-#if VERSION >= VERSION_NTSC_FINAL
-const char var7f1b4cf8[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
-#endif
-const char var7f1b4d1c[] = "-scrub";
-const char var7f1b4d24[] = "Pak %d -> Pak_PdGameBoySetRWByte - Fatal Error\n";
-const char var7f1b4d54[] = "0123456789012345678901234567890123456789";
-const char var7f1b4d80[] = "PerfDark\n";
 
 GLOBAL_ASM(
 glabel func0f11789c
@@ -5069,7 +4916,7 @@ glabel func0f11970c
 #endif
 
 GLOBAL_ASM(
-glabel func0f119da8
+glabel pakCorrupt
 /*  f119da8:	27bdef90 */ 	addiu	$sp,$sp,-4208
 /*  f119dac:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f119db0:	afb60030 */ 	sw	$s6,0x30($sp)
@@ -6042,7 +5889,7 @@ glabel func0f11a8f4
 /*  f11ab40:	00044603 */ 	sra	$t0,$a0,0x18
 /*  f11ab44:	5320000a */ 	beqzl	$t9,.L0f11ab70
 /*  f11ab48:	8faa1050 */ 	lw	$t2,0x1050($sp)
-/*  f11ab4c:	0fc46d52 */ 	jal	func0f11b548
+/*  f11ab4c:	0fc46d52 */ 	jal	pakForceScrub
 /*  f11ab50:	01002025 */ 	or	$a0,$t0,$zero
 /*  f11ab54:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f11ab58:	10410003 */ 	beq	$v0,$at,.L0f11ab68
@@ -6064,7 +5911,7 @@ glabel func0f11a8f4
 /*  f11ab8c:	14410010 */ 	bne	$v0,$at,.L0f11abd0
 /*  f11ab90:	00112600 */ 	sll	$a0,$s1,0x18
 /*  f11ab94:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f11ab98:	0fc46d52 */ 	jal	func0f11b548
+/*  f11ab98:	0fc46d52 */ 	jal	pakForceScrub
 /*  f11ab9c:	01802025 */ 	or	$a0,$t4,$zero
 /*  f11aba0:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f11aba4:	10410003 */ 	beq	$v0,$at,.L0f11abb4
@@ -6442,11 +6289,11 @@ glabel func0f11ac7c
 /*  f11ad4c:	24010004 */ 	addiu	$at,$zero,0x4
 /*  f11ad50:	56010008 */ 	bnel	$s0,$at,.L0f11ad74
 /*  f11ad54:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f11ad58:	0fc471e8 */ 	jal	func0f11c7a0
+/*  f11ad58:	0fc471e8 */ 	jal	pakExecuteDebugOperations
 /*  f11ad5c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11ad60:	0fc471e8 */ 	jal	func0f11c7a0
+/*  f11ad60:	0fc471e8 */ 	jal	pakExecuteDebugOperations
 /*  f11ad64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11ad68:	0fc471e8 */ 	jal	func0f11c7a0
+/*  f11ad68:	0fc471e8 */ 	jal	pakExecuteDebugOperations
 /*  f11ad6c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f11ad70:	240a0001 */ 	addiu	$t2,$zero,0x1
 .L0f11ad74:
@@ -6608,7 +6455,7 @@ glabel func0f11ac7c
 );
 
 GLOBAL_ASM(
-glabel func0f11afb0
+glabel pakWipeEeprom
 /*  f11afb0:	27bdff18 */ 	addiu	$sp,$sp,-232
 /*  f11afb4:	afb20030 */ 	sw	$s2,0x30($sp)
 /*  f11afb8:	00049600 */ 	sll	$s2,$a0,0x18
@@ -7003,7 +6850,7 @@ glabel func0f11b488
 );
 
 GLOBAL_ASM(
-glabel func0f11b548
+glabel pakForceScrub
 /*  f11b548:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f11b54c:	afb20038 */ 	sw	$s2,0x38($sp)
 /*  f11b550:	00049600 */ 	sll	$s2,$a0,0x18
@@ -7924,8 +7771,8 @@ glabel func0f11bc54
 /*  f11c21c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f11c220:	0c005451 */ 	jal	func00015144
 /*  f11c224:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11c228:	3c0d8007 */ 	lui	$t5,%hi(var80075ce8)
-/*  f11c22c:	8dad5ce8 */ 	lw	$t5,%lo(var80075ce8)($t5)
+/*  f11c228:	3c0d8007 */ 	lui	$t5,%hi(g_PakDebugPakCache)
+/*  f11c22c:	8dad5ce8 */ 	lw	$t5,%lo(g_PakDebugPakCache)($t5)
 /*  f11c230:	00172600 */ 	sll	$a0,$s7,0x18
 /*  f11c234:	0004ce03 */ 	sra	$t9,$a0,0x18
 /*  f11c238:	51a00010 */ 	beqzl	$t5,.L0f11c27c
@@ -8337,199 +8184,227 @@ void func0f11c6d0(void)
 	var8005eedc = 1;
 }
 
-GLOBAL_ASM(
-glabel func0f11c7a0
-.late_rodata
-glabel var7f1b4f24
-.word func0f11c7a0+0x244 # f11c9e4
-glabel var7f1b4f28
-.word func0f11c7a0+0x244 # f11c9e4
-glabel var7f1b4f2c
-.word func0f11c7a0+0x244 # f11c9e4
-glabel var7f1b4f30
-.word func0f11c7a0+0x244 # f11c9e4
-glabel var7f1b4f34
-.word func0f11c7a0+0x244 # f11c9e4
-.text
-/*  f11c7a0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f11c7a4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f11c7a8:	3c047f1b */ 	lui	$a0,%hi(var7f1b465c)
-/*  f11c7ac:	3c058007 */ 	lui	$a1,%hi(var80075ce0)
-/*  f11c7b0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f11c7b4:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f11c7b8:	24a55ce0 */ 	addiu	$a1,$a1,%lo(var80075ce0)
-/*  f11c7bc:	0c0036cc */ 	jal	func0000db30
-/*  f11c7c0:	2484465c */ 	addiu	$a0,$a0,%lo(var7f1b465c)
-/*  f11c7c4:	3c047f1b */ 	lui	$a0,%hi(var7f1b4668)
-/*  f11c7c8:	3c058007 */ 	lui	$a1,%hi(var80075ce4)
-/*  f11c7cc:	24a55ce4 */ 	addiu	$a1,$a1,%lo(var80075ce4)
-/*  f11c7d0:	0c0036cc */ 	jal	func0000db30
-/*  f11c7d4:	24844668 */ 	addiu	$a0,$a0,%lo(var7f1b4668)
-/*  f11c7d8:	3c047f1b */ 	lui	$a0,%hi(var7f1b4670)
-/*  f11c7dc:	3c058007 */ 	lui	$a1,%hi(var80075ce8)
-/*  f11c7e0:	24a55ce8 */ 	addiu	$a1,$a1,%lo(var80075ce8)
-/*  f11c7e4:	0c0036cc */ 	jal	func0000db30
-/*  f11c7e8:	24844670 */ 	addiu	$a0,$a0,%lo(var7f1b4670)
-/*  f11c7ec:	3c047f1b */ 	lui	$a0,%hi(var7f1b467c)
-/*  f11c7f0:	3c058007 */ 	lui	$a1,%hi(var80075cec)
-/*  f11c7f4:	24a55cec */ 	addiu	$a1,$a1,%lo(var80075cec)
-/*  f11c7f8:	0c0036cc */ 	jal	func0000db30
-/*  f11c7fc:	2484467c */ 	addiu	$a0,$a0,%lo(var7f1b467c)
-/*  f11c800:	3c108007 */ 	lui	$s0,%hi(var80075cf4)
-/*  f11c804:	26105cf4 */ 	addiu	$s0,$s0,%lo(var80075cf4)
-/*  f11c808:	3c047f1b */ 	lui	$a0,%hi(var7f1b4684)
-/*  f11c80c:	24844684 */ 	addiu	$a0,$a0,%lo(var7f1b4684)
-/*  f11c810:	0c0036cc */ 	jal	func0000db30
-/*  f11c814:	02002825 */ 	or	$a1,$s0,$zero
-/*  f11c818:	3c047f1b */ 	lui	$a0,%hi(var7f1b4690)
-/*  f11c81c:	3c058007 */ 	lui	$a1,%hi(var80075cf0)
-/*  f11c820:	24a55cf0 */ 	addiu	$a1,$a1,%lo(var80075cf0)
-/*  f11c824:	0c0036cc */ 	jal	func0000db30
-/*  f11c828:	24844690 */ 	addiu	$a0,$a0,%lo(var7f1b4690)
-/*  f11c82c:	3c047f1b */ 	lui	$a0,%hi(var7f1b469c)
-/*  f11c830:	3c058007 */ 	lui	$a1,%hi(var80075d54)
-/*  f11c834:	24a55d54 */ 	addiu	$a1,$a1,%lo(var80075d54)
-/*  f11c838:	0c0036cc */ 	jal	func0000db30
-/*  f11c83c:	2484469c */ 	addiu	$a0,$a0,%lo(var7f1b469c)
-/*  f11c840:	8e0e0000 */ 	lw	$t6,0x0($s0)
-/*  f11c844:	11c00003 */ 	beqz	$t6,.L0f11c854
-/*  f11c848:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11c84c:	0fc4676a */ 	jal	func0f119da8
-/*  f11c850:	ae000000 */ 	sw	$zero,0x0($s0)
-.L0f11c854:
-/*  f11c854:	3c0f8007 */ 	lui	$t7,%hi(var80075ce4)
-/*  f11c858:	8def5ce4 */ 	lw	$t7,%lo(var80075ce4)($t7)
-/*  f11c85c:	11e00005 */ 	beqz	$t7,.L0f11c874
-/*  f11c860:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11c864:	0fc477e3 */ 	jal	func0f11df8c
-/*  f11c868:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11c86c:	3c018007 */ 	lui	$at,%hi(var80075ce4)
-/*  f11c870:	ac205ce4 */ 	sw	$zero,%lo(var80075ce4)($at)
-.L0f11c874:
-/*  f11c874:	3c188007 */ 	lui	$t8,%hi(var80075d54)
-/*  f11c878:	8f185d54 */ 	lw	$t8,%lo(var80075d54)($t8)
-/*  f11c87c:	3c018007 */ 	lui	$at,%hi(var80075d54)
-/*  f11c880:	13000003 */ 	beqz	$t8,.L0f11c890
-/*  f11c884:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11c888:	0fc45e12 */ 	jal	pakDumpEeprom
-/*  f11c88c:	ac205d54 */ 	sw	$zero,%lo(var80075d54)($at)
-.L0f11c890:
-/*  f11c890:	3c198007 */ 	lui	$t9,%hi(var80075cf0)
-/*  f11c894:	8f395cf0 */ 	lw	$t9,%lo(var80075cf0)($t9)
-/*  f11c898:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f11c89c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f11c8a0:	13200005 */ 	beqz	$t9,.L0f11c8b8
-/*  f11c8a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11c8a8:	0fc46bec */ 	jal	func0f11afb0
-/*  f11c8ac:	24060080 */ 	addiu	$a2,$zero,0x80
-/*  f11c8b0:	3c018007 */ 	lui	$at,%hi(var80075cf0)
-/*  f11c8b4:	ac205cf0 */ 	sw	$zero,%lo(var80075cf0)($at)
-.L0f11c8b8:
-/*  f11c8b8:	3c028007 */ 	lui	$v0,%hi(var80075cec)
-/*  f11c8bc:	8c425cec */ 	lw	$v0,%lo(var80075cec)($v0)
-/*  f11c8c0:	10400018 */ 	beqz	$v0,.L0f11c924
-/*  f11c8c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11c8c8:	0c00543a */ 	jal	func000150e8
-/*  f11c8cc:	2450ffff */ 	addiu	$s0,$v0,-1
-/*  f11c8d0:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11c8d4:	16010003 */ 	bne	$s0,$at,.L0f11c8e4
-/*  f11c8d8:	3c04800a */ 	lui	$a0,%hi(var80099e78)
-/*  f11c8dc:	10000009 */ 	beqz	$zero,.L0f11c904
-/*  f11c8e0:	00002825 */ 	or	$a1,$zero,$zero
-.L0f11c8e4:
-/*  f11c8e4:	00104080 */ 	sll	$t0,$s0,0x2
-/*  f11c8e8:	01104023 */ 	subu	$t0,$t0,$s0
-/*  f11c8ec:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f11c8f0:	01104021 */ 	addu	$t0,$t0,$s0
-/*  f11c8f4:	3c09800a */ 	lui	$t1,%hi(var800a3180)
-/*  f11c8f8:	25293180 */ 	addiu	$t1,$t1,%lo(var800a3180)
-/*  f11c8fc:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f11c900:	01092821 */ 	addu	$a1,$t0,$t1
-.L0f11c904:
-/*  f11c904:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
-/*  f11c908:	02003025 */ 	or	$a2,$s0,$zero
-/*  f11c90c:	0fc45ec1 */ 	jal	func0f117b04
-/*  f11c910:	00003825 */ 	or	$a3,$zero,$zero
-/*  f11c914:	0c005451 */ 	jal	func00015144
-/*  f11c918:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11c91c:	3c018007 */ 	lui	$at,%hi(var80075cec)
-/*  f11c920:	ac205cec */ 	sw	$zero,%lo(var80075cec)($at)
-.L0f11c924:
-/*  f11c924:	3c0a8007 */ 	lui	$t2,%hi(var80075ce0)
-/*  f11c928:	8d4a5ce0 */ 	lw	$t2,%lo(var80075ce0)($t2)
-/*  f11c92c:	11400005 */ 	beqz	$t2,.L0f11c944
-/*  f11c930:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11c934:	0fc46d52 */ 	jal	func0f11b548
-/*  f11c938:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f11c93c:	3c018007 */ 	lui	$at,%hi(var80075ce0)
-/*  f11c940:	ac205ce0 */ 	sw	$zero,%lo(var80075ce0)($at)
-.L0f11c944:
-/*  f11c944:	0fc4728c */ 	jal	func0f11ca30
-/*  f11c948:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11c94c:	3c02800a */ 	lui	$v0,%hi(var800a2380)
-/*  f11c950:	24422380 */ 	addiu	$v0,$v0,%lo(var800a2380)
-/*  f11c954:	00008025 */ 	or	$s0,$zero,$zero
-/*  f11c958:	240302cc */ 	addiu	$v1,$zero,0x2cc
-.L0f11c95c:
-/*  f11c95c:	02030019 */ 	multu	$s0,$v1
-/*  f11c960:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f11c964:	00047603 */ 	sra	$t6,$a0,0x18
-/*  f11c968:	00005812 */ 	mflo	$t3
-/*  f11c96c:	004b6021 */ 	addu	$t4,$v0,$t3
-/*  f11c970:	918d0014 */ 	lbu	$t5,0x14($t4)
-/*  f11c974:	51a00007 */ 	beqzl	$t5,.L0f11c994
-/*  f11c978:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f11c97c:	0fc477e5 */ 	jal	func0f11df94
-/*  f11c980:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f11c984:	3c02800a */ 	lui	$v0,%hi(var800a2380)
-/*  f11c988:	24422380 */ 	addiu	$v0,$v0,%lo(var800a2380)
-/*  f11c98c:	240302cc */ 	addiu	$v1,$zero,0x2cc
-/*  f11c990:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f11c994:
-/*  f11c994:	00107e00 */ 	sll	$t7,$s0,0x18
-/*  f11c998:	000f8603 */ 	sra	$s0,$t7,0x18
-/*  f11c99c:	2a010005 */ 	slti	$at,$s0,0x5
-/*  f11c9a0:	1420ffee */ 	bnez	$at,.L0f11c95c
-/*  f11c9a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11c9a8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f11c9ac:	8fa40024 */ 	lw	$a0,0x24($sp)
-.L0f11c9b0:
-/*  f11c9b0:	02030019 */ 	multu	$s0,$v1
-/*  f11c9b4:	0000c812 */ 	mflo	$t9
-/*  f11c9b8:	00594021 */ 	addu	$t0,$v0,$t9
-/*  f11c9bc:	8d090010 */ 	lw	$t1,0x10($t0)
-/*  f11c9c0:	252afffe */ 	addiu	$t2,$t1,-2
-/*  f11c9c4:	2d410005 */ 	sltiu	$at,$t2,0x5
-/*  f11c9c8:	10200007 */ 	beqz	$at,.L0f11c9e8
-/*  f11c9cc:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f11c9d0:	3c017f1b */ 	lui	$at,%hi(var7f1b4f24)
-/*  f11c9d4:	002a0821 */ 	addu	$at,$at,$t2
-/*  f11c9d8:	8c2a4f24 */ 	lw	$t2,%lo(var7f1b4f24)($at)
-/*  f11c9dc:	01400008 */ 	jr	$t2
-/*  f11c9e0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11c9e4:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f11c9e8:
-/*  f11c9e8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f11c9ec:	00105e00 */ 	sll	$t3,$s0,0x18
-/*  f11c9f0:	000b8603 */ 	sra	$s0,$t3,0x18
-/*  f11c9f4:	2a010005 */ 	slti	$at,$s0,0x5
-/*  f11c9f8:	1420ffed */ 	bnez	$at,.L0f11c9b0
-/*  f11c9fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11ca00:	10800004 */ 	beqz	$a0,.L0f11ca14
-/*  f11ca04:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f11ca08:	3c018006 */ 	lui	$at,%hi(var8005eedc)
-/*  f11ca0c:	10000003 */ 	beqz	$zero,.L0f11ca1c
-/*  f11ca10:	ac20eedc */ 	sw	$zero,%lo(var8005eedc)($at)
-.L0f11ca14:
-/*  f11ca14:	3c018006 */ 	lui	$at,%hi(var8005eedc)
-/*  f11ca18:	ac2deedc */ 	sw	$t5,%lo(var8005eedc)($at)
-.L0f11ca1c:
-/*  f11ca1c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f11ca20:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f11ca24:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f11ca28:	03e00008 */ 	jr	$ra
-/*  f11ca2c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void pakExecuteDebugOperations(void)
+{
+	static u32 g_PakDebugDumpEeprom = 0;
+	s32 pass = false;
+	s8 i;
+
+	func0000db30("forcescrub", &g_PakDebugForceScrub);
+	func0000db30("pakdump", &g_PakDebugPakDump);
+	func0000db30("pakcache", &g_PakDebugPakCache);
+	func0000db30("pakinit", &g_PakDebugPakInit);
+	func0000db30("corruptme", &g_PakDebugCorruptMe);
+	func0000db30("wipeeeprom", &g_PakDebugWipeEeprom);
+	func0000db30("dumpeeprom", &g_PakDebugDumpEeprom);
+
+	if (g_PakDebugCorruptMe) {
+		g_PakDebugCorruptMe = false;
+		pakCorrupt();
+	}
+
+	if (g_PakDebugPakDump) {
+		pakDumpPak();
+		g_PakDebugPakDump = false;
+	}
+
+	if (g_PakDebugDumpEeprom) {
+		g_PakDebugDumpEeprom = false;
+		pakDumpEeprom();
+	}
+
+	if (g_PakDebugWipeEeprom) {
+		pakWipeEeprom(4, 0, 0x80);
+		g_PakDebugWipeEeprom = false;
+	}
+
+	if (g_PakDebugPakInit) {
+		s32 device = g_PakDebugPakInit - 1;
+		func000150e8();
+
+		func0f117b04(&var80099e78, (device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device]), device, 0);
+		func00015144();
+		g_PakDebugPakInit = false;
+	}
+
+	if (g_PakDebugForceScrub) {
+		pakForceScrub(4);
+		g_PakDebugForceScrub = false;
+	}
+
+	func0f11ca30();
+
+	for (i = 0; i < 5; i++) {
+		if (var800a2380[i].unk014) {
+			func0f11df94(i);
+		}
+	}
+
+	for (i = 0; i < 5; i++) {
+		switch (var800a2380[i].unk010) {
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+			pass = true;
+			break;
+		}
+	}
+
+	if (pass) {
+		var8005eedc = false;
+	} else {
+		var8005eedc = true;
+	}
+}
+
+const char var7f1b46a8[] = "\nOS_GBPAK_GBCART_ON       - ";
+const char var7f1b46c8[] = "\nOS_GBPAK_GBCART_PULL     - ";
+const char var7f1b46e8[] = "\nOS_GBPAK_POWER           - ";
+const char var7f1b4708[] = "\nOS_GBPAK_RSTB_DETECTION  - ";
+const char var7f1b4728[] = "Pak -> Dumping contents of Game Boy Pack(TM) Id file";
+const char var7f1b4760[] = "(u16) - Fixed1             - %d\n";
+const char var7f1b4784[] = "(u16) - StartAddress       - %d\n";
+const char var7f1b47a8[] = "(u8*) - Nintendo chr data  - %s\n";
+const char var7f1b47cc[] = "(u8*) - Game Title         - %s\n";
+const char var7f1b47f0[] = "(u16) - Company Code       - %d\n";
+const char var7f1b4814[] = "(u8 ) - Body Code          - %d\n";
+const char var7f1b4838[] = "(u8 ) - Rom Size           - %d\n";
+const char var7f1b485c[] = "(u8 ) - Ram Size           - %d\n";
+const char var7f1b4880[] = "(u8 ) - country_code       - %d\n";
+const char var7f1b48a4[] = "(u8 ) - Fixed 2 (0x33)     - %d\n";
+const char var7f1b48c8[] = "(u8 ) - Version Number     - %d\n";
+const char var7f1b48ec[] = "(u8 ) - isum               - %d\n";
+const char var7f1b4910[] = "(u16) - sum                - %d\n";
+const char var7f1b4934[] = "Pak -> Finished Dump";
+
+const u32 var7f1b494c[] = {0x43000000};
+const u32 var7f1b4950[] = {0x43140000};
+const u32 var7f1b4954[] = {0x435c0000};
+const u32 var7f1b4958[] = {0x437f0000};
+const u32 var7f1b495c[] = {0x43020000};
+const u32 var7f1b4960[] = {0x43150000};
+const u32 var7f1b4964[] = {0x43520000};
+const u32 var7f1b4968[] = {0x437f0000};
+const u32 var7f1b496c[] = {0x43040000};
+const u32 var7f1b4970[] = {0x43160000};
+const u32 var7f1b4974[] = {0x434a0000};
+const u32 var7f1b4978[] = {0x437f0000};
+const u32 var7f1b497c[] = {0x43060000};
+const u32 var7f1b4980[] = {0x43160000};
+const u32 var7f1b4984[] = {0x43440000};
+const u32 var7f1b4988[] = {0x437f0000};
+const u32 var7f1b498c[] = {0x43080000};
+const u32 var7f1b4990[] = {0x43170000};
+const u32 var7f1b4994[] = {0x433e0000};
+const u32 var7f1b4998[] = {0x437f0000};
+const u32 var7f1b499c[] = {0x430a0000};
+const u32 var7f1b49a0[] = {0x43170000};
+const u32 var7f1b49a4[] = {0x43380000};
+const u32 var7f1b49a8[] = {0x437f0000};
+const u32 var7f1b49ac[] = {0x430b0000};
+const u32 var7f1b49b0[] = {0x43180000};
+const u32 var7f1b49b4[] = {0x43320000};
+const u32 var7f1b49b8[] = {0x43750000};
+const u32 var7f1b49bc[] = {0x430c0000};
+const u32 var7f1b49c0[] = {0x43180000};
+const u32 var7f1b49c4[] = {0x432c0000};
+const u32 var7f1b49c8[] = {0x436b0000};
+const u32 var7f1b49cc[] = {0x430d0000};
+const u32 var7f1b49d0[] = {0x43180000};
+const u32 var7f1b49d4[] = {0x432a0000};
+const u32 var7f1b49d8[] = {0x435d0000};
+const u32 var7f1b49dc[] = {0x430e0000};
+const u32 var7f1b49e0[] = {0x43180000};
+const u32 var7f1b49e4[] = {0x43280000};
+const u32 var7f1b49e8[] = {0x43500000};
+const u32 var7f1b49ec[] = {0x430f0000};
+const u32 var7f1b49f0[] = {0x43180000};
+const u32 var7f1b49f4[] = {0x43260000};
+const u32 var7f1b49f8[] = {0x43440000};
+const u32 var7f1b49fc[] = {0x43100000};
+const u32 var7f1b4a00[] = {0x43180000};
+const u32 var7f1b4a04[] = {0x43240000};
+const u32 var7f1b4a08[] = {0x433a0000};
+const u32 var7f1b4a0c[] = {0x43120000};
+const u32 var7f1b4a10[] = {0x43180000};
+const u32 var7f1b4a14[] = {0x43210000};
+const u32 var7f1b4a18[] = {0x43310000};
+const u32 var7f1b4a1c[] = {0x43140000};
+const u32 var7f1b4a20[] = {0x43180000};
+const u32 var7f1b4a24[] = {0x431d0000};
+const u32 var7f1b4a28[] = {0x43280000};
+const u32 var7f1b4a2c[] = {0x43160000};
+const u32 var7f1b4a30[] = {0x43180000};
+const u32 var7f1b4a34[] = {0x43190000};
+const u32 var7f1b4a38[] = {0x43200000};
+const u32 var7f1b4a3c[] = {0x43180000};
+const u32 var7f1b4a40[] = {0x43180000};
+const u32 var7f1b4a44[] = {0x43180000};
+const u32 var7f1b4a48[] = {0x43180000};
+const u32 var7f1b4a4c[] = {0x00000000};
+const u32 var7f1b4a50[] = {0x00000000};
+const u32 var7f1b4a54[] = {0x00000000};
+const u32 var7f1b4a58[] = {0x00000000};
+const u32 var7f1b4a5c[] = {0x00000000};
+const u32 var7f1b4a60[] = {0x41000000};
+const u32 var7f1b4a64[] = {0x40000000};
+const u32 var7f1b4a68[] = {0x41200000};
+const u32 var7f1b4a6c[] = {0x41400000};
+const u32 var7f1b4a70[] = {0x40800000};
+const u32 var7f1b4a74[] = {0x41600000};
+const u32 var7f1b4a78[] = {0x40c00000};
+const u32 var7f1b4a7c[] = {0x40400000};
+const u32 var7f1b4a80[] = {0x41300000};
+const u32 var7f1b4a84[] = {0x3f800000};
+const u32 var7f1b4a88[] = {0x41100000};
+const u32 var7f1b4a8c[] = {0x41700000};
+const u32 var7f1b4a90[] = {0x40e00000};
+const u32 var7f1b4a94[] = {0x41500000};
+const u32 var7f1b4a98[] = {0x40a00000};
+const u32 var7f1b4a9c[] = {0x00000000};
+const u32 var7f1b4aa0[] = {0x41600000};
+const u32 var7f1b4aa4[] = {0x40400000};
+const u32 var7f1b4aa8[] = {0x41500000};
+const u32 var7f1b4aac[] = {0x41300000};
+const u32 var7f1b4ab0[] = {0x40a00000};
+const u32 var7f1b4ab4[] = {0x41000000};
+const u32 var7f1b4ab8[] = {0x40c00000};
+const u32 var7f1b4abc[] = {0x41400000};
+const u32 var7f1b4ac0[] = {0x40000000};
+const u32 var7f1b4ac4[] = {0x41700000};
+const u32 var7f1b4ac8[] = {0x3f800000};
+const u32 var7f1b4acc[] = {0x40e00000};
+const u32 var7f1b4ad0[] = {0x41100000};
+const u32 var7f1b4ad4[] = {0x40800000};
+const u32 var7f1b4ad8[] = {0x41200000};
+
+const char var7f1b4adc[] = "Pak_StartCapture -> Failed - Code = %d\n";
+const char var7f1b4b04[] = "Pak_DownloadNextBlockToPackBuffer : eQuality=ekCapQualityHeader, BufferNum=%d\n";
+const char var7f1b4b54[] = "Pak : Doing Frame - Top    = %d\n";
+const char var7f1b4b78[] = "Pak : Doing Frame - Height = %d\n";
+const char var7f1b4b9c[] = "Pak : Doing Frame - Bottom = %d\n";
+#if VERSION < VERSION_NTSC_FINAL
+const char var7f1b4b9c_2[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
+#endif
+const char var7f1b4bc0[] = "Pak %d - ekPakInitStatusError_CorruptedPak\n";
+const char var7f1b4bec[] = "Pak %d - ekPakInitStatusInitGameBoy_PDGB_Check_Error\n";
+const char var7f1b4c24[] = "Pak %d - ekPakInitStatusError_DamagedPak\n";
+const char var7f1b4c50[] = "Pak %d - ekPakInitStatusError_StuffedPak\n";
+const char var7f1b4c7c[] = "Pak %d - ekPakInitStatusError_StuffedAndCheckedPak\n";
+const char var7f1b4cb0[] = "Pak %d - ekPakInitStatusVoid\n";
+const char var7f1b4cd0[] = "Pak %d -> Unhandled Init Status - %d\n";
+#if VERSION >= VERSION_NTSC_FINAL
+const char var7f1b4cf8[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
+#endif
+const char var7f1b4d1c[] = "-scrub";
+const char var7f1b4d24[] = "Pak %d -> Pak_PdGameBoySetRWByte - Fatal Error\n";
+const char var7f1b4d54[] = "0123456789012345678901234567890123456789";
+const char var7f1b4d80[] = "PerfDark\n";
+
+u32 var80075d58 = 0x00000000;
+u32 var80075d5c = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f11ca30
@@ -10090,7 +9965,7 @@ glabel func0f11df38
 );
 #endif
 
-void func0f11df8c(void)
+void pakDumpPak(void)
 {
 	// empty
 }
@@ -10844,7 +10719,7 @@ glabel func0f11e3fc
 /*  f11e444:	24a54d1c */ 	addiu	$a1,$a1,%lo(var7f1b4d1c)
 /*  f11e448:	50400008 */ 	beqzl	$v0,.L0f11e46c
 /*  f11e44c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11e450:	0fc46d52 */ 	jal	func0f11b548
+/*  f11e450:	0fc46d52 */ 	jal	pakForceScrub
 /*  f11e454:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f11e458:	10000004 */ 	beqz	$zero,.L0f11e46c
 /*  f11e45c:	8fbf0014 */ 	lw	$ra,0x14($sp)

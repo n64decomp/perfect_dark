@@ -535,7 +535,7 @@ s32 filemgrInsertOriginalPakMenuDialog(u32 operation, struct menudialog *dialog,
 s32 filemgrReinsertedOkMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		func0f11c7a0();
+		pakExecuteDebugOperations();
 		filemgrRetrySave(1);
 	}
 
