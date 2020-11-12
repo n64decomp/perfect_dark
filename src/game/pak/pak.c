@@ -41,10 +41,6 @@ const char var7f1b3b18[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPa
 const char var7f1b3b60[] = "-> Unknown PakFileType_e - %d\n";
 const char var7f1b3b80[] = "-forceversion";
 const char var7f1b3b90[] = "Pak %d -> Header Cache 2 - FATAL ERROR\n";
-const char var7f1b3bb8[] = "\n";
-const char var7f1b3bbc[] = "\nAddress = %u : ";
-const char var7f1b3bd0[] = "%2x ";
-const char var7f1b3bd8[] = "\n";
 
 char var80075cb0[] = "4Y";
 char var80075cb4[] = "PerfDark";
@@ -1357,69 +1353,31 @@ glabel func0f117520
 /*  f117768:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f11776c
-/*  f11776c:	27bdfdc0 */ 	addiu	$sp,$sp,-576
-/*  f117770:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f117774:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f117778:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f11777c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f117780:	00809025 */ 	or	$s2,$a0,$zero
-/*  f117784:	27b3013c */ 	addiu	$s3,$sp,0x13c
-/*  f117788:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f11778c:	3c057f1b */ 	lui	$a1,%hi(var7f1b3bb8)
-/*  f117790:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f117794:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f117798:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f11779c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1177a0:	afa60248 */ 	sw	$a2,0x248($sp)
-/*  f1177a4:	24a53bb8 */ 	addiu	$a1,$a1,%lo(var7f1b3bb8)
-/*  f1177a8:	0c004dad */ 	jal	sprintf
-/*  f1177ac:	02602025 */ 	or	$a0,$s3,$zero
-/*  f1177b0:	12800017 */ 	beqz	$s4,.L0f117810
-/*  f1177b4:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1177b8:	02408825 */ 	or	$s1,$s2,$zero
-/*  f1177bc:	3c167f1b */ 	lui	$s6,%hi(var7f1b3bd0)
-/*  f1177c0:	3c157f1b */ 	lui	$s5,%hi(var7f1b3bbc)
-/*  f1177c4:	26b53bbc */ 	addiu	$s5,$s5,%lo(var7f1b3bbc)
-/*  f1177c8:	26d63bd0 */ 	addiu	$s6,$s6,%lo(var7f1b3bd0)
-/*  f1177cc:	27b2003c */ 	addiu	$s2,$sp,0x3c
-.L0f1177d0:
-/*  f1177d0:	320e000f */ 	andi	$t6,$s0,0xf
-/*  f1177d4:	15c00004 */ 	bnez	$t6,.L0f1177e8
-/*  f1177d8:	02602025 */ 	or	$a0,$s3,$zero
-/*  f1177dc:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f1177e0:	0c004dad */ 	jal	sprintf
-/*  f1177e4:	02003025 */ 	or	$a2,$s0,$zero
-.L0f1177e8:
-/*  f1177e8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f1177ec:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f1177f0:	0c004dad */ 	jal	sprintf
-/*  f1177f4:	92260000 */ 	lbu	$a2,0x0($s1)
-/*  f1177f8:	02602025 */ 	or	$a0,$s3,$zero
-/*  f1177fc:	0c004c89 */ 	jal	strcat
-/*  f117800:	02402825 */ 	or	$a1,$s2,$zero
-/*  f117804:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f117808:	1614fff1 */ 	bne	$s0,$s4,.L0f1177d0
-/*  f11780c:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f117810:
-/*  f117810:	3c057f1b */ 	lui	$a1,%hi(var7f1b3bd8)
-/*  f117814:	24a53bd8 */ 	addiu	$a1,$a1,%lo(var7f1b3bd8)
-/*  f117818:	0c004c89 */ 	jal	strcat
-/*  f11781c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f117820:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f117824:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f117828:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f11782c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f117830:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f117834:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f117838:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f11783c:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f117840:	03e00008 */ 	jr	$ra
-/*  f117844:	27bd0240 */ 	addiu	$sp,$sp,0x240
-);
+void pakDumpBuffer(u8 *buffer, u32 len, char *name)
+{
+	s32 i;
+	char line[256];
+	char tmp[256];
 
-char *pakDumpEeprom(void)
+	osSyncPrintf(name);
+	sprintf(line, "\n");
+
+	for (i = 0; i != len; i++) {
+		if ((i % 16) == 0) {
+			osSyncPrintf(line);
+			sprintf(line, "\nAddress = %u : ", i);
+		}
+
+		sprintf(tmp, "%2x ", buffer[i]);
+		strcat(line, tmp);
+	}
+
+	strcat(line, "\n");
+
+	osSyncPrintf(line);
+}
+
+void pakDumpEeprom(void)
 {
 	u8 buffer[2048];
 
@@ -1427,7 +1385,7 @@ char *pakDumpEeprom(void)
 	osEepromLongRead(&var80099e78, 0, buffer, 2048);
 	func00015144();
 
-	return func0f11776c(buffer, 2048, "EEPROM DUMP");
+	pakDumpBuffer(buffer, 2048, "EEPROM DUMP");
 }
 
 const char var7f1b3be8[] = "PakSaveAtGuid: new guid = %x\n";
