@@ -9,7 +9,7 @@ u32 func0f116658(s8 arg0, u32 arg1);
 u32 func0f116684(u32 arg0);
 u32 func0f11668c(void);
 bool pakIsConnected(s32 paknum);
-u32 func0f1167b0(void);
+s32 func0f1167b0(s32 device, u32 arg1, u32 *buffer1024);
 u32 func0f1167d8(s8 arg0);
 s32 func0f116800(s8 arg0, s32 arg1, void *arg2, s32 arg3);
 s32 func0f116828(s8 arg0, s32 arg1, s32 arg2, void *arg3, s32 *arg4, s32 arg5);
@@ -65,7 +65,7 @@ u32 func0f118d18(void);
 u32 func0f1190bc(void);
 u32 func0f119298(s8 index);
 void func0f119340(u32 arg0);
-u32 func0f119368(void);
+u32 func0f119368(s32 device, u32 arg1, u8 *buffer16);
 #if VERSION >= VERSION_NTSC_FINAL
 bool func0f119478(u32 arg0, u32 arg1, u32 *arg2);
 #endif

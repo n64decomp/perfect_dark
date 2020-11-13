@@ -4978,6 +4978,36 @@ glabel pakCorrupt
 /*  f119e88:	27bd1070 */ 	addiu	$sp,$sp,0x1070
 );
 
+// Mismatch due to regalloc when calculating buffer1024[i] at end of the loop.
+// Suspect the return value of osEepromLongWrite is being stored into result
+// and printed in an indeffed block, but still can't get a match.
+//void pakCorrupt(void)
+//{
+//	u8 buffer16[16];
+//	s32 result;
+//	u32 buffer1024[1024];
+//	u32 address;
+//	s32 i;
+//	s32 j;
+//	u8 buffer8[8];
+//
+//	func0f1167b0(SAVEDEVICE_GAMEPAK, 0x80, buffer1024);
+//
+//	for (i = 0; buffer1024[i] != 0; i++) {
+//		for (j = 0; j < 8; j++) {
+//			buffer8[j] = random();
+//		}
+//
+//		address = func0f119368(SAVEDEVICE_GAMEPAK, buffer1024[i], buffer16);
+//		address += i * 8;
+//		address += 0x30;
+//
+//		func000150e8();
+//		osEepromLongWrite(&var80099e78, address, buffer8, 8);
+//		func00015144();
+//	}
+//}
+
 GLOBAL_ASM(
 glabel func0f119e8c
 /*  f119e8c:	27bdef58 */ 	addiu	$sp,$sp,-4264
