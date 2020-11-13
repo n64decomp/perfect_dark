@@ -276,19 +276,10 @@ s32 func0f1168c4(s8 device, struct pakdata **arg1)
 	return func0f116df0(device, arg1);
 }
 
-GLOBAL_ASM(
-glabel func0f1168ec
-/*  f1168ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1168f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1168f4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1168f8:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f1168fc:	0fc4608c */ 	jal	func0f118230
-/*  f116900:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f116904:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116908:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f11690c:	03e00008 */ 	jr	$ra
-/*  f116910:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f1168ec(s8 device)
+{
+	return func0f118230(device);
+}
 
 GLOBAL_ASM(
 glabel func0f116914

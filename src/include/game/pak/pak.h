@@ -54,7 +54,7 @@ u32 func0f117fc0(s8 arg0);
 u32 func0f118000(void);
 u32 func0f11807c(void);
 u32 func0f118148(void);
-u32 func0f118230(void);
+s32 func0f118230(s8 device);
 u32 func0f118334(void);
 u32 func0f1185e0(void);
 u32 func0f118674(s8 arg0, u32 arg1, u32 arg2);
