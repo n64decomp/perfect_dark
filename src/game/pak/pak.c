@@ -673,24 +673,13 @@ s32 func0f117210(s8 device)
 	return var800a2380[device].unk008;
 }
 
+void func0f117250(s8 device, s32 value)
+{
+	var800a2380[device].unk008 = value;
+}
+
 GLOBAL_ASM(
-glabel func0f117250
-/*  f117250:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f117254:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f117258:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f11725c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117260:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117264:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117268:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11726c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f117270:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117274:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117278:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11727c:	3c01800a */ 	lui	$at,%hi(var800a2380+0x8)
-/*  f117280:	00380821 */ 	addu	$at,$at,$t8
-/*  f117284:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f117288:	03e00008 */ 	jr	$ra
-/*  f11728c:	ac252388 */ 	sw	$a1,%lo(var800a2380+0x8)($at)
+glabel func0f117290
 /*  f117290:	00047600 */ 	sll	$t6,$a0,0x18
 /*  f117294:	000e7e03 */ 	sra	$t7,$t6,0x18
 /*  f117298:	000fc080 */ 	sll	$t8,$t7,0x2
