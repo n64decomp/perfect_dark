@@ -47,7 +47,7 @@ char var80075cb4[] = "PerfDark";
 char var80075cc0[] = "PerfDark";
 
 u32 var80075ccc = 0x00000400;
-u32 var80075cd0 = 0x00000000;
+u32 g_PakHasEeprom = 0x00000000;
 u32 var80075cd4 = 0x00000000;
 u32 var80075cd8 = 0x00000000;
 u32 var80075cdc = 0x00000000;
@@ -1239,8 +1239,8 @@ glabel func0f117b04
 /*  f117b18:	10000009 */ 	beqz	$zero,.L0f117b40
 /*  f117b1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f117b20:
-/*  f117b20:	3c0e8007 */ 	lui	$t6,%hi(var80075cd0)
-/*  f117b24:	8dce5cd0 */ 	lw	$t6,%lo(var80075cd0)($t6)
+/*  f117b20:	3c0e8007 */ 	lui	$t6,%hi(g_PakHasEeprom)
+/*  f117b24:	8dce5cd0 */ 	lw	$t6,%lo(g_PakHasEeprom)($t6)
 /*  f117b28:	00001025 */ 	or	$v0,$zero,$zero
 /*  f117b2c:	15c00003 */ 	bnez	$t6,.L0f117b3c
 /*  f117b30:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1268,7 +1268,7 @@ glabel func0f117b4c
 /*  f117b70:	93a6002b */ 	lbu	$a2,0x2b($sp)
 /*  f117b74:	8fa7002c */ 	lw	$a3,0x2c($sp)
 /*  f117b78:	10800009 */ 	beqz	$a0,.L0f117ba0
-/*  f117b7c:	3c188007 */ 	lui	$t8,%hi(var80075cd0)
+/*  f117b7c:	3c188007 */ 	lui	$t8,%hi(g_PakHasEeprom)
 /*  f117b80:	8fae0030 */ 	lw	$t6,0x30($sp)
 /*  f117b84:	8faf0034 */ 	lw	$t7,0x34($sp)
 /*  f117b88:	8fa50024 */ 	lw	$a1,0x24($sp)
@@ -1278,7 +1278,7 @@ glabel func0f117b4c
 /*  f117b98:	10000019 */ 	beqz	$zero,.L0f117c00
 /*  f117b9c:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f117ba0:
-/*  f117ba0:	8f185cd0 */ 	lw	$t8,%lo(var80075cd0)($t8)
+/*  f117ba0:	8f185cd0 */ 	lw	$t8,%lo(g_PakHasEeprom)($t8)
 /*  f117ba4:	000718c2 */ 	srl	$v1,$a3,0x3
 /*  f117ba8:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f117bac:	17000003 */ 	bnez	$t8,.L0f117bbc
@@ -1330,8 +1330,8 @@ glabel func0f117c0c
 /*  f117c40:	1000000b */ 	beqz	$zero,.L0f117c70
 /*  f117c44:	8fa2001c */ 	lw	$v0,0x1c($sp)
 .L0f117c48:
-/*  f117c48:	3c0e8007 */ 	lui	$t6,%hi(var80075cd0)
-/*  f117c4c:	8dce5cd0 */ 	lw	$t6,%lo(var80075cd0)($t6)
+/*  f117c48:	3c0e8007 */ 	lui	$t6,%hi(g_PakHasEeprom)
+/*  f117c4c:	8dce5cd0 */ 	lw	$t6,%lo(g_PakHasEeprom)($t6)
 /*  f117c50:	24030001 */ 	addiu	$v1,$zero,0x1
 /*  f117c54:	00001025 */ 	or	$v0,$zero,$zero
 /*  f117c58:	55c00004 */ 	bnezl	$t6,.L0f117c6c
@@ -1364,8 +1364,8 @@ glabel func0f117c80
 /*  f117cac:	10000009 */ 	beqz	$zero,.L0f117cd4
 /*  f117cb0:	8fa2001c */ 	lw	$v0,0x1c($sp)
 .L0f117cb4:
-/*  f117cb4:	3c0e8007 */ 	lui	$t6,%hi(var80075cd0)
-/*  f117cb8:	8dce5cd0 */ 	lw	$t6,%lo(var80075cd0)($t6)
+/*  f117cb4:	3c0e8007 */ 	lui	$t6,%hi(g_PakHasEeprom)
+/*  f117cb8:	8dce5cd0 */ 	lw	$t6,%lo(g_PakHasEeprom)($t6)
 /*  f117cbc:	00001025 */ 	or	$v0,$zero,$zero
 /*  f117cc0:	55c00004 */ 	bnezl	$t6,.L0f117cd4
 /*  f117cc4:	aca00000 */ 	sw	$zero,0x0($a1)
@@ -1397,8 +1397,8 @@ glabel func0f117ce4
 /*  f117d18:	10000019 */ 	beqz	$zero,.L0f117d80
 /*  f117d1c:	8fa2001c */ 	lw	$v0,0x1c($sp)
 .L0f117d20:
-/*  f117d20:	3c0e8007 */ 	lui	$t6,%hi(var80075cd0)
-/*  f117d24:	8dce5cd0 */ 	lw	$t6,%lo(var80075cd0)($t6)
+/*  f117d20:	3c0e8007 */ 	lui	$t6,%hi(g_PakHasEeprom)
+/*  f117d24:	8dce5cd0 */ 	lw	$t6,%lo(g_PakHasEeprom)($t6)
 /*  f117d28:	15c00003 */ 	bnez	$t6,.L0f117d38
 /*  f117d2c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f117d30:	10000013 */ 	beqz	$zero,.L0f117d80
@@ -1436,7 +1436,7 @@ u32 func0f117d90(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32
 		return func0004d000(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
 	}
 
-	if (var80075cd0 == 0) {
+	if (g_PakHasEeprom == 0) {
 		return 0x80;
 	}
 
@@ -1451,7 +1451,7 @@ u32 func0f117e00(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4)
 		return func0004d480(arg0, arg1, arg2, arg3, arg4);
 	}
 
-	if (var80075cd0 == 0) {
+	if (g_PakHasEeprom == 0) {
 		return 0x80;
 	}
 
@@ -1464,7 +1464,7 @@ u32 func0f117e58(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 *arg5)
 		return func0004cc10(arg0, arg1, arg2, arg3, arg4, arg5);
 	}
 
-	if (var80075cd0) {
+	if (g_PakHasEeprom) {
 #if VERSION >= VERSION_NTSC_FINAL
 		*arg5 = 0;
 		return 0;
@@ -1519,8 +1519,8 @@ glabel func0f117ec0
 /*  f117f0c:	10000008 */ 	beqz	$zero,.L0f117f30
 /*  f117f10:	8fa20024 */ 	lw	$v0,0x24($sp)
 .L0f117f14:
-/*  f117f14:	3c188007 */ 	lui	$t8,%hi(var80075cd0)
-/*  f117f18:	8f185cd0 */ 	lw	$t8,%lo(var80075cd0)($t8)
+/*  f117f14:	3c188007 */ 	lui	$t8,%hi(g_PakHasEeprom)
+/*  f117f18:	8f185cd0 */ 	lw	$t8,%lo(g_PakHasEeprom)($t8)
 /*  f117f1c:	00001025 */ 	or	$v0,$zero,$zero
 /*  f117f20:	17000003 */ 	bnez	$t8,.L0f117f30
 /*  f117f24:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2595,7 +2595,7 @@ glabel func0f1189d8
 /*  f118a5c:	2a010005 */ 	slti	$at,$s0,0x5
 /*  f118a60:	5420fff5 */ 	bnezl	$at,.L0f118a38
 /*  f118a64:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f118a68:	0fc478ff */ 	jal	func0f11e3fc
+/*  f118a68:	0fc478ff */ 	jal	pakProbeEeprom
 /*  f118a6c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f118a70:	0c004e90 */ 	jal	contRecordPfsState
 /*  f118a74:	24040010 */ 	addiu	$a0,$zero,0x10
@@ -7949,10 +7949,6 @@ const char var7f1b4cd0[] = "Pak %d -> Unhandled Init Status - %d\n";
 #if VERSION >= VERSION_NTSC_FINAL
 const char var7f1b4cf8[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
 #endif
-const char var7f1b4d1c[] = "-scrub";
-const char var7f1b4d24[] = "Pak %d -> Pak_PdGameBoySetRWByte - Fatal Error\n";
-const char var7f1b4d54[] = "0123456789012345678901234567890123456789";
-const char var7f1b4d80[] = "PerfDark\n";
 
 u32 var80075d58 = 0x00000000;
 u32 var80075d5c = 0x00000000;
@@ -10232,42 +10228,28 @@ void func0f11e3bc(s8 device)
 	var800a2380[device].unk008 = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f11e3fc
-/*  f11e3fc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f11e400:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11e404:	0c00543a */ 	jal	func000150e8
-/*  f11e408:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11e40c:	3c04800a */ 	lui	$a0,%hi(var80099e78)
-/*  f11e410:	0c01404c */ 	jal	osEepromProbe
-/*  f11e414:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
-/*  f11e418:	0c005451 */ 	jal	func00015144
-/*  f11e41c:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f11e420:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f11e424:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f11e428:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f11e42c:	15c1000c */ 	bne	$t6,$at,.L0f11e460
-/*  f11e430:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f11e434:	3c018007 */ 	lui	$at,%hi(var80075cd0)
-/*  f11e438:	3c057f1b */ 	lui	$a1,%hi(var7f1b4d1c)
-/*  f11e43c:	ac2f5cd0 */ 	sw	$t7,%lo(var80075cd0)($at)
-/*  f11e440:	0c004c04 */ 	jal	func00013010
-/*  f11e444:	24a54d1c */ 	addiu	$a1,$a1,%lo(var7f1b4d1c)
-/*  f11e448:	50400008 */ 	beqzl	$v0,.L0f11e46c
-/*  f11e44c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11e450:	0fc46d52 */ 	jal	pakForceScrub
-/*  f11e454:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f11e458:	10000004 */ 	beqz	$zero,.L0f11e46c
-/*  f11e45c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f11e460:
-/*  f11e460:	3c018007 */ 	lui	$at,%hi(var80075cd0)
-/*  f11e464:	ac205cd0 */ 	sw	$zero,%lo(var80075cd0)($at)
-/*  f11e468:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f11e46c:
-/*  f11e46c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f11e470:	03e00008 */ 	jr	$ra
-/*  f11e474:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void pakProbeEeprom(void)
+{
+	s32 type;
+
+	func000150e8();
+	type = osEepromProbe(&var80099e78);
+	func00015144();
+
+	if (type == EEPROM_TYPE_16K) {
+		g_PakHasEeprom = true;
+
+		if (func00013010(1, "-scrub")) {
+			pakForceScrub(SAVEDEVICE_GAMEPAK);
+		}
+	} else {
+		g_PakHasEeprom = false;
+	}
+}
+
+const char var7f1b4d24[] = "Pak %d -> Pak_PdGameBoySetRWByte - Fatal Error\n";
+const char var7f1b4d54[] = "0123456789012345678901234567890123456789";
+const char var7f1b4d80[] = "PerfDark\n";
 
 GLOBAL_ASM(
 glabel func0f11e478
