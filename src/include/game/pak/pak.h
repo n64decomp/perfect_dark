@@ -79,7 +79,7 @@ void func0f11a2e4(void);
 u32 func0f11a32c(void);
 u32 func0f11a434(void);
 u32 func0f11a504(u32 arg0, u32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u16 *arg6);
-u32 func0f11a574(void);
+s32 func0f11a574(s8 device);
 u32 func0f11a7dc(void);
 u32 func0f11a8f4(void);
 u32 func0f11ac7c(void);

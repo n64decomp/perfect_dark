@@ -469,48 +469,21 @@ void func0f116db0(s8 device, s32 value)
 	var800a2380[device].unk010 = value;
 }
 
-GLOBAL_ASM(
-glabel func0f116df0
-/*  f116df0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f116df4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f116df8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f116dfc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f116e00:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f116e04:	0fc45ad7 */ 	jal	func0f116b5c
-/*  f116e08:	83a4001b */ 	lb	$a0,0x1b($sp)
-/*  f116e0c:	50400019 */ 	beqzl	$v0,.L0f116e74
-/*  f116e10:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f116e14:	0fc4695d */ 	jal	func0f11a574
-/*  f116e18:	83a4001b */ 	lb	$a0,0x1b($sp)
-/*  f116e1c:	10400012 */ 	beqz	$v0,.L0f116e68
-/*  f116e20:	83af001b */ 	lb	$t7,0x1b($sp)
-/*  f116e24:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f116e28:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116e2c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116e30:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116e34:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116e38:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f116e3c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116e40:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116e44:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116e48:	3c08800a */ 	lui	$t0,%hi(var800a2380)
-/*  f116e4c:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*  f116e50:	25082380 */ 	addiu	$t0,$t0,%lo(var800a2380)
-/*  f116e54:	27190018 */ 	addiu	$t9,$t8,0x18
-/*  f116e58:	03284821 */ 	addu	$t1,$t9,$t0
-/*  f116e5c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f116e60:	10000004 */ 	beqz	$zero,.L0f116e74
-/*  f116e64:	ad490000 */ 	sw	$t1,0x0($t2)
-.L0f116e68:
-/*  f116e68:	10000002 */ 	beqz	$zero,.L0f116e74
-/*  f116e6c:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f116e70:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f116e74:
-/*  f116e74:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116e78:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f116e7c:	03e00008 */ 	jr	$ra
-/*  f116e80:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f116df0(s8 device, struct pakdata **pakdata)
+{
+	*pakdata = NULL;
+
+	if (func0f116b5c(device)) {
+		if (func0f11a574(device)) {
+			*pakdata = &var800a2380[device].pakdata;
+			return 0;
+		}
+
+		return 2;
+	}
+
+	return 1;
+}
 
 GLOBAL_ASM(
 glabel func0f116e84
