@@ -746,26 +746,12 @@ glabel func0f117290
 /*  f11738c:	0002cfc2 */ 	srl	$t9,$v0,0x1f
 /*  f117390:	03e00008 */ 	jr	$ra
 /*  f117394:	03201025 */ 	or	$v0,$t9,$zero
-/*  f117398:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11739c:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f1173a0:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f1173a4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1173a8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1173ac:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1173b0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1173b4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f1173b8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1173bc:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1173c0:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f1173c4:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
-/*  f1173c8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1173cc:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f1173d0:	904902b8 */ 	lbu	$t1,0x2b8($v0)
-/*  f1173d4:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f1173d8:	352a0080 */ 	ori	$t2,$t1,0x80
-/*  f1173dc:	03e00008 */ 	jr	$ra
-/*  f1173e0:	a04a02b8 */ 	sb	$t2,0x2b8($v0)
 );
+
+void func0f117398(s8 device)
+{
+	var800a2380[device].unk2b8_01 = 1;
+}
 
 void func0f1173e4(s8 device)
 {
