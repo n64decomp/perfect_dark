@@ -464,25 +464,10 @@ glabel func0f116cd4
 /*  f116dac:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f116db0
-/*  f116db0:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f116db4:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f116db8:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f116dbc:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116dc0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116dc4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116dc8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116dcc:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f116dd0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116dd4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116dd8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116ddc:	3c01800a */ 	lui	$at,%hi(var800a2380+0x10)
-/*  f116de0:	00380821 */ 	addu	$at,$at,$t8
-/*  f116de4:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f116de8:	03e00008 */ 	jr	$ra
-/*  f116dec:	ac252390 */ 	sw	$a1,%lo(var800a2380+0x10)($at)
-);
+void func0f116db0(s8 device, s32 value)
+{
+	var800a2380[device].unk010 = value;
+}
 
 GLOBAL_ASM(
 glabel func0f116df0
