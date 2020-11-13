@@ -34,7 +34,7 @@ s32 func0f11706c(s8 arg0);
 s32 func0f117094(s8 arg0, u32 arg1);
 void func0f117150(s8 device, u8 *ptr);
 void func0f1171b4(s8 device, s32 arg1, s32 arg2);
-u32 func0f117210(void);
+s32 func0f117210(s8 device);
 u32 func0f117430(void);
 u32 func0f117520(s8 arg0, u32 arg1, u32 *arg2);
 void pakDumpBuffer(u8 *buffer, u32 len, char *name);
