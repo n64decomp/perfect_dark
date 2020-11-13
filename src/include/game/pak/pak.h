@@ -49,7 +49,7 @@ u32 func0f117d90(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32
 u32 func0f117e00(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4);
 u32 func0f117e58(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 *arg5);
 u32 func0f117ec0(void);
-u32 func0f117f80(void);
+s32 func0f117f80(s8 device);
 u32 func0f117fc0(s8 arg0);
 u32 func0f118000(void);
 u32 func0f11807c(void);

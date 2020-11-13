@@ -1538,25 +1538,10 @@ s32 func0f117f30(s8 device)
 	return var800a2380[device].unk2a4;
 }
 
-GLOBAL_ASM(
-glabel func0f117f80
-/*  f117f80:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f117f84:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f117f88:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f117f8c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117f90:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117f94:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117f98:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117f9c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f117fa0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117fa4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117fa8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117fac:	3c02800a */ 	lui	$v0,%hi(var800a2380+0x2a8)
-/*  f117fb0:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f117fb4:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f117fb8:	03e00008 */ 	jr	$ra
-/*  f117fbc:	8c422628 */ 	lw	$v0,%lo(var800a2380+0x2a8)($v0)
-);
+s32 func0f117f80(s8 device)
+{
+	return var800a2380[device].unk2a8;
+}
 
 GLOBAL_ASM(
 glabel func0f117fc0
