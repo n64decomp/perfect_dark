@@ -317,9 +317,12 @@ glabel func0f11693c
 /*  f116980:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f116984:	03e00008 */ 	jr	$ra
 /*  f116988:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11698c:	03e00008 */ 	jr	$ra
-/*  f116990:	afa40000 */ 	sw	$a0,0x0($sp)
 );
+
+void func0f11698c(u32 arg0)
+{
+	// empty
+}
 
 void func0f116994(void)
 {
