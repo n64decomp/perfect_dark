@@ -696,23 +696,12 @@ glabel func0f117290
 /*  f1172c4:	afa40000 */ 	sw	$a0,0x0($sp)
 /*  f1172c8:	03e00008 */ 	jr	$ra
 /*  f1172cc:	8c4225f0 */ 	lw	$v0,%lo(var800a2380+0x270)($v0)
-/*  f1172d0:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f1172d4:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f1172d8:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f1172dc:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1172e0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1172e4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1172e8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1172ec:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f1172f0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1172f4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1172f8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1172fc:	3c02800a */ 	lui	$v0,%hi(var800a2380+0x4)
-/*  f117300:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f117304:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f117308:	03e00008 */ 	jr	$ra
-/*  f11730c:	8c422384 */ 	lw	$v0,%lo(var800a2380+0x4)($v0)
 );
+
+s32 func0f1172d0(s8 device)
+{
+	return var800a2380[device].unk004;
+}
 
 void func0f117310(s8 device, s32 value)
 {
