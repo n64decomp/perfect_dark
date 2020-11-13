@@ -1298,7 +1298,7 @@ glabel func0f117b4c
 /*  f117bdc:	14400006 */ 	bnez	$v0,.L0f117bf8
 /*  f117be0:	306400ff */ 	andi	$a0,$v1,0xff
 /*  f117be4:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f117be8:	0fc4791e */ 	jal	func0f11e478
+/*  f117be8:	0fc4791e */ 	jal	pakReadEeprom
 /*  f117bec:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f117bf0:	10000003 */ 	beqz	$zero,.L0f117c00
 /*  f117bf4:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -10251,33 +10251,16 @@ const char var7f1b4d24[] = "Pak %d -> Pak_PdGameBoySetRWByte - Fatal Error\n";
 const char var7f1b4d54[] = "0123456789012345678901234567890123456789";
 const char var7f1b4d80[] = "PerfDark\n";
 
-GLOBAL_ASM(
-glabel func0f11e478
-/*  f11e478:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f11e47c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11e480:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f11e484:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f11e488:	0c00543a */ 	jal	func000150e8
-/*  f11e48c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f11e490:	3c04800a */ 	lui	$a0,%hi(var80099e78)
-/*  f11e494:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
-/*  f11e498:	93a50023 */ 	lbu	$a1,0x23($sp)
-/*  f11e49c:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f11e4a0:	0c0140fc */ 	jal	osEepromLongRead
-/*  f11e4a4:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f11e4a8:	0c005451 */ 	jal	func00015144
-/*  f11e4ac:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f11e4b0:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f11e4b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11e4b8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f11e4bc:	15c00003 */ 	bnez	$t6,.L0f11e4cc
-/*  f11e4c0:	24030081 */ 	addiu	$v1,$zero,0x81
-/*  f11e4c4:	10000001 */ 	beqz	$zero,.L0f11e4cc
-/*  f11e4c8:	00001825 */ 	or	$v1,$zero,$zero
-.L0f11e4cc:
-/*  f11e4cc:	03e00008 */ 	jr	$ra
-/*  f11e4d0:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 pakReadEeprom(u8 address, u8 *buffer, u32 len)
+{
+	s32 result;
+
+	func000150e8();
+	result = osEepromLongRead(&var80099e78, address, buffer, len);
+	func00015144();
+
+	return result == 0 ? 0 : 0x81;
+}
 
 GLOBAL_ASM(
 glabel func0f11e4d4

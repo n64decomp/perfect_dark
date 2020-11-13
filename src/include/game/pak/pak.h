@@ -123,7 +123,7 @@ void pakDumpPak(void);
 void func0f11df94(s8 device);
 void func0f11e3bc(s8 device);
 void pakProbeEeprom(void);
-u32 func0f11e478(void);
+s32 pakReadEeprom(u8 address, u8 *buffer, u32 len);
 u32 func0f11e4d4(void);
 void bitSetByIndex(u32 value, u32 *flags, bool set);
 u32 bitGetByIndex(u32 value, u32 *flags);
