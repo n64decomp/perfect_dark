@@ -1972,48 +1972,16 @@ glabel func0f118334
 /*  f1185dc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1185e0
-/*  f1185e0:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f1185e4:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f1185e8:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f1185ec:	10c00010 */ 	beqz	$a2,.L0f118630
-/*  f1185f0:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f1185f4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f1185f8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1185fc:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f118600:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f118604:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f118608:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f11860c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f118610:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f118614:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f118618:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
-/*  f11861c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f118620:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f118624:	24080080 */ 	addiu	$t0,$zero,0x80
-/*  f118628:	1000000e */ 	beqz	$zero,.L0f118664
-/*  f11862c:	a04802bd */ 	sb	$t0,0x2bd($v0)
-.L0f118630:
-/*  f118630:	00044880 */ 	sll	$t1,$a0,0x2
-/*  f118634:	01244823 */ 	subu	$t1,$t1,$a0
-/*  f118638:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11863c:	01244823 */ 	subu	$t1,$t1,$a0
-/*  f118640:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f118644:	01244821 */ 	addu	$t1,$t1,$a0
-/*  f118648:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11864c:	01244823 */ 	subu	$t1,$t1,$a0
-/*  f118650:	3c0a800a */ 	lui	$t2,%hi(var800a2380)
-/*  f118654:	254a2380 */ 	addiu	$t2,$t2,%lo(var800a2380)
-/*  f118658:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11865c:	012a1021 */ 	addu	$v0,$t1,$t2
-/*  f118660:	a04002bd */ 	sb	$zero,0x2bd($v0)
-.L0f118664:
-/*  f118664:	904b02bd */ 	lbu	$t3,0x2bd($v0)
-/*  f118668:	01656021 */ 	addu	$t4,$t3,$a1
-/*  f11866c:	03e00008 */ 	jr	$ra
-/*  f118670:	a04c02bd */ 	sb	$t4,0x2bd($v0)
-);
+void func0f1185e0(s8 device, s32 arg1, s32 param_3)
+{
+	if (param_3) {
+		var800a2380[device].unk2bd = 0x80;
+	} else {
+		var800a2380[device].unk2bd = 0;
+	}
+
+	var800a2380[device].unk2bd += arg1;
+}
 
 #if VERSION >= VERSION_NTSC_FINAL
 GLOBAL_ASM(
