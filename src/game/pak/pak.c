@@ -260,19 +260,10 @@ u32 func0f1167d8(s8 arg0)
 	return func0f119298(arg0);
 }
 
-GLOBAL_ASM(
-glabel func0f116800
-/*  f116800:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f116804:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f116808:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f11680c:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f116810:	0fc462f2 */ 	jal	func0f118bc8
-/*  f116814:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f116818:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11681c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f116820:	03e00008 */ 	jr	$ra
-/*  f116824:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f116800(s8 arg0, s32 arg1, void *arg2, s32 arg3)
+{
+	return func0f118bc8(arg0, arg1, arg2, arg3);
+}
 
 s32 func0f116828(s8 arg0, s32 arg1, s32 arg2, void *arg3, s32 *arg4, s32 arg5)
 {
