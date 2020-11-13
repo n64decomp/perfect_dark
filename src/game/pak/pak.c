@@ -765,26 +765,12 @@ glabel func0f117290
 /*  f1173d8:	352a0080 */ 	ori	$t2,$t1,0x80
 /*  f1173dc:	03e00008 */ 	jr	$ra
 /*  f1173e0:	a04a02b8 */ 	sb	$t2,0x2b8($v0)
-/*  f1173e4:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f1173e8:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f1173ec:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f1173f0:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1173f4:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1173f8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1173fc:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117400:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f117404:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117408:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11740c:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f117410:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
-/*  f117414:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117418:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f11741c:	904802b8 */ 	lbu	$t0,0x2b8($v0)
-/*  f117420:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f117424:	3109ff7f */ 	andi	$t1,$t0,0xff7f
-/*  f117428:	03e00008 */ 	jr	$ra
-/*  f11742c:	a04902b8 */ 	sb	$t1,0x2b8($v0)
 );
+
+void func0f1173e4(s8 device)
+{
+	var800a2380[device].unk2b8_01 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f117430
