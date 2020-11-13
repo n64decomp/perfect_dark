@@ -26,7 +26,7 @@ u32 func0f116bdc(void);
 u32 func0f116c54(void);
 u32 func0f116c94(void);
 void func0f116db0(s8 arg0, s32 arg1);
-u32 func0f116df0(void);
+s32 func0f116df0(s8 device, struct pakdata **arg1);
 s32 func0f116e84(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name);
 bool func0f116fa0(s8 arg0, s32 arg1);
 u32 func0f11702c(void);

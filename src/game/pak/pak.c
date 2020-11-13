@@ -271,18 +271,13 @@ s32 pakDeleteGameNote(s8 device, u16 company_code, u32 game_code, char *game_nam
 	return func0f116e84(device, company_code, game_code, game_name, ext_name);
 }
 
+s32 func0f1168c4(s8 device, struct pakdata **arg1)
+{
+	return func0f116df0(device, arg1);
+}
+
 GLOBAL_ASM(
-glabel func0f1168c4
-/*  f1168c4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1168c8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1168cc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1168d0:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f1168d4:	0fc45b7c */ 	jal	func0f116df0
-/*  f1168d8:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f1168dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1168e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1168e4:	03e00008 */ 	jr	$ra
-/*  f1168e8:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f1168ec
 /*  f1168ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1168f0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1168f4:	afa40018 */ 	sw	$a0,0x18($sp)
