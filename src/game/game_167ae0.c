@@ -466,7 +466,7 @@ void func0f167e7c(s32 stagenum)
 			buffer[2] = 0x020f0100;
 			buffer[3] = 0xcd31100b;
 			osEepromLongWrite(&var80099e78, address, (u8 *)&buffer, 0x10);
-			var800a316c[2] = 0;
+			var800a2380[4].unk2be = 0;
 		}
 	}
 #endif

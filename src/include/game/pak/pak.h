@@ -121,7 +121,7 @@ void func0f11deb8(void);
 void func0f11df38(void);
 void pakDumpPak(void);
 void func0f11df94(s8 device);
-u32 func0f11e3bc(void);
+void func0f11e3bc(s8 device);
 u32 func0f11e3fc(void);
 u32 func0f11e478(void);
 u32 func0f11e4d4(void);
