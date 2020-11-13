@@ -1290,7 +1290,7 @@ glabel func0f117b4c
 /*  f117bc0:	00c01025 */ 	or	$v0,$a2,$zero
 /*  f117bc4:	306400ff */ 	andi	$a0,$v1,0xff
 /*  f117bc8:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f117bcc:	0fc47935 */ 	jal	func0f11e4d4
+/*  f117bcc:	0fc47935 */ 	jal	pakWriteEeprom
 /*  f117bd0:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f117bd4:	1000000a */ 	beqz	$zero,.L0f117c00
 /*  f117bd8:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -10262,33 +10262,16 @@ s32 pakReadEeprom(u8 address, u8 *buffer, u32 len)
 	return result == 0 ? 0 : 0x81;
 }
 
-GLOBAL_ASM(
-glabel func0f11e4d4
-/*  f11e4d4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f11e4d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11e4dc:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f11e4e0:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f11e4e4:	0c00543a */ 	jal	func000150e8
-/*  f11e4e8:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f11e4ec:	3c04800a */ 	lui	$a0,%hi(var80099e78)
-/*  f11e4f0:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
-/*  f11e4f4:	93a50023 */ 	lbu	$a1,0x23($sp)
-/*  f11e4f8:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f11e4fc:	0c001910 */ 	jal	osEepromLongWrite
-/*  f11e500:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f11e504:	0c005451 */ 	jal	func00015144
-/*  f11e508:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f11e50c:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f11e510:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11e514:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f11e518:	15c00003 */ 	bnez	$t6,.L0f11e528
-/*  f11e51c:	24030082 */ 	addiu	$v1,$zero,0x82
-/*  f11e520:	10000001 */ 	beqz	$zero,.L0f11e528
-/*  f11e524:	00001825 */ 	or	$v1,$zero,$zero
-.L0f11e528:
-/*  f11e528:	03e00008 */ 	jr	$ra
-/*  f11e52c:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 pakWriteEeprom(u8 address, u8 *buffer, u32 len)
+{
+	s32 result;
+
+	func000150e8();
+	result = osEepromLongWrite(&var80099e78, address, buffer, len);
+	func00015144();
+
+	return result == 0 ? 0 : 0x82;
+}
 
 GLOBAL_ASM(
 glabel bitSetByIndex
