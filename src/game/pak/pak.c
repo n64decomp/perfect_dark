@@ -292,19 +292,10 @@ glabel func0f116828
 /*  f11685c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel filemgrDeleteFile
-/*  f116860:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f116864:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f116868:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f11686c:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f116870:	0fc45be8 */ 	jal	func0f116fa0
-/*  f116874:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f116878:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11687c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f116880:	03e00008 */ 	jr	$ra
-/*  f116884:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool filemgrDeleteFile(s8 arg0, s32 arg1)
+{
+	return func0f116fa0(arg0, arg1);
+}
 
 s32 pakDeleteGameNote(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name)
 {
