@@ -398,24 +398,13 @@ u16 func0f116c54(s8 device)
 	return var800a2380[device].unk262;
 }
 
+u32 func0f116c94(s8 device)
+{
+	return var800a2380[device].unk000;
+}
+
 GLOBAL_ASM(
-glabel func0f116c94
-/*  f116c94:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f116c98:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f116c9c:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f116ca0:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116ca4:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116ca8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116cac:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116cb0:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f116cb4:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116cb8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116cbc:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116cc0:	3c02800a */ 	lui	$v0,%hi(var800a2380)
-/*  f116cc4:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f116cc8:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f116ccc:	03e00008 */ 	jr	$ra
-/*  f116cd0:	8c422380 */ 	lw	$v0,%lo(var800a2380)($v0)
+glabel func0f116cd4
 /*  f116cd4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f116cd8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f116cdc:	afa40018 */ 	sw	$a0,0x18($sp)
