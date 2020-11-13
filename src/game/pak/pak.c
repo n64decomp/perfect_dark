@@ -388,19 +388,10 @@ void func0f116bdc(s8 device, u8 *arg1, u8 *arg2)
 	*arg2 = var800a2380[device].unk2bb;
 }
 
-GLOBAL_ASM(
-glabel func0f116c2c
-/*  f116c2c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f116c30:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f116c34:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f116c38:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f116c3c:	0c004f13 */ 	jal	contSetPfsTemporarilyPlugged
-/*  f116c40:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f116c44:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116c48:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f116c4c:	03e00008 */ 	jr	$ra
-/*  f116c50:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f116c2c(s8 index)
+{
+	contSetPfsTemporarilyPlugged(index);
+}
 
 GLOBAL_ASM(
 glabel func0f116c54
