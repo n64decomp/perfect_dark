@@ -606,25 +606,10 @@ glabel func0f116fa0
 /*  f117028:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f11702c
-/*  f11702c:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f117030:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f117034:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f117038:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11703c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117040:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117044:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117048:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f11704c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117050:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117054:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117058:	3c02800a */ 	lui	$v0,%hi(var800a2380+0x264)
-/*  f11705c:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f117060:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f117064:	03e00008 */ 	jr	$ra
-/*  f117068:	8c4225e4 */ 	lw	$v0,%lo(var800a2380+0x264)($v0)
-);
+s32 func0f11702c(s8 device)
+{
+	return var800a2380[device].unk264;
+}
 
 s32 func0f11706c(s8 arg0)
 {
