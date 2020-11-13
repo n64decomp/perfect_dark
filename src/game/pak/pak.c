@@ -393,25 +393,10 @@ void func0f116c2c(s8 index)
 	contSetPfsTemporarilyPlugged(index);
 }
 
-GLOBAL_ASM(
-glabel func0f116c54
-/*  f116c54:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f116c58:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f116c5c:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f116c60:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116c64:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116c68:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116c6c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116c70:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f116c74:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116c78:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116c7c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116c80:	3c02800a */ 	lui	$v0,%hi(var800a2380+0x262)
-/*  f116c84:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f116c88:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f116c8c:	03e00008 */ 	jr	$ra
-/*  f116c90:	944225e2 */ 	lhu	$v0,%lo(var800a2380+0x262)($v0)
-);
+u16 func0f116c54(s8 device)
+{
+	return var800a2380[device].unk262;
+}
 
 GLOBAL_ASM(
 glabel func0f116c94

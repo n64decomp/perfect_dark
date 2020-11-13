@@ -23,7 +23,7 @@ void func0f1169c8(s8 device, s32 arg1);
 bool func0f116aec(s8 device);
 bool func0f116b5c(s8 device);
 void func0f116bdc(s8 device, u8 *arg1, u8 *arg2);
-u32 func0f116c54(void);
+u16 func0f116c54(s8 device);
 u32 func0f116c94(void);
 void func0f116db0(s8 arg0, s32 arg1);
 s32 func0f116df0(s8 device, struct pakdata **arg1);
