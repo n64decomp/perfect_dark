@@ -19,7 +19,7 @@ s32 func0f1168c4(s8 device, struct pakdata **arg1);
 u32 func0f116914(void);
 u32 func0f11693c(void);
 void func0f116994(void);
-u32 func0f1169c8(void);
+void func0f1169c8(s8 device, s32 arg1);
 u32 func0f116aec(void);
 u32 func0f116b5c(void);
 s32 func0f116bdc(s8 arg0);

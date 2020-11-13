@@ -331,83 +331,35 @@ void func0f1169bc(u32 arg0, u32 arg1)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f1169c8
-/*  f1169c8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f1169cc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f1169d0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1169d4:	906804d1 */ 	lbu	$t0,0x4d1($v1)
-/*  f1169d8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1169dc:	00048600 */ 	sll	$s0,$a0,0x18
-/*  f1169e0:	2418001f */ 	addiu	$t8,$zero,0x1f
-/*  f1169e4:	00107603 */ 	sra	$t6,$s0,0x18
-/*  f1169e8:	330900ff */ 	andi	$t1,$t8,0xff
-/*  f1169ec:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f1169f0:	906f04d0 */ 	lbu	$t7,0x4d0($v1)
-/*  f1169f4:	01d91004 */ 	sllv	$v0,$t9,$t6
-/*  f1169f8:	01095025 */ 	or	$t2,$t0,$t1
-/*  f1169fc:	01425824 */ 	and	$t3,$t2,$v0
-/*  f116a00:	01c08025 */ 	or	$s0,$t6,$zero
-/*  f116a04:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f116a08:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f116a0c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f116a10:	a07804d0 */ 	sb	$t8,0x4d0($v1)
-/*  f116a14:	1160002d */ 	beqz	$t3,.L0f116acc
-/*  f116a18:	a3af0027 */ 	sb	$t7,0x27($sp)
-/*  f116a1c:	3c048007 */ 	lui	$a0,%hi(var80075d10)
-/*  f116a20:	24845d10 */ 	addiu	$a0,$a0,%lo(var80075d10)
-/*  f116a24:	908c0000 */ 	lbu	$t4,0x0($a0)
-/*  f116a28:	00406827 */ 	nor	$t5,$v0,$zero
-/*  f116a2c:	018d7024 */ 	and	$t6,$t4,$t5
-/*  f116a30:	0fc4728c */ 	jal	func0f11ca30
-/*  f116a34:	a08e0000 */ 	sb	$t6,0x0($a0)
-/*  f116a38:	0fc4728c */ 	jal	func0f11ca30
-/*  f116a3c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f116a40:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*  f116a44:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f116a48:	3c018006 */ 	lui	$at,%hi(var8005eedc)
-/*  f116a4c:	11e0001f */ 	beqz	$t7,.L0f116acc
-/*  f116a50:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f116a54:	ac20eedc */ 	sw	$zero,%lo(var8005eedc)($at)
-/*  f116a58:	0fc477e5 */ 	jal	func0f11df94
-/*  f116a5c:	03002025 */ 	or	$a0,$t8,$zero
-/*  f116a60:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f116a64:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f116a68:	0fc477e5 */ 	jal	func0f11df94
-/*  f116a6c:	03202025 */ 	or	$a0,$t9,$zero
-/*  f116a70:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f116a74:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f116a78:	0fc477e5 */ 	jal	func0f11df94
-/*  f116a7c:	01002025 */ 	or	$a0,$t0,$zero
-/*  f116a80:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f116a84:	00044e03 */ 	sra	$t1,$a0,0x18
-/*  f116a88:	0fc477e5 */ 	jal	func0f11df94
-/*  f116a8c:	01202025 */ 	or	$a0,$t1,$zero
-/*  f116a90:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f116a94:	00045603 */ 	sra	$t2,$a0,0x18
-/*  f116a98:	0fc477e5 */ 	jal	func0f11df94
-/*  f116a9c:	01402025 */ 	or	$a0,$t2,$zero
-/*  f116aa0:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f116aa4:	00045e03 */ 	sra	$t3,$a0,0x18
-/*  f116aa8:	0fc477e5 */ 	jal	func0f11df94
-/*  f116aac:	01602025 */ 	or	$a0,$t3,$zero
-/*  f116ab0:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f116ab4:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f116ab8:	0fc477e5 */ 	jal	func0f11df94
-/*  f116abc:	01802025 */ 	or	$a0,$t4,$zero
-/*  f116ac0:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f116ac4:	3c018006 */ 	lui	$at,%hi(var8005eedc)
-/*  f116ac8:	ac2deedc */ 	sw	$t5,%lo(var8005eedc)($at)
-.L0f116acc:
-/*  f116acc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f116ad0:	93ae0027 */ 	lbu	$t6,0x27($sp)
-/*  f116ad4:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f116ad8:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f116adc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f116ae0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f116ae4:	03e00008 */ 	jr	$ra
-/*  f116ae8:	a06e04d0 */ 	sb	$t6,0x4d0($v1)
-);
+void func0f1169c8(s8 device, s32 arg1)
+{
+	u8 prevvalue = g_Vars.unk0004d0;
+
+	g_Vars.unk0004d0 = 0x1f;
+
+	if ((g_Vars.unk0004d1 | g_Vars.unk0004d0) & (1 << device)) {
+		var80075d10 &= ~(1 << device);
+
+		func0f11ca30();
+		func0f11ca30();
+
+		if (arg1) {
+			var8005eedc = 0;
+
+			func0f11df94(device);
+			func0f11df94(device);
+			func0f11df94(device);
+			func0f11df94(device);
+			func0f11df94(device);
+			func0f11df94(device);
+			func0f11df94(device);
+
+			var8005eedc = 1;
+		}
+	}
+
+	g_Vars.unk0004d0 = prevvalue;
+}
 
 GLOBAL_ASM(
 glabel func0f116aec
