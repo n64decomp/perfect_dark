@@ -241,19 +241,10 @@ glabel var7f1b4dac
 /*  f1167ac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1167b0
-/*  f1167b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1167b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1167b8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1167bc:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f1167c0:	0fc46346 */ 	jal	func0f118d18
-/*  f1167c4:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f1167c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1167cc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1167d0:	03e00008 */ 	jr	$ra
-/*  f1167d4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f1167b0(s8 device, u32 arg1, u32 *buffer1024)
+{
+	return func0f118d18(device, arg1, buffer1024);
+}
 
 u32 func0f1167d8(s8 arg0)
 {
