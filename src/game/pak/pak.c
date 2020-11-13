@@ -307,17 +307,12 @@ glabel func0f11693c
 /*  f116958:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f11695c:	03e00008 */ 	jr	$ra
 /*  f116960:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f116964:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f116968:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11696c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f116970:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f116974:	0fc45af7 */ 	jal	func0f116bdc
-/*  f116978:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f11697c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116980:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f116984:	03e00008 */ 	jr	$ra
-/*  f116988:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+s32 func0f116984(s8 arg0)
+{
+	return func0f116bdc(arg0);
+}
 
 void func0f11698c(u32 arg0)
 {
