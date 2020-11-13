@@ -678,25 +678,10 @@ void func0f117250(s8 device, s32 value)
 	var800a2380[device].unk008 = value;
 }
 
-GLOBAL_ASM(
-glabel func0f117290
-/*  f117290:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f117294:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f117298:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f11729c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1172a0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1172a4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1172a8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1172ac:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f1172b0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1172b4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1172b8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1172bc:	3c02800a */ 	lui	$v0,%hi(var800a2380+0x270)
-/*  f1172c0:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f1172c4:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f1172c8:	03e00008 */ 	jr	$ra
-/*  f1172cc:	8c4225f0 */ 	lw	$v0,%lo(var800a2380+0x270)($v0)
-);
+s32 func0f117290(s8 device)
+{
+	return var800a2380[device].unk270;
+}
 
 s32 func0f1172d0(s8 device)
 {
