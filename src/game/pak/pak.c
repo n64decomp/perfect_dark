@@ -274,23 +274,10 @@ glabel func0f116800
 /*  f116824:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f116828
-/*  f116828:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f11682c:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*  f116830:	8fb90034 */ 	lw	$t9,0x34($sp)
-/*  f116834:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f116838:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f11683c:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f116840:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f116844:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f116848:	0fc45e27 */ 	jal	func0f11789c
-/*  f11684c:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f116850:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f116854:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f116858:	03e00008 */ 	jr	$ra
-/*  f11685c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f116828(s8 arg0, s32 arg1, s32 arg2, void *arg3, s32 *arg4, s32 arg5)
+{
+	return func0f11789c(arg0, arg1, arg2, arg3, arg4, arg5);
+}
 
 bool filemgrDeleteFile(s8 arg0, s32 arg1)
 {

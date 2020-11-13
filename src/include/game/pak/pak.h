@@ -39,7 +39,7 @@ u32 func0f117430(void);
 u32 func0f117520(s8 arg0, u32 arg1, u32 *arg2);
 void pakDumpBuffer(u8 *buffer, u32 len, char *name);
 void pakDumpEeprom(void);
-u32 func0f11789c(void);
+s32 func0f11789c(s8 arg0, s32 arg1, s32 arg2, void *arg3, s32 *arg4, s32 arg5);
 void func0f117b04(OSMesgQueue *mq, struct var800a3180 *arg1, s32 arg2, s32 arg3);
 u32 func0f117b4c(void);
 u32 func0f117c0c(void);
