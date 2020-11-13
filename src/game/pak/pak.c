@@ -321,19 +321,15 @@ glabel func0f11693c
 /*  f116990:	afa40000 */ 	sw	$a0,0x0($sp)
 );
 
+void func0f116994(void)
+{
+	if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
+		g_Vars.unk0004e4 = 0xf8;
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f116994
-/*  f116994:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f116998:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f11699c:	8c4e04b4 */ 	lw	$t6,0x4b4($v0)
-/*  f1169a0:	2401005b */ 	addiu	$at,$zero,0x5b
-/*  f1169a4:	240f00f8 */ 	addiu	$t7,$zero,0xf8
-/*  f1169a8:	15c10002 */ 	bne	$t6,$at,.L0f1169b4
-/*  f1169ac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1169b0:	a44f04e4 */ 	sh	$t7,0x4e4($v0)
-.L0f1169b4:
-/*  f1169b4:	03e00008 */ 	jr	$ra
-/*  f1169b8:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f1169bc
 /*  f1169bc:	afa40000 */ 	sw	$a0,0x0($sp)
 /*  f1169c0:	03e00008 */ 	jr	$ra
 /*  f1169c4:	afa50004 */ 	sw	$a1,0x4($sp)
