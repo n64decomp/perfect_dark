@@ -361,38 +361,14 @@ void func0f1169c8(s8 device, s32 arg1)
 	g_Vars.unk0004d0 = prevvalue;
 }
 
-GLOBAL_ASM(
-glabel func0f116aec
-/*  f116aec:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f116af0:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f116af4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f116af8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116afc:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116b00:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116b04:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116b08:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f116b0c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116b10:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116b14:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f116b18:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
-/*  f116b1c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116b20:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f116b24:	8c480010 */ 	lw	$t0,0x10($v0)
-/*  f116b28:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f116b2c:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f116b30:	55010008 */ 	bnel	$t0,$at,.L0f116b54
-/*  f116b34:	00001025 */ 	or	$v0,$zero,$zero
-/*  f116b38:	8c490000 */ 	lw	$t1,0x0($v0)
-/*  f116b3c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f116b40:	55210004 */ 	bnel	$t1,$at,.L0f116b54
-/*  f116b44:	00001025 */ 	or	$v0,$zero,$zero
-/*  f116b48:	03e00008 */ 	jr	$ra
-/*  f116b4c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f116b50:	00001025 */ 	or	$v0,$zero,$zero
-.L0f116b54:
-/*  f116b54:	03e00008 */ 	jr	$ra
-/*  f116b58:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f116aec(s8 device)
+{
+	if (var800a2380[device].unk010 == 11 && var800a2380[device].unk000 == 2) {
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f116b5c
