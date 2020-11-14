@@ -9917,8 +9917,6 @@ void pakProbeEeprom(void)
 }
 
 const char var7f1b4d24[] = "Pak %d -> Pak_PdGameBoySetRWByte - Fatal Error\n";
-const char var7f1b4d54[] = "0123456789012345678901234567890123456789";
-const char var7f1b4d80[] = "PerfDark\n";
 
 s32 pakReadEeprom(u8 address, u8 *buffer, u32 len)
 {
@@ -10243,57 +10241,26 @@ s32 func0f11e844(s8 device)
 	return 0;
 }
 
+bool func0f11ea34(s8 arg0)
+{
+	char numbers[] = "0123456789012345678901234567890123456789";
+	u8 sp20[36];
+
+	if (!func0f11cd00(arg0, 0xa000, numbers, 32, true)) {
+		return false;
+	}
+
+	if (!func0f11ce00(arg0, 0xa000, sp20, 32, true)) {
+		return false;
+	}
+
+	return true;
+}
+
+const char var7f1b4d80[] = "PerfDark\n";
+
 GLOBAL_ASM(
-glabel func0f11ea34
-/*  f11ea34:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f11ea38:	3c0e7f1b */ 	lui	$t6,%hi(var7f1b4d54)
-/*  f11ea3c:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*  f11ea40:	25ce4d54 */ 	addiu	$t6,$t6,%lo(var7f1b4d54)
-/*  f11ea44:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f11ea48:	afa40070 */ 	sw	$a0,0x70($sp)
-/*  f11ea4c:	25d90024 */ 	addiu	$t9,$t6,0x24
-/*  f11ea50:	00c04025 */ 	or	$t0,$a2,$zero
-.L0f11ea54:
-/*  f11ea54:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f11ea58:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f11ea5c:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f11ea60:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f11ea64:	8dc1fff8 */ 	lw	$at,-0x8($t6)
-/*  f11ea68:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f11ea6c:	8dc1fffc */ 	lw	$at,-0x4($t6)
-/*  f11ea70:	15d9fff8 */ 	bne	$t6,$t9,.L0f11ea54
-/*  f11ea74:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f11ea78:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f11ea7c:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f11ea80:	3405a000 */ 	dli	$a1,0xa000
-/*  f11ea84:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f11ea88:	91c10004 */ 	lbu	$at,0x4($t6)
-/*  f11ea8c:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f11ea90:	a1010004 */ 	sb	$at,0x4($t0)
-/*  f11ea94:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f11ea98:	0fc47340 */ 	jal	func0f11cd00
-/*  f11ea9c:	83a40073 */ 	lb	$a0,0x73($sp)
-/*  f11eaa0:	14400003 */ 	bnez	$v0,.L0f11eab0
-/*  f11eaa4:	83a40073 */ 	lb	$a0,0x73($sp)
-/*  f11eaa8:	1000000c */ 	beqz	$zero,.L0f11eadc
-/*  f11eaac:	00001025 */ 	or	$v0,$zero,$zero
-.L0f11eab0:
-/*  f11eab0:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f11eab4:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f11eab8:	3405a000 */ 	dli	$a1,0xa000
-/*  f11eabc:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f11eac0:	0fc47380 */ 	jal	func0f11ce00
-/*  f11eac4:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f11eac8:	54400004 */ 	bnezl	$v0,.L0f11eadc
-/*  f11eacc:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f11ead0:	10000002 */ 	beqz	$zero,.L0f11eadc
-/*  f11ead4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11ead8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f11eadc:
-/*  f11eadc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f11eae0:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*  f11eae4:	03e00008 */ 	jr	$ra
-/*  f11eae8:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f11eaec
 /*  f11eaec:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f11eaf0:	afa40098 */ 	sw	$a0,0x98($sp)
 /*  f11eaf4:	afbf001c */ 	sw	$ra,0x1c($sp)
