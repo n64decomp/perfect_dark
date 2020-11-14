@@ -1312,7 +1312,7 @@ s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2)
 	return 0;
 }
 
-s32 func0f117c80(s32 arg0, s32 *arg1)
+s32 func0f117c80(struct var800a3180 *arg0, s32 *arg1)
 {
 	if (arg0) {
 		s32 result;
@@ -1460,40 +1460,17 @@ s32 func0f117fc0(s8 device)
 	return var800a2380[device].unk2a0;
 }
 
+s32 func0f118000(s8 device)
+{
+	s32 value;
+
+	func0f117c80(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device], &value);
+
+	return value / 256;
+}
+
 GLOBAL_ASM(
-glabel func0f118000
-/*  f118000:	00042e00 */ 	sll	$a1,$a0,0x18
-/*  f118004:	00057603 */ 	sra	$t6,$a1,0x18
-/*  f118008:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f11800c:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f118010:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f118014:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f118018:	15c10003 */ 	bne	$t6,$at,.L0f118028
-/*  f11801c:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f118020:	10000009 */ 	beqz	$zero,.L0f118048
-/*  f118024:	00002025 */ 	or	$a0,$zero,$zero
-.L0f118028:
-/*  f118028:	00057880 */ 	sll	$t7,$a1,0x2
-/*  f11802c:	01e57823 */ 	subu	$t7,$t7,$a1
-/*  f118030:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f118034:	01e57821 */ 	addu	$t7,$t7,$a1
-/*  f118038:	3c18800a */ 	lui	$t8,%hi(var800a3180)
-/*  f11803c:	27183180 */ 	addiu	$t8,$t8,%lo(var800a3180)
-/*  f118040:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f118044:	01f82021 */ 	addu	$a0,$t7,$t8
-.L0f118048:
-/*  f118048:	0fc45f20 */ 	jal	func0f117c80
-/*  f11804c:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f118050:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f118054:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f118058:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f11805c:	04410003 */ 	bgez	$v0,.L0f11806c
-/*  f118060:	0002ca03 */ 	sra	$t9,$v0,0x8
-/*  f118064:	244100ff */ 	addiu	$at,$v0,0xff
-/*  f118068:	0001ca03 */ 	sra	$t9,$at,0x8
-.L0f11806c:
-/*  f11806c:	03e00008 */ 	jr	$ra
-/*  f118070:	03201025 */ 	or	$v0,$t9,$zero
+glabel func0f118074
 /*  f118074:	03e00008 */ 	jr	$ra
 /*  f118078:	2402001c */ 	addiu	$v0,$zero,0x1c
 );
