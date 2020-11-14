@@ -9176,11 +9176,10 @@ void func0f11df38(void)
 #endif
 }
 
-GLOBAL_ASM(
-glabel func0f11df84
-/*  f11df84:	03e00008 */ 	jr	$ra
-/*  f11df88:	00801025 */ 	or	$v0,$a0,$zero
-);
+s32 func0f11df84(s32 arg0)
+{
+	return arg0;
+}
 
 void pakDumpPak(void)
 {
