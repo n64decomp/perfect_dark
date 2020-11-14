@@ -40,7 +40,7 @@ u32 func0f117520(s8 arg0, u32 arg1, u32 *arg2);
 void pakDumpBuffer(u8 *buffer, u32 len, char *name);
 void pakDumpEeprom(void);
 s32 func0f11789c(s8 arg0, s32 arg1, s32 arg2, void *arg3, s32 *arg4, s32 arg5);
-void func0f117b04(OSMesgQueue *mq, struct var800a3180 *arg1, s32 arg2, s32 arg3);
+s32 func0f117b04(OSMesgQueue *mq, struct var800a3180 *arg1, s32 channel, s32 arg3);
 s32 func0f117b4c(s32 arg0, s32 arg1, u8 operation, u32 address, u32 len, u8 *buffer);
 u32 func0f117c0c(void);
 u32 func0f117c80(void);

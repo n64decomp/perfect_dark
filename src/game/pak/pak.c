@@ -1229,30 +1229,18 @@ glabel func0f11789c
 /*  f117b00:	27bd1880 */ 	addiu	$sp,$sp,0x1880
 );
 
-GLOBAL_ASM(
-glabel func0f117b04
-/*  f117b04:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f117b08:	10a00005 */ 	beqz	$a1,.L0f117b20
-/*  f117b0c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f117b10:	0c001b58 */ 	jal	func00006d60
-/*  f117b14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f117b18:	10000009 */ 	beqz	$zero,.L0f117b40
-/*  f117b1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f117b20:
-/*  f117b20:	3c0e8007 */ 	lui	$t6,%hi(g_PakHasEeprom)
-/*  f117b24:	8dce5cd0 */ 	lw	$t6,%lo(g_PakHasEeprom)($t6)
-/*  f117b28:	00001025 */ 	or	$v0,$zero,$zero
-/*  f117b2c:	15c00003 */ 	bnez	$t6,.L0f117b3c
-/*  f117b30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f117b34:	10000001 */ 	beqz	$zero,.L0f117b3c
-/*  f117b38:	24020080 */ 	addiu	$v0,$zero,0x80
-.L0f117b3c:
-/*  f117b3c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f117b40:
-/*  f117b40:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f117b44:	03e00008 */ 	jr	$ra
-/*  f117b48:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f117b04(OSMesgQueue *mq, struct var800a3180 *arg1, s32 channel, s32 arg3)
+{
+	if (arg1) {
+		return func00006d60(mq, arg1, channel, arg3);
+	}
+
+	if (!g_PakHasEeprom) {
+		return 0x80;
+	}
+
+	return 0;
+}
 
 s32 func0f117b4c(s32 arg0, s32 arg1, u8 operation, u32 address, u32 len, u8 *buffer)
 {
