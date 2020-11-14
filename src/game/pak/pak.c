@@ -42,7 +42,7 @@ const char var7f1b3b60[] = "-> Unknown PakFileType_e - %d\n";
 const char var7f1b3b80[] = "-forceversion";
 const char var7f1b3b90[] = "Pak %d -> Header Cache 2 - FATAL ERROR\n";
 
-char var80075cb0[] = "4Y";
+u16 var80075cb0 = ROM_COMPANYCODE;
 char var80075cb4[] = "PerfDark";
 char var80075cc0[] = "PerfDark";
 
@@ -2154,7 +2154,7 @@ glabel func0f118674
 //	s32 sp96 = -1;
 //	u32 s0 = 0;
 //	u32 sp88 = 0;
-//#if VERSION >= VERISON_NTSC_FINAL
+//#if VERSION >= VERSION_NTSC_FINAL
 //	u32 sp84 = 0;
 //	u32 sp80;
 //#endif
@@ -10168,289 +10168,80 @@ glabel func0f11e7f0
 /*  f11e840:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+s32 func0f11e844(s8 device)
+{
+	s32 stack1;
+	s32 stack2;
+	struct pakthing sp6c;
+	char sp38[52];
+	u8 sp37;
+	s32 value;
+	s32 sp2c = 0;
+	s32 sp28 = 0;
+	s32 sp24 = 1;
+
+	if (var800a2380[device].unk000 != 3) {
+		return 0;
+	}
+
+	func000150e8();
+
+	value = func00050d60(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device], sp38, &sp37);
+
 #if VERSION >= VERSION_NTSC_FINAL
-GLOBAL_ASM(
-glabel func0f11e844
-/*  f11e844:	00043e00 */ 	sll	$a3,$a0,0x18
-/*  f11e848:	00077603 */ 	sra	$t6,$a3,0x18
-/*  f11e84c:	000ec080 */ 	sll	$t8,$t6,0x2
-/*  f11e850:	030ec023 */ 	subu	$t8,$t8,$t6
-/*  f11e854:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11e858:	030ec023 */ 	subu	$t8,$t8,$t6
-/*  f11e85c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11e860:	030ec021 */ 	addu	$t8,$t8,$t6
-/*  f11e864:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11e868:	030ec023 */ 	subu	$t8,$t8,$t6
-/*  f11e86c:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11e870:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
-/*  f11e874:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11e878:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f11e87c:	03191821 */ 	addu	$v1,$t8,$t9
-/*  f11e880:	8c680000 */ 	lw	$t0,0x0($v1)
-/*  f11e884:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f11e888:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f11e88c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11e890:	afa40088 */ 	sw	$a0,0x88($sp)
-/*  f11e894:	01c03825 */ 	or	$a3,$t6,$zero
-/*  f11e898:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f11e89c:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f11e8a0:	11010003 */ 	beq	$t0,$at,.L0f11e8b0
-/*  f11e8a4:	afaf0024 */ 	sw	$t7,0x24($sp)
-/*  f11e8a8:	1000005e */ 	beqz	$zero,.L0f11ea24
-/*  f11e8ac:	00001025 */ 	or	$v0,$zero,$zero
-.L0f11e8b0:
-/*  f11e8b0:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f11e8b4:	0c00543a */ 	jal	func000150e8
-/*  f11e8b8:	a3a7008b */ 	sb	$a3,0x8b($sp)
-/*  f11e8bc:	83a7008b */ 	lb	$a3,0x8b($sp)
-/*  f11e8c0:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11e8c4:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f11e8c8:	14e10003 */ 	bne	$a3,$at,.L0f11e8d8
-/*  f11e8cc:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f11e8d0:	10000009 */ 	beqz	$zero,.L0f11e8f8
-/*  f11e8d4:	00002025 */ 	or	$a0,$zero,$zero
-.L0f11e8d8:
-/*  f11e8d8:	00074880 */ 	sll	$t1,$a3,0x2
-/*  f11e8dc:	01274823 */ 	subu	$t1,$t1,$a3
-/*  f11e8e0:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11e8e4:	01274821 */ 	addu	$t1,$t1,$a3
-/*  f11e8e8:	3c0a800a */ 	lui	$t2,%hi(var800a3180)
-/*  f11e8ec:	254a3180 */ 	addiu	$t2,$t2,%lo(var800a3180)
-/*  f11e8f0:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f11e8f4:	012a2021 */ 	addu	$a0,$t1,$t2
-.L0f11e8f8:
-/*  f11e8f8:	27a60037 */ 	addiu	$a2,$sp,0x37
-/*  f11e8fc:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f11e900:	0c014358 */ 	jal	func00050d60
-/*  f11e904:	a3a7008b */ 	sb	$a3,0x8b($sp)
-/*  f11e908:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f11e90c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f11e910:	83a7008b */ 	lb	$a3,0x8b($sp)
-/*  f11e914:	10400002 */ 	beqz	$v0,.L0f11e920
-/*  f11e918:	afab0028 */ 	sw	$t3,0x28($sp)
-/*  f11e91c:	afa00024 */ 	sw	$zero,0x24($sp)
-.L0f11e920:
-/*  f11e920:	3c0d8007 */ 	lui	$t5,%hi(var80075cb0)
-/*  f11e924:	95ad5cb0 */ 	lhu	$t5,%lo(var80075cb0)($t5)
-/*  f11e928:	97ac007c */ 	lhu	$t4,0x7c($sp)
-/*  f11e92c:	3c048007 */ 	lui	$a0,%hi(var80075cb4)
-/*  f11e930:	24845cb4 */ 	addiu	$a0,$a0,%lo(var80075cb4)
-/*  f11e934:	158d0017 */ 	bne	$t4,$t5,.L0f11e994
-/*  f11e938:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f11e93c:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f11e940:	0fc479fc */ 	jal	func0f11e7f0
-/*  f11e944:	a3a7008b */ 	sb	$a3,0x8b($sp)
-/*  f11e948:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f11e94c:	1440000a */ 	bnez	$v0,.L0f11e978
-/*  f11e950:	83a7008b */ 	lb	$a3,0x8b($sp)
-/*  f11e954:	3c048007 */ 	lui	$a0,%hi(var80075cc0)
-/*  f11e958:	24845cc0 */ 	addiu	$a0,$a0,%lo(var80075cc0)
-/*  f11e95c:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f11e960:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f11e964:	0fc479fc */ 	jal	func0f11e7f0
-/*  f11e968:	a3a7008b */ 	sb	$a3,0x8b($sp)
-/*  f11e96c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f11e970:	10400008 */ 	beqz	$v0,.L0f11e994
-/*  f11e974:	83a7008b */ 	lb	$a3,0x8b($sp)
-.L0f11e978:
-/*  f11e978:	906e02b8 */ 	lbu	$t6,0x2b8($v1)
-/*  f11e97c:	24090002 */ 	addiu	$t1,$zero,0x2
-/*  f11e980:	afa9002c */ 	sw	$t1,0x2c($sp)
-/*  f11e984:	31d9ffdf */ 	andi	$t9,$t6,0xffdf
-/*  f11e988:	a07902b8 */ 	sb	$t9,0x2b8($v1)
-/*  f11e98c:	37280010 */ 	ori	$t0,$t9,0x10
-/*  f11e990:	a06802b8 */ 	sb	$t0,0x2b8($v1)
-.L0f11e994:
-/*  f11e994:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*  f11e998:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f11e99c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f11e9a0:	51410003 */ 	beql	$t2,$at,.L0f11e9b0
-/*  f11e9a4:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*  f11e9a8:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f11e9ac:	8fab0028 */ 	lw	$t3,0x28($sp)
-.L0f11e9b0:
-/*  f11e9b0:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11e9b4:	11600011 */ 	beqz	$t3,.L0f11e9fc
-/*  f11e9b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11e9bc:	14e10003 */ 	bne	$a3,$at,.L0f11e9cc
-/*  f11e9c0:	00076080 */ 	sll	$t4,$a3,0x2
-/*  f11e9c4:	10000008 */ 	beqz	$zero,.L0f11e9e8
-/*  f11e9c8:	00002025 */ 	or	$a0,$zero,$zero
-.L0f11e9cc:
-/*  f11e9cc:	01876023 */ 	subu	$t4,$t4,$a3
-/*  f11e9d0:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f11e9d4:	01876021 */ 	addu	$t4,$t4,$a3
-/*  f11e9d8:	3c0d800a */ 	lui	$t5,%hi(var800a3180)
-/*  f11e9dc:	25ad3180 */ 	addiu	$t5,$t5,%lo(var800a3180)
-/*  f11e9e0:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*  f11e9e4:	018d2021 */ 	addu	$a0,$t4,$t5
-.L0f11e9e8:
-/*  f11e9e8:	0c0018cc */ 	jal	func00006330
-/*  f11e9ec:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f11e9f0:	10400002 */ 	beqz	$v0,.L0f11e9fc
-/*  f11e9f4:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f11e9f8:	afa00024 */ 	sw	$zero,0x24($sp)
-.L0f11e9fc:
-/*  f11e9fc:	0c005451 */ 	jal	func00015144
-/*  f11ea00:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f11ea04:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*  f11ea08:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f11ea0c:	240f001a */ 	addiu	$t7,$zero,0x1a
-/*  f11ea10:	11c00003 */ 	beqz	$t6,.L0f11ea20
-/*  f11ea14:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11ea18:	10000002 */ 	beqz	$zero,.L0f11ea24
-/*  f11ea1c:	8fa2002c */ 	lw	$v0,0x2c($sp)
-.L0f11ea20:
-/*  f11ea20:	ac6f0010 */ 	sw	$t7,0x10($v1)
-.L0f11ea24:
-/*  f11ea24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11ea28:	27bd0088 */ 	addiu	$sp,$sp,0x88
-/*  f11ea2c:	03e00008 */ 	jr	$ra
-/*  f11ea30:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	// NTSC Final sets sp28 to 1 unconditionally.
+	// If we just set it to 1 without the if-statement then it creates a
+	// mismatch because the compiler optimises out the sp28 = 0 line earlier.
+	// Using this if-statement with a condition that's always true makes the
+	// compiler optimise out the if-statement but leave both assignments to
+	// sp28 intact.
+	if (sp24) {
+		sp28 = 1;
+	}
+
+	if (value) {
+		sp24 = 0;
+	}
 #else
-GLOBAL_ASM(
-glabel func0f11e844
-/*  f11e614:	00043e00 */ 	sll	$a3,$a0,0x18
-/*  f11e618:	00077603 */ 	sra	$t6,$a3,0x18
-/*  f11e61c:	000ec080 */ 	sll	$t8,$t6,0x2
-/*  f11e620:	030ec023 */ 	subu	$t8,$t8,$t6
-/*  f11e624:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11e628:	030ec023 */ 	subu	$t8,$t8,$t6
-/*  f11e62c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11e630:	030ec021 */ 	addu	$t8,$t8,$t6
-/*  f11e634:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11e638:	030ec023 */ 	subu	$t8,$t8,$t6
-/*  f11e63c:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11e640:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
-/*  f11e644:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11e648:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f11e64c:	03191821 */ 	addu	$v1,$t8,$t9
-/*  f11e650:	8c680000 */ 	lw	$t0,0x0($v1)
-/*  f11e654:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f11e658:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f11e65c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11e660:	afa40088 */ 	sw	$a0,0x88($sp)
-/*  f11e664:	01c03825 */ 	or	$a3,$t6,$zero
-/*  f11e668:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f11e66c:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f11e670:	11010003 */ 	beq	$t0,$at,.L0f11e680
-/*  f11e674:	afaf0024 */ 	sw	$t7,0x24($sp)
-/*  f11e678:	1000005f */ 	beqz	$zero,.L0f11e7f8
-/*  f11e67c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f11e680:
-/*  f11e680:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f11e684:	0c00543a */ 	jal	0x150e8
-/*  f11e688:	a3a7008b */ 	sb	$a3,0x8b($sp)
-/*  f11e68c:	83a7008b */ 	lb	$a3,0x8b($sp)
-/*  f11e690:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11e694:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f11e698:	14e10003 */ 	bne	$a3,$at,.L0f11e6a8
-/*  f11e69c:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f11e6a0:	10000009 */ 	beqz	$zero,.L0f11e6c8
-/*  f11e6a4:	00002025 */ 	or	$a0,$zero,$zero
-.L0f11e6a8:
-/*  f11e6a8:	00074880 */ 	sll	$t1,$a3,0x2
-/*  f11e6ac:	01274823 */ 	subu	$t1,$t1,$a3
-/*  f11e6b0:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11e6b4:	01274821 */ 	addu	$t1,$t1,$a3
-/*  f11e6b8:	3c0a800a */ 	lui	$t2,%hi(var800a3180)
-/*  f11e6bc:	254a3180 */ 	addiu	$t2,$t2,%lo(var800a3180)
-/*  f11e6c0:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f11e6c4:	012a2021 */ 	addu	$a0,$t1,$t2
-.L0f11e6c8:
-/*  f11e6c8:	27a60037 */ 	addiu	$a2,$sp,0x37
-/*  f11e6cc:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f11e6d0:	0c014358 */ 	jal	0x50d60
-/*  f11e6d4:	a3a7008b */ 	sb	$a3,0x8b($sp)
-/*  f11e6d8:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f11e6dc:	10400003 */ 	beqz	$v0,.L0f11e6ec
-/*  f11e6e0:	83a7008b */ 	lb	$a3,0x8b($sp)
-/*  f11e6e4:	10000003 */ 	beqz	$zero,.L0f11e6f4
-/*  f11e6e8:	afa00024 */ 	sw	$zero,0x24($sp)
-.L0f11e6ec:
-/*  f11e6ec:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f11e6f0:	afab0028 */ 	sw	$t3,0x28($sp)
-.L0f11e6f4:
-/*  f11e6f4:	3c0d8007 */ 	lui	$t5,%hi(var80075cb0)
-/*  f11e6f8:	95ad5cb0 */ 	lhu	$t5,%lo(var80075cb0)($t5)
-/*  f11e6fc:	97ac007c */ 	lhu	$t4,0x7c($sp)
-/*  f11e700:	3c048007 */ 	lui	$a0,%hi(var80075cb4)
-/*  f11e704:	24845cb4 */ 	addiu	$a0,$a0,%lo(var80075cb4)
-/*  f11e708:	158d0017 */ 	bne	$t4,$t5,.L0f11e768
-/*  f11e70c:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f11e710:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f11e714:	0fc47970 */ 	jal	0xf11e5c0
-/*  f11e718:	a3a7008b */ 	sb	$a3,0x8b($sp)
-/*  f11e71c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f11e720:	1440000a */ 	bnez	$v0,.L0f11e74c
-/*  f11e724:	83a7008b */ 	lb	$a3,0x8b($sp)
-/*  f11e728:	3c048007 */ 	lui	$a0,%hi(var80075cc0)
-/*  f11e72c:	24845cc0 */ 	addiu	$a0,$a0,%lo(var80075cc0)
-/*  f11e730:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f11e734:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f11e738:	0fc47970 */ 	jal	0xf11e5c0
-/*  f11e73c:	a3a7008b */ 	sb	$a3,0x8b($sp)
-/*  f11e740:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f11e744:	10400008 */ 	beqz	$v0,.L0f11e768
-/*  f11e748:	83a7008b */ 	lb	$a3,0x8b($sp)
-.L0f11e74c:
-/*  f11e74c:	906e02b8 */ 	lbu	$t6,0x2b8($v1)
-/*  f11e750:	24090002 */ 	addiu	$t1,$zero,0x2
-/*  f11e754:	afa9002c */ 	sw	$t1,0x2c($sp)
-/*  f11e758:	31d9ffdf */ 	andi	$t9,$t6,0xffdf
-/*  f11e75c:	a07902b8 */ 	sb	$t9,0x2b8($v1)
-/*  f11e760:	37280010 */ 	ori	$t0,$t9,0x10
-/*  f11e764:	a06802b8 */ 	sb	$t0,0x2b8($v1)
-.L0f11e768:
-/*  f11e768:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*  f11e76c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f11e770:	00002825 */ 	or	$a1,$zero,$zero
-/*  f11e774:	51410003 */ 	beql	$t2,$at,.L0f11e784
-/*  f11e778:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*  f11e77c:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f11e780:	8fab0028 */ 	lw	$t3,0x28($sp)
-.L0f11e784:
-/*  f11e784:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11e788:	11600011 */ 	beqz	$t3,.L0f11e7d0
-/*  f11e78c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11e790:	14e10003 */ 	bne	$a3,$at,.L0f11e7a0
-/*  f11e794:	00076080 */ 	sll	$t4,$a3,0x2
-/*  f11e798:	10000008 */ 	beqz	$zero,.L0f11e7bc
-/*  f11e79c:	00002025 */ 	or	$a0,$zero,$zero
-.L0f11e7a0:
-/*  f11e7a0:	01876023 */ 	subu	$t4,$t4,$a3
-/*  f11e7a4:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f11e7a8:	01876021 */ 	addu	$t4,$t4,$a3
-/*  f11e7ac:	3c0d800a */ 	lui	$t5,%hi(var800a3180)
-/*  f11e7b0:	25ad3180 */ 	addiu	$t5,$t5,%lo(var800a3180)
-/*  f11e7b4:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*  f11e7b8:	018d2021 */ 	addu	$a0,$t4,$t5
-.L0f11e7bc:
-/*  f11e7bc:	0c0018cc */ 	jal	0x6330
-/*  f11e7c0:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f11e7c4:	10400002 */ 	beqz	$v0,.L0f11e7d0
-/*  f11e7c8:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f11e7cc:	afa00024 */ 	sw	$zero,0x24($sp)
-.L0f11e7d0:
-/*  f11e7d0:	0c005451 */ 	jal	0x15144
-/*  f11e7d4:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f11e7d8:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*  f11e7dc:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f11e7e0:	240f001a */ 	addiu	$t7,$zero,0x1a
-/*  f11e7e4:	11c00003 */ 	beqz	$t6,.L0f11e7f4
-/*  f11e7e8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11e7ec:	10000002 */ 	beqz	$zero,.L0f11e7f8
-/*  f11e7f0:	8fa2002c */ 	lw	$v0,0x2c($sp)
-.L0f11e7f4:
-/*  f11e7f4:	ac6f0010 */ 	sw	$t7,0x10($v1)
-.L0f11e7f8:
-/*  f11e7f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11e7fc:	27bd0088 */ 	addiu	$sp,$sp,0x88
-/*  f11e800:	03e00008 */ 	jr	$ra
-/*  f11e804:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	// NTSC 1.0 only sets sp28 to 1 if the call to func00050d60 returned 0.
+	// The else here might have been else if (sp24). This optimises itself out,
+	// but may explain why the final code appears to use a condition. They could
+	// have moved the else-if into its own check (and had to do it prior to the
+	// value check for it to work as intended).
+	if (value) {
+		sp24 = 0;
+	} else {
+		sp28 = 1;
+	}
 #endif
+
+	if (var80075cb0 == sp6c.unk10) {
+		if (func0f11e7f0(var80075cb4, &sp6c) || func0f11e7f0(var80075cc0, &sp6c)) {
+			var800a2380[device].unk2b8_03 = 0;
+			var800a2380[device].unk2b8_04 = 1;
+			sp2c = 2;
+		}
+	}
+
+	if (sp2c != 2) {
+		sp24 = 0;
+	}
+
+	if (sp28) {
+		if (func00006330(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device], 0)) {
+			sp24 = 0;
+		}
+	}
+
+	func00015144();
+
+	if (sp24) {
+		return sp2c;
+	}
+
+	var800a2380[device].unk010 = 26;
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f11ea34

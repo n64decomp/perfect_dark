@@ -5142,7 +5142,10 @@ struct var800a2380 {
 	/*0x2b0*/ u32 unk2b0;
 	/*0x2b4*/ f32 unk2b4;
 	/*0x2b8*/ u8 unk2b8_01 : 1;
-	/*0x2b8*/ u8 unk2b8_02 : 4;
+	/*0x2b8*/ u8 unk2b8_02 : 1;
+	/*0x2b8*/ u8 unk2b8_03 : 1;
+	/*0x2b8*/ u8 unk2b8_04 : 1;
+	/*0x2b8*/ u8 unk2b8_05 : 1;
 	/*0x2b8*/ u8 unk2b8_06 : 1;
 	/*0x2b9*/ u8 unk2b9;
 	/*0x2ba*/ u8 unk2ba;
@@ -6843,6 +6846,14 @@ struct remoteminething {
 		u32 unk04;
 		struct remoteminething *next;
 	};
+};
+
+struct pakthing {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u16 unk10;
 };
 
 #endif
