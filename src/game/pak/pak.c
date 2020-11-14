@@ -1469,11 +1469,10 @@ s32 func0f118000(s8 device)
 	return value / 256;
 }
 
-GLOBAL_ASM(
-glabel func0f118074
-/*  f118074:	03e00008 */ 	jr	$ra
-/*  f118078:	2402001c */ 	addiu	$v0,$zero,0x1c
-);
+s32 func0f118074(void)
+{
+	return 28;
+}
 
 GLOBAL_ASM(
 glabel func0f11807c
