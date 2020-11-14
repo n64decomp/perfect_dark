@@ -48,7 +48,7 @@ s32 func0f117ce4(s32 arg0, s32 arg1, OSPfsState *note);
 u32 func0f117d90(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 *arg6);
 u32 func0f117e00(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4);
 u32 func0f117e58(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 *arg5);
-u32 func0f117ec0(void);
+s32 func0f117ec0(s32 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
 s32 func0f117f80(s8 device);
 s32 func0f117fc0(s8 device);
 u32 func0f118000(void);
