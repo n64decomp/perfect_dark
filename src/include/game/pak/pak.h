@@ -43,7 +43,7 @@ s32 func0f11789c(s8 arg0, s32 arg1, s32 arg2, void *arg3, s32 *arg4, s32 arg5);
 s32 func0f117b04(OSMesgQueue *mq, struct var800a3180 *arg1, s32 channel, s32 arg3);
 s32 func0f117b4c(s32 arg0, s32 arg1, u8 operation, u32 address, u32 len, u8 *buffer);
 s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2);
-u32 func0f117c80(void);
+s32 func0f117c80(s32 arg0, s32 *arg1);
 u32 func0f117ce4(void);
 u32 func0f117d90(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 *arg6);
 u32 func0f117e00(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4);

@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0004ce60(void);
+s32 func0004ce60(s32 arg0, s32 *arg1);
 
 #endif
