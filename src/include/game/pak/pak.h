@@ -116,7 +116,7 @@ u32 func0f11d9c4(void);
 u32 func0f11dc04(void);
 void func0f11dcb0(s32 arg0);
 void func0f11dd58(s8 playernum);
-u32 func0f11de20(void);
+void func0f11de20(s8 device);
 void func0f11deb8(void);
 void func0f11df38(void);
 void pakDumpPak(void);

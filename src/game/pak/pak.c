@@ -1578,7 +1578,7 @@ s32 func0f118334(s8 device, s32 numpages)
 	numbytes = numpages * 256;
 	errno = func0f117ec0(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device],
 			ROM_COMPANYCODE, ROM_GAMECODE, g_PakNoteGameName, g_PakNoteExtName, numbytes);
-	func0f11c39c(errno, device, 1, 1802);
+	func0f11c39c(errno, device, 1, VERSION >= VERSION_NTSC_FINAL ? 1802 : 1788);
 
 	if (errno == 0) {
 		devicedata = &var800a2380[device];
@@ -9159,59 +9159,28 @@ glabel func0f11deb8
 /*  f11df34:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
+void func0f11df38(void)
+{
+	s32 i;
+
 #if VERSION >= VERSION_NTSC_FINAL
+	for (i = 0; i < 4; i++) {
+		if (var800a2380[i].unk000 == 1 && var800a2380[i].unk004 == 7) {
+			var800a2380[i].unk004 = 8;
+		}
+	}
+#else
+	for (i = 0; i < 4; i++) {
+		func0f11de20(i);
+	}
+#endif
+}
+
 GLOBAL_ASM(
-glabel func0f11df38
-/*  f11df38:	3c03800a */ 	lui	$v1,%hi(var800a2380)
-/*  f11df3c:	3c06800a */ 	lui	$a2,%hi(var800a2380+0xb30)
-/*  f11df40:	24c62eb0 */ 	addiu	$a2,$a2,%lo(var800a2380+0xb30)
-/*  f11df44:	24632380 */ 	addiu	$v1,$v1,%lo(var800a2380)
-/*  f11df48:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f11df4c:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f11df50:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f11df54:	8c6e0000 */ 	lw	$t6,0x0($v1)
-.L0f11df58:
-/*  f11df58:	544e0006 */ 	bnel	$v0,$t6,.L0f11df74
-/*  f11df5c:	246302cc */ 	addiu	$v1,$v1,0x2cc
-/*  f11df60:	8c6f0004 */ 	lw	$t7,0x4($v1)
-/*  f11df64:	548f0003 */ 	bnel	$a0,$t7,.L0f11df74
-/*  f11df68:	246302cc */ 	addiu	$v1,$v1,0x2cc
-/*  f11df6c:	ac650004 */ 	sw	$a1,0x4($v1)
-/*  f11df70:	246302cc */ 	addiu	$v1,$v1,0x2cc
-.L0f11df74:
-/*  f11df74:	5466fff8 */ 	bnel	$v1,$a2,.L0f11df58
-/*  f11df78:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f11df7c:	03e00008 */ 	jr	$ra
-/*  f11df80:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f11df84
 /*  f11df84:	03e00008 */ 	jr	$ra
 /*  f11df88:	00801025 */ 	or	$v0,$a0,$zero
 );
-#else
-GLOBAL_ASM(
-glabel func0f11df38
-/*  f11dcb8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f11dcbc:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f11dcc0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f11dcc4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f11dcc8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f11dccc:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f11dcd0:	00102600 */ 	sll	$a0,$s0,0x18
-.L0f11dcd4:
-/*  f11dcd4:	00047603 */ 	sra	$t6,$a0,0x18
-/*  f11dcd8:	0fc476e8 */ 	jal	0xf11dba0
-/*  f11dcdc:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f11dce0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f11dce4:	5611fffb */ 	bnel	$s0,$s1,.L0f11dcd4
-/*  f11dce8:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f11dcec:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f11dcf0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f11dcf4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f11dcf8:	03e00008 */ 	jr	$ra
-/*  f11dcfc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f11dd00:	03e00008 */ 	jr	$ra
-/*  f11dd04:	00801025 */ 	or	$v0,$a0,$zero
-);
-#endif
 
 void pakDumpPak(void)
 {
