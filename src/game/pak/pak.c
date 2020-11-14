@@ -1273,41 +1273,27 @@ s32 func0f117b4c(s32 arg0, s32 arg1, u8 operation, u32 address, u32 len, u8 *buf
 	return 0x83;
 }
 
-GLOBAL_ASM(
-glabel func0f117c0c
-/*  f117c0c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f117c10:	1080000d */ 	beqz	$a0,.L0f117c48
-/*  f117c14:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f117c18:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f117c1c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f117c20:	0c00543a */ 	jal	func000150e8
-/*  f117c24:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f117c28:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f117c2c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f117c30:	0c014234 */ 	jal	func000508d0
-/*  f117c34:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f117c38:	0c005451 */ 	jal	func00015144
-/*  f117c3c:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f117c40:	1000000b */ 	beqz	$zero,.L0f117c70
-/*  f117c44:	8fa2001c */ 	lw	$v0,0x1c($sp)
-.L0f117c48:
-/*  f117c48:	3c0e8007 */ 	lui	$t6,%hi(g_PakHasEeprom)
-/*  f117c4c:	8dce5cd0 */ 	lw	$t6,%lo(g_PakHasEeprom)($t6)
-/*  f117c50:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f117c54:	00001025 */ 	or	$v0,$zero,$zero
-/*  f117c58:	55c00004 */ 	bnezl	$t6,.L0f117c6c
-/*  f117c5c:	aca30000 */ 	sw	$v1,0x0($a1)
-/*  f117c60:	10000003 */ 	beqz	$zero,.L0f117c70
-/*  f117c64:	24020080 */ 	addiu	$v0,$zero,0x80
-/*  f117c68:	aca30000 */ 	sw	$v1,0x0($a1)
-.L0f117c6c:
-/*  f117c6c:	acc30000 */ 	sw	$v1,0x0($a2)
-.L0f117c70:
-/*  f117c70:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f117c74:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f117c78:	03e00008 */ 	jr	$ra
-/*  f117c7c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2)
+{
+	if (arg0) {
+		s32 result;
+
+		func000150e8();
+		result = func000508d0(arg0, arg1, arg2);
+		func00015144();
+
+		return result;
+	}
+
+	if (!g_PakHasEeprom) {
+		return 0x80;
+	}
+
+	*arg1 = 1;
+	*arg2 = 1;
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f117c80
