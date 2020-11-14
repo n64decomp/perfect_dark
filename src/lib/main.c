@@ -539,7 +539,7 @@ glabel mainInit
 /*     da0c:	00000000 */ 	nop
 /*     da10:	0fc49e44 */ 	jal	func0f127910
 /*     da14:	00000000 */ 	nop
-/*     da18:	0fc5b384 */ 	jal	func0f16ce10
+/*     da18:	0fc5b384 */ 	jal	frametimeInit
 /*     da1c:	00000000 */ 	nop
 /*     da20:	0fc02c80 */ 	jal	func0f00b200
 /*     da24:	00000000 */ 	nop
@@ -778,7 +778,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func0f1531a0();
 //	func00013790();
 //	func0f127910();
-//	func0f16ce10();
+//	frametimeInit();
 //	func0f00b200();
 //	func00009a80();
 //	func0f000870();
@@ -1037,7 +1037,7 @@ void mainLoop(void)
 		func0f17608c(g_StageNum);
 		func0f167e7c(g_StageNum);
 		func00009c3c(g_StageNum);
-		func0f16ce94();
+		frametimeCalculate();
 		func00009a90();
 
 		while (osRecvMesg(&var8008db30, &msg, OS_MESG_NOBLOCK) != -1) {
@@ -1087,7 +1087,7 @@ void mainTick(void)
 	s32 i;
 
 	if (g_MainStageNum < 0 && var8005d9cc < 2) {
-		func0f16ce94();
+		frametimeCalculate();
 		func00009a98();
 		func00009a90();
 		func00009aa0(0x20000);

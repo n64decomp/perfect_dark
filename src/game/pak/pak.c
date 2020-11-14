@@ -1972,9 +1972,9 @@ glabel func0f118334
 /*  f1185dc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f1185e0(s8 device, s32 arg1, s32 param_3)
+void func0f1185e0(s8 device, s32 arg1, s32 arg2)
 {
-	if (param_3) {
+	if (arg2) {
 		var800a2380[device].unk2bd = 0x80;
 	} else {
 		var800a2380[device].unk2bd = 0;
