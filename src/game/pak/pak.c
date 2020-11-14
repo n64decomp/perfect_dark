@@ -628,9 +628,9 @@ s32 func0f11702c(s8 device)
 	return var800a2380[device].unk264;
 }
 
-u32 func0f11706c(s8 arg0)
+u32 func0f11706c(s8 device)
 {
-	if (arg0 != 4) {
+	if (device != SAVEDEVICE_GAMEPAK) {
 		return 0x4c0;
 	}
 
@@ -1480,7 +1480,7 @@ s32 func0f11807c(s8 device)
 		s32 pagesneeded;
 		u32 bytesneeded = func0f11706c(device);
 
-		if (!func0f1190bc(device, 8, 0)) {
+		if (!func0f1190bc(device, 8, NULL)) {
 			return true;
 		}
 
@@ -1498,72 +1498,33 @@ s32 func0f11807c(s8 device)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f118148
-/*  f118148:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f11814c:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f118150:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f118154:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f118158:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11815c:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f118160:	11e1002e */ 	beq	$t7,$at,.L0f11821c
-/*  f118164:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f118168:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f11816c:	0fc45c1b */ 	jal	func0f11706c
-/*  f118170:	a3af002b */ 	sb	$t7,0x2b($sp)
-/*  f118174:	83a4002b */ 	lb	$a0,0x2b($sp)
-/*  f118178:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f11817c:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f118180:	0fc4642f */ 	jal	func0f1190bc
-/*  f118184:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f118188:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f11818c:	83b9002b */ 	lb	$t9,0x2b($sp)
-/*  f118190:	3c09800a */ 	lui	$t1,%hi(var800a2380+0x258)
-/*  f118194:	00032a02 */ 	srl	$a1,$v1,0x8
-/*  f118198:	307800ff */ 	andi	$t8,$v1,0xff
-/*  f11819c:	13000002 */ 	beqz	$t8,.L0f1181a8
-/*  f1181a0:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f1181a4:	24a40001 */ 	addiu	$a0,$a1,0x1
-.L0f1181a8:
-/*  f1181a8:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f1181ac:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f1181b0:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f1181b4:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f1181b8:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f1181bc:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f1181c0:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f1181c4:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f1181c8:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f1181cc:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f1181d0:	952925d8 */ 	lhu	$t1,%lo(var800a2380+0x258)($t1)
-/*  f1181d4:	240a0080 */ 	addiu	$t2,$zero,0x80
-/*  f1181d8:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f1181dc:	01495823 */ 	subu	$t3,$t2,$t1
-/*  f1181e0:	0164001a */ 	div	$zero,$t3,$a0
-/*  f1181e4:	00006012 */ 	mflo	$t4
-/*  f1181e8:	006c1821 */ 	addu	$v1,$v1,$t4
-/*  f1181ec:	14800002 */ 	bnez	$a0,.L0f1181f8
-/*  f1181f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1181f4:	0007000d */ 	break	0x7
-.L0f1181f8:
-/*  f1181f8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1181fc:	14810004 */ 	bne	$a0,$at,.L0f118210
-/*  f118200:	3c018000 */ 	lui	$at,0x8000
-/*  f118204:	15610002 */ 	bne	$t3,$at,.L0f118210
-/*  f118208:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11820c:	0006000d */ 	break	0x6
-.L0f118210:
-/*  f118210:	00601025 */ 	or	$v0,$v1,$zero
-/*  f118214:	10000003 */ 	beqz	$zero,.L0f118224
-/*  f118218:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f11821c:
-/*  f11821c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f118220:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f118224:
-/*  f118224:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f118228:	03e00008 */ 	jr	$ra
-/*  f11822c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+/**
+ * Appears to returns the number of times a file can fit on the given device
+ * based on the current amount of free space.
+ */
+s32 func0f118148(s8 device)
+{
+	if (device != SAVEDEVICE_GAMEPAK) {
+		s32 result = 0;
+		s32 pagesneeded;
+		u32 bytesneeded;
+
+		bytesneeded = func0f11706c(device);
+		func0f1190bc(device, 8, &result);
+		pagesneeded = bytesneeded / 256;
+
+		if (bytesneeded & 0xff) {
+			pagesneeded++;
+		}
+
+		// 128 is the total number of pages on a controller pak
+		result += (128 - var800a2380[device].pakdata.pagesused) / pagesneeded;
+
+		return result;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f118230
