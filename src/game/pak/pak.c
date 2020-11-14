@@ -57,11 +57,28 @@ u32 g_PakDebugPakCache = 0x00000001;
 u32 g_PakDebugPakInit = 0x00000000;
 u32 g_PakDebugWipeEeprom = 0x00000000;
 u32 g_PakDebugCorruptMe = 0x00000000;
-u32 var80075cf8 = 0x291e2b1f;
-u32 var80075cfc = 0x1e1c2d0f;
-u32 var80075d00 = 0x1d1a2b24;
-u32 var80075d04 = 0x00000000;
-u32 var80075d08 = 0x00000000;
+
+char g_PakNoteGameName[] = {
+	N64CHAR('P'),
+	N64CHAR('E'),
+	N64CHAR('R'),
+	N64CHAR('F'),
+	N64CHAR('E'),
+	N64CHAR('C'),
+	N64CHAR('T'),
+	N64CHAR(' '),
+	N64CHAR('D'),
+	N64CHAR('A'),
+	N64CHAR('R'),
+	N64CHAR('K'),
+	0, // fill to 16 bytes
+	0,
+	0,
+	0,
+};
+
+char g_PakNoteExtName[] = {0, 0, 0, 0};
+
 u32 var80075d0c = 0x00000000;
 u8 var80075d10 = 0;
 u32 var80075d14 = 0x00000001;
@@ -1316,56 +1333,33 @@ s32 func0f117c80(s32 arg0, s32 *arg1)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f117ce4
-/*  f117ce4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f117ce8:	1080000d */ 	beqz	$a0,.L0f117d20
-/*  f117cec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f117cf0:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f117cf4:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f117cf8:	0c00543a */ 	jal	func000150e8
-/*  f117cfc:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f117d00:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f117d04:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f117d08:	0c014280 */ 	jal	func00050a00
-/*  f117d0c:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f117d10:	0c005451 */ 	jal	func00015144
-/*  f117d14:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f117d18:	10000019 */ 	beqz	$zero,.L0f117d80
-/*  f117d1c:	8fa2001c */ 	lw	$v0,0x1c($sp)
-.L0f117d20:
-/*  f117d20:	3c0e8007 */ 	lui	$t6,%hi(g_PakHasEeprom)
-/*  f117d24:	8dce5cd0 */ 	lw	$t6,%lo(g_PakHasEeprom)($t6)
-/*  f117d28:	15c00003 */ 	bnez	$t6,.L0f117d38
-/*  f117d2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f117d30:	10000013 */ 	beqz	$zero,.L0f117d80
-/*  f117d34:	24020080 */ 	addiu	$v0,$zero,0x80
-.L0f117d38:
-/*  f117d38:	10a00003 */ 	beqz	$a1,.L0f117d48
-/*  f117d3c:	240f0800 */ 	addiu	$t7,$zero,0x800
-/*  f117d40:	1000000f */ 	beqz	$zero,.L0f117d80
-/*  f117d44:	24020084 */ 	addiu	$v0,$zero,0x84
-.L0f117d48:
-/*  f117d48:	24183459 */ 	addiu	$t8,$zero,0x3459
-/*  f117d4c:	accf0000 */ 	sw	$t7,0x0($a2)
-/*  f117d50:	a4d80008 */ 	sh	$t8,0x8($a2)
-/*  f117d54:	3c058007 */ 	lui	$a1,%hi(var80075cf8)
-/*  f117d58:	24a55cf8 */ 	addiu	$a1,$a1,%lo(var80075cf8)
-/*  f117d5c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f117d60:	0c004c4c */ 	jal	strcpy
-/*  f117d64:	24c4000e */ 	addiu	$a0,$a2,0xe
-/*  f117d68:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f117d6c:	3c058007 */ 	lui	$a1,%hi(var80075d08)
-/*  f117d70:	24a55d08 */ 	addiu	$a1,$a1,%lo(var80075d08)
-/*  f117d74:	0c004c4c */ 	jal	strcpy
-/*  f117d78:	24c4000a */ 	addiu	$a0,$a2,0xa
-/*  f117d7c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f117d80:
-/*  f117d80:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f117d84:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f117d88:	03e00008 */ 	jr	$ra
-/*  f117d8c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f117ce4(s32 arg0, s32 arg1, OSPfsState *note)
+{
+	if (arg0) {
+		s32 result;
+
+		func000150e8();
+		result = func00050a00(arg0, arg1, note);
+		func00015144();
+
+		return result;
+	}
+
+	if (!g_PakHasEeprom) {
+		return 0x80;
+	}
+
+	if (arg1) {
+		return 0x84;
+	}
+
+	note->file_size = 0x800;
+	note->company_code = ROM_COMPANYCODE;
+	strcpy(note->game_name, g_PakNoteGameName);
+	strcpy(note->ext_name, g_PakNoteExtName);
+
+	return 0;
+}
 
 u32 func0f117d90(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 *arg6)
 {
@@ -1759,12 +1753,12 @@ glabel func0f118334
 /*  f1183a4:	03282021 */ 	addu	$a0,$t9,$t0
 .L0f1183a8:
 /*  f1183a8:	8fa2005c */ 	lw	$v0,0x5c($sp)
-/*  f1183ac:	3c098007 */ 	lui	$t1,%hi(var80075d08)
-/*  f1183b0:	25295d08 */ 	addiu	$t1,$t1,%lo(var80075d08)
+/*  f1183ac:	3c098007 */ 	lui	$t1,%hi(g_PakNoteExtName)
+/*  f1183b0:	25295d08 */ 	addiu	$t1,$t1,%lo(g_PakNoteExtName)
 /*  f1183b4:	00025200 */ 	sll	$t2,$v0,0x8
 /*  f1183b8:	3c064e50 */ 	lui	$a2,0x4e50
-/*  f1183bc:	3c078007 */ 	lui	$a3,%hi(var80075cf8)
-/*  f1183c0:	24e75cf8 */ 	addiu	$a3,$a3,%lo(var80075cf8)
+/*  f1183bc:	3c078007 */ 	lui	$a3,%hi(g_PakNoteGameName)
+/*  f1183c0:	24e75cf8 */ 	addiu	$a3,$a3,%lo(g_PakNoteGameName)
 /*  f1183c4:	34c64445 */ 	ori	$a2,$a2,0x4445
 /*  f1183c8:	01401025 */ 	or	$v0,$t2,$zero
 /*  f1183cc:	afaa0014 */ 	sw	$t2,0x14($sp)
@@ -5274,14 +5268,14 @@ glabel func0f11a8f4
 /*  f11a9bc:	000d68c0 */ 	sll	$t5,$t5,0x3
 /*  f11a9c0:	01ae2021 */ 	addu	$a0,$t5,$t6
 .L0f11a9c4:
-/*  f11a9c4:	3c0f8007 */ 	lui	$t7,%hi(var80075d08)
-/*  f11a9c8:	25ef5d08 */ 	addiu	$t7,$t7,%lo(var80075d08)
+/*  f11a9c4:	3c0f8007 */ 	lui	$t7,%hi(g_PakNoteExtName)
+/*  f11a9c8:	25ef5d08 */ 	addiu	$t7,$t7,%lo(g_PakNoteExtName)
 /*  f11a9cc:	3c064e50 */ 	lui	$a2,0x4e50
-/*  f11a9d0:	3c078007 */ 	lui	$a3,%hi(var80075cf8)
+/*  f11a9d0:	3c078007 */ 	lui	$a3,%hi(g_PakNoteGameName)
 /*  f11a9d4:	2602029c */ 	addiu	$v0,$s0,0x29c
 /*  f11a9d8:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f11a9dc:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f11a9e0:	24e75cf8 */ 	addiu	$a3,$a3,%lo(var80075cf8)
+/*  f11a9e0:	24e75cf8 */ 	addiu	$a3,$a3,%lo(g_PakNoteGameName)
 /*  f11a9e4:	34c64445 */ 	ori	$a2,$a2,0x4445
 /*  f11a9e8:	0fc45f96 */ 	jal	func0f117e58
 /*  f11a9ec:	afaf0010 */ 	sw	$t7,0x10($sp)
@@ -5328,11 +5322,11 @@ glabel func0f11a8f4
 .L0f11aa88:
 /*  f11aa88:	8faf0044 */ 	lw	$t7,0x44($sp)
 /*  f11aa8c:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*  f11aa90:	3c0e8007 */ 	lui	$t6,%hi(var80075d08)
-/*  f11aa94:	25ce5d08 */ 	addiu	$t6,$t6,%lo(var80075d08)
+/*  f11aa90:	3c0e8007 */ 	lui	$t6,%hi(g_PakNoteExtName)
+/*  f11aa94:	25ce5d08 */ 	addiu	$t6,$t6,%lo(g_PakNoteExtName)
 /*  f11aa98:	3c064e50 */ 	lui	$a2,0x4e50
-/*  f11aa9c:	3c078007 */ 	lui	$a3,%hi(var80075cf8)
-/*  f11aaa0:	24e75cf8 */ 	addiu	$a3,$a3,%lo(var80075cf8)
+/*  f11aa9c:	3c078007 */ 	lui	$a3,%hi(g_PakNoteGameName)
+/*  f11aaa0:	24e75cf8 */ 	addiu	$a3,$a3,%lo(g_PakNoteGameName)
 /*  f11aaa4:	34c64445 */ 	ori	$a2,$a2,0x4445
 /*  f11aaa8:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f11aaac:	afaf0014 */ 	sw	$t7,0x14($sp)
@@ -5524,14 +5518,14 @@ glabel func0f11a8f4
 /*  f11a73c:	000d68c0 */ 	sll	$t5,$t5,0x3
 /*  f11a740:	01ae2021 */ 	addu	$a0,$t5,$t6
 .L0f11a744_2:
-/*  f11a744:	3c0f8007 */ 	lui	$t7,%hi(var80075d08)
-/*  f11a748:	25ef5d08 */ 	addiu	$t7,$t7,%lo(var80075d08)
+/*  f11a744:	3c0f8007 */ 	lui	$t7,%hi(g_PakNoteExtName)
+/*  f11a748:	25ef5d08 */ 	addiu	$t7,$t7,%lo(g_PakNoteExtName)
 /*  f11a74c:	3c064e50 */ 	lui	$a2,0x4e50
-/*  f11a750:	3c078007 */ 	lui	$a3,%hi(var80075cf8)
+/*  f11a750:	3c078007 */ 	lui	$a3,%hi(g_PakNoteGameName)
 /*  f11a754:	2602029c */ 	addiu	$v0,$s0,0x29c
 /*  f11a758:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f11a75c:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f11a760:	24e75cf8 */ 	addiu	$a3,$a3,%lo(var80075cf8)
+/*  f11a760:	24e75cf8 */ 	addiu	$a3,$a3,%lo(g_PakNoteGameName)
 /*  f11a764:	34c64445 */ 	ori	$a2,$a2,0x4445
 /*  f11a768:	0fc45f76 */ 	jal	0xf117dd8
 /*  f11a76c:	afaf0010 */ 	sw	$t7,0x10($sp)
@@ -5578,11 +5572,11 @@ glabel func0f11a8f4
 .L0f11a808_2:
 /*  f11a808:	8faf0048 */ 	lw	$t7,0x48($sp)
 /*  f11a80c:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*  f11a810:	3c0e8007 */ 	lui	$t6,%hi(var80075d08)
-/*  f11a814:	25ce5d08 */ 	addiu	$t6,$t6,%lo(var80075d08)
+/*  f11a810:	3c0e8007 */ 	lui	$t6,%hi(g_PakNoteExtName)
+/*  f11a814:	25ce5d08 */ 	addiu	$t6,$t6,%lo(g_PakNoteExtName)
 /*  f11a818:	3c064e50 */ 	lui	$a2,0x4e50
-/*  f11a81c:	3c078007 */ 	lui	$a3,%hi(var80075cf8)
-/*  f11a820:	24e75cf8 */ 	addiu	$a3,$a3,%lo(var80075cf8)
+/*  f11a81c:	3c078007 */ 	lui	$a3,%hi(g_PakNoteGameName)
+/*  f11a820:	24e75cf8 */ 	addiu	$a3,$a3,%lo(g_PakNoteGameName)
 /*  f11a824:	34c64445 */ 	ori	$a2,$a2,0x4445
 /*  f11a828:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f11a82c:	afaf0014 */ 	sw	$t7,0x14($sp)

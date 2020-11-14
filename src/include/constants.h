@@ -26,6 +26,10 @@
 #define TEXT(bankid, index) ((bankid << 9) | index)
 #define VOLUME(volume)      (volume > 0x5000 ? 0x5000 : volume)
 
+// Macro to convert an ASCII character to N64 font code.
+// N64 font code uses 0x0f for space, 0x10-0x19 for 0-9 and 0x1a-0x33 for A-Z.
+#define N64CHAR(c)          (c == ' ' ? 0x0f : (c >= 'A' && c <= 'Z' ? c - 0x27 : c - 0x20))
+
 #define ROM_COMPANYCODE 0x3459
 #define ROM_GAMECODE    0x4e504445 // "NPDE" in ASCII
 
