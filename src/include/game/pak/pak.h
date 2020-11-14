@@ -131,9 +131,9 @@ void func0f11e5bc(u32 *flags);
 void func0f11e618(char *src, char *dst, u32 len);
 s8 pakSearch(s32 arg0);
 u32 func0f11e750(void);
-u32 func0f11e78c(void);
+bool func0f11e78c(void);
 u32 func0f11e7f0(void);
-u32 func0f11e844(void);
+s32 func0f11e844(s8 arg0);
 u32 func0f11ea34(void);
 
 extern const char var7f1b423c[];
