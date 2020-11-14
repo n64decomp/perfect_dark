@@ -1254,63 +1254,36 @@ glabel func0f117b04
 /*  f117b48:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f117b4c
-/*  f117b4c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f117b50:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f117b54:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f117b58:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f117b5c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f117b60:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f117b64:	0c004eae */ 	jal	contCheckPfs
-/*  f117b68:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f117b6c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f117b70:	93a6002b */ 	lbu	$a2,0x2b($sp)
-/*  f117b74:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f117b78:	10800009 */ 	beqz	$a0,.L0f117ba0
-/*  f117b7c:	3c188007 */ 	lui	$t8,%hi(g_PakHasEeprom)
-/*  f117b80:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*  f117b84:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f117b88:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f117b8c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f117b90:	0c014155 */ 	jal	func00050554
-/*  f117b94:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f117b98:	10000019 */ 	beqz	$zero,.L0f117c00
-/*  f117b9c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f117ba0:
-/*  f117ba0:	8f185cd0 */ 	lw	$t8,%lo(g_PakHasEeprom)($t8)
-/*  f117ba4:	000718c2 */ 	srl	$v1,$a3,0x3
-/*  f117ba8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f117bac:	17000003 */ 	bnez	$t8,.L0f117bbc
-/*  f117bb0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f117bb4:	10000011 */ 	beqz	$zero,.L0f117bfc
-/*  f117bb8:	24020080 */ 	addiu	$v0,$zero,0x80
-.L0f117bbc:
-/*  f117bbc:	14c10007 */ 	bne	$a2,$at,.L0f117bdc
-/*  f117bc0:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f117bc4:	306400ff */ 	andi	$a0,$v1,0xff
-/*  f117bc8:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f117bcc:	0fc47935 */ 	jal	pakWriteEeprom
-/*  f117bd0:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f117bd4:	1000000a */ 	beqz	$zero,.L0f117c00
-/*  f117bd8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f117bdc:
-/*  f117bdc:	14400006 */ 	bnez	$v0,.L0f117bf8
-/*  f117be0:	306400ff */ 	andi	$a0,$v1,0xff
-/*  f117be4:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f117be8:	0fc4791e */ 	jal	pakReadEeprom
-/*  f117bec:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f117bf0:	10000003 */ 	beqz	$zero,.L0f117c00
-/*  f117bf4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f117bf8:
-/*  f117bf8:	24020083 */ 	addiu	$v0,$zero,0x83
-.L0f117bfc:
-/*  f117bfc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f117c00:
-/*  f117c00:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f117c04:	03e00008 */ 	jr	$ra
-/*  f117c08:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f117b4c(s32 arg0, s32 arg1, u8 operation, u32 address, u32 len, u8 *buffer)
+{
+	u32 newaddress;
+
+	contCheckPfs(2);
+
+	if (arg0) {
+		return func00050554(arg0, arg1, operation, address, len, buffer);
+	}
+
+	newaddress = address / 8;
+
+	if (newaddress) {
+		// empty
+	}
+
+	if (!g_PakHasEeprom) {
+		return 0x80;
+	}
+
+	if (operation == OS_WRITE) {
+		return pakWriteEeprom(newaddress, buffer, len);
+	}
+
+	if (operation == OS_READ) {
+		return pakReadEeprom(newaddress, buffer, len);
+	}
+
+	return 0x83;
+}
 
 GLOBAL_ASM(
 glabel func0f117c0c
