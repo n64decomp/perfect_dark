@@ -10059,52 +10059,23 @@ glabel func0f11e618
 /*  f11e6ac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel pakSearch
-/*  f11e6b0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f11e6b4:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f11e6b8:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f11e6bc:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f11e6c0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f11e6c4:	00809825 */ 	or	$s3,$a0,$zero
-/*  f11e6c8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f11e6cc:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f11e6d0:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f11e6d4:	00008025 */ 	or	$s0,$zero,$zero
-/*  f11e6d8:	24140005 */ 	addiu	$s4,$zero,0x5
-/*  f11e6dc:	00108e00 */ 	sll	$s1,$s0,0x18
-.L0f11e6e0:
-/*  f11e6e0:	00117603 */ 	sra	$t6,$s1,0x18
-/*  f11e6e4:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f11e6e8:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f11e6ec:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f11e6f0:	0fc45abb */ 	jal	func0f116aec
-/*  f11e6f4:	01c08825 */ 	or	$s1,$t6,$zero
-/*  f11e6f8:	10400009 */ 	beqz	$v0,.L0f11e720
-/*  f11e6fc:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f11e700:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f11e704:	0fc45a4f */ 	jal	func0f11693c
-/*  f11e708:	03002025 */ 	or	$a0,$t8,$zero
-/*  f11e70c:	56620005 */ 	bnel	$s3,$v0,.L0f11e724
-/*  f11e710:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f11e714:	00109600 */ 	sll	$s2,$s0,0x18
-/*  f11e718:	0012ce03 */ 	sra	$t9,$s2,0x18
-/*  f11e71c:	03209025 */ 	or	$s2,$t9,$zero
-.L0f11e720:
-/*  f11e720:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f11e724:
-/*  f11e724:	5614ffee */ 	bnel	$s0,$s4,.L0f11e6e0
-/*  f11e728:	00108e00 */ 	sll	$s1,$s0,0x18
-/*  f11e72c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f11e730:	02401025 */ 	or	$v0,$s2,$zero
-/*  f11e734:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f11e738:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f11e73c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f11e740:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f11e744:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f11e748:	03e00008 */ 	jr	$ra
-/*  f11e74c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+s8 pakSearch(s32 arg0)
+{
+	s8 device = -1;
+	s32 i;
+
+	for (i = 0; i < 5; i++) {
+		if (func0f116aec(i)) {
+			s32 value = func0f11693c(i);
+
+			if (arg0 == value) {
+				device = i;
+			}
+		}
+	}
+
+	return device;
+}
 
 s32 func0f11e750(s8 arg0)
 {
