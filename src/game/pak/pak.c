@@ -316,19 +316,10 @@ glabel func0f116914
 /*  f116938:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f11693c
-/*  f11693c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f116940:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f116944:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f116948:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11694c:	0fc45b15 */ 	jal	func0f116c54
-/*  f116950:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f116954:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116958:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f11695c:	03e00008 */ 	jr	$ra
-/*  f116960:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f11693c(s8 device)
+{
+	return func0f116c54(device);
+}
 
 void func0f116984(s8 arg0, u8 *arg1, u8 *arg2)
 {
