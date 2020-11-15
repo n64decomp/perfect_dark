@@ -4274,11 +4274,10 @@ glabel func0f11a1d0
 /*  f11a2e0:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
 
-GLOBAL_ASM(
-glabel func0f11a2e4
-/*  f11a2e4:	03e00008 */ 	jr	$ra
-/*  f11a2e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f11a2e4(void)
+{
+	// empty
+}
 
 s32 func0f11a2ec(s8 device)
 {
