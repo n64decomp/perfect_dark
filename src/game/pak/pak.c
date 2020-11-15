@@ -133,9 +133,12 @@ glabel func0f1165f8
 /*  f116644:	00601025 */ 	or	$v0,$v1,$zero
 /*  f116648:	03e00008 */ 	jr	$ra
 /*  f11664c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f116650:	03e00008 */ 	jr	$ra
-/*  f116654:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+void func0f116650(void)
+{
+	// empty
+}
 
 u32 func0f116658(s8 arg0, u32 arg1)
 {
