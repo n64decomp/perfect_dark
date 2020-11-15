@@ -98,42 +98,15 @@ u32 var80075d48 = (u32)&var7f1b424c;
 u32 var80075d4c = (u32)&var7f1b4254;
 u32 var80075d50 = (u32)&var7f1b425c;
 
-u32 func0f1165d0(s8 device, OSPfsState *note)
+u32 func0f1165d0(s8 device)
 {
-	if (note) {
-		// empty
-	}
-
 	return device == SAVEDEVICE_GAMEPAK ? 0x10 : 0x20;
 }
 
-GLOBAL_ASM(
-glabel func0f1165f8
-/*  f1165f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1165fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f116600:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f116604:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f116608:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f11660c:	0fc45974 */ 	jal	func0f1165d0
-/*  f116610:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f116614:	24010020 */ 	addiu	$at,$zero,0x20
-/*  f116618:	14410005 */ 	bne	$v0,$at,.L0f116630
-/*  f11661c:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f116620:	0fc5db70 */ 	jal	align32
-/*  f116624:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f116628:	10000004 */ 	beqz	$zero,.L0f11663c
-/*  f11662c:	00401825 */ 	or	$v1,$v0,$zero
-.L0f116630:
-/*  f116630:	0fc5db69 */ 	jal	align16
-/*  f116634:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f116638:	00401825 */ 	or	$v1,$v0,$zero
-.L0f11663c:
-/*  f11663c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116640:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f116644:	00601025 */ 	or	$v0,$v1,$zero
-/*  f116648:	03e00008 */ 	jr	$ra
-/*  f11664c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 func0f1165f8(s8 arg0, u32 arg1)
+{
+	return func0f1165d0(arg0) == 0x20 ? align32(arg1) : align16(arg1);
+}
 
 void func0f116650(void)
 {
@@ -1455,7 +1428,7 @@ s32 func0f118334(s8 device, s32 numpages)
 		note->file_size = devicedata->pakdata.pagesused * 256;
 
 		devicedata->unk2a0 = numbytes;
-		devicedata->unk2a4 = devicedata->unk2a0 / func0f1165d0(device, note);
+		devicedata->unk2a4 = devicedata->unk2a0 / func0f1165d0(device);
 		devicedata->unk2a8 = devicedata->unk2a0 / 256;
 
 		return true;
