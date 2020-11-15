@@ -200,67 +200,23 @@ glabel func0f11668c
 /*  f11671c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel pakIsConnected
-.late_rodata
-glabel var7f1b4d8c
-.word pakIsConnected+0x74 # f116794
-glabel var7f1b4d90
-.word pakIsConnected+0x74 # f116794
-glabel var7f1b4d94
-.word pakIsConnected+0x7c # f11679c
-glabel var7f1b4d98
-.word pakIsConnected+0x7c # f11679c
-glabel var7f1b4d9c
-.word pakIsConnected+0x7c # f11679c
-glabel var7f1b4da0
-.word pakIsConnected+0x74 # f116794
-glabel var7f1b4da4
-.word pakIsConnected+0x74 # f116794
-glabel var7f1b4da8
-.word pakIsConnected+0x7c # f11679c
-glabel var7f1b4dac
-.word pakIsConnected+0x74 # f116794
-.text
-/*  f116720:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f116724:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f116728:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f11672c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116730:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116734:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116738:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11673c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f116740:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116744:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f116748:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11674c:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
-/*  f116750:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116754:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f116758:	8c480000 */ 	lw	$t0,0x0($v0)
-/*  f11675c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f116760:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f116764:	55010010 */ 	bnel	$t0,$at,.L0f1167a8
-/*  f116768:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11676c:	8c490010 */ 	lw	$t1,0x10($v0)
-/*  f116770:	252afff2 */ 	addiu	$t2,$t1,-14
-/*  f116774:	2d410009 */ 	sltiu	$at,$t2,0x9
-/*  f116778:	10200008 */ 	beqz	$at,.L0f11679c
-/*  f11677c:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f116780:	3c017f1b */ 	lui	$at,%hi(var7f1b4d8c)
-/*  f116784:	002a0821 */ 	addu	$at,$at,$t2
-/*  f116788:	8c2a4d8c */ 	lw	$t2,%lo(var7f1b4d8c)($at)
-/*  f11678c:	01400008 */ 	jr	$t2
-/*  f116790:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f116794:	03e00008 */ 	jr	$ra
-/*  f116798:	00001025 */ 	or	$v0,$zero,$zero
-.L0f11679c:
-/*  f11679c:	03e00008 */ 	jr	$ra
-/*  f1167a0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1167a4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1167a8:
-/*  f1167a8:	03e00008 */ 	jr	$ra
-/*  f1167ac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool pakIsConnected(s8 device)
+{
+	if (var800a2380[device].unk000 == 2) {
+		switch (var800a2380[device].unk010) {
+		case 0x0e:
+		case 0x0f:
+		case 0x13:
+		case 0x14:
+		case 0x16:
+			return false;
+		}
+
+		return true;
+	}
+
+	return false;
+}
 
 s32 func0f1167b0(s8 device, u32 arg1, u32 *buffer1024)
 {

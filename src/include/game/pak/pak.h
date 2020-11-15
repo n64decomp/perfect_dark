@@ -8,7 +8,7 @@ u32 func0f1165f8(void);
 u32 func0f116658(s8 arg0, u32 arg1);
 u32 func0f116684(u32 arg0);
 u32 func0f11668c(void);
-bool pakIsConnected(s32 paknum);
+bool pakIsConnected(s8 device);
 s32 func0f1167b0(s8 device, u32 arg1, u32 *buffer1024);
 u32 func0f1167d8(s8 arg0);
 s32 func0f116800(s8 arg0, s32 arg1, void *arg2, s32 arg3);
