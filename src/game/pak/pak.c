@@ -232,11 +232,11 @@ void func0f1169bc(u32 arg0, u32 arg1)
 
 void func0f1169c8(s8 device, s32 arg1)
 {
-	u8 prevvalue = g_Vars.unk0004d0;
+	u8 prevvalue = g_Vars.paksconnected;
 
-	g_Vars.unk0004d0 = 0x1f;
+	g_Vars.paksconnected = 0x1f;
 
-	if ((g_Vars.unk0004d1 | g_Vars.unk0004d0) & (1 << device)) {
+	if ((g_Vars.unk0004d1 | g_Vars.paksconnected) & (1 << device)) {
 		var80075d10 &= ~(1 << device);
 
 		func0f11ca30();
@@ -257,7 +257,7 @@ void func0f1169c8(s8 device, s32 arg1)
 		}
 	}
 
-	g_Vars.unk0004d0 = prevvalue;
+	g_Vars.paksconnected = prevvalue;
 }
 
 bool func0f116aec(s8 device)
@@ -782,71 +782,6 @@ const char var7f1b3d8c[] = "Pak %d -> Pak_AddOneCameraFile : Error - No Room\n";
 const char var7f1b3dc0[] = "Pak %d -> Pak_GameNoteResetSize : New=%u\n";
 const char var7f1b3dec[] = "bDoUpdate7\n";
 const char var7f1b3df8[] = "Pak_SetThisGameSetupFile -> Pak=%d, File=%d, EEPROM=%d\n";
-#if VERSION >= VERSION_NTSC_FINAL
-const char var7f1b3e30[] = "pak/pak.c";
-#else
-const char var7f1b3e30[] = "pak.c";
-#endif
-const char var7f1b3e3c[] = "Pak %d -> Pak_Dir - ERROR : Pak Not Ready\n";
-const char var7f1b3e68[] = "Pak %d -> Pak_Dir - Done - Pak_GetOffsetEOF\n";
-const char var7f1b3e98[] = "Pak %d -> Pak_Dir - Done - ekPakErrorHeaderCrcCheckFail\n";
-const char var7f1b3ed4[] = "Pak Return Code = ekPakOk";
-const char var7f1b3ef0[] = "Pak Return Code = ekPakErrorNoPakPresent";
-const char var7f1b3f1c[] = "Pak Return Code = ekPakErrorPakFatal";
-const char var7f1b3f44[] = "Pak Return Code = ekPakErrorFileNotFound";
-const char var7f1b3f70[] = "Pak Return Code = ekPakErrorFileSystem";
-const char var7f1b3f98[] = "Pak Return Code = ekPakErrorOutOfMemory";
-const char var7f1b3fc0[] = "Pak Return Code = ekPakErrorPakWaitingForInit";
-const char var7f1b3ff0[] = "Pak Return Code = ekPakErrorHeaderCrcCheckFail";
-const char var7f1b4020[] = "Pak Return Code = ekPakErrorDataCrcCheckFail";
-const char var7f1b4050[] = "Pak Return Code = ekPakErrorDataNotValid";
-const char var7f1b407c[] = "Pak Return Code = Unknown - %d\n";
-#if VERSION < VERSION_NTSC_FINAL
-const char var7f1b407c_2[] = "Pak %d -> Pak_RepairAsBlank : Repairing as Blank, Offset=%u, pH=%x\n";
-const char var7f1b407c_3[] = "Pak %d -> Pak_RepairAsBlank -> Summing @ offset=%u, ret=%d\n";
-const char var7f1b407c_4[] = "Pak %d -> Pak_RepairAsBlank -> Fault Speads Over More Than One File - TERMINAL";
-#endif
-const char var7f1b409c[] = "Pak %d -> Pak_RepairAsBlank - St=%u, Ed=%u, Gap=%u, Blank Size=%u\n";
-const char var7f1b40e0[] = "Pak %d -> Pak_RepairAsBlank - Fatal Error at tOffset %u\n";
-const char var7f1b411c[] = "Pak %d -> Pak_ValidateVersion - Start - Game File Size = %d\n";
-const char var7f1b415c[] = "Pak %d -> Pak_ValidateVersion - Clearing cache 2\n";
-const char var7f1b4190[] = "Pak %d -> Pak_ValidateVersion 1 - Loaded with ret=%d at offset %u\n";
-const char var7f1b41d4[] = "Pak %d -> Pak_ValidateVersion 1 - Blank at %u\n";
-const char var7f1b4204[] = "Pak %d -> Pak_ValidateVersion 2 - Loaded  at offset %u\n";
-const char var7f1b423c[] = "BOS\n";
-const char var7f1b4244[] = "CAM\n";
-const char var7f1b424c[] = "MPP\n";
-const char var7f1b4254[] = "MPG\n";
-const char var7f1b425c[] = "GAM";
-const char var7f1b4260[] = "> Pak_DefragPak_Level1 - Merge of two blanks failed";
-const char var7f1b4294[] = "Pak %d - Pak_StartOne called from line %d in %s -> Flags = %0x\n";
-const char var7f1b42d4[] = "\nPak_StartOne -> Pak%d, Modes -\n";
-const char var7f1b42f8[] = "Memory,";
-const char var7f1b4300[] = "Rumble,";
-const char var7f1b4308[] = "Game Boy";
-const char var7f1b4314[] = "\n";
-const char var7f1b4318[] = "Pak %d -> %u Bytes of scratch for cache 2 memory at %0x\n";
-const char var7f1b4354[] = "\nPak%d -> Pak_EndOne - Called from line %d in %s : Modes -\n";
-const char var7f1b4390[] = "Memory,";
-const char var7f1b4398[] = "Rumble,";
-const char var7f1b43a0[] = "Game Boy";
-const char var7f1b43ac[] = "\n";
-const char var7f1b43b0[] = "Pak -> FATAL ERROR -> MEMORY INSTANCE ENDING IS NO LONGER SUPPORTED\n";
-const char var7f1b43f8[] = "Pak -> Pak_MakeOne - Id=%d is finished\n";
-const char var7f1b4420[] = "Pak %d -> Pak_Memory_UpdateNoteInfo\n";
-const char var7f1b4448[] = "Pak %d -> Couldn't assertain the game note size\n";
-const char var7f1b447c[] = "Pak %d -> Pak_AnalyseCurrentGameNote - Game note size = %uk\n";
-const char var7f1b44bc[] = "Pak %d -> Searching for the game file\n";
-const char var7f1b44e4[] = "Pak %d -> Game file wipe failed\n";
-const char var7f1b4508[] = "RWI : Warning : tOffset > gPakObj[PakNum].GameFileSize\n";
-const char var7f1b4540[] = "Pak %d -> Pak_DeleteFile_Offset - DataSize = %u\n";
-const char var7f1b4574[] = "Pak %d -> Delete file offset (file id %d) failed\n";
-const char var7f1b45a8[] = "Pak %d -> Delete file offset failed - Bad Offset passed\n";
-const char var7f1b45e4[] = "-forceversion";
-const char var7f1b45f4[] = "PakMac_PaksLive()=%x\n";
-const char var7f1b460c[] = "paksNeedToBeLive4Game=%x\n";
-const char var7f1b4628[] = "paksNeedToBeLive4Menu=%x\n";
-const char var7f1b4644[] = "g_LastPackPattern=%x\n";
 
 GLOBAL_ASM(
 glabel func0f11789c
@@ -2027,78 +1962,100 @@ void func0f1189d0(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f1189d8
-/*  f1189d8:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f1189dc:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f1189e0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1189e4:	904e04d0 */ 	lbu	$t6,0x4d0($v0)
-/*  f1189e8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1189ec:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1189f0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1189f4:	a44004e4 */ 	sh	$zero,0x4e4($v0)
-/*  f1189f8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1189fc:	a3ae0027 */ 	sb	$t6,0x27($sp)
-/*  f118a00:	00102600 */ 	sll	$a0,$s0,0x18
-.L0f118a04:
-/*  f118a04:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f118a08:	0fc4690d */ 	jal	func0f11a434
-/*  f118a0c:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f118a10:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f118a14:	0010c600 */ 	sll	$t8,$s0,0x18
-/*  f118a18:	00188603 */ 	sra	$s0,$t8,0x18
-/*  f118a1c:	2a010005 */ 	slti	$at,$s0,0x5
-/*  f118a20:	5420fff8 */ 	bnezl	$at,.L0f118a04
-/*  f118a24:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f118a28:	3c117f1b */ 	lui	$s1,%hi(var7f1b3e30)
-/*  f118a2c:	26313e30 */ 	addiu	$s1,$s1,%lo(var7f1b3e30)
-/*  f118a30:	00008025 */ 	or	$s0,$zero,$zero
-/*  f118a34:	00102600 */ 	sll	$a0,$s0,0x18
-.L0f118a38:
-/*  f118a38:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f118a3c:	01002025 */ 	or	$a0,$t0,$zero
-/*  f118a40:	24050007 */ 	addiu	$a1,$zero,0x7
-/*  f118a44:	24060801 */ 	addiu	$a2,$zero,_val7f118a44
-/*  f118a48:	0fc468cb */ 	jal	func0f11a32c
-/*  f118a4c:	02203825 */ 	or	$a3,$s1,$zero
-/*  f118a50:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f118a54:	00104e00 */ 	sll	$t1,$s0,0x18
-/*  f118a58:	00098603 */ 	sra	$s0,$t1,0x18
-/*  f118a5c:	2a010005 */ 	slti	$at,$s0,0x5
-/*  f118a60:	5420fff5 */ 	bnezl	$at,.L0f118a38
-/*  f118a64:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f118a68:	0fc478ff */ 	jal	pakProbeEeprom
-/*  f118a6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f118a70:	0c004e90 */ 	jal	contRecordPfsState
-/*  f118a74:	24040010 */ 	addiu	$a0,$zero,0x10
-/*  f118a78:	240b0010 */ 	addiu	$t3,$zero,0x10
-/*  f118a7c:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4d0)
-/*  f118a80:	a02ba490 */ 	sb	$t3,%lo(g_Vars+0x4d0)($at)
-/*  f118a84:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f118a88:	0fc45a72 */ 	jal	func0f1169c8
-/*  f118a8c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f118a90:	0fc441b2 */ 	jal	func0f1106c8
-/*  f118a94:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f118a98:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile)
-/*  f118a9c:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
-/*  f118aa0:	0fc43da6 */ 	jal	savefileLoadDefaults
-/*  f118aa4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f118aa8:	0fc43c81 */ 	jal	savefileApplyOptions
-/*  f118aac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f118ab0:	3c01800a */ 	lui	$at,%hi(g_FilemgrLoadedMainFile+0x4)
-/*  f118ab4:	a42022c4 */ 	sh	$zero,%lo(g_FilemgrLoadedMainFile+0x4)($at)
-/*  f118ab8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f118abc:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4e4)
-/*  f118ac0:	240c00f5 */ 	addiu	$t4,$zero,0xf5
-/*  f118ac4:	93ad0027 */ 	lbu	$t5,0x27($sp)
-/*  f118ac8:	a42ca4a4 */ 	sh	$t4,%lo(g_Vars+0x4e4)($at)
-/*  f118acc:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4d0)
-/*  f118ad0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f118ad4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f118ad8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f118adc:	03e00008 */ 	jr	$ra
-/*  f118ae0:	a02da490 */ 	sb	$t5,%lo(g_Vars+0x4d0)($at)
-);
+void func0f1189d8(void)
+{
+	u8 prevvalue = g_Vars.paksconnected;
+	s8 i;
+
+	g_Vars.unk0004e4 = 0;
+
+	for (i = 0; i < 5; i++) {
+		func0f11a434(i);
+	}
+
+	for (i = 0; i < 5; i++) {
+#if VERSION >= VERSION_NTSC_FINAL
+		func0f11a32c(i, 7, 2049, "pak/pak.c");
+#else
+		func0f11a32c(i, 7, 2016, "pak.c");
+#endif
+	}
+
+	pakProbeEeprom();
+	contRecordPfsState(0x10);
+	g_Vars.paksconnected = 0x10;
+
+	func0f1169c8(SAVEDEVICE_GAMEPAK, 1);
+	func0f1106c8();
+
+	savefileLoadDefaults(&g_SoloSaveFile);
+	savefileApplyOptions(&g_SoloSaveFile);
+
+	g_FilemgrLoadedMainFile.unk04 = 0;
+	g_Vars.unk0004e4 = 0xf5;
+	g_Vars.paksconnected = prevvalue;
+}
+
+const char var7f1b3e3c[] = "Pak %d -> Pak_Dir - ERROR : Pak Not Ready\n";
+const char var7f1b3e68[] = "Pak %d -> Pak_Dir - Done - Pak_GetOffsetEOF\n";
+const char var7f1b3e98[] = "Pak %d -> Pak_Dir - Done - ekPakErrorHeaderCrcCheckFail\n";
+const char var7f1b3ed4[] = "Pak Return Code = ekPakOk";
+const char var7f1b3ef0[] = "Pak Return Code = ekPakErrorNoPakPresent";
+const char var7f1b3f1c[] = "Pak Return Code = ekPakErrorPakFatal";
+const char var7f1b3f44[] = "Pak Return Code = ekPakErrorFileNotFound";
+const char var7f1b3f70[] = "Pak Return Code = ekPakErrorFileSystem";
+const char var7f1b3f98[] = "Pak Return Code = ekPakErrorOutOfMemory";
+const char var7f1b3fc0[] = "Pak Return Code = ekPakErrorPakWaitingForInit";
+const char var7f1b3ff0[] = "Pak Return Code = ekPakErrorHeaderCrcCheckFail";
+const char var7f1b4020[] = "Pak Return Code = ekPakErrorDataCrcCheckFail";
+const char var7f1b4050[] = "Pak Return Code = ekPakErrorDataNotValid";
+const char var7f1b407c[] = "Pak Return Code = Unknown - %d\n";
+#if VERSION < VERSION_NTSC_FINAL
+const char var7f1b407c_2[] = "Pak %d -> Pak_RepairAsBlank : Repairing as Blank, Offset=%u, pH=%x\n";
+const char var7f1b407c_3[] = "Pak %d -> Pak_RepairAsBlank -> Summing @ offset=%u, ret=%d\n";
+const char var7f1b407c_4[] = "Pak %d -> Pak_RepairAsBlank -> Fault Speads Over More Than One File - TERMINAL";
+#endif
+const char var7f1b409c[] = "Pak %d -> Pak_RepairAsBlank - St=%u, Ed=%u, Gap=%u, Blank Size=%u\n";
+const char var7f1b40e0[] = "Pak %d -> Pak_RepairAsBlank - Fatal Error at tOffset %u\n";
+const char var7f1b411c[] = "Pak %d -> Pak_ValidateVersion - Start - Game File Size = %d\n";
+const char var7f1b415c[] = "Pak %d -> Pak_ValidateVersion - Clearing cache 2\n";
+const char var7f1b4190[] = "Pak %d -> Pak_ValidateVersion 1 - Loaded with ret=%d at offset %u\n";
+const char var7f1b41d4[] = "Pak %d -> Pak_ValidateVersion 1 - Blank at %u\n";
+const char var7f1b4204[] = "Pak %d -> Pak_ValidateVersion 2 - Loaded  at offset %u\n";
+const char var7f1b423c[] = "BOS\n";
+const char var7f1b4244[] = "CAM\n";
+const char var7f1b424c[] = "MPP\n";
+const char var7f1b4254[] = "MPG\n";
+const char var7f1b425c[] = "GAM";
+const char var7f1b4260[] = "> Pak_DefragPak_Level1 - Merge of two blanks failed";
+const char var7f1b4294[] = "Pak %d - Pak_StartOne called from line %d in %s -> Flags = %0x\n";
+const char var7f1b42d4[] = "\nPak_StartOne -> Pak%d, Modes -\n";
+const char var7f1b42f8[] = "Memory,";
+const char var7f1b4300[] = "Rumble,";
+const char var7f1b4308[] = "Game Boy";
+const char var7f1b4314[] = "\n";
+const char var7f1b4318[] = "Pak %d -> %u Bytes of scratch for cache 2 memory at %0x\n";
+const char var7f1b4354[] = "\nPak%d -> Pak_EndOne - Called from line %d in %s : Modes -\n";
+const char var7f1b4390[] = "Memory,";
+const char var7f1b4398[] = "Rumble,";
+const char var7f1b43a0[] = "Game Boy";
+const char var7f1b43ac[] = "\n";
+const char var7f1b43b0[] = "Pak -> FATAL ERROR -> MEMORY INSTANCE ENDING IS NO LONGER SUPPORTED\n";
+const char var7f1b43f8[] = "Pak -> Pak_MakeOne - Id=%d is finished\n";
+const char var7f1b4420[] = "Pak %d -> Pak_Memory_UpdateNoteInfo\n";
+const char var7f1b4448[] = "Pak %d -> Couldn't assertain the game note size\n";
+const char var7f1b447c[] = "Pak %d -> Pak_AnalyseCurrentGameNote - Game note size = %uk\n";
+const char var7f1b44bc[] = "Pak %d -> Searching for the game file\n";
+const char var7f1b44e4[] = "Pak %d -> Game file wipe failed\n";
+const char var7f1b4508[] = "RWI : Warning : tOffset > gPakObj[PakNum].GameFileSize\n";
+const char var7f1b4540[] = "Pak %d -> Pak_DeleteFile_Offset - DataSize = %u\n";
+const char var7f1b4574[] = "Pak %d -> Delete file offset (file id %d) failed\n";
+const char var7f1b45a8[] = "Pak %d -> Delete file offset failed - Bad Offset passed\n";
+const char var7f1b45e4[] = "-forceversion";
+const char var7f1b45f4[] = "PakMac_PaksLive()=%x\n";
+const char var7f1b460c[] = "paksNeedToBeLive4Game=%x\n";
+const char var7f1b4628[] = "paksNeedToBeLive4Menu=%x\n";
+const char var7f1b4644[] = "g_LastPackPattern=%x\n";
 
 GLOBAL_ASM(
 glabel func0f118ae4

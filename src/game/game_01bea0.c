@@ -2530,7 +2530,7 @@ glabel var7f1a863c
 //	}
 //
 //	// d440
-//	g_Vars.unk0004d0 = 0;
+//	g_Vars.paksconnected = 0;
 //
 //	for (i = 0; i < PLAYERCOUNT(); i++) { // s1
 //		s32 mpindex = -1; // v1
@@ -2568,7 +2568,7 @@ glabel var7f1a863c
 //			case MENUROOT_4MBMAINMENU:
 //			case MENUROOT_TRAINING: // f01d5b4
 //				if (g_Menus[mpindex].curframe) {
-//					g_Vars.unk0004d0 = 31;
+//					g_Vars.paksconnected = 0x1f;
 //				}
 //				break;
 //			}

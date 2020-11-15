@@ -180,7 +180,7 @@ struct g_vars {
 	/*0004b8*/ struct prop *aibuddies[4];
 	/*0004c8*/ u32 dontplaynrg; // allow X music to be played (NRG = energy track)
 	/*0004cc*/ s32 in_cutscene;
-	/*0004d0*/ u8 unk0004d0;
+	/*0004d0*/ u8 paksconnected;
 	/*0004d1*/ u8 unk0004d1;
 	/*0004d2*/ s8 unk0004d2;
 	/*0004d3*/ s8 unk0004d3;

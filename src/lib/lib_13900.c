@@ -576,7 +576,7 @@ void contDebugJoy(void)
 {
 	func0000db30("debugjoy", &var8005ef08);
 
-	if (g_Vars.unk0004d0) {
+	if (g_Vars.paksconnected) {
 		contCheckPfs(1);
 	}
 

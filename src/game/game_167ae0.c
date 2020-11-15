@@ -241,7 +241,7 @@ void func0f167e7c(s32 stagenum)
 
 	g_Vars.unk0004d8 = 10;
 	g_Vars.unk0004d1 = 0;
-	g_Vars.unk0004d0 = 0;
+	g_Vars.paksconnected = 0;
 	g_Vars.stagenum = stagenum;
 
 	cheatsActivate();
