@@ -415,40 +415,12 @@ u32 func0f116c94(s8 device)
 	return var800a2380[device].unk000;
 }
 
-GLOBAL_ASM(
-glabel func0f116cd4
-/*  f116cd4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f116cd8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f116cdc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f116ce0:	0fc47588 */ 	jal	func0f11d620
-/*  f116ce4:	83a4001b */ 	lb	$a0,0x1b($sp)
-/*  f116ce8:	83ae001b */ 	lb	$t6,0x1b($sp)
-/*  f116cec:	3c02800a */ 	lui	$v0,%hi(var800a2380+0x2b8)
-/*  f116cf0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116cf4:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f116cf8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f116cfc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f116d00:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f116d04:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f116d08:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f116d0c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f116d10:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f116d14:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f116d18:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f116d1c:	8c422638 */ 	lw	$v0,%lo(var800a2380+0x2b8)($v0)
-/*  f116d20:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f116d24:	00021900 */ 	sll	$v1,$v0,0x4
-/*  f116d28:	0003c7c2 */ 	srl	$t8,$v1,0x1f
-/*  f116d2c:	0018182b */ 	sltu	$v1,$zero,$t8
-/*  f116d30:	10600004 */ 	beqz	$v1,.L0f116d44
-/*  f116d34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f116d38:	00021880 */ 	sll	$v1,$v0,0x2
-/*  f116d3c:	000347c2 */ 	srl	$t0,$v1,0x1f
-/*  f116d40:	0008182b */ 	sltu	$v1,$zero,$t0
-.L0f116d44:
-/*  f116d44:	03e00008 */ 	jr	$ra
-/*  f116d48:	00601025 */ 	or	$v0,$v1,$zero
-);
+bool func0f116cd4(s8 device)
+{
+	func0f11d620(device);
+
+	return var800a2380[device].unk2b8_05 && var800a2380[device].unk2b8_03;
+}
 
 bool func0f116d4c(s8 device)
 {
