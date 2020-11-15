@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f1165d0(s8 device, OSPfsState *note);
-u32 func0f1165f8(void);
+u32 func0f1165f8(s8 arg0, u32 arg1);
 u32 func0f116658(s8 arg0, u32 arg1);
 u32 func0f116684(u32 arg0);
 u32 func0f11668c(s8 device);
