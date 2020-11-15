@@ -4278,23 +4278,12 @@ GLOBAL_ASM(
 glabel func0f11a2e4
 /*  f11a2e4:	03e00008 */ 	jr	$ra
 /*  f11a2e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11a2ec:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11a2f0:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f11a2f4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f11a2f8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11a2fc:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11a300:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11a304:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11a308:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f11a30c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11a310:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11a314:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11a318:	3c02800a */ 	lui	$v0,%hi(var800a2380+0x14)
-/*  f11a31c:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f11a320:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f11a324:	03e00008 */ 	jr	$ra
-/*  f11a328:	90422394 */ 	lbu	$v0,%lo(var800a2380+0x14)($v0)
 );
+
+s32 func0f11a2ec(s8 device)
+{
+	return var800a2380[device].unk014;
+}
 
 GLOBAL_ASM(
 glabel func0f11a32c
