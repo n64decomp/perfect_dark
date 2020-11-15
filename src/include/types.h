@@ -6849,7 +6849,7 @@ struct remoteminething {
 };
 
 struct pakthing {
-	u32 unk00;
+	char unk00[4]; // len unknown
 	u32 unk04;
 	u32 unk08;
 	u32 unk0c;

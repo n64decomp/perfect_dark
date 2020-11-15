@@ -10138,33 +10138,23 @@ bool func0f11e78c(void)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f11e7f0
-/*  f11e7f0:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f11e7f4:	50400011 */ 	beqzl	$v0,.L0f11e83c
-/*  f11e7f8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f11e7fc:	90a30000 */ 	lbu	$v1,0x0($a1)
-/*  f11e800:	5060000e */ 	beqzl	$v1,.L0f11e83c
-/*  f11e804:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f11e808:
-/*  f11e808:	50430004 */ 	beql	$v0,$v1,.L0f11e81c
-/*  f11e80c:	90820001 */ 	lbu	$v0,0x1($a0)
-/*  f11e810:	03e00008 */ 	jr	$ra
-/*  f11e814:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11e818:	90820001 */ 	lbu	$v0,0x1($a0)
-.L0f11e81c:
-/*  f11e81c:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f11e820:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f11e824:	50400005 */ 	beqzl	$v0,.L0f11e83c
-/*  f11e828:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f11e82c:	90a30000 */ 	lbu	$v1,0x0($a1)
-/*  f11e830:	1460fff5 */ 	bnez	$v1,.L0f11e808
-/*  f11e834:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11e838:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f11e83c:
-/*  f11e83c:	03e00008 */ 	jr	$ra
-/*  f11e840:	00000000 */ 	sll	$zero,$zero,0x0
-);
+/**
+ * Probable @bug: This function is probably intended to be a "strings are equal"
+ * check, however it's actually checking if either string starts with the other.
+ */
+bool func0f11e7f0(char *a, char *b)
+{
+	while (*a != '\0' && *b != '\0') {
+		if (*a != *b) {
+			return false;
+		}
+
+		a++;
+		b++;
+	}
+
+	return true;
+}
 
 s32 func0f11e844(s8 device)
 {
@@ -10214,7 +10204,7 @@ s32 func0f11e844(s8 device)
 #endif
 
 	if (var80075cb0 == sp6c.unk10) {
-		if (func0f11e7f0(var80075cb4, &sp6c) || func0f11e7f0(var80075cc0, &sp6c)) {
+		if (func0f11e7f0(var80075cb4, sp6c.unk00) || func0f11e7f0(var80075cc0, sp6c.unk00)) {
 			var800a2380[device].unk2b8_03 = 0;
 			var800a2380[device].unk2b8_04 = 1;
 			sp2c = 2;
