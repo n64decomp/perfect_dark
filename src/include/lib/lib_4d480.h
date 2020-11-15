@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0004d480(u32 arg0, u32 arg1, u32 arg2, u32 arg3, u32 arg4);
+u32 func0004d480(struct var800a3180 *arg0, u16 company_code, u32 game_code, char *game_name, char *ext_name);
 u32 func0004d658(void);
 
 #endif

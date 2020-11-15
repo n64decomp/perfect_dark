@@ -335,84 +335,26 @@ s32 func0f116df0(s8 device, struct pakdata **pakdata)
 	return 1;
 }
 
-GLOBAL_ASM(
-glabel func0f116e84
-/*  f116e84:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f116e88:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f116e8c:	00048600 */ 	sll	$s0,$a0,0x18
-/*  f116e90:	00107603 */ 	sra	$t6,$s0,0x18
-/*  f116e94:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f116e98:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f116e9c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f116ea0:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f116ea4:	01c08025 */ 	or	$s0,$t6,$zero
-/*  f116ea8:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f116eac:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f116eb0:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f116eb4:	0fc45ad7 */ 	jal	func0f116b5c
-/*  f116eb8:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f116ebc:	50400033 */ 	beqzl	$v0,.L0f116f8c
-/*  f116ec0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f116ec4:	0c00543a */ 	jal	func000150e8
-/*  f116ec8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f116ecc:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f116ed0:	16010003 */ 	bne	$s0,$at,.L0f116ee0
-/*  f116ed4:	97a50036 */ 	lhu	$a1,0x36($sp)
-/*  f116ed8:	10000009 */ 	beqz	$zero,.L0f116f00
-/*  f116edc:	00002025 */ 	or	$a0,$zero,$zero
-.L0f116ee0:
-/*  f116ee0:	0010c080 */ 	sll	$t8,$s0,0x2
-/*  f116ee4:	0310c023 */ 	subu	$t8,$t8,$s0
-/*  f116ee8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f116eec:	0310c021 */ 	addu	$t8,$t8,$s0
-/*  f116ef0:	3c19800a */ 	lui	$t9,%hi(var800a3180)
-/*  f116ef4:	27393180 */ 	addiu	$t9,$t9,%lo(var800a3180)
-/*  f116ef8:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f116efc:	03192021 */ 	addu	$a0,$t8,$t9
-.L0f116f00:
-/*  f116f00:	8fa80040 */ 	lw	$t0,0x40($sp)
-/*  f116f04:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f116f08:	8fa7003c */ 	lw	$a3,0x3c($sp)
-/*  f116f0c:	0fc45f80 */ 	jal	func0f117e00
-/*  f116f10:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f116f14:	0c005451 */ 	jal	func00015144
-/*  f116f18:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f116f1c:	00102e00 */ 	sll	$a1,$s0,0x18
-/*  f116f20:	00054e03 */ 	sra	$t1,$a1,0x18
-/*  f116f24:	01202825 */ 	or	$a1,$t1,$zero
-/*  f116f28:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f116f2c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f116f30:	0fc470e7 */ 	jal	func0f11c39c
-/*  f116f34:	24070339 */ 	addiu	$a3,$zero,_val7f116f34
-/*  f116f38:	10400011 */ 	beqz	$v0,.L0f116f80
-/*  f116f3c:	00105080 */ 	sll	$t2,$s0,0x2
-/*  f116f40:	01505023 */ 	subu	$t2,$t2,$s0
-/*  f116f44:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f116f48:	01505023 */ 	subu	$t2,$t2,$s0
-/*  f116f4c:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f116f50:	01505021 */ 	addu	$t2,$t2,$s0
-/*  f116f54:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f116f58:	01505023 */ 	subu	$t2,$t2,$s0
-/*  f116f5c:	3c0b800a */ 	lui	$t3,%hi(var800a2380)
-/*  f116f60:	256b2380 */ 	addiu	$t3,$t3,%lo(var800a2380)
-/*  f116f64:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f116f68:	014b1821 */ 	addu	$v1,$t2,$t3
-/*  f116f6c:	906d02b8 */ 	lbu	$t5,0x2b8($v1)
-/*  f116f70:	00001025 */ 	or	$v0,$zero,$zero
-/*  f116f74:	35ae0040 */ 	ori	$t6,$t5,0x40
-/*  f116f78:	10000004 */ 	beqz	$zero,.L0f116f8c
-/*  f116f7c:	a06e02b8 */ 	sb	$t6,0x2b8($v1)
-.L0f116f80:
-/*  f116f80:	10000002 */ 	beqz	$zero,.L0f116f8c
-/*  f116f84:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f116f88:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f116f8c:
-/*  f116f8c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f116f90:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f116f94:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f116f98:	03e00008 */ 	jr	$ra
-/*  f116f9c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f116e84(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name)
+{
+	s32 result;
+
+	if (func0f116b5c(device)) {
+		func000150e8();
+		result = func0f117e00(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device],
+				company_code, game_code, game_name, ext_name);
+		func00015144();
+
+		if (func0f11c39c(result, device, 1, VERSION >= VERSION_NTSC_FINAL ? 825 : 822)) {
+			var800a2380[device].unk2b8_02 = 1;
+			return 0;
+		}
+
+		return 2;
+	}
+
+	return 1;
+}
 
 GLOBAL_ASM(
 glabel func0f116fa0
@@ -1209,10 +1151,10 @@ u32 func0f117d90(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32
 	return 0;
 }
 
-u32 func0f117e00(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4)
+u32 func0f117e00(struct var800a3180 *arg0, u16 company_code, u32 game_code, char *game_name, char *ext_name)
 {
 	if (arg0) {
-		return func0004d480(arg0, arg1, arg2, arg3, arg4);
+		return func0004d480(arg0, company_code, game_code, game_name, ext_name);
 	}
 
 	if (g_PakHasEeprom == 0) {
