@@ -4300,32 +4300,16 @@ void func0f11a32c(s8 device, u8 arg1, u32 line, char *file)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f11a3dc
-/*  f11a3dc:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11a3e0:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f11a3e4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f11a3e8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11a3ec:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11a3f0:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11a3f4:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11a3f8:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f11a3fc:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11a400:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11a404:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11a408:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
-/*  f11a40c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11a410:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f11a414:	90430014 */ 	lbu	$v1,0x14($v0)
-/*  f11a418:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f11a41c:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f11a420:	10600002 */ 	beqz	$v1,.L0f11a42c
-/*  f11a424:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f11a428:	a0400014 */ 	sb	$zero,0x14($v0)
-.L0f11a42c:
-/*  f11a42c:	03e00008 */ 	jr	$ra
-/*  f11a430:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f11a3dc(s8 device, u32 arg1, u32 arg2)
+{
+	if (var800a2380[device].unk014) {
+		var800a2380[device].unk014 = 0;
+	}
+
+	if (var800a2380[device].unk014) {
+		// empty
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f11a434
