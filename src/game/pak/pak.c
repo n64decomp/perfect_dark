@@ -198,19 +198,10 @@ s32 func0f1168ec(s8 device, s32 arg1)
 	return func0f118230(device, arg1);
 }
 
-GLOBAL_ASM(
-glabel func0f116914
-/*  f116914:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f116918:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11691c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f116920:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f116924:	0fc45b25 */ 	jal	func0f116c94
-/*  f116928:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f11692c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116930:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f116934:	03e00008 */ 	jr	$ra
-/*  f116938:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 func0f116914(s8 device)
+{
+	return func0f116c94(device);
+}
 
 s32 func0f11693c(s8 device)
 {

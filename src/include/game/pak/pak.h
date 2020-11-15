@@ -16,7 +16,7 @@ s32 func0f116828(s8 arg0, s32 arg1, s32 arg2, void *arg3, s32 *arg4, s32 arg5);
 bool filemgrDeleteFile(s8 arg0, s32 arg1);
 s32 pakDeleteGameNote(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name);
 s32 func0f1168c4(s8 device, struct pakdata **arg1);
-u32 func0f116914(void);
+u32 func0f116914(s8 device);
 s32 func0f11693c(s8 device);
 void func0f116994(void);
 void func0f1169c8(s8 device, s32 arg1);
