@@ -76,7 +76,7 @@ u32 func0f119e8c(void);
 u32 func0f11a0e8(void);
 u32 func0f11a1d0(void);
 void func0f11a2e4(void);
-void func0f11a32c(s8 arg0, u32 arg1, u32 line, char *file);
+void func0f11a32c(s8 device, u8 arg1, u32 line, char *file);
 void func0f11a434(s8 arg0);
 u32 func0f11a504(u32 arg0, u32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u16 *arg6);
 s32 func0f11a574(s8 device);

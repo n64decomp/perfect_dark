@@ -4284,54 +4284,24 @@ s32 func0f11a2ec(s8 device)
 	return var800a2380[device].unk014;
 }
 
+void func0f11a32c(s8 device, u8 arg1, u32 line, char *file)
+{
+	if (var800a2380[device].unk014 == 0) {
+		var800a2380[device].unk014 = arg1;
+
+		if ((var800a2380[device].unk014 & 1) && var800a2380[device].unk2c0 == NULL) {
+			var800a2380[device].unk2be = 0;
+			var800a2380[device].unk2c0 = malloc(align32(0x708), 6);
+
+			// This would have been used in an osSyncPrintf call.
+			// Perhaps using the strings at var7f1b4318 through var7f1b43ac?
+			align32(0x708);
+		}
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f11a32c
-/*  f11a32c:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11a330:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f11a334:	000fc880 */ 	sll	$t9,$t7,0x2
-/*  f11a338:	032fc823 */ 	subu	$t9,$t9,$t7
-/*  f11a33c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11a340:	032fc823 */ 	subu	$t9,$t9,$t7
-/*  f11a344:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11a348:	032fc821 */ 	addu	$t9,$t9,$t7
-/*  f11a34c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11a350:	032fc823 */ 	subu	$t9,$t9,$t7
-/*  f11a354:	3c08800a */ 	lui	$t0,%hi(var800a2380)
-/*  f11a358:	25082380 */ 	addiu	$t0,$t0,%lo(var800a2380)
-/*  f11a35c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11a360:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f11a364:	03281821 */ 	addu	$v1,$t9,$t0
-/*  f11a368:	90690014 */ 	lbu	$t1,0x14($v1)
-/*  f11a36c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11a370:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f11a374:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f11a378:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f11a37c:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f11a380:	15200012 */ 	bnez	$t1,.L0f11a3cc
-/*  f11a384:	30b800ff */ 	andi	$t8,$a1,0xff
-/*  f11a388:	330b0001 */ 	andi	$t3,$t8,0x1
-/*  f11a38c:	1160000f */ 	beqz	$t3,.L0f11a3cc
-/*  f11a390:	a0780014 */ 	sb	$t8,0x14($v1)
-/*  f11a394:	8c6c02c0 */ 	lw	$t4,0x2c0($v1)
-/*  f11a398:	24040708 */ 	addiu	$a0,$zero,0x708
-/*  f11a39c:	5580000c */ 	bnezl	$t4,.L0f11a3d0
-/*  f11a3a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11a3a4:	a06002be */ 	sb	$zero,0x2be($v1)
-/*  f11a3a8:	0fc5db70 */ 	jal	align32
-/*  f11a3ac:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f11a3b0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f11a3b4:	0c0048f2 */ 	jal	malloc
-/*  f11a3b8:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f11a3bc:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f11a3c0:	24040708 */ 	addiu	$a0,$zero,0x708
-/*  f11a3c4:	0fc5db70 */ 	jal	align32
-/*  f11a3c8:	ac6202c0 */ 	sw	$v0,0x2c0($v1)
-.L0f11a3cc:
-/*  f11a3cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f11a3d0:
-/*  f11a3d0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f11a3d4:	03e00008 */ 	jr	$ra
-/*  f11a3d8:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f11a3dc
 /*  f11a3dc:	00047600 */ 	sll	$t6,$a0,0x18
 /*  f11a3e0:	000e7e03 */ 	sra	$t7,$t6,0x18
 /*  f11a3e4:	000fc080 */ 	sll	$t8,$t7,0x2
