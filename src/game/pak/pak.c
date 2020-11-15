@@ -157,48 +157,22 @@ u32 func0f116684(u32 arg0)
 	return arg0 - 16;
 }
 
-GLOBAL_ASM(
-glabel func0f11668c
-/*  f11668c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f116690:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f116694:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f116698:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f11669c:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f1166a0:	14810003 */ 	bne	$a0,$at,.L0f1166b0
-/*  f1166a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1166a8:	10000019 */ 	beqz	$zero,.L0f116710
-/*  f1166ac:	24020baa */ 	addiu	$v0,$zero,0xbaa
-.L0f1166b0:
-/*  f1166b0:	0004c080 */ 	sll	$t8,$a0,0x2
-/*  f1166b4:	0304c023 */ 	subu	$t8,$t8,$a0
-/*  f1166b8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1166bc:	0304c023 */ 	subu	$t8,$t8,$a0
-/*  f1166c0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1166c4:	0304c021 */ 	addu	$t8,$t8,$a0
-/*  f1166c8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1166cc:	0304c023 */ 	subu	$t8,$t8,$a0
-/*  f1166d0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1166d4:	3c19800a */ 	lui	$t9,%hi(var800a2380+0x2c8)
-/*  f1166d8:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f1166dc:	8f392648 */ 	lw	$t9,%lo(var800a2380+0x2c8)($t9)
-/*  f1166e0:	0c004b70 */ 	jal	random
-/*  f1166e4:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f1166e8:	240101f0 */ 	addiu	$at,$zero,0x1f0
-/*  f1166ec:	0041001b */ 	divu	$zero,$v0,$at
-/*  f1166f0:	00004010 */ 	mfhi	$t0
-/*  f1166f4:	25090010 */ 	addiu	$t1,$t0,0x10
-/*  f1166f8:	0c012144 */ 	jal	osGetCount
-/*  f1166fc:	afa90018 */ 	sw	$t1,0x18($sp)
-/*  f116700:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*  f116704:	8fab0018 */ 	lw	$t3,0x18($sp)
-/*  f116708:	014b6026 */ 	xor	$t4,$t2,$t3
-/*  f11670c:	01821026 */ 	xor	$v0,$t4,$v0
-.L0f116710:
-/*  f116710:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116714:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f116718:	03e00008 */ 	jr	$ra
-/*  f11671c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 func0f11668c(s8 device)
+{
+	s32 value;
+	s32 rand;
+	s32 count;
+
+	if (device == SAVEDEVICE_GAMEPAK) {
+		return 0xbaa;
+	}
+
+	value = var800a2380[device].unk2c8;
+	rand = (random() % 496) + 16; // range 16-511
+	count = osGetCount();
+
+	return value ^ rand ^ count;
+}
 
 bool pakIsConnected(s8 device)
 {

@@ -5118,7 +5118,7 @@ struct var800a2380 {
 	/*0x014*/ u8 unk014;
 	/*0x018*/ struct pakdata pakdata;
 	/*0x25c*/ u32 unk25c;
-	/*0x260*/ u16 unk260;
+	/*0x260*/ u16 unk260; // uuid?
 	/*0x262*/ u16 unk262;
 	/*0x264*/ u32 unk264;
 	/*0x268*/ u32 unk268;
