@@ -10106,24 +10106,13 @@ glabel pakSearch
 /*  f11e74c:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f11e750
-/*  f11e750:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f11e754:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11e758:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f11e75c:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11e760:	2418000a */ 	addiu	$t8,$zero,0xa
-/*  f11e764:	000e2603 */ 	sra	$a0,$t6,0x18
-/*  f11e768:	a3b80018 */ 	sb	$t8,0x18($sp)
-/*  f11e76c:	27a60018 */ 	addiu	$a2,$sp,0x18
-/*  f11e770:	00002825 */ 	or	$a1,$zero,$zero
-/*  f11e774:	0fc4731b */ 	jal	func0f11cc6c
-/*  f11e778:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f11e77c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11e780:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f11e784:	03e00008 */ 	jr	$ra
-/*  f11e788:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f11e750(s8 arg0)
+{
+	char sp18[32];
+	sp18[0] = '\n';
+
+	return func0f11cc6c(arg0, 0, sp18, 32);
+}
 
 bool func0f11e78c(void)
 {

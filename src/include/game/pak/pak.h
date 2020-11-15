@@ -130,7 +130,7 @@ u32 bitGetByIndex(u32 value, u32 *flags);
 void func0f11e5bc(u32 *flags);
 void func0f11e618(char *src, char *dst, u32 len);
 s8 pakSearch(s32 arg0);
-void func0f11e750(s8 arg0);
+s32 func0f11e750(s8 arg0);
 bool func0f11e78c(void);
 bool func0f11e7f0(char *a, char *b);
 s32 func0f11e844(s8 device);
