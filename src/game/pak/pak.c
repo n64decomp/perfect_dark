@@ -9662,30 +9662,17 @@ glabel bitGetByIndex
 /*  f11e5b8:	00601025 */ 	or	$v0,$v1,$zero
 );
 
+void savefileClearAllFlags(u32 *flags)
+{
+	s32 i;
+
+	for (i = 0; i <= SAVEFILEFLAG_4E; i++) {
+		bitSetByIndex(i, flags, false);
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f11e5bc
-/*  f11e5bc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f11e5c0:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f11e5c4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f11e5c8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f11e5cc:	00808825 */ 	or	$s1,$a0,$zero
-/*  f11e5d0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f11e5d4:	00008025 */ 	or	$s0,$zero,$zero
-/*  f11e5d8:	2412004f */ 	addiu	$s2,$zero,0x4f
-/*  f11e5dc:	02002025 */ 	or	$a0,$s0,$zero
-.L0f11e5e0:
-/*  f11e5e0:	02202825 */ 	or	$a1,$s1,$zero
-/*  f11e5e4:	0fc4794c */ 	jal	bitSetByIndex
-/*  f11e5e8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f11e5ec:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f11e5f0:	5612fffb */ 	bnel	$s0,$s2,.L0f11e5e0
-/*  f11e5f4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f11e5f8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f11e5fc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f11e600:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f11e604:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f11e608:	03e00008 */ 	jr	$ra
-/*  f11e60c:	27bd0028 */ 	addiu	$sp,$sp,0x28
+glabel func0f11e610
 /*  f11e610:	03e00008 */ 	jr	$ra
 /*  f11e614:	00801025 */ 	or	$v0,$a0,$zero
 );

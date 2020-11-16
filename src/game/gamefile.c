@@ -159,7 +159,7 @@ void savefileLoadDefaults(struct savefile_solo *file)
 	audioSetSoundMode(SOUNDMODE_STEREO);
 	optionsSetControlMode(player1, CONTROLMODE_11);
 	optionsSetControlMode(player2, CONTROLMODE_11);
-	func0f11e5bc(&file->flags);
+	savefileClearAllFlags(&file->flags);
 
 	bitSetByIndex(SAVEFILEFLAG_P1_FORWARDPITCH, &file->flags, false);
 	bitSetByIndex(SAVEFILEFLAG_P1_AUTOAIM, &file->flags, true);

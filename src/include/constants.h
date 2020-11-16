@@ -2579,6 +2579,9 @@
 #define SAVEFILEFLAG_HOWTO_DOORS          0x49
 #define SAVEFILEFLAG_HOWTO_ELEVATORS      0x4a
 #define SAVEFILEFLAG_HOWTO_TERMINALS      0x4b
+#define SAVEFILEFLAG_4C                   0x4c
+#define SAVEFILEFLAG_4D                   0x4d
+#define SAVEFILEFLAG_4E                   0x4e
 
 #define SCREENRATIO_NORMAL 0
 #define SCREENRATIO_16_9   1

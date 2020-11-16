@@ -127,7 +127,7 @@ s32 pakReadEeprom(u8 address, u8 *buffer, u32 len);
 s32 pakWriteEeprom(u8 address, u8 *buffer, u32 len);
 void bitSetByIndex(u32 value, u32 *flags, bool set);
 u32 bitGetByIndex(u32 value, u32 *flags);
-void func0f11e5bc(u32 *flags);
+void savefileClearAllFlags(u32 *flags);
 void func0f11e618(char *src, char *dst, u32 len);
 s8 pakSearch(s32 arg0);
 s32 func0f11e750(s8 arg0);
