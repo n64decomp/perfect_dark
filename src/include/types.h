@@ -5118,8 +5118,7 @@ struct var800a2380 {
 	/*0x014*/ u8 unk014;
 	/*0x018*/ struct pakdata pakdata;
 	/*0x25c*/ u32 unk25c;
-	/*0x260*/ u16 unk260; // uuid?
-	/*0x262*/ u16 unk262;
+	/*0x260*/ u32 unk260;
 	/*0x264*/ u32 unk264;
 	/*0x268*/ u32 unk268;
 	/*0x26c*/ u32 unk26c;
@@ -5134,7 +5133,7 @@ struct var800a2380 {
 	/*0x290*/ u32 unk290;
 	/*0x294*/ u32 unk294;
 	/*0x298*/ u32 unk298;
-	/*0x29c*/ u32 unk29c;
+	/*0x29c*/ s32 unk29c;
 	/*0x2a0*/ u32 unk2a0;
 	/*0x2a4*/ u32 unk2a4;
 	/*0x2a8*/ u32 unk2a8;
@@ -5147,6 +5146,7 @@ struct var800a2380 {
 	/*0x2b8*/ u8 unk2b8_04 : 1;
 	/*0x2b8*/ u8 unk2b8_05 : 1;
 	/*0x2b8*/ u8 unk2b8_06 : 1;
+	/*0x2b8*/ u8 unk2b8_07 : 1;
 	/*0x2b9*/ u8 unk2b9;
 	/*0x2ba*/ u8 unk2ba;
 	/*0x2bb*/ u8 unk2bb;

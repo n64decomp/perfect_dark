@@ -294,7 +294,7 @@ void func0f116c2c(s8 index)
 
 u16 func0f116c54(s8 device)
 {
-	return var800a2380[device].unk262;
+	return var800a2380[device].unk260;
 }
 
 u32 func0f116c94(s8 device)
@@ -4366,6 +4366,33 @@ glabel func0f11a434
 /*  f11a4fc:	03e00008 */ 	jr	$ra
 /*  f11a500:	e44402b4 */ 	swc1	$f4,0x2b4($v0)
 );
+
+// Mismatch due to regalloc
+//void func0f11a434(s8 device)
+//{
+//	var800a2380[device].unk274 = 3;
+//	var800a2380[device].unk014 = 0;
+//	var800a2380[device].unk000 = 0;
+//	var800a2380[device].unk008 = 1;
+//	var800a2380[device].unk004 = 1;
+//	var800a2380[device].unk00c = 3;
+//	var800a2380[device].unk010 = 0;
+//	var800a2380[device].unk29c = -1;
+//	var800a2380[device].unk2bd = 128;
+//	var800a2380[device].unk264 = 0;
+//	var800a2380[device].unk2b8_01 = 0;
+//	var800a2380[device].unk2b8_05 = 0;
+//	var800a2380[device].unk2b8_03 = 0;
+//	var800a2380[device].unk2b8_02 = 0;
+//	var800a2380[device].unk2b8_06 = 0;
+//	var800a2380[device].unk2b8_07 = 0;
+//	var800a2380[device].unk2c0 = NULL;
+//	var800a2380[device].unk2c4 = NULL;
+//	var800a2380[device].unk25c = 8;
+//	var800a2380[device].unk260 = 0;
+//	var800a2380[device].unk2c8 = 0;
+//	var800a2380[device].unk2b4 = -1;
+//}
 
 GLOBAL_ASM(
 glabel func0f11a504
