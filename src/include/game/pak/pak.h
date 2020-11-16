@@ -99,7 +99,7 @@ void pakExecuteDebugOperations(void);
 void func0f11ca30(void);
 void func0f11cb9c(u32 arg0);
 s32 func0f11cbd8(s8 arg0, s32 arg1, char *arg2, s32 arg3);
-s32 func0f11cc6c(s8 arg0, s32 arg1, char *arg2, s32 arg3);
+s32 func0f11cc6c(s8 device, u16 arg1, char *arg2, u16 arg3);
 s32 func0f11cd00(s8 arg0, s32 arg1, char *arg2, s32 arg3, bool arg4);
 s32 func0f11ce00(s8 arg0, s32 arg1, char *arg2, s32 arg3, bool arg4);
 u32 func0f11d118(void);

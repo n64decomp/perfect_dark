@@ -7482,50 +7482,18 @@ glabel func0f11cbd8
 /*  f11cc68:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f11cc6c
-/*  f11cc6c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f11cc70:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f11cc74:	83ae0023 */ 	lb	$t6,0x23($sp)
-/*  f11cc78:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11cc7c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f11cc80:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f11cc84:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f11cc88:	15c10003 */ 	bne	$t6,$at,.L0f11cc98
-/*  f11cc8c:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f11cc90:	1000000a */ 	beqz	$zero,.L0f11ccbc
-/*  f11cc94:	00002025 */ 	or	$a0,$zero,$zero
-.L0f11cc98:
-/*  f11cc98:	83af0023 */ 	lb	$t7,0x23($sp)
-/*  f11cc9c:	3c19800a */ 	lui	$t9,%hi(var800a3180)
-/*  f11cca0:	27393180 */ 	addiu	$t9,$t9,%lo(var800a3180)
-/*  f11cca4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f11cca8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11ccac:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11ccb0:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f11ccb4:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f11ccb8:	03192021 */ 	addu	$a0,$t8,$t9
-.L0f11ccbc:
-/*  f11ccbc:	97a8002e */ 	lhu	$t0,0x2e($sp)
-/*  f11ccc0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f11ccc4:	97a60026 */ 	lhu	$a2,0x26($sp)
-/*  f11ccc8:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f11cccc:	0c0144ec */ 	jal	func000513b0
-/*  f11ccd0:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f11ccd4:	10400005 */ 	beqz	$v0,.L0f11ccec
-/*  f11ccd8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f11ccdc:	0fc472e7 */ 	jal	func0f11cb9c
-/*  f11cce0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11cce4:	10000002 */ 	beqz	$zero,.L0f11ccf0
-/*  f11cce8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f11ccec:
-/*  f11ccec:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f11ccf0:
-/*  f11ccf0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f11ccf4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f11ccf8:	03e00008 */ 	jr	$ra
-/*  f11ccfc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f11cc6c(s8 device, u16 arg1, char *arg2, u16 arg3)
+{
+	s32 result = func000513b0(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device],
+			true, arg1, arg2, arg3);
+
+	if (result) {
+		func0f11cb9c(result);
+		return false;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f11cd00
