@@ -7439,50 +7439,18 @@ void func0f11cbd0(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f11cbd8
-/*  f11cbd8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f11cbdc:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f11cbe0:	83ae0023 */ 	lb	$t6,0x23($sp)
-/*  f11cbe4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11cbe8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f11cbec:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f11cbf0:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f11cbf4:	15c10003 */ 	bne	$t6,$at,.L0f11cc04
-/*  f11cbf8:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f11cbfc:	1000000a */ 	beqz	$zero,.L0f11cc28
-/*  f11cc00:	00002025 */ 	or	$a0,$zero,$zero
-.L0f11cc04:
-/*  f11cc04:	83af0023 */ 	lb	$t7,0x23($sp)
-/*  f11cc08:	3c19800a */ 	lui	$t9,%hi(var800a3180)
-/*  f11cc0c:	27393180 */ 	addiu	$t9,$t9,%lo(var800a3180)
-/*  f11cc10:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f11cc14:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11cc18:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11cc1c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f11cc20:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f11cc24:	03192021 */ 	addu	$a0,$t8,$t9
-.L0f11cc28:
-/*  f11cc28:	97a8002e */ 	lhu	$t0,0x2e($sp)
-/*  f11cc2c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f11cc30:	97a60026 */ 	lhu	$a2,0x26($sp)
-/*  f11cc34:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f11cc38:	0c0144ec */ 	jal	func000513b0
-/*  f11cc3c:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f11cc40:	10400005 */ 	beqz	$v0,.L0f11cc58
-/*  f11cc44:	00402025 */ 	or	$a0,$v0,$zero
-/*  f11cc48:	0fc472e7 */ 	jal	func0f11cb9c
-/*  f11cc4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11cc50:	10000002 */ 	beqz	$zero,.L0f11cc5c
-/*  f11cc54:	00001025 */ 	or	$v0,$zero,$zero
-.L0f11cc58:
-/*  f11cc58:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f11cc5c:
-/*  f11cc5c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f11cc60:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f11cc64:	03e00008 */ 	jr	$ra
-/*  f11cc68:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f11cbd8(s8 device, s32 arg1, char *arg2, u16 arg3)
+{
+	s32 result = func000513b0(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device],
+			false, arg1, arg2, arg3);
+
+	if (result) {
+		func0f11cb9c(result);
+		return false;
+	}
+
+	return true;
+}
 
 s32 func0f11cc6c(s8 device, u16 arg1, char *arg2, u16 arg3)
 {
