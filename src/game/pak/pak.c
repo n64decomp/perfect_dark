@@ -7429,11 +7429,10 @@ void func0f11cb9c(u32 arg0)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f11cbc8
-/*  f11cbc8:	03e00008 */ 	jr	$ra
-/*  f11cbcc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f11cbc8(void)
+{
+	// empty
+}
 
 void func0f11cbd0(void)
 {
