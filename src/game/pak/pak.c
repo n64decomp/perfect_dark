@@ -356,47 +356,23 @@ s32 func0f116e84(s8 device, u16 company_code, u32 game_code, char *game_name, ch
 	return 1;
 }
 
-GLOBAL_ASM(
-glabel func0f116fa0
-/*  f116fa0:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f116fa4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f116fa8:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f116fac:	83a4004b */ 	lb	$a0,0x4b($sp)
-/*  f116fb0:	0fc464da */ 	jal	func0f119368
-/*  f116fb4:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f116fb8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f116fbc:	14410003 */ 	bne	$v0,$at,.L0f116fcc
-/*  f116fc0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f116fc4:	10000015 */ 	beqz	$zero,.L0f11701c
-/*  f116fc8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f116fcc:
-/*  f116fcc:	8faf0044 */ 	lw	$t7,0x44($sp)
-/*  f116fd0:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f116fd4:	83a4004b */ 	lb	$a0,0x4b($sp)
-/*  f116fd8:	000fc500 */ 	sll	$t8,$t7,0x14
-/*  f116fdc:	0018cdc2 */ 	srl	$t9,$t8,0x17
-/*  f116fe0:	27280001 */ 	addiu	$t0,$t9,0x1
-/*  f116fe4:	000675c2 */ 	srl	$t6,$a2,0x17
-/*  f116fe8:	01c03025 */ 	or	$a2,$t6,$zero
-/*  f116fec:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f116ff0:	00003825 */ 	or	$a3,$zero,$zero
-/*  f116ff4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f116ff8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f116ffc:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f117000:	0fc46f15 */ 	jal	func0f11bc54
-/*  f117004:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f117008:	50400004 */ 	beqzl	$v0,.L0f11701c
-/*  f11700c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f117010:	10000003 */ 	beqz	$zero,.L0f117020
-/*  f117014:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f117018:	00001025 */ 	or	$v0,$zero,$zero
-.L0f11701c:
-/*  f11701c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f117020:
-/*  f117020:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f117024:	03e00008 */ 	jr	$ra
-/*  f117028:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f116fa0(s8 device, s32 arg1)
+{
+	struct pakthing16 sp38;
+	s32 result = func0f119368(device, arg1, &sp38);
+
+	if (result == -1) {
+		return true;
+	}
+
+	result = func0f11bc54(device, result, sp38.unk08_01, 0, 0, 0, 0, 0, sp38.unk0c_21 + 1);
+
+	if (result) {
+		return result;
+	}
+
+	return false;
+}
 
 s32 func0f11702c(s8 device)
 {

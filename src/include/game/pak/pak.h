@@ -28,7 +28,7 @@ u32 func0f116c94(s8 device);
 void func0f116db0(s8 device, s32 value);
 s32 func0f116df0(s8 device, struct pakdata **arg1);
 s32 func0f116e84(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name);
-bool func0f116fa0(s8 arg0, s32 arg1);
+bool func0f116fa0(s8 device, s32 arg1);
 s32 func0f11702c(s8 device);
 u32 func0f11706c(s8 device);
 s32 func0f117094(s8 arg0, u32 arg1);
@@ -65,7 +65,7 @@ s32 func0f118d18(s8 device, u32 arg1, u32 *buffer1024);
 s32 func0f1190bc(s8 device, s32 arg1, s32 *arg2);
 u32 func0f119298(s8 index);
 void func0f119340(u32 arg0);
-u32 func0f119368(s32 device, u32 arg1, u8 *buffer16);
+u32 func0f119368(s32 device, u32 arg1, struct pakthing16 *pakthing16);
 #if VERSION >= VERSION_NTSC_FINAL
 bool func0f119478(u32 arg0, u32 arg1, u32 *arg2);
 #endif
@@ -90,7 +90,7 @@ void pakForceScrub(s32 arg0);
 u32 func0f11b75c(void);
 u32 func0f11b86c(void);
 u32 func0f11bbd8(void);
-u32 func0f11bc54(s8 arg0, u32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 arg6, u32 arg7, u32 arg8);
+u32 func0f11bc54(s8 device, u32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 arg6, u32 arg7, u32 arg8);
 bool pakRepair(s32 arg0);
 u32 func0f11c39c(u32 arg0, s8 device, u32 ar2, u32 arg3);
 void func0f11c54c(void);

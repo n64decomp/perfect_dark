@@ -6856,4 +6856,14 @@ struct pakthing {
 	u16 unk10;
 };
 
+struct pakthing16 {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08_01 : 9;
+	u32 unk08_10 : 3;
+	u32 unk08_fill : 20;
+	u32 unk0c_01 : 20;
+	u32 unk0c_21 : 9;
+};
+
 #endif
