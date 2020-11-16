@@ -9671,11 +9671,10 @@ void savefileClearAllFlags(u32 *flags)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f11e610
-/*  f11e610:	03e00008 */ 	jr	$ra
-/*  f11e614:	00801025 */ 	or	$v0,$a0,$zero
-);
+u32 func0f11e610(u32 arg0)
+{
+	return arg0;
+}
 
 GLOBAL_ASM(
 glabel func0f11e618
