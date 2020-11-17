@@ -1093,7 +1093,7 @@ u32 func0f117e58(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 *arg5)
 		u16 sp44[4];
 
 		*arg5 = 0;
-		a = func0f11a504(4, 0, 0, 0, 0, align16(0x10), sp56);
+		a = func0f11a504(SAVEDEVICE_GAMEPAK, 0, 0, 0, 0, align16(0x10), (u8 *)sp56);
 
 		if (func0f11c39c(a, SAVEDEVICE_GAMEPAK, 1, 0x60f)) {
 			func0f118ae4(sp64, sp64 + sizeof(sp64), sp44);
