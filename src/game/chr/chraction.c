@@ -179,41 +179,24 @@ bool weaponIsOneHanded(struct prop *prop)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f02e15c
-.late_rodata
-glabel var7f1a8cf0
-.word 0x3c23d70a
-.text
-/*  f02e15c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f02e160:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f02e164:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f02e168:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f02e16c:	808e0003 */ 	lb	$t6,0x3($a0)
-/*  f02e170:	448e2000 */ 	mtc1	$t6,$f4
-/*  f02e174:	00000000 */ 	nop
-/*  f02e178:	468020a0 */ 	cvt.s.w	$f2,$f4
-/*  f02e17c:	0fc06c28 */ 	jal	pdmodeGetReaction
-/*  f02e180:	e7a2001c */ 	swc1	$f2,0x1c($sp)
-/*  f02e184:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f02e188:	44813000 */ 	mtc1	$at,$f6
-/*  f02e18c:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
-/*  f02e190:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f02e194:	c7b00028 */ 	lwc1	$f16,0x28($sp)
-/*  f02e198:	46023201 */ 	sub.s	$f8,$f6,$f2
-/*  f02e19c:	3c017f1b */ 	lui	$at,%hi(var7f1a8cf0)
-/*  f02e1a0:	c4268cf0 */ 	lwc1	$f6,%lo(var7f1a8cf0)($at)
-/*  f02e1a4:	460c8481 */ 	sub.s	$f18,$f16,$f12
-/*  f02e1a8:	46080282 */ 	mul.s	$f10,$f0,$f8
-/*  f02e1ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f02e1b0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f02e1b4:	46025080 */ 	add.s	$f2,$f10,$f2
-/*  f02e1b8:	46029102 */ 	mul.s	$f4,$f18,$f2
-/*  f02e1bc:	00000000 */ 	nop
-/*  f02e1c0:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f02e1c4:	03e00008 */ 	jr	$ra
-/*  f02e1c8:	460c4000 */ 	add.s	$f0,$f8,$f12
-);
+/**
+ * Returns a value between min and max based on the chr's speedrating property.
+ *
+ * chr->speedrating is between 0 and 100. The result is scaled between min and
+ * max accordingly.
+ *
+ * This function also applies the PD mode reaction speed, but the PD mode
+ * reaction speed is always zero because PD doesn't have it in the settings.
+ * It was used in GE but disabled in PD.
+ */
+f32 chrGetRangedSpeed(struct chrdata *chr, f32 min, f32 max)
+{
+	f32 speedrating = chr->speedrating;
+
+	speedrating = pdmodeGetReaction() * (100.0f - speedrating) + speedrating;
+
+	return (max - min) * speedrating * 0.01f + min;
+}
 
 GLOBAL_ASM(
 glabel func0f02e1cc
@@ -527,7 +510,7 @@ void chrStandChooseAnimation(struct chrdata *chr, f32 arg1)
 		if (prevanimnum == ANIM_SNIPING_0269
 				|| prevanimnum == ANIM_SNIPING_026B
 				|| prevanimnum == ANIM_SNIPING_026A) {
-			modelSetAnimation(chr->model, ANIM_SNIPING_026B, chr->model->anim->flip, -1, func0f02e15c(chr, 0.5, 0.8), 16);
+			modelSetAnimation(chr->model, ANIM_SNIPING_026B, chr->model->anim->flip, -1, chrGetRangedSpeed(chr, 0.5, 0.8), 16);
 		} else if ((gun1 && gun2) || (!gun1 && !gun2)
 				|| weaponIsOneHanded(gun1)
 				|| weaponIsOneHanded(gun2)) {
@@ -607,12 +590,12 @@ void chrStand(struct chrdata *chr)
 
 			if (chr->aibot == NULL) {
 				if (modelGetAnimNum(chr->model) == ANIM_KNEEL_SHOOT_RIGHT_HAND) {
-					result = func0f02e15c(chr, 0.5, 0.8);
+					result = chrGetRangedSpeed(chr, 0.5, 0.8);
 					modelSetAnimation(chr->model, ANIM_KNEEL_SHOOT_RIGHT_HAND,
 							chr->model->anim->flip, 109, result, 16);
 					modelSetAnimEndFrame(chr->model, 140);
 				} else {
-					result = func0f02e15c(chr, 0.5, 0.8);
+					result = chrGetRangedSpeed(chr, 0.5, 0.8);
 					modelSetAnimation(chr->model, ANIM_KNEEL_TWO_HANDED_GUN,
 							chr->model->anim->flip, 120, result, 16);
 					modelSetAnimEndFrame(chr->model, 151);
@@ -678,10 +661,10 @@ void chrKneelChooseAnimation(struct chrdata *chr)
 				|| weaponIsOneHanded(gun1)
 				|| weaponIsOneHanded(gun2)) {
 			bool flip = random() % 2;
-			modelSetAnimation(chr->model, 0x4b, flip, 0, func0f02e15c(chr, 0.5, 0.8), 16);
+			modelSetAnimation(chr->model, 0x4b, flip, 0, chrGetRangedSpeed(chr, 0.5, 0.8), 16);
 			modelSetAnimEndFrame(chr->model, 28);
 		} else if (gun2 || gun1) {
-			modelSetAnimation(chr->model, 0x08, gun1 != NULL, 0, func0f02e15c(chr, 0.5, 0.8), 16);
+			modelSetAnimation(chr->model, 0x08, gun1 != NULL, 0, chrGetRangedSpeed(chr, 0.5, 0.8), 16);
 			modelSetAnimEndFrame(chr->model, 27);
 		}
 	}
@@ -737,19 +720,19 @@ void chrThrowGrenadeChooseAnimation(struct chrdata *chr)
 
 	if (chr->act_throwgrenade.needsequip) {
 		if (rand % 3 == 0) {
-			modelSetAnimation(chr->model, 0x244, chr->act_throwgrenade.hand != 0, 0, func0f02e15c(chr, 0.5, 1.2), 16);
+			modelSetAnimation(chr->model, 0x244, chr->act_throwgrenade.hand != 0, 0, chrGetRangedSpeed(chr, 0.5, 1.2), 16);
 		} else if (rand % 3 == 1) {
-			modelSetAnimation(chr->model, 0x242, chr->act_throwgrenade.hand != 0, 0, func0f02e15c(chr, 0.5, 1.2), 16);
+			modelSetAnimation(chr->model, 0x242, chr->act_throwgrenade.hand != 0, 0, chrGetRangedSpeed(chr, 0.5, 1.2), 16);
 		} else {
-			modelSetAnimation(chr->model, 0x3e, chr->act_throwgrenade.hand != 0, 0, func0f02e15c(chr, 0.5, 1.2), 16);
+			modelSetAnimation(chr->model, 0x3e, chr->act_throwgrenade.hand != 0, 0, chrGetRangedSpeed(chr, 0.5, 1.2), 16);
 		}
 	} else {
 		if (rand % 3 == 0) {
-			modelSetAnimation(chr->model, 0x244, chr->act_throwgrenade.hand != 0, 5, func0f02e15c(chr, 0.5, 1.2), 16);
+			modelSetAnimation(chr->model, 0x244, chr->act_throwgrenade.hand != 0, 5, chrGetRangedSpeed(chr, 0.5, 1.2), 16);
 		} else if (rand % 3 == 1) {
-			modelSetAnimation(chr->model, 0x242, chr->act_throwgrenade.hand != 0, 6, func0f02e15c(chr, 0.5, 1.2), 16);
+			modelSetAnimation(chr->model, 0x242, chr->act_throwgrenade.hand != 0, 6, chrGetRangedSpeed(chr, 0.5, 1.2), 16);
 		} else {
-			modelSetAnimation(chr->model, 0x3e, chr->act_throwgrenade.hand != 0, 84, func0f02e15c(chr, 0.5, 1.2), 16);
+			modelSetAnimation(chr->model, 0x3e, chr->act_throwgrenade.hand != 0, 84, chrGetRangedSpeed(chr, 0.5, 1.2), 16);
 		}
 	}
 
@@ -785,21 +768,21 @@ void chrSurprisedChooseAnimation(struct chrdata *chr)
 			flip = random() & 1;
 		}
 
-		modelSetAnimation(chr->model, 0x3f, flip, 10, func0f02e15c(chr, 0.6f, 0.96000003f), 16);
+		modelSetAnimation(chr->model, 0x3f, flip, 10, chrGetRangedSpeed(chr, 0.6f, 0.96000003f), 16);
 		modelSetAnimEndFrame(chr->model, 52);
 	} else if (chr->act_surprised.type == 2) {
-		modelSetAnimation(chr->model, ANIM_SURRENDER_002E, random() & 1, 0, func0f02e15c(chr, 0.35f, 0.56f), 16);
+		modelSetAnimation(chr->model, ANIM_SURRENDER_002E, random() & 1, 0, chrGetRangedSpeed(chr, 0.35f, 0.56f), 16);
 		modelSetAnimEndFrame(chr->model, 7);
 	} else {
 		u32 part = random() % 3;
 		modelSetAnimation(chr->model, 0x40, random() & 1, 17, 0.6f, 16);
 
 		if (part == 0) {
-			modelSetAnimEndFrame(chr->model, func0f02e15c(chr, 38, 8));
+			modelSetAnimEndFrame(chr->model, chrGetRangedSpeed(chr, 38, 8));
 		} else if (part == 1) {
-			modelSetAnimEndFrame(chr->model, func0f02e15c(chr, 66, 8));
+			modelSetAnimEndFrame(chr->model, chrGetRangedSpeed(chr, 66, 8));
 		} else {
-			modelSetAnimEndFrame(chr->model, func0f02e15c(chr, 96, 8));
+			modelSetAnimEndFrame(chr->model, chrGetRangedSpeed(chr, 96, 8));
 		}
 	}
 }
@@ -924,27 +907,27 @@ void chrSidestepChooseAnimation(struct chrdata *chr)
 	if (race == RACE_HUMAN) {
 		if (allowflip == false) {
 			if (chr->act_sidestep.side) {
-				modelSetAnimation(chr->model, 0x68, true, 5, func0f02e15c(chr, 0.55, 0.88000005), 16);
+				modelSetAnimation(chr->model, 0x68, true, 5, chrGetRangedSpeed(chr, 0.55, 0.88000005), 16);
 				modelSetAnimEndFrame(chr->model, 36);
 			} else {
-				modelSetAnimation(chr->model, 0x68, false, 5, func0f02e15c(chr, 0.55, 0.88000005), 16);
+				modelSetAnimation(chr->model, 0x68, false, 5, chrGetRangedSpeed(chr, 0.55, 0.88000005), 16);
 				modelSetAnimEndFrame(chr->model, 36);
 			}
 		} else {
 			if ((chr->act_sidestep.side && !flip) || (chr->act_sidestep.side == 0 && flip)) {
-				modelSetAnimation(chr->model, 0x3b, flip, 5, func0f02e15c(chr, 0.7, 1.12), 16);
+				modelSetAnimation(chr->model, 0x3b, flip, 5, chrGetRangedSpeed(chr, 0.7, 1.12), 16);
 				modelSetAnimEndFrame(chr->model, 34);
 			} else {
-				modelSetAnimation(chr->model, 0x3a, flip, 5, func0f02e15c(chr, 0.7, 1.12), 16);
+				modelSetAnimation(chr->model, 0x3a, flip, 5, chrGetRangedSpeed(chr, 0.7, 1.12), 16);
 				modelSetAnimEndFrame(chr->model, 32);
 			}
 		}
 	} else if (race == RACE_SKEDAR) {
 		if (chr->act_sidestep.side) {
-			modelSetAnimation(chr->model, 0x328, false, 5, func0f02e15c(chr, 0.55, 0.88000005), 16);
+			modelSetAnimation(chr->model, 0x328, false, 5, chrGetRangedSpeed(chr, 0.55, 0.88000005), 16);
 			modelSetAnimEndFrame(chr->model, 27);
 		} else {
-			modelSetAnimation(chr->model, 0x328, true, 5, func0f02e15c(chr, 0.55, 0.88000005), 16);
+			modelSetAnimation(chr->model, 0x328, true, 5, chrGetRangedSpeed(chr, 0.55, 0.88000005), 16);
 			modelSetAnimEndFrame(chr->model, 27);
 		}
 	}
@@ -979,10 +962,10 @@ void chrJumpOutChooseAnimation(struct chrdata *chr)
 	}
 
 	if ((chr->act_jumpout.side && !flip) || (chr->act_jumpout.side == 0 && flip)) {
-		modelSetAnimation(chr->model, 0x68, true, 5, func0f02e15c(chr, 0.55, 0.88000005), 16);
+		modelSetAnimation(chr->model, 0x68, true, 5, chrGetRangedSpeed(chr, 0.55, 0.88000005), 16);
 		modelSetAnimEndFrame(chr->model, 36);
 	} else {
-		modelSetAnimation(chr->model, 0x68, false, 5, func0f02e15c(chr, 0.55, 0.88000005), 16);
+		modelSetAnimation(chr->model, 0x68, false, 5, chrGetRangedSpeed(chr, 0.55, 0.88000005), 16);
 		modelSetAnimEndFrame(chr->model, 36);
 	}
 }
@@ -1717,7 +1700,7 @@ glabel chrAttackWalk
 void chrAttackRollChooseAnimation(struct chrdata *chr)
 {
 	modelSetAnimation(chr->model,chr->act_attackroll.animfloats->animnum, chr->act_attackroll.flip,
-			chr->act_attackroll.animfloats->unk10, func0f02e15c(chr, 0.5, 0.8), 16);
+			chr->act_attackroll.animfloats->unk10, chrGetRangedSpeed(chr, 0.5, 0.8), 16);
 
 	if (chr->act_attackroll.unk035 == 0) {
 		if (chr->act_attackroll.unk036) {
@@ -2310,7 +2293,7 @@ glabel var7f1a8d18
 /*  f03145c:	afaa0080 */ 	sw	$t2,0x80($sp)
 /*  f031460:	34c6cccd */ 	ori	$a2,$a2,0xcccd
 /*  f031464:	02202025 */ 	or	$a0,$s1,$zero
-/*  f031468:	0fc0b857 */ 	jal	func0f02e15c
+/*  f031468:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f03146c:	3c053f00 */ 	lui	$a1,0x3f00
 /*  f031470:	3c014180 */ 	lui	$at,0x4180
 /*  f031474:	44812000 */ 	mtc1	$at,$f4
@@ -2586,7 +2569,7 @@ glabel var7f1a8d18
 .L0f031848:
 /*  f031848:	3c063f4c */ 	lui	$a2,0x3f4c
 /*  f03184c:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f031850:	0fc0b857 */ 	jal	func0f02e15c
+/*  f031850:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f031854:	3c053f00 */ 	lui	$a1,0x3f00
 /*  f031858:	8fb90080 */ 	lw	$t9,0x80($sp)
 /*  f03185c:	3c014180 */ 	lui	$at,0x4180
@@ -17906,7 +17889,7 @@ glabel func0f041c44
 /*  f041cb0:	ac89002c */ 	sw	$t1,0x2c($a0)
 /*  f041cb4:	a0800008 */ 	sb	$zero,0x8($a0)
 /*  f041cb8:	34a53333 */ 	ori	$a1,$a1,0x3333
-/*  f041cbc:	0fc0b857 */ 	jal	func0f02e15c
+/*  f041cbc:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f041cc0:	afa2002c */ 	sw	$v0,0x2c($sp)
 /*  f041cc4:	3c0141b0 */ 	lui	$at,0x41b0
 /*  f041cc8:	44812000 */ 	mtc1	$at,$f4
@@ -17962,7 +17945,7 @@ glabel func0f041d38
 /*  f041d78:	34c6cccd */ 	ori	$a2,$a2,0xcccd
 /*  f041d7c:	a7a2002e */ 	sh	$v0,0x2e($sp)
 /*  f041d80:	02202025 */ 	or	$a0,$s1,$zero
-/*  f041d84:	0fc0b857 */ 	jal	func0f02e15c
+/*  f041d84:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f041d88:	3c053f00 */ 	lui	$a1,0x3f00
 /*  f041d8c:	8e0f0020 */ 	lw	$t7,0x20($s0)
 /*  f041d90:	8e38002c */ 	lw	$t8,0x2c($s1)
@@ -17984,7 +17967,7 @@ glabel func0f041d38
 /*  f041dcc:	34c6cccd */ 	ori	$a2,$a2,0xcccd
 /*  f041dd0:	a7a2002e */ 	sh	$v0,0x2e($sp)
 /*  f041dd4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f041dd8:	0fc0b857 */ 	jal	func0f02e15c
+/*  f041dd8:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f041ddc:	3c053f00 */ 	lui	$a1,0x3f00
 /*  f041de0:	8e190020 */ 	lw	$t9,0x20($s0)
 /*  f041de4:	8e28002c */ 	lw	$t0,0x2c($s1)
@@ -18095,7 +18078,7 @@ glabel var7f1a918c
 /*  f041f54:	4405c000 */ 	mfc1	$a1,$f24
 /*  f041f58:	34c6cccd */ 	ori	$a2,$a2,0xcccd
 /*  f041f5c:	01408825 */ 	or	$s1,$t2,$zero
-/*  f041f60:	0fc0b857 */ 	jal	func0f02e15c
+/*  f041f60:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f041f64:	02002025 */ 	or	$a0,$s0,$zero
 /*  f041f68:	8e6c0020 */ 	lw	$t4,0x20($s3)
 /*  f041f6c:	8e0d002c */ 	lw	$t5,0x2c($s0)
@@ -18325,7 +18308,7 @@ glabel var7f1a918c
 /*  f0422a0:	46028081 */ 	sub.s	$f2,$f16,$f2
 .L0f0422a4:
 /*  f0422a4:	e7a20050 */ 	swc1	$f2,0x50($sp)
-/*  f0422a8:	0fc0b857 */ 	jal	func0f02e15c
+/*  f0422a8:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f0422ac:	e7ac004c */ 	swc1	$f12,0x4c($sp)
 /*  f0422b0:	c7ac004c */ 	lwc1	$f12,0x4c($sp)
 /*  f0422b4:	c7a20050 */ 	lwc1	$f2,0x50($sp)
@@ -18470,7 +18453,7 @@ glabel var7f1a918c
 /*  f0424b0:	4405c000 */ 	mfc1	$a1,$f24
 /*  f0424b4:	3c063f4c */ 	lui	$a2,0x3f4c
 /*  f0424b8:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f0424bc:	0fc0b857 */ 	jal	func0f02e15c
+/*  f0424bc:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f0424c0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0424c4:	44050000 */ 	mfc1	$a1,$f0
 /*  f0424c8:	4406b000 */ 	mfc1	$a2,$f22
@@ -18480,7 +18463,7 @@ glabel var7f1a918c
 /*  f0424d8:	26310001 */ 	addiu	$s1,$s1,0x1
 .L0f0424dc:
 /*  f0424dc:	4405c000 */ 	mfc1	$a1,$f24
-/*  f0424e0:	0fc0b857 */ 	jal	func0f02e15c
+/*  f0424e0:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f0424e4:	34c6cccd */ 	ori	$a2,$a2,0xcccd
 /*  f0424e8:	44050000 */ 	mfc1	$a1,$f0
 /*  f0424ec:	4406b000 */ 	mfc1	$a2,$f22
@@ -18581,7 +18564,7 @@ void chrTickAttackAmount(struct chrdata *chr)
 	f32 frame = modelGetCurAnimFrame(model);
 	f32 unk0c = chr->act_attackamount.unk02c->unk0c;
 	f32 unk04 = chr->act_attackamount.unk02c->unk04;
-	f32 thing = func0f02e15c(chr, 1, 1.6f);
+	f32 thing = chrGetRangedSpeed(chr, 1, 1.6f);
 
 	func0f03e788(chr, 1, unk04, thing, unk0c);
 
@@ -19232,7 +19215,7 @@ glabel var7f1a91e0
 /*  f043038:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04303c:	3c063f4c */ 	lui	$a2,0x3f4c
 /*  f043040:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f043044:	0fc0b857 */ 	jal	func0f02e15c
+/*  f043044:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f043048:	3c053f00 */ 	lui	$a1,0x3f00
 /*  f04304c:	8e02002c */ 	lw	$v0,0x2c($s0)
 /*  f043050:	3c014180 */ 	lui	$at,0x4180
@@ -19268,7 +19251,7 @@ glabel var7f1a91e0
 /*  f0430c4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0430c8:	4500000d */ 	bc1f	.L0f043100
 /*  f0430cc:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f0430d0:	0fc0b857 */ 	jal	func0f02e15c
+/*  f0430d0:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f0430d4:	ae0a002c */ 	sw	$t2,0x2c($s0)
 /*  f0430d8:	8e02002c */ 	lw	$v0,0x2c($s0)
 /*  f0430dc:	3c014180 */ 	lui	$at,0x4180
@@ -19308,7 +19291,7 @@ glabel var7f1a91e0
 /*  f043158:	34c6cccd */ 	ori	$a2,$a2,0xcccd
 /*  f04315c:	a7a2002e */ 	sh	$v0,0x2e($sp)
 /*  f043160:	02002025 */ 	or	$a0,$s0,$zero
-/*  f043164:	0fc0b857 */ 	jal	func0f02e15c
+/*  f043164:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f043168:	3c053f00 */ 	lui	$a1,0x3f00
 /*  f04316c:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f043170:	c7a20034 */ 	lwc1	$f2,0x34($sp)
@@ -19435,7 +19418,7 @@ glabel var7f1a91e0
 /*  f043338:	34c6cccd */ 	ori	$a2,$a2,0xcccd
 /*  f04333c:	a7a2002e */ 	sh	$v0,0x2e($sp)
 /*  f043340:	02002025 */ 	or	$a0,$s0,$zero
-/*  f043344:	0fc0b857 */ 	jal	func0f02e15c
+/*  f043344:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f043348:	3c053f00 */ 	lui	$a1,0x3f00
 /*  f04334c:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f043350:	8e08002c */ 	lw	$t0,0x2c($s0)
@@ -19653,7 +19636,7 @@ glabel chrTickAttackRoll
 /*  f04363c:	34c6cccd */ 	ori	$a2,$a2,0xcccd
 /*  f043640:	e7a20034 */ 	swc1	$f2,0x34($sp)
 /*  f043644:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f043648:	0fc0b857 */ 	jal	func0f02e15c
+/*  f043648:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f04364c:	3c053f00 */ 	lui	$a1,0x3f00
 /*  f043650:	8fa3003c */ 	lw	$v1,0x3c($sp)
 /*  f043654:	c7a20034 */ 	lwc1	$f2,0x34($sp)
@@ -19811,7 +19794,7 @@ glabel chrTickAttackRoll
 /*  f043894:	34c6cccd */ 	ori	$a2,$a2,0xcccd
 /*  f043898:	a7a20026 */ 	sh	$v0,0x26($sp)
 /*  f04389c:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f0438a0:	0fc0b857 */ 	jal	func0f02e15c
+/*  f0438a0:	0fc0b857 */ 	jal	chrGetRangedSpeed
 /*  f0438a4:	3c053f00 */ 	lui	$a1,0x3f00
 /*  f0438a8:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0438ac:	8fb90048 */ 	lw	$t9,0x48($sp)
@@ -19952,7 +19935,7 @@ void chrTickThrowGrenade(struct chrdata *chr)
 		if ((frame >= 87 && frame <= 110 && modelGetAnimNum(model) == ANIM_THROWGRENADE_STANDING) ||
 				(frame >= 5 && frame <= 45 && modelGetAnimNum(model) == ANIM_THROWGRENADE_NOPIN) ||
 				((frame >= 20 && frame <= 45 && modelGetAnimNum(model) == ANIM_THROWGRENADE_CROUCHING))) {
-			f32 value = func0f02e15c(chr, 1, 3.2);
+			f32 value = chrGetRangedSpeed(chr, 1, 3.2);
 			func0f03e788(chr, 1, 110, value, 0);
 		}
 	}
