@@ -174,7 +174,7 @@ extern s16 *g_ChrnumsB;
 extern s32 g_NumChrsB;
 extern s16 *g_TeamList;
 extern s16 *g_SquadronList;
-extern u32 var80067fdc;
+extern struct var80067e6c *var80067fdc[5];
 extern u32 var80067ff0;
 extern u32 var80068008;
 extern u32 var8006801c;

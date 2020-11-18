@@ -73,42 +73,26 @@ u32 var80068264 = 0x00000000;
 u32 var80068268 = 0x807b8079;
 u32 var8006826c = 0x807c0000;
 
-GLOBAL_ASM(
-glabel func0f02dff0
-/*  f02dff0:	00043400 */ 	sll	$a2,$a0,0x10
-/*  f02dff4:	00067403 */ 	sra	$t6,$a2,0x10
-/*  f02dff8:	3c058006 */ 	lui	$a1,%hi(var80067fdc)
-/*  f02dffc:	3c078006 */ 	lui	$a3,%hi(var80067ff0)
-/*  f02e000:	01c03025 */ 	or	$a2,$t6,$zero
-/*  f02e004:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f02e008:	24e77ff0 */ 	addiu	$a3,$a3,%lo(var80067ff0)
-/*  f02e00c:	24a57fdc */ 	addiu	$a1,$a1,%lo(var80067fdc)
-/*  f02e010:	8ca40000 */ 	lw	$a0,0x0($a1)
-.L0f02e014:
-/*  f02e014:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f02e018:	84830000 */ 	lh	$v1,0x0($a0)
-/*  f02e01c:	00801025 */ 	or	$v0,$a0,$zero
-/*  f02e020:	04600009 */ 	bltz	$v1,.L0f02e048
-/*  f02e024:	00000000 */ 	nop
-.L0f02e028:
-/*  f02e028:	54660004 */ 	bnel	$v1,$a2,.L0f02e03c
-/*  f02e02c:	84430008 */ 	lh	$v1,0x8($v0)
-/*  f02e030:	03e00008 */ 	jr	$ra
-/*  f02e034:	c4400004 */ 	lwc1	$f0,0x4($v0)
-/*  f02e038:	84430008 */ 	lh	$v1,0x8($v0)
-.L0f02e03c:
-/*  f02e03c:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f02e040:	0461fff9 */ 	bgez	$v1,.L0f02e028
-/*  f02e044:	00000000 */ 	nop
-.L0f02e048:
-/*  f02e048:	54a7fff2 */ 	bnel	$a1,$a3,.L0f02e014
-/*  f02e04c:	8ca40000 */ 	lw	$a0,0x0($a1)
-/*  f02e050:	3c013f80 */ 	lui	$at,0x3f80
-/*  f02e054:	44810000 */ 	mtc1	$at,$f0
-/*  f02e058:	00000000 */ 	nop
-/*  f02e05c:	03e00008 */ 	jr	$ra
-/*  f02e060:	00000000 */ 	nop
-);
+f32 func0f02dff0(s16 animnum)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(var80067fdc); i++) {
+		s32 j = 0;
+		s16 thisanimnum = var80067fdc[i][j].animnum;
+
+		while (thisanimnum >= 0) {
+			if (thisanimnum == animnum) {
+				return var80067fdc[i][j].value;
+			}
+
+			j++;
+			thisanimnum = var80067fdc[i][j].animnum;
+		}
+	}
+
+	return 1;
+}
 
 GLOBAL_ASM(
 glabel func0f02e064

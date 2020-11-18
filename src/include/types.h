@@ -6866,4 +6866,9 @@ struct pakthing16 {
 	u32 unk0c_21 : 9;
 };
 
+struct var80067e6c {
+	s16 animnum;
+	f32 value;
+};
+
 #endif
