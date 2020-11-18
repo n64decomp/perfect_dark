@@ -54,7 +54,7 @@ void func0f0292bc(struct prop *prop);
 u32 func0f02932c(void);
 u32 func0f0293ec(void);
 u32 func0f0294cc(void);
-u32 func0f0295f8(void);
+void func0f0295f8(f32 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 f32 propGetShieldThing(struct prop **propptr);
 u32 func0f02983c(void);
 u32 func0f02b7d4(void);
