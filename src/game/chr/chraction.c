@@ -220,41 +220,14 @@ s32 chrGetPercentageOfSlowness(struct chrdata *chr, s32 percentage)
 	return (100 - speedrating) * percentage / 100;
 }
 
-GLOBAL_ASM(
-glabel func0f02e260
-.late_rodata
-glabel var7f1a8cf4
-.word 0x3c23d70a
-.text
-/*  f02e260:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f02e264:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f02e268:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f02e26c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f02e270:	808e000d */ 	lb	$t6,0xd($a0)
-/*  f02e274:	448e2000 */ 	mtc1	$t6,$f4
-/*  f02e278:	00000000 */ 	nop
-/*  f02e27c:	468020a0 */ 	cvt.s.w	$f2,$f4
-/*  f02e280:	0fc06c28 */ 	jal	pdmodeGetReaction
-/*  f02e284:	e7a2001c */ 	swc1	$f2,0x1c($sp)
-/*  f02e288:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f02e28c:	44813000 */ 	mtc1	$at,$f6
-/*  f02e290:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
-/*  f02e294:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f02e298:	c7b00028 */ 	lwc1	$f16,0x28($sp)
-/*  f02e29c:	46023201 */ 	sub.s	$f8,$f6,$f2
-/*  f02e2a0:	3c017f1b */ 	lui	$at,%hi(var7f1a8cf4)
-/*  f02e2a4:	c4268cf4 */ 	lwc1	$f6,%lo(var7f1a8cf4)($at)
-/*  f02e2a8:	460c8481 */ 	sub.s	$f18,$f16,$f12
-/*  f02e2ac:	46080282 */ 	mul.s	$f10,$f0,$f8
-/*  f02e2b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f02e2b4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f02e2b8:	46025080 */ 	add.s	$f2,$f10,$f2
-/*  f02e2bc:	46029102 */ 	mul.s	$f4,$f18,$f2
-/*  f02e2c0:	00000000 */ 	nop
-/*  f02e2c4:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f02e2c8:	03e00008 */ 	jr	$ra
-/*  f02e2cc:	460c4000 */ 	add.s	$f0,$f8,$f12
-);
+f32 chrGetRangedArghSpeed(struct chrdata *chr, f32 min, f32 max)
+{
+	f32 arghrating = chr->arghrating;
+
+	arghrating = pdmodeGetReaction() * (100.0f - arghrating) + arghrating;
+
+	return (max - min) * arghrating * 0.01f + min;
+}
 
 GLOBAL_ASM(
 glabel func0f02e2d0
@@ -3358,7 +3331,7 @@ glabel var7f1a8d44
 /*  f03237c:	45000009 */ 	bc1f	.L0f0323a4
 /*  f032380:	00000000 */ 	nop
 /*  f032384:	44050000 */ 	mfc1	$a1,$f0
-/*  f032388:	0fc0b898 */ 	jal	func0f02e260
+/*  f032388:	0fc0b898 */ 	jal	chrGetRangedArghSpeed
 /*  f03238c:	3c064100 */ 	lui	$a2,0x4100
 /*  f032390:	44050000 */ 	mfc1	$a1,$f0
 /*  f032394:	0c007787 */ 	jal	modelSetAnimEndFrame
@@ -3374,7 +3347,7 @@ glabel var7f1a8d44
 /*  f0323b8:	3c064100 */ 	lui	$a2,0x4100
 /*  f0323bc:	46804220 */ 	cvt.s.w	$f8,$f8
 /*  f0323c0:	44054000 */ 	mfc1	$a1,$f8
-/*  f0323c4:	0fc0b898 */ 	jal	func0f02e260
+/*  f0323c4:	0fc0b898 */ 	jal	chrGetRangedArghSpeed
 /*  f0323c8:	00000000 */ 	nop
 /*  f0323cc:	44050000 */ 	mfc1	$a1,$f0
 /*  f0323d0:	0c007787 */ 	jal	modelSetAnimEndFrame
@@ -4066,7 +4039,7 @@ glabel var7f1a8d4c
 /*  f032da8:	45000009 */ 	bc1f	.L0f032dd0
 /*  f032dac:	00000000 */ 	nop
 /*  f032db0:	44050000 */ 	mfc1	$a1,$f0
-/*  f032db4:	0fc0b898 */ 	jal	func0f02e260
+/*  f032db4:	0fc0b898 */ 	jal	chrGetRangedArghSpeed
 /*  f032db8:	3c064100 */ 	lui	$a2,0x4100
 /*  f032dbc:	44050000 */ 	mfc1	$a1,$f0
 /*  f032dc0:	0c007787 */ 	jal	modelSetAnimEndFrame
@@ -4082,7 +4055,7 @@ glabel var7f1a8d4c
 /*  f032de4:	3c064100 */ 	lui	$a2,0x4100
 /*  f032de8:	468031a0 */ 	cvt.s.w	$f6,$f6
 /*  f032dec:	44053000 */ 	mfc1	$a1,$f6
-/*  f032df0:	0fc0b898 */ 	jal	func0f02e260
+/*  f032df0:	0fc0b898 */ 	jal	chrGetRangedArghSpeed
 /*  f032df4:	00000000 */ 	nop
 /*  f032df8:	44050000 */ 	mfc1	$a1,$f0
 /*  f032dfc:	0c007787 */ 	jal	modelSetAnimEndFrame
@@ -4186,7 +4159,7 @@ glabel var7f1a8d4c
 /*  f032f74:	45000009 */ 	bc1f	.L0f032f9c
 /*  f032f78:	00000000 */ 	nop
 /*  f032f7c:	44050000 */ 	mfc1	$a1,$f0
-/*  f032f80:	0fc0b898 */ 	jal	func0f02e260
+/*  f032f80:	0fc0b898 */ 	jal	chrGetRangedArghSpeed
 /*  f032f84:	3c064100 */ 	lui	$a2,0x4100
 /*  f032f88:	44050000 */ 	mfc1	$a1,$f0
 /*  f032f8c:	0c007787 */ 	jal	modelSetAnimEndFrame
@@ -4202,7 +4175,7 @@ glabel var7f1a8d4c
 /*  f032fb0:	3c064100 */ 	lui	$a2,0x4100
 /*  f032fb4:	468094a0 */ 	cvt.s.w	$f18,$f18
 /*  f032fb8:	44059000 */ 	mfc1	$a1,$f18
-/*  f032fbc:	0fc0b898 */ 	jal	func0f02e260
+/*  f032fbc:	0fc0b898 */ 	jal	chrGetRangedArghSpeed
 /*  f032fc0:	00000000 */ 	nop
 /*  f032fc4:	44050000 */ 	mfc1	$a1,$f0
 /*  f032fc8:	0c007787 */ 	jal	modelSetAnimEndFrame
