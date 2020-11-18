@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "boot/boot.h"
 #include "game/bondmove.h"
 #include "game/cheats.h"
 #include "game/chr/chraction.h"
@@ -10201,188 +10202,50 @@ glabel func0f028498
 /*  f02858c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f028590
-.late_rodata
-glabel var7f1a8948
-.word 0x3d99999a
-.text
-/*  f028590:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f028594:	afbe0068 */ 	sw	$s8,0x68($sp)
-/*  f028598:	3c1e8006 */ 	lui	$s8,%hi(g_NumChrsA)
-/*  f02859c:	27de298c */ 	addiu	$s8,$s8,%lo(g_NumChrsA)
-/*  f0285a0:	8fce0000 */ 	lw	$t6,0x0($s8)
-/*  f0285a4:	afb70064 */ 	sw	$s7,0x64($sp)
-/*  f0285a8:	f7b60020 */ 	sdc1	$f22,0x20($sp)
-/*  f0285ac:	46006586 */ 	mov.s	$f22,$f12
-/*  f0285b0:	afbf006c */ 	sw	$ra,0x6c($sp)
-/*  f0285b4:	afb60060 */ 	sw	$s6,0x60($sp)
-/*  f0285b8:	afb5005c */ 	sw	$s5,0x5c($sp)
-/*  f0285bc:	afb40058 */ 	sw	$s4,0x58($sp)
-/*  f0285c0:	afb30054 */ 	sw	$s3,0x54($sp)
-/*  f0285c4:	afb20050 */ 	sw	$s2,0x50($sp)
-/*  f0285c8:	afb1004c */ 	sw	$s1,0x4c($sp)
-/*  f0285cc:	afb00048 */ 	sw	$s0,0x48($sp)
-/*  f0285d0:	f7be0040 */ 	sdc1	$f30,0x40($sp)
-/*  f0285d4:	f7bc0038 */ 	sdc1	$f28,0x38($sp)
-/*  f0285d8:	f7ba0030 */ 	sdc1	$f26,0x30($sp)
-/*  f0285dc:	f7b80028 */ 	sdc1	$f24,0x28($sp)
-/*  f0285e0:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f0285e4:	19c00051 */ 	blez	$t6,.L0f02872c
-/*  f0285e8:	0000b825 */ 	or	$s7,$zero,$zero
-/*  f0285ec:	3c017f1b */ 	lui	$at,%hi(var7f1a8948)
-/*  f0285f0:	c43e8948 */ 	lwc1	$f30,%lo(var7f1a8948)($at)
-/*  f0285f4:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f0285f8:	4481e000 */ 	mtc1	$at,$f28
-/*  f0285fc:	3c014000 */ 	lui	$at,0x4000
-/*  f028600:	4481d000 */ 	mtc1	$at,$f26
-/*  f028604:	3c013f80 */ 	lui	$at,0x3f80
-/*  f028608:	3c168006 */ 	lui	$s6,%hi(g_ChrsA)
-/*  f02860c:	4481a000 */ 	mtc1	$at,$f20
-/*  f028610:	4480c000 */ 	mtc1	$zero,$f24
-/*  f028614:	26d62988 */ 	addiu	$s6,$s6,%lo(g_ChrsA)
-/*  f028618:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f02861c:	8ec20000 */ 	lw	$v0,0x0($s6)
-.L0f028620:
-/*  f028620:	00551821 */ 	addu	$v1,$v0,$s5
-/*  f028624:	8c6f0020 */ 	lw	$t7,0x20($v1)
-/*  f028628:	51e0003b */ 	beqzl	$t7,.L0f028718
-/*  f02862c:	8fcf0000 */ 	lw	$t7,0x0($s8)
-/*  f028630:	8c64001c */ 	lw	$a0,0x1c($v1)
-/*  f028634:	50800038 */ 	beqzl	$a0,.L0f028718
-/*  f028638:	8fcf0000 */ 	lw	$t7,0x0($s8)
-/*  f02863c:	90980000 */ 	lbu	$t8,0x0($a0)
-/*  f028640:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f028644:	57010034 */ 	bnel	$t8,$at,.L0f028718
-/*  f028648:	8fcf0000 */ 	lw	$t7,0x0($s8)
-/*  f02864c:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f028650:	02a22021 */ 	addu	$a0,$s5,$v0
-/*  f028654:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x284)
-/*  f028658:	8f39a244 */ 	lw	$t9,%lo(g_Vars+0x284)($t9)
-/*  f02865c:	8f2800bc */ 	lw	$t0,0xbc($t9)
-/*  f028660:	5448002d */ 	bnel	$v0,$t0,.L0f028718
-/*  f028664:	8fcf0000 */ 	lw	$t7,0x0($s8)
-/*  f028668:	8ec90000 */ 	lw	$t1,0x0($s6)
-/*  f02866c:	0fc1248a */ 	jal	chrGetDistanceToCurrentPlayer
-/*  f028670:	02a92021 */ 	addu	$a0,$s5,$t1
-/*  f028674:	46180032 */ 	c.eq.s	$f0,$f24
-/*  f028678:	3c137000 */ 	lui	$s3,%hi(func00002078)
-/*  f02867c:	26732078 */ 	addiu	$s3,$s3,%lo(func00002078)
-/*  f028680:	02608025 */ 	or	$s0,$s3,$zero
-/*  f028684:	45000003 */ 	bc1f	.L0f028694
-/*  f028688:	3c147000 */ 	lui	$s4,%hi(func00002148)
-/*  f02868c:	1000000a */ 	b	.L0f0286b8
-/*  f028690:	4600d086 */ 	mov.s	$f2,$f26
-.L0f028694:
-/*  f028694:	461cb182 */ 	mul.s	$f6,$f22,$f28
-/*  f028698:	8eca0000 */ 	lw	$t2,0x0($s6)
-/*  f02869c:	461ea280 */ 	add.s	$f10,$f20,$f30
-/*  f0286a0:	01555821 */ 	addu	$t3,$t2,$s5
-/*  f0286a4:	c56400f0 */ 	lwc1	$f4,0xf0($t3)
-/*  f0286a8:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0286ac:	00000000 */ 	nop
-/*  f0286b0:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f0286b4:	46008083 */ 	div.s	$f2,$f16,$f0
-.L0f0286b8:
-/*  f0286b8:	4602a03c */ 	c.lt.s	$f20,$f2
-/*  f0286bc:	26942148 */ 	addiu	$s4,$s4,%lo(func00002148)
-/*  f0286c0:	02809025 */ 	or	$s2,$s4,$zero
-/*  f0286c4:	45020014 */ 	bc1fl	.L0f028718
-/*  f0286c8:	8fcf0000 */ 	lw	$t7,0x0($s8)
-/*  f0286cc:	8ecc0000 */ 	lw	$t4,0x0($s6)
-/*  f0286d0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0286d4:	0fc0e56f */ 	jal	chrRecordLastHearTargetTime
-/*  f0286d8:	02ac2021 */ 	addu	$a0,$s5,$t4
-/*  f0286dc:	0274082b */ 	sltu	$at,$s3,$s4
-/*  f0286e0:	50200008 */ 	beqzl	$at,.L0f028704
-/*  f0286e4:	3c0199aa */ 	lui	$at,0x99aa
-.L0f0286e8:
-/*  f0286e8:	8e0e0000 */ 	lw	$t6,0x0($s0)
-/*  f0286ec:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f0286f0:	00116840 */ 	sll	$t5,$s1,0x1
-/*  f0286f4:	0212082b */ 	sltu	$at,$s0,$s2
-/*  f0286f8:	1420fffb */ 	bnez	$at,.L0f0286e8
-/*  f0286fc:	01ae8821 */ 	addu	$s1,$t5,$t6
-/*  f028700:	3c01e1ab */ 	lui	$at,0x99aa
-.L0f028704:
-/*  f028704:	34210f90 */ 	ori	$at,$at,0xbbcc
-/*  f028708:	12210002 */ 	beq	$s1,$at,.L0f028714
-/*  f02870c:	3c018008 */ 	lui	$at,%hi(g_Bodies+0xb7e)
-/*  f028710:	a420da82 */ 	sh	$zero,%lo(g_Bodies+0xb7e)($at)
-.L0f028714:
-/*  f028714:	8fcf0000 */ 	lw	$t7,0x0($s8)
-.L0f028718:
-/*  f028718:	26f70001 */ 	addiu	$s7,$s7,0x1
-/*  f02871c:	26b50368 */ 	addiu	$s5,$s5,0x368
-/*  f028720:	02ef082a */ 	slt	$at,$s7,$t7
-/*  f028724:	5420ffbe */ 	bnezl	$at,.L0f028620
-/*  f028728:	8ec20000 */ 	lw	$v0,0x0($s6)
-.L0f02872c:
-/*  f02872c:	8fbf006c */ 	lw	$ra,0x6c($sp)
-/*  f028730:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f028734:	d7b60020 */ 	ldc1	$f22,0x20($sp)
-/*  f028738:	d7b80028 */ 	ldc1	$f24,0x28($sp)
-/*  f02873c:	d7ba0030 */ 	ldc1	$f26,0x30($sp)
-/*  f028740:	d7bc0038 */ 	ldc1	$f28,0x38($sp)
-/*  f028744:	d7be0040 */ 	ldc1	$f30,0x40($sp)
-/*  f028748:	8fb00048 */ 	lw	$s0,0x48($sp)
-/*  f02874c:	8fb1004c */ 	lw	$s1,0x4c($sp)
-/*  f028750:	8fb20050 */ 	lw	$s2,0x50($sp)
-/*  f028754:	8fb30054 */ 	lw	$s3,0x54($sp)
-/*  f028758:	8fb40058 */ 	lw	$s4,0x58($sp)
-/*  f02875c:	8fb5005c */ 	lw	$s5,0x5c($sp)
-/*  f028760:	8fb60060 */ 	lw	$s6,0x60($sp)
-/*  f028764:	8fb70064 */ 	lw	$s7,0x64($sp)
-/*  f028768:	8fbe0068 */ 	lw	$s8,0x68($sp)
-/*  f02876c:	03e00008 */ 	jr	$ra
-/*  f028770:	27bd0070 */ 	addiu	$sp,$sp,0x70
-);
+void func0f028590(f32 arg0)
+{
+	s32 i;
+	f32 add = 0.075f;
 
-// Mismatch due to not storing 0.75f in rodata
-// and suspected ASM hack in piracy check.
-//void func0f028590(f32 arg0)
-//{
-//	s32 i;
-//	f32 add = 0.75f;
-//
-//	for (i = 0; i < g_NumChrsA; i++) {
-//		if (g_ChrsA[i].model) {
-//			struct prop *prop = g_ChrsA[i].prop;
-//
-//			if (prop && prop->type == PROPTYPE_CHR &&
-//					chrGetTargetProp(&g_ChrsA[i]) == g_Vars.currentplayer->prop) {
-//
-//				f32 distance = chrGetDistanceToCurrentPlayer(&g_ChrsA[i]);
-//
-//				if (distance == 0) {
-//					distance = 2;
-//				} else {
-//					distance = (arg0 * 100 * g_ChrsA[i].hearingscale * (1.0f + add)) / distance;
-//				}
-//
-//				if (distance > 1.0f) {
-//					chrRecordLastHearTargetTime(&g_ChrsA[i]);
-//#if PIRACYCHECKS
-//					{
-//						s32 *i = (s32 *)&func00002078;
-//						s32 *end = (s32 *)&func00002148;
-//						u32 checksum = 0;
-//
-//						while (i < end) {
-//							checksum = *i + 2 * checksum;
-//							i++;
-//						}
-//
-//						if (checksum != 0xe1ab0f90) {
-//							g_Bodies[BODY_SKEDARKING].bodyfileid = 0;
-//						}
-//					}
-//#endif
-//				}
-//			}
-//		}
-//	}
-//}
+	for (i = 0; i < g_NumChrsA; i++) {
+		if (g_ChrsA[i].model) {
+			struct prop *prop = g_ChrsA[i].prop;
+
+			if (prop && prop->type == PROPTYPE_CHR &&
+					chrGetTargetProp(&g_ChrsA[i]) == g_Vars.currentplayer->prop) {
+
+				f32 distance = chrGetDistanceToCurrentPlayer(&g_ChrsA[i]);
+
+				if (distance == 0) {
+					distance = 2;
+				} else {
+					distance = (arg0 * 100 * g_ChrsA[i].hearingscale * (1.0f + add)) / distance;
+				}
+
+				if (distance > 1.0f) {
+					chrRecordLastHearTargetTime(&g_ChrsA[i]);
+#if PIRACYCHECKS
+					{
+						s32 *i = (s32 *)&func00002078;
+						s32 *end = (s32 *)&func00002148;
+						u32 checksum = 0;
+
+						while (i < end) {
+							checksum *= 2;
+							checksum += *i;
+							i++;
+						}
+
+						if (checksum != CHECKSUM_PLACEHOLDER) {
+							g_Bodies[BODY_SKEDARKING].bodyfileid = 0;
+						}
+					}
+#endif
+				}
+			}
+		}
+	}
+}
 
 struct chrdata *chrFindByLiteralId(s32 chrnum)
 {
