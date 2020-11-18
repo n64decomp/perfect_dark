@@ -198,48 +198,27 @@ f32 chrGetRangedSpeed(struct chrdata *chr, f32 min, f32 max)
 	return (max - min) * speedrating * 0.01f + min;
 }
 
-GLOBAL_ASM(
-glabel func0f02e1cc
-/*  f02e1cc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f02e1d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f02e1d4:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f02e1d8:	80830003 */ 	lb	$v1,0x3($a0)
-/*  f02e1dc:	0fc06c28 */ 	jal	pdmodeGetReaction
-/*  f02e1e0:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f02e1e4:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f02e1e8:	24040064 */ 	addiu	$a0,$zero,0x64
-/*  f02e1ec:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f02e1f0:	00837023 */ 	subu	$t6,$a0,$v1
-/*  f02e1f4:	448e2000 */ 	mtc1	$t6,$f4
-/*  f02e1f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f02e1fc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f02e200:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f02e204:	46060202 */ 	mul.s	$f8,$f0,$f6
-/*  f02e208:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f02e20c:	44185000 */ 	mfc1	$t8,$f10
-/*  f02e210:	00000000 */ 	nop
-/*  f02e214:	03031821 */ 	addu	$v1,$t8,$v1
-/*  f02e218:	0083c823 */ 	subu	$t9,$a0,$v1
-/*  f02e21c:	03280019 */ 	multu	$t9,$t0
-/*  f02e220:	00004812 */ 	mflo	$t1
-/*  f02e224:	00000000 */ 	nop
-/*  f02e228:	00000000 */ 	nop
-/*  f02e22c:	0124001a */ 	div	$zero,$t1,$a0
-/*  f02e230:	00001012 */ 	mflo	$v0
-/*  f02e234:	14800002 */ 	bnez	$a0,.L0f02e240
-/*  f02e238:	00000000 */ 	nop
-/*  f02e23c:	0007000d */ 	break	0x7
-.L0f02e240:
-/*  f02e240:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f02e244:	14810004 */ 	bne	$a0,$at,.L0f02e258
-/*  f02e248:	3c018000 */ 	lui	$at,0x8000
-/*  f02e24c:	15210002 */ 	bne	$t1,$at,.L0f02e258
-/*  f02e250:	00000000 */ 	nop
-/*  f02e254:	0006000d */ 	break	0x6
-.L0f02e258:
-/*  f02e258:	03e00008 */ 	jr	$ra
-/*  f02e25c:	00000000 */ 	nop
-);
+/**
+ * Calculates a percentage of how slow the chr is.
+ *
+ * percentage is expected to be between 0 and 100.
+ * chr->speedrating is between 0 and 100.
+ *
+ * This function takes the difference between the speedrating and the max (100),
+ * then multiplies that amount by the given percentage and returns it.
+ *
+ * For example, if the chr's speedrating is 10 (out of 100) and the given
+ * percentage is 50, the result will be 45.
+ */
+s32 chrGetPercentageOfSlowness(struct chrdata *chr, s32 percentage)
+{
+	s32 speedrating = chr->speedrating;
+	s32 extra = pdmodeGetReaction() * (100 - speedrating);
+
+	speedrating = extra + speedrating;
+
+	return (100 - speedrating) * percentage / 100;
+}
 
 GLOBAL_ASM(
 glabel func0f02e260
@@ -10463,7 +10442,7 @@ bool chrCheckTargetInSight(struct chrdata *chr)
 				iVar8 *= 1 + tmp2;
 			}
 
-			iVar8 = func0f02e1cc(chr, iVar8) + 1;
+			iVar8 = chrGetPercentageOfSlowness(chr, iVar8) + 1;
 			result = random() % iVar8 == 0;
 		}
 	}

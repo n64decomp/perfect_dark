@@ -7,7 +7,7 @@ f32 func0f02dff0(u32 animnum);
 u32 func0f02e064(struct chrdata *chr);
 bool weaponIsOneHanded(struct prop *prop);
 f32 chrGetRangedSpeed(struct chrdata *chr, f32 min, f32 max);
-s32 func0f02e1cc(struct chrdata *chr, s32 arg1);
+s32 chrGetPercentageOfSlowness(struct chrdata *chr, s32 percentage);
 u32 func0f02e260(void);
 u32 func0f02e2d0(void);
 f32 chrGetDistanceToEntity(struct chrdata *chr, u32 entitytype, s32 entityid);
