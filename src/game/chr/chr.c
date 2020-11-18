@@ -2712,68 +2712,28 @@ f32 func0f02124c(void)
 	return var80062968;
 }
 
-GLOBAL_ASM(
-glabel func0f021258
-/*  f021258:	8082000e */ 	lb	$v0,0xe($a0)
-/*  f02125c:	28410002 */ 	slti	$at,$v0,0x2
-/*  f021260:	5420002d */ 	bnezl	$at,.L0f021318
-/*  f021264:	c4920160 */ 	lwc1	$f18,0x160($a0)
-/*  f021268:	44823000 */ 	mtc1	$v0,$f6
-/*  f02126c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f021270:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f021274:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f021278:	c4640044 */ 	lwc1	$f4,0x44($v1)
-/*  f02127c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f021280:	44811000 */ 	mtc1	$at,$f2
-/*  f021284:	46082003 */ 	div.s	$f0,$f4,$f8
-/*  f021288:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f02128c:	00000000 */ 	nop
-/*  f021290:	45020003 */ 	bc1fl	.L0f0212a0
-/*  f021294:	c4820150 */ 	lwc1	$f2,0x150($a0)
-/*  f021298:	46001006 */ 	mov.s	$f0,$f2
-/*  f02129c:	c4820150 */ 	lwc1	$f2,0x150($a0)
-.L0f0212a0:
-/*  f0212a0:	c48a0160 */ 	lwc1	$f10,0x160($a0)
-/*  f0212a4:	c48c0154 */ 	lwc1	$f12,0x154($a0)
-/*  f0212a8:	c4880164 */ 	lwc1	$f8,0x164($a0)
-/*  f0212ac:	46025481 */ 	sub.s	$f18,$f10,$f2
-/*  f0212b0:	c48e0158 */ 	lwc1	$f14,0x158($a0)
-/*  f0212b4:	c490015c */ 	lwc1	$f16,0x15c($a0)
-/*  f0212b8:	460c4281 */ 	sub.s	$f10,$f8,$f12
-/*  f0212bc:	46009182 */ 	mul.s	$f6,$f18,$f0
-/*  f0212c0:	808e000e */ 	lb	$t6,0xe($a0)
-/*  f0212c4:	46005482 */ 	mul.s	$f18,$f10,$f0
-/*  f0212c8:	46061100 */ 	add.s	$f4,$f2,$f6
-/*  f0212cc:	46126180 */ 	add.s	$f6,$f12,$f18
-/*  f0212d0:	e4840150 */ 	swc1	$f4,0x150($a0)
-/*  f0212d4:	c4840168 */ 	lwc1	$f4,0x168($a0)
-/*  f0212d8:	e4860154 */ 	swc1	$f6,0x154($a0)
-/*  f0212dc:	460e2201 */ 	sub.s	$f8,$f4,$f14
-/*  f0212e0:	c486016c */ 	lwc1	$f6,0x16c($a0)
-/*  f0212e4:	46103101 */ 	sub.s	$f4,$f6,$f16
-/*  f0212e8:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f0212ec:	00000000 */ 	nop
-/*  f0212f0:	46002202 */ 	mul.s	$f8,$f4,$f0
-/*  f0212f4:	460a7480 */ 	add.s	$f18,$f14,$f10
-/*  f0212f8:	46088280 */ 	add.s	$f10,$f16,$f8
-/*  f0212fc:	e4920158 */ 	swc1	$f18,0x158($a0)
-/*  f021300:	e48a015c */ 	swc1	$f10,0x15c($a0)
-/*  f021304:	8c6f0038 */ 	lw	$t7,0x38($v1)
-/*  f021308:	01cfc023 */ 	subu	$t8,$t6,$t7
-/*  f02130c:	03e00008 */ 	jr	$ra
-/*  f021310:	a098000e */ 	sb	$t8,0xe($a0)
-/*  f021314:	c4920160 */ 	lwc1	$f18,0x160($a0)
-.L0f021318:
-/*  f021318:	c4860164 */ 	lwc1	$f6,0x164($a0)
-/*  f02131c:	c4840168 */ 	lwc1	$f4,0x168($a0)
-/*  f021320:	c488016c */ 	lwc1	$f8,0x16c($a0)
-/*  f021324:	e4920150 */ 	swc1	$f18,0x150($a0)
-/*  f021328:	e4860154 */ 	swc1	$f6,0x154($a0)
-/*  f02132c:	e4840158 */ 	swc1	$f4,0x158($a0)
-/*  f021330:	e488015c */ 	swc1	$f8,0x15c($a0)
-/*  f021334:	03e00008 */ 	jr	$ra
-/*  f021338:	00000000 */ 	nop
-);
+void chrUpdateAimProperties(struct chrdata *chr)
+{
+	if (chr->aimendcount >= 2) {
+		f32 mult = g_Vars.lvupdate240f / chr->aimendcount;
+
+		if (mult > 1) {
+			mult = 1;
+		}
+
+		chr->aimuplshoulder += (chr->aimendlshoulder - chr->aimuplshoulder) * mult;
+		chr->aimuprshoulder += (chr->aimendrshoulder - chr->aimuprshoulder) * mult;
+		chr->aimupback += (chr->aimendback - chr->aimupback) * mult;
+		chr->aimsideback += (chr->aimendsideback - chr->aimsideback) * mult;
+
+		chr->aimendcount -= g_Vars.lvupdate240_60;
+	} else {
+		chr->aimuplshoulder = chr->aimendlshoulder;
+		chr->aimuprshoulder = chr->aimendrshoulder;
+		chr->aimupback = chr->aimendback;
+		chr->aimsideback = chr->aimendsideback;
+	}
+}
 
 void func0f02133c(struct chrdata *chr)
 {
@@ -5253,7 +5213,7 @@ glabel var7f1a87d8
 /*  f023c30:	352a0040 */ 	ori	$t2,$t1,0x40
 /*  f023c34:	a60a0192 */ 	sh	$t2,0x192($s0)
 .L0f023c38:
-/*  f023c38:	0fc08496 */ 	jal	func0f021258
+/*  f023c38:	0fc08496 */ 	jal	chrUpdateAimProperties
 /*  f023c3c:	afa70204 */ 	sw	$a3,0x204($sp)
 /*  f023c40:	8fa70204 */ 	lw	$a3,0x204($sp)
 /*  f023c44:	8fad0250 */ 	lw	$t5,0x250($sp)

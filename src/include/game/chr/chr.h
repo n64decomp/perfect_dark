@@ -13,7 +13,7 @@ s32 chrsGetNumFree(void);
 s16 getLowestUnusedChrId(void);
 struct prop *func0f020b14(struct prop *prop, struct model *model, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist);
 void func0f020d44(struct prop *prop, bool removechr);
-u32 func0f021258(void);
+void chrUpdateAimProperties(struct chrdata *chr);
 void func0f02133c(struct chrdata *chr);
 void chrDoFlinchcntThing(struct chrdata *chr, f32 arg1);
 u32 func0f02143c(void);
