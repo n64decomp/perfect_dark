@@ -68,10 +68,7 @@ const char var7f1a8b20[] = "off";
 const char var7f1a8b24[] = "firecount(%d) = %d";
 const char var7f1a8b38[] = "numshots(%d) = %d";
 
-u32 var80068260 = 0x00000000;
-u32 var80068264 = 0x00000000;
-u32 var80068268 = 0x807b8079;
-u32 var8006826c = 0x807c0000;
+u32 var80068070 = 0x00000000;
 
 f32 func0f02dff0(s16 animnum)
 {
@@ -2502,74 +2499,154 @@ glabel var7f1a8d18
 /*  f0318b4:	27bd0090 */ 	addiu	$sp,$sp,0x90
 );
 
-GLOBAL_ASM(
-glabel chrAttackAmount
-/*  f0318b8:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0318bc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0318c0:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0318c4:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f0318c8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0318cc:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f0318d0:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f0318d4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f0318d8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0318dc:	3c0f8007 */ 	lui	$t7,%hi(var80068074)
-/*  f0318e0:	25ef8074 */ 	addiu	$t7,$t7,%lo(var80068074)
-/*  f0318e4:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f0318e8:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f0318ec:	27ae0034 */ 	addiu	$t6,$sp,0x34
-/*  f0318f0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0318f4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0318f8:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f0318fc:	12000003 */ 	beqz	$s0,.L0f03190c
-/*  f031900:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f031904:	10000002 */ 	b	.L0f031910
-/*  f031908:	920302fe */ 	lbu	$v1,0x2fe($s0)
-.L0f03190c:
-/*  f03190c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f031910:
-/*  f031910:	50400012 */ 	beqzl	$v0,.L0f03195c
-/*  f031914:	8fb9004c */ 	lw	$t9,0x4c($sp)
-/*  f031918:	0fc0b849 */ 	jal	weaponIsOneHanded
-/*  f03191c:	afa30030 */ 	sw	$v1,0x30($sp)
-/*  f031920:	10400006 */ 	beqz	$v0,.L0f03193c
-/*  f031924:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f031928:	3c0a8006 */ 	lui	$t2,%hi(var800662d8)
-/*  f03192c:	254a62d8 */ 	addiu	$t2,$t2,%lo(var800662d8)
-/*  f031930:	000349c0 */ 	sll	$t1,$v1,0x7
-/*  f031934:	10000005 */ 	b	.L0f03194c
-/*  f031938:	012a2821 */ 	addu	$a1,$t1,$t2
-.L0f03193c:
-/*  f03193c:	3c0c8006 */ 	lui	$t4,%hi(var80065ae0)
-/*  f031940:	258c5ae0 */ 	addiu	$t4,$t4,%lo(var80065ae0)
-/*  f031944:	000359c0 */ 	sll	$t3,$v1,0x7
-/*  f031948:	016c2821 */ 	addu	$a1,$t3,$t4
-.L0f03194c:
-/*  f03194c:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f031950:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f031954:	afad0034 */ 	sw	$t5,0x34($sp)
-/*  f031958:	8fb9004c */ 	lw	$t9,0x4c($sp)
-.L0f03195c:
-/*  f03195c:	8fb80050 */ 	lw	$t8,0x50($sp)
-/*  f031960:	02002025 */ 	or	$a0,$s0,$zero
-/*  f031964:	00003025 */ 	or	$a2,$zero,$zero
-/*  f031968:	27a70034 */ 	addiu	$a3,$sp,0x34
-/*  f03196c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f031970:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f031974:	0fc0c4e1 */ 	jal	func0f031384
-/*  f031978:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f03197c:	240e0021 */ 	addiu	$t6,$zero,0x21
-/*  f031980:	a20e0007 */ 	sb	$t6,0x7($s0)
-/*  f031984:	a2000033 */ 	sb	$zero,0x33($s0)
-/*  f031988:	8faf0054 */ 	lw	$t7,0x54($sp)
-/*  f03198c:	a2000037 */ 	sb	$zero,0x37($s0)
-/*  f031990:	a20f0034 */ 	sb	$t7,0x34($s0)
-/*  f031994:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f031998:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f03199c:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f0319a0:	03e00008 */ 	jr	$ra
-/*  f0319a4:	00000000 */ 	nop
-);
+void chrAttackAmount(struct chrdata *chr, u32 entitytype, u32 entityid, u32 arg3)
+{
+	u32 stack;
+	struct prop *prop = chrGetEquippedWeaponProp(chr, 0);
+	struct var80065750 **things = NULL;
+	bool firing[] = {false, false};
+	u32 race = CHRRACE(chr);
+
+	if (prop) {
+		things = weaponIsOneHanded(prop) ? var800662d8[race] : var80065ae0[race];
+
+		firing[1] = false;
+		firing[0] = true;
+	}
+
+	func0f031384(chr, things, false, firing, entitytype, entityid, 0);
+
+	chr->actiontype = ACT_ATTACKAMOUNT;
+	chr->act_attackamount.unk033 = 0;
+	chr->act_attackamount.unk034 = arg3;
+	chr->act_attackamount.unk037 = 0;
+}
+
+s32 g_DrCarollDyingTimer = 10;
+u8 var80068080 = 50;
+u32 var80068084 = 0x005b0000;
+u32 var80068088 = 0x00000000;
+u32 var8006808c = 0xbf800000;
+u32 var80068090 = 0x3f19999a;
+u32 var80068094 = 0x00000000;
+u32 var80068098 = 0x41d80000;
+u32 var8006809c = 0xbf800000;
+u32 var800680a0 = 0x02550000;
+u32 var800680a4 = 0x00000000;
+u32 var800680a8 = 0xbf800000;
+u32 var800680ac = 0x3f000000;
+u32 var800680b0 = 0x00000000;
+u32 var800680b4 = 0x41c80000;
+u32 var800680b8 = 0xbf800000;
+u32 var800680bc = 0x013b0000;
+u32 var800680c0 = 0x00000000;
+u32 var800680c4 = 0xbf800000;
+u32 var800680c8 = 0x3f000000;
+u32 var800680cc = 0x00000000;
+u32 var800680d0 = 0xbf800000;
+u32 var800680d4 = 0xbf800000;
+u32 var800680d8 = 0x013c0000;
+u32 var800680dc = 0x00000000;
+u32 var800680e0 = 0xbf800000;
+u32 var800680e4 = 0x3f000000;
+u32 var800680e8 = 0x00000000;
+u32 var800680ec = 0xbf800000;
+u32 var800680f0 = 0xbf800000;
+u32 var800680f4 = 0x013f0000;
+u32 var800680f8 = 0x00000000;
+u32 var800680fc = 0xbf800000;
+u32 var80068100 = 0x3f000000;
+u32 var80068104 = 0x00000000;
+u32 var80068108 = 0xbf800000;
+u32 var8006810c = 0xbf800000;
+u32 var80068110 = 0x01420000;
+u32 var80068114 = 0x00000000;
+u32 var80068118 = 0xbf800000;
+u32 var8006811c = 0x3f000000;
+u32 var80068120 = 0x00000000;
+u32 var80068124 = 0xbf800000;
+u32 var80068128 = 0xbf800000;
+u32 var8006812c = 0x01450000;
+u32 var80068130 = 0x00000000;
+u32 var80068134 = 0xbf800000;
+u32 var80068138 = 0x3f000000;
+u32 var8006813c = 0x00000000;
+u32 var80068140 = 0xbf800000;
+u32 var80068144 = 0xbf800000;
+u32 var80068148 = 0x01480000;
+u32 var8006814c = 0x00000000;
+u32 var80068150 = 0xbf800000;
+u32 var80068154 = 0x3f000000;
+u32 var80068158 = 0x00000000;
+u32 var8006815c = 0xbf800000;
+u32 var80068160 = 0xbf800000;
+u32 var80068164 = 0x00360000;
+u32 var80068168 = 0x00000000;
+u32 var8006816c = 0xbf800000;
+u32 var80068170 = 0x3f000000;
+u32 var80068174 = 0x00000000;
+u32 var80068178 = 0xbf800000;
+u32 var8006817c = 0xbf800000;
+u32 var80068180 = 0x00370000;
+u32 var80068184 = 0x00000000;
+u32 var80068188 = 0xbf800000;
+u32 var8006818c = 0x3f000000;
+u32 var80068190 = 0x00000000;
+u32 var80068194 = 0xbf800000;
+u32 var80068198 = 0xbf800000;
+u32 var8006819c = 0x0240024c;
+u32 var800681a0 = 0x02500251;
+u32 var800681a4 = 0x0259025a;
+u32 var800681a8 = 0x05df05e0;
+u32 var800681ac = 0x05e10000;
+u32 var800681b0 = 0x05360537;
+u32 var800681b4 = 0x05380539;
+u32 var800681b8 = 0x053a0000;
+u32 var800681bc = 0x052d052e;
+u32 var800681c0 = 0x052f0000;
+u32 var800681c4 = 0x00860088;
+u32 var800681c8 = 0x008a008c;
+u32 var800681cc = 0x008e0090;
+u32 var800681d0 = 0x00920094;
+u32 var800681d4 = 0x00960098;
+u32 var800681d8 = 0x009a009c;
+u32 var800681dc = 0x009e0087;
+u32 var800681e0 = 0x00860087;
+u32 var800681e4 = 0x00880089;
+u32 var800681e8 = 0x008a008b;
+u32 var800681ec = 0x008c008d;
+u32 var800681f0 = 0x008e008f;
+u32 var800681f4 = 0x00900091;
+u32 var800681f8 = 0x00920093;
+u32 var800681fc = 0x00940095;
+u32 var80068200 = 0x00960097;
+u32 var80068204 = 0x00980099;
+u32 var80068208 = 0x009a009b;
+u32 var8006820c = 0x009c009d;
+u32 var80068210 = 0x009e0000;
+u32 var80068214 = 0x02aa02ab;
+u32 var80068218 = 0x02ac02ad;
+u32 var8006821c = 0x02ae02af;
+u32 var80068220 = 0x02b002b1;
+u32 var80068224 = 0x02b202b3;
+u32 var80068228 = 0x000d000e;
+u32 var8006822c = 0x000f0000;
+u32 var80068230 = 0x0000034e;
+u32 var80068234 = 0x000005b1;
+u32 var80068238 = 0x000005b2;
+u32 var8006823c = 0x000005ab;
+u32 var80068240 = 0x000005ac;
+u32 var80068244 = 0x000005ad;
+u32 var80068248 = 0x000005ae;
+u32 var8006824c = 0x00000000;
+u32 var80068250 = 0x00000000;
+u32 var80068254 = 0x00000000;
+u32 var80068258 = 0x00000000;
+u32 var8006825c = 0x00000000;
+u32 var80068260 = 0x00000000;
+u32 var80068264 = 0x00000000;
+u32 var80068268 = 0x807b8079;
+u32 var8006826c = 0x807c0000;
 
 GLOBAL_ASM(
 glabel func0f0319a8
