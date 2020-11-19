@@ -20,7 +20,7 @@ void weatherTick(void)
 		return;
 	}
 
-	func0000db30("wettick", &g_WeatherTickEnabled);
+	func0000db30("wettick", (u32 *)&g_WeatherTickEnabled);
 	func0000db30("windspeed", &var80062950);
 
 	if (g_WeatherTickEnabled) {

@@ -122,7 +122,7 @@ extern u32 g_ContBadReadsButtons[4];
 extern u32 g_ContBadReadsButtonsPressed[4];
 extern u8 g_ConnectedControllers;
 extern bool g_ContInitDone;
-extern u32 g_ContNeedsInit;
+extern bool g_ContNeedsInit;
 extern u32 var8005eebc;
 extern s32 g_ContNextPfsStateIndex;
 extern u32 var8005eedc;

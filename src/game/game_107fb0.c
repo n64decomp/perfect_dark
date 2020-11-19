@@ -1832,8 +1832,8 @@ char *pakMenuTextPagesUsed(struct menuitem *item)
 
 char *pakMenuTextStatusMessage(struct menuitem *item)
 {
-	s32 haspdnote = false;
-	s32 hasemptynote = false;
+	ubool haspdnote = false;
+	ubool hasemptynote = false;
 	s32 i;
 
 	if (g_EditingPak == NULL) {

@@ -3,7 +3,8 @@
 #include <ultra64.h>
 #include "constants.h"
 
-#define bool u32
+#define bool s32
+#define ubool u32
 
 struct coord {
 	f32 x;
@@ -2094,7 +2095,7 @@ struct hand {
 	/*0x0ce0*/ u32 unk0ce0;
 	/*0x0ce4*/ u32 unk0ce4;
 	/*0x0ce8*/ struct remoteminething *unk0ce8;
-	/*0x0cec*/ bool unk0cec;
+	/*0x0cec*/ ubool unk0cec;
 	/*0x0cf0*/ struct coord unk0cf0;
 	/*0x0cfc*/ struct coord unk0cfc;
 	/*0x0d08*/ u32 unk0d08;

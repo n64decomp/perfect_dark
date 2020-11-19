@@ -1582,7 +1582,7 @@ bool aiIfNearMiss(void)
 bool aiIfSeesSuspiciousItem(void)
 {
 	s16 *ptr;
-	bool pass = false;
+	ubool pass = false;
 	struct prop *prop;
 	struct defaultobj *obj;
 	s16 propnums[256];

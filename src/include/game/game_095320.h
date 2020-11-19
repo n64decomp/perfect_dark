@@ -11,7 +11,7 @@ s32 objGetTagNum(struct defaultobj *obj);
 s32 objectiveGetCount(void);
 u32 objectiveGetDifficultyBits(s32 index);
 s32 objectiveCheck(s32 index);
-u32 objectiveIsAllComplete(void);
+bool objectiveIsAllComplete(void);
 void objectivesDisableChecking(void);
 void objectivesShowHudmsg(char *buffer, s32 hudmsgtype);
 void objectivesCheckAll(void);

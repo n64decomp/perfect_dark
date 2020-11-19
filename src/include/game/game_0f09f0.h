@@ -11,7 +11,7 @@ void menuPlaySound(s32 menusound);
 bool menuIsSoloMissionOrMp(void);
 bool currentPlayerIsMenuOpenInSoloOrMp(void);
 bool func0f0f0c68(void);
-void func0f0f0ca0(s32 value, bool allplayers);
+void func0f0f0ca0(s32 value, ubool allplayers);
 u32 func0f0f0ce8(void);
 struct menudfc *func0f0f1338(struct menuitem *item);
 void func0f0f139c(struct menuitem *item, f32 arg1);

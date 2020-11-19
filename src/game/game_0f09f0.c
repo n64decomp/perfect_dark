@@ -197,7 +197,7 @@ bool func0f0f0c68(void)
 	return true;
 }
 
-void func0f0f0ca0(s32 value, bool allplayers)
+void func0f0f0ca0(s32 value, ubool allplayers)
 {
 	if (allplayers) {
 		g_MenuData.unk01b = value;

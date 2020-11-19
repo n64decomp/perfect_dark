@@ -302,14 +302,14 @@ u32 func0f116c94(s8 device)
 	return var800a2380[device].unk000;
 }
 
-bool func0f116cd4(s8 device)
+ubool func0f116cd4(s8 device)
 {
 	func0f11d620(device);
 
 	return var800a2380[device].unk2b8_05 && var800a2380[device].unk2b8_03;
 }
 
-bool func0f116d4c(s8 device)
+ubool func0f116d4c(s8 device)
 {
 	return var800a2380[device].unk2b8_05 && var800a2380[device].unk2b8_03 == 0;
 }
@@ -7081,7 +7081,7 @@ void func0f11c6d0(void)
 			var800a2380[i].unk010 = 1;
 			var80075d10 &= ~(1 << i);
 			g_MpPlayerNum = i;
-			func0f0f0ca0(-1, 1);
+			func0f0f0ca0(-1, true);
 			break;
 		}
 	}
