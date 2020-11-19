@@ -1819,17 +1819,21 @@ struct var80067e6c *var80067fdc[] = {
 	var80067fcc,
 };
 
-u32 var80067ff0 = 0x0001006a;
-u32 var80067ff4 = 0xffff0000;
-u32 var80067ff8 = 0x00c0ffff;
-u32 var80067ffc = 0x013effff;
-u32 var80068000 = 0x013effff;
-u32 var80068004 = 0x0237ffff;
-u32 var80068008 = (u32) &var80067ff0;
-u32 var8006800c = (u32) &var80067ff8;
-u32 var80068010 = (u32) &var80067ffc;
-u32 var80068014 = (u32) &var80068000;
-u32 var80068018 = (u32) &var80068004;
+// These are animation numbers
+s16 var80067ff0[] = { 0x0001, 0x006a, -1 };
+s16 var80067ff8[] = { 0x00c0, -1 };
+s16 var80067ffc[] = { 0x013e, -1 };
+s16 var80068000[] = { 0x013e, -1 };
+s16 var80068004[] = { 0x0237, -1 };
+
+s16 *var80068008[] = {
+	var80067ff0,
+	var80067ff8,
+	var80067ffc,
+	var80068000,
+	var80068004,
+};
+
 u32 var8006801c = 0x00000000;
 u32 var80068020 = 0x00000000;
 u32 var80068024 = 0x00000000;

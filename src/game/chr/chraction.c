@@ -94,64 +94,31 @@ f32 func0f02dff0(s16 animnum)
 	return 1;
 }
 
-GLOBAL_ASM(
-glabel func0f02e064
-/*  f02e064:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f02e068:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f02e06c:	8c8e02d4 */ 	lw	$t6,0x2d4($a0)
-/*  f02e070:	00802825 */ 	or	$a1,$a0,$zero
-/*  f02e074:	11c0000d */ 	beqz	$t6,.L0f02e0ac
-/*  f02e078:	00000000 */ 	nop
-/*  f02e07c:	80820007 */ 	lb	$v0,0x7($a0)
-/*  f02e080:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f02e084:	10410007 */ 	beq	$v0,$at,.L0f02e0a4
-/*  f02e088:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f02e08c:	54410021 */ 	bnel	$v0,$at,.L0f02e114
-/*  f02e090:	00001025 */ 	or	$v0,$zero,$zero
-/*  f02e094:	908f0065 */ 	lbu	$t7,0x65($a0)
-/*  f02e098:	31f80020 */ 	andi	$t8,$t7,0x20
-/*  f02e09c:	5300001d */ 	beqzl	$t8,.L0f02e114
-/*  f02e0a0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f02e0a4:
-/*  f02e0a4:	1000001b */ 	b	.L0f02e114
-/*  f02e0a8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f02e0ac:
-/*  f02e0ac:	0c00744f */ 	jal	modelGetAnimNum
-/*  f02e0b0:	8ca40020 */ 	lw	$a0,0x20($a1)
-/*  f02e0b4:	3c078007 */ 	lui	$a3,%hi(var80068008)
-/*  f02e0b8:	3c088007 */ 	lui	$t0,%hi(var8006801c)
-/*  f02e0bc:	2508801c */ 	addiu	$t0,$t0,%lo(var8006801c)
-/*  f02e0c0:	24e78008 */ 	addiu	$a3,$a3,%lo(var80068008)
-/*  f02e0c4:	8ce50000 */ 	lw	$a1,0x0($a3)
-.L0f02e0c8:
-/*  f02e0c8:	00023400 */ 	sll	$a2,$v0,0x10
-/*  f02e0cc:	0006cc03 */ 	sra	$t9,$a2,0x10
-/*  f02e0d0:	84a30000 */ 	lh	$v1,0x0($a1)
-/*  f02e0d4:	24e70004 */ 	addiu	$a3,$a3,0x4
-/*  f02e0d8:	03203025 */ 	or	$a2,$t9,$zero
-/*  f02e0dc:	0460000a */ 	bltz	$v1,.L0f02e108
-/*  f02e0e0:	00002025 */ 	or	$a0,$zero,$zero
-.L0f02e0e4:
-/*  f02e0e4:	14660003 */ 	bne	$v1,$a2,.L0f02e0f4
-/*  f02e0e8:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f02e0ec:	10000009 */ 	b	.L0f02e114
-/*  f02e0f0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f02e0f4:
-/*  f02e0f4:	00044840 */ 	sll	$t1,$a0,0x1
-/*  f02e0f8:	00a95021 */ 	addu	$t2,$a1,$t1
-/*  f02e0fc:	85430000 */ 	lh	$v1,0x0($t2)
-/*  f02e100:	0461fff8 */ 	bgez	$v1,.L0f02e0e4
-/*  f02e104:	00000000 */ 	nop
-.L0f02e108:
-/*  f02e108:	54e8ffef */ 	bnel	$a3,$t0,.L0f02e0c8
-/*  f02e10c:	8ce50000 */ 	lw	$a1,0x0($a3)
-/*  f02e110:	00001025 */ 	or	$v0,$zero,$zero
-.L0f02e114:
-/*  f02e114:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f02e118:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f02e11c:	03e00008 */ 	jr	$ra
-/*  f02e120:	00000000 */ 	nop
-);
+s32 func0f02e064(struct chrdata *chr)
+{
+	if (chr->aibot) {
+		if (chr->actiontype == ACT_STAND
+				|| (chr->actiontype == ACT_GOPOS && (chr->act_gopos.flags & 0x20))) {
+			return true;
+		}
+	} else {
+		s16 animnum = modelGetAnimNum(chr->model);
+		s32 i;
+
+		for (i = 0; i < ARRAYCOUNT(var80068008); i++) {
+			s16 thisanimnum;
+			s32 j;
+
+			for (j = 0; (thisanimnum = var80068008[i][j]) >= 0; j++) {
+				if (thisanimnum == animnum) {
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
+}
 
 bool weaponIsOneHanded(struct prop *prop)
 {

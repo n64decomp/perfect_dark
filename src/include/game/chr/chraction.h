@@ -4,7 +4,7 @@
 #include "types.h"
 
 f32 func0f02dff0(s16 animnum);
-u32 func0f02e064(struct chrdata *chr);
+s32 func0f02e064(struct chrdata *chr);
 bool weaponIsOneHanded(struct prop *prop);
 f32 chrGetRangedSpeed(struct chrdata *chr, f32 min, f32 max);
 s32 chrGetPercentageOfSlowness(struct chrdata *chr, s32 percentage);
