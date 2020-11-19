@@ -24433,55 +24433,27 @@ bool func0f048f20(struct chrdata *chr, u8 angle)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f048fcc
-.late_rodata
-glabel var7f1a935c
-.word 0x40490fdb
-glabel var7f1a9360
-.word 0x40c907a9
-.text
-/*  f048fcc:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f048fd0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f048fd4:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f048fd8:	8c83001c */ 	lw	$v1,0x1c($a0)
-/*  f048fdc:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f048fe0:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f048fe4:	afa30028 */ 	sw	$v1,0x28($sp)
-/*  f048fe8:	8fa30028 */ 	lw	$v1,0x28($sp)
-/*  f048fec:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f048ff0:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f048ff4:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f048ff8:	c4680010 */ 	lwc1	$f8,0x10($v1)
-/*  f048ffc:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f049000:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f049004:	46000307 */ 	neg.s	$f12,$f0
-/*  f049008:	0fc259d4 */ 	jal	func0f096750
-/*  f04900c:	46001387 */ 	neg.s	$f14,$f2
-/*  f049010:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f049014:	0fc0f917 */ 	jal	func0f03e45c
-/*  f049018:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f04901c:	93ae0037 */ 	lbu	$t6,0x37($sp)
-/*  f049020:	3c017f1b */ 	lui	$at,%hi(var7f1a935c)
-/*  f049024:	c432935c */ 	lwc1	$f18,%lo(var7f1a935c)($at)
-/*  f049028:	448e2000 */ 	mtc1	$t6,$f4
-/*  f04902c:	c7ac0018 */ 	lwc1	$f12,0x18($sp)
-/*  f049030:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049034:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f049038:	3c017f1b */ 	lui	$at,%hi(var7f1a9360)
-/*  f04903c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f049040:	46069202 */ 	mul.s	$f8,$f18,$f6
-/*  f049044:	46080080 */ 	add.s	$f2,$f0,$f8
-/*  f049048:	4602603c */ 	c.lt.s	$f12,$f2
-/*  f04904c:	46026401 */ 	sub.s	$f16,$f12,$f2
-/*  f049050:	45000003 */ 	bc1f	.L0f049060
-/*  f049054:	46008386 */ 	mov.s	$f14,$f16
-/*  f049058:	c42a9360 */ 	lwc1	$f10,%lo(var7f1a9360)($at)
-/*  f04905c:	460a8380 */ 	add.s	$f14,$f16,$f10
-.L0f049060:
-/*  f049060:	03e00008 */ 	jr	$ra
-/*  f049064:	46007006 */ 	mov.s	$f0,$f14
-);
+f32 func0f048fcc(struct chrdata *chr, u8 arg1)
+{
+	f32 result;
+
+	struct prop *chrprop = chr->prop;
+	struct prop *targetprop = chrGetTargetProp(chr);
+
+	f32 xdiff = chrprop->pos.x - targetprop->pos.x;
+	f32 zdiff = chrprop->pos.z - targetprop->pos.z;
+
+	f32 angle1 = func0f096750(-xdiff, -zdiff);
+	f32 angle2 = func0f03e45c(chr) + M_PI * (s32)arg1;
+
+	result = angle1 - angle2;
+
+	if (angle1 < angle2) {
+		result += M_BADTAU;
+	}
+
+	return result;
+}
 
 bool chrIsTargetInFov(struct chrdata *chr, u8 arg1, u8 arg2)
 {
