@@ -5337,7 +5337,7 @@ bool aiChrMoveToPad(void)
 			chr2 = chrFindById(g_Vars.chrdata, cmd[4]);
 
 			if (chr2 && chr2->prop) {
-				somefloat = func0f03e45c(chr2);
+				somefloat = chrGetInverseTheta(chr2);
 				pass = chrMoveToPos(chr, &chr2->prop->pos, chr2->prop->rooms, somefloat, 0);
 			}
 		} else {

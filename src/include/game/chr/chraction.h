@@ -124,7 +124,7 @@ void chrTickJumpOut(struct chrdata *chr);
 void chrTickStartAlarm(struct chrdata *chr);
 void chrTickSurprised(struct chrdata *chr);
 void func0f03e29c(struct chrdata *chr, s32 arg1, s32 arg2, s32 arg3, struct coord *arg4, struct coord *arg5);
-f32 func0f03e45c(struct chrdata *chr);
+f32 chrGetInverseTheta(struct chrdata *chr);
 f32 func0f03e5f0(struct chrdata *chr);
 f32 func0f03e754(struct chrdata *chr);
 void func0f03e788(struct chrdata *chr, s32 arg1, f32 arg2, f32 arg3, f32 arg4);

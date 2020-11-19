@@ -201,7 +201,7 @@ glabel var7f1a8cfc
 /*  f02e300:	c4288cf8 */ 	lwc1	$f8,%lo(var7f1a8cf8)($at)
 /*  f02e304:	468021a0 */ 	cvt.s.w	$f6,$f4
 /*  f02e308:	46083302 */ 	mul.s	$f12,$f6,$f8
-/*  f02e30c:	0fc0f917 */ 	jal	func0f03e45c
+/*  f02e30c:	0fc0f917 */ 	jal	chrGetInverseTheta
 /*  f02e310:	e7ac0020 */ 	swc1	$f12,0x20($sp)
 /*  f02e314:	c7ac0020 */ 	lwc1	$f12,0x20($sp)
 /*  f02e318:	44805000 */ 	mtc1	$zero,$f10
@@ -3159,7 +3159,7 @@ glabel var7f1a8d44
 /*  f032080:	9219032f */ 	lbu	$t9,0x32f($s0)
 /*  f032084:	17200068 */ 	bnez	$t9,.L0f032228
 /*  f032088:	00000000 */ 	nop
-/*  f03208c:	0fc0f917 */ 	jal	func0f03e45c
+/*  f03208c:	0fc0f917 */ 	jal	chrGetInverseTheta
 /*  f032090:	02002025 */ 	or	$a0,$s0,$zero
 /*  f032094:	3c017f1b */ 	lui	$at,%hi(var7f1a8d2c)
 /*  f032098:	c4308d2c */ 	lwc1	$f16,%lo(var7f1a8d2c)($at)
@@ -4421,7 +4421,7 @@ glabel var7f1a8d5c
 /*  f033284:	02002025 */ 	or	$a0,$s0,$zero
 /*  f033288:	afa20058 */ 	sw	$v0,0x58($sp)
 /*  f03328c:	afa50064 */ 	sw	$a1,0x64($sp)
-/*  f033290:	0fc0f917 */ 	jal	func0f03e45c
+/*  f033290:	0fc0f917 */ 	jal	chrGetInverseTheta
 /*  f033294:	afa7002c */ 	sw	$a3,0x2c($sp)
 /*  f033298:	8fa20058 */ 	lw	$v0,0x58($sp)
 /*  f03329c:	8fa50064 */ 	lw	$a1,0x64($sp)
@@ -8156,7 +8156,7 @@ bool chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance)
 
 void chrGetSideVector(struct chrdata *chr, bool side, struct coord *vector)
 {
-	f32 angle = func0f03e45c(chr);
+	f32 angle = chrGetInverseTheta(chr);
 
 	if (side) {
 		vector->x = cosf(angle);
@@ -10277,7 +10277,7 @@ glabel var7f1a8ddc
 /*  f03947c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f039480:	00808025 */ 	or	$s0,$a0,$zero
 /*  f039484:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f039488:	0fc0f917 */ 	jal	func0f03e45c
+/*  f039488:	0fc0f917 */ 	jal	chrGetInverseTheta
 /*  f03948c:	afa60030 */ 	sw	$a2,0x30($sp)
 /*  f039490:	8fa3002c */ 	lw	$v1,0x2c($sp)
 /*  f039494:	8e02001c */ 	lw	$v0,0x1c($s0)
@@ -10406,7 +10406,7 @@ bool chrCheckTargetInSight(struct chrdata *chr)
 	struct prop *prop = chr->prop;
 	struct prop *target = chrGetTargetProp(chr);
 	f32 sqdistance;
-	f32 fVar5 = func0f03e45c(chr);
+	f32 fVar5 = chrGetInverseTheta(chr);
 
 	f32 x = target->pos.x - prop->pos.x;
 	f32 y = target->pos.y - prop->pos.y;
@@ -10513,7 +10513,7 @@ bool chrTrySidestep(struct chrdata *chr)
 			&& chrIsReadyForOrders(chr)) {
 		struct prop *prop = chr->prop;
 		struct prop *target = chrGetTargetProp(chr);
-		f32 a = func0f03e45c(chr);
+		f32 a = chrGetInverseTheta(chr);
 		f32 b = func0f096750(target->pos.x - prop->pos.x, target->pos.z - prop->pos.z);
 		f32 angle = b - a;
 		u32 stack[2];
@@ -10547,7 +10547,7 @@ bool chrTryJumpOut(struct chrdata *chr)
 		struct prop *prop = chr->prop;
 		struct prop *target = chrGetTargetProp(chr);
 
-		f32 a = func0f03e45c(chr);
+		f32 a = chrGetInverseTheta(chr);
 		f32 b = func0f096750(target->pos.x - prop->pos.x, target->pos.z - prop->pos.z);
 		f32 angle = b - a;
 		u32 stack[2];
@@ -12605,7 +12605,7 @@ glabel var7f1a8f08
 /*  f03c59c:	01f8c823 */ 	subu	$t9,$t7,$t8
 /*  f03c5a0:	072100bf */ 	bgez	$t9,.L0f03c8a0
 /*  f03c5a4:	ae190044 */ 	sw	$t9,0x44($s0)
-/*  f03c5a8:	0fc0f917 */ 	jal	func0f03e45c
+/*  f03c5a8:	0fc0f917 */ 	jal	chrGetInverseTheta
 /*  f03c5ac:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03c5b0:	3c017f1b */ 	lui	$at,%hi(var7f1a8eec)
 /*  f03c5b4:	e7a00070 */ 	swc1	$f0,0x70($sp)
@@ -12899,7 +12899,7 @@ void chrTickSurrender(struct chrdata *chr)
 
 			if (modelGetAnimNum(model) == ANIM_SURRENDER_002F && modelGetCurAnimFrame(model) >= 80.0f) {
 				struct coord coord = {0, 0, 0};
-				f32 value = func0f03e45c(chr);
+				f32 value = chrGetInverseTheta(chr);
 				coord.x = -sinf(value);
 				coord.z = -cosf(value);
 
@@ -13709,75 +13709,30 @@ glabel func0f03e29c
 /*  f03e458:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f03e45c
-.late_rodata
-glabel var7f1a8f20
-.word 0x40c907a9
-glabel var7f1a8f24
-.word 0x3c8ef461
-.text
-/*  f03e45c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03e460:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03e464:	8c8202d4 */ 	lw	$v0,0x2d4($a0)
-/*  f03e468:	00802825 */ 	or	$a1,$a0,$zero
-/*  f03e46c:	50400004 */ 	beqzl	$v0,.L0f03e480
-/*  f03e470:	8ca60020 */ 	lw	$a2,0x20($a1)
-/*  f03e474:	1000002c */ 	b	.L0f03e528
-/*  f03e478:	c44000b0 */ 	lwc1	$f0,0xb0($v0)
-/*  f03e47c:	8ca60020 */ 	lw	$a2,0x20($a1)
-.L0f03e480:
-/*  f03e480:	14c00027 */ 	bnez	$a2,.L0f03e520
-/*  f03e484:	00000000 */ 	nop
-/*  f03e488:	8ca4001c */ 	lw	$a0,0x1c($a1)
-/*  f03e48c:	10800024 */ 	beqz	$a0,.L0f03e520
-/*  f03e490:	00000000 */ 	nop
-/*  f03e494:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f03e498:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f03e49c:	15c10020 */ 	bne	$t6,$at,.L0f03e520
-/*  f03e4a0:	00000000 */ 	nop
-/*  f03e4a4:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f03e4a8:	00000000 */ 	nop
-/*  f03e4ac:	00027880 */ 	sll	$t7,$v0,0x2
-/*  f03e4b0:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x64)
-/*  f03e4b4:	006f1821 */ 	addu	$v1,$v1,$t7
-/*  f03e4b8:	8c63a024 */ 	lw	$v1,%lo(g_Vars+0x64)($v1)
-/*  f03e4bc:	3c017f1b */ 	lui	$at,%hi(var7f1a8f20)
-/*  f03e4c0:	c4208f20 */ 	lwc1	$f0,%lo(var7f1a8f20)($at)
-/*  f03e4c4:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f03e4c8:	44812000 */ 	mtc1	$at,$f4
-/*  f03e4cc:	c4660144 */ 	lwc1	$f6,0x144($v1)
-/*  f03e4d0:	3c017f1b */ 	lui	$at,%hi(var7f1a8f24)
-/*  f03e4d4:	c42a8f24 */ 	lwc1	$f10,%lo(var7f1a8f24)($at)
-/*  f03e4d8:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f03e4dc:	460a4082 */ 	mul.s	$f2,$f8,$f10
-/*  f03e4e0:	4602003e */ 	c.le.s	$f0,$f2
-/*  f03e4e4:	00000000 */ 	nop
-/*  f03e4e8:	45020005 */ 	bc1fl	.L0f03e500
-/*  f03e4ec:	44808000 */ 	mtc1	$zero,$f16
-/*  f03e4f0:	46001081 */ 	sub.s	$f2,$f2,$f0
-/*  f03e4f4:	1000000c */ 	b	.L0f03e528
-/*  f03e4f8:	46001006 */ 	mov.s	$f0,$f2
-/*  f03e4fc:	44808000 */ 	mtc1	$zero,$f16
-.L0f03e500:
-/*  f03e500:	00000000 */ 	nop
-/*  f03e504:	4610103c */ 	c.lt.s	$f2,$f16
-/*  f03e508:	00000000 */ 	nop
-/*  f03e50c:	45000002 */ 	bc1f	.L0f03e518
-/*  f03e510:	00000000 */ 	nop
-/*  f03e514:	46001080 */ 	add.s	$f2,$f2,$f0
-.L0f03e518:
-/*  f03e518:	10000003 */ 	b	.L0f03e528
-/*  f03e51c:	46001006 */ 	mov.s	$f0,$f2
-.L0f03e520:
-/*  f03e520:	0c006b91 */ 	jal	func0001ae44
-/*  f03e524:	00c02025 */ 	or	$a0,$a2,$zero
-.L0f03e528:
-/*  f03e528:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03e52c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03e530:	03e00008 */ 	jr	$ra
-/*  f03e534:	00000000 */ 	nop
-);
+/**
+ * Returns the chr's turn angle difference to 360 degrees, in radians.
+ */
+f32 chrGetInverseTheta(struct chrdata *chr)
+{
+	if (chr->aibot) {
+		return chr->aibot->unk0b0;
+	}
+
+	if (chr->model == NULL && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
+		struct player *player = g_Vars.players[propGetPlayerNum(chr->prop)];
+		f32 angle = (360.0f - player->vv_theta) * 0.017450513318181f;
+
+		if (angle >= M_BADTAU) {
+			angle -= M_BADTAU;
+		} else if (angle < 0) {
+			angle += M_BADTAU;
+		}
+
+		return angle;
+	}
+
+	return func0001ae44(chr->model);
+}
 
 void func0f03e538(struct chrdata *chr, f32 arg1)
 {
@@ -13816,7 +13771,7 @@ glabel var7f1a8f2c
 .text
 /*  f03e5f0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f03e5f4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03e5f8:	0fc0f917 */ 	jal	func0f03e45c
+/*  f03e5f8:	0fc0f917 */ 	jal	chrGetInverseTheta
 /*  f03e5fc:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f03e600:	8fa50020 */ 	lw	$a1,0x20($sp)
 /*  f03e604:	3c017f1b */ 	lui	$at,%hi(var7f1a8f28)
@@ -13952,7 +13907,7 @@ glabel var7f1a8f40
 /*  f03e7b0:	0c00745f */ 	jal	modelGetCurAnimFrame
 /*  f03e7b4:	afa40034 */ 	sw	$a0,0x34($sp)
 /*  f03e7b8:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f03e7bc:	0fc0f917 */ 	jal	func0f03e45c
+/*  f03e7bc:	0fc0f917 */ 	jal	chrGetInverseTheta
 /*  f03e7c0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03e7c4:	3c017f1b */ 	lui	$at,%hi(var7f1a8f34)
 /*  f03e7c8:	c4248f34 */ 	lwc1	$f4,%lo(var7f1a8f34)($at)
@@ -18799,7 +18754,7 @@ glabel var7f1a91dc
 /*  f042a8c:	0fc0a221 */ 	jal	chrGetTargetProp
 /*  f042a90:	4600e686 */ 	mov.s	$f26,$f28
 /*  f042a94:	0040f025 */ 	or	$s8,$v0,$zero
-/*  f042a98:	0fc0f917 */ 	jal	func0f03e45c
+/*  f042a98:	0fc0f917 */ 	jal	chrGetInverseTheta
 /*  f042a9c:	02402025 */ 	or	$a0,$s2,$zero
 /*  f042aa0:	3c053dae */ 	lui	$a1,0x3dae
 /*  f042aa4:	44060000 */ 	mfc1	$a2,$f0
@@ -23451,7 +23406,7 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 
 		chr->act_skjump.xspeed = diffs[0] / hspeed;
 		chr->act_skjump.zspeed = diffs[1] / hspeed;
-		chr->act_skjump.angle = func0f03e45c(chr) + chrGetAngleToPos(chr, &target->pos);
+		chr->act_skjump.angle = chrGetInverseTheta(chr) + chrGetAngleToPos(chr, &target->pos);
 		chr->act_skjump.hit = false;
 		chr->act_skjump.unk03c = hspeed;
 		chr->act_skjump.unk04c = hspeed;
@@ -23501,7 +23456,7 @@ void chrTickSkJump(struct chrdata *chr)
 
 		switch (chr->act_skjump.state) {
 		case SKJUMPSTATE_TAKEOFF:
-			fVar6 = func0f03e45c(chr);
+			fVar6 = chrGetInverseTheta(chr);
 			fVar5 = func0001afe8(fVar6, chr->act_skjump.angle, 0.35);
 			func0f03e538(chr, fVar5);
 			frame = modelGetCurAnimFrame(chr->model);
@@ -24205,7 +24160,7 @@ f32 chrGetAngleToPos(struct chrdata *chr, struct coord *pos)
 		u32 playernum = propGetPlayerNum(chr->prop);
 		fVar3 = (360 - g_Vars.players[playernum]->vv_theta) * (M_BADTAU / 360);
 	} else {
-		fVar3 = func0f03e45c(chr);
+		fVar3 = chrGetInverseTheta(chr);
 	}
 
 	prop = chr->prop;
@@ -24379,7 +24334,7 @@ glabel var7f1a9334
 /*  f048d7c:	54410007 */ 	bnel	$v0,$at,.L0f048d9c
 /*  f048d80:	4602603c */ 	c.lt.s	$f12,$f2
 /*  f048d84:	8ca40004 */ 	lw	$a0,0x4($a1)
-/*  f048d88:	0fc0f917 */ 	jal	func0f03e45c
+/*  f048d88:	0fc0f917 */ 	jal	chrGetInverseTheta
 /*  f048d8c:	e7ac0020 */ 	swc1	$f12,0x20($sp)
 /*  f048d90:	c7ac0020 */ 	lwc1	$f12,0x20($sp)
 /*  f048d94:	46000086 */ 	mov.s	$f2,$f0
@@ -24488,7 +24443,7 @@ f32 func0f048fcc(struct chrdata *chr, u8 arg1)
 	f32 zdiff = chrprop->pos.z - targetprop->pos.z;
 
 	f32 angle1 = func0f096750(-xdiff, -zdiff);
-	f32 angle2 = func0f03e45c(chr) + M_PI * (s32)arg1;
+	f32 angle2 = chrGetInverseTheta(chr) + M_PI * (s32)arg1;
 
 	result = angle1 - angle2;
 
@@ -25468,7 +25423,7 @@ glabel func0f04a4ec
 /*  f04a620:	1000000f */ 	b	.L0f04a660
 /*  f04a624:	a6390128 */ 	sh	$t9,0x128($s1)
 .L0f04a628:
-/*  f04a628:	0fc0f917 */ 	jal	func0f03e45c
+/*  f04a628:	0fc0f917 */ 	jal	chrGetInverseTheta
 /*  f04a62c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f04a630:	8e22001c */ 	lw	$v0,0x1c($s1)
 /*  f04a634:	44060000 */ 	mfc1	$a2,$f0
@@ -25543,7 +25498,7 @@ glabel var7f1a9400
 /*  f04a714:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f04a718:	54610005 */ 	bnel	$v1,$at,.L0f04a730
 /*  f04a71c:	44061000 */ 	mfc1	$a2,$f2
-/*  f04a720:	0fc0f917 */ 	jal	func0f03e45c
+/*  f04a720:	0fc0f917 */ 	jal	chrGetInverseTheta
 /*  f04a724:	8e040004 */ 	lw	$a0,0x4($s0)
 /*  f04a728:	46000086 */ 	mov.s	$f2,$f0
 .L0f04a72c:
@@ -26383,7 +26338,7 @@ struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrn
 	f32 fvalue;
 
 	if (1) {
-		fvalue = func0f03e45c(chr);
+		fvalue = chrGetInverseTheta(chr);
 	}
 
 	return chrSpawnAtCoord(body, head, &chr->prop->pos, chr->prop->rooms, fvalue, ailist, flags);
@@ -27221,7 +27176,7 @@ glabel var7f1a9428
 /*  f04c7a8:	14610007 */ 	bne	$v1,$at,.L0f04c7c8
 /*  f04c7ac:	00402825 */ 	or	$a1,$v0,$zero
 /*  f04c7b0:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f04c7b4:	0fc0f917 */ 	jal	func0f03e45c
+/*  f04c7b4:	0fc0f917 */ 	jal	chrGetInverseTheta
 /*  f04c7b8:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*  f04c7bc:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f04c7c0:	1000000c */ 	b	.L0f04c7f4

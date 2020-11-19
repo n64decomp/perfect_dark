@@ -434,7 +434,7 @@ struct aibot {
 	/*0x0a4*/ f32 unk0a4;
 	/*0x0a8*/ f32 unk0a8;
 	/*0x0ac*/ f32 unk0ac;
-	/*0x0b0*/ f32 unk0b0;
+	/*0x0b0*/ f32 unk0b0; // likely to be the turn angle to 360 degrees, in radians
 	/*0x0b4*/ f32 unk0b4;
 	/*0x0b8*/ f32 unk0b8;
 	/*0x0bc*/ s32 unk0bc;
@@ -2240,7 +2240,7 @@ struct player {
 	/*0x013c*/ struct prop *autoxaimprop;
 	/*0x0140*/ s32 autoxaimtime60;
 
-	/*0x0144*/ f32 vv_theta;   // turn angle
+	/*0x0144*/ f32 vv_theta;   // turn angle in degrees
 	/*0x0148*/ f32 speedtheta; // turn speed
 	/*0x014c*/ f32 vv_costheta;
 	/*0x0150*/ f32 vv_sintheta;

@@ -396,11 +396,11 @@ void mpAibotApplyCommand(struct chrdata *chr, u32 command)
 		mpAibotApplyProtect(chr, g_Vars.currentplayer->prop);
 		break;
 	case AIBOTCMD_DEFEND:
-		value = func0f03e45c(g_Vars.currentplayer->prop->chr);
+		value = chrGetInverseTheta(g_Vars.currentplayer->prop->chr);
 		mpAibotApplyDefend(chr, &g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, value);
 		break;
 	case AIBOTCMD_HOLD:
-		value = func0f03e45c(g_Vars.currentplayer->prop->chr);
+		value = chrGetInverseTheta(g_Vars.currentplayer->prop->chr);
 		mpAibotApplyHold(chr, &g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, value);
 		break;
 	default:
