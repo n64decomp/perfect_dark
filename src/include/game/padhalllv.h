@@ -23,7 +23,7 @@ u32 func0f1153c4(void);
 u32 func0f1154cc(void);
 u32 func0f1155e0(void);
 void waypointDisableSegmentInDirection(struct waypoint *a, struct waypoint *b);
-u32 func0f11594c(void);
+void waypointEnableSegmentInDirection(struct waypoint *a, struct waypoint *b);
 void waypointDisableSegment(struct waypoint *a, struct waypoint *b);
 void waypointEnableSegment(struct waypoint *a, struct waypoint *b);
 

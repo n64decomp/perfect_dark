@@ -1709,7 +1709,7 @@ glabel waypointDisableSegmentInDirection
 );
 
 GLOBAL_ASM(
-glabel func0f11594c
+glabel waypointEnableSegmentInDirection
 /*  f11594c:	3c0a800a */ 	lui	$t2,%hi(g_StageSetup)
 /*  f115950:	8c8e0008 */ 	lw	$t6,0x8($a0)
 /*  f115954:	8c890004 */ 	lw	$t1,0x4($a0)
@@ -1787,20 +1787,8 @@ void waypointDisableSegment(struct waypoint *a, struct waypoint *b)
 	waypointDisableSegmentInDirection(b, a);
 }
 
-GLOBAL_ASM(
-glabel waypointEnableSegment
-/*  f115a78:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f115a7c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f115a80:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f115a84:	0fc45653 */ 	jal	func0f11594c
-/*  f115a88:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f115a8c:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f115a90:	0fc45653 */ 	jal	func0f11594c
-/*  f115a94:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f115a98:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f115a9c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f115aa0:	03e00008 */ 	jr	$ra
-/*  f115aa4:	00000000 */ 	nop
-/*  f115aa8:	00000000 */ 	nop
-/*  f115aac:	00000000 */ 	nop
-);
+void waypointEnableSegment(struct waypoint *a, struct waypoint *b)
+{
+	waypointEnableSegmentInDirection(a, b);
+	waypointEnableSegmentInDirection(b, a);
+}
