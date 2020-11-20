@@ -8748,7 +8748,7 @@ bool aiIfDangerousObjectNearby(void)
  */
 bool ai013e(void)
 {
-	if (func0f03aca0(g_Vars.chrdata, 0x43c80000, 1) == 0 && func0f04bffc(g_Vars.chrdata, 1000, 12000) != -1) {
+	if (func0f03aca0(g_Vars.chrdata, 400, true) == 0 && func0f04bffc(g_Vars.chrdata, 1000, 12000) != -1) {
 		chrGoToCover(g_Vars.chrdata, SPEED_RUN);
 	}
 

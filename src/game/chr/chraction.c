@@ -11025,77 +11025,31 @@ glabel func0f03abd0
 /*  f03ac9c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f03aca0
-.late_rodata
-glabel var7f1a8ec8
-.word 0x461c4000
-.text
-/*  f03aca0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f03aca4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03aca8:	44856000 */ 	mtc1	$a1,$f12
-/*  f03acac:	30ce00ff */ 	andi	$t6,$a2,0xff
-/*  f03acb0:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03acb4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03acb8:	15c00006 */ 	bnez	$t6,.L0f03acd4
-/*  f03acbc:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f03acc0:	260502c8 */ 	addiu	$a1,$s0,0x2c8
-/*  f03acc4:	0fc1250e */ 	jal	chrGetDistanceToCoord
-/*  f03acc8:	e7ac0024 */ 	swc1	$f12,0x24($sp)
-/*  f03accc:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f03acd0:	46006301 */ 	sub.s	$f12,$f12,$f0
-.L0f03acd4:
-/*  f03acd4:	44802000 */ 	mtc1	$zero,$f4
-/*  f03acd8:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x424)
-/*  f03acdc:	2405090a */ 	addiu	$a1,$zero,0x90a
-/*  f03ace0:	4604603c */ 	c.lt.s	$f12,$f4
-/*  f03ace4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f03ace8:	3c0144fa */ 	lui	$at,0x44fa
-/*  f03acec:	45020009 */ 	bc1fl	.L0f03ad14
-/*  f03acf0:	44817000 */ 	mtc1	$at,$f14
-/*  f03acf4:	0fc12e8d */ 	jal	func0f04ba34
-/*  f03acf8:	8c84a3e4 */ 	lw	$a0,%lo(g_Vars+0x424)($a0)
-/*  f03acfc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03ad00:	0fc1309a */ 	jal	chrGoToCover
-/*  f03ad04:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f03ad08:	1000001c */ 	b	.L0f03ad7c
-/*  f03ad0c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03ad10:	44817000 */ 	mtc1	$at,$f14
-.L0f03ad14:
-/*  f03ad14:	3c017f1b */ 	lui	$at,%hi(var7f1a8ec8)
-/*  f03ad18:	460e6081 */ 	sub.s	$f2,$f12,$f14
-/*  f03ad1c:	460e103c */ 	c.lt.s	$f2,$f14
-/*  f03ad20:	00000000 */ 	nop
-/*  f03ad24:	45000002 */ 	bc1f	.L0f03ad30
-/*  f03ad28:	00000000 */ 	nop
-/*  f03ad2c:	46007086 */ 	mov.s	$f2,$f14
-.L0f03ad30:
-/*  f03ad30:	c4288ec8 */ 	lwc1	$f8,%lo(var7f1a8ec8)($at)
-/*  f03ad34:	4600118d */ 	trunc.w.s	$f6,$f2
-/*  f03ad38:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03ad3c:	46086280 */ 	add.s	$f10,$f12,$f8
-/*  f03ad40:	44053000 */ 	mfc1	$a1,$f6
-/*  f03ad44:	4600540d */ 	trunc.w.s	$f16,$f10
-/*  f03ad48:	44068000 */ 	mfc1	$a2,$f16
-/*  f03ad4c:	0fc12fff */ 	jal	func0f04bffc
-/*  f03ad50:	00000000 */ 	nop
-/*  f03ad54:	14400005 */ 	bnez	$v0,.L0f03ad6c
-/*  f03ad58:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x424)
-/*  f03ad5c:	8c84a3e4 */ 	lw	$a0,%lo(g_Vars+0x424)($a0)
-/*  f03ad60:	2405090a */ 	addiu	$a1,$zero,0x90a
-/*  f03ad64:	0fc12e8d */ 	jal	func0f04ba34
-/*  f03ad68:	00003025 */ 	or	$a2,$zero,$zero
-.L0f03ad6c:
-/*  f03ad6c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03ad70:	0fc1309a */ 	jal	chrGoToCover
-/*  f03ad74:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f03ad78:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f03ad7c:
-/*  f03ad7c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03ad80:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f03ad84:	03e00008 */ 	jr	$ra
-/*  f03ad88:	00000000 */ 	nop
-);
+s32 func0f03aca0(struct chrdata *chr, f32 arg1, u8 arg2)
+{
+	f32 somefloat;
+
+	if (!arg2) {
+		arg1 -= chrGetDistanceToCoord(chr, &chr->runfrompos);
+	}
+
+	if (arg1 < 0) {
+		func0f04ba34(g_Vars.chrdata, 0x90a, 0);
+		return chrGoToCover(chr, SPEED_RUN);
+	}
+
+	somefloat = arg1 - 2000;
+
+	if (somefloat < 2000) {
+		somefloat = 2000;
+	}
+
+	if (func0f04bffc(chr, somefloat, arg1 + 10000) == 0) {
+		func0f04ba34(g_Vars.chrdata, 0x90a, 0);
+	}
+
+	return chrGoToCover(chr, SPEED_RUN);
+}
 
 bool chrTryStop(struct chrdata *chr)
 {
