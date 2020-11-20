@@ -10200,7 +10200,7 @@ bool chrCanSeeTarget(struct chrdata *chr)
 	return cansee;
 }
 
-bool chrCanViewPos(struct chrdata *viewerchr, struct coord *pos, s16 *rooms)
+bool chrHasLineOfSightToPos(struct chrdata *viewerchr, struct coord *pos, s16 *rooms)
 {
 	struct prop *viewerprop = viewerchr->prop;
 	bool result = false;
@@ -10223,86 +10223,32 @@ bool chrCanViewPos(struct chrdata *viewerchr, struct coord *pos, s16 *rooms)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f039474
-.late_rodata
-glabel var7f1a8dd4
-.word 0x40c907a9
-glabel var7f1a8dd8
-.word 0x3fdf5dd8
-glabel var7f1a8ddc
-.word 0x40913033
-.text
-/*  f039474:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f039478:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03947c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f039480:	00808025 */ 	or	$s0,$a0,$zero
-/*  f039484:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f039488:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f03948c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f039490:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f039494:	8e02001c */ 	lw	$v0,0x1c($s0)
-/*  f039498:	c4640000 */ 	lwc1	$f4,0x0($v1)
-/*  f03949c:	c4680008 */ 	lwc1	$f8,0x8($v1)
-/*  f0394a0:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f0394a4:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f0394a8:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f0394ac:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f0394b0:	0fc259d4 */ 	jal	func0f096750
-/*  f0394b4:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f0394b8:	c7b00024 */ 	lwc1	$f16,0x24($sp)
-/*  f0394bc:	3c017f1b */ 	lui	$at,%hi(var7f1a8dd4)
-/*  f0394c0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0394c4:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f0394c8:	3c050020 */ 	lui	$a1,0x20
-/*  f0394cc:	46100301 */ 	sub.s	$f12,$f0,$f16
-/*  f0394d0:	45000003 */ 	bc1f	.L0f0394e0
-/*  f0394d4:	46006086 */ 	mov.s	$f2,$f12
-/*  f0394d8:	c4328dd4 */ 	lwc1	$f18,%lo(var7f1a8dd4)($at)
-/*  f0394dc:	46126080 */ 	add.s	$f2,$f12,$f18
-.L0f0394e0:
-/*  f0394e0:	3c017f1b */ 	lui	$at,%hi(var7f1a8dd8)
-/*  f0394e4:	c4248dd8 */ 	lwc1	$f4,%lo(var7f1a8dd8)($at)
-/*  f0394e8:	3c017f1b */ 	lui	$at,%hi(var7f1a8ddc)
-/*  f0394ec:	4604103c */ 	c.lt.s	$f2,$f4
-/*  f0394f0:	00000000 */ 	nop
-/*  f0394f4:	45010006 */ 	bc1t	.L0f039510
-/*  f0394f8:	00000000 */ 	nop
-/*  f0394fc:	c4268ddc */ 	lwc1	$f6,%lo(var7f1a8ddc)($at)
-/*  f039500:	4602303c */ 	c.lt.s	$f6,$f2
-/*  f039504:	00000000 */ 	nop
-/*  f039508:	4502000b */ 	bc1fl	.L0f039538
-/*  f03950c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f039510:
-/*  f039510:	0fc12790 */ 	jal	chrHasFlag
-/*  f039514:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f039518:	14400006 */ 	bnez	$v0,.L0f039534
-/*  f03951c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039520:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f039524:	0fc0e4ed */ 	jal	chrCanViewPos
-/*  f039528:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f03952c:	10000006 */ 	b	.L0f039548
-/*  f039530:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f039534:
-/*  f039534:	02002025 */ 	or	$a0,$s0,$zero
-.L0f039538:
-/*  f039538:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f03953c:	0fc0e4ed */ 	jal	chrCanViewPos
-/*  f039540:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f039544:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f039548:
-/*  f039548:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03954c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f039550:	03e00008 */ 	jr	$ra
-/*  f039554:	00000000 */ 	nop
-);
+bool chrCanSeePos(struct chrdata *chr, struct coord *pos, s16 *rooms)
+{
+	f32 facingangle = chrGetInverseTheta(chr);
+	f32 posangle = func0f096750(pos->x - chr->prop->pos.x, pos->z - chr->prop->pos.z);
+	f32 diffangle = posangle - facingangle;
 
-bool func0f039558(struct chrdata *chr, struct prop *prop)
+	if (posangle < facingangle) {
+		diffangle += M_BADTAU;
+	}
+
+	// This check is pointless because chrHasLineOfSightToPos is called
+	// with the same arguments regardless.
+	if ((diffangle < 1.7450513839722f || diffangle > 4.5371336936951f)
+			&& chrHasFlag(chr, CHRFLAG1_00200000, BANK_1) == false) {
+		return chrHasLineOfSightToPos(chr, pos, rooms);
+	}
+
+	return chrHasLineOfSightToPos(chr, pos, rooms);
+}
+
+bool chrCanSeeProp(struct chrdata *chr, struct prop *prop)
 {
 	bool result;
 
 	func0f064178(prop, false);
-	result = func0f039474(chr, &prop->pos, prop->rooms);
+	result = chrCanSeePos(chr, &prop->pos, prop->rooms);
 	func0f064178(prop, true);
 
 	return result;
@@ -12934,7 +12880,7 @@ void chrAlertOthersOfInjury(struct chrdata *chr, bool dying)
 			if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff < 4000000.0f) {
 				numinrange++;
 
-				if (func0f039474(loopchr, &chr->prop->pos, chr->prop->rooms)) {
+				if (chrCanSeePos(loopchr, &chr->prop->pos, chr->prop->rooms)) {
 					if (dying == false) {
 						loopchr->chrseeshot = chr->chrnum;
 					} else {

@@ -1461,7 +1461,7 @@ bool ai0045(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->prop && chrCanViewPos(g_Vars.chrdata, &chr->prop->pos, chr->prop->rooms)) {
+	if (chr && chr->prop && chrHasLineOfSightToPos(g_Vars.chrdata, &chr->prop->pos, chr->prop->rooms)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1597,16 +1597,16 @@ bool aiIfSeesSuspiciousItem(void)
 		obj = prop->obj;
 
 		if (prop->type == PROPTYPE_WEAPON) {
-			if ((obj->hidden & OBJHFLAG_00100000) && func0f039558(g_Vars.chrdata, prop)) {
+			if ((obj->hidden & OBJHFLAG_00100000) && chrCanSeeProp(g_Vars.chrdata, prop)) {
 				pass = true;
 			}
 		} else if (prop->type == PROPTYPE_OBJ) {
 			if (((obj->hidden & OBJHFLAG_00100000) || !objIsHealthy(obj))
-					&& func0f039558(g_Vars.chrdata, prop)) {
+					&& chrCanSeeProp(g_Vars.chrdata, prop)) {
 				pass = true;
 			}
 		} else if (prop->type == PROPTYPE_EXPLOSION) {
-			if (func0f039558(g_Vars.chrdata, prop)) {
+			if (chrCanSeeProp(g_Vars.chrdata, prop)) {
 				pass = true;
 			}
 		}
@@ -6998,7 +6998,7 @@ bool aiDetectEnemy(void)
 				f32 distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
 
 				if (distance < maxdist && distance != 0 && distance < closestdist
-						&& func0f039558(g_Vars.chrdata, chr->prop)
+						&& chrCanSeeProp(g_Vars.chrdata, chr->prop)
 						&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0) {
 					if (g_Vars.chrdata->yvisang == 0) {
 						closestdist = distance;
