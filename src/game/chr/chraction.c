@@ -25257,83 +25257,34 @@ glabel func0f04a4ec
 /*  f04a670:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-GLOBAL_ASM(
-glabel func0f04a674
-.late_rodata
-glabel var7f1a9400
-.word 0x40c907a9
-.text
-/*  f04a674:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f04a678:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f04a67c:	30ae00ff */ 	andi	$t6,$a1,0xff
-/*  f04a680:	24010010 */ 	addiu	$at,$zero,0x10
-/*  f04a684:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f04a688:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04a68c:	11c10004 */ 	beq	$t6,$at,.L0f04a6a0
-/*  f04a690:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04a694:	24010020 */ 	addiu	$at,$zero,0x20
-/*  f04a698:	55c10006 */ 	bnel	$t6,$at,.L0f04a6b4
-/*  f04a69c:	44801000 */ 	mtc1	$zero,$f2
-.L0f04a6a0:
-/*  f04a6a0:	0fc1293b */ 	jal	func0f04a4ec
-/*  f04a6a4:	00000000 */ 	nop
-/*  f04a6a8:	1000002c */ 	b	.L0f04a75c
-/*  f04a6ac:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04a6b0:	44801000 */ 	mtc1	$zero,$f2
-.L0f04a6b4:
-/*  f04a6b4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f04a6b8:	a3a5002f */ 	sb	$a1,0x2f($sp)
-/*  f04a6bc:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f04a6c0:	e7a20024 */ 	swc1	$f2,0x24($sp)
-/*  f04a6c4:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f04a6c8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f04a6cc:	c7a20024 */ 	lwc1	$f2,0x24($sp)
-/*  f04a6d0:	14610010 */ 	bne	$v1,$at,.L0f04a714
-/*  f04a6d4:	00408025 */ 	or	$s0,$v0,$zero
-/*  f04a6d8:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f04a6dc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f04a6e0:	00027880 */ 	sll	$t7,$v0,0x2
-/*  f04a6e4:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x64)
-/*  f04a6e8:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f04a6ec:	8f18a024 */ 	lw	$t8,%lo(g_Vars+0x64)($t8)
-/*  f04a6f0:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f04a6f4:	44810000 */ 	mtc1	$at,$f0
-/*  f04a6f8:	c7040144 */ 	lwc1	$f4,0x144($t8)
-/*  f04a6fc:	3c017f1b */ 	lui	$at,%hi(var7f1a9400)
-/*  f04a700:	c4289400 */ 	lwc1	$f8,%lo(var7f1a9400)($at)
-/*  f04a704:	46040181 */ 	sub.s	$f6,$f0,$f4
-/*  f04a708:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f04a70c:	10000007 */ 	b	.L0f04a72c
-/*  f04a710:	46005083 */ 	div.s	$f2,$f10,$f0
-.L0f04a714:
-/*  f04a714:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f04a718:	54610005 */ 	bnel	$v1,$at,.L0f04a730
-/*  f04a71c:	44061000 */ 	mfc1	$a2,$f2
-/*  f04a720:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f04a724:	8e040004 */ 	lw	$a0,0x4($s0)
-/*  f04a728:	46000086 */ 	mov.s	$f2,$f0
-.L0f04a72c:
-/*  f04a72c:	44061000 */ 	mfc1	$a2,$f2
-.L0f04a730:
-/*  f04a730:	26040008 */ 	addiu	$a0,$s0,0x8
-/*  f04a734:	26050028 */ 	addiu	$a1,$s0,0x28
-/*  f04a738:	0fc128df */ 	jal	func0f04a37c
-/*  f04a73c:	93a7002f */ 	lbu	$a3,0x2f($sp)
-/*  f04a740:	04400004 */ 	bltz	$v0,.L0f04a754
-/*  f04a744:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f04a748:	a7220128 */ 	sh	$v0,0x128($t9)
-/*  f04a74c:	10000002 */ 	b	.L0f04a758
-/*  f04a750:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f04a754:
-/*  f04a754:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04a758:
-/*  f04a758:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f04a75c:
-/*  f04a75c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f04a760:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f04a764:	03e00008 */ 	jr	$ra
-/*  f04a768:	00000000 */ 	nop
-);
+bool func0f04a674(struct chrdata *chr, u8 arg1)
+{
+	f32 angle;
+	s32 padnum;
+	struct prop *prop;
+
+	if (arg1 == 0x10 || arg1 == 0x20) {
+		return func0f04a4ec(chr, arg1);
+	}
+
+	angle = 0;
+	prop = chrGetTargetProp(chr);
+
+	if (prop->type == PROPTYPE_PLAYER) {
+		angle = (360.0f - g_Vars.players[propGetPlayerNum(prop)]->vv_theta) * M_BADTAU / 360.0f;
+	} else if (prop->type == PROPTYPE_CHR) {
+		angle = chrGetInverseTheta(prop->chr);
+	}
+
+	padnum = func0f04a37c(&prop->pos, prop->rooms, angle, arg1);
+
+	if (padnum >= 0) {
+		chr->padpreset1 = padnum;
+		return true;
+	}
+
+	return false;
+}
 
 bool func0f04a76c(struct chrdata *chr, f32 distance)
 {
