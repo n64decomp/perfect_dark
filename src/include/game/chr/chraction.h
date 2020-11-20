@@ -68,7 +68,7 @@ s32 func0f036c08(struct chrdata *chr, struct coord *arg1, s16 *rooms);
 void chrGoPosInitCheap(struct chrdata *chr, struct waydata *waydata, struct coord *arg2, struct coord *prevpos);
 void chrGoPosGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags);
 f32 func0f0370a8(struct chrdata *chr);
-s32 func0f037124(struct chrdata *chr);
+s32 chrGoPosCalculateBaseTtl(struct chrdata *chr);
 void chrGoPosConsiderRestart(struct chrdata *chr);
 void chrGoPosInitExpensive(struct chrdata *chr);
 void chrGoPosAdvanceWaypoint(struct chrdata *chr);

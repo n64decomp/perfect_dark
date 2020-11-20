@@ -8461,79 +8461,40 @@ f32 func0f0370a8(struct chrdata *chr)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f037124
-.late_rodata
-glabel var7f1a8da8
-.word 0x3a83126f
-.text
-/*  f037124:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f037128:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03712c:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f037130:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f037134:	0fc0dc22 */ 	jal	chrGoPosGetCurWaypointInfo
-/*  f037138:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f03713c:	8fa70048 */ 	lw	$a3,0x48($sp)
-/*  f037140:	c7a40030 */ 	lwc1	$f4,0x30($sp)
-/*  f037144:	44800000 */ 	mtc1	$zero,$f0
-/*  f037148:	8ce2001c */ 	lw	$v0,0x1c($a3)
-/*  f03714c:	c7a80038 */ 	lwc1	$f8,0x38($sp)
-/*  f037150:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f037154:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f037158:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f03715c:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f037160:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f037164:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f037168:	00000000 */ 	nop
-/*  f03716c:	45020003 */ 	bc1fl	.L0f03717c
-/*  f037170:	4600703c */ 	c.lt.s	$f14,$f0
-/*  f037174:	46006307 */ 	neg.s	$f12,$f12
-/*  f037178:	4600703c */ 	c.lt.s	$f14,$f0
-.L0f03717c:
-/*  f03717c:	00000000 */ 	nop
-/*  f037180:	45020003 */ 	bc1fl	.L0f037190
-/*  f037184:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f037188:	46007387 */ 	neg.s	$f14,$f14
-/*  f03718c:	afa70048 */ 	sw	$a3,0x48($sp)
-.L0f037190:
-/*  f037190:	e7ac0044 */ 	swc1	$f12,0x44($sp)
-/*  f037194:	0fc0dc2a */ 	jal	func0f0370a8
-/*  f037198:	e7ae0040 */ 	swc1	$f14,0x40($sp)
-/*  f03719c:	8fa70048 */ 	lw	$a3,0x48($sp)
-/*  f0371a0:	c7ac0044 */ 	lwc1	$f12,0x44($sp)
-/*  f0371a4:	c7ae0040 */ 	lwc1	$f14,0x40($sp)
-/*  f0371a8:	8cee02d4 */ 	lw	$t6,0x2d4($a3)
-/*  f0371ac:	46000086 */ 	mov.s	$f2,$f0
-/*  f0371b0:	15c0000b */ 	bnez	$t6,.L0f0371e0
-/*  f0371b4:	00000000 */ 	nop
-/*  f0371b8:	8ce40020 */ 	lw	$a0,0x20($a3)
-/*  f0371bc:	e7ae0040 */ 	swc1	$f14,0x40($sp)
-/*  f0371c0:	e7ac0044 */ 	swc1	$f12,0x44($sp)
-/*  f0371c4:	0c0074a2 */ 	jal	modelGetAbsAnimSpeed
-/*  f0371c8:	e7a2001c */ 	swc1	$f2,0x1c($sp)
-/*  f0371cc:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
-/*  f0371d0:	c7ac0044 */ 	lwc1	$f12,0x44($sp)
-/*  f0371d4:	c7ae0040 */ 	lwc1	$f14,0x40($sp)
-/*  f0371d8:	46001082 */ 	mul.s	$f2,$f2,$f0
-/*  f0371dc:	00000000 */ 	nop
-.L0f0371e0:
-/*  f0371e0:	3c017f1b */ 	lui	$at,%hi(var7f1a8da8)
-/*  f0371e4:	c4208da8 */ 	lwc1	$f0,%lo(var7f1a8da8)($at)
-/*  f0371e8:	460e6400 */ 	add.s	$f16,$f12,$f14
-/*  f0371ec:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0371f0:	00000000 */ 	nop
-/*  f0371f4:	45020003 */ 	bc1fl	.L0f037204
-/*  f0371f8:	46028483 */ 	div.s	$f18,$f16,$f2
-/*  f0371fc:	46000086 */ 	mov.s	$f2,$f0
-/*  f037200:	46028483 */ 	div.s	$f18,$f16,$f2
-.L0f037204:
-/*  f037204:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f037208:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f03720c:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f037210:	44022000 */ 	mfc1	$v0,$f4
-/*  f037214:	03e00008 */ 	jr	$ra
-/*  f037218:	00000000 */ 	nop
-);
+s32 chrGoPosCalculateBaseTtl(struct chrdata *chr)
+{
+	f32 xdiff;
+	f32 zdiff;
+	u32 stack;
+	struct coord pos;
+	s16 rooms[8];
+	f32 divisor;
+
+	chrGoPosGetCurWaypointInfo(chr, &pos, rooms);
+
+	xdiff = pos.x - chr->prop->pos.x;
+	zdiff = pos.z - chr->prop->pos.z;
+
+	if (xdiff < 0) {
+		xdiff = -xdiff;
+	}
+
+	if (zdiff < 0) {
+		zdiff = -zdiff;
+	}
+
+	divisor = func0f0370a8(chr);
+
+	if (chr->aibot == NULL) {
+		divisor *= modelGetAbsAnimSpeed(chr->model);
+	}
+
+	if (divisor < 0.001f) {
+		divisor = 0.001f;
+	}
+
+	return (xdiff + zdiff) / divisor;
+}
 
 void chrGoPosClearRestartTtl(struct chrdata *chr)
 {
@@ -8546,7 +8507,7 @@ void chrGoPosConsiderRestart(struct chrdata *chr)
 			&& chr->liftaction != LA_3
 			&& chr->liftaction != LA_1) {
 		if (chr->act_gopos.restartttl == 0) {
-			s32 value = func0f037124(chr) * 2 + 300;
+			s32 value = chrGoPosCalculateBaseTtl(chr) * 2 + 300;
 
 			if (value > 0xffff) {
 				value = 0xffff;
