@@ -138,7 +138,7 @@ void func0f04031c(struct coord *coord, f32 arg1, struct coord *coord2, f32 *arg3
 u32 func0f0404d4(void);
 u32 func0f041a74(void);
 u32 func0f041c44(void);
-void func0f041d38(struct chrdata *chr);
+void chrAttackAmountUpdateAnimation(struct chrdata *chr);
 u32 func0f041e48(void);
 void chrTickAttackAmount(struct chrdata *chr);
 void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool enabled);

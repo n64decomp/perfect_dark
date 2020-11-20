@@ -10267,7 +10267,7 @@ void chrRecordLastHearTargetTime(struct chrdata *chr)
 
 bool chrIsStopped(struct chrdata *chr)
 {
-	u32 anim = modelGetAnimNum(chr->model);
+	s16 anim = modelGetAnimNum(chr->model);
 
 	if (anim == ANIM_SNIPING_0269 || anim == ANIM_SNIPING_026B) {
 		return false;
@@ -17720,80 +17720,30 @@ glabel func0f041c44
 /*  f041d34:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f041d38
-/*  f041d38:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f041d3c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f041d40:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f041d44:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f041d48:	8c8e002c */ 	lw	$t6,0x2c($a0)
-/*  f041d4c:	44802000 */ 	mtc1	$zero,$f4
-/*  f041d50:	00808825 */ 	or	$s1,$a0,$zero
-/*  f041d54:	c5c60024 */ 	lwc1	$f6,0x24($t6)
-/*  f041d58:	8c900020 */ 	lw	$s0,0x20($a0)
-/*  f041d5c:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f041d60:	00000000 */ 	nop
-/*  f041d64:	45000016 */ 	bc1f	.L0f041dc0
-/*  f041d68:	00000000 */ 	nop
-/*  f041d6c:	0c00744f */ 	jal	modelGetAnimNum
-/*  f041d70:	02002025 */ 	or	$a0,$s0,$zero
-/*  f041d74:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f041d78:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f041d7c:	a7a2002e */ 	sh	$v0,0x2e($sp)
-/*  f041d80:	02202025 */ 	or	$a0,$s1,$zero
-/*  f041d84:	0fc0b857 */ 	jal	chrGetRangedSpeed
-/*  f041d88:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f041d8c:	8e0f0020 */ 	lw	$t7,0x20($s0)
-/*  f041d90:	8e38002c */ 	lw	$t8,0x2c($s1)
-/*  f041d94:	3c014100 */ 	lui	$at,0x4100
-/*  f041d98:	44814000 */ 	mtc1	$at,$f8
-/*  f041d9c:	81e60008 */ 	lb	$a2,0x8($t7)
-/*  f041da0:	8f070024 */ 	lw	$a3,0x24($t8)
-/*  f041da4:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f041da8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f041dac:	87a5002e */ 	lh	$a1,0x2e($sp)
-/*  f041db0:	0c007733 */ 	jal	modelSetAnimation
-/*  f041db4:	e7a80014 */ 	swc1	$f8,0x14($sp)
-/*  f041db8:	10000015 */ 	b	.L0f041e10
-/*  f041dbc:	8e29002c */ 	lw	$t1,0x2c($s1)
-.L0f041dc0:
-/*  f041dc0:	0c00744f */ 	jal	modelGetAnimNum
-/*  f041dc4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f041dc8:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f041dcc:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f041dd0:	a7a2002e */ 	sh	$v0,0x2e($sp)
-/*  f041dd4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f041dd8:	0fc0b857 */ 	jal	chrGetRangedSpeed
-/*  f041ddc:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f041de0:	8e190020 */ 	lw	$t9,0x20($s0)
-/*  f041de4:	8e28002c */ 	lw	$t0,0x2c($s1)
-/*  f041de8:	3c014100 */ 	lui	$at,0x4100
-/*  f041dec:	44815000 */ 	mtc1	$at,$f10
-/*  f041df0:	83260008 */ 	lb	$a2,0x8($t9)
-/*  f041df4:	8d07001c */ 	lw	$a3,0x1c($t0)
-/*  f041df8:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f041dfc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f041e00:	87a5002e */ 	lh	$a1,0x2e($sp)
-/*  f041e04:	0c007733 */ 	jal	modelSetAnimation
-/*  f041e08:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f041e0c:	8e29002c */ 	lw	$t1,0x2c($s1)
-.L0f041e10:
-/*  f041e10:	44808000 */ 	mtc1	$zero,$f16
-/*  f041e14:	c5200014 */ 	lwc1	$f0,0x14($t1)
-/*  f041e18:	4600803e */ 	c.le.s	$f16,$f0
-/*  f041e1c:	00000000 */ 	nop
-/*  f041e20:	45020005 */ 	bc1fl	.L0f041e38
-/*  f041e24:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f041e28:	44050000 */ 	mfc1	$a1,$f0
-/*  f041e2c:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f041e30:	02002025 */ 	or	$a0,$s0,$zero
-/*  f041e34:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f041e38:
-/*  f041e38:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f041e3c:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f041e40:	03e00008 */ 	jr	$ra
-/*  f041e44:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void chrAttackAmountUpdateAnimation(struct chrdata *chr)
+{
+	struct model *model = chr->model;
+
+	if (chr->act_attackamount.unk02c->fstartframe2 > 0) {
+		modelSetAnimation(model,
+				modelGetAnimNum(model),
+				model->anim->flip,
+				chr->act_attackamount.unk02c->fstartframe2,
+				chrGetRangedSpeed(chr, 0.5f, 0.8f),
+				8);
+	} else {
+		modelSetAnimation(model,
+				modelGetAnimNum(model),
+				model->anim->flip,
+				chr->act_attackamount.unk02c->fstartframe1,
+				chrGetRangedSpeed(chr, 0.5f, 0.8f),
+				8);
+	}
+
+	if (chr->act_attackamount.unk02c->unk14 >= 0) {
+		modelSetAnimEndFrame(model, chr->act_attackamount.unk02c->unk14);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f041e48
@@ -17902,7 +17852,7 @@ glabel var7f1a918c
 /*  f041fc0:	10000004 */ 	b	.L0f041fd4
 /*  f041fc4:	820e0034 */ 	lb	$t6,0x34($s0)
 .L0f041fc8:
-/*  f041fc8:	0fc1074e */ 	jal	func0f041d38
+/*  f041fc8:	0fc1074e */ 	jal	chrAttackAmountUpdateAnimation
 /*  f041fcc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f041fd0:	820e0034 */ 	lb	$t6,0x34($s0)
 .L0f041fd4:
@@ -17957,7 +17907,7 @@ glabel var7f1a918c
 /*  f042084:	244d0001 */ 	addiu	$t5,$v0,0x1
 /*  f042088:	55820006 */ 	bnel	$t4,$v0,.L0f0420a4
 /*  f04208c:	820f0031 */ 	lb	$t7,0x31($s0)
-/*  f042090:	0fc1074e */ 	jal	func0f041d38
+/*  f042090:	0fc1074e */ 	jal	chrAttackAmountUpdateAnimation
 /*  f042094:	a20d0033 */ 	sb	$t5,0x33($s0)
 /*  f042098:	10000058 */ 	b	.L0f0421fc
 /*  f04209c:	00000000 */ 	nop
@@ -18380,7 +18330,7 @@ void chrTickAttackAmount(struct chrdata *chr)
 		if (chr->act_attackamount.unk033++ < chr->act_attackamount.unk034) {
 			func0f03f988(chr, 0, 1);
 		} else {
-			func0f041d38(chr);
+			chrAttackAmountUpdateAnimation(chr);
 			func0f03f988(chr, 0, 0);
 		}
 	} else {

@@ -3240,7 +3240,7 @@ glabel func0001cebc
 /*    1d138:	00000000 */ 	nop
 );
 
-u32 modelGetAnimNum(struct model *model)
+s16 modelGetAnimNum(struct model *model)
 {
 	if (model->anim) {
 		return model->anim->animnum;
@@ -3906,7 +3906,7 @@ bool modelIsAnimMerging(struct model *model)
 	return false;
 }
 
-void func0001dbfc(struct model *model, s16 animnum, u32 arg2, f32 arg3, f32 arg4, f32 arg5, bool newmerge)
+void func0001dbfc(struct model *model, s16 animnum, u32 flip, f32 startframe, f32 speed, f32 arg5, bool newmerge)
 {
 	if (model) {
 		if (model->anim && model->anim->animnum
@@ -3919,11 +3919,11 @@ void func0001dbfc(struct model *model, s16 animnum, u32 arg2, f32 arg3, f32 arg4
 			modelCopyAnimForMerge(model, arg5);
 		}
 
-		func0001d62c(model, animnum, arg2, arg3, arg4, arg5);
+		func0001d62c(model, animnum, flip, startframe, speed, arg5);
 	}
 }
 
-void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startframe, f32 arg4, f32 arg5)
+void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startframe, f32 speed, f32 arg5)
 {
 	if (model) {
 		if (model->anim && model->anim->animnum
@@ -3933,7 +3933,7 @@ void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startfram
 		}
 
 		modelCopyAnimForMerge(model, arg5);
-		func0001d62c(model, animnum, flip, startframe, arg4, arg5);
+		func0001d62c(model, animnum, flip, startframe, speed, arg5);
 	}
 }
 

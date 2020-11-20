@@ -767,11 +767,11 @@ struct act_attackamount_2c {
 	u32 unk08;
 	f32 unk0c;
 	u32 unk10;
-	u32 unk14;
+	f32 unk14;
 	f32 unk18;
-	u32 unk1c;
+	f32 fstartframe1;
 	u32 unk20;
-	u32 unk24;
+	f32 fstartframe2;
 	f32 framestart;
 	f32 frameend;
 };
