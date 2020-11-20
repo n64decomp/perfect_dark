@@ -1782,7 +1782,7 @@ glabel func0f11594c
 );
 
 GLOBAL_ASM(
-glabel func0f115a48
+glabel waypointDisableSegment
 /*  f115a48:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f115a4c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f115a50:	afa40018 */ 	sw	$a0,0x18($sp)
@@ -1798,7 +1798,7 @@ glabel func0f115a48
 );
 
 GLOBAL_ASM(
-glabel func0f115a78
+glabel waypointEnableSegment
 /*  f115a78:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f115a7c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f115a80:	afa40018 */ 	sw	$a0,0x18($sp)

@@ -24977,7 +24977,7 @@ bool chrCanHearAlarm(struct chrdata *chr)
 }
 
 GLOBAL_ASM(
-glabel func0f04a2d4
+glabel waypointIsWithin90DegreesOfPosAngle
 .late_rodata
 glabel var7f1a93e4
 .word 0x40c907a9
@@ -25033,122 +25033,62 @@ glabel var7f1a93ec
 /*  f04a378:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 
-GLOBAL_ASM(
-glabel func0f04a37c
-.late_rodata
-glabel var7f1a93f0
-.word 0x404907a9
-glabel var7f1a93f4
-.word 0x3fc907a9
-glabel var7f1a93f8
-.word 0x4096c5bf
-glabel var7f1a93fc
-.word 0x40c907a9
-.text
-/*  f04a37c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f04a380:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f04a384:	4486a000 */ 	mtc1	$a2,$f20
-/*  f04a388:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f04a38c:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f04a390:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f04a394:	30f000ff */ 	andi	$s0,$a3,0xff
-/*  f04a398:	0080a025 */ 	or	$s4,$a0,$zero
-/*  f04a39c:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f04a3a0:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f04a3a4:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f04a3a8:	0fc45095 */ 	jal	waypointFindClosestToPos
-/*  f04a3ac:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f04a3b0:	10400044 */ 	beqz	$v0,.L0f04a4c4
-/*  f04a3b4:	00409825 */ 	or	$s3,$v0,$zero
-/*  f04a3b8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f04a3bc:	1201000a */ 	beq	$s0,$at,.L0f04a3e8
-/*  f04a3c0:	02602025 */ 	or	$a0,$s3,$zero
-/*  f04a3c4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f04a3c8:	1201000b */ 	beq	$s0,$at,.L0f04a3f8
-/*  f04a3cc:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f04a3d0:	1201000d */ 	beq	$s0,$at,.L0f04a408
-/*  f04a3d4:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f04a3d8:	1201000e */ 	beq	$s0,$at,.L0f04a414
-/*  f04a3dc:	00000000 */ 	nop
-/*  f04a3e0:	1000000c */ 	b	.L0f04a414
-/*  f04a3e4:	00000000 */ 	nop
-.L0f04a3e8:
-/*  f04a3e8:	3c017f1b */ 	lui	$at,%hi(var7f1a93f0)
-/*  f04a3ec:	c42493f0 */ 	lwc1	$f4,%lo(var7f1a93f0)($at)
-/*  f04a3f0:	10000008 */ 	b	.L0f04a414
-/*  f04a3f4:	4604a500 */ 	add.s	$f20,$f20,$f4
-.L0f04a3f8:
-/*  f04a3f8:	3c017f1b */ 	lui	$at,%hi(var7f1a93f4)
-/*  f04a3fc:	c42693f4 */ 	lwc1	$f6,%lo(var7f1a93f4)($at)
-/*  f04a400:	10000004 */ 	b	.L0f04a414
-/*  f04a404:	4606a500 */ 	add.s	$f20,$f20,$f6
-.L0f04a408:
-/*  f04a408:	3c017f1b */ 	lui	$at,%hi(var7f1a93f8)
-/*  f04a40c:	c42893f8 */ 	lwc1	$f8,%lo(var7f1a93f8)($at)
-/*  f04a410:	4608a500 */ 	add.s	$f20,$f20,$f8
-.L0f04a414:
-/*  f04a414:	3c017f1b */ 	lui	$at,%hi(var7f1a93fc)
-/*  f04a418:	c42093fc */ 	lwc1	$f0,%lo(var7f1a93fc)($at)
-/*  f04a41c:	4614003e */ 	c.le.s	$f0,$f20
-/*  f04a420:	00000000 */ 	nop
-/*  f04a424:	45020003 */ 	bc1fl	.L0f04a434
-/*  f04a428:	4406a000 */ 	mfc1	$a2,$f20
-/*  f04a42c:	4600a501 */ 	sub.s	$f20,$f20,$f0
-/*  f04a430:	4406a000 */ 	mfc1	$a2,$f20
-.L0f04a434:
-/*  f04a434:	0fc128b5 */ 	jal	func0f04a2d4
-/*  f04a438:	02802825 */ 	or	$a1,$s4,$zero
-/*  f04a43c:	50400004 */ 	beqzl	$v0,.L0f04a450
-/*  f04a440:	8e6e0004 */ 	lw	$t6,0x4($s3)
-/*  f04a444:	10000020 */ 	b	.L0f04a4c8
-/*  f04a448:	8e620000 */ 	lw	$v0,0x0($s3)
-/*  f04a44c:	8e6e0004 */ 	lw	$t6,0x4($s3)
-.L0f04a450:
-/*  f04a450:	3c12800a */ 	lui	$s2,%hi(g_StageSetup)
-/*  f04a454:	2652d030 */ 	addiu	$s2,$s2,%lo(g_StageSetup)
-/*  f04a458:	8dd00000 */ 	lw	$s0,0x0($t6)
-/*  f04a45c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f04a460:	06000018 */ 	bltz	$s0,.L0f04a4c4
-/*  f04a464:	320f8000 */ 	andi	$t7,$s0,0x8000
-.L0f04a468:
-/*  f04a468:	15e0000f */ 	bnez	$t7,.L0f04a4a8
-/*  f04a46c:	32183fff */ 	andi	$t8,$s0,0x3fff
-/*  f04a470:	8e480000 */ 	lw	$t0,0x0($s2)
-/*  f04a474:	0018c900 */ 	sll	$t9,$t8,0x4
-/*  f04a478:	4406a000 */ 	mfc1	$a2,$f20
-/*  f04a47c:	03008025 */ 	or	$s0,$t8,$zero
-/*  f04a480:	02802825 */ 	or	$a1,$s4,$zero
-/*  f04a484:	0fc128b5 */ 	jal	func0f04a2d4
-/*  f04a488:	03282021 */ 	addu	$a0,$t9,$t0
-/*  f04a48c:	50400007 */ 	beqzl	$v0,.L0f04a4ac
-/*  f04a490:	8e6c0004 */ 	lw	$t4,0x4($s3)
-/*  f04a494:	8e490000 */ 	lw	$t1,0x0($s2)
-/*  f04a498:	00105100 */ 	sll	$t2,$s0,0x4
-/*  f04a49c:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f04a4a0:	10000009 */ 	b	.L0f04a4c8
-/*  f04a4a4:	8d620000 */ 	lw	$v0,0x0($t3)
-.L0f04a4a8:
-/*  f04a4a8:	8e6c0004 */ 	lw	$t4,0x4($s3)
-.L0f04a4ac:
-/*  f04a4ac:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f04a4b0:	00116880 */ 	sll	$t5,$s1,0x2
-/*  f04a4b4:	018d7021 */ 	addu	$t6,$t4,$t5
-/*  f04a4b8:	8dd00000 */ 	lw	$s0,0x0($t6)
-/*  f04a4bc:	0603ffea */ 	bgezl	$s0,.L0f04a468
-/*  f04a4c0:	320f8000 */ 	andi	$t7,$s0,0x8000
-.L0f04a4c4:
-/*  f04a4c4:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f04a4c8:
-/*  f04a4c8:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f04a4cc:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f04a4d0:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f04a4d4:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f04a4d8:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f04a4dc:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f04a4e0:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f04a4e4:	03e00008 */ 	jr	$ra
-/*  f04a4e8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+/**
+ * Attempt to find a waypoint near pos which is in a particular quadrant to pos,
+ * then return its padnum.
+ *
+ * For example, pos is typically the player's position, angle is the direction
+ * the player is facing, and quadrant is which quadrant (front/back/left/right)
+ * that is desired relative to the player's position and angle.
+ *
+ * The function starts by finding the closest waypoint to the pos. If it's not
+ * in the quadrant then its neighouring waypoints are checked too. If none of
+ * those are in the quadrant then no further checks are made and the function
+ * returns -1.
+ */
+s32 chrFindWaypointWithinPosQuadrant(struct coord *pos, s16 *rooms, f32 angle, u8 quadrant)
+{
+	struct waypoint *waypoint = waypointFindClosestToPos(pos, rooms);
+	s32 neighbournum;
+	s32 i;
+
+	if (waypoint) {
+		switch (quadrant) {
+		case QUADRANT_BACK:
+			angle += M_BADPI;
+			break;
+		case QUADRANT_SIDE1:
+			angle += 1.5705462694168f;
+			break;
+		case QUADRANT_SIDE2:
+			angle += 4.7116389274597f;
+			break;
+		case QUADRANT_FRONT:
+			break;
+		}
+
+		if (angle >= M_BADTAU) {
+			angle -= M_BADTAU;
+		}
+
+		if (waypointIsWithin90DegreesOfPosAngle(waypoint, pos, angle)) {
+			return waypoint->padnum;
+		}
+
+		for (i = 0; (neighbournum = waypoint->neighbours[i]) >= 0; i++) {
+			if ((neighbournum & 0x8000) == 0) {
+				neighbournum &= 0x3fff;
+
+				if (waypointIsWithin90DegreesOfPosAngle(&g_StageSetup.waypoints[neighbournum], pos, angle)) {
+					return g_StageSetup.waypoints[neighbournum].padnum;
+				}
+			}
+
+		}
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel func0f04a4ec
@@ -25240,7 +25180,7 @@ glabel func0f04a4ec
 /*  f04a634:	44060000 */ 	mfc1	$a2,$f0
 /*  f04a638:	320700ff */ 	andi	$a3,$s0,0xff
 /*  f04a63c:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f04a640:	0fc128df */ 	jal	func0f04a37c
+/*  f04a640:	0fc128df */ 	jal	chrFindWaypointWithinPosQuadrant
 /*  f04a644:	24450028 */ 	addiu	$a1,$v0,0x28
 /*  f04a648:	04420005 */ 	bltzl	$v0,.L0f04a660
 /*  f04a64c:	00001025 */ 	or	$v0,$zero,$zero
@@ -25257,14 +25197,14 @@ glabel func0f04a4ec
 /*  f04a670:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-bool func0f04a674(struct chrdata *chr, u8 arg1)
+bool chrSetPadPresetToWaypointWithinTargetQuadrant(struct chrdata *chr, u8 quadrant)
 {
 	f32 angle;
 	s32 padnum;
 	struct prop *prop;
 
-	if (arg1 == 0x10 || arg1 == 0x20) {
-		return func0f04a4ec(chr, arg1);
+	if (quadrant == QUADRANT_10 || quadrant == QUADRANT_20) {
+		return func0f04a4ec(chr, quadrant);
 	}
 
 	angle = 0;
@@ -25276,7 +25216,7 @@ bool func0f04a674(struct chrdata *chr, u8 arg1)
 		angle = chrGetInverseTheta(prop->chr);
 	}
 
-	padnum = func0f04a37c(&prop->pos, prop->rooms, angle, arg1);
+	padnum = chrFindWaypointWithinPosQuadrant(&prop->pos, prop->rooms, angle, quadrant);
 
 	if (padnum >= 0) {
 		chr->padpreset1 = padnum;

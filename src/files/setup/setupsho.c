@@ -2116,9 +2116,9 @@ u8 func040d_king_combat[] = {
 	endloop(0x68)
 
 	label(0x2d)
-	try_set_target_pad_to_something2(0x01, /*goto*/ 0x2d)
-	try_set_target_pad_to_something2(0x02, /*goto*/ 0x2d)
-	try_set_target_pad_to_something2(0x04, /*goto*/ 0x2d)
+	try_set_padpreset_to_target_quadrant(QUADRANT_BACK, /*goto*/ 0x2d)
+	try_set_padpreset_to_target_quadrant(QUADRANT_SIDE1, /*goto*/ 0x2d)
+	try_set_padpreset_to_target_quadrant(QUADRANT_SIDE2, /*goto*/ 0x2d)
 	goto_next(0x88)
 
 	label(0x2d)

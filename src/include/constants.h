@@ -2443,6 +2443,13 @@
 #define PROPTYPE_EXPLOSION 7
 #define PROPTYPE_EFFECT    8
 
+#define QUADRANT_BACK  0x01
+#define QUADRANT_SIDE1 0x02
+#define QUADRANT_SIDE2 0x04
+#define QUADRANT_FRONT 0x08
+#define QUADRANT_10    0x10
+#define QUADRANT_20    0x20
+
 #define QUIP_ATTACK1            0
 #define QUIP_ATTACK2            1
 #define QUIP_GOTOCOVER1         2

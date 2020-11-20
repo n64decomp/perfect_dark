@@ -120,7 +120,7 @@
 /*0x0073*/ bool aiIfObjectiveComplete(void);
 /*0x0074*/ bool aiIfObjectiveFailed(void);
 /*0x0075*/ bool ai0075(void);
-/*0x0076*/ bool ai0076(void);
+/*0x0076*/ bool aiSetPadPresetToTargetQuadrant(void);
 /*0x0077*/ bool aiIfDifficultyLessThan(void);
 /*0x0078*/ bool aiIfDifficultyGreaterThan(void);
 /*0x0079*/ bool aiIfUptimeLessThan(void);

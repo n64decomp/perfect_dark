@@ -1074,13 +1074,21 @@
 	label,
 
 /**
- * Only ever called with values 1, 2, 4 and 8. The value is related to circles,
- * perhaps specifying a certain side of the target chr.
- * If u1 were 0x10 or 0x20, some other logic would be used (same as previous).
+ * Attempts to find a waypoint within the given quadrant of the current chr's
+ * target then sets the chr's padpreset to the given waypoint's pad number.
+ *
+ * If no waypoint is found, the padpreset is left unchanged and the label is not
+ * followed.
+ *
+ * The exact formula for finding the waypoint is:
+ * 1. Find the closest waypoint to the target regardless of direction
+ * 2. Check if that waypoint or any of its direct neighbours are in the quadrant
+ *
+ * No further checks are done.
  */
-#define try_set_target_pad_to_something2(u1, label) \
+#define try_set_padpreset_to_target_quadrant(quadrant, label) \
 	mkshort(0x0076), \
-	u1, \
+	quadrant, \
 	label,
 
 /**

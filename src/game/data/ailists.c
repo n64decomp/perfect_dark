@@ -5301,25 +5301,25 @@ u8 func0020_place_coop_buddy[] = {
 	// Try to move chr to one of four pads until it works
 	label(0x03)
 	yield
-	try_set_target_pad_to_something2(0x01, /*goto*/ 0xfa)
+	try_set_padpreset_to_target_quadrant(QUADRANT_BACK, /*goto*/ 0xfa)
 	goto_next(0xf3)
 
 	label(0xfa)
 	chr_move_to_pad(CHR_SELF, PAD_PRESET, 0x01, /*goto*/ 0x13)
 	label(0xf3)
-	try_set_target_pad_to_something2(0x02, /*goto*/ 0xfa)
+	try_set_padpreset_to_target_quadrant(QUADRANT_SIDE1, /*goto*/ 0xfa)
 	goto_next(0xf3)
 
 	label(0xfa)
 	chr_move_to_pad(CHR_SELF, PAD_PRESET, 0x01, /*goto*/ 0x13)
 	label(0xf3)
-	try_set_target_pad_to_something2(0x04, /*goto*/ 0xfa)
+	try_set_padpreset_to_target_quadrant(QUADRANT_SIDE2, /*goto*/ 0xfa)
 	goto_next(0xf3)
 
 	label(0xfa)
 	chr_move_to_pad(CHR_SELF, PAD_PRESET, 0x01, /*goto*/ 0x13)
 	label(0xf3)
-	try_set_target_pad_to_something2(0x08, /*goto*/ 0xfa)
+	try_set_padpreset_to_target_quadrant(QUADRANT_FRONT, /*goto*/ 0xfa)
 	goto_next(0xf3)
 
 	label(0xfa)

@@ -136,7 +136,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0073*/ aiIfObjectiveComplete,
 	/*0x0074*/ aiIfObjectiveFailed,
 	/*0x0075*/ ai0075,
-	/*0x0076*/ ai0076,
+	/*0x0076*/ aiSetPadPresetToTargetQuadrant,
 	/*0x0077*/ aiIfDifficultyLessThan,
 	/*0x0078*/ aiIfDifficultyGreaterThan,
 	/*0x0079*/ aiIfUptimeLessThan,

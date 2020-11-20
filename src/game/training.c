@@ -5008,7 +5008,7 @@ void func0f1a2198(void)
 
 void htBegin(void)
 {
-	struct stagesetup00 *setup00 = g_StageSetup.unk00;
+	struct waypoint *waypoints = g_StageSetup.waypoints;
 
 	g_HoloTrainingData.intraining = true;
 	g_HoloTrainingData.timetaken = 0;
@@ -5016,7 +5016,10 @@ void htBegin(void)
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_SUCCESS);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
 	chrSetStageFlag(NULL, func0f1a25c0(htGetIndexBySlot(var80088bb4)));
-	func0f115a48(&setup00->unk200, &setup00->unk310);
+
+	// Disable segment leading out of the door
+	waypointDisableSegment(&waypoints[0x20], &waypoints[0x31]);
+
 	g_Vars.currentplayer->training = true;
 	playersSetPassiveMode(false);
 	chrSetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
@@ -5028,13 +5031,16 @@ void htEnd(void)
 	s16 *propnum;
 	s16 propnums[256];
 	s16 rooms[5] = { 0x0016, 0x0017, 0x0018, 0x0019, -1 };
-	struct stagesetup00 *setup00 = g_StageSetup.unk00;
+	struct waypoint *waypoints = g_StageSetup.waypoints;
 
 	g_HoloTrainingData.intraining = false;
 	chrSetStageFlag(NULL, STAGEFLAG_CI_HOLO_ABORTING);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
 	chrUnsetStageFlag(NULL, func0f1a25c0(htGetIndexBySlot(var80088bb4)));
-	func0f115a78(&setup00->unk200, &setup00->unk310);
+
+	// Enable segment leading out of the door
+	waypointEnableSegment(&waypoints[0x20], &waypoints[0x31]);
+
 	g_Vars.currentplayer->training = false;
 	roomGetProps(rooms, propnums, 256);
 	propnum = &propnums[0];

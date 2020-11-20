@@ -2613,11 +2613,11 @@ bool ai0075(void)
 /**
  * @cmd 0076
  */
-bool ai0076(void)
+bool aiSetPadPresetToTargetQuadrant(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f04a674(g_Vars.chrdata, cmd[2])) {
+	if (chrSetPadPresetToWaypointWithinTargetQuadrant(g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
