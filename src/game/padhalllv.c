@@ -889,71 +889,35 @@ glabel func0f114ee4
 /*  f114f6c:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f114f70
-/*  f114f70:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f114f74:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f114f78:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f114f7c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f114f80:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f114f84:	28e10002 */ 	slti	$at,$a3,0x2
-/*  f114f88:	00e09825 */ 	or	$s3,$a3,$zero
-/*  f114f8c:	0080a025 */ 	or	$s4,$a0,$zero
-/*  f114f90:	00a0a825 */ 	or	$s5,$a1,$zero
-/*  f114f94:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f114f98:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f114f9c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f114fa0:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f114fa4:	1420001e */ 	bnez	$at,.L0f115020
-/*  f114fa8:	00c08825 */ 	or	$s1,$a2,$zero
-/*  f114fac:	0fc453b9 */ 	jal	func0f114ee4
-/*  f114fb0:	00000000 */ 	nop
-/*  f114fb4:	8fa20038 */ 	lw	$v0,0x38($sp)
-/*  f114fb8:	02809025 */ 	or	$s2,$s4,$zero
-/*  f114fbc:	2673270f */ 	addiu	$s3,$s3,0x270f
-/*  f114fc0:	ac540000 */ 	sw	$s4,0x0($v0)
-/*  f114fc4:	8eae000c */ 	lw	$t6,0xc($s5)
-/*  f114fc8:	24102711 */ 	addiu	$s0,$zero,0x2711
-/*  f114fcc:	24510004 */ 	addiu	$s1,$v0,0x4
-/*  f114fd0:	29c12711 */ 	slti	$at,$t6,0x2711
-/*  f114fd4:	14200012 */ 	bnez	$at,.L0f115020
-/*  f114fd8:	2a612712 */ 	slti	$at,$s3,0x2712
-/*  f114fdc:	54200011 */ 	bnezl	$at,.L0f115024
-/*  f114fe0:	ae200000 */ 	sw	$zero,0x0($s1)
-/*  f114fe4:	8e440004 */ 	lw	$a0,0x4($s2)
-.L0f114fe8:
-/*  f114fe8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f114fec:	8e860008 */ 	lw	$a2,0x8($s4)
-/*  f114ff0:	0fc452df */ 	jal	func0f114b7c
-/*  f114ff4:	34078000 */ 	dli	$a3,0x8000
-/*  f114ff8:	ae220000 */ 	sw	$v0,0x0($s1)
-/*  f114ffc:	8eaf000c */ 	lw	$t7,0xc($s5)
-/*  f115000:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f115004:	00409025 */ 	or	$s2,$v0,$zero
-/*  f115008:	01f0082a */ 	slt	$at,$t7,$s0
-/*  f11500c:	14200004 */ 	bnez	$at,.L0f115020
-/*  f115010:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f115014:	0213082a */ 	slt	$at,$s0,$s3
-/*  f115018:	5420fff3 */ 	bnezl	$at,.L0f114fe8
-/*  f11501c:	8e440004 */ 	lw	$a0,0x4($s2)
-.L0f115020:
-/*  f115020:	ae200000 */ 	sw	$zero,0x0($s1)
-.L0f115024:
-/*  f115024:	8fb80038 */ 	lw	$t8,0x38($sp)
-/*  f115028:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f11502c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f115030:	02381023 */ 	subu	$v0,$s1,$t8
-/*  f115034:	0002c883 */ 	sra	$t9,$v0,0x2
-/*  f115038:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f11503c:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f115040:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f115044:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f115048:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f11504c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f115050:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f115054:	03e00008 */ 	jr	$ra
-/*  f115058:	03201025 */ 	or	$v0,$t9,$zero
-);
+s32 func0f114f70(struct waypoint *from, struct waypoint *to, struct waypoint **arr, s32 arrlen)
+{
+	struct waypoint **arrptr = arr;
+	struct waypoint *curfrom;
+	s32 i;
+
+	if (arrlen >= 2) {
+		func0f114ee4(from, to);
+
+		*arr = from;
+		arrptr++;
+
+		curfrom = from;
+		arrlen += 9999;
+		i = 10001;
+
+		while (i <= to->unk0c && i < arrlen) {
+			curfrom = func0f114b7c(curfrom->neighbours, i, from->groupnum, 0x8000);
+			*arrptr = curfrom;
+			arrptr++;
+			i++;
+		}
+	}
+
+	*arrptr = NULL;
+	arrptr++;
+
+	return arrptr - arr;
+}
 
 GLOBAL_ASM(
 glabel func0f11505c
