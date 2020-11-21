@@ -7,7 +7,7 @@ void waypointSetHashThing(s32 hash1, s32 hash2);
 struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms);
 u32 func0f114810(void);
 void func0f114958(s32 *groupnums, s32 value, u32 mask);
-u32 func0f1149b0(void);
+bool func0f1149b0(struct waygroup *group, s32 arg1, u32 mask);
 u32 func0f114a2c(void);
 u32 func0f114aec(void);
 u32 func0f114b7c(void);

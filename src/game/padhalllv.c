@@ -522,6 +522,10 @@ glabel func0f114810
 /*  f114954:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
+/**
+ * For each group number in the given list which matches the mask,
+ * assign value to their unk08 if their unk08 has no value (ie. is negative).
+ */
 void func0f114958(s32 *groupnums, s32 value, u32 mask)
 {
 	struct waygroup *groups = g_StageSetup.waygroups;
@@ -539,43 +543,29 @@ void func0f114958(s32 *groupnums, s32 value, u32 mask)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f1149b0
-/*  f1149b0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1149b4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1149b8:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f1149bc:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f1149c0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1149c4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1149c8:	8c870000 */ 	lw	$a3,0x0($a0)
-/*  f1149cc:	00808025 */ 	or	$s0,$a0,$zero
-/*  f1149d0:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f1149d4:	00c09825 */ 	or	$s3,$a2,$zero
-/*  f1149d8:	10e0000c */ 	beqz	$a3,.L0f114a0c
-/*  f1149dc:	00009025 */ 	or	$s2,$zero,$zero
-/*  f1149e0:	8e0e0008 */ 	lw	$t6,0x8($s0)
-.L0f1149e4:
-/*  f1149e4:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f1149e8:	26250001 */ 	addiu	$a1,$s1,0x1
-/*  f1149ec:	162e0003 */ 	bne	$s1,$t6,.L0f1149fc
-/*  f1149f0:	02603025 */ 	or	$a2,$s3,$zero
-/*  f1149f4:	0fc45256 */ 	jal	func0f114958
-/*  f1149f8:	24120001 */ 	addiu	$s2,$zero,0x1
-.L0f1149fc:
-/*  f1149fc:	8e07000c */ 	lw	$a3,0xc($s0)
-/*  f114a00:	2610000c */ 	addiu	$s0,$s0,0xc
-/*  f114a04:	54e0fff7 */ 	bnezl	$a3,.L0f1149e4
-/*  f114a08:	8e0e0008 */ 	lw	$t6,0x8($s0)
-.L0f114a0c:
-/*  f114a0c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f114a10:	02401025 */ 	or	$v0,$s2,$zero
-/*  f114a14:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f114a18:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f114a1c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f114a20:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f114a24:	03e00008 */ 	jr	$ra
-/*  f114a28:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+/**
+ * Iterate the given groups and find any with an unk08 matching arg1.
+ * For all groups that match, iterate their neighbouring groups and set their
+ * unk08s to arg1 + 1, but only if their groupnum matches the given mask and
+ * they have no existing unk08 value.
+ *
+ * Return true if any matched.
+ */
+bool func0f1149b0(struct waygroup *group, s32 arg1, u32 mask)
+{
+	bool result = false;
+
+	while (group->neighbours) {
+		if (group->unk08 == arg1) {
+			result = true;
+			func0f114958(group->neighbours, arg1 + 1, mask);
+		}
+
+		group++;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f114a2c
