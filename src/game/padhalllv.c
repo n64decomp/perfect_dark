@@ -762,39 +762,26 @@ glabel func0f114b7c
 /*  f114cc8:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
-GLOBAL_ASM(
-glabel func0f114ccc
-/*  f114ccc:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f114cd0:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f114cd4:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f114cd8:	3c02800a */ 	lui	$v0,%hi(g_StageSetup)
-/*  f114cdc:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f114ce0:	04600011 */ 	bltz	$v1,.L0f114d28
-/*  f114ce4:	8c42d030 */ 	lw	$v0,%lo(g_StageSetup)($v0)
-/*  f114ce8:	00677024 */ 	and	$t6,$v1,$a3
-.L0f114cec:
-/*  f114cec:	15c0000a */ 	bnez	$t6,.L0f114d18
-/*  f114cf0:	306f3fff */ 	andi	$t7,$v1,0x3fff
-/*  f114cf4:	000fc100 */ 	sll	$t8,$t7,0x4
-/*  f114cf8:	03022821 */ 	addu	$a1,$t8,$v0
-/*  f114cfc:	8cb90008 */ 	lw	$t9,0x8($a1)
-/*  f114d00:	54d90006 */ 	bnel	$a2,$t9,.L0f114d1c
-/*  f114d04:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f114d08:	8ca8000c */ 	lw	$t0,0xc($a1)
-/*  f114d0c:	05030003 */ 	bgezl	$t0,.L0f114d1c
-/*  f114d10:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f114d14:	acb0000c */ 	sw	$s0,0xc($a1)
-.L0f114d18:
-/*  f114d18:	8c830004 */ 	lw	$v1,0x4($a0)
-.L0f114d1c:
-/*  f114d1c:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f114d20:	0463fff2 */ 	bgezl	$v1,.L0f114cec
-/*  f114d24:	00677024 */ 	and	$t6,$v1,$a3
-.L0f114d28:
-/*  f114d28:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f114d2c:	03e00008 */ 	jr	$ra
-/*  f114d30:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+/**
+ * For each pointnum, if it matches the mask, belongs to the given group and has
+ * no unk0c, set its unk0c to the given value.
+ */
+void func0f114ccc(s32 *pointnums, s32 value, s32 groupnum, u32 mask)
+{
+	struct waypoint *waypoints = g_StageSetup.waypoints;
+
+	while (*pointnums >= 0) {
+		if ((*pointnums & mask) == 0) {
+			struct waypoint *waypoint = &waypoints[*pointnums & 0x3fff];
+
+			if (waypoint->groupnum == groupnum && waypoint->unk0c < 0) {
+				waypoint->unk0c = value;
+			}
+		}
+
+		*pointnums++;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f114d34

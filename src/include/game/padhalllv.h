@@ -11,7 +11,7 @@ bool func0f1149b0(struct waygroup *group, s32 arg1, u32 mask);
 u32 func0f114a2c(void);
 u32 func0f114aec(void);
 u32 func0f114b7c(void);
-u32 func0f114ccc(void);
+void func0f114ccc(s32 *pointnums, s32 value, s32 groupnum, u32 mask);
 u32 func0f114d34(void);
 u32 func0f114de0(void);
 u32 func0f114ee4(void);
