@@ -341,14 +341,14 @@ struct modeldata_headspot { // type 0x17
 struct waygroup {
 	s32 *neighbours;
 	s32 *waypoints;
-	s32 terminator; // always zero
+	s32 unk08;
 };
 
 struct waypoint {
 	s32 padnum;
 	s32 *neighbours; // most significant two bits are booleans, remaining bits are waypoint index
 	s32 groupnum;
-	s32 terminator; // always zero
+	s32 unk0c;
 };
 
 struct aibot014 {

@@ -522,35 +522,22 @@ glabel func0f114810
 /*  f114954:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
-GLOBAL_ASM(
-glabel func0f114958
-/*  f114958:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f11495c:	3c02800a */ 	lui	$v0,%hi(g_StageSetup+0x4)
-/*  f114960:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f114964:	04600010 */ 	bltz	$v1,.L0f1149a8
-/*  f114968:	8c42d034 */ 	lw	$v0,%lo(g_StageSetup+0x4)($v0)
-/*  f11496c:	2408000c */ 	addiu	$t0,$zero,0xc
-/*  f114970:	00667024 */ 	and	$t6,$v1,$a2
-.L0f114974:
-/*  f114974:	15c00008 */ 	bnez	$t6,.L0f114998
-/*  f114978:	306f3fff */ 	andi	$t7,$v1,0x3fff
-/*  f11497c:	01e80019 */ 	multu	$t7,$t0
-/*  f114980:	0000c012 */ 	mflo	$t8
-/*  f114984:	03022821 */ 	addu	$a1,$t8,$v0
-/*  f114988:	8cb90008 */ 	lw	$t9,0x8($a1)
-/*  f11498c:	07230003 */ 	bgezl	$t9,.L0f11499c
-/*  f114990:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f114994:	aca70008 */ 	sw	$a3,0x8($a1)
-.L0f114998:
-/*  f114998:	8c830004 */ 	lw	$v1,0x4($a0)
-.L0f11499c:
-/*  f11499c:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f1149a0:	0463fff4 */ 	bgezl	$v1,.L0f114974
-/*  f1149a4:	00667024 */ 	and	$t6,$v1,$a2
-.L0f1149a8:
-/*  f1149a8:	03e00008 */ 	jr	$ra
-/*  f1149ac:	00000000 */ 	nop
-);
+void func0f114958(s32 *groupnums, s32 value, u32 mask)
+{
+	struct waygroup *groups = g_StageSetup.waygroups;
+
+	while (*groupnums >= 0) {
+		if ((*groupnums & mask) == 0) {
+			struct waygroup *group = &groups[*groupnums & 0x3fff];
+
+			if (group->unk08 < 0) {
+				group->unk08 = value;
+			}
+		}
+
+		groupnums++;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1149b0
@@ -1282,7 +1269,7 @@ void func0f115390(void)
 	struct waypoint *waypoint = g_StageSetup.waypoints;
 
 	while (waypoint->padnum >= 0) {
-		waypoint->terminator = -1;
+		waypoint->unk0c = -1;
 		waypoint++;
 	}
 }
