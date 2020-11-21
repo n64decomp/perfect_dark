@@ -1277,24 +1277,15 @@ glabel waypointFindRoute
 /*  f11538c:	01e01025 */ 	or	$v0,$t7,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f115390
-/*  f115390:	3c02800a */ 	lui	$v0,%hi(g_StageSetup)
-/*  f115394:	8c42d030 */ 	lw	$v0,%lo(g_StageSetup)($v0)
-/*  f115398:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f11539c:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f1153a0:	05c00006 */ 	bltz	$t6,.L0f1153bc
-/*  f1153a4:	00000000 */ 	nop
-/*  f1153a8:	8c4f0010 */ 	lw	$t7,0x10($v0)
-.L0f1153ac:
-/*  f1153ac:	ac43000c */ 	sw	$v1,0xc($v0)
-/*  f1153b0:	24420010 */ 	addiu	$v0,$v0,16
-/*  f1153b4:	05e3fffd */ 	bgezl	$t7,.L0f1153ac
-/*  f1153b8:	8c4f0010 */ 	lw	$t7,0x10($v0)
-.L0f1153bc:
-/*  f1153bc:	03e00008 */ 	jr	$ra
-/*  f1153c0:	00000000 */ 	nop
-);
+void func0f115390(void)
+{
+	struct waypoint *waypoint = g_StageSetup.waypoints;
+
+	while (waypoint->padnum >= 0) {
+		waypoint->terminator = -1;
+		waypoint++;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1153c4

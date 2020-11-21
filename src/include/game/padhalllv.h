@@ -18,7 +18,7 @@ u32 func0f114ee4(void);
 u32 func0f114f70(void);
 u32 func0f11505c(void);
 s32 waypointFindRoute(struct waypoint *from, struct waypoint *to, struct waypoint **arr, s32 maxwaypoints);
-u32 func0f115390(void);
+void func0f115390(void);
 u32 func0f1153c4(void);
 u32 func0f1154cc(void);
 u32 func0f1155e0(void);
