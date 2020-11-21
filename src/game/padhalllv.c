@@ -1128,118 +1128,52 @@ glabel func0f11505c
 /*  f1151e8:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-GLOBAL_ASM(
-glabel waypointFindRoute
-/*  f1151ec:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f1151f0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1151f4:	3c10800a */ 	lui	$s0,%hi(g_StageSetup+0x4)
-/*  f1151f8:	8e10d034 */ 	lw	$s0,%lo(g_StageSetup+0x4)($s0)
-/*  f1151fc:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f115200:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f115204:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f115208:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f11520c:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f115210:	00e09825 */ 	or	$s3,$a3,$zero
-/*  f115214:	0080b025 */ 	or	$s6,$a0,$zero
-/*  f115218:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f11521c:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f115220:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f115224:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f115228:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f11522c:	afa60078 */ 	sw	$a2,0x78($sp)
-/*  f115230:	12000045 */ 	beqz	$s0,.L0f115348
-/*  f115234:	00c0a025 */ 	or	$s4,$a2,$zero
-/*  f115238:	50800044 */ 	beqzl	$a0,.L0f11534c
-/*  f11523c:	ae800000 */ 	sw	$zero,0x0($s4)
-/*  f115240:	50a00042 */ 	beqzl	$a1,.L0f11534c
-/*  f115244:	ae800000 */ 	sw	$zero,0x0($s4)
-/*  f115248:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*  f11524c:	2402000c */ 	addiu	$v0,$zero,0xc
-/*  f115250:	8cb80008 */ 	lw	$t8,0x8($a1)
-/*  f115254:	01c20019 */ 	multu	$t6,$v0
-/*  f115258:	afb10074 */ 	sw	$s1,0x74($sp)
-/*  f11525c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f115260:	00007812 */ 	mflo	$t7
-/*  f115264:	01f09021 */ 	addu	$s2,$t7,$s0
-/*  f115268:	02402025 */ 	or	$a0,$s2,$zero
-/*  f11526c:	03020019 */ 	multu	$t8,$v0
-/*  f115270:	0000c812 */ 	mflo	$t9
-/*  f115274:	0330f021 */ 	addu	$s8,$t9,$s0
-/*  f115278:	0fc452bb */ 	jal	func0f114aec
-/*  f11527c:	03c02825 */ 	or	$a1,$s8,$zero
-/*  f115280:	50400032 */ 	beqzl	$v0,.L0f11534c
-/*  f115284:	ae800000 */ 	sw	$zero,0x0($s4)
-/*  f115288:	8e500008 */ 	lw	$s0,0x8($s2)
-/*  f11528c:	8fc80008 */ 	lw	$t0,0x8($s8)
-/*  f115290:	02c0a825 */ 	or	$s5,$s6,$zero
-/*  f115294:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f115298:	0110082a */ 	slt	$at,$t0,$s0
-/*  f11529c:	14200022 */ 	bnez	$at,.L0f115328
-/*  f1152a0:	02408825 */ 	or	$s1,$s2,$zero
-/*  f1152a4:	2a610002 */ 	slti	$at,$s3,0x2
-/*  f1152a8:	1420001f */ 	bnez	$at,.L0f115328
-/*  f1152ac:	27b70044 */ 	addiu	$s7,$sp,0x44
-/*  f1152b0:	27b60048 */ 	addiu	$s6,$sp,0x48
-/*  f1152b4:	8e240000 */ 	lw	$a0,0x0($s1)
-.L0f1152b8:
-/*  f1152b8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1152bc:	0fc45204 */ 	jal	func0f114810
-/*  f1152c0:	34068000 */ 	dli	$a2,0x8000
-/*  f1152c4:	00409025 */ 	or	$s2,$v0,$zero
-/*  f1152c8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f1152cc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1152d0:	02c03025 */ 	or	$a2,$s6,$zero
-/*  f1152d4:	0fc45417 */ 	jal	func0f11505c
-/*  f1152d8:	02e03825 */ 	or	$a3,$s7,$zero
-/*  f1152dc:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f1152e0:	8fa50048 */ 	lw	$a1,0x48($sp)
-/*  f1152e4:	02803025 */ 	or	$a2,$s4,$zero
-/*  f1152e8:	0fc453dc */ 	jal	func0f114f70
-/*  f1152ec:	02603825 */ 	or	$a3,$s3,$zero
-/*  f1152f0:	8fcb0008 */ 	lw	$t3,0x8($s8)
-/*  f1152f4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1152f8:	2449ffff */ 	addiu	$t1,$v0,-1
-/*  f1152fc:	02629823 */ 	subu	$s3,$s3,$v0
-/*  f115300:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f115304:	0170082a */ 	slt	$at,$t3,$s0
-/*  f115308:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f11530c:	028aa021 */ 	addu	$s4,$s4,$t2
-/*  f115310:	8fb50044 */ 	lw	$s5,0x44($sp)
-/*  f115314:	14200004 */ 	bnez	$at,.L0f115328
-/*  f115318:	02408825 */ 	or	$s1,$s2,$zero
-/*  f11531c:	2a610002 */ 	slti	$at,$s3,0x2
-/*  f115320:	5020ffe5 */ 	beqzl	$at,.L0f1152b8
-/*  f115324:	8e240000 */ 	lw	$a0,0x0($s1)
-.L0f115328:
-/*  f115328:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f11532c:	8fa50074 */ 	lw	$a1,0x74($sp)
-/*  f115330:	02803025 */ 	or	$a2,$s4,$zero
-/*  f115334:	0fc453dc */ 	jal	func0f114f70
-/*  f115338:	02603825 */ 	or	$a3,$s3,$zero
-/*  f11533c:	244cffff */ 	addiu	$t4,$v0,-1
-/*  f115340:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f115344:	028da021 */ 	addu	$s4,$s4,$t5
-.L0f115348:
-/*  f115348:	ae800000 */ 	sw	$zero,0x0($s4)
-.L0f11534c:
-/*  f11534c:	8fae0078 */ 	lw	$t6,0x78($sp)
-/*  f115350:	26940004 */ 	addiu	$s4,$s4,0x4
-/*  f115354:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f115358:	028e1023 */ 	subu	$v0,$s4,$t6
-/*  f11535c:	00027883 */ 	sra	$t7,$v0,0x2
-/*  f115360:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f115364:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f115368:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f11536c:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f115370:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f115374:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f115378:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f11537c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f115380:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f115384:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*  f115388:	03e00008 */ 	jr	$ra
-/*  f11538c:	01e01025 */ 	or	$v0,$t7,$zero
-);
+/**
+ * Find a route from frompoint to topoint. The arr argument will be populated
+ * with pointers to the route's waypoints. If arr is not big enough then only
+ * the first part of the route will be populated into the array.
+ *
+ * The return value is the number of elements populated into the array.
+ */
+s32 waypointFindRoute(struct waypoint *frompoint, struct waypoint *topoint, struct waypoint **arr, s32 arrlen)
+{
+	struct waypoint **arrptr = arr;
+	struct waygroup *groups = g_StageSetup.waygroups;
+
+	if (groups && frompoint && topoint) {
+		struct waygroup *fromgroup = &groups[frompoint->groupnum];
+		struct waygroup *togroup = &groups[topoint->groupnum];
+
+		if (func0f114aec(fromgroup, togroup, groups)) {
+			struct waypoint *curfrompoint = frompoint;
+			struct waygroup *curfromgroup = fromgroup;
+			s32 i;
+
+			for (i = fromgroup->unk08 + 1; i <= togroup->unk08 && arrlen >= 2; i++) {
+				s32 numwritten;
+				struct waygroup *nextfromgroup = func0f114810(curfromgroup->neighbours, i, 0x8000);
+				struct waypoint *tmppoint;
+				struct waypoint *nextfrompoint;
+
+				func0f11505c(curfromgroup, nextfromgroup, &tmppoint, &nextfrompoint);
+				numwritten = func0f114f70(curfrompoint, tmppoint, arrptr, arrlen) - 1;
+
+				arrlen -= numwritten;
+				arrptr += numwritten;
+
+				curfrompoint = nextfrompoint;
+				curfromgroup = nextfromgroup;
+			}
+
+			arrptr += func0f114f70(curfrompoint, topoint, arrptr, arrlen) - 1;
+		}
+	}
+
+	*arrptr = NULL;
+	arrptr++;
+
+	return arrptr - arr;
+}
 
 void func0f115390(void)
 {
