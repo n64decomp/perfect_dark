@@ -567,63 +567,24 @@ bool func0f1149b0(struct waygroup *group, s32 arg1, u32 mask)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f114a2c
-/*  f114a2c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f114a30:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f114a34:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f114a38:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f114a3c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f114a40:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f114a44:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f114a48:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f114a4c:	00c09025 */ 	or	$s2,$a2,$zero
-/*  f114a50:	00e09825 */ 	or	$s3,$a3,$zero
-/*  f114a54:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f114a58:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f114a5c:	11c00007 */ 	beqz	$t6,.L0f114a7c
-/*  f114a60:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f114a64:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f114a68:	8c4f000c */ 	lw	$t7,0xc($v0)
-.L0f114a6c:
-/*  f114a6c:	2442000c */ 	addiu	$v0,$v0,0xc
-/*  f114a70:	ac43fffc */ 	sw	$v1,-0x4($v0)
-/*  f114a74:	55e0fffd */ 	bnezl	$t7,.L0f114a6c
-/*  f114a78:	8c4f000c */ 	lw	$t7,0xc($v0)
-.L0f114a7c:
-/*  f114a7c:	ac800008 */ 	sw	$zero,0x8($a0)
-/*  f114a80:	16600004 */ 	bnez	$s3,.L0f114a94
-/*  f114a84:	00008025 */ 	or	$s0,$zero,$zero
-/*  f114a88:	8e980008 */ 	lw	$t8,0x8($s4)
-/*  f114a8c:	0703000f */ 	bgezl	$t8,.L0f114acc
-/*  f114a90:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f114a94:
-/*  f114a94:	8fb10040 */ 	lw	$s1,0x40($sp)
-/*  f114a98:	02402025 */ 	or	$a0,$s2,$zero
-.L0f114a9c:
-/*  f114a9c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f114aa0:	0fc4526c */ 	jal	func0f1149b0
-/*  f114aa4:	02203025 */ 	or	$a2,$s1,$zero
-/*  f114aa8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f114aac:	16600004 */ 	bnez	$s3,.L0f114ac0
-/*  f114ab0:	00404025 */ 	or	$t0,$v0,$zero
-/*  f114ab4:	8e990008 */ 	lw	$t9,0x8($s4)
-/*  f114ab8:	07230004 */ 	bgezl	$t9,.L0f114acc
-/*  f114abc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f114ac0:
-/*  f114ac0:	5500fff6 */ 	bnezl	$t0,.L0f114a9c
-/*  f114ac4:	02402025 */ 	or	$a0,$s2,$zero
-/*  f114ac8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f114acc:
-/*  f114acc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f114ad0:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f114ad4:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f114ad8:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f114adc:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f114ae0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f114ae4:	03e00008 */ 	jr	$ra
-/*  f114ae8:	01001025 */ 	or	$v0,$t0,$zero
-);
+bool func0f114a2c(struct waygroup *from, struct waygroup *to, struct waygroup *groups, s32 arg3, u32 mask)
+{
+	bool result = true;
+	struct waygroup *group;
+	s32 i;
+
+	for (group = groups; group->neighbours; group++) {
+		group->unk08 = -1;
+	}
+
+	from->unk08 = 0;
+
+	for (i = 0; (arg3 || to->unk08 < 0) && result; i++) {
+		result = func0f1149b0(groups, i, mask);
+	}
+
+	return result;
+}
 
 bool func0f114aec(struct waygroup *from, struct waygroup *to, struct waygroup *groups)
 {
