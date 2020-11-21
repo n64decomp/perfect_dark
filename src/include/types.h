@@ -338,6 +338,12 @@ struct modeldata_headspot { // type 0x17
 	void *datas;
 };
 
+struct waygroup {
+	s32 *neighbours;
+	s32 *waypoints;
+	s32 terminator; // always zero
+};
+
 struct waypoint {
 	s32 padnum;
 	s32 *neighbours; // most significant two bits are booleans, remaining bits are waypoint index
@@ -2839,7 +2845,7 @@ struct cover {
 
 struct stagesetup {
 	/*0x00*/ struct waypoint *waypoints;
-	/*0x04*/ void *unk04;
+	/*0x04*/ struct waygroup *waygroups;
 	/*0x08*/ struct coverdefinition *cover;
 	/*0x0c*/ s32 *intro;
 	/*0x10*/ u32 *props;

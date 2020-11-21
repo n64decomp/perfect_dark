@@ -1708,78 +1708,42 @@ glabel waypointDisableSegmentInDirection
 /*  f115948:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel waypointEnableSegmentInDirection
-/*  f11594c:	3c0a800a */ 	lui	$t2,%hi(g_StageSetup)
-/*  f115950:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*  f115954:	8c890004 */ 	lw	$t1,0x4($a0)
-/*  f115958:	254ad030 */ 	addiu	$t2,$t2,%lo(g_StageSetup)
-/*  f11595c:	8d590000 */ 	lw	$t9,0x0($t2)
-/*  f115960:	8d280000 */ 	lw	$t0,0x0($t1)
-/*  f115964:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f115968:	8d580004 */ 	lw	$t8,0x4($t2)
-/*  f11596c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f115970:	00b91823 */ 	subu	$v1,$a1,$t9
-/*  f115974:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f115978:	00035903 */ 	sra	$t3,$v1,0x4
-/*  f11597c:	01601825 */ 	or	$v1,$t3,$zero
-/*  f115980:	8ca60008 */ 	lw	$a2,0x8($a1)
-/*  f115984:	00003825 */ 	or	$a3,$zero,$zero
-/*  f115988:	0500000c */ 	bltz	$t0,.L0f1159bc
-/*  f11598c:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f115990:	310c3fff */ 	andi	$t4,$t0,0x3fff
-/*  f115994:	116c0009 */ 	beq	$t3,$t4,.L0f1159bc
-/*  f115998:	00006880 */ 	sll	$t5,$zero,0x2
-/*  f11599c:	012d2821 */ 	addu	$a1,$t1,$t5
-/*  f1159a0:	8ca80004 */ 	lw	$t0,0x4($a1)
-.L0f1159a4:
-/*  f1159a4:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f1159a8:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f1159ac:	05000003 */ 	bltz	$t0,.L0f1159bc
-/*  f1159b0:	310e3fff */ 	andi	$t6,$t0,0x3fff
-/*  f1159b4:	546efffb */ 	bnel	$v1,$t6,.L0f1159a4
-/*  f1159b8:	8ca80004 */ 	lw	$t0,0x4($a1)
-.L0f1159bc:
-/*  f1159bc:	310f3fff */ 	andi	$t7,$t0,0x3fff
-/*  f1159c0:	106f0007 */ 	beq	$v1,$t7,.L0f1159e0
-/*  f1159c4:	00072880 */ 	sll	$a1,$a3,0x2
-/*  f1159c8:	0125c021 */ 	addu	$t8,$t1,$a1
-/*  f1159cc:	af030000 */ 	sw	$v1,0x0($t8)
-/*  f1159d0:	8c8b0004 */ 	lw	$t3,0x4($a0)
-/*  f1159d4:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f1159d8:	01656021 */ 	addu	$t4,$t3,$a1
-/*  f1159dc:	ad990004 */ 	sw	$t9,0x4($t4)
-.L0f1159e0:
-/*  f1159e0:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f1159e4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1159e8:	8c680000 */ 	lw	$t0,0x0($v1)
-/*  f1159ec:	0500000b */ 	bltz	$t0,.L0f115a1c
-/*  f1159f0:	310d3fff */ 	andi	$t5,$t0,0x3fff
-/*  f1159f4:	10cd0009 */ 	beq	$a2,$t5,.L0f115a1c
-/*  f1159f8:	00007080 */ 	sll	$t6,$zero,0x2
-/*  f1159fc:	006e2021 */ 	addu	$a0,$v1,$t6
-/*  f115a00:	8c880004 */ 	lw	$t0,0x4($a0)
-.L0f115a04:
-/*  f115a04:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f115a08:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f115a0c:	05000003 */ 	bltz	$t0,.L0f115a1c
-/*  f115a10:	310f3fff */ 	andi	$t7,$t0,0x3fff
-/*  f115a14:	54cffffb */ 	bnel	$a2,$t7,.L0f115a04
-/*  f115a18:	8c880004 */ 	lw	$t0,0x4($a0)
-.L0f115a1c:
-/*  f115a1c:	31183fff */ 	andi	$t8,$t0,0x3fff
-/*  f115a20:	10d80007 */ 	beq	$a2,$t8,.L0f115a40
-/*  f115a24:	00072880 */ 	sll	$a1,$a3,0x2
-/*  f115a28:	00655821 */ 	addu	$t3,$v1,$a1
-/*  f115a2c:	ad660000 */ 	sw	$a2,0x0($t3)
-/*  f115a30:	8c4c0000 */ 	lw	$t4,0x0($v0)
-/*  f115a34:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f115a38:	01856821 */ 	addu	$t5,$t4,$a1
-/*  f115a3c:	adb90004 */ 	sw	$t9,0x4($t5)
-.L0f115a40:
-/*  f115a40:	03e00008 */ 	jr	$ra
-/*  f115a44:	00000000 */ 	nop
-);
+/**
+ * Enable the segment from A to B.
+ *
+ * This works by adding B to A's neighbour list. If B is already a neighbour of
+ * A (ie. segment is already enabled) then no operation is performed.
+ *
+ * This code assumes that A's neighbours array is big enough to add the new
+ * neighbour, which it will be if B was disabled previously.
+ */
+void waypointEnableSegmentInDirection(struct waypoint *a, struct waypoint *b)
+{
+	struct waygroup *agroup = &g_StageSetup.waygroups[a->groupnum];
+	s32 bpointnum = b - g_StageSetup.waypoints;
+	s32 bgroupnum = b->groupnum;
+	s32 neighbournum;
+	s32 i;
+
+	// Find index in A's neighbour list where B can be added.
+	// This will either be at the -1 terminator, or if B already exists in the
+	// list then the index of B.
+	for (i = 0; (neighbournum = a->neighbours[i]) >= 0 && (neighbournum & 0x3fff) != bpointnum; i++);
+
+	// Add B to A's neighbour list if it doesn't exist
+	if ((neighbournum & 0x3fff) != bpointnum) {
+		a->neighbours[i] = bpointnum;
+		a->neighbours[i + 1] = -1;
+	}
+
+	// Now the same for groups. Make sure B's group is a neighbour of A's group.
+	for (i = 0; (neighbournum = agroup->neighbours[i]) >= 0 && (neighbournum & 0x3fff) != bgroupnum; i++);
+
+	if (bgroupnum != (neighbournum & 0x3fff)) {
+		agroup->neighbours[i] = bgroupnum;
+		agroup->neighbours[i + 1] = -1;
+	}
+}
 
 void waypointDisableSegment(struct waypoint *a, struct waypoint *b)
 {
