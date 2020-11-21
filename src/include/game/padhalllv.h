@@ -8,7 +8,7 @@ struct waypoint *waypointFindClosestToPos(struct coord *pos, s16 *rooms);
 struct waygroup *func0f114810(s32 *groupnums, s32 value, u32 mask);
 void func0f114958(s32 *groupnums, s32 value, u32 mask);
 bool func0f1149b0(struct waygroup *group, s32 arg1, u32 mask);
-u32 func0f114a2c(void);
+bool func0f114a2c(struct waygroup *from, struct waygroup *to, struct waygroup *groups, s32 arg3, u32 mask);
 bool func0f114aec(struct waygroup *from, struct waygroup *to, struct waygroup *groups);
 u32 func0f114b7c(void);
 void func0f114ccc(s32 *pointnums, s32 value, s32 groupnum, u32 mask);

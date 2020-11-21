@@ -625,48 +625,26 @@ glabel func0f114a2c
 /*  f114ae8:	01001025 */ 	or	$v0,$t0,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f114aec
-/*  f114aec:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f114af0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f114af4:	340e8000 */ 	dli	$t6,0x8000
-/*  f114af8:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f114afc:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f114b00:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f114b04:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f114b08:	0fc4528b */ 	jal	func0f114a2c
-/*  f114b0c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f114b10:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f114b14:	10400013 */ 	beqz	$v0,.L0f114b64
-/*  f114b18:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f114b1c:	8cb00008 */ 	lw	$s0,0x8($a1)
-/*  f114b20:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f114b24:	2610ffff */ 	addiu	$s0,$s0,-1
-/*  f114b28:	0602000c */ 	bltzl	$s0,.L0f114b5c
-/*  f114b2c:	8e390008 */ 	lw	$t9,0x8($s1)
-.L0f114b30:
-/*  f114b30:	8e2f0008 */ 	lw	$t7,0x8($s1)
-/*  f114b34:	8e240000 */ 	lw	$a0,0x0($s1)
-/*  f114b38:	02002825 */ 	or	$a1,$s0,$zero
-/*  f114b3c:	25f82710 */ 	addiu	$t8,$t7,0x2710
-/*  f114b40:	ae380008 */ 	sw	$t8,0x8($s1)
-/*  f114b44:	0fc45204 */ 	jal	func0f114810
-/*  f114b48:	24064000 */ 	addiu	$a2,$zero,0x4000
-/*  f114b4c:	2610ffff */ 	addiu	$s0,$s0,-1
-/*  f114b50:	0601fff7 */ 	bgez	$s0,.L0f114b30
-/*  f114b54:	00408825 */ 	or	$s1,$v0,$zero
-/*  f114b58:	8e390008 */ 	lw	$t9,0x8($s1)
-.L0f114b5c:
-/*  f114b5c:	27282710 */ 	addiu	$t0,$t9,0x2710
-/*  f114b60:	ae280008 */ 	sw	$t0,0x8($s1)
-.L0f114b64:
-/*  f114b64:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f114b68:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*  f114b6c:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f114b70:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f114b74:	03e00008 */ 	jr	$ra
-/*  f114b78:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+bool func0f114aec(struct waygroup *from, struct waygroup *to, struct waygroup *groups)
+{
+	u32 stack[2];
+	bool result = func0f114a2c(from, to, groups, 0, 0x8000);
+
+	if (result) {
+		struct waygroup *curto = to;
+		s32 i = curto->unk08 - 1;
+
+		while (i >= 0) {
+			curto->unk08 += 10000;
+			curto = func0f114810(curto->neighbours, i, 0x4000);
+			i--;
+		}
+
+		curto->unk08 += 10000;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f114b7c
