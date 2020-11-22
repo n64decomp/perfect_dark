@@ -551,99 +551,41 @@ bool func0f114aec(struct waygroup *from, struct waygroup *to, struct waygroup *g
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f114b7c
-/*  f114b7c:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f114b80:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f114b84:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f114b88:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f114b8c:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f114b90:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f114b94:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f114b98:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f114b9c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f114ba0:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f114ba4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f114ba8:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f114bac:	3c14800a */ 	lui	$s4,%hi(g_StageSetup)
-/*  f114bb0:	00808825 */ 	or	$s1,$a0,$zero
-/*  f114bb4:	00e0b025 */ 	or	$s6,$a3,$zero
-/*  f114bb8:	00c0b825 */ 	or	$s7,$a2,$zero
-/*  f114bbc:	00a0f025 */ 	or	$s8,$a1,$zero
-/*  f114bc0:	8e94d030 */ 	lw	$s4,%lo(g_StageSetup)($s4)
-/*  f114bc4:	04400034 */ 	bltz	$v0,.L0f114c98
-/*  f114bc8:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f114bcc:	3c12800a */ 	lui	$s2,%hi(g_Vars)
-/*  f114bd0:	3c108007 */ 	lui	$s0,%hi(g_WaypointHashes)
-/*  f114bd4:	26105ca0 */ 	addiu	$s0,$s0,%lo(g_WaypointHashes)
-/*  f114bd8:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
-/*  f114bdc:	27b30050 */ 	addiu	$s3,$sp,0x50
-/*  f114be0:	00567024 */ 	and	$t6,$v0,$s6
-.L0f114be4:
-/*  f114be4:	15c00028 */ 	bnez	$t6,.L0f114c88
-/*  f114be8:	304f3fff */ 	andi	$t7,$v0,0x3fff
-/*  f114bec:	000fc100 */ 	sll	$t8,$t7,0x4
-/*  f114bf0:	03141821 */ 	addu	$v1,$t8,$s4
-/*  f114bf4:	8c790008 */ 	lw	$t9,0x8($v1)
-/*  f114bf8:	56f90024 */ 	bnel	$s7,$t9,.L0f114c8c
-/*  f114bfc:	8e220004 */ 	lw	$v0,0x4($s1)
-/*  f114c00:	8c68000c */ 	lw	$t0,0xc($v1)
-/*  f114c04:	57c80021 */ 	bnel	$s8,$t0,.L0f114c8c
-/*  f114c08:	8e220004 */ 	lw	$v0,0x4($s1)
-/*  f114c0c:	8e490330 */ 	lw	$t1,0x330($s2)
-/*  f114c10:	0060a825 */ 	or	$s5,$v1,$zero
-/*  f114c14:	24040000 */ 	addiu	$a0,$zero,0x0
-/*  f114c18:	1120001f */ 	beqz	$t1,.L0f114c98
-/*  f114c1c:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f114c20:	8e020000 */ 	lw	$v0,0x0($s0)
-/*  f114c24:	1440000b */ 	bnez	$v0,.L0f114c54
-/*  f114c28:	00402825 */ 	or	$a1,$v0,$zero
-/*  f114c2c:	8e0a0004 */ 	lw	$t2,0x4($s0)
-/*  f114c30:	15400008 */ 	bnez	$t2,.L0f114c54
-/*  f114c34:	00000000 */ 	nop
-/*  f114c38:	0c004b70 */ 	jal	random
-/*  f114c3c:	00000000 */ 	nop
-/*  f114c40:	304b0001 */ 	andi	$t3,$v0,0x1
-/*  f114c44:	55600011 */ 	bnezl	$t3,.L0f114c8c
-/*  f114c48:	8e220004 */ 	lw	$v0,0x4($s1)
-/*  f114c4c:	10000013 */ 	b	.L0f114c9c
-/*  f114c50:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f114c54:
-/*  f114c54:	0c012ba9 */ 	jal	func0004aea4
-/*  f114c58:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f114c5c:	8e0c0004 */ 	lw	$t4,0x4($s0)
-/*  f114c60:	240e0000 */ 	addiu	$t6,$zero,0x0
-/*  f114c64:	01c2c025 */ 	or	$t8,$t6,$v0
-/*  f114c68:	0183c825 */ 	or	$t9,$t4,$v1
-/*  f114c6c:	afb90054 */ 	sw	$t9,0x54($sp)
-/*  f114c70:	afb80050 */ 	sw	$t8,0x50($sp)
-/*  f114c74:	0c004b87 */ 	jal	func00012e1c
-/*  f114c78:	02602025 */ 	or	$a0,$s3,$zero
-/*  f114c7c:	304d0001 */ 	andi	$t5,$v0,0x1
-/*  f114c80:	51a00006 */ 	beqzl	$t5,.L0f114c9c
-/*  f114c84:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f114c88:
-/*  f114c88:	8e220004 */ 	lw	$v0,0x4($s1)
-.L0f114c8c:
-/*  f114c8c:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f114c90:	0443ffd4 */ 	bgezl	$v0,.L0f114be4
-/*  f114c94:	00567024 */ 	and	$t6,$v0,$s6
-.L0f114c98:
-/*  f114c98:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f114c9c:
-/*  f114c9c:	02a01025 */ 	or	$v0,$s5,$zero
-/*  f114ca0:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f114ca4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f114ca8:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f114cac:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f114cb0:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f114cb4:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f114cb8:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f114cbc:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f114cc0:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f114cc4:	03e00008 */ 	jr	$ra
-/*  f114cc8:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
+struct waypoint *func0f114b7c(s32 *pointnums, s32 arg1, s32 groupnum, u32 mask)
+{
+	struct waypoint *points = g_StageSetup.waypoints;
+	struct waypoint *best = NULL;
+
+	while (*pointnums >= 0) {
+		if ((*pointnums & mask) == 0) {
+			struct waypoint *point = &points[*pointnums & 0x3fff];
+
+			if (point->groupnum == groupnum && point->unk0c == arg1) {
+				best = point;
+
+				if (g_Vars.unk000330 == 0) {
+					break;
+				}
+
+				if (!g_WaypointHashes[0] && !g_WaypointHashes[1]) {
+					if (random() % 2 == 0) {
+						break;
+					}
+				} else {
+					u64 sp50 = func0004aea4(g_WaypointHashes[0], 0x20) | g_WaypointHashes[1];
+
+					if (func00012e1c(&sp50) % 2 == 0) {
+						break;
+					}
+				}
+			}
+		}
+
+		*pointnums++;
+	}
+
+	return best;
+}
 
 /**
  * For each pointnum, if it matches the mask, belongs to the given group and has
