@@ -13,7 +13,7 @@ bool func0f114aec(struct waygroup *from, struct waygroup *to, struct waygroup *g
 struct waypoint *func0f114b7c(s32 *pointnums, s32 arg1, s32 groupnum, u32 mask);
 void func0f114ccc(s32 *pointnums, s32 value, s32 groupnum, u32 mask);
 u32 func0f114d34(void);
-u32 func0f114de0(void);
+void func0f114de0(struct waypoint *from, struct waypoint *to, s32 arg2, u32 mask);
 void func0f114ee4(struct waypoint *from, struct waypoint *to);
 s32 func0f114f70(struct waypoint *from, struct waypoint *to, struct waypoint **arr, s32 arrlen);
 void func0f11505c(struct waygroup *arg0, struct waygroup *arg1, struct waypoint **arg2, struct waypoint **arg3);

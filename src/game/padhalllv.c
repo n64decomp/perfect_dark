@@ -848,46 +848,25 @@ glabel func0f114de0
 /*  f114ee0:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel func0f114ee4
-/*  f114ee4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f114ee8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f114eec:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f114ef0:	00809025 */ 	or	$s2,$a0,$zero
-/*  f114ef4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f114ef8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f114efc:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f114f00:	00003025 */ 	or	$a2,$zero,$zero
-/*  f114f04:	0fc45378 */ 	jal	func0f114de0
-/*  f114f08:	34078000 */ 	dli	$a3,0x8000
-/*  f114f0c:	8fb1002c */ 	lw	$s1,0x2c($sp)
-/*  f114f10:	8e30000c */ 	lw	$s0,0xc($s1)
-/*  f114f14:	2610ffff */ 	addiu	$s0,$s0,-1
-/*  f114f18:	0602000d */ 	bltzl	$s0,.L0f114f50
-/*  f114f1c:	8e38000c */ 	lw	$t8,0xc($s1)
-.L0f114f20:
-/*  f114f20:	8e2e000c */ 	lw	$t6,0xc($s1)
-/*  f114f24:	8e240004 */ 	lw	$a0,0x4($s1)
-/*  f114f28:	02002825 */ 	or	$a1,$s0,$zero
-/*  f114f2c:	25cf2710 */ 	addiu	$t7,$t6,0x2710
-/*  f114f30:	ae2f000c */ 	sw	$t7,0xc($s1)
-/*  f114f34:	8e460008 */ 	lw	$a2,0x8($s2)
-/*  f114f38:	0fc452df */ 	jal	func0f114b7c
-/*  f114f3c:	24074000 */ 	addiu	$a3,$zero,0x4000
-/*  f114f40:	2610ffff */ 	addiu	$s0,$s0,-1
-/*  f114f44:	0601fff6 */ 	bgez	$s0,.L0f114f20
-/*  f114f48:	00408825 */ 	or	$s1,$v0,$zero
-/*  f114f4c:	8e38000c */ 	lw	$t8,0xc($s1)
-.L0f114f50:
-/*  f114f50:	27192710 */ 	addiu	$t9,$t8,0x2710
-/*  f114f54:	ae39000c */ 	sw	$t9,0xc($s1)
-/*  f114f58:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f114f5c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f114f60:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f114f64:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f114f68:	03e00008 */ 	jr	$ra
-/*  f114f6c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f114ee4(struct waypoint *from, struct waypoint *to)
+{
+	struct waypoint *curto;
+	s32 value;
+
+	func0f114de0(from, to, 0, 0x8000);
+
+	value = to->unk0c - 1;
+	curto = to;
+
+	while (value >= 0) {
+		curto->unk0c += 10000;
+		curto = func0f114b7c(curto->neighbours, value, from->groupnum, 0x4000);
+
+		value--;
+	}
+
+	curto->unk0c += 10000;
+}
 
 s32 func0f114f70(struct waypoint *from, struct waypoint *to, struct waypoint **arr, s32 arrlen)
 {
