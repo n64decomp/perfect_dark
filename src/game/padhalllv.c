@@ -430,97 +430,41 @@ glabel waypointFindClosestToPos
 /*  f11480c:	27bd03a0 */ 	addiu	$sp,$sp,0x3a0
 );
 
-GLOBAL_ASM(
-glabel func0f114810
-/*  f114810:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f114814:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f114818:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f11481c:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f114820:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f114824:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f114828:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f11482c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f114830:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f114834:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f114838:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f11483c:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f114840:	3c15800a */ 	lui	$s5,%hi(g_StageSetup+0x4)
-/*  f114844:	00808825 */ 	or	$s1,$a0,$zero
-/*  f114848:	00c0b825 */ 	or	$s7,$a2,$zero
-/*  f11484c:	00a0f025 */ 	or	$s8,$a1,$zero
-/*  f114850:	8eb5d034 */ 	lw	$s5,%lo(g_StageSetup+0x4)($s5)
-/*  f114854:	04400033 */ 	bltz	$v0,.L0f114924
-/*  f114858:	0000b025 */ 	or	$s6,$zero,$zero
-/*  f11485c:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f114860:	3c108007 */ 	lui	$s0,%hi(g_WaypointHashes)
-/*  f114864:	26105ca0 */ 	addiu	$s0,$s0,%lo(g_WaypointHashes)
-/*  f114868:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*  f11486c:	27b40050 */ 	addiu	$s4,$sp,0x50
-/*  f114870:	2412000c */ 	addiu	$s2,$zero,0xc
-/*  f114874:	00577024 */ 	and	$t6,$v0,$s7
-.L0f114878:
-/*  f114878:	15c00026 */ 	bnez	$t6,.L0f114914
-/*  f11487c:	304f3fff */ 	andi	$t7,$v0,0x3fff
-/*  f114880:	01f20019 */ 	multu	$t7,$s2
-/*  f114884:	0000c012 */ 	mflo	$t8
-/*  f114888:	03151821 */ 	addu	$v1,$t8,$s5
-/*  f11488c:	8c790008 */ 	lw	$t9,0x8($v1)
-/*  f114890:	57d90021 */ 	bnel	$s8,$t9,.L0f114918
-/*  f114894:	8e220004 */ 	lw	$v0,0x4($s1)
-/*  f114898:	8e680330 */ 	lw	$t0,0x330($s3)
-/*  f11489c:	0060b025 */ 	or	$s6,$v1,$zero
-/*  f1148a0:	24040000 */ 	addiu	$a0,$zero,0x0
-/*  f1148a4:	1100001f */ 	beqz	$t0,.L0f114924
-/*  f1148a8:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f1148ac:	8e020000 */ 	lw	$v0,0x0($s0)
-/*  f1148b0:	1440000b */ 	bnez	$v0,.L0f1148e0
-/*  f1148b4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1148b8:	8e090004 */ 	lw	$t1,0x4($s0)
-/*  f1148bc:	15200008 */ 	bnez	$t1,.L0f1148e0
-/*  f1148c0:	00000000 */ 	nop
-/*  f1148c4:	0c004b70 */ 	jal	random
-/*  f1148c8:	00000000 */ 	nop
-/*  f1148cc:	304a0001 */ 	andi	$t2,$v0,0x1
-/*  f1148d0:	55400011 */ 	bnezl	$t2,.L0f114918
-/*  f1148d4:	8e220004 */ 	lw	$v0,0x4($s1)
-/*  f1148d8:	10000013 */ 	b	.L0f114928
-/*  f1148dc:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f1148e0:
-/*  f1148e0:	0c012ba9 */ 	jal	func0004aea4
-/*  f1148e4:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f1148e8:	8e0b0004 */ 	lw	$t3,0x4($s0)
-/*  f1148ec:	240c0000 */ 	addiu	$t4,$zero,0x0
-/*  f1148f0:	01827025 */ 	or	$t6,$t4,$v0
-/*  f1148f4:	01637825 */ 	or	$t7,$t3,$v1
-/*  f1148f8:	afaf0054 */ 	sw	$t7,0x54($sp)
-/*  f1148fc:	afae0050 */ 	sw	$t6,0x50($sp)
-/*  f114900:	0c004b87 */ 	jal	func00012e1c
-/*  f114904:	02802025 */ 	or	$a0,$s4,$zero
-/*  f114908:	30580001 */ 	andi	$t8,$v0,0x1
-/*  f11490c:	53000006 */ 	beqzl	$t8,.L0f114928
-/*  f114910:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f114914:
-/*  f114914:	8e220004 */ 	lw	$v0,0x4($s1)
-.L0f114918:
-/*  f114918:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f11491c:	0443ffd6 */ 	bgezl	$v0,.L0f114878
-/*  f114920:	00577024 */ 	and	$t6,$v0,$s7
-.L0f114924:
-/*  f114924:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f114928:
-/*  f114928:	02c01025 */ 	or	$v0,$s6,$zero
-/*  f11492c:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f114930:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f114934:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f114938:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f11493c:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f114940:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f114944:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f114948:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f11494c:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f114950:	03e00008 */ 	jr	$ra
-/*  f114954:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
+struct waygroup *func0f114810(s32 *groupnums, s32 value, u32 mask)
+{
+	struct waygroup *groups = g_StageSetup.waygroups;
+	struct waygroup *best = NULL;
+
+	while (*groupnums >= 0) {
+		if ((*groupnums & mask) == 0) {
+			struct waygroup *group = &groups[*groupnums & 0x3fff];
+
+			if (group->unk08 == value) {
+				best = group;
+
+				if (g_Vars.unk000330 == 0) {
+					break;
+				}
+
+				if (!g_WaypointHashes[0] && !g_WaypointHashes[1]) {
+					if (random() % 2 == 0) {
+						break;
+					}
+				} else {
+					u64 sp50 = func0004aea4(g_WaypointHashes[0], 0x20) | g_WaypointHashes[1];
+
+					if (func00012e1c(&sp50) % 2 == 0) {
+						break;
+					}
+				}
+			}
+		}
+
+		*groupnums++;
+	}
+
+	return best;
+}
 
 /**
  * For each group number in the given list which matches the mask,
