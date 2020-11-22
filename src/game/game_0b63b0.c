@@ -1646,14 +1646,14 @@ glabel var7f1ad568
 /*  f0b7764:	44816000 */ 	mtc1	$at,$f12
 /*  f0b7768:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0b776c:	44817000 */ 	mtc1	$at,$f14
-/*  f0b7770:	0fc2ed5f */ 	jal	func0f0bb57c
+/*  f0b7770:	0fc2ed5f */ 	jal	currentPlayerStartChrFade
 /*  f0b7774:	00000000 */ 	nop
 /*  f0b7778:	10000006 */ 	b	.L0f0b7794
 /*  f0b777c:	8e490284 */ 	lw	$t1,0x284($s2)
 /*  f0b7780:	44806000 */ 	mtc1	$zero,$f12
 .L0f0b7784:
 /*  f0b7784:	44817000 */ 	mtc1	$at,$f14
-/*  f0b7788:	0fc2ed5f */ 	jal	func0f0bb57c
+/*  f0b7788:	0fc2ed5f */ 	jal	currentPlayerStartChrFade
 /*  f0b778c:	00000000 */ 	nop
 /*  f0b7790:	8e490284 */ 	lw	$t1,0x284($s2)
 .L0f0b7794:
@@ -5567,68 +5567,41 @@ glabel func0f0bb42c
 /*  f0bb578:	00000000 */ 	nop
 );
 
-void func0f0bb57c(f32 arg0, f32 arg1)
+void currentPlayerStartChrFade(f32 duration60, f32 targetfrac)
 {
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
 	if (chr) {
-		g_Vars.currentplayer->unk0188 = 0;
-		g_Vars.currentplayer->unk018c = arg0;
-		g_Vars.currentplayer->unk0190 = chr->fadealpha / 255.0f;
-		g_Vars.currentplayer->unk0194 = arg1;
+		g_Vars.currentplayer->bondfadetime60 = 0;
+		g_Vars.currentplayer->bondfadetimemax60 = duration60;
+		g_Vars.currentplayer->bondfadefracold = chr->fadealpha / 255.0f;
+		g_Vars.currentplayer->bondfadefracnew = targetfrac;
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0bb5ec
-/*  f0bb5ec:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0bb5f0:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0bb5f4:	8c820284 */ 	lw	$v0,0x284($a0)
-/*  f0bb5f8:	44803000 */ 	mtc1	$zero,$f6
-/*  f0bb5fc:	c444018c */ 	lwc1	$f4,0x18c($v0)
-/*  f0bb600:	4604303e */ 	c.le.s	$f6,$f4
-/*  f0bb604:	00000000 */ 	nop
-/*  f0bb608:	45000022 */ 	bc1f	.L0f0bb694
-/*  f0bb60c:	00000000 */ 	nop
-/*  f0bb610:	c4480188 */ 	lwc1	$f8,0x188($v0)
-/*  f0bb614:	c48a004c */ 	lwc1	$f10,0x4c($a0)
-/*  f0bb618:	8c4e00bc */ 	lw	$t6,0xbc($v0)
-/*  f0bb61c:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0bb620:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f0bb624:	8dc30004 */ 	lw	$v1,0x4($t6)
-/*  f0bb628:	e4500188 */ 	swc1	$f16,0x188($v0)
-/*  f0bb62c:	8c820284 */ 	lw	$v0,0x284($a0)
-/*  f0bb630:	c4420188 */ 	lwc1	$f2,0x188($v0)
-/*  f0bb634:	c440018c */ 	lwc1	$f0,0x18c($v0)
-/*  f0bb638:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0bb63c:	00000000 */ 	nop
-/*  f0bb640:	45020009 */ 	bc1fl	.L0f0bb668
-/*  f0bb644:	44815000 */ 	mtc1	$at,$f10
-/*  f0bb648:	c44e0190 */ 	lwc1	$f14,0x190($v0)
-/*  f0bb64c:	c4520194 */ 	lwc1	$f18,0x194($v0)
-/*  f0bb650:	460e9101 */ 	sub.s	$f4,$f18,$f14
-/*  f0bb654:	46022182 */ 	mul.s	$f6,$f4,$f2
-/*  f0bb658:	46003203 */ 	div.s	$f8,$f6,$f0
-/*  f0bb65c:	10000004 */ 	b	.L0f0bb670
-/*  f0bb660:	46087300 */ 	add.s	$f12,$f14,$f8
-/*  f0bb664:	44815000 */ 	mtc1	$at,$f10
-.L0f0bb668:
-/*  f0bb668:	c44c0194 */ 	lwc1	$f12,0x194($v0)
-/*  f0bb66c:	e44a018c */ 	swc1	$f10,0x18c($v0)
-.L0f0bb670:
-/*  f0bb670:	10600008 */ 	beqz	$v1,.L0f0bb694
-/*  f0bb674:	3c01437f */ 	lui	$at,0x437f
-/*  f0bb678:	44818000 */ 	mtc1	$at,$f16
-/*  f0bb67c:	00000000 */ 	nop
-/*  f0bb680:	46106482 */ 	mul.s	$f18,$f12,$f16
-/*  f0bb684:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f0bb688:	44182000 */ 	mfc1	$t8,$f4
-/*  f0bb68c:	00000000 */ 	nop
-/*  f0bb690:	a078000c */ 	sb	$t8,0xc($v1)
-.L0f0bb694:
-/*  f0bb694:	03e00008 */ 	jr	$ra
-/*  f0bb698:	00000000 */ 	nop
-);
+void currentPlayerTickChrFade(void)
+{
+	if (g_Vars.currentplayer->bondfadetimemax60 >= 0) {
+		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
+		f32 frac;
+
+		g_Vars.currentplayer->bondfadetime60 += g_Vars.lvupdate240freal;
+
+		if (g_Vars.currentplayer->bondfadetime60 < g_Vars.currentplayer->bondfadetimemax60) {
+			frac = g_Vars.currentplayer->bondfadefracold
+				+ (g_Vars.currentplayer->bondfadefracnew - g_Vars.currentplayer->bondfadefracold)
+				* g_Vars.currentplayer->bondfadetime60
+				/ g_Vars.currentplayer->bondfadetimemax60;
+		} else {
+			frac = g_Vars.currentplayer->bondfadefracnew;
+			g_Vars.currentplayer->bondfadetimemax60 = -1;
+		}
+
+		if (chr) {
+			chr->fadealpha = (s8)(frac * 255);
+		}
+	}
+}
 
 void func0f0bb69c(void)
 {
@@ -8212,7 +8185,7 @@ glabel var7f1ad6ac
 /*  f0bdc24:	01402825 */ 	or	$a1,$t2,$zero
 /*  f0bdc28:	0fc2ed0b */ 	jal	func0f0bb42c
 /*  f0bdc2c:	00000000 */ 	nop
-/*  f0bdc30:	0fc2ed7b */ 	jal	func0f0bb5ec
+/*  f0bdc30:	0fc2ed7b */ 	jal	currentPlayerTickChrFade
 /*  f0bdc34:	00000000 */ 	nop
 /*  f0bdc38:	8e6b0288 */ 	lw	$t3,0x288($s3)
 /*  f0bdc3c:	0fc549e9 */ 	jal	optionsGetAutoAim
@@ -10426,7 +10399,7 @@ glabel var7f1ad6ac
 //	viSetXY(func0f0bc44c(), func0f0bc478());
 //	viSetBuf(func0f0bc44c(), func0f0bc478());
 //	func0f0bb42c();
-//	func0f0bb5ec();
+//	currentPlayerTickChrFade();
 //	currentPlayerSetAutoAimY(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));
 //	currentPlayerSetAutoAimX(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));
 //	currentPlayerSetAutoMoveCentreEnabled(optionsGetLookAhead(g_Vars.currentplayerstats->mpindex));
@@ -12585,7 +12558,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 			if (g_Vars.currentplayer->deathanimfinished == false) {
 				g_Vars.currentplayer->deathanimfinished = true;
 				currentPlayerAdjustFade(60, 0, 0, 0, 1);
-				func0f0bb57c(120, 0);
+				currentPlayerStartChrFade(120, 0);
 			}
 
 			if (currentPlayerIsFadeComplete()) {

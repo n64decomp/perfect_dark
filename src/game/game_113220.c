@@ -757,7 +757,7 @@ void func0f11412c(f32 speed)
 f32 func0f11416c(void)
 {
 	if (g_Vars.currentplayer->unk03ac >= 0) {
-		f32 a = g_Vars.currentplayer->unk0198 * 0.012500001f + 0.004166667f;
+		f32 a = g_Vars.currentplayer->bondbreathing * 0.012500001f + 0.004166667f;
 		f32 b = modelGetAbsAnimSpeed(&g_Vars.currentplayer->model);
 
 		if (b > 0) {
