@@ -956,88 +956,38 @@ struct waypoint *func0f1153c4(s32 *pointnums, s32 arg1)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f1154cc
-/*  f1154cc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1154d0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1154d4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1154d8:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f1154dc:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f1154e0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1154e4:	05c00006 */ 	bltz	$t6,.L0f115500
-/*  f1154e8:	00801025 */ 	or	$v0,$a0,$zero
-/*  f1154ec:	8c4f0004 */ 	lw	$t7,0x4($v0)
-.L0f1154f0:
-/*  f1154f0:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f1154f4:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f1154f8:	05e3fffd */ 	bgezl	$t7,.L0f1154f0
-/*  f1154fc:	8c4f0004 */ 	lw	$t7,0x4($v0)
-.L0f115500:
-/*  f115500:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f115504:	0c004b70 */ 	jal	random
-/*  f115508:	afa60024 */ 	sw	$a2,0x24($sp)
-/*  f11550c:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f115510:	8faa0028 */ 	lw	$t2,0x28($sp)
-/*  f115514:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f115518:	0046001b */ 	divu	$zero,$v0,$a2
-/*  f11551c:	00004810 */ 	mfhi	$t1
-/*  f115520:	0126082a */ 	slt	$at,$t1,$a2
-/*  f115524:	14c00002 */ 	bnez	$a2,.L0f115530
-/*  f115528:	00000000 */ 	nop
-/*  f11552c:	0007000d */ 	break	0x7
-.L0f115530:
-/*  f115530:	01204025 */ 	or	$t0,$t1,$zero
-/*  f115534:	10200013 */ 	beqz	$at,.L0f115584
-/*  f115538:	01201825 */ 	or	$v1,$t1,$zero
-/*  f11553c:	0003c080 */ 	sll	$t8,$v1,0x2
-/*  f115540:	3c05800a */ 	lui	$a1,%hi(g_StageSetup+0x4)
-/*  f115544:	8ca5d034 */ 	lw	$a1,%lo(g_StageSetup+0x4)($a1)
-/*  f115548:	01581021 */ 	addu	$v0,$t2,$t8
-/*  f11554c:	2407000c */ 	addiu	$a3,$zero,0xc
-.L0f115550:
-/*  f115550:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f115554:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f115558:	332b3fff */ 	andi	$t3,$t9,0x3fff
-/*  f11555c:	01670019 */ 	multu	$t3,$a3
-/*  f115560:	00006012 */ 	mflo	$t4
-/*  f115564:	01852021 */ 	addu	$a0,$t4,$a1
-/*  f115568:	8c8d0008 */ 	lw	$t5,0x8($a0)
-/*  f11556c:	160d0003 */ 	bne	$s0,$t5,.L0f11557c
-/*  f115570:	00000000 */ 	nop
-/*  f115574:	10000017 */ 	b	.L0f1155d4
-/*  f115578:	00801025 */ 	or	$v0,$a0,$zero
-.L0f11557c:
-/*  f11557c:	1466fff4 */ 	bne	$v1,$a2,.L0f115550
-/*  f115580:	24420004 */ 	addiu	$v0,$v0,0x4
-.L0f115584:
-/*  f115584:	2407000c */ 	addiu	$a3,$zero,0xc
-/*  f115588:	19200011 */ 	blez	$t1,.L0f1155d0
-/*  f11558c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f115590:	3c05800a */ 	lui	$a1,%hi(g_StageSetup+0x4)
-/*  f115594:	8ca5d034 */ 	lw	$a1,%lo(g_StageSetup+0x4)($a1)
-/*  f115598:	01401025 */ 	or	$v0,$t2,$zero
-.L0f11559c:
-/*  f11559c:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f1155a0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f1155a4:	31cf3fff */ 	andi	$t7,$t6,0x3fff
-/*  f1155a8:	01e70019 */ 	multu	$t7,$a3
-/*  f1155ac:	0000c012 */ 	mflo	$t8
-/*  f1155b0:	03052021 */ 	addu	$a0,$t8,$a1
-/*  f1155b4:	8c990008 */ 	lw	$t9,0x8($a0)
-/*  f1155b8:	16190003 */ 	bne	$s0,$t9,.L0f1155c8
-/*  f1155bc:	00000000 */ 	nop
-/*  f1155c0:	10000004 */ 	b	.L0f1155d4
-/*  f1155c4:	00801025 */ 	or	$v0,$a0,$zero
-.L0f1155c8:
-/*  f1155c8:	1468fff4 */ 	bne	$v1,$t0,.L0f11559c
-/*  f1155cc:	24420004 */ 	addiu	$v0,$v0,0x4
-.L0f1155d0:
-/*  f1155d0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1155d4:
-/*  f1155d4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1155d8:	03e00008 */ 	jr	$ra
-/*  f1155dc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+struct waygroup *func0f1154cc(s32 *groupnums, s32 arg1)
+{
+	s32 len = 0;
+	s32 randomindex;
+	s32 i;
+
+	while (groupnums[len] >= 0) {
+		len++;
+	}
+
+	// Similar to the above function, return a random waygroup
+	// which matches the arg1 criteria.
+	randomindex = random() % len;
+
+	for (i = randomindex; i < len; i++) {
+		struct waygroup *group = &g_StageSetup.waygroups[groupnums[i] & 0x3fff];
+
+		if (group->unk08 == arg1) {
+			return group;
+		}
+	}
+
+	for (i = 0; i < randomindex; i++) {
+		struct waygroup *group = &g_StageSetup.waygroups[groupnums[i] & 0x3fff];
+
+		if (group->unk08 == arg1) {
+			return group;
+		}
+	}
+
+	return NULL;
+}
 
 struct waypoint *func0f1155e0(struct waypoint *pointa, struct waypoint *pointb)
 {
