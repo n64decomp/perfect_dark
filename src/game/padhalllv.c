@@ -722,56 +722,24 @@ void func0f114ccc(s32 *pointnums, s32 value, s32 groupnum, u32 mask)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f114d34
-/*  f114d34:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f114d38:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f114d3c:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f114d40:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f114d44:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f114d48:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f114d4c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f114d50:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f114d54:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f114d58:	3c13800a */ 	lui	$s3,%hi(g_StageSetup)
-/*  f114d5c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f114d60:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f114d64:	00c0a025 */ 	or	$s4,$a2,$zero
-/*  f114d68:	00e0a825 */ 	or	$s5,$a3,$zero
-/*  f114d6c:	00009025 */ 	or	$s2,$zero,$zero
-/*  f114d70:	04400011 */ 	bltz	$v0,.L0f114db8
-/*  f114d74:	8e73d030 */ 	lw	$s3,%lo(g_StageSetup)($s3)
-/*  f114d78:	00027100 */ 	sll	$t6,$v0,0x4
-.L0f114d7c:
-/*  f114d7c:	01d31821 */ 	addu	$v1,$t6,$s3
-/*  f114d80:	8c6f000c */ 	lw	$t7,0xc($v1)
-/*  f114d84:	562f0009 */ 	bnel	$s1,$t7,.L0f114dac
-/*  f114d88:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f114d8c:	8c640004 */ 	lw	$a0,0x4($v1)
-/*  f114d90:	26250001 */ 	addiu	$a1,$s1,0x1
-/*  f114d94:	02803025 */ 	or	$a2,$s4,$zero
-/*  f114d98:	10800003 */ 	beqz	$a0,.L0f114da8
-/*  f114d9c:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f114da0:	0fc45333 */ 	jal	func0f114ccc
-/*  f114da4:	24120001 */ 	addiu	$s2,$zero,0x1
-.L0f114da8:
-/*  f114da8:	8e020004 */ 	lw	$v0,0x4($s0)
-.L0f114dac:
-/*  f114dac:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f114db0:	0443fff2 */ 	bgezl	$v0,.L0f114d7c
-/*  f114db4:	00027100 */ 	sll	$t6,$v0,0x4
-.L0f114db8:
-/*  f114db8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f114dbc:	02401025 */ 	or	$v0,$s2,$zero
-/*  f114dc0:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f114dc4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f114dc8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f114dcc:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f114dd0:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f114dd4:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f114dd8:	03e00008 */ 	jr	$ra
-/*  f114ddc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+bool func0f114d34(s32 *pointnums, s32 arg1, s32 groupnum, u32 mask)
+{
+	bool result = false;
+	struct waypoint *points = g_StageSetup.waypoints;
+
+	while (*pointnums >= 0) {
+		struct waypoint *point = &points[*pointnums];
+
+		if (arg1 == point->unk0c && point->neighbours) {
+			result = true;
+			func0f114ccc(point->neighbours, arg1 + 1, groupnum, mask);
+		}
+
+		pointnums++;
+	}
+
+	return result;
+}
 
 void func0f114de0(struct waypoint *from, struct waypoint *to, s32 arg2, u32 mask)
 {
