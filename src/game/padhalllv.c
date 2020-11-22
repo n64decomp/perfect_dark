@@ -20,7 +20,7 @@
 
 const char var7f1b3a80[] = "padhalllv.c";
 
-s32 g_WaypointHashes[2] = {0};
+u32 g_WaypointHashes[2] = {0};
 
 void waypointSetHashThing(s32 hash1, s32 hash2)
 {
@@ -815,117 +815,52 @@ s32 func0f114f70(struct waypoint *from, struct waypoint *to, struct waypoint **a
 	return arrptr - arr;
 }
 
-GLOBAL_ASM(
-glabel func0f11505c
-/*  f11505c:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f115060:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f115064:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f115068:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f11506c:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f115070:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f115074:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f115078:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f11507c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f115080:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f115084:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f115088:	8c8e0004 */ 	lw	$t6,0x4($a0)
-/*  f11508c:	3c02800a */ 	lui	$v0,%hi(g_StageSetup)
-/*  f115090:	2442d030 */ 	addiu	$v0,$v0,%lo(g_StageSetup)
-/*  f115094:	8c530000 */ 	lw	$s3,0x0($v0)
-/*  f115098:	8c540004 */ 	lw	$s4,0x4($v0)
-/*  f11509c:	afae006c */ 	sw	$t6,0x6c($sp)
-/*  f1150a0:	ace00000 */ 	sw	$zero,0x0($a3)
-/*  f1150a4:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f1150a8:	8faf006c */ 	lw	$t7,0x6c($sp)
-/*  f1150ac:	00e0a825 */ 	or	$s5,$a3,$zero
-/*  f1150b0:	00c0b025 */ 	or	$s6,$a2,$zero
-/*  f1150b4:	8de30000 */ 	lw	$v1,0x0($t7)
-/*  f1150b8:	00a0b825 */ 	or	$s7,$a1,$zero
-/*  f1150bc:	3c118007 */ 	lui	$s1,%hi(g_WaypointHashes)
-/*  f1150c0:	0460003e */ 	bltz	$v1,.L0f1151bc
-/*  f1150c4:	241e000c */ 	addiu	$s8,$zero,0xc
-/*  f1150c8:	26315ca0 */ 	addiu	$s1,$s1,%lo(g_WaypointHashes)
-/*  f1150cc:	0003c100 */ 	sll	$t8,$v1,0x4
-.L0f1150d0:
-/*  f1150d0:	03139021 */ 	addu	$s2,$t8,$s3
-/*  f1150d4:	8e500004 */ 	lw	$s0,0x4($s2)
-/*  f1150d8:	8e020000 */ 	lw	$v0,0x0($s0)
-/*  f1150dc:	04400031 */ 	bltz	$v0,.L0f1151a4
-/*  f1150e0:	30598000 */ 	andi	$t9,$v0,0x8000
-.L0f1150e4:
-/*  f1150e4:	1720002b */ 	bnez	$t9,.L0f115194
-/*  f1150e8:	30483fff */ 	andi	$t0,$v0,0x3fff
-/*  f1150ec:	00084900 */ 	sll	$t1,$t0,0x4
-/*  f1150f0:	01331821 */ 	addu	$v1,$t1,$s3
-/*  f1150f4:	8c6a0008 */ 	lw	$t2,0x8($v1)
-/*  f1150f8:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x330)
-/*  f1150fc:	015e0019 */ 	multu	$t2,$s8
-/*  f115100:	00005812 */ 	mflo	$t3
-/*  f115104:	01746021 */ 	addu	$t4,$t3,$s4
-/*  f115108:	56ec0023 */ 	bnel	$s7,$t4,.L0f115198
-/*  f11510c:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f115110:	aed20000 */ 	sw	$s2,0x0($s6)
-/*  f115114:	aea30000 */ 	sw	$v1,0x0($s5)
-/*  f115118:	8dada2f0 */ 	lw	$t5,%lo(g_Vars+0x330)($t5)
-/*  f11511c:	24040000 */ 	addiu	$a0,$zero,0x0
-/*  f115120:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f115124:	11a0001f */ 	beqz	$t5,.L0f1151a4
-/*  f115128:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f11512c:	8e220000 */ 	lw	$v0,0x0($s1)
-/*  f115130:	1440000b */ 	bnez	$v0,.L0f115160
-/*  f115134:	00000000 */ 	nop
-/*  f115138:	8e2e0004 */ 	lw	$t6,0x4($s1)
-/*  f11513c:	15c00008 */ 	bnez	$t6,.L0f115160
-/*  f115140:	00000000 */ 	nop
-/*  f115144:	0c004b70 */ 	jal	random
-/*  f115148:	00000000 */ 	nop
-/*  f11514c:	304f0001 */ 	andi	$t7,$v0,0x1
-/*  f115150:	55e00011 */ 	bnezl	$t7,.L0f115198
-/*  f115154:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f115158:	10000013 */ 	b	.L0f1151a8
-/*  f11515c:	8fac006c */ 	lw	$t4,0x6c($sp)
-.L0f115160:
-/*  f115160:	0c012ba9 */ 	jal	func0004aea4
-/*  f115164:	00402825 */ 	or	$a1,$v0,$zero
-/*  f115168:	8e380004 */ 	lw	$t8,0x4($s1)
-/*  f11516c:	24080000 */ 	addiu	$t0,$zero,0x0
-/*  f115170:	01025025 */ 	or	$t2,$t0,$v0
-/*  f115174:	03035825 */ 	or	$t3,$t8,$v1
-/*  f115178:	afab0054 */ 	sw	$t3,0x54($sp)
-/*  f11517c:	afaa0050 */ 	sw	$t2,0x50($sp)
-/*  f115180:	0c004b87 */ 	jal	func00012e1c
-/*  f115184:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f115188:	30590001 */ 	andi	$t9,$v0,0x1
-/*  f11518c:	53200006 */ 	beqzl	$t9,.L0f1151a8
-/*  f115190:	8fac006c */ 	lw	$t4,0x6c($sp)
-.L0f115194:
-/*  f115194:	8e020004 */ 	lw	$v0,0x4($s0)
-.L0f115198:
-/*  f115198:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f11519c:	0443ffd1 */ 	bgezl	$v0,.L0f1150e4
-/*  f1151a0:	30598000 */ 	andi	$t9,$v0,0x8000
-.L0f1151a4:
-/*  f1151a4:	8fac006c */ 	lw	$t4,0x6c($sp)
-.L0f1151a8:
-/*  f1151a8:	258d0004 */ 	addiu	$t5,$t4,0x4
-/*  f1151ac:	afad006c */ 	sw	$t5,0x6c($sp)
-/*  f1151b0:	8da30000 */ 	lw	$v1,0x0($t5)
-/*  f1151b4:	0463ffc6 */ 	bgezl	$v1,.L0f1150d0
-/*  f1151b8:	0003c100 */ 	sll	$t8,$v1,0x4
-.L0f1151bc:
-/*  f1151bc:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f1151c0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1151c4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f1151c8:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1151cc:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f1151d0:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f1151d4:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f1151d8:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f1151dc:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f1151e0:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f1151e4:	03e00008 */ 	jr	$ra
-/*  f1151e8:	27bd0078 */ 	addiu	$sp,$sp,0x78
-);
+void func0f11505c(struct waygroup *groupa, struct waygroup *groupb, struct waypoint **pointa, struct waypoint **pointb)
+{
+	struct waypoint *points = g_StageSetup.waypoints;
+	struct waygroup *groups = g_StageSetup.waygroups;
+	s32 *groupapointnums = groupa->waypoints;
+	s32 stack;
+
+	*pointb = NULL;
+	*pointa = NULL;
+
+	while (*groupapointnums >= 0) {
+		struct waypoint *groupapoint = &points[*groupapointnums];
+		s32 *neighbournums = groupapoint->neighbours;
+
+		while (*neighbournums >= 0) {
+			if ((*neighbournums & 0x8000) == 0) {
+				struct waypoint *neighbour = &points[*neighbournums & 0x3fff];
+
+				if (groupb == &groups[neighbour->groupnum]) {
+					*pointa = groupapoint;
+					*pointb = neighbour;
+
+					if (g_Vars.unk000330 == 0) {
+						break;
+					}
+
+					if (!g_WaypointHashes[0] && !g_WaypointHashes[1]) {
+						if (random() % 2 == 0) {
+							break;
+						}
+					} else {
+						u64 sp50 = func0004aea4(g_WaypointHashes[0], 0x20) | g_WaypointHashes[1];
+
+						if ((func00012e1c(&sp50) % 2) == 0) {
+							break;
+						}
+					}
+				}
+			}
+
+			neighbournums++;
+		}
+
+		groupapointnums++;
+	}
+}
 
 /**
  * Find a route from frompoint to topoint. The arr argument will be populated

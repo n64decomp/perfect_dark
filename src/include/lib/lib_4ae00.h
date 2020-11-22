@@ -6,7 +6,7 @@
 u32 func0004ae00(void);
 u32 func0004ae2c(void);
 u64 func0004ae68(u64 arg0, u64 arg1);
-u32 func0004aea4(void);
+u64 func0004aea4(u64 arg0, u64 arg1);
 u32 func0004af0c(void);
 u64 func0004af68(u64 arg0, u64 arg2);
 
