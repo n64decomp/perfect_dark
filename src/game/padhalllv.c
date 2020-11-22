@@ -919,85 +919,42 @@ void func0f115390(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f1153c4
-/*  f1153c4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1153c8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1153cc:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f1153d0:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f1153d4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1153d8:	05c00006 */ 	bltz	$t6,.L0f1153f4
-/*  f1153dc:	00801025 */ 	or	$v0,$a0,$zero
-/*  f1153e0:	8c4f0004 */ 	lw	$t7,0x4($v0)
-.L0f1153e4:
-/*  f1153e4:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f1153e8:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f1153ec:	05e3fffd */ 	bgezl	$t7,.L0f1153e4
-/*  f1153f0:	8c4f0004 */ 	lw	$t7,0x4($v0)
-.L0f1153f4:
-/*  f1153f4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f1153f8:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f1153fc:	0c004b70 */ 	jal	random
-/*  f115400:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f115404:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f115408:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f11540c:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*  f115410:	0046001b */ 	divu	$zero,$v0,$a2
-/*  f115414:	00004810 */ 	mfhi	$t1
-/*  f115418:	0126082a */ 	slt	$at,$t1,$a2
-/*  f11541c:	14c00002 */ 	bnez	$a2,.L0f115428
-/*  f115420:	00000000 */ 	nop
-/*  f115424:	0007000d */ 	break	0x7
-.L0f115428:
-/*  f115428:	01204025 */ 	or	$t0,$t1,$zero
-/*  f11542c:	10200011 */ 	beqz	$at,.L0f115474
-/*  f115430:	01201825 */ 	or	$v1,$t1,$zero
-/*  f115434:	0003c080 */ 	sll	$t8,$v1,0x2
-/*  f115438:	3c05800a */ 	lui	$a1,%hi(g_StageSetup)
-/*  f11543c:	8ca5d030 */ 	lw	$a1,%lo(g_StageSetup)($a1)
-/*  f115440:	01581021 */ 	addu	$v0,$t2,$t8
-.L0f115444:
-/*  f115444:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f115448:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f11544c:	332b3fff */ 	andi	$t3,$t9,0x3fff
-/*  f115450:	000b6100 */ 	sll	$t4,$t3,0x4
-/*  f115454:	01852021 */ 	addu	$a0,$t4,$a1
-/*  f115458:	8c8d000c */ 	lw	$t5,0xc($a0)
-/*  f11545c:	14ed0003 */ 	bne	$a3,$t5,.L0f11546c
-/*  f115460:	00000000 */ 	nop
-/*  f115464:	10000015 */ 	b	.L0f1154bc
-/*  f115468:	00801025 */ 	or	$v0,$a0,$zero
-.L0f11546c:
-/*  f11546c:	1466fff5 */ 	bne	$v1,$a2,.L0f115444
-/*  f115470:	24420004 */ 	addiu	$v0,$v0,0x4
-.L0f115474:
-/*  f115474:	19200010 */ 	blez	$t1,.L0f1154b8
-/*  f115478:	00001825 */ 	or	$v1,$zero,$zero
-/*  f11547c:	3c05800a */ 	lui	$a1,%hi(g_StageSetup)
-/*  f115480:	8ca5d030 */ 	lw	$a1,%lo(g_StageSetup)($a1)
-/*  f115484:	01401025 */ 	or	$v0,$t2,$zero
-.L0f115488:
-/*  f115488:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f11548c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f115490:	31cf3fff */ 	andi	$t7,$t6,0x3fff
-/*  f115494:	000fc100 */ 	sll	$t8,$t7,0x4
-/*  f115498:	03052021 */ 	addu	$a0,$t8,$a1
-/*  f11549c:	8c99000c */ 	lw	$t9,0xc($a0)
-/*  f1154a0:	14f90003 */ 	bne	$a3,$t9,.L0f1154b0
-/*  f1154a4:	00000000 */ 	nop
-/*  f1154a8:	10000004 */ 	b	.L0f1154bc
-/*  f1154ac:	00801025 */ 	or	$v0,$a0,$zero
-.L0f1154b0:
-/*  f1154b0:	1468fff5 */ 	bne	$v1,$t0,.L0f115488
-/*  f1154b4:	24420004 */ 	addiu	$v0,$v0,0x4
-.L0f1154b8:
-/*  f1154b8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1154bc:
-/*  f1154bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1154c0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1154c4:	03e00008 */ 	jr	$ra
-/*  f1154c8:	00000000 */ 	nop
-);
+struct waypoint *func0f1153c4(s32 *pointnums, s32 arg1)
+{
+	s32 len = 0;
+	s32 randomindex;
+	s32 i;
+
+	while (pointnums[len] >= 0) {
+		len++;
+	}
+
+	// This is effectively randomly dividing the pointnums list into two,
+	// then checking the upper portion before the lower portion. Both loops
+	// have the same logic so this seems unusual, but there is reason to do
+	// this if they want the returned waypoint to be any random waypoint that
+	// meets the arg1 criteria, with equal weighting.
+
+	randomindex = random() % len;
+
+	for (i = randomindex; i < len; i++) {
+		struct waypoint *point = &g_StageSetup.waypoints[pointnums[i] & 0x3fff];
+
+		if (point->unk0c == arg1) {
+			return point;
+		}
+	}
+
+	for (i = 0; i < randomindex; i++) {
+		struct waypoint *point = &g_StageSetup.waypoints[pointnums[i] & 0x3fff];
+
+		if (point->unk0c == arg1) {
+			return point;
+		}
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f1154cc
