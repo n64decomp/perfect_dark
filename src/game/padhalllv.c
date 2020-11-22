@@ -1082,121 +1082,71 @@ glabel func0f1154cc
 /*  f1155dc:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f1155e0
-/*  f1155e0:	3c06800a */ 	lui	$a2,%hi(g_StageSetup+0x4)
-/*  f1155e4:	8cc6d034 */ 	lw	$a2,%lo(g_StageSetup+0x4)($a2)
-/*  f1155e8:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f1155ec:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f1155f0:	00808825 */ 	or	$s1,$a0,$zero
-/*  f1155f4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1155f8:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f1155fc:	10c0005b */ 	beqz	$a2,.L0f11576c
-/*  f115600:	afa50064 */ 	sw	$a1,0x64($sp)
-/*  f115604:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*  f115608:	2402000c */ 	addiu	$v0,$zero,0xc
-/*  f11560c:	8cb90008 */ 	lw	$t9,0x8($a1)
-/*  f115610:	01c20019 */ 	multu	$t6,$v0
-/*  f115614:	00003825 */ 	or	$a3,$zero,$zero
-/*  f115618:	34098000 */ 	dli	$t1,0x8000
-/*  f11561c:	00007812 */ 	mflo	$t7
-/*  f115620:	01e68021 */ 	addu	$s0,$t7,$a2
-/*  f115624:	02002825 */ 	or	$a1,$s0,$zero
-/*  f115628:	03220019 */ 	multu	$t9,$v0
-/*  f11562c:	00004012 */ 	mflo	$t0
-/*  f115630:	01062021 */ 	addu	$a0,$t0,$a2
-/*  f115634:	16040017 */ 	bne	$s0,$a0,.L0f115694
-/*  f115638:	00000000 */ 	nop
-/*  f11563c:	0fc454e4 */ 	jal	func0f115390
-/*  f115640:	00000000 */ 	nop
-/*  f115644:	8fa40064 */ 	lw	$a0,0x64($sp)
-/*  f115648:	02202825 */ 	or	$a1,$s1,$zero
-/*  f11564c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f115650:	0fc45378 */ 	jal	func0f114de0
-/*  f115654:	00003825 */ 	or	$a3,$zero,$zero
-/*  f115658:	8e240004 */ 	lw	$a0,0x4($s1)
-/*  f11565c:	0fc454f1 */ 	jal	func0f1153c4
-/*  f115660:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f115664:	50400004 */ 	beqzl	$v0,.L0f115678
-/*  f115668:	8e25000c */ 	lw	$a1,0xc($s1)
-/*  f11566c:	10000041 */ 	b	.L0f115774
-/*  f115670:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f115674:	8e25000c */ 	lw	$a1,0xc($s1)
-.L0f115678:
-/*  f115678:	8e240004 */ 	lw	$a0,0x4($s1)
-/*  f11567c:	0fc454f1 */ 	jal	func0f1153c4
-/*  f115680:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f115684:	5040003a */ 	beqzl	$v0,.L0f115770
-/*  f115688:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11568c:	10000039 */ 	b	.L0f115774
-/*  f115690:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f115694:
-/*  f115694:	0fc4528b */ 	jal	func0f114a2c
-/*  f115698:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f11569c:	8e0a0008 */ 	lw	$t2,0x8($s0)
-/*  f1156a0:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f1156a4:	05420032 */ 	bltzl	$t2,.L0f115770
-/*  f1156a8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1156ac:	0fc45533 */ 	jal	func0f1154cc
-/*  f1156b0:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f1156b4:	10400013 */ 	beqz	$v0,.L0f115704
-/*  f1156b8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1156bc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1156c0:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f1156c4:	0fc45417 */ 	jal	func0f11505c
-/*  f1156c8:	27a70044 */ 	addiu	$a3,$sp,0x44
-/*  f1156cc:	8fa50048 */ 	lw	$a1,0x48($sp)
-/*  f1156d0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f1156d4:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f1156d8:	14b10003 */ 	bne	$a1,$s1,.L0f1156e8
-/*  f1156dc:	00000000 */ 	nop
-/*  f1156e0:	10000023 */ 	b	.L0f115770
-/*  f1156e4:	8fa20044 */ 	lw	$v0,0x44($sp)
-.L0f1156e8:
-/*  f1156e8:	0fc453dc */ 	jal	func0f114f70
-/*  f1156ec:	24070003 */ 	addiu	$a3,$zero,0x3
-/*  f1156f0:	28410003 */ 	slti	$at,$v0,0x3
-/*  f1156f4:	5420001e */ 	bnezl	$at,.L0f115770
-/*  f1156f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1156fc:	1000001c */ 	b	.L0f115770
-/*  f115700:	8fa2003c */ 	lw	$v0,0x3c($sp)
-.L0f115704:
-/*  f115704:	8e050008 */ 	lw	$a1,0x8($s0)
-/*  f115708:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f11570c:	34068000 */ 	dli	$a2,0x8000
-/*  f115710:	0fc45204 */ 	jal	func0f114810
-/*  f115714:	24a5ffff */ 	addiu	$a1,$a1,-1
-/*  f115718:	10400014 */ 	beqz	$v0,.L0f11576c
-/*  f11571c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f115720:	02002025 */ 	or	$a0,$s0,$zero
-/*  f115724:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f115728:	0fc45417 */ 	jal	func0f11505c
-/*  f11572c:	27a7002c */ 	addiu	$a3,$sp,0x2c
-/*  f115730:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f115734:	02202825 */ 	or	$a1,$s1,$zero
-/*  f115738:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f11573c:	0fc45378 */ 	jal	func0f114de0
-/*  f115740:	00003825 */ 	or	$a3,$zero,$zero
-/*  f115744:	8e25000c */ 	lw	$a1,0xc($s1)
-/*  f115748:	8e240004 */ 	lw	$a0,0x4($s1)
-/*  f11574c:	8e260008 */ 	lw	$a2,0x8($s1)
-/*  f115750:	34078000 */ 	dli	$a3,0x8000
-/*  f115754:	0fc452df */ 	jal	func0f114b7c
-/*  f115758:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f11575c:	50400004 */ 	beqzl	$v0,.L0f115770
-/*  f115760:	00001025 */ 	or	$v0,$zero,$zero
-/*  f115764:	10000003 */ 	b	.L0f115774
-/*  f115768:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f11576c:
-/*  f11576c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f115770:
-/*  f115770:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f115774:
-/*  f115774:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f115778:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f11577c:	03e00008 */ 	jr	$ra
-/*  f115780:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+struct waypoint *func0f1155e0(struct waypoint *pointa, struct waypoint *pointb)
+{
+	if (g_StageSetup.waygroups) {
+		struct waygroup *groupa = &g_StageSetup.waygroups[pointa->groupnum];
+		struct waygroup *groupb = &g_StageSetup.waygroups[pointb->groupnum];
+		struct waypoint *result;
+		s32 stack;
+
+		if (groupa == groupb) {
+			func0f115390();
+			func0f114de0(pointb, pointa, 1, 0);
+
+			result = func0f1153c4(pointa->neighbours, -1);
+
+			if (result) {
+				return result;
+			}
+
+			result = func0f1153c4(pointa->neighbours, pointa->unk0c + 1);
+
+			if (result) {
+				return result;
+			}
+		} else {
+			func0f114a2c(groupb, groupa, g_StageSetup.waygroups, 0, 0x8000);
+
+			if (groupa->unk08 >= 0) {
+				struct waygroup *tmpgroup = func0f1154cc(groupa->neighbours, -1);
+
+				if (tmpgroup) {
+					struct waypoint *sp48;
+					struct waypoint *sp44;
+					struct waypoint *arr[3];
+
+					func0f11505c(groupa, tmpgroup, &sp48, &sp44);
+
+					if (sp48 == pointa) {
+						return sp44;
+					}
+
+					if (func0f114f70(pointa, sp48, arr, 3) >= 3) {
+						return arr[1];
+					}
+				} else {
+					struct waygroup *tmpgroup = func0f114810(groupa->neighbours, groupa->unk08 - 1, 0x8000);
+
+					if (tmpgroup) {
+						struct waypoint *sp30;
+						struct waypoint *sp2c;
+
+						func0f11505c(groupa, tmpgroup, &sp30, &sp2c);
+						func0f114de0(sp30, pointa, 1, 0);
+						result = func0f114b7c(pointa->neighbours, pointa->unk0c + 1, pointa->groupnum, 0x8000);
+
+						if (result) {
+							return result;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel waypointDisableSegmentInDirection

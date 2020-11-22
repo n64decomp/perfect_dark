@@ -19,9 +19,9 @@ s32 func0f114f70(struct waypoint *from, struct waypoint *to, struct waypoint **a
 void func0f11505c(struct waygroup *arg0, struct waygroup *arg1, struct waypoint **arg2, struct waypoint **arg3);
 s32 waypointFindRoute(struct waypoint *from, struct waypoint *to, struct waypoint **arr, s32 arrlen);
 void func0f115390(void);
-u32 func0f1153c4(void);
-u32 func0f1154cc(void);
-u32 func0f1155e0(void);
+struct waypoint *func0f1153c4(s32 *pointnums, s32 arg1);
+struct waygroup *func0f1154cc(s32 *groupnums, s32 arg1);
+struct waypoint *func0f1155e0(struct waypoint *pointa, struct waypoint *pointb);
 void waypointDisableSegmentInDirection(struct waypoint *a, struct waypoint *b);
 void waypointEnableSegmentInDirection(struct waypoint *a, struct waypoint *b);
 void waypointDisableSegment(struct waypoint *a, struct waypoint *b);
