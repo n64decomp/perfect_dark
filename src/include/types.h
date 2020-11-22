@@ -2365,8 +2365,8 @@ struct player {
 	/*0x03a0*/ bool resetheadpos;
 	/*0x03a4*/ bool resetheadrot;
 	/*0x03a8*/ u32 unk03a8;
-	/*0x03ac*/ s32 unk03ac;
-	/*0x03b0*/ f32 headamp;
+	/*0x03ac*/ s32 headanim;
+	/*0x03b0*/ f32 headdamp;
 	/*0x03b4*/ u32 unk03b4;
 	/*0x03b8*/ u32 unk03b8;
 	/*0x03bc*/ u32 unk03bc;

@@ -5571,11 +5571,11 @@ void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 arg4)
 		}
 	} else {
 		if (g_Vars.currentplayer->startnewbonddie) {
-			func0f1140bc(g_DeathAnimations[random() % g_NumDeathAnimations], random() & 1, 0, 1);
+			currentPlayerStartDeathAnimation(g_DeathAnimations[random() % g_NumDeathAnimations], random() % 2, 0, 1);
 			g_Vars.currentplayer->startnewbonddie = false;
 		}
 
-		func0f11412c(0.5);
+		currentPlayerSetAnimSpeed(0.5);
 		arg2 = 0;
 	}
 

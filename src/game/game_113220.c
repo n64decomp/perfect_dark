@@ -104,44 +104,44 @@ void currentPlayerUpdateHeadRot(struct coord *lookvel, struct coord *upvel)
 	s32 i;
 
 	if (g_Vars.currentplayer->resetheadrot) {
-		g_Vars.currentplayer->headlooksum.x = lookvel->x / (1.0f - g_Vars.currentplayer->headamp);
-		g_Vars.currentplayer->headlooksum.y = lookvel->y / (1.0f - g_Vars.currentplayer->headamp);
-		g_Vars.currentplayer->headlooksum.z = lookvel->z / (1.0f - g_Vars.currentplayer->headamp);
-		g_Vars.currentplayer->headupsum.x = upvel->x / (1.0f - g_Vars.currentplayer->headamp);
-		g_Vars.currentplayer->headupsum.y = upvel->y / (1.0f - g_Vars.currentplayer->headamp);
-		g_Vars.currentplayer->headupsum.z = upvel->z / (1.0f - g_Vars.currentplayer->headamp);
+		g_Vars.currentplayer->headlooksum.x = lookvel->x / (1.0f - g_Vars.currentplayer->headdamp);
+		g_Vars.currentplayer->headlooksum.y = lookvel->y / (1.0f - g_Vars.currentplayer->headdamp);
+		g_Vars.currentplayer->headlooksum.z = lookvel->z / (1.0f - g_Vars.currentplayer->headdamp);
+		g_Vars.currentplayer->headupsum.x = upvel->x / (1.0f - g_Vars.currentplayer->headdamp);
+		g_Vars.currentplayer->headupsum.y = upvel->y / (1.0f - g_Vars.currentplayer->headdamp);
+		g_Vars.currentplayer->headupsum.z = upvel->z / (1.0f - g_Vars.currentplayer->headdamp);
 
 		g_Vars.currentplayer->resetheadrot = false;
 	}
 
 	for (i = 0; i < g_Vars.lvupdate240; i++) {
-		g_Vars.currentplayer->headlooksum.x = lookvel->x + g_Vars.currentplayer->headamp * g_Vars.currentplayer->headlooksum.x;
-		g_Vars.currentplayer->headlooksum.y = lookvel->y + g_Vars.currentplayer->headamp * g_Vars.currentplayer->headlooksum.y;
-		g_Vars.currentplayer->headlooksum.z = lookvel->z + g_Vars.currentplayer->headamp * g_Vars.currentplayer->headlooksum.z;
-		g_Vars.currentplayer->headupsum.x = upvel->x + g_Vars.currentplayer->headamp * g_Vars.currentplayer->headupsum.x;
-		g_Vars.currentplayer->headupsum.y = upvel->y + g_Vars.currentplayer->headamp * g_Vars.currentplayer->headupsum.y;
-		g_Vars.currentplayer->headupsum.z = upvel->z + g_Vars.currentplayer->headamp * g_Vars.currentplayer->headupsum.z;
+		g_Vars.currentplayer->headlooksum.x = lookvel->x + g_Vars.currentplayer->headdamp * g_Vars.currentplayer->headlooksum.x;
+		g_Vars.currentplayer->headlooksum.y = lookvel->y + g_Vars.currentplayer->headdamp * g_Vars.currentplayer->headlooksum.y;
+		g_Vars.currentplayer->headlooksum.z = lookvel->z + g_Vars.currentplayer->headdamp * g_Vars.currentplayer->headlooksum.z;
+		g_Vars.currentplayer->headupsum.x = upvel->x + g_Vars.currentplayer->headdamp * g_Vars.currentplayer->headupsum.x;
+		g_Vars.currentplayer->headupsum.y = upvel->y + g_Vars.currentplayer->headdamp * g_Vars.currentplayer->headupsum.y;
+		g_Vars.currentplayer->headupsum.z = upvel->z + g_Vars.currentplayer->headdamp * g_Vars.currentplayer->headupsum.z;
 	}
 
-	g_Vars.currentplayer->headlook.x = g_Vars.currentplayer->headlooksum.x * (1.0f - g_Vars.currentplayer->headamp);
-	g_Vars.currentplayer->headlook.y = g_Vars.currentplayer->headlooksum.y * (1.0f - g_Vars.currentplayer->headamp);
-	g_Vars.currentplayer->headlook.z = g_Vars.currentplayer->headlooksum.z * (1.0f - g_Vars.currentplayer->headamp);
-	g_Vars.currentplayer->headup.x = g_Vars.currentplayer->headupsum.x * (1.0f - g_Vars.currentplayer->headamp);
-	g_Vars.currentplayer->headup.y = g_Vars.currentplayer->headupsum.y * (1.0f - g_Vars.currentplayer->headamp);
-	g_Vars.currentplayer->headup.z = g_Vars.currentplayer->headupsum.z * (1.0f - g_Vars.currentplayer->headamp);
+	g_Vars.currentplayer->headlook.x = g_Vars.currentplayer->headlooksum.x * (1.0f - g_Vars.currentplayer->headdamp);
+	g_Vars.currentplayer->headlook.y = g_Vars.currentplayer->headlooksum.y * (1.0f - g_Vars.currentplayer->headdamp);
+	g_Vars.currentplayer->headlook.z = g_Vars.currentplayer->headlooksum.z * (1.0f - g_Vars.currentplayer->headdamp);
+	g_Vars.currentplayer->headup.x = g_Vars.currentplayer->headupsum.x * (1.0f - g_Vars.currentplayer->headdamp);
+	g_Vars.currentplayer->headup.y = g_Vars.currentplayer->headupsum.y * (1.0f - g_Vars.currentplayer->headdamp);
+	g_Vars.currentplayer->headup.z = g_Vars.currentplayer->headupsum.z * (1.0f - g_Vars.currentplayer->headdamp);
 }
 
-void currentPlayerSetHeadAmp(f32 headamp)
+void currentPlayerSetHeadDamp(f32 headdamp)
 {
-	if (headamp != g_Vars.currentplayer->headamp) {
-		f32 divisor = 1.0f - headamp;
-		g_Vars.currentplayer->headlooksum.x = (g_Vars.currentplayer->headlooksum.x * (1.0f - g_Vars.currentplayer->headamp)) / divisor;
-		g_Vars.currentplayer->headlooksum.y = (g_Vars.currentplayer->headlooksum.y * (1.0f - g_Vars.currentplayer->headamp)) / divisor;
-		g_Vars.currentplayer->headlooksum.z = (g_Vars.currentplayer->headlooksum.z * (1.0f - g_Vars.currentplayer->headamp)) / divisor;
-		g_Vars.currentplayer->headupsum.x = (g_Vars.currentplayer->headupsum.x * (1.0f - g_Vars.currentplayer->headamp)) / divisor;
-		g_Vars.currentplayer->headupsum.y = (g_Vars.currentplayer->headupsum.y * (1.0f - g_Vars.currentplayer->headamp)) / divisor;
-		g_Vars.currentplayer->headupsum.z = (g_Vars.currentplayer->headupsum.z * (1.0f - g_Vars.currentplayer->headamp)) / divisor;
-		g_Vars.currentplayer->headamp = headamp;
+	if (headdamp != g_Vars.currentplayer->headdamp) {
+		f32 divisor = 1.0f - headdamp;
+		g_Vars.currentplayer->headlooksum.x = (g_Vars.currentplayer->headlooksum.x * (1.0f - g_Vars.currentplayer->headdamp)) / divisor;
+		g_Vars.currentplayer->headlooksum.y = (g_Vars.currentplayer->headlooksum.y * (1.0f - g_Vars.currentplayer->headdamp)) / divisor;
+		g_Vars.currentplayer->headlooksum.z = (g_Vars.currentplayer->headlooksum.z * (1.0f - g_Vars.currentplayer->headdamp)) / divisor;
+		g_Vars.currentplayer->headupsum.x = (g_Vars.currentplayer->headupsum.x * (1.0f - g_Vars.currentplayer->headdamp)) / divisor;
+		g_Vars.currentplayer->headupsum.y = (g_Vars.currentplayer->headupsum.y * (1.0f - g_Vars.currentplayer->headdamp)) / divisor;
+		g_Vars.currentplayer->headupsum.z = (g_Vars.currentplayer->headupsum.z * (1.0f - g_Vars.currentplayer->headdamp)) / divisor;
+		g_Vars.currentplayer->headdamp = headdamp;
 	}
 }
 
@@ -446,13 +446,13 @@ glabel var7f1b3a74
 /*  f113cb4:	2981003d */ 	slti	$at,$t4,0x3d
 /*  f113cb8:	14200005 */ 	bnez	$at,.L0f113cd0
 /*  f113cbc:	3c017f1b */ 	lui	$at,%hi(var7f1b3a60)
-/*  f113cc0:	0fc44df2 */ 	jal	currentPlayerSetHeadAmp
+/*  f113cc0:	0fc44df2 */ 	jal	currentPlayerSetHeadDamp
 /*  f113cc4:	c42c3a60 */ 	lwc1	$f12,%lo(var7f1b3a60)($at)
 /*  f113cc8:	10000087 */ 	b	.L0f113ee8
 /*  f113ccc:	00000000 */ 	nop
 .L0f113cd0:
 /*  f113cd0:	3c017f1b */ 	lui	$at,%hi(var7f1b3a64)
-/*  f113cd4:	0fc44df2 */ 	jal	currentPlayerSetHeadAmp
+/*  f113cd4:	0fc44df2 */ 	jal	currentPlayerSetHeadDamp
 /*  f113cd8:	c42c3a64 */ 	lwc1	$f12,%lo(var7f1b3a64)($at)
 /*  f113cdc:	10000082 */ 	b	.L0f113ee8
 /*  f113ce0:	00000000 */ 	nop
@@ -470,7 +470,7 @@ glabel var7f1b3a74
 /*  f113d0c:	c44a0524 */ 	lwc1	$f10,0x524($v0)
 /*  f113d10:	e7aa00c8 */ 	swc1	$f10,0xc8($sp)
 /*  f113d14:	c4500528 */ 	lwc1	$f16,0x528($v0)
-/*  f113d18:	0fc44df2 */ 	jal	currentPlayerSetHeadAmp
+/*  f113d18:	0fc44df2 */ 	jal	currentPlayerSetHeadDamp
 /*  f113d1c:	e7b000cc */ 	swc1	$f16,0xcc($sp)
 /*  f113d20:	10000071 */ 	b	.L0f113ee8
 /*  f113d24:	00000000 */ 	nop
@@ -491,7 +491,7 @@ glabel var7f1b3a74
 /*  f113d5c:	e7a000e4 */ 	swc1	$f0,0xe4($sp)
 /*  f113d60:	e7a800e0 */ 	swc1	$f8,0xe0($sp)
 /*  f113d64:	ac4003b4 */ 	sw	$zero,0x3b4($v0)
-/*  f113d68:	0fc44df2 */ 	jal	currentPlayerSetHeadAmp
+/*  f113d68:	0fc44df2 */ 	jal	currentPlayerSetHeadDamp
 /*  f113d6c:	c42c3a6c */ 	lwc1	$f12,%lo(var7f1b3a6c)($at)
 /*  f113d70:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
 /*  f113d74:	00000000 */ 	nop
@@ -717,51 +717,25 @@ glabel func0f113f10
 /*  f1140b8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f1140bc
-/*  f1140bc:	3c013f00 */ 	lui	$at,0x3f00
-/*  f1140c0:	44877000 */ 	mtc1	$a3,$f14
-/*  f1140c4:	44812000 */ 	mtc1	$at,$f4
-/*  f1140c8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1140cc:	44866000 */ 	mtc1	$a2,$f12
-/*  f1140d0:	46047182 */ 	mul.s	$f6,$f14,$f4
-/*  f1140d4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f1140d8:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x284)
-/*  f1140dc:	3c014140 */ 	lui	$at,0x4140
-/*  f1140e0:	44814000 */ 	mtc1	$at,$f8
-/*  f1140e4:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
-/*  f1140e8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1140ec:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f1140f0:	44076000 */ 	mfc1	$a3,$f12
-/*  f1140f4:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f1140f8:	87a50022 */ 	lh	$a1,0x22($sp)
-/*  f1140fc:	e7a60010 */ 	swc1	$f6,0x10($sp)
-/*  f114100:	2484045c */ 	addiu	$a0,$a0,1116
-/*  f114104:	0c007733 */ 	jal	modelSetAnimation
-/*  f114108:	e7a80014 */ 	swc1	$f8,0x14($sp)
-/*  f11410c:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x284)
-/*  f114110:	8defa244 */ 	lw	$t7,%lo(g_Vars+0x284)($t7)
-/*  f114114:	240effff */ 	addiu	$t6,$zero,-1
-/*  f114118:	adee03ac */ 	sw	$t6,0x3ac($t7)
-/*  f11411c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f114120:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f114124:	03e00008 */ 	jr	$ra
-/*  f114128:	00000000 */ 	nop
-);
+void currentPlayerStartDeathAnimation(s16 animnum, u32 flip, f32 fstarttime, f32 speed)
+{
+	modelSetAnimation(&g_Vars.currentplayer->model, animnum, flip, fstarttime, speed * 0.5f, 12);
+	g_Vars.currentplayer->headanim = -1;
+}
 
-void func0f11412c(f32 speed)
+void currentPlayerSetAnimSpeed(f32 speed)
 {
 	modelSetAnimSpeed(&g_Vars.currentplayer->model, speed * 0.5f, 0);
 }
 
 f32 func0f11416c(void)
 {
-	if (g_Vars.currentplayer->unk03ac >= 0) {
+	if (g_Vars.currentplayer->headanim >= 0) {
 		f32 a = g_Vars.currentplayer->bondbreathing * 0.012500001f + 0.004166667f;
 		f32 b = modelGetAbsAnimSpeed(&g_Vars.currentplayer->model);
 
 		if (b > 0) {
-			f32 c = b / (var80075c00[g_Vars.currentplayer->unk03ac].unk08 - var80075c00[g_Vars.currentplayer->unk03ac].unk04);
+			f32 c = b / (var80075c00[g_Vars.currentplayer->headanim].unk08 - var80075c00[g_Vars.currentplayer->headanim].unk04);
 
 			if (c < a) {
 				c = a;
