@@ -10274,9 +10274,9 @@ bool chrUpdateGeometry(struct prop *prop, struct geo **arg1, struct geo **arg2)
 		chr->geo.type = PROPTYPE_CHR;
 
 		if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DRUGGEDDROP) {
-			chr->geo.unk136 = 16;
+			chr->geo.unk02 = 16;
 		} else {
-			chr->geo.unk136 = 20;
+			chr->geo.unk02 = 20;
 		}
 
 		chr->geo.ymin = chr->manground;

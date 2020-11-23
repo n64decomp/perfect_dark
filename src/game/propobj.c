@@ -20213,7 +20213,7 @@ glabel var7f1aa454
 /*  f077a14:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f077a18:	0fc318ef */ 	jal	func0f0c63bc
 /*  f077a1c:	24060020 */ 	addiu	$a2,$zero,0x20
-/*  f077a20:	0fc307fd */ 	jal	func0f0c1ff4
+/*  f077a20:	0fc307fd */ 	jal	currentPlayerUpdatePerimInfo
 /*  f077a24:	00000000 */ 	nop
 /*  f077a28:	0fc32e31 */ 	jal	func0f0cb8c4
 /*  f077a2c:	8e440064 */ 	lw	$a0,0x64($s2)
@@ -20307,7 +20307,7 @@ glabel var7f1aa454
 /*  f077b80:	46188203 */ 	div.s	$f8,$f16,$f24
 /*  f077b84:	e6080070 */ 	swc1	$f8,0x70($s0)
 .L0f077b88:
-/*  f077b88:	0fc307fd */ 	jal	func0f0c1ff4
+/*  f077b88:	0fc307fd */ 	jal	currentPlayerUpdatePerimInfo
 /*  f077b8c:	00000000 */ 	nop
 /*  f077b90:	0fc32e31 */ 	jal	func0f0cb8c4
 /*  f077b94:	8e440064 */ 	lw	$a0,0x64($s2)

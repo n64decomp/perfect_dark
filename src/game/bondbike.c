@@ -2535,7 +2535,7 @@ glabel var7f1adb9c
 /*  f0d4644:	46043302 */ 	mul.s	$f12,$f6,$f4
 /*  f0d4648:	0fc288a4 */ 	jal	func0f0a2290
 /*  f0d464c:	00000000 */ 	nop
-/*  f0d4650:	0fc307fd */ 	jal	func0f0c1ff4
+/*  f0d4650:	0fc307fd */ 	jal	currentPlayerUpdatePerimInfo
 /*  f0d4654:	00000000 */ 	nop
 /*  f0d4658:	0fc32e31 */ 	jal	func0f0cb8c4
 /*  f0d465c:	8e040284 */ 	lw	$a0,0x284($s0)

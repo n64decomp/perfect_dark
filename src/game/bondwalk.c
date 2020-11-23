@@ -3079,6 +3079,6 @@ void func0f0c785c(void)
 		func0f0cc19c(&g_Vars.currentplayer->prop->pos);
 	}
 
-	func0f0c1ff4();
+	currentPlayerUpdatePerimInfo();
 	func0f08c190();
 }

@@ -832,14 +832,14 @@ struct act_skjump {
 };
 
 struct geo {
-	/*0x134*/ u8 type;
-	/*0x135*/ u8 unk01;
-	/*0x136*/ u16 unk136;
-	/*0x138*/ f32 ymax;
-	/*0x13c*/ f32 ymin;
-	/*0x140*/ f32 x;
-	/*0x144*/ f32 z;
-	/*0x148*/ f32 width;
+	/*0x00*/ u8 type;
+	/*0x01*/ u8 unk01;
+	/*0x02*/ u16 unk02;
+	/*0x04*/ f32 ymax;
+	/*0x08*/ f32 ymin;
+	/*0x0c*/ f32 x;
+	/*0x10*/ f32 z;
+	/*0x14*/ f32 width;
 };
 
 struct chrdata {
@@ -2687,18 +2687,8 @@ struct player {
 	/*0x19c0*/ f32 vv_headheight; // 172 when Jo, regardless of crouch state
 	/*0x19c4*/ f32 vv_eyeheight;  // 159 when Jo, regardless of crouch state
 	/*0x19c8*/ bool haschrbody;
-	/*0x19cc*/ u32 unk19cc;
-	/*0x19d0*/ u32 unk19d0;
-	/*0x19d4*/ u32 unk19d4;
-	/*0x19d8*/ u32 unk19d8;
-	/*0x19dc*/ u32 unk19dc;
-	/*0x19e0*/ u32 unk19e0;
-	/*0x19e4*/ u32 unk19e4;
-	/*0x19e8*/ u32 unk19e8;
-	/*0x19ec*/ u32 unk19ec;
-	/*0x19f0*/ u32 unk19f0;
-	/*0x19f4*/ u32 unk19f4;
-	/*0x19f8*/ u32 unk19f8;
+	/*0x19cc*/ struct geo periminfo;
+	/*0x19e4*/ struct geo perimshoot;
 	/*0x19fc*/ f32 bondprevtheta;
 	/*0x1a00*/ struct coord grabbedprevpos;
 	/*0x1a0c*/ f32 grabbedrotoffset;

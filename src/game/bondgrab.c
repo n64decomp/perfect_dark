@@ -2271,7 +2271,7 @@ glabel var7f1ada30
 /*  f0cefe8:	8d8400bc */ 	lw	$a0,0xbc($t4)
 /*  f0cefec:	0fc33067 */ 	jal	func0f0cc19c
 /*  f0ceff0:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0ceff4:	0fc307fd */ 	jal	func0f0c1ff4
+/*  f0ceff4:	0fc307fd */ 	jal	currentPlayerUpdatePerimInfo
 /*  f0ceff8:	00000000 */ 	nop
 /*  f0ceffc:	0fc23064 */ 	jal	func0f08c190
 /*  f0cf000:	00000000 */ 	nop

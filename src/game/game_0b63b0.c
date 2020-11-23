@@ -2609,7 +2609,7 @@ glabel var7f1ad574
 /*  f0b8558:	0fc2e2e8 */ 	jal	func0f0b8ba0
 /*  f0b855c:	00000000 */ 	nop
 .L0f0b8560:
-/*  f0b8560:	0fc307fd */ 	jal	func0f0c1ff4
+/*  f0b8560:	0fc307fd */ 	jal	currentPlayerUpdatePerimInfo
 /*  f0b8564:	00000000 */ 	nop
 /*  f0b8568:	8fbf004c */ 	lw	$ra,0x4c($sp)
 /*  f0b856c:	d7b40018 */ 	ldc1	$f20,0x18($sp)
@@ -13499,59 +13499,29 @@ glabel func0f0c1f08
 /*  f0c1ff0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0c1ff4
-/*  f0c1ff4:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0c1ff8:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0c1ffc:	8c6f0284 */ 	lw	$t7,0x284($v1)
-/*  f0c2000:	240e0003 */ 	addiu	$t6,$zero,0x3
-/*  f0c2004:	24180014 */ 	addiu	$t8,$zero,0x14
-/*  f0c2008:	a1ee19cc */ 	sb	$t6,0x19cc($t7)
-/*  f0c200c:	8c790284 */ 	lw	$t9,0x284($v1)
-/*  f0c2010:	a73819ce */ 	sh	$t8,0x19ce($t9)
-/*  f0c2014:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c2018:	c4440074 */ 	lwc1	$f4,0x74($v0)
-/*  f0c201c:	e44419d4 */ 	swc1	$f4,0x19d4($v0)
-/*  f0c2020:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c2024:	c4460074 */ 	lwc1	$f6,0x74($v0)
-/*  f0c2028:	c44819c0 */ 	lwc1	$f8,0x19c0($v0)
-/*  f0c202c:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f0c2030:	e44a19d0 */ 	swc1	$f10,0x19d0($v0)
-/*  f0c2034:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c2038:	8c4801b0 */ 	lw	$t0,0x1b0($v0)
-/*  f0c203c:	55000014 */ 	bnezl	$t0,.L0f0c2090
-/*  f0c2040:	8c4a00bc */ 	lw	$t2,0xbc($v0)
-/*  f0c2044:	8c4919b8 */ 	lw	$t1,0x19b8($v0)
-/*  f0c2048:	c45019d0 */ 	lwc1	$f16,0x19d0($v0)
-/*  f0c204c:	3c0142a0 */ 	lui	$at,0x42a0
-/*  f0c2050:	44899000 */ 	mtc1	$t1,$f18
-/*  f0c2054:	44815000 */ 	mtc1	$at,$f10
-/*  f0c2058:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f0c205c:	46048180 */ 	add.s	$f6,$f16,$f4
-/*  f0c2060:	e44619d0 */ 	swc1	$f6,0x19d0($v0)
-/*  f0c2064:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c2068:	c4480074 */ 	lwc1	$f8,0x74($v0)
-/*  f0c206c:	c45219d0 */ 	lwc1	$f18,0x19d0($v0)
-/*  f0c2070:	460a4000 */ 	add.s	$f0,$f8,$f10
-/*  f0c2074:	4600903c */ 	c.lt.s	$f18,$f0
-/*  f0c2078:	00000000 */ 	nop
-/*  f0c207c:	45020004 */ 	bc1fl	.L0f0c2090
-/*  f0c2080:	8c4a00bc */ 	lw	$t2,0xbc($v0)
-/*  f0c2084:	e44019d0 */ 	swc1	$f0,0x19d0($v0)
-/*  f0c2088:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c208c:	8c4a00bc */ 	lw	$t2,0xbc($v0)
-.L0f0c2090:
-/*  f0c2090:	c5500008 */ 	lwc1	$f16,0x8($t2)
-/*  f0c2094:	e45019d8 */ 	swc1	$f16,0x19d8($v0)
-/*  f0c2098:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c209c:	8c4b00bc */ 	lw	$t3,0xbc($v0)
-/*  f0c20a0:	c5640010 */ 	lwc1	$f4,0x10($t3)
-/*  f0c20a4:	e44419dc */ 	swc1	$f4,0x19dc($v0)
-/*  f0c20a8:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c20ac:	c4460378 */ 	lwc1	$f6,0x378($v0)
-/*  f0c20b0:	03e00008 */ 	jr	$ra
-/*  f0c20b4:	e44619e0 */ 	swc1	$f6,0x19e0($v0)
-);
+void currentPlayerUpdatePerimInfo(void)
+{
+	g_Vars.currentplayer->periminfo.type = 3;
+	g_Vars.currentplayer->periminfo.unk02 = 20;
+
+	g_Vars.currentplayer->periminfo.ymin = g_Vars.currentplayer->vv_manground;
+	g_Vars.currentplayer->periminfo.ymax = g_Vars.currentplayer->vv_manground + g_Vars.currentplayer->vv_headheight;
+
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
+		// note: crouchoffsetrealsmall is negative
+		f32 minsane;
+		g_Vars.currentplayer->periminfo.ymax += g_Vars.currentplayer->crouchoffsetrealsmall;
+		minsane = g_Vars.currentplayer->vv_manground + 80;
+
+		if (g_Vars.currentplayer->periminfo.ymax < minsane) {
+			g_Vars.currentplayer->periminfo.ymax = minsane;
+		}
+	}
+
+	g_Vars.currentplayer->periminfo.x = g_Vars.currentplayer->prop->pos.x;
+	g_Vars.currentplayer->periminfo.z = g_Vars.currentplayer->prop->pos.z;
+	g_Vars.currentplayer->periminfo.width = g_Vars.currentplayer->bond2.width;
+}
 
 /**
  * Populates the width, ymax and ymin arguments with absolute coordinates.

@@ -75,7 +75,7 @@ void func0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look);
 void func0f0c1d20(void);
 void func0f0c1e54(struct prop *prop, bool enable);
 u32 func0f0c1f08(void);
-void func0f0c1ff4(void);
+void currentPlayerUpdatePerimInfo(void);
 void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
 f32 currentPlayerGetHealth(void);
 f32 currentPlayerGetShieldFrac(void);
