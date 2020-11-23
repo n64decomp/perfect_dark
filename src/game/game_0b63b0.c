@@ -5608,7 +5608,7 @@ void func0f0bb69c(void)
 	switch (g_Vars.currentplayer->healthshowmode) {
 	case HEALTHSHOWMODE_HIDDEN:
 		g_Vars.currentplayer->oldhealth = g_Vars.currentplayer->bondhealth;
-		g_Vars.currentplayer->oldarmour = func0f0c21a4();
+		g_Vars.currentplayer->oldarmour = currentPlayerGetShieldFrac();
 		break;
 	case HEALTHSHOWMODE_OPENING:
 	case HEALTHSHOWMODE_PREVIOUS:
@@ -5620,7 +5620,7 @@ void func0f0bb69c(void)
 		break;
 	case HEALTHSHOWMODE_CLOSING:
 		g_Vars.currentplayer->oldhealth = g_Vars.currentplayer->bondhealth;
-		g_Vars.currentplayer->oldarmour = func0f0c21a4();
+		g_Vars.currentplayer->oldarmour = currentPlayerGetShieldFrac();
 		break;
 	}
 
@@ -5809,7 +5809,7 @@ glabel var7f1ad674
 /*  f0bba40:	8c4e00d8 */ 	lw	$t6,0xd8($v0)
 /*  f0bba44:	0fc30865 */ 	jal	currentPlayerGetHealth
 /*  f0bba48:	00000000 */ 	nop
-/*  f0bba4c:	0fc30869 */ 	jal	func0f0c21a4
+/*  f0bba4c:	0fc30869 */ 	jal	currentPlayerGetShieldFrac
 /*  f0bba50:	e7a0001c */ 	swc1	$f0,0x1c($sp)
 /*  f0bba54:	c7a8001c */ 	lwc1	$f8,0x1c($sp)
 /*  f0bba58:	3c014100 */ 	lui	$at,0x4100
@@ -5971,7 +5971,7 @@ glabel var7f1ad674
 /*  f0bbcb0:	c44400dc */ 	lwc1	$f4,0xdc($v0)
 /*  f0bbcb4:	e7b00028 */ 	swc1	$f16,0x28($sp)
 /*  f0bbcb8:	46045181 */ 	sub.s	$f6,$f10,$f4
-/*  f0bbcbc:	0fc30869 */ 	jal	func0f0c21a4
+/*  f0bbcbc:	0fc30869 */ 	jal	currentPlayerGetShieldFrac
 /*  f0bbcc0:	e7a60024 */ 	swc1	$f6,0x24($sp)
 /*  f0bbcc4:	c7b00028 */ 	lwc1	$f16,0x28($sp)
 /*  f0bbcc8:	c7a40024 */ 	lwc1	$f4,0x24($sp)
@@ -6009,7 +6009,7 @@ glabel var7f1ad674
 /*  f0bbd48:	10000062 */ 	b	.L0f0bbed4
 /*  f0bbd4c:	ac4a00fc */ 	sw	$t2,0xfc($v0)
 /*  f0bbd50:	c44600dc */ 	lwc1	$f6,0xdc($v0)
-/*  f0bbd54:	0fc30869 */ 	jal	func0f0c21a4
+/*  f0bbd54:	0fc30869 */ 	jal	currentPlayerGetShieldFrac
 /*  f0bbd58:	e44600ec */ 	swc1	$f6,0xec($v0)
 /*  f0bbd5c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0bbd60:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -12021,7 +12021,7 @@ glabel var7f1ad6ec
 /*  f0c01bc:	00000000 */ 	nop
 /*  f0c01c0:	4502017c */ 	bc1fl	.L0f0c07b4
 /*  f0c01c4:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0c01c8:	0fc30869 */ 	jal	func0f0c21a4
+/*  f0c01c8:	0fc30869 */ 	jal	currentPlayerGetShieldFrac
 /*  f0c01cc:	00000000 */ 	nop
 /*  f0c01d0:	3c014100 */ 	lui	$at,0x4100
 /*  f0c01d4:	44814000 */ 	mtc1	$at,$f8
@@ -13587,38 +13587,20 @@ f32 currentPlayerGetHealth(void)
 	return g_Vars.currentplayer->bondhealth;
 }
 
-GLOBAL_ASM(
-glabel func0f0c21a4
-/*  f0c21a4:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0c21a8:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0c21ac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c21b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c21b4:	8dcf00bc */ 	lw	$t7,0xbc($t6)
-/*  f0c21b8:	0fc0cfe8 */ 	jal	chrGetShield
-/*  f0c21bc:	8de40004 */ 	lw	$a0,0x4($t7)
-/*  f0c21c0:	3c013e00 */ 	lui	$at,0x3e00
-/*  f0c21c4:	44812000 */ 	mtc1	$at,$f4
-/*  f0c21c8:	44807000 */ 	mtc1	$zero,$f14
-/*  f0c21cc:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0c21d0:	46040082 */ 	mul.s	$f2,$f0,$f4
-/*  f0c21d4:	44810000 */ 	mtc1	$at,$f0
-/*  f0c21d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c21dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c21e0:	460e103c */ 	c.lt.s	$f2,$f14
-/*  f0c21e4:	46001306 */ 	mov.s	$f12,$f2
-/*  f0c21e8:	45020003 */ 	bc1fl	.L0f0c21f8
-/*  f0c21ec:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0c21f0:	46007306 */ 	mov.s	$f12,$f14
-/*  f0c21f4:	460c003c */ 	c.lt.s	$f0,$f12
-.L0f0c21f8:
-/*  f0c21f8:	00000000 */ 	nop
-/*  f0c21fc:	45000002 */ 	bc1f	.L0f0c2208
-/*  f0c2200:	00000000 */ 	nop
-/*  f0c2204:	46000306 */ 	mov.s	$f12,$f0
-.L0f0c2208:
-/*  f0c2208:	03e00008 */ 	jr	$ra
-/*  f0c220c:	46006006 */ 	mov.s	$f0,$f12
-);
+f32 currentPlayerGetShieldFrac(void)
+{
+	f32 shield = chrGetShield(g_Vars.currentplayer->prop->chr) * 0.125f;
+
+	if (shield < 0) {
+		shield = 0;
+	}
+
+	if (shield > 1) {
+		shield = 1;
+	}
+
+	return shield;
+}
 
 void currentPlayerSetShieldFrac(f32 shield)
 {
