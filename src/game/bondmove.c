@@ -5579,7 +5579,7 @@ void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 arg4)
 		arg2 = 0;
 	}
 
-	func0f1138a4(sp244, arg2);
+	currentPlayerUpdateHead(sp244, arg2);
 	func000162e8(BADDEG2RAD(360 - g_Vars.currentplayer->vv_verta360), sp180);
 
 	if (optionsGetHeadRoll(g_Vars.currentplayerstats->mpindex)) {

@@ -8,7 +8,7 @@ void currentPlayerUpdateIdleHeadRoll(void);
 void currentPlayerUpdateHeadPos(struct coord *vel);
 void currentPlayerUpdateHeadRot(struct coord *lookvel, struct coord *upvel);
 void currentPlayerSetHeadDamp(f32 headdamp);
-void func0f1138a4(f32 arg0, f32 arg1);
+void currentPlayerUpdateHead(f32 arg0, f32 arg1);
 void currentPlayerAdjustHeadAnimation(f32 speed);
 void currentPlayerStartDeathAnimation(s16 animnum, u32 flip, f32 fstarttime, f32 speed);
 void currentPlayerSetAnimSpeed(f32 speed);

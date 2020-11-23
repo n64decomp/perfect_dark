@@ -37,7 +37,7 @@ extern struct filelist *g_FileLists[4];
 extern bool var80075bd0[4];
 extern u32 var80075be0;
 extern struct var80075c00 var80075c00[];
-extern u32 var80075c30;
+extern struct coord var80075c30;
 extern u32 var80075c3c;
 extern u32 var80075c48;
 extern u32 var80075c54;
