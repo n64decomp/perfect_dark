@@ -18,8 +18,8 @@
 #include "types.h"
 
 struct var80075c00 var80075c00[] = {
-	{ 43, 9.5, 27, 0, 0,   1.5 },
-	{ 41, 7.5, 17, 0, 1.5, 100 },
+	{ ANIM_2B, 9.5, 27, 0, 0,   1.5 },
+	{ ANIM_29, 7.5, 17, 0, 1.5, 100 },
 };
 
 u32 var80075c30 = 0x00000000;
@@ -601,121 +601,44 @@ glabel var7f1b3a74
 /*  f113f0c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f113f10
-/*  f113f10:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
-/*  f113f14:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
-/*  f113f18:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f113f1c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f113f20:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f113f24:	8d0e00bc */ 	lw	$t6,0xbc($t0)
-/*  f113f28:	3c058007 */ 	lui	$a1,%hi(var80075c00)
-/*  f113f2c:	24a55c00 */ 	addiu	$a1,$a1,%lo(var80075c00)
-/*  f113f30:	c4a40024 */ 	lwc1	$f4,0x24($a1)
-/*  f113f34:	8dcf0004 */ 	lw	$t7,0x4($t6)
-/*  f113f38:	3c108007 */ 	lui	$s0,%hi(var80075c00)
-/*  f113f3c:	46046302 */ 	mul.s	$f12,$f12,$f4
-/*  f113f40:	26105c00 */ 	addiu	$s0,$s0,%lo(var80075c00)
-/*  f113f44:	00001025 */ 	or	$v0,$zero,$zero
-/*  f113f48:	24030002 */ 	addiu	$v1,$zero,0x2
-/*  f113f4c:	afaf002c */ 	sw	$t7,0x2c($sp)
-.L0f113f50:
-/*  f113f50:	c600000c */ 	lwc1	$f0,0xc($s0)
-/*  f113f54:	c6060014 */ 	lwc1	$f6,0x14($s0)
-/*  f113f58:	46060202 */ 	mul.s	$f8,$f0,$f6
-/*  f113f5c:	4608603e */ 	c.le.s	$f12,$f8
-/*  f113f60:	00000000 */ 	nop
-/*  f113f64:	4502004a */ 	bc1fl	.L0f114090
-/*  f113f68:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f113f6c:	8d0403ac */ 	lw	$a0,0x3ac($t0)
-/*  f113f70:	3c013f00 */ 	lui	$at,0x3f00
-/*  f113f74:	5044003a */ 	beql	$v0,$a0,.L0f114060
-/*  f113f78:	46006303 */ 	div.s	$f12,$f12,$f0
-/*  f113f7c:	44807000 */ 	mtc1	$zero,$f14
-/*  f113f80:	04800010 */ 	bltz	$a0,.L0f113fc4
-/*  f113f84:	0004c080 */ 	sll	$t8,$a0,0x2
-/*  f113f88:	0304c023 */ 	subu	$t8,$t8,$a0
-/*  f113f8c:	8d19047c */ 	lw	$t9,0x47c($t0)
-/*  f113f90:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f113f94:	00b81821 */ 	addu	$v1,$a1,$t8
-/*  f113f98:	c4600004 */ 	lwc1	$f0,0x4($v1)
-/*  f113f9c:	c4720008 */ 	lwc1	$f18,0x8($v1)
-/*  f113fa0:	c72a000c */ 	lwc1	$f10,0xc($t9)
-/*  f113fa4:	c6020004 */ 	lwc1	$f2,0x4($s0)
-/*  f113fa8:	46009101 */ 	sub.s	$f4,$f18,$f0
-/*  f113fac:	c6060008 */ 	lwc1	$f6,0x8($s0)
-/*  f113fb0:	46005401 */ 	sub.s	$f16,$f10,$f0
-/*  f113fb4:	46023201 */ 	sub.s	$f8,$f6,$f2
-/*  f113fb8:	46048383 */ 	div.s	$f14,$f16,$f4
-/*  f113fbc:	460e4282 */ 	mul.s	$f10,$f8,$f14
-/*  f113fc0:	46025380 */ 	add.s	$f14,$f10,$f2
-.L0f113fc4:
-/*  f113fc4:	8d09047c */ 	lw	$t1,0x47c($t0)
-/*  f113fc8:	44819000 */ 	mtc1	$at,$f18
-/*  f113fcc:	3c014140 */ 	lui	$at,0x4140
-/*  f113fd0:	81260008 */ 	lb	$a2,0x8($t1)
-/*  f113fd4:	44818000 */ 	mtc1	$at,$f16
-/*  f113fd8:	44077000 */ 	mfc1	$a3,$f14
-/*  f113fdc:	e7ac0030 */ 	swc1	$f12,0x30($sp)
-/*  f113fe0:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f113fe4:	2504045c */ 	addiu	$a0,$t0,0x45c
-/*  f113fe8:	86050000 */ 	lh	$a1,0x0($s0)
-/*  f113fec:	e7b20010 */ 	swc1	$f18,0x10($sp)
-/*  f113ff0:	0c007733 */ 	jal	modelSetAnimation
-/*  f113ff4:	e7b00014 */ 	swc1	$f16,0x14($sp)
-/*  f113ff8:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x284)
-/*  f113ffc:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
-/*  f114000:	8e050004 */ 	lw	$a1,0x4($s0)
-/*  f114004:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f114008:	0c00777b */ 	jal	modelSetAnimLooping
-/*  f11400c:	2484045c */ 	addiu	$a0,$a0,1116
-/*  f114010:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x284)
-/*  f114014:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
-/*  f114018:	8e050008 */ 	lw	$a1,0x8($s0)
-/*  f11401c:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f114020:	2484045c */ 	addiu	$a0,$a0,1116
-/*  f114024:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x284)
-/*  f114028:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
-/*  f11402c:	3c057f11 */ 	lui	$a1,%hi(currentPlayerFlipAnimation)
-/*  f114030:	24a53220 */ 	addiu	$a1,$a1,%lo(currentPlayerFlipAnimation)
-/*  f114034:	0c0077a6 */ 	jal	modelSetAnimFlipFunction
-/*  f114038:	2484045c */ 	addiu	$a0,$a0,1116
-/*  f11403c:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x284)
-/*  f114040:	8fa20028 */ 	lw	$v0,0x28($sp)
-/*  f114044:	8d4aa244 */ 	lw	$t2,%lo(g_Vars+0x284)($t2)
-/*  f114048:	c7ac0030 */ 	lwc1	$f12,0x30($sp)
-/*  f11404c:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
-/*  f114050:	ad4203ac */ 	sw	$v0,0x3ac($t2)
-/*  f114054:	c600000c */ 	lwc1	$f0,0xc($s0)
-/*  f114058:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
-/*  f11405c:	46006303 */ 	div.s	$f12,$f12,$f0
-.L0f114060:
-/*  f114060:	3c013f00 */ 	lui	$at,0x3f00
-/*  f114064:	44812000 */ 	mtc1	$at,$f4
-/*  f114068:	2504045c */ 	addiu	$a0,$t0,0x45c
-/*  f11406c:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f114070:	46046182 */ 	mul.s	$f6,$f12,$f4
-/*  f114074:	44053000 */ 	mfc1	$a1,$f6
-/*  f114078:	0c0077ac */ 	jal	modelSetAnimSpeed
-/*  f11407c:	00000000 */ 	nop
-/*  f114080:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
-/*  f114084:	10000004 */ 	b	.L0f114098
-/*  f114088:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
-/*  f11408c:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f114090:
-/*  f114090:	1443ffaf */ 	bne	$v0,$v1,.L0f113f50
-/*  f114094:	26100018 */ 	addiu	$s0,$s0,0x18
-.L0f114098:
-/*  f114098:	8d0b047c */ 	lw	$t3,0x47c($t0)
-/*  f11409c:	8fac002c */ 	lw	$t4,0x2c($sp)
-/*  f1140a0:	c568000c */ 	lwc1	$f8,0xc($t3)
-/*  f1140a4:	e588018c */ 	swc1	$f8,0x18c($t4)
-/*  f1140a8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1140ac:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f1140b0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f1140b4:	03e00008 */ 	jr	$ra
-/*  f1140b8:	00000000 */ 	nop
-);
+void currentPlayerAdjustHeadAnimation(f32 speed)
+{
+	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
+	s32 i;
+
+	speed *= var80075c00[1].unk0c;
+
+	for (i = 0; i < 2; i++) {
+		if (var80075c00[i].unk14 * var80075c00[i].unk0c >= speed) {
+			s32 headanim = g_Vars.currentplayer->headanim;
+
+			if (i != headanim) {
+				f32 startframe = 0.0f;
+
+				if (headanim >= 0) {
+					startframe = (g_Vars.currentplayer->model.anim->frame - var80075c00[headanim].loopframe)
+						/ (var80075c00[headanim].endframe - var80075c00[headanim].loopframe);
+					startframe = var80075c00[i].loopframe + (var80075c00[i].endframe - var80075c00[i].loopframe) * startframe;
+				}
+
+				modelSetAnimation(&g_Vars.currentplayer->model, var80075c00[i].animnum,
+						g_Vars.currentplayer->model.anim->flip, startframe, 0.5f, 12);
+				modelSetAnimLooping(&g_Vars.currentplayer->model, var80075c00[i].loopframe, false);
+				modelSetAnimEndFrame(&g_Vars.currentplayer->model, var80075c00[i].endframe);
+
+				modelSetAnimFlipFunction(&g_Vars.currentplayer->model, currentPlayerFlipAnimation);
+				g_Vars.currentplayer->headanim = i;
+			}
+
+			speed = speed / var80075c00[i].unk0c;
+
+			modelSetAnimSpeed(&g_Vars.currentplayer->model, speed * 0.5f, 0);
+			break;
+		}
+	}
+
+	chr->oldframe = g_Vars.currentplayer->model.anim->frame;
+}
 
 void currentPlayerStartDeathAnimation(s16 animnum, u32 flip, f32 fstarttime, f32 speed)
 {
@@ -735,7 +658,7 @@ f32 func0f11416c(void)
 		f32 b = modelGetAbsAnimSpeed(&g_Vars.currentplayer->model);
 
 		if (b > 0) {
-			f32 c = b / (var80075c00[g_Vars.currentplayer->headanim].unk08 - var80075c00[g_Vars.currentplayer->headanim].unk04);
+			f32 c = b / (var80075c00[g_Vars.currentplayer->headanim].endframe - var80075c00[g_Vars.currentplayer->headanim].loopframe);
 
 			if (c < a) {
 				c = a;

@@ -158,7 +158,9 @@
 #define ANIM_DEATH_0023             0x0023
 #define ANIM_DEATH_0024             0x0024
 #define ANIM_DEATH_0025             0x0025
+#define ANIM_29                     0x0029
 #define ANIM_RUNNING_TWOHANDGUN     0x002a
+#define ANIM_2B                     0x002b
 #define ANIM_SURRENDER_002E         0x002e
 #define ANIM_SURRENDER_002F         0x002f
 #define ANIM_DEATH_STOMACH_LONG     0x0039

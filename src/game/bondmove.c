@@ -5562,7 +5562,7 @@ void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 arg4)
 	f32 sp68[4];
 
 	if (g_Vars.currentplayer->isdead == false) {
-		func0f113f10(arg0);
+		currentPlayerAdjustHeadAnimation(arg0);
 
 		if (arg0 != 0) {
 			sp244 = arg1 / arg0;

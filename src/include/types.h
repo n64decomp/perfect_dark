@@ -5053,9 +5053,9 @@ struct somedruggedracething {
 };
 
 struct var80075c00 {
-	u16 unk00;
-	f32 unk04;
-	f32 unk08;
+	u16 animnum;
+	f32 loopframe;
+	f32 endframe;
 	f32 unk0c;
 	f32 unk10;
 	f32 unk14;

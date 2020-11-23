@@ -2213,7 +2213,7 @@ glabel var7f1adb9c
 .L0f0d415c:
 /*  f0d415c:	44806000 */ 	mtc1	$zero,$f12
 /*  f0d4160:	25ae001c */ 	addiu	$t6,$t5,0x1c
-/*  f0d4164:	0fc44fc4 */ 	jal	func0f113f10
+/*  f0d4164:	0fc44fc4 */ 	jal	currentPlayerAdjustHeadAnimation
 /*  f0d4168:	afae0060 */ 	sw	$t6,0x60($sp)
 /*  f0d416c:	44806000 */ 	mtc1	$zero,$f12
 /*  f0d4170:	0fc44e29 */ 	jal	func0f1138a4
