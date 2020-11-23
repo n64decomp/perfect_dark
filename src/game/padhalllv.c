@@ -941,138 +941,63 @@ struct waypoint *func0f1155e0(struct waypoint *pointa, struct waypoint *pointb)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel waypointDisableSegmentInDirection
-/*  f115784:	3c0b800a */ 	lui	$t3,%hi(g_StageSetup)
-/*  f115788:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*  f11578c:	8c8a0004 */ 	lw	$t2,0x4($a0)
-/*  f115790:	256bd030 */ 	addiu	$t3,$t3,%lo(g_StageSetup)
-/*  f115794:	8d790000 */ 	lw	$t9,0x0($t3)
-/*  f115798:	8d490000 */ 	lw	$t1,0x0($t2)
-/*  f11579c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f1157a0:	8d780004 */ 	lw	$t8,0x4($t3)
-/*  f1157a4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1157a8:	00b93023 */ 	subu	$a2,$a1,$t9
-/*  f1157ac:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1157b0:	00066103 */ 	sra	$t4,$a2,0x4
-/*  f1157b4:	01803025 */ 	or	$a2,$t4,$zero
-/*  f1157b8:	8ca20008 */ 	lw	$v0,0x8($a1)
-/*  f1157bc:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1157c0:	00004025 */ 	or	$t0,$zero,$zero
-/*  f1157c4:	0520000c */ 	bltz	$t1,.L0f1157f8
-/*  f1157c8:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f1157cc:	312d3fff */ 	andi	$t5,$t1,0x3fff
-/*  f1157d0:	118d0009 */ 	beq	$t4,$t5,.L0f1157f8
-/*  f1157d4:	00007080 */ 	sll	$t6,$zero,0x2
-/*  f1157d8:	014e5821 */ 	addu	$t3,$t2,$t6
-/*  f1157dc:	8d690004 */ 	lw	$t1,0x4($t3)
-.L0f1157e0:
-/*  f1157e0:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f1157e4:	256b0004 */ 	addiu	$t3,$t3,0x4
-/*  f1157e8:	05200003 */ 	bltz	$t1,.L0f1157f8
-/*  f1157ec:	312f3fff */ 	andi	$t7,$t1,0x3fff
-/*  f1157f0:	54cffffb */ 	bnel	$a2,$t7,.L0f1157e0
-/*  f1157f4:	8d690004 */ 	lw	$t1,0x4($t3)
-.L0f1157f8:
-/*  f1157f8:	31383fff */ 	andi	$t8,$t1,0x3fff
-/*  f1157fc:	14d8000d */ 	bne	$a2,$t8,.L0f115834
-/*  f115800:	00082880 */ 	sll	$a1,$t0,0x2
-/*  f115804:	01455821 */ 	addu	$t3,$t2,$a1
-/*  f115808:	8d790000 */ 	lw	$t9,0x0($t3)
-/*  f11580c:	0722000a */ 	bltzl	$t9,.L0f115838
-/*  f115810:	8c650004 */ 	lw	$a1,0x4($v1)
-/*  f115814:	8d6c0004 */ 	lw	$t4,0x4($t3)
-.L0f115818:
-/*  f115818:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f11581c:	ad6c0000 */ 	sw	$t4,0x0($t3)
-/*  f115820:	8c8d0004 */ 	lw	$t5,0x4($a0)
-/*  f115824:	01a55821 */ 	addu	$t3,$t5,$a1
-/*  f115828:	8d6e0000 */ 	lw	$t6,0x0($t3)
-/*  f11582c:	05c3fffa */ 	bgezl	$t6,.L0f115818
-/*  f115830:	8d6c0004 */ 	lw	$t4,0x4($t3)
-.L0f115834:
-/*  f115834:	8c650004 */ 	lw	$a1,0x4($v1)
-.L0f115838:
-/*  f115838:	00007880 */ 	sll	$t7,$zero,0x2
-/*  f11583c:	3c04800a */ 	lui	$a0,%hi(g_StageSetup)
-/*  f115840:	8ca90000 */ 	lw	$t1,0x0($a1)
-/*  f115844:	00af5821 */ 	addu	$t3,$a1,$t7
-/*  f115848:	0520001e */ 	bltz	$t1,.L0f1158c4
-/*  f11584c:	00000000 */ 	nop
-/*  f115850:	8c84d030 */ 	lw	$a0,%lo(g_StageSetup)($a0)
-/*  f115854:	0009c100 */ 	sll	$t8,$t1,0x4
-.L0f115858:
-/*  f115858:	03042821 */ 	addu	$a1,$t8,$a0
-/*  f11585c:	8ca80004 */ 	lw	$t0,0x4($a1)
-/*  f115860:	8d090000 */ 	lw	$t1,0x0($t0)
-/*  f115864:	05220012 */ 	bltzl	$t1,.L0f1158b0
-/*  f115868:	8d690004 */ 	lw	$t1,0x4($t3)
-/*  f11586c:	14e0000f */ 	bnez	$a3,.L0f1158ac
-/*  f115870:	0000c880 */ 	sll	$t9,$zero,0x2
-/*  f115874:	01195021 */ 	addu	$t2,$t0,$t9
-/*  f115878:	312c3fff */ 	andi	$t4,$t1,0x3fff
-.L0f11587c:
-/*  f11587c:	000c6900 */ 	sll	$t5,$t4,0x4
-/*  f115880:	01a42821 */ 	addu	$a1,$t5,$a0
-/*  f115884:	8cae0008 */ 	lw	$t6,0x8($a1)
-/*  f115888:	544e0003 */ 	bnel	$v0,$t6,.L0f115898
-/*  f11588c:	8d490004 */ 	lw	$t1,0x4($t2)
-/*  f115890:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f115894:	8d490004 */ 	lw	$t1,0x4($t2)
-.L0f115898:
-/*  f115898:	254a0004 */ 	addiu	$t2,$t2,0x4
-/*  f11589c:	05220004 */ 	bltzl	$t1,.L0f1158b0
-/*  f1158a0:	8d690004 */ 	lw	$t1,0x4($t3)
-/*  f1158a4:	50e0fff5 */ 	beqzl	$a3,.L0f11587c
-/*  f1158a8:	312c3fff */ 	andi	$t4,$t1,0x3fff
-.L0f1158ac:
-/*  f1158ac:	8d690004 */ 	lw	$t1,0x4($t3)
-.L0f1158b0:
-/*  f1158b0:	256b0004 */ 	addiu	$t3,$t3,0x4
-/*  f1158b4:	05200003 */ 	bltz	$t1,.L0f1158c4
-/*  f1158b8:	00000000 */ 	nop
-/*  f1158bc:	50e0ffe6 */ 	beqzl	$a3,.L0f115858
-/*  f1158c0:	0009c100 */ 	sll	$t8,$t1,0x4
-.L0f1158c4:
-/*  f1158c4:	14e0001f */ 	bnez	$a3,.L0f115944
-/*  f1158c8:	00000000 */ 	nop
-/*  f1158cc:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f1158d0:	00004025 */ 	or	$t0,$zero,$zero
-/*  f1158d4:	8c890000 */ 	lw	$t1,0x0($a0)
-/*  f1158d8:	0520000b */ 	bltz	$t1,.L0f115908
-/*  f1158dc:	312f3fff */ 	andi	$t7,$t1,0x3fff
-/*  f1158e0:	104f0009 */ 	beq	$v0,$t7,.L0f115908
-/*  f1158e4:	0000c080 */ 	sll	$t8,$zero,0x2
-/*  f1158e8:	00983021 */ 	addu	$a2,$a0,$t8
-/*  f1158ec:	8cc90004 */ 	lw	$t1,0x4($a2)
-.L0f1158f0:
-/*  f1158f0:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f1158f4:	24c60004 */ 	addiu	$a2,$a2,0x4
-/*  f1158f8:	05200003 */ 	bltz	$t1,.L0f115908
-/*  f1158fc:	31393fff */ 	andi	$t9,$t1,0x3fff
-/*  f115900:	5459fffb */ 	bnel	$v0,$t9,.L0f1158f0
-/*  f115904:	8cc90004 */ 	lw	$t1,0x4($a2)
-.L0f115908:
-/*  f115908:	312c3fff */ 	andi	$t4,$t1,0x3fff
-/*  f11590c:	144c000d */ 	bne	$v0,$t4,.L0f115944
-/*  f115910:	00082880 */ 	sll	$a1,$t0,0x2
-/*  f115914:	00853021 */ 	addu	$a2,$a0,$a1
-/*  f115918:	8ccd0000 */ 	lw	$t5,0x0($a2)
-/*  f11591c:	05a00009 */ 	bltz	$t5,.L0f115944
-/*  f115920:	00000000 */ 	nop
-/*  f115924:	8cce0004 */ 	lw	$t6,0x4($a2)
-.L0f115928:
-/*  f115928:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f11592c:	acce0000 */ 	sw	$t6,0x0($a2)
-/*  f115930:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*  f115934:	01e53021 */ 	addu	$a2,$t7,$a1
-/*  f115938:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*  f11593c:	0703fffa */ 	bgezl	$t8,.L0f115928
-/*  f115940:	8cce0004 */ 	lw	$t6,0x4($a2)
-.L0f115944:
-/*  f115944:	03e00008 */ 	jr	$ra
-/*  f115948:	00000000 */ 	nop
-);
+/**
+ * Disable the segment from A to B.
+ *
+ * This works by removing B from A's neighbour list. If B isn't a neighbour of
+ * A (ie. segment is already disabled) then no operation is performed.
+ *
+ * Once B is removed from A's list, the function then updates the group
+ * neighbours too. If the segment being removed is the last link between
+ * A's group and B's group then group B is removed from group A's neighbour
+ * list.
+ */
+void waypointDisableSegmentInDirection(struct waypoint *a, struct waypoint *b)
+{
+	struct waygroup *agroup = &g_StageSetup.waygroups[a->groupnum];
+	s32 bindex = b - g_StageSetup.waypoints;
+	s32 bgroupnum = b->groupnum;
+	bool foundlink = false;
+	s32 i;
+	s32 j;
+	s32 tmp;
+
+	// Find index of the neighbour point to remove, or index of end if not found
+	for (i = 0; (tmp = a->neighbours[i]) >= 0 && (tmp & 0x3fff) != bindex; i++);
+
+	// If neighbour was found, shuffle the rest of the neighbour list back by
+	// one, effectively removing it.
+	if ((tmp & 0x3fff) == bindex) {
+		for (; a->neighbours[i] >= 0; i++) {
+			a->neighbours[i] = a->neighbours[i + 1];
+		}
+	}
+
+	// Check if group A still contains any waypoints who have neighbours in
+	// group B.
+	for (i = 0; (tmp = agroup->waypoints[i]) >= 0 && !foundlink; i++) {
+		struct waypoint *apoint = &g_StageSetup.waypoints[tmp];
+
+		for (j = 0; (tmp = apoint->neighbours[j]) >= 0 && !foundlink; j++) {
+			struct waypoint *neighbour = &g_StageSetup.waypoints[tmp & 0x3fff];
+
+			if (neighbour->groupnum == bgroupnum) {
+				foundlink = true;
+			}
+		}
+	}
+
+	// If no link was found, remove group B from group A's neighbour list
+	if (!foundlink) {
+		for (i = 0; (tmp = agroup->neighbours[i]) >= 0 && (tmp & 0x3fff) != bgroupnum; i++);
+
+		if ((tmp & 0x3fff) == bgroupnum) {
+			for (; agroup->neighbours[i] >= 0; i++) {
+				agroup->neighbours[i] = agroup->neighbours[i + 1];
+			}
+		}
+	}
+}
 
 /**
  * Enable the segment from A to B.
