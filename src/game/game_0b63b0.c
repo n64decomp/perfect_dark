@@ -2283,14 +2283,14 @@ glabel var7f1ad574
 /*  f0b80a0:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f0b80a4:	ad401964 */ 	sw	$zero,0x1964($t2)
 /*  f0b80a8:	44806000 */ 	mtc1	$zero,$f12
-/*  f0b80ac:	0fc30884 */ 	jal	func0f0c2210
+/*  f0b80ac:	0fc30884 */ 	jal	currentPlayerSetShieldFrac
 /*  f0b80b0:	00000000 */ 	nop
 /*  f0b80b4:	0fc41b99 */ 	jal	cheatIsActive
 /*  f0b80b8:	2404000d */ 	addiu	$a0,$zero,0xd
 /*  f0b80bc:	10400004 */ 	beqz	$v0,.L0f0b80d0
 /*  f0b80c0:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0b80c4:	44816000 */ 	mtc1	$at,$f12
-/*  f0b80c8:	0fc30884 */ 	jal	func0f0c2210
+/*  f0b80c8:	0fc30884 */ 	jal	currentPlayerSetShieldFrac
 /*  f0b80cc:	00000000 */ 	nop
 .L0f0b80d0:
 /*  f0b80d0:	0fc41b99 */ 	jal	cheatIsActive
@@ -2298,7 +2298,7 @@ glabel var7f1ad574
 /*  f0b80d8:	10400008 */ 	beqz	$v0,.L0f0b80fc
 /*  f0b80dc:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0b80e0:	44816000 */ 	mtc1	$at,$f12
-/*  f0b80e4:	0fc30884 */ 	jal	func0f0c2210
+/*  f0b80e4:	0fc30884 */ 	jal	currentPlayerSetShieldFrac
 /*  f0b80e8:	00000000 */ 	nop
 /*  f0b80ec:	3c014000 */ 	lui	$at,0x4000
 /*  f0b80f0:	44812000 */ 	mtc1	$at,$f4
@@ -13620,38 +13620,18 @@ glabel func0f0c21a4
 /*  f0c220c:	46006006 */ 	mov.s	$f0,$f12
 );
 
-GLOBAL_ASM(
-glabel func0f0c2210
-/*  f0c2210:	44800000 */ 	mtc1	$zero,$f0
-/*  f0c2214:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c2218:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c221c:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f0c2220:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0c2224:	45020003 */ 	bc1fl	.L0f0c2234
-/*  f0c2228:	44810000 */ 	mtc1	$at,$f0
-/*  f0c222c:	46000306 */ 	mov.s	$f12,$f0
-/*  f0c2230:	44810000 */ 	mtc1	$at,$f0
-.L0f0c2234:
-/*  f0c2234:	3c014100 */ 	lui	$at,0x4100
-/*  f0c2238:	44812000 */ 	mtc1	$at,$f4
-/*  f0c223c:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0c2240:	00000000 */ 	nop
-/*  f0c2244:	45000002 */ 	bc1f	.L0f0c2250
-/*  f0c2248:	00000000 */ 	nop
-/*  f0c224c:	46000306 */ 	mov.s	$f12,$f0
-.L0f0c2250:
-/*  f0c2250:	46046182 */ 	mul.s	$f6,$f12,$f4
-/*  f0c2254:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0c2258:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0c225c:	8dcf00bc */ 	lw	$t7,0xbc($t6)
-/*  f0c2260:	44053000 */ 	mfc1	$a1,$f6
-/*  f0c2264:	0fc0cfea */ 	jal	chrSetShield
-/*  f0c2268:	8de40004 */ 	lw	$a0,0x4($t7)
-/*  f0c226c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c2270:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c2274:	03e00008 */ 	jr	$ra
-/*  f0c2278:	00000000 */ 	nop
-);
+void currentPlayerSetShieldFrac(f32 shield)
+{
+	if (shield < 0) {
+		shield = 0;
+	}
+
+	if (shield > 1) {
+		shield = 1;
+	}
+
+	chrSetShield(g_Vars.currentplayer->prop->chr, shield * 8);
+}
 
 s32 getMissionTime(void)
 {

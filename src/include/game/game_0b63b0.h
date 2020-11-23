@@ -79,7 +79,7 @@ void func0f0c1ff4(void);
 void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
 f32 currentPlayerGetHealth(void);
 f32 func0f0c21a4(void);
-void func0f0c2210(f32 shield);
+void currentPlayerSetShieldFrac(f32 shield);
 s32 getMissionTime(void);
 u32 func0f0c228c(struct prop *prop);
 u32 func0f0c2364(void);

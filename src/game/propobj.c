@@ -38864,7 +38864,7 @@ glabel var7f1aae70
 .L0f088dc8:
 /*  f088dc8:	10000076 */ 	b	.L0f088fa4
 /*  f088dcc:	8fa20098 */ 	lw	$v0,0x98($sp)
-/*  f088dd0:	0fc30884 */ 	jal	func0f0c2210
+/*  f088dd0:	0fc30884 */ 	jal	currentPlayerSetShieldFrac
 /*  f088dd4:	c4cc0060 */ 	lwc1	$f12,0x60($a2)
 /*  f088dd8:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x4cc)
 /*  f088ddc:	8d6ba48c */ 	lw	$t3,%lo(g_Vars+0x4cc)($t3)
@@ -39233,7 +39233,7 @@ glabel var7f1aae70
 //	case 0x15: // f088dd0 - shield
 //		{
 //			struct shieldobj *shield = (struct shieldobj *)obj;
-//			func0f0c2210(shield->amount);
+//			currentPlayerSetShieldFrac(shield->amount);
 //
 //			if (g_Vars.in_cutscene == false) {
 //				audioStart(var80095200, 0x1cd, NULL, -1, -1, -1, -1, -1);
