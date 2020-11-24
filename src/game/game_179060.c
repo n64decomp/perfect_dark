@@ -111,7 +111,7 @@ s32 menuhandlerMpTeamsLabel(u32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-u32 func0f1790fc(void)
+s32 mpGetNumStages(void)
 {
 	return 17;
 }

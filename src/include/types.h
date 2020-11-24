@@ -4478,7 +4478,7 @@ struct mpscenario {
 struct mpscenariooverview {
 	u16 name;
 	u16 shortname;
-	u8 unk04;
+	u8 unlockfeature;
 	u8 unk05;
 };
 

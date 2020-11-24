@@ -117,7 +117,7 @@ bool chrGiveUplink(struct chrdata *chr, struct prop *prop);
 void scenarioHtmActivateUplink(struct chrdata *chr, struct prop *prop);
 s32 menuhandlerMpDropOut(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpTeamsLabel(u32 operation, struct menuitem *item, union handlerdata *data);
-u32 func0f1790fc(void);
+s32 mpGetNumStages(void);
 s32 menuhandlerMpControlStyle(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpWeaponSlot(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpWeaponSetDropdown(u32 operation, struct menuitem *item, union handlerdata *data);

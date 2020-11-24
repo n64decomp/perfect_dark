@@ -891,127 +891,51 @@ s32 mpForceUnlockFeature(s32 featurenum, u8 *array, s32 tail, s32 len)
 	return tail;
 }
 
-GLOBAL_ASM(
-glabel func0f19bb98
-/*  f19bb98:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f19bb9c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f19bba0:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f19bba4:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f19bba8:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f19bbac:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f19bbb0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f19bbb4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f19bbb8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f19bbbc:	3c138008 */ 	lui	$s3,%hi(g_MpWeapons)
-/*  f19bbc0:	00a0a825 */ 	or	$s5,$a1,$zero
-/*  f19bbc4:	00c0b025 */ 	or	$s6,$a2,$zero
-/*  f19bbc8:	0080b825 */ 	or	$s7,$a0,$zero
-/*  f19bbcc:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f19bbd0:	00009025 */ 	or	$s2,$zero,$zero
-/*  f19bbd4:	26737268 */ 	addiu	$s3,$s3,%lo(g_MpWeapons)
-/*  f19bbd8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f19bbdc:	00008825 */ 	or	$s1,$zero,$zero
-/*  f19bbe0:	2414000a */ 	addiu	$s4,$zero,0xa
-.L0f19bbe4:
-/*  f19bbe4:	920e0018 */ 	lbu	$t6,0x18($s0)
-/*  f19bbe8:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19bbec:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bbf0:	01d40019 */ 	multu	$t6,$s4
-/*  f19bbf4:	00007812 */ 	mflo	$t7
-/*  f19bbf8:	026fc021 */ 	addu	$t8,$s3,$t7
-/*  f19bbfc:	97040004 */ 	lhu	$a0,0x4($t8)
-/*  f19bc00:	3099007f */ 	andi	$t9,$a0,0x7f
-/*  f19bc04:	13200004 */ 	beqz	$t9,.L0f19bc18
-/*  f19bc08:	03202025 */ 	or	$a0,$t9,$zero
-/*  f19bc0c:	0fc66ed4 */ 	jal	mpForceUnlockFeature
-/*  f19bc10:	02c03825 */ 	or	$a3,$s6,$zero
-/*  f19bc14:	00409025 */ 	or	$s2,$v0,$zero
-.L0f19bc18:
-/*  f19bc18:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f19bc1c:	2a210006 */ 	slti	$at,$s1,0x6
-/*  f19bc20:	1420fff0 */ 	bnez	$at,.L0f19bbe4
-/*  f19bc24:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19bc28:	0fc5e43f */ 	jal	func0f1790fc
-/*  f19bc2c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f19bc30:	18400018 */ 	blez	$v0,.L0f19bc94
-/*  f19bc34:	00114080 */ 	sll	$t0,$s1,0x2
-/*  f19bc38:	01114023 */ 	subu	$t0,$t0,$s1
-/*  f19bc3c:	3c098008 */ 	lui	$t1,%hi(g_MpArenas)
-/*  f19bc40:	25294b98 */ 	addiu	$t1,$t1,%lo(g_MpArenas)
-/*  f19bc44:	00084040 */ 	sll	$t0,$t0,0x1
-/*  f19bc48:	01098021 */ 	addu	$s0,$t0,$t1
-/*  f19bc4c:	92ea0011 */ 	lbu	$t2,0x11($s7)
-.L0f19bc50:
-/*  f19bc50:	860b0000 */ 	lh	$t3,0x0($s0)
-/*  f19bc54:	554b000a */ 	bnel	$t2,$t3,.L0f19bc80
-/*  f19bc58:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f19bc5c:	92040002 */ 	lbu	$a0,0x2($s0)
-/*  f19bc60:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19bc64:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bc68:	50800005 */ 	beqzl	$a0,.L0f19bc80
-/*  f19bc6c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f19bc70:	0fc66ed4 */ 	jal	mpForceUnlockFeature
-/*  f19bc74:	02c03825 */ 	or	$a3,$s6,$zero
-/*  f19bc78:	00409025 */ 	or	$s2,$v0,$zero
-/*  f19bc7c:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f19bc80:
-/*  f19bc80:	0fc5e43f */ 	jal	func0f1790fc
-/*  f19bc84:	26100006 */ 	addiu	$s0,$s0,0x6
-/*  f19bc88:	0222082a */ 	slt	$at,$s1,$v0
-/*  f19bc8c:	5420fff0 */ 	bnezl	$at,.L0f19bc50
-/*  f19bc90:	92ea0011 */ 	lbu	$t2,0x11($s7)
-.L0f19bc94:
-/*  f19bc94:	92e20010 */ 	lbu	$v0,0x10($s7)
-/*  f19bc98:	3c048008 */ 	lui	$a0,%hi(g_MpScenarioOverviews+0x4)
-/*  f19bc9c:	28410006 */ 	slti	$at,$v0,0x6
-/*  f19bca0:	1020000c */ 	beqz	$at,.L0f19bcd4
-/*  f19bca4:	00026080 */ 	sll	$t4,$v0,0x2
-/*  f19bca8:	01826023 */ 	subu	$t4,$t4,$v0
-/*  f19bcac:	000c6040 */ 	sll	$t4,$t4,0x1
-/*  f19bcb0:	008c2021 */ 	addu	$a0,$a0,$t4
-/*  f19bcb4:	9084714c */ 	lbu	$a0,%lo(g_MpScenarioOverviews+0x4)($a0)
-/*  f19bcb8:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19bcbc:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bcc0:	50800005 */ 	beqzl	$a0,.L0f19bcd8
-/*  f19bcc4:	8ee3000c */ 	lw	$v1,0xc($s7)
-/*  f19bcc8:	0fc66ed4 */ 	jal	mpForceUnlockFeature
-/*  f19bccc:	02c03825 */ 	or	$a3,$s6,$zero
-/*  f19bcd0:	00409025 */ 	or	$s2,$v0,$zero
-.L0f19bcd4:
-/*  f19bcd4:	8ee3000c */ 	lw	$v1,0xc($s7)
-.L0f19bcd8:
-/*  f19bcd8:	2404001e */ 	addiu	$a0,$zero,0x1e
-/*  f19bcdc:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19bce0:	306d0001 */ 	andi	$t5,$v1,0x1
-/*  f19bce4:	11a00005 */ 	beqz	$t5,.L0f19bcfc
-/*  f19bce8:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bcec:	0fc66ed4 */ 	jal	mpForceUnlockFeature
-/*  f19bcf0:	02c03825 */ 	or	$a3,$s6,$zero
-/*  f19bcf4:	00409025 */ 	or	$s2,$v0,$zero
-/*  f19bcf8:	8ee3000c */ 	lw	$v1,0xc($s7)
-.L0f19bcfc:
-/*  f19bcfc:	306e00c0 */ 	andi	$t6,$v1,0xc0
-/*  f19bd00:	11c00006 */ 	beqz	$t6,.L0f19bd1c
-/*  f19bd04:	2404001d */ 	addiu	$a0,$zero,0x1d
-/*  f19bd08:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19bd0c:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bd10:	0fc66ed4 */ 	jal	mpForceUnlockFeature
-/*  f19bd14:	02c03825 */ 	or	$a3,$s6,$zero
-/*  f19bd18:	00409025 */ 	or	$s2,$v0,$zero
-.L0f19bd1c:
-/*  f19bd1c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f19bd20:	02401025 */ 	or	$v0,$s2,$zero
-/*  f19bd24:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f19bd28:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f19bd2c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f19bd30:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f19bd34:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f19bd38:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f19bd3c:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f19bd40:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f19bd44:	03e00008 */ 	jr	$ra
-/*  f19bd48:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+s32 mpForceUnlockSetupFeatures(struct mpsetup *setup, u8 *array, s32 len)
+{
+	s32 index = 0;
+	s32 i;
+
+	// Force unlock the weapons (if never held before)
+	for (i = 0; i < 6; i++) {
+		s32 featurenum = g_MpWeapons[setup->weapons[i]].unlockfeature;
+
+		if (featurenum) {
+			index = mpForceUnlockFeature(featurenum, array, index, len);
+		}
+	}
+
+	// Force unlock the stage
+	for (i = 0; i < mpGetNumStages(); i++) {
+		if (g_MpArenas[i].stagenum == setup->stagenum) {
+			s32 featurenum = g_MpArenas[i].requirefeature;
+
+			if (featurenum) {
+				index = mpForceUnlockFeature(featurenum, array, index, len);
+			}
+		}
+	}
+
+	// Force unlock the scenario
+	if (setup->scenario <= MPSCENARIO_CAPTURETHECASE) {
+		s32 featurenum = g_MpScenarioOverviews[setup->scenario].unlockfeature;
+
+		if (featurenum) {
+			index = mpForceUnlockFeature(featurenum, array, index, len);
+		}
+	}
+
+	// Force unlock the scenario options
+	if (setup->options & MPOPTION_ONEHITKILLS) {
+		index = mpForceUnlockFeature(MPFEATURE_ONEHITKILLS, array, index, len);
+	}
+
+	if (setup->options & (MPOPTION_SLOWMOTION_ON | MPOPTION_SLOWMOTION_SMART)) {
+		index = mpForceUnlockFeature(MPFEATURE_SLOWMOTION, array, index, len);
+	}
+
+	return index;
+}
 
 GLOBAL_ASM(
 glabel func0f19bd4c
@@ -1029,7 +953,7 @@ glabel func0f19bd4c
 /*  f19bd78:	afb5002c */ 	sw	$s5,0x2c($sp)
 /*  f19bd7c:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f19bd80:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f19bd84:	0fc66ee6 */ 	jal	func0f19bb98
+/*  f19bd84:	0fc66ee6 */ 	jal	mpForceUnlockSetupFeatures
 /*  f19bd88:	afa7006c */ 	sw	$a3,0x6c($sp)
 /*  f19bd8c:	3c158008 */ 	lui	$s5,%hi(g_MpSimulantTypes)
 /*  f19bd90:	00409025 */ 	or	$s2,$v0,$zero
@@ -1185,7 +1109,7 @@ glabel func0f19bd4c
 void mpForceUnlockSimulantFeatures(void)
 {
 	s32 numsims = 0;
-	s32 index = func0f19bb98(&g_MpSetup, g_MpFeaturesForceUnlocked, ARRAYCOUNT(g_MpFeaturesForceUnlocked));
+	s32 index = mpForceUnlockSetupFeatures(&g_MpSetup, g_MpFeaturesForceUnlocked, ARRAYCOUNT(g_MpFeaturesForceUnlocked));
 	s32 i;
 
 	for (i = 0; i < 8; i++) {
