@@ -4055,7 +4055,7 @@ void warpBondToPad(s16 pad)
 	setTickMode(TICKMODE_3);
 	var80070744 = 0;
 	setMoveModeForAllPlayers(MOVEMODE_CUTSCENE);
-	func0f0c1d20();
+	allPlayersClearMemCamRoom();
 	g_WarpPadId = pad;
 }
 
@@ -4064,7 +4064,7 @@ void func0f0b9bac(u32 *cmd, s32 arg1, s32 arg2)
 	setTickMode(TICKMODE_3);
 	var80070744 = 0;
 	setMoveModeForAllPlayers(MOVEMODE_CUTSCENE);
-	func0f0c1d20();
+	allPlayersClearMemCamRoom();
 	g_WarpPadId = -1;
 	var8009ddec = cmd;
 	var8009de08 = arg1;
@@ -4076,7 +4076,7 @@ void func0f0b9c1c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5)
 	setTickMode(TICKMODE_3);
 	var80070744 = 0;
 	setMoveModeForAllPlayers(MOVEMODE_CUTSCENE);
-	func0f0c1d20();
+	allPlayersClearMemCamRoom();
 	g_WarpPadId = -1;
 	var8009ddec = NULL;
 	var8009ddf0 = arg0;
@@ -4320,7 +4320,7 @@ void func0f0ba010(void)
 	setTickMode(TICKMODE_CUTSCENE);
 	var80070744 = 0;
 	setMoveModeForAllPlayers(MOVEMODE_CUTSCENE);
-	func0f0c1d20();
+	allPlayersClearMemCamRoom();
 	var8009de14 = var8009de20;
 	var8009de10 = var8009de20 >> 2;
 	var8009de1c = 0;
@@ -13320,97 +13320,18 @@ void currentPlayerClearMemCamRoom(void)
 	g_Vars.currentplayer->memcamroom = -1;
 }
 
-GLOBAL_ASM(
-glabel func0f0c1d20
-/*  f0c1d20:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0c1d24:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0c1d28:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f0c1d2c:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f0c1d30:	8e0f006c */ 	lw	$t7,0x6c($s0)
-/*  f0c1d34:	8e0e028c */ 	lw	$t6,0x28c($s0)
-/*  f0c1d38:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0c1d3c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0c1d40:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0c1d44:	11e00003 */ 	beqz	$t7,.L0f0c1d54
-/*  f0c1d48:	afae0024 */ 	sw	$t6,0x24($sp)
-/*  f0c1d4c:	10000002 */ 	b	.L0f0c1d58
-/*  f0c1d50:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0c1d54:
-/*  f0c1d54:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0c1d58:
-/*  f0c1d58:	8e180068 */ 	lw	$t8,0x68($s0)
-/*  f0c1d5c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0c1d60:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0c1d64:	13000003 */ 	beqz	$t8,.L0f0c1d74
-/*  f0c1d68:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0c1d6c:	10000001 */ 	b	.L0f0c1d74
-/*  f0c1d70:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0c1d74:
-/*  f0c1d74:	8e190064 */ 	lw	$t9,0x64($s0)
-/*  f0c1d78:	13200003 */ 	beqz	$t9,.L0f0c1d88
-/*  f0c1d7c:	00000000 */ 	nop
-/*  f0c1d80:	10000001 */ 	b	.L0f0c1d88
-/*  f0c1d84:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0c1d88:
-/*  f0c1d88:	8e080070 */ 	lw	$t0,0x70($s0)
-/*  f0c1d8c:	11000003 */ 	beqz	$t0,.L0f0c1d9c
-/*  f0c1d90:	00000000 */ 	nop
-/*  f0c1d94:	10000001 */ 	b	.L0f0c1d9c
-/*  f0c1d98:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0c1d9c:
-/*  f0c1d9c:	00434821 */ 	addu	$t1,$v0,$v1
-/*  f0c1da0:	01245021 */ 	addu	$t2,$t1,$a0
-/*  f0c1da4:	01455821 */ 	addu	$t3,$t2,$a1
-/*  f0c1da8:	19600023 */ 	blez	$t3,.L0f0c1e38
-/*  f0c1dac:	00000000 */ 	nop
-.L0f0c1db0:
-/*  f0c1db0:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0c1db4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0c1db8:	0fc30743 */ 	jal	currentPlayerClearMemCamRoom
-/*  f0c1dbc:	00000000 */ 	nop
-/*  f0c1dc0:	8e0c006c */ 	lw	$t4,0x6c($s0)
-/*  f0c1dc4:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0c1dc8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0c1dcc:	11800003 */ 	beqz	$t4,.L0f0c1ddc
-/*  f0c1dd0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0c1dd4:	10000001 */ 	b	.L0f0c1ddc
-/*  f0c1dd8:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0c1ddc:
-/*  f0c1ddc:	8e0d0068 */ 	lw	$t5,0x68($s0)
-/*  f0c1de0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0c1de4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0c1de8:	11a00003 */ 	beqz	$t5,.L0f0c1df8
-/*  f0c1dec:	00000000 */ 	nop
-/*  f0c1df0:	10000001 */ 	b	.L0f0c1df8
-/*  f0c1df4:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0c1df8:
-/*  f0c1df8:	8e0e0064 */ 	lw	$t6,0x64($s0)
-/*  f0c1dfc:	11c00003 */ 	beqz	$t6,.L0f0c1e0c
-/*  f0c1e00:	00000000 */ 	nop
-/*  f0c1e04:	10000001 */ 	b	.L0f0c1e0c
-/*  f0c1e08:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0c1e0c:
-/*  f0c1e0c:	8e0f0070 */ 	lw	$t7,0x70($s0)
-/*  f0c1e10:	11e00003 */ 	beqz	$t7,.L0f0c1e20
-/*  f0c1e14:	00000000 */ 	nop
-/*  f0c1e18:	10000001 */ 	b	.L0f0c1e20
-/*  f0c1e1c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0c1e20:
-/*  f0c1e20:	0043c021 */ 	addu	$t8,$v0,$v1
-/*  f0c1e24:	0304c821 */ 	addu	$t9,$t8,$a0
-/*  f0c1e28:	03254021 */ 	addu	$t0,$t9,$a1
-/*  f0c1e2c:	0228082a */ 	slt	$at,$s1,$t0
-/*  f0c1e30:	1420ffdf */ 	bnez	$at,.L0f0c1db0
-/*  f0c1e34:	00000000 */ 	nop
-.L0f0c1e38:
-/*  f0c1e38:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0c1e3c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f0c1e40:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0c1e44:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0c1e48:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0c1e4c:	03e00008 */ 	jr	$ra
-/*  f0c1e50:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void allPlayersClearMemCamRoom(void)
+{
+	s32 prevplayernum = g_Vars.currentplayernum;
+	s32 i;
+
+	for (i = 0; i < PLAYERCOUNT(); i++) {
+		setCurrentPlayerNum(i);
+		currentPlayerClearMemCamRoom();
+	}
+
+	setCurrentPlayerNum(prevplayernum);
+}
 
 void func0f0c1e54(struct prop *prop, bool enable)
 {
