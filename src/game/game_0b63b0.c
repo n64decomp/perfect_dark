@@ -13431,73 +13431,31 @@ void func0f0c1e54(struct prop *prop, bool enable)
 	g_Vars.players[playernum]->bondperimenabled = enable;
 }
 
-GLOBAL_ASM(
-glabel func0f0c1f08
-/*  f0c1f08:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c1f0c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c1f10:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0c1f14:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f0c1f18:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0c1f1c:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f0c1f20:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f0c1f24:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f0c1f28:	00ce2021 */ 	addu	$a0,$a2,$t6
-/*  f0c1f2c:	8c830064 */ 	lw	$v1,0x64($a0)
-/*  f0c1f30:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f0c1f34:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f0c1f38:	8c6f00c0 */ 	lw	$t7,0xc0($v1)
-/*  f0c1f3c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0c1f40:	51e00027 */ 	beqzl	$t7,.L0f0c1fe0
-/*  f0c1f44:	ace00000 */ 	sw	$zero,0x0($a3)
-/*  f0c1f48:	8cd80314 */ 	lw	$t8,0x314($a2)
-/*  f0c1f4c:	53000005 */ 	beqzl	$t8,.L0f0c1f64
-/*  f0c1f50:	8cc8048c */ 	lw	$t0,0x48c($a2)
-/*  f0c1f54:	8c7900d8 */ 	lw	$t9,0xd8($v1)
-/*  f0c1f58:	57200021 */ 	bnezl	$t9,.L0f0c1fe0
-/*  f0c1f5c:	ace00000 */ 	sw	$zero,0x0($a3)
-/*  f0c1f60:	8cc8048c */ 	lw	$t0,0x48c($a2)
-.L0f0c1f64:
-/*  f0c1f64:	51000017 */ 	beqzl	$t0,.L0f0c1fc4
-/*  f0c1f68:	246f19cc */ 	addiu	$t7,$v1,0x19cc
-/*  f0c1f6c:	8c6119cc */ 	lw	$at,0x19cc($v1)
-/*  f0c1f70:	8c6b19d0 */ 	lw	$t3,0x19d0($v1)
-/*  f0c1f74:	ac6119e4 */ 	sw	$at,0x19e4($v1)
-/*  f0c1f78:	8c6119d4 */ 	lw	$at,0x19d4($v1)
-/*  f0c1f7c:	ac6b19e8 */ 	sw	$t3,0x19e8($v1)
-/*  f0c1f80:	8c6b19d8 */ 	lw	$t3,0x19d8($v1)
-/*  f0c1f84:	ac6119ec */ 	sw	$at,0x19ec($v1)
-/*  f0c1f88:	8c6119dc */ 	lw	$at,0x19dc($v1)
-/*  f0c1f8c:	ac6b19f0 */ 	sw	$t3,0x19f0($v1)
-/*  f0c1f90:	8c6b19e0 */ 	lw	$t3,0x19e0($v1)
-/*  f0c1f94:	ac6119f4 */ 	sw	$at,0x19f4($v1)
-/*  f0c1f98:	3c014170 */ 	lui	$at,0x4170
-/*  f0c1f9c:	ac6b19f8 */ 	sw	$t3,0x19f8($v1)
-/*  f0c1fa0:	8c8c0064 */ 	lw	$t4,0x64($a0)
-/*  f0c1fa4:	44812000 */ 	mtc1	$at,$f4
-/*  f0c1fa8:	00000000 */ 	nop
-/*  f0c1fac:	e58419f8 */ 	swc1	$f4,0x19f8($t4)
-/*  f0c1fb0:	8c8d0064 */ 	lw	$t5,0x64($a0)
-/*  f0c1fb4:	25ae19e4 */ 	addiu	$t6,$t5,0x19e4
-/*  f0c1fb8:	10000003 */ 	b	.L0f0c1fc8
-/*  f0c1fbc:	acae0000 */ 	sw	$t6,0x0($a1)
-/*  f0c1fc0:	246f19cc */ 	addiu	$t7,$v1,0x19cc
-.L0f0c1fc4:
-/*  f0c1fc4:	acaf0000 */ 	sw	$t7,0x0($a1)
-.L0f0c1fc8:
-/*  f0c1fc8:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*  f0c1fcc:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0c1fd0:	27190018 */ 	addiu	$t9,$t8,0x18
-/*  f0c1fd4:	10000003 */ 	b	.L0f0c1fe4
-/*  f0c1fd8:	acf90000 */ 	sw	$t9,0x0($a3)
-/*  f0c1fdc:	ace00000 */ 	sw	$zero,0x0($a3)
-.L0f0c1fe0:
-/*  f0c1fe0:	aca00000 */ 	sw	$zero,0x0($a1)
-.L0f0c1fe4:
-/*  f0c1fe4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c1fe8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c1fec:	03e00008 */ 	jr	$ra
-/*  f0c1ff0:	00000000 */ 	nop
-);
+bool func0f0c1f08(struct prop *prop, struct geo **arg1, struct geo **arg2)
+{
+	s32 playernum = propGetPlayerNum(prop);
+
+	if (g_Vars.players[playernum]->bondperimenabled
+			&& (!g_Vars.mplayerisrunning || !g_Vars.players[playernum]->isdead)) {
+		if (g_Vars.unk00048c) {
+			g_Vars.players[playernum]->perimshoot = g_Vars.players[playernum]->periminfo;
+			g_Vars.players[playernum]->perimshoot.width = 15;
+
+			*arg1 = &g_Vars.players[playernum]->perimshoot;
+		} else {
+			*arg1 = &g_Vars.players[playernum]->periminfo;
+		}
+
+		*arg2 = *arg1 + 1;
+
+		return true;
+	}
+
+	*arg2 = NULL;
+	*arg1 = NULL;
+
+	return false;
+}
 
 void currentPlayerUpdatePerimInfo(void)
 {
