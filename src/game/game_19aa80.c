@@ -937,174 +937,70 @@ s32 mpForceUnlockSetupFeatures(struct mpsetup *setup, u8 *array, s32 len)
 	return index;
 }
 
-GLOBAL_ASM(
-glabel func0f19bd4c
-/*  f19bd4c:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f19bd50:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f19bd54:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f19bd58:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f19bd5c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f19bd60:	00808025 */ 	or	$s0,$a0,$zero
-/*  f19bd64:	00c09825 */ 	or	$s3,$a2,$zero
-/*  f19bd68:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f19bd6c:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f19bd70:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f19bd74:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f19bd78:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f19bd7c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f19bd80:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f19bd84:	0fc66ee6 */ 	jal	mpForceUnlockSetupFeatures
-/*  f19bd88:	afa7006c */ 	sw	$a3,0x6c($sp)
-/*  f19bd8c:	3c158008 */ 	lui	$s5,%hi(g_MpSimulantTypes)
-/*  f19bd90:	00409025 */ 	or	$s2,$v0,$zero
-/*  f19bd94:	26b5772c */ 	addiu	$s5,$s5,%lo(g_MpSimulantTypes)
-/*  f19bd98:	0000f025 */ 	or	$s8,$zero,$zero
-/*  f19bd9c:	0200b825 */ 	or	$s7,$s0,$zero
-/*  f19bda0:	afb00040 */ 	sw	$s0,0x40($sp)
-/*  f19bda4:	24160004 */ 	addiu	$s6,$zero,0x4
-.L0f19bda8:
-/*  f19bda8:	92e40028 */ 	lbu	$a0,0x28($s7)
-/*  f19bdac:	0fc6335a */ 	jal	mpGetSimTypeIndex
-/*  f19bdb0:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f19bdb4:	0440000a */ 	bltz	$v0,.L0f19bde0
-/*  f19bdb8:	000270c0 */ 	sll	$t6,$v0,0x3
-/*  f19bdbc:	02ae7821 */ 	addu	$t7,$s5,$t6
-/*  f19bdc0:	91e40006 */ 	lbu	$a0,0x6($t7)
-/*  f19bdc4:	02802825 */ 	or	$a1,$s4,$zero
-/*  f19bdc8:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bdcc:	50800005 */ 	beqzl	$a0,.L0f19bde4
-/*  f19bdd0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f19bdd4:	0fc66ed4 */ 	jal	mpForceUnlockFeature
-/*  f19bdd8:	02603825 */ 	or	$a3,$s3,$zero
-/*  f19bddc:	00409025 */ 	or	$s2,$v0,$zero
-.L0f19bde0:
-/*  f19bde0:	00008025 */ 	or	$s0,$zero,$zero
-.L0f19bde4:
-/*  f19bde4:	8fb10040 */ 	lw	$s1,0x40($sp)
-.L0f19bde8:
-/*  f19bde8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19bdec:	0fc6335a */ 	jal	mpGetSimTypeIndex
-/*  f19bdf0:	9225002c */ 	lbu	$a1,0x2c($s1)
-/*  f19bdf4:	0440000a */ 	bltz	$v0,.L0f19be20
-/*  f19bdf8:	0002c0c0 */ 	sll	$t8,$v0,0x3
-/*  f19bdfc:	02b8c821 */ 	addu	$t9,$s5,$t8
-/*  f19be00:	93240006 */ 	lbu	$a0,0x6($t9)
-/*  f19be04:	02802825 */ 	or	$a1,$s4,$zero
-/*  f19be08:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19be0c:	50800005 */ 	beqzl	$a0,.L0f19be24
-/*  f19be10:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19be14:	0fc66ed4 */ 	jal	mpForceUnlockFeature
-/*  f19be18:	02603825 */ 	or	$a3,$s3,$zero
-/*  f19be1c:	00409025 */ 	or	$s2,$v0,$zero
-.L0f19be20:
-/*  f19be20:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f19be24:
-/*  f19be24:	1616fff0 */ 	bne	$s0,$s6,.L0f19bde8
-/*  f19be28:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f19be2c:	92e2002a */ 	lbu	$v0,0x2a($s7)
-/*  f19be30:	3c048008 */ 	lui	$a0,%hi(g_MpBodies+0x6)
-/*  f19be34:	2841003d */ 	slti	$at,$v0,0x3d
-/*  f19be38:	1020000a */ 	beqz	$at,.L0f19be64
-/*  f19be3c:	000240c0 */ 	sll	$t0,$v0,0x3
-/*  f19be40:	00882021 */ 	addu	$a0,$a0,$t0
-/*  f19be44:	908477c2 */ 	lbu	$a0,%lo(g_MpBodies+0x6)($a0)
-/*  f19be48:	02802825 */ 	or	$a1,$s4,$zero
-/*  f19be4c:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19be50:	50800005 */ 	beqzl	$a0,.L0f19be68
-/*  f19be54:	92e20029 */ 	lbu	$v0,0x29($s7)
-/*  f19be58:	0fc66ed4 */ 	jal	mpForceUnlockFeature
-/*  f19be5c:	02603825 */ 	or	$a3,$s3,$zero
-/*  f19be60:	00409025 */ 	or	$s2,$v0,$zero
-.L0f19be64:
-/*  f19be64:	92e20029 */ 	lbu	$v0,0x29($s7)
-.L0f19be68:
-/*  f19be68:	3c048008 */ 	lui	$a0,%hi(g_MpHeads+0x2)
-/*  f19be6c:	2841004b */ 	slti	$at,$v0,0x4b
-/*  f19be70:	1020000a */ 	beqz	$at,.L0f19be9c
-/*  f19be74:	00024880 */ 	sll	$t1,$v0,0x2
-/*  f19be78:	00892021 */ 	addu	$a0,$a0,$t1
-/*  f19be7c:	9084752e */ 	lbu	$a0,%lo(g_MpHeads+0x2)($a0)
-/*  f19be80:	02802825 */ 	or	$a1,$s4,$zero
-/*  f19be84:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19be88:	50800005 */ 	beqzl	$a0,.L0f19bea0
-/*  f19be8c:	8faa0040 */ 	lw	$t2,0x40($sp)
-/*  f19be90:	0fc66ed4 */ 	jal	mpForceUnlockFeature
-/*  f19be94:	02603825 */ 	or	$a3,$s3,$zero
-/*  f19be98:	00409025 */ 	or	$s2,$v0,$zero
-.L0f19be9c:
-/*  f19be9c:	8faa0040 */ 	lw	$t2,0x40($sp)
-.L0f19bea0:
-/*  f19bea0:	27de0008 */ 	addiu	$s8,$s8,0x8
-/*  f19bea4:	2bc10040 */ 	slti	$at,$s8,0x40
-/*  f19bea8:	254b0008 */ 	addiu	$t3,$t2,0x8
-/*  f19beac:	afab0040 */ 	sw	$t3,0x40($sp)
-/*  f19beb0:	1420ffbd */ 	bnez	$at,.L0f19bda8
-/*  f19beb4:	26f70008 */ 	addiu	$s7,$s7,0x8
-/*  f19beb8:	8fa2006c */ 	lw	$v0,0x6c($sp)
-/*  f19bebc:	2404001c */ 	addiu	$a0,$zero,0x1c
-/*  f19bec0:	02802825 */ 	or	$a1,$s4,$zero
-/*  f19bec4:	28410019 */ 	slti	$at,$v0,0x19
-/*  f19bec8:	14200006 */ 	bnez	$at,.L0f19bee4
-/*  f19becc:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bed0:	0fc66ed4 */ 	jal	mpForceUnlockFeature
-/*  f19bed4:	02603825 */ 	or	$a3,$s3,$zero
-/*  f19bed8:	00409025 */ 	or	$s2,$v0,$zero
-/*  f19bedc:	10000014 */ 	b	.L0f19bf30
-/*  f19bee0:	8fa2006c */ 	lw	$v0,0x6c($sp)
-.L0f19bee4:
-/*  f19bee4:	28410014 */ 	slti	$at,$v0,0x14
-/*  f19bee8:	14200008 */ 	bnez	$at,.L0f19bf0c
-/*  f19beec:	24040023 */ 	addiu	$a0,$zero,0x23
-/*  f19bef0:	02802825 */ 	or	$a1,$s4,$zero
-/*  f19bef4:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bef8:	0fc66ed4 */ 	jal	mpForceUnlockFeature
-/*  f19befc:	02603825 */ 	or	$a3,$s3,$zero
-/*  f19bf00:	00409025 */ 	or	$s2,$v0,$zero
-/*  f19bf04:	1000000a */ 	b	.L0f19bf30
-/*  f19bf08:	8fa2006c */ 	lw	$v0,0x6c($sp)
-.L0f19bf0c:
-/*  f19bf0c:	2841000f */ 	slti	$at,$v0,0xf
-/*  f19bf10:	14200007 */ 	bnez	$at,.L0f19bf30
-/*  f19bf14:	2404004d */ 	addiu	$a0,$zero,0x4d
-/*  f19bf18:	02802825 */ 	or	$a1,$s4,$zero
-/*  f19bf1c:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bf20:	0fc66ed4 */ 	jal	mpForceUnlockFeature
-/*  f19bf24:	02603825 */ 	or	$a3,$s3,$zero
-/*  f19bf28:	00409025 */ 	or	$s2,$v0,$zero
-/*  f19bf2c:	8fa2006c */ 	lw	$v0,0x6c($sp)
-.L0f19bf30:
-/*  f19bf30:	2841000a */ 	slti	$at,$v0,0xa
-/*  f19bf34:	14200006 */ 	bnez	$at,.L0f19bf50
-/*  f19bf38:	24040040 */ 	addiu	$a0,$zero,0x40
-/*  f19bf3c:	02802825 */ 	or	$a1,$s4,$zero
-/*  f19bf40:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bf44:	0fc66ed4 */ 	jal	mpForceUnlockFeature
-/*  f19bf48:	02603825 */ 	or	$a3,$s3,$zero
-/*  f19bf4c:	00409025 */ 	or	$s2,$v0,$zero
-.L0f19bf50:
-/*  f19bf50:	0253082a */ 	slt	$at,$s2,$s3
-/*  f19bf54:	10200006 */ 	beqz	$at,.L0f19bf70
-/*  f19bf58:	02401825 */ 	or	$v1,$s2,$zero
-/*  f19bf5c:	02921021 */ 	addu	$v0,$s4,$s2
-.L0f19bf60:
-/*  f19bf60:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f19bf64:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f19bf68:	1473fffd */ 	bne	$v1,$s3,.L0f19bf60
-/*  f19bf6c:	a040ffff */ 	sb	$zero,-0x1($v0)
-.L0f19bf70:
-/*  f19bf70:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f19bf74:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f19bf78:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f19bf7c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f19bf80:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f19bf84:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f19bf88:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f19bf8c:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f19bf90:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f19bf94:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f19bf98:	03e00008 */ 	jr	$ra
-/*  f19bf9c:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+void mpForceUnlockSimulantFeatures2(struct mpsetupwrapper *wrapper, u8 *array, s32 len, s32 arg3)
+{
+	s32 index = mpForceUnlockSetupFeatures(&wrapper->setup, array, len);
+	s32 featurenum;
+	s32 i;
+	s32 j;
+
+	for (i = 0; i < 8; i++) {
+		s32 simtype = mpGetSimTypeIndex(wrapper->things[i].simskill, SIMSKILL_NORMAL);
+
+		if (simtype >= 0) {
+			featurenum = g_MpSimulantTypes[simtype].requirefeature;
+
+			if (featurenum) {
+				index = mpForceUnlockFeature(featurenum, array, index, len);
+			}
+		}
+
+		for (j = 0; j < 4; j++) {
+			simtype = mpGetSimTypeIndex(0, wrapper->things[i].simtypes[j]);
+
+			if (simtype >= 0) {
+				featurenum = g_MpSimulantTypes[simtype].requirefeature;
+
+				if (featurenum) {
+					index = mpForceUnlockFeature(featurenum, array, index, len);
+				}
+			}
+		}
+
+		if (wrapper->things[i].mpbodynum <= MPBODY_DJBOND) {
+			featurenum = g_MpBodies[wrapper->things[i].mpbodynum].requirefeature;
+
+			if (featurenum) {
+				index = mpForceUnlockFeature(featurenum, array, index, len);
+			}
+		}
+
+		if (wrapper->things[i].mpheadnum <= MPHEAD_WINNER) {
+			featurenum = g_MpHeads[wrapper->things[i].mpheadnum].requirefeature;
+
+			if (featurenum) {
+				index = mpForceUnlockFeature(featurenum, array, index, len);
+			}
+		}
+	}
+
+	if (arg3 >= 25) {
+		index = mpForceUnlockFeature(MPFEATURE_SIMSKILL_DARK, array, index, len);
+	} else if (arg3 >= 20) {
+		index = mpForceUnlockFeature(MPFEATURE_STAGE_CARPARK, array, index, len);
+	} else if (arg3 > 14) {
+		index = mpForceUnlockFeature(MPFEATURE_4D, array, index, len);
+	}
+
+	if (arg3 > 9) {
+		index = mpForceUnlockFeature(MPFEATURE_8BOTS, array, index, len);
+	}
+
+	// Clear the remainder of the array
+	for (i = index; i < len; i++) {
+		array[i] = 0;
+	}
+}
 
 void mpForceUnlockSimulantFeatures(void)
 {

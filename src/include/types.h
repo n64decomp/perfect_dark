@@ -6658,4 +6658,17 @@ struct var80067e6c {
 	f32 value;
 };
 
+struct mpsetupwrapperthing {
+	/*0x28*/ u8 simskill;
+	/*0x29*/ u8 mpheadnum;
+	/*0x2a*/ u8 mpbodynum;
+	/*0x2b*/ u8 unk2b;
+	/*0x2c*/ u8 simtypes[4];
+};
+
+struct mpsetupwrapper {
+	struct mpsetup setup;
+	struct mpsetupwrapperthing things[8];
+};
+
 #endif
