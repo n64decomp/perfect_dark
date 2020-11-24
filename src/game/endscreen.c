@@ -1296,7 +1296,7 @@ glabel endscreenPrepare
 /*  f10ec1c:	35390800 */ 	ori	$t9,$t1,0x800
 /*  f10ec20:	ad190e20 */ 	sw	$t9,0xe20($t0)
 .L0f10ec24:
-/*  f10ec24:	0fc66bf7 */ 	jal	func0f19afdc
+/*  f10ec24:	0fc66bf7 */ 	jal	mpDetermineUnlockedFeatures
 /*  f10ec28:	00000000 */ 	nop
 /*  f10ec2c:	3c0b800a */ 	lui	$t3,%hi(g_MissionConfig+0x1)
 /*  f10ec30:	916bdfe9 */ 	lbu	$t3,%lo(g_MissionConfig+0x1)($t3)
@@ -1484,7 +1484,7 @@ glabel endscreenPrepare
 //					}
 //				}
 //
-//				func0f19afdc();
+//				mpDetermineUnlockedFeatures();
 //
 //				if (g_MissionConfig.stagenum == STAGE_SKEDARRUINS && var800a2328[3] == 0) {
 //					var800a2328[3] = 1;

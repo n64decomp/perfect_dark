@@ -74,7 +74,7 @@ glabel func0f00b210
 /*  f00b2ec:	5420fff2 */ 	bnezl	$at,.L0f00b2b8
 /*  f00b2f0:	8e040004 */ 	lw	$a0,0x4($s0)
 .L0f00b2f4:
-/*  f00b2f4:	0fc66bf7 */ 	jal	func0f19afdc
+/*  f00b2f4:	0fc66bf7 */ 	jal	mpDetermineUnlockedFeatures
 /*  f00b2f8:	00000000 */ 	nop
 /*  f00b2fc:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f00b300:	8fb00014 */ 	lw	$s0,0x14($sp)

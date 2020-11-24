@@ -218,7 +218,7 @@ void savefileLoadDefaults(struct savefile_solo *file)
 		}
 	}
 
-	func0f19afdc();
+	mpDetermineUnlockedFeatures();
 
 	for (i = 0; i < ARRAYCOUNT(g_SoloSaveFile.coopcompletions); i++) {
 		g_SoloSaveFile.coopcompletions[i] = 0;
@@ -443,7 +443,7 @@ glabel func0f10fac8
 /*  f10fd64:	2a21001e */ 	slti	$at,$s1,0x1e
 /*  f10fd68:	5420fff3 */ 	bnezl	$at,.L0f10fd38
 /*  f10fd6c:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f10fd70:	0fc66bf7 */ 	jal	func0f19afdc
+/*  f10fd70:	0fc66bf7 */ 	jal	mpDetermineUnlockedFeatures
 /*  f10fd74:	00000000 */ 	nop
 /*  f10fd78:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile)
 /*  f10fd7c:	3c11800a */ 	lui	$s1,%hi(g_SoloSaveFile+0xc)

@@ -715,7 +715,7 @@ glabel func0f18800c
 /*  f188170:	26310001 */ 	addiu	$s1,$s1,0x1
 /*  f188174:	5634fff6 */ 	bnel	$s1,$s4,.L0f188150
 /*  f188178:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f18817c:	0fc66bf7 */ 	jal	func0f19afdc
+/*  f18817c:	0fc66bf7 */ 	jal	mpDetermineUnlockedFeatures
 /*  f188180:	00000000 */ 	nop
 .L0f188184:
 /*  f188184:	00136880 */ 	sll	$t5,$s3,0x2
@@ -1457,7 +1457,7 @@ glabel mpGetTeamRankings
 /*  f188bc8:	27bd0090 */ 	addiu	$sp,$sp,0x90
 );
 
-u32 func0f188bcc(void)
+s32 func0f188bcc(void)
 {
 	return 39;
 }
@@ -6421,7 +6421,7 @@ glabel func0f18d2b8
 /*  f18d578:	2401001e */ 	addiu	$at,$zero,0x1e
 /*  f18d57c:	5621fff2 */ 	bnel	$s1,$at,.L0f18d548
 /*  f18d580:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f18d584:	0fc66bf7 */ 	jal	func0f19afdc
+/*  f18d584:	0fc66bf7 */ 	jal	mpDetermineUnlockedFeatures
 /*  f18d588:	00000000 */ 	nop
 /*  f18d58c:	0fc62864 */ 	jal	mpCalculatePlayerTitle
 /*  f18d590:	02a02025 */ 	or	$a0,$s5,$zero

@@ -391,394 +391,160 @@ bool mpIsChallengeAvailable(s32 challengeindex)
 	return (g_MpChallenges[challengeindex].completions[0] & (((g_MpSetup.chrslots & 0xf) << 1) | 1)) != 0;
 }
 
-GLOBAL_ASM(
-glabel func0f19afdc
-/*  f19afdc:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f19afe0:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f19afe4:	3c118009 */ 	lui	$s1,%hi(g_MpChallenges)
-/*  f19afe8:	3c028009 */ 	lui	$v0,%hi(var800887c4)
-/*  f19afec:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f19aff0:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f19aff4:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f19aff8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f19affc:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f19b000:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f19b004:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f19b008:	244287c4 */ 	addiu	$v0,$v0,%lo(var800887c4)
-/*  f19b00c:	263184b8 */ 	addiu	$s1,$s1,%lo(g_MpChallenges)
-.L0f19b010:
-/*  f19b010:	2631001a */ 	addiu	$s1,$s1,0x1a
-/*  f19b014:	0222082b */ 	sltu	$at,$s1,$v0
-/*  f19b018:	1420fffd */ 	bnez	$at,.L0f19b010
-/*  f19b01c:	a220ffea */ 	sb	$zero,-0x16($s1)
-/*  f19b020:	3c118009 */ 	lui	$s1,%hi(g_MpChallenges)
-/*  f19b024:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f19b028:	263184b8 */ 	addiu	$s1,$s1,%lo(g_MpChallenges)
-/*  f19b02c:	0000a825 */ 	or	$s5,$zero,$zero
-.L0f19b030:
-/*  f19b030:	00009025 */ 	or	$s2,$zero,$zero
-/*  f19b034:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f19b038:	0fc670f7 */ 	jal	mpIsChallengeCompletedByAnyChrWithNumPlayers
-/*  f19b03c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f19b040:	1440000d */ 	bnez	$v0,.L0f19b078
-/*  f19b044:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f19b048:	0fc670f7 */ 	jal	mpIsChallengeCompletedByAnyChrWithNumPlayers
-/*  f19b04c:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f19b050:	14400009 */ 	bnez	$v0,.L0f19b078
-/*  f19b054:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f19b058:	0fc670f7 */ 	jal	mpIsChallengeCompletedByAnyChrWithNumPlayers
-/*  f19b05c:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f19b060:	14400005 */ 	bnez	$v0,.L0f19b078
-/*  f19b064:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f19b068:	0fc670f7 */ 	jal	mpIsChallengeCompletedByAnyChrWithNumPlayers
-/*  f19b06c:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f19b070:	10400003 */ 	beqz	$v0,.L0f19b080
-/*  f19b074:	2aa10004 */ 	slti	$at,$s5,0x4
-.L0f19b078:
-/*  f19b078:	1000001b */ 	b	.L0f19b0e8
-/*  f19b07c:	24120001 */ 	addiu	$s2,$zero,0x1
-.L0f19b080:
-/*  f19b080:	10200004 */ 	beqz	$at,.L0f19b094
-/*  f19b084:	00000000 */ 	nop
-/*  f19b088:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f19b08c:	10000016 */ 	b	.L0f19b0e8
-/*  f19b090:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f19b094:
-/*  f19b094:	1aa00014 */ 	blez	$s5,.L0f19b0e8
-/*  f19b098:	26b0ffff */ 	addiu	$s0,$s5,-1
-/*  f19b09c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19b0a0:	0fc670f7 */ 	jal	mpIsChallengeCompletedByAnyChrWithNumPlayers
-/*  f19b0a4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f19b0a8:	1440000d */ 	bnez	$v0,.L0f19b0e0
-/*  f19b0ac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19b0b0:	0fc670f7 */ 	jal	mpIsChallengeCompletedByAnyChrWithNumPlayers
-/*  f19b0b4:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f19b0b8:	14400009 */ 	bnez	$v0,.L0f19b0e0
-/*  f19b0bc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19b0c0:	0fc670f7 */ 	jal	mpIsChallengeCompletedByAnyChrWithNumPlayers
-/*  f19b0c4:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f19b0c8:	14400005 */ 	bnez	$v0,.L0f19b0e0
-/*  f19b0cc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19b0d0:	0fc670f7 */ 	jal	mpIsChallengeCompletedByAnyChrWithNumPlayers
-/*  f19b0d4:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f19b0d8:	50400004 */ 	beqzl	$v0,.L0f19b0ec
-/*  f19b0dc:	922e0004 */ 	lbu	$t6,0x4($s1)
-.L0f19b0e0:
-/*  f19b0e0:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f19b0e4:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f19b0e8:
-/*  f19b0e8:	922e0004 */ 	lbu	$t6,0x4($s1)
-.L0f19b0ec:
-/*  f19b0ec:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f19b0f0:	2aa1001e */ 	slti	$at,$s5,0x1e
-/*  f19b0f4:	01d27825 */ 	or	$t7,$t6,$s2
-/*  f19b0f8:	2631001a */ 	addiu	$s1,$s1,0x1a
-/*  f19b0fc:	1420ffcc */ 	bnez	$at,.L0f19b030
-/*  f19b100:	a22fffea */ 	sb	$t7,-0x16($s1)
-/*  f19b104:	2a810004 */ 	slti	$at,$s4,0x4
-/*  f19b108:	10200014 */ 	beqz	$at,.L0f19b15c
-/*  f19b10c:	00009825 */ 	or	$s3,$zero,$zero
-/*  f19b110:	0000c080 */ 	sll	$t8,$zero,0x2
-/*  f19b114:	0300c023 */ 	subu	$t8,$t8,$zero
-/*  f19b118:	3c198009 */ 	lui	$t9,%hi(g_MpChallenges)
-/*  f19b11c:	273984b8 */ 	addiu	$t9,$t9,%lo(g_MpChallenges)
-/*  f19b120:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f19b124:	3c038009 */ 	lui	$v1,%hi(var800887c4)
-/*  f19b128:	246387c4 */ 	addiu	$v1,$v1,%lo(var800887c4)
-/*  f19b12c:	03198821 */ 	addu	$s1,$t8,$t9
-/*  f19b130:	92220004 */ 	lbu	$v0,0x4($s1)
-.L0f19b134:
-/*  f19b134:	30480001 */ 	andi	$t0,$v0,0x1
-/*  f19b138:	15000003 */ 	bnez	$t0,.L0f19b148
-/*  f19b13c:	34490001 */ 	ori	$t1,$v0,0x1
-/*  f19b140:	a2290004 */ 	sb	$t1,0x4($s1)
-/*  f19b144:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f19b148:
-/*  f19b148:	2a810004 */ 	slti	$at,$s4,0x4
-/*  f19b14c:	10200003 */ 	beqz	$at,.L0f19b15c
-/*  f19b150:	2631001a */ 	addiu	$s1,$s1,0x1a
-/*  f19b154:	5623fff7 */ 	bnel	$s1,$v1,.L0f19b134
-/*  f19b158:	92220004 */ 	lbu	$v0,0x4($s1)
-.L0f19b15c:
-/*  f19b15c:	3c168009 */ 	lui	$s6,%hi(var800887c4)
-/*  f19b160:	26d687c4 */ 	addiu	$s6,$s6,%lo(var800887c4)
-.L0f19b164:
-/*  f19b164:	3c118009 */ 	lui	$s1,%hi(g_MpChallenges)
-/*  f19b168:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f19b16c:	263184b8 */ 	addiu	$s1,$s1,%lo(g_MpChallenges)
-/*  f19b170:	0000a825 */ 	or	$s5,$zero,$zero
-.L0f19b174:
-/*  f19b174:	00009025 */ 	or	$s2,$zero,$zero
-/*  f19b178:	02602025 */ 	or	$a0,$s3,$zero
-/*  f19b17c:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19b180:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19b184:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f19b188:	14400010 */ 	bnez	$v0,.L0f19b1cc
-/*  f19b18c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f19b190:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19b194:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19b198:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f19b19c:	1440000b */ 	bnez	$v0,.L0f19b1cc
-/*  f19b1a0:	02602025 */ 	or	$a0,$s3,$zero
-/*  f19b1a4:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19b1a8:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19b1ac:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f19b1b0:	14400006 */ 	bnez	$v0,.L0f19b1cc
-/*  f19b1b4:	02602025 */ 	or	$a0,$s3,$zero
-/*  f19b1b8:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19b1bc:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19b1c0:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f19b1c4:	10400006 */ 	beqz	$v0,.L0f19b1e0
-/*  f19b1c8:	2aa10004 */ 	slti	$at,$s5,0x4
-.L0f19b1cc:
-/*  f19b1cc:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f19b1d0:	026a9004 */ 	sllv	$s2,$t2,$s3
-/*  f19b1d4:	324b00ff */ 	andi	$t3,$s2,0xff
-/*  f19b1d8:	10000023 */ 	b	.L0f19b268
-/*  f19b1dc:	01609025 */ 	or	$s2,$t3,$zero
-.L0f19b1e0:
-/*  f19b1e0:	10200006 */ 	beqz	$at,.L0f19b1fc
-/*  f19b1e4:	240c0002 */ 	addiu	$t4,$zero,0x2
-/*  f19b1e8:	026c9004 */ 	sllv	$s2,$t4,$s3
-/*  f19b1ec:	324d00ff */ 	andi	$t5,$s2,0xff
-/*  f19b1f0:	01a09025 */ 	or	$s2,$t5,$zero
-/*  f19b1f4:	1000001c */ 	b	.L0f19b268
-/*  f19b1f8:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f19b1fc:
-/*  f19b1fc:	1aa0001a */ 	blez	$s5,.L0f19b268
-/*  f19b200:	02602025 */ 	or	$a0,$s3,$zero
-/*  f19b204:	26b0ffff */ 	addiu	$s0,$s5,-1
-/*  f19b208:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19b20c:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19b210:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f19b214:	1440000f */ 	bnez	$v0,.L0f19b254
-/*  f19b218:	02602025 */ 	or	$a0,$s3,$zero
-/*  f19b21c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19b220:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19b224:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f19b228:	1440000a */ 	bnez	$v0,.L0f19b254
-/*  f19b22c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f19b230:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19b234:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19b238:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f19b23c:	14400005 */ 	bnez	$v0,.L0f19b254
-/*  f19b240:	02602025 */ 	or	$a0,$s3,$zero
-/*  f19b244:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19b248:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19b24c:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f19b250:	10400005 */ 	beqz	$v0,.L0f19b268
-.L0f19b254:
-/*  f19b254:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f19b258:	026e9004 */ 	sllv	$s2,$t6,$s3
-/*  f19b25c:	324f00ff */ 	andi	$t7,$s2,0xff
-/*  f19b260:	01e09025 */ 	or	$s2,$t7,$zero
-/*  f19b264:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f19b268:
-/*  f19b268:	92380004 */ 	lbu	$t8,0x4($s1)
-/*  f19b26c:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f19b270:	2aa1001e */ 	slti	$at,$s5,0x1e
-/*  f19b274:	0312c825 */ 	or	$t9,$t8,$s2
-/*  f19b278:	2631001a */ 	addiu	$s1,$s1,0x1a
-/*  f19b27c:	1420ffbd */ 	bnez	$at,.L0f19b174
-/*  f19b280:	a239ffea */ 	sb	$t9,-0x16($s1)
-/*  f19b284:	2a810004 */ 	slti	$at,$s4,0x4
-/*  f19b288:	10200013 */ 	beqz	$at,.L0f19b2d8
-/*  f19b28c:	00004080 */ 	sll	$t0,$zero,0x2
-/*  f19b290:	01004023 */ 	subu	$t0,$t0,$zero
-/*  f19b294:	3c098009 */ 	lui	$t1,%hi(g_MpChallenges)
-/*  f19b298:	252984b8 */ 	addiu	$t1,$t1,%lo(g_MpChallenges)
-/*  f19b29c:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f19b2a0:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f19b2a4:	026a1804 */ 	sllv	$v1,$t2,$s3
-/*  f19b2a8:	01098821 */ 	addu	$s1,$t0,$t1
-/*  f19b2ac:	92220004 */ 	lbu	$v0,0x4($s1)
-.L0f19b2b0:
-/*  f19b2b0:	00435824 */ 	and	$t3,$v0,$v1
-/*  f19b2b4:	15600003 */ 	bnez	$t3,.L0f19b2c4
-/*  f19b2b8:	00436025 */ 	or	$t4,$v0,$v1
-/*  f19b2bc:	a22c0004 */ 	sb	$t4,0x4($s1)
-/*  f19b2c0:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f19b2c4:
-/*  f19b2c4:	2a810004 */ 	slti	$at,$s4,0x4
-/*  f19b2c8:	10200003 */ 	beqz	$at,.L0f19b2d8
-/*  f19b2cc:	2631001a */ 	addiu	$s1,$s1,0x1a
-/*  f19b2d0:	5636fff7 */ 	bnel	$s1,$s6,.L0f19b2b0
-/*  f19b2d4:	92220004 */ 	lbu	$v0,0x4($s1)
-.L0f19b2d8:
-/*  f19b2d8:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f19b2dc:	2a610004 */ 	slti	$at,$s3,0x4
-/*  f19b2e0:	1420ffa0 */ 	bnez	$at,.L0f19b164
-/*  f19b2e4:	00000000 */ 	nop
-/*  f19b2e8:	3c14800b */ 	lui	$s4,%hi(g_MpChallengesCompleted)
-/*  f19b2ec:	3c16800b */ 	lui	$s6,%hi(g_MpChallengesCompleted)
-/*  f19b2f0:	26d6ccc8 */ 	addiu	$s6,$s6,%lo(g_MpChallengesCompleted)
-/*  f19b2f4:	2694ccc8 */ 	addiu	$s4,$s4,%lo(g_MpChallengesCompleted)
-/*  f19b2f8:	00009825 */ 	or	$s3,$zero,$zero
-/*  f19b2fc:	24110010 */ 	addiu	$s1,$zero,0x10
-.L0f19b300:
-/*  f19b300:	00009025 */ 	or	$s2,$zero,$zero
-/*  f19b304:	0000a825 */ 	or	$s5,$zero,$zero
-.L0f19b308:
-/*  f19b308:	0fc66be6 */ 	jal	mpIsChallengeAvailable
-/*  f19b30c:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f19b310:	10400011 */ 	beqz	$v0,.L0f19b358
-/*  f19b314:	00156880 */ 	sll	$t5,$s5,0x2
-/*  f19b318:	01b56823 */ 	subu	$t5,$t5,$s5
-/*  f19b31c:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f19b320:	01b56821 */ 	addu	$t5,$t5,$s5
-/*  f19b324:	3c0e8009 */ 	lui	$t6,%hi(g_MpChallenges)
-/*  f19b328:	25ce84b8 */ 	addiu	$t6,$t6,%lo(g_MpChallenges)
-/*  f19b32c:	000d6840 */ 	sll	$t5,$t5,0x1
-/*  f19b330:	01ae1821 */ 	addu	$v1,$t5,$t6
-/*  f19b334:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19b338:
-/*  f19b338:	906f0009 */ 	lbu	$t7,0x9($v1)
-/*  f19b33c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f19b340:	36580001 */ 	ori	$t8,$s2,0x1
-/*  f19b344:	166f0002 */ 	bne	$s3,$t7,.L0f19b350
-/*  f19b348:	00000000 */ 	nop
-/*  f19b34c:	331200ff */ 	andi	$s2,$t8,0xff
-.L0f19b350:
-/*  f19b350:	1451fff9 */ 	bne	$v0,$s1,.L0f19b338
-/*  f19b354:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f19b358:
-/*  f19b358:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f19b35c:	2aa1001e */ 	slti	$at,$s5,0x1e
-/*  f19b360:	1420ffe9 */ 	bnez	$at,.L0f19b308
-/*  f19b364:	00000000 */ 	nop
-/*  f19b368:	3c03800b */ 	lui	$v1,%hi(var800acca0)
-/*  f19b36c:	2463cca0 */ 	addiu	$v1,$v1,%lo(var800acca0)
-/*  f19b370:	90680000 */ 	lbu	$t0,0x0($v1)
-.L0f19b374:
-/*  f19b374:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f19b378:	36490001 */ 	ori	$t1,$s2,0x1
-/*  f19b37c:	16680002 */ 	bne	$s3,$t0,.L0f19b388
-/*  f19b380:	00000000 */ 	nop
-/*  f19b384:	313200ff */ 	andi	$s2,$t1,0xff
-.L0f19b388:
-/*  f19b388:	5476fffa */ 	bnel	$v1,$s6,.L0f19b374
-/*  f19b38c:	90680000 */ 	lbu	$t0,0x0($v1)
-/*  f19b390:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f19b394:	00008025 */ 	or	$s0,$zero,$zero
-.L0f19b398:
-/*  f19b398:	02002025 */ 	or	$a0,$s0,$zero
-.L0f19b39c:
-/*  f19b39c:	0fc66bcf */ 	jal	func0f19af3c
-/*  f19b3a0:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19b3a4:	10400013 */ 	beqz	$v0,.L0f19b3f4
-/*  f19b3a8:	00155880 */ 	sll	$t3,$s5,0x2
-/*  f19b3ac:	01755823 */ 	subu	$t3,$t3,$s5
-/*  f19b3b0:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f19b3b4:	01755821 */ 	addu	$t3,$t3,$s5
-/*  f19b3b8:	3c0c8009 */ 	lui	$t4,%hi(g_MpChallenges)
-/*  f19b3bc:	258c84b8 */ 	addiu	$t4,$t4,%lo(g_MpChallenges)
-/*  f19b3c0:	000b5840 */ 	sll	$t3,$t3,0x1
-/*  f19b3c4:	016c1821 */ 	addu	$v1,$t3,$t4
-/*  f19b3c8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19b3cc:
-/*  f19b3cc:	906d0009 */ 	lbu	$t5,0x9($v1)
-/*  f19b3d0:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f19b3d4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f19b3d8:	166d0004 */ 	bne	$s3,$t5,.L0f19b3ec
-/*  f19b3dc:	020e7804 */ 	sllv	$t7,$t6,$s0
-/*  f19b3e0:	024f9025 */ 	or	$s2,$s2,$t7
-/*  f19b3e4:	325800ff */ 	andi	$t8,$s2,0xff
-/*  f19b3e8:	03009025 */ 	or	$s2,$t8,$zero
-.L0f19b3ec:
-/*  f19b3ec:	1451fff7 */ 	bne	$v0,$s1,.L0f19b3cc
-/*  f19b3f0:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f19b3f4:
-/*  f19b3f4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19b3f8:	2a010004 */ 	slti	$at,$s0,0x4
-/*  f19b3fc:	5420ffe7 */ 	bnezl	$at,.L0f19b39c
-/*  f19b400:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19b404:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f19b408:	2aa1001e */ 	slti	$at,$s5,0x1e
-/*  f19b40c:	5420ffe2 */ 	bnezl	$at,.L0f19b398
-/*  f19b410:	00008025 */ 	or	$s0,$zero,$zero
-/*  f19b414:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f19b418:	2a610050 */ 	slti	$at,$s3,0x50
-/*  f19b41c:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f19b420:	1420ffb7 */ 	bnez	$at,.L0f19b300
-/*  f19b424:	a292ffff */ 	sb	$s2,-0x1($s4)
-/*  f19b428:	0fc622f3 */ 	jal	func0f188bcc
-/*  f19b42c:	00009825 */ 	or	$s3,$zero,$zero
-/*  f19b430:	1840001c */ 	blez	$v0,.L0f19b4a4
-/*  f19b434:	0013c880 */ 	sll	$t9,$s3,0x2
-/*  f19b438:	0333c821 */ 	addu	$t9,$t9,$s3
-/*  f19b43c:	3c088008 */ 	lui	$t0,%hi(g_MpWeapons)
-/*  f19b440:	25087268 */ 	addiu	$t0,$t0,%lo(g_MpWeapons)
-/*  f19b444:	0019c840 */ 	sll	$t9,$t9,0x1
-/*  f19b448:	3c11800b */ 	lui	$s1,%hi(g_MpChallengesCompleted)
-/*  f19b44c:	2631ccc8 */ 	addiu	$s1,$s1,%lo(g_MpChallengesCompleted)
-/*  f19b450:	03288021 */ 	addu	$s0,$t9,$t0
-/*  f19b454:	96090004 */ 	lhu	$t1,0x4($s0)
-.L0f19b458:
-/*  f19b458:	312a007f */ 	andi	$t2,$t1,0x7f
-/*  f19b45c:	5940000c */ 	blezl	$t2,.L0f19b490
-/*  f19b460:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f19b464:	0fc672f3 */ 	jal	func0f19cbcc
-/*  f19b468:	92040000 */ 	lbu	$a0,0x0($s0)
-/*  f19b46c:	50400008 */ 	beqzl	$v0,.L0f19b490
-/*  f19b470:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f19b474:	960b0004 */ 	lhu	$t3,0x4($s0)
-/*  f19b478:	316c007f */ 	andi	$t4,$t3,0x7f
-/*  f19b47c:	022c1021 */ 	addu	$v0,$s1,$t4
-/*  f19b480:	904d0000 */ 	lbu	$t5,0x0($v0)
-/*  f19b484:	35ae0001 */ 	ori	$t6,$t5,0x1
-/*  f19b488:	a04e0000 */ 	sb	$t6,0x0($v0)
-/*  f19b48c:	26730001 */ 	addiu	$s3,$s3,0x1
-.L0f19b490:
-/*  f19b490:	0fc622f3 */ 	jal	func0f188bcc
-/*  f19b494:	2610000a */ 	addiu	$s0,$s0,0xa
-/*  f19b498:	0262082a */ 	slt	$at,$s3,$v0
-/*  f19b49c:	5420ffee */ 	bnezl	$at,.L0f19b458
-/*  f19b4a0:	96090004 */ 	lhu	$t1,0x4($s0)
-.L0f19b4a4:
-/*  f19b4a4:	0fc6257a */ 	jal	func0f1895e8
-/*  f19b4a8:	00000000 */ 	nop
-/*  f19b4ac:	0fc67244 */ 	jal	mpIsChallengeComplete
-/*  f19b4b0:	24040040 */ 	addiu	$a0,$zero,0x40
-/*  f19b4b4:	14400018 */ 	bnez	$v0,.L0f19b518
-/*  f19b4b8:	24100004 */ 	addiu	$s0,$zero,0x4
-/*  f19b4bc:	3c11800b */ 	lui	$s1,%hi(g_MpSetup)
-/*  f19b4c0:	2631cb88 */ 	addiu	$s1,$s1,%lo(g_MpSetup)
-/*  f19b4c4:	24120008 */ 	addiu	$s2,$zero,0x8
-/*  f19b4c8:	962f0016 */ 	lhu	$t7,0x16($s1)
-.L0f19b4cc:
-/*  f19b4cc:	26180004 */ 	addiu	$t8,$s0,0x4
-/*  f19b4d0:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f19b4d4:	03194004 */ 	sllv	$t0,$t9,$t8
-/*  f19b4d8:	01e84824 */ 	and	$t1,$t7,$t0
-/*  f19b4dc:	51200004 */ 	beqzl	$t1,.L0f19b4f0
-/*  f19b4e0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19b4e4:	0fc632ff */ 	jal	mpRemoveSimulant
-/*  f19b4e8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19b4ec:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f19b4f0:
-/*  f19b4f0:	5612fff6 */ 	bnel	$s0,$s2,.L0f19b4cc
-/*  f19b4f4:	962f0016 */ 	lhu	$t7,0x16($s1)
-/*  f19b4f8:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f19b4fc:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f19b500:	8c4a04a4 */ 	lw	$t2,0x4a4($v0)
-/*  f19b504:	240b0004 */ 	addiu	$t3,$zero,0x4
-/*  f19b508:	29410005 */ 	slti	$at,$t2,0x5
-/*  f19b50c:	54200003 */ 	bnezl	$at,.L0f19b51c
-/*  f19b510:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f19b514:	ac4b04a4 */ 	sw	$t3,0x4a4($v0)
-.L0f19b518:
-/*  f19b518:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f19b51c:
-/*  f19b51c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f19b520:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f19b524:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f19b528:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f19b52c:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f19b530:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f19b534:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f19b538:	03e00008 */ 	jr	$ra
-/*  f19b53c:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void mpDetermineUnlockedFeatures(void)
+{
+	s32 challengeindex;
+	s32 numgifted; // number of unlocked but not completed challenges
+	u8 flag;
+	s32 prev;
+	s32 i;
+	s32 j;
+	s32 k;
+
+	// Clear all challenge completions
+	for (challengeindex = 0; challengeindex < 30; challengeindex++) {
+		g_MpChallenges[challengeindex].completions[0] = 0;
+	}
+
+	numgifted = 0;
+
+	// Mark challenges completed by any player
+	for (challengeindex = 0; challengeindex < 30; challengeindex++) {
+		flag = 0;
+
+		if (mpIsChallengeCompletedByAnyChrWithNumPlayers(challengeindex, 1)
+				|| mpIsChallengeCompletedByAnyChrWithNumPlayers(challengeindex, 2)
+				|| mpIsChallengeCompletedByAnyChrWithNumPlayers(challengeindex, 3)
+				|| mpIsChallengeCompletedByAnyChrWithNumPlayers(challengeindex, 4)) {
+			// Completed challenge
+			flag = 1;
+		} else if (challengeindex < 4) {
+			// Not yet completed, but challenges 1-4 are always available
+			flag = 1;
+			numgifted++;
+		} else if (challengeindex > 0) {
+			// Challenges are available if their previous one is complete
+			prev = challengeindex - 1;
+
+			if (mpIsChallengeCompletedByAnyChrWithNumPlayers(prev, 1)
+					|| mpIsChallengeCompletedByAnyChrWithNumPlayers(prev, 2)
+					|| mpIsChallengeCompletedByAnyChrWithNumPlayers(prev, 3)
+					|| mpIsChallengeCompletedByAnyChrWithNumPlayers(prev, 4)) {
+				flag = 1;
+				numgifted++;
+			}
+		}
+
+		g_MpChallenges[challengeindex].completions[0] |= flag;
+	}
+
+	// Gift up to 4 challenges
+	for (challengeindex = 0; numgifted < 4 && challengeindex < 30; challengeindex++) {
+		if ((g_MpChallenges[challengeindex].completions[0] & 1) == 0) {
+			g_MpChallenges[challengeindex].completions[0] |= 1;
+			numgifted++;
+		}
+	}
+
+	// Now same as above, but per player
+	for (j = 0; j < 4; j++) {
+		numgifted = 0;
+
+		for (challengeindex = 0; challengeindex < 30; challengeindex++) {
+			flag = 0;
+
+			if (mpIsChallengeCompletedByChrWithNumPlayers(j, challengeindex, 1)
+					|| mpIsChallengeCompletedByChrWithNumPlayers(j, challengeindex, 2)
+					|| mpIsChallengeCompletedByChrWithNumPlayers(j, challengeindex, 3)
+					|| mpIsChallengeCompletedByChrWithNumPlayers(j, challengeindex, 4)) {
+				// Completed challenge
+				flag = 2 << j;
+			} else if (challengeindex < 4) {
+				// Not yet completed, but challenges 1-4 are always available
+				flag = 2 << j;
+				numgifted++;
+			} else if (challengeindex > 0) {
+				// Challenges are available if their previous one is complete
+				prev = challengeindex - 1;
+
+				if (mpIsChallengeCompletedByChrWithNumPlayers(j, prev, 1)
+						|| mpIsChallengeCompletedByChrWithNumPlayers(j, prev, 2)
+						|| mpIsChallengeCompletedByChrWithNumPlayers(j, prev, 3)
+						|| mpIsChallengeCompletedByChrWithNumPlayers(j, prev, 4)) {
+					flag = 2 << j;
+					numgifted++;
+				}
+			}
+
+			g_MpChallenges[challengeindex].completions[0] |= flag;
+		}
+
+		// Gift up to 4 challenges
+		for (challengeindex = 0; numgifted < 4 && challengeindex < 30; challengeindex++) {
+			if ((g_MpChallenges[challengeindex].completions[0] & (2 << j)) == 0) {
+				g_MpChallenges[challengeindex].completions[0] |= 2 << j;
+				numgifted++;
+			}
+		}
+	}
+
+	for (j = 0; j < 80; j++) {
+		flag = 0;
+
+		for (challengeindex = 0; challengeindex < 30; challengeindex++) {
+			if (mpIsChallengeAvailable(challengeindex)) {
+				for (i = 0; i < 16; i++) {
+					if (g_MpChallenges[challengeindex].unk09[i] == j) {
+						flag |= 1;
+					}
+				}
+			}
+		}
+
+		for (i = 0; i < 40; i++) {
+			if (var800acca0[i] == j) {
+				flag |= 1;
+			}
+		}
+
+		for (challengeindex = 0; challengeindex < 30; challengeindex++) {
+			for (prev = 0; prev < 4; prev++) {
+				if (func0f19af3c(prev, challengeindex)) {
+					for (i = 0; i < 16; i++) {
+						if (g_MpChallenges[challengeindex].unk09[i] == j) {
+							flag |= 2 << prev;
+						}
+					}
+				}
+			}
+		}
+
+		g_MpChallengesCompleted[j] = flag;
+	}
+
+	for (j = 0; j < func0f188bcc(); j++) {
+		struct mpweapon *weapon = &g_MpWeapons[j];
+
+		if (weapon->unlock > 0 && func0f19cbcc(weapon->weaponnum)) {
+			g_MpChallengesCompleted[weapon->unlock] |= 1;
+		}
+	}
+
+	func0f1895e8();
+
+	// If the ability to have 8 simulants hasn't been unlocked, limit them to 4
+	if (!mpIsChallengeComplete(0x40)) {
+		for (k = 4; k < 8; k++) {
+			if (g_MpSetup.chrslots & (1 << (4 + k))) {
+				mpRemoveSimulant(k);
+			}
+		}
+
+		if (g_Vars.mpquickteamnumsims > 4) {
+			g_Vars.mpquickteamnumsims = 4;
+		}
+	}
+}
 
 void mpPerformSanityChecks(void)
 {
@@ -1472,7 +1238,7 @@ void func0f19bfa0(void)
 		var800acca0[i] = 0;
 	}
 
-	func0f19afdc();
+	mpDetermineUnlockedFeatures();
 }
 
 void func0f19c190(void)
@@ -1482,7 +1248,7 @@ void func0f19c190(void)
 		var800acca0[i] = 0;
 	}
 
-	func0f19afdc();
+	mpDetermineUnlockedFeatures();
 }
 
 void func0f19c1cc(void)
@@ -1645,7 +1411,7 @@ void mpConsiderMarkingCurrentChallengeComplete(void)
 		}
 
 		setCurrentPlayerNum(prevplayernum);
-		func0f19afdc();
+		mpDetermineUnlockedFeatures();
 	}
 }
 

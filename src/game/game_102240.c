@@ -4198,7 +4198,7 @@ s32 menuhandlerMainMenuCombatSimulator(u32 operation, struct menuitem *item, uni
 		g_Vars.bondplayernum = 0;
 		g_Vars.coopplayernum = -1;
 		g_Vars.antiplayernum = -1;
-		func0f19afdc();
+		mpDetermineUnlockedFeatures();
 		g_Vars.unk000490 = 2;
 		func0f0f820c(&g_CombatSimulatorMenuDialog, 3);
 		func0f0f8300();

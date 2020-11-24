@@ -82,7 +82,7 @@ void func0f10cb2c(void)
 		g_Vars.coopplayernum = -1;
 		g_Vars.antiplayernum = -1;
 
-		func0f19afdc();
+		mpDetermineUnlockedFeatures();
 
 		menuPushRootDialog(&menudialog_fileselect2, MENUROOT_10);
 	}

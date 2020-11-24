@@ -4523,17 +4523,9 @@ struct challenge {
 
 	// One byte for each number of players,
 	// and 4 bits in each to mark which players completed it
-	/*0x04*/ u8 completions[4];
+	/*0x04*/ u8 completions[5];
 
-	/*0x08*/ u16 unk08;
-	/*0x0a*/ u16 unk0a;
-	/*0x0c*/ u16 unk0c;
-	/*0x0e*/ u16 unk0e;
-	/*0x10*/ u16 unk10;
-	/*0x12*/ u16 unk12;
-	/*0x14*/ u16 unk14;
-	/*0x16*/ u16 unk16;
-	/*0x18*/ u16 unk18;
+	/*0x09*/ u8 unk09[16];
 };
 
 struct scenariodata_cbt {
