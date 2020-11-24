@@ -377,18 +377,18 @@ glabel func0f19ab70
 /*  f19af38:	000f102b */ 	sltu	$v0,$zero,$t7
 );
 
-bool func0f19af3c(s32 chrnum, s32 challengeindex)
+bool mpIsChallengeAvailableToPlayer(s32 chrnum, s32 challengeindex)
 {
 	if ((g_MpSetup.chrslots & (1 << chrnum)) == 0) {
 		return 0;
 	}
 
-	return ((g_MpChallenges[challengeindex].completions[0] & (2 << chrnum)) != 0);
+	return ((g_MpChallenges[challengeindex].availability & (2 << chrnum)) != 0);
 }
 
-bool mpIsChallengeAvailable(s32 challengeindex)
+bool mpIsChallengeAvailableToAnyPlayer(s32 challengeindex)
 {
-	return (g_MpChallenges[challengeindex].completions[0] & (((g_MpSetup.chrslots & 0xf) << 1) | 1)) != 0;
+	return (g_MpChallenges[challengeindex].availability & (((g_MpSetup.chrslots & 0xf) << 1) | 1)) != 0;
 }
 
 void mpDetermineUnlockedFeatures(void)
@@ -401,9 +401,9 @@ void mpDetermineUnlockedFeatures(void)
 	s32 j;
 	s32 k;
 
-	// Clear all challenge completions
+	// Clear all challenge availability
 	for (challengeindex = 0; challengeindex < 30; challengeindex++) {
-		g_MpChallenges[challengeindex].completions[0] = 0;
+		g_MpChallenges[challengeindex].availability = 0;
 	}
 
 	numgifted = 0;
@@ -412,10 +412,10 @@ void mpDetermineUnlockedFeatures(void)
 	for (challengeindex = 0; challengeindex < 30; challengeindex++) {
 		flag = 0;
 
-		if (mpIsChallengeCompletedByAnyChrWithNumPlayers(challengeindex, 1)
-				|| mpIsChallengeCompletedByAnyChrWithNumPlayers(challengeindex, 2)
-				|| mpIsChallengeCompletedByAnyChrWithNumPlayers(challengeindex, 3)
-				|| mpIsChallengeCompletedByAnyChrWithNumPlayers(challengeindex, 4)) {
+		if (mpIsChallengeCompletedByAnyPlayerWithNumPlayers(challengeindex, 1)
+				|| mpIsChallengeCompletedByAnyPlayerWithNumPlayers(challengeindex, 2)
+				|| mpIsChallengeCompletedByAnyPlayerWithNumPlayers(challengeindex, 3)
+				|| mpIsChallengeCompletedByAnyPlayerWithNumPlayers(challengeindex, 4)) {
 			// Completed challenge
 			flag = 1;
 		} else if (challengeindex < 4) {
@@ -426,22 +426,22 @@ void mpDetermineUnlockedFeatures(void)
 			// Challenges are available if their previous one is complete
 			prev = challengeindex - 1;
 
-			if (mpIsChallengeCompletedByAnyChrWithNumPlayers(prev, 1)
-					|| mpIsChallengeCompletedByAnyChrWithNumPlayers(prev, 2)
-					|| mpIsChallengeCompletedByAnyChrWithNumPlayers(prev, 3)
-					|| mpIsChallengeCompletedByAnyChrWithNumPlayers(prev, 4)) {
+			if (mpIsChallengeCompletedByAnyPlayerWithNumPlayers(prev, 1)
+					|| mpIsChallengeCompletedByAnyPlayerWithNumPlayers(prev, 2)
+					|| mpIsChallengeCompletedByAnyPlayerWithNumPlayers(prev, 3)
+					|| mpIsChallengeCompletedByAnyPlayerWithNumPlayers(prev, 4)) {
 				flag = 1;
 				numgifted++;
 			}
 		}
 
-		g_MpChallenges[challengeindex].completions[0] |= flag;
+		g_MpChallenges[challengeindex].availability |= flag;
 	}
 
 	// Gift up to 4 challenges
 	for (challengeindex = 0; numgifted < 4 && challengeindex < 30; challengeindex++) {
-		if ((g_MpChallenges[challengeindex].completions[0] & 1) == 0) {
-			g_MpChallenges[challengeindex].completions[0] |= 1;
+		if ((g_MpChallenges[challengeindex].availability & 1) == 0) {
+			g_MpChallenges[challengeindex].availability |= 1;
 			numgifted++;
 		}
 	}
@@ -453,10 +453,10 @@ void mpDetermineUnlockedFeatures(void)
 		for (challengeindex = 0; challengeindex < 30; challengeindex++) {
 			flag = 0;
 
-			if (mpIsChallengeCompletedByChrWithNumPlayers(j, challengeindex, 1)
-					|| mpIsChallengeCompletedByChrWithNumPlayers(j, challengeindex, 2)
-					|| mpIsChallengeCompletedByChrWithNumPlayers(j, challengeindex, 3)
-					|| mpIsChallengeCompletedByChrWithNumPlayers(j, challengeindex, 4)) {
+			if (mpIsChallengeCompletedByPlayerWithNumPlayers(j, challengeindex, 1)
+					|| mpIsChallengeCompletedByPlayerWithNumPlayers(j, challengeindex, 2)
+					|| mpIsChallengeCompletedByPlayerWithNumPlayers(j, challengeindex, 3)
+					|| mpIsChallengeCompletedByPlayerWithNumPlayers(j, challengeindex, 4)) {
 				// Completed challenge
 				flag = 2 << j;
 			} else if (challengeindex < 4) {
@@ -467,51 +467,51 @@ void mpDetermineUnlockedFeatures(void)
 				// Challenges are available if their previous one is complete
 				prev = challengeindex - 1;
 
-				if (mpIsChallengeCompletedByChrWithNumPlayers(j, prev, 1)
-						|| mpIsChallengeCompletedByChrWithNumPlayers(j, prev, 2)
-						|| mpIsChallengeCompletedByChrWithNumPlayers(j, prev, 3)
-						|| mpIsChallengeCompletedByChrWithNumPlayers(j, prev, 4)) {
+				if (mpIsChallengeCompletedByPlayerWithNumPlayers(j, prev, 1)
+						|| mpIsChallengeCompletedByPlayerWithNumPlayers(j, prev, 2)
+						|| mpIsChallengeCompletedByPlayerWithNumPlayers(j, prev, 3)
+						|| mpIsChallengeCompletedByPlayerWithNumPlayers(j, prev, 4)) {
 					flag = 2 << j;
 					numgifted++;
 				}
 			}
 
-			g_MpChallenges[challengeindex].completions[0] |= flag;
+			g_MpChallenges[challengeindex].availability |= flag;
 		}
 
 		// Gift up to 4 challenges
 		for (challengeindex = 0; numgifted < 4 && challengeindex < 30; challengeindex++) {
-			if ((g_MpChallenges[challengeindex].completions[0] & (2 << j)) == 0) {
-				g_MpChallenges[challengeindex].completions[0] |= 2 << j;
+			if ((g_MpChallenges[challengeindex].availability & (2 << j)) == 0) {
+				g_MpChallenges[challengeindex].availability |= 2 << j;
 				numgifted++;
 			}
 		}
 	}
 
-	for (j = 0; j < 80; j++) {
+	for (j = 0; j < ARRAYCOUNT(g_MpFeaturesUnlocked); j++) {
 		flag = 0;
 
 		for (challengeindex = 0; challengeindex < 30; challengeindex++) {
-			if (mpIsChallengeAvailable(challengeindex)) {
+			if (mpIsChallengeAvailableToAnyPlayer(challengeindex)) {
 				for (i = 0; i < 16; i++) {
-					if (g_MpChallenges[challengeindex].unk09[i] == j) {
+					if (g_MpChallenges[challengeindex].unlockfeatures[i] == j) {
 						flag |= 1;
 					}
 				}
 			}
 		}
 
-		for (i = 0; i < 40; i++) {
-			if (var800acca0[i] == j) {
+		for (i = 0; i < ARRAYCOUNT(g_MpFeaturesForceUnlocked); i++) {
+			if (g_MpFeaturesForceUnlocked[i] == j) {
 				flag |= 1;
 			}
 		}
 
 		for (challengeindex = 0; challengeindex < 30; challengeindex++) {
 			for (prev = 0; prev < 4; prev++) {
-				if (func0f19af3c(prev, challengeindex)) {
+				if (mpIsChallengeAvailableToPlayer(prev, challengeindex)) {
 					for (i = 0; i < 16; i++) {
-						if (g_MpChallenges[challengeindex].unk09[i] == j) {
+						if (g_MpChallenges[challengeindex].unlockfeatures[i] == j) {
 							flag |= 2 << prev;
 						}
 					}
@@ -519,21 +519,21 @@ void mpDetermineUnlockedFeatures(void)
 			}
 		}
 
-		g_MpChallengesCompleted[j] = flag;
+		g_MpFeaturesUnlocked[j] = flag;
 	}
 
 	for (j = 0; j < func0f188bcc(); j++) {
 		struct mpweapon *weapon = &g_MpWeapons[j];
 
-		if (weapon->unlock > 0 && func0f19cbcc(weapon->weaponnum)) {
-			g_MpChallengesCompleted[weapon->unlock] |= 1;
+		if (weapon->unlockfeature > 0 && func0f19cbcc(weapon->weaponnum)) {
+			g_MpFeaturesUnlocked[weapon->unlockfeature] |= 1;
 		}
 	}
 
 	func0f1895e8();
 
 	// If the ability to have 8 simulants hasn't been unlocked, limit them to 4
-	if (!mpIsChallengeComplete(0x40)) {
+	if (!mpIsFeatureUnlocked(MPFEATURE_8BOTS)) {
 		for (k = 4; k < 8; k++) {
 			if (g_MpSetup.chrslots & (1 << (4 + k))) {
 				mpRemoveSimulant(k);
@@ -575,7 +575,7 @@ void mpPerformSanityChecks(void)
 		if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL) {
 			g_Vars.mphilltime = 10;
 		}
-	} else if (!mpIsChallengeComplete(CHALLENGE_UNK64)) {
+	} else if (!mpIsFeatureUnlocked(MPFEATURE_8BOTS)) {
 		// Limit to 4 players and 4 simulants
 		g_MpSetup.chrslots &= 0x00ff;
 	}
@@ -587,7 +587,7 @@ s32 mpGetNumAvailableChallenges(void)
 	s32 count = 0;
 
 	for (challengeindex = 0; challengeindex != NUM_CHALLENGES; challengeindex++) {
-		if (mpIsChallengeAvailable(challengeindex)) {
+		if (mpIsChallengeAvailableToAnyPlayer(challengeindex)) {
 			count++;
 		}
 	}
@@ -606,7 +606,7 @@ char *mpGetChallengeNameBySlot(s32 slot)
 	s32 i;
 
 	for (i = 0; i < 30; i++) {
-		if (mpIsChallengeAvailable(i)) {
+		if (mpIsChallengeAvailableToAnyPlayer(i)) {
 			if (index == slot) {
 				return mpChallengeGetName(i);
 			}
@@ -624,7 +624,7 @@ void mpSetCurrentChallenge(s32 slotnum)
 	g_MpChallengeIndex = 0;
 
 	for (challengeindex = 0; challengeindex != NUM_CHALLENGES; challengeindex++) {
-		if (mpIsChallengeAvailable(challengeindex)) {
+		if (mpIsChallengeAvailableToAnyPlayer(challengeindex)) {
 			if (slotnum == 0) {
 				g_MpChallengeIndex = challengeindex;
 				break;
@@ -648,9 +648,9 @@ bool mpIsChallengeCompletedByAnyChrWithNumPlayersBySlot(s32 slot, s32 numplayers
 	s32 i;
 
 	for (i = 0; i < 30; i++) {
-		if (mpIsChallengeAvailable(i)) {
+		if (mpIsChallengeAvailableToAnyPlayer(i)) {
 			if (availableindex == slot) {
-				return mpIsChallengeCompletedByAnyChrWithNumPlayers(i, numplayers);
+				return mpIsChallengeCompletedByAnyPlayerWithNumPlayers(i, numplayers);
 			}
 
 			availableindex++;
@@ -666,9 +666,9 @@ bool mpIsChallengeCompletedByChrWithNumPlayersBySlot(s32 mpchrnum, s32 slot, s32
 	s32 i;
 
 	for (i = 0; i < 30; i++) {
-		if (mpIsChallengeAvailable(i)) {
+		if (mpIsChallengeAvailableToAnyPlayer(i)) {
 			if (availableindex == slot) {
-				return mpIsChallengeCompletedByChrWithNumPlayers(mpchrnum, i, numplayers);
+				return mpIsChallengeCompletedByPlayerWithNumPlayers(mpchrnum, i, numplayers);
 			}
 
 			availableindex++;
@@ -853,7 +853,7 @@ struct mpconfigfull *mpGetNthAvailableChallengeSomething(s32 n, u8 *buffer, s32 
 	s32 challengeindex;
 
 	for (challengeindex = 0; challengeindex != NUM_CHALLENGES; challengeindex++) {
-		if (mpIsChallengeAvailable(challengeindex)) {
+		if (mpIsChallengeAvailableToAnyPlayer(challengeindex)) {
 			if (numavailable == n) {
 				return mpLoadChallenge(challengeindex, buffer, len);
 			}
@@ -871,24 +871,24 @@ struct mpconfigfull *mpLoadCurrentChallenge(u8 *buffer, s32 len)
 }
 
 /**
- * This is adding unlockvalue to the array, provided it's unique.
+ * This is adding featurenum to the array, provided it's unique.
  */
-s32 func0f19bb50(s32 unlockvalue, u8 *array, s32 index, s32 len)
+s32 mpForceUnlockFeature(s32 featurenum, u8 *array, s32 tail, s32 len)
 {
 	s32 i;
 
-	for (i = 0; i < index; i++) {
-		if (array[i] == unlockvalue) {
+	for (i = 0; i < tail; i++) {
+		if (array[i] == featurenum) {
 			break;
 		}
 	}
 
-	if (i >= index && index < len) {
-		array[index] = unlockvalue;
-		index++;
+	if (i >= tail && tail < len) {
+		array[tail] = featurenum;
+		tail++;
 	}
 
-	return index;
+	return tail;
 }
 
 GLOBAL_ASM(
@@ -923,7 +923,7 @@ glabel func0f19bb98
 /*  f19bc00:	3099007f */ 	andi	$t9,$a0,0x7f
 /*  f19bc04:	13200004 */ 	beqz	$t9,.L0f19bc18
 /*  f19bc08:	03202025 */ 	or	$a0,$t9,$zero
-/*  f19bc0c:	0fc66ed4 */ 	jal	func0f19bb50
+/*  f19bc0c:	0fc66ed4 */ 	jal	mpForceUnlockFeature
 /*  f19bc10:	02c03825 */ 	or	$a3,$s6,$zero
 /*  f19bc14:	00409025 */ 	or	$s2,$v0,$zero
 .L0f19bc18:
@@ -950,7 +950,7 @@ glabel func0f19bb98
 /*  f19bc64:	02403025 */ 	or	$a2,$s2,$zero
 /*  f19bc68:	50800005 */ 	beqzl	$a0,.L0f19bc80
 /*  f19bc6c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f19bc70:	0fc66ed4 */ 	jal	func0f19bb50
+/*  f19bc70:	0fc66ed4 */ 	jal	mpForceUnlockFeature
 /*  f19bc74:	02c03825 */ 	or	$a3,$s6,$zero
 /*  f19bc78:	00409025 */ 	or	$s2,$v0,$zero
 /*  f19bc7c:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -974,7 +974,7 @@ glabel func0f19bb98
 /*  f19bcbc:	02403025 */ 	or	$a2,$s2,$zero
 /*  f19bcc0:	50800005 */ 	beqzl	$a0,.L0f19bcd8
 /*  f19bcc4:	8ee3000c */ 	lw	$v1,0xc($s7)
-/*  f19bcc8:	0fc66ed4 */ 	jal	func0f19bb50
+/*  f19bcc8:	0fc66ed4 */ 	jal	mpForceUnlockFeature
 /*  f19bccc:	02c03825 */ 	or	$a3,$s6,$zero
 /*  f19bcd0:	00409025 */ 	or	$s2,$v0,$zero
 .L0f19bcd4:
@@ -985,7 +985,7 @@ glabel func0f19bb98
 /*  f19bce0:	306d0001 */ 	andi	$t5,$v1,0x1
 /*  f19bce4:	11a00005 */ 	beqz	$t5,.L0f19bcfc
 /*  f19bce8:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bcec:	0fc66ed4 */ 	jal	func0f19bb50
+/*  f19bcec:	0fc66ed4 */ 	jal	mpForceUnlockFeature
 /*  f19bcf0:	02c03825 */ 	or	$a3,$s6,$zero
 /*  f19bcf4:	00409025 */ 	or	$s2,$v0,$zero
 /*  f19bcf8:	8ee3000c */ 	lw	$v1,0xc($s7)
@@ -995,7 +995,7 @@ glabel func0f19bb98
 /*  f19bd04:	2404001d */ 	addiu	$a0,$zero,0x1d
 /*  f19bd08:	02a02825 */ 	or	$a1,$s5,$zero
 /*  f19bd0c:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bd10:	0fc66ed4 */ 	jal	func0f19bb50
+/*  f19bd10:	0fc66ed4 */ 	jal	mpForceUnlockFeature
 /*  f19bd14:	02c03825 */ 	or	$a3,$s6,$zero
 /*  f19bd18:	00409025 */ 	or	$s2,$v0,$zero
 .L0f19bd1c:
@@ -1050,7 +1050,7 @@ glabel func0f19bd4c
 /*  f19bdc8:	02403025 */ 	or	$a2,$s2,$zero
 /*  f19bdcc:	50800005 */ 	beqzl	$a0,.L0f19bde4
 /*  f19bdd0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f19bdd4:	0fc66ed4 */ 	jal	func0f19bb50
+/*  f19bdd4:	0fc66ed4 */ 	jal	mpForceUnlockFeature
 /*  f19bdd8:	02603825 */ 	or	$a3,$s3,$zero
 /*  f19bddc:	00409025 */ 	or	$s2,$v0,$zero
 .L0f19bde0:
@@ -1069,7 +1069,7 @@ glabel func0f19bd4c
 /*  f19be08:	02403025 */ 	or	$a2,$s2,$zero
 /*  f19be0c:	50800005 */ 	beqzl	$a0,.L0f19be24
 /*  f19be10:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19be14:	0fc66ed4 */ 	jal	func0f19bb50
+/*  f19be14:	0fc66ed4 */ 	jal	mpForceUnlockFeature
 /*  f19be18:	02603825 */ 	or	$a3,$s3,$zero
 /*  f19be1c:	00409025 */ 	or	$s2,$v0,$zero
 .L0f19be20:
@@ -1088,7 +1088,7 @@ glabel func0f19bd4c
 /*  f19be4c:	02403025 */ 	or	$a2,$s2,$zero
 /*  f19be50:	50800005 */ 	beqzl	$a0,.L0f19be68
 /*  f19be54:	92e20029 */ 	lbu	$v0,0x29($s7)
-/*  f19be58:	0fc66ed4 */ 	jal	func0f19bb50
+/*  f19be58:	0fc66ed4 */ 	jal	mpForceUnlockFeature
 /*  f19be5c:	02603825 */ 	or	$a3,$s3,$zero
 /*  f19be60:	00409025 */ 	or	$s2,$v0,$zero
 .L0f19be64:
@@ -1104,7 +1104,7 @@ glabel func0f19bd4c
 /*  f19be84:	02403025 */ 	or	$a2,$s2,$zero
 /*  f19be88:	50800005 */ 	beqzl	$a0,.L0f19bea0
 /*  f19be8c:	8faa0040 */ 	lw	$t2,0x40($sp)
-/*  f19be90:	0fc66ed4 */ 	jal	func0f19bb50
+/*  f19be90:	0fc66ed4 */ 	jal	mpForceUnlockFeature
 /*  f19be94:	02603825 */ 	or	$a3,$s3,$zero
 /*  f19be98:	00409025 */ 	or	$s2,$v0,$zero
 .L0f19be9c:
@@ -1122,7 +1122,7 @@ glabel func0f19bd4c
 /*  f19bec4:	28410019 */ 	slti	$at,$v0,0x19
 /*  f19bec8:	14200006 */ 	bnez	$at,.L0f19bee4
 /*  f19becc:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bed0:	0fc66ed4 */ 	jal	func0f19bb50
+/*  f19bed0:	0fc66ed4 */ 	jal	mpForceUnlockFeature
 /*  f19bed4:	02603825 */ 	or	$a3,$s3,$zero
 /*  f19bed8:	00409025 */ 	or	$s2,$v0,$zero
 /*  f19bedc:	10000014 */ 	b	.L0f19bf30
@@ -1133,7 +1133,7 @@ glabel func0f19bd4c
 /*  f19beec:	24040023 */ 	addiu	$a0,$zero,0x23
 /*  f19bef0:	02802825 */ 	or	$a1,$s4,$zero
 /*  f19bef4:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bef8:	0fc66ed4 */ 	jal	func0f19bb50
+/*  f19bef8:	0fc66ed4 */ 	jal	mpForceUnlockFeature
 /*  f19befc:	02603825 */ 	or	$a3,$s3,$zero
 /*  f19bf00:	00409025 */ 	or	$s2,$v0,$zero
 /*  f19bf04:	1000000a */ 	b	.L0f19bf30
@@ -1144,7 +1144,7 @@ glabel func0f19bd4c
 /*  f19bf14:	2404004d */ 	addiu	$a0,$zero,0x4d
 /*  f19bf18:	02802825 */ 	or	$a1,$s4,$zero
 /*  f19bf1c:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bf20:	0fc66ed4 */ 	jal	func0f19bb50
+/*  f19bf20:	0fc66ed4 */ 	jal	mpForceUnlockFeature
 /*  f19bf24:	02603825 */ 	or	$a3,$s3,$zero
 /*  f19bf28:	00409025 */ 	or	$s2,$v0,$zero
 /*  f19bf2c:	8fa2006c */ 	lw	$v0,0x6c($sp)
@@ -1154,7 +1154,7 @@ glabel func0f19bd4c
 /*  f19bf38:	24040040 */ 	addiu	$a0,$zero,0x40
 /*  f19bf3c:	02802825 */ 	or	$a1,$s4,$zero
 /*  f19bf40:	02403025 */ 	or	$a2,$s2,$zero
-/*  f19bf44:	0fc66ed4 */ 	jal	func0f19bb50
+/*  f19bf44:	0fc66ed4 */ 	jal	mpForceUnlockFeature
 /*  f19bf48:	02603825 */ 	or	$a3,$s3,$zero
 /*  f19bf4c:	00409025 */ 	or	$s2,$v0,$zero
 .L0f19bf50:
@@ -1182,30 +1182,32 @@ glabel func0f19bd4c
 /*  f19bf9c:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-void func0f19bfa0(void)
+void mpForceUnlockSimulantFeatures(void)
 {
 	s32 numsims = 0;
-	s32 index = func0f19bb98(&g_MpSetup, var800acca0, 40);
+	s32 index = func0f19bb98(&g_MpSetup, g_MpFeaturesForceUnlocked, ARRAYCOUNT(g_MpFeaturesForceUnlocked));
 	s32 i;
 
 	for (i = 0; i < 8; i++) {
+		// Force unlock the simulant type
 		s32 simtypeindex = mpGetSimTypeIndex(g_MpSimulants[i].base.simtype, SIMSKILL_NORMAL);
 
 		if (simtypeindex >= 0) {
-			s32 unlockvalue = g_MpSimulantTypes[simtypeindex].unlockvalue;
+			s32 featurenum = g_MpSimulantTypes[simtypeindex].requirefeature;
 
-			if (unlockvalue) {
-				index = func0f19bb50(unlockvalue, var800acca0, index, 40);
+			if (featurenum) {
+				index = mpForceUnlockFeature(featurenum, g_MpFeaturesForceUnlocked, index, ARRAYCOUNT(g_MpFeaturesForceUnlocked));
 			}
 		}
 
+		// Force unlock the simulant skill
 		simtypeindex = mpGetSimTypeIndex(SIMTYPE_GENERAL, g_MpSimulants[i].skill);
 
 		if (simtypeindex >= 0) {
-			s32 unlockvalue = g_MpSimulantTypes[simtypeindex].unlockvalue;
+			s32 featurenum = g_MpSimulantTypes[simtypeindex].requirefeature;
 
-			if (unlockvalue) {
-				index = func0f19bb50(unlockvalue, var800acca0, index, 40);
+			if (featurenum) {
+				index = mpForceUnlockFeature(featurenum, g_MpFeaturesForceUnlocked, index, ARRAYCOUNT(g_MpFeaturesForceUnlocked));
 			}
 		}
 
@@ -1213,29 +1215,33 @@ void func0f19bfa0(void)
 			numsims++;
 		}
 
+		// Force unlock the simulant's body
 		if (g_MpSimulants[i].base.bodynum < ARRAYCOUNT(g_MpBodies)) {
-			s32 unlockvalue = g_MpBodies[g_MpSimulants[i].base.bodynum].unlockvalue;
+			s32 featurenum = g_MpBodies[g_MpSimulants[i].base.bodynum].requirefeature;
 
-			if (unlockvalue) {
-				index = func0f19bb50(unlockvalue, var800acca0, index, 40);
+			if (featurenum) {
+				index = mpForceUnlockFeature(featurenum, g_MpFeaturesForceUnlocked, index, ARRAYCOUNT(g_MpFeaturesForceUnlocked));
 			}
 		}
 
+		// Force unlock the simulant's head
 		if (g_MpSimulants[i].base.headnum < ARRAYCOUNT(g_MpHeads)) {
-			s32 unlockvalue = g_MpHeads[g_MpSimulants[i].base.headnum].unlockvalue;
+			s32 featurenum = g_MpHeads[g_MpSimulants[i].base.headnum].requirefeature;
 
-			if (unlockvalue) {
-				index = func0f19bb50(unlockvalue, var800acca0, index, 40);
+			if (featurenum) {
+				index = mpForceUnlockFeature(featurenum, g_MpFeaturesForceUnlocked, index, ARRAYCOUNT(g_MpFeaturesForceUnlocked));
 			}
 		}
 	}
 
+	// Force unlock 8 simulants
 	if (numsims > 4) {
-		index = func0f19bb50(64, var800acca0, index, 40);
+		index = mpForceUnlockFeature(MPFEATURE_8BOTS, g_MpFeaturesForceUnlocked, index, ARRAYCOUNT(g_MpFeaturesForceUnlocked));
 	}
 
-	for (i = index; i < 40; i++) {
-		var800acca0[i] = 0;
+	// Clear the remainder of the array
+	for (i = index; i < ARRAYCOUNT(g_MpFeaturesForceUnlocked); i++) {
+		g_MpFeaturesForceUnlocked[i] = 0;
 	}
 
 	mpDetermineUnlockedFeatures();
@@ -1244,8 +1250,9 @@ void func0f19bfa0(void)
 void func0f19c190(void)
 {
 	s32 i;
-	for (i = 0; i < 40; i++) {
-		var800acca0[i] = 0;
+
+	for (i = 0; i < ARRAYCOUNT(g_MpFeaturesForceUnlocked); i++) {
+		g_MpFeaturesForceUnlocked[i] = 0;
 	}
 
 	mpDetermineUnlockedFeatures();
@@ -1302,26 +1309,30 @@ char *mpconfigGetDescription(struct mpconfigfull *mpconfig)
 	return "";
 }
 
-s32 mpGetNumChallengesAvailable(s32 mpchrnum)
+/**
+ * Return the index of the first incomplete challenge, but if it's in the first
+ * 4 then return index 4 because the first 4 are always shown.
+ */
+s32 mpGetAutoFocusedChallengeIndex(s32 mpchrnum)
 {
 	s32 challengeindex;
-	s32 numavail = 0;
+	s32 index = 0;
 
 	for (challengeindex = 29; challengeindex >= 0; challengeindex--) {
-		if (mpIsChallengeCompletedByChrWithNumPlayers(mpchrnum, challengeindex, 1) ||
-				mpIsChallengeCompletedByChrWithNumPlayers(mpchrnum, challengeindex, 2) ||
-				mpIsChallengeCompletedByChrWithNumPlayers(mpchrnum, challengeindex, 3) ||
-				mpIsChallengeCompletedByChrWithNumPlayers(mpchrnum, challengeindex, 4)) {
-			numavail = challengeindex + 1;
+		if (mpIsChallengeCompletedByPlayerWithNumPlayers(mpchrnum, challengeindex, 1) ||
+				mpIsChallengeCompletedByPlayerWithNumPlayers(mpchrnum, challengeindex, 2) ||
+				mpIsChallengeCompletedByPlayerWithNumPlayers(mpchrnum, challengeindex, 3) ||
+				mpIsChallengeCompletedByPlayerWithNumPlayers(mpchrnum, challengeindex, 4)) {
+			index = challengeindex + 1;
 			break;
 		}
 	}
 
-	if (numavail < 4) {
-		numavail = 4;
+	if (index < 4) {
+		index = 4;
 	}
 
-	return numavail;
+	return index;
 }
 
 char *mpChallengeGetNameWithArg(s32 arg0, s32 challengeindex)
@@ -1329,39 +1340,39 @@ char *mpChallengeGetNameWithArg(s32 arg0, s32 challengeindex)
 	return langGet(g_MpChallenges[challengeindex].name);
 }
 
-bool func0f19c3bc(s32 mpchrnum, s32 index, s32 numplayers)
+bool mpIsChallengeCompletedByPlayerWithNumPlayers2(s32 mpchrnum, s32 index, s32 numplayers)
 {
-	return mpIsChallengeCompletedByChrWithNumPlayers(mpchrnum, index, numplayers);
+	return mpIsChallengeCompletedByPlayerWithNumPlayers(mpchrnum, index, numplayers);
 }
 
-bool mpIsChallengeCompletedByAnyChrWithNumPlayers(s32 index, s32 numplayers)
+bool mpIsChallengeCompletedByAnyPlayerWithNumPlayers(s32 index, s32 numplayers)
 {
-	return (g_MpChallenges[index].completions[numplayers] & 1) != 0;
+	return (g_MpChallenges[index].completions[numplayers - 1] & 1) != 0;
 }
 
-void mpSetChallengeCompletedByAnyChrWithNumPlayers(s32 index, s32 numplayers, bool completed)
+void mpSetChallengeCompletedByAnyPlayerWithNumPlayers(s32 index, s32 numplayers, bool completed)
 {
 	if (completed) {
-		g_MpChallenges[index].completions[numplayers] |= 1;
+		g_MpChallenges[index].completions[numplayers - 1] |= 1;
 		return;
 	}
 
-	g_MpChallenges[index].completions[numplayers] &= ~1;
+	g_MpChallenges[index].completions[numplayers - 1] &= ~1;
 }
 
-bool mpIsChallengeCompletedByChrWithNumPlayers(s32 mpchrnum, s32 index, s32 numplayers)
+bool mpIsChallengeCompletedByPlayerWithNumPlayers(s32 mpchrnum, s32 index, s32 numplayers)
 {
-	return (g_MpChallenges[index].completions[numplayers] & (2 << mpchrnum)) != 0;
+	return (g_MpChallenges[index].completions[numplayers - 1] & (2 << mpchrnum)) != 0;
 }
 
-void mpSetChallengeCompletedByChrWithNumPlayers(u32 mpchrnum, s32 index, s32 numplayers, bool completed)
+void mpSetChallengeCompletedByPlayerWithNumPlayers(u32 mpchrnum, s32 index, s32 numplayers, bool completed)
 {
 	if (completed) {
-		g_MpChallenges[index].completions[numplayers] |= 2 << mpchrnum;
+		g_MpChallenges[index].completions[numplayers - 1] |= 2 << mpchrnum;
 		return;
 	}
 
-	g_MpChallenges[index].completions[numplayers] &= ~(2 << mpchrnum);
+	g_MpChallenges[index].completions[numplayers - 1] &= ~(2 << mpchrnum);
 }
 
 bool mpIsChallengeCompleteForEndscreen(void)
@@ -1402,12 +1413,12 @@ void mpConsiderMarkingCurrentChallengeComplete(void)
 		u32 prevplayernum;
 		s32 i;
 
-		mpSetChallengeCompletedByAnyChrWithNumPlayers(g_MpChallengeIndex, PLAYERCOUNT(), 1);
+		mpSetChallengeCompletedByAnyPlayerWithNumPlayers(g_MpChallengeIndex, PLAYERCOUNT(), 1);
 		prevplayernum = g_Vars.currentplayernum;
 
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			setCurrentPlayerNum(i);
-			mpSetChallengeCompletedByChrWithNumPlayers(g_Vars.currentplayerstats->mpindex, g_MpChallengeIndex, PLAYERCOUNT(), true);
+			mpSetChallengeCompletedByPlayerWithNumPlayers(g_Vars.currentplayerstats->mpindex, g_MpChallengeIndex, PLAYERCOUNT(), true);
 		}
 
 		setCurrentPlayerNum(prevplayernum);
@@ -1415,27 +1426,27 @@ void mpConsiderMarkingCurrentChallengeComplete(void)
 	}
 }
 
-bool mpIsChallengeComplete(s32 challenge)
+bool mpIsFeatureUnlocked(s32 featurenum)
 {
-	if (challenge == 0) {
+	if (featurenum == 0) {
 		return true;
 	}
 
-	return (g_MpChallengesCompleted[challenge] & 1) != 0;
+	return (g_MpFeaturesUnlocked[featurenum] & 1) != 0;
 }
 
-bool mpIsChallengeCompleteWithNumPlayers(u32 numplayers, s32 challenge)
+bool mpIsFeatureUnlockedByPlayer(u32 numplayers, s32 featurenum)
 {
-	if (challenge == 0) {
+	if (featurenum == 0) {
 		return true;
 	}
 
-	return (g_MpChallengesCompleted[challenge] & (2 << numplayers)) != 0;
+	return (g_MpFeaturesUnlocked[featurenum] & (2 << numplayers)) != 0;
 }
 
-bool func0f19c96c(s32 challenge)
+bool func0f19c96c(s32 featurenum)
 {
-	if (challenge) {
+	if (featurenum) {
 		return false;
 	}
 

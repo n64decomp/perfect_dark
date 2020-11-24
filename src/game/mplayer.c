@@ -93,11 +93,11 @@ void mpStartMatch(void)
 
 	func0f17f260();
 
-	if (!mpIsChallengeComplete(30)) {
+	if (!mpIsFeatureUnlocked(MPFEATURE_ONEHITKILLS)) {
 		g_MpSetup.options &= ~MPOPTION_ONEHITKILLS;
 	}
 
-	if (!mpIsChallengeComplete(29)) {
+	if (!mpIsFeatureUnlocked(MPFEATURE_SLOWMOTION)) {
 		g_MpSetup.options &= ~(MPOPTION_SLOWMOTION_ON | MPOPTION_SLOWMOTION_SMART);
 	}
 
@@ -707,7 +707,7 @@ glabel func0f18800c
 .L0f188154:
 /*  f188154:	02202825 */ 	or	$a1,$s1,$zero
 /*  f188158:	02003025 */ 	or	$a2,$s0,$zero
-/*  f18815c:	0fc6712e */ 	jal	mpSetChallengeCompletedByChrWithNumPlayers
+/*  f18815c:	0fc6712e */ 	jal	mpSetChallengeCompletedByPlayerWithNumPlayers
 /*  f188160:	00003825 */ 	or	$a3,$zero,$zero
 /*  f188164:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f188168:	5612fffa */ 	bnel	$s0,$s2,.L0f188154
@@ -821,7 +821,7 @@ glabel func0f188210
 /*  f188308:	a0430001 */ 	sb	$v1,0x1($v0)
 /*  f18830c:	a0430002 */ 	sb	$v1,0x2($v0)
 /*  f188310:	a0430003 */ 	sb	$v1,0x3($v0)
-/*  f188314:	0fc66fe8 */ 	jal	func0f19bfa0
+/*  f188314:	0fc66fe8 */ 	jal	mpForceUnlockSimulantFeatures
 /*  f188318:	ac430004 */ 	sw	$v1,0x4($v0)
 /*  f18831c:	3c05800b */ 	lui	$a1,%hi(g_MpPlayers)
 /*  f188320:	3c06800b */ 	lui	$a2,%hi(g_ActiveMenuMpBotCommands)
@@ -1477,7 +1477,7 @@ glabel mpGetNumWeaponOptions
 /*  f188bfc:	96040004 */ 	lhu	$a0,0x4($s0)
 .L0f188c00:
 /*  f188c00:	308e007f */ 	andi	$t6,$a0,0x7f
-/*  f188c04:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f188c04:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f188c08:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f188c0c:	10400002 */ 	beqz	$v0,.L0f188c18
 /*  f188c10:	2610000a */ 	addiu	$s0,$s0,0xa
@@ -1509,7 +1509,7 @@ glabel mpGetWeaponLabel
 /*  f188c64:	96040004 */ 	lhu	$a0,0x4($s0)
 .L0f188c68:
 /*  f188c68:	308e007f */ 	andi	$t6,$a0,0x7f
-/*  f188c6c:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f188c6c:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f188c70:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f188c74:	5040001e */ 	beqzl	$v0,.L0f188cf0
 /*  f188c78:	2610000a */ 	addiu	$s0,$s0,0xa
@@ -1566,7 +1566,7 @@ void mpSetWeaponSlot(s32 slot, s32 mpweaponnum)
 	s32 i;
 
 	for (i = 0; i <= mpweaponnum; i++) {
-		if (mpIsChallengeComplete(g_MpWeapons[i].unlock) == 0) {
+		if (mpIsFeatureUnlocked(g_MpWeapons[i].unlockfeature) == 0) {
 			mpweaponnum++;
 		}
 
@@ -1582,7 +1582,7 @@ s32 mpGetWeaponSlot(s32 slot)
 	s32 i;
 
 	for (i = 0; i < g_MpSetup.weapons[slot]; i++) {
-		if (mpIsChallengeComplete(g_MpWeapons[i].unlock)) {
+		if (mpIsFeatureUnlocked(g_MpWeapons[i].unlockfeature)) {
 			count++;
 		}
 	}
@@ -1654,10 +1654,10 @@ s32 mpCountWeaponSetThing(s32 weaponsetindex)
 	}
 
 	for (i = 0; i < weaponsetindex; i++) {
-		if ((mpIsChallengeComplete(g_MpWeaponSets[i].unlocks[0])
-				&& mpIsChallengeComplete(g_MpWeaponSets[i].unlocks[1])
-				&& mpIsChallengeComplete(g_MpWeaponSets[i].unlocks[2])
-				&& mpIsChallengeComplete(g_MpWeaponSets[i].unlocks[3])) || g_MpWeaponSets[i].unk0c != 0x5c) {
+		if ((mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[0])
+				&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[1])
+				&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[2])
+				&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[3])) || g_MpWeaponSets[i].unk0c != 0x5c) {
 			count++;
 		}
 	}
@@ -1671,10 +1671,10 @@ s32 func0f188f9c(s32 arg0)
 
 	for (i = 0; i < ARRAYCOUNT(g_MpWeaponSets); i++) {
 		// @bug? Shouldn't the disabled check be == WEAPON_DISABLED?
-		if ((mpIsChallengeComplete(g_MpWeaponSets[i].unlocks[0])
-					&& mpIsChallengeComplete(g_MpWeaponSets[i].unlocks[1])
-					&& mpIsChallengeComplete(g_MpWeaponSets[i].unlocks[2])
-					&& mpIsChallengeComplete(g_MpWeaponSets[i].unlocks[3]))
+		if ((mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[0])
+					&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[1])
+					&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[2])
+					&& mpIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[3]))
 				|| g_MpWeaponSets[i].unk0c != WEAPON_DISABLED) {
 			if (arg0 == 0) {
 				break;
@@ -1796,19 +1796,19 @@ glabel func0f18913c
 /*  f189190:	2416000a */ 	addiu	$s6,$zero,0xa
 /*  f189194:	afa00044 */ 	sw	$zero,0x44($sp)
 .L0f189198:
-/*  f189198:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f189198:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f18919c:	93c40008 */ 	lbu	$a0,0x8($s8)
 /*  f1891a0:	50400010 */ 	beqzl	$v0,.L0f1891e4
 /*  f1891a4:	93d8000c */ 	lbu	$t8,0xc($s8)
-/*  f1891a8:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f1891a8:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f1891ac:	93c40009 */ 	lbu	$a0,0x9($s8)
 /*  f1891b0:	5040000c */ 	beqzl	$v0,.L0f1891e4
 /*  f1891b4:	93d8000c */ 	lbu	$t8,0xc($s8)
-/*  f1891b8:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f1891b8:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f1891bc:	93c4000a */ 	lbu	$a0,0xa($s8)
 /*  f1891c0:	50400008 */ 	beqzl	$v0,.L0f1891e4
 /*  f1891c4:	93d8000c */ 	lbu	$t8,0xc($s8)
-/*  f1891c8:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f1891c8:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f1891cc:	93c4000b */ 	lbu	$a0,0xb($s8)
 /*  f1891d0:	50400004 */ 	beqzl	$v0,.L0f1891e4
 /*  f1891d4:	93d8000c */ 	lbu	$t8,0xc($s8)
@@ -1832,7 +1832,7 @@ glabel func0f18913c
 /*  f189210:	92500000 */ 	lbu	$s0,0x0($s2)
 /*  f189214:	56140007 */ 	bnel	$s0,$s4,.L0f189234
 /*  f189218:	92390018 */ 	lbu	$t9,0x18($s1)
-/*  f18921c:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f18921c:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f189220:	24040016 */ 	addiu	$a0,$zero,0x16
 /*  f189224:	54400003 */ 	bnezl	$v0,.L0f189234
 /*  f189228:	92390018 */ 	lbu	$t9,0x18($s1)
@@ -1903,7 +1903,7 @@ glabel func0f1892dc
 /*  f189308:	000e7040 */ 	sll	$t6,$t6,0x1
 /*  f18930c:	3c048008 */ 	lui	$a0,%hi(g_MpWeaponSets+0x8)
 /*  f189310:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f189314:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f189314:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f189318:	908473f8 */ 	lbu	$a0,%lo(g_MpWeaponSets+0x8)($a0)
 /*  f18931c:	50400029 */ 	beqzl	$v0,.L0f1893c4
 /*  f189320:	8e0d0000 */ 	lw	$t5,0x0($s0)
@@ -1913,7 +1913,7 @@ glabel func0f1892dc
 /*  f189330:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f189334:	0018c040 */ 	sll	$t8,$t8,0x1
 /*  f189338:	00982021 */ 	addu	$a0,$a0,$t8
-/*  f18933c:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f18933c:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f189340:	908473f9 */ 	lbu	$a0,%lo(g_MpWeaponSets+0x9)($a0)
 /*  f189344:	5040001f */ 	beqzl	$v0,.L0f1893c4
 /*  f189348:	8e0d0000 */ 	lw	$t5,0x0($s0)
@@ -1923,7 +1923,7 @@ glabel func0f1892dc
 /*  f189358:	01996021 */ 	addu	$t4,$t4,$t9
 /*  f18935c:	000c6040 */ 	sll	$t4,$t4,0x1
 /*  f189360:	008c2021 */ 	addu	$a0,$a0,$t4
-/*  f189364:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f189364:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f189368:	908473fa */ 	lbu	$a0,%lo(g_MpWeaponSets+0xa)($a0)
 /*  f18936c:	50400015 */ 	beqzl	$v0,.L0f1893c4
 /*  f189370:	8e0d0000 */ 	lw	$t5,0x0($s0)
@@ -1933,7 +1933,7 @@ glabel func0f1892dc
 /*  f189380:	01cd7021 */ 	addu	$t6,$t6,$t5
 /*  f189384:	000e7040 */ 	sll	$t6,$t6,0x1
 /*  f189388:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f18938c:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f18938c:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f189390:	908473fb */ 	lbu	$a0,%lo(g_MpWeaponSets+0xb)($a0)
 /*  f189394:	5040000b */ 	beqzl	$v0,.L0f1893c4
 /*  f189398:	8e0d0000 */ 	lw	$t5,0x0($s0)
@@ -1982,7 +1982,7 @@ glabel func0f1892dc
 /*  f189438:	afa60038 */ 	sw	$a2,0x38($sp)
 /*  f18943c:	afa0003c */ 	sw	$zero,0x3c($sp)
 /*  f189440:	afaa0024 */ 	sw	$t2,0x24($sp)
-/*  f189444:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f189444:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f189448:	afab0028 */ 	sw	$t3,0x28($sp)
 /*  f18944c:	3c088008 */ 	lui	$t0,%hi(g_MpWeapons)
 /*  f189450:	25087268 */ 	addiu	$t0,$t0,%lo(g_MpWeapons)
@@ -2872,18 +2872,18 @@ glabel func0f18a030
 );
 
 struct mpweaponset g_MpWeaponSets[] = {
-	{ /*0x00*/ L_MPWEAPONS(55), { WEAPON_FALCON2,          WEAPON_MAGSEC4,     WEAPON_PHOENIX,     WEAPON_MAULER,         WEAPON_MPSHIELD, WEAPON_DISABLED }, { 0x08, 0x07, 0x00, 0x00 }, 0x02, 0x05, 0x02, 0x08, 0x5b, 0x5c }, // Pistols
-	{ /*0x01*/ L_MPWEAPONS(54), { WEAPON_FALCON2,          WEAPON_CMP150,      WEAPON_LAPTOPGUN,   WEAPON_AR34,           WEAPON_MPSHIELD, WEAPON_DISABLED }, { 0x0b, 0x00, 0x00, 0x00 }, 0x02, 0x0a, 0x0f, 0x11, 0x5b, 0x5c }, // Automatics
-	{ /*0x02*/ L_MPWEAPONS(53), { WEAPON_MAGSEC4,          WEAPON_DY357MAGNUM, WEAPON_SHOTGUN,     WEAPON_RCP120,         WEAPON_MPSHIELD, WEAPON_DISABLED }, { 0x0e, 0x0d, 0x00, 0x00 }, 0x05, 0x08, 0x0f, 0x11, 0x5b, 0x5c }, // Power
-	{ /*0x03*/ L_MPWEAPONS(52), { WEAPON_PHOENIX,          WEAPON_CYCLONE,     WEAPON_CALLISTONTG, WEAPON_FARSIGHTXR20,   WEAPON_MPSHIELD, WEAPON_DISABLED }, { 0x01, 0x0a, 0x00, 0x00 }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // FarSight
-	{ /*0x04*/ L_MPWEAPONS(51), { WEAPON_FALCON2,          WEAPON_CMP150,      WEAPON_DRAGON,      WEAPON_TRANQUILIZER,   WEAPON_MPSHIELD, WEAPON_DISABLED }, { 0x02, 0x00, 0x00, 0x00 }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // Tranquilizer
-	{ /*0x05*/ L_MPWEAPONS(50), { WEAPON_MAULER,           WEAPON_K7AVENGER,   WEAPON_REAPER,      WEAPON_SUPERDRAGON,    WEAPON_MPSHIELD, WEAPON_DISABLED }, { 0x03, 0x07, 0x0c, 0x0f }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // Heavy
-	{ /*0x06*/ L_MPWEAPONS(49), { WEAPON_FALCON2_SILENCER, WEAPON_GRENADE,     WEAPON_CMP150,      WEAPON_DY357LX,        WEAPON_MPSHIELD, WEAPON_DISABLED }, { 0x05, 0x09, 0x00, 0x00 }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // Golden Magnum
-	{ /*0x07*/ L_MPWEAPONS(48), { WEAPON_DEVASTATOR,       WEAPON_DEVASTATOR,  WEAPON_SUPERDRAGON, WEAPON_SUPERDRAGON,    WEAPON_MPSHIELD, WEAPON_DISABLED }, { 0x03, 0x10, 0x00, 0x00 }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // Explosive
-	{ /*0x08*/ L_MPWEAPONS(47), { WEAPON_MAGSEC4,          WEAPON_CMP150,      WEAPON_AR34,        WEAPON_DEVASTATOR,     WEAPON_MPSHIELD, WEAPON_DISABLED }, { 0x10, 0x00, 0x00, 0x00 }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // Grenade Launcher
-	{ /*0x09*/ L_MPWEAPONS(46), { WEAPON_MAULER,           WEAPON_CYCLONE,     WEAPON_DRAGON,      WEAPON_ROCKETLAUNCHER, WEAPON_MPSHIELD, WEAPON_DISABLED }, { 0x07, 0x00, 0x00, 0x00 }, 0x02, 0x0b, 0x0f, 0x18, 0x5b, 0x5c }, // Rocket Launcher
-	{ /*0x0a*/ L_MPWEAPONS(45), { WEAPON_MAGSEC4,          WEAPON_LAPTOPGUN,   WEAPON_K7AVENGER,   WEAPON_PROXIMITYMINE,  WEAPON_MPSHIELD, WEAPON_DISABLED }, { 0x0b, 0x0c, 0x13, 0x00 }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // Proximity Mine
-	{ /*0x0b*/ L_MPWEAPONS(44), { WEAPON_COMBATKNIFE,      WEAPON_COMBATKNIFE, WEAPON_TIMEDMINE,   WEAPON_CROSSBOW,       WEAPON_MPSHIELD, WEAPON_DISABLED }, { 0x11, 0x00, 0x00, 0x00 }, 0x1a, 0x1a, 0x20, 0x20, 0x5b, 0x5c }, // Close Combat
+	{ /*0x00*/ L_MPWEAPONS(55), { WEAPON_FALCON2,          WEAPON_MAGSEC4,     WEAPON_PHOENIX,     WEAPON_MAULER,         WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_PHOENIX,         MPFEATURE_WEAPON_MAULER,     0,                              0                       }, 0x02, 0x05, 0x02, 0x08, 0x5b, 0x5c }, // Pistols
+	{ /*0x01*/ L_MPWEAPONS(54), { WEAPON_FALCON2,          WEAPON_CMP150,      WEAPON_LAPTOPGUN,   WEAPON_AR34,           WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_LAPTOPGUN,       0,                           0,                              0                       }, 0x02, 0x0a, 0x0f, 0x11, 0x5b, 0x5c }, // Automatics
+	{ /*0x02*/ L_MPWEAPONS(53), { WEAPON_MAGSEC4,          WEAPON_DY357MAGNUM, WEAPON_SHOTGUN,     WEAPON_RCP120,         WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_SHOTGUN,         MPFEATURE_WEAPON_RCP120,     0,                              0                       }, 0x05, 0x08, 0x0f, 0x11, 0x5b, 0x5c }, // Power
+	{ /*0x03*/ L_MPWEAPONS(52), { WEAPON_PHOENIX,          WEAPON_CYCLONE,     WEAPON_CALLISTONTG, WEAPON_FARSIGHTXR20,   WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_FARSIGHT,        MPFEATURE_WEAPON_CALLISTO,   0,                              0                       }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // FarSight
+	{ /*0x04*/ L_MPWEAPONS(51), { WEAPON_FALCON2,          WEAPON_CMP150,      WEAPON_DRAGON,      WEAPON_TRANQUILIZER,   WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_TRANQUILIZER,    0,                           0,                              0                       }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // Tranquilizer
+	{ /*0x05*/ L_MPWEAPONS(50), { WEAPON_MAULER,           WEAPON_K7AVENGER,   WEAPON_REAPER,      WEAPON_SUPERDRAGON,    WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_SUPERDRAGON,     MPFEATURE_WEAPON_MAULER,     MPFEATURE_WEAPON_K7AVENGER,     MPFEATURE_WEAPON_REAPER }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // Heavy
+	{ /*0x06*/ L_MPWEAPONS(49), { WEAPON_FALCON2_SILENCER, WEAPON_GRENADE,     WEAPON_CMP150,      WEAPON_DY357LX,        WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_FALCON2SILENCED, MPFEATURE_WEAPON_DY357LX,    0,                              0                       }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // Golden Magnum
+	{ /*0x07*/ L_MPWEAPONS(48), { WEAPON_DEVASTATOR,       WEAPON_DEVASTATOR,  WEAPON_SUPERDRAGON, WEAPON_SUPERDRAGON,    WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_SUPERDRAGON,     MPFEATURE_WEAPON_DEVASTATOR, 0,                              0                       }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // Explosive
+	{ /*0x08*/ L_MPWEAPONS(47), { WEAPON_MAGSEC4,          WEAPON_CMP150,      WEAPON_AR34,        WEAPON_DEVASTATOR,     WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_DEVASTATOR,      0,                           0,                              0                       }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // Grenade Launcher
+	{ /*0x09*/ L_MPWEAPONS(46), { WEAPON_MAULER,           WEAPON_CYCLONE,     WEAPON_DRAGON,      WEAPON_ROCKETLAUNCHER, WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_MAULER,          0,                           0,                              0                       }, 0x02, 0x0b, 0x0f, 0x18, 0x5b, 0x5c }, // Rocket Launcher
+	{ /*0x0a*/ L_MPWEAPONS(45), { WEAPON_MAGSEC4,          WEAPON_LAPTOPGUN,   WEAPON_K7AVENGER,   WEAPON_PROXIMITYMINE,  WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_LAPTOPGUN,       MPFEATURE_WEAPON_K7AVENGER,  MPFEATURE_WEAPON_PROXIMITYMINE, 0                       }, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c, 0x5c }, // Proximity Mine
+	{ /*0x0b*/ L_MPWEAPONS(44), { WEAPON_COMBATKNIFE,      WEAPON_COMBATKNIFE, WEAPON_TIMEDMINE,   WEAPON_CROSSBOW,       WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_CROSSBOW,        0,                           0,                              0                       }, 0x1a, 0x1a, 0x20, 0x20, 0x5b, 0x5c }, // Close Combat
 };
 
 u32 var800874c8 = 0x00000000;
@@ -3019,91 +3019,91 @@ const char var7f1b8c04[] = "PakId for player %d: %d\n";
 const char var7f1b8c20[] = "Load Player - Result: %d\n";
 
 struct mphead g_MpBeauHeads[NUM_MPBEAUHEADS] = {
-	// head, unlock value
-	{ HEAD_BEAU2, 0x00 },
-	{ HEAD_BEAU3, 0x00 },
-	{ HEAD_BEAU4, 0x00 },
-	{ HEAD_BEAU5, 0x00 },
-	{ HEAD_BEAU6, 0x00 },
+	// head, require feature
+	{ HEAD_BEAU2, 0 },
+	{ HEAD_BEAU3, 0 },
+	{ HEAD_BEAU4, 0 },
+	{ HEAD_BEAU5, 0 },
+	{ HEAD_BEAU6, 0 },
 };
 
 struct mphead g_MpHeads[75] = {
-	// head, unlock value
-	{ /*0x00*/ HEAD_DARK_COMBAT,  0x00 },
-	{ /*0x01*/ HEAD_DARK_FROCK,   0x41 },
-	{ /*0x02*/ HEAD_DARKAQUA,     0x45 },
-	{ /*0x03*/ HEAD_DARK_SNOW,    0x4a },
-	{ /*0x04*/ HEAD_ELVIS,        0x3d },
-	{ /*0x05*/ HEAD_ELVIS_GOGS,   0x3d },
-	{ /*0x06*/ HEAD_CARRINGTON,   0x00 },
-	{ /*0x07*/ HEAD_MRBLONDE,     0x38 },
-	{ /*0x08*/ HEAD_CASSANDRA,    0x00 },
-	{ /*0x09*/ HEAD_TRENT,        0x35 },
-	{ /*0x0a*/ HEAD_JONATHAN,     0x3a },
-	{ /*0x0b*/ HEAD_VD,           0x00 },
-	{ /*0x0c*/ HEAD_PRESIDENT,    0x41 },
-	{ /*0x0d*/ HEAD_DDSHOCK,      0x00 },
-	{ /*0x0e*/ HEAD_BIOTECH,      0x3c },
-	{ /*0x0f*/ HEAD_DDSNIPER,     0x34 },
-	{ /*0x10*/ HEAD_A51FACEPLATE, 0x3a },
-	{ /*0x11*/ HEAD_SECRETARY,    0x00 },
-	{ /*0x12*/ HEAD_FEM_GUARD,    0x32 },
-	{ /*0x13*/ HEAD_FEM_GUARD2,   0x32 },
-	{ /*0x14*/ HEAD_MAIAN_S,      0x3d },
-	{ /*0x15*/ HEAD_JON,          0x00 },
-	{ /*0x16*/ HEAD_BEAU1,        0x00 },
-	{ /*0x17*/ HEAD_ROSS,         0x00 },
-	{ /*0x18*/ HEAD_MARK2,        0x00 },
-	{ /*0x19*/ HEAD_CHRIST,       0x00 },
-	{ /*0x1a*/ HEAD_RUSS,         0x00 },
-	{ /*0x1b*/ HEAD_DARLING,      0x00 },
-	{ /*0x1c*/ HEAD_BRIAN,        0x00 },
-	{ /*0x1d*/ HEAD_JAMIE,        0x00 },
-	{ /*0x1e*/ HEAD_DUNCAN2,      0x00 },
-	{ /*0x1f*/ HEAD_KEITH,        0x00 },
-	{ /*0x20*/ HEAD_STEVEM,       0x00 },
-	{ /*0x21*/ HEAD_GRANT,        0x00 },
-	{ /*0x22*/ HEAD_PENNY,        0x00 },
-	{ /*0x23*/ HEAD_DAVEC,        0x00 },
-	{ /*0x24*/ HEAD_JONES,        0x00 },
-	{ /*0x25*/ HEAD_GRAHAM,       0x00 },
-	{ /*0x26*/ HEAD_ROBERT,       0x00 },
-	{ /*0x27*/ HEAD_NEIL2,        0x00 },
-	{ /*0x28*/ HEAD_SHAUN,        0x00 },
-	{ /*0x29*/ HEAD_ROBIN,        0x00 },
-	{ /*0x2a*/ HEAD_COOK,         0x00 },
-	{ /*0x2b*/ HEAD_PRYCE,        0x00 },
-	{ /*0x2c*/ HEAD_SILKE,        0x00 },
-	{ /*0x2d*/ HEAD_SMITH,        0x00 },
-	{ /*0x2e*/ HEAD_GARETH,       0x00 },
-	{ /*0x2f*/ HEAD_MURCHIE,      0x00 },
-	{ /*0x30*/ HEAD_WONG,         0x00 },
-	{ /*0x31*/ HEAD_CARTER,       0x00 },
-	{ /*0x32*/ HEAD_TINTIN,       0x00 },
-	{ /*0x33*/ HEAD_MUNTON,       0x00 },
-	{ /*0x34*/ HEAD_STAMPER,      0x00 },
-	{ /*0x35*/ HEAD_PHELPS,       0x00 },
-	{ /*0x36*/ HEAD_ALEX,         0x00 },
-	{ /*0x37*/ HEAD_JULIANNE,     0x00 },
-	{ /*0x38*/ HEAD_LAURA,        0x00 },
-	{ /*0x39*/ HEAD_EDMCG,        0x00 },
-	{ /*0x3a*/ HEAD_ANKA,         0x00 },
-	{ /*0x3b*/ HEAD_LESLIE_S,     0x00 },
-	{ /*0x3c*/ HEAD_MATT_C,       0x00 },
-	{ /*0x3d*/ HEAD_PEER_S,       0x00 },
-	{ /*0x3e*/ HEAD_EILEEN_T,     0x00 },
-	{ /*0x3f*/ HEAD_ANDY_R,       0x00 },
-	{ /*0x40*/ HEAD_BEN_R,        0x00 },
-	{ /*0x41*/ HEAD_STEVE_K,      0x00 },
-	{ /*0x42*/ HEAD_SANCHEZ,      0x00 },
-	{ /*0x43*/ HEAD_TIM,          0x00 },
-	{ /*0x44*/ HEAD_KEN,          0x00 },
-	{ /*0x45*/ HEAD_EILEEN_H,     0x00 },
-	{ /*0x46*/ HEAD_SCOTT_H,      0x00 },
-	{ /*0x47*/ HEAD_JOEL,         0x00 },
-	{ /*0x48*/ HEAD_GRIFFEY,      0x00 },
-	{ /*0x49*/ HEAD_MOTO,         0x00 },
-	{ /*0x4a*/ HEAD_WINNER,       0x00 },
+	// head, require feature
+	{ /*0x00*/ HEAD_DARK_COMBAT,  0            },
+	{ /*0x01*/ HEAD_DARK_FROCK,   MPFEATURE_41 },
+	{ /*0x02*/ HEAD_DARKAQUA,     MPFEATURE_45 },
+	{ /*0x03*/ HEAD_DARK_SNOW,    MPFEATURE_4A },
+	{ /*0x04*/ HEAD_ELVIS,        MPFEATURE_3D },
+	{ /*0x05*/ HEAD_ELVIS_GOGS,   MPFEATURE_3D },
+	{ /*0x06*/ HEAD_CARRINGTON,   0            },
+	{ /*0x07*/ HEAD_MRBLONDE,     MPFEATURE_38 },
+	{ /*0x08*/ HEAD_CASSANDRA,    0            },
+	{ /*0x09*/ HEAD_TRENT,        MPFEATURE_35 },
+	{ /*0x0a*/ HEAD_JONATHAN,     MPFEATURE_3A },
+	{ /*0x0b*/ HEAD_VD,           0            },
+	{ /*0x0c*/ HEAD_PRESIDENT,    MPFEATURE_41 },
+	{ /*0x0d*/ HEAD_DDSHOCK,      0            },
+	{ /*0x0e*/ HEAD_BIOTECH,      MPFEATURE_3C },
+	{ /*0x0f*/ HEAD_DDSNIPER,     MPFEATURE_34 },
+	{ /*0x10*/ HEAD_A51FACEPLATE, MPFEATURE_3A },
+	{ /*0x11*/ HEAD_SECRETARY,    0            },
+	{ /*0x12*/ HEAD_FEM_GUARD,    MPFEATURE_32 },
+	{ /*0x13*/ HEAD_FEM_GUARD2,   MPFEATURE_32 },
+	{ /*0x14*/ HEAD_MAIAN_S,      MPFEATURE_3D },
+	{ /*0x15*/ HEAD_JON,          0            },
+	{ /*0x16*/ HEAD_BEAU1,        0            },
+	{ /*0x17*/ HEAD_ROSS,         0            },
+	{ /*0x18*/ HEAD_MARK2,        0            },
+	{ /*0x19*/ HEAD_CHRIST,       0            },
+	{ /*0x1a*/ HEAD_RUSS,         0            },
+	{ /*0x1b*/ HEAD_DARLING,      0            },
+	{ /*0x1c*/ HEAD_BRIAN,        0            },
+	{ /*0x1d*/ HEAD_JAMIE,        0            },
+	{ /*0x1e*/ HEAD_DUNCAN2,      0            },
+	{ /*0x1f*/ HEAD_KEITH,        0            },
+	{ /*0x20*/ HEAD_STEVEM,       0            },
+	{ /*0x21*/ HEAD_GRANT,        0            },
+	{ /*0x22*/ HEAD_PENNY,        0            },
+	{ /*0x23*/ HEAD_DAVEC,        0            },
+	{ /*0x24*/ HEAD_JONES,        0            },
+	{ /*0x25*/ HEAD_GRAHAM,       0            },
+	{ /*0x26*/ HEAD_ROBERT,       0            },
+	{ /*0x27*/ HEAD_NEIL2,        0            },
+	{ /*0x28*/ HEAD_SHAUN,        0            },
+	{ /*0x29*/ HEAD_ROBIN,        0            },
+	{ /*0x2a*/ HEAD_COOK,         0            },
+	{ /*0x2b*/ HEAD_PRYCE,        0            },
+	{ /*0x2c*/ HEAD_SILKE,        0            },
+	{ /*0x2d*/ HEAD_SMITH,        0            },
+	{ /*0x2e*/ HEAD_GARETH,       0            },
+	{ /*0x2f*/ HEAD_MURCHIE,      0            },
+	{ /*0x30*/ HEAD_WONG,         0            },
+	{ /*0x31*/ HEAD_CARTER,       0            },
+	{ /*0x32*/ HEAD_TINTIN,       0            },
+	{ /*0x33*/ HEAD_MUNTON,       0            },
+	{ /*0x34*/ HEAD_STAMPER,      0            },
+	{ /*0x35*/ HEAD_PHELPS,       0            },
+	{ /*0x36*/ HEAD_ALEX,         0            },
+	{ /*0x37*/ HEAD_JULIANNE,     0            },
+	{ /*0x38*/ HEAD_LAURA,        0            },
+	{ /*0x39*/ HEAD_EDMCG,        0            },
+	{ /*0x3a*/ HEAD_ANKA,         0            },
+	{ /*0x3b*/ HEAD_LESLIE_S,     0            },
+	{ /*0x3c*/ HEAD_MATT_C,       0            },
+	{ /*0x3d*/ HEAD_PEER_S,       0            },
+	{ /*0x3e*/ HEAD_EILEEN_T,     0            },
+	{ /*0x3f*/ HEAD_ANDY_R,       0            },
+	{ /*0x40*/ HEAD_BEN_R,        0            },
+	{ /*0x41*/ HEAD_STEVE_K,      0            },
+	{ /*0x42*/ HEAD_SANCHEZ,      0            },
+	{ /*0x43*/ HEAD_TIM,          0            },
+	{ /*0x44*/ HEAD_KEN,          0            },
+	{ /*0x45*/ HEAD_EILEEN_H,     0            },
+	{ /*0x46*/ HEAD_SCOTT_H,      0            },
+	{ /*0x47*/ HEAD_JOEL,         0            },
+	{ /*0x48*/ HEAD_GRIFFEY,      0            },
+	{ /*0x49*/ HEAD_MOTO,         0            },
+	{ /*0x4a*/ HEAD_WINNER,       0            },
 };
 
 // 2d678
@@ -3118,91 +3118,91 @@ u32 table_0x2d678[] = {
 
 // 2d74c
 struct mpsimulanttype g_MpSimulantTypes[] = {
-	// type,       skill,   name,   body, unlock value
-	{ SIMTYPE_GENERAL, SIMSKILL_MEAT,    L_MISC(88),  MPBODY_DD_GUARD,      0x00 },
-	{ SIMTYPE_GENERAL, SIMSKILL_EASY,    L_MISC(89),  MPBODY_DD_SECGUARD,   0x00 },
-	{ SIMTYPE_GENERAL, SIMSKILL_NORMAL,  L_MISC(90),  MPBODY_DD_SHOCK_INF,  0x00 },
-	{ SIMTYPE_GENERAL, SIMSKILL_HARD,    L_MISC(91),  MPBODY_DDSHOCK,       0x19 },
-	{ SIMTYPE_GENERAL, SIMSKILL_PERFECT, L_MISC(92),  MPBODY_STRIPES,       0x1a },
-	{ SIMTYPE_GENERAL, SIMSKILL_DARK,    L_MISC(93),  MPBODY_MOORE,         0x1c },
-	{ SIMTYPE_PEACE,   SIMSKILL_NORMAL,  L_MISC(94),  MPBODY_DD_LABTECH,    0x00 },
-	{ SIMTYPE_SHIELD,  SIMSKILL_NORMAL,  L_MISC(95),  MPBODY_G5_SWAT_GUARD, 0x00 },
-	{ SIMTYPE_ROCKET,  SIMSKILL_NORMAL,  L_MISC(96),  MPBODY_G5_GUARD,      0x00 },
-	{ SIMTYPE_KAZE,    SIMSKILL_NORMAL,  L_MISC(97),  MPBODY_PRES_SECURITY, 0x00 },
-	{ SIMTYPE_FIST,    SIMSKILL_NORMAL,  L_MISC(98),  MPBODY_PELAGIC_GUARD, 0x00 },
-	{ SIMTYPE_PREY,    SIMSKILL_NORMAL,  L_MISC(99),  MPBODY_DDSHOCK,       0x00 },
-	{ SIMTYPE_COWARD,  SIMSKILL_NORMAL,  L_MISC(100), MPBODY_PRESIDENT,     0x00 },
-	{ SIMTYPE_JUDGE,   SIMSKILL_NORMAL,  L_MISC(101), MPBODY_STEWARD,       0x00 },
-	{ SIMTYPE_FEUD,    SIMSKILL_NORMAL,  L_MISC(102), MPBODY_NSA_LACKEY,    0x00 },
-	{ SIMTYPE_SPEED,   SIMSKILL_NORMAL,  L_MISC(103), MPBODY_MRBLONDE,      0x00 },
-	{ SIMTYPE_TURTLE,  SIMSKILL_NORMAL,  L_MISC(104), MPBODY_CARRINGTON,    0x00 },
-	{ SIMTYPE_VENGE,   SIMSKILL_NORMAL,  L_MISC(105), MPBODY_ALASKAN_GUARD, 0x00 },
+	// type,       skill,   name,   body, require feature
+	{ SIMTYPE_GENERAL, SIMSKILL_MEAT,    L_MISC(88),  MPBODY_DD_GUARD,      0                          },
+	{ SIMTYPE_GENERAL, SIMSKILL_EASY,    L_MISC(89),  MPBODY_DD_SECGUARD,   0                          },
+	{ SIMTYPE_GENERAL, SIMSKILL_NORMAL,  L_MISC(90),  MPBODY_DD_SHOCK_INF,  0                          },
+	{ SIMTYPE_GENERAL, SIMSKILL_HARD,    L_MISC(91),  MPBODY_DDSHOCK,       MPFEATURE_SIMSKILL_HARD    },
+	{ SIMTYPE_GENERAL, SIMSKILL_PERFECT, L_MISC(92),  MPBODY_STRIPES,       MPFEATURE_SIMSKILL_PERFECT },
+	{ SIMTYPE_GENERAL, SIMSKILL_DARK,    L_MISC(93),  MPBODY_MOORE,         MPFEATURE_SIMSKILL_DARK    },
+	{ SIMTYPE_PEACE,   SIMSKILL_NORMAL,  L_MISC(94),  MPBODY_DD_LABTECH,    0                          },
+	{ SIMTYPE_SHIELD,  SIMSKILL_NORMAL,  L_MISC(95),  MPBODY_G5_SWAT_GUARD, 0                          },
+	{ SIMTYPE_ROCKET,  SIMSKILL_NORMAL,  L_MISC(96),  MPBODY_G5_GUARD,      0                          },
+	{ SIMTYPE_KAZE,    SIMSKILL_NORMAL,  L_MISC(97),  MPBODY_PRES_SECURITY, 0                          },
+	{ SIMTYPE_FIST,    SIMSKILL_NORMAL,  L_MISC(98),  MPBODY_PELAGIC_GUARD, 0                          },
+	{ SIMTYPE_PREY,    SIMSKILL_NORMAL,  L_MISC(99),  MPBODY_DDSHOCK,       0                          },
+	{ SIMTYPE_COWARD,  SIMSKILL_NORMAL,  L_MISC(100), MPBODY_PRESIDENT,     0                          },
+	{ SIMTYPE_JUDGE,   SIMSKILL_NORMAL,  L_MISC(101), MPBODY_STEWARD,       0                          },
+	{ SIMTYPE_FEUD,    SIMSKILL_NORMAL,  L_MISC(102), MPBODY_NSA_LACKEY,    0                          },
+	{ SIMTYPE_SPEED,   SIMSKILL_NORMAL,  L_MISC(103), MPBODY_MRBLONDE,      0                          },
+	{ SIMTYPE_TURTLE,  SIMSKILL_NORMAL,  L_MISC(104), MPBODY_CARRINGTON,    0                          },
+	{ SIMTYPE_VENGE,   SIMSKILL_NORMAL,  L_MISC(105), MPBODY_ALASKAN_GUARD, 0                          },
 };
 
 // 2d7dc
 struct mpbody g_MpBodies[NUM_MPBODIES] = {
-	// global body ID,                name,             head,             unk06
-	/*0x00*/ { BODY_DARK_COMBAT,      L_OPTIONS(16),    HEAD_DARK_COMBAT, 0x00 },
-	/*0x01*/ { BODY_DARK_TRENCH,      L_OPTIONS(17),    HEAD_DARK_COMBAT, 0x46 },
-	/*0x02*/ { BODY_DARK_FROCK,       L_OPTIONS(18),    HEAD_DARK_FROCK,  0x41 },
-	/*0x03*/ { BODY_DARK_RIPPED,      L_OPTIONS(19),    HEAD_DARK_FROCK,  0x41 },
-	/*0x04*/ { BODY_DARK_AF1,         L_OPTIONS(20),    HEAD_DARK_COMBAT, 0x3f },
-	/*0x05*/ { BODY_DARK_LEATHER,     L_MPWEAPONS(156), HEAD_DARK_COMBAT, 0x37 },
-	/*0x06*/ { BODY_DARK_NEGOTIATOR,  L_MPWEAPONS(157), HEAD_DARK_COMBAT, 0x34 },
-	/*0x07*/ { BODY_DARKWET,          L_OPTIONS(21),    HEAD_DARKAQUA,    0x45 },
-	/*0x08*/ { BODY_DARKAQUALUNG,     L_OPTIONS(22),    HEAD_DARKAQUA,    0x45 },
-	/*0x09*/ { BODY_DARKSNOW,         L_OPTIONS(23),    HEAD_DARK_SNOW,   0x4a },
-	/*0x0a*/ { BODY_DARKLAB,          L_OPTIONS(24),    HEAD_DARK_COMBAT, 0x3a },
-	/*0x0b*/ { BODY_THEKING,          L_OPTIONS(25),    HEAD_ELVIS,       0x3d },
-	/*0x0c*/ { BODY_ELVIS1,           L_OPTIONS(26),    HEAD_ELVIS,       0x3d },
-	/*0x0d*/ { BODY_ELVISWAISTCOAT,   L_MPWEAPONS(158), HEAD_ELVIS,       0x3d },
-	/*0x0e*/ { BODY_CARRINGTON,       L_OPTIONS(27),    HEAD_CARRINGTON,  0x00 },
-	/*0x0f*/ { BODY_CARREVENINGSUIT,  L_OPTIONS(28),    HEAD_CARRINGTON,  0x41 },
-	/*0x10*/ { BODY_MRBLONDE,         L_OPTIONS(29),    HEAD_MRBLONDE,    0x38 },
-	/*0x11*/ { BODY_CASSANDRA,        L_OPTIONS(30),    HEAD_CASSANDRA,   0x00 },
-	/*0x12*/ { BODY_TRENT,            L_OPTIONS(31),    HEAD_TRENT,       0x35 },
-	/*0x13*/ { BODY_JONATHAN,         L_OPTIONS(32),    HEAD_JONATHAN,    0x4c },
-	/*0x14*/ { BODY_CILABTECH,        L_OPTIONS(33),    1000,             0x00 },
-	/*0x15*/ { BODY_CIFEMTECH,        L_OPTIONS(34),    1000,             0x00 },
-	/*0x16*/ { BODY_CISOLDIER,        L_OPTIONS(35),    1000,             0x00 },
-	/*0x17*/ { BODY_DDSHOCK,          L_OPTIONS(36),    HEAD_DDSHOCK,     0x00 },
-	/*0x18*/ { BODY_FEM_GUARD,        L_OPTIONS(37),    1000,             0x32 },
-	/*0x19*/ { BODY_DD_SECGUARD,      L_OPTIONS(38),    1000,             0x00 },
-	/*0x1a*/ { BODY_DD_GUARD,         L_OPTIONS(39),    1000,             0x00 },
-	/*0x1b*/ { BODY_DD_SHOCK_INF,     L_OPTIONS(40),    1000,             0x00 },
-	/*0x1c*/ { BODY_SECRETARY,        L_OPTIONS(41),    1000,             0x00 },
-	/*0x1d*/ { BODY_OFFICEWORKER,     L_OPTIONS(42),    1000,             0x33 },
-	/*0x1e*/ { BODY_OFFICEWORKER2,    L_OPTIONS(43),    1000,             0x33 },
-	/*0x1f*/ { BODY_NEGOTIATOR,       L_OPTIONS(44),    1000,             0x34 },
-	/*0x20*/ { BODY_DDSNIPER,         L_OPTIONS(45),    HEAD_DDSNIPER,    0x34 },
-	/*0x21*/ { BODY_G5_GUARD,         L_OPTIONS(46),    1000,             0x37 },
-	/*0x22*/ { BODY_G5_SWAT_GUARD,    L_OPTIONS(47),    1000,             0x37 },
-	/*0x23*/ { BODY_CIAGUY,           L_OPTIONS(48),    1000,             0x39 },
-	/*0x24*/ { BODY_FBIGUY,           L_OPTIONS(49),    1000,             0x39 },
-	/*0x25*/ { BODY_AREA51GUARD,      L_OPTIONS(50),    1000,             0x3a },
-	/*0x26*/ { BODY_A51TROOPER,       L_OPTIONS(51),    1000,             0x3a },
-	/*0x27*/ { BODY_A51AIRMAN,        L_OPTIONS(52),    1000,             0x3a },
-	/*0x28*/ { BODY_OVERALL,          L_OPTIONS(53),    1000,             0x3a },
-	/*0x29*/ { BODY_STRIPES,          L_OPTIONS(54),    1000,             0x44 },
-	/*0x2a*/ { BODY_LABTECH,          L_OPTIONS(55),    1000,             0x3b },
-	/*0x2b*/ { BODY_FEMLABTECH,       L_OPTIONS(56),    1000,             0x3b },
-	/*0x2c*/ { BODY_DD_LABTECH,       L_OPTIONS(57),    1000,             0x3b },
-	/*0x2d*/ { BODY_BIOTECH,          L_OPTIONS(58),    HEAD_BIOTECH,     0x3c },
-	/*0x2e*/ { BODY_ALASKAN_GUARD,    L_OPTIONS(59),    1000,             0x3e },
-	/*0x2f*/ { BODY_PILOTAF1,         L_OPTIONS(60),    1000,             0x3f },
-	/*0x30*/ { BODY_STEWARD,          L_OPTIONS(61),    1000,             0x3f },
-	/*0x31*/ { BODY_STEWARDESS,       L_OPTIONS(62),    1000,             0x3f },
-	/*0x32*/ { BODY_STEWARDESS_COAT,  L_OPTIONS(63),    1000,             0x3f },
-	/*0x33*/ { BODY_PRESIDENT,        L_OPTIONS(64),    HEAD_PRESIDENT,   0x41 },
-	/*0x34*/ { BODY_NSA_LACKEY,       L_OPTIONS(65),    1000,             0x36 },
-	/*0x35*/ { BODY_PRES_SECURITY,    L_OPTIONS(66),    1000,             0x43 },
-	/*0x36*/ { BODY_PRESIDENT_CLONE2, L_OPTIONS(67),    HEAD_PRESIDENT,   0x42 },
-	/*0x37*/ { BODY_PELAGIC_GUARD,    L_OPTIONS(68),    1000,             0x45 },
-	/*0x38*/ { BODY_MAIAN_SOLDIER,    L_OPTIONS(69),    HEAD_MAIAN_S,     0x3d },
-	/*0x39*/ { BODY_CONNERY,          L_OPTIONS(70),    1000,             0x40 },
-	/*0x3a*/ { BODY_MOORE,            L_OPTIONS(70),    1000,             0x40 },
-	/*0x3b*/ { BODY_DALTON,           L_OPTIONS(70),    1000,             0x40 },
-	/*0x3c*/ { BODY_DJBOND,           L_OPTIONS(70),    1000,             0x40 },
+	// global body ID,                name,             head,             require feature
+	/*0x00*/ { BODY_DARK_COMBAT,      L_OPTIONS(16),    HEAD_DARK_COMBAT, 0               },
+	/*0x01*/ { BODY_DARK_TRENCH,      L_OPTIONS(17),    HEAD_DARK_COMBAT, MPFEATURE_46    },
+	/*0x02*/ { BODY_DARK_FROCK,       L_OPTIONS(18),    HEAD_DARK_FROCK,  MPFEATURE_41    },
+	/*0x03*/ { BODY_DARK_RIPPED,      L_OPTIONS(19),    HEAD_DARK_FROCK,  MPFEATURE_41    },
+	/*0x04*/ { BODY_DARK_AF1,         L_OPTIONS(20),    HEAD_DARK_COMBAT, MPFEATURE_3F    },
+	/*0x05*/ { BODY_DARK_LEATHER,     L_MPWEAPONS(156), HEAD_DARK_COMBAT, MPFEATURE_37    },
+	/*0x06*/ { BODY_DARK_NEGOTIATOR,  L_MPWEAPONS(157), HEAD_DARK_COMBAT, MPFEATURE_34    },
+	/*0x07*/ { BODY_DARKWET,          L_OPTIONS(21),    HEAD_DARKAQUA,    MPFEATURE_45    },
+	/*0x08*/ { BODY_DARKAQUALUNG,     L_OPTIONS(22),    HEAD_DARKAQUA,    MPFEATURE_45    },
+	/*0x09*/ { BODY_DARKSNOW,         L_OPTIONS(23),    HEAD_DARK_SNOW,   MPFEATURE_4A    },
+	/*0x0a*/ { BODY_DARKLAB,          L_OPTIONS(24),    HEAD_DARK_COMBAT, MPFEATURE_3A    },
+	/*0x0b*/ { BODY_THEKING,          L_OPTIONS(25),    HEAD_ELVIS,       MPFEATURE_3D    },
+	/*0x0c*/ { BODY_ELVIS1,           L_OPTIONS(26),    HEAD_ELVIS,       MPFEATURE_3D    },
+	/*0x0d*/ { BODY_ELVISWAISTCOAT,   L_MPWEAPONS(158), HEAD_ELVIS,       MPFEATURE_3D    },
+	/*0x0e*/ { BODY_CARRINGTON,       L_OPTIONS(27),    HEAD_CARRINGTON,  0               },
+	/*0x0f*/ { BODY_CARREVENINGSUIT,  L_OPTIONS(28),    HEAD_CARRINGTON,  MPFEATURE_41    },
+	/*0x10*/ { BODY_MRBLONDE,         L_OPTIONS(29),    HEAD_MRBLONDE,    MPFEATURE_38    },
+	/*0x11*/ { BODY_CASSANDRA,        L_OPTIONS(30),    HEAD_CASSANDRA,   0               },
+	/*0x12*/ { BODY_TRENT,            L_OPTIONS(31),    HEAD_TRENT,       MPFEATURE_35    },
+	/*0x13*/ { BODY_JONATHAN,         L_OPTIONS(32),    HEAD_JONATHAN,    MPFEATURE_4C    },
+	/*0x14*/ { BODY_CILABTECH,        L_OPTIONS(33),    1000,             0               },
+	/*0x15*/ { BODY_CIFEMTECH,        L_OPTIONS(34),    1000,             0               },
+	/*0x16*/ { BODY_CISOLDIER,        L_OPTIONS(35),    1000,             0               },
+	/*0x17*/ { BODY_DDSHOCK,          L_OPTIONS(36),    HEAD_DDSHOCK,     0               },
+	/*0x18*/ { BODY_FEM_GUARD,        L_OPTIONS(37),    1000,             MPFEATURE_32    },
+	/*0x19*/ { BODY_DD_SECGUARD,      L_OPTIONS(38),    1000,             0               },
+	/*0x1a*/ { BODY_DD_GUARD,         L_OPTIONS(39),    1000,             0               },
+	/*0x1b*/ { BODY_DD_SHOCK_INF,     L_OPTIONS(40),    1000,             0               },
+	/*0x1c*/ { BODY_SECRETARY,        L_OPTIONS(41),    1000,             0               },
+	/*0x1d*/ { BODY_OFFICEWORKER,     L_OPTIONS(42),    1000,             MPFEATURE_33    },
+	/*0x1e*/ { BODY_OFFICEWORKER2,    L_OPTIONS(43),    1000,             MPFEATURE_33    },
+	/*0x1f*/ { BODY_NEGOTIATOR,       L_OPTIONS(44),    1000,             MPFEATURE_34    },
+	/*0x20*/ { BODY_DDSNIPER,         L_OPTIONS(45),    HEAD_DDSNIPER,    MPFEATURE_34    },
+	/*0x21*/ { BODY_G5_GUARD,         L_OPTIONS(46),    1000,             MPFEATURE_37    },
+	/*0x22*/ { BODY_G5_SWAT_GUARD,    L_OPTIONS(47),    1000,             MPFEATURE_37    },
+	/*0x23*/ { BODY_CIAGUY,           L_OPTIONS(48),    1000,             MPFEATURE_39    },
+	/*0x24*/ { BODY_FBIGUY,           L_OPTIONS(49),    1000,             MPFEATURE_39    },
+	/*0x25*/ { BODY_AREA51GUARD,      L_OPTIONS(50),    1000,             MPFEATURE_3A    },
+	/*0x26*/ { BODY_A51TROOPER,       L_OPTIONS(51),    1000,             MPFEATURE_3A    },
+	/*0x27*/ { BODY_A51AIRMAN,        L_OPTIONS(52),    1000,             MPFEATURE_3A    },
+	/*0x28*/ { BODY_OVERALL,          L_OPTIONS(53),    1000,             MPFEATURE_3A    },
+	/*0x29*/ { BODY_STRIPES,          L_OPTIONS(54),    1000,             MPFEATURE_44    },
+	/*0x2a*/ { BODY_LABTECH,          L_OPTIONS(55),    1000,             MPFEATURE_3B    },
+	/*0x2b*/ { BODY_FEMLABTECH,       L_OPTIONS(56),    1000,             MPFEATURE_3B    },
+	/*0x2c*/ { BODY_DD_LABTECH,       L_OPTIONS(57),    1000,             MPFEATURE_3B    },
+	/*0x2d*/ { BODY_BIOTECH,          L_OPTIONS(58),    HEAD_BIOTECH,     MPFEATURE_3C    },
+	/*0x2e*/ { BODY_ALASKAN_GUARD,    L_OPTIONS(59),    1000,             MPFEATURE_3E    },
+	/*0x2f*/ { BODY_PILOTAF1,         L_OPTIONS(60),    1000,             MPFEATURE_3F    },
+	/*0x30*/ { BODY_STEWARD,          L_OPTIONS(61),    1000,             MPFEATURE_3F    },
+	/*0x31*/ { BODY_STEWARDESS,       L_OPTIONS(62),    1000,             MPFEATURE_3F    },
+	/*0x32*/ { BODY_STEWARDESS_COAT,  L_OPTIONS(63),    1000,             MPFEATURE_3F    },
+	/*0x33*/ { BODY_PRESIDENT,        L_OPTIONS(64),    HEAD_PRESIDENT,   MPFEATURE_41    },
+	/*0x34*/ { BODY_NSA_LACKEY,       L_OPTIONS(65),    1000,             MPFEATURE_36    },
+	/*0x35*/ { BODY_PRES_SECURITY,    L_OPTIONS(66),    1000,             MPFEATURE_43    },
+	/*0x36*/ { BODY_PRESIDENT_CLONE2, L_OPTIONS(67),    HEAD_PRESIDENT,   MPFEATURE_42    },
+	/*0x37*/ { BODY_PELAGIC_GUARD,    L_OPTIONS(68),    1000,             MPFEATURE_45    },
+	/*0x38*/ { BODY_MAIAN_SOLDIER,    L_OPTIONS(69),    HEAD_MAIAN_S,     MPFEATURE_3D    },
+	/*0x39*/ { BODY_CONNERY,          L_OPTIONS(70),    1000,             MPFEATURE_8BOTS },
+	/*0x3a*/ { BODY_MOORE,            L_OPTIONS(70),    1000,             MPFEATURE_8BOTS },
+	/*0x3b*/ { BODY_DALTON,           L_OPTIONS(70),    1000,             MPFEATURE_8BOTS },
+	/*0x3c*/ { BODY_DJBOND,           L_OPTIONS(70),    1000,             MPFEATURE_8BOTS },
 };
 
 u32 g_MpMaleHeads[] = {
@@ -4828,9 +4828,9 @@ s32 mpGetHeadId(u8 headnum)
 	return g_MpHeads[headnum].headnum;
 }
 
-s32 mpGetHeadUnlockValue(u8 headnum)
+s32 mpGetHeadRequiredFeature(u8 headnum)
 {
-	return g_MpHeads[headnum].unlockvalue;
+	return g_MpHeads[headnum].requirefeature;
 }
 
 s32 mpGetBeauHeadId(u8 headnum)
@@ -4889,14 +4889,14 @@ char *mpGetBodyName(u8 bodynum)
 	return langGet(g_MpBodies[bodynum].name);
 }
 
-u8 mpGetBodyUnk06(u8 bodynum)
+u8 mpGetBodyRequiredFeature(u8 bodynum)
 {
 	// Possible @bug: This should probably be >=
 	if (bodynum > NUM_MPBODIES) {
 		bodynum = 0;
 	}
 
-	return g_MpBodies[bodynum].unlockvalue;
+	return g_MpBodies[bodynum].requirefeature;
 }
 
 s32 mpGetMpheadnumByMpbodynum(s32 mpbodynum)
@@ -5825,7 +5825,7 @@ GLOBAL_ASM(
 glabel func0f18cc8c
 /*  f18cc8c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f18cc90:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18cc94:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f18cc94:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f18cc98:	24040040 */ 	addiu	$a0,$zero,0x40
 /*  f18cc9c:	10400003 */ 	beqz	$v0,.L0f18ccac
 /*  f18cca0:	3c04800b */ 	lui	$a0,%hi(g_MpSetup+0x16)
@@ -6412,7 +6412,7 @@ glabel func0f18d2b8
 /*  f18d554:	02802025 */ 	or	$a0,$s4,$zero
 /*  f18d558:	02202825 */ 	or	$a1,$s1,$zero
 /*  f18d55c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f18d560:	0fc6712e */ 	jal	mpSetChallengeCompletedByChrWithNumPlayers
+/*  f18d560:	0fc6712e */ 	jal	mpSetChallengeCompletedByPlayerWithNumPlayers
 /*  f18d564:	00403825 */ 	or	$a3,$v0,$zero
 /*  f18d568:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f18d56c:	5612fff7 */ 	bnel	$s0,$s2,.L0f18d54c
@@ -6685,7 +6685,7 @@ glabel func0f18d5c4
 /*  f18d93c:	02802025 */ 	or	$a0,$s4,$zero
 .L0f18d940:
 /*  f18d940:	02202825 */ 	or	$a1,$s1,$zero
-/*  f18d944:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
+/*  f18d944:	0fc6711f */ 	jal	mpIsChallengeCompletedByPlayerWithNumPlayers
 /*  f18d948:	02003025 */ 	or	$a2,$s0,$zero
 /*  f18d94c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f18d950:	00402825 */ 	or	$a1,$v0,$zero
@@ -6857,8 +6857,8 @@ bool mpIsPresetUnlocked(s32 presetnum)
 	s32 i;
 
 	for (i = 0; i != 16; i++) {
-		if (!mpIsChallengeComplete(g_MpPresets[presetnum].challenges[i]) &&
-				g_MpPresets[presetnum].challenges[i] != 22) {
+		if (!mpIsFeatureUnlocked(g_MpPresets[presetnum].requirefeatures[i]) &&
+				g_MpPresets[presetnum].requirefeatures[i] != MPFEATURE_WEAPON_SHIELD) {
 			return false;
 		}
 	}
@@ -7002,7 +7002,7 @@ glabel func0f18dcec
 /*  f18de3c:	26f70004 */ 	addiu	$s7,$s7,0x4
 /*  f18de40:	1420ffd2 */ 	bnez	$at,.L0f18dd8c
 /*  f18de44:	a239ffc5 */ 	sb	$t9,-0x3b($s1)
-/*  f18de48:	0fc67244 */ 	jal	mpIsChallengeComplete
+/*  f18de48:	0fc67244 */ 	jal	mpIsFeatureUnlocked
 /*  f18de4c:	24040016 */ 	addiu	$a0,$zero,0x16
 /*  f18de50:	1440000c */ 	bnez	$v0,.L0f18de84
 /*  f18de54:	3c04800b */ 	lui	$a0,%hi(g_MpSetup+0x6)
@@ -7211,7 +7211,7 @@ glabel func0f18df5c
 /*  f18e130:	261000a0 */ 	addiu	$s0,$s0,0xa0
 /*  f18e134:	1611fffb */ 	bne	$s0,$s1,.L0f18e124
 /*  f18e138:	a202ff71 */ 	sb	$v0,-0x8f($s0)
-/*  f18e13c:	0fc66fe8 */ 	jal	func0f19bfa0
+/*  f18e13c:	0fc66fe8 */ 	jal	mpForceUnlockSimulantFeatures
 /*  f18e140:	00000000 */ 	nop
 /*  f18e144:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*  f18e148:	8fb00018 */ 	lw	$s0,0x18($sp)

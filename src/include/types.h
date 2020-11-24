@@ -3070,7 +3070,7 @@ struct stagetableentry {
 struct mpweaponset {
 	/*0x00*/ u16 name;
 	/*0x02*/ u8 slots[6];
-	/*0x08*/ u8 unlocks[4];
+	/*0x08*/ u8 requirefeatures[4];
 	/*0x0c*/ u8 unk0c;
 	/*0x0d*/ u8 unk0d;
 	/*0x0e*/ u8 unk0e;
@@ -3081,7 +3081,7 @@ struct mpweaponset {
 
 struct mphead {
 	s16 headnum;
-	u8 unlockvalue;
+	u8 requirefeature;
 };
 
 struct mpsimulanttype {
@@ -3089,14 +3089,14 @@ struct mpsimulanttype {
 	/*0x01*/ u8 skill;
 	/*0x02*/ u16 name;
 	/*0x04*/ u16 body;
-	/*0x06*/ u8 unlockvalue;
+	/*0x06*/ u8 requirefeature;
 };
 
 struct mpbody {
 	s16 bodynum;
 	s16 name;
 	s16 headnum;
-	u8 unlockvalue;
+	u8 requirefeature;
 };
 
 struct mptrack {
@@ -4484,7 +4484,7 @@ struct mpscenariooverview {
 
 struct mparena {
 	s16 stagenum;
-	u8 unlock;
+	u8 requirefeature;
 	u16 name;
 };
 
@@ -4521,11 +4521,20 @@ struct challenge {
 	/*0x00*/ u16 name;
 	/*0x02*/ s16 confignum;
 
-	// One byte for each number of players,
-	// and 4 bits in each to mark which players completed it
-	/*0x04*/ u8 completions[5];
+	// Bitfield xxx4 321a
+	// The number denotes if that player has the challenge available,
+	// and `a` denotes if any other has the challenge available.
+	/*0x04*/ u8 availability;
 
-	/*0x09*/ u8 unk09[16];
+	// Same structure as availability, however each byte determines how many
+	// players it was completed with. So completions[0] is for completions with
+	// a single player and completions[3] is for completions with 4 players.
+	/*0x05*/ u8 completions[4];
+
+	// Array of features which will become unlocked once the challenge is
+	// available. Seems to be unused though, as all arrays are empty.
+	// Maybe it's populated at runtime?
+	/*0x09*/ u8 unlockfeatures[16];
 };
 
 struct scenariodata_cbt {
@@ -4777,7 +4786,7 @@ struct criteria_holograph {
 struct mppreset {
 	u16 name;
 	u32 confignum;
-	u8 challenges[16];
+	u8 requirefeatures[16]; // Doesn't seem to be used? All values are zero
 };
 
 struct explosiontype {
@@ -5816,7 +5825,7 @@ struct mpweapon {
 	/*0x03*/ s8 weapon2ammotypeminusone;
 	/*0x04*/ u8 weapon2ammoqty;
 	/*0x05*/ u8 giveweapon : 1;
-	/*0x05*/ u8 unlock : 7;
+	/*0x05*/ u8 unlockfeature : 7;
 	/*0x06*/ s16 model;
 	/*0x08*/ s16 extrascale;
 };

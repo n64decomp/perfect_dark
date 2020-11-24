@@ -3277,7 +3277,7 @@ void setupParseObjects(s32 stagenum)
 				s32 maxsimulants;
 				s32 slotnum;
 
-				if (mpIsChallengeComplete(CHALLENGE_UNK64)) {
+				if (mpIsFeatureUnlocked(MPFEATURE_8BOTS)) {
 					maxsimulants = 8;
 				} else {
 					maxsimulants = 4;
