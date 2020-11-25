@@ -5912,30 +5912,18 @@ glabel func0f0bc120
 /*  f0bc3ec:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0bc3f0
-/*  f0bc3f0:	3c0e8009 */ 	lui	$t6,%hi(g_Is4Mb)
-/*  f0bc3f4:	91ce0af0 */ 	lbu	$t6,%lo(g_Is4Mb)($t6)
-/*  f0bc3f8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0bc3fc:	3c028007 */ 	lui	$v0,%hi(var800705c0)
-/*  f0bc400:	15c1000d */ 	bne	$t6,$at,.L0f0bc438
-/*  f0bc404:	244205c0 */ 	addiu	$v0,$v0,%lo(var800705c0)
-/*  f0bc408:	240300dc */ 	addiu	$v1,$zero,0xdc
-/*  f0bc40c:	240f00b4 */ 	addiu	$t7,$zero,0xb4
-/*  f0bc410:	24180014 */ 	addiu	$t8,$zero,0x14
-/*  f0bc414:	24190088 */ 	addiu	$t9,$zero,0x88
-/*  f0bc418:	2408002a */ 	addiu	$t0,$zero,0x2a
-/*  f0bc41c:	ac430004 */ 	sw	$v1,0x4($v0)
-/*  f0bc420:	ac400018 */ 	sw	$zero,0x18($v0)
-/*  f0bc424:	ac430014 */ 	sw	$v1,0x14($v0)
-/*  f0bc428:	ac4f001c */ 	sw	$t7,0x1c($v0)
-/*  f0bc42c:	ac580020 */ 	sw	$t8,0x20($v0)
-/*  f0bc430:	ac590024 */ 	sw	$t9,0x24($v0)
-/*  f0bc434:	ac480028 */ 	sw	$t0,0x28($v0)
-.L0f0bc438:
-/*  f0bc438:	03e00008 */ 	jr	$ra
-/*  f0bc43c:	00000000 */ 	nop
-);
+void func0f0bc3f0(void)
+{
+	if (IS4MB()) {
+		var800705c0[0].unk04 = 220;
+		var800705c0[0].unk18 = 0;
+		var800705c0[0].unk14 = 220;
+		var800705c0[0].unk1c = 180;
+		var800705c0[0].unk20 = 20;
+		var800705c0[0].unk24 = 136;
+		var800705c0[0].unk28 = 42;
+	}
+}
 
 void optionsSetHiRes(bool enable)
 {
@@ -5950,7 +5938,7 @@ s16 func0f0bc44c(void)
 
 s16 func0f0bc478(void)
 {
-	s16 value = var800705c0[g_HiResActive].unk06;
+	s16 value = var800705c0[g_HiResActive].unk04;
 
 	if (g_Vars.unk0004e0) {
 		value = value >> 1;
