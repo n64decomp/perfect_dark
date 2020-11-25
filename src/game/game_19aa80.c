@@ -364,18 +364,12 @@ glabel func0f19ab70
 /*  f19af04:	8fbe0038 */ 	lw	$s8,0x38($sp)
 /*  f19af08:	03e00008 */ 	jr	$ra
 /*  f19af0c:	27bd0218 */ 	addiu	$sp,$sp,0x218
-/*  f19af10:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f19af14:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f19af18:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19af1c:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f19af20:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f19af24:	3c028009 */ 	lui	$v0,%hi(g_MpChallenges+0x4)
-/*  f19af28:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f19af2c:	904284bc */ 	lbu	$v0,%lo(g_MpChallenges+0x4)($v0)
-/*  f19af30:	304f0001 */ 	andi	$t7,$v0,0x1
-/*  f19af34:	03e00008 */ 	jr	$ra
-/*  f19af38:	000f102b */ 	sltu	$v0,$zero,$t7
 );
+
+bool func0f19af10(s32 challengeindex)
+{
+	return (g_MpChallenges[challengeindex].availability & 1) != 0;
+}
 
 bool mpIsChallengeAvailableToPlayer(s32 chrnum, s32 challengeindex)
 {
