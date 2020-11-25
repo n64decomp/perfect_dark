@@ -524,7 +524,7 @@ Gfx *fadeRender(Gfx *gdl)
 	gDPPipeSync(gdl++);
 	gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
     gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
-	gDPSetPrimColor(gdl++, 0, 0, colour);
+	gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
 
 	gDPFillRectangle(gdl++,
 			viGetViewLeft(),

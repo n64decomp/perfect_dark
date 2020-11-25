@@ -306,7 +306,7 @@ Gfx *gfxSetPrimColour(Gfx *gdl, u32 colour)
     gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
     gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
 
-	gDPSetPrimColor(gdl++, 0, 0, colour);
+	gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
 
 	return gdl;
 }
