@@ -4355,84 +4355,31 @@ void cameraDoAnimation(s16 animnum)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0ba190
-.late_rodata
-glabel var7f1ad5d0
-.word 0x40c907a9
-glabel var7f1ad5d4
-.word 0x42653838
-glabel var7f1ad5d8
-.word 0x3c8ef461
-.text
-/*  f0ba190:	3c01800a */ 	lui	$at,%hi(var8009de2c)
-/*  f0ba194:	27bdff60 */ 	addiu	$sp,$sp,-160
-/*  f0ba198:	ac24de2c */ 	sw	$a0,%lo(var8009de2c)($at)
-/*  f0ba19c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0ba1a0:	3c04800a */ 	lui	$a0,%hi(g_CameraAnimNum)
-/*  f0ba1a4:	0c008dda */ 	jal	animGetNumFrames
-/*  f0ba1a8:	8484de18 */ 	lh	$a0,%lo(g_CameraAnimNum)($a0)
-/*  f0ba1ac:	244effff */ 	addiu	$t6,$v0,-1
-/*  f0ba1b0:	3c04800a */ 	lui	$a0,%hi(g_CameraAnimNum)
-/*  f0ba1b4:	afae0034 */ 	sw	$t6,0x34($sp)
-/*  f0ba1b8:	0c008f4e */ 	jal	func00023d38
-/*  f0ba1bc:	8484de18 */ 	lh	$a0,%lo(g_CameraAnimNum)($a0)
-/*  f0ba1c0:	3c04800a */ 	lui	$a0,%hi(g_CameraAnimNum)
-/*  f0ba1c4:	8484de18 */ 	lh	$a0,%lo(g_CameraAnimNum)($a0)
-/*  f0ba1c8:	0c008eac */ 	jal	func00023ab0
-/*  f0ba1cc:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f0ba1d0:	0c008f43 */ 	jal	func00023d0c
-/*  f0ba1d4:	a3a2007b */ 	sb	$v0,0x7b($sp)
-/*  f0ba1d8:	93af007b */ 	lbu	$t7,0x7b($sp)
-/*  f0ba1dc:	3c068008 */ 	lui	$a2,%hi(stagethinglist_221b4)
-/*  f0ba1e0:	3c07800a */ 	lui	$a3,%hi(g_CameraAnimNum)
-/*  f0ba1e4:	27b80094 */ 	addiu	$t8,$sp,0x94
-/*  f0ba1e8:	27b90088 */ 	addiu	$t9,$sp,0x88
-/*  f0ba1ec:	27a8007c */ 	addiu	$t0,$sp,0x7c
-/*  f0ba1f0:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f0ba1f4:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f0ba1f8:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f0ba1fc:	84e7de18 */ 	lh	$a3,%lo(g_CameraAnimNum)($a3)
-/*  f0ba200:	24c6c194 */ 	addiu	$a2,$a2,%lo(stagethinglist_221b4)
-/*  f0ba204:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0ba208:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0ba20c:	0c009014 */ 	jal	func00024050
-/*  f0ba210:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0ba214:	27a40094 */ 	addiu	$a0,$sp,0x94
-/*  f0ba218:	0c005923 */ 	jal	func0001648c
-/*  f0ba21c:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f0ba220:	c7ac0058 */ 	lwc1	$f12,0x58($sp)
-/*  f0ba224:	c7ae0060 */ 	lwc1	$f14,0x60($sp)
-/*  f0ba228:	46006307 */ 	neg.s	$f12,$f12
-/*  f0ba22c:	0fc259d4 */ 	jal	func0f096750
-/*  f0ba230:	46007387 */ 	neg.s	$f14,$f14
-/*  f0ba234:	3c017f1b */ 	lui	$at,%hi(var7f1ad5d0)
-/*  f0ba238:	c424d5d0 */ 	lwc1	$f4,%lo(var7f1ad5d0)($at)
-/*  f0ba23c:	3c017f1b */ 	lui	$at,%hi(var7f1ad5d4)
-/*  f0ba240:	c428d5d4 */ 	lwc1	$f8,%lo(var7f1ad5d4)($at)
-/*  f0ba244:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f0ba248:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0ba24c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0ba250:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f0ba254:	46083082 */ 	mul.s	$f2,$f6,$f8
-/*  f0ba258:	8c4902a0 */ 	lw	$t1,0x2a0($v0)
-/*  f0ba25c:	44815000 */ 	mtc1	$at,$f10
-/*  f0ba260:	3c017f1b */ 	lui	$at,%hi(var7f1ad5d8)
-/*  f0ba264:	46025401 */ 	sub.s	$f16,$f10,$f2
-/*  f0ba268:	e5220144 */ 	swc1	$f2,0x144($t1)
-/*  f0ba26c:	c432d5d8 */ 	lwc1	$f18,%lo(var7f1ad5d8)($at)
-/*  f0ba270:	8c4a02a0 */ 	lw	$t2,0x2a0($v0)
-/*  f0ba274:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f0ba278:	8d4b00bc */ 	lw	$t3,0xbc($t2)
-/*  f0ba27c:	8d640004 */ 	lw	$a0,0x4($t3)
-/*  f0ba280:	44052000 */ 	mfc1	$a1,$f4
-/*  f0ba284:	0fc0f94e */ 	jal	func0f03e538
-/*  f0ba288:	00000000 */ 	nop
-/*  f0ba28c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0ba290:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
-/*  f0ba294:	03e00008 */ 	jr	$ra
-/*  f0ba298:	00000000 */ 	nop
-);
+void func0f0ba190(u32 arg0)
+{
+	struct coord sp94;
+	struct coord sp88;
+	struct coord sp7c;
+	u8 sp7f;
+	f32 sp38[16];
+	s32 lastframe;
+	f32 theta;
+	u32 stack;
+
+	var8009de2c = arg0;
+	lastframe = animGetNumFrames(g_CameraAnimNum) - 1;
+	func00023d38(g_CameraAnimNum);
+	sp7f = func00023ab0(g_CameraAnimNum, lastframe);
+	func00023d0c();
+	func00024050(0, 0, &stagethinglist_221b4, g_CameraAnimNum, sp7f, &sp94, &sp88, &sp7c);
+	func0001648c(&sp94, sp38);
+
+	theta = func0f096750(-sp38[8], -sp38[10]);
+	theta = (M_BADTAU - theta) * 57.304901123047f;
+	g_Vars.bond->vv_theta = theta;
+
+	func0f03e538(g_Vars.bond->prop->chr, (360 - theta) * 0.017450513318181f);
+}
 
 GLOBAL_ASM(
 glabel func0f0ba29c
