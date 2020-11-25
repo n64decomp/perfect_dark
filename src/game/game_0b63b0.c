@@ -224,10 +224,6 @@ struct healthdamagetype g_HealthDamageTypes[] = {
 	{ 20, 55, 88, 130, 145 },
 };
 
-u32 var800709c4 = 0x00000000;
-u32 var800709c8 = 0x00000000;
-u32 var800709cc = 0x00000000;
-
 GLOBAL_ASM(
 glabel func0f0b63b0
 /*  f0b63b0:	44856000 */ 	mtc1	$a1,$f12
@@ -7026,39 +7022,16 @@ glabel func0f0bd358
 /*  f0bd3c0:	46001006 */ 	mov.s	$f0,$f2
 );
 
-GLOBAL_ASM(
-glabel func0f0bd3c4
-/*  f0bd3c4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0bd3c8:	3c0e8007 */ 	lui	$t6,%hi(var800709c4)
-/*  f0bd3cc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0bd3d0:	25ce09c4 */ 	addiu	$t6,$t6,%lo(var800709c4)
-/*  f0bd3d4:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f0bd3d8:	27a6001c */ 	addiu	$a2,$sp,0x1c
-/*  f0bd3dc:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0bd3e0:	acc10000 */ 	sw	$at,0x0($a2)
-/*  f0bd3e4:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f0bd3e8:	acd90004 */ 	sw	$t9,0x4($a2)
-/*  f0bd3ec:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f0bd3f0:	acc10008 */ 	sw	$at,0x8($a2)
-/*  f0bd3f4:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0bd3f8:	8c4800d8 */ 	lw	$t0,0xd8($v0)
-/*  f0bd3fc:	2444037c */ 	addiu	$a0,$v0,0x37c
-/*  f0bd400:	55000006 */ 	bnezl	$t0,.L0f0bd41c
-/*  f0bd404:	44806000 */ 	mtc1	$zero,$f12
-/*  f0bd408:	0fc4ab3b */ 	jal	func0f12acec
-/*  f0bd40c:	24450388 */ 	addiu	$a1,$v0,0x388
-/*  f0bd410:	10000005 */ 	b	.L0f0bd428
-/*  f0bd414:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0bd418:	44806000 */ 	mtc1	$zero,$f12
-.L0f0bd41c:
-/*  f0bd41c:	0c002a94 */ 	jal	func0000aa50
-/*  f0bd420:	00000000 */ 	nop
-/*  f0bd424:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0bd428:
-/*  f0bd428:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0bd42c:	03e00008 */ 	jr	$ra
-/*  f0bd430:	00000000 */ 	nop
-);
+void func0f0bd3c4(void)
+{
+	struct coord coord = {0, 0, 0};
+
+	if (g_Vars.currentplayer->isdead == false) {
+		func0f12acec(&g_Vars.currentplayer->bond2.unk10, &g_Vars.currentplayer->bond2.unk1c, &coord);
+	} else {
+		func0000aa50(0);
+	}
+}
 
 void currentPlayerAutoWalk(s16 aimpad, u8 walkspeed, u8 turnspeed, u8 lookup, u8 dist)
 {

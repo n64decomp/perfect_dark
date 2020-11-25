@@ -19,7 +19,7 @@ void func00009c3c(s32 stagenum);
 void func00009ec4(s32 arg0);
 u32 func00009ed4(void);
 void func0000a044(void);
-u32 func0000aa50(void);
+void func0000aa50(f32 arg0);
 void func0000aab0(u32 arg0);
 u32 viGetUnk28(void);
 u32 vi2GetUnk28(void);
