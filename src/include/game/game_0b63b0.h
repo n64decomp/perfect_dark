@@ -57,7 +57,7 @@ s32 func0f0bcaa0(void);
 s16 func0f0bce24(void);
 f32 func0f0bd358(void);
 void func0f0bd3c4(void);
-void func0f0bd4e4(f32 *arg0);
+void currentPlayerTickTeleport(f32 *arg0);
 u32 func0f0bd764(void);
 void func0f0bd904(bool arg0);
 u32 func0f0bfc7c(void);
