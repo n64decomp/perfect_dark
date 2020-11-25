@@ -2361,7 +2361,7 @@ struct player {
 	/*0x0310*/ struct coord bondprevpos;
 	/*0x031c*/ f32 thetadie;
 	/*0x0320*/ f32 vertadie;
-	/*0x0324*/ u32 bondtype;
+	/*0x0324*/ u32 bondtype; // OUTFIT constant
 	/*0x0328*/ bool startnewbonddie;
 	/*0x032c*/ bool redbloodfinished;
 	/*0x0330*/ bool deathanimfinished;
@@ -2791,6 +2791,7 @@ struct player {
 	/*0x1c48*/ f32 unk1c48;
 	/*0x1c4c*/ f32 unk1c4c;
 	/*0x1c50*/ u8 unk1c50_01 : 1;
+	/*0x1c51*/ u8 disguised : 1;
 	/*0x1c54*/ u32 unk1c54;
 	/*0x1c58*/ f32 unk1c58;
 	/*0x1c5c*/ f32 stealhealth;

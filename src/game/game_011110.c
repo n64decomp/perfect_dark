@@ -1266,7 +1266,7 @@ glabel var7f1a827c
 /*  f0123fc:	ac4004b4 */ 	sw	$zero,0x4b4($v0)
 /*  f012400:	27a40048 */ 	addiu	$a0,$sp,0x48
 /*  f012404:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f012408:	0fc2e1cb */ 	jal	func0f0b872c
+/*  f012408:	0fc2e1cb */ 	jal	currentPlayerChooseBodyAndHead
 /*  f01240c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f012410:	8e2a0284 */ 	lw	$t2,0x284($s1)
 /*  f012414:	8faf0048 */ 	lw	$t7,0x48($sp)
@@ -1620,7 +1620,7 @@ glabel var7f1a827c
 //		g_Vars.unk0004b8[i] = 0;
 //	}
 //
-//	func0f0b872c(&bodynum, &headnum, 0);
+//	currentPlayerChooseBodyAndHead(&bodynum, &headnum, 0);
 //	g_Vars.currentplayer->prop->chr->bodynum = bodynum;
 //	g_Vars.currentplayer->prop->chr->headnum = headnum;
 //}

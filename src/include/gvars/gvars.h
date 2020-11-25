@@ -141,8 +141,8 @@ struct g_vars {
 	/*000434*/ u8 *ailist;
 	/*000438*/ u32 aioffset;
 	/*00043c*/ u32 unk00043c;
-	/*000440*/ s32 unk000440;
-	/*000444*/ s32 unk000444;
+	/*000440*/ s32 antiheadnum;
+	/*000444*/ s32 antibodynum;
 	/*000448*/ s32 coopradaron;
 	/*00044c*/ s32 antiradaron;
 	/*000450*/ s32 pendingantiplayernum;

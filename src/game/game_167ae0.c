@@ -268,8 +268,8 @@ void func0f167e7c(s32 stagenum)
 	g_Vars.restartlevel = false;
 	g_Vars.unk000478 = 0;
 	g_Vars.unk000488 = 0;
-	g_Vars.unk000440 = -1;
-	g_Vars.unk000444 = -1;
+	g_Vars.antiheadnum = -1;
+	g_Vars.antibodynum = -1;
 	g_Vars.dontplaynrg = false;
 	g_Vars.in_cutscene = 0;
 	g_Vars.unk0004d3 = 0;

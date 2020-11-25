@@ -4813,7 +4813,7 @@ glabel func0f18b9e4
 /*  f18bb18:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-u32 func0f18bb1c(void)
+s32 func0f18bb1c(void)
 {
 	return NUM_MPHEADS;
 }

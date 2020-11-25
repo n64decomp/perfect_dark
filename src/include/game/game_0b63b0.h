@@ -18,7 +18,7 @@ u32 func0f0b7c60(void);
 void func0f0b802c(void);
 void func0f0b85a0(f32 *floats, struct coord *pos);
 u32 func0f0b85f8(void);
-void func0f0b872c(s32 *bodynum, s32 *headnum, s32 arg2);
+void currentPlayerChooseBodyAndHead(s32 *bodynum, s32 *headnum, s32 *arg2);
 void func0f0b8ba0(void);
 void func0f0b9538(void);
 void func0f0b96e8(void);

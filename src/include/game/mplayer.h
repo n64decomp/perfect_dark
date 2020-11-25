@@ -45,7 +45,7 @@ u32 func0f18a030(void);
 void mpCalculatePlayerTitle(struct mpplayer *mpplayer);
 u32 func0f18a56c(void);
 void func0f18b9e4(void);
-u32 func0f18bb1c(void);
+s32 func0f18bb1c(void);
 s32 mpGetNumHeads(void);
 s32 mpGetHeadId(u8 headnum);
 s32 mpGetHeadRequiredFeature(u8 headnum);
