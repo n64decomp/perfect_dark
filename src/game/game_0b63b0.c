@@ -13430,66 +13430,25 @@ s32 getMissionTime(void)
 	return g_Vars.currentplayer->bondviewlevtime60;
 }
 
-GLOBAL_ASM(
-glabel func0f0c228c
-/*  f0c228c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0c2290:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c2294:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f0c2298:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0c229c:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f0c22a0:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x64)
-/*  f0c22a4:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f0c22a8:	8c84a024 */ 	lw	$a0,%lo(g_Vars+0x64)($a0)
-/*  f0c22ac:	0fc2b6ef */ 	jal	bullettailTick
-/*  f0c22b0:	24840814 */ 	addiu	$a0,$a0,2068
-/*  f0c22b4:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f0c22b8:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f0c22bc:	00027880 */ 	sll	$t7,$v0,0x2
-/*  f0c22c0:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x64)
-/*  f0c22c4:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f0c22c8:	8c84a024 */ 	lw	$a0,%lo(g_Vars+0x64)($a0)
-/*  f0c22cc:	0fc2b6ef */ 	jal	bullettailTick
-/*  f0c22d0:	24840fb8 */ 	addiu	$a0,$a0,4024
-/*  f0c22d4:	8fb80020 */ 	lw	$t8,0x20($sp)
-/*  f0c22d8:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x314)
-/*  f0c22dc:	8f020004 */ 	lw	$v0,0x4($t8)
-/*  f0c22e0:	5040001c */ 	beqzl	$v0,.L0f0c2354
-/*  f0c22e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c22e8:	8f39a2d4 */ 	lw	$t9,%lo(g_Vars+0x314)($t9)
-/*  f0c22ec:	53200019 */ 	beqzl	$t9,.L0f0c2354
-/*  f0c22f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c22f4:	8045017c */ 	lb	$a1,0x17c($v0)
-/*  f0c22f8:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0c22fc:	3c0a800a */ 	lui	$t2,%hi(g_Fireslots)
-/*  f0c2300:	04a00009 */ 	bltz	$a1,.L0f0c2328
-/*  f0c2304:	00054080 */ 	sll	$t0,$a1,0x2
-/*  f0c2308:	01054023 */ 	subu	$t0,$t0,$a1
-/*  f0c230c:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f0c2310:	25090004 */ 	addiu	$t1,$t0,0x4
-/*  f0c2314:	254ad150 */ 	addiu	$t2,$t2,%lo(g_Fireslots)
-/*  f0c2318:	012a2021 */ 	addu	$a0,$t1,$t2
-/*  f0c231c:	0fc2b6ef */ 	jal	bullettailTick
-/*  f0c2320:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0c2324:	8fa3001c */ 	lw	$v1,0x1c($sp)
-.L0f0c2328:
-/*  f0c2328:	8062017d */ 	lb	$v0,0x17d($v1)
-/*  f0c232c:	3c0d800a */ 	lui	$t5,%hi(g_Fireslots)
-/*  f0c2330:	25add150 */ 	addiu	$t5,$t5,%lo(g_Fireslots)
-/*  f0c2334:	04400006 */ 	bltz	$v0,.L0f0c2350
-/*  f0c2338:	00025880 */ 	sll	$t3,$v0,0x2
-/*  f0c233c:	01625823 */ 	subu	$t3,$t3,$v0
-/*  f0c2340:	000b5900 */ 	sll	$t3,$t3,0x4
-/*  f0c2344:	256c0004 */ 	addiu	$t4,$t3,0x4
-/*  f0c2348:	0fc2b6ef */ 	jal	bullettailTick
-/*  f0c234c:	018d2021 */ 	addu	$a0,$t4,$t5
-.L0f0c2350:
-/*  f0c2350:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0c2354:
-/*  f0c2354:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0c2358:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0c235c:	03e00008 */ 	jr	$ra
-/*  f0c2360:	00000000 */ 	nop
-);
+s32 func0f0c228c(struct prop *prop)
+{
+	bullettailTick(&g_Vars.players[propGetPlayerNum(prop)]->hands[0].bullettail);
+	bullettailTick(&g_Vars.players[propGetPlayerNum(prop)]->hands[1].bullettail);
+
+	if (prop->chr && g_Vars.mplayerisrunning) {
+		struct chrdata *chr = prop->chr;
+
+		if (chr->fireslot[0] >= 0) {
+			bullettailTick(&g_Fireslots[chr->fireslot[0]].bullettail);
+		}
+
+		if (chr->fireslot[1] >= 0) {
+			bullettailTick(&g_Fireslots[chr->fireslot[1]].bullettail);
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0c2364

@@ -1672,6 +1672,21 @@ struct threat {
 	s16 unk0a;
 };
 
+struct bullettail {
+	/*0x00*/ s8 age;
+	/*0x01*/ s8 unk01;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ f32 maxdist;
+	/*0x20*/ f32 speed;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ f32 dist;
+};
+
 // Weapon data per hand
 struct hand {
 	/*0x0638*/ u8 weaponnum;
@@ -1797,17 +1812,7 @@ struct hand {
 	/*0x0808*/ u32 unk0808;
 	/*0x080c*/ u32 unk080c;
 	/*0x0810*/ u32 unk0810;
-	/*0x0814*/ u32 unk0814;
-	/*0x0818*/ u32 unk0818;
-	/*0x081c*/ u32 unk081c;
-	/*0x0820*/ u32 unk0820;
-	/*0x0824*/ u32 unk0824;
-	/*0x0828*/ u32 unk0828;
-	/*0x082c*/ u32 unk082c;
-	/*0x0830*/ u32 unk0830;
-	/*0x0834*/ u32 unk0834;
-	/*0x0838*/ u32 unk0838;
-	/*0x083c*/ u32 unk083c;
+	/*0x0814*/ struct bullettail bullettail;
 	/*0x0840*/ f32 unk0840;
 	/*0x0844*/ u32 unk0844;
 	/*0x0848*/ u32 unk0848;
@@ -3526,21 +3531,6 @@ struct room {
 	/*0x80*/ u32 unk80;
 	/*0x84*/ u32 unk84;
 	/*0x88*/ u32 unk88;
-};
-
-struct bullettail {
-	/*0x00*/ s8 age;
-	/*0x01*/ s8 unk01;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ f32 maxdist;
-	/*0x20*/ f32 speed;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ f32 dist;
 };
 
 struct fireslotthing {
