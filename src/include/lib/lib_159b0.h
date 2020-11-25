@@ -27,6 +27,6 @@ void func00015f04(f32 arg0, f32 *arg1);
 u32 func00015f4c(void);
 u32 func00015f88(void);
 u32 func00015fd0(void);
-u32 func00016054(void);
+void func00016054(f32 *matrix, u32 arg1);
 
 #endif

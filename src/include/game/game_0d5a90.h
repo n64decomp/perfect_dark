@@ -5,6 +5,6 @@
 
 u32 func0f0d5a90(void);
 u32 func0f0d5c60(void);
-u32 func0f0d5d8c(void);
+Gfx *func0f0d5d8c(Gfx *gdl, u32 arg1, u32 arg2, f32 arg3);
 
 #endif

@@ -1844,12 +1844,12 @@ u32 currentPlayerGetUnk006c(void)
 	return g_Vars.currentplayer->unk006c;
 }
 
-void currentPlayerSetUnk1750(u32 value)
+void currentPlayerSetUnk1750(void *value)
 {
 	g_Vars.currentplayer->unk1750 = value;
 }
 
-u32 currentPlayerGetUnk1750(void)
+void *currentPlayerGetUnk1750(void)
 {
 	return g_Vars.currentplayer->unk1750;
 }
