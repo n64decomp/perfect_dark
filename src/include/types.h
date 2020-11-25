@@ -3086,7 +3086,7 @@ struct mphead {
 
 struct mpsimulanttype {
 	/*0x00*/ u8 type;
-	/*0x01*/ u8 skill;
+	/*0x01*/ u8 difficulty;
 	/*0x02*/ u16 name;
 	/*0x04*/ u16 body;
 	/*0x06*/ u8 requirefeature;
@@ -4399,7 +4399,7 @@ struct mpplayer {
 
 struct mpsim {
 	/*0x00*/ struct mpchr base;
-	/*0x48*/ u8 skill;
+	/*0x48*/ u8 difficulty;
 };
 
 struct missionconfig {
@@ -4532,8 +4532,8 @@ struct challenge {
 	/*0x05*/ u8 completions[4];
 
 	// Array of features which will become unlocked once the challenge is
-	// available. Seems to be unused though, as all arrays are empty.
-	// Maybe it's populated at runtime?
+	// available. The array is automatically populated at runtime based on what
+	// features the challenge uses.
 	/*0x09*/ u8 unlockfeatures[16];
 };
 
@@ -5000,7 +5000,7 @@ struct propdefinition {
 	u16 scale;
 };
 
-struct simskill {
+struct simdifficulty {
 	u8 unk00;
 	f32 unk04;
 	f32 unk08;
@@ -5799,22 +5799,15 @@ struct menuinputs {
 };
 
 struct mpconfigsim {
-	u16 mphead;
-	u8 mpbody;
+	u8 type;
+	u8 mpheadnum;
+	u8 mpbodynum;
 	u8 team;
 	u8 difficulties[4]; // per player count
 };
 
 struct mpconfig {
-	/*0x00*/ char name[12];
-	/*0x0c*/ u32 options;
-	/*0x10*/ u8 scenario;
-	/*0x11*/ u8 stage;
-	/*0x12*/ u8 timelimit;       // minus 1, 60 = no limit
-	/*0x13*/ u8 scorelimit;      // minus 1, 100 = no limit
-	/*0x14*/ u16 teamscorelimit; // minus 1, 400 = no limit
-	/*0x16*/ u16 unk16;
-	/*0x18*/ u8 weapons[16];
+	struct mpsetup setup;
 	struct mpconfigsim simulants[8];
 };
 
@@ -6656,19 +6649,6 @@ struct pakthing16 {
 struct var80067e6c {
 	s16 animnum;
 	f32 value;
-};
-
-struct mpsetupwrapperthing {
-	/*0x28*/ u8 simskill;
-	/*0x29*/ u8 mpheadnum;
-	/*0x2a*/ u8 mpbodynum;
-	/*0x2b*/ u8 unk2b;
-	/*0x2c*/ u8 simtypes[4];
-};
-
-struct mpsetupwrapper {
-	struct mpsetup setup;
-	struct mpsetupwrapperthing things[8];
 };
 
 #endif

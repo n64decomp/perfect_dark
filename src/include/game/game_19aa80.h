@@ -16,7 +16,7 @@ bool mpIsChallengeCompletedByAnyChrWithNumPlayersBySlot(s32 slot, s32 numplayers
 struct mpconfigfull *mpLoadConfig(s32 confignum, u8 *buffer, s32 len);
 s32 mpForceUnlockFeature(s32 featurenum, u8 *array, s32 tail, s32 len);
 s32 mpForceUnlockSetupFeatures(struct mpsetup *mpsetup, u8 *array, s32 len);
-void mpForceUnlockSimulantFeatures2(struct mpsetupwrapper *wrapper, u8 *array, s32 len, s32 arg3);
+void mpForceUnlockConfigFeatures(struct mpconfig *config, u8 *array, s32 len, s32 challengeindex);
 void mpForceUnlockSimulantFeatures(void);
 void func0f19c1cc(void);
 char *mpGetCurrentChallengeDescription(void);

@@ -517,7 +517,7 @@ glabel mainInit
 /*     d9b4:	24040006 */ 	addiu	$a0,$zero,0x6
 /*     d9b8:	0c0033be */ 	jal	func0000cef8
 /*     d9bc:	00000000 */ 	nop
-/*     d9c0:	0fc02c84 */ 	jal	func0f00b210
+/*     d9c0:	0fc02c84 */ 	jal	mpInitPresetFeatures
 /*     d9c4:	00000000 */ 	nop
 /*     d9c8:	0fc5db77 */ 	jal	func0f176ddc
 /*     d9cc:	00000000 */ 	nop
@@ -767,7 +767,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	memResetPool(8);
 //	memResetPool(6);
 //	func0000cef8();
-//	func0f00b210();
+//	mpInitPresetFeatures();
 //	func0f176ddc();
 //	func000034d0();
 //	loadTextureList();

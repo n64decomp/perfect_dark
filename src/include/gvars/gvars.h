@@ -818,11 +818,11 @@ extern struct mpchr *var800ac500[MAX_MPCHRS];
 extern s32 g_MpNumPlayers;
 extern struct mpsim g_MpSimulants[MAX_SIMULANTS];
 
-// Elements 0-3 are skill levels for simulant 0 when there's 1/2/3/4 players
-// Elements 4-7 are skill levels for simulant 1 when there's 1/2/3/4 players
+// Elements 0-3 are difficulty levels for simulant 0 when there's 1/2/3/4 players
+// Elements 4-7 are difficulty levels for simulant 1 when there's 1/2/3/4 players
 // ...
-// Elements 28-31 are skill levels for simulant 7 when there's 1/2/3/4 players
-extern u8 g_MpSimulantSkillsPerNumPlayers[32];
+// Elements 28-31 are difficulty levels for simulant 7 when there's 1/2/3/4 players
+extern u8 g_MpSimulantDifficultiesPerNumPlayers[32];
 
 extern struct mpplayer g_MpPlayers[6];
 extern u8 g_ActiveMenuMpBotCommands[16];

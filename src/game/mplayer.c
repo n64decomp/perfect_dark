@@ -747,7 +747,7 @@ void func0f1881d4(s32 index)
 	g_MpSimulants[index].base.headnum = 0;
 	g_MpSimulants[index].base.bodynum = 0;
 	g_MpSimulants[index].base.simtype = SIMTYPE_GENERAL;
-	g_MpSimulants[index].skill = SIMSKILL_DISABLED;
+	g_MpSimulants[index].difficulty = SIMDIFF_DISABLED;
 }
 
 GLOBAL_ASM(
@@ -3118,25 +3118,25 @@ u32 table_0x2d678[] = {
 
 // 2d74c
 struct mpsimulanttype g_MpSimulantTypes[] = {
-	// type,       skill,   name,   body, require feature
-	{ SIMTYPE_GENERAL, SIMSKILL_MEAT,    L_MISC(88),  MPBODY_DD_GUARD,      0                          },
-	{ SIMTYPE_GENERAL, SIMSKILL_EASY,    L_MISC(89),  MPBODY_DD_SECGUARD,   0                          },
-	{ SIMTYPE_GENERAL, SIMSKILL_NORMAL,  L_MISC(90),  MPBODY_DD_SHOCK_INF,  0                          },
-	{ SIMTYPE_GENERAL, SIMSKILL_HARD,    L_MISC(91),  MPBODY_DDSHOCK,       MPFEATURE_SIMSKILL_HARD    },
-	{ SIMTYPE_GENERAL, SIMSKILL_PERFECT, L_MISC(92),  MPBODY_STRIPES,       MPFEATURE_SIMSKILL_PERFECT },
-	{ SIMTYPE_GENERAL, SIMSKILL_DARK,    L_MISC(93),  MPBODY_MOORE,         MPFEATURE_SIMSKILL_DARK    },
-	{ SIMTYPE_PEACE,   SIMSKILL_NORMAL,  L_MISC(94),  MPBODY_DD_LABTECH,    0                          },
-	{ SIMTYPE_SHIELD,  SIMSKILL_NORMAL,  L_MISC(95),  MPBODY_G5_SWAT_GUARD, 0                          },
-	{ SIMTYPE_ROCKET,  SIMSKILL_NORMAL,  L_MISC(96),  MPBODY_G5_GUARD,      0                          },
-	{ SIMTYPE_KAZE,    SIMSKILL_NORMAL,  L_MISC(97),  MPBODY_PRES_SECURITY, 0                          },
-	{ SIMTYPE_FIST,    SIMSKILL_NORMAL,  L_MISC(98),  MPBODY_PELAGIC_GUARD, 0                          },
-	{ SIMTYPE_PREY,    SIMSKILL_NORMAL,  L_MISC(99),  MPBODY_DDSHOCK,       0                          },
-	{ SIMTYPE_COWARD,  SIMSKILL_NORMAL,  L_MISC(100), MPBODY_PRESIDENT,     0                          },
-	{ SIMTYPE_JUDGE,   SIMSKILL_NORMAL,  L_MISC(101), MPBODY_STEWARD,       0                          },
-	{ SIMTYPE_FEUD,    SIMSKILL_NORMAL,  L_MISC(102), MPBODY_NSA_LACKEY,    0                          },
-	{ SIMTYPE_SPEED,   SIMSKILL_NORMAL,  L_MISC(103), MPBODY_MRBLONDE,      0                          },
-	{ SIMTYPE_TURTLE,  SIMSKILL_NORMAL,  L_MISC(104), MPBODY_CARRINGTON,    0                          },
-	{ SIMTYPE_VENGE,   SIMSKILL_NORMAL,  L_MISC(105), MPBODY_ALASKAN_GUARD, 0                          },
+	// type,           difficulty,      name,        body,                 require feature
+	{ SIMTYPE_GENERAL, SIMDIFF_MEAT,    L_MISC(88),  MPBODY_DD_GUARD,      0                         },
+	{ SIMTYPE_GENERAL, SIMDIFF_EASY,    L_MISC(89),  MPBODY_DD_SECGUARD,   0                         },
+	{ SIMTYPE_GENERAL, SIMDIFF_NORMAL,  L_MISC(90),  MPBODY_DD_SHOCK_INF,  0                         },
+	{ SIMTYPE_GENERAL, SIMDIFF_HARD,    L_MISC(91),  MPBODY_DDSHOCK,       MPFEATURE_SIMDIFF_HARD    },
+	{ SIMTYPE_GENERAL, SIMDIFF_PERFECT, L_MISC(92),  MPBODY_STRIPES,       MPFEATURE_SIMDIFF_PERFECT },
+	{ SIMTYPE_GENERAL, SIMDIFF_DARK,    L_MISC(93),  MPBODY_MOORE,         MPFEATURE_SIMDIFF_DARK    },
+	{ SIMTYPE_PEACE,   SIMDIFF_NORMAL,  L_MISC(94),  MPBODY_DD_LABTECH,    0                         },
+	{ SIMTYPE_SHIELD,  SIMDIFF_NORMAL,  L_MISC(95),  MPBODY_G5_SWAT_GUARD, 0                         },
+	{ SIMTYPE_ROCKET,  SIMDIFF_NORMAL,  L_MISC(96),  MPBODY_G5_GUARD,      0                         },
+	{ SIMTYPE_KAZE,    SIMDIFF_NORMAL,  L_MISC(97),  MPBODY_PRES_SECURITY, 0                         },
+	{ SIMTYPE_FIST,    SIMDIFF_NORMAL,  L_MISC(98),  MPBODY_PELAGIC_GUARD, 0                         },
+	{ SIMTYPE_PREY,    SIMDIFF_NORMAL,  L_MISC(99),  MPBODY_DDSHOCK,       0                         },
+	{ SIMTYPE_COWARD,  SIMDIFF_NORMAL,  L_MISC(100), MPBODY_PRESIDENT,     0                         },
+	{ SIMTYPE_JUDGE,   SIMDIFF_NORMAL,  L_MISC(101), MPBODY_STEWARD,       0                         },
+	{ SIMTYPE_FEUD,    SIMDIFF_NORMAL,  L_MISC(102), MPBODY_NSA_LACKEY,    0                         },
+	{ SIMTYPE_SPEED,   SIMDIFF_NORMAL,  L_MISC(103), MPBODY_MRBLONDE,      0                         },
+	{ SIMTYPE_TURTLE,  SIMDIFF_NORMAL,  L_MISC(104), MPBODY_CARRINGTON,    0                         },
+	{ SIMTYPE_VENGE,   SIMDIFF_NORMAL,  L_MISC(105), MPBODY_ALASKAN_GUARD, 0                         },
 };
 
 // 2d7dc
@@ -5662,11 +5662,11 @@ glabel func0f18c984
 /*  f18c9e0:	3c14800b */ 	lui	$s4,%hi(g_MpSimulants)
 /*  f18c9e4:	90f90000 */ 	lbu	$t9,0x0($a3)
 /*  f18c9e8:	2694c538 */ 	addiu	$s4,$s4,%lo(g_MpSimulants)
-/*  f18c9ec:	3c0a800b */ 	lui	$t2,%hi(g_MpSimulantSkillsPerNumPlayers)
+/*  f18c9ec:	3c0a800b */ 	lui	$t2,%hi(g_MpSimulantDifficultiesPerNumPlayers)
 /*  f18c9f0:	00007012 */ 	mflo	$t6
 /*  f18c9f4:	028ef021 */ 	addu	$s8,$s4,$t6
 /*  f18c9f8:	305100ff */ 	andi	$s1,$v0,0xff
-/*  f18c9fc:	254ac798 */ 	addiu	$t2,$t2,%lo(g_MpSimulantSkillsPerNumPlayers)
+/*  f18c9fc:	254ac798 */ 	addiu	$t2,$t2,%lo(g_MpSimulantDifficultiesPerNumPlayers)
 /*  f18ca00:	00104880 */ 	sll	$t1,$s0,0x2
 /*  f18ca04:	8fa6005c */ 	lw	$a2,0x5c($sp)
 /*  f18ca08:	012a2021 */ 	addu	$a0,$t1,$t2
@@ -5775,9 +5775,9 @@ glabel func0f18cb60
 /*  f18cb74:	25efc538 */ 	addiu	$t7,$t7,%lo(g_MpSimulants)
 /*  f18cb78:	000e7080 */ 	sll	$t6,$t6,0x2
 /*  f18cb7c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f18cb80:	3c19800b */ 	lui	$t9,%hi(g_MpSimulantSkillsPerNumPlayers)
+/*  f18cb80:	3c19800b */ 	lui	$t9,%hi(g_MpSimulantDifficultiesPerNumPlayers)
 /*  f18cb84:	a0450048 */ 	sb	$a1,0x48($v0)
-/*  f18cb88:	2739c798 */ 	addiu	$t9,$t9,%lo(g_MpSimulantSkillsPerNumPlayers)
+/*  f18cb88:	2739c798 */ 	addiu	$t9,$t9,%lo(g_MpSimulantDifficultiesPerNumPlayers)
 /*  f18cb8c:	0004c080 */ 	sll	$t8,$a0,0x2
 /*  f18cb90:	03193021 */ 	addu	$a2,$t8,$t9
 /*  f18cb94:	24020004 */ 	addiu	$v0,$zero,0x4
@@ -5880,13 +5880,13 @@ bool mpIsSimSlotEnabled(s32 slot)
 	return true;
 }
 
-s32 mpGetSimTypeIndex(s32 type, s32 skill)
+s32 mpGetSimTypeIndex(s32 type, s32 difficulty)
 {
 	s32 i;
 
 	if (type == SIMTYPE_GENERAL) {
 		for (i = 0; i < ARRAYCOUNT(g_MpSimulantTypes); i++) {
-			if (g_MpSimulantTypes[i].skill == skill) {
+			if (g_MpSimulantTypes[i].difficulty == difficulty) {
 				break;
 			}
 		}
@@ -6847,7 +6847,7 @@ glabel func0f18dac0
 /*  f18db78:	00000000 */ 	nop
 );
 
-u32 mpGetNumPresets(void)
+s32 mpGetNumPresets(void)
 {
 	return NUM_MPPRESETS;
 }
@@ -6941,8 +6941,8 @@ glabel func0f18dcec
 /*  f18dd58:	1738fff8 */ 	bne	$t9,$t8,.L0f18dd3c
 /*  f18dd5c:	ad01fffc */ 	sw	$at,-0x4($t0)
 /*  f18dd60:	8f210000 */ 	lw	$at,0x0($t9)
-/*  f18dd64:	3c09800b */ 	lui	$t1,%hi(g_MpSimulantSkillsPerNumPlayers)
-/*  f18dd68:	2537c798 */ 	addiu	$s7,$t1,%lo(g_MpSimulantSkillsPerNumPlayers)
+/*  f18dd64:	3c09800b */ 	lui	$t1,%hi(g_MpSimulantDifficultiesPerNumPlayers)
+/*  f18dd68:	2537c798 */ 	addiu	$s7,$t1,%lo(g_MpSimulantDifficultiesPerNumPlayers)
 /*  f18dd6c:	3c11800b */ 	lui	$s1,%hi(g_MpSimulants)
 /*  f18dd70:	2631c538 */ 	addiu	$s1,$s1,%lo(g_MpSimulants)
 /*  f18dd74:	02e0a825 */ 	or	$s5,$s7,$zero
@@ -7120,11 +7120,11 @@ glabel func0f18df5c
 /*  f18dfd8:	24050015 */ 	addiu	$a1,$zero,0x15
 /*  f18dfdc:	96ae0016 */ 	lhu	$t6,0x16($s5)
 /*  f18dfe0:	3c11800b */ 	lui	$s1,%hi(g_MpSimulants)
-/*  f18dfe4:	3c14800b */ 	lui	$s4,%hi(g_MpSimulantSkillsPerNumPlayers)
+/*  f18dfe4:	3c14800b */ 	lui	$s4,%hi(g_MpSimulantDifficultiesPerNumPlayers)
 /*  f18dfe8:	31cf000f */ 	andi	$t7,$t6,0xf
 /*  f18dfec:	aea2000c */ 	sw	$v0,0xc($s5)
 /*  f18dff0:	a6af0016 */ 	sh	$t7,0x16($s5)
-/*  f18dff4:	2694c798 */ 	addiu	$s4,$s4,%lo(g_MpSimulantSkillsPerNumPlayers)
+/*  f18dff4:	2694c798 */ 	addiu	$s4,$s4,%lo(g_MpSimulantDifficultiesPerNumPlayers)
 /*  f18dff8:	2631c538 */ 	addiu	$s1,$s1,%lo(g_MpSimulants)
 /*  f18dffc:	00009025 */ 	or	$s2,$zero,$zero
 /*  f18e000:	24160006 */ 	addiu	$s6,$zero,0x6

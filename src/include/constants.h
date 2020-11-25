@@ -1788,10 +1788,10 @@
 #define MPFEATURE_WEAPON_SHIELD          0x16
 #define MPFEATURE_WEAPON_CLOAKINGDEVICE  0x17
 #define MPFEATURE_WEAPON_COMBATBOOST     0x18
-#define MPFEATURE_SIMSKILL_HARD          0x19
-#define MPFEATURE_SIMSKILL_PERFECT       0x1a
+#define MPFEATURE_SIMDIFF_HARD           0x19
+#define MPFEATURE_SIMDIFF_PERFECT        0x1a
 #define MPFEATURE_1B                     0x1b
-#define MPFEATURE_SIMSKILL_DARK          0x1c
+#define MPFEATURE_SIMDIFF_DARK           0x1c
 #define MPFEATURE_SLOWMOTION             0x1d
 #define MPFEATURE_ONEHITKILLS            0x1e
 #define MPFEATURE_1F                     0x1f
@@ -1984,14 +1984,6 @@
 #define MPSCENARIO_POPACAP          3
 #define MPSCENARIO_KINGOFTHEHILL    4
 #define MPSCENARIO_CAPTURETHECASE   5
-
-#define MPSIMDIFF_MEAT    0
-#define MPSIMDIFF_EASY    1
-#define MPSIMDIFF_NORMAL  2
-#define MPSIMDIFF_HARD    3
-#define MPSIMDIFF_PERFECT 4
-#define MPSIMDIFF_DARK    5
-#define MPSIMDIFF_OFF     6
 
 #define MPTEAM_0 0
 #define MPTEAM_1 1
@@ -2695,13 +2687,13 @@
 #define SIGHT_MAIAN    6
 #define SIGHT_NONE     7
 
-#define SIMSKILL_MEAT     0
-#define SIMSKILL_EASY     1
-#define SIMSKILL_NORMAL   2
-#define SIMSKILL_HARD     3
-#define SIMSKILL_PERFECT  4
-#define SIMSKILL_DARK     5
-#define SIMSKILL_DISABLED 6
+#define SIMDIFF_MEAT     0
+#define SIMDIFF_EASY     1
+#define SIMDIFF_NORMAL   2
+#define SIMDIFF_HARD     3
+#define SIMDIFF_PERFECT  4
+#define SIMDIFF_DARK     5
+#define SIMDIFF_DISABLED 6
 
 #define SIMTYPE_GENERAL 0
 #define SIMTYPE_PEACE   1

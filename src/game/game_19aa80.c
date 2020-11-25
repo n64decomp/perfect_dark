@@ -565,9 +565,9 @@ void mpPerformSanityChecks(void)
 		g_MpSetup.chrslots &= 0x000f;
 
 		for (i = 0; i != MAX_SIMULANTS; i++) {
-			g_MpSimulants[i].skill = g_MpSimulantSkillsPerNumPlayers[i * 4 + numplayers - 1];
+			g_MpSimulants[i].difficulty = g_MpSimulantDifficultiesPerNumPlayers[i * 4 + numplayers - 1];
 
-			if (g_MpSimulants[i].skill != SIMSKILL_DISABLED) {
+			if (g_MpSimulants[i].difficulty != SIMDIFF_DISABLED) {
 				g_MpSetup.chrslots |= 1 << (i + 4);
 			}
 		}
@@ -937,15 +937,15 @@ s32 mpForceUnlockSetupFeatures(struct mpsetup *setup, u8 *array, s32 len)
 	return index;
 }
 
-void mpForceUnlockSimulantFeatures2(struct mpsetupwrapper *wrapper, u8 *array, s32 len, s32 arg3)
+void mpForceUnlockConfigFeatures(struct mpconfig *config, u8 *array, s32 len, s32 challengeindex)
 {
-	s32 index = mpForceUnlockSetupFeatures(&wrapper->setup, array, len);
+	s32 index = mpForceUnlockSetupFeatures(&config->setup, array, len);
 	s32 featurenum;
+	s32 numplayers;
 	s32 i;
-	s32 j;
 
 	for (i = 0; i < 8; i++) {
-		s32 simtype = mpGetSimTypeIndex(wrapper->things[i].simskill, SIMSKILL_NORMAL);
+		s32 simtype = mpGetSimTypeIndex(config->simulants[i].type, SIMDIFF_NORMAL);
 
 		if (simtype >= 0) {
 			featurenum = g_MpSimulantTypes[simtype].requirefeature;
@@ -955,8 +955,8 @@ void mpForceUnlockSimulantFeatures2(struct mpsetupwrapper *wrapper, u8 *array, s
 			}
 		}
 
-		for (j = 0; j < 4; j++) {
-			simtype = mpGetSimTypeIndex(0, wrapper->things[i].simtypes[j]);
+		for (numplayers = 0; numplayers < 4; numplayers++) {
+			simtype = mpGetSimTypeIndex(0, config->simulants[i].difficulties[numplayers]);
 
 			if (simtype >= 0) {
 				featurenum = g_MpSimulantTypes[simtype].requirefeature;
@@ -967,16 +967,16 @@ void mpForceUnlockSimulantFeatures2(struct mpsetupwrapper *wrapper, u8 *array, s
 			}
 		}
 
-		if (wrapper->things[i].mpbodynum <= MPBODY_DJBOND) {
-			featurenum = g_MpBodies[wrapper->things[i].mpbodynum].requirefeature;
+		if (config->simulants[i].mpbodynum <= MPBODY_DJBOND) {
+			featurenum = g_MpBodies[config->simulants[i].mpbodynum].requirefeature;
 
 			if (featurenum) {
 				index = mpForceUnlockFeature(featurenum, array, index, len);
 			}
 		}
 
-		if (wrapper->things[i].mpheadnum <= MPHEAD_WINNER) {
-			featurenum = g_MpHeads[wrapper->things[i].mpheadnum].requirefeature;
+		if (config->simulants[i].mpheadnum <= MPHEAD_WINNER) {
+			featurenum = g_MpHeads[config->simulants[i].mpheadnum].requirefeature;
 
 			if (featurenum) {
 				index = mpForceUnlockFeature(featurenum, array, index, len);
@@ -984,15 +984,15 @@ void mpForceUnlockSimulantFeatures2(struct mpsetupwrapper *wrapper, u8 *array, s
 		}
 	}
 
-	if (arg3 >= 25) {
-		index = mpForceUnlockFeature(MPFEATURE_SIMSKILL_DARK, array, index, len);
-	} else if (arg3 >= 20) {
+	if (challengeindex >= 25) {
+		index = mpForceUnlockFeature(MPFEATURE_SIMDIFF_DARK, array, index, len);
+	} else if (challengeindex >= 20) {
 		index = mpForceUnlockFeature(MPFEATURE_STAGE_CARPARK, array, index, len);
-	} else if (arg3 > 14) {
+	} else if (challengeindex >= 15) {
 		index = mpForceUnlockFeature(MPFEATURE_4D, array, index, len);
 	}
 
-	if (arg3 > 9) {
+	if (challengeindex >= 10) {
 		index = mpForceUnlockFeature(MPFEATURE_8BOTS, array, index, len);
 	}
 
@@ -1010,7 +1010,7 @@ void mpForceUnlockSimulantFeatures(void)
 
 	for (i = 0; i < 8; i++) {
 		// Force unlock the simulant type
-		s32 simtypeindex = mpGetSimTypeIndex(g_MpSimulants[i].base.simtype, SIMSKILL_NORMAL);
+		s32 simtypeindex = mpGetSimTypeIndex(g_MpSimulants[i].base.simtype, SIMDIFF_NORMAL);
 
 		if (simtypeindex >= 0) {
 			s32 featurenum = g_MpSimulantTypes[simtypeindex].requirefeature;
@@ -1020,8 +1020,8 @@ void mpForceUnlockSimulantFeatures(void)
 			}
 		}
 
-		// Force unlock the simulant skill
-		simtypeindex = mpGetSimTypeIndex(SIMTYPE_GENERAL, g_MpSimulants[i].skill);
+		// Force unlock the simulant difficulty
+		simtypeindex = mpGetSimTypeIndex(SIMTYPE_GENERAL, g_MpSimulants[i].difficulty);
 
 		if (simtypeindex >= 0) {
 			s32 featurenum = g_MpSimulantTypes[simtypeindex].requirefeature;

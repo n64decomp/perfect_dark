@@ -4008,7 +4008,7 @@ s32 menuhandlerMpChangeSimulantType(u32 operation, struct menuitem *item, union 
 		s32 count = 0;
 		s32 simtypeindex = mpGetSimTypeIndex(
 				g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.simtype,
-				g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].skill);
+				g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].difficulty);
 
 		for (i = 0; i < simtypeindex; i++) {
 			if (mpIsFeatureUnlocked(g_MpSimulantTypes[i].requirefeature)) {
@@ -5901,8 +5901,8 @@ glabel var7f1b82dc
 /*  f17f340:	0fc63377 */ 	jal	func0f18cddc
 /*  f17f344:	00000000 */ 	nop
 /*  f17f348:	3c02800b */ 	lui	$v0,%hi(g_MpSimulants)
-/*  f17f34c:	3c04800b */ 	lui	$a0,%hi(g_MpSimulantSkillsPerNumPlayers)
-/*  f17f350:	2484c798 */ 	addiu	$a0,$a0,%lo(g_MpSimulantSkillsPerNumPlayers)
+/*  f17f34c:	3c04800b */ 	lui	$a0,%hi(g_MpSimulantDifficultiesPerNumPlayers)
+/*  f17f350:	2484c798 */ 	addiu	$a0,$a0,%lo(g_MpSimulantDifficultiesPerNumPlayers)
 /*  f17f354:	2442c538 */ 	addiu	$v0,$v0,%lo(g_MpSimulants)
 /*  f17f358:	24030001 */ 	addiu	$v1,$zero,0x1
 .L0f17f35c:

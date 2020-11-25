@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f00b210(void);
+void mpInitPresetFeatures(void);
 
 #endif
