@@ -1808,7 +1808,7 @@ struct hand {
 	/*0x07f0*/ f32 unk07f0;
 	/*0x07f4*/ f32 xoffset;
 	/*0x07f8*/ struct coord unk07f8;
-	/*0x0804*/ u32 unk0804;
+	/*0x0804*/ struct audiohandle *audiohandle2;
 	/*0x0808*/ u32 unk0808;
 	/*0x080c*/ u32 unk080c;
 	/*0x0810*/ u32 unk0810;

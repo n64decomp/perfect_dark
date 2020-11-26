@@ -4711,46 +4711,22 @@ void currentPlayerUpdateZoom(void)
 	currentPlayerSetScaleBg2Gfx((1 - (1 - stage->unk34) * (1 - scale) * (10.f / 9.0f)) * scale);
 }
 
-GLOBAL_ASM(
-glabel func0f0bace0
-/*  f0bace0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0bace4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0bace8:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0bacec:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0bacf0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0bacf4:	0fc240f5 */ 	jal	func0f0903d4
-/*  f0bacf8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0bacfc:	0fc24138 */ 	jal	func0f0904e0
-/*  f0bad00:	00000000 */ 	nop
-/*  f0bad04:	3c12800a */ 	lui	$s2,%hi(g_Vars)
-/*  f0bad08:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
-/*  f0bad0c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0bad10:	24130f48 */ 	addiu	$s3,$zero,0xf48
-/*  f0bad14:	8e4e0284 */ 	lw	$t6,0x284($s2)
-.L0f0bad18:
-/*  f0bad18:	01d18021 */ 	addu	$s0,$t6,$s1
-/*  f0bad1c:	8e040804 */ 	lw	$a0,0x804($s0)
-/*  f0bad20:	26100638 */ 	addiu	$s0,$s0,0x638
-/*  f0bad24:	50800008 */ 	beqzl	$a0,.L0f0bad48
-/*  f0bad28:	263107a4 */ 	addiu	$s1,$s1,0x7a4
-/*  f0bad2c:	0c00cdfc */ 	jal	func000337f0
-/*  f0bad30:	00000000 */ 	nop
-/*  f0bad34:	50400004 */ 	beqzl	$v0,.L0f0bad48
-/*  f0bad38:	263107a4 */ 	addiu	$s1,$s1,0x7a4
-/*  f0bad3c:	0c00cec9 */ 	jal	audioStop
-/*  f0bad40:	8e0401cc */ 	lw	$a0,0x1cc($s0)
-/*  f0bad44:	263107a4 */ 	addiu	$s1,$s1,0x7a4
-.L0f0bad48:
-/*  f0bad48:	5633fff3 */ 	bnel	$s1,$s3,.L0f0bad18
-/*  f0bad4c:	8e4e0284 */ 	lw	$t6,0x284($s2)
-/*  f0bad50:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0bad54:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0bad58:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0bad5c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0bad60:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0bad64:	03e00008 */ 	jr	$ra
-/*  f0bad68:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f0bace0(void)
+{
+	struct hand *hand;
+	s32 i;
+
+	func0f0903d4();
+	func0f0904e0();
+
+	for (i = 0; i < 2; i++) {
+		hand = &g_Vars.currentplayer->hands[i];
+
+		if (hand->audiohandle2 && func000337f0(hand->audiohandle2)) {
+			audioStop(hand->audiohandle2);
+		}
+	}
+}
 
 void currentPlayerTickPauseMenu(void)
 {
