@@ -13,7 +13,7 @@ u32 func00033378(void);
 u32 func00033390(void);
 u32 func00033634(void);
 u32 func0003364c(void);
-u32 func000337f0(struct audiohandle *handle);
+u32 audioIsPlaying(struct audiohandle *handle);
 u32 func00033820(void);
 void audioStop(struct audiohandle *handle);
 u32 func00033bc0(void);

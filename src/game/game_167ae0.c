@@ -225,7 +225,7 @@ void boostAndSlayerSfxUpdate(void)
 		boostAndSlayerSfxSetEnabled(2, usingrocket);
 	}
 
-	if (g_Vars.lvupdate240 == 0 && g_MiscAudioHandle && func000337f0(g_MiscAudioHandle)) {
+	if (g_Vars.lvupdate240 == 0 && g_MiscAudioHandle && audioIsPlaying(g_MiscAudioHandle)) {
 		audioStop(g_MiscAudioHandle);
 	}
 }
@@ -4449,7 +4449,7 @@ void stageLoad(void)
 {
 	func0f11dcb0(1);
 
-	if (g_MiscAudioHandle && func000337f0(g_MiscAudioHandle)) {
+	if (g_MiscAudioHandle && audioIsPlaying(g_MiscAudioHandle)) {
 		audioStop(g_MiscAudioHandle);
 	}
 

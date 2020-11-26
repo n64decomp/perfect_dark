@@ -531,7 +531,7 @@ glabel var7f1b56f4
 .L0f131c18:
 /*  f131c18:	50800022 */ 	beqzl	$a0,.L0f131ca4
 /*  f131c1c:	26730004 */ 	addiu	$s3,$s3,0x4
-/*  f131c20:	0c00cdfc */ 	jal	func000337f0
+/*  f131c20:	0c00cdfc */ 	jal	audioIsPlaying
 /*  f131c24:	00000000 */ 	nop
 /*  f131c28:	1040001d */ 	beqz	$v0,.L0f131ca0
 /*  f131c2c:	26040034 */ 	addiu	$a0,$s0,0x34
@@ -980,7 +980,7 @@ const char var7f1b5620[] = "rainspeedxtra";
 //			}
 //
 //			if (weather->audiohandles[i] != 0) {
-//				if (func000337f0(weather->audiohandles[i])) {
+//				if (audioIsPlaying(weather->audiohandles[i])) {
 //					audioAdjust(&weather->audiohandles[i], 0, iVar10 * 3 / 4, -1,
 //							weather->unkf8, 1, 1, -1, 1);
 //				}

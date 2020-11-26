@@ -2287,7 +2287,7 @@ glabel func0003364c
 );
 
 GLOBAL_ASM(
-glabel func000337f0
+glabel audioIsPlaying
 /*    337f0:	10800005 */ 	beqz	$a0,.L00033808
 /*    337f4:	00000000 */ 	nop
 /*    337f8:	03e00008 */ 	jr	$ra

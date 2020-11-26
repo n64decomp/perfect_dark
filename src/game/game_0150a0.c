@@ -67,7 +67,7 @@ glabel func0f0150a0
 .L0f01515c:
 /*  f01515c:	5080000f */ 	beqzl	$a0,.L0f01519c
 /*  f015160:	92e90000 */ 	lbu	$t1,0x0($s7)
-/*  f015164:	0c00cdfc */ 	jal	func000337f0
+/*  f015164:	0c00cdfc */ 	jal	audioIsPlaying
 /*  f015168:	00000000 */ 	nop
 /*  f01516c:	5040000b */ 	beqzl	$v0,.L0f01519c
 /*  f015170:	92e90000 */ 	lbu	$t1,0x0($s7)

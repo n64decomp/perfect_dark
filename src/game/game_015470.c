@@ -80,7 +80,7 @@ glabel func0f015470
 /*  f015520:	26100638 */ 	addiu	$s0,$s0,0x638
 /*  f015524:	50800008 */ 	beqzl	$a0,.L0f015548
 /*  f015528:	263107a4 */ 	addiu	$s1,$s1,0x7a4
-/*  f01552c:	0c00cdfc */ 	jal	func000337f0
+/*  f01552c:	0c00cdfc */ 	jal	audioIsPlaying
 /*  f015530:	00000000 */ 	nop
 /*  f015534:	50400004 */ 	beqzl	$v0,.L0f015548
 /*  f015538:	263107a4 */ 	addiu	$s1,$s1,0x7a4

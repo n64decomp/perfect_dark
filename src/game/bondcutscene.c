@@ -25,7 +25,7 @@ void currentPlayerSetMoveModeCutscene(void)
 		for (j = 0; j < 1; j++) {
 			struct hand *hand = &g_Vars.players[i]->hands[j];
 
-			if (hand->audiohandle && func000337f0(hand->audiohandle)) {
+			if (hand->audiohandle && audioIsPlaying(hand->audiohandle)) {
 				audioStop(hand->audiohandle);
 				hand->audiohandle = NULL;
 			}

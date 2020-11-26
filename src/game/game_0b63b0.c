@@ -4716,13 +4716,13 @@ void func0f0bace0(void)
 	struct hand *hand;
 	s32 i;
 
-	func0f0903d4();
+	alarmStopAudio();
 	func0f0904e0();
 
 	for (i = 0; i < 2; i++) {
 		hand = &g_Vars.currentplayer->hands[i];
 
-		if (hand->audiohandle2 && func000337f0(hand->audiohandle2)) {
+		if (hand->audiohandle2 && audioIsPlaying(hand->audiohandle2)) {
 			audioStop(hand->audiohandle2);
 		}
 	}

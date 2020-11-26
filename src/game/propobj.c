@@ -47022,32 +47022,17 @@ void alarmActivate(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0903d4
-/*  f0903d4:	3c048007 */ 	lui	$a0,%hi(g_AlarmAudioHandle)
-/*  f0903d8:	8c8498d8 */ 	lw	$a0,%lo(g_AlarmAudioHandle)($a0)
-/*  f0903dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0903e0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0903e4:	50800008 */ 	beqzl	$a0,.L0f090408
-/*  f0903e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0903ec:	0c00cdfc */ 	jal	func000337f0
-/*  f0903f0:	00000000 */ 	nop
-/*  f0903f4:	10400003 */ 	beqz	$v0,.L0f090404
-/*  f0903f8:	3c048007 */ 	lui	$a0,%hi(g_AlarmAudioHandle)
-/*  f0903fc:	0c00cec9 */ 	jal	audioStop
-/*  f090400:	8c8498d8 */ 	lw	$a0,%lo(g_AlarmAudioHandle)($a0)
-.L0f090404:
-/*  f090404:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f090408:
-/*  f090408:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f09040c:	03e00008 */ 	jr	$ra
-/*  f090410:	00000000 */ 	nop
-);
+void alarmStopAudio(void)
+{
+	if (g_AlarmAudioHandle && audioIsPlaying(g_AlarmAudioHandle)) {
+		audioStop(g_AlarmAudioHandle);
+	}
+}
 
 void alarmDeactivate(void)
 {
 	g_AlarmTimer = 0;
-	func0f0903d4();
+	alarmStopAudio();
 }
 
 bool alarmIsActive(void)
@@ -47106,7 +47091,7 @@ glabel func0f0904e0
 /*  f0904ec:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0904f0:	50800008 */ 	beqzl	$a0,.L0f090514
 /*  f0904f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0904f8:	0c00cdfc */ 	jal	func000337f0
+/*  f0904f8:	0c00cdfc */ 	jal	audioIsPlaying
 /*  f0904fc:	00000000 */ 	nop
 /*  f090500:	10400003 */ 	beqz	$v0,.L0f090510
 /*  f090504:	3c048007 */ 	lui	$a0,%hi(var80069900)
@@ -47301,7 +47286,7 @@ glabel var7f1ab19c
 /*  f0907d4:	8c849900 */ 	lw	$a0,%lo(var80069900)($a0)
 /*  f0907d8:	50800008 */ 	beqzl	$a0,.L0f0907fc
 /*  f0907dc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0907e0:	0c00cdfc */ 	jal	func000337f0
+/*  f0907e0:	0c00cdfc */ 	jal	audioIsPlaying
 /*  f0907e4:	00000000 */ 	nop
 /*  f0907e8:	10400003 */ 	beqz	$v0,.L0f0907f8
 /*  f0907ec:	3c048007 */ 	lui	$a0,%hi(var80069900)
