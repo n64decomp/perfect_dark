@@ -4057,7 +4057,7 @@ glabel var7f1ad8e4
 //		if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED && (sp1a0 & START_BUTTON)) {
 //			if (g_Vars.mplayerisrunning == false) {
 //				if (g_Vars.lvframenum > 15) {
-//					currentPlayerPause(PAUSEMODE_2);
+//					currentPlayerPause(MENUROOT_MAINMENU);
 //				}
 //			} else {
 //				mpPushPauseDialog();
@@ -4067,8 +4067,8 @@ glabel var7f1ad8e4
 //		// 8e14
 //		if (g_Vars.mplayerisrunning) {
 //			if (PLAYERCOUNT() == 1) {
-//				if (mpIsPaused() && (sp1a0 & START_BUTTON) && g_MpSetup.paused != PAUSEMODE_2) {
-//					mpSetPaused(PAUSEMODE_UNPAUSED);
+//				if (mpIsPaused() && (sp1a0 & START_BUTTON) && g_MpSetup.paused != MPPAUSEMODE_2) {
+//					mpSetPaused(MPPAUSEMODE_0);
 //				}
 //			} else {
 //				if (mpIsPaused() && (sp1a0 & START_BUTTON)) {

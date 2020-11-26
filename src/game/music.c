@@ -355,7 +355,7 @@ void musicStartForMenu(void)
 	musicStartMenu2(menuChooseMusic());
 }
 
-void func0f16db3c(void)
+void musicResumeAfterUnpause(void)
 {
 	func0f16d2ac(TRACKTYPE_MENU, 1, 0);
 

@@ -25,7 +25,7 @@ void func0f16d9fc(void);
 void func0f16da2c(void);
 void func0f16daa4(void);
 void musicStartForMenu(void);
-void func0f16db3c(void);
+void musicResumeAfterUnpause(void);
 void musicStartSoloDeath(void);
 void musicStartMpDeath(f32 arg0);
 void func0f16dd14(void);

@@ -36,7 +36,7 @@ void mpSetWeaponSet(s32 weaponsetnum);
 void func0f1895e8(void);
 s32 mpGetWeaponSet(void);
 bool mpIsPaused(void);
-void mpSetPaused(u8 pause);
+void mpSetPaused(u8 mode);
 u32 func0f18973c(void);
 u32 func0f189cc0(void);
 u32 func0f189dc8(void);

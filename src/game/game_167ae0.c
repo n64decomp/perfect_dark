@@ -1663,7 +1663,7 @@ glabel var7f1b7868
 /*  f169768:	8d591a24 */ 	lw	$t9,0x1a24($t2)
 /*  f16976c:	532005d6 */ 	beqzl	$t9,.L0f16aec8
 /*  f169770:	826e04d3 */ 	lb	$t6,0x4d3($s3)
-/*  f169774:	0fc2eb5b */ 	jal	func0f0bad6c
+/*  f169774:	0fc2eb5b */ 	jal	currentPlayerTickPauseMenu
 /*  f169778:	00000000 */ 	nop
 /*  f16977c:	100005d2 */ 	b	.L0f16aec8
 /*  f169780:	826e04d3 */ 	lb	$t6,0x4d3($s3)

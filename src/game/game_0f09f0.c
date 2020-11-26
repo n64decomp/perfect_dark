@@ -8476,7 +8476,7 @@ void func0f0f85e0(struct menudialog *dialog, s32 root)
 
 	menuPushRootDialog(dialog, root);
 	soloSetPaused(true);
-	g_Vars.currentplayer->pausemode = PAUSEMODE_3;
+	g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;
 }
 
 u32 var800714dc = 0x00000078;

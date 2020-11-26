@@ -226,9 +226,9 @@ s32 menuhandlerMpPause(u32 operation, struct menuitem *item, union handlerdata *
 {
 	if (operation == MENUOP_SET) {
 		if (mpIsPaused()) {
-			mpSetPaused(false);
+			mpSetPaused(MPPAUSEMODE_0);
 		} else {
-			mpSetPaused(true);
+			mpSetPaused(MPPAUSEMODE_1);
 		}
 	}
 
@@ -897,7 +897,7 @@ void mpPushPauseDialog(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
 
-	if (g_MpSetup.paused != 2 && var8005d9d0 == 0) {
+	if (g_MpSetup.paused != MPPAUSEMODE_2 && var8005d9d0 == 0) {
 		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 
 		if (g_Menus[g_MpPlayerNum].unk83c == 0) {

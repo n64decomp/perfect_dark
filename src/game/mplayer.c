@@ -2133,9 +2133,9 @@ bool mpIsPaused(void)
 	return true;
 }
 
-void mpSetPaused(u8 pause)
+void mpSetPaused(u8 mode)
 {
-	g_MpSetup.paused = pause;
+	g_MpSetup.paused = mode;
 }
 
 GLOBAL_ASM(

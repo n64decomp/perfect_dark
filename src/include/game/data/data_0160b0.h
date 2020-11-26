@@ -79,7 +79,7 @@ extern u32 var80070818;
 extern u32 var80070824;
 extern u32 var80070830;
 extern u32 var8007083c;
-extern u32 g_PauseMode;
+extern u32 g_GlobalMenuRoot;
 extern u32 var80070844;
 extern struct healthdamagetype g_HealthDamageTypes[];
 extern u32 var800709c4;

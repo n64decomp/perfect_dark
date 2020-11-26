@@ -1949,6 +1949,10 @@
 #define MPOPTION_PAC_HIGHLIGHTTARGET    0x00080000
 #define MPOPTION_PAC_SHOWONRADAR        0x00100000
 
+#define MPPAUSEMODE_0 0 // unpaused
+#define MPPAUSEMODE_1 1 // paused via "Pause" menu item
+#define MPPAUSEMODE_2 2 // paused due to only one player and having opened menu?
+
 #define MPPLAYERTITLE_BEGINNER     0
 #define MPPLAYERTITLE_TRAINEE      1
 #define MPPLAYERTITLE_AMATEUR      2
@@ -2449,12 +2453,10 @@
 #define PATHFLAG_FLYING   2
 #define PATHFLAG_04       4
 
-// These are suspected to be the same as the MENUROOT constants,
-// but pausemode is the name used in the original source
-#define PAUSEMODE_UNPAUSED 0
-#define PAUSEMODE_1        1
-#define PAUSEMODE_2        2
-#define PAUSEMODE_3        3
+#define PAUSEMODE_UNPAUSED  0
+#define PAUSEMODE_PAUSING   1
+#define PAUSEMODE_PAUSED    3
+#define PAUSEMODE_UNPAUSING 5
 
 #define PDMODEPROP_REACTION 0
 #define PDMODEPROP_HEALTH   1

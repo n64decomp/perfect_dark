@@ -2701,7 +2701,7 @@ struct player {
 	/*0x1a1c*/ s32 grabbeddoextra;
 	/*0x1a20*/ f32 grabbedrotextra;
 	/*0x1a24*/ s32 pausemode;
-	/*0x1a28*/ u32 pausetime60;
+	/*0x1a28*/ s32 pausetime60;
 	/*0x1a2c*/ struct coord grabbedposextra;
 	/*0x1a38*/ f32 grabbedrotextrasum;
 	/*0x1a3c*/ struct coord grabbedposextrasum;

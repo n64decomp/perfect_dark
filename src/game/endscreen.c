@@ -1499,7 +1499,7 @@ glabel endscreenPrepare
 //
 //	if (g_MenuData.root == MENUROOT_ENDSCREEN) {
 //		soloSetPaused(true);
-//		g_Vars.currentplayer->pausemode = PAUSEMODE_3;
+//		g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;
 //	}
 //}
 

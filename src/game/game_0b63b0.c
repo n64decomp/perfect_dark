@@ -149,7 +149,7 @@ u32 var80070830 = 0x00000000;
 u32 var80070834 = 0x3f800000;
 u32 var80070838 = 0x00000000;
 u32 var8007083c = 0x00000000;
-u32 g_PauseMode = 0x00000000;
+u32 g_GlobalMenuRoot = 0;
 u32 var80070844 = 0x00000000;
 u32 var80070848 = 0x40a00000;
 u32 var8007084c = 0x42200000;
@@ -4752,162 +4752,79 @@ glabel func0f0bace0
 /*  f0bad68:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f0bad6c
-.late_rodata
-glabel var7f1ad604
-.word func0f0bad6c+0x74 # f0bade0
-glabel var7f1ad608
-.word func0f0bad6c+0x94 # f0bae00
-glabel var7f1ad60c
-.word func0f0bad6c+0x98 # f0bae04
-glabel var7f1ad610
-.word func0f0bad6c+0x98 # f0bae04
-glabel var7f1ad614
-.word func0f0bad6c+0x84 # f0badf0
-glabel var7f1ad618
-.word func0f0bad6c+0x98 # f0bae04
-glabel var7f1ad61c
-.word func0f0bad6c+0x98 # f0bae04
-glabel var7f1ad620
-.word func0f0bad6c+0x98 # f0bae04
-glabel var7f1ad624
-.word func0f0bad6c+0x98 # f0bae04
-glabel var7f1ad628
-.word func0f0bad6c+0x94 # f0bae00
-glabel var7f1ad62c
-.word func0f0bad6c+0x98 # f0bae04
-glabel var7f1ad630
-.word func0f0bad6c+0x74 # f0bade0
-.text
-/*  f0bad6c:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0bad70:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0bad74:	8ca30284 */ 	lw	$v1,0x284($a1)
-/*  f0bad78:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0bad7c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0bad80:	8c621a24 */ 	lw	$v0,0x1a24($v1)
-/*  f0bad84:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0bad88:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0bad8c:	5040005c */ 	beqzl	$v0,.L0f0baf00
-/*  f0bad90:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0bad94:	10410008 */ 	beq	$v0,$at,.L0f0badb8
-/*  f0bad98:	3c0e8007 */ 	lui	$t6,%hi(g_PauseMode)
-/*  f0bad9c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0bada0:	10410056 */ 	beq	$v0,$at,.L0f0baefc
-/*  f0bada4:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f0bada8:	50410045 */ 	beql	$v0,$at,.L0f0baec0
-/*  f0badac:	8c6d1a28 */ 	lw	$t5,0x1a28($v1)
-/*  f0badb0:	10000053 */ 	b	.L0f0baf00
-/*  f0badb4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0badb8:
-/*  f0badb8:	8dce0840 */ 	lw	$t6,%lo(g_PauseMode)($t6)
-/*  f0badbc:	25cffffe */ 	addiu	$t7,$t6,-2
-/*  f0badc0:	2de1000c */ 	sltiu	$at,$t7,0xc
-/*  f0badc4:	1020000f */ 	beqz	$at,.L0f0bae04
-/*  f0badc8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0badcc:	3c017f1b */ 	lui	$at,%hi(var7f1ad604)
-/*  f0badd0:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0badd4:	8c2fd604 */ 	lw	$t7,%lo(var7f1ad604)($at)
-/*  f0badd8:	01e00008 */ 	jr	$t7
-/*  f0baddc:	00000000 */ 	nop
-/*  f0bade0:	0fc41ac8 */ 	jal	soloChoosePauseDialog
-/*  f0bade4:	00000000 */ 	nop
-/*  f0bade8:	10000006 */ 	b	.L0f0bae04
-/*  f0badec:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0badf0:	0fc43240 */ 	jal	filemgrConsiderPushingFileSelectDialog
-/*  f0badf4:	00000000 */ 	nop
-/*  f0badf8:	10000002 */ 	b	.L0f0bae04
-/*  f0badfc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0bae00:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0bae04:
-/*  f0bae04:	5080003e */ 	beqzl	$a0,.L0f0baf00
-/*  f0bae08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0bae0c:	0fc68606 */ 	jal	dtGetData
-/*  f0bae10:	00000000 */ 	nop
-/*  f0bae14:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0bae18:	0fc5b350 */ 	jal	soloSetPaused
-/*  f0bae1c:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f0bae20:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0bae24:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0bae28:	8cb90284 */ 	lw	$t9,0x284($a1)
-/*  f0bae2c:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f0bae30:	24180003 */ 	addiu	$t8,$zero,0x3
-/*  f0bae34:	3c028007 */ 	lui	$v0,%hi(g_PauseMode)
-/*  f0bae38:	af381a24 */ 	sw	$t8,0x1a24($t9)
-/*  f0bae3c:	8c420840 */ 	lw	$v0,%lo(g_PauseMode)($v0)
-/*  f0bae40:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0bae44:	10410003 */ 	beq	$v0,$at,.L0f0bae54
-/*  f0bae48:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f0bae4c:	14410017 */ 	bne	$v0,$at,.L0f0baeac
-/*  f0bae50:	00000000 */ 	nop
-.L0f0bae54:
-/*  f0bae54:	8ca804b4 */ 	lw	$t0,0x4b4($a1)
-/*  f0bae58:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f0bae5c:	15010013 */ 	bne	$t0,$at,.L0f0baeac
-/*  f0bae60:	00000000 */ 	nop
-/*  f0bae64:	8ca90284 */ 	lw	$t1,0x284($a1)
-/*  f0bae68:	8d2a00bc */ 	lw	$t2,0xbc($t1)
-/*  f0bae6c:	85420028 */ 	lh	$v0,0x28($t2)
-/*  f0bae70:	28410016 */ 	slti	$at,$v0,0x16
-/*  f0bae74:	14200002 */ 	bnez	$at,.L0f0bae80
-/*  f0bae78:	2841001a */ 	slti	$at,$v0,0x1a
-/*  f0bae7c:	1420001f */ 	bnez	$at,.L0f0baefc
-.L0f0bae80:
-/*  f0bae80:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f0bae84:	1041001d */ 	beq	$v0,$at,.L0f0baefc
-/*  f0bae88:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f0bae8c:	5041001c */ 	beql	$v0,$at,.L0f0baf00
-/*  f0bae90:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0bae94:	10600005 */ 	beqz	$v1,.L0f0baeac
-/*  f0bae98:	00000000 */ 	nop
-/*  f0bae9c:	8c6b0000 */ 	lw	$t3,0x0($v1)
-/*  f0baea0:	000b67c2 */ 	srl	$t4,$t3,0x1f
-/*  f0baea4:	55800016 */ 	bnezl	$t4,.L0f0baf00
-/*  f0baea8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0baeac:
-/*  f0baeac:	0fc5b6c5 */ 	jal	musicStartForMenu
-/*  f0baeb0:	00000000 */ 	nop
-/*  f0baeb4:	10000012 */ 	b	.L0f0baf00
-/*  f0baeb8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0baebc:	8c6d1a28 */ 	lw	$t5,0x1a28($v1)
-.L0f0baec0:
-/*  f0baec0:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f0baec4:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*  f0baec8:	ac6f1a28 */ 	sw	$t7,0x1a28($v1)
-/*  f0baecc:	8cb80284 */ 	lw	$t8,0x284($a1)
-/*  f0baed0:	8f191a28 */ 	lw	$t9,0x1a28($t8)
-/*  f0baed4:	2b210014 */ 	slti	$at,$t9,0x14
-/*  f0baed8:	54200009 */ 	bnezl	$at,.L0f0baf00
-/*  f0baedc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0baee0:	0fc5b350 */ 	jal	soloSetPaused
-/*  f0baee4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0baee8:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0baeec:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0baef0:	8ca80284 */ 	lw	$t0,0x284($a1)
-/*  f0baef4:	0fc5b6cf */ 	jal	func0f16db3c
-/*  f0baef8:	ad001a24 */ 	sw	$zero,0x1a24($t0)
-.L0f0baefc:
-/*  f0baefc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0baf00:
-/*  f0baf00:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0baf04:	03e00008 */ 	jr	$ra
-/*  f0baf08:	00000000 */ 	nop
-);
-
-void currentPlayerPause(s32 mode)
+void currentPlayerTickPauseMenu(void)
 {
-	g_PauseMode = mode;
+	bool opened = false;
+
+	switch (g_Vars.currentplayer->pausemode) {
+	case PAUSEMODE_UNPAUSED:
+		break;
+	case PAUSEMODE_PAUSING:
+		// Pause menu is opening
+		switch (g_GlobalMenuRoot) {
+		case MENUROOT_TRAINING:
+		case MENUROOT_MAINMENU:
+			opened = soloChoosePauseDialog();
+			break;
+		case MENUROOT_FILEMGR:
+			opened = filemgrConsiderPushingFileSelectDialog();
+			break;
+		case MENUROOT_4MBMAINMENU:
+		case MENUROOT_MPSETUP:
+			opened = true;
+			break;
+		}
+
+		if (opened) {
+			struct trainingdata *data = dtGetData();
+			soloSetPaused(true);
+			g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;
+
+			if ((g_GlobalMenuRoot == MENUROOT_MAINMENU || g_GlobalMenuRoot == MENUROOT_TRAINING)
+					&& g_Vars.stagenum == STAGE_CITRAINING) {
+				s32 room = g_Vars.currentplayer->prop->rooms[0];
+
+				if ((room >= CIROOM_HOLOSTART && room <= CIROOM_HOLOEND)
+						|| room == CIROOM_FIRINGRANGE
+						|| room == CIROOM_DEVICEROOM
+						|| (data && data->intraining)) {
+					return;
+				}
+			}
+
+			musicStartForMenu();
+		}
+		break;
+	case PAUSEMODE_PAUSED:
+		// Pause menu is fully open
+		break;
+	case PAUSEMODE_UNPAUSING:
+		// Pause menu is closing
+		g_Vars.currentplayer->pausetime60 += g_Vars.diffframe60;
+
+		if (g_Vars.currentplayer->pausetime60 >= 20) {
+			soloSetPaused(false);
+			g_Vars.currentplayer->pausemode = PAUSEMODE_UNPAUSED;
+			musicResumeAfterUnpause();
+		}
+		break;
+	}
+}
+
+void currentPlayerPause(s32 root)
+{
+	g_GlobalMenuRoot = root;
 
 	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
-		g_Vars.currentplayer->pausemode = PAUSEMODE_1;
+		g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSING;
 	}
 }
 
 void func0f0baf38(void)
 {
-	if (g_Vars.currentplayer->pausemode == PAUSEMODE_3) {
-		soloSetPaused(0);
-		func0f16db3c();
+	if (g_Vars.currentplayer->pausemode == PAUSEMODE_PAUSED) {
+		soloSetPaused(false);
+		musicResumeAfterUnpause();
 		g_Vars.currentplayer->pausemode = PAUSEMODE_UNPAUSED;
 	}
 }
@@ -7618,7 +7535,7 @@ glabel var7f1ad6ac
 /*  f0bdf64:	8e0c1a24 */ 	lw	$t4,0x1a24($s0)
 /*  f0bdf68:	51800005 */ 	beqzl	$t4,.L0f0bdf80
 /*  f0bdf6c:	960e0010 */ 	lhu	$t6,0x10($s0)
-/*  f0bdf70:	0fc2eb5b */ 	jal	func0f0bad6c
+/*  f0bdf70:	0fc2eb5b */ 	jal	currentPlayerTickPauseMenu
 /*  f0bdf74:	00000000 */ 	nop
 /*  f0bdf78:	8e700284 */ 	lw	$s0,0x284($s3)
 /*  f0bdf7c:	960e0010 */ 	lhu	$t6,0x10($s0)
@@ -9660,7 +9577,7 @@ glabel var7f1ad6ac
 //							&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
 //							&& (buttons & START_BUTTON)) {
 //						if (g_Vars.mplayerisrunning == false) {
-//							currentPlayerPause(PAUSEMODE_2);
+//							currentPlayerPause(MENUROOT_MAINMENU);
 //						} else {
 //							mpPushPauseDialog();
 //						}
@@ -9708,7 +9625,7 @@ glabel var7f1ad6ac
 //
 //	// df64
 //	if (g_Vars.currentplayer->pausemode != PAUSEMODE_UNPAUSED) {
-//		func0f0bad6c();
+//		currentPlayerTickPauseMenu();
 //	}
 //
 //	// df80
@@ -9928,7 +9845,7 @@ glabel var7f1ad6ac
 //
 //							if (pause) {
 //								if (g_Vars.mplayerisrunning == false) {
-//									currentPlayerPause(PAUSEMODE_2);
+//									currentPlayerPause(MENUROOT_MAINMENU);
 //								} else {
 //									mpPushPauseDialog();
 //								}
