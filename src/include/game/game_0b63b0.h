@@ -39,7 +39,7 @@ void func0f0baf38(void);
 Gfx *func0f0baf84(Gfx *gdl);
 Gfx *fadeDraw(Gfx *gdl, u32 r, u32 g, u32 b, f32 frac);
 Gfx *currentPlayerDrawFade(Gfx *gdl);
-void func0f0bb42c(void);
+void currentPlayerUpdateColourScreenProperties(void);
 void currentPlayerTickChrFade(void);
 void func0f0bb69c(void);
 void func0f0bb814(void);

@@ -4999,95 +4999,27 @@ bool currentPlayerIsFadeComplete(void)
 	return g_Vars.currentplayer->colourfadetimemax60 < 0;
 }
 
-GLOBAL_ASM(
-glabel func0f0bb42c
-/*  f0bb42c:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f0bb430:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f0bb434:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f0bb438:	44803000 */ 	mtc1	$zero,$f6
-/*  f0bb43c:	c44402ec */ 	lwc1	$f4,0x2ec($v0)
-/*  f0bb440:	4604303e */ 	c.le.s	$f6,$f4
-/*  f0bb444:	00000000 */ 	nop
-/*  f0bb448:	4500004a */ 	bc1f	.L0f0bb574
-/*  f0bb44c:	00000000 */ 	nop
-/*  f0bb450:	c44802e8 */ 	lwc1	$f8,0x2e8($v0)
-/*  f0bb454:	c4ca004c */ 	lwc1	$f10,0x4c($a2)
-/*  f0bb458:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f0bb45c:	e45002e8 */ 	swc1	$f16,0x2e8($v0)
-/*  f0bb460:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f0bb464:	c44202e8 */ 	lwc1	$f2,0x2e8($v0)
-/*  f0bb468:	c44002ec */ 	lwc1	$f0,0x2ec($v0)
-/*  f0bb46c:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0bb470:	00000000 */ 	nop
-/*  f0bb474:	45020031 */ 	bc1fl	.L0f0bb53c
-/*  f0bb478:	c44a030c */ 	lwc1	$f10,0x30c($v0)
-/*  f0bb47c:	46001303 */ 	div.s	$f12,$f2,$f0
-/*  f0bb480:	c44e0308 */ 	lwc1	$f14,0x308($v0)
-/*  f0bb484:	c452030c */ 	lwc1	$f18,0x30c($v0)
-/*  f0bb488:	460e9101 */ 	sub.s	$f4,$f18,$f14
-/*  f0bb48c:	460c2182 */ 	mul.s	$f6,$f4,$f12
-/*  f0bb490:	46067200 */ 	add.s	$f8,$f14,$f6
-/*  f0bb494:	e44802e4 */ 	swc1	$f8,0x2e4($v0)
-/*  f0bb498:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f0bb49c:	8c4302f0 */ 	lw	$v1,0x2f0($v0)
-/*  f0bb4a0:	8c4e02f4 */ 	lw	$t6,0x2f4($v0)
-/*  f0bb4a4:	01c37823 */ 	subu	$t7,$t6,$v1
-/*  f0bb4a8:	448f5000 */ 	mtc1	$t7,$f10
-/*  f0bb4ac:	00000000 */ 	nop
-/*  f0bb4b0:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f0bb4b4:	460c8482 */ 	mul.s	$f18,$f16,$f12
-/*  f0bb4b8:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f0bb4bc:	44192000 */ 	mfc1	$t9,$f4
-/*  f0bb4c0:	00000000 */ 	nop
-/*  f0bb4c4:	00794021 */ 	addu	$t0,$v1,$t9
-/*  f0bb4c8:	ac4802d8 */ 	sw	$t0,0x2d8($v0)
-/*  f0bb4cc:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f0bb4d0:	8c4402f8 */ 	lw	$a0,0x2f8($v0)
-/*  f0bb4d4:	8c4902fc */ 	lw	$t1,0x2fc($v0)
-/*  f0bb4d8:	01245023 */ 	subu	$t2,$t1,$a0
-/*  f0bb4dc:	448a3000 */ 	mtc1	$t2,$f6
-/*  f0bb4e0:	00000000 */ 	nop
-/*  f0bb4e4:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f0bb4e8:	460c4282 */ 	mul.s	$f10,$f8,$f12
-/*  f0bb4ec:	4600540d */ 	trunc.w.s	$f16,$f10
-/*  f0bb4f0:	440c8000 */ 	mfc1	$t4,$f16
-/*  f0bb4f4:	00000000 */ 	nop
-/*  f0bb4f8:	008c6821 */ 	addu	$t5,$a0,$t4
-/*  f0bb4fc:	ac4d02dc */ 	sw	$t5,0x2dc($v0)
-/*  f0bb500:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f0bb504:	8c450300 */ 	lw	$a1,0x300($v0)
-/*  f0bb508:	8c4e0304 */ 	lw	$t6,0x304($v0)
-/*  f0bb50c:	01c57823 */ 	subu	$t7,$t6,$a1
-/*  f0bb510:	448f9000 */ 	mtc1	$t7,$f18
-/*  f0bb514:	00000000 */ 	nop
-/*  f0bb518:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f0bb51c:	460c2182 */ 	mul.s	$f6,$f4,$f12
-/*  f0bb520:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f0bb524:	44194000 */ 	mfc1	$t9,$f8
-/*  f0bb528:	00000000 */ 	nop
-/*  f0bb52c:	00b94021 */ 	addu	$t0,$a1,$t9
-/*  f0bb530:	03e00008 */ 	jr	$ra
-/*  f0bb534:	ac4802e0 */ 	sw	$t0,0x2e0($v0)
-/*  f0bb538:	c44a030c */ 	lwc1	$f10,0x30c($v0)
-.L0f0bb53c:
-/*  f0bb53c:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0bb540:	44818000 */ 	mtc1	$at,$f16
-/*  f0bb544:	e44a02e4 */ 	swc1	$f10,0x2e4($v0)
-/*  f0bb548:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f0bb54c:	8c4902f4 */ 	lw	$t1,0x2f4($v0)
-/*  f0bb550:	ac4902d8 */ 	sw	$t1,0x2d8($v0)
-/*  f0bb554:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f0bb558:	8c4a02fc */ 	lw	$t2,0x2fc($v0)
-/*  f0bb55c:	ac4a02dc */ 	sw	$t2,0x2dc($v0)
-/*  f0bb560:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f0bb564:	8c4b0304 */ 	lw	$t3,0x304($v0)
-/*  f0bb568:	ac4b02e0 */ 	sw	$t3,0x2e0($v0)
-/*  f0bb56c:	8ccc0284 */ 	lw	$t4,0x284($a2)
-/*  f0bb570:	e59002ec */ 	swc1	$f16,0x2ec($t4)
-.L0f0bb574:
-/*  f0bb574:	03e00008 */ 	jr	$ra
-/*  f0bb578:	00000000 */ 	nop
-);
+void currentPlayerUpdateColourScreenProperties(void)
+{
+	if (g_Vars.currentplayer->colourfadetimemax60 >= 0) {
+		g_Vars.currentplayer->colourfadetime60 += g_Vars.lvupdate240freal;
+
+		if (g_Vars.currentplayer->colourfadetime60 < g_Vars.currentplayer->colourfadetimemax60) {
+			f32 mult = g_Vars.currentplayer->colourfadetime60 / g_Vars.currentplayer->colourfadetimemax60;
+			g_Vars.currentplayer->colourscreenfrac = g_Vars.currentplayer->colourfadefracold + (g_Vars.currentplayer->colourfadefracnew - g_Vars.currentplayer->colourfadefracold) * mult;
+			g_Vars.currentplayer->colourscreenred = g_Vars.currentplayer->colourfaderedold + (s32)((g_Vars.currentplayer->colourfaderednew - g_Vars.currentplayer->colourfaderedold) * mult);
+			g_Vars.currentplayer->colourscreengreen = g_Vars.currentplayer->colourfadegreenold + (s32)((g_Vars.currentplayer->colourfadegreennew - g_Vars.currentplayer->colourfadegreenold) * mult);
+			g_Vars.currentplayer->colourscreenblue = g_Vars.currentplayer->colourfadeblueold + (s32)((g_Vars.currentplayer->colourfadebluenew - g_Vars.currentplayer->colourfadeblueold) * mult);
+			return;
+		}
+
+		g_Vars.currentplayer->colourscreenfrac = g_Vars.currentplayer->colourfadefracnew;
+		g_Vars.currentplayer->colourscreenred = g_Vars.currentplayer->colourfaderednew;
+		g_Vars.currentplayer->colourscreengreen = g_Vars.currentplayer->colourfadegreennew;
+		g_Vars.currentplayer->colourscreenblue = g_Vars.currentplayer->colourfadebluenew;
+		g_Vars.currentplayer->colourfadetimemax60 = -1;
+	}
+}
 
 void currentPlayerStartChrFade(f32 duration60, f32 targetfrac)
 {
@@ -7461,7 +7393,7 @@ glabel var7f1ad6ac
 /*  f0bdc1c:	01202025 */ 	or	$a0,$t1,$zero
 /*  f0bdc20:	0c002ee8 */ 	jal	viSetBuf
 /*  f0bdc24:	01402825 */ 	or	$a1,$t2,$zero
-/*  f0bdc28:	0fc2ed0b */ 	jal	func0f0bb42c
+/*  f0bdc28:	0fc2ed0b */ 	jal	currentPlayerUpdateColourScreenProperties
 /*  f0bdc2c:	00000000 */ 	nop
 /*  f0bdc30:	0fc2ed7b */ 	jal	currentPlayerTickChrFade
 /*  f0bdc34:	00000000 */ 	nop
@@ -9676,7 +9608,7 @@ glabel var7f1ad6ac
 //	viSetViewPosition(func0f0bc7ac(), func0f0bce24());
 //	viSetXY(func0f0bc44c(), func0f0bc478());
 //	viSetBuf(func0f0bc44c(), func0f0bc478());
-//	func0f0bb42c();
+//	currentPlayerUpdateColourScreenProperties();
 //	currentPlayerTickChrFade();
 //	currentPlayerSetAutoAimY(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));
 //	currentPlayerSetAutoAimX(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));
