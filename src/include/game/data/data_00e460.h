@@ -34,7 +34,7 @@ extern u32 var800698e8;
 extern u32 var800698ec;
 extern u32 var800698f8;
 extern u32 var800698fc;
-extern u32 var80069900;
+extern struct audiohandle *var80069900;
 extern u32 var80069910;
 extern u32 var80069918;
 extern struct linkliftdoorobj *g_LiftDoors;

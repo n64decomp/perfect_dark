@@ -109,7 +109,7 @@ u32 var800698f0 = 0x00000000;
 u32 var800698f4 = 0x00000000;
 u32 var800698f8 = 0x00000000;
 u32 var800698fc = 0x00000000;
-u32 var80069900 = 0x00000000;
+struct audiohandle *var80069900 = NULL;
 u32 g_CountdownTimerVisible = 1; // 80069904
 bool g_CountdownTimerRunning = false; // 80069908
 f32 g_CountdownTimerValue = 0; // 8006990c
@@ -47083,27 +47083,12 @@ glabel func0f09044c
 /*  f0904dc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0904e0
-/*  f0904e0:	3c048007 */ 	lui	$a0,%hi(var80069900)
-/*  f0904e4:	8c849900 */ 	lw	$a0,%lo(var80069900)($a0)
-/*  f0904e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0904ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0904f0:	50800008 */ 	beqzl	$a0,.L0f090514
-/*  f0904f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0904f8:	0c00cdfc */ 	jal	audioIsPlaying
-/*  f0904fc:	00000000 */ 	nop
-/*  f090500:	10400003 */ 	beqz	$v0,.L0f090510
-/*  f090504:	3c048007 */ 	lui	$a0,%hi(var80069900)
-/*  f090508:	0c00cec9 */ 	jal	audioStop
-/*  f09050c:	8c849900 */ 	lw	$a0,%lo(var80069900)($a0)
-.L0f090510:
-/*  f090510:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f090514:
-/*  f090514:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f090518:	03e00008 */ 	jr	$ra
-/*  f09051c:	00000000 */ 	nop
-);
+void func0f0904e0(void)
+{
+	if (var80069900 && audioIsPlaying(var80069900)) {
+		audioStop(var80069900);
+	}
+}
 
 bool func0f090520(void)
 {
