@@ -5034,7 +5034,7 @@ struct var800705c0 {
 	s16 unk02;
 	u32 unk04;
 	u32 unk08;
-	u32 unk0c;
+	f32 unk0c;
 	u32 unk10;
 	u32 unk14;
 	u32 unk18;
