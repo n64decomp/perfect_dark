@@ -50,7 +50,7 @@ void func0f0bc120(void);
 void func0f0bc3f0(void);
 s16 func0f0bc44c(void);
 s16 func0f0bc478(void);
-u32 func0f0bc4c0(void);
+bool func0f0bc4c0(void);
 s16 func0f0bc554(void);
 s16 func0f0bc7ac(void);
 s16 func0f0bcaa0(void);
