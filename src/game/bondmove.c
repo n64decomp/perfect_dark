@@ -4067,8 +4067,8 @@ glabel var7f1ad8e4
 //		// 8e14
 //		if (g_Vars.mplayerisrunning) {
 //			if (PLAYERCOUNT() == 1) {
-//				if (mpIsPaused() && (sp1a0 & START_BUTTON) && g_MpSetup.paused != MPPAUSEMODE_2) {
-//					mpSetPaused(MPPAUSEMODE_0);
+//				if (mpIsPaused() && (sp1a0 & START_BUTTON) && g_MpSetup.paused != MPPAUSEMODE_GAMEOVER) {
+//					mpSetPaused(MPPAUSEMODE_UNPAUSED);
 //				}
 //			} else {
 //				if (mpIsPaused() && (sp1a0 & START_BUTTON)) {

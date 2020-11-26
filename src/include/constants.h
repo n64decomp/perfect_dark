@@ -1949,9 +1949,9 @@
 #define MPOPTION_PAC_HIGHLIGHTTARGET    0x00080000
 #define MPOPTION_PAC_SHOWONRADAR        0x00100000
 
-#define MPPAUSEMODE_0 0 // unpaused
-#define MPPAUSEMODE_1 1 // paused via "Pause" menu item
-#define MPPAUSEMODE_2 2 // paused due to only one player and having opened menu?
+#define MPPAUSEMODE_UNPAUSED 0
+#define MPPAUSEMODE_PAUSED   1
+#define MPPAUSEMODE_GAMEOVER 2
 
 #define MPPLAYERTITLE_BEGINNER     0
 #define MPPLAYERTITLE_TRAINEE      1

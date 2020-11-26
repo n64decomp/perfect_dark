@@ -1174,7 +1174,7 @@ void mainEndStage(void)
 			setCurrentPlayerNum(prevplayernum);
 			musicStartForMenu();
 		} else if (g_Vars.normmplayerisrunning) {
-			func0f18b9e4();
+			mpEndMatch();
 		} else {
 			endscreenPrepare();
 			musicStartForMenu();

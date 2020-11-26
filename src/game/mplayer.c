@@ -2126,7 +2126,7 @@ bool mpIsPaused(void)
 		return true;
 	}
 
-	if (!g_MpSetup.paused) {
+	if (g_MpSetup.paused == PAUSEMODE_UNPAUSED) {
 		return false;
 	}
 
@@ -4722,96 +4722,38 @@ glabel var7f1b8db0
 /*  f18b9e0:	27bd0300 */ 	addiu	$sp,$sp,0x300
 );
 
-GLOBAL_ASM(
-glabel func0f18b9e4
-/*  f18b9e4:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f18b9e8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f18b9ec:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f18b9f0:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f18b9f4:	8e2e006c */ 	lw	$t6,0x6c($s1)
-/*  f18b9f8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f18b9fc:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f18ba00:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f18ba04:	11c00003 */ 	beqz	$t6,.L0f18ba14
-/*  f18ba08:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f18ba0c:	10000002 */ 	b	.L0f18ba18
-/*  f18ba10:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f18ba14:
-/*  f18ba14:	00002825 */ 	or	$a1,$zero,$zero
-.L0f18ba18:
-/*  f18ba18:	8e2f0068 */ 	lw	$t7,0x68($s1)
-/*  f18ba1c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18ba20:	11e00003 */ 	beqz	$t7,.L0f18ba30
-/*  f18ba24:	00000000 */ 	nop
-/*  f18ba28:	10000001 */ 	b	.L0f18ba30
-/*  f18ba2c:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f18ba30:
-/*  f18ba30:	8e380064 */ 	lw	$t8,0x64($s1)
-/*  f18ba34:	00002025 */ 	or	$a0,$zero,$zero
-/*  f18ba38:	13000003 */ 	beqz	$t8,.L0f18ba48
-/*  f18ba3c:	00000000 */ 	nop
-/*  f18ba40:	10000001 */ 	b	.L0f18ba48
-/*  f18ba44:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f18ba48:
-/*  f18ba48:	8e390070 */ 	lw	$t9,0x70($s1)
-/*  f18ba4c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18ba50:	13200003 */ 	beqz	$t9,.L0f18ba60
-/*  f18ba54:	00000000 */ 	nop
-/*  f18ba58:	10000001 */ 	b	.L0f18ba60
-/*  f18ba5c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f18ba60:
-/*  f18ba60:	00444021 */ 	addu	$t0,$v0,$a0
-/*  f18ba64:	01034821 */ 	addu	$t1,$t0,$v1
-/*  f18ba68:	01259021 */ 	addu	$s2,$t1,$a1
-/*  f18ba6c:	0fc5b6c5 */ 	jal	musicStartForMenu
-/*  f18ba70:	02409825 */ 	or	$s3,$s2,$zero
-/*  f18ba74:	0fc625cb */ 	jal	mpSetPaused
-/*  f18ba78:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f18ba7c:	8e2a028c */ 	lw	$t2,0x28c($s1)
-/*  f18ba80:	00008025 */ 	or	$s0,$zero,$zero
-/*  f18ba84:	1a400010 */ 	blez	$s2,.L0f18bac8
-/*  f18ba88:	afaa002c */ 	sw	$t2,0x2c($sp)
-/*  f18ba8c:	24120002 */ 	addiu	$s2,$zero,0x2
-.L0f18ba90:
-/*  f18ba90:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f18ba94:	02002025 */ 	or	$a0,$s0,$zero
-/*  f18ba98:	8e2b0284 */ 	lw	$t3,0x284($s1)
-/*  f18ba9c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18baa0:	ad601974 */ 	sw	$zero,0x1974($t3)
-/*  f18baa4:	8e2c0284 */ 	lw	$t4,0x284($s1)
-/*  f18baa8:	ad801978 */ 	sw	$zero,0x1978($t4)
-/*  f18baac:	8e220284 */ 	lw	$v0,0x284($s1)
-/*  f18bab0:	944d0010 */ 	lhu	$t5,0x10($v0)
-/*  f18bab4:	164d0002 */ 	bne	$s2,$t5,.L0f18bac0
-/*  f18bab8:	00000000 */ 	nop
-/*  f18babc:	a4400010 */ 	sh	$zero,0x10($v0)
-.L0f18bac0:
-/*  f18bac0:	1613fff3 */ 	bne	$s0,$s3,.L0f18ba90
-/*  f18bac4:	00000000 */ 	nop
-.L0f18bac8:
-/*  f18bac8:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f18bacc:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f18bad0:	0fc6295b */ 	jal	func0f18a56c
-/*  f18bad4:	00000000 */ 	nop
-/*  f18bad8:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x88)
-/*  f18badc:	91cecc10 */ 	lbu	$t6,%lo(g_MpSetup+0x88)($t6)
-/*  f18bae0:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f18bae4:	55c10004 */ 	bnel	$t6,$at,.L0f18baf8
-/*  f18bae8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f18baec:	0fc671af */ 	jal	mpConsiderMarkingCurrentChallengeComplete
-/*  f18baf0:	00000000 */ 	nop
-/*  f18baf4:	00002025 */ 	or	$a0,$zero,$zero
-.L0f18baf8:
-/*  f18baf8:	0fc3e083 */ 	jal	func0f0f820c
-/*  f18bafc:	2405fffa */ 	addiu	$a1,$zero,-6
-/*  f18bb00:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f18bb04:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f18bb08:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f18bb0c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f18bb10:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f18bb14:	03e00008 */ 	jr	$ra
-/*  f18bb18:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void mpEndMatch(void)
+{
+	s32 stack;
+	s32 playercount = PLAYERCOUNT();
+	s32 prevplayernum;
+	s32 i;
+
+	musicStartForMenu();
+	mpSetPaused(MPPAUSEMODE_GAMEOVER);
+
+	prevplayernum = g_Vars.currentplayernum;
+
+	for (i = 0; i < playercount; i++) {
+		setCurrentPlayerNum(i);
+
+		g_Vars.currentplayer->award1 = NULL;
+		g_Vars.currentplayer->award2 = NULL;
+
+		if (g_Vars.currentplayer->visionmode == VISIONMODE_SLAYERROCKET) {
+			g_Vars.currentplayer->visionmode = VISIONMODE_NORMAL;
+		}
+	}
+
+	setCurrentPlayerNum(prevplayernum);
+	func0f18a56c();
+
+	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
+		mpConsiderMarkingCurrentChallengeComplete();
+	}
+
+	func0f0f820c(NULL, -6);
+}
 
 s32 func0f18bb1c(void)
 {

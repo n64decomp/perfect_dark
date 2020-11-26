@@ -2460,7 +2460,7 @@ glabel var7f1a863c
 //				} else if (g_Vars.restartlevel) {
 //					mainSetStageNum(mainGetStageNum());
 //				} else {
-//					mpSetPaused(MPPAUSEMODE_0);
+//					mpSetPaused(MPPAUSEMODE_UNPAUSED);
 //					g_Vars.mplayerisrunning = false;
 //					g_Vars.normmplayerisrunning = false;
 //					g_Vars.lvmpbotlevel = 0;
@@ -2485,7 +2485,7 @@ glabel var7f1a863c
 //				break;
 //			case MENUROOT_9: // d348
 //				if (g_Vars.coopplayernum >= 0) {
-//					mpSetPaused(MPPAUSEMODE_0);
+//					mpSetPaused(MPPAUSEMODE_UNPAUSED);
 //					g_Vars.mplayerisrunning = false;
 //					g_Vars.normmplayerisrunning = false;
 //					g_Vars.lvmpbotlevel = 0;
