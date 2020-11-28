@@ -40306,30 +40306,15 @@ glabel func0f089c70
 /*  f089d60:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f089d64
-/*  f089d64:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f089d68:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f089d6c:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f089d70:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f089d74:	84840004 */ 	lh	$a0,0x4($a0)
-/*  f089d78:	0fc2486d */ 	jal	propLoad
-/*  f089d7c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f089d80:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*  f089d84:	3c068008 */ 	lui	$a2,%hi(g_Props)
-/*  f089d88:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f089d8c:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f089d90:	00d83021 */ 	addu	$a2,$a2,$t8
-/*  f089d94:	8cc6b06c */ 	lw	$a2,%lo(g_Props)($a2)
-/*  f089d98:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f089d9c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f089da0:	0fc2271c */ 	jal	func0f089c70
-/*  f089da4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f089da8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f089dac:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f089db0:	03e00008 */ 	jr	$ra
-/*  f089db4:	00000000 */ 	nop
-);
+void func0f089d64(struct hatobj *hat, struct chrdata *chr)
+{
+	u32 stack;
+	s32 modelnum = hat->base.modelnum;
+
+	propLoad(modelnum);
+
+	func0f089c70(hat, chr, g_Props[modelnum].filedata, 0, 0);
+}
 
 void hatAssignToChr(struct hatobj *hat, struct chrdata *chr)
 {
