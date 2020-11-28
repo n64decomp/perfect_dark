@@ -4,6 +4,6 @@
 #include "types.h"
 
 u32 func0f152fa0(void);
-u32 func0f153134(void);
+Gfx *func0f153134(Gfx *gdl);
 
 #endif

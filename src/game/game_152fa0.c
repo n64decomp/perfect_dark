@@ -128,33 +128,12 @@ glabel func0f152fa0
 /*  f153130:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f153134
-/*  f153134:	24850008 */ 	addiu	$a1,$a0,0x8
-/*  f153138:	3c0ee700 */ 	lui	$t6,0xe700
-/*  f15313c:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*  f153140:	ac800004 */ 	sw	$zero,0x4($a0)
-/*  f153144:	3c0fba00 */ 	lui	$t7,0xba00
-/*  f153148:	35ef1402 */ 	ori	$t7,$t7,0x1402
-/*  f15314c:	24a60008 */ 	addiu	$a2,$a1,0x8
-/*  f153150:	acaf0000 */ 	sw	$t7,0x0($a1)
-/*  f153154:	aca00004 */ 	sw	$zero,0x4($a1)
-/*  f153158:	3c18fcff */ 	lui	$t8,0xfcff
-/*  f15315c:	3c19fffd */ 	lui	$t9,0xfffd
-/*  f153160:	3739f6fb */ 	ori	$t9,$t9,0xf6fb
-/*  f153164:	3718ffff */ 	ori	$t8,$t8,0xffff
-/*  f153168:	24c70008 */ 	addiu	$a3,$a2,0x8
-/*  f15316c:	3c08b900 */ 	lui	$t0,0xb900
-/*  f153170:	3c090050 */ 	lui	$t1,0x50
-/*  f153174:	acd80000 */ 	sw	$t8,0x0($a2)
-/*  f153178:	acd90004 */ 	sw	$t9,0x4($a2)
-/*  f15317c:	35294240 */ 	ori	$t1,$t1,0x4240
-/*  f153180:	3508031d */ 	ori	$t0,$t0,0x31d
-/*  f153184:	ace80000 */ 	sw	$t0,0x0($a3)
-/*  f153188:	ace90004 */ 	sw	$t1,0x4($a3)
-/*  f15318c:	03e00008 */ 	jr	$ra
-/*  f153190:	24e20008 */ 	addiu	$v0,$a3,0x8
-/*  f153194:	00000000 */ 	nop
-/*  f153198:	00000000 */ 	nop
-/*  f15319c:	00000000 */ 	nop
-);
+Gfx *func0f153134(Gfx *gdl)
+{
+	gDPPipeSync(gdl++);
+	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+	gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
+	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+
+	return gdl;
+}
