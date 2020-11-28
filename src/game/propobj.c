@@ -40331,17 +40331,10 @@ glabel func0f089d64
 /*  f089db4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel hatAssignToChr
-/*  f089db8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f089dbc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f089dc0:	0fc22759 */ 	jal	func0f089d64
-/*  f089dc4:	00000000 */ 	nop
-/*  f089dc8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f089dcc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f089dd0:	03e00008 */ 	jr	$ra
-/*  f089dd4:	00000000 */ 	nop
-);
+void hatAssignToChr(struct hatobj *hat, struct chrdata *chr)
+{
+	func0f089d64(hat, chr);
+}
 
 GLOBAL_ASM(
 glabel chrTryEquipHat

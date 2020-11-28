@@ -251,7 +251,7 @@ u32 func0f089014(void);
 bool func0f0899dc(struct prop *prop, f32 *arg0, f32 *arg1, f32 *arg2);
 void func0f089a94(bool arg0, struct model *model);
 u32 func0f089c70(void);
-u32 func0f089d64(void);
+void func0f089d64(struct hatobj *hat, struct chrdata *chr);
 void hatAssignToChr(struct hatobj *hat, struct chrdata *chr);
 u32 chrTryEquipHat(struct chrdata *chr, u32 model, u32 flags);
 u32 func0f089f8c(void);
