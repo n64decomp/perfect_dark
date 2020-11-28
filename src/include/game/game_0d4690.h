@@ -23,6 +23,6 @@ void func0f0d5690(void *arg0, char *buffer);
 u32 func0f0d575c(void);
 u32 func0f0d579c(void);
 void formatTime(char *dst, s32 time, u32 arg2);
-u32 func0f0d5a7c(void);
+void func0f0d5a7c(void);
 
 #endif

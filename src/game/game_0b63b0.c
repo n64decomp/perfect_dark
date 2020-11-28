@@ -4082,12 +4082,12 @@ void func0f0ba010(void)
 	setMoveModeForAllPlayers(MOVEMODE_CUTSCENE);
 	allPlayersClearMemCamRoom();
 	var8009de14 = var8009de20;
-	var8009de10 = var8009de20 >> 2;
-	var8009de1c = 0;
+	g_CameraAnimCurFrame = var8009de20 >> 2;
+	g_CutsceneBlurFrac = 0;
 	var8009de2c = -1;
 	var80070764 = 1;
 	func0f11dcb0(1);
-	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_CUTSCENE && var8009de10 < animGetNumFrames(g_CameraAnimNum) - 1;
+	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_CUTSCENE && g_CameraAnimCurFrame < animGetNumFrames(g_CameraAnimNum) - 1;
 	g_Vars.unk0004e2 = 0;
 }
 
@@ -4182,8 +4182,8 @@ glabel var7f1ad5dc
 /*  f0ba314:	2444ffff */ 	addiu	$a0,$v0,-1
 /*  f0ba318:	00808825 */ 	or	$s1,$a0,$zero
 /*  f0ba31c:	17000040 */ 	bnez	$t8,.L0f0ba420
-/*  f0ba320:	3c10800a */ 	lui	$s0,%hi(var8009de10)
-/*  f0ba324:	2610de10 */ 	addiu	$s0,$s0,%lo(var8009de10)
+/*  f0ba320:	3c10800a */ 	lui	$s0,%hi(g_CameraAnimCurFrame)
+/*  f0ba324:	2610de10 */ 	addiu	$s0,$s0,%lo(g_CameraAnimCurFrame)
 /*  f0ba328:	8e190000 */ 	lw	$t9,0x0($s0)
 /*  f0ba32c:	3c03800a */ 	lui	$v1,%hi(var8009de14)
 /*  f0ba330:	a26004e2 */ 	sb	$zero,0x4e2($s3)
@@ -4253,8 +4253,8 @@ glabel var7f1ad5dc
 .L0f0ba420:
 /*  f0ba420:	8e6202ac */ 	lw	$v0,0x2ac($s3)
 .L0f0ba424:
-/*  f0ba424:	3c10800a */ 	lui	$s0,%hi(var8009de10)
-/*  f0ba428:	2610de10 */ 	addiu	$s0,$s0,%lo(var8009de10)
+/*  f0ba424:	3c10800a */ 	lui	$s0,%hi(g_CameraAnimCurFrame)
+/*  f0ba428:	2610de10 */ 	addiu	$s0,$s0,%lo(g_CameraAnimCurFrame)
 /*  f0ba42c:	38480006 */ 	xori	$t0,$v0,0x6
 /*  f0ba430:	2d020001 */ 	sltiu	$v0,$t0,0x1
 /*  f0ba434:	8e050000 */ 	lw	$a1,0x0($s0)
@@ -4323,8 +4323,8 @@ glabel var7f1ad5dc
 /*  f0ba52c:	93a6015f */ 	lbu	$a2,0x15f($sp)
 /*  f0ba530:	44805000 */ 	mtc1	$zero,$f10
 /*  f0ba534:	3c04800a */ 	lui	$a0,%hi(var8009de30)
-/*  f0ba538:	3c12800a */ 	lui	$s2,%hi(var8009de1c)
-/*  f0ba53c:	2652de1c */ 	addiu	$s2,$s2,%lo(var8009de1c)
+/*  f0ba538:	3c12800a */ 	lui	$s2,%hi(g_CutsceneBlurFrac)
+/*  f0ba53c:	2652de1c */ 	addiu	$s2,$s2,%lo(g_CutsceneBlurFrac)
 /*  f0ba540:	2484de30 */ 	addiu	$a0,$a0,%lo(var8009de30)
 /*  f0ba544:	e6400000 */ 	swc1	$f0,0x0($s2)
 /*  f0ba548:	3c02800a */ 	lui	$v0,%hi(var8009de2c)
@@ -4521,9 +4521,9 @@ glabel var7f1ad5dc
 /*  f0ba834:	27bd01a8 */ 	addiu	$sp,$sp,0x1a8
 );
 
-f32 getVar8009de1c(void)
+f32 cutsceneGetBlurFrac(void)
 {
-	return var8009de1c;
+	return g_CutsceneBlurFrac;
 }
 
 void currentPlayerSetZoomFovY(f32 fovy, f32 timemax)

@@ -4327,10 +4327,10 @@ glabel hudRenderGasIfEnabled
 /*  f00ab00:	e7a60108 */ 	swc1	$f6,0x108($sp)
 /*  f00ab04:	8dada26c */ 	lw	$t5,%lo(g_Vars+0x2ac)($t5)
 /*  f00ab08:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f00ab0c:	3c02800a */ 	lui	$v0,%hi(var8009de10)
+/*  f00ab0c:	3c02800a */ 	lui	$v0,%hi(g_CameraAnimCurFrame)
 /*  f00ab10:	15a10012 */ 	bne	$t5,$at,.L0f00ab5c
 /*  f00ab14:	00000000 */ 	nop
-/*  f00ab18:	8c42de10 */ 	lw	$v0,%lo(var8009de10)($v0)
+/*  f00ab18:	8c42de10 */ 	lw	$v0,%lo(g_CameraAnimCurFrame)($v0)
 /*  f00ab1c:	28410884 */ 	slti	$at,$v0,0x884
 /*  f00ab20:	50200004 */ 	beqzl	$at,.L0f00ab34
 /*  f00ab24:	28410a28 */ 	slti	$at,$v0,0xa28

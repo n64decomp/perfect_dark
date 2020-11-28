@@ -17,7 +17,7 @@ u32 var80075d68 = 0x00000002;
 u32 var80075d6c = 0x00000002;
 u32 var80075d70 = 0x00000000;
 bool g_DebugTurboMode = false;
-u32 var80075d78 = 0x00000000;
+s32 var80075d78 = 0;
 u32 var80075d7c = 0x00000000;
 u32 var80075d80 = 0x00000000;
 u32 var80075d84 = 0x00000000;
@@ -319,9 +319,9 @@ bool debug0f11eed0(void)
 	return false;
 }
 
-bool debug0f11eed8(void)
+s32 debugGetMotionBlur(void)
 {
-	return false;
+	return 0;
 }
 
 bool debug0f11eee0(void)

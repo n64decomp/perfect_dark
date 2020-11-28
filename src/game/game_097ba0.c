@@ -12631,7 +12631,7 @@ const char var7f1ac188[] = "%d\n";
 const char var7f1ac18c[] = "%02d:%02d:%02d\n";
 const char var7f1ac19c[] = "%02d:%02d\n";
 
-void func0f0a2218(s32 handnum)
+void currentPlayerReloadHandIfPossible(s32 handnum)
 {
 	struct player *player = g_Vars.currentplayer;
 

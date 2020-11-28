@@ -104,7 +104,7 @@ char *mpMenuTextScenarioShortName(struct menuitem *item);
 char *mpMenuTextScenarioName(struct menuitem *item);
 s32 menuhandler00185068(u32 operation, struct menuitem *item, union handlerdata *data);
 void func0f185568(void);
-u32 func0f185774(void);
+Gfx *func0f185774(Gfx *gdl);
 u32 func0f185c14(void);
 u32 func0f185e20(void);
 void func0f18620c(void);

@@ -1119,7 +1119,7 @@ void mainTick(void)
 				}
 			}
 
-			gdl = func0f169374(gdl);
+			gdl = renderFrame(gdl);
 			func000034e0(&gdl);
 
 			if (debug0f11ed70() >= 2) {

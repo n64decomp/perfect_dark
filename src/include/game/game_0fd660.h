@@ -20,7 +20,7 @@ u32 func0f0ff274(void);
 u32 func0f0ff6f4(void);
 u32 func0f0ff7bc(void);
 u32 func0f100128(void);
-u32 func0f100ad0(void);
+Gfx *func0f100ad0(Gfx *gdl);
 s32 menudialog000fcd48(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menudialogMpPickTarget(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menuhandler000fcc34(u32 operation, struct menuitem *item, union handlerdata *data);

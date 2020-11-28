@@ -19,7 +19,7 @@ bool debug0f11ee88(void);
 bool debug0f11ee90(void);
 bool debug0f11eea8(void);
 bool debug0f11eeb0(void);
-bool debug0f11eed8(void);
+s32 debugGetMotionBlur(void);
 bool debug0f11eef8(void);
 bool debugAllowEndLevel(void);
 bool debug0f11ef78(void);

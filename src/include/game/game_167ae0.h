@@ -16,7 +16,7 @@ bool threatCheckCmpFollow(struct threat *threat, s32 index);
 void propFindThreats(struct prop *prop, bool inchild, struct coord *playerpos, s32 *activeslots, f32 *param_5);
 void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 *activeslots, f32 *distances);
 void func0f1691c0(void);
-Gfx *func0f169374(Gfx *gdl);
+Gfx *renderFrame(Gfx *gdl);
 void func0f16b0c8(void);
 s32 sub54321(s32 value);
 void updateCutsceneTime(void);

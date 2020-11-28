@@ -61,5 +61,6 @@ extern u32 g_PakDebugDumpEeprom;
 extern s32 var80075d60;
 extern u32 var80075d64;
 extern u32 var80075d68;
+extern s32 var80075d78;
 
 #endif

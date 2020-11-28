@@ -899,7 +899,7 @@ glabel func0f142274
 );
 
 GLOBAL_ASM(
-glabel func0f142438
+glabel hudRenderMotionBlur
 /*  f142438:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f14243c:	afbf005c */ 	sw	$ra,0x5c($sp)
 /*  f142440:	afb20048 */ 	sw	$s2,0x48($sp)
@@ -1041,7 +1041,7 @@ glabel func0f142438
 );
 
 GLOBAL_ASM(
-glabel func0f142644
+glabel hudRenderStatic
 /*  f142644:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f142648:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f14264c:	afb20038 */ 	sw	$s2,0x38($sp)
@@ -1124,7 +1124,7 @@ glabel func0f142644
 );
 
 GLOBAL_ASM(
-glabel func0f142774
+glabel hudRenderSlayerRocketLens
 /*  f142774:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f142778:	afbf0064 */ 	sw	$ra,0x64($sp)
 /*  f14277c:	afb40050 */ 	sw	$s4,0x50($sp)
@@ -6312,7 +6312,7 @@ glabel func0f1472fc
 /*  f147438:	8f39e4f8 */ 	lw	$t9,%lo(g_Menus+0x4f8)($t9)
 /*  f14743c:	57200005 */ 	bnezl	$t9,.L0f147454
 /*  f147440:	02201025 */ 	or	$v0,$s1,$zero
-/*  f147444:	0fc5090e */ 	jal	func0f142438
+/*  f147444:	0fc5090e */ 	jal	hudRenderMotionBlur
 /*  f147448:	24060060 */ 	addiu	$a2,$zero,0x60
 /*  f14744c:	00408825 */ 	or	$s1,$v0,$zero
 /*  f147450:	02201025 */ 	or	$v0,$s1,$zero
@@ -6760,7 +6760,7 @@ glabel func0f147578
 /*  f147aa8:	8d6be4f8 */ 	lw	$t3,%lo(g_Menus+0x4f8)($t3)
 /*  f147aac:	55600005 */ 	bnezl	$t3,.L0f147ac4
 /*  f147ab0:	02801025 */ 	or	$v0,$s4,$zero
-/*  f147ab4:	0fc5090e */ 	jal	func0f142438
+/*  f147ab4:	0fc5090e */ 	jal	hudRenderMotionBlur
 /*  f147ab8:	24060040 */ 	addiu	$a2,$zero,0x40
 /*  f147abc:	0040a025 */ 	or	$s4,$v0,$zero
 /*  f147ac0:	02801025 */ 	or	$v0,$s4,$zero

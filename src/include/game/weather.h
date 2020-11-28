@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 weatherRender(void);
+Gfx *weatherRender(Gfx *gdl);
 void weatherSetBoundaries(struct weatherparticledata *data, s32 index, f32 min, f32 max);
 struct weatherparticledata *weatherAllocateParticles(void);
 void func0f131610(struct weatherdata *weather);

@@ -3250,24 +3250,24 @@ glabel func0f062dd0
 );
 
 GLOBAL_ASM(
-glabel func0f062e74
+glabel currentPlayerInterect
 .late_rodata
 glabel var7f1a9ef8
-.word func0f062e74+0x44 # f062eb8
+.word currentPlayerInterect+0x44 # f062eb8
 glabel var7f1a9efc
-.word func0f062e74+0x54 # f062ec8
+.word currentPlayerInterect+0x54 # f062ec8
 glabel var7f1a9f00
-.word func0f062e74+0x60 # f062ed4
+.word currentPlayerInterect+0x60 # f062ed4
 glabel var7f1a9f04
-.word func0f062e74+0x44 # f062eb8
+.word currentPlayerInterect+0x44 # f062eb8
 glabel var7f1a9f08
-.word func0f062e74+0x60 # f062ed4
+.word currentPlayerInterect+0x60 # f062ed4
 glabel var7f1a9f0c
-.word func0f062e74+0x60 # f062ed4
+.word currentPlayerInterect+0x60 # f062ed4
 glabel var7f1a9f10
-.word func0f062e74+0x60 # f062ed4
+.word currentPlayerInterect+0x60 # f062ed4
 glabel var7f1a9f14
-.word func0f062e74+0x60 # f062ed4
+.word currentPlayerInterect+0x60 # f062ed4
 .text
 /*  f062e74:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f062e78:	afbf0014 */ 	sw	$ra,0x14($sp)

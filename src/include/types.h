@@ -1619,7 +1619,7 @@ struct eyespy {
 	/*0x36*/ s8 startuptimer60;
 	/*0x37*/ s8 active;
 	/*0x38*/ u8 buttonheld;
-	/*0x39*/ u8 camerabuttonheld;
+	/*0x39*/ s8 camerabuttonheld;
 	/*0x3a*/ s16 bobdir;
 	/*0x3c*/ u8 bobtimer;
 	/*0x3d*/ u8 bobactive;
@@ -1704,7 +1704,7 @@ struct hand {
 	/*0x0650*/ u32 unk0650;
 	/*0x0654*/ u32 unk0654;
 	/*0x0658*/ u32 unk0658;
-	/*0x065c*/ u32 unk065c;
+	/*0x065c*/ u32 unk065c; // hand state? 0 = idle, 9 = reloading
 	/*0x0660*/ u32 unk0660;
 	/*0x0664*/ u32 unk0664;
 	/*0x0668*/ u32 unk0668;
@@ -2322,7 +2322,7 @@ struct player {
 	/*0x024c*/ s16 invdowntime;
 	/*0x024e*/ s16 usedowntime;
 	/*0x0250*/ u8 activemenumode;
-	/*0x0254*/ u32 erasertime; // related to FarSight's auto tracking
+	/*0x0254*/ s32 erasertime; // related to FarSight's auto tracking
 	/*0x0258*/ f32 autoeraserdist;
 	/*0x025c*/ struct prop *autoerasertarget;
 	/*0x0260*/ s32 aimtaptime;
@@ -2394,7 +2394,7 @@ struct player {
 	/*0x0484*/ u8 *unk0484; // pointer to vtx buffer?
 	/*0x0488*/ u8 *unk0488; // pointer to vtx buffer?
 	/*0x048c*/ bool aborted;
-	/*0x0490*/ u32 unk0490;
+	/*0x0490*/ s32 eyespydarts;
 	/*0x0494*/ u32 unk0494;
 	/*0x0498*/ u32 unk0498;
 	/*0x049c*/ u32 unk049c;
@@ -3023,8 +3023,8 @@ struct weapon {
 };
 
 struct cutscene {
-	u16 stage;
-	u16 mission;
+	s16 stage;
+	s16 mission;
 	u32 scene;
 	u16 name;
 };

@@ -38,7 +38,7 @@ void func0f030ff8(struct chrdata *chr, u32 anim_id, f32 fstartframe, f32 fendfra
 void func0f031254(struct chrdata *chr);
 void func0f031384(struct chrdata *chr, struct var80065750 **arg1, bool arg2, s32 *firing, u32 entitytype, u32 entityid, u32 arg6);
 void chrAttackAmount(struct chrdata *chr, u32 entitytype, u32 entityid, u32 arg3);
-u32 func0f0319a8(void);
+void func0f0319a8(struct chrdata *chr, struct coord *arg1, f32 arg2, u32 arg3, s8 *arg4, u32 arg5, u32 arg6);
 u32 func0f032ac4(void);
 void func0f032fe4(struct chrdata *chr, struct coord *pos, f32 arg2, f32 arg3, u32 *arg4, u32 arg5);
 void func0f03323c(struct chrdata *chr, struct coord *pos, f32 arg2);

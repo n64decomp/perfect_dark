@@ -45,7 +45,7 @@ struct g_vars {
 	/*000284*/ struct player *currentplayer;
 	/*000288*/ struct playerstats *currentplayerstats;
 	/*00028c*/ s32 currentplayernum; // 0-3 - controller numbers I think
-	/*000290*/ u32 currentplayerindex; // 0-3 - but 2 or 3 probably only used in combat simulator
+	/*000290*/ s32 currentplayerindex; // 0-3 - but 2 or 3 probably only used in combat simulator
 	/*000294*/ s32 bondplayernum;
 	/*000298*/ s32 coopplayernum;
 	/*00029c*/ s32 antiplayernum;
@@ -81,7 +81,7 @@ struct g_vars {
 	/*000314*/ bool mplayerisrunning;
 	/*000318*/ bool normmplayerisrunning;
 	/*00031c*/ s32 lvmpbotlevel;
-	/*000320*/ u32 unk000320;
+	/*000320*/ s32 unk000320;
 	/*000324*/ s32 unk000324;
 	/*000328*/ s32 unk000328;
 	/*00032c*/ u32 unk00032c;
@@ -149,7 +149,7 @@ struct g_vars {
 	/*000454*/ s32 coopfriendlyfire;
 	/*000458*/ u32 unk000458;
 	/*00045c*/ s32 speedpilltime;
-	/*000460*/ u32 speedpillchange;
+	/*000460*/ s32 speedpillchange;
 	/*000464*/ u32 speedpillwant;
 	/*000468*/ bool speedpillon;
 	/*00046c*/ s32 restartlevel;
@@ -182,12 +182,12 @@ struct g_vars {
 	/*0004cc*/ s32 in_cutscene;
 	/*0004d0*/ u8 paksconnected;
 	/*0004d1*/ u8 unk0004d1;
-	/*0004d2*/ s8 unk0004d2;
+	/*0004d2*/ s8 unk0004d2; // cutscene scene number (0, 1 or 2)
 	/*0004d3*/ s8 unk0004d3;
-	/*0004d4*/ s8 unk0004d4;
-	/*0004d5*/ u8 unk0004d5;
+	/*0004d4*/ s8 unk0004d4; // index into g_Cutscenes
+	/*0004d5*/ s8 unk0004d5;
 	/*0004d6*/ s8 unk0004d6;
-	/*0004d7*/ u8 unk0004d7;
+	/*0004d7*/ s8 unk0004d7;
 	/*0004d8*/ s32 unk0004d8;
 	/*0004dc*/ u8 playertojoymap[4];
 	/*0004e0*/ u8 unk0004e0;
@@ -622,10 +622,10 @@ extern f32 var8009de00;
 extern u32 var8009de04;
 extern u32 var8009de08;
 extern u32 var8009de0c;
-extern s32 var8009de10;
+extern s32 g_CameraAnimCurFrame;
 extern u32 var8009de14;
 extern s16 g_CameraAnimNum;
-extern f32 var8009de1c;
+extern f32 g_CutsceneBlurFrac;
 extern s32 var8009de20;
 extern s32 var8009de24;
 extern f32 var8009de28;

@@ -7,6 +7,6 @@ u16 func0f150820(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 arg4, f
 u32 func0f150d38(void);
 u32 func0f151780(void);
 u32 func0f151ed0(void);
-u32 func0f1526e4(void);
+Gfx *func0f1526e4(Gfx *gdl);
 
 #endif

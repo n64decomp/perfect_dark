@@ -25,6 +25,7 @@
 #define SECSTOTIME60(secs)  (secs * 60)
 #define TEXT(bankid, index) ((bankid << 9) | index)
 #define VOLUME(volume)      (volume > 0x5000 ? 0x5000 : volume)
+#define EYESPYINACTIVE()    (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 
 // Macro to convert an ASCII character to N64 font code.
 // N64 font code uses 0x0f for space, 0x10-0x19 for 0-9 and 0x1a-0x33 for A-Z.
@@ -599,6 +600,7 @@
 #define EXPLOSIONTYPE_8  8
 #define EXPLOSIONTYPE_12 12
 #define EXPLOSIONTYPE_14 14
+#define EXPLOSIONTYPE_23 23
 #define EXPLOSIONTYPE_25 25
 
 #define EYESPYMODE_CAMSPY  0
@@ -753,6 +755,9 @@
 #define GUNSIGHTREASON_1         1
 #define GUNSIGHTREASON_AIMING    2
 #define GUNSIGHTREASON_NOCONTROL 4
+
+#define HAND_RIGHT 0
+#define HAND_LEFT  1
 
 #define HANGARBIO_INSTITUTE      0
 #define HANGARBIO_DDTOWER        1

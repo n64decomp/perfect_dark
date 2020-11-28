@@ -1139,7 +1139,7 @@ glabel currentPlayerCalculateAiBuddyNums
 /*  f128928:	00000000 */ 	nop
 );
 
-void setCurrentPlayerNum(u32 playernum)
+void setCurrentPlayerNum(s32 playernum)
 {
 	g_Vars.currentplayernum = playernum;
 	g_Vars.currentplayer = g_Vars.players[playernum];

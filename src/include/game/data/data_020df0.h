@@ -302,11 +302,13 @@ extern s32 g_NumReasonsToEndMpMatch;
 extern f32 g_StageTimeElapsed60f;
 extern bool var80084040;
 extern u32 g_BoostAndSlayerSounds[3];
-extern u32 var80084050;
+extern s32 var80084050;
 extern u32 var80084068;
 extern u32 var80084078;
 extern u32 var80084088;
-extern u32 var80084098;
+extern struct audiohandle *g_CutsceneStaticAudioHandle;
+extern s32 g_CutsceneStaticTimer;
+extern u8 g_CutsceneStaticActive;
 extern u32 g_CutsceneTime240_60;
 
 #endif
