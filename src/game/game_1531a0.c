@@ -199,96 +199,29 @@ void fontsLoadForCurrentStage(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f153628
-/*  f153628:	00801025 */ 	or	$v0,$a0,$zero
-/*  f15362c:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f153630:	3c0ee700 */ 	lui	$t6,0xe700
-/*  f153634:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*  f153638:	ac400004 */ 	sw	$zero,0x4($v0)
-/*  f15363c:	00801825 */ 	or	$v1,$a0,$zero
-/*  f153640:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f153644:	3c0fba00 */ 	lui	$t7,0xba00
-/*  f153648:	35ef1402 */ 	ori	$t7,$t7,0x1402
-/*  f15364c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f153650:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*  f153654:	ac600004 */ 	sw	$zero,0x4($v1)
-/*  f153658:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f15365c:	3c18ba00 */ 	lui	$t8,0xba00
-/*  f153660:	37180602 */ 	ori	$t8,$t8,0x602
-/*  f153664:	241900c0 */ 	addiu	$t9,$zero,0xc0
-/*  f153668:	00803025 */ 	or	$a2,$a0,$zero
-/*  f15366c:	acb90004 */ 	sw	$t9,0x4($a1)
-/*  f153670:	acb80000 */ 	sw	$t8,0x0($a1)
-/*  f153674:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f153678:	3c08b900 */ 	lui	$t0,0xb900
-/*  f15367c:	3c090050 */ 	lui	$t1,0x50
-/*  f153680:	35294240 */ 	ori	$t1,$t1,0x4240
-/*  f153684:	3508031d */ 	ori	$t0,$t0,0x31d
-/*  f153688:	00803825 */ 	or	$a3,$a0,$zero
-/*  f15368c:	acc80000 */ 	sw	$t0,0x0($a2)
-/*  f153690:	acc90004 */ 	sw	$t1,0x4($a2)
-/*  f153694:	3c0afcff */ 	lui	$t2,0xfcff
-/*  f153698:	3c0bff2d */ 	lui	$t3,0xff2d
-/*  f15369c:	356bfeff */ 	ori	$t3,$t3,0xfeff
-/*  f1536a0:	354a97ff */ 	ori	$t2,$t2,0x97ff
-/*  f1536a4:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f1536a8:	acea0000 */ 	sw	$t2,0x0($a3)
-/*  f1536ac:	aceb0004 */ 	sw	$t3,0x4($a3)
-/*  f1536b0:	00801025 */ 	or	$v0,$a0,$zero
-/*  f1536b4:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f1536b8:	3c0cba00 */ 	lui	$t4,0xba00
-/*  f1536bc:	358c1301 */ 	ori	$t4,$t4,0x1301
-/*  f1536c0:	00801825 */ 	or	$v1,$a0,$zero
-/*  f1536c4:	ac4c0000 */ 	sw	$t4,0x0($v0)
-/*  f1536c8:	ac400004 */ 	sw	$zero,0x4($v0)
-/*  f1536cc:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f1536d0:	3c0db900 */ 	lui	$t5,0xb900
-/*  f1536d4:	35ad0002 */ 	ori	$t5,$t5,0x2
-/*  f1536d8:	00802825 */ 	or	$a1,$a0,$zero
-/*  f1536dc:	ac6d0000 */ 	sw	$t5,0x0($v1)
-/*  f1536e0:	ac600004 */ 	sw	$zero,0x4($v1)
-/*  f1536e4:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f1536e8:	3c0eba00 */ 	lui	$t6,0xba00
-/*  f1536ec:	35ce1001 */ 	ori	$t6,$t6,0x1001
-/*  f1536f0:	00803025 */ 	or	$a2,$a0,$zero
-/*  f1536f4:	acae0000 */ 	sw	$t6,0x0($a1)
-/*  f1536f8:	aca00004 */ 	sw	$zero,0x4($a1)
-/*  f1536fc:	3c0fba00 */ 	lui	$t7,0xba00
-/*  f153700:	35ef0903 */ 	ori	$t7,$t7,0x903
-/*  f153704:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f153708:	24180c00 */ 	addiu	$t8,$zero,0xc00
-/*  f15370c:	acd80004 */ 	sw	$t8,0x4($a2)
-/*  f153710:	accf0000 */ 	sw	$t7,0x0($a2)
-/*  f153714:	00803825 */ 	or	$a3,$a0,$zero
-/*  f153718:	3c19ba00 */ 	lui	$t9,0xba00
-/*  f15371c:	37390e02 */ 	ori	$t9,$t9,0xe02
-/*  f153720:	acf90000 */ 	sw	$t9,0x0($a3)
-/*  f153724:	ace00004 */ 	sw	$zero,0x4($a3)
-/*  f153728:	3c088008 */ 	lui	$t0,%hi(var8007fad8)
-/*  f15372c:	8d08fad8 */ 	lw	$t0,%lo(var8007fad8)($t0)
-/*  f153730:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f153734:	00801025 */ 	or	$v0,$a0,$zero
-/*  f153738:	1100000a */ 	beqz	$t0,.L0f153764
-/*  f15373c:	3c0bba00 */ 	lui	$t3,0xba00
-/*  f153740:	00801025 */ 	or	$v0,$a0,$zero
-/*  f153744:	3c09ba00 */ 	lui	$t1,0xba00
-/*  f153748:	35290c02 */ 	ori	$t1,$t1,0xc02
-/*  f15374c:	240a3000 */ 	addiu	$t2,$zero,0x3000
-/*  f153750:	ac4a0004 */ 	sw	$t2,0x4($v0)
-/*  f153754:	ac490000 */ 	sw	$t1,0x0($v0)
-/*  f153758:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f15375c:	03e00008 */ 	jr	$ra
-/*  f153760:	00801025 */ 	or	$v0,$a0,$zero
-.L0f153764:
-/*  f153764:	356b0c02 */ 	ori	$t3,$t3,0xc02
-/*  f153768:	240c2000 */ 	addiu	$t4,$zero,0x2000
-/*  f15376c:	ac4c0004 */ 	sw	$t4,0x4($v0)
-/*  f153770:	ac4b0000 */ 	sw	$t3,0x0($v0)
-/*  f153774:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f153778:	03e00008 */ 	jr	$ra
-/*  f15377c:	00801025 */ 	or	$v0,$a0,$zero
-);
+Gfx *func0f153628(Gfx *gdl)
+{
+	gDPPipeSync(gdl++);
+	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+	gDPSetColorDither(gdl++, G_CD_DISABLE);
+	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+	gDPSetCombineLERP(gdl++,
+			0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0,
+			0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0);
+	gDPSetTexturePersp(gdl++, G_TP_NONE);
+	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+	gDPSetTextureLOD(gdl++, G_TL_TILE);
+	gDPSetTextureConvert(gdl++, G_TC_FILT);
+	gDPSetTextureLUT(gdl++, G_TT_NONE);
+
+	if (var8007fad8) {
+		gDPSetTextureFilter(gdl++, G_TF_AVERAGE);
+	} else {
+		gDPSetTextureFilter(gdl++, G_TF_BILERP);
+	}
+
+	return gdl;
+}
 
 Gfx *func0f153780(Gfx *gdl)
 {
