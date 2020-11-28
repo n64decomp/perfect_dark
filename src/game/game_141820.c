@@ -1010,88 +1010,30 @@ glabel hudRenderMotionBlur
 /*  f142640:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-GLOBAL_ASM(
-glabel hudRenderStatic
-/*  f142644:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f142648:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*  f14264c:	afb20038 */ 	sw	$s2,0x38($sp)
-/*  f142650:	afb10034 */ 	sw	$s1,0x34($sp)
-/*  f142654:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f142658:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f14265c:	00c08825 */ 	or	$s1,$a2,$zero
-/*  f142660:	00809025 */ 	or	$s2,$a0,$zero
-/*  f142664:	afb60048 */ 	sw	$s6,0x48($sp)
-/*  f142668:	afb50044 */ 	sw	$s5,0x44($sp)
-/*  f14266c:	afb40040 */ 	sw	$s4,0x40($sp)
-/*  f142670:	afb3003c */ 	sw	$s3,0x3c($sp)
-/*  f142674:	0c002acb */ 	jal	vi2GetUnk28
-/*  f142678:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f14267c:	0c002f44 */ 	jal	viGetViewTop
-/*  f142680:	00000000 */ 	nop
-/*  f142684:	0c002f26 */ 	jal	viGetViewY
-/*  f142688:	00409825 */ 	or	$s3,$v0,$zero
-/*  f14268c:	0c002f22 */ 	jal	viGetViewX
-/*  f142690:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f142694:	0c002f40 */ 	jal	viGetViewLeft
-/*  f142698:	0040a825 */ 	or	$s5,$v0,$zero
-/*  f14269c:	0c004b70 */ 	jal	random
-/*  f1426a0:	0040b025 */ 	or	$s6,$v0,$zero
-/*  f1426a4:	3c01000f */ 	lui	$at,0xf
-/*  f1426a8:	3421ff00 */ 	ori	$at,$at,0xff00
-/*  f1426ac:	0041a024 */ 	and	$s4,$v0,$at
-/*  f1426b0:	3c018000 */ 	lui	$at,0x8000
-/*  f1426b4:	02817025 */ 	or	$t6,$s4,$at
-/*  f1426b8:	3c0fe700 */ 	lui	$t7,0xe700
-/*  f1426bc:	01c0a025 */ 	or	$s4,$t6,$zero
-/*  f1426c0:	ae4f0000 */ 	sw	$t7,0x0($s2)
-/*  f1426c4:	26440008 */ 	addiu	$a0,$s2,0x8
-/*  f1426c8:	ae400004 */ 	sw	$zero,0x4($s2)
-/*  f1426cc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1426d0:	0fc5089d */ 	jal	func0f142274
-/*  f1426d4:	02203025 */ 	or	$a2,$s1,$zero
-/*  f1426d8:	8fb80054 */ 	lw	$t8,0x54($sp)
-/*  f1426dc:	00409025 */ 	or	$s2,$v0,$zero
-/*  f1426e0:	02608025 */ 	or	$s0,$s3,$zero
-/*  f1426e4:	02788821 */ 	addu	$s1,$s3,$t8
-/*  f1426e8:	0271082a */ 	slt	$at,$s3,$s1
-/*  f1426ec:	10200015 */ 	beqz	$at,.L0f142744
-/*  f1426f0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1426f4:	4481a000 */ 	mtc1	$at,$f20
-/*  f1426f8:	241300f0 */ 	addiu	$s3,$zero,0xf0
-.L0f1426fc:
-/*  f1426fc:	0c004b70 */ 	jal	random
-/*  f142700:	00000000 */ 	nop
-/*  f142704:	0053001b */ 	divu	$zero,$v0,$s3
-/*  f142708:	00003010 */ 	mfhi	$a2
-/*  f14270c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f142710:	02802825 */ 	or	$a1,$s4,$zero
-/*  f142714:	16600002 */ 	bnez	$s3,.L0f142720
-/*  f142718:	00000000 */ 	nop
-/*  f14271c:	0007000d */ 	break	0x7
-.L0f142720:
-/*  f142720:	24070005 */ 	addiu	$a3,$zero,0x5
-/*  f142724:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f142728:	e7b40014 */ 	swc1	$f20,0x14($sp)
-/*  f14272c:	afb60018 */ 	sw	$s6,0x18($sp)
-/*  f142730:	0fc506ac */ 	jal	func0f141ab0
-/*  f142734:	afb5001c */ 	sw	$s5,0x1c($sp)
-/*  f142738:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f14273c:	1611ffef */ 	bne	$s0,$s1,.L0f1426fc
-/*  f142740:	00409025 */ 	or	$s2,$v0,$zero
-.L0f142744:
-/*  f142744:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f142748:	02401025 */ 	or	$v0,$s2,$zero
-/*  f14274c:	8fb20038 */ 	lw	$s2,0x38($sp)
-/*  f142750:	d7b40028 */ 	ldc1	$f20,0x28($sp)
-/*  f142754:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*  f142758:	8fb10034 */ 	lw	$s1,0x34($sp)
-/*  f14275c:	8fb3003c */ 	lw	$s3,0x3c($sp)
-/*  f142760:	8fb40040 */ 	lw	$s4,0x40($sp)
-/*  f142764:	8fb50044 */ 	lw	$s5,0x44($sp)
-/*  f142768:	8fb60048 */ 	lw	$s6,0x48($sp)
-/*  f14276c:	03e00008 */ 	jr	$ra
-/*  f142770:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+Gfx *hudRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
+{
+	s32 unk28 = vi2GetUnk28();
+	s32 top = viGetViewTop();
+	s32 y = viGetViewY();
+	s32 x = viGetViewX();
+	s32 left = viGetViewLeft();
+	s32 rand = random() & 0xfff00 | 0x80000000;
+	s32 ypos;
+
+	gDPPipeSync(gdl++);
+
+	gdl = func0f142274(gdl, arg1, arg2);
+
+	for (ypos = top; ypos < top + y; ypos++) {
+		gdl = func0f141ab0(gdl, rand, random() % 240, 5, ypos, 1.0f, left, x);
+	}
+
+	if (rand) {
+		// empty
+	}
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel hudRenderSlayerRocketLens
@@ -6895,7 +6837,6 @@ Gfx *func0f147cf8(Gfx *gdl)
 	s32 y = viGetViewY();
 	s32 x = viGetViewX();
 	s32 left = viGetViewLeft();
-	s32 end;
 	s32 ypos;
 
 	var8007f840++;
@@ -6910,12 +6851,8 @@ Gfx *func0f147cf8(Gfx *gdl)
 
 	gdl = func0f1420b0(gdl, 0x8f8f8f8f, 255);
 
-	ypos = top;
-	end = top + y;
-
-	while (ypos < end) {
+	for (ypos = top; ypos < top + y; ypos += 2) {
 		gdl = func0f141ab0(gdl, unk28, ypos, 5, ypos, 1.0f, left, x);
-		ypos += 2;
 	}
 
 	return gdl;
