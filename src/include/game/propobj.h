@@ -325,7 +325,7 @@ u32 func0f08fcb8(void);
 void doorActivateWrapper(struct prop *prop, bool arg1);
 u32 func0f08fffc(void);
 void func0f0900c0(struct prop *prop, struct doorobj *door);
-bool func0f09018c(struct prop *doorprop);
+bool propdoorInteract(struct prop *doorprop);
 void alarmStopAudio(void);
 u32 func0f09044c(void);
 void func0f0904e0(void);

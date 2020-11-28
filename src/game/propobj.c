@@ -46971,7 +46971,7 @@ glabel func0f0900c0
 /*  f090188:	00000000 */ 	nop
 );
 
-bool func0f09018c(struct prop *doorprop)
+bool propdoorInteract(struct prop *doorprop)
 {
 	struct doorobj *door = doorprop->door;
 	bool usingeyespy = g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active;

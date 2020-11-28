@@ -3119,7 +3119,7 @@ glabel func0f062b64
 );
 
 GLOBAL_ASM(
-glabel func0f062cbc
+glabel currentPlayerFindPropForInteract
 /*  f062cbc:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f062cc0:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f062cc4:	3c11800a */ 	lui	$s1,%hi(g_Vars)
@@ -3249,63 +3249,37 @@ glabel func0f062dd0
 /*  f062e70:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel currentPlayerInterect
-.late_rodata
-glabel var7f1a9ef8
-.word currentPlayerInterect+0x44 # f062eb8
-glabel var7f1a9efc
-.word currentPlayerInterect+0x54 # f062ec8
-glabel var7f1a9f00
-.word currentPlayerInterect+0x60 # f062ed4
-glabel var7f1a9f04
-.word currentPlayerInterect+0x44 # f062eb8
-glabel var7f1a9f08
-.word currentPlayerInterect+0x60 # f062ed4
-glabel var7f1a9f0c
-.word currentPlayerInterect+0x60 # f062ed4
-glabel var7f1a9f10
-.word currentPlayerInterect+0x60 # f062ed4
-glabel var7f1a9f14
-.word currentPlayerInterect+0x60 # f062ed4
-.text
-/*  f062e74:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f062e78:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f062e7c:	0fc18b2f */ 	jal	func0f062cbc
-/*  f062e80:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f062e84:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f062e88:	10400016 */ 	beqz	$v0,.L0f062ee4
-/*  f062e8c:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f062e90:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f062e94:	25cfffff */ 	addiu	$t7,$t6,-1
-/*  f062e98:	2de10008 */ 	sltiu	$at,$t7,0x8
-/*  f062e9c:	1020000d */ 	beqz	$at,.L0f062ed4
-/*  f062ea0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f062ea4:	3c017f1b */ 	lui	$at,%hi(var7f1a9ef8)
-/*  f062ea8:	002f0821 */ 	addu	$at,$at,$t7
-/*  f062eac:	8c2f9ef8 */ 	lw	$t7,%lo(var7f1a9ef8)($at)
-/*  f062eb0:	01e00008 */ 	jr	$t7
-/*  f062eb4:	00000000 */ 	nop
-/*  f062eb8:	0fc21bd0 */ 	jal	propobjInteract
-/*  f062ebc:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f062ec0:	10000004 */ 	b	.L0f062ed4
-/*  f062ec4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f062ec8:	0fc24063 */ 	jal	func0f09018c
-/*  f062ecc:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f062ed0:	00402825 */ 	or	$a1,$v0,$zero
-.L0f062ed4:
-/*  f062ed4:	0fc18ad9 */ 	jal	func0f062b64
-/*  f062ed8:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f062edc:	10000002 */ 	b	.L0f062ee8
-/*  f062ee0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f062ee4:
-/*  f062ee4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f062ee8:
-/*  f062ee8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f062eec:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f062ef0:	03e00008 */ 	jr	$ra
-/*  f062ef4:	00000000 */ 	nop
-);
+bool currentPlayerInteract(bool eyespy)
+{
+	struct prop *prop;
+	bool value = false;
+
+	prop = currentPlayerFindPropForInteract(eyespy);
+
+	if (prop) {
+		switch (prop->type) {
+		case PROPTYPE_OBJ:
+		case PROPTYPE_WEAPON:
+			value = propobjInteract(prop);
+			break;
+		case PROPTYPE_DOOR:
+			value = propdoorInteract(prop);
+			break;
+		case PROPTYPE_CHR:
+		case PROPTYPE_EYESPY:
+		case PROPTYPE_PLAYER:
+		case PROPTYPE_EXPLOSION:
+		case PROPTYPE_EFFECT:
+			break;
+		}
+
+		func0f062b64(prop, value);
+
+		return false;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f062ef8

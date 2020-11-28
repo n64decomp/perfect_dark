@@ -1692,14 +1692,14 @@ Gfx *renderFrame(Gfx *gdl)
 
 				// Handle opening doors and reloading
 				if (g_Vars.currentplayer->bondactivateorreload) {
-					if (currentPlayerInterect(false)) {
+					if (currentPlayerInteract(false)) {
 						currentPlayerReloadHandIfPossible(HAND_RIGHT);
 						currentPlayerReloadHandIfPossible(HAND_LEFT);
 					}
 				} else if (g_Vars.currentplayer->eyespy
 						&& g_Vars.currentplayer->eyespy->active
 						&& g_Vars.currentplayer->eyespy->opendoor) {
-					currentPlayerInterect(true);
+					currentPlayerInteract(true);
 				}
 
 				func0f0641f4();
