@@ -58,36 +58,6 @@ const char var7f1b5e4c[] = "%s";
 const char var7f1b5e50[] = "Fullscreen_DrawFaultScope";
 const char var7f1b5e6c[] = "Fullscreen_DrawFaultScope";
 const char var7f1b5e88[] = "IntroFaderBlurGfx";
-const char var7f1b5e9c[] = "IntroTextInterfereGfx";
-const char var7f1b5eb4[] = "BinocularViewGfx";
-const char var7f1b5ec8[] = ">> ";
-const char var7f1b5ecc[] = " >>";
-const char var7f1b5ed0[] = "%s %s:%03d";
-const char var7f1b5edc[] = "%s %s%s%4.2fh";
-const char var7f1b5eec[] = "";
-const char var7f1b5ef0[] = "";
-const char var7f1b5ef4[] = "%s %s%s%4.2fX";
-const char var7f1b5f04[] = "";
-const char var7f1b5f08[] = "";
-const char var7f1b5f0c[] = " JMBC";
-const char var7f1b5f14[] = " WIDE BAND";
-const char var7f1b5f20[] = " SCANNER\n";
-
-const u32 var7f1b5f2c[] = {0x3f060a92};
-const u32 var7f1b5f30[] = {0x40278d36};
-const u32 var7f1b5f34[] = {0x3c23d70a};
-const u32 var7f1b5f38[] = {0x3bcccccd};
-const u32 var7f1b5f3c[] = {0x3c23d70a};
-const u32 var7f1b5f40[] = {0x3f83d70a};
-const u32 var7f1b5f44[] = {0x3bcccccd};
-const u32 var7f1b5f48[] = {0x3c23d70a};
-const u32 var7f1b5f4c[] = {0x3a83126f};
-const u32 var7f1b5f50[] = {0x3f19999a};
-const u32 var7f1b5f54[] = {0x3c23d70a};
-const u32 var7f1b5f58[] = {0x3bcccccd};
-const u32 var7f1b5f5c[] = {0x40490fdb};
-const u32 var7f1b5f60[] = {0x40933333};
-const u32 var7f1b5f64[] = {0x4465599a};
 
 GLOBAL_ASM(
 glabel func0f141820
@@ -6915,88 +6885,71 @@ glabel func0f147578
 /*  f147cf4:	27bd0088 */ 	addiu	$sp,$sp,0x88
 );
 
-GLOBAL_ASM(
-glabel func0f147cf8
-/*  f147cf8:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f147cfc:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f147d00:	afb20034 */ 	sw	$s2,0x34($sp)
-/*  f147d04:	00809025 */ 	or	$s2,$a0,$zero
-/*  f147d08:	afb50040 */ 	sw	$s5,0x40($sp)
-/*  f147d0c:	afb4003c */ 	sw	$s4,0x3c($sp)
-/*  f147d10:	afb30038 */ 	sw	$s3,0x38($sp)
-/*  f147d14:	afb10030 */ 	sw	$s1,0x30($sp)
-/*  f147d18:	afb0002c */ 	sw	$s0,0x2c($sp)
-/*  f147d1c:	0c002ac7 */ 	jal	viGetUnk28
-/*  f147d20:	f7b40020 */ 	sdc1	$f20,0x20($sp)
-/*  f147d24:	0c002f44 */ 	jal	viGetViewTop
-/*  f147d28:	0040a825 */ 	or	$s5,$v0,$zero
-/*  f147d2c:	0c002f26 */ 	jal	viGetViewY
-/*  f147d30:	afa20050 */ 	sw	$v0,0x50($sp)
-/*  f147d34:	0c002f22 */ 	jal	viGetViewX
-/*  f147d38:	afa2004c */ 	sw	$v0,0x4c($sp)
-/*  f147d3c:	0c002f40 */ 	jal	viGetViewLeft
-/*  f147d40:	00409825 */ 	or	$s3,$v0,$zero
-/*  f147d44:	3c038008 */ 	lui	$v1,%hi(var8007f840)
-/*  f147d48:	2463f840 */ 	addiu	$v1,$v1,%lo(var8007f840)
-/*  f147d4c:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f147d50:	0040a025 */ 	or	$s4,$v0,$zero
-/*  f147d54:	3c04800a */ 	lui	$a0,%hi(var800a41c0)
-/*  f147d58:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f147d5c:	29e10002 */ 	slti	$at,$t7,0x2
-/*  f147d60:	14200003 */ 	bnez	$at,.L0f147d70
-/*  f147d64:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*  f147d68:	10000024 */ 	b	.L0f147dfc
-/*  f147d6c:	02401025 */ 	or	$v0,$s2,$zero
-.L0f147d70:
-/*  f147d70:	3c057f1b */ 	lui	$a1,%hi(var7f1b5e9c)
-/*  f147d74:	24a55e9c */ 	addiu	$a1,$a1,%lo(var7f1b5e9c)
-/*  f147d78:	0c004c4c */ 	jal	strcpy
-/*  f147d7c:	248441c0 */ 	addiu	$a0,$a0,%lo(var800a41c0)
-/*  f147d80:	3c19e700 */ 	lui	$t9,0xe700
-/*  f147d84:	3c058f8f */ 	lui	$a1,0x8f8f
-/*  f147d88:	ae590000 */ 	sw	$t9,0x0($s2)
-/*  f147d8c:	26440008 */ 	addiu	$a0,$s2,0x8
-/*  f147d90:	ae400004 */ 	sw	$zero,0x4($s2)
-/*  f147d94:	34a58f8f */ 	ori	$a1,$a1,0x8f8f
-/*  f147d98:	0fc5082c */ 	jal	func0f1420b0
-/*  f147d9c:	240600ff */ 	addiu	$a2,$zero,0xff
-/*  f147da0:	8fb00050 */ 	lw	$s0,0x50($sp)
-/*  f147da4:	8fa8004c */ 	lw	$t0,0x4c($sp)
-/*  f147da8:	00409025 */ 	or	$s2,$v0,$zero
-/*  f147dac:	02088821 */ 	addu	$s1,$s0,$t0
-/*  f147db0:	0211082a */ 	slt	$at,$s0,$s1
-/*  f147db4:	10200010 */ 	beqz	$at,.L0f147df8
-/*  f147db8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f147dbc:	4481a000 */ 	mtc1	$at,$f20
-/*  f147dc0:	00000000 */ 	nop
-.L0f147dc4:
-/*  f147dc4:	02402025 */ 	or	$a0,$s2,$zero
-/*  f147dc8:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f147dcc:	02003025 */ 	or	$a2,$s0,$zero
-/*  f147dd0:	24070005 */ 	addiu	$a3,$zero,0x5
-/*  f147dd4:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f147dd8:	e7b40014 */ 	swc1	$f20,0x14($sp)
-/*  f147ddc:	afb40018 */ 	sw	$s4,0x18($sp)
-/*  f147de0:	0fc506ac */ 	jal	func0f141ab0
-/*  f147de4:	afb3001c */ 	sw	$s3,0x1c($sp)
-/*  f147de8:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f147dec:	0211082a */ 	slt	$at,$s0,$s1
-/*  f147df0:	1420fff4 */ 	bnez	$at,.L0f147dc4
-/*  f147df4:	00409025 */ 	or	$s2,$v0,$zero
-.L0f147df8:
-/*  f147df8:	02401025 */ 	or	$v0,$s2,$zero
-.L0f147dfc:
-/*  f147dfc:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f147e00:	d7b40020 */ 	ldc1	$f20,0x20($sp)
-/*  f147e04:	8fb0002c */ 	lw	$s0,0x2c($sp)
-/*  f147e08:	8fb10030 */ 	lw	$s1,0x30($sp)
-/*  f147e0c:	8fb20034 */ 	lw	$s2,0x34($sp)
-/*  f147e10:	8fb30038 */ 	lw	$s3,0x38($sp)
-/*  f147e14:	8fb4003c */ 	lw	$s4,0x3c($sp)
-/*  f147e18:	8fb50040 */ 	lw	$s5,0x40($sp)
-/*  f147e1c:	03e00008 */ 	jr	$ra
-/*  f147e20:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+/**
+ * Called from the title screen's "Rare Presents" mode, which is unused.
+ */
+Gfx *func0f147cf8(Gfx *gdl)
+{
+	s32 unk28 = viGetUnk28();
+	s32 top = viGetViewTop();
+	s32 y = viGetViewY();
+	s32 x = viGetViewX();
+	s32 left = viGetViewLeft();
+	s32 end;
+	s32 ypos;
+
+	var8007f840++;
+
+	if (var8007f840 >= 2) {
+		return gdl;
+	}
+
+	strcpy(var800a41c0, "IntroTextInterfereGfx");
+
+	gDPPipeSync(gdl++);
+
+	gdl = func0f1420b0(gdl, 0x8f8f8f8f, 255);
+
+	ypos = top;
+	end = top + y;
+
+	while (ypos < end) {
+		gdl = func0f141ab0(gdl, unk28, ypos, 5, ypos, 1.0f, left, x);
+		ypos += 2;
+	}
+
+	return gdl;
+}
+
+const char var7f1b5eb4[] = "BinocularViewGfx";
+const char var7f1b5ec8[] = ">> ";
+const char var7f1b5ecc[] = " >>";
+const char var7f1b5ed0[] = "%s %s:%03d";
+const char var7f1b5edc[] = "%s %s%s%4.2fh";
+const char var7f1b5eec[] = "";
+const char var7f1b5ef0[] = "";
+const char var7f1b5ef4[] = "%s %s%s%4.2fX";
+const char var7f1b5f04[] = "";
+const char var7f1b5f08[] = "";
+const char var7f1b5f0c[] = " JMBC";
+const char var7f1b5f14[] = " WIDE BAND";
+const char var7f1b5f20[] = " SCANNER\n";
+
+const u32 var7f1b5f2c[] = {0x3f060a92};
+const u32 var7f1b5f30[] = {0x40278d36};
+const u32 var7f1b5f34[] = {0x3c23d70a};
+const u32 var7f1b5f38[] = {0x3bcccccd};
+const u32 var7f1b5f3c[] = {0x3c23d70a};
+const u32 var7f1b5f40[] = {0x3f83d70a};
+const u32 var7f1b5f44[] = {0x3bcccccd};
+const u32 var7f1b5f48[] = {0x3c23d70a};
+const u32 var7f1b5f4c[] = {0x3a83126f};
+const u32 var7f1b5f50[] = {0x3f19999a};
+const u32 var7f1b5f54[] = {0x3c23d70a};
+const u32 var7f1b5f58[] = {0x3bcccccd};
+const u32 var7f1b5f5c[] = {0x40490fdb};
+const u32 var7f1b5f60[] = {0x40933333};
+const u32 var7f1b5f64[] = {0x4465599a};
 
 GLOBAL_ASM(
 glabel hudRenderHorizonScanner

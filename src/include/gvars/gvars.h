@@ -709,7 +709,7 @@ extern u32 var800a41a0;
 extern u32 var800a41b0;
 extern u32 var800a41b4;
 extern u32 var800a41b8;
-extern u32 var800a41c0;
+extern char var800a41c0[];
 extern u32 var800a41d8;
 extern u32 var800a45a0;
 extern u32 var800a45a8;

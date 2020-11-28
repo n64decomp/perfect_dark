@@ -4,9 +4,9 @@
 #include "types.h"
 
 u32 func0f141820(void);
-u32 func0f141ab0(void);
+Gfx *func0f141ab0(Gfx *gdl, u32 arg1, s32 top, u32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7);
 u32 func0f141ed4(void);
-u32 func0f1420b0(void);
+Gfx *func0f1420b0(Gfx *gdl, u32 colour, u32 arg2);
 u32 func0f142274(void);
 Gfx *hudRenderMotionBlur(Gfx *gdl, u32 arg1, s32 arg2);
 Gfx *hudRenderStatic(Gfx *gdl, u32 arg1, s32 arg2);
