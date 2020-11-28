@@ -335,24 +335,28 @@ void langClearBank(s32 bank)
 	g_LangBanks[bank] = NULL;
 }
 
-GLOBAL_ASM(
-glabel langGet
-/*  f16e7c4:	00047243 */ 	sra	$t6,$a0,0x9
-/*  f16e7c8:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f16e7cc:	3c02800b */ 	lui	$v0,%hi(g_LangBanks)
-/*  f16e7d0:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f16e7d4:	8c42aaa0 */ 	lw	$v0,%lo(g_LangBanks)($v0)
-/*  f16e7d8:	309801ff */ 	andi	$t8,$a0,0x1ff
-/*  f16e7dc:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f16e7e0:	10400006 */ 	beqz	$v0,.L0f16e7fc
-/*  f16e7e4:	00594021 */ 	addu	$t0,$v0,$t9
-/*  f16e7e8:	8d050000 */ 	lw	$a1,0x0($t0)
-/*  f16e7ec:	10a00003 */ 	beqz	$a1,.L0f16e7fc
-/*  f16e7f0:	00a21821 */ 	addu	$v1,$a1,$v0
-/*  f16e7f4:	03e00008 */ 	jr	$ra
-/*  f16e7f8:	00601025 */ 	or	$v0,$v1,$zero
-.L0f16e7fc:
-/*  f16e7fc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f16e800:	03e00008 */ 	jr	$ra
-/*  f16e804:	00601025 */ 	or	$v0,$v1,$zero
-);
+/**
+ * Resolve a text ID to a string.
+ *
+ * g_LangBanks is an array of pointers to language file data in RAM. Many of
+ * those pointers will be NULL because only the necessary language files are
+ * loaded at any given time.
+ *
+ * The language file data consists of a variable-length array of offsets into
+ * the file. Not to be confused with pointers.
+ */
+char *langGet(s32 textid)
+{
+	s32 bankindex = textid >> 9;
+	s32 textindex = textid & 0x1ff;
+	u32 *bank = g_LangBanks[bankindex];
+	u32 addr;
+
+	if (bank && bank[textindex]) {
+		addr = (u32)bank + bank[textindex];
+	} else {
+		addr = 0;
+	}
+
+	return (char *)addr;
+}
