@@ -206,7 +206,7 @@ void propobjSetDropped(struct prop *prop, u32 reason);
 void func0f082a1c(struct defaultobj *obj, struct coord *coord, f32 rotate, bool arg3, bool arg4);
 void func0f082d74(void);
 void func0f082e84(struct defaultobj *obj, struct coord *arg1, struct coord *arg2, struct coord *arg3, bool arg4);
-u32 func0f082f88(struct prop *prop);
+void func0f082f88(struct prop *prop);
 void func0f08307c(struct prop *prop, bool arg1);
 u32 func0f083db0(void);
 u32 func0f0840ac(void);

@@ -3023,100 +3023,45 @@ glabel func0f062b2c
 /*  f062b60:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f062b64
-/*  f062b64:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f062b68:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f062b6c:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f062b70:	00808025 */ 	or	$s0,$a0,$zero
-/*  f062b74:	14a3002f */ 	bne	$a1,$v1,.L0f062c34
-/*  f062b78:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f062b7c:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f062b80:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f062b84:	50410004 */ 	beql	$v0,$at,.L0f062b98
-/*  f062b88:	8e030004 */ 	lw	$v1,0x4($s0)
-/*  f062b8c:	1462001f */ 	bne	$v1,$v0,.L0f062c0c
-/*  f062b90:	00000000 */ 	nop
-/*  f062b94:	8e030004 */ 	lw	$v1,0x4($s0)
-.L0f062b98:
-/*  f062b98:	1060001c */ 	beqz	$v1,.L0f062c0c
-/*  f062b9c:	00000000 */ 	nop
-/*  f062ba0:	906e0002 */ 	lbu	$t6,0x2($v1)
-/*  f062ba4:	241804b0 */ 	addiu	$t8,$zero,0x4b0
-/*  f062ba8:	2401fffb */ 	addiu	$at,$zero,-5
-/*  f062bac:	31cf0004 */ 	andi	$t7,$t6,0x4
-/*  f062bb0:	11e00016 */ 	beqz	$t7,.L0f062c0c
-/*  f062bb4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062bb8:	a6180002 */ 	sh	$t8,0x2($s0)
-/*  f062bbc:	8c790040 */ 	lw	$t9,0x40($v1)
-/*  f062bc0:	906b0002 */ 	lbu	$t3,0x2($v1)
-/*  f062bc4:	a460004c */ 	sh	$zero,0x4c($v1)
-/*  f062bc8:	37280800 */ 	ori	$t0,$t9,0x800
-/*  f062bcc:	ac680040 */ 	sw	$t0,0x40($v1)
-/*  f062bd0:	01015024 */ 	and	$t2,$t0,$at
-/*  f062bd4:	316cffbf */ 	andi	$t4,$t3,0xffbf
-/*  f062bd8:	ac6a0040 */ 	sw	$t2,0x40($v1)
-/*  f062bdc:	0fc19711 */ 	jal	func0f065c44
-/*  f062be0:	a06c0002 */ 	sb	$t4,0x2($v1)
-/*  f062be4:	0fc180c0 */ 	jal	propHide
-/*  f062be8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062bec:	8e0d003c */ 	lw	$t5,0x3c($s0)
-/*  f062bf0:	000d7ec0 */ 	sll	$t7,$t5,0x1b
-/*  f062bf4:	05e2002d */ 	bltzl	$t7,.L0f062cac
-/*  f062bf8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f062bfc:	0fc18beb */ 	jal	func0f062fac
-/*  f062c00:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c04:	10000029 */ 	b	.L0f062cac
-/*  f062c08:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f062c0c:
-/*  f062c0c:	0fc19711 */ 	jal	func0f065c44
-/*  f062c10:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c14:	0fc18171 */ 	jal	func0f0605c4
-/*  f062c18:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c1c:	0fc180c0 */ 	jal	propHide
-/*  f062c20:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c24:	0fc1810e */ 	jal	propFree
-/*  f062c28:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c2c:	1000001f */ 	b	.L0f062cac
-/*  f062c30:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f062c34:
-/*  f062c34:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f062c38:	54a1000a */ 	bnel	$a1,$at,.L0f062c64
-/*  f062c3c:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f062c40:	0fc19711 */ 	jal	func0f065c44
-/*  f062c44:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c48:	0fc18171 */ 	jal	func0f0605c4
-/*  f062c4c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c50:	0fc180c0 */ 	jal	propHide
-/*  f062c54:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c58:	10000014 */ 	b	.L0f062cac
-/*  f062c5c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f062c60:	24010004 */ 	addiu	$at,$zero,0x4
-.L0f062c64:
-/*  f062c64:	54a10011 */ 	bnel	$a1,$at,.L0f062cac
-/*  f062c68:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f062c6c:	0fc19711 */ 	jal	func0f065c44
-/*  f062c70:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c74:	0fc18171 */ 	jal	func0f0605c4
-/*  f062c78:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c7c:	0fc180c0 */ 	jal	propHide
-/*  f062c80:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c84:	0fc20be2 */ 	jal	func0f082f88
-/*  f062c88:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c8c:	0fc1ab24 */ 	jal	func0f06ac90
-/*  f062c90:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c94:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f062c98:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f062c9c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062ca0:	0fc181a6 */ 	jal	propReparent
-/*  f062ca4:	8f0500bc */ 	lw	$a1,0xbc($t8)
-/*  f062ca8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f062cac:
-/*  f062cac:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f062cb0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f062cb4:	03e00008 */ 	jr	$ra
-/*  f062cb8:	00000000 */ 	nop
-);
+void func0f062b64(struct prop *prop, s32 arg1)
+{
+	if (arg1 == 1) {
+		if ((prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_OBJ)
+				&& prop->obj && (prop->obj->hidden2 & 4)) {
+			struct defaultobj *obj = prop->obj;
+
+			prop->timetoregen = 1200;
+
+			obj->damage = 0;
+			obj->hidden |= OBJHFLAG_00000800;
+			obj->hidden &= ~OBJHFLAG_00000004;
+			obj->hidden2 &= ~OBJH2FLAG_40;
+
+			func0f065c44(prop);
+			propHide(prop);
+
+			if (prop->unk3f_03 == 0) {
+				func0f062fac(prop);
+			}
+		} else {
+			func0f065c44(prop);
+			func0f0605c4(prop);
+			propHide(prop);
+			propFree(prop);
+		}
+	} else if (arg1 == 2) {
+		func0f065c44(prop);
+		func0f0605c4(prop);
+		propHide(prop);
+	} else if (arg1 == 4) {
+		func0f065c44(prop);
+		func0f0605c4(prop);
+		propHide(prop);
+		func0f082f88(prop);
+		func0f06ac90(prop);
+		propReparent(prop, g_Vars.currentplayer->prop);
+	}
+}
 
 GLOBAL_ASM(
 glabel currentPlayerFindPropForInteract

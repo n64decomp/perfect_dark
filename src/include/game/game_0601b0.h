@@ -29,7 +29,7 @@ struct prop *currentPlayerFindPropForInteract(bool eyespy);
 u32 func0f062dd0(void);
 bool currentPlayerInteract(bool eyespy);
 u32 func0f062ef8(void);
-u32 func0f062fac(void);
+void func0f062fac(struct prop *prop);
 void func0f06302c(ubool arg0);
 void func0f063dcc(void);
 void func0f064178(struct prop *prop, s32 enable);
