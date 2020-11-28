@@ -2075,36 +2075,14 @@ glabel func0000b280
 /*     b2c0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0000b2c4
-/*     b2c4:	3c0eba00 */ 	lui	$t6,0xba00
-/*     b2c8:	35ce1402 */ 	ori	$t6,$t6,0x1402
-/*     b2cc:	3c0f0030 */ 	lui	$t7,0x30
-/*     b2d0:	ac8f0004 */ 	sw	$t7,0x4($a0)
-/*     b2d4:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*     b2d8:	3c068006 */ 	lui	$a2,%hi(g_ViData)
-/*     b2dc:	8cc6d594 */ 	lw	$a2,%lo(g_ViData)($a2)
-/*     b2e0:	24850008 */ 	addiu	$a1,$a0,0x8
-/*     b2e4:	3c01f600 */ 	lui	$at,0xf600
-/*     b2e8:	84d80018 */ 	lh	$t8,0x18($a2)
-/*     b2ec:	84cb001a */ 	lh	$t3,0x1a($a2)
-/*     b2f0:	24a70008 */ 	addiu	$a3,$a1,0x8
-/*     b2f4:	2719ffff */ 	addiu	$t9,$t8,-1
-/*     b2f8:	332803ff */ 	andi	$t0,$t9,0x3ff
-/*     b2fc:	256cffff */ 	addiu	$t4,$t3,-1
-/*     b300:	318d03ff */ 	andi	$t5,$t4,0x3ff
-/*     b304:	00084b80 */ 	sll	$t1,$t0,0xe
-/*     b308:	01215025 */ 	or	$t2,$t1,$at
-/*     b30c:	000d7080 */ 	sll	$t6,$t5,0x2
-/*     b310:	014e7825 */ 	or	$t7,$t2,$t6
-/*     b314:	acaf0000 */ 	sw	$t7,0x0($a1)
-/*     b318:	aca00004 */ 	sw	$zero,0x4($a1)
-/*     b31c:	3c18e700 */ 	lui	$t8,0xe700
-/*     b320:	acf80000 */ 	sw	$t8,0x0($a3)
-/*     b324:	ace00004 */ 	sw	$zero,0x4($a3)
-/*     b328:	03e00008 */ 	jr	$ra
-/*     b32c:	24e20008 */ 	addiu	$v0,$a3,0x8
-);
+Gfx *func0000b2c4(Gfx *gdl)
+{
+	gDPSetCycleType(gdl++, G_CYC_FILL);
+	gDPFillRectangle(gdl++, 0, 0, g_ViData->bufx - 1, g_ViData->bufy - 1);
+	gDPPipeSync(gdl++);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0000b330

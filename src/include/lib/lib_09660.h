@@ -33,7 +33,7 @@ u32 func0000b0e8(void);
 Gfx *func0000b1a8(Gfx *gdl);
 Gfx *func0000b1d0(Gfx *gdl);
 Gfx *func0000b280(Gfx *gdl);
-u32 func0000b2c4(void);
+Gfx *func0000b2c4(Gfx *gdl);
 Gfx *func0000b330(Gfx *gdl);
 void viSetBuf(s16 x, s16 y);
 s16 viGetBufX(void);

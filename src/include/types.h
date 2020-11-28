@@ -5945,8 +5945,8 @@ struct rend_vidat {
 	/*0x0c*/ f32 aspect;
 	/*0x10*/ f32 znear;
 	/*0x14*/ f32 zfar;
-	/*0x18*/ u16 bufx;
-	/*0x1a*/ u16 bufy;
+	/*0x18*/ s16 bufx;
+	/*0x1a*/ s16 bufy;
 	/*0x1c*/ s16 viewx;
 	/*0x1e*/ s16 viewy;
 	/*0x20*/ s16 viewleft;
