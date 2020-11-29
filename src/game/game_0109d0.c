@@ -57,15 +57,11 @@ glabel func0f0109d0
 /*  f010a64:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel tagInsert
-/*  f010a68:	3c02800a */ 	lui	$v0,%hi(g_TagsLinkedList)
-/*  f010a6c:	2442d0b0 */ 	addiu	$v0,$v0,%lo(g_TagsLinkedList)
-/*  f010a70:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f010a74:	ac8e0008 */ 	sw	$t6,0x8($a0)
-/*  f010a78:	03e00008 */ 	jr	$ra
-/*  f010a7c:	ac440000 */ 	sw	$a0,0x0($v0)
-);
+void tagInsert(struct tag *tag)
+{
+	tag->next = g_TagsLinkedList;
+	g_TagsLinkedList = tag;
+}
 
 GLOBAL_ASM(
 glabel briefingInsert
