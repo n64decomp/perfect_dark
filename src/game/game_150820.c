@@ -2102,17 +2102,10 @@ glabel func0f151ed0
 /*  f1526e0:	27bd0140 */ 	addiu	$sp,$sp,0x140
 );
 
-GLOBAL_ASM(
-glabel func0f1526e4
-/*  f1526e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1526e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1526ec:	0fc545e0 */ 	jal	func0f151780
-/*  f1526f0:	00000000 */ 	nop
-/*  f1526f4:	0fc547b4 */ 	jal	func0f151ed0
-/*  f1526f8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1526fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f152700:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f152704:	03e00008 */ 	jr	$ra
-/*  f152708:	00000000 */ 	nop
-/*  f15270c:	00000000 */ 	nop
-);
+Gfx *func0f1526e4(Gfx *gdl)
+{
+	gdl = func0f151780(gdl);
+	gdl = func0f151ed0(gdl);
+
+	return gdl;
+}
