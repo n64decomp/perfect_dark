@@ -2779,8 +2779,8 @@ void func0f16b96c(void)
 	}
 
 	for (j = 0; j < PLAYERCOUNT(); j++) {
-		g_Vars.players[j]->hands[1].unk0cec = 0;
-		g_Vars.players[j]->hands[0].unk0cec = 0;
+		g_Vars.players[j]->hands[HAND_LEFT].unk0cec = 0;
+		g_Vars.players[j]->hands[HAND_RIGHT].unk0cec = 0;
 	}
 
 	if (soloIsPaused()) {

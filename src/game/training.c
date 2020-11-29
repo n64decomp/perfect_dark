@@ -2351,7 +2351,7 @@ bool frIsAmmoWasted(void)
 						if (g_FrData.proxyendtimer == 0) {
 							// Initial state - set the timer to 5 seconds if player is now out of mines
 							ammotype = weaponGetAmmoType(weaponnum, 0);
-							hand = &g_Vars.currentplayer->hands[0];
+							hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
 
 							if (ammoGetQuantity(ammotype) + hand->loadedammo[0] == 0) {
 								g_FrData.proxyendtimer = 300;
@@ -3544,7 +3544,7 @@ glabel var7f1b94e4
 //		// Prevent showing the menu until gun is put away
 //		if (g_FrData.menucountdown <= 0) {
 //			if ((g_FrData.menutype == FRMENUTYPE_FAILED || g_FrData.menutype == FRMENUTYPE_COMPLETED)
-//					&& g_Vars.currentplayer->hands[0].weaponnum != WEAPON_UNARMED) {
+//					&& g_Vars.currentplayer->hands[HAND_RIGHT].weaponnum != WEAPON_UNARMED) {
 //				g_FrData.menucountdown = 1;
 //			}
 //		}

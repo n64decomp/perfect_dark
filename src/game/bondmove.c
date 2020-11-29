@@ -4903,7 +4903,7 @@ glabel var7f1ad8e4
 //		if (getCurrentPlayerWeaponId(0) == WEAPON_FARSIGHTXR20
 //				&& g_Vars.currentplayer->insightaimmode
 //				&& movedata.farsighttempautoseek == false
-//				&& g_Vars.currentplayer->hands[0].weaponfunc == FUNC_SECONDARY
+//				&& g_Vars.currentplayer->hands[HAND_RIGHT].weaponfunc == FUNC_SECONDARY
 //				&& g_Vars.currentplayer->autoeraserdist > 0) {
 //			spac = func0f0b49b8(500.0f / g_Vars.currentplayer->autoeraserdist);
 //
@@ -4939,7 +4939,7 @@ glabel var7f1ad8e4
 //		}
 //
 //		if (getCurrentPlayerWeaponId(0) == WEAPON_AR34
-//				&& g_Vars.currentplayer->hands[0].weaponfunc == FUNC_SECONDARY) {
+//				&& g_Vars.currentplayer->hands[HAND_RIGHT].weaponfunc == FUNC_SECONDARY) {
 //			spb0 = currentPlayerGetGunZoomFov();
 //		}
 //
@@ -5134,8 +5134,8 @@ glabel var7f1ad8e4
 //	func0f0c8004();
 //
 //	if (movedata.detonating) {
-//		g_Vars.currentplayer->hands[0].unk0658 = 0;
-//		g_Vars.currentplayer->hands[0].unk065c = 0;
+//		g_Vars.currentplayer->hands[HAND_RIGHT].unk0658 = 0;
+//		g_Vars.currentplayer->hands[HAND_RIGHT].unk065c = 0;
 //		playerActivateRemoteMineDetonator(g_Vars.currentplayernum);
 //	}
 //
@@ -5176,12 +5176,12 @@ glabel var7f1ad8e4
 //				 && g_Vars.currentplayer->autoyaimprop
 //				 && weaponHasInvEFlag(weaponnum, 0x00000002)
 //				)
-//				|| (getCurrentPlayerWeaponId(0) == WEAPON_CMP150 && g_Vars.currentplayer->hands[0].weaponfunc == FUNC_SECONDARY)) {
+//				|| (getCurrentPlayerWeaponId(0) == WEAPON_CMP150 && g_Vars.currentplayer->hands[HAND_RIGHT].weaponfunc == FUNC_SECONDARY)) {
 //			// Auto aim - move crosshair towards target
 //			s32 followlockon = false;
 //
 //			if (getCurrentPlayerWeaponId(0) == WEAPON_CMP150
-//					&& g_Vars.currentplayer->hands[0].weaponfunc == FUNC_SECONDARY) {
+//					&& g_Vars.currentplayer->hands[HAND_RIGHT].weaponfunc == FUNC_SECONDARY) {
 //				followlockon = true;
 //			}
 //

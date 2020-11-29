@@ -1249,7 +1249,7 @@ bool func0f098884(struct remoteminething *arg0, struct hand *hand)
 		return true;
 	}
 
-	if (arg0->unk01 == 1 && g_Vars.currentplayer->hands[1].unk0640 == 1) {
+	if (arg0->unk01 == 1 && g_Vars.currentplayer->hands[HAND_LEFT].unk0640 == 1) {
 		result = true;
 	}
 
@@ -13672,8 +13672,8 @@ void playerDetonateRemoteMines(s32 playernum)
 	s32 prevplayernum = g_Vars.currentplayernum;
 	setCurrentPlayerNum(playernum);
 
-	if (g_Vars.currentplayer->hands[1].weaponnum == WEAPON_REMOTEMINE) {
-		func0f0988e0(var80070200, 1, &g_Vars.currentplayer->hands[1]);
+	if (g_Vars.currentplayer->hands[HAND_LEFT].weaponnum == WEAPON_REMOTEMINE) {
+		func0f0988e0(var80070200, 1, &g_Vars.currentplayer->hands[HAND_LEFT]);
 	}
 
 	setCurrentPlayerNum(prevplayernum);
@@ -20451,12 +20451,12 @@ glabel var7f1acb14
 //
 //		// Sanity check - make sure the sniper isn't set to alt function
 //		// permanently (this is impossible).
-//		if (g_Vars.currentplayer->hands[0].weaponfunc != 1) {
+//		if (g_Vars.currentplayer->hands[HAND_RIGHT].weaponfunc != 1) {
 //			return 0;
 //		}
 //
 //		// Do crouch or stand
-//		g_Vars.currentplayer->hands[0].unk0d0f_03 = true;
+//		g_Vars.currentplayer->hands[HAND_RIGHT].unk0d0f_03 = true;
 //		return 2;
 //	case WEAPON_RCP120:
 //	case WEAPON_LAPTOPGUN:
@@ -20466,7 +20466,7 @@ glabel var7f1acb14
 //		g_Vars.currentplayer->invertgunfunc = true;
 //
 //		if (arg2 && currentPlayerIsUsingSecondaryFunction() == true) {
-//			g_Vars.currentplayer->hands[0].unk0d0f_03 = true;
+//			g_Vars.currentplayer->hands[HAND_RIGHT].unk0d0f_03 = true;
 //		}
 //
 //		return 1;
@@ -20519,7 +20519,7 @@ glabel var7f1acb14
 
 void func0f0a8c50(void)
 {
-	if (g_Vars.currentplayer->hands[0].unk0d0f_03 == 0) {
+	if (g_Vars.currentplayer->hands[HAND_RIGHT].unk0d0f_03 == 0) {
 		g_Vars.currentplayer->invertgunfunc = false;
 	}
 }
@@ -20665,8 +20665,8 @@ void currentPlayerTickInventory(bool triggeron)
 
 	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
 		triggeron = false;
-		g_Vars.currentplayer->hands[1].unk063c = 0;
-		g_Vars.currentplayer->hands[0].unk063c = 0;
+		g_Vars.currentplayer->hands[HAND_LEFT].unk063c = 0;
+		g_Vars.currentplayer->hands[HAND_RIGHT].unk063c = 0;
 	}
 
 	player->playertriggerprev = player->playertriggeron;
@@ -20682,8 +20682,8 @@ void currentPlayerTickInventory(bool triggeron)
 	if (player->playertriggeron) {
 		player->playertrigtime240 += g_Vars.lvupdate240;
 
-		if (player->hands[1].unk0640
-				&& player->hands[0].unk0640
+		if (player->hands[HAND_LEFT].unk0640
+				&& player->hands[HAND_RIGHT].unk0640
 				&& player->weaponnum != WEAPON_REMOTEMINE) {
 			if (player->playertrigtime240 > 80) {
 				gunsfiring[player->curguntofire] = 1;
@@ -20729,16 +20729,16 @@ void currentPlayerTickInventory(bool triggeron)
 		if (cheatIsActive(CHEAT_UNLIMITEDAMMONORELOADS)) {
 			s32 i;
 			struct weapon *weapon;
-			struct hand *hand1 = &g_Vars.currentplayer->hands[1];
-			struct hand *hand0 = &g_Vars.currentplayer->hands[0];
+			struct hand *lhand = &g_Vars.currentplayer->hands[HAND_LEFT];
+			struct hand *rhand = &g_Vars.currentplayer->hands[HAND_RIGHT];
 
-			weapon = weaponFindById(hand0->weaponnum);
+			weapon = weaponFindById(rhand->weaponnum);
 
 			for (i = 0; i != 2; i++) {
 				if (weapon && weapon->ammos[i] &&
 						ammotypeAllowsUnlimitedAmmo(weapon->ammos[i]->type)) {
-					hand0->loadedammo[i] = hand0->clipsizes[i];
-					hand1->loadedammo[i] = hand1->clipsizes[i];
+					rhand->loadedammo[i] = rhand->clipsizes[i];
+					lhand->loadedammo[i] = lhand->clipsizes[i];
 				}
 			}
 
@@ -20780,29 +20780,29 @@ void func0f0a93e0(struct coord *coord)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->hands[0].unk07f8.x = handGetXOffset(0) + coord->x;
-	player->hands[0].unk07f8.y = coord->y;
-	player->hands[0].unk07f8.z = coord->z;
+	player->hands[HAND_RIGHT].unk07f8.x = handGetXOffset(HAND_RIGHT) + coord->x;
+	player->hands[HAND_RIGHT].unk07f8.y = coord->y;
+	player->hands[HAND_RIGHT].unk07f8.z = coord->z;
 
-	player->hands[1].unk07f8.x = handGetXOffset(1) + coord->x;
-	player->hands[1].unk07f8.y = coord->y;
-	player->hands[1].unk07f8.z = coord->z;
+	player->hands[HAND_LEFT].unk07f8.x = handGetXOffset(HAND_LEFT) + coord->x;
+	player->hands[HAND_LEFT].unk07f8.y = coord->y;
+	player->hands[HAND_LEFT].unk07f8.z = coord->z;
 }
 
 void func0f0a9464(struct coord *coord)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->hands[1].unk0b94.x = player->hands[0].unk0b94.x = coord->x;
-	player->hands[1].unk0b94.y = player->hands[0].unk0b94.y = coord->y;
-	player->hands[1].unk0b94.z = player->hands[0].unk0b94.z = coord->z;
+	player->hands[HAND_LEFT].unk0b94.x = player->hands[HAND_RIGHT].unk0b94.x = coord->x;
+	player->hands[HAND_LEFT].unk0b94.y = player->hands[HAND_RIGHT].unk0b94.y = coord->y;
+	player->hands[HAND_LEFT].unk0b94.z = player->hands[HAND_RIGHT].unk0b94.z = coord->z;
 }
 
 void func0f0a9494(u32 operation)
 {
 	switch (operation) {
 	case 0:
-		g_Vars.currentplayer->hands[1].unk0cec = g_Vars.currentplayer->hands[0].unk0cec = false;
+		g_Vars.currentplayer->hands[HAND_LEFT].unk0cec = g_Vars.currentplayer->hands[HAND_RIGHT].unk0cec = false;
 		break;
 	case 1:
 		break;
@@ -20818,16 +20818,16 @@ void func0f0a94d0(u32 operation, struct coord *a, struct coord *b)
 		if (a->x > -100000.0f && a->x < 100000.0f
 				&& a->y > -100000.0f && a->y < 100000.0f
 				&& a->z > -100000.0f && a->z < 100000.0f) {
-			player->hands[0].unk0cec = true;
-			player->hands[1].unk0cec = true;
+			player->hands[HAND_RIGHT].unk0cec = true;
+			player->hands[HAND_LEFT].unk0cec = true;
 
-			player->hands[1].unk0cf0.x = player->hands[0].unk0cf0.x = a->x;
-			player->hands[1].unk0cf0.y = player->hands[0].unk0cf0.y = a->y;
-			player->hands[1].unk0cf0.z = player->hands[0].unk0cf0.z = a->z;
+			player->hands[HAND_LEFT].unk0cf0.x = player->hands[HAND_RIGHT].unk0cf0.x = a->x;
+			player->hands[HAND_LEFT].unk0cf0.y = player->hands[HAND_RIGHT].unk0cf0.y = a->y;
+			player->hands[HAND_LEFT].unk0cf0.z = player->hands[HAND_RIGHT].unk0cf0.z = a->z;
 
-			player->hands[1].unk0cfc.x = player->hands[0].unk0cfc.x = b->x;
-			player->hands[1].unk0cfc.y = player->hands[0].unk0cfc.y = b->y;
-			player->hands[1].unk0cfc.z = player->hands[0].unk0cfc.z = b->z;
+			player->hands[HAND_LEFT].unk0cfc.x = player->hands[HAND_RIGHT].unk0cfc.x = b->x;
+			player->hands[HAND_LEFT].unk0cfc.y = player->hands[HAND_RIGHT].unk0cfc.y = b->y;
+			player->hands[HAND_LEFT].unk0cfc.z = player->hands[HAND_RIGHT].unk0cfc.z = b->z;
 		}
 		break;
 	case 1:
