@@ -2157,31 +2157,13 @@ glabel func0f0e258c
 /*  f0e26e8:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel renderLine
-/*  f0e26ec:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0e26f0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0e26f4:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f0e26f8:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f0e26fc:	0fc38926 */ 	jal	func0f0e2498
-/*  f0e2700:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f0e2704:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*  f0e2708:	8faf003c */ 	lw	$t7,0x3c($sp)
-/*  f0e270c:	8fb80040 */ 	lw	$t8,0x40($sp)
-/*  f0e2710:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0e2714:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f0e2718:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f0e271c:	8fa70034 */ 	lw	$a3,0x34($sp)
-/*  f0e2720:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0e2724:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0e2728:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0e272c:	0fc38963 */ 	jal	func0f0e258c
-/*  f0e2730:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f0e2734:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0e2738:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0e273c:	03e00008 */ 	jr	$ra
-/*  f0e2740:	00000000 */ 	nop
-);
+Gfx *renderLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 arg5, s32 arg6)
+{
+	gdl = func0f0e2498(gdl);
+	gdl = func0f0e258c(gdl, x1, y1, x2, y2, arg5, arg6, 0);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f0e2744
