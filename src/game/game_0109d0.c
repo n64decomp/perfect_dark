@@ -69,25 +69,14 @@ void briefingInsert(struct briefingobj *briefing)
 	g_BriefingObjs = briefing;
 }
 
-GLOBAL_ASM(
-glabel func0f010a98
-/*  f010a98:	8c8e0004 */ 	lw	$t6,0x4($a0)
-/*  f010a9c:	3c01800a */ 	lui	$at,%hi(g_Objectives)
-/*  f010aa0:	3c038007 */ 	lui	$v1,%hi(g_ObjectiveLastIndex)
-/*  f010aa4:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f010aa8:	002f0821 */ 	addu	$at,$at,$t7
-/*  f010aac:	ac24d060 */ 	sw	$a0,%lo(g_Objectives)($at)
-/*  f010ab0:	2463ae70 */ 	addiu	$v1,$v1,%lo(g_ObjectiveLastIndex)
-/*  f010ab4:	8c780000 */ 	lw	$t8,0x0($v1)
-/*  f010ab8:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f010abc:	0302082a */ 	slt	$at,$t8,$v0
-/*  f010ac0:	10200002 */ 	beqz	$at,.L0f010acc
-/*  f010ac4:	00000000 */ 	nop
-/*  f010ac8:	ac620000 */ 	sw	$v0,0x0($v1)
-.L0f010acc:
-/*  f010acc:	03e00008 */ 	jr	$ra
-/*  f010ad0:	00000000 */ 	nop
-);
+void objectiveInsert(struct objective *objective)
+{
+	g_Objectives[objective->index] = objective;
+
+	if (g_ObjectiveLastIndex < objective->index) {
+		g_ObjectiveLastIndex = objective->index;
+	}
+}
 
 void objectiveAddRoomEnteredCriteria(struct criteria_roomentered *criteria)
 {

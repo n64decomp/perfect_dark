@@ -1375,11 +1375,13 @@ struct tag { // objtype 0x16
 	/*0x0c*/ struct defaultobj *obj;
 };
 
-struct beginobjectiveobj { // objtype 0x17
-	u32 unk00;
-	u32 index;
-	u32 text;
-	u32 difficulty;
+struct objective { // objtype 0x17
+	/*0x00*/ u32 unk00;
+	/*0x04*/ s32 index;
+	/*0x08*/ u32 text;
+	/*0x0c*/ u16 unk0c;
+	/*0x0e*/ u8 unk0e;
+	/*0x0f*/ s8 difficulties;
 };
 
 struct briefingobj { // objtype 0x23
@@ -4734,15 +4736,6 @@ struct activemenuthing {
 	/*0x32*/ u8 allbots; // when player holds R on the bot command screen
 	/*0x33*/ u8 unk33;
 	/*0x34*/ u8 unk34;
-};
-
-struct objective { // representation of setup file beginobjective macro
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 text;
-	/*0x0c*/ u16 unk0c;
-	/*0x0e*/ u8 unk0e;
-	/*0x0f*/ s8 difficulties;
 };
 
 struct briefing {

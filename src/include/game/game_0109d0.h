@@ -6,7 +6,7 @@
 void func0f0109d0(void);
 void tagInsert(struct tag *tag);
 void briefingInsert(struct briefingobj *obj);
-void func0f010a98(struct defaultobj *obj);
+void objectiveInsert(struct objective *objective);
 void objectiveAddRoomEnteredCriteria(struct criteria_roomentered *criteria);
 void objectiveAddMultiroomEnteredCriteria(struct criteria_multiroomentered *criteria);
 void objectiveAddHolographCriteria(struct criteria_holograph *criteria);

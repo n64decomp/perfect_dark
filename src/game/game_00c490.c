@@ -3228,13 +3228,13 @@ void setupParseObjects(s32 stagenum)
 					break;
 				case OBJTYPE_BEGINOBJECTIVE:
 					{
-						struct beginobjectiveobj *objective = (struct beginobjectiveobj *)obj;
+						struct objective *objective = (struct objective *)obj;
 
-						func0f010a98(obj);
+						objectiveInsert(objective);
 
-						if (objective->index < 7) {
+						if ((u32)objective->index < 7) {
 							g_Briefing.objectivenames[objective->index] = objective->text;
-							g_Briefing.objectivedifficulties[objective->index] = (s8)objective->difficulty;
+							g_Briefing.objectivedifficulties[objective->index] = objective->difficulties;
 						}
 					}
 					break;
