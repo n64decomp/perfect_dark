@@ -2613,43 +2613,14 @@ glabel func0f0e2ee8
 /*  f0e2f58:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel renderFilledRect
-/*  f0e2f5c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0e2f60:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0e2f64:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f0e2f68:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f0e2f6c:	0fc38926 */ 	jal	func0f0e2498
-/*  f0e2f70:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f0e2f74:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f0e2f78:	8faf0044 */ 	lw	$t7,0x44($sp)
-/*  f0e2f7c:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f0e2f80:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0e2f84:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f0e2f88:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f0e2f8c:	8fa7003c */ 	lw	$a3,0x3c($sp)
-/*  f0e2f90:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0e2f94:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0e2f98:	0fc389d1 */ 	jal	func0f0e2744
-/*  f0e2f9c:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f0e2fa0:	8fb90040 */ 	lw	$t9,0x40($sp)
-/*  f0e2fa4:	8fa80044 */ 	lw	$t0,0x44($sp)
-/*  f0e2fa8:	2409000a */ 	addiu	$t1,$zero,0xa
-/*  f0e2fac:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*  f0e2fb0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0e2fb4:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f0e2fb8:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f0e2fbc:	8fa7003c */ 	lw	$a3,0x3c($sp)
-/*  f0e2fc0:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0e2fc4:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f0e2fc8:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f0e2fcc:	0fc38aa9 */ 	jal	func0f0e2aa4
-/*  f0e2fd0:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f0e2fd4:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0e2fd8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0e2fdc:	03e00008 */ 	jr	$ra
-/*  f0e2fe0:	00000000 */ 	nop
-);
+Gfx *renderFilledRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colourleft, u32 colourright)
+{
+	gdl = func0f0e2498(gdl);
+	gdl = func0f0e2744(gdl, x1, y1, x2, y2, colourleft, colourright);
+	gdl = func0f0e2aa4(gdl, x1, y1, x2, y2, colourleft, 0, 10, 0);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel menuRenderCarouselArrow
