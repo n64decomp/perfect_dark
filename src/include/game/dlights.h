@@ -19,7 +19,7 @@ bool lightIsOn(s32 roomnum, s32 lightnum);
 void roomSetUnk52(s32 roomnum, s32 value);
 void roomSetDefaults(struct room *room);
 u32 func0f001138(void);
-u32 func0f001300(void);
+Gfx *func0f001300(Gfx *gdl);
 void roomInitLights(s32 roomnum);
 u32 func0f001734(void);
 void roomSetLightsFaulty(s32 roomnum, s32 chance);

@@ -87,7 +87,7 @@ u32 func0f163528(void);
 u32 func0f163904(void);
 u32 func0f16397c(void);
 void func0f163e34(void);
-u32 func0f164150(void);
+Gfx *func0f164150(Gfx *gdl);
 u32 func0f164534(void);
 u32 func0f1645a8(s16 room, s16 *rooms, u32 arg2);
 u32 func0f1646b8(void);
