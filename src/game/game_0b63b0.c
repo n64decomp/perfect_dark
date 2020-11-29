@@ -3533,7 +3533,7 @@ void func0f0b9650(void)
 
 void func0f0b9674(void)
 {
-	setTickMode(TICKMODE_4);
+	setTickMode(TICKMODE_MPSWIRL);
 	var80070744 = 0;
 	currentPlayerSetMoveMode(MOVEMODE_WALK);
 	var8009ddd8 = 0;
@@ -3779,7 +3779,7 @@ glabel var7f1ad5c8
 
 void func0f0b9a20(void)
 {
-	setTickMode(TICKMODE_1);
+	setTickMode(TICKMODE_NORMAL);
 	var80070744 = 0;
 	currentPlayerSetMoveMode(MOVEMODE_WALK);
 
@@ -3804,7 +3804,7 @@ void func0f0b9afc(void)
 	} else if (g_Vars.unk0004d3) {
 		g_Vars.unk0004d6 = 1;
 	} else {
-		setTickMode(TICKMODE_1);
+		setTickMode(TICKMODE_NORMAL);
 		var80070744 = 0;
 		setMoveModeForAllPlayers(MOVEMODE_WALK);
 	}
@@ -3812,7 +3812,7 @@ void func0f0b9afc(void)
 
 void warpBondToPad(s16 pad)
 {
-	setTickMode(TICKMODE_3);
+	setTickMode(TICKMODE_WARP);
 	var80070744 = 0;
 	setMoveModeForAllPlayers(MOVEMODE_CUTSCENE);
 	allPlayersClearMemCamRoom();
@@ -3821,7 +3821,7 @@ void warpBondToPad(s16 pad)
 
 void func0f0b9bac(u32 *cmd, s32 arg1, s32 arg2)
 {
-	setTickMode(TICKMODE_3);
+	setTickMode(TICKMODE_WARP);
 	var80070744 = 0;
 	setMoveModeForAllPlayers(MOVEMODE_CUTSCENE);
 	allPlayersClearMemCamRoom();
@@ -3833,7 +3833,7 @@ void func0f0b9bac(u32 *cmd, s32 arg1, s32 arg2)
 
 void func0f0b9c1c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5)
 {
-	setTickMode(TICKMODE_3);
+	setTickMode(TICKMODE_WARP);
 	var80070744 = 0;
 	setMoveModeForAllPlayers(MOVEMODE_CUTSCENE);
 	allPlayersClearMemCamRoom();
@@ -9334,7 +9334,7 @@ glabel var7f1ad6ac
 //	currentPlayerSetGunSightVisible(GUNSIGHTREASON_1, true);
 //
 //	// dc9c
-//	if ((g_Vars.tickmode == TICKMODE_0 || g_Vars.tickmode == TICKMODE_1)
+//	if ((g_Vars.tickmode == TICKMODE_0 || g_Vars.tickmode == TICKMODE_NORMAL)
 //			&& var80070764 == 0
 //			&& var8005d9d0 == 0) {
 //		g_Vars.currentplayer->bondviewlevtime60 += g_Vars.lvupdate240_60;
@@ -9762,7 +9762,7 @@ glabel var7f1ad6ac
 //						func0f0c1840(&sp764, &sp740, &sp752, NULL, NULL);
 //					}
 //				} else {
-//					if (g_Vars.tickmode == TICKMODE_1) {
+//					if (g_Vars.tickmode == TICKMODE_NORMAL) {
 //						struct coord sp244;
 //
 //						func0f0b9538();
@@ -10060,11 +10060,11 @@ glabel var7f1ad6ac
 //								&g_Vars.currentplayer->bond2.unk1c,
 //								&g_Vars.currentplayer->prop->pos,
 //								g_Vars.currentplayer->prop->rooms);
-//					} else if (g_Vars.tickmode == TICKMODE_4) {
+//					} else if (g_Vars.tickmode == TICKMODE_MPSWIRL) {
 //						func0f0b8ba0();
 //						currentPlayerUpdateFootsteps(0, 0, 0, 1);
 //						func0f0b96e8();
-//					} else if (g_Vars.tickmode == TICKMODE_3) {
+//					} else if (g_Vars.tickmode == TICKMODE_WARP) {
 //						func0f0b8ba0();
 //						currentPlayerUpdateFootsteps(0, 0, 0, 1);
 //						func0f0b9cbc();
@@ -10140,13 +10140,13 @@ glabel var7f1ad6ac
 //
 //						if (g_Vars.currentplayer->autocontrol_walkspeed == 0) {
 //							if (fVar18 >= -0.2f && fVar18 <= 0.2f) {
-//								setTickMode(TICKMODE_1);
+//								setTickMode(TICKMODE_NORMAL);
 //							}
 //						} else {
 //							sp216 = sqrtf(sp216 * sp216 + sp212 * sp212);
 //
 //							if (sp216 < g_Vars.currentplayer->autocontrol_dist) {
-//								setTickMode(TICKMODE_1);
+//								setTickMode(TICKMODE_NORMAL);
 //							}
 //						}
 //

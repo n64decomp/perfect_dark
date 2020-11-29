@@ -20721,7 +20721,7 @@ void currentPlayerTickInventory(bool triggeron)
 	handSetFiring(0, gunsfiring[0]);
 	handSetFiring(1, gunsfiring[1]);
 
-	if (g_Vars.tickmode == TICKMODE_1 && g_Vars.lvupdate240 > 0) {
+	if (g_Vars.tickmode == TICKMODE_NORMAL && g_Vars.lvupdate240 > 0) {
 		func0f09cdc4(0);
 		func0f09cdc4(1);
 		func0f09ce8c();

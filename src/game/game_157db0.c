@@ -6647,7 +6647,7 @@ void func0f15ca00(void)
 
 	tickmode = g_Vars.tickmode;
 
-	if (tickmode == TICKMODE_1) {
+	if (tickmode == TICKMODE_NORMAL) {
 		var8007fc10 = 4;
 
 		if (!IS4MB() && var8007fc0c) {
