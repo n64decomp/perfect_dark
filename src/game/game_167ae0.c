@@ -346,7 +346,7 @@ void func0f167e7c(s32 stagenum)
 
 	func0f18836c();
 	func0002373c();
-	func0f0109d0();
+	setupResetObjectives();
 	func0f013ba0();
 	func0f011110();
 	func0f0108d0();

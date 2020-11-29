@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f0109d0(void);
+void setupResetObjectives(void);
 void tagInsert(struct tag *tag);
 void briefingInsert(struct briefingobj *obj);
 void objectiveInsert(struct objective *objective);
