@@ -8530,54 +8530,24 @@ glabel func0f15e85c
 /*  f15eb24:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
 
-GLOBAL_ASM(
-glabel func0f15eb28
-/*  f15eb28:	000510c0 */ 	sll	$v0,$a1,0x3
-/*  f15eb2c:	00451021 */ 	addu	$v0,$v0,$a1
-/*  f15eb30:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f15eb34:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f15eb38:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f15eb3c:	00451023 */ 	subu	$v0,$v0,$a1
-/*  f15eb40:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f15eb44:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f15eb48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f15eb4c:	01c27821 */ 	addu	$t7,$t6,$v0
-/*  f15eb50:	85f80002 */ 	lh	$t8,0x2($t7)
-/*  f15eb54:	57000004 */ 	bnezl	$t8,.L0f15eb68
-/*  f15eb58:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f15eb5c:	10000019 */ 	b	.L0f15ebc4
-/*  f15eb60:	00801025 */ 	or	$v0,$a0,$zero
-/*  f15eb64:	afa2001c */ 	sw	$v0,0x1c($sp)
-.L0f15eb68:
-/*  f15eb68:	0fc59b5f */ 	jal	func0f166d7c
-/*  f15eb6c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f15eb70:	00402025 */ 	or	$a0,$v0,$zero
-/*  f15eb74:	0fc0044e */ 	jal	func0f001138
-/*  f15eb78:	87a50026 */ 	lh	$a1,0x26($sp)
-/*  f15eb7c:	3c19800a */ 	lui	$t9,%hi(g_Rooms)
-/*  f15eb80:	8f394928 */ 	lw	$t9,%lo(g_Rooms)($t9)
-/*  f15eb84:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*  f15eb88:	00402025 */ 	or	$a0,$v0,$zero
-/*  f15eb8c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f15eb90:	03284821 */ 	addu	$t1,$t9,$t0
-/*  f15eb94:	8d2a0014 */ 	lw	$t2,0x14($t1)
-/*  f15eb98:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f15eb9c:	0fc57a17 */ 	jal	func0f15e85c
-/*  f15eba0:	8d460008 */ 	lw	$a2,0x8($t2)
-/*  f15eba4:	0fc004c0 */ 	jal	func0f001300
-/*  f15eba8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f15ebac:	3c0c800a */ 	lui	$t4,%hi(g_Rooms)
-/*  f15ebb0:	8d8c4928 */ 	lw	$t4,%lo(g_Rooms)($t4)
-/*  f15ebb4:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*  f15ebb8:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f15ebbc:	018d7021 */ 	addu	$t6,$t4,$t5
-/*  f15ebc0:	a5cb0002 */ 	sh	$t3,0x2($t6)
-.L0f15ebc4:
-/*  f15ebc4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f15ebc8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f15ebcc:	03e00008 */ 	jr	$ra
-/*  f15ebd0:	00000000 */ 	nop
-);
+/**
+ * Renders the opaque layer of the room.
+ */
+Gfx *func0f15eb28(Gfx *gdl, s32 roomnum)
+{
+	if (g_Rooms[roomnum].unk02 == 0) {
+		return gdl;
+	}
+
+	gdl = func0f166d7c(gdl, roomnum);
+	gdl = func0f001138(gdl, roomnum);
+	gdl = func0f15e85c(gdl, roomnum, g_Rooms[roomnum].unk14->unk08, true);
+	gdl = func0f001300(gdl);
+
+	g_Rooms[roomnum].unk02 = 1;
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f15ebd4

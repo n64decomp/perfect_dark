@@ -3491,6 +3491,12 @@ struct screenbox {
 	s16 ymax;
 };
 
+struct room14 {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+};
+
 struct room {
 	/*0x00*/ u16 flags;
 	/*0x02*/ s16 unk02;
@@ -3503,7 +3509,7 @@ struct room {
 	/*0x0c*/ u16 unk0c;
 	/*0x0e*/ s16 unk0e;
 	/*0x10*/ u32 unk10;
-	/*0x14*/ void *unk14;
+	/*0x14*/ struct room14 *unk14;
 	/*0x18*/ struct coord unk18;
 	/*0x24*/ struct coord unk24;
 	/*0x30*/ u32 unk30;
