@@ -3502,7 +3502,8 @@ struct room {
 	/*0x0a*/ u16 lightindex; // index of start of this room's lights in data file
 	/*0x0c*/ u16 unk0c;
 	/*0x0e*/ s16 unk0e;
-	/*0x10*/ struct screenbox screenbox;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ void *unk14;
 	/*0x18*/ struct coord unk18;
 	/*0x24*/ struct coord unk24;
 	/*0x30*/ u32 unk30;
@@ -3510,7 +3511,7 @@ struct room {
 	/*0x38*/ u32 unk38;
 	/*0x3c*/ u32 unk3c;
 	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
+	/*0x44*/ void *unk44;
 	/*0x48*/ u8 unk48;
 	/*0x49*/ u8 unk49;
 	/*0x4a*/ u8 unk4a;
@@ -3531,7 +3532,7 @@ struct room {
 	/*0x74*/ u32 unk74;
 	/*0x78*/ u32 unk78;
 	/*0x7c*/ u32 unk7c;
-	/*0x80*/ u32 unk80;
+	/*0x80*/ s32 unk80;
 	/*0x84*/ u32 unk84;
 	/*0x88*/ u32 unk88;
 };
