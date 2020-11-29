@@ -63,15 +63,11 @@ void tagInsert(struct tag *tag)
 	g_TagsLinkedList = tag;
 }
 
-GLOBAL_ASM(
-glabel briefingInsert
-/*  f010a80:	3c02800a */ 	lui	$v0,%hi(g_BriefingObjs)
-/*  f010a84:	2442d0b4 */ 	addiu	$v0,$v0,%lo(g_BriefingObjs)
-/*  f010a88:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f010a8c:	ac8e000c */ 	sw	$t6,0xc($a0)
-/*  f010a90:	03e00008 */ 	jr	$ra
-/*  f010a94:	ac440000 */ 	sw	$a0,0x0($v0)
-);
+void briefingInsert(struct briefingobj *briefing)
+{
+	briefing->next = g_BriefingObjs;
+	g_BriefingObjs = briefing;
+}
 
 GLOBAL_ASM(
 glabel func0f010a98
