@@ -6633,70 +6633,40 @@ glabel func0f15c920
 //#endif
 //}
 
-GLOBAL_ASM(
-glabel func0f15ca00
-/*  f15ca00:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f15ca04:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f15ca08:	3c01800a */ 	lui	$at,%hi(var800a4bec)
-/*  f15ca0c:	0fc57248 */ 	jal	func0f15c920
-/*  f15ca10:	ac204bec */ 	sw	$zero,%lo(var800a4bec)($at)
-/*  f15ca14:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f15ca18:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f15ca1c:	8cae0290 */ 	lw	$t6,0x290($a1)
-/*  f15ca20:	55c00006 */ 	bnezl	$t6,.L0f15ca3c
-/*  f15ca24:	8ca202ac */ 	lw	$v0,0x2ac($a1)
-/*  f15ca28:	0fc579ca */ 	jal	func0f15e728
-/*  f15ca2c:	00000000 */ 	nop
-/*  f15ca30:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f15ca34:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f15ca38:	8ca202ac */ 	lw	$v0,0x2ac($a1)
-.L0f15ca3c:
-/*  f15ca3c:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f15ca40:	3c048008 */ 	lui	$a0,%hi(var8007fc10)
-/*  f15ca44:	14430012 */ 	bne	$v0,$v1,.L0f15ca90
-/*  f15ca48:	2484fc10 */ 	addiu	$a0,$a0,%lo(var8007fc10)
-/*  f15ca4c:	3c048008 */ 	lui	$a0,%hi(var8007fc10)
-/*  f15ca50:	2484fc10 */ 	addiu	$a0,$a0,%lo(var8007fc10)
-/*  f15ca54:	240f0004 */ 	addiu	$t7,$zero,0x4
-/*  f15ca58:	a48f0000 */ 	sh	$t7,0x0($a0)
-/*  f15ca5c:	3c188009 */ 	lui	$t8,%hi(g_Is4Mb)
-/*  f15ca60:	93180af0 */ 	lbu	$t8,%lo(g_Is4Mb)($t8)
-/*  f15ca64:	3c068008 */ 	lui	$a2,%hi(var8007fc0c)
-/*  f15ca68:	24c6fc0c */ 	addiu	$a2,$a2,%lo(var8007fc0c)
-/*  f15ca6c:	5078000f */ 	beql	$v1,$t8,.L0f15caac
-/*  f15ca70:	8ca20284 */ 	lw	$v0,0x284($a1)
-/*  f15ca74:	84c20000 */ 	lh	$v0,0x0($a2)
-/*  f15ca78:	240800c8 */ 	addiu	$t0,$zero,0xc8
-/*  f15ca7c:	1040000a */ 	beqz	$v0,.L0f15caa8
-/*  f15ca80:	2459ffff */ 	addiu	$t9,$v0,-1
-/*  f15ca84:	a4d90000 */ 	sh	$t9,0x0($a2)
-/*  f15ca88:	10000007 */ 	b	.L0f15caa8
-/*  f15ca8c:	a4880000 */ 	sh	$t0,0x0($a0)
-.L0f15ca90:
-/*  f15ca90:	3c068008 */ 	lui	$a2,%hi(var8007fc0c)
-/*  f15ca94:	24c6fc0c */ 	addiu	$a2,$a2,%lo(var8007fc0c)
-/*  f15ca98:	24090008 */ 	addiu	$t1,$zero,0x8
-/*  f15ca9c:	240a00c8 */ 	addiu	$t2,$zero,0xc8
-/*  f15caa0:	a4c90000 */ 	sh	$t1,0x0($a2)
-/*  f15caa4:	a48a0000 */ 	sh	$t2,0x0($a0)
-.L0f15caa8:
-/*  f15caa8:	8ca20284 */ 	lw	$v0,0x284($a1)
-.L0f15caac:
-/*  f15caac:	240c0064 */ 	addiu	$t4,$zero,0x64
-/*  f15cab0:	944b0010 */ 	lhu	$t3,0x10($v0)
-/*  f15cab4:	546b0003 */ 	bnel	$v1,$t3,.L0f15cac4
-/*  f15cab8:	8c4d1ba0 */ 	lw	$t5,0x1ba0($v0)
-/*  f15cabc:	a48c0000 */ 	sh	$t4,0x0($a0)
-/*  f15cac0:	8c4d1ba0 */ 	lw	$t5,0x1ba0($v0)
-.L0f15cac4:
-/*  f15cac4:	3c018008 */ 	lui	$at,%hi(var8007fc20)
-/*  f15cac8:	0fc58f8d */ 	jal	func0f163e34
-/*  f15cacc:	ac2dfc20 */ 	sw	$t5,%lo(var8007fc20)($at)
-/*  f15cad0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f15cad4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f15cad8:	03e00008 */ 	jr	$ra
-/*  f15cadc:	00000000 */ 	nop
-);
+void func0f15ca00(void)
+{
+	s32 tickmode;
+
+	var800a4bec = 0;
+
+	func0f15c920();
+
+	if (g_Vars.currentplayerindex == 0) {
+		func0f15e728();
+	}
+
+	tickmode = g_Vars.tickmode;
+
+	if (tickmode == TICKMODE_1) {
+		var8007fc10 = 4;
+
+		if (!IS4MB() && var8007fc0c) {
+			var8007fc0c--;
+			var8007fc10 = 200;
+		}
+	} else {
+		var8007fc0c = 8;
+		var8007fc10 = 200;
+	}
+
+	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
+		var8007fc10 = 100;
+	}
+
+	g_CamRoom = g_Vars.currentplayer->cam_room;
+
+	func0f163e34();
+}
 
 Gfx *func0f15cae0(Gfx *gdl)
 {
@@ -12985,8 +12955,8 @@ glabel var7f1b76bc
 /*  f16279c:	1000ffad */ 	b	.L0f162654
 /*  f1627a0:	02198021 */ 	addu	$s0,$s0,$t9
 /*  f1627a4:	1240000c */ 	beqz	$s2,.L0f1627d8
-/*  f1627a8:	3c028008 */ 	lui	$v0,%hi(var8007fc20)
-/*  f1627ac:	8c42fc20 */ 	lw	$v0,%lo(var8007fc20)($v0)
+/*  f1627a8:	3c028008 */ 	lui	$v0,%hi(g_CamRoom)
+/*  f1627ac:	8c42fc20 */ 	lw	$v0,%lo(g_CamRoom)($v0)
 /*  f1627b0:	8e08000c */ 	lw	$t0,0xc($s0)
 /*  f1627b4:	0048202a */ 	slt	$a0,$v0,$t0
 /*  f1627b8:	38840001 */ 	xori	$a0,$a0,0x1
@@ -13406,7 +13376,7 @@ glabel var7f1b76bc
 //			break;
 //		case PORTALCMD_14: // 14 - f1627a4 - check if player is in room range
 //			if (execute) {
-//				portalPushValue(var8007fc20 >= cmd[1].param && var8007fc20 <= cmd[2].param);
+//				portalPushValue(g_CamRoom >= cmd[1].param && g_CamRoom <= cmd[2].param);
 //			}
 //			cmd += cmd->len;
 //			break;
@@ -14769,10 +14739,10 @@ glabel func0f163e34
 /*  f164000:	1700004b */ 	bnez	$t8,.L0f164130
 /*  f164004:	00000000 */ 	nop
 /*  f164008:	8f394cc8 */ 	lw	$t9,%lo(g_Portals)($t9)
-/*  f16400c:	3c108008 */ 	lui	$s0,%hi(var8007fc20)
+/*  f16400c:	3c108008 */ 	lui	$s0,%hi(g_CamRoom)
 /*  f164010:	27b10038 */ 	addiu	$s1,$sp,0x38
 /*  f164014:	97290000 */ 	lhu	$t1,0x0($t9)
-/*  f164018:	2610fc20 */ 	addiu	$s0,$s0,%lo(var8007fc20)
+/*  f164018:	2610fc20 */ 	addiu	$s0,$s0,%lo(g_CamRoom)
 /*  f16401c:	02203025 */ 	or	$a2,$s1,$zero
 /*  f164020:	1520002d */ 	bnez	$t1,.L0f1640d8
 /*  f164024:	00002825 */ 	or	$a1,$zero,$zero
@@ -14931,11 +14901,11 @@ glabel func0f163e34
 //					}
 //				}
 //			} else {
-//				func0f157e94(var8007fc20, 0, &box);
+//				func0f157e94(g_CamRoom, 0, &box);
 //				var800a4cf0.unk00 = 0;
 //				var800a4cf0.unk02 = 0;
 //				var800a4cf0.unk04 = 0;
-//				func0f1632d4(var8007fc20, var8007fc20, 1, &box);
+//				func0f1632d4(g_CamRoom, g_CamRoom, 1, &box);
 //
 //				while (func0f163904());
 //			}
