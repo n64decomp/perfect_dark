@@ -90,7 +90,7 @@ void func0f163e34(void);
 Gfx *func0f164150(Gfx *gdl);
 u32 func0f164534(void);
 u32 func0f1645a8(s16 room, s16 *rooms, u32 arg2);
-u32 func0f1646b8(void);
+bool func0f1646b8(s32 roomnum, s32 arg1);
 u32 func0f164748(void);
 u32 func0f1648cc(void);
 void portalSwapProps(u32 portal);

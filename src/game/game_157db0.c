@@ -15222,49 +15222,20 @@ glabel func0f1645a8
 /*  f1646b4:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f1646b8
-/*  f1646b8:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f1646bc:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f1646c0:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f1646c4:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f1646c8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1646cc:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f1646d0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1646d4:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f1646d8:	80660005 */ 	lb	$a2,0x5($v1)
-/*  f1646dc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1646e0:	3c18800a */ 	lui	$t8,%hi(var800a4ce0)
-/*  f1646e4:	18c00015 */ 	blez	$a2,.L0f16473c
-/*  f1646e8:	3c07800a */ 	lui	$a3,%hi(g_Portals)
-/*  f1646ec:	8479000e */ 	lh	$t9,0xe($v1)
-/*  f1646f0:	8f184ce0 */ 	lw	$t8,%lo(var800a4ce0)($t8)
-/*  f1646f4:	8ce74cc8 */ 	lw	$a3,%lo(g_Portals)($a3)
-/*  f1646f8:	00194840 */ 	sll	$t1,$t9,0x1
-/*  f1646fc:	03092021 */ 	addu	$a0,$t8,$t1
-.L0f164700:
-/*  f164700:	84830000 */ 	lh	$v1,0x0($a0)
-/*  f164704:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f164708:	0046082a */ 	slt	$at,$v0,$a2
-/*  f16470c:	000350c0 */ 	sll	$t2,$v1,0x3
-/*  f164710:	00ea4021 */ 	addu	$t0,$a3,$t2
-/*  f164714:	850b0002 */ 	lh	$t3,0x2($t0)
-/*  f164718:	10ab0004 */ 	beq	$a1,$t3,.L0f16472c
-/*  f16471c:	00000000 */ 	nop
-/*  f164720:	850c0004 */ 	lh	$t4,0x4($t0)
-/*  f164724:	14ac0003 */ 	bne	$a1,$t4,.L0f164734
-/*  f164728:	00000000 */ 	nop
-.L0f16472c:
-/*  f16472c:	03e00008 */ 	jr	$ra
-/*  f164730:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f164734:
-/*  f164734:	1420fff2 */ 	bnez	$at,.L0f164700
-/*  f164738:	24840002 */ 	addiu	$a0,$a0,0x2
-.L0f16473c:
-/*  f16473c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f164740:	03e00008 */ 	jr	$ra
-/*  f164744:	00000000 */ 	nop
-);
+bool func0f1646b8(s32 roomnum, s32 arg1)
+{
+	s32 i;
+
+	for (i = 0; i < g_Rooms[roomnum].unk05; i++) {
+		s32 portalnum = var800a4ce0[g_Rooms[roomnum].unk0e + i];
+
+		if (g_Portals[portalnum].unk02 == arg1 || g_Portals[portalnum].unk04 == arg1) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f164748
