@@ -6698,7 +6698,7 @@ glabel func0f15cb5c
 
 Gfx *func0f15cb74(Gfx *gdl)
 {
-	return func0f15cc18(gdl,
+	return currentPlayerSetScissor(gdl,
 			g_Vars.currentplayer->viewleft,
 			g_Vars.currentplayer->viewtop,
 			g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewx,
@@ -6726,7 +6726,7 @@ glabel func0f15cbb4
 /*  f15cbf4:	4600428d */ 	trunc.w.s	$f10,$f8
 /*  f15cbf8:	44053000 */ 	mfc1	$a1,$f6
 /*  f15cbfc:	44065000 */ 	mfc1	$a2,$f10
-/*  f15cc00:	0fc57306 */ 	jal	func0f15cc18
+/*  f15cc00:	0fc57306 */ 	jal	currentPlayerSetScissor
 /*  f15cc04:	00000000 */ 	nop
 /*  f15cc08:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f15cc0c:	27bd0028 */ 	addiu	$sp,$sp,0x28
@@ -6734,81 +6734,28 @@ glabel func0f15cbb4
 /*  f15cc14:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f15cc18
-/*  f15cc18:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f15cc1c:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f15cc20:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f15cc24:	afa7000c */ 	sw	$a3,0xc($sp)
-/*  f15cc28:	84430634 */ 	lh	$v1,0x634($v0)
-/*  f15cc2c:	00a3082a */ 	slt	$at,$a1,$v1
-/*  f15cc30:	50200003 */ 	beqzl	$at,.L0f15cc40
-/*  f15cc34:	84440636 */ 	lh	$a0,0x636($v0)
-/*  f15cc38:	00602825 */ 	or	$a1,$v1,$zero
-/*  f15cc3c:	84440636 */ 	lh	$a0,0x636($v0)
-.L0f15cc40:
-/*  f15cc40:	44852000 */ 	mtc1	$a1,$f4
-/*  f15cc44:	00c4082a */ 	slt	$at,$a2,$a0
-/*  f15cc48:	10200002 */ 	beqz	$at,.L0f15cc54
-/*  f15cc4c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f15cc50:	00803025 */ 	or	$a2,$a0,$zero
-.L0f15cc54:
-/*  f15cc54:	844e0630 */ 	lh	$t6,0x630($v0)
-/*  f15cc58:	8faf000c */ 	lw	$t7,0xc($sp)
-/*  f15cc5c:	44868000 */ 	mtc1	$a2,$f16
-/*  f15cc60:	006e3821 */ 	addu	$a3,$v1,$t6
-/*  f15cc64:	00ef082a */ 	slt	$at,$a3,$t7
-/*  f15cc68:	10200002 */ 	beqz	$at,.L0f15cc74
-/*  f15cc6c:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f15cc70:	afa7000c */ 	sw	$a3,0xc($sp)
-.L0f15cc74:
-/*  f15cc74:	84580632 */ 	lh	$t8,0x632($v0)
-/*  f15cc78:	8fa70010 */ 	lw	$a3,0x10($sp)
-/*  f15cc7c:	00981821 */ 	addu	$v1,$a0,$t8
-/*  f15cc80:	0067082a */ 	slt	$at,$v1,$a3
-/*  f15cc84:	50200003 */ 	beqzl	$at,.L0f15cc94
-/*  f15cc88:	3c014080 */ 	lui	$at,0x4080
-/*  f15cc8c:	00603825 */ 	or	$a3,$v1,$zero
-/*  f15cc90:	3c014080 */ 	lui	$at,0x4080
-.L0f15cc94:
-/*  f15cc94:	44810000 */ 	mtc1	$at,$f0
-/*  f15cc98:	8fa30000 */ 	lw	$v1,0x0($sp)
-/*  f15cc9c:	3c01ed00 */ 	lui	$at,0xed00
-/*  f15cca0:	46003202 */ 	mul.s	$f8,$f6,$f0
-/*  f15cca4:	24680008 */ 	addiu	$t0,$v1,0x8
-/*  f15cca8:	afa80000 */ 	sw	$t0,0x0($sp)
-/*  f15ccac:	46009102 */ 	mul.s	$f4,$f18,$f0
-/*  f15ccb0:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f15ccb4:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f15ccb8:	440a5000 */ 	mfc1	$t2,$f10
-/*  f15ccbc:	44872000 */ 	mtc1	$a3,$f4
-/*  f15ccc0:	440f3000 */ 	mfc1	$t7,$f6
-/*  f15ccc4:	314b0fff */ 	andi	$t3,$t2,0xfff
-/*  f15ccc8:	000b6300 */ 	sll	$t4,$t3,0xc
-/*  f15cccc:	01816825 */ 	or	$t5,$t4,$at
-/*  f15ccd0:	31f80fff */ 	andi	$t8,$t7,0xfff
-/*  f15ccd4:	01b8c825 */ 	or	$t9,$t5,$t8
-/*  f15ccd8:	ac790000 */ 	sw	$t9,0x0($v1)
-/*  f15ccdc:	8fa8000c */ 	lw	$t0,0xc($sp)
-/*  f15cce0:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f15cce4:	44884000 */ 	mtc1	$t0,$f8
-/*  f15cce8:	00000000 */ 	nop
-/*  f15ccec:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f15ccf0:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f15ccf4:	00000000 */ 	nop
-/*  f15ccf8:	46003202 */ 	mul.s	$f8,$f6,$f0
-/*  f15ccfc:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f15cd00:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f15cd04:	440a9000 */ 	mfc1	$t2,$f18
-/*  f15cd08:	440f5000 */ 	mfc1	$t7,$f10
-/*  f15cd0c:	314b0fff */ 	andi	$t3,$t2,0xfff
-/*  f15cd10:	000b6300 */ 	sll	$t4,$t3,0xc
-/*  f15cd14:	31ed0fff */ 	andi	$t5,$t7,0xfff
-/*  f15cd18:	018dc025 */ 	or	$t8,$t4,$t5
-/*  f15cd1c:	ac780004 */ 	sw	$t8,0x4($v1)
-/*  f15cd20:	03e00008 */ 	jr	$ra
-/*  f15cd24:	8fa20000 */ 	lw	$v0,0x0($sp)
-);
+Gfx *currentPlayerSetScissor(Gfx *gdl, s32 viewleft, s32 viewtop, s32 viewright, s32 viewbottom)
+{
+	if (viewleft < g_Vars.currentplayer->viewleft) {
+		viewleft = g_Vars.currentplayer->viewleft;
+	}
+
+	if (viewtop < g_Vars.currentplayer->viewtop) {
+		viewtop = g_Vars.currentplayer->viewtop;
+	}
+
+	if (viewright > g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewx) {
+		viewright = g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewx;
+	}
+
+	if (viewbottom > g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewy) {
+		viewbottom = g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewy;
+	}
+
+	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viewleft, viewtop, viewright, viewbottom);
+
+	return gdl;
+}
 
 void func0f15cd28(void)
 {

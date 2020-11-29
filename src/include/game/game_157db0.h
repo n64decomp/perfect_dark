@@ -35,7 +35,7 @@ void func0f15ca00(void);
 Gfx *func0f15cae0(Gfx *gdl);
 Gfx *func0f15cb74(Gfx *gdl);
 u32 func0f15cbb4(void);
-Gfx *func0f15cc18(Gfx *gdl, s32 viewleft, s32 viewtop, s32 arg3, s32 arg4);
+Gfx *currentPlayerSetScissor(Gfx *gdl, s32 viewleft, s32 viewtop, s32 viewright, s32 viewbottom);
 void func0f15cd28(void);
 bool func0f15cd90(u32 room, struct screenbox *arg1);
 bool func0f15d08c(struct coord *a, struct coord *b);
