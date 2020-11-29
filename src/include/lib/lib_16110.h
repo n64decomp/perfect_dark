@@ -40,7 +40,7 @@ u32 func00017c2c(void);
 u32 func00017cbc(void);
 u32 func00017ce0(void);
 u32 func00017dc4(void);
-u32 func00017e30(void);
+bool func00017e30(s32 portalnum, struct coord *arg1, struct coord *arg2);
 u32 func00018148(void);
 void func000185d0(struct defaultobj *obj, s32 arg1);
 u32 func00018680(void);

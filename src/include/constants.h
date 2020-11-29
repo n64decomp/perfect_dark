@@ -8,6 +8,7 @@
 
 #define osSyncPrintf
 
+#define F32_MAX 3.4028234663853E+38 // 7f7fffff
 #define S32_MAX 2147483647
 #define U32_MAX 4294967295
 

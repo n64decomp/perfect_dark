@@ -15873,6 +15873,44 @@ glabel var7f1b76c4
 /*  f164f98:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
+// regalloc in callee-save registers
+// The empty if-statements below narrow it down to just two swapped registers
+//s32 func0f164e8c(struct coord *arg0, struct coord *arg1)
+//{
+//	s32 bestportalnum = -1;
+//	s32 count = 0;
+//	f32 bestthing = F32_MAX;
+//	f32 thisthing;
+//	s32 i;
+//
+//	for (i = 0; g_Portals[i].unk00; i++) {
+//		if (func00017e30(i, arg0, arg1)) {
+//			thisthing = var8007fcb4;
+//
+//			if (thisthing < 0) {
+//				thisthing = -thisthing;
+//			}
+//
+//			if (thisthing < bestthing) {
+//				bestportalnum = i;
+//				bestthing = thisthing;
+//				count++;
+//
+//				if (i);
+//				if (bestportalnum);
+//			}
+//		}
+//
+//		if (i);
+//		if (bestportalnum);
+//	}
+//
+//	if (count);
+//	if (bestportalnum);
+//
+//	return bestportalnum;
+//}
+
 GLOBAL_ASM(
 glabel func0f164f9c
 /*  f164f9c:	00001825 */ 	or	$v1,$zero,$zero

@@ -280,7 +280,7 @@ extern bool g_PortalStack[20];
 extern s32 g_PortalStackIndex;
 extern u32 g_PortalMode;
 extern u32 var8007fcb0;
-extern u32 var8007fcb4;
+extern f32 var8007fcb4;
 extern struct stagetableentry g_Stages[61];
 extern u32 var80081018;
 extern u32 var80081058;

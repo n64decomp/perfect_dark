@@ -7091,7 +7091,7 @@ bool g_PortalStack[20] = {0};
 s32 g_PortalStackIndex = 0x00000000;
 u32 g_PortalMode = 0x00000000;
 u32 var8007fcb0 = 0x00000190;
-u32 var8007fcb4 = 0x00000000;
+f32 var8007fcb4 = 0;
 u32 var8007fcb8 = 0x00000000;
 u32 var8007fcbc = 0x00000000;
 
