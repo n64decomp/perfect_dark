@@ -10,7 +10,7 @@ u32 func0f0e1668(void);
 u32 func0f0e194c(void);
 u32 func0f0e1ce8(void);
 u32 func0f0e1fac(void);
-u32 func0f0e2348(void);
+Gfx *func0f0e2348(Gfx *gdl);
 Gfx *func0f0e2498(Gfx *gdl);
 Gfx *func0f0e258c(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 arg5, s32 arg6, s32 arg7);
 Gfx *renderLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 arg5, s32 arg6);
