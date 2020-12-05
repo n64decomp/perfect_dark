@@ -8624,6 +8624,37 @@ glabel func0f15ebd4
 /*  f15ecd4:	00000000 */ 	nop
 );
 
+// regalloc
+//Gfx *func0f15ebd4(Gfx *gdl, s32 roomnum)
+//{
+//	u32 stack;
+//
+//	if (roomnum == 0 || roomnum >= g_Vars.roomcount) {
+//		return gdl;
+//	}
+//
+//	if (g_Rooms[roomnum].unk02) {
+//		if (!g_Rooms[roomnum].unk14->unk0c) {
+//			return gdl;
+//		}
+//
+//		func0f004604(roomnum);
+//
+//		if (g_Rooms[roomnum].unk14->unk0c) {
+//			// empty
+//		}
+//
+//		gdl = func0f166d7c(gdl, roomnum);
+//		gdl = func0f15e85c(gdl, roomnum, g_Rooms[roomnum].unk14->unk0c, 1);
+//
+//		g_Rooms[roomnum].unk02 = 1;
+//	} else {
+//		func0f15dc58(roomnum);
+//	}
+//
+//	return gdl;
+//}
+
 GLOBAL_ASM(
 glabel func0f15ecd8
 .late_rodata
