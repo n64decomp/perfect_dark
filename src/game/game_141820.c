@@ -8835,11 +8835,7 @@ glabel func0f148b40
 /*  f148b68:	a02ff844 */ 	sb	$t7,%lo(var8007f844)($at)
 );
 
-GLOBAL_ASM(
-glabel func0f148b6c
-/*  f148b6c:	3c018008 */ 	lui	$at,%hi(var8007f844)
-/*  f148b70:	03e00008 */ 	jr	$ra
-/*  f148b74:	a020f844 */ 	sb	$zero,%lo(var8007f844)($at)
-/*  f148b78:	00000000 */ 	nop
-/*  f148b7c:	00000000 */ 	nop
-);
+void func0f148b6c(void)
+{
+	var8007f844 = 0;
+}
