@@ -7169,11 +7169,10 @@ glabel var7f1b5f58
 //	return gdl;
 //}
 
-GLOBAL_ASM(
-glabel func0f1472f8
-/*  f1472f4:	03e00008 */ 	jr	$ra
-/*  f1472f8:	00000000 */ 	nop
-);
+void func0f1572f8(void)
+{
+	// empty
+}
 
 const char var7f1b5e50[] = "Fullscreen_DrawFaultScope";
 const char var7f1b5e6c[] = "Fullscreen_DrawFaultScope";
