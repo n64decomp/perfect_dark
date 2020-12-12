@@ -5,8 +5,8 @@
 
 u32 func0f0d4690(void);
 u32 func0f0d475c(void);
-u32 func0f0d479c(void);
-u32 func0f0d49c8(void);
+Gfx *func0f0d479c(Gfx *gdl);
+Gfx *func0f0d49c8(Gfx *gdl);
 u32 func0f0d4a3c(void);
 u32 func0f0d4c80(void);
 u32 func0f0d4d0c(void);

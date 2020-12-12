@@ -12,7 +12,7 @@ Gfx *func0f153628(Gfx *gdl);
 Gfx *func0f153780(Gfx *gdl);
 Gfx *gfxSetPrimColour(Gfx *gdl, u32 colour);
 Gfx *func0f153838(Gfx *gdl);
-Gfx *func0f153858(Gfx *gdl, s32 *x, s32 *y, s32 *textwidth, s32 *textheight);
+Gfx *func0f153858(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2);
 u32 func0f1538e4(void);
 u32 func0f153990(void);
 Gfx *func0f153a34(Gfx *gdl, u32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5);
@@ -42,7 +42,7 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, u32 font1, u32 fo
 u32 func0f1566cc(void);
 u32 func0f156790(void);
 u32 func0f156a24(void);
-Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text, u32 arg4, u32 arg5, s32 arg6, u32 colour, s16 arg8, s16 arg9, u32 arg10, u32 arg11);
+Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text, u32 arg4, u32 arg5, u32 arg6, u32 colour, s16 arg8, s16 arg9, u32 arg10, u32 arg11);
 void textMeasure(s32 *textheight, s32 *textwidth, char *text, u32 font1, u32 font2, u32 arg5);
 void textWrap(s32 width, char *in, char *out, u32 font1, u32 font2);
 u32 func0f1577f0(void);

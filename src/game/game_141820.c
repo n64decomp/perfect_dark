@@ -37,27 +37,6 @@ const char var7f1b5da0[] = "interlaceGfx";
 const char var7f1b5db0[] = "BlueInterlaceGfx";
 const char var7f1b5dc4[] = "stretchBlurGfx";
 const char var7f1b5dd4[] = "blurGfxFisheye";
-const char var7f1b5de4[] = "%s %s%5.2f";
-const char var7f1b5df0[] = "";
-const char var7f1b5df4[] = "%s %s%4.2f";
-const char var7f1b5e00[] = "";
-const char var7f1b5e04[] = "%s %d";
-const char var7f1b5e0c[] = "%s %d";
-const char var7f1b5e14[] = "%s";
-const char var7f1b5e18[] = "%s";
-const char var7f1b5e1c[] = "%s";
-const char var7f1b5e20[] = "%s";
-const char var7f1b5e24[] = "   %s";
-const char var7f1b5e2c[] = "   %s";
-const char var7f1b5e34[] = "   %s";
-const char var7f1b5e3c[] = "%s";
-const char var7f1b5e40[] = "%s";
-const char var7f1b5e44[] = "%s";
-const char var7f1b5e48[] = "%s";
-const char var7f1b5e4c[] = "%s";
-const char var7f1b5e50[] = "Fullscreen_DrawFaultScope";
-const char var7f1b5e6c[] = "Fullscreen_DrawFaultScope";
-const char var7f1b5e88[] = "IntroFaderBlurGfx";
 
 GLOBAL_ASM(
 glabel func0f141820
@@ -1037,6 +1016,12 @@ Gfx *hudRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
 
 GLOBAL_ASM(
 glabel hudRenderSlayerRocketLens
+.late_rodata
+glabel var7f1b5f2c
+.word 0x3f060a92
+glabel var7f1b5f30
+.word 0x40278d36
+.text
 /*  f142774:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f142778:	afbf0064 */ 	sw	$ra,0x64($sp)
 /*  f14277c:	afb40050 */ 	sw	$s4,0x50($sp)
@@ -1456,6 +1441,14 @@ glabel func0f142bf0
 
 GLOBAL_ASM(
 glabel func0f142d74
+.late_rodata
+glabel var7f1b5f34
+.word 0x3c23d70a
+glabel var7f1b5f38
+.word 0x3bcccccd
+glabel var7f1b5f3c
+.word 0x3c23d70a
+.text
 /*  f142d74:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f142d78:	44866000 */ 	mtc1	$a2,$f12
 /*  f142d7c:	44877000 */ 	mtc1	$a3,$f14
@@ -1497,8 +1490,17 @@ glabel func0f142d74
 /*  f142dfc:	00000000 */ 	nop
 );
 
+
 GLOBAL_ASM(
 glabel hudRenderEyespyView
+.late_rodata
+glabel var7f1b5f40
+.word 0x3f83d70a
+glabel var7f1b5f44
+.word 0x3bcccccd
+glabel var7f1b5f48
+.word 0x3c23d70a
+.text
 /*  f142e00:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f142e04:	afbf007c */ 	sw	$ra,0x7c($sp)
 /*  f142e08:	afb70074 */ 	sw	$s7,0x74($sp)
@@ -2074,7 +2076,7 @@ glabel hudRenderEyespyView
 );
 
 GLOBAL_ASM(
-glabel func0f143678
+glabel hudRenderEyespySideBar
 /*  f143678:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f14367c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f143680:	00808025 */ 	or	$s0,$a0,$zero
@@ -2209,8 +2211,37 @@ glabel func0f143678
 /*  f143884:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
+const char var7f1b5de4[] = "%s %s%5.2f";
+const char var7f1b5df0[] = "";
+const char var7f1b5df4[] = "%s %s%4.2f";
+const char var7f1b5e00[] = "";
+const char var7f1b5e04[] = "%s %d";
+const char var7f1b5e0c[] = "%s %d";
+const char var7f1b5e14[] = "%s";
+const char var7f1b5e18[] = "%s";
+const char var7f1b5e1c[] = "%s";
+const char var7f1b5e20[] = "%s";
+const char var7f1b5e24[] = "   %s";
+const char var7f1b5e2c[] = "   %s";
+const char var7f1b5e34[] = "   %s";
+const char var7f1b5e3c[] = "%s";
+const char var7f1b5e40[] = "%s";
+const char var7f1b5e44[] = "%s";
+const char var7f1b5e48[] = "%s";
+const char var7f1b5e4c[] = "%s";
+
 GLOBAL_ASM(
 glabel hudRenderEyespyUi
+.late_rodata
+glabel var7f1b5f4c
+.word 0x3a83126f
+glabel var7f1b5f50
+.word 0x3f19999a
+glabel var7f1b5f54
+.word 0x3c23d70a
+glabel var7f1b5f58
+.word 0x3bcccccd
+.text
 /*  f143888:	27bdfbf8 */ 	addiu	$sp,$sp,-1032
 /*  f14388c:	afbf0054 */ 	sw	$ra,0x54($sp)
 /*  f143890:	afb5004c */ 	sw	$s5,0x4c($sp)
@@ -5928,7 +5959,7 @@ glabel hudRenderEyespyUi
 /*  f146fe4:	14600006 */ 	bnez	$v1,.L0f147000
 /*  f146fe8:	00000000 */ 	nop
 /*  f146fec:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f146ff0:	0fc50d9e */ 	jal	func0f143678
+/*  f146ff0:	0fc50d9e */ 	jal	hudRenderEyespySideBar
 /*  f146ff4:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f146ff8:	10000017 */ 	b	.L0f147058
 /*  f146ffc:	0040a825 */ 	or	$s5,$v0,$zero
@@ -5942,7 +5973,7 @@ glabel hudRenderEyespyUi
 /*  f147018:	27a50224 */ 	addiu	$a1,$sp,0x224
 /*  f14701c:	24060010 */ 	addiu	$a2,$zero,0x10
 /*  f147020:	326700ff */ 	andi	$a3,$s3,0xff
-/*  f147024:	0fc50d9e */ 	jal	func0f143678
+/*  f147024:	0fc50d9e */ 	jal	hudRenderEyespySideBar
 /*  f147028:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f14702c:	1000000a */ 	b	.L0f147058
 /*  f147030:	0040a825 */ 	or	$s5,$v0,$zero
@@ -5953,7 +5984,7 @@ glabel hudRenderEyespyUi
 /*  f147040:	27a50224 */ 	addiu	$a1,$sp,0x224
 /*  f147044:	326600ff */ 	andi	$a2,$s3,0xff
 /*  f147048:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f14704c:	0fc50d9e */ 	jal	func0f143678
+/*  f14704c:	0fc50d9e */ 	jal	hudRenderEyespySideBar
 /*  f147050:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f147054:	0040a825 */ 	or	$s5,$v0,$zero
 .L0f147058:
@@ -6084,7 +6115,7 @@ glabel hudRenderEyespyUi
 /*  f147234:	14600006 */ 	bnez	$v1,.L0f147250
 /*  f147238:	00000000 */ 	nop
 /*  f14723c:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f147240:	0fc50d9e */ 	jal	func0f143678
+/*  f147240:	0fc50d9e */ 	jal	hudRenderEyespySideBar
 /*  f147244:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f147248:	10000017 */ 	b	.L0f1472a8
 /*  f14724c:	0040a825 */ 	or	$s5,$v0,$zero
@@ -6098,7 +6129,7 @@ glabel hudRenderEyespyUi
 /*  f147268:	27a50224 */ 	addiu	$a1,$sp,0x224
 /*  f14726c:	24060010 */ 	addiu	$a2,$zero,0x10
 /*  f147270:	326700ff */ 	andi	$a3,$s3,0xff
-/*  f147274:	0fc50d9e */ 	jal	func0f143678
+/*  f147274:	0fc50d9e */ 	jal	hudRenderEyespySideBar
 /*  f147278:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f14727c:	1000000a */ 	b	.L0f1472a8
 /*  f147280:	0040a825 */ 	or	$s5,$v0,$zero
@@ -6109,7 +6140,7 @@ glabel hudRenderEyespyUi
 /*  f147290:	27a50224 */ 	addiu	$a1,$sp,0x224
 /*  f147294:	326600ff */ 	andi	$a2,$s3,0xff
 /*  f147298:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f14729c:	0fc50d9e */ 	jal	func0f143678
+/*  f14729c:	0fc50d9e */ 	jal	hudRenderEyespySideBar
 /*  f1472a0:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f1472a4:	0040a825 */ 	or	$s5,$v0,$zero
 .L0f1472a8:
@@ -6134,9 +6165,1019 @@ glabel hudRenderEyespyUi
 /*  f1472e8:	8fb60050 */ 	lw	$s6,0x50($sp)
 /*  f1472ec:	03e00008 */ 	jr	$ra
 /*  f1472f0:	27bd0408 */ 	addiu	$sp,$sp,0x408
+);
+
+/**
+ * Renders the eyespy user interface, excluding the fisheye lens. The lens is
+ * drawn first by another function, then this one is called to draw the outer
+ * information. Care must be taken not to draw over the top of the fisheye lens.
+ *
+ * Note that the dimensions of the view can differ based on hi-res on/off, as
+ * well as using coop mode in both the vertical and horizontal screen splits.
+ * Some elements are omitted if a vertical split is being used, and to handle
+ * hi-res a scale variable is used to multiply X values and widths where needed.
+ *
+ * @bug: Many of the X values and widths are not multiplied by the scale which
+ * causes them to display incorrectly when using hi-res:
+ * - Some of the horizontal lines don't touch the lens circle.
+ * - The vertical lines are thinner and closer to the screen edges than intended.
+ * - The speed and height bars are stretched.
+ * - The device name and model are closer to the screen edge than intended.
+ */
+// Mismatch:
+// 4420: writes to x2 and y2 are misordered
+// Other mismatches are mostly regalloc and swapped instructions which will likely
+// resolve themselves once the above is fixed.
+//Gfx *hudRenderEyespyUi(Gfx *gdl)
+//{
+//	char text[256]; // 308
+//	s32 viewleft = viGetViewLeft(); // 304
+//	s32 viewtop = viGetViewTop(); // 300
+//	s32 viewwidth = viGetViewX(); // s1
+//	s32 viewheight = viGetViewY(); // 2f8
+//	s32 viewright = viewleft + viewwidth - 1;
+//	s32 viewbottom = viewtop + viewheight - 1; // 2f0
+//	s32 x; // 2ec
+//	s32 y; // 2e8
+//	s32 textwidth; // 2e4
+//	s32 textheight; // 2e0
+//	s32 x2; // 2dc
+//	s32 y2; // 2d8
+//	struct chrdata *chr;
+//	s32 savedy;
+//	s32 movex;
+//	s32 movey;
+//	s32 movez;
+//	f32 movedist; // 2c0
+//	f32 sqmovedist = 0.0f; // 2bc
+//	u32 colourtextbright;
+//	u32 colourtextdull; // 2b4
+//	u32 colourglow; // 2b0
+//	s32 scale = viewwidth > 320 ? 2 : 1; // 2ac
+//	bool vsplit = false; // 2a8
+//
+//	// 3914
+//	if (g_Vars.currentplayer->eyespy == NULL
+//			|| g_Vars.currentplayer->eyespy->prop == NULL
+//			|| g_Vars.currentplayer->eyespy->prop->chr == NULL) {
+//		return gdl;
+//	}
+//
+//	chr = g_Vars.currentplayer->eyespy->prop->chr;
+//
+//	// 393c
+//	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && PLAYERCOUNT() >= 2) {
+//		vsplit = true;
+//	}
+//
+//	// 39cc
+//	movex = chr->prop->pos.x - chr->prevpos.x;
+//	movey = chr->prop->pos.y - chr->prevpos.y;
+//	movez = chr->prop->pos.z - chr->prevpos.z;
+//
+//	// 3a1c
+//	if (movex != 0.0f || movey != 0.0f || movez != 0.0f) {
+//		sqmovedist = movex * movex + movey * movey + movez * movez;
+//	}
+//
+//	// 3aa0
+//	if (sqmovedist > 0.001f) {
+//		movedist = sqrtf(sqmovedist);
+//	} else {
+//		movedist = 0.0f;
+//	}
+//
+//	// 3abc
+//	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//		gdl = gfxSetPrimColour(gdl, 0x00ff0028);
+//	} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//		gdl = gfxSetPrimColour(gdl, 0x2244ffa0);
+//	} else {
+//		gdl = gfxSetPrimColour(gdl, 0xff3300a0);
+//	}
+//
+//	// 3b1c
+//	if (!vsplit) {
+//		// Render borders/lines in background
+//		gDPFillRectangle(gdl++, viewleft + 25, viewtop + 55, viewleft + 26, viewbottom - 24);
+//		gDPFillRectangle(gdl++, viewleft + 31, viewtop + 55, viewleft + 32, viewbottom - 42);
+//		gDPFillRectangle(gdl++, viewleft + 25, viewbottom - 25, viewleft + 25 + viewwidth / 5.0f + 1, viewbottom - 24);
+//		gDPFillRectangle(gdl++, viewleft + 31, viewbottom - 43, viewleft + 25 + viewwidth / 7.0f + 1, viewbottom - 42);
+//		gDPFillRectangle(gdl++, viewright - 25, viewtop + 25, viewright - 24, viewbottom - 54);
+//		gDPFillRectangle(gdl++, viewright - 31, viewtop + 43, viewright - 30, viewbottom - 54);
+//		gDPFillRectangle(gdl++, viewright - 25 - viewwidth / 5.0f, viewtop + 25, viewright - 24, viewtop + 26);
+//		gDPFillRectangle(gdl++, viewright - 25 - viewwidth / 7.0f, viewtop + 43, viewright - 30, viewtop + 44);
+//		gDPFillRectangle(gdl++, viewleft, viewtop + 55, viewleft + viewwidth / 5.0f + 1, viewtop + 56);
+//		gDPFillRectangle(gdl++, viewright - viewwidth / 5.0f, viewbottom - 55, viewright + 1, viewbottom - 54);
+//	}
+//
+//	// 4164
+//	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//		// Render crosshair
+//		s32 x = viewleft + (viewwidth >> 1);
+//		s32 y = viewtop + (viewheight >> 1);
+//
+//		gDPFillRectangle(gdl++, x + 2, y + 0, x + 7, y + 1);
+//		gDPFillRectangle(gdl++, x + 2, y + 0, x + 5, y + 1);
+//		gDPFillRectangle(gdl++, x - 6, y + 0, x - 1, y + 1);
+//		gDPFillRectangle(gdl++, x - 4, y + 0, x - 1, y + 1);
+//		gDPFillRectangle(gdl++, x + 0, y + 2, x + 1, y + 7);
+//		gDPFillRectangle(gdl++, x + 0, y + 2, x + 1, y + 5);
+//		gDPFillRectangle(gdl++, x + 0, y - 6, x + 1, y - 1);
+//		gDPFillRectangle(gdl++, x + 0, y - 4, x + 1, y - 1);
+//	}
+//
+//	// 4318
+//	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//		colourtextbright = 0x00ff00a0;
+//		colourtextdull = 0x005000ff;
+//		colourglow = 0x000f00ff;
+//	} else /*4348*/ if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//		colourtextbright = 0x2244ffff;
+//		colourtextdull = 0x2244ffff;
+//		colourglow = 0x00000fff;
+//	} else {
+//		// 4368
+//		colourtextbright = 0xff3300ff;
+//		colourtextdull = 0xff3300ff;
+//		colourglow = 0x0f0000ff;
+//	}
+//
+//	// "S/MPS"
+//	// 437c
+//	sprintf(text, "%s %s%5.2f", langGet(L_MISC(73)), "", movedist * 0.6f);
+//	savedy = viewtop + 14;
+//	textMeasure(&textheight, &textwidth, text, var8007fb08, var8007fb04, 0);
+//	x = viewleft + 25 * scale;
+//	y = savedy;
+//	x2 = x + textwidth;
+//	y2 = y + textheight;
+//	gdl = func0f153858(gdl, &x, &y, &x2, &y2);
+//	gdl = textRender(gdl, &x, &y, text, var8007fb08, var8007fb04,
+//			colourtextbright, colourglow, viGetX(), viGetY(), 0, 0);
+//
+//	// "H/M"
+//	// 44b4
+//	sprintf(text, "%s %s%4.2f", langGet(L_MISC(74)), "", g_Vars.currentplayer->eyespy->height * 0.01f);
+//	savedy += 9;
+//	textMeasure(&textheight, &textwidth, text, var8007fb08, var8007fb04, 0);
+//	x = viewleft + 25 * scale;
+//	y = savedy;
+//	x2 = x + textwidth;
+//	y2 = y + textheight;
+//	gdl = func0f153858(gdl, &x, &y, &x2, &y2);
+//	gdl = textRender(gdl, &x, &y, text, var8007fb08, var8007fb04,
+//			colourtextbright, colourglow, viGetX(), viGetY(), 0, 0);
+//
+//	// "Y/D"
+//	// 45c8
+//	sprintf(text, "%s %d", langGet(L_MISC(75)), (s32)g_Vars.currentplayer->eyespy->theta);
+//	savedy += 9;
+//	textMeasure(&textheight, &textwidth, text, var8007fb08, var8007fb04, 0);
+//	y = savedy;
+//	x = viewleft + 25 * scale;
+//	x2 = x + textwidth;
+//	y2 = y + textheight;
+//	gdl = func0f153858(gdl, &x, &y, &x2, &y2);
+//	gdl = textRender(gdl, &x, &y, text, var8007fb08, var8007fb04,
+//			colourtextbright, colourglow, viGetX(), viGetY(), 0, 0);
+//
+//	// "P/D"
+//	// 46cc
+//	sprintf(text, "%s %d", langGet(L_MISC(76)), (s32)g_Vars.currentplayer->eyespy->verta);
+//	savedy += 9;
+//	textMeasure(&textheight, &textwidth, text, var8007fb08, var8007fb04, 0);
+//	y = savedy;
+//	x = viewleft + 25 * scale;
+//	x2 = x + textwidth;
+//	y2 = y + textheight;
+//	gdl = func0f153858(gdl, &x, &y, &x2, &y2);
+//	gdl = textRender(gdl, &x, &y, text, var8007fb08, var8007fb04,
+//			colourtextbright, colourglow, viGetX(), viGetY(), 0, 0);
+//
+//	// "CI 2023"
+//	// 47d0
+//	sprintf(text, "%s", langGet(L_MISC(77)));
+//	textMeasure(&textheight, &textwidth, text, var8007fb08, var8007fb04, 0);
+//
+//	x = (vsplit ? -3 : 0) + viewleft + 25 * scale + 5;
+//	y = (vsplit ? 18 : 0) + viewbottom - 41;
+//	x2 = x + textwidth;
+//	y2 = y + textheight;
+//	gdl = func0f153858(gdl, &x, &y, &x2, &y2);
+//	gdl = textRender(gdl, &x, &y, text, var8007fb08, var8007fb04,
+//			colourtextdull, colourglow, viGetX(), viGetY(), 0, 0);
+//
+//	// 48f8
+//	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//		sprintf(text, "%s", langGet(L_MISC(78))); // "YKK: 95935"
+//	} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//		sprintf(text, "%s", langGet(L_MISC(208))); // "JM: 201172"
+//	} else {
+//		sprintf(text, "%s", langGet(L_MISC(217))); // "BNC: 15877"
+//	}
+//
+//	textMeasure(&textheight, &textwidth, text, var8007fb08, var8007fb04, 0);
+//
+//	// 49a8
+//	x = (vsplit ? -3 : 0) + viewleft + 25 * scale + 5;
+//	y = (vsplit ? 20 : 0) + viewbottom - 34;
+//	x2 = x + textwidth;
+//	y2 = y + textheight;
+//	gdl = func0f153858(gdl, &x, &y, &x2, &y2);
+//	gdl = textRender(gdl, &x, &y, text, var8007fb08, var8007fb04,
+//			colourtextdull, colourglow, viGetX(), viGetY(), 0, 0);
+//
+//	// 4a8c
+//	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//		// "CAMSPY"
+//		sprintf(text, "   %s", langGet(L_MISC(79)));
+//		textMeasure(&textheight, &textwidth, text, var8007fb08, var8007fb04, 0);
+//
+//		x = viewright - scale * 53 - 25;
+//		y = (vsplit ? -13 : 0) + viewtop + 27;
+//		x2 = x + textwidth;
+//		y2 = y + textheight;
+//		gdl = func0f153858(gdl, &x, &y, &x2, &y2);
+//		gdl = textRender(gdl, &x, &y, text, var8007fb08, var8007fb04,
+//				colourtextdull, colourglow, viGetX(), viGetY(), 0, 0);
+//	} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//		// "DRUGSPY"
+//		// 4be4
+//		sprintf(text, "   %s", langGet(L_MISC(468)));
+//		textMeasure(&textheight, &textwidth, text, var8007fb08, var8007fb04, 0);
+//
+//		x = viewright - scale * 53 - 25;
+//		y = (vsplit ? -13 : 0) + viewtop + 27;
+//		x2 = x + textwidth;
+//		y2 = y + textheight;
+//		gdl = func0f153858(gdl, &x, &y, &x2, &y2);
+//		gdl = textRender(gdl, &x, &y, text, var8007fb08, var8007fb04,
+//				colourtextdull, colourglow, viGetX(), viGetY(), 0, 0);
+//	} else {
+//		// "BOMBSPY"
+//		// 4d18
+//		sprintf(text, "   %s", langGet(L_MISC(469)));
+//		textMeasure(&textheight, &textwidth, text, var8007fb08, var8007fb04, 0);
+//
+//		x = viewright - scale * 59 - 25;
+//		y = (vsplit ? -13 : 0) + viewtop + 27;
+//		x2 = x + textwidth;
+//		y2 = y + textheight;
+//		gdl = func0f153858(gdl, &x, &y, &x2, &y2);
+//		gdl = textRender(gdl, &x, &y, text, var8007fb08, var8007fb04,
+//				colourtextdull, colourglow, viGetX(), viGetY(), 0, 0);
+//	}
+//
+//	// 4e3c
+//	// Model number
+//	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//		sprintf(text, "%s", langGet(L_MISC(80))); // "MODEL 1.2"
+//	} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//		sprintf(text, "%s", langGet(L_MISC(207))); // "MODEL 1.4"
+//	} else {
+//		sprintf(text, "%s", langGet(L_MISC(216))); // "MODEL 1.3"
+//	}
+//
+//	textMeasure(&textheight, &textwidth, text, var8007fb08, var8007fb04, 0);
+//	x = (vsplit ? 3 : 0) + viewright - scale * 46 - 25;
+//	y = (vsplit ? -11 : 0) + viewtop + 34;
+//	x2 = x + textwidth;
+//	y2 = y + textheight;
+//	gdl = func0f153858(gdl, &x, &y, &x2, &y2);
+//	gdl = textRender(gdl, &x, &y, text, var8007fb08, var8007fb04,
+//			colourtextdull, colourglow, viGetX(), viGetY(), 0, 0);
+//
+//	// 4fe4
+//	// Gyrostat/dartammo text
+//	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY
+//			|| g_Vars.currentplayer->eyespy->mode == EYESPYMODE_BOMBSPY) {
+//		sprintf(text, "%s", langGet(L_MISC(81))); // "GYROSTAT"
+//	} else {
+//		sprintf(text, "%s", langGet(L_MISC(206))); // "DARTAMMO"
+//	}
+//
+//	textMeasure(&textheight, &textwidth, text, var8007fb08, var8007fb04, 0);
+//	x = (vsplit ? -35 : 0) + (viewright - viewwidth / 5.0f - 3 - (scale * 5 - 5));
+//	y = (vsplit ? -2 : 0) + viewbottom - 12;
+//	x2 = x + textwidth;
+//	y2 = y + textheight;
+//	gdl = func0f153858(gdl, &x, &y, &x2, &y2);
+//	gdl = textRender(gdl, &x, &y, text, var8007fb08, var8007fb04,
+//			colourtextdull, colourglow, viGetX(), viGetY(), 0, 0);
+//
+//	gdl = func0f153838(gdl);
+//
+//	// 5190
+//	{
+//		s8 contpadnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
+//		u16 buttonsdown = contGetButtons(contpadnum, 0xffff);
+//		u16 buttonsthisframe = contGetButtonsPressedThisFrame(contpadnum, 0xffff);
+//		s8 cstickx = contGetStickX(contpadnum); // 251
+//		s8 csticky = contGetStickY(contpadnum);
+//		s32 xpos;
+//		s32 tmpval;
+//		u8 brightness;
+//		u8 brightness2;
+//		s32 points[8]; // 224
+//		s32 r;
+//		s32 g;
+//		s32 b;
+//
+//		// 5200
+//		gDPPipeSync(gdl++);
+//		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//		gDPSetColorDither(gdl++, G_CD_DISABLE);
+//		gDPSetTexturePersp(gdl++, G_TP_NONE);
+//		gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//		gDPSetTextureLOD(gdl++, G_TL_TILE);
+//		gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//		gDPSetTextureConvert(gdl++, G_TC_FILT);
+//		gDPSetTextureLUT(gdl++, G_TT_NONE);
+//		gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
+//		gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
+//
+//		// 5328
+//		if (!vsplit) {
+//			// 5330
+//			xpos = (scale == 2 ? -76 : -85);
+//
+//			// Up
+//			// 5364
+//			if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//				brightness = 20;
+//
+//				if (buttonsdown & (U_JPAD | U_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				if (buttonsthisframe & (U_JPAD | U_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//			} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//				// 53b4
+//				brightness = 127;
+//
+//				if (buttonsdown & (U_JPAD | U_CBUTTONS)) {
+//					brightness += 63;
+//				}
+//
+//				if (buttonsthisframe & (U_JPAD | U_CBUTTONS)) {
+//					brightness += 63;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0x10, 0x20, brightness, 0xff);
+//			} else {
+//				brightness = 20;
+//
+//				if (buttonsdown & (U_JPAD | U_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				if (buttonsthisframe & (U_JPAD | U_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//			}
+//
+//			// 5464
+//			gDPFillRectangle(gdl++, xpos * scale + viewright, viewtop + 10, (xpos + 8) * scale + viewright, viewtop + 18);
+//			xpos += 10;
+//
+//			// Down
+//
+//			// 5504
+//			if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//				brightness = 20;
+//
+//				if (buttonsdown & (D_JPAD | D_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				if (buttonsthisframe & (D_JPAD | D_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//			} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//				// 555c
+//				brightness = 127;
+//
+//				if (buttonsdown & (D_JPAD | D_CBUTTONS)) {
+//					brightness += 63;
+//				}
+//
+//				if (buttonsthisframe & (D_JPAD | D_CBUTTONS)) {
+//					brightness += 63;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0x10, 0x20, brightness, 0xff);
+//			} else {
+//				// 55ac
+//				brightness = 20;
+//
+//				if (buttonsdown & (D_JPAD | D_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				if (buttonsthisframe & (D_JPAD | D_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//			}
+//
+//			// 55ec
+//			gDPFillRectangle(gdl++, xpos * scale + viewright, viewtop + 10, (xpos + 8) * scale + viewright, viewtop + 18);
+//			xpos += 10;
+//
+//			// Left
+//
+//			// 5648
+//			if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//				brightness = 20;
+//
+//				if (buttonsdown & (L_JPAD | L_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				if (buttonsthisframe & (L_JPAD | L_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//			} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//				// 56a0
+//				brightness = 127;
+//
+//				if (buttonsdown & (L_JPAD | L_CBUTTONS)) {
+//					brightness += 63;
+//				}
+//
+//				if (buttonsthisframe & (L_JPAD | L_CBUTTONS)) {
+//					brightness += 63;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0x10, 0x20, brightness, 0xff);
+//			} else {
+//				// 56e8
+//				brightness = 20;
+//
+//				if (buttonsdown & (L_JPAD | L_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				if (buttonsthisframe & (L_JPAD | L_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//			}
+//
+//			// 5730
+//			gDPFillRectangle(gdl++, xpos * scale + viewright, viewtop + 10, (xpos + 8) * scale + viewright, viewtop + 18);
+//			xpos += 10;
+//
+//			// Right
+//
+//			// 5790
+//			if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//				brightness = 20;
+//
+//				if (buttonsdown & (R_JPAD | R_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				if (buttonsthisframe & (R_JPAD | R_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//			} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//				// 57e8
+//				brightness = 127;
+//
+//				if (buttonsdown & (R_JPAD | R_CBUTTONS)) {
+//					brightness += 63;
+//				}
+//
+//				if (buttonsthisframe & (R_JPAD | R_CBUTTONS)) {
+//					brightness += 63;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0x10, 0x20, brightness, 0xff);
+//			} else {
+//				// 5838
+//				brightness = 20;
+//
+//				if (buttonsdown & (R_JPAD | R_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				if (buttonsthisframe & (R_JPAD | R_CBUTTONS)) {
+//					brightness += 20;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//			}
+//
+//			// 5878
+//			gDPFillRectangle(gdl++, xpos * scale + viewright, viewtop + 10, (xpos + 8) * scale + viewright, viewtop + 18);
+//			xpos += 10;
+//
+//			// Shoulder buttons
+//
+//			// 58d8
+//			if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//				brightness = 20;
+//
+//				if (buttonsdown & (L_TRIG | R_TRIG)) {
+//					brightness += 20;
+//				}
+//
+//				if (buttonsthisframe & (L_TRIG | R_TRIG)) {
+//					brightness += 20;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//			} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//				// 5930
+//				brightness = 127;
+//
+//				if (buttonsdown & (L_TRIG | R_TRIG)) {
+//					brightness += 63;
+//				}
+//
+//				if (buttonsthisframe & (L_TRIG | R_TRIG)) {
+//					brightness += 63;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0x10, 0x20, brightness, 0xff);
+//			} else {
+//				// 5978
+//				brightness = 20;
+//
+//				if (buttonsdown & (L_TRIG | R_TRIG)) {
+//					brightness += 20;
+//				}
+//
+//				if (buttonsthisframe & (L_TRIG | R_TRIG)) {
+//					brightness += 20;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//			}
+//
+//			// 59c0
+//			gDPFillRectangle(gdl++, xpos * scale + viewright, viewtop + 10, (xpos + 8) * scale + viewright, viewtop + 18);
+//			xpos += 10;
+//
+//			// Z button
+//
+//			// 5a10
+//			if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//				brightness = 20;
+//
+//				if (buttonsdown & Z_TRIG) {
+//					brightness += 20;
+//				}
+//
+//				if (buttonsthisframe & Z_TRIG) {
+//					brightness += 20;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//			} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//				// 5a68
+//				brightness = 127;
+//
+//				if (buttonsdown & Z_TRIG) {
+//					brightness += 63;
+//				}
+//
+//				if (buttonsthisframe & Z_TRIG) {
+//					brightness += 63;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0x10, 0x20, brightness, 0xff);
+//			} else {
+//				// 5ab8
+//				brightness = 20;
+//
+//				if (buttonsdown & Z_TRIG) {
+//					brightness += 20;
+//				}
+//
+//				if (buttonsthisframe & Z_TRIG) {
+//					brightness += 20;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//			}
+//
+//			// 5af8
+//			gDPFillRectangle(gdl++, xpos * scale + viewright, viewtop + 10, (xpos + 8) * scale + viewright, viewtop + 18);
+//		}
+//
+//		// 5b28
+//		xpos = (scale == 2 ? -48 : -55);
+//
+//		tmpval = cstickx * 96.0f / 80.0f;
+//		brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//		// 5bb0
+//		if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//			gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//		} else /*5bcc*/ if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//			r = brightness / 96.0f * 16.0f;
+//			g = brightness / 96.0f * 32.0f;
+//			b = brightness * 2.5f;
+//			gDPSetPrimColor(gdl++, 0, 0, r, g, b, 0xff);
+//		} else {
+//			// 5c68
+//			gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//		}
+//
+//		// 5c8c
+//		if (!vsplit) {
+//			tmpval = cstickx * 28.0f / 80.0f;
+//
+//			if (cstickx > 0) {
+//				gDPFillRectangle(gdl++,
+//						xpos * scale + viewright,
+//						viewtop + 19,
+//						(tmpval + xpos) * scale + viewright,
+//						viewtop + 21);
+//			} else {
+//				// 5d40
+//				gDPFillRectangle(gdl++,
+//						(tmpval + xpos) * scale + viewright,
+//						viewtop + 19,
+//						xpos * scale + viewright,
+//						viewtop + 21);
+//			}
+//		}
+//
+//		// 5dd4
+//		tmpval = csticky * 96.0f / 80.0f;
+//		brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//		// 5e38
+//		if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//			gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//		} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//			r = brightness / 96.0f * 16.0f;
+//			g = brightness / 96.0f * 32.0f;
+//			b = brightness * 2.5f;
+//			gDPSetPrimColor(gdl++, 0, 0, r, g, b, 0xff);
+//		} else {
+//			gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//		}
+//
+//		// 5f10
+//		if (!vsplit) {
+//			tmpval = csticky * 28.0f / 80.0f;
+//
+//			if (csticky > 0) {
+//				gDPFillRectangle(gdl++,
+//						xpos * scale + viewright,
+//						viewtop + 22,
+//						(tmpval + xpos) * scale + viewright,
+//						viewtop + 24);
+//			} else {
+//				gDPFillRectangle(gdl++,
+//						(tmpval + xpos) * scale + viewright,
+//						viewtop + 22,
+//						xpos * scale + viewright,
+//						viewtop + 24);
+//			}
+//		}
+//
+//		// 6020
+//		if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//			if (!vsplit) {
+//				// Camspy gyrobar 1
+//				x = viewright - viewwidth / 5.0f;
+//				y = viewbottom - 13;
+//
+//				tmpval = g_Vars.currentplayer->eyespy->theta * 96.0f / 360.0f;
+//				textheight = g_Vars.currentplayer->eyespy->theta * 35.0f / 360.0f;
+//				brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//				gDPFillRectangle(gdl++, x, y - textheight, x + scale * 5, y);
+//
+//				// Camspy gyrobar 2
+//				x += scale * 2 + scale * 5;
+//
+//				tmpval = (g_Vars.currentplayer->eyespy->costheta + 1.0f) * 96.0f * 0.5f;
+//				textheight = (g_Vars.currentplayer->eyespy->costheta + 1.0f) * 35.0f * 0.5f;
+//				brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//				gDPFillRectangle(gdl++, x, y - textheight, x + scale * 5, y);
+//
+//				// Camspy gyrobar 3
+//				x += scale * 2 + scale * 5;
+//
+//				tmpval = (g_Vars.currentplayer->eyespy->sintheta + 1.0f) * 96.0f * 0.5f;
+//				textheight = (g_Vars.currentplayer->eyespy->sintheta + 1.0f) * 35.0f * 0.5f;
+//				brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//				gDPFillRectangle(gdl++, x, y - textheight, x + scale * 5, y);
+//
+//				// Camspy gyrobar 4
+//				x += scale * 2 + scale * 5;
+//
+//				tmpval = g_Vars.currentplayer->eyespy->verta * 96.0f / 360.0f;
+//				textheight = g_Vars.currentplayer->eyespy->verta * 35.0f / 360.0f;
+//				brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//				gDPFillRectangle(gdl++, x, y - textheight, x + scale * 5, y);
+//
+//				// Camspy gyrobar 5
+//				x += scale * 2 + scale * 5;
+//
+//				tmpval = (g_Vars.currentplayer->eyespy->cosverta + 1.0f) * 96.0f * 0.5f;
+//				textheight = (g_Vars.currentplayer->eyespy->cosverta + 1.0f) * 35.0f * 0.5f;
+//				brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//				gDPFillRectangle(gdl++, x, y - textheight, x + scale * 5, y);
+//
+//				// Camspy gyrobar 6
+//				x += scale * 2 + scale * 5;
+//
+//				tmpval = (g_Vars.currentplayer->eyespy->sinverta + 1.0f) * 96.0f * 0.5f;
+//				textheight = (g_Vars.currentplayer->eyespy->sinverta + 1.0f) * 35.0f * 0.5f;
+//				brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0, brightness, 0, 0xff);
+//				gDPFillRectangle(gdl++, x, y - textheight, x + scale * 5, y);
+//
+//				x += scale * 2 + scale * 5;
+//			}
+//		} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_BOMBSPY) {
+//			// 65ac
+//			if (!vsplit) {
+//				// Bombspy gyrobar 1
+//				x = viewright - viewwidth / 5.0f;
+//				y = viewbottom - 13;
+//
+//				tmpval = g_Vars.currentplayer->eyespy->theta * 96.0f / 360.0f;
+//				textheight = g_Vars.currentplayer->eyespy->theta * 35.0f / 360.0f;
+//				brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//				gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//				gDPFillRectangle(gdl++, x, y - textheight, x + scale * 5, y);
+//
+//				// Bombspy gyrobar 2
+//				x += scale * 2 + scale * 5;
+//
+//				tmpval = (g_Vars.currentplayer->eyespy->costheta + 1.0f) * 96.0f * 0.5f;
+//				textheight = (g_Vars.currentplayer->eyespy->costheta + 1.0f) * 35.0f * 0.5f;
+//				brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//				gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//				gDPFillRectangle(gdl++, x, y - textheight, x + scale * 5, y);
+//
+//				// Bombspy gyrobar 3
+//				x += scale * 2 + scale * 5;
+//
+//				tmpval = (g_Vars.currentplayer->eyespy->sintheta + 1.0f) * 96.0f * 0.5f;
+//				textheight = (g_Vars.currentplayer->eyespy->sintheta + 1.0f) * 35.0f * 0.5f;
+//				brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//				gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//				gDPFillRectangle(gdl++, x, y - textheight, x + scale * 5, y);
+//
+//				// Bombspy gyrobar 4
+//				x += scale * 2 + scale * 5;
+//
+//				tmpval = g_Vars.currentplayer->eyespy->verta * 96.0f / 360.0f;
+//				textheight = g_Vars.currentplayer->eyespy->verta * 35.0f / 360.0f;
+//				brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//				gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//				gDPFillRectangle(gdl++, x, y - textheight, x + scale * 5, y);
+//
+//				// Bombspy gyrobar 5
+//				x += scale * 2 + scale * 5;
+//
+//				tmpval = (g_Vars.currentplayer->eyespy->cosverta + 1.0f) * 96.0f * 0.5f;
+//				textheight = (g_Vars.currentplayer->eyespy->cosverta + 1.0f) * 35.0f * 0.5f;
+//				brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//				gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//				gDPFillRectangle(gdl++, x, y - textheight, x + scale * 5, y);
+//
+//				// Bombspy gyrobar 6
+//				x += scale * 2 + scale * 5;
+//
+//				tmpval = (g_Vars.currentplayer->eyespy->sinverta + 1.0f) * 96.0f * 0.5f;
+//				textheight = (g_Vars.currentplayer->eyespy->sinverta + 1.0f) * 35.0f * 0.5f;
+//				brightness = tmpval < 0 ? -tmpval : tmpval;
+//
+//				gDPSetPrimColor(gdl++, 0, 0, brightness, brightness >> 2, 0, 0xff);
+//				gDPFillRectangle(gdl++, x, y - textheight, x + scale * 5, y);
+//
+//				x += scale * 2 + scale * 5;
+//			}
+//		} else {
+//			// 6b68
+//			// Drugspy ammo
+//			s32 i;
+//			s32 width;
+//			x = viewright - viewwidth / 5.0f + 5;
+//			y = viewbottom - 13;
+//
+//			brightness2 = 0xff;
+//			width = scale * 30;
+//
+//			if (vsplit) {
+//				x -= 12;
+//				y -= 3;
+//				width = 15;
+//			}
+//
+//			for (i = 0; i < 8; i++) {
+//				if (i >= g_Vars.currentplayer->eyespydarts) {
+//					brightness2 = 0x88;
+//				}
+//
+//				gDPSetPrimColor(gdl++, 0, 0, 0x10, 0x20, brightness2, 0xff);
+//				gDPFillRectangle(gdl++, x, y - 4, x + width, y);
+//
+//				y -= 5;
+//			}
+//		}
+//
+//		// 6c68
+//		gDPPipeSync(gdl++);
+//		gDPSetColorDither(gdl++, G_CD_BAYER);
+//		gDPSetTexturePersp(gdl++, G_TP_PERSP);
+//		gDPSetTextureLOD(gdl++, G_TL_LOD);
+//
+//		// 6cd4
+//		if (g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
+//			s32 barheight = (viewbottom - viewtop - 103) / 17.0f - 1;
+//			s32 centrey;
+//			s32 sqcentrey;
+//			s32 ypos;
+//			u8 alpha; // d3
+//			u32 stack;
+//			u32 stack2;
+//			s8 yoffset; // c7
+//			s32 value = 17.0f * movedist / 25.0f; // c0
+//			s32 i;
+//
+//			if (value > 17) {
+//				value = 17;
+//			}
+//
+//			value = 17 - value;
+//
+//			if (viewheight == 220) {
+//				yoffset = 10;
+//			} else if (viewheight == 180) {
+//				barheight--;
+//				yoffset = -8;
+//			} else {
+//				yoffset = 0;
+//			}
+//
+//			// 6d90
+//			gdl = func0f0d479c(gdl);
+//
+//			gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+//			gSPSetGeometryMode(gdl++, G_SHADE | G_SHADING_SMOOTH);
+//			gDPSetCombineMode(gdl++, G_CC_SHADE, G_CC_SHADE);
+//			gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//			gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+//
+//			// Speed bars (left side)
+//			y = viewtop + 58;
+//
+//			if (viewheight == 180) {
+//				y += 5;
+//			}
+//
+//			centrey = viewheight * .5f;
+//			ypos = centrey - y + 10;
+//			sqcentrey = centrey * centrey;
+//
+//			for (i = 0; i < 17; i++) {
+//				// 6eac
+//				brightness = i < value ? 0x28 : 0x50;
+//				alpha = i < value ? 0x22 : 0x56;
+//
+//				points[0] = x = viewleft + 34;
+//				points[1] = y;
+//				points[2] = x = viewleft + 34;
+//				points[3] = y + barheight;
+//
+//				// 6f18
+//				points[6] = x = viewwidth * .5f - sqrtf(sqcentrey - (ypos - yoffset) * (ypos - yoffset)) * scale - 5.0f;
+//				points[5] = y + barheight;
+//
+//				ypos -= barheight;
+//
+//				// 6f78
+//				points[4] = x = viewwidth * .5f - sqrtf(sqcentrey - (ypos - yoffset) * (ypos - yoffset)) * scale - 5.0f;
+//				points[7] = y;
+//
+//				ypos -= 2;
+//
+//				// 6fec
+//				if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//					gdl = hudRenderEyespySideBar(gdl, points, 0, brightness, 0, alpha);
+//				} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//					// 7014
+//					gdl = hudRenderEyespySideBar(gdl, points, 0x10, brightness, brightness * 3, alpha);
+//				} else {
+//					// 7080
+//					gdl = hudRenderEyespySideBar(gdl, points, brightness, brightness >> 2, 0, alpha);
+//				}
+//
+//				y += barheight;
+//				y += 2;
+//			}
+//
+//			// Height bars (right side)
+//			value = g_Vars.currentplayer->eyespy->height * 17.0f * 0.00625f;
+//
+//			if (value > 17) {
+//				value = 17;
+//			}
+//
+//			value = 17 - value;
+//
+//			y = viewtop + 46;
+//
+//			if (viewheight == 180) {
+//				y += 5;
+//			}
+//
+//			ypos = centrey - y + 10;
+//
+//			for (i = 0; i < 17; i++) {
+//				// 70fc
+//				brightness = i < value ? 0x28 : 0x50;
+//				alpha = i < value ? 0x22 : 0x56;
+//
+//				points[0] = x = viewright - 34;
+//				points[1] = y;
+//				points[3] = y + barheight;
+//				points[2] = x = viewright - 34;
+//
+//				// 7168
+//				points[6] = x = viewwidth * .5f + sqrtf(sqcentrey - (ypos - yoffset) * (ypos - yoffset)) * scale + 5.0f;
+//				points[5] = y + barheight;
+//
+//				ypos -= barheight;
+//
+//				// 71c8
+//				points[4] = x = viewwidth * .5f + sqrtf(sqcentrey - (ypos - yoffset) * (ypos - yoffset)) * scale + 5.0f;
+//				points[7] = y;
+//
+//				ypos -= 2;
+//
+//				if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
+//					// 7240
+//					gdl = hudRenderEyespySideBar(gdl, points, 0, brightness, 0, alpha);
+//				} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+//					gdl = hudRenderEyespySideBar(gdl, points, 0x10, brightness, brightness * 3, alpha);
+//				} else {
+//					gdl = hudRenderEyespySideBar(gdl, points, brightness, brightness >> 2, 0, alpha);
+//				}
+//
+//				y += barheight;
+//				y += 2;
+//			}
+//		}
+//
+//		// 72c4
+//		gdl = func0f0d49c8(gdl);
+//	}
+//
+//	return gdl;
+//}
+
+GLOBAL_ASM(
+glabel func0f1472f8
 /*  f1472f4:	03e00008 */ 	jr	$ra
 /*  f1472f8:	00000000 */ 	nop
 );
+
+const char var7f1b5e50[] = "Fullscreen_DrawFaultScope";
+const char var7f1b5e6c[] = "Fullscreen_DrawFaultScope";
+const char var7f1b5e88[] = "IntroFaderBlurGfx";
 
 GLOBAL_ASM(
 glabel func0f1472fc
@@ -6872,24 +7913,16 @@ const char var7f1b5f0c[] = " JMBC";
 const char var7f1b5f14[] = " WIDE BAND";
 const char var7f1b5f20[] = " SCANNER\n";
 
-const u32 var7f1b5f2c[] = {0x3f060a92};
-const u32 var7f1b5f30[] = {0x40278d36};
-const u32 var7f1b5f34[] = {0x3c23d70a};
-const u32 var7f1b5f38[] = {0x3bcccccd};
-const u32 var7f1b5f3c[] = {0x3c23d70a};
-const u32 var7f1b5f40[] = {0x3f83d70a};
-const u32 var7f1b5f44[] = {0x3bcccccd};
-const u32 var7f1b5f48[] = {0x3c23d70a};
-const u32 var7f1b5f4c[] = {0x3a83126f};
-const u32 var7f1b5f50[] = {0x3f19999a};
-const u32 var7f1b5f54[] = {0x3c23d70a};
-const u32 var7f1b5f58[] = {0x3bcccccd};
-const u32 var7f1b5f5c[] = {0x40490fdb};
-const u32 var7f1b5f60[] = {0x40933333};
-const u32 var7f1b5f64[] = {0x4465599a};
-
 GLOBAL_ASM(
 glabel hudRenderHorizonScanner
+.late_rodata
+glabel var7f1b5f5c
+.word 0x40490fdb
+glabel var7f1b5f60
+.word 0x40933333
+glabel var7f1b5f64
+.word 0x4465599a
+.text
 /*  f147e24:	27bdfe68 */ 	addiu	$sp,$sp,-408
 /*  f147e28:	afbf0054 */ 	sw	$ra,0x54($sp)
 /*  f147e2c:	afb20050 */ 	sw	$s2,0x50($sp)
