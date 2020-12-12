@@ -1433,7 +1433,7 @@ char *filemgrMenuTextFileInUseDescription(struct menuitem *item)
 
 Gfx *filemgrRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *renderdata, u32 arg2, u32 arg3)
 {
-	struct var800ab5a8 *texture = func0f111460(g_MpPlayerNum, arg2, arg3 & 0xffff);
+	struct textureconfig *texture = func0f111460(g_MpPlayerNum, arg2, arg3 & 0xffff);
 
 	if (texture) {
 		gSPDisplayList(gdl++, &var800613a0);

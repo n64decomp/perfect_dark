@@ -281,7 +281,7 @@ void func0f167e7c(s32 stagenum)
 	func0f16d324();
 	func0f011124(true);
 	func0f013b80();
-	func0f1735c0();
+	texturesLoadConfigs();
 	fontsLoadForCurrentStage();
 	hudmsgSystemInit();
 

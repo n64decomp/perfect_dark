@@ -29,12 +29,12 @@ u32 func0f172e70(void);
 u32 func0f172e8c(void);
 u32 func0f172f44(void);
 u32 func0f172f54(void);
-u32 func0f172f5c(void);
-u32 func0f173010(void);
+void func0f172f5c(Gfx *gdl, u32 arg1, u32 arg2);
+void func0f173010(u32 *texturenum, u32 arg1, u32 arg2);
 u32 func0f173434(void);
 u32 func0f1734e8(void);
 u32 func0f173520(void);
 u32 func0f17353c(void);
-void func0f1735c0(void);
+void texturesLoadConfigs(void);
 
 #endif

@@ -353,6 +353,8 @@ SECTIONS
 	 * -------------------------------------------------------------------------
 	 */
 
+	__rampos = 0x02000000;
+
 	BEGIN_SEG(textureconfig)
 	{
 		build/ROMID/textureconfig/textureconfig.o (.data);

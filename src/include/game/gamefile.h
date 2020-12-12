@@ -24,6 +24,6 @@ u8 func0f110cf8(u8 arg0);
 u32 func0f110d90(void);
 void func0f110da8(void);
 u32 func0f110f4c(void);
-struct var800ab5a8 *func0f111460(s32 playernum, s32 arg1, s32 arg2);
+struct textureconfig *func0f111460(s32 playernum, s32 arg1, s32 arg2);
 
 #endif

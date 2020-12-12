@@ -6191,12 +6191,6 @@ struct var80061420 {
 	s32 unk04;
 };
 
-struct var800ab5a8 {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-};
-
 struct var800ab5b8 {
 	u32 unk00;
 	u32 unk04;
@@ -6639,6 +6633,17 @@ struct pakthing16 {
 struct var80067e6c {
 	s16 animnum;
 	f32 value;
+};
+
+struct textureconfig {
+    u32 texturenum;
+    u8 width;
+    u8 height;
+    u8 level;
+    u8 format;
+    u8 depth;
+    u8 s;
+    u8 t;
 };
 
 #endif

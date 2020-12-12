@@ -5787,7 +5787,7 @@ glabel func0f17353c
 );
 
 GLOBAL_ASM(
-glabel func0f1735c0
+glabel texturesLoadConfigs
 /*  f1735c0:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f1735c4:	3c0e0200 */ 	lui	$t6,0x200
 /*  f1735c8:	3c0f0200 */ 	lui	$t7,0x200
@@ -5801,16 +5801,16 @@ glabel func0f1735c0
 /*  f1735e8:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1735ec:	0c0048f2 */ 	jal	malloc
 /*  f1735f0:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f1735f4:	3c03800b */ 	lui	$v1,%hi(var800ab554)
-/*  f1735f8:	2463b554 */ 	addiu	$v1,$v1,%lo(var800ab554)
+/*  f1735f4:	3c03800b */ 	lui	$v1,%hi(g_TextureConfigSegment)
+/*  f1735f8:	2463b554 */ 	addiu	$v1,$v1,%lo(g_TextureConfigSegment)
 /*  f1735fc:	3c05007f */ 	lui	$a1,%hi(_textureconfigSegmentRomStart)
 /*  f173600:	ac620000 */ 	sw	$v0,0x0($v1)
 /*  f173604:	24a5b270 */ 	addiu	$a1,$a1,%lo(_textureconfigSegmentRomStart)
 /*  f173608:	00402025 */ 	or	$a0,$v0,$zero
 /*  f17360c:	0c003504 */ 	jal	func0000d410
 /*  f173610:	02203025 */ 	or	$a2,$s1,$zero
-/*  f173614:	3c18800b */ 	lui	$t8,%hi(var800ab554)
-/*  f173618:	8f18b554 */ 	lw	$t8,%lo(var800ab554)($t8)
+/*  f173614:	3c18800b */ 	lui	$t8,%hi(g_TextureConfigSegment)
+/*  f173618:	8f18b554 */ 	lw	$t8,%lo(g_TextureConfigSegment)($t8)
 /*  f17361c:	3c070200 */ 	lui	$a3,0x200
 /*  f173620:	3c06800b */ 	lui	$a2,%hi(var800ab550)
 /*  f173624:	3c080200 */ 	lui	$t0,0x200
@@ -6072,3 +6072,86 @@ glabel func0f1735c0
 /*  f1739f8:	00000000 */ 	nop
 /*  f1739fc:	00000000 */ 	nop
 );
+
+//extern u8 *_textureconfigSegmentRomStart;
+//extern u8 *_textureconfigSegmentStart;
+//extern u8 *_textureconfigSegmentEnd;
+
+// Unfinished
+//void texturesLoadConfigs(void)
+//{
+//	s32 stage;
+//	u32 len = &_textureconfigSegmentEnd - &_textureconfigSegmentStart;
+//	s32 i;
+//
+//	g_TextureConfigSegment = malloc(len, 4);
+//	func0000d410(g_TextureConfigSegment, &_textureconfigSegmentRomStart, len);
+//
+//	var800ab550 = (u32)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart);
+//	var800ab564 = (Gfx *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x000); // gdl000
+//	var800ab568 = (Gfx *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x070); // gdl070
+//	var800ab56c = (Gfx *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x0d8); // gdl0d8
+//	var800ab570 = (u32 *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x148); // g_ExplosionTextureNums
+//	var800ab560 = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x1c0);
+//	var800ab574 = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x298);
+//	var800ab578 = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x2d4);
+//	var800ab57c = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x2e0);
+//	var800ab580 = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x2ec);
+//	var800ab584 = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x2f8);
+//	var800ab588 = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x304);
+//	var800ab58c = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x310);
+//	var800ab590 = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x31c);
+//	var800ab594 = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x334);
+//	var800ab598 = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x7b4);
+//	var800ab59c = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x7d8);
+//	var800ab5a0 = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x820);
+//	var800ab5a4 = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x898);
+//	var800ab5a8 = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x8a4);
+//	var800ab5ac = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0xb44);
+//
+//	var800ab558 = (len - ((u32)&_textureconfigSegmentStart + 0x1c0)) + (u32)&_textureconfigSegmentStart;
+//	var800ab55c = malloc(align16(var800ab558), 4);
+//
+//	for (i = 0; i < var800ab558; i++) {
+//		var800ab55c[i].texturenum = 0;
+//	}
+//
+//	for (i = 0; i < 15; i++) {
+//		func0f173010(&var800ab570[i * 2 + 0], 0, 0);
+//		func0f173010(&var800ab570[i * 2 + 1], 0, 0);
+//	}
+//
+//	func0f172f5c(var800ab564, 0, 0);
+//	func0f172f5c(var800ab56c, 0, 0);
+//	stage = mainGetStageNum();
+//
+//	if (IS4MB() && stage != STAGE_TITLE && stage != STAGE_CITRAINING && stage != STAGE_4MBMENU) {
+//		for (i = 0; i < 12; i++) {
+//			func0f0b3988(&var800ab560[i]);
+//		}
+//
+//		for (i = 0; i < 5; i++) {
+//			func0f0b3988(&var800ab574[i]);
+//		}
+//
+//		for (i = 0; i < 3; i++) {
+//			func0f0b3988(&var800ab598[i]);
+//		}
+//
+//		for (i = 0; i < 1; i++) {
+//			func0f0b3988(&var800ab588[i]);
+//		}
+//
+//		for (i = 0; i < 1; i++) {
+//			func0f0b3988(&var800ab58c[i]);
+//		}
+//
+//		for (i = 0; i < 1; i++) {
+//			func0f0b3988(&var800ab5ac[i]);
+//		}
+//
+//		for (i = 0; i < 1; i++) {
+//			func0f0b3988(&var800ab5a4[i]);
+//		}
+//	}
+//}
