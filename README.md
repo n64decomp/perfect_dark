@@ -8,9 +8,14 @@ See the [Perfect Dark Decompilation Status Page](https://ryandwyer.gitlab.io/pds
 
 ## Installation Requirements
 
-* make
-* mips build tools (Debian/Ubuntu: binutils-mips-linux-gnu, Arch: mips64-elf-binutils from AUR)
-* Python 3
+For Arch Linux:
+
+* Install these packages: `binutils fakeroot gcc make python vim`
+* Install from AUR: `mips64-elf-binutils`
+
+For Debian and Ubuntu:
+
+* Install these packages: `binutils-mips-linux-gnu make`
 
 ## ROM Versions
 
@@ -38,10 +43,10 @@ Before you do anything you need an existing ROM to extract assets from.
 
 ## Compiling
 
-* Run `make rom` to build the ROM. The ROM will be written to `build/ntsc-final/pd.z64`.
+* Run `make -j` to build the ROM. The ROM will be written to `build/ntsc-final/pd.z64`.
 
 ## How do I know the built files are matching?
 
-Run `make` followed by `make test`. If `make test` produces no output then all compiled segments are matching.
+Run `make` followed by `make test`. If `make test` produces no output then the compiled project is matching.
 
 You can also md5sum your base ROM with the built ROM and check they have the same hash: `md5sum pd.ntsc-final.z64 build/ntsc-final/pd.z64`.

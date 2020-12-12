@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+sed "s|__FILE__|$1|g" ld/zero.ld >> build/zero-$$.ld
+$TOOLCHAIN-ld -T build/zero-$$.ld -o "$2"
+rm -f build/zero-$$.ld

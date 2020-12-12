@@ -196,7 +196,7 @@ SEGMENT_FILES := \
 	$(B_DIR)/segments/mpstringsI.bin \
 	$(B_DIR)/segments/textureconfig.bin
 
-test: $(SEGMENT_FILES) $(ASSET_FILES)
+test: rom $(SEGMENT_FILES) $(ASSET_FILES)
 	@md5sum --quiet -c checksums.$(ROMID).md5
 
 $(B_DIR)/segments/%.bin: $(B_DIR)/stage2.bin
@@ -259,9 +259,7 @@ src/files/bgdata/bg_%_tiles.o: src/files/bgdata/bg_%_tiles.s
 
 $(B_DIR)/files/bgdata/bg_%_tiles.elf: src/files/bgdata/bg_%_tiles.o
 	@mkdir -p $(B_DIR)/files/bgdata
-	cp $< build/zero.tmp.o
-	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
-	rm -f build/zero.tmp.o
+	TOOLCHAIN=$(TOOLCHAIN) tools/mksimpleelf $< $@
 
 # Chrs
 $(B_DIR)/files/C%Z: $(E_DIR)/files/C%Z
@@ -279,9 +277,7 @@ $(B_DIR)/files/lang/L%.o: src/files/lang/$(ROMID)/%.c
 	$(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) $< -o $@ -O2
 
 $(B_DIR)/files/L%.elf: $(B_DIR)/files/lang/L%.o
-	cp $< build/zero.tmp.o
-	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
-	rm -f build/zero.tmp.o
+	TOOLCHAIN=$(TOOLCHAIN) tools/mksimpleelf $< $@
 
 $(B_DIR)/files/L%E: $(B_DIR)/files/L%E.bin
 	tools/rarezip $< > $@
@@ -305,9 +301,7 @@ $(B_DIR)/files/P%Z: $(E_DIR)/files/P%Z
 # Stage setups
 $(B_DIR)/files/U%.elf: $(B_DIR)/files/setup/%.o
 	@mkdir -p $(B_DIR)/files
-	cp $< build/zero.tmp.o
-	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
-	rm -f build/zero.tmp.o
+	TOOLCHAIN=$(TOOLCHAIN) tools/mksimpleelf $< $@
 
 # General target to convert any finalised file into a raw object for ld
 $(B_DIR)/files/%.o: $(B_DIR)/files/%

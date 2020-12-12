@@ -4,11 +4,11 @@ OUTPUT_ARCH (mips)
 SECTIONS
 {
 	.data 0x00000000 : AT(0x0000) {
-		build/zero.tmp.o (.data);
+		__FILE__ (.data);
 	}
 
 	.rodata : AT(SIZEOF(.data)) {
-		build/zero.tmp.o (.rodata);
+		__FILE__ (.rodata);
 	}
 
 	/DISCARD/ : {
