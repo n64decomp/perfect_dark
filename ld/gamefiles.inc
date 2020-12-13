@@ -140,6 +140,7 @@
 	build/ROMID/game/game_13c510.o (section); \
 	build/ROMID/game/wallhit.o (section); \
 	build/ROMID/game/game_141820.o (section); \
+	build/ROMID/game/data/data_0258c0.o (section); \
 	build/ROMID/game/splat.o (section); \
 	build/ROMID/game/camdraw.o (section); \
 	build/ROMID/game/game_150820.o (section); \

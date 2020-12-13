@@ -27,12 +27,14 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
-const char var7f1b5d70[] = "envcol";
-const char var7f1b5d78[] = "primcol";
-const char var7f1b5d80[] = "envcol";
-const char var7f1b5d88[] = "primcol";
-const char var7f1b5d90[] = "sfxxx";
-const char var7f1b5d98[] = "sfyyy";
+s32 var8007f840 = 0x00000000;
+u8 var8007f844 = 0;
+u8 var8007f848 = 0;
+u32 var8007f84c = 0x0000005a;
+u32 var8007f850 = 0x00000003;
+u32 var8007f854 = 0x00000000;
+u32 var8007f858 = 0xb8000000;
+u32 var8007f85c = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f141820
@@ -609,122 +611,39 @@ glabel func0f141ed4
 /*  f1420ac:	00801025 */ 	or	$v0,$a0,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f1420b0
-/*  f1420b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1420b4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1420b8:	00803825 */ 	or	$a3,$a0,$zero
-/*  f1420bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1420c0:	3c047f1b */ 	lui	$a0,%hi(var7f1b5d70)
-/*  f1420c4:	3c058008 */ 	lui	$a1,%hi(var8007f860)
-/*  f1420c8:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1420cc:	24a5f860 */ 	addiu	$a1,$a1,%lo(var8007f860)
-/*  f1420d0:	24845d70 */ 	addiu	$a0,$a0,%lo(var7f1b5d70)
-/*  f1420d4:	0c0036cc */ 	jal	func0000db30
-/*  f1420d8:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f1420dc:	3c047f1b */ 	lui	$a0,%hi(var7f1b5d78)
-/*  f1420e0:	3c058008 */ 	lui	$a1,%hi(var8007f864)
-/*  f1420e4:	24a5f864 */ 	addiu	$a1,$a1,%lo(var8007f864)
-/*  f1420e8:	0c0036cc */ 	jal	func0000db30
-/*  f1420ec:	24845d78 */ 	addiu	$a0,$a0,%lo(var7f1b5d78)
-/*  f1420f0:	8fa20018 */ 	lw	$v0,0x18($sp)
-/*  f1420f4:	3c0ee700 */ 	lui	$t6,0xe700
-/*  f1420f8:	3c0ff510 */ 	lui	$t7,0xf510
-/*  f1420fc:	24430008 */ 	addiu	$v1,$v0,0x8
-/*  f142100:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*  f142104:	ac400004 */ 	sw	$zero,0x4($v0)
-/*  f142108:	3c180500 */ 	lui	$t8,0x500
-/*  f14210c:	ac780004 */ 	sw	$t8,0x4($v1)
-/*  f142110:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*  f142114:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f142118:	3c19ba00 */ 	lui	$t9,0xba00
-/*  f14211c:	37391402 */ 	ori	$t9,$t9,0x1402
-/*  f142120:	24850008 */ 	addiu	$a1,$a0,0x8
-/*  f142124:	ac990000 */ 	sw	$t9,0x0($a0)
-/*  f142128:	ac800004 */ 	sw	$zero,0x4($a0)
-/*  f14212c:	3c08bb00 */ 	lui	$t0,0xbb00
-/*  f142130:	35080001 */ 	ori	$t0,$t0,0x1
-/*  f142134:	24a60008 */ 	addiu	$a2,$a1,0x8
-/*  f142138:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f14213c:	aca90004 */ 	sw	$t1,0x4($a1)
-/*  f142140:	aca80000 */ 	sw	$t0,0x0($a1)
-/*  f142144:	3c0aba00 */ 	lui	$t2,0xba00
-/*  f142148:	354a1001 */ 	ori	$t2,$t2,0x1001
-/*  f14214c:	24c70008 */ 	addiu	$a3,$a2,0x8
-/*  f142150:	acca0000 */ 	sw	$t2,0x0($a2)
-/*  f142154:	acc00004 */ 	sw	$zero,0x4($a2)
-/*  f142158:	00e01025 */ 	or	$v0,$a3,$zero
-/*  f14215c:	3c0bba00 */ 	lui	$t3,0xba00
-/*  f142160:	356b1102 */ 	ori	$t3,$t3,0x1102
-/*  f142164:	ac4b0000 */ 	sw	$t3,0x0($v0)
-/*  f142168:	ac400004 */ 	sw	$zero,0x4($v0)
-/*  f14216c:	24e30008 */ 	addiu	$v1,$a3,0x8
-/*  f142170:	3c0cba00 */ 	lui	$t4,0xba00
-/*  f142174:	358c0e02 */ 	ori	$t4,$t4,0xe02
-/*  f142178:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f14217c:	ac6c0000 */ 	sw	$t4,0x0($v1)
-/*  f142180:	ac600004 */ 	sw	$zero,0x4($v1)
-/*  f142184:	3c0df511 */ 	lui	$t5,0xf511
-/*  f142188:	35ad4000 */ 	ori	$t5,$t5,0x4000
-/*  f14218c:	24850008 */ 	addiu	$a1,$a0,0x8
-/*  f142190:	ac8d0000 */ 	sw	$t5,0x0($a0)
-/*  f142194:	ac800004 */ 	sw	$zero,0x4($a0)
-/*  f142198:	3c0f0080 */ 	lui	$t7,0x80
-/*  f14219c:	35ef0020 */ 	ori	$t7,$t7,0x20
-/*  f1421a0:	24a60008 */ 	addiu	$a2,$a1,0x8
-/*  f1421a4:	3c0ef200 */ 	lui	$t6,0xf200
-/*  f1421a8:	acae0000 */ 	sw	$t6,0x0($a1)
-/*  f1421ac:	acaf0004 */ 	sw	$t7,0x4($a1)
-/*  f1421b0:	3c18ba00 */ 	lui	$t8,0xba00
-/*  f1421b4:	37180c02 */ 	ori	$t8,$t8,0xc02
-/*  f1421b8:	acd80000 */ 	sw	$t8,0x0($a2)
-/*  f1421bc:	acc00004 */ 	sw	$zero,0x4($a2)
-/*  f1421c0:	24c20008 */ 	addiu	$v0,$a2,0x8
-/*  f1421c4:	3c19fb00 */ 	lui	$t9,0xfb00
-/*  f1421c8:	ac590000 */ 	sw	$t9,0x0($v0)
-/*  f1421cc:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*  f1421d0:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*  f1421d4:	2401ff00 */ 	addiu	$at,$zero,-256
-/*  f1421d8:	314b00ff */ 	andi	$t3,$t2,0xff
-/*  f1421dc:	01014824 */ 	and	$t1,$t0,$at
-/*  f1421e0:	012b6025 */ 	or	$t4,$t1,$t3
-/*  f1421e4:	24470008 */ 	addiu	$a3,$v0,0x8
-/*  f1421e8:	ac4c0004 */ 	sw	$t4,0x4($v0)
-/*  f1421ec:	3c0dfc12 */ 	lui	$t5,0xfc12
-/*  f1421f0:	35adfe25 */ 	ori	$t5,$t5,0xfe25
-/*  f1421f4:	24e40008 */ 	addiu	$a0,$a3,0x8
-/*  f1421f8:	240efbfd */ 	addiu	$t6,$zero,-1027
-/*  f1421fc:	acee0004 */ 	sw	$t6,0x4($a3)
-/*  f142200:	aced0000 */ 	sw	$t5,0x0($a3)
-/*  f142204:	3c0fba00 */ 	lui	$t7,0xba00
-/*  f142208:	35ef1301 */ 	ori	$t7,$t7,0x1301
-/*  f14220c:	24850008 */ 	addiu	$a1,$a0,0x8
-/*  f142210:	ac8f0000 */ 	sw	$t7,0x0($a0)
-/*  f142214:	ac800004 */ 	sw	$zero,0x4($a0)
-/*  f142218:	3c18ba00 */ 	lui	$t8,0xba00
-/*  f14221c:	37180602 */ 	ori	$t8,$t8,0x602
-/*  f142220:	24a60008 */ 	addiu	$a2,$a1,0x8
-/*  f142224:	241900c0 */ 	addiu	$t9,$zero,0xc0
-/*  f142228:	acb90004 */ 	sw	$t9,0x4($a1)
-/*  f14222c:	acb80000 */ 	sw	$t8,0x0($a1)
-/*  f142230:	3c08ba00 */ 	lui	$t0,0xba00
-/*  f142234:	35080402 */ 	ori	$t0,$t0,0x402
-/*  f142238:	240a0020 */ 	addiu	$t2,$zero,0x20
-/*  f14223c:	acca0004 */ 	sw	$t2,0x4($a2)
-/*  f142240:	acc80000 */ 	sw	$t0,0x0($a2)
-/*  f142244:	24c30008 */ 	addiu	$v1,$a2,0x8
-/*  f142248:	3c0b0040 */ 	lui	$t3,0x40
-/*  f14224c:	3c09b900 */ 	lui	$t1,0xb900
-/*  f142250:	3529031d */ 	ori	$t1,$t1,0x31d
-/*  f142254:	356b4340 */ 	ori	$t3,$t3,0x4340
-/*  f142258:	ac6b0004 */ 	sw	$t3,0x4($v1)
-/*  f14225c:	ac690000 */ 	sw	$t1,0x0($v1)
-/*  f142260:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f142264:	24620008 */ 	addiu	$v0,$v1,0x8
-/*  f142268:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14226c:	03e00008 */ 	jr	$ra
-/*  f142270:	00000000 */ 	nop
-);
+Gfx *func0f1420b0(Gfx *gdl, u32 colour, u32 alpha)
+{
+	static u32 envcol = 0xffffffff;
+	static u32 primcol = 0x7f7f7fff;
+
+	func0000db30("envcol", &envcol);
+	func0000db30("primcol", &primcol);
+
+	gDPPipeSync(gdl++);
+	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, 5, 0,
+			G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
+			G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+	gSPTexture(gdl++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
+	gDPSetTextureLOD(gdl++, G_TL_TILE);
+	gDPSetTextureDetail(gdl++, G_TD_CLAMP);
+	gDPSetTextureLUT(gdl++, G_TT_NONE);
+	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 160, 0, G_TX_RENDERTILE, 0,
+			G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
+			G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+	gDPSetTileSize(gdl++, G_TX_RENDERTILE, 0, 0, 0x0800, 0x0020);
+	gDPSetTextureFilter(gdl++, G_TF_POINT);
+	gDPSetColor(gdl++, G_SETENVCOLOR, colour & 0xffffff00 | alpha & 0xff);
+	gDPSetCombineLERP(gdl++,
+			TEXEL0, 0, ENVIRONMENT, 0, 0, 0, 0, ENVIRONMENT,
+			TEXEL0, 0, ENVIRONMENT, 0, 0, 0, 0, ENVIRONMENT);
+	gDPSetTexturePersp(gdl++, G_TP_NONE);
+	gDPSetColorDither(gdl++, G_CD_DISABLE);
+	gDPSetAlphaDither(gdl++, G_AD_NOISE);
+	gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_NOOP2);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f142274
@@ -984,6 +903,11 @@ glabel hudRenderMotionBlur
 /*  f14263c:	03e00008 */ 	jr	$ra
 /*  f142640:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
+
+const char var7f1b5d80[] = "envcol";
+const char var7f1b5d88[] = "primcol";
+const char var7f1b5d90[] = "sfxxx";
+const char var7f1b5d98[] = "sfyyy";
 
 Gfx *hudRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
 {
@@ -8725,3 +8649,18 @@ void func0f148b6c(void)
 {
 	var8007f844 = 0;
 }
+
+u32 var8007f868 = 0xffffffff;
+u32 var8007f86c = 0x7f7f7fff;
+u32 var8007f870 = 0x000003e8;
+u32 var8007f874 = 0x000003e8;
+u32 var8007f878 = 0x00000000;
+u32 var8007f87c = 0x6e00006e;
+u32 var8007f880 = 0x65006500;
+u32 var8007f884 = 0x00736500;
+u32 var8007f888 = 0x73000073;
+u32 var8007f88c = 0x77007700;
+u32 var8007f890 = 0x006e7700;
+u32 var8007f894 = 0x6e000000;
+u32 var8007f898 = 0x00000000;
+u32 var8007f89c = 0x00000000;
