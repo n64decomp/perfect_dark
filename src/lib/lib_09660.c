@@ -2212,7 +2212,7 @@ glabel func0000b330
 /*     b504:	ac600004 */ 	sw	$zero,0x4($v1)
 /*     b508:	24c60008 */ 	addiu	$a2,$a2,0x8
 .L0000b50c:
-/*     b50c:	0c002f26 */ 	jal	viGetViewY
+/*     b50c:	0c002f26 */ 	jal	viGetViewHeight
 /*     b510:	afa600a8 */ 	sw	$a2,0xa8($sp)
 /*     b514:	0c002f44 */ 	jal	viGetViewTop
 /*     b518:	a7a20042 */ 	sh	$v0,0x42($sp)
@@ -2244,7 +2244,7 @@ glabel func0000b330
 /*     b580:	01b8c825 */ 	or	$t9,$t5,$t8
 /*     b584:	0c002f44 */ 	jal	viGetViewTop
 /*     b588:	add90000 */ 	sw	$t9,0x0($t6)
-/*     b58c:	0c002f26 */ 	jal	viGetViewY
+/*     b58c:	0c002f26 */ 	jal	viGetViewHeight
 /*     b590:	a7a20056 */ 	sh	$v0,0x56($sp)
 /*     b594:	87af0056 */ 	lh	$t7,0x56($sp)
 /*     b598:	8fa600a8 */ 	lw	$a2,0xa8($sp)
@@ -2718,18 +2718,12 @@ void viSetViewSize(s16 x, s16 y)
 	currentPlayerSetCameraScale();
 }
 
-/**
- * This is actually the width.
- */
-s16 viGetViewX(void)
+s16 viGetViewWidth(void)
 {
 	return g_ViData->viewx;
 }
 
-/**
- * This is actually the height.
- */
-s16 viGetViewY(void)
+s16 viGetViewHeight(void)
 {
 	return g_ViData->viewy;
 }

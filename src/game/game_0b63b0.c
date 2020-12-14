@@ -4837,7 +4837,7 @@ Gfx *fadeDraw(Gfx *gdl, u32 r, u32 g, u32 b, f32 frac)
 		gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
 		gDPSetPrimColor(gdl++, 0, 0, r, g, b, (s32)(frac * 255));
 		gDPFillRectangle(gdl++, viGetViewLeft(), viGetViewTop(),
-				viGetViewLeft() + viGetViewX(), viGetViewTop() + viGetViewY());
+				viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
 		gDPPipeSync(gdl++);
 		gDPSetColorDither(gdl++, G_CD_BAYER);
 		gDPSetTexturePersp(gdl++, G_TP_PERSP);
@@ -11435,8 +11435,8 @@ Gfx *func0f0c07c8(Gfx *gdl)
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY && g_Vars.currentplayer->mpmenuon) {
 		s32 a = viGetViewLeft();
 		s32 b = viGetViewTop();
-		s32 c = viGetViewLeft() + viGetViewX();
-		s32 d = viGetViewTop() + viGetViewY();
+		s32 c = viGetViewLeft() + viGetViewWidth();
+		s32 d = viGetViewTop() + viGetViewHeight();
 
 		gdl = func0f153628(gdl);
 		gdl = func0f153a34(gdl, a, b, c, d, 160);
@@ -11679,8 +11679,8 @@ Gfx *func0f0c07c8(Gfx *gdl)
 		if (g_Vars.currentplayer->mpmenuon) {
 			s32 a = viGetViewLeft();
 			s32 b = viGetViewTop();
-			s32 c = viGetViewLeft() + viGetViewX();
-			s32 d = viGetViewTop() + viGetViewY();
+			s32 c = viGetViewLeft() + viGetViewWidth();
+			s32 d = viGetViewTop() + viGetViewHeight();
 
 			gdl = func0f153628(gdl);
 			gdl = func0f153a34(gdl, a, b, c, d, 160);

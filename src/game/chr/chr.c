@@ -14062,7 +14062,7 @@ glabel func0f02bdf8
 /*  f02c234:	00000000 */ 	nop
 /*  f02c238:	00029400 */ 	sll	$s2,$v0,0x10
 /*  f02c23c:	00127403 */ 	sra	$t6,$s2,0x10
-/*  f02c240:	0c002f22 */ 	jal	viGetViewX
+/*  f02c240:	0c002f22 */ 	jal	viGetViewWidth
 /*  f02c244:	01c09025 */ 	or	$s2,$t6,$zero
 /*  f02c248:	0052c821 */ 	addu	$t9,$v0,$s2
 /*  f02c24c:	272cfff0 */ 	addiu	$t4,$t9,-16
@@ -14073,7 +14073,7 @@ glabel func0f02bdf8
 /*  f02c260:	00000000 */ 	nop
 /*  f02c264:	00029400 */ 	sll	$s2,$v0,0x10
 /*  f02c268:	00126c03 */ 	sra	$t5,$s2,0x10
-/*  f02c26c:	0c002f22 */ 	jal	viGetViewX
+/*  f02c26c:	0c002f22 */ 	jal	viGetViewWidth
 /*  f02c270:	01a09025 */ 	or	$s2,$t5,$zero
 /*  f02c274:	00529821 */ 	addu	$s3,$v0,$s2
 /*  f02c278:	2673fff0 */ 	addiu	$s3,$s3,-16
@@ -14091,7 +14091,7 @@ glabel func0f02bdf8
 /*  f02c2a0:	00000000 */ 	nop
 /*  f02c2a4:	00029400 */ 	sll	$s2,$v0,0x10
 /*  f02c2a8:	00127c03 */ 	sra	$t7,$s2,0x10
-/*  f02c2ac:	0c002f26 */ 	jal	viGetViewY
+/*  f02c2ac:	0c002f26 */ 	jal	viGetViewHeight
 /*  f02c2b0:	01e09025 */ 	or	$s2,$t7,$zero
 /*  f02c2b4:	0052c021 */ 	addu	$t8,$v0,$s2
 /*  f02c2b8:	270efff0 */ 	addiu	$t6,$t8,-16
@@ -14102,7 +14102,7 @@ glabel func0f02bdf8
 /*  f02c2cc:	00000000 */ 	nop
 /*  f02c2d0:	00029400 */ 	sll	$s2,$v0,0x10
 /*  f02c2d4:	0012cc03 */ 	sra	$t9,$s2,0x10
-/*  f02c2d8:	0c002f26 */ 	jal	viGetViewY
+/*  f02c2d8:	0c002f26 */ 	jal	viGetViewHeight
 /*  f02c2dc:	03209025 */ 	or	$s2,$t9,$zero
 /*  f02c2e0:	0052a021 */ 	addu	$s4,$v0,$s2
 /*  f02c2e4:	2694fff0 */ 	addiu	$s4,$s4,-16

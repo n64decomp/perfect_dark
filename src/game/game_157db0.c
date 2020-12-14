@@ -15294,7 +15294,7 @@ glabel func0f164748
 .L0f164808:
 /*  f164808:	0c002f40 */ 	jal	viGetViewLeft
 /*  f16480c:	00000000 */ 	nop
-/*  f164810:	0c002f22 */ 	jal	viGetViewX
+/*  f164810:	0c002f22 */ 	jal	viGetViewWidth
 /*  f164814:	a7a20022 */ 	sh	$v0,0x22($sp)
 /*  f164818:	87ae0022 */ 	lh	$t6,0x22($sp)
 /*  f16481c:	44801000 */ 	mtc1	$zero,$f2
@@ -15318,7 +15318,7 @@ glabel func0f164748
 .L0f164860:
 /*  f164860:	0c002f44 */ 	jal	viGetViewTop
 /*  f164864:	00000000 */ 	nop
-/*  f164868:	0c002f26 */ 	jal	viGetViewY
+/*  f164868:	0c002f26 */ 	jal	viGetViewHeight
 /*  f16486c:	a7a20022 */ 	sh	$v0,0x22($sp)
 /*  f164870:	87b80022 */ 	lh	$t8,0x22($sp)
 /*  f164874:	44801000 */ 	mtc1	$zero,$f2

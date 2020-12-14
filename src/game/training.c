@@ -5411,7 +5411,7 @@ Gfx *frRenderHud(Gfx *gdl)
 	s32 alpha = 0xa0;
 	f32 mult;
 
-	if (viGetViewX() > 400) {
+	if (viGetViewWidth() > 400) {
 		mult = 2;
 	} else {
 		mult = 1;
@@ -5431,7 +5431,7 @@ Gfx *frRenderHud(Gfx *gdl)
 	red = frFormatTime(string1);
 	exists = frGetHudMiddleSubtext(string2);
 
-	gdl = frRenderHudElement(gdl, viGetViewX() >> 1, viGetViewTop() + 12,
+	gdl = frRenderHudElement(gdl, viGetViewWidth() >> 1, viGetViewTop() + 12,
 			string1, exists ? string2 : NULL,
 			red ? 0xff000000 | 0xa0 : 0x00ff0000 | 0xa0,
 			alpha);
@@ -5451,7 +5451,7 @@ Gfx *frRenderHud(Gfx *gdl)
 	if (g_FrData.goalaccuracy > 0) {
 		red = frGetMinAccuracy(string2, frGetAccuracy(string1));
 
-		gdl = frRenderHudElement(gdl, viGetViewLeft() + viGetViewX() - 70.0f * mult, viGetViewTop() + 12,
+		gdl = frRenderHudElement(gdl, viGetViewLeft() + viGetViewWidth() - 70.0f * mult, viGetViewTop() + 12,
 				string1, string2,
 				red ? 0xff000000 | 0xa0 : 0x00ff0000 | 0xa0,
 				alpha);
@@ -5463,7 +5463,7 @@ Gfx *frRenderHud(Gfx *gdl)
 			mult = 2.4;
 		}
 
-		gdl = frRenderHudElement(gdl, viGetViewLeft() + viGetViewX() - 70.0f * mult, viGetViewTop() + 12,
+		gdl = frRenderHudElement(gdl, viGetViewLeft() + viGetViewWidth() - 70.0f * mult, viGetViewTop() + 12,
 				string1, string2, 0x00ff00a0, alpha);
 	}
 

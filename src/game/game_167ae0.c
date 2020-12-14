@@ -529,8 +529,8 @@ Gfx *fadeRender(Gfx *gdl)
 	gDPFillRectangle(gdl++,
 			viGetViewLeft(),
 			viGetViewTop() + inset,
-			viGetViewLeft() + viGetViewX() + 1,
-			viGetViewTop() + viGetViewY() - inset + 2);
+			viGetViewLeft() + viGetViewWidth() + 1,
+			viGetViewTop() + viGetViewHeight() - inset + 2);
 
 	return func0f153838(gdl);
 }
@@ -1419,8 +1419,8 @@ Gfx *renderFrame(Gfx *gdl)
 
 		gDPSetScissorFrac(gdl++, 0,
 				viGetViewLeft() * 4.0f, viGetViewTop() * 4.0f,
-				(viGetViewLeft() + viGetViewX()) * 4.0f,
-				(viGetViewTop() + viGetViewY()) * 4.0f);
+				(viGetViewLeft() + viGetViewWidth()) * 4.0f,
+				(viGetViewTop() + viGetViewHeight()) * 4.0f);
 
 		gdl = titleRender(gdl);
 		gdl = fadeRender(gdl);
@@ -1767,8 +1767,8 @@ Gfx *renderFrame(Gfx *gdl)
 								gDPFillRectangle(gdl++,
 									viGetViewLeft(),
 									viGetViewTop(),
-									viGetViewLeft() + viGetViewX(),
-									viGetViewTop() + viGetViewY());
+									viGetViewLeft() + viGetViewWidth(),
+									viGetViewTop() + viGetViewHeight());
 
 								gdl = func0f153838(gdl);
 							}
@@ -1966,8 +1966,8 @@ Gfx *renderFrame(Gfx *gdl)
 							gdl = func0f153628(gdl);
 							gdl = func0f153a34(gdl,
 									viGetViewLeft(), viGetViewTop(),
-									viGetViewLeft() + viGetViewX(),
-									viGetViewTop() + viGetViewY(), 0xffffff00 | alpha);
+									viGetViewLeft() + viGetViewWidth(),
+									viGetViewTop() + viGetViewHeight(), 0xffffff00 | alpha);
 							gdl = func0f153780(gdl);
 						}
 					}

@@ -126,7 +126,7 @@ glabel hudRenderMissionTimer
 .L0f0dcf40:
 /*  f0dcf40:	0c002f44 */ 	jal	viGetViewTop
 /*  f0dcf44:	00000000 */ 	nop
-/*  f0dcf48:	0c002f26 */ 	jal	viGetViewY
+/*  f0dcf48:	0c002f26 */ 	jal	viGetViewHeight
 /*  f0dcf4c:	a7a20056 */ 	sh	$v0,0x56($sp)
 /*  f0dcf50:	3c04800a */ 	lui	$a0,%hi(g_Vars)
 /*  f0dcf54:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
@@ -380,7 +380,7 @@ glabel hudRenderMissionTimer
 //
 //	sp84 = viGetViewLeft() / g_ScreenWidthMultiplier;
 //	top = viGetViewTop();
-//	viewy = viGetViewY();
+//	viewy = viGetViewHeight();
 //	playercount = PLAYERCOUNT();
 //	playernum = g_Vars.currentplayernum;
 //
@@ -472,7 +472,7 @@ glabel hudRenderZoomRange
 /*  f0dd300:	00000000 */ 	nop
 /*  f0dd304:	0006000d */ 	break	0x6
 .L0f0dd308:
-/*  f0dd308:	0c002f22 */ 	jal	viGetViewX
+/*  f0dd308:	0c002f22 */ 	jal	viGetViewWidth
 /*  f0dd30c:	00000000 */ 	nop
 /*  f0dd310:	8e180000 */ 	lw	$t8,0x0($s0)
 /*  f0dd314:	0058001a */ 	div	$zero,$v0,$t8
@@ -490,7 +490,7 @@ glabel hudRenderZoomRange
 /*  f0dd340:	0006000d */ 	break	0x6
 .L0f0dd344:
 /*  f0dd344:	afa900b4 */ 	sw	$t1,0xb4($sp)
-/*  f0dd348:	0c002f26 */ 	jal	viGetViewY
+/*  f0dd348:	0c002f26 */ 	jal	viGetViewHeight
 /*  f0dd34c:	00000000 */ 	nop
 /*  f0dd350:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0dd354:	3c013f80 */ 	lui	$at,0x3f80
@@ -4401,7 +4401,7 @@ glabel var7f1adef4
 /*  f0e056c:	31e90fff */ 	andi	$t1,$t7,0xfff
 /*  f0e0570:	0009c300 */ 	sll	$t8,$t1,0xc
 /*  f0e0574:	01984025 */ 	or	$t0,$t4,$t8
-/*  f0e0578:	0c002f22 */ 	jal	viGetViewX
+/*  f0e0578:	0c002f22 */ 	jal	viGetViewWidth
 /*  f0e057c:	ae680000 */ 	sw	$t0,0x0($s3)
 /*  f0e0580:	0c002f40 */ 	jal	viGetViewLeft
 /*  f0e0584:	a7a20092 */ 	sh	$v0,0x92($sp)
@@ -4411,7 +4411,7 @@ glabel var7f1adef4
 /*  f0e0594:	01608825 */ 	or	$s1,$t3,$zero
 /*  f0e0598:	00028400 */ 	sll	$s0,$v0,0x10
 /*  f0e059c:	00105403 */ 	sra	$t2,$s0,0x10
-/*  f0e05a0:	0c002f26 */ 	jal	viGetViewY
+/*  f0e05a0:	0c002f26 */ 	jal	viGetViewHeight
 /*  f0e05a4:	01408025 */ 	or	$s0,$t2,$zero
 /*  f0e05a8:	87a90092 */ 	lh	$t1,0x92($sp)
 /*  f0e05ac:	00506821 */ 	addu	$t5,$v0,$s0
@@ -4747,7 +4747,7 @@ glabel var7f1adef4
 //		if (msg->type == HUDMSGTYPE_11) {
 //			gDPSetScissor(gdl++, 0,
 //					viGetViewLeft(), viGetViewTop(),
-//					viGetViewLeft() + viGetViewX(), viGetViewTop() + viGetViewY());
+//					viGetViewLeft() + viGetViewWidth(), viGetViewTop() + viGetViewHeight());
 //		}
 //	}
 //

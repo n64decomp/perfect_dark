@@ -716,7 +716,7 @@ glabel func0f0d78f4
 .L0f0d7948:
 /*  f0d7948:	0c002f44 */ 	jal	viGetViewTop
 /*  f0d794c:	00000000 */ 	nop
-/*  f0d7950:	0c002f22 */ 	jal	viGetViewX
+/*  f0d7950:	0c002f22 */ 	jal	viGetViewWidth
 /*  f0d7954:	afa20090 */ 	sw	$v0,0x90($sp)
 /*  f0d7958:	3c188008 */ 	lui	$t8,%hi(g_ScreenWidthMultiplier)
 /*  f0d795c:	8f18fac0 */ 	lw	$t8,%lo(g_ScreenWidthMultiplier)($t8)
@@ -735,7 +735,7 @@ glabel func0f0d78f4
 /*  f0d798c:	00000000 */ 	nop
 /*  f0d7990:	0006000d */ 	break	0x6
 .L0f0d7994:
-/*  f0d7994:	0c002f26 */ 	jal	viGetViewY
+/*  f0d7994:	0c002f26 */ 	jal	viGetViewHeight
 /*  f0d7998:	00000000 */ 	nop
 /*  f0d799c:	8fae0090 */ 	lw	$t6,0x90($sp)
 /*  f0d79a0:	24190001 */ 	addiu	$t9,$zero,0x1
@@ -1166,7 +1166,7 @@ glabel func0f0d7f54
 .L0f0d7fc0:
 /*  f0d7fc0:	0c002f44 */ 	jal	viGetViewTop
 /*  f0d7fc4:	00000000 */ 	nop
-/*  f0d7fc8:	0c002f22 */ 	jal	viGetViewX
+/*  f0d7fc8:	0c002f22 */ 	jal	viGetViewWidth
 /*  f0d7fcc:	afa200c8 */ 	sw	$v0,0xc8($sp)
 /*  f0d7fd0:	8e180000 */ 	lw	$t8,0x0($s0)
 /*  f0d7fd4:	8fa400d0 */ 	lw	$a0,0xd0($sp)
@@ -1184,7 +1184,7 @@ glabel func0f0d7f54
 /*  f0d8000:	00000000 */ 	nop
 /*  f0d8004:	0006000d */ 	break	0x6
 .L0f0d8008:
-/*  f0d8008:	0c002f26 */ 	jal	viGetViewY
+/*  f0d8008:	0c002f26 */ 	jal	viGetViewHeight
 /*  f0d800c:	00000000 */ 	nop
 /*  f0d8010:	8fae00c8 */ 	lw	$t6,0xc8($sp)
 /*  f0d8014:	3c0500ff */ 	lui	$a1,0xff
@@ -3129,7 +3129,7 @@ glabel func0f0d9ba0
 .L0f0d9bf0:
 /*  f0d9bf0:	0c002f44 */ 	jal	viGetViewTop
 /*  f0d9bf4:	00000000 */ 	nop
-/*  f0d9bf8:	0c002f22 */ 	jal	viGetViewX
+/*  f0d9bf8:	0c002f22 */ 	jal	viGetViewWidth
 /*  f0d9bfc:	afa20088 */ 	sw	$v0,0x88($sp)
 /*  f0d9c00:	3c188008 */ 	lui	$t8,%hi(g_ScreenWidthMultiplier)
 /*  f0d9c04:	8f18fac0 */ 	lw	$t8,%lo(g_ScreenWidthMultiplier)($t8)
@@ -3148,7 +3148,7 @@ glabel func0f0d9ba0
 /*  f0d9c34:	00000000 */ 	nop
 /*  f0d9c38:	0006000d */ 	break	0x6
 .L0f0d9c3c:
-/*  f0d9c3c:	0c002f26 */ 	jal	viGetViewY
+/*  f0d9c3c:	0c002f26 */ 	jal	viGetViewHeight
 /*  f0d9c40:	00000000 */ 	nop
 /*  f0d9c44:	3c0e8008 */ 	lui	$t6,%hi(g_ScreenWidthMultiplier)
 /*  f0d9c48:	8dcefac0 */ 	lw	$t6,%lo(g_ScreenWidthMultiplier)($t6)
@@ -3642,7 +3642,7 @@ glabel var7f1ade54
 .L0f0da330:
 /*  f0da330:	0c002f44 */ 	jal	viGetViewTop
 /*  f0da334:	00000000 */ 	nop
-/*  f0da338:	0c002f22 */ 	jal	viGetViewX
+/*  f0da338:	0c002f22 */ 	jal	viGetViewWidth
 /*  f0da33c:	afa200f8 */ 	sw	$v0,0xf8($sp)
 /*  f0da340:	3c088008 */ 	lui	$t0,%hi(g_ScreenWidthMultiplier)
 /*  f0da344:	2508fac0 */ 	addiu	$t0,$t0,%lo(g_ScreenWidthMultiplier)
@@ -3663,7 +3663,7 @@ glabel var7f1ade54
 /*  f0da37c:	0006000d */ 	break	0x6
 .L0f0da380:
 /*  f0da380:	afae00f4 */ 	sw	$t6,0xf4($sp)
-/*  f0da384:	0c002f26 */ 	jal	viGetViewY
+/*  f0da384:	0c002f26 */ 	jal	viGetViewHeight
 /*  f0da388:	00000000 */ 	nop
 /*  f0da38c:	8fb800f8 */ 	lw	$t8,0xf8($sp)
 /*  f0da390:	00021843 */ 	sra	$v1,$v0,0x1
@@ -5744,7 +5744,7 @@ glabel func0f0dc170
 .L0f0dc1c8:
 /*  f0dc1c8:	0c002f44 */ 	jal	viGetViewTop
 /*  f0dc1cc:	00000000 */ 	nop
-/*  f0dc1d0:	0c002f22 */ 	jal	viGetViewX
+/*  f0dc1d0:	0c002f22 */ 	jal	viGetViewWidth
 /*  f0dc1d4:	afa200a8 */ 	sw	$v0,0xa8($sp)
 /*  f0dc1d8:	8e380000 */ 	lw	$t8,0x0($s1)
 /*  f0dc1dc:	0058001a */ 	div	$zero,$v0,$t8
@@ -5761,7 +5761,7 @@ glabel func0f0dc170
 /*  f0dc204:	00000000 */ 	nop
 /*  f0dc208:	0006000d */ 	break	0x6
 .L0f0dc20c:
-/*  f0dc20c:	0c002f26 */ 	jal	viGetViewY
+/*  f0dc20c:	0c002f26 */ 	jal	viGetViewHeight
 /*  f0dc210:	00000000 */ 	nop
 /*  f0dc214:	8fae00a8 */ 	lw	$t6,0xa8($sp)
 /*  f0dc218:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x284)

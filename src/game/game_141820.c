@@ -699,9 +699,9 @@ glabel hudRenderMotionBlur
 /*  f142474:	afa5007c */ 	sw	$a1,0x7c($sp)
 /*  f142478:	0c002f44 */ 	jal	viGetViewTop
 /*  f14247c:	0040b025 */ 	or	$s6,$v0,$zero
-/*  f142480:	0c002f26 */ 	jal	viGetViewY
+/*  f142480:	0c002f26 */ 	jal	viGetViewHeight
 /*  f142484:	00409825 */ 	or	$s3,$v0,$zero
-/*  f142488:	0c002f22 */ 	jal	viGetViewX
+/*  f142488:	0c002f22 */ 	jal	viGetViewWidth
 /*  f14248c:	afa2006c */ 	sw	$v0,0x6c($sp)
 /*  f142490:	0c002f40 */ 	jal	viGetViewLeft
 /*  f142494:	0040a025 */ 	or	$s4,$v0,$zero
@@ -828,8 +828,8 @@ Gfx *hudRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
 {
 	s32 unk28 = vi2GetUnk28();
 	s32 top = viGetViewTop();
-	s32 y = viGetViewY();
-	s32 x = viGetViewX();
+	s32 y = viGetViewHeight();
+	s32 x = viGetViewWidth();
 	s32 left = viGetViewLeft();
 	s32 rand = random() & 0xfff00 | 0x80000000;
 	s32 ypos;
@@ -853,8 +853,8 @@ Gfx *hudRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 {
 	s32 sp7c = viGetUnk28();
 	s32 viewtop = viGetViewTop();
-	s32 viewheight = viGetViewY();
-	s32 viewwidth = viGetViewX();
+	s32 viewheight = viGetViewHeight();
+	s32 viewwidth = viGetViewWidth();
 	s32 y;
 	s32 viewleft = viGetViewLeft();
 	f32 angle = 0.52359879016876f;
@@ -919,9 +919,9 @@ glabel func0f14298c
 /*  f1429c8:	f7b40028 */ 	sdc1	$f20,0x28($sp)
 /*  f1429cc:	0c002f44 */ 	jal	viGetViewTop
 /*  f1429d0:	afa2008c */ 	sw	$v0,0x8c($sp)
-/*  f1429d4:	0c002f26 */ 	jal	viGetViewY
+/*  f1429d4:	0c002f26 */ 	jal	viGetViewHeight
 /*  f1429d8:	afa20088 */ 	sw	$v0,0x88($sp)
-/*  f1429dc:	0c002f22 */ 	jal	viGetViewX
+/*  f1429dc:	0c002f22 */ 	jal	viGetViewWidth
 /*  f1429e0:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1429e4:	0c002f40 */ 	jal	viGetViewLeft
 /*  f1429e8:	afa2007c */ 	sw	$v0,0x7c($sp)
@@ -1088,9 +1088,9 @@ glabel func0f142bf0
 /*  f142c30:	f7b40028 */ 	sdc1	$f20,0x28($sp)
 /*  f142c34:	0c002f44 */ 	jal	viGetViewTop
 /*  f142c38:	0040b025 */ 	or	$s6,$v0,$zero
-/*  f142c3c:	0c002f26 */ 	jal	viGetViewY
+/*  f142c3c:	0c002f26 */ 	jal	viGetViewHeight
 /*  f142c40:	0040a825 */ 	or	$s5,$v0,$zero
-/*  f142c44:	0c002f22 */ 	jal	viGetViewX
+/*  f142c44:	0c002f22 */ 	jal	viGetViewWidth
 /*  f142c48:	afa20064 */ 	sw	$v0,0x64($sp)
 /*  f142c4c:	0c002f40 */ 	jal	viGetViewLeft
 /*  f142c50:	00409825 */ 	or	$s3,$v0,$zero
@@ -1258,7 +1258,7 @@ glabel var7f1b5f48
 /*  f142e54:	afa7013c */ 	sw	$a3,0x13c($sp)
 /*  f142e58:	0c002f44 */ 	jal	viGetViewTop
 /*  f142e5c:	afa2012c */ 	sw	$v0,0x12c($sp)
-/*  f142e60:	0c002f26 */ 	jal	viGetViewY
+/*  f142e60:	0c002f26 */ 	jal	viGetViewHeight
 /*  f142e64:	afa20128 */ 	sw	$v0,0x128($sp)
 /*  f142e68:	44822000 */ 	mtc1	$v0,$f4
 /*  f142e6c:	3c013f00 */ 	lui	$at,0x3f00
@@ -1269,7 +1269,7 @@ glabel var7f1b5f48
 /*  f142e80:	461ce200 */ 	add.s	$f8,$f28,$f28
 /*  f142e84:	461ce602 */ 	mul.s	$f24,$f28,$f28
 /*  f142e88:	46004287 */ 	neg.s	$f10,$f8
-/*  f142e8c:	0c002f22 */ 	jal	viGetViewX
+/*  f142e8c:	0c002f22 */ 	jal	viGetViewWidth
 /*  f142e90:	46025683 */ 	div.s	$f26,$f10,$f2
 /*  f142e94:	0c002f40 */ 	jal	viGetViewLeft
 /*  f142e98:	0040b025 */ 	or	$s6,$v0,$zero
@@ -1988,9 +1988,9 @@ glabel var7f1b5f58
 /*  f1438b0:	afb00038 */ 	sw	$s0,0x38($sp)
 /*  f1438b4:	0c002f44 */ 	jal	viGetViewTop
 /*  f1438b8:	afa20304 */ 	sw	$v0,0x304($sp)
-/*  f1438bc:	0c002f22 */ 	jal	viGetViewX
+/*  f1438bc:	0c002f22 */ 	jal	viGetViewWidth
 /*  f1438c0:	afa20300 */ 	sw	$v0,0x300($sp)
-/*  f1438c4:	0c002f26 */ 	jal	viGetViewY
+/*  f1438c4:	0c002f26 */ 	jal	viGetViewHeight
 /*  f1438c8:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1438cc:	8fae0300 */ 	lw	$t6,0x300($sp)
 /*  f1438d0:	44806000 */ 	mtc1	$zero,$f12
@@ -5926,8 +5926,8 @@ glabel var7f1b5f58
 //	char text[256]; // 308
 //	s32 viewleft = viGetViewLeft(); // 304
 //	s32 viewtop = viGetViewTop(); // 300
-//	s32 viewwidth = viGetViewX(); // s1
-//	s32 viewheight = viGetViewY(); // 2f8
+//	s32 viewwidth = viGetViewWidth(); // s1
+//	s32 viewheight = viGetViewHeight(); // 2f8
 //	s32 viewright = viewleft + viewwidth - 1;
 //	s32 viewbottom = viewtop + viewheight - 1; // 2f0
 //	s32 x; // 2ec
@@ -6927,9 +6927,9 @@ glabel func0f1472fc
 /*  f147328:	afb00030 */ 	sw	$s0,0x30($sp)
 /*  f14732c:	0c002ac7 */ 	jal	viGetUnk28
 /*  f147330:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f147334:	0c002f26 */ 	jal	viGetViewY
+/*  f147334:	0c002f26 */ 	jal	viGetViewHeight
 /*  f147338:	afa2005c */ 	sw	$v0,0x5c($sp)
-/*  f14733c:	0c002f22 */ 	jal	viGetViewX
+/*  f14733c:	0c002f22 */ 	jal	viGetViewWidth
 /*  f147340:	00408025 */ 	or	$s0,$v0,$zero
 /*  f147344:	0c002f44 */ 	jal	viGetViewTop
 /*  f147348:	0040b025 */ 	or	$s6,$v0,$zero
@@ -7103,9 +7103,9 @@ glabel func0f147578
 /*  f1475a8:	f7b60030 */ 	sdc1	$f22,0x30($sp)
 /*  f1475ac:	0c002ac7 */ 	jal	viGetUnk28
 /*  f1475b0:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f1475b4:	0c002f26 */ 	jal	viGetViewY
+/*  f1475b4:	0c002f26 */ 	jal	viGetViewHeight
 /*  f1475b8:	0040f025 */ 	or	$s8,$v0,$zero
-/*  f1475bc:	0c002f22 */ 	jal	viGetViewX
+/*  f1475bc:	0c002f22 */ 	jal	viGetViewWidth
 /*  f1475c0:	00409825 */ 	or	$s3,$v0,$zero
 /*  f1475c4:	0c002f44 */ 	jal	viGetViewTop
 /*  f1475c8:	afa200dc */ 	sw	$v0,0xdc($sp)
@@ -7484,9 +7484,9 @@ glabel func0f147578
 /*  f147b40:	afa5008c */ 	sw	$a1,0x8c($sp)
 /*  f147b44:	0c002f44 */ 	jal	viGetViewTop
 /*  f147b48:	0040b025 */ 	or	$s6,$v0,$zero
-/*  f147b4c:	0c002f26 */ 	jal	viGetViewY
+/*  f147b4c:	0c002f26 */ 	jal	viGetViewHeight
 /*  f147b50:	afa20080 */ 	sw	$v0,0x80($sp)
-/*  f147b54:	0c002f22 */ 	jal	viGetViewX
+/*  f147b54:	0c002f22 */ 	jal	viGetViewWidth
 /*  f147b58:	afa2007c */ 	sw	$v0,0x7c($sp)
 /*  f147b5c:	0c002f40 */ 	jal	viGetViewLeft
 /*  f147b60:	0040a025 */ 	or	$s4,$v0,$zero
@@ -7607,8 +7607,8 @@ Gfx *func0f147cf8(Gfx *gdl)
 {
 	s32 unk28 = viGetUnk28();
 	s32 top = viGetViewTop();
-	s32 y = viGetViewY();
-	s32 x = viGetViewX();
+	s32 y = viGetViewHeight();
+	s32 x = viGetViewWidth();
 	s32 left = viGetViewLeft();
 	s32 ypos;
 
@@ -7639,8 +7639,8 @@ Gfx *hudRenderHorizonScanner(Gfx *gdl)
 {
 	s32 sp194 = viGetUnk28();
 	s32 viewtop = viGetViewTop();
-	s32 viewheight = viGetViewY();
-	s32 viewwidth = viGetViewX();
+	s32 viewheight = viGetViewHeight();
+	s32 viewwidth = viGetViewWidth();
 	s32 viewleft = viGetViewLeft();
 	char directiontext[32];
 	char hertztext[24];
@@ -7857,9 +7857,9 @@ glabel func0f14886c
 /*  f148890:	afb20030 */ 	sw	$s2,0x30($sp)
 /*  f148894:	afb1002c */ 	sw	$s1,0x2c($sp)
 /*  f148898:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f14889c:	0c002f26 */ 	jal	viGetViewY
+/*  f14889c:	0c002f26 */ 	jal	viGetViewHeight
 /*  f1488a0:	f7b40020 */ 	sdc1	$f20,0x20($sp)
-/*  f1488a4:	0c002f22 */ 	jal	viGetViewX
+/*  f1488a4:	0c002f22 */ 	jal	viGetViewWidth
 /*  f1488a8:	00408025 */ 	or	$s0,$v0,$zero
 /*  f1488ac:	0c002f44 */ 	jal	viGetViewTop
 /*  f1488b0:	afa200a8 */ 	sw	$v0,0xa8($sp)

@@ -3453,7 +3453,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 	gdl = func0f153628(gdl);
 
 	sp84 = viGetViewLeft() + 50;
-	sp80 = viGetViewTop() + viGetViewY() - 80;
+	sp80 = viGetViewTop() + viGetViewHeight() - 80;
 
 	var80062868 = 0;
 
@@ -3462,7 +3462,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 
 		if (g_TitleTimer > 70) {
 			sp84 = viGetViewLeft() + 50;
-			sp80 = viGetViewTop() + viGetViewY() - 60;
+			sp80 = viGetViewTop() + viGetViewHeight() - 60;
 			gdl = func0f018ebc(gdl, &sp84, &sp80, L_OPTIONS(6), g_TitleTimer - 100, &sp76); // "   prehistory"
 		}
 	} else {
@@ -3495,8 +3495,8 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 		u32 stack;
 
 		gdl = func0f153a34(gdl, viGetViewLeft(), viGetViewTop(),
-				viGetViewLeft() + viGetViewX(),
-				viGetViewTop() + viGetViewY(),
+				viGetViewLeft() + viGetViewWidth(),
+				viGetViewTop() + viGetViewHeight(),
 				255.0f * tmp2);
 	}
 

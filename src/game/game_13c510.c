@@ -313,12 +313,12 @@ glabel func0f13c780
 /*  f13c888:	02002825 */ 	or	$a1,$s0,$zero
 /*  f13c88c:	0c005680 */ 	jal	func00015a00
 /*  f13c890:	27a600f8 */ 	addiu	$a2,$sp,0xf8
-/*  f13c894:	0c002f22 */ 	jal	viGetViewX
+/*  f13c894:	0c002f22 */ 	jal	viGetViewWidth
 /*  f13c898:	00000000 */ 	nop
 /*  f13c89c:	44822000 */ 	mtc1	$v0,$f4
 /*  f13c8a0:	00000000 */ 	nop
 /*  f13c8a4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f13c8a8:	0c002f26 */ 	jal	viGetViewY
+/*  f13c8a8:	0c002f26 */ 	jal	viGetViewHeight
 /*  f13c8ac:	e7a601bc */ 	swc1	$f6,0x1bc($sp)
 /*  f13c8b0:	44824000 */ 	mtc1	$v0,$f8
 /*  f13c8b4:	00000000 */ 	nop
@@ -1711,7 +1711,7 @@ glabel func0f13d568
 /*  f13dce0:	46045682 */ 	mul.s	$f26,$f10,$f4
 /*  f13dce4:	0fc2d60a */ 	jal	currentPlayerGetPerspAspect
 /*  f13dce8:	00000000 */ 	nop
-/*  f13dcec:	0c002f22 */ 	jal	viGetViewX
+/*  f13dcec:	0c002f22 */ 	jal	viGetViewWidth
 /*  f13dcf0:	46000506 */ 	mov.s	$f20,$f0
 /*  f13dcf4:	44824000 */ 	mtc1	$v0,$f8
 /*  f13dcf8:	3c017f1b */ 	lui	$at,%hi(var7f1b5a04)
@@ -1720,7 +1720,7 @@ glabel func0f13d568
 /*  f13dd04:	46109182 */ 	mul.s	$f6,$f18,$f16
 /*  f13dd08:	46143283 */ 	div.s	$f10,$f6,$f20
 /*  f13dd0c:	460ac602 */ 	mul.s	$f24,$f24,$f10
-/*  f13dd10:	0c002f26 */ 	jal	viGetViewY
+/*  f13dd10:	0c002f26 */ 	jal	viGetViewHeight
 /*  f13dd14:	00000000 */ 	nop
 /*  f13dd18:	44822000 */ 	mtc1	$v0,$f4
 /*  f13dd1c:	3c017f1b */ 	lui	$at,%hi(var7f1b5a08)

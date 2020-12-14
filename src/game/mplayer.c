@@ -2176,7 +2176,7 @@ glabel func0f18973c
 /*  f1897c0:	00402825 */ 	or	$a1,$v0,$zero
 /*  f1897c4:	0c002f40 */ 	jal	viGetViewLeft
 /*  f1897c8:	00000000 */ 	nop
-/*  f1897cc:	0c002f22 */ 	jal	viGetViewX
+/*  f1897cc:	0c002f22 */ 	jal	viGetViewWidth
 /*  f1897d0:	a7a20042 */ 	sh	$v0,0x42($sp)
 /*  f1897d4:	87a80042 */ 	lh	$t0,0x42($sp)
 /*  f1897d8:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x288)
@@ -2209,7 +2209,7 @@ glabel func0f18973c
 .L0f189840:
 /*  f189840:	0c002f44 */ 	jal	viGetViewTop
 /*  f189844:	00000000 */ 	nop
-/*  f189848:	0c002f26 */ 	jal	viGetViewY
+/*  f189848:	0c002f26 */ 	jal	viGetViewHeight
 /*  f18984c:	a7a20042 */ 	sh	$v0,0x42($sp)
 /*  f189850:	87b80042 */ 	lh	$t8,0x42($sp)
 /*  f189854:	04410003 */ 	bgez	$v0,.L0f189864
@@ -2333,7 +2333,7 @@ glabel func0f18973c
 /*  f189a10:	00402825 */ 	or	$a1,$v0,$zero
 /*  f189a14:	0c002f40 */ 	jal	viGetViewLeft
 /*  f189a18:	00000000 */ 	nop
-/*  f189a1c:	0c002f22 */ 	jal	viGetViewX
+/*  f189a1c:	0c002f22 */ 	jal	viGetViewWidth
 /*  f189a20:	a7a20042 */ 	sh	$v0,0x42($sp)
 /*  f189a24:	87b80042 */ 	lh	$t8,0x42($sp)
 /*  f189a28:	04410003 */ 	bgez	$v0,.L0f189a38
@@ -2344,7 +2344,7 @@ glabel func0f18973c
 /*  f189a38:	01f8c821 */ 	addu	$t9,$t7,$t8
 /*  f189a3c:	0c002f44 */ 	jal	viGetViewTop
 /*  f189a40:	afb90094 */ 	sw	$t9,0x94($sp)
-/*  f189a44:	0c002f26 */ 	jal	viGetViewY
+/*  f189a44:	0c002f26 */ 	jal	viGetViewHeight
 /*  f189a48:	a7a20042 */ 	sh	$v0,0x42($sp)
 /*  f189a4c:	87aa0042 */ 	lh	$t2,0x42($sp)
 /*  f189a50:	3c0b8008 */ 	lui	$t3,%hi(var8007fb0c)
@@ -2405,7 +2405,7 @@ glabel func0f18973c
 /*  f189b24:	00000000 */ 	nop
 /*  f189b28:	0c002f44 */ 	jal	viGetViewTop
 /*  f189b2c:	00000000 */ 	nop
-/*  f189b30:	0c002f26 */ 	jal	viGetViewY
+/*  f189b30:	0c002f26 */ 	jal	viGetViewHeight
 /*  f189b34:	a7a20042 */ 	sh	$v0,0x42($sp)
 /*  f189b38:	87ae0042 */ 	lh	$t6,0x42($sp)
 /*  f189b3c:	8fb80098 */ 	lw	$t8,0x98($sp)
@@ -2419,7 +2419,7 @@ glabel func0f18973c
 /*  f189b58:	27280002 */ 	addiu	$t0,$t9,0x2
 /*  f189b5c:	0c002f40 */ 	jal	viGetViewLeft
 /*  f189b60:	afa8004c */ 	sw	$t0,0x4c($sp)
-/*  f189b64:	0c002f22 */ 	jal	viGetViewX
+/*  f189b64:	0c002f22 */ 	jal	viGetViewWidth
 /*  f189b68:	a7a20042 */ 	sh	$v0,0x42($sp)
 /*  f189b6c:	87a90042 */ 	lh	$t1,0x42($sp)
 /*  f189b70:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x284)

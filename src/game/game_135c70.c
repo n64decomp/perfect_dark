@@ -914,7 +914,7 @@ glabel var7f1b57bc
 /*  f1368c4:	0c002f40 */ 	jal	viGetViewLeft
 /*  f1368c8:	00008825 */ 	or	$s1,$zero,$zero
 /*  f1368cc:	44822000 */ 	mtc1	$v0,$f4
-/*  f1368d0:	0c002f22 */ 	jal	viGetViewX
+/*  f1368d0:	0c002f22 */ 	jal	viGetViewWidth
 /*  f1368d4:	46802520 */ 	cvt.s.w	$f20,$f4
 /*  f1368d8:	44823000 */ 	mtc1	$v0,$f6
 /*  f1368dc:	00000000 */ 	nop
@@ -922,7 +922,7 @@ glabel var7f1b57bc
 /*  f1368e4:	0c002f44 */ 	jal	viGetViewTop
 /*  f1368e8:	46144600 */ 	add.s	$f24,$f8,$f20
 /*  f1368ec:	44825000 */ 	mtc1	$v0,$f10
-/*  f1368f0:	0c002f26 */ 	jal	viGetViewY
+/*  f1368f0:	0c002f26 */ 	jal	viGetViewHeight
 /*  f1368f4:	468055a0 */ 	cvt.s.w	$f22,$f10
 /*  f1368f8:	3c13800a */ 	lui	$s3,%hi(g_Vars)
 /*  f1368fc:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
