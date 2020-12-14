@@ -10,7 +10,7 @@ void func0f006520(struct chrdata *chr);
 u32 colourBlend(u32 a, u32 b, u32 weight);
 void func0f0069dc(void);
 f32 func0f006b08(f32 arg0);
-u32 func0f006b54(void);
+f32 func0f006b54(f32 arg0);
 u32 func0f006ba0(void);
 
 #endif
