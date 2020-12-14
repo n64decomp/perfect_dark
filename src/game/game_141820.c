@@ -896,8 +896,6 @@ Gfx *hudRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 }
 
 const char var7f1b5db0[] = "BlueInterlaceGfx";
-const char var7f1b5dc4[] = "stretchBlurGfx";
-const char var7f1b5dd4[] = "blurGfxFisheye";
 
 GLOBAL_ASM(
 glabel func0f14298c
@@ -1067,110 +1065,39 @@ glabel func0f14298c
 /*  f142bec:	27bd0090 */ 	addiu	$sp,$sp,0x90
 );
 
-GLOBAL_ASM(
-glabel func0f142bf0
-/*  f142bf0:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f142bf4:	f7b80038 */ 	sdc1	$f24,0x38($sp)
-/*  f142bf8:	4487c000 */ 	mtc1	$a3,$f24
-/*  f142bfc:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f142c00:	afb20048 */ 	sw	$s2,0x48($sp)
-/*  f142c04:	afb10044 */ 	sw	$s1,0x44($sp)
-/*  f142c08:	afb00040 */ 	sw	$s0,0x40($sp)
-/*  f142c0c:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f142c10:	00c08825 */ 	or	$s1,$a2,$zero
-/*  f142c14:	00809025 */ 	or	$s2,$a0,$zero
-/*  f142c18:	afb60058 */ 	sw	$s6,0x58($sp)
-/*  f142c1c:	afb50054 */ 	sw	$s5,0x54($sp)
-/*  f142c20:	afb40050 */ 	sw	$s4,0x50($sp)
-/*  f142c24:	afb3004c */ 	sw	$s3,0x4c($sp)
-/*  f142c28:	f7b60030 */ 	sdc1	$f22,0x30($sp)
-/*  f142c2c:	0c002acb */ 	jal	vi2GetUnk28
-/*  f142c30:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f142c34:	0c002f44 */ 	jal	viGetViewTop
-/*  f142c38:	0040b025 */ 	or	$s6,$v0,$zero
-/*  f142c3c:	0c002f26 */ 	jal	viGetViewHeight
-/*  f142c40:	0040a825 */ 	or	$s5,$v0,$zero
-/*  f142c44:	0c002f22 */ 	jal	viGetViewWidth
-/*  f142c48:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f142c4c:	0c002f40 */ 	jal	viGetViewLeft
-/*  f142c50:	00409825 */ 	or	$s3,$v0,$zero
-/*  f142c54:	3c038008 */ 	lui	$v1,%hi(var8007f840)
-/*  f142c58:	2463f840 */ 	addiu	$v1,$v1,%lo(var8007f840)
-/*  f142c5c:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f142c60:	0040a025 */ 	or	$s4,$v0,$zero
-/*  f142c64:	3c04800a */ 	lui	$a0,%hi(var800a41c0)
-/*  f142c68:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f142c6c:	29e10002 */ 	slti	$at,$t7,0x2
-/*  f142c70:	14200003 */ 	bnez	$at,.L0f142c80
-/*  f142c74:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*  f142c78:	10000031 */ 	b	.L0f142d40
-/*  f142c7c:	02401025 */ 	or	$v0,$s2,$zero
-.L0f142c80:
-/*  f142c80:	3c057f1b */ 	lui	$a1,%hi(var7f1b5dc4)
-/*  f142c84:	24a55dc4 */ 	addiu	$a1,$a1,%lo(var7f1b5dc4)
-/*  f142c88:	0c004c4c */ 	jal	strcpy
-/*  f142c8c:	248441c0 */ 	addiu	$a0,$a0,%lo(var800a41c0)
-/*  f142c90:	3c19e700 */ 	lui	$t9,0xe700
-/*  f142c94:	ae590000 */ 	sw	$t9,0x0($s2)
-/*  f142c98:	ae400004 */ 	sw	$zero,0x4($s2)
-/*  f142c9c:	8fa80064 */ 	lw	$t0,0x64($sp)
-/*  f142ca0:	c7a60080 */ 	lwc1	$f6,0x80($sp)
-/*  f142ca4:	3c013f00 */ 	lui	$at,0x3f00
-/*  f142ca8:	44882000 */ 	mtc1	$t0,$f4
-/*  f142cac:	44818000 */ 	mtc1	$at,$f16
-/*  f142cb0:	26440008 */ 	addiu	$a0,$s2,0x8
-/*  f142cb4:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f142cb8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f142cbc:	02203025 */ 	or	$a2,$s1,$zero
-/*  f142cc0:	46060203 */ 	div.s	$f8,$f0,$f6
-/*  f142cc4:	46080281 */ 	sub.s	$f10,$f0,$f8
-/*  f142cc8:	46105502 */ 	mul.s	$f20,$f10,$f16
-/*  f142ccc:	0fc5082c */ 	jal	func0f1420b0
-/*  f142cd0:	00000000 */ 	nop
-/*  f142cd4:	8fa90064 */ 	lw	$t1,0x64($sp)
-/*  f142cd8:	00409025 */ 	or	$s2,$v0,$zero
-/*  f142cdc:	02a08025 */ 	or	$s0,$s5,$zero
-/*  f142ce0:	02a98821 */ 	addu	$s1,$s5,$t1
-/*  f142ce4:	02b1082a */ 	slt	$at,$s5,$s1
-/*  f142ce8:	10200014 */ 	beqz	$at,.L0f142d3c
-/*  f142cec:	c7a40080 */ 	lwc1	$f4,0x80($sp)
-/*  f142cf0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f142cf4:	44819000 */ 	mtc1	$at,$f18
-/*  f142cf8:	00000000 */ 	nop
-/*  f142cfc:	46049583 */ 	div.s	$f22,$f18,$f4
-.L0f142d00:
-/*  f142d00:	4600a18d */ 	trunc.w.s	$f6,$f20
-/*  f142d04:	02402025 */ 	or	$a0,$s2,$zero
-/*  f142d08:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f142d0c:	24070005 */ 	addiu	$a3,$zero,0x5
-/*  f142d10:	440b3000 */ 	mfc1	$t3,$f6
-/*  f142d14:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f142d18:	e7b80014 */ 	swc1	$f24,0x14($sp)
-/*  f142d1c:	afb40018 */ 	sw	$s4,0x18($sp)
-/*  f142d20:	afb3001c */ 	sw	$s3,0x1c($sp)
-/*  f142d24:	0fc506ac */ 	jal	func0f141ab0
-/*  f142d28:	01753021 */ 	addu	$a2,$t3,$s5
-/*  f142d2c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f142d30:	00409025 */ 	or	$s2,$v0,$zero
-/*  f142d34:	1611fff2 */ 	bne	$s0,$s1,.L0f142d00
-/*  f142d38:	4616a500 */ 	add.s	$f20,$f20,$f22
-.L0f142d3c:
-/*  f142d3c:	02401025 */ 	or	$v0,$s2,$zero
-.L0f142d40:
-/*  f142d40:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f142d44:	d7b40028 */ 	ldc1	$f20,0x28($sp)
-/*  f142d48:	d7b60030 */ 	ldc1	$f22,0x30($sp)
-/*  f142d4c:	d7b80038 */ 	ldc1	$f24,0x38($sp)
-/*  f142d50:	8fb00040 */ 	lw	$s0,0x40($sp)
-/*  f142d54:	8fb10044 */ 	lw	$s1,0x44($sp)
-/*  f142d58:	8fb20048 */ 	lw	$s2,0x48($sp)
-/*  f142d5c:	8fb3004c */ 	lw	$s3,0x4c($sp)
-/*  f142d60:	8fb40050 */ 	lw	$s4,0x50($sp)
-/*  f142d64:	8fb50054 */ 	lw	$s5,0x54($sp)
-/*  f142d68:	8fb60058 */ 	lw	$s6,0x58($sp)
-/*  f142d6c:	03e00008 */ 	jr	$ra
-/*  f142d70:	27bd0070 */ 	addiu	$sp,$sp,0x70
-);
+Gfx *func0f142bf0(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
+{
+	s32 unk28 = vi2GetUnk28();
+	s32 viewtop = viGetViewTop();
+	s32 viewheight = viGetViewHeight();
+	s32 viewwidth = viGetViewWidth();
+	s32 viewleft = viGetViewLeft();
+	f32 somefloat;
+	s32 i;
+
+	var8007f840++;
+
+	if (var8007f840 >= 2) {
+		return gdl;
+	}
+
+	strcpy(var800a41c0, "stretchBlurGfx");
+
+	gDPPipeSync(gdl++);
+
+	somefloat = (viewheight - viewheight / arg4) * 0.5f;
+
+	gdl = func0f1420b0(gdl, colour, alpha);
+
+	for (i = viewtop; i < viewtop + viewheight; i++) {
+		gdl = func0f141ab0(gdl, unk28, (s32)somefloat + viewtop, 5, i, arg3, viewleft, viewwidth);
+		somefloat += 1.0f / arg4;
+	}
+
+	return gdl;
+}
+
+const char var7f1b5dd4[] = "blurGfxFisheye";
 
 GLOBAL_ASM(
 glabel func0f142d74
