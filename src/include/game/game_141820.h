@@ -8,7 +8,7 @@ Gfx *func0f141ab0(Gfx *gdl, u32 arg1, s32 top, u32 arg3, s32 arg4, f32 arg5, s32
 u32 func0f141ed4(void);
 Gfx *func0f1420b0(Gfx *gdl, u32 colour, u32 alpha);
 Gfx *func0f142274(Gfx *gdl, u32 colour, u32 alpha);
-Gfx *hudRenderMotionBlur(Gfx *gdl, u32 arg1, s32 arg2);
+Gfx *hudRenderMotionBlur(Gfx *gdl, u32 colour, u32 alpha);
 Gfx *hudRenderStatic(Gfx *gdl, u32 arg1, s32 arg2);
 Gfx *hudRenderSlayerRocketLens(Gfx *gdl, u32 arg1, u32 arg2);
 Gfx *func0f14298c(Gfx *gdl, u32 arg1, u32 arg2);
