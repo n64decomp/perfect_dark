@@ -11421,7 +11421,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 				&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 				&& ((g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54) & 8)) {
 			gdl = func0f147578(gdl);
-			gdl = func0f14886c(gdl);
+			gdl = hudRenderIrBinoculars(gdl);
 		}
 
 		if (g_Vars.currentplayer->eyesshutfrac > 0) {
