@@ -159,43 +159,21 @@ glabel func0f141864
 /*  f141a14:	00801025 */ 	or	$v0,$a0,$zero
 /*  f141a18:	03e00008 */ 	jr	$ra
 /*  f141a1c:	00000000 */ 	nop
-/*  f141a20:	00801025 */ 	or	$v0,$a0,$zero
-/*  f141a24:	3c0ee700 */ 	lui	$t6,0xe700
-/*  f141a28:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*  f141a2c:	ac400004 */ 	sw	$zero,0x4($v0)
-/*  f141a30:	8faf0010 */ 	lw	$t7,0x10($sp)
-/*  f141a34:	24ad0001 */ 	addiu	$t5,$a1,0x1
-/*  f141a38:	000d7080 */ 	sll	$t6,$t5,0x2
-/*  f141a3c:	00efc021 */ 	addu	$t8,$a3,$t7
-/*  f141a40:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f141a44:	332a0fff */ 	andi	$t2,$t9,0xfff
-/*  f141a48:	000a5b00 */ 	sll	$t3,$t2,0xc
-/*  f141a4c:	3c01e400 */ 	lui	$at,0xe400
-/*  f141a50:	01616025 */ 	or	$t4,$t3,$at
-/*  f141a54:	0007c880 */ 	sll	$t9,$a3,0x2
-/*  f141a58:	31cf0fff */ 	andi	$t7,$t6,0xfff
-/*  f141a5c:	24830008 */ 	addiu	$v1,$a0,0x8
-/*  f141a60:	018fc025 */ 	or	$t8,$t4,$t7
-/*  f141a64:	332a0fff */ 	andi	$t2,$t9,0xfff
-/*  f141a68:	00056880 */ 	sll	$t5,$a1,0x2
-/*  f141a6c:	31ae0fff */ 	andi	$t6,$t5,0xfff
-/*  f141a70:	000a5b00 */ 	sll	$t3,$t2,0xc
-/*  f141a74:	016e6025 */ 	or	$t4,$t3,$t6
-/*  f141a78:	ac780000 */ 	sw	$t8,0x0($v1)
-/*  f141a7c:	24680008 */ 	addiu	$t0,$v1,0x8
-/*  f141a80:	ac6c0004 */ 	sw	$t4,0x4($v1)
-/*  f141a84:	25090008 */ 	addiu	$t1,$t0,0x8
-/*  f141a88:	00066e80 */ 	sll	$t5,$a2,0x1a
-/*  f141a8c:	3c0fb400 */ 	lui	$t7,0xb400
-/*  f141a90:	ad0f0000 */ 	sw	$t7,0x0($t0)
-/*  f141a94:	35ab0400 */ 	ori	$t3,$t5,0x400
-/*  f141a98:	ad000004 */ 	sw	$zero,0x4($t0)
-/*  f141a9c:	3c18b300 */ 	lui	$t8,0xb300
-/*  f141aa0:	ad380000 */ 	sw	$t8,0x0($t1)
-/*  f141aa4:	ad2b0004 */ 	sw	$t3,0x4($t1)
-/*  f141aa8:	03e00008 */ 	jr	$ra
-/*  f141aac:	25220008 */ 	addiu	$v0,$t1,0x8
 );
+
+Gfx *func0f141a20(Gfx *gdl, u32 a, u32 b, u32 c, u32 d)
+{
+	gDPPipeSync(gdl++);
+
+	gSPTextureRectangle(gdl++,
+			c << 2,
+			a << 2,
+			(c + d) << 2,
+			(a + 1) << 2,
+			G_TX_RENDERTILE, 0, 0, b << 10, 0x0400);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f141ab0
