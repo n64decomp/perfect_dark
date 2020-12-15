@@ -1347,7 +1347,7 @@ glabel func0f151780
 /*  f151bcc:	00000000 */ 	nop
 .L0f151bd0:
 /*  f151bd0:	44caf800 */ 	ctc1	$t2,$31
-/*  f151bd4:	0fc59e73 */ 	jal	func0f1679cc
+/*  f151bd4:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f151bd8:	00000000 */ 	nop
 /*  f151bdc:	8e4b0000 */ 	lw	$t3,0x0($s2)
 /*  f151be0:	00403025 */ 	or	$a2,$v0,$zero
@@ -1888,7 +1888,7 @@ glabel func0f151ed0
 /*  f1523c4:	00000000 */ 	nop
 .L0f1523c8:
 /*  f1523c8:	44cef800 */ 	ctc1	$t6,$31
-/*  f1523cc:	0fc59e73 */ 	jal	func0f1679cc
+/*  f1523cc:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f1523d0:	00000000 */ 	nop
 /*  f1523d4:	8e4f0000 */ 	lw	$t7,0x0($s2)
 /*  f1523d8:	00403025 */ 	or	$a2,$v0,$zero

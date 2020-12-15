@@ -11386,7 +11386,7 @@ glabel var7f1a8980
 /*  f029aa4:	2401fff9 */ 	addiu	$at,$zero,-7
 /*  f029aa8:	15010082 */ 	bne	$t0,$at,.L0f029cb4
 /*  f029aac:	ae020004 */ 	sw	$v0,0x4($s0)
-/*  f029ab0:	0fc59e73 */ 	jal	func0f1679cc
+/*  f029ab0:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f029ab4:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f029ab8:	8fb001f0 */ 	lw	$s0,0x1f0($sp)
 /*  f029abc:	3c0e0700 */ 	lui	$t6,0x700
@@ -11437,7 +11437,7 @@ glabel var7f1a8980
 /*  f029b6c:	00000000 */ 	nop
 /*  f029b70:	a06e0003 */ 	sb	$t6,0x3($v1)
 .L0f029b74:
-/*  f029b74:	0fc59e59 */ 	jal	func0f167964
+/*  f029b74:	0fc59e59 */ 	jal	gfxAllocateVertices
 /*  f029b78:	24040018 */ 	addiu	$a0,$zero,0x18
 /*  f029b7c:	00408025 */ 	or	$s0,$v0,$zero
 /*  f029b80:	27a60104 */ 	addiu	$a2,$sp,0x104
@@ -11715,7 +11715,7 @@ glabel var7f1a8980
 .L0f029f80:
 /*  f029f80:	afa700f4 */ 	sw	$a3,0xf4($sp)
 /*  f029f84:	afaa00f0 */ 	sw	$t2,0xf0($sp)
-/*  f029f88:	0fc59e73 */ 	jal	func0f1679cc
+/*  f029f88:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f029f8c:	afab00ec */ 	sw	$t3,0xec($sp)
 /*  f029f90:	8fb001f0 */ 	lw	$s0,0x1f0($sp)
 /*  f029f94:	3c190700 */ 	lui	$t9,0x700
@@ -11809,7 +11809,7 @@ glabel var7f1a8980
 /*  f02a0dc:	afa301d8 */ 	sw	$v1,0x1d8($sp)
 /*  f02a0e0:	afa700f4 */ 	sw	$a3,0xf4($sp)
 /*  f02a0e4:	afaa00f0 */ 	sw	$t2,0xf0($sp)
-/*  f02a0e8:	0fc59e59 */ 	jal	func0f167964
+/*  f02a0e8:	0fc59e59 */ 	jal	gfxAllocateVertices
 /*  f02a0ec:	afab00ec */ 	sw	$t3,0xec($sp)
 /*  f02a0f0:	8fa501f8 */ 	lw	$a1,0x1f8($sp)
 /*  f02a0f4:	24010001 */ 	addiu	$at,$zero,0x1
@@ -12159,7 +12159,7 @@ glabel var7f1a8980
 /*  f02a600:	00000000 */ 	nop
 /*  f02a604:	46006086 */ 	mov.s	$f2,$f12
 .L0f02a608:
-/*  f02a608:	0fc59e73 */ 	jal	func0f1679cc
+/*  f02a608:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f02a60c:	e7a200ac */ 	swc1	$f2,0xac($sp)
 /*  f02a610:	8fb001f0 */ 	lw	$s0,0x1f0($sp)
 /*  f02a614:	3c0f0708 */ 	lui	$t7,0x708
@@ -12186,7 +12186,7 @@ glabel var7f1a8980
 /*  f02a668:	a0660005 */ 	sb	$a2,0x5($v1)
 /*  f02a66c:	a0670002 */ 	sb	$a3,0x2($v1)
 /*  f02a670:	a0670006 */ 	sb	$a3,0x6($v1)
-/*  f02a674:	0fc59e59 */ 	jal	func0f167964
+/*  f02a674:	0fc59e59 */ 	jal	gfxAllocateVertices
 /*  f02a678:	a0780003 */ 	sb	$t8,0x3($v1)
 /*  f02a67c:	87ab0052 */ 	lh	$t3,0x52($sp)
 /*  f02a680:	02747021 */ 	addu	$t6,$s3,$s4
@@ -12322,7 +12322,7 @@ glabel var7f1a8980
 .L0f02a880:
 /*  f02a880:	05010130 */ 	bgez	$t0,.L0f02ad44
 /*  f02a884:	8fae01f8 */ 	lw	$t6,0x1f8($sp)
-/*  f02a888:	0fc59e59 */ 	jal	func0f167964
+/*  f02a888:	0fc59e59 */ 	jal	gfxAllocateVertices
 /*  f02a88c:	2404000c */ 	addiu	$a0,$zero,0xc
 /*  f02a890:	8fa80204 */ 	lw	$t0,0x204($sp)
 /*  f02a894:	2401ffff */ 	addiu	$at,$zero,-1
@@ -12360,7 +12360,7 @@ glabel var7f1a8980
 /*  f02a914:	10000001 */ 	b	.L0f02a91c
 /*  f02a918:	01c02825 */ 	or	$a1,$t6,$zero
 .L0f02a91c:
-/*  f02a91c:	0fc59e73 */ 	jal	func0f1679cc
+/*  f02a91c:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f02a920:	a3a5017f */ 	sb	$a1,0x17f($sp)
 /*  f02a924:	8fb101f0 */ 	lw	$s1,0x1f0($sp)
 /*  f02a928:	3c0f0700 */ 	lui	$t7,0x700
@@ -12446,7 +12446,7 @@ glabel var7f1a8980
 /*  f02aa58:	00000000 */ 	nop
 /*  f02aa5c:	46006086 */ 	mov.s	$f2,$f12
 .L0f02aa60:
-/*  f02aa60:	0fc59e73 */ 	jal	func0f1679cc
+/*  f02aa60:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f02aa64:	e7a20094 */ 	swc1	$f2,0x94($sp)
 /*  f02aa68:	8fb101f0 */ 	lw	$s1,0x1f0($sp)
 /*  f02aa6c:	3c0e0700 */ 	lui	$t6,0x700
@@ -12694,7 +12694,7 @@ glabel var7f1a8980
 /*  f02ae18:	a3a6017e */ 	sb	$a2,0x17e($sp)
 /*  f02ae1c:	afa700f4 */ 	sw	$a3,0xf4($sp)
 /*  f02ae20:	afaa00f0 */ 	sw	$t2,0xf0($sp)
-/*  f02ae24:	0fc59e73 */ 	jal	func0f1679cc
+/*  f02ae24:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f02ae28:	afab00ec */ 	sw	$t3,0xec($sp)
 /*  f02ae2c:	8fb001f0 */ 	lw	$s0,0x1f0($sp)
 /*  f02ae30:	3c0e0710 */ 	lui	$t6,0x710
@@ -12777,7 +12777,7 @@ glabel var7f1a8980
 /*  f02af50:	240b00ff */ 	addiu	$t3,$zero,0xff
 .L0f02af54:
 /*  f02af54:	a06b0012 */ 	sb	$t3,0x12($v1)
-/*  f02af58:	0fc59e59 */ 	jal	func0f167964
+/*  f02af58:	0fc59e59 */ 	jal	gfxAllocateVertices
 /*  f02af5c:	a0650013 */ 	sb	$a1,0x13($v1)
 /*  f02af60:	8fa80204 */ 	lw	$t0,0x204($sp)
 /*  f02af64:	27b80104 */ 	addiu	$t8,$sp,0x104

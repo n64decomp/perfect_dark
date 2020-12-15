@@ -1166,7 +1166,7 @@ glabel var7f1b5d18
 /*  f13efa0:	3c017f1b */ 	lui	$at,%hi(var7f1b5d14)
 /*  f13efa4:	c4305d14 */ 	lwc1	$f16,%lo(var7f1b5d14)($at)
 /*  f13efa8:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f13efac:	0fc59e59 */ 	jal	func0f167964
+/*  f13efac:	0fc59e59 */ 	jal	gfxAllocateVertices
 /*  f13efb0:	46109580 */ 	add.s	$f22,$f18,$f16
 /*  f13efb4:	ae220064 */ 	sw	$v0,0x64($s1)
 /*  f13efb8:	c7d00008 */ 	lwc1	$f16,0x8($s8)
@@ -3057,7 +3057,7 @@ glabel func0f1408a8
 /*  f140a4c:	9212006a */ 	lbu	$s2,0x6a($s0)
 /*  f140a50:	9213006b */ 	lbu	$s3,0x6b($s0)
 .L0f140a54:
-/*  f140a54:	0fc59e73 */ 	jal	func0f1679cc
+/*  f140a54:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f140a58:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f140a5c:	8e010040 */ 	lw	$at,0x40($s0)
 /*  f140a60:	3c0a070c */ 	lui	$t2,0x70c
@@ -3238,7 +3238,7 @@ glabel func0f140b7c
 /*  f140cf0:	9212006a */ 	lbu	$s2,0x6a($s0)
 /*  f140cf4:	9213006b */ 	lbu	$s3,0x6b($s0)
 .L0f140cf8:
-/*  f140cf8:	0fc59e73 */ 	jal	func0f1679cc
+/*  f140cf8:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f140cfc:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f140d00:	8e010040 */ 	lw	$at,0x40($s0)
 /*  f140d04:	3c0c070c */ 	lui	$t4,0x70c
@@ -3475,7 +3475,7 @@ glabel func0f140e20
 /*  f14105c:	9216006a */ 	lbu	$s6,0x6a($s0)
 /*  f141060:	9217006b */ 	lbu	$s7,0x6b($s0)
 .L0f141064:
-/*  f141064:	0fc59e73 */ 	jal	func0f1679cc
+/*  f141064:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f141068:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f14106c:	8e010040 */ 	lw	$at,0x40($s0)
 /*  f141070:	3c18070c */ 	lui	$t8,0x70c

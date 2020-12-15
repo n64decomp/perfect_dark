@@ -3063,10 +3063,10 @@ glabel var7f1a8468
 /*  f018a68:	ac590000 */ 	sw	$t9,0x0($v0)
 /*  f018a6c:	ac400004 */ 	sw	$zero,0x4($v0)
 .L0f018a70:
-/*  f018a70:	0fc59e59 */ 	jal	func0f167964
+/*  f018a70:	0fc59e59 */ 	jal	gfxAllocateVertices
 /*  f018a74:	8fa400dc */ 	lw	$a0,0xdc($sp)
 /*  f018a78:	afa20044 */ 	sw	$v0,0x44($sp)
-/*  f018a7c:	0fc59e73 */ 	jal	func0f1679cc
+/*  f018a7c:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f018a80:	8fa400d8 */ 	lw	$a0,0xd8($sp)
 /*  f018a84:	3c013f80 */ 	lui	$at,0x3f80
 /*  f018a88:	44812000 */ 	mtc1	$at,$f4

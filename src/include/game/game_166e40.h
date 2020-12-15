@@ -20,10 +20,10 @@ void func0f1672f0(u8 arg0);
 void func0f167330(void);
 void func0f167350(void);
 Gfx *func0f16793c(void);
-u32 func0f167964(void);
+struct gfxvtx *gfxAllocateVertices(s32 count);
 u32 func0f167998(void);
 u32 func0f1679b0(void);
-u32 func0f1679cc(void);
+u32 *gfxAllocateColours(s32 count);
 struct model0c *func0f1679f4(s32 arg0);
 void func0f167a18(void);
 

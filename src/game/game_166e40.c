@@ -495,7 +495,7 @@ glabel func0f16793c
 );
 
 GLOBAL_ASM(
-glabel func0f167964
+glabel gfxAllocateVertices
 /*  f167964:	3c06800b */ 	lui	$a2,%hi(var800aa59c)
 /*  f167968:	24c6a59c */ 	addiu	$a2,$a2,%lo(var800aa59c)
 /*  f16796c:	8cc20000 */ 	lw	$v0,0x0($a2)
@@ -533,7 +533,7 @@ glabel func0f1679b0
 );
 
 GLOBAL_ASM(
-glabel func0f1679cc
+glabel gfxAllocateColours
 /*  f1679cc:	3c06800b */ 	lui	$a2,%hi(var800aa59c)
 /*  f1679d0:	24c6a59c */ 	addiu	$a2,$a2,%lo(var800aa59c)
 /*  f1679d4:	00047080 */ 	sll	$t6,$a0,0x2

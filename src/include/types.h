@@ -2,6 +2,7 @@
 #define _IN_TYPES_H
 #include <ultra64.h>
 #include "constants.h"
+#include "gbiex.h"
 
 #define bool s32
 #define ubool u32
@@ -6644,6 +6645,16 @@ struct textureconfig {
     u8 depth;
     u8 s;
     u8 t;
+};
+
+struct gfxvtx {
+	/*0x00*/ s16 x;
+	/*0x02*/ s16 y;
+	/*0x04*/ s16 z;
+	/*0x06*/ u8 flags;
+	/*0x07*/ u8 s;
+	/*0x08*/ u8 t;
+	/*0x0a*/ u16 unk0a;
 };
 
 #endif
