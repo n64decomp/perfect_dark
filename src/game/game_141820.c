@@ -6516,10 +6516,6 @@ void func0f1572f8(void)
 	// empty
 }
 
-const char var7f1b5e50[] = "Fullscreen_DrawFaultScope";
-const char var7f1b5e6c[] = "Fullscreen_DrawFaultScope";
-const char var7f1b5e88[] = "IntroFaderBlurGfx";
-
 GLOBAL_ASM(
 glabel func0f1472fc
 /*  f1472fc:	27bdffa0 */ 	addiu	$sp,$sp,-96
@@ -6690,10 +6686,75 @@ glabel func0f1472fc
 /*  f14756c:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
+// Mismatch because var8009caec and friends needs to be moved into this file,
+// and regalloc near random().
+//Gfx *func0f1472fc(Gfx *gdl)
+//{
+//	s32 unk28 = viGetUnk28();
+//	s32 viewheight = viGetViewHeight();
+//	s32 viewwidth = viGetViewWidth();
+//	s32 viewtop = viGetViewTop();
+//	s32 viewleft = viGetViewLeft();
+//	s32 viewbottom = viewtop + viewheight;
+//	s32 roomvalue;
+//	s32 y;
+//
+//	var8007f840++;
+//
+//	if (var8007f840 >= 2) {
+//		return gdl;
+//	}
+//
+//	strcpy(var800a41c0, "Fullscreen_DrawFaultScope");
+//
+//	var8009caec = 0xbc;
+//	var8009caef = 0xbe;
+//	var8009caf0 = 0xde;
+//	var8009caed = 0x50;
+//	var8009caee = 0xc0;
+//
+//	roomvalue = func0f0009c0(g_Vars.currentplayer->prop->rooms[0]);
+//
+//	if (roomvalue > 128) {
+//		func0f127334(roomvalue, roomvalue, roomvalue);
+//	}
+//
+//	if (g_Menus[g_Vars.currentplayerstats->mpindex].curframe == NULL) {
+//		gdl = hudRenderMotionBlur(gdl, 0x00ff0000, 0x60);
+//	}
+//
+//	gDPPipeSync(gdl++);
+//
+//	gdl = func0f1420b0(gdl, 0xffffffff, 0xff);
+//
+//	var8007f878++;
+//
+//	for (y = viewtop; y < viewbottom; y++) {
+//		u8 green;
+//
+//		if ((var8007f878 & 1) != (y & 1)) {
+//			u8 tmp = random() % 12;
+//			green = 0xff - tmp;
+//		} else {
+//			green = 148;
+//		}
+//
+//		gDPSetColor(gdl++, G_SETENVCOLOR, (green << 16) + 0xff);
+//
+//		gdl = func0f141ab0(gdl, unk28, y, 5, y, 1, viewleft, viewwidth);
+//	}
+//
+//	return gdl;
+//}
+
 Gfx *func0f147570(Gfx *gdl)
 {
 	return gdl;
 }
+
+const char var7f1b5e50[] = "Fullscreen_DrawFaultScope";
+const char var7f1b5e6c[] = "Fullscreen_DrawFaultScope";
+const char var7f1b5e88[] = "IntroFaderBlurGfx";
 
 GLOBAL_ASM(
 glabel func0f147578
@@ -7240,7 +7301,7 @@ Gfx *func0f147cf8(Gfx *gdl)
 	return gdl;
 }
 
-u32 var8007f878 = 0x00000000;
+u8 var8007f878 = 0;
 
 Gfx *hudRenderHorizonScanner(Gfx *gdl)
 {
