@@ -12109,11 +12109,11 @@ void currentPlayerEquipWeapon(s32 weaponnum)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	if (player->weaponnum == weaponnum && player->unk1582 == -1) {
+	if (player->weaponnum == weaponnum && player->switchtoweaponnum == -1) {
 		return;
 	}
 
-	player->unk1582 = weaponnum;
+	player->switchtoweaponnum = weaponnum;
 	player->unk1583_05 = 0;
 }
 
@@ -12143,32 +12143,32 @@ bool func0f0a1a10(s32 weaponnum)
 
 s32 func0f0a1a68(s32 arg0)
 {
-	s32 result;
+	s32 weaponnum;
 
-	if (g_Vars.currentplayer->unk1582 >= 0) {
-		result = g_Vars.currentplayer->unk1582;
+	if (g_Vars.currentplayer->switchtoweaponnum >= 0) {
+		weaponnum = g_Vars.currentplayer->switchtoweaponnum;
 	} else {
-		result = g_Vars.currentplayer->weaponnum;
+		weaponnum = g_Vars.currentplayer->weaponnum;
 	}
 
 	if (!g_Vars.currentplayer->unk1583_00 && arg0 == 1) {
-		result = 0;
+		weaponnum = WEAPON_NONE;
 	}
 
-	return result;
+	return weaponnum;
 }
 
 void func0f0a1ab0(void)
 {
 	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
 		struct player *player = g_Vars.currentplayer;
-		s32 value;
+		s32 dualweaponnum;
 
-		if (currentPlayerCanHaveWeapon(player->unk1581)) {
-			currentPlayerEquipWeaponWrapper(0, player->unk1581);
+		if (currentPlayerCanHaveWeapon(player->prevweaponnum)) {
+			currentPlayerEquipWeaponWrapper(HAND_RIGHT, player->prevweaponnum);
 
-			value = func0f111cf8(player->unk1581, player->unk1581) * player->unk1581 * player->unk1583_01;
-			currentPlayerEquipWeaponWrapper(1, value);
+			dualweaponnum = func0f111cf8(player->prevweaponnum, player->prevweaponnum) * player->prevweaponnum * player->unk1583_01;
+			currentPlayerEquipWeaponWrapper(HAND_LEFT, dualweaponnum);
 		} else {
 			func0f0a1df4();
 		}
@@ -20620,7 +20620,7 @@ void currentPlayerTickInventory(bool triggeron)
 		}
 
 		if (g_Vars.currentplayer->weaponnum != WEAPON_UNARMED
-				&& g_Vars.currentplayer->unk1582 != WEAPON_UNARMED) {
+				&& g_Vars.currentplayer->switchtoweaponnum != WEAPON_UNARMED) {
 			currentPlayerEquipWeapon(WEAPON_UNARMED);
 		}
 

@@ -2488,8 +2488,8 @@ struct player {
 	/*0x0636*/ s16 viewtop;  // 0
 	/*0x0638*/ struct hand hands[2];
 	/*0x1580*/ s8 weaponnum;
-	/*0x1581*/ s8 unk1581; // also a weaponnum
-	/*0x1582*/ s8 unk1582;
+	/*0x1581*/ s8 prevweaponnum; // previously drawn weapon, switched to when throwing Dragon/Laptop or when ammo depleted
+	/*0x1582*/ s8 switchtoweaponnum; // weaponnum to change to
 	/*0x1583*/ u8 unk1583_00 : 1;
 	/*0x1583*/ u8 unk1583_01 : 1;
 	/*0x1583*/ u8 invertgunfunc : 1;
