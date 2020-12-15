@@ -37,25 +37,15 @@ u32 var8007f854 = 0x00000000;
 u32 var8007f858 = 0xb8000000;
 u32 var8007f85c = 0x00000000;
 
+Gfx *hudRenderIrRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
+{
+	gDPFillRectangle(gdl++, x1, y1, x2, y2);
+
+	return gdl;
+}
+
 GLOBAL_ASM(
-glabel hudRenderIrRect
-/*  f141820:	8fb90010 */ 	lw	$t9,0x10($sp)
-/*  f141824:	30ee03ff */ 	andi	$t6,$a3,0x3ff
-/*  f141828:	000e7b80 */ 	sll	$t7,$t6,0xe
-/*  f14182c:	3c01f600 */ 	lui	$at,0xf600
-/*  f141830:	01e1c025 */ 	or	$t8,$t7,$at
-/*  f141834:	30ab03ff */ 	andi	$t3,$a1,0x3ff
-/*  f141838:	30cd03ff */ 	andi	$t5,$a2,0x3ff
-/*  f14183c:	332803ff */ 	andi	$t0,$t9,0x3ff
-/*  f141840:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f141844:	000d7080 */ 	sll	$t6,$t5,0x2
-/*  f141848:	000b6380 */ 	sll	$t4,$t3,0xe
-/*  f14184c:	018e7825 */ 	or	$t7,$t4,$t6
-/*  f141850:	03095025 */ 	or	$t2,$t8,$t1
-/*  f141854:	ac8a0000 */ 	sw	$t2,0x0($a0)
-/*  f141858:	ac8f0004 */ 	sw	$t7,0x4($a0)
-/*  f14185c:	03e00008 */ 	jr	$ra
-/*  f141860:	24820008 */ 	addiu	$v0,$a0,0x8
+glabel func0f141864
 /*  f141864:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f141868:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14186c:	afa5001c */ 	sw	$a1,0x1c($sp)
