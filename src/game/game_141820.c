@@ -7571,11 +7571,10 @@ Gfx *hudRenderIrBinoculars(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f148b38
-/*  f148b38:	03e00008 */ 	jr	$ra
-/*  f148b3c:	00801025 */ 	or	$v0,$a0,$zero
-);
+Gfx *func0f148b38(Gfx *gdl)
+{
+	return gdl;
+}
 
 void func0f148b40(u32 arg0)
 {
