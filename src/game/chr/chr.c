@@ -4020,7 +4020,7 @@ void chrUpdateCloak(struct chrdata *chr)
 		prevplayernum = g_Vars.currentplayernum;
 		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
 
-		if (g_Vars.currentplayer->itemswitch & 0x00000040) {
+		if (g_Vars.currentplayer->devicesactive & DEVICE_CLOAKDEVICE) {
 			// Cloak is active - but may or may not be in effect due to recent shooting
 			s32 qty = ammoGetQuantity(AMMOTYPE_CLOAK);
 
@@ -4037,19 +4037,19 @@ void chrUpdateCloak(struct chrdata *chr)
 				}
 			} else {
 				// Out of cloak ammo - turn off cloak
-				g_Vars.currentplayer->itemswitch &= ~0x00000040;
+				g_Vars.currentplayer->devicesactive &= ~DEVICE_CLOAKDEVICE;
 			}
 		}
 
 		// If cloak is enabled via cloaking device or via RCP120
-		if ((g_Vars.currentplayer->itemswitch & 0x00000040)
+		if ((g_Vars.currentplayer->devicesactive & DEVICE_CLOAKDEVICE)
 				|| (g_Vars.currentplayer->weaponnum == WEAPON_RCP120
-					&& (g_Vars.currentplayer->itemswitch & 0x00000080))) {
+					&& (g_Vars.currentplayer->devicesactive & DEVICE_CLOAKRCP120))) {
 			if ((chr->hidden & CHRHFLAG_CLOAKED) == 0 && chr->cloakpause < 1) {
 				chrCloak(chr, true);
 			}
 		} else {
-			if ((g_Vars.currentplayer->itemswitch & 0x00000040) == 0
+			if ((g_Vars.currentplayer->devicesactive & DEVICE_CLOAKDEVICE) == false
 					&& (chr->hidden & CHRHFLAG_CLOAKED)) {
 				chrUncloak(chr, true);
 			}

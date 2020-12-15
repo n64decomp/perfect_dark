@@ -20625,7 +20625,7 @@ void currentPlayerTickInventory(bool triggeron)
 		}
 
 		g_Vars.currentplayer->unk1583_00 = 0;
-		g_Vars.currentplayer->itemswitch = 0;
+		g_Vars.currentplayer->devicesactive = 0;
 		chr->cloakpause = 0;
 		chr->cloakfadefrac = 0;
 		chr->cloakfadefinished = false;

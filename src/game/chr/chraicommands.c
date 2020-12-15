@@ -10155,7 +10155,7 @@ bool aiClearInventory(void)
 
 		if (g_Vars.currentplayer == g_Vars.bond || g_Vars.currentplayer == g_Vars.coop) {
 			currentPlayerClearInventory();
-			g_Vars.currentplayer->itemswitch = 0;
+			g_Vars.currentplayer->devicesactive = 0;
 			currentPlayerGiveWeapon(WEAPON_UNARMED);
 			currentPlayerEquipWeapon(WEAPON_UNARMED);
 		}

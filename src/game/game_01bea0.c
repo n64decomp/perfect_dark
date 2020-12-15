@@ -2574,12 +2574,12 @@ glabel var7f1a863c
 //			}
 //
 //			// d5e8
-//			g_Vars.players[i]->unk1c54 = 0;
+//			g_Vars.players[i]->devicesinhibit = 0;
 //
 //			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 //					&& PLAYERCOUNT() >= 2
 //					&& g_Menus[mpindex].curframe) {
-//				g_Vars.players[i]->unk1c54 = 15;
+//				g_Vars.players[i]->devicesinhibit = 15;
 //			}
 //		}
 //	}

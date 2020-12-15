@@ -1609,7 +1609,7 @@ Gfx *renderFrame(Gfx *gdl)
 								if (g_Vars.currentplayer->isdead
 										|| var80070764
 										|| !EYESPYINACTIVE()
-										|| (g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54 & 8) == 0) {
+										|| (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER) == false) {
 									g_Vars.currentplayer->lookingatprop.prop = NULL;
 								}
 							}
@@ -1657,7 +1657,7 @@ Gfx *renderFrame(Gfx *gdl)
 
 				// Handle eyespy Z presses
 				if (g_Vars.currentplayer->eyespy
-						&& (g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54 & 4)
+						&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY)
 						&& g_Vars.currentplayer->eyespy->camerabuttonheld) {
 					if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
 						objectiveCheckHolograph(400);

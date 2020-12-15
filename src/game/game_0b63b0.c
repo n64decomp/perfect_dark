@@ -6678,7 +6678,14 @@ void currentPlayerLaunchSlayerRocket(struct weaponobj *rocket)
 {
 	g_Vars.currentplayer->slayerrocket = rocket;
 	g_Vars.currentplayer->visionmode = VISIONMODE_SLAYERROCKET;
-	g_Vars.currentplayer->itemswitch &= ~0x0000000f;
+
+	// Turn off these devices
+	g_Vars.currentplayer->devicesactive &= ~(
+			DEVICE_NIGHTVISION |
+			DEVICE_XRAYSCANNER |
+			DEVICE_EYESPY |
+			DEVICE_IRSCANNER);
+
 	g_Vars.currentplayer->badrockettime = 0;
 }
 
@@ -9341,7 +9348,7 @@ glabel var7f1ad6ac
 //	}
 //
 //	// dcdc
-//	if (g_Vars.currentplayer->itemswitch & 0x20) {
+//	if (g_Vars.currentplayer->devicesactive & DEVICE_SUICIDEPILL) {
 //		// Suicide pill?
 //		currentPlayerDieByShooter(g_Vars.currentplayernum, true);
 //	}
@@ -9364,7 +9371,7 @@ glabel var7f1ad6ac
 //			func0f0926bc(eyespy->prop, 1, 0xffff);
 //			chr->chrflags |= CHRCFLAG_HIDDEN;
 //			chr->chrflags |= CHRCFLAG_INVINCIBLE_TO_GUNFIRE;
-//			g_Vars.currentplayer->itemswitch &= ~0x00000004;
+//			g_Vars.currentplayer->devicesactive &= ~DEVICE_EYESPY;
 //		} else {
 //			// dd7c
 //			if (eyespy->init == false) {
@@ -9390,19 +9397,19 @@ glabel var7f1ad6ac
 //				}
 //			} else {
 //				// de34
-//				if ((g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->joybutinhibit & 4)
+//				if ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->joybutinhibit & DEVICE_EYESPY)
 //						&& g_PlayersWithControl[playernum]
 //						&& func0f0d0310() == 0) {
 //					eyespy->init = true;
 //					eyespy->active = false;
-//					g_Vars.currentplayer->itemswitch &= ~0x00000004;
+//					g_Vars.currentplayer->devicesactive &= ~DEVICE_EYESPY;
 //				}
 //			}
 //
 //			// de90
 //			if (eyespy->initialised
 //					&& g_PlayersWithControl[playernum]
-//					&& (g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->joybutinhibit & 4)) {
+//					&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->joybutinhibit & DEVICE_EYESPY)) {
 //				// ded8
 //				if (eyespy->active == false) {
 //					eyespy->buttonheld = eyespy->camerabuttonheld = false;
@@ -9462,7 +9469,7 @@ glabel var7f1ad6ac
 //	} else {
 //		// e120
 //		if (g_Vars.currentplayer->eyespy
-//				&& (g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->joybutinhibit & 4)
+//				&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->joybutinhibit & DEVICE_EYESPY)
 //				&& g_Vars.currentplayer->eyespy->active) {
 //			struct coord sp776;
 //			currentPlayerSetFovY(120);
@@ -11413,13 +11420,13 @@ Gfx *func0f0c07c8(Gfx *gdl)
 		if (g_Vars.currentplayer->isdead == false
 				&& var80070764 == 0
 				&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
-				&& ((g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54) & 1)) {
+				&& ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit) & DEVICE_NIGHTVISION)) {
 			gdl = func0f1472fc(gdl);
 			gdl = func0f147570(gdl);
 		} else if (g_Vars.currentplayer->isdead == false
 				&& var80070764 == 0
 				&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
-				&& ((g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54) & 8)) {
+				&& ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit) & DEVICE_IRSCANNER)) {
 			gdl = func0f147578(gdl);
 			gdl = hudRenderIrBinoculars(gdl);
 		}

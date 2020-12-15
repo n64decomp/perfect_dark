@@ -118,12 +118,12 @@ u8 func0f000a10(s32 roomnum)
 	if ((g_Vars.currentplayer->isdead == false
 			&& var80070764 == 0
 			&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
-			&& (g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54 & 1))
+			&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_NIGHTVISION))
 		||
 			(g_Vars.currentplayer->isdead == false
 			&& var80070764 == 0
 			&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
-			&& (g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54 & 8))) {
+			&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER))) {
 		value += var8009caec;
 	} else {
 		value += g_Rooms[roomnum].unk4b;
@@ -152,12 +152,12 @@ u8 func0f000b24(s32 roomnum)
 	if ((g_Vars.currentplayer->isdead == false
 			&& var80070764 == 0
 			&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
-			&& (g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54 & 1))
+			&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_NIGHTVISION))
 		||
 			(g_Vars.currentplayer->isdead == false
 			&& var80070764 == 0
 			&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
-			&& (g_Vars.currentplayer->itemswitch & ~g_Vars.currentplayer->unk1c54 & 8))) {
+			&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER))) {
 		return var8009caec;
 	}
 

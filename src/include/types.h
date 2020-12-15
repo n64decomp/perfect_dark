@@ -2219,11 +2219,7 @@ struct player {
 	/*0x00b8*/ f32 crouchspeed;
 	/*0x00bc*/ struct prop *prop;
 	/*0x00c0*/ bool bondperimenabled;
-
-	// 0x00000040 = cloaking device enabled
-	// 0x00000080 = RCP120 cloak enabled
-	/*0x00c4*/ u32 itemswitch;
-
+	/*0x00c4*/ u32 devicesactive;
 	/*0x00c8*/ s32 badrockettime;
 	/*0x00cc*/ u32 unk00cc;
 	/*0x00d0*/ s32 bondactivateorreload;
@@ -2795,7 +2791,7 @@ struct player {
 	/*0x1c4c*/ f32 unk1c4c;
 	/*0x1c50*/ u8 unk1c50_01 : 1;
 	/*0x1c51*/ u8 disguised : 1;
-	/*0x1c54*/ u32 unk1c54;
+	/*0x1c54*/ u32 devicesinhibit;
 	/*0x1c58*/ f32 unk1c58;
 	/*0x1c5c*/ f32 stealhealth;
 	/*0x1c60*/ s32 unk1c60;
