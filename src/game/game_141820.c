@@ -753,57 +753,25 @@ Gfx *func0f142bf0(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
 
 const char var7f1b5dd4[] = "blurGfxFisheye";
 
-GLOBAL_ASM(
-glabel func0f142d74
-.late_rodata
-glabel var7f1b5f34
-.word 0x3c23d70a
-glabel var7f1b5f38
-.word 0x3bcccccd
-glabel var7f1b5f3c
-.word 0x3c23d70a
-.text
-/*  f142d74:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f142d78:	44866000 */ 	mtc1	$a2,$f12
-/*  f142d7c:	44877000 */ 	mtc1	$a3,$f14
-/*  f142d80:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f142d84:	04800003 */ 	bltz	$a0,.L0f142d94
-/*  f142d88:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f142d8c:	28810080 */ 	slti	$at,$a0,0x80
-/*  f142d90:	14200003 */ 	bnez	$at,.L0f142da0
-.L0f142d94:
-/*  f142d94:	3c017f1b */ 	lui	$at,%hi(var7f1b5f34)
-/*  f142d98:	10000015 */ 	b	.L0f142df0
-/*  f142d9c:	c4205f34 */ 	lwc1	$f0,%lo(var7f1b5f34)($at)
-.L0f142da0:
-/*  f142da0:	44842000 */ 	mtc1	$a0,$f4
-/*  f142da4:	c7a8001c */ 	lwc1	$f8,0x1c($sp)
-/*  f142da8:	3c017f1b */ 	lui	$at,%hi(var7f1b5f3c)
-/*  f142dac:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f142db0:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f142db4:	460a6000 */ 	add.s	$f0,$f12,$f10
-/*  f142db8:	46000082 */ 	mul.s	$f2,$f0,$f0
-/*  f142dbc:	460e103c */ 	c.lt.s	$f2,$f14
-/*  f142dc0:	00000000 */ 	nop
-/*  f142dc4:	45000008 */ 	bc1f	.L0f142de8
-/*  f142dc8:	00000000 */ 	nop
-/*  f142dcc:	0c012974 */ 	jal	sqrtf
-/*  f142dd0:	46027301 */ 	sub.s	$f12,$f14,$f2
-/*  f142dd4:	3c017f1b */ 	lui	$at,%hi(var7f1b5f38)
-/*  f142dd8:	c4305f38 */ 	lwc1	$f16,%lo(var7f1b5f38)($at)
-/*  f142ddc:	46100082 */ 	mul.s	$f2,$f0,$f16
-/*  f142de0:	10000003 */ 	b	.L0f142df0
-/*  f142de4:	46001006 */ 	mov.s	$f0,$f2
-.L0f142de8:
-/*  f142de8:	c4225f3c */ 	lwc1	$f2,%lo(var7f1b5f3c)($at)
-/*  f142dec:	46001006 */ 	mov.s	$f0,$f2
-.L0f142df0:
-/*  f142df0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f142df4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f142df8:	03e00008 */ 	jr	$ra
-/*  f142dfc:	00000000 */ 	nop
-);
+f32 func0f142d74(s32 arg0, f32 arg1, f32 arg2, f32 arg3)
+{
+	f32 result;
+	f32 value = arg2;
 
+	if (arg0 < 0 || arg0 >= 0x80) {
+		return 0.01f;
+	}
+
+	value += arg0 * arg1;
+
+	if (arg3 > value * value) {
+		result = sqrtf(arg3 - value * value) * 0.00625f;
+	} else {
+		result = 0.01f;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel hudRenderEyespyView
