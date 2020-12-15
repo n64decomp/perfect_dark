@@ -765,7 +765,6 @@ Gfx *hudRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 	f32 angle = 0.52359879016876f;
 	s32 offset = (s32)(var80061630 * 600.0f) % 12;
 	f32 increment;
-	s32 offsety;
 
 	var8007f840++;
 
@@ -782,7 +781,7 @@ Gfx *hudRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 	gdl = func0f1420b0(gdl, colour, alpha);
 
 	for (y = viewtop; y < viewtop + viewheight; y++) {
-		offsety = y - offset;
+		s32 offsety = y - offset;
 
 		if ((offsety % 8) == 0 || y == viewtop) {
 			if ((offsety % 16) < 8) {
@@ -800,175 +799,50 @@ Gfx *hudRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 	return gdl;
 }
 
-const char var7f1b5db0[] = "BlueInterlaceGfx";
+Gfx *func0f14298c(Gfx *gdl, u32 colour, u32 alpha)
+{
+	s32 unk28 = viGetUnk28();
+	s32 viewtop = viGetViewTop();
+	s32 viewheight = viGetViewHeight();
+	s32 y;
+	s32 viewwidth = viGetViewWidth();
+	s32 viewleft = viGetViewLeft();
+	s32 offset = (s32)(var80061630 * 600.0f) % 12;
+	u32 stack;
 
-GLOBAL_ASM(
-glabel func0f14298c
-/*  f14298c:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f142990:	afbf0054 */ 	sw	$ra,0x54($sp)
-/*  f142994:	afb40040 */ 	sw	$s4,0x40($sp)
-/*  f142998:	afb3003c */ 	sw	$s3,0x3c($sp)
-/*  f14299c:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f1429a0:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f1429a4:	00809825 */ 	or	$s3,$a0,$zero
-/*  f1429a8:	00c0a025 */ 	or	$s4,$a2,$zero
-/*  f1429ac:	afbe0050 */ 	sw	$s8,0x50($sp)
-/*  f1429b0:	afb7004c */ 	sw	$s7,0x4c($sp)
-/*  f1429b4:	afb60048 */ 	sw	$s6,0x48($sp)
-/*  f1429b8:	afb50044 */ 	sw	$s5,0x44($sp)
-/*  f1429bc:	afb20038 */ 	sw	$s2,0x38($sp)
-/*  f1429c0:	afb10034 */ 	sw	$s1,0x34($sp)
-/*  f1429c4:	0c002ac7 */ 	jal	viGetUnk28
-/*  f1429c8:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f1429cc:	0c002f44 */ 	jal	viGetViewTop
-/*  f1429d0:	afa2008c */ 	sw	$v0,0x8c($sp)
-/*  f1429d4:	0c002f26 */ 	jal	viGetViewHeight
-/*  f1429d8:	afa20088 */ 	sw	$v0,0x88($sp)
-/*  f1429dc:	0c002f22 */ 	jal	viGetViewWidth
-/*  f1429e0:	00408825 */ 	or	$s1,$v0,$zero
-/*  f1429e4:	0c002f40 */ 	jal	viGetViewLeft
-/*  f1429e8:	afa2007c */ 	sw	$v0,0x7c($sp)
-/*  f1429ec:	3c018006 */ 	lui	$at,%hi(var80061630)
-/*  f1429f0:	c4241630 */ 	lwc1	$f4,%lo(var80061630)($at)
-/*  f1429f4:	3c014416 */ 	lui	$at,0x4416
-/*  f1429f8:	44813000 */ 	mtc1	$at,$f6
-/*  f1429fc:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f142a00:	3c038008 */ 	lui	$v1,%hi(var8007f840)
-/*  f142a04:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f142a08:	2463f840 */ 	addiu	$v1,$v1,%lo(var8007f840)
-/*  f142a0c:	8c780000 */ 	lw	$t8,0x0($v1)
-/*  f142a10:	3c04800a */ 	lui	$a0,%hi(var800a41c0)
-/*  f142a14:	afa20078 */ 	sw	$v0,0x78($sp)
-/*  f142a18:	27190001 */ 	addiu	$t9,$t8,0x1
-/*  f142a1c:	ac790000 */ 	sw	$t9,0x0($v1)
-/*  f142a20:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f142a24:	248441c0 */ 	addiu	$a0,$a0,%lo(var800a41c0)
-/*  f142a28:	3c057f1b */ 	lui	$a1,%hi(var7f1b5db0)
-/*  f142a2c:	44125000 */ 	mfc1	$s2,$f10
-/*  f142a30:	00000000 */ 	nop
-/*  f142a34:	0241001a */ 	div	$zero,$s2,$at
-/*  f142a38:	00009010 */ 	mfhi	$s2
-/*  f142a3c:	2b210002 */ 	slti	$at,$t9,0x2
-/*  f142a40:	14200003 */ 	bnez	$at,.L0f142a50
-/*  f142a44:	00000000 */ 	nop
-/*  f142a48:	1000005c */ 	b	.L0f142bbc
-/*  f142a4c:	02601025 */ 	or	$v0,$s3,$zero
-.L0f142a50:
-/*  f142a50:	0c004c4c */ 	jal	strcpy
-/*  f142a54:	24a55db0 */ 	addiu	$a1,$a1,%lo(var7f1b5db0)
-/*  f142a58:	02601825 */ 	or	$v1,$s3,$zero
-/*  f142a5c:	3c09e700 */ 	lui	$t1,0xe700
-/*  f142a60:	ac690000 */ 	sw	$t1,0x0($v1)
-/*  f142a64:	ac600004 */ 	sw	$zero,0x4($v1)
-/*  f142a68:	26640008 */ 	addiu	$a0,$s3,0x8
-/*  f142a6c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f142a70:	0fc5082c */ 	jal	func0f1420b0
-/*  f142a74:	02803025 */ 	or	$a2,$s4,$zero
-/*  f142a78:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f142a7c:	00409825 */ 	or	$s3,$v0,$zero
-/*  f142a80:	241e0014 */ 	addiu	$s8,$zero,0x14
-/*  f142a84:	00915021 */ 	addu	$t2,$a0,$s1
-/*  f142a88:	008a082a */ 	slt	$at,$a0,$t2
-/*  f142a8c:	afaa0058 */ 	sw	$t2,0x58($sp)
-/*  f142a90:	01405825 */ 	or	$t3,$t2,$zero
-/*  f142a94:	10200048 */ 	beqz	$at,.L0f142bb8
-/*  f142a98:	00808025 */ 	or	$s0,$a0,$zero
-/*  f142a9c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f142aa0:	3c167fff */ 	lui	$s6,0x7fff
-/*  f142aa4:	4481a000 */ 	mtc1	$at,$f20
-/*  f142aa8:	36d6ffff */ 	ori	$s6,$s6,0xffff
-/*  f142aac:	00928823 */ 	subu	$s1,$a0,$s2
-/*  f142ab0:	24170001 */ 	addiu	$s7,$zero,0x1
-/*  f142ab4:	24150006 */ 	addiu	$s5,$zero,0x6
-/*  f142ab8:	3c14fb00 */ 	lui	$s4,0xfb00
-.L0f142abc:
-/*  f142abc:	0235001a */ 	div	$zero,$s1,$s5
-/*  f142ac0:	00006010 */ 	mfhi	$t4
-/*  f142ac4:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f142ac8:	02009025 */ 	or	$s2,$s0,$zero
-/*  f142acc:	16a00002 */ 	bnez	$s5,.L0f142ad8
-/*  f142ad0:	00000000 */ 	nop
-/*  f142ad4:	0007000d */ 	break	0x7
-.L0f142ad8:
-/*  f142ad8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f142adc:	16a10004 */ 	bne	$s5,$at,.L0f142af0
-/*  f142ae0:	3c018000 */ 	lui	$at,0x8000
-/*  f142ae4:	16210002 */ 	bne	$s1,$at,.L0f142af0
-/*  f142ae8:	00000000 */ 	nop
-/*  f142aec:	0006000d */ 	break	0x6
-.L0f142af0:
-/*  f142af0:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f142af4:	11800003 */ 	beqz	$t4,.L0f142b04
-/*  f142af8:	00000000 */ 	nop
-/*  f142afc:	1604000e */ 	bne	$s0,$a0,.L0f142b38
-/*  f142b00:	00000000 */ 	nop
-.L0f142b04:
-/*  f142b04:	0221001a */ 	div	$zero,$s1,$at
-/*  f142b08:	00006810 */ 	mfhi	$t5
-/*  f142b0c:	29a10006 */ 	slti	$at,$t5,0x6
-/*  f142b10:	10200005 */ 	beqz	$at,.L0f142b28
-/*  f142b14:	24530008 */ 	addiu	$s3,$v0,0x8
-/*  f142b18:	24530008 */ 	addiu	$s3,$v0,0x8
-/*  f142b1c:	ac540000 */ 	sw	$s4,0x0($v0)
-/*  f142b20:	10000005 */ 	b	.L0f142b38
-/*  f142b24:	ac560004 */ 	sw	$s6,0x4($v0)
-.L0f142b28:
-/*  f142b28:	3c0e00af */ 	lui	$t6,0xaf
-/*  f142b2c:	35ceffff */ 	ori	$t6,$t6,0xffff
-/*  f142b30:	ac4e0004 */ 	sw	$t6,0x4($v0)
-/*  f142b34:	ac540000 */ 	sw	$s4,0x0($v0)
-.L0f142b38:
-/*  f142b38:	0c004b70 */ 	jal	random
-/*  f142b3c:	00000000 */ 	nop
-/*  f142b40:	005e001b */ 	divu	$zero,$v0,$s8
-/*  f142b44:	00007810 */ 	mfhi	$t7
-/*  f142b48:	17c00002 */ 	bnez	$s8,.L0f142b54
-/*  f142b4c:	00000000 */ 	nop
-/*  f142b50:	0007000d */ 	break	0x7
-.L0f142b54:
-/*  f142b54:	56ef0009 */ 	bnel	$s7,$t7,.L0f142b7c
-/*  f142b58:	8fb80078 */ 	lw	$t8,0x78($sp)
-/*  f142b5c:	0c004b70 */ 	jal	random
-/*  f142b60:	00000000 */ 	nop
-/*  f142b64:	240100c8 */ 	addiu	$at,$zero,0xc8
-/*  f142b68:	0041001b */ 	divu	$zero,$v0,$at
-/*  f142b6c:	00009010 */ 	mfhi	$s2
-/*  f142b70:	00000000 */ 	nop
-/*  f142b74:	00000000 */ 	nop
-/*  f142b78:	8fb80078 */ 	lw	$t8,0x78($sp)
-.L0f142b7c:
-/*  f142b7c:	8fb9007c */ 	lw	$t9,0x7c($sp)
-/*  f142b80:	02602025 */ 	or	$a0,$s3,$zero
-/*  f142b84:	8fa5008c */ 	lw	$a1,0x8c($sp)
-/*  f142b88:	02403025 */ 	or	$a2,$s2,$zero
-/*  f142b8c:	24070005 */ 	addiu	$a3,$zero,0x5
-/*  f142b90:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f142b94:	e7b40014 */ 	swc1	$f20,0x14($sp)
-/*  f142b98:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f142b9c:	0fc506ac */ 	jal	func0f141ab0
-/*  f142ba0:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f142ba4:	8fa80058 */ 	lw	$t0,0x58($sp)
-/*  f142ba8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f142bac:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f142bb0:	1608ffc2 */ 	bne	$s0,$t0,.L0f142abc
-/*  f142bb4:	00409825 */ 	or	$s3,$v0,$zero
-.L0f142bb8:
-/*  f142bb8:	02601025 */ 	or	$v0,$s3,$zero
-.L0f142bbc:
-/*  f142bbc:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f142bc0:	d7b40028 */ 	ldc1	$f20,0x28($sp)
-/*  f142bc4:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*  f142bc8:	8fb10034 */ 	lw	$s1,0x34($sp)
-/*  f142bcc:	8fb20038 */ 	lw	$s2,0x38($sp)
-/*  f142bd0:	8fb3003c */ 	lw	$s3,0x3c($sp)
-/*  f142bd4:	8fb40040 */ 	lw	$s4,0x40($sp)
-/*  f142bd8:	8fb50044 */ 	lw	$s5,0x44($sp)
-/*  f142bdc:	8fb60048 */ 	lw	$s6,0x48($sp)
-/*  f142be0:	8fb7004c */ 	lw	$s7,0x4c($sp)
-/*  f142be4:	8fbe0050 */ 	lw	$s8,0x50($sp)
-/*  f142be8:	03e00008 */ 	jr	$ra
-/*  f142bec:	27bd0090 */ 	addiu	$sp,$sp,0x90
-);
+	var8007f840++;
+
+	if (var8007f840 >= 2) {
+		return gdl;
+	}
+
+	strcpy(var800a41c0, "BlueInterlaceGfx");
+
+	gDPPipeSync(gdl++);
+
+	gdl = func0f1420b0(gdl, colour, alpha);
+
+	for (y = viewtop; y < viewtop + viewheight; y++) {
+		s32 offsety = y - offset;
+		s32 tmpy = y;
+
+		if (offsety % 6 == 0 || y == viewtop) {
+			if (offsety % 12 < 6) {
+				gDPSetEnvColor(gdl++, 0x7f, 0xff, 0xff, 0xff);
+			} else {
+				gDPSetEnvColor(gdl++, 0x00, 0xaf, 0xff, 0xff);
+			}
+		}
+
+		if (random() % 20 == 1) {
+			tmpy = random() % 200;
+		}
+
+		gdl = func0f141ab0(gdl, unk28, tmpy, 5, y, 1, viewleft, viewwidth);
+	}
+
+	return gdl;
+}
 
 Gfx *func0f142bf0(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
 {
