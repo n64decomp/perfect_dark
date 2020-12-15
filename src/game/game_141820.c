@@ -102,64 +102,19 @@ glabel func0f141864
 /*  f141934:	00801025 */ 	or	$v0,$a0,$zero
 /*  f141938:	03e00008 */ 	jr	$ra
 /*  f14193c:	00000000 */ 	nop
-/*  f141940:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f141944:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f141948:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f14194c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f141950:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f141954:	0c002f02 */ 	jal	viGetX
-/*  f141958:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f14195c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f141960:	3c0ee700 */ 	lui	$t6,0xe700
-/*  f141964:	3c01fd10 */ 	lui	$at,0xfd10
-/*  f141968:	00801825 */ 	or	$v1,$a0,$zero
-/*  f14196c:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*  f141970:	ac600004 */ 	sw	$zero,0x4($v1)
-/*  f141974:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f141978:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f14197c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f141980:	24e7ffff */ 	addiu	$a3,$a3,-1
-/*  f141984:	30ef0fff */ 	andi	$t7,$a3,0xfff
-/*  f141988:	01e1c025 */ 	or	$t8,$t7,$at
-/*  f14198c:	acb80000 */ 	sw	$t8,0x0($a1)
-/*  f141990:	8fb90020 */ 	lw	$t9,0x20($sp)
-/*  f141994:	8faa0028 */ 	lw	$t2,0x28($sp)
-/*  f141998:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*  f14199c:	00590019 */ 	multu	$v0,$t9
-/*  f1419a0:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f1419a4:	00803025 */ 	or	$a2,$a0,$zero
-/*  f1419a8:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f1419ac:	3c0fe600 */ 	lui	$t7,0xe600
-/*  f1419b0:	00804025 */ 	or	$t0,$a0,$zero
-/*  f1419b4:	3c18f300 */ 	lui	$t8,0xf300
-/*  f1419b8:	28e107ff */ 	slti	$at,$a3,0x7ff
-/*  f1419bc:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f1419c0:	240307ff */ 	addiu	$v1,$zero,0x7ff
-/*  f1419c4:	00004812 */ 	mflo	$t1
-/*  f1419c8:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f1419cc:	000b6040 */ 	sll	$t4,$t3,0x1
-/*  f1419d0:	018d7021 */ 	addu	$t6,$t4,$t5
-/*  f1419d4:	acae0004 */ 	sw	$t6,0x4($a1)
-/*  f1419d8:	acc00004 */ 	sw	$zero,0x4($a2)
-/*  f1419dc:	accf0000 */ 	sw	$t7,0x0($a2)
-/*  f1419e0:	10200003 */ 	beqz	$at,.L0f1419f0
-/*  f1419e4:	ad180000 */ 	sw	$t8,0x0($t0)
-/*  f1419e8:	10000001 */ 	b	.L0f1419f0
-/*  f1419ec:	00e01825 */ 	or	$v1,$a3,$zero
-.L0f1419f0:
-/*  f1419f0:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*  f1419f4:	30790fff */ 	andi	$t9,$v1,0xfff
-/*  f1419f8:	00194b00 */ 	sll	$t1,$t9,0xc
-/*  f1419fc:	314b0007 */ 	andi	$t3,$t2,0x7
-/*  f141a00:	000b6600 */ 	sll	$t4,$t3,0x18
-/*  f141a04:	012c6825 */ 	or	$t5,$t1,$t4
-/*  f141a08:	ad0d0004 */ 	sw	$t5,0x4($t0)
-/*  f141a0c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f141a10:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f141a14:	00801025 */ 	or	$v0,$a0,$zero
-/*  f141a18:	03e00008 */ 	jr	$ra
-/*  f141a1c:	00000000 */ 	nop
 );
+
+Gfx *func0f141940(Gfx *gdl, s32 arg1, s32 arg2, s32 tile, s32 arg4, s32 width)
+{
+	s32 value = viGetX() * arg2 + arg4;
+
+	gDPPipeSync(gdl++);
+	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, width, value * 2 + arg1);
+	gDPLoadSync(gdl++);
+	gDPLoadBlock(gdl++, tile, 0, 0, width - 1, 0);
+
+	return gdl;
+}
 
 Gfx *func0f141a20(Gfx *gdl, u32 a, u32 b, u32 c, u32 d)
 {
