@@ -1,5 +1,5 @@
-#ifndef _IN_GAME_GAME_141820_H
-#define _IN_GAME_GAME_141820_H
+#ifndef _IN_GAME_BONDVIEW_H
+#define _IN_GAME_BONDVIEW_H
 #include <ultra64.h>
 #include "types.h"
 
