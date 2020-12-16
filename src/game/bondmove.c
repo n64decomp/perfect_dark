@@ -24,7 +24,7 @@
 #include "game/game_0b63b0.h"
 #include "game/bondcutscene.h"
 #include "game/game_0fd660.h"
-#include "game/bondview.h"
+#include "game/bondhead.h"
 #include "game/game_127910.h"
 #include "game/game_157db0.h"
 #include "game/game_167ae0.h"

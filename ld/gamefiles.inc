@@ -118,7 +118,7 @@
 	build/ROMID/game/endscreen.o (section); \
 	build/ROMID/game/gamefile.o (section); \
 	build/ROMID/game/game_111600.o (section); \
-	build/ROMID/game/bondview.o (section); \
+	build/ROMID/game/bondhead.o (section); \
 	build/ROMID/game/padhalllv.o (section); \
 	build/ROMID/game/pad.o (section); \
 	build/ROMID/game/pak/pak.o (section); \
