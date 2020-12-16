@@ -1568,7 +1568,7 @@ Gfx *renderFrame(Gfx *gdl)
 			}
 
 			if (g_Vars.unk000320) {
-				gdl = hudRenderMotionBlur(gdl, 0xffffffff, 255);
+				gdl = bviewRenderMotionBlur(gdl, 0xffffffff, 255);
 				g_Vars.unk000320--;
 			} else if (var8009dfc0) {
 				gdl = func0000b330(gdl);
@@ -1779,7 +1779,7 @@ Gfx *renderFrame(Gfx *gdl)
 						case 0x1e5:
 							// Horizon scanner in Air Base intro
 							if (g_CameraAnimCurFrame > 839 && g_CameraAnimCurFrame < 1411) {
-								gdl = hudRenderHorizonScanner(gdl);
+								gdl = bviewRenderHorizonScanner(gdl);
 							}
 							break;
 						case 0x181:
@@ -1801,7 +1801,7 @@ Gfx *renderFrame(Gfx *gdl)
 									g_CutsceneStaticActive = false;
 								}
 
-								gdl = func0f14298c(gdl, 0xffffffff, 0xffffffff);
+								gdl = bviewRenderFilmLens(gdl, 0xffffffff, 0xffffffff);
 
 								if (g_CutsceneStaticTimer < 15) {
 									if (g_CutsceneStaticActive == false) {
@@ -1820,7 +1820,7 @@ Gfx *renderFrame(Gfx *gdl)
 								}
 
 								if (cutscenestatic) {
-									gdl = hudRenderStatic(gdl, 0xffffffff, cutscenestatic);
+									gdl = bviewRenderStatic(gdl, 0xffffffff, cutscenestatic);
 								}
 							}
 							break;
@@ -1834,7 +1834,7 @@ Gfx *renderFrame(Gfx *gdl)
 					// Slayer rocket shows static when flying out of bounds
 					if (g_Vars.currentplayer->visionmode == VISIONMODE_SLAYERROCKET
 							&& g_Vars.tickmode != TICKMODE_CUTSCENE) {
-						gdl = hudRenderSlayerRocketLens(gdl, 0xffffffff, 0xffffffff);
+						gdl = bviewRenderSlayerRocketLens(gdl, 0xffffffff, 0xffffffff);
 
 						if (g_Vars.currentplayer->badrockettime > 0) {
 							u32 slayerstatic = g_Vars.currentplayer->badrockettime * 255 / 90;
@@ -1843,12 +1843,12 @@ Gfx *renderFrame(Gfx *gdl)
 								slayerstatic = 255;
 							}
 
-							gdl = hudRenderStatic(gdl, 0x4fffffff, slayerstatic);
+							gdl = bviewRenderStatic(gdl, 0x4fffffff, slayerstatic);
 						}
 					}
 
 					if (g_Vars.currentplayer->visionmode == VISIONMODE_3) {
-						gdl = hudRenderStatic(gdl, 0x4fffffff, 255);
+						gdl = bviewRenderStatic(gdl, 0x4fffffff, 255);
 						g_Vars.currentplayer->visionmode = VISIONMODE_NORMAL;
 					}
 
@@ -1860,7 +1860,7 @@ Gfx *renderFrame(Gfx *gdl)
 							xraything = 249 - (g_Vars.currentplayer->erasertime * 3 >> 2);
 						}
 
-						gdl = func0f142bf0(gdl, 0xffffffff, xraything, 1.05f, 1.05f);
+						gdl = bviewRenderZoomBlur(gdl, 0xffffffff, xraything, 1.05f, 1.05f);
 					}
 
 					// Handle combat boosts
@@ -1872,14 +1872,14 @@ Gfx *renderFrame(Gfx *gdl)
 						}
 
 						if (g_Vars.speedpillchange < 15) {
-							gdl = func0f142bf0(gdl, 0xffffffff,
+							gdl = bviewRenderZoomBlur(gdl, 0xffffffff,
 									g_Vars.speedpillchange * 180 / 15,
 									(f32)g_Vars.speedpillchange * 0.02000000141561f + 1.1f,
 									(f32)g_Vars.speedpillchange * 0.02000000141561f + 1.1f);
 							gdl = fadeDraw(gdl, 0xff, 0xff, 0xff,
 									g_Vars.speedpillchange * 0.0066666668280959f);
 						} else {
-							gdl = func0f142bf0(gdl, 0xffffffff,
+							gdl = bviewRenderZoomBlur(gdl, 0xffffffff,
 									(30 - g_Vars.speedpillchange) * 180 / 15,
 									(f32)(30 - g_Vars.speedpillchange) * 0.02000000141561f + 1.1f,
 									(f32)(30 - g_Vars.speedpillchange) * 0.02000000141561f + 1.1f);
@@ -1914,7 +1914,7 @@ Gfx *renderFrame(Gfx *gdl)
 
 					if (bluramount) {
 						func0f148b6c();
-						gdl = hudRenderMotionBlur(gdl, 0xffffffff, bluramount);
+						gdl = bviewRenderMotionBlur(gdl, 0xffffffff, bluramount);
 					}
 
 					// Handle blur effect in cutscenes (Extraction intro?)
@@ -1923,16 +1923,16 @@ Gfx *renderFrame(Gfx *gdl)
 
 						if (cutsceneblurfrac > 0) {
 							u32 bluramount = cutsceneblurfrac * 255;
-							gdl = hudRenderMotionBlur(gdl, 0xffffff00, bluramount);
+							gdl = bviewRenderMotionBlur(gdl, 0xffffff00, bluramount);
 						}
 					}
 
 					if (debugGetMotionBlur() == 1) {
-						gdl = hudRenderMotionBlur(gdl, 0xffffff00, 128);
+						gdl = bviewRenderMotionBlur(gdl, 0xffffff00, 128);
 					} else if (debugGetMotionBlur() == 2) {
-						gdl = hudRenderMotionBlur(gdl, 0xffffff00, 192);
+						gdl = bviewRenderMotionBlur(gdl, 0xffffff00, 192);
 					} else if (debugGetMotionBlur() == 3) {
-						gdl = hudRenderMotionBlur(gdl, 0xffffff00, 230);
+						gdl = bviewRenderMotionBlur(gdl, 0xffffff00, 230);
 					}
 
 					if (bluramount) {

@@ -37,7 +37,7 @@ u32 var8007f854 = 0x00000000;
 u32 var8007f858 = 0xb8000000;
 u32 var8007f85c = 0x00000000;
 
-Gfx *hudRenderIrRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
+Gfx *bviewRenderIrRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 {
 	gDPFillRectangle(gdl++, x1, y1, x2, y2);
 
@@ -83,7 +83,7 @@ Gfx *func0f141a20(Gfx *gdl, u32 a, u32 b, u32 c, u32 d)
 }
 
 GLOBAL_ASM(
-glabel func0f141ab0
+glabel bviewRenderLensRect
 /*  f141ab0:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f141ab4:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f141ab8:	8fb0009c */ 	lw	$s0,0x9c($sp)
@@ -357,7 +357,7 @@ glabel func0f141ab0
 /*  f141ed0:	00801025 */ 	or	$v0,$a0,$zero
 );
 
-Gfx *func0f141ed4(Gfx *gdl, s32 arg1, f32 arg2, s32 arg3, s32 arg4)
+Gfx *bviewRenderFisheyeRect(Gfx *gdl, s32 arg1, f32 arg2, s32 arg3, s32 arg4)
 {
 	if (arg2 < 1) {
 		f32 tmp = arg4 * 0.5f;
@@ -371,7 +371,7 @@ Gfx *func0f141ed4(Gfx *gdl, s32 arg1, f32 arg2, s32 arg3, s32 arg4)
 	return gdl;
 }
 
-Gfx *func0f1420b0(Gfx *gdl, u32 colour, u32 alpha)
+Gfx *bviewPrepareStaticRgba16(Gfx *gdl, u32 colour, u32 alpha)
 {
 	static u32 envcol = 0xffffffff;
 	static u32 primcol = 0x7f7f7fff;
@@ -405,7 +405,7 @@ Gfx *func0f1420b0(Gfx *gdl, u32 colour, u32 alpha)
 	return gdl;
 }
 
-Gfx *func0f142274(Gfx *gdl, u32 colour, u32 alpha)
+Gfx *bviewPrepareStaticI8(Gfx *gdl, u32 colour, u32 alpha)
 {
 	static u32 envcol = 0xffffffff;
 	static u32 primcol = 0x7f7f7fff;
@@ -439,7 +439,7 @@ Gfx *func0f142274(Gfx *gdl, u32 colour, u32 alpha)
 	return gdl;
 }
 
-Gfx *hudRenderMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
+Gfx *bviewRenderMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
 {
 	s32 unk28 = vi2GetUnk28();
 	s32 viewtop = viGetViewTop();
@@ -478,32 +478,32 @@ Gfx *hudRenderMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
 	gDPPipeSync(gdl++);
 
 	somefloat = (viewheight - viewheight / fyyy) * 0.5f;
-	gdl = func0f1420b0(gdl, colour, newalpha);
+	gdl = bviewPrepareStaticRgba16(gdl, colour, newalpha);
 
 	for (i = viewtop; i < viewtop + viewheight; i++) {
-		gdl = func0f141ab0(gdl, unk28, viewtop + (s32)somefloat, 5, i, fxxx, viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, unk28, viewtop + (s32)somefloat, 5, i, fxxx, viewleft, viewwidth);
 		somefloat += 1.0f / fyyy;
 	}
 
 	return gdl;
 }
 
-Gfx *hudRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
+Gfx *bviewRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
 {
 	s32 unk28 = vi2GetUnk28();
-	s32 top = viGetViewTop();
-	s32 y = viGetViewHeight();
-	s32 x = viGetViewWidth();
-	s32 left = viGetViewLeft();
+	s32 viewtop = viGetViewTop();
+	s32 viewheight = viGetViewHeight();
+	s32 viewwidth = viGetViewWidth();
+	s32 viewleft = viGetViewLeft();
 	s32 rand = random() & 0xfff00 | 0x80000000;
-	s32 ypos;
+	s32 y;
 
 	gDPPipeSync(gdl++);
 
-	gdl = func0f142274(gdl, arg1, arg2);
+	gdl = bviewPrepareStaticI8(gdl, arg1, arg2);
 
-	for (ypos = top; ypos < top + y; ypos++) {
-		gdl = func0f141ab0(gdl, rand, random() % 240, 5, ypos, 1.0f, left, x);
+	for (y = viewtop; y < viewtop + viewheight; y++) {
+		gdl = bviewRenderLensRect(gdl, rand, random() % 240, 5, y, 1.0f, viewleft, viewwidth);
 	}
 
 	if (rand) {
@@ -513,7 +513,7 @@ Gfx *hudRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
 	return gdl;
 }
 
-Gfx *hudRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
+Gfx *bviewRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 {
 	s32 sp7c = viGetUnk28();
 	s32 viewtop = viGetViewTop();
@@ -537,7 +537,7 @@ Gfx *hudRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 
 	increment = (2.6179938316345f - angle) / viewheight;
 
-	gdl = func0f1420b0(gdl, colour, alpha);
+	gdl = bviewPrepareStaticRgba16(gdl, colour, alpha);
 
 	for (y = viewtop; y < viewtop + viewheight; y++) {
 		s32 offsety = y - offset;
@@ -550,7 +550,7 @@ Gfx *hudRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 			}
 		}
 
-		gdl = func0f141ab0(gdl, sp7c, y, 5, y, 2.0f - sinf(angle), viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, sp7c, y, 5, y, 2.0f - sinf(angle), viewleft, viewwidth);
 
 		angle += increment;
 	}
@@ -558,7 +558,7 @@ Gfx *hudRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 	return gdl;
 }
 
-Gfx *func0f14298c(Gfx *gdl, u32 colour, u32 alpha)
+Gfx *bviewRenderFilmLens(Gfx *gdl, u32 colour, u32 alpha)
 {
 	s32 unk28 = viGetUnk28();
 	s32 viewtop = viGetViewTop();
@@ -579,7 +579,7 @@ Gfx *func0f14298c(Gfx *gdl, u32 colour, u32 alpha)
 
 	gDPPipeSync(gdl++);
 
-	gdl = func0f1420b0(gdl, colour, alpha);
+	gdl = bviewPrepareStaticRgba16(gdl, colour, alpha);
 
 	for (y = viewtop; y < viewtop + viewheight; y++) {
 		s32 offsety = y - offset;
@@ -597,13 +597,18 @@ Gfx *func0f14298c(Gfx *gdl, u32 colour, u32 alpha)
 			tmpy = random() % 200;
 		}
 
-		gdl = func0f141ab0(gdl, unk28, tmpy, 5, y, 1, viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, unk28, tmpy, 5, y, 1, viewleft, viewwidth);
 	}
 
 	return gdl;
 }
 
-Gfx *func0f142bf0(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
+/**
+ * Renders a zoom in/out motion blur effect.
+ *
+ * Used when entering/exiting combat boosts and when entering/exiting xray mode.
+ */
+Gfx *bviewRenderZoomBlur(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
 {
 	s32 unk28 = vi2GetUnk28();
 	s32 viewtop = viGetViewTop();
@@ -625,10 +630,10 @@ Gfx *func0f142bf0(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
 
 	somefloat = (viewheight - viewheight / arg4) * 0.5f;
 
-	gdl = func0f1420b0(gdl, colour, alpha);
+	gdl = bviewPrepareStaticRgba16(gdl, colour, alpha);
 
 	for (i = viewtop; i < viewtop + viewheight; i++) {
-		gdl = func0f141ab0(gdl, unk28, (s32)somefloat + viewtop, 5, i, arg3, viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, unk28, (s32)somefloat + viewtop, 5, i, arg3, viewleft, viewwidth);
 		somefloat += 1.0f / arg4;
 	}
 
@@ -658,7 +663,7 @@ f32 func0f142d74(s32 arg0, f32 arg1, f32 arg2, f32 arg3)
 }
 
 GLOBAL_ASM(
-glabel hudRenderEyespyView
+glabel bviewRenderFisheye
 .late_rodata
 glabel var7f1b5f40
 .word 0x3f83d70a
@@ -768,7 +773,7 @@ glabel var7f1b5f48
 /*  f142f80:	ac400004 */ 	sw	$zero,0x4($v0)
 /*  f142f84:	afa70084 */ 	sw	$a3,0x84($sp)
 /*  f142f88:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f142f8c:	0fc5082c */ 	jal	func0f1420b0
+/*  f142f8c:	0fc5082c */ 	jal	bviewPrepareStaticRgba16
 /*  f142f90:	02003025 */ 	or	$a2,$s0,$zero
 /*  f142f94:	8fae0084 */ 	lw	$t6,0x84($sp)
 /*  f142f98:	00408825 */ 	or	$s1,$v0,$zero
@@ -839,7 +844,7 @@ glabel var7f1b5f48
 /*  f143094:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f143098:	afb50018 */ 	sw	$s5,0x18($sp)
 /*  f14309c:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f1430a0:	0fc506ac */ 	jal	func0f141ab0
+/*  f1430a0:	0fc506ac */ 	jal	bviewRenderLensRect
 /*  f1430a4:	afb6001c */ 	sw	$s6,0x1c($sp)
 /*  f1430a8:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1430ac:	8fa30128 */ 	lw	$v1,0x128($sp)
@@ -932,7 +937,7 @@ glabel var7f1b5f48
 /*  f1431ec:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f1431f0:	afb50018 */ 	sw	$s5,0x18($sp)
 /*  f1431f4:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f1431f8:	0fc506ac */ 	jal	func0f141ab0
+/*  f1431f8:	0fc506ac */ 	jal	bviewRenderLensRect
 /*  f1431fc:	afb6001c */ 	sw	$s6,0x1c($sp)
 /*  f143200:	24010004 */ 	addiu	$at,$zero,0x4
 /*  f143204:	17c10019 */ 	bne	$s8,$at,.L0f14326c
@@ -958,7 +963,7 @@ glabel var7f1b5f48
 /*  f143254:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f143258:	afb50018 */ 	sw	$s5,0x18($sp)
 /*  f14325c:	afb6001c */ 	sw	$s6,0x1c($sp)
-/*  f143260:	0fc506ac */ 	jal	func0f141ab0
+/*  f143260:	0fc506ac */ 	jal	bviewRenderLensRect
 /*  f143264:	e7a80014 */ 	swc1	$f8,0x14($sp)
 /*  f143268:	00408825 */ 	or	$s1,$v0,$zero
 .L0f14326c:
@@ -1095,13 +1100,13 @@ glabel var7f1b5f48
 /*  f143454:	02202025 */ 	or	$a0,$s1,$zero
 /*  f143458:	02002825 */ 	or	$a1,$s0,$zero
 /*  f14345c:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f143460:	0fc507b5 */ 	jal	func0f141ed4
+/*  f143460:	0fc507b5 */ 	jal	bviewRenderFisheyeRect
 /*  f143464:	afb60010 */ 	sw	$s6,0x10($sp)
 /*  f143468:	4406a000 */ 	mfc1	$a2,$f20
 /*  f14346c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f143470:	02402825 */ 	or	$a1,$s2,$zero
 /*  f143474:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f143478:	0fc507b5 */ 	jal	func0f141ed4
+/*  f143478:	0fc507b5 */ 	jal	bviewRenderFisheyeRect
 /*  f14347c:	afb60010 */ 	sw	$s6,0x10($sp)
 /*  f143480:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f143484:	2652ffff */ 	addiu	$s2,$s2,-1
@@ -1157,7 +1162,7 @@ glabel var7f1b5f48
 /*  f14353c:	02a03825 */ 	or	$a3,$s5,$zero
 /*  f143540:	afb60010 */ 	sw	$s6,0x10($sp)
 /*  f143544:	44060000 */ 	mfc1	$a2,$f0
-/*  f143548:	0fc507b5 */ 	jal	func0f141ed4
+/*  f143548:	0fc507b5 */ 	jal	bviewRenderFisheyeRect
 /*  f14354c:	e7a00090 */ 	swc1	$f0,0x90($sp)
 /*  f143550:	c7a00090 */ 	lwc1	$f0,0x90($sp)
 /*  f143554:	12120008 */ 	beq	$s0,$s2,.L0f143578
@@ -1166,7 +1171,7 @@ glabel var7f1b5f48
 /*  f143560:	00402025 */ 	or	$a0,$v0,$zero
 /*  f143564:	02402825 */ 	or	$a1,$s2,$zero
 /*  f143568:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f14356c:	0fc507b5 */ 	jal	func0f141ed4
+/*  f14356c:	0fc507b5 */ 	jal	bviewRenderFisheyeRect
 /*  f143570:	afb60010 */ 	sw	$s6,0x10($sp)
 /*  f143574:	00408825 */ 	or	$s1,$v0,$zero
 .L0f143578:
@@ -1199,7 +1204,7 @@ glabel var7f1b5f48
 /*  f1435d8:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1435dc:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1435e0:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f1435e4:	0fc507b5 */ 	jal	func0f141ed4
+/*  f1435e4:	0fc507b5 */ 	jal	bviewRenderFisheyeRect
 /*  f1435e8:	afb60010 */ 	sw	$s6,0x10($sp)
 /*  f1435ec:	02539021 */ 	addu	$s2,$s2,$s3
 /*  f1435f0:	44922000 */ 	mtc1	$s2,$f4
@@ -1241,7 +1246,7 @@ glabel var7f1b5f48
 /*  f143674:	27bd0130 */ 	addiu	$sp,$sp,0x130
 );
 
-Gfx *hudRenderEyespySideRect(Gfx *gdl, s32 *points, u8 r, u8 g, u8 b, u8 alpha)
+Gfx *bviewRenderEyespySideRect(Gfx *gdl, s32 *points, u8 r, u8 g, u8 b, u8 alpha)
 {
 	struct gfxvtx *vertices = gfxAllocateVertices(4);
 	u32 *colours = gfxAllocateColours(2);
@@ -1300,7 +1305,7 @@ const char var7f1b5e48[] = "%s";
 const char var7f1b5e4c[] = "%s";
 
 GLOBAL_ASM(
-glabel hudRenderEyespyUi
+glabel bviewRenderEyespyDecorations
 .late_rodata
 glabel var7f1b5f4c
 .word 0x3a83126f
@@ -5028,7 +5033,7 @@ glabel var7f1b5f58
 /*  f146fe4:	14600006 */ 	bnez	$v1,.L0f147000
 /*  f146fe8:	00000000 */ 	nop
 /*  f146fec:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f146ff0:	0fc50d9e */ 	jal	hudRenderEyespySideRect
+/*  f146ff0:	0fc50d9e */ 	jal	bviewRenderEyespySideRect
 /*  f146ff4:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f146ff8:	10000017 */ 	b	.L0f147058
 /*  f146ffc:	0040a825 */ 	or	$s5,$v0,$zero
@@ -5042,7 +5047,7 @@ glabel var7f1b5f58
 /*  f147018:	27a50224 */ 	addiu	$a1,$sp,0x224
 /*  f14701c:	24060010 */ 	addiu	$a2,$zero,0x10
 /*  f147020:	326700ff */ 	andi	$a3,$s3,0xff
-/*  f147024:	0fc50d9e */ 	jal	hudRenderEyespySideRect
+/*  f147024:	0fc50d9e */ 	jal	bviewRenderEyespySideRect
 /*  f147028:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f14702c:	1000000a */ 	b	.L0f147058
 /*  f147030:	0040a825 */ 	or	$s5,$v0,$zero
@@ -5053,7 +5058,7 @@ glabel var7f1b5f58
 /*  f147040:	27a50224 */ 	addiu	$a1,$sp,0x224
 /*  f147044:	326600ff */ 	andi	$a2,$s3,0xff
 /*  f147048:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f14704c:	0fc50d9e */ 	jal	hudRenderEyespySideRect
+/*  f14704c:	0fc50d9e */ 	jal	bviewRenderEyespySideRect
 /*  f147050:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f147054:	0040a825 */ 	or	$s5,$v0,$zero
 .L0f147058:
@@ -5184,7 +5189,7 @@ glabel var7f1b5f58
 /*  f147234:	14600006 */ 	bnez	$v1,.L0f147250
 /*  f147238:	00000000 */ 	nop
 /*  f14723c:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f147240:	0fc50d9e */ 	jal	hudRenderEyespySideRect
+/*  f147240:	0fc50d9e */ 	jal	bviewRenderEyespySideRect
 /*  f147244:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f147248:	10000017 */ 	b	.L0f1472a8
 /*  f14724c:	0040a825 */ 	or	$s5,$v0,$zero
@@ -5198,7 +5203,7 @@ glabel var7f1b5f58
 /*  f147268:	27a50224 */ 	addiu	$a1,$sp,0x224
 /*  f14726c:	24060010 */ 	addiu	$a2,$zero,0x10
 /*  f147270:	326700ff */ 	andi	$a3,$s3,0xff
-/*  f147274:	0fc50d9e */ 	jal	hudRenderEyespySideRect
+/*  f147274:	0fc50d9e */ 	jal	bviewRenderEyespySideRect
 /*  f147278:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f14727c:	1000000a */ 	b	.L0f1472a8
 /*  f147280:	0040a825 */ 	or	$s5,$v0,$zero
@@ -5209,7 +5214,7 @@ glabel var7f1b5f58
 /*  f147290:	27a50224 */ 	addiu	$a1,$sp,0x224
 /*  f147294:	326600ff */ 	andi	$a2,$s3,0xff
 /*  f147298:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f14729c:	0fc50d9e */ 	jal	hudRenderEyespySideRect
+/*  f14729c:	0fc50d9e */ 	jal	bviewRenderEyespySideRect
 /*  f1472a0:	afa20014 */ 	sw	$v0,0x14($sp)
 /*  f1472a4:	0040a825 */ 	or	$s5,$v0,$zero
 .L0f1472a8:
@@ -5257,7 +5262,7 @@ glabel var7f1b5f58
 // 4420: writes to x2 and y2 are misordered
 // Other mismatches are mostly regalloc and swapped instructions which will likely
 // resolve themselves once the above is fixed.
-//Gfx *hudRenderEyespyUi(Gfx *gdl)
+//Gfx *bviewRenderEyespyDecorations(Gfx *gdl)
 //{
 //	char text[256]; // 308
 //	s32 viewleft = viGetViewLeft(); // 304
@@ -6165,13 +6170,13 @@ glabel var7f1b5f58
 //
 //				// 6fec
 //				if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
-//					gdl = hudRenderEyespySideRect(gdl, points, 0, brightness, 0, alpha);
+//					gdl = bviewRenderEyespySideRect(gdl, points, 0, brightness, 0, alpha);
 //				} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
 //					// 7014
-//					gdl = hudRenderEyespySideRect(gdl, points, 0x10, brightness, brightness * 3, alpha);
+//					gdl = bviewRenderEyespySideRect(gdl, points, 0x10, brightness, brightness * 3, alpha);
 //				} else {
 //					// 7080
-//					gdl = hudRenderEyespySideRect(gdl, points, brightness, brightness >> 2, 0, alpha);
+//					gdl = bviewRenderEyespySideRect(gdl, points, brightness, brightness >> 2, 0, alpha);
 //				}
 //
 //				y += barheight;
@@ -6219,11 +6224,11 @@ glabel var7f1b5f58
 //
 //				if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
 //					// 7240
-//					gdl = hudRenderEyespySideRect(gdl, points, 0, brightness, 0, alpha);
+//					gdl = bviewRenderEyespySideRect(gdl, points, 0, brightness, 0, alpha);
 //				} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
-//					gdl = hudRenderEyespySideRect(gdl, points, 0x10, brightness, brightness * 3, alpha);
+//					gdl = bviewRenderEyespySideRect(gdl, points, 0x10, brightness, brightness * 3, alpha);
 //				} else {
-//					gdl = hudRenderEyespySideRect(gdl, points, brightness, brightness >> 2, 0, alpha);
+//					gdl = bviewRenderEyespySideRect(gdl, points, brightness, brightness >> 2, 0, alpha);
 //				}
 //
 //				y += barheight;
@@ -6244,7 +6249,7 @@ void func0f1572f8(void)
 }
 
 GLOBAL_ASM(
-glabel func0f1472fc
+glabel bviewRenderNvLens
 /*  f1472fc:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f147300:	afbf0054 */ 	sw	$ra,0x54($sp)
 /*  f147304:	afb10034 */ 	sw	$s1,0x34($sp)
@@ -6329,7 +6334,7 @@ glabel func0f1472fc
 /*  f147438:	8f39e4f8 */ 	lw	$t9,%lo(g_Menus+0x4f8)($t9)
 /*  f14743c:	57200005 */ 	bnezl	$t9,.L0f147454
 /*  f147440:	02201025 */ 	or	$v0,$s1,$zero
-/*  f147444:	0fc5090e */ 	jal	hudRenderMotionBlur
+/*  f147444:	0fc5090e */ 	jal	bviewRenderMotionBlur
 /*  f147448:	24060060 */ 	addiu	$a2,$zero,0x60
 /*  f14744c:	00408825 */ 	or	$s1,$v0,$zero
 /*  f147450:	02201025 */ 	or	$v0,$s1,$zero
@@ -6339,7 +6344,7 @@ glabel func0f1472fc
 /*  f14745c:	ac400004 */ 	sw	$zero,0x4($v0)
 /*  f147460:	26240008 */ 	addiu	$a0,$s1,0x8
 /*  f147464:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f147468:	0fc5082c */ 	jal	func0f1420b0
+/*  f147468:	0fc5082c */ 	jal	bviewPrepareStaticRgba16
 /*  f14746c:	240600ff */ 	addiu	$a2,$zero,0xff
 /*  f147470:	3c128008 */ 	lui	$s2,%hi(var8007f878)
 /*  f147474:	2652f878 */ 	addiu	$s2,$s2,%lo(var8007f878)
@@ -6390,7 +6395,7 @@ glabel func0f1472fc
 /*  f147518:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f14751c:	8fa5005c */ 	lw	$a1,0x5c($sp)
 /*  f147520:	02003025 */ 	or	$a2,$s0,$zero
-/*  f147524:	0fc506ac */ 	jal	func0f141ab0
+/*  f147524:	0fc506ac */ 	jal	bviewRenderLensRect
 /*  f147528:	24070005 */ 	addiu	$a3,$zero,0x5
 /*  f14752c:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f147530:	161effdd */ 	bne	$s0,$s8,.L0f1474a8
@@ -6415,7 +6420,7 @@ glabel func0f1472fc
 
 // Mismatch because var8009caec and friends needs to be moved into this file,
 // and regalloc near random().
-//Gfx *func0f1472fc(Gfx *gdl)
+//Gfx *bviewRenderNvLens(Gfx *gdl)
 //{
 //	s32 unk28 = viGetUnk28();
 //	s32 viewheight = viGetViewHeight();
@@ -6447,12 +6452,12 @@ glabel func0f1472fc
 //	}
 //
 //	if (g_Menus[g_Vars.currentplayerstats->mpindex].curframe == NULL) {
-//		gdl = hudRenderMotionBlur(gdl, 0x00ff0000, 0x60);
+//		gdl = bviewRenderMotionBlur(gdl, 0x00ff0000, 0x60);
 //	}
 //
 //	gDPPipeSync(gdl++);
 //
-//	gdl = func0f1420b0(gdl, 0xffffffff, 0xff);
+//	gdl = bviewPrepareStaticRgba16(gdl, 0xffffffff, 0xff);
 //
 //	var8007f878++;
 //
@@ -6468,13 +6473,13 @@ glabel func0f1472fc
 //
 //		gDPSetColor(gdl++, G_SETENVCOLOR, (green << 16) + 0xff);
 //
-//		gdl = func0f141ab0(gdl, unk28, y, 5, y, 1, viewleft, viewwidth);
+//		gdl = bviewRenderLensRect(gdl, unk28, y, 5, y, 1, viewleft, viewwidth);
 //	}
 //
 //	return gdl;
 //}
 
-Gfx *func0f147570(Gfx *gdl)
+Gfx *bviewRenderNvBinoculars(Gfx *gdl)
 {
 	return gdl;
 }
@@ -6484,7 +6489,7 @@ const char var7f1b5e6c[] = "Fullscreen_DrawFaultScope";
 const char var7f1b5e88[] = "IntroFaderBlurGfx";
 
 GLOBAL_ASM(
-glabel func0f147578
+glabel bviewRenderIrLens
 /*  f147578:	27bdff10 */ 	addiu	$sp,$sp,-240
 /*  f14757c:	afbf005c */ 	sw	$ra,0x5c($sp)
 /*  f147580:	afb40048 */ 	sw	$s4,0x48($sp)
@@ -6674,7 +6679,7 @@ glabel func0f147578
 /*  f147828:	ac400004 */ 	sw	$zero,0x4($v0)
 /*  f14782c:	26840008 */ 	addiu	$a0,$s4,0x8
 /*  f147830:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f147834:	0fc5082c */ 	jal	func0f1420b0
+/*  f147834:	0fc5082c */ 	jal	bviewPrepareStaticRgba16
 /*  f147838:	01003025 */ 	or	$a2,$t0,$zero
 /*  f14783c:	8faa00ac */ 	lw	$t2,0xac($sp)
 /*  f147840:	0040a025 */ 	or	$s4,$v0,$zero
@@ -6767,7 +6772,7 @@ glabel func0f147578
 /*  f14798c:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f147990:	01029021 */ 	addu	$s2,$t0,$v0
 /*  f147994:	01929823 */ 	subu	$s3,$t4,$s2
-/*  f147998:	0fc506ac */ 	jal	func0f141ab0
+/*  f147998:	0fc506ac */ 	jal	bviewRenderLensRect
 /*  f14799c:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1479a0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1479a4:	03c02825 */ 	or	$a1,$s8,$zero
@@ -6776,7 +6781,7 @@ glabel func0f147578
 /*  f1479b0:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f1479b4:	e7b60014 */ 	swc1	$f22,0x14($sp)
 /*  f1479b8:	afb20018 */ 	sw	$s2,0x18($sp)
-/*  f1479bc:	0fc506ac */ 	jal	func0f141ab0
+/*  f1479bc:	0fc506ac */ 	jal	bviewRenderLensRect
 /*  f1479c0:	afb3001c */ 	sw	$s3,0x1c($sp)
 /*  f1479c4:	3c0dee00 */ 	lui	$t5,0xee00
 /*  f1479c8:	35ad00ff */ 	ori	$t5,$t5,0xff
@@ -6790,7 +6795,7 @@ glabel func0f147578
 /*  f1479e8:	03c02825 */ 	or	$a1,$s8,$zero
 /*  f1479ec:	02003025 */ 	or	$a2,$s0,$zero
 /*  f1479f0:	24070005 */ 	addiu	$a3,$zero,0x5
-/*  f1479f4:	0fc506ac */ 	jal	func0f141ab0
+/*  f1479f4:	0fc506ac */ 	jal	bviewRenderLensRect
 /*  f1479f8:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f1479fc:	1000000a */ 	b	.L0f147a28
 /*  f147a00:	0040a025 */ 	or	$s4,$v0,$zero
@@ -6801,7 +6806,7 @@ glabel func0f147578
 /*  f147a10:	afb00010 */ 	sw	$s0,0x10($sp)
 /*  f147a14:	e7b60014 */ 	swc1	$f22,0x14($sp)
 /*  f147a18:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f147a1c:	0fc506ac */ 	jal	func0f141ab0
+/*  f147a1c:	0fc506ac */ 	jal	bviewRenderLensRect
 /*  f147a20:	afb8001c */ 	sw	$t8,0x1c($sp)
 /*  f147a24:	0040a025 */ 	or	$s4,$v0,$zero
 .L0f147a28:
@@ -6842,7 +6847,7 @@ glabel func0f147578
 /*  f147aa8:	8d6be4f8 */ 	lw	$t3,%lo(g_Menus+0x4f8)($t3)
 /*  f147aac:	55600005 */ 	bnezl	$t3,.L0f147ac4
 /*  f147ab0:	02801025 */ 	or	$v0,$s4,$zero
-/*  f147ab4:	0fc5090e */ 	jal	hudRenderMotionBlur
+/*  f147ab4:	0fc5090e */ 	jal	bviewRenderMotionBlur
 /*  f147ab8:	24060040 */ 	addiu	$a2,$zero,0x40
 /*  f147abc:	0040a025 */ 	or	$s4,$v0,$zero
 /*  f147ac0:	02801025 */ 	or	$v0,$s4,$zero
@@ -6908,7 +6913,7 @@ glabel func0f147578
 /*  f147ba8:	26440008 */ 	addiu	$a0,$s2,0x8
 /*  f147bac:	ae400004 */ 	sw	$zero,0x4($s2)
 /*  f147bb0:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f147bb4:	0fc5082c */ 	jal	func0f1420b0
+/*  f147bb4:	0fc5082c */ 	jal	bviewPrepareStaticRgba16
 /*  f147bb8:	240600ff */ 	addiu	$a2,$zero,0xff
 /*  f147bbc:	8fa30080 */ 	lw	$v1,0x80($sp)
 /*  f147bc0:	8fa4007c */ 	lw	$a0,0x7c($sp)
@@ -6970,7 +6975,7 @@ glabel func0f147578
 /*  f147c90:	afb4001c */ 	sw	$s4,0x1c($sp)
 /*  f147c94:	46149102 */ 	mul.s	$f4,$f18,$f20
 /*  f147c98:	46162180 */ 	add.s	$f6,$f4,$f22
-/*  f147c9c:	0fc506ac */ 	jal	func0f141ab0
+/*  f147c9c:	0fc506ac */ 	jal	bviewRenderLensRect
 /*  f147ca0:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f147ca4:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f147ca8:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -7000,14 +7005,14 @@ glabel func0f147578
 /**
  * Called from the title screen's "Rare Presents" mode, which is unused.
  */
-Gfx *func0f147cf8(Gfx *gdl)
+Gfx *bviewRenderRarePresents(Gfx *gdl)
 {
 	s32 unk28 = viGetUnk28();
-	s32 top = viGetViewTop();
-	s32 y = viGetViewHeight();
-	s32 x = viGetViewWidth();
-	s32 left = viGetViewLeft();
-	s32 ypos;
+	s32 viewtop = viGetViewTop();
+	s32 viewheight = viGetViewHeight();
+	s32 viewwidth = viGetViewWidth();
+	s32 viewleft = viGetViewLeft();
+	s32 y;
 
 	var8007f840++;
 
@@ -7019,10 +7024,10 @@ Gfx *func0f147cf8(Gfx *gdl)
 
 	gDPPipeSync(gdl++);
 
-	gdl = func0f1420b0(gdl, 0x8f8f8f8f, 255);
+	gdl = bviewPrepareStaticRgba16(gdl, 0x8f8f8f8f, 255);
 
-	for (ypos = top; ypos < top + y; ypos += 2) {
-		gdl = func0f141ab0(gdl, unk28, ypos, 5, ypos, 1.0f, left, x);
+	for (y = viewtop; y < viewtop + viewheight; y += 2) {
+		gdl = bviewRenderLensRect(gdl, unk28, y, 5, y, 1.0f, viewleft, viewwidth);
 	}
 
 	return gdl;
@@ -7030,7 +7035,7 @@ Gfx *func0f147cf8(Gfx *gdl)
 
 u8 var8007f878 = 0;
 
-Gfx *hudRenderHorizonScanner(Gfx *gdl)
+Gfx *bviewRenderHorizonScanner(Gfx *gdl)
 {
 	s32 sp194 = viGetUnk28();
 	s32 viewtop = viGetViewTop();
@@ -7179,7 +7184,7 @@ Gfx *hudRenderHorizonScanner(Gfx *gdl)
 
 	gDPPipeSync(gdl++);
 
-	gdl = func0f1420b0(gdl, 0xffffffff, 255);
+	gdl = bviewPrepareStaticRgba16(gdl, 0xffffffff, 255);
 
 	if (vsplit) {
 		vsplit = 14;
@@ -7232,7 +7237,7 @@ Gfx *hudRenderHorizonScanner(Gfx *gdl)
 
 		gDPSetColor(gdl++, G_SETENVCOLOR, colour);
 
-		gdl = func0f141ab0(gdl, sp194, liney, 5, liney, random() * (1.0f / U32_MAX) * range + 1, viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, sp194, liney, 5, liney, random() * (1.0f / U32_MAX) * range + 1, viewleft, viewwidth);
 	}
 
 	return gdl;
@@ -7246,7 +7251,7 @@ Gfx *hudRenderHorizonScanner(Gfx *gdl)
  * screen is then iterated top to bottom, one line at a time, and draws
  * black rectangles on each line to fill in the area outside the circles.
  */
-Gfx *hudRenderIrBinoculars(Gfx *gdl)
+Gfx *bviewRenderIrBinoculars(Gfx *gdl)
 {
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
@@ -7277,21 +7282,21 @@ Gfx *hudRenderIrBinoculars(Gfx *gdl)
 
 			// Left side
 			if (leftx - xoffset > viewleft) {
-				gdl = hudRenderIrRect(gdl, viewleft, y, leftx - xoffset, y + 1);
+				gdl = bviewRenderIrRect(gdl, viewleft, y, leftx - xoffset, y + 1);
 			}
 
 			// Middle (top and bottom)
 			if (leftx + xoffset < rightx - xoffset) {
-				gdl = hudRenderIrRect(gdl, leftx + xoffset, y, rightx - xoffset, y + 1);
+				gdl = bviewRenderIrRect(gdl, leftx + xoffset, y, rightx - xoffset, y + 1);
 			}
 
 			// Right side
 			if (rightx + xoffset < viewright) {
-				gdl = hudRenderIrRect(gdl, rightx + xoffset, y, viewright, y + 1);
+				gdl = bviewRenderIrRect(gdl, rightx + xoffset, y, viewright, y + 1);
 			}
 		} else {
 			// Very top or bottom - whole line is black
-			gdl = hudRenderIrRect(gdl, viewleft, y, viewright, y + 1);
+			gdl = bviewRenderIrRect(gdl, viewleft, y, viewright, y + 1);
 		}
 	}
 

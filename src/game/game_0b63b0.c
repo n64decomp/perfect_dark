@@ -11421,14 +11421,14 @@ Gfx *func0f0c07c8(Gfx *gdl)
 				&& var80070764 == 0
 				&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 				&& ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit) & DEVICE_NIGHTVISION)) {
-			gdl = func0f1472fc(gdl);
-			gdl = func0f147570(gdl);
+			gdl = bviewRenderNvLens(gdl);
+			gdl = bviewRenderNvBinoculars(gdl);
 		} else if (g_Vars.currentplayer->isdead == false
 				&& var80070764 == 0
 				&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 				&& ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit) & DEVICE_IRSCANNER)) {
-			gdl = func0f147578(gdl);
-			gdl = hudRenderIrBinoculars(gdl);
+			gdl = bviewRenderIrLens(gdl);
+			gdl = bviewRenderIrBinoculars(gdl);
 		}
 
 		if (g_Vars.currentplayer->eyesshutfrac > 0) {
@@ -11648,7 +11648,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 		gdl = func0f0abcb0(gdl);
 
 		if (getCurrentPlayerWeaponId(0) == WEAPON_HORIZONSCANNER) {
-			gdl = hudRenderHorizonScanner(gdl);
+			gdl = bviewRenderHorizonScanner(gdl);
 		}
 
 		if (optionsGetAmmoOnScreen(g_Vars.currentplayerstats->mpindex)) {
@@ -11663,24 +11663,24 @@ Gfx *func0f0c07c8(Gfx *gdl)
 
 		if (g_Vars.currentplayer->eyespy) {
 			if (g_Vars.currentplayer->eyespy->startuptimer60 < 50) {
-				gdl = hudRenderEyespyView(gdl, -1, 255, 0, g_Vars.currentplayer->eyespy->startuptimer60, g_Vars.currentplayer->eyespy->hit);
+				gdl = bviewRenderFisheye(gdl, -1, 255, 0, g_Vars.currentplayer->eyespy->startuptimer60, g_Vars.currentplayer->eyespy->hit);
 			} else {
 				s32 time = g_Vars.currentplayer->eyespy->camerashuttertime;
 
 				if (time > 0) {
 					if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
-						gdl = hudRenderEyespyView(gdl, -1, 255, time, 50, g_Vars.currentplayer->eyespy->hit);
+						gdl = bviewRenderFisheye(gdl, -1, 255, time, 50, g_Vars.currentplayer->eyespy->hit);
 					} else {
-						gdl = hudRenderEyespyView(gdl, -1, 255, 0, 50, g_Vars.currentplayer->eyespy->hit);
+						gdl = bviewRenderFisheye(gdl, -1, 255, 0, 50, g_Vars.currentplayer->eyespy->hit);
 					}
 
 					g_Vars.currentplayer->eyespy->camerashuttertime -= g_Vars.lvupdate240_60;
 				} else {
-					gdl = hudRenderEyespyView(gdl, -1, 255, 0, 50, g_Vars.currentplayer->eyespy->hit);
+					gdl = bviewRenderFisheye(gdl, -1, 255, 0, 50, g_Vars.currentplayer->eyespy->hit);
 				}
 			}
 
-			gdl = hudRenderEyespyUi(gdl);
+			gdl = bviewRenderEyespyDecorations(gdl);
 		}
 
 		if (g_Vars.currentplayer->mpmenuon) {

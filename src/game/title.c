@@ -3488,7 +3488,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 		gdl = func0f153a34(gdl, sp84 + 2, sp80, sp84 + 12, sp80 + 20, tmp);
 	}
 
-	gdl = func0f147cf8(gdl);
+	gdl = bviewRenderRarePresents(gdl);
 
 	if (g_TitleTimer > 222) {
 		f32 tmp2 = ((g_TitleTimer - 222.0f) / 78.0f);
