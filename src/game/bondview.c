@@ -357,6 +357,60 @@ glabel bviewRenderLensRect
 /*  f141ed0:	00801025 */ 	or	$v0,$a0,$zero
 );
 
+// Mismatch due to wildly different codegen
+//Gfx *bviewRenderLensRect(Gfx *gdl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5, s32 left, s32 width)
+//{
+//	if (width > 320) {
+//		s32 sp70 = width / 2;
+//
+//		if (sp70);
+//
+//		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, ((viGetX() * arg2 + left) * 2 + arg1));
+//		gDPLoadBlock(gdl++, arg3, 0, 0, sp70 - 1, 0);
+//		gSPTextureRectangle(gdl++,
+//				left << 2,
+//				arg4 << 2,
+//				(left + sp70) << 2,
+//				(arg4 + 1) << 2,
+//				G_TX_RENDERTILE,
+//				(width - width / arg5) * 16.0f,
+//				0,
+//				(s32)(1024.0f / arg5),
+//				1024);
+//
+//		left += sp70;
+//
+//		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, ((viGetX() * arg2 + left) * 2 + arg1));
+//		gDPLoadBlock(gdl++, arg3, 0, 0, sp70 - 1, 0);
+//		gSPTextureRectangle(gdl++,
+//				left << 2,
+//				arg4 << 2,
+//				(left + sp70) << 2,
+//				(arg4 + 1) << 2,
+//				G_TX_RENDERTILE,
+//				0,
+//				0,
+//				(s32)(1024.0f / arg5),
+//				1024);
+//
+//	} else {
+//		gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, ((viGetX() * arg2 + left) * 2 + arg1));
+//		gDPLoadBlock(gdl++, arg3, 0, 0, width - 1, 0);
+//		gSPTextureRectangle(gdl++,
+//				left << 2,
+//				arg4 << 2,
+//				(left + width) << 2,
+//				(arg4 + 1) << 2,
+//				G_TX_RENDERTILE,
+//				(width - width / arg5) * 16.0f,
+//				0,
+//				(s32)(1024.0f / arg5),
+//				1024);
+//	}
+//
+//	return gdl;
+//}
+
 Gfx *bviewRenderFisheyeRect(Gfx *gdl, s32 arg1, f32 arg2, s32 arg3, s32 arg4)
 {
 	if (arg2 < 1) {
