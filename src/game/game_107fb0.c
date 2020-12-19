@@ -577,7 +577,7 @@ char *filemgrMenuTextInsertOriginalPak(struct menuitem *item)
 	// "Please insert the Controller Pak containing your %s into any controller."
 	sprintf(fullbuffer, langGet(L_OPTIONS(363)), namebuffer);
 
-	textWrap(120, fullbuffer, g_StringPointer, var8007fb10, var8007fb0c);
+	textWrap(120, fullbuffer, g_StringPointer, g_FontHandelGothicSm1, g_FontHandelGothicSm2);
 
 	return g_StringPointer;
 }
@@ -1563,7 +1563,7 @@ s32 filemgrFileToCopyOrDeleteListMenuHandler(u32 operation, struct menuitem *ite
 
 				if (location000) {
 					filemgrGetFileName(text, location000, g_Menus[g_MpPlayerNum].data.filemgr.filetypeplusone - 1);
-					gdl = textRenderProjected(gdl, &x, &y, text, var8007fb10, var8007fb0c,
+					gdl = textRenderProjected(gdl, &x, &y, text, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
 							colour, viGetX(), viGetY(), 0, 1);
 					y = renderdata->y + 12;
 					x = renderdata->x + 2;
@@ -1727,7 +1727,7 @@ s32 pakGameNoteListMenuHandler(u32 operation, struct menuitem *item, union handl
 		sprintf(generalbuffer, "%d:\n", data->list.unk04 + 1);
 		x = renderdata->x + 4;
 		y = renderdata->y + 1;
-		gdl = textRenderProjected(gdl, &x, &y, generalbuffer, var8007fb10, var8007fb0c,
+		gdl = textRenderProjected(gdl, &x, &y, generalbuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
 				renderdata->colour, viGetX(), viGetY(), 0, 1);
 
 		// Prepare buffers for remaining text
@@ -1749,21 +1749,21 @@ s32 pakGameNoteListMenuHandler(u32 operation, struct menuitem *item, union handl
 		// Render note name
 		x = renderdata->x + 20;
 		y = renderdata->y + 1;
-		gdl = textRenderProjected(gdl, &x, &y, generalbuffer, var8007fb10, var8007fb0c,
+		gdl = textRenderProjected(gdl, &x, &y, generalbuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
 				renderdata->colour, viGetX(), viGetY(), 0, 1);
 
 		// Render ext character (for when a game has multiple notes)
 		x = renderdata->x + 190;
 		y = renderdata->y + 1;
-		gdl = textRenderProjected(gdl, &x, &y, extbuffer, var8007fb10, var8007fb0c,
+		gdl = textRenderProjected(gdl, &x, &y, extbuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
 				renderdata->colour, viGetX(), viGetY(), 0, 1);
 
 		// Render number of pages
-		textMeasure(&textheight, &textwidth, pagesbuffer, var8007fb10, var8007fb0c, 0);
+		textMeasure(&textheight, &textwidth, pagesbuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0);
 
 		x = renderdata->x + renderdata->width - textwidth - 6;
 		y = renderdata->y + 1;
-		gdl = textRenderProjected(gdl, &x, &y, pagesbuffer, var8007fb10, var8007fb0c,
+		gdl = textRenderProjected(gdl, &x, &y, pagesbuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
 				renderdata->colour, viGetX(), viGetY(), 0, 1);
 
 		return (u32)gdl;
@@ -2097,12 +2097,12 @@ s32 filemgrChooseAgentListMenuHandler(u32 operation, struct menuitem *item, unio
 		if (data->list.unk04 == g_FileLists[0]->numfiles) {
 			// "New Agent..."
 			gdl = textRenderProjected(gdl, &x, &y, langGet(L_OPTIONS(403)),
-					var8007fb18, var8007fb14, renderdata->colour, viGetX(), viGetY(), 0, 0);
+					g_FontHandelGothicMd1, g_FontHandelGothicMd2, renderdata->colour, viGetX(), viGetY(), 0, 0);
 		} else {
 			if (location000) {
 				// Render file name
 				gdl = textRenderProjected(gdl, &x, &y, name,
-						var8007fb18, var8007fb14, renderdata->colour, viGetX(), viGetY(), 0, 1);
+						g_FontHandelGothicMd1, g_FontHandelGothicMd2, renderdata->colour, viGetX(), viGetY(), 0, 1);
 
 				// Prepare and render stage name
 				y = renderdata->y + 18;
@@ -2119,7 +2119,7 @@ s32 filemgrChooseAgentListMenuHandler(u32 operation, struct menuitem *item, unio
 
 				strcat(buffer, "\n");
 				gdl = textRenderProjected(gdl, &x, &y, buffer,
-						var8007fb10, var8007fb0c, renderdata->colour, viGetX(), viGetY(), 0, 0);
+						g_FontHandelGothicSm1, g_FontHandelGothicSm2, renderdata->colour, viGetX(), viGetY(), 0, 0);
 
 				// Prepare and render mission time
 				x = renderdata->x + 62;
@@ -2134,17 +2134,17 @@ s32 filemgrChooseAgentListMenuHandler(u32 operation, struct menuitem *item, unio
 				}
 
 				// Useless - textwidth and textheight are not used
-				textMeasure(&textheight, &textwidth, buffer, var8007fb10, var8007fb0c, 0);
+				textMeasure(&textheight, &textwidth, buffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0);
 
 				gdl = textRenderProjected(gdl, &x, &y, buffer,
-						var8007fb10, var8007fb0c, renderdata->colour, viGetX(), viGetY(), 0, 0);
+						g_FontHandelGothicSm1, g_FontHandelGothicSm2, renderdata->colour, viGetX(), viGetY(), 0, 0);
 
 				// Render seconds part of mission time (uses a smaller font)
 				y++;
 				x++;
 				sprintf(buffer, ".%02d", seconds);
 				gdl = textRenderProjected(gdl, &x, &y, buffer,
-						var8007fb08, var8007fb04, renderdata->colour, viGetX(), viGetY(), 0, 0);
+						g_FontHandelGothicXs1, g_FontHandelGothicXs2, renderdata->colour, viGetX(), viGetY(), 0, 0);
 			}
 		}
 		gdl = func0f153780(gdl);

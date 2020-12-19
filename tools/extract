@@ -210,22 +210,22 @@ class Extractor:
         addr = self.val('firingrange')
         self.write('segments/firingrange.bin', self.rom[addr:addr+0x1550])
 
-    def extract_font(self, startvar, endvar):
+    def extract_font(self, startvar, endvar, fontname):
         start = self.val(startvar)
         end = self.val(endvar)
-        self.write('segments/%s.bin' % startvar, self.rom[start:end])
+        self.write('segments/font%s.bin' % fontname, self.rom[start:end])
 
     def extract_fonts(self):
-        self.extract_font('font0', 'font1')
-        self.extract_font('font1', 'font2')
-        self.extract_font('font2', 'font3')
-        self.extract_font('font3', 'font4')
-        self.extract_font('font4', 'font5')
-        self.extract_font('font5', 'font6')
-        self.extract_font('font6', 'font7')
-        self.extract_font('font7', 'font8')
-        self.extract_font('font8', 'font9')
-        self.extract_font('font9', 'sfxctl')
+        self.extract_font('font0', 'font1', 'bankgothic')
+        self.extract_font('font1', 'font2', 'zurich')
+        self.extract_font('font2', 'font3', 'tahoma')
+        self.extract_font('font3', 'font4', 'numeric')
+        self.extract_font('font4', 'font5', 'handelgothicsm')
+        self.extract_font('font5', 'font6', 'handelgothicxs')
+        self.extract_font('font6', 'font7', 'handelgothicmd')
+        self.extract_font('font7', 'font8', 'handelgothiclg')
+        self.extract_font('font8', 'font9', 'ocramd')
+        self.extract_font('font9', 'sfxctl', 'ocralg')
 
     def extract_rspboot(self):
         self.write('segments/rspboot.bin', self.rom[0x40:0x1000])

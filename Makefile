@@ -119,16 +119,16 @@ SEGMENT_O_FILES := \
 	$(B_DIR)/accessingpak.o \
 	$(B_DIR)/animations.o \
 	$(B_DIR)/copyright.o \
-	$(B_DIR)/font0.o \
-	$(B_DIR)/font1.o \
-	$(B_DIR)/font2.o \
-	$(B_DIR)/font3.o \
-	$(B_DIR)/font4.o \
-	$(B_DIR)/font5.o \
-	$(B_DIR)/font6.o \
-	$(B_DIR)/font7.o \
-	$(B_DIR)/font8.o \
-	$(B_DIR)/font9.o \
+	$(B_DIR)/fontbankgothic.o \
+	$(B_DIR)/fontzurich.o \
+	$(B_DIR)/fonttahoma.o \
+	$(B_DIR)/fontnumeric.o \
+	$(B_DIR)/fonthandelgothicsm.o \
+	$(B_DIR)/fonthandelgothicxs.o \
+	$(B_DIR)/fonthandelgothicmd.o \
+	$(B_DIR)/fonthandelgothiclg.o \
+	$(B_DIR)/fontocramd.o \
+	$(B_DIR)/fontocralg.o \
 	$(B_DIR)/romheader.o \
 	$(B_DIR)/rspboot.o \
 	$(B_DIR)/seq.ctl.o \

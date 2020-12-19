@@ -37,12 +37,12 @@
 	} \
 	END_SEG(mpstrings##lang)
 
-#define FONT(index) \
-	BEGIN_SEG(font##index) \
+#define FONT(name) \
+	BEGIN_SEG(font##name) \
 	{ \
-		build/ROMID/font##index.o (.data); \
+		build/ROMID/font##name.o (.data); \
 	} \
-	END_SEG(font##index)
+	END_SEG(font##name)
 
 /**
  * Placeholder segments are used to mark the locations where zipped content will
@@ -383,16 +383,16 @@ SECTIONS
 	 * -------------------------------------------------------------------------
 	 */
 
-	FONT(0)
-	FONT(1)
-	FONT(2)
-	FONT(3)
-	FONT(4)
-	FONT(5)
-	FONT(6)
-	FONT(7)
-	FONT(8)
-	FONT(9)
+	FONT(bankgothic)
+	FONT(zurich)
+	FONT(tahoma)
+	FONT(numeric)
+	FONT(handelgothicsm)
+	FONT(handelgothicxs)
+	FONT(handelgothicmd)
+	FONT(handelgothiclg)
+	FONT(ocramd)
+	FONT(ocralg)
 
 	/***************************************************************************
 	 * sfxctl

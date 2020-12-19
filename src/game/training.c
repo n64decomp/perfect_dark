@@ -5379,24 +5379,24 @@ Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, u3
 	u32 halfalpha = alpha >> 1;
 	u32 fullcolour = (colour & 0xffffff00) | alpha;
 
-	textMeasure(&textheight, &textwidth, string1, var8007fb18, var8007fb14, 0);
+	textMeasure(&textheight, &textwidth, string1, g_FontHandelGothicMd1, g_FontHandelGothicMd2, 0);
 
 	x2 = x - (textwidth >> 1);
 	y2 = y;
 	gdl = func0f153858(gdl, &x2, &y2, &textwidth, &textheight);
 
 	gdl = textRender(gdl, &x2, &y2, string1,
-			var8007fb18, var8007fb14, fullcolour, halfalpha, viGetX(), viGetY(), 0, 0);
+			g_FontHandelGothicMd1, g_FontHandelGothicMd2, fullcolour, halfalpha, viGetX(), viGetY(), 0, 0);
 
 	if (string2) {
-		textMeasure(&textheight, &textwidth, string2, var8007fb08, var8007fb04, 0);
+		textMeasure(&textheight, &textwidth, string2, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 
 		x2 = x - (textwidth >> 1);
 		y2 = y + 17;
 		gdl = func0f153858(gdl, &x2, &y2, &textwidth, &textheight);
 
 		gdl = textRender(gdl, &x2, &y2, string2,
-			var8007fb08, var8007fb04, fullcolour, halfalpha, viGetX(), viGetY(), 0, 0);
+			g_FontHandelGothicXs1, g_FontHandelGothicXs2, fullcolour, halfalpha, viGetX(), viGetY(), 0, 0);
 	}
 
 	return gdl;

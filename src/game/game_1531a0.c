@@ -140,33 +140,39 @@ glabel fontLoad
 
 void fontsLoadForCurrentStage(void)
 {
-	extern void *_font2SegmentRomStart, *_font2SegmentRomEnd;
-	extern void *_font3SegmentRomStart, *_font3SegmentRomEnd;
-	extern void *_font4SegmentRomStart, *_font4SegmentRomEnd;
-	extern void *_font5SegmentRomStart, *_font5SegmentRomEnd;
-	extern void *_font6SegmentRomStart, *_font6SegmentRomEnd;
-	extern void *_font7SegmentRomStart, *_font7SegmentRomEnd;
+	extern void *_fontbankgothicSegmentRomStart,     *_fontbankgothicSegmentRomEnd;
+	extern void *_fontzurichSegmentRomStart,         *_fontzurichSegmentRomEnd;
+	extern void *_fonttahomaSegmentRomStart,         *_fonttahomaSegmentRomEnd;
+	extern void *_fontnumericSegmentRomStart,        *_fontnumericSegmentRomEnd;
+	extern void *_fonthandelgothicsmSegmentRomStart, *_fonthandelgothicsmSegmentRomEnd;
+	extern void *_fonthandelgothicxsSegmentRomStart, *_fonthandelgothicxsSegmentRomEnd;
+	extern void *_fonthandelgothicmdSegmentRomStart, *_fonthandelgothicmdSegmentRomEnd;
+	extern void *_fonthandelgothiclgSegmentRomStart, *_fonthandelgothiclgSegmentRomEnd;
+	extern void *_fontocramdSegmentRomStart,         *_fontocramdSegmentRomEnd;
+	extern void *_fontocralgSegmentRomStart,         *_fontocralgSegmentRomEnd;
 
 	var8007faec = 0;
-	var8007faf4 = 0;
-	var8007fafc = 0;
-	var8007fb04 = 0;
-	var8007fb0c = 0;
-	var8007fb14 = 0;
-	var8007fb1c = 0;
+	g_FontTahoma2 = 0;
+	g_FontNumeric2 = 0;
+	g_FontHandelGothicXs2 = 0;
+	g_FontHandelGothicSm2 = 0;
+	g_FontHandelGothicMd2 = 0;
+	g_FontHandelGothicLg2 = 0;
 	var8007fb24 = 0;
 	var8007fb2c = 0;
 	var8007fb34 = 0;
+
 	var8007faf0 = 0;
-	var8007faf8 = 0;
-	var8007fb00 = 0;
-	var8007fb08 = 0;
-	var8007fb10 = 0;
-	var8007fb18 = 0;
-	var8007fb20 = 0;
+	g_FontTahoma1 = 0;
+	g_FontNumeric1 = 0;
+	g_FontHandelGothicXs1 = 0;
+	g_FontHandelGothicSm1 = 0;
+	g_FontHandelGothicMd1 = 0;
+	g_FontHandelGothicLg1 = 0;
 	var8007fb28 = 0;
 	var8007fb30 = 0;
 	var8007fb38 = 0;
+
 	var8007fac4 = 0;
 	var8007fac8 = 0;
 	var8007facc = 0;
@@ -178,23 +184,23 @@ void fontsLoadForCurrentStage(void)
 	var8007fae8 = 0;
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
-		fontLoad(&_font4SegmentRomStart, &_font4SegmentRomEnd, &var8007fb0c, &var8007fb10, 0);
-		fontLoad(&_font6SegmentRomStart, &_font6SegmentRomEnd, &var8007fb14, &var8007fb18, 0);
-		fontLoad(&_font7SegmentRomStart, &_font7SegmentRomEnd, &var8007fb1c, &var8007fb20, 0);
+		fontLoad(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm2, &g_FontHandelGothicSm1, false);
+		fontLoad(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd2, &g_FontHandelGothicMd1, false);
+		fontLoad(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg2, &g_FontHandelGothicLg1, false);
 	} else if (g_Vars.stagenum == STAGE_CREDITS) {
-		fontLoad(&_font5SegmentRomStart, &_font5SegmentRomEnd, &var8007fb04, &var8007fb08, 0);
-		fontLoad(&_font4SegmentRomStart, &_font4SegmentRomEnd, &var8007fb0c, &var8007fb10, 0);
-		fontLoad(&_font6SegmentRomStart, &_font6SegmentRomEnd, &var8007fb14, &var8007fb18, 0);
-		fontLoad(&_font7SegmentRomStart, &_font7SegmentRomEnd, &var8007fb1c, &var8007fb20, 0);
+		fontLoad(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs2, &g_FontHandelGothicXs1, false);
+		fontLoad(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm2, &g_FontHandelGothicSm1, false);
+		fontLoad(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd2, &g_FontHandelGothicMd1, false);
+		fontLoad(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg2, &g_FontHandelGothicLg1, false);
 	} else {
-		fontLoad(&_font2SegmentRomStart, &_font2SegmentRomEnd, &var8007faf4, &var8007faf8, 0);
-		fontLoad(&_font3SegmentRomStart, &_font3SegmentRomEnd, &var8007fafc, &var8007fb00, 0);
-		fontLoad(&_font5SegmentRomStart, &_font5SegmentRomEnd, &var8007fb04, &var8007fb08, 0);
-		fontLoad(&_font4SegmentRomStart, &_font4SegmentRomEnd, &var8007fb0c, &var8007fb10, 0);
-		fontLoad(&_font6SegmentRomStart, &_font6SegmentRomEnd, &var8007fb14, &var8007fb18, 0);
+		fontLoad(&_fonttahomaSegmentRomStart, &_fonttahomaSegmentRomEnd, &g_FontTahoma2, &g_FontTahoma1, false);
+		fontLoad(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric2, &g_FontNumeric1, false);
+		fontLoad(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs2, &g_FontHandelGothicXs1, false);
+		fontLoad(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm2, &g_FontHandelGothicSm1, false);
+		fontLoad(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd2, &g_FontHandelGothicMd1, false);
 
 		if (g_Vars.stagenum == STAGE_TEST_OLD) {
-			fontLoad(&_font7SegmentRomStart, &_font7SegmentRomEnd, &var8007fb1c, &var8007fb20, 0);
+			fontLoad(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg2, &g_FontHandelGothicLg1, false);
 		}
 	}
 }
