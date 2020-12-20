@@ -405,7 +405,9 @@ u32 props[] = {
 	stdobject(0x0100, MODEL_DD_DESK, 0x01b1, 0x000005e1, 0x00004000, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	stdobject(0x0100, MODEL_DD_CHAIR, 0x01ba, 0x000005e1, 0x00000000, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	stdobject(0x0100, MODEL_DD_DESK, 0x01bb, 0x000005e1, 0x00004000, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
+#if VERSION >= VERSION_NTSC_1_0
 	tag(0x63, 1)
+#endif
 	singlemonitor(0x0100, MODEL_PC1, 0x01bc, 0x000004e1, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffff03)
 	tag(0x0d, 1)
 	stdobject(0x0100, MODEL_LIGHTSWITCH2, 0x013e, 0x00000001, 0x00000001, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
@@ -529,10 +531,21 @@ u32 props[] = {
 	hovercar(0x004c, MODEL_DD_HOVCAB, 0x0144, 0x20000008, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000064, 0x00000000, 0x00000000, 0x0fff0000, AILIST_INIT_HOVERCAR, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000)
 	conditional_scenery(1, 0, 2)
 	door(0x0100, MODEL_DD_AC_UNEXP, 0x019f, 0x13500d00, 0x20304300, 0x04000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00010000, 0x03e80000, 0x03e80000, 0x00010000, 0x00000000, 0x00000080, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
+#if VERSION >= VERSION_NTSC_1_0
+	// .............................................v
 	stdobject(0x0100, MODEL_DD_AC_EXP, 0x01a1, 0x031204e8, 0x00304300, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
+#else
+	stdobject(0x0100, MODEL_DD_AC_EXP, 0x01a1, 0x031004e8, 0x00304300, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
+#endif
 	conditional_scenery(1, 0, 2)
 	door(0x0100, MODEL_DD_ACBOT_UNEXP, 0x019e, 0x13500d00, 0x20304300, 0x04000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00010000, 0x03e80000, 0x03e80000, 0x00010000, 0x00000000, 0x00000080, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
+
+#if VERSION >= VERSION_NTSC_1_0
+	// ................................................v
 	stdobject(0x0100, MODEL_DD_ACBOT_EXP, 0x01a0, 0x035204e8, 0x00304300, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
+#else
+	stdobject(0x0100, MODEL_DD_ACBOT_EXP, 0x01a0, 0x035004e8, 0x00304300, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
+#endif
 	stdobject(0x0100, MODEL_A51_CRATE2, 0x0140, 0x00020101, 0x00000000, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	stdobject(0x0100, MODEL_A51_CRATE2, 0x0141, 0x00020101, 0x00000000, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	stdobject(0x0100, MODEL_A51_CRATE2, 0x0142, 0x00020101, 0x00000000, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
@@ -556,7 +569,12 @@ u32 props[] = {
 
 	tag(0x00, 1)
 	key(0x0100, MODEL_CHRCHAIN, CHR_CASS, 0x01244000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000020)
+#if VERSION >= VERSION_NTSC_1_0
+	// ...................vv
 	rename_object(-1, 0x0050, L_AME(11), L_AME(12), L_AME(13), L_AME(14), L_AME(15), 0x0000, 0x0000) // "Obtain De Vries' necklace."
+#else
+	rename_object(-1, 0x004f, L_AME(11), L_AME(12), L_AME(13), L_AME(14), L_AME(15), 0x0000, 0x0000) // "Obtain De Vries' necklace."
+#endif
 
 	stdobject(0x0100, MODEL_DD_STONEDESK, 0x0134, 0x000205e1, 0x00204000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	singlemonitor(0x0100, MODEL_PC1, 0x0132, 0x000004e1, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffff21)
@@ -1252,7 +1270,11 @@ u8 func040f_cass[] = {
 	endloop(0x5b)
 
 	label(0x5c)
+#if VERSION >= VERSION_NTSC_1_0
 	speak(CHR_TARGET, L_AME(21), 0x0af4, CHANNEL_6, COLOR_04_ORANGE) // "Who are you and what are you doing here?"
+#else
+	speak(CHR_TARGET, L_AME(21), 0x12f4, CHANNEL_6, COLOR_04_ORANGE) // "Who are you and what are you doing here?"
+#endif
 	restart_timer
 	chr_do_animation(ANIM_TALKING_0098, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
@@ -1298,7 +1320,11 @@ u8 func040f_cass[] = {
 	goto_next(0x66)
 
 	label(0x2c)
+#if VERSION >= VERSION_NTSC_1_0
 	speak(CHR_TARGET, L_AME(23), 0x0af5, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me, foolish child!"
+#else
+	speak(CHR_TARGET, L_AME(23), 0x12f5, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me, foolish child!"
+#endif
 	chr_do_animation(ANIM_TALKING_00A0, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x66)
@@ -1320,7 +1346,11 @@ u8 func040f_cass[] = {
 
 	label(0x2c)
 	chr_do_animation(ANIM_TALKING_00A3, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+#if VERSION >= VERSION_NTSC_1_0
 	speak(CHR_TARGET, L_AME(24), 0x0af6, CHANNEL_6, COLOR_04_ORANGE) // "Don't you know who I am?"
+#else
+	speak(CHR_TARGET, L_AME(24), 0x12f6, CHANNEL_6, COLOR_04_ORANGE) // "Don't you know who I am?"
+#endif
 
 	beginloop(0x68)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x69)
@@ -1369,7 +1399,11 @@ u8 func040f_cass[] = {
 	goto_next(0x06)
 
 	label(0x2c)
+#if VERSION >= VERSION_NTSC_1_0
 	speak(CHR_TARGET, L_AME(25), 0x0af7, CHANNEL_6, COLOR_04_ORANGE) // "Let's see how you deal with security."
+#else
+	speak(CHR_TARGET, L_AME(25), 0x12f7, CHANNEL_6, COLOR_04_ORANGE) // "Let's see how you deal with security."
+#endif
 	label(0x06)
 	chr_do_animation(ANIM_PUSH_BUTTON, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
@@ -1586,22 +1620,40 @@ u8 func0414_programmer[] = {
 
 	// Wait until Jo or Velvet near his office
 	beginloop(0x91)
+#if VERSION >= VERSION_NTSC_1_0
 		set_target_chr(CHR_BOND)
-		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 0x0050, 1240, /*goto*/ 0x06)
+		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 80, 1240, /*goto*/ 0x06)
 		set_target_chr(CHR_COOP)
-		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 0x0050, 1240, /*goto*/ 0x06)
+		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 80, 1240, /*goto*/ 0x06)
+#else
+		set_target_chr(CHR_BOND)
+		if_chr_distance_to_pad_lt(CHR_TARGET, 800, 124, /*goto*/ 0x06)
+		set_target_chr(CHR_COOP)
+		if_chr_distance_to_pad_lt(CHR_TARGET, 800, 124, /*goto*/ 0x06)
+#endif
 	endloop(0x91)
 
 	// Phone ringing
 	label(0x06)
+#if VERSION >= VERSION_NTSC_1_0
 	play_sound_from_object2(CHANNEL_4, OBJ_PCMONITOR, 0x8109, 0x0f, 0x02)
+#else
+	speak(CHR_TARGET, -1, 0x8108, CHANNEL_4, COLOR_00_GREEN)
+#endif
 
 	// Wait until Jo or Velvet is close to his door
 	beginloop(0x92)
+#if VERSION >= VERSION_NTSC_1_0
 		set_target_chr(CHR_BOND)
 		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 0x0014, 1240, /*goto*/ 0x06)
 		set_target_chr(CHR_COOP)
 		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 0x0014, 1240, /*goto*/ 0x06)
+#else
+		set_target_chr(CHR_BOND)
+		if_chr_distance_to_pad_lt(CHR_TARGET, 200, 124, /*goto*/ 0x06)
+		set_target_chr(CHR_COOP)
+		if_chr_distance_to_pad_lt(CHR_TARGET, 200, 124, /*goto*/ 0x06)
+#endif
 	endloop(0x92)
 
 	label(0x06)
@@ -1623,7 +1675,7 @@ u8 func0414_programmer[] = {
 	// speaks.
 	label(0x2c)
 	restart_timer
-	speak(CHR_TARGET, L_AME(68), 0x8104, CHANNEL_3, COLOR_03_RED) // "Yes, yes, I agree. Personality is expendable in th..."
+	speak(CHR_TARGET, L_AME(68), VERSION >= VERSION_NTSC_1_0 ? 0x8104 : 0x8103, CHANNEL_3, COLOR_03_RED) // "Yes, yes, I agree. Personality is expendable in th..."
 	restart_timer
 	chr_do_animation(ANIM_TALKING_00A0, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
@@ -1641,7 +1693,7 @@ u8 func0414_programmer[] = {
 	yield
 	yield
 	yield
-	speak(CHR_TARGET, L_AME(69), 0x8105, CHANNEL_3, COLOR_03_RED) // "No, I can start the process from my office termina..."
+	speak(CHR_TARGET, L_AME(69), VERSION >= VERSION_NTSC_1_0 ? 0x8105 : 0x8104, CHANNEL_3, COLOR_03_RED) // "No, I can start the process from my office termina..."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1655,7 +1707,7 @@ u8 func0414_programmer[] = {
 	endloop(0x0e)
 
 	label(0x06)
-	speak(CHR_TARGET, L_AME(70), 0x8106, CHANNEL_3, COLOR_03_RED) // "I'll begin at once. Goodbye."
+	speak(CHR_TARGET, L_AME(70), VERSION >= VERSION_NTSC_1_0 ? 0x8106 : 0x8105, CHANNEL_3, COLOR_03_RED) // "I'll begin at once. Goodbye."
 
 	beginloop(0x0f)
 		if_sound_finished(CHANNEL_3, /*goto*/ 0x06)
@@ -1731,11 +1783,11 @@ u8 func0414_programmer[] = {
 		if_stage_flag_eq(STAGEFLAG_PROGRAMMER_RAN_TO_GUARD, TRUE, /*goto*/ 0x06)
 
 		label(0x2c)
-		speak(CHR_TARGET, L_AME(79), 0x8107, CHANNEL_3, COLOR_03_RED) // "Security... Help me!"
+		speak(CHR_TARGET, L_AME(79), VERSION >= VERSION_NTSC_1_0 ? 0x8107 : 0x8106, CHANNEL_3, COLOR_03_RED) // "Security... Help me!"
 		goto_next(0xa1)
 
 		label(0x06)
-		speak(CHR_TARGET, L_AME(38), 0x8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
+		speak(CHR_TARGET, L_AME(38), VERSION >= VERSION_NTSC_1_0 ? 0x8108 : 0x8107, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
 		label(0xa1)
 		restart_timer
 		set_stage_flag(STAGEFLAG_PROGRAMMER_RAN_TO_GUARD)
@@ -1786,7 +1838,7 @@ u8 func0414_programmer[] = {
 		endloop(0xa6)
 
 		label(0xa7)
-		speak(CHR_TARGET, L_AME(38), 0x8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
+		speak(CHR_TARGET, L_AME(38), VERSION >= VERSION_NTSC_1_0 ? 0x8108 : 0x8107, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
 		increase_squadron_alertness(100)
 	endloop(0x99)
 
@@ -1867,7 +1919,7 @@ u8 func0414_programmer[] = {
 	speak(CHR_TARGET, L_AME(109), 0x1304, CHANNEL_3, COLOR_03_RED) // "I...I'm logging on now."
 	label(0x06)
 	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x18, 0x10, CHR_SELF, 2)
-	speak(CHR_TARGET, -1, 0x8116, -1, COLOR_00_GREEN)
+	speak(CHR_TARGET, -1, VERSION >= VERSION_NTSC_1_0 ? 0x8116 : 0x8115, -1, COLOR_00_GREEN)
 
 	beginloop(0xae)
 		if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
@@ -1884,7 +1936,7 @@ u8 func0414_programmer[] = {
 	label(0x2c)
 	speak(CHR_TARGET, L_AME(108), 0x1305, CHANNEL_3, COLOR_03_RED) // "Right, I'm in..."
 	label(0x06)
-	speak(CHR_TARGET, -1, 0x8117, -1, COLOR_00_GREEN)
+	speak(CHR_TARGET, -1, VERSION >= VERSION_NTSC_1_0 ? 0x8117 : 0x8116, -1, COLOR_00_GREEN)
 
 	beginloop(0xaf)
 		if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
@@ -1901,7 +1953,7 @@ u8 func0414_programmer[] = {
 	if_stage_flag_eq(STAGEFLAG_DOWNLOAD_COMPLETE, TRUE, /*goto*/ 0x2c)
 	set_stage_flag(STAGEFLAG_DELETED_WITHOUT_DOWNLOAD)
 	label(0x2c)
-	speak(CHR_TARGET, -1, 0x8118, -1, COLOR_00_GREEN)
+	speak(CHR_TARGET, -1, VERSION >= VERSION_NTSC_FINAL ? 0x8118 : 0x8117, -1, COLOR_00_GREEN)
 
 	beginloop(0xb0)
 	endloop(0xb0)
@@ -1973,12 +2025,14 @@ u8 func0413_c318[] = {
 
 u8 func100e_check_ecm_mines[] = {
 	yield
+#if VERSION >= VERSION_NTSC_1_0
 	yield
 	yield
 	yield
 	yield
 	yield
 	yield
+#endif
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x06)
 	give_object_to_chr(OBJ_ECMMINE_BOND, CHR_BOND)
 	give_object_to_chr(OBJ_ECMMINE_COOP, CHR_COOP)
@@ -2010,7 +2064,7 @@ u8 func100e_check_ecm_mines[] = {
 		show_hudmsg(CHR_BOND, L_AME(29)) // "ECM Mine placed correctly."
 		yield
 		mute_channel(CHANNEL_0)
-		assign_sound(0x8113, CHANNEL_0)
+		assign_sound(VERSION >= VERSION_NTSC_1_0 ? 0x8113 : 0x8112, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_SECURITYHUB, TRUE)
 		show_hudmsg(CHR_BOND, L_AME(76)) // "Internal security system temporarily disabled."
 		set_stage_flag(STAGEFLAG_SECURITYHUB_COMPLETE)
@@ -2021,7 +2075,7 @@ u8 func100e_check_ecm_mines[] = {
 		show_hudmsg(CHR_BOND, L_AME(29)) // "ECM Mine placed correctly."
 		yield
 		mute_channel(CHANNEL_1)
-		assign_sound(0x8113, CHANNEL_1)
+		assign_sound(VERSION >= VERSION_NTSC_1_0 ? 0x8113 : 0x8112, CHANNEL_1)
 		control_sound_from_object(CHANNEL_1, OBJ_EXTCOMMSHUB, TRUE)
 		show_hudmsg(CHR_BOND, L_AME(77)) // "External communications hub disabled."
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_COMPLETE)
@@ -2200,19 +2254,19 @@ u8 func1007_uplinking[] = {
 		if_rand_lt(180, /*goto*/ 0x0f)
 
 		label(0x0c)
-		speak(CHR_TARGET, -1, 0x8116, -1, COLOR_00_GREEN)
+		speak(CHR_TARGET, -1, VERSION >= VERSION_NTSC_1_0 ? 0x8116 : 0x8115, -1, COLOR_00_GREEN)
 		goto_next(0x06)
 
 		label(0x0d)
-		speak(CHR_TARGET, -1, 0x8117, -1, COLOR_00_GREEN)
+		speak(CHR_TARGET, -1, VERSION >= VERSION_NTSC_1_0 ? 0x8117 : 0x8116, -1, COLOR_00_GREEN)
 		goto_next(0x06)
 
 		label(0x0e)
-		speak(CHR_TARGET, -1, 0x8118, -1, COLOR_00_GREEN)
+		speak(CHR_TARGET, -1, VERSION >= VERSION_NTSC_1_0 ? 0x8118 : 0x8117, -1, COLOR_00_GREEN)
 		goto_next(0x06)
 
 		label(0x0f)
-		speak(CHR_TARGET, -1, 0x8118, -1, COLOR_00_GREEN)
+		speak(CHR_TARGET, -1, VERSION >= VERSION_NTSC_1_0 ? 0x8118 : 0x8117, -1, COLOR_00_GREEN)
 
 		label(0x06)
 		restart_timer
@@ -2307,14 +2361,22 @@ u8 func1008_doorswitch[] = {
 
 	// PA
 	beginloop(0x04)
+#if VERSION >= VERSION_NTSC_1_0
 		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_DOORSWITCH, /*goto*/ 0x2c)
+#else
+		if_chr_activated_object(CHR_ANY, OBJ_DOORSWITCH, /*goto*/ 0x2c)
+#endif
 		label(0x06)
 	endloop(0x04)
 
 	label(0x2c)
 	play_sound(0x00ba, -1)
+#if VERSION >= VERSION_NTSC_1_0
 	show_hudmsg(CHR_P1P2, L_AME(47)) // "Door unlocked."
+#else
+	show_hudmsg(CHR_BOND, L_AME(47)) // "Door unlocked."
+#endif
 	set_stage_flag(STAGEFLAG_OFFICE_DOOR_UNLOCKED)
 	unlock_door(OBJ_OFFICEDOOR1, 0x01)
 	unlock_door(OBJ_OFFICEDOOR2, 0x01)
@@ -2784,7 +2846,9 @@ u8 func0422_intro[] = {
 	goto_first(0x07)
 
 	label(0x2c)
+#if VERSION >= VERSION_NTSC_1_0
 	yield
+#endif
 	set_stage_flag(STAGEFLAG_TRIGGER_INTRO)
 	yield
 	play_cutscene_track(MUSIC_DEFECTION_INTRO)
@@ -2861,7 +2925,9 @@ u8 func0422_intro_0424[] = {
 	object_do_animation(0x00fd, OBJ_JUMPSHIP1, 0x04, 0xffff)
 	set_chr_chrflag(CHR_CASS, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_SECRETARY, CHRCFLAG_UNPLAYABLE)
+#if VERSION >= VERSION_NTSC_1_0
 	unset_chr_chrflag(CHR_SECRETARY, CHRCFLAG_HIDDEN)
+#endif
 	set_chr_hiddenflag(CHR_SECRETARY, CHRHFLAG_00020000)
 	chr_do_animation(0x00fe, -1, -1, 0x06, 0x00, CHR_SECRETARY, 4)
 
@@ -3165,7 +3231,9 @@ u8 func0416_outro[] = {
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
+#if VERSION >= VERSION_NTSC_1_0
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
+#endif
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
 	chr_do_animation(0x00f3, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 	restart_timer
@@ -3224,7 +3292,7 @@ u8 func0416_outro[] = {
 	endloop(0xbb)
 
 	label(0x06)
-	play_sound(0x80f6, CHANNEL_10)
+	play_sound(VERSION >= VERSION_NTSC_1_0 ? 0x80f6 : 0x01d9, CHANNEL_10)
 
 	beginloop(0xbc)
 		if_controller_button_pressed(/*goto*/ 0xbd)
@@ -3287,9 +3355,15 @@ u8 func1003_start_intro[] = {
 
 u8 func1010_start_hub_humms[] = {
 	yield
+#if VERSION >= VERSION_NTSC_1_0
 	play_sound_from_object2(CHANNEL_0, OBJ_SECURITYHUB, 0x8111, 0x0f, 0x02)
 	yield
 	play_sound_from_object2(CHANNEL_1, OBJ_EXTCOMMSHUB, 0x8111, 0x0f, 0x02)
+#else
+	play_sound_from_object2(CHANNEL_0, OBJ_SECURITYHUB, 0x8110, 0x0f, 0x00)
+	yield
+	play_sound_from_object2(CHANNEL_1, OBJ_SECURITYHUB, 0x0004, 0x0f, 0x00)
+#endif
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3401,7 +3475,7 @@ u8 func1013_msg_commshubnearby[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME(93), 0x8170, CHANNEL_6, COLOR_09_BLUE) // "We're getting a positive reading - the internal co..."
+	speak(CHR_BOND, L_AME(93), VERSION >= VERSION_NTSC_1_0 ? 0x8170 : 0x8169, CHANNEL_6, COLOR_09_BLUE) // "We're getting a positive reading - the internal co..."
 	label(0x0d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3416,7 +3490,7 @@ u8 func1014_msg_officefloor[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME(94), 0x8171, CHANNEL_6, COLOR_09_BLUE) // "You're on the same floor as Cassandra's office."
+	speak(CHR_BOND, L_AME(94), VERSION >= VERSION_NTSC_1_0 ? 0x8171 : 0x816a, CHANNEL_6, COLOR_09_BLUE) // "You're on the same floor as Cassandra's office."
 	label(0x0d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3442,7 +3516,7 @@ u8 func1016_msg_basementelevator[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME(96), 0x8172, CHANNEL_6, COLOR_09_BLUE) // "The basement elevator must be around there somewhe..."
+	speak(CHR_BOND, L_AME(96), VERSION >= VERSION_NTSC_1_0 ? 0x8172 : 0x816b, CHANNEL_6, COLOR_09_BLUE) // "The basement elevator must be around there somewhe..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3735,7 +3809,7 @@ u8 func101e_lift_door_sounds[] = {
 		reloop(0xc4)
 
 		label(0x2c)
-		play_sound(0x81b0, -1)
+		play_sound(VERSION >= VERSION_NTSC_1_0 ? 0x81b0 : 0x81a9, -1)
 		restart_timer
 
 		beginloop(0x08)
