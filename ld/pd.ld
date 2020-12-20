@@ -392,7 +392,10 @@ SECTIONS
 	FONT(handelgothicmd)
 	FONT(handelgothiclg)
 	FONT(ocramd)
+
+#if VERSION >= VERSION_NTSC_1_0
 	FONT(ocralg)
+#endif
 
 	/***************************************************************************
 	 * sfxctl
@@ -552,11 +555,16 @@ SECTIONS
 	 * -------------------------------------------------------------------------
 	 */
 
+#if VERSION >= VERSION_NTSC_1_0
 	BEGIN_SEG(accessingpak)
 	{
 		build/ROMID/accessingpak.o (.data);
 	}
 	END_SEG(accessingpak)
+#else
+	_accessingpakSegmentRomStart = 0;
+	_accessingpakSegmentRomEnd = 0;
+#endif
 
 	/DISCARD/ : {
 		* (.MIPS.abiflags);

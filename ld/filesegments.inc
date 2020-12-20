@@ -2017,4 +2017,7 @@ FILE(07d9, CheadphelpsZ,            _file_CheadphelpsZ);
 FILE(07da, Ap29_15_joM,             _file_Ap29_15_joM);
 FILE(07db, Ap16_03_joM,             _file_Ap16_03_joM);
 FILE(07dc, Acarrbye02M,             _file_Acarrbye02M);
+
+#if VERSION >= VERSION_NTSC_1_0
 FILE(07dd, Asaucerexp1M,            _file_Asaucerexp1M);
+#endif

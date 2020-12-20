@@ -2031,7 +2031,9 @@ extern void *_file_CheadphelpsZ;
 extern void *_file_Ap29_15_joM;
 extern void *_file_Ap16_03_joM;
 extern void *_file_Acarrbye02M;
+#if VERSION >= VERSION_NTSC_1_0
 extern void *_file_Asaucerexp1M;
+#endif
 extern void *_filenamesSegmentRomStart;
 
 u32 var8007f8a0 = 0x3e19999a;
@@ -4755,7 +4757,9 @@ void *filetable[] = {
 	/*0x07da*/ &_file_Ap29_15_joM,
 	/*0x07db*/ &_file_Ap16_03_joM,
 	/*0x07dc*/ &_file_Acarrbye02M,
+#if VERSION >= VERSION_NTSC_1_0
 	/*0x07dd*/ &_file_Asaucerexp1M,
+#endif
 	/*0x07de*/ &_filenamesSegmentRomStart,
 };
 
