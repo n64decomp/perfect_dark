@@ -46,7 +46,7 @@ void func0f0bb814(void);
 u32 func0f0bbf14(void);
 Gfx *hudRenderHealthBar(Gfx *gdl);
 void currentPlayerSurroundWithExplosions(s32 arg0);
-void func0f0bc120(void);
+void currentPlayerTickExplode(void);
 void func0f0bc3f0(void);
 s16 func0f0bc44c(void);
 s16 func0f0bc478(void);

@@ -5302,201 +5302,32 @@ void currentPlayerSurroundWithExplosions(s32 arg0)
 	g_Vars.currentplayer->bondcurexplode = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f0bc120
-/*  f0bc120:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0bc124:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0bc128:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f0bc12c:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f0bc130:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0bc134:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0bc138:	3c198007 */ 	lui	$t9,%hi(g_PlayerInvincible)
-/*  f0bc13c:	8c4e1bf8 */ 	lw	$t6,0x1bf8($v0)
-/*  f0bc140:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f0bc144:	ac4f1bf8 */ 	sw	$t7,0x1bf8($v0)
-/*  f0bc148:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0bc14c:	8c581bf0 */ 	lw	$t8,0x1bf0($v0)
-/*  f0bc150:	530000a3 */ 	beqzl	$t8,.L0f0bc3e0
-/*  f0bc154:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0bc158:	8f390760 */ 	lw	$t9,%lo(g_PlayerInvincible)($t9)
-/*  f0bc15c:	572000a0 */ 	bnezl	$t9,.L0f0bc3e0
-/*  f0bc160:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0bc164:	8c481bf4 */ 	lw	$t0,0x1bf4($v0)
-/*  f0bc168:	8e090008 */ 	lw	$t1,0x8($s0)
-/*  f0bc16c:	0109082a */ 	slt	$at,$t0,$t1
-/*  f0bc170:	5020009b */ 	beqzl	$at,.L0f0bc3e0
-/*  f0bc174:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0bc178:	8c4a00bc */ 	lw	$t2,0xbc($v0)
-/*  f0bc17c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0bc180:	c5440008 */ 	lwc1	$f4,0x8($t2)
-/*  f0bc184:	e7a40034 */ 	swc1	$f4,0x34($sp)
-/*  f0bc188:	8c4b00bc */ 	lw	$t3,0xbc($v0)
-/*  f0bc18c:	c566000c */ 	lwc1	$f6,0xc($t3)
-/*  f0bc190:	e7a60038 */ 	swc1	$f6,0x38($sp)
-/*  f0bc194:	8c4c00bc */ 	lw	$t4,0xbc($v0)
-/*  f0bc198:	c5880010 */ 	lwc1	$f8,0x10($t4)
-/*  f0bc19c:	e7a8003c */ 	swc1	$f8,0x3c($sp)
-/*  f0bc1a0:	8c431bf8 */ 	lw	$v1,0x1bf8($v0)
-/*  f0bc1a4:	04610004 */ 	bgez	$v1,.L0f0bc1b8
-/*  f0bc1a8:	306d0003 */ 	andi	$t5,$v1,0x3
-/*  f0bc1ac:	11a00002 */ 	beqz	$t5,.L0f0bc1b8
-/*  f0bc1b0:	00000000 */ 	nop
-/*  f0bc1b4:	25adfffc */ 	addiu	$t5,$t5,-4
-.L0f0bc1b8:
-/*  f0bc1b8:	11a00009 */ 	beqz	$t5,.L0f0bc1e0
-/*  f0bc1bc:	00000000 */ 	nop
-/*  f0bc1c0:	11a1001d */ 	beq	$t5,$at,.L0f0bc238
-/*  f0bc1c4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0bc1c8:	11a10031 */ 	beq	$t5,$at,.L0f0bc290
-/*  f0bc1cc:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0bc1d0:	11a10045 */ 	beq	$t5,$at,.L0f0bc2e8
-/*  f0bc1d4:	00000000 */ 	nop
-/*  f0bc1d8:	10000058 */ 	b	.L0f0bc33c
-/*  f0bc1dc:	00000000 */ 	nop
-.L0f0bc1e0:
-/*  f0bc1e0:	0c004b70 */ 	jal	random
-/*  f0bc1e4:	00000000 */ 	nop
-/*  f0bc1e8:	44825000 */ 	mtc1	$v0,$f10
-/*  f0bc1ec:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0bc1f0:	04410004 */ 	bgez	$v0,.L0f0bc204
-/*  f0bc1f4:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f0bc1f8:	44819000 */ 	mtc1	$at,$f18
-/*  f0bc1fc:	00000000 */ 	nop
-/*  f0bc200:	46128400 */ 	add.s	$f16,$f16,$f18
-.L0f0bc204:
-/*  f0bc204:	3c012f80 */ 	lui	$at,0x2f80
-/*  f0bc208:	44812000 */ 	mtc1	$at,$f4
-/*  f0bc20c:	3c014316 */ 	lui	$at,0x4316
-/*  f0bc210:	44814000 */ 	mtc1	$at,$f8
-/*  f0bc214:	46048182 */ 	mul.s	$f6,$f16,$f4
-/*  f0bc218:	3c01437a */ 	lui	$at,0x437a
-/*  f0bc21c:	44819000 */ 	mtc1	$at,$f18
-/*  f0bc220:	c7a40034 */ 	lwc1	$f4,0x34($sp)
-/*  f0bc224:	46064282 */ 	mul.s	$f10,$f8,$f6
-/*  f0bc228:	460a9400 */ 	add.s	$f16,$f18,$f10
-/*  f0bc22c:	46102200 */ 	add.s	$f8,$f4,$f16
-/*  f0bc230:	10000042 */ 	b	.L0f0bc33c
-/*  f0bc234:	e7a80034 */ 	swc1	$f8,0x34($sp)
-.L0f0bc238:
-/*  f0bc238:	0c004b70 */ 	jal	random
-/*  f0bc23c:	00000000 */ 	nop
-/*  f0bc240:	44823000 */ 	mtc1	$v0,$f6
-/*  f0bc244:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0bc248:	04410004 */ 	bgez	$v0,.L0f0bc25c
-/*  f0bc24c:	468034a0 */ 	cvt.s.w	$f18,$f6
-/*  f0bc250:	44815000 */ 	mtc1	$at,$f10
-/*  f0bc254:	00000000 */ 	nop
-/*  f0bc258:	460a9480 */ 	add.s	$f18,$f18,$f10
-.L0f0bc25c:
-/*  f0bc25c:	3c012f80 */ 	lui	$at,0x2f80
-/*  f0bc260:	44812000 */ 	mtc1	$at,$f4
-/*  f0bc264:	3c014316 */ 	lui	$at,0x4316
-/*  f0bc268:	44814000 */ 	mtc1	$at,$f8
-/*  f0bc26c:	46049402 */ 	mul.s	$f16,$f18,$f4
-/*  f0bc270:	3c01437a */ 	lui	$at,0x437a
-/*  f0bc274:	44815000 */ 	mtc1	$at,$f10
-/*  f0bc278:	c7a40034 */ 	lwc1	$f4,0x34($sp)
-/*  f0bc27c:	46104182 */ 	mul.s	$f6,$f8,$f16
-/*  f0bc280:	46065480 */ 	add.s	$f18,$f10,$f6
-/*  f0bc284:	46122201 */ 	sub.s	$f8,$f4,$f18
-/*  f0bc288:	1000002c */ 	b	.L0f0bc33c
-/*  f0bc28c:	e7a80034 */ 	swc1	$f8,0x34($sp)
-.L0f0bc290:
-/*  f0bc290:	0c004b70 */ 	jal	random
-/*  f0bc294:	00000000 */ 	nop
-/*  f0bc298:	44828000 */ 	mtc1	$v0,$f16
-/*  f0bc29c:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0bc2a0:	04410004 */ 	bgez	$v0,.L0f0bc2b4
-/*  f0bc2a4:	468082a0 */ 	cvt.s.w	$f10,$f16
-/*  f0bc2a8:	44813000 */ 	mtc1	$at,$f6
-/*  f0bc2ac:	00000000 */ 	nop
-/*  f0bc2b0:	46065280 */ 	add.s	$f10,$f10,$f6
-.L0f0bc2b4:
-/*  f0bc2b4:	3c012f80 */ 	lui	$at,0x2f80
-/*  f0bc2b8:	44812000 */ 	mtc1	$at,$f4
-/*  f0bc2bc:	3c014316 */ 	lui	$at,0x4316
-/*  f0bc2c0:	44814000 */ 	mtc1	$at,$f8
-/*  f0bc2c4:	46045482 */ 	mul.s	$f18,$f10,$f4
-/*  f0bc2c8:	3c01437a */ 	lui	$at,0x437a
-/*  f0bc2cc:	44813000 */ 	mtc1	$at,$f6
-/*  f0bc2d0:	c7a4003c */ 	lwc1	$f4,0x3c($sp)
-/*  f0bc2d4:	46124402 */ 	mul.s	$f16,$f8,$f18
-/*  f0bc2d8:	46103280 */ 	add.s	$f10,$f6,$f16
-/*  f0bc2dc:	460a2200 */ 	add.s	$f8,$f4,$f10
-/*  f0bc2e0:	10000016 */ 	b	.L0f0bc33c
-/*  f0bc2e4:	e7a8003c */ 	swc1	$f8,0x3c($sp)
-.L0f0bc2e8:
-/*  f0bc2e8:	0c004b70 */ 	jal	random
-/*  f0bc2ec:	00000000 */ 	nop
-/*  f0bc2f0:	44829000 */ 	mtc1	$v0,$f18
-/*  f0bc2f4:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0bc2f8:	04410004 */ 	bgez	$v0,.L0f0bc30c
-/*  f0bc2fc:	468091a0 */ 	cvt.s.w	$f6,$f18
-/*  f0bc300:	44818000 */ 	mtc1	$at,$f16
-/*  f0bc304:	00000000 */ 	nop
-/*  f0bc308:	46103180 */ 	add.s	$f6,$f6,$f16
-.L0f0bc30c:
-/*  f0bc30c:	3c012f80 */ 	lui	$at,0x2f80
-/*  f0bc310:	44812000 */ 	mtc1	$at,$f4
-/*  f0bc314:	3c014316 */ 	lui	$at,0x4316
-/*  f0bc318:	44814000 */ 	mtc1	$at,$f8
-/*  f0bc31c:	46043282 */ 	mul.s	$f10,$f6,$f4
-/*  f0bc320:	3c01437a */ 	lui	$at,0x437a
-/*  f0bc324:	44818000 */ 	mtc1	$at,$f16
-/*  f0bc328:	c7a4003c */ 	lwc1	$f4,0x3c($sp)
-/*  f0bc32c:	460a4482 */ 	mul.s	$f18,$f8,$f10
-/*  f0bc330:	46128180 */ 	add.s	$f6,$f16,$f18
-/*  f0bc334:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0bc338:	e7a8003c */ 	swc1	$f8,0x3c($sp)
-.L0f0bc33c:
-/*  f0bc33c:	0c004b70 */ 	jal	random
-/*  f0bc340:	00000000 */ 	nop
-/*  f0bc344:	44825000 */ 	mtc1	$v0,$f10
-/*  f0bc348:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0bc34c:	04410004 */ 	bgez	$v0,.L0f0bc360
-/*  f0bc350:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f0bc354:	44819000 */ 	mtc1	$at,$f18
-/*  f0bc358:	00000000 */ 	nop
-/*  f0bc35c:	46128400 */ 	add.s	$f16,$f16,$f18
-.L0f0bc360:
-/*  f0bc360:	3c012f80 */ 	lui	$at,0x2f80
-/*  f0bc364:	44812000 */ 	mtc1	$at,$f4
-/*  f0bc368:	3c014348 */ 	lui	$at,0x4348
-/*  f0bc36c:	44814000 */ 	mtc1	$at,$f8
-/*  f0bc370:	46048182 */ 	mul.s	$f6,$f16,$f4
-/*  f0bc374:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f0bc378:	44819000 */ 	mtc1	$at,$f18
-/*  f0bc37c:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*  f0bc380:	8e0e0284 */ 	lw	$t6,0x284($s0)
-/*  f0bc384:	8e0f028c */ 	lw	$t7,0x28c($s0)
-/*  f0bc388:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0bc38c:	46064282 */ 	mul.s	$f10,$f8,$f6
-/*  f0bc390:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f0bc394:	24070012 */ 	addiu	$a3,$zero,0x12
-/*  f0bc398:	46125401 */ 	sub.s	$f16,$f10,$f18
-/*  f0bc39c:	46102200 */ 	add.s	$f8,$f4,$f16
-/*  f0bc3a0:	e7a80038 */ 	swc1	$f8,0x38($sp)
-/*  f0bc3a4:	8dc600bc */ 	lw	$a2,0xbc($t6)
-/*  f0bc3a8:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0bc3ac:	0fc4a640 */ 	jal	explosionCreateSimple
-/*  f0bc3b0:	24c60028 */ 	addiu	$a2,$a2,0x28
-/*  f0bc3b4:	0c004b70 */ 	jal	random
-/*  f0bc3b8:	00000000 */ 	nop
-/*  f0bc3bc:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f0bc3c0:	0041001b */ 	divu	$zero,$v0,$at
-/*  f0bc3c4:	8e190008 */ 	lw	$t9,0x8($s0)
-/*  f0bc3c8:	8e0a0284 */ 	lw	$t2,0x284($s0)
-/*  f0bc3cc:	0000c010 */ 	mfhi	$t8
-/*  f0bc3d0:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f0bc3d4:	2509000f */ 	addiu	$t1,$t0,0xf
-/*  f0bc3d8:	ad491bf4 */ 	sw	$t1,0x1bf4($t2)
-/*  f0bc3dc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0bc3e0:
-/*  f0bc3e0:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0bc3e4:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0bc3e8:	03e00008 */ 	jr	$ra
-/*  f0bc3ec:	00000000 */ 	nop
-);
+void currentPlayerTickExplode(void)
+{
+	g_Vars.currentplayer->bondcurexplode++;
+
+	if (g_Vars.currentplayer->bondexploding && !g_PlayerInvincible
+			&& g_Vars.lvframe60 > g_Vars.currentplayer->bondnextexplode) {
+		struct coord pos;
+
+		pos.x = g_Vars.currentplayer->prop->pos.x;
+		pos.y = g_Vars.currentplayer->prop->pos.y;
+		pos.z = g_Vars.currentplayer->prop->pos.z;
+
+		switch (g_Vars.currentplayer->bondcurexplode % 4) {
+		case 0: pos.x += 250.0f + 150.0f * (random() * (1.0f / U32_MAX)); break;
+		case 1: pos.x -= 250.0f + 150.0f * (random() * (1.0f / U32_MAX)); break;
+		case 2: pos.z += 250.0f + 150.0f * (random() * (1.0f / U32_MAX)); break;
+		case 3: pos.z -= 250.0f + 150.0f * (random() * (1.0f / U32_MAX)); break;
+		}
+
+		pos.y += 200.0f * (random() * (1.0f / U32_MAX)) - 100.0f;
+
+		explosionCreateSimple(NULL, &pos, g_Vars.currentplayer->prop->rooms, EXPLOSIONTYPE_18, g_Vars.currentplayernum);
+
+		g_Vars.currentplayer->bondnextexplode = g_Vars.lvframe60 + 15 + (random() % 15);
+	}
+}
 
 void func0f0bc3f0(void)
 {
@@ -6941,7 +6772,7 @@ glabel var7f1ad6ac
 .L0f0bdcfc:
 /*  f0bdcfc:	0fc2ee05 */ 	jal	func0f0bb814
 /*  f0bdd00:	00000000 */ 	nop
-/*  f0bdd04:	0fc2f048 */ 	jal	func0f0bc120
+/*  f0bdd04:	0fc2f048 */ 	jal	currentPlayerTickExplode
 /*  f0bdd08:	00000000 */ 	nop
 /*  f0bdd0c:	8e700284 */ 	lw	$s0,0x284($s3)
 /*  f0bdd10:	8e020480 */ 	lw	$v0,0x480($s0)
@@ -9120,7 +8951,7 @@ glabel var7f1ad6ac
 //
 //	// dcfc
 //	func0f0bb814();
-//	func0f0bc120();
+//	currentPlayerTickExplode();
 //
 //	// dd14
 //	if (g_Vars.currentplayer->eyespy) {
