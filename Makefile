@@ -164,7 +164,7 @@ $(B_DIR)/stage3.bin: $(B_DIR)/stage2.bin $(B_DIR)/segments/gamezips.bin
 # Stage2 takes stage1 and calculates the piracy checksums.
 $(B_DIR)/stage2.bin: $(B_DIR)/stage1.bin
 	@cp $< $@.tmp
-	PIRACYCHECKS=$(PIRACYCHECKS) tools/patchpiracysums $@.tmp $(B_DIR)/pd.map && mv $@.tmp $@
+	ROMID=$(ROMID) PIRACYCHECKS=$(PIRACYCHECKS) tools/patchpiracysums $@.tmp $(B_DIR)/pd.map && mv $@.tmp $@
 
 $(B_DIR)/stage1.bin: $(B_DIR)/stage1.elf
 	$(TOOLCHAIN)-objcopy $< $@ -O binary

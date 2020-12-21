@@ -200,7 +200,9 @@ class Tool:
 
         self.fd.close()
 
-if os.environ['PIRACYCHECKS'] == '1':
+# Piracy checks disabled for ntsc-beta for now...
+# it's possible they don't exist in that version.
+if os.environ['PIRACYCHECKS'] == '1' and os.environ['ROMID'] != 'ntsc-beta':
     tool = Tool()
     tool.run()
 
