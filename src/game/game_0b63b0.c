@@ -374,6 +374,15 @@ glabel func0f0b656c
 /*  f0b65a4:	46001006 */ 	mov.s	$f0,$f2
 );
 
+// Mismatch due to rodata - this file needs to be split somewhere after this
+// function and prior to the "tps" string.
+//f32 func0f0b656c(s32 arg0)
+//{
+//	f32 value = ((var8009ddc8[arg0] & 0xf00) >> 8) * 0.06666667f;
+//
+//	return value;
+//}
+
 GLOBAL_ASM(
 glabel func0f0b65a8
 /*  f0b65a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
