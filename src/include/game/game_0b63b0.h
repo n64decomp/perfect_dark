@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f0b63b0(s32 arg0, f32 arg1);
+void func0f0b63b0(s32 portalnum, f32 frac);
 void func0f0b6470(s32 portalnum, f32 arg1);
 void func0f0b6534(s32 arg0);
 void func0f0b656c(s32 arg0);

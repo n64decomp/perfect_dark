@@ -224,61 +224,14 @@ struct healthdamagetype g_HealthDamageTypes[] = {
 	{ 20, 55, 88, 130, 145 },
 };
 
-GLOBAL_ASM(
-glabel func0f0b63b0
-/*  f0b63b0:	44856000 */ 	mtc1	$a1,$f12
-/*  f0b63b4:	0480002c */ 	bltz	$a0,.L0f0b6468
-/*  f0b63b8:	3c01437f */ 	lui	$at,0x437f
-/*  f0b63bc:	44812000 */ 	mtc1	$at,$f4
-/*  f0b63c0:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f0b63c4:	3c0e800a */ 	lui	$t6,%hi(var8009ddc8)
-/*  f0b63c8:	460c2182 */ 	mul.s	$f6,$f4,$f12
-/*  f0b63cc:	8dceddc8 */ 	lw	$t6,%lo(var8009ddc8)($t6)
-/*  f0b63d0:	00047840 */ 	sll	$t7,$a0,0x1
-/*  f0b63d4:	3c014f00 */ 	lui	$at,0x4f00
-/*  f0b63d8:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0b63dc:	94580000 */ 	lhu	$t8,0x0($v0)
-/*  f0b63e0:	4448f800 */ 	cfc1	$t0,$31
-/*  f0b63e4:	44c9f800 */ 	ctc1	$t1,$31
-/*  f0b63e8:	3319ff00 */ 	andi	$t9,$t8,0xff00
-/*  f0b63ec:	46003224 */ 	cvt.w.s	$f8,$f6
-/*  f0b63f0:	4449f800 */ 	cfc1	$t1,$31
-/*  f0b63f4:	00000000 */ 	nop
-/*  f0b63f8:	31290078 */ 	andi	$t1,$t1,0x78
-/*  f0b63fc:	51200013 */ 	beqzl	$t1,.L0f0b644c
-/*  f0b6400:	44094000 */ 	mfc1	$t1,$f8
-/*  f0b6404:	44814000 */ 	mtc1	$at,$f8
-/*  f0b6408:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f0b640c:	46083201 */ 	sub.s	$f8,$f6,$f8
-/*  f0b6410:	44c9f800 */ 	ctc1	$t1,$31
-/*  f0b6414:	00000000 */ 	nop
-/*  f0b6418:	46004224 */ 	cvt.w.s	$f8,$f8
-/*  f0b641c:	4449f800 */ 	cfc1	$t1,$31
-/*  f0b6420:	00000000 */ 	nop
-/*  f0b6424:	31290078 */ 	andi	$t1,$t1,0x78
-/*  f0b6428:	15200005 */ 	bnez	$t1,.L0f0b6440
-/*  f0b642c:	00000000 */ 	nop
-/*  f0b6430:	44094000 */ 	mfc1	$t1,$f8
-/*  f0b6434:	3c018000 */ 	lui	$at,0x8000
-/*  f0b6438:	10000007 */ 	b	.L0f0b6458
-/*  f0b643c:	01214825 */ 	or	$t1,$t1,$at
-.L0f0b6440:
-/*  f0b6440:	10000005 */ 	b	.L0f0b6458
-/*  f0b6444:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f0b6448:	44094000 */ 	mfc1	$t1,$f8
-.L0f0b644c:
-/*  f0b644c:	00000000 */ 	nop
-/*  f0b6450:	0520fffb */ 	bltz	$t1,.L0f0b6440
-/*  f0b6454:	00000000 */ 	nop
-.L0f0b6458:
-/*  f0b6458:	312b00ff */ 	andi	$t3,$t1,0xff
-/*  f0b645c:	44c8f800 */ 	ctc1	$t0,$31
-/*  f0b6460:	032b6025 */ 	or	$t4,$t9,$t3
-/*  f0b6464:	a44c0000 */ 	sh	$t4,0x0($v0)
-.L0f0b6468:
-/*  f0b6468:	03e00008 */ 	jr	$ra
-/*  f0b646c:	00000000 */ 	nop
-);
+void func0f0b63b0(s32 portalnum, f32 frac)
+{
+	if (portalnum >= 0) {
+		u8 value = (u32)(255 * frac);
+		value <<= 0;
+		var8009ddc8[portalnum] = (var8009ddc8[portalnum] & 0xff00) | value;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0b6470
