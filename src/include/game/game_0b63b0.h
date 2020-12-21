@@ -53,7 +53,7 @@ s16 func0f0bc478(void);
 bool func0f0bc4c0(void);
 s16 currentPlayerGetViewportWidth(void);
 s16 currentPlayerGetViewportLeft(void);
-s16 func0f0bcaa0(void);
+s16 currentPlayerGetViewportHeight(void);
 s16 func0f0bce24(void);
 f32 func0f0bd358(void);
 void func0f0bd3c4(void);

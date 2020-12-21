@@ -631,7 +631,7 @@ extern s32 var8009de20;
 extern s32 var8009de24;
 extern f32 var8009de28;
 extern s32 var8009de2c;
-extern u32 var8009de30;
+extern f32 var8009de30;
 extern s16 g_SpawnPoints[MAX_SPAWNPOINTS];
 extern s32 g_NumSpawnPoints;
 extern u32 var8009de78;

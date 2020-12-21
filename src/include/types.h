@@ -5029,16 +5029,16 @@ struct var80075c00 {
 
 struct var800705c0 {
 	s32 unk00;
-	u32 unk04;
+	s32 unk04;
 	s32 unk08;
 	f32 unk0c;
-	u32 unk10;
-	u32 unk14;
-	u32 unk18;
-	u32 unk1c;
-	u32 unk20;
-	u32 unk24;
-	u32 unk28;
+	s32 unk10;
+	s32 unk14;
+	s32 unk18;
+	s32 unk1c;
+	s32 unk20;
+	s32 unk24;
+	s32 unk28;
 };
 
 struct miscbio {
