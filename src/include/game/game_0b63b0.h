@@ -3,10 +3,10 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f0b63b0(void);
-u32 func0f0b6470(void);
-u32 func0f0b6534(void);
-u32 func0f0b656c(void);
+void func0f0b63b0(s32 arg0, f32 arg1);
+void func0f0b6470(s32 portalnum, f32 arg1);
+void func0f0b6534(s32 arg0);
+void func0f0b656c(s32 arg0);
 u32 func0f0b65a8(void);
 void func0f0b65f8(void);
 void func0f0b6764(void);

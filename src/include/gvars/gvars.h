@@ -606,7 +606,7 @@ extern u32 var8009dd6c;
 extern u32 var8009dd70;
 extern u32 var8009dd78;
 extern u32 var8009ddc8;
-extern u32 var8009ddcc;
+extern s32 var8009ddcc;
 extern s32 g_DefaultWeapon;
 extern s32 g_DefaultWeaponArgument;
 extern f32 var8009ddd8;
