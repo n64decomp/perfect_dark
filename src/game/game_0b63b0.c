@@ -10777,85 +10777,42 @@ glabel func0f0bfc7c
 /*  f0bffc8:	27bd0110 */ 	addiu	$sp,$sp,0x110
 );
 
-GLOBAL_ASM(
-glabel func0f0bffcc
-.late_rodata
-glabel var7f1ad6b0
-.word 0x40c907a9
-glabel var7f1ad6b4
-.word 0x40490fdb
-glabel var7f1ad6b8
-.word 0x40c907a9
-glabel var7f1ad6bc
-.word 0x40490fdb
-.text
-/*  f0bffcc:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0bffd0:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0bffd4:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0bffd8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0bffdc:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f0bffe0:	24441bb0 */ 	addiu	$a0,$v0,0x1bb0
-/*  f0bffe4:	24451bbc */ 	addiu	$a1,$v0,0x1bbc
-/*  f0bffe8:	0fc2ff1f */ 	jal	func0f0bfc7c
-/*  f0bffec:	24461bc8 */ 	addiu	$a2,$v0,0x1bc8
-/*  f0bfff0:	27a40030 */ 	addiu	$a0,$sp,0x30
-/*  f0bfff4:	0fc28302 */ 	jal	func0f0a0c08
-/*  f0bfff8:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f0bfffc:	c7a00044 */ 	lwc1	$f0,0x44($sp)
-/*  f0c0000:	c7a2003c */ 	lwc1	$f2,0x3c($sp)
-/*  f0c0004:	c7a40040 */ 	lwc1	$f4,0x40($sp)
-/*  f0c0008:	46000182 */ 	mul.s	$f6,$f0,$f0
-/*  f0c000c:	e7a4002c */ 	swc1	$f4,0x2c($sp)
-/*  f0c0010:	46021202 */ 	mul.s	$f8,$f2,$f2
-/*  f0c0014:	0c012974 */ 	jal	sqrtf
-/*  f0c0018:	46083300 */ 	add.s	$f12,$f6,$f8
-/*  f0c001c:	c7ac002c */ 	lwc1	$f12,0x2c($sp)
-/*  f0c0020:	0fc259d4 */ 	jal	func0f096750
-/*  f0c0024:	46000386 */ 	mov.s	$f14,$f0
-/*  f0c0028:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0c002c:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0c0030:	3c017f1b */ 	lui	$at,%hi(var7f1ad6b0)
-/*  f0c0034:	c430d6b0 */ 	lwc1	$f16,%lo(var7f1ad6b0)($at)
-/*  f0c0038:	c44a0154 */ 	lwc1	$f10,0x154($v0)
-/*  f0c003c:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f0c0040:	44812000 */ 	mtc1	$at,$f4
-/*  f0c0044:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f0c0048:	3c017f1b */ 	lui	$at,%hi(var7f1ad6b4)
-/*  f0c004c:	c428d6b4 */ 	lwc1	$f8,%lo(var7f1ad6b4)($at)
-/*  f0c0050:	46049183 */ 	div.s	$f6,$f18,$f4
-/*  f0c0054:	46060080 */ 	add.s	$f2,$f0,$f6
-/*  f0c0058:	4602403e */ 	c.le.s	$f8,$f2
-/*  f0c005c:	00000000 */ 	nop
-/*  f0c0060:	45020003 */ 	bc1fl	.L0f0c0070
-/*  f0c0064:	e442196c */ 	swc1	$f2,0x196c($v0)
-/*  f0c0068:	46101081 */ 	sub.s	$f2,$f2,$f16
-/*  f0c006c:	e442196c */ 	swc1	$f2,0x196c($v0)
-.L0f0c0070:
-/*  f0c0070:	c7ae0044 */ 	lwc1	$f14,0x44($sp)
-/*  f0c0074:	c7ac003c */ 	lwc1	$f12,0x3c($sp)
-/*  f0c0078:	46007387 */ 	neg.s	$f14,$f14
-/*  f0c007c:	0fc259d4 */ 	jal	func0f096750
-/*  f0c0080:	46006307 */ 	neg.s	$f12,$f12
-/*  f0c0084:	3c017f1b */ 	lui	$at,%hi(var7f1ad6b8)
-/*  f0c0088:	c430d6b8 */ 	lwc1	$f16,%lo(var7f1ad6b8)($at)
-/*  f0c008c:	3c017f1b */ 	lui	$at,%hi(var7f1ad6bc)
-/*  f0c0090:	c42ad6bc */ 	lwc1	$f10,%lo(var7f1ad6bc)($at)
-/*  f0c0094:	46000086 */ 	mov.s	$f2,$f0
-/*  f0c0098:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0c009c:	4600503e */ 	c.le.s	$f10,$f0
-/*  f0c00a0:	00000000 */ 	nop
-/*  f0c00a4:	45000002 */ 	bc1f	.L0f0c00b0
-/*  f0c00a8:	00000000 */ 	nop
-/*  f0c00ac:	46100081 */ 	sub.s	$f2,$f0,$f16
-.L0f0c00b0:
-/*  f0c00b0:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0c00b4:	e5c21970 */ 	swc1	$f2,0x1970($t6)
-/*  f0c00b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c00bc:	8fa20048 */ 	lw	$v0,0x48($sp)
-/*  f0c00c0:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f0c00c4:	03e00008 */ 	jr	$ra
-/*  f0c00c8:	00000000 */ 	nop
-);
+Gfx *currentPlayerUpdateShootRot(Gfx *gdl)
+{
+	struct coord sp3c;
+	struct coord sp30;
+	f32 y;
+	f32 value;
+	f32 rotx;
+	f32 roty;
+
+	func0f0bfc7c(&g_Vars.currentplayer->cam_pos,
+			&g_Vars.currentplayer->cam_look,
+			&g_Vars.currentplayer->cam_up);
+	func0f0a0c08(&sp30, &sp3c);
+	y = sp3c.y;
+
+	value = sqrtf(sp3c.z * sp3c.z + sp3c.x * sp3c.x);
+
+	rotx = func0f096750(y, value);
+	rotx += (g_Vars.currentplayer->vv_verta * M_BADTAU) / 360.0f;
+
+	if (rotx >= M_PI) {
+		rotx -= M_BADTAU;
+	}
+
+	g_Vars.currentplayer->shootrotx = rotx;
+
+	roty = func0f096750(-sp3c.x, -sp3c.z);
+
+	if (roty >= M_PI) {
+		roty -= M_BADTAU;
+	}
+
+	g_Vars.currentplayer->shootroty = roty;
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f0c00cc

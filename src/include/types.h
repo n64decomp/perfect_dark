@@ -2665,8 +2665,8 @@ struct player {
 	/*0x1960*/ u32 killsthislife;
 	/*0x1964*/ u32 healthdisplaytime60;
 	/*0x1968*/ f32 guncloseroffset;
-	/*0x196c*/ u32 shootrotx;
-	/*0x1970*/ u32 shootroty;
+	/*0x196c*/ f32 shootrotx;
+	/*0x1970*/ f32 shootroty;
 	/*0x1974*/ char *award1;
 	/*0x1978*/ char *award2;
 	/*0x197c*/ u32 unk197c;

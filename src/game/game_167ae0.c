@@ -1580,7 +1580,7 @@ Gfx *renderFrame(Gfx *gdl)
 				}
 			} else {
 				if (var80075d60 == 2) {
-					gdl = func0f0bffcc(gdl);
+					gdl = currentPlayerUpdateShootRot(gdl);
 				}
 
 				gdl = func0000b330(gdl);
