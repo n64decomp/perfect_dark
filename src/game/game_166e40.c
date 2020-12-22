@@ -512,7 +512,7 @@ glabel gfxAllocateVertices
 );
 
 GLOBAL_ASM(
-glabel func0f167998
+glabel gfxAllocateMatrix
 /*  f167998:	3c05800b */ 	lui	$a1,%hi(var800aa59c)
 /*  f16799c:	24a5a59c */ 	addiu	$a1,$a1,%lo(var800aa59c)
 /*  f1679a0:	8ca20000 */ 	lw	$v0,0x0($a1)
@@ -522,7 +522,7 @@ glabel func0f167998
 );
 
 GLOBAL_ASM(
-glabel func0f1679b0
+glabel gfxAllocate4Words
 /*  f1679b0:	3c06800b */ 	lui	$a2,%hi(var800aa59c)
 /*  f1679b4:	24c6a59c */ 	addiu	$a2,$a2,%lo(var800aa59c)
 /*  f1679b8:	8cc20000 */ 	lw	$v0,0x0($a2)

@@ -1368,12 +1368,12 @@ glabel func0f130044
 /*  f130a48:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f130a4c:	0c005775 */ 	jal	func00015dd4
 /*  f130a50:	27a500d4 */ 	addiu	$a1,$sp,0xd4
-/*  f130a54:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f130a54:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f130a58:	00000000 */ 	nop
 /*  f130a5c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f130a60:	0c0056f8 */ 	jal	func00015be0
 /*  f130a64:	27a500d4 */ 	addiu	$a1,$sp,0xd4
-/*  f130a68:	0fc59e66 */ 	jal	func0f167998
+/*  f130a68:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f130a6c:	00000000 */ 	nop
 /*  f130a70:	00408825 */ 	or	$s1,$v0,$zero
 /*  f130a74:	27a400d4 */ 	addiu	$a0,$sp,0xd4

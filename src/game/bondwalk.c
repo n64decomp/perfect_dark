@@ -95,7 +95,7 @@ void currentPlayerWalkInit(void)
 
 	if (g_Vars.currentplayer->walkinitmove) {
 		struct coord delta;
-		func00016b58(g_Vars.currentplayer->walkinitmtx,
+		func00016b58(&g_Vars.currentplayer->walkinitmtx,
 				0, 0, 0,
 				-g_Vars.currentplayer->bond2.unk1c.x, -g_Vars.currentplayer->bond2.unk1c.y, -g_Vars.currentplayer->bond2.unk1c.z,
 				g_Vars.currentplayer->bond2.unk28.x, g_Vars.currentplayer->bond2.unk28.y, g_Vars.currentplayer->bond2.unk28.z);

@@ -1548,7 +1548,7 @@ void frInitTargets(void)
 	struct prop *prop;
 	struct defaultobj *obj;
 	struct pospad pospad;
-	f32 sp144[16];
+	Mtxf sp144;
 	f32 sp108[9];
 
 	for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
@@ -1601,14 +1601,14 @@ void frInitTargets(void)
 			}
 
 			if (g_FrData.targets[i].flags & FRTARGETFLAG_SPAWNFACINGAWAY) {
-				func00016374(0.0f, sp144);
+				func00016374(0.0f, &sp144);
 				g_FrData.targets[i].angle = M_PI;
 			} else {
-				func00016374(M_PI, sp144);
+				func00016374(M_PI, &sp144);
 			}
 
-			func00015f04(obj->model->unk14, sp144);
-			func00015da0(sp144, sp108);
+			func00015f04(obj->model->unk14, &sp144);
+			func00015da0(&sp144, sp108);
 			func00015cd8(sp108, obj->realrot);
 
 			prop->pos.x = pospad.pos.x;

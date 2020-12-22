@@ -1975,9 +1975,9 @@ glabel func0f12e848
 
 u32 smokeUpdateZ(struct prop *prop)
 {
-	f32 *matrix = currentPlayerGetMatrix();
+	Mtxf *matrix = currentPlayerGetMatrix1740();
 
-	prop->z = -(matrix[2] * prop->pos.x + matrix[6] * prop->pos.y + matrix[10] * prop->pos.z + matrix[14]);
+	prop->z = -(matrix->m[0][2] * prop->pos.x + matrix->m[1][2] * prop->pos.y + matrix->m[2][2] * prop->pos.z + matrix->m[3][2]);
 
 	if (prop->z < 100) {
 		prop->z *= 0.5f;

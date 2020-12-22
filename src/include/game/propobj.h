@@ -89,7 +89,7 @@ u32 func0f06a52c(void);
 struct prop *func0f06a550(struct singlemonitorobj *monitor);
 u32 func0f06a580(void);
 f32 func0f06a620(struct defaultobj *obj);
-void func0f06a730(struct defaultobj *obj, struct pad *newpad, f32 *matrix, s16 *arg3, struct pad *arg4);
+void func0f06a730(struct defaultobj *obj, struct pad *newpad, Mtxf *matrix, s16 *arg3, struct pad *arg4);
 u32 func0f06ab60(void);
 void func0f06ac40(struct defaultobj *obj);
 void func0f06ac90(struct prop *prop);

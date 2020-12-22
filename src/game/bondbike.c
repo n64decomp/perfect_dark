@@ -43,7 +43,7 @@ u32 var80070ef4 = 0x00000000;
 void currentPlayerBikeInit(void)
 {
 	struct hoverbikeobj *hoverbike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
-	f32 matrix[16];
+	Mtxf matrix;
 
 	g_Vars.currentplayer->bondmovemode = MOVEMODE_BIKE;
 	g_Vars.currentplayer->bondvehiclemode = 0;
@@ -59,10 +59,10 @@ void currentPlayerBikeInit(void)
 	g_Vars.currentplayer->bondenterpos.y = g_Vars.currentplayer->prop->pos.y;
 	g_Vars.currentplayer->bondenterpos.z = g_Vars.currentplayer->prop->pos.z;
 
-	func00015d54(hoverbike->base.realrot, matrix);
-	func00015dd4(&hoverbike->base.prop->pos, matrix);
-	func00015b68(matrix, &g_Vars.currentplayer->bondvehicleoffset, &g_Vars.currentplayer->bondenteraim);
-	func00016b58(g_Vars.currentplayer->bondentermtx,
+	func00015d54(hoverbike->base.realrot, &matrix);
+	func00015dd4(&hoverbike->base.prop->pos, &matrix);
+	func00015b68(&matrix, &g_Vars.currentplayer->bondvehicleoffset, &g_Vars.currentplayer->bondenteraim);
+	func00016b58(&g_Vars.currentplayer->bondentermtx,
 			0, 0, 0,
 			-g_Vars.currentplayer->bond2.unk1c.x, -g_Vars.currentplayer->bond2.unk1c.y, -g_Vars.currentplayer->bond2.unk1c.z,
 			g_Vars.currentplayer->bond2.unk28.x, g_Vars.currentplayer->bond2.unk28.y, g_Vars.currentplayer->bond2.unk28.z);

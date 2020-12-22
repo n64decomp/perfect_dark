@@ -7768,7 +7768,7 @@ glabel func0f06c8ac
 /*  f06c9a8:	c6880004 */ 	lwc1	$f8,0x4($s4)
 /*  f06c9ac:	e7a8008c */ 	swc1	$f8,0x8c($sp)
 /*  f06c9b0:	c68a0008 */ 	lwc1	$f10,0x8($s4)
-/*  f06c9b4:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f06c9b4:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f06c9b8:	e7aa0090 */ 	swc1	$f10,0x90($sp)
 /*  f06c9bc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06c9c0:	0c0056d9 */ 	jal	func00015b64
@@ -7778,7 +7778,7 @@ glabel func0f06c8ac
 /*  f06c9d0:	c7b000a0 */ 	lwc1	$f16,0xa0($sp)
 /*  f06c9d4:	e7a6007c */ 	swc1	$f6,0x7c($sp)
 /*  f06c9d8:	e7b20080 */ 	swc1	$f18,0x80($sp)
-/*  f06c9dc:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f06c9dc:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f06c9e0:	e7b00084 */ 	swc1	$f16,0x84($sp)
 /*  f06c9e4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06c9e8:	0c0056c4 */ 	jal	func00015b10
@@ -17770,7 +17770,7 @@ glabel var7f1aa438
 /*  f0758e0:	8ca5ce74 */ 	lw	$a1,%lo(var8009ce74)($a1)
 /*  f0758e4:	0c006973 */ 	jal	func0001a5cc
 /*  f0758e8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0758ec:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f0758ec:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f0758f0:	afa20184 */ 	sw	$v0,0x184($sp)
 /*  f0758f4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0758f8:	27a505e8 */ 	addiu	$a1,$sp,0x5e8
@@ -19834,7 +19834,7 @@ glabel var7f1aa44c
 /*  f077484:	8ed5000c */ 	lw	$s5,0xc($s6)
 /*  f077488:	0fc23109 */ 	jal	func0f08c424
 /*  f07748c:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f077490:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f077490:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f077494:	00000000 */ 	nop
 /*  f077498:	00402025 */ 	or	$a0,$v0,$zero
 /*  f07749c:	0c0056f8 */ 	jal	func00015be0
@@ -21514,7 +21514,7 @@ glabel var7f1aa4ac
 /*  f0789fc:	27a40064 */ 	addiu	$a0,$sp,0x64
 /*  f078a00:	0c005775 */ 	jal	func00015dd4
 /*  f078a04:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f078a08:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f078a08:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f078a0c:	00000000 */ 	nop
 /*  f078a10:	00402025 */ 	or	$a0,$v0,$zero
 /*  f078a14:	0c0056f8 */ 	jal	func00015be0
@@ -22902,7 +22902,7 @@ glabel var7f1aa588
 /*  f079d5c:	8df80018 */ 	lw	$t8,0x18($t7)
 /*  f079d60:	0c0057c1 */ 	jal	func00015f04
 /*  f079d64:	c70c0014 */ 	lwc1	$f12,0x14($t8)
-/*  f079d68:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f079d68:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f079d6c:	00000000 */ 	nop
 /*  f079d70:	00402025 */ 	or	$a0,$v0,$zero
 /*  f079d74:	0c0056f8 */ 	jal	func00015be0
@@ -28076,7 +28076,7 @@ glabel func0f07e2cc
 /*  f07e314:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f07e318:	0c005775 */ 	jal	func00015dd4
 /*  f07e31c:	24e40008 */ 	addiu	$a0,$a3,0x8
-/*  f07e320:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f07e320:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f07e324:	00000000 */ 	nop
 /*  f07e328:	8e0f0018 */ 	lw	$t7,0x18($s0)
 /*  f07e32c:	00402025 */ 	or	$a0,$v0,$zero
@@ -28348,7 +28348,7 @@ s32 objTick(struct prop *prop)
 			} else {
 				// In cutscene
 				struct objticksp476 sp476 = {0, 1, 3};
-				f32 sp412[16];
+				Mtxf sp412;
 				struct coord sp400;
 				s16 sp384[8];
 				struct hov *hov = NULL;
@@ -28375,16 +28375,16 @@ s32 objTick(struct prop *prop)
 
 					sp556 = true;
 					sp476.model0c = func0f1679f4(model->unk08->unk0e * 64);
-					sp476.matrix = currentPlayerGetMatrix();
+					sp476.matrix = currentPlayerGetMatrix1740();
 					func0001cebc(&sp476, model);
 
 					if (sp572) {
-						func00015be4(currentPlayerGetUnk174c(), model->unk0c, sp412);
-						func00015da0(sp412, obj->realrot);
+						func00015be4(currentPlayerGetUnk174c(), model->unk0c, &sp412);
+						func00015da0(&sp412, obj->realrot);
 
-						sp400.x = sp412[12];
-						sp400.y = sp412[13];
-						sp400.z = sp412[14];
+						sp400.x = sp412.m[3][0];
+						sp400.y = sp412.m[3][1];
+						sp400.z = sp412.m[3][2];
 
 						if (obj->flags3 & OBJFLAG3_00000010) {
 							func0f065e98(&prop->pos, prop->rooms, &sp400, sp384);
@@ -28407,7 +28407,7 @@ s32 objTick(struct prop *prop)
 
 						if (hov) {
 							func0f0713e4(obj, hov, &prop->pos, prop->rooms, obj->realrot);
-							hoverpropSetTurnAngle(obj, func0f096750(sp412[8], sp412[10]));
+							hoverpropSetTurnAngle(obj, func0f096750(sp412.m[2][0], sp412.m[2][2]));
 
 							hov->unk14 = 0;
 							hov->unk1c = 0;
@@ -28434,11 +28434,11 @@ s32 objTick(struct prop *prop)
 			}
 		} else {
 			struct objticksp476 sp312 = {0, 1, 3};
-			f32 sp248[16];
+			Mtxf sp248;
 			struct coord sp236;
 			s16 sp220[8];
 			s32 numchrs;
-			f32 sp152[16];
+			Mtxf sp152;
 			s32 sp148;
 			s32 sp144;
 			s32 i;
@@ -28467,13 +28467,13 @@ s32 objTick(struct prop *prop)
 				func00016208(obj->realrot, &sp116);
 			}
 
-			func00015d54(obj->realrot, sp248);
-			func00015dd4(&prop->pos, sp248);
-			func00015a00(currentPlayerGetMatrix(), sp248, sp152);
+			func00015d54(obj->realrot, &sp248);
+			func00015dd4(&prop->pos, &sp248);
+			func00015a00(currentPlayerGetMatrix1740(), &sp248, &sp152);
 
 			sp556 = true;
 			sp312.model0c = func0f1679f4(model->unk08->unk0e * 64);
-			sp312.matrix = sp152;
+			sp312.matrix = &sp152;
 			func0001cebc(&sp312, model);
 
 			if (sp572) {
@@ -28490,8 +28490,8 @@ s32 objTick(struct prop *prop)
 				if (modelGetCurAnimFrame(model) >= modelGetNumAnimFrames(model) - 1) {
 					animTurnOff(model->anim);
 					model->anim = NULL;
-					func00015be4(currentPlayerGetUnk174c(), model->unk0c, sp248);
-					func00015da0(sp248, obj->realrot);
+					func00015be4(currentPlayerGetUnk174c(), model->unk0c, &sp248);
+					func00015da0(&sp248, obj->realrot);
 					tagnum = objGetTagNum(obj);
 
 					if (tagnum >= 0) {
@@ -30559,14 +30559,14 @@ glabel func0f080f8c
 /*  f080fe8:	46083280 */ 	add.s	$f10,$f6,$f8
 /*  f080fec:	e7a40068 */ 	swc1	$f4,0x68($sp)
 /*  f080ff0:	e7b00070 */ 	swc1	$f16,0x70($sp)
-/*  f080ff4:	0fc59e66 */ 	jal	func0f167998
+/*  f080ff4:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f080ff8:	e7aa006c */ 	swc1	$f10,0x6c($sp)
 /*  f080ffc:	afa2007c */ 	sw	$v0,0x7c($sp)
 /*  f081000:	27a40068 */ 	addiu	$a0,$sp,0x68
 /*  f081004:	8fa50110 */ 	lw	$a1,0x110($sp)
 /*  f081008:	0c005892 */ 	jal	func00016248
 /*  f08100c:	27a600c0 */ 	addiu	$a2,$sp,0xc0
-/*  f081010:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f081010:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f081014:	00000000 */ 	nop
 /*  f081018:	00402025 */ 	or	$a0,$v0,$zero
 /*  f08101c:	27a500c0 */ 	addiu	$a1,$sp,0xc0
@@ -44814,7 +44814,7 @@ void func0f08e224(struct doorobj *door)
 
 		if (door->base.hidden & OBJHFLAG_00000080) {
 			door->base.unk48->flags |= 1;
-			func000159b0(&door->base.unk48->unk020);
+			func000159b0((Mtxf *)&door->base.unk48->unk020);
 		}
 	}
 
@@ -45077,7 +45077,7 @@ glabel func0f08e794
 /*  f08e7b8:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
 /*  f08e7bc:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f08e7c0:	24841bb0 */ 	addiu	$a0,$a0,7088
-/*  f08e7c4:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f08e7c4:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f08e7c8:	afa4001c */ 	sw	$a0,0x1c($sp)
 /*  f08e7cc:	8fa4001c */ 	lw	$a0,0x1c($sp)
 /*  f08e7d0:	8fa50038 */ 	lw	$a1,0x38($sp)

@@ -150,7 +150,7 @@ void currentPlayerUpdateHead(f32 arg0, f32 arg1)
 
 		{
 			struct objticksp476 sp80 = {NULL, 1, 3};
-			f32 sp40[16];
+			Mtxf sp40;
 			struct coord modelpos = {0, 0, 0};
 			bool somebool = func0001e2a8();
 
@@ -160,9 +160,9 @@ void currentPlayerUpdateHead(f32 arg0, f32 arg1)
 			func0001ee18(&g_Vars.currentplayer->model, g_Vars.lvupdate240, true);
 			func0001e29c(somebool);
 			func0001b3bc(&g_Vars.currentplayer->model);
-			func000159b0(sp40);
+			func000159b0(&sp40);
 
-			sp80.matrix = sp40;
+			sp80.matrix = &sp40;
 			sp80.model0c = &g_Vars.currentplayer->unk0510;
 			func0001cebc(&sp80, &g_Vars.currentplayer->model);
 

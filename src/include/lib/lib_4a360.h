@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0004a360(void);
+void func0004a360(Mtxf *arg0, Mtx *arg1);
 u32 func0004a460(void);
 f32 sqrtf(f32 value);
 

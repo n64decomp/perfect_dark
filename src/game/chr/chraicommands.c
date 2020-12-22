@@ -2378,24 +2378,24 @@ bool aiObjectMoveToPad(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	u16 padnum = cmd[4] | (cmd[3] << 8);
-	f32 matrix[16];
+	Mtxf matrix;
 	struct pad pad;
 	s16 rooms[2];
 
 	if (obj && obj->prop) {
 		padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_ROOM, &pad);
-		func00016d58(matrix,
+		func00016d58(&matrix,
 				0, 0, 0,
 				-pad.look.x, -pad.look.y, -pad.look.z,
 				pad.up.x, pad.up.y, pad.up.z);
 
 		if (obj->model) {
-			func00015f04(obj->model->unk14, matrix);
+			func00015f04(obj->model->unk14, &matrix);
 		}
 
 		rooms[0] = pad.room;
 		rooms[1] = -1;
-		func0f06a730(obj, &pad, matrix, rooms, &pad);
+		func0f06a730(obj, &pad, &matrix, rooms, &pad);
 	}
 
 	g_Vars.aioffset += 5;

@@ -4494,13 +4494,13 @@ void func0f0baf38(void)
 Gfx *func0f0baf84(Gfx *gdl)
 {
 	if (g_Vars.currentplayer->pausemode != PAUSEMODE_UNPAUSED) {
-		u32 a = func0f167998();
+		f32 *a = gfxAllocateMatrix();
 		u16 b;
 
 		func00004a24(a, &b, g_Vars.currentplayer->zoominfovy,
 				1.4545454978943f, 10, 300, 1);
 
-		gSPMatrix(gdl++, 0x80000000 + a, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, 0x80000000 + (u32)a, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		gSPPerspNormalize(gdl++, b);
 	}
 
@@ -5195,7 +5195,7 @@ glabel func0f0bbf14
 Gfx *hudRenderHealthBar(Gfx *gdl)
 {
 	f32 matrix[16];
-	u32 addr = func0f167998();
+	f32 *addr = gfxAllocateMatrix();
 
 	func00016ae4(matrix, 0, 370, 0, 0, 0, 0, 0, 0, -1);
 	func00016054(matrix, addr);
@@ -9382,7 +9382,7 @@ void currentPlayerSetGlobalDrawCameraOffset(void)
 	g_Vars.currentplayer->globaldrawcameraoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
 	g_Vars.currentplayer->globaldrawcameraoffset.z = g_Vars.currentplayer->globaldrawworldoffset.z;
 
-	func00015b10(currentPlayerGetMatrix(), &g_Vars.currentplayer->globaldrawcameraoffset);
+	func00015b10(currentPlayerGetMatrix1740(), &g_Vars.currentplayer->globaldrawcameraoffset);
 }
 
 GLOBAL_ASM(
@@ -9402,20 +9402,20 @@ glabel func0f0bfc7c
 /*  f0bfcac:	e7a00070 */ 	swc1	$f0,0x70($sp)
 /*  f0bfcb0:	0fc2feee */ 	jal	currentPlayerSetGlobalDrawWorldOffset
 /*  f0bfcb4:	8dc41ba0 */ 	lw	$a0,0x1ba0($t6)
-/*  f0bfcb8:	0fc59e66 */ 	jal	func0f167998
+/*  f0bfcb8:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f0bfcbc:	00000000 */ 	nop
 /*  f0bfcc0:	8e4f0284 */ 	lw	$t7,0x284($s2)
-/*  f0bfcc4:	0fc59e66 */ 	jal	func0f167998
+/*  f0bfcc4:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f0bfcc8:	ade2005c */ 	sw	$v0,0x5c($t7)
 /*  f0bfccc:	8e580284 */ 	lw	$t8,0x284($s2)
-/*  f0bfcd0:	0fc59e66 */ 	jal	func0f167998
+/*  f0bfcd0:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f0bfcd4:	af020060 */ 	sw	$v0,0x60($t8)
 /*  f0bfcd8:	8e590284 */ 	lw	$t9,0x284($s2)
-/*  f0bfcdc:	0fc59e66 */ 	jal	func0f167998
+/*  f0bfcdc:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f0bfce0:	af220064 */ 	sw	$v0,0x64($t9)
 /*  f0bfce4:	8e490284 */ 	lw	$t1,0x284($s2)
 /*  f0bfce8:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f0bfcec:	0fc59e6c */ 	jal	func0f1679b0
+/*  f0bfcec:	0fc59e6c */ 	jal	gfxAllocate4Words
 /*  f0bfcf0:	ad220068 */ 	sw	$v0,0x68($t1)
 /*  f0bfcf4:	8fa80110 */ 	lw	$t0,0x110($sp)
 /*  f0bfcf8:	8e430284 */ 	lw	$v1,0x284($s2)
@@ -9519,9 +9519,9 @@ glabel func0f0bfc7c
 /*  f0bfe80:	c6280008 */ 	lwc1	$f8,0x8($s1)
 /*  f0bfe84:	0c005ad6 */ 	jal	func00016b58
 /*  f0bfe88:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f0bfe8c:	0fc59e66 */ 	jal	func0f167998
+/*  f0bfe8c:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f0bfe90:	00000000 */ 	nop
-/*  f0bfe94:	0fc59e66 */ 	jal	func0f167998
+/*  f0bfe94:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f0bfe98:	00408825 */ 	or	$s1,$v0,$zero
 /*  f0bfe9c:	0fc2d5c6 */ 	jal	currentPlayerGetUnk1754
 /*  f0bfea0:	00408025 */ 	or	$s0,$v0,$zero
@@ -9586,7 +9586,7 @@ glabel func0f0bfc7c
 /*  f0bff7c:	0fc2d3de */ 	jal	currentPlayerSetUnk1738
 /*  f0bff80:	8de40060 */ 	lw	$a0,0x60($t7)
 /*  f0bff84:	8e580284 */ 	lw	$t8,0x284($s2)
-/*  f0bff88:	0fc2d406 */ 	jal	currentPlayerSetMatrix
+/*  f0bff88:	0fc2d406 */ 	jal	currentPlayerSetMatrix1740
 /*  f0bff8c:	8f040064 */ 	lw	$a0,0x64($t8)
 /*  f0bff90:	8e590284 */ 	lw	$t9,0x284($s2)
 /*  f0bff94:	0fc2d5d6 */ 	jal	currentPlayerSetUnk174c
@@ -9604,6 +9604,90 @@ glabel func0f0bfc7c
 /*  f0bffc4:	03e00008 */ 	jr	$ra
 /*  f0bffc8:	27bd0110 */ 	addiu	$sp,$sp,0x110
 );
+
+// Mismatch near first call to func00016874:
+// - Goal seems to have less float registers available which causes it to
+// reload cam_look properties for the function call
+// - Because it has to reload, it then stores cam_look in a callee-save register
+//void func0f0bfc7c(struct coord *cam_pos, struct coord *cam_look, struct coord *cam_up)
+//{
+//	f32 spd0[16];
+//	void *spcc;
+//	Mtxf sp8c;
+//	struct coord sp80;
+//	struct coord sp74;
+//	f32 scale;
+//	Mtxf *s0;
+//	Mtx *s1;
+//	s32 i;
+//	s32 j;
+//
+//	scale = currentPlayerGetScaleBg2Gfx();
+//	currentPlayerSetGlobalDrawWorldOffset(g_Vars.currentplayer->cam_room);
+//
+//	g_Vars.currentplayer->matrix5c = gfxAllocateMatrix();
+//	g_Vars.currentplayer->matrix60 = gfxAllocateMatrix();
+//	g_Vars.currentplayer->matrix64 = gfxAllocateMatrix();
+//	g_Vars.currentplayer->matrix68 = gfxAllocateMatrix();
+//
+//	spcc = gfxAllocate4Words(2);
+//
+//	sp74.x = (cam_pos->x - g_Vars.currentplayer->globaldrawworldoffset.x) * scale;
+//	sp74.y = (cam_pos->y - g_Vars.currentplayer->globaldrawworldoffset.y) * scale;
+//	sp74.z = (cam_pos->z - g_Vars.currentplayer->globaldrawworldoffset.z) * scale;
+//
+//	sp80.x = (cam_pos->x - g_Vars.currentplayer->globaldrawworldoffset.x) * scale + cam_look->x;
+//	sp80.y = (cam_pos->y - g_Vars.currentplayer->globaldrawworldoffset.y) * scale + cam_look->y;
+//	sp80.z = (cam_pos->z - g_Vars.currentplayer->globaldrawworldoffset.z) * scale + cam_look->z;
+//
+//	func00016874(&sp8c,
+//			sp74.x, sp74.y, sp74.z,
+//			cam_look->x, cam_look->y, cam_look->z,
+//			cam_up->x, cam_up->y, cam_up->z);
+//
+//	func0000470c(spd0, spcc,
+//			sp74.x, sp74.y, sp74.z,
+//			sp80.x, sp80.y, sp80.z,
+//			cam_up->x, cam_up->y, cam_up->z);
+//
+//	func00016874(g_Vars.currentplayer->matrix64,
+//			cam_pos->x, cam_pos->y, cam_pos->z,
+//			cam_look->x, cam_look->y, cam_look->z,
+//			cam_up->x, cam_up->y, cam_up->z);
+//
+//	func00016b58(g_Vars.currentplayer->matrix68,
+//			cam_pos->x, cam_pos->y, cam_pos->z,
+//			cam_look->x, cam_look->y, cam_look->z,
+//			cam_up->x, cam_up->y, cam_up->z);
+//
+//	s1 = gfxAllocateMatrix();
+//	s0 = gfxAllocateMatrix();
+//	func00015a00(currentPlayerGetUnk1754(), &sp8c, s0);
+//
+//	for (i = 0; i < 4; i++) {
+//		for (j = 0; j < 4; j++) {
+//			if (s0->m[i][j] > 32000.0f) {
+//				s0->m[i][j] = 32000.0f;
+//			} else if (s0->m[i][j] < -32000.0f) {
+//				s0->m[i][j] = -32000.0f;
+//			}
+//		}
+//	}
+//
+//	currentPlayerSetUnk006c(s0);
+//	func0004a360(s0, s1);
+//	currentPlayerSetUnk1758(s1);
+//	func00015f04(scale, &sp8c);
+//	func0004a360(&sp8c, g_Vars.currentplayer->matrix5c);
+//	func00016820(g_Vars.currentplayer->matrix5c, g_Vars.currentplayer->matrix60);
+//	currentPlayerSetUnk173c(g_Vars.currentplayer->matrix5c);
+//	currentPlayerSetUnk1738(g_Vars.currentplayer->matrix60);
+//	currentPlayerSetMatrix1740(g_Vars.currentplayer->matrix64);
+//	currentPlayerSetUnk174c(g_Vars.currentplayer->matrix68);
+//	currentPlayerSetUnk175c(spcc);
+//	func0f0b5838();
+//	currentPlayerSetGlobalDrawCameraOffset();
+//}
 
 Gfx *currentPlayerUpdateShootRot(Gfx *gdl)
 {

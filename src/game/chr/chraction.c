@@ -15580,7 +15580,7 @@ glabel var7f1a90b8
 /*  f03ffe4:	02602825 */ 	or	$a1,$s3,$zero
 /*  f03ffe8:	0c0056c5 */ 	jal	func00015b14
 /*  f03ffec:	27a60118 */ 	addiu	$a2,$sp,0x118
-/*  f03fff0:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f03fff0:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f03fff4:	00000000 */ 	nop
 /*  f03fff8:	00514826 */ 	xor	$t1,$v0,$s1
 /*  f03fffc:	0009482b */ 	sltu	$t1,$zero,$t1
@@ -24880,7 +24880,7 @@ bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
 
 				func0f0a0c08(&sp68, &sp56);
 				modelGetRootPosition(model, &sp44);
-				func00015b64(currentPlayerGetMatrix(), &sp44);
+				func00015b64(currentPlayerGetMatrix1740(), &sp44);
 
 				if (func0f06b39c(&sp68, &sp56, &sp44, somefloat)) {
 					return true;

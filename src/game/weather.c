@@ -2215,7 +2215,7 @@ glabel var7f1b5780
 /*  f133070:	afa00194 */ 	sw	$zero,0x194($sp)
 /*  f133074:	0c00566c */ 	jal	func000159b0
 /*  f133078:	02002025 */ 	or	$a0,$s0,$zero
-/*  f13307c:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f13307c:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f133080:	00000000 */ 	nop
 /*  f133084:	00402025 */ 	or	$a0,$v0,$zero
 /*  f133088:	0c0056f8 */ 	jal	func00015be0
@@ -2224,7 +2224,7 @@ glabel var7f1b5780
 /*  f133094:	00000000 */ 	nop
 /*  f133098:	e7b401f8 */ 	swc1	$f20,0x1f8($sp)
 /*  f13309c:	e7b401fc */ 	swc1	$f20,0x1fc($sp)
-/*  f1330a0:	0fc59e66 */ 	jal	func0f167998
+/*  f1330a0:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f1330a4:	e7b40200 */ 	swc1	$f20,0x200($sp)
 /*  f1330a8:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1330ac:	02002025 */ 	or	$a0,$s0,$zero
@@ -3859,7 +3859,7 @@ glabel var7f1b5790
 /*  f134878:	afa00198 */ 	sw	$zero,0x198($sp)
 /*  f13487c:	0c00566c */ 	jal	func000159b0
 /*  f134880:	02002025 */ 	or	$a0,$s0,$zero
-/*  f134884:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f134884:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f134888:	00000000 */ 	nop
 /*  f13488c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f134890:	0c0056f8 */ 	jal	func00015be0
@@ -3868,7 +3868,7 @@ glabel var7f1b5790
 /*  f13489c:	00000000 */ 	nop
 /*  f1348a0:	e7b401fc */ 	swc1	$f20,0x1fc($sp)
 /*  f1348a4:	e7b40200 */ 	swc1	$f20,0x200($sp)
-/*  f1348a8:	0fc59e66 */ 	jal	func0f167998
+/*  f1348a8:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f1348ac:	e7b40204 */ 	swc1	$f20,0x204($sp)
 /*  f1348b0:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1348b4:	02002025 */ 	or	$a0,$s0,$zero

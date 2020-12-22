@@ -6854,13 +6854,13 @@ bool func0f15cd90(u32 room, struct screenbox *screen)
 
 bool func0f15d08c(struct coord *a, struct coord *b)
 {
-	f32 *matrixmaybe = currentPlayerGetMatrix();
+	Mtxf *matrix = currentPlayerGetMatrix1740();
 
 	b->x = a->x;
 	b->y = a->y;
 	b->z = a->z;
 
-	func00015b64(matrixmaybe, b);
+	func00015b64(matrix, b);
 	func0f0b4d68(b, b);
 
 	if (b->z > 0) {

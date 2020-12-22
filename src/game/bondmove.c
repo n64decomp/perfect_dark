@@ -3041,7 +3041,7 @@ glabel var7f1ad8e4
 /*  f0cab10:	8e4d0284 */ 	lw	$t5,0x284($s2)
 .L0f0cab14:
 /*  f0cab14:	e5a216f8 */ 	swc1	$f2,0x16f8($t5)
-/*  f0cab18:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f0cab18:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f0cab1c:	e7a200ac */ 	swc1	$f2,0xac($sp)
 /*  f0cab20:	8e4e0284 */ 	lw	$t6,0x284($s2)
 /*  f0cab24:	27b000a0 */ 	addiu	$s0,$sp,0xa0
@@ -4917,7 +4917,7 @@ glabel var7f1ad8e4
 //
 //			g_Vars.currentplayer->gunzoomfovs[1] = spac;
 //
-//			func00015b68(currentPlayerGetMatrix(), &g_Vars.currentplayer->autoerasertarget->pos, &spa0);
+//			func00015b68(currentPlayerGetMatrix1740(), &g_Vars.currentplayer->autoerasertarget->pos, &spa0);
 //
 //			func0f0b4eb8(&spa0, sp98, spac, g_Vars.currentplayer->c_perspaspect);
 //
@@ -5552,11 +5552,11 @@ void func0f0cc19c(struct coord *arg)
 	}
 }
 
-void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 arg4)
+void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 {
 	f32 sp244 = 0;
-	f32 sp180[16];
-	f32 sp116[16];
+	Mtxf sp180;
+	Mtxf sp116;
 	f32 sp100[4];
 	f32 sp84[4];
 	f32 sp68[4];
@@ -5580,33 +5580,33 @@ void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 arg4)
 	}
 
 	currentPlayerUpdateHead(sp244, arg2);
-	func000162e8(BADDEG2RAD(360 - g_Vars.currentplayer->vv_verta360), sp180);
+	func000162e8(BADDEG2RAD(360 - g_Vars.currentplayer->vv_verta360), &sp180);
 
 	if (optionsGetHeadRoll(g_Vars.currentplayerstats->mpindex)) {
-		func00016d58(sp116,
+		func00016d58(&sp116,
 				0, 0, 0,
 				-g_Vars.currentplayer->headlook.x, -g_Vars.currentplayer->headlook.y, -g_Vars.currentplayer->headlook.z,
 				g_Vars.currentplayer->headup.x, g_Vars.currentplayer->headup.y, g_Vars.currentplayer->headup.z);
-		func000159fc(sp116, sp180);
+		func000159fc(&sp116, &sp180);
 	}
 
-	func00016374(BADDEG2RAD(360 - g_Vars.currentplayer->vv_theta), sp116);
-	func000159fc(sp116, sp180);
+	func00016374(BADDEG2RAD(360 - g_Vars.currentplayer->vv_theta), &sp116);
+	func000159fc(&sp116, &sp180);
 
 	if (arg3) {
-		func0f097044(sp180, sp100);
+		func0f097044(&sp180, sp100);
 		func0f097044(arg3, sp84);
 		func0f0976c0(sp100, sp84);
 		func0f0972b8(sp100, sp84, arg4, sp68);
-		func0f096ed4(sp68, sp180);
+		func0f096ed4(sp68, &sp180);
 	}
 
-	g_Vars.currentplayer->bond2.unk1c.x = sp180[8];
-	g_Vars.currentplayer->bond2.unk1c.y = sp180[9];
-	g_Vars.currentplayer->bond2.unk1c.z = sp180[10];
-	g_Vars.currentplayer->bond2.unk28.x = sp180[4];
-	g_Vars.currentplayer->bond2.unk28.y = sp180[5];
-	g_Vars.currentplayer->bond2.unk28.z = sp180[6];
+	g_Vars.currentplayer->bond2.unk1c.x = sp180.m[2][0];
+	g_Vars.currentplayer->bond2.unk1c.y = sp180.m[2][1];
+	g_Vars.currentplayer->bond2.unk1c.z = sp180.m[2][2];
+	g_Vars.currentplayer->bond2.unk28.x = sp180.m[1][0];
+	g_Vars.currentplayer->bond2.unk28.y = sp180.m[1][1];
+	g_Vars.currentplayer->bond2.unk28.z = sp180.m[1][2];
 }
 
 void func0f0cc654(f32 arg0, f32 arg1, f32 arg2)

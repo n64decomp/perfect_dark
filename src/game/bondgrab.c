@@ -41,7 +41,7 @@ u32 var80070e98 = 0x00000000;
 void currentPlayerGrabInit(void)
 {
 	u32 prevmode = g_Vars.currentplayer->bondmovemode;
-	f32 matrix[16];
+	Mtxf matrix;
 	struct prop *prop = g_Vars.currentplayer->grabbedprop;
 
 	g_Vars.currentplayer->bondmovemode = MOVEMODE_GRAB;
@@ -68,8 +68,8 @@ void currentPlayerGrabInit(void)
 	g_Vars.currentplayer->gunextraaimx = 0;
 	g_Vars.currentplayer->gunextraaimy = 0;
 
-	func00016374((g_Vars.currentplayer->vv_theta * M_BADTAU) / 360.0f, matrix);
-	func00015b10(matrix, &g_Vars.currentplayer->grabbedposoffset);
+	func00016374((g_Vars.currentplayer->vv_theta * M_BADTAU) / 360.0f, &matrix);
+	func00015b10(&matrix, &g_Vars.currentplayer->grabbedposoffset);
 
 	g_Vars.currentplayer->bondprevtheta = g_Vars.currentplayer->vv_theta;
 

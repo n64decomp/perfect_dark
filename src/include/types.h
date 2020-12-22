@@ -7,6 +7,15 @@
 #define bool s32
 #define ubool u32
 
+// Float version of a graphics matrix, which has higher precision than an Mtx.
+// Matrices are stored as Mtxfs then converted to an Mtx when passed to the GPU.
+// Mtxs use a union and a long long int to force alignments. Mtxfs are not
+// aligned but still use the union for consistency with Mtx.
+typedef union {
+    f32 m[4][4];
+    s32 unused;
+} Mtxf;
+
 struct coord {
 	f32 x;
 	f32 y;
@@ -1246,7 +1255,7 @@ struct cameraobj { // objtype 0x06
 	// Note y is being used as an abbreviation for yaw
 	/*0x5c*/ s16 lookatpadnum;
 	/*0x5e*/ s16 toleft;
-	/*0x60*/ f32 camrotm[16];
+	/*0x60*/ Mtxf camrotm;
 	/*0xa0*/ f32 yzero;
 	/*0xa4*/ f32 yrot;
 	/*0xa8*/ f32 yleft;
@@ -2192,11 +2201,11 @@ struct player {
 	/*0x0038*/ struct coord globaldrawworldoffset;
 	/*0x0044*/ struct coord globaldrawcameraoffset;
 	/*0x0050*/ struct coord globaldrawworldbgoffset;
-	/*0x005c*/ f32 *matrix5c;
-	/*0x0060*/ u32 unk0060;
-	/*0x0064*/ u32 unk0064;
-	/*0x0068*/ u32 unk0068;
-	/*0x006c*/ u32 unk006c;
+	/*0x005c*/ Mtx *matrix5c;
+	/*0x0060*/ Mtx *matrix60;
+	/*0x0064*/ Mtxf *matrix64;
+	/*0x0068*/ Mtxf *matrix68;
+	/*0x006c*/ Mtxf *matrix6c;
 	/*0x0070*/ f32 sumground;
 	/*0x0074*/ f32 vv_manground; // Feet Y value in absolute coordinates
 	/*0x0078*/ f32 vv_ground; // Ground Y value in absolute coordinates
@@ -2597,19 +2606,19 @@ struct player {
 	/*0x172c*/ f32 c_scaley;
 	/*0x1730*/ f32 c_recipscalex;
 	/*0x1734*/ f32 c_recipscaley;
-	/*0x1738*/ u32 unk1738;
-	/*0x173c*/ u32 unk173c;
-	/*0x1740*/ f32 *matrix;
+	/*0x1738*/ void *unk1738;
+	/*0x173c*/ Mtx *unk173c;
+	/*0x1740*/ Mtxf *matrix1740;
 	/*0x1744*/ u32 unk1744;
 	/*0x1748*/ u32 unk1748;
-	/*0x174c*/ u32 unk174c;
+	/*0x174c*/ Mtxf *unk174c;
 	/*0x1750*/ void *unk1750;
-	/*0x1754*/ u32 unk1754;
-	/*0x1758*/ u32 unk1758;
-	/*0x175c*/ u32 unk175c;
-	/*0x1760*/ f32 *prevmatrix;
+	/*0x1754*/ Mtxf *unk1754;
+	/*0x1758*/ Mtx *unk1758;
+	/*0x175c*/ void *unk175c;
+	/*0x1760*/ Mtxf *prev1740;
 	/*0x1764*/ u32 unk1764;
-	/*0x1768*/ u32 unk1768;
+	/*0x1768*/ Mtxf *unk1768;
 	/*0x176c*/ f32 c_scalelod60;
 	/*0x1770*/ f32 c_scalelod;
 	/*0x1774*/ f32 c_lodscalez;
@@ -2721,7 +2730,7 @@ struct player {
 	/*0x1a88*/ u32 bondentertheta;
 	/*0x1a8c*/ u32 bondenterverta;
 	/*0x1a90*/ struct coord bondenterpos;
-	/*0x1a9c*/ f32 bondentermtx[16];
+	/*0x1a9c*/ Mtxf bondentermtx;
 	/*0x1adc*/ struct coord bondenteraim;
 	/*0x1ae8*/ f32 bondonground;
 	/*0x1aec*/ u32 unk1aec;
@@ -2729,7 +2738,7 @@ struct player {
 	/*0x1af4*/ u32 unk1af4;
 	/*0x1af8*/ s32 walkinitmove;
 	/*0x1afc*/ struct coord walkinitpos;
-	/*0x1b08*/ f32 walkinitmtx[16];
+	/*0x1b08*/ Mtxf walkinitmtx;
 	/*0x1b48*/ f32 walkinitt;
 	/*0x1b4c*/ f32 walkinitt2;
 	/*0x1b50*/ struct coord walkinitstart;
@@ -5917,7 +5926,7 @@ struct animheader {
 };
 
 struct objticksp476 {
-	/*0x00*/ f32 *matrix;
+	/*0x00*/ Mtxf *matrix;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u32 unk0c;

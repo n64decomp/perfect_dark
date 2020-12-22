@@ -2631,7 +2631,7 @@ glabel var7f1a8468
 /*  f0183d8:	10000272 */ 	b	.L0f018da4
 /*  f0183dc:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .L0f0183e0:
-/*  f0183e0:	0fc59e6c */ 	jal	func0f1679b0
+/*  f0183e0:	0fc59e6c */ 	jal	gfxAllocate4Words
 /*  f0183e4:	afa30330 */ 	sw	$v1,0x330($sp)
 /*  f0183e8:	44809000 */ 	mtc1	$zero,$f18
 /*  f0183ec:	3c01457a */ 	lui	$at,0x457a

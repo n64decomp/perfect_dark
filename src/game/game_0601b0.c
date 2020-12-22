@@ -1281,7 +1281,7 @@ glabel var7f1a9eb8
 /*  f061338:	24010016 */ 	addiu	$at,$zero,0x16
 /*  f06133c:	1161000f */ 	beq	$t3,$at,.L0f06137c
 /*  f061340:	00000000 */ 	nop
-/*  f061344:	0fc2d5be */ 	jal	currentPlayerGetMatrix
+/*  f061344:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f061348:	00000000 */ 	nop
 /*  f06134c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f061350:	27a50694 */ 	addiu	$a1,$sp,0x694

@@ -5200,7 +5200,7 @@ glabel func0f0e5000
 /*  f0e56a0:	ad2c0004 */ 	sw	$t4,0x4($t1)
 /*  f0e56a4:	0c00566c */ 	jal	func000159b0
 /*  f0e56a8:	ad2b0000 */ 	sw	$t3,0x0($t1)
-/*  f0e56ac:	0fc59e66 */ 	jal	func0f167998
+/*  f0e56ac:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f0e56b0:	00000000 */ 	nop
 /*  f0e56b4:	00409025 */ 	or	$s2,$v0,$zero
 /*  f0e56b8:	02002025 */ 	or	$a0,$s0,$zero

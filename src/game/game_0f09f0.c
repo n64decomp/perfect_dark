@@ -13922,11 +13922,11 @@ void func0f0fd494(struct coord *pos)
 {
 	f32 xy[2];
 	struct coord coord;
-	f32 *matrix;
+	Mtxf *matrix;
 
 	g_MenuData.unk5d5_04 = true;
 
-	matrix = currentPlayerGetMatrix();
+	matrix = currentPlayerGetMatrix1740();
 
 	func00015b68(matrix, pos, &coord);
 	func0f0b4d04(&coord, xy);

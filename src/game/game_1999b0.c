@@ -438,10 +438,10 @@ u32 ammotypeGetWeapon(u32 ammotype)
 void func0f19a37c(struct chrdata *chr)
 {
 	struct coord sp228 = {0, 0, 0};
-	f32 sp164[16];
+	Mtxf sp164;
 	f32 sp152[3];
 	struct prop *prop = chr->prop;
-	f32 sp84[16];
+	Mtxf sp84;
 	f32 sp80 = func0f03e5f0(chr);
 	u32 stack;
 	u8 sp72[] = {0, 0, 0, 0};
@@ -482,20 +482,20 @@ void func0f19a37c(struct chrdata *chr)
 	sp228.y = sp152[1] * mult;
 	sp228.z = sp152[2] * mult;
 
-	func000159b0(sp164);
+	func000159b0(&sp164);
 
 	if (chr->aibot->weaponnum == WEAPON_COMBATKNIFE) {
-		func00016400(M_BADPI * 1.5f, sp164);
-		func000162e8(M_BADPI, sp84);
-		func000159fc(sp84, sp164);
+		func00016400(M_BADPI * 1.5f, &sp164);
+		func000162e8(M_BADPI, &sp84);
+		func000159fc(&sp84, &sp164);
 	}
 
-	func000162e8(0.34901028871536f, sp84);
-	func00015be0(sp84, sp164);
-	func00016374(sp80, sp84);
-	func00015be0(sp84, sp164);
+	func000162e8(0.34901028871536f, &sp84);
+	func00015be0(&sp84, &sp164);
+	func00016374(sp80, &sp84);
+	func00015be0(&sp84, &sp164);
 
-	func0f09ee18(chr, sp72, &prop->pos, prop->rooms, sp164, &sp228);
+	func0f09ee18(chr, sp72, &prop->pos, prop->rooms, &sp164, &sp228);
 
 	if (sp72[0] == WEAPON_REMOTEMINE) {
 		chr->aibot->unk064 |= 0x1000;
@@ -582,9 +582,9 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 	struct weaponobj *rocket = func0f08b880(MODEL_CHRSKROCKETMIS, WEAPON_ROCKET2, chr);
 
 	if (rocket) {
-		f32 sp260[16];
-		f32 sp196[16];
-		f32 sp132[16];
+		Mtxf sp260;
+		Mtxf sp196;
+		Mtxf sp132;
 		struct coord sp120 = {0, 0, 0};
 		f32 a;
 		f32 b;
@@ -597,12 +597,12 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 		sp100[1] = sinf(b);
 		sp100[2] = cosf(b) * cosf(a); // @bug? Should one of these be sinf?
 
-		func000162e8(b, sp196);
-		func00016374(a, sp132);
-		func00015be0(sp132, sp196);
-		func000159b0(sp260);
+		func000162e8(b, &sp196);
+		func00016374(a, &sp132);
+		func00015be0(&sp132, &sp196);
+		func000159b0(&sp260);
 
-		func0f09ebcc(&rocket->base, &chr->prop->pos, chr->prop->rooms, sp196, sp100, sp260, chr->prop, &chr->prop->pos);
+		func0f09ebcc(&rocket->base, &chr->prop->pos, chr->prop->rooms, &sp196, sp100, &sp260, chr->prop, &chr->prop->pos);
 
 		if (rocket->base.hidden & OBJHFLAG_00000080) {
 			struct prop *target = chrGetTargetProp(chr);

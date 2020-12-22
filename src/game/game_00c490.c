@@ -1370,8 +1370,8 @@ void setupCamera(struct cameraobj *camera, s32 cmdindex)
 			// empty
 		}
 
-		func00016d58(camera->camrotm, 0.0f, 0.0f, 0.0f, xdiff, ydiff, zdiff, 0.0f, 1.0f, 0.0f);
-		func00015f04(obj->model->unk14, camera->camrotm);
+		func00016d58(&camera->camrotm, 0.0f, 0.0f, 0.0f, xdiff, ydiff, zdiff, 0.0f, 1.0f, 0.0f);
+		func00015f04(obj->model->unk14, &camera->camrotm);
 
 		camera->toleft = 0;
 		camera->yleft = *(s32 *)&camera->yleft * M_BADTAU / 65536.0f;
@@ -1460,7 +1460,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 		struct prop *prop;
 		f32 scale;
 		struct coord spa4;
-		f32 sp64[16];
+		Mtxf sp64;
 		f32 sp24[16];
 
 		propLoad(modelnum);
@@ -1490,8 +1490,8 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			}
 
 			propReparent(prop, owner->prop);
-			func000162e8(0.3664608001709f, sp64);
-			func00015f04(monitor->base.model->unk14 / owner->model->unk14, sp64);
+			func000162e8(0.3664608001709f, &sp64);
+			func00015f04(monitor->base.model->unk14 / owner->model->unk14, &sp64);
 			modelGetRootPosition(monitor->base.model, &spa4);
 
 			spa4.x = -spa4.x;
@@ -1499,7 +1499,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			spa4.z = -spa4.z;
 
 			func000166dc(&spa4, sp24);
-			func00015be4((u32)sp64, (struct model0c *)sp24, (f32 *)&monitor->base.unk48->unk004);
+			func00015be4(&sp64, (struct model0c *)sp24, (Mtxf *)&monitor->base.unk48->unk004);
 		}
 	} else {
 		setupGenericObject(&monitor->base, cmdindex);
@@ -2974,6 +2974,10 @@ void setupParseObjects(s32 stagenum)
 					if (withobjs && (obj->flags2 & diffflag) == 0) {
 						struct escalatorobj *step = (struct escalatorobj *)obj;
 						struct prop *prop;
+
+						// TODO: There is a stack problem here that should be
+						// resolved. sp1a8 is really an Mtxf which doesn't fit
+						// in its current location in the stack.
 						f32 sp1a8[12];
 						f32 sp184[9];
 
@@ -2990,14 +2994,14 @@ void setupParseObjects(s32 stagenum)
 						if (obj->flags & OBJFLAG_DEACTIVATED) {
 							step->frame = escstepy;
 							escstepy += 40;
-							func00016374(4.7116389274597f, sp1a8);
-							func00015da0(sp1a8, sp184);
+							func00016374(4.7116389274597f, (Mtxf *)sp1a8);
+							func00015da0((Mtxf *)sp1a8, sp184);
 							func00016110(sp184, obj->realrot);
 						} else {
 							step->frame = escstepx;
 							escstepx += 40;
-							func00016374(M_BADPI, sp1a8);
-							func00015da0(sp1a8, sp184);
+							func00016374(M_BADPI, (Mtxf *)sp1a8);
+							func00015da0((Mtxf *)sp1a8, sp184);
 							func00016110(sp184, obj->realrot);
 						}
 					}

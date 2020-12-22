@@ -1163,7 +1163,7 @@ glabel func0f151780
 /*  f15190c:	24100001 */ 	addiu	$s0,$zero,0x1
 /*  f151910:	1561013a */ 	bne	$t3,$at,.L0f151dfc
 /*  f151914:	00000000 */ 	nop
-/*  f151918:	0fc59e66 */ 	jal	func0f167998
+/*  f151918:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f15191c:	4600c506 */ 	mov.s	$f20,$f24
 /*  f151920:	8ee30284 */ 	lw	$v1,0x284($s7)
 /*  f151924:	24010001 */ 	addiu	$at,$zero,0x1
@@ -1703,7 +1703,7 @@ glabel func0f151ed0
 /*  f152100:	24100001 */ 	addiu	$s0,$zero,0x1
 /*  f152104:	11a1013f */ 	beq	$t5,$at,.L0f152604
 /*  f152108:	00000000 */ 	nop
-/*  f15210c:	0fc59e66 */ 	jal	func0f167998
+/*  f15210c:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f152110:	4600c506 */ 	mov.s	$f20,$f24
 /*  f152114:	8ec30284 */ 	lw	$v1,0x284($s6)
 /*  f152118:	24010001 */ 	addiu	$at,$zero,0x1
