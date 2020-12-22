@@ -1953,7 +1953,7 @@ u8 func0414_programmer[] = {
 	if_stage_flag_eq(STAGEFLAG_DOWNLOAD_COMPLETE, TRUE, /*goto*/ 0x2c)
 	set_stage_flag(STAGEFLAG_DELETED_WITHOUT_DOWNLOAD)
 	label(0x2c)
-	speak(CHR_TARGET, -1, VERSION >= VERSION_NTSC_FINAL ? 0x8118 : 0x8117, -1, COLOR_00_GREEN)
+	speak(CHR_TARGET, -1, VERSION >= VERSION_NTSC_1_0 ? 0x8118 : 0x8117, -1, COLOR_00_GREEN)
 
 	beginloop(0xb0)
 	endloop(0xb0)
