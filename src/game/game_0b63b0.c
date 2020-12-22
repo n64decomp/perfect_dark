@@ -2494,97 +2494,18 @@ void func0f0b85a0(f32 *floats, struct coord *pos)
 	floats[3] = 30;
 }
 
-GLOBAL_ASM(
-glabel func0f0b85f8
-/*  f0b85f8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0b85fc:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0b8600:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f0b8604:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f0b8608:	8e0f006c */ 	lw	$t7,0x6c($s0)
-/*  f0b860c:	8e0e028c */ 	lw	$t6,0x28c($s0)
-/*  f0b8610:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0b8614:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0b8618:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0b861c:	11e00003 */ 	beqz	$t7,.L0f0b862c
-/*  f0b8620:	afae0024 */ 	sw	$t6,0x24($sp)
-/*  f0b8624:	10000002 */ 	b	.L0f0b8630
-/*  f0b8628:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0b862c:
-/*  f0b862c:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0b8630:
-/*  f0b8630:	8e180068 */ 	lw	$t8,0x68($s0)
-/*  f0b8634:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b8638:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b863c:	13000003 */ 	beqz	$t8,.L0f0b864c
-/*  f0b8640:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b8644:	10000001 */ 	b	.L0f0b864c
-/*  f0b8648:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0b864c:
-/*  f0b864c:	8e190064 */ 	lw	$t9,0x64($s0)
-/*  f0b8650:	13200003 */ 	beqz	$t9,.L0f0b8660
-/*  f0b8654:	00000000 */ 	nop
-/*  f0b8658:	10000001 */ 	b	.L0f0b8660
-/*  f0b865c:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0b8660:
-/*  f0b8660:	8e080070 */ 	lw	$t0,0x70($s0)
-/*  f0b8664:	11000003 */ 	beqz	$t0,.L0f0b8674
-/*  f0b8668:	00000000 */ 	nop
-/*  f0b866c:	10000001 */ 	b	.L0f0b8674
-/*  f0b8670:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0b8674:
-/*  f0b8674:	00434821 */ 	addu	$t1,$v0,$v1
-/*  f0b8678:	01245021 */ 	addu	$t2,$t1,$a0
-/*  f0b867c:	01455821 */ 	addu	$t3,$t2,$a1
-/*  f0b8680:	19600023 */ 	blez	$t3,.L0f0b8710
-/*  f0b8684:	00000000 */ 	nop
-.L0f0b8688:
-/*  f0b8688:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0b868c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0b8690:	0fc2e2e8 */ 	jal	func0f0b8ba0
-/*  f0b8694:	00000000 */ 	nop
-/*  f0b8698:	8e0c006c */ 	lw	$t4,0x6c($s0)
-/*  f0b869c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0b86a0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0b86a4:	11800003 */ 	beqz	$t4,.L0f0b86b4
-/*  f0b86a8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b86ac:	10000001 */ 	b	.L0f0b86b4
-/*  f0b86b0:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0b86b4:
-/*  f0b86b4:	8e0d0068 */ 	lw	$t5,0x68($s0)
-/*  f0b86b8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b86bc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b86c0:	11a00003 */ 	beqz	$t5,.L0f0b86d0
-/*  f0b86c4:	00000000 */ 	nop
-/*  f0b86c8:	10000001 */ 	b	.L0f0b86d0
-/*  f0b86cc:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0b86d0:
-/*  f0b86d0:	8e0e0064 */ 	lw	$t6,0x64($s0)
-/*  f0b86d4:	11c00003 */ 	beqz	$t6,.L0f0b86e4
-/*  f0b86d8:	00000000 */ 	nop
-/*  f0b86dc:	10000001 */ 	b	.L0f0b86e4
-/*  f0b86e0:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0b86e4:
-/*  f0b86e4:	8e0f0070 */ 	lw	$t7,0x70($s0)
-/*  f0b86e8:	11e00003 */ 	beqz	$t7,.L0f0b86f8
-/*  f0b86ec:	00000000 */ 	nop
-/*  f0b86f0:	10000001 */ 	b	.L0f0b86f8
-/*  f0b86f4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0b86f8:
-/*  f0b86f8:	0043c021 */ 	addu	$t8,$v0,$v1
-/*  f0b86fc:	0304c821 */ 	addu	$t9,$t8,$a0
-/*  f0b8700:	03254021 */ 	addu	$t0,$t9,$a1
-/*  f0b8704:	0228082a */ 	slt	$at,$s1,$t0
-/*  f0b8708:	1420ffdf */ 	bnez	$at,.L0f0b8688
-/*  f0b870c:	00000000 */ 	nop
-.L0f0b8710:
-/*  f0b8710:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0b8714:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f0b8718:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0b871c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0b8720:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0b8724:	03e00008 */ 	jr	$ra
-/*  f0b8728:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f0b85f8(void)
+{
+	s32 prevplayernum = g_Vars.currentplayernum;
+	s32 i;
+
+	for (i = 0; i < PLAYERCOUNT(); i++) {
+		setCurrentPlayerNum(i);
+		func0f0b8ba0();
+	}
+
+	setCurrentPlayerNum(prevplayernum);
+}
 
 void currentPlayerChooseBodyAndHead(s32 *bodynum, s32 *headnum, s32 *arg2)
 {
