@@ -3085,8 +3085,8 @@ u32 var800719c0 = 0xff4f00ff;
 GLOBAL_ASM(
 glabel func0f100ad0
 /*  f100ad0:	27bdfe28 */ 	addiu	$sp,$sp,-472
-/*  f100ad4:	3c0e8007 */ 	lui	$t6,%hi(g_HiResActive)
-/*  f100ad8:	8dce06c8 */ 	lw	$t6,%lo(g_HiResActive)($t6)
+/*  f100ad4:	3c0e8007 */ 	lui	$t6,%hi(g_ViMode)
+/*  f100ad8:	8dce06c8 */ 	lw	$t6,%lo(g_ViMode)($t6)
 /*  f100adc:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f100ae0:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f100ae4:	afbe0048 */ 	sw	$s8,0x48($sp)

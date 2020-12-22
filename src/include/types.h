@@ -5027,18 +5027,18 @@ struct var80075c00 {
 	f32 unk14;
 };
 
-struct var800705c0 {
-	s32 unk00;
-	s32 unk04;
-	s32 unk08;
-	f32 unk0c;
-	s32 unk10;
-	s32 unk14;
-	s32 unk18;
-	s32 unk1c;
-	s32 unk20;
-	s32 unk24;
-	s32 unk28;
+struct vimode {
+	s32 fbwidth;
+	s32 fbheight;
+	s32 width;
+	f32 yscale;
+	s32 xscale;
+	s32 fullheight;
+	s32 fulltop;
+	s32 wideheight;
+	s32 widetop;
+	s32 cinemaheight;
+	s32 cinematop;
 };
 
 struct miscbio {

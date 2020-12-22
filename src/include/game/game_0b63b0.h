@@ -47,7 +47,7 @@ u32 func0f0bbf14(void);
 Gfx *hudRenderHealthBar(Gfx *gdl);
 void currentPlayerSurroundWithExplosions(s32 arg0);
 void currentPlayerTickExplode(void);
-void func0f0bc3f0(void);
+void viResetDefaultModeIf4Mb(void);
 s16 func0f0bc44c(void);
 s16 func0f0bc478(void);
 bool func0f0bc4c0(void);

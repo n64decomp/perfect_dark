@@ -7137,7 +7137,7 @@ Gfx *bviewRenderHorizonScanner(Gfx *gdl)
 
 	strcpy(var800a41c0, "BinocularViewGfx");
 
-	if (g_HiResActive == true) {
+	if (g_ViMode == VIMODE_HIRES) {
 		scale = 2;
 	}
 

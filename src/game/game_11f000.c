@@ -7302,14 +7302,14 @@ glabel var7f1b5108
 /*  f125aec:	11e00005 */ 	beqz	$t7,.L0f125b04
 /*  f125af0:	00000000 */ 	nop
 /*  f125af4:	8f18a2d4 */ 	lw	$t8,%lo(g_Vars+0x314)($t8)
-/*  f125af8:	3c198007 */ 	lui	$t9,%hi(g_HiResActive)
+/*  f125af8:	3c198007 */ 	lui	$t9,%hi(g_ViMode)
 /*  f125afc:	13000003 */ 	beqz	$t8,.L0f125b0c
 /*  f125b00:	00000000 */ 	nop
 .L0f125b04:
 /*  f125b04:	1000020d */ 	b	.L0f12633c
 /*  f125b08:	8fa20170 */ 	lw	$v0,0x170($sp)
 .L0f125b0c:
-/*  f125b0c:	8f3906c8 */ 	lw	$t9,%lo(g_HiResActive)($t9)
+/*  f125b0c:	8f3906c8 */ 	lw	$t9,%lo(g_ViMode)($t9)
 /*  f125b10:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f125b14:	17210002 */ 	bne	$t9,$at,.L0f125b20
 /*  f125b18:	00000000 */ 	nop
@@ -7941,7 +7941,7 @@ glabel var7f1b511c
 /*  f126458:	af210000 */ 	sw	$at,0x0($t9)
 /*  f12645c:	8f010008 */ 	lw	$at,0x8($t8)
 /*  f126460:	8f08000c */ 	lw	$t0,0xc($t8)
-/*  f126464:	3c0c8007 */ 	lui	$t4,%hi(g_HiResActive)
+/*  f126464:	3c0c8007 */ 	lui	$t4,%hi(g_ViMode)
 /*  f126468:	af210008 */ 	sw	$at,0x8($t9)
 /*  f12646c:	af28000c */ 	sw	$t0,0xc($t9)
 /*  f126470:	8f080014 */ 	lw	$t0,0x14($t8)
@@ -7949,7 +7949,7 @@ glabel var7f1b511c
 /*  f126478:	4487b000 */ 	mtc1	$a3,$f22
 /*  f12647c:	af280014 */ 	sw	$t0,0x14($t9)
 /*  f126480:	af210010 */ 	sw	$at,0x10($t9)
-/*  f126484:	8d8c06c8 */ 	lw	$t4,%lo(g_HiResActive)($t4)
+/*  f126484:	8d8c06c8 */ 	lw	$t4,%lo(g_ViMode)($t4)
 /*  f126488:	4485d000 */ 	mtc1	$a1,$f26
 /*  f12648c:	4486e000 */ 	mtc1	$a2,$f28
 /*  f126490:	24010001 */ 	addiu	$at,$zero,0x1

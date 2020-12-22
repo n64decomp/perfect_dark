@@ -22181,14 +22181,14 @@ glabel hudRenderAmmo
 /*  f0aa980:	8fa20130 */ 	lw	$v0,0x130($sp)
 /*  f0aa984:	8c6e000c */ 	lw	$t6,0xc($v1)
 .L0f0aa988:
-/*  f0aa988:	3c0f8007 */ 	lui	$t7,%hi(g_HiResActive)
+/*  f0aa988:	3c0f8007 */ 	lui	$t7,%hi(g_ViMode)
 /*  f0aa98c:	29c10005 */ 	slti	$at,$t6,0x5
 /*  f0aa990:	10200003 */ 	beqz	$at,.L0f0aa9a0
 /*  f0aa994:	00000000 */ 	nop
 /*  f0aa998:	10000449 */ 	b	.L0f0abac0
 /*  f0aa99c:	8fa20130 */ 	lw	$v0,0x130($sp)
 .L0f0aa9a0:
-/*  f0aa9a0:	8def06c8 */ 	lw	$t7,%lo(g_HiResActive)($t7)
+/*  f0aa9a0:	8def06c8 */ 	lw	$t7,%lo(g_ViMode)($t7)
 /*  f0aa9a4:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f0aa9a8:	144f0004 */ 	bne	$v0,$t7,.L0f0aa9bc
 /*  f0aa9ac:	24180002 */ 	addiu	$t8,$zero,0x2

@@ -5329,16 +5329,16 @@ void currentPlayerTickExplode(void)
 	}
 }
 
-void func0f0bc3f0(void)
+void viResetDefaultModeIf4Mb(void)
 {
 	if (IS4MB()) {
-		var800705c0[0].unk04 = 220;
-		var800705c0[0].unk18 = 0;
-		var800705c0[0].unk14 = 220;
-		var800705c0[0].unk1c = 180;
-		var800705c0[0].unk20 = 20;
-		var800705c0[0].unk24 = 136;
-		var800705c0[0].unk28 = 42;
+		g_ViModes[VIMODE_DEFAULT].fbheight = 220;
+		g_ViModes[VIMODE_DEFAULT].fulltop = 0;
+		g_ViModes[VIMODE_DEFAULT].fullheight = 220;
+		g_ViModes[VIMODE_DEFAULT].wideheight = 180;
+		g_ViModes[VIMODE_DEFAULT].widetop = 20;
+		g_ViModes[VIMODE_DEFAULT].cinemaheight = 136;
+		g_ViModes[VIMODE_DEFAULT].cinematop = 42;
 	}
 }
 
@@ -5349,19 +5349,19 @@ void optionsSetHiRes(bool enable)
 
 s16 func0f0bc44c(void)
 {
-	s16 value = var800705c0[g_HiResActive].unk00;
-	return value;
+	s16 width = g_ViModes[g_ViMode].fbwidth;
+	return width;
 }
 
 s16 func0f0bc478(void)
 {
-	s16 value = var800705c0[g_HiResActive].unk04;
+	s16 height = g_ViModes[g_ViMode].fbheight;
 
 	if (g_Vars.unk0004e0) {
-		value = value >> 1;
+		height = height >> 1;
 	}
 
-	return value;
+	return height;
 }
 
 bool func0f0bc4c0(void)
@@ -5382,7 +5382,7 @@ s16 currentPlayerGetViewportWidth(void)
 	if (func0f0bc4c0() == 0) {
 		if (PLAYERCOUNT() >= 3) {
 			// 3/4 players
-			width = var800705c0[g_HiResActive].unk08 / 2;
+			width = g_ViModes[g_ViMode].width / 2;
 
 			if (g_Vars.currentplayernum == 0 || g_Vars.currentplayernum == 2) {
 				width--;
@@ -5390,22 +5390,22 @@ s16 currentPlayerGetViewportWidth(void)
 		} else if (PLAYERCOUNT() == 2) {
 			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.unk0004e0) {
 				// 2 players vsplit
-				width = var800705c0[g_HiResActive].unk08 / 2;
+				width = g_ViModes[g_ViMode].width / 2;
 
 				if (g_Vars.currentplayernum == 0) {
 					width--;
 				}
 			} else {
 				// 2 players full width
-				width = var800705c0[g_HiResActive].unk08;
+				width = g_ViModes[g_ViMode].width;
 			}
 		} else {
 			// 1 player
-			width = var800705c0[g_HiResActive].unk08;
+			width = g_ViModes[g_ViMode].width;
 		}
 	} else {
 		// Probably cutscene
-		width = var800705c0[g_HiResActive].unk08;
+		width = g_ViModes[g_ViMode].width;
 	}
 
 	return width;
@@ -5419,27 +5419,27 @@ s16 currentPlayerGetViewportLeft(void)
 	if (PLAYERCOUNT() >= 3 && !something != 0) {
 		if (g_Vars.currentplayernum == 1 || g_Vars.currentplayernum == 3) {
 			// 3/4 players - right side
-			left = var800705c0[g_HiResActive].unk08 / 2 + var800705c0[g_HiResActive].unk00 - var800705c0[g_HiResActive].unk08;
+			left = g_ViModes[g_ViMode].width / 2 + g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
 		} else {
 			// 3/4 players - left side
-			left = var800705c0[g_HiResActive].unk00 - var800705c0[g_HiResActive].unk08;
+			left = g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
 		}
 	} else if (PLAYERCOUNT() == 2 && !something != 0) {
 		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.unk0004e0) {
 			if (g_Vars.currentplayernum == 1) {
 				// 2 players vsplit - right side
-				left = (var800705c0[g_HiResActive].unk08 / 2) + var800705c0[g_HiResActive].unk00 - var800705c0[g_HiResActive].unk08;
+				left = (g_ViModes[g_ViMode].width / 2) + g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
 			} else {
 				// 2 players vsplit - left side
-				left = var800705c0[g_HiResActive].unk00 - var800705c0[g_HiResActive].unk08;
+				left = g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
 			}
 		} else {
 			// 2 players - full width
-			left = var800705c0[g_HiResActive].unk00 - var800705c0[g_HiResActive].unk08;
+			left = g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
 		}
 	} else {
 		// Full screen
-		left = var800705c0[g_HiResActive].unk00 - var800705c0[g_HiResActive].unk08;
+		left = g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
 	}
 
 	return left;
@@ -5450,7 +5450,7 @@ s16 currentPlayerGetViewportHeight(void)
 	s16 height;
 
 	if (PLAYERCOUNT() >= 2 && !func0f0bc4c0()) {
-		s16 tmp = var800705c0[g_HiResActive].unk14;
+		s16 tmp = g_ViModes[g_ViMode].fullheight;
 
 		if (IS4MB() && !g_Vars.unk0004e0) {
 			height = tmp;
@@ -5469,21 +5469,21 @@ s16 currentPlayerGetViewportHeight(void)
 		}
 	} else {
 		if (optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE) {
-			height = var800705c0[g_HiResActive].unk1c;
+			height = g_ViModes[g_ViMode].wideheight;
 		} else if (optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
-			height = var800705c0[g_HiResActive].unk24;
+			height = g_ViModes[g_ViMode].cinemaheight;
 		} else if (var80070764 && !var8009dfc0) {
 			if (var8009de2c >= 1) {
-				f32 a = var800705c0[g_HiResActive].unk1c;
-				f32 b = var800705c0[g_HiResActive].unk14;
+				f32 a = g_ViModes[g_ViMode].wideheight;
+				f32 b = g_ViModes[g_ViMode].fullheight;
 				a = a * (1.0f - var8009de30);
 				b = b * var8009de30;
 				height = a + b;
 			} else {
-				height = var800705c0[g_HiResActive].unk1c;
+				height = g_ViModes[g_ViMode].wideheight;
 			}
 		} else {
-			height = var800705c0[g_HiResActive].unk14;
+			height = g_ViModes[g_ViMode].fullheight;
 		}
 	}
 
@@ -5495,7 +5495,7 @@ s16 currentPlayerGetViewportTop(void)
 	s16 top;
 
 	if (PLAYERCOUNT() >= 2 && !func0f0bc4c0()) {
-		top = var800705c0[g_HiResActive].unk18;
+		top = g_ViModes[g_ViMode].fulltop;
 
 		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL || PLAYERCOUNT() != 2) {
 			if (PLAYERCOUNT() == 2
@@ -5503,43 +5503,43 @@ s16 currentPlayerGetViewportTop(void)
 					&& optionsGetScreenSplit() != SCREENSPLIT_VERTICAL
 					&& !g_Vars.unk0004e0) {
 				// 2 players hsplit - bottom side
-				top = var800705c0[g_HiResActive].unk18 + var800705c0[g_HiResActive].unk14 / 2;
+				top = g_ViModes[g_ViMode].fulltop + g_ViModes[g_ViMode].fullheight / 2;
 			} else if (g_Vars.currentplayernum == 2 || g_Vars.currentplayernum == 3) {
 				// 3/4 players - bottom side
-				top = var800705c0[g_HiResActive].unk18 + var800705c0[g_HiResActive].unk14 / 2;
+				top = g_ViModes[g_ViMode].fulltop + g_ViModes[g_ViMode].fullheight / 2;
 			}
 		}
 	} else {
 		if (optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE) {
 			if (var80070764 && optionsGetCutsceneSubtitles() && g_Vars.stagenum != STAGE_CITRAINING) {
 				if (var8009de2c >= 1) {
-					f32 a = var800705c0[g_HiResActive].unk18;
-					f32 b = var800705c0[g_HiResActive].unk20;
+					f32 a = g_ViModes[g_ViMode].fulltop;
+					f32 b = g_ViModes[g_ViMode].widetop;
 					a = a * (1.0f - var8009de30);
 					b = b * var8009de30;
 					top = a + b;
 				} else {
-					top = var800705c0[g_HiResActive].unk18;
+					top = g_ViModes[g_ViMode].fulltop;
 				}
 			} else {
-				top = var800705c0[g_HiResActive].unk20;
+				top = g_ViModes[g_ViMode].widetop;
 			}
 		} else if (optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
-			top = var800705c0[g_HiResActive].unk28;
+			top = g_ViModes[g_ViMode].cinematop;
 		} else {
 			if (var80070764 && !var8009dfc0
 					&& (!optionsGetCutsceneSubtitles() || g_Vars.stagenum == STAGE_CITRAINING)) {
 				if (var8009de2c >= 1) {
-					f32 a = var800705c0[g_HiResActive].unk20;
-					f32 b = var800705c0[g_HiResActive].unk18;
+					f32 a = g_ViModes[g_ViMode].widetop;
+					f32 b = g_ViModes[g_ViMode].fulltop;
 					a = a * (1.0f - var8009de30);
 					b = b * var8009de30;
 					top = a + b;
 				} else {
-					top = var800705c0[g_HiResActive].unk20;
+					top = g_ViModes[g_ViMode].widetop;
 				}
 			} else {
-				return var800705c0[g_HiResActive].unk18;
+				return g_ViModes[g_ViMode].fulltop;
 			}
 		}
 	}
@@ -5549,15 +5549,15 @@ s16 currentPlayerGetViewportTop(void)
 
 f32 func0f0bd358(void)
 {
-	f32 tmp;
+	f32 result;
 	s16 stack;
-	s16 a = currentPlayerGetViewportHeight();
-	s16 b = currentPlayerGetViewportWidth();
+	s16 height = currentPlayerGetViewportHeight();
+	s16 width = currentPlayerGetViewportWidth();
 
-	tmp = (f32)b / (f32)a;
-	tmp = var800705c0[g_HiResActive].unk0c * tmp;
+	result = (f32)width / (f32)height;
+	result = g_ViModes[g_ViMode].yscale * result;
 
-	return tmp;
+	return result;
 }
 
 void func0f0bd3c4(void)
@@ -5668,9 +5668,9 @@ glabel func0f0bd764
 /*  f0bd768:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f0bd76c:	0fc2f4d6 */ 	jal	func0f0bd358
 /*  f0bd770:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0bd774:	3c018007 */ 	lui	$at,%hi(g_HiResActive)
+/*  f0bd774:	3c018007 */ 	lui	$at,%hi(g_ViMode)
 /*  f0bd778:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f0bd77c:	ac2006c8 */ 	sw	$zero,%lo(g_HiResActive)($at)
+/*  f0bd77c:	ac2006c8 */ 	sw	$zero,%lo(g_ViMode)($at)
 /*  f0bd780:	0fc54c77 */ 	jal	func0f1531dc
 /*  f0bd784:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0bd788:	3c014270 */ 	lui	$at,0x4270
@@ -5697,9 +5697,9 @@ glabel func0f0bd764
 /*  f0bd7dc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bd7e0:	0fc4a2ae */ 	jal	currentPlayerSetViewPosition
 /*  f0bd7e4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0bd7e8:	3c188007 */ 	lui	$t8,%hi(g_HiResActive)
-/*  f0bd7ec:	8f1806c8 */ 	lw	$t8,%lo(g_HiResActive)($t8)
-/*  f0bd7f0:	3c048007 */ 	lui	$a0,%hi(var800705c0+0x10)
+/*  f0bd7e8:	3c188007 */ 	lui	$t8,%hi(g_ViMode)
+/*  f0bd7ec:	8f1806c8 */ 	lw	$t8,%lo(g_ViMode)($t8)
+/*  f0bd7f0:	3c048007 */ 	lui	$a0,%hi(g_ViModes+0x10)
 /*  f0bd7f4:	0018c880 */ 	sll	$t9,$t8,0x2
 /*  f0bd7f8:	0338c823 */ 	subu	$t9,$t9,$t8
 /*  f0bd7fc:	0019c880 */ 	sll	$t9,$t9,0x2
@@ -5707,7 +5707,7 @@ glabel func0f0bd764
 /*  f0bd804:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f0bd808:	00992021 */ 	addu	$a0,$a0,$t9
 /*  f0bd80c:	0c002aac */ 	jal	func0000aab0
-/*  f0bd810:	8c8405d0 */ 	lw	$a0,%lo(var800705c0+0x10)($a0)
+/*  f0bd810:	8c8405d0 */ 	lw	$a0,%lo(g_ViModes+0x10)($a0)
 /*  f0bd814:	0fc2f155 */ 	jal	currentPlayerGetViewportWidth
 /*  f0bd818:	00000000 */ 	nop
 /*  f0bd81c:	00028400 */ 	sll	$s0,$v0,0x10
@@ -5818,8 +5818,8 @@ glabel var7f1ad6ac
 /*  f0bd918:	afb10038 */ 	sw	$s1,0x38($sp)
 /*  f0bd91c:	3c0e8007 */ 	lui	$t6,%hi(g_HiResEnabled)
 /*  f0bd920:	8dce06cc */ 	lw	$t6,%lo(g_HiResEnabled)($t6)
-/*  f0bd924:	3c118007 */ 	lui	$s1,%hi(g_HiResActive)
-/*  f0bd928:	263106c8 */ 	addiu	$s1,$s1,%lo(g_HiResActive)
+/*  f0bd924:	3c118007 */ 	lui	$s1,%hi(g_ViMode)
+/*  f0bd928:	263106c8 */ 	addiu	$s1,$s1,%lo(g_ViMode)
 /*  f0bd92c:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f0bd930:	afb50048 */ 	sw	$s5,0x48($sp)
 /*  f0bd934:	afb40044 */ 	sw	$s4,0x44($sp)
@@ -5960,7 +5960,7 @@ glabel var7f1ad6ac
 /*  f0bdb1c:	0fc4a2ae */ 	jal	currentPlayerSetViewPosition
 /*  f0bdb20:	00402825 */ 	or	$a1,$v0,$zero
 /*  f0bdb24:	8e2f0000 */ 	lw	$t7,0x0($s1)
-/*  f0bdb28:	3c048007 */ 	lui	$a0,%hi(var800705c0+0x10)
+/*  f0bdb28:	3c048007 */ 	lui	$a0,%hi(g_ViModes+0x10)
 /*  f0bdb2c:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f0bdb30:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f0bdb34:	0018c080 */ 	sll	$t8,$t8,0x2
@@ -5968,7 +5968,7 @@ glabel var7f1ad6ac
 /*  f0bdb3c:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f0bdb40:	00982021 */ 	addu	$a0,$a0,$t8
 /*  f0bdb44:	0c002aac */ 	jal	func0000aab0
-/*  f0bdb48:	8c8405d0 */ 	lw	$a0,%lo(var800705c0+0x10)($a0)
+/*  f0bdb48:	8c8405d0 */ 	lw	$a0,%lo(g_ViModes+0x10)($a0)
 /*  f0bdb4c:	0fc2f155 */ 	jal	currentPlayerGetViewportWidth
 /*  f0bdb50:	00000000 */ 	nop
 /*  f0bdb54:	00028400 */ 	sll	$s0,$v0,0x10
@@ -8187,14 +8187,14 @@ glabel var7f1ad6ac
 //{
 //	f32 aspectratio;
 //
-//	g_HiResActive = g_HiResEnabled;
+//	g_ViMode = g_HiResEnabled;
 //
 //	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() > 1) {
-//		g_HiResActive = false;
+//		g_ViMode = VIMODE_DEFAULT;
 //	}
 //
 //	// d9dc
-//	if (g_HiResActive == true) {
+//	if (g_ViMode == VIMODE_HIRES) {
 //		func0f1531dc(true);
 //	} else {
 //		func0f1531dc(false);
@@ -8234,7 +8234,7 @@ glabel var7f1ad6ac
 //	currentPlayerSetViewPosition(currentPlayerGetViewportLeft(), currentPlayerGetViewportTop());
 //
 //	// db44
-//	func0000aab0(var800705c0[g_HiResActive].unk10);
+//	func0000aab0(g_ViModes[g_ViMode].xscale);
 //	viSetFovAspectAndSize(60, aspectratio, currentPlayerGetViewportWidth(), currentPlayerGetViewportHeight());
 //	viSetViewPosition(currentPlayerGetViewportLeft(), currentPlayerGetViewportTop());
 //	viSetXY(func0f0bc44c(), func0f0bc478());

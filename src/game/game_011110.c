@@ -518,7 +518,7 @@ glabel var7f1a827c
 /*  f011930:	afa00080 */ 	sw	$zero,0x80($sp)
 /*  f011934:	8e10d03c */ 	lw	$s0,%lo(g_StageSetup+0xc)($s0)
 /*  f011938:	a3a0007b */ 	sb	$zero,0x7b($sp)
-/*  f01193c:	0fc2f0fc */ 	jal	func0f0bc3f0
+/*  f01193c:	0fc2f0fc */ 	jal	viResetDefaultModeIf4Mb
 /*  f011940:	e7a40088 */ 	swc1	$f4,0x88($sp)
 /*  f011944:	0fc63956 */ 	jal	func0f18e558
 /*  f011948:	00000000 */ 	nop
@@ -1304,7 +1304,7 @@ glabel var7f1a827c
 //	s32 bodynum;
 //	s32 headnum;
 //
-//	func0f0bc3f0();
+//	viResetDefaultModeIf4Mb();
 //	func0f18e558();
 //	var80070764 = 0;
 //	var8009de20 = 0;
