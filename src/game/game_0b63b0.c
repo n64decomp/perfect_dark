@@ -10440,75 +10440,22 @@ void currentPlayerDieByShooter(u32 shooter, bool force)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0c160c
-.late_rodata
-glabel var7f1ad6fc
-.word 0x40490fdb
-.text
-/*  f0c160c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0c1610:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0c1614:	8c6e0318 */ 	lw	$t6,0x318($v1)
-/*  f0c1618:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0c161c:	44856000 */ 	mtc1	$a1,$f12
-/*  f0c1620:	44867000 */ 	mtc1	$a2,$f14
-/*  f0c1624:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c1628:	11c0002e */ 	beqz	$t6,.L0f0c16e4
-/*  f0c162c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0c1630:	8c6f028c */ 	lw	$t7,0x28c($v1)
-/*  f0c1634:	0fc259d4 */ 	jal	func0f096750
-/*  f0c1638:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*  f0c163c:	3c014334 */ 	lui	$at,0x4334
-/*  f0c1640:	44812000 */ 	mtc1	$at,$f4
-/*  f0c1644:	3c017f1b */ 	lui	$at,%hi(var7f1ad6fc)
-/*  f0c1648:	c428d6fc */ 	lwc1	$f8,%lo(var7f1ad6fc)($at)
-/*  f0c164c:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f0c1650:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*  f0c1654:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0c1658:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0c165c:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f0c1660:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f0c1664:	44818000 */ 	mtc1	$at,$f16
-/*  f0c1668:	46083283 */ 	div.s	$f10,$f6,$f8
-/*  f0c166c:	00794021 */ 	addu	$t0,$v1,$t9
-/*  f0c1670:	8d090064 */ 	lw	$t1,0x64($t0)
-/*  f0c1674:	44803000 */ 	mtc1	$zero,$f6
-/*  f0c1678:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*  f0c167c:	c5240144 */ 	lwc1	$f4,0x144($t1)
-/*  f0c1680:	3c0142b4 */ 	lui	$at,0x42b4
-/*  f0c1684:	44814000 */ 	mtc1	$at,$f8
-/*  f0c1688:	000a59c0 */ 	sll	$t3,$t2,0x7
-/*  f0c168c:	3c014387 */ 	lui	$at,0x4387
-/*  f0c1690:	006b1021 */ 	addu	$v0,$v1,$t3
-/*  f0c1694:	460a8481 */ 	sub.s	$f18,$f16,$f10
-/*  f0c1698:	46122081 */ 	sub.s	$f2,$f4,$f18
-/*  f0c169c:	4606103c */ 	c.lt.s	$f2,$f6
-/*  f0c16a0:	00000000 */ 	nop
-/*  f0c16a4:	45020003 */ 	bc1fl	.L0f0c16b4
-/*  f0c16a8:	4608103c */ 	c.lt.s	$f2,$f8
-/*  f0c16ac:	46001087 */ 	neg.s	$f2,$f2
-/*  f0c16b0:	4608103c */ 	c.lt.s	$f2,$f8
-.L0f0c16b4:
-/*  f0c16b4:	00000000 */ 	nop
-/*  f0c16b8:	45030008 */ 	bc1tl	.L0f0c16dc
-/*  f0c16bc:	8c4c00b0 */ 	lw	$t4,0xb0($v0)
-/*  f0c16c0:	44818000 */ 	mtc1	$at,$f16
-/*  f0c16c4:	00000000 */ 	nop
-/*  f0c16c8:	4602803c */ 	c.lt.s	$f16,$f2
-/*  f0c16cc:	00000000 */ 	nop
-/*  f0c16d0:	45020005 */ 	bc1fl	.L0f0c16e8
-/*  f0c16d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c16d8:	8c4c00b0 */ 	lw	$t4,0xb0($v0)
-.L0f0c16dc:
-/*  f0c16dc:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f0c16e0:	ac4d00b0 */ 	sw	$t5,0xb0($v0)
-.L0f0c16e4:
-/*  f0c16e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0c16e8:
-/*  f0c16e8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0c16ec:	03e00008 */ 	jr	$ra
-/*  f0c16f0:	00000000 */ 	nop
-);
+void currentPlayerCheckIfShotInBack(s32 attackerplayernum, f32 x, f32 z)
+{
+	if (g_Vars.normmplayerisrunning) {
+		s32 victimplayernum = g_Vars.currentplayernum;
+		f32 angle = func0f096750(x, z);
+		f32 finalangle = g_Vars.players[victimplayernum]->vv_theta - (360.0f - RAD2DEG(angle));
+
+		if (finalangle < 0) {
+			finalangle = -finalangle;
+		}
+
+		if (finalangle < 90.0f || finalangle > 270.0f) {
+			g_Vars.playerstats[attackerplayernum].backshotcount++;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel currentPlayerGetHealthBarHeightFrac

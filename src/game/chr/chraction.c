@@ -7184,7 +7184,7 @@ glabel var7f1a8d98
 /*  f035b0c:	15e10004 */ 	bne	$t7,$at,.L0f035b20
 /*  f035b10:	00000000 */ 	nop
 /*  f035b14:	8c650000 */ 	lw	$a1,0x0($v1)
-/*  f035b18:	0fc30583 */ 	jal	func0f0c160c
+/*  f035b18:	0fc30583 */ 	jal	currentPlayerCheckIfShotInBack
 /*  f035b1c:	8c660008 */ 	lw	$a2,0x8($v1)
 .L0f035b20:
 /*  f035b20:	0fc4a24b */ 	jal	setCurrentPlayerNum

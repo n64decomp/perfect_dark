@@ -67,7 +67,7 @@ Gfx *func0f0c0190(Gfx *gdl);
 Gfx *func0f0c07c8(Gfx *gdl);
 void currentPlayerDie(bool force);
 void currentPlayerDieByShooter(u32 shooter, bool force);
-u32 func0f0c160c(void);
+void currentPlayerCheckIfShotInBack(s32 attackerplayernum, f32 x, f32 z);
 f32 currentPlayerGetHealthBarHeightFrac(void);
 void func0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, s16 *rooms);
 void func0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struct coord *memcampos, s32 memcamroom);
