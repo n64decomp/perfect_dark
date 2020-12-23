@@ -522,19 +522,14 @@ glabel gfxAllocate4Words
 /*  f1679c8:	accf0000 */ 	sw	$t7,0x0($a2)
 );
 
-GLOBAL_ASM(
-glabel gfxAllocateColours
-/*  f1679cc:	3c06800b */ 	lui	$a2,%hi(g_GfxMemPos)
-/*  f1679d0:	24c6a59c */ 	addiu	$a2,$a2,%lo(g_GfxMemPos)
-/*  f1679d4:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f1679d8:	8cc20000 */ 	lw	$v0,0x0($a2)
-/*  f1679dc:	25c4000f */ 	addiu	$a0,$t6,0xf
-/*  f1679e0:	348f000f */ 	ori	$t7,$a0,0xf
-/*  f1679e4:	39f8000f */ 	xori	$t8,$t7,0xf
-/*  f1679e8:	0058c821 */ 	addu	$t9,$v0,$t8
-/*  f1679ec:	03e00008 */ 	jr	$ra
-/*  f1679f0:	acd90000 */ 	sw	$t9,0x0($a2)
-);
+u32 *gfxAllocateColours(s32 count)
+{
+	void *ptr = g_GfxMemPos;
+	count = ALIGN16(count * sizeof(u32));
+	g_GfxMemPos += count;
+
+	return ptr;
+}
 
 GLOBAL_ASM(
 glabel func0f1679f4
