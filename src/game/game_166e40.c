@@ -552,19 +552,10 @@ void func0f167a18(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f167a88
-/*  f167a88:	3c0e800b */ 	lui	$t6,%hi(var800aa5a0)
-/*  f167a8c:	91cea5a0 */ 	lbu	$t6,%lo(var800aa5a0)($t6)
-/*  f167a90:	3c18800b */ 	lui	$t8,%hi(g_GfxBuffers+0x4)
-/*  f167a94:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f167a98:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f167a9c:	8f18a584 */ 	lw	$t8,%lo(g_GfxBuffers+0x4)($t8)
-/*  f167aa0:	03041023 */ 	subu	$v0,$t8,$a0
-/*  f167aa4:	0002c8c3 */ 	sra	$t9,$v0,0x3
-/*  f167aa8:	03e00008 */ 	jr	$ra
-/*  f167aac:	03201025 */ 	or	$v0,$t9,$zero
-);
+u32 func0f167a88(long long *arg0)
+{
+	return (long long *)g_GfxBuffers[1 + var800aa5a0] - arg0;
+}
 
 u32 func0f167ab0(void)
 {
