@@ -563,16 +563,16 @@ glabel var7f1a827c
 /*  f0119e4:	ac20074c */ 	sw	$zero,%lo(var8007074c)($at)
 /*  f0119e8:	8e2d0284 */ 	lw	$t5,0x284($s1)
 /*  f0119ec:	44803000 */ 	mtc1	$zero,$f6
-/*  f0119f0:	3c01800a */ 	lui	$at,%hi(g_DefaultWeaponArgument)
+/*  f0119f0:	3c01800a */ 	lui	$at,%hi(g_DefaultWeapons+0x4)
 /*  f0119f4:	ada01b7c */ 	sw	$zero,0x1b7c($t5)
 /*  f0119f8:	8e390284 */ 	lw	$t9,0x284($s1)
 /*  f0119fc:	e7261b80 */ 	swc1	$f6,0x1b80($t9)
 /*  f011a00:	8e380284 */ 	lw	$t8,0x284($s1)
 /*  f011a04:	af001b88 */ 	sw	$zero,0x1b88($t8)
-/*  f011a08:	ac20ddd4 */ 	sw	$zero,%lo(g_DefaultWeaponArgument)($at)
-/*  f011a0c:	3c01800a */ 	lui	$at,%hi(g_DefaultWeapon)
+/*  f011a08:	ac20ddd4 */ 	sw	$zero,%lo(g_DefaultWeapons+0x4)($at)
+/*  f011a0c:	3c01800a */ 	lui	$at,%hi(g_DefaultWeapons)
 /*  f011a10:	120000a1 */ 	beqz	$s0,.L0f011c98
-/*  f011a14:	ac20ddd0 */ 	sw	$zero,%lo(g_DefaultWeapon)($at)
+/*  f011a14:	ac20ddd0 */ 	sw	$zero,%lo(g_DefaultWeapons)($at)
 /*  f011a18:	8e020000 */ 	lw	$v0,0x0($s0)
 /*  f011a1c:	2401000c */ 	addiu	$at,$zero,0xc
 /*  f011a20:	1041009d */ 	beq	$v0,$at,.L0f011c98
@@ -633,15 +633,15 @@ glabel var7f1a827c
 /*  f011aec:	5700000c */ 	bnezl	$t8,.L0f011b20
 /*  f011af0:	8e090004 */ 	lw	$t1,0x4($s0)
 /*  f011af4:	8e0e0004 */ 	lw	$t6,0x4($s0)
-/*  f011af8:	3c01800a */ 	lui	$at,%hi(g_DefaultWeapon)
+/*  f011af8:	3c01800a */ 	lui	$at,%hi(g_DefaultWeapons)
 /*  f011afc:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f011b00:	ac2eddd0 */ 	sw	$t6,%lo(g_DefaultWeapon)($at)
+/*  f011b00:	ac2eddd0 */ 	sw	$t6,%lo(g_DefaultWeapons)($at)
 /*  f011b04:	8e040008 */ 	lw	$a0,0x8($s0)
 /*  f011b08:	afaf0080 */ 	sw	$t7,0x80($sp)
-/*  f011b0c:	3c01800a */ 	lui	$at,%hi(g_DefaultWeaponArgument)
+/*  f011b0c:	3c01800a */ 	lui	$at,%hi(g_DefaultWeapons+0x4)
 /*  f011b10:	04820003 */ 	bltzl	$a0,.L0f011b20
 /*  f011b14:	8e090004 */ 	lw	$t1,0x4($s0)
-/*  f011b18:	ac24ddd4 */ 	sw	$a0,%lo(g_DefaultWeaponArgument)($at)
+/*  f011b18:	ac24ddd4 */ 	sw	$a0,%lo(g_DefaultWeapons+0x4)($at)
 /*  f011b1c:	8e090004 */ 	lw	$t1,0x4($s0)
 .L0f011b20:
 /*  f011b20:	2401002e */ 	addiu	$at,$zero,0x2e
@@ -954,8 +954,8 @@ glabel var7f1a827c
 .L0f011f78:
 /*  f011f78:	15200003 */ 	bnez	$t1,.L0f011f88
 /*  f011f7c:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f011f80:	3c01800a */ 	lui	$at,%hi(g_DefaultWeapon)
-/*  f011f84:	ac2addd0 */ 	sw	$t2,%lo(g_DefaultWeapon)($at)
+/*  f011f80:	3c01800a */ 	lui	$at,%hi(g_DefaultWeapons)
+/*  f011f84:	ac2addd0 */ 	sw	$t2,%lo(g_DefaultWeapons)($at)
 .L0f011f88:
 /*  f011f88:	0fc180d6 */ 	jal	propAllocate
 /*  f011f8c:	00000000 */ 	nop
@@ -1328,8 +1328,8 @@ glabel var7f1a827c
 //	g_Vars.currentplayer->bondviewlevtime60 = 0;
 //	g_Vars.currentplayer->bondwatchtime60 = 0;
 //	g_Vars.currentplayer->introanimnum = 0;
-//	g_DefaultWeaponArgument = 0;
-//	g_DefaultWeapon = 0;
+//	g_DefaultWeapons[HAND_LEFT] = 0;
+//	g_DefaultWeapons[HAND_RIGHT] = 0;
 //
 //	if (cmd) {
 //		while (cmd[0] != INTROTYPE_END) {
@@ -1359,10 +1359,10 @@ glabel var7f1a827c
 //					}
 //
 //					if (!hasdefaultweapon) {
-//						g_DefaultWeapon = cmd[1];
+//						g_DefaultWeapons[HAND_RIGHT] = cmd[1];
 //
 //						if (cmd[2] >= 0) {
-//							g_DefaultWeaponArgument = cmd[2];
+//							g_DefaultWeapons[HAND_LEFT] = cmd[2];
 //						}
 //
 //						hasdefaultweapon = true;
@@ -1521,7 +1521,7 @@ glabel var7f1a827c
 //	}
 //
 //	if (!hasdefaultweapon) {
-//		g_DefaultWeapon = WEAPON_UNARMED;
+//		g_DefaultWeapons[HAND_RIGHT] = WEAPON_UNARMED;
 //	}
 //
 //	g_Vars.currentplayer->prop = propAllocate();

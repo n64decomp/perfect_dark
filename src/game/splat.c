@@ -116,7 +116,7 @@ s32 func0f148f18(s32 qty, f32 arg1, struct prop *prop, struct splat *arg3, struc
 	f32 spfc[3];
 	f32 spf0[3];
 	f32 spe4[3];
-	f32 spa4[16];
+	Mtxf spa4;
 	s32 numdropped = 0;
 	f32 dist;
 
@@ -163,9 +163,9 @@ s32 func0f148f18(s32 qty, f32 arg1, struct prop *prop, struct splat *arg3, struc
 			spe4[j] = (rand * var8007f8a8 + rand * var8007f8a8 - var8007f8a8) * 0.017453292384744f;
 		}
 
-		func0001648c((struct coord *)spe4, spa4);
-		func00015b14(spa4, spfc, &splat->unk028);
-		func00015b14(spa4, spf0, &splat->unk00c);
+		func0001648c((struct coord *)spe4, &spa4);
+		func00015b14(&spa4, spfc, &splat->unk028);
+		func00015b14(&spa4, spf0, &splat->unk00c);
 		func0f177164(&splat->unk028, &splat->unk028, 403, "splat.c");
 		func0f177164(&splat->unk00c, &splat->unk00c, 404, "splat.c");
 

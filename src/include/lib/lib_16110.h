@@ -12,7 +12,7 @@ void func00016248(struct coord *coord, f32 angle, f32 *matrix);
 void func000162e8(f32 angle, Mtxf *matrix);
 void func00016374(f32 angle, Mtxf *matrix);
 void func00016400(f32 angle, Mtxf *matrix);
-void func0001648c(struct coord *coord, f32 *dest);
+void func0001648c(struct coord *coord, Mtxf *dest);
 u32 func000165d8(void);
 u32 func000166a4(void);
 void func000166dc(struct coord *pos, f32 *matrix);

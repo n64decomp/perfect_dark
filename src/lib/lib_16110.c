@@ -225,7 +225,7 @@ void func00016400(f32 angle, Mtxf *matrix)
 	matrix->m[3][3] = 1;
 }
 
-void func0001648c(struct coord *src, f32 *dest)
+void func0001648c(struct coord *src, Mtxf *dest)
 {
 	f32 xcos = cosf(src->x);
 	f32 xsin = sinf(src->x);
@@ -238,25 +238,25 @@ void func0001648c(struct coord *src, f32 *dest)
 	f32 c = xsin * zcos;
 	f32 d = xcos * zcos;
 
-	dest[0] = ycos * zcos;
-	dest[1] = ycos * zsin;
-	dest[2] = -ysin;
-	dest[3] = 0;
+	dest->m[0][0] = ycos * zcos;
+	dest->m[0][1] = ycos * zsin;
+	dest->m[0][2] = -ysin;
+	dest->m[0][3] = 0;
 
-	dest[4] = c * ysin - xcos * zsin;
-	dest[5] = a * ysin + xcos * zcos;
-	dest[6] = xsin * ycos;
-	dest[7] = 0;
+	dest->m[1][0] = c * ysin - xcos * zsin;
+	dest->m[1][1] = a * ysin + xcos * zcos;
+	dest->m[1][2] = xsin * ycos;
+	dest->m[1][3] = 0;
 
-	dest[8] = d * ysin + xsin * zsin;
-	dest[9] = b * ysin - xsin * zcos;
-	dest[10] = xcos * ycos;
-	dest[11] = 0;
+	dest->m[2][0] = d * ysin + xsin * zsin;
+	dest->m[2][1] = b * ysin - xsin * zcos;
+	dest->m[2][2] = xcos * ycos;
+	dest->m[2][3] = 0;
 
-	dest[12] = 0;
-	dest[13] = 0;
-	dest[14] = 0;
-	dest[15] = 1;
+	dest->m[3][0] = 0;
+	dest->m[3][1] = 0;
+	dest->m[3][2] = 0;
+	dest->m[3][3] = 1;
 }
 
 GLOBAL_ASM(

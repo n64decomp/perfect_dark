@@ -409,7 +409,7 @@ void func0f167e7c(s32 stagenum)
 			func0f010bb0();
 			func0f0b77cc();
 			currentPlayerInit();
-			func0f0b802c();
+			currentPlayerSpawn();
 			func0f012684();
 
 			if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
