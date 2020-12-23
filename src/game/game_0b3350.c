@@ -1872,7 +1872,7 @@ void currentPlayerSetMatrix1740(Mtxf *matrix)
 	player->matrix1740 = matrix;
 	player->unk1744 = var80084008;
 	player->unk0488 = player->unk0484;
-	player->unk0484 = var800aa59c;
+	player->unk0484 = g_GfxMemPos;
 }
 
 GLOBAL_ASM(

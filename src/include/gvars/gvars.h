@@ -758,7 +758,7 @@ extern u32 var800a666c;
 extern struct fileinfo g_FileInfo[NUM_FILES];
 extern u8 *g_GfxBuffers[3];
 extern u8 *g_VtxBuffers[3];
-extern u8 *var800aa59c;
+extern u8 *g_GfxMemPos;
 extern u8 var800aa5a0;
 extern u32 var800aa5a4;
 extern struct audiohandle *g_BoostAndSlayerAudioHandles[3];

@@ -471,7 +471,7 @@ void func0f167350(void)
 
 	var800aa5a0 = 0;
 	var800aa5a4 = 0;
-	var800aa59c = g_VtxBuffers[0];
+	g_GfxMemPos = g_VtxBuffers[0];
 }
 
 const char var7f1b7728[] = "";
@@ -496,8 +496,8 @@ glabel func0f16793c
 
 GLOBAL_ASM(
 glabel gfxAllocateVertices
-/*  f167964:	3c06800b */ 	lui	$a2,%hi(var800aa59c)
-/*  f167968:	24c6a59c */ 	addiu	$a2,$a2,%lo(var800aa59c)
+/*  f167964:	3c06800b */ 	lui	$a2,%hi(g_GfxMemPos)
+/*  f167968:	24c6a59c */ 	addiu	$a2,$a2,%lo(g_GfxMemPos)
 /*  f16796c:	8cc20000 */ 	lw	$v0,0x0($a2)
 /*  f167970:	00047080 */ 	sll	$t6,$a0,0x2
 /*  f167974:	01c47023 */ 	subu	$t6,$t6,$a0
@@ -511,20 +511,18 @@ glabel gfxAllocateVertices
 /*  f167994:	acc90000 */ 	sw	$t1,0x0($a2)
 );
 
-GLOBAL_ASM(
-glabel gfxAllocateMatrix
-/*  f167998:	3c05800b */ 	lui	$a1,%hi(var800aa59c)
-/*  f16799c:	24a5a59c */ 	addiu	$a1,$a1,%lo(var800aa59c)
-/*  f1679a0:	8ca20000 */ 	lw	$v0,0x0($a1)
-/*  f1679a4:	244e0040 */ 	addiu	$t6,$v0,0x40
-/*  f1679a8:	03e00008 */ 	jr	$ra
-/*  f1679ac:	acae0000 */ 	sw	$t6,0x0($a1)
-);
+void *gfxAllocateMatrix(void)
+{
+	void *ptr = g_GfxMemPos;
+	g_GfxMemPos += sizeof(Mtx);
+
+	return ptr;
+}
 
 GLOBAL_ASM(
 glabel gfxAllocate4Words
-/*  f1679b0:	3c06800b */ 	lui	$a2,%hi(var800aa59c)
-/*  f1679b4:	24c6a59c */ 	addiu	$a2,$a2,%lo(var800aa59c)
+/*  f1679b0:	3c06800b */ 	lui	$a2,%hi(g_GfxMemPos)
+/*  f1679b4:	24c6a59c */ 	addiu	$a2,$a2,%lo(g_GfxMemPos)
 /*  f1679b8:	8cc20000 */ 	lw	$v0,0x0($a2)
 /*  f1679bc:	00047100 */ 	sll	$t6,$a0,0x4
 /*  f1679c0:	004e7821 */ 	addu	$t7,$v0,$t6
@@ -534,8 +532,8 @@ glabel gfxAllocate4Words
 
 GLOBAL_ASM(
 glabel gfxAllocateColours
-/*  f1679cc:	3c06800b */ 	lui	$a2,%hi(var800aa59c)
-/*  f1679d0:	24c6a59c */ 	addiu	$a2,$a2,%lo(var800aa59c)
+/*  f1679cc:	3c06800b */ 	lui	$a2,%hi(g_GfxMemPos)
+/*  f1679d0:	24c6a59c */ 	addiu	$a2,$a2,%lo(g_GfxMemPos)
 /*  f1679d4:	00047080 */ 	sll	$t6,$a0,0x2
 /*  f1679d8:	8cc20000 */ 	lw	$v0,0x0($a2)
 /*  f1679dc:	25c4000f */ 	addiu	$a0,$t6,0xf
@@ -548,8 +546,8 @@ glabel gfxAllocateColours
 
 GLOBAL_ASM(
 glabel func0f1679f4
-/*  f1679f4:	3c06800b */ 	lui	$a2,%hi(var800aa59c)
-/*  f1679f8:	24c6a59c */ 	addiu	$a2,$a2,%lo(var800aa59c)
+/*  f1679f4:	3c06800b */ 	lui	$a2,%hi(g_GfxMemPos)
+/*  f1679f8:	24c6a59c */ 	addiu	$a2,$a2,%lo(g_GfxMemPos)
 /*  f1679fc:	8cc20000 */ 	lw	$v0,0x0($a2)
 /*  f167a00:	2484000f */ 	addiu	$a0,$a0,0xf
 /*  f167a04:	348e000f */ 	ori	$t6,$a0,0xf
@@ -571,13 +569,13 @@ glabel func0f167a18
 /*  f167a34:	ac20a5a4 */ 	sw	$zero,%lo(var800aa5a4)($at)
 /*  f167a38:	90820000 */ 	lbu	$v0,0x0($a0)
 /*  f167a3c:	3c058008 */ 	lui	$a1,%hi(var80084008)
-/*  f167a40:	3c01800b */ 	lui	$at,%hi(var800aa59c)
+/*  f167a40:	3c01800b */ 	lui	$at,%hi(g_GfxMemPos)
 /*  f167a44:	0002c080 */ 	sll	$t8,$v0,0x2
 /*  f167a48:	0338c821 */ 	addu	$t9,$t9,$t8
 /*  f167a4c:	8f39a590 */ 	lw	$t9,%lo(g_VtxBuffers)($t9)
 /*  f167a50:	24a54008 */ 	addiu	$a1,$a1,%lo(var80084008)
 /*  f167a54:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f167a58:	ac39a59c */ 	sw	$t9,%lo(var800aa59c)($at)
+/*  f167a58:	ac39a59c */ 	sw	$t9,%lo(g_GfxMemPos)($at)
 /*  f167a5c:	8ca30000 */ 	lw	$v1,0x0($a1)
 /*  f167a60:	3c018008 */ 	lui	$at,%hi(var80084000)
 /*  f167a64:	00380821 */ 	addu	$at,$at,$t8
@@ -603,11 +601,11 @@ glabel func0f167a18
 /*  f167ab0:	3c0e800b */ 	lui	$t6,%hi(var800aa5a0)
 /*  f167ab4:	91cea5a0 */ 	lbu	$t6,%lo(var800aa5a0)($t6)
 /*  f167ab8:	3c18800b */ 	lui	$t8,%hi(g_VtxBuffers+0x4)
-/*  f167abc:	3c19800b */ 	lui	$t9,%hi(var800aa59c)
+/*  f167abc:	3c19800b */ 	lui	$t9,%hi(g_GfxMemPos)
 /*  f167ac0:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f167ac4:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f167ac8:	8f18a594 */ 	lw	$t8,%lo(g_VtxBuffers+0x4)($t8)
-/*  f167acc:	8f39a59c */ 	lw	$t9,%lo(var800aa59c)($t9)
+/*  f167acc:	8f39a59c */ 	lw	$t9,%lo(g_GfxMemPos)($t9)
 /*  f167ad0:	03e00008 */ 	jr	$ra
 /*  f167ad4:	03191023 */ 	subu	$v0,$t8,$t9
 /*  f167ad8:	00000000 */ 	nop
