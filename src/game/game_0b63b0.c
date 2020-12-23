@@ -1787,267 +1787,116 @@ glabel var7f1ad570
 /*  f0b7c5c:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f0b7c60
-/*  f0b7c60:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0b7c64:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0b7c68:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0b7c6c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0b7c70:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0b7c74:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f0b7c78:	8dcf00bc */ 	lw	$t7,0xbc($t6)
-/*  f0b7c7c:	8c98001c */ 	lw	$t8,0x1c($a0)
-/*  f0b7c80:	3c010001 */ 	lui	$at,0x1
-/*  f0b7c84:	8de20004 */ 	lw	$v0,0x4($t7)
-/*  f0b7c88:	afb80044 */ 	sw	$t8,0x44($sp)
-/*  f0b7c8c:	8c990018 */ 	lw	$t9,0x18($a0)
-/*  f0b7c90:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0b7c94:	03214025 */ 	or	$t0,$t9,$at
-/*  f0b7c98:	ac880018 */ 	sw	$t0,0x18($a0)
-/*  f0b7c9c:	8c490014 */ 	lw	$t1,0x14($v0)
-/*  f0b7ca0:	3c010010 */ 	lui	$at,0x10
-/*  f0b7ca4:	01215025 */ 	or	$t2,$t1,$at
-/*  f0b7ca8:	ac4a0014 */ 	sw	$t2,0x14($v0)
-/*  f0b7cac:	c4840024 */ 	lwc1	$f4,0x24($a0)
-/*  f0b7cb0:	e4440024 */ 	swc1	$f4,0x24($v0)
-/*  f0b7cb4:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f0b7cb8:	afa2003c */ 	sw	$v0,0x3c($sp)
-/*  f0b7cbc:	8e02001c */ 	lw	$v0,0x1c($s0)
-/*  f0b7cc0:	44070000 */ 	mfc1	$a3,$f0
-/*  f0b7cc4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0b7cc8:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0b7ccc:	24450008 */ 	addiu	$a1,$v0,0x8
-/*  f0b7cd0:	0fc12dd2 */ 	jal	chrMoveToPos
-/*  f0b7cd4:	24460028 */ 	addiu	$a2,$v0,0x28
-/*  f0b7cd8:	14400003 */ 	bnez	$v0,.L0f0b7ce8
-/*  f0b7cdc:	8fab004c */ 	lw	$t3,0x4c($sp)
-/*  f0b7ce0:	116000c8 */ 	beqz	$t3,.L0f0b8004
-/*  f0b7ce4:	3c01fffe */ 	lui	$at,0xfffe
-.L0f0b7ce8:
-/*  f0b7ce8:	8e020170 */ 	lw	$v0,0x170($s0)
-/*  f0b7cec:	10400016 */ 	beqz	$v0,.L0f0b7d48
-/*  f0b7cf0:	00000000 */ 	nop
-/*  f0b7cf4:	8e0c0174 */ 	lw	$t4,0x174($s0)
-/*  f0b7cf8:	11800013 */ 	beqz	$t4,.L0f0b7d48
-/*  f0b7cfc:	00000000 */ 	nop
-/*  f0b7d00:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f0b7d04:	9064005c */ 	lbu	$a0,0x5c($v1)
-/*  f0b7d08:	0fc44762 */ 	jal	currentPlayerGiveWeapon
-/*  f0b7d0c:	afa30034 */ 	sw	$v1,0x34($sp)
-/*  f0b7d10:	8fad0034 */ 	lw	$t5,0x34($sp)
-/*  f0b7d14:	91a4005c */ 	lbu	$a0,0x5c($t5)
-/*  f0b7d18:	0fc4478a */ 	jal	currentPlayerGiveWeaponWithArgument
-/*  f0b7d1c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0b7d20:	8fae0034 */ 	lw	$t6,0x34($sp)
-/*  f0b7d24:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b7d28:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
-/*  f0b7d2c:	91c5005c */ 	lbu	$a1,0x5c($t6)
-/*  f0b7d30:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f0b7d34:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0b7d38:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
-/*  f0b7d3c:	91e5005c */ 	lbu	$a1,0x5c($t7)
-/*  f0b7d40:	10000033 */ 	b	.L0f0b7e10
-/*  f0b7d44:	00000000 */ 	nop
-.L0f0b7d48:
-/*  f0b7d48:	50400016 */ 	beqzl	$v0,.L0f0b7da4
-/*  f0b7d4c:	8e020174 */ 	lw	$v0,0x174($s0)
-/*  f0b7d50:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f0b7d54:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f0b7d58:	9064005c */ 	lbu	$a0,0x5c($v1)
-/*  f0b7d5c:	14810008 */ 	bne	$a0,$at,.L0f0b7d80
-/*  f0b7d60:	00000000 */ 	nop
-/*  f0b7d64:	0fc44762 */ 	jal	currentPlayerGiveWeapon
-/*  f0b7d68:	2404000f */ 	addiu	$a0,$zero,0xf
-/*  f0b7d6c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b7d70:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
-/*  f0b7d74:	2405000f */ 	addiu	$a1,$zero,0xf
-/*  f0b7d78:	10000025 */ 	b	.L0f0b7e10
-/*  f0b7d7c:	00000000 */ 	nop
-.L0f0b7d80:
-/*  f0b7d80:	0fc44762 */ 	jal	currentPlayerGiveWeapon
-/*  f0b7d84:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*  f0b7d88:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f0b7d8c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b7d90:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
-/*  f0b7d94:	9065005c */ 	lbu	$a1,0x5c($v1)
-/*  f0b7d98:	1000001d */ 	b	.L0f0b7e10
-/*  f0b7d9c:	00000000 */ 	nop
-/*  f0b7da0:	8e020174 */ 	lw	$v0,0x174($s0)
-.L0f0b7da4:
-/*  f0b7da4:	10400015 */ 	beqz	$v0,.L0f0b7dfc
-/*  f0b7da8:	00000000 */ 	nop
-/*  f0b7dac:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f0b7db0:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f0b7db4:	9064005c */ 	lbu	$a0,0x5c($v1)
-/*  f0b7db8:	14810008 */ 	bne	$a0,$at,.L0f0b7ddc
-/*  f0b7dbc:	00000000 */ 	nop
-/*  f0b7dc0:	0fc44762 */ 	jal	currentPlayerGiveWeapon
-/*  f0b7dc4:	2404000f */ 	addiu	$a0,$zero,0xf
-/*  f0b7dc8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b7dcc:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
-/*  f0b7dd0:	2405000f */ 	addiu	$a1,$zero,0xf
-/*  f0b7dd4:	1000000e */ 	b	.L0f0b7e10
-/*  f0b7dd8:	00000000 */ 	nop
-.L0f0b7ddc:
-/*  f0b7ddc:	0fc44762 */ 	jal	currentPlayerGiveWeapon
-/*  f0b7de0:	afa30028 */ 	sw	$v1,0x28($sp)
-/*  f0b7de4:	8fa30028 */ 	lw	$v1,0x28($sp)
-/*  f0b7de8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b7dec:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
-/*  f0b7df0:	9065005c */ 	lbu	$a1,0x5c($v1)
-/*  f0b7df4:	10000006 */ 	b	.L0f0b7e10
-/*  f0b7df8:	00000000 */ 	nop
-.L0f0b7dfc:
-/*  f0b7dfc:	0fc44762 */ 	jal	currentPlayerGiveWeapon
-/*  f0b7e00:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0b7e04:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b7e08:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
-/*  f0b7e0c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0b7e10:
-/*  f0b7e10:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0b7e14:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0b7e18:	8c780284 */ 	lw	$t8,0x284($v1)
-/*  f0b7e1c:	2402ffd8 */ 	addiu	$v0,$zero,-40
-/*  f0b7e20:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0b7e24:	a702024c */ 	sh	$v0,0x24c($t8)
-/*  f0b7e28:	8c790284 */ 	lw	$t9,0x284($v1)
-/*  f0b7e2c:	0fc2a660 */ 	jal	currentPlayerGiveUnlimitedAmmo
-/*  f0b7e30:	a722024e */ 	sh	$v0,0x24e($t9)
-/*  f0b7e34:	0fc08169 */ 	jal	chrGetMaxDamage
-/*  f0b7e38:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0b7e3c:	c6060100 */ 	lwc1	$f6,0x100($s0)
-/*  f0b7e40:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0b7e44:	44811000 */ 	mtc1	$at,$f2
-/*  f0b7e48:	46060201 */ 	sub.s	$f8,$f0,$f6
-/*  f0b7e4c:	3c013e00 */ 	lui	$at,0x3e00
-/*  f0b7e50:	44815000 */ 	mtc1	$at,$f10
-/*  f0b7e54:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0b7e58:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0b7e5c:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f0b7e60:	8c680284 */ 	lw	$t0,0x284($v1)
-/*  f0b7e64:	e51000dc */ 	swc1	$f16,0xdc($t0)
-/*  f0b7e68:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0b7e6c:	c45200dc */ 	lwc1	$f18,0xdc($v0)
-/*  f0b7e70:	4612103c */ 	c.lt.s	$f2,$f18
-/*  f0b7e74:	00000000 */ 	nop
-/*  f0b7e78:	45000002 */ 	bc1f	.L0f0b7e84
-/*  f0b7e7c:	00000000 */ 	nop
-/*  f0b7e80:	e44200dc */ 	swc1	$f2,0xdc($v0)
-.L0f0b7e84:
-/*  f0b7e84:	0fc0cfe8 */ 	jal	chrGetShield
-/*  f0b7e88:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0b7e8c:	44050000 */ 	mfc1	$a1,$f0
-/*  f0b7e90:	0fc0cfea */ 	jal	chrSetShield
-/*  f0b7e94:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0b7e98:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0b7e9c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0b7ea0:	8c490284 */ 	lw	$t1,0x284($v0)
-/*  f0b7ea4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0b7ea8:	ad2019c8 */ 	sw	$zero,0x19c8($t1)
-/*  f0b7eac:	8c4a0284 */ 	lw	$t2,0x284($v0)
-/*  f0b7eb0:	ad4000d4 */ 	sw	$zero,0xd4($t2)
-/*  f0b7eb4:	8c4b0284 */ 	lw	$t3,0x284($v0)
-/*  f0b7eb8:	0fc08351 */ 	jal	func0f020d44
-/*  f0b7ebc:	8d6400bc */ 	lw	$a0,0xbc($t3)
-/*  f0b7ec0:	860c0010 */ 	lh	$t4,0x10($s0)
-/*  f0b7ec4:	2401005c */ 	addiu	$at,$zero,0x5c
-/*  f0b7ec8:	15810007 */ 	bne	$t4,$at,.L0f0b7ee8
-/*  f0b7ecc:	240d0008 */ 	addiu	$t5,$zero,0x8
-/*  f0b7ed0:	3c01800a */ 	lui	$at,%hi(g_Vars+0x440)
-/*  f0b7ed4:	ac2da400 */ 	sw	$t5,%lo(g_Vars+0x440)($at)
-/*  f0b7ed8:	3c01800a */ 	lui	$at,%hi(g_Vars+0x444)
-/*  f0b7edc:	240e005b */ 	addiu	$t6,$zero,0x5b
-/*  f0b7ee0:	10000007 */ 	b	.L0f0b7f00
-/*  f0b7ee4:	ac2ea404 */ 	sw	$t6,%lo(g_Vars+0x444)($at)
-.L0f0b7ee8:
-/*  f0b7ee8:	820f0006 */ 	lb	$t7,0x6($s0)
-/*  f0b7eec:	3c01800a */ 	lui	$at,%hi(g_Vars+0x440)
-/*  f0b7ef0:	ac2fa400 */ 	sw	$t7,%lo(g_Vars+0x440)($at)
-/*  f0b7ef4:	86180010 */ 	lh	$t8,0x10($s0)
-/*  f0b7ef8:	3c01800a */ 	lui	$at,%hi(g_Vars+0x444)
-/*  f0b7efc:	ac38a404 */ 	sw	$t8,%lo(g_Vars+0x444)($at)
-.L0f0b7f00:
-/*  f0b7f00:	0fc2e2e8 */ 	jal	func0f0b8ba0
-/*  f0b7f04:	00000000 */ 	nop
-/*  f0b7f08:	8fb9003c */ 	lw	$t9,0x3c($sp)
-/*  f0b7f0c:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f0b7f10:	0c007764 */ 	jal	modelCopyAnimData
-/*  f0b7f14:	8f250020 */ 	lw	$a1,0x20($t9)
-/*  f0b7f18:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0b7f1c:	0fc0ba68 */ 	jal	func0f02e9a0
-/*  f0b7f20:	3c054140 */ 	lui	$a1,0x4140
-/*  f0b7f24:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f0b7f28:	8c880008 */ 	lw	$t0,0x8($a0)
-/*  f0b7f2c:	0c006a87 */ 	jal	modelGetNodeData
-/*  f0b7f30:	8d050000 */ 	lw	$a1,0x0($t0)
-/*  f0b7f34:	8fa9003c */ 	lw	$t1,0x3c($sp)
-/*  f0b7f38:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f0b7f3c:	8d240020 */ 	lw	$a0,0x20($t1)
-/*  f0b7f40:	8c8a0008 */ 	lw	$t2,0x8($a0)
-/*  f0b7f44:	0c006a87 */ 	jal	modelGetNodeData
-/*  f0b7f48:	8d450000 */ 	lw	$a1,0x0($t2)
-/*  f0b7f4c:	8fab0040 */ 	lw	$t3,0x40($sp)
-/*  f0b7f50:	3c014120 */ 	lui	$at,0x4120
-/*  f0b7f54:	44810000 */ 	mtc1	$at,$f0
-/*  f0b7f58:	00407825 */ 	or	$t7,$v0,$zero
-/*  f0b7f5c:	256e0060 */ 	addiu	$t6,$t3,0x60
-.L0f0b7f60:
-/*  f0b7f60:	8d610000 */ 	lw	$at,0x0($t3)
-/*  f0b7f64:	256b000c */ 	addiu	$t3,$t3,0xc
-/*  f0b7f68:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*  f0b7f6c:	ade1fff4 */ 	sw	$at,-0xc($t7)
-/*  f0b7f70:	8d61fff8 */ 	lw	$at,-0x8($t3)
-/*  f0b7f74:	ade1fff8 */ 	sw	$at,-0x8($t7)
-/*  f0b7f78:	8d61fffc */ 	lw	$at,-0x4($t3)
-/*  f0b7f7c:	156efff8 */ 	bne	$t3,$t6,.L0f0b7f60
-/*  f0b7f80:	ade1fffc */ 	sw	$at,-0x4($t7)
-/*  f0b7f84:	c4440038 */ 	lwc1	$f4,0x38($v0)
-/*  f0b7f88:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f0b7f8c:	00000000 */ 	nop
-/*  f0b7f90:	45020003 */ 	bc1fl	.L0f0b7fa0
-/*  f0b7f94:	c4460028 */ 	lwc1	$f6,0x28($v0)
-/*  f0b7f98:	e4400038 */ 	swc1	$f0,0x38($v0)
-/*  f0b7f9c:	c4460028 */ 	lwc1	$f6,0x28($v0)
-.L0f0b7fa0:
-/*  f0b7fa0:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f0b7fa4:	00000000 */ 	nop
-/*  f0b7fa8:	45020003 */ 	bc1fl	.L0f0b7fb8
-/*  f0b7fac:	c6080024 */ 	lwc1	$f8,0x24($s0)
-/*  f0b7fb0:	e4400028 */ 	swc1	$f0,0x28($v0)
-/*  f0b7fb4:	c6080024 */ 	lwc1	$f8,0x24($s0)
-.L0f0b7fb8:
-/*  f0b7fb8:	8fb8003c */ 	lw	$t8,0x3c($sp)
-/*  f0b7fbc:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x284)
-/*  f0b7fc0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0b7fc4:	e7080024 */ 	swc1	$f8,0x24($t8)
-/*  f0b7fc8:	8f39a244 */ 	lw	$t9,%lo(g_Vars+0x284)($t9)
-/*  f0b7fcc:	c60a0024 */ 	lwc1	$f10,0x24($s0)
-/*  f0b7fd0:	e72a0378 */ 	swc1	$f10,0x378($t9)
-/*  f0b7fd4:	0fc08351 */ 	jal	func0f020d44
-/*  f0b7fd8:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0b7fdc:	0fc19711 */ 	jal	func0f065c44
-/*  f0b7fe0:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0b7fe4:	0fc18171 */ 	jal	func0f0605c4
-/*  f0b7fe8:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0b7fec:	0fc180c0 */ 	jal	propHide
-/*  f0b7ff0:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0b7ff4:	0fc1810e */ 	jal	propFree
-/*  f0b7ff8:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0b7ffc:	10000006 */ 	b	.L0f0b8018
-/*  f0b8000:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0b8004:
-/*  f0b8004:	8e080018 */ 	lw	$t0,0x18($s0)
-/*  f0b8008:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f0b800c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b8010:	01014824 */ 	and	$t1,$t0,$at
-/*  f0b8014:	ae090018 */ 	sw	$t1,0x18($s0)
-.L0f0b8018:
-/*  f0b8018:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0b801c:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0b8020:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f0b8024:	03e00008 */ 	jr	$ra
-/*  f0b8028:	00000000 */ 	nop
-);
+bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
+{
+	struct prop *hostprop;
+	struct modeldata_root *chrrootnode;
+	struct chrdata *playerchr = g_Vars.currentplayer->prop->chr;
+	struct modeldata_root *playerrootnode;
+
+	hostprop = hostchr->prop;
+
+	hostchr->chrflags |= CHRCFLAG_00010000;
+	playerchr->hidden |= CHRHFLAG_00100000;
+	playerchr->chrwidth = hostchr->chrwidth;
+
+	if (chrMoveToPos(playerchr, &hostchr->prop->pos, hostchr->prop->rooms, chrGetInverseTheta(hostchr), false) || force) {
+		if (hostchr->weapons_held[0] && hostchr->weapons_held[1]) {
+			// Dual wielding
+			struct weaponobj *weapon = hostchr->weapons_held[0]->weapon;
+			u32 stack;
+
+			currentPlayerGiveWeapon(weapon->weaponnum);
+			currentPlayerGiveWeaponWithArgument(weapon->weaponnum, weapon->weaponnum);
+			currentPlayerEquipWeaponWrapper(HAND_RIGHT, weapon->weaponnum);
+			currentPlayerEquipWeaponWrapper(HAND_LEFT, weapon->weaponnum);
+		} else if (hostchr->weapons_held[0]) {
+			// Right hand only
+			struct weaponobj *weapon = hostchr->weapons_held[0]->weapon;
+
+			if (weapon->weaponnum == WEAPON_SUPERDRAGON) {
+				currentPlayerGiveWeapon(WEAPON_DRAGON);
+				currentPlayerEquipWeaponWrapper(HAND_RIGHT, WEAPON_DRAGON);
+			} else {
+				currentPlayerGiveWeapon(weapon->weaponnum);
+				currentPlayerEquipWeaponWrapper(HAND_RIGHT, weapon->weaponnum);
+			}
+		} else if (hostchr->weapons_held[1]) {
+			// Left hand only
+			struct weaponobj *weapon = hostchr->weapons_held[1]->weapon;
+
+			if (weapon->weaponnum == WEAPON_SUPERDRAGON) {
+				currentPlayerGiveWeapon(WEAPON_DRAGON);
+				currentPlayerEquipWeaponWrapper(HAND_RIGHT, WEAPON_DRAGON);
+			} else {
+				currentPlayerGiveWeapon(weapon->weaponnum);
+				currentPlayerEquipWeaponWrapper(HAND_RIGHT, weapon->weaponnum);
+			}
+		} else {
+			// Unarmed
+			currentPlayerGiveWeapon(WEAPON_UNARMED);
+			currentPlayerEquipWeaponWrapper(HAND_RIGHT, WEAPON_UNARMED);
+		}
+
+		g_Vars.currentplayer->invdowntime = -40;
+		g_Vars.currentplayer->usedowntime = -40;
+
+		currentPlayerGiveUnlimitedAmmo(true);
+
+		g_Vars.currentplayer->bondhealth = (chrGetMaxDamage(hostchr) - hostchr->damage) * 0.125f;
+
+		if (g_Vars.currentplayer->bondhealth > 1) {
+			g_Vars.currentplayer->bondhealth = 1;
+		}
+
+		chrSetShield(playerchr, chrGetShield(hostchr));
+
+		g_Vars.currentplayer->haschrbody = false;
+		g_Vars.currentplayer->unk00d4 = 0;
+
+		func0f020d44(g_Vars.currentplayer->prop, false);
+
+		if (hostchr->bodynum == BODY_SKEDAR) {
+			g_Vars.antiheadnum = HEAD_MRBLONDE;
+			g_Vars.antibodynum = BODY_MRBLONDE;
+		} else {
+			g_Vars.antiheadnum = hostchr->headnum;
+			g_Vars.antibodynum = hostchr->bodynum;
+		}
+
+		func0f0b8ba0();
+		modelCopyAnimData(hostchr->model, playerchr->model);
+		func0f02e9a0(playerchr, 12);
+
+		chrrootnode = modelGetNodeData(hostchr->model, hostchr->model->unk08->rootnode);
+		playerrootnode = modelGetNodeData(playerchr->model, playerchr->model->unk08->rootnode);
+
+		*playerrootnode = *chrrootnode;
+
+		if (playerrootnode->unk34.y < 10) {
+			playerrootnode->unk34.y = 10;
+		}
+
+		if (playerrootnode->unk24.y < 10) {
+			playerrootnode->unk24.y = 10;
+		}
+
+		playerchr->chrwidth = hostchr->chrwidth;
+		g_Vars.currentplayer->bond2.width = hostchr->chrwidth;
+
+		func0f020d44(hostprop, true);
+		func0f065c44(hostprop);
+		func0f0605c4(hostprop);
+		propHide(hostprop);
+		propFree(hostprop);
+
+		return true;
+	}
+
+	hostchr->chrflags &= ~CHRCFLAG_00010000;
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f0b802c
@@ -2360,7 +2209,7 @@ glabel var7f1ad574
 /*  f0b8494:	0015c080 */ 	sll	$t8,$s5,0x2
 /*  f0b8498:	0278c821 */ 	addu	$t9,$s3,$t8
 /*  f0b849c:	8f240000 */ 	lw	$a0,0x0($t9)
-/*  f0b84a0:	0fc2df18 */ 	jal	func0f0b7c60
+/*  f0b84a0:	0fc2df18 */ 	jal	currentPlayerAssumeChrForAnti
 /*  f0b84a4:	03c02825 */ 	or	$a1,$s8,$zero
 /*  f0b84a8:	14400009 */ 	bnez	$v0,.L0f0b84d0
 /*  f0b84ac:	26a20001 */ 	addiu	$v0,$s5,0x1

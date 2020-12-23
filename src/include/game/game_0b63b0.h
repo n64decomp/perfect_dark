@@ -14,7 +14,7 @@ f32 func0f0b69d0(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, s16
 f32 func0f0b72a8(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop);
 void func0f0b72dc(void);
 void func0f0b77cc(void);
-u32 func0f0b7c60(void);
+bool currentPlayerAssumeChrForAnti(struct chrdata *chr, s32 param_2);
 void func0f0b802c(void);
 void func0f0b85a0(f32 *floats, struct coord *pos);
 void func0f0b85f8(void);

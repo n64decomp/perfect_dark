@@ -331,6 +331,8 @@ struct modeldata_root { // type 0x01
 	struct coord unk34;
 	struct coord unk40; // "2" version of unk24
 	struct coord unk4c; // "2" version of unk34
+	u32 unk58;
+	u32 unk5c;
 };
 
 struct modeldata_partid { // type 0x12

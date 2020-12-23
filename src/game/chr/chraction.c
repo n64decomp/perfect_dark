@@ -13595,12 +13595,12 @@ f32 chrGetInverseTheta(struct chrdata *chr)
 	return func0001ae44(chr->model);
 }
 
-void func0f03e538(struct chrdata *chr, f32 arg1)
+void func0f03e538(struct chrdata *chr, f32 angle)
 {
 	if (chr->aibot) {
-		chr->aibot->unk0b0 = arg1;
+		chr->aibot->unk0b0 = angle;
 	} else {
-		func0001ae90(chr->model, arg1);
+		func0001ae90(chr->model, angle);
 	}
 }
 
@@ -26077,7 +26077,7 @@ void func0f04b740(void)
 	// empty
 }
 
-bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, bool allowonscreen)
+bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle, bool allowonscreen)
 {
 	struct coord pos2;
 	s16 rooms2[8];
@@ -26094,7 +26094,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, 
 	roomsCopy(rooms, rooms2);
 	func0f064178(chr->prop, false);
 
-	if (func0f04af84(chr->chrwidth, &pos2, rooms2, arg3, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen, (chr->hidden & CHRHFLAG_00000200) != 0)) {
+	if (func0f04af84(chr->chrwidth, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen, (chr->hidden & CHRHFLAG_00000200) != 0)) {
 		ground = coordFindGroundY(&pos2, chr->chrwidth, rooms2, &chr->floorcol,
 				&chr->floortype, NULL, &chr->floorroom, NULL, NULL);
 
@@ -26118,13 +26118,13 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, 
 		}
 
 		chr->chrflags |= CHRCFLAG_00000001;
-		func0f03e538(chr, arg3);
+		func0f03e538(chr, angle);
 
 		if (chr->prop->type == PROPTYPE_PLAYER) {
 			player = g_Vars.players[propGetPlayerNum(chr->prop)];
 			player->vv_manground = ground;
 			player->vv_ground = ground;
-			player->vv_theta = ((M_BADTAU - arg3) * 360.0f) / M_BADTAU;
+			player->vv_theta = ((M_BADTAU - angle) * 360.0f) / M_BADTAU;
 			player->vv_verta = 0;
 			player->unk1c64 = 1;
 		}
