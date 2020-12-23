@@ -480,19 +480,12 @@ const char var7f1b7730[] = "fr: %d\n";
 const char var7f1b7738[] = "cutsceneframe: %d\n";
 const char var7f1b774c[] = "pos:%s%s %.2f %.2f %.2f\n";
 
-GLOBAL_ASM(
-glabel func0f16793c
-/*  f16793c:	3c0f800b */ 	lui	$t7,%hi(var800aa5a0)
-/*  f167940:	91efa5a0 */ 	lbu	$t7,%lo(var800aa5a0)($t7)
-/*  f167944:	3c02800b */ 	lui	$v0,%hi(g_GfxBuffers)
-/*  f167948:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f16794c:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f167950:	3c01800b */ 	lui	$at,%hi(var800aa5a4)
-/*  f167954:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f167958:	ac2ea5a4 */ 	sw	$t6,%lo(var800aa5a4)($at)
-/*  f16795c:	03e00008 */ 	jr	$ra
-/*  f167960:	8c42a580 */ 	lw	$v0,%lo(g_GfxBuffers)($v0)
-);
+Gfx *gfxGetMasterDisplayList(void)
+{
+	var800aa5a4 = 1;
+
+	return (Gfx *)g_GfxBuffers[var800aa5a0];
+}
 
 struct gfxvtx *gfxAllocateVertices(s32 count)
 {

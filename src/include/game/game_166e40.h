@@ -19,7 +19,7 @@ u32 func0f1672a8(void);
 void func0f1672f0(u8 arg0);
 void func0f167330(void);
 void func0f167350(void);
-Gfx *func0f16793c(void);
+Gfx *gfxGetMasterDisplayList(void);
 struct gfxvtx *gfxAllocateVertices(s32 count);
 void *gfxAllocateMatrix(void);
 void *gfxAllocate4Words(s32 count);
