@@ -43,7 +43,7 @@ void currentPlayerUpdateColourScreenProperties(void);
 void currentPlayerTickChrFade(void);
 void func0f0bb69c(void);
 void func0f0bb814(void);
-u32 func0f0bbf14(void);
+void func0f0bbf14(void);
 Gfx *hudRenderHealthBar(Gfx *gdl);
 void currentPlayerSurroundWithExplosions(s32 arg0);
 void currentPlayerTickExplode(void);

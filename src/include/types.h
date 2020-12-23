@@ -2240,7 +2240,7 @@ struct player {
 	/*0x00e8*/ f32 oldarmour;
 	/*0x00ec*/ f32 apparenthealth;
 	/*0x00f0*/ f32 apparentarmour;
-	/*0x00f4*/ u32 damageshowtime;
+	/*0x00f4*/ f32 damageshowtime;
 	/*0x00f8*/ f32 healthshowtime;
 	/*0x00fc*/ u32 healthshowmode;
 	/*0x0100*/ s32 docentreupdown;
@@ -5993,6 +5993,16 @@ struct var800a4cc4 {
 	struct coord pos;
 	u8 unk10;
 	u8 unk11;
+};
+
+struct healthdamagetype2 {
+	s32 unk00;
+	f32 showtime;
+	f32 unk08;
+	f32 unk0c;
+	s32 unk10;
+	s32 unk14;
+	s32 unk18;
 };
 
 struct healthdamagetype {

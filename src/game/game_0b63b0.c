@@ -150,62 +150,17 @@ u32 var80070834 = 0x3f800000;
 u32 var80070838 = 0x00000000;
 u32 var8007083c = 0x00000000;
 u32 g_GlobalMenuRoot = 0;
-u32 var80070844 = 0x00000000;
-u32 var80070848 = 0x40a00000;
-u32 var8007084c = 0x42200000;
-u32 var80070850 = 0x3f333333;
-u32 var80070854 = 0x00000096;
-u32 var80070858 = 0x00000000;
-u32 var8007085c = 0x00000000;
-u32 var80070860 = 0x00000000;
-u32 var80070864 = 0x40a00000;
-u32 var80070868 = 0x42200000;
-u32 var8007086c = 0x3f333333;
-u32 var80070870 = 0x00000096;
-u32 var80070874 = 0x00000000;
-u32 var80070878 = 0x00000000;
-u32 var8007087c = 0x00000000;
-u32 var80070880 = 0x40a00000;
-u32 var80070884 = 0x41f00000;
-u32 var80070888 = 0x3f266666;
-u32 var8007088c = 0x00000096;
-u32 var80070890 = 0x00000000;
-u32 var80070894 = 0x00000000;
-u32 var80070898 = 0x00000000;
-u32 var8007089c = 0x40a00000;
-u32 var800708a0 = 0x41c80000;
-u32 var800708a4 = 0x3f19999a;
-u32 var800708a8 = 0x00000096;
-u32 var800708ac = 0x00000000;
-u32 var800708b0 = 0x00000000;
-u32 var800708b4 = 0x00000000;
-u32 var800708b8 = 0x40a00000;
-u32 var800708bc = 0x41b00000;
-u32 var800708c0 = 0x3f0ccccd;
-u32 var800708c4 = 0x00000096;
-u32 var800708c8 = 0x00000000;
-u32 var800708cc = 0x00000000;
-u32 var800708d0 = 0x00000000;
-u32 var800708d4 = 0x40a00000;
-u32 var800708d8 = 0x41980000;
-u32 var800708dc = 0x3f000000;
-u32 var800708e0 = 0x00000096;
-u32 var800708e4 = 0x00000000;
-u32 var800708e8 = 0x00000000;
-u32 var800708ec = 0x00000000;
-u32 var800708f0 = 0x40a00000;
-u32 var800708f4 = 0x41880000;
-u32 var800708f8 = 0x3ee66666;
-u32 var800708fc = 0x00000096;
-u32 var80070900 = 0x00000000;
-u32 var80070904 = 0x00000000;
-u32 var80070908 = 0x00000000;
-u32 var8007090c = 0x40a00000;
-u32 var80070910 = 0x41700000;
-u32 var80070914 = 0x3ecccccd;
-u32 var80070918 = 0x00000096;
-u32 var8007091c = 0x00000000;
-u32 var80070920 = 0x00000000;
+
+struct healthdamagetype2 var80070844[] = {
+	{ 0, 5, 40, 0.7,  150, 0, 0 },
+	{ 0, 5, 40, 0.7,  150, 0, 0 },
+	{ 0, 5, 30, 0.65, 150, 0, 0 },
+	{ 0, 5, 25, 0.6,  150, 0, 0 },
+	{ 0, 5, 22, 0.55, 150, 0, 0 },
+	{ 0, 5, 19, 0.5,  150, 0, 0 },
+	{ 0, 5, 17, 0.45, 150, 0, 0 },
+	{ 0, 5, 15, 0.4,  150, 0, 0 },
+};
 
 struct healthdamagetype g_HealthDamageTypes[] = {
 	// openduration
@@ -5161,36 +5116,17 @@ glabel var7f1ad674
 /*  f0bbf10:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0bbf14
-/*  f0bbf14:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0bbf18:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0bbf1c:	3c018007 */ 	lui	$at,%hi(var80070848)
-/*  f0bbf20:	8c4e1924 */ 	lw	$t6,0x1924($v0)
-/*  f0bbf24:	c44000f4 */ 	lwc1	$f0,0xf4($v0)
-/*  f0bbf28:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0bbf2c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0bbf30:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0bbf34:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0bbf38:	c4220848 */ 	lwc1	$f2,%lo(var80070848)($at)
-/*  f0bbf3c:	4600103e */ 	c.le.s	$f2,$f0
-/*  f0bbf40:	00000000 */ 	nop
-/*  f0bbf44:	45020004 */ 	bc1fl	.L0f0bbf58
-/*  f0bbf48:	44801000 */ 	mtc1	$zero,$f2
-/*  f0bbf4c:	03e00008 */ 	jr	$ra
-/*  f0bbf50:	e44200f4 */ 	swc1	$f2,0xf4($v0)
-/*  f0bbf54:	44801000 */ 	mtc1	$zero,$f2
-.L0f0bbf58:
-/*  f0bbf58:	00000000 */ 	nop
-/*  f0bbf5c:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f0bbf60:	00000000 */ 	nop
-/*  f0bbf64:	45000002 */ 	bc1f	.L0f0bbf70
-/*  f0bbf68:	00000000 */ 	nop
-/*  f0bbf6c:	e44200f4 */ 	swc1	$f2,0xf4($v0)
-.L0f0bbf70:
-/*  f0bbf70:	03e00008 */ 	jr	$ra
-/*  f0bbf74:	00000000 */ 	nop
-);
+void func0f0bbf14(void)
+{
+	if (g_Vars.currentplayer->damageshowtime >= var80070844[g_Vars.currentplayer->healthdamagetype].showtime) {
+		g_Vars.currentplayer->damageshowtime = var80070844[g_Vars.currentplayer->healthdamagetype].showtime;
+		return;
+	}
+
+	if (g_Vars.currentplayer->damageshowtime < 0) {
+		g_Vars.currentplayer->damageshowtime = 0;
+	}
+}
 
 Gfx *hudRenderHealthBar(Gfx *gdl)
 {
