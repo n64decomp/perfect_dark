@@ -9662,61 +9662,17 @@ Gfx *currentPlayerUpdateShootRot(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f0c00cc
-/*  f0c00cc:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0c00d0:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0c00d4:	8c830284 */ 	lw	$v1,0x284($a0)
-/*  f0c00d8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0c00dc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c00e0:	44803000 */ 	mtc1	$zero,$f6
-/*  f0c00e4:	c4640280 */ 	lwc1	$f4,0x280($v1)
-/*  f0c00e8:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f0c00ec:	00000000 */ 	nop
-/*  f0c00f0:	45020021 */ 	bc1fl	.L0f0c0178
-/*  f0c00f4:	44808000 */ 	mtc1	$zero,$f16
-/*  f0c00f8:	8c6e027c */ 	lw	$t6,0x27c($v1)
-/*  f0c00fc:	240100c8 */ 	addiu	$at,$zero,0xc8
-/*  f0c0100:	000e7c02 */ 	srl	$t7,$t6,0x10
-/*  f0c0104:	01e1001b */ 	divu	$zero,$t7,$at
-/*  f0c0108:	0000c010 */ 	mfhi	$t8
-/*  f0c010c:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f0c0110:	27280320 */ 	addiu	$t0,$t9,0x320
-/*  f0c0114:	0c004b70 */ 	jal	random
-/*  f0c0118:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f0c011c:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0c0120:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0c0124:	8c890284 */ 	lw	$t1,0x284($a0)
-/*  f0c0128:	ad22027c */ 	sw	$v0,0x27c($t1)
-/*  f0c012c:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*  f0c0130:	8c8a0058 */ 	lw	$t2,0x58($a0)
-/*  f0c0134:	8c8d0284 */ 	lw	$t5,0x284($a0)
-/*  f0c0138:	014b001a */ 	div	$zero,$t2,$t3
-/*  f0c013c:	00006010 */ 	mfhi	$t4
-/*  f0c0140:	448c4000 */ 	mtc1	$t4,$f8
-/*  f0c0144:	15600002 */ 	bnez	$t3,.L0f0c0150
-/*  f0c0148:	00000000 */ 	nop
-/*  f0c014c:	0007000d */ 	break	0x7
-.L0f0c0150:
-/*  f0c0150:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0c0154:	15610004 */ 	bne	$t3,$at,.L0f0c0168
-/*  f0c0158:	3c018000 */ 	lui	$at,0x8000
-/*  f0c015c:	15410002 */ 	bne	$t2,$at,.L0f0c0168
-/*  f0c0160:	00000000 */ 	nop
-/*  f0c0164:	0006000d */ 	break	0x6
-.L0f0c0168:
-/*  f0c0168:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f0c016c:	e5aa0278 */ 	swc1	$f10,0x278($t5)
-/*  f0c0170:	8c830284 */ 	lw	$v1,0x284($a0)
-/*  f0c0174:	44808000 */ 	mtc1	$zero,$f16
-.L0f0c0178:
-/*  f0c0178:	00000000 */ 	nop
-/*  f0c017c:	e4700280 */ 	swc1	$f16,0x280($v1)
-/*  f0c0180:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c0184:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0c0188:	03e00008 */ 	jr	$ra
-/*  f0c018c:	00000000 */ 	nop
-);
+void currentPlayerUpdateShieldShow(void)
+{
+	if (g_Vars.currentplayer->shieldshowtime < 0) {
+		s32 rand = ((g_Vars.currentplayer->shieldshowrnd >> 16) % 200) * 4 + 800;
+
+		g_Vars.currentplayer->shieldshowrnd = random();
+		g_Vars.currentplayer->shieldshowrot = g_Vars.thisframe240 % rand;
+	}
+
+	g_Vars.currentplayer->shieldshowtime = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0c0190

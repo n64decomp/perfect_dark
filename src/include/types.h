@@ -2339,9 +2339,9 @@ struct player {
 	/*0x026c*/ f32 eyesshutfrac;
 	/*0x0270*/ u32 unk0270;
 	/*0x0274*/ bool waitforzrelease;
-	/*0x0278*/ u32 unk0278;
-	/*0x027c*/ u32 unk027c;
-	/*0x0280*/ u32 unk0280;
+	/*0x0278*/ f32 shieldshowrot;
+	/*0x027c*/ u32 shieldshowrnd;
+	/*0x0280*/ f32 shieldshowtime;
 	/*0x0284*/ s16 bondprevrooms[8];
 	/*0x0294*/ f32 liftground;
 	/*0x0298*/ struct prop *lift;

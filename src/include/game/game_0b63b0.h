@@ -62,7 +62,7 @@ u32 func0f0bd764(void);
 void func0f0bd904(bool arg0);
 void func0f0bfc7c(struct coord *cam_pos, struct coord *cam_look, struct coord *cam_up);
 Gfx *currentPlayerUpdateShootRot(Gfx *gdl);
-u32 func0f0c00cc(void);
+void currentPlayerUpdateShieldShow(void);
 Gfx *func0f0c0190(Gfx *gdl);
 Gfx *func0f0c07c8(Gfx *gdl);
 void currentPlayerDie(bool force);

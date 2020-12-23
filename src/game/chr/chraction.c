@@ -7168,7 +7168,7 @@ glabel var7f1a8d98
 .L0f035ad4:
 /*  f035ad4:	11c00004 */ 	beqz	$t6,.L0f035ae8
 /*  f035ad8:	00000000 */ 	nop
-/*  f035adc:	0fc30033 */ 	jal	func0f0c00cc
+/*  f035adc:	0fc30033 */ 	jal	currentPlayerUpdateShieldShow
 /*  f035ae0:	00000000 */ 	nop
 /*  f035ae4:	8fa30148 */ 	lw	$v1,0x148($sp)
 .L0f035ae8:
