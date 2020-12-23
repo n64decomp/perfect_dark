@@ -494,22 +494,14 @@ glabel func0f16793c
 /*  f167960:	8c42a580 */ 	lw	$v0,%lo(g_GfxBuffers)($v0)
 );
 
-GLOBAL_ASM(
-glabel gfxAllocateVertices
-/*  f167964:	3c06800b */ 	lui	$a2,%hi(g_GfxMemPos)
-/*  f167968:	24c6a59c */ 	addiu	$a2,$a2,%lo(g_GfxMemPos)
-/*  f16796c:	8cc20000 */ 	lw	$v0,0x0($a2)
-/*  f167970:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f167974:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f167978:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f16797c:	004e7821 */ 	addu	$t7,$v0,$t6
-/*  f167980:	25f9000f */ 	addiu	$t9,$t7,0xf
-/*  f167984:	3728000f */ 	ori	$t0,$t9,0xf
-/*  f167988:	accf0000 */ 	sw	$t7,0x0($a2)
-/*  f16798c:	3909000f */ 	xori	$t1,$t0,0xf
-/*  f167990:	03e00008 */ 	jr	$ra
-/*  f167994:	acc90000 */ 	sw	$t1,0x0($a2)
-);
+struct gfxvtx *gfxAllocateVertices(s32 count)
+{
+	void *ptr = g_GfxMemPos;
+	g_GfxMemPos += count * sizeof(struct gfxvtx);
+	g_GfxMemPos = (u8 *)ALIGN16((u32)g_GfxMemPos);
+
+	return ptr;
+}
 
 void *gfxAllocateMatrix(void)
 {
