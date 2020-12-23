@@ -537,37 +537,23 @@ void *gfxAllocate(u32 size)
 	return ptr;
 }
 
+extern s32 var80084000[2];
+
+void func0f167a18(void)
+{
+	var800aa5a0 ^= 1;
+	var800aa5a4 = 0;
+	g_GfxMemPos = g_VtxBuffers[var800aa5a0];
+	var80084000[var800aa5a0] = var80084008;
+	var80084008++;
+
+	if (var80084008 == -1) {
+		var80084008 = 2;
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f167a18
-/*  f167a18:	3c04800b */ 	lui	$a0,%hi(var800aa5a0)
-/*  f167a1c:	2484a5a0 */ 	addiu	$a0,$a0,%lo(var800aa5a0)
-/*  f167a20:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f167a24:	3c01800b */ 	lui	$at,%hi(var800aa5a4)
-/*  f167a28:	3c19800b */ 	lui	$t9,%hi(g_VtxBuffers)
-/*  f167a2c:	39cf0001 */ 	xori	$t7,$t6,0x1
-/*  f167a30:	a08f0000 */ 	sb	$t7,0x0($a0)
-/*  f167a34:	ac20a5a4 */ 	sw	$zero,%lo(var800aa5a4)($at)
-/*  f167a38:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f167a3c:	3c058008 */ 	lui	$a1,%hi(var80084008)
-/*  f167a40:	3c01800b */ 	lui	$at,%hi(g_GfxMemPos)
-/*  f167a44:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f167a48:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f167a4c:	8f39a590 */ 	lw	$t9,%lo(g_VtxBuffers)($t9)
-/*  f167a50:	24a54008 */ 	addiu	$a1,$a1,%lo(var80084008)
-/*  f167a54:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f167a58:	ac39a59c */ 	sw	$t9,%lo(g_GfxMemPos)($at)
-/*  f167a5c:	8ca30000 */ 	lw	$v1,0x0($a1)
-/*  f167a60:	3c018008 */ 	lui	$at,%hi(var80084000)
-/*  f167a64:	00380821 */ 	addu	$at,$at,$t8
-/*  f167a68:	ac234000 */ 	sw	$v1,%lo(var80084000)($at)
-/*  f167a6c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f167a70:	24680001 */ 	addiu	$t0,$v1,0x1
-/*  f167a74:	15010002 */ 	bne	$t0,$at,.L0f167a80
-/*  f167a78:	aca80000 */ 	sw	$t0,0x0($a1)
-/*  f167a7c:	acaa0000 */ 	sw	$t2,0x0($a1)
-.L0f167a80:
-/*  f167a80:	03e00008 */ 	jr	$ra
-/*  f167a84:	00000000 */ 	nop
+glabel func0f167a88
 /*  f167a88:	3c0e800b */ 	lui	$t6,%hi(var800aa5a0)
 /*  f167a8c:	91cea5a0 */ 	lbu	$t6,%lo(var800aa5a0)($t6)
 /*  f167a90:	3c18800b */ 	lui	$t8,%hi(g_GfxBuffers+0x4)
