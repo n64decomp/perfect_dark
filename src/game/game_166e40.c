@@ -564,16 +564,9 @@ glabel func0f167a88
 /*  f167aa4:	0002c8c3 */ 	sra	$t9,$v0,0x3
 /*  f167aa8:	03e00008 */ 	jr	$ra
 /*  f167aac:	03201025 */ 	or	$v0,$t9,$zero
-/*  f167ab0:	3c0e800b */ 	lui	$t6,%hi(var800aa5a0)
-/*  f167ab4:	91cea5a0 */ 	lbu	$t6,%lo(var800aa5a0)($t6)
-/*  f167ab8:	3c18800b */ 	lui	$t8,%hi(g_VtxBuffers+0x4)
-/*  f167abc:	3c19800b */ 	lui	$t9,%hi(g_GfxMemPos)
-/*  f167ac0:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f167ac4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f167ac8:	8f18a594 */ 	lw	$t8,%lo(g_VtxBuffers+0x4)($t8)
-/*  f167acc:	8f39a59c */ 	lw	$t9,%lo(g_GfxMemPos)($t9)
-/*  f167ad0:	03e00008 */ 	jr	$ra
-/*  f167ad4:	03191023 */ 	subu	$v0,$t8,$t9
-/*  f167ad8:	00000000 */ 	nop
-/*  f167adc:	00000000 */ 	nop
 );
+
+u32 func0f167ab0(void)
+{
+	return g_VtxBuffers[1 + var800aa5a0] - g_GfxMemPos;
+}
