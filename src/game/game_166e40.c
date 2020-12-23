@@ -511,16 +511,13 @@ void *gfxAllocateMatrix(void)
 	return ptr;
 }
 
-GLOBAL_ASM(
-glabel gfxAllocate4Words
-/*  f1679b0:	3c06800b */ 	lui	$a2,%hi(g_GfxMemPos)
-/*  f1679b4:	24c6a59c */ 	addiu	$a2,$a2,%lo(g_GfxMemPos)
-/*  f1679b8:	8cc20000 */ 	lw	$v0,0x0($a2)
-/*  f1679bc:	00047100 */ 	sll	$t6,$a0,0x4
-/*  f1679c0:	004e7821 */ 	addu	$t7,$v0,$t6
-/*  f1679c4:	03e00008 */ 	jr	$ra
-/*  f1679c8:	accf0000 */ 	sw	$t7,0x0($a2)
-);
+void *gfxAllocate4Words(s32 count)
+{
+	void *ptr = g_GfxMemPos;
+	g_GfxMemPos += count * 0x10;
+
+	return ptr;
+}
 
 u32 *gfxAllocateColours(s32 count)
 {
