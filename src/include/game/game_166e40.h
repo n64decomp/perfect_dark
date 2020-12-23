@@ -24,7 +24,7 @@ struct gfxvtx *gfxAllocateVertices(s32 count);
 void *gfxAllocateMatrix(void);
 void *gfxAllocate4Words(s32 count);
 u32 *gfxAllocateColours(s32 count);
-struct model0c *func0f1679f4(s32 arg0);
+void *gfxAllocate(u32 size);
 void func0f167a18(void);
 
 #endif

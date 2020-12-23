@@ -2875,7 +2875,7 @@ glabel func0f009504
 .L0f009608:
 /*  f009608:	a439cb00 */ 	sh	$t9,%lo(var8009cb00)($at)
 /*  f00960c:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f009610:	0fc59e7d */ 	jal	func0f1679f4
+/*  f009610:	0fc59e7d */ 	jal	gfxAllocate
 /*  f009614:	afa2002c */ 	sw	$v0,0x2c($sp)
 /*  f009618:	3c05800b */ 	lui	$a1,%hi(var800ab5a8)
 /*  f00961c:	8ca5b5a8 */ 	lw	$a1,%lo(var800ab5a8)($a1)

@@ -202,7 +202,7 @@ void chrRemoveFromChrsC(s32 chrnum)
 
 void func0f01e760(s32 arg0)
 {
-	func0f1679f4(arg0 * 12);
+	gfxAllocate(arg0 * 12);
 }
 
 void setVar8006297c(u32 arg0)
@@ -3839,7 +3839,7 @@ glabel var7f1a87a8
 /*  f0223c8:	8d8b0008 */ 	lw	$t3,0x8($t4)
 /*  f0223cc:	8564000e */ 	lh	$a0,0xe($t3)
 /*  f0223d0:	00046980 */ 	sll	$t5,$a0,0x6
-/*  f0223d4:	0fc59e7d */ 	jal	func0f1679f4
+/*  f0223d4:	0fc59e7d */ 	jal	gfxAllocate
 /*  f0223d8:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f0223dc:	afa200d4 */ 	sw	$v0,0xd4($sp)
 /*  f0223e0:	27a400c4 */ 	addiu	$a0,$sp,0xc4
@@ -5441,7 +5441,7 @@ glabel var7f1a87d8
 /*  f023f78:	8dac0008 */ 	lw	$t4,0x8($t5)
 /*  f023f7c:	8584000e */ 	lh	$a0,0xe($t4)
 /*  f023f80:	0004c180 */ 	sll	$t8,$a0,0x6
-/*  f023f84:	0fc59e7d */ 	jal	func0f1679f4
+/*  f023f84:	0fc59e7d */ 	jal	gfxAllocate
 /*  f023f88:	03002025 */ 	or	$a0,$t8,$zero
 /*  f023f8c:	8fab01f0 */ 	lw	$t3,0x1f0($sp)
 /*  f023f90:	afa20220 */ 	sw	$v0,0x220($sp)

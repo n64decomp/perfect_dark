@@ -12177,7 +12177,7 @@ glabel func0f07079c
 /*  f070874:	8dcf0008 */ 	lw	$t7,0x8($t6)
 /*  f070878:	85e4000e */ 	lh	$a0,0xe($t7)
 /*  f07087c:	0004c180 */ 	sll	$t8,$a0,0x6
-/*  f070880:	0fc59e7d */ 	jal	func0f1679f4
+/*  f070880:	0fc59e7d */ 	jal	gfxAllocate
 /*  f070884:	03002025 */ 	or	$a0,$t8,$zero
 /*  f070888:	27aa0030 */ 	addiu	$t2,$sp,0x30
 /*  f07088c:	afa20084 */ 	sw	$v0,0x84($sp)
@@ -28374,7 +28374,7 @@ s32 objTick(struct prop *prop)
 					}
 
 					sp556 = true;
-					sp476.model0c = func0f1679f4(model->unk08->unk0e * 64);
+					sp476.model0c = gfxAllocate(model->unk08->unk0e * 64);
 					sp476.matrix = currentPlayerGetMatrix1740();
 					func0001cebc(&sp476, model);
 
@@ -28472,7 +28472,7 @@ s32 objTick(struct prop *prop)
 			func00015a00(currentPlayerGetMatrix1740(), &sp248, &sp152);
 
 			sp556 = true;
-			sp312.model0c = func0f1679f4(model->unk08->unk0e * 64);
+			sp312.model0c = gfxAllocate(model->unk08->unk0e * 64);
 			sp312.matrix = &sp152;
 			func0001cebc(&sp312, model);
 
@@ -28625,7 +28625,7 @@ s32 objTick(struct prop *prop)
 		}
 
 		if (sp556 == false) {
-			model->unk0c = func0f1679f4(model->unk08->unk0e * 64);
+			model->unk0c = gfxAllocate(model->unk08->unk0e * 64);
 			func0f07e2cc(prop);
 			func0001cb0c(model, model->unk08->rootnode);
 		}

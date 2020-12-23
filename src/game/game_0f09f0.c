@@ -4233,7 +4233,7 @@ glabel var7f1b2948
 .L0f0f4908:
 /*  f0f4908:	8544000e */ 	lh	$a0,0xe($t2)
 /*  f0f490c:	00045980 */ 	sll	$t3,$a0,0x6
-/*  f0f4910:	0fc59e7d */ 	jal	func0f1679f4
+/*  f0f4910:	0fc59e7d */ 	jal	gfxAllocate
 /*  f0f4914:	01602025 */ 	or	$a0,$t3,$zero
 /*  f0f4918:	afa203b4 */ 	sw	$v0,0x3b4($sp)
 /*  f0f491c:	8e0e0054 */ 	lw	$t6,0x54($s0)

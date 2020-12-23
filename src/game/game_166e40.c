@@ -528,18 +528,14 @@ u32 *gfxAllocateColours(s32 count)
 	return ptr;
 }
 
-GLOBAL_ASM(
-glabel func0f1679f4
-/*  f1679f4:	3c06800b */ 	lui	$a2,%hi(g_GfxMemPos)
-/*  f1679f8:	24c6a59c */ 	addiu	$a2,$a2,%lo(g_GfxMemPos)
-/*  f1679fc:	8cc20000 */ 	lw	$v0,0x0($a2)
-/*  f167a00:	2484000f */ 	addiu	$a0,$a0,0xf
-/*  f167a04:	348e000f */ 	ori	$t6,$a0,0xf
-/*  f167a08:	39cf000f */ 	xori	$t7,$t6,0xf
-/*  f167a0c:	004fc021 */ 	addu	$t8,$v0,$t7
-/*  f167a10:	03e00008 */ 	jr	$ra
-/*  f167a14:	acd80000 */ 	sw	$t8,0x0($a2)
-);
+void *gfxAllocate(u32 size)
+{
+	void *ptr = g_GfxMemPos;
+	size = ALIGN16(size);
+	g_GfxMemPos += size;
+
+	return ptr;
+}
 
 GLOBAL_ASM(
 glabel func0f167a18

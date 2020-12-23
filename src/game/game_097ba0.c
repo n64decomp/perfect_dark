@@ -9890,7 +9890,7 @@ glabel func0f09f848
 .L0f09f90c:
 /*  f09f90c:	8504000e */ 	lh	$a0,0xe($t0)
 /*  f09f910:	00044980 */ 	sll	$t1,$a0,0x6
-/*  f09f914:	0fc59e7d */ 	jal	func0f1679f4
+/*  f09f914:	0fc59e7d */ 	jal	gfxAllocate
 /*  f09f918:	01202025 */ 	or	$a0,$t1,$zero
 /*  f09f91c:	ae62000c */ 	sw	$v0,0xc($s3)
 /*  f09f920:	26240620 */ 	addiu	$a0,$s1,0x620
@@ -17023,7 +17023,7 @@ glabel var7f1aca70
 /*  f0a5c88:	8444000e */ 	lh	$a0,0xe($v0)
 /*  f0a5c8c:	afa20280 */ 	sw	$v0,0x280($sp)
 /*  f0a5c90:	00045980 */ 	sll	$t3,$a0,0x6
-/*  f0a5c94:	0fc59e7d */ 	jal	func0f1679f4
+/*  f0a5c94:	0fc59e7d */ 	jal	gfxAllocate
 /*  f0a5c98:	01602025 */ 	or	$a0,$t3,$zero
 /*  f0a5c9c:	afa20304 */ 	sw	$v0,0x304($sp)
 /*  f0a5ca0:	8fa401c4 */ 	lw	$a0,0x1c4($sp)
