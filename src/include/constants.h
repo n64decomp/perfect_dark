@@ -522,6 +522,15 @@
 #define CROUCH_HALF  1
 #define CROUCH_STAND 2
 
+#define DAMAGETYPE_0 0
+#define DAMAGETYPE_1 1
+#define DAMAGETYPE_2 2
+#define DAMAGETYPE_3 3
+#define DAMAGETYPE_4 4
+#define DAMAGETYPE_5 5
+#define DAMAGETYPE_6 6
+#define DAMAGETYPE_7 7
+
 #define DESCRIPTION_BRIEFING       0x00
 #define DESCRIPTION_MPCONFIG       0x01
 #define DESCRIPTION_MPCHALLENGE    0x02
@@ -844,19 +853,19 @@
 #define IDLEACTION_OPERATING       0x04
 #define IDLEACTION_OPERATING_PAD   0x05
 
-#define INTROTYPE_SPAWN        0
-#define INTROTYPE_WEAPON       1
-#define INTROTYPE_AMMO         2
-#define INTROTYPE_3            3
-#define INTROTYPE_4            4
-#define INTROTYPE_OUTFIT       5
-#define INTROTYPE_6            6
-#define INTROTYPE_WATCHTIME    7
-#define INTROTYPE_CREDITOFFSET 8
-#define INTROTYPE_CASE         9
-#define INTROTYPE_CASERESPAWN  10
-#define INTROTYPE_HILL         11
-#define INTROTYPE_END          12
+#define INTROCMD_SPAWN        0
+#define INTROCMD_WEAPON       1
+#define INTROCMD_AMMO         2
+#define INTROCMD_3            3
+#define INTROCMD_4            4
+#define INTROCMD_OUTFIT       5
+#define INTROCMD_6            6
+#define INTROCMD_WATCHTIME    7
+#define INTROCMD_CREDITOFFSET 8
+#define INTROCMD_CASE         9
+#define INTROCMD_CASERESPAWN  10
+#define INTROCMD_HILL         11
+#define INTROCMD_END          12
 
 #define INVENTORYFUNCTYPE_NONE             0x0000
 #define INVENTORYFUNCTYPE_SHOOT_SINGLE     0x0001

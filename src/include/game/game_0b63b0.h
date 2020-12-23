@@ -16,7 +16,7 @@ void func0f0b72dc(void);
 void func0f0b77cc(void);
 bool currentPlayerAssumeChrForAnti(struct chrdata *chr, s32 param_2);
 void currentPlayerSpawn(void);
-void func0f0b85a0(f32 *floats, struct coord *pos);
+void func0f0b85a0(struct playerbond *pb, struct coord *pos);
 void func0f0b85f8(void);
 void currentPlayerChooseBodyAndHead(s32 *bodynum, s32 *headnum, s32 *arg2);
 void func0f0b8ba0(void);

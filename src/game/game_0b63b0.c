@@ -11,6 +11,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
+#include "game/data/inventory.h"
 #include "game/game_006bd0.h"
 #include "game/title.h"
 #include "game/chr/chr.h"
@@ -1478,6 +1479,185 @@ glabel var7f1ad568
 /*  f0b77c8:	27bd0118 */ 	addiu	$sp,$sp,0x118
 );
 
+// Mismatch: assigns to bondprevpos and player->prop->pos have extra loads
+// from pos.
+//void func0f0b72dc(void)
+//{
+//	struct coord pos = {0, 0, 0}; // 10c
+//	s16 rooms[8]; // fc
+//	f32 angle; // f8
+//	s32 *cmd = g_StageSetup.intro;
+//	f32 groundy;
+//	s32 i;
+//	u32 stack[4];
+//	s32 aiStack188[34]; // 5c
+//
+//	func0f11de20(g_Vars.currentplayernum);
+//
+//	g_Vars.currentplayer->dostartnewlife = false;
+//
+//	if (g_Vars.coopplayernum < 0) {
+//		struct prop *prop = g_Vars.currentplayer->prop->child;
+//
+//		while (prop) {
+//			struct defaultobj *obj = prop->obj;
+//
+//			if (obj) {
+//				obj->hidden |= OBJHFLAG_00000004;
+//			}
+//
+//			prop = prop->next;
+//		}
+//	}
+//
+//	chrInitSplats(g_Vars.currentplayer->prop->chr);
+//	func0f0b77cc();
+//	g_Vars.currentplayer->isdead = false;
+//	g_Vars.currentplayer->healthdamagetype = DAMAGETYPE_7;
+//	g_Vars.currentplayer->damagetype = DAMAGETYPE_7;
+//	g_Vars.currentplayer->unk16d8 = 0;
+//	g_Vars.currentplayer->gunsightoff = 2;
+//
+//	currentPlayerUnsetFlag(0xffffffff);
+//
+//	angle = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop); // var7f1ad534
+//
+//	groundy = coordFindGroundY(&pos, 30, rooms,
+//			&g_Vars.currentplayer->floorcol,
+//			&g_Vars.currentplayer->floortype,
+//			&g_Vars.currentplayer->floorflags,
+//			&g_Vars.currentplayer->floorroom,
+//			NULL, NULL);
+//
+//	pos.y = groundy + g_Vars.currentplayer->vv_eyeheight;
+//
+//	g_Vars.currentplayer->vv_manground = groundy;
+//	g_Vars.currentplayer->vv_theta = (angle * 360.0f) / M_BADTAU; // var7f1ad538
+//	g_Vars.currentplayer->vv_ground = groundy;
+//
+//	func0f0b85a0(&g_Vars.currentplayer->bond2, &pos);
+//
+//	g_Vars.currentplayer->bond2.unk00.x = -sinf(angle);
+//	g_Vars.currentplayer->bond2.unk00.y = 0;
+//	g_Vars.currentplayer->bond2.unk00.z = cosf(angle);
+//
+//	g_Vars.currentplayer->bondprevpos.x = pos.x;
+//	g_Vars.currentplayer->prop->pos.x = pos.x;
+//	g_Vars.currentplayer->bondprevpos.y = pos.y;
+//	g_Vars.currentplayer->prop->pos.y = pos.y;
+//	g_Vars.currentplayer->bondprevpos.z = pos.z;
+//	g_Vars.currentplayer->prop->pos.z = pos.z;
+//
+//	func0f065c44(g_Vars.currentplayer->prop);
+//
+//	g_Vars.currentplayer->prop->rooms[0] = rooms[0];
+//	g_Vars.currentplayer->prop->rooms[1] = -1;
+//
+//	currentPlayerSetCamPropertiesWithRoom(&pos, &g_Vars.currentplayer->bond2.unk28,
+//			&g_Vars.currentplayer->bond2.unk1c, rooms[0]);
+//
+//	if (g_Vars.coopplayernum >= 0) {
+//		for (i = 1; i != ARRAYCOUNT(aiStack188); i++) {
+//			aiStack188[i] = 0;
+//		}
+//
+//		for (i = 1; i != ARRAYCOUNT(g_Weapons); i++) {
+//			if (func0f111ad4(i)) {
+//				s32 ammotype = weaponGetAmmoType(i, 0);
+//
+//				if (ammotype >= 0 && ammotype <= AMMOTYPE_ECM_MINE) {
+//					aiStack188[ammotype + 1] = 1;
+//				}
+//			}
+//		}
+//
+//		for (i = 0; i != ARRAYCOUNT(aiStack188); i++) {
+//			if (aiStack188[i] == 0) {
+//				g_Vars.currentplayer->ammoheldarr[i] = 0;
+//			}
+//		}
+//	} else {
+//		currentPlayerClearInventory();
+//
+//		for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->ammoheldarr); i++) {
+//			g_Vars.currentplayer->ammoheldarr[i] = 0;
+//		}
+//	}
+//
+//	currentPlayerGiveWeapon(WEAPON_UNARMED);
+//
+//	if (cmd) {
+//		if (g_Vars.antiplayernum < 0 || g_Vars.currentplayer != g_Vars.anti) {
+//			while (cmd[0] != INTROCMD_END) {
+//				switch (cmd[0]) {
+//				case INTROCMD_SPAWN:
+//					cmd += 3;
+//					break;
+//				case INTROCMD_CASE:
+//				case INTROCMD_CASERESPAWN:
+//					cmd += 3;
+//					break;
+//				case INTROCMD_HILL:
+//					cmd += 2;
+//					break;
+//				case INTROCMD_WEAPON:
+//					if (cmd[3] == 0) {
+//						if (cmd[2] >= 0) {
+//							currentPlayerGiveWeaponWithArgument(cmd[1], cmd[2]);
+//						} else {
+//							currentPlayerGiveWeapon(cmd[1]);
+//						}
+//					}
+//					cmd += 4;
+//					break;
+//				case INTROCMD_AMMO:
+//					if (cmd[3] == 0) {
+//						currentPlayerSetAmmoQuantity(cmd[1], cmd[2]);
+//					}
+//					cmd += 4;
+//					break;
+//				case INTROCMD_3:
+//					cmd += 8;
+//					break;
+//				case INTROCMD_4:
+//					cmd += 2;
+//					break;
+//				case INTROCMD_OUTFIT:
+//					cmd += 2;
+//					break;
+//				case INTROCMD_6:
+//					cmd += 10;
+//					break;
+//				default:
+//					cmd++;
+//					break;
+//				}
+//			}
+//		}
+//	}
+//
+//	if (g_Vars.coopplayernum >= 0 && g_Vars.currentplayer->stealhealth > 0) {
+//		g_Vars.currentplayer->bondhealth = g_Vars.currentplayer->stealhealth;
+//		g_Vars.currentplayer->oldhealth = 0;
+//		g_Vars.currentplayer->oldarmour = 0;
+//		g_Vars.currentplayer->apparenthealth = 0;
+//		g_Vars.currentplayer->apparentarmour = 0;
+//	}
+//
+//	func0f0cb8c4(g_Vars.currentplayer);
+//	currentPlayerSpawn();
+//
+//	if (g_Vars.normmplayerisrunning) {
+//		currentPlayerStartChrFade(120, 1);
+//	} else {
+//		currentPlayerStartChrFade(0, 1);
+//	}
+//
+//	if (g_Vars.currentplayer->prop->chr) {
+//		g_Vars.currentplayer->prop->chr->chrflags &= ~CHRCFLAG_HIDDEN;
+//	}
+//}
+
 GLOBAL_ASM(
 glabel func0f0b77cc
 .late_rodata
@@ -2075,22 +2255,25 @@ void currentPlayerSpawn(void)
 	currentPlayerUpdatePerimInfo();
 }
 
-void func0f0b85a0(f32 *floats, struct coord *pos)
+void func0f0b85a0(struct playerbond *pb, struct coord *pos)
 {
-	floats[4] = pos->x;
-	floats[5] = pos->y;
-	floats[6] = pos->z;
-	floats[7] = 1;
-	floats[8] = 0;
-	floats[9] = 0;
-	floats[10] = 0;
-	floats[11] = 1;
-	floats[12] = 0;
+	pb->unk10.x = pos->x;
+	pb->unk10.y = pos->y;
+	pb->unk10.z = pos->z;
 
-	floats[0] = 0;
-	floats[1] = 0;
-	floats[2] = 1;
-	floats[3] = 30;
+	pb->unk1c.x = 1;
+	pb->unk1c.y = 0;
+	pb->unk1c.z = 0;
+
+	pb->unk28.x = 0;
+	pb->unk28.y = 1;
+	pb->unk28.z = 0;
+
+	pb->unk00.x = 0;
+	pb->unk00.y = 0;
+	pb->unk00.z = 1;
+
+	pb->width = 30;
 }
 
 void func0f0b85f8(void)

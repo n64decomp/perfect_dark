@@ -1332,22 +1332,22 @@ glabel var7f1a827c
 //	g_DefaultWeapons[HAND_RIGHT] = 0;
 //
 //	if (cmd) {
-//		while (cmd[0] != INTROTYPE_END) {
+//		while (cmd[0] != INTROCMD_END) {
 //			switch (*cmd) {
-//			case INTROTYPE_SPAWN:
+//			case INTROCMD_SPAWN:
 //				if (cmd[2] == 0) {
 //					g_SpawnPoints[g_NumSpawnPoints++] = cmd[1];
 //				}
 //				cmd += 3;
 //				break;
-//			case INTROTYPE_CASE:
-//			case INTROTYPE_CASERESPAWN:
+//			case INTROCMD_CASE:
+//			case INTROCMD_CASERESPAWN:
 //				cmd += 3;
 //				break;
-//			case INTROTYPE_HILL:
+//			case INTROCMD_HILL:
 //				cmd += 2;
 //				break;
-//			case INTROTYPE_WEAPON:
+//			case INTROCMD_WEAPON:
 //				if (cmd[3] == 0 && g_Vars.currentplayer != g_Vars.anti) {
 //					func0f011560(cmd[1]);
 //
@@ -1374,26 +1374,26 @@ glabel var7f1a827c
 //				}
 //				cmd += 4;
 //				break;
-//			case INTROTYPE_AMMO:
+//			case INTROCMD_AMMO:
 //				if (cmd[3] == 0 && g_Vars.currentplayer != g_Vars.anti) {
 //					currentPlayerSetAmmoQuantity(cmd[1], cmd[2]);
 //				}
 //				cmd += 4;
 //				break;
-//			case INTROTYPE_3:
+//			case INTROCMD_3:
 //				cmd += 8;
 //				break;
-//			case INTROTYPE_4:
+//			case INTROCMD_4:
 //				cmd += 2;
 //				break;
-//			case INTROTYPE_OUTFIT:
+//			case INTROCMD_OUTFIT:
 //				g_Vars.currentplayer->bondtype = cmd[1];
 //				cmd += 2;
 //				break;
-//			case INTROTYPE_6:
+//			case INTROCMD_6:
 //				cmd += 10;
 //				break;
-//			case INTROTYPE_WATCHTIME:
+//			case INTROCMD_WATCHTIME:
 //				g_Vars.currentplayer->bondwatchtime60 = 0;
 //				if (cmd[2] > 0) {
 //					g_Vars.currentplayer->bondwatchtime60 += (cmd[2] % 60) * 3600;
@@ -1403,7 +1403,7 @@ glabel var7f1a827c
 //				}
 //				cmd += 3;
 //				break;
-//			case INTROTYPE_CREDITOFFSET:
+//			case INTROCMD_CREDITOFFSET:
 //				thing = (struct gecreditsdata *)&g_GeCreditsData[cmd[1]];
 //				g_CurrentGeCreditsData = thing;
 //				while (thing->text1 || thing->text2) {
