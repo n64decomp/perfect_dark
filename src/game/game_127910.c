@@ -85,12 +85,12 @@ void playersAllocate(s32 count)
 		setCurrentPlayerNum(0);
 
 		if (g_Vars.unk0004e0) {
-			s16 a = func0f0bc44c();
-			s16 b = func0f0bc478();
+			s16 a = viGetFbWidth();
+			s16 b = viGetFbHeight();
 			currentPlayerSetViewSize(a, b << 1);
 		} else {
-			s16 a = func0f0bc44c();
-			s16 b = func0f0bc478();
+			s16 a = viGetFbWidth();
+			s16 b = viGetFbHeight();
 			currentPlayerSetViewSize(a, b);
 		}
 

@@ -4964,7 +4964,7 @@ glabel var7f1b5954
 /*  f13b63c:	8e0a0000 */ 	lw	$t2,0x0($s0)
 /*  f13b640:	ad494204 */ 	sw	$t1,0x4204($t2)
 .L0f13b644:
-/*  f13b644:	0fc2f5d9 */ 	jal	func0f0bd764
+/*  f13b644:	0fc2f5d9 */ 	jal	currentPlayerConfigureVi
 /*  f13b648:	00000000 */ 	nop
 /*  f13b64c:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*  f13b650:	8fb00030 */ 	lw	$s0,0x30($sp)
