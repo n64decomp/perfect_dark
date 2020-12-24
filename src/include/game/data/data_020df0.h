@@ -289,7 +289,7 @@ extern s32 var80082050;
 extern void *filetable[];
 extern u32 g_GfxSizesByPlayerCount[];
 extern u32 g_VtxSizesByPlayerCount[];
-extern u32 var80084008;
+extern u32 g_GfxNumSwaps;
 extern u32 var80084010;
 extern bool var80084014;
 extern f32 var80084018;

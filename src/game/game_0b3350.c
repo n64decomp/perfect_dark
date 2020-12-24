@@ -1870,15 +1870,15 @@ void currentPlayerSetMatrix1740(Mtxf *matrix)
 
 	player->prev1740 = player->matrix1740;
 	player->matrix1740 = matrix;
-	player->unk1744 = var80084008;
+	player->c_viewfmdynticknum = g_GfxNumSwaps;
 	player->unk0488 = player->unk0484;
 	player->unk0484 = g_GfxMemPos;
 }
 
 GLOBAL_ASM(
 glabel func0f0b5050
-/*  f0b5050:	3c02800b */ 	lui	$v0,%hi(var800aa5a0)
-/*  f0b5054:	9042a5a0 */ 	lbu	$v0,%lo(var800aa5a0)($v0)
+/*  f0b5050:	3c02800b */ 	lui	$v0,%hi(g_GfxActiveBufferIndex)
+/*  f0b5054:	9042a5a0 */ 	lbu	$v0,%lo(g_GfxActiveBufferIndex)($v0)
 /*  f0b5058:	3c03800b */ 	lui	$v1,%hi(g_VtxBuffers)
 /*  f0b505c:	2463a590 */ 	addiu	$v1,$v1,%lo(g_VtxBuffers)
 /*  f0b5060:	00027080 */ 	sll	$t6,$v0,0x2
@@ -1915,12 +1915,12 @@ glabel func0f0b5050
 /*  f0b50d8:	00001825 */ 	or	$v1,$zero,$zero
 /*  f0b50dc:	00001025 */ 	or	$v0,$zero,$zero
 /*  f0b50e0:	11600003 */ 	beqz	$t3,.L0f0b50f0
-/*  f0b50e4:	3c138008 */ 	lui	$s3,%hi(var80084008)
+/*  f0b50e4:	3c138008 */ 	lui	$s3,%hi(g_GfxNumSwaps)
 /*  f0b50e8:	10000001 */ 	b	.L0f0b50f0
 /*  f0b50ec:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0f0b50f0:
 /*  f0b50f0:	8e0c0064 */ 	lw	$t4,0x64($s0)
-/*  f0b50f4:	26734008 */ 	addiu	$s3,$s3,%lo(var80084008)
+/*  f0b50f4:	26734008 */ 	addiu	$s3,$s3,%lo(g_GfxNumSwaps)
 /*  f0b50f8:	11800003 */ 	beqz	$t4,.L0f0b5108
 /*  f0b50fc:	00000000 */ 	nop
 /*  f0b5100:	10000001 */ 	b	.L0f0b5108
@@ -2015,8 +2015,8 @@ glabel func0f0b5050
 /*  f0b5238:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0f0b523c:
 /*  f0b523c:	8e0b0064 */ 	lw	$t3,0x64($s0)
-/*  f0b5240:	3c138008 */ 	lui	$s3,%hi(var80084008)
-/*  f0b5244:	26734008 */ 	addiu	$s3,$s3,%lo(var80084008)
+/*  f0b5240:	3c138008 */ 	lui	$s3,%hi(g_GfxNumSwaps)
+/*  f0b5244:	26734008 */ 	addiu	$s3,$s3,%lo(g_GfxNumSwaps)
 /*  f0b5248:	11600003 */ 	beqz	$t3,.L0f0b5258
 /*  f0b524c:	02182821 */ 	addu	$a1,$s0,$t8
 /*  f0b5250:	10000001 */ 	b	.L0f0b5258
@@ -2120,8 +2120,8 @@ glabel func0f0b5050
 
 GLOBAL_ASM(
 glabel func0f0b53a4
-/*  f0b53a4:	3c02800b */ 	lui	$v0,%hi(var800aa5a0)
-/*  f0b53a8:	9042a5a0 */ 	lbu	$v0,%lo(var800aa5a0)($v0)
+/*  f0b53a4:	3c02800b */ 	lui	$v0,%hi(g_GfxActiveBufferIndex)
+/*  f0b53a8:	9042a5a0 */ 	lbu	$v0,%lo(g_GfxActiveBufferIndex)($v0)
 /*  f0b53ac:	3c03800b */ 	lui	$v1,%hi(g_VtxBuffers)
 /*  f0b53b0:	2463a590 */ 	addiu	$v1,$v1,%lo(g_VtxBuffers)
 /*  f0b53b4:	00027080 */ 	sll	$t6,$v0,0x2
@@ -2158,12 +2158,12 @@ glabel func0f0b53a4
 /*  f0b542c:	00001825 */ 	or	$v1,$zero,$zero
 /*  f0b5430:	00001025 */ 	or	$v0,$zero,$zero
 /*  f0b5434:	11600003 */ 	beqz	$t3,.L0f0b5444
-/*  f0b5438:	3c138008 */ 	lui	$s3,%hi(var80084008)
+/*  f0b5438:	3c138008 */ 	lui	$s3,%hi(g_GfxNumSwaps)
 /*  f0b543c:	10000001 */ 	b	.L0f0b5444
 /*  f0b5440:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0f0b5444:
 /*  f0b5444:	8e0c0064 */ 	lw	$t4,0x64($s0)
-/*  f0b5448:	26734008 */ 	addiu	$s3,$s3,%lo(var80084008)
+/*  f0b5448:	26734008 */ 	addiu	$s3,$s3,%lo(g_GfxNumSwaps)
 /*  f0b544c:	11800003 */ 	beqz	$t4,.L0f0b545c
 /*  f0b5450:	00000000 */ 	nop
 /*  f0b5454:	10000001 */ 	b	.L0f0b545c
@@ -2258,8 +2258,8 @@ glabel func0f0b53a4
 /*  f0b558c:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0f0b5590:
 /*  f0b5590:	8e0b0064 */ 	lw	$t3,0x64($s0)
-/*  f0b5594:	3c138008 */ 	lui	$s3,%hi(var80084008)
-/*  f0b5598:	26734008 */ 	addiu	$s3,$s3,%lo(var80084008)
+/*  f0b5594:	3c138008 */ 	lui	$s3,%hi(g_GfxNumSwaps)
+/*  f0b5598:	26734008 */ 	addiu	$s3,$s3,%lo(g_GfxNumSwaps)
 /*  f0b559c:	11600003 */ 	beqz	$t3,.L0f0b55ac
 /*  f0b55a0:	02182821 */ 	addu	$a1,$s0,$t8
 /*  f0b55a4:	10000001 */ 	b	.L0f0b55ac
@@ -2395,7 +2395,7 @@ void currentPlayerSetUnk174c(Mtxf *matrix)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->unk1764 = player->unk1744;
+	player->c_prevviewfmdynticknum = player->c_viewfmdynticknum;
 	player->unk1768 = player->unk174c;
 	player->unk174c = matrix;
 }

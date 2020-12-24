@@ -50,7 +50,7 @@
 #include "game/game_157db0.h"
 #include "game/game_1655c0.h"
 #include "game/game_165670.h"
-#include "game/game_166e40.h"
+#include "game/gfxmemory.h"
 #include "game/game_167ae0.h"
 #include "game/game_179060.h"
 #include "game/game_17f930.h"

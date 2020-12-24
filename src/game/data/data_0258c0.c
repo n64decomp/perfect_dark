@@ -4778,6 +4778,6 @@ u32 g_VtxSizesByPlayerCount[] = {
 };
 
 u32 var80083ffc = 0x00028000;
-s32 var80084000[2] = {0, 1};
-u32 var80084008 = 0x00000002;
+s32 g_GfxNumSwapsPerBuffer[2] = {0, 1};
+u32 g_GfxNumSwaps = 0x00000002;
 u32 var8008400c = 0x00000000;

@@ -34,7 +34,7 @@
 #include "game/endscreen.h"
 #include "game/game_127910.h"
 #include "game/game_1531a0.h"
-#include "game/game_166e40.h"
+#include "game/gfxmemory.h"
 #include "game/game_167ae0.h"
 #include "game/timing.h"
 #include "game/music.h"
@@ -1031,7 +1031,7 @@ void mainLoop(void)
 			func0f187944();
 		}
 
-		func0f167350();
+		gfxInitMemory();
 		func00013dfc();
 		func00013798();
 		func0f17608c(g_StageNum);
@@ -1131,7 +1131,7 @@ void mainTick(void)
 		}
 
 		if (var8005d9c8) {
-			func0f167a18();
+			gfxSwapBuffers();
 			func0000a044();
 		}
 

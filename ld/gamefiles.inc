@@ -153,6 +153,7 @@
 	build/ROMID/game/game_165670.o (section); \
 	build/ROMID/game/game_1668e0.o (section); \
 	build/ROMID/game/game_166e40.o (section); \
+	build/ROMID/game/gfxmemory.o (section); \
 	build/ROMID/game/game_167ae0.o (section); \
 	build/ROMID/game/data/data_02a0e0.o (section); \
 	build/ROMID/game/timing.o (section); \

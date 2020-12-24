@@ -14,7 +14,7 @@
 #include "game/game_11f000.h"
 #include "game/bondview.h"
 #include "game/game_1531a0.h"
-#include "game/game_166e40.h"
+#include "game/gfxmemory.h"
 #include "game/lang.h"
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"

@@ -41,7 +41,7 @@
 #include "game/game_1655c0.h"
 #include "game/game_165670.h"
 #include "game/game_1668e0.h"
-#include "game/game_166e40.h"
+#include "game/gfxmemory.h"
 #include "game/game_167ae0.h"
 #include "game/music.h"
 #include "game/game_16e810.h"

@@ -2611,7 +2611,7 @@ struct player {
 	/*0x1738*/ void *unk1738;
 	/*0x173c*/ Mtx *unk173c;
 	/*0x1740*/ Mtxf *matrix1740;
-	/*0x1744*/ u32 unk1744;
+	/*0x1744*/ u32 c_viewfmdynticknum;
 	/*0x1748*/ u32 unk1748;
 	/*0x174c*/ Mtxf *unk174c;
 	/*0x1750*/ void *unk1750;
@@ -2619,7 +2619,7 @@ struct player {
 	/*0x1758*/ Mtx *unk1758;
 	/*0x175c*/ void *unk175c;
 	/*0x1760*/ Mtxf *prev1740;
-	/*0x1764*/ u32 unk1764;
+	/*0x1764*/ u32 c_prevviewfmdynticknum;
 	/*0x1768*/ Mtxf *unk1768;
 	/*0x176c*/ f32 c_scalelod60;
 	/*0x1770*/ f32 c_scalelod;

@@ -112,6 +112,12 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
+const char var7f1b7730[] = "fr: %d\n";
+const char var7f1b7738[] = "cutsceneframe: %d\n";
+const char var7f1b774c[] = "pos:%s%s %.2f %.2f %.2f\n";
+const char var7f1b7768[] = "";
+const char var7f1b776c[] = "";
+
 u32 var80084010 = 0;
 bool var80084014 = false;
 f32 var80084018 = 1;

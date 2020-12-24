@@ -18,13 +18,5 @@ u32 fileGetUnk04(s32 filenum);
 u32 func0f1672a8(void);
 void func0f1672f0(u8 arg0);
 void func0f167330(void);
-void func0f167350(void);
-Gfx *gfxGetMasterDisplayList(void);
-struct gfxvtx *gfxAllocateVertices(s32 count);
-void *gfxAllocateMatrix(void);
-void *gfxAllocate4Words(s32 count);
-u32 *gfxAllocateColours(s32 count);
-void *gfxAllocate(u32 size);
-void func0f167a18(void);
 
 #endif
