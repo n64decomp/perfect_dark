@@ -41767,30 +41767,14 @@ glabel func0f08b108
 /*  f08b204:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel func0f08b208
-/*  f08b208:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f08b20c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08b210:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f08b214:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f08b218:	84840004 */ 	lh	$a0,0x4($a0)
-/*  f08b21c:	0fc2486d */ 	jal	propLoad
-/*  f08b220:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f08b224:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*  f08b228:	3c068008 */ 	lui	$a2,%hi(g_Props)
-/*  f08b22c:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f08b230:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f08b234:	00d83021 */ 	addu	$a2,$a2,$t8
-/*  f08b238:	8cc6b06c */ 	lw	$a2,%lo(g_Props)($a2)
-/*  f08b23c:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f08b240:	00003825 */ 	or	$a3,$zero,$zero
-/*  f08b244:	0fc22c42 */ 	jal	func0f08b108
-/*  f08b248:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f08b24c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08b250:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f08b254:	03e00008 */ 	jr	$ra
-/*  f08b258:	00000000 */ 	nop
-);
+void func0f08b208(struct weaponobj *weapon, struct chrdata *chr)
+{
+	u32 stack;
+	s32 modelnum = weapon->base.modelnum;
+
+	propLoad(modelnum);
+	func0f08b108(weapon, chr, g_Props[modelnum].filedata, 0, 0);
+}
 
 void func0f08b25c(struct weaponobj *weapon, struct chrdata *chr)
 {
