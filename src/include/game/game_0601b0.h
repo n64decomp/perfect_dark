@@ -3,6 +3,8 @@
 #include <ultra64.h>
 #include "types.h"
 
+extern f32 var80069880;
+
 void func0f0601b0(void);
 void propShow(struct prop *prop);
 void propHide(struct prop *prop);

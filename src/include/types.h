@@ -2236,7 +2236,7 @@ struct player {
 	/*0x00d0*/ s32 bondactivateorreload;
 	/*0x00d4*/ u32 unk00d4;
 	/*0x00d8*/ bool isdead;
-	/*0x00dc*/ f32 bondhealth;
+	/*0x00dc*/ f32 bondhealth; // frac (range 0-1)
 	/*0x00e0*/ u32 unk00e0;
 	/*0x00e4*/ f32 oldhealth;
 	/*0x00e8*/ f32 oldarmour;

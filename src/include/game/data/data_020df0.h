@@ -129,6 +129,7 @@ extern u32 var8007dc10;
 extern u32 var8007e3d0;
 extern u32 var8007e4a0;
 extern u32 var8007e4a4;
+extern f32 var8007e4a8;
 extern struct explosiontype g_ExplosionTypes[NUM_EXPLOSIONTYPES];
 extern struct smoketype g_SmokeTypes[NUM_SMOKETYPES];
 extern struct sparktype g_SparkTypes[];

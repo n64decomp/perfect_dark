@@ -4492,7 +4492,7 @@ glabel var7f1ad674
 /*  f0bb854:	8c4900d8 */ 	lw	$t1,0xd8($v0)
 /*  f0bb858:	0fc2af1d */ 	jal	currentPlayerSetGunSightVisible
 /*  f0bb85c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0bb860:	0fc30865 */ 	jal	currentPlayerGetHealth
+/*  f0bb860:	0fc30865 */ 	jal	currentPlayerGetHealthFrac
 /*  f0bb864:	00000000 */ 	nop
 /*  f0bb868:	3c014100 */ 	lui	$at,0x4100
 /*  f0bb86c:	44814000 */ 	mtc1	$at,$f8
@@ -4622,7 +4622,7 @@ glabel var7f1ad674
 /*  f0bba38:	8c4900fc */ 	lw	$t1,0xfc($v0)
 /*  f0bba3c:	5521001f */ 	bnel	$t1,$at,.L0f0bbabc
 /*  f0bba40:	8c4e00d8 */ 	lw	$t6,0xd8($v0)
-/*  f0bba44:	0fc30865 */ 	jal	currentPlayerGetHealth
+/*  f0bba44:	0fc30865 */ 	jal	currentPlayerGetHealthFrac
 /*  f0bba48:	00000000 */ 	nop
 /*  f0bba4c:	0fc30869 */ 	jal	currentPlayerGetShieldFrac
 /*  f0bba50:	e7a0001c */ 	swc1	$f0,0x1c($sp)
@@ -10813,7 +10813,7 @@ void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 	}
 }
 
-f32 currentPlayerGetHealth(void)
+f32 currentPlayerGetHealthFrac(void)
 {
 	return g_Vars.currentplayer->bondhealth;
 }

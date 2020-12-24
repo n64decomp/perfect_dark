@@ -3,6 +3,12 @@
 #include <ultra64.h>
 #include "types.h"
 
+extern f32 var80069948;
+extern f32 var8006994c;
+extern f32 var80069950;
+extern f32 var80069954;
+extern f32 var80069958;
+
 void alarmActivate(void);
 void alarmDeactivate(void);
 bool alarmIsActive(void);
