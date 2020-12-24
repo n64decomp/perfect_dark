@@ -5168,18 +5168,10 @@ glabel func0f06a1ec
 /*  f06a528:	00c01025 */ 	or	$v0,$a2,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f06a52c
-/*  f06a52c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f06a530:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f06a534:	00003025 */ 	or	$a2,$zero,$zero
-/*  f06a538:	0fc1a87b */ 	jal	func0f06a1ec
-/*  f06a53c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f06a540:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06a544:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f06a548:	03e00008 */ 	jr	$ra
-/*  f06a54c:	00000000 */ 	nop
-);
+struct prop *func0f06a52c(struct singlemonitorobj *monitor, struct model08 *filedata)
+{
+	return func0f06a1ec(monitor, filedata, 0, 0);
+}
 
 struct prop *func0f06a550(struct singlemonitorobj *monitor)
 {

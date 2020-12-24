@@ -90,7 +90,7 @@ void func0f069c70(struct defaultobj *obj, bool arg1, bool arg2);
 u32 func0f069cd8(void);
 u32 func0f069d38(void);
 u32 func0f06a170(void);
-u32 func0f06a1ec(void);
+struct prop *func0f06a1ec(struct singlemonitorobj *monitor, struct model08 *filedata, u32 arg2, u32 arg3);
 struct prop *func0f06a52c(struct singlemonitorobj *monitor, struct model08 *model08);
 struct prop *func0f06a550(struct singlemonitorobj *monitor);
 u32 func0f06a580(void);
