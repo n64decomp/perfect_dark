@@ -3306,17 +3306,10 @@ glabel func0f068ad4
 /*  f068af0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f068af4
-/*  f068af4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f068af8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f068afc:	0fc1a2aa */ 	jal	func0f068aa8
-/*  f068b00:	8c840018 */ 	lw	$a0,0x18($a0)
-/*  f068b04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f068b08:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f068b0c:	03e00008 */ 	jr	$ra
-/*  f068b10:	00000000 */ 	nop
-);
+struct model08thing *func0f068af4(struct defaultobj *obj)
+{
+	return func0f068aa8(obj->model);
+}
 
 GLOBAL_ASM(
 glabel func0f068b14
