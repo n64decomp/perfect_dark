@@ -5181,21 +5181,10 @@ glabel func0f06a52c
 /*  f06a54c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f06a550
-/*  f06a550:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f06a554:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f06a558:	848e0004 */ 	lh	$t6,0x4($a0)
-/*  f06a55c:	3c058008 */ 	lui	$a1,%hi(g_Props)
-/*  f06a560:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f06a564:	00af2821 */ 	addu	$a1,$a1,$t7
-/*  f06a568:	0fc1a94b */ 	jal	func0f06a52c
-/*  f06a56c:	8ca5b06c */ 	lw	$a1,%lo(g_Props)($a1)
-/*  f06a570:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06a574:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f06a578:	03e00008 */ 	jr	$ra
-/*  f06a57c:	00000000 */ 	nop
-);
+struct prop *func0f06a550(struct singlemonitorobj *monitor)
+{
+	return func0f06a52c(monitor, g_Props[monitor->base.modelnum].filedata);
+}
 
 GLOBAL_ASM(
 glabel func0f06a580

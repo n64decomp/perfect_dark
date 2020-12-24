@@ -91,7 +91,7 @@ u32 func0f069cd8(void);
 u32 func0f069d38(void);
 u32 func0f06a170(void);
 u32 func0f06a1ec(void);
-u32 func0f06a52c(void);
+struct prop *func0f06a52c(struct singlemonitorobj *monitor, struct model08 *model08);
 struct prop *func0f06a550(struct singlemonitorobj *monitor);
 u32 func0f06a580(void);
 f32 func0f06a620(struct defaultobj *obj);
