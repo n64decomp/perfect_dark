@@ -276,7 +276,7 @@ u32 func0f08adc8(void);
 u32 func0f08ae0c(void);
 u32 func0f08ae54(struct defaultobj *obj, struct chrdata *chr);
 u32 func0f08b108(void);
-u32 func0f08b208(void);
+void func0f08b208(struct weaponobj *weapon, struct chrdata *chr);
 void func0f08b25c(struct weaponobj *weapon, struct chrdata *chr);
 u32 func0f08b27c(void);
 u32 func0f08b658(void);

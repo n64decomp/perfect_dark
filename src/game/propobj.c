@@ -41792,17 +41792,10 @@ glabel func0f08b208
 /*  f08b258:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f08b25c
-/*  f08b25c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08b260:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08b264:	0fc22c82 */ 	jal	func0f08b208
-/*  f08b268:	00000000 */ 	nop
-/*  f08b26c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08b270:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f08b274:	03e00008 */ 	jr	$ra
-/*  f08b278:	00000000 */ 	nop
-);
+void func0f08b25c(struct weaponobj *weapon, struct chrdata *chr)
+{
+	func0f08b208(weapon, chr);
+}
 
 GLOBAL_ASM(
 glabel func0f08b27c
