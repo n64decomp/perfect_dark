@@ -1219,9 +1219,9 @@ struct doorobj { // objtype 0x01
 	/*0x80*/ f32 fracspeed;
 	/*0x84*/ s8 mode;
 	/*0x85*/ u8 glasshits;
-	/*0x86*/ u16 fadealpha;
-	/*0x88*/ u16 xludist;
-	/*0x8a*/ u16 opadist;
+	/*0x86*/ s16 fadealpha;
+	/*0x88*/ s16 xludist;
+	/*0x8a*/ s16 opadist;
 	/*0x8c*/ struct coord startpos;
 	/*0x98*/ u32 unk98;
 	/*0x9c*/ u32 unk9c;

@@ -19693,90 +19693,41 @@ const char var7f1aa038[] = "propobj.c";
 const char var7f1aa044[] = "propobj.c";
 const char var7f1aa050[] = "HC: %x - visible\n";
 
-GLOBAL_ASM(
-glabel func0f07731c
-/*  f07731c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f077320:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f077324:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f077328:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f07732c:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f077330:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f077334:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f077338:	8c4f0018 */ 	lw	$t7,0x18($v0)
-/*  f07733c:	00408025 */ 	or	$s0,$v0,$zero
-/*  f077340:	afaf0020 */ 	sw	$t7,0x20($sp)
-/*  f077344:	94580070 */ 	lhu	$t8,0x70($v0)
-/*  f077348:	33190002 */ 	andi	$t9,$t8,0x2
-/*  f07734c:	5320003a */ 	beqzl	$t9,.L0f077438
-/*  f077350:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f077354:	84480088 */ 	lh	$t0,0x88($v0)
-/*  f077358:	8449008a */ 	lh	$t1,0x8a($v0)
-/*  f07735c:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f077360:	44882000 */ 	mtc1	$t0,$f4
-/*  f077364:	44893000 */ 	mtc1	$t1,$f6
-/*  f077368:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f07736c:	46802120 */ 	cvt.s.w	$f4,$f4
-/*  f077370:	24070000 */ 	addiu	$a3,$zero,0x0
-/*  f077374:	468031a0 */ 	cvt.s.w	$f6,$f6
-/*  f077378:	44052000 */ 	mfc1	$a1,$f4
-/*  f07737c:	44063000 */ 	mfc1	$a2,$f6
-/*  f077380:	0fc1c24b */ 	jal	func0f07092c
-/*  f077384:	00000000 */ 	nop
-/*  f077388:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f07738c:	a6020086 */ 	sh	$v0,0x86($s0)
-/*  f077390:	860a0086 */ 	lh	$t2,0x86($s0)
-/*  f077394:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f077398:	8fab0020 */ 	lw	$t3,0x20($sp)
-/*  f07739c:	15410007 */ 	bne	$t2,$at,.L0f0773bc
-/*  f0773a0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0773a4:	44804000 */ 	mtc1	$zero,$f8
-/*  f0773a8:	c60a007c */ 	lwc1	$f10,0x7c($s0)
-/*  f0773ac:	460a403c */ 	c.lt.s	$f8,$f10
-/*  f0773b0:	00000000 */ 	nop
-/*  f0773b4:	45020003 */ 	bc1fl	.L0f0773c4
-/*  f0773b8:	8d640008 */ 	lw	$a0,0x8($t3)
-.L0f0773bc:
-/*  f0773bc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0773c0:	8d640008 */ 	lw	$a0,0x8($t3)
-.L0f0773c4:
-/*  f0773c4:	3c0c8008 */ 	lui	$t4,%hi(stagethinglist_20ef8)
-/*  f0773c8:	258caed8 */ 	addiu	$t4,$t4,%lo(stagethinglist_20ef8)
-/*  f0773cc:	8c8d0004 */ 	lw	$t5,0x4($a0)
-/*  f0773d0:	558d000c */ 	bnel	$t4,$t5,.L0f077404
-/*  f0773d4:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*  f0773d8:	0c006a47 */ 	jal	modelGetPart
-/*  f0773dc:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f0773e0:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f0773e4:	0c006a87 */ 	jal	modelGetNodeData
-/*  f0773e8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0773ec:	8c4f0000 */ 	lw	$t7,0x0($v0)
-/*  f0773f0:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f0773f4:	55e00003 */ 	bnezl	$t7,.L0f077404
-/*  f0773f8:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*  f0773fc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f077400:	8fb80034 */ 	lw	$t8,0x34($sp)
-.L0f077404:
-/*  f077404:	2b010002 */ 	slti	$at,$t8,0x2
-/*  f077408:	14200002 */ 	bnez	$at,.L0f077414
-/*  f07740c:	00000000 */ 	nop
-/*  f077410:	00001825 */ 	or	$v1,$zero,$zero
-.L0f077414:
-/*  f077414:	10600005 */ 	beqz	$v1,.L0f07742c
-/*  f077418:	00000000 */ 	nop
-/*  f07741c:	0fc23545 */ 	jal	doorDeactivatePortal
-/*  f077420:	02002025 */ 	or	$a0,$s0,$zero
-/*  f077424:	10000004 */ 	b	.L0f077438
-/*  f077428:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f07742c:
-/*  f07742c:	0fc2353a */ 	jal	doorActivatePortal
-/*  f077430:	02002025 */ 	or	$a0,$s0,$zero
-/*  f077434:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f077438:
-/*  f077438:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f07743c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f077440:	03e00008 */ 	jr	$ra
-/*  f077444:	00000000 */ 	nop
-);
+void doorUpdatePortalIfWindowed(struct prop *doorprop, s32 playercount)
+{
+	struct doorobj *doorobj = doorprop->door;
+	struct modelnode *node;
+	bool canhide = true;
+	struct model *model = doorprop->obj->model;
+	struct modeldata_partid *partdata;
+
+	if (doorobj->doorflags & DOORFLAG_WINDOWED) {
+		doorobj->fadealpha = func0f07092c(&doorprop->pos, doorobj->xludist, doorobj->opadist, 0);
+
+		if (doorobj->fadealpha != 255 || doorobj->frac > 0) {
+			canhide = false;
+		}
+
+		if (model->unk08->unk04 == &stagethinglist_20ef8) {
+			node = modelGetPart(model->unk08, MODELPART_01);
+			partdata = modelGetNodeData(model, node);
+
+			if (partdata->visible.u32 == 0) {
+				canhide = false;
+			}
+		}
+
+		if (playercount >= 2) {
+			canhide = false;
+		}
+
+		if (canhide) {
+			doorDeactivatePortal(doorobj);
+		} else {
+			doorActivatePortal(doorobj);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f077448
@@ -28559,7 +28510,7 @@ s32 objTick(struct prop *prop)
 	if (obj->type == OBJTYPE_TINTEDGLASS) {
 		func0f07e0b8(prop, playercount, &sp564);
 	} else if (obj->type == OBJTYPE_DOOR) {
-		func0f07731c(prop, playercount);
+		doorUpdatePortalIfWindowed(prop, playercount);
 	}
 
 	if (sp552) {
