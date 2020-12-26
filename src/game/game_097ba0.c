@@ -1290,7 +1290,7 @@ void func0f0988e0(struct remoteminething *arg0, bool arg1, struct hand *hand)
 		hand->unk0ce8 = arg0;
 		hand->unk0cc9 = 0;
 		hand->unk0cc8_02 = 0;
-		hand->unk0d0e_08 = 0;
+		hand->unk0d0e_07 = 0;
 		hand->unk0d80 = arg0;
 	}
 }
@@ -13180,208 +13180,114 @@ glabel func0f0a29c8
 /*  f0a2aac:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-bool func0f0a2ab0(s32 value)
+bool weaponIsMissionCritical(s32 weaponnum)
 {
-	if (value == 0x20 || value == 0x22 || value == 0x35 || value == 0x3e) {
+	if (weaponnum == WEAPON_TIMEDMINE
+			|| weaponnum == WEAPON_REMOTEMINE
+			|| weaponnum == WEAPON_ECMMINE
+			|| weaponnum == WEAPON_TRACERBUG) {
 		return true;
 	}
 
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f0a2ae4
-/*  f0a2ae4:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f0a2ae8:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f0a2aec:	3c14800a */ 	lui	$s4,%hi(g_Vars+0x284)
-/*  f0a2af0:	8e94a244 */ 	lw	$s4,%lo(g_Vars+0x284)($s4)
-/*  f0a2af4:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0a2af8:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f0a2afc:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f0a2b00:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f0a2b04:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0a2b08:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f0a2b0c:	92840638 */ 	lbu	$a0,0x638($s4)
-/*  f0a2b10:	3c050800 */ 	lui	$a1,0x800
-/*  f0a2b14:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f0a2b18:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f0a2b1c:	1440009a */ 	bnez	$v0,.L0f0a2d88
-/*  f0a2b20:	8fa60048 */ 	lw	$a2,0x48($sp)
-/*  f0a2b24:	28c1002c */ 	slti	$at,$a2,0x2c
-/*  f0a2b28:	10200097 */ 	beqz	$at,.L0f0a2d88
-/*  f0a2b2c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0a2b30:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0a2b34:	8c6e0298 */ 	lw	$t6,0x298($v1)
-/*  f0a2b38:	05c2000f */ 	bltzl	$t6,.L0f0a2b78
-/*  f0a2b3c:	8fa60048 */ 	lw	$a2,0x48($sp)
-/*  f0a2b40:	8c7802a0 */ 	lw	$t8,0x2a0($v1)
-/*  f0a2b44:	8faf0050 */ 	lw	$t7,0x50($sp)
-/*  f0a2b48:	8f1900bc */ 	lw	$t9,0xbc($t8)
-/*  f0a2b4c:	11f90005 */ 	beq	$t7,$t9,.L0f0a2b64
-/*  f0a2b50:	00000000 */ 	nop
-/*  f0a2b54:	8c6802a4 */ 	lw	$t0,0x2a4($v1)
-/*  f0a2b58:	8d0900bc */ 	lw	$t1,0xbc($t0)
-/*  f0a2b5c:	55e90006 */ 	bnel	$t7,$t1,.L0f0a2b78
-/*  f0a2b60:	8fa60048 */ 	lw	$a2,0x48($sp)
-.L0f0a2b64:
-/*  f0a2b64:	0fc28aac */ 	jal	func0f0a2ab0
-/*  f0a2b68:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0a2b6c:	54400087 */ 	bnezl	$v0,.L0f0a2d8c
-/*  f0a2b70:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0a2b74:	8fa60048 */ 	lw	$a2,0x48($sp)
-.L0f0a2b78:
-/*  f0a2b78:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0a2b7c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0a2b80:	28c10002 */ 	slti	$at,$a2,0x2
-/*  f0a2b84:	54200081 */ 	bnezl	$at,.L0f0a2d8c
-/*  f0a2b88:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0a2b8c:	828a1582 */ 	lb	$t2,0x1582($s4)
-/*  f0a2b90:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0a2b94:	5541007d */ 	bnel	$t2,$at,.L0f0a2d8c
-/*  f0a2b98:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0a2b9c:	8e8b00bc */ 	lw	$t3,0xbc($s4)
-/*  f0a2ba0:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f0a2ba4:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f0a2ba8:	8d6c0004 */ 	lw	$t4,0x4($t3)
-/*  f0a2bac:	afad0038 */ 	sw	$t5,0x38($sp)
-/*  f0a2bb0:	14c10006 */ 	bne	$a2,$at,.L0f0a2bcc
-/*  f0a2bb4:	afac0044 */ 	sw	$t4,0x44($sp)
-/*  f0a2bb8:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0a2bbc:	2401ff7f */ 	addiu	$at,$zero,-129
-/*  f0a2bc0:	8c4e00c4 */ 	lw	$t6,0xc4($v0)
-/*  f0a2bc4:	01c1c024 */ 	and	$t8,$t6,$at
-/*  f0a2bc8:	ac5800c4 */ 	sw	$t8,0xc4($v0)
-.L0f0a2bcc:
-/*  f0a2bcc:	24010031 */ 	addiu	$at,$zero,0x31
-/*  f0a2bd0:	54c10007 */ 	bnel	$a2,$at,.L0f0a2bf0
-/*  f0a2bd4:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f0a2bd8:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0a2bdc:	2401ffbf */ 	addiu	$at,$zero,-65
-/*  f0a2be0:	8c5900c4 */ 	lw	$t9,0xc4($v0)
-/*  f0a2be4:	03214024 */ 	and	$t0,$t9,$at
-/*  f0a2be8:	ac4800c4 */ 	sw	$t0,0xc4($v0)
-/*  f0a2bec:	2401001e */ 	addiu	$at,$zero,0x1e
-.L0f0a2bf0:
-/*  f0a2bf0:	10c10003 */ 	beq	$a2,$at,.L0f0a2c00
-/*  f0a2bf4:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0a2bf8:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f0a2bfc:	14c10018 */ 	bne	$a2,$at,.L0f0a2c60
-.L0f0a2c00:
-/*  f0a2c00:	02808025 */ 	or	$s0,$s4,$zero
-/*  f0a2c04:	26920638 */ 	addiu	$s2,$s4,0x638
-/*  f0a2c08:	24130002 */ 	addiu	$s3,$zero,0x2
-.L0f0a2c0c:
-/*  f0a2c0c:	0fc2c41f */ 	jal	handGetWeaponFunction
-/*  f0a2c10:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0a2c14:	8c4f0000 */ 	lw	$t7,0x0($v0)
-/*  f0a2c18:	31e900ff */ 	andi	$t1,$t7,0xff
-/*  f0a2c1c:	5669000d */ 	bnel	$s3,$t1,.L0f0a2c54
-/*  f0a2c20:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0a2c24:	8e0a0c3c */ 	lw	$t2,0xc3c($s0)
-/*  f0a2c28:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0a2c2c:	55410009 */ 	bnel	$t2,$at,.L0f0a2c54
-/*  f0a2c30:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0a2c34:	8e0b0c40 */ 	lw	$t3,0xc40($s0)
-/*  f0a2c38:	26240002 */ 	addiu	$a0,$s1,0x2
-/*  f0a2c3c:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0a2c40:	55600004 */ 	bnezl	$t3,.L0f0a2c54
-/*  f0a2c44:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0a2c48:	0fc27c40 */ 	jal	func0f09f100
-/*  f0a2c4c:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f0a2c50:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f0a2c54:
-/*  f0a2c54:	261007a4 */ 	addiu	$s0,$s0,0x7a4
-/*  f0a2c58:	1633ffec */ 	bne	$s1,$s3,.L0f0a2c0c
-/*  f0a2c5c:	265207a4 */ 	addiu	$s2,$s2,0x7a4
-.L0f0a2c60:
-/*  f0a2c60:	24130002 */ 	addiu	$s3,$zero,0x2
-/*  f0a2c64:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0a2c68:	0fc22e2e */ 	jal	chrSetWeaponFlag4
-/*  f0a2c6c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a2c70:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0a2c74:	0fc22e2e */ 	jal	chrSetWeaponFlag4
-/*  f0a2c78:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0a2c7c:	0fc4a2bd */ 	jal	weaponGetModel
-/*  f0a2c80:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f0a2c84:	0440001e */ 	bltz	$v0,.L0f0a2d00
-/*  f0a2c88:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0a2c8c:	8fac0038 */ 	lw	$t4,0x38($sp)
-/*  f0a2c90:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0a2c94:	8fa60048 */ 	lw	$a2,0x48($sp)
-/*  f0a2c98:	11800019 */ 	beqz	$t4,.L0f0a2d00
-/*  f0a2c9c:	3c072000 */ 	lui	$a3,0x2000
-/*  f0a2ca0:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0a2ca4:	0fc22e3a */ 	jal	func0f08b8e8
-/*  f0a2ca8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0a2cac:	10400014 */ 	beqz	$v0,.L0f0a2d00
-/*  f0a2cb0:	00408825 */ 	or	$s1,$v0,$zero
-/*  f0a2cb4:	8c4d0004 */ 	lw	$t5,0x4($v0)
-/*  f0a2cb8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a2cbc:	11a00010 */ 	beqz	$t5,.L0f0a2d00
-/*  f0a2cc0:	01a08025 */ 	or	$s0,$t5,$zero
-/*  f0a2cc4:	0fc20a59 */ 	jal	propobjSetDropped
-/*  f0a2cc8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0a2ccc:	8e0e0040 */ 	lw	$t6,0x40($s0)
-/*  f0a2cd0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0a2cd4:	31d80080 */ 	andi	$t8,$t6,0x80
-/*  f0a2cd8:	13000007 */ 	beqz	$t8,.L0f0a2cf8
-/*  f0a2cdc:	00000000 */ 	nop
-/*  f0a2ce0:	8e080048 */ 	lw	$t0,0x48($s0)
-/*  f0a2ce4:	241900f0 */ 	addiu	$t9,$zero,0xf0
-/*  f0a2ce8:	ad1900b4 */ 	sw	$t9,0xb4($t0)
-/*  f0a2cec:	8e090048 */ 	lw	$t1,0x48($s0)
-/*  f0a2cf0:	8faf0050 */ 	lw	$t7,0x50($sp)
-/*  f0a2cf4:	ad2f0108 */ 	sw	$t7,0x108($t1)
-.L0f0a2cf8:
-/*  f0a2cf8:	0fc20c1f */ 	jal	func0f08307c
-/*  f0a2cfc:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0a2d00:
-/*  f0a2d00:	0fc447a9 */ 	jal	currentPlayerRemoveWeapon
-/*  f0a2d04:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f0a2d08:	928a14b2 */ 	lbu	$t2,0x14b2($s4)
-/*  f0a2d0c:	92980d0e */ 	lbu	$t8,0xd0e($s4)
-/*  f0a2d10:	ae8013e0 */ 	sw	$zero,0x13e0($s4)
-/*  f0a2d14:	314bff0f */ 	andi	$t3,$t2,0xff0f
-/*  f0a2d18:	3319ff0f */ 	andi	$t9,$t8,0xff0f
-/*  f0a2d1c:	968a0010 */ 	lhu	$t2,0x10($s4)
-/*  f0a2d20:	356d0010 */ 	ori	$t5,$t3,0x10
-/*  f0a2d24:	372f0010 */ 	ori	$t7,$t9,0x10
-/*  f0a2d28:	a28d14b2 */ 	sb	$t5,0x14b2($s4)
-/*  f0a2d2c:	31ae00f1 */ 	andi	$t6,$t5,0xf1
-/*  f0a2d30:	a28f0d0e */ 	sb	$t7,0xd0e($s4)
-/*  f0a2d34:	31e900f1 */ 	andi	$t1,$t7,0xf1
-/*  f0a2d38:	a28e14b2 */ 	sb	$t6,0x14b2($s4)
-/*  f0a2d3c:	a2890d0e */ 	sb	$t1,0xd0e($s4)
-/*  f0a2d40:	166a000b */ 	bne	$s3,$t2,.L0f0a2d70
-/*  f0a2d44:	ae800c3c */ 	sw	$zero,0xc3c($s4)
-/*  f0a2d48:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x284)
-/*  f0a2d4c:	8d6ba244 */ 	lw	$t3,%lo(g_Vars+0x284)($t3)
-/*  f0a2d50:	8d620264 */ 	lw	$v0,0x264($t3)
-/*  f0a2d54:	50400006 */ 	beqzl	$v0,.L0f0a2d70
-/*  f0a2d58:	a6800010 */ 	sh	$zero,0x10($s4)
-/*  f0a2d5c:	8c4c0014 */ 	lw	$t4,0x14($v0)
-/*  f0a2d60:	51800003 */ 	beqzl	$t4,.L0f0a2d70
-/*  f0a2d64:	a6800010 */ 	sh	$zero,0x10($s4)
-/*  f0a2d68:	a4400062 */ 	sh	$zero,0x62($v0)
-/*  f0a2d6c:	a6800010 */ 	sh	$zero,0x10($s4)
-.L0f0a2d70:
-/*  f0a2d70:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a2d74:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
-/*  f0a2d78:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0a2d7c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0a2d80:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
-/*  f0a2d84:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0a2d88:
-/*  f0a2d88:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f0a2d8c:
-/*  f0a2d8c:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0a2d90:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f0a2d94:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f0a2d98:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f0a2d9c:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f0a2da0:	03e00008 */ 	jr	$ra
-/*  f0a2da4:	27bd0050 */ 	addiu	$sp,$sp,0x50
-);
+void currentPlayerLoseGunInNbombStorm(struct prop *prop)
+{
+	struct player *player = g_Vars.currentplayer;
+	s32 weaponnum = player->hands[0].weaponnum;
+	struct chrdata *chr;
+	s32 modelnum;
+	s32 i;
+	bool drop;
+
+	if (!weaponHasFlag(weaponnum, WEAPONFLAG_08000000) && weaponnum <= WEAPON_RCP45) {
+		// Coop must not allow player to drop a mission critical weapon
+		// because AI lists can fail the mission if the player has zero
+		// quantity.
+		if (g_Vars.coopplayernum >= 0
+				&& (prop == g_Vars.bond->prop || prop == g_Vars.coop->prop)
+				&& weaponIsMissionCritical(weaponnum)) {
+			return;
+		}
+
+		if (weaponnum <= WEAPON_UNARMED || player->switchtoweaponnum != -1) {
+			return;
+		}
+
+		chr = player->prop->chr;
+		drop = true;
+
+		// RC-P120 and cloaking device: turn off cloak if active
+		if (weaponnum == WEAPON_RCP120) {
+			g_Vars.currentplayer->devicesactive &= ~DEVICE_CLOAKRCP120;
+		}
+
+		if (weaponnum == WEAPON_CLOAKINGDEVICE) {
+			g_Vars.currentplayer->devicesactive &= ~DEVICE_CLOAKDEVICE;
+		}
+
+		// Grenade and nbomb: if pin is pulled, throw it?
+		// Or drop it at player's feet with the pin pulled maybe...
+		if (weaponnum == WEAPON_GRENADE || weaponnum == WEAPON_NBOMB) {
+			for (i = 0; i < 2; i++) {
+				struct weaponfunc *func = handGetWeaponFunction(&player->hands[i]);
+
+				if ((func->type & 0xff) == INVENTORYFUNCTYPE_THROW
+						&& player->hands[i].unk0c3c == 4
+						&& player->hands[i].unk0c40 == 0) {
+					drop = false;
+					func0f09f100(i + 2, &player->hands[i]);
+				}
+			}
+		}
+
+		chrSetObjHiddenFlag4OnWeapon(chr, HAND_RIGHT);
+		chrSetObjHiddenFlag4OnWeapon(chr, HAND_LEFT);
+
+		// Actually drop the weapon
+		modelnum = weaponGetModel(weaponnum);
+
+		if (modelnum >= 0 && drop) {
+			struct prop *prop2 = func0f08b8e8(chr, modelnum, weaponnum, 0x20000000, 0, 0);
+
+			if (prop2 && prop2->obj) {
+				struct defaultobj *obj = prop2->obj;
+				propobjSetDropped(prop2, DROPREASON_1);
+
+				if (obj->hidden & OBJHFLAG_AIRBORNE) {
+					obj->projectile->unk0b4 = 240;
+					obj->projectile->unk108 = prop;
+				}
+
+				func0f08307c(prop2, true);
+			}
+		}
+
+		currentPlayerRemoveWeapon(weaponnum);
+
+		player->hands[1].unk0c3c = 0;
+		player->hands[1].unk0d0e_00 = 1;
+		player->hands[1].unk0d0e_04 = 0;
+		player->hands[0].unk0d0e_00 = 1;
+		player->hands[0].unk0d0e_04 = 0;
+		player->hands[0].unk0c3c = 0;
+
+		// Exit slayer rocket mode if player was using it
+		if (player->visionmode == VISIONMODE_SLAYERROCKET) {
+			struct weaponobj *rocket = g_Vars.currentplayer->slayerrocket;
+
+			if (rocket && rocket->base.prop) {
+				rocket->unk62 = 0;
+			}
+
+			player->visionmode = VISIONMODE_NORMAL;
+		}
+
+		currentPlayerEquipWeaponWrapper(HAND_RIGHT, WEAPON_UNARMED);
+		currentPlayerEquipWeaponWrapper(HAND_LEFT, WEAPON_NONE);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0a2da8

@@ -6961,7 +6961,7 @@ glabel var7f1a8d98
 /*  f0357dc:	24050400 */ 	addiu	$a1,$zero,0x400
 /*  f0357e0:	50400004 */ 	beqzl	$v0,.L0f0357f4
 /*  f0357e4:	8faf0130 */ 	lw	$t7,0x130($sp)
-/*  f0357e8:	0fc28ab9 */ 	jal	func0f0a2ae4
+/*  f0357e8:	0fc28ab9 */ 	jal	currentPlayerLoseGunInNbombStorm
 /*  f0357ec:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0357f0:	8faf0130 */ 	lw	$t7,0x130($sp)
 .L0f0357f4:

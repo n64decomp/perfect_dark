@@ -1459,7 +1459,7 @@ glabel weaponGetModel
 
 void currentPlayerSetWeaponFlag4(s32 weaponslot)
 {
-	chrSetWeaponFlag4(g_Vars.currentplayer->prop->chr, weaponslot);
+	chrSetObjHiddenFlag4OnWeapon(g_Vars.currentplayer->prop->chr, weaponslot);
 }
 
 void func0f128d20(s32 slot)

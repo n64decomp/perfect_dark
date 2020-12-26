@@ -1109,7 +1109,7 @@ struct projectile {
 	/*0x0f8*/ s16 waypads[6];
 	/*0x104*/ u8 numwaypads;
 	/*0x105*/ u8 unk105;
-	/*0x108*/ u32 unk108;
+	/*0x108*/ struct prop *unk108;
 };
 
 struct monitorthing {
@@ -2121,8 +2121,9 @@ struct hand {
 	/*0x0d08*/ u32 unk0d08;
 	/*0x0d0c*/ u8 unk0d0c;
 	/*0x0d0d*/ u8 unk0d0d;
-	/*0x0d0e*/ u8 unk0d0e_00 : 7;
-	/*0x0d0e*/ u8 unk0d0e_08 : 1;
+	/*0x0d0e*/ u8 unk0d0e_00 : 4;
+	/*0x0d0e*/ u8 unk0d0e_04 : 3;
+	/*0x0d0e*/ u8 unk0d0e_07 : 1;
 	/*0x0d0f*/ u8 unk0d0f_00 : 3;
 	/*0x0d0f*/ u8 unk0d0f_03 : 1;
 	/*0x0d0f*/ u8 unk0d0f_04 : 4;
@@ -2865,7 +2866,7 @@ struct inventory_typef {
 };
 
 struct weaponfunc {
-	/*0x00*/ u32 type;
+	/*0x00*/ s32 type;
 	/*0x04*/ u16 name;
 	/*0x06*/ u8 unk06;
 	/*0x07*/ s8 ammoindex; // -1 = no ammo, 0 or 1 = index into weapon->ammos[]

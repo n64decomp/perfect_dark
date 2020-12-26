@@ -42115,7 +42115,7 @@ glabel func0f08b880
 /*  f08b8b4:	00000000 */ 	nop
 );
 
-void chrSetWeaponFlag4(struct chrdata *chr, s32 slot)
+void chrSetObjHiddenFlag4OnWeapon(struct chrdata *chr, s32 slot)
 {
 	if (chr && chr->weapons_held[slot]) {
 		struct defaultobj *obj = chr->weapons_held[slot]->obj;
@@ -47569,10 +47569,10 @@ glabel func0f0910ac
 /*  f0910e4:	8dcf00bc */ 	lw	$t7,0xbc($t6)
 /*  f0910e8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0910ec:	8df00004 */ 	lw	$s0,0x4($t7)
-/*  f0910f0:	0fc22e2e */ 	jal	chrSetWeaponFlag4
+/*  f0910f0:	0fc22e2e */ 	jal	chrSetObjHiddenFlag4OnWeapon
 /*  f0910f4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0910f8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0910fc:	0fc22e2e */ 	jal	chrSetWeaponFlag4
+/*  f0910fc:	0fc22e2e */ 	jal	chrSetObjHiddenFlag4OnWeapon
 /*  f091100:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f091104:	3c16800b */ 	lui	$s6,%hi(g_MpSetup)
 /*  f091108:	26d6cb88 */ 	addiu	$s6,$s6,%lo(g_MpSetup)
@@ -47638,7 +47638,7 @@ glabel func0f0910ac
 /*  f0911e4:	0fc447a9 */ 	jal	currentPlayerRemoveWeapon
 /*  f0911e8:	02002025 */ 	or	$a0,$s0,$zero
 .L0f0911ec:
-/*  f0911ec:	0fc28aac */ 	jal	func0f0a2ab0
+/*  f0911ec:	0fc28aac */ 	jal	weaponIsMissionCritical
 /*  f0911f0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0911f4:	54400008 */ 	bnezl	$v0,.L0f091218
 /*  f0911f8:	26100001 */ 	addiu	$s0,$s0,0x1

@@ -3182,6 +3182,7 @@
 #define WEAPONFLAG_DETERMINER_F_AN   0x00400000 // "Picked up an ..." (full version)
 #define WEAPONFLAG_DETERMINER_S_THE  0x00800000 // "The ..." (short version - when vertically split)
 #define WEAPONFLAG_DETERMINER_F_THE  0x01000000 // "Picked up the ..." (full version)
+#define WEAPONFLAG_08000000          0x08000000
 #define WEAPONFLAG_DETERMINER_S_SOME 0x10000000 // "Some ..." (short version - when vertically split)
 #define WEAPONFLAG_DETERMINER_F_SOME 0x20000000 // "Picked up some ..." (full version)
 #define WEAPONFLAG_AIMTRACK          0x40000000 // Allow drawing red box around targets in aim mode
