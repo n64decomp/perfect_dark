@@ -750,11 +750,11 @@ void chrSurrenderChooseAnimation(struct chrdata *chr)
 		modelSetAnimLooping(chr->model, 40, 16);
 
 		if (gun1) {
-			propobjSetDropped(gun1, 2);
+			propobjSetDropped(gun1, DROPREASON_2);
 		}
 
 		if (gun0) {
-			propobjSetDropped(gun0, 2);
+			propobjSetDropped(gun0, DROPREASON_2);
 		}
 
 		chr->hidden |= CHRHFLAG_00000001;
@@ -11667,7 +11667,7 @@ bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
 		modelSetUnk14(weapon->base.model, weapon->base.model->unk14);
 		propReparent(weapon->base.prop, chr->prop);
 		weapon->unk62 = 720;
-		propobjSetDropped(weapon->base.prop, 1);
+		propobjSetDropped(weapon->base.prop, DROPREASON_1);
 		chr->hidden |= CHRHFLAG_00000001;
 
 		return true;
@@ -19668,7 +19668,7 @@ void chrTickThrowGrenade(struct chrdata *chr)
 			(frame >= 57 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_NOPIN) ||
 			(frame >= 58 && weaponprop && modelGetAnimNum(model) == ANIM_THROWGRENADE_CROUCHING)) {
 		weapon = weaponprop->weapon;
-		propobjSetDropped(weaponprop, 3);
+		propobjSetDropped(weaponprop, DROPREASON_3);
 		chr->hidden |= CHRHFLAG_00000001;
 		weapon->unk62 = 240;
 	}

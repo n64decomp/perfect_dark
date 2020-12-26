@@ -2710,66 +2710,46 @@ glabel func0f0682fc
 /*  f068364:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f068368
-.late_rodata
-glabel var7f1aa1d0
-.word 0x3d4ccccd
-.text
-/*  f068368:	44800000 */ 	mtc1	$zero,$f0
-/*  f06836c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f068370:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f068374:	00802825 */ 	or	$a1,$a0,$zero
-/*  f068378:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f06837c:	e4800004 */ 	swc1	$f0,0x4($a0)
-/*  f068380:	e4800008 */ 	swc1	$f0,0x8($a0)
-/*  f068384:	e480000c */ 	swc1	$f0,0xc($a0)
-/*  f068388:	e4800010 */ 	swc1	$f0,0x10($a0)
-/*  f06838c:	e4800014 */ 	swc1	$f0,0x14($a0)
-/*  f068390:	e4800018 */ 	swc1	$f0,0x18($a0)
-/*  f068394:	e480001c */ 	swc1	$f0,0x1c($a0)
-/*  f068398:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f06839c:	0c00566c */ 	jal	func000159b0
-/*  f0683a0:	24840020 */ 	addiu	$a0,$a0,0x20
-/*  f0683a4:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f0683a8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0683ac:	44811000 */ 	mtc1	$at,$f2
-/*  f0683b0:	3c017f1b */ 	lui	$at,%hi(var7f1aa1d0)
-/*  f0683b4:	aca00088 */ 	sw	$zero,0x88($a1)
-/*  f0683b8:	e4a20060 */ 	swc1	$f2,0x60($a1)
-/*  f0683bc:	c424a1d0 */ 	lwc1	$f4,%lo(var7f1aa1d0)($at)
-/*  f0683c0:	44800000 */ 	mtc1	$zero,$f0
-/*  f0683c4:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0683c8:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0683cc:	aca00090 */ 	sw	$zero,0x90($a1)
-/*  f0683d0:	aca20094 */ 	sw	$v0,0x94($a1)
-/*  f0683d4:	aca2009c */ 	sw	$v0,0x9c($a1)
-/*  f0683d8:	aca000a0 */ 	sw	$zero,0xa0($a1)
-/*  f0683dc:	aca200a4 */ 	sw	$v0,0xa4($a1)
-/*  f0683e0:	a4ae00b0 */ 	sh	$t6,0xb0($a1)
-/*  f0683e4:	aca000b4 */ 	sw	$zero,0xb4($a1)
-/*  f0683e8:	aca000d0 */ 	sw	$zero,0xd0($a1)
-/*  f0683ec:	aca000d4 */ 	sw	$zero,0xd4($a1)
-/*  f0683f0:	aca000d8 */ 	sw	$zero,0xd8($a1)
-/*  f0683f4:	aca000f4 */ 	sw	$zero,0xf4($a1)
-/*  f0683f8:	aca000e8 */ 	sw	$zero,0xe8($a1)
-/*  f0683fc:	aca00108 */ 	sw	$zero,0x108($a1)
-/*  f068400:	a4a200b2 */ 	sh	$v0,0xb2($a1)
-/*  f068404:	e4a200b8 */ 	swc1	$f2,0xb8($a1)
-/*  f068408:	e4a200bc */ 	swc1	$f2,0xbc($a1)
-/*  f06840c:	e4a200c0 */ 	swc1	$f2,0xc0($a1)
-/*  f068410:	e4a200e4 */ 	swc1	$f2,0xe4($a1)
-/*  f068414:	e4a4008c */ 	swc1	$f4,0x8c($a1)
-/*  f068418:	e4a00098 */ 	swc1	$f0,0x98($a1)
-/*  f06841c:	e4a000dc */ 	swc1	$f0,0xdc($a1)
-/*  f068420:	e4a000e0 */ 	swc1	$f0,0xe0($a1)
-/*  f068424:	e4a000ec */ 	swc1	$f0,0xec($a1)
-/*  f068428:	e4a000f0 */ 	swc1	$f0,0xf0($a1)
-/*  f06842c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f068430:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f068434:	03e00008 */ 	jr	$ra
-/*  f068438:	00000000 */ 	nop
-);
+void obj48Reset(struct obj48 *obj48)
+{
+	obj48->flags = 0;
+	obj48->unk004.x = 0;
+	obj48->unk004.y = 0;
+	obj48->unk004.z = 0;
+	obj48->unk010 = 0;
+	obj48->unk014 = 0;
+	obj48->unk018 = 0;
+	obj48->unk01c = 0;
+
+	func000159b0((Mtxf *)&obj48->unk020);
+
+	obj48->unk060 = 1;
+	obj48->unk088 = 0;
+	obj48->unk08c = 0.05f;
+	obj48->unk090 = 0;
+	obj48->unk094 = -1;
+	obj48->unk09c = -1;
+	obj48->unk0a0 = 0;
+	obj48->unk0a4 = -1;
+	obj48->dropreason = 1;
+	obj48->unk0b4 = 0;
+	obj48->unk0d0 = 0;
+	obj48->unk0d4 = 0;
+	obj48->unk0d8 = 0;
+	obj48->unk0f4 = 0;
+	obj48->unk0e8 = 0;
+	obj48->unk108 = 0;
+	obj48->unk0b2 = 0xffff;
+	obj48->unk0b8 = 1;
+	obj48->unk0bc = 1;
+	obj48->unk0c0 = 1;
+	obj48->unk0e4 = 1;
+	obj48->unk098 = 0;
+	obj48->unk0dc = 0;
+	obj48->unk0e0 = 0;
+	obj48->unk0ec = 0;
+	obj48->unk0f0 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f06843c
@@ -2793,7 +2773,7 @@ glabel func0f06843c
 /*  f06847c:	11e00009 */ 	beqz	$t7,.L0f0684a4
 /*  f068480:	2442010c */ 	addiu	$v0,$v0,0x10c
 /*  f068484:	00682021 */ 	addu	$a0,$v1,$t0
-/*  f068488:	0fc1a0da */ 	jal	func0f068368
+/*  f068488:	0fc1a0da */ 	jal	obj48Reset
 /*  f06848c:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f068490:	3c18800a */ 	lui	$t8,%hi(var8009ce68)
 /*  f068494:	8fa3001c */ 	lw	$v1,0x1c($sp)
@@ -2878,7 +2858,7 @@ glabel func0f06843c
 /*  f0685b0:	8d08ce68 */ 	lw	$t0,%lo(var8009ce68)($t0)
 /*  f0685b4:	00682021 */ 	addu	$a0,$v1,$t0
 .L0f0685b8:
-/*  f0685b8:	0fc1a0da */ 	jal	func0f068368
+/*  f0685b8:	0fc1a0da */ 	jal	obj48Reset
 /*  f0685bc:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f0685c0:	3c09800a */ 	lui	$t1,%hi(var8009ce68)
 /*  f0685c4:	8fa30024 */ 	lw	$v1,0x24($sp)
@@ -2898,13 +2878,13 @@ void func0f0685e4(struct prop *prop)
 
 	if (obj->hidden & OBJHFLAG_00000040) {
 		if (obj->unk48->unk044) {
-			func0f068368(obj->unk48->unk044);
+			obj48Reset(obj->unk48->unk044);
 		} else {
 			obj->unk48->unk044 = func0f06843c();
 		}
 	} else if ((obj->hidden & OBJHFLAG_00000080) == 0) {
 		if (obj->unk48) {
-			func0f068368(obj->unk48);
+			obj48Reset(obj->unk48);
 		} else {
 			obj->unk48 = func0f06843c();
 		}

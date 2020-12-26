@@ -603,6 +603,13 @@
 #define DRCAROLLIMAGE_RANDOM25     7
 #define DRCAROLLIMAGE_RANDOM       8
 
+#define DROPREASON_1 1
+#define DROPREASON_2 2
+#define DROPREASON_3 3
+#define DROPREASON_4 4
+#define DROPREASON_5 5
+#define DROPREASON_6 6
+
 #define ENTITYTYPE_BOND      0x0001 // aim/shoot at Jo
 #define ENTITYTYPE_FORWARD   0x0002 // aim/shoot in front of self
 #define ENTITYTYPE_CHR       0x0004 // aim/shoot at chr (ID should be given in entity_id)

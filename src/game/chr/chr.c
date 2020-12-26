@@ -5836,7 +5836,7 @@ void chrDropItems(struct chrdata *chr)
 				&& prop != chr->weapons_held[0]
 				&& (prop->obj->hidden & OBJHFLAG_00000040) == 0
 				&& (prop->obj->flags & OBJFLAG_00002000) == 0) {
-			propobjSetDropped(prop, 1);
+			propobjSetDropped(prop, DROPREASON_1);
 		}
 
 		prop = prop->next;
@@ -5877,7 +5877,7 @@ void chrDropWeapons(struct chrdata *chr)
 			struct defaultobj *obj = prop->obj;
 
 			if ((obj->flags & OBJFLAG_00002000) == 0) {
-				propobjSetDropped(prop, 6);
+				propobjSetDropped(prop, DROPREASON_6);
 			}
 		}
 
