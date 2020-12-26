@@ -2892,59 +2892,28 @@ glabel func0f06843c
 /*  f0685e0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0685e4
-/*  f0685e4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0685e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0685ec:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f0685f0:	8c620040 */ 	lw	$v0,0x40($v1)
-/*  f0685f4:	304e0040 */ 	andi	$t6,$v0,0x40
-/*  f0685f8:	11c0000f */ 	beqz	$t6,.L0f068638
-/*  f0685fc:	30590080 */ 	andi	$t9,$v0,0x80
-/*  f068600:	8c6f0048 */ 	lw	$t7,0x48($v1)
-/*  f068604:	8de40044 */ 	lw	$a0,0x44($t7)
-/*  f068608:	10800005 */ 	beqz	$a0,.L0f068620
-/*  f06860c:	00000000 */ 	nop
-/*  f068610:	0fc1a0da */ 	jal	func0f068368
-/*  f068614:	00000000 */ 	nop
-/*  f068618:	1000001b */ 	b	.L0f068688
-/*  f06861c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f068620:
-/*  f068620:	0fc1a10f */ 	jal	func0f06843c
-/*  f068624:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f068628:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f06862c:	8c780048 */ 	lw	$t8,0x48($v1)
-/*  f068630:	10000014 */ 	b	.L0f068684
-/*  f068634:	af020044 */ 	sw	$v0,0x44($t8)
-.L0f068638:
-/*  f068638:	57200013 */ 	bnezl	$t9,.L0f068688
-/*  f06863c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f068640:	8c640048 */ 	lw	$a0,0x48($v1)
-/*  f068644:	10800005 */ 	beqz	$a0,.L0f06865c
-/*  f068648:	00000000 */ 	nop
-/*  f06864c:	0fc1a0da */ 	jal	func0f068368
-/*  f068650:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f068654:	10000005 */ 	b	.L0f06866c
-/*  f068658:	8fa3001c */ 	lw	$v1,0x1c($sp)
-.L0f06865c:
-/*  f06865c:	0fc1a10f */ 	jal	func0f06843c
-/*  f068660:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f068664:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f068668:	ac620048 */ 	sw	$v0,0x48($v1)
-.L0f06866c:
-/*  f06866c:	8c680048 */ 	lw	$t0,0x48($v1)
-/*  f068670:	51000005 */ 	beqzl	$t0,.L0f068688
-/*  f068674:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f068678:	8c690040 */ 	lw	$t1,0x40($v1)
-/*  f06867c:	352a0080 */ 	ori	$t2,$t1,0x80
-/*  f068680:	ac6a0040 */ 	sw	$t2,0x40($v1)
-.L0f068684:
-/*  f068684:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f068688:
-/*  f068688:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f06868c:	03e00008 */ 	jr	$ra
-/*  f068690:	00000000 */ 	nop
-);
+void func0f0685e4(struct prop *prop)
+{
+	struct defaultobj *obj = prop->obj;
+
+	if (obj->hidden & OBJHFLAG_00000040) {
+		if (obj->unk48->unk044) {
+			func0f068368(obj->unk48->unk044);
+		} else {
+			obj->unk48->unk044 = func0f06843c();
+		}
+	} else if ((obj->hidden & OBJHFLAG_00000080) == 0) {
+		if (obj->unk48) {
+			func0f068368(obj->unk48);
+		} else {
+			obj->unk48 = func0f06843c();
+		}
+
+		if (obj->unk48) {
+			obj->hidden |= OBJHFLAG_00000080;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f068694
