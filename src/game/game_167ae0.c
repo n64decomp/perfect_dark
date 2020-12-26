@@ -1680,8 +1680,8 @@ Gfx *renderFrame(Gfx *gdl)
 							direction.y = g_Vars.currentplayer->eyespy->look.y;
 							direction.z = g_Vars.currentplayer->eyespy->look.z;
 
-							func0f0912dc(g_Vars.currentplayer->eyespy->prop, 0,
-									&g_Vars.currentplayer->eyespy->prop->pos, &direction, WEAPON_TRANQUILIZER, 0);
+							projectileCreate(g_Vars.currentplayer->eyespy->prop, 0,
+									&g_Vars.currentplayer->eyespy->prop->pos, &direction, WEAPON_TRANQUILIZER, NULL);
 						} else {
 							// No dart ammo
 							audioStart(var80095200, 0x8052, 0, -1, -1, -1, -1, -1);

@@ -11,7 +11,7 @@ void func00015b14(Mtxf *matrix, f32 *coord, struct coord *arg2);
 void func00015b64(Mtxf *arg0, struct coord *coord);
 void func00015b68(Mtxf *matrix, struct coord *arg1, struct coord *arg2);
 void func00015be0(Mtxf *matrix1, Mtxf *matrix2);
-void func00015be4(Mtxf *arg0, struct model0c *model0c, Mtxf *arg2);
+void func00015be4(Mtxf *arg0, Mtxf *arg1, Mtxf *arg2);
 void func00015cd8(f32 *arg0, f32 *realrot);
 u32 func00015d18(void);
 void func00015d54(f32 *realrot, Mtxf *matrix);

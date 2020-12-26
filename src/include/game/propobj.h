@@ -178,7 +178,7 @@ void chopperRestartTimer(struct chopperobj *obj);
 f32 chopperGetTimer(struct chopperobj *heli);
 void chopperSetMaxDamage(struct chopperobj *obj, u16 health);
 u32 func0f07b164(void);
-u32 chopperFireRocket(struct chopperobj *obj, u32 arg1);
+void chopperFireRocket(struct chopperobj *chopper, bool side);
 u32 func0f07b3f0(void);
 void func0f07ba38(struct prop *prop, f32 roty, f32 rotx, struct coord *coord, u32 arg4);
 void chopperTickAttackMode2(struct prop *chopper);
@@ -343,7 +343,7 @@ void alarmTick(void);
 u32 func0f091030(void);
 void func0f0910ac(void);
 u32 func0f091250(void);
-void func0f0912dc(struct prop *prop, u32 arg1, struct coord *source, struct coord *direction, u32 arg4, u32 arg5);
+void projectileCreate(struct prop *fromprop, u32 arg1, struct coord *pos, struct coord *direction, s32 weaponnum, struct prop *targetprop);
 void objSetModelPartVisible(struct defaultobj *obj, s32 partnum, bool visible);
 
 #endif

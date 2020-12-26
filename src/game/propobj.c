@@ -24283,7 +24283,7 @@ glabel var7f1aa5d0
 /*  f07b3c8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f07b3cc:	27a600b8 */ 	addiu	$a2,$sp,0xb8
 /*  f07b3d0:	27a700c4 */ 	addiu	$a3,$sp,0xc4
-/*  f07b3d4:	0fc244b7 */ 	jal	func0f0912dc
+/*  f07b3d4:	0fc244b7 */ 	jal	projectileCreate
 /*  f07b3d8:	afb10014 */ 	sw	$s1,0x14($sp)
 /*  f07b3dc:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f07b3e0:
@@ -24292,6 +24292,44 @@ glabel var7f1aa5d0
 /*  f07b3e8:	03e00008 */ 	jr	$ra
 /*  f07b3ec:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
 );
+
+// Mismatch: Regalloc and swapped lwc1 instructions for second pos calculations
+//void chopperFireRocket(struct chopperobj *chopper, bool side)
+//{
+//	if (chopper->ontarget) {
+//		struct coord direction; // c4
+//		struct coord pos; // b8
+//		struct prop *targetprop = chopperGetTargetProp(chopper);
+//		struct prop *chopperprop = chopper->base.prop;
+//		u32 stack;
+//		Mtxf sp6c;
+//		Mtxf sp2c;
+//
+//		pos.x = side ? -754 : 754;
+//		pos.y = -400;
+//		pos.z = -400;
+//
+//		func00015d54(chopper->base.realrot, &sp2c);
+//		func000166dc(&pos, &sp6c);
+//		func000159fc(&sp2c, &sp6c);
+//
+//		pos.x = sp6c.m[3][0] + chopperprop->pos.x;
+//		pos.y = sp6c.m[3][1] + chopperprop->pos.y;
+//		pos.z = sp6c.m[3][2] + chopperprop->pos.z;
+//
+//		if (1);
+//
+//		direction.x = targetprop->pos.x - pos.x;
+//		direction.y = targetprop->pos.y - pos.y + (s32)(random() % 100);
+//		direction.z = targetprop->pos.z - pos.z;
+//
+//		scaleTo1(&direction.x, &direction.y, &direction.z);
+//
+//		smokeCreateSimple(&pos, chopperprop->rooms, SMOKETYPE_3);
+//
+//		projectileCreate(chopperprop, 0, &pos, &direction, WEAPON_ROCKETLAUNCHER, targetprop);
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f07b3f0
@@ -24729,7 +24767,7 @@ glabel var7f1aa610
 /*  f07b9dc:	e7a80104 */ 	swc1	$f8,0x104($sp)
 /*  f07b9e0:	8e0500e0 */ 	lw	$a1,0xe0($s0)
 /*  f07b9e4:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f07b9e8:	0fc244b7 */ 	jal	func0f0912dc
+/*  f07b9e8:	0fc244b7 */ 	jal	projectileCreate
 /*  f07b9ec:	afac0014 */ 	sw	$t4,0x14($sp)
 /*  f07b9f0:	8fad00d4 */ 	lw	$t5,0xd4($sp)
 /*  f07b9f4:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -28295,7 +28333,7 @@ s32 objTick(struct prop *prop)
 					}
 
 					sp556 = true;
-					sp476.model0c = gfxAllocate(model->unk08->unk0e * 64);
+					sp476.unk10 = gfxAllocate(model->unk08->unk0e * sizeof(Mtxf));
 					sp476.matrix = currentPlayerGetMatrix1740();
 					func0001cebc(&sp476, model);
 
@@ -28393,7 +28431,7 @@ s32 objTick(struct prop *prop)
 			func00015a00(currentPlayerGetMatrix1740(), &sp248, &sp152);
 
 			sp556 = true;
-			sp312.model0c = gfxAllocate(model->unk08->unk0e * 64);
+			sp312.unk10 = gfxAllocate(model->unk08->unk0e * sizeof(Mtxf));
 			sp312.matrix = &sp152;
 			func0001cebc(&sp312, model);
 
@@ -28551,7 +28589,7 @@ s32 objTick(struct prop *prop)
 			func0001cb0c(model, model->unk08->rootnode);
 		}
 
-		prop->z = -model->unk0c->unk38;
+		prop->z = -model->unk0c->m[3][2];
 		func0f07063c(prop, sp572);
 		child = prop->child;
 
@@ -47818,7 +47856,7 @@ glabel func0f091250
 );
 
 GLOBAL_ASM(
-glabel func0f0912dc
+glabel projectileCreate
 .late_rodata
 glabel var7f1ab20c
 .word 0x481c4000

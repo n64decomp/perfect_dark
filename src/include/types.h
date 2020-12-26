@@ -285,31 +285,12 @@ struct model08 { // raw model file data
 	f32 unk10;
 };
 
-struct model0c { // matrix
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ f32 unk10;
-	/*0x14*/ f32 unk14;
-	/*0x18*/ f32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ f32 unk20;
-	/*0x24*/ f32 unk24;
-	/*0x28*/ f32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ f32 unk30;
-	/*0x34*/ f32 unk34;
-	/*0x38*/ f32 unk38;
-	/*0x3c*/ u32 unk3c;
-};
-
 struct model {
 	/*0x00*/ u8 unk00;
 	/*0x01*/ u8 unk01;
 	/*0x04*/ struct chrdata *chr;
 	/*0x08*/ struct model08 *unk08;
-	/*0x0c*/ struct model0c *unk0c; // matrix
+	/*0x0c*/ Mtxf *unk0c;
 	/*0x10*/ void *datas; // array of pointers to modeldata structs
 	/*0x14*/ f32 unk14;
 	/*0x18*/ struct model *attachedto;
@@ -1582,7 +1563,7 @@ struct chopperobj { // objtype 0x39
 	/*0x88*/ struct path *path;
 	/*0x8c*/ s32 nextstep;
 	/*0x90*/ s16 weaponsarmed;
-	/*0x92*/ u16 ontarget;
+	/*0x92*/ s16 ontarget;
 	/*0x94*/ s16 target;
 	/*0x96*/ u8 attackmode;
 	/*0x97*/ u8 cw;
@@ -2436,7 +2417,7 @@ struct player {
 	/*0x0504*/ u32 unk0504;
 	/*0x0508*/ u32 unk0508;
 	/*0x050c*/ u32 unk050c;
-	/*0x0510*/ struct model0c unk0510;
+	/*0x0510*/ Mtxf unk0510;
 	/*0x0550*/ u32 unk0550;
 	/*0x0554*/ u32 unk0554;
 	/*0x0558*/ u32 unk0558;
@@ -5932,7 +5913,7 @@ struct objticksp476 {
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u32 unk0c;
-	/*0x10*/ struct model0c *model0c;
+	/*0x10*/ Mtxf *unk10;
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;

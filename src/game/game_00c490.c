@@ -1461,7 +1461,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 		f32 scale;
 		struct coord spa4;
 		Mtxf sp64;
-		f32 sp24[16];
+		Mtxf sp24;
 
 		propLoad(modelnum);
 
@@ -1498,8 +1498,8 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			spa4.y = -spa4.y;
 			spa4.z = -spa4.z;
 
-			func000166dc(&spa4, sp24);
-			func00015be4(&sp64, (struct model0c *)sp24, (Mtxf *)&monitor->base.unk48->unk004);
+			func000166dc(&spa4, &sp24);
+			func00015be4(&sp64, &sp24, (Mtxf *)&monitor->base.unk48->unk004);
 		}
 	} else {
 		setupGenericObject(&monitor->base, cmdindex);
