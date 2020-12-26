@@ -8197,12 +8197,12 @@ glabel var7f1ad6ac
 //							func00015b10(sp508, &obj48->unk04);
 //
 //							obj48->unkb2 = 0xffff;
-//							obj48->flags |= 0x00004000;
+//							obj48->flags |= OBJ48FLAG_00004000;
 //							obj48->unk18 = 0;
 //							obj48->unk14 = 0;
 //							obj48->unk10 = 0;
 //
-//							if ((obj48->flags & 0x00000080) == 0) {
+//							if ((obj48->flags & OBJ48FLAG_00000080) == 0) {
 //								obj48->unk88 = 0;
 //							}
 //

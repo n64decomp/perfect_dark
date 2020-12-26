@@ -2669,10 +2669,10 @@ glabel func0f068218
 /*  f0682d8:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-void func0f0682dc(struct obj48 *obj48)
+void obj48Free(struct obj48 *obj48)
 {
 	if (obj48) {
-		obj48->flags |= 0x80000000;
+		obj48->flags |= OBJ48FLAG_FREE;
 	}
 }
 
@@ -2734,7 +2734,7 @@ void obj48Reset(struct obj48 *obj48)
 	obj48->dropreason = 1;
 	obj48->unk0b4 = 0;
 	obj48->unk0d0 = 0;
-	obj48->unk0d4 = 0;
+	obj48->obj = NULL;
 	obj48->unk0d8 = 0;
 	obj48->unk0f4 = 0;
 	obj48->unk0e8 = 0;
@@ -2751,126 +2751,50 @@ void obj48Reset(struct obj48 *obj48)
 	obj48->unk0f0 = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f06843c
-/*  f06843c:	3c07800a */ 	lui	$a3,%hi(var8009ce50)
-/*  f068440:	8ce7ce50 */ 	lw	$a3,%lo(var8009ce50)($a3)
-/*  f068444:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f068448:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f06844c:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f068450:	18e00017 */ 	blez	$a3,.L0f0684b0
-/*  f068454:	00002025 */ 	or	$a0,$zero,$zero
-/*  f068458:	3c08800a */ 	lui	$t0,%hi(var8009ce68)
-/*  f06845c:	8d08ce68 */ 	lw	$t0,%lo(var8009ce68)($t0)
-/*  f068460:	00001825 */ 	or	$v1,$zero,$zero
-/*  f068464:	3c068000 */ 	lui	$a2,0x8000
-/*  f068468:	01001025 */ 	or	$v0,$t0,$zero
-.L0f06846c:
-/*  f06846c:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f068470:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f068474:	0087082a */ 	slt	$at,$a0,$a3
-/*  f068478:	01c67824 */ 	and	$t7,$t6,$a2
-/*  f06847c:	11e00009 */ 	beqz	$t7,.L0f0684a4
-/*  f068480:	2442010c */ 	addiu	$v0,$v0,0x10c
-/*  f068484:	00682021 */ 	addu	$a0,$v1,$t0
-/*  f068488:	0fc1a0da */ 	jal	obj48Reset
-/*  f06848c:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f068490:	3c18800a */ 	lui	$t8,%hi(var8009ce68)
-/*  f068494:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f068498:	8f18ce68 */ 	lw	$t8,%lo(var8009ce68)($t8)
-/*  f06849c:	1000004d */ 	b	.L0f0685d4
-/*  f0684a0:	00781021 */ 	addu	$v0,$v1,$t8
-.L0f0684a4:
-/*  f0684a4:	1420fff1 */ 	bnez	$at,.L0f06846c
-/*  f0684a8:	2463010c */ 	addiu	$v1,$v1,0x10c
-/*  f0684ac:	00002025 */ 	or	$a0,$zero,$zero
-.L0f0684b0:
-/*  f0684b0:	18e00018 */ 	blez	$a3,.L0f068514
-/*  f0684b4:	3c08800a */ 	lui	$t0,%hi(var8009ce68)
-/*  f0684b8:	8d08ce68 */ 	lw	$t0,%lo(var8009ce68)($t0)
-/*  f0684bc:	2406010c */ 	addiu	$a2,$zero,0x10c
-/*  f0684c0:	01001025 */ 	or	$v0,$t0,$zero
-.L0f0684c4:
-/*  f0684c4:	8c5900d4 */ 	lw	$t9,0xd4($v0)
-/*  f0684c8:	5320000f */ 	beqzl	$t9,.L0f068508
-/*  f0684cc:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f0684d0:	8c4300d8 */ 	lw	$v1,0xd8($v0)
-/*  f0684d4:	5860000c */ 	blezl	$v1,.L0f068508
-/*  f0684d8:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f0684dc:	04a20009 */ 	bltzl	$a1,.L0f068504
-/*  f0684e0:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0684e4:	00a60019 */ 	multu	$a1,$a2
-/*  f0684e8:	00004812 */ 	mflo	$t1
-/*  f0684ec:	01095021 */ 	addu	$t2,$t0,$t1
-/*  f0684f0:	8d4b00d8 */ 	lw	$t3,0xd8($t2)
-/*  f0684f4:	006b082a */ 	slt	$at,$v1,$t3
-/*  f0684f8:	50200003 */ 	beqzl	$at,.L0f068508
-/*  f0684fc:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f068500:	00802825 */ 	or	$a1,$a0,$zero
-.L0f068504:
-/*  f068504:	24840001 */ 	addiu	$a0,$a0,0x1
-.L0f068508:
-/*  f068508:	0087082a */ 	slt	$at,$a0,$a3
-/*  f06850c:	1420ffed */ 	bnez	$at,.L0f0684c4
-/*  f068510:	2442010c */ 	addiu	$v0,$v0,0x10c
-.L0f068514:
-/*  f068514:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f068518:	14a1000d */ 	bne	$a1,$at,.L0f068550
-/*  f06851c:	2406010c */ 	addiu	$a2,$zero,0x10c
-/*  f068520:	10e0000b */ 	beqz	$a3,.L0f068550
-/*  f068524:	00000000 */ 	nop
-/*  f068528:	0c004b70 */ 	jal	random
-/*  f06852c:	00000000 */ 	nop
-/*  f068530:	3c0c800a */ 	lui	$t4,%hi(var8009ce50)
-/*  f068534:	8d8cce50 */ 	lw	$t4,%lo(var8009ce50)($t4)
-/*  f068538:	2406010c */ 	addiu	$a2,$zero,0x10c
-/*  f06853c:	004c001b */ 	divu	$zero,$v0,$t4
-/*  f068540:	00002810 */ 	mfhi	$a1
-/*  f068544:	15800002 */ 	bnez	$t4,.L0f068550
-/*  f068548:	00000000 */ 	nop
-/*  f06854c:	0007000d */ 	break	0x7
-.L0f068550:
-/*  f068550:	04a00020 */ 	bltz	$a1,.L0f0685d4
-/*  f068554:	00001025 */ 	or	$v0,$zero,$zero
-/*  f068558:	00a60019 */ 	multu	$a1,$a2
-/*  f06855c:	3c08800a */ 	lui	$t0,%hi(var8009ce68)
-/*  f068560:	8d08ce68 */ 	lw	$t0,%lo(var8009ce68)($t0)
-/*  f068564:	00001812 */ 	mflo	$v1
-/*  f068568:	01036821 */ 	addu	$t5,$t0,$v1
-/*  f06856c:	8da200d4 */ 	lw	$v0,0xd4($t5)
-/*  f068570:	50400011 */ 	beqzl	$v0,.L0f0685b8
-/*  f068574:	00682021 */ 	addu	$a0,$v1,$t0
-/*  f068578:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f06857c:	50800009 */ 	beqzl	$a0,.L0f0685a4
-/*  f068580:	8c580040 */ 	lw	$t8,0x40($v0)
-/*  f068584:	0fc1ab24 */ 	jal	func0f06ac90
-/*  f068588:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f06858c:	3c0e800a */ 	lui	$t6,%hi(var8009ce68)
-/*  f068590:	8dcece68 */ 	lw	$t6,%lo(var8009ce68)($t6)
-/*  f068594:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f068598:	01c37821 */ 	addu	$t7,$t6,$v1
-/*  f06859c:	8de200d4 */ 	lw	$v0,0xd4($t7)
-/*  f0685a0:	8c580040 */ 	lw	$t8,0x40($v0)
-.L0f0685a4:
-/*  f0685a4:	3c08800a */ 	lui	$t0,%hi(var8009ce68)
-/*  f0685a8:	37190004 */ 	ori	$t9,$t8,0x4
-/*  f0685ac:	ac590040 */ 	sw	$t9,0x40($v0)
-/*  f0685b0:	8d08ce68 */ 	lw	$t0,%lo(var8009ce68)($t0)
-/*  f0685b4:	00682021 */ 	addu	$a0,$v1,$t0
-.L0f0685b8:
-/*  f0685b8:	0fc1a0da */ 	jal	obj48Reset
-/*  f0685bc:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f0685c0:	3c09800a */ 	lui	$t1,%hi(var8009ce68)
-/*  f0685c4:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f0685c8:	8d29ce68 */ 	lw	$t1,%lo(var8009ce68)($t1)
-/*  f0685cc:	10000001 */ 	b	.L0f0685d4
-/*  f0685d0:	00691021 */ 	addu	$v0,$v1,$t1
-.L0f0685d4:
-/*  f0685d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0685d8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0685dc:	03e00008 */ 	jr	$ra
-/*  f0685e0:	00000000 */ 	nop
-);
+struct obj48 *obj48GetNew(void)
+{
+	s32 bestindex = -1;
+	s32 i;
+
+	// Happy path - find one that is already free
+	for (i = 0; i < var8009ce50; i++) {
+		if (var8009ce68[i].flags & OBJ48FLAG_FREE) {
+			obj48Reset(&var8009ce68[i]);
+			return &var8009ce68[i];
+		}
+	}
+
+	// Find one with the lowest unk0d8 (some kind of age/timer?)
+	// and some other conditions
+	for (i = 0; i < var8009ce50; i++) {
+		if (var8009ce68[i].obj
+				&& var8009ce68[i].unk0d8 > 0
+				&& (bestindex < 0 || var8009ce68[i].unk0d8 < var8009ce68[bestindex].unk0d8)) {
+			bestindex = i;
+		}
+	}
+
+	// If there were none, pick one at random
+	if (bestindex == -1 && var8009ce50) {
+		bestindex = random() % var8009ce50;
+	}
+
+	if (bestindex >= 0) {
+		// Reset and return it
+		if (var8009ce68[bestindex].obj) {
+			if (var8009ce68[bestindex].obj->prop) {
+				func0f06ac90(var8009ce68[bestindex].obj->prop);
+			}
+
+			var8009ce68[bestindex].obj->hidden |= OBJHFLAG_00000004;
+		}
+
+		obj48Reset(&var8009ce68[bestindex]);
+		return &var8009ce68[bestindex];
+	} else {
+		return NULL;
+	}
+}
 
 void func0f0685e4(struct prop *prop)
 {
@@ -2880,13 +2804,13 @@ void func0f0685e4(struct prop *prop)
 		if (obj->unk48->unk044) {
 			obj48Reset(obj->unk48->unk044);
 		} else {
-			obj->unk48->unk044 = func0f06843c();
+			obj->unk48->unk044 = obj48GetNew();
 		}
 	} else if ((obj->hidden & OBJHFLAG_00000080) == 0) {
 		if (obj->unk48) {
 			obj48Reset(obj->unk48);
 		} else {
-			obj->unk48 = func0f06843c();
+			obj->unk48 = obj48GetNew();
 		}
 
 		if (obj->unk48) {
@@ -5602,7 +5526,7 @@ glabel var7f1aa208
 void func0f06ac40(struct defaultobj *obj)
 {
 	if (obj->hidden & OBJHFLAG_00000080) {
-		func0f0682dc(obj->unk48);
+		obj48Free(obj->unk48);
 		obj->unk48 = NULL;
 
 		obj->hidden &= ~OBJHFLAG_00000080;
@@ -5629,7 +5553,7 @@ glabel func0f06ac90
 /*  f06accc:	10c00006 */ 	beqz	$a2,.L0f06ace8
 /*  f06acd0:	00000000 */ 	nop
 /*  f06acd4:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f06acd8:	0fc1a0b7 */ 	jal	func0f0682dc
+/*  f06acd8:	0fc1a0b7 */ 	jal	obj48Free
 /*  f06acdc:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f06ace0:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f06ace4:	8ca40048 */ 	lw	$a0,0x48($a1)

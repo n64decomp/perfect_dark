@@ -1097,8 +1097,8 @@ struct obj48 {
 	/*0x0c0*/ f32 unk0c0;
 	/*0x0c4*/ struct coord pos;
 	/*0x0d0*/ u32 unk0d0;
-	/*0x0d4*/ u32 unk0d4;
-	/*0x0d8*/ u32 unk0d8;
+	/*0x0d4*/ struct defaultobj *obj;
+	/*0x0d8*/ s32 unk0d8;
 	/*0x0dc*/ f32 unk0dc;
 	/*0x0e0*/ f32 unk0e0;
 	/*0x0e4*/ f32 unk0e4;
