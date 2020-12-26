@@ -92,8 +92,8 @@ glabel func0f00c490
 .L0f00c52c:
 /*  f00c52c:	14820006 */ 	bne	$a0,$v0,.L0f00c548
 /*  f00c530:	3c0b800a */ 	lui	$t3,%hi(g_Menus+0x2000)
-/*  f00c534:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
-/*  f00c538:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
+/*  f00c534:	3c0b800a */ 	lui	$t3,%hi(g_NumMonitorThings)
+/*  f00c538:	256bce54 */ 	addiu	$t3,$t3,%lo(g_NumMonitorThings)
 /*  f00c53c:	240d0028 */ 	addiu	$t5,$zero,0x28
 /*  f00c540:	10000004 */ 	b	.L0f00c554
 /*  f00c544:	ad6d0000 */ 	sw	$t5,%lo(g_Menus+0x2000)($t3)
@@ -159,8 +159,8 @@ glabel func0f00c490
 /*  f00c628:	3c08800a */ 	lui	$t0,%hi(var8009ce48)
 /*  f00c62c:	3c09800a */ 	lui	$t1,%hi(var8009ce4c)
 /*  f00c630:	3c0a800a */ 	lui	$t2,%hi(g_NumProjectiles)
-/*  f00c634:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
-/*  f00c638:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
+/*  f00c634:	3c0b800a */ 	lui	$t3,%hi(g_NumMonitorThings)
+/*  f00c638:	256bce54 */ 	addiu	$t3,$t3,%lo(g_NumMonitorThings)
 /*  f00c63c:	254ace50 */ 	addiu	$t2,$t2,%lo(g_NumProjectiles)
 /*  f00c640:	2529ce4c */ 	addiu	$t1,$t1,%lo(var8009ce4c)
 /*  f00c644:	2508ce48 */ 	addiu	$t0,$t0,%lo(var8009ce48)
@@ -191,8 +191,8 @@ glabel func0f00c490
 /*  f00c6a4:	3c08800a */ 	lui	$t0,%hi(var8009ce48)
 /*  f00c6a8:	3c09800a */ 	lui	$t1,%hi(var8009ce4c)
 /*  f00c6ac:	3c0a800a */ 	lui	$t2,%hi(g_NumProjectiles)
-/*  f00c6b0:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
-/*  f00c6b4:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
+/*  f00c6b0:	3c0b800a */ 	lui	$t3,%hi(g_NumMonitorThings)
+/*  f00c6b4:	256bce54 */ 	addiu	$t3,$t3,%lo(g_NumMonitorThings)
 /*  f00c6b8:	254ace50 */ 	addiu	$t2,$t2,%lo(g_NumProjectiles)
 /*  f00c6bc:	2529ce4c */ 	addiu	$t1,$t1,%lo(var8009ce4c)
 /*  f00c6c0:	2508ce48 */ 	addiu	$t0,$t0,%lo(var8009ce48)
@@ -243,8 +243,8 @@ glabel func0f00c490
 /*  f00c764:	3c08800a */ 	lui	$t0,%hi(var8009ce48)
 /*  f00c768:	3c09800a */ 	lui	$t1,%hi(var8009ce4c)
 /*  f00c76c:	3c0a800a */ 	lui	$t2,%hi(g_NumProjectiles)
-/*  f00c770:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
-/*  f00c774:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
+/*  f00c770:	3c0b800a */ 	lui	$t3,%hi(g_NumMonitorThings)
+/*  f00c774:	256bce54 */ 	addiu	$t3,$t3,%lo(g_NumMonitorThings)
 /*  f00c778:	254ace50 */ 	addiu	$t2,$t2,%lo(g_NumProjectiles)
 /*  f00c77c:	2529ce4c */ 	addiu	$t1,$t1,%lo(var8009ce4c)
 /*  f00c780:	2508ce48 */ 	addiu	$t0,$t0,%lo(var8009ce48)
@@ -291,8 +291,8 @@ glabel func0f00c490
 /*  f00c814:	2484ce60 */ 	addiu	$a0,$a0,%lo(var8009ce60)
 /*  f00c818:	3c09800a */ 	lui	$t1,%hi(var8009ce4c)
 /*  f00c81c:	3c0a800a */ 	lui	$t2,%hi(g_NumProjectiles)
-/*  f00c820:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
-/*  f00c824:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
+/*  f00c820:	3c0b800a */ 	lui	$t3,%hi(g_NumMonitorThings)
+/*  f00c824:	256bce54 */ 	addiu	$t3,$t3,%lo(g_NumMonitorThings)
 /*  f00c828:	254ace50 */ 	addiu	$t2,$t2,%lo(g_NumProjectiles)
 /*  f00c82c:	2529ce4c */ 	addiu	$t1,$t1,%lo(var8009ce4c)
 /*  f00c830:	ac820000 */ 	sw	$v0,0x0($a0)
@@ -335,8 +335,8 @@ glabel func0f00c490
 /*  f00c8b8:	3c04800a */ 	lui	$a0,%hi(var8009ce64)
 /*  f00c8bc:	2484ce64 */ 	addiu	$a0,$a0,%lo(var8009ce64)
 /*  f00c8c0:	3c0a800a */ 	lui	$t2,%hi(g_NumProjectiles)
-/*  f00c8c4:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
-/*  f00c8c8:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
+/*  f00c8c4:	3c0b800a */ 	lui	$t3,%hi(g_NumMonitorThings)
+/*  f00c8c8:	256bce54 */ 	addiu	$t3,$t3,%lo(g_NumMonitorThings)
 /*  f00c8cc:	254ace50 */ 	addiu	$t2,$t2,%lo(g_NumProjectiles)
 /*  f00c8d0:	ac820000 */ 	sw	$v0,0x0($a0)
 /*  f00c8d4:	1b00000c */ 	blez	$t8,.L0f00c908
@@ -377,8 +377,8 @@ glabel func0f00c490
 /*  f00c954:	8d590000 */ 	lw	$t9,0x0($t2)
 /*  f00c958:	3c05800a */ 	lui	$a1,%hi(g_Projectiles)
 /*  f00c95c:	24a5ce68 */ 	addiu	$a1,$a1,%lo(g_Projectiles)
-/*  f00c960:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
-/*  f00c964:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
+/*  f00c960:	3c0b800a */ 	lui	$t3,%hi(g_NumMonitorThings)
+/*  f00c964:	256bce54 */ 	addiu	$t3,$t3,%lo(g_NumMonitorThings)
 /*  f00c968:	aca20000 */ 	sw	$v0,0x0($a1)
 /*  f00c96c:	1b20000d */ 	blez	$t9,.L0f00c9a4
 /*  f00c970:	8fa3001c */ 	lw	$v1,0x1c($sp)
@@ -398,8 +398,8 @@ glabel func0f00c490
 .L0f00c9a4:
 /*  f00c9a4:	8d620000 */ 	lw	$v0,0x0($t3)
 /*  f00c9a8:	14400004 */ 	bnez	$v0,.L0f00c9bc
-/*  f00c9ac:	3c04800a */ 	lui	$a0,%hi(var8009ce6c)
-/*  f00c9b0:	2484ce6c */ 	addiu	$a0,$a0,%lo(var8009ce6c)
+/*  f00c9ac:	3c04800a */ 	lui	$a0,%hi(g_MonitorThings)
+/*  f00c9b0:	2484ce6c */ 	addiu	$a0,$a0,%lo(g_MonitorThings)
 /*  f00c9b4:	1000001e */ 	b	.L0f00ca30
 /*  f00c9b8:	ac800000 */ 	sw	$zero,0x0($a0)
 .L0f00c9bc:
@@ -412,11 +412,11 @@ glabel func0f00c490
 /*  f00c9d4:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f00c9d8:	0c0048f2 */ 	jal	malloc
 /*  f00c9dc:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f00c9e0:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
-/*  f00c9e4:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
+/*  f00c9e0:	3c0b800a */ 	lui	$t3,%hi(g_NumMonitorThings)
+/*  f00c9e4:	256bce54 */ 	addiu	$t3,$t3,%lo(g_NumMonitorThings)
 /*  f00c9e8:	8d6d0000 */ 	lw	$t5,0x0($t3)
-/*  f00c9ec:	3c04800a */ 	lui	$a0,%hi(var8009ce6c)
-/*  f00c9f0:	2484ce6c */ 	addiu	$a0,$a0,%lo(var8009ce6c)
+/*  f00c9ec:	3c04800a */ 	lui	$a0,%hi(g_MonitorThings)
+/*  f00c9f0:	2484ce6c */ 	addiu	$a0,$a0,%lo(g_MonitorThings)
 /*  f00c9f4:	ac820000 */ 	sw	$v0,0x0($a0)
 /*  f00c9f8:	8fa3001c */ 	lw	$v1,0x1c($sp)
 /*  f00c9fc:	19a0000c */ 	blez	$t5,.L0f00ca30
@@ -1472,9 +1472,9 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 		}
 
 		prop = func0f06a550(monitor);
-		monitor->base.projectile = func0f0686f0();
+		monitor->base.monitorthing = monitorthingGetNew();
 
-		if (prop && monitor->base.projectile) {
+		if (prop && monitor->base.monitorthing) {
 			monitor->base.hidden |= OBJHFLAG_00000040;
 			modelSetUnk14(monitor->base.model, monitor->base.model->unk14 * scale);
 			monitor->base.model->attachedto = owner->model;
@@ -1499,7 +1499,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			spa4.z = -spa4.z;
 
 			func000166dc(&spa4, &sp24);
-			func00015be4(&sp64, &sp24, (Mtxf *)&monitor->base.projectile->unk004);
+			func00015be4(&sp64, &sp24, &monitor->base.monitorthing->matrix);
 		}
 	} else {
 		setupGenericObject(&monitor->base, cmdindex);

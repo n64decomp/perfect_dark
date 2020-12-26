@@ -1112,6 +1112,12 @@ struct projectile {
 	/*0x108*/ u32 unk108;
 };
 
+struct monitorthing {
+	/*0x000*/ u32 flags;
+	/*0x004*/ Mtxf matrix;
+	/*0x044*/ struct projectile *unk044;
+};
+
 struct monitorscreen {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
@@ -1177,7 +1183,10 @@ struct defaultobj {
 	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden;
 	/*0x44*/ struct geo *geo;
-	/*0x48*/ struct projectile *projectile;
+	union {
+		/*0x48*/ struct projectile *projectile;
+		/*0x48*/ struct monitorthing *monitorthing;
+	};
 	/*0x4c*/ s16 damage;
 	/*0x4e*/ s16 maxdamage;
 	/*0x50*/ u8 shadecol[4];

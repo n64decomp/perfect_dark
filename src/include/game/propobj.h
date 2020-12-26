@@ -66,7 +66,7 @@ struct projectile *projectileGetNew(void);
 void func0f0685e4(struct prop *prop);
 u32 func0f068694(void);
 u32 func0f0686e0(void);
-struct projectile *func0f0686f0(void);
+struct monitorthing *monitorthingGetNew(void);
 u32 func0f068760(void);
 u32 func0f0687b8(struct defaultobj *obj);
 u32 func0f0687e4(void);

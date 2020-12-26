@@ -2853,40 +2853,21 @@ glabel func0f0686e0
 /*  f0686ec:	ac8f0000 */ 	sw	$t7,0x0($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f0686f0
-/*  f0686f0:	3c03800a */ 	lui	$v1,%hi(var8009ce54)
-/*  f0686f4:	8c63ce54 */ 	lw	$v1,%lo(var8009ce54)($v1)
-/*  f0686f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0686fc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f068700:	18600014 */ 	blez	$v1,.L0f068754
-/*  f068704:	3c05800a */ 	lui	$a1,%hi(var8009ce6c)
-/*  f068708:	8ca5ce6c */ 	lw	$a1,%lo(var8009ce6c)($a1)
-.L0f06870c:
-/*  f06870c:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f068710:	31cf0001 */ 	andi	$t7,$t6,0x1
-/*  f068714:	51e0000b */ 	beqzl	$t7,.L0f068744
-/*  f068718:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f06871c:	3c03800a */ 	lui	$v1,%hi(var8009ce6c)
-/*  f068720:	2463ce6c */ 	addiu	$v1,$v1,%lo(var8009ce6c)
-/*  f068724:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f068728:	8c780000 */ 	lw	$t8,0x0($v1)
-/*  f06872c:	0304c821 */ 	addu	$t9,$t8,$a0
-/*  f068730:	af200044 */ 	sw	$zero,0x44($t9)
-/*  f068734:	8c680000 */ 	lw	$t0,0x0($v1)
-/*  f068738:	03e00008 */ 	jr	$ra
-/*  f06873c:	00881021 */ 	addu	$v0,$a0,$t0
-/*  f068740:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f068744:
-/*  f068744:	0043082a */ 	slt	$at,$v0,$v1
-/*  f068748:	24840048 */ 	addiu	$a0,$a0,0x48
-/*  f06874c:	1420ffef */ 	bnez	$at,.L0f06870c
-/*  f068750:	24a50048 */ 	addiu	$a1,$a1,72
-.L0f068754:
-/*  f068754:	00001025 */ 	or	$v0,$zero,$zero
-/*  f068758:	03e00008 */ 	jr	$ra
-/*  f06875c:	00000000 */ 	nop
-);
+struct monitorthing *monitorthingGetNew(void)
+{
+	s32 i;
+
+	for (i = 0; i < g_NumMonitorThings; i++) {
+		if (g_MonitorThings[i].flags & 0x00000001) {
+			g_MonitorThings[i].flags = 0;
+			g_MonitorThings[i].unk044 = NULL;
+
+			return &g_MonitorThings[i];
+		}
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f068760
@@ -10305,7 +10286,7 @@ glabel func0f06ef44
 /*  f06ef68:	31f80002 */ 	andi	$t8,$t7,0x2
 /*  f06ef6c:	53000047 */ 	beqzl	$t8,.L0f06f08c
 /*  f06ef70:	00001025 */ 	or	$v0,$zero,$zero
-/*  f06ef74:	0fc1a1bc */ 	jal	func0f0686f0
+/*  f06ef74:	0fc1a1bc */ 	jal	monitorthingGetNew
 /*  f06ef78:	8c900004 */ 	lw	$s0,0x4($a0)
 /*  f06ef7c:	10400042 */ 	beqz	$v0,.L0f06f088
 /*  f06ef80:	ae020048 */ 	sw	$v0,0x48($s0)
