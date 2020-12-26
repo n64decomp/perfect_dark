@@ -81,8 +81,8 @@ glabel func0f00c490
 /*  f00c504:	3c0a800a */ 	lui	$t2,%hi(g_Menus+0x2000)
 /*  f00c508:	14820005 */ 	bne	$a0,$v0,.L0f00c520
 /*  f00c50c:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x4b4)
-/*  f00c510:	3c0a800a */ 	lui	$t2,%hi(var8009ce50)
-/*  f00c514:	254ace50 */ 	addiu	$t2,$t2,%lo(var8009ce50)
+/*  f00c510:	3c0a800a */ 	lui	$t2,%hi(g_NumProjectiles)
+/*  f00c514:	254ace50 */ 	addiu	$t2,$t2,%lo(g_NumProjectiles)
 /*  f00c518:	10000004 */ 	b	.L0f00c52c
 /*  f00c51c:	ad430000 */ 	sw	$v1,%lo(g_Menus+0x2000)($t2)
 .L0f00c520:
@@ -158,10 +158,10 @@ glabel func0f00c490
 /*  f00c624:	3c07800a */ 	lui	$a3,%hi(var8009ce44)
 /*  f00c628:	3c08800a */ 	lui	$t0,%hi(var8009ce48)
 /*  f00c62c:	3c09800a */ 	lui	$t1,%hi(var8009ce4c)
-/*  f00c630:	3c0a800a */ 	lui	$t2,%hi(var8009ce50)
+/*  f00c630:	3c0a800a */ 	lui	$t2,%hi(g_NumProjectiles)
 /*  f00c634:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
 /*  f00c638:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
-/*  f00c63c:	254ace50 */ 	addiu	$t2,$t2,%lo(var8009ce50)
+/*  f00c63c:	254ace50 */ 	addiu	$t2,$t2,%lo(g_NumProjectiles)
 /*  f00c640:	2529ce4c */ 	addiu	$t1,$t1,%lo(var8009ce4c)
 /*  f00c644:	2508ce48 */ 	addiu	$t0,$t0,%lo(var8009ce48)
 /*  f00c648:	14600006 */ 	bnez	$v1,.L0f00c664
@@ -190,10 +190,10 @@ glabel func0f00c490
 /*  f00c6a0:	3c07800a */ 	lui	$a3,%hi(var8009ce44)
 /*  f00c6a4:	3c08800a */ 	lui	$t0,%hi(var8009ce48)
 /*  f00c6a8:	3c09800a */ 	lui	$t1,%hi(var8009ce4c)
-/*  f00c6ac:	3c0a800a */ 	lui	$t2,%hi(var8009ce50)
+/*  f00c6ac:	3c0a800a */ 	lui	$t2,%hi(g_NumProjectiles)
 /*  f00c6b0:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
 /*  f00c6b4:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
-/*  f00c6b8:	254ace50 */ 	addiu	$t2,$t2,%lo(var8009ce50)
+/*  f00c6b8:	254ace50 */ 	addiu	$t2,$t2,%lo(g_NumProjectiles)
 /*  f00c6bc:	2529ce4c */ 	addiu	$t1,$t1,%lo(var8009ce4c)
 /*  f00c6c0:	2508ce48 */ 	addiu	$t0,$t0,%lo(var8009ce48)
 /*  f00c6c4:	24e7ce44 */ 	addiu	$a3,$a3,%lo(var8009ce44)
@@ -242,10 +242,10 @@ glabel func0f00c490
 /*  f00c760:	2484ce5c */ 	addiu	$a0,$a0,%lo(var8009ce5c)
 /*  f00c764:	3c08800a */ 	lui	$t0,%hi(var8009ce48)
 /*  f00c768:	3c09800a */ 	lui	$t1,%hi(var8009ce4c)
-/*  f00c76c:	3c0a800a */ 	lui	$t2,%hi(var8009ce50)
+/*  f00c76c:	3c0a800a */ 	lui	$t2,%hi(g_NumProjectiles)
 /*  f00c770:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
 /*  f00c774:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
-/*  f00c778:	254ace50 */ 	addiu	$t2,$t2,%lo(var8009ce50)
+/*  f00c778:	254ace50 */ 	addiu	$t2,$t2,%lo(g_NumProjectiles)
 /*  f00c77c:	2529ce4c */ 	addiu	$t1,$t1,%lo(var8009ce4c)
 /*  f00c780:	2508ce48 */ 	addiu	$t0,$t0,%lo(var8009ce48)
 /*  f00c784:	ac820000 */ 	sw	$v0,0x0($a0)
@@ -290,10 +290,10 @@ glabel func0f00c490
 /*  f00c810:	3c04800a */ 	lui	$a0,%hi(var8009ce60)
 /*  f00c814:	2484ce60 */ 	addiu	$a0,$a0,%lo(var8009ce60)
 /*  f00c818:	3c09800a */ 	lui	$t1,%hi(var8009ce4c)
-/*  f00c81c:	3c0a800a */ 	lui	$t2,%hi(var8009ce50)
+/*  f00c81c:	3c0a800a */ 	lui	$t2,%hi(g_NumProjectiles)
 /*  f00c820:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
 /*  f00c824:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
-/*  f00c828:	254ace50 */ 	addiu	$t2,$t2,%lo(var8009ce50)
+/*  f00c828:	254ace50 */ 	addiu	$t2,$t2,%lo(g_NumProjectiles)
 /*  f00c82c:	2529ce4c */ 	addiu	$t1,$t1,%lo(var8009ce4c)
 /*  f00c830:	ac820000 */ 	sw	$v0,0x0($a0)
 /*  f00c834:	19e0000c */ 	blez	$t7,.L0f00c868
@@ -334,10 +334,10 @@ glabel func0f00c490
 /*  f00c8b4:	8d380000 */ 	lw	$t8,0x0($t1)
 /*  f00c8b8:	3c04800a */ 	lui	$a0,%hi(var8009ce64)
 /*  f00c8bc:	2484ce64 */ 	addiu	$a0,$a0,%lo(var8009ce64)
-/*  f00c8c0:	3c0a800a */ 	lui	$t2,%hi(var8009ce50)
+/*  f00c8c0:	3c0a800a */ 	lui	$t2,%hi(g_NumProjectiles)
 /*  f00c8c4:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
 /*  f00c8c8:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
-/*  f00c8cc:	254ace50 */ 	addiu	$t2,$t2,%lo(var8009ce50)
+/*  f00c8cc:	254ace50 */ 	addiu	$t2,$t2,%lo(g_NumProjectiles)
 /*  f00c8d0:	ac820000 */ 	sw	$v0,0x0($a0)
 /*  f00c8d4:	1b00000c */ 	blez	$t8,.L0f00c908
 /*  f00c8d8:	8fa3001c */ 	lw	$v1,0x1c($sp)
@@ -356,8 +356,8 @@ glabel func0f00c490
 .L0f00c908:
 /*  f00c908:	8d420000 */ 	lw	$v0,0x0($t2)
 /*  f00c90c:	14400004 */ 	bnez	$v0,.L0f00c920
-/*  f00c910:	3c05800a */ 	lui	$a1,%hi(var8009ce68)
-/*  f00c914:	24a5ce68 */ 	addiu	$a1,$a1,%lo(var8009ce68)
+/*  f00c910:	3c05800a */ 	lui	$a1,%hi(g_Projectiles)
+/*  f00c914:	24a5ce68 */ 	addiu	$a1,$a1,%lo(g_Projectiles)
 /*  f00c918:	10000022 */ 	b	.L0f00c9a4
 /*  f00c91c:	aca00000 */ 	sw	$zero,0x0($a1)
 .L0f00c920:
@@ -372,11 +372,11 @@ glabel func0f00c490
 /*  f00c940:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f00c944:	0c0048f2 */ 	jal	malloc
 /*  f00c948:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f00c94c:	3c0a800a */ 	lui	$t2,%hi(var8009ce50)
-/*  f00c950:	254ace50 */ 	addiu	$t2,$t2,%lo(var8009ce50)
+/*  f00c94c:	3c0a800a */ 	lui	$t2,%hi(g_NumProjectiles)
+/*  f00c950:	254ace50 */ 	addiu	$t2,$t2,%lo(g_NumProjectiles)
 /*  f00c954:	8d590000 */ 	lw	$t9,0x0($t2)
-/*  f00c958:	3c05800a */ 	lui	$a1,%hi(var8009ce68)
-/*  f00c95c:	24a5ce68 */ 	addiu	$a1,$a1,%lo(var8009ce68)
+/*  f00c958:	3c05800a */ 	lui	$a1,%hi(g_Projectiles)
+/*  f00c95c:	24a5ce68 */ 	addiu	$a1,$a1,%lo(g_Projectiles)
 /*  f00c960:	3c0b800a */ 	lui	$t3,%hi(var8009ce54)
 /*  f00c964:	256bce54 */ 	addiu	$t3,$t3,%lo(var8009ce54)
 /*  f00c968:	aca20000 */ 	sw	$v0,0x0($a1)
@@ -1472,21 +1472,21 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 		}
 
 		prop = func0f06a550(monitor);
-		monitor->base.unk48 = func0f0686f0();
+		monitor->base.projectile = func0f0686f0();
 
-		if (prop && monitor->base.unk48) {
+		if (prop && monitor->base.projectile) {
 			monitor->base.hidden |= OBJHFLAG_00000040;
 			modelSetUnk14(monitor->base.model, monitor->base.model->unk14 * scale);
 			monitor->base.model->attachedto = owner->model;
 
-			if (monitor->ownerpart == 0) {
-				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, 0);
-			} else if (monitor->ownerpart == 1) {
-				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, 1);
-			} else if (monitor->ownerpart == 2) {
-				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, 2);
+			if (monitor->ownerpart == MODELPART_00) {
+				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, MODELPART_00);
+			} else if (monitor->ownerpart == MODELPART_01) {
+				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, MODELPART_01);
+			} else if (monitor->ownerpart == MODELPART_02) {
+				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, MODELPART_02);
 			} else {
-				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, 3);
+				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, MODELPART_03);
 			}
 
 			propReparent(prop, owner->prop);
@@ -1499,7 +1499,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			spa4.z = -spa4.z;
 
 			func000166dc(&spa4, &sp24);
-			func00015be4(&sp64, &sp24, (Mtxf *)&monitor->base.unk48->unk004);
+			func00015be4(&sp64, &sp24, (Mtxf *)&monitor->base.projectile->unk004);
 		}
 	} else {
 		setupGenericObject(&monitor->base, cmdindex);

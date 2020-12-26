@@ -2337,7 +2337,7 @@ bool frIsAmmoWasted(void)
 
 					if (prop->weapon->weaponnum == WEAPON_BOLT
 							|| prop->weapon->weaponnum == WEAPON_COMBATKNIFE) {
-						if (prop->obj->hidden & OBJHFLAG_00000080) {
+						if (prop->obj->hidden & OBJHFLAG_AIRBORNE) {
 							return false;
 						}
 					} else if (prop->weapon->weaponnum == WEAPON_TIMEDMINE

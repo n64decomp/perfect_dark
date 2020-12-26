@@ -530,7 +530,7 @@ s32 func0f19a60c(s32 weaponnum, s32 funcnum)
 	return iVar4;
 }
 
-bool func0f19a6d0(struct chrdata *chr, struct coord *frompos, struct coord *topos, s16 *fromrooms, s16 *torooms, struct obj48 *obj48)
+bool func0f19a6d0(struct chrdata *chr, struct coord *frompos, struct coord *topos, s16 *fromrooms, s16 *torooms, struct projectile *projectile)
 {
 	struct waypoint *from = waypointFindClosestToPos(frompos, fromrooms);
 	struct waypoint *to = waypointFindClosestToPos(topos, torooms);
@@ -548,12 +548,12 @@ bool func0f19a6d0(struct chrdata *chr, struct coord *frompos, struct coord *topo
 			s32 i = 0;
 
 			while (waypoints[i]) {
-				obj48->waypads[i] = waypoints[i]->padnum;
+				projectile->waypads[i] = waypoints[i]->padnum;
 				i++;
 			}
 
-			obj48->unk105 = 0;
-			obj48->numwaypads = i;
+			projectile->unk105 = 0;
+			projectile->numwaypads = i;
 
 			return true;
 		}
@@ -595,7 +595,7 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 
 		sp100[0] = cosf(b) * sinf(a);
 		sp100[1] = sinf(b);
-		sp100[2] = cosf(b) * cosf(a); // @bug? Should one of these be sinf?
+		sp100[2] = cosf(b) * cosf(a);
 
 		func000162e8(b, &sp196);
 		func00016374(a, &sp132);
@@ -604,23 +604,23 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 
 		func0f09ebcc(&rocket->base, &chr->prop->pos, chr->prop->rooms, &sp196, sp100, &sp260, chr->prop, &chr->prop->pos);
 
-		if (rocket->base.hidden & OBJHFLAG_00000080) {
+		if (rocket->base.hidden & OBJHFLAG_AIRBORNE) {
 			struct prop *target = chrGetTargetProp(chr);
 			rocket->unk62 = -1;
-			rocket->base.unk48->unk010 = 7.5;
-			rocket->base.unk48->unk014 = b;
-			rocket->base.unk48->unk018 = a;
-			rocket->base.unk48->unk0f4 = 0;
-			rocket->base.unk48->unk0b4 = 0x20000000;
+			rocket->base.projectile->unk010 = 7.5;
+			rocket->base.projectile->unk014 = b;
+			rocket->base.projectile->unk018 = a;
+			rocket->base.projectile->unk0f4 = 0;
+			rocket->base.projectile->unk0b4 = 0x20000000;
 
 			// Fire rocket sound
 			func0f0939f8(NULL, rocket->base.prop, 0x8053, -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
-			if (!func0f19a6d0(chr, &chr->prop->pos, &target->pos, chr->prop->rooms, target->rooms, rocket->base.unk48)) {
+			if (!func0f19a6d0(chr, &chr->prop->pos, &target->pos, chr->prop->rooms, target->rooms, rocket->base.projectile)) {
 				rocket->unk62 = 0;
 			} else {
-				func0f19a7d0(rocket->base.unk48->waypads[0], &rocket->base.unk48->pos);
+				func0f19a7d0(rocket->base.projectile->waypads[0], &rocket->base.projectile->pos);
 				chr->aibot->unk044 = rocket->base.prop;
 			}
 		}

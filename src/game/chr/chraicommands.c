@@ -9311,7 +9311,7 @@ bool aiDoGunCommand(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
-	if (cmd[2] == 0 || ((weapon->base.hidden & OBJHFLAG_00000080) == 0 && cmd[2] == 1)) {
+	if (cmd[2] == 0 || ((weapon->base.hidden & OBJHFLAG_AIRBORNE) == 0 && cmd[2] == 1)) {
 		if (cmd[2] == 0) {
 			chrGoToProp(g_Vars.chrdata, g_Vars.chrdata->gunprop, SPEED_JOG);
 		}

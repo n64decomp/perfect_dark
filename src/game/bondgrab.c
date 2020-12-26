@@ -78,11 +78,11 @@ void currentPlayerGrabInit(void)
 		struct hov *hov = NULL;
 		bool setthething;
 
-		if (obj->hidden & OBJHFLAG_00000080) {
-			struct obj48 *obj48 = obj->unk48;
-			g_Vars.currentplayer->bondshotspeed[0] += obj48->unk004.x * 0.2f;
-			g_Vars.currentplayer->bondshotspeed[2] += obj48->unk004.z * 0.2f;
-			func0f06ac40(obj);
+		if (obj->hidden & OBJHFLAG_AIRBORNE) {
+			struct projectile *projectile = obj->projectile;
+			g_Vars.currentplayer->bondshotspeed[0] += projectile->unk004.x * 0.2f;
+			g_Vars.currentplayer->bondshotspeed[2] += projectile->unk004.z * 0.2f;
+			objEndFlight(obj);
 		}
 
 		if (obj->type == OBJTYPE_HOVERPROP) {

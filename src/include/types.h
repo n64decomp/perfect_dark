@@ -1046,7 +1046,7 @@ struct chrdata {
 	/*0x364*/ u32 unk364;
 };
 
-struct obj48 {
+struct projectile {
 	/*0x000*/ u32 flags;
 	/*0x004*/ struct coord unk004; // distance moved in last tick
 	/*0x010*/ f32 unk010;
@@ -1062,7 +1062,7 @@ struct obj48 {
 	/*0x038*/ u32 unk038;
 	/*0x03c*/ u32 unk03c;
 	/*0x040*/ u32 unk040;
-	/*0x044*/ struct obj48 *unk044;
+	/*0x044*/ struct projectile *unk044;
 	/*0x048*/ u32 unk048;
 	/*0x04c*/ u32 unk04c;
 	/*0x050*/ u32 unk050;
@@ -1079,7 +1079,7 @@ struct obj48 {
 	/*0x07c*/ u32 unk07c;
 	/*0x080*/ u32 unk080;
 	/*0x084*/ u32 unk084;
-	/*0x088*/ struct prop *unk088;
+	/*0x088*/ struct prop *unk088; // player prop
 	/*0x08c*/ f32 unk08c;
 	/*0x090*/ u32 unk090;
 	/*0x094*/ s32 unk094;
@@ -1177,7 +1177,7 @@ struct defaultobj {
 	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden;
 	/*0x44*/ struct geo *geo;
-	/*0x48*/ struct obj48 *unk48;
+	/*0x48*/ struct projectile *projectile;
 	/*0x4c*/ s16 damage;
 	/*0x4e*/ s16 maxdamage;
 	/*0x50*/ u8 shadecol[4];

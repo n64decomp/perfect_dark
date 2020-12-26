@@ -8056,9 +8056,9 @@ glabel var7f1ad6ac
 //						func00016208(sp696, &sp752);
 //						func00016208(sp696, &sp740);
 //
-//						if (rocket->base.hidden & OBJHFLAG_00000080) {
+//						if (rocket->base.hidden & OBJHFLAG_AIRBORNE) {
 //							// e470
-//							struct obj48 *obj48 = rocket->base.unk48;
+//							struct projectile *projectile = rocket->base.projectile;
 //							u32 mode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
 //							s8 contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
 //							s8 contpad2 = optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex);
@@ -8194,16 +8194,16 @@ glabel var7f1ad6ac
 //							// e8b0
 //							func0f097738(sp348, sp332, sp316);
 //							func0f096ed4(sp316, sp508);
-//							func00015b10(sp508, &obj48->unk04);
+//							func00015b10(sp508, &projectile->unk04);
 //
-//							obj48->unkb2 = 0xffff;
-//							obj48->flags |= OBJ48FLAG_00004000;
-//							obj48->unk18 = 0;
-//							obj48->unk14 = 0;
-//							obj48->unk10 = 0;
+//							projectile->unkb2 = 0xffff;
+//							projectile->flags |= PROJECTILEFLAG_00004000;
+//							projectile->unk18 = 0;
+//							projectile->unk14 = 0;
+//							projectile->unk10 = 0;
 //
-//							if ((obj48->flags & OBJ48FLAG_00000080) == 0) {
-//								obj48->unk88 = 0;
+//							if ((projectile->flags & PROJECTILEFLAG_00000080) == 0) {
+//								projectile->unk88 = 0;
 //							}
 //
 //							if (explode) {
@@ -8211,9 +8211,9 @@ glabel var7f1ad6ac
 //							}
 //
 //							prevspeed = sqrtf(
-//									obj48->unk04.z * obj48->unk04.z +
-//									obj48->unk04.x * obj48->unk04.x +
-//									obj48->unk04.y * obj48->unk04.y);
+//									projectile->unk04.z * projectile->unk04.z +
+//									projectile->unk04.x * projectile->unk04.x +
+//									projectile->unk04.y * projectile->unk04.y);
 //
 //							if (slow == false) {
 //								targetspeed = 12;
@@ -8237,9 +8237,9 @@ glabel var7f1ad6ac
 //								newspeed = prevspeed;
 //							}
 //
-//							obj48->unk04.x = (obj48->unk04.x * newspeed) / prevspeed;
-//							obj48->unk04.y = (obj48->unk04.y * newspeed) / prevspeed;
-//							obj48->unk04.z = (obj48->unk04.z * newspeed) / prevspeed;
+//							projectile->unk04.x = (projectile->unk04.x * newspeed) / prevspeed;
+//							projectile->unk04.y = (projectile->unk04.y * newspeed) / prevspeed;
+//							projectile->unk04.z = (projectile->unk04.z * newspeed) / prevspeed;
 //
 //							// ea10
 //							func00015d54(sp696, sp444);

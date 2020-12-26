@@ -2669,23 +2669,23 @@ glabel func0f068218
 /*  f0682d8:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-void obj48Free(struct obj48 *obj48)
+void projectileFree(struct projectile *projectile)
 {
-	if (obj48) {
-		obj48->flags |= OBJ48FLAG_FREE;
+	if (projectile) {
+		projectile->flags |= PROJECTILEFLAG_FREE;
 	}
 }
 
 GLOBAL_ASM(
 glabel func0f0682fc
-/*  f0682fc:	3c03800a */ 	lui	$v1,%hi(var8009ce50)
-/*  f068300:	8c63ce50 */ 	lw	$v1,%lo(var8009ce50)($v1)
+/*  f0682fc:	3c03800a */ 	lui	$v1,%hi(g_NumProjectiles)
+/*  f068300:	8c63ce50 */ 	lw	$v1,%lo(g_NumProjectiles)($v1)
 /*  f068304:	00803025 */ 	or	$a2,$a0,$zero
 /*  f068308:	00002025 */ 	or	$a0,$zero,$zero
 /*  f06830c:	18600014 */ 	blez	$v1,.L0f068360
 /*  f068310:	00001025 */ 	or	$v0,$zero,$zero
-/*  f068314:	3c07800a */ 	lui	$a3,%hi(var8009ce68)
-/*  f068318:	24e7ce68 */ 	addiu	$a3,$a3,%lo(var8009ce68)
+/*  f068314:	3c07800a */ 	lui	$a3,%hi(g_Projectiles)
+/*  f068318:	24e7ce68 */ 	addiu	$a3,$a3,%lo(g_Projectiles)
 /*  f06831c:	3c088000 */ 	lui	$t0,0x8000
 .L0f068320:
 /*  f068320:	8cee0000 */ 	lw	$t6,0x0($a3)
@@ -2699,8 +2699,8 @@ glabel func0f0682fc
 /*  f068340:	54d90005 */ 	bnel	$a2,$t9,.L0f068358
 /*  f068344:	0043082a */ 	slt	$at,$v0,$v1
 /*  f068348:	aca00088 */ 	sw	$zero,0x88($a1)
-/*  f06834c:	3c03800a */ 	lui	$v1,%hi(var8009ce50)
-/*  f068350:	8c63ce50 */ 	lw	$v1,%lo(var8009ce50)($v1)
+/*  f06834c:	3c03800a */ 	lui	$v1,%hi(g_NumProjectiles)
+/*  f068350:	8c63ce50 */ 	lw	$v1,%lo(g_NumProjectiles)($v1)
 /*  f068354:	0043082a */ 	slt	$at,$v0,$v1
 .L0f068358:
 /*  f068358:	1420fff1 */ 	bnez	$at,.L0f068320
@@ -2710,87 +2710,87 @@ glabel func0f0682fc
 /*  f068364:	00000000 */ 	nop
 );
 
-void obj48Reset(struct obj48 *obj48)
+void projectileReset(struct projectile *projectile)
 {
-	obj48->flags = 0;
-	obj48->unk004.x = 0;
-	obj48->unk004.y = 0;
-	obj48->unk004.z = 0;
-	obj48->unk010 = 0;
-	obj48->unk014 = 0;
-	obj48->unk018 = 0;
-	obj48->unk01c = 0;
+	projectile->flags = 0;
+	projectile->unk004.x = 0;
+	projectile->unk004.y = 0;
+	projectile->unk004.z = 0;
+	projectile->unk010 = 0;
+	projectile->unk014 = 0;
+	projectile->unk018 = 0;
+	projectile->unk01c = 0;
 
-	func000159b0((Mtxf *)&obj48->unk020);
+	func000159b0((Mtxf *)&projectile->unk020);
 
-	obj48->unk060 = 1;
-	obj48->unk088 = 0;
-	obj48->unk08c = 0.05f;
-	obj48->unk090 = 0;
-	obj48->unk094 = -1;
-	obj48->unk09c = -1;
-	obj48->unk0a0 = 0;
-	obj48->unk0a4 = -1;
-	obj48->dropreason = 1;
-	obj48->unk0b4 = 0;
-	obj48->unk0d0 = 0;
-	obj48->obj = NULL;
-	obj48->unk0d8 = 0;
-	obj48->unk0f4 = 0;
-	obj48->unk0e8 = 0;
-	obj48->unk108 = 0;
-	obj48->unk0b2 = 0xffff;
-	obj48->unk0b8 = 1;
-	obj48->unk0bc = 1;
-	obj48->unk0c0 = 1;
-	obj48->unk0e4 = 1;
-	obj48->unk098 = 0;
-	obj48->unk0dc = 0;
-	obj48->unk0e0 = 0;
-	obj48->unk0ec = 0;
-	obj48->unk0f0 = 0;
+	projectile->unk060 = 1;
+	projectile->unk088 = 0;
+	projectile->unk08c = 0.05f;
+	projectile->unk090 = 0;
+	projectile->unk094 = -1;
+	projectile->unk09c = -1;
+	projectile->unk0a0 = 0;
+	projectile->unk0a4 = -1;
+	projectile->dropreason = 1;
+	projectile->unk0b4 = 0;
+	projectile->unk0d0 = 0;
+	projectile->obj = NULL;
+	projectile->unk0d8 = 0;
+	projectile->unk0f4 = 0;
+	projectile->unk0e8 = 0;
+	projectile->unk108 = 0;
+	projectile->unk0b2 = 0xffff;
+	projectile->unk0b8 = 1;
+	projectile->unk0bc = 1;
+	projectile->unk0c0 = 1;
+	projectile->unk0e4 = 1;
+	projectile->unk098 = 0;
+	projectile->unk0dc = 0;
+	projectile->unk0e0 = 0;
+	projectile->unk0ec = 0;
+	projectile->unk0f0 = 0;
 }
 
-struct obj48 *obj48GetNew(void)
+struct projectile *projectileGetNew(void)
 {
 	s32 bestindex = -1;
 	s32 i;
 
 	// Happy path - find one that is already free
-	for (i = 0; i < var8009ce50; i++) {
-		if (var8009ce68[i].flags & OBJ48FLAG_FREE) {
-			obj48Reset(&var8009ce68[i]);
-			return &var8009ce68[i];
+	for (i = 0; i < g_NumProjectiles; i++) {
+		if (g_Projectiles[i].flags & PROJECTILEFLAG_FREE) {
+			projectileReset(&g_Projectiles[i]);
+			return &g_Projectiles[i];
 		}
 	}
 
 	// Find one with the lowest unk0d8 (some kind of age/timer?)
 	// and some other conditions
-	for (i = 0; i < var8009ce50; i++) {
-		if (var8009ce68[i].obj
-				&& var8009ce68[i].unk0d8 > 0
-				&& (bestindex < 0 || var8009ce68[i].unk0d8 < var8009ce68[bestindex].unk0d8)) {
+	for (i = 0; i < g_NumProjectiles; i++) {
+		if (g_Projectiles[i].obj
+				&& g_Projectiles[i].unk0d8 > 0
+				&& (bestindex < 0 || g_Projectiles[i].unk0d8 < g_Projectiles[bestindex].unk0d8)) {
 			bestindex = i;
 		}
 	}
 
 	// If there were none, pick one at random
-	if (bestindex == -1 && var8009ce50) {
-		bestindex = random() % var8009ce50;
+	if (bestindex == -1 && g_NumProjectiles) {
+		bestindex = random() % g_NumProjectiles;
 	}
 
 	if (bestindex >= 0) {
 		// Reset and return it
-		if (var8009ce68[bestindex].obj) {
-			if (var8009ce68[bestindex].obj->prop) {
-				func0f06ac90(var8009ce68[bestindex].obj->prop);
+		if (g_Projectiles[bestindex].obj) {
+			if (g_Projectiles[bestindex].obj->prop) {
+				func0f06ac90(g_Projectiles[bestindex].obj->prop);
 			}
 
-			var8009ce68[bestindex].obj->hidden |= OBJHFLAG_00000004;
+			g_Projectiles[bestindex].obj->hidden |= OBJHFLAG_00000004;
 		}
 
-		obj48Reset(&var8009ce68[bestindex]);
-		return &var8009ce68[bestindex];
+		projectileReset(&g_Projectiles[bestindex]);
+		return &g_Projectiles[bestindex];
 	} else {
 		return NULL;
 	}
@@ -2801,20 +2801,20 @@ void func0f0685e4(struct prop *prop)
 	struct defaultobj *obj = prop->obj;
 
 	if (obj->hidden & OBJHFLAG_00000040) {
-		if (obj->unk48->unk044) {
-			obj48Reset(obj->unk48->unk044);
+		if (obj->projectile->unk044) {
+			projectileReset(obj->projectile->unk044);
 		} else {
-			obj->unk48->unk044 = obj48GetNew();
+			obj->projectile->unk044 = projectileGetNew();
 		}
-	} else if ((obj->hidden & OBJHFLAG_00000080) == 0) {
-		if (obj->unk48) {
-			obj48Reset(obj->unk48);
+	} else if ((obj->hidden & OBJHFLAG_AIRBORNE) == 0) {
+		if (obj->projectile) {
+			projectileReset(obj->projectile);
 		} else {
-			obj->unk48 = obj48GetNew();
+			obj->projectile = projectileGetNew();
 		}
 
-		if (obj->unk48) {
-			obj->hidden |= OBJHFLAG_00000080;
+		if (obj->projectile) {
+			obj->hidden |= OBJHFLAG_AIRBORNE;
 		}
 	}
 }
@@ -5523,13 +5523,13 @@ glabel var7f1aa208
 /*  f06ac3c:	00000000 */ 	nop
 );
 
-void func0f06ac40(struct defaultobj *obj)
+void objEndFlight(struct defaultobj *obj)
 {
-	if (obj->hidden & OBJHFLAG_00000080) {
-		obj48Free(obj->unk48);
-		obj->unk48 = NULL;
+	if (obj->hidden & OBJHFLAG_AIRBORNE) {
+		projectileFree(obj->projectile);
+		obj->projectile = NULL;
 
-		obj->hidden &= ~OBJHFLAG_00000080;
+		obj->hidden &= ~OBJHFLAG_AIRBORNE;
 	}
 }
 
@@ -5553,7 +5553,7 @@ glabel func0f06ac90
 /*  f06accc:	10c00006 */ 	beqz	$a2,.L0f06ace8
 /*  f06acd0:	00000000 */ 	nop
 /*  f06acd4:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f06acd8:	0fc1a0b7 */ 	jal	obj48Free
+/*  f06acd8:	0fc1a0b7 */ 	jal	projectileFree
 /*  f06acdc:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f06ace0:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f06ace4:	8ca40048 */ 	lw	$a0,0x48($a1)
@@ -5571,7 +5571,7 @@ glabel func0f06ac90
 .L0f06ad0c:
 /*  f06ad0c:	53000004 */ 	beqzl	$t8,.L0f06ad20
 /*  f06ad10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06ad14:	0fc1ab10 */ 	jal	func0f06ac40
+/*  f06ad14:	0fc1ab10 */ 	jal	objEndFlight
 /*  f06ad18:	00a02025 */ 	or	$a0,$a1,$zero
 .L0f06ad1c:
 /*  f06ad1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -8927,7 +8927,7 @@ glabel var7f1aa298
 /*  f06dc0c:	8c820048 */ 	lw	$v0,0x48($a0)
 /*  f06dc10:	15c10005 */ 	bne	$t6,$at,.L0f06dc28
 /*  f06dc14:	27a50148 */ 	addiu	$a1,$sp,0x148
-/*  f06dc18:	0fc1ab10 */ 	jal	func0f06ac40
+/*  f06dc18:	0fc1ab10 */ 	jal	objEndFlight
 /*  f06dc1c:	00000000 */ 	nop
 /*  f06dc20:	10000313 */ 	b	.L0f06e870
 /*  f06dc24:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -10402,7 +10402,7 @@ glabel func0f06f0a0
 /*  f06f0d4:	8e180048 */ 	lw	$t8,0x48($s0)
 /*  f06f0d8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06f0dc:	8f190088 */ 	lw	$t9,0x88($t8)
-/*  f06f0e0:	0fc1ab10 */ 	jal	func0f06ac40
+/*  f06f0e0:	0fc1ab10 */ 	jal	objEndFlight
 /*  f06f0e4:	afb90020 */ 	sw	$t9,0x20($sp)
 /*  f06f0e8:	8e030040 */ 	lw	$v1,0x40($s0)
 /*  f06f0ec:	92020003 */ 	lbu	$v0,0x3($s0)
@@ -16644,7 +16644,7 @@ glabel var7f1aa438
 /*  f074a88:	00000000 */ 	nop
 /*  f074a8c:	45020004 */ 	bc1fl	.L0f074aa0
 /*  f074a90:	8fad0600 */ 	lw	$t5,0x600($sp)
-/*  f074a94:	0fc1ab10 */ 	jal	func0f06ac40
+/*  f074a94:	0fc1ab10 */ 	jal	objEndFlight
 /*  f074a98:	02202025 */ 	or	$a0,$s1,$zero
 /*  f074a9c:	8fad0600 */ 	lw	$t5,0x600($sp)
 .L0f074aa0:
@@ -19126,7 +19126,7 @@ glabel var7f1aa438
 .L0f076ec8:
 /*  f076ec8:	51e0000b */ 	beqzl	$t7,.L0f076ef8
 /*  f076ecc:	8fae05d8 */ 	lw	$t6,0x5d8($sp)
-/*  f076ed0:	0fc1ab10 */ 	jal	func0f06ac40
+/*  f076ed0:	0fc1ab10 */ 	jal	objEndFlight
 /*  f076ed4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f076ed8:	922c0003 */ 	lbu	$t4,0x3($s1)
 /*  f076edc:	24010008 */ 	addiu	$at,$zero,0x8
@@ -28126,7 +28126,7 @@ s32 objTick(struct prop *prop)
 
 	if (obj->hidden & OBJHFLAG_00000008) {
 		obj->hidden &= ~OBJHFLAG_00000008;
-	} else if ((obj->hidden & OBJHFLAG_00000080) && (obj->unk48->flags & 0x00000800) == 0) {
+	} else if ((obj->hidden & OBJHFLAG_AIRBORNE) && (obj->projectile->flags & PROJECTILEFLAG_00000800) == 0) {
 		prop->flags &= ~PROPFLAG_02;
 		obj->hidden |= OBJHFLAG_00000008;
 		return 3;
@@ -28163,11 +28163,11 @@ s32 objTick(struct prop *prop)
 		prop->flags &= ~PROPFLAG_08;
 	}
 
-	if (obj->hidden & OBJHFLAG_00000080) {
-		struct obj48 *obj48 = obj->unk48;
+	if (obj->hidden & OBJHFLAG_AIRBORNE) {
+		struct projectile *projectile = obj->projectile;
 
-		if (obj48->unk088 && propGetPlayerNum(obj48->unk088) >= 0) {
-			sp572 = (obj48->unk088 == g_Vars.currentplayer->prop);
+		if (projectile->unk088 && propGetPlayerNum(projectile->unk088) >= 0) {
+			sp572 = (projectile->unk088 == g_Vars.currentplayer->prop);
 		}
 	}
 
@@ -28363,7 +28363,7 @@ s32 objTick(struct prop *prop)
 	}
 
 	if (sp572) {
-		if (model->anim == NULL && (obj->hidden & OBJHFLAG_00000080)) {
+		if (model->anim == NULL && (obj->hidden & OBJHFLAG_AIRBORNE)) {
 			sp592 = func0f073c6c(obj, &sp560);
 
 			if (sp560) {
@@ -32211,10 +32211,10 @@ void propobjSetDropped(struct prop *prop, u32 reason)
 
 		func0f0685e4(prop);
 
-		if ((obj->hidden & OBJHFLAG_00000040) && obj->unk48->unk044) {
-			obj->unk48->unk044->dropreason = reason;
-		} else if (obj->hidden & OBJHFLAG_00000080) {
-			obj->unk48->dropreason = reason;
+		if ((obj->hidden & OBJHFLAG_00000040) && obj->projectile->unk044) {
+			obj->projectile->unk044->dropreason = reason;
+		} else if (obj->hidden & OBJHFLAG_AIRBORNE) {
+			obj->projectile->dropreason = reason;
 		}
 
 		if (g_Vars.lvmpbotlevel
@@ -41095,7 +41095,7 @@ struct weaponobj *weaponFindThrown(s32 weaponnum)
 	while (prop) {
 		struct weaponobj *weapon = func0f08aa70(weaponnum, prop);
 
-		if (weapon && (weapon->base.hidden & OBJHFLAG_00000080) == 0) {
+		if (weapon && (weapon->base.hidden & OBJHFLAG_AIRBORNE) == 0) {
 			return weapon;
 		}
 
@@ -44621,9 +44621,9 @@ void func0f08e224(struct doorobj *door)
 	if (door->doortype == DOORTYPE_8) {
 		func0f0685e4(door->base.prop);
 
-		if (door->base.hidden & OBJHFLAG_00000080) {
-			door->base.unk48->flags |= 1;
-			func000159b0((Mtxf *)&door->base.unk48->unk020);
+		if (door->base.hidden & OBJHFLAG_AIRBORNE) {
+			door->base.projectile->flags |= PROJECTILEFLAG_00000001;
+			func000159b0((Mtxf *)&door->base.projectile->unk020);
 		}
 	}
 
@@ -47429,17 +47429,17 @@ glabel var7f1ab1a8
 
 GLOBAL_ASM(
 glabel func0f090d34
-/*  f090d34:	3c03800a */ 	lui	$v1,%hi(var8009ce50)
-/*  f090d38:	8c63ce50 */ 	lw	$v1,%lo(var8009ce50)($v1)
+/*  f090d34:	3c03800a */ 	lui	$v1,%hi(g_NumProjectiles)
+/*  f090d38:	8c63ce50 */ 	lw	$v1,%lo(g_NumProjectiles)($v1)
 /*  f090d3c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f090d40:	3c04800a */ 	lui	$a0,%hi(var8009ce68)
+/*  f090d40:	3c04800a */ 	lui	$a0,%hi(g_Projectiles)
 /*  f090d44:	1860000a */ 	blez	$v1,.L0f090d70
 /*  f090d48:	00032900 */ 	sll	$a1,$v1,0x4
 /*  f090d4c:	00a32821 */ 	addu	$a1,$a1,$v1
 /*  f090d50:	00052880 */ 	sll	$a1,$a1,0x2
 /*  f090d54:	00a32823 */ 	subu	$a1,$a1,$v1
 /*  f090d58:	00052880 */ 	sll	$a1,$a1,0x2
-/*  f090d5c:	8c84ce68 */ 	lw	$a0,%lo(var8009ce68)($a0)
+/*  f090d5c:	8c84ce68 */ 	lw	$a0,%lo(g_Projectiles)($a0)
 .L0f090d60:
 /*  f090d60:	2442010c */ 	addiu	$v0,$v0,0x10c
 /*  f090d64:	0045082a */ 	slt	$at,$v0,$a1
