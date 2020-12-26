@@ -5222,21 +5222,17 @@ glabel func0f06a580
 /*  f06a61c:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
+f32 func0f06a620(struct defaultobj *obj)
+{
+	if (obj->type == OBJTYPE_WEAPON) {
+		return 0;
+	}
+
+	return 4;
+}
+
 GLOBAL_ASM(
-glabel func0f06a620
-/*  f06a620:	908e0003 */ 	lbu	$t6,0x3($a0)
-/*  f06a624:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f06a628:	55c10005 */ 	bnel	$t6,$at,.L0f06a640
-/*  f06a62c:	3c014080 */ 	lui	$at,0x4080
-/*  f06a630:	44800000 */ 	mtc1	$zero,$f0
-/*  f06a634:	03e00008 */ 	jr	$ra
-/*  f06a638:	00000000 */ 	nop
-/*  f06a63c:	3c014080 */ 	lui	$at,0x4080
-.L0f06a640:
-/*  f06a640:	44810000 */ 	mtc1	$at,$f0
-/*  f06a644:	00000000 */ 	nop
-/*  f06a648:	03e00008 */ 	jr	$ra
-/*  f06a64c:	00000000 */ 	nop
+glabel func0f06a650
 /*  f06a650:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f06a654:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f06a658:	00808025 */ 	or	$s0,$a0,$zero
