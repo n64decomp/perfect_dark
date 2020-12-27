@@ -271,20 +271,12 @@ glabel func00023640
 /*    23738:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0002373c
-/*    2373c:	3c0e800a */ 	lui	$t6,%hi(var8009a894)
-/*    23740:	85cea894 */ 	lh	$t6,%lo(var8009a894)($t6)
-/*    23744:	3c0f800a */ 	lui	$t7,%hi(var8009a898)
-/*    23748:	8defa898 */ 	lw	$t7,%lo(var8009a898)($t7)
-/*    2374c:	3c018006 */ 	lui	$at,%hi(var8005f008)
-/*    23750:	a42ef008 */ 	sh	$t6,%lo(var8005f008)($at)
-/*    23754:	3c018006 */ 	lui	$at,%hi(g_Anims)
-/*    23758:	ac2ff00c */ 	sw	$t7,%lo(g_Anims)($at)
-/*    2375c:	3c018006 */ 	lui	$at,%hi(var8005f020)
-/*    23760:	03e00008 */ 	jr	$ra
-/*    23764:	ac20f020 */ 	sw	$zero,%lo(var8005f020)($at)
-);
+void func0002373c(void)
+{
+	var8005f008 = var8009a894;
+	g_Anims = var8009a898;
+	var8005f020 = 0;
+}
 
 GLOBAL_ASM(
 glabel animGetNumFrames
