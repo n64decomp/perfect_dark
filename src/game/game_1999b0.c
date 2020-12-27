@@ -184,71 +184,29 @@ void aibotGiveAmmoByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 
 	}
 }
 
-GLOBAL_ASM(
-glabel aibotGiveAmmoByType
-/*  f199ef4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f199ef8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f199efc:	8c8e001c */ 	lw	$t6,0x1c($a0)
-/*  f199f00:	00057880 */ 	sll	$t7,$a1,0x2
-/*  f199f04:	1080001b */ 	beqz	$a0,.L0f199f74
-/*  f199f08:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f199f0c:	94980064 */ 	lhu	$t8,0x64($a0)
-/*  f199f10:	33190001 */ 	andi	$t9,$t8,0x1
-/*  f199f14:	57200018 */ 	bnezl	$t9,.L0f199f78
-/*  f199f18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f199f1c:	58c00016 */ 	blezl	$a2,.L0f199f78
-/*  f199f20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f199f24:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f199f28:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f199f2c:	0fc47bba */ 	jal	dprint
-/*  f199f30:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f199f34:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f199f38:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f199f3c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f199f40:	8c680000 */ 	lw	$t0,0x0($v1)
-/*  f199f44:	01064821 */ 	addu	$t1,$t0,$a2
-/*  f199f48:	ac690000 */ 	sw	$t1,0x0($v1)
-/*  f199f4c:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
-/*  f199f50:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f199f54:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f199f58:	8c6a0000 */ 	lw	$t2,0x0($v1)
-/*  f199f5c:	004a082a */ 	slt	$at,$v0,$t2
-/*  f199f60:	10200002 */ 	beqz	$at,.L0f199f6c
-/*  f199f64:	00000000 */ 	nop
-/*  f199f68:	ac620000 */ 	sw	$v0,0x0($v1)
-.L0f199f6c:
-/*  f199f6c:	0fc47bba */ 	jal	dprint
-/*  f199f70:	00000000 */ 	nop
-.L0f199f74:
-/*  f199f74:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f199f78:
-/*  f199f78:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f199f7c:	03e00008 */ 	jr	$ra
-/*  f199f80:	00000000 */ 	nop
-);
+void aibotGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity)
+{
+	s32 max;
+	s32 *heldquantity = &aibot->ammoheld[ammotype];
 
-// Mismatches because the target saves the heldquantity pointer to the stack
-// before calling to ammotypeGetMaxCapacity, despite it already being saved.
-//void aibotGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity)
-//{
-//	s32 max;
-//	s32 *heldquantity = &aibot->ammotypes->quantities[ammotype];
-//
-//	if (!aibot || (aibot->unk064 & 1) || quantity <= 0) {
-//		return;
-//	}
-//
-//	dprint();
-//
-//	*heldquantity += quantity;
-//	max = ammotypeGetMaxCapacity(ammotype);
-//
-//	if (*heldquantity > max) {
-//		*heldquantity = max;
-//	}
-//
-//	dprint();
-//}
+	if (!aibot || (aibot->unk064 & 1) || quantity <= 0) {
+		return;
+	}
+
+	dprint();
+
+	*heldquantity += quantity;
+
+	if (heldquantity);
+
+	max = ammotypeGetMaxCapacity(ammotype);
+
+	if (*heldquantity > max) {
+		*heldquantity = max;
+	}
+
+	dprint();
+}
 
 /**
  * This function appears to handle aibots shooting chrs with the Farsight, but
