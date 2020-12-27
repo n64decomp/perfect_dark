@@ -2557,6 +2557,65 @@ glabel func0f19978c
 /*  f199960:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
+// Mismatch: The way the loop iterator is handled is different.
+// Goal tracks the iterator as increments of 0x14 (len of thing), while the
+// below tracks it as i and calculates the offset when calculating thing.
+//void func0f19978c(struct chrdata *chr, s32 weaponnum, u8 arg2)
+//{
+//	struct aibot014 *thing;
+//	s32 i;
+//
+//	if (chr == NULL) {
+//		return;
+//	}
+//
+//	if (chr->aibot == NULL) {
+//		return;
+//	}
+//
+//	for (i = 0; i < chr->aibot->unk018; i++) {
+//		thing = &chr->aibot->unk014[i];
+//
+//		if (thing->unk00 == -1) {
+//			i = chr->aibot->unk018;
+//		} else {
+//			if ((thing->unk00 == 1 || thing->unk00 == 3)
+//					&& (arg2 || weaponnum == thing->weaponnum)) {
+//				if (weaponHasFlag(thing->weaponnum, WEAPONFLAG_08000000) == 0
+//						|| (g_Vars.normmplayerisrunning
+//							&& g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
+//							&& thing->weaponnum == WEAPON_DATAUPLINK)) {
+//					s32 modelnum = weaponGetModel(thing->weaponnum);
+//
+//					if (modelnum > 0) {
+//						struct prop *prop = func0f08b8e8(chr, modelnum, thing->weaponnum, 0x20000000, 0, 0);
+//
+//						if (prop) {
+//							propobjSetDropped(prop, DROPREASON_1);
+//							func0f08307c(prop, true);
+//
+//							if (thing->weaponnum == WEAPON_BRIEFCASE2) {
+//								func0f187288(chr, prop);
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	if ((arg2 && weaponnum >= WEAPON_FALCON2)
+//			|| (!arg2 && weaponnum == chr->aibot->weaponnum)) {
+//		func0f1994b0(chr, true, false);
+//	}
+//
+//	chr->hidden |= CHRHFLAG_00000001;
+//
+//	if (!arg2) {
+//		func0f197d94(chr, weaponnum);
+//	}
+//}
+
 void func0f199964(struct chrdata *chr, u32 weaponnum)
 {
 	func0f19978c(chr, weaponnum, true);
