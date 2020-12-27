@@ -17,7 +17,7 @@ u32 func0f191638(void);
 u32 func0f1918d0(void);
 f32 func0f191fa4(struct chrdata *chr);
 u32 func0f1921f8(void);
-u32 func0f192628(void);
+void func0f192628(struct chrdata *chr, struct prop *arg1);
 u32 func0f19277c(void);
 bool func0f19294c(struct chrdata *chr, struct chrdata *chr2);
 u32 func0f192a48(void);

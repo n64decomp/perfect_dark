@@ -364,7 +364,7 @@ struct aibot {
 	/*0x014*/ struct aibot014 *unk014;
 	/*0x018*/ s8 unk018; // count of unk014
 	/*0x01c*/ s32 *ammoheld;
-	/*0x020*/ u32 weaponnum;
+	/*0x020*/ s32 weaponnum;
 	/*0x024*/ s32 unk024[2]; // probably current clip count or reserve count
 	/*0x02c*/ u16 unk02c[2];
 	/*0x030*/ u32 unk030; // timer of some sort

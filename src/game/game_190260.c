@@ -2455,100 +2455,50 @@ void mpAibotApplyScenarioCommand(struct chrdata *chr, u32 command)
 	chr->aibot->unk0d8 = 1;
 }
 
-GLOBAL_ASM(
-glabel func0f192628
-/*  f192628:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f19262c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f192630:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f192634:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f192638:	8c8e02d4 */ 	lw	$t6,0x2d4($a0)
-/*  f19263c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f192640:	8dc20020 */ 	lw	$v0,0x20($t6)
-/*  f192644:	28410002 */ 	slti	$at,$v0,0x2
-/*  f192648:	14200047 */ 	bnez	$at,.L0f192768
-/*  f19264c:	24010057 */ 	addiu	$at,$zero,0x57
-/*  f192650:	50410046 */ 	beql	$v0,$at,.L0f19276c
-/*  f192654:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f192658:	8c830174 */ 	lw	$v1,0x174($a0)
-/*  f19265c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f192660:	00002825 */ 	or	$a1,$zero,$zero
-/*  f192664:	10600006 */ 	beqz	$v1,.L0f192680
-/*  f192668:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f19266c:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f192670:	8c4f0040 */ 	lw	$t7,0x40($v0)
-/*  f192674:	35f80004 */ 	ori	$t8,$t7,0x4
-/*  f192678:	ac580040 */ 	sw	$t8,0x40($v0)
-/*  f19267c:	ac800174 */ 	sw	$zero,0x174($a0)
-.L0f192680:
-/*  f192680:	8e020170 */ 	lw	$v0,0x170($s0)
-/*  f192684:	10400006 */ 	beqz	$v0,.L0f1926a0
-/*  f192688:	00402025 */ 	or	$a0,$v0,$zero
-/*  f19268c:	0fc22ed7 */ 	jal	func0f08bb5c
-/*  f192690:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f192694:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f192698:	10000010 */ 	b	.L0f1926dc
-/*  f19269c:	ae000170 */ 	sw	$zero,0x170($s0)
-.L0f1926a0:
-/*  f1926a0:	8e1902d4 */ 	lw	$t9,0x2d4($s0)
-/*  f1926a4:	8f240020 */ 	lw	$a0,0x20($t9)
-/*  f1926a8:	0fc4a2bd */ 	jal	weaponGetModel
-/*  f1926ac:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f1926b0:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f1926b4:	04400009 */ 	bltz	$v0,.L0f1926dc
-/*  f1926b8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1926bc:	8e0802d4 */ 	lw	$t0,0x2d4($s0)
-/*  f1926c0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1926c4:	3c072000 */ 	lui	$a3,0x2000
-/*  f1926c8:	8d060020 */ 	lw	$a2,0x20($t0)
-/*  f1926cc:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f1926d0:	0fc22e3a */ 	jal	func0f08b8e8
-/*  f1926d4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f1926d8:	00403825 */ 	or	$a3,$v0,$zero
-.L0f1926dc:
-/*  f1926dc:	50e00017 */ 	beqzl	$a3,.L0f19273c
-/*  f1926e0:	8e1902d4 */ 	lw	$t9,0x2d4($s0)
-/*  f1926e4:	8ce30004 */ 	lw	$v1,0x4($a3)
-/*  f1926e8:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f1926ec:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1926f0:	50600012 */ 	beqzl	$v1,.L0f19273c
-/*  f1926f4:	8e1902d4 */ 	lw	$t9,0x2d4($s0)
-/*  f1926f8:	0fc20a59 */ 	jal	propobjSetDropped
-/*  f1926fc:	afa30028 */ 	sw	$v1,0x28($sp)
-/*  f192700:	8e090014 */ 	lw	$t1,0x14($s0)
-/*  f192704:	8fa20028 */ 	lw	$v0,0x28($sp)
-/*  f192708:	352a0001 */ 	ori	$t2,$t1,0x1
-/*  f19270c:	ae0a0014 */ 	sw	$t2,0x14($s0)
-/*  f192710:	8c4b0040 */ 	lw	$t3,0x40($v0)
-/*  f192714:	316c0080 */ 	andi	$t4,$t3,0x80
-/*  f192718:	51800008 */ 	beqzl	$t4,.L0f19273c
-/*  f19271c:	8e1902d4 */ 	lw	$t9,0x2d4($s0)
-/*  f192720:	8c4e0048 */ 	lw	$t6,0x48($v0)
-/*  f192724:	240d00f0 */ 	addiu	$t5,$zero,0xf0
-/*  f192728:	adcd00b4 */ 	sw	$t5,0xb4($t6)
-/*  f19272c:	8c580048 */ 	lw	$t8,0x48($v0)
-/*  f192730:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f192734:	af0f0108 */ 	sw	$t7,0x108($t8)
-/*  f192738:	8e1902d4 */ 	lw	$t9,0x2d4($s0)
-.L0f19273c:
-/*  f19273c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f192740:	0fc65f65 */ 	jal	func0f197d94
-/*  f192744:	8f250020 */ 	lw	$a1,0x20($t9)
-/*  f192748:	8e0802d4 */ 	lw	$t0,0x2d4($s0)
-/*  f19274c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f192750:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f192754:	ad000024 */ 	sw	$zero,0x24($t0)
-/*  f192758:	8e0902d4 */ 	lw	$t1,0x2d4($s0)
-/*  f19275c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f192760:	0fc6652c */ 	jal	func0f1994b0
-/*  f192764:	ad200028 */ 	sw	$zero,0x28($t1)
-.L0f192768:
-/*  f192768:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f19276c:
-/*  f19276c:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f192770:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f192774:	03e00008 */ 	jr	$ra
-/*  f192778:	00000000 */ 	nop
-);
+void func0f192628(struct chrdata *chr, struct prop *arg1)
+{
+	if (chr->aibot->weaponnum >= WEAPON_FALCON2 && chr->aibot->weaponnum != WEAPON_BRIEFCASE2) {
+		struct prop *prop = NULL;
+		struct defaultobj *obj;
+
+		if (chr->weapons_held[HAND_LEFT]) {
+			obj = chr->weapons_held[HAND_LEFT]->obj;
+
+			obj->hidden |= OBJHFLAG_00000004;
+			chr->weapons_held[HAND_LEFT] = NULL;
+		}
+
+		if (chr->weapons_held[HAND_RIGHT]) {
+			prop = chr->weapons_held[HAND_RIGHT];
+			func0f08bb5c(prop, false, -1);
+			chr->weapons_held[HAND_RIGHT] = NULL;
+		} else {
+			s32 modelnum = weaponGetModel(chr->aibot->weaponnum);
+
+			if (modelnum >= 0) {
+				prop = func0f08b8e8(chr, modelnum, chr->aibot->weaponnum, 0x20000000, 0, 0);
+			}
+		}
+
+		if (prop && prop->obj) {
+			obj = prop->obj;
+			propobjSetDropped(prop, DROPREASON_1);
+			chr->hidden |= CHRHFLAG_00000001;
+
+			if (obj->hidden & OBJHFLAG_AIRBORNE) {
+				obj->projectile->unk0b4 = 240;
+				obj->projectile->unk108 = arg1;
+			}
+		}
+
+		func0f197d94(chr, chr->aibot->weaponnum);
+
+		chr->aibot->unk024[0] = 0;
+		chr->aibot->unk024[1] = 0;
+
+		func0f1994b0(chr, true, false);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f19277c
