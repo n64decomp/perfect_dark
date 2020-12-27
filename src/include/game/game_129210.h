@@ -6,6 +6,6 @@
 u32 func0f129210(void);
 void func0f12939c(void);
 u32 func0f12955c(void);
-u32 func0f129818(void);
+void func0f129818(s32 arg0, void *arg1);
 
 #endif

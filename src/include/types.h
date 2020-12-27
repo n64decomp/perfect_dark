@@ -6731,11 +6731,11 @@ struct var8006ae10 {
 };
 
 struct var8007e3d0_data {
-	u32 unk00;
+	void *unk00;
 	u32 unk04;
 	u32 unk08;
-	u16 unk0c;
-	u16 unk0e;
+	s16 unk0c;
+	s16 unk0e;
 };
 
 struct var8007e3d0 {
