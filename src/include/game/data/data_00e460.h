@@ -137,7 +137,7 @@ extern u32 var8006ad24;
 extern u32 var8006ad8c;
 extern u32 var8006ad90;
 extern u32 var8006adf8;
-extern u32 var8006ae10;
+extern struct var8006ae10 *var8006ae10;
 extern u32 var8006ae14;
 extern s8 var8006ae18;
 extern s8 var8006ae1c;
