@@ -340,7 +340,7 @@ void func0f09054c(void);
 Gfx *func0f0908b8(Gfx *gdl);
 u32 func0f090d34(void);
 void alarmTick(void);
-u32 func0f091030(void);
+void func0f091030(void);
 void func0f0910ac(void);
 u32 func0f091250(void);
 void projectileCreate(struct prop *fromprop, u32 arg1, struct coord *pos, struct coord *direction, s32 weaponnum, struct prop *targetprop);
