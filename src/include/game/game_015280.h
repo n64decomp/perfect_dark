@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f015280(void);
+u32 explosionsClearAll(void);
 
 #endif

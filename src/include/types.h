@@ -4814,7 +4814,7 @@ struct explosionbb { // billboards?
 };
 
 struct explosion {
-	u32 unk00;
+	struct prop *prop;
 	u32 unk04;
 	struct explosion08 unk08[40];
 	/*0x3c8*/ s16 age;

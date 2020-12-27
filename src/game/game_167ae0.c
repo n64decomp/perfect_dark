@@ -2762,7 +2762,7 @@ void stageLoad(void)
 	}
 
 	func0f014f10();
-	func0f015280();
+	explosionsClearAll();
 	smokeClearAll();
 	func0f015400();
 	func0f015410();

@@ -2289,7 +2289,7 @@ bool frIsAmmoWasted(void)
 
 		// Check if there are any explosions
 		for (i = 0; i != 6; i++) {
-			if (g_Explosions[i].unk00) {
+			if (g_Explosions[i].prop) {
 				return false;
 			}
 		}
