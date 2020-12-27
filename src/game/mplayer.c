@@ -39,11 +39,6 @@ const char var7f1b8a2c[] = "%s %d\n";
 const char var7f1b8a34[] = "";
 const char var7f1b8a38[] = "-mpwpnset";
 const char var7f1b8a44[] = "-mpwpnset";
-const char var7f1b8a50[] = "%s %d\n";
-const char var7f1b8a58[] = "";
-const char var7f1b8a5c[] = "Gun index %d -> slot %d = gun %d\n\n";
-const char var7f1b8a80[] = "HOLDER: selecting weapon set %d\n";
-const char var7f1b8aa4[] = "%d\n";
 
 /**
  * Converts the given value into a float on a curved scale from 0.1 to 10.
@@ -847,70 +842,34 @@ glabel func0f188210
 /*  f188368:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel func0f18836c
-/*  f18836c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f188370:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f188374:	3c10800b */ 	lui	$s0,%hi(g_MpSetup)
-/*  f188378:	2610cb88 */ 	addiu	$s0,$s0,%lo(g_MpSetup)
-/*  f18837c:	920e0000 */ 	lbu	$t6,0x0($s0)
-/*  f188380:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f188384:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f188388:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f18838c:	15c00006 */ 	bnez	$t6,.L0f1883a8
-/*  f188390:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f188394:	0fc5b9f1 */ 	jal	langGet
-/*  f188398:	240459b6 */ 	addiu	$a0,$zero,0x59b6
-/*  f18839c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1883a0:	0c004c4c */ 	jal	strcpy
-/*  f1883a4:	00402825 */ 	or	$a1,$v0,$zero
-.L0f1883a8:
-/*  f1883a8:	3c11800b */ 	lui	$s1,%hi(g_MpSetup+0x28)
-/*  f1883ac:	2631cbb0 */ 	addiu	$s1,$s1,%lo(g_MpSetup+0x28)
-/*  f1883b0:	00008025 */ 	or	$s0,$zero,$zero
-.L0f1883b4:
-/*  f1883b4:	922f0000 */ 	lbu	$t7,0x0($s1)
-/*  f1883b8:	55e00007 */ 	bnezl	$t7,.L0f1883d8
-/*  f1883bc:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1883c0:	0fc5b9f1 */ 	jal	langGet
-/*  f1883c4:	26045608 */ 	addiu	$a0,$s0,0x5608
-/*  f1883c8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f1883cc:	0c004c4c */ 	jal	strcpy
-/*  f1883d0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1883d4:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f1883d8:
-/*  f1883d8:	2a010008 */ 	slti	$at,$s0,0x8
-/*  f1883dc:	1420fff5 */ 	bnez	$at,.L0f1883b4
-/*  f1883e0:	2631000c */ 	addiu	$s1,$s1,0xc
-/*  f1883e4:	3c11800b */ 	lui	$s1,%hi(g_MpPlayers)
-/*  f1883e8:	3c127f1c */ 	lui	$s2,%hi(var7f1b8a50)
-/*  f1883ec:	26528a50 */ 	addiu	$s2,$s2,%lo(var7f1b8a50)
-/*  f1883f0:	2631c7b8 */ 	addiu	$s1,$s1,%lo(g_MpPlayers)
-/*  f1883f4:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1883f8:	24130004 */ 	addiu	$s3,$zero,0x4
-.L0f1883fc:
-/*  f1883fc:	92380000 */ 	lbu	$t8,0x0($s1)
-/*  f188400:	57000009 */ 	bnezl	$t8,.L0f188428
-/*  f188404:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f188408:	0fc5b9f1 */ 	jal	langGet
-/*  f18840c:	240459b5 */ 	addiu	$a0,$zero,0x59b5
-/*  f188410:	02202025 */ 	or	$a0,$s1,$zero
-/*  f188414:	02402825 */ 	or	$a1,$s2,$zero
-/*  f188418:	00403025 */ 	or	$a2,$v0,$zero
-/*  f18841c:	0c004dad */ 	jal	sprintf
-/*  f188420:	26070001 */ 	addiu	$a3,$s0,0x1
-/*  f188424:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f188428:
-/*  f188428:	1613fff4 */ 	bne	$s0,$s3,.L0f1883fc
-/*  f18842c:	263100a0 */ 	addiu	$s1,$s1,0xa0
-/*  f188430:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f188434:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f188438:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f18843c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f188440:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f188444:	03e00008 */ 	jr	$ra
-/*  f188448:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void mpSetDefaultNamesIfEmpty(void)
+{
+	s32 i;
+
+	// Setup file name
+	if (g_MpSetup.name[0] == '\0') {
+		strcpy(g_MpSetup.name, langGet(L_MISC(438))); // empty string
+	}
+
+	// Team names
+	for (i = 0; i < 8; i++) {
+		if (g_MpSetupSaveFile.teamnames[i][0] == '\0') {
+			strcpy(g_MpSetupSaveFile.teamnames[i], langGet(L_OPTIONS(8) + i)); // "Red", "Yellow" etc
+		}
+	}
+
+	// Player names
+	for (i = 0; i < 4; i++) {
+		if (g_MpPlayers[i].base.name[0] == '\0') {
+			sprintf(g_MpPlayers[i].base.name, "%s %d\n", langGet(L_MISC(437)), i + 1); // "Player 1" etc
+		}
+	}
+}
+
+const char var7f1b8a58[] = "";
+const char var7f1b8a5c[] = "Gun index %d -> slot %d = gun %d\n\n";
+const char var7f1b8a80[] = "HOLDER: selecting weapon set %d\n";
+const char var7f1b8aa4[] = "%d\n";
 
 GLOBAL_ASM(
 glabel func0f18844c

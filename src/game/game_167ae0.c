@@ -351,7 +351,7 @@ void func0f167e7c(s32 stagenum)
 		}
 	}
 
-	func0f18836c();
+	mpSetDefaultNamesIfEmpty();
 	func0002373c();
 	setupResetObjectives();
 	func0f013ba0();
