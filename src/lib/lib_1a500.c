@@ -468,8 +468,8 @@ void *modelGetNodeData(struct model *model, struct modelnode *node)
 		break;
 	}
 
-	while (node->relation) {
-		node = node->relation;
+	while (node->parent) {
+		node = node->parent;
 
 		if ((node->type & 0xff) == MODELNODETYPE_HEADSPOT) {
 			struct modeldata_headspot *tmp = modelGetNodeData(model, node);

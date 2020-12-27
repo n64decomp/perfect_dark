@@ -267,9 +267,12 @@ union modelnode_data {
 };
 
 struct modelnode {
-	u16 type;
-	union modelnode_data *data;
-	struct modelnode *relation; // unsure if parent or child
+	/*0x00*/ u16 type;
+	/*0x04*/ union modelnode_data *data;
+	/*0x08*/ struct modelnode *parent;
+	/*0x0c*/ struct modelnode *next;
+	/*0x10*/ struct modelnode *prev;
+	/*0x14*/ struct modelnode *child;
 };
 
 struct model08 { // raw model file data
@@ -291,7 +294,7 @@ struct model {
 	/*0x04*/ struct chrdata *chr;
 	/*0x08*/ struct model08 *unk08;
 	/*0x0c*/ Mtxf *unk0c;
-	/*0x10*/ void *datas; // array of pointers to modeldata structs
+	/*0x10*/ void **datas; // array of pointers to modeldata structs
 	/*0x14*/ f32 unk14;
 	/*0x18*/ struct model *attachedto;
 	/*0x1c*/ struct modelnode *unk1c;

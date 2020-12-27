@@ -17,122 +17,61 @@
 #include "lib/lib_1a500.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f129210
-/*  f129210:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f129214:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x33c)
-/*  f129218:	8dcea2fc */ 	lw	$t6,%lo(g_Vars+0x33c)($t6)
-/*  f12921c:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f129220:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f129224:	0080b825 */ 	or	$s7,$a0,$zero
-/*  f129228:	00a0f025 */ 	or	$s8,$a1,$zero
-/*  f12922c:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f129230:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f129234:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f129238:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f12923c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f129240:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f129244:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f129248:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f12924c:	11c00047 */ 	beqz	$t6,.L0f12936c
-/*  f129250:	afae0040 */ 	sw	$t6,0x40($sp)
-/*  f129254:	24160018 */ 	addiu	$s6,$zero,0x18
-/*  f129258:	24150017 */ 	addiu	$s5,$zero,0x17
-/*  f12925c:	24140012 */ 	addiu	$s4,$zero,0x12
-/*  f129260:	24130008 */ 	addiu	$s3,$zero,0x8
-.L0f129264:
-/*  f129264:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*  f129268:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f12926c:	91f80000 */ 	lbu	$t8,0x0($t7)
-/*  f129270:	5701003b */ 	bnel	$t8,$at,.L0f129360
-/*  f129274:	8fac0040 */ 	lw	$t4,0x40($sp)
-/*  f129278:	8df10004 */ 	lw	$s1,0x4($t7)
-/*  f12927c:	8e320018 */ 	lw	$s2,0x18($s1)
-/*  f129280:	8e420008 */ 	lw	$v0,0x8($s2)
-/*  f129284:	8c500000 */ 	lw	$s0,0x0($v0)
-/*  f129288:	52000035 */ 	beqzl	$s0,.L0f129360
-/*  f12928c:	8fac0040 */ 	lw	$t4,0x40($sp)
-/*  f129290:	96020000 */ 	lhu	$v0,0x0($s0)
-.L0f129294:
-/*  f129294:	02002825 */ 	or	$a1,$s0,$zero
-/*  f129298:	305900ff */ 	andi	$t9,$v0,0xff
-/*  f12929c:	13330014 */ 	beq	$t9,$s3,.L0f1292f0
-/*  f1292a0:	00000000 */ 	nop
-/*  f1292a4:	13340016 */ 	beq	$t9,$s4,.L0f129300
-/*  f1292a8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1292ac:	13350018 */ 	beq	$t9,$s5,.L0f129310
-/*  f1292b0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1292b4:	53360004 */ 	beql	$t9,$s6,.L0f1292c8
-/*  f1292b8:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f1292bc:	10000017 */ 	b	.L0f12931c
-/*  f1292c0:	8e020014 */ 	lw	$v0,0x14($s0)
-/*  f1292c4:	8e020004 */ 	lw	$v0,0x4($s0)
-.L0f1292c8:
-/*  f1292c8:	8e480010 */ 	lw	$t0,0x10($s2)
-/*  f1292cc:	94490014 */ 	lhu	$t1,0x14($v0)
-/*  f1292d0:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f1292d4:	010a1821 */ 	addu	$v1,$t0,$t2
-/*  f1292d8:	8c6b0000 */ 	lw	$t3,0x0($v1)
-/*  f1292dc:	16eb0002 */ 	bne	$s7,$t3,.L0f1292e8
-/*  f1292e0:	00000000 */ 	nop
-/*  f1292e4:	ac7e0000 */ 	sw	$s8,0x0($v1)
-.L0f1292e8:
-/*  f1292e8:	1000000c */ 	b	.L0f12931c
-/*  f1292ec:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0f1292f0:
-/*  f1292f0:	0c0071e1 */ 	jal	func0001c784
-/*  f1292f4:	8e240018 */ 	lw	$a0,0x18($s1)
-/*  f1292f8:	10000008 */ 	b	.L0f12931c
-/*  f1292fc:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0f129300:
-/*  f129300:	0c0071f4 */ 	jal	func0001c7d0
-/*  f129304:	8e240018 */ 	lw	$a0,0x18($s1)
-/*  f129308:	10000004 */ 	b	.L0f12931c
-/*  f12930c:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0f129310:
-/*  f129310:	0c007207 */ 	jal	func0001c81c
-/*  f129314:	8e240018 */ 	lw	$a0,0x18($s1)
-/*  f129318:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0f12931c:
-/*  f12931c:	10400003 */ 	beqz	$v0,.L0f12932c
-/*  f129320:	00000000 */ 	nop
-/*  f129324:	1000000b */ 	b	.L0f129354
-/*  f129328:	00408025 */ 	or	$s0,$v0,$zero
-.L0f12932c:
-/*  f12932c:	12000009 */ 	beqz	$s0,.L0f129354
-/*  f129330:	00000000 */ 	nop
-/*  f129334:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0f129338:
-/*  f129338:	50400004 */ 	beqzl	$v0,.L0f12934c
-/*  f12933c:	8e100008 */ 	lw	$s0,0x8($s0)
-/*  f129340:	10000004 */ 	b	.L0f129354
-/*  f129344:	00408025 */ 	or	$s0,$v0,$zero
-/*  f129348:	8e100008 */ 	lw	$s0,0x8($s0)
-.L0f12934c:
-/*  f12934c:	5600fffa */ 	bnezl	$s0,.L0f129338
-/*  f129350:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0f129354:
-/*  f129354:	5600ffcf */ 	bnezl	$s0,.L0f129294
-/*  f129358:	96020000 */ 	lhu	$v0,0x0($s0)
-/*  f12935c:	8fac0040 */ 	lw	$t4,0x40($sp)
-.L0f129360:
-/*  f129360:	8d8d0020 */ 	lw	$t5,0x20($t4)
-/*  f129364:	15a0ffbf */ 	bnez	$t5,.L0f129264
-/*  f129368:	afad0040 */ 	sw	$t5,0x40($sp)
-.L0f12936c:
-/*  f12936c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f129370:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f129374:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f129378:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f12937c:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f129380:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f129384:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f129388:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f12938c:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f129390:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f129394:	03e00008 */ 	jr	$ra
-/*  f129398:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+/**
+ * Search all props and their model data for something, and replace it with
+ * something else.
+ */
+void func0f129210(void *find, void *replacement)
+{
+	u32 stack;
+	struct prop *prop = g_Vars.unk00033c;
+
+	while (prop) {
+		if (prop->type == PROPTYPE_OBJ) {
+			struct defaultobj *obj = prop->obj;
+			struct model *model = obj->model;
+			struct model08 *filedata = model->unk08;
+			struct modelnode *node = filedata->rootnode;
+			struct modelnode_displaylist *data;
+
+			while (node) {
+				switch (node->type & 0xff) {
+				case MODELNODETYPE_DISPLAYLIST:
+					data = &node->data->displaylist;
+
+					if (model->datas[data->index] == find) {
+						model->datas[data->index] = replacement;
+					}
+					break;
+				case MODELNODETYPE_NEARFAR:
+					func0001c784(obj->model, node);
+					break;
+				case MODELNODETYPE_PARTID:
+					func0001c7d0(obj->model, node);
+					break;
+				case MODELNODETYPE_HEADSPOT:
+					func0001c81c(obj->model, node);
+					break;
+				}
+
+				if (node->child) {
+					node = node->child;
+				} else {
+					while (node) {
+						if (node->next) {
+							node = node->next;
+							break;
+						}
+
+						node = node->parent;
+					}
+				}
+			}
+		}
+
+		prop = prop->next;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f12939c
