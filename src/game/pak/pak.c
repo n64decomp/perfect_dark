@@ -8563,54 +8563,20 @@ glabel func0f11dc04
 /*  f11dcac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f11dcb0
-/*  f11dcb0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f11dcb4:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f11dcb8:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f11dcbc:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f11dcc0:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f11dcc4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f11dcc8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f11dccc:	3c12800a */ 	lui	$s2,%hi(var800a2380)
-/*  f11dcd0:	00808825 */ 	or	$s1,$a0,$zero
-/*  f11dcd4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f11dcd8:	26522380 */ 	addiu	$s2,$s2,%lo(var800a2380)
-/*  f11dcdc:	00008025 */ 	or	$s0,$zero,$zero
-/*  f11dce0:	241302cc */ 	addiu	$s3,$zero,0x2cc
-/*  f11dce4:	24140002 */ 	addiu	$s4,$zero,0x2
-/*  f11dce8:	24150003 */ 	addiu	$s5,$zero,0x3
-.L0f11dcec:
-/*  f11dcec:	02130019 */ 	multu	$s0,$s3
-/*  f11dcf0:	00007012 */ 	mflo	$t6
-/*  f11dcf4:	024e7821 */ 	addu	$t7,$s2,$t6
-/*  f11dcf8:	8de20000 */ 	lw	$v0,0x0($t7)
-/*  f11dcfc:	50540008 */ 	beql	$v0,$s4,.L0f11dd20
-/*  f11dd00:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f11dd04:	10550005 */ 	beq	$v0,$s5,.L0f11dd1c
-/*  f11dd08:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f11dd0c:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f11dd10:	03002025 */ 	or	$a0,$t8,$zero
-/*  f11dd14:	0c0054f1 */ 	jal	func000153c4
-/*  f11dd18:	02202825 */ 	or	$a1,$s1,$zero
-.L0f11dd1c:
-/*  f11dd1c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f11dd20:
-/*  f11dd20:	0010ce00 */ 	sll	$t9,$s0,0x18
-/*  f11dd24:	00198603 */ 	sra	$s0,$t9,0x18
-/*  f11dd28:	2a010005 */ 	slti	$at,$s0,0x5
-/*  f11dd2c:	1420ffef */ 	bnez	$at,.L0f11dcec
-/*  f11dd30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11dd34:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f11dd38:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f11dd3c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f11dd40:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f11dd44:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f11dd48:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f11dd4c:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f11dd50:	03e00008 */ 	jr	$ra
-/*  f11dd54:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void func0f11dcb0(s32 arg0)
+{
+	s8 i;
+
+	for (i = 0; i < 5; i++) {
+		s32 value = var800a2380[i].unk000;
+
+		if (value);
+
+		if (value != 2 && value != 3) {
+			func000153c4(i, arg0);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f11dd58

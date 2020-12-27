@@ -4889,7 +4889,7 @@ struct pakdata {
 };
 
 struct var800a2380 {
-	/*0x000*/ u32 unk000;
+	/*0x000*/ s32 unk000;
 	/*0x004*/ u32 unk004;
 	/*0x008*/ u32 unk008;
 	/*0x00c*/ u32 unk00c;
