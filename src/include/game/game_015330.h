@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f015330(void);
+void smokeClearAll(void);
 
 #endif

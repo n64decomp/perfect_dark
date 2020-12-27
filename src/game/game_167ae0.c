@@ -2763,7 +2763,7 @@ void stageLoad(void)
 
 	func0f014f10();
 	func0f015280();
-	func0f015330();
+	smokeClearAll();
 	func0f015400();
 	func0f015410();
 	func0f015420();
