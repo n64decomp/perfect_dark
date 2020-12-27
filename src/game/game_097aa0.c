@@ -63,21 +63,8 @@ void func0f097b40(f32 *a, f32 *b, f32 *dst)
 	dst[1] = b[1] * a[1];
 }
 
-GLOBAL_ASM(
-glabel func0f097b64
-/*  f097b64:	c4800000 */ 	lwc1	$f0,0x0($a0)
-/*  f097b68:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f097b6c:	44866000 */ 	mtc1	$a2,$f12
-/*  f097b70:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f097b74:	460c3202 */ 	mul.s	$f8,$f6,$f12
-/*  f097b78:	46080280 */ 	add.s	$f10,$f0,$f8
-/*  f097b7c:	e4ea0000 */ 	swc1	$f10,0x0($a3)
-/*  f097b80:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*  f097b84:	c4820004 */ 	lwc1	$f2,0x4($a0)
-/*  f097b88:	46028481 */ 	sub.s	$f18,$f16,$f2
-/*  f097b8c:	460c9102 */ 	mul.s	$f4,$f18,$f12
-/*  f097b90:	46041180 */ 	add.s	$f6,$f2,$f4
-/*  f097b94:	03e00008 */ 	jr	$ra
-/*  f097b98:	e4e60004 */ 	swc1	$f6,0x4($a3)
-/*  f097b9c:	00000000 */ 	nop
-);
+void func0f097b64(f32 *a, f32 *b, f32 scale, f32 *dst)
+{
+	dst[0] = (b[0] - a[0]) * scale + a[0];
+	dst[1] = (b[1] - a[1]) * scale + a[1];
+}
