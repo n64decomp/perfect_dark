@@ -126,7 +126,7 @@ extern u32 var8007dbe8;
 extern u32 var8007dbf4;
 extern u32 var8007dc00;
 extern u32 var8007dc10;
-extern u32 var8007e3d0;
+extern struct var8007e3d0 var8007e3d0[4];
 extern u32 var8007e4a0;
 extern u32 var8007e4a4;
 extern f32 var8007e4a8;

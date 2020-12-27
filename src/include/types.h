@@ -6730,4 +6730,28 @@ struct var8006ae10 {
 	/*0x74*/ u32 unk74;
 };
 
+struct var8007e3d0_data {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u16 unk0c;
+	u16 unk0e;
+};
+
+struct var8007e3d0 {
+	s32 valifsp;
+	s32 numifsp;
+	s32 valifmp;
+	s32 numifmp;
+	s32 valifspecial;
+	s32 numifspecial;
+	s32 unk18;
+	s32 unk1c;
+	s32 unk20;
+	struct var8007e3d0_data *unk24;
+	s32 val1;
+	s32 val2;
+	s32 numallocated;
+};
+
 #endif

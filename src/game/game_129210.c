@@ -230,10 +230,10 @@ glabel func0f12939c
 /*  f1294f4:	03c4082a */ 	slt	$at,$s8,$a0
 /*  f1294f8:	1420ffc2 */ 	bnez	$at,.L0f129404
 /*  f1294fc:	26d60010 */ 	addiu	$s6,$s6,0x10
-/*  f129500:	3c058008 */ 	lui	$a1,%hi(var8007e42c)
-/*  f129504:	8ca5e42c */ 	lw	$a1,%lo(var8007e42c)($a1)
-/*  f129508:	3c028008 */ 	lui	$v0,%hi(var8007e430)
-/*  f12950c:	8c42e430 */ 	lw	$v0,%lo(var8007e430)($v0)
+/*  f129500:	3c058008 */ 	lui	$a1,%hi(var8007e3d0+0x5c)
+/*  f129504:	8ca5e42c */ 	lw	$a1,%lo(var8007e3d0+0x5c)($a1)
+/*  f129508:	3c028008 */ 	lui	$v0,%hi(var8007e3d0+0x60)
+/*  f12950c:	8c42e430 */ 	lw	$v0,%lo(var8007e3d0+0x60)($v0)
 /*  f129510:	00057883 */ 	sra	$t7,$a1,0x2
 /*  f129514:	01e02825 */ 	or	$a1,$t7,$zero
 .L0f129518:

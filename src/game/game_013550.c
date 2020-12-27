@@ -470,103 +470,35 @@ glabel func0f013b80
 /*  f013b9c:	ac40000c */ 	sw	$zero,0xc($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f013ba0
-/*  f013ba0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f013ba4:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f013ba8:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f013bac:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f013bb0:	3c128008 */ 	lui	$s2,%hi(var8007e3d0)
-/*  f013bb4:	3c14800a */ 	lui	$s4,%hi(g_Vars)
-/*  f013bb8:	3c158008 */ 	lui	$s5,%hi(var8007e4a0)
-/*  f013bbc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f013bc0:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f013bc4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f013bc8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f013bcc:	26b5e4a0 */ 	addiu	$s5,$s5,%lo(var8007e4a0)
-/*  f013bd0:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
-/*  f013bd4:	2652e3d0 */ 	addiu	$s2,$s2,%lo(var8007e3d0)
-.L0f013bd8:
-/*  f013bd8:	8e8e006c */ 	lw	$t6,0x6c($s4)
-/*  f013bdc:	8e820068 */ 	lw	$v0,0x68($s4)
-/*  f013be0:	8e840064 */ 	lw	$a0,0x64($s4)
-/*  f013be4:	8e860070 */ 	lw	$a2,0x70($s4)
-/*  f013be8:	11c00003 */ 	beqz	$t6,.L0f013bf8
-/*  f013bec:	00008025 */ 	or	$s0,$zero,$zero
-/*  f013bf0:	10000002 */ 	b	.L0f013bfc
-/*  f013bf4:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f013bf8:
-/*  f013bf8:	00002825 */ 	or	$a1,$zero,$zero
-.L0f013bfc:
-/*  f013bfc:	10400003 */ 	beqz	$v0,.L0f013c0c
-/*  f013c00:	00001825 */ 	or	$v1,$zero,$zero
-/*  f013c04:	10000001 */ 	b	.L0f013c0c
-/*  f013c08:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f013c0c:
-/*  f013c0c:	10800003 */ 	beqz	$a0,.L0f013c1c
-/*  f013c10:	00001025 */ 	or	$v0,$zero,$zero
-/*  f013c14:	10000002 */ 	b	.L0f013c20
-/*  f013c18:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f013c1c:
-/*  f013c1c:	00002025 */ 	or	$a0,$zero,$zero
-.L0f013c20:
-/*  f013c20:	10c00003 */ 	beqz	$a2,.L0f013c30
-/*  f013c24:	00000000 */ 	nop
-/*  f013c28:	10000001 */ 	b	.L0f013c30
-/*  f013c2c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f013c30:
-/*  f013c30:	00447821 */ 	addu	$t7,$v0,$a0
-/*  f013c34:	01e3c021 */ 	addu	$t8,$t7,$v1
-/*  f013c38:	0305c821 */ 	addu	$t9,$t8,$a1
-/*  f013c3c:	2b210002 */ 	slti	$at,$t9,0x2
-/*  f013c40:	14200004 */ 	bnez	$at,.L0f013c54
-/*  f013c44:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f013c48:	8e530008 */ 	lw	$s3,0x8($s2)
-/*  f013c4c:	1000000a */ 	b	.L0f013c78
-/*  f013c50:	8e51000c */ 	lw	$s1,0xc($s2)
-.L0f013c54:
-/*  f013c54:	8e8804b4 */ 	lw	$t0,0x4b4($s4)
-/*  f013c58:	2901005a */ 	slti	$at,$t0,0x5a
-/*  f013c5c:	54200005 */ 	bnezl	$at,.L0f013c74
-/*  f013c60:	8e530000 */ 	lw	$s3,0x0($s2)
-/*  f013c64:	8e530010 */ 	lw	$s3,0x10($s2)
-/*  f013c68:	10000003 */ 	b	.L0f013c78
-/*  f013c6c:	8e510014 */ 	lw	$s1,0x14($s2)
-/*  f013c70:	8e530000 */ 	lw	$s3,0x0($s2)
-.L0f013c74:
-/*  f013c74:	8e510004 */ 	lw	$s1,0x4($s2)
-.L0f013c78:
-/*  f013c78:	1a200004 */ 	blez	$s1,.L0f013c8c
-/*  f013c7c:	00000000 */ 	nop
-/*  f013c80:	0c0048f2 */ 	jal	malloc
-/*  f013c84:	00112100 */ 	sll	$a0,$s1,0x4
-/*  f013c88:	ae420024 */ 	sw	$v0,0x24($s2)
-.L0f013c8c:
-/*  f013c8c:	1a200007 */ 	blez	$s1,.L0f013cac
-/*  f013c90:	00001025 */ 	or	$v0,$zero,$zero
-.L0f013c94:
-/*  f013c94:	8e490024 */ 	lw	$t1,0x24($s2)
-/*  f013c98:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f013c9c:	01225021 */ 	addu	$t2,$t1,$v0
-/*  f013ca0:	24420010 */ 	addiu	$v0,$v0,0x10
-/*  f013ca4:	1611fffb */ 	bne	$s0,$s1,.L0f013c94
-/*  f013ca8:	a540000e */ 	sh	$zero,0xe($t2)
-.L0f013cac:
-/*  f013cac:	26520034 */ 	addiu	$s2,$s2,0x34
-/*  f013cb0:	ae51fffc */ 	sw	$s1,-0x4($s2)
-/*  f013cb4:	ae53fff4 */ 	sw	$s3,-0xc($s2)
-/*  f013cb8:	1655ffc7 */ 	bne	$s2,$s5,.L0f013bd8
-/*  f013cbc:	ae53fff8 */ 	sw	$s3,-0x8($s2)
-/*  f013cc0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f013cc4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f013cc8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f013ccc:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f013cd0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f013cd4:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f013cd8:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f013cdc:	03e00008 */ 	jr	$ra
-/*  f013ce0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f013ce4:	00000000 */ 	nop
-/*  f013ce8:	00000000 */ 	nop
-/*  f013cec:	00000000 */ 	nop
-);
+void func0f013ba0(void)
+{
+	s32 i;
+	s32 j;
+	s32 num;
+	s32 val;
+
+	for (i = 0; i < 4; i++) {
+		if (PLAYERCOUNT() >= 2) {
+			val = var8007e3d0[i].valifmp;
+			num = var8007e3d0[i].numifmp;
+		} else if (g_Vars.stagenum >= STAGE_TITLE) {
+			val = var8007e3d0[i].valifspecial;
+			num = var8007e3d0[i].numifspecial;
+		} else {
+			val = var8007e3d0[i].valifsp;
+			num = var8007e3d0[i].numifsp;
+		}
+
+		if (num > 0) {
+			var8007e3d0[i].unk24 = malloc(num * sizeof(struct var8007e3d0_data), 4);
+		}
+
+		for (j = 0; j < num; j++) {
+			var8007e3d0[i].unk24[j].unk0e = 0;
+		}
+
+		var8007e3d0[i].numallocated = num;
+		var8007e3d0[i].val1 = val;
+		var8007e3d0[i].val2 = val;
+	}
+}
