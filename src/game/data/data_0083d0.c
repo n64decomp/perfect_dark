@@ -165,7 +165,7 @@ s32 var80062c6c[] = {
 	0x21, 0x20, 0x24, 0x2c, -1,
 };
 
-u32 var80062c80 = 0x00000000;
+s32 var80062c80 = 0;
 u32 g_HeadsAIndex = 0x00000000;
 u32 g_HeadsBIndex = 0x00000000;
 u32 g_FemaleHeads[3] = {HEAD_ALEX, HEAD_JULIANNE, HEAD_LAURA};

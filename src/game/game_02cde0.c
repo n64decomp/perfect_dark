@@ -427,16 +427,10 @@ struct model *modelAllocateChr(u32 bodynum, u32 headnum, u32 flags)
 	return func0f02d338(bodynum, headnum, 0, 0, a, b);
 }
 
-GLOBAL_ASM(
-glabel func0f02d3f8
-/*  f02d3f8:	3c0e8006 */ 	lui	$t6,%hi(var80062c80)
-/*  f02d3fc:	8dce2c80 */ 	lw	$t6,%lo(var80062c80)($t6)
-/*  f02d400:	3c028006 */ 	lui	$v0,%hi(var80062b1c)
-/*  f02d404:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f02d408:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f02d40c:	03e00008 */ 	jr	$ra
-/*  f02d410:	8c422b1c */ 	lw	$v0,%lo(var80062b1c)($v0)
-);
+s32 func0f02d3f8(void)
+{
+	return var80062b1c[var80062c80];
+}
 
 u32 bodyGetHead(u32 bodynum)
 {

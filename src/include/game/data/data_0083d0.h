@@ -120,6 +120,7 @@ extern s32 var80062b68[];
 extern s32 var80062c14[];
 extern s32 var80062c58[];
 extern s32 var80062c6c[];
+extern s32 var80062c80;
 extern u32 g_HeadsAIndex;
 extern u32 g_HeadsBIndex;
 extern u32 g_FemaleHeads[3];
