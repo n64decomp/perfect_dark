@@ -5,6 +5,6 @@
 
 s32 func0f096890(s32 arg0);
 u16 func0f096910(s16 arg0);
-s32 func0f096964(s32 value);
+s16 func0f096964(s16 arg0);
 
 #endif
