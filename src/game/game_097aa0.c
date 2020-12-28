@@ -43,19 +43,12 @@ glabel func0f097aa0
 /*  f097b04:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*  f097b08:	03e00008 */ 	jr	$ra
 /*  f097b0c:	46108000 */ 	add.s	$f0,$f16,$f16
-/*  f097b10:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f097b14:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f097b18:	0fc25ea8 */ 	jal	func0f097aa0
-/*  f097b1c:	e7ae001c */ 	swc1	$f14,0x1c($sp)
-/*  f097b20:	c7a4001c */ 	lwc1	$f4,0x1c($sp)
-/*  f097b24:	46040302 */ 	mul.s	$f12,$f0,$f4
-/*  f097b28:	0fc25e94 */ 	jal	func0f097a50
-/*  f097b2c:	00000000 */ 	nop
-/*  f097b30:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f097b34:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f097b38:	03e00008 */ 	jr	$ra
-/*  f097b3c:	00000000 */ 	nop
 );
+
+f32 func0f097b10(f32 arg0, f32 arg1)
+{
+	return func0f097a50(func0f097aa0(arg0) * arg1);
+}
 
 void func0f097b40(f32 *a, f32 *b, f32 *dst)
 {
