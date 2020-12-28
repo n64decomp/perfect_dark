@@ -4,6 +4,6 @@
 #include "types.h"
 
 void stageLoadTiles(void);
-void func0f013d74(void);
+void stageParseTiles(void);
 
 #endif

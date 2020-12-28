@@ -5828,10 +5828,15 @@ struct mpconfigfull {
 
 struct tile {
 	/*0x00*/ u8 unk00; // 0 or 1 to enable floorcol, 2 or 3 to disable
-	/*0x01*/ u8 unk01;
+	/*0x01*/ u8 numvertices;
 	/*0x02*/ u16 flags;
 	/*0x04*/ u16 floortype;
-	/*0x08*/ u32 unk08;
+	/*0x06*/ u8 unk06;
+	/*0x07*/ u8 unk07;
+	/*0x08*/ u8 unk08;
+	/*0x09*/ u8 unk09;
+	/*0x0a*/ u8 unk0a;
+	/*0x0b*/ u8 unk0b;
 	/*0x0c*/ u16 floorcol;
 };
 
