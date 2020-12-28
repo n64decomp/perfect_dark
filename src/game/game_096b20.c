@@ -10,29 +10,12 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f096b20
-/*  f096b20:	c4800000 */ 	lwc1	$f0,0x0($a0)
-/*  f096b24:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f096b28:	44866000 */ 	mtc1	$a2,$f12
-/*  f096b2c:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f096b30:	460c3202 */ 	mul.s	$f8,$f6,$f12
-/*  f096b34:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f096b38:	e4ea0000 */ 	swc1	$f10,0x0($a3)
-/*  f096b3c:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*  f096b40:	c4820004 */ 	lwc1	$f2,0x4($a0)
-/*  f096b44:	46028481 */ 	sub.s	$f18,$f16,$f2
-/*  f096b48:	460c9102 */ 	mul.s	$f4,$f18,$f12
-/*  f096b4c:	46022180 */ 	add.s	$f6,$f4,$f2
-/*  f096b50:	e4e60004 */ 	swc1	$f6,0x4($a3)
-/*  f096b54:	c4a80008 */ 	lwc1	$f8,0x8($a1)
-/*  f096b58:	c48e0008 */ 	lwc1	$f14,0x8($a0)
-/*  f096b5c:	460e4281 */ 	sub.s	$f10,$f8,$f14
-/*  f096b60:	460c5402 */ 	mul.s	$f16,$f10,$f12
-/*  f096b64:	460e8480 */ 	add.s	$f18,$f16,$f14
-/*  f096b68:	03e00008 */ 	jr	$ra
-/*  f096b6c:	e4f20008 */ 	swc1	$f18,0x8($a3)
-);
+void func0f096b20(struct coord *arg0, struct coord *arg1, f32 standfrac, struct coord *vel)
+{
+	vel->x = (arg1->x - arg0->x) * standfrac + arg0->x;
+	vel->y = (arg1->y - arg0->y) * standfrac + arg0->y;
+	vel->z = (arg1->z - arg0->z) * standfrac + arg0->z;
+}
 
 GLOBAL_ASM(
 glabel func0f096b70
