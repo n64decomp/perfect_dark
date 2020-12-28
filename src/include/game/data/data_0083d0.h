@@ -109,17 +109,17 @@ extern struct var80062a8c *var80062a8c; // pointer to array
 extern s32 var80062a90; // true if var80062a8c has anything in its array
 extern u32 var80062a94;
 extern u32 var80062aa0;
-extern u32 var80062b00;
-extern u32 var80062b04;
-extern u32 var80062b08;
-extern u32 var80062b0c;
-extern u32 var80062b10;
+extern s32 var80062b00;
+extern s32 var80062b04;
+extern s32 var80062b08;
+extern s32 var80062b0c;
+extern s32 var80062b10;
 extern u32 var80062b14;
-extern u32 var80062b1c;
-extern u32 var80062b68;
-extern u32 var80062c14;
-extern u32 var80062c58;
-extern u32 var80062c6c;
+extern s32 var80062b1c[];
+extern s32 var80062b68[];
+extern s32 var80062c14[];
+extern s32 var80062c58[];
+extern s32 var80062c6c[];
 extern u32 g_HeadsAIndex;
 extern u32 g_HeadsBIndex;
 extern u32 g_FemaleHeads[3];
