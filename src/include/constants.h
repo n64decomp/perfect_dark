@@ -90,6 +90,13 @@
 #define AIBOTCMD_POPCAP   12
 #define AIBOTCMD_PROTECT  13
 
+#define AICMD_END           0x0004
+#define AICMD_DROPITEM      0x001c
+#define AICMD_SPAWNCHRATPAD 0x00c6
+#define AICMD_SPAWNCHRATCHR 0x00c7
+#define AICMD_EQUIPWEAPON   0x00c8
+#define AICMD_EQUIPHAT      0x00c9
+
 // AI environment commands
 #define AIENVCMD_00                   0x00
 #define AIENVCMD_01                   0x01

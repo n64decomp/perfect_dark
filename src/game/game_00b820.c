@@ -696,6 +696,10 @@ glabel func0f00bbc8
 /*  f00c070:	27bd0710 */ 	addiu	$sp,$sp,0x710
 /*  f00c074:	03e00008 */ 	jr	$ra
 /*  f00c078:	00000000 */ 	nop
+);
+
+GLOBAL_ASM(
+glabel debugLoadAllAilistModels
 /*  f00c07c:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f00c080:	3c0e800a */ 	lui	$t6,%hi(g_StageSetup+0x18)
 /*  f00c084:	8dced048 */ 	lw	$t6,%lo(g_StageSetup+0x18)($t6)
@@ -780,7 +784,7 @@ glabel func0f00bbc8
 /*  f00c1a4:	000a5a00 */ 	sll	$t3,$t2,0x8
 /*  f00c1a8:	0fc2486d */ 	jal	propLoad
 /*  f00c1ac:	016c2025 */ 	or	$a0,$t3,$t4
-/*  f00c1b0:	0fc04558 */ 	jal	func0f011560
+/*  f00c1b0:	0fc04558 */ 	jal	weaponLoadProjectileModels
 /*  f00c1b4:	92040004 */ 	lbu	$a0,0x4($s0)
 /*  f00c1b8:	50400009 */ 	beqzl	$v0,.L0f00c1e0
 /*  f00c1bc:	02002025 */ 	or	$a0,$s0,$zero
@@ -816,6 +820,74 @@ glabel func0f00bbc8
 /*  f00c224:	8fb70030 */ 	lw	$s7,0x30($sp)
 /*  f00c228:	03e00008 */ 	jr	$ra
 /*  f00c22c:	27bd0038 */ 	addiu	$sp,$sp,0x38
+);
+
+// Mismatch: regalloc near 19c
+//void debugLoadAllAilistModels(void)
+//{
+//	u8 *cmd = g_StageSetup.ailists[0].list;
+//	s32 i = 0;
+//	s32 id;
+//
+//	if (!cmd) {
+//		return;
+//	}
+//
+//	do {
+//		while (true) {
+//			if (cmd[0] == AICMD_END) {
+//				break;
+//			}
+//
+//			switch (cmd[0]) {
+//			case AICMD_DROPITEM: // 120
+//				id = cmd[3] | (cmd[2] << 8);
+//
+//				if (propLoad(id & 0xffff)) {
+//					// empty
+//				}
+//				break;
+//			case AICMD_SPAWNCHRATPAD: // 144
+//				if (bodyLoad(cmd[2])) {
+//					// empty
+//				}
+//				if ((s8)cmd[3] >= 0 && bodyLoad((s8)cmd[3])) {
+//					// empty
+//				}
+//				break;
+//			case AICMD_SPAWNCHRATCHR: // 170
+//				if (bodyLoad(cmd[2])) {
+//					// empty
+//				}
+//				if ((s8)cmd[3] >= 0 && bodyLoad((s8)cmd[3])) {
+//					// empty
+//				}
+//				break;
+//			case AICMD_EQUIPWEAPON: // 19c
+//				if (propLoad(cmd[3] | (cmd[2] << 8))) {
+//					// empty
+//				}
+//				if (weaponLoadProjectileModels(cmd[4])) {
+//					// empty
+//				}
+//				break;
+//			case AICMD_EQUIPHAT: // 1c8
+//				if (propLoad(cmd[3] | (cmd[2] << 8))) {
+//					// empty
+//				}
+//				break;
+//			}
+//
+//			cmd += chraiGetCommandLength(cmd, 0);
+//		}
+//
+//		i++;
+//		cmd = g_StageSetup.ailists[i].list;
+//	} while (cmd);
+//}
+
+GLOBAL_ASM(
+glabel func0f00c230
 /*  f00c230:	03e00008 */ 	jr	$ra
 /*  f00c234:	00000000 */ 	nop
 /*  f00c238:	00000000 */ 	nop

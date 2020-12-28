@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 bodyGetRace(s32 bodynum);
-bool bodyLoad(u32 bodynum);
+bool bodyLoad(s32 bodynum);
 u32 func0f02ce8c(void);
 struct model *func0f02d338(u32 bodynum, u32 headnum, u32 arg2, u32 arg3, bool arg4, u32 arg5);
 struct model *modelAllocateChr(u32 bodynum, u32 headnum, u32 flags);

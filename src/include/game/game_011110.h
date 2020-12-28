@@ -6,7 +6,7 @@
 void func0f011110(void);
 void func0f011124(bool value);
 u32 func0f011130(void);
-u32 func0f011560(s32 weaponnum);
+bool weaponLoadProjectileModels(s32 weaponnum);
 void currentPlayerInitEyespy(void);
 void currentPlayerInit(void);
 

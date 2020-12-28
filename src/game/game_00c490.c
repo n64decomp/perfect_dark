@@ -1192,7 +1192,7 @@ void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex)
 			if (cheatIsActive(CHEAT_MARQUIS)) {
 				weapon->base.flags &= ~OBJFLAG_DEACTIVATED;
 				weapon->base.flags |= OBJFLAG_20000000;
-				func0f011560(weapon->weaponnum);
+				weaponLoadProjectileModels(weapon->weaponnum);
 				func0f08b25c(weapon, chr);
 			} else {
 				if (cheatIsActive(CHEAT_ENEMYROCKETS)) {
@@ -1244,7 +1244,7 @@ void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex)
 					}
 				}
 
-				func0f011560(weapon->weaponnum);
+				weaponLoadProjectileModels(weapon->weaponnum);
 				func0f08b25c(weapon, chr);
 			}
 		}
@@ -1299,7 +1299,7 @@ void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex)
 		}
 
 		if (weapon->weaponnum != WEAPON_NONE && giveweapon) {
-			func0f011560(weapon->weaponnum);
+			weaponLoadProjectileModels(weapon->weaponnum);
 			setupGenericObject(&weapon->base, cmdindex);
 		}
 	}

@@ -357,9 +357,9 @@ glabel func0f011130
 /*  f01155c:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-u32 func0f011560(s32 weaponnum)
+bool weaponLoadProjectileModels(s32 weaponnum)
 {
-	u32 flags = 0;
+	bool result = false;
 	struct weapon *weapon = g_Weapons[weaponnum];
 	s32 i;
 
@@ -371,19 +371,19 @@ u32 func0f011560(s32 weaponnum)
 				struct weaponfunc_shootprojectile *func = (struct weaponfunc_shootprojectile *)genericfunc;
 
 				if (func->projectilemodelnum >= 0) {
-					flags |= propLoad(func->projectilemodelnum);
+					result |= propLoad(func->projectilemodelnum);
 				}
 			} else if (genericfunc->type == INVENTORYFUNCTYPE_THROW) {
 				struct weaponfunc_throw *func = (struct weaponfunc_throw *)genericfunc;
 
 				if (func->projectilemodelnum >= 0) {
-					flags |= propLoad(func->projectilemodelnum);
+					result |= propLoad(func->projectilemodelnum);
 				}
 			}
 		}
 	}
 
-	return flags;
+	return result;
 }
 
 void currentPlayerInitEyespy(void)
@@ -612,12 +612,12 @@ glabel var7f1a827c
 /*  f011aa0:	8e390284 */ 	lw	$t9,0x284($s1)
 /*  f011aa4:	11b90022 */ 	beq	$t5,$t9,.L0f011b30
 /*  f011aa8:	00000000 */ 	nop
-/*  f011aac:	0fc04558 */ 	jal	func0f011560
+/*  f011aac:	0fc04558 */ 	jal	weaponLoadProjectileModels
 /*  f011ab0:	8e040004 */ 	lw	$a0,0x4($s0)
 /*  f011ab4:	8e040008 */ 	lw	$a0,0x8($s0)
 /*  f011ab8:	04800008 */ 	bltz	$a0,.L0f011adc
 /*  f011abc:	00000000 */ 	nop
-/*  f011ac0:	0fc04558 */ 	jal	func0f011560
+/*  f011ac0:	0fc04558 */ 	jal	weaponLoadProjectileModels
 /*  f011ac4:	00000000 */ 	nop
 /*  f011ac8:	8e040004 */ 	lw	$a0,0x4($s0)
 /*  f011acc:	0fc4478a */ 	jal	currentPlayerGiveWeaponWithArgument
@@ -1349,10 +1349,10 @@ glabel var7f1a827c
 //				break;
 //			case INTROCMD_WEAPON:
 //				if (cmd[3] == 0 && g_Vars.currentplayer != g_Vars.anti) {
-//					func0f011560(cmd[1]);
+//					weaponLoadProjectileModels(cmd[1]);
 //
 //					if (cmd[2] >= 0) {
-//						func0f011560(cmd[2]);
+//						weaponLoadProjectileModels(cmd[2]);
 //						currentPlayerGiveWeaponWithArgument(cmd[1], cmd[2]);
 //					} else {
 //						currentPlayerGiveWeapon(cmd[1]);
