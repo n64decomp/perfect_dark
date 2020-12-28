@@ -149,9 +149,9 @@ extern u32 var8006ae5c;
 extern s32 g_ObjectiveLastIndex;
 extern bool g_ObjectiveChecksDisabled;
 extern u32 var8006ae80;
-extern u32 var8006ae90;
-extern u32 var8006af0c;
-extern u32 var8006af8c;
+extern u16 var8006ae90[];
+extern u16 var8006af0c[];
+extern u16 var8006af8c[];
 extern u32 var8006afa0;
 
 #endif

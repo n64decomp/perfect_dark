@@ -11,44 +11,37 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f096890
-/*  f096890:	28817fe0 */ 	slti	$at,$a0,0x7fe0
-/*  f096894:	14200006 */ 	bnez	$at,.L0f0968b0
-/*  f096898:	24030007 */ 	addiu	$v1,$zero,0x7
-/*  f09689c:	3c068007 */ 	lui	$a2,%hi(var8006af8c)
-/*  f0968a0:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f0968a4:	24c6af8c */ 	addiu	$a2,$a2,%lo(var8006af8c)
-/*  f0968a8:	1000000d */ 	b	.L0f0968e0
-/*  f0968ac:	24848020 */ 	addiu	$a0,$a0,-32736
-.L0f0968b0:
-/*  f0968b0:	28817800 */ 	slti	$at,$a0,0x7800
-/*  f0968b4:	14200007 */ 	bnez	$at,.L0f0968d4
-/*  f0968b8:	240301ff */ 	addiu	$v1,$zero,0x1ff
-/*  f0968bc:	3c068007 */ 	lui	$a2,%hi(var8006af0c)
-/*  f0968c0:	2403001f */ 	addiu	$v1,$zero,0x1f
-/*  f0968c4:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f0968c8:	24c6af0c */ 	addiu	$a2,$a2,%lo(var8006af0c)
-/*  f0968cc:	10000004 */ 	b	.L0f0968e0
-/*  f0968d0:	24848800 */ 	addiu	$a0,$a0,-30720
-.L0f0968d4:
-/*  f0968d4:	3c068007 */ 	lui	$a2,%hi(var8006ae90)
-/*  f0968d8:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f0968dc:	24c6ae90 */ 	addiu	$a2,$a2,%lo(var8006ae90)
-.L0f0968e0:
-/*  f0968e0:	00a47007 */ 	srav	$t6,$a0,$a1
-/*  f0968e4:	000e7840 */ 	sll	$t7,$t6,0x1
-/*  f0968e8:	00cf4021 */ 	addu	$t0,$a2,$t7
-/*  f0968ec:	95070000 */ 	lhu	$a3,0x0($t0)
-/*  f0968f0:	95090002 */ 	lhu	$t1,0x2($t0)
-/*  f0968f4:	0083c824 */ 	and	$t9,$a0,$v1
-/*  f0968f8:	00e9c023 */ 	subu	$t8,$a3,$t1
-/*  f0968fc:	03190019 */ 	multu	$t8,$t9
-/*  f096900:	00005012 */ 	mflo	$t2
-/*  f096904:	00aa5807 */ 	srav	$t3,$t2,$a1
-/*  f096908:	03e00008 */ 	jr	$ra
-/*  f09690c:	00eb1023 */ 	subu	$v0,$a3,$t3
-);
+s32 func0f096890(s32 arg0)
+{
+	u16 *array;
+	s32 shiftamount;
+	s32 mask;
+	s32 index;
+	s32 value;
+	s32 nextvalue;
+
+	if (arg0 >= 32736) {
+		mask = 0x07;
+		shiftamount = 3;
+		array = var8006af8c;
+		arg0 -= 32736;
+	} else if (arg0 >= 30720) {
+		mask = 0x1f;
+		shiftamount = 5;
+		array = var8006af0c;
+		arg0 -= 30720;
+	} else {
+		mask = 0x1ff;
+		shiftamount = 9;
+		array = var8006ae90;
+	}
+
+	index = arg0 >> shiftamount;
+	value = array[index];
+	nextvalue = array[index + 1];
+
+	return value - (((value - nextvalue) * (arg0 & mask)) >> shiftamount);
+}
 
 GLOBAL_ASM(
 glabel func0f096910
