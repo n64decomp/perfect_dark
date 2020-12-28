@@ -362,7 +362,7 @@ void func0f167e7c(s32 stagenum)
 	func0f00c240();
 	func0f00c490();
 	func0f00b510();
-	func0f00b820(stagenum);
+	stageChooseActiveHeads(stagenum);
 	setupParseObjects(stagenum);
 	tagsAllocatePtrs();
 	func0f013010();

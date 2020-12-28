@@ -2487,8 +2487,13 @@ u32 var800616f0 = 0x00000000;
 u32 var800616f4 = 0x00000000;
 u32 var800616f8 = 0x00000000;
 u32 var800616fc = 0x00000000;
-u32 var80061700 = 0x2f053504;
-u32 var80061704 = 0x19050000;
+
+struct stageheadlimit g_StageHeadLimits[3] = {
+	{ STAGE_INFILTRATION, 5 },
+	{ STAGE_RESCUE,       4 },
+	{ STAGE_ESCAPE,       5 },
+};
+
 u32 var80061708 = 0x00000000;
 u32 var8006170c = 0x00000000;
 u32 var80061710 = 0x00000000;

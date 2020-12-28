@@ -20,34 +20,34 @@ const u32 var7f1a78cc[] = {0x00000000};
 
 void func0f000130(void)
 {
-	var80062b00 = 0;
+	g_NumBondBodies = 0;
 
-	while (var80062b1c[var80062b00] >= 0) {
-		var80062b00++;
+	while (g_BondBodies[g_NumBondBodies] >= 0) {
+		g_NumBondBodies++;
 	}
 
-	var80062b0c = 0;
+	g_NumMaleGuardTeamHeads = 0;
 
-	while (var80062c14[var80062b0c] >= 0) {
-		var80062b0c++;
+	while (g_MaleGuardTeamHeads[g_NumMaleGuardTeamHeads] >= 0) {
+		g_NumMaleGuardTeamHeads++;
 	}
 
-	var80062b10 = 0;
+	g_NumFemaleGuardTeamHeads = 0;
 
-	while (var80062c6c[var80062b10] >= 0) {
-		var80062b10++;
+	while (g_FemaleGuardTeamHeads[g_NumFemaleGuardTeamHeads] >= 0) {
+		g_NumFemaleGuardTeamHeads++;
 	}
 
-	var80062b04 = 0;
+	g_NumMaleGuardHeads = 0;
 
-	while (var80062b68[var80062b04] >= 0) {
-		var80062b04++;
+	while (g_MaleGuardHeads[g_NumMaleGuardHeads] >= 0) {
+		g_NumMaleGuardHeads++;
 	}
 
-	var80062b08 = 0;
+	g_NumFemaleGuardHeads = 0;
 
-	while (var80062c58[var80062b08] >= 0) {
-		var80062b08++;
+	while (g_FemaleGuardHeads[g_NumFemaleGuardHeads] >= 0) {
+		g_NumFemaleGuardHeads++;
 	}
 }
 

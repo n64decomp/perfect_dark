@@ -25942,7 +25942,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 
 	if (chrsGetNumFree() > 1) {
 		if (headnum < 0) {
-			headnum = bodyGetHead(bodynum);
+			headnum = bodyChooseHead(bodynum);
 		}
 
 		pos2.x = pos->x;

@@ -19,7 +19,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0f00b820
+glabel stageChooseActiveHeads
 /*  f00b820:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f00b824:	3c0e8008 */ 	lui	$t6,%hi(g_Bodies+0x2)
 /*  f00b828:	95cecf06 */ 	lhu	$t6,%lo(g_Bodies+0x2)($t6)
@@ -45,8 +45,8 @@ glabel func0f00b820
 .L0f00b874:
 /*  f00b874:	0c004b70 */ 	jal	random
 /*  f00b878:	00000000 */ 	nop
-/*  f00b87c:	3c188006 */ 	lui	$t8,%hi(var80062b00)
-/*  f00b880:	8f182b00 */ 	lw	$t8,%lo(var80062b00)($t8)
+/*  f00b87c:	3c188006 */ 	lui	$t8,%hi(g_NumBondBodies)
+/*  f00b880:	8f182b00 */ 	lw	$t8,%lo(g_NumBondBodies)($t8)
 /*  f00b884:	3c018006 */ 	lui	$at,%hi(var80062c80)
 /*  f00b888:	3c128006 */ 	lui	$s2,%hi(var80062b14)
 /*  f00b88c:	0058001b */ 	divu	$zero,$v0,$t8
@@ -78,8 +78,8 @@ glabel func0f00b820
 /*  f00b8ec:	24030001 */ 	addiu	$v1,$zero,0x1
 .L0f00b8f0:
 /*  f00b8f0:	8cca0064 */ 	lw	$t2,0x64($a2)
-/*  f00b8f4:	3c15800a */ 	lui	$s5,%hi(g_MaxHeadsPerBank)
-/*  f00b8f8:	26b5cd20 */ 	addiu	$s5,$s5,%lo(g_MaxHeadsPerBank)
+/*  f00b8f4:	3c15800a */ 	lui	$s5,%hi(g_NumActiveHeadsPerGender)
+/*  f00b8f8:	26b5cd20 */ 	addiu	$s5,$s5,%lo(g_NumActiveHeadsPerGender)
 /*  f00b8fc:	11400003 */ 	beqz	$t2,.L0f00b90c
 /*  f00b900:	24180008 */ 	addiu	$t8,$zero,0x8
 /*  f00b904:	10000001 */ 	b	.L0f00b90c
@@ -87,7 +87,7 @@ glabel func0f00b820
 .L0f00b90c:
 /*  f00b90c:	8ccb0070 */ 	lw	$t3,0x70($a2)
 /*  f00b910:	240f0004 */ 	addiu	$t7,$zero,0x4
-/*  f00b914:	3c198006 */ 	lui	$t9,%hi(var80061700)
+/*  f00b914:	3c198006 */ 	lui	$t9,%hi(g_StageHeadLimits)
 /*  f00b918:	11600003 */ 	beqz	$t3,.L0f00b928
 /*  f00b91c:	00000000 */ 	nop
 /*  f00b920:	10000001 */ 	b	.L0f00b928
@@ -98,9 +98,9 @@ glabel func0f00b820
 /*  f00b930:	01a57021 */ 	addu	$t6,$t5,$a1
 /*  f00b934:	29c10002 */ 	slti	$at,$t6,0x2
 /*  f00b938:	14200005 */ 	bnez	$at,.L0f00b950
-/*  f00b93c:	27221700 */ 	addiu	$v0,$t9,%lo(var80061700)
-/*  f00b940:	3c15800a */ 	lui	$s5,%hi(g_MaxHeadsPerBank)
-/*  f00b944:	26b5cd20 */ 	addiu	$s5,$s5,%lo(g_MaxHeadsPerBank)
+/*  f00b93c:	27221700 */ 	addiu	$v0,$t9,%lo(g_StageHeadLimits)
+/*  f00b940:	3c15800a */ 	lui	$s5,%hi(g_NumActiveHeadsPerGender)
+/*  f00b944:	26b5cd20 */ 	addiu	$s5,$s5,%lo(g_NumActiveHeadsPerGender)
 /*  f00b948:	1000000d */ 	b	.L0f00b980
 /*  f00b94c:	aeaf0000 */ 	sw	$t7,0x0($s5)
 .L0f00b950:
@@ -122,20 +122,20 @@ glabel func0f00b820
 /*  f00b980:	0fc41b99 */ 	jal	cheatIsActive
 /*  f00b984:	24040010 */ 	addiu	$a0,$zero,0x10
 /*  f00b988:	10400005 */ 	beqz	$v0,.L0f00b9a0
-/*  f00b98c:	3c148006 */ 	lui	$s4,%hi(var80062c14)
-/*  f00b990:	3c138006 */ 	lui	$s3,%hi(var80062b0c)
-/*  f00b994:	26942c14 */ 	addiu	$s4,$s4,%lo(var80062c14)
+/*  f00b98c:	3c148006 */ 	lui	$s4,%hi(g_MaleGuardTeamHeads)
+/*  f00b990:	3c138006 */ 	lui	$s3,%hi(g_NumMaleGuardTeamHeads)
+/*  f00b994:	26942c14 */ 	addiu	$s4,$s4,%lo(g_MaleGuardTeamHeads)
 /*  f00b998:	10000005 */ 	b	.L0f00b9b0
-/*  f00b99c:	8e732b0c */ 	lw	$s3,%lo(var80062b0c)($s3)
+/*  f00b99c:	8e732b0c */ 	lw	$s3,%lo(g_NumMaleGuardTeamHeads)($s3)
 .L0f00b9a0:
-/*  f00b9a0:	3c148006 */ 	lui	$s4,%hi(var80062b68)
-/*  f00b9a4:	3c138006 */ 	lui	$s3,%hi(var80062b04)
-/*  f00b9a8:	26942b68 */ 	addiu	$s4,$s4,%lo(var80062b68)
-/*  f00b9ac:	8e732b04 */ 	lw	$s3,%lo(var80062b04)($s3)
+/*  f00b9a0:	3c148006 */ 	lui	$s4,%hi(g_MaleGuardHeads)
+/*  f00b9a4:	3c138006 */ 	lui	$s3,%hi(g_NumMaleGuardHeads)
+/*  f00b9a8:	26942b68 */ 	addiu	$s4,$s4,%lo(g_MaleGuardHeads)
+/*  f00b9ac:	8e732b04 */ 	lw	$s3,%lo(g_NumMaleGuardHeads)($s3)
 .L0f00b9b0:
 /*  f00b9b0:	8eaa0000 */ 	lw	$t2,0x0($s5)
-/*  f00b9b4:	3c12800a */ 	lui	$s2,%hi(g_HeadsA)
-/*  f00b9b8:	2652cd28 */ 	addiu	$s2,$s2,%lo(g_HeadsA)
+/*  f00b9b4:	3c12800a */ 	lui	$s2,%hi(g_ActiveMaleHeads)
+/*  f00b9b8:	2652cd28 */ 	addiu	$s2,$s2,%lo(g_ActiveMaleHeads)
 /*  f00b9bc:	19400022 */ 	blez	$t2,.L0f00ba48
 /*  f00b9c0:	00000000 */ 	nop
 .L0f00b9c4:
@@ -156,8 +156,8 @@ glabel func0f00b820
 /*  f00b9f8:	ae4e0000 */ 	sw	$t6,0x0($s2)
 /*  f00b9fc:	1a20000b */ 	blez	$s1,.L0f00ba2c
 /*  f00ba00:	00001825 */ 	or	$v1,$zero,$zero
-/*  f00ba04:	3c02800a */ 	lui	$v0,%hi(g_HeadsA)
-/*  f00ba08:	2442cd28 */ 	addiu	$v0,$v0,%lo(g_HeadsA)
+/*  f00ba04:	3c02800a */ 	lui	$v0,%hi(g_ActiveMaleHeads)
+/*  f00ba08:	2442cd28 */ 	addiu	$v0,$v0,%lo(g_ActiveMaleHeads)
 /*  f00ba0c:	01c02025 */ 	or	$a0,$t6,$zero
 .L0f00ba10:
 /*  f00ba10:	8c4f0000 */ 	lw	$t7,0x0($v0)
@@ -180,20 +180,20 @@ glabel func0f00b820
 /*  f00ba48:	0fc41b99 */ 	jal	cheatIsActive
 /*  f00ba4c:	24040010 */ 	addiu	$a0,$zero,0x10
 /*  f00ba50:	10400006 */ 	beqz	$v0,.L0f00ba6c
-/*  f00ba54:	3c148006 */ 	lui	$s4,%hi(var80062c58)
-/*  f00ba58:	3c148006 */ 	lui	$s4,%hi(var80062c6c)
-/*  f00ba5c:	3c138006 */ 	lui	$s3,%hi(var80062b10)
-/*  f00ba60:	26942c6c */ 	addiu	$s4,$s4,%lo(var80062c6c)
+/*  f00ba54:	3c148006 */ 	lui	$s4,%hi(g_FemaleGuardHeads)
+/*  f00ba58:	3c148006 */ 	lui	$s4,%hi(g_FemaleGuardTeamHeads)
+/*  f00ba5c:	3c138006 */ 	lui	$s3,%hi(g_NumFemaleGuardTeamHeads)
+/*  f00ba60:	26942c6c */ 	addiu	$s4,$s4,%lo(g_FemaleGuardTeamHeads)
 /*  f00ba64:	10000004 */ 	b	.L0f00ba78
-/*  f00ba68:	8e732b10 */ 	lw	$s3,%lo(var80062b10)($s3)
+/*  f00ba68:	8e732b10 */ 	lw	$s3,%lo(g_NumFemaleGuardTeamHeads)($s3)
 .L0f00ba6c:
-/*  f00ba6c:	3c138006 */ 	lui	$s3,%hi(var80062b08)
-/*  f00ba70:	26942c58 */ 	addiu	$s4,$s4,%lo(var80062c58)
-/*  f00ba74:	8e732b08 */ 	lw	$s3,%lo(var80062b08)($s3)
+/*  f00ba6c:	3c138006 */ 	lui	$s3,%hi(g_NumFemaleGuardHeads)
+/*  f00ba70:	26942c58 */ 	addiu	$s4,$s4,%lo(g_FemaleGuardHeads)
+/*  f00ba74:	8e732b08 */ 	lw	$s3,%lo(g_NumFemaleGuardHeads)($s3)
 .L0f00ba78:
 /*  f00ba78:	8ea50000 */ 	lw	$a1,0x0($s5)
-/*  f00ba7c:	3c12800a */ 	lui	$s2,%hi(g_HeadsB)
-/*  f00ba80:	2652cd48 */ 	addiu	$s2,$s2,%lo(g_HeadsB)
+/*  f00ba7c:	3c12800a */ 	lui	$s2,%hi(g_ActiveFemaleHeads)
+/*  f00ba80:	2652cd48 */ 	addiu	$s2,$s2,%lo(g_ActiveFemaleHeads)
 /*  f00ba84:	18a00022 */ 	blez	$a1,.L0f00bb10
 /*  f00ba88:	00000000 */ 	nop
 .L0f00ba8c:
@@ -214,8 +214,8 @@ glabel func0f00b820
 /*  f00bac0:	ae490000 */ 	sw	$t1,0x0($s2)
 /*  f00bac4:	1a20000b */ 	blez	$s1,.L0f00baf4
 /*  f00bac8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f00bacc:	3c02800a */ 	lui	$v0,%hi(g_HeadsB)
-/*  f00bad0:	2442cd48 */ 	addiu	$v0,$v0,%lo(g_HeadsB)
+/*  f00bacc:	3c02800a */ 	lui	$v0,%hi(g_ActiveFemaleHeads)
+/*  f00bad0:	2442cd48 */ 	addiu	$v0,$v0,%lo(g_ActiveFemaleHeads)
 /*  f00bad4:	01202025 */ 	or	$a0,$t1,$zero
 .L0f00bad8:
 /*  f00bad8:	8c4a0000 */ 	lw	$t2,0x0($v0)
@@ -235,11 +235,11 @@ glabel func0f00b820
 /*  f00bb08:	26520004 */ 	addiu	$s2,$s2,0x4
 /*  f00bb0c:	00008825 */ 	or	$s1,$zero,$zero
 .L0f00bb10:
-/*  f00bb10:	3c018006 */ 	lui	$at,%hi(g_HeadsAIndex)
-/*  f00bb14:	ac202c84 */ 	sw	$zero,%lo(g_HeadsAIndex)($at)
-/*  f00bb18:	3c018006 */ 	lui	$at,%hi(g_HeadsBIndex)
+/*  f00bb10:	3c018006 */ 	lui	$at,%hi(g_ActiveMaleHeadsIndex)
+/*  f00bb14:	ac202c84 */ 	sw	$zero,%lo(g_ActiveMaleHeadsIndex)($at)
+/*  f00bb18:	3c018006 */ 	lui	$at,%hi(g_ActiveFemaleHeadsIndex)
 /*  f00bb1c:	18a00006 */ 	blez	$a1,.L0f00bb38
-/*  f00bb20:	ac202c88 */ 	sw	$zero,%lo(g_HeadsBIndex)($at)
+/*  f00bb20:	ac202c88 */ 	sw	$zero,%lo(g_ActiveFemaleHeadsIndex)($at)
 /*  f00bb24:	26310001 */ 	addiu	$s1,$s1,0x1
 .L0f00bb28:
 /*  f00bb28:	0225082a */ 	slt	$at,$s1,$a1
@@ -264,6 +264,95 @@ glabel func0f00b820
 /*  f00bb68:	03e00008 */ 	jr	$ra
 /*  f00bb6c:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
+
+// Mismatches:
+// - Address of var80062b14 Should be loaded to a callee-save register
+// - PLAYERCOUNT() calculation is more spread out
+//   (does other register preparation during calculation)
+// - Loop at 950 is calculated differently
+//void stageChooseActiveHeads(s32 stagenum)
+//{
+//	s32 *headsavailablelist;
+//	s32 headsavailablelen;
+//	bool done;
+//	s32 i;
+//	s32 j;
+//
+//	for (i = 0; g_Bodies[i].bodyfileid; i++) {
+//		g_Bodies[i].unk0c = NULL;
+//	}
+//
+//	var80062c80 = random() % g_NumBondBodies;
+//	var80062b14 = 0;
+//	var80062b18 = 0;
+//
+//	if (PLAYERCOUNT() >= 2) {
+//		g_NumActiveHeadsPerGender = 4;
+//	} else {
+//		// 950
+//		g_NumActiveHeadsPerGender = 8;
+//
+//		for (i = 0; i < ARRAYCOUNT(g_StageHeadLimits); i++) {
+//			if (g_StageHeadLimits[i].stagenum == stagenum) {
+//				g_NumActiveHeadsPerGender = g_StageHeadLimits[i].maxheads;
+//			}
+//		}
+//	}
+//
+//	// Male heads
+//	if (cheatIsActive(CHEAT_TEAMHEADSONLY)) {
+//		headsavailablelist = g_MaleGuardTeamHeads;
+//		headsavailablelen = g_NumMaleGuardTeamHeads;
+//	} else {
+//		headsavailablelist = g_MaleGuardHeads;
+//		headsavailablelen = g_NumMaleGuardHeads;
+//	}
+//
+//	for (i = 0; i < g_NumActiveHeadsPerGender; i++) {
+//		do {
+//			done = true;
+//			g_ActiveMaleHeads[i] = headsavailablelist[random() % headsavailablelen];
+//
+//			if (headsavailablelen > g_NumActiveHeadsPerGender) {
+//				for (j = 0; j < i; j++) {
+//					if (g_ActiveMaleHeads[i] == g_ActiveMaleHeads[j]) {
+//						done = false;
+//					}
+//				}
+//			}
+//		} while (!done);
+//	}
+//
+//	// Female heads
+//	if (cheatIsActive(CHEAT_TEAMHEADSONLY)) {
+//		headsavailablelist = g_FemaleGuardTeamHeads;
+//		headsavailablelen = g_NumFemaleGuardTeamHeads;
+//	} else {
+//		headsavailablelist = g_FemaleGuardHeads;
+//		headsavailablelen = g_NumFemaleGuardHeads;
+//	}
+//
+//	for (i = 0; i < g_NumActiveHeadsPerGender; i++) {
+//		do {
+//			done = true;
+//			g_ActiveFemaleHeads[i] = headsavailablelist[random() % headsavailablelen];
+//
+//			if (headsavailablelen > g_NumActiveHeadsPerGender) {
+//				for (j = 0; j < i; j++) {
+//					if (g_ActiveFemaleHeads[i] == g_ActiveFemaleHeads[j]) {
+//						done = false;
+//					}
+//				}
+//			}
+//		} while (!done);
+//	}
+//
+//	g_ActiveMaleHeadsIndex = 0;
+//	g_ActiveFemaleHeadsIndex = 0;
+//
+//	for (i = 0; i < g_NumActiveHeadsPerGender; i++);
+//	for (i = 0; i < g_NumActiveHeadsPerGender; i++);
+//}
 
 void resetSomeStageThings(void)
 {

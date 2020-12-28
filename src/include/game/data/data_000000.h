@@ -217,6 +217,7 @@ extern u32 var80061694;
 extern u32 var800616dc;
 extern u32 var800616e4;
 extern u32 var800616e8;
+extern struct stageheadlimit g_StageHeadLimits[3];
 extern u32 var80061710;
 extern struct monitorscreen var80061a80;
 extern struct monitorscreen var80061af4;

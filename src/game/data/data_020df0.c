@@ -3612,13 +3612,9 @@ struct body g_Bodies[] = {
 	{ /*0x0094*/ 1, 0x0da8, FILE_CELVISWAISTCOAT,  1,    0.57276993989944, 0, FILE_GHAND_ELVIS           },
 	{ /*0x0095*/ 0, 0x067c, FILE_CDARK_LEATHER,    1,    0.95305162668228, 0, FILE_GHAND_JOFROCK         },
 	{ /*0x0096*/ 0, 0x067c, FILE_CDARK_NEGOTIATOR, 1,    0.95305162668228, 0, FILE_GHAND_JOAF1           },
+	{ /*0x0097*/ 0, 0x0000, 0,                     1,    0,                0, FILE_GCOMBATHANDSLOD       },
 };
 
-u32 var8007dad0 = 0x00000000;
-u32 var8007dad4 = 0x3f800000;
-u32 var8007dad8 = 0x00000000;
-u32 var8007dadc = 0x00000000;
-u32 var8007dae0 = 0x04e50000;
 u32 var8007dae4 = 0xbd8ff972;
 u32 var8007dae8 = 0x3efbda51;
 u32 var8007daec = 0xbf5566cf;

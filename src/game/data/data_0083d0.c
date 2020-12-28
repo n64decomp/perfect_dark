@@ -127,15 +127,15 @@ u32 var80062af4 = 0x00000003;
 u32 var80062af8 = 0x00000001;
 u32 var80062afc = 0x00000005;
 
-s32 var80062b00 = 0;
-s32 var80062b04 = 0;
-s32 var80062b08 = 0;
-s32 var80062b0c = 0;
-s32 var80062b10 = 0;
-u32 var80062b14 = 0;
-u32 var80062b18 = 0;
+s32 g_NumBondBodies = 0;
+s32 g_NumMaleGuardHeads = 0;
+s32 g_NumFemaleGuardHeads = 0;
+s32 g_NumMaleGuardTeamHeads = 0;
+s32 g_NumFemaleGuardTeamHeads = 0;
+s32 var80062b14 = 0;
+s32 var80062b18 = 0;
 
-s32 var80062b1c[] = {
+s32 g_BondBodies[] = {
 	BODY_DJBOND,
 	BODY_CONNERY,
 	BODY_DALTON,
@@ -143,7 +143,7 @@ s32 var80062b1c[] = {
 	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
 };
 
-s32 var80062b68[] = {
+s32 g_MaleGuardHeads[] = {
 	HEAD_BEAU1,
 	HEAD_CHRIST,
 	HEAD_DARLING,
@@ -189,7 +189,7 @@ s32 var80062b68[] = {
 	-1,
 };
 
-s32 var80062c14[] = {
+s32 g_MaleGuardTeamHeads[] = {
 	HEAD_BEAU1,
 	HEAD_CHRIST,
 	HEAD_DARLING,
@@ -209,7 +209,7 @@ s32 var80062c14[] = {
 	-1,
 };
 
-s32 var80062c58[] = {
+s32 g_FemaleGuardHeads[] = {
 	HEAD_LESLIE_S,
 	HEAD_ANKA,
 	HEAD_EILEEN_T,
@@ -217,7 +217,7 @@ s32 var80062c58[] = {
 	-1,
 };
 
-s32 var80062c6c[] = {
+s32 g_FemaleGuardTeamHeads[] = {
 	HEAD_LESLIE_S,
 	HEAD_ANKA,
 	HEAD_EILEEN_T,
@@ -226,9 +226,15 @@ s32 var80062c6c[] = {
 };
 
 s32 var80062c80 = 0;
-u32 g_HeadsAIndex = 0x00000000;
-u32 g_HeadsBIndex = 0x00000000;
-u32 g_FemaleHeads[3] = {HEAD_ALEX, HEAD_JULIANNE, HEAD_LAURA};
+s32 g_ActiveMaleHeadsIndex = 0;
+s32 g_ActiveFemaleHeadsIndex = 0;
+
+s32 g_FemGuardHeads[3] = {
+	HEAD_ALEX,
+	HEAD_JULIANNE,
+	HEAD_LAURA,
+};
+
 u32 var80062c98 = 0x00000000;
 u32 var80062c9c = 0x00000000;
 f32 var80062ca0 = 1;

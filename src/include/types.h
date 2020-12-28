@@ -3043,13 +3043,13 @@ struct cheat {
 };
 
 struct body {
-	u16 ismale : 1;
-	u16 flags_01 : 15;
-	u16 bodyfileid;
-	f32 unk04;
-	f32 unk08;
-	void *unk0c; // likely a pointer to bodyfile data if loaded
-	u16 handfileid;
+	/*0x00*/ u16 ismale : 1;
+	/*0x00*/ u16 flags_01 : 15;
+	/*0x02*/ u16 bodyfileid;
+	/*0x04*/ f32 unk04;
+	/*0x08*/ f32 unk08;
+	/*0x0c*/ void *unk0c; // likely a pointer to bodyfile data if loaded
+	/*0x10*/ u16 handfileid;
 };
 
 struct stagetableentry {
@@ -6760,6 +6760,11 @@ struct var8007e3d0 {
 	s32 val1;
 	s32 val2;
 	s32 numallocated;
+};
+
+struct stageheadlimit {
+	u8 stagenum;
+	u8 maxheads;
 };
 
 #endif

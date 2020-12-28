@@ -429,26 +429,26 @@ struct model *modelAllocateChr(u32 bodynum, u32 headnum, u32 flags)
 
 s32 func0f02d3f8(void)
 {
-	return var80062b1c[var80062c80];
+	return g_BondBodies[var80062c80];
 }
 
-u32 bodyGetHead(u32 bodynum)
+s32 bodyChooseHead(s32 bodynum)
 {
-	u32 head;
+	s32 head;
 
 	if (g_Bodies[bodynum].ismale) {
-		head = g_HeadsA[g_HeadsAIndex++];
+		head = g_ActiveMaleHeads[g_ActiveMaleHeadsIndex++];
 
-		if (g_HeadsAIndex == g_MaxHeadsPerBank) {
-			g_HeadsAIndex = 0;
+		if (g_ActiveMaleHeadsIndex == g_NumActiveHeadsPerGender) {
+			g_ActiveMaleHeadsIndex = 0;
 		}
 	} else if (bodynum == BODY_FEM_GUARD) {
-		head = g_FemaleHeads[random() % 3];
+		head = g_FemGuardHeads[random() % 3];
 	} else {
-		head = g_HeadsB[g_HeadsBIndex++];
+		head = g_ActiveFemaleHeads[g_ActiveFemaleHeadsIndex++];
 
-		if (g_HeadsBIndex == g_MaxHeadsPerBank) {
-			g_HeadsBIndex = 0;
+		if (g_ActiveFemaleHeadsIndex == g_NumActiveHeadsPerGender) {
+			g_ActiveFemaleHeadsIndex = 0;
 		}
 	}
 
@@ -564,7 +564,7 @@ glabel chrUnpack
 .L0f02d688:
 /*  f02d688:	15610005 */ 	bne	$t3,$at,.L0f02d6a0
 /*  f02d68c:	8fa4004c */ 	lw	$a0,0x4c($sp)
-/*  f02d690:	0fc0b505 */ 	jal	bodyGetHead
+/*  f02d690:	0fc0b505 */ 	jal	bodyChooseHead
 /*  f02d694:	afa70058 */ 	sw	$a3,0x58($sp)
 /*  f02d698:	8fa70058 */ 	lw	$a3,0x58($sp)
 /*  f02d69c:	afa20048 */ 	sw	$v0,0x48($sp)
