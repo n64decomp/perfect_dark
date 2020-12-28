@@ -43,33 +43,18 @@ s32 func0f096890(s32 arg0)
 	return value - (((value - nextvalue) * (arg0 & mask)) >> shiftamount);
 }
 
-GLOBAL_ASM(
-glabel func0f096910
-/*  f096910:	00042c00 */ 	sll	$a1,$a0,0x10
-/*  f096914:	00057403 */ 	sra	$t6,$a1,0x10
-/*  f096918:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f09691c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f096920:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f096924:	05c00003 */ 	bltz	$t6,.L0f096934
-/*  f096928:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f09692c:	10000002 */ 	b	.L0f096938
-/*  f096930:	01c02025 */ 	or	$a0,$t6,$zero
-.L0f096934:
-/*  f096934:	00052023 */ 	negu	$a0,$a1
-.L0f096938:
-/*  f096938:	0fc25a24 */ 	jal	func0f096890
-/*  f09693c:	a7a5001a */ 	sh	$a1,0x1a($sp)
-/*  f096940:	87a5001a */ 	lh	$a1,0x1a($sp)
-/*  f096944:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f096948:	00402025 */ 	or	$a0,$v0,$zero
-/*  f09694c:	04a10003 */ 	bgez	$a1,.L0f09695c
-/*  f096950:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f096954:	340fffff */ 	dli	$t7,0xffff
-/*  f096958:	01e22023 */ 	subu	$a0,$t7,$v0
-.L0f09695c:
-/*  f09695c:	03e00008 */ 	jr	$ra
-/*  f096960:	3082ffff */ 	andi	$v0,$a0,0xffff
-);
+u16 func0f096910(s16 arg0)
+{
+	s32 value = arg0 >= 0 ? arg0 : -arg0;
+
+	value = func0f096890(value);
+
+	if (arg0 < 0) {
+		value = 0xffff - value;
+	}
+
+	return value;
+}
 
 GLOBAL_ASM(
 glabel func0f096964
