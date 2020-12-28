@@ -886,10 +886,7 @@ glabel debugLoadAllAilistModels
 //	} while (cmd);
 //}
 
-GLOBAL_ASM(
-glabel func0f00c230
-/*  f00c230:	03e00008 */ 	jr	$ra
-/*  f00c234:	00000000 */ 	nop
-/*  f00c238:	00000000 */ 	nop
-/*  f00c23c:	00000000 */ 	nop
-);
+void func0f00c230(void)
+{
+	// empty
+}
