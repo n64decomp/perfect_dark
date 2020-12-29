@@ -474,56 +474,11 @@ void func0f153d50(u32 arg0, u32 arg1, u32 arg2)
 	var800a45d0.colour2 = 0xffffff00;
 }
 
-GLOBAL_ASM(
-glabel func0f153d88
-/*  f153d88:	460c6102 */ 	mul.s	$f4,$f12,$f12
-/*  f153d8c:	3c0142dc */ 	lui	$at,0x42dc
-/*  f153d90:	44813000 */ 	mtc1	$at,$f6
-/*  f153d94:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f153d98:	3c02800a */ 	lui	$v0,%hi(var800a45d0)
-/*  f153d9c:	244245d0 */ 	addiu	$v0,$v0,%lo(var800a45d0)
-/*  f153da0:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f153da4:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f153da8:	3c014f00 */ 	lui	$at,0x4f00
-/*  f153dac:	35cf0008 */ 	ori	$t7,$t6,0x8
-/*  f153db0:	a04f0000 */ 	sb	$t7,0x0($v0)
-/*  f153db4:	4458f800 */ 	cfc1	$t8,$31
-/*  f153db8:	44d9f800 */ 	ctc1	$t9,$31
-/*  f153dbc:	00000000 */ 	nop
-/*  f153dc0:	460042a4 */ 	cvt.w.s	$f10,$f8
-/*  f153dc4:	4459f800 */ 	cfc1	$t9,$31
-/*  f153dc8:	00000000 */ 	nop
-/*  f153dcc:	33390078 */ 	andi	$t9,$t9,0x78
-/*  f153dd0:	53200013 */ 	beqzl	$t9,.L0f153e20
-/*  f153dd4:	44195000 */ 	mfc1	$t9,$f10
-/*  f153dd8:	44815000 */ 	mtc1	$at,$f10
-/*  f153ddc:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f153de0:	460a4281 */ 	sub.s	$f10,$f8,$f10
-/*  f153de4:	44d9f800 */ 	ctc1	$t9,$31
-/*  f153de8:	00000000 */ 	nop
-/*  f153dec:	460052a4 */ 	cvt.w.s	$f10,$f10
-/*  f153df0:	4459f800 */ 	cfc1	$t9,$31
-/*  f153df4:	00000000 */ 	nop
-/*  f153df8:	33390078 */ 	andi	$t9,$t9,0x78
-/*  f153dfc:	17200005 */ 	bnez	$t9,.L0f153e14
-/*  f153e00:	00000000 */ 	nop
-/*  f153e04:	44195000 */ 	mfc1	$t9,$f10
-/*  f153e08:	3c018000 */ 	lui	$at,0x8000
-/*  f153e0c:	10000007 */ 	b	.L0f153e2c
-/*  f153e10:	0321c825 */ 	or	$t9,$t9,$at
-.L0f153e14:
-/*  f153e14:	10000005 */ 	b	.L0f153e2c
-/*  f153e18:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f153e1c:	44195000 */ 	mfc1	$t9,$f10
-.L0f153e20:
-/*  f153e20:	00000000 */ 	nop
-/*  f153e24:	0720fffb */ 	bltz	$t9,.L0f153e14
-/*  f153e28:	00000000 */ 	nop
-.L0f153e2c:
-/*  f153e2c:	44d8f800 */ 	ctc1	$t8,$31
-/*  f153e30:	03e00008 */ 	jr	$ra
-/*  f153e34:	ac590060 */ 	sw	$t9,0x60($v0)
-);
+void func0f153d88(f32 arg0)
+{
+	var800a45d0.unk00 |= 0x08;
+	var800a45d0.unk60 = arg0 * arg0 * 110.0f;
+}
 
 void func0f153e38(u32 colour1, u32 colour2)
 {

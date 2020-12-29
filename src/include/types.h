@@ -6555,6 +6555,7 @@ struct var800a45d0 {
 	/*0x54*/ u32 unk54;
 	/*0x58*/ u32 colour1;
 	/*0x5c*/ u32 colour2;
+	/*0x60*/ u32 unk60;
 };
 
 struct bytelist {
