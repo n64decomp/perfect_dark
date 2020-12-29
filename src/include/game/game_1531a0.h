@@ -13,7 +13,7 @@ Gfx *func0f153780(Gfx *gdl);
 Gfx *gfxSetPrimColour(Gfx *gdl, u32 colour);
 Gfx *func0f153838(Gfx *gdl);
 Gfx *func0f153858(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2);
-u32 func0f1538e4(void);
+Gfx *func0f1538e4(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2);
 u32 func0f153990(void);
 Gfx *func0f153a34(Gfx *gdl, u32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5);
 u32 func0f153ab0(void);

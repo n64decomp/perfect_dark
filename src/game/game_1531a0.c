@@ -268,52 +268,16 @@ Gfx *func0f153858(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f1538e4
-/*  f1538e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1538e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1538ec:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1538f0:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1538f4:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f1538f8:	0fc54df7 */ 	jal	gfxSetPrimColour
-/*  f1538fc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f153900:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*  f153904:	3c038008 */ 	lui	$v1,%hi(g_ScreenWidthMultiplier)
-/*  f153908:	2463fac0 */ 	addiu	$v1,$v1,%lo(g_ScreenWidthMultiplier)
-/*  f15390c:	8c780000 */ 	lw	$t8,0x0($v1)
-/*  f153910:	8dcf0000 */ 	lw	$t7,0x0($t6)
-/*  f153914:	8faa0028 */ 	lw	$t2,0x28($sp)
-/*  f153918:	3c01f600 */ 	lui	$at,0xf600
-/*  f15391c:	01f80019 */ 	multu	$t7,$t8
-/*  f153920:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*  f153924:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f153928:	316c03ff */ 	andi	$t4,$t3,0x3ff
-/*  f15392c:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f153930:	01a17025 */ 	or	$t6,$t5,$at
-/*  f153934:	0000c812 */ 	mflo	$t9
-/*  f153938:	332803ff */ 	andi	$t0,$t9,0x3ff
-/*  f15393c:	00084b80 */ 	sll	$t1,$t0,0xe
-/*  f153940:	01c97825 */ 	or	$t7,$t6,$t1
-/*  f153944:	ac4f0000 */ 	sw	$t7,0x0($v0)
-/*  f153948:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*  f15394c:	8c680000 */ 	lw	$t0,0x0($v1)
-/*  f153950:	8fad0020 */ 	lw	$t5,0x20($sp)
-/*  f153954:	8f190000 */ 	lw	$t9,0x0($t8)
-/*  f153958:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*  f15395c:	03280019 */ 	multu	$t9,$t0
-/*  f153960:	31c903ff */ 	andi	$t1,$t6,0x3ff
-/*  f153964:	00097880 */ 	sll	$t7,$t1,0x2
-/*  f153968:	00005012 */ 	mflo	$t2
-/*  f15396c:	314b03ff */ 	andi	$t3,$t2,0x3ff
-/*  f153970:	000b6380 */ 	sll	$t4,$t3,0xe
-/*  f153974:	01ecc025 */ 	or	$t8,$t7,$t4
-/*  f153978:	0fc54e0e */ 	jal	func0f153838
-/*  f15397c:	ac580004 */ 	sw	$t8,0x4($v0)
-/*  f153980:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f153984:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f153988:	03e00008 */ 	jr	$ra
-/*  f15398c:	00000000 */ 	nop
-);
+Gfx *func0f1538e4(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
+{
+	gdl = gfxSetPrimColour(gdl, 0x00000000);
+
+	gDPFillRectangle(gdl++, *x1 * g_ScreenWidthMultiplier, *y1, *x2 * g_ScreenWidthMultiplier, *y2);
+
+	gdl = func0f153838(gdl);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f153990
