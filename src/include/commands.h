@@ -2375,8 +2375,7 @@
 /**
  * Compares the current chr's chrpreset's team with our own.
  *
- * checktype 1 = if friendly
- * checktype 2 = if enemies
+ * Checktype is expected to be COMPARE_FRIENDS or COMPARE_ENEMIES.
  */
 #define if_compare_chrpresets_team(checktype, label) \
 	mkshort(0x010c), \

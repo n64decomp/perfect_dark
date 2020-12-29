@@ -23478,8 +23478,8 @@ void func0f0482cc(u32 ailistid)
 	g_ChrsB[g_NumChrsB - 1].aireturnlist = -1;
 }
 
-u32 var80068454 = 0x00000000;
-u32 var80068458 = 0x00000000;
+u32 var80068454 = 0;
+s32 var80068458 = 0;
 u32 var8006845c = 0x01020408;
 
 GLOBAL_ASM(
@@ -23941,6 +23941,212 @@ glabel func0f048398
 /*  f048a0c:	03e00008 */ 	jr	$ra
 /*  f048a10:	27bd00e8 */ 	addiu	$sp,$sp,0xe8
 );
+
+// Mismatch because it uses the stack differently.
+//void func0f048398(void)
+//{
+//	s32 numchrs = getNumChrs(); // e0
+//	s32 numalivewithpropflag80; // dc
+//	struct chrdata *spb8[10];
+//	struct chrdata *spa4[5]; // a4
+//	struct chrdata *sp7c[10]; // 7c
+//	s32 writeindex;
+//	s32 sp74;
+//	s32 numreapablewithpropflag80;
+//	s32 numalive;
+//	s32 s1len;
+//	s32 s2len;
+//	s32 i;
+//	s32 time60;
+//
+//	var80062cb0 = 0;
+//	var80062cb4 = 0;
+//	var80062cb8 = 0;
+//	numalivewithpropflag80 = 0;
+//	var80062cbc = 0;
+//
+//	// 400
+//	if (g_Vars.normmplayerisrunning == false) {
+//		for (i = 0; i < numchrs; i++) {
+//			struct chrdata *chr = &g_ChrsA[i]; // s0
+//
+//			if (chr->model && chr->prop && chrIsDead(chr) == false) {
+//				struct prop *targetprop = chrGetTargetProp(chr);
+//
+//				if (targetprop && (targetprop->type == PROPTYPE_CHR || targetprop->type == PROPTYPE_PLAYER)) {
+//					if ((targetprop->type == PROPTYPE_PLAYER
+//								&& !(g_Vars.antiplayernum >= 0 && g_Vars.anti && g_Vars.anti->prop == targetprop)
+//								&& chrCompareTeams(chr, targetprop->chr, COMPARE_ENEMIES))
+//							|| CHRRACE(targetprop->chr) == RACE_EYESPY) {
+//						var80062cb0++;
+//
+//						if (chr->lastvisibletarget60 < chr->lastseetarget60) {
+//							time60 = chr->lastseetarget60;
+//						} else {
+//							time60 = chr->lastvisibletarget60;
+//						}
+//
+//						if (time60) {
+//							var80062cb4++;
+//
+//							if (g_Vars.lvframe60 - time60 < 240) {
+//								var80062cb8++;
+//								var80062cbc++;
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	// 56c
+//	var80068454++;
+//
+//	if (var80068454 > 10) {
+//		var80068454 = 0;
+//	}
+//
+//	if (debug0f11eeb0()) {
+//		propPrintDangerous();
+//	}
+//
+//	if (g_Vars.unk0004d2 >= 0) {
+//		func0f0482cc(g_Vars.unk0004d2 + 0xc00);
+//		g_Vars.unk0004d2 = -1;
+//		g_Vars.unk0004d3 = 1;
+//	}
+//
+//	for (i = 0; i < g_NumChrsB; i++) {
+//		if (g_Vars.unk0004d3 == 0 || (g_ChrsB[i].hidden2 & CHRH2FLAG_0010)) {
+//			chrTick(&g_ChrsB[i]);
+//		}
+//	}
+//
+//	// 634
+//	numalive = 0;
+//	s2len = 0;
+//
+//	for (i = 0; i < numchrs; i++) {
+//		struct chrdata *chr = &g_ChrsA[i];
+//
+//		// 664
+//		if (chr->model && chr->prop) {
+//			// 67c
+//			if (chr->actiontype != ACT_DEAD && chr->actiontype != ACT_DRUGGEDKO) {
+//				numalive++;
+//			}
+//
+//			// 698
+//			if (chr->prop->flags & PROPFLAG_80) {
+//				// 6a0
+//				if (chr->actiontype != ACT_DEAD && chr->actiontype != ACT_DRUGGEDKO) {
+//					numalivewithpropflag80++;
+//				} else /*6bc*/ if (chr->actiontype == ACT_DRUGGEDKO) {
+//					if ((chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0) {
+//						numreapablewithpropflag80++;
+//					}
+//				} else {
+//					numreapablewithpropflag80++;
+//				}
+//			}
+//
+//			// 6e0
+//			if (chr->actiontype == ACT_DEAD
+//					|| (chr->actiontype == ACT_DRUGGEDKO && (chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
+//				if (chr->hidden2 & CHRH2FLAG_0080) {
+//					sp7c[s2len] = chr;
+//					s2len++;
+//
+//					if (s2len >= 10) {
+//						writeindex = random() % s2len;
+//						chrFadeCorpse(sp7c[writeindex]);
+//						sp7c[writeindex] = sp7c[s2len - 1];
+//						s2len--;
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	// 790
+//	if (var80068458 < numalive) {
+//		var80068458 = numalive;
+//	}
+//
+//	// 7b4
+//	sp74 = 5 - numalivewithpropflag80;
+//
+//	// 7c8
+//	if (g_Vars.lvupdate240_60 > 6) {
+//		sp74 = (sp74 - g_Vars.lvupdate240_60) + 6;
+//	}
+//
+//	// 7dc
+//	if (sp74 < 0) {
+//		sp74 = 0;
+//	}
+//
+//	// 7ec
+//	if (numreapablewithpropflag80) {
+//		numreapablewithpropflag80 = 0;
+//		s1len = 0;
+//		s2len = 0;
+//
+//		for (i = 0; i < numchrs; i++) {
+//			struct chrdata *chr = &g_ChrsA[i];
+//
+//			if (chr->model) {
+//				if (chr->actiontype == ACT_DEAD
+//						|| (chr->actiontype == ACT_DRUGGEDKO && chr->prop && (chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
+//					if (chr->prop->flags & PROPFLAG_80) {
+//						if (chr->act_dead.fadetimer < 0 && !chr->act_dead.allowfade) {
+//							numreapablewithpropflag80++;
+//
+//							if (sp74 < numreapablewithpropflag80 || chr->aibot) {
+//								chrFadeCorpse(chr);
+//								numreapablewithpropflag80--;
+//							} else {
+//								if (chr->act_dead.allowreap == 0) {
+//									spb8[s1len] = chr;
+//									s1len++;
+//
+//									if (s1len >= 2) {
+//										writeindex = random() % s1len;
+//
+//
+//										chrEnableReap(spb8[writeindex]);
+//										spb8[writeindex] = spb8[s1len - 1];
+//										s1len--;
+//									}
+//								}
+//							}
+//						}
+//					} else {
+//						// 938
+//						if (chr->act_dead.allowreap == 0) {
+//							spa4[s2len] = chr;
+//							s2len++;
+//
+//							if (s2len >= 5) {
+//								writeindex = random() % s2len;
+//
+//								if (spa4[writeindex]->actiontype != ACT_DEAD);
+//								if (spa4[writeindex]->actiontype != ACT_DEAD) {
+//									chrBeginDead(spa4[writeindex]);
+//								}
+//
+//								chrEnableReap(spa4[writeindex]);
+//								spa4[writeindex] = spa4[s2len - 1];
+//								s2len--;
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+//}
 
 bool chrSawTargetRecently(struct chrdata *chr)
 {
@@ -24919,7 +25125,7 @@ bool chrSawInjury(struct chrdata *chr, u8 arg1)
 	} else if (saw_injury && arg1 == 1) {
 		struct chrdata *victim = chrFindById(chr, chr->chrseeshot);
 
-		if (victim && !chrCompareTeams(chr, victim, 1)) {
+		if (victim && !chrCompareTeams(chr, victim, COMPARE_FRIENDS)) {
 			saw_injury = false;
 		}
 	} else {
@@ -24940,7 +25146,7 @@ bool chrSawDeath(struct chrdata *chr, u8 arg1)
 	} else if (saw_death && arg1 == 1) {
 		struct chrdata *victim = chrFindById(chr, chr->chrseedie);
 
-		if (victim && !chrCompareTeams(chr, victim, 1)) {
+		if (victim && !chrCompareTeams(chr, victim, COMPARE_FRIENDS)) {
 			saw_death = false;
 			chr->chrseedie = -1;
 		}
@@ -25413,7 +25619,7 @@ bool chrCompareTeams(struct chrdata *chr1, struct chrdata *chr2, u8 checktype)
 			return true;
 		}
 
-		if (checktype == 1) { // Return true if chrs are friends
+		if (checktype == COMPARE_FRIENDS) { // Return true if chrs are friends
 			if (g_Vars.normmplayerisrunning) {
 				if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && chr2->team == chr1->team) {
 					return true;
@@ -25433,7 +25639,7 @@ bool chrCompareTeams(struct chrdata *chr1, struct chrdata *chr2, u8 checktype)
 					return true;
 				}
 			}
-		} else if (checktype == 2) { // Return true if chrs are enemies
+		} else if (checktype == COMPARE_ENEMIES) { // Return true if chrs are enemies
 			if (g_Vars.normmplayerisrunning) {
 				if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) == 0 || chr2->team != chr1->team) {
 					return true;

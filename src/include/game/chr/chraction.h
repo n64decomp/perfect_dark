@@ -168,7 +168,7 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4);
 void chrTickSkJump(struct chrdata *chr);
 void chrTick(struct chrdata *chr);
 void func0f0482cc(u32 ailistid);
-u32 func0f048398(void);
+void func0f048398(void);
 f32 chrGetAngleToPos(struct chrdata *chr, struct coord *pos);
 u32 func0f048b78(void);
 f32 func0f048cc0(struct chrdata *chr);

@@ -436,6 +436,7 @@
 // chr->hidden2
 #define CHRH2FLAG_0001        0x0001
 #define CHRH2FLAG_0002        0x0002 // Equivalent to OBJFLAG3_00020000
+#define CHRH2FLAG_0010        0x0010
 #define CHRH2FLAG_0040        0x0040
 #define CHRH2FLAG_0080        0x0080
 #define CHRH2FLAG_HEADSHOTTED 0x1000
@@ -497,6 +498,9 @@
 #define COLOR_07_RED    0x07
 #define COLOR_08_RED    0x08
 #define COLOR_09_BLUE   0x09
+
+#define COMPARE_FRIENDS 1
+#define COMPARE_ENEMIES 2
 
 // Control styles - 1.1, 1.2 etc
 #define CONTROLMODE_11 0

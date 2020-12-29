@@ -6903,7 +6903,7 @@ glabel aiDetectEnemyOnSameFloor
 //					&& chr->actiontype != ACT_DRUGGEDKO
 //					&& chr->actiontype != ACT_DRUGGEDDROP
 //					&& chr->actiontype != ACT_DRUGGEDCOMINGUP
-//					&& chrCompareTeams(g_Vars.chrdata, chr, 2)
+//					&& chrCompareTeams(g_Vars.chrdata, chr, COMPARE_ENEMIES)
 //					&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
 //					&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0
 //					&& (chr->hidden & CHRHFLAG_40000000) == 0
@@ -6985,7 +6985,7 @@ bool aiDetectEnemy(void)
 					&& chr->actiontype != ACT_DRUGGEDKO
 					&& chr->actiontype != ACT_DRUGGEDDROP
 					&& chr->actiontype != ACT_DRUGGEDCOMINGUP
-					&& chrCompareTeams(g_Vars.chrdata, chr, 2)
+					&& chrCompareTeams(g_Vars.chrdata, chr, COMPARE_ENEMIES)
 					&& chr != g_Vars.chrdata
 					&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
 					&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0
@@ -8423,7 +8423,7 @@ bool aiSetTeamOrders(void)
 			if (chr && chr->model
 					&& !chrIsDead(chr)
 					&& chr->actiontype != ACT_DEAD
-					&& chrCompareTeams(g_Vars.chrdata, chr, true)
+					&& chrCompareTeams(g_Vars.chrdata, chr, COMPARE_FRIENDS)
 					&& g_Vars.chrdata->chrnum != chr->chrnum) {
 				if (chr->myaction == MA_COVERWAIT
 						|| chr->myaction == MA_NORMAL
@@ -8610,7 +8610,7 @@ bool aiIfChrInSquadronDoingAction(void)
 
 			if (chr && chr->model && chrIsDead(chr) == false &&
 					chr->actiontype != ACT_DEAD &&
-					chrCompareTeams(g_Vars.chrdata, chr, 1) &&
+					chrCompareTeams(g_Vars.chrdata, chr, COMPARE_FRIENDS) &&
 					g_Vars.chrdata->chrnum != chr->chrnum &&
 					chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500 &&
 					chr->myaction == cmd->b2) {
