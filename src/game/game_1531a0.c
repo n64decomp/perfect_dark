@@ -279,50 +279,16 @@ Gfx *func0f1538e4(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f153990
-/*  f153990:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f153994:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f153998:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f15399c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1539a0:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f1539a4:	0fc54df7 */ 	jal	gfxSetPrimColour
-/*  f1539a8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1539ac:	3c0f8008 */ 	lui	$t7,%hi(var8007fad0)
-/*  f1539b0:	8deffad0 */ 	lw	$t7,%lo(var8007fad0)($t7)
-/*  f1539b4:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*  f1539b8:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f1539bc:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f1539c0:	01cf0019 */ 	multu	$t6,$t7
-/*  f1539c4:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*  f1539c8:	3c01f600 */ 	lui	$at,0xf600
-/*  f1539cc:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f1539d0:	00ac6821 */ 	addu	$t5,$a1,$t4
-/*  f1539d4:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*  f1539d8:	31cf03ff */ 	andi	$t7,$t6,0x3ff
-/*  f1539dc:	24acffff */ 	addiu	$t4,$a1,-1
-/*  f1539e0:	318d03ff */ 	andi	$t5,$t4,0x3ff
-/*  f1539e4:	000d7080 */ 	sll	$t6,$t5,0x2
-/*  f1539e8:	0000c012 */ 	mflo	$t8
-/*  f1539ec:	0303c821 */ 	addu	$t9,$t8,$v1
-/*  f1539f0:	27280001 */ 	addiu	$t0,$t9,0x1
-/*  f1539f4:	310903ff */ 	andi	$t1,$t0,0x3ff
-/*  f1539f8:	00095380 */ 	sll	$t2,$t1,0xe
-/*  f1539fc:	2468ffff */ 	addiu	$t0,$v1,-1
-/*  f153a00:	310903ff */ 	andi	$t1,$t0,0x3ff
-/*  f153a04:	01415825 */ 	or	$t3,$t2,$at
-/*  f153a08:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f153a0c:	00095380 */ 	sll	$t2,$t1,0xe
-/*  f153a10:	014e7825 */ 	or	$t7,$t2,$t6
-/*  f153a14:	0178c825 */ 	or	$t9,$t3,$t8
-/*  f153a18:	ac590000 */ 	sw	$t9,0x0($v0)
-/*  f153a1c:	0fc54e0e */ 	jal	func0f153838
-/*  f153a20:	ac4f0004 */ 	sw	$t7,0x4($v0)
-/*  f153a24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f153a28:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f153a2c:	03e00008 */ 	jr	$ra
-/*  f153a30:	00000000 */ 	nop
-);
+Gfx *func0f153990(Gfx *gdl, s32 left, s32 top, s32 width, s32 height)
+{
+	gdl = gfxSetPrimColour(gdl, 0x00000000);
+
+	gDPFillRectangle(gdl++, left - 1, top - 1, width * var8007fad0 + left + 1, top + height + 1);
+
+	gdl = func0f153838(gdl);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f153a34
