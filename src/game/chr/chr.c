@@ -115,9 +115,9 @@ void func0f01e250(void)
 	} while (!done);
 }
 
-s32 getNumChrs(void)
+s32 getNumChrSlots(void)
 {
-	return g_NumChrsA;
+	return g_NumChrSlots;
 }
 
 void chrSetChrnum(struct chrdata *chr, s16 chrnum)
@@ -127,9 +127,9 @@ void chrSetChrnum(struct chrdata *chr, s16 chrnum)
 	s16 tmp;
 
 	// Set the new chrnum
-	for (i = 0; i < g_NumChrsC; i++) {
-		if (g_ChrnumsC[i] == chr->chrnum) {
-			g_ChrnumsC[i] = chrnum;
+	for (i = 0; i < g_NumChrs; i++) {
+		if (g_Chrnums[i] == chr->chrnum) {
+			g_Chrnums[i] = chrnum;
 			break;
 		}
 
@@ -137,19 +137,19 @@ void chrSetChrnum(struct chrdata *chr, s16 chrnum)
 
 	chr->chrnum = chrnum;
 
-	// Sort the g_ChrnumsC and g_ChrIndexesC arrays
+	// Sort the g_Chrnums and g_ChrIndexes arrays
 	do {
 		modified = false;
 
-		for (i = 0; i < g_NumChrsC - 1; i++) {
-			if (g_ChrnumsC[i] > g_ChrnumsC[i + 1]) {
-				tmp = g_ChrnumsC[i];
-				g_ChrnumsC[i] = g_ChrnumsC[i + 1];
-				g_ChrnumsC[i + 1] = tmp;
+		for (i = 0; i < g_NumChrs - 1; i++) {
+			if (g_Chrnums[i] > g_Chrnums[i + 1]) {
+				tmp = g_Chrnums[i];
+				g_Chrnums[i] = g_Chrnums[i + 1];
+				g_Chrnums[i + 1] = tmp;
 
-				tmp = g_ChrIndexesC[i];
-				g_ChrIndexesC[i] = g_ChrIndexesC[i + 1];
-				g_ChrIndexesC[i + 1] = tmp;
+				tmp = g_ChrIndexes[i];
+				g_ChrIndexes[i] = g_ChrIndexes[i + 1];
+				g_ChrIndexes[i + 1] = tmp;
 
 				modified = true;
 			}
@@ -157,44 +157,44 @@ void chrSetChrnum(struct chrdata *chr, s16 chrnum)
 	} while (modified);
 }
 
-void chrInsertToChrsC(s32 chrnum, s32 chrindex)
+void chrRegister(s32 chrnum, s32 chrindex)
 {
 	s32 i;
 	s16 tmp;
 
-	for (i = 0; i < g_NumChrsC; i++) {
-		if (g_ChrnumsC[i] > chrnum) {
-			tmp = g_ChrnumsC[i];
-			g_ChrnumsC[i] = chrnum;
+	for (i = 0; i < g_NumChrs; i++) {
+		if (g_Chrnums[i] > chrnum) {
+			tmp = g_Chrnums[i];
+			g_Chrnums[i] = chrnum;
 			chrnum = tmp;
 
-			tmp = g_ChrIndexesC[i];
-			g_ChrIndexesC[i] = chrindex;
+			tmp = g_ChrIndexes[i];
+			g_ChrIndexes[i] = chrindex;
 			chrindex = tmp;
 		}
 	}
 
-	g_ChrnumsC[g_NumChrsC] = chrnum;
-	g_ChrIndexesC[g_NumChrsC] = chrindex;
-	g_NumChrsC++;
+	g_Chrnums[g_NumChrs] = chrnum;
+	g_ChrIndexes[g_NumChrs] = chrindex;
+	g_NumChrs++;
 }
 
-void chrRemoveFromChrsC(s32 chrnum)
+void chrDeregister(s32 chrnum)
 {
 	s32 i;
 
-	for (i = 0; i < g_NumChrsC; i++) {
-		if (g_ChrnumsC[i] == chrnum) {
+	for (i = 0; i < g_NumChrs; i++) {
+		if (g_Chrnums[i] == chrnum) {
 			s32 j = i + 1;
 
-			while (j < g_NumChrsC) {
-				g_ChrnumsC[i] = g_ChrnumsC[j];
-				g_ChrIndexesC[i] = g_ChrIndexesC[j];
+			while (j < g_NumChrs) {
+				g_Chrnums[i] = g_Chrnums[j];
+				g_ChrIndexes[i] = g_ChrIndexes[j];
 				i++;
 				j++;
 			}
 
-			g_NumChrsC--;
+			g_NumChrs--;
 			return;
 		}
 	}
@@ -2248,13 +2248,13 @@ glabel var7f1a8720
 /*  f020534:	24020001 */ 	addiu	$v0,$zero,0x1
 );
 
-s32 chrsGetNumFree(void)
+s32 getNumFreeChrSlots(void)
 {
 	s32 count = 0;
 	s32 i;
 
-	for (i = 0; i < g_NumChrsA; i++) {
-		if (g_ChrsA[i].chrnum < 0) {
+	for (i = 0; i < g_NumChrSlots; i++) {
+		if (g_ChrSlots[i].chrnum < 0) {
 			count++;
 		}
 	}
@@ -2286,22 +2286,22 @@ f32 chrGetArmor(struct chrdata *chr)
 	return 0;
 }
 
-s16 getLowestUnusedChrId(void)
+s16 getNextUnusedChrnum(void)
 {
-	s32 chr_id;
+	s32 chrnum;
 	struct chrdata *chr;
 
 	do {
-		chr_id = ++g_NextChrId;
+		chrnum = ++g_NextChrnum;
 
-		if (chr_id > 32767) {
-			chr_id = g_NextChrId = 5000;
+		if (chrnum > 32767) {
+			chrnum = g_NextChrnum = 5000;
 		}
 
-		chr = chrFindByLiteralId((s16)chr_id);
+		chr = chrFindByLiteralId((s16)chrnum);
 	} while (chr);
 
-	return chr_id;
+	return chrnum;
 }
 
 void chrInit(struct prop *prop, u8 *ailist)
@@ -2309,16 +2309,16 @@ void chrInit(struct prop *prop, u8 *ailist)
 	s32 i;
 	struct chrdata *chr = NULL;
 
-	for (i = 0; i < g_NumChrsA; i++) {
-		if (g_ChrsA[i].chrnum < 0) {
-			chr = &g_ChrsA[i];
+	for (i = 0; i < g_NumChrSlots; i++) {
+		if (g_ChrSlots[i].chrnum < 0) {
+			chr = &g_ChrSlots[i];
 			break;
 		}
 	}
 
 	prop->chr = chr;
-	chr->chrnum = getLowestUnusedChrId();
-	chrInsertToChrsC(chr->chrnum, i);
+	chr->chrnum = getNextUnusedChrnum();
+	chrRegister(chr->chrnum, i);
 
 	chr->headnum = 0;
 	chr->bodynum = 0;
@@ -2638,7 +2638,7 @@ void func0f020d44(struct prop *prop, bool removechr)
 	chr->model = NULL;
 
 	if (removechr) {
-		chrRemoveFromChrsC(chr->chrnum);
+		chrDeregister(chr->chrnum);
 
 		if (chr->cover != -1) {
 			coverSetFlag0002(chr->cover, false);
@@ -2671,13 +2671,13 @@ void propClearReferences(s32 propnum)
 	s32 j;
 	struct prop *prop = &g_Vars.props[propnum];
 
-	for (i = 0; i < g_NumChrsA; i++) {
-		if (g_ChrsA[i].target == propnum) {
-			if (propGetIndexByChrId(&g_ChrsA[i], g_ChrsA[i].chrpreset1) == propnum) {
-				g_ChrsA[i].chrpreset1 = -1;
+	for (i = 0; i < g_NumChrSlots; i++) {
+		if (g_ChrSlots[i].target == propnum) {
+			if (propGetIndexByChrId(&g_ChrSlots[i], g_ChrSlots[i].chrpreset1) == propnum) {
+				g_ChrSlots[i].chrpreset1 = -1;
 			}
 
-			g_ChrsA[i].target = -1;
+			g_ChrSlots[i].target = -1;
 		}
 	}
 
@@ -2700,9 +2700,9 @@ void func0f0211a8(f32 arg0)
 
 	var80062968 = arg0;
 
-	for (i = 0; i < g_NumChrsA; i++) {
-		if (g_ChrsA[i].model) {
-			modelSetAnimPlaySpeed(g_ChrsA[i].model, var80062968, 600);
+	for (i = 0; i < g_NumChrSlots; i++) {
+		if (g_ChrSlots[i].model) {
+			modelSetAnimPlaySpeed(g_ChrSlots[i].model, var80062968, 600);
 		}
 	}
 }
@@ -10167,23 +10167,23 @@ void func0f028590(f32 arg0)
 	s32 i;
 	f32 add = 0.075f;
 
-	for (i = 0; i < g_NumChrsA; i++) {
-		if (g_ChrsA[i].model) {
-			struct prop *prop = g_ChrsA[i].prop;
+	for (i = 0; i < g_NumChrSlots; i++) {
+		if (g_ChrSlots[i].model) {
+			struct prop *prop = g_ChrSlots[i].prop;
 
 			if (prop && prop->type == PROPTYPE_CHR &&
-					chrGetTargetProp(&g_ChrsA[i]) == g_Vars.currentplayer->prop) {
+					chrGetTargetProp(&g_ChrSlots[i]) == g_Vars.currentplayer->prop) {
 
-				f32 distance = chrGetDistanceToCurrentPlayer(&g_ChrsA[i]);
+				f32 distance = chrGetDistanceToCurrentPlayer(&g_ChrSlots[i]);
 
 				if (distance == 0) {
 					distance = 2;
 				} else {
-					distance = (arg0 * 100 * g_ChrsA[i].hearingscale * (1.0f + add)) / distance;
+					distance = (arg0 * 100 * g_ChrSlots[i].hearingscale * (1.0f + add)) / distance;
 				}
 
 				if (distance > 1.0f) {
-					chrRecordLastHearTargetTime(&g_ChrsA[i]);
+					chrRecordLastHearTargetTime(&g_ChrSlots[i]);
 #if PIRACYCHECKS
 					{
 						s32 *i = (s32 *)&func00002078;
@@ -10210,17 +10210,17 @@ void func0f028590(f32 arg0)
 struct chrdata *chrFindByLiteralId(s32 chrnum)
 {
 	s32 lower = 0;
-	s32 upper = g_NumChrsC;
+	s32 upper = g_NumChrs;
 	s32 i;
 
 	while (upper >= lower) {
 		i = (lower + upper) / 2;
 
-		if (chrnum == g_ChrnumsC[i]) {
-			return &g_ChrsA[g_ChrIndexesC[i]];
+		if (chrnum == g_Chrnums[i]) {
+			return &g_ChrSlots[g_ChrIndexes[i]];
 		}
 
-		if (chrnum < g_ChrnumsC[i]) {
+		if (chrnum < g_Chrnums[i]) {
 			upper = i - 1;
 		} else {
 			lower = i + 1;

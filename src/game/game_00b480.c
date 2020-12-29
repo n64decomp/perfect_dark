@@ -43,9 +43,9 @@ void func0f00b510(void)
 	var80062974 = 0;
 	var80062978 = 0;
 	var8006297c = 0;
-	g_NextChrId = 5000;
-	g_ChrsA = NULL;
-	g_NumChrsA = 0;
+	g_NextChrnum = 5000;
+	g_ChrSlots = NULL;
+	g_NumChrSlots = 0;
 
 	var80062a8c = malloc(sizeof(struct var80062a8c) * 20, 4);
 
@@ -54,9 +54,9 @@ void func0f00b510(void)
 	}
 
 	var80062a90 = 0;
-	g_NumChrsC = 0;
-	g_ChrnumsC = NULL;
-	g_ChrIndexesC = NULL;
+	g_NumChrs = 0;
+	g_Chrnums = NULL;
+	g_ChrIndexes = NULL;
 	var80062960 = malloc(0x1470, 4);
 
 	for (i = 0; i < 20; i++) {
@@ -72,21 +72,21 @@ void func0f00b62c(s32 numchrs)
 {
 	s32 i;
 
-	g_NumChrsA = PLAYERCOUNT() + numchrs + 10;
-	g_ChrsA = malloc(ALIGN16(g_NumChrsA * sizeof(struct chrdata)), 4);
+	g_NumChrSlots = PLAYERCOUNT() + numchrs + 10;
+	g_ChrSlots = malloc(ALIGN16(g_NumChrSlots * sizeof(struct chrdata)), 4);
 
-	for (i = 0; i < g_NumChrsA; i++) {
-		g_ChrsA[i].chrnum = -1;
-		g_ChrsA[i].model = NULL;
-		g_ChrsA[i].prop = NULL;
+	for (i = 0; i < g_NumChrSlots; i++) {
+		g_ChrSlots[i].chrnum = -1;
+		g_ChrSlots[i].model = NULL;
+		g_ChrSlots[i].prop = NULL;
 	}
 
-	g_NumChrsC = 0;
-	g_ChrnumsC = malloc(ALIGN16(g_NumChrsA * 2), 4);
-	g_ChrIndexesC = malloc(ALIGN16(g_NumChrsA * 2), 4);
+	g_NumChrs = 0;
+	g_Chrnums = malloc(ALIGN16(g_NumChrSlots * 2), 4);
+	g_ChrIndexes = malloc(ALIGN16(g_NumChrSlots * 2), 4);
 
-	for (i = 0; i < g_NumChrsA; i++) {
-		g_ChrnumsC[i] = -1;
-		g_ChrIndexesC[i] = -1;
+	for (i = 0; i < g_NumChrSlots; i++) {
+		g_Chrnums[i] = -1;
+		g_ChrIndexes[i] = -1;
 	}
 }

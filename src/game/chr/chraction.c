@@ -12855,7 +12855,7 @@ void chrAlertOthersOfInjury(struct chrdata *chr, bool dying)
 {
 	s32 index = 0;
 	s32 numinrange = 0;
-	s32 numchrs = getNumChrs();
+	s32 numchrs = getNumChrSlots();
 
 	if (g_Vars.antiplayernum >= 0 && chr->prop == g_Vars.anti->prop) {
 		return;
@@ -12870,7 +12870,7 @@ void chrAlertOthersOfInjury(struct chrdata *chr, bool dying)
 	}
 
 	for (; index < numchrs && numinrange < 7; index++) {
-		struct chrdata *loopchr = &g_ChrsA[index];
+		struct chrdata *loopchr = &g_ChrSlots[index];
 
 		if (loopchr->model && loopchr->prop && (loopchr->prop->flags & PROPFLAG_TANGIBLE)) {
 			f32 xdiff = loopchr->prop->pos.x - chr->prop->pos.x;
@@ -23473,9 +23473,9 @@ void func0f0482cc(u32 ailistid)
 		prop = prop->next;
 	}
 
-	g_ChrsB[g_NumChrsB - 1].ailist = ailistFindById(ailistid);
-	g_ChrsB[g_NumChrsB - 1].aioffset = 0;
-	g_ChrsB[g_NumChrsB - 1].aireturnlist = -1;
+	g_BgChrs[g_NumBgChrs - 1].ailist = ailistFindById(ailistid);
+	g_BgChrs[g_NumBgChrs - 1].aioffset = 0;
+	g_BgChrs[g_NumBgChrs - 1].aireturnlist = -1;
 }
 
 u32 var80068454 = 0;
@@ -23494,7 +23494,7 @@ glabel func0f048398
 /*  f0483b4:	afb30024 */ 	sw	$s3,0x24($sp)
 /*  f0483b8:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f0483bc:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0483c0:	0fc07934 */ 	jal	getNumChrs
+/*  f0483c0:	0fc07934 */ 	jal	getNumChrSlots
 /*  f0483c4:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0483c8:	3c1e8006 */ 	lui	$s8,%hi(var80062cb0)
 /*  f0483cc:	27de2cb0 */ 	addiu	$s8,$s8,%lo(var80062cb0)
@@ -23518,8 +23518,8 @@ glabel func0f048398
 /*  f048414:	24170006 */ 	addiu	$s7,$zero,0x6
 /*  f048418:	24140003 */ 	addiu	$s4,$zero,0x3
 .L0f04841c:
-/*  f04841c:	3c0f8006 */ 	lui	$t7,%hi(g_ChrsA)
-/*  f048420:	8def2988 */ 	lw	$t7,%lo(g_ChrsA)($t7)
+/*  f04841c:	3c0f8006 */ 	lui	$t7,%hi(g_ChrSlots)
+/*  f048420:	8def2988 */ 	lw	$t7,%lo(g_ChrSlots)($t7)
 /*  f048424:	026f8021 */ 	addu	$s0,$s3,$t7
 /*  f048428:	8e180020 */ 	lw	$t8,0x20($s0)
 /*  f04842c:	5300004b */ 	beqzl	$t8,.L0f04855c
@@ -23643,15 +23643,15 @@ glabel func0f048398
 /*  f0485d4:	240c0001 */ 	addiu	$t4,$zero,0x1
 /*  f0485d8:	a02ca493 */ 	sb	$t4,%lo(g_Vars+0x4d3)($at)
 .L0f0485dc:
-/*  f0485dc:	3c038006 */ 	lui	$v1,%hi(g_NumChrsB)
-/*  f0485e0:	8c637e60 */ 	lw	$v1,%lo(g_NumChrsB)($v1)
+/*  f0485dc:	3c038006 */ 	lui	$v1,%hi(g_NumBgChrs)
+/*  f0485e0:	8c637e60 */ 	lw	$v1,%lo(g_NumBgChrs)($v1)
 /*  f0485e4:	00009825 */ 	or	$s3,$zero,$zero
 /*  f0485e8:	18600013 */ 	blez	$v1,.L0f048638
 .L0f0485ec:
 /*  f0485ec:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x4d3)
 /*  f0485f0:	81ada493 */ 	lb	$t5,%lo(g_Vars+0x4d3)($t5)
-/*  f0485f4:	3c028006 */ 	lui	$v0,%hi(g_ChrsB)
-/*  f0485f8:	8c427e58 */ 	lw	$v0,%lo(g_ChrsB)($v0)
+/*  f0485f4:	3c028006 */ 	lui	$v0,%hi(g_BgChrs)
+/*  f0485f8:	8c427e58 */ 	lw	$v0,%lo(g_BgChrs)($v0)
 /*  f0485fc:	11a00005 */ 	beqz	$t5,.L0f048614
 /*  f048600:	00537021 */ 	addu	$t6,$v0,$s3
 /*  f048604:	95cf0192 */ 	lhu	$t7,0x192($t6)
@@ -23661,8 +23661,8 @@ glabel func0f048398
 .L0f048614:
 /*  f048614:	0fc11f20 */ 	jal	chrTick
 /*  f048618:	02622021 */ 	addu	$a0,$s3,$v0
-/*  f04861c:	3c038006 */ 	lui	$v1,%hi(g_NumChrsB)
-/*  f048620:	8c637e60 */ 	lw	$v1,%lo(g_NumChrsB)($v1)
+/*  f04861c:	3c038006 */ 	lui	$v1,%hi(g_NumBgChrs)
+/*  f048620:	8c637e60 */ 	lw	$v1,%lo(g_NumBgChrs)($v1)
 /*  f048624:	26b50001 */ 	addiu	$s5,$s5,0x1
 .L0f048628:
 /*  f048628:	02a3082a */ 	slt	$at,$s5,$v1
@@ -23678,8 +23678,8 @@ glabel func0f048398
 /*  f04864c:	24170005 */ 	addiu	$s7,$zero,0x5
 /*  f048650:	27b1007c */ 	addiu	$s1,$sp,0x7c
 .L0f048654:
-/*  f048654:	3c088006 */ 	lui	$t0,%hi(g_ChrsA)
-/*  f048658:	8d082988 */ 	lw	$t0,%lo(g_ChrsA)($t0)
+/*  f048654:	3c088006 */ 	lui	$t0,%hi(g_ChrSlots)
+/*  f048658:	8d082988 */ 	lw	$t0,%lo(g_ChrSlots)($t0)
 /*  f04865c:	02682021 */ 	addu	$a0,$s3,$t0
 /*  f048660:	8c890020 */ 	lw	$t1,0x20($a0)
 /*  f048664:	51200046 */ 	beqzl	$t1,.L0f048780
@@ -23800,8 +23800,8 @@ glabel func0f048398
 /*  f048804:	00009825 */ 	or	$s3,$zero,$zero
 /*  f048808:	27b400a4 */ 	addiu	$s4,$sp,0xa4
 .L0f04880c:
-/*  f04880c:	3c0e8006 */ 	lui	$t6,%hi(g_ChrsA)
-/*  f048810:	8dce2988 */ 	lw	$t6,%lo(g_ChrsA)($t6)
+/*  f04880c:	3c0e8006 */ 	lui	$t6,%hi(g_ChrSlots)
+/*  f048810:	8dce2988 */ 	lw	$t6,%lo(g_ChrSlots)($t6)
 /*  f048814:	026e2021 */ 	addu	$a0,$s3,$t6
 /*  f048818:	8c8d0020 */ 	lw	$t5,0x20($a0)
 /*  f04881c:	51a0006d */ 	beqzl	$t5,.L0f0489d4
@@ -23945,7 +23945,7 @@ glabel func0f048398
 // Mismatch because it uses the stack differently.
 //void func0f048398(void)
 //{
-//	s32 numchrs = getNumChrs(); // e0
+//	s32 numchrs = getNumChrSlots(); // e0
 //	s32 numalivewithpropflag80; // dc
 //	struct chrdata *spb8[10];
 //	struct chrdata *spa4[5]; // a4
@@ -23968,7 +23968,7 @@ glabel func0f048398
 //	// 400
 //	if (g_Vars.normmplayerisrunning == false) {
 //		for (i = 0; i < numchrs; i++) {
-//			struct chrdata *chr = &g_ChrsA[i]; // s0
+//			struct chrdata *chr = &g_ChrSlots[i]; // s0
 //
 //			if (chr->model && chr->prop && chrIsDead(chr) == false) {
 //				struct prop *targetprop = chrGetTargetProp(chr);
@@ -24017,9 +24017,9 @@ glabel func0f048398
 //		g_Vars.unk0004d3 = 1;
 //	}
 //
-//	for (i = 0; i < g_NumChrsB; i++) {
-//		if (g_Vars.unk0004d3 == 0 || (g_ChrsB[i].hidden2 & CHRH2FLAG_0010)) {
-//			chrTick(&g_ChrsB[i]);
+//	for (i = 0; i < g_NumBgChrs; i++) {
+//		if (g_Vars.unk0004d3 == 0 || (g_BgChrs[i].hidden2 & CHRH2FLAG_0010)) {
+//			chrTick(&g_BgChrs[i]);
 //		}
 //	}
 //
@@ -24028,7 +24028,7 @@ glabel func0f048398
 //	s2len = 0;
 //
 //	for (i = 0; i < numchrs; i++) {
-//		struct chrdata *chr = &g_ChrsA[i];
+//		struct chrdata *chr = &g_ChrSlots[i];
 //
 //		// 664
 //		if (chr->model && chr->prop) {
@@ -24094,7 +24094,7 @@ glabel func0f048398
 //		s2len = 0;
 //
 //		for (i = 0; i < numchrs; i++) {
-//			struct chrdata *chr = &g_ChrsA[i];
+//			struct chrdata *chr = &g_ChrSlots[i];
 //
 //			if (chr->model) {
 //				if (chr->actiontype == ACT_DEAD
@@ -24680,23 +24680,23 @@ void chrsClearRefsToPlayer(s32 playernum)
 			playerpropnum = g_Vars.coop->prop - g_Vars.props;
 		}
 
-		for (i = 0; i < getNumChrs(); i++) {
-			if (g_ChrsA[i].p1p2 == playernum) {
-				g_ChrsA[i].p1p2 = otherplayernum;
+		for (i = 0; i < getNumChrSlots(); i++) {
+			if (g_ChrSlots[i].p1p2 == playernum) {
+				g_ChrSlots[i].p1p2 = otherplayernum;
 			}
 
-			if (g_ChrsA[i].target == playerpropnum) {
-				g_ChrsA[i].target = -1;
+			if (g_ChrSlots[i].target == playerpropnum) {
+				g_ChrSlots[i].target = -1;
 			}
 		}
 
-		for (i = 0; i < g_NumChrsB; i++) {
-			if (g_ChrsB[i].p1p2 == playernum) {
-				g_ChrsB[i].p1p2 = otherplayernum;
+		for (i = 0; i < g_NumBgChrs; i++) {
+			if (g_BgChrs[i].p1p2 == playernum) {
+				g_BgChrs[i].p1p2 = otherplayernum;
 			}
 
-			if (g_ChrsB[i].target == playerpropnum) {
-				g_ChrsB[i].target = -1;
+			if (g_BgChrs[i].target == playerpropnum) {
+				g_BgChrs[i].target = -1;
 			}
 		}
 	}
@@ -24816,16 +24816,16 @@ struct chrdata *chrFindById(struct chrdata *basechr, s32 chrnum)
 	}
 
 	lower = 0;
-	upper = g_NumChrsB;
+	upper = g_NumBgChrs;
 
 	while (upper >= lower) {
 		i = (lower + upper) / 2;
 
-		if (chrnum == g_ChrnumsB[i]) {
-			return &g_ChrsB[i];
+		if (chrnum == g_BgChrnums[i]) {
+			return &g_BgChrs[i];
 		}
 
-		if (chrnum < g_ChrnumsB[i]) {
+		if (chrnum < g_BgChrnums[i]) {
 			upper = i - 1;
 		} else {
 			lower = i + 1;
@@ -26060,7 +26060,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 	s16 rooms2[8];
 	s32 stack;
 
-	if (chrsGetNumFree() > 1) {
+	if (getNumFreeChrSlots() > 1) {
 		if (headnum < 0) {
 			headnum = bodyChooseHead(bodynum);
 		}
@@ -26102,20 +26102,20 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 	}
 
 	// Low memory - find a corpse to reap
-	if (chrsGetNumFree() < 4) {
+	if (getNumFreeChrSlots() < 4) {
 		s32 stack2;
 		struct chrdata *replacechr = NULL;
-		s32 startindex = random() % g_NumChrsA;
+		s32 startindex = random() % g_NumChrSlots;
 		s32 index = startindex;
 
 		do {
-			if (g_ChrsA[index].chrnum >= 0 && g_ChrsA[index].model && g_ChrsA[index].prop) {
-				if (g_ChrsA[index].actiontype == ACT_DEAD
-						|| (g_ChrsA[index].actiontype == ACT_DRUGGEDKO && (g_ChrsA[index].chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
+			if (g_ChrSlots[index].chrnum >= 0 && g_ChrSlots[index].model && g_ChrSlots[index].prop) {
+				if (g_ChrSlots[index].actiontype == ACT_DEAD
+						|| (g_ChrSlots[index].actiontype == ACT_DRUGGEDKO && (g_ChrSlots[index].chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
 					// If we've found a chr that's ready to be reaped, great.
 					// Bail out of the loop.
-					if (g_ChrsA[index].act_dead.reaptimer >= 120) {
-						replacechr = &g_ChrsA[index];
+					if (g_ChrSlots[index].act_dead.reaptimer >= 120) {
+						replacechr = &g_ChrSlots[index];
 						break;
 					}
 
@@ -26123,12 +26123,12 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 					// last resort, so store them and keep looping in search of
 					// a better chr.
 					if (replacechr == NULL) {
-						replacechr = &g_ChrsA[index];
+						replacechr = &g_ChrSlots[index];
 					}
 				}
 			}
 
-			index = (index + 1) % g_NumChrsA;
+			index = (index + 1) % g_NumChrSlots;
 		} while (index != startindex);
 
 		if (replacechr) {
@@ -27300,20 +27300,20 @@ GLOBAL_ASM(
 glabel rebuildTeams
 /*  f04cc04:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f04cc08:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04cc0c:	0fc07934 */ 	jal	getNumChrs
+/*  f04cc0c:	0fc07934 */ 	jal	getNumChrSlots
 /*  f04cc10:	00000000 */ 	nop
 /*  f04cc14:	3c0e8007 */ 	lui	$t6,%hi(var8006845c)
 /*  f04cc18:	25ce845c */ 	addiu	$t6,$t6,%lo(var8006845c)
 /*  f04cc1c:	8dc10000 */ 	lw	$at,0x0($t6)
 /*  f04cc20:	27ab0024 */ 	addiu	$t3,$sp,0x24
-/*  f04cc24:	3c0c8006 */ 	lui	$t4,%hi(g_ChrsA)
+/*  f04cc24:	3c0c8006 */ 	lui	$t4,%hi(g_ChrSlots)
 /*  f04cc28:	ad610000 */ 	sw	$at,0x0($t3)
 /*  f04cc2c:	8dd90004 */ 	lw	$t9,0x4($t6)
 /*  f04cc30:	3c098006 */ 	lui	$t1,%hi(g_TeamList)
 /*  f04cc34:	00405025 */ 	or	$t2,$v0,$zero
 /*  f04cc38:	24070007 */ 	addiu	$a3,$zero,0x7
 /*  f04cc3c:	25297e64 */ 	addiu	$t1,$t1,%lo(g_TeamList)
-/*  f04cc40:	258c2988 */ 	addiu	$t4,$t4,%lo(g_ChrsA)
+/*  f04cc40:	258c2988 */ 	addiu	$t4,$t4,%lo(g_ChrSlots)
 /*  f04cc44:	00004025 */ 	or	$t0,$zero,$zero
 /*  f04cc48:	241f0008 */ 	addiu	$ra,$zero,0x8
 /*  f04cc4c:	240dfffe */ 	addiu	$t5,$zero,-2
@@ -27374,14 +27374,14 @@ GLOBAL_ASM(
 glabel rebuildSquadrons
 /*  f04cd04:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f04cd08:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04cd0c:	0fc07934 */ 	jal	getNumChrs
+/*  f04cd0c:	0fc07934 */ 	jal	getNumChrSlots
 /*  f04cd10:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04cd14:	3c0c8006 */ 	lui	$t4,%hi(g_ChrsA)
+/*  f04cd14:	3c0c8006 */ 	lui	$t4,%hi(g_ChrSlots)
 /*  f04cd18:	3c0a8006 */ 	lui	$t2,%hi(g_SquadronList)
 /*  f04cd1c:	00405825 */ 	or	$t3,$v0,$zero
 /*  f04cd20:	2408000f */ 	addiu	$t0,$zero,0xf
 /*  f04cd24:	254a7e68 */ 	addiu	$t2,$t2,%lo(g_SquadronList)
-/*  f04cd28:	258c2988 */ 	addiu	$t4,$t4,%lo(g_ChrsA)
+/*  f04cd28:	258c2988 */ 	addiu	$t4,$t4,%lo(g_ChrSlots)
 /*  f04cd2c:	00004825 */ 	or	$t1,$zero,$zero
 /*  f04cd30:	24100010 */ 	addiu	$s0,$zero,0x10
 /*  f04cd34:	241ffffe */ 	addiu	$ra,$zero,-2

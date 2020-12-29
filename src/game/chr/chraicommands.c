@@ -4322,7 +4322,7 @@ bool aiDuplicateChr(void)
 
 		if (cloneprop) {
 			clone = cloneprop->chr;
-			chrSetChrnum(clone, getLowestUnusedChrId());
+			chrSetChrnum(clone, getNextUnusedChrnum());
 			chr->chrdup = clone->chrnum;
 
 			srcweapon0prop = chrGetEquippedWeaponProp(chr, 0);
@@ -10913,18 +10913,18 @@ bool aiShowCutsceneChrs(void)
 	s32 i;
 
 	if (show) {
-		for (i = getNumChrs() - 1; i >= 0; i--) {
-			if (g_ChrsA[i].chrnum >= 0 && g_ChrsA[i].prop && (g_ChrsA[i].hidden2 & CHRH2FLAG_0001)) {
-				g_ChrsA[i].hidden2 &= ~CHRH2FLAG_0001;
-				g_ChrsA[i].chrflags &= ~CHRCFLAG_HIDDEN;
+		for (i = getNumChrSlots() - 1; i >= 0; i--) {
+			if (g_ChrSlots[i].chrnum >= 0 && g_ChrSlots[i].prop && (g_ChrSlots[i].hidden2 & CHRH2FLAG_0001)) {
+				g_ChrSlots[i].hidden2 &= ~CHRH2FLAG_0001;
+				g_ChrSlots[i].chrflags &= ~CHRCFLAG_HIDDEN;
 			}
 		}
 	} else {
-		for (i = getNumChrs() - 1; i >= 0; i--) {
-			if (g_ChrsA[i].chrnum >= 0 && g_ChrsA[i].prop &&
-					(g_ChrsA[i].chrflags & (CHRCFLAG_UNPLAYABLE | CHRCFLAG_HIDDEN)) == 0) {
-				g_ChrsA[i].hidden2 |= CHRH2FLAG_0001;
-				g_ChrsA[i].chrflags |= CHRCFLAG_HIDDEN;
+		for (i = getNumChrSlots() - 1; i >= 0; i--) {
+			if (g_ChrSlots[i].chrnum >= 0 && g_ChrSlots[i].prop &&
+					(g_ChrSlots[i].chrflags & (CHRCFLAG_UNPLAYABLE | CHRCFLAG_HIDDEN)) == 0) {
+				g_ChrSlots[i].hidden2 |= CHRH2FLAG_0001;
+				g_ChrSlots[i].chrflags |= CHRCFLAG_HIDDEN;
 			}
 		}
 	}

@@ -26,13 +26,13 @@ u32 var80062974 = 0x00000000;
 u32 var80062978 = 0x00000000;
 u32 var8006297c = 0;
 u32 var80062980 = 0;
-s32 g_NextChrId = 5000;
+s32 g_NextChrnum = 5000;
 
 // 80062988
-struct chrdata *g_ChrsA = NULL;
+struct chrdata *g_ChrSlots = NULL;
 
 // 8006298c
-s32 g_NumChrsA = 0;
+s32 g_NumChrSlots = 0;
 
 u32 var80062990 = 0x00000000;
 u32 var80062994 = 0x00000000;
@@ -1671,9 +1671,9 @@ u32 var80067e50 = (u32) &var80067e48;
 // 80067e54
 u32 g_StageFlags = 0;
 
-struct chrdata *g_ChrsB = NULL;
-s16 *g_ChrnumsB = NULL;
-s32 g_NumChrsB = 0;
+struct chrdata *g_BgChrs = NULL;
+s16 *g_BgChrnums = NULL;
+s32 g_NumBgChrs = 0;
 
 s16 *g_TeamList = NULL;
 s16 *g_SquadronList = NULL;

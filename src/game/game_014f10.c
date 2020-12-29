@@ -18,14 +18,14 @@ void func0f014f10(void)
 {
 	s32 i;
 
-	for (i = 0; i < g_NumChrsA; i++) {
-		if (g_ChrsA[i].chrnum >= 0
-				&& g_ChrsA[i].prop
-				&& g_ChrsA[i].prop->type == PROPTYPE_CHR) {
-			func0f020d44(g_ChrsA[i].prop, true);
-			func0f0605c4(g_ChrsA[i].prop);
-			propHide(g_ChrsA[i].prop);
-			propFree(g_ChrsA[i].prop);
+	for (i = 0; i < g_NumChrSlots; i++) {
+		if (g_ChrSlots[i].chrnum >= 0
+				&& g_ChrSlots[i].prop
+				&& g_ChrSlots[i].prop->type == PROPTYPE_CHR) {
+			func0f020d44(g_ChrSlots[i].prop, true);
+			func0f0605c4(g_ChrSlots[i].prop);
+			propHide(g_ChrSlots[i].prop);
+			propFree(g_ChrSlots[i].prop);
 		}
 	}
 }

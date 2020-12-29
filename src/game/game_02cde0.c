@@ -852,14 +852,14 @@ glabel chrUnpack
 /*  f02daac:	a0c302b1 */ 	sb	$v1,0x2b1($a2)
 /*  f02dab0:	92090029 */ 	lbu	$t1,0x29($s0)
 .L0f02dab4:
-/*  f02dab4:	3c0d8006 */ 	lui	$t5,%hi(g_ChrsA)
+/*  f02dab4:	3c0d8006 */ 	lui	$t5,%hi(g_ChrSlots)
 /*  f02dab8:	24010368 */ 	addiu	$at,$zero,0x368
 /*  f02dabc:	a0c902e3 */ 	sb	$t1,0x2e3($a2)
 /*  f02dac0:	860a0022 */ 	lh	$t2,0x22($s0)
 /*  f02dac4:	acca02e4 */ 	sw	$t2,0x2e4($a2)
 /*  f02dac8:	920b002a */ 	lbu	$t3,0x2a($s0)
 /*  f02dacc:	a0cb02fc */ 	sb	$t3,0x2fc($a2)
-/*  f02dad0:	8dad2988 */ 	lw	$t5,%lo(g_ChrsA)($t5)
+/*  f02dad0:	8dad2988 */ 	lw	$t5,%lo(g_ChrSlots)($t5)
 /*  f02dad4:	920f002b */ 	lbu	$t7,0x2b($s0)
 /*  f02dad8:	00cd7023 */ 	subu	$t6,$a2,$t5
 /*  f02dadc:	01c1001a */ 	div	$zero,$t6,$at
@@ -969,7 +969,7 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 			func0f0604bc(prop);
 			propShow(prop);
 			chr = prop->chr;
-			chrSetChrnum(chr, getLowestUnusedChrId());
+			chrSetChrnum(chr, getNextUnusedChrnum());
 			chr->bodynum = BODY_EYESPY;
 			chr->padpreset1 = 0;
 			chr->chrpreset1 = 0;

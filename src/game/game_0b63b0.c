@@ -2139,29 +2139,29 @@ void currentPlayerSpawn(void)
 				func0f0b8ba0();
 			}
 
-			for (i = 0; i < getNumChrs(); i++) {
-				if (g_ChrsA[i].model
-						&& g_ChrsA[i].prop
-						&& (g_ChrsA[i].hidden & CHRHFLAG_00400000)
-						&& (g_ChrsA[i].chrflags & CHRCFLAG_HIDDEN) == 0
-						&& g_ChrsA[i].prop->type == PROPTYPE_CHR
-						&& !chrIsDead(&g_ChrsA[i])
-						&& (g_ChrsA[i].prop->flags & PROPFLAG_TANGIBLE)) {
+			for (i = 0; i < getNumChrSlots(); i++) {
+				if (g_ChrSlots[i].model
+						&& g_ChrSlots[i].prop
+						&& (g_ChrSlots[i].hidden & CHRHFLAG_00400000)
+						&& (g_ChrSlots[i].chrflags & CHRCFLAG_HIDDEN) == 0
+						&& g_ChrSlots[i].prop->type == PROPTYPE_CHR
+						&& !chrIsDead(&g_ChrSlots[i])
+						&& (g_ChrSlots[i].prop->flags & PROPFLAG_TANGIBLE)) {
 					if (g_Vars.bond->prop) {
-						xdiff = g_ChrsA[i].prop->pos.x - g_Vars.bond->prop->pos.x;
-						ydiff = g_ChrsA[i].prop->pos.y - g_Vars.bond->prop->pos.y;
-						zdiff = g_ChrsA[i].prop->pos.z - g_Vars.bond->prop->pos.z;
+						xdiff = g_ChrSlots[i].prop->pos.x - g_Vars.bond->prop->pos.x;
+						ydiff = g_ChrSlots[i].prop->pos.y - g_Vars.bond->prop->pos.y;
+						zdiff = g_ChrSlots[i].prop->pos.z - g_Vars.bond->prop->pos.z;
 					} else {
-						xdiff = g_ChrsA[i].prop->pos.x - g_Vars.currentplayer->prop->pos.x;
-						ydiff = g_ChrsA[i].prop->pos.y - g_Vars.currentplayer->prop->pos.y;
-						zdiff = g_ChrsA[i].prop->pos.z - g_Vars.currentplayer->prop->pos.z;
+						xdiff = g_ChrSlots[i].prop->pos.x - g_Vars.currentplayer->prop->pos.x;
+						ydiff = g_ChrSlots[i].prop->pos.y - g_Vars.currentplayer->prop->pos.y;
+						zdiff = g_ChrSlots[i].prop->pos.z - g_Vars.currentplayer->prop->pos.z;
 					}
 
 					sqdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 
 					if (g_Vars.lvframenum > 0
-							&& (g_ChrsA[i].hidden & CHRHFLAG_00800000)
-							&& func0f06b39c(&sp78, &sp90, &g_ChrsA[i].prop->pos, func0001af80(g_ChrsA[i].model))
+							&& (g_ChrSlots[i].hidden & CHRHFLAG_00800000)
+							&& func0f06b39c(&sp78, &sp90, &g_ChrSlots[i].prop->pos, func0001af80(g_ChrSlots[i].model))
 							&& (random() % 8)) {
 						sqdist += 1000000;
 					}
@@ -2186,7 +2186,7 @@ void currentPlayerSpawn(void)
 						}
 
 						// Write new sqdist
-						sortedchrs[j] = &g_ChrsA[i];
+						sortedchrs[j] = &g_ChrSlots[i];
 						sorteddists[j] = sqdist;
 
 						if (numsqdists < 9) {

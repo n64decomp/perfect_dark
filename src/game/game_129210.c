@@ -139,11 +139,11 @@ void *func0f12955c(s32 count, s32 index, s32 arg2, s32 arg3)
 	// reaping on a random corpose and replace its entry in the array.
 	// So at the end, we'll have an array of up to six unreapable corpses and
 	// all other corpses will be flagged for reaping.
-	numchrs = getNumChrs();
+	numchrs = getNumChrSlots();
 	tally = 0;
 
 	for (i = 0; i < numchrs; i++) {
-		struct chrdata *chr = &g_ChrsA[i];
+		struct chrdata *chr = &g_ChrSlots[i];
 
 		if (chr->model
 				&& chr->prop

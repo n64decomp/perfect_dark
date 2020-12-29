@@ -5,12 +5,12 @@
 
 void func0f01e250(void);
 void chrSetChrnum(struct chrdata *chr, s16 chrnum);
-void chrRemoveFromChrsC(s32 chrnum);
+void chrDeregister(s32 chrnum);
 u32 func0f01e7f4(void);
 bool func0f01f264(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, bool arg4);
 void func0f01f378(void);
-s32 chrsGetNumFree(void);
-s16 getLowestUnusedChrId(void);
+s32 getNumFreeChrSlots(void);
+s16 getNextUnusedChrnum(void);
 struct prop *func0f020b14(struct prop *prop, struct model *model, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist);
 void func0f020d44(struct prop *prop, bool removechr);
 void chrUpdateAimProperties(struct chrdata *chr);
@@ -62,8 +62,8 @@ u32 func0f02bdf8(void);
 u32 func0f02c6e0(void);
 u32 func0f02c9b0(void);
 u32 func0f02ccb4(void);
-s32 getNumChrs(void);
-void chrInsertToChrsC(s32 chrnum, s32 chrindex);
+s32 getNumChrSlots(void);
+void chrRegister(s32 chrnum, s32 chrindex);
 void func0f01e760(s32 arg0);
 void setVar8006297c(u32 arg0);
 u32 getVar8006297c(void);

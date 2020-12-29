@@ -155,22 +155,22 @@ void explosionAlertChrs(f32 *radius, struct coord *noisepos)
 	s32 *end = (s32 *)&func0f084e58;
 	s32 i;
 
-	for (i = 0; i < g_NumChrsA; i++) {
-		if (g_ChrsA[i].model
-				&& chrGetTargetProp(&g_ChrsA[i]) == g_Vars.currentplayer->prop
-				&& g_ChrsA[i].prop
-				&& g_ChrsA[i].prop->type == PROPTYPE_CHR
-				&& (g_ChrsA[i].prop->flags & PROPFLAG_TANGIBLE)) {
-			f32 distance = chrGetDistanceToCoord(&g_ChrsA[i], noisepos);
+	for (i = 0; i < g_NumChrSlots; i++) {
+		if (g_ChrSlots[i].model
+				&& chrGetTargetProp(&g_ChrSlots[i]) == g_Vars.currentplayer->prop
+				&& g_ChrSlots[i].prop
+				&& g_ChrSlots[i].prop->type == PROPTYPE_CHR
+				&& (g_ChrSlots[i].prop->flags & PROPFLAG_TANGIBLE)) {
+			f32 distance = chrGetDistanceToCoord(&g_ChrSlots[i], noisepos);
 
 			if (distance == 0) {
 				distance = 2;
 			} else {
-				distance = (10.0f * *radius * g_ChrsA[i].hearingscale) / distance;
+				distance = (10.0f * *radius * g_ChrSlots[i].hearingscale) / distance;
 			}
 
 			if (distance > 1) {
-				chrRecordLastHearTargetTime(&g_ChrsA[i]);
+				chrRecordLastHearTargetTime(&g_ChrSlots[i]);
 			}
 		}
 	}

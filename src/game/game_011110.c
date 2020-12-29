@@ -1173,7 +1173,7 @@ glabel var7f1a827c
 /*  f0122b0:	24450394 */ 	addiu	$a1,$v0,0x394
 /*  f0122b4:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
 /*  f0122b8:	24460388 */ 	addiu	$a2,$v0,0x388
-/*  f0122bc:	0fc07934 */ 	jal	getNumChrs
+/*  f0122bc:	0fc07934 */ 	jal	getNumChrSlots
 /*  f0122c0:	00000000 */ 	nop
 /*  f0122c4:	18400026 */ 	blez	$v0,.L0f012360
 /*  f0122c8:	00402025 */ 	or	$a0,$v0,$zero
@@ -1183,8 +1183,8 @@ glabel var7f1a827c
 /*  f0122d8:	00a42823 */ 	subu	$a1,$a1,$a0
 /*  f0122dc:	00052880 */ 	sll	$a1,$a1,0x2
 /*  f0122e0:	00a42821 */ 	addu	$a1,$a1,$a0
-/*  f0122e4:	3c068006 */ 	lui	$a2,%hi(g_ChrsA)
-/*  f0122e8:	24c62988 */ 	addiu	$a2,$a2,%lo(g_ChrsA)
+/*  f0122e4:	3c068006 */ 	lui	$a2,%hi(g_ChrSlots)
+/*  f0122e8:	24c62988 */ 	addiu	$a2,$a2,%lo(g_ChrSlots)
 /*  f0122ec:	000528c0 */ 	sll	$a1,$a1,0x3
 /*  f0122f0:	00001025 */ 	or	$v0,$zero,$zero
 /*  f0122f4:	24080048 */ 	addiu	$t0,$zero,0x48
@@ -1591,11 +1591,11 @@ glabel var7f1a827c
 //	g_Vars.currentplayer->prop->rooms[1] = -1;
 //	currentPlayerSetCamPropertiesWithRoom(&pos, &g_Vars.currentplayer->unk0394, &g_Vars.currentplayer->unk0388, rooms[0]);
 //
-//	numchrs = getNumChrs();
+//	numchrs = getNumChrSlots();
 //
 //	for (i = 0; i < numchrs; i++) {
-//		if (g_ChrsA[i].target == -2) {
-//			g_ChrsA[i].target = g_Vars.currentplayer->prop - g_Vars.props;
+//		if (g_ChrSlots[i].target == -2) {
+//			g_ChrSlots[i].target = g_Vars.currentplayer->prop - g_Vars.props;
 //		}
 //	}
 //

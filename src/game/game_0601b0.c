@@ -5210,7 +5210,7 @@ glabel func0f064a24
 /*  f064a84:	24010016 */ 	addiu	$at,$zero,0x16
 /*  f064a88:	1441007e */ 	bne	$v0,$at,.L0f064c84
 /*  f064a8c:	00000000 */ 	nop
-/*  f064a90:	0fc07934 */ 	jal	getNumChrs
+/*  f064a90:	0fc07934 */ 	jal	getNumChrSlots
 /*  f064a94:	00000000 */ 	nop
 /*  f064a98:	2443ffff */ 	addiu	$v1,$v0,-1
 /*  f064a9c:	04600079 */ 	bltz	$v1,.L0f064c84
@@ -5220,11 +5220,11 @@ glabel func0f064a24
 /*  f064aac:	02639823 */ 	subu	$s3,$s3,$v1
 /*  f064ab0:	00139880 */ 	sll	$s3,$s3,0x2
 /*  f064ab4:	02639821 */ 	addu	$s3,$s3,$v1
-/*  f064ab8:	3c158006 */ 	lui	$s5,%hi(g_ChrsA)
+/*  f064ab8:	3c158006 */ 	lui	$s5,%hi(g_ChrSlots)
 /*  f064abc:	3c12800a */ 	lui	$s2,%hi(g_Vars)
 /*  f064ac0:	4480d000 */ 	mtc1	$zero,$f26
 /*  f064ac4:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
-/*  f064ac8:	26b52988 */ 	addiu	$s5,$s5,%lo(g_ChrsA)
+/*  f064ac8:	26b52988 */ 	addiu	$s5,$s5,%lo(g_ChrSlots)
 /*  f064acc:	001398c0 */ 	sll	$s3,$s3,0x3
 /*  f064ad0:	241e001e */ 	addiu	$s8,$zero,0x1e
 /*  f064ad4:	24170004 */ 	addiu	$s7,$zero,0x4

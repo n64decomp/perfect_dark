@@ -427,7 +427,7 @@ glabel func0f066310
 /*  f066404:	0000b825 */ 	or	$s7,$zero,$zero
 /*  f066408:	02a09025 */ 	or	$s2,$s5,$zero
 .L0f06640c:
-/*  f06640c:	0fc07934 */ 	jal	getNumChrs
+/*  f06640c:	0fc07934 */ 	jal	getNumChrSlots
 /*  f066410:	00008025 */ 	or	$s0,$zero,$zero
 /*  f066414:	8e8a006c */ 	lw	$t2,0x6c($s4)
 /*  f066418:	00406025 */ 	or	$t4,$v0,$zero
@@ -506,8 +506,8 @@ glabel func0f066310
 /*  f066510:	00000000 */ 	nop
 /*  f066514:	1840000f */ 	blez	$v0,.L0f066554
 /*  f066518:	00008025 */ 	or	$s0,$zero,$zero
-/*  f06651c:	3c028006 */ 	lui	$v0,%hi(g_ChrsA)
-/*  f066520:	8c422988 */ 	lw	$v0,%lo(g_ChrsA)($v0)
+/*  f06651c:	3c028006 */ 	lui	$v0,%hi(g_ChrSlots)
+/*  f066520:	8c422988 */ 	lw	$v0,%lo(g_ChrSlots)($v0)
 .L0f066524:
 /*  f066524:	8c4f001c */ 	lw	$t7,0x1c($v0)
 /*  f066528:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5826,7 +5826,7 @@ glabel func0f06ad2c
 /*  f06b0cc:	00095280 */ 	sll	$t2,$t1,0xa
 /*  f06b0d0:	05430033 */ 	bgezl	$t2,.L0f06b1a0
 /*  f06b0d4:	8e4e0318 */ 	lw	$t6,0x318($s2)
-/*  f06b0d8:	0fc07934 */ 	jal	getNumChrs
+/*  f06b0d8:	0fc07934 */ 	jal	getNumChrSlots
 /*  f06b0dc:	00000000 */ 	nop
 /*  f06b0e0:	8e2b0040 */ 	lw	$t3,0x40($s1)
 /*  f06b0e4:	3c01ffdf */ 	lui	$at,0xffdf
@@ -5841,8 +5841,8 @@ glabel func0f06ad2c
 /*  f06b108:	00c23023 */ 	subu	$a2,$a2,$v0
 /*  f06b10c:	00063080 */ 	sll	$a2,$a2,0x2
 /*  f06b110:	00c23021 */ 	addu	$a2,$a2,$v0
-/*  f06b114:	3c048006 */ 	lui	$a0,%hi(g_ChrsA)
-/*  f06b118:	24842988 */ 	addiu	$a0,$a0,%lo(g_ChrsA)
+/*  f06b114:	3c048006 */ 	lui	$a0,%hi(g_ChrSlots)
+/*  f06b118:	24842988 */ 	addiu	$a0,$a0,%lo(g_ChrSlots)
 /*  f06b11c:	000630c0 */ 	sll	$a2,$a2,0x3
 /*  f06b120:	00001825 */ 	or	$v1,$zero,$zero
 /*  f06b124:	24100048 */ 	addiu	$s0,$zero,0x48
@@ -21779,7 +21779,7 @@ glabel var7f1aa580
 /*  f07908c:	10000007 */ 	b	.L0f0790ac
 /*  f079090:	8ca5c530 */ 	lw	$a1,%lo(g_MpNumPlayers)($a1)
 .L0f079094:
-/*  f079094:	0fc07934 */ 	jal	getNumChrs
+/*  f079094:	0fc07934 */ 	jal	getNumChrSlots
 /*  f079098:	afa800ac */ 	sw	$t0,0xac($sp)
 /*  f07909c:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0790a0:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
@@ -21793,7 +21793,7 @@ glabel var7f1aa580
 /*  f0790b4:	a50a00aa */ 	sh	$t2,0xaa($t0)
 /*  f0790b8:	850300aa */ 	lh	$v1,0xaa($t0)
 /*  f0790bc:	8fad00a8 */ 	lw	$t5,0xa8($sp)
-/*  f0790c0:	3c198006 */ 	lui	$t9,%hi(g_ChrsA)
+/*  f0790c0:	3c198006 */ 	lui	$t9,%hi(g_ChrSlots)
 /*  f0790c4:	0065082a */ 	slt	$at,$v1,$a1
 /*  f0790c8:	14200004 */ 	bnez	$at,.L0f0790dc
 /*  f0790cc:	0003c0c0 */ 	sll	$t8,$v1,0x3
@@ -21834,7 +21834,7 @@ glabel var7f1aa580
 /*  f079154:	1000ffd7 */ 	b	.L0f0790b4
 /*  f079158:	246a0001 */ 	addiu	$t2,$v1,0x1
 .L0f07915c:
-/*  f07915c:	8f392988 */ 	lw	$t9,%lo(g_ChrsA)($t9)
+/*  f07915c:	8f392988 */ 	lw	$t9,%lo(g_ChrSlots)($t9)
 /*  f079160:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f079164:	0303c021 */ 	addu	$t8,$t8,$v1
 /*  f079168:	0018c0c0 */ 	sll	$t8,$t8,0x3
@@ -28308,11 +28308,11 @@ s32 objTick(struct prop *prop)
 					tagnum = objGetTagNum(obj);
 
 					if (tagnum >= 0) {
-						numchrs = getNumChrs();
+						numchrs = getNumChrSlots();
 
 						for (i = 0; i < numchrs; i++) {
-							if (g_ChrsA[i].myspecial == tagnum) {
-								g_ChrsA[i].myspecial = -1;
+							if (g_ChrSlots[i].myspecial == tagnum) {
+								g_ChrSlots[i].myspecial = -1;
 							}
 						}
 					}
@@ -41201,7 +41201,7 @@ glabel func0f08acb0
 /*  f08acc0:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f08acc4:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*  f08acc8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f08accc:	0fc07934 */ 	jal	getNumChrs
+/*  f08accc:	0fc07934 */ 	jal	getNumChrSlots
 /*  f08acd0:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f08acd4:	1840002c */ 	blez	$v0,.L0f08ad88
 /*  f08acd8:	00008825 */ 	or	$s1,$zero,$zero
@@ -41211,8 +41211,8 @@ glabel func0f08acb0
 /*  f08ace8:	02a2a823 */ 	subu	$s5,$s5,$v0
 /*  f08acec:	0015a880 */ 	sll	$s5,$s5,0x2
 /*  f08acf0:	02a2a821 */ 	addu	$s5,$s5,$v0
-/*  f08acf4:	3c138006 */ 	lui	$s3,%hi(g_ChrsA)
-/*  f08acf8:	26732988 */ 	addiu	$s3,$s3,%lo(g_ChrsA)
+/*  f08acf4:	3c138006 */ 	lui	$s3,%hi(g_ChrSlots)
+/*  f08acf8:	26732988 */ 	addiu	$s3,$s3,%lo(g_ChrSlots)
 /*  f08acfc:	0015a8c0 */ 	sll	$s5,$s5,0x3
 /*  f08ad00:	27b20040 */ 	addiu	$s2,$sp,0x40
 /*  f08ad04:	8e6e0000 */ 	lw	$t6,0x0($s3)
