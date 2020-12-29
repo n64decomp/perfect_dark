@@ -341,20 +341,12 @@ glabel func0f153ab0
 /*  f153b3c:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel func0f153b40
-/*  f153b40:	3c04800a */ 	lui	$a0,%hi(var800a4634)
-/*  f153b44:	3c018008 */ 	lui	$at,%hi(var8007fb9c)
-/*  f153b48:	24844634 */ 	addiu	$a0,$a0,%lo(var800a4634)
-/*  f153b4c:	ac20fb9c */ 	sw	$zero,%lo(var8007fb9c)($at)
-/*  f153b50:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f153b54:	3c0fb800 */ 	lui	$t7,0xb800
-/*  f153b58:	246e0008 */ 	addiu	$t6,$v1,0x8
-/*  f153b5c:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*  f153b60:	ac600004 */ 	sw	$zero,0x4($v1)
-/*  f153b64:	03e00008 */ 	jr	$ra
-/*  f153b68:	ac6f0000 */ 	sw	$t7,0x0($v1)
-);
+void func0f153b40(void)
+{
+	var8007fb9c = 0;
+
+	gSPEndDisplayList(var800a4634++);
+}
 
 GLOBAL_ASM(
 glabel func0f153b6c

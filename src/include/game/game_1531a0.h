@@ -17,7 +17,7 @@ Gfx *func0f1538e4(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2);
 Gfx *func0f153990(Gfx *gdl, s32 left, s32 top, s32 width, s32 height);
 Gfx *func0f153a34(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour);
 u32 func0f153ab0(void);
-u32 func0f153b40(void);
+void func0f153b40(void);
 u32 func0f153b6c(void);
 void func0f153c20(s32 x, s32 y, f32 arg2, u8 arg3);
 void func0f153c50(void);
