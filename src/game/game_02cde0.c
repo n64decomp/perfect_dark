@@ -46,7 +46,7 @@ u32 bodyGetRace(s32 bodynum)
 	return RACE_HUMAN;
 }
 
-bool bodyLoad(u32 bodynum)
+bool bodyLoad(s32 bodynum)
 {
 	if (!g_Bodies[bodynum].unk0c) {
 		g_Bodies[bodynum].unk0c = fileLoad(g_Bodies[bodynum].bodyfileid);

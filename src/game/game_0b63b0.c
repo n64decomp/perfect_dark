@@ -7742,7 +7742,7 @@ glabel var7f1ad6ac
 /*  f0bfb2c:	1000000e */ 	b	.L0f0bfb68
 /*  f0bfb30:	8e6b02ac */ 	lw	$t3,0x2ac($s3)
 .L0f0bfb34:
-/*  f0bfb34:	0fc12591 */ 	jal	func0f049644
+/*  f0bfb34:	0fc12591 */ 	jal	chrsClearRefsToPlayer
 /*  f0bfb38:	8e64028c */ 	lw	$a0,0x28c($s3)
 /*  f0bfb3c:	1000000a */ 	b	.L0f0bfb68
 /*  f0bfb40:	8e6b02ac */ 	lw	$t3,0x2ac($s3)
@@ -8742,7 +8742,7 @@ glabel var7f1ad6ac
 //							&& g_Vars.coop->deathanimfinished) {
 //						mainEndStage();
 //					} else {
-//						func0f049644(g_Vars.currentplayernum);
+//						chrsClearRefsToPlayer(g_Vars.currentplayernum);
 //					}
 //				}
 //			}

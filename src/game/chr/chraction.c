@@ -24659,134 +24659,48 @@ s32 chrResolvePadId(struct chrdata *chr, s32 pad_id)
 	return pad_id;
 }
 
-GLOBAL_ASM(
-glabel func0f049644
-/*  f049644:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f049648:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f04964c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f049650:	8c430298 */ 	lw	$v1,0x298($v0)
-/*  f049654:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f049658:	0080a825 */ 	or	$s5,$a0,$zero
-/*  f04965c:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f049660:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f049664:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f049668:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f04966c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f049670:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f049674:	0460005c */ 	bltz	$v1,.L0f0497e8
-/*  f049678:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04967c:	8c440294 */ 	lw	$a0,0x294($v0)
-/*  f049680:	56a4000c */ 	bnel	$s5,$a0,.L0f0496b4
-/*  f049684:	8c4802a4 */ 	lw	$t0,0x2a4($v0)
-/*  f049688:	8c4e02a0 */ 	lw	$t6,0x2a0($v0)
-/*  f04968c:	8c580338 */ 	lw	$t8,0x338($v0)
-/*  f049690:	24010048 */ 	addiu	$at,$zero,0x48
-/*  f049694:	8dcf00bc */ 	lw	$t7,0xbc($t6)
-/*  f049698:	00609825 */ 	or	$s3,$v1,$zero
-/*  f04969c:	01f8a023 */ 	subu	$s4,$t7,$t8
-/*  f0496a0:	0281001a */ 	div	$zero,$s4,$at
-/*  f0496a4:	0000a012 */ 	mflo	$s4
-/*  f0496a8:	1000000b */ 	b	.L0f0496d8
-/*  f0496ac:	00000000 */ 	nop
-/*  f0496b0:	8c4802a4 */ 	lw	$t0,0x2a4($v0)
-.L0f0496b4:
-/*  f0496b4:	8c4a0338 */ 	lw	$t2,0x338($v0)
-/*  f0496b8:	24010048 */ 	addiu	$at,$zero,0x48
-/*  f0496bc:	8d0900bc */ 	lw	$t1,0xbc($t0)
-/*  f0496c0:	00809825 */ 	or	$s3,$a0,$zero
-/*  f0496c4:	012aa023 */ 	subu	$s4,$t1,$t2
-/*  f0496c8:	0281001a */ 	div	$zero,$s4,$at
-/*  f0496cc:	0000a012 */ 	mflo	$s4
-/*  f0496d0:	00000000 */ 	nop
-/*  f0496d4:	00000000 */ 	nop
-.L0f0496d8:
-/*  f0496d8:	0fc07934 */ 	jal	getNumChrs
-/*  f0496dc:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0496e0:	18400022 */ 	blez	$v0,.L0f04976c
-/*  f0496e4:	001180c0 */ 	sll	$s0,$s1,0x3
-/*  f0496e8:	02118023 */ 	subu	$s0,$s0,$s1
-/*  f0496ec:	00108080 */ 	sll	$s0,$s0,0x2
-/*  f0496f0:	02118023 */ 	subu	$s0,$s0,$s1
-/*  f0496f4:	00108080 */ 	sll	$s0,$s0,0x2
-/*  f0496f8:	02118021 */ 	addu	$s0,$s0,$s1
-/*  f0496fc:	3c168006 */ 	lui	$s6,%hi(g_ChrsA)
-/*  f049700:	26d62988 */ 	addiu	$s6,$s6,%lo(g_ChrsA)
-/*  f049704:	001080c0 */ 	sll	$s0,$s0,0x3
-/*  f049708:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f04970c:	8ecc0000 */ 	lw	$t4,0x0($s6)
-.L0f049710:
-/*  f049710:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f049714:	01901021 */ 	addu	$v0,$t4,$s0
-/*  f049718:	944d032e */ 	lhu	$t5,0x32e($v0)
-/*  f04971c:	000d7382 */ 	srl	$t6,$t5,0xe
-/*  f049720:	56ae0009 */ 	bnel	$s5,$t6,.L0f049748
-/*  f049724:	844c017e */ 	lh	$t4,0x17e($v0)
-/*  f049728:	9048032e */ 	lbu	$t0,0x32e($v0)
-/*  f04972c:	0013c980 */ 	sll	$t9,$s3,0x6
-/*  f049730:	3109ff3f */ 	andi	$t1,$t0,0xff3f
-/*  f049734:	03295025 */ 	or	$t2,$t9,$t1
-/*  f049738:	a04a032e */ 	sb	$t2,0x32e($v0)
-/*  f04973c:	8ecb0000 */ 	lw	$t3,0x0($s6)
-/*  f049740:	01701021 */ 	addu	$v0,$t3,$s0
-/*  f049744:	844c017e */ 	lh	$t4,0x17e($v0)
-.L0f049748:
-/*  f049748:	168c0002 */ 	bne	$s4,$t4,.L0f049754
-/*  f04974c:	00000000 */ 	nop
-/*  f049750:	a452017e */ 	sh	$s2,0x17e($v0)
-.L0f049754:
-/*  f049754:	0fc07934 */ 	jal	getNumChrs
-/*  f049758:	26100368 */ 	addiu	$s0,$s0,0x368
-/*  f04975c:	0222082a */ 	slt	$at,$s1,$v0
-/*  f049760:	5420ffeb */ 	bnezl	$at,.L0f049710
-/*  f049764:	8ecc0000 */ 	lw	$t4,0x0($s6)
-/*  f049768:	00008825 */ 	or	$s1,$zero,$zero
-.L0f04976c:
-/*  f04976c:	3c048006 */ 	lui	$a0,%hi(g_NumChrsB)
-/*  f049770:	24847e60 */ 	addiu	$a0,$a0,%lo(g_NumChrsB)
-/*  f049774:	8c8d0000 */ 	lw	$t5,0x0($a0)
-/*  f049778:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f04977c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f049780:	19a00019 */ 	blez	$t5,.L0f0497e8
-/*  f049784:	3c038006 */ 	lui	$v1,%hi(g_ChrsB)
-/*  f049788:	24637e58 */ 	addiu	$v1,$v1,%lo(g_ChrsB)
-/*  f04978c:	8c6e0000 */ 	lw	$t6,0x0($v1)
-.L0f049790:
-/*  f049790:	01d01021 */ 	addu	$v0,$t6,$s0
-/*  f049794:	944f032e */ 	lhu	$t7,0x32e($v0)
-/*  f049798:	000fc382 */ 	srl	$t8,$t7,0xe
-/*  f04979c:	56b80009 */ 	bnel	$s5,$t8,.L0f0497c4
-/*  f0497a0:	844e017e */ 	lh	$t6,0x17e($v0)
-/*  f0497a4:	904a032e */ 	lbu	$t2,0x32e($v0)
-/*  f0497a8:	00134980 */ 	sll	$t1,$s3,0x6
-/*  f0497ac:	314bff3f */ 	andi	$t3,$t2,0xff3f
-/*  f0497b0:	012b6025 */ 	or	$t4,$t1,$t3
-/*  f0497b4:	a04c032e */ 	sb	$t4,0x32e($v0)
-/*  f0497b8:	8c6d0000 */ 	lw	$t5,0x0($v1)
-/*  f0497bc:	01b01021 */ 	addu	$v0,$t5,$s0
-/*  f0497c0:	844e017e */ 	lh	$t6,0x17e($v0)
-.L0f0497c4:
-/*  f0497c4:	568e0003 */ 	bnel	$s4,$t6,.L0f0497d4
-/*  f0497c8:	8c8f0000 */ 	lw	$t7,0x0($a0)
-/*  f0497cc:	a452017e */ 	sh	$s2,0x17e($v0)
-/*  f0497d0:	8c8f0000 */ 	lw	$t7,0x0($a0)
-.L0f0497d4:
-/*  f0497d4:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0497d8:	26100368 */ 	addiu	$s0,$s0,0x368
-/*  f0497dc:	022f082a */ 	slt	$at,$s1,$t7
-/*  f0497e0:	5420ffeb */ 	bnezl	$at,.L0f049790
-/*  f0497e4:	8c6e0000 */ 	lw	$t6,0x0($v1)
-.L0f0497e8:
-/*  f0497e8:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0497ec:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0497f0:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0497f4:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0497f8:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0497fc:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f049800:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f049804:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f049808:	03e00008 */ 	jr	$ra
-/*  f04980c:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+/**
+ * For all chrs, clear their target and p1p2 values if set to the given player.
+ *
+ * This function is called when the given player has died. It causes all guards
+ * to switch their focus to the remaining coop player.
+ */
+void chrsClearRefsToPlayer(s32 playernum)
+{
+	s32 otherplayernum;
+	s32 playerpropnum;
+	s32 i;
+
+	if (g_Vars.coopplayernum >= 0) {
+		if (playernum == g_Vars.bondplayernum) {
+			otherplayernum = g_Vars.coopplayernum;
+			playerpropnum = g_Vars.bond->prop - g_Vars.props;
+		} else {
+			otherplayernum = g_Vars.bondplayernum;
+			playerpropnum = g_Vars.coop->prop - g_Vars.props;
+		}
+
+		for (i = 0; i < getNumChrs(); i++) {
+			if (g_ChrsA[i].p1p2 == playernum) {
+				g_ChrsA[i].p1p2 = otherplayernum;
+			}
+
+			if (g_ChrsA[i].target == playerpropnum) {
+				g_ChrsA[i].target = -1;
+			}
+		}
+
+		for (i = 0; i < g_NumChrsB; i++) {
+			if (g_ChrsB[i].p1p2 == playernum) {
+				g_ChrsB[i].p1p2 = otherplayernum;
+			}
+
+			if (g_ChrsB[i].target == playerpropnum) {
+				g_ChrsB[i].target = -1;
+			}
+		}
+	}
+}
 
 s32 chrResolveId(struct chrdata *ref, s32 id)
 {
