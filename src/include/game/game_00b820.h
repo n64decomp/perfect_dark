@@ -5,6 +5,6 @@
 
 void stageChooseActiveHeads(s32 stagenum);
 void resetSomeStageThings(void);
-void func0f00bbc8(void);
+void stageAllocateBgChrs(void);
 
 #endif

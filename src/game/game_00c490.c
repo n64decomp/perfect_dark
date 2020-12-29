@@ -46,6 +46,108 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
+struct monitorscreen var80061a80 = {
+	(u32) &var80069d90,
+	0x0000ffff,
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x3f800000,
+	0x3f800000,
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x3f800000,
+	0x3f000000,
+	0x00000000,
+	0x00000000,
+	0x3f000000,
+	0x3f000000,
+	0x3f000000,
+	0x00000000,
+	0x00000000,
+	0x3f000000,
+	0x3f000000,
+	0xffffffff,
+	0xffffffff,
+	0xffffffff,
+	0x3f800000,
+	0x00000000,
+};
+
+struct monitorscreen var80061af4 = {
+	(u32) &var8006aaa0,
+	0x0000ffff,
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x3f800000,
+	0x3f800000,
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x3f800000,
+	0x3f000000,
+	0x00000000,
+	0x00000000,
+	0x3f000000,
+	0x3f000000,
+	0x3f000000,
+	0x00000000,
+	0x00000000,
+	0x3f000000,
+	0x3f000000,
+	0xffffffff,
+	0xffffffff,
+	0xffffffff,
+	0x3f800000,
+	0x00000000,
+};
+
+struct monitorscreen var80061b68 = {
+	(u32) &var8006aae4,
+	0x0000ffff,
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x3f800000,
+	0x3f800000,
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x3f800000,
+	0x3f000000,
+	0x00000000,
+	0x00000000,
+	0x3f000000,
+	0x3f000000,
+	0x3f000000,
+	0x00000000,
+	0x00000000,
+	0x3f000000,
+	0x3f000000,
+	0xffffffff,
+	0xffffffff,
+	0xffffffff,
+	0x3f800000,
+	0x00000000,
+};
+
+u32 var80061bdc = 0x00000000;
+f32 g_DoorScale = 1;
+u32 var80061be4 = 0x00000000;
+u32 var80061be8 = 0x00000000;
+u32 var80061bec = 0x00000000;
+
 GLOBAL_ASM(
 glabel func0f00c490
 /*  f00c490:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -3496,5 +3598,5 @@ void setupParseObjects(s32 stagenum)
 		func0f00b62c(0);
 	}
 
-	func0f00bbc8();
+	stageAllocateBgChrs();
 }
