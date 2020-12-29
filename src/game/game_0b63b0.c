@@ -9947,7 +9947,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 		s32 d = viGetViewTop() + viGetViewHeight();
 
 		gdl = func0f153628(gdl);
-		gdl = func0f153a34(gdl, a, b, c, d, 160);
+		gdl = func0f153a34(gdl, a, b, c, d, 0x000000a0);
 		gdl = func0f153780(gdl);
 	}
 
@@ -10191,7 +10191,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 			s32 d = viGetViewTop() + viGetViewHeight();
 
 			gdl = func0f153628(gdl);
-			gdl = func0f153a34(gdl, a, b, c, d, 160);
+			gdl = func0f153a34(gdl, a, b, c, d, 0x000000a0);
 			gdl = func0f153780(gdl);
 		}
 

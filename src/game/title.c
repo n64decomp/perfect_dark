@@ -3484,20 +3484,20 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 	}
 
 	if (((s32)(var80061630 * 80.0f) % 2) == 0) {
-		u32 tmp = (sp76 << 8) | 0x7f7fffff | (sp76 << 16);
-		gdl = func0f153a34(gdl, sp84 + 2, sp80, sp84 + 12, sp80 + 20, tmp);
+		u32 colour = (sp76 << 8) | 0x7f7fffff | (sp76 << 16);
+		gdl = func0f153a34(gdl, sp84 + 2, sp80, sp84 + 12, sp80 + 20, colour);
 	}
 
 	gdl = bviewRenderRarePresents(gdl);
 
 	if (g_TitleTimer > 222) {
-		f32 tmp2 = ((g_TitleTimer - 222.0f) / 78.0f);
+		f32 alpha = ((g_TitleTimer - 222.0f) / 78.0f);
 		u32 stack;
 
 		gdl = func0f153a34(gdl, viGetViewLeft(), viGetViewTop(),
 				viGetViewLeft() + viGetViewWidth(),
 				viGetViewTop() + viGetViewHeight(),
-				255.0f * tmp2);
+				255.0f * alpha);
 	}
 
 	return gdl;

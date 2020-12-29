@@ -290,40 +290,16 @@ Gfx *func0f153990(Gfx *gdl, s32 left, s32 top, s32 width, s32 height)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f153a34
-/*  f153a34:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f153a38:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f153a3c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f153a40:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f153a44:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f153a48:	0fc54df7 */ 	jal	gfxSetPrimColour
-/*  f153a4c:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f153a50:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*  f153a54:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*  f153a58:	3c01f600 */ 	lui	$at,0xf600
-/*  f153a5c:	31cf03ff */ 	andi	$t7,$t6,0x3ff
-/*  f153a60:	000fc380 */ 	sll	$t8,$t7,0xe
-/*  f153a64:	310903ff */ 	andi	$t1,$t0,0x3ff
-/*  f153a68:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f153a6c:	0301c825 */ 	or	$t9,$t8,$at
-/*  f153a70:	032a5825 */ 	or	$t3,$t9,$t2
-/*  f153a74:	ac4b0000 */ 	sw	$t3,0x0($v0)
-/*  f153a78:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*  f153a7c:	8fac001c */ 	lw	$t4,0x1c($sp)
-/*  f153a80:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f153a84:	31f803ff */ 	andi	$t8,$t7,0x3ff
-/*  f153a88:	318d03ff */ 	andi	$t5,$t4,0x3ff
-/*  f153a8c:	000d7380 */ 	sll	$t6,$t5,0xe
-/*  f153a90:	00184080 */ 	sll	$t0,$t8,0x2
-/*  f153a94:	01c84825 */ 	or	$t1,$t6,$t0
-/*  f153a98:	0fc54e0e */ 	jal	func0f153838
-/*  f153a9c:	ac490004 */ 	sw	$t1,0x4($v0)
-/*  f153aa0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f153aa4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f153aa8:	03e00008 */ 	jr	$ra
-/*  f153aac:	00000000 */ 	nop
-);
+Gfx *func0f153a34(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour)
+{
+	gdl = gfxSetPrimColour(gdl, colour);
+
+	gDPFillRectangle(gdl++, x1, y1, x2, y2);
+
+	gdl = func0f153838(gdl);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f153ab0
