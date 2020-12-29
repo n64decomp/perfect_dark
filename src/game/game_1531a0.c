@@ -464,23 +464,15 @@ void func0f153d3c(void)
 	var800a45d0.unk00 = var800a45d0.unk2a;
 }
 
-GLOBAL_ASM(
-glabel func0f153d50
-/*  f153d50:	3c02800a */ 	lui	$v0,%hi(var800a45d0)
-/*  f153d54:	244245d0 */ 	addiu	$v0,$v0,%lo(var800a45d0)
-/*  f153d58:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f153d5c:	3c184444 */ 	lui	$t8,0x4444
-/*  f153d60:	37184400 */ 	ori	$t8,$t8,0x4400
-/*  f153d64:	2419ff00 */ 	addiu	$t9,$zero,-256
-/*  f153d68:	35cf0004 */ 	ori	$t7,$t6,0x4
-/*  f153d6c:	a04f0000 */ 	sb	$t7,0x0($v0)
-/*  f153d70:	ac44004c */ 	sw	$a0,0x4c($v0)
-/*  f153d74:	ac450050 */ 	sw	$a1,0x50($v0)
-/*  f153d78:	ac460054 */ 	sw	$a2,0x54($v0)
-/*  f153d7c:	ac580058 */ 	sw	$t8,0x58($v0)
-/*  f153d80:	03e00008 */ 	jr	$ra
-/*  f153d84:	ac59005c */ 	sw	$t9,0x5c($v0)
-);
+void func0f153d50(u32 arg0, u32 arg1, u32 arg2)
+{
+	var800a45d0.unk00 |= 0x04;
+	var800a45d0.unk4c = arg0;
+	var800a45d0.unk50 = arg1;
+	var800a45d0.unk54 = arg2;
+	var800a45d0.colour1 = 0x44444400;
+	var800a45d0.colour2 = 0xffffff00;
+}
 
 GLOBAL_ASM(
 glabel func0f153d88

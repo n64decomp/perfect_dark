@@ -25,7 +25,7 @@ void func0f153c88(void);
 void func0f153ce8(s32 x1, s32 x2, u32 arg2);
 void func0f153d24(void);
 void func0f153d3c(void);
-u32 func0f153d50(void);
+void func0f153d50(u32 arg0, u32 arg1, u32 arg2);
 u32 func0f153d88(void);
 void func0f153e38(u32 colour1, u32 colour2);
 void func0f153e4c(void);
