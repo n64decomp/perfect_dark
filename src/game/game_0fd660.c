@@ -1481,60 +1481,21 @@ glabel func0f0ff274
 /*  f0ff6f0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0ff6f4
-/*  f0ff6f4:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0ff6f8:	3c0e800a */ 	lui	$t6,%hi(g_ActiveMenuFont2)
-/*  f0ff6fc:	8dce21b4 */ 	lw	$t6,%lo(g_ActiveMenuFont2)($t6)
-/*  f0ff700:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f0ff704:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0ff708:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f0ff70c:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f0ff710:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f0ff714:	3c07800a */ 	lui	$a3,%hi(g_ActiveMenuFont1)
-/*  f0ff718:	8ce721b0 */ 	lw	$a3,%lo(g_ActiveMenuFont1)($a3)
-/*  f0ff71c:	8fa6004c */ 	lw	$a2,0x4c($sp)
-/*  f0ff720:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f0ff724:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*  f0ff728:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0ff72c:	0fc55cbe */ 	jal	textMeasure
-/*  f0ff730:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0ff734:	8fb8003c */ 	lw	$t8,0x3c($sp)
-/*  f0ff738:	87af0056 */ 	lh	$t7,0x56($sp)
-/*  f0ff73c:	87a9005a */ 	lh	$t1,0x5a($sp)
-/*  f0ff740:	3c0b800a */ 	lui	$t3,%hi(g_ActiveMenuFont1)
-/*  f0ff744:	3c0c800a */ 	lui	$t4,%hi(g_ActiveMenuFont2)
-/*  f0ff748:	07010003 */ 	bgez	$t8,.L0f0ff758
-/*  f0ff74c:	0018c843 */ 	sra	$t9,$t8,0x1
-/*  f0ff750:	27010001 */ 	addiu	$at,$t8,0x1
-/*  f0ff754:	0001c843 */ 	sra	$t9,$at,0x1
-.L0f0ff758:
-/*  f0ff758:	8d8c21b4 */ 	lw	$t4,%lo(g_ActiveMenuFont2)($t4)
-/*  f0ff75c:	8d6b21b0 */ 	lw	$t3,%lo(g_ActiveMenuFont1)($t3)
-/*  f0ff760:	8fad0050 */ 	lw	$t5,0x50($sp)
-/*  f0ff764:	241800f0 */ 	addiu	$t8,$zero,0xf0
-/*  f0ff768:	240e0140 */ 	addiu	$t6,$zero,0x140
-/*  f0ff76c:	01f94023 */ 	subu	$t0,$t7,$t9
-/*  f0ff770:	252afffc */ 	addiu	$t2,$t1,-4
-/*  f0ff774:	afa80044 */ 	sw	$t0,0x44($sp)
-/*  f0ff778:	afaa0040 */ 	sw	$t2,0x40($sp)
-/*  f0ff77c:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f0ff780:	afb80020 */ 	sw	$t8,0x20($sp)
-/*  f0ff784:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f0ff788:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f0ff78c:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f0ff790:	8fa7004c */ 	lw	$a3,0x4c($sp)
-/*  f0ff794:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f0ff798:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0ff79c:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f0ff7a0:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0ff7a4:	0fc5580f */ 	jal	textRenderProjected
-/*  f0ff7a8:	afad0018 */ 	sw	$t5,0x18($sp)
-/*  f0ff7ac:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0ff7b0:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f0ff7b4:	03e00008 */ 	jr	$ra
-/*  f0ff7b8:	00000000 */ 	nop
-);
+Gfx *activemenuRenderText(Gfx *gdl, char *text, s32 arg2, s16 left, s16 top)
+{
+	s32 x;
+	s32 y;
+	s32 textwidth;
+	s32 textheight;
+
+	textMeasure(&textheight, &textwidth, text, g_ActiveMenuFont1, g_ActiveMenuFont2, 0);
+
+	x = left - (textwidth / 2);
+	y = top - 4;
+	gdl = textRenderProjected(gdl, &x, &y, text, g_ActiveMenuFont1, g_ActiveMenuFont2, arg2, 320, 240, 0, 0);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f0ff7bc
@@ -2868,7 +2829,7 @@ glabel func0f100128
 .L0f100aac:
 /*  f100aac:	87b9007e */ 	lh	$t9,0x7e($sp)
 /*  f100ab0:	02003025 */ 	or	$a2,$s0,$zero
-/*  f100ab4:	0fc3fdbd */ 	jal	func0f0ff6f4
+/*  f100ab4:	0fc3fdbd */ 	jal	activemenuRenderText
 /*  f100ab8:	afb90010 */ 	sw	$t9,0x10($sp)
 .L0f100abc:
 /*  f100abc:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -3380,7 +3341,7 @@ glabel func0f100ad0
 /*  f10122c:	02a02825 */ 	or	$a1,$s5,$zero
 /*  f101230:	02803025 */ 	or	$a2,$s4,$zero
 /*  f101234:	87a70182 */ 	lh	$a3,0x182($sp)
-/*  f101238:	0fc3fdbd */ 	jal	func0f0ff6f4
+/*  f101238:	0fc3fdbd */ 	jal	activemenuRenderText
 /*  f10123c:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f101240:	10000009 */ 	b	.L0f101268
 /*  f101244:	afa201d8 */ 	sw	$v0,0x1d8($sp)
