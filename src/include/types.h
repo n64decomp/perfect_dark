@@ -4728,7 +4728,7 @@ struct trainingdata {
 
 struct activemenu {
 	/*0x00*/ s8 screenindex;
-	/*0x02*/ u16 unk02;
+	/*0x02*/ s16 unk02;
 	/*0x04*/ s16 slotwidth;
 	/*0x06*/ u16 unk06;
 	/*0x08*/ u16 unk08;

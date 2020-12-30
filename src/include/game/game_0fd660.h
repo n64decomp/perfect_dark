@@ -16,7 +16,7 @@ void activemenuAssignWeaponSlots(void);
 void activemenuOpen(void);
 void activemenuClose(void);
 bool activemenuIsCramped(void);
-u32 func0f0ff274(void);
+void activemenuCalculateSlotPosition(s16 param_1, s16 param_2, s16 *param_3, s16 *param_4);
 Gfx *activemenuRenderText(Gfx *gdl, char *text, s32 arg2, s16 left, s16 top);
 u32 func0f0ff7bc(void);
 u32 func0f100128(void);
