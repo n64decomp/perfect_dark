@@ -470,8 +470,8 @@ void func0f153d50(u32 arg0, u32 arg1, u32 arg2)
 	var800a45d0.unk4c = arg0;
 	var800a45d0.unk50 = arg1;
 	var800a45d0.unk54 = arg2;
-	var800a45d0.colour1 = 0x44444400;
-	var800a45d0.colour2 = 0xffffff00;
+	var800a45d0.colour58 = 0x44444400;
+	var800a45d0.colour5c = 0xffffff00;
 }
 
 void func0f153d88(f32 arg0)
@@ -480,10 +480,10 @@ void func0f153d88(f32 arg0)
 	var800a45d0.unk60 = arg0 * arg0 * 110.0f;
 }
 
-void func0f153e38(u32 colour1, u32 colour2)
+void func0f153e38(u32 colour51, u32 colour2)
 {
-	var800a45d0.colour1 = colour1;
-	var800a45d0.colour2 = colour2;
+	var800a45d0.colour58 = colour51;
+	var800a45d0.colour5c = colour2;
 }
 
 void func0f153e4c(void)
@@ -1627,13 +1627,13 @@ glabel func0f1543ac
 
 Gfx *func0f154ecc(Gfx *gdl, u32 arg1, u32 arg2)
 {
-	u32 colour = func0f1543ac(arg1, arg2, var800a45d0.unk04);
+	u32 colour = func0f1543ac(arg1, arg2, var800a45d0.colour04);
 
-	if (colour != var800a45d0.colour3) {
+	if (colour != var800a45d0.colour44) {
 		gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
 	}
 
-	var800a45d0.colour3 = colour;
+	var800a45d0.colour44 = colour;
 
 	return gdl;
 }
@@ -3242,60 +3242,26 @@ glabel textRenderProjected
 /*  f1566c8:	27bd00c0 */ 	addiu	$sp,$sp,0xc0
 );
 
-GLOBAL_ASM(
-glabel func0f1566cc
-/*  f1566cc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1566d0:	00803825 */ 	or	$a3,$a0,$zero
-/*  f1566d4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1566d8:	3c09800a */ 	lui	$t1,%hi(var800a45d0)
-/*  f1566dc:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f1566e0:	252945d0 */ 	addiu	$t1,$t1,%lo(var800a45d0)
-/*  f1566e4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1566e8:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1566ec:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f1566f0:	8d260004 */ 	lw	$a2,0x4($t1)
-/*  f1566f4:	0fc550eb */ 	jal	func0f1543ac
-/*  f1566f8:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f1566fc:	3c09800a */ 	lui	$t1,%hi(var800a45d0)
-/*  f156700:	252945d0 */ 	addiu	$t1,$t1,%lo(var800a45d0)
-/*  f156704:	8d2e0044 */ 	lw	$t6,0x44($t1)
-/*  f156708:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f15670c:	00404025 */ 	or	$t0,$v0,$zero
-/*  f156710:	104e0005 */ 	beq	$v0,$t6,.L0f156728
-/*  f156714:	00e01825 */ 	or	$v1,$a3,$zero
-/*  f156718:	3c0ffb00 */ 	lui	$t7,0xfb00
-/*  f15671c:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*  f156720:	24e70008 */ 	addiu	$a3,$a3,0x8
-/*  f156724:	ac620004 */ 	sw	$v0,0x4($v1)
-.L0f156728:
-/*  f156728:	ad280044 */ 	sw	$t0,0x44($t1)
-/*  f15672c:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f156730:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f156734:	8d260008 */ 	lw	$a2,0x8($t1)
-/*  f156738:	0fc550eb */ 	jal	func0f1543ac
-/*  f15673c:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f156740:	3c09800a */ 	lui	$t1,%hi(var800a45d0)
-/*  f156744:	252945d0 */ 	addiu	$t1,$t1,%lo(var800a45d0)
-/*  f156748:	8d390008 */ 	lw	$t9,0x8($t1)
-/*  f15674c:	8d2b0048 */ 	lw	$t3,0x48($t1)
-/*  f156750:	2401ff00 */ 	addiu	$at,$zero,-256
-/*  f156754:	305800ff */ 	andi	$t8,$v0,0xff
-/*  f156758:	03215024 */ 	and	$t2,$t9,$at
-/*  f15675c:	030a4025 */ 	or	$t0,$t8,$t2
-/*  f156760:	110b0006 */ 	beq	$t0,$t3,.L0f15677c
-/*  f156764:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f156768:	00e01025 */ 	or	$v0,$a3,$zero
-/*  f15676c:	3c0cfa00 */ 	lui	$t4,0xfa00
-/*  f156770:	ac4c0000 */ 	sw	$t4,0x0($v0)
-/*  f156774:	ac480004 */ 	sw	$t0,0x4($v0)
-/*  f156778:	24e70008 */ 	addiu	$a3,$a3,0x8
-.L0f15677c:
-/*  f15677c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f156780:	ad280048 */ 	sw	$t0,0x48($t1)
-/*  f156784:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f156788:	03e00008 */ 	jr	$ra
-/*  f15678c:	00e01025 */ 	or	$v0,$a3,$zero
-);
+Gfx *func0f1566cc(Gfx *gdl, u32 arg1, u32 arg2)
+{
+	u32 colour = func0f1543ac(arg1, arg2, var800a45d0.colour04);
+
+	if (colour != var800a45d0.colour44) {
+		gDPSetColor(gdl++, G_SETENVCOLOR, colour);
+	}
+
+	var800a45d0.colour44 = colour;
+
+	colour = (var800a45d0.colour08 & 0xffffff00) | (func0f1543ac(arg1, arg2, var800a45d0.colour08) & 0xff);
+
+	if (colour != var800a45d0.colour48) {
+		gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
+	}
+
+	var800a45d0.colour48 = colour;
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f156790

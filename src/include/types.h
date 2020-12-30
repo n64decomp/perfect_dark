@@ -6530,8 +6530,8 @@ struct menucolourpalette {
 
 struct var800a45d0 {
 	/*0x00*/ u8 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
+	/*0x04*/ u32 colour04;
+	/*0x08*/ u32 colour08;
 	/*0x0c*/ s32 unk0c;
 	/*0x10*/ s32 unk10;
 	/*0x14*/ f32 unk14;
@@ -6548,13 +6548,13 @@ struct var800a45d0 {
 	/*0x38*/ s32 x1;
 	/*0x3c*/ s32 x2;
 	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 colour3;
-	/*0x48*/ u32 unk48;
+	/*0x44*/ u32 colour44;
+	/*0x48*/ u32 colour48;
 	/*0x4c*/ u32 unk4c;
 	/*0x50*/ u32 unk50;
 	/*0x54*/ u32 unk54;
-	/*0x58*/ u32 colour1;
-	/*0x5c*/ u32 colour2;
+	/*0x58*/ u32 colour58;
+	/*0x5c*/ u32 colour5c;
 	/*0x60*/ u32 unk60;
 };
 

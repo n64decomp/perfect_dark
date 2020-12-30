@@ -15362,7 +15362,6 @@ struct var800a45c4 *var800a45c4 = NULL;
 u32 var800a45c8 = 0;
 u32 var800a45cc = 0;
 struct var800a45d0 var800a45d0 = {0};
-u32 var800a4630 = 0;
 Gfx *var800a4634 = NULL;
 u32 var800a4638 = 0;
 u32 var800a463c = 0;
