@@ -15,7 +15,7 @@ void activemenuChangeScreen(s32 step);
 u32 func0f0fecd4(void);
 void activemenuOpen(void);
 void activemenuClose(void);
-u32 func0f0ff0bc(void);
+bool activemenuIsCramped(void);
 u32 func0f0ff274(void);
 u32 func0f0ff6f4(void);
 u32 func0f0ff7bc(void);
