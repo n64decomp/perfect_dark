@@ -411,7 +411,7 @@ void func0f167e7c(s32 stagenum)
 			g_Vars.currentplayer->invdowntime = g_Vars.currentplayer->usedowntime;
 
 			func0f0f8c98();
-			func0f0fe848();
+			activemenusInit();
 			currentPlayerInitGunsHeld();
 			func0f010bb0();
 			func0f0b77cc();

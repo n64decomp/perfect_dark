@@ -4726,7 +4726,7 @@ struct trainingdata {
 	u32 unk0c;
 };
 
-struct activemenuthing {
+struct activemenu {
 	/*0x00*/ s8 screenindex;
 	/*0x02*/ u16 unk02;
 	/*0x04*/ s16 slotwidth;
@@ -4740,8 +4740,7 @@ struct activemenuthing {
 	/*0x18*/ f32 unk18; // seems like a fade duration or current alpha level
 	/*0x1c*/ f32 unk1c;
 	/*0x20*/ u8 weaponnums[8];
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
+	/*0x28*/ u8 unk28[8];
 	/*0x30*/ u8 unk30;
 	/*0x31*/ u8 unk31;
 	/*0x32*/ u8 allbots; // when player holds R on the bot command screen
