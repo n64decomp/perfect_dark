@@ -172,7 +172,7 @@ glabel activemenuTick
 /*  f01b2cc:	916b2101 */ 	lbu	$t3,%lo(g_ActiveMenus+0x31)($t3)
 /*  f01b2d0:	104b0003 */ 	beq	$v0,$t3,.L0f01b2e0
 /*  f01b2d4:	00000000 */ 	nop
-/*  f01b2d8:	0fc3fb35 */ 	jal	func0f0fecd4
+/*  f01b2d8:	0fc3fb35 */ 	jal	activemenuAssignWeaponSlots
 /*  f01b2dc:	00000000 */ 	nop
 .L0f01b2e0:
 /*  f01b2e0:	3c07800a */ 	lui	$a3,%hi(g_Vars)

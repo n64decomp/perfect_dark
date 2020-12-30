@@ -4739,10 +4739,23 @@ struct activemenu {
 	/*0x14*/ u32 unk14;
 	/*0x18*/ f32 unk18; // seems like a fade duration or current alpha level
 	/*0x1c*/ f32 unk1c;
-	/*0x20*/ u8 weaponnums[8];
-	/*0x28*/ u8 unk28[8];
+
+	/**
+	 * Indexes into the player's inventory. Element 0 is AM slot top left,
+	 * then it goes left to right, top to bottom. Updated every tick while
+	 * the active menu is open. A value of 0xff means the slot is not shown.
+	 */
+	/*0x20*/ u8 invindexes[8];
+
+	/**
+	 * Weapon numbers to slot mapping. In multiplayer this is determined at the
+	 * start of the match. Unsure how it works in solo. A value of 0xff means
+	 * the slot cannot be shown in this match.
+	 */
+	/*0x28*/ u8 weaponnums[8];
+
 	/*0x30*/ u8 unk30;
-	/*0x31*/ u8 unk31;
+	/*0x31*/ u8 numitems; // number of items in player's inventory; can be higher than the number of AM slots
 	/*0x32*/ u8 allbots; // when player holds R on the bot command screen
 	/*0x33*/ u8 unk33;
 	/*0x34*/ u8 unk34;

@@ -12,7 +12,7 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *dst);
 void activemenusInit(void);
 s16 activemenuCalculateSlotWidth(void);
 void activemenuChangeScreen(s32 step);
-u32 func0f0fecd4(void);
+void activemenuAssignWeaponSlots(void);
 void activemenuOpen(void);
 void activemenuClose(void);
 bool activemenuIsCramped(void);

@@ -33,15 +33,27 @@
 #include "lib/lib_16110.h"
 #include "types.h"
 
-const u8 var7f1b2b20[] = {
-	0x00,
-	0x01,
-	0x06,
-	0x03,
-	0x04,
-	0x07,
-	0x05,
-	0x02,
+/**
+ * This is a map of weapon numbers (as per the weapon set) to active menu slots.
+ * For the purpose of this array, the AM slots are:
+ *
+ * 0-2 = top left to top right
+ * 3,4 = left, right
+ * 5-7 = bottom left to bottom right
+ *
+ * The values in the array are the slot numbers where that weapon will go.
+ * For example, the value at index 2 is 6 which means weapon #2 from the
+ * weapon set will go into slot 6 which is the bottom slot.
+ */
+const u8 g_ActiveMenuMappings[] = {
+	0, // unarmed
+	1, // weapon #1
+	6, // weapon #2
+	3, // weapon #3
+	4, // weapon #4
+	7, // weapon #5
+	5, // weapon #6
+	2, // unused
 };
 
 void mpOpenPickTarget(void)
@@ -606,7 +618,7 @@ void activemenuApply(s32 slot)
 			slot--;
 		}
 
-		invindex = g_ActiveMenus[g_ActiveMenuIndex].weaponnums[slot];
+		invindex = g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot];
 		numinvitems = currentPlayerGetNumInvItems();
 
 		if (invindex < numinvitems) {
@@ -718,31 +730,31 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 			slot--;
 		}
 
-		if (currentPlayerGetEquipCurItem() == g_ActiveMenus[g_ActiveMenuIndex].weaponnums[slot]) {
+		if (currentPlayerGetEquipCurItem() == g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot]) {
 			*flags |= AMSLOTFLAG_CURRENT;
 		}
 
-		if (g_ActiveMenus[g_ActiveMenuIndex].weaponnums[slot] >= currentPlayerGetNumInvItems()) {
+		if (g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot] >= currentPlayerGetNumInvItems()) {
 			strcpy(label, "");
 		} else {
-			if (currentPlayerGetWeaponNumByInvIndex(g_ActiveMenus[g_ActiveMenuIndex].weaponnums[slot]) == WEAPON_CLOAKINGDEVICE) {
+			if (currentPlayerGetWeaponNumByInvIndex(g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot]) == WEAPON_CLOAKINGDEVICE) {
 				// Special case: "Cloak %d"
 				qty = ammoGetQuantity(AMMOTYPE_CLOAK);
 				secs = qty / 60;
 				modulo = (qty - (secs * 60)) * 100 / 60;
 				sprintf(label, langGet(L_OPTIONS(491)), secs + (modulo > 0 ? 1 : 0)); // "cloak %d"
 			} else {
-				strcpy(label, currentPlayerGetInvShortNameByIndex(g_ActiveMenus[g_ActiveMenuIndex].weaponnums[slot]));
+				strcpy(label, currentPlayerGetInvShortNameByIndex(g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot]));
 			}
 		}
 
-		weaponnum = currentPlayerGetWeaponNumByInvIndex(g_ActiveMenus[g_ActiveMenuIndex].weaponnums[slot]);
+		weaponnum = currentPlayerGetWeaponNumByInvIndex(g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot]);
 
 		if (currentPlayerHasWeaponEquipped(weaponnum) == true) {
 			*flags |= AMSLOTFLAG_ACTIVE;
 		}
 
-		weaponnum = currentPlayerGetWeaponNumByInvIndex(g_ActiveMenus[g_ActiveMenuIndex].weaponnums[slot]);
+		weaponnum = currentPlayerGetWeaponNumByInvIndex(g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot]);
 
 		if (func0f0a1d14(weaponnum) == false) {
 			*flags |= AMSLOTFLAG_HIDDEN;
@@ -817,14 +829,14 @@ void activemenusInit(void)
 	for (i = 0; i < ARRAYCOUNT(g_ActiveMenus); i++) {
 		g_ActiveMenus[i].unk30 = 0;
 
-		for (j = 0; j < ARRAYCOUNT(g_ActiveMenus[i].unk28); j++) {
-			g_ActiveMenus[i].unk28[j] = 0xff;
+		for (j = 0; j < ARRAYCOUNT(g_ActiveMenus[i].weaponnums); j++) {
+			g_ActiveMenus[i].weaponnums[j] = 0xff;
 		}
 
 		if (g_Vars.normmplayerisrunning) {
 			s32 index = 0;
 
-			g_ActiveMenus[i].unk28[var7f1b2b20[index]] = WEAPON_UNARMED;
+			g_ActiveMenus[i].weaponnums[g_ActiveMenuMappings[index]] = WEAPON_UNARMED;
 			index++;
 
 			for (j = 0; j < ARRAYCOUNT(g_MpSetup.weapons); j++) {
@@ -836,7 +848,7 @@ void activemenusInit(void)
 				case WEAPON_DISABLED:
 					break;
 				default:
-					g_ActiveMenus[i].unk28[var7f1b2b20[index]] = weaponnum;
+					g_ActiveMenus[i].weaponnums[g_ActiveMenuMappings[index]] = weaponnum;
 					index++;
 					break;
 				}
@@ -933,197 +945,94 @@ void activemenuChangeScreen(s32 step)
 	g_ActiveMenus[g_ActiveMenuIndex].slotwidth = activemenuCalculateSlotWidth();
 }
 
-GLOBAL_ASM(
-glabel func0f0fecd4
-/*  f0fecd4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0fecd8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0fecdc:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0fece0:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0fece4:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0fece8:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0fecec:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0fecf0:	0fc44a54 */ 	jal	currentPlayerGetNumInvItems
-/*  f0fecf4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0fecf8:	3c04800a */ 	lui	$a0,%hi(g_ActiveMenuIndex)
-/*  f0fecfc:	8c8421b8 */ 	lw	$a0,%lo(g_ActiveMenuIndex)($a0)
-/*  f0fed00:	3c01800a */ 	lui	$at,%hi(g_ActiveMenus+0x31)
-/*  f0fed04:	3c18800a */ 	lui	$t8,%hi(g_ActiveMenus)
-/*  f0fed08:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f0fed0c:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f0fed10:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f0fed14:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f0fed18:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f0fed1c:	002e0821 */ 	addu	$at,$at,$t6
-/*  f0fed20:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0fed24:	271820d0 */ 	addiu	$t8,$t8,%lo(g_ActiveMenus)
-/*  f0fed28:	00409825 */ 	or	$s3,$v0,$zero
-/*  f0fed2c:	a0222101 */ 	sb	$v0,%lo(g_ActiveMenus+0x31)($at)
-/*  f0fed30:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f0fed34:	240400ff */ 	addiu	$a0,$zero,0xff
-/*  f0fed38:	00008825 */ 	or	$s1,$zero,$zero
-.L0f0fed3c:
-/*  f0fed3c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0fed40:	2a210008 */ 	slti	$at,$s1,0x8
-/*  f0fed44:	a0640020 */ 	sb	$a0,0x20($v1)
-/*  f0fed48:	1420fffc */ 	bnez	$at,.L0f0fed3c
-/*  f0fed4c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0fed50:	18400029 */ 	blez	$v0,.L0f0fedf8
-/*  f0fed54:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0fed58:	2415004d */ 	addiu	$s5,$zero,0x4d
-/*  f0fed5c:	2414005d */ 	addiu	$s4,$zero,0x5d
-/*  f0fed60:	241200ff */ 	addiu	$s2,$zero,0xff
-/*  f0fed64:	24100008 */ 	addiu	$s0,$zero,0x8
-.L0f0fed68:
-/*  f0fed68:	0fc44b11 */ 	jal	currentPlayerGetWeaponNumByInvIndex
-/*  f0fed6c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0fed70:	304400ff */ 	andi	$a0,$v0,0xff
-/*  f0fed74:	18800003 */ 	blez	$a0,.L0f0fed84
-/*  f0fed78:	28810042 */ 	slti	$at,$a0,0x42
-/*  f0fed7c:	14200006 */ 	bnez	$at,.L0f0fed98
-/*  f0fed80:	00000000 */ 	nop
-.L0f0fed84:
-/*  f0fed84:	12840004 */ 	beq	$s4,$a0,.L0f0fed98
-/*  f0fed88:	24010044 */ 	addiu	$at,$zero,0x44
-/*  f0fed8c:	10810002 */ 	beq	$a0,$at,.L0f0fed98
-/*  f0fed90:	00000000 */ 	nop
-/*  f0fed94:	16a40014 */ 	bne	$s5,$a0,.L0f0fede8
-.L0f0fed98:
-/*  f0fed98:	3c19800a */ 	lui	$t9,%hi(g_ActiveMenuIndex)
-/*  f0fed9c:	8f3921b8 */ 	lw	$t9,%lo(g_ActiveMenuIndex)($t9)
-/*  f0feda0:	3c09800a */ 	lui	$t1,%hi(g_ActiveMenus)
-/*  f0feda4:	252920d0 */ 	addiu	$t1,$t1,%lo(g_ActiveMenus)
-/*  f0feda8:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f0fedac:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f0fedb0:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f0fedb4:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f0fedb8:	00001825 */ 	or	$v1,$zero,$zero
-.L0f0fedbc:
-/*  f0fedbc:	904a0028 */ 	lbu	$t2,0x28($v0)
-/*  f0fedc0:	548a0007 */ 	bnel	$a0,$t2,.L0f0fede0
-/*  f0fedc4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0fedc8:	904b0020 */ 	lbu	$t3,0x20($v0)
-/*  f0fedcc:	564b0007 */ 	bnel	$s2,$t3,.L0f0fedec
-/*  f0fedd0:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0fedd4:	10000004 */ 	b	.L0f0fede8
-/*  f0fedd8:	a0510020 */ 	sb	$s1,0x20($v0)
-/*  f0feddc:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f0fede0:
-/*  f0fede0:	1470fff6 */ 	bne	$v1,$s0,.L0f0fedbc
-/*  f0fede4:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f0fede8:
-/*  f0fede8:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f0fedec:
-/*  f0fedec:	1633ffde */ 	bne	$s1,$s3,.L0f0fed68
-/*  f0fedf0:	00000000 */ 	nop
-/*  f0fedf4:	00008825 */ 	or	$s1,$zero,$zero
-.L0f0fedf8:
-/*  f0fedf8:	24100008 */ 	addiu	$s0,$zero,0x8
-/*  f0fedfc:	241200ff */ 	addiu	$s2,$zero,0xff
-/*  f0fee00:	2414005d */ 	addiu	$s4,$zero,0x5d
-/*  f0fee04:	1a60004f */ 	blez	$s3,.L0f0fef44
-/*  f0fee08:	2415004d */ 	addiu	$s5,$zero,0x4d
-.L0f0fee0c:
-/*  f0fee0c:	3c0c800a */ 	lui	$t4,%hi(g_ActiveMenuIndex)
-/*  f0fee10:	8d8c21b8 */ 	lw	$t4,%lo(g_ActiveMenuIndex)($t4)
-/*  f0fee14:	3c0e800a */ 	lui	$t6,%hi(g_ActiveMenus)
-/*  f0fee18:	25ce20d0 */ 	addiu	$t6,$t6,%lo(g_ActiveMenus)
-/*  f0fee1c:	000c68c0 */ 	sll	$t5,$t4,0x3
-/*  f0fee20:	01ac6823 */ 	subu	$t5,$t5,$t4
-/*  f0fee24:	000d68c0 */ 	sll	$t5,$t5,0x3
-/*  f0fee28:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0fee2c:	01ae1021 */ 	addu	$v0,$t5,$t6
-/*  f0fee30:	00001825 */ 	or	$v1,$zero,$zero
-.L0f0fee34:
-/*  f0fee34:	904f0020 */ 	lbu	$t7,0x20($v0)
-/*  f0fee38:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0fee3c:	162f0002 */ 	bne	$s1,$t7,.L0f0fee48
-/*  f0fee40:	00000000 */ 	nop
-/*  f0fee44:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0fee48:
-/*  f0fee48:	1470fffa */ 	bne	$v1,$s0,.L0f0fee34
-/*  f0fee4c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0fee50:	5480003a */ 	bnezl	$a0,.L0f0fef3c
-/*  f0fee54:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0fee58:	0fc44b11 */ 	jal	currentPlayerGetWeaponNumByInvIndex
-/*  f0fee5c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0fee60:	304600ff */ 	andi	$a2,$v0,0xff
-/*  f0fee64:	18c00004 */ 	blez	$a2,.L0f0fee78
-/*  f0fee68:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0fee6c:	28810042 */ 	slti	$at,$a0,0x42
-/*  f0fee70:	14200004 */ 	bnez	$at,.L0f0fee84
-/*  f0fee74:	00000000 */ 	nop
-.L0f0fee78:
-/*  f0fee78:	12840002 */ 	beq	$s4,$a0,.L0f0fee84
-/*  f0fee7c:	00000000 */ 	nop
-/*  f0fee80:	16a4002d */ 	bne	$s5,$a0,.L0f0fef38
-.L0f0fee84:
-/*  f0fee84:	3c18800a */ 	lui	$t8,%hi(g_ActiveMenuIndex)
-/*  f0fee88:	8f1821b8 */ 	lw	$t8,%lo(g_ActiveMenuIndex)($t8)
-/*  f0fee8c:	3c08800a */ 	lui	$t0,%hi(g_ActiveMenus)
-/*  f0fee90:	250820d0 */ 	addiu	$t0,$t0,%lo(g_ActiveMenus)
-/*  f0fee94:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f0fee98:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f0fee9c:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f0feea0:	3c037f1b */ 	lui	$v1,%hi(var7f1b2b20)
-/*  f0feea4:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f0feea8:	24632b20 */ 	addiu	$v1,$v1,%lo(var7f1b2b20)
-/*  f0feeac:	03282021 */ 	addu	$a0,$t9,$t0
-/*  f0feeb0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0feeb4:
-/*  f0feeb4:	90690000 */ 	lbu	$t1,0x0($v1)
-/*  f0feeb8:	00895021 */ 	addu	$t2,$a0,$t1
-/*  f0feebc:	914b0028 */ 	lbu	$t3,0x28($t2)
-/*  f0feec0:	564b0004 */ 	bnel	$s2,$t3,.L0f0feed4
-/*  f0feec4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0feec8:	10000005 */ 	b	.L0f0feee0
-/*  f0feecc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0feed0:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f0feed4:
-/*  f0feed4:	28410008 */ 	slti	$at,$v0,0x8
-/*  f0feed8:	1420fff6 */ 	bnez	$at,.L0f0feeb4
-/*  f0feedc:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f0feee0:
-/*  f0feee0:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0feee4:	14a1000d */ 	bne	$a1,$at,.L0f0fef1c
-/*  f0feee8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0feeec:	3c037f1b */ 	lui	$v1,%hi(var7f1b2b20)
-/*  f0feef0:	24632b20 */ 	addiu	$v1,$v1,%lo(var7f1b2b20)
-.L0f0feef4:
-/*  f0feef4:	906c0000 */ 	lbu	$t4,0x0($v1)
-/*  f0feef8:	008c6821 */ 	addu	$t5,$a0,$t4
-/*  f0feefc:	91ae0020 */ 	lbu	$t6,0x20($t5)
-/*  f0fef00:	564e0004 */ 	bnel	$s2,$t6,.L0f0fef14
-/*  f0fef04:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0fef08:	10000004 */ 	b	.L0f0fef1c
-/*  f0fef0c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0fef10:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f0fef14:
-/*  f0fef14:	1450fff7 */ 	bne	$v0,$s0,.L0f0feef4
-/*  f0fef18:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f0fef1c:
-/*  f0fef1c:	04a00006 */ 	bltz	$a1,.L0f0fef38
-/*  f0fef20:	3c0f7f1b */ 	lui	$t7,%hi(var7f1b2b20)
-/*  f0fef24:	01e57821 */ 	addu	$t7,$t7,$a1
-/*  f0fef28:	91ef2b20 */ 	lbu	$t7,%lo(var7f1b2b20)($t7)
-/*  f0fef2c:	008f1021 */ 	addu	$v0,$a0,$t7
-/*  f0fef30:	a0510020 */ 	sb	$s1,0x20($v0)
-/*  f0fef34:	a0460028 */ 	sb	$a2,0x28($v0)
-.L0f0fef38:
-/*  f0fef38:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f0fef3c:
-/*  f0fef3c:	1633ffb3 */ 	bne	$s1,$s3,.L0f0fee0c
-/*  f0fef40:	00000000 */ 	nop
-.L0f0fef44:
-/*  f0fef44:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0fef48:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0fef4c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0fef50:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0fef54:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0fef58:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0fef5c:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0fef60:	03e00008 */ 	jr	$ra
-/*  f0fef64:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void activemenuAssignWeaponSlots(void)
+{
+	s32 numitems = currentPlayerGetNumInvItems();
+	u8 weaponnum;
+	s32 i;
+	s32 j;
+
+	g_ActiveMenus[g_ActiveMenuIndex].numitems = numitems;
+
+	// Reset inventory indexes
+	for (i = 0; i < 8;) {
+		g_ActiveMenus[g_ActiveMenuIndex].invindexes[i] = 0xff;
+		i++;
+	}
+
+	// Recalculate inventory item indexes
+	for (i = 0; i < numitems; i++) {
+		weaponnum = currentPlayerGetWeaponNumByInvIndex(i);
+
+		if ((weaponnum >= WEAPON_UNARMED && weaponnum <= WEAPON_DISGUISE41)
+				|| weaponnum == WEAPON_SUICIDEPILL
+				|| weaponnum == WEAPON_BACKUPDISK
+				|| weaponnum == WEAPON_SUITCASE) {
+			for (j = 0; j < 8; j++) {
+				if (g_ActiveMenus[g_ActiveMenuIndex].weaponnums[j] == weaponnum) {
+					if (g_ActiveMenus[g_ActiveMenuIndex].invindexes[j] == 0xff) {
+						g_ActiveMenus[g_ActiveMenuIndex].invindexes[j] = i;
+					} else {
+						// empty
+					}
+					break;
+				}
+			}
+		}
+	}
+
+	// If there are still unused slots and there are weapons in the inventory
+	// that don't have a preset mapping, fill the remaining slots with weapons.
+	for (i = 0; i < numitems; i++) {
+		bool hasmapping = false;
+
+		for (j = 0; j < 8; j++) {
+			if (g_ActiveMenus[g_ActiveMenuIndex].invindexes[j] == i) {
+				hasmapping = true;
+			}
+		}
+
+		if (!hasmapping) {
+			weaponnum = currentPlayerGetWeaponNumByInvIndex(i);
+
+			if ((weaponnum >= WEAPON_UNARMED && weaponnum <= WEAPON_DISGUISE41)
+					|| weaponnum == WEAPON_SUICIDEPILL
+					|| weaponnum == WEAPON_SUITCASE) {
+				s32 mapindex = -1;
+				s32 j;
+
+				// Try to find any mapping which is not yet used.
+				// While it could just iterate the invitems or weaponnums arrays
+				// directly, doing it using the mapping makes it allocate these
+				// somewhat randomly rather than in slot order.
+				for (j = 0; j < 8; j++) {
+					if (g_ActiveMenus[g_ActiveMenuIndex].weaponnums[g_ActiveMenuMappings[j]] == 0xff) {
+						mapindex = j;
+						break;
+					}
+				}
+
+				if (mapindex == -1) {
+					// This part is pointless. If this part of the code is
+					// reached then all the mappings were in use, and therefore
+					// all the slots are in use too. There's no way this can
+					// find any new slots.
+					for (j = 0; j < 8; j++) {
+						if (g_ActiveMenus[g_ActiveMenuIndex].invindexes[g_ActiveMenuMappings[j]] == 0xff) {
+							mapindex = j;
+							break;
+						}
+					}
+				}
+
+				if (mapindex >= 0) {
+					g_ActiveMenus[g_ActiveMenuIndex].invindexes[g_ActiveMenuMappings[mapindex]] = i;
+					g_ActiveMenus[g_ActiveMenuIndex].weaponnums[g_ActiveMenuMappings[mapindex]] = weaponnum;
+				}
+			}
+		}
+	}
+}
 
 void activemenuOpen(void)
 {
@@ -1133,7 +1042,7 @@ void activemenuOpen(void)
 		g_PlayersWithControl[g_Vars.currentplayernum] = false;
 		g_ActiveMenus[g_ActiveMenuIndex].screenindex = 0;
 		g_ActiveMenus[g_ActiveMenuIndex].unk1c = 0;
-		func0f0fecd4();
+		activemenuAssignWeaponSlots();
 		activemenuChangeScreen(0);
 		g_ActiveMenus[g_ActiveMenuIndex].unk02 = g_ActiveMenus[g_ActiveMenuIndex].slotwidth + 5;
 		g_ActiveMenus[g_ActiveMenuIndex].unk18 = 0.3;
