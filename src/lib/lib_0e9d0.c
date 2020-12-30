@@ -2323,7 +2323,7 @@ glabel func0000fe88
 /*    100bc:	3c057005 */ 	lui	$a1,%hi(var70053b20)
 /*    100c0:	10800003 */ 	beqz	$a0,.L000100d0
 /*    100c4:	00000000 */ 	nop
-/*    100c8:	0c004c9d */ 	jal	func00013274
+/*    100c8:	0c004c9d */ 	jal	strcmp
 /*    100cc:	24a53b20 */ 	addiu	$a1,$a1,%lo(var70053b20)
 .L000100d0:
 /*    100d0:	0c00dfa9 */ 	jal	func00037ea4

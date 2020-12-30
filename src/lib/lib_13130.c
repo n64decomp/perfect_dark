@@ -128,7 +128,7 @@ glabel strcat
 );
 
 GLOBAL_ASM(
-glabel func00013274
+glabel strcmp
 .L00013274:
 /*    13274:	90820000 */ 	lbu	$v0,0x0($a0)
 /*    13278:	90a30000 */ 	lbu	$v1,0x0($a1)

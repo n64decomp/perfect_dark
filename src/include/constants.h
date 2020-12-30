@@ -154,7 +154,7 @@
 // Active menu slots
 #define AMSLOTFLAG_CURRENT 0x02 // black, eg. current equipped weapon
 #define AMSLOTFLAG_ACTIVE  0x08 // pulsates slightly, eg. cloak/xray when active
-#define AMSLOTFLAG_HIDDEN  0x10
+#define AMSLOTFLAG_NOAMMO  0x10 // black BG, no border, orange text
 
 #define ANIM_IDLE                   0x0000
 #define ANIM_TWO_GUN_HOLD           0x0001

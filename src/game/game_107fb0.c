@@ -1157,10 +1157,10 @@ glabel filemgrIsNameAvailable
 /*  f109e68:	5440fff3 */ 	bnezl	$v0,.L0f109e38
 /*  f109e6c:	28410061 */ 	slti	$at,$v0,0x61
 .L0f109e70:
-/*  f109e70:	0c004c9d */ 	jal	func00013274
+/*  f109e70:	0c004c9d */ 	jal	strcmp
 /*  f109e74:	02602825 */ 	or	$a1,$s3,$zero
 /*  f109e78:	02802025 */ 	or	$a0,$s4,$zero
-/*  f109e7c:	0c004c9d */ 	jal	func00013274
+/*  f109e7c:	0c004c9d */ 	jal	strcmp
 /*  f109e80:	02602825 */ 	or	$a1,$s3,$zero
 /*  f109e84:	14400003 */ 	bnez	$v0,.L0f109e94
 /*  f109e88:	26310001 */ 	addiu	$s1,$s1,0x1
