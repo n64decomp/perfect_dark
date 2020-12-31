@@ -156,6 +156,11 @@
 #define AMSLOTFLAG_ACTIVE  0x08 // pulsates slightly, eg. cloak/xray when active
 #define AMSLOTFLAG_NOAMMO  0x10 // black BG, no border, orange text
 
+// Active menu (weapon wheel) modes
+#define AMMODE_CLOSED 0
+#define AMMODE_VIEW   1
+#define AMMODE_EDIT   2 // unused
+
 #define ANIM_IDLE                   0x0000
 #define ANIM_TWO_GUN_HOLD           0x0001
 #define ANIM_KNEEL_TWO_HANDED_GUN   0x0008
@@ -1764,6 +1769,21 @@
 #define MPBODY_MOORE            0x3a
 #define MPBODY_DALTON           0x3b
 #define MPBODY_DJBOND           0x3c
+
+#define MPBOTCOMMAND_FOLLOW   0
+#define MPBOTCOMMAND_ATTACK   1
+#define MPBOTCOMMAND_DEFEND   2
+#define MPBOTCOMMAND_HOLD     3
+#define MPBOTCOMMAND_NORMAL   4
+#define MPBOTCOMMAND_DOWNLOAD 5
+#define MPBOTCOMMAND_GETCASE  6
+#define MPBOTCOMMAND_TAGBOX   7
+#define MPBOTCOMMAND_SAVECASE 8
+#define MPBOTCOMMAND_DEFHILL  9
+#define MPBOTCOMMAND_HOLDHILL 10
+#define MPBOTCOMMAND_GETCASE2 11
+#define MPBOTCOMMAND_POPCAP   12
+#define MPBOTCOMMAND_PROTECT  13
 
 #define MPCONFIG_TEMPLE      0x00
 #define MPCONFIG_PISTOLS     0x01

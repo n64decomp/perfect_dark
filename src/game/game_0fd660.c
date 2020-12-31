@@ -61,8 +61,8 @@ void mpOpenPickTarget(void)
 	u32 prevplayernum = g_MpPlayerNum;
 
 	if (!mpIsPaused()) {
-		g_ActiveMenus[g_ActiveMenuIndex].unk33 = g_ActiveMenus[g_ActiveMenuIndex].allbots;
-		g_Vars.currentplayer->activemenumode = 0;
+		g_ActiveMenus[g_ActiveMenuIndex].prevallbots = g_ActiveMenus[g_ActiveMenuIndex].allbots;
+		g_Vars.currentplayer->activemenumode = AMMODE_CLOSED;
 		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 		menuPushRootDialog(&menudialog_picktarget, 8);
 		g_MpPlayerNum = prevplayernum;
@@ -679,11 +679,11 @@ void activemenuApply(s32 slot)
 				&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST
 				&& g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->weaponnum - 1 & 7))) {
 			if (slot == 1) {
-				g_ActiveMenus[g_ActiveMenuIndex].unk30 = 1;
+				g_ActiveMenus[g_ActiveMenuIndex].togglefunc = true;
 			}
 		} else {
 			if (slot != 1) {
-				g_ActiveMenus[g_ActiveMenuIndex].unk30 = 1;
+				g_ActiveMenus[g_ActiveMenuIndex].togglefunc = true;
 			}
 		}
 		break;
@@ -824,10 +824,10 @@ void activemenusInit(void)
 	s32 j;
 
 	// @bug? Should this be set for each player?
-	g_Vars.currentplayer->activemenumode = 0;
+	g_Vars.currentplayer->activemenumode = AMMODE_CLOSED;
 
 	for (i = 0; i < ARRAYCOUNT(g_ActiveMenus); i++) {
-		g_ActiveMenus[i].unk30 = 0;
+		g_ActiveMenus[i].togglefunc = false;
 
 		for (j = 0; j < ARRAYCOUNT(g_ActiveMenus[i].weaponnums); j++) {
 			g_ActiveMenus[i].weaponnums[j] = 0xff;
@@ -936,12 +936,12 @@ void activemenuChangeScreen(s32 step)
 		g_ActiveMenus[g_ActiveMenuIndex].screenindex = maxscreenindex;
 	}
 
-	g_ActiveMenus[g_ActiveMenuIndex].unk02 = 10;
-	g_ActiveMenus[g_ActiveMenuIndex].unk0a = -123;
+	g_ActiveMenus[g_ActiveMenuIndex].xradius = 10;
+	g_ActiveMenus[g_ActiveMenuIndex].dstx = -123;
 	g_ActiveMenus[g_ActiveMenuIndex].slotnum = 4;
-	g_ActiveMenus[g_ActiveMenuIndex].unk14 = 0;
-	g_ActiveMenus[g_ActiveMenuIndex].unk10 = 0;
-	g_ActiveMenus[g_ActiveMenuIndex].unk18 = 0;
+	g_ActiveMenus[g_ActiveMenuIndex].returntimer = 0;
+	g_ActiveMenus[g_ActiveMenuIndex].cornertimer = 0;
+	g_ActiveMenus[g_ActiveMenuIndex].alphafrac = 0;
 	g_ActiveMenus[g_ActiveMenuIndex].slotwidth = activemenuCalculateSlotWidth();
 }
 
@@ -1038,16 +1038,16 @@ void activemenuOpen(void)
 {
 	if (g_Vars.currentplayer->passivemode == false) {
 		g_ActiveMenuIndex = g_Vars.currentplayernum;
-		g_Vars.currentplayer->activemenumode = 1;
+		g_Vars.currentplayer->activemenumode = AMMODE_VIEW;
 		g_PlayersWithControl[g_Vars.currentplayernum] = false;
 		g_ActiveMenus[g_ActiveMenuIndex].screenindex = 0;
-		g_ActiveMenus[g_ActiveMenuIndex].unk1c = 0;
+		g_ActiveMenus[g_ActiveMenuIndex].selpulse = 0;
 		activemenuAssignWeaponSlots();
 		activemenuChangeScreen(0);
-		g_ActiveMenus[g_ActiveMenuIndex].unk02 = g_ActiveMenus[g_ActiveMenuIndex].slotwidth + 5;
-		g_ActiveMenus[g_ActiveMenuIndex].unk18 = 0.3;
-		g_ActiveMenus[g_ActiveMenuIndex].unk34 = 0;
-		g_ActiveMenus[g_ActiveMenuIndex].unk33 = 0;
+		g_ActiveMenus[g_ActiveMenuIndex].xradius = g_ActiveMenus[g_ActiveMenuIndex].slotwidth + 5;
+		g_ActiveMenus[g_ActiveMenuIndex].alphafrac = 0.3;
+		g_ActiveMenus[g_ActiveMenuIndex].origscreennum = 0;
+		g_ActiveMenus[g_ActiveMenuIndex].prevallbots = 0;
 		g_ActiveMenus[g_ActiveMenuIndex].allbots = false;
 	}
 }
@@ -1058,7 +1058,7 @@ void activemenuClose(void)
 		activemenuApply(g_ActiveMenus[g_ActiveMenuIndex].slotnum);
 	}
 
-	g_Vars.currentplayer->activemenumode = 0;
+	g_Vars.currentplayer->activemenumode = AMMODE_CLOSED;
 	g_Vars.currentplayer->joybutinhibit = 0xffffffff;
 	g_PlayersWithControl[g_Vars.currentplayernum] = 1;
 }
@@ -1074,7 +1074,7 @@ void activemenuCalculateSlotPosition(s16 arg0, s16 arg1, s16 *x, s16 *y)
 {
 	s32 playercount = PLAYERCOUNT();
 
-	*x = g_ActiveMenus[g_ActiveMenuIndex].unk02 * (arg0 - 1);
+	*x = g_ActiveMenus[g_ActiveMenuIndex].xradius * (arg0 - 1);
 	*y = arg1 * 50 - 50;
 
 	if (arg0 != 1 && arg1 != 1) {
@@ -1857,7 +1857,7 @@ Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flag
 	func0000db30("pickcol2", &pickcol2);
 
 	// Render background colour
-	colour = (u32)(g_ActiveMenus[g_ActiveMenuIndex].unk18 * (ibcol & 0xff)) | (ibcol & 0xffffff00);
+	colour = (u32)(g_ActiveMenus[g_ActiveMenuIndex].alphafrac * (ibcol & 0xff)) | (ibcol & 0xffffff00);
 
 	if (mode == 1) {
 		colour &= 0x000000ff;
@@ -1871,7 +1871,7 @@ Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flag
 		colour &= 0x000000ff;
 	}
 
-	if (g_Vars.currentplayer->activemenumode == 2) {
+	if (g_Vars.currentplayer->activemenumode == AMMODE_EDIT) {
 		colour = 0x0000006f;
 	}
 
@@ -1896,9 +1896,9 @@ Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flag
 		colour = 0xffffff8f;
 	}
 
-	colour = (u32)(g_ActiveMenus[g_ActiveMenuIndex].unk18 * (colour & 0xff)) | (colour & 0xffffff00);
+	colour = (u32)(g_ActiveMenus[g_ActiveMenuIndex].alphafrac * (colour & 0xff)) | (colour & 0xffffff00);
 
-	if (g_Vars.currentplayer->activemenumode == 2) {
+	if (g_Vars.currentplayer->activemenumode == AMMODE_EDIT) {
 		colour = 0x4f4f4f7f;
 	}
 
@@ -1945,9 +1945,9 @@ Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flag
 		colour = colourBlend(0xffaf8fff, colour, func0f006b54(10) * 255.0f);
 	}
 
-	colour = (u32)(g_ActiveMenus[g_ActiveMenuIndex].unk18 * (colour & 0xff)) | (colour & 0xffffff00);
+	colour = (u32)(g_ActiveMenus[g_ActiveMenuIndex].alphafrac * (colour & 0xff)) | (colour & 0xffffff00);
 
-	if (g_Vars.currentplayer->activemenumode == 2) {
+	if (g_Vars.currentplayer->activemenumode == AMMODE_EDIT) {
 		colour = 0x4f4f4f7f;
 	}
 

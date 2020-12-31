@@ -4728,17 +4728,18 @@ struct trainingdata {
 
 struct activemenu {
 	/*0x00*/ s8 screenindex;
-	/*0x02*/ s16 unk02;
+	/*0x02*/ s16 xradius;
 	/*0x04*/ s16 slotwidth;
-	/*0x06*/ u16 unk06;
-	/*0x08*/ u16 unk08;
-	/*0x0a*/ s16 unk0a;
-	/*0x0c*/ u16 unk0c;
-	/*0x0e*/ u8 slotnum;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ f32 unk18; // seems like a fade duration or current alpha level
-	/*0x1c*/ f32 unk1c;
+	/*0x06*/ s16 selx;
+	/*0x08*/ s16 sely;
+	/*0x0a*/ s16 dstx;
+	/*0x0c*/ s16 dsty;
+	/*0x0e*/ u8 slotnum; // 0-8, where 4 is middle
+	/*0x0f*/ u8 fromslotnum; // when moving from one slot to another
+	/*0x10*/ s32 cornertimer;
+	/*0x14*/ s32 returntimer; // time before selection returns to middle after releasing control stick
+	/*0x18*/ f32 alphafrac;
+	/*0x1c*/ f32 selpulse; // determines the border colour of the selection box
 
 	/**
 	 * Indexes into the player's inventory. Element 0 is AM slot top left,
@@ -4754,11 +4755,11 @@ struct activemenu {
 	 */
 	/*0x28*/ u8 weaponnums[8];
 
-	/*0x30*/ u8 unk30;
+	/*0x30*/ u8 togglefunc;
 	/*0x31*/ u8 numitems; // number of items in player's inventory; can be higher than the number of AM slots
 	/*0x32*/ u8 allbots; // when player holds R on the bot command screen
-	/*0x33*/ u8 unk33;
-	/*0x34*/ u8 unk34;
+	/*0x33*/ u8 prevallbots; // used when opening "Pick Target" menu for attack command
+	/*0x34*/ s8 origscreennum; // original screen number before using allbots
 };
 
 struct briefing {

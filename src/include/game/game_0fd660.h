@@ -8,7 +8,7 @@ void activemenuSetAiBuddyTemperament(bool aggressive);
 void activemenuSetAiBuddyStealth(void);
 s32 activemenuGetFirstBuddyIndex(void);
 void activemenuApply(s32 slot);
-void activemenuGetSlotDetails(s32 slot, u32 *flags, char *dst);
+void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label);
 void activemenusInit(void);
 s16 activemenuCalculateSlotWidth(void);
 void activemenuChangeScreen(s32 step);
