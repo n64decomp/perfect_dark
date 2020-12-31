@@ -51,12 +51,10 @@ f32 pdmodeGetAccuracy(void)
 	return 1;
 }
 
-GLOBAL_ASM(
-glabel func0f01b148
-/*  f01b148:	3c018006 */ 	lui	$at,%hi(var800624e0)
-/*  f01b14c:	03e00008 */ 	jr	$ra
-/*  f01b150:	ac2424e0 */ 	sw	$a0,%lo(var800624e0)($at)
-);
+void func0f01b148(u32 arg0)
+{
+	var800624e0 = arg0;
+}
 
 void titleSetNextStage(s32 stagenum)
 {
