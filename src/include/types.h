@@ -2776,7 +2776,7 @@ struct player {
 	/*0x1bfd*/ u8 teleporttime;
 	/*0x1bfe*/ s16 teleportpad;
 	/*0x1c00*/ u16 teleportcamerapad;
-	/*0x1c04*/ u32 unk1c04;
+	/*0x1c04*/ struct chrdata *commandingaibot;
 	/*0x1c08*/ u32 training;
 	/*0x1c0c*/ s32 deadtimer;
 	/*0x1c10*/ bool coopcanrestart;

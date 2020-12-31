@@ -18,7 +18,7 @@ void activemenuClose(void);
 bool activemenuIsCramped(void);
 void activemenuCalculateSlotPosition(s16 param_1, s16 param_2, s16 *param_3, s16 *param_4);
 Gfx *activemenuRenderText(Gfx *gdl, char *text, s32 arg2, s16 left, s16 top);
-u32 func0f0ff7bc(void);
+Gfx *activemenuRenderAibotInfo(Gfx *gdl, s32 buddynum);
 Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags);
 Gfx *func0f100ad0(Gfx *gdl);
 s32 menudialog000fcd48(u32 operation, struct menudialog *dialog, union handlerdata *data);
