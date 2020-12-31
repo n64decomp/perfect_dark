@@ -561,7 +561,7 @@ glabel mainInit
 /*     da64:	00000000 */ 	nop
 /*     da68:	0fc00210 */ 	jal	func0f000840
 /*     da6c:	00000000 */ 	nop
-/*     da70:	0fc62084 */ 	jal	func0f188210
+/*     da70:	0fc62084 */ 	jal	mpSetDefaultSetup
 /*     da74:	00000000 */ 	nop
 /*     da78:	0fc528ca */ 	jal	func0f14a328
 /*     da7c:	00000000 */ 	nop
@@ -789,7 +789,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func0f00b180();
 //	func0f000910();
 //	func0f000840();
-//	func0f188210();
+//	mpSetDefaultSetup();
 //	func0f14a328();
 //	func0f1189d8();
 //	func0f14a3bc();

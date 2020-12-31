@@ -36,9 +36,6 @@
 
 const char var7f1b8a00[] = "||||||||||||| Starting game... players %d\n";
 const char var7f1b8a2c[] = "%s %d\n";
-const char var7f1b8a34[] = "";
-const char var7f1b8a38[] = "-mpwpnset";
-const char var7f1b8a44[] = "-mpwpnset";
 
 /**
  * Converts the given value into a float on a curved scale from 0.1 to 10.
@@ -427,8 +424,8 @@ glabel var7f1b8d94
 /*  f187d6c:	ae790000 */ 	sw	$t9,0x0($s3)
 .L0f187d70:
 /*  f187d70:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f187d74:	3c01800b */ 	lui	$at,%hi(var800acc24)
-/*  f187d78:	ac28cc24 */ 	sw	$t0,%lo(var800acc24)($at)
+/*  f187d74:	3c01800b */ 	lui	$at,%hi(g_MpLockInfo+0x4)
+/*  f187d78:	ac28cc24 */ 	sw	$t0,%lo(g_MpLockInfo+0x4)($at)
 .L0f187d7c:
 /*  f187d7c:	3c02800b */ 	lui	$v0,%hi(g_ActiveMenuMpBotCommands)
 /*  f187d80:	3c03800b */ 	lui	$v1,%hi(g_ActiveMenuMpBotCommands+0x9)
@@ -745,102 +742,70 @@ void func0f1881d4(s32 index)
 	g_MpSimulants[index].difficulty = SIMDIFF_DISABLED;
 }
 
-GLOBAL_ASM(
-glabel func0f188210
-/*  f188210:	3c02800b */ 	lui	$v0,%hi(g_MpSetup)
-/*  f188214:	2442cb88 */ 	addiu	$v0,$v0,%lo(g_MpSetup)
-/*  f188218:	3c0f001f */ 	lui	$t7,0x1f
-/*  f18821c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f188220:	240e0032 */ 	addiu	$t6,$zero,0x32
-/*  f188224:	35effe00 */ 	ori	$t7,$t7,0xfe00
-/*  f188228:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f18822c:	a0400010 */ 	sb	$zero,0x10($v0)
-/*  f188230:	a04e0011 */ 	sb	$t6,0x11($v0)
-/*  f188234:	ac4f000c */ 	sw	$t7,0xc($v0)
-/*  f188238:	2418000a */ 	addiu	$t8,$zero,0xa
-/*  f18823c:	3c01800a */ 	lui	$at,%hi(g_Vars+0x484)
-/*  f188240:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f188244:	0fc61ffb */ 	jal	func0f187fec
-/*  f188248:	ac38a444 */ 	sw	$t8,%lo(g_Vars+0x484)($at)
-/*  f18824c:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f188250:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f188254:	3c057f1c */ 	lui	$a1,%hi(var7f1b8a34)
-/*  f188258:	ac800020 */ 	sw	$zero,0x20($a0)
-/*  f18825c:	a4800024 */ 	sh	$zero,0x24($a0)
-/*  f188260:	0c004c4c */ 	jal	strcpy
-/*  f188264:	24a58a34 */ 	addiu	$a1,$a1,%lo(var7f1b8a34)
-/*  f188268:	00008025 */ 	or	$s0,$zero,$zero
-/*  f18826c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f188270:
-/*  f188270:	0fc62003 */ 	jal	func0f18800c
-/*  f188274:	00002825 */ 	or	$a1,$zero,$zero
-/*  f188278:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18827c:	2a010006 */ 	slti	$at,$s0,0x6
-/*  f188280:	5420fffb */ 	bnezl	$at,.L0f188270
-/*  f188284:	02002025 */ 	or	$a0,$s0,$zero
-/*  f188288:	00008025 */ 	or	$s0,$zero,$zero
-.L0f18828c:
-/*  f18828c:	0fc62075 */ 	jal	func0f1881d4
-/*  f188290:	02002025 */ 	or	$a0,$s0,$zero
-/*  f188294:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f188298:	2a010008 */ 	slti	$at,$s0,0x8
-/*  f18829c:	1420fffb */ 	bnez	$at,.L0f18828c
-/*  f1882a0:	00000000 */ 	nop
-/*  f1882a4:	3c057f1c */ 	lui	$a1,%hi(var7f1b8a38)
-/*  f1882a8:	24a58a38 */ 	addiu	$a1,$a1,%lo(var7f1b8a38)
-/*  f1882ac:	0c004c04 */ 	jal	func00013010
-/*  f1882b0:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f1882b4:	10400009 */ 	beqz	$v0,.L0f1882dc
-/*  f1882b8:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f1882bc:	3c057f1c */ 	lui	$a1,%hi(var7f1b8a44)
-/*  f1882c0:	0c004c04 */ 	jal	func00013010
-/*  f1882c4:	24a58a44 */ 	addiu	$a1,$a1,%lo(var7f1b8a44)
-/*  f1882c8:	90440000 */ 	lbu	$a0,0x0($v0)
-/*  f1882cc:	0fc6256f */ 	jal	mpSetWeaponSet
-/*  f1882d0:	2484ffd0 */ 	addiu	$a0,$a0,-48
-/*  f1882d4:	10000003 */ 	b	.L0f1882e4
-/*  f1882d8:	00000000 */ 	nop
-.L0f1882dc:
-/*  f1882dc:	0fc6256f */ 	jal	mpSetWeaponSet
-/*  f1882e0:	00002025 */ 	or	$a0,$zero,$zero
-.L0f1882e4:
-/*  f1882e4:	3c02800b */ 	lui	$v0,%hi(g_MpLockInfo)
-/*  f1882e8:	2442cc20 */ 	addiu	$v0,$v0,%lo(g_MpLockInfo)
-/*  f1882ec:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f1882f0:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f1882f4:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f1882f8:	ac800314 */ 	sw	$zero,0x314($a0)
-/*  f1882fc:	ac800318 */ 	sw	$zero,0x318($a0)
-/*  f188300:	ac80031c */ 	sw	$zero,0x31c($a0)
-/*  f188304:	a0400000 */ 	sb	$zero,0x0($v0)
-/*  f188308:	a0430001 */ 	sb	$v1,0x1($v0)
-/*  f18830c:	a0430002 */ 	sb	$v1,0x2($v0)
-/*  f188310:	a0430003 */ 	sb	$v1,0x3($v0)
-/*  f188314:	0fc66fe8 */ 	jal	mpForceUnlockSimulantFeatures
-/*  f188318:	ac430004 */ 	sw	$v1,0x4($v0)
-/*  f18831c:	3c05800b */ 	lui	$a1,%hi(g_MpPlayers)
-/*  f188320:	3c06800b */ 	lui	$a2,%hi(g_ActiveMenuMpBotCommands)
-/*  f188324:	24c6cb78 */ 	addiu	$a2,$a2,%lo(g_ActiveMenuMpBotCommands)
-/*  f188328:	24a5c7b8 */ 	addiu	$a1,$a1,%lo(g_MpPlayers)
-/*  f18832c:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f188330:	00001025 */ 	or	$v0,$zero,$zero
-.L0f188334:
-/*  f188334:	00a01825 */ 	or	$v1,$a1,$zero
-.L0f188338:
-/*  f188338:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f18833c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f188340:	1444fffd */ 	bne	$v0,$a0,.L0f188338
-/*  f188344:	a0600096 */ 	sb	$zero,0x96($v1)
-/*  f188348:	24a500a0 */ 	addiu	$a1,$a1,0xa0
-/*  f18834c:	54a6fff9 */ 	bnel	$a1,$a2,.L0f188334
-/*  f188350:	00001025 */ 	or	$v0,$zero,$zero
-/*  f188354:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f188358:	3c01800b */ 	lui	$at,%hi(g_MpSetup+0x16)
-/*  f18835c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f188360:	a420cb9e */ 	sh	$zero,%lo(g_MpSetup+0x16)($at)
-/*  f188364:	03e00008 */ 	jr	$ra
-/*  f188368:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void mpSetDefaultSetup(void)
+{
+	s32 i;
+	s32 j;
+
+	g_MpSetup.scenario = MPSCENARIO_COMBAT;
+	g_MpSetup.stagenum = STAGE_MP_SKEDAR;
+	g_MpSetup.options = MPOPTION_DISPLAYTEAM
+		| MPOPTION_KILLSSCORE
+		| MPOPTION_HTB_HIGHLIGHTBRIEFCASE
+		| MPOPTION_HTB_SHOWONRADAR
+		| MPOPTION_CTC_SHOWONRADAR
+		| MPOPTION_KOH_HILLONRADAR
+		| MPOPTION_KOH_MOBILEHILL
+		| MPOPTION_00010000
+		| MPOPTION_HTM_HIGHLIGHTTERMINAL
+		| MPOPTION_HTM_SHOWONRADAR
+		| MPOPTION_PAC_HIGHLIGHTTARGET
+		| MPOPTION_PAC_SHOWONRADAR;
+
+	g_Vars.mphilltime = 10;
+
+	func0f187fec();
+
+	g_MpSetup.unk20.unk00 = 0;
+	g_MpSetup.unk20.unk04 = 0;
+
+	strcpy(g_MpSetup.name, "");
+
+	for (i = 0; i < 6; i++) {
+		func0f18800c(i, false);
+	}
+
+	for (i = 0; i < 8; i++) {
+		func0f1881d4(i);
+	}
+
+	if (func00013010(1, "-mpwpnset")) {
+		char *value = func00013010(1, "-mpwpnset");
+		mpSetWeaponSet(*value - 0x30);
+	} else {
+		mpSetWeaponSet(0);
+	}
+
+	g_Vars.mplayerisrunning = false;
+	g_Vars.normmplayerisrunning = false;
+	g_Vars.lvmpbotlevel = 0;
+
+	g_MpLockInfo.lockedplayernum = 0;
+	g_MpLockInfo.lastwinner = -1;
+	g_MpLockInfo.lastloser = -1;
+	g_MpLockInfo.unk03 = -1;
+	g_MpLockInfo.unk04 = -1;
+
+	mpForceUnlockSimulantFeatures();
+
+	for (i = 0; i < ARRAYCOUNT(g_MpPlayers); i++) {
+		for (j = 0; j < 6; j++) {
+			g_MpPlayers[i].gunfuncs[j] = 0;
+		}
+	}
+
+	g_MpSetup.chrslots = 0;
+}
 
 void mpSetDefaultNamesIfEmpty(void)
 {

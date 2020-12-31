@@ -14009,9 +14009,9 @@ glabel menuIsDialogOpen
 /*  f0fd64c:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-bool currentPlayerGetUnk1c04(void)
+struct chrdata *currentPlayerGetCommandingAibot(void)
 {
-	return g_Vars.currentplayer->unk1c04;
+	return g_Vars.currentplayer->commandingaibot;
 }
 
 struct menuitem menuitems_damagedcontrollerpak[] = {

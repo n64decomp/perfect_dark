@@ -17131,7 +17131,6 @@ struct mpsetup g_MpSetup = {0};
 struct savefile_setup g_MpSetupSaveFile = {0};
 u32 var800acc1c = 0;
 struct mplockinfo g_MpLockInfo = {0};
-u32 var800acc24 = 0;
 u32 var800acc28[18] = {0};
 u32 var800acc70 = 0;
 u32 var800acc74 = 0;

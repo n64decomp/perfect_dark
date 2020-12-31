@@ -2195,7 +2195,7 @@ s32 filemgrMainMenuDialog(u32 operation, struct menudialog *dialog, union handle
 		g_Menus[g_MpPlayerNum].data.filemgr.filetypeplusone = 0;
 
 		func0f110c5c(0, FILETYPE_SOLO);
-		func0f188210();
+		mpSetDefaultSetup();
 
 		// Set MP player names to "Player 1" through 4 if blank
 		for (i = 0; i < 4; i++) {

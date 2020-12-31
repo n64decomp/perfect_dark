@@ -6079,6 +6079,8 @@ struct mplockinfo {
 	s8 lockedplayernum;
 	s8 lastwinner;
 	s8 lastloser;
+	s8 unk03;
+	s32 unk04; // might not be part of struct
 };
 
 struct var8009da60 {
