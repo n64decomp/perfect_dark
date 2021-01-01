@@ -40,7 +40,7 @@ u32 func0f0b1ad0(void);
 u32 func0f0b1af0(void);
 u32 func0f0b1c24(void);
 u32 func0f0b1c78(void);
-u32 func0f0b1ce8(void);
+f32 handGetSingleUnk34(struct hand *hand);
 f32 func0f0b1d28(u8 *weaponnum);
 u8 handGetSingleUnk38(struct hand *hand);
 u16 handGetSingleShootSound(struct hand *hand);

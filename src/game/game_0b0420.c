@@ -1377,27 +1377,18 @@ glabel func0f0b1c78
 /*  f0b1ce4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0b1ce8
-/*  f0b1ce8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b1cec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1cf0:	0fc2c41f */ 	jal	handGetWeaponFunction
-/*  f0b1cf4:	00000000 */ 	nop
-/*  f0b1cf8:	44801000 */ 	mtc1	$zero,$f2
-/*  f0b1cfc:	10400007 */ 	beqz	$v0,.L0f0b1d1c
-/*  f0b1d00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1d04:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f0b1d08:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0b1d0c:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f0b1d10:	55e10003 */ 	bnel	$t7,$at,.L0f0b1d20
-/*  f0b1d14:	46001006 */ 	mov.s	$f0,$f2
-/*  f0b1d18:	c4420034 */ 	lwc1	$f2,0x34($v0)
-.L0f0b1d1c:
-/*  f0b1d1c:	46001006 */ 	mov.s	$f0,$f2
-.L0f0b1d20:
-/*  f0b1d20:	03e00008 */ 	jr	$ra
-/*  f0b1d24:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+f32 handGetSingleUnk34(struct hand *hand)
+{
+	struct weaponfunc *func = handGetWeaponFunction(hand);
+	f32 result = 0;
+
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
+		struct weaponfunc_shootsingle *funcshoot = (struct weaponfunc_shootsingle *)func;
+		result = funcshoot->unk34;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f0b1d28
