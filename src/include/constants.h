@@ -747,6 +747,8 @@
 #define FUNC_PRIMARY   0
 #define FUNC_SECONDARY 1
 
+#define FUNCFLAG_00080000 0x00080000
+
 #define GAILIST_IDLE                   0x0000
 #define GAILIST_UNALERTED_0001         0x0001
 #define GAILIST_UNALERTED_0002         0x0002

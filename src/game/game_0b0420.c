@@ -1519,27 +1519,16 @@ glabel func0f0b1e68
 /*  f0b1ea4:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f0b1ea8
-/*  f0b1ea8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b1eac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1eb0:	0fc2c41f */ 	jal	handGetWeaponFunction
-/*  f0b1eb4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0b1eb8:	10400006 */ 	beqz	$v0,.L0f0b1ed4
-/*  f0b1ebc:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0b1ec0:	8c4e0010 */ 	lw	$t6,0x10($v0)
-/*  f0b1ec4:	01c47824 */ 	and	$t7,$t6,$a0
-/*  f0b1ec8:	008f1026 */ 	xor	$v0,$a0,$t7
-/*  f0b1ecc:	10000002 */ 	b	.L0f0b1ed8
-/*  f0b1ed0:	2c420001 */ 	sltiu	$v0,$v0,0x1
-.L0f0b1ed4:
-/*  f0b1ed4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b1ed8:
-/*  f0b1ed8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1edc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b1ee0:	03e00008 */ 	jr	$ra
-/*  f0b1ee4:	00000000 */ 	nop
-);
+bool handHasFunctionFlags(struct hand *hand, u32 flags)
+{
+	struct weaponfunc *func = handGetWeaponFunction(hand);
+
+	if (func) {
+		return (func->flags & flags) == flags;
+	}
+
+	return false;
+}
 
 s8 weaponGetMaxFireRatePerTick(u32 weaponnum, u32 funcindex)
 {

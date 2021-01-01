@@ -1642,7 +1642,7 @@ Gfx *renderFrame(Gfx *gdl)
 					g_Vars.currentplayer->lookingatprop.prop = NULL;
 				}
 
-				if (func0f0b1ea8(g_Vars.currentplayer->hands, 0x80000)) {
+				if (handHasFunctionFlags(g_Vars.currentplayer->hands, FUNCFLAG_00080000)) {
 					func0f1691c0();
 				} else if (weaponHasFlag(getCurrentPlayerWeaponId(0), WEAPONFLAG_AIMTRACK)) {
 					s32 j;
