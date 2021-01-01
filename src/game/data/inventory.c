@@ -126,7 +126,7 @@ struct weaponfunc_shootsingle invfunc_00011160 = {
 	0x40000000,
 	0x00000000,
 	0x40800000,
-	0x0400,
+	4,
 	0x8039,
 	0x01000000,
 };
@@ -449,7 +449,7 @@ struct weaponfunc_shootsingle invfunc_falcon2_singleshot = {
 	0x41700000,
 	0x426fffff,
 	0x00000000,
-	0x0000,
+	0,
 	0x804d,
 	0x01000000,
 };
@@ -471,7 +471,7 @@ struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
 	0x41700000,
 	0x426fffff,
 	0x00000000,
-	0x0000,
+	0,
 	0x8054,
 	0x01000000,
 };
@@ -678,7 +678,7 @@ struct weaponfunc_shootsingle invfunc_magsec_singleshot = {
 	0x41200000,
 	0x426fffff,
 	0x41200000,
-	0x0000,
+	0,
 	0x804c,
 	0x01000000,
 };
@@ -700,7 +700,7 @@ struct weaponfunc_shootsingle invfunc_magsec_burst = {
 	0x41400000,
 	0x426fffff,
 	0x41200000,
-	0x0000,
+	0,
 	0x804c,
 	0x01000000,
 };
@@ -845,7 +845,7 @@ struct weaponfunc_shootsingle invfunc_dy357_singleshot = {
 	0x420c0000,
 	0x00000000,
 	0x40c00000,
-	0x0000,
+	0,
 	0x8066,
 	0x05000000,
 };
@@ -867,7 +867,7 @@ struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
 	0x420c0000,
 	0x00000000,
 	0x40c00000,
-	0x0000,
+	0,
 	0x8066,
 	0x05000000,
 };
@@ -1014,7 +1014,7 @@ struct weaponfunc_shootsingle invfunc_phoenix_singleshot = {
 	0x41700000,
 	0x426fffff,
 	0x00000000,
-	0x0000,
+	0,
 	0x8071,
 	0x01000000,
 };
@@ -1036,7 +1036,7 @@ struct weaponfunc_shootsingle invfunc_phoenix_explosiveshells = {
 	0x41c80000,
 	0x426fffff,
 	0x00000000,
-	0x0000,
+	0,
 	0x8072,
 	0x01000000,
 };
@@ -1154,7 +1154,7 @@ struct weaponfunc_shootsingle invfunc_mauler_singleshot = {
 	0x00000000,
 	0x426fffff,
 	0x40800000,
-	0x0000,
+	0,
 	0x805b,
 	0x01000000,
 };
@@ -1176,7 +1176,7 @@ struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
 	0x00000000,
 	0x426fffff,
 	0x40800000,
-	0x0000,
+	0,
 	0x805b,
 	0x01000000,
 };
@@ -2408,7 +2408,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_single = {
 	0x00000000,
 	0x00000000,
 	0x40800000,
-	0x0000,
+	0,
 	0x8055,
 	0x01000000,
 };
@@ -2430,7 +2430,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_double = {
 	0x00000000,
 	0x00000000,
 	0x40800000,
-	0x0000,
+	0,
 	0x8055,
 	0x01000000,
 };
@@ -3450,7 +3450,7 @@ struct weaponfunc_shootsingle invfunc_farsight_shoot = {
 	0x00000000,
 	0x00000000,
 	0x00000000,
-	0x0400,
+	4,
 	0x813e,
 	0x05000000,
 };
@@ -3472,7 +3472,7 @@ struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
 	0x00000000,
 	0x00000000,
 	0x00000000,
-	0x0400,
+	4,
 	0x813e,
 	0x05000000,
 };
@@ -3713,7 +3713,7 @@ struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
 	0x00000000,
 	0x426fffff,
 	0x00000000,
-	0x0000,
+	0,
 	0x8057,
 	0x01000000,
 };
@@ -3807,7 +3807,7 @@ struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
 	0x00000000,
 	0x426fffff,
 	0x00000000,
-	0x0000,
+	0,
 	0x8057,
 	0x01000000,
 };
@@ -3889,7 +3889,7 @@ struct weaponfunc_shootsingle invfunc_sniperrifle_singleshot = {
 	0x00000000,
 	0x00000000,
 	0x00000000,
-	0x0400,
+	4,
 	0x8058,
 	0x01000000,
 };
@@ -3972,7 +3972,7 @@ struct weaponfunc_shootsingle invfunc_laser_pulse = {
 	0x00000000,
 	0x00000000,
 	0x00000000,
-	0x0300,
+	3,
 	0x8043,
 	0x01000000,
 };
@@ -4061,7 +4061,7 @@ struct weaponfunc_shootsingle invfunc_pp9i_shoot = {
 	0x41200000,
 	0x41efffff,
 	0x00000000,
-	0x0000,
+	0,
 	0x8069,
 	0x01000000,
 };
@@ -4122,7 +4122,7 @@ struct weaponfunc_shootsingle invfunc_cc13_shoot = {
 	0x41200000,
 	0x426fffff,
 	0x00000000,
-	0x0000,
+	0,
 	0x806a,
 	0x01000000,
 };
@@ -5936,7 +5936,7 @@ struct weaponfunc_shootsingle invfunc_tester_primary = {
 	0x00000000,
 	0x426fffff,
 	0x00000000,
-	0x0000,
+	0,
 	0x804d,
 	0x01000000,
 };

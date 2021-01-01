@@ -2898,7 +2898,7 @@ struct weaponfunc_shootsingle {
 	/*0x2c*/ u32 unk2c;
 	/*0x30*/ u32 unk30;
 	/*0x34*/ u32 unk34;
-	/*0x38*/ u16 unk38;
+	/*0x38*/ u8 unk38;
 	/*0x3a*/ u16 shootsound;
 	/*0x3c*/ u32 unk3c;
 };

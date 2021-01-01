@@ -42,7 +42,7 @@ u32 func0f0b1c24(void);
 u32 func0f0b1c78(void);
 u32 func0f0b1ce8(void);
 f32 func0f0b1d28(u8 *weaponnum);
-u32 func0f0b1e28(void);
+u8 handGetSingleUnk38(struct hand *hand);
 u16 handGetSingleShootSound(struct hand *hand);
 bool handHasFunctionFlags(struct hand *hand, u32 flags);
 s8 weaponGetMaxFireRatePerTick(u32 weaponnum, u32 funcindex);

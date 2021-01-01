@@ -3683,7 +3683,7 @@ glabel var7f1ac320
 .L0f09a920:
 /*  f09a920:	1040009b */ 	beqz	$v0,.L0f09ab90
 /*  f09a924:	02002025 */ 	or	$a0,$s0,$zero
-/*  f09a928:	0fc2c78a */ 	jal	func0f0b1e28
+/*  f09a928:	0fc2c78a */ 	jal	handGetSingleUnk38
 /*  f09a92c:	afa00044 */ 	sw	$zero,0x44($sp)
 /*  f09a930:	1840001e */ 	blez	$v0,.L0f09a9ac
 /*  f09a934:	8fa30044 */ 	lw	$v1,0x44($sp)
@@ -3708,7 +3708,7 @@ glabel var7f1ac320
 /*  f09a980:	01e2082a */ 	slt	$at,$t7,$v0
 /*  f09a984:	1020000d */ 	beqz	$at,.L0f09a9bc
 /*  f09a988:	00000000 */ 	nop
-/*  f09a98c:	0fc2c78a */ 	jal	func0f0b1e28
+/*  f09a98c:	0fc2c78a */ 	jal	handGetSingleUnk38
 /*  f09a990:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09a994:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x8)
 /*  f09a998:	8f189fc8 */ 	lw	$t8,%lo(g_Vars+0x8)($t8)
