@@ -78,8 +78,8 @@ struct g_vars {
 	/*000308*/ u32 unk000308;
 	/*00030c*/ u32 unk00030c;
 	/*000310*/ u32 unk000310;
-	/*000314*/ bool mplayerisrunning;
-	/*000318*/ bool normmplayerisrunning;
+	/*000314*/ bool mplayerisrunning;     // combat sim with any number of players, coop with human buddy, and counter-op
+	/*000318*/ bool normmplayerisrunning; // combat sim with any number of players
 	/*00031c*/ s32 lvmpbotlevel;
 	/*000320*/ s32 unk000320;
 	/*000324*/ s32 unk000324;

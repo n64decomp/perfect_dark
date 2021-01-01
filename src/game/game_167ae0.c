@@ -1996,7 +1996,7 @@ Gfx *renderFrame(Gfx *gdl)
 				}
 
 				gdl = func0f1274d8(gdl);
-				gdl = func0f100ad0(gdl);
+				gdl = activemenuRender(gdl);
 				func00016748(1);
 
 				if (g_Vars.currentplayer->unk1c50_01) {

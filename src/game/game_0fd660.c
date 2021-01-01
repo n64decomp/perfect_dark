@@ -22,6 +22,7 @@
 #include "game/game_166e40.h"
 #include "game/game_190260.h"
 #include "game/game_197600.h"
+#include "game/gfxmemory.h"
 #include "game/training.h"
 #include "game/lang.h"
 #include "game/mplayer.h"
@@ -1070,14 +1071,14 @@ bool activemenuIsCramped(void)
 		|| (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL);
 }
 
-void activemenuCalculateSlotPosition(s16 arg0, s16 arg1, s16 *x, s16 *y)
+void activemenuCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 {
 	s32 playercount = PLAYERCOUNT();
 
-	*x = g_ActiveMenus[g_ActiveMenuIndex].xradius * (arg0 - 1);
-	*y = arg1 * 50 - 50;
+	*x = g_ActiveMenus[g_ActiveMenuIndex].xradius * (column - 1);
+	*y = row * 50 - 50;
 
-	if (arg0 != 1 && arg1 != 1) {
+	if (column != 1 && row != 1) {
 		*x = *x / 2;
 		*y = *y / 2;
 	}
@@ -1085,22 +1086,22 @@ void activemenuCalculateSlotPosition(s16 arg0, s16 arg1, s16 *x, s16 *y)
 	if (activemenuIsCramped()) {
 		s32 sVar6 = 1;
 
-		if (arg1 == 1) {
+		if (row == 1) {
 			sVar6 = 3;
 		}
 
-		if (arg0 == 0) {
+		if (column == 0) {
 			*x = -(g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2) - sVar6;
-		} else if (arg0 == 2) {
+		} else if (column == 2) {
 			*x = g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2 + sVar6;
 		}
 	} else {
 		if (playercount >= 2) {
-			if (arg1 == 1 && !activemenuIsCramped()) {
+			if (row == 1 && !activemenuIsCramped()) {
 				*x = (*x * 6) / 7;
 			}
 		} else {
-			if (playercount >= 3 && arg1 == 1 && !activemenuIsCramped()) {
+			if (playercount >= 3 && row == 1 && !activemenuIsCramped()) {
 				*x = (*x * 6) / 14;
 			}
 		}
@@ -1125,7 +1126,7 @@ void activemenuCalculateSlotPosition(s16 arg0, s16 arg1, s16 *x, s16 *y)
 	}
 }
 
-Gfx *activemenuRenderText(Gfx *gdl, char *text, s32 arg2, s16 left, s16 top)
+Gfx *activemenuRenderText(Gfx *gdl, char *text, u32 colour, s16 left, s16 top)
 {
 	s32 x;
 	s32 y;
@@ -1136,7 +1137,7 @@ Gfx *activemenuRenderText(Gfx *gdl, char *text, s32 arg2, s16 left, s16 top)
 
 	x = left - (textwidth / 2);
 	y = top - 4;
-	gdl = textRenderProjected(gdl, &x, &y, text, g_ActiveMenuFont1, g_ActiveMenuFont2, arg2, 320, 240, 0, 0);
+	gdl = textRenderProjected(gdl, &x, &y, text, g_ActiveMenuFont1, g_ActiveMenuFont2, colour, 320, 240, 0, 0);
 
 	return gdl;
 }
@@ -1254,9 +1255,7 @@ const char var7f1b2be0[] = "Put guntype %d in slot %d\n";
 const char var7f1b2bfc[] = "ActiveMenu: Two or more equipped items of guntype %d\n";
 const char var7f1b2c34[] = "FAV: Added gun %d to slot %d\n";
 
-u32 var800719a0 = 0x00010203;
-u32 var800719a4 = 0x04050607;
-u32 var800719a8 = 0x08000000;
+u8 var800719a0[][3] = { {0, 1, 2}, {3, 4, 5}, {6, 7, 8} };
 
 Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 {
@@ -1290,11 +1289,11 @@ Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flag
 	// Render background colour
 	colour = (u32)(g_ActiveMenus[g_ActiveMenuIndex].alphafrac * (ibcol & 0xff)) | (ibcol & 0xffffff00);
 
-	if (mode == 1) {
+	if (mode == AMSLOTMODE_FOCUSED) {
 		colour &= 0x000000ff;
 	}
 
-	if (mode == 2 || (flags & AMSLOTFLAG_CURRENT)) {
+	if (mode == AMSLOTMODE_CURRENT || (flags & AMSLOTFLAG_CURRENT)) {
 		colour &= 0x000000ff;
 	}
 
@@ -1323,7 +1322,7 @@ Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flag
 		colour &= 0x000000ff;
 	}
 
-	if (mode == 2 || (flags & AMSLOTFLAG_CURRENT)) {
+	if (mode == AMSLOTMODE_CURRENT || (flags & AMSLOTFLAG_CURRENT)) {
 		colour = 0xffffff8f;
 	}
 
@@ -1368,7 +1367,7 @@ Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flag
 	// Render text
 	colour = defcol;
 
-	if (mode == 2 || (flags & AMSLOTFLAG_CURRENT)) {
+	if (mode == AMSLOTMODE_CURRENT || (flags & AMSLOTFLAG_CURRENT)) {
 		colour = 0xffffffff;
 	}
 
@@ -1388,7 +1387,7 @@ Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flag
 }
 
 GLOBAL_ASM(
-glabel func0f100ad0
+glabel activemenuRender
 /*  f100ad0:	27bdfe28 */ 	addiu	$sp,$sp,-472
 /*  f100ad4:	3c0e8007 */ 	lui	$t6,%hi(g_ViMode)
 /*  f100ad8:	8dce06c8 */ 	lw	$t6,%lo(g_ViMode)($t6)
@@ -2977,3 +2976,420 @@ glabel func0f100ad0
 /*  f10222c:	00000000 */ 	nop
 );
 
+// Mismatch: Health bar rectangles near the end are just hopeless.
+//Gfx *activemenuRender(Gfx *gdl)
+//{
+//	u32 mode;
+//	u32 flags; // 1d0
+//	u32 *colours;
+//	struct gfxvtx *vertices;
+//	s32 mpchrnum; // 1c4
+//	s16 column;
+//	s16 row;
+//	u32 colour;
+//	s16 xb; // 1ba
+//	s16 yb; // 1b8
+//	s16 xa; // 182
+//	s16 ya; // 180
+//	char text1[32]; // 15c
+//	s32 textheight; // 13c
+//	s32 textwidth; // 138
+//	char text2[32]; // 118
+//	u32 flags2; // 114
+//	struct chrdata *chr;
+//	s16 tmp1;
+//	s16 tmp2;
+//	s32 buddynum;
+//
+//	if (g_ViMode == VIMODE_HIRES) {
+//		g_ScreenWidthMultiplier = 2;
+//	} else {
+//		g_ScreenWidthMultiplier = 1;
+//	}
+//
+//	g_ActiveMenuIndex = g_Vars.currentplayernum;
+//	g_Vars.currentplayer->commandingaibot = NULL;
+//
+//	if (g_Vars.currentplayer->activemenumode != AMMODE_CLOSED) {
+//		// Draw diamond
+//		gdl = func0f153628(gdl);
+//
+//		if (g_Vars.normmplayerisrunning
+//				&& g_ActiveMenus[g_ActiveMenuIndex].screenindex >= 2) {
+//			mpchrnum = g_Vars.currentplayer->aibuddynums[g_ActiveMenus[g_ActiveMenuIndex].screenindex - 2];
+//		}
+//
+//		if (g_ActiveMenus[g_ActiveMenuIndex].dstx == -123) {
+//			activemenuCalculateSlotPosition(
+//					g_ActiveMenus[g_ActiveMenuIndex].slotnum % 3,
+//					g_ActiveMenus[g_ActiveMenuIndex].slotnum / 3,
+//					&g_ActiveMenus[g_ActiveMenuIndex].selx,
+//					&g_ActiveMenus[g_ActiveMenuIndex].sely);
+//			g_ActiveMenus[g_ActiveMenuIndex].dstx = g_ActiveMenus[g_ActiveMenuIndex].selx;
+//			g_ActiveMenus[g_ActiveMenuIndex].dsty = g_ActiveMenus[g_ActiveMenuIndex].sely;
+//		} else {
+//			activemenuCalculateSlotPosition(
+//					g_ActiveMenus[g_ActiveMenuIndex].slotnum % 3,
+//					g_ActiveMenus[g_ActiveMenuIndex].slotnum / 3,
+//					&g_ActiveMenus[g_ActiveMenuIndex].dstx,
+//					&g_ActiveMenus[g_ActiveMenuIndex].dsty);
+//		}
+//
+//		gdl = func0f0d479c(gdl);
+//
+//		colours = gfxAllocateColours(2);
+//		vertices = gfxAllocateVertices(8);
+//
+//		gDPPipeSync(gdl++);
+//		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//		gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//		gDPSetAlphaDither(gdl++, G_AD_NOISE);
+//		gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
+//		gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+//
+//		func0f0b39c0(&gdl, NULL, 2, 0, 2, 1, 0);
+//
+//		gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+//
+//		// Top
+//		activemenuCalculateSlotPosition(1, 0, &xb, &yb);
+//
+//		vertices[0].x = xb * 10;
+//		vertices[0].y = yb * 10;
+//		vertices[0].z = -10;
+//
+//		// Right
+//		activemenuCalculateSlotPosition(2, 1, &xb, &yb);
+//
+//		vertices[1].x = xb * 10;
+//		vertices[1].y = yb * 10;
+//		vertices[1].z = -10;
+//
+//		// Bottom
+//		activemenuCalculateSlotPosition(1, 2, &xb, &yb);
+//
+//		vertices[2].x = xb * 10;
+//		vertices[2].y = yb * 10;
+//		vertices[2].z = -10;
+//
+//		// Left
+//		activemenuCalculateSlotPosition(0, 1, &xb, &yb);
+//
+//		vertices[3].x = xb * 10;
+//		vertices[3].y = yb * 10;
+//		vertices[3].z = -10;
+//
+//		vertices[4].z = -10;
+//		vertices[5].z = -10;
+//		vertices[6].z = -10;
+//		vertices[7].z = -10;
+//
+//		tmp2 = (vertices[1].x - vertices[3].x) / 8;
+//		tmp1 = (vertices[2].y - vertices[0].y) / 8;
+//
+//		vertices[4].x = vertices[0].x;
+//		vertices[4].y = vertices[0].y + tmp1;
+//		vertices[5].x = vertices[1].x - tmp2;
+//		vertices[5].y = vertices[1].y;
+//		vertices[6].x = vertices[2].x;
+//		vertices[6].y = vertices[2].y - tmp1;
+//		vertices[7].x = vertices[3].x + tmp2;
+//		vertices[7].y = vertices[3].y;
+//
+//		vertices[0].s = 0;
+//		vertices[1].s = 0;
+//		vertices[2].s = 0;
+//		vertices[3].s = 0;
+//		vertices[4].s = 4;
+//		vertices[5].s = 4;
+//		vertices[6].s = 4;
+//		vertices[7].s = 4;
+//
+//		colours[0] = 0x22222200;
+//		colours[1] = 0x0000004f;
+//
+//		gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+//		gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
+//
+//		gDPTri2(gdl++, 4, 5, 6, 6, 7, 4);
+//		gDPTri4(gdl++, 0, 4, 7, 7, 3, 0, 0, 1, 5, 5, 4, 0);
+//		gDPTri4(gdl++, 1, 2, 6, 6, 5, 1, 6, 2, 3, 3, 7, 6);
+//
+//		gdl = func0f0d49c8(gdl);
+//
+//		// Draw slots
+//		for (column = 0; column < 3; column++) {
+//			for (row = 0; row < 3; row++) {
+//				// 06c
+//				mode = AMSLOTMODE_DEFAULT;
+//				activemenuCalculateSlotPosition(column, row, &xa, &ya);
+//				flags = 0;
+//
+//				// 0a0
+//				if (column + row * 3 == g_ActiveMenus[g_ActiveMenuIndex].slotnum) {
+//					mode = AMSLOTMODE_FOCUSED;
+//				}
+//
+//				// 0b0
+//				if (g_MissionConfig.iscoop
+//						&& (buddynum = activemenuGetFirstBuddyIndex(), buddynum >= 0)) {
+//					if (mode == AMSLOTMODE_DEFAULT && g_ActiveMenus[g_ActiveMenuIndex].screenindex >= 2) {
+//						struct chrdata *chr = g_Vars.aibuddies[buddynum]->chr;
+//
+//						if (var800719a0[row][column] == 7) {
+//							if (chr->hidden & CHRHFLAG_PASSIVE) {
+//								mode = AMSLOTMODE_CURRENT;
+//							}
+//						} else if (var800719a0[row][column] == 1) {
+//							if ((chr->hidden & CHRHFLAG_PASSIVE) == 0) {
+//								mode = AMSLOTMODE_CURRENT;
+//							}
+//						}
+//					}
+//				} else {
+//					if (g_Vars.normmplayerisrunning
+//							&& mode == AMSLOTMODE_DEFAULT
+//							&& g_ActiveMenus[g_ActiveMenuIndex].screenindex >= 2) {
+//						s32 a = g_ActiveMenuMpBotCommands[var800719a0[row][column]];
+//						s32 b = g_MpPlayerChrs[mpchrnum]->aibot->command;
+//
+//						if (a == b) {
+//							mode = AMSLOTMODE_CURRENT;
+//						}
+//					}
+//				}
+//
+//				colour = 0xffffffff;
+//
+//				if (g_Vars.currentplayer->activemenumode == AMMODE_EDIT) {
+//					colour = 0x4f4f4f7f;
+//				}
+//
+//				activemenuGetSlotDetails(column + row * 3, &flags, text1);
+//
+//				if (column == 1 && row == 1) {
+//					if (!activemenuIsCramped()) {
+//						gdl = activemenuRenderText(gdl, text1, colour, xa, ya);
+//					}
+//				} else {
+//					gdl = activemenuRenderSlot(gdl, text1, xa, ya, mode, flags);
+//				}
+//			}
+//		}
+//
+//		// Render AI bot name and weapon
+//		if (!(g_MissionConfig.iscoop && activemenuGetFirstBuddyIndex() >= 0)
+//				&& g_Vars.normmplayerisrunning
+//				&& g_ActiveMenus[g_ActiveMenuIndex].screenindex >= 2) {
+//			gdl = activemenuRenderAibotInfo(gdl, g_ActiveMenus[g_ActiveMenuIndex].screenindex - 2);
+//		}
+//
+//		// 131c
+//		// Note: the column and row values will never be 1 here, so this
+//		// condition always passes. Looks like they intended to skip drawing the
+//		// selection box on the simulants screen if the middle box was selected.
+//		if (g_ActiveMenus[g_ActiveMenuIndex].screenindex < 2 || column != 1 || row != 1) {
+//			// Render selection
+//			s32 halfwidth;
+//			s32 above = 6;
+//			s32 below = 6;
+//			u32 tmp;
+//
+//			if (PLAYERCOUNT() >= 2) {
+//				above = 5;
+//				below = 3;
+//			}
+//
+//			tmp = (sinf(g_ActiveMenus[g_ActiveMenuIndex].selpulse) + 1) * 127;
+//			colour = 0xff0000ff | tmp << 8 | tmp << 16;
+//
+//			if (g_Vars.currentplayer->activemenumode == AMMODE_EDIT) {
+//				colour = 0x4f4f4f7f;
+//			}
+//
+//			gdl = gfxSetPrimColour(gdl, colour);
+//
+//			halfwidth = g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2;
+//
+//			if (g_ActiveMenus[g_ActiveMenuIndex].slotnum == 4) {
+//				if (activemenuIsCramped()) {
+//					halfwidth = 1;
+//					above = 2;
+//					below = 0;
+//				} else if (PLAYERCOUNT() >= 2) {
+//					activemenuGetSlotDetails(4, &flags2, text2);
+//					textMeasure(&textheight, &textwidth, text2, g_ActiveMenuFont1, g_ActiveMenuFont2, 0);
+//
+//					halfwidth = textwidth / 2 + 2;
+//				}
+//			}
+//
+//			// Top
+//			gDPFillRectangle(gdl++,
+//					(g_ActiveMenus[g_ActiveMenuIndex].selx - halfwidth) * g_ScreenWidthMultiplier,
+//					g_ActiveMenus[g_ActiveMenuIndex].sely - above,
+//					(g_ActiveMenus[g_ActiveMenuIndex].selx + halfwidth + 1) * g_ScreenWidthMultiplier,
+//					g_ActiveMenus[g_ActiveMenuIndex].sely - above + 1);
+//
+//			// Bottom
+//			gDPFillRectangle(gdl++,
+//					(g_ActiveMenus[g_ActiveMenuIndex].selx - halfwidth) * g_ScreenWidthMultiplier,
+//					g_ActiveMenus[g_ActiveMenuIndex].sely + below,
+//					(g_ActiveMenus[g_ActiveMenuIndex].selx + halfwidth + 1) * g_ScreenWidthMultiplier,
+//					g_ActiveMenus[g_ActiveMenuIndex].sely + below + 1);
+//
+//			// Left
+//			gDPFillRectangle(gdl++,
+//					(g_ActiveMenus[g_ActiveMenuIndex].selx - halfwidth) * g_ScreenWidthMultiplier,
+//					g_ActiveMenus[g_ActiveMenuIndex].sely - above + 1,
+//					(g_ActiveMenus[g_ActiveMenuIndex].selx - halfwidth + 1) * g_ScreenWidthMultiplier,
+//					g_ActiveMenus[g_ActiveMenuIndex].sely + below);
+//
+//			// Right
+//			gDPFillRectangle(gdl++,
+//					(g_ActiveMenus[g_ActiveMenuIndex].selx + halfwidth) * g_ScreenWidthMultiplier,
+//					g_ActiveMenus[g_ActiveMenuIndex].sely - above + 1,
+//					(g_ActiveMenus[g_ActiveMenuIndex].selx + halfwidth + 1) * g_ScreenWidthMultiplier,
+//					g_ActiveMenus[g_ActiveMenuIndex].sely + below);
+//
+//			gdl = func0f153838(gdl);
+//		}
+//
+//		gdl = func0f153780(gdl);
+//	}
+//
+//	// 18a4
+//	chr = g_Vars.currentplayer->commandingaibot;
+//
+//	if (chr) {
+//		// Render health bar
+//		f32 healthfrac = (chr->maxdamage - chr->damage) / chr->maxdamage;
+//		f32 shieldfrac = chr->cshield * 0.125f;
+//		bool redhealth = false;
+//		s32 xoffset;
+//		s32 width;
+//		s32 healthheight;
+//		s32 part1width;
+//		s32 part1left;
+//		s16 y;
+//		s32 part2left;
+//
+//		// 18e0
+//		if (healthfrac < 0.25f) {
+//			redhealth = true; // s8
+//		}
+//
+//		width = PLAYERCOUNT() >= 2 ? 48 : 64; // s7
+//		healthheight = PLAYERCOUNT() >= 2 ? 7 : 11; // s5
+//		xoffset = 0; // s2
+//
+//		if ((PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()))
+//				|| PLAYERCOUNT() >= 3) {
+//			xoffset = (g_Vars.currentplayernum & 1) == 0 ? 8 : -8;
+//		}
+//
+//		// 1b0c
+//		if (PLAYERCOUNT() == 1 && optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
+//			part1left = viGetViewLeft() / g_ScreenWidthMultiplier + 32; // s0
+//		} else {
+//			// 1bd0
+//			part1left = (s32)((viGetViewWidth() / g_ScreenWidthMultiplier) * 0.5f)
+//				+ (s32)(viGetViewLeft() / g_ScreenWidthMultiplier)
+//				- (s32)(width * 0.5f)
+//				+ xoffset;
+//		}
+//
+//		// 1c90
+//		part1width = (s32)(width * 0.25f) - 1; // s2
+//		if (part1width);
+//		part2left = part1left + part1width + 2; // s3
+//
+//		if (healthfrac < 0) {
+//			healthfrac = 0;
+//		}
+//
+//		gDPPipeSync(gdl++);
+//		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//		gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+//		gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
+//
+//		// 1d40
+//		y = viGetViewTop() + viGetViewHeight() - (PLAYERCOUNT() >= 2 ? 19 : 34);
+//
+//		// 1df4
+//		if (redhealth) {
+//			gDPSetPrimColorViaWord(gdl++, 0, 0, 0xff000060);
+//
+//			// Part 1 red
+//			gDPFillRectangle(gdl++,
+//					((part1left + part1width - 1) - (s32)(part1width * 0.25f - healthfrac * 4)) * g_ScreenWidthMultiplier,
+//					y,
+//					(part1left + part1width - 1) * g_ScreenWidthMultiplier,
+//					y + healthheight);
+//
+//			gDPSetPrimColorViaWord(gdl++, 0, 0, 0x00000080);
+//
+//			// Part 1 black
+//			gDPFillRectangle(gdl++,
+//					part1left * g_ScreenWidthMultiplier,
+//					y,
+//					(part1left + part1width - 1 - (s32)(part1width * 0.25f - healthfrac * 4)) * g_ScreenWidthMultiplier,
+//					y + healthheight);
+//
+//			// Part 2 black
+//			gDPFillRectangle(gdl++,
+//					part2left * g_ScreenWidthMultiplier,
+//					y,
+//					(part1left + width) * g_ScreenWidthMultiplier,
+//					y + healthheight);
+//		} else {
+//			// 1f70
+//			gDPSetPrimColorViaWord(gdl++, 0, 0, 0x00c00060);
+//
+//			// Part 1 green
+//			gDPFillRectangle(gdl++,
+//					part1left * g_ScreenWidthMultiplier,
+//					y,
+//					(part1left + part1width - 1) * g_ScreenWidthMultiplier,
+//					y + healthheight);
+//
+//			// Part 2 green
+//			gDPFillRectangle(gdl++,
+//					part2left * g_ScreenWidthMultiplier,
+//					y,
+//					(part1left + (s32)(width * healthfrac)) * g_ScreenWidthMultiplier,
+//					y + healthheight);
+//
+//			gDPSetPrimColorViaWord(gdl++, 0, 0, 0x00000080);
+//
+//			// Part 2 black
+//			gDPFillRectangle(gdl++,
+//					(part1left + (s32)(width * healthfrac)) * g_ScreenWidthMultiplier,
+//					y,
+//					(part1left + width) * g_ScreenWidthMultiplier,
+//					y + healthheight);
+//		}
+//
+//		// Render shield bar
+//		// 20d0
+//		gDPSetPrimColorViaWord(gdl++, 0, 0, 0x00c00060);
+//
+//		gDPFillRectangle(gdl++,
+//				part1left * g_ScreenWidthMultiplier,
+//				y + healthheight + 2,
+//				(part1left + (s32)(width * shieldfrac)) * g_ScreenWidthMultiplier,
+//				y + healthheight + 2 + (s32)(healthheight * 0.75f));
+//
+//		gDPSetPrimColorViaWord(gdl++, 0, 0, 0x00000080);
+//
+//		gDPFillRectangle(gdl++,
+//				(part1left + (s32)(width * shieldfrac)) * g_ScreenWidthMultiplier,
+//				y + healthheight + 2,
+//				(part1left + width) * g_ScreenWidthMultiplier,
+//				y + healthheight + 2 + (s32)(healthheight * 0.75f));
+//	}
+//
+//	g_ScreenWidthMultiplier = 1;
+//
+//	return gdl;
+//}

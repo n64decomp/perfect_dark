@@ -156,6 +156,10 @@
 #define AMSLOTFLAG_ACTIVE  0x08 // pulsates slightly, eg. cloak/xray when active
 #define AMSLOTFLAG_NOAMMO  0x10 // black BG, no border, orange text
 
+#define AMSLOTMODE_DEFAULT 0
+#define AMSLOTMODE_FOCUSED 1
+#define AMSLOTMODE_CURRENT 2
+
 // Active menu (weapon wheel) modes
 #define AMMODE_CLOSED 0
 #define AMMODE_VIEW   1
