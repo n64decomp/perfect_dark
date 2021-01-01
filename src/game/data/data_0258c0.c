@@ -4763,21 +4763,22 @@ void *filetable[] = {
 	/*0x07de*/ &_filenamesSegmentRomStart,
 };
 
+u32 var80083fdc = 0;
+
 u32 g_GfxSizesByPlayerCount[] = {
-	0x00000000,
 	0x00010000,
 	0x00018000,
 	0x00020000,
+	0x00028000,
 };
 
 u32 g_VtxSizesByPlayerCount[] = {
-	0x00028000,
 	0x00010000,
 	0x00018000,
 	0x00020000,
+	0x00028000,
 };
 
-u32 var80083ffc = 0x00028000;
 s32 g_GfxNumSwapsPerBuffer[2] = {0, 1};
 u32 g_GfxNumSwaps = 0x00000002;
 u32 var8008400c = 0x00000000;

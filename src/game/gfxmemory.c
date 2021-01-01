@@ -74,23 +74,23 @@ void gfxInitMemory(void)
 		// ******** Original Amount required = %dK ber buffer\n
 		// ******** Extra Amount required = %dK ber buffer\n
 		// ******** Total of %dK (Double Buffered)\n
-		g_GfxSizesByPlayerCount[PLAYERCOUNT()] = gfx + gfxtra;
+		g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] = gfx + gfxtra;
 	}
 
 	if (func00013010(1, "-mvtx")) {
 		// Argument specified mtxvtx_size\n
-		g_VtxSizesByPlayerCount[PLAYERCOUNT()] = func00013408(func00013010(1, "-mvtx"), NULL, 0) * 1024;
+		g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] = func00013408(func00013010(1, "-mvtx"), NULL, 0) * 1024;
 	}
 
 	// %d Players : Allocating %d bytes for master dl's\n
-	g_GfxBuffers[0] = malloc(g_GfxSizesByPlayerCount[PLAYERCOUNT()] * 2, 4);
-	g_GfxBuffers[1] = g_GfxBuffers[0] + g_GfxSizesByPlayerCount[PLAYERCOUNT()];
-	g_GfxBuffers[2] = g_GfxBuffers[1] + g_GfxSizesByPlayerCount[PLAYERCOUNT()];
+	g_GfxBuffers[0] = malloc(g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] * 2, 4);
+	g_GfxBuffers[1] = g_GfxBuffers[0] + g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1];
+	g_GfxBuffers[2] = g_GfxBuffers[1] + g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1];
 
 	// Allocating %d bytes for mtxvtx space\n
-	g_VtxBuffers[0] = malloc(g_VtxSizesByPlayerCount[PLAYERCOUNT()] * 2, 4);
-	g_VtxBuffers[1] = g_VtxBuffers[0] + g_VtxSizesByPlayerCount[PLAYERCOUNT()];
-	g_VtxBuffers[2] = g_VtxBuffers[1] + g_VtxSizesByPlayerCount[PLAYERCOUNT()];
+	g_VtxBuffers[0] = malloc(g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] * 2, 4);
+	g_VtxBuffers[1] = g_VtxBuffers[0] + g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1];
+	g_VtxBuffers[2] = g_VtxBuffers[1] + g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1];
 
 	g_GfxActiveBufferIndex = 0;
 	g_GfxRequestedDisplayList = false;
