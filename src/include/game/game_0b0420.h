@@ -35,7 +35,7 @@ bool weaponHasInvEFlag(s32 weaponnum, u32 flag);
 u32 func0f0b184c(void);
 s32 currentPlayerGetDeviceState(s32 weaponnum);
 void currentPlayerSetDeviceActive(s32 weaponum, bool active);
-u32 func0f0b1a18(s32 weaponnum);
+u16 weaponGetModelNum(s32 weaponnum);
 u32 func0f0b1ad0(void);
 u32 func0f0b1af0(void);
 u32 func0f0b1c24(void);

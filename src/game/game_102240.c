@@ -3299,7 +3299,7 @@ void func0f105948(s32 weaponnum)
 		g_Menus[g_MpPlayerNum].unk840 = 8;
 		g_Menus[g_MpPlayerNum].unk850 = 0;
 
-		g_Menus[g_MpPlayerNum].unk84c = func0f0b1a18(weaponnum);
+		g_Menus[g_MpPlayerNum].unk84c = weaponGetModelNum(weaponnum);
 		g_Menus[g_MpPlayerNum].unkd78 = 0;
 		g_Menus[g_MpPlayerNum].unkd50 = 0;
 		g_Menus[g_MpPlayerNum].unkd7c = 0;

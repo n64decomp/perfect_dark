@@ -1198,68 +1198,30 @@ void currentPlayerSetDeviceActive(s32 weaponnum, bool active)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0b1a18
-/*  f0b1a18:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0b1a1c:	10810005 */ 	beq	$a0,$at,.L0f0b1a34
-/*  f0b1a20:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b1a24:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0b1a28:	3c038007 */ 	lui	$v1,%hi(g_Weapons)
-/*  f0b1a2c:	006e1821 */ 	addu	$v1,$v1,$t6
-/*  f0b1a30:	8c63ff18 */ 	lw	$v1,%lo(g_Weapons)($v1)
-.L0f0b1a34:
-/*  f0b1a34:	10600024 */ 	beqz	$v1,.L0f0b1ac8
-/*  f0b1a38:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b1a3c:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f0b1a40:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f0b1a44:	8ccf006c */ 	lw	$t7,0x6c($a2)
-/*  f0b1a48:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b1a4c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b1a50:	11e00003 */ 	beqz	$t7,.L0f0b1a60
-/*  f0b1a54:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0b1a58:	10000001 */ 	b	.L0f0b1a60
-/*  f0b1a5c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0b1a60:
-/*  f0b1a60:	8cd80068 */ 	lw	$t8,0x68($a2)
-/*  f0b1a64:	13000003 */ 	beqz	$t8,.L0f0b1a74
-/*  f0b1a68:	00000000 */ 	nop
-/*  f0b1a6c:	10000001 */ 	b	.L0f0b1a74
-/*  f0b1a70:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0b1a74:
-/*  f0b1a74:	8cd90064 */ 	lw	$t9,0x64($a2)
-/*  f0b1a78:	13200003 */ 	beqz	$t9,.L0f0b1a88
-/*  f0b1a7c:	00000000 */ 	nop
-/*  f0b1a80:	10000001 */ 	b	.L0f0b1a88
-/*  f0b1a84:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0b1a88:
-/*  f0b1a88:	8cc80070 */ 	lw	$t0,0x70($a2)
-/*  f0b1a8c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0b1a90:	11000003 */ 	beqz	$t0,.L0f0b1aa0
-/*  f0b1a94:	00000000 */ 	nop
-/*  f0b1a98:	10000001 */ 	b	.L0f0b1aa0
-/*  f0b1a9c:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f0b1aa0:
-/*  f0b1aa0:	00c54821 */ 	addu	$t1,$a2,$a1
-/*  f0b1aa4:	01245021 */ 	addu	$t2,$t1,$a0
-/*  f0b1aa8:	01425821 */ 	addu	$t3,$t2,$v0
-/*  f0b1aac:	29610002 */ 	slti	$at,$t3,0x2
-/*  f0b1ab0:	14200003 */ 	bnez	$at,.L0f0b1ac0
-/*  f0b1ab4:	00000000 */ 	nop
-/*  f0b1ab8:	03e00008 */ 	jr	$ra
-/*  f0b1abc:	94620002 */ 	lhu	$v0,0x2($v1)
-.L0f0b1ac0:
-/*  f0b1ac0:	03e00008 */ 	jr	$ra
-/*  f0b1ac4:	94620000 */ 	lhu	$v0,0x0($v1)
-.L0f0b1ac8:
-/*  f0b1ac8:	03e00008 */ 	jr	$ra
-/*  f0b1acc:	00000000 */ 	nop
-);
+u16 weaponGetModelNum(s32 weaponnum)
+{
+	struct weapon *weapon = NULL;
+
+	if (weaponnum != -1) {
+		weapon = g_Weapons[weaponnum];
+	}
+
+	if (weapon) {
+		if (PLAYERCOUNT() >= 2) {
+			return weapon->lo_model;
+		}
+
+		return weapon->hi_model;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0b1ad0
 /*  f0b1ad0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b1ad4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1ad8:	0fc2c686 */ 	jal	func0f0b1a18
+/*  f0b1ad8:	0fc2c686 */ 	jal	weaponGetModelNum
 /*  f0b1adc:	00000000 */ 	nop
 /*  f0b1ae0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0b1ae4:	27bd0018 */ 	addiu	$sp,$sp,0x18

@@ -8490,7 +8490,7 @@ glabel func0f09e4e0
 /*  f09e580:	9631cf14 */ 	lhu	$s1,%lo(g_Bodies+0x10)($s1)
 /*  f09e584:	241104e5 */ 	addiu	$s1,$zero,0x4e5
 .L0f09e588:
-/*  f09e588:	0fc2c686 */ 	jal	func0f0b1a18
+/*  f09e588:	0fc2c686 */ 	jal	weaponGetModelNum
 /*  f09e58c:	8fa400a4 */ 	lw	$a0,0xa4($sp)
 /*  f09e590:	924815b0 */ 	lbu	$t0,0x15b0($s2)
 /*  f09e594:	24140004 */ 	addiu	$s4,$zero,0x4

@@ -3004,8 +3004,8 @@ struct modelpartvisibility {
 };
 
 struct weapon {
-	/*0x00*/ u16 lo_model;
-	/*0x02*/ u16 hi_model;
+	/*0x00*/ u16 hi_model;
+	/*0x02*/ u16 lo_model;
 	/*0x04*/ u32 *equip_animation;
 	/*0x08*/ u32 *unequip_animation;
 	/*0x0c*/ u32 *pritosec_animation;

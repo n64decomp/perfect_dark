@@ -139,8 +139,8 @@ struct inventory_ammo invammo_default = {
 };
 
 struct weapon invitem_hammer = {
-	0, // lo model
 	0, // hi model
+	0, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -165,8 +165,8 @@ struct weapon invitem_hammer = {
 };
 
 struct weapon invitem_nothing = {
-	0, // lo model
 	0, // hi model
+	0, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -272,8 +272,8 @@ struct weaponfunc_close invfunc_unarmed_disarm = {
 };
 
 struct weapon invitem_unarmed = {
-	FILE_GCOMBATHANDSLOD, // lo model
 	FILE_GCOMBATHANDSLOD, // hi model
+	FILE_GCOMBATHANDSLOD, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -514,8 +514,8 @@ struct inventory_ammo invammo_falcon2scope = {
 };
 
 struct weapon invitem_falcon2 = {
-	FILE_GFALCON2, // lo model
-	FILE_GFALCON2LOD, // hi model
+	FILE_GFALCON2, // hi model
+	FILE_GFALCON2LOD, // lo model
 	invanim_falcon2_equip, // equip animation
 	invanim_falcon2_unequip, // unequip animation
 	NULL, // pritosec animation
@@ -539,8 +539,8 @@ struct weapon invitem_falcon2 = {
 };
 
 struct weapon invitem_falcon2scope = {
-	FILE_GFALCON2, // lo model
-	FILE_GFALCON2LOD, // hi model
+	FILE_GFALCON2, // hi model
+	FILE_GFALCON2LOD, // lo model
 	invanim_falcon2_equip, // equip animation
 	invanim_falcon2_unequip, // unequip animation
 	NULL, // pritosec animation
@@ -564,8 +564,8 @@ struct weapon invitem_falcon2scope = {
 };
 
 struct weapon invitem_falcon2silencer = {
-	FILE_GFALCON2, // lo model
-	FILE_GFALCON2LOD, // hi model
+	FILE_GFALCON2, // hi model
+	FILE_GFALCON2LOD, // lo model
 	invanim_falcon2_equip, // equip animation
 	invanim_falcon2_unequip, // unequip animation
 	NULL, // pritosec animation
@@ -709,8 +709,8 @@ struct inventory_ammo invammo_magsec = {
 };
 
 struct weapon invitem_magsec = {
-	FILE_GLEEGUN1, // lo model
-	FILE_GMAGSECLOD, // hi model
+	FILE_GLEEGUN1, // hi model
+	FILE_GMAGSECLOD, // lo model
 	invanim_magsec_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -898,8 +898,8 @@ struct inventory_ammo invammo_dy357 = {
 };
 
 struct weapon invitem_dy357 = {
-	FILE_GDY357, // lo model
-	FILE_GDY357LOD, // hi model
+	FILE_GDY357, // hi model
+	FILE_GDY357LOD, // lo model
 	invanim_dy357_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -923,8 +923,8 @@ struct weapon invitem_dy357 = {
 };
 
 struct weapon invitem_dy357lx = {
-	FILE_GDY357TRENT, // lo model
-	FILE_GDY357TRENTLOD, // hi model
+	FILE_GDY357TRENT, // hi model
+	FILE_GDY357TRENTLOD, // lo model
 	invanim_dy357_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -1041,8 +1041,8 @@ struct inventory_ammo invammo_phoenix = {
 };
 
 struct weapon invitem_phoenix = {
-	FILE_GMAIANPISTOL, // lo model
-	FILE_GMAYANPISTOLLOD, // hi model
+	FILE_GMAIANPISTOL, // hi model
+	FILE_GMAYANPISTOLLOD, // lo model
 	invanim_phoenix_equiporreload, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -1179,8 +1179,8 @@ struct inventory_ammo invammo_mauler = {
 };
 
 struct weapon invitem_mauler = {
-	FILE_GSKPISTOL, // lo model
-	FILE_GSKPISTOLLOD, // hi model
+	FILE_GSKPISTOL, // hi model
+	FILE_GSKPISTOLLOD, // lo model
 	invanim_mauler_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -1333,8 +1333,8 @@ struct inventory_ammo invammo_cmp150 = {
 };
 
 struct weapon invitem_cmp150 = {
-	FILE_GCMP150, // lo model
-	FILE_GCMP150LOD, // hi model
+	FILE_GCMP150, // hi model
+	FILE_GCMP150LOD, // lo model
 	invanim_cmp150_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -1457,8 +1457,8 @@ struct inventory_ammo invammo_cyclone = {
 };
 
 struct weapon invitem_cyclone = {
-	FILE_GCYCLONE, // lo model
-	FILE_GCYCLONELOD, // hi model
+	FILE_GCYCLONE, // hi model
+	FILE_GCYCLONELOD, // lo model
 	invanim_cyclone_equiporreload, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -1560,8 +1560,8 @@ struct inventory_ammo invammo_rcp120 = {
 };
 
 struct weapon invitem_rcp120 = {
-	FILE_GRCP120, // lo model
-	FILE_GRCP120LOD, // hi model
+	FILE_GRCP120, // hi model
+	FILE_GRCP120LOD, // lo model
 	invanim_rcp120_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -1671,8 +1671,8 @@ struct inventory_ammo invammo_callisto = {
 };
 
 struct weapon invitem_callisto = {
-	FILE_GMAIANSMG, // lo model
-	FILE_GMAYANSMGLOD, // hi model
+	FILE_GMAIANSMG, // hi model
+	FILE_GMAYANSMGLOD, // lo model
 	invanim_callisto_equiporreload, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -1772,8 +1772,8 @@ struct inventory_ammo invammo_dragon = {
 };
 
 struct weapon invitem_dragon = {
-	FILE_GDYDRAGON, // lo model
-	FILE_GDYDRAGONLOD, // hi model
+	FILE_GDYDRAGON, // hi model
+	FILE_GDYDRAGONLOD, // lo model
 	invanim_dragon_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -1928,8 +1928,8 @@ struct inventory_ammo invammo_superdragon_grenades = {
 };
 
 struct weapon invitem_superdragon = {
-	FILE_GDYSUPERDRAGON, // lo model
-	FILE_GDYSUPERDRAGONLOD, // hi model
+	FILE_GDYSUPERDRAGON, // hi model
+	FILE_GDYSUPERDRAGONLOD, // lo model
 	invanim_superdragon_equiporshoot, // equip animation
 	NULL, // unequip animation
 	invanim_superdragon_pritosec, // pritosec animation
@@ -2051,8 +2051,8 @@ struct inventory_ammo invammo_ar34 = {
 };
 
 struct weapon invitem_ar34 = {
-	FILE_GAR34, // lo model
-	FILE_GAR34LOD, // hi model
+	FILE_GAR34, // hi model
+	FILE_GAR34LOD, // lo model
 	invanim_ar34_equiporreload, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -2188,8 +2188,8 @@ struct inventory_ammo invammo_k7avenger = {
 };
 
 struct weapon invitem_k7avenger = {
-	FILE_GK7AVENGER, // lo model
-	FILE_GAVENGERLOD, // hi model
+	FILE_GK7AVENGER, // hi model
+	FILE_GAVENGERLOD, // lo model
 	invanim_k7avenger_equip, // equip animation
 	invanim_k7avenger_unequip, // unequip animation
 	NULL, // pritosec animation
@@ -2320,8 +2320,8 @@ struct inventory_ammo invammo_laptopgun = {
 };
 
 struct weapon invitem_laptopgun = {
-	FILE_GPCGUN, // lo model
-	FILE_GPCGUNLOD, // hi model
+	FILE_GPCGUN, // hi model
+	FILE_GPCGUNLOD, // lo model
 	invanim_laptopgun_equip, // equip animation
 	invanim_laptopgun_unequip, // unequip animation
 	NULL, // pritosec animation
@@ -2431,8 +2431,8 @@ struct inventory_ammo invammo_shotgun = {
 };
 
 struct weapon invitem_shotgun = {
-	FILE_GSHOTGUN, // lo model
-	FILE_GSHOTGUNLOD, // hi model
+	FILE_GSHOTGUN, // hi model
+	FILE_GSHOTGUNLOD, // lo model
 	invanim_shotgun_equiporsingleshot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -2558,8 +2558,8 @@ struct inventory_ammo invammo_reaper = {
 };
 
 struct weapon invitem_reaper = {
-	FILE_GSKMINIGUN, // lo model
-	FILE_GSKMINIGUNLOD, // hi model
+	FILE_GSKMINIGUN, // hi model
+	FILE_GSKMINIGUNLOD, // lo model
 	invanim_reaper_equip, // equip animation
 	invanim_reaper_unequip, // unequip animation
 	NULL, // pritosec animation
@@ -2693,8 +2693,8 @@ struct inventory_ammo invammo_rocketlauncher = {
 };
 
 struct weapon invitem_rocketlauncher = {
-	FILE_GDYROCKET, // lo model
-	FILE_GROCKETLOD, // hi model
+	FILE_GDYROCKET, // hi model
+	FILE_GROCKETLOD, // lo model
 	invanim_rockerlauncher_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -2801,8 +2801,8 @@ struct inventory_ammo invammo_slayer = {
 };
 
 struct weapon invitem_slayer = {
-	FILE_GSKROCKET, // lo model
-	FILE_GSKROCKETLOD, // hi model
+	FILE_GSKROCKET, // hi model
+	FILE_GSKROCKETLOD, // lo model
 	invanim_slayer_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -2924,8 +2924,8 @@ struct modelpartvisibility invpartvisibility_devastator[] = {
 };
 
 struct weapon invitem_devastator = {
-	FILE_GDYDEVASTATOR, // lo model
-	FILE_GDEVASTATORLOD, // hi model
+	FILE_GDYDEVASTATOR, // hi model
+	FILE_GDEVASTATORLOD, // lo model
 	invanim_devastator_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -2998,8 +2998,8 @@ struct inventory_ammo invammo_timedmine = {
 };
 
 struct weapon invitem_timedmine = {
-	FILE_GTIMEDMINE, // lo model
 	FILE_GTIMEDMINE, // hi model
+	FILE_GTIMEDMINE, // lo model
 	inanim_mine_equiporreload, // equip animation
 	invanim_mine_unequip, // unequip animation
 	NULL, // pritosec animation
@@ -3088,8 +3088,8 @@ struct modelpartvisibility invpartvisibility_remotemine[] = {
 };
 
 struct weapon invitem_remotemine = {
-	FILE_GREMOTEMINE, // lo model
 	FILE_GREMOTEMINE, // hi model
+	FILE_GREMOTEMINE, // lo model
 	invanim_remotemine_equiporreload, // equip animation
 	invanim_remotemine_unequip, // unequip animation
 	NULL, // pritosec animation
@@ -3135,8 +3135,8 @@ struct inventory_ammo invammo_proximitymine = {
 };
 
 struct weapon invitem_proximitymine = {
-	FILE_GPROXIMITYMINE, // lo model
 	FILE_GPROXIMITYMINE, // hi model
+	FILE_GPROXIMITYMINE, // lo model
 	inanim_mine_equiporreload, // equip animation
 	invanim_mine_unequip, // unequip animation
 	NULL, // pritosec animation
@@ -3198,8 +3198,8 @@ struct inventory_ammo invammo_ecmmine = {
 };
 
 struct weapon invitem_ecmmine = {
-	FILE_GECMMINE, // lo model
 	FILE_GECMMINE, // hi model
+	FILE_GECMMINE, // lo model
 	invanim_ecmmine_equiporreload, // equip animation
 	invanim_ecmmine_unequip, // unequip animation
 	NULL, // pritosec animation
@@ -3225,8 +3225,8 @@ struct weapon invitem_ecmmine = {
 // Some unfinished Reaper-like gun. The name is "Timed Mine". The primary
 // function is detonate (and it works). It can't shoot.
 struct weapon invitem_unused_8007dd88 = {
-	FILE_GSKMINIGUN, // lo model
-	FILE_GSKMINIGUNLOD, // hi model
+	FILE_GSKMINIGUN, // hi model
+	FILE_GSKMINIGUNLOD, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -3305,8 +3305,8 @@ struct inventory_ammo invammo_grenade = {
 };
 
 struct weapon invitem_grenade = {
-	FILE_GGRENADE, // lo model
-	FILE_GGRENADELOD, // hi model
+	FILE_GGRENADE, // hi model
+	FILE_GGRENADELOD, // lo model
 	invanim_grenade_equiporreload, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -3366,8 +3366,8 @@ struct inventory_ammo invammo_nbomb = {
 };
 
 struct weapon invitem_nbomb = {
-	FILE_GNBOMB, // lo model
-	FILE_GNBOMBLOD, // hi model
+	FILE_GNBOMB, // hi model
+	FILE_GNBOMBLOD, // lo model
 	invanim_grenade_equiporreload, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -3476,8 +3476,8 @@ struct modelpartvisibility invpartvisibility_farsight[] = {
 };
 
 struct weapon invitem_farsight = {
-	FILE_GZ2020, // lo model
-	FILE_GZ2020LOD, // hi model
+	FILE_GZ2020, // hi model
+	FILE_GZ2020LOD, // lo model
 	invanim_farsight_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -3618,8 +3618,8 @@ struct modelpartvisibility invpartvisibility_crossbow[] = {
 };
 
 struct weapon invitem_crossbow = {
-	FILE_GCROSSBOW, // lo model
-	FILE_GCROSSBOWLOD, // hi model
+	FILE_GCROSSBOW, // hi model
+	FILE_GCROSSBOWLOD, // lo model
 	invanim_crosbow_equip, // equip animation
 	invanim_crossbow_unequip, // unequip animation
 	NULL, // pritosec animation
@@ -3742,8 +3742,8 @@ struct modelpartvisibility invpartvisibility_tranquilizer[] = {
 };
 
 struct weapon invitem_tranquilizer = {
-	FILE_GDRUGGUN, // lo model
-	FILE_GDRUGGUNLOD, // hi model
+	FILE_GDRUGGUN, // hi model
+	FILE_GDRUGGUNLOD, // lo model
 	invanim_tranquilizer_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -3796,8 +3796,8 @@ struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
 };
 
 struct weapon invitem_psychosisgun = {
-	FILE_GDRUGGUN, // lo model
-	FILE_GDRUGGUNLOD, // hi model
+	FILE_GDRUGGUN, // hi model
+	FILE_GDRUGGUNLOD, // lo model
 	invanim_tranquilizer_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -3903,8 +3903,8 @@ struct modelpartvisibility invpartvisibility_sniperrifle[] = {
 };
 
 struct weapon invitem_sniperrifle = {
-	FILE_GSNIPERRIFLE, // lo model
-	FILE_GSNIPERLOD, // hi model
+	FILE_GSNIPERRIFLE, // hi model
+	FILE_GSNIPERLOD, // lo model
 	invanim_sniperrifle_equip, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -3985,8 +3985,8 @@ struct weaponfunc_shootauto invfunc_laser_stream = {
 };
 
 struct weapon invitem_laser = {
-	FILE_GLASER, // lo model
-	FILE_GLASERLOD, // hi model
+	FILE_GLASER, // hi model
+	FILE_GLASERLOD, // lo model
 	invanim_laser_equip, // equip animation
 	invanim_laser_unequip, // unequip animation
 	NULL, // pritosec animation
@@ -4055,8 +4055,8 @@ struct inventory_ammo invammo_pp9i = {
 };
 
 struct weapon invitem_pp9i = {
-	FILE_GWPPK, // lo model
 	FILE_GWPPK, // hi model
+	FILE_GWPPK, // lo model
 	invanim_pp9i_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4115,8 +4115,8 @@ struct inventory_ammo invammo_cc13 = {
 };
 
 struct weapon invitem_cc13 = {
-	FILE_GTT33, // lo model
 	FILE_GTT33, // hi model
+	FILE_GTT33, // lo model
 	invanim_cc13_equiporshoot, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4174,8 +4174,8 @@ struct inventory_ammo invammo_kl01313 = {
 };
 
 struct weapon invitem_kl01313 = {
-	FILE_GSKORPION, // lo model
 	FILE_GSKORPION, // hi model
+	FILE_GSKORPION, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4233,8 +4233,8 @@ struct inventory_ammo invammo_kf7special = {
 };
 
 struct weapon invitem_kf7special = {
-	FILE_GAK47, // lo model
 	FILE_GAK47, // hi model
+	FILE_GAK47, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4292,8 +4292,8 @@ struct inventory_ammo invammo_zzt9mm = {
 };
 
 struct weapon invitem_zzt9mm = {
-	FILE_GUZI, // lo model
 	FILE_GUZI, // hi model
+	FILE_GUZI, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4351,8 +4351,8 @@ struct inventory_ammo invammo_dmc = {
 };
 
 struct weapon invitem_dmc = {
-	FILE_GMP5K, // lo model
 	FILE_GMP5K, // hi model
+	FILE_GMP5K, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4410,8 +4410,8 @@ struct inventory_ammo invammo_ar53 = {
 };
 
 struct weapon invitem_ar53 = {
-	FILE_GM16, // lo model
 	FILE_GM16, // hi model
+	FILE_GM16, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4469,8 +4469,8 @@ struct inventory_ammo invammo_rcp45 = {
 };
 
 struct weapon invitem_rcp45 = {
-	FILE_GFNP90, // lo model
 	FILE_GFNP90, // hi model
+	FILE_GFNP90, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4509,8 +4509,8 @@ struct inventory_typef invf_unused_8006edcc[] = {
 };
 
 struct weapon invitem_briefcase2 = {
-	FILE_GFALCON2LOD, // lo model
 	FILE_GFALCON2LOD, // hi model
+	FILE_GFALCON2LOD, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4568,8 +4568,8 @@ struct inventory_ammo invammo_59 = {
 };
 
 struct weapon invitem_59 = {
-	0, // lo model
 	0, // hi model
+	0, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4627,8 +4627,8 @@ struct inventory_ammo invammo_5a = {
 };
 
 struct weapon invitem_5a = {
-	0, // lo model
 	0, // hi model
+	0, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4754,8 +4754,8 @@ struct inventory_ammo invammo_combatknife = {
 };
 
 struct weapon invitem_combatknife = {
-	FILE_GKNIFE, // lo model
-	FILE_GKNIFELOD, // hi model
+	FILE_GKNIFE, // hi model
+	FILE_GKNIFELOD, // lo model
 	invanim_combatknife_equip, // equip animation
 	NULL, // unequip animation
 	invanim_combatknife_pritosec, // pritosec animation
@@ -4815,8 +4815,8 @@ struct inventory_ammo invammo_bug = {
 };
 
 struct weapon invitem_commsrider = {
-	FILE_PCHRBUG, // lo model
 	FILE_PCHRBUG, // hi model
+	FILE_PCHRBUG, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4840,8 +4840,8 @@ struct weapon invitem_commsrider = {
 };
 
 struct weapon invitem_tracerbug = {
-	FILE_PCHRBUG, // lo model
 	FILE_PCHRBUG, // hi model
+	FILE_PCHRBUG, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4865,8 +4865,8 @@ struct weapon invitem_tracerbug = {
 };
 
 struct weapon invitem_targetamplifier = {
-	FILE_PTARGETAMP, // lo model
 	FILE_PTARGETAMP, // hi model
+	FILE_PTARGETAMP, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4901,8 +4901,8 @@ struct weaponfunc_device invfunc_nightvision_primary = {
 };
 
 struct weapon invitem_nightvision = {
-	FILE_PCHRNIGHTSIGHT, // lo model
 	FILE_PCHRNIGHTSIGHT, // hi model
+	FILE_PCHRNIGHTSIGHT, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4947,8 +4947,8 @@ struct inventory_typee inve_00015348 = {
 };
 
 struct weapon invitem_horizonscanner = {
-	FILE_PBINOCULARS, // lo model
 	FILE_PBINOCULARS, // hi model
+	FILE_PBINOCULARS, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -4991,8 +4991,8 @@ struct inventory_ammo invammo_cloakingdevice = {
 };
 
 struct weapon invitem_cloakingdevice = {
-	FILE_PCHRCLOAKER, // lo model
 	FILE_PCHRCLOAKER, // hi model
+	FILE_PCHRCLOAKER, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5050,8 +5050,8 @@ struct inventory_ammo invammo_combatboost = {
 };
 
 struct weapon invitem_combatboost = {
-	FILE_PCHRSPEEDPILL, // lo model
 	FILE_PCHRSPEEDPILL, // hi model
+	FILE_PCHRSPEEDPILL, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5086,8 +5086,8 @@ struct weaponfunc_device invfunc_suicidepill_primary = {
 };
 
 struct weapon invitem_suicidepill = {
-	0, // lo model
 	0, // hi model
+	0, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5122,8 +5122,8 @@ struct weaponfunc_device invfunc_irscanner_primary = {
 };
 
 struct weapon invitem_irscanner = {
-	FILE_GIRSCANNER, // lo model
 	FILE_GIRSCANNER, // hi model
+	FILE_GIRSCANNER, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5157,8 +5157,8 @@ struct weaponfunc invfunc_disguise_primary = {
 };
 
 struct weapon invitem_disguise40 = {
-	0, // lo model
 	0, // hi model
+	0, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5182,8 +5182,8 @@ struct weapon invitem_disguise40 = {
 };
 
 struct weapon invitem_disguise41 = {
-	0, // lo model
 	0, // hi model
+	0, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5218,8 +5218,8 @@ struct weaponfunc_device invfunc_camspy_deploy = {
 };
 
 struct weapon invitem_camspy = {
-	FILE_CEYESPY, // lo model
 	FILE_CEYESPY, // hi model
+	FILE_CEYESPY, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5254,8 +5254,8 @@ struct weaponfunc_device invfunc_rtracker_primary = {
 };
 
 struct weapon invitem_rtracker = {
-	FILE_PRUSSDAR, // lo model
 	FILE_PRUSSDAR, // hi model
+	FILE_PRUSSDAR, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5290,8 +5290,8 @@ struct weaponfunc_device invfunc_xray_primary = {
 };
 
 struct weapon invitem_xrayscanner = {
-	FILE_PXRAYSPECS, // lo model
 	FILE_PXRAYSPECS, // hi model
+	FILE_PXRAYSPECS, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5343,8 +5343,8 @@ struct weaponfunc_special invfunc_datauplink_primary = {
 };
 
 struct weapon invitem_datauplink = {
-	FILE_GCOMMSUPLINK, // lo model
 	FILE_GCOMMSUPLINK, // hi model
+	FILE_GCOMMSUPLINK, // lo model
 	invanim_datauplink_equip, // equip animation
 	invanim_datauplink_unequip, // unequip animation
 	NULL, // pritosec animation
@@ -5368,8 +5368,8 @@ struct weapon invitem_datauplink = {
 };
 
 struct weapon invitem_doordecoder = {
-	FILE_PCHRDOORDECODER, // lo model
 	FILE_PCHRDOORDECODER, // hi model
+	FILE_PCHRDOORDECODER, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5394,8 +5394,8 @@ struct weapon invitem_doordecoder = {
 };
 
 struct weapon invitem_rocket = {
-	FILE_GCYCLONE, // lo model
-	FILE_GCYCLONELOD, // hi model
+	FILE_GCYCLONE, // hi model
+	FILE_GCYCLONELOD, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5420,8 +5420,8 @@ struct weapon invitem_rocket = {
 };
 
 struct weapon invitem_homingrocket = {
-	FILE_GCYCLONE, // lo model
-	FILE_GCYCLONELOD, // hi model
+	FILE_GCYCLONE, // hi model
+	FILE_GCYCLONELOD, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5446,8 +5446,8 @@ struct weapon invitem_homingrocket = {
 };
 
 struct weapon invitem_grenaderound = {
-	FILE_GCYCLONE, // lo model
-	FILE_GCYCLONELOD, // hi model
+	FILE_GCYCLONE, // hi model
+	FILE_GCYCLONELOD, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5471,8 +5471,8 @@ struct weapon invitem_grenaderound = {
 };
 
 struct weapon invitem_bolt = {
-	FILE_GCYCLONE, // lo model
-	FILE_GCYCLONELOD, // hi model
+	FILE_GCYCLONE, // hi model
+	FILE_GCYCLONELOD, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5509,8 +5509,8 @@ struct weaponfunc_special invfunc_unused_8006f9a4 = {
 };
 
 struct weapon invitem_skedarbomb = {
-	FILE_PSKEDARBOMB, // lo model
 	FILE_PSKEDARBOMB, // hi model
+	FILE_PSKEDARBOMB, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5535,8 +5535,8 @@ struct weapon invitem_skedarbomb = {
 };
 
 struct weapon invitem_explosives = {
-	FILE_PEXPLOSIVEBRICK, // lo model
 	FILE_PEXPLOSIVEBRICK, // hi model
+	FILE_PEXPLOSIVEBRICK, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5572,8 +5572,8 @@ struct weaponfunc_device invfunc_presidentscanner_primary = {
 };
 
 struct weapon invitem_presidentscanner = {
-	FILE_PRUSSDAR, // lo model
 	FILE_PRUSSDAR, // hi model
+	FILE_PRUSSDAR, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5597,8 +5597,8 @@ struct weapon invitem_presidentscanner = {
 };
 
 struct weapon invitem_autosurgeon = {
-	FILE_PAUTOSURGEON, // lo model
 	FILE_PAUTOSURGEON, // hi model
+	FILE_PAUTOSURGEON, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5623,8 +5623,8 @@ struct weapon invitem_autosurgeon = {
 };
 
 struct weapon invitem_flightplans = {
-	FILE_PSAFEITEM, // lo model
 	FILE_PSAFEITEM, // hi model
+	FILE_PSAFEITEM, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5649,8 +5649,8 @@ struct weapon invitem_flightplans = {
 };
 
 struct weapon invitem_researchtape = {
-	FILE_PRESEARCHTAPE, // lo model
 	FILE_PRESEARCHTAPE, // hi model
+	FILE_PRESEARCHTAPE, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5675,8 +5675,8 @@ struct weapon invitem_researchtape = {
 };
 
 struct weapon invitem_backupdisk = {
-	FILE_PZIGGYCARD, // lo model
 	FILE_PZIGGYCARD, // hi model
+	FILE_PZIGGYCARD, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5701,8 +5701,8 @@ struct weapon invitem_backupdisk = {
 };
 
 struct weapon invitem_briefcase = {
-	FILE_PKEYCARD, // lo model
 	FILE_PKEYCARD, // hi model
+	FILE_PKEYCARD, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5727,8 +5727,8 @@ struct weapon invitem_briefcase = {
 };
 
 struct weapon invitem_suitcase = {
-	FILE_PCHRBRIEFCASE, // lo model
 	FILE_PCHRBRIEFCASE, // hi model
+	FILE_PCHRBRIEFCASE, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5753,8 +5753,8 @@ struct weapon invitem_suitcase = {
 };
 
 struct weapon invitem_necklace = {
-	FILE_PCHRCHAIN, // lo model
 	FILE_PCHRCHAIN, // hi model
+	FILE_PCHRCHAIN, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5779,8 +5779,8 @@ struct weapon invitem_necklace = {
 };
 
 struct weapon invitem_shield = {
-	FILE_PCHRSHIELD, // lo model
 	FILE_PCHRSHIELD, // hi model
+	FILE_PCHRSHIELD, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5805,8 +5805,8 @@ struct weapon invitem_shield = {
 };
 
 struct weapon invitem_keycard = {
-	FILE_PKEYCARD, // lo model
 	FILE_PKEYCARD, // hi model
+	FILE_PKEYCARD, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5869,8 +5869,8 @@ struct inventory_ammo invammo_rocketlauncher34 = {
 };
 
 struct weapon invitem_rocketlauncher_34 = {
-	FILE_GDYROCKET, // lo model
-	FILE_GROCKETLOD, // hi model
+	FILE_GDYROCKET, // hi model
+	FILE_GROCKETLOD, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
@@ -5928,8 +5928,8 @@ struct inventory_ammo invammo_tester = {
 };
 
 struct weapon invitem_tester = {
-	FILE_GTESTGUN, // lo model
 	FILE_GTESTGUN, // hi model
+	FILE_GTESTGUN, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
