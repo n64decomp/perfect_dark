@@ -1142,49 +1142,31 @@ glabel func0f0b184c
 /*  f0b18b8:	afa40000 */ 	sw	$a0,0x0($sp)
 );
 
-GLOBAL_ASM(
-glabel currentPlayerGetDeviceState
-/*  f0b18bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b18c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b18c4:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b18c8:	00000000 */ 	nop
-/*  f0b18cc:	14400003 */ 	bnez	$v0,.L0f0b18dc
-/*  f0b18d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b18d4:	1000001a */ 	b	.L0f0b1940
-/*  f0b18d8:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f0b18dc:
-/*  f0b18dc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b18e0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0b18e4:	24080008 */ 	addiu	$t0,$zero,0x8
-/*  f0b18e8:	24070005 */ 	addiu	$a3,$zero,0x5
-.L0f0b18ec:
-/*  f0b18ec:	8c850014 */ 	lw	$a1,0x14($a0)
-/*  f0b18f0:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f0b18f4:	10a0000f */ 	beqz	$a1,.L0f0b1934
-/*  f0b18f8:	00000000 */ 	nop
-/*  f0b18fc:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f0b1900:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f0b1904:	14ef000b */ 	bne	$a3,$t7,.L0f0b1934
-/*  f0b1908:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f0b190c:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f0b1910:	8ca90014 */ 	lw	$t1,0x14($a1)
-/*  f0b1914:	8f1900c4 */ 	lw	$t9,0xc4($t8)
-/*  f0b1918:	03295024 */ 	and	$t2,$t9,$t1
-/*  f0b191c:	15400003 */ 	bnez	$t2,.L0f0b192c
-/*  f0b1920:	00000000 */ 	nop
-/*  f0b1924:	10000006 */ 	b	.L0f0b1940
-/*  f0b1928:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b192c:
-/*  f0b192c:	10000004 */ 	b	.L0f0b1940
-/*  f0b1930:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0b1934:
-/*  f0b1934:	1468ffed */ 	bne	$v1,$t0,.L0f0b18ec
-/*  f0b1938:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f0b193c:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f0b1940:
-/*  f0b1940:	03e00008 */ 	jr	$ra
-/*  f0b1944:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+s32 currentPlayerGetDeviceState(s32 weaponnum)
+{
+	struct weapon *weapon = weaponFindById(weaponnum);
+	s32 i;
+
+	if (!weapon) {
+		return DEVICESTATE_UNEQUIPPED;
+	}
+
+	for (i = 0; i < ARRAYCOUNT(weapon->functions); i++) {
+		if (weapon->functions[i]) {
+			struct weaponfunc_device *devicefunc = weapon->functions[i];
+
+			if ((devicefunc->base.type & 0xff) == INVENTORYFUNCTYPE_DEVICE) {
+				if ((g_Vars.currentplayer->devicesactive & devicefunc->device) == 0) {
+					return DEVICESTATE_INACTIVE;
+				}
+
+				return DEVICESTATE_ACTIVE;
+			}
+		}
+	}
+
+	return DEVICESTATE_UNEQUIPPED;
+}
 
 GLOBAL_ASM(
 glabel currentPlayerSetDeviceActive

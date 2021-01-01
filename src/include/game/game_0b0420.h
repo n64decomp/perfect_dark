@@ -33,7 +33,7 @@ void currentPlayerZoomIn(f32 fovpersec);
 bool weaponHasFlag(s32 itemid, u32 flag);
 bool weaponHasInvEFlag(s32 weaponnum, u32 flag);
 u32 func0f0b184c(void);
-s32 currentPlayerGetDeviceState(u32 arg0);
+s32 currentPlayerGetDeviceState(s32 weaponnum);
 void currentPlayerSetDeviceActive(s32 weaponum, bool active);
 u32 func0f0b1a18(s32 weaponnum);
 u32 func0f0b1ad0(void);
