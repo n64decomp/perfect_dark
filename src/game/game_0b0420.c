@@ -1168,66 +1168,35 @@ s32 currentPlayerGetDeviceState(s32 weaponnum)
 	return DEVICESTATE_UNEQUIPPED;
 }
 
-GLOBAL_ASM(
-glabel currentPlayerSetDeviceActive
-/*  f0b1948:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b194c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1950:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b1954:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0b1958:	1040002b */ 	beqz	$v0,.L0f0b1a08
-/*  f0b195c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b1960:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0b1964:	24080008 */ 	addiu	$t0,$zero,0x8
-/*  f0b1968:	24070005 */ 	addiu	$a3,$zero,0x5
-.L0f0b196c:
-/*  f0b196c:	8c850014 */ 	lw	$a1,0x14($a0)
-/*  f0b1970:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f0b1974:	10a00022 */ 	beqz	$a1,.L0f0b1a00
-/*  f0b1978:	00000000 */ 	nop
-/*  f0b197c:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f0b1980:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f0b1984:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f0b1988:	14ef001d */ 	bne	$a3,$t7,.L0f0b1a00
-/*  f0b198c:	00000000 */ 	nop
-/*  f0b1990:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*  f0b1994:	3c02800a */ 	lui	$v0,%hi(g_Menus+0x20c4)
-/*  f0b1998:	13000012 */ 	beqz	$t8,.L0f0b19e4
-/*  f0b199c:	00000000 */ 	nop
-/*  f0b19a0:	8ca30014 */ 	lw	$v1,0x14($a1)
-/*  f0b19a4:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0b19a8:	3079000f */ 	andi	$t9,$v1,0xf
-/*  f0b19ac:	13200007 */ 	beqz	$t9,.L0f0b19cc
-/*  f0b19b0:	00000000 */ 	nop
-/*  f0b19b4:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0b19b8:	2401fff0 */ 	addiu	$at,$zero,-16
-/*  f0b19bc:	8c4900c4 */ 	lw	$t1,%lo(g_Menus+0x20c4)($v0)
-/*  f0b19c0:	01215024 */ 	and	$t2,$t1,$at
-/*  f0b19c4:	ac4a00c4 */ 	sw	$t2,0xc4($v0)
-/*  f0b19c8:	8ca30014 */ 	lw	$v1,0x14($a1)
-.L0f0b19cc:
-/*  f0b19cc:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0b19d0:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0b19d4:	8c4b00c4 */ 	lw	$t3,0xc4($v0)
-/*  f0b19d8:	01636025 */ 	or	$t4,$t3,$v1
-/*  f0b19dc:	1000000a */ 	b	.L0f0b1a08
-/*  f0b19e0:	ac4c00c4 */ 	sw	$t4,0xc4($v0)
-.L0f0b19e4:
-/*  f0b19e4:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0b19e8:	8cce0014 */ 	lw	$t6,0x14($a2)
-/*  f0b19ec:	8c4d00c4 */ 	lw	$t5,0xc4($v0)
-/*  f0b19f0:	01c07827 */ 	nor	$t7,$t6,$zero
-/*  f0b19f4:	01afc024 */ 	and	$t8,$t5,$t7
-/*  f0b19f8:	10000003 */ 	b	.L0f0b1a08
-/*  f0b19fc:	ac5800c4 */ 	sw	$t8,0xc4($v0)
-.L0f0b1a00:
-/*  f0b1a00:	1468ffda */ 	bne	$v1,$t0,.L0f0b196c
-/*  f0b1a04:	24840004 */ 	addiu	$a0,$a0,0x4
-.L0f0b1a08:
-/*  f0b1a08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1a0c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b1a10:	03e00008 */ 	jr	$ra
-/*  f0b1a14:	00000000 */ 	nop
-);
+void currentPlayerSetDeviceActive(s32 weaponnum, bool active)
+{
+	struct weapon *weapon = weaponFindById(weaponnum);
+	s32 i;
+
+	if (!weapon) {
+		return;
+	}
+
+	for (i = 0; i < ARRAYCOUNT(weapon->functions); i++) {
+		if (weapon->functions[i]) {
+			struct weaponfunc_device *devicefunc = weapon->functions[i];
+
+			if ((devicefunc->base.type & 0xff) == INVENTORYFUNCTYPE_DEVICE) {
+				if (active) {
+					if (devicefunc->device & (DEVICE_NIGHTVISION | DEVICE_XRAYSCANNER | DEVICE_EYESPY | DEVICE_IRSCANNER)) {
+						g_Vars.currentplayer->devicesactive &= ~(DEVICE_NIGHTVISION | DEVICE_XRAYSCANNER | DEVICE_EYESPY | DEVICE_IRSCANNER);
+					}
+
+					g_Vars.currentplayer->devicesactive |= devicefunc->device;
+					return;
+				}
+
+				g_Vars.currentplayer->devicesactive &= ~devicefunc->device;
+				return;
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0b1a18
