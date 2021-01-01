@@ -1497,27 +1497,17 @@ glabel func0f0b1e28
 /*  f0b1e64:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f0b1e68
-/*  f0b1e68:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b1e6c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1e70:	0fc2c41f */ 	jal	handGetWeaponFunction
-/*  f0b1e74:	00000000 */ 	nop
-/*  f0b1e78:	10400008 */ 	beqz	$v0,.L0f0b1e9c
-/*  f0b1e7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1e80:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f0b1e84:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0b1e88:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f0b1e8c:	55e10004 */ 	bnel	$t7,$at,.L0f0b1ea0
-/*  f0b1e90:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b1e94:	10000002 */ 	b	.L0f0b1ea0
-/*  f0b1e98:	9442003a */ 	lhu	$v0,0x3a($v0)
-.L0f0b1e9c:
-/*  f0b1e9c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b1ea0:
-/*  f0b1ea0:	03e00008 */ 	jr	$ra
-/*  f0b1ea4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+u16 handGetSingleShootSound(struct hand *hand)
+{
+	struct weaponfunc *func = handGetWeaponFunction(hand);
+
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
+		struct weaponfunc_shootsingle *funcshoot = (struct weaponfunc_shootsingle *)func;
+		return funcshoot->shootsound;
+	}
+
+	return 0;
+}
 
 bool handHasFunctionFlags(struct hand *hand, u32 flags)
 {

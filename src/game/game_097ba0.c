@@ -3753,7 +3753,7 @@ glabel var7f1ac320
 /*  f09aa28:	0c00cec9 */ 	jal	audioStop
 /*  f09aa2c:	8e0401d0 */ 	lw	$a0,0x1d0($s0)
 .L0f09aa30:
-/*  f09aa30:	0fc2c79a */ 	jal	func0f0b1e68
+/*  f09aa30:	0fc2c79a */ 	jal	handGetSingleShootSound
 /*  f09aa34:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09aa38:	50400053 */ 	beqzl	$v0,.L0f09ab88
 /*  f09aa3c:	00002025 */ 	or	$a0,$zero,$zero
@@ -3761,7 +3761,7 @@ glabel var7f1ac320
 /*  f09aa44:	00002025 */ 	or	$a0,$zero,$zero
 /*  f09aa48:	55400017 */ 	bnezl	$t2,.L0f09aaa8
 /*  f09aa4c:	8e0e01d0 */ 	lw	$t6,0x1d0($s0)
-/*  f09aa50:	0fc2c79a */ 	jal	func0f0b1e68
+/*  f09aa50:	0fc2c79a */ 	jal	handGetSingleShootSound
 /*  f09aa54:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09aa58:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f09aa5c:	44814000 */ 	mtc1	$at,$f8
@@ -3786,7 +3786,7 @@ glabel var7f1ac320
 .L0f09aaa8:
 /*  f09aaa8:	55c00016 */ 	bnezl	$t6,.L0f09ab04
 /*  f09aaac:	920b0000 */ 	lbu	$t3,0x0($s0)
-/*  f09aab0:	0fc2c79a */ 	jal	func0f0b1e68
+/*  f09aab0:	0fc2c79a */ 	jal	handGetSingleShootSound
 /*  f09aab4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09aab8:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f09aabc:	44815000 */ 	mtc1	$at,$f10
