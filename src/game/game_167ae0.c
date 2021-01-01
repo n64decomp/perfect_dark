@@ -1,5 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "game/activemenu/activemenu.h"
+#include "game/activemenu/tick.h"
 #include "game/bondmove.h"
 #include "game/camdraw.h"
 #include "game/cheats.h"
@@ -66,7 +68,6 @@
 #include "game/game_0d4690.h"
 #include "game/game_0dcdb0.h"
 #include "game/game_0f09f0.h"
-#include "game/game_0fd660.h"
 #include "game/game_107fb0.h"
 #include "game/game_10c9c0.h"
 #include "game/game_11f000.h"
@@ -411,7 +412,7 @@ void func0f167e7c(s32 stagenum)
 			g_Vars.currentplayer->invdowntime = g_Vars.currentplayer->usedowntime;
 
 			func0f0f8c98();
-			activemenusInit();
+			amInit();
 			currentPlayerInitGunsHeld();
 			func0f010bb0();
 			func0f0b77cc();
@@ -1996,7 +1997,7 @@ Gfx *renderFrame(Gfx *gdl)
 				}
 
 				gdl = func0f1274d8(gdl);
-				gdl = activemenuRender(gdl);
+				gdl = amRender(gdl);
 				func00016748(1);
 
 				if (g_Vars.currentplayer->unk1c50_01) {
@@ -2697,7 +2698,7 @@ void func0f16b96c(void)
 		func0f0033b0();
 		func0f0b2904();
 		func0f0aefb8();
-		activemenuTick();
+		amTick();
 		menuTickAll();
 		scenarioCallback10();
 

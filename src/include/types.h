@@ -2985,9 +2985,9 @@ struct weaponfunc_special {
 	/*0x1c*/ u32 unk1c;
 };
 
-struct weaponfunc_visual {
+struct weaponfunc_device {
 	struct weaponfunc base;
-	/*0x14*/ u32 unk14;
+	/*0x14*/ u32 device;
 };
 
 struct inventory_ammo {
@@ -4750,10 +4750,10 @@ struct activemenu {
 
 	/**
 	 * Weapon numbers to slot mapping. In multiplayer this is determined at the
-	 * start of the match. Unsure how it works in solo. A value of 0xff means
-	 * the slot cannot be shown in this match.
+	 * start of the match. A value of 0xff means the slot cannot be shown in
+	 * this match.
 	 */
-	/*0x28*/ u8 weaponnums[8];
+	/*0x28*/ u8 favourites[8];
 
 	/*0x30*/ u8 togglefunc;
 	/*0x31*/ u8 numitems; // number of items in player's inventory; can be higher than the number of AM slots

@@ -1143,7 +1143,7 @@ glabel func0f0b184c
 );
 
 GLOBAL_ASM(
-glabel currentPlayerHasWeaponEquipped
+glabel currentPlayerGetDeviceState
 /*  f0b18bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b18c0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b18c4:	0fc2c3f4 */ 	jal	weaponFindById
@@ -1187,7 +1187,7 @@ glabel currentPlayerHasWeaponEquipped
 );
 
 GLOBAL_ASM(
-glabel func0f0b1948
+glabel currentPlayerSetDeviceActive
 /*  f0b1948:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b194c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b1950:	0fc2c3f4 */ 	jal	weaponFindById

@@ -173,7 +173,7 @@ extern struct menudialog menudialog_damagedcontrollerpak;
 extern struct menudialog menudialog_fullcontrollerpak;
 extern struct menudialog menudialog_cannotreadgameboy;
 extern struct menudialog menudialog_datalost;
-extern struct menudialog menudialog_picktarget;
+extern struct menudialog g_AmPickTargetMenuDialog;
 extern u8 var800719a0[3][3];
 extern u16 options_controlmode[];
 extern u16 g_AimControlOptions[];

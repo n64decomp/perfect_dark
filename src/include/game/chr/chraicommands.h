@@ -409,7 +409,7 @@
 /*0x01bb*/ bool aiNoOp01bb(void);
 /*0x01bc*/ bool ai01bc(void);
 /*0x01bd*/ bool aiIfTrainingPcHolographed(void);
-/*0x01be*/ bool aiIfChrWeaponEquipped(void);
+/*0x01be*/ bool aiIfPlayerUsingDevice(void);
 /*0x01bf*/ bool aiChrBeginOrEndTeleport(void);
 /*0x01c0*/ bool aiIfChrTeleportFullWhite(void);
 /*0x01c1*/ bool aiSetPunchDodgeList(void);

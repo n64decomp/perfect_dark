@@ -20,7 +20,6 @@
 #include "game/game_0e0770.h"
 #include "game/menu/items.h"
 #include "game/game_0f09f0.h"
-#include "game/game_0fd660.h"
 #include "game/game_107fb0.h"
 #include "game/game_1371b0.h"
 #include "game/game_1531a0.h"
@@ -10883,8 +10882,8 @@ glabel var7f1b2ac8
 /*  f0fa780:	afb80100 */ 	sw	$t8,0x100($sp)
 /*  f0fa784:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x28c)
 /*  f0fa788:	8dcea24c */ 	lw	$t6,%lo(g_Vars+0x28c)($t6)
-/*  f0fa78c:	3c01800a */ 	lui	$at,%hi(g_ActiveMenuIndex)
-/*  f0fa790:	ac2e21b8 */ 	sw	$t6,%lo(g_ActiveMenuIndex)($at)
+/*  f0fa78c:	3c01800a */ 	lui	$at,%hi(g_AmIndex)
+/*  f0fa790:	ac2e21b8 */ 	sw	$t6,%lo(g_AmIndex)($at)
 .L0f0fa794:
 /*  f0fa794:	afa80124 */ 	sw	$t0,0x124($sp)
 /*  f0fa798:	afa90128 */ 	sw	$t1,0x128($sp)

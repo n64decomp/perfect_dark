@@ -849,7 +849,7 @@ u8 func1002_devicetraining_camspy[] = {
 
 		beginloop(0x8e)
 			if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-			if_chr_has_weapon_equipped(CHR_BOND, WEAPON_CAMSPY, /*goto*/ 0x2f)
+			if_player_using_device(CHR_BOND, WEAPON_CAMSPY, /*goto*/ 0x2f)
 			if_timer_gt(1200, /*goto*/ 0x06)
 		endloop(0x8e)
 
@@ -962,7 +962,7 @@ u8 func1003_devicetraining_nightvision[] = {
 
 	beginloop(0x8e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_NIGHTVISION, /*goto*/ 0x2f)
+		if_player_using_device(CHR_BOND, WEAPON_NIGHTVISION, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -1243,7 +1243,7 @@ u8 func1005_devicetraining_xray[] = {
 	restart_timer
 
 	beginloop(0x86)
-		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
+		if_player_using_device(CHR_BOND, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
 		set_object_flag(0x38, OBJFLAG_CANNOT_ACTIVATE)
 		set_object_flag(0x39, OBJFLAG_CANNOT_ACTIVATE)
 		goto_next(0x30)
@@ -1276,7 +1276,7 @@ u8 func1005_devicetraining_xray[] = {
 
 	beginloop(0x8e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
+		if_player_using_device(CHR_BOND, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -1297,7 +1297,7 @@ u8 func1005_devicetraining_xray[] = {
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
-		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
+		if_player_using_device(CHR_BOND, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
 		set_object_flag(0x38, OBJFLAG_CANNOT_ACTIVATE)
 		set_object_flag(0x39, OBJFLAG_CANNOT_ACTIVATE)
 		goto_next(0x30)
@@ -1596,7 +1596,7 @@ u8 func1007_devicetrainign_ir[] = {
 	restart_timer
 
 	beginloop(0x86)
-		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
+		if_player_using_device(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
 		set_object_flag(0x37, OBJFLAG_CANNOT_ACTIVATE)
 		goto_next(0x30)
 		label(0x2f)
@@ -1620,12 +1620,12 @@ u8 func1007_devicetrainign_ir[] = {
 	label(0x2f)
 	label(0x8d)
 	remove_hudmsgs
-	if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
+	if_player_using_device(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(62)) // "Select the IR Scanner. - Hold A Button. - Use Control Stick to change selection. - Highlight IR Scanner and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
-		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
+		if_player_using_device(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
 		set_object_flag(0x37, OBJFLAG_CANNOT_ACTIVATE)
 		goto_next(0x30)
 
@@ -1633,7 +1633,7 @@ u8 func1007_devicetrainign_ir[] = {
 		unset_object_flag(0x37, OBJFLAG_CANNOT_ACTIVATE)
 		label(0x30)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
+		if_player_using_device(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -1645,7 +1645,7 @@ u8 func1007_devicetrainign_ir[] = {
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(33)) // "Locate secret door using IR Scanner."
 
 	beginloop(0x82)
-		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
+		if_player_using_device(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
 		set_object_flag(0x37, OBJFLAG_CANNOT_ACTIVATE)
 		goto_next(0x30)
 		label(0x2f)
@@ -1753,13 +1753,13 @@ u8 func1008_devicetraining_rtracker[] = {
 	label(0x2f)
 	label(0x8d)
 	remove_hudmsgs
-	if_chr_has_weapon_equipped(CHR_BOND, WEAPON_RTRACKER, /*goto*/ 0x2f)
+	if_player_using_device(CHR_BOND, WEAPON_RTRACKER, /*goto*/ 0x2f)
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(63)) // "Select the Tracker. - Hold A Button. - Use Control Stick to change selection. - Highlight Tracker and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_RTRACKER, /*goto*/ 0x2f)
+		if_player_using_device(CHR_BOND, WEAPON_RTRACKER, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -1887,7 +1887,7 @@ u8 func1009_devicetraining_cloak[] = {
 	set_ailist(CHR_CARRINGTON, AILIST_CARRINGTON_CLOAK)
 	label(0x8d)
 	remove_hudmsgs
-	if_chr_has_weapon_equipped(CHR_BOND, WEAPON_CLOAKINGDEVICE, /*goto*/ 0x2f)
+	if_player_using_device(CHR_BOND, WEAPON_CLOAKINGDEVICE, /*goto*/ 0x2f)
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(64)) // "Select the Cloaking Device. - Hold A Button. - Use Control Stick to change selection. - Highlight Device and release A Button."
 	restart_timer
 
@@ -1895,7 +1895,7 @@ u8 func1009_devicetraining_cloak[] = {
 		if_stage_flag_eq(STAGEFLAG_CLOAK_COMPLETE, TRUE, /*goto*/ 0x09)
 		if_stage_flag_eq(STAGEFLAG_CLOAK_FAILED, TRUE, /*goto*/ 0x0a)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_CLOAKINGDEVICE, /*goto*/ 0x2f)
+		if_player_using_device(CHR_BOND, WEAPON_CLOAKINGDEVICE, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -3466,7 +3466,7 @@ u8 func1017_msg_terminals[] = {
 u8 func1018_lightswitch[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_NIGHTVISION, FALSE, /*goto*/ 0x2f)
-		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_NIGHTVISION, /*goto*/ 0x2f)
+		if_player_using_device(CHR_BOND, WEAPON_NIGHTVISION, /*goto*/ 0x2f)
 		set_object_flag2(OBJ_LIGHTSWITCH, OBJFLAG2_INVISIBLE)
 		reloop(0x04)
 

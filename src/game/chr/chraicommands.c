@@ -10466,26 +10466,26 @@ bool aiIfTrainingPcHolographed(void)
 /**
  * @cmd 01be
  */
-bool aiIfChrWeaponEquipped(void)
+bool aiIfPlayerUsingDevice(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	struct prop *prop = chr ? chr->prop : NULL;
-	u8 is_using_weapon = false;
+	u8 active = false;
 
 	if (prop && prop->type == PROPTYPE_PLAYER) {
 		u32 playernum = propGetPlayerNum(prop);
 		u32 prevplayernum = g_Vars.currentplayernum;
 		setCurrentPlayerNum(playernum);
 
-		if (currentPlayerHasWeaponEquipped(cmd[3]) == 1) {
-			is_using_weapon = true;
+		if (currentPlayerGetDeviceState(cmd[3]) == DEVICESTATE_ACTIVE) {
+			active = true;
 		}
 
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	if (is_using_weapon) {
+	if (active) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;

@@ -23,7 +23,6 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
 #include "game/bondcutscene.h"
-#include "game/game_0fd660.h"
 #include "game/bondhead.h"
 #include "game/game_127910.h"
 #include "game/game_157db0.h"
@@ -1511,7 +1510,7 @@ glabel var7f1ad8e4
 /*  f0c9590:	28410010 */ 	slti	$at,$v0,0x10
 /*  f0c9594:	14200006 */ 	bnez	$at,.L0f0c95b0
 /*  f0c9598:	24480001 */ 	addiu	$t0,$v0,0x1
-/*  f0c959c:	0fc3fbda */ 	jal	activemenuOpen
+/*  f0c959c:	0fc3fbda */ 	jal	amOpen
 /*  f0c95a0:	00000000 */ 	nop
 /*  f0c95a4:	8e590284 */ 	lw	$t9,0x284($s2)
 /*  f0c95a8:	10000014 */ 	b	.L0f0c95fc
@@ -2444,7 +2443,7 @@ glabel var7f1ad8e4
 /*  f0ca2bc:	28410010 */ 	slti	$at,$v0,0x10
 /*  f0ca2c0:	14200006 */ 	bnez	$at,.L0f0ca2dc
 /*  f0ca2c4:	244e0001 */ 	addiu	$t6,$v0,0x1
-/*  f0ca2c8:	0fc3fbda */ 	jal	activemenuOpen
+/*  f0ca2c8:	0fc3fbda */ 	jal	amOpen
 /*  f0ca2cc:	00000000 */ 	nop
 /*  f0ca2d0:	8e4d0284 */ 	lw	$t5,0x284($s2)
 /*  f0ca2d4:	10000017 */ 	b	.L0f0ca334
@@ -4278,7 +4277,7 @@ glabel var7f1ad8e4
 //										if (g_Vars.currentplayer->invdowntime > -1
 //												&& contGetButtonsOnSample(i, shootpad, shootallowedbuttons & Z_TRIG) == 0) {
 //											if (g_Vars.currentplayer->invdowntime > 15) {
-//												activemenuOpen();
+//												amOpen();
 //												g_Vars.currentplayer->invdowntime = -1;
 //											} else {
 //												g_Vars.currentplayer->invdowntime++;
@@ -4656,7 +4655,7 @@ glabel var7f1ad8e4
 //										if (g_Vars.currentplayer->invdowntime >= 0 && contGetButtonsOnSample(i, contpad1, shootbuttons & c1allowedbuttons) == 0) {
 //											// Holding A and haven't pressed Z
 //											if (g_Vars.currentplayer->invdowntime > 15) {
-//												activemenuOpen();
+//												amOpen();
 //												g_Vars.currentplayer->invdowntime = -1;
 //											} else {
 //												g_Vars.currentplayer->invdowntime++;

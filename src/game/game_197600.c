@@ -12,7 +12,6 @@
 #include "game/chr/chr.h"
 #include "game/ceil.h"
 #include "game/game_0b0420.h"
-#include "game/game_0fd660.h"
 #include "game/game_127910.h"
 #include "game/game_179060.h"
 #include "game/game_190260.h"
@@ -387,7 +386,7 @@ void mpAibotApplyCommand(struct chrdata *chr, u32 command)
 
 	switch (command) {
 	case AIBOTCMD_ATTACK:
-		mpOpenPickTarget();
+		amOpenPickTarget();
 		break;
 	case AIBOTCMD_FOLLOW:
 		mpAibotApplyFollow(chr, g_Vars.currentplayer->prop);

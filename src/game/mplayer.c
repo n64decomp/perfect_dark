@@ -427,17 +427,17 @@ glabel var7f1b8d94
 /*  f187d74:	3c01800b */ 	lui	$at,%hi(g_MpLockInfo+0x4)
 /*  f187d78:	ac28cc24 */ 	sw	$t0,%lo(g_MpLockInfo+0x4)($at)
 .L0f187d7c:
-/*  f187d7c:	3c02800b */ 	lui	$v0,%hi(g_ActiveMenuMpBotCommands)
-/*  f187d80:	3c03800b */ 	lui	$v1,%hi(g_ActiveMenuMpBotCommands+0x9)
-/*  f187d84:	2463cb81 */ 	addiu	$v1,$v1,%lo(g_ActiveMenuMpBotCommands+0x9)
-/*  f187d88:	2442cb78 */ 	addiu	$v0,$v0,%lo(g_ActiveMenuMpBotCommands)
+/*  f187d7c:	3c02800b */ 	lui	$v0,%hi(g_AmBotCommands)
+/*  f187d80:	3c03800b */ 	lui	$v1,%hi(g_AmBotCommands+0x9)
+/*  f187d84:	2463cb81 */ 	addiu	$v1,$v1,%lo(g_AmBotCommands+0x9)
+/*  f187d88:	2442cb78 */ 	addiu	$v0,$v0,%lo(g_AmBotCommands)
 /*  f187d8c:	24040004 */ 	addiu	$a0,$zero,0x4
 .L0f187d90:
 /*  f187d90:	24420001 */ 	addiu	$v0,$v0,0x1
 /*  f187d94:	1443fffe */ 	bne	$v0,$v1,.L0f187d90
 /*  f187d98:	a044ffff */ 	sb	$a0,-0x1($v0)
-/*  f187d9c:	3c02800b */ 	lui	$v0,%hi(g_ActiveMenuMpBotCommands)
-/*  f187da0:	2442cb78 */ 	addiu	$v0,$v0,%lo(g_ActiveMenuMpBotCommands)
+/*  f187d9c:	3c02800b */ 	lui	$v0,%hi(g_AmBotCommands)
+/*  f187da0:	2442cb78 */ 	addiu	$v0,$v0,%lo(g_AmBotCommands)
 /*  f187da4:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f187da8:	240a000d */ 	addiu	$t2,$zero,0xd
 /*  f187dac:	240b0002 */ 	addiu	$t3,$zero,0x2

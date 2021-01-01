@@ -3677,7 +3677,7 @@ glabel var7f1b2e84
 /*  f1061e4:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*  f1061e8:	10400014 */ 	beqz	$v0,.L0f10623c
 /*  f1061ec:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f1061f0:	0fc2c62f */ 	jal	currentPlayerHasWeaponEquipped
+/*  f1061f0:	0fc2c62f */ 	jal	currentPlayerGetDeviceState
 /*  f1061f4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1061f8:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f1061fc:	50410010 */ 	beql	$v0,$at,.L0f106240
@@ -3690,12 +3690,12 @@ glabel var7f1b2e84
 /*  f106218:	14400006 */ 	bnez	$v0,.L0f106234
 /*  f10621c:	8fa4001c */ 	lw	$a0,0x1c($sp)
 /*  f106220:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f106224:	0fc2c652 */ 	jal	func0f0b1948
+/*  f106224:	0fc2c652 */ 	jal	currentPlayerSetDeviceActive
 /*  f106228:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f10622c:	10000004 */ 	b	.L0f106240
 /*  f106230:	8fab0018 */ 	lw	$t3,0x18($sp)
 .L0f106234:
-/*  f106234:	0fc2c652 */ 	jal	func0f0b1948
+/*  f106234:	0fc2c652 */ 	jal	currentPlayerSetDeviceActive
 /*  f106238:	00002825 */ 	or	$a1,$zero,$zero
 .L0f10623c:
 /*  f10623c:	8fab0018 */ 	lw	$t3,0x18($sp)
@@ -3740,7 +3740,7 @@ glabel var7f1b2e84
 /*  f1062cc:	8f040000 */ 	lw	$a0,0x0($t8)
 /*  f1062d0:	1040002b */ 	beqz	$v0,.L0f106380
 /*  f1062d4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1062d8:	0fc2c62f */ 	jal	currentPlayerHasWeaponEquipped
+/*  f1062d8:	0fc2c62f */ 	jal	currentPlayerGetDeviceState
 /*  f1062dc:	00000000 */ 	nop
 /*  f1062e0:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f1062e4:	10410026 */ 	beq	$v0,$at,.L0f106380

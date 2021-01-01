@@ -3774,11 +3774,23 @@
 	label,
 
 /**
- * Checks if the given chr is using the given weapon.
+ * Checks if the given player is using the given device.
+ *
+ * The weapon argument should be a WEAPON constant which has a primary or
+ * secondary function of type INVENTORYFUNCTYPE_DEVICE. For example:
+ *
+ * WEAPON_CLOAKINGDEVICE
+ * WEAPON_EYESPY
+ * WEAPON_IRSCANNER
+ * WEAPON_NIGHTVISION
+ * WEAPON_PRESIDENTSCANNER
+ * WEAPON_RTRACKER
+ * WEAPON_SUICIDEPILL
+ * WEAPON_XRAYSCANNER
  */
-#define if_chr_has_weapon_equipped(chr, weapon, label) \
+#define if_player_using_device(player, weapon, label) \
 	mkshort(0x01be), \
-	chr, \
+	player, \
 	weapon, \
 	label,
 

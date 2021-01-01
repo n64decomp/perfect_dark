@@ -4889,15 +4889,15 @@ struct weapon invitem_targetamplifier = {
 	0x08000018, // flags
 };
 
-struct weaponfunc_visual invfunc_nightvision_primary = {
-	INVENTORYFUNCTYPE_VISUAL,
+struct weaponfunc_device invfunc_nightvision_primary = {
+	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN(135), // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
-	0x00000001,
+	DEVICE_NIGHTVISION,
 };
 
 struct weapon invitem_nightvision = {
@@ -4971,15 +4971,15 @@ struct weapon invitem_horizonscanner = {
 	0x08600058, // flags
 };
 
-struct weaponfunc_visual invfunc_cloak_primary = {
-	INVENTORYFUNCTYPE_VISUAL,
+struct weaponfunc_device invfunc_cloak_primary = {
+	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN(116), // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
-	0x00000040,
+	DEVICE_CLOAKDEVICE,
 };
 
 struct inventory_ammo invammo_cloakingdevice = {
@@ -5074,15 +5074,15 @@ struct weapon invitem_combatboost = {
 	0x34000018, // flags
 };
 
-struct weaponfunc_visual invfunc_suicidepill_primary = {
-	INVENTORYFUNCTYPE_VISUAL,
+struct weaponfunc_device invfunc_suicidepill_primary = {
+	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN(0), // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
-	0x00000020,
+	DEVICE_SUICIDEPILL,
 };
 
 struct weapon invitem_suicidepill = {
@@ -5110,15 +5110,15 @@ struct weapon invitem_suicidepill = {
 	0x08000010, // flags
 };
 
-struct weaponfunc_visual invfunc_irscanner_primary = {
-	INVENTORYFUNCTYPE_VISUAL,
+struct weaponfunc_device invfunc_irscanner_primary = {
+	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN(138), // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
-	0x00000008,
+	DEVICE_IRSCANNER,
 };
 
 struct weapon invitem_irscanner = {
@@ -5206,15 +5206,15 @@ struct weapon invitem_disguise41 = {
 	0x88000018, // flags
 };
 
-struct weaponfunc_visual invfunc_camspy_deploy = {
-	INVENTORYFUNCTYPE_VISUAL,
+struct weaponfunc_device invfunc_camspy_deploy = {
+	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN(136), // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
-	0x00000004,
+	DEVICE_EYESPY,
 };
 
 struct weapon invitem_camspy = {
@@ -5242,15 +5242,15 @@ struct weapon invitem_camspy = {
 	0x08001018, // flags
 };
 
-struct weaponfunc_visual invfunc_rtracker_primary = {
-	INVENTORYFUNCTYPE_VISUAL,
+struct weaponfunc_device invfunc_rtracker_primary = {
+	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN(142), // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
-	0x00000010,
+	DEVICE_RTRACKER,
 };
 
 struct weapon invitem_rtracker = {
@@ -5278,15 +5278,15 @@ struct weapon invitem_rtracker = {
 	0x08001018, // flags
 };
 
-struct weaponfunc_visual invfunc_xray_primary = {
-	INVENTORYFUNCTYPE_VISUAL,
+struct weaponfunc_device invfunc_xray_primary = {
+	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN(137), // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
-	0x00000002,
+	DEVICE_XRAYSCANNER,
 };
 
 struct weapon invitem_xrayscanner = {
@@ -5560,15 +5560,15 @@ struct weapon invitem_explosives = {
 	0x80000000, // flags
 };
 
-struct weaponfunc_visual invfunc_presidentscanner_primary = {
-	INVENTORYFUNCTYPE_VISUAL,
+struct weaponfunc_device invfunc_presidentscanner_primary = {
+	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN(142), // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
-	0x00000010,
+	DEVICE_RTRACKER,
 };
 
 struct weapon invitem_presidentscanner = {

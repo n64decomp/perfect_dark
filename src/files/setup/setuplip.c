@@ -3499,7 +3499,7 @@ u8 func1021_xray_scanning[] = {
 		// @bug? In co-op, the player wearing the xray may be the player who is
 		// not looking at the alien.
 		chr_toggle_p1p2(CHR_SELF)
-		if_chr_has_weapon_equipped(CHR_P1P2, WEAPON_XRAYSCANNER, /*goto*/ 0x06)
+		if_player_using_device(CHR_P1P2, WEAPON_XRAYSCANNER, /*goto*/ 0x06)
 		reloop(0x04)
 
 		label(0x06)

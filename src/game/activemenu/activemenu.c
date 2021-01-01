@@ -16,7 +16,6 @@
 #include "game/game_0b3350.h"
 #include "game/game_0d4690.h"
 #include "game/game_0f09f0.h"
-#include "game/game_0fd660.h"
 #include "game/game_111600.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
@@ -46,7 +45,7 @@
  * For example, the value at index 2 is 6 which means weapon #2 from the
  * weapon set will go into slot 6 which is the bottom slot.
  */
-const u8 g_ActiveMenuMappings[] = {
+const u8 g_AmMapping[] = {
 	0, // unarmed
 	1, // weapon #1
 	6, // weapon #2
@@ -57,15 +56,15 @@ const u8 g_ActiveMenuMappings[] = {
 	2, // unused
 };
 
-void mpOpenPickTarget(void)
+void amOpenPickTarget(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
 
 	if (!mpIsPaused()) {
-		g_ActiveMenus[g_ActiveMenuIndex].prevallbots = g_ActiveMenus[g_ActiveMenuIndex].allbots;
+		g_AmMenus[g_AmIndex].prevallbots = g_AmMenus[g_AmIndex].allbots;
 		g_Vars.currentplayer->activemenumode = AMMODE_CLOSED;
 		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
-		menuPushRootDialog(&menudialog_picktarget, 8);
+		menuPushRootDialog(&g_AmPickTargetMenuDialog, MENUROOT_PICKTARGET);
 		g_MpPlayerNum = prevplayernum;
 	}
 }
@@ -80,48 +79,48 @@ u32 var80071958 = 0x8800ff00;
 u32 var8007195c = 0x88445500;
 
 GLOBAL_ASM(
-glabel menuhandler000fd6f0
+glabel amPickTargetMenuList
 .late_rodata
 glabel var7f1b2c8c
-.word menuhandler000fd6f0+0x34 # f0fd724
+.word amPickTargetMenuList+0x34 # f0fd724
 glabel var7f1b2c90
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2c94
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2c98
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2c9c
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2ca0
-.word menuhandler000fd6f0+0x1a4 # f0fd894
+.word amPickTargetMenuList+0x1a4 # f0fd894
 glabel var7f1b2ca4
-.word menuhandler000fd6f0+0x2e8 # f0fd9d8
+.word amPickTargetMenuList+0x2e8 # f0fd9d8
 glabel var7f1b2ca8
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2cac
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2cb0
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2cb4
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2cb8
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2cbc
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2cc0
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2cc4
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2cc8
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2ccc
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2cd0
-.word menuhandler000fd6f0+0x570 # f0fdc60
+.word amPickTargetMenuList+0x570 # f0fdc60
 glabel var7f1b2cd4
-.word menuhandler000fd6f0+0x2fc # f0fd9ec
+.word amPickTargetMenuList+0x2fc # f0fd9ec
 glabel var7f1b2cd8
-.word menuhandler000fd6f0+0x564 # f0fdc54
+.word amPickTargetMenuList+0x564 # f0fdc54
 .text
 /*  f0fd6f0:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f0fd6f4:	248effff */ 	addiu	$t6,$a0,-1
@@ -136,15 +135,15 @@ glabel var7f1b2cd8
 /*  f0fd718:	8c2e2c8c */ 	lw	$t6,%lo(var7f1b2c8c)($at)
 /*  f0fd71c:	01c00008 */ 	jr	$t6
 /*  f0fd720:	00000000 */ 	nop
-/*  f0fd724:	3c0f800a */ 	lui	$t7,%hi(g_ActiveMenuIndex)
-/*  f0fd728:	8def21b8 */ 	lw	$t7,%lo(g_ActiveMenuIndex)($t7)
-/*  f0fd72c:	3c19800a */ 	lui	$t9,%hi(g_ActiveMenus+0x33)
+/*  f0fd724:	3c0f800a */ 	lui	$t7,%hi(g_AmIndex)
+/*  f0fd728:	8def21b8 */ 	lw	$t7,%lo(g_AmIndex)($t7)
+/*  f0fd72c:	3c19800a */ 	lui	$t9,%hi(g_AmMenus+0x33)
 /*  f0fd730:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
 /*  f0fd734:	000fc0c0 */ 	sll	$t8,$t7,0x3
 /*  f0fd738:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f0fd73c:	0018c0c0 */ 	sll	$t8,$t8,0x3
 /*  f0fd740:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f0fd744:	93392103 */ 	lbu	$t9,%lo(g_ActiveMenus+0x33)($t9)
+/*  f0fd744:	93392103 */ 	lbu	$t9,%lo(g_AmMenus+0x33)($t9)
 /*  f0fd748:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
 /*  f0fd74c:	3c06800b */ 	lui	$a2,%hi(g_MpNumPlayers)
 /*  f0fd750:	1320004b */ 	beqz	$t9,.L0f0fd880
@@ -241,15 +240,15 @@ glabel var7f1b2cd8
 /*  f0fd888:	25d9ffff */ 	addiu	$t9,$t6,-1
 /*  f0fd88c:	100000f4 */ 	b	.L0f0fdc60
 /*  f0fd890:	adf90000 */ 	sw	$t9,0x0($t7)
-/*  f0fd894:	3c0e800a */ 	lui	$t6,%hi(g_ActiveMenuIndex)
-/*  f0fd898:	8dce21b8 */ 	lw	$t6,%lo(g_ActiveMenuIndex)($t6)
+/*  f0fd894:	3c0e800a */ 	lui	$t6,%hi(g_AmIndex)
+/*  f0fd898:	8dce21b8 */ 	lw	$t6,%lo(g_AmIndex)($t6)
 /*  f0fd89c:	8fb800c0 */ 	lw	$t8,0xc0($sp)
-/*  f0fd8a0:	3c0f800a */ 	lui	$t7,%hi(g_ActiveMenus)
+/*  f0fd8a0:	3c0f800a */ 	lui	$t7,%hi(g_AmMenus)
 /*  f0fd8a4:	000ec8c0 */ 	sll	$t9,$t6,0x3
 /*  f0fd8a8:	032ec823 */ 	subu	$t9,$t9,$t6
 /*  f0fd8ac:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
 /*  f0fd8b0:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f0fd8b4:	25ef20d0 */ 	addiu	$t7,$t7,%lo(g_ActiveMenus)
+/*  f0fd8b4:	25ef20d0 */ 	addiu	$t7,$t7,%lo(g_AmMenus)
 /*  f0fd8b8:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
 /*  f0fd8bc:	032f5021 */ 	addu	$t2,$t9,$t7
 /*  f0fd8c0:	8f020000 */ 	lw	$v0,0x0($t8)
@@ -335,16 +334,16 @@ glabel var7f1b2cd8
 /*  f0fd9e4:	1000009e */ 	b	.L0f0fdc60
 /*  f0fd9e8:	af2e0000 */ 	sw	$t6,0x0($t9)
 /*  f0fd9ec:	8faf00c0 */ 	lw	$t7,0xc0($sp)
-/*  f0fd9f0:	3c0e800a */ 	lui	$t6,%hi(g_ActiveMenuIndex)
-/*  f0fd9f4:	8dce21b8 */ 	lw	$t6,%lo(g_ActiveMenuIndex)($t6)
+/*  f0fd9f0:	3c0e800a */ 	lui	$t6,%hi(g_AmIndex)
+/*  f0fd9f4:	8dce21b8 */ 	lw	$t6,%lo(g_AmIndex)($t6)
 /*  f0fd9f8:	8df80000 */ 	lw	$t8,0x0($t7)
 /*  f0fd9fc:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
 /*  f0fda00:	000ec8c0 */ 	sll	$t9,$t6,0x3
 /*  f0fda04:	afb80094 */ 	sw	$t8,0x94($sp)
-/*  f0fda08:	3c18800a */ 	lui	$t8,%hi(g_ActiveMenus)
+/*  f0fda08:	3c18800a */ 	lui	$t8,%hi(g_AmMenus)
 /*  f0fda0c:	032ec823 */ 	subu	$t9,$t9,$t6
 /*  f0fda10:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f0fda14:	271820d0 */ 	addiu	$t8,$t8,%lo(g_ActiveMenus)
+/*  f0fda14:	271820d0 */ 	addiu	$t8,$t8,%lo(g_AmMenus)
 /*  f0fda18:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
 /*  f0fda1c:	03385021 */ 	addu	$t2,$t9,$t8
 /*  f0fda20:	8dec0008 */ 	lw	$t4,0x8($t7)
@@ -509,7 +508,7 @@ glabel var7f1b2cd8
 /*  f0fdc70:	00000000 */ 	nop
 );
 
-s32 menudialogMpPickTarget(u32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 amPickTargetMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -526,24 +525,21 @@ s32 menudialogMpPickTarget(u32 operation, struct menudialog *dialog, union handl
 	return false;
 }
 
-
-// 17980
-struct menuitem menuitems_picktarget[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x0000005a, 0x00000000, menuhandler000fd6f0 },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+struct menuitem g_AmPickTargetMenuItems[] = {
+	{ MENUITEMTYPE_LIST, 0, 0x00200000, 0x0000005a, 0x00000000, amPickTargetMenuList },
+	{ MENUITEMTYPE_END,  0, 0x00000000, 0x00000000, 0x00000000, NULL                 },
 };
 
-// 179a8
-struct menudialog menudialog_picktarget = {
+struct menudialog g_AmPickTargetMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(492), // "Pick Target"
-	menuitems_picktarget,
-	menudialogMpPickTarget,
+	g_AmPickTargetMenuItems,
+	amPickTargetMenuDialog,
 	0x00000000,
 	NULL,
 };
 
-void activemenuSetAiBuddyTemperament(bool aggressive)
+void amSetAiBuddyTemperament(bool aggressive)
 {
 	s32 i;
 
@@ -562,7 +558,7 @@ void activemenuSetAiBuddyTemperament(bool aggressive)
 	}
 }
 
-void activemenuSetAiBuddyStealth(void)
+void amSetAiBuddyStealth(void)
 {
 	s32 i;
 
@@ -584,7 +580,7 @@ void activemenuSetAiBuddyStealth(void)
 	}
 }
 
-s32 activemenuGetFirstBuddyIndex(void)
+s32 amGetFirstBuddyIndex(void)
 {
 	s32 i;
 
@@ -604,22 +600,22 @@ s32 activemenuGetFirstBuddyIndex(void)
 	return -1;
 }
 
-void activemenuApply(s32 slot)
+void amApply(s32 slot)
 {
 	s32 numinvitems;
 	s32 invindex;
 	bool pass;
-	s32 lVar4;
+	s32 state;
 	s32 weaponnum;
 	s32 i;
 
-	switch (g_ActiveMenus[g_ActiveMenuIndex].screenindex) {
+	switch (g_AmMenus[g_AmIndex].screenindex) {
 	case 0: // Weapon
 		if (slot > 4) {
 			slot--;
 		}
 
-		invindex = g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot];
+		invindex = g_AmMenus[g_AmIndex].invindexes[slot];
 		numinvitems = currentPlayerGetNumInvItems();
 
 		if (invindex < numinvitems) {
@@ -627,15 +623,15 @@ void activemenuApply(s32 slot)
 			pass = true;
 
 			if (weaponnum) {
-				lVar4 = currentPlayerHasWeaponEquipped(weaponnum);
+				state = currentPlayerGetDeviceState(weaponnum);
 
-				if (lVar4 != -1) {
+				if (state != DEVICESTATE_UNEQUIPPED) {
 					pass = false;
 
-					if (lVar4 == 0) {
-						func0f0b1948(weaponnum, 1);
+					if (state == DEVICESTATE_INACTIVE) {
+						currentPlayerSetDeviceActive(weaponnum, true);
 					} else {
-						func0f0b1948(weaponnum, 0);
+						currentPlayerSetDeviceActive(weaponnum, false);
 					}
 				}
 			}
@@ -655,20 +651,20 @@ void activemenuApply(s32 slot)
 					currentPlayerSetEquipCurItem(invindex);
 
 					if (func0f111cf8(weaponnum, weaponnum)) {
-						if (getCurrentPlayerWeaponId(0) != weaponnum) {
-							currentPlayerEquipWeaponWrapper(0, weaponnum);
+						if (getCurrentPlayerWeaponId(HAND_RIGHT) != weaponnum) {
+							currentPlayerEquipWeaponWrapper(HAND_RIGHT, weaponnum);
 						}
 
-						if (getCurrentPlayerWeaponId(1) != weaponnum) {
-							currentPlayerEquipWeaponWrapper(1, weaponnum);
+						if (getCurrentPlayerWeaponId(HAND_LEFT) != weaponnum) {
+							currentPlayerEquipWeaponWrapper(HAND_LEFT, weaponnum);
 						}
 					} else {
-						if (getCurrentPlayerWeaponId(0) != weaponnum) {
-							currentPlayerEquipWeaponWrapper(0, weaponnum);
+						if (getCurrentPlayerWeaponId(HAND_RIGHT) != weaponnum) {
+							currentPlayerEquipWeaponWrapper(HAND_RIGHT, weaponnum);
 						}
 
-						if (getCurrentPlayerWeaponId(1) != 0) {
-							currentPlayerEquipWeaponWrapper(1, 0);
+						if (getCurrentPlayerWeaponId(HAND_LEFT) != WEAPON_NONE) {
+							currentPlayerEquipWeaponWrapper(HAND_LEFT, WEAPON_NONE);
 						}
 					}
 				}
@@ -680,38 +676,38 @@ void activemenuApply(s32 slot)
 				&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST
 				&& g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->weaponnum - 1 & 7))) {
 			if (slot == 1) {
-				g_ActiveMenus[g_ActiveMenuIndex].togglefunc = true;
+				g_AmMenus[g_AmIndex].togglefunc = true;
 			}
 		} else {
 			if (slot != 1) {
-				g_ActiveMenus[g_ActiveMenuIndex].togglefunc = true;
+				g_AmMenus[g_AmIndex].togglefunc = true;
 			}
 		}
 		break;
 	default:
 		if (g_MissionConfig.iscoop) {
-			if (activemenuGetFirstBuddyIndex() > -1) {
+			if (amGetFirstBuddyIndex() > -1) {
 				if (slot == 1) {
-					activemenuSetAiBuddyTemperament(true); // aggressive
+					amSetAiBuddyTemperament(true); // aggressive
 				} else if (slot == 7) {
-					activemenuSetAiBuddyTemperament(false); // passive
+					amSetAiBuddyTemperament(false); // passive
 				} else if (slot == 3) {
-					activemenuSetAiBuddyStealth();
+					amSetAiBuddyStealth();
 				}
 			}
 		} else if (g_Vars.normmplayerisrunning) {
-			if (g_ActiveMenus[g_ActiveMenuIndex].allbots) {
+			if (g_AmMenus[g_AmIndex].allbots) {
 				for (i = 0; i < g_Vars.currentplayer->numaibuddies; i++) {
-					mpAibotApplyCommand(g_MpPlayerChrs[g_Vars.currentplayer->aibuddynums[i]], g_ActiveMenuMpBotCommands[slot]);
+					mpAibotApplyCommand(g_MpPlayerChrs[g_Vars.currentplayer->aibuddynums[i]], g_AmBotCommands[slot]);
 				}
 			} else {
-				mpAibotApplyCommand(g_MpPlayerChrs[g_Vars.currentplayer->aibuddynums[g_ActiveMenus[g_ActiveMenuIndex].screenindex - 2]], g_ActiveMenuMpBotCommands[slot]);
+				mpAibotApplyCommand(g_MpPlayerChrs[g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2]], g_AmBotCommands[slot]);
 			}
 		}
 	}
 }
 
-void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
+void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 {
 	u32 weaponnum;
 	s32 qty;
@@ -720,7 +716,7 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 	struct weaponfunc *prifunc;
 	struct weaponfunc *secfunc;
 
-	switch (g_ActiveMenus[g_ActiveMenuIndex].screenindex) {
+	switch (g_AmMenus[g_AmIndex].screenindex) {
 	case 0: // Weapon screen
 		if (slot == 4) {
 			strcpy(label, langGet(L_MISC(170))); // "Weapon"
@@ -731,31 +727,31 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 			slot--;
 		}
 
-		if (currentPlayerGetEquipCurItem() == g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot]) {
+		if (currentPlayerGetEquipCurItem() == g_AmMenus[g_AmIndex].invindexes[slot]) {
 			*flags |= AMSLOTFLAG_CURRENT;
 		}
 
-		if (g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot] >= currentPlayerGetNumInvItems()) {
+		if (g_AmMenus[g_AmIndex].invindexes[slot] >= currentPlayerGetNumInvItems()) {
 			strcpy(label, "");
 		} else {
-			if (currentPlayerGetWeaponNumByInvIndex(g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot]) == WEAPON_CLOAKINGDEVICE) {
+			if (currentPlayerGetWeaponNumByInvIndex(g_AmMenus[g_AmIndex].invindexes[slot]) == WEAPON_CLOAKINGDEVICE) {
 				// Special case: "Cloak %d"
 				qty = ammoGetQuantity(AMMOTYPE_CLOAK);
 				secs = qty / 60;
 				modulo = (qty - (secs * 60)) * 100 / 60;
 				sprintf(label, langGet(L_OPTIONS(491)), secs + (modulo > 0 ? 1 : 0)); // "cloak %d"
 			} else {
-				strcpy(label, currentPlayerGetInvShortNameByIndex(g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot]));
+				strcpy(label, currentPlayerGetInvShortNameByIndex(g_AmMenus[g_AmIndex].invindexes[slot]));
 			}
 		}
 
-		weaponnum = currentPlayerGetWeaponNumByInvIndex(g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot]);
+		weaponnum = currentPlayerGetWeaponNumByInvIndex(g_AmMenus[g_AmIndex].invindexes[slot]);
 
-		if (currentPlayerHasWeaponEquipped(weaponnum) == true) {
+		if (currentPlayerGetDeviceState(weaponnum) == DEVICESTATE_ACTIVE) {
 			*flags |= AMSLOTFLAG_ACTIVE;
 		}
 
-		weaponnum = currentPlayerGetWeaponNumByInvIndex(g_ActiveMenus[g_ActiveMenuIndex].invindexes[slot]);
+		weaponnum = currentPlayerGetWeaponNumByInvIndex(g_AmMenus[g_AmIndex].invindexes[slot]);
 
 		if (func0f0a1d14(weaponnum) == false) {
 			*flags |= AMSLOTFLAG_NOAMMO;
@@ -812,14 +808,14 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 			if (slot == 4) {
 				strcpy(label, langGet(L_MISC(172))); // "Orders"
 			} else {
-				strcpy(label, mpGetBotCommandName(g_ActiveMenuMpBotCommands[slot]));
+				strcpy(label, mpGetBotCommandName(g_AmBotCommands[slot]));
 			}
 		}
 		break;
 	}
 }
 
-void activemenusInit(void)
+void amInit(void)
 {
 	s32 i;
 	s32 j;
@@ -827,17 +823,17 @@ void activemenusInit(void)
 	// @bug? Should this be set for each player?
 	g_Vars.currentplayer->activemenumode = AMMODE_CLOSED;
 
-	for (i = 0; i < ARRAYCOUNT(g_ActiveMenus); i++) {
-		g_ActiveMenus[i].togglefunc = false;
+	for (i = 0; i < ARRAYCOUNT(g_AmMenus); i++) {
+		g_AmMenus[i].togglefunc = false;
 
-		for (j = 0; j < ARRAYCOUNT(g_ActiveMenus[i].weaponnums); j++) {
-			g_ActiveMenus[i].weaponnums[j] = 0xff;
+		for (j = 0; j < ARRAYCOUNT(g_AmMenus[i].favourites); j++) {
+			g_AmMenus[i].favourites[j] = 0xff;
 		}
 
 		if (g_Vars.normmplayerisrunning) {
 			s32 index = 0;
 
-			g_ActiveMenus[i].weaponnums[g_ActiveMenuMappings[index]] = WEAPON_UNARMED;
+			g_AmMenus[i].favourites[g_AmMapping[index]] = WEAPON_UNARMED;
 			index++;
 
 			for (j = 0; j < ARRAYCOUNT(g_MpSetup.weapons); j++) {
@@ -849,7 +845,7 @@ void activemenusInit(void)
 				case WEAPON_DISABLED:
 					break;
 				default:
-					g_ActiveMenus[i].weaponnums[g_ActiveMenuMappings[index]] = weaponnum;
+					g_AmMenus[i].favourites[g_AmMapping[index]] = weaponnum;
 					index++;
 					break;
 				}
@@ -858,17 +854,17 @@ void activemenusInit(void)
 	}
 
 	if (PLAYERCOUNT() >= 2) {
-		g_ActiveMenuFont1 = g_FontHandelGothicXs1;
-		g_ActiveMenuFont2 = g_FontHandelGothicXs2;
+		g_AmFont1 = g_FontHandelGothicXs1;
+		g_AmFont2 = g_FontHandelGothicXs2;
 	} else {
-		g_ActiveMenuFont1 = g_FontHandelGothicSm1;
-		g_ActiveMenuFont2 = g_FontHandelGothicSm2;
+		g_AmFont1 = g_FontHandelGothicSm1;
+		g_AmFont2 = g_FontHandelGothicSm2;
 	}
 
-	g_ActiveMenuIndex = 0;
+	g_AmIndex = 0;
 }
 
-s16 activemenuCalculateSlotWidth(void)
+s16 amCalculateSlotWidth(void)
 {
 	s32 textheight;
 	s32 textwidth;
@@ -878,8 +874,8 @@ s16 activemenuCalculateSlotWidth(void)
 	char text[32];
 
 	for (i = 0; i != 9; i++) {
-		activemenuGetSlotDetails(i, &flags, text);
-		textMeasure(&textheight, &textwidth, text, g_ActiveMenuFont1, g_ActiveMenuFont2, 0);
+		amGetSlotDetails(i, &flags, text);
+		textMeasure(&textheight, &textwidth, text, g_AmFont1, g_AmFont2, 0);
 
 		if (textwidth > max) {
 			max = textwidth;
@@ -895,14 +891,14 @@ s16 activemenuCalculateSlotWidth(void)
 	return max;
 }
 
-void activemenuChangeScreen(s32 step)
+void amChangeScreen(s32 step)
 {
 	s32 maxscreenindex;
 
-	g_ActiveMenus[g_ActiveMenuIndex].screenindex += step;
+	g_AmMenus[g_AmIndex].screenindex += step;
 
 	if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
-		if (g_ActiveMenus[g_ActiveMenuIndex].allbots) {
+		if (g_AmMenus[g_AmIndex].allbots) {
 			// Weapon selection, second function, and bot command menu
 
 			// @bug: This is missing a check to see if there are any bots on
@@ -920,7 +916,7 @@ void activemenuChangeScreen(s32 step)
 		}
 	} else {
 		// Solo missions, or MP with no teams
-		if (g_MissionConfig.iscoop && activemenuGetFirstBuddyIndex() >= 0) {
+		if (g_MissionConfig.iscoop && amGetFirstBuddyIndex() >= 0) {
 			// Weapon selection, second function and AI buddy commands
 			maxscreenindex = 2;
 		} else {
@@ -929,39 +925,39 @@ void activemenuChangeScreen(s32 step)
 		}
 	}
 
-	if (g_ActiveMenus[g_ActiveMenuIndex].screenindex > maxscreenindex) {
-		g_ActiveMenus[g_ActiveMenuIndex].screenindex = 0;
+	if (g_AmMenus[g_AmIndex].screenindex > maxscreenindex) {
+		g_AmMenus[g_AmIndex].screenindex = 0;
 	}
 
-	if (g_ActiveMenus[g_ActiveMenuIndex].screenindex < 0) {
-		g_ActiveMenus[g_ActiveMenuIndex].screenindex = maxscreenindex;
+	if (g_AmMenus[g_AmIndex].screenindex < 0) {
+		g_AmMenus[g_AmIndex].screenindex = maxscreenindex;
 	}
 
-	g_ActiveMenus[g_ActiveMenuIndex].xradius = 10;
-	g_ActiveMenus[g_ActiveMenuIndex].dstx = -123;
-	g_ActiveMenus[g_ActiveMenuIndex].slotnum = 4;
-	g_ActiveMenus[g_ActiveMenuIndex].returntimer = 0;
-	g_ActiveMenus[g_ActiveMenuIndex].cornertimer = 0;
-	g_ActiveMenus[g_ActiveMenuIndex].alphafrac = 0;
-	g_ActiveMenus[g_ActiveMenuIndex].slotwidth = activemenuCalculateSlotWidth();
+	g_AmMenus[g_AmIndex].xradius = 10;
+	g_AmMenus[g_AmIndex].dstx = -123;
+	g_AmMenus[g_AmIndex].slotnum = 4;
+	g_AmMenus[g_AmIndex].returntimer = 0;
+	g_AmMenus[g_AmIndex].cornertimer = 0;
+	g_AmMenus[g_AmIndex].alphafrac = 0;
+	g_AmMenus[g_AmIndex].slotwidth = amCalculateSlotWidth();
 }
 
-void activemenuAssignWeaponSlots(void)
+void amAssignWeaponSlots(void)
 {
 	s32 numitems = currentPlayerGetNumInvItems();
 	u8 weaponnum;
 	s32 i;
 	s32 j;
 
-	g_ActiveMenus[g_ActiveMenuIndex].numitems = numitems;
+	g_AmMenus[g_AmIndex].numitems = numitems;
 
 	// Reset inventory indexes
-	for (i = 0; i < 8;) {
-		g_ActiveMenus[g_ActiveMenuIndex].invindexes[i] = 0xff;
+	for (i = 0; i < ARRAYCOUNT(g_AmMenus[g_AmIndex].invindexes);) {
+		g_AmMenus[g_AmIndex].invindexes[i] = 0xff;
 		i++;
 	}
 
-	// Recalculate inventory item indexes
+	// Assign favourites
 	for (i = 0; i < numitems; i++) {
 		weaponnum = currentPlayerGetWeaponNumByInvIndex(i);
 
@@ -969,10 +965,10 @@ void activemenuAssignWeaponSlots(void)
 				|| weaponnum == WEAPON_SUICIDEPILL
 				|| weaponnum == WEAPON_BACKUPDISK
 				|| weaponnum == WEAPON_SUITCASE) {
-			for (j = 0; j < 8; j++) {
-				if (g_ActiveMenus[g_ActiveMenuIndex].weaponnums[j] == weaponnum) {
-					if (g_ActiveMenus[g_ActiveMenuIndex].invindexes[j] == 0xff) {
-						g_ActiveMenus[g_ActiveMenuIndex].invindexes[j] = i;
+			for (j = 0; j < ARRAYCOUNT(g_AmMenus[g_AmIndex].favourites); j++) {
+				if (g_AmMenus[g_AmIndex].favourites[j] == weaponnum) {
+					if (g_AmMenus[g_AmIndex].invindexes[j] == 0xff) {
+						g_AmMenus[g_AmIndex].invindexes[j] = i;
 					} else {
 						// empty
 					}
@@ -982,81 +978,81 @@ void activemenuAssignWeaponSlots(void)
 		}
 	}
 
-	// If there are still unused slots and there are weapons in the inventory
-	// that don't have a preset mapping, fill the remaining slots with weapons.
+	// If there are still unused slots, fill the remaining slots in inventory
+	// order with unfavourited weapons.
 	for (i = 0; i < numitems; i++) {
-		bool hasmapping = false;
+		bool isfavourited = false;
 
-		for (j = 0; j < 8; j++) {
-			if (g_ActiveMenus[g_ActiveMenuIndex].invindexes[j] == i) {
-				hasmapping = true;
+		for (j = 0; j < ARRAYCOUNT(g_AmMenus[g_AmIndex].invindexes); j++) {
+			if (g_AmMenus[g_AmIndex].invindexes[j] == i) {
+				isfavourited = true;
 			}
 		}
 
-		if (!hasmapping) {
+		if (!isfavourited) {
 			weaponnum = currentPlayerGetWeaponNumByInvIndex(i);
 
 			if ((weaponnum >= WEAPON_UNARMED && weaponnum <= WEAPON_DISGUISE41)
 					|| weaponnum == WEAPON_SUICIDEPILL
 					|| weaponnum == WEAPON_SUITCASE) {
-				s32 mapindex = -1;
+				s32 useindex = -1;
 				s32 j;
 
 				// Try to find any mapping which is not yet used.
 				// While it could just iterate the invitems or weaponnums arrays
 				// directly, doing it using the mapping makes it allocate these
 				// somewhat randomly rather than in slot order.
-				for (j = 0; j < 8; j++) {
-					if (g_ActiveMenus[g_ActiveMenuIndex].weaponnums[g_ActiveMenuMappings[j]] == 0xff) {
-						mapindex = j;
+				for (j = 0; j < ARRAYCOUNT(g_AmMapping); j++) {
+					if (g_AmMenus[g_AmIndex].favourites[g_AmMapping[j]] == 0xff) {
+						useindex = j;
 						break;
 					}
 				}
 
-				if (mapindex == -1) {
+				if (useindex == -1) {
 					// This part is pointless. If this part of the code is
 					// reached then all the mappings were in use, and therefore
 					// all the slots are in use too. There's no way this can
 					// find any new slots.
-					for (j = 0; j < 8; j++) {
-						if (g_ActiveMenus[g_ActiveMenuIndex].invindexes[g_ActiveMenuMappings[j]] == 0xff) {
-							mapindex = j;
+					for (j = 0; j < ARRAYCOUNT(g_AmMapping); j++) {
+						if (g_AmMenus[g_AmIndex].invindexes[g_AmMapping[j]] == 0xff) {
+							useindex = j;
 							break;
 						}
 					}
 				}
 
-				if (mapindex >= 0) {
-					g_ActiveMenus[g_ActiveMenuIndex].invindexes[g_ActiveMenuMappings[mapindex]] = i;
-					g_ActiveMenus[g_ActiveMenuIndex].weaponnums[g_ActiveMenuMappings[mapindex]] = weaponnum;
+				if (useindex >= 0) {
+					g_AmMenus[g_AmIndex].invindexes[g_AmMapping[useindex]] = i;
+					g_AmMenus[g_AmIndex].favourites[g_AmMapping[useindex]] = weaponnum;
 				}
 			}
 		}
 	}
 }
 
-void activemenuOpen(void)
+void amOpen(void)
 {
 	if (g_Vars.currentplayer->passivemode == false) {
-		g_ActiveMenuIndex = g_Vars.currentplayernum;
+		g_AmIndex = g_Vars.currentplayernum;
 		g_Vars.currentplayer->activemenumode = AMMODE_VIEW;
 		g_PlayersWithControl[g_Vars.currentplayernum] = false;
-		g_ActiveMenus[g_ActiveMenuIndex].screenindex = 0;
-		g_ActiveMenus[g_ActiveMenuIndex].selpulse = 0;
-		activemenuAssignWeaponSlots();
-		activemenuChangeScreen(0);
-		g_ActiveMenus[g_ActiveMenuIndex].xradius = g_ActiveMenus[g_ActiveMenuIndex].slotwidth + 5;
-		g_ActiveMenus[g_ActiveMenuIndex].alphafrac = 0.3;
-		g_ActiveMenus[g_ActiveMenuIndex].origscreennum = 0;
-		g_ActiveMenus[g_ActiveMenuIndex].prevallbots = 0;
-		g_ActiveMenus[g_ActiveMenuIndex].allbots = false;
+		g_AmMenus[g_AmIndex].screenindex = 0;
+		g_AmMenus[g_AmIndex].selpulse = 0;
+		amAssignWeaponSlots();
+		amChangeScreen(0);
+		g_AmMenus[g_AmIndex].xradius = g_AmMenus[g_AmIndex].slotwidth + 5;
+		g_AmMenus[g_AmIndex].alphafrac = 0.3;
+		g_AmMenus[g_AmIndex].origscreennum = 0;
+		g_AmMenus[g_AmIndex].prevallbots = 0;
+		g_AmMenus[g_AmIndex].allbots = false;
 	}
 }
 
-void activemenuClose(void)
+void amClose(void)
 {
-	if (g_ActiveMenus[g_ActiveMenuIndex].slotnum != 4) {
-		activemenuApply(g_ActiveMenus[g_ActiveMenuIndex].slotnum);
+	if (g_AmMenus[g_AmIndex].slotnum != 4) {
+		amApply(g_AmMenus[g_AmIndex].slotnum);
 	}
 
 	g_Vars.currentplayer->activemenumode = AMMODE_CLOSED;
@@ -1064,18 +1060,18 @@ void activemenuClose(void)
 	g_PlayersWithControl[g_Vars.currentplayernum] = 1;
 }
 
-bool activemenuIsCramped(void)
+bool amIsCramped(void)
 {
-	return (g_ActiveMenus[g_ActiveMenuIndex].screenindex == 0 && PLAYERCOUNT() >= 3)
+	return (g_AmMenus[g_AmIndex].screenindex == 0 && PLAYERCOUNT() >= 3)
 		|| (IS4MB() && PLAYERCOUNT() == 2)
 		|| (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL);
 }
 
-void activemenuCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
+void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 {
 	s32 playercount = PLAYERCOUNT();
 
-	*x = g_ActiveMenus[g_ActiveMenuIndex].xradius * (column - 1);
+	*x = g_AmMenus[g_AmIndex].xradius * (column - 1);
 	*y = row * 50 - 50;
 
 	if (column != 1 && row != 1) {
@@ -1083,25 +1079,25 @@ void activemenuCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 		*y = *y / 2;
 	}
 
-	if (activemenuIsCramped()) {
-		s32 sVar6 = 1;
+	if (amIsCramped()) {
+		s32 offset = 1;
 
 		if (row == 1) {
-			sVar6 = 3;
+			offset = 3;
 		}
 
 		if (column == 0) {
-			*x = -(g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2) - sVar6;
+			*x = -(g_AmMenus[g_AmIndex].slotwidth / 2) - offset;
 		} else if (column == 2) {
-			*x = g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2 + sVar6;
+			*x = g_AmMenus[g_AmIndex].slotwidth / 2 + offset;
 		}
 	} else {
 		if (playercount >= 2) {
-			if (row == 1 && !activemenuIsCramped()) {
+			if (row == 1 && !amIsCramped()) {
 				*x = (*x * 6) / 7;
 			}
 		} else {
-			if (playercount >= 3 && row == 1 && !activemenuIsCramped()) {
+			if (playercount >= 3 && row == 1 && !amIsCramped()) {
 				*x = (*x * 6) / 14;
 			}
 		}
@@ -1126,23 +1122,23 @@ void activemenuCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 	}
 }
 
-Gfx *activemenuRenderText(Gfx *gdl, char *text, u32 colour, s16 left, s16 top)
+Gfx *amRenderText(Gfx *gdl, char *text, u32 colour, s16 left, s16 top)
 {
 	s32 x;
 	s32 y;
 	s32 textwidth;
 	s32 textheight;
 
-	textMeasure(&textheight, &textwidth, text, g_ActiveMenuFont1, g_ActiveMenuFont2, 0);
+	textMeasure(&textheight, &textwidth, text, g_AmFont1, g_AmFont2, 0);
 
 	x = left - (textwidth / 2);
 	y = top - 4;
-	gdl = textRenderProjected(gdl, &x, &y, text, g_ActiveMenuFont1, g_ActiveMenuFont2, colour, 320, 240, 0, 0);
+	gdl = textRenderProjected(gdl, &x, &y, text, g_AmFont1, g_AmFont2, colour, 320, 240, 0, 0);
 
 	return gdl;
 }
 
-Gfx *activemenuRenderAibotInfo(Gfx *gdl, s32 buddynum)
+Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 {
 	s32 x;
 	s32 y;
@@ -1167,7 +1163,7 @@ Gfx *activemenuRenderAibotInfo(Gfx *gdl, s32 buddynum)
 		}
 	}
 
-	if (!g_ActiveMenus[g_ActiveMenuIndex].allbots) {
+	if (!g_AmMenus[g_AmIndex].allbots) {
 		buddynum = g_Vars.currentplayer->aibuddynums[buddynum];
 		aibotname = var800ac500[buddynum]->name;
 
@@ -1183,7 +1179,7 @@ Gfx *activemenuRenderAibotInfo(Gfx *gdl, s32 buddynum)
 			weaponname = weaponGetShortName(weaponnum);
 		}
 
-		textMeasure(&textheight, &textwidth, aibotname, g_ActiveMenuFont1, g_ActiveMenuFont2, 0);
+		textMeasure(&textheight, &textwidth, aibotname, g_AmFont1, g_AmFont2, 0);
 
 		x = viGetViewLeft() / g_ScreenWidthMultiplier
 			+ (s32)(viGetViewWidth() / g_ScreenWidthMultiplier * 0.5f)
@@ -1200,11 +1196,11 @@ Gfx *activemenuRenderAibotInfo(Gfx *gdl, s32 buddynum)
 			x = viGetViewLeft() / g_ScreenWidthMultiplier + 32;
 		}
 
-		gdl = textRender(gdl, &x, &y, aibotname, g_ActiveMenuFont1, g_ActiveMenuFont2, -1,
+		gdl = textRender(gdl, &x, &y, aibotname, g_AmFont1, g_AmFont2, -1,
 				0x000000ff, 320, 240, 0, 0);
 
 		y += (PLAYERCOUNT() >= 2) ? 0 : (s32)(textheight * 1.1f);
-		textMeasure(&textheight, &textwidth, weaponname, g_ActiveMenuFont1, g_ActiveMenuFont2, 0);
+		textMeasure(&textheight, &textwidth, weaponname, g_AmFont1, g_AmFont2, 0);
 
 		x = viGetViewLeft() / g_ScreenWidthMultiplier
 			+ (s32)(viGetViewWidth() / g_ScreenWidthMultiplier * 0.5f)
@@ -1215,14 +1211,14 @@ Gfx *activemenuRenderAibotInfo(Gfx *gdl, s32 buddynum)
 			x = viGetViewLeft() / g_ScreenWidthMultiplier + 32;
 		}
 
-		gdl = textRender(gdl, &x, &y, weaponname, g_ActiveMenuFont1, g_ActiveMenuFont2, -1,
+		gdl = textRender(gdl, &x, &y, weaponname, g_AmFont1, g_AmFont2, -1,
 				0x000000ff, 320, 240, 0, 0);
 
 		g_Vars.currentplayer->commandingaibot = g_MpPlayerChrs[buddynum];
 	} else {
 		char *title = langGet(L_MISC(215)); // "All Simulants"
 
-		textMeasure(&textheight, &textwidth, title, g_ActiveMenuFont1, g_ActiveMenuFont2, 0);
+		textMeasure(&textheight, &textwidth, title, g_AmFont1, g_AmFont2, 0);
 
 		x = viGetViewLeft() / g_ScreenWidthMultiplier
 			+ (s32)(viGetViewWidth() / g_ScreenWidthMultiplier * 0.5f)
@@ -1239,7 +1235,7 @@ Gfx *activemenuRenderAibotInfo(Gfx *gdl, s32 buddynum)
 			x = viGetViewLeft() / g_ScreenWidthMultiplier + 32;
 		}
 
-		gdl = textRender(gdl, &x, &y, title, g_ActiveMenuFont1, g_ActiveMenuFont2, -1,
+		gdl = textRender(gdl, &x, &y, title, g_AmFont1, g_AmFont2, -1,
 				0x000000ff, 320, 240, 0, 0);
 	}
 
@@ -1257,7 +1253,7 @@ const char var7f1b2c34[] = "FAV: Added gun %d to slot %d\n";
 
 u8 var800719a0[][3] = { {0, 1, 2}, {3, 4, 5}, {6, 7, 8} };
 
-Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
+Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 {
 	static u32 obcol = 0xff00004f; // outer border
 	static u32 ibcol = 0x3f00008f; // inner background
@@ -1287,7 +1283,7 @@ Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flag
 	func0000db30("pickcol2", &pickcol2);
 
 	// Render background colour
-	colour = (u32)(g_ActiveMenus[g_ActiveMenuIndex].alphafrac * (ibcol & 0xff)) | (ibcol & 0xffffff00);
+	colour = (u32)(g_AmMenus[g_AmIndex].alphafrac * (ibcol & 0xff)) | (ibcol & 0xffffff00);
 
 	if (mode == AMSLOTMODE_FOCUSED) {
 		colour &= 0x000000ff;
@@ -1308,9 +1304,9 @@ Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flag
 	gdl = gfxSetPrimColour(gdl, colour);
 
 	gDPFillRectangle(gdl++,
-			(x - g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
+			(x - g_AmMenus[g_AmIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
 			y - paddingtop + 1,
-			(x + g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
+			(x + g_AmMenus[g_AmIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
 			y + paddingbottom);
 
 	gdl = func0f153838(gdl);
@@ -1326,7 +1322,7 @@ Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flag
 		colour = 0xffffff8f;
 	}
 
-	colour = (u32)(g_ActiveMenus[g_ActiveMenuIndex].alphafrac * (colour & 0xff)) | (colour & 0xffffff00);
+	colour = (u32)(g_AmMenus[g_AmIndex].alphafrac * (colour & 0xff)) | (colour & 0xffffff00);
 
 	if (g_Vars.currentplayer->activemenumode == AMMODE_EDIT) {
 		colour = 0x4f4f4f7f;
@@ -1336,30 +1332,30 @@ Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flag
 
 	// Top border
 	gDPFillRectangle(gdl++,
-			(x - g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
+			(x - g_AmMenus[g_AmIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
 			y - paddingtop,
-			(x + g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
+			(x + g_AmMenus[g_AmIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
 			y - paddingtop + 1);
 
 	// Bottom border
 	gDPFillRectangle(gdl++,
-			(x - g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
+			(x - g_AmMenus[g_AmIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
 			y + paddingbottom,
-			(x + g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
+			(x + g_AmMenus[g_AmIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
 			y + paddingbottom + 1);
 
 	// Left border
 	gDPFillRectangle(gdl++,
-			(x - g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
+			(x - g_AmMenus[g_AmIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
 			y - paddingtop + 1,
-			(x - g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
+			(x - g_AmMenus[g_AmIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
 			y + paddingbottom);
 
 	// Right border
 	gDPFillRectangle(gdl++,
-			(x + g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
+			(x + g_AmMenus[g_AmIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
 			y - paddingtop + 1,
-			(x + g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
+			(x + g_AmMenus[g_AmIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
 			y + paddingbottom);
 
 	gdl = func0f153838(gdl);
@@ -1375,19 +1371,19 @@ Gfx *activemenuRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flag
 		colour = colourBlend(0xffaf8fff, colour, func0f006b54(10) * 255.0f);
 	}
 
-	colour = (u32)(g_ActiveMenus[g_ActiveMenuIndex].alphafrac * (colour & 0xff)) | (colour & 0xffffff00);
+	colour = (u32)(g_AmMenus[g_AmIndex].alphafrac * (colour & 0xff)) | (colour & 0xffffff00);
 
 	if (g_Vars.currentplayer->activemenumode == AMMODE_EDIT) {
 		colour = 0x4f4f4f7f;
 	}
 
-	gdl = activemenuRenderText(gdl, text, colour, x, y);
+	gdl = amRenderText(gdl, text, colour, x, y);
 
 	return gdl;
 }
 
 GLOBAL_ASM(
-glabel activemenuRender
+glabel amRender
 /*  f100ad0:	27bdfe28 */ 	addiu	$sp,$sp,-472
 /*  f100ad4:	3c0e8007 */ 	lui	$t6,%hi(g_ViMode)
 /*  f100ad8:	8dce06c8 */ 	lw	$t6,%lo(g_ViMode)($t6)
@@ -1416,8 +1412,8 @@ glabel activemenuRender
 /*  f100b2c:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
 /*  f100b30:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
 /*  f100b34:	8d79028c */ 	lw	$t9,0x28c($t3)
-/*  f100b38:	3c01800a */ 	lui	$at,%hi(g_ActiveMenuIndex)
-/*  f100b3c:	ac3921b8 */ 	sw	$t9,%lo(g_ActiveMenuIndex)($at)
+/*  f100b38:	3c01800a */ 	lui	$at,%hi(g_AmIndex)
+/*  f100b3c:	ac3921b8 */ 	sw	$t9,%lo(g_AmIndex)($at)
 /*  f100b40:	8d6e0284 */ 	lw	$t6,0x284($t3)
 /*  f100b44:	adc01c04 */ 	sw	$zero,0x1c04($t6)
 /*  f100b48:	8d630284 */ 	lw	$v1,0x284($t3)
@@ -1431,12 +1427,12 @@ glabel activemenuRender
 /*  f100b68:	8d180318 */ 	lw	$t8,0x318($t0)
 /*  f100b6c:	afa201d8 */ 	sw	$v0,0x1d8($sp)
 /*  f100b70:	13000010 */ 	beqz	$t8,.L0f100bb4
-/*  f100b74:	3c19800a */ 	lui	$t9,%hi(g_ActiveMenuIndex)
-/*  f100b78:	8f3921b8 */ 	lw	$t9,%lo(g_ActiveMenuIndex)($t9)
+/*  f100b74:	3c19800a */ 	lui	$t9,%hi(g_AmIndex)
+/*  f100b78:	8f3921b8 */ 	lw	$t9,%lo(g_AmIndex)($t9)
 /*  f100b7c:	241e0038 */ 	addiu	$s8,$zero,0x38
-/*  f100b80:	3c17800a */ 	lui	$s7,%hi(g_ActiveMenus)
+/*  f100b80:	3c17800a */ 	lui	$s7,%hi(g_AmMenus)
 /*  f100b84:	033e0019 */ 	multu	$t9,$s8
-/*  f100b88:	26f720d0 */ 	addiu	$s7,$s7,%lo(g_ActiveMenus)
+/*  f100b88:	26f720d0 */ 	addiu	$s7,$s7,%lo(g_AmMenus)
 /*  f100b8c:	00007012 */ 	mflo	$t6
 /*  f100b90:	02ee7821 */ 	addu	$t7,$s7,$t6
 /*  f100b94:	81e20000 */ 	lb	$v0,0x0($t7)
@@ -1448,12 +1444,12 @@ glabel activemenuRender
 /*  f100bac:	932e1be5 */ 	lbu	$t6,0x1be5($t9)
 /*  f100bb0:	afae01c4 */ 	sw	$t6,0x1c4($sp)
 .L0f100bb4:
-/*  f100bb4:	3c0f800a */ 	lui	$t7,%hi(g_ActiveMenuIndex)
-/*  f100bb8:	8def21b8 */ 	lw	$t7,%lo(g_ActiveMenuIndex)($t7)
+/*  f100bb4:	3c0f800a */ 	lui	$t7,%hi(g_AmIndex)
+/*  f100bb8:	8def21b8 */ 	lw	$t7,%lo(g_AmIndex)($t7)
 /*  f100bbc:	241e0038 */ 	addiu	$s8,$zero,0x38
-/*  f100bc0:	3c17800a */ 	lui	$s7,%hi(g_ActiveMenus)
+/*  f100bc0:	3c17800a */ 	lui	$s7,%hi(g_AmMenus)
 /*  f100bc4:	01fe0019 */ 	multu	$t7,$s8
-/*  f100bc8:	26f720d0 */ 	addiu	$s7,$s7,%lo(g_ActiveMenus)
+/*  f100bc8:	26f720d0 */ 	addiu	$s7,$s7,%lo(g_AmMenus)
 /*  f100bcc:	2401ff85 */ 	addiu	$at,$zero,-123
 /*  f100bd0:	0000c012 */ 	mflo	$t8
 /*  f100bd4:	02f88021 */ 	addu	$s0,$s7,$t8
@@ -1481,10 +1477,10 @@ glabel activemenuRender
 .L0f100c28:
 /*  f100c28:	000e2403 */ 	sra	$a0,$t6,0x10
 /*  f100c2c:	00182c03 */ 	sra	$a1,$t8,0x10
-/*  f100c30:	0fc3fc9d */ 	jal	activemenuCalculateSlotPosition
+/*  f100c30:	0fc3fc9d */ 	jal	amCalculateSlotPosition
 /*  f100c34:	26070008 */ 	addiu	$a3,$s0,0x8
-/*  f100c38:	3c0e800a */ 	lui	$t6,%hi(g_ActiveMenuIndex)
-/*  f100c3c:	8dce21b8 */ 	lw	$t6,%lo(g_ActiveMenuIndex)($t6)
+/*  f100c38:	3c0e800a */ 	lui	$t6,%hi(g_AmIndex)
+/*  f100c3c:	8dce21b8 */ 	lw	$t6,%lo(g_AmIndex)($t6)
 /*  f100c40:	01de0019 */ 	multu	$t6,$s8
 /*  f100c44:	00007812 */ 	mflo	$t7
 /*  f100c48:	02ef8021 */ 	addu	$s0,$s7,$t7
@@ -1504,7 +1500,7 @@ glabel activemenuRender
 /*  f100c7c:	00047400 */ 	sll	$t6,$a0,0x10
 /*  f100c80:	000e2403 */ 	sra	$a0,$t6,0x10
 /*  f100c84:	00182c03 */ 	sra	$a1,$t8,0x10
-/*  f100c88:	0fc3fc9d */ 	jal	activemenuCalculateSlotPosition
+/*  f100c88:	0fc3fc9d */ 	jal	amCalculateSlotPosition
 /*  f100c8c:	2607000c */ 	addiu	$a3,$s0,0xc
 .L0f100c90:
 /*  f100c90:	0fc351e7 */ 	jal	func0f0d479c
@@ -1583,7 +1579,7 @@ glabel activemenuRender
 /*  f100db4:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f100db8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f100dbc:	af2f0000 */ 	sw	$t7,0x0($t9)
-/*  f100dc0:	0fc3fc9d */ 	jal	activemenuCalculateSlotPosition
+/*  f100dc0:	0fc3fc9d */ 	jal	amCalculateSlotPosition
 /*  f100dc4:	af380004 */ 	sw	$t8,0x4($t9)
 /*  f100dc8:	87b901ba */ 	lh	$t9,0x1ba($sp)
 /*  f100dcc:	2411000a */ 	addiu	$s1,$zero,0xa
@@ -1600,7 +1596,7 @@ glabel activemenuRender
 /*  f100df8:	01f10019 */ 	multu	$t7,$s1
 /*  f100dfc:	0000c012 */ 	mflo	$t8
 /*  f100e00:	a6180002 */ 	sh	$t8,0x2($s0)
-/*  f100e04:	0fc3fc9d */ 	jal	activemenuCalculateSlotPosition
+/*  f100e04:	0fc3fc9d */ 	jal	amCalculateSlotPosition
 /*  f100e08:	00000000 */ 	nop
 /*  f100e0c:	87b901ba */ 	lh	$t9,0x1ba($sp)
 /*  f100e10:	24040001 */ 	addiu	$a0,$zero,0x1
@@ -1615,7 +1611,7 @@ glabel activemenuRender
 /*  f100e34:	01f10019 */ 	multu	$t7,$s1
 /*  f100e38:	0000c012 */ 	mflo	$t8
 /*  f100e3c:	a618000e */ 	sh	$t8,0xe($s0)
-/*  f100e40:	0fc3fc9d */ 	jal	activemenuCalculateSlotPosition
+/*  f100e40:	0fc3fc9d */ 	jal	amCalculateSlotPosition
 /*  f100e44:	00000000 */ 	nop
 /*  f100e48:	87b901ba */ 	lh	$t9,0x1ba($sp)
 /*  f100e4c:	00002025 */ 	or	$a0,$zero,$zero
@@ -1630,7 +1626,7 @@ glabel activemenuRender
 /*  f100e70:	01f10019 */ 	multu	$t7,$s1
 /*  f100e74:	0000c012 */ 	mflo	$t8
 /*  f100e78:	a618001a */ 	sh	$t8,0x1a($s0)
-/*  f100e7c:	0fc3fc9d */ 	jal	activemenuCalculateSlotPosition
+/*  f100e7c:	0fc3fc9d */ 	jal	amCalculateSlotPosition
 /*  f100e80:	00000000 */ 	nop
 /*  f100e84:	87b901ba */ 	lh	$t9,0x1ba($sp)
 /*  f100e88:	8602000c */ 	lh	$v0,0xc($s0)
@@ -1758,10 +1754,10 @@ glabel activemenuRender
 /*  f101060:	03002825 */ 	or	$a1,$t8,$zero
 /*  f101064:	27a60182 */ 	addiu	$a2,$sp,0x182
 /*  f101068:	27a70180 */ 	addiu	$a3,$sp,0x180
-/*  f10106c:	0fc3fc9d */ 	jal	activemenuCalculateSlotPosition
+/*  f10106c:	0fc3fc9d */ 	jal	amCalculateSlotPosition
 /*  f101070:	2414ffff */ 	addiu	$s4,$zero,-1
-/*  f101074:	3c0e800a */ 	lui	$t6,%hi(g_ActiveMenuIndex)
-/*  f101078:	8dce21b8 */ 	lw	$t6,%lo(g_ActiveMenuIndex)($t6)
+/*  f101074:	3c0e800a */ 	lui	$t6,%hi(g_AmIndex)
+/*  f101078:	8dce21b8 */ 	lw	$t6,%lo(g_AmIndex)($t6)
 /*  f10107c:	0011c880 */ 	sll	$t9,$s1,0x2
 /*  f101080:	0331c823 */ 	subu	$t9,$t9,$s1
 /*  f101084:	01de0019 */ 	multu	$t6,$s8
@@ -1778,13 +1774,13 @@ glabel activemenuRender
 /*  f1010ac:	81cfdfeb */ 	lb	$t7,%lo(g_MissionConfig+0x3)($t6)
 /*  f1010b0:	05e10029 */ 	bgez	$t7,.L0f101158
 /*  f1010b4:	00000000 */ 	nop
-/*  f1010b8:	0fc3f7a3 */ 	jal	activemenuGetFirstBuddyIndex
+/*  f1010b8:	0fc3f7a3 */ 	jal	amGetFirstBuddyIndex
 /*  f1010bc:	00000000 */ 	nop
 /*  f1010c0:	04400025 */ 	bltz	$v0,.L0f101158
 /*  f1010c4:	00000000 */ 	nop
 /*  f1010c8:	16000042 */ 	bnez	$s0,.L0f1011d4
-/*  f1010cc:	3c18800a */ 	lui	$t8,%hi(g_ActiveMenuIndex)
-/*  f1010d0:	8f1821b8 */ 	lw	$t8,%lo(g_ActiveMenuIndex)($t8)
+/*  f1010cc:	3c18800a */ 	lui	$t8,%hi(g_AmIndex)
+/*  f1010d0:	8f1821b8 */ 	lw	$t8,%lo(g_AmIndex)($t8)
 /*  f1010d4:	031e0019 */ 	multu	$t8,$s8
 /*  f1010d8:	0002c080 */ 	sll	$t8,$v0,0x2
 /*  f1010dc:	0000c812 */ 	mflo	$t9
@@ -1825,8 +1821,8 @@ glabel activemenuRender
 /*  f101160:	1320001c */ 	beqz	$t9,.L0f1011d4
 /*  f101164:	00000000 */ 	nop
 /*  f101168:	1600001a */ 	bnez	$s0,.L0f1011d4
-/*  f10116c:	3c0e800a */ 	lui	$t6,%hi(g_ActiveMenuIndex)
-/*  f101170:	8dce21b8 */ 	lw	$t6,%lo(g_ActiveMenuIndex)($t6)
+/*  f10116c:	3c0e800a */ 	lui	$t6,%hi(g_AmIndex)
+/*  f101170:	8dce21b8 */ 	lw	$t6,%lo(g_AmIndex)($t6)
 /*  f101174:	01de0019 */ 	multu	$t6,$s8
 /*  f101178:	00117080 */ 	sll	$t6,$s1,0x2
 /*  f10117c:	01d17023 */ 	subu	$t6,$t6,$s1
@@ -1843,10 +1839,10 @@ glabel activemenuRender
 /*  f1011a8:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f1011ac:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f1011b0:	8f18c4d0 */ 	lw	$t8,%lo(g_MpPlayerChrs)($t8)
-/*  f1011b4:	3c02800b */ 	lui	$v0,%hi(g_ActiveMenuMpBotCommands)
+/*  f1011b4:	3c02800b */ 	lui	$v0,%hi(g_AmBotCommands)
 /*  f1011b8:	00591021 */ 	addu	$v0,$v0,$t9
 /*  f1011bc:	8f1902d4 */ 	lw	$t9,0x2d4($t8)
-/*  f1011c0:	9042cb78 */ 	lbu	$v0,%lo(g_ActiveMenuMpBotCommands)($v0)
+/*  f1011c0:	9042cb78 */ 	lbu	$v0,%lo(g_AmBotCommands)($v0)
 /*  f1011c4:	93230079 */ 	lbu	$v1,0x79($t9)
 /*  f1011c8:	14430002 */ 	bne	$v0,$v1,.L0f1011d4
 /*  f1011cc:	00000000 */ 	nop
@@ -1863,14 +1859,14 @@ glabel activemenuRender
 /*  f1011f4:	3c144f4f */ 	lui	$s4,0x4f4f
 /*  f1011f8:	36944f7f */ 	ori	$s4,$s4,0x4f7f
 .L0f1011fc:
-/*  f1011fc:	0fc3f8a0 */ 	jal	activemenuGetSlotDetails
+/*  f1011fc:	0fc3f8a0 */ 	jal	amGetSlotDetails
 /*  f101200:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f101204:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f101208:	1662000f */ 	bne	$s3,$v0,.L0f101248
 /*  f10120c:	8fa401d8 */ 	lw	$a0,0x1d8($sp)
 /*  f101210:	5622000e */ 	bnel	$s1,$v0,.L0f10124c
 /*  f101214:	8fb901d0 */ 	lw	$t9,0x1d0($sp)
-/*  f101218:	0fc3fc2f */ 	jal	activemenuIsCramped
+/*  f101218:	0fc3fc2f */ 	jal	amIsCramped
 /*  f10121c:	00000000 */ 	nop
 /*  f101220:	14400011 */ 	bnez	$v0,.L0f101268
 /*  f101224:	8fa401d8 */ 	lw	$a0,0x1d8($sp)
@@ -1878,7 +1874,7 @@ glabel activemenuRender
 /*  f10122c:	02a02825 */ 	or	$a1,$s5,$zero
 /*  f101230:	02803025 */ 	or	$a2,$s4,$zero
 /*  f101234:	87a70182 */ 	lh	$a3,0x182($sp)
-/*  f101238:	0fc3fdbd */ 	jal	activemenuRenderText
+/*  f101238:	0fc3fdbd */ 	jal	amRenderText
 /*  f10123c:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f101240:	10000009 */ 	b	.L0f101268
 /*  f101244:	afa201d8 */ 	sw	$v0,0x1d8($sp)
@@ -1889,7 +1885,7 @@ glabel activemenuRender
 /*  f101250:	87a60182 */ 	lh	$a2,0x182($sp)
 /*  f101254:	87a70180 */ 	lh	$a3,0x180($sp)
 /*  f101258:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f10125c:	0fc4004a */ 	jal	activemenuRenderSlot
+/*  f10125c:	0fc4004a */ 	jal	amRenderSlot
 /*  f101260:	afb90014 */ 	sw	$t9,0x14($sp)
 /*  f101264:	afa201d8 */ 	sw	$v0,0x1d8($sp)
 .L0f101268:
@@ -1909,16 +1905,16 @@ glabel activemenuRender
 /*  f10129c:	81cfdfeb */ 	lb	$t7,%lo(g_MissionConfig+0x3)($t6)
 /*  f1012a0:	05e10004 */ 	bgez	$t7,.L0f1012b4
 /*  f1012a4:	00000000 */ 	nop
-/*  f1012a8:	0fc3f7a3 */ 	jal	activemenuGetFirstBuddyIndex
+/*  f1012a8:	0fc3f7a3 */ 	jal	amGetFirstBuddyIndex
 /*  f1012ac:	00000000 */ 	nop
 /*  f1012b0:	04410011 */ 	bgez	$v0,.L0f1012f8
 .L0f1012b4:
 /*  f1012b4:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x318)
 /*  f1012b8:	8f18a2d8 */ 	lw	$t8,%lo(g_Vars+0x318)($t8)
-/*  f1012bc:	3c19800a */ 	lui	$t9,%hi(g_ActiveMenuIndex)
+/*  f1012bc:	3c19800a */ 	lui	$t9,%hi(g_AmIndex)
 /*  f1012c0:	1300000d */ 	beqz	$t8,.L0f1012f8
 /*  f1012c4:	00000000 */ 	nop
-/*  f1012c8:	8f3921b8 */ 	lw	$t9,%lo(g_ActiveMenuIndex)($t9)
+/*  f1012c8:	8f3921b8 */ 	lw	$t9,%lo(g_AmIndex)($t9)
 /*  f1012cc:	8fa401d8 */ 	lw	$a0,0x1d8($sp)
 /*  f1012d0:	033e0019 */ 	multu	$t9,$s8
 /*  f1012d4:	00007012 */ 	mflo	$t6
@@ -1927,12 +1923,12 @@ glabel activemenuRender
 /*  f1012e0:	28410002 */ 	slti	$at,$v0,0x2
 /*  f1012e4:	14200004 */ 	bnez	$at,.L0f1012f8
 /*  f1012e8:	00000000 */ 	nop
-/*  f1012ec:	0fc3fdef */ 	jal	activemenuRenderAibotInfo
+/*  f1012ec:	0fc3fdef */ 	jal	amRenderAibotInfo
 /*  f1012f0:	2445fffe */ 	addiu	$a1,$v0,-2
 /*  f1012f4:	afa201d8 */ 	sw	$v0,0x1d8($sp)
 .L0f1012f8:
-/*  f1012f8:	3c18800a */ 	lui	$t8,%hi(g_ActiveMenuIndex)
-/*  f1012fc:	8f1821b8 */ 	lw	$t8,%lo(g_ActiveMenuIndex)($t8)
+/*  f1012f8:	3c18800a */ 	lui	$t8,%hi(g_AmIndex)
+/*  f1012fc:	8f1821b8 */ 	lw	$t8,%lo(g_AmIndex)($t8)
 /*  f101300:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f101304:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
 /*  f101308:	031e0019 */ 	multu	$t8,$s8
@@ -2047,8 +2043,8 @@ glabel activemenuRender
 .L0f101498:
 /*  f101498:	0fc54df7 */ 	jal	gfxSetPrimColour
 /*  f10149c:	02802825 */ 	or	$a1,$s4,$zero
-/*  f1014a0:	3c18800a */ 	lui	$t8,%hi(g_ActiveMenuIndex)
-/*  f1014a4:	8f1821b8 */ 	lw	$t8,%lo(g_ActiveMenuIndex)($t8)
+/*  f1014a0:	3c18800a */ 	lui	$t8,%hi(g_AmIndex)
+/*  f1014a4:	8f1821b8 */ 	lw	$t8,%lo(g_AmIndex)($t8)
 /*  f1014a8:	afa201d8 */ 	sw	$v0,0x1d8($sp)
 /*  f1014ac:	031e0019 */ 	multu	$t8,$s8
 /*  f1014b0:	0000c812 */ 	mflo	$t9
@@ -2063,7 +2059,7 @@ glabel activemenuRender
 /*  f1014d0:	24010004 */ 	addiu	$at,$zero,0x4
 /*  f1014d4:	15e1003c */ 	bne	$t7,$at,.L0f1015c8
 /*  f1014d8:	01c08825 */ 	or	$s1,$t6,$zero
-/*  f1014dc:	0fc3fc2f */ 	jal	activemenuIsCramped
+/*  f1014dc:	0fc3fc2f */ 	jal	amIsCramped
 /*  f1014e0:	00000000 */ 	nop
 /*  f1014e4:	10400005 */ 	beqz	$v0,.L0f1014fc
 /*  f1014e8:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x6c)
@@ -2110,12 +2106,12 @@ glabel activemenuRender
 /*  f101574:	14200014 */ 	bnez	$at,.L0f1015c8
 /*  f101578:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f10157c:	27a50114 */ 	addiu	$a1,$sp,0x114
-/*  f101580:	0fc3f8a0 */ 	jal	activemenuGetSlotDetails
+/*  f101580:	0fc3f8a0 */ 	jal	amGetSlotDetails
 /*  f101584:	02003025 */ 	or	$a2,$s0,$zero
-/*  f101588:	3c0f800a */ 	lui	$t7,%hi(g_ActiveMenuFont2)
-/*  f10158c:	8def21b4 */ 	lw	$t7,%lo(g_ActiveMenuFont2)($t7)
-/*  f101590:	3c07800a */ 	lui	$a3,%hi(g_ActiveMenuFont1)
-/*  f101594:	8ce721b0 */ 	lw	$a3,%lo(g_ActiveMenuFont1)($a3)
+/*  f101588:	3c0f800a */ 	lui	$t7,%hi(g_AmFont2)
+/*  f10158c:	8def21b4 */ 	lw	$t7,%lo(g_AmFont2)($t7)
+/*  f101590:	3c07800a */ 	lui	$a3,%hi(g_AmFont1)
+/*  f101594:	8ce721b0 */ 	lw	$a3,%lo(g_AmFont1)($a3)
 /*  f101598:	27a4013c */ 	addiu	$a0,$sp,0x13c
 /*  f10159c:	27a50138 */ 	addiu	$a1,$sp,0x138
 /*  f1015a0:	02003025 */ 	or	$a2,$s0,$zero
@@ -2130,8 +2126,8 @@ glabel activemenuRender
 .L0f1015c4:
 /*  f1015c4:	27110002 */ 	addiu	$s1,$t8,0x2
 .L0f1015c8:
-/*  f1015c8:	3c0f800a */ 	lui	$t7,%hi(g_ActiveMenuIndex)
-/*  f1015cc:	8def21b8 */ 	lw	$t7,%lo(g_ActiveMenuIndex)($t7)
+/*  f1015c8:	3c0f800a */ 	lui	$t7,%hi(g_AmIndex)
+/*  f1015cc:	8def21b8 */ 	lw	$t7,%lo(g_AmIndex)($t7)
 /*  f1015d0:	8fa201d8 */ 	lw	$v0,0x1d8($sp)
 /*  f1015d4:	3c068008 */ 	lui	$a2,%hi(g_ScreenWidthMultiplier)
 /*  f1015d8:	01fe0019 */ 	multu	$t7,$s8
@@ -2156,9 +2152,9 @@ glabel activemenuRender
 /*  f101624:	0018c880 */ 	sll	$t9,$t8,0x2
 /*  f101628:	03367025 */ 	or	$t6,$t9,$s6
 /*  f10162c:	01cfc025 */ 	or	$t8,$t6,$t7
-/*  f101630:	3c19800a */ 	lui	$t9,%hi(g_ActiveMenuIndex)
+/*  f101630:	3c19800a */ 	lui	$t9,%hi(g_AmIndex)
 /*  f101634:	ac580000 */ 	sw	$t8,0x0($v0)
-/*  f101638:	8f3921b8 */ 	lw	$t9,%lo(g_ActiveMenuIndex)($t9)
+/*  f101638:	8f3921b8 */ 	lw	$t9,%lo(g_AmIndex)($t9)
 /*  f10163c:	033e0019 */ 	multu	$t9,$s8
 /*  f101640:	8cd90000 */ 	lw	$t9,0x0($a2)
 /*  f101644:	00007012 */ 	mflo	$t6
@@ -2174,9 +2170,9 @@ glabel activemenuRender
 /*  f10166c:	31cf03ff */ 	andi	$t7,$t6,0x3ff
 /*  f101670:	000fc880 */ 	sll	$t9,$t7,0x2
 /*  f101674:	03387025 */ 	or	$t6,$t9,$t8
-/*  f101678:	3c18800a */ 	lui	$t8,%hi(g_ActiveMenuIndex)
+/*  f101678:	3c18800a */ 	lui	$t8,%hi(g_AmIndex)
 /*  f10167c:	ac4e0004 */ 	sw	$t6,0x4($v0)
-/*  f101680:	8f1821b8 */ 	lw	$t8,%lo(g_ActiveMenuIndex)($t8)
+/*  f101680:	8f1821b8 */ 	lw	$t8,%lo(g_AmIndex)($t8)
 /*  f101684:	8fa301d8 */ 	lw	$v1,0x1d8($sp)
 /*  f101688:	031e0019 */ 	multu	$t8,$s8
 /*  f10168c:	24790008 */ 	addiu	$t9,$v1,0x8
@@ -2198,9 +2194,9 @@ glabel activemenuRender
 /*  f1016cc:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f1016d0:	01f6c825 */ 	or	$t9,$t7,$s6
 /*  f1016d4:	03387025 */ 	or	$t6,$t9,$t8
-/*  f1016d8:	3c0f800a */ 	lui	$t7,%hi(g_ActiveMenuIndex)
+/*  f1016d8:	3c0f800a */ 	lui	$t7,%hi(g_AmIndex)
 /*  f1016dc:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*  f1016e0:	8def21b8 */ 	lw	$t7,%lo(g_ActiveMenuIndex)($t7)
+/*  f1016e0:	8def21b8 */ 	lw	$t7,%lo(g_AmIndex)($t7)
 /*  f1016e4:	01fe0019 */ 	multu	$t7,$s8
 /*  f1016e8:	8ccf0000 */ 	lw	$t7,0x0($a2)
 /*  f1016ec:	0000c812 */ 	mflo	$t9
@@ -2216,9 +2212,9 @@ glabel activemenuRender
 /*  f101714:	333803ff */ 	andi	$t8,$t9,0x3ff
 /*  f101718:	00187880 */ 	sll	$t7,$t8,0x2
 /*  f10171c:	01eec825 */ 	or	$t9,$t7,$t6
-/*  f101720:	3c0e800a */ 	lui	$t6,%hi(g_ActiveMenuIndex)
+/*  f101720:	3c0e800a */ 	lui	$t6,%hi(g_AmIndex)
 /*  f101724:	ac790004 */ 	sw	$t9,0x4($v1)
-/*  f101728:	8dce21b8 */ 	lw	$t6,%lo(g_ActiveMenuIndex)($t6)
+/*  f101728:	8dce21b8 */ 	lw	$t6,%lo(g_AmIndex)($t6)
 /*  f10172c:	8fa501d8 */ 	lw	$a1,0x1d8($sp)
 /*  f101730:	01de0019 */ 	multu	$t6,$s8
 /*  f101734:	24af0008 */ 	addiu	$t7,$a1,0x8
@@ -2239,9 +2235,9 @@ glabel activemenuRender
 /*  f101770:	000fc880 */ 	sll	$t9,$t7,0x2
 /*  f101774:	0336c025 */ 	or	$t8,$t9,$s6
 /*  f101778:	030e7825 */ 	or	$t7,$t8,$t6
-/*  f10177c:	3c19800a */ 	lui	$t9,%hi(g_ActiveMenuIndex)
+/*  f10177c:	3c19800a */ 	lui	$t9,%hi(g_AmIndex)
 /*  f101780:	acaf0000 */ 	sw	$t7,0x0($a1)
-/*  f101784:	8f3921b8 */ 	lw	$t9,%lo(g_ActiveMenuIndex)($t9)
+/*  f101784:	8f3921b8 */ 	lw	$t9,%lo(g_AmIndex)($t9)
 /*  f101788:	033e0019 */ 	multu	$t9,$s8
 /*  f10178c:	8cd90000 */ 	lw	$t9,0x0($a2)
 /*  f101790:	0000c012 */ 	mflo	$t8
@@ -2258,9 +2254,9 @@ glabel activemenuRender
 /*  f1017bc:	31d903ff */ 	andi	$t9,$t6,0x3ff
 /*  f1017c0:	0019c080 */ 	sll	$t8,$t9,0x2
 /*  f1017c4:	030f7025 */ 	or	$t6,$t8,$t7
-/*  f1017c8:	3c0f800a */ 	lui	$t7,%hi(g_ActiveMenuIndex)
+/*  f1017c8:	3c0f800a */ 	lui	$t7,%hi(g_AmIndex)
 /*  f1017cc:	acae0004 */ 	sw	$t6,0x4($a1)
-/*  f1017d0:	8def21b8 */ 	lw	$t7,%lo(g_ActiveMenuIndex)($t7)
+/*  f1017d0:	8def21b8 */ 	lw	$t7,%lo(g_AmIndex)($t7)
 /*  f1017d4:	8fa201d8 */ 	lw	$v0,0x1d8($sp)
 /*  f1017d8:	01fe0019 */ 	multu	$t7,$s8
 /*  f1017dc:	24580008 */ 	addiu	$t8,$v0,0x8
@@ -2281,9 +2277,9 @@ glabel activemenuRender
 /*  f101818:	00187080 */ 	sll	$t6,$t8,0x2
 /*  f10181c:	01d6c825 */ 	or	$t9,$t6,$s6
 /*  f101820:	032fc025 */ 	or	$t8,$t9,$t7
-/*  f101824:	3c0e800a */ 	lui	$t6,%hi(g_ActiveMenuIndex)
+/*  f101824:	3c0e800a */ 	lui	$t6,%hi(g_AmIndex)
 /*  f101828:	ac580000 */ 	sw	$t8,0x0($v0)
-/*  f10182c:	8dce21b8 */ 	lw	$t6,%lo(g_ActiveMenuIndex)($t6)
+/*  f10182c:	8dce21b8 */ 	lw	$t6,%lo(g_AmIndex)($t6)
 /*  f101830:	01de0019 */ 	multu	$t6,$s8
 /*  f101834:	8cce0000 */ 	lw	$t6,0x0($a2)
 /*  f101838:	0000c812 */ 	mflo	$t9
@@ -2977,7 +2973,7 @@ glabel activemenuRender
 );
 
 // Mismatch: Health bar rectangles near the end are just hopeless.
-//Gfx *activemenuRender(Gfx *gdl)
+//Gfx *amRender(Gfx *gdl)
 //{
 //	u32 mode;
 //	u32 flags; // 1d0
@@ -3007,7 +3003,7 @@ glabel activemenuRender
 //		g_ScreenWidthMultiplier = 1;
 //	}
 //
-//	g_ActiveMenuIndex = g_Vars.currentplayernum;
+//	g_AmIndex = g_Vars.currentplayernum;
 //	g_Vars.currentplayer->commandingaibot = NULL;
 //
 //	if (g_Vars.currentplayer->activemenumode != AMMODE_CLOSED) {
@@ -3015,24 +3011,24 @@ glabel activemenuRender
 //		gdl = func0f153628(gdl);
 //
 //		if (g_Vars.normmplayerisrunning
-//				&& g_ActiveMenus[g_ActiveMenuIndex].screenindex >= 2) {
-//			mpchrnum = g_Vars.currentplayer->aibuddynums[g_ActiveMenus[g_ActiveMenuIndex].screenindex - 2];
+//				&& g_AmMenus[g_AmIndex].screenindex >= 2) {
+//			mpchrnum = g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2];
 //		}
 //
-//		if (g_ActiveMenus[g_ActiveMenuIndex].dstx == -123) {
-//			activemenuCalculateSlotPosition(
-//					g_ActiveMenus[g_ActiveMenuIndex].slotnum % 3,
-//					g_ActiveMenus[g_ActiveMenuIndex].slotnum / 3,
-//					&g_ActiveMenus[g_ActiveMenuIndex].selx,
-//					&g_ActiveMenus[g_ActiveMenuIndex].sely);
-//			g_ActiveMenus[g_ActiveMenuIndex].dstx = g_ActiveMenus[g_ActiveMenuIndex].selx;
-//			g_ActiveMenus[g_ActiveMenuIndex].dsty = g_ActiveMenus[g_ActiveMenuIndex].sely;
+//		if (g_AmMenus[g_AmIndex].dstx == -123) {
+//			amCalculateSlotPosition(
+//					g_AmMenus[g_AmIndex].slotnum % 3,
+//					g_AmMenus[g_AmIndex].slotnum / 3,
+//					&g_AmMenus[g_AmIndex].selx,
+//					&g_AmMenus[g_AmIndex].sely);
+//			g_AmMenus[g_AmIndex].dstx = g_AmMenus[g_AmIndex].selx;
+//			g_AmMenus[g_AmIndex].dsty = g_AmMenus[g_AmIndex].sely;
 //		} else {
-//			activemenuCalculateSlotPosition(
-//					g_ActiveMenus[g_ActiveMenuIndex].slotnum % 3,
-//					g_ActiveMenus[g_ActiveMenuIndex].slotnum / 3,
-//					&g_ActiveMenus[g_ActiveMenuIndex].dstx,
-//					&g_ActiveMenus[g_ActiveMenuIndex].dsty);
+//			amCalculateSlotPosition(
+//					g_AmMenus[g_AmIndex].slotnum % 3,
+//					g_AmMenus[g_AmIndex].slotnum / 3,
+//					&g_AmMenus[g_AmIndex].dstx,
+//					&g_AmMenus[g_AmIndex].dsty);
 //		}
 //
 //		gdl = func0f0d479c(gdl);
@@ -3052,28 +3048,28 @@ glabel activemenuRender
 //		gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 //
 //		// Top
-//		activemenuCalculateSlotPosition(1, 0, &xb, &yb);
+//		amCalculateSlotPosition(1, 0, &xb, &yb);
 //
 //		vertices[0].x = xb * 10;
 //		vertices[0].y = yb * 10;
 //		vertices[0].z = -10;
 //
 //		// Right
-//		activemenuCalculateSlotPosition(2, 1, &xb, &yb);
+//		amCalculateSlotPosition(2, 1, &xb, &yb);
 //
 //		vertices[1].x = xb * 10;
 //		vertices[1].y = yb * 10;
 //		vertices[1].z = -10;
 //
 //		// Bottom
-//		activemenuCalculateSlotPosition(1, 2, &xb, &yb);
+//		amCalculateSlotPosition(1, 2, &xb, &yb);
 //
 //		vertices[2].x = xb * 10;
 //		vertices[2].y = yb * 10;
 //		vertices[2].z = -10;
 //
 //		// Left
-//		activemenuCalculateSlotPosition(0, 1, &xb, &yb);
+//		amCalculateSlotPosition(0, 1, &xb, &yb);
 //
 //		vertices[3].x = xb * 10;
 //		vertices[3].y = yb * 10;
@@ -3122,18 +3118,18 @@ glabel activemenuRender
 //			for (row = 0; row < 3; row++) {
 //				// 06c
 //				mode = AMSLOTMODE_DEFAULT;
-//				activemenuCalculateSlotPosition(column, row, &xa, &ya);
+//				amCalculateSlotPosition(column, row, &xa, &ya);
 //				flags = 0;
 //
 //				// 0a0
-//				if (column + row * 3 == g_ActiveMenus[g_ActiveMenuIndex].slotnum) {
+//				if (column + row * 3 == g_AmMenus[g_AmIndex].slotnum) {
 //					mode = AMSLOTMODE_FOCUSED;
 //				}
 //
 //				// 0b0
 //				if (g_MissionConfig.iscoop
-//						&& (buddynum = activemenuGetFirstBuddyIndex(), buddynum >= 0)) {
-//					if (mode == AMSLOTMODE_DEFAULT && g_ActiveMenus[g_ActiveMenuIndex].screenindex >= 2) {
+//						&& (buddynum = amGetFirstBuddyIndex(), buddynum >= 0)) {
+//					if (mode == AMSLOTMODE_DEFAULT && g_AmMenus[g_AmIndex].screenindex >= 2) {
 //						struct chrdata *chr = g_Vars.aibuddies[buddynum]->chr;
 //
 //						if (var800719a0[row][column] == 7) {
@@ -3149,8 +3145,8 @@ glabel activemenuRender
 //				} else {
 //					if (g_Vars.normmplayerisrunning
 //							&& mode == AMSLOTMODE_DEFAULT
-//							&& g_ActiveMenus[g_ActiveMenuIndex].screenindex >= 2) {
-//						s32 a = g_ActiveMenuMpBotCommands[var800719a0[row][column]];
+//							&& g_AmMenus[g_AmIndex].screenindex >= 2) {
+//						s32 a = g_AmBotCommands[var800719a0[row][column]];
 //						s32 b = g_MpPlayerChrs[mpchrnum]->aibot->command;
 //
 //						if (a == b) {
@@ -3165,30 +3161,30 @@ glabel activemenuRender
 //					colour = 0x4f4f4f7f;
 //				}
 //
-//				activemenuGetSlotDetails(column + row * 3, &flags, text1);
+//				amGetSlotDetails(column + row * 3, &flags, text1);
 //
 //				if (column == 1 && row == 1) {
-//					if (!activemenuIsCramped()) {
-//						gdl = activemenuRenderText(gdl, text1, colour, xa, ya);
+//					if (!amIsCramped()) {
+//						gdl = amRenderText(gdl, text1, colour, xa, ya);
 //					}
 //				} else {
-//					gdl = activemenuRenderSlot(gdl, text1, xa, ya, mode, flags);
+//					gdl = amRenderSlot(gdl, text1, xa, ya, mode, flags);
 //				}
 //			}
 //		}
 //
 //		// Render AI bot name and weapon
-//		if (!(g_MissionConfig.iscoop && activemenuGetFirstBuddyIndex() >= 0)
+//		if (!(g_MissionConfig.iscoop && amGetFirstBuddyIndex() >= 0)
 //				&& g_Vars.normmplayerisrunning
-//				&& g_ActiveMenus[g_ActiveMenuIndex].screenindex >= 2) {
-//			gdl = activemenuRenderAibotInfo(gdl, g_ActiveMenus[g_ActiveMenuIndex].screenindex - 2);
+//				&& g_AmMenus[g_AmIndex].screenindex >= 2) {
+//			gdl = amRenderAibotInfo(gdl, g_AmMenus[g_AmIndex].screenindex - 2);
 //		}
 //
 //		// 131c
 //		// Note: the column and row values will never be 1 here, so this
 //		// condition always passes. Looks like they intended to skip drawing the
 //		// selection box on the simulants screen if the middle box was selected.
-//		if (g_ActiveMenus[g_ActiveMenuIndex].screenindex < 2 || column != 1 || row != 1) {
+//		if (g_AmMenus[g_AmIndex].screenindex < 2 || column != 1 || row != 1) {
 //			// Render selection
 //			s32 halfwidth;
 //			s32 above = 6;
@@ -3200,7 +3196,7 @@ glabel activemenuRender
 //				below = 3;
 //			}
 //
-//			tmp = (sinf(g_ActiveMenus[g_ActiveMenuIndex].selpulse) + 1) * 127;
+//			tmp = (sinf(g_AmMenus[g_AmIndex].selpulse) + 1) * 127;
 //			colour = 0xff0000ff | tmp << 8 | tmp << 16;
 //
 //			if (g_Vars.currentplayer->activemenumode == AMMODE_EDIT) {
@@ -3209,16 +3205,16 @@ glabel activemenuRender
 //
 //			gdl = gfxSetPrimColour(gdl, colour);
 //
-//			halfwidth = g_ActiveMenus[g_ActiveMenuIndex].slotwidth / 2;
+//			halfwidth = g_AmMenus[g_AmIndex].slotwidth / 2;
 //
-//			if (g_ActiveMenus[g_ActiveMenuIndex].slotnum == 4) {
-//				if (activemenuIsCramped()) {
+//			if (g_AmMenus[g_AmIndex].slotnum == 4) {
+//				if (amIsCramped()) {
 //					halfwidth = 1;
 //					above = 2;
 //					below = 0;
 //				} else if (PLAYERCOUNT() >= 2) {
-//					activemenuGetSlotDetails(4, &flags2, text2);
-//					textMeasure(&textheight, &textwidth, text2, g_ActiveMenuFont1, g_ActiveMenuFont2, 0);
+//					amGetSlotDetails(4, &flags2, text2);
+//					textMeasure(&textheight, &textwidth, text2, g_AmFont1, g_AmFont2, 0);
 //
 //					halfwidth = textwidth / 2 + 2;
 //				}
@@ -3226,31 +3222,31 @@ glabel activemenuRender
 //
 //			// Top
 //			gDPFillRectangle(gdl++,
-//					(g_ActiveMenus[g_ActiveMenuIndex].selx - halfwidth) * g_ScreenWidthMultiplier,
-//					g_ActiveMenus[g_ActiveMenuIndex].sely - above,
-//					(g_ActiveMenus[g_ActiveMenuIndex].selx + halfwidth + 1) * g_ScreenWidthMultiplier,
-//					g_ActiveMenus[g_ActiveMenuIndex].sely - above + 1);
+//					(g_AmMenus[g_AmIndex].selx - halfwidth) * g_ScreenWidthMultiplier,
+//					g_AmMenus[g_AmIndex].sely - above,
+//					(g_AmMenus[g_AmIndex].selx + halfwidth + 1) * g_ScreenWidthMultiplier,
+//					g_AmMenus[g_AmIndex].sely - above + 1);
 //
 //			// Bottom
 //			gDPFillRectangle(gdl++,
-//					(g_ActiveMenus[g_ActiveMenuIndex].selx - halfwidth) * g_ScreenWidthMultiplier,
-//					g_ActiveMenus[g_ActiveMenuIndex].sely + below,
-//					(g_ActiveMenus[g_ActiveMenuIndex].selx + halfwidth + 1) * g_ScreenWidthMultiplier,
-//					g_ActiveMenus[g_ActiveMenuIndex].sely + below + 1);
+//					(g_AmMenus[g_AmIndex].selx - halfwidth) * g_ScreenWidthMultiplier,
+//					g_AmMenus[g_AmIndex].sely + below,
+//					(g_AmMenus[g_AmIndex].selx + halfwidth + 1) * g_ScreenWidthMultiplier,
+//					g_AmMenus[g_AmIndex].sely + below + 1);
 //
 //			// Left
 //			gDPFillRectangle(gdl++,
-//					(g_ActiveMenus[g_ActiveMenuIndex].selx - halfwidth) * g_ScreenWidthMultiplier,
-//					g_ActiveMenus[g_ActiveMenuIndex].sely - above + 1,
-//					(g_ActiveMenus[g_ActiveMenuIndex].selx - halfwidth + 1) * g_ScreenWidthMultiplier,
-//					g_ActiveMenus[g_ActiveMenuIndex].sely + below);
+//					(g_AmMenus[g_AmIndex].selx - halfwidth) * g_ScreenWidthMultiplier,
+//					g_AmMenus[g_AmIndex].sely - above + 1,
+//					(g_AmMenus[g_AmIndex].selx - halfwidth + 1) * g_ScreenWidthMultiplier,
+//					g_AmMenus[g_AmIndex].sely + below);
 //
 //			// Right
 //			gDPFillRectangle(gdl++,
-//					(g_ActiveMenus[g_ActiveMenuIndex].selx + halfwidth) * g_ScreenWidthMultiplier,
-//					g_ActiveMenus[g_ActiveMenuIndex].sely - above + 1,
-//					(g_ActiveMenus[g_ActiveMenuIndex].selx + halfwidth + 1) * g_ScreenWidthMultiplier,
-//					g_ActiveMenus[g_ActiveMenuIndex].sely + below);
+//					(g_AmMenus[g_AmIndex].selx + halfwidth) * g_ScreenWidthMultiplier,
+//					g_AmMenus[g_AmIndex].sely - above + 1,
+//					(g_AmMenus[g_AmIndex].selx + halfwidth + 1) * g_ScreenWidthMultiplier,
+//					g_AmMenus[g_AmIndex].sely + below);
 //
 //			gdl = func0f153838(gdl);
 //		}

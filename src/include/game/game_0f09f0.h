@@ -84,6 +84,12 @@ void func0f0fd548(s32 arg0);
 bool menuIsDialogOpen(struct menudialog *dialog);
 struct chrdata *currentPlayerGetCommandingAibot(void);
 
+s32 menuhandler000fcc34(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 amPickTargetMenuList(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerRepairPak(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerRetrySavePak(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerWarnRepairPak(u32 operation, struct menuitem *item, union handlerdata *data);
+
 extern const char var7f1b2658[];
 extern const char var7f1b265c[];
 extern const char var7f1b2660[];

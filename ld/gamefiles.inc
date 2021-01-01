@@ -55,6 +55,7 @@
 	build/ROMID/game/title.o (section); \
 	build/ROMID/game/game_01afc0.o (section); \
 	build/ROMID/game/game_01b0a0.o (section); \
+	build/ROMID/game/activemenu/tick.o (section); \
 	build/ROMID/game/game_01bea0.o (section); \
 	build/ROMID/game/weathertick.o (section); \
 	build/ROMID/game/game_01d860.o (section); \
@@ -108,7 +109,7 @@
 	build/ROMID/game/game_0e0770.o (section); \
 	build/ROMID/game/menu/items.o (section); \
 	build/ROMID/game/game_0f09f0.o (section); \
-	build/ROMID/game/game_0fd660.o (section); \
+	build/ROMID/game/activemenu/activemenu.o (section); \
 	build/ROMID/game/game_102230.o (section); \
 	build/ROMID/game/game_102240.o (section); \
 	build/ROMID/game/cheats.o (section); \
