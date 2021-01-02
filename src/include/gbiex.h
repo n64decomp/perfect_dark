@@ -104,4 +104,12 @@
 	_g->words.w1 =  (rgba);                         \
 }
 
+/**
+ * gDPFillRectangle - a wrapper around gDPFillRectangle which applies
+ * g_ScreenWidthMultiplier to the X coordinates.
+ *
+ * g_ScreenWidthMultiplier is normally 1, but 2 when using hi-res.
+ */
+#define gDPFillRectangleScaled(pkt, x1, y1, x2, y2) gDPFillRectangle(pkt, (x1) * g_ScreenWidthMultiplier, y1, (x2) * g_ScreenWidthMultiplier, y2)
+
 #endif
