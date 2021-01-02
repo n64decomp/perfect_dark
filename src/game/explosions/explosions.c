@@ -2829,7 +2829,7 @@ u32 explosionUpdateZ(struct prop *prop)
 }
 
 GLOBAL_ASM(
-glabel func0f12c654
+glabel explosionRender
 /*  f12c654:	27bdff40 */ 	addiu	$sp,$sp,-192
 /*  f12c658:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*  f12c65c:	afbe0040 */ 	sw	$s8,0x40($sp)

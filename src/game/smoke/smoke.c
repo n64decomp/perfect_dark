@@ -1991,7 +1991,7 @@ u32 smokeUpdateZ(struct prop *prop)
 }
 
 GLOBAL_ASM(
-glabel func0f12f230
+glabel smokeRender
 /*  f12f230:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f12f234:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f12f238:	afb20030 */ 	sw	$s2,0x30($sp)

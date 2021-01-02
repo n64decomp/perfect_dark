@@ -204,7 +204,7 @@ u32 func0f07fbf8(void);
 u32 func0f0809c4(void);
 u32 func0f080f8c(void);
 u32 func0f081220(void);
-u32 func0f081310(void);
+Gfx *propobjRender(struct prop *prop, Gfx *gdl, bool arg2);
 u32 func0f081c18(void);
 u32 func0f081ccc(void);
 u32 func0f0826cc(void);

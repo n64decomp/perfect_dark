@@ -34,7 +34,7 @@ u32 func0f024738(void);
 u32 func0f024b18(void);
 u32 func0f025074(void);
 void bodyGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2);
-u32 func0f025288(void);
+Gfx *propchrRender(struct prop *prop, Gfx *gdl, bool arg2);
 void func0f025ea4(struct chrdata *chr, struct prop *prop, s32 arg2, struct coord *coord, struct coord *coord2, struct chrdata *chr2);
 u32 func0f0260c4(void);
 u32 func0f0268bc(void);

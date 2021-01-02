@@ -30585,7 +30585,7 @@ glabel func0f081220
 );
 
 GLOBAL_ASM(
-glabel func0f081310
+glabel propobjRender
 .late_rodata
 glabel var7f1aa828
 .word 0x3c888889

@@ -340,73 +340,32 @@ void propDetach(struct prop *prop)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f06071c
-.late_rodata
-glabel var7f1a9e20
-.word func0f06071c+0x98 # f0607b4
-glabel var7f1a9e24
-.word func0f06071c+0x38 # f060754
-glabel var7f1a9e28
-.word func0f06071c+0x38 # f060754
-glabel var7f1a9e2c
-.word func0f06071c+0x4c # f060768
-glabel var7f1a9e30
-.word func0f06071c+0x38 # f060754
-glabel var7f1a9e34
-.word func0f06071c+0x98 # f0607b4
-glabel var7f1a9e38
-.word func0f06071c+0x60 # f06077c
-glabel var7f1a9e3c
-.word func0f06071c+0x74 # f060790
-glabel var7f1a9e40
-.word func0f06071c+0x88 # f0607a4
-.text
-/*  f06071c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f060720:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f060724:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f060728:	90ae0000 */ 	lbu	$t6,0x0($a1)
-/*  f06072c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f060730:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f060734:	2dc10009 */ 	sltiu	$at,$t6,0x9
-/*  f060738:	1020001e */ 	beqz	$at,.L0f0607b4
-/*  f06073c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f060740:	3c017f1b */ 	lui	$at,%hi(var7f1a9e20)
-/*  f060744:	002e0821 */ 	addu	$at,$at,$t6
-/*  f060748:	8c2e9e20 */ 	lw	$t6,%lo(var7f1a9e20)($at)
-/*  f06074c:	01c00008 */ 	jr	$t6
-/*  f060750:	00000000 */ 	nop
-/*  f060754:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f060758:	0fc204c4 */ 	jal	func0f081310
-/*  f06075c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f060760:	10000014 */ 	b	.L0f0607b4
-/*  f060764:	00408025 */ 	or	$s0,$v0,$zero
-/*  f060768:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f06076c:	0fc094a2 */ 	jal	func0f025288
-/*  f060770:	02002825 */ 	or	$a1,$s0,$zero
-/*  f060774:	1000000f */ 	b	.L0f0607b4
-/*  f060778:	00408025 */ 	or	$s0,$v0,$zero
-/*  f06077c:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f060780:	0fc30ca8 */ 	jal	func0f0c32a0
-/*  f060784:	02002825 */ 	or	$a1,$s0,$zero
-/*  f060788:	1000000a */ 	b	.L0f0607b4
-/*  f06078c:	00408025 */ 	or	$s0,$v0,$zero
-/*  f060790:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f060794:	0fc4b195 */ 	jal	func0f12c654
-/*  f060798:	02002825 */ 	or	$a1,$s0,$zero
-/*  f06079c:	10000005 */ 	b	.L0f0607b4
-/*  f0607a0:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0607a4:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f0607a8:	0fc4bc8c */ 	jal	func0f12f230
-/*  f0607ac:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0607b0:	00408025 */ 	or	$s0,$v0,$zero
-.L0f0607b4:
-/*  f0607b4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0607b8:	02001025 */ 	or	$v0,$s0,$zero
-/*  f0607bc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0607c0:	03e00008 */ 	jr	$ra
-/*  f0607c4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+Gfx *propRender(Gfx *gdl, struct prop *prop, bool arg2)
+{
+	switch (prop->type) {
+	case 0:
+		break;
+	case PROPTYPE_OBJ:
+	case PROPTYPE_DOOR:
+	case PROPTYPE_WEAPON:
+		gdl = propobjRender(prop, gdl, arg2);
+		break;
+	case PROPTYPE_CHR:
+		gdl = propchrRender(prop, gdl, arg2);
+		break;
+	case PROPTYPE_PLAYER:
+		gdl = propplayerRender(prop, gdl, arg2);
+		break;
+	case PROPTYPE_EXPLOSION:
+		gdl = explosionRender(prop, gdl, arg2);
+		break;
+	case PROPTYPE_EFFECT:
+		gdl = smokeRender(prop, gdl, arg2);
+		break;
+	}
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f0607c8
@@ -468,7 +427,7 @@ glabel func0f0607c8
 /*  f060898:	02602025 */ 	or	$a0,$s3,$zero
 .L0f06089c:
 /*  f06089c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0608a0:	0fc181c7 */ 	jal	func0f06071c
+/*  f0608a0:	0fc181c7 */ 	jal	propRender
 /*  f0608a4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0608a8:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x348)
 /*  f0608ac:	8c84a308 */ 	lw	$a0,%lo(g_Vars+0x348)($a0)
@@ -501,13 +460,13 @@ glabel func0f0607c8
 /*  f06090c:	31cf0020 */ 	andi	$t7,$t6,0x20
 /*  f060910:	51e00005 */ 	beqzl	$t7,.L0f060928
 /*  f060914:	02602025 */ 	or	$a0,$s3,$zero
-/*  f060918:	0fc181c7 */ 	jal	func0f06071c
+/*  f060918:	0fc181c7 */ 	jal	propRender
 /*  f06091c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f060920:	00409825 */ 	or	$s3,$v0,$zero
 /*  f060924:	02602025 */ 	or	$a0,$s3,$zero
 .L0f060928:
 /*  f060928:	02002825 */ 	or	$a1,$s0,$zero
-/*  f06092c:	0fc181c7 */ 	jal	func0f06071c
+/*  f06092c:	0fc181c7 */ 	jal	propRender
 /*  f060930:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f060934:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x34c)
 /*  f060938:	8c63a30c */ 	lw	$v1,%lo(g_Vars+0x34c)($v1)

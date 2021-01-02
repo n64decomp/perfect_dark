@@ -6680,7 +6680,7 @@ void bodyGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2)
 
 
 GLOBAL_ASM(
-glabel func0f025288
+glabel propchrRender
 .late_rodata
 glabel var7f1a88f4
 .word 0x3c088889

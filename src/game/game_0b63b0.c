@@ -11984,7 +11984,7 @@ glabel var7f1ad744
 );
 
 GLOBAL_ASM(
-glabel func0f0c32a0
+glabel propplayerRender
 /*  f0c32a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0c32a4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0c32a8:	afa40018 */ 	sw	$a0,0x18($sp)
@@ -12000,7 +12000,7 @@ glabel func0f0c32a0
 /*  f0c32d0:	8df819c8 */ 	lw	$t8,0x19c8($t7)
 /*  f0c32d4:	53000005 */ 	beqzl	$t8,.L0f0c32ec
 /*  f0c32d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c32dc:	0fc094a2 */ 	jal	func0f025288
+/*  f0c32dc:	0fc094a2 */ 	jal	propchrRender
 /*  f0c32e0:	8fa60020 */ 	lw	$a2,0x20($sp)
 /*  f0c32e4:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*  f0c32e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
