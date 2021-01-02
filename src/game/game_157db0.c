@@ -2851,14 +2851,14 @@ glabel func0f15a2c4
 /*  f15a658:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f15a65c:	16a50005 */ 	bne	$s5,$a1,.L0f15a674
 /*  f15a660:	02c03825 */ 	or	$a3,$s6,$zero
-/*  f15a664:	0fc181f2 */ 	jal	func0f0607c8
+/*  f15a664:	0fc181f2 */ 	jal	propsRender
 /*  f15a668:	00002825 */ 	or	$a1,$zero,$zero
 /*  f15a66c:	afa20238 */ 	sw	$v0,0x238($sp)
 /*  f15a670:	86050000 */ 	lh	$a1,0x0($s0)
 .L0f15a674:
 /*  f15a674:	8fa40238 */ 	lw	$a0,0x238($sp)
 /*  f15a678:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f15a67c:	0fc181f2 */ 	jal	func0f0607c8
+/*  f15a67c:	0fc181f2 */ 	jal	propsRender
 /*  f15a680:	02c03825 */ 	or	$a3,$s6,$zero
 /*  f15a684:	afa20238 */ 	sw	$v0,0x238($sp)
 .L0f15a688:
@@ -3315,14 +3315,14 @@ glabel func0f15a6f4
 /*  f15acd4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f15acd8:	16c50005 */ 	bne	$s6,$a1,.L0f15acf0
 /*  f15acdc:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f15ace0:	0fc181f2 */ 	jal	func0f0607c8
+/*  f15ace0:	0fc181f2 */ 	jal	propsRender
 /*  f15ace4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f15ace8:	00408825 */ 	or	$s1,$v0,$zero
 /*  f15acec:	86050000 */ 	lh	$a1,0x0($s0)
 .L0f15acf0:
 /*  f15acf0:	02202025 */ 	or	$a0,$s1,$zero
 /*  f15acf4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f15acf8:	0fc181f2 */ 	jal	func0f0607c8
+/*  f15acf8:	0fc181f2 */ 	jal	propsRender
 /*  f15acfc:	02a03825 */ 	or	$a3,$s5,$zero
 /*  f15ad00:	00408825 */ 	or	$s1,$v0,$zero
 /*  f15ad04:	3c0c0103 */ 	lui	$t4,0x103
@@ -3402,14 +3402,14 @@ glabel func0f15a6f4
 /*  f15ae20:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f15ae24:	16c50005 */ 	bne	$s6,$a1,.L0f15ae3c
 /*  f15ae28:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f15ae2c:	0fc181f2 */ 	jal	func0f0607c8
+/*  f15ae2c:	0fc181f2 */ 	jal	propsRender
 /*  f15ae30:	00002825 */ 	or	$a1,$zero,$zero
 /*  f15ae34:	00408825 */ 	or	$s1,$v0,$zero
 /*  f15ae38:	86050000 */ 	lh	$a1,0x0($s0)
 .L0f15ae3c:
 /*  f15ae3c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f15ae40:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f15ae44:	0fc181f2 */ 	jal	func0f0607c8
+/*  f15ae44:	0fc181f2 */ 	jal	propsRender
 /*  f15ae48:	02a03825 */ 	or	$a3,$s5,$zero
 /*  f15ae4c:	00408825 */ 	or	$s1,$v0,$zero
 .L0f15ae50:
@@ -3554,14 +3554,14 @@ glabel func0f15a6f4
 /*  f15b060:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f15b064:	16c50005 */ 	bne	$s6,$a1,.L0f15b07c
 /*  f15b068:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f15b06c:	0fc181f2 */ 	jal	func0f0607c8
+/*  f15b06c:	0fc181f2 */ 	jal	propsRender
 /*  f15b070:	00002825 */ 	or	$a1,$zero,$zero
 /*  f15b074:	00408825 */ 	or	$s1,$v0,$zero
 /*  f15b078:	86050000 */ 	lh	$a1,0x0($s0)
 .L0f15b07c:
 /*  f15b07c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f15b080:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f15b084:	0fc181f2 */ 	jal	func0f0607c8
+/*  f15b084:	0fc181f2 */ 	jal	propsRender
 /*  f15b088:	02a03825 */ 	or	$a3,$s5,$zero
 /*  f15b08c:	00408825 */ 	or	$s1,$v0,$zero
 .L0f15b090:

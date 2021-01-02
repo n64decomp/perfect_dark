@@ -367,130 +367,61 @@ Gfx *propRender(Gfx *gdl, struct prop *prop, bool arg2)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f0607c8
-/*  f0607c8:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0607cc:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0607d0:	0005ac00 */ 	sll	$s5,$a1,0x10
-/*  f0607d4:	00157403 */ 	sra	$t6,$s5,0x10
-/*  f0607d8:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0607dc:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0607e0:	00809825 */ 	or	$s3,$a0,$zero
-/*  f0607e4:	00c0a025 */ 	or	$s4,$a2,$zero
-/*  f0607e8:	01c0a825 */ 	or	$s5,$t6,$zero
-/*  f0607ec:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0607f0:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f0607f4:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f0607f8:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0607fc:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f060800:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f060804:	10c00004 */ 	beqz	$a2,.L0f060818
-/*  f060808:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f06080c:	24170002 */ 	addiu	$s7,$zero,0x2
-/*  f060810:	14d7002e */ 	bne	$a2,$s7,.L0f0608cc
-/*  f060814:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-.L0f060818:
-/*  f060818:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f06081c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f060820:	8c43034c */ 	lw	$v1,0x34c($v0)
-/*  f060824:	8c440348 */ 	lw	$a0,0x348($v0)
-/*  f060828:	24170002 */ 	addiu	$s7,$zero,0x2
-/*  f06082c:	2471fffc */ 	addiu	$s1,$v1,-4
-/*  f060830:	00647823 */ 	subu	$t7,$v1,$a0
-/*  f060834:	000fc083 */ 	sra	$t8,$t7,0x2
-/*  f060838:	0018c840 */ 	sll	$t9,$t8,0x1
-/*  f06083c:	03279021 */ 	addu	$s2,$t9,$a3
-/*  f060840:	0224082b */ 	sltu	$at,$s1,$a0
-/*  f060844:	14200042 */ 	bnez	$at,.L0f060950
-/*  f060848:	2652fffe */ 	addiu	$s2,$s2,-2
-/*  f06084c:	24160001 */ 	addiu	$s6,$zero,0x1
-.L0f060850:
-/*  f060850:	86480000 */ 	lh	$t0,0x0($s2)
-/*  f060854:	56a80018 */ 	bnel	$s5,$t0,.L0f0608b8
-/*  f060858:	2631fffc */ 	addiu	$s1,$s1,-4
-/*  f06085c:	8e300000 */ 	lw	$s0,0x0($s1)
-/*  f060860:	52000015 */ 	beqzl	$s0,.L0f0608b8
-/*  f060864:	2631fffc */ 	addiu	$s1,$s1,-4
-/*  f060868:	16800005 */ 	bnez	$s4,.L0f060880
-/*  f06086c:	00000000 */ 	nop
-/*  f060870:	92090001 */ 	lbu	$t1,0x1($s0)
-/*  f060874:	312a0021 */ 	andi	$t2,$t1,0x21
-/*  f060878:	51400008 */ 	beqzl	$t2,.L0f06089c
-/*  f06087c:	02602025 */ 	or	$a0,$s3,$zero
-.L0f060880:
-/*  f060880:	5697000d */ 	bnel	$s4,$s7,.L0f0608b8
-/*  f060884:	2631fffc */ 	addiu	$s1,$s1,-4
-/*  f060888:	920b0001 */ 	lbu	$t3,0x1($s0)
-/*  f06088c:	316c0021 */ 	andi	$t4,$t3,0x21
-/*  f060890:	56cc0009 */ 	bnel	$s6,$t4,.L0f0608b8
-/*  f060894:	2631fffc */ 	addiu	$s1,$s1,-4
-/*  f060898:	02602025 */ 	or	$a0,$s3,$zero
-.L0f06089c:
-/*  f06089c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0608a0:	0fc181c7 */ 	jal	propRender
-/*  f0608a4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0608a8:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x348)
-/*  f0608ac:	8c84a308 */ 	lw	$a0,%lo(g_Vars+0x348)($a0)
-/*  f0608b0:	00409825 */ 	or	$s3,$v0,$zero
-/*  f0608b4:	2631fffc */ 	addiu	$s1,$s1,-4
-.L0f0608b8:
-/*  f0608b8:	0224082b */ 	sltu	$at,$s1,$a0
-/*  f0608bc:	1020ffe4 */ 	beqz	$at,.L0f060850
-/*  f0608c0:	2652fffe */ 	addiu	$s2,$s2,-2
-/*  f0608c4:	10000022 */ 	b	.L0f060950
-/*  f0608c8:	00000000 */ 	nop
-.L0f0608cc:
-/*  f0608cc:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0608d0:	8c510348 */ 	lw	$s1,0x348($v0)
-/*  f0608d4:	8c43034c */ 	lw	$v1,0x34c($v0)
-/*  f0608d8:	00e09025 */ 	or	$s2,$a3,$zero
-/*  f0608dc:	0223082b */ 	sltu	$at,$s1,$v1
-/*  f0608e0:	1020001b */ 	beqz	$at,.L0f060950
-/*  f0608e4:	00000000 */ 	nop
-.L0f0608e8:
-/*  f0608e8:	864d0000 */ 	lh	$t5,0x0($s2)
-/*  f0608ec:	56ad0015 */ 	bnel	$s5,$t5,.L0f060944
-/*  f0608f0:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f0608f4:	8e300000 */ 	lw	$s0,0x0($s1)
-/*  f0608f8:	52000012 */ 	beqzl	$s0,.L0f060944
-/*  f0608fc:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f060900:	920e0001 */ 	lbu	$t6,0x1($s0)
-/*  f060904:	02602025 */ 	or	$a0,$s3,$zero
-/*  f060908:	02002825 */ 	or	$a1,$s0,$zero
-/*  f06090c:	31cf0020 */ 	andi	$t7,$t6,0x20
-/*  f060910:	51e00005 */ 	beqzl	$t7,.L0f060928
-/*  f060914:	02602025 */ 	or	$a0,$s3,$zero
-/*  f060918:	0fc181c7 */ 	jal	propRender
-/*  f06091c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f060920:	00409825 */ 	or	$s3,$v0,$zero
-/*  f060924:	02602025 */ 	or	$a0,$s3,$zero
-.L0f060928:
-/*  f060928:	02002825 */ 	or	$a1,$s0,$zero
-/*  f06092c:	0fc181c7 */ 	jal	propRender
-/*  f060930:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f060934:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x34c)
-/*  f060938:	8c63a30c */ 	lw	$v1,%lo(g_Vars+0x34c)($v1)
-/*  f06093c:	00409825 */ 	or	$s3,$v0,$zero
-/*  f060940:	26310004 */ 	addiu	$s1,$s1,0x4
-.L0f060944:
-/*  f060944:	0223082b */ 	sltu	$at,$s1,$v1
-/*  f060948:	1420ffe7 */ 	bnez	$at,.L0f0608e8
-/*  f06094c:	26520002 */ 	addiu	$s2,$s2,0x2
-.L0f060950:
-/*  f060950:	0fc572dd */ 	jal	func0f15cb74
-/*  f060954:	02602025 */ 	or	$a0,$s3,$zero
-/*  f060958:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f06095c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f060960:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f060964:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f060968:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f06096c:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f060970:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f060974:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f060978:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f06097c:	03e00008 */ 	jr	$ra
-/*  f060980:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+Gfx *propsRender(Gfx *gdl, s16 arg1, s32 arg2, s16 *arg3)
+{
+	struct prop **ptr;
+	struct prop *prop;
+	s16 *tmp;
+
+	if (arg2 == 0 || arg2 == 2) {
+		// Render tangible list in reverse
+		ptr = g_Vars.unk00034c - 1;
+
+		tmp = arg3 + (g_Vars.unk00034c - g_Vars.tangibleprops);
+		tmp--;
+
+		while (ptr >= g_Vars.tangibleprops) {
+			if (arg1 == *tmp) {
+				prop = *ptr;
+
+				if (prop) {
+					if ((arg2 == 0 && (prop->flags & (PROPFLAG_20 | PROPFLAG_01)) == 0)
+						  || (arg2 == 2 && (prop->flags & (PROPFLAG_20 | PROPFLAG_01)) == 1)) {
+						gdl = propRender(gdl, prop, false);
+					}
+				}
+			}
+
+			ptr--;
+			tmp--;
+		}
+	} else {
+		// Render tangible list forwards
+		ptr = g_Vars.tangibleprops;
+		tmp = arg3;
+
+		while (ptr < g_Vars.unk00034c) {
+			if (arg1 == *tmp) {
+				prop = *ptr;
+
+				if (prop) {
+					if (prop->flags & PROPFLAG_20) {
+						gdl = propRender(gdl, prop, false);
+					}
+
+					gdl = propRender(gdl, prop, true);
+				}
+			}
+
+			ptr++;
+			tmp++;
+		}
+	}
+
+	gdl = func0f15cb74(gdl);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f060984

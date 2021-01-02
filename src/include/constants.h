@@ -2592,6 +2592,7 @@
 #define PROPFLAG_02       0x02
 #define PROPFLAG_TANGIBLE 0x04
 #define PROPFLAG_08       0x08
+#define PROPFLAG_20       0x20
 #define PROPFLAG_40       0x40
 #define PROPFLAG_80       0x80
 
