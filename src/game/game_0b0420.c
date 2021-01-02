@@ -1339,22 +1339,17 @@ u8 handGetSingleUnk3c(struct hand *hand)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f0b1cb8
-/*  f0b1cb8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b1cbc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1cc0:	0fc2c709 */ 	jal	handGetAmmoDefinition
-/*  f0b1cc4:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0b1cc8:	10400002 */ 	beqz	$v0,.L0f0b1cd4
-/*  f0b1ccc:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0b1cd0:	8c430004 */ 	lw	$v1,0x4($v0)
-.L0f0b1cd4:
-/*  f0b1cd4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1cd8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0b1cdc:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0b1ce0:	03e00008 */ 	jr	$ra
-/*  f0b1ce4:	00000000 */ 	nop
-);
+u32 handGetCasingEject(struct hand *hand)
+{
+	u32 result = 0;
+	struct inventory_ammo *ammo = handGetAmmoDefinition(hand);
+
+	if (ammo) {
+		result = ammo->casingeject;
+	}
+
+	return result;
+}
 
 f32 handGetSingleUnk34(struct hand *hand)
 {
