@@ -24,7 +24,7 @@ u32 mpMenuTextMedalSurvivor(void);
 char *mpMenuTextAmmoUsed(struct menuitem *item);
 char *mpMenuTextDistance(struct menuitem *item);
 u32 mpMenuTextTime(void);
-u32 mpMenuTextAccuracy(void);
+char *mpMenuTextAccuracy(struct menuitem *item);
 u32 func0f17ad80(void);
 u32 mpMenuTextPainReceived(void);
 u32 mpMenuTextDamageDealt(void);

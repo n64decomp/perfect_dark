@@ -1688,48 +1688,16 @@ glabel mpMenuTextTime
 /*  f17ace4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel mpMenuTextAccuracy
-/*  f17ace8:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17acec:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17acf0:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers+0x70)
-/*  f17acf4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f17acf8:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f17acfc:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17ad00:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f17ad04:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f17ad08:	8f18c828 */ 	lw	$t8,%lo(g_MpPlayers+0x70)($t8)
-/*  f17ad0c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f17ad10:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17ad14:	44982000 */ 	mtc1	$t8,$f4
-/*  f17ad18:	3c057f1b */ 	lui	$a1,%hi(var7f1b7f78)
-/*  f17ad1c:	3c067f1b */ 	lui	$a2,%hi(var7f1b7f84)
-/*  f17ad20:	3c077f1b */ 	lui	$a3,%hi(var7f1b7f88)
-/*  f17ad24:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f17ad28:	24e77f88 */ 	addiu	$a3,$a3,%lo(var7f1b7f88)
-/*  f17ad2c:	24c67f84 */ 	addiu	$a2,$a2,%lo(var7f1b7f84)
-/*  f17ad30:	24a57f78 */ 	addiu	$a1,$a1,%lo(var7f1b7f78)
-/*  f17ad34:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17ad38:	07010005 */ 	bgez	$t8,.L0f17ad50
-/*  f17ad3c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f17ad40:	3c014f80 */ 	lui	$at,0x4f80
-/*  f17ad44:	44814000 */ 	mtc1	$at,$f8
-/*  f17ad48:	00000000 */ 	nop
-/*  f17ad4c:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f17ad50:
-/*  f17ad50:	3c014120 */ 	lui	$at,0x4120
-/*  f17ad54:	44815000 */ 	mtc1	$at,$f10
-/*  f17ad58:	00000000 */ 	nop
-/*  f17ad5c:	460a3403 */ 	div.s	$f16,$f6,$f10
-/*  f17ad60:	460084a1 */ 	cvt.d.s	$f18,$f16
-/*  f17ad64:	0c004dad */ 	jal	sprintf
-/*  f17ad68:	f7b20010 */ 	sdc1	$f18,0x10($sp)
-/*  f17ad6c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f17ad70:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17ad74:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f17ad78:	03e00008 */ 	jr	$ra
-/*  f17ad7c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+const char var7f1b7f48[] = "--:--\n";
+const char var7f1b7f50[] = "==:==\n";
+const char var7f1b7f58[] = "%d:%02d.%02d";
+const char var7f1b7f68[] = "%d:%02d:%02d";
+
+char *mpMenuTextAccuracy(struct menuitem *item)
+{
+	sprintf(g_StringPointer, "%s%s%.1f%%", "", "", g_MpPlayers[g_MpPlayerNum].accuracy / 10.0f);
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f17ad80
@@ -3198,13 +3166,6 @@ glabel var7f1b81a8
 /*  f17c1a0:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-const char var7f1b7f48[] = "--:--\n";
-const char var7f1b7f50[] = "==:==\n";
-const char var7f1b7f58[] = "%d:%02d.%02d";
-const char var7f1b7f68[] = "%d:%02d:%02d";
-const char var7f1b7f78[] = "%s%s%.1f%%";
-const char var7f1b7f84[] = "";
-const char var7f1b7f88[] = "";
 const char var7f1b7f8c[] = "%s%s%.1f";
 const char var7f1b7f98[] = "";
 const char var7f1b7f9c[] = "";
