@@ -1315,32 +1315,17 @@ glabel func0f0b1af0
 /*  f0b1c20:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0b1c24
-/*  f0b1c24:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b1c28:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1c2c:	0fc2c41f */ 	jal	handGetWeaponFunction
-/*  f0b1c30:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0b1c34:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*  f0b1c38:	91c40000 */ 	lbu	$a0,0x0($t6)
-/*  f0b1c3c:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b1c40:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0b1c44:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0b1c48:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1c4c:	50600008 */ 	beqzl	$v1,.L0f0b1c70
-/*  f0b1c50:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b1c54:	80640007 */ 	lb	$a0,0x7($v1)
-/*  f0b1c58:	04800004 */ 	bltz	$a0,.L0f0b1c6c
-/*  f0b1c5c:	00047880 */ 	sll	$t7,$a0,0x2
-/*  f0b1c60:	004fc021 */ 	addu	$t8,$v0,$t7
-/*  f0b1c64:	10000002 */ 	b	.L0f0b1c70
-/*  f0b1c68:	8f02001c */ 	lw	$v0,0x1c($t8)
-.L0f0b1c6c:
-/*  f0b1c6c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b1c70:
-/*  f0b1c70:	03e00008 */ 	jr	$ra
-/*  f0b1c74:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+struct inventory_ammo *handGetAmmoDefinition(struct hand *hand)
+{
+	struct weaponfunc *func = handGetWeaponFunction(hand);
+	struct weapon *weapon = weaponFindById(hand->weaponnum);
+
+	if (func && func->ammoindex >= 0) {
+		return weapon->ammos[func->ammoindex];
+	}
+
+	return NULL;
+}
 
 u8 handGetSingleUnk3c(struct hand *hand)
 {
@@ -1358,7 +1343,7 @@ GLOBAL_ASM(
 glabel func0f0b1cb8
 /*  f0b1cb8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0b1cbc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1cc0:	0fc2c709 */ 	jal	func0f0b1c24
+/*  f0b1cc0:	0fc2c709 */ 	jal	handGetAmmoDefinition
 /*  f0b1cc4:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f0b1cc8:	10400002 */ 	beqz	$v0,.L0f0b1cd4
 /*  f0b1ccc:	8fa3001c */ 	lw	$v1,0x1c($sp)
