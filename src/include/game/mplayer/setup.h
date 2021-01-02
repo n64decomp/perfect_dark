@@ -33,7 +33,7 @@ char *mpMenuTitleStatsForPlayerName(struct menudialog *dialog);
 u32 mpMenuTextUsernamePassword(void);
 s32 func0f17b4f8(u32 operation, struct menuitem *item, union handlerdata *data, s32 arg3, s32 arg4);
 char *mpMenuTextBodyName(struct menuitem *item);
-u32 func0f17b8f0(void);
+void func0f17b8f0(void);
 s32 menuhandler0017b91c(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandler0017bab4(u32 operation, struct menuitem *item, union handlerdata *data);
 u32 func0f17be2c(void);

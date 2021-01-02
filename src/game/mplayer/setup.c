@@ -2424,20 +2424,10 @@ char *mpMenuTextBodyName(struct menuitem *item)
 	return mpGetBodyName(g_MpPlayers[g_MpPlayerNum].base.bodynum);
 }
 
-GLOBAL_ASM(
-glabel func0f17b8f0
-/*  f17b8f0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17b8f4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17b8f8:	3c048008 */ 	lui	$a0,%hi(menuitems_mpcharacter)
-/*  f17b8fc:	3c05becc */ 	lui	$a1,0xbecc
-/*  f17b900:	34a5cccd */ 	ori	$a1,$a1,0xcccd
-/*  f17b904:	0fc3c4e7 */ 	jal	func0f0f139c
-/*  f17b908:	24845450 */ 	addiu	$a0,$a0,%lo(menuitems_mpcharacter)
-/*  f17b90c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17b910:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17b914:	03e00008 */ 	jr	$ra
-/*  f17b918:	00000000 */ 	nop
-);
+void func0f17b8f0(void)
+{
+	func0f0f139c(menuitems_mpcharacter, -0.4f);
+}
 
 GLOBAL_ASM(
 glabel menuhandler0017b91c
