@@ -27,7 +27,7 @@ u32 mpMenuTextTime(void);
 char *mpMenuTextAccuracy(struct menuitem *item);
 void func0f17ad80(char *dst, f32 arg0);
 char *mpMenuTextPainReceived(struct menuitem *item);
-u32 mpMenuTextDamageDealt(void);
+char *mpMenuTextDamageDealt(struct menuitem *item);
 s32 menuhandlerMpMedal(u32 operation, struct menuitem *item, union handlerdata *data);
 u32 func0f17b360(void);
 u32 mpMenuTextUsernamePassword(void);
