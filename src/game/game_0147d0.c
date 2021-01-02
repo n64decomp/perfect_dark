@@ -12,7 +12,7 @@
 #include "game/game_02cde0.h"
 #include "game/game_0601b0.h"
 #include "game/game_197600.h"
-#include "game/mplayer.h"
+#include "game/mplayer/mplayer.h"
 #include "gvars/gvars.h"
 #include "lib/lib_121e0.h"
 #include "lib/lib_12dc0.h"

@@ -23,7 +23,7 @@
 #include "game/endscreen.h"
 #include "game/game_1655c0.h"
 #include "game/core.h"
-#include "game/game_177e00.h"
+#include "game/mplayer/ingame.h"
 #include "game/game_19aa80.h"
 #include "game/gamefile.h"
 #include "game/lang.h"

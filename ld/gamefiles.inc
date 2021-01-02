@@ -168,10 +168,11 @@
 	build/ROMID/game/game_176000.o (section); \
 	build/ROMID/game/game_176080.o (section); \
 	build/ROMID/game/utils.o (section); \
-	build/ROMID/game/game_177e00.o (section); \
-	build/ROMID/game/game_179060.o (section); \
-	build/ROMID/game/game_17f930.o (section); \
-	build/ROMID/game/mplayer.o (section); \
+	build/ROMID/game/mplayer/ingame.o (section); \
+	build/ROMID/game/mplayer/setup.o (section); \
+	build/ROMID/game/mplayer/scenarios.o (section); \
+	build/ROMID/game/mplayer/options.o (section); \
+	build/ROMID/game/mplayer/mplayer.o (section); \
 	build/ROMID/game/data/data_02da90.o (section); \
 	build/ROMID/game/radar.o (section); \
 	build/ROMID/game/game_190260.o (section); \

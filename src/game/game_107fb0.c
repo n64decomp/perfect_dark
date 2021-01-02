@@ -14,7 +14,7 @@
 #include "game/game_1531a0.h"
 #include "game/gamefile.h"
 #include "game/lang.h"
-#include "game/mplayer.h"
+#include "game/mplayer/mplayer.h"
 #include "game/pak/pak.h"
 #include "game/utils.h"
 #include "gvars/gvars.h"

@@ -14,7 +14,7 @@
 #include "game/game_0dcdb0.h"
 #include "game/game_166e40.h"
 #include "game/core.h"
-#include "game/mplayer.h"
+#include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
 #include "lib/lib_0e9d0.h"

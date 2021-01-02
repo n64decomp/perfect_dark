@@ -24,7 +24,7 @@
 #include "game/gfxmemory.h"
 #include "game/training.h"
 #include "game/lang.h"
-#include "game/mplayer.h"
+#include "game/mplayer/mplayer.h"
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"

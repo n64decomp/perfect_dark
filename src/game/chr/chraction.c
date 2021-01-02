@@ -37,7 +37,7 @@
 #include "game/game_190260.h"
 #include "game/game_197600.h"
 #include "game/game_1999b0.h"
-#include "game/mplayer.h"
+#include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "game/padhalllv.h"
 #include "game/pak/pak.h"

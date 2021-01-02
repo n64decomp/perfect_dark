@@ -1,12 +1,8 @@
-#ifndef _IN_GAME_GAME_17F9300_H
-#define _IN_GAME_GAME_17F9300_H
+#ifndef _IN_GAME_MPLAYER_SCENARIOS_H
+#define _IN_GAME_MPLAYER_SCENARIOS_H
 #include <ultra64.h>
 #include "types.h"
 
-s32 menudialogCombatSimulator(u32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 menuhandlerMpAdvancedSetup(u32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandlerMpDisplayTeam(u32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandlerMpOneHitKills(u32 operation, struct menuitem *item, union handlerdata *data);
 void scenarioHtbInit(void);
 s32 scenarioHtbCallback08(void);
 void scenarioHtbReset(void);

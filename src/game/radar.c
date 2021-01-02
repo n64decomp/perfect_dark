@@ -14,7 +14,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_152fa0.h"
 #include "game/game_1531a0.h"
-#include "game/game_17f930.h"
+#include "game/mplayer/scenarios.h"
 #include "game/radar.h"
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"

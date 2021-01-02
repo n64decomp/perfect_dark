@@ -16,7 +16,7 @@
 #include "game/game_19aa80.h"
 #include "game/training.h"
 #include "game/gamefile.h"
-#include "game/mplayer.h"
+#include "game/mplayer/mplayer.h"
 #include "game/pak/pak.h"
 #include "game/pdoptions.h"
 #include "game/utils.h"

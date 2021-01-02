@@ -42,7 +42,7 @@
 #include "game/game_175f90.h"
 #include "game/game_176080.h"
 #include "game/game_1a78b0.h"
-#include "game/mplayer.h"
+#include "game/mplayer/mplayer.h"
 #include "game/pak/pak.h"
 #include "game/splat.h"
 #include "game/utils.h"

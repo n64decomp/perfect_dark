@@ -18,7 +18,7 @@
 #include "game/game_166e40.h"
 #include "game/core.h"
 #include "game/game_176080.h"
-#include "game/game_17f930.h"
+#include "game/mplayer/scenarios.h"
 #include "game/propobj.h"
 #include "game/utils.h"
 #include "game/wallhit.h"

@@ -10,7 +10,7 @@
 #include "game/game_0f09f0.h"
 #include "game/game_10c9c0.h"
 #include "game/game_19aa80.h"
-#include "game/mplayer.h"
+#include "game/mplayer/mplayer.h"
 #include "gvars/gvars.h"
 #include "types.h"
 

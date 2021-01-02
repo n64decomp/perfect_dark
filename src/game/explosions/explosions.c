@@ -19,7 +19,7 @@
 #include "game/game_157db0.h"
 #include "game/game_1668e0.h"
 #include "game/game_166e40.h"
-#include "game/mplayer.h"
+#include "game/mplayer/mplayer.h"
 #include "game/propobj.h"
 #include "game/utils.h"
 #include "game/wallhit.h"
