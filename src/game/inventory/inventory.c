@@ -909,92 +909,39 @@ glabel func0f11253c
 /*  f11278c:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel invHasKeyFlags
-/*  f112790:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f112794:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f112798:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f11279c:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f1127a0:	8dc51864 */ 	lw	$a1,0x1864($t6)
-/*  f1127a4:	00808025 */ 	or	$s0,$a0,$zero
-/*  f1127a8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1127ac:	10a0001f */ 	beqz	$a1,.L0f11282c
-/*  f1127b0:	00a01825 */ 	or	$v1,$a1,$zero
-/*  f1127b4:	240a0004 */ 	addiu	$t2,$zero,0x4
-/*  f1127b8:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f1127bc:	24080002 */ 	addiu	$t0,$zero,0x2
-/*  f1127c0:	8c6f0000 */ 	lw	$t7,0x0($v1)
-.L0f1127c4:
-/*  f1127c4:	550f0015 */ 	bnel	$t0,$t7,.L0f11281c
-/*  f1127c8:	8c63000c */ 	lw	$v1,0xc($v1)
-/*  f1127cc:	8c640004 */ 	lw	$a0,0x4($v1)
-/*  f1127d0:	50800012 */ 	beqzl	$a0,.L0f11281c
-/*  f1127d4:	8c63000c */ 	lw	$v1,0xc($v1)
-/*  f1127d8:	90980000 */ 	lbu	$t8,0x0($a0)
-/*  f1127dc:	5538000f */ 	bnel	$t1,$t8,.L0f11281c
-/*  f1127e0:	8c63000c */ 	lw	$v1,0xc($v1)
-/*  f1127e4:	8c870004 */ 	lw	$a3,0x4($a0)
-/*  f1127e8:	50e0000c */ 	beqzl	$a3,.L0f11281c
-/*  f1127ec:	8c63000c */ 	lw	$v1,0xc($v1)
-/*  f1127f0:	90f90003 */ 	lbu	$t9,0x3($a3)
-/*  f1127f4:	55590009 */ 	bnel	$t2,$t9,.L0f11281c
-/*  f1127f8:	8c63000c */ 	lw	$v1,0xc($v1)
-/*  f1127fc:	8ceb005c */ 	lw	$t3,0x5c($a3)
-/*  f112800:	004b1025 */ 	or	$v0,$v0,$t3
-/*  f112804:	02026024 */ 	and	$t4,$s0,$v0
-/*  f112808:	560c0004 */ 	bnel	$s0,$t4,.L0f11281c
-/*  f11280c:	8c63000c */ 	lw	$v1,0xc($v1)
-/*  f112810:	10000007 */ 	b	.L0f112830
-/*  f112814:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f112818:	8c63000c */ 	lw	$v1,0xc($v1)
-.L0f11281c:
-/*  f11281c:	50650004 */ 	beql	$v1,$a1,.L0f112830
-/*  f112820:	00001025 */ 	or	$v0,$zero,$zero
-/*  f112824:	5460ffe7 */ 	bnezl	$v1,.L0f1127c4
-/*  f112828:	8c6f0000 */ 	lw	$t7,0x0($v1)
-.L0f11282c:
-/*  f11282c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f112830:
-/*  f112830:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f112834:	03e00008 */ 	jr	$ra
-/*  f112838:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+bool invHasKeyFlags(u32 wantkeyflags)
+{
+	u32 heldkeyflags = 0;
+	struct invitem *item = g_Vars.currentplayer->weapons;
 
-//bool invHasKeyFlags(u32 wantkeyflags)
-//{
-//	struct invitem *item = g_Vars.currentplayer->weapons;
-//	u32 heldkeyflags = 0;
-//	bool unlocked = false;
-//
-//	while (item) {
-//		if (item->type == INVITEMTYPE_PROP) {
-//			struct prop *prop = item->type_prop.prop;
-//
-//			if (prop && prop->type == PROPTYPE_OBJ) {
-//				struct defaultobj *obj = prop->obj;
-//
-//				if (obj && obj->type == OBJTYPE_KEY) {
-//					struct keyobj *key = (struct keyobj *)obj;
-//
-//					heldkeyflags |= key->keyflags;
-//
-//					if ((wantkeyflags & heldkeyflags) == wantkeyflags) {
-//						unlocked = true;
-//						break;
-//					}
-//				}
-//			}
-//		}
-//
-//		item = item->next;
-//
-//		if (item == g_Vars.currentplayer->weapons) {
-//			break;
-//		}
-//	}
-//
-//	return unlocked;
-//}
+	while (item) {
+		if (item->type == INVITEMTYPE_PROP) {
+			struct prop *prop = item->type_prop.prop;
+
+			if (prop && prop->type == PROPTYPE_OBJ) {
+				struct defaultobj *obj = prop->obj;
+
+				if (obj && obj->type == OBJTYPE_KEY) {
+					struct keyobj *key = (struct keyobj *)prop->obj;
+
+					heldkeyflags |= key->keyflags;
+
+					if ((wantkeyflags & heldkeyflags) == wantkeyflags) {
+						return true;
+					}
+				}
+			}
+		}
+
+		item = item->next;
+
+		if (item == g_Vars.currentplayer->weapons) {
+			break;
+		}
+	}
+
+	return false;
+}
 
 bool func0f11283c(void)
 {
