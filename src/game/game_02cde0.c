@@ -15,7 +15,7 @@
 #include "game/game_096750.h"
 #include "game/game_0b28d0.h"
 #include "game/core.h"
-#include "game/game_1a3340.h"
+#include "game/game_1a7560.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "game/propobj.h"

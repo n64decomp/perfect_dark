@@ -29,7 +29,7 @@
 #include "game/game_16e810.h"
 #include "game/mplayer/setup.h"
 #include "game/game_19aa80.h"
-#include "game/game_1a3340.h"
+#include "game/training/training.h"
 #include "game/game_1a78b0.h"
 #include "game/gamefile.h"
 #include "game/lang.h"

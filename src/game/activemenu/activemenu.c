@@ -22,7 +22,7 @@
 #include "game/game_190260.h"
 #include "game/game_197600.h"
 #include "game/gfxmemory.h"
-#include "game/training.h"
+#include "game/training/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pdoptions.h"

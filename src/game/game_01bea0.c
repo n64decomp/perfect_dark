@@ -24,7 +24,7 @@
 #include "game/mplayer/ingame.h"
 #include "game/mplayer/setup.h"
 #include "game/game_19aa80.h"
-#include "game/training.h"
+#include "game/training/training.h"
 #include "game/gamefile.h"
 #include "game/mplayer/mplayer.h"
 #include "gvars/gvars.h"

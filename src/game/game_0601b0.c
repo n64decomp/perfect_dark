@@ -27,7 +27,7 @@
 #include "game/sparks/sparks.h"
 #include "game/game_157db0.h"
 #include "game/game_190260.h"
-#include "game/training.h"
+#include "game/training/training.h"
 #include "game/pad.h"
 #include "game/propobj.h"
 #include "game/splat.h"

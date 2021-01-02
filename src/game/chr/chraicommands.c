@@ -39,7 +39,7 @@
 #include "game/game_165670.h"
 #include "game/core.h"
 #include "game/music.h"
-#include "game/training.h"
+#include "game/training/training.h"
 #include "game/gamefile.h"
 #include "game/lang.h"
 #include "game/pad.h"

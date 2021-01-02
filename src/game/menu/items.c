@@ -18,7 +18,7 @@
 #include "game/game_1531a0.h"
 #include "game/core.h"
 #include "game/game_19aa80.h"
-#include "game/training.h"
+#include "game/training/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pdoptions.h"

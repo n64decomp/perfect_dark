@@ -1,5 +1,5 @@
-#ifndef IN_GAME_TRAINING_H
-#define IN_GAME_TRAINING_H
+#ifndef IN_GAME_TRAINING_TRAINING_H
+#define IN_GAME_TRAINING_TRAINING_H
 #include <ultra64.h>
 #include "types.h"
 

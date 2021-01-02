@@ -12,7 +12,7 @@
 #include "game/mplayer/ingame.h"
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
-#include "game/game_1a3340.h"
+#include "game/training/training.h"
 #include "gvars/gvars.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_01a3a0.h"

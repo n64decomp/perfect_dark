@@ -7,7 +7,7 @@
 #include "game/endscreen.h"
 #include "game/utils.h"
 #include "game/mplayer/ingame.h"
-#include "game/game_1a3340.h"
+#include "game/training/training.h"
 #include "gvars/gvars.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0160b0.h"

@@ -92,7 +92,7 @@
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
 #include "game/game_19aa80.h"
-#include "game/training.h"
+#include "game/training/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pak/pak.h"

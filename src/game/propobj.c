@@ -56,7 +56,7 @@
 #include "game/mplayer/scenarios.h"
 #include "game/game_190260.h"
 #include "game/game_1999b0.h"
-#include "game/training.h"
+#include "game/training/training.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
