@@ -4565,7 +4565,7 @@ u32 var8007f468 = 0x00000025;
 u32 var8007f46c = 0x00000000;
 
 // 25490
-struct credit credits[] = {
+struct credit g_Credits[] = {
 	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(2), L_TITLE(0) }, // "perfect dark", ""
 	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(3), L_TITLE(4) }, // "beau ner chesluk", "guns and visual orgasms"
 	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(5), L_TITLE(6) }, // "jonathan nasty mummery", "mover and shaker"

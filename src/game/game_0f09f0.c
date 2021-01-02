@@ -21,7 +21,7 @@
 #include "game/menu/items.h"
 #include "game/game_0f09f0.h"
 #include "game/game_107fb0.h"
-#include "game/game_1371b0.h"
+#include "game/credits.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
 #include "game/core.h"
@@ -8930,7 +8930,7 @@ glabel func0f0f8bb4
 );
 
 GLOBAL_ASM(
-glabel func0f0f8c98
+glabel menuInit
 .late_rodata
 glabel var7f1b29fc
 .word 0xc0490fdb

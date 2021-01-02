@@ -78,7 +78,7 @@
 #include "game/sparks/sparks.h"
 #include "game/weather/weather.h"
 #include "game/game_135c70.h"
-#include "game/game_1371b0.h"
+#include "game/credits.h"
 #include "game/game_13c510.h"
 #include "game/bondview.h"
 #include "game/game_150820.h"
@@ -395,12 +395,12 @@ void coreLoadStage(s32 stagenum)
 		// empty
 	} else if (stagenum == STAGE_BOOTPAKMENU) {
 		setCurrentPlayerNum(0);
-		func0f0f8c98();
+		menuInit();
 	} else if (stagenum == STAGE_4MBMENU) {
 		setCurrentPlayerNum(0);
-		func0f0f8c98();
+		menuInit();
 	} else if (stagenum == STAGE_CREDITS) {
-		func0f13b4c4();
+		creditsInit();
 	} else {
 		s32 i;
 
@@ -412,7 +412,7 @@ void coreLoadStage(s32 stagenum)
 			g_Vars.currentplayer->usedowntime = 0;
 			g_Vars.currentplayer->invdowntime = g_Vars.currentplayer->usedowntime;
 
-			func0f0f8c98();
+			menuInit();
 			amInit();
 			currentPlayerInitGunsHeld();
 			func0f010bb0();
@@ -1480,7 +1480,7 @@ Gfx *coreRender(Gfx *gdl)
 		gdl = func0000b1a8(gdl);
 		gdl = func0000b1d0(gdl);
 		gdl = func0000b330(gdl);
-		gdl = func0f13b064(gdl);
+		gdl = creditsRender(gdl);
 	} else {
 		// Normal stages
 		s32 i;

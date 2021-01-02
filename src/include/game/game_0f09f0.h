@@ -63,7 +63,7 @@ void func0f0f85e0(struct menudialog *dialog, s32 root);
 u32 func0f0f8634(void);
 u32 func0f0f86a8(void);
 void func0f0f8bb4(u8 *arg0, u32 arg1, u32 arg2);
-void func0f0f8c98(void);
+void menuInit(void);
 u32 func0f0f9030(void);
 u32 func0f0f935c(void);
 void func0f0fa574(struct menuframe *frame);

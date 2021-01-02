@@ -14,7 +14,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_111600.h"
 #include "game/game_127910.h"
-#include "game/game_1371b0.h"
+#include "game/credits.h"
 #include "game/bondview.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"

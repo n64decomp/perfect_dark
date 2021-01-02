@@ -14,7 +14,7 @@
 #include "game/game_0d4690.h"
 #include "game/game_0e0770.h"
 #include "game/game_0f09f0.h"
-#include "game/game_1371b0.h"
+#include "game/credits.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
 #include "game/core.h"
@@ -30,9 +30,7 @@
 #include "lib/lib_16110.h"
 #include "types.h"
 
-const u32 var7f1b57c0[] = {0x746c6f61};
-const u32 var7f1b57c4[] = {0x64000000};
-
+const char var7f1b57c0[] = "tload";
 const char var7f1b57c8[] = "dump";
 const char var7f1b57d0[] = "for";
 const char var7f1b57d4[] = "flick";
@@ -208,7 +206,6 @@ glabel var7f1b57e4
 /*  f137428:	03e00008 */ 	jr	$ra
 /*  f13742c:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
-
 GLOBAL_ASM(
 glabel func0f137430
 .late_rodata
@@ -3364,7 +3361,7 @@ glabel func0f13a0e4
 /*  f13a0f0:	01445023 */ 	subu	$t2,$t2,$a0
 /*  f13a0f4:	8c654198 */ 	lw	$a1,0x4198($v1)
 /*  f13a0f8:	000a5040 */ 	sll	$t2,$t2,0x1
-/*  f13a0fc:	3c0c8008 */ 	lui	$t4,%hi(credits)
+/*  f13a0fc:	3c0c8008 */ 	lui	$t4,%hi(g_Credits)
 /*  f13a100:	18a00010 */ 	blez	$a1,.L0f13a144
 /*  f13a104:	28a10011 */ 	slti	$at,$a1,0x11
 /*  f13a108:	5020000f */ 	beqzl	$at,.L0f13a148
@@ -3376,8 +3373,8 @@ glabel func0f13a0e4
 .L0f13a120:
 /*  f13a120:	006e7821 */ 	addu	$t7,$v1,$t6
 /*  f13a124:	8df84154 */ 	lw	$t8,0x4154($t7)
-/*  f13a128:	3c088008 */ 	lui	$t0,%hi(credits)
-/*  f13a12c:	2508f470 */ 	addiu	$t0,$t0,%lo(credits)
+/*  f13a128:	3c088008 */ 	lui	$t0,%hi(g_Credits)
+/*  f13a12c:	2508f470 */ 	addiu	$t0,$t0,%lo(g_Credits)
 /*  f13a130:	0018c880 */ 	sll	$t9,$t8,0x2
 /*  f13a134:	0338c823 */ 	subu	$t9,$t9,$t8
 /*  f13a138:	0019c840 */ 	sll	$t9,$t9,0x1
@@ -3389,7 +3386,7 @@ glabel func0f13a0e4
 /*  f13a148:	01254823 */ 	subu	$t1,$t1,$a1
 /*  f13a14c:	00094840 */ 	sll	$t1,$t1,0x1
 /*  f13a150:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f13a154:	258cf470 */ 	addiu	$t4,$t4,%lo(credits)
+/*  f13a154:	258cf470 */ 	addiu	$t4,$t4,%lo(g_Credits)
 /*  f13a158:	016c1021 */ 	addu	$v0,$t3,$t4
 /*  f13a15c:	03e00008 */ 	jr	$ra
 /*  f13a160:	00000000 */ 	nop
@@ -4549,7 +4546,7 @@ glabel var7f1b5930
 );
 
 GLOBAL_ASM(
-glabel func0f13b064
+glabel creditsRender
 .late_rodata
 glabel var7f1b5934
 .word 0xbe86051b
@@ -4858,7 +4855,7 @@ glabel var7f1b5948
 );
 
 GLOBAL_ASM(
-glabel func0f13b4c4
+glabel creditsInit
 .late_rodata
 glabel var7f1b594c
 .word 0x41033333
