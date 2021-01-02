@@ -4387,7 +4387,7 @@ struct mpplayer {
 	/*0x6c*/ u32 distance; // 1 unit = 100 metres
 	/*0x70*/ u32 accuracy;
 	/*0x74*/ u32 damagedealt;
-	/*0x78*/ f32 painreceived;
+	/*0x78*/ u32 painreceived;
 	/*0x7c*/ u32 headshots;
 	/*0x80*/ u32 ammoused;
 	/*0x84*/ u32 accuracymedals;

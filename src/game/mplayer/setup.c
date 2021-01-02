@@ -1822,42 +1822,11 @@ glabel var7f1b80ec
 /*  f17af18:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel mpMenuTextPainReceived
-/*  f17af1c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17af20:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17af24:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers+0x78)
-/*  f17af28:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17af2c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f17af30:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17af34:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f17af38:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f17af3c:	8f18c830 */ 	lw	$t8,%lo(g_MpPlayers+0x78)($t8)
-/*  f17af40:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17af44:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17af48:	44982000 */ 	mtc1	$t8,$f4
-/*  f17af4c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17af50:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17af54:	07010005 */ 	bgez	$t8,.L0f17af6c
-/*  f17af58:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f17af5c:	3c014f80 */ 	lui	$at,0x4f80
-/*  f17af60:	44814000 */ 	mtc1	$at,$f8
-/*  f17af64:	00000000 */ 	nop
-/*  f17af68:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f17af6c:
-/*  f17af6c:	3c014120 */ 	lui	$at,0x4120
-/*  f17af70:	44815000 */ 	mtc1	$at,$f10
-/*  f17af74:	00000000 */ 	nop
-/*  f17af78:	460a3403 */ 	div.s	$f16,$f6,$f10
-/*  f17af7c:	44058000 */ 	mfc1	$a1,$f16
-/*  f17af80:	0fc5eb60 */ 	jal	func0f17ad80
-/*  f17af84:	00000000 */ 	nop
-/*  f17af88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17af8c:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17af90:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f17af94:	03e00008 */ 	jr	$ra
-/*  f17af98:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *mpMenuTextPainReceived(struct menuitem *item)
+{
+	func0f17ad80(g_StringPointer, g_MpPlayers[g_MpPlayerNum].painreceived / 10.0f);
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel mpMenuTextDamageDealt
