@@ -2044,7 +2044,7 @@ glabel chrGiveBriefcase
 /*  f18720c:	10000019 */ 	b	.L0f187274
 /*  f187210:	ad6d0040 */ 	sw	$t5,0x40($t3)
 .L0f187214:
-/*  f187214:	0fc4483c */ 	jal	func0f1120f0
+/*  f187214:	0fc4483c */ 	jal	invGiveWeaponsByProp
 /*  f187218:	8fa4012c */ 	lw	$a0,0x12c($sp)
 /*  f18721c:	8fa40124 */ 	lw	$a0,0x124($sp)
 /*  f187220:	00002825 */ 	or	$a1,$zero,$zero

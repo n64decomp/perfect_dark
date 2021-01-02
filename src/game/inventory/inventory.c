@@ -489,149 +489,82 @@ void invRemoveProp(struct prop *prop)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f1120f0
-/*  f1120f0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f1120f4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1120f8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1120fc:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f112100:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f112104:	00003825 */ 	or	$a3,$zero,$zero
-/*  f112108:	55c10073 */ 	bnel	$t6,$at,.L0f1122d8
-/*  f11210c:	00e01025 */ 	or	$v0,$a3,$zero
-/*  f112110:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f112114:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f112118:	24040015 */ 	addiu	$a0,$zero,0x15
-/*  f11211c:	904f0003 */ 	lbu	$t7,0x3($v0)
-/*  f112120:	55e1006d */ 	bnel	$t7,$at,.L0f1122d8
-/*  f112124:	00e01025 */ 	or	$v0,$a3,$zero
-/*  f112128:	9050005c */ 	lbu	$s0,0x5c($v0)
-/*  f11212c:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f112130:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f112134:	0fc41b99 */ 	jal	cheatIsActive
-/*  f112138:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f11213c:	10400006 */ 	beqz	$v0,.L0f112158
-/*  f112140:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f112144:	2401002d */ 	addiu	$at,$zero,0x2d
-/*  f112148:	56010004 */ 	bnel	$s0,$at,.L0f11215c
-/*  f11214c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f112150:	10000061 */ 	b	.L0f1122d8
-/*  f112154:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f112158:
-/*  f112158:	02002025 */ 	or	$a0,$s0,$zero
-.L0f11215c:
-/*  f11215c:	0fc44762 */ 	jal	invGiveSingleWeapon
-/*  f112160:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f112164:	10400002 */ 	beqz	$v0,.L0f112170
-/*  f112168:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f11216c:	24070001 */ 	addiu	$a3,$zero,0x1
-.L0f112170:
-/*  f112170:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x318)
-/*  f112174:	8f18a2d8 */ 	lw	$t8,%lo(g_Vars+0x318)($t8)
-/*  f112178:	02002025 */ 	or	$a0,$s0,$zero
-/*  f11217c:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*  f112180:	53000026 */ 	beqzl	$t8,.L0f11221c
-/*  f112184:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f112188:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f11218c:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f112190:	10400021 */ 	beqz	$v0,.L0f112218
-/*  f112194:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f112198:	02002025 */ 	or	$a0,$s0,$zero
-/*  f11219c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1121a0:	0fc446ac */ 	jal	invHasDoubleWeaponExcAllGuns
-/*  f1121a4:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f1121a8:	1440001b */ 	bnez	$v0,.L0f112218
-/*  f1121ac:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f1121b0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1121b4:	0fc44674 */ 	jal	invFindSingleWeapon
-/*  f1121b8:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f1121bc:	10400016 */ 	beqz	$v0,.L0f112218
-/*  f1121c0:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f1121c4:	84440006 */ 	lh	$a0,0x6($v0)
-/*  f1121c8:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f1121cc:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*  f1121d0:	04830007 */ 	bgezl	$a0,.L0f1121f0
-/*  f1121d4:	85030006 */ 	lh	$v1,0x6($t0)
-/*  f1121d8:	87230006 */ 	lh	$v1,0x6($t9)
-/*  f1121dc:	0462000f */ 	bltzl	$v1,.L0f11221c
-/*  f1121e0:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f1121e4:	1000000c */ 	b	.L0f112218
-/*  f1121e8:	a4430006 */ 	sh	$v1,0x6($v0)
-/*  f1121ec:	85030006 */ 	lh	$v1,0x6($t0)
-.L0f1121f0:
-/*  f1121f0:	0462000a */ 	bltzl	$v1,.L0f11221c
-/*  f1121f4:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f1121f8:	10640007 */ 	beq	$v1,$a0,.L0f112218
-/*  f1121fc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f112200:	0fc4478a */ 	jal	invGiveDoubleWeapon
-/*  f112204:	02002025 */ 	or	$a0,$s0,$zero
-/*  f112208:	10400003 */ 	beqz	$v0,.L0f112218
-/*  f11220c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f112210:	10000001 */ 	b	.L0f112218
-/*  f112214:	24070002 */ 	addiu	$a3,$zero,0x2
-.L0f112218:
-/*  f112218:	8fa30024 */ 	lw	$v1,0x24($sp)
-.L0f11221c:
-/*  f11221c:	8c620064 */ 	lw	$v0,0x64($v1)
-/*  f112220:	50400016 */ 	beqzl	$v0,.L0f11227c
-/*  f112224:	80660061 */ 	lb	$a2,0x61($v1)
-/*  f112228:	8c690008 */ 	lw	$t1,0x8($v1)
-/*  f11222c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f112230:	02002025 */ 	or	$a0,$s0,$zero
-/*  f112234:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f112238:	05410005 */ 	bgez	$t2,.L0f112250
-/*  f11223c:	00000000 */ 	nop
-/*  f112240:	0fc446ac */ 	jal	invHasDoubleWeaponExcAllGuns
-/*  f112244:	9044005c */ 	lbu	$a0,0x5c($v0)
-/*  f112248:	10000004 */ 	b	.L0f11225c
-/*  f11224c:	2c470001 */ 	sltiu	$a3,$v0,0x1
-.L0f112250:
-/*  f112250:	0fc446ac */ 	jal	invHasDoubleWeaponExcAllGuns
-/*  f112254:	9045005c */ 	lbu	$a1,0x5c($v0)
-/*  f112258:	2c470001 */ 	sltiu	$a3,$v0,0x1
-.L0f11225c:
-/*  f11225c:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*  f112260:	8d6c0064 */ 	lw	$t4,0x64($t3)
-/*  f112264:	a1900061 */ 	sb	$s0,0x61($t4)
-/*  f112268:	8d6d0064 */ 	lw	$t5,0x64($t3)
-/*  f11226c:	ada00064 */ 	sw	$zero,0x64($t5)
-/*  f112270:	10000018 */ 	b	.L0f1122d4
-/*  f112274:	ad600064 */ 	sw	$zero,0x64($t3)
-/*  f112278:	80660061 */ 	lb	$a2,0x61($v1)
-.L0f11227c:
-/*  f11227c:	04c20016 */ 	bltzl	$a2,.L0f1122d8
-/*  f112280:	00e01025 */ 	or	$v0,$a3,$zero
-/*  f112284:	8c6e0008 */ 	lw	$t6,0x8($v1)
-/*  f112288:	02002825 */ 	or	$a1,$s0,$zero
-/*  f11228c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f112290:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f112294:	05e10009 */ 	bgez	$t7,.L0f1122bc
-/*  f112298:	00000000 */ 	nop
-/*  f11229c:	0fc4478a */ 	jal	invGiveDoubleWeapon
-/*  f1122a0:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f1122a4:	10400003 */ 	beqz	$v0,.L0f1122b4
-/*  f1122a8:	00000000 */ 	nop
-/*  f1122ac:	10000009 */ 	b	.L0f1122d4
-/*  f1122b0:	24070002 */ 	addiu	$a3,$zero,0x2
-.L0f1122b4:
-/*  f1122b4:	10000007 */ 	b	.L0f1122d4
-/*  f1122b8:	00003825 */ 	or	$a3,$zero,$zero
-.L0f1122bc:
-/*  f1122bc:	0fc4478a */ 	jal	invGiveDoubleWeapon
-/*  f1122c0:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f1122c4:	10400003 */ 	beqz	$v0,.L0f1122d4
-/*  f1122c8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1122cc:	10000001 */ 	b	.L0f1122d4
-/*  f1122d0:	24070002 */ 	addiu	$a3,$zero,0x2
-.L0f1122d4:
-/*  f1122d4:	00e01025 */ 	or	$v0,$a3,$zero
-.L0f1122d8:
-/*  f1122d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1122dc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1122e0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f1122e4:	03e00008 */ 	jr	$ra
-/*  f1122e8:	00000000 */ 	nop
-);
+s32 invGiveWeaponsByProp(struct prop *prop)
+{
+	s32 numgiven = 0;
+
+	if (prop->type == PROPTYPE_WEAPON) {
+		struct defaultobj *obj = prop->obj;
+		struct weaponobj *weapon;
+		struct weaponobj *otherweapon;
+		s32 weaponnum;
+		s32 otherweaponnum;
+
+		if (obj->type == OBJTYPE_WEAPON) {
+			weapon = prop->weapon;
+			weaponnum = weapon->weaponnum;
+			otherweaponnum;
+
+			if (cheatIsActive(CHEAT_PERFECTDARKNESS) && weaponnum == WEAPON_NIGHTVISION) {
+				return 1;
+			}
+
+			if (invGiveSingleWeapon(weaponnum)) {
+				numgiven = 1;
+			}
+
+			if (g_Vars.normmplayerisrunning
+					&& weaponHasFlag(weaponnum, WEAPONFLAG_DUALWIELD)
+					&& !invHasDoubleWeaponExcAllGuns(weaponnum, weaponnum)) {
+				struct invitem *invitem = invFindSingleWeapon(weaponnum);
+
+				if (invitem) {
+					if (invitem->type_weap.pickuppad < 0) {
+						if (obj->pad >= 0) {
+							invitem->type_weap.pickuppad = obj->pad;
+						}
+					} else if (obj->pad >= 0 && invitem->type_weap.pickuppad != obj->pad) {
+						if (invGiveDoubleWeapon(weaponnum, weaponnum)) {
+							numgiven = 2;
+						} else {
+							numgiven = 0;
+						}
+					}
+				}
+			}
+
+			otherweapon = weapon->dualweapon;
+
+			if (otherweapon) {
+				if (weapon->base.flags & OBJFLAG_WEAPON_10000000) {
+					numgiven = invHasDoubleWeaponExcAllGuns(otherweapon->weaponnum, weaponnum) == 0;
+				} else {
+					numgiven = invHasDoubleWeaponExcAllGuns(weaponnum, otherweapon->weaponnum) == 0;
+				}
+
+				weapon->dualweapon->dualweaponnum = weaponnum;
+				weapon->dualweapon->dualweapon = NULL;
+				weapon->dualweapon = NULL;
+			} else if (weapon->dualweaponnum >= 0) {
+				if (weapon->base.flags & OBJFLAG_WEAPON_10000000) {
+					if (invGiveDoubleWeapon(weapon->dualweaponnum, weaponnum)) {
+						numgiven = 2;
+					} else {
+						numgiven = 0;
+					}
+				} else {
+					if (invGiveDoubleWeapon(weaponnum, weapon->dualweaponnum)) {
+						numgiven = 2;
+					} else {
+						numgiven = 0;
+					}
+				}
+			}
+		}
+	}
+
+	return numgiven;
+}
 
 GLOBAL_ASM(
 glabel func0f1122ec

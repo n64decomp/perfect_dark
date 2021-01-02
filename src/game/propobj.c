@@ -38486,7 +38486,7 @@ glabel var7f1aae70
 /*  f088b0c:	28a1002d */ 	slti	$at,$a1,0x2d
 /*  f088b10:	50200007 */ 	beqzl	$at,.L0f088b30
 /*  f088b14:	8fac00a4 */ 	lw	$t4,0xa4($sp)
-/*  f088b18:	0fc4483c */ 	jal	func0f1120f0
+/*  f088b18:	0fc4483c */ 	jal	invGiveWeaponsByProp
 /*  f088b1c:	8fa400a0 */ 	lw	$a0,0xa0($sp)
 /*  f088b20:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*  f088b24:	afa20068 */ 	sw	$v0,0x68($sp)
@@ -38538,7 +38538,7 @@ glabel var7f1aae70
 /*  f088bc8:	10000021 */ 	b	.L0f088c50
 /*  f088bcc:	afac0070 */ 	sw	$t4,0x70($sp)
 .L0f088bd0:
-/*  f088bd0:	0fc4483c */ 	jal	func0f1120f0
+/*  f088bd0:	0fc4483c */ 	jal	invGiveWeaponsByProp
 /*  f088bd4:	8fa400a0 */ 	lw	$a0,0xa0($sp)
 /*  f088bd8:	10400003 */ 	beqz	$v0,.L0f088be8
 /*  f088bdc:	afa20068 */ 	sw	$v0,0x68($sp)
@@ -38942,7 +38942,7 @@ glabel var7f1aae70
 //			// af4
 //			if (obj->hidden & OBJHFLAG_HASTEXTOVERRIDE) {
 //				if (weapon->weaponnum <= WEAPON_PSYCHOSISGUN) {
-//					count = func0f1120f0(prop);
+//					count = invGiveWeaponsByProp(prop);
 //					sp148[0] = 1;
 //				}
 //
@@ -38970,7 +38970,7 @@ glabel var7f1aae70
 //					sp112 = true;
 //				} else {
 //					// bd0
-//					count = func0f1120f0(prop);
+//					count = invGiveWeaponsByProp(prop);
 //
 //					if (count) {
 //						sp112 = true;
