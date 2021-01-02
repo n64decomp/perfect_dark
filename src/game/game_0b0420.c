@@ -1217,17 +1217,10 @@ u16 weaponGetModelNum(s32 weaponnum)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f0b1ad0
-/*  f0b1ad0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b1ad4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1ad8:	0fc2c686 */ 	jal	weaponGetModelNum
-/*  f0b1adc:	00000000 */ 	nop
-/*  f0b1ae0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1ae4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b1ae8:	03e00008 */ 	jr	$ra
-/*  f0b1aec:	00000000 */ 	nop
-);
+u16 weaponGetModelNum2(s32 weaponnum)
+{
+	return weaponGetModelNum(weaponnum);
+}
 
 GLOBAL_ASM(
 glabel func0f0b1af0
