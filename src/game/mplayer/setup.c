@@ -27,55 +27,6 @@
 #include "lib/lib_13130.h"
 #include "types.h"
 
-const char var7f1b7e90[] = "%d%%\n";
-const char var7f1b7e98[] = "%d%%\n";
-const char var7f1b7ea0[] = "%d%%\n";
-const char var7f1b7ea8[] = "Menu99 -> Calling Camera Module Start\n";
-const char var7f1b7ed0[] = "Menu99 -> Calling Camera Module Finish\n";
-const char var7f1b7ef8[] = "%d\n";
-const char var7f1b7efc[] = "%d\n";
-const char var7f1b7f00[] = "%d\n";
-const char var7f1b7f04[] = "%d\n";
-const char var7f1b7f08[] = "%d\n";
-const char var7f1b7f0c[] = "%d\n";
-const char var7f1b7f10[] = "%d\n";
-const char var7f1b7f14[] = "%d\n";
-const char var7f1b7f18[] = "%d\n";
-const char var7f1b7f1c[] = "%d\n";
-const char var7f1b7f20[] = "%dM\n";
-const char var7f1b7f28[] = "%dK\n";
-const char var7f1b7f30[] = "%d\n";
-const char var7f1b7f34[] = "%s%s%.1fkm\n";
-const char var7f1b7f40[] = "";
-const char var7f1b7f44[] = "";
-const char var7f1b7f48[] = "--:--\n";
-const char var7f1b7f50[] = "==:==\n";
-const char var7f1b7f58[] = "%d:%02d.%02d";
-const char var7f1b7f68[] = "%d:%02d:%02d";
-const char var7f1b7f78[] = "%s%s%.1f%%";
-const char var7f1b7f84[] = "";
-const char var7f1b7f88[] = "";
-const char var7f1b7f8c[] = "%s%s%.1f";
-const char var7f1b7f98[] = "";
-const char var7f1b7f9c[] = "";
-const char var7f1b7fa0[] = "%s%s%.0f";
-const char var7f1b7fac[] = "";
-const char var7f1b7fb0[] = "";
-const char var7f1b7fb4[] = "%s%s%.1fK";
-const char var7f1b7fc0[] = "";
-const char var7f1b7fc4[] = "";
-const char var7f1b7fc8[] = "%s%s%.0fK";
-const char var7f1b7fd4[] = "";
-const char var7f1b7fd8[] = "";
-const char var7f1b7fdc[] = "%s%s%.1fM";
-const char var7f1b7fe8[] = "";
-const char var7f1b7fec[] = "";
-const char var7f1b7ff0[] = "%s%s%.0fM";
-const char var7f1b7ffc[] = "";
-const char var7f1b8000[] = "";
-const char var7f1b8004[] = "";
-const char var7f1b8008[] = "";
-
 s32 menuhandlerMpDropOut(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
@@ -1567,80 +1518,41 @@ glabel mpMenuTextMedalSurvivor
 /*  f17a99c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel mpMenuTextAmmoUsed
-/*  f17a9a0:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17a9a4:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17a9a8:	3c06800b */ 	lui	$a2,%hi(g_MpPlayers+0x80)
-/*  f17a9ac:	3c020001 */ 	lui	$v0,0x1
-/*  f17a9b0:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f17a9b4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17a9b8:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f17a9bc:	00cf3021 */ 	addu	$a2,$a2,$t7
-/*  f17a9c0:	8cc6c838 */ 	lw	$a2,%lo(g_MpPlayers+0x80)($a2)
-/*  f17a9c4:	344286a1 */ 	ori	$v0,$v0,0x86a1
-/*  f17a9c8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17a9cc:	00c2082a */ 	slt	$at,$a2,$v0
-/*  f17a9d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17a9d4:	14200028 */ 	bnez	$at,.L0f17aa78
-/*  f17a9d8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17a9dc:	240303e8 */ 	addiu	$v1,$zero,0x3e8
-/*  f17a9e0:	00c3001a */ 	div	$zero,$a2,$v1
-/*  f17a9e4:	14600002 */ 	bnez	$v1,.L0f17a9f0
-/*  f17a9e8:	00000000 */ 	nop
-/*  f17a9ec:	0007000d */ 	break	0x7
-.L0f17a9f0:
-/*  f17a9f0:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f17a9f4:	14610004 */ 	bne	$v1,$at,.L0f17aa08
-/*  f17a9f8:	3c018000 */ 	lui	$at,0x8000
-/*  f17a9fc:	14c10002 */ 	bne	$a2,$at,.L0f17aa08
-/*  f17aa00:	00000000 */ 	nop
-/*  f17aa04:	0006000d */ 	break	0x6
-.L0f17aa08:
-/*  f17aa08:	00003012 */ 	mflo	$a2
-/*  f17aa0c:	00c2082a */ 	slt	$at,$a2,$v0
-/*  f17aa10:	14200012 */ 	bnez	$at,.L0f17aa5c
-/*  f17aa14:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17aa18:	00c3001a */ 	div	$zero,$a2,$v1
-/*  f17aa1c:	14600002 */ 	bnez	$v1,.L0f17aa28
-/*  f17aa20:	00000000 */ 	nop
-/*  f17aa24:	0007000d */ 	break	0x7
-.L0f17aa28:
-/*  f17aa28:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f17aa2c:	14610004 */ 	bne	$v1,$at,.L0f17aa40
-/*  f17aa30:	3c018000 */ 	lui	$at,0x8000
-/*  f17aa34:	14c10002 */ 	bne	$a2,$at,.L0f17aa40
-/*  f17aa38:	00000000 */ 	nop
-/*  f17aa3c:	0006000d */ 	break	0x6
-.L0f17aa40:
-/*  f17aa40:	00003012 */ 	mflo	$a2
-/*  f17aa44:	3c057f1b */ 	lui	$a1,%hi(var7f1b7f20)
-/*  f17aa48:	24a57f20 */ 	addiu	$a1,$a1,%lo(var7f1b7f20)
-/*  f17aa4c:	0c004dad */ 	jal	sprintf
-/*  f17aa50:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17aa54:	1000000e */ 	b	.L0f17aa90
-/*  f17aa58:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17aa5c:
-/*  f17aa5c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17aa60:	3c057f1b */ 	lui	$a1,%hi(var7f1b7f28)
-/*  f17aa64:	24a57f28 */ 	addiu	$a1,$a1,%lo(var7f1b7f28)
-/*  f17aa68:	0c004dad */ 	jal	sprintf
-/*  f17aa6c:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17aa70:	10000007 */ 	b	.L0f17aa90
-/*  f17aa74:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17aa78:
-/*  f17aa78:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17aa7c:	3c057f1b */ 	lui	$a1,%hi(var7f1b7f30)
-/*  f17aa80:	24a57f30 */ 	addiu	$a1,$a1,%lo(var7f1b7f30)
-/*  f17aa84:	0c004dad */ 	jal	sprintf
-/*  f17aa88:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17aa8c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17aa90:
-/*  f17aa90:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17aa94:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f17aa98:	03e00008 */ 	jr	$ra
-/*  f17aa9c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+const char var7f1b7e90[] = "%d%%\n";
+const char var7f1b7e98[] = "%d%%\n";
+const char var7f1b7ea0[] = "%d%%\n";
+const char var7f1b7ea8[] = "Menu99 -> Calling Camera Module Start\n";
+const char var7f1b7ed0[] = "Menu99 -> Calling Camera Module Finish\n";
+const char var7f1b7ef8[] = "%d\n";
+const char var7f1b7efc[] = "%d\n";
+const char var7f1b7f00[] = "%d\n";
+const char var7f1b7f04[] = "%d\n";
+const char var7f1b7f08[] = "%d\n";
+const char var7f1b7f0c[] = "%d\n";
+const char var7f1b7f10[] = "%d\n";
+const char var7f1b7f14[] = "%d\n";
+const char var7f1b7f18[] = "%d\n";
+const char var7f1b7f1c[] = "%d\n";
+
+char *mpMenuTextAmmoUsed(struct menuitem *item)
+{
+	s32 value = g_MpPlayers[g_MpPlayerNum].ammoused;
+
+	if (value > 100000) {
+		value = value / 1000;
+
+		if (value > 100000) {
+			value = value / 1000;
+			sprintf(g_StringPointer, "%dM\n", value);
+		} else {
+			sprintf(g_StringPointer, "%dK\n", value);
+		}
+	} else {
+		sprintf(g_StringPointer, "%d\n", value);
+	}
+
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel mpMenuTextDistance
@@ -3322,6 +3234,37 @@ glabel var7f1b81a8
 /*  f17c19c:	03e00008 */ 	jr	$ra
 /*  f17c1a0:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
+
+const char var7f1b7f34[] = "%s%s%.1fkm\n";
+const char var7f1b7f40[] = "";
+const char var7f1b7f44[] = "";
+const char var7f1b7f48[] = "--:--\n";
+const char var7f1b7f50[] = "==:==\n";
+const char var7f1b7f58[] = "%d:%02d.%02d";
+const char var7f1b7f68[] = "%d:%02d:%02d";
+const char var7f1b7f78[] = "%s%s%.1f%%";
+const char var7f1b7f84[] = "";
+const char var7f1b7f88[] = "";
+const char var7f1b7f8c[] = "%s%s%.1f";
+const char var7f1b7f98[] = "";
+const char var7f1b7f9c[] = "";
+const char var7f1b7fa0[] = "%s%s%.0f";
+const char var7f1b7fac[] = "";
+const char var7f1b7fb0[] = "";
+const char var7f1b7fb4[] = "%s%s%.1fK";
+const char var7f1b7fc0[] = "";
+const char var7f1b7fc4[] = "";
+const char var7f1b7fc8[] = "%s%s%.0fK";
+const char var7f1b7fd4[] = "";
+const char var7f1b7fd8[] = "";
+const char var7f1b7fdc[] = "%s%s%.1fM";
+const char var7f1b7fe8[] = "";
+const char var7f1b7fec[] = "";
+const char var7f1b7ff0[] = "%s%s%.0fM";
+const char var7f1b7ffc[] = "";
+const char var7f1b8000[] = "";
+const char var7f1b8004[] = "";
+const char var7f1b8008[] = "";
 
 s32 menuhandlerMpTimeLimitSlider(u32 operation, struct menuitem *item, union handlerdata *data)
 {

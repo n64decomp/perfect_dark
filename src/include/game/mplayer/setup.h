@@ -21,7 +21,7 @@ u32 mpMenuTextMedalAccuracy(void);
 u32 mpMenuTextMedalHeadShot(void);
 u32 mpMenuTextMedalKillMaster(void);
 u32 mpMenuTextMedalSurvivor(void);
-u32 mpMenuTextAmmoUsed(void);
+char *mpMenuTextAmmoUsed(struct menuitem *item);
 u32 mpMenuTextDistance(void);
 u32 mpMenuTextTime(void);
 u32 mpMenuTextAccuracy(void);
