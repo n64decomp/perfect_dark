@@ -14,7 +14,7 @@ bool invHasSingleWeaponExcAllGuns(s32 weaponnum);
 struct invitem *invFindDoubleWeapon(s32 weapon1, s32 weapon2);
 bool invHasDoubleWeaponExcAllGuns(s32 weapon1, s32 weapon2);
 bool invHasSingleWeaponOrProp(s32 weaponnum);
-s32 func0f111b88(s32 arg0);
+s32 invAddOneIfCantHaveSlayer(s32 arg0);
 s32 currentStageForbidsSlayer(void);
 bool invCanHaveAllGunsWeapon(s32 weaponnum);
 bool invHasSingleWeaponIncAllGuns(s32 weaponnum);

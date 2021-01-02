@@ -282,35 +282,18 @@ bool invHasSingleWeaponOrProp(s32 weaponnum)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f111b88
-/*  f111b88:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f111b8c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f111b90:	0c003a61 */ 	jal	mainGetStageNum
-/*  f111b94:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f111b98:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f111b9c:	0c003a61 */ 	jal	mainGetStageNum
-/*  f111ba0:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f111ba4:	24010034 */ 	addiu	$at,$zero,0x34
-/*  f111ba8:	1041000a */ 	beq	$v0,$at,.L0f111bd4
-/*  f111bac:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f111bb0:	0c003a61 */ 	jal	mainGetStageNum
-/*  f111bb4:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f111bb8:	2401002a */ 	addiu	$at,$zero,0x2a
-/*  f111bbc:	10410005 */ 	beq	$v0,$at,.L0f111bd4
-/*  f111bc0:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f111bc4:	28610019 */ 	slti	$at,$v1,0x19
-/*  f111bc8:	54200003 */ 	bnezl	$at,.L0f111bd8
-/*  f111bcc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f111bd0:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f111bd4:
-/*  f111bd4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f111bd8:
-/*  f111bd8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f111bdc:	00601025 */ 	or	$v0,$v1,$zero
-/*  f111be0:	03e00008 */ 	jr	$ra
-/*  f111be4:	00000000 */ 	nop
-);
+s32 invAddOneIfCantHaveSlayer(s32 index)
+{
+	if (mainGetStageNum());
+
+	if (mainGetStageNum() != STAGE_ATTACKSHIP
+			&& mainGetStageNum() != STAGE_SKEDARRUINS
+			&& index >= WEAPON_SLAYER) {
+		index++;
+	}
+
+	return index;
+}
 
 s32 currentStageForbidsSlayer(void)
 {
@@ -1292,7 +1275,7 @@ s32 invGetWeaponNumByIndex(s32 index)
 	} else if (g_Vars.currentplayer->equipallguns) {
 		if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {
 			index++;
-			return func0f111b88(index);
+			return invAddOneIfCantHaveSlayer(index);
 		}
 	}
 
@@ -1329,7 +1312,7 @@ u16 invGetNameIdByIndex(s32 index)
 		if (g_Vars.currentplayer->equipallguns) {
 			if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {
 				index++;
-				return weaponGetNameId(func0f111b88(index));
+				return weaponGetNameId(invAddOneIfCantHaveSlayer(index));
 			}
 		}
 	}
@@ -1371,7 +1354,7 @@ char *invGetShortNameByIndex(s32 index)
 	} else if (g_Vars.currentplayer->equipallguns) {
 		if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {
 			index++;
-			return weaponGetShortName(func0f111b88(index));
+			return weaponGetShortName(invAddOneIfCantHaveSlayer(index));
 		}
 	}
 
