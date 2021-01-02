@@ -795,7 +795,7 @@ bool scenarioHtbRadar2(Gfx **gdl, struct prop *prop)
 			dist.z = prop->pos.z - g_Vars.currentplayer->prop->pos.z;
 
 			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-				u32 colour = g_TeamColours[teamGetIndex(prop->chr->team)];
+				u32 colour = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
 				*gdl = radarDrawDot(*gdl, g_ScenarioData.htb.token, &dist, colour, 0, 1);
 			} else {
 				*gdl = radarDrawDot(*gdl, g_ScenarioData.htb.token, &dist, 0xff0000, 0, 1);
@@ -1329,7 +1329,7 @@ bool scenarioCtcRadar2(Gfx **gdl, struct prop *prop)
 			if (prop == g_ScenarioData.ctc.tokens[i] &&
 					(g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_CHR || g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_PLAYER)) {
 				struct coord dist;
-				s32 colour = g_TeamColours[teamGetIndex(prop->chr->team)];
+				s32 colour = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
 				dist.x = g_ScenarioData.ctc.tokens[i]->pos.x - g_Vars.currentplayer->prop->pos.x;
 				dist.y = g_ScenarioData.ctc.tokens[i]->pos.y - g_Vars.currentplayer->prop->pos.y;
 				dist.z = g_ScenarioData.ctc.tokens[i]->pos.z - g_Vars.currentplayer->prop->pos.z;
@@ -1456,7 +1456,7 @@ glabel func0f181800
 bool scenarioCtcCallback2c(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4)
 {
 	struct chrdata *chr = prop->chr;
-	s32 index = teamGetIndex(chr->team);
+	s32 index = radarGetTeamIndex(chr->team);
 
 	if (g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[index]].numspawnpads > 0) {
 		*arg4 = func0f0b69d0(arg0, pos, rooms, prop,
@@ -1814,7 +1814,7 @@ glabel var7f1b8950
 /*  f181f54:	90a40125 */ 	lbu	$a0,0x125($a1)
 /*  f181f58:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f181f5c:	afa60174 */ 	sw	$a2,0x174($sp)
-/*  f181f60:	0fc63a5a */ 	jal	teamGetIndex
+/*  f181f60:	0fc63a5a */ 	jal	radarGetTeamIndex
 /*  f181f64:	afa30050 */ 	sw	$v1,0x50($sp)
 /*  f181f68:	00025080 */ 	sll	$t2,$v0,0x2
 /*  f181f6c:	022a2021 */ 	addu	$a0,$s1,$t2
@@ -1989,7 +1989,7 @@ glabel var7f1b8950
 /*  f1821b4:	8e8d0284 */ 	lw	$t5,0x284($s4)
 /*  f1821b8:	8dae00bc */ 	lw	$t6,0xbc($t5)
 /*  f1821bc:	8dc50004 */ 	lw	$a1,0x4($t6)
-/*  f1821c0:	0fc63a5a */ 	jal	teamGetIndex
+/*  f1821c0:	0fc63a5a */ 	jal	radarGetTeamIndex
 /*  f1821c4:	90a40125 */ 	lbu	$a0,0x125($a1)
 /*  f1821c8:	866f0004 */ 	lh	$t7,0x4($s3)
 /*  f1821cc:	02002025 */ 	or	$a0,$s0,$zero
@@ -2089,7 +2089,7 @@ glabel var7f1b8950
 .L0f182324:
 /*  f182324:	8e0d0000 */ 	lw	$t5,0x0($s0)
 /*  f182328:	91a40125 */ 	lbu	$a0,0x125($t5)
-/*  f18232c:	0fc63a5a */ 	jal	teamGetIndex
+/*  f18232c:	0fc63a5a */ 	jal	radarGetTeamIndex
 /*  f182330:	afa5004c */ 	sw	$a1,0x4c($sp)
 /*  f182334:	866e0004 */ 	lh	$t6,0x4($s3)
 /*  f182338:	8fa5004c */ 	lw	$a1,0x4c($sp)
@@ -2125,7 +2125,7 @@ glabel var7f1b8950
 /*  f1823a4:	8c4b02d4 */ 	lw	$t3,0x2d4($v0)
 /*  f1823a8:	1560000e */ 	bnez	$t3,.L0f1823e4
 /*  f1823ac:	00000000 */ 	nop
-/*  f1823b0:	0fc63a5a */ 	jal	teamGetIndex
+/*  f1823b0:	0fc63a5a */ 	jal	radarGetTeamIndex
 /*  f1823b4:	90440125 */ 	lbu	$a0,0x125($v0)
 /*  f1823b8:	866c0004 */ 	lh	$t4,0x4($s3)
 /*  f1823bc:	144c0009 */ 	bne	$v0,$t4,.L0f1823e4
@@ -2329,7 +2329,7 @@ glabel scenarioKohCallback18
 /*  f182684:	8dcf00bc */ 	lw	$t7,0xbc($t6)
 /*  f182688:	00808025 */ 	or	$s0,$a0,$zero
 /*  f18268c:	8de20004 */ 	lw	$v0,0x4($t7)
-/*  f182690:	0fc63a5a */ 	jal	teamGetIndex
+/*  f182690:	0fc63a5a */ 	jal	radarGetTeamIndex
 /*  f182694:	90440125 */ 	lbu	$a0,0x125($v0)
 /*  f182698:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
 /*  f18269c:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
@@ -3765,7 +3765,7 @@ glabel scenarioHtmRadar
 /*  f183e8c:	31cf0002 */ 	andi	$t7,$t6,0x2
 /*  f183e90:	51e0002c */ 	beqzl	$t7,.L0f183f44
 /*  f183e94:	4600a006 */ 	mov.s	$f0,$f20
-/*  f183e98:	0fc63a5a */ 	jal	teamGetIndex
+/*  f183e98:	0fc63a5a */ 	jal	radarGetTeamIndex
 /*  f183e9c:	00000000 */ 	nop
 /*  f183ea0:	0002c880 */ 	sll	$t9,$v0,0x2
 /*  f183ea4:	02b96021 */ 	addu	$t4,$s5,$t9
@@ -4026,7 +4026,7 @@ bool scenarioHtmRadar2(Gfx **gdl, struct prop *prop)
 			dist.z = prop->pos.z - g_Vars.currentplayer->prop->pos.z;
 
 			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-				u32 colour = g_TeamColours[teamGetIndex(prop->chr->team)];
+				u32 colour = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
 				*gdl = radarDrawDot(*gdl, g_ScenarioData.htm.uplink, &dist, colour, 0, 1);
 			} else {
 				*gdl = radarDrawDot(*gdl, g_ScenarioData.htm.uplink, &dist, 0xff0000, 0, 1);
@@ -4830,7 +4830,7 @@ glabel scenarioPacRadar2
 /*  f184e34:	11c00014 */ 	beqz	$t6,.L0f184e88
 /*  f184e38:	e7a80040 */ 	swc1	$f8,0x40($sp)
 /*  f184e3c:	8caf0004 */ 	lw	$t7,0x4($a1)
-/*  f184e40:	0fc63a5a */ 	jal	teamGetIndex
+/*  f184e40:	0fc63a5a */ 	jal	radarGetTeamIndex
 /*  f184e44:	91e40125 */ 	lbu	$a0,0x125($t7)
 /*  f184e48:	8fb90048 */ 	lw	$t9,0x48($sp)
 /*  f184e4c:	0002c080 */ 	sll	$t8,$v0,0x2
@@ -4882,7 +4882,7 @@ glabel scenarioPacRadar2
 //			dist.z = prop->pos.z - g_Vars.currentplayer->prop->pos.z;
 //
 //			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-//				u32 colour = g_TeamColours[teamGetIndex(prop->chr->team)];
+//				u32 colour = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
 //				*gdl = radarDrawDot(*gdl, thing, &dist, colour, 0, 1);
 //			} else {
 //				*gdl = radarDrawDot(*gdl, thing, &dist, 0xff0000, 0, 1);

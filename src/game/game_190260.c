@@ -5759,7 +5759,7 @@ glabel var7f1b8fc8
 /*  f195700:	000c7840 */ 	sll	$t7,$t4,0x1
 /*  f195704:	05e0007f */ 	bltz	$t7,.L0f195904
 /*  f195708:	00000000 */ 	nop
-/*  f19570c:	0fc63a5a */ 	jal	teamGetIndex
+/*  f19570c:	0fc63a5a */ 	jal	radarGetTeamIndex
 /*  f195710:	92840125 */ 	lbu	$a0,0x125($s4)
 /*  f195714:	3c07800b */ 	lui	$a3,%hi(g_ScenarioData)
 /*  f195718:	00003025 */ 	or	$a2,$zero,$zero
@@ -5913,7 +5913,7 @@ glabel var7f1b8fc8
 /*  f19591c:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f195920:	1721016b */ 	bne	$t9,$at,.L0f195ed0
 /*  f195924:	00000000 */ 	nop
-/*  f195928:	0fc63a5a */ 	jal	teamGetIndex
+/*  f195928:	0fc63a5a */ 	jal	radarGetTeamIndex
 /*  f19592c:	92840125 */ 	lbu	$a0,0x125($s4)
 /*  f195930:	00024880 */ 	sll	$t1,$v0,0x2
 /*  f195934:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData+0x58)
@@ -6372,7 +6372,7 @@ glabel var7f1b8fc8
 /*  f195ff4:	1040002f */ 	beqz	$v0,.L0f1960b4
 /*  f195ff8:	00000000 */ 	nop
 /*  f195ffc:	92840125 */ 	lbu	$a0,0x125($s4)
-/*  f196000:	0fc63a5a */ 	jal	teamGetIndex
+/*  f196000:	0fc63a5a */ 	jal	radarGetTeamIndex
 /*  f196004:	2415002b */ 	addiu	$s5,$zero,0x2b
 /*  f196008:	3c07800b */ 	lui	$a3,%hi(g_ScenarioData)
 /*  f19600c:	24e7c110 */ 	addiu	$a3,$a3,%lo(g_ScenarioData)
