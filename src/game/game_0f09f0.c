@@ -24,7 +24,7 @@
 #include "game/game_1371b0.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/music.h"
 #include "game/game_16e810.h"
 #include "game/game_179060.h"
@@ -1272,7 +1272,7 @@ glabel var7f1b28c0
 /*  f0f1c08:	11a0000d */ 	beqz	$t5,.L0f0f1c40
 /*  f0f1c0c:	00000000 */ 	nop
 /*  f0f1c10:	afa30034 */ 	sw	$v1,0x34($sp)
-/*  f0f1c14:	0fc5b367 */ 	jal	getDifficulty
+/*  f0f1c14:	0fc5b367 */ 	jal	coreGetDifficulty
 /*  f0f1c18:	afa40038 */ 	sw	$a0,0x38($sp)
 /*  f0f1c1c:	8fa30034 */ 	lw	$v1,0x34($sp)
 /*  f0f1c20:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -8474,7 +8474,7 @@ void func0f0f85e0(struct menudialog *dialog, s32 root)
 	}
 
 	menuPushRootDialog(dialog, root);
-	soloSetPaused(true);
+	coreSetPaused(true);
 	g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;
 }
 
@@ -13618,7 +13618,7 @@ glabel func0f0fce8c
 /*  f0fcf58:	00e02025 */ 	or	$a0,$a3,$zero
 /*  f0fcf5c:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f0fcf60:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f0fcf64:	0fc5b350 */ 	jal	soloSetPaused
+/*  f0fcf64:	0fc5b350 */ 	jal	coreSetPaused
 /*  f0fcf68:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0fcf6c:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0fcf70:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)

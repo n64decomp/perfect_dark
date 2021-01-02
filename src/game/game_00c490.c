@@ -29,7 +29,7 @@
 #include "game/game_157db0.h"
 #include "game/game_1655c0.h"
 #include "game/game_166e40.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/game_17f930.h"
 #include "game/game_19aa80.h"
 #include "game/lang.h"
@@ -1337,7 +1337,7 @@ void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex)
 					case WEAPON_K7AVENGER:
 						// Don't replace the K7 guard's weapon in Investigation
 						// because it would make an objective impossible
-						if (g_Vars.stagenum != STAGE_INVESTIGATION || getDifficulty() != DIFF_PA) {
+						if (g_Vars.stagenum != STAGE_INVESTIGATION || coreGetDifficulty() != DIFF_PA) {
 							weapon->weaponnum = WEAPON_ROCKETLAUNCHER;
 							weapon->base.modelnum = MODEL_CHRDYROCKET;
 							weapon->base.extrascale = 256;
@@ -2295,13 +2295,13 @@ glabel func0f00e980
 /*  f00ea38:	02589821 */ 	addu	$s3,$s2,$t8
 /*  f00ea3c:	52600040 */ 	beqzl	$s3,.L0f00eb40
 /*  f00ea40:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f00ea44:	0fc5b367 */ 	jal	getDifficulty
+/*  f00ea44:	0fc5b367 */ 	jal	coreGetDifficulty
 /*  f00ea48:	24160001 */ 	addiu	$s6,$zero,0x1
 /*  f00ea4c:	14400002 */ 	bnez	$v0,.L0f00ea58
 /*  f00ea50:	00000000 */ 	nop
 /*  f00ea54:	24160003 */ 	addiu	$s6,$zero,0x3
 .L0f00ea58:
-/*  f00ea58:	0fc5b367 */ 	jal	getDifficulty
+/*  f00ea58:	0fc5b367 */ 	jal	coreGetDifficulty
 /*  f00ea5c:	00000000 */ 	nop
 /*  f00ea60:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f00ea64:	14410002 */ 	bne	$v0,$at,.L0f00ea70
@@ -2854,7 +2854,7 @@ void setupParseObjects(s32 stagenum)
 			u32 diffflag = 0;
 			s32 index;
 
-			diffflag |= 1 << (getDifficulty() + 4);
+			diffflag |= 1 << (coreGetDifficulty() + 4);
 
 			if (g_Vars.mplayerisrunning) {
 				if (PLAYERCOUNT() == 2) {
@@ -3309,11 +3309,11 @@ void setupParseObjects(s32 stagenum)
 
 						briefingInsert(briefing);
 
-						if (getDifficulty() == DIFF_A) {
+						if (coreGetDifficulty() == DIFF_A) {
 							wanttype = BRIEFINGTYPE_TEXT_A;
 						}
 
-						if (getDifficulty() == DIFF_SA) {
+						if (coreGetDifficulty() == DIFF_SA) {
 							wanttype = BRIEFINGTYPE_TEXT_SA;
 						}
 

@@ -35,7 +35,7 @@
 #include "game/game_127910.h"
 #include "game/game_1531a0.h"
 #include "game/gfxmemory.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/timing.h"
 #include "game/music.h"
 #include "game/game_175f50.h"
@@ -869,7 +869,7 @@ void mainLoop(void)
 			func0f01b148(0);
 
 			if (func00013010(1, "-hard")) {
-				setDifficulty(func00013010(1, "-hard")[0] - '0');
+				coreSetDifficulty(func00013010(1, "-hard")[0] - '0');
 			}
 		}
 	}
@@ -1035,7 +1035,7 @@ void mainLoop(void)
 		func00013dfc();
 		func00013798();
 		func0f17608c(g_StageNum);
-		func0f167e7c(g_StageNum);
+		coreLoadStage(g_StageNum);
 		func00009c3c(g_StageNum);
 		frametimeCalculate();
 		func00009a90();
@@ -1064,7 +1064,7 @@ void mainLoop(void)
 			}
 		}
 
-		stageLoad();
+		coreUnloadStage();
 		memDisablePool(4);
 		memDisablePool(7);
 		func0f1672f0(4);
@@ -1101,7 +1101,7 @@ void mainTick(void)
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0100, 6, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-			func0f16b96c();
+			coreTick();
 			randomisePlayerOrder();
 
 			if (g_StageNum < STAGE_TITLE) {
@@ -1115,11 +1115,11 @@ void mainTick(void)
 								g_Vars.currentplayer->viewx, g_Vars.currentplayer->viewy);
 					}
 
-					currentPlayerRecordDistanceMoved();
+					coreRecordDistanceMoved();
 				}
 			}
 
-			gdl = renderFrame(gdl);
+			gdl = coreRender(gdl);
 			func000034e0(&gdl);
 
 			if (debug0f11ed70() >= 2) {

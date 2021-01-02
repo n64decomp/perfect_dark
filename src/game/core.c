@@ -84,7 +84,7 @@
 #include "game/game_1531a0.h"
 #include "game/game_157db0.h"
 #include "game/game_165670.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/music.h"
 #include "game/game_16e810.h"
 #include "game/game_176080.h"
@@ -125,17 +125,17 @@ bool var80084014 = false;
 f32 var80084018 = 1;
 u32 var8008401c = 0x00000001;
 
-s32 g_Difficulty = 0;
+s32 g_Difficulty = DIFF_A;
 
-s32 g_StageTimeElapsed = 0;
-s32 g_MpTimeLimit = 36000;
+s32 g_StageTimeElapsed60 = 0;
+s32 g_MpTimeLimit60 = SECSTOTIME60(60 * 10); // 10 minutes
 s32 g_MpScoreLimit = 10;
 s32 g_MpTeamScoreLimit = 20;
 struct audiohandle *g_MiscAudioHandle = NULL;
 s32 g_NumReasonsToEndMpMatch = 0;
-f32 g_StageTimeElapsed60f = 0;
+f32 g_StageTimeElapsed1f = 0;
 bool var80084040 = true;
-u32 g_BoostAndSlayerSounds[] = {0x05c8, 0x8068, 0x01c8};
+u32 g_MiscSfxSounds[] = {0x05c8, 0x8068, 0x01c8};
 s32 var80084050 = 0;
 
 s16 g_FadeNumFrames = 0;
@@ -160,22 +160,22 @@ void func0f167af8(void)
 	g_Vars.unk0004d8 = -1;
 }
 
-void boostAndSlayerSfxStopAll(void)
+void coreStopAllMiscSfx(void)
 {
 	s32 i;
 
-	for (i = 0; i != 3; i++) {
-		g_BoostAndSlayerAudioHandles[i] = NULL;
-		g_BoostAndSlayerActiveTypes[i] = -1;
+	for (i = 0; i != ARRAYCOUNT(g_MiscSfxAudioHandles); i++) {
+		g_MiscSfxAudioHandles[i] = NULL;
+		g_MiscSfxActiveTypes[i] = -1;
 	}
 }
 
-s32 boostAndSlayerSfxGetIndex(u32 type)
+s32 coreGetMiscSfxIndex(u32 type)
 {
 	s32 i;
 
-	for (i = 0; i != 3; i++) {
-		if (g_BoostAndSlayerActiveTypes[i] == type) {
+	for (i = 0; i != ARRAYCOUNT(g_MiscSfxActiveTypes); i++) {
+		if (g_MiscSfxActiveTypes[i] == type) {
 			return i;
 		}
 	}
@@ -183,43 +183,43 @@ s32 boostAndSlayerSfxGetIndex(u32 type)
 	return -1;
 }
 
-void boostAndSlayerSfxSetEnabled(u32 type, bool enable)
+void coreSetMiscSfxState(u32 type, bool play)
 {
-	if (enable) {
-		if (boostAndSlayerSfxGetIndex(type) == -1) {
-			s32 index = boostAndSlayerSfxGetIndex(-1);
+	if (play) {
+		if (coreGetMiscSfxIndex(type) == -1) {
+			s32 index = coreGetMiscSfxIndex(-1);
 
-			if (index != -1 && g_BoostAndSlayerAudioHandles[index] == NULL) {
-				audioStart(var80095200, g_BoostAndSlayerSounds[type], &g_BoostAndSlayerAudioHandles[index], -1, -1, -1, -1, -1);
-				g_BoostAndSlayerActiveTypes[index] = type;
+			if (index != -1 && g_MiscSfxAudioHandles[index] == NULL) {
+				audioStart(var80095200, g_MiscSfxSounds[type], &g_MiscSfxAudioHandles[index], -1, -1, -1, -1, -1);
+				g_MiscSfxActiveTypes[index] = type;
 			}
 		}
 	} else {
 		u32 stack;
-		s32 index = boostAndSlayerSfxGetIndex(type);
+		s32 index = coreGetMiscSfxIndex(type);
 
 		if (index != -1) {
-			audioStop(g_BoostAndSlayerAudioHandles[index]);
-			g_BoostAndSlayerActiveTypes[index] = -1;
+			audioStop(g_MiscSfxAudioHandles[index]);
+			g_MiscSfxActiveTypes[index] = -1;
 		}
 	}
 }
 
-void boostAndSlayerSfxUpdate(void)
+void coreUpdateMiscSfx(void)
 {
 	s32 i;
 
 	if (g_Vars.lvupdate240 == 0) {
-		for (i = 0; i != 3; i++) {
-			boostAndSlayerSfxSetEnabled(i, false);
+		for (i = 0; i != ARRAYCOUNT(g_MiscSfxActiveTypes); i++) {
+			coreSetMiscSfxState(i, false);
 		}
 	} else {
 		bool usingboost = g_Vars.speedpillon
-			&& getEffectiveSlowMotion() == SLOWMOTION_OFF
+			&& coreGetEffectiveSlowMotion() == SLOWMOTION_OFF
 			&& g_Vars.in_cutscene == false;
 		bool usingrocket;
 
-		boostAndSlayerSfxSetEnabled(0, usingboost);
+		coreSetMiscSfxState(MISCSFX_BOOSTHEARTBEAT, usingboost);
 
 		usingrocket = false;
 
@@ -229,8 +229,8 @@ void boostAndSlayerSfxUpdate(void)
 			}
 		}
 
-		boostAndSlayerSfxSetEnabled(1, usingrocket);
-		boostAndSlayerSfxSetEnabled(2, usingrocket);
+		coreSetMiscSfxState(MISCSFX_SLAYERROCKETHUM, usingrocket);
+		coreSetMiscSfxState(MISCSFX_SLAYERROCKETBEEP, usingrocket);
 	}
 
 	if (g_Vars.lvupdate240 == 0 && g_MiscAudioHandle && audioIsPlaying(g_MiscAudioHandle)) {
@@ -238,9 +238,9 @@ void boostAndSlayerSfxUpdate(void)
 	}
 }
 
-void func0f167e7c(s32 stagenum)
+void coreLoadStage(s32 stagenum)
 {
-	fadeCancel();
+	coreCancelFade();
 
 	var80084014 = false;
 	var80084010 = 0;
@@ -265,8 +265,8 @@ void func0f167e7c(s32 stagenum)
 	g_Vars.lvupdate240frealprev = 1.0f;
 	g_Vars.lvupdate240freal = g_Vars.lvupdate240frealprev;
 
-	g_StageTimeElapsed = 0;
-	g_StageTimeElapsed60f = 0;
+	g_StageTimeElapsed60 = 0;
+	g_StageTimeElapsed1f = 0;
 
 	g_Vars.speedpilltime = 0;
 	g_Vars.speedpillchange = 0;
@@ -330,23 +330,23 @@ void func0f167e7c(s32 stagenum)
 			g_MpPlayers[4].base.unk46 = 1;
 		}
 
-		for (i = 0; i != 4; i++) {
+		for (i = 0; i != ARRAYCOUNT(g_Vars.playerstats); i++) {
 			g_Vars.playerstats[i].damagescale = 1;
 			g_Vars.playerstats[i].drawplayercount = 0;
 			g_Vars.playerstats[i].distance = 0;
 			g_Vars.playerstats[i].backshotcount = 0;
 			g_Vars.playerstats[i].armourcount = 0;
-			g_Vars.playerstats[i].fastest2kills = 0x7fffffff;
+			g_Vars.playerstats[i].fastest2kills = S32_MAX;
 			g_Vars.playerstats[i].slowest2kills = 0;
 			g_Vars.playerstats[i].maxkills = 0;
 			g_Vars.playerstats[i].maxsimulkills = 0;
 			g_Vars.playerstats[i].longestlife = 0;
-			g_Vars.playerstats[i].shortestlife = 0x7fffffff;
+			g_Vars.playerstats[i].shortestlife = S32_MAX;
 			g_Vars.playerstats[i].tokenheldtime = 0;
 			g_Vars.playerstats[i].damreceived = 0;
 			g_Vars.playerstats[i].damtransmitted = 0;
 
-			for (j = 0; j != 4; j++) {
+			for (j = 0; j != ARRAYCOUNT(g_Vars.playerstats[i].kills); j++) {
 				g_Vars.playerstats[i].kills[j] = 0;
 			}
 		}
@@ -370,7 +370,7 @@ void func0f167e7c(s32 stagenum)
 	func0f013130();
 	sparksReset();
 	weatherAllocate();
-	boostAndSlayerSfxStopAll();
+	coreStopAllMiscSfx();
 
 	switch (g_Vars.stagenum) {
 	case STAGE_ESCAPE:
@@ -453,13 +453,13 @@ void func0f167e7c(s32 stagenum)
 	func0f011124(false);
 	var80084018 = 1;
 	func00002560();
-	soloSetPaused(0);
+	coreSetPaused(0);
 
 #if PIRACYCHECKS
 	{
 		u32 checksum = 0;
-		s32 *i = (s32 *)&getEffectiveSlowMotion;
-		s32 *end = (s32 *)&func0f16b96c;
+		s32 *i = (s32 *)&coreGetEffectiveSlowMotion;
+		s32 *end = (s32 *)&coreTick;
 
 		while (i < end) {
 			checksum += *i;
@@ -480,7 +480,7 @@ void func0f167e7c(s32 stagenum)
 #endif
 }
 
-void fadeConfigure(u32 color, s16 num_frames)
+void coreConfigureFade(u32 color, s16 num_frames)
 {
 	g_FadeNumFrames = num_frames;
 	g_FadePrevColour = g_FadeColour;
@@ -496,7 +496,7 @@ void fadeConfigure(u32 color, s16 num_frames)
 	g_FadeDelay = 2;
 }
 
-Gfx *fadeRender(Gfx *gdl)
+Gfx *coreRenderFade(Gfx *gdl)
 {
 	u32 colour = g_FadeColour;
 	u32 inset = 0;
@@ -543,12 +543,12 @@ Gfx *fadeRender(Gfx *gdl)
 	return func0f153838(gdl);
 }
 
-bool fadeIsActive(void)
+bool coreIsFadeActive(void)
 {
 	return g_FadeFrac >= 0;
 }
 
-void fadeCancel(void)
+void coreCancelFade(void)
 {
 	g_FadeNumFrames = 0;
 	g_FadeFrac = -1;
@@ -557,7 +557,7 @@ void fadeCancel(void)
 	g_FadeDelay = 0;
 }
 
-bool threatCheckCmpFollow(struct threat *threat, s32 index)
+bool coreCheckCmpFollowThreat(struct threat *threat, s32 index)
 {
 	f32 sp76;
 	f32 sp72;
@@ -642,48 +642,48 @@ bool threatCheckCmpFollow(struct threat *threat, s32 index)
 }
 
 GLOBAL_ASM(
-glabel propFindThreats
+glabel coreFindThreatsForProp
 .late_rodata
 glabel var7f1b7800
-.word propFindThreats+0x124 # f168c70
+.word coreFindThreatsForProp+0x124 # f168c70
 glabel var7f1b7804
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b7808
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b780c
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b7810
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b7814
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b7818
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b781c
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b7820
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b7824
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b7828
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b782c
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b7830
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b7834
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b7838
-.word propFindThreats+0x138 # f168c84
+.word coreFindThreatsForProp+0x138 # f168c84
 glabel var7f1b783c
-.word propFindThreats+0x11c # f168c68
+.word coreFindThreatsForProp+0x11c # f168c68
 glabel var7f1b7840
-.word propFindThreats+0x11c # f168c68
+.word coreFindThreatsForProp+0x11c # f168c68
 glabel var7f1b7844
-.word propFindThreats+0x11c # f168c68
+.word coreFindThreatsForProp+0x11c # f168c68
 glabel var7f1b7848
-.word propFindThreats+0x11c # f168c68
+.word coreFindThreatsForProp+0x11c # f168c68
 glabel var7f1b784c
-.word propFindThreats+0x11c # f168c68
+.word coreFindThreatsForProp+0x11c # f168c68
 .text
 /*  f168b4c:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f168b50:	afb00020 */ 	sw	$s0,0x20($sp)
@@ -932,7 +932,7 @@ glabel var7f1b784c
 /*  f168ed0:	10800004 */ 	beqz	$a0,.L0f168ee4
 /*  f168ed4:	8fb80078 */ 	lw	$t8,0x78($sp)
 /*  f168ed8:	8fa70074 */ 	lw	$a3,0x74($sp)
-/*  f168edc:	0fc5a2d3 */ 	jal	propFindThreats
+/*  f168edc:	0fc5a2d3 */ 	jal	coreFindThreatsForProp
 /*  f168ee0:	afb80010 */ 	sw	$t8,0x10($sp)
 .L0f168ee4:
 /*  f168ee4:	8fb9006c */ 	lw	$t9,0x6c($sp)
@@ -944,7 +944,7 @@ glabel var7f1b784c
 /*  f168efc:	10800004 */ 	beqz	$a0,.L0f168f10
 /*  f168f00:	8faa0078 */ 	lw	$t2,0x78($sp)
 /*  f168f04:	8fa70074 */ 	lw	$a3,0x74($sp)
-/*  f168f08:	0fc5a2d3 */ 	jal	propFindThreats
+/*  f168f08:	0fc5a2d3 */ 	jal	coreFindThreatsForProp
 /*  f168f0c:	afaa0010 */ 	sw	$t2,0x10($sp)
 .L0f168f10:
 /*  f168f10:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -955,7 +955,7 @@ glabel var7f1b784c
 /*  f168f20:	00000000 */ 	nop
 );
 
-//void propFindThreats(struct prop *prop, bool inchild, struct coord *playerpos, bool *activeslots, f32 *distances)
+//void coreFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerpos, bool *activeslots, f32 *distances)
 //{
 //	bool condition = true;
 //	struct defaultobj *obj;
@@ -1084,11 +1084,11 @@ glabel var7f1b784c
 //	}
 //
 //	if (prop->child) {
-//		propFindThreats(prop->child, true, playerpos, activeslots, distances);
+//		coreFindThreatsForProp(prop->child, true, playerpos, activeslots, distances);
 //	}
 //
 //	if (inchild && prop->next) {
-//		propFindThreats(prop->next, inchild, playerpos, activeslots, distances);
+//		coreFindThreatsForProp(prop->next, inchild, playerpos, activeslots, distances);
 //	}
 //}
 
@@ -1332,7 +1332,7 @@ glabel func0f168f24
 //	}
 //}
 
-void func0f1691c0(void)
+void coreFindThreats(void)
 {
 	s32 i;
 	struct prop *prop;
@@ -1355,7 +1355,7 @@ void func0f1691c0(void)
 		propptr--;
 	}
 
-	for (i = 0; i != 4; i++) {
+	for (i = 0; i != ARRAYCOUNT(activeslots); i++) {
 		if (!activeslots[i]) {
 			g_Vars.currentplayer->cmpfollowprops[i].prop = NULL;
 			g_Vars.currentplayer->cmpfollowprops[i].unk04 = -1;
@@ -1369,7 +1369,7 @@ void func0f1691c0(void)
 		prop = *propptr;
 
 		if (prop) {
-			propFindThreats(prop, false, &campos, activeslots, distances);
+			coreFindThreatsForProp(prop, false, &campos, activeslots, distances);
 		}
 
 		propptr--;
@@ -1406,7 +1406,7 @@ void func0f1691c0(void)
  * - random static in the Infiltration intro cutscene
  * - combat boost activation and reverting
  */
-Gfx *renderFrame(Gfx *gdl)
+Gfx *coreRender(Gfx *gdl)
 {
 	gSPSegment(gdl++, 0x00, 0x00000000);
 
@@ -1431,7 +1431,7 @@ Gfx *renderFrame(Gfx *gdl)
 				(viGetViewTop() + viGetViewHeight()) * 4.0f);
 
 		gdl = titleRender(gdl);
-		gdl = fadeRender(gdl);
+		gdl = coreRenderFade(gdl);
 	} else if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
 		gSPClipRatio(gdl++, FRUSTRATIO_2);
 		gSPDisplayList(gdl++, &var800613a0);
@@ -1643,7 +1643,7 @@ Gfx *renderFrame(Gfx *gdl)
 				}
 
 				if (handHasFunctionFlags(g_Vars.currentplayer->hands, FUNCFLAG_00080000)) {
-					func0f1691c0();
+					coreFindThreats();
 				} else if (weaponHasFlag(getCurrentPlayerWeaponId(0), WEAPONFLAG_AIMTRACK)) {
 					s32 j;
 
@@ -1651,12 +1651,12 @@ Gfx *renderFrame(Gfx *gdl)
 							&& g_Vars.currentplayer->lookingatprop.prop
 							&& currentPlayerIsInSightAimMode()) {
 						func0f1a0924(g_Vars.currentplayer->lookingatprop.prop);
-					} else if (threatCheckCmpFollow(&g_Vars.currentplayer->lookingatprop, -1) == 0) {
+					} else if (coreCheckCmpFollowThreat(&g_Vars.currentplayer->lookingatprop, -1) == 0) {
 						g_Vars.currentplayer->lookingatprop.prop = NULL;
 					}
 
-					for (j = 0; j < 4; j++) {
-						if (!threatCheckCmpFollow(&g_Vars.currentplayer->cmpfollowprops[j], j)) {
+					for (j = 0; j < ARRAYCOUNT(g_Vars.currentplayer->cmpfollowprops); j++) {
+						if (!coreCheckCmpFollowThreat(&g_Vars.currentplayer->cmpfollowprops[j], j)) {
 							g_Vars.currentplayer->cmpfollowprops[j].unk04 = -1;
 							g_Vars.currentplayer->cmpfollowprops[j].unk08 = -2;
 						}
@@ -1876,7 +1876,7 @@ Gfx *renderFrame(Gfx *gdl)
 							|| (g_Vars.speedpillwant && !g_Vars.speedpillon)
 							|| (!g_Vars.speedpillwant && g_Vars.speedpillon)) {
 						if (g_Vars.speedpillchange == 30 && !g_Vars.speedpillwant) {
-							audioStart(var80095200, getEffectiveSlowMotion() ? 0x5c9 : 0x2ad, 0, -1, -1, -1, -1, -1);
+							audioStart(var80095200, coreGetEffectiveSlowMotion() ? 0x5c9 : 0x2ad, 0, -1, -1, -1, -1, -1);
 						}
 
 						if (g_Vars.speedpillchange < 15) {
@@ -1982,7 +1982,7 @@ Gfx *renderFrame(Gfx *gdl)
 				}
 
 				gdl = func0f185774(gdl);
-				gdl = fadeRender(gdl);
+				gdl = coreRenderFade(gdl);
 
 				if (g_FrIsValidWeapon) {
 					gdl = frRenderHud(gdl);
@@ -2055,7 +2055,7 @@ Gfx *renderFrame(Gfx *gdl)
 		setNumPlayers(1);
 		titleSetNextMode(TITLEMODE_SKIP);
 		g_MissionConfig.difficulty = DIFF_A;
-		setDifficulty(DIFF_A);
+		coreSetDifficulty(DIFF_A);
 		g_MissionConfig.stageindex = g_Cutscenes[g_Vars.unk0004d4].mission;
 		g_MissionConfig.stagenum = g_Cutscenes[g_Vars.unk0004d4].stage;
 		titleSetNextStage(g_Cutscenes[g_Vars.unk0004d4].stage);
@@ -2083,7 +2083,7 @@ u32 var800840b4 = 0x00000000;
 u32 var800840b8 = 0x00000000;
 u32 var800840bc = 0x00000000;
 
-void updateSoloHandicaps(void)
+void coreUpdateSoloHandicaps(void)
 {
 	if (g_Vars.antiplayernum >= 0) {
 		if (g_Difficulty == DIFF_A) {
@@ -2246,7 +2246,7 @@ s32 sub54321(s32 value)
 	return value - 54321;
 }
 
-void updateCutsceneTime(void)
+void coreUpdateCutsceneTime(void)
 {
 	if (g_Vars.in_cutscene) {
 		g_CutsceneTime240_60 += g_Vars.lvupdate240_60;
@@ -2257,7 +2257,7 @@ void updateCutsceneTime(void)
 }
 
 GLOBAL_ASM(
-glabel getEffectiveSlowMotion
+glabel coreGetEffectiveSlowMotion
 /*  f16b854:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f16b858:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f16b85c:	3c04b000 */ 	lui	$a0,0xb000
@@ -2338,7 +2338,7 @@ glabel getEffectiveSlowMotion
 );
 
 // Can't match the antipiracy part
-//u32 getEffectiveSlowMotion(void)
+//u32 coreGetEffectiveSlowMotion(void)
 //{
 //#if PIRACYCHECKS
 //	u32 addr = sub54321(0xb000de8d);
@@ -2383,12 +2383,12 @@ glabel getEffectiveSlowMotion
 //	return SLOWMOTION_OFF;
 //}
 
-void func0f16b96c(void)
+void coreTick(void)
 {
 	s32 j;
 	s32 i;
 
-	func0f16cce4();
+	coreCheckPauseStateChanged();
 
 	if (g_Vars.unk0004e4) {
 		func0f11c54c();
@@ -2421,7 +2421,7 @@ void func0f16b96c(void)
 		g_Vars.players[j]->hands[HAND_RIGHT].unk0cec = 0;
 	}
 
-	if (soloIsPaused()) {
+	if (coreIsPaused()) {
 		g_Vars.lvupdate240 = 0;
 	} else if (mpIsPaused()) {
 		g_Vars.lvupdate240 = 0;
@@ -2430,7 +2430,7 @@ void func0f16b96c(void)
 			g_Vars.players[j]->joybutinhibit = 0xefffefff;
 		}
 	} else {
-		s32 slowmo = getEffectiveSlowMotion();
+		s32 slowmo = coreGetEffectiveSlowMotion();
 		g_Vars.lvupdate240 = g_Vars.diffframe240;
 
 		if (slowmo == SLOWMOTION_ON) {
@@ -2568,10 +2568,10 @@ void func0f16b96c(void)
 
 	// Handle MP match ending
 	if (g_Vars.normmplayerisrunning && g_Vars.stagenum < STAGE_TITLE) {
-		if (g_MpTimeLimit > 0) {
-			s32 elapsed = g_StageTimeElapsed;
-			s32 nexttime = g_Vars.lvupdate240_60 + g_StageTimeElapsed;
-			s32 warntime = g_MpTimeLimit - 3600;
+		if (g_MpTimeLimit60 > 0) {
+			s32 elapsed = g_StageTimeElapsed60;
+			s32 nexttime = g_Vars.lvupdate240_60 + g_StageTimeElapsed60;
+			s32 warntime = g_MpTimeLimit60 - 3600;
 
 			// Show HUD message at one minute remaining
 			if (elapsed < warntime && nexttime >= warntime) {
@@ -2583,16 +2583,16 @@ void func0f16b96c(void)
 				}
 			}
 
-			if (elapsed < g_MpTimeLimit && nexttime >= g_MpTimeLimit) {
+			if (elapsed < g_MpTimeLimit60 && nexttime >= g_MpTimeLimit60) {
 				// Match is ending due to time limit reached
 				mainEndStage();
 			}
 
 			// Sound alarm at 10 seconds remaining
-			if (nexttime >= g_MpTimeLimit - 600
+			if (nexttime >= g_MpTimeLimit60 - 600
 					&& g_MiscAudioHandle == NULL
-					&& !soloIsPaused()
-					&& nexttime < g_MpTimeLimit) {
+					&& !coreIsPaused()
+					&& nexttime < g_MpTimeLimit60) {
 				func00010718(&g_MiscAudioHandle, 0, 0x7fff, 0x40, 163, 1, 1, -1, 1);
 			}
 		}
@@ -2644,8 +2644,8 @@ void func0f16b96c(void)
 		}
 	}
 
-	g_StageTimeElapsed += g_Vars.lvupdate240_60;
-	g_StageTimeElapsed60f = g_StageTimeElapsed / 60.0f;
+	g_StageTimeElapsed60 += g_Vars.lvupdate240_60;
+	g_StageTimeElapsed1f = g_StageTimeElapsed60 / 60.0f;
 
 	viSetUseZBuf(true);
 
@@ -2673,9 +2673,9 @@ void func0f16b96c(void)
 		func00011d84();
 		func0f01d860();
 	} else {
-		updateCutsceneTime();
+		coreUpdateCutsceneTime();
 		func0f12939c();
-		updateSoloHandicaps();
+		coreUpdateSoloHandicaps();
 		func0f01d8c0();
 		func0f01d990();
 		func0f01dd6c();
@@ -2692,7 +2692,7 @@ void func0f16b96c(void)
 			func0f009eac();
 		}
 
-		boostAndSlayerSfxUpdate();
+		coreUpdateMiscSfx();
 		func0000fe88();
 		pakExecuteDebugOperations();
 		func0f0033b0();
@@ -2729,7 +2729,7 @@ void func0f16b96c(void)
 	}
 }
 
-void currentPlayerRecordDistanceMoved(void)
+void coreRecordDistanceMoved(void)
 {
 	f32 xdiff;
 	f32 zdiff;
@@ -2748,7 +2748,7 @@ void currentPlayerRecordDistanceMoved(void)
 	g_Vars.currentplayerstats->distance += sqrtf(xdiff * xdiff + zdiff * zdiff);
 }
 
-void stageLoad(void)
+void coreUnloadStage(void)
 {
 	func0f11dcb0(1);
 
@@ -2793,7 +2793,7 @@ void stageLoad(void)
 	func0f01bea0();
 }
 
-void func0f16cce4(void)
+void coreCheckPauseStateChanged(void)
 {
 	u32 paused = mpIsPaused();
 
@@ -2808,7 +2808,7 @@ void func0f16cce4(void)
 	var80084010 = paused;
 }
 
-void soloSetPaused(bool paused)
+void coreSetPaused(bool paused)
 {
 	if (paused) {
 		func0f11deb8();
@@ -2821,17 +2821,17 @@ void soloSetPaused(bool paused)
 	var80084014 = paused;
 }
 
-bool soloIsPaused(void)
+bool coreIsPaused(void)
 {
 	return var80084014;
 }
 
-s32 getDifficulty(void)
+s32 coreGetDifficulty(void)
 {
 	return g_Difficulty;
 }
 
-void setDifficulty(s32 difficulty)
+void coreSetDifficulty(s32 difficulty)
 {
 	if (difficulty < DIFF_A || difficulty > DIFF_PD) {
 		difficulty = DIFF_A;
@@ -2840,29 +2840,29 @@ void setDifficulty(s32 difficulty)
 	g_Difficulty = difficulty;
 }
 
-void mpSetTimeLimit(u32 limit)
+void coreSetMpTimeLimit60(u32 limit)
 {
-	g_MpTimeLimit = limit;
+	g_MpTimeLimit60 = limit;
 }
 
-void mpSetScoreLimit(u32 limit)
+void coreSetMpScoreLimit(u32 limit)
 {
 	g_MpScoreLimit = limit;
 }
 
-void mpSetTeamScoreLimit(u32 limit)
+void coreSetMpTeamScoreLimit(u32 limit)
 {
 	g_MpTeamScoreLimit = limit;
 }
 
-f32 getUptime(void)
+f32 coreGetStageTimeInSeconds(void)
 {
-	return g_StageTimeElapsed60f;
+	return g_StageTimeElapsed1f;
 }
 
-u32 mpGetTimeElapsed(void)
+u32 coreGetStageTime60(void)
 {
-	return g_StageTimeElapsed;
+	return g_StageTimeElapsed60;
 }
 
 u32 func0f16ce04(u32 arg0)

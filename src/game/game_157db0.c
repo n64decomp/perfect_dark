@@ -28,7 +28,7 @@
 #include "game/game_165670.h"
 #include "game/game_1668e0.h"
 #include "game/game_166e40.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/game_16e810.h"
 #include "game/game_173a00.h"
 #include "game/wallhit.h"

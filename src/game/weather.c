@@ -13,7 +13,7 @@
 #include "game/weather.h"
 #include "game/game_157db0.h"
 #include "game/game_166e40.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "gvars/gvars.h"
 #include "lib/main.h"
 #include "lib/lib_0e9d0.h"
@@ -499,7 +499,7 @@ glabel var7f1b56f4
 /*  f131b9c:	46083282 */ 	mul.s	$f10,$f6,$f8
 /*  f131ba0:	4600540d */ 	trunc.w.s	$f16,$f10
 /*  f131ba4:	44118000 */ 	mfc1	$s1,$f16
-/*  f131ba8:	0fc5b364 */ 	jal	soloIsPaused
+/*  f131ba8:	0fc5b364 */ 	jal	coreIsPaused
 /*  f131bac:	00000000 */ 	nop
 /*  f131bb0:	10400002 */ 	beqz	$v0,.L0f131bbc
 /*  f131bb4:	00000000 */ 	nop
@@ -968,7 +968,7 @@ const char var7f1b5620[] = "rainspeedxtra";
 //
 //		iVar10 = weather->unk58[i].unk00 * 32767.0f * weather->unk88;
 //
-//		if (soloIsPaused()) {
+//		if (coreIsPaused()) {
 //			 iVar10 = 0;
 //		}
 //

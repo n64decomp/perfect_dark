@@ -51,7 +51,7 @@
 #include "game/game_1655c0.h"
 #include "game/game_165670.h"
 #include "game/gfxmemory.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/game_179060.h"
 #include "game/game_17f930.h"
 #include "game/game_190260.h"
@@ -9832,7 +9832,7 @@ glabel func0f06e87c
 /*  f06e924:	3406ffff */ 	dli	$a2,0xffff
 /*  f06e928:	0fc249af */ 	jal	func0f0926bc
 /*  f06e92c:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f06e930:	0fc5b364 */ 	jal	soloIsPaused
+/*  f06e930:	0fc5b364 */ 	jal	coreIsPaused
 /*  f06e934:	00000000 */ 	nop
 /*  f06e938:	1440001f */ 	bnez	$v0,.L0f06e9b8
 /*  f06e93c:	3c01bf80 */ 	lui	$at,0xbf80
@@ -22814,7 +22814,7 @@ glabel var7f1aa5a8
 .text
 /*  f079f1c:	27bdfe68 */ 	addiu	$sp,$sp,-408
 /*  f079f20:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f079f24:	0fc5b364 */ 	jal	soloIsPaused
+/*  f079f24:	0fc5b364 */ 	jal	coreIsPaused
 /*  f079f28:	afa40198 */ 	sw	$a0,0x198($sp)
 /*  f079f2c:	14400363 */ 	bnez	$v0,.L0f07acbc
 /*  f079f30:	8fae0198 */ 	lw	$t6,0x198($sp)
@@ -28366,7 +28366,7 @@ s32 objTick(struct prop *prop)
 			struct chopperobj *chopper = (struct chopperobj *)obj;
 
 			if (!chopper->dead) {
-				if (!soloIsPaused()) {
+				if (!coreIsPaused()) {
 					if (chopper->attackmode == 3) {
 						// empty
 					} else if (chopper->attackmode == 2) {
@@ -46989,7 +46989,7 @@ glabel var7f1ab19c
 /*  f090714:	8d089900 */ 	lw	$t0,%lo(var80069900)($t0)
 /*  f090718:	15000016 */ 	bnez	$t0,.L0f090774
 /*  f09071c:	00000000 */ 	nop
-/*  f090720:	0fc5b364 */ 	jal	soloIsPaused
+/*  f090720:	0fc5b364 */ 	jal	coreIsPaused
 /*  f090724:	00000000 */ 	nop
 /*  f090728:	14400012 */ 	bnez	$v0,.L0f090774
 /*  f09072c:	24090037 */ 	addiu	$t1,$zero,0x37
@@ -47465,7 +47465,7 @@ void alarmTick(void)
 		default:                 sound = 0x00a3; break;
 		}
 
-		if (!soloIsPaused()) {
+		if (!coreIsPaused()) {
 			if (g_AlarmAudioHandle) {
 				// The sound is currently playing. Cycle between the left/right
 				// speaker for stereo or headphone mode.
@@ -47724,7 +47724,7 @@ glabel var7f1ab214
 /*  f0912e4:	afa40200 */ 	sw	$a0,0x200($sp)
 /*  f0912e8:	afa50204 */ 	sw	$a1,0x204($sp)
 /*  f0912ec:	afa60208 */ 	sw	$a2,0x208($sp)
-/*  f0912f0:	0fc5b364 */ 	jal	soloIsPaused
+/*  f0912f0:	0fc5b364 */ 	jal	coreIsPaused
 /*  f0912f4:	afa7020c */ 	sw	$a3,0x20c($sp)
 /*  f0912f8:	1440029e */ 	bnez	$v0,.L0f091d74
 /*  f0912fc:	8fa30208 */ 	lw	$v1,0x208($sp)

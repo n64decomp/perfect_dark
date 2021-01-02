@@ -16,7 +16,7 @@
 #include "game/game_0dcdb0.h"
 #include "game/game_111600.h"
 #include "game/game_127910.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/training.h"
 #include "game/lang.h"
 #include "game/propobj.h"
@@ -339,7 +339,7 @@ bool objectiveIsAllComplete(void)
 	for (i = 0; i < objectiveGetCount(); i++) {
 		u32 diffbits = objectiveGetDifficultyBits(i);
 
-		if ((1 << getDifficulty() & diffbits) &&
+		if ((1 << coreGetDifficulty() & diffbits) &&
 				objectiveCheck(i) != OBJECTIVE_COMPLETE) {
 			return false;
 		}
@@ -382,7 +382,7 @@ void objectivesCheckAll(void)
 			if (g_ObjectiveStatuses[i] != status) {
 				g_ObjectiveStatuses[i] = status;
 
-				if (objectiveGetDifficultyBits(i) & (1 << getDifficulty())) {
+				if (objectiveGetDifficultyBits(i) & (1 << coreGetDifficulty())) {
 					sprintf(buffer, "%s %d: ", langGet(L_MISC(44)), availableindex + 1); // "Objective"
 
 					if (status == OBJECTIVE_COMPLETE) {
@@ -398,7 +398,7 @@ void objectivesCheckAll(void)
 				}
 			}
 
-			if (objectiveGetDifficultyBits(i) & (1 << getDifficulty())) {
+			if (objectiveGetDifficultyBits(i) & (1 << coreGetDifficulty())) {
 				availableindex++;
 			}
 		}

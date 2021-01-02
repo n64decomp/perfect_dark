@@ -123,8 +123,8 @@
 /*0x0076*/ bool aiSetPadPresetToTargetQuadrant(void);
 /*0x0077*/ bool aiIfDifficultyLessThan(void);
 /*0x0078*/ bool aiIfDifficultyGreaterThan(void);
-/*0x0079*/ bool aiIfUptimeLessThan(void);
-/*0x007a*/ bool aiIfUptimeGreaterThan(void);
+/*0x0079*/ bool aiIfStageTimerLessThan(void);
+/*0x007a*/ bool aiIfStageTimerGreaterThan(void);
 /*0x007b*/ bool aiIfStageIdLessThan(void);
 /*0x007c*/ bool aiIfStageIdGreaterThan(void);
 /*0x007d*/ bool aiIfNumArghsLessThan(void);

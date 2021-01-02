@@ -24,7 +24,7 @@
 #include "game/game_107fb0.h"
 #include "game/game_111600.h"
 #include "game/game_1531a0.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/game_177e00.h"
 #include "game/game_19aa80.h"
 #include "game/training.h"
@@ -687,7 +687,7 @@ s32 menuhandlerAcceptMission(u32 operation, struct menuitem *item, union handler
 			setNumPlayers(1);
 		}
 
-		setDifficulty(g_MissionConfig.difficulty);
+		coreSetDifficulty(g_MissionConfig.difficulty);
 		titleSetNextMode(TITLEMODE_SKIP);
 		mainSetStageNum(g_MissionConfig.stagenum);
 		func00009ec4(1);
@@ -792,7 +792,7 @@ s32 menuhandlerAcceptPdModeSettings(u32 operation, struct menuitem *item, union 
 		g_MissionConfig.pdmodedamagef = func0f1036ac(g_MissionConfig.pdmodedamage, PDMODEPROP_DAMAGE);
 		g_MissionConfig.pdmodeaccuracyf = func0f1036ac(g_MissionConfig.pdmodeaccuracy, PDMODEPROP_ACCURACY);
 		g_MissionConfig.difficulty = DIFF_PA;
-		setDifficulty(g_MissionConfig.difficulty);
+		coreSetDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
 		menuPopDialog();
 		menuPushDialog(&g_ObjectivesMenuDialog);
@@ -1137,7 +1137,7 @@ s32 menuhandlerSoloDifficulty(u32 operation, struct menuitem *item, union handle
 	case MENUOP_SET:
 		g_MissionConfig.pdmode = false;
 		g_MissionConfig.difficulty = item->param;
-		setDifficulty(g_MissionConfig.difficulty);
+		coreSetDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
 		menuPushDialog(&g_ObjectivesMenuDialog);
 		break;
@@ -1497,7 +1497,7 @@ s32 menuhandlerCoopDifficulty(u32 operation, struct menuitem *item, union handle
 	case MENUOP_SET:
 		g_MissionConfig.pdmode = false;
 		g_MissionConfig.difficulty = item->param;
-		setDifficulty(g_MissionConfig.difficulty);
+		coreSetDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
 		menuPushDialog(&g_CoopOptionsMenuDialog);
 		break;
@@ -1534,7 +1534,7 @@ s32 menuhandlerAntiDifficulty(u32 operation, struct menuitem *item, union handle
 	case MENUOP_SET:
 		g_MissionConfig.pdmode = false;
 		g_MissionConfig.difficulty = item->param;
-		setDifficulty(g_MissionConfig.difficulty);
+		coreSetDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
 		menuPushDialog(&g_AntiOptionsMenuDialog);
 	}
@@ -3434,7 +3434,7 @@ char *invMenuTextWeaponDescription(struct menuitem *item)
 
 		if (g_InventoryWeapon == WEAPON_NECKLACE
 				&& g_Vars.stagenum == STAGE_ATTACKSHIP
-				&& getDifficulty() >= DIFF_PA) {
+				&& coreGetDifficulty() >= DIFF_PA) {
 			u8 username[] = {
 				'C' + 9,
 				'D' + 18,
@@ -3900,11 +3900,11 @@ s32 soloMenuDialogPauseStatus(u32 operation, struct menudialog *dialog, union ha
 		s32 wanttype = BRIEFINGTYPE_TEXT_PA;
 		s32 i;
 
-		if (getDifficulty() == DIFF_A) {
+		if (coreGetDifficulty() == DIFF_A) {
 			wanttype = BRIEFINGTYPE_TEXT_A;
 		}
 
-		if (getDifficulty() == DIFF_SA) {
+		if (coreGetDifficulty() == DIFF_SA) {
 			wanttype = BRIEFINGTYPE_TEXT_SA;
 		}
 

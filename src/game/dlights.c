@@ -16,7 +16,7 @@
 #include "game/game_12f6c0.h"
 #include "game/game_157db0.h"
 #include "game/game_166e40.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/game_176080.h"
 #include "game/game_17f930.h"
 #include "game/propobj.h"
@@ -4927,7 +4927,7 @@ glabel func0f005bb0
 /*  f005e5c:	31ae0001 */ 	andi	$t6,$t5,0x1
 /*  f005e60:	11c0003c */ 	beqz	$t6,.L0f005f54
 /*  f005e64:	00000000 */ 	nop
-/*  f005e68:	0fc5b364 */ 	jal	soloIsPaused
+/*  f005e68:	0fc5b364 */ 	jal	coreIsPaused
 /*  f005e6c:	00000000 */ 	nop
 /*  f005e70:	14400038 */ 	bnez	$v0,.L0f005f54
 /*  f005e74:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)

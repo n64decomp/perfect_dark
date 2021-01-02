@@ -26,7 +26,7 @@
 #include "game/bondhead.h"
 #include "game/game_127910.h"
 #include "game/game_157db0.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/game_177e00.h"
 #include "game/mplayer.h"
 #include "game/pdoptions.h"
@@ -1257,7 +1257,7 @@ glabel var7f1ad8e4
 /*  f0c91f4:	8e4c0284 */ 	lw	$t4,0x284($s2)
 /*  f0c91f8:	ad8b0120 */ 	sw	$t3,0x120($t4)
 .L0f0c91fc:
-/*  f0c91fc:	0fc5b364 */ 	jal	soloIsPaused
+/*  f0c91fc:	0fc5b364 */ 	jal	coreIsPaused
 /*  f0c9200:	00000000 */ 	nop
 /*  f0c9204:	54400243 */ 	bnezl	$v0,.L0f0c9b14
 /*  f0c9208:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -2043,7 +2043,7 @@ glabel var7f1ad8e4
 /*  f0c9cec:	8e480284 */ 	lw	$t0,0x284($s2)
 /*  f0c9cf0:	ad190120 */ 	sw	$t9,0x120($t0)
 .L0f0c9cf4:
-/*  f0c9cf4:	0fc5b364 */ 	jal	soloIsPaused
+/*  f0c9cf4:	0fc5b364 */ 	jal	coreIsPaused
 /*  f0c9cf8:	00000000 */ 	nop
 /*  f0c9cfc:	544002ba */ 	bnezl	$v0,.L0f0ca7e8
 /*  f0c9d00:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -4181,7 +4181,7 @@ glabel var7f1ad8e4
 //				}
 //
 //				// 91fc
-//				if (soloIsPaused() == false) {
+//				if (coreIsPaused() == false) {
 //					// 920c
 //					if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) != AIMCONTROL_HOLD) {
 //						for (i = 0; i < numsamples; i++) {
@@ -4502,7 +4502,7 @@ glabel var7f1ad8e4
 //				}
 //
 //				// 9cf4
-//				if (soloIsPaused() == false) {
+//				if (coreIsPaused() == false) {
 //					// 9d04
 //					if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) != AIMCONTROL_HOLD) {
 //						for (i = 0; i < numsamples; i++) {

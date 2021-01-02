@@ -17,7 +17,7 @@
 #include "game/game_1371b0.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/music.h"
 #include "game/lang.h"
 #include "gvars/gvars.h"
@@ -4844,7 +4844,7 @@ glabel var7f1b5948
 /*  f13b494:	ac22a258 */ 	sw	$v0,%lo(g_Vars+0x298)($at)
 /*  f13b498:	3c01800a */ 	lui	$at,%hi(g_Vars+0x29c)
 /*  f13b49c:	ac22a25c */ 	sw	$v0,%lo(g_Vars+0x29c)($at)
-/*  f13b4a0:	0fc5b36a */ 	jal	setDifficulty
+/*  f13b4a0:	0fc5b36a */ 	jal	coreSetDifficulty
 /*  f13b4a4:	00002025 */ 	or	$a0,$zero,$zero
 /*  f13b4a8:	0c0027b1 */ 	jal	func00009ec4
 /*  f13b4ac:	24040001 */ 	addiu	$a0,$zero,0x1

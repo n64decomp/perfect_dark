@@ -42,7 +42,7 @@
 #include "game/game_165670.h"
 #include "game/game_1668e0.h"
 #include "game/gfxmemory.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/music.h"
 #include "game/game_16e810.h"
 #include "game/game_177e00.h"
@@ -2327,7 +2327,7 @@ void currentPlayerChooseBodyAndHead(s32 *bodynum, s32 *headnum, s32 *arg2)
 		return;
 	}
 
-	if (g_Vars.stagenum == STAGE_VILLA && getDifficulty() >= DIFF_PA) {
+	if (g_Vars.stagenum == STAGE_VILLA && coreGetDifficulty() >= DIFF_PA) {
 		outfit = OUTFIT_NEGOTIATOR;
 	}
 
@@ -4221,7 +4221,7 @@ void currentPlayerTickPauseMenu(void)
 
 		if (opened) {
 			struct trainingdata *data = dtGetData();
-			soloSetPaused(true);
+			coreSetPaused(true);
 			g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;
 
 			if ((g_GlobalMenuRoot == MENUROOT_MAINMENU || g_GlobalMenuRoot == MENUROOT_TRAINING)
@@ -4247,7 +4247,7 @@ void currentPlayerTickPauseMenu(void)
 		g_Vars.currentplayer->pausetime60 += g_Vars.diffframe60;
 
 		if (g_Vars.currentplayer->pausetime60 >= 20) {
-			soloSetPaused(false);
+			coreSetPaused(false);
 			g_Vars.currentplayer->pausemode = PAUSEMODE_UNPAUSED;
 			musicResumeAfterUnpause();
 		}
@@ -4267,7 +4267,7 @@ void currentPlayerPause(s32 root)
 void func0f0baf38(void)
 {
 	if (g_Vars.currentplayer->pausemode == PAUSEMODE_PAUSED) {
-		soloSetPaused(false);
+		coreSetPaused(false);
 		musicResumeAfterUnpause();
 		g_Vars.currentplayer->pausemode = PAUSEMODE_UNPAUSED;
 	}
@@ -5835,7 +5835,7 @@ glabel var7f1ad6ac
 /*  f0bdf40:	2411ffd8 */ 	addiu	$s1,$zero,-40
 /*  f0bdf44:	a611024c */ 	sh	$s1,0x24c($s0)
 .L0f0bdf48:
-/*  f0bdf48:	0fc5b364 */ 	jal	soloIsPaused
+/*  f0bdf48:	0fc5b364 */ 	jal	coreIsPaused
 /*  f0bdf4c:	2411ffd8 */ 	addiu	$s1,$zero,-40
 /*  f0bdf50:	50400004 */ 	beqzl	$v0,.L0f0bdf64
 /*  f0bdf54:	8e700284 */ 	lw	$s0,0x284($s3)
@@ -7620,7 +7620,7 @@ glabel var7f1ad6ac
 /*  f0bf960:	8d440070 */ 	lw	$a0,0x70($t2)
 /*  f0bf964:	00028600 */ 	sll	$s0,$v0,0x18
 /*  f0bf968:	00105e03 */ 	sra	$t3,$s0,0x18
-/*  f0bf96c:	0fc5b364 */ 	jal	soloIsPaused
+/*  f0bf96c:	0fc5b364 */ 	jal	coreIsPaused
 /*  f0bf970:	01608025 */ 	or	$s0,$t3,$zero
 /*  f0bf974:	1440002c */ 	bnez	$v0,.L0f0bfa28
 /*  f0bf978:	8fad0330 */ 	lw	$t5,0x330($sp)
@@ -7930,7 +7930,7 @@ glabel var7f1ad6ac
 //	}
 //
 //	// df48
-//	if (soloIsPaused()) {
+//	if (coreIsPaused()) {
 //		func0f0bace0();
 //	}
 //
@@ -8693,7 +8693,7 @@ glabel var7f1ad6ac
 //	if (var8007074c != 0) {
 //		u32 contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
 //
-//		if (soloIsPaused() == false
+//		if (coreIsPaused() == false
 //				&& param_1
 //				&& contGetButtonsPressedThisFrame(contpad1, A_BUTTON | B_BUTTON | Z_TRIG | START_BUTTON | L_TRIG | R_TRIG)) {
 //			var8007074c = 2;

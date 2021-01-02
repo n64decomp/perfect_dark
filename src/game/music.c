@@ -9,7 +9,7 @@
 #include "game/data/data_02a0e0.h"
 #include "game/data/data_02da90.h"
 #include "game/game_0f09f0.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/music.h"
 #include "game/game_176080.h"
 #include "gvars/gvars.h"
@@ -242,7 +242,7 @@ bool musicIsAnyPlayerInAmbientRoom(void)
 		return false;
 	}
 
-	if (soloIsPaused()) {
+	if (coreIsPaused()) {
 		return false;
 	}
 

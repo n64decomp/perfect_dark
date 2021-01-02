@@ -16,7 +16,7 @@
 #include "game/game_0e0770.h"
 #include "game/game_127910.h"
 #include "game/game_1531a0.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/mplayer.h"
 #include "game/pdoptions.h"
 #include "game/propobj.h"
@@ -3445,7 +3445,7 @@ glabel var7f1aded8
 .L0f0df75c:
 /*  f0df75c:	55600038 */ 	bnezl	$t3,.L0f0df840
 /*  f0df760:	9602001c */ 	lhu	$v0,0x1c($s0)
-/*  f0df764:	0fc5b364 */ 	jal	soloIsPaused
+/*  f0df764:	0fc5b364 */ 	jal	coreIsPaused
 /*  f0df768:	00000000 */ 	nop
 /*  f0df76c:	54400034 */ 	bnezl	$v0,.L0f0df840
 /*  f0df770:	9602001c */ 	lhu	$v0,0x1c($s0)

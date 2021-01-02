@@ -19,7 +19,7 @@
 #include "game/game_102240.h"
 #include "game/endscreen.h"
 #include "game/game_127910.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/music.h"
 #include "game/game_177e00.h"
 #include "game/game_179060.h"
@@ -1152,7 +1152,7 @@ glabel var7f1a863c
 /*  f01cdbc:	31a400ff */ 	andi	$a0,$t5,0xff
 /*  f01cdc0:	8e440000 */ 	lw	$a0,0x0($s2)
 /*  f01cdc4:	0004ce42 */ 	srl	$t9,$a0,0x19
-/*  f01cdc8:	0fc5b36a */ 	jal	setDifficulty
+/*  f01cdc8:	0fc5b36a */ 	jal	coreSetDifficulty
 /*  f01cdcc:	03202025 */ 	or	$a0,$t9,$zero
 /*  f01cdd0:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f01cdd4:	24040005 */ 	addiu	$a0,$zero,0x5
@@ -2351,7 +2351,7 @@ glabel var7f1a863c
 //								g_MissionConfig.stageindex++;
 //								g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
 //								titleSetNextStage(g_MissionConfig.stagenum);
-//								setDifficulty(g_MissionConfig.difficulty);
+//								coreSetDifficulty(g_MissionConfig.difficulty);
 //								titleSetNextMode(TITLEMODE_SKIP);
 //								mainSetStageNum(g_MissionConfig.stagenum);
 //							} else {

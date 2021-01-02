@@ -761,8 +761,8 @@ extern u8 *g_VtxBuffers[3];
 extern u8 *g_GfxMemPos;
 extern u8 g_GfxActiveBufferIndex;
 extern u32 g_GfxRequestedDisplayList;
-extern struct audiohandle *g_BoostAndSlayerAudioHandles[3];
-extern s32 g_BoostAndSlayerActiveTypes[3];
+extern struct audiohandle *g_MiscSfxAudioHandles[3];
+extern s32 g_MiscSfxActiveTypes[3];
 extern u32 var800aa5cc;
 extern s32 g_MusicStageNum; // stage number
 extern struct var800aa5d8 var800aa5d8[40];

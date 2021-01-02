@@ -33,7 +33,7 @@
 #include "game/game_157db0.h"
 #include "game/game_1655c0.h"
 #include "game/game_165670.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/game_190260.h"
 #include "game/game_197600.h"
 #include "game/game_1999b0.h"
@@ -2869,14 +2869,14 @@ glabel var7f1a8d44
 /*  f031c60:	10000010 */ 	b	.L0f031ca4
 /*  f031c64:	afa000d4 */ 	sw	$zero,0xd4($sp)
 .L0f031c68:
-/*  f031c68:	0fc5b367 */ 	jal	getDifficulty
+/*  f031c68:	0fc5b367 */ 	jal	coreGetDifficulty
 /*  f031c6c:	00000000 */ 	nop
 /*  f031c70:	14400003 */ 	bnez	$v0,.L0f031c80
 /*  f031c74:	24190002 */ 	addiu	$t9,$zero,0x2
 /*  f031c78:	1000000a */ 	b	.L0f031ca4
 /*  f031c7c:	afb900d4 */ 	sw	$t9,0xd4($sp)
 .L0f031c80:
-/*  f031c80:	0fc5b367 */ 	jal	getDifficulty
+/*  f031c80:	0fc5b367 */ 	jal	coreGetDifficulty
 /*  f031c84:	00000000 */ 	nop
 /*  f031c88:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f031c8c:	14410004 */ 	bne	$v0,$at,.L0f031ca0
@@ -7107,7 +7107,7 @@ glabel var7f1a8d98
 /*  f0359fc:	25f80001 */ 	addiu	$t8,$t7,0x1
 /*  f035a00:	a21802ff */ 	sb	$t8,0x2ff($s0)
 .L0f035a04:
-/*  f035a04:	0fc5b364 */ 	jal	soloIsPaused
+/*  f035a04:	0fc5b364 */ 	jal	coreIsPaused
 /*  f035a08:	00000000 */ 	nop
 /*  f035a0c:	14400005 */ 	bnez	$v0,.L0f035a24
 /*  f035a10:	8fad00f4 */ 	lw	$t5,0xf4($sp)
@@ -18414,7 +18414,7 @@ glabel var7f1a91a0
 /*  f042884:	adac0008 */ 	sw	$t4,0x8($t5)
 /*  f042888:	8e0e0348 */ 	lw	$t6,0x348($s0)
 /*  f04288c:	c4249194 */ 	lwc1	$f4,%lo(var7f1a9194)($at)
-/*  f042890:	0fc5b367 */ 	jal	getDifficulty
+/*  f042890:	0fc5b367 */ 	jal	coreGetDifficulty
 /*  f042894:	e5c4000c */ 	swc1	$f4,0xc($t6)
 /*  f042898:	384f0002 */ 	xori	$t7,$v0,0x2
 /*  f04289c:	2def0001 */ 	sltiu	$t7,$t7,0x1

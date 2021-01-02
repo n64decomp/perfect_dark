@@ -15,7 +15,7 @@
 #include "game/game_0d4690.h"
 #include "game/game_0f09f0.h"
 #include "game/game_107fb0.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/game_177e00.h"
 #include "game/game_19aa80.h"
 #include "game/lang.h"
@@ -258,7 +258,7 @@ char *menutextPauseOrUnpause(s32 arg0)
 
 char *menutextMatchTime(s32 arg0)
 {
-	formatTime(g_StringPointer, mpGetTimeElapsed(), 3);
+	formatTime(g_StringPointer, coreGetStageTime60(), 3);
 	return g_StringPointer;
 }
 

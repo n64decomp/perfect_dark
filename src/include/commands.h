@@ -1112,23 +1112,19 @@
 	label,
 
 /**
- * Checks if the N64 uptime is less than the given value.
- *
- * The units used are not known.
+ * Checks if the stage timer is less than the given number of seconds.
  */
-#define if_uptime_lt(value, label) \
+#define if_stage_timer_lt(seconds, label) \
 	mkshort(0x0079), \
-	mkshort(value), \
+	mkshort(seconds), \
 	label,
 
 /**
- * Checks if the N64 uptime is greater than the given value.
- *
- * The units used are not known.
+ * Checks if the stage timer is greater than the given number of seconds.
  */
-#define if_uptime_gt(value, label) \
+#define if_stage_timer_gt(seconds, label) \
 	mkshort(0x007a), \
-	mkshort(value), \
+	mkshort(seconds), \
 	label,
 
 /**

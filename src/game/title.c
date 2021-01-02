@@ -18,7 +18,7 @@
 #include "game/bondview.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/music.h"
 #include "game/game_1a3340.h"
 #include "game/lang.h"
@@ -1327,7 +1327,7 @@ void titleTickPdLogo(void)
 			g_Vars.coopplayernum = -1;
 			g_Vars.antiplayernum = -1;
 
-			setDifficulty(DIFF_A);
+			coreSetDifficulty(DIFF_A);
 			func00009ec4(true);
 		} else {
 			titleSetNextMode(TITLEMODE_SKIP);
@@ -4458,7 +4458,7 @@ void titleInitSkip(void)
 	g_Vars.coopplayernum = -1;
 	g_Vars.antiplayernum = -1;
 
-	setDifficulty(DIFF_A);
+	coreSetDifficulty(DIFF_A);
 	func00009ec4(true);
 }
 

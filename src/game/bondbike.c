@@ -19,7 +19,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
 #include "game/bondhead.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/pdoptions.h"
 #include "game/propobj.h"
 #include "gvars/gvars.h"
@@ -271,7 +271,7 @@ glabel var7f1adb74
 /*  f0d2738:	14400011 */ 	bnez	$v0,.L0f0d2780
 /*  f0d273c:	8fa70060 */ 	lw	$a3,0x60($sp)
 .L0f0d2740:
-/*  f0d2740:	0fc5b364 */ 	jal	soloIsPaused
+/*  f0d2740:	0fc5b364 */ 	jal	coreIsPaused
 /*  f0d2744:	00000000 */ 	nop
 /*  f0d2748:	1440000d */ 	bnez	$v0,.L0f0d2780
 /*  f0d274c:	8fa70060 */ 	lw	$a3,0x60($sp)
@@ -574,7 +574,7 @@ glabel var7f1adb74
 //				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_14
 //				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_13
 //				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_11)
-//			&& !soloIsPaused()) {
+//			&& !coreIsPaused()) {
 //		data->stepleft = contCountButtonsOnSpecificSamples(0, contnum, L_JPAD | L_CBUTTONS);
 //		data->stepright = contCountButtonsOnSpecificSamples(0, contnum, R_JPAD | R_CBUTTONS);
 //	}

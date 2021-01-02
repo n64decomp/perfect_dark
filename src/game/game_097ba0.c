@@ -33,7 +33,7 @@
 #include "game/smoke.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/game_16e810.h"
 #include "game/game_176080.h"
 #include "game/training.h"
@@ -23284,7 +23284,7 @@ void speedpillAddBoost(s32 amount)
 	}
 
 	if (!g_Vars.speedpillwant) {
-		u32 sound = getEffectiveSlowMotion() ? 0x2ad : 0x5c9;
+		u32 sound = coreGetEffectiveSlowMotion() ? 0x2ad : 0x5c9;
 
 		audioStart(var80095200, sound, 0, -1, -1, -1, -1, -1);
 	}
@@ -23304,7 +23304,7 @@ void speedpillRevert(s32 amount)
 
 void func0f0abba8(void)
 {
-	if (getEffectiveSlowMotion()) {
+	if (coreGetEffectiveSlowMotion()) {
 		speedpillRevert(SECSTOTIME60(20));
 	} else {
 		speedpillAddBoost(SECSTOTIME60(10));
@@ -23313,7 +23313,7 @@ void func0f0abba8(void)
 
 void func0f0abbe8(void)
 {
-	if (getEffectiveSlowMotion()) {
+	if (coreGetEffectiveSlowMotion()) {
 		speedpillAddBoost(SECSTOTIME60(20));
 	} else {
 		speedpillRevert(SECSTOTIME60(10));

@@ -8,7 +8,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "game/game_166e40.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/music.h"
 #include "gvars/gvars.h"
 #include "lib/lib_074f0.h"
@@ -3362,7 +3362,7 @@ glabel func00010e10
 /*    10e7c:	8c460000 */ 	lw	$a2,0x0($v0)
 /*    10e80:	c4323c84 */ 	lwc1	$f18,%lo(var70053c84)($at)
 /*    10e84:	46120000 */ 	add.s	$f0,$f0,$f18
-/*    10e88:	0fc5b364 */ 	jal	soloIsPaused
+/*    10e88:	0fc5b364 */ 	jal	coreIsPaused
 /*    10e8c:	e7a00034 */ 	swc1	$f0,0x34($sp)
 /*    10e90:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*    10e94:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -3601,7 +3601,7 @@ glabel func0001111c
 /*    111d8:	46128102 */ 	mul.s	$f4,$f16,$f18
 /*    111dc:	460c2000 */ 	add.s	$f0,$f4,$f12
 .L000111e0:
-/*    111e0:	0fc5b364 */ 	jal	soloIsPaused
+/*    111e0:	0fc5b364 */ 	jal	coreIsPaused
 /*    111e4:	e7a00034 */ 	swc1	$f0,0x34($sp)
 /*    111e8:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*    111ec:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)

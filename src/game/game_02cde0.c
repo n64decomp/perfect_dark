@@ -14,7 +14,7 @@
 #include "game/game_0601b0.h"
 #include "game/game_096750.h"
 #include "game/game_0b28d0.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/game_1a3340.h"
 #include "game/mplayer.h"
 #include "game/pad.h"
@@ -503,7 +503,7 @@ glabel chrUnpack
 /*  f02d5a4:	304a0020 */ 	andi	$t2,$v0,0x20
 /*  f02d5a8:	51400007 */ 	beqzl	$t2,.L0f02d5c8
 /*  f02d5ac:	304b0040 */ 	andi	$t3,$v0,0x40
-/*  f02d5b0:	0fc5b367 */ 	jal	getDifficulty
+/*  f02d5b0:	0fc5b367 */ 	jal	coreGetDifficulty
 /*  f02d5b4:	00000000 */ 	nop
 /*  f02d5b8:	50400013 */ 	beqzl	$v0,.L0f02d608
 /*  f02d5bc:	3c0dffff */ 	lui	$t5,0xffff
@@ -512,7 +512,7 @@ glabel chrUnpack
 .L0f02d5c8:
 /*  f02d5c8:	51600008 */ 	beqzl	$t3,.L0f02d5ec
 /*  f02d5cc:	304c0080 */ 	andi	$t4,$v0,0x80
-/*  f02d5d0:	0fc5b367 */ 	jal	getDifficulty
+/*  f02d5d0:	0fc5b367 */ 	jal	coreGetDifficulty
 /*  f02d5d4:	00000000 */ 	nop
 /*  f02d5d8:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f02d5dc:	5041000a */ 	beql	$v0,$at,.L0f02d608
@@ -522,7 +522,7 @@ glabel chrUnpack
 .L0f02d5ec:
 /*  f02d5ec:	5180016b */ 	beqzl	$t4,.L0f02db9c
 /*  f02d5f0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f02d5f4:	0fc5b367 */ 	jal	getDifficulty
+/*  f02d5f4:	0fc5b367 */ 	jal	coreGetDifficulty
 /*  f02d5f8:	00000000 */ 	nop
 /*  f02d5fc:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f02d600:	14410165 */ 	bne	$v0,$at,.L0f02db98
@@ -939,8 +939,8 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 #if PIRACYCHECKS
 	{
 		u32 checksum = 0;
-		s32 *ptr = (s32 *)&func0f167e7c;
-		s32 *end = (s32 *)&fadeConfigure;
+		s32 *ptr = (s32 *)&coreLoadStage;
+		s32 *end = (s32 *)&coreConfigureFade;
 
 		while (ptr < end) {
 			checksum <<= 1;

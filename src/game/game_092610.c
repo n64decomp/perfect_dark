@@ -13,7 +13,7 @@
 #include "game/game_096750.h"
 #include "game/game_0dcdb0.h"
 #include "game/game_166e40.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/mplayer.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
@@ -822,7 +822,7 @@ glabel func0f092c04
 /*  f093034:	afa50048 */ 	sw	$a1,0x48($sp)
 .L0f093038:
 /*  f093038:	afa80040 */ 	sw	$t0,0x40($sp)
-/*  f09303c:	0fc5b364 */ 	jal	soloIsPaused
+/*  f09303c:	0fc5b364 */ 	jal	coreIsPaused
 /*  f093040:	e7b2003c */ 	swc1	$f18,0x3c($sp)
 /*  f093044:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f093048:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)

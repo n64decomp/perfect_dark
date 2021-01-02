@@ -37,7 +37,7 @@
 #include "game/game_157db0.h"
 #include "game/game_1655c0.h"
 #include "game/game_165670.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/music.h"
 #include "game/training.h"
 #include "game/gamefile.h"
@@ -2567,7 +2567,7 @@ bool aiIfObjectiveComplete(void)
 
 	if (cmd[2] < objectiveGetCount() &&
 			objectiveCheck(cmd[2]) == OBJECTIVE_COMPLETE &&
-			objectiveGetDifficultyBits(cmd[2]) & (1 << getDifficulty())) {
+			objectiveGetDifficultyBits(cmd[2]) & (1 << coreGetDifficulty())) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2585,7 +2585,7 @@ bool aiIfObjectiveFailed(void)
 
 	if (cmd[2] < objectiveGetCount() &&
 			objectiveCheck(cmd[2]) == OBJECTIVE_FAILED &&
-			objectiveGetDifficultyBits(cmd[2]) & (1 << getDifficulty())) {
+			objectiveGetDifficultyBits(cmd[2]) & (1 << coreGetDifficulty())) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2827,7 +2827,7 @@ bool aiIfDifficultyLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (getDifficulty() < cmd[2]) {
+	if (coreGetDifficulty() < cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2843,7 +2843,7 @@ bool aiIfDifficultyGreaterThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (getDifficulty() > cmd[2]) {
+	if (coreGetDifficulty() > cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2852,18 +2852,16 @@ bool aiIfDifficultyGreaterThan(void)
 	return false;
 }
 
-f32 getUptime(void);
-
 /**
  * @cmd 0079
  */
-bool aiIfUptimeLessThan(void)
+bool aiIfStageTimerLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
-	f32 uptime = getUptime();
+	f32 time = coreGetStageTimeInSeconds();
 
-	if (uptime < target) {
+	if (time < target) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
@@ -2875,13 +2873,13 @@ bool aiIfUptimeLessThan(void)
 /**
  * @cmd 007a
  */
-bool aiIfUptimeGreaterThan(void)
+bool aiIfStageTimerGreaterThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
-	f32 uptime = getUptime();
+	f32 time = coreGetStageTimeInSeconds();
 
-	if (uptime > target) {
+	if (time > target) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
@@ -4248,7 +4246,7 @@ bool aiTryEquipWeapon(void)
 				prop = chrGiveWeapon(g_Vars.chrdata, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);
 				break;
 			case WEAPON_K7AVENGER:
-				if (g_Vars.stagenum == STAGE_INVESTIGATION && getDifficulty() == DIFF_PA) {
+				if (g_Vars.stagenum == STAGE_INVESTIGATION && coreGetDifficulty() == DIFF_PA) {
 					prop = chrGiveWeapon(g_Vars.chrdata, model, cmd[4], flags);
 				} else {
 					prop = chrGiveWeapon(g_Vars.chrdata, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);
@@ -10693,7 +10691,7 @@ bool aiFadeScreen(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 color = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	s16 num_frames = (cmd[7] | (cmd[6] << 8));
-	fadeConfigure(color, num_frames);
+	coreConfigureFade(color, num_frames);
 	g_Vars.aioffset += 8;
 
 	return false;
@@ -10706,7 +10704,7 @@ bool aiIfFadeComplete(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (fadeIsActive() == false) {
+	if (coreIsFadeActive() == false) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;

@@ -22,7 +22,7 @@
 #include "game/game_107fb0.h"
 #include "game/endscreen.h"
 #include "game/game_1655c0.h"
-#include "game/game_167ae0.h"
+#include "game/core.h"
 #include "game/game_177e00.h"
 #include "game/game_19aa80.h"
 #include "game/gamefile.h"
@@ -509,7 +509,7 @@ void endscreenHandleContinue(s32 context)
 							setNumPlayers(1);
 						}
 
-						setDifficulty(g_MissionConfig.difficulty);
+						coreSetDifficulty(g_MissionConfig.difficulty);
 						titleSetNextMode(TITLEMODE_SKIP);
 						mainSetStageNum(g_MissionConfig.stagenum);
 						func00009ec4(true);
@@ -518,7 +518,7 @@ void endscreenHandleContinue(s32 context)
 					// Commit to starting credits
 					g_MissionConfig.stagenum = STAGE_CREDITS;
 					titleSetNextStage(g_MissionConfig.stagenum);
-					setDifficulty(g_MissionConfig.difficulty);
+					coreSetDifficulty(g_MissionConfig.difficulty);
 					titleSetNextMode(TITLEMODE_SKIP);
 					mainSetStageNum(g_MissionConfig.stagenum);
 					func00009ec4(true);
@@ -1325,7 +1325,7 @@ glabel endscreenPrepare
 .L0f10ec84:
 /*  f10ec84:	54610008 */ 	bnel	$v1,$at,.L0f10eca8
 /*  f10ec88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10ec8c:	0fc5b350 */ 	jal	soloSetPaused
+/*  f10ec8c:	0fc5b350 */ 	jal	coreSetPaused
 /*  f10ec90:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f10ec94:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
 /*  f10ec98:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
@@ -1498,7 +1498,7 @@ glabel endscreenPrepare
 //	}
 //
 //	if (g_MenuData.root == MENUROOT_ENDSCREEN) {
-//		soloSetPaused(true);
+//		coreSetPaused(true);
 //		g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;
 //	}
 //}
@@ -1543,7 +1543,7 @@ void soloPushCoopModeEndscreen(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
 
-	soloSetPaused(true);
+	coreSetPaused(true);
 
 	g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 
@@ -1613,7 +1613,7 @@ void soloPushAntiModeEndscreen(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
 
-	soloSetPaused(true);
+	coreSetPaused(true);
 
 	g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 
