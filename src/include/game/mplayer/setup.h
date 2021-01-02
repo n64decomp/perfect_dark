@@ -39,7 +39,7 @@ s32 menuhandler0017bab4(u32 operation, struct menuitem *item, union handlerdata 
 u32 func0f17be2c(void);
 s32 menuhandler0017bfc0(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpHandicapPlayer(u32 operation, struct menuitem *item, union handlerdata *data);
-u32 func0f17c524(void);
+char *mpMenuTextHandicapPlayerName(struct menuitem *item);
 s32 menuhandler0017c6a4(u32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextSimulantDescription(struct menuitem *item);
 s32 menudialog0017ccfc(u32 operation, struct menudialog *dialog, union handlerdata *data);

@@ -3186,35 +3186,20 @@ s32 menuhandlerMpHandicapPlayer(u32 operation, struct menuitem *item, union hand
 	return 0;
 }
 
-const char var7f1b8024[] = "";
+char *mpMenuTextHandicapPlayerName(struct menuitem *item)
+{
+	if (g_MpSetup.chrslots & (1 << item->param)) {
+		return g_MpPlayers[item->param].base.name;
+	}
+
+	return "";
+}
+
 const char var7f1b8028[] = "\n";
 const char var7f1b802c[] = "%s";
 const char var7f1b8030[] = "";
 const char var7f1b8034[] = "";
 const char var7f1b8038[] = "%d:\n";
-
-GLOBAL_ASM(
-glabel func0f17c524
-/*  f17c524:	90830001 */ 	lbu	$v1,0x1($a0)
-/*  f17c528:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x16)
-/*  f17c52c:	95cecb9e */ 	lhu	$t6,%lo(g_MpSetup+0x16)($t6)
-/*  f17c530:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f17c534:	006fc004 */ 	sllv	$t8,$t7,$v1
-/*  f17c538:	01d8c824 */ 	and	$t9,$t6,$t8
-/*  f17c53c:	13200008 */ 	beqz	$t9,.L0f17c560
-/*  f17c540:	3c027f1c */ 	lui	$v0,%hi(var7f1b8024)
-/*  f17c544:	00034080 */ 	sll	$t0,$v1,0x2
-/*  f17c548:	01034021 */ 	addu	$t0,$t0,$v1
-/*  f17c54c:	3c09800b */ 	lui	$t1,%hi(g_MpPlayers)
-/*  f17c550:	2529c7b8 */ 	addiu	$t1,$t1,%lo(g_MpPlayers)
-/*  f17c554:	00084140 */ 	sll	$t0,$t0,0x5
-/*  f17c558:	03e00008 */ 	jr	$ra
-/*  f17c55c:	01091021 */ 	addu	$v0,$t0,$t1
-.L0f17c560:
-/*  f17c560:	24428024 */ 	addiu	$v0,$v0,%lo(var7f1b8024)
-/*  f17c564:	03e00008 */ 	jr	$ra
-/*  f17c568:	00000000 */ 	nop
-);
 
 s32 menuhandlerMpRestoreHandicapDefaults(u32 operation, struct menuitem *item, union handlerdata *data)
 {

@@ -1129,10 +1129,10 @@ struct menudialog menudialog_mplimits = {
 
 // 2b6f8
 struct menuitem menuitems_mpplayerhandicaps[] = {
-	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, (u32)&func0f17c524, 0x000000ff, menuhandlerMpHandicapPlayer },
-	{ MENUITEMTYPE_SLIDER,      1, 0x00020010, (u32)&func0f17c524, 0x000000ff, menuhandlerMpHandicapPlayer },
-	{ MENUITEMTYPE_SLIDER,      2, 0x00020010, (u32)&func0f17c524, 0x000000ff, menuhandlerMpHandicapPlayer },
-	{ MENUITEMTYPE_SLIDER,      3, 0x00020010, (u32)&func0f17c524, 0x000000ff, menuhandlerMpHandicapPlayer },
+	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, (u32)&mpMenuTextHandicapPlayerName, 0x000000ff, menuhandlerMpHandicapPlayer },
+	{ MENUITEMTYPE_SLIDER,      1, 0x00020010, (u32)&mpMenuTextHandicapPlayerName, 0x000000ff, menuhandlerMpHandicapPlayer },
+	{ MENUITEMTYPE_SLIDER,      2, 0x00020010, (u32)&mpMenuTextHandicapPlayerName, 0x000000ff, menuhandlerMpHandicapPlayer },
+	{ MENUITEMTYPE_SLIDER,      3, 0x00020010, (u32)&mpMenuTextHandicapPlayerName, 0x000000ff, menuhandlerMpHandicapPlayer },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060000, L_MPMENU(110), 0x00000000, menuhandlerMpRestoreHandicapDefaults }, // "Restore Defaults"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(111), 0x00000000, NULL }, // "Back"
