@@ -29,7 +29,7 @@
 #include "game/game_129210.h"
 #include "game/explosion.h"
 #include "game/smoke.h"
-#include "game/game_12f6c0.h"
+#include "game/sparks/sparks.h"
 #include "game/game_157db0.h"
 #include "game/game_165670.h"
 #include "game/game_166e40.h"

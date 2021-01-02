@@ -1,5 +1,5 @@
-#ifndef _IN_GAME_GAME_12F6C0_H
-#define _IN_GAME_GAME_12F6C0_H
+#ifndef _IN_GAME_SPARKS_SPARKS_H
+#define _IN_GAME_SPARKS_SPARKS_H
 #include <ultra64.h>
 #include "types.h"
 

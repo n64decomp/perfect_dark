@@ -1,5 +1,5 @@
-#ifndef IN_GAME_SPARKSTICK_H
-#define IN_GAME_SPARKSTICK_H
+#ifndef IN_GAME_SPARKS_TICK_H
+#define IN_GAME_SPARKS_TICK_H
 #include <ultra64.h>
 #include "types.h"
 

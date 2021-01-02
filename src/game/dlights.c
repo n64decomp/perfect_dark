@@ -13,7 +13,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
 #include "game/smoke.h"
-#include "game/game_12f6c0.h"
+#include "game/sparks/sparks.h"
 #include "game/game_157db0.h"
 #include "game/game_166e40.h"
 #include "game/core.h"

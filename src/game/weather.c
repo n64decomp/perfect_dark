@@ -9,7 +9,7 @@
 #include "game/data/data_02da90.h"
 #include "game/dlights.h"
 #include "game/game_0b3350.h"
-#include "game/game_12f6c0.h"
+#include "game/sparks/sparks.h"
 #include "game/weather.h"
 #include "game/game_157db0.h"
 #include "game/game_166e40.h"

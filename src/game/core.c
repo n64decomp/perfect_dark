@@ -29,7 +29,7 @@
 #include "game/game_012450.h"
 #include "game/game_0125a0.h"
 #include "game/game_013010.h"
-#include "game/sparksreset.h"
+#include "game/sparks/init.h"
 #include "game/weatherallocate.h"
 #include "game/game_013540.h"
 #include "game/game_013550.h"
@@ -74,7 +74,7 @@
 #include "game/game_127910.h"
 #include "game/game_129210.h"
 #include "game/explosion.h"
-#include "game/game_12f6c0.h"
+#include "game/sparks/sparks.h"
 #include "game/weather.h"
 #include "game/game_135c70.h"
 #include "game/game_1371b0.h"
@@ -96,7 +96,7 @@
 #include "game/mplayer.h"
 #include "game/pak/pak.h"
 #include "game/propobj.h"
-#include "game/sparkstick.h"
+#include "game/sparks/tick.h"
 #include "game/splat.h"
 #include "game/utils.h"
 #include "game/wallhit.h"
@@ -368,7 +368,7 @@ void coreLoadStage(s32 stagenum)
 	tagsAllocatePtrs();
 	func0f013010();
 	func0f013130();
-	sparksReset();
+	sparksInit();
 	weatherAllocate();
 	coreStopAllMiscSfx();
 

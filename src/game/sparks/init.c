@@ -10,7 +10,7 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-void sparksReset(void)
+void sparksInit(void)
 {
 	s32 i;
 	g_NextSparkIndex = 0;

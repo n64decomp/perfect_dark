@@ -31,7 +31,7 @@
 	build/ROMID/game/game_0125a0.o (section); \
 	build/ROMID/game/game_012d50.o (section); \
 	build/ROMID/game/game_013010.o (section); \
-	build/ROMID/game/sparksreset.o (section); \
+	build/ROMID/game/sparks/init.o (section); \
 	build/ROMID/game/weatherallocate.o (section); \
 	build/ROMID/game/game_013540.o (section); \
 	build/ROMID/game/game_013550.o (section); \
@@ -62,7 +62,7 @@
 	build/ROMID/game/game_01d990.o (section); \
 	build/ROMID/game/game_01d9f0.o (section); \
 	build/ROMID/game/game_01de30.o (section); \
-	build/ROMID/game/sparkstick.o (section); \
+	build/ROMID/game/sparks/tick.o (section); \
 	build/ROMID/game/chr/chr.o (section); \
 	build/ROMID/game/game_02cde0.o (section); \
 	build/ROMID/game/data/data_0083d0.o (section); \
@@ -133,7 +133,7 @@
 	build/ROMID/game/game_129210.o (section); \
 	build/ROMID/game/explosion.o (section); \
 	build/ROMID/game/smoke.o (section); \
-	build/ROMID/game/game_12f6c0.o (section); \
+	build/ROMID/game/sparks/sparks.o (section); \
 	build/ROMID/game/weather.o (section); \
 	build/ROMID/game/game_135c70.o (section); \
 	build/ROMID/game/game_1371b0.o (section); \

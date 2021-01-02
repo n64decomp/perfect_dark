@@ -10,7 +10,7 @@
 #include "game/dlights.h"
 #include "game/chr/chr.h"
 #include "game/game_0b3350.h"
-#include "game/game_12f6c0.h"
+#include "game/sparks/sparks.h"
 #include "game/game_166e40.h"
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
