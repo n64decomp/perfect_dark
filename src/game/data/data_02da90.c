@@ -84,7 +84,7 @@ struct mppreset g_MpPresets[NUM_MPPRESETS] = {
 };
 
 u32 var80087cbc = 0x00000000;
-u32 var80087cc0 = 0x00000001;
+bool g_RadarYIndicatorsEnabled = true;
 
 // 2dce4
 u32 g_TeamColours[] = {
