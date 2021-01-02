@@ -1,5 +1,5 @@
-#ifndef _IN_GAME_SMOKE_H
-#define _IN_GAME_SMOKE_H
+#ifndef _IN_GAME_SMOKE_SMOKE_H
+#define _IN_GAME_SMOKE_SMOKE_H
 #include <ultra64.h>
 #include "types.h"
 

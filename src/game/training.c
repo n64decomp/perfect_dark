@@ -21,7 +21,7 @@
 #include "game/game_0f09f0.h"
 #include "game/game_107fb0.h"
 #include "game/game_111600.h"
-#include "game/explosion.h"
+#include "game/explosions/explosions.h"
 #include "game/game_150820.h"
 #include "game/game_1531a0.h"
 #include "game/game_157db0.h"

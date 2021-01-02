@@ -12,7 +12,7 @@
 #include "lib/lib_09660.h"
 #include "types.h"
 
-void explosionsClearAll(void)
+void explosionsFree(void)
 {
 	s32 i;
 

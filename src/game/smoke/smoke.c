@@ -10,7 +10,7 @@
 #include "game/dlights.h"
 #include "game/game_0601b0.h"
 #include "game/game_0b3350.h"
-#include "game/smoke.h"
+#include "game/smoke/smoke.h"
 #include "game/game_157db0.h"
 #include "game/game_1668e0.h"
 #include "game/game_166e40.h"

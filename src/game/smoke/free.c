@@ -11,7 +11,7 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-void smokeClearAll(void)
+void smokeFree(void)
 {
 	s32 i;
 

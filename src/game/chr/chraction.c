@@ -28,7 +28,7 @@
 #include "game/game_0b63b0.h"
 #include "game/game_111600.h"
 #include "game/game_127910.h"
-#include "game/explosion.h"
+#include "game/explosions/explosions.h"
 #include "game/sparks/sparks.h"
 #include "game/game_157db0.h"
 #include "game/game_1655c0.h"

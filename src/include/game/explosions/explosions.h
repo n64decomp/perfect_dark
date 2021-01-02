@@ -1,5 +1,5 @@
-#ifndef IN_GAME_EXPLOSION_H
-#define IN_GAME_EXPLOSION_H
+#ifndef IN_GAME_EXPLOSIONS_EXPLOSIONS_H
+#define IN_GAME_EXPLOSIONS_EXPLOSIONS_H
 #include <ultra64.h>
 #include "types.h"
 

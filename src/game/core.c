@@ -28,7 +28,8 @@
 #include "game/game_011110.h"
 #include "game/game_012450.h"
 #include "game/game_0125a0.h"
-#include "game/game_013010.h"
+#include "game/explosions/init.h"
+#include "game/smoke/init.h"
 #include "game/sparks/init.h"
 #include "game/weather/init.h"
 #include "game/game_013540.h"
@@ -42,8 +43,8 @@
 #include "game/game_0151f0.h"
 #include "game/game_015260.h"
 #include "game/game_015270.h"
-#include "game/game_015280.h"
-#include "game/game_015330.h"
+#include "game/explosions/free.h"
+#include "game/smoke/free.h"
 #include "game/game_0153f0.h"
 #include "game/game_015400.h"
 #include "game/game_015410.h"
@@ -73,7 +74,7 @@
 #include "game/game_11f000.h"
 #include "game/game_127910.h"
 #include "game/game_129210.h"
-#include "game/explosion.h"
+#include "game/explosions/explosions.h"
 #include "game/sparks/sparks.h"
 #include "game/weather/weather.h"
 #include "game/game_135c70.h"
@@ -366,8 +367,8 @@ void coreLoadStage(s32 stagenum)
 	stageChooseActiveHeads(stagenum);
 	setupParseObjects(stagenum);
 	tagsAllocatePtrs();
-	func0f013010();
-	func0f013130();
+	explosionsInit();
+	smokeInit();
 	sparksInit();
 	weatherInit();
 	coreStopAllMiscSfx();
@@ -2763,8 +2764,8 @@ void coreUnloadStage(void)
 	}
 
 	func0f014f10();
-	explosionsClearAll();
-	smokeClearAll();
+	explosionsFree();
+	smokeFree();
 	func0f015400();
 	func0f015410();
 	func0f015420();

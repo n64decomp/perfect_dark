@@ -7,7 +7,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/smoke.h"
+#include "game/smoke/smoke.h"
 #include "game/game_157db0.h"
 #include "game/propobj.h"
 #include "game/splat.h"
