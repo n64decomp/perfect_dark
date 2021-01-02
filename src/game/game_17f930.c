@@ -25,7 +25,7 @@
 #include "game/game_1531a0.h"
 #include "game/game_179060.h"
 #include "game/game_17f930.h"
-#include "game/game_18e5a0.h"
+#include "game/radar.h"
 #include "game/game_197600.h"
 #include "game/game_19aa80.h"
 #include "game/lang.h"

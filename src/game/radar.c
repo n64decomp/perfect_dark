@@ -15,7 +15,7 @@
 #include "game/game_152fa0.h"
 #include "game/game_1531a0.h"
 #include "game/game_17f930.h"
-#include "game/game_18e5a0.h"
+#include "game/radar.h"
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
@@ -1251,7 +1251,7 @@ glabel radarDrawDot
 );
 
 GLOBAL_ASM(
-glabel func0f18f874
+glabel radarRender
 /*  f18f874:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f18f878:	afb20028 */ 	sw	$s2,0x28($sp)
 /*  f18f87c:	3c12800a */ 	lui	$s2,%hi(g_Vars)

@@ -47,7 +47,7 @@
 #include "game/game_16e810.h"
 #include "game/game_177e00.h"
 #include "game/game_17f930.h"
-#include "game/game_18e5a0.h"
+#include "game/radar.h"
 #include "game/training.h"
 #include "game/game_1a3340.h"
 #include "game/mplayer.h"
@@ -10156,7 +10156,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 			gdl = hudRenderAmmo(gdl);
 		}
 
-		gdl = func0f18f874(gdl);
+		gdl = radarRender(gdl);
 		gdl = hudRenderMessages(gdl);
 		gdl = currentPlayerDrawFade(gdl);
 	} else {

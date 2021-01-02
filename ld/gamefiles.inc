@@ -173,7 +173,7 @@
 	build/ROMID/game/game_17f930.o (section); \
 	build/ROMID/game/mplayer.o (section); \
 	build/ROMID/game/data/data_02da90.o (section); \
-	build/ROMID/game/game_18e5a0.o (section); \
+	build/ROMID/game/radar.o (section); \
 	build/ROMID/game/game_190260.o (section); \
 	build/ROMID/game/game_197600.o (section); \
 	build/ROMID/game/game_1999b0.o (section); \
