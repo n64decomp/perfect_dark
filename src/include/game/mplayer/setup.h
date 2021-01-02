@@ -22,7 +22,7 @@ u32 mpMenuTextMedalHeadShot(void);
 u32 mpMenuTextMedalKillMaster(void);
 u32 mpMenuTextMedalSurvivor(void);
 char *mpMenuTextAmmoUsed(struct menuitem *item);
-u32 mpMenuTextDistance(void);
+char *mpMenuTextDistance(struct menuitem *item);
 u32 mpMenuTextTime(void);
 u32 mpMenuTextAccuracy(void);
 u32 func0f17ad80(void);

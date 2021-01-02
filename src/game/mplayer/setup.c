@@ -1554,48 +1554,11 @@ char *mpMenuTextAmmoUsed(struct menuitem *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel mpMenuTextDistance
-/*  f17aaa0:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17aaa4:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17aaa8:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers+0x6c)
-/*  f17aaac:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f17aab0:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f17aab4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17aab8:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f17aabc:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f17aac0:	8f18c824 */ 	lw	$t8,%lo(g_MpPlayers+0x6c)($t8)
-/*  f17aac4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f17aac8:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17aacc:	44982000 */ 	mtc1	$t8,$f4
-/*  f17aad0:	3c057f1b */ 	lui	$a1,%hi(var7f1b7f34)
-/*  f17aad4:	3c067f1b */ 	lui	$a2,%hi(var7f1b7f40)
-/*  f17aad8:	3c077f1b */ 	lui	$a3,%hi(var7f1b7f44)
-/*  f17aadc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f17aae0:	24e77f44 */ 	addiu	$a3,$a3,%lo(var7f1b7f44)
-/*  f17aae4:	24c67f40 */ 	addiu	$a2,$a2,%lo(var7f1b7f40)
-/*  f17aae8:	24a57f34 */ 	addiu	$a1,$a1,%lo(var7f1b7f34)
-/*  f17aaec:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17aaf0:	07010005 */ 	bgez	$t8,.L0f17ab08
-/*  f17aaf4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f17aaf8:	3c014f80 */ 	lui	$at,0x4f80
-/*  f17aafc:	44814000 */ 	mtc1	$at,$f8
-/*  f17ab00:	00000000 */ 	nop
-/*  f17ab04:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f17ab08:
-/*  f17ab08:	3c014120 */ 	lui	$at,0x4120
-/*  f17ab0c:	44815000 */ 	mtc1	$at,$f10
-/*  f17ab10:	00000000 */ 	nop
-/*  f17ab14:	460a3403 */ 	div.s	$f16,$f6,$f10
-/*  f17ab18:	460084a1 */ 	cvt.d.s	$f18,$f16
-/*  f17ab1c:	0c004dad */ 	jal	sprintf
-/*  f17ab20:	f7b20010 */ 	sdc1	$f18,0x10($sp)
-/*  f17ab24:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f17ab28:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17ab2c:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f17ab30:	03e00008 */ 	jr	$ra
-/*  f17ab34:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+char *mpMenuTextDistance(struct menuitem *item)
+{
+	sprintf(g_StringPointer, "%s%s%.1fkm\n", "", "", g_MpPlayers[g_MpPlayerNum].distance / 10.0f);
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel mpMenuTextTime
@@ -3235,9 +3198,6 @@ glabel var7f1b81a8
 /*  f17c1a0:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-const char var7f1b7f34[] = "%s%s%.1fkm\n";
-const char var7f1b7f40[] = "";
-const char var7f1b7f44[] = "";
 const char var7f1b7f48[] = "--:--\n";
 const char var7f1b7f50[] = "==:==\n";
 const char var7f1b7f58[] = "%d:%02d.%02d";
