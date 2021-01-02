@@ -22,7 +22,7 @@
 #include "game/game_0f09f0.h"
 #include "game/game_102240.h"
 #include "game/game_107fb0.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_1531a0.h"
 #include "game/core.h"
 #include "game/mplayer/ingame.h"
@@ -3660,18 +3660,18 @@ glabel var7f1b2e84
 /*  f1061a0:	8c2e2e48 */ 	lw	$t6,%lo(var7f1b2e48)($at)
 /*  f1061a4:	01c00008 */ 	jr	$t6
 /*  f1061a8:	00000000 */ 	nop
-/*  f1061ac:	0fc44a54 */ 	jal	currentPlayerGetNumInvItems
+/*  f1061ac:	0fc44a54 */ 	jal	invGetCount
 /*  f1061b0:	00000000 */ 	nop
 /*  f1061b4:	8faf0028 */ 	lw	$t7,0x28($sp)
 /*  f1061b8:	10000071 */ 	b	.L0f106380
 /*  f1061bc:	ade20000 */ 	sw	$v0,0x0($t7)
 /*  f1061c0:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*  f1061c4:	0fc44b7f */ 	jal	currentPlayerGetInvNameByIndex
+/*  f1061c4:	0fc44b7f */ 	jal	invGetNameByIndex
 /*  f1061c8:	8f040000 */ 	lw	$a0,0x0($t8)
 /*  f1061cc:	1000006e */ 	b	.L0f106388
 /*  f1061d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f1061d4:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f1061d8:	0fc44b11 */ 	jal	currentPlayerGetWeaponNumByInvIndex
+/*  f1061d8:	0fc44b11 */ 	jal	invGetWeaponNumByIndex
 /*  f1061dc:	8f240000 */ 	lw	$a0,0x0($t9)
 /*  f1061e0:	24080001 */ 	addiu	$t0,$zero,0x1
 /*  f1061e4:	afa2001c */ 	sw	$v0,0x1c($sp)
@@ -3703,10 +3703,10 @@ glabel var7f1b2e84
 /*  f106240:	8fac0028 */ 	lw	$t4,0x28($sp)
 /*  f106244:	51600016 */ 	beqzl	$t3,.L0f1062a0
 /*  f106248:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*  f10624c:	0fc44bd8 */ 	jal	currentPlayerSetEquipCurItem
+/*  f10624c:	0fc44bd8 */ 	jal	invSetCurrentIndex
 /*  f106250:	8d840000 */ 	lw	$a0,0x0($t4)
 /*  f106254:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f106258:	0fc4473e */ 	jal	func0f111cf8
+/*  f106258:	0fc4473e */ 	jal	invHasDoubleWeaponIncAllGuns
 /*  f10625c:	00802825 */ 	or	$a1,$a0,$zero
 /*  f106260:	10400009 */ 	beqz	$v0,.L0f106288
 /*  f106264:	00002025 */ 	or	$a0,$zero,$zero
@@ -3730,13 +3730,13 @@ glabel var7f1b2e84
 /*  f1062a4:	8dae0000 */ 	lw	$t6,0x0($t5)
 /*  f1062a8:	10000035 */ 	b	.L0f106380
 /*  f1062ac:	ac2e11f0 */ 	sw	$t6,%lo(var800711f0)($at)
-/*  f1062b0:	0fc44bd4 */ 	jal	currentPlayerGetEquipCurItem
+/*  f1062b0:	0fc44bd4 */ 	jal	invGetCurrentIndex
 /*  f1062b4:	00000000 */ 	nop
 /*  f1062b8:	8faf0028 */ 	lw	$t7,0x28($sp)
 /*  f1062bc:	10000030 */ 	b	.L0f106380
 /*  f1062c0:	ade20000 */ 	sw	$v0,0x0($t7)
 /*  f1062c4:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*  f1062c8:	0fc44b11 */ 	jal	currentPlayerGetWeaponNumByInvIndex
+/*  f1062c8:	0fc44b11 */ 	jal	invGetWeaponNumByIndex
 /*  f1062cc:	8f040000 */ 	lw	$a0,0x0($t8)
 /*  f1062d0:	1040002b */ 	beqz	$v0,.L0f106380
 /*  f1062d4:	00402025 */ 	or	$a0,$v0,$zero
@@ -3748,7 +3748,7 @@ glabel var7f1b2e84
 /*  f1062ec:	10000024 */ 	b	.L0f106380
 /*  f1062f0:	af220004 */ 	sw	$v0,0x4($t9)
 /*  f1062f4:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*  f1062f8:	0fc44b11 */ 	jal	currentPlayerGetWeaponNumByInvIndex
+/*  f1062f8:	0fc44b11 */ 	jal	invGetWeaponNumByIndex
 /*  f1062fc:	8d040000 */ 	lw	$a0,0x0($t0)
 /*  f106300:	3c03800a */ 	lui	$v1,%hi(g_InventoryWeapon)
 /*  f106304:	246321c0 */ 	addiu	$v1,$v1,%lo(g_InventoryWeapon)

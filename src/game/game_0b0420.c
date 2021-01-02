@@ -8,7 +8,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/data/inventory.h"
+#include "game/inventory/items.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b0420.h"
 #include "game/game_0b63b0.h"
@@ -954,7 +954,7 @@ struct inventory_ammo *weaponGetAmmoByFunction(u32 weaponnum, u32 funcnum)
 
 void currentPlayerGetWeaponSway(struct coord *sway)
 {
-	struct weapon *weapon = weaponFindById(getCurrentPlayerWeaponId(0));
+	struct weapon *weapon = weaponFindById(handGetWeaponNum(HAND_RIGHT));
 
 	if (weapon) {
 		sway->x = weapon->leftright;
@@ -965,7 +965,7 @@ void currentPlayerGetWeaponSway(struct coord *sway)
 
 void currentPlayerSetWeaponSway(struct coord *sway)
 {
-	struct weapon *weapon = weaponFindById(getCurrentPlayerWeaponId(0));
+	struct weapon *weapon = weaponFindById(handGetWeaponNum(HAND_RIGHT));
 
 	if (weapon) {
 		weapon->leftright = sway->x;

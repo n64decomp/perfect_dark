@@ -16,7 +16,7 @@
 #include "game/game_0e0770.h"
 #include "game/game_0f09f0.h"
 #include "game/game_102240.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
 #include "game/game_16e810.h"
@@ -45,17 +45,17 @@ s32 frDetailsOkMenuHandler(u32 operation, struct menuitem *item, union handlerda
 			s32 weapon = frGetWeaponBySlot(frGetSlot());
 
 			if (g_FrWeaponNum != WEAPON_UNARMED) {
-				currentPlayerRemoveWeapon(g_FrWeaponNum);
+				invRemoveItemByNum(g_FrWeaponNum);
 			}
 
 			if (weapon != WEAPON_UNARMED) {
-				currentPlayerGiveWeapon(weapon);
+				invGiveSingleWeapon(weapon);
 			}
 
-			currentPlayerSetEquipCurItem(1);
+			invSetCurrentIndex(1);
 
-			if (getCurrentPlayerWeaponId(0) != weapon) {
-				currentPlayerEquipWeaponWrapper(0, weapon);
+			if (handGetWeaponNum(HAND_RIGHT) != weapon) {
+				currentPlayerEquipWeaponWrapper(HAND_RIGHT, weapon);
 			}
 
 			g_FrWeaponNum = weapon;

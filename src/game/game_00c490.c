@@ -15,7 +15,7 @@
 #include "game/game_00c490.h"
 #include "game/game_0109d0.h"
 #include "game/game_011110.h"
-#include "game/game_012450.h"
+#include "game/inventory/init.h"
 #include "game/game_0125a0.h"
 #include "game/game_012d50.h"
 #include "game/game_0147d0.h"
@@ -24,7 +24,7 @@
 #include "game/game_0601b0.h"
 #include "game/game_091e10.h"
 #include "game/game_096750.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/game_157db0.h"
 #include "game/game_1655c0.h"
@@ -2847,7 +2847,7 @@ void setupParseObjects(s32 stagenum)
 
 		for (j = 0; j < PLAYERCOUNT(); j++) {
 			setCurrentPlayerNum(j);
-			func0f012530(setupCountCommandType(OBJTYPE_LINKGUNS));
+			invInit(setupCountCommandType(OBJTYPE_LINKGUNS));
 		}
 
 		if (g_StageSetup.props) {
@@ -3299,7 +3299,7 @@ void setupParseObjects(s32 stagenum)
 							targetobj->hidden |= OBJHFLAG_HASTEXTOVERRIDE;
 						}
 
-						textoverrideInsert(override);
+						invInsertTextOverride(override);
 					}
 					break;
 				case OBJTYPE_BRIEFING:

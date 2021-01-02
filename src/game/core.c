@@ -26,7 +26,7 @@
 #include "game/game_0109d0.h"
 #include "game/game_010b20.h"
 #include "game/game_011110.h"
-#include "game/game_012450.h"
+#include "game/inventory/init.h"
 #include "game/game_0125a0.h"
 #include "game/explosions/init.h"
 #include "game/smoke/init.h"
@@ -414,7 +414,7 @@ void coreLoadStage(s32 stagenum)
 
 			menuInit();
 			amInit();
-			currentPlayerInitGunsHeld();
+			invInitGunsHeld();
 			func0f010bb0();
 			func0f0b77cc();
 			currentPlayerInit();
@@ -1606,7 +1606,7 @@ Gfx *coreRender(Gfx *gdl)
 				if (PLAYERCOUNT() == 1
 						|| g_Vars.coopplayernum >= 0
 						|| g_Vars.antiplayernum >= 0
-						|| (weaponHasFlag(getCurrentPlayerWeaponId(0), WEAPONFLAG_AIMTRACK) && currentPlayerIsInSightAimMode())) {
+						|| (weaponHasFlag(handGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK) && currentPlayerIsInSightAimMode())) {
 					g_Vars.currentplayer->lookingatprop.prop = func0f061d54(0, 0, 0);
 
 					if (g_Vars.currentplayer->lookingatprop.prop) {
@@ -1645,7 +1645,7 @@ Gfx *coreRender(Gfx *gdl)
 
 				if (handHasFunctionFlags(g_Vars.currentplayer->hands, FUNCFLAG_00080000)) {
 					coreFindThreats();
-				} else if (weaponHasFlag(getCurrentPlayerWeaponId(0), WEAPONFLAG_AIMTRACK)) {
+				} else if (weaponHasFlag(handGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK)) {
 					s32 j;
 
 					if (frIsInTraining()

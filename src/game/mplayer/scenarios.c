@@ -20,7 +20,7 @@
 #include "game/game_0d4690.h"
 #include "game/game_0dcdb0.h"
 #include "game/game_0f09f0.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/game_1531a0.h"
 #include "game/mplayer/setup.h"
@@ -545,7 +545,7 @@ void scenarioHtbCallback10(void)
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			setCurrentPlayerNum(i);
 
-			if (currentPlayerHasBriefcase()) {
+			if (invHasBriefcase()) {
 				g_ScenarioData.htb.token = g_Vars.currentplayer->prop;
 				break;
 			}
@@ -596,7 +596,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 			chr->aibot->unk0a0 = 0;
 		}
 	} else {
-		if (currentPlayerHasBriefcase()) {
+		if (invHasBriefcase()) {
 			g_Vars.currentplayerstats->tokenheldtime += g_Vars.lvupdate240;
 
 			if (g_Vars.currentplayerstats->tokenheldtime >= SECSTOTIME240(30)) {
@@ -617,7 +617,7 @@ glabel scenarioHtbCallback18
 /*  f18079c:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f1807a0:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f1807a4:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f1807a8:	0fc44a11 */ 	jal	currentPlayerHasBriefcase
+/*  f1807a8:	0fc44a11 */ 	jal	invHasBriefcase
 /*  f1807ac:	00808025 */ 	or	$s0,$a0,$zero
 /*  f1807b0:	50400067 */ 	beqzl	$v0,.L0f180950
 /*  f1807b4:	8fbf003c */ 	lw	$ra,0x3c($sp)
@@ -3027,7 +3027,7 @@ void scenarioHtmCallback10(void)
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			setCurrentPlayerNum(i);
 
-			if (currentPlayerHasDataUplink()) {
+			if (invHasDataUplink()) {
 				g_ScenarioData.htm.uplink = g_Vars.currentplayer->prop;
 				break;
 			}
@@ -3080,12 +3080,12 @@ glabel var7f1b8960
 /*  f1833c0:	1000000d */ 	b	.L0f1833f8
 /*  f1833c4:	00409025 */ 	or	$s2,$v0,$zero
 .L0f1833c8:
-/*  f1833c8:	0fc44a21 */ 	jal	currentPlayerHasDataUplink
+/*  f1833c8:	0fc44a21 */ 	jal	invHasDataUplink
 /*  f1833cc:	00000000 */ 	nop
 /*  f1833d0:	0002202b */ 	sltu	$a0,$zero,$v0
 /*  f1833d4:	10800005 */ 	beqz	$a0,.L0f1833ec
 /*  f1833d8:	00000000 */ 	nop
-/*  f1833dc:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
+/*  f1833dc:	0fc2866a */ 	jal	handGetWeaponNum
 /*  f1833e0:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1833e4:	38440036 */ 	xori	$a0,$v0,0x36
 /*  f1833e8:	2c840001 */ 	sltiu	$a0,$a0,0x1
@@ -3252,7 +3252,7 @@ glabel var7f1b8960
 /*  f183648:	8c5000bc */ 	lw	$s0,0xbc($v0)
 /*  f18364c:	c4460144 */ 	lwc1	$f6,0x144($v0)
 /*  f183650:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f183654:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
+/*  f183654:	0fc2866a */ 	jal	handGetWeaponNum
 /*  f183658:	e7a60098 */ 	swc1	$f6,0x98($sp)
 /*  f18365c:	38430036 */ 	xori	$v1,$v0,0x36
 /*  f183660:	2c630001 */ 	sltiu	$v1,$v1,0x1

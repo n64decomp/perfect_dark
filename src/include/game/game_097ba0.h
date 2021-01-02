@@ -89,7 +89,7 @@ u32 func0f0a1318(void);
 u32 func0f0a134c(void);
 u32 func0f0a1528(void);
 void currentPlayerEquipWeapon(s32 weaponnum);
-s32 getCurrentPlayerWeaponId(s32 handnum);
+s32 handGetWeaponNum(s32 handnum);
 bool func0f0a1a10(s32 weaponnum);
 s32 func0f0a1a68(s32 arg0);
 void func0f0a1ab0(void);

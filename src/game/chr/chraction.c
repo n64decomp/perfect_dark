@@ -26,7 +26,7 @@
 #include "game/game_0b28d0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/explosions/explosions.h"
 #include "game/sparks/sparks.h"
@@ -2844,7 +2844,7 @@ glabel var7f1a8d44
 /*  f031bfc:	24850008 */ 	addiu	$a1,$a0,0x8
 /*  f031c00:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f031c04:	24860028 */ 	addiu	$a2,$a0,0x28
-/*  f031c08:	0fc447a9 */ 	jal	currentPlayerRemoveWeapon
+/*  f031c08:	0fc447a9 */ 	jal	invRemoveItemByNum
 /*  f031c0c:	2404002e */ 	addiu	$a0,$zero,0x2e
 /*  f031c10:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f031c14:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)

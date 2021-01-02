@@ -2,7 +2,7 @@
 #include "game/chr/chraicommands.h"
 #include "game/game_000000.h"
 #include "game/game_0601b0.h"
-#include "game/data/inventory.h"
+#include "game/inventory/items.h"
 #include "stagesetup.h"
 #include "types.h"
 

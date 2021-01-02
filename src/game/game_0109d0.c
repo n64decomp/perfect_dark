@@ -7,7 +7,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/data/inventory.h"
+#include "game/inventory/items.h"
 #include "gvars/gvars.h"
 #include "lib/main.h"
 #include "types.h"

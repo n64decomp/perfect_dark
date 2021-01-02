@@ -10,7 +10,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/data/inventory.h"
+#include "game/inventory/items.h"
 #include "game/game_011110.h"
 #include "game/chr/chr.h"
 #include "game/game_02cde0.h"
@@ -18,7 +18,7 @@
 #include "game/game_091e10.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b63b0.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_1655c0.h"
 #include "game/mplayer/scenarios.h"
 #include "game/mplayer/mplayer.h"
@@ -620,12 +620,12 @@ glabel var7f1a827c
 /*  f011ac0:	0fc04558 */ 	jal	weaponLoadProjectileModels
 /*  f011ac4:	00000000 */ 	nop
 /*  f011ac8:	8e040004 */ 	lw	$a0,0x4($s0)
-/*  f011acc:	0fc4478a */ 	jal	currentPlayerGiveWeaponWithArgument
+/*  f011acc:	0fc4478a */ 	jal	invGiveDoubleWeapon
 /*  f011ad0:	8e050008 */ 	lw	$a1,0x8($s0)
 /*  f011ad4:	10000004 */ 	b	.L0f011ae8
 /*  f011ad8:	8fb80080 */ 	lw	$t8,0x80($sp)
 .L0f011adc:
-/*  f011adc:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011adc:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011ae0:	8e040004 */ 	lw	$a0,0x4($s0)
 /*  f011ae4:	8fb80080 */ 	lw	$t8,0x80($sp)
 .L0f011ae8:
@@ -747,13 +747,13 @@ glabel var7f1a827c
 /*  f011c90:	5441ff65 */ 	bnel	$v0,$at,.L0f011a28
 /*  f011c94:	2c41000c */ 	sltiu	$at,$v0,0xc
 .L0f011c98:
-/*  f011c98:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011c98:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011c9c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f011ca0:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011ca4:	24040008 */ 	addiu	$a0,$zero,0x8
 /*  f011ca8:	10400006 */ 	beqz	$v0,.L0f011cc4
 /*  f011cac:	00000000 */ 	nop
-/*  f011cb0:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011cb0:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011cb4:	24040009 */ 	addiu	$a0,$zero,0x9
 /*  f011cb8:	2404000a */ 	addiu	$a0,$zero,0xa
 /*  f011cbc:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -763,7 +763,7 @@ glabel var7f1a827c
 /*  f011cc8:	24040009 */ 	addiu	$a0,$zero,0x9
 /*  f011ccc:	10400006 */ 	beqz	$v0,.L0f011ce8
 /*  f011cd0:	00000000 */ 	nop
-/*  f011cd4:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011cd4:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011cd8:	24040016 */ 	addiu	$a0,$zero,0x16
 /*  f011cdc:	24040006 */ 	addiu	$a0,$zero,0x6
 /*  f011ce0:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -773,7 +773,7 @@ glabel var7f1a827c
 /*  f011cec:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f011cf0:	10400006 */ 	beqz	$v0,.L0f011d0c
 /*  f011cf4:	00000000 */ 	nop
-/*  f011cf8:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011cf8:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011cfc:	24040031 */ 	addiu	$a0,$zero,0x31
 /*  f011d00:	24040014 */ 	addiu	$a0,$zero,0x14
 /*  f011d04:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -783,21 +783,21 @@ glabel var7f1a827c
 /*  f011d10:	24040015 */ 	addiu	$a0,$zero,0x15
 /*  f011d14:	10400003 */ 	beqz	$v0,.L0f011d24
 /*  f011d18:	00000000 */ 	nop
-/*  f011d1c:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011d1c:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011d20:	2404002d */ 	addiu	$a0,$zero,0x2d
 .L0f011d24:
 /*  f011d24:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011d28:	2404001a */ 	addiu	$a0,$zero,0x1a
 /*  f011d2c:	10400003 */ 	beqz	$v0,.L0f011d3c
 /*  f011d30:	00000000 */ 	nop
-/*  f011d34:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011d34:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011d38:	24040037 */ 	addiu	$a0,$zero,0x37
 .L0f011d3c:
 /*  f011d3c:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011d40:	2404001b */ 	addiu	$a0,$zero,0x1b
 /*  f011d44:	10400006 */ 	beqz	$v0,.L0f011d60
 /*  f011d48:	00000000 */ 	nop
-/*  f011d4c:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011d4c:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011d50:	24040018 */ 	addiu	$a0,$zero,0x18
 /*  f011d54:	24040008 */ 	addiu	$a0,$zero,0x8
 /*  f011d58:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -807,7 +807,7 @@ glabel var7f1a827c
 /*  f011d64:	2404001c */ 	addiu	$a0,$zero,0x1c
 /*  f011d68:	10400006 */ 	beqz	$v0,.L0f011d84
 /*  f011d6c:	00000000 */ 	nop
-/*  f011d70:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011d70:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011d74:	24040015 */ 	addiu	$a0,$zero,0x15
 /*  f011d78:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f011d7c:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -817,14 +817,14 @@ glabel var7f1a827c
 /*  f011d88:	2404001d */ 	addiu	$a0,$zero,0x1d
 /*  f011d8c:	10400003 */ 	beqz	$v0,.L0f011d9c
 /*  f011d90:	00000000 */ 	nop
-/*  f011d94:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011d94:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011d98:	2404002f */ 	addiu	$a0,$zero,0x2f
 .L0f011d9c:
 /*  f011d9c:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011da0:	2404001e */ 	addiu	$a0,$zero,0x1e
 /*  f011da4:	10400009 */ 	beqz	$v0,.L0f011dcc
 /*  f011da8:	00000000 */ 	nop
-/*  f011dac:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011dac:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011db0:	24040012 */ 	addiu	$a0,$zero,0x12
 /*  f011db4:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f011db8:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -837,7 +837,7 @@ glabel var7f1a827c
 /*  f011dd0:	2404001f */ 	addiu	$a0,$zero,0x1f
 /*  f011dd4:	10400006 */ 	beqz	$v0,.L0f011df0
 /*  f011dd8:	00000000 */ 	nop
-/*  f011ddc:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011ddc:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011de0:	2404000e */ 	addiu	$a0,$zero,0xe
 /*  f011de4:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f011de8:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -847,7 +847,7 @@ glabel var7f1a827c
 /*  f011df4:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f011df8:	10400006 */ 	beqz	$v0,.L0f011e14
 /*  f011dfc:	00000000 */ 	nop
-/*  f011e00:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011e00:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011e04:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f011e08:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f011e0c:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -868,14 +868,14 @@ glabel var7f1a827c
 /*  f011e40:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f011e44:	10400003 */ 	beqz	$v0,.L0f011e54
 /*  f011e48:	00000000 */ 	nop
-/*  f011e4c:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011e4c:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011e50:	2404002c */ 	addiu	$a0,$zero,0x2c
 .L0f011e54:
 /*  f011e54:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011e58:	24040022 */ 	addiu	$a0,$zero,0x22
 /*  f011e5c:	10400006 */ 	beqz	$v0,.L0f011e78
 /*  f011e60:	00000000 */ 	nop
-/*  f011e64:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011e64:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011e68:	24040024 */ 	addiu	$a0,$zero,0x24
 /*  f011e6c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f011e70:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -885,7 +885,7 @@ glabel var7f1a827c
 /*  f011e7c:	24040023 */ 	addiu	$a0,$zero,0x23
 /*  f011e80:	10400006 */ 	beqz	$v0,.L0f011e9c
 /*  f011e84:	00000000 */ 	nop
-/*  f011e88:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011e88:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011e8c:	24040025 */ 	addiu	$a0,$zero,0x25
 /*  f011e90:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f011e94:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -895,7 +895,7 @@ glabel var7f1a827c
 /*  f011ea0:	24040024 */ 	addiu	$a0,$zero,0x24
 /*  f011ea4:	10400006 */ 	beqz	$v0,.L0f011ec0
 /*  f011ea8:	00000000 */ 	nop
-/*  f011eac:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011eac:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011eb0:	24040026 */ 	addiu	$a0,$zero,0x26
 /*  f011eb4:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f011eb8:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -905,7 +905,7 @@ glabel var7f1a827c
 /*  f011ec4:	24040025 */ 	addiu	$a0,$zero,0x25
 /*  f011ec8:	10400006 */ 	beqz	$v0,.L0f011ee4
 /*  f011ecc:	00000000 */ 	nop
-/*  f011ed0:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011ed0:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011ed4:	24040027 */ 	addiu	$a0,$zero,0x27
 /*  f011ed8:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f011edc:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -915,7 +915,7 @@ glabel var7f1a827c
 /*  f011ee8:	24040026 */ 	addiu	$a0,$zero,0x26
 /*  f011eec:	10400006 */ 	beqz	$v0,.L0f011f08
 /*  f011ef0:	00000000 */ 	nop
-/*  f011ef4:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011ef4:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011ef8:	24040028 */ 	addiu	$a0,$zero,0x28
 /*  f011efc:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f011f00:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -925,7 +925,7 @@ glabel var7f1a827c
 /*  f011f0c:	24040027 */ 	addiu	$a0,$zero,0x27
 /*  f011f10:	10400006 */ 	beqz	$v0,.L0f011f2c
 /*  f011f14:	00000000 */ 	nop
-/*  f011f18:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011f18:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011f1c:	24040029 */ 	addiu	$a0,$zero,0x29
 /*  f011f20:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f011f24:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -935,7 +935,7 @@ glabel var7f1a827c
 /*  f011f30:	24040028 */ 	addiu	$a0,$zero,0x28
 /*  f011f34:	10400006 */ 	beqz	$v0,.L0f011f50
 /*  f011f38:	00000000 */ 	nop
-/*  f011f3c:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011f3c:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011f40:	2404002a */ 	addiu	$a0,$zero,0x2a
 /*  f011f44:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f011f48:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -945,7 +945,7 @@ glabel var7f1a827c
 /*  f011f54:	24040029 */ 	addiu	$a0,$zero,0x29
 /*  f011f58:	50400007 */ 	beqzl	$v0,.L0f011f78
 /*  f011f5c:	8fa90080 */ 	lw	$t1,0x80($sp)
-/*  f011f60:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f011f60:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f011f64:	2404002b */ 	addiu	$a0,$zero,0x2b
 /*  f011f68:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f011f6c:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
@@ -1353,9 +1353,9 @@ glabel var7f1a827c
 //
 //					if (cmd[2] >= 0) {
 //						weaponLoadProjectileModels(cmd[2]);
-//						currentPlayerGiveWeaponWithArgument(cmd[1], cmd[2]);
+//						invGiveDoubleWeapon(cmd[1], cmd[2]);
 //					} else {
-//						currentPlayerGiveWeapon(cmd[1]);
+//						invGiveSingleWeapon(cmd[1]);
 //					}
 //
 //					if (!hasdefaultweapon) {
@@ -1417,58 +1417,58 @@ glabel var7f1a827c
 //		}
 //	}
 //
-//	currentPlayerGiveWeapon(WEAPON_UNARMED);
+//	invGiveSingleWeapon(WEAPON_UNARMED);
 //
 //	if (cheatIsActive(CHEAT_TRENTSMAGNUM)) {
-//		currentPlayerGiveWeapon(WEAPON_DY357LX);
+//		invGiveSingleWeapon(WEAPON_DY357LX);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_MAGNUM, 80);
 //	}
 //
 //	if (cheatIsActive(CHEAT_FARSIGHT)) {
-//		currentPlayerGiveWeapon(WEAPON_FARSIGHTXR20);
+//		invGiveSingleWeapon(WEAPON_FARSIGHTXR20);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_FARSIGHT, 80);
 //	}
 //
 //	if (cheatIsActive(CHEAT_CLOAKINGDEVICE)) {
-//		currentPlayerGiveWeapon(WEAPON_CLOAKINGDEVICE);
+//		invGiveSingleWeapon(WEAPON_CLOAKINGDEVICE);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_CLOAK, 7200);
 //	}
 //
 //	if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
-//		currentPlayerGiveWeapon(WEAPON_NIGHTVISION);
+//		invGiveSingleWeapon(WEAPON_NIGHTVISION);
 //	}
 //
 //	if (cheatIsActive(CHEAT_RTRACKER)) {
-//		currentPlayerGiveWeapon(WEAPON_RTRACKER);
+//		invGiveSingleWeapon(WEAPON_RTRACKER);
 //	}
 //
 //	if (cheatIsActive(CHEAT_ROCKETLAUNCHER)) {
-//		currentPlayerGiveWeapon(WEAPON_ROCKETLAUNCHER);
+//		invGiveSingleWeapon(WEAPON_ROCKETLAUNCHER);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_ROCKET, 10);
 //	}
 //
 //	if (cheatIsActive(CHEAT_SNIPERRIFLE)) {
-//		currentPlayerGiveWeapon(WEAPON_SNIPERRIFLE);
+//		invGiveSingleWeapon(WEAPON_SNIPERRIFLE);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_RIFLE, 200);
 //	}
 //
 //	if (cheatIsActive(CHEAT_XRAYSCANNER)) {
-//		currentPlayerGiveWeapon(WEAPON_XRAYSCANNER);
+//		invGiveSingleWeapon(WEAPON_XRAYSCANNER);
 //	}
 //
 //	if (cheatIsActive(CHEAT_SUPERDRAGON)) {
-//		currentPlayerGiveWeapon(WEAPON_SUPERDRAGON);
+//		invGiveSingleWeapon(WEAPON_SUPERDRAGON);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_RIFLE, 200);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_DEVASTATOR, 20);
 //	}
 //
 //	if (cheatIsActive(CHEAT_LAPTOPGUN)) {
-//		currentPlayerGiveWeapon(WEAPON_LAPTOPGUN);
+//		invGiveSingleWeapon(WEAPON_LAPTOPGUN);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_SMG, 200);
 //	}
 //
 //	if (cheatIsActive(CHEAT_PHOENIX)) {
-//		currentPlayerGiveWeapon(WEAPON_PHOENIX);
+//		invGiveSingleWeapon(WEAPON_PHOENIX);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_PISTOL, 200);
 //	}
 //
@@ -1476,47 +1476,47 @@ glabel var7f1a827c
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_PSYCHOSIS, 4);
 //
 //		if (cheatIsActive(CHEAT_PSYCHOSISGUN)) {
-//			currentPlayerGiveWeapon(WEAPON_PSYCHOSISGUN);
+//			invGiveSingleWeapon(WEAPON_PSYCHOSISGUN);
 //		}
 //	}
 //
 //	if (cheatIsActive(CHEAT_PP9I)) {
-//		currentPlayerGiveWeapon(WEAPON_PP9I);
+//		invGiveSingleWeapon(WEAPON_PP9I);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_PISTOL, 200);
 //	}
 //
 //	if (cheatIsActive(CHEAT_CC13)) {
-//		currentPlayerGiveWeapon(WEAPON_CC13);
+//		invGiveSingleWeapon(WEAPON_CC13);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_RIFLE, 200);
 //	}
 //
 //	if (cheatIsActive(CHEAT_KL01313)) {
-//		currentPlayerGiveWeapon(WEAPON_KL01313);
+//		invGiveSingleWeapon(WEAPON_KL01313);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_SMG, 200);
 //	}
 //
 //	if (cheatIsActive(CHEAT_KF7SPECIAL)) {
-//		currentPlayerGiveWeapon(WEAPON_KF7SPECIAL);
+//		invGiveSingleWeapon(WEAPON_KF7SPECIAL);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_RIFLE, 200);
 //	}
 //
 //	if (cheatIsActive(CHEAT_ZZT)) {
-//		currentPlayerGiveWeapon(WEAPON_ZZT);
+//		invGiveSingleWeapon(WEAPON_ZZT);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_SMG, 200);
 //	}
 //
 //	if (cheatIsActive(CHEAT_DMC)) {
-//		currentPlayerGiveWeapon(WEAPON_DMC);
+//		invGiveSingleWeapon(WEAPON_DMC);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_SMG, 200);
 //	}
 //
 //	if (cheatIsActive(CHEAT_AR53)) {
-//		currentPlayerGiveWeapon(WEAPON_AR53);
+//		invGiveSingleWeapon(WEAPON_AR53);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_RIFLE, 200);
 //	}
 //
 //	if (cheatIsActive(CHEAT_RCP45)) {
-//		currentPlayerGiveWeapon(WEAPON_RCP45);
+//		invGiveSingleWeapon(WEAPON_RCP45);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_SMG, 200);
 //	}
 //

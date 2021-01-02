@@ -9,7 +9,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/training/training.h"
 #include "game/gamefile.h"
@@ -130,7 +130,7 @@ void cheatActivate(s32 cheat_id)
 
 			for (playernum = 0; playernum < PLAYERCOUNT(); playernum++) {
 				setCurrentPlayerNum(playernum);
-				currentPlayerSetAllGuns(true);
+				invSetAllGuns(true);
 			}
 
 			setCurrentPlayerNum(prevplayernum);
@@ -167,7 +167,7 @@ void cheatDeactivate(s32 cheat_id)
 
 			for (playernum = 0; playernum < PLAYERCOUNT(); playernum++) {
 				setCurrentPlayerNum(playernum);
-				currentPlayerSetAllGuns(false);
+				invSetAllGuns(false);
 			}
 
 			setCurrentPlayerNum(prevplayernum);

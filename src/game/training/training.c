@@ -20,7 +20,7 @@
 #include "game/game_0dcdb0.h"
 #include "game/game_0f09f0.h"
 #include "game/game_107fb0.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/explosions/explosions.h"
 #include "game/game_150820.h"
 #include "game/game_1531a0.h"
@@ -2438,7 +2438,7 @@ glabel var7f1b94e4
 /*  f19f9f0:	00000000 */ 	nop
 /*  f19f9f4:	0fc6749a */ 	jal	frGetWeaponBySlot
 /*  f19f9f8:	96a40456 */ 	lhu	$a0,0x456($s5)
-/*  f19f9fc:	0fc44727 */ 	jal	currentPlayerCanHaveWeapon
+/*  f19f9fc:	0fc44727 */ 	jal	invHasSingleWeaponIncAllGuns
 /*  f19fa00:	00402025 */ 	or	$a0,$v0,$zero
 /*  f19fa04:	10400005 */ 	beqz	$v0,.L0f19fa1c
 /*  f19fa08:	00000000 */ 	nop
@@ -3531,7 +3531,7 @@ glabel var7f1b94e4
 //	// 9c8
 //	if (g_FrIsValidWeapon
 //			&& g_Vars.currentplayer->unk1583_04 == 0
-//			&& currentPlayerCanHaveWeapon(frGetWeaponBySlot(g_FrData.slot))) {
+//			&& invHasSingleWeaponIncAllGuns(frGetWeaponBySlot(g_FrData.slot))) {
 //		// a0c
 //		currentPlayerEquipWeapon(frGetWeaponBySlot(g_FrData.slot));
 //	}
@@ -4083,7 +4083,7 @@ glabel frChooseFarsightTarget
 /*  f1a0ab4:	f7b40010 */ 	sdc1	$f20,0x10($sp)
 /*  f1a0ab8:	0000a025 */ 	or	$s4,$zero,$zero
 /*  f1a0abc:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f1a0ac0:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
+/*  f1a0ac0:	0fc2866a */ 	jal	handGetWeaponNum
 /*  f1a0ac4:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1a0ac8:	24010016 */ 	addiu	$at,$zero,0x16
 /*  f1a0acc:	14410042 */ 	bne	$v0,$at,.L0f1a0bd8
@@ -4192,7 +4192,7 @@ glabel frChooseFarsightTarget
 //	bool found = false;
 //	s32 i;
 //
-//	if (getCurrentPlayerWeaponId(0) == WEAPON_FARSIGHTXR20) {
+//	if (handGetWeaponNum(0) == WEAPON_FARSIGHTXR20) {
 //		for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
 //			if (g_FrData.targets[i].inuse
 //					&& g_FrData.targets[i].destroyed == false

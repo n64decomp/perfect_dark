@@ -10,14 +10,14 @@
 #include "game/data/data_02da90.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b0420.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/training/training.h"
 #include "game/lang.h"
 #include "gvars/gvars.h"
 #include "lib/main.h"
 #include "types.h"
 
-void currentPlayerClearInventory(void)
+void invClear(void)
 {
 	s32 i;
 
@@ -35,7 +35,7 @@ void currentPlayerClearInventory(void)
  * Subject is expected to initially be at the head of the list. It works by
  * swapping the subject with the item to its right as many times as needed.
  */
-void currentPlayerSortInvItem(struct invitem *subject)
+void invSortItem(struct invitem *subject)
 {
 	struct invitem *candidate;
 	s32 subjweapon1 = -1;
@@ -99,13 +99,13 @@ void currentPlayerSortInvItem(struct invitem *subject)
 	}
 }
 
-void currentPlayerInsertInvItem(struct invitem *item)
+void invInsertItem(struct invitem *item)
 {
 	if (item->type == INVITEMTYPE_PROP) {
 		struct prop *prop = item->type_prop.prop;
 
 		if (prop && prop->obj) {
-			struct textoverride *override = objGetTextOverride(prop->obj);
+			struct textoverride *override = invGetTextOverrideForObj(prop->obj);
 			bool setflag = true;
 
 			if (override) {
@@ -143,11 +143,11 @@ void currentPlayerInsertInvItem(struct invitem *item)
 
 	g_Vars.currentplayer->weapons = item;
 
-	currentPlayerSortInvItem(item);
-	currentPlayerCalculateEquipCurItem();
+	invSortItem(item);
+	invCalculateCurrentIndex();
 }
 
-void currentPlayerRemoveInvItem(struct invitem *item)
+void invRemoveItem(struct invitem *item)
 {
 	struct invitem *next = item->next;
 	struct invitem *prev = item->prev;
@@ -164,10 +164,10 @@ void currentPlayerRemoveInvItem(struct invitem *item)
 	prev->next = next;
 	item->type = -1;
 
-	currentPlayerCalculateEquipCurItem();
+	invCalculateCurrentIndex();
 }
 
-struct invitem *currentPlayerGetUnusedInvItem(void)
+struct invitem *invFindUnusedSlot(void)
 {
 	s32 i;
 
@@ -180,22 +180,22 @@ struct invitem *currentPlayerGetUnusedInvItem(void)
 	return NULL;
 }
 
-void currentPlayerSetAllGuns(bool enable)
+void invSetAllGuns(bool enable)
 {
 	s32 weaponnum;
 
 	g_Vars.currentplayer->equipallguns = enable;
-	currentPlayerCalculateEquipCurItem();
-	weaponnum = currentPlayerGetWeaponNumByInvIndex(g_Vars.currentplayer->equipcuritem);
+	invCalculateCurrentIndex();
+	weaponnum = invGetWeaponNumByIndex(g_Vars.currentplayer->equipcuritem);
 	currentPlayerEquipWeapon(weaponnum);
 }
 
-bool currentPlayerHasAllGuns(void)
+bool invHasAllGuns(void)
 {
 	return g_Vars.currentplayer->equipallguns;
 }
 
-struct invitem *currentPlayerGetWeaponInvItem(s32 weaponnum)
+struct invitem *invFindSingleWeapon(s32 weaponnum)
 {
 	struct invitem *first = g_Vars.currentplayer->weapons;
 	struct invitem *item = first;
@@ -215,12 +215,12 @@ struct invitem *currentPlayerGetWeaponInvItem(s32 weaponnum)
 	return NULL;
 }
 
-bool currentPlayerHasWeapon(s32 weaponnum)
+bool invHasSingleWeaponExcAllGuns(s32 weaponnum)
 {
-	return currentPlayerGetWeaponInvItem(weaponnum) != NULL;
+	return invFindSingleWeapon(weaponnum) != NULL;
 }
 
-struct invitem *func0f111a4c(s32 weapon1, s32 weapon2)
+struct invitem *invFindDoubleWeapon(s32 weapon1, s32 weapon2)
 {
 	struct invitem *first = g_Vars.currentplayer->weapons;
 	struct invitem *item = first;
@@ -242,13 +242,13 @@ struct invitem *func0f111a4c(s32 weapon1, s32 weapon2)
 	return NULL;
 }
 
-bool func0f111ab0(s32 weapon1, s32 weapon2)
+bool invHasDoubleWeaponExcAllGuns(s32 weapon1, s32 weapon2)
 {
-	return func0f111a4c(weapon1, weapon2) != NULL;
+	return invFindDoubleWeapon(weapon1, weapon2) != NULL;
 }
 
 GLOBAL_ASM(
-glabel func0f111ad4
+glabel invHasSingleWeaponOrProp
 /*  f111ad4:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f111ad8:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
 /*  f111adc:	00802825 */ 	or	$a1,$a0,$zero
@@ -302,7 +302,7 @@ glabel func0f111ad4
 );
 
 // regalloc
-//bool func0f111ad4(s32 weaponnum)
+//bool invHasSingleWeaponOrProp(s32 weaponnum)
 //{
 //	struct invitem *item = g_Vars.currentplayer->weapons;
 //
@@ -378,7 +378,7 @@ s32 currentStageForbidsSlayer(void)
 	return forbids;
 }
 
-bool currentPlayerCanHaveAllGunsWeapon(s32 weaponnum)
+bool invCanHaveAllGunsWeapon(s32 weaponnum)
 {
 	bool canhave = true;
 
@@ -395,18 +395,18 @@ bool currentPlayerCanHaveAllGunsWeapon(s32 weaponnum)
 	return canhave;
 }
 
-bool currentPlayerCanHaveWeapon(s32 weaponnum)
+bool invHasSingleWeaponIncAllGuns(s32 weaponnum)
 {
 	if (g_Vars.currentplayer->equipallguns &&
 			weaponnum && weaponnum <= WEAPON_PSYCHOSISGUN &&
-			currentPlayerCanHaveAllGunsWeapon(weaponnum)) {
+			invCanHaveAllGunsWeapon(weaponnum)) {
 		return true;
 	}
 
-	return currentPlayerHasWeapon(weaponnum);
+	return invHasSingleWeaponExcAllGuns(weaponnum);
 }
 
-bool func0f111cf8(s32 weapon1, s32 weapon2)
+bool invHasDoubleWeaponIncAllGuns(s32 weapon1, s32 weapon2)
 {
 	if (weapon2 == WEAPON_NONE) {
 		return true;
@@ -416,33 +416,33 @@ bool func0f111cf8(s32 weapon1, s32 weapon2)
 			weapon1 <= WEAPON_PSYCHOSISGUN &&
 			weapon1 == weapon2 &&
 			weaponHasFlag(weapon1, WEAPONFLAG_DUALWIELD) &&
-			currentPlayerCanHaveAllGunsWeapon(weapon1)) {
+			invCanHaveAllGunsWeapon(weapon1)) {
 		return true;
 	}
 
-	return func0f111ab0(weapon1, weapon2);
+	return invHasDoubleWeaponExcAllGuns(weapon1, weapon2);
 }
 
-bool currentPlayerGiveWeapon(s32 weaponnum)
+bool invGiveSingleWeapon(s32 weaponnum)
 {
 	frSetWeaponFound(weaponnum);
 
-	if (currentPlayerHasWeapon(weaponnum) == 0) {
+	if (invHasSingleWeaponExcAllGuns(weaponnum) == 0) {
 		struct invitem *item;
 
 		if (g_Vars.currentplayer->equipallguns &&
 				weaponnum <= WEAPON_PSYCHOSISGUN &&
-				currentPlayerCanHaveAllGunsWeapon(weaponnum)) {
+				invCanHaveAllGunsWeapon(weaponnum)) {
 			return false;
 		}
 
-		item = currentPlayerGetUnusedInvItem();
+		item = invFindUnusedSlot();
 
 		if (item) {
 			item->type = INVITEMTYPE_WEAP;
 			item->type_weap.weapon1 = weaponnum;
 			item->type_weap.pickuppad = -1;
-			currentPlayerInsertInvItem(item);
+			invInsertItem(item);
 		}
 
 		return true;
@@ -451,17 +451,17 @@ bool currentPlayerGiveWeapon(s32 weaponnum)
 	return false;
 }
 
-bool currentPlayerGiveWeaponWithArgument(s32 weapon1, s32 weapon2)
+bool invGiveDoubleWeapon(s32 weapon1, s32 weapon2)
 {
-	if (func0f111ab0(weapon1, weapon2) == 0) {
+	if (invHasDoubleWeaponExcAllGuns(weapon1, weapon2) == 0) {
 		if (weaponHasFlag(weapon1, WEAPONFLAG_DUALWIELD)) {
-			struct invitem *item = currentPlayerGetUnusedInvItem();
+			struct invitem *item = invFindUnusedSlot();
 
 			if (item) {
 				item->type = INVITEMTYPE_DUAL;
 				item->type_dual.weapon1 = weapon1;
 				item->type_dual.weapon2 = weapon2;
-				currentPlayerInsertInvItem(item);
+				invInsertItem(item);
 			}
 
 			return true;
@@ -475,7 +475,7 @@ bool currentPlayerGiveWeaponWithArgument(s32 weapon1, s32 weapon2)
 	return false;
 }
 
-void currentPlayerRemoveWeapon(s32 weaponnum)
+void invRemoveItemByNum(s32 weaponnum)
 {
 	if (g_Vars.currentplayer->weapons) {
 		// Begin iterating from the second item in the list. This is required
@@ -485,23 +485,23 @@ void currentPlayerRemoveWeapon(s32 weaponnum)
 
 		while (true) {
 			// Have to preload this because item->next shouldn't be trusted
-			// after calling currentPlayerRemoveInvItem()
+			// after calling invRemoveItem()
 			struct invitem *next = item->next;
 
 			if (item->type == INVITEMTYPE_PROP) {
 				struct prop *prop = item->type_prop.prop;
-				struct textoverride *override = objGetTextOverride(prop->obj);
+				struct textoverride *override = invGetTextOverrideForObj(prop->obj);
 
 				if (override && override->weapon == weaponnum) {
-					currentPlayerRemoveInvItem(item);
+					invRemoveItem(item);
 				}
 			} else if (item->type == INVITEMTYPE_WEAP) {
 				if (item->type_weap.weapon1 == weaponnum) {
-					currentPlayerRemoveInvItem(item);
+					invRemoveItem(item);
 				}
 			} else if (item->type == INVITEMTYPE_DUAL) {
 				if (item->type_dual.weapon1 == weaponnum || item->type_dual.weapon2 == weaponnum) {
-					currentPlayerRemoveInvItem(item);
+					invRemoveItem(item);
 				}
 			}
 
@@ -514,7 +514,7 @@ void currentPlayerRemoveWeapon(s32 weaponnum)
 	}
 }
 
-bool currentPlayerGiveProp(struct prop *prop)
+bool invGiveProp(struct prop *prop)
 {
 	struct invitem *item;
 
@@ -529,18 +529,18 @@ bool currentPlayerGiveProp(struct prop *prop)
 		return true;
 	}
 
-	item = currentPlayerGetUnusedInvItem();
+	item = invFindUnusedSlot();
 
 	if (item) {
 		item->type = INVITEMTYPE_PROP;
 		item->type_prop.prop = prop;
-		currentPlayerInsertInvItem(item);
+		invInsertItem(item);
 	}
 
 	return true;
 }
 
-void currentPlayerRemoveProp(struct prop *prop)
+void invRemoveProp(struct prop *prop)
 {
 	if (g_Vars.currentplayer->weapons) {
 		struct invitem *item = g_Vars.currentplayer->weapons->next;
@@ -549,7 +549,7 @@ void currentPlayerRemoveProp(struct prop *prop)
 			struct invitem *next = item->next;
 
 			if (item->type == INVITEMTYPE_PROP && item->type_prop.prop == prop) {
-				currentPlayerRemoveInvItem(item);
+				invRemoveItem(item);
 			}
 
 			if (item == g_Vars.currentplayer->weapons || !g_Vars.currentplayer->weapons) {
@@ -592,7 +592,7 @@ glabel func0f1120f0
 .L0f112158:
 /*  f112158:	02002025 */ 	or	$a0,$s0,$zero
 .L0f11215c:
-/*  f11215c:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f11215c:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f112160:	afa7002c */ 	sw	$a3,0x2c($sp)
 /*  f112164:	10400002 */ 	beqz	$v0,.L0f112170
 /*  f112168:	8fa7002c */ 	lw	$a3,0x2c($sp)
@@ -610,12 +610,12 @@ glabel func0f1120f0
 /*  f112194:	8fa7002c */ 	lw	$a3,0x2c($sp)
 /*  f112198:	02002025 */ 	or	$a0,$s0,$zero
 /*  f11219c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1121a0:	0fc446ac */ 	jal	func0f111ab0
+/*  f1121a0:	0fc446ac */ 	jal	invHasDoubleWeaponExcAllGuns
 /*  f1121a4:	afa7002c */ 	sw	$a3,0x2c($sp)
 /*  f1121a8:	1440001b */ 	bnez	$v0,.L0f112218
 /*  f1121ac:	8fa7002c */ 	lw	$a3,0x2c($sp)
 /*  f1121b0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1121b4:	0fc44674 */ 	jal	currentPlayerGetWeaponInvItem
+/*  f1121b4:	0fc44674 */ 	jal	invFindSingleWeapon
 /*  f1121b8:	afa7002c */ 	sw	$a3,0x2c($sp)
 /*  f1121bc:	10400016 */ 	beqz	$v0,.L0f112218
 /*  f1121c0:	8fa7002c */ 	lw	$a3,0x2c($sp)
@@ -635,7 +635,7 @@ glabel func0f1120f0
 /*  f1121f4:	8fa30024 */ 	lw	$v1,0x24($sp)
 /*  f1121f8:	10640007 */ 	beq	$v1,$a0,.L0f112218
 /*  f1121fc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f112200:	0fc4478a */ 	jal	currentPlayerGiveWeaponWithArgument
+/*  f112200:	0fc4478a */ 	jal	invGiveDoubleWeapon
 /*  f112204:	02002025 */ 	or	$a0,$s0,$zero
 /*  f112208:	10400003 */ 	beqz	$v0,.L0f112218
 /*  f11220c:	00003825 */ 	or	$a3,$zero,$zero
@@ -653,12 +653,12 @@ glabel func0f1120f0
 /*  f112234:	000950c0 */ 	sll	$t2,$t1,0x3
 /*  f112238:	05410005 */ 	bgez	$t2,.L0f112250
 /*  f11223c:	00000000 */ 	nop
-/*  f112240:	0fc446ac */ 	jal	func0f111ab0
+/*  f112240:	0fc446ac */ 	jal	invHasDoubleWeaponExcAllGuns
 /*  f112244:	9044005c */ 	lbu	$a0,0x5c($v0)
 /*  f112248:	10000004 */ 	b	.L0f11225c
 /*  f11224c:	2c470001 */ 	sltiu	$a3,$v0,0x1
 .L0f112250:
-/*  f112250:	0fc446ac */ 	jal	func0f111ab0
+/*  f112250:	0fc446ac */ 	jal	invHasDoubleWeaponExcAllGuns
 /*  f112254:	9045005c */ 	lbu	$a1,0x5c($v0)
 /*  f112258:	2c470001 */ 	sltiu	$a3,$v0,0x1
 .L0f11225c:
@@ -679,7 +679,7 @@ glabel func0f1120f0
 /*  f112290:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f112294:	05e10009 */ 	bgez	$t7,.L0f1122bc
 /*  f112298:	00000000 */ 	nop
-/*  f11229c:	0fc4478a */ 	jal	currentPlayerGiveWeaponWithArgument
+/*  f11229c:	0fc4478a */ 	jal	invGiveDoubleWeapon
 /*  f1122a0:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f1122a4:	10400003 */ 	beqz	$v0,.L0f1122b4
 /*  f1122a8:	00000000 */ 	nop
@@ -689,7 +689,7 @@ glabel func0f1120f0
 /*  f1122b4:	10000007 */ 	b	.L0f1122d4
 /*  f1122b8:	00003825 */ 	or	$a3,$zero,$zero
 .L0f1122bc:
-/*  f1122bc:	0fc4478a */ 	jal	currentPlayerGiveWeaponWithArgument
+/*  f1122bc:	0fc4478a */ 	jal	invGiveDoubleWeapon
 /*  f1122c0:	00c02825 */ 	or	$a1,$a2,$zero
 /*  f1122c4:	10400003 */ 	beqz	$v0,.L0f1122d4
 /*  f1122c8:	00003825 */ 	or	$a3,$zero,$zero
@@ -778,7 +778,7 @@ glabel func0f1122ec
 /*  f1123e4:	10400008 */ 	beqz	$v0,.L0f112408
 /*  f1123e8:	00000000 */ 	nop
 .L0f1123ec:
-/*  f1123ec:	0fc4470c */ 	jal	currentPlayerCanHaveAllGunsWeapon
+/*  f1123ec:	0fc4470c */ 	jal	invCanHaveAllGunsWeapon
 /*  f1123f0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1123f4:	10400004 */ 	beqz	$v0,.L0f112408
 /*  f1123f8:	00000000 */ 	nop
@@ -944,7 +944,7 @@ glabel func0f11253c
 /*  f112620:	5040ffe2 */ 	beqzl	$v0,.L0f1125ac
 /*  f112624:	2619002c */ 	addiu	$t9,$s0,0x2c
 .L0f112628:
-/*  f112628:	0fc4470c */ 	jal	currentPlayerCanHaveAllGunsWeapon
+/*  f112628:	0fc4470c */ 	jal	invCanHaveAllGunsWeapon
 /*  f11262c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f112630:	5040ffde */ 	beqzl	$v0,.L0f1125ac
 /*  f112634:	2619002c */ 	addiu	$t9,$s0,0x2c
@@ -1049,7 +1049,7 @@ glabel func0f11253c
 );
 
 GLOBAL_ASM(
-glabel currentPlayerHasKeyFlags
+glabel invHasKeyFlags
 /*  f112790:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f112794:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
 /*  f112798:	27bdfff8 */ 	addiu	$sp,$sp,-8
@@ -1099,7 +1099,7 @@ glabel currentPlayerHasKeyFlags
 /*  f112838:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-//bool currentPlayerHasKeyFlags(u32 wantkeyflags)
+//bool invHasKeyFlags(u32 wantkeyflags)
 //{
 //	struct invitem *item = g_Vars.currentplayer->weapons;
 //	u32 heldkeyflags = 0;
@@ -1140,19 +1140,19 @@ bool func0f11283c(void)
 	return false;
 }
 
-bool currentPlayerHasBriefcase(void)
+bool invHasBriefcase(void)
 {
 	if (g_Vars.currentplayer->isdead == false) {
-		return currentPlayerHasWeapon(WEAPON_BRIEFCASE2);
+		return invHasSingleWeaponExcAllGuns(WEAPON_BRIEFCASE2);
 	}
 
 	return false;
 }
 
-bool currentPlayerHasDataUplink(void)
+bool invHasDataUplink(void)
 {
 	if (g_Vars.currentplayer->isdead == false) {
-		return currentPlayerHasWeapon(WEAPON_DATAUPLINK);
+		return invHasSingleWeaponExcAllGuns(WEAPON_DATAUPLINK);
 	}
 
 	return false;
@@ -1163,7 +1163,7 @@ bool func0f1128c4(void)
 	return false;
 }
 
-bool currentPlayerHasProp(struct prop *prop)
+bool invHasProp(struct prop *prop)
 {
 	struct invitem *item = g_Vars.currentplayer->weapons;
 	struct prop *child;
@@ -1193,7 +1193,7 @@ bool currentPlayerHasProp(struct prop *prop)
 	return false;
 }
 
-s32 currentPlayerGetNumInvItems(void)
+s32 invGetCount(void)
 {
 	s32 numitems = 0;
 	struct invitem *item;
@@ -1240,7 +1240,7 @@ s32 currentPlayerGetNumInvItems(void)
 	return numitems;
 }
 
-struct invitem *currentPlayerGetInvItemByIndex(s32 index)
+struct invitem *invGetItemByIndex(s32 index)
 {
 	struct invitem *item;
 
@@ -1299,7 +1299,7 @@ struct invitem *currentPlayerGetInvItemByIndex(s32 index)
 	return NULL;
 }
 
-struct textoverride *objGetTextOverride(struct defaultobj *obj)
+struct textoverride *invGetTextOverrideForObj(struct defaultobj *obj)
 {
 	struct textoverride *override = g_Vars.textoverrides;
 
@@ -1314,7 +1314,7 @@ struct textoverride *objGetTextOverride(struct defaultobj *obj)
 	return NULL;
 }
 
-struct textoverride *weaponGetTextOverride(s32 weaponnum)
+struct textoverride *invGetTextOverrideForWeapon(s32 weaponnum)
 {
 	struct textoverride *override = g_Vars.textoverrides;
 
@@ -1329,14 +1329,14 @@ struct textoverride *weaponGetTextOverride(s32 weaponnum)
 	return NULL;
 }
 
-s32 currentPlayerGetWeaponNumByInvIndex(s32 index)
+s32 invGetWeaponNumByIndex(s32 index)
 {
-	struct invitem *item = currentPlayerGetInvItemByIndex(index);
+	struct invitem *item = invGetItemByIndex(index);
 
 	if (item) {
 		if (item->type == INVITEMTYPE_PROP) {
 			struct prop *prop = item->type_prop.prop;
-			struct textoverride *override = objGetTextOverride(prop->obj);
+			struct textoverride *override = invGetTextOverrideForObj(prop->obj);
 
 			if (override) {
 				return override->weapon;
@@ -1354,16 +1354,16 @@ s32 currentPlayerGetWeaponNumByInvIndex(s32 index)
 	return 0;
 }
 
-u16 currentPlayerGetInvNameIdByIndex(s32 index)
+u16 invGetNameIdByIndex(s32 index)
 {
-	struct invitem *item = currentPlayerGetInvItemByIndex(index);
+	struct invitem *item = invGetItemByIndex(index);
 	s32 weaponnum = 0;
 	struct textoverride *override;
 
 	if (item) {
 		if (item->type == INVITEMTYPE_PROP) {
 			struct prop *prop = item->type_prop.prop;
-			override = objGetTextOverride(prop->obj);
+			override = invGetTextOverrideForObj(prop->obj);
 
 			if (override) {
 				if (override->unk14) {
@@ -1374,7 +1374,7 @@ u16 currentPlayerGetInvNameIdByIndex(s32 index)
 			}
 		} else if (item->type == INVITEMTYPE_WEAP) {
 			weaponnum = item->type_weap.weapon1;
-			override = weaponGetTextOverride(weaponnum);
+			override = invGetTextOverrideForWeapon(weaponnum);
 
 			if (override && override->unk14) {
 				return override->unk14;
@@ -1392,21 +1392,21 @@ u16 currentPlayerGetInvNameIdByIndex(s32 index)
 	return weaponGetNameId(weaponnum);
 }
 
-char *currentPlayerGetInvNameByIndex(s32 index)
+char *invGetNameByIndex(s32 index)
 {
-	return langGet(currentPlayerGetInvNameIdByIndex(index));
+	return langGet(invGetNameIdByIndex(index));
 }
 
-char *currentPlayerGetInvShortNameByIndex(s32 index)
+char *invGetShortNameByIndex(s32 index)
 {
-	struct invitem *item = currentPlayerGetInvItemByIndex(index);
+	struct invitem *item = invGetItemByIndex(index);
 	s32 weaponnum = 0;
 	struct textoverride *override;
 
 	if (item) {
 		if (item->type == INVITEMTYPE_PROP) {
 			struct prop *prop = item->type_prop.prop;
-			override = objGetTextOverride(prop->obj);
+			override = invGetTextOverrideForObj(prop->obj);
 
 			if (override) {
 				if (override->unk14) {
@@ -1417,7 +1417,7 @@ char *currentPlayerGetInvShortNameByIndex(s32 index)
 			}
 		} else if (item->type == INVITEMTYPE_WEAP) {
 			weaponnum = item->type_weap.weapon1;
-			override = weaponGetTextOverride(weaponnum);
+			override = invGetTextOverrideForWeapon(weaponnum);
 
 			if (override && override->unk14) {
 				return langGet(override->unk14);
@@ -1433,40 +1433,40 @@ char *currentPlayerGetInvShortNameByIndex(s32 index)
 	return weaponGetShortName(weaponnum);
 }
 
-void textoverrideInsert(struct textoverride *override)
+void invInsertTextOverride(struct textoverride *override)
 {
 	override->next = g_Vars.textoverrides;
 	g_Vars.textoverrides = override;
 }
 
-u32 currentPlayerGetEquipCurItem(void)
+u32 invGetCurrentIndex(void)
 {
 	return g_Vars.currentplayer->equipcuritem;
 }
 
-void currentPlayerSetEquipCurItem(u32 item)
+void invSetCurrentIndex(u32 item)
 {
 	g_Vars.currentplayer->equipcuritem = item;
 }
 
-void currentPlayerCalculateEquipCurItem(void)
+void invCalculateCurrentIndex(void)
 {
-	s32 curweaponnum = getCurrentPlayerWeaponId(0);
+	s32 curweaponnum = handGetWeaponNum(HAND_RIGHT);
 	s32 i;
 
 	g_Vars.currentplayer->equipcuritem = 0;
 
-	for (i = 0; i < currentPlayerGetNumInvItems(); i++) {
-		if (currentPlayerGetWeaponNumByInvIndex(i) == curweaponnum) {
+	for (i = 0; i < invGetCount(); i++) {
+		if (invGetWeaponNumByIndex(i) == curweaponnum) {
 			g_Vars.currentplayer->equipcuritem = i;
 			break;
 		}
 	}
 }
 
-char *objGetActivatedText(struct defaultobj *obj)
+char *invGetActivatedTextByObj(struct defaultobj *obj)
 {
-	struct textoverride *override = objGetTextOverride(obj);
+	struct textoverride *override = invGetTextOverrideForObj(obj);
 
 	if (override && override->activatetextid) {
 		return langGet(override->activatetextid);
@@ -1475,9 +1475,9 @@ char *objGetActivatedText(struct defaultobj *obj)
 	return NULL;
 }
 
-char *weaponGetActivatedText(s32 weaponnum)
+char *invGetActivatedTextByWeaponNum(s32 weaponnum)
 {
-	struct textoverride *override = weaponGetTextOverride(weaponnum);
+	struct textoverride *override = invGetTextOverrideForWeapon(weaponnum);
 
 	if (override && override->activatetextid) {
 		return langGet(override->activatetextid);
@@ -1486,7 +1486,7 @@ char *weaponGetActivatedText(s32 weaponnum)
 	return NULL;
 }
 
-void currentPlayerIncrementGunHeldTime(s32 weapon1, s32 weapon2)
+void invIncrementHeldTime(s32 weapon1, s32 weapon2)
 {
 	s32 leastusedtime;
 	s32 leastusedindex;
@@ -1531,7 +1531,7 @@ void currentPlayerIncrementGunHeldTime(s32 weapon1, s32 weapon2)
 	}
 }
 
-void currentPlayerGetWeaponOfChoice(s32 *weapon1, s32 *weapon2)
+void invGetWeaponOfChoice(s32 *weapon1, s32 *weapon2)
 {
 	s32 mosttime = -1;
 	s32 i;

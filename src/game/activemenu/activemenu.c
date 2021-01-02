@@ -16,7 +16,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0d4690.h"
 #include "game/game_0f09f0.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
 #include "game/game_190260.h"
@@ -616,10 +616,10 @@ void amApply(s32 slot)
 		}
 
 		invindex = g_AmMenus[g_AmIndex].invindexes[slot];
-		numinvitems = currentPlayerGetNumInvItems();
+		numinvitems = invGetCount();
 
 		if (invindex < numinvitems) {
-			weaponnum = currentPlayerGetWeaponNumByInvIndex(invindex);
+			weaponnum = invGetWeaponNumByIndex(invindex);
 			pass = true;
 
 			if (weaponnum) {
@@ -648,22 +648,22 @@ void amApply(s32 slot)
 				}
 
 				if (pass) {
-					currentPlayerSetEquipCurItem(invindex);
+					invSetCurrentIndex(invindex);
 
-					if (func0f111cf8(weaponnum, weaponnum)) {
-						if (getCurrentPlayerWeaponId(HAND_RIGHT) != weaponnum) {
+					if (invHasDoubleWeaponIncAllGuns(weaponnum, weaponnum)) {
+						if (handGetWeaponNum(HAND_RIGHT) != weaponnum) {
 							currentPlayerEquipWeaponWrapper(HAND_RIGHT, weaponnum);
 						}
 
-						if (getCurrentPlayerWeaponId(HAND_LEFT) != weaponnum) {
+						if (handGetWeaponNum(HAND_LEFT) != weaponnum) {
 							currentPlayerEquipWeaponWrapper(HAND_LEFT, weaponnum);
 						}
 					} else {
-						if (getCurrentPlayerWeaponId(HAND_RIGHT) != weaponnum) {
+						if (handGetWeaponNum(HAND_RIGHT) != weaponnum) {
 							currentPlayerEquipWeaponWrapper(HAND_RIGHT, weaponnum);
 						}
 
-						if (getCurrentPlayerWeaponId(HAND_LEFT) != WEAPON_NONE) {
+						if (handGetWeaponNum(HAND_LEFT) != WEAPON_NONE) {
 							currentPlayerEquipWeaponWrapper(HAND_LEFT, WEAPON_NONE);
 						}
 					}
@@ -727,31 +727,31 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 			slot--;
 		}
 
-		if (currentPlayerGetEquipCurItem() == g_AmMenus[g_AmIndex].invindexes[slot]) {
+		if (invGetCurrentIndex() == g_AmMenus[g_AmIndex].invindexes[slot]) {
 			*flags |= AMSLOTFLAG_CURRENT;
 		}
 
-		if (g_AmMenus[g_AmIndex].invindexes[slot] >= currentPlayerGetNumInvItems()) {
+		if (g_AmMenus[g_AmIndex].invindexes[slot] >= invGetCount()) {
 			strcpy(label, "");
 		} else {
-			if (currentPlayerGetWeaponNumByInvIndex(g_AmMenus[g_AmIndex].invindexes[slot]) == WEAPON_CLOAKINGDEVICE) {
+			if (invGetWeaponNumByIndex(g_AmMenus[g_AmIndex].invindexes[slot]) == WEAPON_CLOAKINGDEVICE) {
 				// Special case: "Cloak %d"
 				qty = ammoGetQuantity(AMMOTYPE_CLOAK);
 				secs = qty / 60;
 				modulo = (qty - (secs * 60)) * 100 / 60;
 				sprintf(label, langGet(L_OPTIONS(491)), secs + (modulo > 0 ? 1 : 0)); // "cloak %d"
 			} else {
-				strcpy(label, currentPlayerGetInvShortNameByIndex(g_AmMenus[g_AmIndex].invindexes[slot]));
+				strcpy(label, invGetShortNameByIndex(g_AmMenus[g_AmIndex].invindexes[slot]));
 			}
 		}
 
-		weaponnum = currentPlayerGetWeaponNumByInvIndex(g_AmMenus[g_AmIndex].invindexes[slot]);
+		weaponnum = invGetWeaponNumByIndex(g_AmMenus[g_AmIndex].invindexes[slot]);
 
 		if (currentPlayerGetDeviceState(weaponnum) == DEVICESTATE_ACTIVE) {
 			*flags |= AMSLOTFLAG_ACTIVE;
 		}
 
-		weaponnum = currentPlayerGetWeaponNumByInvIndex(g_AmMenus[g_AmIndex].invindexes[slot]);
+		weaponnum = invGetWeaponNumByIndex(g_AmMenus[g_AmIndex].invindexes[slot]);
 
 		if (func0f0a1d14(weaponnum) == false) {
 			*flags |= AMSLOTFLAG_NOAMMO;
@@ -944,7 +944,7 @@ void amChangeScreen(s32 step)
 
 void amAssignWeaponSlots(void)
 {
-	s32 numitems = currentPlayerGetNumInvItems();
+	s32 numitems = invGetCount();
 	u8 weaponnum;
 	s32 i;
 	s32 j;
@@ -959,7 +959,7 @@ void amAssignWeaponSlots(void)
 
 	// Assign favourites
 	for (i = 0; i < numitems; i++) {
-		weaponnum = currentPlayerGetWeaponNumByInvIndex(i);
+		weaponnum = invGetWeaponNumByIndex(i);
 
 		if ((weaponnum >= WEAPON_UNARMED && weaponnum <= WEAPON_DISGUISE41)
 				|| weaponnum == WEAPON_SUICIDEPILL
@@ -990,7 +990,7 @@ void amAssignWeaponSlots(void)
 		}
 
 		if (!isfavourited) {
-			weaponnum = currentPlayerGetWeaponNumByInvIndex(i);
+			weaponnum = invGetWeaponNumByIndex(i);
 
 			if ((weaponnum >= WEAPON_UNARMED && weaponnum <= WEAPON_DISGUISE41)
 					|| weaponnum == WEAPON_SUICIDEPILL

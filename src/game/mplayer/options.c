@@ -20,7 +20,7 @@
 #include "game/game_0d4690.h"
 #include "game/game_0dcdb0.h"
 #include "game/game_0f09f0.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/game_1531a0.h"
 #include "game/mplayer/setup.h"
@@ -1442,7 +1442,7 @@ glabel chrGiveBriefcase
 /*  f186998:	03197821 */ 	addu	$t7,$t8,$t9
 /*  f18699c:	afaf0050 */ 	sw	$t7,0x50($sp)
 .L0f1869a0:
-/*  f1869a0:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f1869a0:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f1869a4:	24040057 */ 	addiu	$a0,$zero,0x57
 /*  f1869a8:	24040057 */ 	addiu	$a0,$zero,0x57
 /*  f1869ac:	0fc221f2 */ 	jal	currentPlayerQueuePickupWeaponHudmsg
@@ -1633,7 +1633,7 @@ glabel chrGiveBriefcase
 .L0f186c40:
 /*  f186c40:	546000b9 */ 	bnezl	$v1,.L0f186f28
 /*  f186c44:	8fad0128 */ 	lw	$t5,0x128($sp)
-/*  f186c48:	0fc44a11 */ 	jal	currentPlayerHasBriefcase
+/*  f186c48:	0fc44a11 */ 	jal	invHasBriefcase
 /*  f186c4c:	00000000 */ 	nop
 /*  f186c50:	504000b5 */ 	beqzl	$v0,.L0f186f28
 /*  f186c54:	8fad0128 */ 	lw	$t5,0x128($sp)
@@ -1686,7 +1686,7 @@ glabel chrGiveBriefcase
 /*  f186d00:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f186d04:	0fc24494 */ 	jal	func0f091250
 /*  f186d08:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f186d0c:	0fc447a9 */ 	jal	currentPlayerRemoveWeapon
+/*  f186d0c:	0fc447a9 */ 	jal	invRemoveItemByNum
 /*  f186d10:	24040057 */ 	addiu	$a0,$zero,0x57
 .L0f186d14:
 /*  f186d14:	0fc5b9f1 */ 	jal	langGet
@@ -1855,7 +1855,7 @@ glabel chrGiveBriefcase
 .L0f186f5c:
 /*  f186f5c:	546000b8 */ 	bnezl	$v1,.L0f187240
 /*  f186f60:	8fac0128 */ 	lw	$t4,0x128($sp)
-/*  f186f64:	0fc44a11 */ 	jal	currentPlayerHasBriefcase
+/*  f186f64:	0fc44a11 */ 	jal	invHasBriefcase
 /*  f186f68:	00000000 */ 	nop
 /*  f186f6c:	144000b3 */ 	bnez	$v0,.L0f18723c
 /*  f186f70:	8faf0128 */ 	lw	$t7,0x128($sp)
@@ -2231,7 +2231,7 @@ bool chrGiveUplink(struct chrdata *chr, struct prop *prop)
 			obj->hidden |= 4;
 			return false;
 		} else {
-			currentPlayerGiveWeapon(WEAPON_DATAUPLINK);
+			invGiveSingleWeapon(WEAPON_DATAUPLINK);
 			currentPlayerQueuePickupWeaponHudmsg(WEAPON_DATAUPLINK, false);
 			func0f087d10(WEAPON_DATAUPLINK);
 			func0f06ad2c(obj, 0, obj->hidden2 & OBJH2FLAG_04);

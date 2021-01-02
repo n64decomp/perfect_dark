@@ -11,7 +11,7 @@
 #include "game/game_01b0a0.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b0420.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"
@@ -37,7 +37,7 @@ void amTick(void)
 		}
 
 		if (g_Vars.normmplayerisrunning == false
-				&& currentPlayerGetNumInvItems() != g_AmMenus[g_AmIndex].numitems) {
+				&& invGetCount() != g_AmMenus[g_AmIndex].numitems) {
 			amAssignWeaponSlots();
 		}
 

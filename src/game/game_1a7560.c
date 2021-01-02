@@ -16,7 +16,7 @@
 #include "game/game_0e0770.h"
 #include "game/game_0f09f0.h"
 #include "game/game_102240.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
 #include "game/game_16e810.h"

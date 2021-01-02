@@ -10,7 +10,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/data/inventory.h"
+#include "game/inventory/items.h"
 #include "game/game_005fd0.h"
 #include "game/chr/chr.h"
 #include "game/game_0601b0.h"
@@ -28,7 +28,7 @@
 #include "game/game_0b63b0.h"
 #include "game/game_0c33f0.h"
 #include "game/game_0d7070.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/smoke/smoke.h"
 #include "game/game_1531a0.h"
@@ -4368,7 +4368,7 @@ glabel func0f09b260
 /*  f09b2a8:	000fc340 */ 	sll	$t8,$t7,0xd
 /*  f09b2ac:	0703000d */ 	bgezl	$t8,.L0f09b2e4
 /*  f09b2b0:	8c4a000c */ 	lw	$t2,0xc($v0)
-/*  f09b2b4:	0fc447a9 */ 	jal	currentPlayerRemoveWeapon
+/*  f09b2b4:	0fc447a9 */ 	jal	invRemoveItemByNum
 /*  f09b2b8:	92040000 */ 	lbu	$a0,0x0($s0)
 /*  f09b2bc:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
 /*  f09b2c0:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
@@ -6945,7 +6945,7 @@ glabel var7f1ac620
 /*  f09d154:	afb00024 */ 	sw	$s0,0x24($sp)
 /*  f09d158:	f7b60018 */ 	sdc1	$f22,0x18($sp)
 /*  f09d15c:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f09d160:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
+/*  f09d160:	0fc2866a */ 	jal	handGetWeaponNum
 /*  f09d164:	afa40068 */ 	sw	$a0,0x68($sp)
 /*  f09d168:	0fc2c3f4 */ 	jal	weaponFindById
 /*  f09d16c:	00402025 */ 	or	$a0,$v0,$zero
@@ -11165,7 +11165,7 @@ glabel var7f1ac764
 
 void currentPlayerSwivelGunTowards(f32 screenx, f32 screeny, f32 damp)
 {
-	struct weapon *weapon = weaponFindById(getCurrentPlayerWeaponId(0));
+	struct weapon *weapon = weaponFindById(handGetWeaponNum(HAND_RIGHT));
 	f32 value = weapon->eptr->unk14;
 
 	if (value < damp) {
@@ -11177,7 +11177,7 @@ void currentPlayerSwivelGunTowards(f32 screenx, f32 screeny, f32 damp)
 
 void func0f0a0b98(f32 screenx, f32 screeny)
 {
-	struct weapon *weapon = weaponFindById(getCurrentPlayerWeaponId(0));
+	struct weapon *weapon = weaponFindById(handGetWeaponNum(HAND_RIGHT));
 	f32 value = weapon->eptr->unk14;
 
 	func0f0a0394(screenx, screeny, 0.945f, value);
@@ -11844,7 +11844,7 @@ glabel func0f0a1528
 /*  f0a15ac:	07010009 */ 	bgez	$t8,.L0f0a15d4
 /*  f0a15b0:	00000000 */ 	nop
 /*  f0a15b4:	82840002 */ 	lb	$a0,0x2($s4)
-/*  f0a15b8:	0fc4473e */ 	jal	func0f111cf8
+/*  f0a15b8:	0fc4473e */ 	jal	invHasDoubleWeaponIncAllGuns
 /*  f0a15bc:	00802825 */ 	or	$a1,$a0,$zero
 /*  f0a15c0:	14400004 */ 	bnez	$v0,.L0f0a15d4
 /*  f0a15c4:	00000000 */ 	nop
@@ -12011,7 +12011,7 @@ glabel func0f0a1528
 /*  f0a1810:	26520004 */ 	addiu	$s2,$s2,0x4
 /*  f0a1814:	1621ffd3 */ 	bne	$s1,$at,.L0f0a1764
 /*  f0a1818:	267307a4 */ 	addiu	$s3,$s3,0x7a4
-/*  f0a181c:	0fc44bdc */ 	jal	currentPlayerCalculateEquipCurItem
+/*  f0a181c:	0fc44bdc */ 	jal	invCalculateCurrentIndex
 /*  f0a1820:	00000000 */ 	nop
 /*  f0a1824:	82820000 */ 	lb	$v0,0x0($s4)
 /*  f0a1828:	240effff */ 	addiu	$t6,$zero,-1
@@ -12057,7 +12057,7 @@ glabel func0f0a1528
 /*  f0a18c4:	00000000 */ 	nop
 /*  f0a18c8:	ae180014 */ 	sw	$t8,0x14($s0)
 .L0f0a18cc:
-/*  f0a18cc:	0fc447a9 */ 	jal	currentPlayerRemoveWeapon
+/*  f0a18cc:	0fc447a9 */ 	jal	invRemoveItemByNum
 /*  f0a18d0:	82840000 */ 	lb	$a0,0x0($s4)
 /*  f0a18d4:	0fc2870b */ 	jal	func0f0a1c2c
 /*  f0a18d8:	00000000 */ 	nop
@@ -12117,7 +12117,7 @@ void currentPlayerEquipWeapon(s32 weaponnum)
 	player->unk1583_05 = 0;
 }
 
-s32 getCurrentPlayerWeaponId(s32 handnum)
+s32 handGetWeaponNum(s32 handnum)
 {
 	if (!g_Vars.currentplayer->hands[handnum].unk0640) {
 		return WEAPON_NONE;
@@ -12128,7 +12128,7 @@ s32 getCurrentPlayerWeaponId(s32 handnum)
 
 s32 getCurrentPlayerWeaponIdWrapper(s32 handnum)
 {
-	return getCurrentPlayerWeaponId(handnum);
+	return handGetWeaponNum(handnum);
 }
 
 bool func0f0a1a10(s32 weaponnum)
@@ -12164,10 +12164,10 @@ void func0f0a1ab0(void)
 		struct player *player = g_Vars.currentplayer;
 		s32 dualweaponnum;
 
-		if (currentPlayerCanHaveWeapon(player->prevweaponnum)) {
+		if (invHasSingleWeaponIncAllGuns(player->prevweaponnum)) {
 			currentPlayerEquipWeaponWrapper(HAND_RIGHT, player->prevweaponnum);
 
-			dualweaponnum = func0f111cf8(player->prevweaponnum, player->prevweaponnum) * player->prevweaponnum * player->unk1583_01;
+			dualweaponnum = invHasDoubleWeaponIncAllGuns(player->prevweaponnum, player->prevweaponnum) * player->prevweaponnum * player->unk1583_01;
 			currentPlayerEquipWeaponWrapper(HAND_LEFT, dualweaponnum);
 		} else {
 			func0f0a1df4();
@@ -12408,7 +12408,7 @@ glabel func0f0a1df4
 /*  f0a1e64:	2416ffff */ 	addiu	$s6,$zero,-1
 /*  f0a1e68:	0000a025 */ 	or	$s4,$zero,$zero
 .L0f0a1e6c:
-/*  f0a1e6c:	0fc44727 */ 	jal	currentPlayerCanHaveWeapon
+/*  f0a1e6c:	0fc44727 */ 	jal	invHasSingleWeaponIncAllGuns
 /*  f0a1e70:	92640000 */ 	lbu	$a0,0x0($s3)
 /*  f0a1e74:	10400031 */ 	beqz	$v0,.L0f0a1f3c
 /*  f0a1e78:	00000000 */ 	nop
@@ -12495,7 +12495,7 @@ glabel func0f0a1df4
 /*  f0a1f98:	267301eb */ 	addiu	$s3,$s3,%lo(var800701e8+0x3)
 /*  f0a1f9c:	92110000 */ 	lbu	$s1,0x0($s0)
 .L0f0a1fa0:
-/*  f0a1fa0:	0fc44727 */ 	jal	currentPlayerCanHaveWeapon
+/*  f0a1fa0:	0fc44727 */ 	jal	invHasSingleWeaponIncAllGuns
 /*  f0a1fa4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0a1fa8:	10400008 */ 	beqz	$v0,.L0f0a1fcc
 /*  f0a1fac:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -12524,7 +12524,7 @@ glabel func0f0a1df4
 /*  f0a1ff4:	8faa0044 */ 	lw	$t2,0x44($sp)
 /*  f0a1ff8:	13ca0019 */ 	beq	$s8,$t2,.L0f0a2060
 /*  f0a1ffc:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f0a2000:	0fc4473e */ 	jal	func0f111cf8
+/*  f0a2000:	0fc4473e */ 	jal	invHasDoubleWeaponIncAllGuns
 /*  f0a2004:	03c02825 */ 	or	$a1,$s8,$zero
 /*  f0a2008:	10400006 */ 	beqz	$v0,.L0f0a2024
 /*  f0a200c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
@@ -12635,7 +12635,7 @@ void currentPlayerReloadHandIfPossible(s32 handnum)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	if (weaponGetAmmoType(getCurrentPlayerWeaponId(handnum), 0)
+	if (weaponGetAmmoType(handGetWeaponNum(handnum), 0)
 			&& player->hands[handnum].unk065c == 0) {
 		player->hands[handnum].unk065c = 9;
 	}
@@ -13264,7 +13264,7 @@ void currentPlayerLoseGunInNbombStorm(struct prop *prop)
 			}
 		}
 
-		currentPlayerRemoveWeapon(weaponnum);
+		invRemoveItemByNum(weaponnum);
 
 		player->hands[1].unk0c3c = 0;
 		player->hands[1].unk0d0e_00 = 1;
@@ -18081,7 +18081,7 @@ glabel var7f1aca88
 .L0f0a6cd0:
 /*  f0a6cd0:	1300001f */ 	beqz	$t8,.L0f0a6d50
 /*  f0a6cd4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a6cd8:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
+/*  f0a6cd8:	0fc2866a */ 	jal	handGetWeaponNum
 /*  f0a6cdc:	afa3004c */ 	sw	$v1,0x4c($sp)
 /*  f0a6ce0:	24010016 */ 	addiu	$at,$zero,0x16
 /*  f0a6ce4:	14410004 */ 	bne	$v0,$at,.L0f0a6cf8
@@ -20133,7 +20133,7 @@ glabel var7f1acb14
 /*  f0a8964:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f0a8968:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f0a896c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a8970:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
+/*  f0a8970:	0fc2866a */ 	jal	handGetWeaponNum
 /*  f0a8974:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0a8978:	244efffa */ 	addiu	$t6,$v0,-6
 /*  f0a897c:	2dc1001d */ 	sltiu	$at,$t6,0x1d
@@ -20338,7 +20338,7 @@ glabel var7f1acb14
 // Goal loads 1 into $t5 while the below uses $at.
 //u32 currentPlayerConsiderToggleGunFunction(s32 usedowntime, bool firing, s32 arg2)
 //{
-//	switch (getCurrentPlayerWeaponId(0)) {
+//	switch (handGetWeaponNum(HAND_RIGHT)) {
 //	case WEAPON_SNIPERRIFLE: // f0a89a0
 //		// Setting this allows the sniper rifle to behave somewhat similarly to
 //		// a temporary function, meaning that it reverts to primary when B is
@@ -20520,9 +20520,9 @@ void currentPlayerTickInventory(bool triggeron)
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 		triggeron = false;
 
-		if (currentPlayerGetNumInvItems() > 1) {
-			currentPlayerClearInventory();
-			currentPlayerGiveWeapon(WEAPON_UNARMED);
+		if (invGetCount() > 1) {
+			invClear();
+			invGiveSingleWeapon(WEAPON_UNARMED);
 		}
 
 		if (g_Vars.currentplayer->weaponnum != WEAPON_UNARMED
@@ -20539,9 +20539,9 @@ void currentPlayerTickInventory(bool triggeron)
 	}
 
 	// Remove throwable items from inventory if there's no more left
-	for (i = 0; i < currentPlayerGetNumInvItems(); i++) {
+	for (i = 0; i < invGetCount(); i++) {
 		struct weapon *weapon;
-		s32 weaponnum = currentPlayerGetWeaponNumByInvIndex(i);
+		s32 weaponnum = invGetWeaponNumByIndex(i);
 		s32 equippedweaponnum;
 
 		switch (weaponnum) {
@@ -20558,12 +20558,12 @@ void currentPlayerTickInventory(bool triggeron)
 
 			if (weapon && weapon->ammos[0]
 					&& currentPlayerGetAmmoCount(weapon->ammos[0]->type) == 0) {
-				equippedweaponnum = getCurrentPlayerWeaponId(0);
-				currentPlayerRemoveWeapon(weaponnum);
+				equippedweaponnum = handGetWeaponNum(HAND_RIGHT);
+				invRemoveItemByNum(weaponnum);
 
-				if (weaponnum == equippedweaponnum && !currentPlayerCanHaveWeapon(weaponnum)) {
-					currentPlayerCalculateEquipCurItem();
-					currentPlayerEquipWeapon(currentPlayerGetWeaponNumByInvIndex(g_Vars.currentplayer->equipcuritem));
+				if (weaponnum == equippedweaponnum && !invHasSingleWeaponIncAllGuns(weaponnum)) {
+					invCalculateCurrentIndex();
+					currentPlayerEquipWeapon(invGetWeaponNumByIndex(g_Vars.currentplayer->equipcuritem));
 				}
 			}
 		}
@@ -20665,7 +20665,7 @@ void currentPlayerTickInventory(bool triggeron)
 		func0f069710(player->gunshadecol, shadecol);
 	}
 
-	currentPlayerIncrementGunHeldTime(getCurrentPlayerWeaponId(0), getCurrentPlayerWeaponId(1));
+	invIncrementHeldTime(handGetWeaponNum(HAND_RIGHT), handGetWeaponNum(HAND_LEFT));
 }
 
 void playersSetPassiveMode(bool enable)
@@ -20799,7 +20799,7 @@ glabel currentPlayerSetAmmoQuantity
 /*  f0a9640:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0a9644:	afa5003c */ 	sw	$a1,0x3c($sp)
 /*  f0a9648:	8e31a244 */ 	lw	$s1,%lo(g_Vars+0x284)($s1)
-/*  f0a964c:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
+/*  f0a964c:	0fc2866a */ 	jal	handGetWeaponNum
 /*  f0a9650:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0a9654:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f0a9658:	2410ffff */ 	addiu	$s0,$zero,-1
@@ -22347,9 +22347,9 @@ glabel hudRenderAmmo
 /*  f0aad30:	93040000 */ 	lbu	$a0,0x0($t8)
 /*  f0aad34:	0fc2c401 */ 	jal	weaponGetFunctionById
 /*  f0aad38:	afaa0058 */ 	sw	$t2,0x58($sp)
-/*  f0aad3c:	0fc44bd4 */ 	jal	currentPlayerGetEquipCurItem
+/*  f0aad3c:	0fc44bd4 */ 	jal	invGetCurrentIndex
 /*  f0aad40:	afa200bc */ 	sw	$v0,0xbc($sp)
-/*  f0aad44:	0fc44b3e */ 	jal	currentPlayerGetInvNameIdByIndex
+/*  f0aad44:	0fc44b3e */ 	jal	invGetNameIdByIndex
 /*  f0aad48:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0aad4c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0aad50:	0fc5b9f1 */ 	jal	langGet

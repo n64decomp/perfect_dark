@@ -19,7 +19,7 @@
 #include "game/game_095320.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b63b0.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/bondhead.h"
 #include "game/game_127910.h"
 #include "game/propobj.h"
@@ -2059,7 +2059,7 @@ glabel var7f1ad854
 /*  f0c69f8:	44813000 */ 	mtc1	$at,$f6
 /*  f0c69fc:	c54419c4 */ 	lwc1	$f4,0x19c4($t2)
 /*  f0c6a00:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0c6a04:	0fc44a11 */ 	jal	currentPlayerHasBriefcase
+/*  f0c6a04:	0fc44a11 */ 	jal	invHasBriefcase
 /*  f0c6a08:	e7a800c0 */ 	swc1	$f8,0xc0($sp)
 /*  f0c6a0c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c6a10:	1040000a */ 	beqz	$v0,.L0f0c6a3c

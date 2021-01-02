@@ -27,7 +27,7 @@
 	build/ROMID/game/game_0109d0.o (section); \
 	build/ROMID/game/game_010b20.o (section); \
 	build/ROMID/game/game_011110.o (section); \
-	build/ROMID/game/game_012450.o (section); \
+	build/ROMID/game/inventory/init.o (section); \
 	build/ROMID/game/game_0125a0.o (section); \
 	build/ROMID/game/game_012d50.o (section); \
 	build/ROMID/game/explosions/init.o (section); \
@@ -73,7 +73,7 @@
 	build/ROMID/game/game_0601b0.o (section); \
 	build/ROMID/game/propobj.o (section); \
 	build/ROMID/game/data/data_00e460.o (section); \
-	build/ROMID/game/data/inventory.o (section); \
+	build/ROMID/game/inventory/items.o (section); \
 	build/ROMID/game/game_091e10.o (section); \
 	build/ROMID/game/game_092610.o (section); \
 	build/ROMID/game/game_095320.o (section); \
@@ -119,7 +119,7 @@
 	build/ROMID/game/data/data_01a3a0.o (section); \
 	build/ROMID/game/endscreen.o (section); \
 	build/ROMID/game/gamefile.o (section); \
-	build/ROMID/game/game_111600.o (section); \
+	build/ROMID/game/inventory/inventory.o (section); \
 	build/ROMID/game/bondhead.o (section); \
 	build/ROMID/game/padhalllv.o (section); \
 	build/ROMID/game/pad.o (section); \

@@ -163,7 +163,7 @@ glabel func0f0d716c
 /*  f0d7208:	10000009 */ 	b	.L0f0d7230
 /*  f0d720c:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f0d7210:
-/*  f0d7210:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
+/*  f0d7210:	0fc2866a */ 	jal	handGetWeaponNum
 /*  f0d7214:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0d7218:	24010018 */ 	addiu	$at,$zero,0x18
 /*  f0d721c:	54410004 */ 	bnel	$v0,$at,.L0f0d7230

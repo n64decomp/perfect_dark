@@ -29,7 +29,7 @@
 #include "game/game_0b28d0.h"
 #include "game/game_0b63b0.h"
 #include "game/game_0dcdb0.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/explosions/explosions.h"
 #include "game/smoke/smoke.h"
@@ -2020,17 +2020,16 @@ bool aiIfChrHasObject(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-	s32 playernum = 0;
+	s32 hasprop = false;
 
 	if (obj && obj->prop && chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		s32 prevplayernum = g_Vars.currentplayernum;
-		playernum = propGetPlayerNum(chr->prop);
-		setCurrentPlayerNum(playernum);
-		playernum = currentPlayerHasProp(obj->prop);
+		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
+		hasprop = invHasProp(obj->prop);
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	if (playernum != 0) {
+	if (hasprop) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
@@ -2103,7 +2102,7 @@ bool aiIfChrHasWeaponEquipped(void)
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
-		if (getCurrentPlayerWeaponId(0) == cmd[3]) {
+		if (handGetWeaponNum(HAND_RIGHT) == cmd[3]) {
 			passes = true;
 		}
 
@@ -2301,8 +2300,8 @@ bool aiChrDropWeapon(void)
 		u32 playernum = propGetPlayerNum(chr->prop);
 		u32 weaponnum;
 		setCurrentPlayerNum(playernum);
-		weaponnum = getCurrentPlayerWeaponId(0);
-		currentPlayerRemoveWeapon(weaponnum);
+		weaponnum = handGetWeaponNum(HAND_RIGHT);
+		invRemoveItemByNum(weaponnum);
 		func0f0a1c2c();
 		setCurrentPlayerNum(prevplayernum);
 	} else if (chr && chr->prop) {
@@ -6340,7 +6339,7 @@ glabel var7f1a9d4c
 /*  f05935c:	24090004 */ 	addiu	$t1,$zero,0x4
 /*  f059360:	a3a9002b */ 	sb	$t1,0x2b($sp)
 .L0f059364:
-/*  f059364:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
+/*  f059364:	0fc2866a */ 	jal	handGetWeaponNum
 /*  f059368:	00002025 */ 	or	$a0,$zero,$zero
 /*  f05936c:	244afffe */ 	addiu	$t2,$v0,-2
 /*  f059370:	2d41001a */ 	sltiu	$at,$t2,0x1a
@@ -6477,7 +6476,7 @@ glabel var7f1a9d4c
 //		score -= 2;
 //	}
 //
-//	switch (getCurrentPlayerWeaponId(0)) {
+//	switch (handGetWeaponNum(HAND_RIGHT)) {
 //	case WEAPON_CMP150:
 //	case WEAPON_CYCLONE:
 //	case WEAPON_CALLISTONTG:
@@ -6636,10 +6635,10 @@ bool aiCheckCoverOutOfSight(void)
  */
 bool aiIfPlayerUsingCmpOrAr34(void)
 {
-	u32 arg = 0;
+	u32 hand = HAND_RIGHT;
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	switch (getCurrentPlayerWeaponId(arg)) {
+	switch (handGetWeaponNum(hand)) {
 		case WEAPON_CMP150:
 		case WEAPON_AR34:
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -10152,9 +10151,9 @@ bool aiClearInventory(void)
 		setCurrentPlayerNum(playernum);
 
 		if (g_Vars.currentplayer == g_Vars.bond || g_Vars.currentplayer == g_Vars.coop) {
-			currentPlayerClearInventory();
+			invClear();
 			g_Vars.currentplayer->devicesactive = 0;
-			currentPlayerGiveWeapon(WEAPON_UNARMED);
+			invGiveSingleWeapon(WEAPON_UNARMED);
 			currentPlayerEquipWeapon(WEAPON_UNARMED);
 		}
 	}
@@ -11106,7 +11105,7 @@ bool aiChrKill(void)
 bool aiRemoveWeaponFromInventory(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	currentPlayerRemoveWeapon(cmd[2]);
+	invRemoveItemByNum(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;

@@ -9,13 +9,13 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/game_012450.h"
-#include "game/game_111600.h"
+#include "game/inventory/init.h"
+#include "game/inventory/inventory.h"
 #include "gvars/gvars.h"
 #include "lib/lib_121e0.h"
 #include "types.h"
 
-void currentPlayerInitGunsHeld(void)
+void invInitGunsHeld(void)
 {
 	s32 i;
 
@@ -30,9 +30,9 @@ void currentPlayerInitGunsHeld(void)
 	}
 }
 
-void func0f012530(s32 arg0)
+void invInit(s32 numdoubles)
 {
-	g_Vars.currentplayer->equipmaxitems = arg0 + 30;
+	g_Vars.currentplayer->equipmaxitems = numdoubles + 30;
 	g_Vars.currentplayer->equipment = malloc(ALIGN16(g_Vars.currentplayer->equipmaxitems * sizeof(struct invitem)), 4);
-	currentPlayerClearInventory();
+	invClear();
 }

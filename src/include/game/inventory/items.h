@@ -1,5 +1,5 @@
-#ifndef IN_GAME_DATA_INVENTORY_H
-#define IN_GAME_DATA_INVENTORY_H
+#ifndef IN_GAME_INVENTORY_ITEMS_H
+#define IN_GAME_INVENTORY_ITEMS_H
 #include <ultra64.h>
 
 extern struct inventory_menupos invmenupos_00010fd0;

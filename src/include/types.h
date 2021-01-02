@@ -2642,8 +2642,8 @@ struct player {
 	/*0x1858*/ f32 aspect;
 	/*0x185c*/ u32 flags;
 	/*0x1860*/ u32 unk1860;
-	/*0x1864*/ struct invitem *weapons; // circular linked list
-	/*0x1868*/ struct invitem *equipment;
+	/*0x1864*/ struct invitem *weapons; // circular linked list, sorted
+	/*0x1868*/ struct invitem *equipment; // slots, allocated, unsorted
 	/*0x186c*/ s32 equipmaxitems;
 	/*0x1870*/ u32 equipallguns;
 	/*0x1874*/ u32 equipcuritem;

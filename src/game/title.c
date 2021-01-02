@@ -12,7 +12,7 @@
 #include "game/game_097ba0.h"
 #include "game/game_0b28d0.h"
 #include "game/game_0b3350.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/credits.h"
 #include "game/bondview.h"
@@ -215,7 +215,7 @@ char *mpPlayerGetWeaponOfChoiceName(u32 playernum, u32 slot)
 
 	setCurrentPlayerNum(playernum);
 
-	currentPlayerGetWeaponOfChoice(&weapon1, &weapon2);
+	invGetWeaponOfChoice(&weapon1, &weapon2);
 
 	weapon = slot == 1 ? weapon2 : weapon1;
 

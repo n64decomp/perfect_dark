@@ -15,7 +15,7 @@
 #include "game/game_097ba0.h"
 #include "game/game_0b63b0.h"
 #include "game/game_0dcdb0.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/game_1655c0.h"
 #include "game/lang.h"
@@ -2231,7 +2231,7 @@ glabel var7f1adb00
 /*  f0d1040:	e7ae00e0 */ 	swc1	$f14,0xe0($sp)
 /*  f0d1044:	0fc195e9 */ 	jal	roomsCopy
 /*  f0d1048:	24840028 */ 	addiu	$a0,$a0,0x28
-/*  f0d104c:	0fc44727 */ 	jal	currentPlayerCanHaveWeapon
+/*  f0d104c:	0fc44727 */ 	jal	invHasSingleWeaponIncAllGuns
 /*  f0d1050:	2404002e */ 	addiu	$a0,$zero,0x2e
 /*  f0d1054:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0d1058:	44808000 */ 	mtc1	$zero,$f16

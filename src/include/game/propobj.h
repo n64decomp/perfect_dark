@@ -281,7 +281,7 @@ void func0f08b25c(struct weaponobj *weapon, struct chrdata *chr);
 u32 func0f08b27c(void);
 u32 func0f08b658(void);
 struct weaponobj *func0f08b880(u32 model, u32 weaponnum, struct chrdata *chr);
-void chrSetObjHiddenFlag4OnWeapon(struct chrdata *chr, s32 slot);
+void chrSetObjHiddenFlag4OnWeapon(struct chrdata *chr, s32 hand);
 struct prop *func0f08b8e8(struct chrdata *chr, s32 weaponnum, s32 arg2, u32 flags, s32 arg4, s32 arg5);
 struct prop *chrGiveWeapon(struct chrdata *chr, s32 model, s32 weaponnum, u32 flags);
 u32 func0f08bb3c(void);

@@ -14,7 +14,7 @@
 #include "game/game_095320.h"
 #include "game/game_0b3350.h"
 #include "game/game_0dcdb0.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/core.h"
 #include "game/training/training.h"
@@ -240,7 +240,7 @@ s32 objectiveCheck(s32 index)
 								if (g_Vars.players[i] == g_Vars.bond || g_Vars.players[i] == g_Vars.coop) {
 									setCurrentPlayerNum(i);
 
-									if (currentPlayerHasProp(obj->prop)) {
+									if (invHasProp(obj->prop)) {
 										collected = true;
 										break;
 									}
@@ -267,7 +267,7 @@ s32 objectiveCheck(s32 index)
 								if (g_Vars.players[i] == g_Vars.bond || g_Vars.players[i] == g_Vars.coop) {
 									setCurrentPlayerNum(i);
 
-									if (currentPlayerHasProp(obj->prop)) {
+									if (invHasProp(obj->prop)) {
 										reqstatus = OBJECTIVE_INCOMPLETE;
 										break;
 									}

@@ -11,7 +11,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/data/inventory.h"
+#include "game/inventory/items.h"
 #include "game/game_006bd0.h"
 #include "game/title.h"
 #include "game/chr/chr.h"
@@ -32,7 +32,7 @@
 #include "game/game_0f09f0.h"
 #include "game/game_102240.h"
 #include "game/game_107fb0.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/explosions/explosions.h"
 #include "game/bondview.h"
@@ -1301,7 +1301,7 @@ glabel var7f1ad568
 /*  f0b7550:	ac40fffc */ 	sw	$zero,-0x4($v0)
 /*  f0b7554:	24100001 */ 	addiu	$s0,$zero,0x1
 .L0f0b7558:
-/*  f0b7558:	0fc446b5 */ 	jal	func0f111ad4
+/*  f0b7558:	0fc446b5 */ 	jal	invHasSingleWeaponOrProp
 /*  f0b755c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0b7560:	1040000a */ 	beqz	$v0,.L0f0b758c
 /*  f0b7564:	02002025 */ 	or	$a0,$s0,$zero
@@ -1336,7 +1336,7 @@ glabel var7f1ad568
 /*  f0b75cc:	1000000a */ 	b	.L0f0b75f8
 /*  f0b75d0:	00000000 */ 	nop
 .L0f0b75d4:
-/*  f0b75d4:	0fc44580 */ 	jal	currentPlayerClearInventory
+/*  f0b75d4:	0fc44580 */ 	jal	invClear
 /*  f0b75d8:	00000000 */ 	nop
 /*  f0b75dc:	00001825 */ 	or	$v1,$zero,$zero
 /*  f0b75e0:	24020084 */ 	addiu	$v0,$zero,0x84
@@ -1347,7 +1347,7 @@ glabel var7f1ad568
 /*  f0b75f0:	1462fffc */ 	bne	$v1,$v0,.L0f0b75e4
 /*  f0b75f4:	af0017a8 */ 	sw	$zero,0x17a8($t8)
 .L0f0b75f8:
-/*  f0b75f8:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f0b75f8:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f0b75fc:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0b7600:	5220003c */ 	beqzl	$s1,.L0f0b76f4
 /*  f0b7604:	8e4c0298 */ 	lw	$t4,0x298($s2)
@@ -1383,12 +1383,12 @@ glabel var7f1ad568
 /*  f0b7674:	8e250008 */ 	lw	$a1,0x8($s1)
 /*  f0b7678:	04a00005 */ 	bltz	$a1,.L0f0b7690
 /*  f0b767c:	00000000 */ 	nop
-/*  f0b7680:	0fc4478a */ 	jal	currentPlayerGiveWeaponWithArgument
+/*  f0b7680:	0fc4478a */ 	jal	invGiveDoubleWeapon
 /*  f0b7684:	8e240004 */ 	lw	$a0,0x4($s1)
 /*  f0b7688:	10000016 */ 	b	.L0f0b76e4
 /*  f0b768c:	26310010 */ 	addiu	$s1,$s1,0x10
 .L0f0b7690:
-/*  f0b7690:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f0b7690:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f0b7694:	8e240004 */ 	lw	$a0,0x4($s1)
 .L0f0b7698:
 /*  f0b7698:	10000012 */ 	b	.L0f0b76e4
@@ -1562,7 +1562,7 @@ glabel var7f1ad568
 //		}
 //
 //		for (i = 1; i != ARRAYCOUNT(g_Weapons); i++) {
-//			if (func0f111ad4(i)) {
+//			if (invHasSingleWeaponOrProp(i)) {
 //				s32 ammotype = weaponGetAmmoType(i, 0);
 //
 //				if (ammotype >= 0 && ammotype <= AMMOTYPE_ECM_MINE) {
@@ -1577,14 +1577,14 @@ glabel var7f1ad568
 //			}
 //		}
 //	} else {
-//		currentPlayerClearInventory();
+//		invClear();
 //
 //		for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->ammoheldarr); i++) {
 //			g_Vars.currentplayer->ammoheldarr[i] = 0;
 //		}
 //	}
 //
-//	currentPlayerGiveWeapon(WEAPON_UNARMED);
+//	invGiveSingleWeapon(WEAPON_UNARMED);
 //
 //	if (cmd) {
 //		if (g_Vars.antiplayernum < 0 || g_Vars.currentplayer != g_Vars.anti) {
@@ -1603,9 +1603,9 @@ glabel var7f1ad568
 //				case INTROCMD_WEAPON:
 //					if (cmd[3] == 0) {
 //						if (cmd[2] >= 0) {
-//							currentPlayerGiveWeaponWithArgument(cmd[1], cmd[2]);
+//							invGiveDoubleWeapon(cmd[1], cmd[2]);
 //						} else {
-//							currentPlayerGiveWeapon(cmd[1]);
+//							invGiveSingleWeapon(cmd[1]);
 //						}
 //					}
 //					cmd += 4;
@@ -1986,8 +1986,8 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 			struct weaponobj *weapon = hostchr->weapons_held[0]->weapon;
 			u32 stack;
 
-			currentPlayerGiveWeapon(weapon->weaponnum);
-			currentPlayerGiveWeaponWithArgument(weapon->weaponnum, weapon->weaponnum);
+			invGiveSingleWeapon(weapon->weaponnum);
+			invGiveDoubleWeapon(weapon->weaponnum, weapon->weaponnum);
 			currentPlayerEquipWeaponWrapper(HAND_RIGHT, weapon->weaponnum);
 			currentPlayerEquipWeaponWrapper(HAND_LEFT, weapon->weaponnum);
 		} else if (hostchr->weapons_held[0]) {
@@ -1995,10 +1995,10 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 			struct weaponobj *weapon = hostchr->weapons_held[0]->weapon;
 
 			if (weapon->weaponnum == WEAPON_SUPERDRAGON) {
-				currentPlayerGiveWeapon(WEAPON_DRAGON);
+				invGiveSingleWeapon(WEAPON_DRAGON);
 				currentPlayerEquipWeaponWrapper(HAND_RIGHT, WEAPON_DRAGON);
 			} else {
-				currentPlayerGiveWeapon(weapon->weaponnum);
+				invGiveSingleWeapon(weapon->weaponnum);
 				currentPlayerEquipWeaponWrapper(HAND_RIGHT, weapon->weaponnum);
 			}
 		} else if (hostchr->weapons_held[1]) {
@@ -2006,15 +2006,15 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 			struct weaponobj *weapon = hostchr->weapons_held[1]->weapon;
 
 			if (weapon->weaponnum == WEAPON_SUPERDRAGON) {
-				currentPlayerGiveWeapon(WEAPON_DRAGON);
+				invGiveSingleWeapon(WEAPON_DRAGON);
 				currentPlayerEquipWeaponWrapper(HAND_RIGHT, WEAPON_DRAGON);
 			} else {
-				currentPlayerGiveWeapon(weapon->weaponnum);
+				invGiveSingleWeapon(weapon->weaponnum);
 				currentPlayerEquipWeaponWrapper(HAND_RIGHT, weapon->weaponnum);
 			}
 		} else {
 			// Unarmed
-			currentPlayerGiveWeapon(WEAPON_UNARMED);
+			invGiveSingleWeapon(WEAPON_UNARMED);
 			currentPlayerEquipWeaponWrapper(HAND_RIGHT, WEAPON_UNARMED);
 		}
 
@@ -2105,7 +2105,7 @@ void currentPlayerSpawn(void)
 	g_Vars.currentplayer->lifestarttime60 = getMissionTime();
 	g_Vars.currentplayer->healthdisplaytime60 = 0;
 
-	currentPlayerGiveWeapon(WEAPON_UNARMED);
+	invGiveSingleWeapon(WEAPON_UNARMED);
 	currentPlayerSetShieldFrac(0);
 
 	if (cheatIsActive(CHEAT_JOSHIELD)) {
@@ -2122,7 +2122,7 @@ void currentPlayerSpawn(void)
 			numsqdists = 0;
 			force = false;
 
-			currentPlayerGiveWeapon(WEAPON_SUICIDEPILL);
+			invGiveSingleWeapon(WEAPON_SUICIDEPILL);
 			currentPlayerEquipWeaponWrapper(HAND_LEFT, WEAPON_NONE);
 			currentPlayerEquipWeaponWrapper(HAND_RIGHT, WEAPON_UNARMED);
 
@@ -10148,7 +10148,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY) {
 		gdl = func0f0abcb0(gdl);
 
-		if (getCurrentPlayerWeaponId(0) == WEAPON_HORIZONSCANNER) {
+		if (handGetWeaponNum(HAND_RIGHT) == WEAPON_HORIZONSCANNER) {
 			gdl = bviewRenderHorizonScanner(gdl);
 		}
 

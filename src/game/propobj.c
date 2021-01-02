@@ -38,7 +38,7 @@
 #include "game/game_0c33f0.h"
 #include "game/game_0dcdb0.h"
 #include "game/game_0f09f0.h"
-#include "game/game_111600.h"
+#include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/game_128f30.h"
 #include "game/game_129210.h"
@@ -5783,7 +5783,7 @@ glabel func0f06ad2c
 /*  f06b038:	00002025 */ 	or	$a0,$zero,$zero
 /*  f06b03c:	8e240014 */ 	lw	$a0,0x14($s1)
 .L0f06b040:
-/*  f06b040:	0fc44815 */ 	jal	currentPlayerRemoveProp
+/*  f06b040:	0fc44815 */ 	jal	invRemoveProp
 /*  f06b044:	00000000 */ 	nop
 /*  f06b048:	8e4c006c */ 	lw	$t4,0x6c($s2)
 /*  f06b04c:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -37260,7 +37260,7 @@ bool propobjInteract(struct prop *prop)
 
 			if (playernum >= 0 && laptop == &g_ThrownLaptops[playernum]) {
 				obj->hidden |= OBJHFLAG_00000004;
-				currentPlayerGiveWeapon(WEAPON_LAPTOPGUN);
+				invGiveSingleWeapon(WEAPON_LAPTOPGUN);
 				currentPlayerQueuePickupWeaponHudmsg(WEAPON_LAPTOPGUN, false);
 				func0f087d10(WEAPON_LAPTOPGUN);
 
@@ -38000,7 +38000,7 @@ glabel func0f088028
 .L0f088178:
 /*  f088178:	04820004 */ 	bltzl	$a0,.L0f08818c
 /*  f08817c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f088180:	0fc44762 */ 	jal	currentPlayerGiveWeapon
+/*  f088180:	0fc44762 */ 	jal	invGiveSingleWeapon
 /*  f088184:	00000000 */ 	nop
 .L0f088188:
 /*  f088188:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -38342,7 +38342,7 @@ glabel var7f1aae70
 /*  f0888f8:	8faf00a4 */ 	lw	$t7,0xa4($sp)
 /*  f0888fc:	11e0000b */ 	beqz	$t7,.L0f08892c
 /*  f088900:	00000000 */ 	nop
-/*  f088904:	0fc44bfb */ 	jal	objGetActivatedText
+/*  f088904:	0fc44bfb */ 	jal	invGetActivatedTextByObj
 /*  f088908:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f08890c:	14400004 */ 	bnez	$v0,.L0f088920
 /*  f088910:	00402025 */ 	or	$a0,$v0,$zero
@@ -38495,7 +38495,7 @@ glabel var7f1aae70
 .L0f088b30:
 /*  f088b30:	51800013 */ 	beqzl	$t4,.L0f088b80
 /*  f088b34:	24180004 */ 	addiu	$t8,$zero,0x4
-/*  f088b38:	0fc44bfb */ 	jal	objGetActivatedText
+/*  f088b38:	0fc44bfb */ 	jal	invGetActivatedTextByObj
 /*  f088b3c:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f088b40:	10400006 */ 	beqz	$v0,.L0f088b5c
 /*  f088b44:	00402025 */ 	or	$a0,$v0,$zero
@@ -38550,7 +38550,7 @@ glabel var7f1aae70
 /*  f088bf0:	afae0094 */ 	sw	$t6,0x94($sp)
 /*  f088bf4:	11e00014 */ 	beqz	$t7,.L0f088c48
 /*  f088bf8:	8fb80074 */ 	lw	$t8,0x74($sp)
-/*  f088bfc:	0fc44c0d */ 	jal	weaponGetActivatedText
+/*  f088bfc:	0fc44c0d */ 	jal	invGetActivatedTextByWeaponNum
 /*  f088c00:	9304005c */ 	lbu	$a0,0x5c($t8)
 /*  f088c04:	10400008 */ 	beqz	$v0,.L0f088c28
 /*  f088c08:	00402025 */ 	or	$a0,$v0,$zero
@@ -38579,13 +38579,13 @@ glabel var7f1aae70
 /*  f088c54:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f088c58:	55a10010 */ 	bnel	$t5,$at,.L0f088c9c
 /*  f088c5c:	8fb90074 */ 	lw	$t9,0x74($sp)
-/*  f088c60:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
+/*  f088c60:	0fc2866a */ 	jal	handGetWeaponNum
 /*  f088c64:	00002025 */ 	or	$a0,$zero,$zero
 /*  f088c68:	8fae0074 */ 	lw	$t6,0x74($sp)
 /*  f088c6c:	91cf005c */ 	lbu	$t7,0x5c($t6)
 /*  f088c70:	544f000a */ 	bnel	$v0,$t7,.L0f088c9c
 /*  f088c74:	8fb90074 */ 	lw	$t9,0x74($sp)
-/*  f088c78:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
+/*  f088c78:	0fc2866a */ 	jal	handGetWeaponNum
 /*  f088c7c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f088c80:	8fb80074 */ 	lw	$t8,0x74($sp)
 /*  f088c84:	9305005c */ 	lbu	$a1,0x5c($t8)
@@ -38701,7 +38701,7 @@ glabel var7f1aae70
 /*  f088e20:	8faf00a4 */ 	lw	$t7,0xa4($sp)
 /*  f088e24:	51e0003b */ 	beqzl	$t7,.L0f088f14
 /*  f088e28:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f088e2c:	0fc44bfb */ 	jal	objGetActivatedText
+/*  f088e2c:	0fc44bfb */ 	jal	invGetActivatedTextByObj
 /*  f088e30:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f088e34:	14400033 */ 	bnez	$v0,.L0f088f04
 /*  f088e38:	00402025 */ 	or	$a0,$v0,$zero
@@ -38793,7 +38793,7 @@ glabel var7f1aae70
 /*  f088f64:	8faa00a4 */ 	lw	$t2,0xa4($sp)
 /*  f088f68:	5140000c */ 	beqzl	$t2,.L0f088f9c
 /*  f088f6c:	240b0004 */ 	addiu	$t3,$zero,0x4
-/*  f088f70:	0fc44bfb */ 	jal	objGetActivatedText
+/*  f088f70:	0fc44bfb */ 	jal	invGetActivatedTextByObj
 /*  f088f74:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*  f088f78:	14400004 */ 	bnez	$v0,.L0f088f8c
 /*  f088f7c:	00402025 */ 	or	$a0,$v0,$zero
@@ -38829,7 +38829,7 @@ glabel var7f1aae70
 /*  f088fe4:	8fb80094 */ 	lw	$t8,0x94($sp)
 /*  f088fe8:	17000003 */ 	bnez	$t8,.L0f088ff8
 /*  f088fec:	00000000 */ 	nop
-/*  f088ff0:	0fc447f3 */ 	jal	currentPlayerGiveProp
+/*  f088ff0:	0fc447f3 */ 	jal	invGiveProp
 /*  f088ff4:	8fa400a0 */ 	lw	$a0,0xa0($sp)
 .L0f088ff8:
 /*  f088ff8:	10000002 */ 	b	.L0f089004
@@ -38863,7 +38863,7 @@ glabel var7f1aae70
 //		}
 //
 //		if (showhudmsg) {
-//			char *text = objGetActivatedText(obj);
+//			char *text = invGetActivatedTextByObj(obj);
 //
 //			if (text == NULL) {
 //				text = langGet(L_PROPOBJ(40)); // "Picked up a key."
@@ -38947,7 +38947,7 @@ glabel var7f1aae70
 //				}
 //
 //				if (showhudmsg) {
-//					char *text = objGetActivatedText(obj);
+//					char *text = invGetActivatedTextByObj(obj);
 //
 //					if (text) {
 //						func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 9);
@@ -38979,7 +38979,7 @@ glabel var7f1aae70
 //					sp148[0] = 1;
 //
 //					if (showhudmsg) {
-//						char *text = weaponGetActivatedText(weapon->weaponnum);
+//						char *text = invGetActivatedTextByWeaponNum(weapon->weaponnum);
 //
 //						if (text) {
 //							sp112 = true;
@@ -38997,9 +38997,9 @@ glabel var7f1aae70
 //
 //			// c50
 //			if (count == 2
-//					&& getCurrentPlayerWeaponId(0) == weapon->weaponnum
-//					&& getCurrentPlayerWeaponId(1) != weapon->weaponnum) {
-//				currentPlayerEquipWeaponWrapper(1, weapon->weaponnum);
+//					&& handGetWeaponNum(HAND_RIGHT) == weapon->weaponnum
+//					&& handGetWeaponNum(HAND_LEFT) != weapon->weaponnum) {
+//				currentPlayerEquipWeaponWrapper(HAND_LEFT, weapon->weaponnum);
 //			}
 //
 //			// c9c
@@ -39053,7 +39053,7 @@ glabel var7f1aae70
 //			}
 //
 //			if (showhudmsg) {
-//				char *text = objGetActivatedText(obj);
+//				char *text = invGetActivatedTextByObj(obj);
 //
 //				if (text == NULL) {
 //					s32 playercount = PLAYERCOUNT();
@@ -39119,7 +39119,7 @@ glabel var7f1aae70
 //		}
 //
 //		if (showhudmsg) {
-//			char *text = objGetActivatedText(obj);
+//			char *text = invGetActivatedTextByObj(obj);
 //
 //			if (text == NULL) {
 //				text = langGet(L_PROPOBJ(43)); // "Picked up something."
@@ -39141,7 +39141,7 @@ glabel var7f1aae70
 //	// fe0
 //	if (v0) {
 //		if (sp148[0] == 0) {
-//			currentPlayerGiveProp(prop);
+//			invGiveProp(prop);
 //		}
 //
 //		return 4;
@@ -39318,7 +39318,7 @@ glabel var7f1aae84
 /*  f089230:	100001e5 */ 	b	.L0f0899c8
 /*  f089234:	00001025 */ 	or	$v0,$zero,$zero
 .L0f089238:
-/*  f089238:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f089238:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f08923c:	afa70080 */ 	sw	$a3,0x80($sp)
 /*  f089240:	1040013c */ 	beqz	$v0,.L0f089734
 /*  f089244:	8fa70080 */ 	lw	$a3,0x80($sp)
@@ -39402,7 +39402,7 @@ glabel var7f1aae84
 /*  f089360:	00802825 */ 	or	$a1,$a0,$zero
 /*  f089364:	00803025 */ 	or	$a2,$a0,$zero
 .L0f089368:
-/*  f089368:	0fc446ac */ 	jal	func0f111ab0
+/*  f089368:	0fc446ac */ 	jal	invHasDoubleWeaponExcAllGuns
 /*  f08936c:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f089370:	104000f0 */ 	beqz	$v0,.L0f089734
 /*  f089374:	00000000 */ 	nop
@@ -39420,12 +39420,12 @@ glabel var7f1aae84
 /*  f0893a0:	8fa70080 */ 	lw	$a3,0x80($sp)
 /*  f0893a4:	90e4005c */ 	lbu	$a0,0x5c($a3)
 /*  f0893a8:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f0893ac:	0fc446ac */ 	jal	func0f111ab0
+/*  f0893ac:	0fc446ac */ 	jal	invHasDoubleWeaponExcAllGuns
 /*  f0893b0:	00802825 */ 	or	$a1,$a0,$zero
 /*  f0893b4:	1440000f */ 	bnez	$v0,.L0f0893f4
 /*  f0893b8:	8fa70080 */ 	lw	$a3,0x80($sp)
 /*  f0893bc:	90e4005c */ 	lbu	$a0,0x5c($a3)
-/*  f0893c0:	0fc44674 */ 	jal	currentPlayerGetWeaponInvItem
+/*  f0893c0:	0fc44674 */ 	jal	invFindSingleWeapon
 /*  f0893c4:	afa70080 */ 	sw	$a3,0x80($sp)
 /*  f0893c8:	10400005 */ 	beqz	$v0,.L0f0893e0
 /*  f0893cc:	8fa70080 */ 	lw	$a3,0x80($sp)
@@ -39461,7 +39461,7 @@ glabel var7f1aae84
 /*  f089434:	24010007 */ 	addiu	$at,$zero,0x7
 /*  f089438:	54410007 */ 	bnel	$v0,$at,.L0f089458
 /*  f08943c:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f089440:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f089440:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f089444:	2404001e */ 	addiu	$a0,$zero,0x1e
 /*  f089448:	104000ba */ 	beqz	$v0,.L0f089734
 /*  f08944c:	00000000 */ 	nop
@@ -39470,7 +39470,7 @@ glabel var7f1aae84
 .L0f089458:
 /*  f089458:	54410007 */ 	bnel	$v0,$at,.L0f089478
 /*  f08945c:	24010015 */ 	addiu	$at,$zero,0x15
-/*  f089460:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f089460:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f089464:	24040031 */ 	addiu	$a0,$zero,0x31
 /*  f089468:	104000b2 */ 	beqz	$v0,.L0f089734
 /*  f08946c:	00000000 */ 	nop
@@ -39479,7 +39479,7 @@ glabel var7f1aae84
 .L0f089478:
 /*  f089478:	54410007 */ 	bnel	$v0,$at,.L0f089498
 /*  f08947c:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f089480:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f089480:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f089484:	24040023 */ 	addiu	$a0,$zero,0x23
 /*  f089488:	104000aa */ 	beqz	$v0,.L0f089734
 /*  f08948c:	00000000 */ 	nop
@@ -39488,7 +39488,7 @@ glabel var7f1aae84
 .L0f089498:
 /*  f089498:	54410007 */ 	bnel	$v0,$at,.L0f0894b8
 /*  f08949c:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f0894a0:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f0894a0:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f0894a4:	2404001f */ 	addiu	$a0,$zero,0x1f
 /*  f0894a8:	104000a2 */ 	beqz	$v0,.L0f089734
 /*  f0894ac:	00000000 */ 	nop
@@ -39497,7 +39497,7 @@ glabel var7f1aae84
 .L0f0894b8:
 /*  f0894b8:	54410007 */ 	bnel	$v0,$at,.L0f0894d8
 /*  f0894bc:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f0894c0:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f0894c0:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f0894c4:	24040022 */ 	addiu	$a0,$zero,0x22
 /*  f0894c8:	1040009a */ 	beqz	$v0,.L0f089734
 /*  f0894cc:	00000000 */ 	nop
@@ -39506,7 +39506,7 @@ glabel var7f1aae84
 .L0f0894d8:
 /*  f0894d8:	54410007 */ 	bnel	$v0,$at,.L0f0894f8
 /*  f0894dc:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f0894e0:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f0894e0:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f0894e4:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f0894e8:	10400092 */ 	beqz	$v0,.L0f089734
 /*  f0894ec:	00000000 */ 	nop
@@ -39515,7 +39515,7 @@ glabel var7f1aae84
 .L0f0894f8:
 /*  f0894f8:	54410007 */ 	bnel	$v0,$at,.L0f089518
 /*  f0894fc:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f089500:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f089500:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f089504:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f089508:	1040008a */ 	beqz	$v0,.L0f089734
 /*  f08950c:	00000000 */ 	nop
@@ -39524,7 +39524,7 @@ glabel var7f1aae84
 .L0f089518:
 /*  f089518:	14410005 */ 	bne	$v0,$at,.L0f089530
 /*  f08951c:	00000000 */ 	nop
-/*  f089520:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f089520:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f089524:	2404001a */ 	addiu	$a0,$zero,0x1a
 /*  f089528:	10400082 */ 	beqz	$v0,.L0f089734
 /*  f08952c:	00000000 */ 	nop
@@ -39570,56 +39570,56 @@ glabel var7f1aae84
 .L0f0895bc:
 /*  f0895bc:	56010005 */ 	bnel	$s0,$at,.L0f0895d4
 /*  f0895c0:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f0895c4:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f0895c4:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f0895c8:	2404001e */ 	addiu	$a0,$zero,0x1e
 /*  f0895cc:	1040002b */ 	beqz	$v0,.L0f08967c
 /*  f0895d0:	24010014 */ 	addiu	$at,$zero,0x14
 .L0f0895d4:
 /*  f0895d4:	56010005 */ 	bnel	$s0,$at,.L0f0895ec
 /*  f0895d8:	24010015 */ 	addiu	$at,$zero,0x15
-/*  f0895dc:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f0895dc:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f0895e0:	24040031 */ 	addiu	$a0,$zero,0x31
 /*  f0895e4:	10400025 */ 	beqz	$v0,.L0f08967c
 /*  f0895e8:	24010015 */ 	addiu	$at,$zero,0x15
 .L0f0895ec:
 /*  f0895ec:	56010005 */ 	bnel	$s0,$at,.L0f089604
 /*  f0895f0:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f0895f4:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f0895f4:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f0895f8:	24040023 */ 	addiu	$a0,$zero,0x23
 /*  f0895fc:	1040001f */ 	beqz	$v0,.L0f08967c
 /*  f089600:	24010012 */ 	addiu	$at,$zero,0x12
 .L0f089604:
 /*  f089604:	56010005 */ 	bnel	$s0,$at,.L0f08961c
 /*  f089608:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f08960c:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f08960c:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f089610:	2404001f */ 	addiu	$a0,$zero,0x1f
 /*  f089614:	10400019 */ 	beqz	$v0,.L0f08967c
 /*  f089618:	2401000c */ 	addiu	$at,$zero,0xc
 .L0f08961c:
 /*  f08961c:	56010005 */ 	bnel	$s0,$at,.L0f089634
 /*  f089620:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f089624:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f089624:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f089628:	24040022 */ 	addiu	$a0,$zero,0x22
 /*  f08962c:	10400013 */ 	beqz	$v0,.L0f08967c
 /*  f089630:	2401000d */ 	addiu	$at,$zero,0xd
 .L0f089634:
 /*  f089634:	56010005 */ 	bnel	$s0,$at,.L0f08964c
 /*  f089638:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f08963c:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f08963c:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f089640:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f089644:	1040000d */ 	beqz	$v0,.L0f08967c
 /*  f089648:	2401000e */ 	addiu	$at,$zero,0xe
 .L0f08964c:
 /*  f08964c:	56010005 */ 	bnel	$s0,$at,.L0f089664
 /*  f089650:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f089654:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f089654:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f089658:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f08965c:	10400007 */ 	beqz	$v0,.L0f08967c
 /*  f089660:	24010009 */ 	addiu	$at,$zero,0x9
 .L0f089664:
 /*  f089664:	56010008 */ 	bnel	$s0,$at,.L0f089688
 /*  f089668:	8fa20060 */ 	lw	$v0,0x60($sp)
-/*  f08966c:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f08966c:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f089670:	2404001a */ 	addiu	$a0,$zero,0x1a
 /*  f089674:	54400004 */ 	bnezl	$v0,.L0f089688
 /*  f089678:	8fa20060 */ 	lw	$v0,0x60($sp)
@@ -39665,7 +39665,7 @@ glabel var7f1aae84
 /*  f089704:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f089708:	17210006 */ 	bne	$t9,$at,.L0f089724
 /*  f08970c:	00000000 */ 	nop
-/*  f089710:	0fc44a11 */ 	jal	currentPlayerHasBriefcase
+/*  f089710:	0fc44a11 */ 	jal	invHasBriefcase
 /*  f089714:	00000000 */ 	nop
 /*  f089718:	10400002 */ 	beqz	$v0,.L0f089724
 /*  f08971c:	00000000 */ 	nop
@@ -42115,10 +42115,10 @@ glabel func0f08b880
 /*  f08b8b4:	00000000 */ 	nop
 );
 
-void chrSetObjHiddenFlag4OnWeapon(struct chrdata *chr, s32 slot)
+void chrSetObjHiddenFlag4OnWeapon(struct chrdata *chr, s32 hand)
 {
-	if (chr && chr->weapons_held[slot]) {
-		struct defaultobj *obj = chr->weapons_held[slot]->obj;
+	if (chr && chr->weapons_held[hand]) {
+		struct defaultobj *obj = chr->weapons_held[hand]->obj;
 		obj->hidden |= OBJHFLAG_00000004;
 	}
 }
@@ -42422,7 +42422,7 @@ glabel func0f08bd00
 /*  f08bd24:	24030001 */ 	addiu	$v1,$zero,0x1
 .L0f08bd28:
 /*  f08bd28:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f08bd2c:	0fc449e4 */ 	jal	currentPlayerHasKeyFlags
+/*  f08bd2c:	0fc449e4 */ 	jal	invHasKeyFlags
 /*  f08bd30:	afa7001c */ 	sw	$a3,0x1c($sp)
 /*  f08bd34:	8fa30018 */ 	lw	$v1,0x18($sp)
 /*  f08bd38:	10400003 */ 	beqz	$v0,.L0f08bd48
@@ -46750,7 +46750,7 @@ bool propdoorInteract(struct prop *doorprop)
 		doorActivateWrapper(doorprop, 1);
 	} else if (door->mode == DOORMODE_IDLE && door->frac < 0.5f * door->maxfrac) {
 		if ((door->base.flags2 & OBJFLAG2_00000004) == 0) {
-			struct textoverride *override = objGetTextOverride(&door->base);
+			struct textoverride *override = invGetTextOverrideForObj(&door->base);
 			u8 intraining = false;
 
 			if (g_Vars.stagenum == STAGE_CITRAINING) {
@@ -47588,7 +47588,7 @@ glabel func0f0910ac
 /*  f09112c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f091130:	04420039 */ 	bltzl	$v0,.L0f091218
 /*  f091134:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f091138:	0fc4468a */ 	jal	currentPlayerHasWeapon
+/*  f091138:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
 /*  f09113c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f091140:	10400034 */ 	beqz	$v0,.L0f091214
 /*  f091144:	02002025 */ 	or	$a0,$s0,$zero
@@ -47635,7 +47635,7 @@ glabel func0f0910ac
 .L0f0911dc:
 /*  f0911dc:	10c00003 */ 	beqz	$a2,.L0f0911ec
 /*  f0911e0:	00000000 */ 	nop
-/*  f0911e4:	0fc447a9 */ 	jal	currentPlayerRemoveWeapon
+/*  f0911e4:	0fc447a9 */ 	jal	invRemoveItemByNum
 /*  f0911e8:	02002025 */ 	or	$a0,$s0,$zero
 .L0f0911ec:
 /*  f0911ec:	0fc28aac */ 	jal	weaponIsMissionCritical

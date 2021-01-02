@@ -1457,27 +1457,27 @@ glabel weaponGetModel
 //	return -1;
 //}
 
-void currentPlayerSetWeaponFlag4(s32 weaponslot)
+void currentPlayerSetWeaponFlag4(s32 hand)
 {
-	chrSetObjHiddenFlag4OnWeapon(g_Vars.currentplayer->prop->chr, weaponslot);
+	chrSetObjHiddenFlag4OnWeapon(g_Vars.currentplayer->prop->chr, hand);
 }
 
-void func0f128d20(s32 slot)
+void func0f128d20(s32 hand)
 {
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
-	if (chr->weapons_held[slot] == NULL) {
-		s32 weaponnum = getCurrentPlayerWeaponId(slot);
+	if (chr->weapons_held[hand] == NULL) {
+		s32 weaponnum = handGetWeaponNum(hand);
 		s32 modelnum = weaponGetModel(weaponnum);
 
-		if (slot == 1 && weaponnum == WEAPON_REMOTEMINE) {
+		if (hand == HAND_LEFT && weaponnum == WEAPON_REMOTEMINE) {
 			modelnum = -1;
 		}
 
 		if (modelnum >= 0) {
 			u32 flags;
 
-			if (slot == 0) {
+			if (hand == HAND_RIGHT) {
 				flags = 0;
 			} else {
 				flags = 0x10000000;
