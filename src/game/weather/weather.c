@@ -10,7 +10,7 @@
 #include "game/dlights.h"
 #include "game/game_0b3350.h"
 #include "game/sparks/sparks.h"
-#include "game/weather.h"
+#include "game/weather/weather.h"
 #include "game/game_157db0.h"
 #include "game/game_166e40.h"
 #include "game/core.h"

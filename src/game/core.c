@@ -30,7 +30,7 @@
 #include "game/game_0125a0.h"
 #include "game/game_013010.h"
 #include "game/sparks/init.h"
-#include "game/weatherallocate.h"
+#include "game/weather/init.h"
 #include "game/game_013540.h"
 #include "game/game_013550.h"
 #include "game/game_013cf0.h"
@@ -52,7 +52,7 @@
 #include "game/title.h"
 #include "game/game_01b0a0.h"
 #include "game/game_01bea0.h"
-#include "game/weathertick.h"
+#include "game/weather/tick.h"
 #include "game/game_01d860.h"
 #include "game/game_01d990.h"
 #include "game/game_01d9f0.h"
@@ -75,7 +75,7 @@
 #include "game/game_129210.h"
 #include "game/explosion.h"
 #include "game/sparks/sparks.h"
-#include "game/weather.h"
+#include "game/weather/weather.h"
 #include "game/game_135c70.h"
 #include "game/game_1371b0.h"
 #include "game/game_13c510.h"
@@ -369,7 +369,7 @@ void coreLoadStage(s32 stagenum)
 	func0f013010();
 	func0f013130();
 	sparksInit();
-	weatherAllocate();
+	weatherInit();
 	coreStopAllMiscSfx();
 
 	switch (g_Vars.stagenum) {

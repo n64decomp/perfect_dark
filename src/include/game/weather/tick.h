@@ -1,5 +1,5 @@
-#ifndef _IN_GAME_WEATHERTICK_H
-#define _IN_GAME_WEATHERTICK_H
+#ifndef _IN_GAME_WEATHER_TICK_H
+#define _IN_GAME_WEATHER_TICK_H
 #include <ultra64.h>
 #include "types.h"
 

@@ -7,7 +7,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/weather.h"
+#include "game/weather/weather.h"
 #include "gvars/gvars.h"
 #include "lib/lib_121e0.h"
 #include "types.h"
@@ -73,7 +73,7 @@ u32 var80062494 = 0x00000001;
 u32 var80062498 = 0x00000000;
 u32 var8006249c = 0x00000000;
 
-void weatherAllocate(void)
+void weatherInit(void)
 {
 	g_WeatherEnabled = false;
 	g_WeatherData = NULL;
