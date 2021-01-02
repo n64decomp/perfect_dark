@@ -2056,31 +2056,12 @@ glabel menuhandlerMpMedal
 /*  f17b35c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f17b360
-/*  f17b360:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17b364:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17b368:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17b36c:	0fc5b9f1 */ 	jal	langGet
-/*  f17b370:	24045091 */ 	addiu	$a0,$zero,0x5091
-/*  f17b374:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17b378:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17b37c:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers)
-/*  f17b380:	2718c7b8 */ 	addiu	$t8,$t8,%lo(g_MpPlayers)
-/*  f17b384:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f17b388:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17b38c:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f17b390:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17b394:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17b398:	01f83021 */ 	addu	$a2,$t7,$t8
-/*  f17b39c:	0c004dad */ 	jal	sprintf
-/*  f17b3a0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f17b3a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17b3a8:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17b3ac:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f17b3b0:	03e00008 */ 	jr	$ra
-/*  f17b3b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *mpMenuTitleStatsForPlayerName(struct menudialog *dialog)
+{
+	// "Stats for %s"
+	sprintf(g_StringPointer, langGet(L_MPMENU(145)), g_MpPlayers[g_MpPlayerNum].base.name);
+	return g_StringPointer;
+}
 
 s32 menuhandlerMpUsernamePassword(u32 operation, struct menuitem *item, union handlerdata *data)
 {

@@ -995,7 +995,7 @@ struct menuitem menuitems_mpplayerstats[] = {
 // 2b450
 struct menudialog menudialog_mpplayerstats = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f17b360,
+	(u32)&mpMenuTitleStatsForPlayerName,
 	menuitems_mpplayerstats,
 	NULL,
 	0x00000048,

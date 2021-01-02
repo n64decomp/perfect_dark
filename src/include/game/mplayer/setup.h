@@ -29,7 +29,7 @@ void func0f17ad80(char *dst, f32 arg0);
 char *mpMenuTextPainReceived(struct menuitem *item);
 char *mpMenuTextDamageDealt(struct menuitem *item);
 s32 menuhandlerMpMedal(u32 operation, struct menuitem *item, union handlerdata *data);
-u32 func0f17b360(void);
+char *mpMenuTitleStatsForPlayerName(struct menudialog *dialog);
 u32 mpMenuTextUsernamePassword(void);
 s32 func0f17b4f8(u32 operation, struct menuitem *item, union handlerdata *data, s32 arg3, s32 arg4);
 char *mpMenuTextBodyName(struct menuitem *item);
