@@ -128,7 +128,7 @@ struct weaponfunc_shootsingle invfunc_00011160 = {
 	4,
 	4,
 	0x8039,
-	0x01000000,
+	1,
 };
 
 struct inventory_ammo invammo_default = {
@@ -451,7 +451,7 @@ struct weaponfunc_shootsingle invfunc_falcon2_singleshot = {
 	0,
 	0,
 	0x804d,
-	0x01000000,
+	1,
 };
 
 struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
@@ -473,7 +473,7 @@ struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
 	0,
 	0,
 	0x8054,
-	0x01000000,
+	1,
 };
 
 struct weaponfunc_close invfunc_falcon2_pistolwhip = {
@@ -680,7 +680,7 @@ struct weaponfunc_shootsingle invfunc_magsec_singleshot = {
 	10,
 	0,
 	0x804c,
-	0x01000000,
+	1,
 };
 
 struct weaponfunc_shootsingle invfunc_magsec_burst = {
@@ -702,7 +702,7 @@ struct weaponfunc_shootsingle invfunc_magsec_burst = {
 	10,
 	0,
 	0x804c,
-	0x01000000,
+	1,
 };
 
 struct inventory_ammo invammo_magsec = {
@@ -847,7 +847,7 @@ struct weaponfunc_shootsingle invfunc_dy357_singleshot = {
 	6,
 	0,
 	0x8066,
-	0x05000000,
+	5,
 };
 
 struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
@@ -869,7 +869,7 @@ struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
 	6,
 	0,
 	0x8066,
-	0x05000000,
+	5,
 };
 
 struct weaponfunc_close invfunc_dy357_pistolwhip = {
@@ -1016,7 +1016,7 @@ struct weaponfunc_shootsingle invfunc_phoenix_singleshot = {
 	0,
 	0,
 	0x8071,
-	0x01000000,
+	1,
 };
 
 struct weaponfunc_shootsingle invfunc_phoenix_explosiveshells = {
@@ -1038,7 +1038,7 @@ struct weaponfunc_shootsingle invfunc_phoenix_explosiveshells = {
 	0,
 	0,
 	0x8072,
-	0x01000000,
+	1,
 };
 
 struct inventory_ammo invammo_phoenix = {
@@ -1156,7 +1156,7 @@ struct weaponfunc_shootsingle invfunc_mauler_singleshot = {
 	4,
 	0,
 	0x805b,
-	0x01000000,
+	1,
 };
 
 struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
@@ -1178,7 +1178,7 @@ struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
 	4,
 	0,
 	0x805b,
-	0x01000000,
+	1,
 };
 
 struct inventory_ammo invammo_mauler = {
@@ -2410,7 +2410,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_single = {
 	4,
 	0,
 	0x8055,
-	0x01000000,
+	1,
 };
 
 struct weaponfunc_shootsingle invfunc_shotgun_double = {
@@ -2432,7 +2432,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_double = {
 	4,
 	0,
 	0x8055,
-	0x01000000,
+	1,
 };
 
 struct inventory_ammo invammo_shotgun = {
@@ -3452,7 +3452,7 @@ struct weaponfunc_shootsingle invfunc_farsight_shoot = {
 	0,
 	4,
 	0x813e,
-	0x05000000,
+	5,
 };
 
 struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
@@ -3474,7 +3474,7 @@ struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
 	0,
 	4,
 	0x813e,
-	0x05000000,
+	5,
 };
 
 struct inventory_ammo invammo_farsight = {
@@ -3715,7 +3715,7 @@ struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
 	0,
 	0,
 	0x8057,
-	0x01000000,
+	1,
 };
 
 struct weaponfunc_close invfunc_tranquilizer_lethal = {
@@ -3809,7 +3809,7 @@ struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
 	0,
 	0,
 	0x8057,
-	0x01000000,
+	1,
 };
 
 struct weapon invitem_psychosisgun = {
@@ -3891,7 +3891,7 @@ struct weaponfunc_shootsingle invfunc_sniperrifle_singleshot = {
 	0,
 	4,
 	0x8058,
-	0x01000000,
+	1,
 };
 
 struct weaponfunc_special invfunc_sniperrifle_crouch = {
@@ -3974,7 +3974,7 @@ struct weaponfunc_shootsingle invfunc_laser_pulse = {
 	0,
 	3,
 	0x8043,
-	0x01000000,
+	1,
 };
 
 struct weaponfunc_shootauto invfunc_laser_stream = {
@@ -4063,7 +4063,7 @@ struct weaponfunc_shootsingle invfunc_pp9i_shoot = {
 	0,
 	0,
 	0x8069,
-	0x01000000,
+	1,
 };
 
 struct inventory_ammo invammo_pp9i = {
@@ -4124,7 +4124,7 @@ struct weaponfunc_shootsingle invfunc_cc13_shoot = {
 	0,
 	0,
 	0x806a,
-	0x01000000,
+	1,
 };
 
 struct inventory_ammo invammo_cc13 = {
@@ -5938,7 +5938,7 @@ struct weaponfunc_shootsingle invfunc_tester_primary = {
 	0,
 	0,
 	0x804d,
-	0x01000000,
+	1,
 };
 
 struct inventory_ammo invammo_tester = {

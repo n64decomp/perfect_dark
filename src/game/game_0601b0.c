@@ -992,7 +992,7 @@ glabel var7f1a9eb8
 .L0f060f18:
 /*  f060f18:	53000006 */ 	beqzl	$t8,.L0f060f34
 /*  f060f1c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f060f20:	0fc2c71e */ 	jal	func0f0b1c78
+/*  f060f20:	0fc2c71e */ 	jal	handGetSingleUnk3c
 /*  f060f24:	27a40214 */ 	addiu	$a0,$sp,0x214
 /*  f060f28:	10000003 */ 	b	.L0f060f38
 /*  f060f2c:	afa20234 */ 	sw	$v0,0x234($sp)

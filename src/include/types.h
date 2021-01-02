@@ -2900,7 +2900,7 @@ struct weaponfunc_shootsingle {
 	/*0x34*/ f32 unk34;
 	/*0x38*/ u8 unk38;
 	/*0x3a*/ u16 shootsound;
-	/*0x3c*/ u32 unk3c;
+	/*0x3c*/ u8 unk3c;
 };
 
 struct weaponfunc_shootauto {

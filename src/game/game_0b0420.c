@@ -1342,26 +1342,20 @@ glabel func0f0b1c24
 /*  f0b1c74:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
+u8 handGetSingleUnk3c(struct hand *hand)
+{
+	struct weaponfunc *func = handGetWeaponFunction(hand);
+
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
+		struct weaponfunc_shootsingle *funcshoot = (struct weaponfunc_shootsingle *)func;
+		return funcshoot->unk3c;
+	}
+
+	return 0;
+}
+
 GLOBAL_ASM(
-glabel func0f0b1c78
-/*  f0b1c78:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b1c7c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1c80:	0fc2c41f */ 	jal	handGetWeaponFunction
-/*  f0b1c84:	00000000 */ 	nop
-/*  f0b1c88:	10400008 */ 	beqz	$v0,.L0f0b1cac
-/*  f0b1c8c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1c90:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f0b1c94:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0b1c98:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f0b1c9c:	55e10004 */ 	bnel	$t7,$at,.L0f0b1cb0
-/*  f0b1ca0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b1ca4:	10000002 */ 	b	.L0f0b1cb0
-/*  f0b1ca8:	9042003c */ 	lbu	$v0,0x3c($v0)
-.L0f0b1cac:
-/*  f0b1cac:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b1cb0:
-/*  f0b1cb0:	03e00008 */ 	jr	$ra
-/*  f0b1cb4:	27bd0018 */ 	addiu	$sp,$sp,0x18
+glabel func0f0b1cb8
 /*  f0b1cb8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0b1cbc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b1cc0:	0fc2c709 */ 	jal	func0f0b1c24
