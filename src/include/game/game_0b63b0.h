@@ -13,7 +13,7 @@ void func0f0b6764(void);
 f32 func0f0b69d0(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, s16 *spawnpads, s16 numspawnpads);
 f32 func0f0b72a8(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop);
 void func0f0b72dc(void);
-void func0f0b77cc(void);
+void currentPlayerInitBasicFields(void);
 bool currentPlayerAssumeChrForAnti(struct chrdata *chr, s32 param_2);
 void currentPlayerSpawn(void);
 void func0f0b85a0(struct playerbond *pb, struct coord *pos);

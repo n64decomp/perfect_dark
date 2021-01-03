@@ -40,7 +40,7 @@ u32 var80070e98 = 0x00000000;
 
 void currentPlayerGrabInit(void)
 {
-	u32 prevmode = g_Vars.currentplayer->bondmovemode;
+	s32 prevmode = g_Vars.currentplayer->bondmovemode;
 	Mtxf matrix;
 	struct prop *prop = g_Vars.currentplayer->grabbedprop;
 

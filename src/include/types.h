@@ -2245,11 +2245,11 @@ struct player {
 	/*0x0104*/ u32 unk0104;
 	/*0x0108*/ s32 prevupdown;
 	/*0x010c*/ s32 movecentrerelease;
-	/*0x0110*/ s32 lookaheadcentreenabled;
-	/*0x0114*/ s32 automovecentreenabled;
-	/*0x0118*/ s32 fastmovecentreenabled;
-	/*0x011c*/ s32 automovecentre;
-	/*0x0120*/ s32 insightaimmode;
+	/*0x0110*/ bool lookaheadcentreenabled;
+	/*0x0114*/ bool automovecentreenabled;
+	/*0x0118*/ bool fastmovecentreenabled;
+	/*0x011c*/ bool automovecentre;
+	/*0x0120*/ bool insightaimmode;
 
 	/*0x0124*/ bool autoyaimenabled;
 	/*0x0128*/ f32 autoaimy;
@@ -2286,7 +2286,7 @@ struct player {
 	/*0x019c*/ s32 activatetimelast;
 	/*0x01a0*/ s32 activatetimethis;
 	/*0x01a4*/ struct coord moveinitspeed;
-	/*0x01b0*/ u32 bondmovemode;
+	/*0x01b0*/ s32 bondmovemode;
 	/*0x01b4*/ f32 gunextraaimx;
 	/*0x01b8*/ f32 gunextraaimy;
 	/*0x01bc*/ u32 unk01bc;
