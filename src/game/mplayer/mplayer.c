@@ -905,60 +905,26 @@ glabel func0f18844c
 /*  f18852c:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f188530
-/*  f188530:	3c02800b */ 	lui	$v0,%hi(g_MpSetup+0x12)
-/*  f188534:	9042cb9a */ 	lbu	$v0,%lo(g_MpSetup+0x12)($v0)
-/*  f188538:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18853c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f188540:	2841003c */ 	slti	$at,$v0,0x3c
-/*  f188544:	14200005 */ 	bnez	$at,.L0f18855c
-/*  f188548:	000220c0 */ 	sll	$a0,$v0,0x3
-/*  f18854c:	0fc5b372 */ 	jal	coreSetMpTimeLimit60
-/*  f188550:	00002025 */ 	or	$a0,$zero,$zero
-/*  f188554:	10000007 */ 	b	.L0f188574
-/*  f188558:	00000000 */ 	nop
-.L0f18855c:
-/*  f18855c:	00822023 */ 	subu	$a0,$a0,$v0
-/*  f188560:	00042140 */ 	sll	$a0,$a0,0x5
-/*  f188564:	00822021 */ 	addu	$a0,$a0,$v0
-/*  f188568:	00042100 */ 	sll	$a0,$a0,0x4
-/*  f18856c:	0fc5b372 */ 	jal	coreSetMpTimeLimit60
-/*  f188570:	24840e10 */ 	addiu	$a0,$a0,0xe10
-.L0f188574:
-/*  f188574:	3c02800b */ 	lui	$v0,%hi(g_MpSetup+0x13)
-/*  f188578:	9042cb9b */ 	lbu	$v0,%lo(g_MpSetup+0x13)($v0)
-/*  f18857c:	28410064 */ 	slti	$at,$v0,0x64
-/*  f188580:	14200005 */ 	bnez	$at,.L0f188598
-/*  f188584:	00000000 */ 	nop
-/*  f188588:	0fc5b375 */ 	jal	coreSetMpScoreLimit
-/*  f18858c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f188590:	10000003 */ 	b	.L0f1885a0
-/*  f188594:	00000000 */ 	nop
-.L0f188598:
-/*  f188598:	0fc5b375 */ 	jal	coreSetMpScoreLimit
-/*  f18859c:	24440001 */ 	addiu	$a0,$v0,0x1
-.L0f1885a0:
-/*  f1885a0:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x14)
-/*  f1885a4:	95cecb9c */ 	lhu	$t6,%lo(g_MpSetup+0x14)($t6)
-/*  f1885a8:	29c10190 */ 	slti	$at,$t6,0x190
-/*  f1885ac:	14200005 */ 	bnez	$at,.L0f1885c4
-/*  f1885b0:	00000000 */ 	nop
-/*  f1885b4:	0fc5b378 */ 	jal	coreSetMpTeamScoreLimit
-/*  f1885b8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1885bc:	10000006 */ 	b	.L0f1885d8
-/*  f1885c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1885c4:
-/*  f1885c4:	0fc62113 */ 	jal	func0f18844c
-/*  f1885c8:	00000000 */ 	nop
-/*  f1885cc:	0fc5b378 */ 	jal	coreSetMpTeamScoreLimit
-/*  f1885d0:	24440001 */ 	addiu	$a0,$v0,0x1
-/*  f1885d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1885d8:
-/*  f1885d8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1885dc:	03e00008 */ 	jr	$ra
-/*  f1885e0:	00000000 */ 	nop
-);
+void mpApplyLimits(void)
+{
+	if (g_MpSetup.timelimit >= 60) {
+		coreSetMpTimeLimit60(0);
+	} else {
+		coreSetMpTimeLimit60(SECSTOTIME60((g_MpSetup.timelimit + 1) * 60));
+	}
+
+	if (g_MpSetup.scorelimit >= 100) {
+		coreSetMpScoreLimit(0);
+	} else {
+		coreSetMpScoreLimit(g_MpSetup.scorelimit + 1);
+	}
+
+	if (g_MpSetup.teamscorelimit >= 400) {
+		coreSetMpTeamScoreLimit(0);
+	} else {
+		coreSetMpTeamScoreLimit(func0f18844c() + 1);
+	}
+}
 
 GLOBAL_ASM(
 glabel mpGetPlayerRankings

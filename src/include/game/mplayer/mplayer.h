@@ -15,7 +15,7 @@ void func0f1881d4(s32 index);
 void mpSetDefaultSetup(void);
 void mpSetDefaultNamesIfEmpty(void);
 u32 func0f18844c(void);
-void func0f188530(void);
+void mpApplyLimits(void);
 s32 mpGetPlayerRankings(struct mpteaminfo *info);
 u32 func0f188930(void);
 s32 mpGetTeamRankings(struct mpteaminfo *info);

@@ -322,7 +322,7 @@ void coreLoadStage(s32 stagenum)
 		}
 
 		if (g_Vars.normmplayerisrunning) {
-			func0f188530();
+			mpApplyLimits();
 		}
 
 		if (g_Vars.mplayerisrunning == false) {
