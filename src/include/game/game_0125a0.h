@@ -3,8 +3,8 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f0125a0(void);
-void func0f012684(void);
+void func0f0125a0(s32 animnum, s32 loopframe, s32 endframe, s32 *arg3);
+void currentPlayerInitAnimation(void);
 void func0f012aa0(void);
 
 #endif

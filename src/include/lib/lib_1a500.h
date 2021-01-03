@@ -96,7 +96,7 @@ void func00022a24(void *arg0, u32 arg1, void *arg2);
 u32 func00022b68(void);
 void func00022d24(void *data);
 u32 func00022d50(void);
-u32 func00022fa4(void);
+void func00022fa4(struct model *model, u32 *arg1, u32 *arg2, u32 arg3);
 void animInitialise(struct anim *anim);
 u32 func00023108(void);
 u32 func0002319c(void);

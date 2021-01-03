@@ -2433,22 +2433,7 @@ struct player {
 	/*0x0508*/ u32 unk0508;
 	/*0x050c*/ u32 unk050c;
 	/*0x0510*/ Mtxf unk0510;
-	/*0x0550*/ u32 unk0550;
-	/*0x0554*/ u32 unk0554;
-	/*0x0558*/ u32 unk0558;
-	/*0x055c*/ u32 unk055c;
-	/*0x0560*/ u32 unk0560;
-	/*0x0564*/ u32 unk0564;
-	/*0x0568*/ u32 unk0568;
-	/*0x056c*/ u32 unk056c;
-	/*0x0570*/ u32 unk0570;
-	/*0x0574*/ u32 unk0574;
-	/*0x0578*/ u32 unk0578;
-	/*0x057c*/ u32 unk057c;
-	/*0x0580*/ u32 unk0580;
-	/*0x0584*/ u32 unk0584;
-	/*0x0588*/ u32 unk0588;
-	/*0x058c*/ u32 unk058c;
+	/*0x0550*/ Mtxf unk0550;
 	/*0x0590*/ u32 unk0590;
 	/*0x0594*/ u32 unk0594;
 	/*0x0598*/ u32 unk0598;
@@ -4981,7 +4966,7 @@ struct somedruggedracething {
 };
 
 struct var80075c00 {
-	u16 animnum;
+	s16 animnum;
 	f32 loopframe;
 	f32 endframe;
 	f32 unk0c;

@@ -419,7 +419,7 @@ void coreLoadStage(s32 stagenum)
 			currentPlayerResetToDefault();
 			currentPlayerInit();
 			currentPlayerSpawn();
-			func0f012684();
+			currentPlayerInitAnimation();
 
 			if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
 				currentPlayerCalculateAiBuddyNums();

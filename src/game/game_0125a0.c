@@ -18,11 +18,6 @@
 #include "lib/lib_233c0.h"
 #include "types.h"
 
-const u32 var7f1a8280[] = {0x3dccccce};
-const u32 var7f1a8284[] = {0x4164924b};
-const u32 var7f1a8288[] = {0x3f6e147b};
-const u32 var7f1a828c[] = {0x00000000};
-
 GLOBAL_ASM(
 glabel func0f0125a0
 /*  f0125a0:	27bdffb0 */ 	addiu	$sp,$sp,-80
@@ -86,274 +81,104 @@ glabel func0f0125a0
 /*  f012680:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-GLOBAL_ASM(
-glabel func0f012684
-/*  f012684:	27bdff28 */ 	addiu	$sp,$sp,-216
-/*  f012688:	afb10030 */ 	sw	$s1,0x30($sp)
-/*  f01268c:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f012690:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f012694:	afb0002c */ 	sw	$s0,0x2c($sp)
-/*  f012698:	8e300284 */ 	lw	$s0,0x284($s1)
-/*  f01269c:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0126a0:	3c058008 */ 	lui	$a1,%hi(var8007c0c0)
-/*  f0126a4:	afb30038 */ 	sw	$s3,0x38($sp)
-/*  f0126a8:	afb20034 */ 	sw	$s2,0x34($sp)
-/*  f0126ac:	f7b60020 */ 	sdc1	$f22,0x20($sp)
-/*  f0126b0:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f0126b4:	24a5c0c0 */ 	addiu	$a1,$a1,%lo(var8007c0c0)
-/*  f0126b8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0126bc:	2604045c */ 	addiu	$a0,$s0,0x45c
-/*  f0126c0:	0c008be9 */ 	jal	func00022fa4
-/*  f0126c4:	26060494 */ 	addiu	$a2,$s0,0x494
-/*  f0126c8:	8e2e0284 */ 	lw	$t6,0x284($s1)
-/*  f0126cc:	0c008c28 */ 	jal	animInitialise
-/*  f0126d0:	8dc4047c */ 	lw	$a0,0x47c($t6)
-/*  f0126d4:	3c017f1b */ 	lui	$at,%hi(var7f1a8280)
-/*  f0126d8:	c4368280 */ 	lwc1	$f22,%lo(var7f1a8280)($at)
-/*  f0126dc:	8e240284 */ 	lw	$a0,0x284($s1)
-/*  f0126e0:	4405b000 */ 	mfc1	$a1,$f22
-/*  f0126e4:	0c006bd6 */ 	jal	modelSetUnk14
-/*  f0126e8:	2484045c */ 	addiu	$a0,$a0,0x45c
-/*  f0126ec:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0126f0:	44810000 */ 	mtc1	$at,$f0
-/*  f0126f4:	4480a000 */ 	mtc1	$zero,$f20
-/*  f0126f8:	8e240284 */ 	lw	$a0,0x284($s1)
-/*  f0126fc:	44050000 */ 	mfc1	$a1,$f0
-/*  f012700:	4406a000 */ 	mfc1	$a2,$f20
-/*  f012704:	0c0077eb */ 	jal	modelSetAnimPlaySpeed
-/*  f012708:	2484045c */ 	addiu	$a0,$a0,0x45c
-/*  f01270c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f012710:	44810000 */ 	mtc1	$at,$f0
-/*  f012714:	8e2f0284 */ 	lw	$t7,0x284($s1)
-/*  f012718:	3c017f1b */ 	lui	$at,%hi(var7f1a8284)
-/*  f01271c:	c4228284 */ 	lwc1	$f2,%lo(var7f1a8284)($at)
-/*  f012720:	ade003ac */ 	sw	$zero,0x3ac($t7)
-/*  f012724:	3c017f1b */ 	lui	$at,%hi(var7f1a8288)
-/*  f012728:	c4248288 */ 	lwc1	$f4,%lo(var7f1a8288)($at)
-/*  f01272c:	8e380284 */ 	lw	$t8,0x284($s1)
-/*  f012730:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f012734:	3c108007 */ 	lui	$s0,%hi(var80075c00)
-/*  f012738:	e70403b0 */ 	swc1	$f4,0x3b0($t8)
-/*  f01273c:	8e390284 */ 	lw	$t9,0x284($s1)
-/*  f012740:	3c138007 */ 	lui	$s3,%hi(var80075c30)
-/*  f012744:	26735c30 */ 	addiu	$s3,$s3,%lo(var80075c30)
-/*  f012748:	af2003b4 */ 	sw	$zero,0x3b4($t9)
-/*  f01274c:	8e280284 */ 	lw	$t0,0x284($s1)
-/*  f012750:	26105c00 */ 	addiu	$s0,$s0,%lo(var80075c00)
-/*  f012754:	27b200c8 */ 	addiu	$s2,$sp,0xc8
-/*  f012758:	e50003b8 */ 	swc1	$f0,0x3b8($t0)
-/*  f01275c:	8e290284 */ 	lw	$t1,0x284($s1)
-/*  f012760:	e52003bc */ 	swc1	$f0,0x3bc($t1)
-/*  f012764:	8e2a0284 */ 	lw	$t2,0x284($s1)
-/*  f012768:	e55403c0 */ 	swc1	$f20,0x3c0($t2)
-/*  f01276c:	8e2b0284 */ 	lw	$t3,0x284($s1)
-/*  f012770:	e57403c4 */ 	swc1	$f20,0x3c4($t3)
-/*  f012774:	8e2c0284 */ 	lw	$t4,0x284($s1)
-/*  f012778:	e59403c8 */ 	swc1	$f20,0x3c8($t4)
-/*  f01277c:	8e2d0284 */ 	lw	$t5,0x284($s1)
-/*  f012780:	e5b403cc */ 	swc1	$f20,0x3cc($t5)
-/*  f012784:	8e2e0284 */ 	lw	$t6,0x284($s1)
-/*  f012788:	e5d403d0 */ 	swc1	$f20,0x3d0($t6)
-/*  f01278c:	8e2f0284 */ 	lw	$t7,0x284($s1)
-/*  f012790:	e5f403d4 */ 	swc1	$f20,0x3d4($t7)
-/*  f012794:	8e380284 */ 	lw	$t8,0x284($s1)
-/*  f012798:	e71403d8 */ 	swc1	$f20,0x3d8($t8)
-/*  f01279c:	8e390284 */ 	lw	$t9,0x284($s1)
-/*  f0127a0:	e73403dc */ 	swc1	$f20,0x3dc($t9)
-/*  f0127a4:	8e280284 */ 	lw	$t0,0x284($s1)
-/*  f0127a8:	e51403e0 */ 	swc1	$f20,0x3e0($t0)
-/*  f0127ac:	8e290284 */ 	lw	$t1,0x284($s1)
-/*  f0127b0:	e53403e4 */ 	swc1	$f20,0x3e4($t1)
-/*  f0127b4:	8e2a0284 */ 	lw	$t2,0x284($s1)
-/*  f0127b8:	e55403e8 */ 	swc1	$f20,0x3e8($t2)
-/*  f0127bc:	8e2b0284 */ 	lw	$t3,0x284($s1)
-/*  f0127c0:	e57403ec */ 	swc1	$f20,0x3ec($t3)
-/*  f0127c4:	8e2c0284 */ 	lw	$t4,0x284($s1)
-/*  f0127c8:	e59403f0 */ 	swc1	$f20,0x3f0($t4)
-/*  f0127cc:	8e2d0284 */ 	lw	$t5,0x284($s1)
-/*  f0127d0:	e5b403f4 */ 	swc1	$f20,0x3f4($t5)
-/*  f0127d4:	8e2e0284 */ 	lw	$t6,0x284($s1)
-/*  f0127d8:	e5c203f8 */ 	swc1	$f2,0x3f8($t6)
-/*  f0127dc:	8e2f0284 */ 	lw	$t7,0x284($s1)
-/*  f0127e0:	e5f403fc */ 	swc1	$f20,0x3fc($t7)
-/*  f0127e4:	8e380284 */ 	lw	$t8,0x284($s1)
-/*  f0127e8:	e7020400 */ 	swc1	$f2,0x400($t8)
-/*  f0127ec:	8e390284 */ 	lw	$t9,0x284($s1)
-/*  f0127f0:	e7340404 */ 	swc1	$f20,0x404($t9)
-/*  f0127f4:	8e280284 */ 	lw	$t0,0x284($s1)
-/*  f0127f8:	ad0203a0 */ 	sw	$v0,0x3a0($t0)
-/*  f0127fc:	8e290284 */ 	lw	$t1,0x284($s1)
-/*  f012800:	ad2203a4 */ 	sw	$v0,0x3a4($t1)
-/*  f012804:	8e2a0284 */ 	lw	$t2,0x284($s1)
-/*  f012808:	ad4203a8 */ 	sw	$v0,0x3a8($t2)
-/*  f01280c:	8e2b0284 */ 	lw	$t3,0x284($s1)
-/*  f012810:	e5740408 */ 	swc1	$f20,0x408($t3)
-/*  f012814:	8e2c0284 */ 	lw	$t4,0x284($s1)
-/*  f012818:	e594040c */ 	swc1	$f20,0x40c($t4)
-/*  f01281c:	8e2d0284 */ 	lw	$t5,0x284($s1)
-/*  f012820:	e5b40410 */ 	swc1	$f20,0x410($t5)
-/*  f012824:	8e2e0284 */ 	lw	$t6,0x284($s1)
-/*  f012828:	e5d40414 */ 	swc1	$f20,0x414($t6)
-/*  f01282c:	8e2f0284 */ 	lw	$t7,0x284($s1)
-/*  f012830:	e5f40418 */ 	swc1	$f20,0x418($t7)
-/*  f012834:	8e380284 */ 	lw	$t8,0x284($s1)
-/*  f012838:	e714041c */ 	swc1	$f20,0x41c($t8)
-/*  f01283c:	8e390284 */ 	lw	$t9,0x284($s1)
-/*  f012840:	e7340420 */ 	swc1	$f20,0x420($t9)
-/*  f012844:	8e280284 */ 	lw	$t0,0x284($s1)
-/*  f012848:	e5140424 */ 	swc1	$f20,0x424($t0)
-/*  f01284c:	8e290284 */ 	lw	$t1,0x284($s1)
-/*  f012850:	e5340428 */ 	swc1	$f20,0x428($t1)
-/*  f012854:	8e2a0284 */ 	lw	$t2,0x284($s1)
-/*  f012858:	e554042c */ 	swc1	$f20,0x42c($t2)
-/*  f01285c:	8e2b0284 */ 	lw	$t3,0x284($s1)
-/*  f012860:	e5600430 */ 	swc1	$f0,0x430($t3)
-/*  f012864:	8e2c0284 */ 	lw	$t4,0x284($s1)
-/*  f012868:	e5940434 */ 	swc1	$f20,0x434($t4)
-/*  f01286c:	8e2d0284 */ 	lw	$t5,0x284($s1)
-/*  f012870:	e5b40438 */ 	swc1	$f20,0x438($t5)
-/*  f012874:	8e2e0284 */ 	lw	$t6,0x284($s1)
-/*  f012878:	e5c0043c */ 	swc1	$f0,0x43c($t6)
-/*  f01287c:	8e2f0284 */ 	lw	$t7,0x284($s1)
-/*  f012880:	e5f40440 */ 	swc1	$f20,0x440($t7)
-/*  f012884:	8e380284 */ 	lw	$t8,0x284($s1)
-/*  f012888:	e7000444 */ 	swc1	$f0,0x444($t8)
-/*  f01288c:	8e390284 */ 	lw	$t9,0x284($s1)
-/*  f012890:	e7340448 */ 	swc1	$f20,0x448($t9)
-/*  f012894:	8e280284 */ 	lw	$t0,0x284($s1)
-/*  f012898:	e514044c */ 	swc1	$f20,0x44c($t0)
-/*  f01289c:	8e290284 */ 	lw	$t1,0x284($s1)
-/*  f0128a0:	e5200450 */ 	swc1	$f0,0x450($t1)
-/*  f0128a4:	8e2a0284 */ 	lw	$t2,0x284($s1)
-/*  f0128a8:	e5540454 */ 	swc1	$f20,0x454($t2)
-/*  f0128ac:	8e2b0284 */ 	lw	$t3,0x284($s1)
-/*  f0128b0:	ad600458 */ 	sw	$zero,0x458($t3)
-.L0f0128b4:
-/*  f0128b4:	c6060004 */ 	lwc1	$f6,0x4($s0)
-/*  f0128b8:	c60a0008 */ 	lwc1	$f10,0x8($s0)
-/*  f0128bc:	86040000 */ 	lh	$a0,0x0($s0)
-/*  f0128c0:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f0128c4:	02403825 */ 	or	$a3,$s2,$zero
-/*  f0128c8:	4600540d */ 	trunc.w.s	$f16,$f10
-/*  f0128cc:	44054000 */ 	mfc1	$a1,$f8
-/*  f0128d0:	44068000 */ 	mfc1	$a2,$f16
-/*  f0128d4:	0fc04968 */ 	jal	func0f0125a0
-/*  f0128d8:	00000000 */ 	nop
-/*  f0128dc:	8fae00d0 */ 	lw	$t6,0xd0($sp)
-/*  f0128e0:	c6120008 */ 	lwc1	$f18,0x8($s0)
-/*  f0128e4:	c6040004 */ 	lwc1	$f4,0x4($s0)
-/*  f0128e8:	448e4000 */ 	mtc1	$t6,$f8
-/*  f0128ec:	26100018 */ 	addiu	$s0,$s0,0x18
-/*  f0128f0:	46049181 */ 	sub.s	$f6,$f18,$f4
-/*  f0128f4:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f0128f8:	46165402 */ 	mul.s	$f16,$f10,$f22
-/*  f0128fc:	46068483 */ 	div.s	$f18,$f16,$f6
-/*  f012900:	1613ffec */ 	bne	$s0,$s3,.L0f0128b4
-/*  f012904:	e612fff4 */ 	swc1	$f18,-0xc($s0)
-/*  f012908:	3c013f00 */ 	lui	$at,0x3f00
-/*  f01290c:	3c0f8006 */ 	lui	$t7,%hi(var800623b0)
-/*  f012910:	27b20088 */ 	addiu	$s2,$sp,0x88
-/*  f012914:	25ef23b0 */ 	addiu	$t7,$t7,%lo(var800623b0)
-/*  f012918:	4481b000 */ 	mtc1	$at,$f22
-/*  f01291c:	25f9003c */ 	addiu	$t9,$t7,0x3c
-/*  f012920:	02404025 */ 	or	$t0,$s2,$zero
-.L0f012924:
-/*  f012924:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f012928:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*  f01292c:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f012930:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f012934:	8de1fff8 */ 	lw	$at,-0x8($t7)
-/*  f012938:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f01293c:	8de1fffc */ 	lw	$at,-0x4($t7)
-/*  f012940:	15f9fff8 */ 	bne	$t7,$t9,.L0f012924
-/*  f012944:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f012948:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f01294c:	4407a000 */ 	mfc1	$a3,$f20
-/*  f012950:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f012954:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f012958:	8e240284 */ 	lw	$a0,0x284($s1)
-/*  f01295c:	e7b40014 */ 	swc1	$f20,0x14($sp)
-/*  f012960:	e7b60010 */ 	swc1	$f22,0x10($sp)
-/*  f012964:	00003025 */ 	or	$a2,$zero,$zero
-/*  f012968:	0c007733 */ 	jal	modelSetAnimation
-/*  f01296c:	2484045c */ 	addiu	$a0,$a0,0x45c
-/*  f012970:	8e240284 */ 	lw	$a0,0x284($s1)
-/*  f012974:	0c006cef */ 	jal	func0001b3bc
-/*  f012978:	2484045c */ 	addiu	$a0,$a0,0x45c
-/*  f01297c:	27b30048 */ 	addiu	$s3,$sp,0x48
-/*  f012980:	0c00566c */ 	jal	func000159b0
-/*  f012984:	02602025 */ 	or	$a0,$s3,$zero
-/*  f012988:	8e300284 */ 	lw	$s0,0x284($s1)
-/*  f01298c:	afb30088 */ 	sw	$s3,0x88($sp)
-/*  f012990:	02402025 */ 	or	$a0,$s2,$zero
-/*  f012994:	26090510 */ 	addiu	$t1,$s0,0x510
-/*  f012998:	afa90098 */ 	sw	$t1,0x98($sp)
-/*  f01299c:	0c0073af */ 	jal	func0001cebc
-/*  f0129a0:	2605045c */ 	addiu	$a1,$s0,0x45c
-/*  f0129a4:	8e300284 */ 	lw	$s0,0x284($s1)
-/*  f0129a8:	24130018 */ 	addiu	$s3,$zero,0x18
-/*  f0129ac:	3c128007 */ 	lui	$s2,%hi(var80075c00)
-/*  f0129b0:	c6040544 */ 	lwc1	$f4,0x544($s0)
-/*  f0129b4:	26525c00 */ 	addiu	$s2,$s2,%lo(var80075c00)
-/*  f0129b8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0129bc:	e6040414 */ 	swc1	$f4,0x414($s0)
-/*  f0129c0:	8e2a0284 */ 	lw	$t2,0x284($s1)
-/*  f0129c4:	e5540418 */ 	swc1	$f20,0x418($t2)
-/*  f0129c8:	8e300284 */ 	lw	$s0,0x284($s1)
-/*  f0129cc:	c6080584 */ 	lwc1	$f8,0x584($s0)
-/*  f0129d0:	c60a0544 */ 	lwc1	$f10,0x544($s0)
-/*  f0129d4:	460a4401 */ 	sub.s	$f16,$f8,$f10
-/*  f0129d8:	e610041c */ 	swc1	$f16,0x41c($s0)
-/*  f0129dc:	8e300284 */ 	lw	$s0,0x284($s1)
-/*  f0129e0:	c6060588 */ 	lwc1	$f6,0x588($s0)
-/*  f0129e4:	c6120548 */ 	lwc1	$f18,0x548($s0)
-/*  f0129e8:	46123101 */ 	sub.s	$f4,$f6,$f18
-/*  f0129ec:	e6040420 */ 	swc1	$f4,0x420($s0)
-/*  f0129f0:	8e300284 */ 	lw	$s0,0x284($s1)
-/*  f0129f4:	8e0b03ac */ 	lw	$t3,0x3ac($s0)
-/*  f0129f8:	e7b40014 */ 	swc1	$f20,0x14($sp)
-/*  f0129fc:	e7b60010 */ 	swc1	$f22,0x10($sp)
-/*  f012a00:	01730019 */ 	multu	$t3,$s3
-/*  f012a04:	2604045c */ 	addiu	$a0,$s0,0x45c
-/*  f012a08:	00006012 */ 	mflo	$t4
-/*  f012a0c:	024c1021 */ 	addu	$v0,$s2,$t4
-/*  f012a10:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f012a14:	0c007733 */ 	jal	modelSetAnimation
-/*  f012a18:	8c470004 */ 	lw	$a3,0x4($v0)
-/*  f012a1c:	8e300284 */ 	lw	$s0,0x284($s1)
-/*  f012a20:	4406a000 */ 	mfc1	$a2,$f20
-/*  f012a24:	8e0d03ac */ 	lw	$t5,0x3ac($s0)
-/*  f012a28:	2604045c */ 	addiu	$a0,$s0,0x45c
-/*  f012a2c:	01b30019 */ 	multu	$t5,$s3
-/*  f012a30:	00007012 */ 	mflo	$t6
-/*  f012a34:	024ec021 */ 	addu	$t8,$s2,$t6
-/*  f012a38:	0c00777b */ 	jal	modelSetAnimLooping
-/*  f012a3c:	8f050004 */ 	lw	$a1,0x4($t8)
-/*  f012a40:	8e300284 */ 	lw	$s0,0x284($s1)
-/*  f012a44:	8e1903ac */ 	lw	$t9,0x3ac($s0)
-/*  f012a48:	2604045c */ 	addiu	$a0,$s0,0x45c
-/*  f012a4c:	03330019 */ 	multu	$t9,$s3
-/*  f012a50:	00007812 */ 	mflo	$t7
-/*  f012a54:	024f4021 */ 	addu	$t0,$s2,$t7
-/*  f012a58:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f012a5c:	8d050008 */ 	lw	$a1,0x8($t0)
-/*  f012a60:	8e240284 */ 	lw	$a0,0x284($s1)
-/*  f012a64:	3c057f11 */ 	lui	$a1,%hi(currentPlayerFlipAnimation)
-/*  f012a68:	24a53220 */ 	addiu	$a1,$a1,%lo(currentPlayerFlipAnimation)
-/*  f012a6c:	0c0077a6 */ 	jal	modelSetAnimFlipFunction
-/*  f012a70:	2484045c */ 	addiu	$a0,$a0,0x45c
-/*  f012a74:	0fc44c8f */ 	jal	currentPlayerUpdateIdleHeadRoll
-/*  f012a78:	00000000 */ 	nop
-/*  f012a7c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f012a80:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f012a84:	d7b60020 */ 	ldc1	$f22,0x20($sp)
-/*  f012a88:	8fb0002c */ 	lw	$s0,0x2c($sp)
-/*  f012a8c:	8fb10030 */ 	lw	$s1,0x30($sp)
-/*  f012a90:	8fb20034 */ 	lw	$s2,0x34($sp)
-/*  f012a94:	8fb30038 */ 	lw	$s3,0x38($sp)
-/*  f012a98:	03e00008 */ 	jr	$ra
-/*  f012a9c:	27bd00d8 */ 	addiu	$sp,$sp,0xd8
-);
+void currentPlayerInitAnimation(void)
+{
+	s32 i;
+
+	func00022fa4(&g_Vars.currentplayer->model, &var8007c0c0, &g_Vars.currentplayer->unk0494, 0);
+	animInitialise(g_Vars.currentplayer->model.anim);
+	modelSetUnk14(&g_Vars.currentplayer->model, 0.1000000089407f);
+	modelSetAnimPlaySpeed(&g_Vars.currentplayer->model, 1, 0);
+
+	g_Vars.currentplayer->headanim = 0;
+	g_Vars.currentplayer->headdamp = 0.93f;
+	g_Vars.currentplayer->headwalkingtime60 = 0;
+	g_Vars.currentplayer->headamplitude = 1;
+	g_Vars.currentplayer->sideamplitude = 1;
+	g_Vars.currentplayer->headpos.x = 0;
+	g_Vars.currentplayer->headpos.y = 0;
+	g_Vars.currentplayer->headpos.z = 0;
+	g_Vars.currentplayer->headlook.x = 0;
+	g_Vars.currentplayer->headlook.y = 0;
+	g_Vars.currentplayer->headlook.z = 0;
+	g_Vars.currentplayer->headup.x = 0;
+	g_Vars.currentplayer->headup.y = 0;
+	g_Vars.currentplayer->headup.z = 0;
+	g_Vars.currentplayer->headpossum.x = 0;
+	g_Vars.currentplayer->headpossum.y = 0;
+	g_Vars.currentplayer->headpossum.z = 0;
+	g_Vars.currentplayer->headlooksum.x = 0;
+	g_Vars.currentplayer->headlooksum.y = 0;
+	g_Vars.currentplayer->headlooksum.z = 14.285716056824f;
+	g_Vars.currentplayer->headupsum.x = 0;
+	g_Vars.currentplayer->headupsum.y = 14.285716056824f;
+	g_Vars.currentplayer->headupsum.z = 0;
+	g_Vars.currentplayer->resetheadpos = true;
+	g_Vars.currentplayer->resetheadrot = true;
+	g_Vars.currentplayer->unk03a8 = true;
+	g_Vars.currentplayer->headbodyoffset.x = 0;
+	g_Vars.currentplayer->headbodyoffset.y = 0;
+	g_Vars.currentplayer->headbodyoffset.z = 0;
+	g_Vars.currentplayer->standheight = 0;
+	g_Vars.currentplayer->standbodyoffset.x = 0;
+	g_Vars.currentplayer->standbodyoffset.y = 0;
+	g_Vars.currentplayer->standbodyoffset.z = 0;
+	g_Vars.currentplayer->standfrac = 0;
+	g_Vars.currentplayer->standlook[0].x = 0;
+	g_Vars.currentplayer->standlook[0].y = 0;
+	g_Vars.currentplayer->standlook[0].z = 1;
+	g_Vars.currentplayer->standlook[1].x = 0;
+	g_Vars.currentplayer->standlook[1].y = 0;
+	g_Vars.currentplayer->standlook[1].z = 1;
+	g_Vars.currentplayer->standup[0].x = 0;
+	g_Vars.currentplayer->standup[0].y = 1;
+	g_Vars.currentplayer->standup[0].z = 0;
+	g_Vars.currentplayer->standup[1].x = 0;
+	g_Vars.currentplayer->standup[1].y = 1;
+	g_Vars.currentplayer->standup[1].z = 0;
+	g_Vars.currentplayer->standcnt = 0;
+
+	for (i = 0; i < 2; i++) {
+		s32 spc8[3];
+		func0f0125a0(var80075c00[i].animnum, var80075c00[i].loopframe, var80075c00[i].endframe, spc8);
+		var80075c00[i].unk0c = (spc8[2] * 0.1000000089407f) / (var80075c00[i].endframe - var80075c00[i].loopframe);
+	}
+
+	{
+		struct objticksp476 sp88 = {NULL, 1, 3};
+		Mtxf sp48;
+
+		modelSetAnimation(&g_Vars.currentplayer->model, 1, 0, 0, 0.5f, 0);
+
+		func0001b3bc(&g_Vars.currentplayer->model);
+		func000159b0(&sp48);
+		sp88.matrix = &sp48;
+		sp88.unk10 = &g_Vars.currentplayer->unk0510;
+		func0001cebc(&sp88, &g_Vars.currentplayer->model);
+
+		g_Vars.currentplayer->standheight = g_Vars.currentplayer->unk0510.m[3][1];
+
+		g_Vars.currentplayer->standbodyoffset.x = 0;
+		g_Vars.currentplayer->standbodyoffset.y = g_Vars.currentplayer->unk0550.m[3][1] - g_Vars.currentplayer->unk0510.m[3][1];
+		g_Vars.currentplayer->standbodyoffset.z = g_Vars.currentplayer->unk0550.m[3][2] - g_Vars.currentplayer->unk0510.m[3][2];
+
+		modelSetAnimation(&g_Vars.currentplayer->model,
+				var80075c00[g_Vars.currentplayer->headanim].animnum,
+				0,
+				var80075c00[g_Vars.currentplayer->headanim].loopframe,
+				0.5f, 0);
+
+		modelSetAnimLooping(&g_Vars.currentplayer->model,
+				var80075c00[g_Vars.currentplayer->headanim].loopframe, 0);
+
+		modelSetAnimEndFrame(&g_Vars.currentplayer->model,
+				var80075c00[g_Vars.currentplayer->headanim].endframe);
+
+		modelSetAnimFlipFunction(&g_Vars.currentplayer->model, currentPlayerFlipAnimation);
+
+		currentPlayerUpdateIdleHeadRoll();
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f012aa0
