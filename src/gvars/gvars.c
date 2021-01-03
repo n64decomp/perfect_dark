@@ -14701,14 +14701,10 @@ s32 g_NumTags = 0;
 struct tag **g_TagPtrs = 0;
 
 u32 var8009d0cc = 0;
-u32 var8009d0d0 = 0;
-u32 var8009d0d4 = 0;
+u32 var8009d0d0[2] = {0};
 u32 var8009d0d8 = 0;
 u32 var8009d0dc = 0;
-u32 var8009d0e0 = 0;
-u32 var8009d0e4 = 0;
-u32 var8009d0e8 = 0;
-u32 var8009d0ec = 0;
+u32 var8009d0e0[4] = {0};
 u32 var8009d0f0 = 0;
 u32 var8009d0f4 = 0;
 u32 var8009d0f8 = 0;

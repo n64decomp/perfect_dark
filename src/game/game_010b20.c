@@ -554,6 +554,33 @@ glabel func0f010b20
 /*  f010bac:	ac4002b4 */ 	sw	$zero,0x2b4($v0)
 );
 
+// Mismatch: Two instructions are swapped
+//void func0f010b20(void)
+//{
+//	s32 i;
+//
+//	var8009d0d0[0] = 0;
+//	var8009d0d0[1] = 0;
+//	var8009d0d8 = 0;
+//
+//	for (i = 0; i != ARRAYCOUNT(var8009d0e0); i++) {
+//		var8009d0e0[i] = 0;
+//	}
+//
+//	for (i = 0; i < ARRAYCOUNT(var8009d510); i++) {
+//		var8009d510[i].unk40 = 0;
+//	}
+//
+//	var80070524 = 0;
+//
+//	for (i = 0; i < ARRAYCOUNT(g_Fireslots); i++) {
+//		g_Fireslots[i].unk00 = -1;
+//	}
+//
+//	g_Vars.killcount = 0;
+//	g_Vars.knockoutcount = 0;
+//}
+
 GLOBAL_ASM(
 glabel func0f010bb0
 /*  f010bb0:	27bdf820 */ 	addiu	$sp,$sp,-2016
