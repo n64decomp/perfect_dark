@@ -6749,4 +6749,8 @@ struct var800a41b0 {
 	/*0x78*/ u32 unk78;
 };
 
+struct var8009cda4 {
+	s16 unk00[8];
+};
+
 #endif
