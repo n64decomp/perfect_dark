@@ -1385,52 +1385,24 @@ glabel scenarioCtcHighlight
 //	return false;
 //}
 
-GLOBAL_ASM(
-glabel func0f181800
-/*  f181800:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f181804:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f181808:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18180c:	14410008 */ 	bne	$v0,$at,.L0f181830
-/*  f181810:	3c09800b */ 	lui	$t1,%hi(g_ScenarioData)
-/*  f181814:	8c8f0004 */ 	lw	$t7,0x4($a0)
-/*  f181818:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*  f18181c:	3c01800b */ 	lui	$at,%hi(g_ScenarioData+0x18)
-/*  f181820:	000fc100 */ 	sll	$t8,$t7,0x4
-/*  f181824:	00380821 */ 	addu	$at,$at,$t8
-/*  f181828:	a42ec128 */ 	sh	$t6,%lo(g_ScenarioData+0x18)($at)
-/*  f18182c:	8c820000 */ 	lw	$v0,0x0($a0)
-.L0f181830:
-/*  f181830:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f181834:	14410017 */ 	bne	$v0,$at,.L0f181894
-/*  f181838:	2529c110 */ 	addiu	$t1,$t1,%lo(g_ScenarioData)
-/*  f18183c:	8c990004 */ 	lw	$t9,0x4($a0)
-/*  f181840:	2406000c */ 	addiu	$a2,$zero,0xc
-/*  f181844:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f181848:	00194100 */ 	sll	$t0,$t9,0x4
-/*  f18184c:	01092821 */ 	addu	$a1,$t0,$t1
-.L0f181850:
-/*  f181850:	84aa001c */ 	lh	$t2,0x1c($a1)
-/*  f181854:	544a000d */ 	bnel	$v0,$t2,.L0f18188c
-/*  f181858:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f18185c:	8c8b0008 */ 	lw	$t3,0x8($a0)
-/*  f181860:	3c0f800b */ 	lui	$t7,%hi(g_ScenarioData)
-/*  f181864:	25efc110 */ 	addiu	$t7,$t7,%lo(g_ScenarioData)
-/*  f181868:	a4ab001c */ 	sh	$t3,0x1c($a1)
-/*  f18186c:	8c8c0004 */ 	lw	$t4,0x4($a0)
-/*  f181870:	000c6900 */ 	sll	$t5,$t4,0x4
-/*  f181874:	01af1021 */ 	addu	$v0,$t5,$t7
-/*  f181878:	844e001a */ 	lh	$t6,0x1a($v0)
-/*  f18187c:	25d80001 */ 	addiu	$t8,$t6,0x1
-/*  f181880:	03e00008 */ 	jr	$ra
-/*  f181884:	a458001a */ 	sh	$t8,0x1a($v0)
-/*  f181888:	24630002 */ 	addiu	$v1,$v1,0x2
-.L0f18188c:
-/*  f18188c:	1466fff0 */ 	bne	$v1,$a2,.L0f181850
-/*  f181890:	24a50002 */ 	addiu	$a1,$a1,0x2
-.L0f181894:
-/*  f181894:	03e00008 */ 	jr	$ra
-/*  f181898:	00000000 */ 	nop
-);
+void mpCtcAddPad(s32 *cmd)
+{
+	s32 i;
+
+	if (cmd[0] == INTROCMD_CASE) {
+		g_ScenarioData.ctc.spawnpadsperteam[cmd[1]].teamindex = cmd[2];
+	}
+
+	if (cmd[0] == INTROCMD_CASERESPAWN) {
+		for (i = 0; i != ARRAYCOUNT(g_ScenarioData.ctc.spawnpadsperteam[cmd[1]].spawnpads); i++) {
+			if (g_ScenarioData.ctc.spawnpadsperteam[cmd[1]].spawnpads[i] == -1) {
+				g_ScenarioData.ctc.spawnpadsperteam[cmd[1]].spawnpads[i] = cmd[2];
+				g_ScenarioData.ctc.spawnpadsperteam[cmd[1]].numspawnpads++;
+				return;
+			}
+		}
+	}
+}
 
 bool scenarioCtcCallback2c(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4)
 {

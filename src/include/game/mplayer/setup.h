@@ -79,7 +79,7 @@ void func0f1800a8(void);
 u32 scenarioHtbCallback18(void);
 void scenarioCtcReset(void);
 bool scenarioCtcHighlight(struct prop *prop, u32 *colour);
-void func0f181800(s32 *cmd);
+void mpCtcAddPad(s32 *cmd);
 void scenarioCtcCallback38(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 void scenarioKohCallback10(void);
 u32 scenarioKohCallback18(void);

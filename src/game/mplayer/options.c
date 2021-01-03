@@ -952,7 +952,7 @@ void mpPrepareScenario(void)
 			case INTROCMD_CASE:
 			case INTROCMD_CASERESPAWN:
 				if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
-					func0f181800(cmd);
+					mpCtcAddPad(cmd);
 				} else if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
 					mpHtmAddPad(cmd[2]);
 				} else if (g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE) {
