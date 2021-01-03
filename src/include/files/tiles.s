@@ -9,7 +9,7 @@
 .set VERSION_NTSC_FINAL, 2
 .set VERSION_PAL_BETA,   3
 .set VERSION_PAL_FINAL,  4
-.set VERSION_JAP_FINAL,  5
+.set VERSION_JPN_FINAL,  5
 
 .macro tileabstract numverts, ai, flags, u4, u6, u8, ua, uc
 	.short \numverts

@@ -232,7 +232,7 @@ class Extractor:
 
     def extract_textures(self):
         base = self.val('textures')
-        datalen = 0x294960 if self.romid == 'jap-final' else 0x291d60
+        datalen = 0x294960 if self.romid == 'jpn-final' else 0x291d60
         tablepos = base + datalen
         index = 0
         while True:
@@ -284,11 +284,11 @@ class Extractor:
         fd.close()
 
     def val(self, name):
-        index = ['ntsc-beta','ntsc-1.0','ntsc-final','pal-beta','pal-final','jap-final'].index(self.romid)
+        index = ['ntsc-beta','ntsc-1.0','ntsc-final','pal-beta','pal-final','jpn-final'].index(self.romid)
         return self.vals[name][index]
 
     vals = {
-        #                 ntsc-beta  ntsc-1.0   ntsc-final pal-beta   pal-final  jap-final
+        #                 ntsc-beta  ntsc-1.0   ntsc-final pal-beta   pal-final  jpn-final
         'game':          [0x43c40,   0x4fc40,   0x4fc40,   0x4fc40,   0x4fc40,   0x4fc40,   ],
         'garbage1':      [0x0,       0x2ea22,   0x2ea6c,   0x0,       0x0,       0x0,       ],
         'files':         [0x29160,   0x28080,   0x28080,   0x29b90,   0x28910,   0x28800,   ],

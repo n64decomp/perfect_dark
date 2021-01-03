@@ -486,7 +486,7 @@ u32 props[] = {
 };
 
 s32 intro[] = {
-#if VERSION >= VERSION_JAP_FINAL
+#if VERSION >= VERSION_JPN_FINAL
 	ammo(AMMOTYPE_PISTOL, 10)
 	intro_weapon(WEAPON_FALCON2, -1)
 	ammo(AMMOTYPE_PISTOL, 20)

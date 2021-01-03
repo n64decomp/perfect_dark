@@ -12,7 +12,7 @@ export ROMID
 
 NTSC=0
 PAL=0
-JAP=0
+JPN=0
 
 ifeq ($(ROMID),ntsc-beta)
 	NTSC=1
@@ -34,8 +34,8 @@ ifeq ($(ROMID),pal-final)
 	PAL=1
 	VERSION=4
 endif
-ifeq ($(ROMID),jap-final)
-	JAP=1
+ifeq ($(ROMID),jpn-final)
+	JPN=1
 	VERSION=5
 endif
 
@@ -57,7 +57,7 @@ endif
 CFLAGS := -DVERSION=$(VERSION) \
 	-DNTSC=$(NTSC) \
 	-DPAL=$(PAL) \
-	-DJAP=$(JAP) \
+	-DJPN=$(JPN) \
 	-DPIRACYCHECKS=$(PIRACYCHECKS) \
 	-Wo,-loopunroll,0 \
 	-Wab,-r4300_mul \

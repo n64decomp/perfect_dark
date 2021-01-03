@@ -38162,7 +38162,7 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 		strcat(buffer, "s");
 	}
 
-	// For Jap, their translation of "picked up" comes after the weapon name
+	// For JPN, their translation of "picked up" comes after the weapon name
 	if (g_LanguageId != LANGUAGE_ENGLISH && full) {
 		if (buffer[strlen(buffer) - 1] == '\n') {
 			buffer[strlen(buffer) - 1] = '\0';

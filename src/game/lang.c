@@ -292,7 +292,7 @@ glabel func0f16e3fc
 );
 
 /**
- * NTSC only supports English, while PAL supports 4 languages and JAP has its
+ * NTSC only supports English, while PAL supports 4 languages and JPN has its
  * own. Each English file is followed immediately by the other translations.
  *
  * As it stands in the NTSC version, g_LanguageId is a flag that controls

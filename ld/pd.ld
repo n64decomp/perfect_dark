@@ -7,7 +7,7 @@
 #define VERSION_NTSC_FINAL 2
 #define VERSION_PAL_BETA   3
 #define VERSION_PAL_FINAL  4
-#define VERSION_JAP_FINAL  5
+#define VERSION_JPN_FINAL  5
 
 #define BEGIN_SEG(name) \
 	_##name##SegmentStart = ADDR(.name); \

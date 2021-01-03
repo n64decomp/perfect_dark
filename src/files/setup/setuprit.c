@@ -641,7 +641,7 @@ u8 func1004_reassign_ailists_during_conversation[] = {
 
 u8 func1005_check_neutrals_killed[] = {
 	set_chr_chrflag(0x01, CHRCFLAG_KILLCOUNTABLE)
-#if VERSION >= VERSION_JAP_FINAL
+#if VERSION >= VERSION_JPN_FINAL
 	set_chr_chrflag(CHR_STEWARDESS, CHRCFLAG_KILLCOUNTABLE)
 	set_chr_chrflag(CHR_STEWARD, CHRCFLAG_KILLCOUNTABLE)
 #endif
