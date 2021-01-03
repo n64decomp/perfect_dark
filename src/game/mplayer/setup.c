@@ -3139,7 +3139,7 @@ s32 menuhandlerMpTeamScoreLimitSlider(u32 operation, struct menuitem *item, unio
 {
 	switch (operation) {
 	case MENUOP_GETSLIDER:
-		data->slider.value = func0f18844c();
+		data->slider.value = mpCalculateTeamScoreLimit();
 		break;
 	case MENUOP_SET:
 		g_MpSetup.teamscorelimit = data->slider.value;

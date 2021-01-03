@@ -836,74 +836,39 @@ const char var7f1b8a5c[] = "Gun index %d -> slot %d = gun %d\n\n";
 const char var7f1b8a80[] = "HOLDER: selecting weapon set %d\n";
 const char var7f1b8aa4[] = "%d\n";
 
-GLOBAL_ASM(
-glabel func0f18844c
-/*  f18844c:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f188450:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x88)
-/*  f188454:	91cecc10 */ 	lbu	$t6,%lo(g_MpSetup+0x88)($t6)
-/*  f188458:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f18845c:	94820014 */ 	lhu	$v0,0x14($a0)
-/*  f188460:	24060005 */ 	addiu	$a2,$zero,0x5
-/*  f188464:	14ce0030 */ 	bne	$a2,$t6,.L0f188528
-/*  f188468:	00401825 */ 	or	$v1,$v0,$zero
-/*  f18846c:	24010190 */ 	addiu	$at,$zero,0x190
-/*  f188470:	1041002d */ 	beq	$v0,$at,.L0f188528
-/*  f188474:	00000000 */ 	nop
-/*  f188478:	90820010 */ 	lbu	$v0,0x10($a0)
-/*  f18847c:	24070004 */ 	addiu	$a3,$zero,0x4
-/*  f188480:	00002025 */ 	or	$a0,$zero,$zero
-/*  f188484:	10400002 */ 	beqz	$v0,.L0f188490
-/*  f188488:	3c05800b */ 	lui	$a1,%hi(g_MpSetup+0x16)
-/*  f18848c:	14e20026 */ 	bne	$a3,$v0,.L0f188528
-.L0f188490:
-/*  f188490:	24070004 */ 	addiu	$a3,$zero,0x4
-/*  f188494:	00001025 */ 	or	$v0,$zero,$zero
-/*  f188498:	94a5cb9e */ 	lhu	$a1,%lo(g_MpSetup+0x16)($a1)
-/*  f18849c:	240f0001 */ 	addiu	$t7,$zero,0x1
-.L0f1884a0:
-/*  f1884a0:	008fc004 */ 	sllv	$t8,$t7,$a0
-/*  f1884a4:	00b8c824 */ 	and	$t9,$a1,$t8
-/*  f1884a8:	13200002 */ 	beqz	$t9,.L0f1884b4
-/*  f1884ac:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f1884b0:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f1884b4:
-/*  f1884b4:	5487fffa */ 	bnel	$a0,$a3,.L0f1884a0
-/*  f1884b8:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f1884bc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1884c0:	10410019 */ 	beq	$v0,$at,.L0f188528
-/*  f1884c4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1884c8:	10410008 */ 	beq	$v0,$at,.L0f1884ec
-/*  f1884cc:	00034040 */ 	sll	$t0,$v1,0x1
-/*  f1884d0:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f1884d4:	10440007 */ 	beq	$v0,$a0,.L0f1884f4
-/*  f1884d8:	00000000 */ 	nop
-/*  f1884dc:	1047000e */ 	beq	$v0,$a3,.L0f188518
-/*  f1884e0:	00000000 */ 	nop
-/*  f1884e4:	03e00008 */ 	jr	$ra
-/*  f1884e8:	00601025 */ 	or	$v0,$v1,$zero
-.L0f1884ec:
-/*  f1884ec:	03e00008 */ 	jr	$ra
-/*  f1884f0:	25020001 */ 	addiu	$v0,$t0,0x1
-.L0f1884f4:
-/*  f1884f4:	00660019 */ 	multu	$v1,$a2
-/*  f1884f8:	00001812 */ 	mflo	$v1
-/*  f1884fc:	24630005 */ 	addiu	$v1,$v1,0x5
-/*  f188500:	04610003 */ 	bgez	$v1,.L0f188510
-/*  f188504:	00034843 */ 	sra	$t1,$v1,0x1
-/*  f188508:	24610001 */ 	addiu	$at,$v1,0x1
-/*  f18850c:	00014843 */ 	sra	$t1,$at,0x1
-.L0f188510:
-/*  f188510:	03e00008 */ 	jr	$ra
-/*  f188514:	2522ffff */ 	addiu	$v0,$t1,-1
-.L0f188518:
-/*  f188518:	00640019 */ 	multu	$v1,$a0
-/*  f18851c:	00001812 */ 	mflo	$v1
-/*  f188520:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f188524:	00000000 */ 	nop
-.L0f188528:
-/*  f188528:	03e00008 */ 	jr	$ra
-/*  f18852c:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 mpCalculateTeamScoreLimit(void)
+{
+	s32 limit = g_MpSetup.teamscorelimit;
+	s32 i;
+
+	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE
+			&& g_MpSetup.teamscorelimit != 400
+			&& (g_MpSetup.scenario == MPSCENARIO_COMBAT || g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL)) {
+		s32 numchrs = 0;
+
+		for (i = 0; i < 4; i++) {
+			if (g_MpSetup.chrslots & (1 << i)) {
+				numchrs++;
+			}
+		}
+
+		switch (numchrs) {
+		case 1:
+			break;
+		case 2:
+			limit = limit * 2 + 1;
+			break;
+		case 3:
+			limit = (limit * 5 + 5) / 2 - 1;
+			break;
+		case 4:
+			limit = limit * 3 + 2;
+			break;
+		}
+	}
+
+	return limit;
+}
 
 void mpApplyLimits(void)
 {
@@ -922,7 +887,7 @@ void mpApplyLimits(void)
 	if (g_MpSetup.teamscorelimit >= 400) {
 		coreSetMpTeamScoreLimit(0);
 	} else {
-		coreSetMpTeamScoreLimit(func0f18844c() + 1);
+		coreSetMpTeamScoreLimit(mpCalculateTeamScoreLimit() + 1);
 	}
 }
 

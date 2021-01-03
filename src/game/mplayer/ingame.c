@@ -202,7 +202,7 @@ char *mpMenuTextInGameLimit(struct menuitem *item)
 		sprintf(g_StringPointer, langGet(L_MPMENU(113)), g_MpSetup.scorelimit + 1);
 		break;
 	case 2:
-		sprintf(g_StringPointer, langGet(L_MPMENU(113)), func0f18844c() + 1);
+		sprintf(g_StringPointer, langGet(L_MPMENU(113)), mpCalculateTeamScoreLimit() + 1);
 		break;
 	}
 

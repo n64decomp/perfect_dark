@@ -14,7 +14,7 @@ void func0f18800c(s32 playernum, bool arg1);
 void func0f1881d4(s32 index);
 void mpSetDefaultSetup(void);
 void mpSetDefaultNamesIfEmpty(void);
-u32 func0f18844c(void);
+s32 mpCalculateTeamScoreLimit(void);
 void mpApplyLimits(void);
 s32 mpGetPlayerRankings(struct mpteaminfo *info);
 u32 func0f188930(void);
