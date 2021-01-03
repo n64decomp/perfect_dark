@@ -8,102 +8,56 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "game/game_00c240.h"
+#include "game/game_0601b0.h"
 #include "gvars/gvars.h"
 #include "lib/lib_121e0.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f00c240
-/*  f00c240:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f00c244:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f00c248:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f00c24c:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f00c250:	8e040334 */ 	lw	$a0,0x334($s0)
-/*  f00c254:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f00c258:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f00c25c:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f00c260:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f00c264:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f00c268:	25c4003f */ 	addiu	$a0,$t6,0x3f
-/*  f00c26c:	348f003f */ 	ori	$t7,$a0,0x3f
-/*  f00c270:	0c0048f2 */ 	jal	malloc
-/*  f00c274:	39e4003f */ 	xori	$a0,$t7,0x3f
-/*  f00c278:	ae020338 */ 	sw	$v0,0x338($s0)
-/*  f00c27c:	24040340 */ 	addiu	$a0,$zero,0x340
-/*  f00c280:	0c0048f2 */ 	jal	malloc
-/*  f00c284:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f00c288:	3c013f80 */ 	lui	$at,0x3f80
-/*  f00c28c:	44812000 */ 	mtc1	$at,$f4
-/*  f00c290:	ae020348 */ 	sw	$v0,0x348($s0)
-/*  f00c294:	3c018007 */ 	lui	$at,%hi(var80069880)
-/*  f00c298:	e4249880 */ 	swc1	$f4,%lo(var80069880)($at)
-/*  f00c29c:	8e080348 */ 	lw	$t0,0x348($s0)
-/*  f00c2a0:	ae00033c */ 	sw	$zero,0x33c($s0)
-/*  f00c2a4:	ae000340 */ 	sw	$zero,0x340($s0)
-/*  f00c2a8:	ae000354 */ 	sw	$zero,0x354($s0)
-/*  f00c2ac:	ae000350 */ 	sw	$zero,0x350($s0)
-/*  f00c2b0:	ad000000 */ 	sw	$zero,0x0($t0)
-/*  f00c2b4:	8e0b0334 */ 	lw	$t3,0x334($s0)
-/*  f00c2b8:	8e090348 */ 	lw	$t1,0x348($s0)
-/*  f00c2bc:	8e0a0338 */ 	lw	$t2,0x338($s0)
-/*  f00c2c0:	256cffff */ 	addiu	$t4,$t3,-1
-/*  f00c2c4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f00c2c8:	ae09034c */ 	sw	$t1,0x34c($s0)
-/*  f00c2cc:	1980000e */ 	blez	$t4,.L0f00c308
-/*  f00c2d0:	ae0a0344 */ 	sw	$t2,0x344($s0)
-/*  f00c2d4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f00c2d8:	8e020338 */ 	lw	$v0,0x338($s0)
-.L0f00c2dc:
-/*  f00c2dc:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f00c2e0:	00626821 */ 	addu	$t5,$v1,$v0
-/*  f00c2e4:	25ae0048 */ 	addiu	$t6,$t5,0x48
-/*  f00c2e8:	00437821 */ 	addu	$t7,$v0,$v1
-/*  f00c2ec:	adee0020 */ 	sw	$t6,0x20($t7)
-/*  f00c2f0:	8e180334 */ 	lw	$t8,0x334($s0)
-/*  f00c2f4:	24630048 */ 	addiu	$v1,$v1,0x48
-/*  f00c2f8:	2719ffff */ 	addiu	$t9,$t8,-1
-/*  f00c2fc:	0099082a */ 	slt	$at,$a0,$t9
-/*  f00c300:	5420fff6 */ 	bnezl	$at,.L0f00c2dc
-/*  f00c304:	8e020338 */ 	lw	$v0,0x338($s0)
-.L0f00c308:
-/*  f00c308:	0fc030e4 */ 	jal	func0f00c390
-/*  f00c30c:	00000000 */ 	nop
-/*  f00c310:	8e080318 */ 	lw	$t0,0x318($s0)
-/*  f00c314:	340bfffe */ 	dli	$t3,0xfffe
-/*  f00c318:	340cffff */ 	dli	$t4,0xffff
-/*  f00c31c:	11000004 */ 	beqz	$t0,.L0f00c330
-/*  f00c320:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f00c324:	24090004 */ 	addiu	$t1,$zero,0x4
-/*  f00c328:	10000003 */ 	b	.L0f00c338
-/*  f00c32c:	a2090358 */ 	sb	$t1,0x358($s0)
-.L0f00c330:
-/*  f00c330:	240a0007 */ 	addiu	$t2,$zero,0x7
-/*  f00c334:	a20a0358 */ 	sb	$t2,0x358($s0)
-.L0f00c338:
-/*  f00c338:	3c04800a */ 	lui	$a0,%hi(g_Vars+0xc4)
-/*  f00c33c:	a2000359 */ 	sb	$zero,0x359($s0)
-/*  f00c340:	a200035a */ 	sb	$zero,0x35a($s0)
-/*  f00c344:	a200035b */ 	sb	$zero,0x35b($s0)
-/*  f00c348:	a60b035c */ 	sh	$t3,0x35c($s0)
-/*  f00c34c:	a60c035e */ 	sh	$t4,0x35e($s0)
-/*  f00c350:	2484a084 */ 	addiu	$a0,$a0,%lo(g_Vars+0xc4)
-/*  f00c354:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f00c358:	24030002 */ 	addiu	$v1,$zero,0x2
-.L0f00c35c:
-/*  f00c35c:	2442001c */ 	addiu	$v0,$v0,0x1c
-/*  f00c360:	a4400344 */ 	sh	$zero,0x344($v0)
-/*  f00c364:	a4400346 */ 	sh	$zero,0x346($v0)
-/*  f00c368:	ac40034c */ 	sw	$zero,0x34c($v0)
-/*  f00c36c:	ac400350 */ 	sw	$zero,0x350($v0)
-/*  f00c370:	ac400354 */ 	sw	$zero,0x354($v0)
-/*  f00c374:	1444fff9 */ 	bne	$v0,$a0,.L0f00c35c
-/*  f00c378:	ac430358 */ 	sw	$v1,0x358($v0)
-/*  f00c37c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f00c380:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f00c384:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f00c388:	03e00008 */ 	jr	$ra
-/*  f00c38c:	00000000 */ 	nop
-);
+void gvarsInitProps(void)
+{
+	s32 i;
+
+	g_Vars.props = malloc(ALIGN64(g_Vars.maxprops * sizeof(struct prop)), 4);
+	g_Vars.tangibleprops = malloc(ALIGN64(200 * sizeof(void *)), 4);
+
+	var80069880 = 1;
+
+	g_Vars.unk00033c = NULL;
+	g_Vars.unk000340 = NULL;
+	g_Vars.unk000354 = g_Vars.unk000350 = NULL;
+
+	g_Vars.tangibleprops[0] = NULL;
+
+	g_Vars.unk00034c = g_Vars.tangibleprops;
+	g_Vars.freeprops = g_Vars.props;
+
+	for (i = 0; i < g_Vars.maxprops - 1; i++) {
+		g_Vars.props[i].next = &g_Vars.props[i + 1];
+	}
+
+	func0f00c390();
+
+	if (g_Vars.normmplayerisrunning) {
+		g_Vars.numpropstateindexes = 4;
+	} else {
+		g_Vars.numpropstateindexes = 7;
+	}
+
+	g_Vars.nextpropstateindex = 0;
+	g_Vars.unk00035a = 0;
+	g_Vars.unk00035b = 0;
+	g_Vars.unk00035c = 0xfffe;
+	g_Vars.unk00035e = 0xffff;
+
+	for (i = 0; i < ARRAYCOUNT(g_Vars.propstates); i++) {
+		g_Vars.propstates[i].propcount = 0;
+		g_Vars.propstates[i].chrpropcount = 0;
+		g_Vars.propstates[i].updatetime = 0;
+		g_Vars.propstates[i].chrupdatetime = 0;
+		g_Vars.propstates[i].slotupdate240 = 0;
+		g_Vars.propstates[i].slotupdate60error = 2;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f00c390

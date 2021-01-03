@@ -361,7 +361,7 @@ void coreLoadStage(s32 stagenum)
 	func0f0108d0();
 	func0f00eb64(stagenum);
 	mpPrepareScenario();
-	func0f00c240();
+	gvarsInitProps();
 	func0f00c490();
 	func0f00b510();
 	stageChooseActiveHeads(stagenum);
