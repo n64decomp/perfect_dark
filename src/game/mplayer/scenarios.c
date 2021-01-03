@@ -339,22 +339,16 @@ glabel func0f17ffe4
 /*  f180074:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f180078
-/*  f180078:	3c01800b */ 	lui	$at,%hi(g_ScenarioData+0x18)
-/*  f18007c:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f180080:	3c04800b */ 	lui	$a0,%hi(g_ScenarioData+0x78)
-/*  f180084:	a420c128 */ 	sh	$zero,%lo(g_ScenarioData+0x18)($at)
-/*  f180088:	2484c188 */ 	addiu	$a0,$a0,%lo(g_ScenarioData+0x78)
-/*  f18008c:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-/*  f180090:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f180094:
-/*  f180094:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f180098:	1464fffe */ 	bne	$v1,$a0,.L0f180094
-/*  f18009c:	a4620018 */ 	sh	$v0,0x18($v1)
-/*  f1800a0:	03e00008 */ 	jr	$ra
-/*  f1800a4:	00000000 */ 	nop
-);
+void func0f180078(void)
+{
+	s32 i;
+
+	g_ScenarioData.htb.unk18 = 0;
+
+	for (i = 0; i < 60; i++) {
+		g_ScenarioData.htb.unk1a[i] = -1;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1800a8
