@@ -360,7 +360,7 @@ void coreLoadStage(s32 stagenum)
 	func0f011110();
 	func0f0108d0();
 	func0f00eb64(stagenum);
-	func0f18620c();
+	mpPrepareScenario();
 	func0f00c240();
 	func0f00c490();
 	func0f00b510();
