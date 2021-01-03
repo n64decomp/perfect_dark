@@ -7529,18 +7529,18 @@ glabel var7f1a8900
 /*  f025ea0:	00000000 */ 	nop
 );
 
-void func0f025ea4(struct chrdata *chr, struct prop *prop, s32 arg2, struct coord *coord, struct coord *coord2, struct chrdata *chr2)
+void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 arg2, struct coord *coord, struct coord *coord2, struct chrdata *chr2)
 {
 	struct prop *chrprop = chr->prop;
 	s32 race;
 
 	if (chrIsUsingPaintball(chr2)) {
-		func0f12f9f0(chrprop->rooms[0], chrprop, coord, coord2, 0, 25);
+		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 25);
 		return;
 	}
 
 	if (chrGetShield(chr) > 0.0f) {
-		func0f12f9f0(chrprop->rooms[0], chrprop, coord, coord2, 0, 0);
+		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 0);
 		return;
 	}
 
@@ -7549,14 +7549,14 @@ void func0f025ea4(struct chrdata *chr, struct prop *prop, s32 arg2, struct coord
 			|| prop->type == PROPTYPE_DOOR
 			|| arg2 == 100
 			|| arg2 == 110) {
-		func0f12f9f0(chrprop->rooms[0], chrprop, coord, coord2, 0, 0);
+		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 0);
 		return;
 	}
 
 	race = CHRRACE(chr);
 
 	if (race == RACE_DRCAROLL || race == RACE_ROBOT || race == RACE_EYESPY) {
-		func0f12f9f0(chrprop->rooms[0], chrprop, coord, coord2, 0, 1);
+		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 1);
 		return;
 	}
 
@@ -7570,11 +7570,11 @@ void func0f025ea4(struct chrdata *chr, struct prop *prop, s32 arg2, struct coord
 		coord3.y = coord2->y * 42.0f + coord->y;
 		coord3.z = coord2->z * 42.0f + coord->z;
 
-		func0f12f9f0(chrprop->rooms[0], chrprop, &coord3, coord2, 0, 4);
+		sparksCreate(chrprop->rooms[0], chrprop, &coord3, coord2, 0, 4);
 	}
 
-	func0f12f9f0(chrprop->rooms[0], chrprop, coord, coord2, 0, 2);
-	func0f12f9f0(chrprop->rooms[0], chrprop, coord, coord2, 0, 3);
+	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 2);
+	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 3);
 }
 
 GLOBAL_ASM(
@@ -9728,7 +9728,7 @@ glabel func0f027e1c
 /*  f027f44:	27a700a4 */ 	addiu	$a3,$sp,0xa4
 /*  f027f48:	8d8d0004 */ 	lw	$t5,0x4($t4)
 /*  f027f4c:	afa20044 */ 	sw	$v0,0x44($sp)
-/*  f027f50:	0fc097a9 */ 	jal	func0f025ea4
+/*  f027f50:	0fc097a9 */ 	jal	chrEmitSparks
 /*  f027f54:	afad0014 */ 	sw	$t5,0x14($sp)
 /*  f027f58:	c6240010 */ 	lwc1	$f4,0x10($s1)
 /*  f027f5c:	8fa400f0 */ 	lw	$a0,0xf0($sp)

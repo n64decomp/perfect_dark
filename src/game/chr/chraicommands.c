@@ -10805,7 +10805,7 @@ bool aiChrEmitSparks(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
-		chrEmitSparks(chr);
+		chrDrCarollEmitSparks(chr);
 	}
 
 	g_Vars.aioffset += 3;

@@ -232,7 +232,7 @@ void sparkgroupEnsureFreeSparkSlot(struct sparkgroup *group)
 }
 
 GLOBAL_ASM(
-glabel func0f12f9f0
+glabel sparksCreate
 /*  f12f9f0:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f12f9f4:	3c03800a */ 	lui	$v1,%hi(var800a4130)
 /*  f12f9f8:	8fb90084 */ 	lw	$t9,0x84($sp)

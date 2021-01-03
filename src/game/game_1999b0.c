@@ -271,7 +271,7 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, str
 						func0f03ff2c(oppchr, &oppprop->pos, arg2, &sp172, &sp160, &sp168, &sp164);
 					}
 
-					func0f025ea4(oppchr, oppprop, sp160, &oppprop->pos, arg2, chr);
+					chrEmitSparks(oppchr, oppprop, sp160, &oppprop->pos, arg2, chr);
 					func0f0341dc(oppchr, fVar14, arg2, sp156, chr->prop, 200, oppprop, sp172, sp168, sp164, 0);
 				}
 			}

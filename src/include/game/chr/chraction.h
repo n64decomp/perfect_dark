@@ -325,6 +325,6 @@ void audioMarkAsRecentlyPlayed(s16 audioid);
 bool audioWasNotPlayedRecently(s16 audioid);
 void chrToggleModelPart(struct chrdata *chr, s32 partnum);
 bool chrIsAvoiding(struct chrdata *chr);
-void chrEmitSparks(struct chrdata *chr);
+void chrDrCarollEmitSparks(struct chrdata *chr);
 
 #endif

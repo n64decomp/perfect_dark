@@ -2159,7 +2159,7 @@ glabel func0f002ef8
 /*  f0032a8:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f0032ac:	afa90014 */ 	sw	$t1,0x14($sp)
 /*  f0032b0:	46045180 */ 	add.s	$f6,$f10,$f4
-/*  f0032b4:	0fc4be7c */ 	jal	func0f12f9f0
+/*  f0032b4:	0fc4be7c */ 	jal	sparksCreate
 /*  f0032b8:	e7a6007c */ 	swc1	$f6,0x7c($sp)
 /*  f0032bc:	0c004b70 */ 	jal	random
 /*  f0032c0:	00000000 */ 	nop

@@ -5,7 +5,7 @@
 
 u32 func0f12f6c0(void);
 void sparkgroupEnsureFreeSparkSlot(struct sparkgroup *group);
-void func0f12f9f0(s32 room, struct prop *prop, struct coord *pos, struct coord *arg3, s32 arg4, s32 arg5);
+void sparksCreate(s32 room, struct prop *prop, struct coord *pos, struct coord *arg3, s32 arg4, s32 arg5);
 Gfx *func0f130044(Gfx *gdl);
 
 #endif

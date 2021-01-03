@@ -12967,7 +12967,7 @@ void chrTickDie(struct chrdata *chr)
 			var80068080 -= 5;
 			func0f0939f8(NULL, prop, 0x64, -1,
 					-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-			func0f12f9f0(prop->rooms[0], prop, &prop->pos, NULL, 0, 1);
+			sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, 1);
 		}
 
 		return;
@@ -17262,7 +17262,7 @@ glabel var7f1a9184
 /*  f0416c4:	8fa501cc */ 	lw	$a1,0x1cc($sp)
 /*  f0416c8:	8fa60078 */ 	lw	$a2,0x78($sp)
 /*  f0416cc:	27a70228 */ 	addiu	$a3,$sp,0x228
-/*  f0416d0:	0fc097a9 */ 	jal	func0f025ea4
+/*  f0416d0:	0fc097a9 */ 	jal	chrEmitSparks
 /*  f0416d4:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f0416d8:	8fac0278 */ 	lw	$t4,0x278($sp)
 /*  f0416dc:	8fab01cc */ 	lw	$t3,0x1cc($sp)
@@ -17330,7 +17330,7 @@ glabel var7f1a9184
 /*  f0417c4:	8fa501cc */ 	lw	$a1,0x1cc($sp)
 /*  f0417c8:	27a60228 */ 	addiu	$a2,$sp,0x228
 /*  f0417cc:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0417d0:	0fc4be7c */ 	jal	func0f12f9f0
+/*  f0417d0:	0fc4be7c */ 	jal	sparksCreate
 /*  f0417d4:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f0417d8:	10000007 */ 	b	.L0f0417f8
 /*  f0417dc:	00000000 */ 	nop
@@ -17339,7 +17339,7 @@ glabel var7f1a9184
 /*  f0417e4:	27a60228 */ 	addiu	$a2,$sp,0x228
 /*  f0417e8:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0417ec:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0417f0:	0fc4be7c */ 	jal	func0f12f9f0
+/*  f0417f0:	0fc4be7c */ 	jal	sparksCreate
 /*  f0417f4:	afa00014 */ 	sw	$zero,0x14($sp)
 .L0f0417f8:
 /*  f0417f8:	3c0e800a */ 	lui	$t6,%hi(g_MissionConfig+0x3)
@@ -17392,7 +17392,7 @@ glabel var7f1a9184
 /*  f0418ac:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0418b0:	27a60228 */ 	addiu	$a2,$sp,0x228
 /*  f0418b4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0418b8:	0fc4be7c */ 	jal	func0f12f9f0
+/*  f0418b8:	0fc4be7c */ 	jal	sparksCreate
 /*  f0418bc:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f0418c0:	10000008 */ 	b	.L0f0418e4
 /*  f0418c4:	93ac0260 */ 	lbu	$t4,0x260($sp)
@@ -17401,7 +17401,7 @@ glabel var7f1a9184
 /*  f0418cc:	27a60228 */ 	addiu	$a2,$sp,0x228
 /*  f0418d0:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0418d4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0418d8:	0fc4be7c */ 	jal	func0f12f9f0
+/*  f0418d8:	0fc4be7c */ 	jal	sparksCreate
 /*  f0418dc:	afa00014 */ 	sw	$zero,0x14($sp)
 .L0f0418e0:
 /*  f0418e0:	93ac0260 */ 	lbu	$t4,0x260($sp)
@@ -27870,11 +27870,11 @@ bool chrIsAvoiding(struct chrdata *chr)
 	return false;
 }
 
-void chrEmitSparks(struct chrdata *chr)
+void chrDrCarollEmitSparks(struct chrdata *chr)
 {
 	if (chr && chr->prop) {
 		// Spark/shield sound
 		func0f0939f8(0, chr->prop, 0x64, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-		func0f12f9f0(chr->prop->rooms[0], chr->prop, &chr->prop->pos, NULL, 0, 1);
+		sparksCreate(chr->prop->rooms[0], chr->prop, &chr->prop->pos, NULL, 0, 1);
 	}
 }
