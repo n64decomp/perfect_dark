@@ -85,7 +85,7 @@ void scenarioKohCallback10(void);
 u32 scenarioKohCallback18(void);
 void func0f182aac(s32 *cmd);
 void scenarioKohCallback38(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
-void func0f182ba4(s16 padnum);
+void mpHtmAddPad(s16 padnum);
 void func0f182bf4(void);
 void func0f182c98(void);
 void scenarioHtmReset(void);

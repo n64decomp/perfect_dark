@@ -954,7 +954,7 @@ void mpPrepareScenario(void)
 				if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
 					func0f181800(cmd);
 				} else if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
-					func0f182ba4(cmd[2]);
+					mpHtmAddPad(cmd[2]);
 				} else if (g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE) {
 					mpHtbAddPad(cmd[2]);
 				}

@@ -4568,9 +4568,9 @@ struct htmthing {
 };
 
 struct scenariodata_htm {
-	/*0x800ac110*/ u16 unk000;
+	/*0x800ac110*/ s16 nextindex;
 	/*0x800ac112*/ u16 unk002;
-	/*0x800ac114*/ s16 unk004[60];
+	/*0x800ac114*/ s16 padnums[60];
 	/*0x800ac18c*/ struct htmthing unk07c[7]; // only the first element is used?
 	/*0x800ac1e0*/ s16 unk0d0;
 	/*0x800ac1e2*/ s16 unk0d2;

@@ -2605,36 +2605,46 @@ s32 scenarioHtmCallback08(void)
 	return 2;
 }
 
-GLOBAL_ASM(
-glabel func0f182ba4
-/*  f182ba4:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData)
-/*  f182ba8:	2442c110 */ 	addiu	$v0,$v0,%lo(g_ScenarioData)
-/*  f182bac:	84580000 */ 	lh	$t8,0x0($v0)
-/*  f182bb0:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f182bb4:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*  f182bb8:	2b01003c */ 	slti	$at,$t8,0x3c
-/*  f182bbc:	1020000b */ 	beqz	$at,.L0f182bec
-/*  f182bc0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f182bc4:	3c19800b */ 	lui	$t9,%hi(g_ScenarioData)
-/*  f182bc8:	8739c110 */ 	lh	$t9,%lo(g_ScenarioData)($t9)
-/*  f182bcc:	3c0a800b */ 	lui	$t2,%hi(g_ScenarioData)
-/*  f182bd0:	3c01800b */ 	lui	$at,%hi(g_ScenarioData)
-/*  f182bd4:	00194040 */ 	sll	$t0,$t9,0x1
-/*  f182bd8:	00484821 */ 	addu	$t1,$v0,$t0
-/*  f182bdc:	a52f0004 */ 	sh	$t7,0x4($t1)
-/*  f182be0:	854ac110 */ 	lh	$t2,%lo(g_ScenarioData)($t2)
-/*  f182be4:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*  f182be8:	a42bc110 */ 	sh	$t3,%lo(g_ScenarioData)($at)
-.L0f182bec:
-/*  f182bec:	03e00008 */ 	jr	$ra
-/*  f182bf0:	00000000 */ 	nop
-);
+//GLOBAL_ASM(
+//glabel mpHtmAddPad
+///*  f182ba4:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData)
+///*  f182ba8:	2442c110 */ 	addiu	$v0,$v0,%lo(g_ScenarioData)
+///*  f182bac:	84580000 */ 	lh	$t8,0x0($v0)
+///*  f182bb0:	00047400 */ 	sll	$t6,$a0,0x10
+///*  f182bb4:	000e7c03 */ 	sra	$t7,$t6,0x10
+///*  f182bb8:	2b01003c */ 	slti	$at,$t8,0x3c
+///*  f182bbc:	1020000b */ 	beqz	$at,.L0f182bec
+///*  f182bc0:	afa40000 */ 	sw	$a0,0x0($sp)
+///*  f182bc4:	3c19800b */ 	lui	$t9,%hi(g_ScenarioData)
+///*  f182bc8:	8739c110 */ 	lh	$t9,%lo(g_ScenarioData)($t9)
+///*  f182bcc:	3c0a800b */ 	lui	$t2,%hi(g_ScenarioData)
+///*  f182bd0:	3c01800b */ 	lui	$at,%hi(g_ScenarioData)
+///*  f182bd4:	00194040 */ 	sll	$t0,$t9,0x1
+///*  f182bd8:	00484821 */ 	addu	$t1,$v0,$t0
+///*  f182bdc:	a52f0004 */ 	sh	$t7,0x4($t1)
+///*  f182be0:	854ac110 */ 	lh	$t2,%lo(g_ScenarioData)($t2)
+///*  f182be4:	254b0001 */ 	addiu	$t3,$t2,0x1
+///*  f182be8:	a42bc110 */ 	sh	$t3,%lo(g_ScenarioData)($at)
+//.L0f182bec:
+///*  f182bec:	03e00008 */ 	jr	$ra
+///*  f182bf0:	00000000 */ 	nop
+//);
+
+void mpHtmAddPad(s16 padnum)
+{
+	struct scenariodata_htm *data = &g_ScenarioData.htm;
+
+	if (data->nextindex < 60) {
+		data->padnums[data->nextindex] = padnum;
+		data->nextindex++;
+	}
+}
 
 void func0f182bf4(void)
 {
 	s32 i;
 
-	g_ScenarioData.htm.unk000 = 0;
+	g_ScenarioData.htm.nextindex = 0;
 	g_ScenarioData.htm.unk002 = 0;
 	g_ScenarioData.htm.unk138 = 0;
 	g_ScenarioData.htm.unk0d0 = -1;
@@ -2647,8 +2657,8 @@ void func0f182bf4(void)
 		g_ScenarioData.htm.unk108[i] = 0;
 	}
 
-	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.htm.unk004); i++) {
-		g_ScenarioData.htm.unk004[i] = -1;
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.htm.padnums); i++) {
+		g_ScenarioData.htm.padnums[i] = -1;
 	}
 
 	for (i = 0; i < 1; i++) {
@@ -2843,7 +2853,7 @@ glabel var7f1b8954
 .L0f182f14:
 /*  f182f14:	56af0004 */ 	bnel	$s5,$t7,.L0f182f28
 /*  f182f18:	8e310020 */ 	lw	$s1,0x20($s1)
-/*  f182f1c:	0fc60ae9 */ 	jal	func0f182ba4
+/*  f182f1c:	0fc60ae9 */ 	jal	mpHtmAddPad
 /*  f182f20:	84440006 */ 	lh	$a0,0x6($v0)
 /*  f182f24:	8e310020 */ 	lw	$s1,0x20($s1)
 .L0f182f28:
