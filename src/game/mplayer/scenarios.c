@@ -264,30 +264,15 @@ void scenarioHtbInit(void)
 	g_ScenarioData.htb.token = NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f17ff8c
-/*  f17ff8c:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData)
-/*  f17ff90:	2442c110 */ 	addiu	$v0,$v0,%lo(g_ScenarioData)
-/*  f17ff94:	84580018 */ 	lh	$t8,0x18($v0)
-/*  f17ff98:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f17ff9c:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*  f17ffa0:	2b01003c */ 	slti	$at,$t8,0x3c
-/*  f17ffa4:	1020000b */ 	beqz	$at,.L0f17ffd4
-/*  f17ffa8:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f17ffac:	3c19800b */ 	lui	$t9,%hi(g_ScenarioData+0x18)
-/*  f17ffb0:	8739c128 */ 	lh	$t9,%lo(g_ScenarioData+0x18)($t9)
-/*  f17ffb4:	3c0a800b */ 	lui	$t2,%hi(g_ScenarioData+0x18)
-/*  f17ffb8:	3c01800b */ 	lui	$at,%hi(g_ScenarioData+0x18)
-/*  f17ffbc:	00194040 */ 	sll	$t0,$t9,0x1
-/*  f17ffc0:	00484821 */ 	addu	$t1,$v0,$t0
-/*  f17ffc4:	a52f001a */ 	sh	$t7,0x1a($t1)
-/*  f17ffc8:	854ac128 */ 	lh	$t2,%lo(g_ScenarioData+0x18)($t2)
-/*  f17ffcc:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*  f17ffd0:	a42bc128 */ 	sh	$t3,%lo(g_ScenarioData+0x18)($at)
-.L0f17ffd4:
-/*  f17ffd4:	03e00008 */ 	jr	$ra
-/*  f17ffd8:	00000000 */ 	nop
-);
+void mpHtbAddPad(s16 padnum)
+{
+	struct scenariodata_htb *data = &g_ScenarioData.htb;
+
+	if (data->nextindex < ARRAYCOUNT(data->padnums)) {
+		data->padnums[data->nextindex] = padnum;
+		data->nextindex++;
+	}
+}
 
 s32 scenarioHtbCallback08(void)
 {
@@ -343,10 +328,10 @@ void func0f180078(void)
 {
 	s32 i;
 
-	g_ScenarioData.htb.unk18 = 0;
+	g_ScenarioData.htb.nextindex = 0;
 
-	for (i = 0; i < 60; i++) {
-		g_ScenarioData.htb.unk1a[i] = -1;
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.htb.padnums); i++) {
+		g_ScenarioData.htb.padnums[i] = -1;
 	}
 }
 

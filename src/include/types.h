@@ -4555,8 +4555,8 @@ struct scenariodata_htb {
 	struct prop *token; // Briefcase or chr
 	struct coord pos;
 	u32 unk14;
-	u16 unk18;
-	s16 unk1a[60];
+	s16 nextindex;
+	s16 padnums[60];
 };
 
 struct htmthing {

@@ -72,7 +72,7 @@ s32 menuhandler0017f74c(u32 operation, struct menuitem *item, union handlerdata 
 u32 func0f17fa28(void);
 void func0f17fcb0(s32 silent);
 s32 menuhandlerMpSlowMotion(u32 operation, struct menuitem *item, union handlerdata *data);
-void func0f17ff8c(s16 padnum);
+void mpHtbAddPad(s16 padnum);
 u32 func0f17ffe4(void);
 void func0f180078(void);
 void func0f1800a8(void);
