@@ -358,88 +358,23 @@ glabel func0f13e40c
 /*  f13e4a4:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel func0f13e4a8
-/*  f13e4a8:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f13e4ac:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f13e4b0:	8cee028c */ 	lw	$t6,0x28c($a3)
-/*  f13e4b4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f13e4b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f13e4bc:	1080000f */ 	beqz	$a0,.L0f13e4fc
-/*  f13e4c0:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f13e4c4:	8c84001c */ 	lw	$a0,0x1c($a0)
-/*  f13e4c8:	1080000c */ 	beqz	$a0,.L0f13e4fc
-/*  f13e4cc:	00000000 */ 	nop
-/*  f13e4d0:	908f0000 */ 	lbu	$t7,0x0($a0)
-/*  f13e4d4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f13e4d8:	15e10008 */ 	bne	$t7,$at,.L0f13e4fc
-/*  f13e4dc:	00000000 */ 	nop
-/*  f13e4e0:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f13e4e4:	00000000 */ 	nop
-/*  f13e4e8:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f13e4ec:	00402025 */ 	or	$a0,$v0,$zero
-/*  f13e4f0:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f13e4f4:	10000029 */ 	b	.L0f13e59c
-/*  f13e4f8:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-.L0f13e4fc:
-/*  f13e4fc:	0c004b70 */ 	jal	random
-/*  f13e500:	00000000 */ 	nop
-/*  f13e504:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f13e508:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f13e50c:	8cf8006c */ 	lw	$t8,0x6c($a3)
-/*  f13e510:	00404025 */ 	or	$t0,$v0,$zero
-/*  f13e514:	00003025 */ 	or	$a2,$zero,$zero
-/*  f13e518:	13000003 */ 	beqz	$t8,.L0f13e528
-/*  f13e51c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f13e520:	10000001 */ 	b	.L0f13e528
-/*  f13e524:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f13e528:
-/*  f13e528:	8cf90068 */ 	lw	$t9,0x68($a3)
-/*  f13e52c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f13e530:	00001025 */ 	or	$v0,$zero,$zero
-/*  f13e534:	13200003 */ 	beqz	$t9,.L0f13e544
-/*  f13e538:	00000000 */ 	nop
-/*  f13e53c:	10000001 */ 	b	.L0f13e544
-/*  f13e540:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f13e544:
-/*  f13e544:	8ce90064 */ 	lw	$t1,0x64($a3)
-/*  f13e548:	11200003 */ 	beqz	$t1,.L0f13e558
-/*  f13e54c:	00000000 */ 	nop
-/*  f13e550:	10000001 */ 	b	.L0f13e558
-/*  f13e554:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f13e558:
-/*  f13e558:	8cea0070 */ 	lw	$t2,0x70($a3)
-/*  f13e55c:	11400003 */ 	beqz	$t2,.L0f13e56c
-/*  f13e560:	00000000 */ 	nop
-/*  f13e564:	10000001 */ 	b	.L0f13e56c
-/*  f13e568:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f13e56c:
-/*  f13e56c:	00455821 */ 	addu	$t3,$v0,$a1
-/*  f13e570:	01636021 */ 	addu	$t4,$t3,$v1
-/*  f13e574:	01866821 */ 	addu	$t5,$t4,$a2
-/*  f13e578:	010d001b */ 	divu	$zero,$t0,$t5
-/*  f13e57c:	00002010 */ 	mfhi	$a0
-/*  f13e580:	15a00002 */ 	bnez	$t5,.L0f13e58c
-/*  f13e584:	00000000 */ 	nop
-/*  f13e588:	0007000d */ 	break	0x7
-.L0f13e58c:
-/*  f13e58c:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f13e590:	00000000 */ 	nop
-/*  f13e594:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f13e598:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-.L0f13e59c:
-/*  f13e59c:	8cee0288 */ 	lw	$t6,0x288($a3)
-/*  f13e5a0:	0fc54a31 */ 	jal	optionsGetPaintball
-/*  f13e5a4:	8dc40070 */ 	lw	$a0,0x70($t6)
-/*  f13e5a8:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f13e5ac:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f13e5b0:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f13e5b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f13e5b8:	8fa20018 */ 	lw	$v0,0x18($sp)
-/*  f13e5bc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f13e5c0:	03e00008 */ 	jr	$ra
-/*  f13e5c4:	00000000 */ 	nop
-);
+bool chrIsUsingPaintball(struct chrdata *chr)
+{
+	s32 prevplayernum = g_Vars.currentplayernum;
+	bool paintball;
+
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
+		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
+	} else {
+		setCurrentPlayerNum(random() % PLAYERCOUNT());
+	}
+
+	paintball = optionsGetPaintball(g_Vars.currentplayerstats->mpindex);
+
+	setCurrentPlayerNum(prevplayernum);
+
+	return paintball;
+}
 
 GLOBAL_ASM(
 glabel func0f13e5c8
@@ -1608,7 +1543,7 @@ glabel var7f1b5d6c
 /*  f13f550:	240603bc */ 	addiu	$a2,$zero,0x3bc
 /*  f13f554:	0fc5dc59 */ 	jal	func0f177164
 /*  f13f558:	e7a401c0 */ 	swc1	$f4,0x1c0($sp)
-/*  f13f55c:	0fc4f92a */ 	jal	func0f13e4a8
+/*  f13f55c:	0fc4f92a */ 	jal	chrIsUsingPaintball
 /*  f13f560:	8fa4022c */ 	lw	$a0,0x22c($sp)
 /*  f13f564:	10400017 */ 	beqz	$v0,.L0f13f5c4
 /*  f13f568:	00408025 */ 	or	$s0,$v0,$zero

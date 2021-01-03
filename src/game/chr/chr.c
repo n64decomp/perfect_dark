@@ -7534,7 +7534,7 @@ void func0f025ea4(struct chrdata *chr, struct prop *prop, s32 arg2, struct coord
 	struct prop *chrprop = chr->prop;
 	s32 race;
 
-	if (func0f13e4a8(chr2)) {
+	if (chrIsUsingPaintball(chr2)) {
 		func0f12f9f0(chrprop->rooms[0], chrprop, coord, coord2, 0, 25);
 		return;
 	}
@@ -10056,7 +10056,7 @@ glabel func0f027e1c
 /*  f028414:	8f39a244 */ 	lw	$t9,%lo(g_Vars+0x284)($t9)
 /*  f028418:	8f2b00bc */ 	lw	$t3,0xbc($t9)
 /*  f02841c:	8d640004 */ 	lw	$a0,0x4($t3)
-/*  f028420:	0fc4f92a */ 	jal	func0f13e4a8
+/*  f028420:	0fc4f92a */ 	jal	chrIsUsingPaintball
 /*  f028424:	a3a30057 */ 	sb	$v1,0x57($sp)
 /*  f028428:	14400008 */ 	bnez	$v0,.L0f02844c
 /*  f02842c:	93a30057 */ 	lbu	$v1,0x57($sp)
