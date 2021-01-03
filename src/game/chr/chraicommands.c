@@ -5204,7 +5204,7 @@ bool aiShowObj(void)
 		if (g_Vars.currentplayer->eyespy == NULL && obj->type == OBJTYPE_WEAPON) {
 			struct weaponobj *weapon = (struct weaponobj *) obj;
 
-			if (weapon->weaponnum == WEAPON_CAMSPY) {
+			if (weapon->weaponnum == WEAPON_EYESPY) {
 				currentPlayerInitEyespy();
 			}
 		}

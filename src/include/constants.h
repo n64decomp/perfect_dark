@@ -3170,7 +3170,7 @@
 #define WEAPON_RCP45             0x2b
 #define WEAPON_PSYCHOSISGUN      0x2c
 #define WEAPON_NIGHTVISION       0x2d
-#define WEAPON_CAMSPY            0x2e
+#define WEAPON_EYESPY            0x2e
 #define WEAPON_XRAYSCANNER       0x2f
 #define WEAPON_IRSCANNER         0x30
 #define WEAPON_CLOAKINGDEVICE    0x31
@@ -3230,6 +3230,8 @@
 #define WEAPONFLAG_DETERMINER_F_AN   0x00400000 // "Picked up an ..." (full version)
 #define WEAPONFLAG_DETERMINER_S_THE  0x00800000 // "The ..." (short version - when vertically split)
 #define WEAPONFLAG_DETERMINER_F_THE  0x01000000 // "Picked up the ..." (full version)
+#define WEAPONFLAG_00200000          0x00200000 // Camspy related
+#define WEAPONFLAG_00400000          0x00400000 // Camspy related
 #define WEAPONFLAG_08000000          0x08000000
 #define WEAPONFLAG_DETERMINER_S_SOME 0x10000000 // "Some ..." (short version - when vertically split)
 #define WEAPONFLAG_DETERMINER_F_SOME 0x20000000 // "Picked up some ..." (full version)

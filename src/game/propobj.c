@@ -37854,7 +37854,7 @@ void func0f087d10(s32 weaponnum)
 		sound = 0xf2;
 	} else if (weaponnum == WEAPON_BOLT) {
 		sound = 0xe8;
-	} else if (weaponnum == WEAPON_CAMSPY) {
+	} else if (weaponnum == WEAPON_EYESPY) {
 		sound = 0xe5;
 	} else if (weaponnum > WEAPON_PSYCHOSISGUN) {
 		sound = 0xe5;
@@ -38111,7 +38111,7 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 			if (full) {
 				strcat(buffer, langGet(L_PROPOBJ(0))); // "Picked up"
 
-				if (weaponnum == WEAPON_CAMSPY && g_Vars.currentplayer->eyespy) {
+				if (weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {
 					textid = L_PROPOBJ(50); // "your"
 				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_F_SOME)) {
 					textid = L_PROPOBJ(2); // "some"
@@ -38125,7 +38125,7 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 
 				strcat(buffer, langGet(textid));
 			} else {
-				if (weaponnum == WEAPON_CAMSPY && g_Vars.currentplayer->eyespy) {
+				if (weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {
 					textid = L_PROPOBJ(51); // "Your"
 				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_S_SOME)) {
 					textid = L_PROPOBJ(3); // "Some"
@@ -39036,7 +39036,7 @@ glabel var7f1aae70
 //				}
 //			}
 //
-//			if (weapon->weaponnum == WEAPON_CAMSPY && g_Vars.currentplayer->eyespy == NULL) {
+//			if (weapon->weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy == NULL) {
 //				currentPlayerInitEyespy();
 //			}
 //

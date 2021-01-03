@@ -435,7 +435,7 @@ s32 intro[] = {
 	ammo(AMMOTYPE_NBOMB, 6)
 	outfit(OUTFIT_LEATHER)
 	intro_weapon(WEAPON_DOORDECODER, -1)
-	intro_weapon(WEAPON_CAMSPY, -1)
+	intro_weapon(WEAPON_EYESPY, -1)
 	spawn(0x0083)
 	endintro
 };

@@ -528,7 +528,7 @@ s32 intro[] = {
 	ammo(AMMOTYPE_CROSSBOW, 12)
 	ammo(AMMOTYPE_PROXY_MINE, 3)
 	ammo(AMMOTYPE_RIFLE, 30)
-	intro_weapon(WEAPON_CAMSPY, -1)
+	intro_weapon(WEAPON_EYESPY, -1)
 	outfit(OUTFIT_SNOW)
 	endintro
 };

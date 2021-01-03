@@ -561,7 +561,7 @@ u32 props[] = {
 s32 intro[] = {
 	intro_weapon(WEAPON_MAULER, -1)
 	ammo(AMMOTYPE_PISTOL, 100)
-	intro_weapon(WEAPON_CAMSPY, -1)
+	intro_weapon(WEAPON_EYESPY, -1)
 	outfit(OUTFIT_MRBLONDE)
 	intro_weapon(WEAPON_CLOAKINGDEVICE, -1)
 #if VERSION == VERSION_PAL_FINAL

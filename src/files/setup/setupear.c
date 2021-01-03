@@ -632,7 +632,7 @@ s32 intro[] = {
 	intro_weapon(WEAPON_FALCON2, -1)
 	ammo(AMMOTYPE_PISTOL, 100)
 	ammo(AMMOTYPE_RIFLE, 50)
-	intro_weapon(WEAPON_CAMSPY, -1)
+	intro_weapon(WEAPON_EYESPY, -1)
 	outfit(OUTFIT_DEFAULT)
 	spawn(0x001b)
 	endintro
