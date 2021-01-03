@@ -57,7 +57,7 @@ extern u32 var800705bc;
 extern struct vimode g_ViModes[];
 extern s32 g_ViMode;
 extern bool g_HiResEnabled;
-extern u32 var8007072c;
+extern s32 var8007072c;
 extern u32 var80070738;
 extern u32 var8007073c;
 extern struct gecreditsdata *g_CurrentGeCreditsData;

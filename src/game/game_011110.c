@@ -1291,8 +1291,8 @@ glabel var7f1a827c
 //{
 //	struct coord pos = var800623a4;
 //	s16 rooms[8];
-//	f32 fStack32 = 0;
-//	f32 fVar9;
+//	f32 turnanglerad = 0;
+//	f32 groundy;
 //	bool hasdefaultweapon = false;
 //	s32 *cmd = g_StageSetup.intro;
 //	u8 haseyespy = false;
@@ -1306,28 +1306,34 @@ glabel var7f1a827c
 //
 //	viResetDefaultModeIf4Mb();
 //	func0f18e558();
+//
 //	var80070764 = 0;
 //	var8009de20 = 0;
 //	var8007072c = 1;
 //	var80070738 = 0;
 //	var8007073c = 0;
+//
 //	g_CurrentGeCreditsData = NULL;
 //	g_Vars.currentplayer->bondexploding = false;
 //	g_NumSpawnPoints = 0;
-//	g_Vars.currentplayer->unk1b78 = 0;
+//	g_Vars.currentplayer->bondtankexplode = false;
 //	g_Vars.currentplayer->unk1bd4 = 0;
 //	g_PlayersWithControl[0] = true;
 //	g_PlayersWithControl[1] = true;
 //	g_PlayersWithControl[2] = true;
 //	g_PlayersWithControl[3] = true;
 //	g_PlayerInvincible = false;
+//
 //	setTickMode(TICKMODE_0);
+//
 //	var80070744 = 0;
 //	var80070748 = 0;
 //	var8007074c = 0;
+//
 //	g_Vars.currentplayer->bondviewlevtime60 = 0;
 //	g_Vars.currentplayer->bondwatchtime60 = 0;
 //	g_Vars.currentplayer->introanimnum = 0;
+//
 //	g_DefaultWeapons[HAND_LEFT] = 0;
 //	g_DefaultWeapons[HAND_RIGHT] = 0;
 //
@@ -1527,9 +1533,10 @@ glabel var7f1a827c
 //	g_Vars.currentplayer->prop = propAllocate();
 //	g_Vars.currentplayer->prop->chr = NULL;
 //	g_Vars.currentplayer->prop->type = PROPTYPE_PLAYER;
+//
 //	func0f0604bc(g_Vars.currentplayer->prop);
 //	propShow(g_Vars.currentplayer->prop);
-//	chrInit(g_Vars.currentplayer->prop, 0);
+//	chrInit(g_Vars.currentplayer->prop, NULL);
 //
 //	if (g_Vars.coopplayernum >= 0) {
 //		g_Vars.currentplayer->prop->chr->team = TEAM_ALLY;
@@ -1553,43 +1560,51 @@ glabel var7f1a827c
 //
 //	if (g_NumSpawnPoints > 0) {
 //		if (g_Vars.coopplayernum >= 0) {
-//			fStack32 = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop);
+//			turnanglerad = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop);
 //		} else if (g_Vars.antiplayernum >= 0) {
-//			fStack32 = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop);
+//			turnanglerad = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop);
 //		} else {
 //			if (g_Vars.mplayerisrunning == 0) {
 //				g_NumSpawnPoints = 1;
 //			}
 //
-//			fStack32 = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop);
+//			turnanglerad = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop);
 //		}
 //	}
 //
-//	fVar9 = coordFindGroundY(&pos, 30, rooms,
-//			&g_Vars.currentplayer->unk161a,
-//			&g_Vars.currentplayer->unk161e,
-//			&g_Vars.currentplayer->unk161c,
-//			&g_Vars.currentplayer->unk19b0,
+//	groundy = coordFindGroundY(&pos, 30, rooms,
+//			&g_Vars.currentplayer->floorcol,
+//			&g_Vars.currentplayer->floortype,
+//			&g_Vars.currentplayer->floorflags,
+//			&g_Vars.currentplayer->floorroom,
 //			0, 0);
 //
-//	pos.y = g_Vars.currentplayer->unk19c4 + fVar9;
-//	g_Vars.currentplayer->vv_manground = fVar9;
-//	g_Vars.currentplayer->vv_ground = fVar9;
-//	g_Vars.currentplayer->unk0144 = (fStack32 * 360.0f) / M_BADTAU;
-//	func0f0b85a0(&g_Vars.currentplayer->unk036c, &pos);
-//	g_Vars.currentplayer->unk036c = -sinf(fStack32);
-//	g_Vars.currentplayer->unk0370 = 0;
-//	g_Vars.currentplayer->unk0374 = cosf(fStack32);
+//	pos.y = g_Vars.currentplayer->vv_eyeheight + groundy;
+//	g_Vars.currentplayer->vv_manground = groundy;
+//	g_Vars.currentplayer->vv_ground = groundy;
+//	g_Vars.currentplayer->vv_theta = (turnanglerad * 360.0f) / M_BADTAU;
+//
+//	func0f0b85a0(&g_Vars.currentplayer->bond2, &pos);
+//
+//	g_Vars.currentplayer->bond2.unk00.x = -sinf(turnanglerad);
+//	g_Vars.currentplayer->bond2.unk00.y = 0;
+//	g_Vars.currentplayer->bond2.unk00.z = cosf(turnanglerad);
+//
 //	g_Vars.currentplayer->bondprevpos.x = (tmp = pos.x);
 //	g_Vars.currentplayer->prop->pos.x = tmp;
 //	g_Vars.currentplayer->bondprevpos.y = (tmp = pos.y);
 //	g_Vars.currentplayer->prop->pos.y = tmp;
 //	g_Vars.currentplayer->bondprevpos.z = (tmp = pos.z);
 //	g_Vars.currentplayer->prop->pos.z = tmp;
+//
 //	func0f065c44(g_Vars.currentplayer->prop);
+//
 //	g_Vars.currentplayer->prop->rooms[0] = rooms[0];
 //	g_Vars.currentplayer->prop->rooms[1] = -1;
-//	currentPlayerSetCamPropertiesWithRoom(&pos, &g_Vars.currentplayer->unk0394, &g_Vars.currentplayer->unk0388, rooms[0]);
+//
+//	currentPlayerSetCamPropertiesWithRoom(&pos,
+//			&g_Vars.currentplayer->bond2.unk28,
+//			&g_Vars.currentplayer->bond2.unk1c, rooms[0]);
 //
 //	numchrs = getNumChrSlots();
 //
@@ -1617,7 +1632,7 @@ glabel var7f1a827c
 //	g_Vars.currentplayer->unk00e0 = 0;
 //
 //	for (i = 0; i != 4; i++) {
-//		g_Vars.unk0004b8[i] = 0;
+//		g_Vars.aibuddies[i] = 0;
 //	}
 //
 //	currentPlayerChooseBodyAndHead(&bodynum, &headnum, 0);

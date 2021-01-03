@@ -416,7 +416,7 @@ void coreLoadStage(s32 stagenum)
 			amInit();
 			invInitGunsHeld();
 			func0f010bb0();
-			currentPlayerInitBasicFields();
+			currentPlayerResetToDefault();
 			currentPlayerInit();
 			currentPlayerSpawn();
 			func0f012684();

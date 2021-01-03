@@ -1183,7 +1183,7 @@ glabel var7f1ad568
 /*  f0b737c:	8f0e00bc */ 	lw	$t6,0xbc($t8)
 /*  f0b7380:	0fc52719 */ 	jal	chrInitSplats
 /*  f0b7384:	8dc40004 */ 	lw	$a0,0x4($t6)
-/*  f0b7388:	0fc2ddf3 */ 	jal	currentPlayerInitBasicFields
+/*  f0b7388:	0fc2ddf3 */ 	jal	currentPlayerResetToDefault
 /*  f0b738c:	00000000 */ 	nop
 /*  f0b7390:	8e4f0284 */ 	lw	$t7,0x284($s2)
 /*  f0b7394:	24020007 */ 	addiu	$v0,$zero,0x7
@@ -1511,7 +1511,7 @@ glabel var7f1ad568
 //	}
 //
 //	chrInitSplats(g_Vars.currentplayer->prop->chr);
-//	currentPlayerInitBasicFields();
+//	currentPlayerResetToDefault();
 //	g_Vars.currentplayer->isdead = false;
 //	g_Vars.currentplayer->healthdamagetype = DAMAGETYPE_7;
 //	g_Vars.currentplayer->damagetype = DAMAGETYPE_7;
@@ -1658,7 +1658,7 @@ glabel var7f1ad568
 //	}
 //}
 
-void currentPlayerInitBasicFields(void)
+void currentPlayerResetToDefault(void)
 {
 	if (!g_Vars.mplayerisrunning || g_Vars.currentplayer->unk00d4 == 0) {
 		g_Vars.currentplayer->vv_eyeheight = 159;
