@@ -2503,25 +2503,13 @@ Gfx *scenarioKohRadar(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f182aac
-/*  f182aac:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f182ab0:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-/*  f182ab4:	8462000c */ 	lh	$v0,0xc($v1)
-/*  f182ab8:	28410009 */ 	slti	$at,$v0,0x9
-/*  f182abc:	10200008 */ 	beqz	$at,.L0f182ae0
-/*  f182ac0:	00000000 */ 	nop
-/*  f182ac4:	8c8e0004 */ 	lw	$t6,0x4($a0)
-/*  f182ac8:	00027840 */ 	sll	$t7,$v0,0x1
-/*  f182acc:	006fc021 */ 	addu	$t8,$v1,$t7
-/*  f182ad0:	a70e0012 */ 	sh	$t6,0x12($t8)
-/*  f182ad4:	8479000c */ 	lh	$t9,0xc($v1)
-/*  f182ad8:	27280001 */ 	addiu	$t0,$t9,0x1
-/*  f182adc:	a468000c */ 	sh	$t0,0xc($v1)
-.L0f182ae0:
-/*  f182ae0:	03e00008 */ 	jr	$ra
-/*  f182ae4:	00000000 */ 	nop
-);
+void mpKohAddHill(s32 *cmd)
+{
+	if (g_ScenarioData.koh.hillcount < ARRAYCOUNT(g_ScenarioData.koh.hillpads)) {
+		g_ScenarioData.koh.hillpads[g_ScenarioData.koh.hillcount] = cmd[1];
+		g_ScenarioData.koh.hillcount++;
+	}
+}
 
 bool scenarioKohIsRoomHighlighted(s16 room)
 {

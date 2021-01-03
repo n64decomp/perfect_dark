@@ -962,7 +962,7 @@ void mpPrepareScenario(void)
 				break;
 			case INTROCMD_HILL:
 				if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL) {
-					func0f182aac(cmd);
+					mpKohAddHill(cmd);
 				}
 				cmd += 2;
 				break;
