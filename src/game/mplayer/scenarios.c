@@ -2645,53 +2645,35 @@ glabel func0f182ba4
 /*  f182bf0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f182bf4
-/*  f182bf4:	3c04800b */ 	lui	$a0,%hi(g_ScenarioData)
-/*  f182bf8:	2484c110 */ 	addiu	$a0,$a0,%lo(g_ScenarioData)
-/*  f182bfc:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f182c00:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f182c04:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData+0x30)
-/*  f182c08:	a4800000 */ 	sh	$zero,0x0($a0)
-/*  f182c0c:	a4800002 */ 	sh	$zero,0x2($a0)
-/*  f182c10:	ac800138 */ 	sw	$zero,0x138($a0)
-/*  f182c14:	a48500d0 */ 	sh	$a1,0xd0($a0)
-/*  f182c18:	a48500d2 */ 	sh	$a1,0xd2($a0)
-/*  f182c1c:	ac8500d4 */ 	sw	$a1,0xd4($a0)
-/*  f182c20:	ac800140 */ 	sw	$zero,0x140($a0)
-/*  f182c24:	2442c140 */ 	addiu	$v0,$v0,%lo(g_ScenarioData+0x30)
-/*  f182c28:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-.L0f182c2c:
-/*  f182c2c:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f182c30:	0062082b */ 	sltu	$at,$v1,$v0
-/*  f182c34:	ac6000d4 */ 	sw	$zero,0xd4($v1)
-/*  f182c38:	1420fffc */ 	bnez	$at,.L0f182c2c
-/*  f182c3c:	ac600104 */ 	sw	$zero,0x104($v1)
-/*  f182c40:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f182c44:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData+0x78)
-/*  f182c48:	2442c188 */ 	addiu	$v0,$v0,%lo(g_ScenarioData+0x78)
-/*  f182c4c:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-.L0f182c50:
-/*  f182c50:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f182c54:	0062082b */ 	sltu	$at,$v1,$v0
-/*  f182c58:	1420fffd */ 	bnez	$at,.L0f182c50
-/*  f182c5c:	a4650002 */ 	sh	$a1,0x2($v1)
-/*  f182c60:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f182c64:	3c04800b */ 	lui	$a0,%hi(g_ScenarioData+0xc)
-/*  f182c68:	2484c11c */ 	addiu	$a0,$a0,%lo(g_ScenarioData+0xc)
-/*  f182c6c:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-/*  f182c70:	240200ff */ 	addiu	$v0,$zero,0xff
-.L0f182c74:
-/*  f182c74:	2463000c */ 	addiu	$v1,$v1,0xc
-/*  f182c78:	ac600070 */ 	sw	$zero,0x70($v1)
-/*  f182c7c:	ac600074 */ 	sw	$zero,0x74($v1)
-/*  f182c80:	a4650078 */ 	sh	$a1,0x78($v1)
-/*  f182c84:	a062007a */ 	sb	$v0,0x7a($v1)
-/*  f182c88:	1464fffa */ 	bne	$v1,$a0,.L0f182c74
-/*  f182c8c:	a062007b */ 	sb	$v0,0x7b($v1)
-/*  f182c90:	03e00008 */ 	jr	$ra
-/*  f182c94:	00000000 */ 	nop
-);
+void func0f182bf4(void)
+{
+	s32 i;
+
+	g_ScenarioData.htm.unk000 = 0;
+	g_ScenarioData.htm.unk002 = 0;
+	g_ScenarioData.htm.unk138 = 0;
+	g_ScenarioData.htm.unk0d0 = -1;
+	g_ScenarioData.htm.unk0d2 = -1;
+	g_ScenarioData.htm.unk0d4 = -1;
+	g_ScenarioData.htm.unk140 = 0;
+
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.htm.unk0d8); i++) {
+		g_ScenarioData.htm.unk0d8[i] = 0;
+		g_ScenarioData.htm.unk108[i] = 0;
+	}
+
+	for (i = 0; i < ARRAYCOUNT(g_ScenarioData.htm.unk004); i++) {
+		g_ScenarioData.htm.unk004[i] = -1;
+	}
+
+	for (i = 0; i < 1; i++) {
+		g_ScenarioData.htm.unk07c[i].unk00 = 0;
+		g_ScenarioData.htm.unk07c[i].prop = NULL;
+		g_ScenarioData.htm.unk07c[i].unk08 = -1;
+		g_ScenarioData.htm.unk07c[i].unk0a = 0xff;
+		g_ScenarioData.htm.unk07c[i].unk0b = 0xff;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f182c98
@@ -4044,7 +4026,7 @@ bool scenarioHtmHighlight(struct prop *prop, u32 *colour)
 			s32 i;
 
 			for (i = 0; i < 1; i++) {
-				if (g_ScenarioData.htm.unk080[i].prop == prop) {
+				if (g_ScenarioData.htm.unk07c[i].prop == prop) {
 					highlight = true;
 					break;
 				}

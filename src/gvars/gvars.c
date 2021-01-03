@@ -16959,7 +16959,6 @@ u32 var800ac0f8[4] = {0};
 u32 var800ac108 = 0;
 u32 var800ac10c = 0;
 struct scenariodata g_ScenarioData = {0};
-u32 var800ac250 = 0;
 u32 var800ac254 = 0;
 u32 var800ac258 = 0;
 u32 var800ac25c = 0;
