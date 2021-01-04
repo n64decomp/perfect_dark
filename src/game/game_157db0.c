@@ -6782,21 +6782,21 @@ bool func0f15cd90(u32 room, struct screenbox *screen)
 
 	for (i = 0; i != 8; i++) {
 		if (i & 1) {
-			corner.x = g_Rooms[room].unk18.x;
+			corner.x = g_Rooms[room].bbmin[0];
 		} else {
-			corner.x = g_Rooms[room].unk24.x;
+			corner.x = g_Rooms[room].bbmax[0];
 		}
 
 		if (i & 2) {
-			corner.y = g_Rooms[room].unk18.y;
+			corner.y = g_Rooms[room].bbmin[1];
 		} else {
-			corner.y = g_Rooms[room].unk24.y;
+			corner.y = g_Rooms[room].bbmax[1];
 		}
 
 		if (i & 4) {
-			corner.z = g_Rooms[room].unk18.z;
+			corner.z = g_Rooms[room].bbmin[2];
 		} else {
-			corner.z = g_Rooms[room].unk24.z;
+			corner.z = g_Rooms[room].bbmax[2];
 		}
 
 		if (func0f15d08c(&corner, &roomscreenpos) == 0) {

@@ -3503,8 +3503,8 @@ struct room {
 	/*0x0e*/ s16 unk0e;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ struct room14 *unk14;
-	/*0x18*/ struct coord unk18;
-	/*0x24*/ struct coord unk24;
+	/*0x18*/ f32 bbmin[3];
+	/*0x24*/ f32 bbmax[3];
 	/*0x30*/ u32 unk30;
 	/*0x34*/ u32 unk34;
 	/*0x38*/ u32 unk38;
@@ -6790,6 +6790,18 @@ struct var8009cb08 {
 	u32 unk1c;
 	u32 unk20;
 	u32 unk24;
+};
+
+struct roomacousticdata {
+	f32 surfacearea;
+	f32 unk04;
+	f32 unk08;
+	f32 roomvolume;
+};
+
+struct var8009dd78 {
+	s16 unk00;
+	f32 unk04;
 };
 
 #endif

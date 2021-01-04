@@ -426,7 +426,7 @@ void coreLoadStage(s32 stagenum)
 			}
 		}
 
-		func0f0b6764();
+		acousticReset();
 		func0f0b65f8();
 		func0f001bdc();
 		setCurrentPlayerNum(0);

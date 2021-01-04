@@ -84,8 +84,8 @@ const char var7f1ad2f0[] = "Acoustic Reset -> Allocating %d bytes for %d roomaco
 const char var7f1ad33c[] = "ACOUSTIC ->    room %d bb %f %f\n";
 const char var7f1ad360[] = "ACOUSTIC -> DGD: acousticReset room %d does not have a 3D bounding box => radata[room].roomvolume is bodged!\n";
 const char var7f1ad3d0[] = "%s%sL2 -> Surface area bodged for room %d - using %f\n";
-const u32 var7f1ad408[] = {0x00000000};
-const u32 var7f1ad40c[] = {0x00000000};
+const char var7f1ad408[] = "";
+const char var7f1ad40c[] = "";
 
 const u32 var7f1ad410[] = {0x3b808081};
 const u32 var7f1ad414[] = {0x3d888889};
@@ -314,7 +314,7 @@ void func0f0b65f8(void)
 }
 
 GLOBAL_ASM(
-glabel func0f0b6764
+glabel acousticReset
 /*  f0b6764:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
 /*  f0b6768:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
 /*  f0b676c:	8d6402bc */ 	lw	$a0,0x2bc($t3)
@@ -332,8 +332,8 @@ glabel func0f0b6764
 /*  f0b679c:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
 /*  f0b67a0:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
 /*  f0b67a4:	8d6302bc */ 	lw	$v1,0x2bc($t3)
-/*  f0b67a8:	3c07800a */ 	lui	$a3,%hi(var8009dd70)
-/*  f0b67ac:	24e7dd70 */ 	addiu	$a3,$a3,%lo(var8009dd70)
+/*  f0b67a8:	3c07800a */ 	lui	$a3,%hi(g_RoomAcousticData)
+/*  f0b67ac:	24e7dd70 */ 	addiu	$a3,$a3,%lo(g_RoomAcousticData)
 /*  f0b67b0:	ace20000 */ 	sw	$v0,0x0($a3)
 /*  f0b67b4:	18600066 */ 	blez	$v1,.L0f0b6950
 /*  f0b67b8:	00003025 */ 	or	$a2,$zero,$zero
@@ -486,6 +486,80 @@ glabel func0f0b6764
 /*  f0b69c8:	03e00008 */ 	jr	$ra
 /*  f0b69cc:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
+
+// Mismatch: regalloc for range variable
+//void acousticReset(void)
+//{
+//	s32 i;
+//	s32 j;
+//	u32 size = ALIGN16(g_Vars.roomcount * sizeof(struct roomacousticdata));
+//	f32 range;
+//	f32 width;
+//	f32 height;
+//	f32 depth;
+//	f32 halfsurfacearea;
+//
+//	osSyncPrintf("Acoustic Reset -> Allocating %d bytes for %d roomacousticdata structures\n", size, g_Vars.roomcount);
+//
+//	g_RoomAcousticData = malloc(size, 4);
+//
+//	for (i = 0; i < g_Vars.roomcount; i++) {
+//		bool allgood = true;
+//
+//		g_RoomAcousticData[i].roomvolume = 1;
+//		g_RoomAcousticData[i].surfacearea = 1;
+//
+//		for (j = 0; j < 3; j++) {
+//			osSyncPrintf("ACOUSTIC ->    room %d bb %f %f\n", i, g_Rooms[i].bbmin[j], g_Rooms[i].bbmax[j]);
+//
+//			range = g_Rooms[i].bbmax[j] - g_Rooms[i].bbmin[j];
+//
+//			if (range > 0) {
+//				g_RoomAcousticData[i].roomvolume *= range / 100;
+//			} else {
+//				osSyncPrintf("ACOUSTIC -> DGD: acousticReset room %d does not have a 3D bounding box => radata[room].roomvolume is bodged!\n", i);
+//				allgood = false;
+//			}
+//		}
+//
+//		if (allgood) {
+//			if (g_Rooms[i].bbmin[0] < g_Rooms[i].bbmax[0]) {
+//				width = g_Rooms[i].bbmax[0] - g_Rooms[i].bbmin[0];
+//			} else {
+//				width = -(g_Rooms[i].bbmax[0] - g_Rooms[i].bbmin[0]);
+//			}
+//
+//			if (g_Rooms[i].bbmin[1] < g_Rooms[i].bbmax[1]) {
+//				height = g_Rooms[i].bbmax[1] - g_Rooms[i].bbmin[1];
+//			} else {
+//				height = -(g_Rooms[i].bbmax[1] - g_Rooms[i].bbmin[1]);
+//			}
+//
+//			if (g_Rooms[i].bbmin[2] < g_Rooms[i].bbmax[2]) {
+//				depth = g_Rooms[i].bbmax[2] - g_Rooms[i].bbmin[2];
+//			} else {
+//				depth = -(g_Rooms[i].bbmax[2] - g_Rooms[i].bbmin[2]);
+//			}
+//
+//			halfsurfacearea = width * height + width * depth + height * depth;
+//
+//			g_RoomAcousticData[i].surfacearea = halfsurfacearea + halfsurfacearea;
+//		} else {
+//			osSyncPrintf("%s%sL2 -> Surface area bodged for room %d - using %f\n", "", "", i, 20000000);
+//			g_RoomAcousticData[i].surfacearea = 20000000;
+//		}
+//	}
+//
+//	for (j = 0; j < g_Vars.roomcount; j++) {
+//		g_RoomAcousticData[j].unk08 = 0;
+//		g_RoomAcousticData[j].unk04 = g_RoomAcousticData[j].unk08;
+//	}
+//
+//	for (j = 0; j < ARRAYCOUNT(var8009dd78); j++) {
+//		var8009dd78[j].unk00 = -1;
+//		var8009dd78[j].unk04 = 0;
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f0b69d0
