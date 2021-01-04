@@ -103,12 +103,10 @@ struct audiohandle *g_AlarmAudioHandle = NULL;
 f32 g_AlarmSpeakerWeight = 64;
 f32 g_AlarmSpeakerDirection = 1;
 f32 var800698e4 = 0;
-u32 var800698e8 = 0x00000000;
-u32 var800698ec = 0x00000000;
-u32 var800698f0 = 0x00000000;
-u32 var800698f4 = 0x00000000;
+s32 var800698e8 = 0;
+f32 var800698ec[3] = {0};
 u32 var800698f8 = 0x00000000;
-u32 var800698fc = 0x00000000;
+f32 var800698fc = 0;
 struct audiohandle *var80069900 = NULL;
 u32 g_CountdownTimerVisible = 1; // 80069904
 bool g_CountdownTimerRunning = false; // 80069908
@@ -122,7 +120,7 @@ struct safeitemobj *g_SafeItems = NULL;
 struct linksceneryobj *g_LinkedScenery = NULL;
 struct blockedpathobj *g_BlockedPaths = NULL;
 u32 var80069930 = 0x00000000;
-u32 var80069934 = 0x00000000;
+s32 var80069934 = 0;
 u32 var80069938 = 0x00000000;
 u32 var8006993c = 0x00000000;
 u32 var80069940 = 0x00000000;
@@ -136,8 +134,8 @@ f32 g_AmmoMultiplier = 1;
 struct padeffectobj *var80069960 = NULL;
 s32 var80069964 = -1;
 struct autogunobj *g_ThrownLaptops = NULL;
-u32 var8006996c = 0x00000000;
-u32 var80069970 = 0x00000000;
+struct var8006996c *var8006996c = NULL;
+s32 g_MaxThrownLaptops = 0;
 u32 var80069974 = 0x00000000;
 u32 var80069978 = 0x00000000;
 u32 var8006997c = 0x00000000;
@@ -41627,8 +41625,8 @@ glabel var7f1aae98
 /*  f08b2c0:	afa20094 */ 	sw	$v0,0x94($sp)
 .L0f08b2c4:
 /*  f08b2c4:	044000df */ 	bltz	$v0,.L0f08b644
-/*  f08b2c8:	3c188007 */ 	lui	$t8,%hi(var80069970)
-/*  f08b2cc:	8f189970 */ 	lw	$t8,%lo(var80069970)($t8)
+/*  f08b2c8:	3c188007 */ 	lui	$t8,%hi(g_MaxThrownLaptops)
+/*  f08b2cc:	8f189970 */ 	lw	$t8,%lo(g_MaxThrownLaptops)($t8)
 /*  f08b2d0:	0058082a */ 	slt	$at,$v0,$t8
 /*  f08b2d4:	502000dc */ 	beqzl	$at,.L0f08b648
 /*  f08b2d8:	8fbf0024 */ 	lw	$ra,0x24($sp)

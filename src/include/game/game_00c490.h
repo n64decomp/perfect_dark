@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f00c490(void);
+void setupInit(void);
 void addLiftDoor(struct linkliftdoorobj *link);
 void addPadlockedDoor(struct padlockeddoorobj *link);
 void addSafeItem(struct safeitemobj *link);
