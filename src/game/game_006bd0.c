@@ -3112,26 +3112,19 @@ glabel func0f009818
 /*  f0099a0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0099a4
-/*  f0099a4:	3c018006 */ 	lui	$at,%hi(var80061640)
-/*  f0099a8:	ac201640 */ 	sw	$zero,%lo(var80061640)($at)
-/*  f0099ac:	3c018006 */ 	lui	$at,%hi(var800616e4)
-/*  f0099b0:	3c03800a */ 	lui	$v1,%hi(var8009cb08)
-/*  f0099b4:	3c04800a */ 	lui	$a0,%hi(var8009cbf8)
-/*  f0099b8:	ac2016e4 */ 	sw	$zero,%lo(var800616e4)($at)
-/*  f0099bc:	2484cbf8 */ 	addiu	$a0,$a0,%lo(var8009cbf8)
-/*  f0099c0:	2463cb08 */ 	addiu	$v1,$v1,%lo(var8009cb08)
-/*  f0099c4:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f0099c8:
-/*  f0099c8:	24630028 */ 	addiu	$v1,$v1,0x28
-/*  f0099cc:	ac62ffe4 */ 	sw	$v0,-0x1c($v1)
-/*  f0099d0:	ac60fff8 */ 	sw	$zero,-0x8($v1)
-/*  f0099d4:	1464fffc */ 	bne	$v1,$a0,.L0f0099c8
-/*  f0099d8:	ac60fffc */ 	sw	$zero,-0x4($v1)
-/*  f0099dc:	03e00008 */ 	jr	$ra
-/*  f0099e0:	00000000 */ 	nop
-);
+void func0f0099a4(void)
+{
+	s32 i;
+
+	var80061640 = 0;
+	var800616e4 = 0;
+
+	for (i = 0; i < ARRAYCOUNT(var8009cb08); i++) {
+		var8009cb08[i].unk0c = -1;
+		var8009cb08[i].unk20 = 0;
+		var8009cb08[i].unk24 = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0099e4

@@ -6779,4 +6779,17 @@ struct var8006996c {
 	/*0x28*/ u32 unk28;
 };
 
+struct var8009cb08 {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	s32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	u32 unk24;
+};
+
 #endif
