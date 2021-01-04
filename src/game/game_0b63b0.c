@@ -4965,7 +4965,7 @@ bool func0f0bc4c0(void)
 		return true;
 	}
 
-	return (var80070764 && !var8005d9d0) || menuGetRoot() == MENUROOT_9;
+	return (var80070764 && !var8005d9d0) || menuGetRoot() == MENUROOT_COOPCONTINUE;
 }
 
 s16 currentPlayerGetViewportWidth(void)

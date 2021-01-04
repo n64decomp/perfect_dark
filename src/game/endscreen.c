@@ -525,7 +525,7 @@ void endscreenHandleContinue(s32 context)
 				}
 			} else {
 				if (context == 1) {
-					menuPushRootDialog(&g_MenuDialogContinueOrReplay, MENUROOT_9);
+					menuPushRootDialog(&g_MenuDialogContinueOrReplay, MENUROOT_COOPCONTINUE);
 				} else {
 					menuPushDialog(&g_MenuDialogContinueOrReplay);
 				}
@@ -555,7 +555,7 @@ void endscreenHandleContinue(s32 context)
 				func0f10d770();
 
 				if (context == 1) {
-					menuPushRootDialog(func0f10d730(), MENUROOT_9);
+					menuPushRootDialog(func0f10d730(), MENUROOT_COOPCONTINUE);
 				} else {
 					menuPushDialog(func0f10d730());
 				}
@@ -1600,7 +1600,7 @@ void soloPushSoloModeEndscreen(void)
 			|| !objectiveIsAllComplete()) {
 		// Failed or aborted
 		func0f10d770();
-		menuPushRootDialog(&g_MenuDialogRetryMission, MENUROOT_9);
+		menuPushRootDialog(&g_MenuDialogRetryMission, MENUROOT_COOPCONTINUE);
 	} else {
 		// Completed
 		endscreenHandleContinue(1);

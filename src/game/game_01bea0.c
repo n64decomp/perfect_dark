@@ -2483,7 +2483,7 @@ glabel var7f1a863c
 //					}
 //				}
 //				break;
-//			case MENUROOT_9: // d348
+//			case MENUROOT_COOPCONTINUE: // d348
 //				if (g_Vars.coopplayernum >= 0) {
 //					mpSetPaused(MPPAUSEMODE_UNPAUSED);
 //					g_Vars.mplayerisrunning = false;
@@ -2564,7 +2564,7 @@ glabel var7f1a863c
 //			case MENUROOT_MPENDSCREEN:
 //			case MENUROOT_FILEMGR:
 //			case MENUROOT_BOOTPAKMGR:
-//			case MENUROOT_10:
+//			case MENUROOT_4MBFILEMGR:
 //			case MENUROOT_4MBMAINMENU:
 //			case MENUROOT_TRAINING: // f01d5b4
 //				if (g_Menus[mpindex].curframe) {

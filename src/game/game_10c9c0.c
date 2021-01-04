@@ -84,7 +84,7 @@ void func0f10cb2c(void)
 
 		mpDetermineUnlockedFeatures();
 
-		menuPushRootDialog(&menudialog_fileselect2, MENUROOT_10);
+		menuPushRootDialog(&menudialog_fileselect2, MENUROOT_4MBFILEMGR);
 	}
 
 	g_MpPlayerNum = prevplayernum;

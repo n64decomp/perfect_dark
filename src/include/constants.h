@@ -1197,18 +1197,18 @@
 #define MENUOP_CLOSE              101
 #define MENUOP_TICK               102
 
-#define MENUROOT_ENDSCREEN   1
-#define MENUROOT_MAINMENU    2
-#define MENUROOT_MPSETUP     3
-#define MENUROOT_MPPAUSE     4
-#define MENUROOT_MPENDSCREEN 5
-#define MENUROOT_FILEMGR     6
-#define MENUROOT_BOOTPAKMGR  7
-#define MENUROOT_PICKTARGET  8
-#define MENUROOT_9           9
-#define MENUROOT_10          10
-#define MENUROOT_4MBMAINMENU 11
-#define MENUROOT_TRAINING    13
+#define MENUROOT_ENDSCREEN    1
+#define MENUROOT_MAINMENU     2
+#define MENUROOT_MPSETUP      3
+#define MENUROOT_MPPAUSE      4
+#define MENUROOT_MPENDSCREEN  5
+#define MENUROOT_FILEMGR      6
+#define MENUROOT_BOOTPAKMGR   7
+#define MENUROOT_PICKTARGET   8
+#define MENUROOT_COOPCONTINUE 9
+#define MENUROOT_4MBFILEMGR   10
+#define MENUROOT_4MBMAINMENU  11
+#define MENUROOT_TRAINING     13
 
 #define MENUSOUND_SWIPE          0x00 // Navigating to left/right dialog
 #define MENUSOUND_OPENDIALOG     0x01
