@@ -13415,7 +13415,7 @@ u32 menuChooseMusic(void)
 
 bool func0f0fcbcc(void)
 {
-	if (var80062940 == 0 && g_Vars.stagenum == STAGE_CITRAINING) {
+	if (g_FileState == FILESTATE_UNSELECTED && g_Vars.stagenum == STAGE_CITRAINING) {
 		return true;
 	}
 
@@ -13777,7 +13777,7 @@ bool func0f0fd1f4(u32 arg0, u32 arg1)
 		result = false;
 	}
 
-	if (var80062940 == 0) {
+	if (g_FileState == FILESTATE_UNSELECTED) {
 		result = false;
 	}
 

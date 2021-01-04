@@ -66,13 +66,13 @@ void func0f10cb2c(void)
 	u32 prevplayernum = g_MpPlayerNum;
 	g_MpPlayerNum = 0;
 
-	if (var80062940) {
+	if (g_FileState != FILESTATE_UNSELECTED) {
 		if (var80087260 == 0) {
 			g_Vars.unk000490 = 2;
 			menuPushRootDialog(&g_4MbMainMenu, MENUROOT_4MBMAINMENU);
 		}
 	} else {
-		var80062940 = 1;
+		g_FileState = FILESTATE_SELECTED;
 
 		for (i = 0; i != 6; i++) {
 			func0f18800c(i, true);

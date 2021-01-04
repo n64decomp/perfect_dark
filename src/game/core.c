@@ -2786,9 +2786,9 @@ void coreUnloadStage(void)
 
 	func00033dd8();
 
-	if (var80062940 == 2) {
-		menuPlaySound(5);
-		var80062940 = 0;
+	if (g_FileState == FILESTATE_CHANGINGAGENT) {
+		menuPlaySound(MENUSOUND_EXPLOSION);
+		g_FileState = FILESTATE_UNSELECTED;
 	}
 
 	func0f01bea0();

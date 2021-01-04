@@ -480,8 +480,8 @@ glabel var7f1a863c
 /*  f01c460:	3c018007 */ 	lui	$at,%hi(g_PlayersWithControl)
 /*  f01c464:	ac200750 */ 	sw	$zero,%lo(g_PlayersWithControl)($at)
 .L0f01c468:
-/*  f01c468:	3c198006 */ 	lui	$t9,%hi(var80062940)
-/*  f01c46c:	93392940 */ 	lbu	$t9,%lo(var80062940)($t9)
+/*  f01c468:	3c198006 */ 	lui	$t9,%hi(g_FileState)
+/*  f01c46c:	93392940 */ 	lbu	$t9,%lo(g_FileState)($t9)
 /*  f01c470:	3c148007 */ 	lui	$s4,%hi(var800714d8)
 /*  f01c474:	269414d8 */ 	addiu	$s4,$s4,%lo(var800714d8)
 /*  f01c478:	5720001b */ 	bnezl	$t9,.L0f01c4e8
@@ -509,8 +509,8 @@ glabel var7f1a863c
 /*  f01c4d0:	0fc2ebc3 */ 	jal	currentPlayerPause
 /*  f01c4d4:	af001a24 */ 	sw	$zero,0x1a24($t8)
 /*  f01c4d8:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f01c4dc:	3c018006 */ 	lui	$at,%hi(var80062940)
-/*  f01c4e0:	a0392940 */ 	sb	$t9,%lo(var80062940)($at)
+/*  f01c4dc:	3c018006 */ 	lui	$at,%hi(g_FileState)
+/*  f01c4e0:	a0392940 */ 	sb	$t9,%lo(g_FileState)($at)
 .L0f01c4e4:
 /*  f01c4e4:	8ead0000 */ 	lw	$t5,0x0($s5)
 .L0f01c4e8:
@@ -1224,8 +1224,8 @@ glabel var7f1a863c
 /*  f01cec4:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile)
 /*  f01cec8:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
 /*  f01cecc:	24190002 */ 	addiu	$t9,$zero,0x2
-/*  f01ced0:	3c018006 */ 	lui	$at,%hi(var80062940)
-/*  f01ced4:	a0392940 */ 	sb	$t9,%lo(var80062940)($at)
+/*  f01ced0:	3c018006 */ 	lui	$at,%hi(g_FileState)
+/*  f01ced4:	a0392940 */ 	sb	$t9,%lo(g_FileState)($at)
 /*  f01ced8:	0fc43da6 */ 	jal	savefileLoadDefaults
 /*  f01cedc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01cee0:	0fc43c81 */ 	jal	savefileApplyOptions
@@ -2074,7 +2074,7 @@ glabel var7f1a863c
 //	}
 //
 //	// c468
-//	if (var80062940 == 0 && g_Vars.stagenum == STAGE_CITRAINING) {
+//	if (g_FileState == FILESTATE_UNSELECTED && g_Vars.stagenum == STAGE_CITRAINING) {
 //		g_PlayersWithControl[0] = false;
 //
 //		if (g_Vars.lvframenum > 30 && g_Vars.tickmode != TICKMODE_CUTSCENE) {
@@ -2084,7 +2084,7 @@ glabel var7f1a863c
 //			g_Menus[3].unk83c = 0;
 //			g_Vars.currentplayer->pausemode = PAUSEMODE_UNPAUSED;
 //			currentPlayerPause(MENUROOT_FILEMGR);
-//			var80062940 = 1;
+//			g_FileState = FILESTATE_SELECTED;
 //		}
 //	}
 //
@@ -2383,7 +2383,7 @@ glabel var7f1a863c
 //				}
 //			} else /*ceb0*/ if (g_MenuData.unk008 == -7) {
 //				func0f01bea0();
-//				var80062940 = 2;
+//				g_FileState = FILESTATE_CHANGINGAGENT;
 //				savefileLoadDefaults(&g_SoloSaveFile);
 //				savefileApplyOptions(&g_SoloSaveFile);
 //				mainSetStageNum(IS4MB() ? STAGE_4MBMENU : STAGE_CITRAINING);

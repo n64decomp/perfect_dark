@@ -9,7 +9,7 @@
 #include "stagesetup.h"
 #include "types.h"
 
-u8 var80062940 = 0;
+u8 g_FileState = 0;
 u8 var80062944 = 0;
 u8 var80062948 = 0;
 u8 var8006294c = 0;
