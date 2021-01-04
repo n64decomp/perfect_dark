@@ -77,7 +77,7 @@
 #include "game/explosions/explosions.h"
 #include "game/sparks/sparks.h"
 #include "game/weather/weather.h"
-#include "game/game_135c70.h"
+#include "game/sky.h"
 #include "game/credits.h"
 #include "game/game_13c510.h"
 #include "game/bondview.h"
@@ -380,7 +380,7 @@ void coreLoadStage(s32 stagenum)
 	case STAGE_DEFECTION:
 	case STAGE_ATTACKSHIP:
 	case STAGE_TEST_OLD:
-		func0f1360e8();
+		skyInit();
 		break;
 	}
 

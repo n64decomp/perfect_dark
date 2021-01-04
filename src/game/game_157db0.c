@@ -18,7 +18,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
 #include "game/game_11f000.h"
-#include "game/game_135c70.h"
+#include "game/sky.h"
 #include "game/game_13b670.h"
 #include "game/game_13c510.h"
 #include "game/game_1531a0.h"

@@ -9,7 +9,7 @@
 #include "game/data/data_02da90.h"
 #include "game/game_005fd0.h"
 #include "game/game_0b3350.h"
-#include "game/game_135c70.h"
+#include "game/sky.h"
 #include "game/game_1531a0.h"
 #include "gvars/gvars.h"
 #include "lib/lib_04790.h"
@@ -346,7 +346,7 @@ glabel func0f135f08
 );
 
 GLOBAL_ASM(
-glabel func0f1360e8
+glabel skyInit
 /*  f1360e8:	27bdff18 */ 	addiu	$sp,$sp,-232
 /*  f1360ec:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f1360f0:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)

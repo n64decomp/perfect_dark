@@ -136,7 +136,7 @@
 	build/ROMID/game/smoke/smoke.o (section); \
 	build/ROMID/game/sparks/sparks.o (section); \
 	build/ROMID/game/weather/weather.o (section); \
-	build/ROMID/game/game_135c70.o (section); \
+	build/ROMID/game/sky.o (section); \
 	build/ROMID/game/credits.o (section); \
 	build/ROMID/game/game_13b670.o (section); \
 	build/ROMID/game/game_13c510.o (section); \
