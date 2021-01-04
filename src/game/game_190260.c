@@ -4715,7 +4715,9 @@ s32 scenarioCtcIsChrsTokenHeld(struct chrdata *chr)
 bool func0f19489c(struct chrdata *chr)
 {
 	if (chr->aibot->unk09c_01) {
-		if (chr->aibot->unk04f_00 == 0 || mpGetNumPlayerTeammates(chr) >= 2 || !scenarioCtcIsChrsTokenHeld(chr)) {
+		if (!chr->aibot->teamisonlyai
+				|| mpGetNumPlayerTeammates(chr) >= 2
+				|| !scenarioCtcIsChrsTokenHeld(chr)) {
 			return true;
 		}
 	}
@@ -4729,8 +4731,10 @@ s32 mpGetNumTeammatesDefendingHill(struct chrdata *bot)
 	s32 i;
 
 	for (i = 0; i < g_MpNumPlayers; i++) {
-		if (bot->team == g_MpPlayerChrs[i]->team && g_MpPlayerChrs[i]->prop->rooms[0] == g_ScenarioData.cbt.unk0e[0]) {
-			if (g_MpPlayerChrs[i]->aibot->command == AIBOTCMD_DEFHILL || g_MpPlayerChrs[i]->aibot->command == AIBOTCMD_HOLDHILL) {
+		if (bot->team == g_MpPlayerChrs[i]->team
+				&& g_MpPlayerChrs[i]->prop->rooms[0] == g_ScenarioData.cbt.unk0e[0]) {
+			if (g_MpPlayerChrs[i]->aibot->command == AIBOTCMD_DEFHILL
+					|| g_MpPlayerChrs[i]->aibot->command == AIBOTCMD_HOLDHILL) {
 				count++;
 			}
 		}

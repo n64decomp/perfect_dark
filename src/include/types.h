@@ -389,7 +389,7 @@ struct aibot {
 	/*0x04c*/ u8 unk04c_07 : 1;
 	/*0x04d*/ u8 unk04d;
 	/*0x04e*/ u8 unk04e;
-	/*0x04f*/ u8 unk04f_00 : 1;
+	/*0x04f*/ u8 teamisonlyai : 1;
 	/*0x04f*/ u8 unk04f_01 : 1;
 	/*0x04f*/ u8 unk04f_02 : 1;
 	/*0x04f*/ u8 unk04f_03 : 1;

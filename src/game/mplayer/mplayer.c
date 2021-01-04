@@ -492,103 +492,31 @@ glabel var7f1b8d94
 /*  f187e6c:	27bd00f0 */ 	addiu	$sp,$sp,0xf0
 );
 
-GLOBAL_ASM(
-glabel func0f187e70
-/*  f187e70:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f187e74:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f187e78:	8cae006c */ 	lw	$t6,0x6c($a1)
-/*  f187e7c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f187e80:	00001825 */ 	or	$v1,$zero,$zero
-/*  f187e84:	11c00003 */ 	beqz	$t6,.L0f187e94
-/*  f187e88:	3c09800b */ 	lui	$t1,%hi(g_MpNumPlayers)
-/*  f187e8c:	10000001 */ 	b	.L0f187e94
-/*  f187e90:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f187e94:
-/*  f187e94:	8caf0068 */ 	lw	$t7,0x68($a1)
-/*  f187e98:	3c0e800b */ 	lui	$t6,%hi(g_MpPlayerChrs)
-/*  f187e9c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f187ea0:	11e00003 */ 	beqz	$t7,.L0f187eb0
-/*  f187ea4:	25cec4d0 */ 	addiu	$t6,$t6,%lo(g_MpPlayerChrs)
-/*  f187ea8:	10000001 */ 	b	.L0f187eb0
-/*  f187eac:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f187eb0:
-/*  f187eb0:	8cb80064 */ 	lw	$t8,0x64($a1)
-/*  f187eb4:	3c0a800b */ 	lui	$t2,%hi(g_MpSetup)
-/*  f187eb8:	254acb88 */ 	addiu	$t2,$t2,%lo(g_MpSetup)
-/*  f187ebc:	13000003 */ 	beqz	$t8,.L0f187ecc
-/*  f187ec0:	00000000 */ 	nop
-/*  f187ec4:	10000001 */ 	b	.L0f187ecc
-/*  f187ec8:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f187ecc:
-/*  f187ecc:	8cb90070 */ 	lw	$t9,0x70($a1)
-/*  f187ed0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f187ed4:	13200003 */ 	beqz	$t9,.L0f187ee4
-/*  f187ed8:	00000000 */ 	nop
-/*  f187edc:	10000001 */ 	b	.L0f187ee4
-/*  f187ee0:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f187ee4:
-/*  f187ee4:	8d29c530 */ 	lw	$t1,%lo(g_MpNumPlayers)($t1)
-/*  f187ee8:	00a45821 */ 	addu	$t3,$a1,$a0
-/*  f187eec:	01636021 */ 	addu	$t4,$t3,$v1
-/*  f187ef0:	01823821 */ 	addu	$a3,$t4,$v0
-/*  f187ef4:	00e9082a */ 	slt	$at,$a3,$t1
-/*  f187ef8:	1020002e */ 	beqz	$at,.L0f187fb4
-/*  f187efc:	00e03025 */ 	or	$a2,$a3,$zero
-/*  f187f00:	00076880 */ 	sll	$t5,$a3,0x2
-/*  f187f04:	01ae1021 */ 	addu	$v0,$t5,$t6
-/*  f187f08:	8c430000 */ 	lw	$v1,0x0($v0)
-.L0f187f0c:
-/*  f187f0c:	3c18800b */ 	lui	$t8,%hi(g_MpPlayerChrs)
-/*  f187f10:	2718c4d0 */ 	addiu	$t8,$t8,%lo(g_MpPlayerChrs)
-/*  f187f14:	14600003 */ 	bnez	$v1,.L0f187f24
-/*  f187f18:	00097880 */ 	sll	$t7,$t1,0x2
-/*  f187f1c:	10000021 */ 	b	.L0f187fa4
-/*  f187f20:	01f81821 */ 	addu	$v1,$t7,$t8
-.L0f187f24:
-/*  f187f24:	8c6402d4 */ 	lw	$a0,0x2d4($v1)
-/*  f187f28:	3c09800b */ 	lui	$t1,%hi(g_MpNumPlayers)
-/*  f187f2c:	908b004f */ 	lbu	$t3,0x4f($a0)
-/*  f187f30:	356c0080 */ 	ori	$t4,$t3,0x80
-/*  f187f34:	a08c004f */ 	sb	$t4,0x4f($a0)
-/*  f187f38:	8d4d000c */ 	lw	$t5,0xc($t2)
-/*  f187f3c:	31ae0002 */ 	andi	$t6,$t5,0x2
-/*  f187f40:	11c00013 */ 	beqz	$t6,.L0f187f90
-/*  f187f44:	00000000 */ 	nop
-/*  f187f48:	18e00011 */ 	blez	$a3,.L0f187f90
-/*  f187f4c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f187f50:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f187f54:	3c08800b */ 	lui	$t0,%hi(g_MpPlayerChrs)
-/*  f187f58:	2508c4d0 */ 	addiu	$t0,$t0,%lo(g_MpPlayerChrs)
-/*  f187f5c:	90650125 */ 	lbu	$a1,0x125($v1)
-.L0f187f60:
-/*  f187f60:	8d0f0000 */ 	lw	$t7,0x0($t0)
-/*  f187f64:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f187f68:	91f80125 */ 	lbu	$t8,0x125($t7)
-/*  f187f6c:	14b80006 */ 	bne	$a1,$t8,.L0f187f88
-/*  f187f70:	00000000 */ 	nop
-/*  f187f74:	8c6402d4 */ 	lw	$a0,0x2d4($v1)
-/*  f187f78:	9099004f */ 	lbu	$t9,0x4f($a0)
-/*  f187f7c:	332bff7f */ 	andi	$t3,$t9,0xff7f
-/*  f187f80:	10000003 */ 	b	.L0f187f90
-/*  f187f84:	a08b004f */ 	sb	$t3,0x4f($a0)
-.L0f187f88:
-/*  f187f88:	1486fff5 */ 	bne	$a0,$a2,.L0f187f60
-/*  f187f8c:	25080004 */ 	addiu	$t0,$t0,0x4
-.L0f187f90:
-/*  f187f90:	8d29c530 */ 	lw	$t1,%lo(g_MpNumPlayers)($t1)
-/*  f187f94:	3c0d800b */ 	lui	$t5,%hi(g_MpPlayerChrs)
-/*  f187f98:	25adc4d0 */ 	addiu	$t5,$t5,%lo(g_MpPlayerChrs)
-/*  f187f9c:	00096080 */ 	sll	$t4,$t1,0x2
-/*  f187fa0:	018d1821 */ 	addu	$v1,$t4,$t5
-.L0f187fa4:
-/*  f187fa4:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f187fa8:	0043082b */ 	sltu	$at,$v0,$v1
-/*  f187fac:	5420ffd7 */ 	bnezl	$at,.L0f187f0c
-/*  f187fb0:	8c430000 */ 	lw	$v1,0x0($v0)
-.L0f187fb4:
-/*  f187fb4:	03e00008 */ 	jr	$ra
-/*  f187fb8:	00000000 */ 	nop
-);
+void mpCalculateTeamIsOnlyAi(void)
+{
+	s32 playercount = PLAYERCOUNT();
+	s32 i;
+	s32 j;
+
+	// Iterate simulants, which go after players in the g_MpPlayerChrs array
+	for (i = playercount; i < g_MpNumPlayers; i++) {
+		if (!g_MpPlayerChrs[i]) {
+			continue;
+		}
+
+		g_MpPlayerChrs[i]->aibot->teamisonlyai = true;
+
+		if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
+			// Iterate human players
+			for (j = 0; j < playercount; j++) {
+				if (g_MpPlayerChrs[i]->team == g_MpPlayerChrs[j]->team) {
+					g_MpPlayerChrs[i]->aibot->teamisonlyai = false;
+					break;
+				}
+			}
+		}
+	}
+}
 
 void func0f187fbc(s32 playernum)
 {

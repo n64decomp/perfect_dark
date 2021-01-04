@@ -433,7 +433,7 @@ void coreLoadStage(s32 stagenum)
 	}
 
 	if (g_Vars.lvmpbotlevel) {
-		func0f187e70();
+		mpCalculateTeamIsOnlyAi();
 	}
 
 	func0f11a2e4();
