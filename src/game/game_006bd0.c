@@ -3651,48 +3651,23 @@ glabel func0f009eac
 /*  f00a164:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f00a168
-/*  f00a168:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f00a16c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f00a170:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f00a174:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f00a178:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f00a17c:	3c10800a */ 	lui	$s0,%hi(var8009cb08)
-/*  f00a180:	3c13800a */ 	lui	$s3,%hi(var8009cbf8)
-/*  f00a184:	00809025 */ 	or	$s2,$a0,$zero
-/*  f00a188:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f00a18c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f00a190:	2673cbf8 */ 	addiu	$s3,$s3,%lo(var8009cbf8)
-/*  f00a194:	2610cb08 */ 	addiu	$s0,$s0,%lo(var8009cb08)
-/*  f00a198:	8e0e000c */ 	lw	$t6,0xc($s0)
-.L0f00a19c:
-/*  f00a19c:	05c2000c */ 	bltzl	$t6,.L0f00a1d0
-/*  f00a1a0:	26100028 */ 	addiu	$s0,$s0,0x28
-/*  f00a1a4:	56200005 */ 	bnezl	$s1,.L0f00a1bc
-/*  f00a1a8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f00a1ac:	0fc02541 */ 	jal	func0f009504
-/*  f00a1b0:	00000000 */ 	nop
-/*  f00a1b4:	00408825 */ 	or	$s1,$v0,$zero
-/*  f00a1b8:	02402025 */ 	or	$a0,$s2,$zero
-.L0f00a1bc:
-/*  f00a1bc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f00a1c0:	0fc02606 */ 	jal	func0f009818
-/*  f00a1c4:	02203025 */ 	or	$a2,$s1,$zero
-/*  f00a1c8:	00409025 */ 	or	$s2,$v0,$zero
-/*  f00a1cc:	26100028 */ 	addiu	$s0,$s0,0x28
-.L0f00a1d0:
-/*  f00a1d0:	5613fff2 */ 	bnel	$s0,$s3,.L0f00a19c
-/*  f00a1d4:	8e0e000c */ 	lw	$t6,0xc($s0)
-/*  f00a1d8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f00a1dc:	02401025 */ 	or	$v0,$s2,$zero
-/*  f00a1e0:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f00a1e4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f00a1e8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f00a1ec:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f00a1f0:	03e00008 */ 	jr	$ra
-/*  f00a1f4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+Gfx *func0f00a168(Gfx *gdl)
+{
+	s32 i;
+	s32 value = 0;
+
+	for (i = 0; i < 6; i++) {
+		if (var8009cb08[i].unk0c >= 0) {
+			if (!value) {
+				value = func0f009504();
+			}
+
+			gdl = func0f009818(gdl, &var8009cb08[i], value);
+		}
+	}
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f00a1f8
