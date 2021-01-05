@@ -38,7 +38,7 @@ struct hoverprop hoverprops[] = {
 };
 
 // 2f858
-struct menuitem menuitems_2f858[] = {
+struct menuitem g_HangarDetailsMenuItems[] = {
 	{ MENUITEMTYPE_MODEL,      0,                     0x00200002, 0x00000104,    0x0000002c, menuhandler001a6ea4 },
 	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000002, 0x00000000,    0x00000000, NULL                },
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HANGARBIO, 0x00000000, 0x00000104,    0x0000005a, NULL                },
@@ -48,7 +48,7 @@ struct menuitem menuitems_2f858[] = {
 };
 
 // 2f8d0
-struct menuitem menuitems_holograph[] = {
+struct menuitem g_HangarVehicleHolographMenuItems[] = {
 	{ MENUITEMTYPE_MODEL,       0, 0x00000002, 0x00000104, 0x0000006e, NULL },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000002, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000022, L_MPMENU(414), 0x00000000, NULL }, // "Press the B Button to go back."
@@ -56,46 +56,46 @@ struct menuitem menuitems_holograph[] = {
 };
 
 // 2f920
-struct menudialog menudialog_holograph = {
+struct menudialog g_HangarVehicleHolographMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MISC(471), // "Holograph"
-	menuitems_holograph,
+	g_HangarVehicleHolographMenuItems,
 	ciHangarHolographMenuDialog,
 	0x00000202,
 	NULL,
 };
 
 // 2f938
-struct menudialog menudialog_2f938 = {
+struct menudialog g_HangarVehicleDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&bioMenuTextName,
-	menuitems_2f858,
+	g_HangarDetailsMenuItems,
 	NULL,
 	0x00000202,
-	&menudialog_holograph,
+	&g_HangarVehicleHolographMenuDialog,
 };
 
 // 2f950
-struct menudialog menudialog_2f950 = {
+struct menudialog g_HangarLocationDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&bioMenuTextName,
-	menuitems_2f858,
+	g_HangarDetailsMenuItems,
 	NULL,
 	0x00000202,
 	NULL,
 };
 
 // 2f968
-struct menuitem menuitems_hangarinformation[] = {
+struct menuitem g_HangarListMenuItems[] = {
 	{ MENUITEMTYPE_LIST,        0, 0x00000008, 0x000000a0, 0x00000000, ciHangarInformationMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 2f990
-struct menudialog menudialog_hangarinformation = {
+struct menudialog g_HangarListMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(415), // "Hangar Information"
-	menuitems_hangarinformation,
+	g_HangarListMenuItems,
 	NULL,
 	0x00000000,
 	NULL,

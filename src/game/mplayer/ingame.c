@@ -905,15 +905,15 @@ void mpPushPauseDialog(void)
 
 			if (g_Vars.normmplayerisrunning) {
 				if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-					menuPushRootDialog(&g_MpPauseTeamRankingMenuDialog, MENUROOT_MPPAUSE);
+					menuPushRootDialog(&g_MpPauseTeamRankingsMenuDialog, MENUROOT_MPPAUSE);
 				} else {
 					menuPushRootDialog(&g_MpPausePlayerRankingMenuDialog, MENUROOT_MPPAUSE);
 				}
 			} else {
 				if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
-					menuPushRootDialog(&menudialog_status, MENUROOT_MPPAUSE);
+					menuPushRootDialog(&g_2PMissionPauseVMenuDialog, MENUROOT_MPPAUSE);
 				} else {
-					menuPushRootDialog(&menudialog_196c8, MENUROOT_MPPAUSE);
+					menuPushRootDialog(&g_2PMissionPauseHMenuDialog, MENUROOT_MPPAUSE);
 				}
 			}
 		}
@@ -942,7 +942,7 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 			menuPushRootDialog(&g_MpEndscreenTeamGameOverMenuDialog, MENUROOT_MPENDSCREEN);
 		}
 	} else {
-		menuPushRootDialog(&g_MpEndscreenIndividualGameOverMenuDialog, MENUROOT_MPENDSCREEN);
+		menuPushRootDialog(&g_MpEndscreenIndGameOverMenuDialog, MENUROOT_MPENDSCREEN);
 	}
 
 	if ((g_MpPlayers[g_MpPlayerNum].options & OPTION_ASKEDSAVEPLAYER) == 0

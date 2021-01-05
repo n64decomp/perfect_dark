@@ -78,13 +78,13 @@ void func0f17fcb0(s32 silent)
 	g_Menus[g_MpPlayerNum].playernum = g_MpPlayerNum;
 
 	if (IS4MB()) {
-		menuPushRootDialog(&g_4MbAdvancedSetupMenuDialog, MENUROOT_4MBMAINMENU);
+		menuPushRootDialog(&g_AdvancedSetup4MbMenuDialog, MENUROOT_4MBMAINMENU);
 		func0f0f8300();
 	} else {
 		if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
-			menuPushRootDialog(&menudialog_mpchallengedetails2, MENUROOT_MPSETUP);
+			menuPushRootDialog(&g_MpChallengeListOrDetailsViaAdvChallengeMenuDialog, MENUROOT_MPSETUP);
 		} else {
-			menuPushRootDialog(&menudialog_mpgamesetup3, MENUROOT_MPSETUP);
+			menuPushRootDialog(&g_MpAdvancedSetupMenuDialog, MENUROOT_MPSETUP);
 		}
 
 		func0f0f8300();

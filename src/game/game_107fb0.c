@@ -402,9 +402,9 @@ void func0f108a80(void)
 		func0f1109c0();
 
 		if (IS4MB()) {
-			func0f0f820c(&g_4MbMainMenu, MENUROOT_4MBMAINMENU);
+			func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
 		} else {
-			func0f0f820c(&g_MainMenuMenuDialog, MENUROOT_MAINMENU);
+			func0f0f820c(&g_CiMenuViaPcMenuDialog, MENUROOT_MAINMENU);
 		}
 		break;
 	case 104:
@@ -598,7 +598,7 @@ void filemgrRetrySave(s32 context)
 		}
 
 		if (context == 2) {
-			func0f0f3704(&g_FilemgrInsertOriginalPakMenuDialog);
+			func0f0f3704(&g_PakNotOriginalMenuDialog);
 		}
 	} else if (fileSave(index, true)) {
 		if (context == 2) {
@@ -746,7 +746,7 @@ bool func0f1094e4(struct savelocation_2d8 *arg0, s32 arg1, void *arg2)
 
 	if (value == -1) {
 		g_Menus[g_MpPlayerNum].isretryingsave |= 1;
-		menuPushDialog(&g_FilemgrInsertOriginalPakMenuDialog);
+		menuPushDialog(&g_PakNotOriginalMenuDialog);
 		return false;
 	}
 
@@ -828,7 +828,7 @@ struct menudialog g_FilemgrSaveErrorMenuDialog = {
 	NULL,
 };
 
-struct menuitem g_FilemgrFileLostMenuItems[] = {
+struct menuitem g_FilemgrFileLoadMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&filemgrMenuTextDeviceName, 0x00000000, filemgrDeviceNameMenuHandler },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(251), 0x00000000, NULL }, // "The saved file has been erased due to corruption or damage."
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(354), 0x00000000, filemgrAcknowledgeFileLostMenuHandler }, // "Cancel"
@@ -838,7 +838,7 @@ struct menuitem g_FilemgrFileLostMenuItems[] = {
 struct menudialog g_FilemgrFileLostMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	(u32)&filemgrMenuTextErrorTitle,
-	g_FilemgrFileLostMenuItems,
+	g_FilemgrFileLoadMenuItems,
 	NULL,
 	0x000000a0,
 	NULL,
@@ -860,17 +860,17 @@ struct menudialog g_FilemgrSaveElsewhereMenuDialog = {
 	NULL,
 };
 
-struct menuitem g_FilemgrInsertOriginalPakMenuItems[] = {
+struct menuitem g_PakNotOriginalMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&filemgrMenuTextInsertOriginalPak, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(365), 0x00000000, filemgrReinsertedOkMenuHandler }, // "OK"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(366), 0x00000000, filemgrReinsertedCancelMenuHandler }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_FilemgrInsertOriginalPakMenuDialog = {
+struct menudialog g_PakNotOriginalMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	(u32)&filemgrMenuTextErrorTitle,
-	g_FilemgrInsertOriginalPakMenuItems,
+	g_PakNotOriginalMenuItems,
 	filemgrInsertOriginalPakMenuDialog,
 	0x000000a0,
 	NULL,
@@ -1187,7 +1187,7 @@ void func0f109ec4(void)
 {
 	if (g_FileLists[g_Menus[g_MpPlayerNum].listnum]->spacesfree[g_Menus[g_MpPlayerNum].device] > 0) {
 		if (!filemgrIsNameAvailable(g_Menus[g_MpPlayerNum].device)) {
-			menuPushDialog(&g_FilemgrDuplicateFileNameMenuDialog);
+			menuPushDialog(&g_FilemgrDuplicateNameMenuDialog);
 		} else {
 			menuPopDialog();
 
@@ -1240,7 +1240,7 @@ s32 filemgrDuplicateRenameMenuHandler(u32 operation, struct menuitem *item, unio
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
-		menuPushDialog(&g_FilemgrChangeFileNameMenuDialog);
+		menuPushDialog(&g_FilemgrRenameMenuDialog);
 	}
 
 	return 0;
@@ -1271,22 +1271,22 @@ char *filemgrMenuTextDuplicateFileName(struct menuitem *item)
 	return g_StringPointer;
 }
 
-struct menuitem g_FilemgrChangeFileNameMenuItems[] = {
+struct menuitem g_FilemgrRenameMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(239), 0x00000000, NULL }, // "Enter new file name:"
 	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, filemgrConfirmRenameMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_FilemgrChangeFileNameMenuDialog = {
+struct menudialog g_FilemgrRenameMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS(238), // "Change File Name"
-	g_FilemgrChangeFileNameMenuItems,
+	g_FilemgrRenameMenuItems,
 	NULL,
 	0x00000080,
 	NULL,
 };
 
-struct menuitem g_FilemgrDuplicateFileNameMenuItems[] = {
+struct menuitem g_FilemgrDuplicateMenuMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&filemgrMenuTextDeviceNameContainingDuplicateFile, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(233), 0x00000000, NULL }, // "already contains"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(234), 0x00000000, NULL }, // "a file named"
@@ -1297,10 +1297,10 @@ struct menuitem g_FilemgrDuplicateFileNameMenuItems[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_FilemgrDuplicateFileNameMenuDialog = {
+struct menudialog g_FilemgrDuplicateNameMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS(232), // "Duplicate File Name"
-	g_FilemgrDuplicateFileNameMenuItems,
+	g_FilemgrDuplicateMenuMenuItems,
 	NULL,
 	0x00000080,
 	NULL,
@@ -1424,7 +1424,7 @@ s32 filemgrConfirmDeleteMenuHandler(u32 operation, struct menuitem *item, union 
 
 char *filemgrMenuTextFileInUseDescription(struct menuitem *item)
 {
-	if (menuIsDialogOpen(&g_FilemgrCopyListMenuDialog)) {
+	if (menuIsDialogOpen(&g_FilemgrCopyMenuDialog)) {
 		return langGet(L_MPWEAPONS(240)); // "The file you are copying cannot be deleted."
 	}
 
@@ -1481,13 +1481,13 @@ bool filemgrIsFileInUse(struct savelocation000 *arg0)
 {
 	s32 i;
 
-	if (menuIsDialogOpen(&g_FilemgrCopyListMenuDialog)
+	if (menuIsDialogOpen(&g_FilemgrCopyMenuDialog)
 			&& arg0->unk00 == g_FilemgrFileToCopy.unk00
 			&& arg0->unk04 == g_FilemgrFileToCopy.unk04) {
 		return true;
 	}
 
-	if (menuIsDialogOpen(&menudialog_fileselect2)) {
+	if (menuIsDialogOpen(&g_FilemgrFileSelect4MbMenuDialog)) {
 		return false;
 	}
 
@@ -1666,7 +1666,7 @@ void filemgrPushDeleteFileDialog(s32 listnum)
 		g_Menus[g_MpPlayerNum].data.filemgr.filetypeplusone = list->filetype + 1;
 	}
 
-	menuPushDialog(&g_FilemgrDeleteFileMenuDialog);
+	menuPushDialog(&g_FilemgrDeleteMenuDialog);
 }
 
 s32 pakDeleteGameNoteMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
@@ -1773,7 +1773,7 @@ s32 pakGameNoteListMenuHandler(u32 operation, struct menuitem *item, union handl
 	case MENUOP_SET:
 		if (g_EditingPak->notesinuse[data->list.value] == true) {
 			g_Menus[g_MpPlayerNum].data.pak.noteindex = data->list.value;
-			menuPushDialog(&g_PakDeleteGameNoteMenuDialog);
+			menuPushDialog(&g_PakDeleteNoteMenuDialog);
 		}
 		break;
 	}
@@ -1919,7 +1919,7 @@ s32 filemgrOpenCopyFileMenuHandler(u32 operation, struct menuitem *item, union h
 		func0f110c5c(0, item->param);
 		g_Menus[g_MpPlayerNum].listnum = 0;
 		g_Menus[g_MpPlayerNum].data.filemgr.isdeletingforsave = false;
-		menuPushDialog(&g_FilemgrCopyListMenuDialog);
+		menuPushDialog(&g_FilemgrCopyMenuDialog);
 	}
 
 	return 0;
@@ -2155,7 +2155,7 @@ s32 filemgrChooseAgentListMenuHandler(u32 operation, struct menuitem *item, unio
 	case MENUOP_SET:
 		if (data->list.value == g_FileLists[0]->numfiles) {
 			savefileLoadDefaults(&g_SoloSaveFile);
-			menuPushDialog(&g_FilemgrEnterAgentNameMenuDialog);
+			menuPushDialog(&g_FilemgrEnterNameMenuDialog);
 		} else {
 			struct savelocation000 *file = &g_FileLists[0]->unk000[data->list.value];
 
@@ -2216,7 +2216,7 @@ bool filemgrConsiderPushingFileSelectDialog(void)
 {
 	if (g_Menus[g_MpPlayerNum].unk83c == 0) {
 		g_Menus[g_MpPlayerNum].playernum = 0;
-		menuPushRootDialog(&g_FilemgrMainMenuDialog, MENUROOT_FILEMGR);
+		menuPushRootDialog(&g_FilemgrFileSelectMenuDialog, MENUROOT_FILEMGR);
 		return true;
 	}
 
@@ -2289,33 +2289,33 @@ struct menudialog g_FilemgrFileInUseMenuDialog = {
 	NULL,
 };
 
-struct menuitem g_FilemgrDeleteFileMenuItems[] = {
+struct menuitem g_FilemgrDeleteMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(377), 0x00000000, NULL }, // "Select a file to delete:"
 	{ MENUITEMTYPE_LIST,        1, 0x00200000, 0x00000000, 0x00000000, filemgrFileToDeleteListMenuHandler },
 	{ MENUITEMTYPE_LABEL,       0, 0x00004030, L_OPTIONS(378), 0x00000000, NULL }, // "Press B Button to exit."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_FilemgrDeleteFileMenuDialog = {
+struct menudialog g_FilemgrDeleteMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(376), // "Delete File"
-	g_FilemgrDeleteFileMenuItems,
+	g_FilemgrDeleteMenuItems,
 	filemgrCopyOrDeleteListMenuDialog,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem g_FilemgrCopyListMenuItems[] = {
+struct menuitem g_FilemgrCopyMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(374), 0x00000000, NULL }, // "Select a file to copy:"
 	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x00000000, 0x00000000, filemgrFileToCopyListMenuHandler },
 	{ MENUITEMTYPE_LABEL,       0, 0x00004030, L_OPTIONS(375), 0x00000000, NULL }, // "Press B Button to exit."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_FilemgrCopyListMenuDialog = {
+struct menudialog g_FilemgrCopyMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(373), // "Copy File"
-	g_FilemgrCopyListMenuItems,
+	g_FilemgrCopyMenuItems,
 	filemgrCopyOrDeleteListMenuDialog,
 	0x00000000,
 	NULL,
@@ -2323,17 +2323,17 @@ struct menudialog g_FilemgrCopyListMenuDialog = {
 
 struct pakdata *g_EditingPak = NULL;
 
-struct menuitem g_PakDeleteGameNoteMenuItems[] = {
+struct menuitem g_PakDeleteNoteMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS(384), 0x00000000, NULL }, // "Are you sure you want to delete this game note?"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_OPTIONS(385), 0x00000000, NULL }, // "No"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(386), 0x00000000, pakDeleteGameNoteMenuHandler }, // "Yes"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_PakDeleteGameNoteMenuDialog = {
+struct menudialog g_PakDeleteNoteMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(383), // "Delete Game Note"
-	g_PakDeleteGameNoteMenuItems,
+	g_PakDeleteNoteMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
@@ -2405,30 +2405,30 @@ struct menudialog g_FilemgrOperationsMenuDialog = {
 	NULL,
 };
 
-struct menuitem g_FilemgrEnterAgentNameMenuItems[] = {
+struct menuitem g_FilemgrEnterNameMenuItems[] = {
 	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000001, filemgrAgentNameKeyboardMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_FilemgrEnterAgentNameMenuDialog = {
+struct menudialog g_FilemgrEnterNameMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(401), // "Enter Agent Name"
-	g_FilemgrEnterAgentNameMenuItems,
+	g_FilemgrEnterNameMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem g_FilemgrMainMenuItems[] = {
+struct menuitem g_FilemgrFileSelectMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(96), 0x00000000, NULL }, // "Choose Your Reality"
 	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x000000f5, 0x00000000, filemgrChooseAgentListMenuHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_FilemgrMainMenuDialog = {
+struct menudialog g_FilemgrFileSelectMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(95), // "Perfect Dark"
-	g_FilemgrMainMenuItems,
+	g_FilemgrFileSelectMenuItems,
 	filemgrMainMenuDialog,
 	0x00000020,
 	&g_FilemgrOperationsMenuDialog,

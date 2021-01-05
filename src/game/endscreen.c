@@ -142,23 +142,23 @@ s32 menuhandlerReplayPreviousMission(u32 operation, struct menuitem *item, union
 	return menuhandlerAcceptMission(operation, NULL, data);
 }
 
-struct menuitem g_MenuItemsRetryMission[] = {
+struct menuitem g_RetryMissionMenuItems[] = {
 	{ MENUITEMTYPE_OBJECTIVES,  1, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(298), 0x00000000, menuhandlerAcceptMission }, // "Accept"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(299), 0x00000000, menuhandlerDeclineMission }, // "Decline"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MenuDialogRetryMission = {
+struct menudialog g_RetryMissionMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&menuDialogTitleRetryStageName,
-	g_MenuItemsRetryMission,
+	g_RetryMissionMenuItems,
 	menudialogRetryMission,
 	0x0000000c,
-	&menudialog_briefing,
+	&g_PreAndPostMissionBriefingMenuDialog,
 };
 
-struct menuitem g_MenuItemsPromptNextMission[] = {
+struct menuitem g_NextMissionMenuItems[] = {
 	{ MENUITEMTYPE_OBJECTIVES,  1, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(298), 0x00000000, menuhandlerAcceptMission }, // "Accept"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(299), 0x00000000, menuhandlerDeclineMission }, // "Decline"
@@ -167,13 +167,13 @@ struct menuitem g_MenuItemsPromptNextMission[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MenuDialogPromptNextMission = {
+struct menudialog g_NextMissionMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&menuDialogTitleNextMissionStageName,
-	g_MenuItemsPromptNextMission,
+	g_NextMissionMenuItems,
 	menudialogRetryMission,
 	0x0000000c,
-	&menudialog_briefing,
+	&g_PreAndPostMissionBriefingMenuDialog,
 };
 
 char *soloMenuTextNumKills(struct menuitem *item)
@@ -356,7 +356,7 @@ struct menudialog *func0f10d730(void)
 	g_MissionConfig.stageindex++;
 	g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
 
-	return &g_MenuDialogPromptNextMission;
+	return &g_NextMissionMenuDialog;
 }
 
 void func0f10d770(void)
@@ -384,51 +384,51 @@ s32 menuhandlerReplayLastLevel(u32 operation, struct menuitem *item, union handl
 	return 0;
 }
 
-struct menuitem g_MenuItemsSolo2PObjectivesNarrow[] = {
+struct menuitem g_2PMissionEndscreenObjectivesVMenuItems[] = {
 	{ MENUITEMTYPE_OBJECTIVES,  2, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(301), 0x00000000, NULL }, // "Press START"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menuitem g_MenuItemsSolo2PObjectivesWide[] = {
+struct menuitem g_SoloEndscreenObjectivesMenuItems[] = {
 	{ MENUITEMTYPE_OBJECTIVES,  0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS(301), 0x00000000, NULL }, // "Press START"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MenuDialogObjectivesFailedWide = {
+struct menudialog g_SoloEndscreenObjectivesFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(300), // "Objectives"
-	g_MenuItemsSolo2PObjectivesWide,
+	g_SoloEndscreenObjectivesMenuItems,
 	soloMenuDialogPauseStatus,
 	0x00000048,
 	NULL,
 };
 
-struct menudialog g_MenuDialogObjectivesCompletedWide = {
+struct menudialog g_SoloEndscreenObjectivesCompletedMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_OPTIONS(300), // "Objectives"
-	g_MenuItemsSolo2PObjectivesWide,
+	g_SoloEndscreenObjectivesMenuItems,
 	soloMenuDialogPauseStatus,
 	0x00000048,
 	NULL,
 };
 
-struct menudialog g_MenuDialogObjectivesFailedNarrow = {
+struct menudialog g_2PMissionEndscreenObjectivesFailedVMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(300), // "Objectives"
-	g_MenuItemsSolo2PObjectivesNarrow,
+	g_2PMissionEndscreenObjectivesVMenuItems,
 	soloMenuDialogPauseStatus,
 	0x00000048,
 	NULL,
 };
 
-struct menudialog g_MenuDialogObjectivesCompletedNarrow = {
+struct menudialog g_2PMissionEndscreenObjectivesCompletedVMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_OPTIONS(300), // "Objectives"
-	g_MenuItemsSolo2PObjectivesNarrow,
+	g_2PMissionEndscreenObjectivesVMenuItems,
 	soloMenuDialogPauseStatus,
 	0x00000048,
 	NULL,
@@ -447,16 +447,16 @@ s32 menuhandlerContinueMission(u32 operation, struct menuitem *item, union handl
 	return 0;
 }
 
-struct menuitem g_MenuItemsContinueOrReplay[] = {
+struct menuitem g_MissionContinueOrReplyMenuItems[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(244), 0x00000000, menuhandlerContinueMission }, // "Continue"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(245), 0x00000000, menuhandlerReplayLastLevel }, // "Replay Last Level"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MenuDialogContinueOrReplay = {
+struct menudialog g_MissionContinueOrReplyMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&menuTextCurrentStageName3,
-	g_MenuItemsContinueOrReplay,
+	g_MissionContinueOrReplyMenuItems,
 	NULL,
 	0x00000004,
 	NULL,
@@ -525,9 +525,9 @@ void endscreenHandleContinue(s32 context)
 				}
 			} else {
 				if (context == 1) {
-					menuPushRootDialog(&g_MenuDialogContinueOrReplay, MENUROOT_COOPCONTINUE);
+					menuPushRootDialog(&g_MissionContinueOrReplyMenuDialog, MENUROOT_COOPCONTINUE);
 				} else {
-					menuPushDialog(&g_MenuDialogContinueOrReplay);
+					menuPushDialog(&g_MissionContinueOrReplyMenuDialog);
 				}
 			}
 		} else {
@@ -540,7 +540,7 @@ void endscreenHandleContinue(s32 context)
 					menuPopDialog();
 					menuPopDialog();
 				} else {
-					menuPushDialog(&g_MenuDialogContinueOrReplay);
+					menuPushDialog(&g_MissionContinueOrReplyMenuDialog);
 				}
 			} else if (stageGetIndex(g_MissionConfig.stagenum) < 0
 						|| g_Vars.stagenum == STAGE_CITRAINING
@@ -549,7 +549,7 @@ void endscreenHandleContinue(s32 context)
 					menuPopDialog();
 					menuPopDialog();
 				} else {
-					menuPushDialog(&g_MenuDialogContinueOrReplay);
+					menuPushDialog(&g_MissionContinueOrReplyMenuDialog);
 				}
 			} else {
 				func0f10d770();
@@ -627,7 +627,7 @@ s32 menudialogSolo2PEndscreenFailed(u32 operation, struct menudialog *dialog, un
 							menuPopDialog();
 						} else {
 							func0f10d770();
-							menuPushDialog(&g_MenuDialogRetryMission);
+							menuPushDialog(&g_RetryMissionMenuDialog);
 						}
 					}
 				}
@@ -640,7 +640,7 @@ s32 menudialogSolo2PEndscreenFailed(u32 operation, struct menudialog *dialog, un
 	return 0;
 }
 
-struct menuitem g_MenuItemsSoloEndscreenNarrow[] = {
+struct menuitem g_2PMissionEndscreenVMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_OPTIONS(278), 0x00000000, NULL }, // "Mission Status:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&soloMenuTextMissionStatus, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_OPTIONS(279), 0x00000000, NULL }, // "Agent Status:"
@@ -668,7 +668,7 @@ struct menuitem g_MenuItemsSoloEndscreenNarrow[] = {
 
 u32 g_CheatColour = 0xff7f7fff;
 
-struct menuitem g_MenuItemsSoloEndscreenWide[] = {
+struct menuitem g_MissionEndscreenMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(278), (u32)&soloMenuTextMissionStatus, NULL }, // "Mission Status:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(279), (u32)&soloMenuTextAgentStatus, NULL }, // "Agent Status:"
 	{ MENUITEMTYPE_LABEL,       0, 0x01000000, L_OPTIONS(280), (u32)&soloMenuTextMissionTime, menuhandlerEndscreenCheats }, // "Mission Time:"
@@ -869,22 +869,22 @@ void endscreenSetCoopCompleted(void)
 	}
 }
 
-struct menudialog g_MenuDialogSoloEndscreenCompleted = {
+struct menudialog g_SoloMissionEndscreenCompletedMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	(u32)&menuTitleStageCompleted,
-	g_MenuItemsSoloEndscreenWide,
+	g_MissionEndscreenMenuItems,
 	menudialogSolo2PEndscreenCompleted,
 	0x00000048,
-	&g_MenuDialogObjectivesCompletedWide,
+	&g_SoloEndscreenObjectivesCompletedMenuDialog,
 };
 
-struct menudialog g_MenuDialogSoloEndscreenFailed = {
+struct menudialog g_SoloMissionEndscreenFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	(u32)&menuTitleStageFailed,
-	g_MenuItemsSoloEndscreenWide,
+	g_MissionEndscreenMenuItems,
 	menudialogSolo2PEndscreenFailed,
 	0x00000048,
-	&g_MenuDialogObjectivesFailedWide,
+	&g_SoloEndscreenObjectivesFailedMenuDialog,
 };
 
 GLOBAL_ASM(
@@ -983,10 +983,10 @@ glabel endscreenPrepare
 /*  f10e784:	0fc256d9 */ 	jal	objectiveIsAllComplete
 /*  f10e788:	00000000 */ 	nop
 /*  f10e78c:	1440000a */ 	bnez	$v0,.L0f10e7b8
-/*  f10e790:	3c048007 */ 	lui	$a0,%hi(g_MenuDialogSoloEndscreenCompleted)
+/*  f10e790:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionEndscreenCompletedMenuDialog)
 .L0f10e794:
-/*  f10e794:	3c048007 */ 	lui	$a0,%hi(g_MenuDialogSoloEndscreenFailed)
-/*  f10e798:	24845b3c */ 	addiu	$a0,$a0,%lo(g_MenuDialogSoloEndscreenFailed)
+/*  f10e794:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionEndscreenFailedMenuDialog)
+/*  f10e798:	24845b3c */ 	addiu	$a0,$a0,%lo(g_SoloMissionEndscreenFailedMenuDialog)
 /*  f10e79c:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f10e7a0:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f10e7a4:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig+0x3)
@@ -995,7 +995,7 @@ glabel endscreenPrepare
 /*  f10e7b0:	1000000f */ 	b	.L0f10e7f0
 /*  f10e7b4:	01201025 */ 	or	$v0,$t1,$zero
 .L0f10e7b8:
-/*  f10e7b8:	24845b24 */ 	addiu	$a0,$a0,%lo(g_MenuDialogSoloEndscreenCompleted)
+/*  f10e7b8:	24845b24 */ 	addiu	$a0,$a0,%lo(g_SoloMissionEndscreenCompletedMenuDialog)
 /*  f10e7bc:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f10e7c0:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f10e7c4:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig+0x3)
@@ -1378,9 +1378,9 @@ glabel endscreenPrepare
 //		if (g_Vars.currentplayer->isdead
 //				|| g_Vars.currentplayer->aborted
 //				|| !objectiveIsAllComplete()) {
-//			menuPushRootDialog(&g_MenuDialogSoloEndscreenFailed, MENUROOT_ENDSCREEN);
+//			menuPushRootDialog(&g_SoloMissionEndscreenFailedMenuDialog, MENUROOT_ENDSCREEN);
 //		} else {
-//			menuPushRootDialog(&g_MenuDialogSoloEndscreenCompleted, MENUROOT_ENDSCREEN);
+//			menuPushRootDialog(&g_SoloMissionEndscreenCompletedMenuDialog, MENUROOT_ENDSCREEN);
 //
 //			if (g_MissionConfig.iscoop) {
 //				endscreenSetCoopCompleted();
@@ -1503,40 +1503,40 @@ glabel endscreenPrepare
 //	}
 //}
 
-struct menudialog g_MenuDialogSolo2PEndscreenCompletedWide = {
+struct menudialog g_2PMissionEndscreenCompletedHMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	(u32)&menuTitleStageCompleted,
-	g_MenuItemsSoloEndscreenWide,
+	g_MissionEndscreenMenuItems,
 	menudialogSolo2PEndscreenCompleted,
 	0x00000048,
-	&g_MenuDialogObjectivesCompletedWide,
+	&g_SoloEndscreenObjectivesCompletedMenuDialog,
 };
 
-struct menudialog g_MenuDialogSolo2PEndscreenFailedWide = {
+struct menudialog g_2PMissionEndscreenFailedHMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	(u32)&menuTitleStageFailed,
-	g_MenuItemsSoloEndscreenWide,
+	g_MissionEndscreenMenuItems,
 	menudialogSolo2PEndscreenFailed,
 	0x00000048,
-	&g_MenuDialogObjectivesFailedWide,
+	&g_SoloEndscreenObjectivesFailedMenuDialog,
 };
 
-struct menudialog g_MenuDialogSolo2PEndscreenCompletedNarrow = {
+struct menudialog g_2PMissionEndscreenCompletedVMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_OPTIONS(276), // "Completed"
-	g_MenuItemsSoloEndscreenNarrow,
+	g_2PMissionEndscreenVMenuItems,
 	menudialogSolo2PEndscreenCompleted,
 	0x00000048,
-	&g_MenuDialogObjectivesCompletedNarrow,
+	&g_2PMissionEndscreenObjectivesCompletedVMenuDialog,
 };
 
-struct menudialog g_MenuDialogSolo2PEndscreenFailedNarrow = {
+struct menudialog g_2PMissionEndscreenFailedVMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(277), // "Failed"
-	g_MenuItemsSoloEndscreenNarrow,
+	g_2PMissionEndscreenVMenuItems,
 	menudialogSolo2PEndscreenFailed,
 	0x00000048,
-	&g_MenuDialogObjectivesFailedNarrow,
+	&g_2PMissionEndscreenObjectivesFailedVMenuDialog,
 };
 
 void soloPushCoopModeEndscreen(void)
@@ -1558,16 +1558,16 @@ void soloPushCoopModeEndscreen(void)
 			|| !objectiveIsAllComplete()) {
 		// Failed or aborted
 		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
-			menuPushRootDialog(&g_MenuDialogSolo2PEndscreenFailedNarrow, MENUROOT_MPENDSCREEN);
+			menuPushRootDialog(&g_2PMissionEndscreenFailedVMenuDialog, MENUROOT_MPENDSCREEN);
 		} else {
-			menuPushRootDialog(&g_MenuDialogSolo2PEndscreenFailedWide, MENUROOT_MPENDSCREEN);
+			menuPushRootDialog(&g_2PMissionEndscreenFailedHMenuDialog, MENUROOT_MPENDSCREEN);
 		}
 	} else {
 		// Completed
 		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
-			menuPushRootDialog(&g_MenuDialogSolo2PEndscreenCompletedNarrow, MENUROOT_MPENDSCREEN);
+			menuPushRootDialog(&g_2PMissionEndscreenCompletedVMenuDialog, MENUROOT_MPENDSCREEN);
 		} else {
-			menuPushRootDialog(&g_MenuDialogSolo2PEndscreenCompletedWide, MENUROOT_MPENDSCREEN);
+			menuPushRootDialog(&g_2PMissionEndscreenCompletedHMenuDialog, MENUROOT_MPENDSCREEN);
 		}
 
 		endscreenSetCoopCompleted();
@@ -1600,7 +1600,7 @@ void soloPushSoloModeEndscreen(void)
 			|| !objectiveIsAllComplete()) {
 		// Failed or aborted
 		func0f10d770();
-		menuPushRootDialog(&g_MenuDialogRetryMission, MENUROOT_COOPCONTINUE);
+		menuPushRootDialog(&g_RetryMissionMenuDialog, MENUROOT_COOPCONTINUE);
 	} else {
 		// Completed
 		endscreenHandleContinue(1);
@@ -1627,16 +1627,16 @@ void soloPushAntiModeEndscreen(void)
 				(g_Vars.bond->isdead || g_Vars.bond->aborted || objectiveIsAllComplete() == false)) {
 			// Bond - failed or aborted
 			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
-				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenFailedNarrow, MENUROOT_MPENDSCREEN);
+				menuPushRootDialog(&g_2PMissionEndscreenFailedVMenuDialog, MENUROOT_MPENDSCREEN);
 			} else {
-				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenFailedWide, MENUROOT_MPENDSCREEN);
+				menuPushRootDialog(&g_2PMissionEndscreenFailedHMenuDialog, MENUROOT_MPENDSCREEN);
 			}
 		} else {
 			// Bond - completed
 			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
-				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenCompletedNarrow, MENUROOT_MPENDSCREEN);
+				menuPushRootDialog(&g_2PMissionEndscreenCompletedVMenuDialog, MENUROOT_MPENDSCREEN);
 			} else {
-				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenCompletedWide, MENUROOT_MPENDSCREEN);
+				menuPushRootDialog(&g_2PMissionEndscreenCompletedHMenuDialog, MENUROOT_MPENDSCREEN);
 			}
 		}
 
@@ -1646,16 +1646,16 @@ void soloPushAntiModeEndscreen(void)
 				(g_Vars.bond->isdead || g_Vars.bond->aborted || objectiveIsAllComplete() == false)) {
 			// Anti - completed
 			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
-				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenCompletedNarrow, MENUROOT_MPENDSCREEN);
+				menuPushRootDialog(&g_2PMissionEndscreenCompletedVMenuDialog, MENUROOT_MPENDSCREEN);
 			} else {
-				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenCompletedWide, MENUROOT_MPENDSCREEN);
+				menuPushRootDialog(&g_2PMissionEndscreenCompletedHMenuDialog, MENUROOT_MPENDSCREEN);
 			}
 		} else {
 			// Anti - failed or aborted
 			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
-				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenFailedNarrow, MENUROOT_MPENDSCREEN);
+				menuPushRootDialog(&g_2PMissionEndscreenFailedVMenuDialog, MENUROOT_MPENDSCREEN);
 			} else {
-				menuPushRootDialog(&g_MenuDialogSolo2PEndscreenFailedWide, MENUROOT_MPENDSCREEN);
+				menuPushRootDialog(&g_2PMissionEndscreenFailedHMenuDialog, MENUROOT_MPENDSCREEN);
 			}
 		}
 	}

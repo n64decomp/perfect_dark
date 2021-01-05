@@ -21,7 +21,7 @@ s32 menuhandler4MbDropOut(u32 operation, struct menuitem *item, union handlerdat
 		menuPopDialog();
 
 		if (mpGetNumChrs() == 1) {
-			func0f0f820c(&g_4MbMainMenu, MENUROOT_4MBMAINMENU);
+			func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
 		}
 	}
 
@@ -32,9 +32,9 @@ s32 menuhandler0010ca1c(u32 operation, struct menuitem *item, union handlerdata 
 {
 	if (operation == MENUOP_SET) {
 		if (g_Vars.stagenum == STAGE_4MBMENU) {
-			func0f0f820c(&g_4MbMainMenu, MENUROOT_4MBMAINMENU);
+			func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
 		} else {
-			func0f0f820c(&g_SoloPauseMenuDialog, MENUROOT_MAINMENU);
+			func0f0f820c(&g_SoloMissionPauseMenuDialog, MENUROOT_MAINMENU);
 		}
 	}
 
@@ -44,7 +44,7 @@ s32 menuhandler0010ca1c(u32 operation, struct menuitem *item, union handlerdata 
 s32 menuhandler4MbAdvancedSetup(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		func0f0f820c(&g_4MbAdvancedSetupMenuDialog, MENUROOT_4MBMAINMENU);
+		func0f0f820c(&g_AdvancedSetup4MbMenuDialog, MENUROOT_4MBMAINMENU);
 	}
 
 	return 0;
@@ -54,7 +54,7 @@ s32 menuhandler0010cabc(u32 operation, struct menuitem *item, union handlerdata 
 {
 	if (operation == MENUOP_SET) {
 		mpSetCurrentChallenge(g_Menus[g_MpPlayerNum].data.main4mb.slotindex);
-		func0f0f820c(&menudialog_mpquickgo2, MENUROOT_4MBMAINMENU);
+		func0f0f820c(&g_MpQuickGo4MbMenuDialog, MENUROOT_4MBMAINMENU);
 	}
 
 	return 0;
@@ -69,7 +69,7 @@ void func0f10cb2c(void)
 	if (g_FileState != FILESTATE_UNSELECTED) {
 		if (var80087260 == 0) {
 			g_Vars.unk000490 = 2;
-			menuPushRootDialog(&g_4MbMainMenu, MENUROOT_4MBMAINMENU);
+			menuPushRootDialog(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
 		}
 	} else {
 		g_FileState = FILESTATE_SELECTED;
@@ -84,7 +84,7 @@ void func0f10cb2c(void)
 
 		mpDetermineUnlockedFeatures();
 
-		menuPushRootDialog(&menudialog_fileselect2, MENUROOT_4MBFILEMGR);
+		menuPushRootDialog(&g_FilemgrFileSelect4MbMenuDialog, MENUROOT_4MBFILEMGR);
 	}
 
 	g_MpPlayerNum = prevplayernum;
@@ -100,7 +100,7 @@ s32 menudialog4MbMainMenu(u32 operation, struct menudialog *dialog, union handle
 	}
 
 	if (g_Menus[g_MpPlayerNum].curframe &&
-			g_Menus[g_MpPlayerNum].curframe->dialog == &g_4MbMainMenu &&
+			g_Menus[g_MpPlayerNum].curframe->dialog == &g_MainMenu4MbMenuDialog &&
 			operation == MENUOP_TICK) {
 		g_Vars.unk000490 = 2;
 		g_Vars.mpquickteam = MPQUICKTEAM_5;

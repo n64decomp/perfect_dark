@@ -37186,24 +37186,24 @@ bool propobjInteract(struct prop *prop)
 				handled = true;
 
 				if (data->intraining) {
-					func0f0f85e0(&g_DeviceTrainingDetailsMenuDialog, MENUROOT_TRAINING);
+					func0f0f85e0(&g_DtDetailsMenuDialog, MENUROOT_TRAINING);
 				} else {
-					func0f0f85e0(&g_DeviceTrainingListMenuDialog, MENUROOT_TRAINING);
+					func0f0f85e0(&g_DtListMenuDialog, MENUROOT_TRAINING);
 				}
 			} else if (tag_id == 0x45) {
 				struct trainingdata *data = getHoloTrainingData();
 				handled = true;
 
 				if (data->intraining) {
-					func0f0f85e0(&g_HoloTrainingDetailsMenuDialog, MENUROOT_TRAINING);
+					func0f0f85e0(&g_HtDetailsMenuDialog, MENUROOT_TRAINING);
 				} else {
-					func0f0f85e0(&g_HoloTrainingListMenuDialog, MENUROOT_TRAINING);
+					func0f0f85e0(&g_HtListMenuDialog, MENUROOT_TRAINING);
 				}
 			} else if (tag_id == 0x7f) {
 				handled = true;
 
 				if (frIsInTraining()) {
-					func0f0f85e0(&g_FrTrainingInfoMenuDialog, MENUROOT_TRAINING);
+					func0f0f85e0(&g_FrTrainingInfoInGameMenuDialog, MENUROOT_TRAINING);
 				} else {
 					func0f0f85e0(&g_FrWeaponListMenuDialog, MENUROOT_TRAINING);
 				}
@@ -37213,19 +37213,19 @@ bool propobjInteract(struct prop *prop)
 		if (!handled) {
 			if (tag_id == 0x0e) {
 				handled = true;
-				func0f0f85e0(&menudialog_information, MENUROOT_TRAINING);
+				func0f0f85e0(&g_BioListMenuDialog, MENUROOT_TRAINING);
 			} else if (tag_id == 0x0f) {
 				handled = true;
 				func0f0f85e0(&g_CheatsMenuDialog, MENUROOT_TRAINING);
 			} else if (tag_id == 0x1b) {
 				handled = true;
-				func0f0f85e0(&menudialog_weaponsavailable, MENUROOT_TRAINING);
+				func0f0f85e0(&g_FrWeaponsAvailableMenuDialog, MENUROOT_TRAINING);
 			} else if (tag_id == 0x47) {
 				handled = true;
-				func0f0f85e0(&g_MainMenuMenuDialog, MENUROOT_MAINMENU);
+				func0f0f85e0(&g_CiMenuViaPcMenuDialog, MENUROOT_MAINMENU);
 			} else if (tag_id == 0x46) {
 				handled = true;
-				func0f0f85e0(&menudialog_hangarinformation, MENUROOT_TRAINING);
+				func0f0f85e0(&g_HangarListMenuDialog, MENUROOT_TRAINING);
 			}
 		}
 

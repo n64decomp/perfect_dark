@@ -235,9 +235,9 @@ s32 optionsGetEffectiveScreenSize(void)
 	}
 
 	if (g_Menus[g_MpPlayerNum].curframe && (
-				g_Menus[g_MpPlayerNum].curframe->dialog == &menudialog_control4 ||
-				g_Menus[g_MpPlayerNum].curframe->dialog == &menudialog_control3 ||
-				g_Menus[g_MpPlayerNum].curframe->dialog == &g_ControlStyleSingleMenuDialog)) {
+				g_Menus[g_MpPlayerNum].curframe->dialog == &g_CiControlStylePlayer2MenuDialog ||
+				g_Menus[g_MpPlayerNum].curframe->dialog == &g_CiControlStyleMenuDialog ||
+				g_Menus[g_MpPlayerNum].curframe->dialog == &g_SoloMissionControlStyleMenuDialog)) {
 		return SCREENSIZE_FULL;
 	}
 

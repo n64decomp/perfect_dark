@@ -8469,7 +8469,7 @@ glabel var7f1b29f8
 
 void func0f0f85e0(struct menudialog *dialog, s32 root)
 {
-	if (dialog == &g_MainMenuMenuDialog) {
+	if (dialog == &g_CiMenuViaPcMenuDialog) {
 		musicStartForMenu();
 	}
 
@@ -10486,17 +10486,17 @@ glabel var7f1b2a64
 /*  f0fa220:	00000000 */ 	nop
 /*  f0fa224:	91ad0af0 */ 	lbu	$t5,%lo(g_Is4Mb)($t5)
 /*  f0fa228:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0fa22c:	3c048008 */ 	lui	$a0,%hi(menudialog_2aba0)
+/*  f0fa22c:	3c048008 */ 	lui	$a0,%hi(g_MpDropOutMenuDialog)
 /*  f0fa230:	15a10006 */ 	bne	$t5,$at,.L0f0fa24c
 /*  f0fa234:	00000000 */ 	nop
-/*  f0fa238:	3c048007 */ 	lui	$a0,%hi(menudialog_mpdropout)
+/*  f0fa238:	3c048007 */ 	lui	$a0,%hi(g_MpDropOut4MbMenuDialog)
 /*  f0fa23c:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f0fa240:	248452fc */ 	addiu	$a0,$a0,%lo(menudialog_mpdropout)
+/*  f0fa240:	248452fc */ 	addiu	$a0,$a0,%lo(g_MpDropOut4MbMenuDialog)
 /*  f0fa244:	1000001f */ 	b	.L0f0fa2c4
 /*  f0fa248:	8fd00008 */ 	lw	$s0,0x8($s8)
 .L0f0fa24c:
 /*  f0fa24c:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f0fa250:	24844b80 */ 	addiu	$a0,$a0,%lo(menudialog_2aba0)
+/*  f0fa250:	24844b80 */ 	addiu	$a0,$a0,%lo(g_MpDropOutMenuDialog)
 /*  f0fa254:	1000001b */ 	b	.L0f0fa2c4
 /*  f0fa258:	8fd00008 */ 	lw	$s0,0x8($s8)
 .L0f0fa25c:
@@ -13453,20 +13453,20 @@ glabel menuhandler000fcc34
 /*  f0fcc64:	afa50044 */ 	sw	$a1,0x44($sp)
 /*  f0fcc68:	1481002a */ 	bne	$a0,$at,.L0f0fcd14
 /*  f0fcc6c:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f0fcc70:	3c1e8007 */ 	lui	$s8,%hi(menudialog_damagedcontrollerpak)
+/*  f0fcc70:	3c1e8007 */ 	lui	$s8,%hi(g_PakDamagedMenuDialog)
 /*  f0fcc74:	3c178007 */ 	lui	$s7,%hi(g_PakAttemptRepairMenuDialog)
 /*  f0fcc78:	3c168007 */ 	lui	$s6,%hi(g_PakRepairFailedMenuDialog)
-/*  f0fcc7c:	3c158007 */ 	lui	$s5,%hi(menudialog_pakremoved)
+/*  f0fcc7c:	3c158007 */ 	lui	$s5,%hi(g_PakRemovedMenuDialog)
 /*  f0fcc80:	3c148007 */ 	lui	$s4,%hi(g_PakRepairSuccessMenuDialog)
 /*  f0fcc84:	3c128007 */ 	lui	$s2,%hi(g_MpPlayerNum)
 /*  f0fcc88:	3c11800a */ 	lui	$s1,%hi(g_Menus)
 /*  f0fcc8c:	2631e000 */ 	addiu	$s1,$s1,%lo(g_Menus)
 /*  f0fcc90:	26521448 */ 	addiu	$s2,$s2,%lo(g_MpPlayerNum)
 /*  f0fcc94:	269415b0 */ 	addiu	$s4,$s4,%lo(g_PakRepairSuccessMenuDialog)
-/*  f0fcc98:	26b51548 */ 	addiu	$s5,$s5,%lo(menudialog_pakremoved)
+/*  f0fcc98:	26b51548 */ 	addiu	$s5,$s5,%lo(g_PakRemovedMenuDialog)
 /*  f0fcc9c:	26d61618 */ 	addiu	$s6,$s6,%lo(g_PakRepairFailedMenuDialog)
 /*  f0fcca0:	26f716a8 */ 	addiu	$s7,$s7,%lo(g_PakAttemptRepairMenuDialog)
-/*  f0fcca4:	27de176c */ 	addiu	$s8,$s8,%lo(menudialog_damagedcontrollerpak)
+/*  f0fcca4:	27de176c */ 	addiu	$s8,$s8,%lo(g_PakDamagedMenuDialog)
 /*  f0fcca8:	24130e70 */ 	addiu	$s3,$zero,0xe70
 /*  f0fccac:	8e4e0000 */ 	lw	$t6,0x0($s2)
 .L0f0fccb0:
@@ -13487,8 +13487,8 @@ glabel menuhandler000fcc34
 /*  f0fcce8:	12e20006 */ 	beq	$s7,$v0,.L0f0fcd04
 /*  f0fccec:	00000000 */ 	nop
 /*  f0fccf0:	13c20004 */ 	beq	$s8,$v0,.L0f0fcd04
-/*  f0fccf4:	3c198007 */ 	lui	$t9,%hi(menudialog_fullcontrollerpak)
-/*  f0fccf8:	27391810 */ 	addiu	$t9,$t9,%lo(menudialog_fullcontrollerpak)
+/*  f0fccf4:	3c198007 */ 	lui	$t9,%hi(g_PakFullMenuDialog)
+/*  f0fccf8:	27391810 */ 	addiu	$t9,$t9,%lo(g_PakFullMenuDialog)
 /*  f0fccfc:	17220003 */ 	bne	$t9,$v0,.L0f0fcd0c
 /*  f0fcd00:	00000000 */ 	nop
 .L0f0fcd04:
@@ -13519,7 +13519,7 @@ s32 menudialog000fcd48(u32 operation, struct menudialog *dialog, union handlerda
 		if (g_Menus[g_MpPlayerNum].curframe
 				&& g_Menus[g_MpPlayerNum].curframe->dialog == dialog
 				&& func000155b4(g_Menus[g_MpPlayerNum].savedevice) == 0) {
-			func0f0f3704(&menudialog_pakremoved);
+			func0f0f3704(&g_PakRemovedMenuDialog);
 		}
 	}
 
@@ -13534,9 +13534,9 @@ glabel func0f0fcdd0
 /*  f0fcddc:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0fcde0:	14810004 */ 	bne	$a0,$at,.L0f0fcdf4
 /*  f0fcde4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0fcde8:	3c048007 */ 	lui	$a0,%hi(menudialog_damagedcontrollerpak)
+/*  f0fcde8:	3c048007 */ 	lui	$a0,%hi(g_PakDamagedMenuDialog)
 /*  f0fcdec:	0fc3cdc1 */ 	jal	func0f0f3704
-/*  f0fcdf0:	2484176c */ 	addiu	$a0,$a0,%lo(menudialog_damagedcontrollerpak)
+/*  f0fcdf0:	2484176c */ 	addiu	$a0,$a0,%lo(g_PakDamagedMenuDialog)
 .L0f0fcdf4:
 /*  f0fcdf4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0fcdf8:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -13645,23 +13645,23 @@ glabel func0f0fce8c
 /*  f0fcfb4:	ac2a1448 */ 	sw	$t2,%lo(g_MpPlayerNum)($at)
 );
 
-struct menuitem menuitems_pakremoved[] = {
+struct menuitem g_PakRemovedMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(174), 0x00000000, NULL }, // "The Controller Pak has been removed."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(73), 0x00000000, menuhandler000fcc34 }, // "OK"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_pakremoved = {
+struct menudialog g_PakRemovedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(173), // "Error"
-	menuitems_pakremoved,
+	g_PakRemovedMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem menuitems_pakrepaired[] = {
+struct menuitem g_PakRepairSuccessMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x000054b5, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x00005449, 0x00000000, menuhandler000fcc34 },
@@ -13671,13 +13671,13 @@ struct menuitem menuitems_pakrepaired[] = {
 struct menudialog g_PakRepairSuccessMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPWEAPONS(180), // "Repair Successful"
-	menuitems_pakrepaired,
+	g_PakRepairSuccessMenuItems,
 	menudialog000fcd48,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem menuitems_pakrepairfailed[] = {
+struct menuitem g_PakRepairFailedMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(183), 0x00000000, NULL }, // "The Controller Pak cannot be repaired. You will not be able to load from or save to this Controller Pak."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS(73), 0x00000000, NULL }, // "OK"
@@ -13687,13 +13687,13 @@ struct menuitem menuitems_pakrepairfailed[] = {
 struct menudialog g_PakRepairFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(182), // "Repair Failed"
-	menuitems_pakrepairfailed,
+	g_PakRepairFailedMenuItems,
 	menudialog000fcd48,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem menuitems_pakattemptrepair[] = {
+struct menuitem g_PakAttemptRepairMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(176), 0x00000000, NULL }, // "Are you sure you want to attempt repair of this Controller Pak?"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(177), 0x00000000, NULL }, // "Data may be lost!"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -13705,7 +13705,7 @@ struct menuitem menuitems_pakattemptrepair[] = {
 struct menudialog g_PakAttemptRepairMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(175), // "Attempt Repair"
-	menuitems_pakattemptrepair,
+	g_PakAttemptRepairMenuItems,
 	menudialog000fcd48,
 	0x00000000,
 	NULL,
@@ -13786,12 +13786,12 @@ bool func0f0fd1f4(u32 arg0, u32 arg1)
 	}
 
 	if (g_Menus[playernum].curframe) {
-		if (g_Menus[playernum].curframe->dialog == &menudialog_damagedcontrollerpak
-				|| g_Menus[playernum].curframe->dialog == &menudialog_cannotreadgameboy
-				|| g_Menus[playernum].curframe->dialog == &menudialog_datalost
-				|| g_Menus[playernum].curframe->dialog == &menudialog_fullcontrollerpak
+		if (g_Menus[playernum].curframe->dialog == &g_PakDamagedMenuDialog
+				|| g_Menus[playernum].curframe->dialog == &g_PakCannotReadGameBoyMenuDialog
+				|| g_Menus[playernum].curframe->dialog == &g_PakDataLostMenuDialog
+				|| g_Menus[playernum].curframe->dialog == &g_PakFullMenuDialog
 				|| g_Menus[playernum].curframe->dialog == &g_PakAttemptRepairMenuDialog
-				|| g_Menus[playernum].curframe->dialog == &menudialog_pakremoved
+				|| g_Menus[playernum].curframe->dialog == &g_PakRemovedMenuDialog
 				|| g_Menus[playernum].curframe->dialog == &g_PakRepairSuccessMenuDialog
 				|| g_Menus[playernum].curframe->dialog == &g_PakRepairFailedMenuDialog) {
 			result = false;
@@ -13837,8 +13837,8 @@ glabel var7f1b2b10
 /*  f0fd364:	8c2f2b00 */ 	lw	$t7,%lo(var7f1b2b00)($at)
 /*  f0fd368:	01e00008 */ 	jr	$t7
 /*  f0fd36c:	00000000 */ 	nop
-/*  f0fd370:	3c048007 */ 	lui	$a0,%hi(menudialog_damagedcontrollerpak)
-/*  f0fd374:	2484176c */ 	addiu	$a0,$a0,%lo(menudialog_damagedcontrollerpak)
+/*  f0fd370:	3c048007 */ 	lui	$a0,%hi(g_PakDamagedMenuDialog)
+/*  f0fd374:	2484176c */ 	addiu	$a0,$a0,%lo(g_PakDamagedMenuDialog)
 /*  f0fd378:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*  f0fd37c:	0fc3f3a3 */ 	jal	func0f0fce8c
 /*  f0fd380:	8fa60020 */ 	lw	$a2,0x20($sp)
@@ -13888,22 +13888,22 @@ glabel var7f1b2b10
 /*  f0fd428:	24630018 */ 	addiu	$v1,$v1,0x18
 .L0f0fd42c:
 /*  f0fd42c:	14e00013 */ 	bnez	$a3,.L0f0fd47c
-/*  f0fd430:	3c048007 */ 	lui	$a0,%hi(menudialog_fullcontrollerpak)
-/*  f0fd434:	24841810 */ 	addiu	$a0,$a0,%lo(menudialog_fullcontrollerpak)
+/*  f0fd430:	3c048007 */ 	lui	$a0,%hi(g_PakFullMenuDialog)
+/*  f0fd434:	24841810 */ 	addiu	$a0,$a0,%lo(g_PakFullMenuDialog)
 /*  f0fd438:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*  f0fd43c:	0fc3f3a3 */ 	jal	func0f0fce8c
 /*  f0fd440:	8fa60020 */ 	lw	$a2,0x20($sp)
 /*  f0fd444:	1000000e */ 	b	.L0f0fd480
 /*  f0fd448:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0fd44c:	3c048007 */ 	lui	$a0,%hi(menudialog_cannotreadgameboy)
-/*  f0fd450:	24841878 */ 	addiu	$a0,$a0,%lo(menudialog_cannotreadgameboy)
+/*  f0fd44c:	3c048007 */ 	lui	$a0,%hi(g_PakCannotReadGameBoyMenuDialog)
+/*  f0fd450:	24841878 */ 	addiu	$a0,$a0,%lo(g_PakCannotReadGameBoyMenuDialog)
 /*  f0fd454:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*  f0fd458:	0fc3f3a3 */ 	jal	func0f0fce8c
 /*  f0fd45c:	8fa60020 */ 	lw	$a2,0x20($sp)
 /*  f0fd460:	10000007 */ 	b	.L0f0fd480
 /*  f0fd464:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0fd468:	3c048007 */ 	lui	$a0,%hi(menudialog_datalost)
-/*  f0fd46c:	2484191c */ 	addiu	$a0,$a0,%lo(menudialog_datalost)
+/*  f0fd468:	3c048007 */ 	lui	$a0,%hi(g_PakDataLostMenuDialog)
+/*  f0fd46c:	2484191c */ 	addiu	$a0,$a0,%lo(g_PakDataLostMenuDialog)
 /*  f0fd470:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*  f0fd474:	0fc3f3a3 */ 	jal	func0f0fce8c
 /*  f0fd478:	8fa60020 */ 	lw	$a2,0x20($sp)
@@ -14013,7 +14013,7 @@ struct chrdata *currentPlayerGetCommandingAibot(void)
 	return g_Vars.currentplayer->commandingaibot;
 }
 
-struct menuitem menuitems_damagedcontrollerpak[] = {
+struct menuitem g_PakDamagedMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(65), 0x00000000, NULL }, // "is damaged or"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(66), 0x00000000, NULL }, // "inserted incorrectly"
@@ -14024,16 +14024,16 @@ struct menuitem menuitems_damagedcontrollerpak[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_damagedcontrollerpak = {
+struct menudialog g_PakDamagedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(64), // "Damaged Controller Pak"
-	menuitems_damagedcontrollerpak,
+	g_PakDamagedMenuItems,
 	menudialog000fcd48,
 	0x00000020,
 	NULL,
 };
 
-struct menuitem menuitems_fullcontrollerpak[] = {
+struct menuitem g_PakFullMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS(71), 0x00000000, NULL }, // "is too full to save note - 1 note and 28 pages required to save"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000220, L_OPTIONS(3), 0x00000000, NULL }, // ""
@@ -14043,32 +14043,32 @@ struct menuitem menuitems_fullcontrollerpak[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_fullcontrollerpak = {
+struct menudialog g_PakFullMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(70), // "Full Controller Pak"
-	menuitems_fullcontrollerpak,
+	g_PakFullMenuItems,
 	menudialog000fcd48,
 	0x00000020,
 	NULL,
 };
 
-struct menuitem menuitems_cannotreadgameboy[] = {
+struct menuitem g_PakCannotReadGameBoyMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(254), 0x00000000, NULL }, // "Cannot read Game Boy Game Pak. Check connections and make sure correct Game Boy Game Pak is being used."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS(255), 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_cannotreadgameboy = {
+struct menudialog g_PakCannotReadGameBoyMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(253), // "Error"
-	menuitems_cannotreadgameboy,
+	g_PakCannotReadGameBoyMenuItems,
 	NULL,
 	0x00000020,
 	NULL,
 };
 
-struct menuitem menuitems_datalost[] = {
+struct menuitem g_PakDataLostMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(257), 0x00000000, NULL }, // "The saved data has"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(258), 0x00000000, NULL }, // "been erased due to"
@@ -14078,10 +14078,10 @@ struct menuitem menuitems_datalost[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_datalost = {
+struct menudialog g_PakDataLostMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(256), // "Error"
-	menuitems_datalost,
+	g_PakDataLostMenuItems,
 	NULL,
 	0x00000020,
 	NULL,

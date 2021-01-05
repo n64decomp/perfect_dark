@@ -2506,7 +2506,7 @@ glabel var7f1b94e4
 /*  f19faec:	3c048009 */ 	lui	$a0,%hi(var80095200)
 /*  f19faf0:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f19faf4:	11e10023 */ 	beq	$t7,$at,.L0f19fb84
-/*  f19faf8:	3c048009 */ 	lui	$a0,%hi(menudialog_frtraininginfo2)
+/*  f19faf8:	3c048009 */ 	lui	$a0,%hi(g_FrTrainingInfoPreGameMenuDialog)
 /*  f19fafc:	1000037d */ 	b	.L0f1a08f4
 /*  f19fb00:	8fbf007c */ 	lw	$ra,0x7c($sp)
 .L0f19fb04:
@@ -2518,7 +2518,7 @@ glabel var7f1b94e4
 /*  f19fb18:	10000376 */ 	b	.L0f1a08f4
 /*  f19fb1c:	8fbf007c */ 	lw	$ra,0x7c($sp)
 .L0f19fb20:
-/*  f19fb20:	24848f60 */ 	addiu	$a0,$a0,%lo(menudialog_frtraininginfo2)
+/*  f19fb20:	24848f60 */ 	addiu	$a0,$a0,%lo(g_FrTrainingInfoPreGameMenuDialog)
 /*  f19fb24:	0fc3e178 */ 	jal	func0f0f85e0
 /*  f19fb28:	2405000d */ 	addiu	$a1,$zero,0xd
 /*  f19fb2c:	10000371 */ 	b	.L0f1a08f4
@@ -2538,8 +2538,8 @@ glabel var7f1b94e4
 /*  f19fb60:	2407ffff */ 	addiu	$a3,$zero,-1
 /*  f19fb64:	0c004241 */ 	jal	audioStart
 /*  f19fb68:	e7b80014 */ 	swc1	$f24,0x14($sp)
-/*  f19fb6c:	3c048009 */ 	lui	$a0,%hi(g_MenuDialogFrTrainingStatsFailed)
-/*  f19fb70:	24849198 */ 	addiu	$a0,$a0,%lo(g_MenuDialogFrTrainingStatsFailed)
+/*  f19fb6c:	3c048009 */ 	lui	$a0,%hi(g_FrFailedMenuDialog)
+/*  f19fb70:	24849198 */ 	addiu	$a0,$a0,%lo(g_FrFailedMenuDialog)
 /*  f19fb74:	0fc3e178 */ 	jal	func0f0f85e0
 /*  f19fb78:	2405000d */ 	addiu	$a1,$zero,0xd
 /*  f19fb7c:	1000035d */ 	b	.L0f1a08f4
@@ -2559,8 +2559,8 @@ glabel var7f1b94e4
 /*  f19fbb0:	2407ffff */ 	addiu	$a3,$zero,-1
 /*  f19fbb4:	0c004241 */ 	jal	audioStart
 /*  f19fbb8:	e7b80014 */ 	swc1	$f24,0x14($sp)
-/*  f19fbbc:	3c048009 */ 	lui	$a0,%hi(g_MenuDialogFrTrainingStatsCompleted)
-/*  f19fbc0:	2484907c */ 	addiu	$a0,$a0,%lo(g_MenuDialogFrTrainingStatsCompleted)
+/*  f19fbbc:	3c048009 */ 	lui	$a0,%hi(g_FrCompletedMenuDialog)
+/*  f19fbc0:	2484907c */ 	addiu	$a0,$a0,%lo(g_FrCompletedMenuDialog)
 /*  f19fbc4:	0fc3e178 */ 	jal	func0f0f85e0
 /*  f19fbc8:	2405000d */ 	addiu	$a1,$zero,0xd
 /*  f19fbcc:	3c04800a */ 	lui	$a0,%hi(g_FilemgrLoadedMainFile)
@@ -3563,15 +3563,15 @@ glabel var7f1b94e4
 //				func0f0f85e0(ciGetFrWeaponListMenuDialog(), MENUROOT_TRAINING);
 //				break;
 //			case FRMENUTYPE_DETAILS:
-//				func0f0f85e0(&menudialog_frtraininginfo2, MENUROOT_TRAINING);
+//				func0f0f85e0(&g_FrTrainingInfoPreGameMenuDialog, MENUROOT_TRAINING);
 //				break;
 //			case FRMENUTYPE_FAILED:
 //				audioStart(var80095200, 0x5db, NULL, -1, -1, -1, -1, -1);
-//				func0f0f85e0(&g_MenuDialogFrTrainingStatsFailed, MENUROOT_TRAINING);
+//				func0f0f85e0(&g_FrFailedMenuDialog, MENUROOT_TRAINING);
 //				break;
 //			case FRMENUTYPE_COMPLETED:
 //				audioStart(var80095200, 0x5dc, NULL, -1, -1, -1, -1, -1);
-//				func0f0f85e0(&g_MenuDialogFrTrainingStatsCompleted, MENUROOT_TRAINING);
+//				func0f0f85e0(&g_FrCompletedMenuDialog, MENUROOT_TRAINING);
 //				func0f1094e4(&g_FilemgrLoadedMainFile, 0, 0);
 //				break;
 //			}
@@ -4699,9 +4699,9 @@ void dtRestorePlayer(void)
 void dtPushEndscreen(void)
 {
 	if (g_DtData.completed) {
-		func0f0f85e0(&g_DeviceTrainingStatsCompletedMenuDialog, MENUROOT_TRAINING);
+		func0f0f85e0(&g_DtCompletedMenuDialog, MENUROOT_TRAINING);
 	} else if (g_DtData.failed) {
-		func0f0f85e0(&g_DeviceTrainingStatsFailedMenuDialog, MENUROOT_TRAINING);
+		func0f0f85e0(&g_DtFailedMenuDialog, MENUROOT_TRAINING);
 	}
 
 	g_DtData.timeleft = 0;
@@ -4945,9 +4945,9 @@ struct trainingdata *getHoloTrainingData(void)
 void htPushEndscreen(void)
 {
 	if (g_HoloTrainingData.completed) {
-		func0f0f85e0(&g_HoloTrainingStatsCompletedMenuDialog, MENUROOT_TRAINING);
+		func0f0f85e0(&g_HtCompletedMenuDialog, MENUROOT_TRAINING);
 	} else if (g_HoloTrainingData.failed) {
-		func0f0f85e0(&g_HoloTrainingStatsFailedMenuDialog, MENUROOT_TRAINING);
+		func0f0f85e0(&g_HtFailedMenuDialog, MENUROOT_TRAINING);
 	}
 
 	g_HoloTrainingData.timeleft = 0;

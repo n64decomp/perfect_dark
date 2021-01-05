@@ -708,17 +708,17 @@ char *cheatGetName(s32 cheat_id)
 	return langGet(g_Cheats[cheat_id].nametextid);
 }
 
-struct menuitem g_CheatWarningMenuItems[] = {
+struct menuitem g_CheatsWarningMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(479), 0x00000000, NULL }, // "If you activate any cheats, then you will be unable to progress further in the game while those cheats are active."
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU(480), 0x00000000, NULL }, // "OK"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU(481), 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_CheatWarningMenuDialog = {
+struct menudialog g_CheatsWarningMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPMENU(478), // "Warning"
-	g_CheatWarningMenuItems,
+	g_CheatsWarningMenuItems,
 	NULL,
 	0x00000000,
 	NULL,

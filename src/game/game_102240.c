@@ -629,15 +629,15 @@ s32 menudialogBriefing(u32 operation, struct menudialog *dialog, union handlerda
 	return 0;
 }
 
-struct menuitem menuitems_briefing[] = {
+struct menuitem g_PreAndPostMissionBriefingMenuItems[] = {
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_BRIEFING, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_briefing = {
+struct menudialog g_PreAndPostMissionBriefingMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(247), // "Briefing"
-	menuitems_briefing,
+	g_PreAndPostMissionBriefingMenuItems,
 	menudialogBriefing,
 	0x00000008,
 	NULL,
@@ -727,20 +727,20 @@ s32 menudialog00103608(u32 operation, struct menudialog *dialog, union handlerda
 	return 0;
 }
 
-struct menuitem menuitems_objectives[] = {
+struct menuitem g_AcceptMissionMenuItems[] = {
 	{ MENUITEMTYPE_OBJECTIVES,  1, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(274), 0x00000000, menuhandlerAcceptMission }, // "Accept"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_OPTIONS(275), 0x00000000, NULL }, // "Decline"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_ObjectivesMenuDialog = {
+struct menudialog g_AcceptMissionMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&soloMenuTitleStageOverview,
-	menuitems_objectives,
+	g_AcceptMissionMenuItems,
 	menudialog00103608,
 	0x0000000c,
-	&menudialog_briefing,
+	&g_PreAndPostMissionBriefingMenuDialog,
 };
 
 f32 func0f1036ac(u8 value, s32 prop)
@@ -795,13 +795,13 @@ s32 menuhandlerAcceptPdModeSettings(u32 operation, struct menuitem *item, union 
 		coreSetDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
 		menuPopDialog();
-		menuPushDialog(&g_ObjectivesMenuDialog);
+		menuPushDialog(&g_AcceptMissionMenuDialog);
 	}
 
 	return 0;
 }
 
-struct menuitem menuitems_perfectdarkmodesettings[] = {
+struct menuitem g_PdModeSettingsMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000012, L_MPWEAPONS(222), 0x00000000, NULL }, // "Choose Settings:"
 	{ MENUITEMTYPE_SLIDER,      1, 0x00100000, L_MPWEAPONS(224), 0x000000ff, menuhandlerPdModeSetting }, // "Enemy Health"
 	{ MENUITEMTYPE_SLIDER,      2, 0x00100000, L_MPWEAPONS(225), 0x000000ff, menuhandlerPdModeSetting }, // "Enemy Damage"
@@ -812,10 +812,10 @@ struct menuitem menuitems_perfectdarkmodesettings[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_PdModeSettingsDialog = {
+struct menudialog g_PdModeSettingsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS(221), // "Perfect Dark"
-	menuitems_perfectdarkmodesettings,
+	g_PdModeSettingsMenuItems,
 	NULL,
 	0x00000004,
 	NULL,
@@ -1139,7 +1139,7 @@ s32 menuhandlerSoloDifficulty(u32 operation, struct menuitem *item, union handle
 		g_MissionConfig.difficulty = item->param;
 		coreSetDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
-		menuPushDialog(&g_ObjectivesMenuDialog);
+		menuPushDialog(&g_AcceptMissionMenuDialog);
 		break;
 	case MENUOP_CHECKDISABLED:
 		if (!isStageDifficultyUnlocked(g_MissionConfig.stageindex, item->param)) {
@@ -1154,7 +1154,7 @@ s32 menuhandlerPdMode(u32 operation, struct menuitem *item, union handlerdata *d
 {
 	switch (operation) {
 	case MENUOP_SET:
-		menuPushDialog(&g_PdModeSettingsDialog);
+		menuPushDialog(&g_PdModeSettingsMenuDialog);
 		break;
 	case MENUOP_CHECKHIDDEN:
 		if (g_SoloSaveFile.besttimes[SOLOSTAGEINDEX_SKEDARRUINS][DIFF_PA] == 0) {
@@ -1189,7 +1189,7 @@ char *soloMenuTextBestTime(struct menuitem *item)
 	return g_StringPointer;
 }
 
-struct menuitem menuitems_selectdifficulty[] = {
+struct menuitem g_SoloMissionDifficultyMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000012, L_OPTIONS(249), L_OPTIONS(250), NULL }, // "Difficulty"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(251), (u32)&soloMenuTextBestTime, menuhandlerSoloDifficulty }, // "Agent"
 	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, L_OPTIONS(252), (u32)&soloMenuTextBestTime, menuhandlerSoloDifficulty }, // "Special Agent"
@@ -1200,10 +1200,10 @@ struct menuitem menuitems_selectdifficulty[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_selectdifficulty = {
+struct menudialog g_SoloMissionDifficultyMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(248), // "Select Difficulty"
-	menuitems_selectdifficulty,
+	g_SoloMissionDifficultyMenuItems,
 	NULL,
 	0x00000004,
 	NULL,
@@ -1217,7 +1217,7 @@ s32 menuhandlerBuddyOptionsContinue(u32 operation, struct menuitem *item, union 
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
-		menuPushDialog(&g_ObjectivesMenuDialog);
+		menuPushDialog(&g_AcceptMissionMenuDialog);
 	}
 
 	if (operation == MENUOP_CHECKPREFOCUSED) {
@@ -1417,7 +1417,7 @@ glabel menuhandlerCoopBuddy
 /*  f10441c:	00000000 */ 	nop
 );
 
-struct menuitem menuitems_cooperativeoptions[] = {
+struct menuitem g_CoopOptionsMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(256), 0x00000000, menuhandlerCoopRadar }, // "Radar On"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(257), 0x00000000, menuhandlerCoopFriendlyFire }, // "Friendly Fire"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS(258), 0x00000000, menuhandlerCoopBuddy }, // "Perfect Buddy"
@@ -1430,7 +1430,7 @@ struct menuitem menuitems_cooperativeoptions[] = {
 struct menudialog g_CoopOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(255), // "Co-Operative Options"
-	menuitems_cooperativeoptions,
+	g_CoopOptionsMenuItems,
 	menudialogCoopAntiOptions,
 	0x00000004,
 	NULL,
@@ -1471,7 +1471,7 @@ s32 menuhandlerAntiPlayer(u32 operation, struct menuitem *item, union handlerdat
 	return 0;
 }
 
-struct menuitem menuitems_counteroperativeoptions[] = {
+struct menuitem g_AntiOptionsMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(267), 0x00000000, menuhandlerAntiRadar }, // "Radar On"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS(268), 0x00000000, menuhandlerAntiPlayer }, // "Counter-Operative"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -1483,7 +1483,7 @@ struct menuitem menuitems_counteroperativeoptions[] = {
 struct menudialog g_AntiOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(266), // "Counter-Operative Options"
-	menuitems_counteroperativeoptions,
+	g_AntiOptionsMenuItems,
 	menudialogCoopAntiOptions,
 	0x00000004,
 	NULL,
@@ -1510,7 +1510,7 @@ s32 menuhandlerCoopDifficulty(u32 operation, struct menuitem *item, union handle
 	return 0;
 }
 
-struct menuitem menuitems_selectdifficulty2[] = {
+struct menuitem g_CoopMissionDifficultyMenuItems[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(251), 0x00000000, menuhandlerCoopDifficulty }, // "Agent"
 	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, L_OPTIONS(252), 0x00000000, menuhandlerCoopDifficulty }, // "Special Agent"
 	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, L_OPTIONS(253), 0x00000000, menuhandlerCoopDifficulty }, // "Perfect Agent"
@@ -1519,10 +1519,10 @@ struct menuitem menuitems_selectdifficulty2[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_selectdifficulty2 = {
+struct menudialog g_CoopMissionDifficultyMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(248), // "Select Difficulty"
-	menuitems_selectdifficulty2,
+	g_CoopMissionDifficultyMenuItems,
 	NULL,
 	0x00000004,
 	NULL,
@@ -1542,7 +1542,7 @@ s32 menuhandlerAntiDifficulty(u32 operation, struct menuitem *item, union handle
 	return 0;
 }
 
-struct menuitem menuitems_selectdifficulty3[] = {
+struct menuitem g_AntiMissionDifficultyMenuItems[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(251), 0x00000000, menuhandlerAntiDifficulty }, // "Agent"
 	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, L_OPTIONS(252), 0x00000000, menuhandlerAntiDifficulty }, // "Special Agent"
 	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, L_OPTIONS(253), 0x00000000, menuhandlerAntiDifficulty }, // "Perfect Agent"
@@ -1551,10 +1551,10 @@ struct menuitem menuitems_selectdifficulty3[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_selectdifficulty3 = {
+struct menudialog g_AntiMissionDifficultyMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(248), // "Select Difficulty"
-	menuitems_selectdifficulty3,
+	g_AntiMissionDifficultyMenuItems,
 	NULL,
 	0x00000004,
 	NULL,
@@ -1858,25 +1858,25 @@ glabel var7f1b2dfc
 /*  f1049bc:	a1070002 */ 	sb	$a3,0x2($t0)
 /*  f1049c0:	05e10006 */ 	bgez	$t7,.L0f1049dc
 /*  f1049c4:	a1180001 */ 	sb	$t8,0x1($t0)
-/*  f1049c8:	3c048007 */ 	lui	$a0,%hi(menudialog_selectdifficulty2)
+/*  f1049c8:	3c048007 */ 	lui	$a0,%hi(g_CoopMissionDifficultyMenuDialog)
 /*  f1049cc:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1049d0:	24841dc4 */ 	addiu	$a0,$a0,%lo(menudialog_selectdifficulty2)
+/*  f1049d0:	24841dc4 */ 	addiu	$a0,$a0,%lo(g_CoopMissionDifficultyMenuDialog)
 /*  f1049d4:	100002ec */ 	b	.L0f105588
 /*  f1049d8:	00001025 */ 	or	$v0,$zero,$zero
 .L0f1049dc:
 /*  f1049dc:	8d0e0000 */ 	lw	$t6,0x0($t0)
-/*  f1049e0:	3c048007 */ 	lui	$a0,%hi(menudialog_selectdifficulty)
+/*  f1049e0:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionDifficultyMenuDialog)
 /*  f1049e4:	000ece40 */ 	sll	$t9,$t6,0x19
 /*  f1049e8:	07210006 */ 	bgez	$t9,.L0f104a04
 /*  f1049ec:	00000000 */ 	nop
-/*  f1049f0:	3c048007 */ 	lui	$a0,%hi(menudialog_selectdifficulty3)
+/*  f1049f0:	3c048007 */ 	lui	$a0,%hi(g_AntiMissionDifficultyMenuDialog)
 /*  f1049f4:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1049f8:	24841e54 */ 	addiu	$a0,$a0,%lo(menudialog_selectdifficulty3)
+/*  f1049f8:	24841e54 */ 	addiu	$a0,$a0,%lo(g_AntiMissionDifficultyMenuDialog)
 /*  f1049fc:	100002e2 */ 	b	.L0f105588
 /*  f104a00:	00001025 */ 	or	$v0,$zero,$zero
 .L0f104a04:
 /*  f104a04:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f104a08:	24841c00 */ 	addiu	$a0,$a0,%lo(menudialog_selectdifficulty)
+/*  f104a08:	24841c00 */ 	addiu	$a0,$a0,%lo(g_SoloMissionDifficultyMenuDialog)
 /*  f104a0c:	100002de */ 	b	.L0f105588
 /*  f104a10:	00001025 */ 	or	$v0,$zero,$zero
 /*  f104a14:	3c0f000f */ 	lui	$t7,0xf
@@ -2669,38 +2669,38 @@ s32 menudialog0010559c(u32 operation, struct menudialog *dialog, union handlerda
 	return 0;
 }
 
-struct menuitem menuitems_17fd8[] = {
+struct menuitem g_MissionBriefingMenuItems[] = {
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_BRIEFING, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menuitem menuitems_18000[] = {
+struct menuitem g_2PMissionBreifingVMenuItems[] = {
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_BRIEFING, 0x00000000, 0x00000078, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_18028 = {
+struct menudialog g_SoloMissionBriefingMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(247), // "Briefing"
-	menuitems_17fd8,
+	g_MissionBriefingMenuItems,
 	NULL,
 	0x00000008,
 	NULL,
 };
 
-struct menudialog menudialog_18040 = {
+struct menudialog g_2PMissionBriefingHMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(247), // "Briefing"
-	menuitems_17fd8,
+	g_MissionBriefingMenuItems,
 	NULL,
 	0x00000008,
 	NULL,
 };
 
-struct menudialog menudialog_18058 = {
+struct menudialog g_2PMissionBriefingVMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(247), // "Briefing"
-	menuitems_18000,
+	g_2PMissionBreifingVMenuItems,
 	NULL,
 	0x00000008,
 	NULL,
@@ -2741,9 +2741,9 @@ s32 menuhandlerControlStyle(u32 operation, struct menuitem *item, union handlerd
 {
 	if (operation == MENUOP_SET) {
 		if (PLAYERCOUNT() >= 2) {
-			menuPushDialog(&g_ControlStyleMultiMenuDialog);
+			menuPushDialog(&g_2PMissionControlStyleMenuDialog);
 		} else {
-			menuPushDialog(&g_ControlStyleSingleMenuDialog);
+			menuPushDialog(&g_SoloMissionControlStyleMenuDialog);
 		}
 	}
 
@@ -2768,66 +2768,66 @@ s32 menuhandlerChangeAgent(u32 operation, struct menuitem *item, union handlerda
 	return 0;
 }
 
-struct menuitem menuitems_control[] = {
+struct menuitem g_2PMissionControlStyleMenuItems[] = {
 	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000050, 0x00000000, menuhandler001024dc },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_ControlStyleMultiMenuDialog = {
+struct menudialog g_2PMissionControlStyleMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(236), // "Control"
-	menuitems_control,
+	g_2PMissionControlStyleMenuItems,
 	NULL,
 	0x00000400,
 	NULL,
 };
 
-struct menuitem menuitems_control2[] = {
+struct menuitem g_SoloMissionControlStyleMenuItems[] = {
 	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0x00000096, menuhandler001024dc },
 	{ MENUITEMTYPE_CONTROLLER,  0, 0x00000001, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_ControlStyleSingleMenuDialog = {
+struct menudialog g_SoloMissionControlStyleMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(236), // "Control"
-	menuitems_control2,
+	g_SoloMissionControlStyleMenuItems,
 	NULL,
 	0x00000400,
 	NULL,
 };
 
-struct menuitem menuitems_control3[] = {
+struct menuitem g_CiControlStyleMenuItems[] = {
 	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0x00000096, menuhandler001024dc },
 	{ MENUITEMTYPE_CONTROLLER,  0, 0x00000001, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_control3 = {
+struct menudialog g_CiControlStyleMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(236), // "Control"
-	menuitems_control3,
+	g_CiControlStyleMenuItems,
 	NULL,
 	0x00000400,
 	NULL,
 };
 
-struct menuitem menuitems_control4[] = {
+struct menuitem g_CiControlStylePlayer2MenuItems[] = {
 	{ MENUITEMTYPE_LIST,        0, 0x00800000, 0x00000028, 0x00000096, menuhandler001024fc },
 	{ MENUITEMTYPE_CONTROLLER,  0, 0x00000001, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_control4 = {
+struct menudialog g_CiControlStylePlayer2MenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(236), // "Control"
-	menuitems_control4,
+	g_CiControlStylePlayer2MenuItems,
 	NULL,
 	0x00000400,
 	NULL,
 };
 
-struct menuitem menuitems_audiooptions[] = {
+struct menuitem g_AudioOptionsMenuItems[] = {
 	{ MENUITEMTYPE_SLIDER,      0, 0x00002800, L_OPTIONS(228), L_MPMENU(0), menuhandlerSfxVolume }, // "Sound"
 	{ MENUITEMTYPE_SLIDER,      0, 0x00002800, L_OPTIONS(229), L_MPMENU(0), menuhandlerMusicVolume }, // "Music"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS(230), 0x00000000, menuhandlerSoundMode }, // "Sound Mode"
@@ -2837,16 +2837,16 @@ struct menuitem menuitems_audiooptions[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_audiooptions = {
+struct menudialog g_AudioOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(227), // "Audio Options"
-	menuitems_audiooptions,
+	g_AudioOptionsMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem menuitems_audiooptions2[] = {
+struct menuitem g_2PMissionAudioOptionsVMenuItems[] = {
 	{ MENUITEMTYPE_SLIDER,      0, 0x00102800, L_OPTIONS(228), L_MPMENU(0), menuhandlerSfxVolume }, // "Sound"
 	{ MENUITEMTYPE_SLIDER,      0, 0x00102800, L_OPTIONS(229), L_MPMENU(0), menuhandlerMusicVolume }, // "Music"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MPWEAPONS(153), 0x00000000, menuhandlerSoundMode }, // "Mode"
@@ -2856,16 +2856,16 @@ struct menuitem menuitems_audiooptions2[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_audiooptionsshort = {
+struct menudialog g_2PMissionAudioOptionsVMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(227), // "Audio Options"
-	menuitems_audiooptions2,
+	g_2PMissionAudioOptionsVMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem menuitems_videooptions[] = {
+struct menuitem g_VideoOptionsMenuItems[] = {
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS(215), 0x00000000, menuhandlerScreenSize }, // "Screen Size"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS(216), 0x00000000, menuhandlerScreenRatio }, // "Ratio"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(217), 0x00000000, menuhandlerHiRes }, // "Hi-Res"
@@ -2876,7 +2876,7 @@ struct menuitem menuitems_videooptions[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menuitem menuitems_videooptionsshort[] = {
+struct menuitem g_2PMissionVideoOptionsMenuItems[] = {
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS(216), 0x00000000, menuhandlerScreenRatio }, // "Ratio"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(217), 0x00000000, menuhandlerHiRes }, // "Hi-Res"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MPWEAPONS(154), 0x00000000, menuhandlerScreenSplit }, // "Split"
@@ -2885,25 +2885,25 @@ struct menuitem menuitems_videooptionsshort[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_videooptions = {
+struct menudialog g_VideoOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(214), // "Video Options"
-	menuitems_videooptions,
+	g_VideoOptionsMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
-struct menudialog menudialog_videooptionsshort = {
+struct menudialog g_2PMissionVideoOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(214), // "Video Options"
-	menuitems_videooptionsshort,
+	g_2PMissionVideoOptionsMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem menuitems_displayoptions[] = {
+struct menuitem g_MissionDisplayOptionsMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(205), 0x00000004, menuhandlerSightOnScreen }, // "Sight on Screen"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(206), 0x00000004, menuhandlerAlwaysShowTarget }, // "Always Show Target"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(207), 0x00000004, menuhandlerShowZoomRange }, // "Show Zoom Range"
@@ -2918,16 +2918,16 @@ struct menuitem menuitems_displayoptions[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_displayoptions = {
+struct menudialog g_MissionDisplayOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(203), // "Display Options"
-	menuitems_displayoptions,
+	g_MissionDisplayOptionsMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem menuitems_displayoptionsshort[] = {
+struct menuitem g_2PMissionDisplayOptionsVMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS(145), 0x00000004, menuhandlerSightOnScreen }, // "Sight on Screen"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS(146), 0x00000004, menuhandlerAlwaysShowTarget }, // "Target"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS(147), 0x00000004, menuhandlerShowZoomRange }, // "Zoom Range"
@@ -2942,16 +2942,16 @@ struct menuitem menuitems_displayoptionsshort[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_displayoptionsshort = {
+struct menudialog g_2PMissionDisplayOptionsVMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(203), // "Display Options"
-	menuitems_displayoptionsshort,
+	g_2PMissionDisplayOptionsVMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem menuitems_displayoptions_2pplayer1[] = {
+struct menuitem g_CiDisplayMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(205), 0x00000004, menuhandlerSightOnScreen }, // "Sight on Screen"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(206), 0x00000004, menuhandlerAlwaysShowTarget }, // "Always Show Target"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(207), 0x00000004, menuhandlerShowZoomRange }, // "Show Zoom Range"
@@ -2966,18 +2966,18 @@ struct menuitem menuitems_displayoptions_2pplayer1[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_displayplayer2;
+struct menudialog g_CiDisplayPlayer2MenuDialog;
 
-struct menudialog menudialog_displayoptions_2pplayer1 = {
+struct menudialog g_CiDisplayMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(203), // "Display Options"
-	menuitems_displayoptions_2pplayer1,
+	g_CiDisplayMenuItems,
 	NULL,
 	0x00000000,
-	&menudialog_displayplayer2,
+	&g_CiDisplayPlayer2MenuDialog,
 };
 
-struct menuitem menuitems_displayplayer2[] = {
+struct menuitem g_CiDisplayPlayer2MenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056cd, 0x00000005, menuhandlerSightOnScreen },
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056ce, 0x00000005, menuhandlerAlwaysShowTarget },
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056cf, 0x00000005, menuhandlerShowZoomRange },
@@ -2992,16 +2992,16 @@ struct menuitem menuitems_displayplayer2[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_displayplayer2 = {
+struct menudialog g_CiDisplayPlayer2MenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(204), // "Display Player 2"
-	menuitems_displayplayer2,
+	g_CiDisplayPlayer2MenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem menuitems_controloptions[] = {
+struct menuitem g_MissionControlOptionsMenuItems[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(194), (u32)&func0f105664, menuhandlerControlStyle }, // "Control Style"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(195), 0x00000004, menuhandlerReversePitch }, // "Reverse Pitch"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(196), 0x00000004, menuhandlerLookAhead }, // "Look Ahead"
@@ -3013,17 +3013,17 @@ struct menuitem menuitems_controloptions[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_controloptions = {
+struct menudialog g_MissionControlOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(192), // "Control Options"
-	menuitems_controloptions,
+	g_MissionControlOptionsMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem menuitems_18928[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(194), (u32)&func0f105664, (void *)&menudialog_control3 }, // "Control Style"
+struct menuitem g_CiControlOptionsMenuItems[] = {
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(194), (u32)&func0f105664, (void *)&g_CiControlStyleMenuDialog }, // "Control Style"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(195), 0x00000004, menuhandlerReversePitch }, // "Reverse Pitch"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(196), 0x00000004, menuhandlerLookAhead }, // "Look Ahead"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_OPTIONS(197), 0x00000004, menuhandlerHeadRoll }, // "Head Roll"
@@ -3034,17 +3034,17 @@ struct menuitem menuitems_18928[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_189dc = {
+struct menudialog g_CiControlOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(192), // "Control Options"
-	menuitems_18928,
+	g_CiControlOptionsMenuItems,
 	NULL,
 	0x00000000,
-	&menudialog_18aa8,
+	&g_CiControlPlayer2MenuDialog,
 };
 
-struct menuitem menuitems_189f4[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056c2, (u32)&func0f1056a0, (void *)&menudialog_control4 },
+struct menuitem g_CiControlPlayer2MenuItems[] = {
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056c2, (u32)&func0f1056a0, (void *)&g_CiControlStylePlayer2MenuDialog },
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c3, 0x00000005, menuhandlerReversePitch },
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c4, 0x00000005, menuhandlerLookAhead },
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c5, 0x00000005, menuhandlerHeadRoll },
@@ -3055,112 +3055,112 @@ struct menuitem menuitems_189f4[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_18aa8 = {
+struct menudialog g_CiControlPlayer2MenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(193), // "Control Player 2"
-	menuitems_189f4,
+	g_CiControlPlayer2MenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem menuitems_changeagent[] = {
+struct menuitem g_ChangeAgentMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000012, L_OPTIONS(189), 0x00000000, NULL }, // "Do you want to load another agent?"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(190), 0x00000000, menuhandlerChangeAgent }, // "Yes"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_OPTIONS(191), 0x00000000, NULL }, // "No"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_changeagent = {
+struct menudialog g_ChangeAgentMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(188), // "Warning"
-	menuitems_changeagent,
+	g_ChangeAgentMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem menuitems_18b28[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(181), 0x00000000, (void *)&menudialog_audiooptions }, // "Audio"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(182), 0x00000000, (void *)&menudialog_videooptions }, // "Video"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(183), 0x00000000, (void *)&menudialog_controloptions }, // "Control"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(184), 0x00000000, (void *)&menudialog_displayoptions }, // "Display"
+struct menuitem g_SoloMissionOptionsMenuItems[] = {
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(181), 0x00000000, (void *)&g_AudioOptionsMenuDialog }, // "Audio"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(182), 0x00000000, (void *)&g_VideoOptionsMenuDialog }, // "Video"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(183), 0x00000000, (void *)&g_MissionControlOptionsMenuDialog }, // "Control"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(184), 0x00000000, (void *)&g_MissionDisplayOptionsMenuDialog }, // "Display"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menuitem menuitems_18b8c[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(181), 0x00000000, (void *)&menudialog_audiooptions }, // "Audio"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(182), 0x00000000, (void *)&menudialog_videooptionsshort }, // "Video"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(183), 0x00000000, (void *)&menudialog_controloptions }, // "Control"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(184), 0x00000000, (void *)&menudialog_displayoptions }, // "Display"
+struct menuitem g_2PMissionOptionsHMenuItems[] = {
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(181), 0x00000000, (void *)&g_AudioOptionsMenuDialog }, // "Audio"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(182), 0x00000000, (void *)&g_2PMissionVideoOptionsMenuDialog }, // "Video"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(183), 0x00000000, (void *)&g_MissionControlOptionsMenuDialog }, // "Control"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(184), 0x00000000, (void *)&g_MissionDisplayOptionsMenuDialog }, // "Display"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000064, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, (u32)&menutextPauseOrUnpause, 0x00000000, menuhandlerMpPause },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menuitem menuitems_18c18[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(181), 0x00000000, (void *)&menudialog_audiooptionsshort }, // "Audio"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(182), 0x00000000, (void *)&menudialog_videooptionsshort }, // "Video"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(183), 0x00000000, (void *)&menudialog_controloptions }, // "Control"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(184), 0x00000000, (void *)&menudialog_displayoptionsshort }, // "Display"
+struct menuitem g_2PMissionOptionsVMenuItems[] = {
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(181), 0x00000000, (void *)&g_2PMissionAudioOptionsVMenuDialog }, // "Audio"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(182), 0x00000000, (void *)&g_2PMissionVideoOptionsMenuDialog }, // "Video"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(183), 0x00000000, (void *)&g_MissionControlOptionsMenuDialog }, // "Control"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(184), 0x00000000, (void *)&g_2PMissionDisplayOptionsVMenuDialog }, // "Display"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000064, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, (u32)&menutextPauseOrUnpause, 0x00000000, menuhandlerMpPause },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menuitem menuitems_18ca4[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b5, 0x00000001, (void *)&menudialog_audiooptions },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b6, 0x00000002, (void *)&menudialog_videooptions },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b7, 0x00000003, (void *)&menudialog_189dc },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b8, 0x00000004, (void *)&menudialog_displayoptions_2pplayer1 },
+struct menuitem g_CiOptionsMenuItems[] = {
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b5, 0x00000001, (void *)&g_AudioOptionsMenuDialog },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b6, 0x00000002, (void *)&g_VideoOptionsMenuDialog },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b7, 0x00000003, (void *)&g_CiControlOptionsMenuDialog },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b8, 0x00000004, (void *)&g_CiDisplayMenuDialog },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b9, 0x00000005, (void *)&g_CheatsMenuDialog },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x00005679, 0x00000006, (void *)&g_CinemaMenuDialog },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_18d30 = {
+struct menudialog g_SoloMissionOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(180), // "Options"
-	menuitems_18b28,
+	g_SoloMissionOptionsMenuItems,
 	menudialog0010559c,
 	0x00000000,
-	&menudialog_18028,
+	&g_SoloMissionBriefingMenuDialog,
 };
 
-struct menudialog menudialog_18d48 = {
+struct menudialog g_CiOptionsViaPcMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(180), // "Options"
-	menuitems_18ca4,
+	g_CiOptionsMenuItems,
 	menudialog0010559c,
 	0x00000000,
 	NULL,
 };
 
-struct menudialog menudialog_18d60 = {
+struct menudialog g_CiOptionsViaPauseMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(180), // "Options"
-	menuitems_18ca4,
+	g_CiOptionsMenuItems,
 	menudialog0010559c,
 	0x00000000,
 	NULL,
 };
 
-struct menudialog menudialog_18d78 = {
+struct menudialog g_2PMissionOptionsHMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(180), // "Options"
-	menuitems_18b8c,
+	g_2PMissionOptionsHMenuItems,
 	menudialog0010559c,
 	0x00000000,
-	&menudialog_18040,
+	&g_2PMissionBriefingHMenuDialog,
 };
 
-struct menudialog menudialog_18d90 = {
+struct menudialog g_2PMissionOptionsVMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(180), // "Options"
-	menuitems_18c18,
+	g_2PMissionOptionsVMenuItems,
 	menudialog0010559c,
 	0x00000000,
-	&menudialog_18058,
+	&g_2PMissionBriefingVMenuDialog,
 };
 
 u8 var80072d88 = 255;
@@ -3584,21 +3584,21 @@ glabel var7f1b2e44
 /*  f106114:	ac39ee28 */ 	sw	$t9,%lo(g_Menus+0xe28)($at)
 /*  f106118:	8cca0000 */ 	lw	$t2,0x0($a2)
 /*  f10611c:	3c018007 */ 	lui	$at,%hi(var80073544)
-/*  f106120:	3c048007 */ 	lui	$a0,%hi(menuitems_inventory+0x14)
-/*  f106124:	248433e8 */ 	addiu	$a0,$a0,%lo(menuitems_inventory+0x14)
+/*  f106120:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x14)
+/*  f106124:	248433e8 */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x14)
 /*  f106128:	3c05bf80 */ 	lui	$a1,0xbf80
 /*  f10612c:	0fc3c4e7 */ 	jal	func0f0f139c
 /*  f106130:	a02a3544 */ 	sb	$t2,%lo(var80073544)($at)
-/*  f106134:	3c048007 */ 	lui	$a0,%hi(menuitems_inventory+0x28)
-/*  f106138:	248433fc */ 	addiu	$a0,$a0,%lo(menuitems_inventory+0x28)
+/*  f106134:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x28)
+/*  f106138:	248433fc */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x28)
 /*  f10613c:	0fc3c4e7 */ 	jal	func0f0f139c
 /*  f106140:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f106144:	3c048007 */ 	lui	$a0,%hi(menuitems_inventory+0x50)
-/*  f106148:	24843424 */ 	addiu	$a0,$a0,%lo(menuitems_inventory+0x50)
+/*  f106144:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x50)
+/*  f106148:	24843424 */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x50)
 /*  f10614c:	0fc3c4e7 */ 	jal	func0f0f139c
 /*  f106150:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f106154:	3c048007 */ 	lui	$a0,%hi(menuitems_inventory+0x64)
-/*  f106158:	24843438 */ 	addiu	$a0,$a0,%lo(menuitems_inventory+0x64)
+/*  f106154:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x64)
+/*  f106158:	24843438 */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x64)
 /*  f10615c:	0fc3c4e7 */ 	jal	func0f0f139c
 /*  f106160:	3c05bf80 */ 	lui	$a1,0xbf80
 .L0f106164:
@@ -3765,21 +3765,21 @@ glabel var7f1b2e84
 /*  f106330:	016a5823 */ 	subu	$t3,$t3,$t2
 /*  f106334:	000b5900 */ 	sll	$t3,$t3,0x4
 /*  f106338:	002b0821 */ 	addu	$at,$at,$t3
-/*  f10633c:	3c048007 */ 	lui	$a0,%hi(menuitems_inventory+0x14)
+/*  f10633c:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x14)
 /*  f106340:	ac29ee28 */ 	sw	$t1,%lo(g_Menus+0xe28)($at)
-/*  f106344:	248433e8 */ 	addiu	$a0,$a0,%lo(menuitems_inventory+0x14)
+/*  f106344:	248433e8 */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x14)
 /*  f106348:	0fc3c4e7 */ 	jal	func0f0f139c
 /*  f10634c:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f106350:	3c048007 */ 	lui	$a0,%hi(menuitems_inventory+0x28)
-/*  f106354:	248433fc */ 	addiu	$a0,$a0,%lo(menuitems_inventory+0x28)
+/*  f106350:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x28)
+/*  f106354:	248433fc */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x28)
 /*  f106358:	0fc3c4e7 */ 	jal	func0f0f139c
 /*  f10635c:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f106360:	3c048007 */ 	lui	$a0,%hi(menuitems_inventory+0x50)
-/*  f106364:	24843424 */ 	addiu	$a0,$a0,%lo(menuitems_inventory+0x50)
+/*  f106360:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x50)
+/*  f106364:	24843424 */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x50)
 /*  f106368:	0fc3c4e7 */ 	jal	func0f0f139c
 /*  f10636c:	3c05bf80 */ 	lui	$a1,0xbf80
-/*  f106370:	3c048007 */ 	lui	$a0,%hi(menuitems_inventory+0x64)
-/*  f106374:	24843438 */ 	addiu	$a0,$a0,%lo(menuitems_inventory+0x64)
+/*  f106370:	3c048007 */ 	lui	$a0,%hi(g_SoloMissionInventoryMenuItems+0x64)
+/*  f106374:	24843438 */ 	addiu	$a0,$a0,%lo(g_SoloMissionInventoryMenuItems+0x64)
 /*  f106378:	0fc3c4e7 */ 	jal	func0f0f139c
 /*  f10637c:	3c05bf80 */ 	lui	$a1,0xbf80
 .L0f106380:
@@ -3791,7 +3791,7 @@ glabel var7f1b2e84
 /*  f106390:	00000000 */ 	nop
 );
 
-struct menuitem menuitems_inventory[] = {
+struct menuitem g_SoloMissionInventoryMenuItems[] = {
 	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106178 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000203, L_OPTIONS(3), (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
 	{ MENUITEMTYPE_LABEL,       0, 0x00000302, L_OPTIONS(3), (u32)&invMenuTextWeaponName, NULL }, // ""
@@ -3802,7 +3802,7 @@ struct menuitem menuitems_inventory[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menuitem menuitems_weaponsavailable[] = {
+struct menuitem g_FrWeaponsAvailableMenuItems[] = {
 	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106028 },
 	{ MENUITEMTYPE_LABEL,       0, 0x0213, L_OPTIONS(3), (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
 	{ MENUITEMTYPE_LABEL,       0, 0x0312, L_OPTIONS(3), (u32)&invMenuTextWeaponName, NULL }, // ""
@@ -3813,19 +3813,19 @@ struct menuitem menuitems_weaponsavailable[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog menudialog_19534 = {
+struct menudialog g_SoloMissionInventoryMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(178), // "Inventory"
-	menuitems_inventory,
+	g_SoloMissionInventoryMenuItems,
 	inventoryMenuDialog,
 	0x00000602,
-	&menudialog_18d30,
+	&g_SoloMissionOptionsMenuDialog,
 };
 
-struct menudialog menudialog_weaponsavailable = {
+struct menudialog g_FrWeaponsAvailableMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(179), // "Weapons Available"
-	menuitems_weaponsavailable,
+	g_FrWeaponsAvailableMenuItems,
 	inventoryMenuDialog,
 	0x00000602,
 	NULL,
@@ -3856,33 +3856,33 @@ s32 menudialogAbortMission(u32 operation, struct menudialog *dialog, union handl
 	return 0;
 }
 
-struct menuitem g_SoloAbortMenuItems[] = {
+struct menuitem g_MissionAbortMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000012, L_OPTIONS(175), 0x00000000, NULL }, // "Do you want to abort the mission?"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_OPTIONS(176), 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(177), 0x00000000, menuhandlerAbortMission }, // "Abort"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_SoloAbortMenuDialog = {
+struct menudialog g_MissionAbortMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(174), // "Warning"
-	g_SoloAbortMenuItems,
+	g_MissionAbortMenuItems,
 	menudialogAbortMission,
 	0x00000000,
 	NULL,
 };
 
-struct menuitem g_SoloAbortShortMenuItems[] = {
+struct menuitem g_2PMissionAbortVMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000012, L_MPWEAPONS(155), 0x00000000, NULL }, // "Do you want to abort the mission"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_OPTIONS(176), 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(177), 0x00000000, menuhandlerAbortMission }, // "Abort"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_SoloAbortShortMenuDialog = {
+struct menudialog g_2PMissionAbortVMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(174), // "Warning"
-	g_SoloAbortShortMenuItems,
+	g_2PMissionAbortVMenuItems,
 	menudialogAbortMission,
 	0x00000000,
 	NULL,
@@ -3947,43 +3947,43 @@ char *soloMenuTitlePauseStatus(struct menudialog *dialog)
 	return g_StringPointer;
 }
 
-struct menuitem menuitems_status[] = {
+struct menuitem g_2PMissionPauseVMenuItems[] = {
 	{ MENUITEMTYPE_OBJECTIVES,  2, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(173), 0x00000000, (void *)&g_SoloAbortShortMenuDialog }, // "Abort!"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(173), 0x00000000, (void *)&g_2PMissionAbortVMenuDialog }, // "Abort!"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menuitem menuitems_19674[] = {
+struct menuitem g_MissionPauseMenuItems[] = {
 	{ MENUITEMTYPE_OBJECTIVES,  0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(173), 0x00000000, (void *)&g_SoloAbortMenuDialog }, // "Abort!"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(173), 0x00000000, (void *)&g_MissionAbortMenuDialog }, // "Abort!"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_SoloPauseMenuDialog = {
+struct menudialog g_SoloMissionPauseMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&soloMenuTitlePauseStatus,
-	menuitems_19674,
+	g_MissionPauseMenuItems,
 	soloMenuDialogPauseStatus,
 	0x00000048,
-	&menudialog_19534,
+	&g_SoloMissionInventoryMenuDialog,
 };
 
-struct menudialog menudialog_196c8 = {
+struct menudialog g_2PMissionPauseHMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&soloMenuTitlePauseStatus,
-	menuitems_19674,
+	g_MissionPauseMenuItems,
 	soloMenuDialogPauseStatus,
 	0x00000048,
-	&menudialog_2a800,
+	&g_2PMissionInventoryHMenuDialog,
 };
 
-struct menudialog menudialog_status = {
+struct menudialog g_2PMissionPauseVMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(172), // "Status"
-	menuitems_status,
+	g_2PMissionPauseVMenuItems,
 	soloMenuDialogPauseStatus,
 	0x00000048,
-	&menudialog_2a818,
+	&g_2PMissionInventoryVMenuDialog,
 };
 
 //-----------------------------------------------------------------------------\
@@ -4276,32 +4276,32 @@ char *mainMenuTextLabel(struct menuitem *item)
 	return langGet(nocheats[item->param]);
 }
 
-struct menuitem menuitems_mainmenu[] = {
+struct menuitem g_MainMenuMenuItems[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400008, L_MISC(446), 0x00000001, NULL }, // "Carrington Institute"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, (u32)&mainMenuTextLabel, 0x00000002, menuhandlerMainMenuSoloMissions },
 	{ MENUITEMTYPE_SELECTABLE,  1, 0x00400000, (u32)&mainMenuTextLabel, 0x00000003, menuhandlerMainMenuCombatSimulator },
 	{ MENUITEMTYPE_SELECTABLE,  2, 0x00400000, (u32)&mainMenuTextLabel, 0x00000004, menuhandlerMainMenuCooperative },
 	{ MENUITEMTYPE_SELECTABLE,  3, 0x00400000, (u32)&mainMenuTextLabel, 0x00000005, menuhandlerMainMenuCounterOperative },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(187), 0x00000006, (void *)&menudialog_changeagent }, // "Change Agent..."
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(187), 0x00000006, (void *)&g_ChangeAgentMenuDialog }, // "Change Agent..."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menudialog g_MainMenuMenuDialog = {
+struct menudialog g_CiMenuViaPcMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(116), // "Perfect Menu"
-	menuitems_mainmenu,
+	g_MainMenuMenuItems,
 	menudialogMainMenu,
 	0x00000004,
-	&menudialog_18d48,
+	&g_CiOptionsViaPcMenuDialog,
 };
 
-struct menudialog g_CiMainMenuDialogViaPause = {
+struct menudialog g_CiMenuViaPauseMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(116), // "Perfect Menu"
-	menuitems_mainmenu,
+	g_MainMenuMenuItems,
 	menudialogMainMenu,
 	0x00000004,
-	&menudialog_18d60,
+	&g_CiOptionsViaPauseMenuDialog,
 };
 
 bool soloChoosePauseDialog(void)
@@ -4320,35 +4320,35 @@ bool soloChoosePauseDialog(void)
 					struct trainingdata *htdata = getHoloTrainingData();
 
 					if (htdata->intraining) {
-						menuPushRootDialog(&g_HoloTrainingDetailsMenuDialog, MENUROOT_TRAINING);
+						menuPushRootDialog(&g_HtDetailsMenuDialog, MENUROOT_TRAINING);
 					} else if (htdata->finished) {
 						htPushEndscreen();
 					} else {
-						menuPushRootDialog(&g_HoloTrainingListMenuDialog, MENUROOT_TRAINING);
+						menuPushRootDialog(&g_HtListMenuDialog, MENUROOT_TRAINING);
 					}
 
 					handled = true;
 				} else {
 					if (room == CIROOM_DEVICEROOM) {
 						if (dtdata->intraining) {
-							menuPushRootDialog(&g_DeviceTrainingDetailsMenuDialog, MENUROOT_TRAINING);
+							menuPushRootDialog(&g_DtDetailsMenuDialog, MENUROOT_TRAINING);
 						} else if (dtdata->finished) {
 							dtPushEndscreen();
 						} else {
-							menuPushRootDialog(&g_DeviceTrainingListMenuDialog, MENUROOT_TRAINING);
+							menuPushRootDialog(&g_DtListMenuDialog, MENUROOT_TRAINING);
 						}
 
 						handled = true;
 					} else {
 						if (dtdata->intraining) {
-							menuPushRootDialog(&g_DeviceTrainingDetailsMenuDialog, MENUROOT_TRAINING);
+							menuPushRootDialog(&g_DtDetailsMenuDialog, MENUROOT_TRAINING);
 							handled = true;
 						} else if (dtdata->finished) {
 							dtPushEndscreen();
 							handled = true;
 						} else if (room == CIROOM_FIRINGRANGE) {
 							if (frIsInTraining()) {
-								menuPushRootDialog(&g_FrTrainingInfoMenuDialog, MENUROOT_TRAINING);
+								menuPushRootDialog(&g_FrTrainingInfoInGameMenuDialog, MENUROOT_TRAINING);
 							} else {
 								menuPushRootDialog(&g_FrWeaponListMenuDialog, MENUROOT_TRAINING);
 							}
@@ -4360,11 +4360,11 @@ bool soloChoosePauseDialog(void)
 			}
 
 			if (!handled) {
-				menuPushRootDialog(&g_CiMainMenuDialogViaPause, MENUROOT_MAINMENU);
+				menuPushRootDialog(&g_CiMenuViaPauseMenuDialog, MENUROOT_MAINMENU);
 				return true;
 			}
 		} else {
-			menuPushRootDialog(&g_SoloPauseMenuDialog, MENUROOT_MAINMENU);
+			menuPushRootDialog(&g_SoloMissionPauseMenuDialog, MENUROOT_MAINMENU);
 		}
 
 		return true;
