@@ -14,7 +14,7 @@ u32 func0f165ee4(void);
 void func0f165eec(s32 stagenum, s32 arg1);
 void func0f1660a4(f32 arg0);
 Gfx *func0f1664a0(Gfx *gdl, u32 arg1);
-Gfx *func0f1666c8(Gfx *gdl);
+Gfx *gfxConsiderDisableFog(Gfx *gdl);
 u32 func0f1666f8(void);
 u32 func0f1667e8(void);
 u32 func0f1667f4(void);

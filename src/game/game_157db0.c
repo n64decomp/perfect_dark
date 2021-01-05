@@ -2663,7 +2663,7 @@ glabel func0f15a2c4
 /*  f15a388:	a4e00000 */ 	sh	$zero,0x0($a3)
 .L0f15a38c:
 /*  f15a38c:	2415ffff */ 	addiu	$s5,$zero,-1
-/*  f15a390:	0fc599b2 */ 	jal	func0f1666c8
+/*  f15a390:	0fc599b2 */ 	jal	gfxConsiderDisableFog
 /*  f15a394:	8fa40238 */ 	lw	$a0,0x238($sp)
 /*  f15a398:	244c0008 */ 	addiu	$t4,$v0,0x8
 /*  f15a39c:	afac0238 */ 	sw	$t4,0x238($sp)
@@ -3060,7 +3060,7 @@ glabel func0f15a6f4
 /*  f15a948:	566b008b */ 	bnel	$s3,$t3,.L0f15ab78
 /*  f15a94c:	02202025 */ 	or	$a0,$s1,$zero
 .L0f15a950:
-/*  f15a950:	0fc599b2 */ 	jal	func0f1666c8
+/*  f15a950:	0fc599b2 */ 	jal	gfxConsiderDisableFog
 /*  f15a954:	02202025 */ 	or	$a0,$s1,$zero
 /*  f15a958:	0c002ade */ 	jal	func0000ab78
 /*  f15a95c:	00402025 */ 	or	$a0,$v0,$zero
@@ -3178,7 +3178,7 @@ glabel func0f15a6f4
 /*  f15aae4:	ae020004 */ 	sw	$v0,0x4($s0)
 /*  f15aae8:	0fc30cbf */ 	jal	currentPlayerLoadMatrix
 /*  f15aaec:	02202025 */ 	or	$a0,$s1,$zero
-/*  f15aaf0:	0fc599b2 */ 	jal	func0f1666c8
+/*  f15aaf0:	0fc599b2 */ 	jal	gfxConsiderDisableFog
 /*  f15aaf4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f15aaf8:	0fc4da1f */ 	jal	func0f13687c
 /*  f15aafc:	00402025 */ 	or	$a0,$v0,$zero
@@ -3300,7 +3300,7 @@ glabel func0f15a6f4
 /*  f15ac98:	00402025 */ 	or	$a0,$v0,$zero
 /*  f15ac9c:	8fb90084 */ 	lw	$t9,0x84($sp)
 /*  f15aca0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f15aca4:	0fc599b2 */ 	jal	func0f1666c8
+/*  f15aca4:	0fc599b2 */ 	jal	gfxConsiderDisableFog
 /*  f15aca8:	af220004 */ 	sw	$v0,0x4($t9)
 /*  f15acac:	0fc47b60 */ 	jal	debug0f11ed80
 /*  f15acb0:	00408825 */ 	or	$s1,$v0,$zero
@@ -3387,7 +3387,7 @@ glabel func0f15a6f4
 /*  f15ade4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f15ade8:	8fad007c */ 	lw	$t5,0x7c($sp)
 /*  f15adec:	02202025 */ 	or	$a0,$s1,$zero
-/*  f15adf0:	0fc599b2 */ 	jal	func0f1666c8
+/*  f15adf0:	0fc599b2 */ 	jal	gfxConsiderDisableFog
 /*  f15adf4:	ada20004 */ 	sw	$v0,0x4($t5)
 /*  f15adf8:	0fc47b60 */ 	jal	debug0f11ed80
 /*  f15adfc:	00408825 */ 	or	$s1,$v0,$zero
@@ -3421,7 +3421,7 @@ glabel func0f15a6f4
 /*  f15ae64:	1420ff76 */ 	bnez	$at,.L0f15ac40
 /*  f15ae68:	00000000 */ 	nop
 .L0f15ae6c:
-/*  f15ae6c:	0fc599b2 */ 	jal	func0f1666c8
+/*  f15ae6c:	0fc599b2 */ 	jal	gfxConsiderDisableFog
 /*  f15ae70:	02202025 */ 	or	$a0,$s1,$zero
 /*  f15ae74:	0fc572dd */ 	jal	func0f15cb74
 /*  f15ae78:	00402025 */ 	or	$a0,$v0,$zero
@@ -3539,7 +3539,7 @@ glabel func0f15a6f4
 /*  f15b024:	00402025 */ 	or	$a0,$v0,$zero
 /*  f15b028:	8fb90070 */ 	lw	$t9,0x70($sp)
 /*  f15b02c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f15b030:	0fc599b2 */ 	jal	func0f1666c8
+/*  f15b030:	0fc599b2 */ 	jal	gfxConsiderDisableFog
 /*  f15b034:	af220004 */ 	sw	$v0,0x4($t9)
 /*  f15b038:	0fc47b60 */ 	jal	debug0f11ed80
 /*  f15b03c:	00408825 */ 	or	$s1,$v0,$zero
@@ -6677,7 +6677,7 @@ Gfx *func0f15cae0(Gfx *gdl)
 	gdl = func0f1664a0(gdl, 0);
 	gdl = func0f164150(gdl);
 	gdl = func0f15cb74(gdl);
-	gdl = func0f1666c8(gdl);
+	gdl = gfxConsiderDisableFog(gdl);
 
 	gSPMatrix(gdl++, var80092870, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
@@ -7986,7 +7986,7 @@ glabel func0f15dc58
 /*  f15e2a0:	032b1821 */ 	addu	$v1,$t9,$t3
 /*  f15e2a4:	8c730014 */ 	lw	$s3,0x14($v1)
 .L0f15e2a8:
-/*  f15e2a8:	3c18800a */ 	lui	$t8,%hi(var800a65e0)
+/*  f15e2a8:	3c18800a */ 	lui	$t8,%hi(g_FogDisabled)
 /*  f15e2ac:	3c0f800a */ 	lui	$t7,%hi(g_Rooms)
 /*  f15e2b0:	8e670000 */ 	lw	$a3,0x0($s3)
 /*  f15e2b4:	26650018 */ 	addiu	$a1,$s3,0x18
@@ -8039,7 +8039,7 @@ glabel func0f15dc58
 /*  f15e354:	5020ffdd */ 	beqzl	$at,.L0f15e2cc
 /*  f15e358:	90a20000 */ 	lbu	$v0,0x0($a1)
 .L0f15e35c:
-/*  f15e35c:	8f1865e0 */ 	lw	$t8,%lo(var800a65e0)($t8)
+/*  f15e35c:	8f1865e0 */ 	lw	$t8,%lo(g_FogDisabled)($t8)
 /*  f15e360:	13000012 */ 	beqz	$t8,.L0f15e3ac
 /*  f15e364:	00000000 */ 	nop
 /*  f15e368:	8def4928 */ 	lw	$t7,%lo(g_Rooms)($t7)
