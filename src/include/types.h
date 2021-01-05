@@ -1032,8 +1032,8 @@ struct chrdata {
 	/*0x33a*/ u8 deaddropsplatsadded;
 	/*0x33b*/ s8 aimtesttimer60;
 	/*0x33c*/ struct coord lastdroppos;
-	/*0x348*/ u32 unk348;
-	/*0x34c*/ u32 unk34c;
+	/*0x348*/ struct fireslotthing *unk348;
+	/*0x34c*/ struct fireslotthing *unk34c;
 	/*0x350*/ u32 unk350;
 	/*0x354*/ s16 aipunchdodgelist;
 	/*0x356*/ s16 aishootingatmelist;

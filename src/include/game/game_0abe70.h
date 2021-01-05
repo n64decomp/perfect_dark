@@ -6,7 +6,7 @@
 u32 func0f0abe70(void);
 u32 func0f0ac138(void);
 Gfx *func0f0ac4b8(Gfx *gdl, struct textureconfig *arg1, f32 arg2, struct coord *arg3, u32 colour1, f32 arg5, struct coord *arg6, u32 colour2);
-u32 func0f0acb90(void);
+Gfx *func0f0acb90(Gfx *gdl, struct bullettail *bullettail, bool arg2, u32 arg3);
 void bullettailTick(struct bullettail *bullettail);
 u32 func0f0adcc8(void);
 u32 func0f0ade00(void);

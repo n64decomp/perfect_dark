@@ -1714,7 +1714,7 @@ Gfx *coreRender(Gfx *gdl)
 				func0f0641f4();
 				gdl = func0f15cae0(gdl);
 				func0f028498(var80075d68 == 15 || var8005f020);
-				gdl = func0f07f6d0(gdl);
+				gdl = propsRenderBulletTails(gdl);
 				gdl = func0f1526e4(gdl);
 				gdl = func0f130044(gdl);
 				gdl = weatherRender(gdl);

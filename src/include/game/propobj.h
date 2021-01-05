@@ -202,7 +202,7 @@ void func0f07e2cc(struct prop *prop);
 bool propCanRegen(struct prop *prop);
 u32 func0f07e474(struct prop *prop);
 s32 objTick(struct prop *prop);
-Gfx *func0f07f6d0(Gfx *gdl);
+Gfx *propsRenderBulletTails(Gfx *gdl);
 u32 func0f07f918(void);
 void imageSlotSetImage(struct monitorscreen *screen, u32 arg1);
 u32 func0f07fbf0(void);
