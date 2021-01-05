@@ -354,7 +354,7 @@ Gfx *propRender(Gfx *gdl, struct prop *prop, bool arg2)
 		gdl = propchrRender(prop, gdl, arg2);
 		break;
 	case PROPTYPE_PLAYER:
-		gdl = propplayerRender(prop, gdl, arg2);
+		gdl = playerRender(prop, gdl, arg2);
 		break;
 	case PROPTYPE_EXPLOSION:
 		gdl = explosionRender(prop, gdl, arg2);

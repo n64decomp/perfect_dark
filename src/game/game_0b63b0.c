@@ -11892,33 +11892,14 @@ glabel var7f1ad744
 /*  f0c329c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel propplayerRender
-/*  f0c32a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c32a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c32a8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0c32ac:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0c32b0:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f0c32b4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0c32b8:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f0c32bc:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x64)
-/*  f0c32c0:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0c32c4:	8defa024 */ 	lw	$t7,%lo(g_Vars+0x64)($t7)
-/*  f0c32c8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0c32cc:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f0c32d0:	8df819c8 */ 	lw	$t8,0x19c8($t7)
-/*  f0c32d4:	53000005 */ 	beqzl	$t8,.L0f0c32ec
-/*  f0c32d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c32dc:	0fc094a2 */ 	jal	propchrRender
-/*  f0c32e0:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f0c32e4:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0c32e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0c32ec:
-/*  f0c32ec:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f0c32f0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c32f4:	03e00008 */ 	jr	$ra
-/*  f0c32f8:	00000000 */ 	nop
-);
+Gfx *playerRender(struct prop *prop, Gfx *gdl, bool arg2)
+{
+	if (g_Vars.players[propGetPlayerNum(prop)]->haschrbody) {
+		gdl = propchrRender(prop, gdl, arg2);
+	}
+
+	return gdl;
+}
 
 Gfx *currentPlayerLoadMatrix(Gfx *gdl)
 {
