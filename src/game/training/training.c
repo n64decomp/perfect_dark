@@ -1978,7 +1978,7 @@ void frEndSession(bool hidetargets)
 			g_Smokes[i].age = 256;
 
 			for (j = 0; j < 10; j++) {
-				g_Smokes[i].smokebits[j].size = 0;
+				g_Smokes[i].parts[j].size = 0;
 			}
 		}
 	}

@@ -4795,7 +4795,7 @@ struct smoketype {
 	/*0x20*/ f32 unk20;
 };
 
-struct smokebit {
+struct smokepart {
 	/*0x00*/ struct coord pos;
 	/*0x0c*/ f32 size;
 	/*0x10*/ u32 rot;
@@ -4812,7 +4812,7 @@ struct smoke {
 	/*0x006*/ u16 type : 7;
 	/*0x006*/ u16 unk06_07 : 1;
 	/*0x007*/ u16 unk06_08 : 8;
-	/*0x008*/ struct smokebit smokebits[10];
+	/*0x008*/ struct smokepart parts[10];
 	/*0x198*/ struct prop *srcprop; // Prop of the thing generating smoke
 };
 

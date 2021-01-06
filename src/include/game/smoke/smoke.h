@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f12d3f0(void);
+Gfx *smokeRenderPart(struct smoke *smoke, struct smokepart *part, Gfx *gdl, struct coord *coord, f32 size);
 struct smoke *smokeCreate(struct coord *pos, s16 *rooms, s16 type);
 bool func0f12e454(struct coord *pos, s16 *rooms, s16 type, u32 arg4);
 bool smokeCreateAtPropIfNecessary(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, u32 arg4);
