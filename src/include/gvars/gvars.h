@@ -767,7 +767,7 @@ extern struct textureconfig *var800ab560;
 extern Gfx *var800ab564;
 extern Gfx *var800ab568;
 extern Gfx *var800ab56c;
-extern u32 *var800ab570;
+extern struct var800ab570 *var800ab570;
 extern struct textureconfig *var800ab574;
 extern struct textureconfig *var800ab578;
 extern struct textureconfig *var800ab57c;

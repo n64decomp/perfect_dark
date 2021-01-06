@@ -25,6 +25,35 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
+struct weatherdata *g_WeatherData = NULL;
+
+s32 var8007f0c4[4] = {
+	0x000080b7,
+	0x000080b6,
+	0x000080b8,
+	-1,
+};
+
+u32 g_RainSpeedExtra = 20;
+u32 g_SnowSpeed = 15;
+u32 g_SnowSpeedExtra = 10;
+u32 var8007f0e0 = 0x00000001;
+u32 var8007f0e4 = 0xaaaaaa1f;
+u32 var8007f0e8 = 0x11111844;
+u32 var8007f0ec = 0x00000032;
+u32 var8007f0f0 = 0x000009c4;
+u32 var8007f0f4 = 0x00000001;
+u32 var8007f0f8 = 0x00000001;
+u32 var8007f0fc = 0x000055f0;
+u32 var8007f100 = 0x00000032;
+u32 var8007f104 = 0x00000005;
+u32 var8007f108 = 0x0000000a;
+u32 var8007f10c = 0x8888aaff;
+u32 var8007f110 = 0xffffff7f;
+u32 var8007f114 = 0x00000000;
+u32 var8007f118 = 0x00000000;
+u32 var8007f11c = 0x00000000;
+
 GLOBAL_ASM(
 glabel weatherRender
 /*  f131060:	3c058008 */ 	lui	$a1,%hi(g_WeatherData)

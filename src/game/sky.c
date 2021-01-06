@@ -21,6 +21,11 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
+u32 var8007f120 = 0x00000000;
+u32 var8007f124 = 0x00000000;
+u32 var8007f128 = 0x00000000;
+u32 var8007f12c = 0x00000000;
+
 GLOBAL_ASM(
 glabel func0f135c70
 .late_rodata

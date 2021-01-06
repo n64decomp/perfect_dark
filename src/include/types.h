@@ -4746,13 +4746,12 @@ struct explosiontype {
 	/*0x28*/ f32 damage;
 };
 
-struct explosion08 {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
-	u16 unk14;
+struct explosionpart {
+	struct coord pos;
+	u32 size;
+	u32 rot;
+	s16 frame;
+	u8 bb;
 };
 
 struct explosionbb { // billboards?
@@ -4765,7 +4764,7 @@ struct explosionbb { // billboards?
 struct explosion {
 	struct prop *prop;
 	u32 unk04;
-	struct explosion08 unk08[40];
+	struct explosionpart parts[40];
 	/*0x3c8*/ s16 age;
 	/*0x3ca*/ s16 frame60;
 	/*0x3cc*/ s8 type;
@@ -6839,6 +6838,11 @@ struct colour {
 		} u8;
 		u32 u32;
 	};
+};
+
+struct var800ab570 {
+	u32 unk00;
+	u32 unk04;
 };
 
 #endif

@@ -1969,7 +1969,7 @@ void frEndSession(bool hidetargets)
 			g_Explosions[i].age = 256;
 
 			for (j = 0; j < 40; j++) {
-				g_Explosions[i].unk08[j].unk14 = 0;
+				g_Explosions[i].parts[j].frame = 0;
 			}
 		}
 

@@ -16,6 +16,6 @@ u32 func0f12b0e0(void);
 u32 func0f12bbdc(struct prop *prop);
 u32 explosionUpdateZ(struct prop *prop);
 Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha);
-u32 func0f12cd64(void);
+Gfx *explosionRenderPart(struct explosion *exp, struct explosionpart *part, Gfx *gdl, struct coord *coord, s32 arg4);
 
 #endif
