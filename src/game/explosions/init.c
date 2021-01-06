@@ -34,7 +34,7 @@ void explosionsInit(void)
 		for (i = 0; i < g_MaxExplosions; i++) {
 			g_Explosions[i].prop = NULL;
 
-			for (j = 0; j < 40; j++) {
+			for (j = 0; j < ARRAYCOUNT(g_Explosions[i].parts); j++) {
 				g_Explosions[i].parts[j].frame = 0;
 			}
 		}

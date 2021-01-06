@@ -1974,7 +1974,7 @@ void frEndSession(bool hidetargets)
 		}
 
 		// Remove smoke
-		for (i = 0; i < g_NumSmokes; i++) {
+		for (i = 0; i < g_MaxSmokes; i++) {
 			g_Smokes[i].age = 256;
 
 			for (j = 0; j < 10; j++) {

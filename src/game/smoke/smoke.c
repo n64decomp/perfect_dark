@@ -1031,7 +1031,7 @@ glabel smokeCreate
 /*  f12e214:	00008825 */ 	or	$s1,$zero,$zero
 /*  f12e218:	00009025 */ 	or	$s2,$zero,$zero
 /*  f12e21c:	13000003 */ 	beqz	$t8,.L0f12e22c
-/*  f12e220:	3c08800a */ 	lui	$t0,%hi(g_NumSmokes)
+/*  f12e220:	3c08800a */ 	lui	$t0,%hi(g_MaxSmokes)
 /*  f12e224:	10000001 */ 	b	.L0f12e22c
 /*  f12e228:	24110001 */ 	addiu	$s1,$zero,0x1
 .L0f12e22c:
@@ -1051,7 +1051,7 @@ glabel smokeCreate
 /*  f12e25c:	10000001 */ 	b	.L0f12e264
 /*  f12e260:	240d0001 */ 	addiu	$t5,$zero,0x1
 .L0f12e264:
-/*  f12e264:	8d083444 */ 	lw	$t0,%lo(g_NumSmokes)($t0)
+/*  f12e264:	8d083444 */ 	lw	$t0,%lo(g_MaxSmokes)($t0)
 /*  f12e268:	00004825 */ 	or	$t1,$zero,$zero
 /*  f12e26c:	00003825 */ 	or	$a3,$zero,$zero
 /*  f12e270:	1900003b */ 	blez	$t0,.L0f12e360
@@ -1086,13 +1086,13 @@ glabel smokeCreate
 /*  f12e2dc:	5321001e */ 	beql	$t9,$at,.L0f12e358
 /*  f12e2e0:	00e8082a */ 	slt	$at,$a3,$t0
 /*  f12e2e4:	032c0019 */ 	multu	$t9,$t4
-/*  f12e2e8:	3c08800a */ 	lui	$t0,%hi(g_NumSmokes)
+/*  f12e2e8:	3c08800a */ 	lui	$t0,%hi(g_MaxSmokes)
 /*  f12e2ec:	00007012 */ 	mflo	$t6
 /*  f12e2f0:	016e7821 */ 	addu	$t7,$t3,$t6
 /*  f12e2f4:	85f80000 */ 	lh	$t8,0x0($t7)
 /*  f12e2f8:	a4780004 */ 	sh	$t8,0x4($v1)
 /*  f12e2fc:	10000015 */ 	b	.L0f12e354
-/*  f12e300:	8d083444 */ 	lw	$t0,%lo(g_NumSmokes)($t0)
+/*  f12e300:	8d083444 */ 	lw	$t0,%lo(g_MaxSmokes)($t0)
 /*  f12e304:	2a01000f */ 	slti	$at,$s0,0xf
 .L0f12e308:
 /*  f12e308:	14200012 */ 	bnez	$at,.L0f12e354
@@ -1107,12 +1107,12 @@ glabel smokeCreate
 /*  f12e32c:	55210009 */ 	bnel	$t1,$at,.L0f12e354
 /*  f12e330:	25290001 */ 	addiu	$t1,$t1,0x1
 /*  f12e334:	032c0019 */ 	multu	$t9,$t4
-/*  f12e338:	3c08800a */ 	lui	$t0,%hi(g_NumSmokes)
+/*  f12e338:	3c08800a */ 	lui	$t0,%hi(g_MaxSmokes)
 /*  f12e33c:	00007012 */ 	mflo	$t6
 /*  f12e340:	016e7821 */ 	addu	$t7,$t3,$t6
 /*  f12e344:	85f80000 */ 	lh	$t8,0x0($t7)
 /*  f12e348:	a4580004 */ 	sh	$t8,0x4($v0)
-/*  f12e34c:	8d083444 */ 	lw	$t0,%lo(g_NumSmokes)($t0)
+/*  f12e34c:	8d083444 */ 	lw	$t0,%lo(g_MaxSmokes)($t0)
 /*  f12e350:	25290001 */ 	addiu	$t1,$t1,0x1
 .L0f12e354:
 /*  f12e354:	00e8082a */ 	slt	$at,$a3,$t0
@@ -1198,7 +1198,7 @@ glabel smokeCreate
 //	s32 i;
 //
 //	// 270
-//	for (i = 0; i < g_NumSmokes; i++) {
+//	for (i = 0; i < g_MaxSmokes; i++) {
 //		if (g_Smokes[i].prop == NULL) {
 //			smoke = &g_Smokes[i];
 //			break;
@@ -1264,7 +1264,7 @@ bool func0f12e454(struct coord *pos, s16 *rooms, s16 type, u32 arg4)
 	s32 i;
 	s32 j;
 
-	for (i = 0; i < g_NumSmokes; i++) {
+	for (i = 0; i < g_MaxSmokes; i++) {
 		if (g_Smokes[i].prop
 				&& g_Smokes[i].unk06_07 == arg4
 				&& g_Smokes[i].type >= SMOKETYPE_MUZZLE_PISTOL
@@ -1312,7 +1312,7 @@ bool smokeCreateAtPropIfNecessary(struct prop *prop, struct coord *pos, s16 *roo
 	}
 
 	if (checksmokes) {
-		for (i = 0; i < g_NumSmokes; i++) {
+		for (i = 0; i < g_MaxSmokes; i++) {
 			if (g_Smokes[i].prop && g_Smokes[i].srcprop == prop) {
 				bool fail = false;
 
@@ -1356,7 +1356,7 @@ void smokeClearForProp(struct prop *prop)
 {
 	s32 i;
 
-	for (i = 0; i < g_NumSmokes; i++) {
+	for (i = 0; i < g_MaxSmokes; i++) {
 		if (g_Smokes[i].prop && g_Smokes[i].srcprop == prop && g_Smokes[i].unk06_07 == false) {
 			g_Smokes[i].age = g_SmokeTypes[g_Smokes[i].type].duration;
 			g_Smokes[i].srcprop = NULL;
@@ -2119,8 +2119,8 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha)
 
 GLOBAL_ASM(
 glabel func0f12f5f8
-/*  f12f5f8:	3c03800a */ 	lui	$v1,%hi(g_NumSmokes)
-/*  f12f5fc:	8c633444 */ 	lw	$v1,%lo(g_NumSmokes)($v1)
+/*  f12f5f8:	3c03800a */ 	lui	$v1,%hi(g_MaxSmokes)
+/*  f12f5fc:	8c633444 */ 	lw	$v1,%lo(g_MaxSmokes)($v1)
 /*  f12f600:	27bdfff0 */ 	addiu	$sp,$sp,-16
 /*  f12f604:	afb1000c */ 	sw	$s1,0xc($sp)
 /*  f12f608:	afb00008 */ 	sw	$s0,0x8($sp)
@@ -2155,12 +2155,12 @@ glabel func0f12f5f8
 /*  f12f678:	51b80009 */ 	beql	$t5,$t8,.L0f12f6a0
 /*  f12f67c:	0043082a */ 	slt	$at,$v0,$v1
 /*  f12f680:	03110019 */ 	multu	$t8,$s1
-/*  f12f684:	3c03800a */ 	lui	$v1,%hi(g_NumSmokes)
+/*  f12f684:	3c03800a */ 	lui	$v1,%hi(g_MaxSmokes)
 /*  f12f688:	0000c812 */ 	mflo	$t9
 /*  f12f68c:	02197021 */ 	addu	$t6,$s0,$t9
 /*  f12f690:	85cf0000 */ 	lh	$t7,0x0($t6)
 /*  f12f694:	a4cf0004 */ 	sh	$t7,0x4($a2)
-/*  f12f698:	8c633444 */ 	lw	$v1,%lo(g_NumSmokes)($v1)
+/*  f12f698:	8c633444 */ 	lw	$v1,%lo(g_MaxSmokes)($v1)
 /*  f12f69c:	0043082a */ 	slt	$at,$v0,$v1
 .L0f12f6a0:
 /*  f12f6a0:	1420ffe6 */ 	bnez	$at,.L0f12f63c
