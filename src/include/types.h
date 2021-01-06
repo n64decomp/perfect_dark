@@ -244,13 +244,14 @@ struct modelnode_headspot { // type 0x17
 };
 
 struct modelnode_displaylist { // type 0x18
-	u32 primary;
-	u32 secondary;
-	u32 unk08;
-	u32 ptable;
-	u16 pcount;
-	u16 mcount;
-	u16 index;
+	/*0x00*/ u32 primary;
+	/*0x04*/ u32 secondary;
+	/*0x08*/ u32 *colourtable;
+	/*0x0c*/ struct coord *ptable;
+	/*0x10*/ s16 pcount;
+	/*0x12*/ u16 mcount;
+	/*0x14*/ u16 index;
+	/*0x16*/ u16 numcolours;
 };
 
 union modelnode_data {
@@ -1233,6 +1234,9 @@ struct doorobj { // objtype 0x01
 	/*0xc7*/ s8 fadetime60;
 	/*0xc8*/ s32 lastcalc60;
 	/*0xcc*/ u8 laserfade;
+	/*0xcd*/ u8 unusedmaybe[3];
+	/*0xd0*/ u8 shadeinfo1[4];
+	/*0xd4*/ u8 shadeinfo2[4];
 };
 
 struct doorscaleobj { // objtype 0x02
@@ -1466,7 +1470,7 @@ struct camera2obj { // objtype 0x2e
 struct tintedglassobj { // objtype 0x2f
 	struct defaultobj base;
 	/*0x5c*/ u32 unk5c;
-	/*0x60*/ u16 unk60;
+	/*0x60*/ s16 unk60;
 	/*0x62*/ s16 portalnum;
 	/*0x64*/ f32 unk64;
 };
@@ -6823,6 +6827,18 @@ struct roomacousticdata {
 struct var8009dd78 {
 	s16 unk00;
 	f32 unk04;
+};
+
+struct colour {
+	union {
+		struct {
+			u8 r;
+			u8 g;
+			u8 b;
+			u8 a;
+		} u8;
+		u32 u32;
+	};
 };
 
 #endif

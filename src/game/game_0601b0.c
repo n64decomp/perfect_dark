@@ -348,7 +348,7 @@ Gfx *propRender(Gfx *gdl, struct prop *prop, bool withalpha)
 	case PROPTYPE_OBJ:
 	case PROPTYPE_DOOR:
 	case PROPTYPE_WEAPON:
-		gdl = propobjRender(prop, gdl, withalpha);
+		gdl = objRender(prop, gdl, withalpha);
 		break;
 	case PROPTYPE_CHR:
 		gdl = chrRender(prop, gdl, withalpha);
