@@ -1965,7 +1965,7 @@ void frEndSession(bool hidetargets)
 		}
 
 		// Remove explosions
-		for (i = 0; i < g_NumExplosions; i++) {
+		for (i = 0; i < g_MaxExplosions; i++) {
 			g_Explosions[i].age = 256;
 
 			for (j = 0; j < 40; j++) {

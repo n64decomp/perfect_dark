@@ -662,7 +662,7 @@ extern u32 var800a33e8;
 extern u32 var800a3410;
 extern u32 var800a3420;
 extern struct explosion *g_Explosions;
-extern s32 g_NumExplosions;
+extern s32 g_MaxExplosions;
 extern struct smoke *g_Smokes;
 extern s32 g_NumSmokes;
 extern u32 var800a3448;
