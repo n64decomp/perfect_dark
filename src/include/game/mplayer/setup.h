@@ -106,7 +106,7 @@ s32 menuhandler00185068(u32 operation, struct menuitem *item, union handlerdata 
 void func0f185568(void);
 Gfx *func0f185774(Gfx *gdl);
 u32 func0f185c14(void);
-u32 func0f185e20(void);
+bool func0f185e20(struct prop *prop, s32 *arg1);
 void mpPrepareScenario(void);
 u32 func0f186508(void);
 void func0f1866b8(s32 playernum, char *message);

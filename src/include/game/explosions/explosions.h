@@ -15,7 +15,7 @@ bool func0f12af5c(struct explosion *exp, struct prop *prop, struct coord *pos1, 
 u32 func0f12b0e0(void);
 u32 func0f12bbdc(struct prop *prop);
 u32 explosionUpdateZ(struct prop *prop);
-Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool arg2);
+Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha);
 u32 func0f12cd64(void);
 
 #endif

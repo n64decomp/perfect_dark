@@ -1582,7 +1582,7 @@ void setupCamera(struct cameraobj *camera, s32 cmdindex)
 
 	if (camera->lookatpadnum >= 0) {
 		struct coord lenspos;
-		union modelnode_data *lens = modelGetPartNodeData(obj->model->unk08, MODELPART_LENS);
+		union modelnode_data *lens = modelGetPartNodeData(obj->model->filedata, MODELPART_LENS);
 		struct pad pad;
 		f32 xdiff;
 		f32 ydiff;
@@ -1718,13 +1718,13 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			monitor->base.model->attachedto = owner->model;
 
 			if (monitor->ownerpart == MODELPART_00) {
-				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, MODELPART_00);
+				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_00);
 			} else if (monitor->ownerpart == MODELPART_01) {
-				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, MODELPART_01);
+				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_01);
 			} else if (monitor->ownerpart == MODELPART_02) {
-				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, MODELPART_02);
+				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_02);
 			} else {
-				monitor->base.model->unk1c = modelGetPart(owner->model->unk08, MODELPART_03);
+				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_03);
 			}
 
 			propReparent(prop, owner->prop);
@@ -3292,7 +3292,7 @@ void setupParseObjects(s32 stagenum)
 						setupGenericObject(obj, index);
 
 						if (obj->model) {
-							struct modelnode *node = modelGetPart(obj->model->unk08, 5);
+							struct modelnode *node = modelGetPart(obj->model->filedata, 5);
 
 							if (node) {
 								struct modeldata_05 *data = modelGetNodeData(obj->model, node);

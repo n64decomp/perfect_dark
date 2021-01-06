@@ -2339,8 +2339,8 @@ glabel var7f1adec0
 /*  f0dea24:	1000008f */ 	b	.L0f0dec64
 /*  f0dea28:	8c6901d0 */ 	lw	$t1,0x1d0($v1)
 .L0f0dea2c:
-/*  f0dea2c:	3c198007 */ 	lui	$t9,%hi(var80070764)
-/*  f0dea30:	8f390764 */ 	lw	$t9,%lo(var80070764)($t9)
+/*  f0dea2c:	3c198007 */ 	lui	$t9,%hi(g_InCutscene)
+/*  f0dea30:	8f390764 */ 	lw	$t9,%lo(g_InCutscene)($t9)
 /*  f0dea34:	3c07800a */ 	lui	$a3,%hi(g_Vars+0x68)
 /*  f0dea38:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x64)
 /*  f0dea3c:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x70)
@@ -2399,8 +2399,8 @@ glabel var7f1adec0
 /*  f0deaf4:	90780000 */ 	lbu	$t8,0x0($v1)
 /*  f0deaf8:	17f8001f */ 	bne	$ra,$t8,.L0f0deb78
 .L0f0deafc:
-/*  f0deafc:	3c198007 */ 	lui	$t9,%hi(var80070764)
-/*  f0deb00:	8f390764 */ 	lw	$t9,%lo(var80070764)($t9)
+/*  f0deafc:	3c198007 */ 	lui	$t9,%hi(g_InCutscene)
+/*  f0deb00:	8f390764 */ 	lw	$t9,%lo(g_InCutscene)($t9)
 /*  f0deb04:	3c0f8006 */ 	lui	$t7,%hi(var8005d9d0)
 /*  f0deb08:	53200005 */ 	beqzl	$t9,.L0f0deb20
 /*  f0deb0c:	906e0000 */ 	lbu	$t6,0x0($v1)
@@ -2564,8 +2564,8 @@ glabel var7f1adec0
 /*  f0ded30:	0305c821 */ 	addu	$t9,$t8,$a1
 /*  f0ded34:	03267821 */ 	addu	$t7,$t9,$a2
 /*  f0ded38:	15e1001b */ 	bne	$t7,$at,.L0f0deda8
-/*  f0ded3c:	3c0e8007 */ 	lui	$t6,%hi(var80070764)
-/*  f0ded40:	8dce0764 */ 	lw	$t6,%lo(var80070764)($t6)
+/*  f0ded3c:	3c0e8007 */ 	lui	$t6,%hi(g_InCutscene)
+/*  f0ded40:	8dce0764 */ 	lw	$t6,%lo(g_InCutscene)($t6)
 /*  f0ded44:	3c188006 */ 	lui	$t8,%hi(var8005d9d0)
 /*  f0ded48:	3c198009 */ 	lui	$t9,%hi(g_Is4Mb)
 /*  f0ded4c:	11c00004 */ 	beqz	$t6,.L0f0ded60
@@ -3720,8 +3720,8 @@ glabel var7f1adef4
 /*  f0dfb6c:	0500000e */ 	bltz	$t0,.L0f0dfba8
 /*  f0dfb70:	00000000 */ 	nop
 .L0f0dfb74:
-/*  f0dfb74:	3c098007 */ 	lui	$t1,%hi(var80070764)
-/*  f0dfb78:	8d290764 */ 	lw	$t1,%lo(var80070764)($t1)
+/*  f0dfb74:	3c098007 */ 	lui	$t1,%hi(g_InCutscene)
+/*  f0dfb78:	8d290764 */ 	lw	$t1,%lo(g_InCutscene)($t1)
 /*  f0dfb7c:	1120000a */ 	beqz	$t1,.L0f0dfba8
 /*  f0dfb80:	00000000 */ 	nop
 /*  f0dfb84:	3c0a8006 */ 	lui	$t2,%hi(var8005d9d0)
@@ -4541,7 +4541,7 @@ glabel var7f1adef4
 //
 //	// b4c
 //	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-//			&& var80070764
+//			&& g_InCutscene
 //			&& var8005d9d0 == 0
 //			&& g_Vars.currentplayernum == 0) {
 //		// ba4

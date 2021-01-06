@@ -464,7 +464,7 @@
 #define CHRCFLAG_HIDDEN                      0x00000400
 #define CHRCFLAG_NOAUTOAIM                   0x00000800
 #define CHRCFLAG_UNEXPLODABLE                0x00001000
-#define CHRCFLAG_00002000                    0x00002000 // Not used in scripts
+#define CHRCFLAG_NOSHADOW                    0x00002000
 #define CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION 0x00004000
 #define CHRCFLAG_00008000                    0x00008000 // Not used in scripts
 #define CHRCFLAG_00010000                    0x00010000 // Related to dead people in intro cutscenes
@@ -1694,6 +1694,8 @@
 #define MODELPART_03                0x03
 #define MODELPART_ROBOTMUZZLEFLASHL 0x03
 #define MODELPART_HUDPIECE          0x04
+#define MODELPART_04                0x04
+#define MODELPART_05                0x05
 #define MODELPART_NECKLACE          0x07
 #define MODELPART_NEWCLIP           0x28
 #define MODELPART_NEWCLIP2          0x29

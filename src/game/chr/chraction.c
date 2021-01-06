@@ -8204,11 +8204,11 @@ glabel func0f036c08
 /*  f036c44:	07010018 */ 	bgez	$t8,.L0f036ca8
 /*  f036c48:	25040008 */ 	addiu	$a0,$t0,0x8
 /*  f036c4c:	8e630284 */ 	lw	$v1,0x284($s3)
-/*  f036c50:	3c098007 */ 	lui	$t1,%hi(var80070764)
+/*  f036c50:	3c098007 */ 	lui	$t1,%hi(g_InCutscene)
 /*  f036c54:	8c7900d8 */ 	lw	$t9,0xd8($v1)
 /*  f036c58:	57200049 */ 	bnezl	$t9,.L0f036d80
 /*  f036c5c:	8fab0060 */ 	lw	$t3,0x60($sp)
-/*  f036c60:	8d290764 */ 	lw	$t1,%lo(var80070764)($t1)
+/*  f036c60:	8d290764 */ 	lw	$t1,%lo(g_InCutscene)($t1)
 /*  f036c64:	55200046 */ 	bnezl	$t1,.L0f036d80
 /*  f036c68:	8fab0060 */ 	lw	$t3,0x60($sp)
 /*  f036c6c:	8c620480 */ 	lw	$v0,0x480($v1)
@@ -18356,7 +18356,7 @@ void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool enabled)
 		partnum = MODELPART_ROBOTMUZZLEFLASHL;
 	}
 
-	node = modelGetPart(chr->model->unk08, partnum);
+	node = modelGetPart(chr->model->filedata, partnum);
 
 	if (node) {
 		data = modelGetNodeData(chr->model, node);
@@ -26230,10 +26230,10 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 		func0f0220ac(chr);
 		modelSetRootPosition(chr->model, &pos2);
 
-		nodetype = chr->model->unk08->rootnode->type;
+		nodetype = chr->model->filedata->rootnode->type;
 
 		if ((nodetype & 0xff) == MODELNODETYPE_ROOT) {
-			data = modelGetNodeData(chr->model, chr->model->unk08->rootnode);
+			data = modelGetNodeData(chr->model, chr->model->filedata->rootnode);
 			data->ground = ground;
 		}
 
@@ -27511,8 +27511,8 @@ s32 func0f004cd84(s32 arg0, s32 arg1)
 
 void chrToggleModelPart(struct chrdata *chr, s32 partnum)
 {
-	if (chr && chr->model && chr->model->unk08) {
-		struct modelnode *node = modelGetPart(chr->model->unk08, partnum);
+	if (chr && chr->model && chr->model->filedata) {
+		struct modelnode *node = modelGetPart(chr->model->filedata, partnum);
 		struct modeldata_partid *data = NULL;
 
 		if (node) {

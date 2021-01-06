@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f0c33f0(void);
+void func0f0c33f0(Mtxf *matrix, s32 arg1);
 
 #endif

@@ -1616,7 +1616,7 @@ Gfx *coreRender(Gfx *gdl)
 
 							if (chr->hidden & CHRHFLAG_CLOAKED) {
 								if (g_Vars.currentplayer->isdead
-										|| var80070764
+										|| g_InCutscene
 										|| !EYESPYINACTIVE()
 										|| (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER) == false) {
 									g_Vars.currentplayer->lookingatprop.prop = NULL;

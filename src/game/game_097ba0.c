@@ -18703,10 +18703,10 @@ glabel var7f1aca90
 /*  f0a75bc:	afac013c */ 	sw	$t4,0x13c($sp)
 /*  f0a75c0:	afaf0118 */ 	sw	$t7,0x118($sp)
 /*  f0a75c4:	8ca300d8 */ 	lw	$v1,0xd8($a1)
-/*  f0a75c8:	3c078007 */ 	lui	$a3,%hi(var80070764)
+/*  f0a75c8:	3c078007 */ 	lui	$a3,%hi(g_InCutscene)
 /*  f0a75cc:	14600013 */ 	bnez	$v1,.L0f0a761c
 /*  f0a75d0:	00000000 */ 	nop
-/*  f0a75d4:	8ce70764 */ 	lw	$a3,%lo(var80070764)($a3)
+/*  f0a75d4:	8ce70764 */ 	lw	$a3,%lo(g_InCutscene)($a3)
 /*  f0a75d8:	14e00010 */ 	bnez	$a3,.L0f0a761c
 /*  f0a75dc:	00000000 */ 	nop
 /*  f0a75e0:	8ca20480 */ 	lw	$v0,0x480($a1)
@@ -18727,8 +18727,8 @@ glabel var7f1aca90
 /*  f0a7618:	92681615 */ 	lbu	$t0,0x1615($s3)
 .L0f0a761c:
 /*  f0a761c:	14600078 */ 	bnez	$v1,.L0f0a7800
-/*  f0a7620:	3c078007 */ 	lui	$a3,%hi(var80070764)
-/*  f0a7624:	8ce70764 */ 	lw	$a3,%lo(var80070764)($a3)
+/*  f0a7620:	3c078007 */ 	lui	$a3,%hi(g_InCutscene)
+/*  f0a7624:	8ce70764 */ 	lw	$a3,%lo(g_InCutscene)($a3)
 /*  f0a7628:	54e00076 */ 	bnezl	$a3,.L0f0a7804
 /*  f0a762c:	926d1614 */ 	lbu	$t5,0x1614($s3)
 /*  f0a7630:	8ca20480 */ 	lw	$v0,0x480($a1)
@@ -18957,7 +18957,7 @@ glabel var7f1aca90
 /*  f0a7964:	1100000d */ 	beqz	$t0,.L0f0a799c
 /*  f0a7968:	00c02825 */ 	or	$a1,$a2,$zero
 /*  f0a796c:	afaa0094 */ 	sw	$t2,0x94($sp)
-/*  f0a7970:	0c0087bd */ 	jal	func00021ef4
+/*  f0a7970:	0c0087bd */ 	jal	modelRender
 /*  f0a7974:	afa60098 */ 	sw	$a2,0x98($sp)
 /*  f0a7978:	8fa60098 */ 	lw	$a2,0x98($sp)
 /*  f0a797c:	8ccb0008 */ 	lw	$t3,0x8($a2)
@@ -19081,7 +19081,7 @@ glabel var7f1aca90
 .L0f0a7b28:
 /*  f0a7b28:	27a4010c */ 	addiu	$a0,$sp,0x10c
 .L0f0a7b2c:
-/*  f0a7b2c:	0c0087bd */ 	jal	func00021ef4
+/*  f0a7b2c:	0c0087bd */ 	jal	modelRender
 /*  f0a7b30:	8fa5003c */ 	lw	$a1,0x3c($sp)
 /*  f0a7b34:	8e791594 */ 	lw	$t9,0x1594($s3)
 /*  f0a7b38:	3c0f8007 */ 	lui	$t7,%hi(var800702dc)
@@ -19100,7 +19100,7 @@ glabel var7f1aca90
 /*  f0a7b6c:	afa50054 */ 	sw	$a1,0x54($sp)
 /*  f0a7b70:	8fa50054 */ 	lw	$a1,0x54($sp)
 /*  f0a7b74:	afb50140 */ 	sw	$s5,0x140($sp)
-/*  f0a7b78:	0c0087bd */ 	jal	func00021ef4
+/*  f0a7b78:	0c0087bd */ 	jal	modelRender
 /*  f0a7b7c:	27a4010c */ 	addiu	$a0,$sp,0x10c
 /*  f0a7b80:	8fa4007c */ 	lw	$a0,0x7c($sp)
 /*  f0a7b84:	afa40140 */ 	sw	$a0,0x140($sp)

@@ -1438,7 +1438,7 @@ glabel func0f13d568
 /*  f13d8e8:	00000000 */ 	nop
 /*  f13d8ec:	00000000 */ 	nop
 /*  f13d8f0:	01c30019 */ 	multu	$t6,$v1
-/*  f13d8f4:	3c0e8007 */ 	lui	$t6,%hi(var80070764)
+/*  f13d8f4:	3c0e8007 */ 	lui	$t6,%hi(g_InCutscene)
 /*  f13d8f8:	0000a812 */ 	mflo	$s5
 /*  f13d8fc:	00000000 */ 	nop
 /*  f13d900:	00000000 */ 	nop
@@ -1469,7 +1469,7 @@ glabel func0f13d568
 /*  f13d950:	8c6d00d8 */ 	lw	$t5,0xd8($v1)
 /*  f13d954:	55a0001f */ 	bnezl	$t5,.L0f13d9d4
 /*  f13d958:	926d0002 */ 	lbu	$t5,0x2($s3)
-/*  f13d95c:	8dce0764 */ 	lw	$t6,%lo(var80070764)($t6)
+/*  f13d95c:	8dce0764 */ 	lw	$t6,%lo(g_InCutscene)($t6)
 /*  f13d960:	55c0001c */ 	bnezl	$t6,.L0f13d9d4
 /*  f13d964:	926d0002 */ 	lbu	$t5,0x2($s3)
 /*  f13d968:	8c620480 */ 	lw	$v0,0x480($v1)
@@ -1589,7 +1589,7 @@ glabel func0f13d568
 /*  f13db1c:	46000007 */ 	neg.s	$f0,$f0
 /*  f13db20:	3c013f80 */ 	lui	$at,0x3f80
 /*  f13db24:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f13db28:	3c0e8007 */ 	lui	$t6,%hi(var80070764)
+/*  f13db28:	3c0e8007 */ 	lui	$t6,%hi(g_InCutscene)
 /*  f13db2c:	8fa40164 */ 	lw	$a0,0x164($sp)
 /*  f13db30:	45020005 */ 	bc1fl	.L0f13db48
 /*  f13db34:	46000506 */ 	mov.s	$f20,$f0
@@ -1640,7 +1640,7 @@ glabel func0f13d568
 /*  f13dbd8:	4610b582 */ 	mul.s	$f22,$f22,$f16
 /*  f13dbdc:	15a0001a */ 	bnez	$t5,.L0f13dc48
 /*  f13dbe0:	00000000 */ 	nop
-/*  f13dbe4:	8dce0764 */ 	lw	$t6,%lo(var80070764)($t6)
+/*  f13dbe4:	8dce0764 */ 	lw	$t6,%lo(g_InCutscene)($t6)
 /*  f13dbe8:	15c00017 */ 	bnez	$t6,.L0f13dc48
 /*  f13dbec:	00000000 */ 	nop
 /*  f13dbf0:	8c620480 */ 	lw	$v0,0x480($v1)
@@ -1761,7 +1761,7 @@ glabel func0f13d568
 /*  f13dda4:	461c4403 */ 	div.s	$f16,$f8,$f28
 /*  f13dda8:	926c0001 */ 	lbu	$t4,0x1($s3)
 /*  f13ddac:	3c014f80 */ 	lui	$at,0x4f80
-/*  f13ddb0:	3c0d8007 */ 	lui	$t5,%hi(var80070764)
+/*  f13ddb0:	3c0d8007 */ 	lui	$t5,%hi(g_InCutscene)
 /*  f13ddb4:	448c3000 */ 	mtc1	$t4,$f6
 /*  f13ddb8:	27a600d4 */ 	addiu	$a2,$sp,0xd4
 /*  f13ddbc:	24070040 */ 	addiu	$a3,$zero,0x40
@@ -1795,7 +1795,7 @@ glabel func0f13d568
 /*  f13de24:	460a0002 */ 	mul.s	$f0,$f0,$f10
 /*  f13de28:	5700001b */ 	bnezl	$t8,.L0f13de98
 /*  f13de2c:	4600e03c */ 	c.lt.s	$f28,$f0
-/*  f13de30:	8dad0764 */ 	lw	$t5,%lo(var80070764)($t5)
+/*  f13de30:	8dad0764 */ 	lw	$t5,%lo(g_InCutscene)($t5)
 /*  f13de34:	55a00018 */ 	bnezl	$t5,.L0f13de98
 /*  f13de38:	4600e03c */ 	c.lt.s	$f28,$f0
 /*  f13de3c:	8c620480 */ 	lw	$v0,0x480($v1)

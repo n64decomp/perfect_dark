@@ -15,7 +15,7 @@ void func0f060538(struct prop *prop);
 void func0f0605c4(struct prop *prop);
 void propReparent(struct prop *mover, struct prop *adopter);
 void propDetach(struct prop *prop);
-Gfx *propRender(Gfx *gdl, struct prop *prop, bool arg2);
+Gfx *propRender(Gfx *gdl, struct prop *prop, bool withalpha);
 Gfx *propsRender(Gfx *gdl, s16 arg1, s32 arg2, s16 *arg3);
 u32 func0f060984(void);
 u32 func0f060bac(void);

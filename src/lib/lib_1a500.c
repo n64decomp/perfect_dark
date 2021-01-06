@@ -374,26 +374,26 @@ glabel func0001a85c
 /*    1a918:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-struct modelnode *modelGetPart(struct model08 *model08, s32 partnum)
+struct modelnode *modelGetPart(struct modelfiledata *modelfiledata, s32 partnum)
 {
 	s32 upper;
 	s32 lower;
 	u32 i;
 	s16 *partnums;
 
-	if (model08->numparts == 0) {
+	if (modelfiledata->numparts == 0) {
 		return NULL;
 	}
 
-	partnums = (s16 *)&model08->parts[model08->numparts];
+	partnums = (s16 *)&modelfiledata->parts[modelfiledata->numparts];
 	lower = 0;
-	upper = model08->numparts;
+	upper = modelfiledata->numparts;
 
 	while (upper >= lower) {
 		i = (lower + upper) / 2;
 
 		if (partnum == partnums[i]) {
-			return model08->parts[i];
+			return modelfiledata->parts[i];
 		}
 
 		if (partnum < partnums[i]) {
@@ -406,9 +406,9 @@ struct modelnode *modelGetPart(struct model08 *model08, s32 partnum)
 	return NULL;
 }
 
-union modelnode_data *modelGetPartNodeData(struct model08 *model08, s32 partnum)
+union modelnode_data *modelGetPartNodeData(struct modelfiledata *modelfiledata, s32 partnum)
 {
-	struct modelnode *node = modelGetPart(model08, partnum);
+	struct modelnode *node = modelGetPart(modelfiledata, partnum);
 
 	if (node) {
 		return node->data;
@@ -558,12 +558,12 @@ void modelNodeSetPosition(struct model *model, struct modelnode *node, struct co
 
 void modelGetRootPosition(struct model *model, struct coord *pos)
 {
-	modelNodeGetPosition(model, model->unk08->rootnode, pos);
+	modelNodeGetPosition(model, model->filedata->rootnode, pos);
 }
 
 void modelSetRootPosition(struct model *model, struct coord *pos)
 {
-	modelNodeSetPosition(model, model->unk08->rootnode, pos);
+	modelNodeSetPosition(model, model->filedata->rootnode, pos);
 }
 
 GLOBAL_ASM(
@@ -634,8 +634,8 @@ glabel func0001ad5c
 
 f32 func0001ae44(struct model *model)
 {
-	if ((model->unk08->rootnode->type & 0xff) == MODELNODETYPE_ROOT) {
-		struct modeldata_root *data = modelGetNodeData(model, model->unk08->rootnode);
+	if ((model->filedata->rootnode->type & 0xff) == MODELNODETYPE_ROOT) {
+		struct modeldata_root *data = modelGetNodeData(model, model->filedata->rootnode);
 		return data->unk14;
 	}
 
@@ -644,8 +644,8 @@ f32 func0001ae44(struct model *model)
 
 void func0001ae90(struct model *model, f32 angle)
 {
-	if ((model->unk08->rootnode->type & 0xff) == MODELNODETYPE_ROOT) {
-		struct modeldata_root *data = modelGetNodeData(model, model->unk08->rootnode);
+	if ((model->filedata->rootnode->type & 0xff) == MODELNODETYPE_ROOT) {
+		struct modeldata_root *data = modelGetNodeData(model, model->filedata->rootnode);
 		f32 diff = angle - data->unk14;
 
 		if (diff < 0) {
@@ -682,7 +682,7 @@ void modelSetAnimScale(struct model *model, f32 scale)
 
 f32 func0001af80(struct model *model)
 {
-	return model->unk08->unk10 * model->unk14;
+	return model->filedata->unk10 * model->unk14;
 }
 
 GLOBAL_ASM(
@@ -962,7 +962,7 @@ glabel func0001b0e8
 
 void func0001b3bc(struct model *model)
 {
-	struct modelnode *node = model->unk08->rootnode;
+	struct modelnode *node = model->filedata->rootnode;
 
 	if (node && (node->type & 0xff) == MODELNODETYPE_ROOT) {
 		func0001b0e8(model, node);
@@ -3494,7 +3494,7 @@ void modelCopyAnimForMerge(struct model *model, f32 arg1)
 				return;
 			}
 
-			node = model->unk08->rootnode;
+			node = model->filedata->rootnode;
 			nodetype = node->type & 0xff;
 
 			anim->frame2 = anim->frame;
@@ -8352,7 +8352,7 @@ glabel var70054454
 );
 
 GLOBAL_ASM(
-glabel func00021ef4
+glabel modelRender
 .late_rodata
 glabel var70054458
 .word 0x7002209c

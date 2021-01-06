@@ -116,15 +116,15 @@ u8 func0f000a10(s32 roomnum)
 	s32 value = g_Rooms[roomnum].unk52;
 
 	if ((g_Vars.currentplayer->isdead == false
-			&& var80070764 == 0
+			&& g_InCutscene == 0
 			&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 			&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_NIGHTVISION))
 		||
 			(g_Vars.currentplayer->isdead == false
-			&& var80070764 == 0
+			&& g_InCutscene == 0
 			&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 			&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER))) {
-		value += var8009caec;
+		value += var8009caec[0];
 	} else {
 		value += g_Rooms[roomnum].unk4b;
 	}
@@ -150,15 +150,15 @@ u8 func0f000b24(s32 roomnum)
 	u32 value;
 
 	if ((g_Vars.currentplayer->isdead == false
-			&& var80070764 == 0
+			&& g_InCutscene == 0
 			&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 			&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_NIGHTVISION))
 		||
 			(g_Vars.currentplayer->isdead == false
-			&& var80070764 == 0
+			&& g_InCutscene == 0
 			&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 			&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_IRSCANNER))) {
-		return var8009caec;
+		return var8009caec[0];
 	}
 
 	if (g_Rooms[roomnum].flags & ROOMFLAG_0040) {
@@ -3282,8 +3282,8 @@ glabel var7f1a7ddc
 /*  f00471c:	00008825 */ 	or	$s1,$zero,$zero
 /*  f004720:	19c0014c */ 	blez	$t6,.L0f004c54
 /*  f004724:	00a05025 */ 	or	$t2,$a1,$zero
-/*  f004728:	3c1f8007 */ 	lui	$ra,%hi(var80070764)
-/*  f00472c:	27ff0764 */ 	addiu	$ra,$ra,%lo(var80070764)
+/*  f004728:	3c1f8007 */ 	lui	$ra,%hi(g_InCutscene)
+/*  f00472c:	27ff0764 */ 	addiu	$ra,$ra,%lo(g_InCutscene)
 /*  f004730:	00804825 */ 	or	$t1,$a0,$zero
 .L0f004734:
 /*  f004734:	8cef0000 */ 	lw	$t7,0x0($a3)
@@ -3592,8 +3592,8 @@ glabel var7f1a7ddc
 /*  f004b84:	afaa0040 */ 	sw	$t2,0x40($sp)
 /*  f004b88:	0fc6192e */ 	jal	scenarioCallback38
 /*  f004b8c:	afac0074 */ 	sw	$t4,0x74($sp)
-/*  f004b90:	3c1f8007 */ 	lui	$ra,%hi(var80070764)
-/*  f004b94:	27ff0764 */ 	addiu	$ra,$ra,%lo(var80070764)
+/*  f004b90:	3c1f8007 */ 	lui	$ra,%hi(g_InCutscene)
+/*  f004b94:	27ff0764 */ 	addiu	$ra,$ra,%lo(g_InCutscene)
 /*  f004b98:	8fa9003c */ 	lw	$t1,0x3c($sp)
 /*  f004b9c:	8faa0040 */ 	lw	$t2,0x40($sp)
 /*  f004ba0:	8fac0074 */ 	lw	$t4,0x74($sp)
@@ -4746,9 +4746,9 @@ glabel func0f005bb0
 /*  f005bd0:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
 /*  f005bd4:	8ce80284 */ 	lw	$t0,0x284($a3)
 /*  f005bd8:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f005bdc:	3c068007 */ 	lui	$a2,%hi(var80070764)
+/*  f005bdc:	3c068007 */ 	lui	$a2,%hi(g_InCutscene)
 /*  f005be0:	8d0500d8 */ 	lw	$a1,0xd8($t0)
-/*  f005be4:	24c60764 */ 	addiu	$a2,$a2,%lo(var80070764)
+/*  f005be4:	24c60764 */ 	addiu	$a2,$a2,%lo(g_InCutscene)
 /*  f005be8:	14a00013 */ 	bnez	$a1,.L0f005c38
 /*  f005bec:	00000000 */ 	nop
 /*  f005bf0:	8cd80000 */ 	lw	$t8,0x0($a2)
@@ -4771,9 +4771,9 @@ glabel func0f005bb0
 /*  f005c30:	55a00017 */ 	bnezl	$t5,.L0f005c90
 /*  f005c34:	8d0c1c1c */ 	lw	$t4,0x1c1c($t0)
 .L0f005c38:
-/*  f005c38:	3c068007 */ 	lui	$a2,%hi(var80070764)
+/*  f005c38:	3c068007 */ 	lui	$a2,%hi(g_InCutscene)
 /*  f005c3c:	14a00016 */ 	bnez	$a1,.L0f005c98
-/*  f005c40:	24c60764 */ 	addiu	$a2,$a2,%lo(var80070764)
+/*  f005c40:	24c60764 */ 	addiu	$a2,$a2,%lo(g_InCutscene)
 /*  f005c44:	8cce0000 */ 	lw	$t6,0x0($a2)
 /*  f005c48:	15c00013 */ 	bnez	$t6,.L0f005c98
 /*  f005c4c:	00000000 */ 	nop

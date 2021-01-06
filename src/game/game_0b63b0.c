@@ -1957,8 +1957,8 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 		modelCopyAnimData(hostchr->model, playerchr->model);
 		func0f02e9a0(playerchr, 12);
 
-		chrrootnode = modelGetNodeData(hostchr->model, hostchr->model->unk08->rootnode);
-		playerrootnode = modelGetNodeData(playerchr->model, playerchr->model->unk08->rootnode);
+		chrrootnode = modelGetNodeData(hostchr->model, hostchr->model->filedata->rootnode);
+		playerrootnode = modelGetNodeData(playerchr->model, playerchr->model->filedata->rootnode);
 
 		*playerrootnode = *chrrootnode;
 
@@ -3550,7 +3550,7 @@ void func0f0ba010(void)
 	g_CameraAnimCurFrame = var8009de20 >> 2;
 	g_CutsceneBlurFrac = 0;
 	var8009de2c = -1;
-	var80070764 = 1;
+	g_InCutscene = 1;
 	func0f11dcb0(1);
 	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_CUTSCENE && g_CameraAnimCurFrame < animGetNumFrames(g_CameraAnimNum) - 1;
 	g_Vars.unk0004e2 = 0;
@@ -4965,7 +4965,7 @@ bool func0f0bc4c0(void)
 		return true;
 	}
 
-	return (var80070764 && !var8005d9d0) || menuGetRoot() == MENUROOT_COOPCONTINUE;
+	return (g_InCutscene && !var8005d9d0) || menuGetRoot() == MENUROOT_COOPCONTINUE;
 }
 
 s16 currentPlayerGetViewportWidth(void)
@@ -5065,7 +5065,7 @@ s16 currentPlayerGetViewportHeight(void)
 			height = g_ViModes[g_ViMode].wideheight;
 		} else if (optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
 			height = g_ViModes[g_ViMode].cinemaheight;
-		} else if (var80070764 && !var8009dfc0) {
+		} else if (g_InCutscene && !var8009dfc0) {
 			if (var8009de2c >= 1) {
 				f32 a = g_ViModes[g_ViMode].wideheight;
 				f32 b = g_ViModes[g_ViMode].fullheight;
@@ -5104,7 +5104,7 @@ s16 currentPlayerGetViewportTop(void)
 		}
 	} else {
 		if (optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE) {
-			if (var80070764 && optionsGetCutsceneSubtitles() && g_Vars.stagenum != STAGE_CITRAINING) {
+			if (g_InCutscene && optionsGetCutsceneSubtitles() && g_Vars.stagenum != STAGE_CITRAINING) {
 				if (var8009de2c >= 1) {
 					f32 a = g_ViModes[g_ViMode].fulltop;
 					f32 b = g_ViModes[g_ViMode].widetop;
@@ -5120,7 +5120,7 @@ s16 currentPlayerGetViewportTop(void)
 		} else if (optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
 			top = g_ViModes[g_ViMode].cinematop;
 		} else {
-			if (var80070764 && !var8009dfc0
+			if (g_InCutscene && !var8009dfc0
 					&& (!optionsGetCutsceneSubtitles() || g_Vars.stagenum == STAGE_CITRAINING)) {
 				if (var8009de2c >= 1) {
 					f32 a = g_ViModes[g_ViMode].widetop;
@@ -5563,8 +5563,8 @@ glabel var7f1ad6ac
 /*  f0bdca0:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0bdca4:	1461000d */ 	bne	$v1,$at,.L0f0bdcdc
 .L0f0bdca8:
-/*  f0bdca8:	3c0f8007 */ 	lui	$t7,%hi(var80070764)
-/*  f0bdcac:	8def0764 */ 	lw	$t7,%lo(var80070764)($t7)
+/*  f0bdca8:	3c0f8007 */ 	lui	$t7,%hi(g_InCutscene)
+/*  f0bdcac:	8def0764 */ 	lw	$t7,%lo(g_InCutscene)($t7)
 /*  f0bdcb0:	3c188006 */ 	lui	$t8,%hi(var8005d9d0)
 /*  f0bdcb4:	55e0000a */ 	bnezl	$t7,.L0f0bdce0
 /*  f0bdcb8:	8e6b0284 */ 	lw	$t3,0x284($s3)
@@ -5778,8 +5778,8 @@ glabel var7f1ad6ac
 .L0f0bdfb8:
 /*  f0bdfb8:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f0bdfbc:	10610002 */ 	beq	$v1,$at,.L0f0bdfc8
-/*  f0bdfc0:	3c018007 */ 	lui	$at,%hi(var80070764)
-/*  f0bdfc4:	ac200764 */ 	sw	$zero,%lo(var80070764)($at)
+/*  f0bdfc0:	3c018007 */ 	lui	$at,%hi(g_InCutscene)
+/*  f0bdfc4:	ac200764 */ 	sw	$zero,%lo(g_InCutscene)($at)
 .L0f0bdfc8:
 /*  f0bdfc8:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f0bdfcc:	54610054 */ 	bnel	$v1,$at,.L0f0be120
@@ -7755,7 +7755,7 @@ glabel var7f1ad6ac
 //
 //	// dc9c
 //	if ((g_Vars.tickmode == TICKMODE_0 || g_Vars.tickmode == TICKMODE_NORMAL)
-//			&& var80070764 == 0
+//			&& g_InCutscene == 0
 //			&& var8005d9d0 == 0) {
 //		g_Vars.currentplayer->bondviewlevtime60 += g_Vars.lvupdate240_60;
 //	}
@@ -7858,7 +7858,7 @@ glabel var7f1ad6ac
 //
 //	// dfb8
 //	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-//		var80070764 = 0;
+//		g_InCutscene = 0;
 //	}
 //
 //	// dfc8
@@ -9828,13 +9828,13 @@ Gfx *func0f0c07c8(Gfx *gdl)
 		}
 
 		if (g_Vars.currentplayer->isdead == false
-				&& var80070764 == 0
+				&& g_InCutscene == 0
 				&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 				&& ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit) & DEVICE_NIGHTVISION)) {
 			gdl = bviewRenderNvLens(gdl);
 			gdl = bviewRenderNvBinoculars(gdl);
 		} else if (g_Vars.currentplayer->isdead == false
-				&& var80070764 == 0
+				&& g_InCutscene == 0
 				&& (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 				&& ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit) & DEVICE_IRSCANNER)) {
 			gdl = bviewRenderIrLens(gdl);
@@ -11892,10 +11892,10 @@ glabel var7f1ad744
 /*  f0c329c:	00000000 */ 	nop
 );
 
-Gfx *playerRender(struct prop *prop, Gfx *gdl, bool arg2)
+Gfx *playerRender(struct prop *prop, Gfx *gdl, bool withalpha)
 {
 	if (g_Vars.players[propGetPlayerNum(prop)]->haschrbody) {
-		gdl = propchrRender(prop, gdl, arg2);
+		gdl = chrRender(prop, gdl, withalpha);
 	}
 
 	return gdl;

@@ -126,7 +126,7 @@ bool g_PlayersWithControl[] = {
 };
 
 bool g_PlayerInvincible = false;
-s32 var80070764 = 0x00000000;
+s32 g_InCutscene = 0x00000000;
 
 s16 g_DeathAnimations[] = {
 	ANIM_DEATH_001A,

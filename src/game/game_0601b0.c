@@ -340,7 +340,7 @@ void propDetach(struct prop *prop)
 	}
 }
 
-Gfx *propRender(Gfx *gdl, struct prop *prop, bool arg2)
+Gfx *propRender(Gfx *gdl, struct prop *prop, bool withalpha)
 {
 	switch (prop->type) {
 	case 0:
@@ -348,19 +348,19 @@ Gfx *propRender(Gfx *gdl, struct prop *prop, bool arg2)
 	case PROPTYPE_OBJ:
 	case PROPTYPE_DOOR:
 	case PROPTYPE_WEAPON:
-		gdl = propobjRender(prop, gdl, arg2);
+		gdl = propobjRender(prop, gdl, withalpha);
 		break;
 	case PROPTYPE_CHR:
-		gdl = propchrRender(prop, gdl, arg2);
+		gdl = chrRender(prop, gdl, withalpha);
 		break;
 	case PROPTYPE_PLAYER:
-		gdl = playerRender(prop, gdl, arg2);
+		gdl = playerRender(prop, gdl, withalpha);
 		break;
 	case PROPTYPE_EXPLOSION:
-		gdl = explosionRender(prop, gdl, arg2);
+		gdl = explosionRender(prop, gdl, withalpha);
 		break;
 	case PROPTYPE_EFFECT:
-		gdl = smokeRender(prop, gdl, arg2);
+		gdl = smokeRender(prop, gdl, withalpha);
 		break;
 	}
 

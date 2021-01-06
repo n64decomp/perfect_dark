@@ -84,7 +84,7 @@ s32 getMissionTime(void);
 s32 func0f0c228c(struct prop *prop);
 u32 func0f0c2364(void);
 u32 func0f0c2a58(void);
-Gfx *playerRender(struct prop *prop, Gfx *gdl, bool arg2);
+Gfx *playerRender(struct prop *prop, Gfx *gdl, bool withalpha);
 Gfx *currentPlayerLoadMatrix(Gfx *gdl);
 u32 func0f0c3320(void);
 void setTickMode(s32 tickmode);

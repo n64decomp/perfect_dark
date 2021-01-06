@@ -275,7 +275,7 @@ struct modelnode {
 	/*0x14*/ struct modelnode *child;
 };
 
-struct model08 { // raw model file data
+struct modelfiledata {
 	struct modelnode *rootnode;
 	struct stagethinglist *unk04;
 
@@ -292,7 +292,7 @@ struct model {
 	/*0x00*/ u8 unk00;
 	/*0x01*/ u8 unk01;
 	/*0x04*/ struct chrdata *chr;
-	/*0x08*/ struct model08 *unk08;
+	/*0x08*/ struct modelfiledata *filedata;
 	/*0x0c*/ Mtxf *unk0c;
 	/*0x10*/ void **datas; // array of pointers to modeldata structs
 	/*0x14*/ f32 unk14;
@@ -331,7 +331,7 @@ struct modeldata_05 {
 };
 
 struct modeldata_headspot { // type 0x17
-	struct model08 *model08;
+	struct modelfiledata *modelfiledata;
 	void *datas;
 };
 
@@ -2188,10 +2188,8 @@ struct player {
 	/*0x0004*/ struct coord memcampos;
 	/*0x0010*/ u16 visionmode;
 	/*0x0014*/ s32 memcamroom;
-	/*0x0018*/ u32 unk0018;
-	/*0x001c*/ u32 unk001c;
-	/*0x0020*/ u32 unk0020;
-	/*0x0024*/ u32 unk0024;
+	/*0x0018*/ struct coord eraserpos;
+	/*0x0024*/ f32 eraserpropdist;
 	/*0x0028*/ u32 unk0028;
 	/*0x002c*/ u32 unk002c;
 	/*0x0030*/ bool isfalling;
@@ -2335,7 +2333,10 @@ struct player {
 	/*0x0264*/ struct weaponobj *slayerrocket;
 	/*0x0268*/ bool eyesshut;
 	/*0x026c*/ f32 eyesshutfrac;
-	/*0x0270*/ u32 unk0270;
+	/*0x0270*/ u8 epcol_0;
+	/*0x0270*/ u8 epcol_1;
+	/*0x0270*/ u8 epcol_2;
+	/*0x0270*/ u8 flashbang;
 	/*0x0274*/ bool waitforzrelease;
 	/*0x0278*/ f32 shieldshowrot;
 	/*0x027c*/ u32 shieldshowrnd;
@@ -4931,7 +4932,7 @@ struct chrnumaction {
 };
 
 struct propdefinition {
-	struct model08 *filedata;
+	struct modelfiledata *filedata;
 	u16 fileid;
 	u16 scale;
 };
@@ -5884,6 +5885,26 @@ struct objticksp476 {
 	/*0x30*/ u32 unk30;
 	/*0x34*/ u32 unk34;
 	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+};
+
+// Suspected to be the same as objticksp476
+struct modelrenderdata {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ s32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ Gfx *gdl;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 colour34;
+	/*0x38*/ u32 colour38;
 	/*0x3c*/ u32 unk3c;
 };
 

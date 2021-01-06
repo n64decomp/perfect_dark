@@ -5020,7 +5020,7 @@ glabel func0f06a1ec
 /*  f06a528:	00c01025 */ 	or	$v0,$a2,$zero
 );
 
-struct prop *func0f06a52c(struct singlemonitorobj *monitor, struct model08 *filedata)
+struct prop *func0f06a52c(struct singlemonitorobj *monitor, struct modelfiledata *filedata)
 {
 	return func0f06a1ec(monitor, filedata, 0, 0);
 }
@@ -19513,7 +19513,7 @@ glabel var7f1aa43c
 //	}
 //
 //	// Consider playing a sound effect
-//	if (model->unk08->unk04 == &stagethinglist_20ec8) {
+//	if (model->filedata->unk04 == &stagethinglist_20ec8) {
 //		f32 soundpoint = door->maxfrac * 0.3f;
 //
 //		if (door->frac > soundpoint) {
@@ -19556,8 +19556,8 @@ void doorUpdatePortalIfWindowed(struct prop *doorprop, s32 playercount)
 			canhide = false;
 		}
 
-		if (model->unk08->unk04 == &stagethinglist_20ef8) {
-			node = modelGetPart(model->unk08, MODELPART_01);
+		if (model->filedata->unk04 == &stagethinglist_20ef8) {
+			node = modelGetPart(model->filedata, MODELPART_01);
 			partdata = modelGetNodeData(model, node);
 
 			if (partdata->visible.u32 == 0) {
@@ -27702,7 +27702,7 @@ void func0f07e058(struct prop *prop)
 	struct defaultobj *obj = prop->obj;
 	struct model *model = obj->model;
 
-	struct modelnode *node = modelGetPart(model->unk08, MODELPART_6E);
+	struct modelnode *node = modelGetPart(model->filedata, MODELPART_6E);
 
 	if (node) {
 		struct modeldata_partid *data = modelGetNodeData(model, node);
@@ -28185,7 +28185,7 @@ s32 objTick(struct prop *prop)
 					}
 
 					sp556 = true;
-					sp476.unk10 = gfxAllocate(model->unk08->unk0e * sizeof(Mtxf));
+					sp476.unk10 = gfxAllocate(model->filedata->unk0e * sizeof(Mtxf));
 					sp476.matrix = currentPlayerGetMatrix1740();
 					func0001cebc(&sp476, model);
 
@@ -28268,7 +28268,7 @@ s32 objTick(struct prop *prop)
 				sp144 = floorf(model->anim->frame);
 
 				for (i = sp148; i <= sp144; i++) {
-					func00024b64(0, 0, model->unk08->unk04, model->anim->animnum, i, &sp128, 0);
+					func00024b64(0, 0, model->filedata->unk04, model->anim->animnum, i, &sp128, 0);
 
 					sp116.x += sp128.x * 0.1f;
 					sp112 = sp128.y * 0.1f;
@@ -28283,7 +28283,7 @@ s32 objTick(struct prop *prop)
 			func00015a00(currentPlayerGetMatrix1740(), &sp248, &sp152);
 
 			sp556 = true;
-			sp312.unk10 = gfxAllocate(model->unk08->unk0e * sizeof(Mtxf));
+			sp312.unk10 = gfxAllocate(model->filedata->unk0e * sizeof(Mtxf));
 			sp312.matrix = &sp152;
 			func0001cebc(&sp312, model);
 
@@ -28431,14 +28431,14 @@ s32 objTick(struct prop *prop)
 
 		if (obj->type == OBJTYPE_FAN) {
 			func0f078be0(prop);
-		} else if (obj->model->unk08->unk04 == &stagethinglist_20e10) {
+		} else if (obj->model->filedata->unk04 == &stagethinglist_20e10) {
 			func0f07e058(prop);
 		}
 
 		if (sp556 == false) {
-			model->unk0c = gfxAllocate(model->unk08->unk0e * 64);
+			model->unk0c = gfxAllocate(model->filedata->unk0e * 64);
 			func0f07e2cc(prop);
-			func0001cb0c(model, model->unk08->rootnode);
+			func0001cb0c(model, model->filedata->rootnode);
 		}
 
 		prop->z = -model->unk0c->m[3][2];
@@ -30117,7 +30117,7 @@ glabel func0f0809c4
 .L0f080de8:
 /*  f080de8:	ae11000c */ 	sw	$s1,0xc($s0)
 /*  f080dec:	8fa50070 */ 	lw	$a1,0x70($sp)
-/*  f080df0:	0c0087bd */ 	jal	func00021ef4
+/*  f080df0:	0c0087bd */ 	jal	modelRender
 /*  f080df4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f080df8:	8fae0074 */ 	lw	$t6,0x74($sp)
 /*  f080dfc:	8e11000c */ 	lw	$s1,0xc($s0)
@@ -30232,7 +30232,7 @@ glabel func0f0809c4
 );
 
 GLOBAL_ASM(
-glabel func0f080f8c
+glabel gfxRenderRadialShadow
 /*  f080f8c:	27bdff00 */ 	addiu	$sp,$sp,-256
 /*  f080f90:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f080f94:	afa40100 */ 	sw	$a0,0x100($sp)
@@ -30439,7 +30439,7 @@ glabel func0f081220
 /*  f081298:	e7a00010 */ 	swc1	$f0,0x10($sp)
 /*  f08129c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0812a0:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f0812a4:	0fc203e3 */ 	jal	func0f080f8c
+/*  f0812a4:	0fc203e3 */ 	jal	gfxRenderRadialShadow
 /*  f0812a8:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f0812ac:	10000012 */ 	b	.L0f0812f8
 /*  f0812b0:	00408825 */ 	or	$s1,$v0,$zero
@@ -30458,7 +30458,7 @@ glabel func0f081220
 /*  f0812e0:	e7a00010 */ 	swc1	$f0,0x10($sp)
 /*  f0812e4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0812e8:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f0812ec:	0fc203e3 */ 	jal	func0f080f8c
+/*  f0812ec:	0fc203e3 */ 	jal	gfxRenderRadialShadow
 /*  f0812f0:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f0812f4:	00408825 */ 	or	$s1,$v0,$zero
 .L0f0812f8:
@@ -30974,8 +30974,8 @@ glabel var7f1aa82c
 /*  f081a30:	27a500a0 */ 	addiu	$a1,$sp,0xa0
 /*  f081a34:	8c4400d8 */ 	lw	$a0,0xd8($v0)
 /*  f081a38:	14800021 */ 	bnez	$a0,.L0f081ac0
-/*  f081a3c:	3c0b8007 */ 	lui	$t3,%hi(var80070764)
-/*  f081a40:	8d6b0764 */ 	lw	$t3,%lo(var80070764)($t3)
+/*  f081a3c:	3c0b8007 */ 	lui	$t3,%hi(g_InCutscene)
+/*  f081a40:	8d6b0764 */ 	lw	$t3,%lo(g_InCutscene)($t3)
 /*  f081a44:	1560001e */ 	bnez	$t3,.L0f081ac0
 /*  f081a48:	00000000 */ 	nop
 /*  f081a4c:	8c430480 */ 	lw	$v1,0x480($v0)
@@ -31011,8 +31011,8 @@ glabel var7f1aa82c
 /*  f081abc:	8faf0088 */ 	lw	$t7,0x88($sp)
 .L0f081ac0:
 /*  f081ac0:	14800021 */ 	bnez	$a0,.L0f081b48
-/*  f081ac4:	3c0b8007 */ 	lui	$t3,%hi(var80070764)
-/*  f081ac8:	8d6b0764 */ 	lw	$t3,%lo(var80070764)($t3)
+/*  f081ac4:	3c0b8007 */ 	lui	$t3,%hi(g_InCutscene)
+/*  f081ac8:	8d6b0764 */ 	lw	$t3,%lo(g_InCutscene)($t3)
 /*  f081acc:	5560001f */ 	bnezl	$t3,.L0f081b4c
 /*  f081ad0:	8faf0088 */ 	lw	$t7,0x88($sp)
 /*  f081ad4:	8c430480 */ 	lw	$v1,0x480($v0)
@@ -48327,8 +48327,8 @@ glabel var7f1ab214
 
 void objSetModelPartVisible(struct defaultobj *obj, s32 partnum, bool visible)
 {
-	if (obj && obj->model && obj->model->unk08) {
-		struct modelnode *node = modelGetPart(obj->model->unk08, partnum);
+	if (obj && obj->model && obj->model->filedata) {
+		struct modelnode *node = modelGetPart(obj->model->filedata, partnum);
 
 		if (node) {
 			struct modeldata_partid *data = modelGetNodeData(obj->model, node);

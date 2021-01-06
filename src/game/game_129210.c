@@ -30,7 +30,7 @@ void func0f129210(void *find, void *replacement)
 		if (prop->type == PROPTYPE_OBJ) {
 			struct defaultobj *obj = prop->obj;
 			struct model *model = obj->model;
-			struct model08 *filedata = model->unk08;
+			struct modelfiledata *filedata = model->filedata;
 			struct modelnode *node = filedata->rootnode;
 			struct modelnode_displaylist *data;
 

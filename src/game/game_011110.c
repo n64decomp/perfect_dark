@@ -522,8 +522,8 @@ glabel var7f1a827c
 /*  f011940:	e7a40088 */ 	swc1	$f4,0x88($sp)
 /*  f011944:	0fc63956 */ 	jal	func0f18e558
 /*  f011948:	00000000 */ 	nop
-/*  f01194c:	3c018007 */ 	lui	$at,%hi(var80070764)
-/*  f011950:	ac200764 */ 	sw	$zero,%lo(var80070764)($at)
+/*  f01194c:	3c018007 */ 	lui	$at,%hi(g_InCutscene)
+/*  f011950:	ac200764 */ 	sw	$zero,%lo(g_InCutscene)($at)
 /*  f011954:	3c01800a */ 	lui	$at,%hi(var8009de20)
 /*  f011958:	ac20de20 */ 	sw	$zero,%lo(var8009de20)($at)
 /*  f01195c:	24030001 */ 	addiu	$v1,$zero,0x1
@@ -1307,7 +1307,7 @@ glabel var7f1a827c
 //	viResetDefaultModeIf4Mb();
 //	func0f18e558();
 //
-//	var80070764 = 0;
+//	g_InCutscene = 0;
 //	var8009de20 = 0;
 //	var8007072c = 1;
 //	var80070738 = 0;

@@ -2931,11 +2931,11 @@ glabel explosionRender
 /*  f12c7c4:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
 /*  f12c7c8:	8e640284 */ 	lw	$a0,0x284($s3)
 /*  f12c7cc:	00408825 */ 	or	$s1,$v0,$zero
-/*  f12c7d0:	3c098007 */ 	lui	$t1,%hi(var80070764)
+/*  f12c7d0:	3c098007 */ 	lui	$t1,%hi(g_InCutscene)
 /*  f12c7d4:	8c8500d8 */ 	lw	$a1,0xd8($a0)
 /*  f12c7d8:	14a00013 */ 	bnez	$a1,.L0f12c828
 /*  f12c7dc:	00000000 */ 	nop
-/*  f12c7e0:	8d290764 */ 	lw	$t1,%lo(var80070764)($t1)
+/*  f12c7e0:	8d290764 */ 	lw	$t1,%lo(g_InCutscene)($t1)
 /*  f12c7e4:	15200010 */ 	bnez	$t1,.L0f12c828
 /*  f12c7e8:	00000000 */ 	nop
 /*  f12c7ec:	8c830480 */ 	lw	$v1,0x480($a0)
@@ -2956,8 +2956,8 @@ glabel explosionRender
 /*  f12c824:	240effff */ 	addiu	$t6,$zero,-1
 .L0f12c828:
 /*  f12c828:	14a00015 */ 	bnez	$a1,.L0f12c880
-/*  f12c82c:	3c188007 */ 	lui	$t8,%hi(var80070764)
-/*  f12c830:	8f180764 */ 	lw	$t8,%lo(var80070764)($t8)
+/*  f12c82c:	3c188007 */ 	lui	$t8,%hi(g_InCutscene)
+/*  f12c830:	8f180764 */ 	lw	$t8,%lo(g_InCutscene)($t8)
 /*  f12c834:	57000013 */ 	bnezl	$t8,.L0f12c884
 /*  f12c838:	948f0010 */ 	lhu	$t7,0x10($a0)
 /*  f12c83c:	8c830480 */ 	lw	$v1,0x480($a0)
