@@ -3172,45 +3172,29 @@ glabel func0f062ef8
 /*  f062fa8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f062fac
-/*  f062fac:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f062fb0:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f062fb4:	8c430354 */ 	lw	$v1,0x354($v0)
-/*  f062fb8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f062fbc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f062fc0:	5483000a */ 	bnel	$a0,$v1,.L0f062fec
-/*  f062fc4:	8c820020 */ 	lw	$v0,0x20($a0)
-/*  f062fc8:	8c4e033c */ 	lw	$t6,0x33c($v0)
-/*  f062fcc:	546e0005 */ 	bnel	$v1,$t6,.L0f062fe4
-/*  f062fd0:	8c990020 */ 	lw	$t9,0x20($a0)
-/*  f062fd4:	8c8f0020 */ 	lw	$t7,0x20($a0)
-/*  f062fd8:	ac4f0340 */ 	sw	$t7,0x340($v0)
-/*  f062fdc:	ac4f033c */ 	sw	$t7,0x33c($v0)
-/*  f062fe0:	8c990020 */ 	lw	$t9,0x20($a0)
-.L0f062fe4:
-/*  f062fe4:	ac590354 */ 	sw	$t9,0x354($v0)
-/*  f062fe8:	8c820020 */ 	lw	$v0,0x20($a0)
-.L0f062fec:
-/*  f062fec:	50400004 */ 	beqzl	$v0,.L0f063000
-/*  f062ff0:	8c820024 */ 	lw	$v0,0x24($a0)
-/*  f062ff4:	8c880024 */ 	lw	$t0,0x24($a0)
-/*  f062ff8:	ac480024 */ 	sw	$t0,0x24($v0)
-/*  f062ffc:	8c820024 */ 	lw	$v0,0x24($a0)
-.L0f063000:
-/*  f063000:	50400004 */ 	beqzl	$v0,.L0f063014
-/*  f063004:	ac800020 */ 	sw	$zero,0x20($a0)
-/*  f063008:	8c890020 */ 	lw	$t1,0x20($a0)
-/*  f06300c:	ac490020 */ 	sw	$t1,0x20($v0)
-/*  f063010:	ac800020 */ 	sw	$zero,0x20($a0)
-.L0f063014:
-/*  f063014:	0fc1812f */ 	jal	func0f0604bc
-/*  f063018:	ac800024 */ 	sw	$zero,0x24($a0)
-/*  f06301c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f063020:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f063024:	03e00008 */ 	jr	$ra
-/*  f063028:	00000000 */ 	nop
-);
+void func0f062fac(struct prop *prop)
+{
+	if (prop == g_Vars.unk000354) {
+		if (g_Vars.unk00033c == g_Vars.unk000354) {
+			g_Vars.unk00033c = g_Vars.unk000340 = prop->next;
+		}
+
+		g_Vars.unk000354 = prop->next;
+	}
+
+	if (prop->next) {
+		prop->next->prev = prop->prev;
+	}
+
+	if (prop->prev) {
+		prop->prev->next = prop->next;
+	}
+
+	prop->next = NULL;
+	prop->prev = NULL;
+
+	func0f0604bc(prop);
+}
 
 u32 var80069884 = 0x00000001;
 u32 var80069888 = 0x01010101;
