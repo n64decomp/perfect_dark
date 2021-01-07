@@ -969,7 +969,7 @@ glabel var7f1a827c
 /*  f011fac:	8f0e00bc */ 	lw	$t6,0xbc($t8)
 /*  f011fb0:	a1d90000 */ 	sb	$t9,0x0($t6)
 /*  f011fb4:	8e2f0284 */ 	lw	$t7,0x284($s1)
-/*  f011fb8:	0fc1812f */ 	jal	func0f0604bc
+/*  f011fb8:	0fc1812f */ 	jal	propPrependToList1
 /*  f011fbc:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f011fc0:	8e290284 */ 	lw	$t1,0x284($s1)
 /*  f011fc4:	0fc180bc */ 	jal	propShow
@@ -1534,7 +1534,7 @@ glabel var7f1a827c
 //	g_Vars.currentplayer->prop->chr = NULL;
 //	g_Vars.currentplayer->prop->type = PROPTYPE_PLAYER;
 //
-//	func0f0604bc(g_Vars.currentplayer->prop);
+//	propPrependToList1(g_Vars.currentplayer->prop);
 //	propShow(g_Vars.currentplayer->prop);
 //	chrInit(g_Vars.currentplayer->prop, NULL);
 //

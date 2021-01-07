@@ -23463,7 +23463,7 @@ void func0f0482cc(u32 ailistid)
 	var8009de24 = 0;
 	var8009de28 = 0;
 
-	prop = g_Vars.unk00033c;
+	prop = g_Vars.list1head;
 
 	while (prop) {
 		prop->unk38 = 0xffff;
@@ -26078,7 +26078,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 				prop = propAllocateChr(model, &pos2, rooms2, arg4, ailist);
 
 				if (prop) {
-					func0f060538(prop);
+					propAppendToList1(prop);
 					propShow(prop);
 
 					chr = prop->chr;

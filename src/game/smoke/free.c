@@ -18,7 +18,7 @@ void smokeFree(void)
 	if (g_Smokes) {
 		for (i = 0; i < g_MaxSmokes; i++) {
 			if (g_Smokes[i].prop) {
-				func0f0605c4(g_Smokes[i].prop);
+				propRemoveFromCurrentList(g_Smokes[i].prop);
 				propHide(g_Smokes[i].prop);
 				propFree(g_Smokes[i].prop);
 

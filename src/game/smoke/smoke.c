@@ -1163,7 +1163,7 @@ glabel smokeCreate
 .L0f12e3f8:
 /*  f12e3f8:	02397021 */ 	addu	$t6,$s1,$t9
 /*  f12e3fc:	a5c60028 */ 	sh	$a2,0x28($t6)
-/*  f12e400:	0fc1814e */ 	jal	func0f060538
+/*  f12e400:	0fc1814e */ 	jal	propAppendToList1
 /*  f12e404:	02202025 */ 	or	$a0,$s1,$zero
 /*  f12e408:	0fc180bc */ 	jal	propShow
 /*  f12e40c:	02202025 */ 	or	$a0,$s1,$zero
@@ -1245,7 +1245,7 @@ glabel smokeCreate
 //			}
 //
 //			prop->rooms[i] = -1;
-//			func0f060538(prop);
+//			propAppendToList1(prop);
 //			propShow(prop);
 //
 //			smoke->prop = prop;

@@ -176,7 +176,7 @@ struct prop *propAllocate(void)
 		prop->unk3e = 0;
 		prop->unk3f_00 = 1;
 		prop->unk3f_02 = 0;
-		prop->unk3f_03 = 0;
+		prop->inlist1 = false;
 		prop->unk3f_01 = 0;
 		prop->unk38 = 0xffff;
 		prop->unk3a = 0;
@@ -212,83 +212,83 @@ void propFree(struct prop *prop)
 	g_Vars.freeprops = prop;
 }
 
-void func0f0604bc(struct prop *prop)
+void propPrependToList1(struct prop *prop)
 {
-	if (g_Vars.unk00033c && g_Vars.unk00033c != g_Vars.unk000354) {
-		if (prop != g_Vars.unk00033c && !prop->prev) {
-			g_Vars.unk00033c->prev = prop;
-			prop->next = g_Vars.unk00033c;
+	if (g_Vars.list1head && g_Vars.list1head != g_Vars.list2head) {
+		if (prop != g_Vars.list1head && !prop->prev) {
+			g_Vars.list1head->prev = prop;
+			prop->next = g_Vars.list1head;
 			prop->prev = NULL;
-			g_Vars.unk00033c = prop;
+			g_Vars.list1head = prop;
 		}
 	} else {
-		prop->next = g_Vars.unk000354;
+		prop->next = g_Vars.list2head;
 
 		if (prop->next) {
 			prop->next->prev = prop;
 		}
 
 		prop->prev = NULL;
-		g_Vars.unk00033c = prop;
-		g_Vars.unk000340 = g_Vars.unk00033c;
+		g_Vars.list1head = prop;
+		g_Vars.list1tail = g_Vars.list1head;
 	}
 
 	prop->unk3e = 0;
-	prop->unk3f_03 = 1;
+	prop->inlist1 = true;
 }
 
-void func0f060538(struct prop *prop)
+void propAppendToList1(struct prop *prop)
 {
-	if (g_Vars.unk000340 && g_Vars.unk000340 != g_Vars.unk000354) {
-		if (prop != g_Vars.unk000340 && !prop->next) {
-			prop->prev = g_Vars.unk000340;
-			prop->next = g_Vars.unk000340->next;
+	if (g_Vars.list1tail && g_Vars.list1tail != g_Vars.list2head) {
+		if (prop != g_Vars.list1tail && !prop->next) {
+			prop->prev = g_Vars.list1tail;
+			prop->next = g_Vars.list1tail->next;
 
 			if (prop->next) {
 				prop->next->prev = prop;
 			}
 
-			g_Vars.unk000340->next = prop;
-			g_Vars.unk000340 = prop;
+			g_Vars.list1tail->next = prop;
+			g_Vars.list1tail = prop;
 		}
 	} else {
-		prop->next = g_Vars.unk000354;
+		prop->next = g_Vars.list2head;
 
 		if (prop->next) {
 			prop->next->prev = prop;
 		}
 
 		prop->prev = NULL;
-		g_Vars.unk00033c = prop;
-		g_Vars.unk000340 = g_Vars.unk00033c;
+		g_Vars.list1head = prop;
+		g_Vars.list1tail = g_Vars.list1head;
 	}
 
 	prop->unk3e = 0;
-	prop->unk3f_03 = 1;
+	prop->inlist1 = true;
 }
 
-void func0f0605c4(struct prop *prop)
+void propRemoveFromCurrentList(struct prop *prop)
 {
-	if (prop->unk3f_03) {
-		if (prop == g_Vars.unk00033c) {
-			g_Vars.unk00033c = prop->next;
+	if (prop->inlist1) {
+		if (prop == g_Vars.list1head) {
+			g_Vars.list1head = prop->next;
 		}
 
-		if (prop == g_Vars.unk000340) {
-			if (g_Vars.unk00033c == g_Vars.unk000354) {
-				g_Vars.unk000340 = g_Vars.unk000354;
+		if (prop == g_Vars.list1tail) {
+			if (g_Vars.list1head == g_Vars.list2head) {
+				g_Vars.list1tail = g_Vars.list2head;
 			} else {
-				g_Vars.unk000340 = prop->prev;
+				g_Vars.list1tail = prop->prev;
 			}
 		}
 	} else {
-		if (prop == g_Vars.unk000354) {
-			if (g_Vars.unk00033c == g_Vars.unk000354) {
-				g_Vars.unk000340 = prop->next;
-				g_Vars.unk00033c = g_Vars.unk000340;
+		if (prop == g_Vars.list2head) {
+			if (g_Vars.list1head == g_Vars.list2head) {
+				g_Vars.list1tail = prop->next;
+				g_Vars.list1head = g_Vars.list1tail;
 			}
 
-			g_Vars.unk000354 = prop->next;
+			g_Vars.list2head = prop->next;
 		}
 	}
 
@@ -302,7 +302,7 @@ void func0f0605c4(struct prop *prop)
 
 	prop->next = NULL;
 	prop->prev = NULL;
-	prop->unk3f_03 = 0;
+	prop->inlist1 = false;
 	prop->unk3e = 0;
 }
 
@@ -2917,7 +2917,7 @@ void func0f062b64(struct prop *prop, s32 arg1)
 {
 	if (arg1 == 1) {
 		if ((prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_OBJ)
-				&& prop->obj && (prop->obj->hidden2 & 4)) {
+				&& prop->obj && (prop->obj->hidden2 & OBJH2FLAG_04)) {
 			struct defaultobj *obj = prop->obj;
 
 			prop->timetoregen = 1200;
@@ -2930,22 +2930,22 @@ void func0f062b64(struct prop *prop, s32 arg1)
 			func0f065c44(prop);
 			propHide(prop);
 
-			if (prop->unk3f_03 == 0) {
-				func0f062fac(prop);
+			if (!prop->inlist1) {
+				propMoveFromList2To1(prop);
 			}
 		} else {
 			func0f065c44(prop);
-			func0f0605c4(prop);
+			propRemoveFromCurrentList(prop);
 			propHide(prop);
 			propFree(prop);
 		}
 	} else if (arg1 == 2) {
 		func0f065c44(prop);
-		func0f0605c4(prop);
+		propRemoveFromCurrentList(prop);
 		propHide(prop);
 	} else if (arg1 == 4) {
 		func0f065c44(prop);
-		func0f0605c4(prop);
+		propRemoveFromCurrentList(prop);
 		propHide(prop);
 		func0f082f88(prop);
 		func0f06ac90(prop);
@@ -3116,50 +3116,50 @@ bool currentPlayerInteract(bool eyespy)
 	return true;
 }
 
-void func0f062ef8(struct prop *prop)
+void propPrependToList2(struct prop *prop)
 {
 	if ((prop->flags & PROPFLAG_10) == 0) {
-		func0f0605c4(prop);
+		propRemoveFromCurrentList(prop);
 
-		if (g_Vars.unk000354) {
-			prop->prev = g_Vars.unk000354->prev;
+		if (g_Vars.list2head) {
+			prop->prev = g_Vars.list2head->prev;
 
 			if (prop->prev) {
 				prop->prev->next = prop;
 			}
 
-			g_Vars.unk000354->prev = prop;
-			prop->next = g_Vars.unk000354;
+			g_Vars.list2head->prev = prop;
+			prop->next = g_Vars.list2head;
 
-			if (g_Vars.unk00033c == g_Vars.unk000354) {
-				g_Vars.unk00033c = g_Vars.unk000340 = prop;
+			if (g_Vars.list1head == g_Vars.list2head) {
+				g_Vars.list1head = g_Vars.list1tail = prop;
 			}
 
-			g_Vars.unk000354 = prop;
+			g_Vars.list2head = prop;
 		} else {
 			prop->next = NULL;
 
-			if (g_Vars.unk000340) {
-				prop->prev = g_Vars.unk000340;
-				g_Vars.unk000340->next = prop;
+			if (g_Vars.list1tail) {
+				prop->prev = g_Vars.list1tail;
+				g_Vars.list1tail->next = prop;
 			} else {
-				g_Vars.unk000340 = prop;
-				g_Vars.unk00033c = prop;
+				g_Vars.list1tail = prop;
+				g_Vars.list1head = prop;
 			}
 
-			g_Vars.unk000354 = prop;
+			g_Vars.list2head = prop;
 		}
 	}
 }
 
-void func0f062fac(struct prop *prop)
+void propMoveFromList2To1(struct prop *prop)
 {
-	if (prop == g_Vars.unk000354) {
-		if (g_Vars.unk00033c == g_Vars.unk000354) {
-			g_Vars.unk00033c = g_Vars.unk000340 = prop->next;
+	if (prop == g_Vars.list2head) {
+		if (g_Vars.list1head == g_Vars.list2head) {
+			g_Vars.list1head = g_Vars.list1tail = prop->next;
 		}
 
-		g_Vars.unk000354 = prop->next;
+		g_Vars.list2head = prop->next;
 	}
 
 	if (prop->next) {
@@ -3173,7 +3173,7 @@ void func0f062fac(struct prop *prop)
 	prop->next = NULL;
 	prop->prev = NULL;
 
-	func0f0604bc(prop);
+	propPrependToList1(prop);
 }
 
 u32 var80069884 = 0x00000001;
@@ -3738,7 +3738,7 @@ glabel func0f06302c
 /*  f0637bc:	01b9082a */ 	slt	$at,$t5,$t9
 /*  f0637c0:	5020001c */ 	beqzl	$at,.L0f063834
 /*  f0637c4:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f0637c8:	0fc18bbe */ 	jal	func0f062ef8
+/*  f0637c8:	0fc18bbe */ 	jal	propPrependToList2
 /*  f0637cc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0637d0:	10000017 */ 	b	.L0f063830
 /*  f0637d4:	24060005 */ 	addiu	$a2,$zero,0x5
@@ -3819,9 +3819,9 @@ glabel func0f06302c
 /*  f0638dc:	35ee0080 */ 	ori	$t6,$t7,0x80
 /*  f0638e0:	a20e003f */ 	sb	$t6,0x3f($s0)
 /*  f0638e4:	afa20060 */ 	sw	$v0,0x60($sp)
-/*  f0638e8:	0fc18171 */ 	jal	func0f0605c4
+/*  f0638e8:	0fc18171 */ 	jal	propRemoveFromCurrentList
 /*  f0638ec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0638f0:	0fc1814e */ 	jal	func0f060538
+/*  f0638f0:	0fc1814e */ 	jal	propAppendToList1
 /*  f0638f4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0638f8:	8fb8004c */ 	lw	$t8,0x4c($sp)
 /*  f0638fc:	8fa20060 */ 	lw	$v0,0x60($sp)

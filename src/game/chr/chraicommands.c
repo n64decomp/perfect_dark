@@ -2341,7 +2341,7 @@ bool aiGiveObjectToChr(void)
 			if (obj->prop->parent) {
 				func0f082f88(obj->prop);
 				func0f06ac90(obj->prop);
-				func0f0604bc(obj->prop);
+				propPrependToList1(obj->prop);
 			}
 
 			something = func0f088840(obj->prop, 0);
@@ -2354,7 +2354,7 @@ bool aiGiveObjectToChr(void)
 				func0f082f88(obj->prop);
 			} else {
 				func0f065c44(obj->prop);
-				func0f0605c4(obj->prop);
+				propRemoveFromCurrentList(obj->prop);
 				propHide(obj->prop);
 			}
 
@@ -5160,7 +5160,7 @@ bool aiShowChr(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->model) {
-		func0f0604bc(chr->prop);
+		propPrependToList1(chr->prop);
 		propShow(chr->prop);
 		func0f0220ac(chr);
 	}
@@ -5180,7 +5180,7 @@ bool aiHideChr(void)
 
 	if (chr && chr->prop && chr->model) {
 		func0f065c44(chr->prop);
-		func0f0605c4(chr->prop);
+		propRemoveFromCurrentList(chr->prop);
 		propHide(chr->prop);
 	}
 
@@ -5198,7 +5198,7 @@ bool aiShowObj(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->model) {
-		func0f0604bc(obj->prop);
+		propPrependToList1(obj->prop);
 		propShow(obj->prop);
 
 		if (g_Vars.currentplayer->eyespy == NULL && obj->type == OBJTYPE_WEAPON) {
@@ -5228,7 +5228,7 @@ bool aiHideObj(void)
 			func0f082f88(obj->prop);
 		} else {
 			func0f065c44(obj->prop);
-			func0f0605c4(obj->prop);
+			propRemoveFromCurrentList(obj->prop);
 			propHide(obj->prop);
 		}
 	}
@@ -9381,7 +9381,7 @@ glabel ai0172
 /*  f05cad8:	8faa0024 */ 	lw	$t2,0x24($sp)
 /*  f05cadc:	0fc19711 */ 	jal	func0f065c44
 /*  f05cae0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f05cae4:	0fc18171 */ 	jal	func0f0605c4
+/*  f05cae4:	0fc18171 */ 	jal	propRemoveFromCurrentList
 /*  f05cae8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f05caec:	0fc180c0 */ 	jal	propHide
 /*  f05caf0:	02002025 */ 	or	$a0,$s0,$zero
@@ -9412,7 +9412,7 @@ glabel ai0172
 //
 //	if (prop && prop->obj && prop->parent == NULL && prop->type == PROPTYPE_WEAPON) {
 //		func0f065c44(prop);
-//		func0f0605c4(prop);
+//		propRemoveFromCurrentList(prop);
 //		propHide(prop);
 //		func0f08ae54(prop->obj, g_Vars.chrdata);
 //	}

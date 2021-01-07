@@ -114,12 +114,12 @@ glabel func0f157db0
 /*  f157e40:	904c0003 */ 	lbu	$t4,0x3($v0)
 /*  f157e44:	566c0008 */ 	bnel	$s3,$t4,.L0f157e68
 /*  f157e48:	86020002 */ 	lh	$v0,0x2($s0)
-/*  f157e4c:	0fc18beb */ 	jal	func0f062fac
+/*  f157e4c:	0fc18beb */ 	jal	propMoveFromList2To1
 /*  f157e50:	00000000 */ 	nop
 /*  f157e54:	10000004 */ 	b	.L0f157e68
 /*  f157e58:	86020002 */ 	lh	$v0,0x2($s0)
 .L0f157e5c:
-/*  f157e5c:	0fc18beb */ 	jal	func0f062fac
+/*  f157e5c:	0fc18beb */ 	jal	propMoveFromList2To1
 /*  f157e60:	00000000 */ 	nop
 /*  f157e64:	86020002 */ 	lh	$v0,0x2($s0)
 .L0f157e68:

@@ -505,7 +505,7 @@ void scenarioHtbCallback10(void)
 	g_ScenarioData.htb.token = NULL;
 
 	// Check if briefcase is on the ground
-	prop = g_Vars.unk00033c;
+	prop = g_Vars.list1head;
 
 	while (prop) {
 		if (prop->type == PROPTYPE_WEAPON) {
@@ -2939,7 +2939,7 @@ void scenarioHtmCallback10(void)
 	g_ScenarioData.htm.uplink = NULL;
 
 	// Check if uplink is on the ground
-	prop = g_Vars.unk00033c;
+	prop = g_Vars.list1head;
 
 	while (prop) {
 		if (prop->type == PROPTYPE_WEAPON) {

@@ -1393,12 +1393,12 @@ glabel var7f1a7f80
 /*  f00d630:	31f88000 */ 	andi	$t8,$t7,0x8000
 /*  f00d634:	13000005 */ 	beqz	$t8,.L0f00d64c
 /*  f00d638:	00000000 */ 	nop
-/*  f00d63c:	0fc1814e */ 	jal	func0f060538
+/*  f00d63c:	0fc1814e */ 	jal	propAppendToList1
 /*  f00d640:	8fa4007c */ 	lw	$a0,0x7c($sp)
 /*  f00d644:	10000003 */ 	b	.L0f00d654
 /*  f00d648:	00000000 */ 	nop
 .L0f00d64c:
-/*  f00d64c:	0fc1812f */ 	jal	func0f0604bc
+/*  f00d64c:	0fc1812f */ 	jal	propPrependToList1
 /*  f00d650:	8fa4007c */ 	lw	$a0,0x7c($sp)
 .L0f00d654:
 /*  f00d654:	0fc180bc */ 	jal	propShow
@@ -2187,7 +2187,7 @@ glabel var7f1a8064
 /*  f00e8d4:	0c006bd6 */ 	jal	modelSetUnk14
 /*  f00e8d8:	00000000 */ 	nop
 .L0f00e8dc:
-/*  f00e8dc:	0fc1812f */ 	jal	func0f0604bc
+/*  f00e8dc:	0fc1812f */ 	jal	propPrependToList1
 /*  f00e8e0:	8fa4010c */ 	lw	$a0,0x10c($sp)
 /*  f00e8e4:	0fc180bc */ 	jal	propShow
 /*  f00e8e8:	8fa4010c */ 	lw	$a0,0x10c($sp)
@@ -2353,7 +2353,7 @@ glabel var7f1a8064
 //			modelSetUnk14(door->base.model, door->base.model->unk14 * mult);
 //		}
 //
-//		func0f0604bc(prop);
+//		propPrependToList1(prop);
 //		propShow(prop);
 //	} else {
 //		door->base.prop = NULL;

@@ -74,7 +74,7 @@ struct prop {
 	/*0x3f*/ u8 unk3f_00 : 1;
 	/*0x3f*/ u8 unk3f_01 : 1;
 	/*0x3f*/ u8 unk3f_02 : 1;
-	/*0x3f*/ u8 unk3f_03 : 1;
+	/*0x3f*/ u8 inlist1 : 1;
 	/*0x3f*/ u8 unk3f_04 : 1;
 	/*0x3f*/ u8 unk3f_05 : 1;
 	/*0x3f*/ u8 unk3f_06 : 1;

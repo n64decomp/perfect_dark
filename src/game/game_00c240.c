@@ -22,9 +22,9 @@ void gvarsInitProps(void)
 
 	var80069880 = 1;
 
-	g_Vars.unk00033c = NULL;
-	g_Vars.unk000340 = NULL;
-	g_Vars.unk000354 = g_Vars.unk000350 = NULL;
+	g_Vars.list1head = NULL;
+	g_Vars.list1tail = NULL;
+	g_Vars.list2head = g_Vars.unk000350 = NULL;
 
 	g_Vars.tangibleprops[0] = NULL;
 

@@ -616,7 +616,7 @@ glabel chrUnpack
 /*  f02d73c:	afa20010 */ 	sw	$v0,0x10($sp)
 /*  f02d740:	10400115 */ 	beqz	$v0,.L0f02db98
 /*  f02d744:	00402025 */ 	or	$a0,$v0,$zero
-/*  f02d748:	0fc1812f */ 	jal	func0f0604bc
+/*  f02d748:	0fc1812f */ 	jal	propPrependToList1
 /*  f02d74c:	afa20050 */ 	sw	$v0,0x50($sp)
 /*  f02d750:	0fc180bc */ 	jal	propShow
 /*  f02d754:	8fa40050 */ 	lw	$a0,0x50($sp)
@@ -966,7 +966,7 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 		prop = propAllocateChr(model, &pad->pos, rooms, 0, ailistFindById(GAILIST_IDLE));
 
 		if (prop) {
-			func0f0604bc(prop);
+			propPrependToList1(prop);
 			propShow(prop);
 			chr = prop->chr;
 			chrSetChrnum(chr, getNextUnusedChrnum());

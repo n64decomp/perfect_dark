@@ -280,7 +280,7 @@ void func0f0b65f8(void)
 			func0f0b63b0(i, 1);
 		}
 
-		prop = g_Vars.unk00033c;
+		prop = g_Vars.list1head;
 
 		while (prop) {
 			if (prop->type == PROPTYPE_OBJ) {
@@ -1975,7 +1975,7 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 
 		func0f020d44(hostprop, true);
 		func0f065c44(hostprop);
-		func0f0605c4(hostprop);
+		propRemoveFromCurrentList(hostprop);
 		propHide(hostprop);
 		propFree(hostprop);
 

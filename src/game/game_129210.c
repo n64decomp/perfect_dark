@@ -24,7 +24,7 @@
 void func0f129210(void *find, void *replacement)
 {
 	u32 stack;
-	struct prop *prop = g_Vars.unk00033c;
+	struct prop *prop = g_Vars.list1head;
 
 	while (prop) {
 		if (prop->type == PROPTYPE_OBJ) {

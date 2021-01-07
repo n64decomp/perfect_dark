@@ -88,13 +88,13 @@ struct g_vars {
 	/*000330*/ u32 unk000330;
 	/*000334*/ s32 maxprops;
 	/*000338*/ struct prop *props; // pointer to array
-	/*00033c*/ struct prop *unk00033c;
-	/*000340*/ struct prop *unk000340;
+	/*00033c*/ struct prop *list1head;
+	/*000340*/ struct prop *list1tail; // next pointer points to list2head
 	/*000344*/ struct prop *freeprops;
 	/*000348*/ struct prop **tangibleprops;
 	/*00034c*/ struct prop **unk00034c;
 	/*000350*/ struct prop *unk000350;
-	/*000354*/ struct prop *unk000354;
+	/*000354*/ struct prop *list2head; // prev pointer points to list1tail
 	/*000358*/ u8 numpropstateindexes;
 	/*000359*/ u8 nextpropstateindex;
 	/*00035a*/ u8 unk00035a;

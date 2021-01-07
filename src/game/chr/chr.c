@@ -146,11 +146,11 @@ void func0f01e250(void)
 	func0f02c9b0();
 	func0f048398();
 
-	prop = g_Vars.unk00033c;
+	prop = g_Vars.list1head;
 
 	do {
 		next = prop->next;
-		done = next == g_Vars.unk000354;
+		done = next == g_Vars.list2head;
 		value = 0;
 
 		if (prop->type == PROPTYPE_CHR) {
@@ -169,11 +169,11 @@ void func0f01e250(void)
 			next2 = next;
 		} else {
 			next2 = prop->next;
-			done = next2 == g_Vars.unk000354;
+			done = next2 == g_Vars.list2head;
 
 			if (value == 3) {
-				func0f0605c4(prop);
-				func0f060538(prop);
+				propRemoveFromCurrentList(prop);
+				propAppendToList1(prop);
 
 				if (done) {
 					next2 = prop;

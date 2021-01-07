@@ -2592,7 +2592,7 @@ glabel func0f06803c
 
 struct defaultobj *objFindByPadNum(s32 padnum)
 {
-	struct prop *prop = g_Vars.unk00033c;
+	struct prop *prop = g_Vars.list1head;
 
 	while (prop) {
 		if (prop->type == PROPTYPE_OBJ) {
@@ -5981,7 +5981,7 @@ glabel func0f06ad2c
 /*  f06b304:	8faf0064 */ 	lw	$t7,0x64($sp)
 /*  f06b308:	51e00008 */ 	beqzl	$t7,.L0f06b32c
 /*  f06b30c:	8e380014 */ 	lw	$t8,0x14($s1)
-/*  f06b310:	0fc18171 */ 	jal	func0f0605c4
+/*  f06b310:	0fc18171 */ 	jal	propRemoveFromCurrentList
 /*  f06b314:	8e240014 */ 	lw	$a0,0x14($s1)
 /*  f06b318:	0fc180c0 */ 	jal	propHide
 /*  f06b31c:	8e240014 */ 	lw	$a0,0x14($s1)
@@ -10298,7 +10298,7 @@ glabel func0f06ef44
 /*  f06efa0:	37280040 */ 	ori	$t0,$t9,0x40
 /*  f06efa4:	0fc19711 */ 	jal	func0f065c44
 /*  f06efa8:	ae080040 */ 	sw	$t0,0x40($s0)
-/*  f06efac:	0fc18171 */ 	jal	func0f0605c4
+/*  f06efac:	0fc18171 */ 	jal	propRemoveFromCurrentList
 /*  f06efb0:	02202025 */ 	or	$a0,$s1,$zero
 /*  f06efb4:	0fc180c0 */ 	jal	propHide
 /*  f06efb8:	02202025 */ 	or	$a0,$s1,$zero
@@ -28023,7 +28023,7 @@ u32 func0f07e474(struct prop *prop)
 			if (obj->damage == 0 && (obj->hidden2 & OBJH2FLAG_40) == 0) {
 				if (obj->flags & OBJFLAG_00008000) {
 					func0f065c44(prop);
-					func0f0605c4(prop);
+					propRemoveFromCurrentList(prop);
 					obj->hidden &= ~OBJHFLAG_00000800;
 					cmdoffset = setupGetCommandOffset(prop);
 
@@ -28480,7 +28480,7 @@ s32 objTick(struct prop *prop)
 
 Gfx *propsRenderBulletTails(Gfx *gdl)
 {
-	struct prop *prop = g_Vars.unk00033c;
+	struct prop *prop = g_Vars.list1head;
 
 	while (prop) {
 		if (prop->type == PROPTYPE_CHR) {
@@ -34684,7 +34684,7 @@ glabel var7f1aa978
 .L0f083cb4:
 /*  f083cb4:	0fc20be2 */ 	jal	func0f082f88
 /*  f083cb8:	8fa40140 */ 	lw	$a0,0x140($sp)
-/*  f083cbc:	0fc1812f */ 	jal	func0f0604bc
+/*  f083cbc:	0fc1812f */ 	jal	propPrependToList1
 /*  f083cc0:	8fa40140 */ 	lw	$a0,0x140($sp)
 /*  f083cc4:	0fc180bc */ 	jal	propShow
 /*  f083cc8:	8fa40140 */ 	lw	$a0,0x140($sp)
@@ -42123,7 +42123,7 @@ glabel func0f08aa70
 
 struct weaponobj *weaponFindThrown(s32 weaponnum)
 {
-	struct prop *prop = g_Vars.unk00033c;
+	struct prop *prop = g_Vars.list1head;
 
 	while (prop) {
 		struct weaponobj *weapon = func0f08aa70(weaponnum, prop);

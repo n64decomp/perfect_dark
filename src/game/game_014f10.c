@@ -23,7 +23,7 @@ void func0f014f10(void)
 				&& g_ChrSlots[i].prop
 				&& g_ChrSlots[i].prop->type == PROPTYPE_CHR) {
 			func0f020d44(g_ChrSlots[i].prop, true);
-			func0f0605c4(g_ChrSlots[i].prop);
+			propRemoveFromCurrentList(g_ChrSlots[i].prop);
 			propHide(g_ChrSlots[i].prop);
 			propFree(g_ChrSlots[i].prop);
 		}
