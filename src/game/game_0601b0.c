@@ -6024,24 +6024,20 @@ glabel func0f06554c
 /*  f0657a0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel roomsCopy
-/*  f0657a4:	84860000 */ 	lh	$a2,0x0($a0)
-/*  f0657a8:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0657ac:	00801025 */ 	or	$v0,$a0,$zero
-/*  f0657b0:	10c70007 */ 	beq	$a2,$a3,.L0f0657d0
-/*  f0657b4:	00a01825 */ 	or	$v1,$a1,$zero
-/*  f0657b8:	a4660000 */ 	sh	$a2,0x0($v1)
-.L0f0657bc:
-/*  f0657bc:	84460002 */ 	lh	$a2,0x2($v0)
-/*  f0657c0:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f0657c4:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f0657c8:	54c7fffc */ 	bnel	$a2,$a3,.L0f0657bc
-/*  f0657cc:	a4660000 */ 	sh	$a2,0x0($v1)
-.L0f0657d0:
-/*  f0657d0:	03e00008 */ 	jr	$ra
-/*  f0657d4:	a4670000 */ 	sh	$a3,0x0($v1)
-);
+void roomsCopy(s16 *src, s16 *dst)
+{
+	s16 *srcptr = src;
+	s16 *dstptr = dst;
+	s32 val;
+
+	while ((val = *srcptr) != -1) {
+		*dstptr = val;
+		srcptr++;
+		dstptr++;
+	}
+
+	*dstptr = -1;
+}
 
 GLOBAL_ASM(
 glabel func0f0657d8
