@@ -44,7 +44,7 @@ u32 func0f06554c(void);
 void roomsCopy(s16 *srcrooms, s16 *dstrooms);
 void func0f0657d8(s16 *newrooms, s16 *rooms, u32 arg2);
 bool arrayIntersects(s16 *a, s16 *b);
-u32 func0f0658e8(void);
+bool func0f0658e8(s16 arg0, s32 arg1);
 u32 func0f06593c(void);
 void func0f0659e4(struct prop *prop, s16 room);
 void func0f065ae0(struct prop *prop, s16 room);

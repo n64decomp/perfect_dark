@@ -6129,32 +6129,19 @@ glabel arrayIntersects
 /*  f0658e4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0658e8
-/*  f0658e8:	3c18800a */ 	lui	$t8,%hi(var8009cda4)
-/*  f0658ec:	8f18cda4 */ 	lw	$t8,%lo(var8009cda4)($t8)
-/*  f0658f0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f0658f4:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f0658f8:	0005c900 */ 	sll	$t9,$a1,0x4
-/*  f0658fc:	000e2403 */ 	sra	$a0,$t6,0x10
-/*  f065900:	00001825 */ 	or	$v1,$zero,$zero
-/*  f065904:	2402000e */ 	addiu	$v0,$zero,0xe
-/*  f065908:	03193021 */ 	addu	$a2,$t8,$t9
-.L0f06590c:
-/*  f06590c:	84c80000 */ 	lh	$t0,0x0($a2)
-/*  f065910:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f065914:	05010004 */ 	bgez	$t0,.L0f065928
-/*  f065918:	00000000 */ 	nop
-/*  f06591c:	a4c40000 */ 	sh	$a0,0x0($a2)
-/*  f065920:	03e00008 */ 	jr	$ra
-/*  f065924:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f065928:
-/*  f065928:	1462fff8 */ 	bne	$v1,$v0,.L0f06590c
-/*  f06592c:	24c60002 */ 	addiu	$a2,$a2,0x2
-/*  f065930:	00001025 */ 	or	$v0,$zero,$zero
-/*  f065934:	03e00008 */ 	jr	$ra
-/*  f065938:	00000000 */ 	nop
-);
+bool func0f0658e8(s16 arg0, s32 arg1)
+{
+	s32 i;
+
+	for (i = 0; i < 7; i++) {
+		if (var8009cda4[arg1].unk00[i] < 0) {
+			var8009cda4[arg1].unk00[i] = arg0;
+			return true;
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f06593c
