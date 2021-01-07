@@ -6456,18 +6456,10 @@ glabel func0f065d1c
 /*  f065dd4:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-GLOBAL_ASM(
-glabel func0f065dd8
-/*  f065dd8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f065ddc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f065de0:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f065de4:	0fc19747 */ 	jal	func0f065d1c
-/*  f065de8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f065dec:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f065df0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f065df4:	03e00008 */ 	jr	$ra
-/*  f065df8:	00000000 */ 	nop
-);
+void func0f065dd8(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms)
+{
+	func0f065d1c(pos, rooms, newpos, newrooms, NULL, 0);
+}
 
 void func0f065dfc(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms, s16 *morerooms, u32 arg5)
 {
