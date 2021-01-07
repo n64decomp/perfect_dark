@@ -20,7 +20,7 @@
 #include "game/pad.h"
 #include "game/propobj.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_126b0.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_16110.h"

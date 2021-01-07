@@ -9,7 +9,7 @@
 #include "game/data/data_02da90.h"
 #include "game/weather/weather.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "types.h"
 
 s32 g_WeatherEnabled = false;
@@ -67,7 +67,7 @@ void weatherInit(void)
 				|| g_StageIndex == STAGEINDEX_G5BUILDING
 				|| g_StageIndex == STAGEINDEX_CRASHSITE)
 			&& PLAYERCOUNT() < 2) {
-		g_WeatherData = malloc(sizeof(struct weatherdata), 4);
+		g_WeatherData = malloc(sizeof(struct weatherdata), MEMPOOL_STAGE);
 		g_WeatherData->particledata = weatherAllocateParticles();
 		g_WeatherData->type = -1;
 		g_WeatherData->windanglerad = 0;

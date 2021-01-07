@@ -56,7 +56,7 @@
 #include "lib/lib_0d0a0.h"
 #include "lib/main.h"
 #include "lib/lib_0e9d0.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_126b0.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_13130.h"
@@ -764,8 +764,8 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	tmp = var80090b00;
 //	memInit(uVar2, tmp - uVar2);
 //
-//	memResetPool(8);
-//	memResetPool(6);
+//	memResetPool(MEMPOOL_8);
+//	memResetPool(MEMPOOL_PERMANENT);
 //	func0000cef8();
 //	mpInitPresetFeatures();
 //	func0f176ddc();
@@ -960,15 +960,15 @@ void mainLoop(void)
 
 		var8005d9c4 = 0;
 
-		memResetPool(7);
-		memResetPool(4);
+		memResetPool(MEMPOOL_7);
+		memResetPool(MEMPOOL_STAGE);
 		func0f1672f0(4);
 
 		if (func00013010(1, "-ma")) {
 			var8005d9b8 = func00013408(func00013010(1, "-ma"), NULL, 0) * 1024;
 		}
 
-		func00012a14(malloc(var8005d9b8, 4), var8005d9b8);
+		func00012a14(malloc(var8005d9b8, MEMPOOL_STAGE), var8005d9b8);
 		stageLoadCommonLang(g_StageNum);
 		playersUnrefAll();
 
@@ -1065,8 +1065,8 @@ void mainLoop(void)
 		}
 
 		coreUnloadStage();
-		memDisablePool(4);
-		memDisablePool(7);
+		memDisablePool(MEMPOOL_STAGE);
+		memDisablePool(MEMPOOL_7);
 		func0f1672f0(4);
 		func00009ec4(1);
 		func0f116994();

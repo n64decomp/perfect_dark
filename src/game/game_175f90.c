@@ -10,7 +10,7 @@
 #include "game/game_166e40.h"
 #include "game/game_175f90.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "types.h"
 
 void func0f175f90(void)
@@ -21,13 +21,13 @@ void func0f175f90(void)
 void func0f175f98(void)
 {
 	func0f167330();
-	memResetPool(5);
+	memResetPool(MEMPOOL_5);
 	func0f1672f0(5);
 }
 
 void func0f175fc8(void)
 {
-	memDisablePool(5);
+	memDisablePool(MEMPOOL_5);
 	func0f1672f0(5);
 }
 

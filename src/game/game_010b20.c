@@ -11,7 +11,7 @@
 #include "game/game_097ba0.h"
 #include "game/game_1655c0.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "types.h"
 
 GLOBAL_ASM(
@@ -223,7 +223,7 @@ void func0f010bb0(void)
 		i = ALIGN16(func0f09ddfc());
 	}
 
-	g_Vars.currentplayer->unk158c = malloc(i, 4);
+	g_Vars.currentplayer->unk158c = malloc(i, MEMPOOL_STAGE);
 	g_Vars.currentplayer->unk159c = 0;
 	g_Vars.currentplayer->unk15a0 = 0;
 	g_Vars.currentplayer->unk15a4 = 0;

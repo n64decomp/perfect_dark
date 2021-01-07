@@ -1,5 +1,5 @@
-#ifndef _IN_LIB_LIB_121E0_H
-#define _IN_LIB_LIB_121E0_H
+#ifndef _IN_LIB_MEMORY_H
+#define _IN_LIB_MEMORY_H
 #include <ultra64.h>
 #include "types.h"
 
@@ -13,7 +13,7 @@ s32 memReallocate(u32 allocation, s32 size, u8 poolnum);
 u32 memGetFree(u8 poolnum, u32 bank);
 void memResetPool(u8 pool);
 void memDisablePool(u8 pool);
-u32 func000125dc(void);
-u32 func00012644(void);
+u32 memAllocFromBankRight(void);
+u32 mallocFromRight(void);
 
 #endif

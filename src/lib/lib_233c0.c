@@ -14,7 +14,7 @@
 #include "lib/lib_04790.h"
 #include "lib/lib_04a80.h"
 #include "lib/lib_0d0a0.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_2f490.h"

@@ -9,7 +9,7 @@
 #include "game/data/data_02a0e0.h"
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "types.h"
 
 void func0f000000(void)
@@ -17,8 +17,8 @@ void func0f000000(void)
 	s32 i;
 
 	if (g_LanguageId != LANGUAGE_ENGLISH) {
-		var800aabb4 = malloc(0x2e80, 6);
-		var800aabb8 = malloc(0x100, 6);
+		var800aabb4 = malloc(0x2e80, MEMPOOL_PERMANENT);
+		var800aabb8 = malloc(0x100, MEMPOOL_PERMANENT);
 
 		for (i = 0; i < 0x7c; i++) {
 			var800aabb8[i].unk00_00 = 0;

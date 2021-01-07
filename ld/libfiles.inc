@@ -29,7 +29,7 @@
 	build/ROMID/lib/main.o (section); \
 	build/ROMID/lib/lib_0e9d0.o (section); \
 	build/ROMID/lib/lib_11420.o (section); \
-	build/ROMID/lib/lib_121e0.o (section); \
+	build/ROMID/lib/memory.o (section); \
 	build/ROMID/lib/lib_126b0.o (section); \
 	build/ROMID/lib/lib_12dc0.o (section); \
 	build/ROMID/lib/lib_13130.o (section); \

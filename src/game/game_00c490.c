@@ -37,7 +37,7 @@
 #include "game/pad.h"
 #include "game/propobj.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
@@ -717,7 +717,7 @@ void setupInit(void)
 	if (var8009ce40 == 0) {
 		var8009ce58 = NULL;
 	} else {
-		var8009ce58 = malloc(ALIGN16(var8009ce40 * sizeof(struct var8009ce58)), 4);
+		var8009ce58 = malloc(ALIGN16(var8009ce40 * sizeof(struct var8009ce58)), MEMPOOL_STAGE);
 
 		for (i = 0; i < var8009ce40; i++) {
 			var8009ce58[i].base.prop = NULL;
@@ -729,7 +729,7 @@ void setupInit(void)
 	if (var8009ce44 == 0) {
 		var8009ce5c = NULL;
 	} else {
-		var8009ce5c = malloc(ALIGN16(var8009ce44 * sizeof(struct defaultobj)), 4);
+		var8009ce5c = malloc(ALIGN16(var8009ce44 * sizeof(struct defaultobj)), MEMPOOL_STAGE);
 
 		for (i = 0; i < var8009ce44; i++) {
 			var8009ce5c[i].prop = NULL;
@@ -741,7 +741,7 @@ void setupInit(void)
 	if (var8009ce48 == 0) {
 		var8009ce60 = 0;
 	} else {
-		var8009ce60 = malloc(ALIGN16(var8009ce48 * sizeof(struct var8009ce60)), 4);
+		var8009ce60 = malloc(ALIGN16(var8009ce48 * sizeof(struct var8009ce60)), MEMPOOL_STAGE);
 
 		for (i = 0; i < var8009ce48; i++) {
 			var8009ce60[i].base.prop = NULL;
@@ -751,7 +751,7 @@ void setupInit(void)
 	if (var8009ce4c == 0) {
 		var8009ce64 = 0;
 	} else {
-		var8009ce64 = malloc(ALIGN16(var8009ce4c * sizeof(struct defaultobj)), 4);
+		var8009ce64 = malloc(ALIGN16(var8009ce4c * sizeof(struct defaultobj)), MEMPOOL_STAGE);
 
 		for (i = 0; i < var8009ce4c; i++) {
 			var8009ce64[i].prop = NULL;
@@ -761,7 +761,7 @@ void setupInit(void)
 	if (g_NumProjectiles == 0) {
 		g_Projectiles = 0;
 	} else {
-		g_Projectiles = malloc(ALIGN16(g_NumProjectiles * sizeof(struct projectile)), 4);
+		g_Projectiles = malloc(ALIGN16(g_NumProjectiles * sizeof(struct projectile)), MEMPOOL_STAGE);
 
 		for (i = 0; i < g_NumProjectiles; i++) {
 			g_Projectiles[i].flags = PROJECTILEFLAG_FREE;
@@ -771,7 +771,7 @@ void setupInit(void)
 	if (g_NumMonitorThings == 0) {
 		g_MonitorThings = 0;
 	} else {
-		g_MonitorThings = malloc(ALIGN16(g_NumMonitorThings * sizeof(struct monitorthing)), 4);
+		g_MonitorThings = malloc(ALIGN16(g_NumMonitorThings * sizeof(struct monitorthing)), MEMPOOL_STAGE);
 
 		for (i = 0; i < g_NumMonitorThings; i++) {
 			g_MonitorThings[i].flags = 0x00000001;
@@ -795,8 +795,8 @@ void setupInit(void)
 
 	g_MaxThrownLaptops = g_Vars.normmplayerisrunning ? 12 : PLAYERCOUNT();
 
-	g_ThrownLaptops = malloc(ALIGN16(g_MaxThrownLaptops * sizeof(struct autogunobj)), 4);
-	var8006996c = malloc(ALIGN16(g_MaxThrownLaptops * 0x2c), 4);
+	g_ThrownLaptops = malloc(ALIGN16(g_MaxThrownLaptops * sizeof(struct autogunobj)), MEMPOOL_STAGE);
+	var8006996c = malloc(ALIGN16(g_MaxThrownLaptops * 0x2c), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_MaxThrownLaptops; i++) {
 		g_ThrownLaptops[i].base.prop = NULL;
@@ -1650,7 +1650,7 @@ void setupAutogun(struct autogunobj *autogun, s32 cmdindex)
 	autogun->unk84 = *(s32 *)&autogun->unk84 * 100.0f / 65536.0f;
 	autogun->unk64 = *(s32 *)&autogun->unk64 * M_BADTAU / 65536.0f;
 	autogun->unk68 = *(s32 *)&autogun->unk68 * M_BADTAU / 65536.0f;
-	autogun->bullettail = malloc(ALIGN16(sizeof(struct bullettail)), 4);
+	autogun->bullettail = malloc(ALIGN16(sizeof(struct bullettail)), MEMPOOL_STAGE);
 	autogun->bullettail->age = -1;
 	autogun->unk5e = 0;
 	autogun->ammoquantity = 255;
@@ -3379,8 +3379,8 @@ void setupParseObjects(s32 stagenum)
 						chopper->patroltimer60 = 0;
 						chopper->cw = 0;
 						chopper->weaponsarmed = true;
-						chopper->fireslotthing = malloc(sizeof(struct fireslotthing), 4);
-						chopper->fireslotthing->bullettail = malloc(ALIGN16(sizeof(struct bullettail)), 4);
+						chopper->fireslotthing = malloc(sizeof(struct fireslotthing), MEMPOOL_STAGE);
+						chopper->fireslotthing->bullettail = malloc(ALIGN16(sizeof(struct bullettail)), MEMPOOL_STAGE);
 						chopper->fireslotthing->bullettail->age = -1;
 						chopper->fireslotthing->unk08 = -1;
 						chopper->fireslotthing->unk00 = 0;

@@ -17,7 +17,7 @@
 #include "gvars/gvars.h"
 #include "lib/main.h"
 #include "lib/lib_0e9d0.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
@@ -234,7 +234,7 @@ void weatherSetBoundaries(struct weatherparticledata *data, s32 index, f32 min, 
 
 struct weatherparticledata *weatherAllocateParticles(void)
 {
-	struct weatherparticledata *data = malloc(sizeof(struct weatherparticledata), 4);
+	struct weatherparticledata *data = malloc(sizeof(struct weatherparticledata), MEMPOOL_STAGE);
 	u32 i;
 
 	data->unk3e80 = 0;

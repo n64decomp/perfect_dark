@@ -23,7 +23,7 @@
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_0e9d0.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_13130.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_4a360.h"
@@ -1591,7 +1591,7 @@ void hudmsgSystemInit(void)
 	s32 i;
 
 	g_NumHudMessages = g_Vars.mplayerisrunning ? 20 : 8;
-	g_HudMessages = malloc((sizeof(struct hudmessage) * g_NumHudMessages + 0x3f | 0x3f) ^ 0x3f, 4);
+	g_HudMessages = malloc((sizeof(struct hudmessage) * g_NumHudMessages + 0x3f | 0x3f) ^ 0x3f, MEMPOOL_STAGE);
 
 	for (i = 0; i < g_NumHudMessages; i++) {
 		g_HudMessages[i].state = HUDMSGSTATE_FREE;

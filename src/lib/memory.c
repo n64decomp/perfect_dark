@@ -9,7 +9,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "types.h"
 
 void func000121e0(void)
@@ -17,42 +17,68 @@ void func000121e0(void)
 	// empty
 }
 
+/**
+ * Initialise the memory allocation system by initialising the banks and pools.
+ *
+ * The system has two banks - onboard and expansion - which refer to the onboard
+ * memory and expansion pak memory if present. The arguments passed are the
+ * onboard start and length that can be used by the memory system. If the
+ * expansion pak is present, the entire pak is used for the second bank.
+ *
+ * Each bank consists of 8 pools, which start off overlapping. Care must be
+ * taken to not allocate from the wrong pool at the wrong time. In practice it
+ * appears only two pools are used which makes this easy:
+ *
+ * MEMPOOL_PERMANENT (index 6) is for permanent data and is never cleared
+ * MEMPOOL_STAGE (index 4) is for general data and is cleared on stage load
+ *
+ * After the permanent pool has finished its allocations, it is closed off and
+ * the stage pool is then placed immediately after it. All allocations from
+ * there on are made from the stage pool.
+ *
+ * Each pool has a start and end address. Allocations are typically served from
+ * the left side of the pool but can also be allocated from the right side.
+ * In practice right side allocations are only used once (by texture related
+ * code).
+ *
+ * Resizing an allocation is also supported, but only from the left side and
+ * only if it's the most recent allocation.
+ */
 void memInit(u32 heapstart, u32 heaplen)
 {
 	s32 i;
 	u32 extraend;
 
-	// Memory pool 9 is not cleared? Doesn't appear to be used anyway.
-	// Maybe the array is only 0-8?
 	for (i = 0; i < 9; i++) {
-		g_PrimaryMemoryPools[i].start = 0;
-		g_PrimaryMemoryPools[i].nextallocation = 0;
-		g_PrimaryMemoryPools[i].end = 0;
-		g_PrimaryMemoryPools[i].prevallocation = 0;
+		g_OnboardMemoryPools[i].start = 0;
+		g_OnboardMemoryPools[i].leftpos = 0;
+		g_OnboardMemoryPools[i].rightpos = 0;
+		g_OnboardMemoryPools[i].prevallocation = 0;
 
-		g_SecondaryMemoryPools[i].start = 0;
-		g_SecondaryMemoryPools[i].nextallocation = 0;
-		g_SecondaryMemoryPools[i].end = 0;
-		g_SecondaryMemoryPools[i].prevallocation = 0;
+		g_ExpansionMemoryPools[i].start = 0;
+		g_ExpansionMemoryPools[i].leftpos = 0;
+		g_ExpansionMemoryPools[i].rightpos = 0;
+		g_ExpansionMemoryPools[i].prevallocation = 0;
 	}
 
-	g_PrimaryMemoryPools[0].start = heapstart;
-	g_PrimaryMemoryPools[0].end = heapstart + heaplen;
-	g_PrimaryMemoryPools[6].start = heapstart;
-	g_PrimaryMemoryPools[6].end = heapstart + heaplen;
-	g_PrimaryMemoryPools[4].start = heapstart;
-	g_PrimaryMemoryPools[4].end = heapstart + heaplen;
+	g_OnboardMemoryPools[MEMPOOL_0].start = heapstart;
+	g_OnboardMemoryPools[MEMPOOL_0].rightpos = heapstart + heaplen;
+	g_OnboardMemoryPools[MEMPOOL_PERMANENT].start = heapstart;
+	g_OnboardMemoryPools[MEMPOOL_PERMANENT].rightpos = heapstart + heaplen;
+	g_OnboardMemoryPools[MEMPOOL_STAGE].start = heapstart;
+	g_OnboardMemoryPools[MEMPOOL_STAGE].rightpos = heapstart + heaplen;
 
+	// If 8MB, reserve the entire expansion pak for additional mempool 4
 	extraend = 0x80000000 + osGetMemSize();
 
 	if (osGetMemSize() > 4 * 1024 * 1024) {
-		g_SecondaryMemoryPools[4].start = 0x80400000;
-		g_SecondaryMemoryPools[4].end = extraend;
+		g_ExpansionMemoryPools[MEMPOOL_STAGE].start = 0x80400000;
+		g_ExpansionMemoryPools[MEMPOOL_STAGE].rightpos = extraend;
 	}
 
 	for (i = 0; i < 9; i++) {
-		g_PrimaryMemoryPools[i].unk0c = g_PrimaryMemoryPools[i].end;
-		g_SecondaryMemoryPools[i].unk0c = g_SecondaryMemoryPools[i].end;
+		g_OnboardMemoryPools[i].end = g_OnboardMemoryPools[i].rightpos;
+		g_ExpansionMemoryPools[i].end = g_ExpansionMemoryPools[i].rightpos;
 	}
 }
 
@@ -61,9 +87,9 @@ u32 memGetPool4Available(void)
 	u32 free;
 
 	if (IS4MB()) {
-		free = g_PrimaryMemoryPools[4].end - g_PrimaryMemoryPools[4].nextallocation;
+		free = g_OnboardMemoryPools[MEMPOOL_STAGE].rightpos - g_OnboardMemoryPools[MEMPOOL_STAGE].leftpos;
 	} else {
-		free = g_SecondaryMemoryPools[4].end - g_SecondaryMemoryPools[4].nextallocation;
+		free = g_ExpansionMemoryPools[MEMPOOL_STAGE].rightpos - g_ExpansionMemoryPools[MEMPOOL_STAGE].leftpos;
 	}
 
 	return free;
@@ -74,9 +100,9 @@ u32 memGetNextPool4Allocation(void)
 	u32 next;
 
 	if (IS4MB()) {
-		next = g_PrimaryMemoryPools[4].nextallocation;
+		next = g_OnboardMemoryPools[MEMPOOL_STAGE].leftpos;
 	} else {
-		next = g_SecondaryMemoryPools[4].nextallocation;
+		next = g_ExpansionMemoryPools[MEMPOOL_STAGE].leftpos;
 	}
 
 	return next;
@@ -124,24 +150,24 @@ glabel memAllocFromBank
 //
 //	pool += poolnum;
 //
-//	allocation = pool->nextallocation;
+//	allocation = pool->leftpos;
 //
-//	if (pool->nextallocation == 0) {
+//	if (pool->leftpos == 0) {
 //		return allocation;
 //	}
 //
-//	if (pool->nextallocation > pool->end) {
+//	if (pool->leftpos > pool->rightpos) {
 //		return 0;
 //	}
 //
-//	if (pool->nextallocation + size > pool->end) {
+//	if (pool->leftpos + size > pool->rightpos) {
 //		return 0;
 //	}
 //
 //	// Mismatch because allocation in the following statement should be
-//	// pool->nextallocation, but when this is changed it reuses the computed
+//	// pool->leftpos, but when this is changed it reuses the computed
 //	// expression from above which results in different codegen.
-//	pool->nextallocation = allocation + size;
+//	pool->leftpos = allocation + size;
 //	pool->prevallocation = allocation;
 //
 //	return allocation;
@@ -149,13 +175,13 @@ glabel memAllocFromBank
 
 void *malloc(u32 len, u8 pool)
 {
-	void *allocation = (void *)memAllocFromBank(&g_PrimaryMemoryPools[0], len, pool);
+	void *allocation = (void *)memAllocFromBank(g_OnboardMemoryPools, len, pool);
 
 	if (allocation) {
 		return allocation;
 	}
 
-	allocation = (void *)memAllocFromBank(&g_SecondaryMemoryPools[0], len, pool);
+	allocation = (void *)memAllocFromBank(g_ExpansionMemoryPools, len, pool);
 
 	if (allocation) {
 		return allocation;
@@ -171,32 +197,32 @@ void *malloc(u32 len, u8 pool)
  * The allocation must be the most recent allocation.
  *
  * @dangerous: This function does not check the limits of the memory pool.
- * If it allocates past the end of the pool it could lead to memory corruption.
+ * If it allocates past the rightpos of the pool it could lead to memory corruption.
  */
 s32 memReallocate(u32 allocation, s32 newsize, u8 poolnum)
 {
-	struct memorypool *pool = &g_PrimaryMemoryPools[poolnum];
+	struct memorypool *pool = &g_OnboardMemoryPools[poolnum];
 	s32 origsize;
 	s32 growsize;
 
 	if (pool->prevallocation != allocation) {
-		pool = &g_SecondaryMemoryPools[poolnum];
+		pool = &g_ExpansionMemoryPools[poolnum];
 
 		if (pool->prevallocation != allocation) {
 			return 2;
 		}
 	}
 
-	origsize = pool->nextallocation - pool->prevallocation;
+	origsize = pool->leftpos - pool->prevallocation;
 	growsize = newsize - origsize;
 
 	if (growsize <= 0) {
-		pool->nextallocation += growsize;
-		pool->nextallocation = ALIGN16(pool->nextallocation);
+		pool->leftpos += growsize;
+		pool->leftpos = ALIGN16(pool->leftpos);
 		return 1;
 	}
 
-	pool->nextallocation += growsize;
+	pool->leftpos += growsize;
 	return 1;
 }
 
@@ -209,45 +235,56 @@ u32 memGetFree(u8 poolnum, u32 bank)
 {
 	struct memorypool *pool;
 
-	if (bank == MEMBANK_PRIMARY) {
-		pool = &g_PrimaryMemoryPools[poolnum];
+	if (bank == MEMBANK_ONBOARD) {
+		pool = &g_OnboardMemoryPools[poolnum];
 	} else {
-		pool = &g_SecondaryMemoryPools[poolnum];
+		pool = &g_ExpansionMemoryPools[poolnum];
 	}
 
-	return pool->end - pool->nextallocation;
-}
-
-void memResetPool(u8 pool)
-{
-	// When resetting mempool 4, put it immediately after mempool 6 and close
-	// off mempool 6. Perhaps mempool 6 is only allocated to during stage load
-	// and mempool 4 is dynamic stuff which can happen after?
-	if (pool == 4) {
-		g_PrimaryMemoryPools[4].start = g_PrimaryMemoryPools[6].nextallocation;
-		g_PrimaryMemoryPools[6].end = g_PrimaryMemoryPools[6].nextallocation;
-		g_PrimaryMemoryPools[6].unk0c = g_PrimaryMemoryPools[6].nextallocation;
-	}
-
-	g_PrimaryMemoryPools[pool].nextallocation = g_PrimaryMemoryPools[pool].start;
-	g_SecondaryMemoryPools[pool].nextallocation = g_SecondaryMemoryPools[pool].start;
-	g_PrimaryMemoryPools[pool].prevallocation = 0;
-	g_SecondaryMemoryPools[pool].prevallocation = 0;
+	return pool->rightpos - pool->leftpos;
 }
 
 /**
- * Setting nextallocation to 0 means that this pool will refuse all allocations.
+ * Reset the pool's left side to its start address, effectively freeing the left
+ * side of the pool.
+ *
+ * If resetting the stage pool, close off the permanent pool and place the stage
+ * pool immediately after it.
+ *
+ * Note the right side is not reset here.
+ */
+void memResetPool(u8 pool)
+{
+	if (pool == MEMPOOL_STAGE) {
+		g_OnboardMemoryPools[MEMPOOL_STAGE].start = g_OnboardMemoryPools[MEMPOOL_PERMANENT].leftpos;
+		g_OnboardMemoryPools[MEMPOOL_PERMANENT].rightpos = g_OnboardMemoryPools[MEMPOOL_PERMANENT].leftpos;
+		g_OnboardMemoryPools[MEMPOOL_PERMANENT].end = g_OnboardMemoryPools[MEMPOOL_PERMANENT].leftpos;
+	}
+
+	g_OnboardMemoryPools[pool].leftpos = g_OnboardMemoryPools[pool].start;
+	g_ExpansionMemoryPools[pool].leftpos = g_ExpansionMemoryPools[pool].start;
+	g_OnboardMemoryPools[pool].prevallocation = 0;
+	g_ExpansionMemoryPools[pool].prevallocation = 0;
+}
+
+/**
+ * Setting leftpos to 0 means that this pool will refuse allocations from the
+ * left.
+ *
+ * Setting rightpos to the end means it's resetting the right side and making
+ * that available for allocations. It would have made more sense to do this in
+ * memResetPool instead.
  */
 void memDisablePool(u8 pool)
 {
-	g_PrimaryMemoryPools[pool].nextallocation = 0;
-	g_SecondaryMemoryPools[pool].nextallocation = 0;
-	g_PrimaryMemoryPools[pool].end = g_PrimaryMemoryPools[pool].unk0c;
-	g_SecondaryMemoryPools[pool].end = g_SecondaryMemoryPools[pool].unk0c;
+	g_OnboardMemoryPools[pool].leftpos = 0;
+	g_ExpansionMemoryPools[pool].leftpos = 0;
+	g_OnboardMemoryPools[pool].rightpos = g_OnboardMemoryPools[pool].end;
+	g_ExpansionMemoryPools[pool].rightpos = g_ExpansionMemoryPools[pool].end;
 }
 
 GLOBAL_ASM(
-glabel func000125dc
+glabel memAllocFromBankRight
 /*    125dc:	30ce00ff */ 	andi	$t6,$a2,0xff
 /*    125e0:	000e7880 */ 	sll	$t7,$t6,0x2
 /*    125e4:	01ee7821 */ 	addu	$t7,$t7,$t6
@@ -280,24 +317,24 @@ glabel func000125dc
 );
 
 GLOBAL_ASM(
-glabel func00012644
+glabel mallocFromRight
 /*    12644:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    12648:	afa40018 */ 	sw	$a0,0x18($sp)
 /*    1264c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    12650:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    12654:	3c04800a */ 	lui	$a0,%hi(g_PrimaryMemoryPools)
-/*    12658:	24849300 */ 	addiu	$a0,$a0,%lo(g_PrimaryMemoryPools)
+/*    12654:	3c04800a */ 	lui	$a0,%hi(g_OnboardMemoryPools)
+/*    12658:	24849300 */ 	addiu	$a0,$a0,%lo(g_OnboardMemoryPools)
 /*    1265c:	93a6001f */ 	lbu	$a2,0x1f($sp)
-/*    12660:	0c004977 */ 	jal	func000125dc
+/*    12660:	0c004977 */ 	jal	memAllocFromBankRight
 /*    12664:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*    12668:	10400003 */ 	beqz	$v0,.L00012678
-/*    1266c:	3c04800a */ 	lui	$a0,%hi(g_SecondaryMemoryPools)
+/*    1266c:	3c04800a */ 	lui	$a0,%hi(g_ExpansionMemoryPools)
 /*    12670:	1000000b */ 	b	.L000126a0
 /*    12674:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L00012678:
-/*    12678:	248493b8 */ 	addiu	$a0,$a0,%lo(g_SecondaryMemoryPools)
+/*    12678:	248493b8 */ 	addiu	$a0,$a0,%lo(g_ExpansionMemoryPools)
 /*    1267c:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*    12680:	0c004977 */ 	jal	func000125dc
+/*    12680:	0c004977 */ 	jal	memAllocFromBankRight
 /*    12684:	93a6001f */ 	lbu	$a2,0x1f($sp)
 /*    12688:	10400003 */ 	beqz	$v0,.L00012698
 /*    1268c:	00401825 */ 	or	$v1,$v0,$zero

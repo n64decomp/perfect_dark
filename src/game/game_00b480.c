@@ -11,7 +11,7 @@
 #include "game/game_00b820.h"
 #include "game/title.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "types.h"
 
 void func0f00b480(void)
@@ -28,7 +28,7 @@ void func0f00b480(void)
 		g_TitleNextMode = TITLEMODE_SKIP;
 	}
 
-	var8009cca0 = malloc(0x47800, 4);
+	var8009cca0 = malloc(0x47800, MEMPOOL_STAGE);
 
 	func0f00b420();
 }
@@ -47,7 +47,7 @@ void func0f00b510(void)
 	g_ChrSlots = NULL;
 	g_NumChrSlots = 0;
 
-	var80062a8c = malloc(sizeof(struct var80062a8c) * 20, 4);
+	var80062a8c = malloc(sizeof(struct var80062a8c) * 20, MEMPOOL_STAGE);
 
 	for (i = 0; i < 20; i++) {
 		var80062a8c[i].prop = NULL;
@@ -57,12 +57,12 @@ void func0f00b510(void)
 	g_NumChrs = 0;
 	g_Chrnums = NULL;
 	g_ChrIndexes = NULL;
-	var80062960 = malloc(0x1470, 4);
+	var80062960 = malloc(0x1470, MEMPOOL_STAGE);
 
 	for (i = 0; i < 20; i++) {
 		// @bug? Should the ALIGN64 should surely be applied before malloc...?
 		// Not a bug if only 0x200 bytes are being used
-		var8009ccc0[i] = (void *)ALIGN64(malloc(0x240, 4));
+		var8009ccc0[i] = (void *)ALIGN64(malloc(0x240, MEMPOOL_STAGE));
 	}
 
 	resetSomeStageThings();
@@ -73,7 +73,7 @@ void func0f00b62c(s32 numchrs)
 	s32 i;
 
 	g_NumChrSlots = PLAYERCOUNT() + numchrs + 10;
-	g_ChrSlots = malloc(ALIGN16(g_NumChrSlots * sizeof(struct chrdata)), 4);
+	g_ChrSlots = malloc(ALIGN16(g_NumChrSlots * sizeof(struct chrdata)), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_NumChrSlots; i++) {
 		g_ChrSlots[i].chrnum = -1;
@@ -82,8 +82,8 @@ void func0f00b62c(s32 numchrs)
 	}
 
 	g_NumChrs = 0;
-	g_Chrnums = malloc(ALIGN16(g_NumChrSlots * 2), 4);
-	g_ChrIndexes = malloc(ALIGN16(g_NumChrSlots * 2), 4);
+	g_Chrnums = malloc(ALIGN16(g_NumChrSlots * 2), MEMPOOL_STAGE);
+	g_ChrIndexes = malloc(ALIGN16(g_NumChrSlots * 2), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_NumChrSlots; i++) {
 		g_Chrnums[i] = -1;

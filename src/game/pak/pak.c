@@ -19,7 +19,7 @@
 #include "lib/lib_06440.h"
 #include "lib/lib_06550.h"
 #include "lib/main.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_13130.h"
 #include "lib/lib_13900.h"
@@ -4267,7 +4267,7 @@ void func0f11a32c(s8 device, u8 arg1, u32 line, char *file)
 
 		if ((var800a2380[device].unk014 & 1) && var800a2380[device].unk2c0 == NULL) {
 			var800a2380[device].unk2be = 0;
-			var800a2380[device].unk2c0 = malloc(align32(0x708), 6);
+			var800a2380[device].unk2c0 = malloc(align32(0x708), MEMPOOL_PERMANENT);
 
 			// This would have been used in an osSyncPrintf call.
 			// Perhaps using the strings at var7f1b4318 through var7f1b43ac?

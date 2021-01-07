@@ -24,7 +24,7 @@
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"
 #include "types.h"
@@ -410,7 +410,7 @@ void currentPlayerInitEyespy(void)
 		prop = propAllocateEyespy(&pad, pad.room);
 
 		if (prop) {
-			g_Vars.currentplayer->eyespy = malloc(sizeof(struct eyespy), 4);
+			g_Vars.currentplayer->eyespy = malloc(sizeof(struct eyespy), MEMPOOL_STAGE);
 
 			if (g_Vars.currentplayer->eyespy) {
 				g_Vars.currentplayer->eyespy->prop = prop;

@@ -9,7 +9,7 @@
 #include "game/data/data_02da90.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "types.h"
 
 GLOBAL_ASM(

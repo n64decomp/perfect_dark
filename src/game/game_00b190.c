@@ -9,7 +9,7 @@
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
 #include "lib/lib_0d0a0.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "types.h"
 
 void loadTextureList(void)
@@ -19,7 +19,7 @@ void loadTextureList(void)
 
 	u32 len = ((&_texturesTableRomEnd - &_texturesTableRomStart) + 15) & -16;
 
-	g_Textures = malloc(len, 6);
+	g_Textures = malloc(len, MEMPOOL_PERMANENT);
 
 	func0000d410(g_Textures, &_texturesTableRomStart, len);
 }

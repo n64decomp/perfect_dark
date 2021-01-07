@@ -38,7 +38,7 @@
 #include "lib/lib_0d0a0.h"
 #include "lib/main.h"
 #include "lib/lib_0e9d0.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_13130.h"
 #include "lib/lib_159b0.h"
@@ -439,7 +439,7 @@ void frUnloadData(void)
 
 void *frLoadRomData(u32 len)
 {
-	g_FrRomData = malloc(ALIGN16(len), 4);
+	g_FrRomData = malloc(ALIGN16(len), MEMPOOL_STAGE);
 
 	if (g_FrRomData) {
 		return func0000d488(g_FrRomData, &_firingrangeSegmentRomStart, len);
@@ -1763,7 +1763,7 @@ glabel frLoadData
 //		}
 //
 //		// 83c
-//		g_FrScriptOffsets = malloc(ALIGN16(count * 2), 4);
+//		g_FrScriptOffsets = malloc(ALIGN16(count * 2), MEMPOOL_STAGE);
 //
 //		// 860
 //		if (g_FrScriptOffsets) {

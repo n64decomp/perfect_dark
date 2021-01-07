@@ -14,7 +14,7 @@
 #include "game/game_197600.h"
 #include "game/mplayer/mplayer.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_1a500.h"
@@ -489,7 +489,7 @@ void aibotAllocateUnk014(struct chrdata *chr, s32 count)
 		}
 
 		chr->aibot->unk018 = count;
-		chr->aibot->unk014 = malloc(ALIGN16(count * sizeof(struct aibot014)), 4);
+		chr->aibot->unk014 = malloc(ALIGN16(count * sizeof(struct aibot014)), MEMPOOL_STAGE);
 
 		func0f197c00(chr);
 	}

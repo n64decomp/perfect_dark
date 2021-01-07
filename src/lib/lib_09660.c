@@ -15,7 +15,7 @@
 #include "gvars/gvars.h"
 #include "lib/lib_04840.h"
 #include "lib/lib_09660.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_2faf0.h"
 #include "lib/lib_30ce0.h"

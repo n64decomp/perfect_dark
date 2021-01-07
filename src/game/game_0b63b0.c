@@ -62,7 +62,7 @@
 #include "lib/lib_09660.h"
 #include "lib/main.h"
 #include "lib/lib_0e9d0.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_13900.h"
 #include "lib/lib_159b0.h"
@@ -501,7 +501,7 @@ glabel acousticReset
 //
 //	osSyncPrintf("Acoustic Reset -> Allocating %d bytes for %d roomacousticdata structures\n", size, g_Vars.roomcount);
 //
-//	g_RoomAcousticData = malloc(size, 4);
+//	g_RoomAcousticData = malloc(size, MEMPOOL_STAGE);
 //
 //	for (i = 0; i < g_Vars.roomcount; i++) {
 //		bool allgood = true;

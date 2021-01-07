@@ -1138,8 +1138,15 @@
 #define MAX_SQUADRONS      16
 #define MAX_TEAMS          8
 
-#define MEMBANK_PRIMARY   0
-#define MEMBANK_SECONDARY 1
+#define MEMBANK_ONBOARD   0
+#define MEMBANK_EXPANSION 1
+
+#define MEMPOOL_0         0
+#define MEMPOOL_STAGE     4 // Cleared on stage load
+#define MEMPOOL_5         5
+#define MEMPOOL_PERMANENT 6 // Never cleared
+#define MEMPOOL_7         7
+#define MEMPOOL_8         8
 
 #define MENUDIALOGTYPE_DEFAULT 1
 #define MENUDIALOGTYPE_DANGER  2

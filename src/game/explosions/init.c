@@ -8,7 +8,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "types.h"
 
 void explosionsInit(void)
@@ -29,7 +29,7 @@ void explosionsInit(void)
 	if (g_MaxExplosions == 0) {
 		g_Explosions = NULL;
 	} else {
-		g_Explosions = malloc((g_MaxExplosions * sizeof(struct explosion) + 0xf) & ~0xf, 4);
+		g_Explosions = malloc((g_MaxExplosions * sizeof(struct explosion) + 0xf) & ~0xf, MEMPOOL_STAGE);
 
 		for (i = 0; i < g_MaxExplosions; i++) {
 			g_Explosions[i].prop = NULL;

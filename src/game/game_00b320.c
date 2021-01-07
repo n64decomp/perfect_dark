@@ -10,7 +10,7 @@
 #include "game/game_166e40.h"
 #include "game/lang.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "types.h"
 
 void stageLoadCommonLang(s32 stagenum)
@@ -36,7 +36,7 @@ void stageLoadCommonLang(s32 stagenum)
 void func0f00b420(void)
 {
 	var80062410 = 0;
-	var8009cc80 = malloc(0x80, 4);
-	var8009cc84 = malloc(0x80, 4);
-	var8009cc88 = malloc(0x80, 4);
+	var8009cc80 = malloc(0x80, MEMPOOL_STAGE);
+	var8009cc84 = malloc(0x80, MEMPOOL_STAGE);
+	var8009cc88 = malloc(0x80, MEMPOOL_STAGE);
 }

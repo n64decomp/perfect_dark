@@ -13,7 +13,7 @@
 #include "lib/lib_074f0.h"
 #include "lib/lib_0d0a0.h"
 #include "lib/main.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_48120.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4e470.h"
@@ -5591,7 +5591,7 @@ glabel func0f173010
 /*  f173320:	2484002f */ 	addiu	$a0,$a0,0x2f
 /*  f173324:	348c000f */ 	ori	$t4,$a0,0xf
 /*  f173328:	3984000f */ 	xori	$a0,$t4,0xf
-/*  f17332c:	0c004991 */ 	jal	func00012644
+/*  f17332c:	0c004991 */ 	jal	mallocFromRight
 /*  f173330:	afa31490 */ 	sw	$v1,0x1490($sp)
 /*  f173334:	ae02000c */ 	sw	$v0,0xc($s0)
 /*  f173338:	afa20034 */ 	sw	$v0,0x34($sp)
@@ -6084,7 +6084,7 @@ glabel texturesLoadConfigs
 //	u32 len = &_textureconfigSegmentEnd - &_textureconfigSegmentStart;
 //	s32 i;
 //
-//	g_TextureConfigSegment = malloc(len, 4);
+//	g_TextureConfigSegment = malloc(len, MEMPOOL_STAGE);
 //	func0000d410(g_TextureConfigSegment, &_textureconfigSegmentRomStart, len);
 //
 //	var800ab550 = (u32)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart);
@@ -6110,7 +6110,7 @@ glabel texturesLoadConfigs
 //	var800ab5ac = (struct textureconfig *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0xb44);
 //
 //	var800ab558 = (len - ((u32)&_textureconfigSegmentStart + 0x1c0)) + (u32)&_textureconfigSegmentStart;
-//	var800ab55c = malloc(align16(var800ab558), 4);
+//	var800ab55c = malloc(align16(var800ab558), MEMPOOL_STAGE);
 //
 //	for (i = 0; i < var800ab558; i++) {
 //		var800ab55c[i].texturenum = 0;

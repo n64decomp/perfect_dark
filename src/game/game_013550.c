@@ -8,7 +8,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "types.h"
 
 /**
@@ -98,7 +98,7 @@ void func0f013550(void)
 		numberssize += 0xf;
 		numberssize &= ~0xf;
 
-		ptr = malloc(structssize + numberssize, 4);
+		ptr = malloc(structssize + numberssize, MEMPOOL_STAGE);
 
 		var8009cc40 = ptr;
 		var800a41b0 = (struct var800a41b0 *)((u32)ptr + numberssize);
@@ -144,7 +144,7 @@ void func0f0139f0(void)
 	if (var800a45c0 == 0) {
 		var800a45c4 = 0;
 	} else {
-		var800a45c4 = malloc(var800a45c0 * sizeof(struct var800a45c4) + 0xf & ~0xf, 4);
+		var800a45c4 = malloc(var800a45c0 * sizeof(struct var800a45c4) + 0xf & ~0xf, MEMPOOL_STAGE);
 
 		for (i = 0; i < var800a45c0; i++) {
 			var800a45c4[i].unk04 = 0;
@@ -182,7 +182,7 @@ void func0f013ba0(void)
 		}
 
 		if (num > 0) {
-			var8007e3d0[i].unk24 = malloc(num * sizeof(struct var8007e3d0_data), 4);
+			var8007e3d0[i].unk24 = malloc(num * sizeof(struct var8007e3d0_data), MEMPOOL_STAGE);
 		}
 
 		for (j = 0; j < num; j++) {

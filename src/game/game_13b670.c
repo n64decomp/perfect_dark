@@ -11,7 +11,7 @@
 #include "game/game_13b670.h"
 #include "gvars/gvars.h"
 #include "lib/main.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_16110.h"
 #include "types.h"
 

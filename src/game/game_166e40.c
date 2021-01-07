@@ -12,7 +12,7 @@
 #include "gvars/gvars.h"
 #include "lib/lib_074f0.h"
 #include "lib/lib_0d0a0.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_13130.h"
 #include "types.h"
@@ -315,12 +315,12 @@ glabel func0f1670fc
 //		}
 //
 //		// 174
-//		ptr = malloc(info->unk00, 4);
+//		ptr = malloc(info->unk00, MEMPOOL_STAGE);
 //		info->unk04 = info->unk00;
 //		func0f166eb4(ptr, info->unk00, &filetable[filenum], info);
 //
 //		if (arg1 != 0x11) {
-//			memReallocate(ptr, info->unk00, 4);
+//			memReallocate(ptr, info->unk00, MEMPOOL_STAGE);
 //		}
 //	} else {
 //		while (true) {

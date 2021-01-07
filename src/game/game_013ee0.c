@@ -12,7 +12,7 @@
 #include "game/pad.h"
 #include "gvars/gvars.h"
 #include "lib/lib_04790.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "lib/lib_233c0.h"
 #include "types.h"
 

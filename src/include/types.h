@@ -4896,9 +4896,9 @@ struct gecreditsdata {
 
 struct memorypool {
 	/*0x00*/ u32 start;
-	/*0x04*/ u32 nextallocation;
-	/*0x08*/ u32 end;
-	/*0x0c*/ u32 unk0c;
+	/*0x04*/ u32 leftpos;
+	/*0x08*/ u32 rightpos;
+	/*0x0c*/ u32 end;
 	/*0x10*/ u32 prevallocation;
 };
 

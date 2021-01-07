@@ -8,7 +8,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "types.h"
 
 void smokeInit(void)
@@ -25,7 +25,7 @@ void smokeInit(void)
 	if (g_MaxSmokes == 0) {
 		g_Smokes = NULL;
 	} else {
-		g_Smokes = malloc(g_MaxSmokes * sizeof(struct smoke), 4);
+		g_Smokes = malloc(g_MaxSmokes * sizeof(struct smoke), MEMPOOL_STAGE);
 
 		for (i = 0; i < g_MaxSmokes; i++) {
 			g_Smokes[i].prop = NULL;

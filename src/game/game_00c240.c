@@ -10,15 +10,15 @@
 #include "game/game_00c240.h"
 #include "game/game_0601b0.h"
 #include "gvars/gvars.h"
-#include "lib/lib_121e0.h"
+#include "lib/memory.h"
 #include "types.h"
 
 void gvarsInitProps(void)
 {
 	s32 i;
 
-	g_Vars.props = malloc(ALIGN64(g_Vars.maxprops * sizeof(struct prop)), 4);
-	g_Vars.tangibleprops = malloc(ALIGN64(200 * sizeof(void *)), 4);
+	g_Vars.props = malloc(ALIGN64(g_Vars.maxprops * sizeof(struct prop)), MEMPOOL_STAGE);
+	g_Vars.tangibleprops = malloc(ALIGN64(200 * sizeof(void *)), MEMPOOL_STAGE);
 
 	var80069880 = 1;
 
@@ -64,8 +64,8 @@ void func0f00c390(void)
 	s32 i;
 	s32 j;
 
-	var8009cda0 = malloc(ALIGN16(g_Vars.roomcount * 2), 4);
-	var8009cda4 = malloc(256 * sizeof(struct var8009cda4), 4);
+	var8009cda0 = malloc(ALIGN16(g_Vars.roomcount * 2), MEMPOOL_STAGE);
+	var8009cda4 = malloc(256 * sizeof(struct var8009cda4), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
 		var8009cda0[i] = -1;
