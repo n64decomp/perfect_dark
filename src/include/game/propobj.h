@@ -243,7 +243,7 @@ u32 func0f0869cc(void);
 bool currentPlayerTryMountHoverbike(struct prop *prop);
 bool propobjInteract(struct prop *prop);
 void propObjSetOrUnsetHiddenFlag00400000(struct prop *prop, bool enable);
-bool func0f087458(struct prop *prop, struct geo **geos, u32 *arg2);
+bool objUpdateGeometry(struct prop *prop, struct geo **arg1, struct geo **arg2);
 void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
 void ammotypeGetPickedUpText(char *dst);
 void ammotypeGetDeterminer(char *dst, s32 ammotype, s32 qty);

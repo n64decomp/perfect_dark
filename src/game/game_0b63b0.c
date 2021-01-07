@@ -10643,7 +10643,7 @@ void func0f0c1e54(struct prop *prop, bool enable)
 	g_Vars.players[playernum]->bondperimenabled = enable;
 }
 
-bool func0f0c1f08(struct prop *prop, struct geo **arg1, struct geo **arg2)
+bool playerUpdateGeometry(struct prop *prop, struct geo **arg1, struct geo **arg2)
 {
 	s32 playernum = propGetPlayerNum(prop);
 

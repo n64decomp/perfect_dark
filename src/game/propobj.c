@@ -2637,7 +2637,7 @@ glabel func0f068218
 /*  f068270:	1040000d */ 	beqz	$v0,.L0f0682a8
 /*  f068274:	02002025 */ 	or	$a0,$s0,$zero
 /*  f068278:	02602825 */ 	or	$a1,$s3,$zero
-/*  f06827c:	0fc198a4 */ 	jal	func0f066290
+/*  f06827c:	0fc198a4 */ 	jal	propUpdateGeometry
 /*  f068280:	02803025 */ 	or	$a2,$s4,$zero
 /*  f068284:	10400008 */ 	beqz	$v0,.L0f0682a8
 /*  f068288:	8fa60038 */ 	lw	$a2,0x38($sp)
@@ -5355,7 +5355,7 @@ glabel var7f1aa200
 /*  f06aa24:	8c440014 */ 	lw	$a0,0x14($v0)
 /*  f06aa28:	e7ae00bc */ 	swc1	$f14,0xbc($sp)
 /*  f06aa2c:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f06aa30:	0fc198a4 */ 	jal	func0f066290
+/*  f06aa30:	0fc198a4 */ 	jal	propUpdateGeometry
 /*  f06aa34:	27a60038 */ 	addiu	$a2,$sp,0x38
 /*  f06aa38:	10400027 */ 	beqz	$v0,.L0f06aad8
 /*  f06aa3c:	c7ae00bc */ 	lwc1	$f14,0xbc($sp)
@@ -14941,7 +14941,7 @@ glabel func0f0732d4
 /*  f073300:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f073304:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f073308:	27a5009c */ 	addiu	$a1,$sp,0x9c
-/*  f07330c:	0fc198a4 */ 	jal	func0f066290
+/*  f07330c:	0fc198a4 */ 	jal	propUpdateGeometry
 /*  f073310:	27a60098 */ 	addiu	$a2,$sp,0x98
 /*  f073314:	1040004c */ 	beqz	$v0,.L0f073448
 /*  f073318:	27b000a0 */ 	addiu	$s0,$sp,0xa0
@@ -28258,7 +28258,7 @@ s32 objTick(struct prop *prop)
 			f32 sp112;
 			s32 tagnum;
 			struct geo *geos[2];
-			u32 sp96;
+			struct geo *sp96;
 			f32 damage;
 
 			if (sp572) {
@@ -28330,7 +28330,7 @@ s32 objTick(struct prop *prop)
 				func0f069c70(obj, true, true);
 				sp592 = true;
 
-				if (func0f087458(prop, geos, &sp96)
+				if (objUpdateGeometry(prop, geos, &sp96)
 						&& geos[0]->type == GEOTYPE_2
 						&& func0002e4c4(geos[0], prop->rooms, 4) == 0) {
 					damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
@@ -34997,7 +34997,7 @@ glabel func0f0840ac
 /*  f0840d4:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f0840d8:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0840dc:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f0840e0:	0fc198a4 */ 	jal	func0f066290
+/*  f0840e0:	0fc198a4 */ 	jal	propUpdateGeometry
 /*  f0840e4:	27a60048 */ 	addiu	$a2,$sp,0x48
 /*  f0840e8:	10400031 */ 	beqz	$v0,.L0f0841b0
 /*  f0840ec:	27b00050 */ 	addiu	$s0,$sp,0x50
@@ -38360,7 +38360,7 @@ void propObjSetOrUnsetHiddenFlag00400000(struct prop *prop, bool enable)
 }
 
 GLOBAL_ASM(
-glabel func0f087458
+glabel objUpdateGeometry
 /*  f087458:	8c830004 */ 	lw	$v1,0x4($a0)
 /*  f08745c:	8c670044 */ 	lw	$a3,0x44($v1)
 /*  f087460:	50e0003e */ 	beqzl	$a3,.L0f08755c

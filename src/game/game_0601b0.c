@@ -6763,43 +6763,17 @@ void propGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f066290
-/*  f066290:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f066294:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f066298:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f06629c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0662a0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0662a4:	54410006 */ 	bnel	$v0,$at,.L0f0662c0
-/*  f0662a8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0662ac:	0fc307c2 */ 	jal	func0f0c1f08
-/*  f0662b0:	00000000 */ 	nop
-/*  f0662b4:	10000010 */ 	b	.L0f0662f8
-/*  f0662b8:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0662bc:	24010003 */ 	addiu	$at,$zero,0x3
-.L0f0662c0:
-/*  f0662c0:	54410006 */ 	bnel	$v0,$at,.L0f0662dc
-/*  f0662c4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0662c8:	0fc0a234 */ 	jal	chrUpdateGeometry
-/*  f0662cc:	00000000 */ 	nop
-/*  f0662d0:	10000009 */ 	b	.L0f0662f8
-/*  f0662d4:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0662d8:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f0662dc:
-/*  f0662dc:	10410003 */ 	beq	$v0,$at,.L0f0662ec
-/*  f0662e0:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0662e4:	54410005 */ 	bnel	$v0,$at,.L0f0662fc
-/*  f0662e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0662ec:
-/*  f0662ec:	0fc21d16 */ 	jal	func0f087458
-/*  f0662f0:	00000000 */ 	nop
-/*  f0662f4:	00401825 */ 	or	$v1,$v0,$zero
-.L0f0662f8:
-/*  f0662f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0662fc:
-/*  f0662fc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f066300:	00601025 */ 	or	$v0,$v1,$zero
-/*  f066304:	03e00008 */ 	jr	$ra
-/*  f066308:	00000000 */ 	nop
-/*  f06630c:	00000000 */ 	nop
-);
+bool propUpdateGeometry(struct prop *prop, struct geo **arg1, struct geo **arg2)
+{
+	bool result = false;
+
+	if (prop->type == PROPTYPE_PLAYER) {
+		result = playerUpdateGeometry(prop, arg1, arg2);
+	} else if (prop->type == PROPTYPE_CHR) {
+		result = chrUpdateGeometry(prop, arg1, arg2);
+	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR) {
+		result = objUpdateGeometry(prop, arg1, arg2);
+	}
+
+	return result;
+}
