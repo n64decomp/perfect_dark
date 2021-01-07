@@ -5839,178 +5839,95 @@ u32 func0f0654e8(struct prop *prop)
 	return flags;
 }
 
-GLOBAL_ASM(
-glabel func0f06554c
-/*  f06554c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f065550:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f065554:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f065558:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f06555c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f065560:	1441001d */ 	bne	$v0,$at,.L0f0655d8
-/*  f065564:	30ae0100 */ 	andi	$t6,$a1,0x100
-/*  f065568:	11c00007 */ 	beqz	$t6,.L0f065588
-/*  f06556c:	30b90800 */ 	andi	$t9,$a1,0x800
-/*  f065570:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f065574:	8c4f0008 */ 	lw	$t7,0x8($v0)
-/*  f065578:	000fc140 */ 	sll	$t8,$t7,0x5
-/*  f06557c:	07010002 */ 	bgez	$t8,.L0f065588
-/*  f065580:	00000000 */ 	nop
-/*  f065584:	00003025 */ 	or	$a2,$zero,$zero
-.L0f065588:
-/*  f065588:	13200007 */ 	beqz	$t9,.L0f0655a8
-/*  f06558c:	30aa0002 */ 	andi	$t2,$a1,0x2
-/*  f065590:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f065594:	8c480010 */ 	lw	$t0,0x10($v0)
-/*  f065598:	00084800 */ 	sll	$t1,$t0,0x0
-/*  f06559c:	05210002 */ 	bgez	$t1,.L0f0655a8
-/*  f0655a0:	00000000 */ 	nop
-/*  f0655a4:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0655a8:
-/*  f0655a8:	5540007a */ 	bnezl	$t2,.L0f065794
-/*  f0655ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0655b0:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f0655b4:	0fc1953a */ 	jal	func0f0654e8
-/*  f0655b8:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f0655bc:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0655c0:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f0655c4:	00455824 */ 	and	$t3,$v0,$a1
-/*  f0655c8:	55600072 */ 	bnezl	$t3,.L0f065794
-/*  f0655cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0655d0:	1000006f */ 	b	.L0f065790
-/*  f0655d4:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0655d8:
-/*  f0655d8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0655dc:	14410018 */ 	bne	$v0,$at,.L0f065640
-/*  f0655e0:	30ac0004 */ 	andi	$t4,$a1,0x4
-/*  f0655e4:	15800003 */ 	bnez	$t4,.L0f0655f4
-/*  f0655e8:	00000000 */ 	nop
-/*  f0655ec:	10000068 */ 	b	.L0f065790
-/*  f0655f0:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0655f4:
-/*  f0655f4:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f0655f8:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f0655fc:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f065600:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f065604:	00026880 */ 	sll	$t5,$v0,0x2
-/*  f065608:	008d7021 */ 	addu	$t6,$a0,$t5
-/*  f06560c:	8dc30064 */ 	lw	$v1,0x64($t6)
-/*  f065610:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f065614:	8c6f00c0 */ 	lw	$t7,0xc0($v1)
-/*  f065618:	11e00007 */ 	beqz	$t7,.L0f065638
-/*  f06561c:	00000000 */ 	nop
-/*  f065620:	8c980314 */ 	lw	$t8,0x314($a0)
-/*  f065624:	5300005b */ 	beqzl	$t8,.L0f065794
-/*  f065628:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06562c:	8c7900d8 */ 	lw	$t9,0xd8($v1)
-/*  f065630:	53200058 */ 	beqzl	$t9,.L0f065794
-/*  f065634:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f065638:
-/*  f065638:	10000055 */ 	b	.L0f065790
-/*  f06563c:	00003025 */ 	or	$a2,$zero,$zero
-.L0f065640:
-/*  f065640:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f065644:	14410016 */ 	bne	$v0,$at,.L0f0656a0
-/*  f065648:	30a80008 */ 	andi	$t0,$a1,0x8
-/*  f06564c:	55000004 */ 	bnezl	$t0,.L0f065660
-/*  f065650:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f065654:	1000004e */ 	b	.L0f065790
-/*  f065658:	00003025 */ 	or	$a2,$zero,$zero
-/*  f06565c:	8c820004 */ 	lw	$v0,0x4($a0)
-.L0f065660:
-/*  f065660:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f065664:	80490007 */ 	lb	$t1,0x7($v0)
-/*  f065668:	1121000b */ 	beq	$t1,$at,.L0f065698
-/*  f06566c:	00000000 */ 	nop
-/*  f065670:	8c4a0018 */ 	lw	$t2,0x18($v0)
-/*  f065674:	3c010001 */ 	lui	$at,0x1
-/*  f065678:	34210400 */ 	ori	$at,$at,0x400
-/*  f06567c:	01415824 */ 	and	$t3,$t2,$at
-/*  f065680:	15600005 */ 	bnez	$t3,.L0f065698
-/*  f065684:	00000000 */ 	nop
-/*  f065688:	8c4c0014 */ 	lw	$t4,0x14($v0)
-/*  f06568c:	318d0100 */ 	andi	$t5,$t4,0x100
-/*  f065690:	51a00040 */ 	beqzl	$t5,.L0f065794
-/*  f065694:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f065698:
-/*  f065698:	1000003d */ 	b	.L0f065790
-/*  f06569c:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0656a0:
-/*  f0656a0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0656a4:	10410003 */ 	beq	$v0,$at,.L0f0656b4
-/*  f0656a8:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0656ac:	54410039 */ 	bnel	$v0,$at,.L0f065794
-/*  f0656b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0656b4:
-/*  f0656b4:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f0656b8:	30af0100 */ 	andi	$t7,$a1,0x100
-/*  f0656bc:	30a80080 */ 	andi	$t0,$a1,0x80
-/*  f0656c0:	8c6e0044 */ 	lw	$t6,0x44($v1)
-/*  f0656c4:	30ac0200 */ 	andi	$t4,$a1,0x200
-/*  f0656c8:	15c00003 */ 	bnez	$t6,.L0f0656d8
-/*  f0656cc:	00000000 */ 	nop
-/*  f0656d0:	1000002f */ 	b	.L0f065790
-/*  f0656d4:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0656d8:
-/*  f0656d8:	11e00006 */ 	beqz	$t7,.L0f0656f4
-/*  f0656dc:	00000000 */ 	nop
-/*  f0656e0:	8c780008 */ 	lw	$t8,0x8($v1)
-/*  f0656e4:	0018c940 */ 	sll	$t9,$t8,0x5
-/*  f0656e8:	07210002 */ 	bgez	$t9,.L0f0656f4
-/*  f0656ec:	00000000 */ 	nop
-/*  f0656f0:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0656f4:
-/*  f0656f4:	11000009 */ 	beqz	$t0,.L0f06571c
-/*  f0656f8:	8c640008 */ 	lw	$a0,0x8($v1)
-/*  f0656fc:	00044b80 */ 	sll	$t1,$a0,0xe
-/*  f065700:	05200006 */ 	bltz	$t1,.L0f06571c
-/*  f065704:	00000000 */ 	nop
-/*  f065708:	8c6a000c */ 	lw	$t2,0xc($v1)
-/*  f06570c:	314b4000 */ 	andi	$t3,$t2,0x4000
-/*  f065710:	15600002 */ 	bnez	$t3,.L0f06571c
-/*  f065714:	00000000 */ 	nop
-/*  f065718:	00003025 */ 	or	$a2,$zero,$zero
-.L0f06571c:
-/*  f06571c:	11800009 */ 	beqz	$t4,.L0f065744
-/*  f065720:	30b80400 */ 	andi	$t8,$a1,0x400
-/*  f065724:	00046b80 */ 	sll	$t5,$a0,0xe
-/*  f065728:	05a00006 */ 	bltz	$t5,.L0f065744
-/*  f06572c:	00000000 */ 	nop
-/*  f065730:	8c6e000c */ 	lw	$t6,0xc($v1)
-/*  f065734:	000e7a80 */ 	sll	$t7,$t6,0xa
-/*  f065738:	05e00002 */ 	bltz	$t7,.L0f065744
-/*  f06573c:	00000000 */ 	nop
-/*  f065740:	00003025 */ 	or	$a2,$zero,$zero
-.L0f065744:
-/*  f065744:	13000008 */ 	beqz	$t8,.L0f065768
-/*  f065748:	30990800 */ 	andi	$t9,$a0,0x800
-/*  f06574c:	90620003 */ 	lbu	$v0,0x3($v1)
-/*  f065750:	2401002b */ 	addiu	$at,$zero,0x2b
-/*  f065754:	10410003 */ 	beq	$v0,$at,.L0f065764
-/*  f065758:	24010028 */ 	addiu	$at,$zero,0x28
-/*  f06575c:	14410002 */ 	bne	$v0,$at,.L0f065768
-/*  f065760:	00000000 */ 	nop
-.L0f065764:
-/*  f065764:	00003025 */ 	or	$a2,$zero,$zero
-.L0f065768:
-/*  f065768:	13200006 */ 	beqz	$t9,.L0f065784
-/*  f06576c:	30a90001 */ 	andi	$t1,$a1,0x1
-/*  f065770:	30a80010 */ 	andi	$t0,$a1,0x10
-/*  f065774:	55000007 */ 	bnezl	$t0,.L0f065794
-/*  f065778:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06577c:	10000004 */ 	b	.L0f065790
-/*  f065780:	00003025 */ 	or	$a2,$zero,$zero
-.L0f065784:
-/*  f065784:	55200003 */ 	bnezl	$t1,.L0f065794
-/*  f065788:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06578c:	00003025 */ 	or	$a2,$zero,$zero
-.L0f065790:
-/*  f065790:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f065794:
-/*  f065794:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f065798:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f06579c:	03e00008 */ 	jr	$ra
-/*  f0657a0:	00000000 */ 	nop
-);
+bool func0f06554c(struct prop *prop, u32 flags)
+{
+	bool result = true;
+
+	if (prop->type == PROPTYPE_DOOR) {
+		if (flags & 0x0100) {
+			struct defaultobj *obj = prop->obj;
+
+			if (obj->flags & OBJFLAG_04000000) {
+				result = false;
+			}
+		}
+
+		if (flags & 0x0800) {
+			struct defaultobj *obj = prop->obj;
+
+			if (obj->flags3 & OBJFLAG3_80000000) {
+				result = false;
+			}
+		}
+
+		if ((flags & 0x0002) == 0) {
+			if ((func0f0654e8(prop) & flags) == 0) {
+				result = false;
+			}
+		}
+	} else if (prop->type == PROPTYPE_PLAYER) {
+		if ((flags & 0x0004) == 0) {
+			result = false;
+		} else {
+			struct player *player = g_Vars.players[propGetPlayerNum(prop)];
+
+			if (!player->bondperimenabled || (g_Vars.mplayerisrunning && player->isdead)) {
+				result = false;
+			}
+		}
+	} else if (prop->type == PROPTYPE_CHR) {
+		if ((flags & 0x0008) == 0) {
+			result = false;
+		} else {
+			struct chrdata *chr = prop->chr;
+
+			if (chr->actiontype == ACT_DEAD
+					|| (chr->chrflags & (CHRCFLAG_HIDDEN | CHRCFLAG_00010000))
+					|| (chr->hidden & CHRHFLAG_00000100)) {
+				result = false;
+			}
+		}
+	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+		struct defaultobj *obj = prop->obj;
+
+		if (obj->geo == NULL) {
+			result = false;
+		} else {
+			if ((flags & 0x0100) && (obj->flags & OBJFLAG_04000000)) {
+				result = false;
+			}
+
+			if ((flags & 0x0080)
+					&& (obj->flags & OBJFLAG_INVINCIBLE) == 0
+					&& (obj->flags2 & OBJFLAG2_00004000) == 0) {
+				result = false;
+			}
+
+			if ((flags & 0x0200)
+					&& (obj->flags & OBJFLAG_INVINCIBLE) == 0
+					&& (obj->flags2 & OBJFLAG2_00200000) == 0) {
+				result = false;
+			}
+
+			if ((flags & 0x0400)
+					&& (obj->type == OBJTYPE_SAFE || obj->type == OBJTYPE_HELI)) {
+				result = false;
+			}
+
+			if ((obj->flags & OBJFLAG_00000800)) {
+				if ((flags & 0x0010) == 0) {
+					result = false;
+				}
+			} else {
+				if ((flags & 0x0001) == 0) {
+					result = false;
+				}
+			}
+		}
+	}
+
+	return result;
+}
 
 void roomsCopy(s16 *src, s16 *dst)
 {
