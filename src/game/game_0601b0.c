@@ -3116,61 +3116,41 @@ bool currentPlayerInteract(bool eyespy)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f062ef8
-/*  f062ef8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f062efc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f062f00:	908e0001 */ 	lbu	$t6,0x1($a0)
-/*  f062f04:	31cf0010 */ 	andi	$t7,$t6,0x10
-/*  f062f08:	55e00025 */ 	bnezl	$t7,.L0f062fa0
-/*  f062f0c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f062f10:	0fc18171 */ 	jal	func0f0605c4
-/*  f062f14:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f062f18:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f062f1c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f062f20:	8c430354 */ 	lw	$v1,0x354($v0)
-/*  f062f24:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f062f28:	50600012 */ 	beqzl	$v1,.L0f062f74
-/*  f062f2c:	ac800020 */ 	sw	$zero,0x20($a0)
-/*  f062f30:	8c780024 */ 	lw	$t8,0x24($v1)
-/*  f062f34:	13000002 */ 	beqz	$t8,.L0f062f40
-/*  f062f38:	ac980024 */ 	sw	$t8,0x24($a0)
-/*  f062f3c:	af040020 */ 	sw	$a0,0x20($t8)
-.L0f062f40:
-/*  f062f40:	8c590354 */ 	lw	$t9,0x354($v0)
-/*  f062f44:	af240024 */ 	sw	$a0,0x24($t9)
-/*  f062f48:	8c480354 */ 	lw	$t0,0x354($v0)
-/*  f062f4c:	ac880020 */ 	sw	$t0,0x20($a0)
-/*  f062f50:	8c4a033c */ 	lw	$t2,0x33c($v0)
-/*  f062f54:	8c490354 */ 	lw	$t1,0x354($v0)
-/*  f062f58:	152a0003 */ 	bne	$t1,$t2,.L0f062f68
-/*  f062f5c:	00000000 */ 	nop
-/*  f062f60:	ac440340 */ 	sw	$a0,0x340($v0)
-/*  f062f64:	ac44033c */ 	sw	$a0,0x33c($v0)
-.L0f062f68:
-/*  f062f68:	1000000c */ 	b	.L0f062f9c
-/*  f062f6c:	ac440354 */ 	sw	$a0,0x354($v0)
-/*  f062f70:	ac800020 */ 	sw	$zero,0x20($a0)
-.L0f062f74:
-/*  f062f74:	8c430340 */ 	lw	$v1,0x340($v0)
-/*  f062f78:	50600006 */ 	beqzl	$v1,.L0f062f94
-/*  f062f7c:	ac440340 */ 	sw	$a0,0x340($v0)
-/*  f062f80:	ac830024 */ 	sw	$v1,0x24($a0)
-/*  f062f84:	8c4c0340 */ 	lw	$t4,0x340($v0)
-/*  f062f88:	10000003 */ 	b	.L0f062f98
-/*  f062f8c:	ad840020 */ 	sw	$a0,0x20($t4)
-/*  f062f90:	ac440340 */ 	sw	$a0,0x340($v0)
-.L0f062f94:
-/*  f062f94:	ac44033c */ 	sw	$a0,0x33c($v0)
-.L0f062f98:
-/*  f062f98:	ac440354 */ 	sw	$a0,0x354($v0)
-.L0f062f9c:
-/*  f062f9c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f062fa0:
-/*  f062fa0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f062fa4:	03e00008 */ 	jr	$ra
-/*  f062fa8:	00000000 */ 	nop
-);
+void func0f062ef8(struct prop *prop)
+{
+	if ((prop->flags & PROPFLAG_10) == 0) {
+		func0f0605c4(prop);
+
+		if (g_Vars.unk000354) {
+			prop->prev = g_Vars.unk000354->prev;
+
+			if (prop->prev) {
+				prop->prev->next = prop;
+			}
+
+			g_Vars.unk000354->prev = prop;
+			prop->next = g_Vars.unk000354;
+
+			if (g_Vars.unk00033c == g_Vars.unk000354) {
+				g_Vars.unk00033c = g_Vars.unk000340 = prop;
+			}
+
+			g_Vars.unk000354 = prop;
+		} else {
+			prop->next = NULL;
+
+			if (g_Vars.unk000340) {
+				prop->prev = g_Vars.unk000340;
+				g_Vars.unk000340->next = prop;
+			} else {
+				g_Vars.unk000340 = prop;
+				g_Vars.unk00033c = prop;
+			}
+
+			g_Vars.unk000354 = prop;
+		}
+	}
+}
 
 void func0f062fac(struct prop *prop)
 {
