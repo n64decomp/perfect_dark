@@ -3033,56 +3033,28 @@ glabel currentPlayerFindPropForInteract
 /*  f062dcc:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel func0f062dd0
-/*  f062dd0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f062dd4:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f062dd8:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f062ddc:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*  f062de0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f062de4:	8e70034c */ 	lw	$s0,0x34c($s3)
-/*  f062de8:	8e6e0348 */ 	lw	$t6,0x348($s3)
-/*  f062dec:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f062df0:	2610fffc */ 	addiu	$s0,$s0,-4
-/*  f062df4:	020e082b */ 	sltu	$at,$s0,$t6
-/*  f062df8:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f062dfc:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f062e00:	14200015 */ 	bnez	$at,.L0f062e58
-/*  f062e04:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f062e08:	24120004 */ 	addiu	$s2,$zero,0x4
-/*  f062e0c:	24110001 */ 	addiu	$s1,$zero,0x1
-/*  f062e10:	8e040000 */ 	lw	$a0,0x0($s0)
-.L0f062e14:
-/*  f062e14:	5080000c */ 	beqzl	$a0,.L0f062e48
-/*  f062e18:	8e6f0348 */ 	lw	$t7,0x348($s3)
-/*  f062e1c:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f062e20:	12220003 */ 	beq	$s1,$v0,.L0f062e30
-/*  f062e24:	00000000 */ 	nop
-/*  f062e28:	16420004 */ 	bne	$s2,$v0,.L0f062e3c
-/*  f062e2c:	00000000 */ 	nop
-.L0f062e30:
-/*  f062e30:	0fc21a73 */ 	jal	func0f0869cc
-/*  f062e34:	00000000 */ 	nop
-/*  f062e38:	00401825 */ 	or	$v1,$v0,$zero
-.L0f062e3c:
-/*  f062e3c:	50600007 */ 	beqzl	$v1,.L0f062e5c
-/*  f062e40:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f062e44:	8e6f0348 */ 	lw	$t7,0x348($s3)
-.L0f062e48:
-/*  f062e48:	2610fffc */ 	addiu	$s0,$s0,-4
-/*  f062e4c:	020f082b */ 	sltu	$at,$s0,$t7
-/*  f062e50:	5020fff0 */ 	beqzl	$at,.L0f062e14
-/*  f062e54:	8e040000 */ 	lw	$a0,0x0($s0)
-.L0f062e58:
-/*  f062e58:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f062e5c:
-/*  f062e5c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f062e60:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f062e64:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f062e68:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f062e6c:	03e00008 */ 	jr	$ra
-/*  f062e70:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f062dd0(void)
+{
+	struct prop **ptr = g_Vars.unk00034c - 1;
+	bool result = true;
+
+	// Iterate tangible list in reverse
+	while (ptr >= g_Vars.tangibleprops) {
+		struct prop *prop = *ptr;
+
+		if (prop) {
+			if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+				result = func0f0869cc(prop);
+			}
+
+			if (!result) {
+				return;
+			}
+		}
+
+		ptr--;
+	}
+}
 
 bool currentPlayerInteract(bool eyespy)
 {

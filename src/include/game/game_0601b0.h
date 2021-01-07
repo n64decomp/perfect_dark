@@ -28,7 +28,7 @@ u32 func0f062794(void);
 void func0f062b2c(void);
 void func0f062b64(struct prop *prop, s32 arg1);
 struct prop *currentPlayerFindPropForInteract(bool eyespy);
-u32 func0f062dd0(void);
+void func0f062dd0(void);
 bool currentPlayerInteract(bool eyespy);
 void propPrependToList2(struct prop *prop);
 void propMoveFromList2To1(struct prop *prop);

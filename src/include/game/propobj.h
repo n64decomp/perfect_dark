@@ -239,7 +239,7 @@ u32 func0f085e00(void);
 u32 func0f085eac(void);
 u32 propobjGetCiTagId(struct prop *prop);
 bool objIsHealthy(struct defaultobj *obj);
-u32 func0f0869cc(void);
+bool func0f0869cc(struct prop *prop);
 bool currentPlayerTryMountHoverbike(struct prop *prop);
 bool propobjInteract(struct prop *prop);
 void propObjSetOrUnsetHiddenFlag00400000(struct prop *prop, bool enable);
