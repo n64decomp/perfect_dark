@@ -2700,7 +2700,7 @@ void func0f020d44(struct prop *prop, bool removechr)
 		if ((obj->hidden & OBJHFLAG_HASTEXTOVERRIDE) == 0
 				&& obj != eyespyobj
 				&& (prop->type != PROPTYPE_PLAYER || (obj->flags3 & OBJFLAG3_00400000) == 0)) {
-			func0f082f88(child);
+			objDetach(child);
 			func0f06b34c(obj, true);
 		}
 

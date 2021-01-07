@@ -2339,7 +2339,7 @@ bool aiGiveObjectToChr(void)
 			setCurrentPlayerNum(playernum);
 
 			if (obj->prop->parent) {
-				func0f082f88(obj->prop);
+				objDetach(obj->prop);
 				func0f06ac90(obj->prop);
 				propPrependToList1(obj->prop);
 			}
@@ -2351,7 +2351,7 @@ bool aiGiveObjectToChr(void)
 			setCurrentPlayerNum(prevplayernum);
 		} else {
 			if (obj->prop->parent) {
-				func0f082f88(obj->prop);
+				objDetach(obj->prop);
 			} else {
 				func0f065c44(obj->prop);
 				propRemoveFromCurrentList(obj->prop);
@@ -5225,7 +5225,7 @@ bool aiHideObj(void)
 
 	if (obj && obj->prop && obj->model) {
 		if (obj->prop->parent) {
-			func0f082f88(obj->prop);
+			objDetach(obj->prop);
 		} else {
 			func0f065c44(obj->prop);
 			propRemoveFromCurrentList(obj->prop);

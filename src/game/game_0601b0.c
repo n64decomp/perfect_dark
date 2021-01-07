@@ -2947,7 +2947,7 @@ void func0f062b64(struct prop *prop, s32 arg1)
 		func0f065c44(prop);
 		propRemoveFromCurrentList(prop);
 		propHide(prop);
-		func0f082f88(prop);
+		objDetach(prop);
 		func0f06ac90(prop);
 		propReparent(prop, g_Vars.currentplayer->prop);
 	}

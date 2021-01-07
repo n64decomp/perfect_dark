@@ -5961,7 +5961,7 @@ glabel func0f06ad2c
 /*  f06b2bc:	8c8c0018 */ 	lw	$t4,0x18($a0)
 /*  f06b2c0:	11800004 */ 	beqz	$t4,.L0f06b2d4
 /*  f06b2c4:	00000000 */ 	nop
-/*  f06b2c8:	0fc20be2 */ 	jal	func0f082f88
+/*  f06b2c8:	0fc20be2 */ 	jal	objDetach
 /*  f06b2cc:	00000000 */ 	nop
 /*  f06b2d0:	8e240014 */ 	lw	$a0,0x14($s1)
 .L0f06b2d4:
@@ -33708,74 +33708,42 @@ glabel var7f1aa8dc
 /*  f082f84:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f082f88
-/*  f082f88:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f082f8c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f082f90:	8c850018 */ 	lw	$a1,0x18($a0)
-/*  f082f94:	00803825 */ 	or	$a3,$a0,$zero
-/*  f082f98:	50a00035 */ 	beqzl	$a1,.L0f083070
-/*  f082f9c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f082fa0:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f082fa4:	8c430018 */ 	lw	$v1,0x18($v0)
-/*  f082fa8:	afa70028 */ 	sw	$a3,0x28($sp)
-/*  f082fac:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f082fb0:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f082fb4:	0fc181b0 */ 	jal	propDetach
-/*  f082fb8:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f082fbc:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f082fc0:	8fa20020 */ 	lw	$v0,0x20($sp)
-/*  f082fc4:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f082fc8:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f082fcc:	ac600018 */ 	sw	$zero,0x18($v1)
-/*  f082fd0:	ac60001c */ 	sw	$zero,0x1c($v1)
-/*  f082fd4:	8c4e0040 */ 	lw	$t6,0x40($v0)
-/*  f082fd8:	3c01fff7 */ 	lui	$at,0xfff7
-/*  f082fdc:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f082fe0:	01c17824 */ 	and	$t7,$t6,$at
-/*  f082fe4:	ac4f0040 */ 	sw	$t7,0x40($v0)
-/*  f082fe8:	90a40000 */ 	lbu	$a0,0x0($a1)
-/*  f082fec:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f082ff0:	10810003 */ 	beq	$a0,$at,.L0f083000
-/*  f082ff4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f082ff8:	5481001d */ 	bnel	$a0,$at,.L0f083070
-/*  f082ffc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f083000:
-/*  f083000:	8ca40004 */ 	lw	$a0,0x4($a1)
-/*  f083004:	5080001a */ 	beqzl	$a0,.L0f083070
-/*  f083008:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08300c:	8c980178 */ 	lw	$t8,0x178($a0)
-/*  f083010:	00002825 */ 	or	$a1,$zero,$zero
-/*  f083014:	00003025 */ 	or	$a2,$zero,$zero
-/*  f083018:	54f80003 */ 	bnel	$a3,$t8,.L0f083028
-/*  f08301c:	8c990170 */ 	lw	$t9,0x170($a0)
-/*  f083020:	ac800178 */ 	sw	$zero,0x178($a0)
-/*  f083024:	8c990170 */ 	lw	$t9,0x170($a0)
-.L0f083028:
-/*  f083028:	54f90008 */ 	bnel	$a3,$t9,.L0f08304c
-/*  f08302c:	8c880174 */ 	lw	$t0,0x174($a0)
-/*  f083030:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f083034:	0fc0fe12 */ 	jal	chrSetFiring
-/*  f083038:	afa70028 */ 	sw	$a3,0x28($sp)
-/*  f08303c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f083040:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f083044:	ac800170 */ 	sw	$zero,0x170($a0)
-/*  f083048:	8c880174 */ 	lw	$t0,0x174($a0)
-.L0f08304c:
-/*  f08304c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f083050:	00003025 */ 	or	$a2,$zero,$zero
-/*  f083054:	54e80006 */ 	bnel	$a3,$t0,.L0f083070
-/*  f083058:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08305c:	0fc0fe12 */ 	jal	chrSetFiring
-/*  f083060:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f083064:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f083068:	ac800174 */ 	sw	$zero,0x174($a0)
-/*  f08306c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f083070:
-/*  f083070:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f083074:	03e00008 */ 	jr	$ra
-/*  f083078:	00000000 */ 	nop
-);
+void objDetach(struct prop *prop)
+{
+	struct prop *parent = prop->parent;
+
+	if (parent) {
+		struct defaultobj *obj = prop->obj;
+		struct model *model = obj->model;
+
+		propDetach(prop);
+
+		model->attachedto = NULL;
+		model->unk1c = NULL;
+
+		obj->hidden &= ~OBJHFLAG_HASOWNER;
+
+		if (parent->type == PROPTYPE_CHR || parent->type == PROPTYPE_PLAYER) {
+			struct chrdata *chr = parent->chr;
+
+			if (chr) {
+				if (prop == chr->weapons_held[2]) {
+					chr->weapons_held[2] = NULL;
+				}
+
+				if (prop == chr->weapons_held[HAND_RIGHT]) {
+					chrSetFiring(chr, HAND_RIGHT, false);
+					chr->weapons_held[HAND_RIGHT] = NULL;
+				}
+
+				if (prop == chr->weapons_held[HAND_LEFT]) {
+					chrSetFiring(chr, HAND_LEFT, false);
+					chr->weapons_held[HAND_LEFT] = NULL;
+				}
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f08307c
@@ -34682,7 +34650,7 @@ glabel var7f1aa978
 /*  f083cac:	0fc195e9 */ 	jal	roomsCopy
 /*  f083cb0:	27a500d4 */ 	addiu	$a1,$sp,0xd4
 .L0f083cb4:
-/*  f083cb4:	0fc20be2 */ 	jal	func0f082f88
+/*  f083cb4:	0fc20be2 */ 	jal	objDetach
 /*  f083cb8:	8fa40140 */ 	lw	$a0,0x140($sp)
 /*  f083cbc:	0fc1812f */ 	jal	propPrependToList1
 /*  f083cc0:	8fa40140 */ 	lw	$a0,0x140($sp)
