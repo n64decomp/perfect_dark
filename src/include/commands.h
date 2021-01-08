@@ -1942,9 +1942,9 @@
 	mkshort(0x00d3), \
 	channel,
 
-#define cmd00d4(u1, u2, label) \
+#define cmd00d4(channel, u2, label) \
 	mkshort(0x00d4), \
-	u1, \
+	channel, \
 	mkshort(u2), \
 	label,
 

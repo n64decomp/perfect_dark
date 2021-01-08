@@ -188,24 +188,10 @@ glabel func0f0927d4
 /*  f092910:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f092914
-/*  f092914:	0480000a */ 	bltz	$a0,.L0f092940
-/*  f092918:	28810008 */ 	slti	$at,$a0,0x8
-/*  f09291c:	10200008 */ 	beqz	$at,.L0f092940
-/*  f092920:	3c0e8007 */ 	lui	$t6,%hi(g_AudioChannels)
-/*  f092924:	8dceae10 */ 	lw	$t6,%lo(g_AudioChannels)($t6)
-/*  f092928:	00047900 */ 	sll	$t7,$a0,0x4
-/*  f09292c:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f092930:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f092934:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f092938:	03e00008 */ 	jr	$ra
-/*  f09293c:	87020006 */ 	lh	$v0,0x6($t8)
-.L0f092940:
-/*  f092940:	00001825 */ 	or	$v1,$zero,$zero
-/*  f092944:	03e00008 */ 	jr	$ra
-/*  f092948:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 channelGetUnk06(s32 channelnum)
+{
+	return (channelnum >= 0 && channelnum <= 7) ? g_AudioChannels[channelnum].unk06 : 0;
+}
 
 GLOBAL_ASM(
 glabel func0f09294c

@@ -4819,7 +4819,7 @@ bool ai00d4(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 thing = cmd[4] | (cmd[3] << 8);
 
-	if (func0f092914((s8)cmd[2]) < thing) {
+	if (channelGetUnk06((s8)cmd[2]) < thing) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
 	} else {
 		g_Vars.aioffset += 6;
