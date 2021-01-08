@@ -2894,24 +2894,13 @@ glabel var7f1a9ef4
 /*  f062b28:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f062b2c
-/*  f062b2c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x34)
-/*  f062b30:	8dce9ff4 */ 	lw	$t6,%lo(g_Vars+0x34)($t6)
-/*  f062b34:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f062b38:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f062b3c:	59c00006 */ 	blezl	$t6,.L0f062b58
-/*  f062b40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f062b44:	0fc189e5 */ 	jal	func0f062794
-/*  f062b48:	00002025 */ 	or	$a0,$zero,$zero
-/*  f062b4c:	0fc189e5 */ 	jal	func0f062794
-/*  f062b50:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f062b54:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f062b58:
-/*  f062b58:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f062b5c:	03e00008 */ 	jr	$ra
-/*  f062b60:	00000000 */ 	nop
-);
+void func0f062b2c(void)
+{
+	if (g_Vars.lvupdate240 > 0) {
+		func0f062794(false);
+		func0f062794(true);
+	}
+}
 
 void func0f062b64(struct prop *prop, s32 arg1)
 {

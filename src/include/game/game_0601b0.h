@@ -24,7 +24,7 @@ struct prop *func0f061d54(u32 arg0, u32 arg1, u32 arg2);
 u32 func0f061ed4(void);
 u32 func0f061fa8(void);
 u32 func0f062270(void);
-u32 func0f062794(void);
+void func0f062794(bool arg0);
 void func0f062b2c(void);
 void func0f062b64(struct prop *prop, s32 arg1);
 struct prop *currentPlayerFindPropForInteract(bool eyespy);
