@@ -2064,85 +2064,29 @@ glabel audioPlayFromProp
 /*  f0942cc:	01001025 */ 	or	$v0,$t0,$zero
 );
 
-GLOBAL_ASM(
-glabel audioMuteChannel
-/*  f0942d0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0942d4:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f0942d8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0942dc:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0942e0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0942e4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0942e8:	14810027 */ 	bne	$a0,$at,.L0f094388
-/*  f0942ec:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0942f0:	3c038009 */ 	lui	$v1,%hi(g_Is4Mb)
-/*  f0942f4:	90630af0 */ 	lbu	$v1,%lo(g_Is4Mb)($v1)
-/*  f0942f8:	24130001 */ 	addiu	$s3,$zero,0x1
-/*  f0942fc:	24100008 */ 	addiu	$s0,$zero,0x8
-/*  f094300:	16630003 */ 	bne	$s3,$v1,.L0f094310
-/*  f094304:	24020028 */ 	addiu	$v0,$zero,0x28
-/*  f094308:	10000001 */ 	b	.L0f094310
-/*  f09430c:	2402001e */ 	addiu	$v0,$zero,0x1e
-.L0f094310:
-/*  f094310:	28410009 */ 	slti	$at,$v0,0x9
-/*  f094314:	14200022 */ 	bnez	$at,.L0f0943a0
-/*  f094318:	00108900 */ 	sll	$s1,$s0,0x4
-/*  f09431c:	02308823 */ 	subu	$s1,$s1,$s0
-/*  f094320:	3c128007 */ 	lui	$s2,%hi(g_AudioChannels)
-/*  f094324:	2652ae10 */ 	addiu	$s2,$s2,%lo(g_AudioChannels)
-/*  f094328:	001188c0 */ 	sll	$s1,$s1,0x3
-/*  f09432c:	8e4e0000 */ 	lw	$t6,0x0($s2)
-.L0f094330:
-/*  f094330:	01d17821 */ 	addu	$t7,$t6,$s1
-/*  f094334:	95e20030 */ 	lhu	$v0,0x30($t7)
-/*  f094338:	30580001 */ 	andi	$t8,$v0,0x1
-/*  f09433c:	17000007 */ 	bnez	$t8,.L0f09435c
-/*  f094340:	30590080 */ 	andi	$t9,$v0,0x80
-/*  f094344:	53200006 */ 	beqzl	$t9,.L0f094360
-/*  f094348:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f09434c:	0fc24aa6 */ 	jal	func0f092a98
-/*  f094350:	02002025 */ 	or	$a0,$s0,$zero
-/*  f094354:	3c038009 */ 	lui	$v1,%hi(g_Is4Mb)
-/*  f094358:	90630af0 */ 	lbu	$v1,%lo(g_Is4Mb)($v1)
-.L0f09435c:
-/*  f09435c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f094360:
-/*  f094360:	16630003 */ 	bne	$s3,$v1,.L0f094370
-/*  f094364:	26310078 */ 	addiu	$s1,$s1,0x78
-/*  f094368:	10000002 */ 	b	.L0f094374
-/*  f09436c:	2402001e */ 	addiu	$v0,$zero,0x1e
-.L0f094370:
-/*  f094370:	24020028 */ 	addiu	$v0,$zero,0x28
-.L0f094374:
-/*  f094374:	0202082a */ 	slt	$at,$s0,$v0
-/*  f094378:	5420ffed */ 	bnezl	$at,.L0f094330
-/*  f09437c:	8e4e0000 */ 	lw	$t6,0x0($s2)
-/*  f094380:	10000008 */ 	b	.L0f0943a4
-/*  f094384:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f094388:
-/*  f094388:	04800005 */ 	bltz	$a0,.L0f0943a0
-/*  f09438c:	28810008 */ 	slti	$at,$a0,0x8
-/*  f094390:	50200004 */ 	beqzl	$at,.L0f0943a4
-/*  f094394:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f094398:	0fc24aa6 */ 	jal	func0f092a98
-/*  f09439c:	00000000 */ 	nop
-.L0f0943a0:
-/*  f0943a0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0943a4:
-/*  f0943a4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0943a8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0943ac:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0943b0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0943b4:	03e00008 */ 	jr	$ra
-/*  f0943b8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
-
-bool audioIsChannelIdle(s32 channel)
+void audioMuteChannel(s32 channelnum)
 {
-	if (channel >= 0 && channel <= 7) {
-		return (g_AudioChannels[channel].flags & AUDIOCHANNELFLAG_IDLE) ? true : false;
+	if (channelnum == 10) {
+		s32 i;
+
+		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
+			if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0
+					&& (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_0080)) {
+				func0f092a98(i);
+			}
+		}
+	} else if (channelnum >= 0 && channelnum <= 7) {
+		func0f092a98(channelnum);
+	}
+}
+
+bool audioIsChannelIdle(s32 channelnum)
+{
+	if (channelnum >= 0 && channelnum <= 7) {
+		return (g_AudioChannels[channelnum].flags & AUDIOCHANNELFLAG_IDLE) ? true : false;
 	}
 
-	if (channel == 10) {
+	if (channelnum == 10) {
 		s32 i;
 
 		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
