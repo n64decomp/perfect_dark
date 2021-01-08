@@ -69,9 +69,9 @@ bool func0f092610(struct prop *prop, s32 arg1)
 	s32 i;
 
 	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
-		if ((var8006ae10[i].unk30 & 1) == 0
-				&& prop == var8006ae10[i].prop
-				&& (arg1 == var8006ae10[i].unk28 || arg1 == 1)) {
+		if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0
+				&& prop == g_AudioChannels[i].prop
+				&& (arg1 == g_AudioChannels[i].unk28 || arg1 == 1)) {
 			return true;
 		}
 	}
@@ -84,11 +84,11 @@ void func0f0926bc(struct prop *prop, s32 arg1, u16 arg2)
 	s32 i;
 
 	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
-		struct var8006ae10 *thing = &var8006ae10[i];
+		struct audiochannel *channel = &g_AudioChannels[i];
 
-		if ((thing->unk30 % 2) == 0 && thing->prop == prop) {
-			if (!thing->unk30 || !arg2 || (arg2 & thing->unk30)) {
-				if (thing->unk28 == arg1 || arg1 == 1) {
+		if ((channel->flags & AUDIOCHANNELFLAG_IDLE) == 0 && channel->prop == prop) {
+			if (!channel->flags || !arg2 || (arg2 & channel->flags)) {
+				if (channel->unk28 == arg1 || arg1 == 1) {
 					func0f092a98(i);
 				}
 			}
@@ -193,8 +193,8 @@ glabel func0f092914
 /*  f092914:	0480000a */ 	bltz	$a0,.L0f092940
 /*  f092918:	28810008 */ 	slti	$at,$a0,0x8
 /*  f09291c:	10200008 */ 	beqz	$at,.L0f092940
-/*  f092920:	3c0e8007 */ 	lui	$t6,%hi(var8006ae10)
-/*  f092924:	8dceae10 */ 	lw	$t6,%lo(var8006ae10)($t6)
+/*  f092920:	3c0e8007 */ 	lui	$t6,%hi(g_AudioChannels)
+/*  f092924:	8dceae10 */ 	lw	$t6,%lo(g_AudioChannels)($t6)
 /*  f092928:	00047900 */ 	sll	$t7,$a0,0x4
 /*  f09292c:	01e47823 */ 	subu	$t7,$t7,$a0
 /*  f092930:	000f78c0 */ 	sll	$t7,$t7,0x3
@@ -242,8 +242,8 @@ glabel func0f09294c
 .L0f0929c4:
 /*  f0929c4:	28610009 */ 	slti	$at,$v1,0x9
 /*  f0929c8:	14200019 */ 	bnez	$at,.L0f092a30
-/*  f0929cc:	3c198007 */ 	lui	$t9,%hi(var8006ae10)
-/*  f0929d0:	8f39ae10 */ 	lw	$t9,%lo(var8006ae10)($t9)
+/*  f0929cc:	3c198007 */ 	lui	$t9,%hi(g_AudioChannels)
+/*  f0929d0:	8f39ae10 */ 	lw	$t9,%lo(g_AudioChannels)($t9)
 /*  f0929d4:	00044100 */ 	sll	$t0,$a0,0x4
 /*  f0929d8:	01044023 */ 	subu	$t0,$t0,$a0
 /*  f0929dc:	000840c0 */ 	sll	$t0,$t0,0x3
@@ -304,8 +304,8 @@ glabel func0f09294c
 
 GLOBAL_ASM(
 glabel func0f092a98
-/*  f092a98:	3c0f8007 */ 	lui	$t7,%hi(var8006ae10)
-/*  f092a9c:	8defae10 */ 	lw	$t7,%lo(var8006ae10)($t7)
+/*  f092a98:	3c0f8007 */ 	lui	$t7,%hi(g_AudioChannels)
+/*  f092a9c:	8defae10 */ 	lw	$t7,%lo(g_AudioChannels)($t7)
 /*  f092aa0:	00047100 */ 	sll	$t6,$a0,0x4
 /*  f092aa4:	01c47023 */ 	subu	$t6,$t6,$a0
 /*  f092aa8:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -378,11 +378,11 @@ GLOBAL_ASM(
 glabel func0f092b7c
 /*  f092b7c:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f092b80:	14850003 */ 	bne	$a0,$a1,.L0f092b90
-/*  f092b84:	3c0e8007 */ 	lui	$t6,%hi(var8006ae10)
+/*  f092b84:	3c0e8007 */ 	lui	$t6,%hi(g_AudioChannels)
 /*  f092b88:	03e00008 */ 	jr	$ra
 /*  f092b8c:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f092b90:
-/*  f092b90:	8dceae10 */ 	lw	$t6,%lo(var8006ae10)($t6)
+/*  f092b90:	8dceae10 */ 	lw	$t6,%lo(g_AudioChannels)($t6)
 /*  f092b94:	00047900 */ 	sll	$t7,$a0,0x4
 /*  f092b98:	01e47823 */ 	subu	$t7,$t7,$a0
 /*  f092b9c:	000f78c0 */ 	sll	$t7,$t7,0x3
@@ -419,8 +419,8 @@ glabel func0f092b7c
 
 GLOBAL_ASM(
 glabel func0f092c04
-/*  f092c04:	3c188007 */ 	lui	$t8,%hi(var8006ae10)
-/*  f092c08:	8f18ae10 */ 	lw	$t8,%lo(var8006ae10)($t8)
+/*  f092c04:	3c188007 */ 	lui	$t8,%hi(g_AudioChannels)
+/*  f092c08:	8f18ae10 */ 	lw	$t8,%lo(g_AudioChannels)($t8)
 /*  f092c0c:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f092c10:	00047900 */ 	sll	$t7,$a0,0x4
 /*  f092c14:	01e47823 */ 	subu	$t7,$t7,$a0
@@ -1092,8 +1092,8 @@ glabel func0f093508
 /*  f093558:	00118100 */ 	sll	$s0,$s1,0x4
 /*  f09355c:	02118023 */ 	subu	$s0,$s0,$s1
 /*  f093560:	3c148007 */ 	lui	$s4,%hi(var8006ae3c)
-/*  f093564:	3c128007 */ 	lui	$s2,%hi(var8006ae10)
-/*  f093568:	2652ae10 */ 	addiu	$s2,$s2,%lo(var8006ae10)
+/*  f093564:	3c128007 */ 	lui	$s2,%hi(g_AudioChannels)
+/*  f093568:	2652ae10 */ 	addiu	$s2,$s2,%lo(g_AudioChannels)
 /*  f09356c:	2694ae3c */ 	addiu	$s4,$s4,%lo(var8006ae3c)
 /*  f093570:	001080c0 */ 	sll	$s0,$s0,0x3
 /*  f093574:	8e4e0000 */ 	lw	$t6,0x0($s2)
@@ -1182,8 +1182,8 @@ glabel func0f093630
 /*  f093690:	00128100 */ 	sll	$s0,$s2,0x4
 /*  f093694:	02128023 */ 	subu	$s0,$s0,$s2
 /*  f093698:	3c158009 */ 	lui	$s5,%hi(g_AudioThread)
-/*  f09369c:	3c138007 */ 	lui	$s3,%hi(var8006ae10)
-/*  f0936a0:	2673ae10 */ 	addiu	$s3,$s3,%lo(var8006ae10)
+/*  f09369c:	3c138007 */ 	lui	$s3,%hi(g_AudioChannels)
+/*  f0936a0:	2673ae10 */ 	addiu	$s3,$s3,%lo(g_AudioChannels)
 /*  f0936a4:	26b515e0 */ 	addiu	$s5,$s5,%lo(g_AudioThread)
 /*  f0936a8:	001080c0 */ 	sll	$s0,$s0,0x3
 /*  f0936ac:	2416ffff */ 	addiu	$s6,$zero,-1
@@ -1281,8 +1281,8 @@ glabel func0f093790
 /*  f0937e8:	00139100 */ 	sll	$s2,$s3,0x4
 /*  f0937ec:	02539023 */ 	subu	$s2,$s2,$s3
 /*  f0937f0:	3c168009 */ 	lui	$s6,%hi(g_AudioThread)
-/*  f0937f4:	3c158007 */ 	lui	$s5,%hi(var8006ae10)
-/*  f0937f8:	26b5ae10 */ 	addiu	$s5,$s5,%lo(var8006ae10)
+/*  f0937f4:	3c158007 */ 	lui	$s5,%hi(g_AudioChannels)
+/*  f0937f8:	26b5ae10 */ 	addiu	$s5,$s5,%lo(g_AudioChannels)
 /*  f0937fc:	26d615e0 */ 	addiu	$s6,$s6,%lo(g_AudioThread)
 /*  f093800:	001290c0 */ 	sll	$s2,$s2,0x3
 /*  f093804:	8eae0000 */ 	lw	$t6,0x0($s5)
@@ -1373,8 +1373,8 @@ glabel func0f0938ec
 .L0f09392c:
 /*  f09392c:	18400026 */ 	blez	$v0,.L0f0939c8
 /*  f093930:	00057100 */ 	sll	$t6,$a1,0x4
-/*  f093934:	3c0f8007 */ 	lui	$t7,%hi(var8006ae10)
-/*  f093938:	8defae10 */ 	lw	$t7,%lo(var8006ae10)($t7)
+/*  f093934:	3c0f8007 */ 	lui	$t7,%hi(g_AudioChannels)
+/*  f093938:	8defae10 */ 	lw	$t7,%lo(g_AudioChannels)($t7)
 /*  f09393c:	01c57023 */ 	subu	$t6,$t6,$a1
 /*  f093940:	000e70c0 */ 	sll	$t6,$t6,0x3
 /*  f093944:	24080011 */ 	addiu	$t0,$zero,0x11
@@ -1471,8 +1471,8 @@ glabel func0f0939f8
 .L0f093a7c:
 /*  f093a7c:	28410009 */ 	slti	$at,$v0,0x9
 /*  f093a80:	14200017 */ 	bnez	$at,.L0f093ae0
-/*  f093a84:	3c088007 */ 	lui	$t0,%hi(var8006ae10)
-/*  f093a88:	8d08ae10 */ 	lw	$t0,%lo(var8006ae10)($t0)
+/*  f093a84:	3c088007 */ 	lui	$t0,%hi(g_AudioChannels)
+/*  f093a88:	8d08ae10 */ 	lw	$t0,%lo(g_AudioChannels)($t0)
 /*  f093a8c:	00042900 */ 	sll	$a1,$a0,0x4
 /*  f093a90:	00a42823 */ 	subu	$a1,$a1,$a0
 /*  f093a94:	000528c0 */ 	sll	$a1,$a1,0x3
@@ -1898,8 +1898,8 @@ glabel audioPlayFromProp
 /*  f094068:	04800094 */ 	bltz	$a0,.L0f0942bc
 /*  f09406c:	28810008 */ 	slti	$at,$a0,0x8
 /*  f094070:	10200092 */ 	beqz	$at,.L0f0942bc
-/*  f094074:	3c098007 */ 	lui	$t1,%hi(var8006ae10)
-/*  f094078:	2529ae10 */ 	addiu	$t1,$t1,%lo(var8006ae10)
+/*  f094074:	3c098007 */ 	lui	$t1,%hi(g_AudioChannels)
+/*  f094078:	2529ae10 */ 	addiu	$t1,$t1,%lo(g_AudioChannels)
 /*  f09407c:	8d2f0000 */ 	lw	$t7,0x0($t1)
 /*  f094080:	00041900 */ 	sll	$v1,$a0,0x4
 /*  f094084:	00641823 */ 	subu	$v1,$v1,$a0
@@ -1973,7 +1973,7 @@ glabel audioPlayFromProp
 /*  f094180:	10200003 */ 	beqz	$at,.L0f094190
 /*  f094184:	24010009 */ 	addiu	$at,$zero,0x9
 /*  f094188:	1601001c */ 	bne	$s0,$at,.L0f0941fc
-/*  f09418c:	3c098007 */ 	lui	$t1,%hi(var8006ae10)
+/*  f09418c:	3c098007 */ 	lui	$t1,%hi(g_AudioChannels)
 .L0f094190:
 /*  f094190:	10c00003 */ 	beqz	$a2,.L0f0941a0
 /*  f094194:	3c01bf80 */ 	lui	$at,0xbf80
@@ -2005,7 +2005,7 @@ glabel audioPlayFromProp
 /*  f0941f4:	10000031 */ 	b	.L0f0942bc
 /*  f0941f8:	00404025 */ 	or	$t0,$v0,$zero
 .L0f0941fc:
-/*  f0941fc:	2529ae10 */ 	addiu	$t1,$t1,%lo(var8006ae10)
+/*  f0941fc:	2529ae10 */ 	addiu	$t1,$t1,%lo(g_AudioChannels)
 /*  f094200:	8d380000 */ 	lw	$t8,0x0($t1)
 /*  f094204:	00101900 */ 	sll	$v1,$s0,0x4
 /*  f094208:	00701823 */ 	subu	$v1,$v1,$s0
@@ -2019,8 +2019,8 @@ glabel audioPlayFromProp
 /*  f094228:	afa30054 */ 	sw	$v1,0x54($sp)
 /*  f09422c:	0fc24aa6 */ 	jal	func0f092a98
 /*  f094230:	afa60068 */ 	sw	$a2,0x68($sp)
-/*  f094234:	3c098007 */ 	lui	$t1,%hi(var8006ae10)
-/*  f094238:	2529ae10 */ 	addiu	$t1,$t1,%lo(var8006ae10)
+/*  f094234:	3c098007 */ 	lui	$t1,%hi(g_AudioChannels)
+/*  f094238:	2529ae10 */ 	addiu	$t1,$t1,%lo(g_AudioChannels)
 /*  f09423c:	8d2c0000 */ 	lw	$t4,0x0($t1)
 /*  f094240:	8fa30054 */ 	lw	$v1,0x54($sp)
 /*  f094244:	8fa60068 */ 	lw	$a2,0x68($sp)
@@ -2087,8 +2087,8 @@ glabel audioMuteChannel
 /*  f094314:	14200022 */ 	bnez	$at,.L0f0943a0
 /*  f094318:	00108900 */ 	sll	$s1,$s0,0x4
 /*  f09431c:	02308823 */ 	subu	$s1,$s1,$s0
-/*  f094320:	3c128007 */ 	lui	$s2,%hi(var8006ae10)
-/*  f094324:	2652ae10 */ 	addiu	$s2,$s2,%lo(var8006ae10)
+/*  f094320:	3c128007 */ 	lui	$s2,%hi(g_AudioChannels)
+/*  f094324:	2652ae10 */ 	addiu	$s2,$s2,%lo(g_AudioChannels)
 /*  f094328:	001188c0 */ 	sll	$s1,$s1,0x3
 /*  f09432c:	8e4e0000 */ 	lw	$t6,0x0($s2)
 .L0f094330:
@@ -2136,77 +2136,31 @@ glabel audioMuteChannel
 /*  f0943b8:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel audioIfChannelIdle
-/*  f0943bc:	04800011 */ 	bltz	$a0,.L0f094404
-/*  f0943c0:	28810008 */ 	slti	$at,$a0,0x8
-/*  f0943c4:	1020000f */ 	beqz	$at,.L0f094404
-/*  f0943c8:	3c0e8007 */ 	lui	$t6,%hi(var8006ae10)
-/*  f0943cc:	8dceae10 */ 	lw	$t6,%lo(var8006ae10)($t6)
-/*  f0943d0:	00047900 */ 	sll	$t7,$a0,0x4
-/*  f0943d4:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f0943d8:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0943dc:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0943e0:	97190030 */ 	lhu	$t9,0x30($t8)
-/*  f0943e4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0943e8:	33280001 */ 	andi	$t0,$t9,0x1
-/*  f0943ec:	11000003 */ 	beqz	$t0,.L0f0943fc
-/*  f0943f0:	00000000 */ 	nop
-/*  f0943f4:	03e00008 */ 	jr	$ra
-/*  f0943f8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0943fc:
-/*  f0943fc:	03e00008 */ 	jr	$ra
-/*  f094400:	00601025 */ 	or	$v0,$v1,$zero
-.L0f094404:
-/*  f094404:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f094408:	1481001f */ 	bne	$a0,$at,.L0f094488
-/*  f09440c:	3c048009 */ 	lui	$a0,%hi(g_Is4Mb)
-/*  f094410:	90840af0 */ 	lbu	$a0,%lo(g_Is4Mb)($a0)
-/*  f094414:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f094418:	24020008 */ 	addiu	$v0,$zero,0x8
-/*  f09441c:	14c40003 */ 	bne	$a2,$a0,.L0f09442c
-/*  f094420:	24030028 */ 	addiu	$v1,$zero,0x28
-/*  f094424:	10000001 */ 	b	.L0f09442c
-/*  f094428:	2403001e */ 	addiu	$v1,$zero,0x1e
-.L0f09442c:
-/*  f09442c:	28610009 */ 	slti	$at,$v1,0x9
-/*  f094430:	14200015 */ 	bnez	$at,.L0f094488
-/*  f094434:	3c098007 */ 	lui	$t1,%hi(var8006ae10)
-/*  f094438:	8d29ae10 */ 	lw	$t1,%lo(var8006ae10)($t1)
-/*  f09443c:	00025100 */ 	sll	$t2,$v0,0x4
-/*  f094440:	01425023 */ 	subu	$t2,$t2,$v0
-/*  f094444:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f094448:	012a2821 */ 	addu	$a1,$t1,$t2
-/*  f09444c:	94ab0030 */ 	lhu	$t3,0x30($a1)
-.L0f094450:
-/*  f094450:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f094454:	24030028 */ 	addiu	$v1,$zero,0x28
-/*  f094458:	316c0080 */ 	andi	$t4,$t3,0x80
-/*  f09445c:	11800003 */ 	beqz	$t4,.L0f09446c
-/*  f094460:	00000000 */ 	nop
-/*  f094464:	03e00008 */ 	jr	$ra
-/*  f094468:	00001025 */ 	or	$v0,$zero,$zero
-.L0f09446c:
-/*  f09446c:	14c40003 */ 	bne	$a2,$a0,.L0f09447c
-/*  f094470:	24a50078 */ 	addiu	$a1,$a1,0x78
-/*  f094474:	10000001 */ 	b	.L0f09447c
-/*  f094478:	2403001e */ 	addiu	$v1,$zero,0x1e
-.L0f09447c:
-/*  f09447c:	0043082a */ 	slt	$at,$v0,$v1
-/*  f094480:	5420fff3 */ 	bnezl	$at,.L0f094450
-/*  f094484:	94ab0030 */ 	lhu	$t3,0x30($a1)
-.L0f094488:
-/*  f094488:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f09448c:	03e00008 */ 	jr	$ra
-/*  f094490:	00000000 */ 	nop
-);
+bool audioIsChannelIdle(s32 channel)
+{
+	if (channel >= 0 && channel <= 7) {
+		return (g_AudioChannels[channel].flags & AUDIOCHANNELFLAG_IDLE) ? true : false;
+	}
+
+	if (channel == 10) {
+		s32 i;
+
+		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
+			if (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_0080) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel audioPlayFromProp2
 /*  f094494:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f094498:	8fb90068 */ 	lw	$t9,0x68($sp)
-/*  f09449c:	3c0a8007 */ 	lui	$t2,%hi(var8006ae10)
-/*  f0944a0:	254aae10 */ 	addiu	$t2,$t2,%lo(var8006ae10)
+/*  f09449c:	3c0a8007 */ 	lui	$t2,%hi(g_AudioChannels)
+/*  f0944a0:	254aae10 */ 	addiu	$t2,$t2,%lo(g_AudioChannels)
 /*  f0944a4:	0004c100 */ 	sll	$t8,$a0,0x4
 /*  f0944a8:	8d480000 */ 	lw	$t0,0x0($t2)
 /*  f0944ac:	0304c023 */ 	subu	$t8,$t8,$a0
@@ -3205,8 +3159,8 @@ glabel func0f095200
 GLOBAL_ASM(
 glabel func0f095278
 /*  f095278:	00047100 */ 	sll	$t6,$a0,0x4
-/*  f09527c:	3c0f8007 */ 	lui	$t7,%hi(var8006ae10)
-/*  f095280:	8defae10 */ 	lw	$t7,%lo(var8006ae10)($t7)
+/*  f09527c:	3c0f8007 */ 	lui	$t7,%hi(g_AudioChannels)
+/*  f095280:	8defae10 */ 	lw	$t7,%lo(g_AudioChannels)($t7)
 /*  f095284:	01c47023 */ 	subu	$t6,$t6,$a0
 /*  f095288:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f09528c:	000e70c0 */ 	sll	$t6,$t6,0x3

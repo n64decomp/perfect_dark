@@ -15,11 +15,11 @@ void func0f0108d0(void)
 {
 	s32 i;
 
-	var8006ae10 = malloc(ALIGN16((IS4MB() ? 30 : 40) * sizeof(struct var8006ae10)), MEMPOOL_STAGE);
+	g_AudioChannels = malloc(ALIGN16((IS4MB() ? 30 : 40) * sizeof(struct audiochannel)), MEMPOOL_STAGE);
 
 	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
-		var8006ae10[i].unk30 = 1;
-		var8006ae10[i].audiohandle = NULL;
-		var8006ae10[i].unk4c = -1;
+		g_AudioChannels[i].flags = AUDIOCHANNELFLAG_IDLE;
+		g_AudioChannels[i].audiohandle = NULL;
+		g_AudioChannels[i].unk4c = -1;
 	}
 }

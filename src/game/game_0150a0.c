@@ -17,13 +17,13 @@ void func0f0150a0(void)
 	s32 i;
 
 	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
-		if (var8006ae10[i].unk30 & 0x0010) {
-			func0000fbc4(var8006ae10[i].unk26);
-			var8006ae10[i].unk30 &= ~0x0010;
-			var8006ae10[i].unk30 &= ~0x0002;
-		} else if (var8006ae10[i].audiohandle && audioIsPlaying(var8006ae10[i].audiohandle)) {
-			audioStop(var8006ae10[i].audiohandle);
-			var8006ae10[i].unk30 &= ~0x0002;
+		if (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_0010) {
+			func0000fbc4(g_AudioChannels[i].unk26);
+			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_0010;
+			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_0002;
+		} else if (g_AudioChannels[i].audiohandle && audioIsPlaying(g_AudioChannels[i].audiohandle)) {
+			audioStop(g_AudioChannels[i].audiohandle);
+			g_AudioChannels[i].flags &= ~AUDIOCHANNELFLAG_0002;
 		}
 	}
 }

@@ -4678,7 +4678,7 @@ bool aiIfChannelIdle(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s8 channel = (s8) cmd[2];
 
-	if (audioIfChannelIdle(channel)) {
+	if (audioIsChannelIdle(channel)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;

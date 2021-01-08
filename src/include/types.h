@@ -6676,7 +6676,7 @@ struct var800a45c4 {
 	/*0x68*/ u32 unk68;
 };
 
-struct var8006ae10 {
+struct audiochannel {
 	/*0x00*/ struct audiohandle *audiohandle;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
@@ -6690,7 +6690,7 @@ struct var8006ae10 {
 	/*0x26*/ s16 unk26;
 	/*0x28*/ s16 unk28;
 	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u16 unk30;
+	/*0x30*/ u16 flags;
 	/*0x34*/ u32 unk34;
 	/*0x38*/ u32 unk38;
 	/*0x3c*/ u32 unk3c;
