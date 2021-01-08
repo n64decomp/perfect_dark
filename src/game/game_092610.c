@@ -64,13 +64,13 @@ const u32 var7f1ab784[] = {0x4b18967f};
 const u32 var7f1ab788[] = {0x4b18967f};
 const u32 var7f1ab78c[] = {0x00000000};
 
-bool func0f092610(s32 arg0, s32 arg1)
+bool func0f092610(struct prop *prop, s32 arg1)
 {
 	s32 i;
 
 	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
 		if ((var8006ae10[i].unk30 & 1) == 0
-				&& arg0 == var8006ae10[i].unk50
+				&& prop == var8006ae10[i].prop
 				&& (arg1 == var8006ae10[i].unk28 || arg1 == 1)) {
 			return true;
 		}
@@ -79,89 +79,22 @@ bool func0f092610(s32 arg0, s32 arg1)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f0926bc
-/*  f0926bc:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0926c0:	3c078009 */ 	lui	$a3,%hi(g_Is4Mb)
-/*  f0926c4:	90e70af0 */ 	lbu	$a3,%lo(g_Is4Mb)($a3)
-/*  f0926c8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f0926cc:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f0926d0:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f0926d4:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f0926d8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0926dc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0926e0:	30d2ffff */ 	andi	$s2,$a2,0xffff
-/*  f0926e4:	00a09825 */ 	or	$s3,$a1,$zero
-/*  f0926e8:	0080b025 */ 	or	$s6,$a0,$zero
-/*  f0926ec:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0926f0:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f0926f4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0926f8:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0926fc:	16870003 */ 	bne	$s4,$a3,.L0f09270c
-/*  f092700:	00008025 */ 	or	$s0,$zero,$zero
-/*  f092704:	10000002 */ 	b	.L0f092710
-/*  f092708:	2402001e */ 	addiu	$v0,$zero,0x1e
-.L0f09270c:
-/*  f09270c:	24020028 */ 	addiu	$v0,$zero,0x28
-.L0f092710:
-/*  f092710:	18400026 */ 	blez	$v0,.L0f0927ac
-/*  f092714:	00108900 */ 	sll	$s1,$s0,0x4
-/*  f092718:	02308823 */ 	subu	$s1,$s1,$s0
-/*  f09271c:	3c158007 */ 	lui	$s5,%hi(var8006ae10)
-/*  f092720:	26b5ae10 */ 	addiu	$s5,$s5,%lo(var8006ae10)
-/*  f092724:	001188c0 */ 	sll	$s1,$s1,0x3
-/*  f092728:	8eae0000 */ 	lw	$t6,0x0($s5)
-.L0f09272c:
-/*  f09272c:	022e2021 */ 	addu	$a0,$s1,$t6
-/*  f092730:	94820030 */ 	lhu	$v0,0x30($a0)
-/*  f092734:	304f0001 */ 	andi	$t7,$v0,0x1
-/*  f092738:	55e00014 */ 	bnezl	$t7,.L0f09278c
-/*  f09273c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f092740:	8c980050 */ 	lw	$t8,0x50($a0)
-/*  f092744:	56d80011 */ 	bnel	$s6,$t8,.L0f09278c
-/*  f092748:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f09274c:	50400006 */ 	beqzl	$v0,.L0f092768
-/*  f092750:	84880028 */ 	lh	$t0,0x28($a0)
-/*  f092754:	12400003 */ 	beqz	$s2,.L0f092764
-/*  f092758:	0242c824 */ 	and	$t9,$s2,$v0
-/*  f09275c:	5320000b */ 	beqzl	$t9,.L0f09278c
-/*  f092760:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f092764:
-/*  f092764:	84880028 */ 	lh	$t0,0x28($a0)
-.L0f092768:
-/*  f092768:	12680003 */ 	beq	$s3,$t0,.L0f092778
-/*  f09276c:	00000000 */ 	nop
-/*  f092770:	56740006 */ 	bnel	$s3,$s4,.L0f09278c
-/*  f092774:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f092778:
-/*  f092778:	0fc24aa6 */ 	jal	func0f092a98
-/*  f09277c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f092780:	3c078009 */ 	lui	$a3,%hi(g_Is4Mb)
-/*  f092784:	90e70af0 */ 	lbu	$a3,%lo(g_Is4Mb)($a3)
-/*  f092788:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f09278c:
-/*  f09278c:	16870003 */ 	bne	$s4,$a3,.L0f09279c
-/*  f092790:	26310078 */ 	addiu	$s1,$s1,0x78
-/*  f092794:	10000002 */ 	b	.L0f0927a0
-/*  f092798:	2402001e */ 	addiu	$v0,$zero,0x1e
-.L0f09279c:
-/*  f09279c:	24020028 */ 	addiu	$v0,$zero,0x28
-.L0f0927a0:
-/*  f0927a0:	0202082a */ 	slt	$at,$s0,$v0
-/*  f0927a4:	5420ffe1 */ 	bnezl	$at,.L0f09272c
-/*  f0927a8:	8eae0000 */ 	lw	$t6,0x0($s5)
-.L0f0927ac:
-/*  f0927ac:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0927b0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0927b4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0927b8:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0927bc:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0927c0:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f0927c4:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f0927c8:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f0927cc:	03e00008 */ 	jr	$ra
-/*  f0927d0:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void func0f0926bc(struct prop *prop, s32 arg1, u16 arg2)
+{
+	s32 i;
+
+	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+		struct var8006ae10 *thing = &var8006ae10[i];
+
+		if ((thing->unk30 % 2) == 0 && thing->prop == prop) {
+			if (!thing->unk30 || !arg2 || (arg2 & thing->unk30)) {
+				if (thing->unk28 == arg1 || arg1 == 1) {
+					func0f092a98(i);
+				}
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0927d4

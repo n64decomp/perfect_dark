@@ -3,12 +3,12 @@
 #include <ultra64.h>
 #include "types.h"
 
-bool func0f092610(s32 arg0, s32 arg1);
+bool func0f092610(struct prop *prop, s32 arg1);
 void func0f0926bc(struct prop *prop, s32 arg1, u16 arg2);
 s32 func0f0927d4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s16 arg4);
 s32 func0f092914(s32 arg0);
 u32 func0f09294c(void);
-u32 func0f092a98(void);
+void func0f092a98(s32 index);
 u32 func0f092b50(void);
 u32 func0f092b7c(void);
 u32 func0f092c04(void);

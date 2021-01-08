@@ -8217,7 +8217,7 @@ glabel aiSayQuip
 //
 //				// 72c
 //				if (audioid != 0x3f7 && audioid != 0x331 && audioid != 0x3a1) {
-//					func0f0926bc(g_Vars.chrdata->prop, 9, -1);
+//					func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
 //					// 7a8
 //					func0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
 //							-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
@@ -8226,7 +8226,7 @@ glabel aiSayQuip
 //					distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
 //
 //					if (ABS(distance) > 50) {
-//						func0f0926bc(g_Vars.chrdata->prop, 9, -1);
+//						func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
 //						// 840
 //						func0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
 //								-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
@@ -8284,7 +8284,7 @@ glabel aiSayQuip
 //
 //					// 9fc
 //					if (audioid != 0x3f7 && audioid != 0x331 && audioid != 0x3a1) {
-//						func0f0926bc(g_Vars.chrdata->prop, 9, -1);
+//						func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
 //						// a80
 //						func0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
 //								-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
@@ -8294,7 +8294,7 @@ glabel aiSayQuip
 //						distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
 //
 //						if (ABS(distance) > 50) {
-//							func0f0926bc(g_Vars.chrdata->prop, 9, -1);
+//							func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
 //							// b28
 //							func0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
 //									-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);

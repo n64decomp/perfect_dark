@@ -6698,7 +6698,7 @@ struct var8006ae10 {
 	/*0x44*/ u32 unk44;
 	/*0x48*/ u32 unk48;
 	/*0x4c*/ f32 unk4c;
-	/*0x50*/ u32 unk50;
+	/*0x50*/ struct prop *prop;
 	/*0x54*/ u32 unk54;
 	/*0x58*/ u32 unk58;
 	/*0x5c*/ u32 unk5c;
