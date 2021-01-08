@@ -35,7 +35,7 @@ u32 fileGetRomSizeByTableAddress(u32 *filetableaddr)
 	return difference;
 }
 
-u32 fileGetRomSizeByFileNum(s32 filenum)
+s32 fileGetRomSizeByFileNum(s32 filenum)
 {
 	return fileGetRomSizeByTableAddress((u32 *)&filetable[filenum]);
 }

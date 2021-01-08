@@ -225,7 +225,7 @@ void func0f092a98(s32 channelnum)
 	}
 
 	if ((channel->flags & AUDIOCHANNELFLAG_0010)) {
-		func0000fbc4(channel->unk26);
+		func0000fbc4(channel->filenum);
 	} else if (channel->audiohandle && audioIsPlaying(channel->audiohandle)) {
 		audioStop(channel->audiohandle);
 	}
@@ -3030,52 +3030,17 @@ glabel func0f095200
 /*  f095274:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f095278
-/*  f095278:	00047100 */ 	sll	$t6,$a0,0x4
-/*  f09527c:	3c0f8007 */ 	lui	$t7,%hi(g_AudioChannels)
-/*  f095280:	8defae10 */ 	lw	$t7,%lo(g_AudioChannels)($t7)
-/*  f095284:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f095288:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f09528c:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f095290:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f095294:	0480001d */ 	bltz	$a0,.L0f09530c
-/*  f095298:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f09529c:	3c188009 */ 	lui	$t8,%hi(g_Is4Mb)
-/*  f0952a0:	93180af0 */ 	lbu	$t8,%lo(g_Is4Mb)($t8)
-/*  f0952a4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0952a8:	24020028 */ 	addiu	$v0,$zero,0x28
-/*  f0952ac:	17010003 */ 	bne	$t8,$at,.L0f0952bc
-/*  f0952b0:	00000000 */ 	nop
-/*  f0952b4:	10000001 */ 	b	.L0f0952bc
-/*  f0952b8:	2402001e */ 	addiu	$v0,$zero,0x1e
-.L0f0952bc:
-/*  f0952bc:	0082082a */ 	slt	$at,$a0,$v0
-/*  f0952c0:	50200013 */ 	beqzl	$at,.L0f095310
-/*  f0952c4:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0952c8:	94620030 */ 	lhu	$v0,0x30($v1)
-/*  f0952cc:	30590001 */ 	andi	$t9,$v0,0x1
-/*  f0952d0:	1720000e */ 	bnez	$t9,.L0f09530c
-/*  f0952d4:	30480010 */ 	andi	$t0,$v0,0x10
-/*  f0952d8:	5100000d */ 	beqzl	$t0,.L0f095310
-/*  f0952dc:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0952e0:	84620026 */ 	lh	$v0,0x26($v1)
-/*  f0952e4:	0fc59b9f */ 	jal	fileGetRomSizeByFileNum
-/*  f0952e8:	304407ff */ 	andi	$a0,$v0,0x7ff
-/*  f0952ec:	00024900 */ 	sll	$t1,$v0,0x4
-/*  f0952f0:	01224823 */ 	subu	$t1,$t1,$v0
-/*  f0952f4:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f0952f8:	24010c00 */ 	addiu	$at,$zero,0xc00
-/*  f0952fc:	0121001a */ 	div	$zero,$t1,$at
-/*  f095300:	00001012 */ 	mflo	$v0
-/*  f095304:	10000003 */ 	b	.L0f095314
-/*  f095308:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f09530c:
-/*  f09530c:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f095310:
-/*  f095310:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f095314:
-/*  f095314:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f095318:	03e00008 */ 	jr	$ra
-/*  f09531c:	00000000 */ 	nop
-);
+s32 func0f095278(s32 channelnum)
+{
+	struct audiochannel *channel = &g_AudioChannels[channelnum];
+
+	if (channelnum >= 0 && channelnum < (IS4MB() ? 30 : 40)) {
+		if ((channel->flags & AUDIOCHANNELFLAG_IDLE) == 0
+				&& (channel->flags & AUDIOCHANNELFLAG_0010)) {
+			s32 filenum = channel->filenum;
+			return fileGetRomSizeByFileNum(filenum & 0x7ff) * 60 / 3072;
+		}
+	}
+
+	return -1;
+}

@@ -27,6 +27,6 @@ u32 func0f094d78(void);
 u32 func0f094ef4(void);
 u32 func0f09505c(void);
 u32 func0f095200(void);
-u32 func0f095278(void);
+s32 func0f095278(s32 channelnum);
 
 #endif
