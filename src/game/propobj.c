@@ -47460,161 +47460,65 @@ glabel var7f1ab194
 /*  f08fcb4:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-GLOBAL_ASM(
-glabel func0f08fcb8
-.late_rodata
-glabel var7f1ab198
-.word 0x471c4000
-.text
-/*  f08fcb8:	27bdff48 */ 	addiu	$sp,$sp,-184
-/*  f08fcbc:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f08fcc0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f08fcc4:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f08fcc8:	afa400b8 */ 	sw	$a0,0xb8($sp)
-/*  f08fccc:	afae00b4 */ 	sw	$t6,0xb4($sp)
-/*  f08fcd0:	8c900004 */ 	lw	$s0,0x4($a0)
-/*  f08fcd4:	8e180008 */ 	lw	$t8,0x8($s0)
-/*  f08fcd8:	0018c980 */ 	sll	$t9,$t8,0x6
-/*  f08fcdc:	0722007e */ 	bltzl	$t9,.L0f08fed8
-/*  f08fce0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f08fce4:	44802000 */ 	mtc1	$zero,$f4
-/*  f08fce8:	c606005c */ 	lwc1	$f6,0x5c($s0)
-/*  f08fcec:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f08fcf0:	00000000 */ 	nop
-/*  f08fcf4:	45020078 */ 	bc1fl	.L0f08fed8
-/*  f08fcf8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f08fcfc:	90890001 */ 	lbu	$t1,0x1($a0)
-/*  f08fd00:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x284)
-/*  f08fd04:	312a0002 */ 	andi	$t2,$t1,0x2
-/*  f08fd08:	51400073 */ 	beqzl	$t2,.L0f08fed8
-/*  f08fd0c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f08fd10:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
-/*  f08fd14:	afa000ac */ 	sw	$zero,0xac($sp)
-/*  f08fd18:	8c830480 */ 	lw	$v1,0x480($a0)
-/*  f08fd1c:	0003102b */ 	sltu	$v0,$zero,$v1
-/*  f08fd20:	10400004 */ 	beqz	$v0,.L0f08fd34
-/*  f08fd24:	00000000 */ 	nop
-/*  f08fd28:	80620037 */ 	lb	$v0,0x37($v1)
-/*  f08fd2c:	0002582b */ 	sltu	$t3,$zero,$v0
-/*  f08fd30:	01601025 */ 	or	$v0,$t3,$zero
-.L0f08fd34:
-/*  f08fd34:	50400004 */ 	beqzl	$v0,.L0f08fd48
-/*  f08fd38:	8c8800bc */ 	lw	$t0,0xbc($a0)
-/*  f08fd3c:	10000002 */ 	b	.L0f08fd48
-/*  f08fd40:	8c680000 */ 	lw	$t0,0x0($v1)
-/*  f08fd44:	8c8800bc */ 	lw	$t0,0xbc($a0)
-.L0f08fd48:
-/*  f08fd48:	c608008c */ 	lwc1	$f8,0x8c($s0)
-/*  f08fd4c:	c50a0008 */ 	lwc1	$f10,0x8($t0)
-/*  f08fd50:	c6040094 */ 	lwc1	$f4,0x94($s0)
-/*  f08fd54:	c5060010 */ 	lwc1	$f6,0x10($t0)
-/*  f08fd58:	460a4001 */ 	sub.s	$f0,$f8,$f10
-/*  f08fd5c:	c6100090 */ 	lwc1	$f16,0x90($s0)
-/*  f08fd60:	c512000c */ 	lwc1	$f18,0xc($t0)
-/*  f08fd64:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f08fd68:	46000202 */ 	mul.s	$f8,$f0,$f0
-/*  f08fd6c:	3c017f1b */ 	lui	$at,%hi(var7f1ab198)
-/*  f08fd70:	46128301 */ 	sub.s	$f12,$f16,$f18
-/*  f08fd74:	46021282 */ 	mul.s	$f10,$f2,$f2
-/*  f08fd78:	c432b198 */ 	lwc1	$f18,%lo(var7f1ab198)($at)
-/*  f08fd7c:	8fa400b8 */ 	lw	$a0,0xb8($sp)
-/*  f08fd80:	3c014348 */ 	lui	$at,0x4348
-/*  f08fd84:	25050028 */ 	addiu	$a1,$t0,0x28
-/*  f08fd88:	24840028 */ 	addiu	$a0,$a0,40
-/*  f08fd8c:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f08fd90:	4612803c */ 	c.lt.s	$f16,$f18
-/*  f08fd94:	00000000 */ 	nop
-/*  f08fd98:	4500000f */ 	bc1f	.L0f08fdd8
-/*  f08fd9c:	00000000 */ 	nop
-/*  f08fda0:	44812000 */ 	mtc1	$at,$f4
-/*  f08fda4:	3c01c348 */ 	lui	$at,0xc348
-/*  f08fda8:	4604603c */ 	c.lt.s	$f12,$f4
-/*  f08fdac:	00000000 */ 	nop
-/*  f08fdb0:	45000009 */ 	bc1f	.L0f08fdd8
-/*  f08fdb4:	00000000 */ 	nop
-/*  f08fdb8:	44813000 */ 	mtc1	$at,$f6
-/*  f08fdbc:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f08fdc0:	460c303c */ 	c.lt.s	$f6,$f12
-/*  f08fdc4:	00000000 */ 	nop
-/*  f08fdc8:	45000003 */ 	bc1f	.L0f08fdd8
-/*  f08fdcc:	00000000 */ 	nop
-/*  f08fdd0:	10000024 */ 	b	.L0f08fe64
-/*  f08fdd4:	afac00ac */ 	sw	$t4,0xac($sp)
-.L0f08fdd8:
-/*  f08fdd8:	0fc19620 */ 	jal	arrayIntersects
-/*  f08fddc:	afa800a4 */ 	sw	$t0,0xa4($sp)
-/*  f08fde0:	10400020 */ 	beqz	$v0,.L0f08fe64
-/*  f08fde4:	8fa800a4 */ 	lw	$t0,0xa4($sp)
-/*  f08fde8:	25040008 */ 	addiu	$a0,$t0,0x8
-/*  f08fdec:	86060006 */ 	lh	$a2,0x6($s0)
-/*  f08fdf0:	afa800a4 */ 	sw	$t0,0xa4($sp)
-/*  f08fdf4:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f08fdf8:	0fc19e5f */ 	jal	func0f06797c
-/*  f08fdfc:	3c054316 */ 	lui	$a1,0x4316
-/*  f08fe00:	10400004 */ 	beqz	$v0,.L0f08fe14
-/*  f08fe04:	8fa800a4 */ 	lw	$t0,0xa4($sp)
-/*  f08fe08:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f08fe0c:	10000015 */ 	b	.L0f08fe64
-/*  f08fe10:	afad00ac */ 	sw	$t5,0xac($sp)
-.L0f08fe14:
-/*  f08fe14:	960e0070 */ 	lhu	$t6,0x70($s0)
-/*  f08fe18:	24010080 */ 	addiu	$at,$zero,0x80
-/*  f08fe1c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08fe20:	31d80180 */ 	andi	$t8,$t6,0x180
-/*  f08fe24:	1301000f */ 	beq	$t8,$at,.L0f08fe64
-/*  f08fe28:	27a50078 */ 	addiu	$a1,$sp,0x78
-/*  f08fe2c:	0fc23121 */ 	jal	func0f08c484
-/*  f08fe30:	afa800a4 */ 	sw	$t0,0xa4($sp)
-/*  f08fe34:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08fe38:	0fc23109 */ 	jal	func0f08c424
-/*  f08fe3c:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f08fe40:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f08fe44:	3c054316 */ 	lui	$a1,0x4316
-/*  f08fe48:	27a60078 */ 	addiu	$a2,$sp,0x78
-/*  f08fe4c:	0fc19d72 */ 	jal	func0f0675c8
-/*  f08fe50:	27a70038 */ 	addiu	$a3,$sp,0x38
-/*  f08fe54:	10400003 */ 	beqz	$v0,.L0f08fe64
-/*  f08fe58:	8fa800a4 */ 	lw	$t0,0xa4($sp)
-/*  f08fe5c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f08fe60:	afb900ac */ 	sw	$t9,0xac($sp)
-.L0f08fe64:
-/*  f08fe64:	8faf00ac */ 	lw	$t7,0xac($sp)
-/*  f08fe68:	51e0001b */ 	beqzl	$t7,.L0f08fed8
-/*  f08fe6c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f08fe70:	8e09000c */ 	lw	$t1,0xc($s0)
-/*  f08fe74:	25040008 */ 	addiu	$a0,$t0,0x8
-/*  f08fe78:	25050028 */ 	addiu	$a1,$t0,0x28
-/*  f08fe7c:	312a0800 */ 	andi	$t2,$t1,0x800
-/*  f08fe80:	11400007 */ 	beqz	$t2,.L0f08fea0
-/*  f08fe84:	8fab00b8 */ 	lw	$t3,0xb8($sp)
-/*  f08fe88:	240c0020 */ 	addiu	$t4,$zero,0x20
-/*  f08fe8c:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f08fe90:	25660008 */ 	addiu	$a2,$t3,0x8
-/*  f08fe94:	0c00b734 */ 	jal	func0002dcd0
-/*  f08fe98:	25670028 */ 	addiu	$a3,$t3,0x28
-/*  f08fe9c:	1040000d */ 	beqz	$v0,.L0f08fed4
-.L0f08fea0:
-/*  f08fea0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08fea4:	0fc23e5a */ 	jal	func0f08f968
-/*  f08fea8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f08feac:	10400009 */ 	beqz	$v0,.L0f08fed4
-/*  f08feb0:	afa200b4 */ 	sw	$v0,0xb4($sp)
-/*  f08feb4:	8e0d000c */ 	lw	$t5,0xc($s0)
-/*  f08feb8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08febc:	000d7000 */ 	sll	$t6,$t5,0x0
-/*  f08fec0:	05c30005 */ 	bgezl	$t6,.L0f08fed8
-/*  f08fec4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f08fec8:	0fc23e5a */ 	jal	func0f08f968
-/*  f08fecc:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08fed0:	afa200b4 */ 	sw	$v0,0xb4($sp)
-.L0f08fed4:
-/*  f08fed4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f08fed8:
-/*  f08fed8:	8fa200b4 */ 	lw	$v0,0xb4($sp)
-/*  f08fedc:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f08fee0:	03e00008 */ 	jr	$ra
-/*  f08fee4:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
-);
+/**
+ * This function is used to help find the door that should be opened when
+ * interacting. The argument given is a door to be tested.
+ *
+ * A pointer to the best candidate is stored at var8009cda8. This function
+ * doesn't write to it directly so it must be done by one of the called
+ * functions.
+ *
+ * This function should return true if more doors and objects should be tested,
+ * or false if the thing at var8009cda8 is certain to be final.
+ */
+bool doorTestForInteract(struct prop *prop)
+{
+	bool checkmore = true;
+	struct doorobj *door = prop->door;
+
+	if ((door->base.flags & OBJFLAG_CANNOT_ACTIVATE) == 0
+			&& door->maxfrac > 0
+			&& (prop->flags & PROPFLAG_02)) {
+		bool maybe = false;
+		bool usingeyespy = g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active;
+		struct prop *playerprop = usingeyespy ? g_Vars.currentplayer->eyespy->prop : g_Vars.currentplayer->prop;
+
+		f32 xdiff = door->startpos.x - playerprop->pos.x;
+		f32 ydiff = door->startpos.y - playerprop->pos.y;
+		f32 zdiff = door->startpos.z - playerprop->pos.z;
+
+		if (xdiff * xdiff + zdiff * zdiff < 40000 && ydiff < 200 && ydiff > -200) {
+			maybe = true;
+		} else if (arrayIntersects(prop->rooms, playerprop->rooms)) {
+			if (func0f06797c(&playerprop->pos, 150, door->base.pad)) {
+				maybe = true;
+			} else if ((door->doorflags & (DOORFLAG_0080 | DOORFLAG_0100)) != DOORFLAG_0080) {
+				u8 stack1[0x20];
+				u8 stack2[0x40];
+
+				func0f08c484(door, stack1);
+				func0f08c424(door, stack2);
+
+				if (func0f0675c8(&playerprop->pos, 150, stack1, stack2)) {
+					maybe = true;
+				}
+			}
+		}
+
+		if (maybe) {
+			if ((door->base.flags2 & OBJFLAG2_00000800) == 0
+					|| func0002dcd0(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, 0x20)) {
+				checkmore = func0f08f968(door, false);
+
+				if (checkmore && (door->base.flags2 & OBJFLAG2_80000000)) {
+					checkmore = func0f08f968(door, true);
+				}
+			}
+		}
+	}
+
+	return checkmore;
+}
 
 void doorActivateWrapper(struct prop *doorprop, bool arg1)
 {

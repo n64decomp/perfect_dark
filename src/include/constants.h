@@ -594,6 +594,8 @@
 #define DOORFLAG_0008            0x0008 // Changes the angle at which one-way doors can be opened
 #define DOORFLAG_0010            0x0010 // Rescue door bottoms, training doors in Defense
 #define DOORFLAG_0040            0x0040
+#define DOORFLAG_0080            0x0080
+#define DOORFLAG_0100            0x0100
 #define DOORFLAG_0200            0x0200 // dataDyne secret door near lobby elevator
 #define DOORFLAG_DAMAGEONCONTACT 0x0400 // Lasers
 #define DOORFLAG_0800            0x0800 // Non-CI lasers, and floor grates

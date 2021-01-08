@@ -3003,7 +3003,7 @@ glabel currentPlayerFindPropForInteract
 .L0f062d68:
 /*  f062d68:	16c20004 */ 	bne	$s6,$v0,.L0f062d7c
 /*  f062d6c:	00000000 */ 	nop
-/*  f062d70:	0fc23f2e */ 	jal	func0f08fcb8
+/*  f062d70:	0fc23f2e */ 	jal	doorTestForInteract
 /*  f062d74:	00000000 */ 	nop
 /*  f062d78:	00401825 */ 	or	$v1,$v0,$zero
 .L0f062d7c:
@@ -3061,7 +3061,7 @@ glabel currentPlayerFindPropForInteract
 //						result = func0f0869cc(*ptr);
 //					}
 //				} else if (prop->type == PROPTYPE_DOOR) {
-//					result = func0f08fcb8(*ptr);
+//					result = doorTestForInteract(*ptr);
 //
 //					if (prop->type == PROPTYPE_SMOKE);
 //				}
