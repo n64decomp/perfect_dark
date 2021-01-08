@@ -6692,6 +6692,7 @@ struct audiochannel {
 	/*0x28*/ s16 unk28;
 	/*0x2c*/ u32 unk2c;
 	/*0x30*/ u16 flags;
+	/*0x32*/ u16 unk32;
 	/*0x34*/ u32 unk34;
 	/*0x38*/ u32 unk38;
 	/*0x3c*/ u32 unk3c;

@@ -288,60 +288,26 @@ glabel func0f09294c
 /*  f092a94:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-GLOBAL_ASM(
-glabel func0f092a98
-/*  f092a98:	3c0f8007 */ 	lui	$t7,%hi(g_AudioChannels)
-/*  f092a9c:	8defae10 */ 	lw	$t7,%lo(g_AudioChannels)($t7)
-/*  f092aa0:	00047100 */ 	sll	$t6,$a0,0x4
-/*  f092aa4:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f092aa8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f092aac:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f092ab0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f092ab4:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f092ab8:	94780032 */ 	lhu	$t8,0x32($v1)
-/*  f092abc:	94620030 */ 	lhu	$v0,0x30($v1)
-/*  f092ac0:	37190080 */ 	ori	$t9,$t8,0x80
-/*  f092ac4:	30480200 */ 	andi	$t0,$v0,0x200
-/*  f092ac8:	11000005 */ 	beqz	$t0,.L0f092ae0
-/*  f092acc:	a4790032 */ 	sh	$t9,0x32($v1)
-/*  f092ad0:	0fc37751 */ 	jal	func0f0ddd44
-/*  f092ad4:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f092ad8:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f092adc:	94620030 */ 	lhu	$v0,0x30($v1)
-.L0f092ae0:
-/*  f092ae0:	30490008 */ 	andi	$t1,$v0,0x8
-/*  f092ae4:	51200007 */ 	beqzl	$t1,.L0f092b04
-/*  f092ae8:	304a0010 */ 	andi	$t2,$v0,0x10
-/*  f092aec:	8c640050 */ 	lw	$a0,0x50($v1)
-/*  f092af0:	0fc16af7 */ 	jal	func0f05abdc
-/*  f092af4:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f092af8:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f092afc:	94620030 */ 	lhu	$v0,0x30($v1)
-/*  f092b00:	304a0010 */ 	andi	$t2,$v0,0x10
-.L0f092b04:
-/*  f092b04:	51400006 */ 	beqzl	$t2,.L0f092b20
-/*  f092b08:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f092b0c:	0c003ef1 */ 	jal	func0000fbc4
-/*  f092b10:	84640026 */ 	lh	$a0,0x26($v1)
-/*  f092b14:	1000000b */ 	b	.L0f092b44
-/*  f092b18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f092b1c:	8c640000 */ 	lw	$a0,0x0($v1)
-.L0f092b20:
-/*  f092b20:	50800008 */ 	beqzl	$a0,.L0f092b44
-/*  f092b24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f092b28:	0c00cdfc */ 	jal	audioIsPlaying
-/*  f092b2c:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f092b30:	10400003 */ 	beqz	$v0,.L0f092b40
-/*  f092b34:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f092b38:	0c00cec9 */ 	jal	audioStop
-/*  f092b3c:	8c640000 */ 	lw	$a0,0x0($v1)
-.L0f092b40:
-/*  f092b40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f092b44:
-/*  f092b44:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f092b48:	03e00008 */ 	jr	$ra
-/*  f092b4c:	00000000 */ 	nop
-);
+void func0f092a98(s32 channelnum)
+{
+	struct audiochannel *channel = &g_AudioChannels[channelnum];
+
+	channel->unk32 |= 0x80;
+
+	if (channel->flags & AUDIOCHANNELFLAG_0200) {
+		func0f0ddd44(channelnum);
+	}
+
+	if (channel->flags & AUDIOCHANNELFLAG_0008) {
+		func0f05abdc(channel->prop);
+	}
+
+	if ((channel->flags & AUDIOCHANNELFLAG_0010)) {
+		func0000fbc4(channel->unk26);
+	} else if (channel->audiohandle && audioIsPlaying(channel->audiohandle)) {
+		audioStop(channel->audiohandle);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f092b50
