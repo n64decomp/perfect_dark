@@ -1234,7 +1234,7 @@ glabel smokeCreate
 //		struct prop *prop = propAllocate();
 //
 //		if (prop) {
-//			prop->type = PROPTYPE_EFFECT;
+//			prop->type = PROPTYPE_SMOKE;
 //			prop->smoke = smoke;
 //			prop->pos.x = pos->x;
 //			prop->pos.y = pos->y;

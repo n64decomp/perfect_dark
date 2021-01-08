@@ -159,7 +159,7 @@ void func0f01e250(void)
 			value = func0f07e474(prop);
 		} else if (prop->type == PROPTYPE_EXPLOSION) {
 			value = func0f12bbdc(prop);
-		} else if (prop->type == PROPTYPE_EFFECT) {
+		} else if (prop->type == PROPTYPE_SMOKE) {
 			value = func0f12e848(prop);
 		} else if (prop->type == PROPTYPE_PLAYER) {
 			value = func0f0c228c(prop);

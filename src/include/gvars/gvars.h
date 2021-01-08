@@ -531,6 +531,7 @@ extern s32 g_RecentQuipsPlayed[5];
 extern u8 g_RecentQuipsIndex;
 extern s16 *var8009cda0;
 extern struct var8009cda4 *var8009cda4;
+extern struct prop *var8009cda8;
 extern u32 var8009cdac;
 extern u32 var8009cdb0;
 extern struct weaponobj *g_ProxyMines[30];

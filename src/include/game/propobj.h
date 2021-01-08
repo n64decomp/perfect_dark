@@ -333,7 +333,7 @@ void doorDoCalc(struct doorobj *door);
 u32 func0f08f538(void);
 u32 func0f08f604(void);
 u32 func0f08f968(void);
-u32 func0f08fcb8(void);
+bool func0f08fcb8(struct prop *prop);
 void doorActivateWrapper(struct prop *prop, bool arg1);
 u32 func0f08fffc(void);
 void func0f0900c0(struct prop *prop, struct doorobj *door);

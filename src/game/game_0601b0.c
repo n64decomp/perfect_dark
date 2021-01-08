@@ -359,7 +359,7 @@ Gfx *propRender(Gfx *gdl, struct prop *prop, bool withalpha)
 	case PROPTYPE_EXPLOSION:
 		gdl = explosionRender(prop, gdl, withalpha);
 		break;
-	case PROPTYPE_EFFECT:
+	case PROPTYPE_SMOKE:
 		gdl = smokeRender(prop, gdl, withalpha);
 		break;
 	}
@@ -3033,6 +3033,51 @@ glabel currentPlayerFindPropForInteract
 /*  f062dcc:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
+// Mismatch due to regalloc.
+// It's likely a switch was used, and using one comes close but doesn't match
+// as well. Another problem is that 8 (PROPTYPE_SMOKE) needs to be loaded into
+// a register, but referencing prop an extra time time promotes it to s0. This
+// is resolved below by passing *ptr to those functions instead of prop, but
+// this seems unlikely.
+// If attempting to use a switch, note that the door part needs to be an if
+// statement inside the default case.
+//struct prop *currentPlayerFindPropForInteract(bool usingeyespy)
+//{
+//	struct prop **ptr;
+//	bool result;
+//
+//	var8009cda8 = NULL;
+//	ptr = g_Vars.unk00034c - 1;
+//	result = true;
+//
+//	// Iterate tangible list in reverse
+//	while (ptr >= g_Vars.tangibleprops) {
+//		struct prop *prop = *ptr;
+//
+//		if (prop) {
+//			if (prop->type != PROPTYPE_CHR) {
+//				if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+//					if (!usingeyespy) {
+//						result = func0f0869cc(*ptr);
+//					}
+//				} else if (prop->type == PROPTYPE_DOOR) {
+//					result = func0f08fcb8(*ptr);
+//
+//					if (prop->type == PROPTYPE_SMOKE);
+//				}
+//			}
+//
+//			if (!result) {
+//				break;
+//			}
+//		}
+//
+//		ptr--;
+//	}
+//
+//	return var8009cda8;
+//}
+
 void func0f062dd0(void)
 {
 	struct prop **ptr = g_Vars.unk00034c - 1;
@@ -3076,7 +3121,7 @@ bool currentPlayerInteract(bool eyespy)
 		case PROPTYPE_EYESPY:
 		case PROPTYPE_PLAYER:
 		case PROPTYPE_EXPLOSION:
-		case PROPTYPE_EFFECT:
+		case PROPTYPE_SMOKE:
 			break;
 		}
 

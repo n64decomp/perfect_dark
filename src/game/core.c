@@ -628,7 +628,7 @@ bool coreCheckCmpFollowThreat(struct threat *threat, s32 index)
 		case PROPTYPE_DOOR:
 		case PROPTYPE_EYESPY:
 		case PROPTYPE_EXPLOSION:
-		case PROPTYPE_EFFECT:
+		case PROPTYPE_SMOKE:
 		default:
 			return false;
 		}
