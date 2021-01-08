@@ -2006,67 +2006,26 @@ glabel var7f1a9ebc
 /*  f061ed0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel handCreateBulletRaycast
-.late_rodata
-glabel var7f1a9ec0
-.word 0x4f7ffe00
-.text
-/*  f061ed4:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f061ed8:	afa70074 */ 	sw	$a3,0x74($sp)
-/*  f061edc:	00c03825 */ 	or	$a3,$a2,$zero
-/*  f061ee0:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f061ee4:	afa40068 */ 	sw	$a0,0x68($sp)
-/*  f061ee8:	afa5006c */ 	sw	$a1,0x6c($sp)
-/*  f061eec:	afa60070 */ 	sw	$a2,0x70($sp)
-/*  f061ef0:	8fa60068 */ 	lw	$a2,0x68($sp)
-/*  f061ef4:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f061ef8:	0fc2832c */ 	jal	func0f0a0cb0
-/*  f061efc:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*  f061f00:	8fae0074 */ 	lw	$t6,0x74($sp)
-/*  f061f04:	59c00025 */ 	blezl	$t6,.L0f061f9c
-/*  f061f08:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f061f0c:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
-/*  f061f10:	00000000 */ 	nop
-/*  f061f14:	00402025 */ 	or	$a0,$v0,$zero
-/*  f061f18:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f061f1c:	0c0056da */ 	jal	func00015b68
-/*  f061f20:	27a60050 */ 	addiu	$a2,$sp,0x50
-/*  f061f24:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
-/*  f061f28:	00000000 */ 	nop
-/*  f061f2c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f061f30:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f061f34:	0c0056c5 */ 	jal	func00015b14
-/*  f061f38:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f061f3c:	3c017f1b */ 	lui	$at,%hi(var7f1a9ec0)
-/*  f061f40:	c4249ec0 */ 	lwc1	$f4,%lo(var7f1a9ec0)($at)
-/*  f061f44:	8fb90078 */ 	lw	$t9,0x78($sp)
-/*  f061f48:	27af0050 */ 	addiu	$t7,$sp,0x50
-/*  f061f4c:	27b8005c */ 	addiu	$t8,$sp,0x5c
-/*  f061f50:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f061f54:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f061f58:	8fa40068 */ 	lw	$a0,0x68($sp)
-/*  f061f5c:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*  f061f60:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f061f64:	27a70044 */ 	addiu	$a3,$sp,0x44
-/*  f061f68:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f061f6c:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*  f061f70:	0fc1836e */ 	jal	func0f060db8
-/*  f061f74:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f061f78:	8fa80074 */ 	lw	$t0,0x74($sp)
-/*  f061f7c:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f061f80:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f061f84:	29010002 */ 	slti	$at,$t0,0x2
-/*  f061f88:	50200004 */ 	beqzl	$at,.L0f061f9c
-/*  f061f8c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f061f90:	0fc284ac */ 	jal	func0f0a12b0
-/*  f061f94:	8fa60068 */ 	lw	$a2,0x68($sp)
-/*  f061f98:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f061f9c:
-/*  f061f9c:	27bd0068 */ 	addiu	$sp,$sp,0x68
-/*  f061fa0:	03e00008 */ 	jr	$ra
-/*  f061fa4:	00000000 */ 	nop
-);
+void handCreateBulletRaycast(s32 handnum, bool arg1, bool arg2, s32 arg3, bool arg4)
+{
+	struct coord sp5c;
+	struct coord sp50;
+	struct coord sp44;
+	struct coord sp38;
+
+	func0f0a0cb0(&sp38, &sp44, handnum, arg2);
+
+	if (arg3 > 0) {
+		func00015b68(currentPlayerGetUnk174c(), &sp38, &sp50);
+		func00015b14(currentPlayerGetUnk174c(), &sp44, &sp5c);
+
+		func0f060db8(handnum, arg1, &sp38, &sp44, &sp50, &sp5c, 0, 4294836224, arg4);
+
+		if (arg3 < 2) {
+			func0f0a12b0(&sp50, &sp5c, handnum);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f061fa8
@@ -2664,12 +2623,12 @@ void handTickAttack(s32 handnum)
 				func0f0b046c(&tmpweaponnum, 0);
 
 				if (weaponnum == WEAPON_SHOTGUN) {
-					handCreateBulletRaycast(handnum, true, true, true, true);
-					handCreateBulletRaycast(handnum, true, true, true, true);
-					handCreateBulletRaycast(handnum, true, true, true, true);
-					handCreateBulletRaycast(handnum, true, true, true, true);
-					handCreateBulletRaycast(handnum, true, true, true, true);
-					handCreateBulletRaycast(handnum, true, true, true, true);
+					handCreateBulletRaycast(handnum, true, true, 1, true);
+					handCreateBulletRaycast(handnum, true, true, 1, true);
+					handCreateBulletRaycast(handnum, true, true, 1, true);
+					handCreateBulletRaycast(handnum, true, true, 1, true);
+					handCreateBulletRaycast(handnum, true, true, 1, true);
+					handCreateBulletRaycast(handnum, true, true, 1, true);
 				} else {
 					handCreateBulletRaycast(handnum, true, true, func0f0a1318(handnum), g_Vars.mplayerisrunning);
 				}

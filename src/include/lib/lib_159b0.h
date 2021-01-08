@@ -7,7 +7,7 @@ void func000159b0(Mtxf *matrix);
 void func000159fc(Mtxf *matrix, Mtxf *arg1);
 void func00015a00(Mtxf *matrix, Mtxf *arg1, Mtxf *arg2);
 void func00015b10(Mtxf *matrix, struct coord *coord);
-void func00015b14(Mtxf *matrix, f32 *coord, struct coord *arg2);
+void func00015b14(Mtxf *matrix, struct coord *coord, struct coord *arg2);
 void func00015b64(Mtxf *arg0, struct coord *coord);
 void func00015b68(Mtxf *matrix, struct coord *arg1, struct coord *arg2);
 void func00015be0(Mtxf *matrix1, Mtxf *matrix2);
