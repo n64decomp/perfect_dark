@@ -108,12 +108,10 @@ glabel func0f0b046c
 /*  f0b051c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0b0520
-/*  f0b0520:	3c018007 */ 	lui	$at,%hi(var80070590)
-/*  f0b0524:	03e00008 */ 	jr	$ra
-/*  f0b0528:	ac200590 */ 	sw	$zero,%lo(var80070590)($at)
-);
+void func0f0b0520(void)
+{
+	var80070590 = 0;
+}
 
 s32 currentPlayerGetShotCount(u32 type)
 {

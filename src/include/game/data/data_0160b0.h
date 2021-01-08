@@ -46,6 +46,7 @@ extern u32 var80070578;
 extern u32 var8007057c;
 extern u32 var80070580;
 extern u32 var80070584;
+extern u32 var80070590;
 extern u32 var800705a0;
 extern u32 var800705a4;
 extern bool var800705a8;
