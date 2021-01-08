@@ -31,31 +31,14 @@ const char var7f1acdc4[] = "%s %s";
 
 const u32 var7f1acdcc[] = {0x00000000};
 
-GLOBAL_ASM(
-glabel func0f0b0420
-/*  f0b0420:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b0424:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b0428:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0b042c:	90840000 */ 	lbu	$a0,0x0($a0)
-/*  f0b0430:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f0b0434:	3c050010 */ 	lui	$a1,0x10
-/*  f0b0438:	14400008 */ 	bnez	$v0,.L0f0b045c
-/*  f0b043c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x288)
-/*  f0b0440:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f0b0444:	8dcea248 */ 	lw	$t6,%lo(g_Vars+0x288)($t6)
-/*  f0b0448:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f0b044c:	01d81021 */ 	addu	$v0,$t6,$t8
-/*  f0b0450:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f0b0454:	27280001 */ 	addiu	$t0,$t9,0x1
-/*  f0b0458:	ac480000 */ 	sw	$t0,0x0($v0)
-.L0f0b045c:
-/*  f0b045c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b0460:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b0464:	03e00008 */ 	jr	$ra
-/*  f0b0468:	00000000 */ 	nop
-);
+void func0f0b0420(u8 *weaponnum, s32 index)
+{
+	if (!weaponHasFlag(*weaponnum, WEAPONFLAG_00100000)) {
+		g_Vars.currentplayerstats->shotcount[index]++;
+	}
+}
 
-void func0f0b046c(u8 *weaponnum, u32 index)
+void func0f0b046c(u8 *weaponnum, s32 index)
 {
 	if (index == 0) {
 		if (!weaponHasFlag(*weaponnum, WEAPONFLAG_00100000)) {
