@@ -2007,7 +2007,7 @@ glabel var7f1a9ebc
 );
 
 GLOBAL_ASM(
-glabel func0f061ed4
+glabel handCreateBulletRaycast
 .late_rodata
 glabel var7f1a9ec0
 .word 0x4f7ffe00
@@ -2267,7 +2267,7 @@ glabel func0f061fa8
 );
 
 GLOBAL_ASM(
-glabel func0f062270
+glabel handInflictCloseRangeDamage
 .late_rodata
 glabel var7f1a9ec4
 .word 0x3e2aaaab
@@ -2624,281 +2624,111 @@ glabel var7f1a9ec4
 /*  f062790:	27bd0138 */ 	addiu	$sp,$sp,0x138
 );
 
-GLOBAL_ASM(
-glabel func0f062794
-.late_rodata
-glabel var7f1a9ec8
-.word func0f062794+0x144 # f0628d8
-glabel var7f1a9ecc
-.word func0f062794+0x2f4 # f062a88
-glabel var7f1a9ed0
-.word func0f062794+0x338 # f062acc
-glabel var7f1a9ed4
-.word func0f062794+0x26c # f062a00
-glabel var7f1a9ed8
-.word func0f062794+0x2b0 # f062a44
-glabel var7f1a9edc
-.word func0f062794+0x2d4 # f062a68
-glabel var7f1a9ee0
-.word func0f062794+0x2e4 # f062a78
-glabel var7f1a9ee4
-.word func0f062794+0x304 # f062a98
-glabel var7f1a9ee8
-.word func0f062794+0x34c # f062ae0
-glabel var7f1a9eec
-.word func0f062794+0x298 # f062a2c
-glabel var7f1a9ef0
-.word func0f062794+0x384 # f062b18
-glabel var7f1a9ef4
-.word func0f062794+0x2c4 # f062a58
-.text
-/*  f062794:	00047100 */ 	sll	$t6,$a0,0x4
-/*  f062798:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f06279c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0627a0:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f0627a4:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f0627a8:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x284)
-/*  f0627ac:	8defa244 */ 	lw	$t7,%lo(g_Vars+0x284)($t7)
-/*  f0627b0:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0627b4:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f0627b8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0627bc:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0627c0:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0627c4:	afae002c */ 	sw	$t6,0x2c($sp)
-/*  f0627c8:	01eec821 */ 	addu	$t9,$t7,$t6
-/*  f0627cc:	8f280d0c */ 	lw	$t0,0xd0c($t9)
-/*  f0627d0:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0627d4:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0627d8:	00085680 */ 	sll	$t2,$t0,0x1a
-/*  f0627dc:	0541001e */ 	bgez	$t2,.L0f062858
-/*  f0627e0:	00000000 */ 	nop
-/*  f0627e4:	0fc2866a */ 	jal	handGetWeaponNum
-/*  f0627e8:	afa30044 */ 	sw	$v1,0x44($sp)
-/*  f0627ec:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f0627f0:	1441000d */ 	bne	$v0,$at,.L0f062828
-/*  f0627f4:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f0627f8:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x284)
-/*  f0627fc:	8d6ba244 */ 	lw	$t3,%lo(g_Vars+0x284)($t3)
-/*  f062800:	8fac002c */ 	lw	$t4,0x2c($sp)
-/*  f062804:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f062808:	016c6821 */ 	addu	$t5,$t3,$t4
-/*  f06280c:	8dae0b90 */ 	lw	$t6,0xb90($t5)
-/*  f062810:	01c1001a */ 	div	$zero,$t6,$at
-/*  f062814:	00007810 */ 	mfhi	$t7
-/*  f062818:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f06281c:	11e10002 */ 	beq	$t7,$at,.L0f062828
-/*  f062820:	00000000 */ 	nop
-/*  f062824:	00001825 */ 	or	$v1,$zero,$zero
-.L0f062828:
-/*  f062828:	10600004 */ 	beqz	$v1,.L0f06283c
-/*  f06282c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062830:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f062834:	0fc18755 */ 	jal	func0f061d54
-/*  f062838:	24060002 */ 	addiu	$a2,$zero,0x2
-.L0f06283c:
-/*  f06283c:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f062840:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f062844:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*  f062848:	03191821 */ 	addu	$v1,$t8,$t9
-/*  f06284c:	90680d0f */ 	lbu	$t0,0xd0f($v1)
-/*  f062850:	3109ffdf */ 	andi	$t1,$t0,0xffdf
-/*  f062854:	a0690d0f */ 	sb	$t1,0xd0f($v1)
-.L0f062858:
-/*  f062858:	0fc2883f */ 	jal	func0f0a20fc
-/*  f06285c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062860:	504000ae */ 	beqzl	$v0,.L0f062b1c
-/*  f062864:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f062868:	0fc2884b */ 	jal	func0f0a212c
-/*  f06286c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062870:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f062874:	0fc2866a */ 	jal	handGetWeaponNum
-/*  f062878:	02002025 */ 	or	$a0,$s0,$zero
-/*  f06287c:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x284)
-/*  f062880:	8d4aa244 */ 	lw	$t2,%lo(g_Vars+0x284)($t2)
-/*  f062884:	8fab002c */ 	lw	$t3,0x2c($sp)
-/*  f062888:	afa2003c */ 	sw	$v0,0x3c($sp)
-/*  f06288c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062890:	014b1821 */ 	addu	$v1,$t2,$t3
-/*  f062894:	906c0d0f */ 	lbu	$t4,0xd0f($v1)
-/*  f062898:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f06289c:	318dffef */ 	andi	$t5,$t4,0xffef
-/*  f0628a0:	0fc2c6bc */ 	jal	func0f0b1af0
-/*  f0628a4:	a06d0d0f */ 	sb	$t5,0xd0f($v1)
-/*  f0628a8:	0fc683f2 */ 	jal	frIncrementNumShots
-/*  f0628ac:	00000000 */ 	nop
-/*  f0628b0:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f0628b4:	25cfffff */ 	addiu	$t7,$t6,-1
-/*  f0628b8:	2de1000c */ 	sltiu	$at,$t7,0xc
-/*  f0628bc:	10200096 */ 	beqz	$at,.L0f062b18
-/*  f0628c0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0628c4:	3c017f1b */ 	lui	$at,%hi(var7f1a9ec8)
-/*  f0628c8:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0628cc:	8c2f9ec8 */ 	lw	$t7,%lo(var7f1a9ec8)($at)
-/*  f0628d0:	01e00008 */ 	jr	$t7
-/*  f0628d4:	00000000 */ 	nop
-/*  f0628d8:	12000004 */ 	beqz	$s0,.L0f0628ec
-/*  f0628dc:	00000000 */ 	nop
-/*  f0628e0:	0fc2883f */ 	jal	func0f0a20fc
-/*  f0628e4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0628e8:	1440008b */ 	bnez	$v0,.L0f062b18
-.L0f0628ec:
-/*  f0628ec:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f0628f0:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f0628f4:	8f1900bc */ 	lw	$t9,0xbc($t8)
-/*  f0628f8:	0fc0897d */ 	jal	chrUncloakTemporarily
-/*  f0628fc:	8f240004 */ 	lw	$a0,0x4($t9)
-/*  f062900:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*  f062904:	0fc2c11b */ 	jal	func0f0b046c
-/*  f062908:	00002825 */ 	or	$a1,$zero,$zero
-/*  f06290c:	8fa8003c */ 	lw	$t0,0x3c($sp)
-/*  f062910:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f062914:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062918:	1501002b */ 	bne	$t0,$at,.L0f0629c8
-/*  f06291c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f062920:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f062924:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f062928:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f06292c:	0fc187b5 */ 	jal	func0f061ed4
-/*  f062930:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f062934:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f062938:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f06293c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062940:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f062944:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f062948:	0fc187b5 */ 	jal	func0f061ed4
-/*  f06294c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f062950:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f062954:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f062958:	02002025 */ 	or	$a0,$s0,$zero
-/*  f06295c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f062960:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f062964:	0fc187b5 */ 	jal	func0f061ed4
-/*  f062968:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f06296c:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f062970:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f062974:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062978:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f06297c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f062980:	0fc187b5 */ 	jal	func0f061ed4
-/*  f062984:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f062988:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f06298c:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f062990:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062994:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f062998:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f06299c:	0fc187b5 */ 	jal	func0f061ed4
-/*  f0629a0:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f0629a4:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0629a8:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0629ac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0629b0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0629b4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0629b8:	0fc187b5 */ 	jal	func0f061ed4
-/*  f0629bc:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f0629c0:	1000000b */ 	b	.L0f0629f0
-/*  f0629c4:	00000000 */ 	nop
-.L0f0629c8:
-/*  f0629c8:	0fc284c6 */ 	jal	func0f0a1318
-/*  f0629cc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0629d0:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x314)
-/*  f0629d4:	8defa2d4 */ 	lw	$t7,%lo(g_Vars+0x314)($t7)
-/*  f0629d8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0629dc:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0629e0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0629e4:	00403825 */ 	or	$a3,$v0,$zero
-/*  f0629e8:	0fc187b5 */ 	jal	func0f061ed4
-/*  f0629ec:	afaf0010 */ 	sw	$t7,0x10($sp)
-.L0f0629f0:
-/*  f0629f0:	0fc2c148 */ 	jal	func0f0b0520
-/*  f0629f4:	00000000 */ 	nop
-/*  f0629f8:	10000048 */ 	b	.L0f062b1c
-/*  f0629fc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f062a00:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f062a04:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f062a08:	8f1900bc */ 	lw	$t9,0xbc($t8)
-/*  f062a0c:	0fc0897d */ 	jal	chrUncloakTemporarily
-/*  f062a10:	8f240004 */ 	lw	$a0,0x4($t9)
-/*  f062a14:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062a18:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f062a1c:	0fc1889c */ 	jal	func0f062270
-/*  f062a20:	00003025 */ 	or	$a2,$zero,$zero
-/*  f062a24:	1000003d */ 	b	.L0f062b1c
-/*  f062a28:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f062a2c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062a30:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f062a34:	0fc1889c */ 	jal	func0f062270
-/*  f062a38:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f062a3c:	10000037 */ 	b	.L0f062b1c
-/*  f062a40:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f062a44:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x28c)
-/*  f062a48:	0fc22a7d */ 	jal	playerActivateRemoteMineDetonator
-/*  f062a4c:	8c84a24c */ 	lw	$a0,%lo(g_Vars+0x28c)($a0)
-/*  f062a50:	10000032 */ 	b	.L0f062b1c
-/*  f062a54:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f062a58:	0fc18b74 */ 	jal	func0f062dd0
-/*  f062a5c:	00000000 */ 	nop
-/*  f062a60:	1000002e */ 	b	.L0f062b1c
-/*  f062a64:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f062a68:	0fc2aeea */ 	jal	func0f0abba8
-/*  f062a6c:	00000000 */ 	nop
-/*  f062a70:	1000002a */ 	b	.L0f062b1c
-/*  f062a74:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f062a78:	0fc2aefa */ 	jal	func0f0abbe8
-/*  f062a7c:	00000000 */ 	nop
-/*  f062a80:	10000026 */ 	b	.L0f062b1c
-/*  f062a84:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f062a88:	0fc27ea1 */ 	jal	func0f09fa84
-/*  f062a8c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062a90:	10000022 */ 	b	.L0f062b1c
-/*  f062a94:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f062a98:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
-/*  f062a9c:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
-/*  f062aa0:	8d0900ac */ 	lw	$t1,0xac($t0)
-/*  f062aa4:	15200005 */ 	bnez	$t1,.L0f062abc
-/*  f062aa8:	00000000 */ 	nop
-/*  f062aac:	0fc30ebd */ 	jal	currentPlayerAdjustCrouchPos
-/*  f062ab0:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f062ab4:	10000019 */ 	b	.L0f062b1c
-/*  f062ab8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f062abc:
-/*  f062abc:	0fc30ebd */ 	jal	currentPlayerAdjustCrouchPos
-/*  f062ac0:	2404fffe */ 	addiu	$a0,$zero,-2
-/*  f062ac4:	10000015 */ 	b	.L0f062b1c
-/*  f062ac8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f062acc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062ad0:	0fc27c40 */ 	jal	func0f09f100
-/*  f062ad4:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f062ad8:	10000010 */ 	b	.L0f062b1c
-/*  f062adc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f062ae0:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f062ae4:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f062ae8:	2401ffbf */ 	addiu	$at,$zero,-65
-/*  f062aec:	8c4400c4 */ 	lw	$a0,0xc4($v0)
-/*  f062af0:	30830080 */ 	andi	$v1,$a0,0x80
-/*  f062af4:	0003502b */ 	sltu	$t2,$zero,$v1
-/*  f062af8:	11400005 */ 	beqz	$t2,.L0f062b10
-/*  f062afc:	00816024 */ 	and	$t4,$a0,$at
-/*  f062b00:	2401ff7f */ 	addiu	$at,$zero,-129
-/*  f062b04:	00815824 */ 	and	$t3,$a0,$at
-/*  f062b08:	10000003 */ 	b	.L0f062b18
-/*  f062b0c:	ac4b00c4 */ 	sw	$t3,0xc4($v0)
-.L0f062b10:
-/*  f062b10:	358d0080 */ 	ori	$t5,$t4,0x80
-/*  f062b14:	ac4d00c4 */ 	sw	$t5,0xc4($v0)
-.L0f062b18:
-/*  f062b18:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f062b1c:
-/*  f062b1c:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f062b20:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f062b24:	03e00008 */ 	jr	$ra
-/*  f062b28:	00000000 */ 	nop
-);
+void handTickAttack(s32 handnum)
+{
+	if (g_Vars.currentplayer->hands[handnum].unk0d0f_02) {
+		s32 doit = true;
 
-void func0f062b2c(void)
+		if (handGetWeaponNum(handnum) == WEAPON_REAPER
+				&& (g_Vars.currentplayer->hands[handnum].unk0b90 % 3) != 1) {
+			doit = false;
+		}
+
+		if (doit) {
+			func0f061d54(handnum, 1, 2);
+		}
+
+		g_Vars.currentplayer->hands[handnum].unk0d0f_02 = false;
+	}
+
+	if (handIsAttackingOnThisTick(handnum)) {
+		s32 type = handGetAttackType(handnum);
+		s32 weaponnum = handGetWeaponNum(handnum);
+		u8 stack1;
+		u8 stack2;
+		u8 stack3;
+		u8 tmpweaponnum;
+		bool cloaked;
+
+		g_Vars.currentplayer->hands[handnum].unk0d0f_03 = false;
+
+		func0f0b1af0(handnum, &tmpweaponnum);
+		frIncrementNumShots();
+
+		switch (type) {
+		case HANDATTACKTYPE_SHOOT:
+			// Always execute if right hand, but if left hand then execute if
+			// right hand is not (ie. prevent firing both guns on the same tick)
+			if (handnum == HAND_RIGHT || !handIsAttackingOnThisTick(HAND_RIGHT)) {
+				chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
+				func0f0b046c(&tmpweaponnum, 0);
+
+				if (weaponnum == WEAPON_SHOTGUN) {
+					handCreateBulletRaycast(handnum, true, true, true, true);
+					handCreateBulletRaycast(handnum, true, true, true, true);
+					handCreateBulletRaycast(handnum, true, true, true, true);
+					handCreateBulletRaycast(handnum, true, true, true, true);
+					handCreateBulletRaycast(handnum, true, true, true, true);
+					handCreateBulletRaycast(handnum, true, true, true, true);
+				} else {
+					handCreateBulletRaycast(handnum, true, true, func0f0a1318(handnum), g_Vars.mplayerisrunning);
+				}
+
+				func0f0b0520();
+			}
+			break;
+		case HANDATTACKTYPE_CLOSERANGE:
+			chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
+			handInflictCloseRangeDamage(handnum, &tmpweaponnum, false);
+			break;
+		case HANDATTACKTYPE_CLOSERANGENOUNCLOAK:
+			handInflictCloseRangeDamage(handnum, &tmpweaponnum, true);
+			break;
+		case HANDATTACKTYPE_DETONATE:
+			playerActivateRemoteMineDetonator(g_Vars.currentplayernum);
+			break;
+		case HANDATTACKTYPE_UPLINK:
+			func0f062dd0();
+			break;
+		case HANDATTACKTYPE_BOOST:
+			cboostBoost();
+			break;
+		case HANDATTACKTYPE_REVERTBOOST:
+			cboostRevert();
+			break;
+		case HANDATTACKTYPE_SHOOTPROJECTILE:
+			handCreateFiredProjectile(handnum);
+			break;
+		case HANDATTACKTYPE_CROUCH:
+			if (g_Vars.currentplayer->crouchpos == CROUCH_SQUAT) {
+				currentPlayerAdjustCrouchPos(2);
+			} else {
+				currentPlayerAdjustCrouchPos(-2);
+			}
+			break;
+		case HANDATTACKTYPE_THROWPROJECTILE:
+			handCreateThrownProjectile(handnum, &tmpweaponnum);
+			break;
+		case HANDATTACKTYPE_RCP120CLOAK:
+			cloaked = (g_Vars.currentplayer->devicesactive & DEVICE_CLOAKRCP120) != 0;
+
+			if (cloaked) {
+				g_Vars.currentplayer->devicesactive &= ~DEVICE_CLOAKRCP120;
+			} else {
+				g_Vars.currentplayer->devicesactive =
+					(g_Vars.currentplayer->devicesactive & ~DEVICE_CLOAKDEVICE)
+					| DEVICE_CLOAKRCP120;
+			}
+			break;
+		}
+	}
+}
+
+void handsTickAttack(void)
 {
 	if (g_Vars.lvupdate240 > 0) {
-		func0f062794(false);
-		func0f062794(true);
+		handTickAttack(HAND_RIGHT);
+		handTickAttack(HAND_LEFT);
 	}
 }
 

@@ -2035,7 +2035,7 @@ struct hand {
 	/*0x0b84*/ u32 unk0b84;
 	/*0x0b88*/ u32 unk0b88;
 	/*0x0b8c*/ u32 unk0b8c;
-	/*0x0b90*/ u32 unk0b90;
+	/*0x0b90*/ s32 unk0b90;
 	/*0x0b94*/ struct coord unk0b94;
 	/*0x0ba0*/ u32 unk0ba0;
 	/*0x0ba4*/ u32 unk0ba4;
@@ -2120,7 +2120,7 @@ struct hand {
 	/*0x0cd8*/ u32 unk0cd8;
 	/*0x0cdc*/ u32 unk0cdc;
 	/*0x0ce0*/ u32 unk0ce0;
-	/*0x0ce4*/ u32 unk0ce4;
+	/*0x0ce4*/ u32 attacktype;
 	/*0x0ce8*/ struct remoteminething *unk0ce8;
 	/*0x0cec*/ ubool unk0cec;
 	/*0x0cf0*/ struct coord unk0cf0;

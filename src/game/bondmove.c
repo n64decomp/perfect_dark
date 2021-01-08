@@ -2917,18 +2917,18 @@ glabel var7f1ad8e4
 /*  f0ca944:	8e580324 */ 	lw	$t8,0x324($s2)
 /*  f0ca948:	5300002b */ 	beqzl	$t8,.L0f0ca9f8
 /*  f0ca94c:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f0ca950:	0fc2883f */ 	jal	func0f0a20fc
+/*  f0ca950:	0fc2883f */ 	jal	handIsAttackingOnThisTick
 /*  f0ca954:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0ca958:	54400006 */ 	bnezl	$v0,.L0f0ca974
 /*  f0ca95c:	44805000 */ 	mtc1	$zero,$f10
-/*  f0ca960:	0fc2883f */ 	jal	func0f0a20fc
+/*  f0ca960:	0fc2883f */ 	jal	handIsAttackingOnThisTick
 /*  f0ca964:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0ca968:	50400023 */ 	beqzl	$v0,.L0f0ca9f8
 /*  f0ca96c:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f0ca970:	44805000 */ 	mtc1	$zero,$f10
 .L0f0ca974:
 /*  f0ca974:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0ca978:	0fc2883f */ 	jal	func0f0a20fc
+/*  f0ca978:	0fc2883f */ 	jal	handIsAttackingOnThisTick
 /*  f0ca97c:	e7aa00b4 */ 	swc1	$f10,0xb4($sp)
 /*  f0ca980:	1040000c */ 	beqz	$v0,.L0f0ca9b4
 /*  f0ca984:	00000000 */ 	nop
@@ -2944,7 +2944,7 @@ glabel var7f1ad8e4
 /*  f0ca9ac:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0ca9b0:	e7a000b4 */ 	swc1	$f0,0xb4($sp)
 .L0f0ca9b4:
-/*  f0ca9b4:	0fc2883f */ 	jal	func0f0a20fc
+/*  f0ca9b4:	0fc2883f */ 	jal	handIsAttackingOnThisTick
 /*  f0ca9b8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0ca9bc:	1040000b */ 	beqz	$v0,.L0f0ca9ec
 /*  f0ca9c0:	00000000 */ 	nop
@@ -4871,14 +4871,14 @@ glabel var7f1ad8e4
 //	// a944
 //	// I think this is checking which gun is making the loudest noise and is
 //	// alerting nearby chrs to it.
-//	if (g_Vars.unk000324 && (func0f0a20fc(0) || func0f0a20fc(1))) {
+//	if (g_Vars.unk000324 && (handIsAttackingOnThisTick(0) || handIsAttackingOnThisTick(1))) {
 //		spb4 = 0;
 //
-//		if (func0f0a20fc(0) && func0f09cf58(0) > spb4) {
+//		if (handIsAttackingOnThisTick(0) && func0f09cf58(0) > spb4) {
 //			spb4 = func0f09cf58(0);
 //		}
 //
-//		if (func0f0a20fc(1) && func0f09cf58(1) > spb4) {
+//		if (handIsAttackingOnThisTick(1) && func0f09cf58(1) > spb4) {
 //			spb4 = func0f09cf58(1);
 //		}
 //

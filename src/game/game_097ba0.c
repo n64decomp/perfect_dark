@@ -1786,9 +1786,9 @@ bool func0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon)
 	if ((basefunc->type & 0xff) == INVENTORYFUNCTYPE_SPECIAL) {
 		struct weaponfunc_special *func = (struct weaponfunc_special *)basefunc;
 
-		if (func->specialfunc != SPECIALFUNC_REMOTEMINE_DETONATE
-				&& func->specialfunc != SPECIALFUNC_COMBATBOOST_BOOST
-				&& func->specialfunc != SPECIALFUNC_COMBATBOOST_REVERT) {
+		if (func->specialfunc != HANDATTACKTYPE_DETONATE
+				&& func->specialfunc != HANDATTACKTYPE_BOOST
+				&& func->specialfunc != HANDATTACKTYPE_REVERTBOOST) {
 			return true;
 		}
 	}
@@ -6823,7 +6823,7 @@ glabel func0f09cf88
 /*  f09cfc0:	27a40050 */ 	addiu	$a0,$sp,0x50
 /*  f09cfc4:	0fc2c807 */ 	jal	func0f0b201c
 /*  f09cfc8:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*  f09cfcc:	0fc2883f */ 	jal	func0f0a20fc
+/*  f09cfcc:	0fc2883f */ 	jal	handIsAttackingOnThisTick
 /*  f09cfd0:	00002025 */ 	or	$a0,$zero,$zero
 /*  f09cfd4:	1040000c */ 	beqz	$v0,.L0f09d008
 /*  f09cfd8:	3c014270 */ 	lui	$at,0x4270
@@ -6871,7 +6871,7 @@ glabel func0f09cf88
 /*  f09d074:	00000000 */ 	nop
 /*  f09d078:	e6060840 */ 	swc1	$f6,0x840($s0)
 .L0f09d07c:
-/*  f09d07c:	0fc2883f */ 	jal	func0f0a20fc
+/*  f09d07c:	0fc2883f */ 	jal	handIsAttackingOnThisTick
 /*  f09d080:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f09d084:	3c014270 */ 	lui	$at,0x4270
 /*  f09d088:	44818000 */ 	mtc1	$at,$f16
@@ -9321,7 +9321,7 @@ glabel var7f1ac704
 );
 
 GLOBAL_ASM(
-glabel func0f09f100
+glabel handCreateThrownProjectile
 .late_rodata
 glabel var7f1ac708
 .word 0x4096c5bf
@@ -9997,7 +9997,7 @@ glabel func0f09fa20
 );
 
 GLOBAL_ASM(
-glabel func0f09fa84
+glabel handCreateFiredProjectile
 .late_rodata
 glabel var7f1ac730
 .word 0x3fd55555
@@ -12583,14 +12583,14 @@ void currentPlayerEquipWeaponWrapper(bool arg0, s32 weaponnum)
 	}
 }
 
-s32 func0f0a20fc(s32 handnum)
+s32 handIsAttackingOnThisTick(s32 handnum)
 {
 	return g_Vars.currentplayer->hands[handnum].unk063c;
 }
 
-s32 func0f0a212c(s32 handnum)
+s32 handGetAttackType(s32 handnum)
 {
-	return g_Vars.currentplayer->hands[handnum].unk0ce4;
+	return g_Vars.currentplayer->hands[handnum].attacktype;
 }
 
 char *weaponGetName(s32 weaponnum)
@@ -13237,7 +13237,7 @@ void currentPlayerLoseGunInNbombStorm(struct prop *prop)
 						&& player->hands[i].unk0c3c == 4
 						&& player->hands[i].unk0c40 == 0) {
 					drop = false;
-					func0f09f100(i + 2, &player->hands[i]);
+					handCreateThrownProjectile(i + 2, &player->hands[i].weaponnum);
 				}
 			}
 		}
@@ -23275,7 +23275,7 @@ glabel hudRenderAmmo
 /*  f0abacc:	00000000 */ 	nop
 );
 
-void speedpillAddBoost(s32 amount)
+void cboostAdd(s32 amount)
 {
 	g_Vars.speedpilltime += amount;
 
@@ -23284,7 +23284,7 @@ void speedpillAddBoost(s32 amount)
 	}
 
 	if (!g_Vars.speedpillwant) {
-		u32 sound = coreGetEffectiveSlowMotion() ? 0x2ad : 0x5c9;
+		u32 sound = coreGetSlowMotionType() ? 0x2ad : 0x5c9;
 
 		audioStart(var80095200, sound, 0, -1, -1, -1, -1, -1);
 	}
@@ -23292,7 +23292,7 @@ void speedpillAddBoost(s32 amount)
 	g_Vars.speedpillwant = true;
 }
 
-void speedpillRevert(s32 amount)
+void cboostSubtract(s32 amount)
 {
 	g_Vars.speedpilltime -= amount;
 
@@ -23302,21 +23302,21 @@ void speedpillRevert(s32 amount)
 	}
 }
 
-void func0f0abba8(void)
+void cboostBoost(void)
 {
-	if (coreGetEffectiveSlowMotion()) {
-		speedpillRevert(SECSTOTIME60(20));
+	if (coreGetSlowMotionType() != SLOWMOTION_OFF) {
+		cboostSubtract(SECSTOTIME60(20));
 	} else {
-		speedpillAddBoost(SECSTOTIME60(10));
+		cboostAdd(SECSTOTIME60(10));
 	}
 }
 
-void func0f0abbe8(void)
+void cboostRevert(void)
 {
-	if (coreGetEffectiveSlowMotion()) {
-		speedpillAddBoost(SECSTOTIME60(20));
+	if (coreGetSlowMotionType() != SLOWMOTION_OFF) {
+		cboostAdd(SECSTOTIME60(20));
 	} else {
-		speedpillRevert(SECSTOTIME60(10));
+		cboostSubtract(SECSTOTIME60(10));
 	}
 }
 

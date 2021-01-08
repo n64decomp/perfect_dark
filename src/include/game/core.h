@@ -20,7 +20,7 @@ Gfx *coreRender(Gfx *gdl);
 void coreUpdateSoloHandicaps(void);
 s32 sub54321(s32 value);
 void coreUpdateCutsceneTime(void);
-s32 coreGetEffectiveSlowMotion(void);
+s32 coreGetSlowMotionType(void);
 void coreTick(void);
 void coreRecordDistanceMoved(void);
 void coreCheckPauseStateChanged(void);

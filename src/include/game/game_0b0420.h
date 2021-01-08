@@ -4,8 +4,8 @@
 #include "types.h"
 
 u32 func0f0b0420(void);
-u32 func0f0b046c(void);
-u32 func0f0b0520(void);
+void func0f0b046c(u8 *weaponnum, u32 arg1);
+void func0f0b0520(void);
 s32 currentPlayerGetShotCount(u32 type);
 void incrementKillCount(void);
 void incrementKnockoutCount(void);
@@ -37,7 +37,7 @@ s32 currentPlayerGetDeviceState(s32 weaponnum);
 void currentPlayerSetDeviceActive(s32 weaponum, bool active);
 u16 weaponGetModelNum(s32 weaponnum);
 u16 weaponGetModelNum2(s32 weaponnum);
-u32 func0f0b1af0(void);
+void func0f0b1af0(s32 handnum, u8 *weaponnum);
 struct inventory_ammo *handGetAmmoDefinition(struct hand *hand);
 u8 handGetSingleUnk3c(struct hand *hand);
 f32 handGetSingleUnk34(struct hand *hand);

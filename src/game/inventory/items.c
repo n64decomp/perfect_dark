@@ -1557,7 +1557,7 @@ struct weaponfunc_special invfunc_rcp120_cloak = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00102000, // flags
-	SPECIALFUNC_RCP120_CLOAK,
+	HANDATTACKTYPE_RCP120CLOAK,
 	0x0000001e,
 	0x00000000,
 };
@@ -3082,7 +3082,7 @@ struct weaponfunc_special invfunc_remotemine_detonate = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00102000, // flags
-	SPECIALFUNC_REMOTEMINE_DETONATE,
+	HANDATTACKTYPE_DETONATE,
 	0x0000001e,
 	0x00000000,
 };
@@ -3902,7 +3902,7 @@ struct weaponfunc_special invfunc_sniperrifle_crouch = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00102000, // flags
-	SPECIALFUNC_SNIPERRIFLE_CROUCH,
+	HANDATTACKTYPE_CROUCH,
 	0x0000001e,
 	0x00000000,
 };
@@ -5044,7 +5044,7 @@ struct weaponfunc_special invfunc_combatboost_boost = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
-	SPECIALFUNC_COMBATBOOST_BOOST,
+	HANDATTACKTYPE_BOOST,
 	0x0000001e,
 	0x05c90000,
 };
@@ -5057,7 +5057,7 @@ struct weaponfunc_special invfunc_combatboost_revert = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
-	SPECIALFUNC_COMBATBOOST_REVERT,
+	HANDATTACKTYPE_REVERTBOOST,
 	0x0000001e,
 	0x05c90000,
 };
@@ -5358,7 +5358,7 @@ struct weaponfunc_special invfunc_datauplink_primary = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00102000, // flags
-	SPECIALFUNC_DATAUPLINK_UPLINK,
+	HANDATTACKTYPE_UPLINK,
 	0x0000001e,
 	0x00000000,
 };
@@ -5524,7 +5524,7 @@ struct weaponfunc_special invfunc_unused_8006f9a4 = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00102000, // flags
-	SPECIALFUNC_DATAUPLINK_UPLINK,
+	HANDATTACKTYPE_UPLINK,
 	0x0000001e,
 	0x00000000,
 };

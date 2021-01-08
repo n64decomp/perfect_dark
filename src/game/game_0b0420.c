@@ -1415,12 +1415,12 @@ glabel func0f0b1d28
 /*  f0b1de4:	00000000 */ 	nop
 /*  f0b1de8:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0f0b1dec:
-/*  f0b1dec:	0fc2883f */ 	jal	func0f0a20fc
+/*  f0b1dec:	0fc2883f */ 	jal	handIsAttackingOnThisTick
 /*  f0b1df0:	e7a20018 */ 	swc1	$f2,0x18($sp)
 /*  f0b1df4:	10400007 */ 	beqz	$v0,.L0f0b1e14
 /*  f0b1df8:	c7a20018 */ 	lwc1	$f2,0x18($sp)
 /*  f0b1dfc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b1e00:	0fc2883f */ 	jal	func0f0a20fc
+/*  f0b1e00:	0fc2883f */ 	jal	handIsAttackingOnThisTick
 /*  f0b1e04:	e7a20018 */ 	swc1	$f2,0x18($sp)
 /*  f0b1e08:	10400002 */ 	beqz	$v0,.L0f0b1e14
 /*  f0b1e0c:	c7a20018 */ 	lwc1	$f2,0x18($sp)

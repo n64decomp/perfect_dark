@@ -190,7 +190,7 @@ class Tool:
         self.patch(algo03, 'propobjHandlePickupByAibot', 'func0f08e2ac')
         self.patch(algo04, 'chrUncloak', 'propobjHandlePickupByAibot')
         self.patch(algo05, 'func0f028590', 'func00002078')
-        self.patch(algo06, 'coreLoadStage', 'coreGetEffectiveSlowMotion')
+        self.patch(algo06, 'coreLoadStage', 'coreGetSlowMotionType')
         self.patch(algo07, 'propAllocateEyespy', 'coreLoadStage')
         self.patch(algo08, 'chrConsiderGrenadeThrow', 'func0f15b534')
         self.patch(algo09, 'func0f09e144', 'tagsAllocatePtrs')

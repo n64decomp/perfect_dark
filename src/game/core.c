@@ -216,7 +216,7 @@ void coreUpdateMiscSfx(void)
 		}
 	} else {
 		bool usingboost = g_Vars.speedpillon
-			&& coreGetEffectiveSlowMotion() == SLOWMOTION_OFF
+			&& coreGetSlowMotionType() == SLOWMOTION_OFF
 			&& g_Vars.in_cutscene == false;
 		bool usingrocket;
 
@@ -459,7 +459,7 @@ void coreLoadStage(s32 stagenum)
 #if PIRACYCHECKS
 	{
 		u32 checksum = 0;
-		s32 *i = (s32 *)&coreGetEffectiveSlowMotion;
+		s32 *i = (s32 *)&coreGetSlowMotionType;
 		s32 *end = (s32 *)&coreTick;
 
 		while (i < end) {
@@ -1600,14 +1600,14 @@ Gfx *coreRender(Gfx *gdl)
 				scenarioCallback14(NULL);
 				func0f0601b0();
 				func0f064ce8();
-				func0f062b2c();
+				handsTickAttack();
 
 				// Calculate lookingatprop
 				if (PLAYERCOUNT() == 1
 						|| g_Vars.coopplayernum >= 0
 						|| g_Vars.antiplayernum >= 0
 						|| (weaponHasFlag(handGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK) && currentPlayerIsInSightAimMode())) {
-					g_Vars.currentplayer->lookingatprop.prop = func0f061d54(0, 0, 0);
+					g_Vars.currentplayer->lookingatprop.prop = func0f061d54(HAND_RIGHT, 0, 0);
 
 					if (g_Vars.currentplayer->lookingatprop.prop) {
 						if (g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_CHR
@@ -1877,7 +1877,7 @@ Gfx *coreRender(Gfx *gdl)
 							|| (g_Vars.speedpillwant && !g_Vars.speedpillon)
 							|| (!g_Vars.speedpillwant && g_Vars.speedpillon)) {
 						if (g_Vars.speedpillchange == 30 && !g_Vars.speedpillwant) {
-							audioStart(var80095200, coreGetEffectiveSlowMotion() ? 0x5c9 : 0x2ad, 0, -1, -1, -1, -1, -1);
+							audioStart(var80095200, coreGetSlowMotionType() ? 0x5c9 : 0x2ad, 0, -1, -1, -1, -1, -1);
 						}
 
 						if (g_Vars.speedpillchange < 15) {
@@ -2258,7 +2258,7 @@ void coreUpdateCutsceneTime(void)
 }
 
 GLOBAL_ASM(
-glabel coreGetEffectiveSlowMotion
+glabel coreGetSlowMotionType
 /*  f16b854:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f16b858:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f16b85c:	3c04b000 */ 	lui	$a0,0xb000
@@ -2339,7 +2339,7 @@ glabel coreGetEffectiveSlowMotion
 );
 
 // Can't match the antipiracy part
-//u32 coreGetEffectiveSlowMotion(void)
+//u32 coreGetSlowMotionType(void)
 //{
 //#if PIRACYCHECKS
 //	u32 addr = sub54321(0xb000de8d);
@@ -2431,7 +2431,7 @@ void coreTick(void)
 			g_Vars.players[j]->joybutinhibit = 0xefffefff;
 		}
 	} else {
-		s32 slowmo = coreGetEffectiveSlowMotion();
+		s32 slowmo = coreGetSlowMotionType();
 		g_Vars.lvupdate240 = g_Vars.diffframe240;
 
 		if (slowmo == SLOWMOTION_ON) {
