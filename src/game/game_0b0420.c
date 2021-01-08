@@ -55,58 +55,23 @@ glabel func0f0b0420
 /*  f0b0468:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0b046c
-/*  f0b046c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b0470:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b0474:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0b0478:	14a00012 */ 	bnez	$a1,.L0f0b04c4
-/*  f0b047c:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f0b0480:	90840000 */ 	lbu	$a0,0x0($a0)
-/*  f0b0484:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f0b0488:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f0b048c:	3c050010 */ 	lui	$a1,0x10
-/*  f0b0490:	1440001f */ 	bnez	$v0,.L0f0b0510
-/*  f0b0494:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f0b0498:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x288)
-/*  f0b049c:	8defa248 */ 	lw	$t7,%lo(g_Vars+0x288)($t7)
-/*  f0b04a0:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0b04a4:	3c018007 */ 	lui	$at,%hi(var80070590)
-/*  f0b04a8:	0006c080 */ 	sll	$t8,$a2,0x2
-/*  f0b04ac:	ac2e0590 */ 	sw	$t6,%lo(var80070590)($at)
-/*  f0b04b0:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f0b04b4:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f0b04b8:	27280001 */ 	addiu	$t0,$t9,0x1
-/*  f0b04bc:	10000014 */ 	b	.L0f0b0510
-/*  f0b04c0:	ac480000 */ 	sw	$t0,0x0($v0)
-.L0f0b04c4:
-/*  f0b04c4:	3c098007 */ 	lui	$t1,%hi(var80070590)
-/*  f0b04c8:	8d290590 */ 	lw	$t1,%lo(var80070590)($t1)
-/*  f0b04cc:	3c050010 */ 	lui	$a1,0x10
-/*  f0b04d0:	51200010 */ 	beqzl	$t1,.L0f0b0514
-/*  f0b04d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b04d8:	90e40000 */ 	lbu	$a0,0x0($a3)
-/*  f0b04dc:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f0b04e0:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f0b04e4:	14400008 */ 	bnez	$v0,.L0f0b0508
-/*  f0b04e8:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f0b04ec:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x288)
-/*  f0b04f0:	8d4aa248 */ 	lw	$t2,%lo(g_Vars+0x288)($t2)
-/*  f0b04f4:	00065880 */ 	sll	$t3,$a2,0x2
-/*  f0b04f8:	014b1021 */ 	addu	$v0,$t2,$t3
-/*  f0b04fc:	8c4c0000 */ 	lw	$t4,0x0($v0)
-/*  f0b0500:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f0b0504:	ac4d0000 */ 	sw	$t5,0x0($v0)
-.L0f0b0508:
-/*  f0b0508:	3c018007 */ 	lui	$at,%hi(var80070590)
-/*  f0b050c:	ac200590 */ 	sw	$zero,%lo(var80070590)($at)
-.L0f0b0510:
-/*  f0b0510:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0b0514:
-/*  f0b0514:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b0518:	03e00008 */ 	jr	$ra
-/*  f0b051c:	00000000 */ 	nop
-);
+void func0f0b046c(u8 *weaponnum, u32 index)
+{
+	if (index == 0) {
+		if (!weaponHasFlag(*weaponnum, WEAPONFLAG_00100000)) {
+			var80070590 = 1;
+			g_Vars.currentplayerstats->shotcount[index]++;
+		}
+	} else {
+		if (var80070590) {
+			if (!weaponHasFlag(*weaponnum, WEAPONFLAG_00100000)) {
+				g_Vars.currentplayerstats->shotcount[index]++;
+			}
+
+			var80070590 = 0;
+		}
+	}
+}
 
 void func0f0b0520(void)
 {

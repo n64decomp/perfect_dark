@@ -3251,6 +3251,7 @@
 #define WEAPONFLAG_DETERMINER_F_AN   0x00400000 // "Picked up an ..." (full version)
 #define WEAPONFLAG_DETERMINER_S_THE  0x00800000 // "The ..." (short version - when vertically split)
 #define WEAPONFLAG_DETERMINER_F_THE  0x01000000 // "Picked up the ..." (full version)
+#define WEAPONFLAG_00100000          0x00100000
 #define WEAPONFLAG_00200000          0x00200000 // Camspy related
 #define WEAPONFLAG_00400000          0x00400000 // Camspy related
 #define WEAPONFLAG_08000000          0x08000000

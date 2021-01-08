@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f0b0420(void);
-void func0f0b046c(u8 *weaponnum, u32 arg1);
+void func0f0b046c(u8 *weaponnum, u32 index);
 void func0f0b0520(void);
 s32 currentPlayerGetShotCount(u32 type);
 void incrementKillCount(void);
