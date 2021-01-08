@@ -2039,7 +2039,7 @@ void currentPlayerSpawn(void)
 				s32 prevplayernum = g_Vars.currentplayernum;
 				setCurrentPlayerNum(g_Vars.bondplayernum);
 				func0f0a0c08(&sp84, &sp9c);
-				func00015b14(currentPlayerGetUnk174c(), (f32 *)&sp9c, &sp90);
+				func00015b14(currentPlayerGetUnk174c(), &sp9c, &sp90);
 				func00015b68(currentPlayerGetUnk174c(), &sp84, &sp78);
 				setCurrentPlayerNum(prevplayernum);
 			}

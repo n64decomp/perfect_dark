@@ -13237,7 +13237,7 @@ void currentPlayerLoseGunInNbombStorm(struct prop *prop)
 						&& player->hands[i].unk0c3c == 4
 						&& player->hands[i].unk0c40 == 0) {
 					drop = false;
-					handCreateThrownProjectile(i + 2, &player->hands[i].weaponnum);
+					handCreateThrownProjectile(i + 2, &player->hands[i]);
 				}
 			}
 		}

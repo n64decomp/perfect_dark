@@ -90,7 +90,7 @@ u32 func000216cc(void);
 u32 func0002170c(void);
 void modelRender(struct modelrenderdata *renderdata, struct model *model);
 u32 func000220fc(void);
-u32 func000225d4(void);
+s32 func000225d4(struct model *model, struct coord *arg1, struct coord *arg2, u32 *arg3);
 u32 func000227a4(void);
 void func00022a24(void *arg0, u32 arg1, void *arg2);
 u32 func00022b68(void);

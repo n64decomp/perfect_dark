@@ -1700,6 +1700,10 @@ struct bullettail {
 };
 
 // Weapon data per hand
+// @TODO: The first 4 bytes are suspected to be a separate struct because there
+// are places where 4 bytes are allocated on the stack then passed to functions
+// which currently expect hand pointers. However this also means changing the
+// weaponobj struct so it also uses this struct.
 struct hand {
 	/*0x0638*/ u8 weaponnum;
 	/*0x0639*/ u8 unk0639;
@@ -2957,7 +2961,7 @@ struct weaponfunc_throw {
 struct weaponfunc_close {
 	struct weaponfunc base;
 	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
+	/*0x18*/ f32 range;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ u32 unk20;
 	/*0x24*/ u32 unk24;

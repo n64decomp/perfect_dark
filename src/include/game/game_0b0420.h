@@ -3,8 +3,8 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f0b0420(u8 *weaponnum, s32 index);
-void func0f0b046c(u8 *weaponnum, s32 index);
+void func0f0b0420(struct hand *hand, s32 index);
+void func0f0b046c(struct hand *hand, s32 index);
 void func0f0b0520(void);
 s32 currentPlayerGetShotCount(u32 type);
 void incrementKillCount(void);
@@ -37,11 +37,11 @@ s32 currentPlayerGetDeviceState(s32 weaponnum);
 void currentPlayerSetDeviceActive(s32 weaponum, bool active);
 u16 weaponGetModelNum(s32 weaponnum);
 u16 weaponGetModelNum2(s32 weaponnum);
-void func0f0b1af0(s32 handnum, u8 *weaponnum);
+void func0f0b1af0(s32 handnum, struct hand *hand);
 struct inventory_ammo *handGetAmmoDefinition(struct hand *hand);
 u8 handGetSingleUnk3c(struct hand *hand);
 f32 handGetSingleUnk34(struct hand *hand);
-f32 func0f0b1d28(u8 *weaponnum);
+f32 func0f0b1d28(struct hand *hand);
 u8 handGetSingleUnk38(struct hand *hand);
 u16 handGetSingleShootSound(struct hand *hand);
 bool handHasFunctionFlags(struct hand *hand, u32 flags);

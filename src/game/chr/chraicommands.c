@@ -815,7 +815,7 @@ bool ai0019(void)
 	struct coord pos = {0, 0, 0};
 
 	if (chr && chr->prop) {
-		f32 value = func0f0b1d28(&cmd[4]);
+		f32 value = func0f0b1d28((struct hand *)&cmd[4]);
 		func0f034330(chr, value, &pos, &cmd[4], NULL, (s8)cmd[3]);
 	}
 
@@ -849,7 +849,7 @@ bool ai001a(void)
 			vector.z = chr2->prop->pos.z - chr1->prop->pos.z;
 			scaleTo1(&vector.x, &vector.y, &vector.z);
 			weapon = prop->weapon;
-			thing = func0f0b1d28(&weapon->weaponnum);
+			thing = func0f0b1d28((struct hand *)&weapon->weaponnum);
 			func0f034330(chr2, thing, &vector, &weapon->weaponnum, chr1->prop, (s8)cmd[4]);
 		}
 	}

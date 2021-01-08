@@ -233,7 +233,7 @@ struct weaponfunc_close invfunc_unarmed_punch = {
 	invanim_punch, // fire animation
 	0x0041a200, // flags
 	0x3f000000,
-	0x42700000,
+	60,
 	0x00000069,
 	0x00000069,
 	0x00000069,
@@ -257,7 +257,7 @@ struct weaponfunc_close invfunc_unarmed_disarm = {
 	invanim_punch, // fire animation
 	0x0041a600, // flags
 	0x3e99999a,
-	0x42700000,
+	60,
 	0x00000069,
 	0x00000069,
 	0x00000069,
@@ -485,7 +485,7 @@ struct weaponfunc_close invfunc_falcon2_pistolwhip = {
 	invanim_falcon2_pistolwhip, // fire animation
 	0x0041a200, // flags
 	0x3f666666,
-	0x42700000,
+	60,
 	0x00000069,
 	0x00000069,
 	0x00000069,
@@ -881,7 +881,7 @@ struct weaponfunc_close invfunc_dy357_pistolwhip = {
 	invanim_dy357_pistolwhip, // fire animation
 	0x0041a200, // flags
 	0x3f666666,
-	0x42700000,
+	60,
 	0x00000069,
 	0x00000069,
 	0x00000069,
@@ -2547,7 +2547,7 @@ struct weaponfunc_close invfunc_reaper_grind = {
 	NULL, // fire animation
 	0x00002000, // flags
 	0x3d4ccccd,
-	0x42a00000,
+	80,
 	0x00000069,
 	0x00000069,
 	0x00000069,
@@ -3727,7 +3727,7 @@ struct weaponfunc_close invfunc_tranquilizer_lethal = {
 	invanim_tranquilizer_lethalinject, // fire animation
 	0x00002000, // flags
 	0x42c80000,
-	0x42700000,
+	60,
 	0x00000069,
 	0x00000069,
 	0x00000069,
@@ -4737,7 +4737,7 @@ struct weaponfunc_close invfunc_combatknife_slash = {
 	invanim_combatknife_slash, // fire animation
 	0x00002000, // flags
 	0x40000000,
-	0x428c0000,
+	70,
 	0x00000069,
 	0x00000069,
 	0x00000069,

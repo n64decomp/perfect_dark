@@ -31,23 +31,23 @@ const char var7f1acdc4[] = "%s %s";
 
 const u32 var7f1acdcc[] = {0x00000000};
 
-void func0f0b0420(u8 *weaponnum, s32 index)
+void func0f0b0420(struct hand *hand, s32 index)
 {
-	if (!weaponHasFlag(*weaponnum, WEAPONFLAG_00100000)) {
+	if (!weaponHasFlag(hand->weaponnum, WEAPONFLAG_00100000)) {
 		g_Vars.currentplayerstats->shotcount[index]++;
 	}
 }
 
-void func0f0b046c(u8 *weaponnum, s32 index)
+void func0f0b046c(struct hand *hand, s32 index)
 {
 	if (index == 0) {
-		if (!weaponHasFlag(*weaponnum, WEAPONFLAG_00100000)) {
+		if (!weaponHasFlag(hand->weaponnum, WEAPONFLAG_00100000)) {
 			var80070590 = 1;
 			g_Vars.currentplayerstats->shotcount[index]++;
 		}
 	} else {
 		if (var80070590) {
-			if (!weaponHasFlag(*weaponnum, WEAPONFLAG_00100000)) {
+			if (!weaponHasFlag(hand->weaponnum, WEAPONFLAG_00100000)) {
 				g_Vars.currentplayerstats->shotcount[index]++;
 			}
 
