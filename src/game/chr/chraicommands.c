@@ -4696,7 +4696,7 @@ bool ai00d1(void)
 	s16 audio_id = cmd[4] | (cmd[3] << 8);
 	u16 thing = cmd[6] | (cmd[5] << 8);
 
-	audioPlayFromProp2(cmd[2], audio_id, -1, NULL, thing, 2500, 3000, 0);
+	audioPlayFromProp2((s8)cmd[2], audio_id, -1, NULL, thing, 2500, 3000, 0);
 
 	g_Vars.aioffset += 7;
 
@@ -4713,7 +4713,7 @@ bool ai00d2(void)
 	u16 thing2 = cmd[6] | (cmd[5] << 8);
 	s32 audio_id = func0f0927d4(thing1, 400, 2500, 3000, 32767);
 
-	audioPlayFromProp2(cmd[2], audio_id, -1, NULL, thing2, 2500, 3000, 0);
+	audioPlayFromProp2((s8)cmd[2], audio_id, -1, NULL, thing2, 2500, 3000, 0);
 
 	g_Vars.aioffset += 7;
 
@@ -4730,7 +4730,7 @@ bool ai00cf(void)
 	u16 thing = cmd[5] | (cmd[4] << 8);
 
 	if (obj && obj->prop) {
-		audioPlayFromProp2(cmd[2], -1, -1, obj->prop, thing, 2500, 3000, 0);
+		audioPlayFromProp2((s8)cmd[2], -1, -1, obj->prop, thing, 2500, 3000, 0);
 	}
 
 	g_Vars.aioffset += 6;
@@ -4758,7 +4758,7 @@ bool ai016b(void)
 			thing1again = thing1;
 		}
 
-		audioPlayFromProp2(cmd[2], -1, -1, obj->prop, thing1again, thing2, thing3, 2);
+		audioPlayFromProp2((s8)cmd[2], -1, -1, obj->prop, thing1again, thing2, thing3, 2);
 	}
 
 	g_Vars.aioffset += 10;
@@ -4780,13 +4780,13 @@ bool ai0179(void)
 		struct defaultobj *obj = objFindByTagId(cmd[3]);
 
 		if (obj && obj->prop) {
-			audioPlayFromProp2(cmd[2], -1, -1, obj->prop, thing1, thing2, thing3, 0);
+			audioPlayFromProp2((s8)cmd[2], -1, -1, obj->prop, thing1, thing2, thing3, 0);
 		}
 	} else {
 		struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 
 		if (chr && chr->prop) {
-			audioPlayFromProp2(cmd[2], -1, -1, chr->prop, thing1, thing2, thing3, 0);
+			audioPlayFromProp2((s8)cmd[2], -1, -1, chr->prop, thing1, thing2, thing3, 0);
 		}
 	}
 

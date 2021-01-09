@@ -6678,24 +6678,26 @@ struct var800a45c4 {
 
 struct audiochannel {
 	/*0x00*/ struct audiohandle *audiohandle;
-	/*0x04*/ u16 unk04;
+	/*0x04*/ s16 soundnum;
 	/*0x06*/ s16 unk06;
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
+	/*0x18*/ u16 unk18;
+	/*0x1c*/ s32 unk1c;
 	/*0x20*/ u32 unk20;
-	/*0x24*/ u16 unk24;
+	/*0x24*/ s16 unk24;
 	/*0x26*/ s16 filenum;
 	/*0x28*/ s16 unk28;
-	/*0x2c*/ u32 unk2c;
+	/*0x2a*/ u16 unk2a;
+	/*0x2c*/ u16 unk2c;
+	/*0x2e*/ u16 unk2e;
 	/*0x30*/ u16 flags;
 	/*0x32*/ u16 unk32;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
+	/*0x34*/ f32 unk34;
+	/*0x38*/ f32 unk38;
+	/*0x3c*/ f32 unk3c;
 	/*0x40*/ u32 unk40;
 	/*0x44*/ u32 unk44;
 	/*0x48*/ u32 unk48;
