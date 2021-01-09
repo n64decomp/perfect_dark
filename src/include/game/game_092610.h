@@ -16,7 +16,7 @@ u32 func0f093508(void);
 u32 func0f093630(void);
 u32 func0f093790(void);
 u32 func0f0938ec(void);
-u32 func0f0939f8(void *arg0, struct prop *prop, s16 sound, s32 padnum, s32 arg4, u32 arg5, s32 arg6, s32 arg7, s32 arg8, f32 arg9, s32 arg10, s32 arg11, f32 arg12, f32 arg13, f32 arg14);
+s32 func0f0939f8(void *arg0, struct prop *prop, s16 sound, s32 padnum, s32 arg4, u32 arg5, s32 arg6, s32 arg7, s32 arg8, f32 arg9, s32 arg10, s32 arg11, f32 arg12, f32 arg13, f32 arg14);
 void audioMuteChannel(s32 channelnum);
 bool audioIsChannelIdle(s32 channelnum);
 void audioPlayFromProp2(s32 channelnum, s32 soundnum, s16 arg2, struct prop *prop, s32 arg4, s32 arg5, s32 arg6, u16 arg7);

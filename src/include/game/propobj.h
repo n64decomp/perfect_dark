@@ -18,7 +18,7 @@ extern struct var8006996c *var8006996c;
 void alarmActivate(void);
 void alarmDeactivate(void);
 bool alarmIsActive(void);
-bool audioPlayFromProp(s32 channel_id, s16 audio_id, s32 volumemaybe, struct prop *prop, s32 arg4, s32 arg5);
+s32 audioPlayFromProp(s32 channelnum, s16 soundnum, s32 arg2, struct prop *prop, s16 arg4, u16 arg5);
 f32 countdownTimerGetValue(void);
 bool countdownTimerIsHidden(void);
 bool countdownTimerIsRunning(void);
