@@ -5,8 +5,8 @@
 
 f32 eyespyFindGround(s16 *floorroom);
 u32 func0f0cf230(void);
-u32 func0f0cf38c(void);
-u32 func0f0cf728(struct coord *arg0);
+s32 func0f0cf38c(struct coord *arg0);
+s32 func0f0cf728(struct coord *arg0);
 u32 func0f0cf890(void);
 u32 func0f0cf9f8(void);
 u32 func0f0cfafc(void);

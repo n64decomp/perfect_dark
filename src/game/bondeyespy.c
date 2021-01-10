@@ -32,11 +32,8 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
-const char var7f1ada40[] = "bondeyespy.c";
-const char var7f1ada50[] = "bondeyespy.c";
-
 u32 var80070ec0 = 0x00000000;
-u32 var80070ec4 = 0x00000000;
+u8 var80070ec4 = 0;
 u32 var80070ec8 = 0x00000000;
 u32 var80070ecc = 0x00000000;
 f32 g_EyespyMaxHeight = 160;
@@ -431,108 +428,61 @@ glabel func0f0cf38c
 /*  f0cf724:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
 );
 
-GLOBAL_ASM(
-glabel func0f0cf728
-/*  f0cf728:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f0cf72c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0cf730:	0fc33ce3 */ 	jal	func0f0cf38c
-/*  f0cf734:	00000000 */ 	nop
-/*  f0cf738:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0cf73c:	1041004f */ 	beq	$v0,$at,.L0f0cf87c
-/*  f0cf740:	afa2004c */ 	sw	$v0,0x4c($sp)
-/*  f0cf744:	3c088007 */ 	lui	$t0,%hi(var80070ec4)
-/*  f0cf748:	25080ec4 */ 	addiu	$t0,$t0,%lo(var80070ec4)
-/*  f0cf74c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0cf750:	0c0093ac */ 	jal	func00024eb0
-/*  f0cf754:	a10e0000 */ 	sb	$t6,0x0($t0)
-/*  f0cf758:	3c088007 */ 	lui	$t0,%hi(var80070ec4)
-/*  f0cf75c:	25080ec4 */ 	addiu	$t0,$t0,%lo(var80070ec4)
-/*  f0cf760:	10400046 */ 	beqz	$v0,.L0f0cf87c
-/*  f0cf764:	00404825 */ 	or	$t1,$v0,$zero
-/*  f0cf768:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x34)
-/*  f0cf76c:	8def9ff4 */ 	lw	$t7,%lo(g_Vars+0x34)($t7)
-/*  f0cf770:	59e00043 */ 	blezl	$t7,.L0f0cf880
-/*  f0cf774:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cf778:	90580000 */ 	lbu	$t8,0x0($v0)
-/*  f0cf77c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0cf780:	5701002f */ 	bnel	$t8,$at,.L0f0cf840
-/*  f0cf784:	91220000 */ 	lbu	$v0,0x0($t1)
-/*  f0cf788:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f0cf78c:	24190003 */ 	addiu	$t9,$zero,0x3
-/*  f0cf790:	a1190000 */ 	sb	$t9,0x0($t0)
-/*  f0cf794:	946a0070 */ 	lhu	$t2,0x70($v1)
-/*  f0cf798:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*  f0cf79c:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*  f0cf7a0:	314b0400 */ 	andi	$t3,$t2,0x400
-/*  f0cf7a4:	11600025 */ 	beqz	$t3,.L0f0cf83c
-/*  f0cf7a8:	2406011e */ 	addiu	$a2,$zero,0x11e
-/*  f0cf7ac:	3c077f1b */ 	lui	$a3,%hi(var7f1ada40)
-/*  f0cf7b0:	24e7da40 */ 	addiu	$a3,$a3,%lo(var7f1ada40)
-/*  f0cf7b4:	0c009393 */ 	jal	func00024e4c
-/*  f0cf7b8:	afa20048 */ 	sw	$v0,0x48($sp)
-/*  f0cf7bc:	c7a40028 */ 	lwc1	$f4,0x28($sp)
-/*  f0cf7c0:	c7a60034 */ 	lwc1	$f6,0x34($sp)
-/*  f0cf7c4:	44801000 */ 	mtc1	$zero,$f2
-/*  f0cf7c8:	c7a8002c */ 	lwc1	$f8,0x2c($sp)
-/*  f0cf7cc:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f0cf7d0:	c7aa0020 */ 	lwc1	$f10,0x20($sp)
-/*  f0cf7d4:	3c088007 */ 	lui	$t0,%hi(var80070ec4)
-/*  f0cf7d8:	25080ec4 */ 	addiu	$t0,$t0,%lo(var80070ec4)
-/*  f0cf7dc:	46001032 */ 	c.eq.s	$f2,$f0
-/*  f0cf7e0:	8fa90048 */ 	lw	$t1,0x48($sp)
-/*  f0cf7e4:	460a4401 */ 	sub.s	$f16,$f8,$f10
-/*  f0cf7e8:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f0cf7ec:	e7a2003c */ 	swc1	$f2,0x3c($sp)
-/*  f0cf7f0:	45000004 */ 	bc1f	.L0f0cf804
-/*  f0cf7f4:	e7b00040 */ 	swc1	$f16,0x40($sp)
-/*  f0cf7f8:	46101032 */ 	c.eq.s	$f2,$f16
-/*  f0cf7fc:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0cf800:	45010009 */ 	bc1t	.L0f0cf828
-.L0f0cf804:
-/*  f0cf804:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*  f0cf808:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f0cf80c:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f0cf810:	0c0011e4 */ 	jal	scaleTo1
-/*  f0cf814:	afa90048 */ 	sw	$t1,0x48($sp)
-/*  f0cf818:	3c088007 */ 	lui	$t0,%hi(var80070ec4)
-/*  f0cf81c:	25080ec4 */ 	addiu	$t0,$t0,%lo(var80070ec4)
-/*  f0cf820:	10000004 */ 	b	.L0f0cf834
-/*  f0cf824:	8fa90048 */ 	lw	$t1,0x48($sp)
-.L0f0cf828:
-/*  f0cf828:	44819000 */ 	mtc1	$at,$f18
-/*  f0cf82c:	00000000 */ 	nop
-/*  f0cf830:	e7b20040 */ 	swc1	$f18,0x40($sp)
-.L0f0cf834:
-/*  f0cf834:	240c0004 */ 	addiu	$t4,$zero,0x4
-/*  f0cf838:	a10c0000 */ 	sb	$t4,0x0($t0)
-.L0f0cf83c:
-/*  f0cf83c:	91220000 */ 	lbu	$v0,0x0($t1)
-.L0f0cf840:
-/*  f0cf840:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0cf844:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f0cf848:	54410004 */ 	bnel	$v0,$at,.L0f0cf85c
-/*  f0cf84c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0cf850:	1000000a */ 	b	.L0f0cf87c
-/*  f0cf854:	a10d0000 */ 	sb	$t5,0x0($t0)
-/*  f0cf858:	24010006 */ 	addiu	$at,$zero,0x6
-.L0f0cf85c:
-/*  f0cf85c:	14410003 */ 	bne	$v0,$at,.L0f0cf86c
-/*  f0cf860:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f0cf864:	10000005 */ 	b	.L0f0cf87c
-/*  f0cf868:	a10e0000 */ 	sb	$t6,0x0($t0)
-.L0f0cf86c:
-/*  f0cf86c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0cf870:	14410002 */ 	bne	$v0,$at,.L0f0cf87c
-/*  f0cf874:	240f0005 */ 	addiu	$t7,$zero,0x5
-/*  f0cf878:	a10f0000 */ 	sb	$t7,0x0($t0)
-.L0f0cf87c:
-/*  f0cf87c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0cf880:
-/*  f0cf880:	8fa2004c */ 	lw	$v0,0x4c($sp)
-/*  f0cf884:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f0cf888:	03e00008 */ 	jr	$ra
-/*  f0cf88c:	00000000 */ 	nop
-);
+s32 func0f0cf728(struct coord *arg0)
+{
+	s32 result = func0f0cf38c(arg0);
+	struct prop *prop;
+
+	if (result != 1) {
+		var80070ec4 = 1;
+
+		prop = func00024eb0();
+
+		if (prop && g_Vars.lvupdate240 > 0) {
+			if (prop->type == PROPTYPE_DOOR) {
+				struct doorobj *door = prop->door;
+				var80070ec4 = 3;
+
+				if (door->doorflags & DOORFLAG_DAMAGEONCONTACT) {
+					f32 sp38[3];
+					struct coord sp2c;
+					struct coord sp20;
+
+					func00024e4c(&sp2c, &sp20, 286, "bondeyespy.c");
+
+					// Nothing is actually done with these coordinates...
+					// maybe they were originally going to make the eyespy
+					// bounce off the lasers like Jo does?
+					sp38[0] = sp20.z - sp2c.z;
+					sp38[1] = 0;
+					sp38[2] = sp2c.x - sp20.x;
+
+					if (sp38[0] || sp38[2]) {
+						scaleTo1(&sp38[0], &sp38[1], &sp38[2]);
+					} else {
+						sp38[2] = 1;
+					}
+
+					if (prop);
+
+					var80070ec4 = 4;
+				}
+			}
+
+			if (prop->type == PROPTYPE_CHR) {
+				var80070ec4 = 2;
+			} else if (prop->type == PROPTYPE_PLAYER) {
+				var80070ec4 = 2;
+			} else if (prop->type == PROPTYPE_OBJ) {
+				var80070ec4 = 5;
+			}
+		}
+	}
+
+	return result;
+}
+
+const char var7f1ada50[] = "bondeyespy.c";
 
 GLOBAL_ASM(
 glabel func0f0cf890
