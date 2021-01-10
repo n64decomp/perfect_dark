@@ -2117,59 +2117,20 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f12f5f8
-/*  f12f5f8:	3c03800a */ 	lui	$v1,%hi(g_MaxSmokes)
-/*  f12f5fc:	8c633444 */ 	lw	$v1,%lo(g_MaxSmokes)($v1)
-/*  f12f600:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*  f12f604:	afb1000c */ 	sw	$s1,0xc($sp)
-/*  f12f608:	afb00008 */ 	sw	$s0,0x8($sp)
-/*  f12f60c:	18600026 */ 	blez	$v1,.L0f12f6a8
-/*  f12f610:	00001025 */ 	or	$v0,$zero,$zero
-/*  f12f614:	3c108008 */ 	lui	$s0,%hi(g_SmokeTypes)
-/*  f12f618:	3c09800a */ 	lui	$t1,%hi(g_Smokes)
-/*  f12f61c:	25293440 */ 	addiu	$t1,$t1,%lo(g_Smokes)
-/*  f12f620:	2610e940 */ 	addiu	$s0,$s0,%lo(g_SmokeTypes)
-/*  f12f624:	00002825 */ 	or	$a1,$zero,$zero
-/*  f12f628:	24110024 */ 	addiu	$s1,$zero,0x24
-/*  f12f62c:	240d0009 */ 	addiu	$t5,$zero,0x9
-/*  f12f630:	240c000b */ 	addiu	$t4,$zero,0xb
-/*  f12f634:	240b0008 */ 	addiu	$t3,$zero,0x8
-/*  f12f638:	240a0007 */ 	addiu	$t2,$zero,0x7
-.L0f12f63c:
-/*  f12f63c:	8d240000 */ 	lw	$a0,0x0($t1)
-/*  f12f640:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f12f644:	00857021 */ 	addu	$t6,$a0,$a1
-/*  f12f648:	8dcf0000 */ 	lw	$t7,0x0($t6)
-/*  f12f64c:	00a43021 */ 	addu	$a2,$a1,$a0
-/*  f12f650:	51e00013 */ 	beqzl	$t7,.L0f12f6a0
-/*  f12f654:	0043082a */ 	slt	$at,$v0,$v1
-/*  f12f658:	94c70006 */ 	lhu	$a3,0x6($a2)
-/*  f12f65c:	0007c242 */ 	srl	$t8,$a3,0x9
-/*  f12f660:	5158000f */ 	beql	$t2,$t8,.L0f12f6a0
-/*  f12f664:	0043082a */ 	slt	$at,$v0,$v1
-/*  f12f668:	5178000d */ 	beql	$t3,$t8,.L0f12f6a0
-/*  f12f66c:	0043082a */ 	slt	$at,$v0,$v1
-/*  f12f670:	5198000b */ 	beql	$t4,$t8,.L0f12f6a0
-/*  f12f674:	0043082a */ 	slt	$at,$v0,$v1
-/*  f12f678:	51b80009 */ 	beql	$t5,$t8,.L0f12f6a0
-/*  f12f67c:	0043082a */ 	slt	$at,$v0,$v1
-/*  f12f680:	03110019 */ 	multu	$t8,$s1
-/*  f12f684:	3c03800a */ 	lui	$v1,%hi(g_MaxSmokes)
-/*  f12f688:	0000c812 */ 	mflo	$t9
-/*  f12f68c:	02197021 */ 	addu	$t6,$s0,$t9
-/*  f12f690:	85cf0000 */ 	lh	$t7,0x0($t6)
-/*  f12f694:	a4cf0004 */ 	sh	$t7,0x4($a2)
-/*  f12f698:	8c633444 */ 	lw	$v1,%lo(g_MaxSmokes)($v1)
-/*  f12f69c:	0043082a */ 	slt	$at,$v0,$v1
-.L0f12f6a0:
-/*  f12f6a0:	1420ffe6 */ 	bnez	$at,.L0f12f63c
-/*  f12f6a4:	24a5019c */ 	addiu	$a1,$a1,0x19c
-.L0f12f6a8:
-/*  f12f6a8:	8fb00008 */ 	lw	$s0,0x8($sp)
-/*  f12f6ac:	8fb1000c */ 	lw	$s1,0xc($sp)
-/*  f12f6b0:	03e00008 */ 	jr	$ra
-/*  f12f6b4:	27bd0010 */ 	addiu	$sp,$sp,0x10
-/*  f12f6b8:	00000000 */ 	nop
-/*  f12f6bc:	00000000 */ 	nop
-);
+void smokeClearSomeTypes(void)
+{
+	s32 i;
+
+	for (i = 0; i < g_MaxSmokes; i++) {
+		if (g_Smokes[i].prop) {
+			struct smoke *smoke = &g_Smokes[i];
+
+			if (smoke->type != SMOKETYPE_BULLETIMPACT
+					&& smoke->type != SMOKETYPE_ROCKETTAIL
+					&& smoke->type != SMOKETYPE_HOMINGTAIL
+					&& smoke->type != SMOKETYPE_GRENADETAIL) {
+				smoke->age = g_SmokeTypes[smoke->type].duration;
+			}
+		}
+	}
+}
