@@ -87,7 +87,7 @@ s32 func0002a564(struct coord *pos, s16 *rooms, f32 *arg2, u32 arg3, struct coor
 u32 func0002a5e4(void);
 s32 func0002a684(struct coord *pos, f32 width, s16 *rooms, s32 arg3, s32 arg4, f32 arg5, f32 arg6);
 u32 func0002a6fc(void);
-u32 func0002a9f0(void);
+s32 func0002a9f0(struct coord *pos, struct coord *arg1, f32 arg2, s16 *arg3, s32 arg4, s32 arg5, f32 arg6, f32 arg7);
 u32 func0002aac0(void);
 u32 func0002ab98(void);
 u32 func0002ac70(void);
@@ -105,7 +105,7 @@ s32 func0002d72c(struct coord *pos, s16 *rooms, struct coord *coord2, s16 *rooms
 bool func0002d7c0(struct coord *pos, s16 *rooms, struct coord *arg2, u32 arg3, u32 arg4, f32 arg5, f32 arg6);
 u32 func0002d840(void);
 u32 func0002d8b8(void);
-u32 func0002d95c(void);
+s32 func0002d95c(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f32 arg4, s32 arg5, s32 arg6, f32 arg7, f32 arg8);
 u32 func0002da50(void);
 u32 func0002dac8(void);
 bool func0002db98(struct coord *viewpos, s16 *rooms, struct coord *targetpos, s32 arg3, u32 arg4);
