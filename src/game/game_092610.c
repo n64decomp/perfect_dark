@@ -214,7 +214,7 @@ void func0f092a98(s32 channelnum)
 {
 	struct audiochannel *channel = &g_AudioChannels[channelnum];
 
-	channel->unk32 |= 0x80;
+	channel->flags2 |= 0x80;
 
 	if (channel->flags & AUDIOCHANNELFLAG_0200) {
 		func0f0ddd44(channelnum);
@@ -1401,8 +1401,8 @@ glabel var7f1ab748
 /*  f093b14:	10000145 */ 	b	.L0f09402c
 /*  f093b18:	2402ffff */ 	addiu	$v0,$zero,-1
 .L0f093b1c:
-/*  f093b1c:	3c038007 */ 	lui	$v1,%hi(var8006ae14)
-/*  f093b20:	2463ae14 */ 	addiu	$v1,$v1,%lo(var8006ae14)
+/*  f093b1c:	3c038007 */ 	lui	$v1,%hi(g_AudioPrevUuid)
+/*  f093b20:	2463ae14 */ 	addiu	$v1,$v1,%lo(g_AudioPrevUuid)
 /*  f093b24:	8c620000 */ 	lw	$v0,0x0($v1)
 /*  f093b28:	44801000 */ 	mtc1	$zero,$f2
 /*  f093b2c:	24190040 */ 	addiu	$t9,$zero,0x40
@@ -1504,14 +1504,14 @@ glabel var7f1ab748
 /*  f093c7c:	53200065 */ 	beqzl	$t9,.L0f093e14
 /*  f093c80:	860c0018 */ 	lh	$t4,0x18($s0)
 /*  f093c84:	97a400ac */ 	lhu	$a0,0xac($sp)
-/*  f093c88:	3c0c8006 */ 	lui	$t4,%hi(audiodefinitions)
-/*  f093c8c:	258cdde4 */ 	addiu	$t4,$t4,%lo(audiodefinitions)
+/*  f093c88:	3c0c8006 */ 	lui	$t4,%hi(g_AudioRussMappings)
+/*  f093c8c:	258cdde4 */ 	addiu	$t4,$t4,%lo(g_AudioRussMappings)
 /*  f093c90:	308a7fff */ 	andi	$t2,$a0,0x7fff
 /*  f093c94:	000a5880 */ 	sll	$t3,$t2,0x2
 /*  f093c98:	016c1021 */ 	addu	$v0,$t3,$t4
 /*  f093c9c:	94450002 */ 	lhu	$a1,0x2($v0)
-/*  f093ca0:	3c0e8006 */ 	lui	$t6,%hi(audioconfigs)
-/*  f093ca4:	25cee4d8 */ 	addiu	$t6,$t6,%lo(audioconfigs)
+/*  f093ca0:	3c0e8006 */ 	lui	$t6,%hi(g_AudioConfigs)
+/*  f093ca4:	25cee4d8 */ 	addiu	$t6,$t6,%lo(g_AudioConfigs)
 /*  f093ca8:	00056940 */ 	sll	$t5,$a1,0x5
 /*  f093cac:	01ae1821 */ 	addu	$v1,$t5,$t6
 /*  f093cb0:	c4640000 */ 	lwc1	$f4,0x0($v1)
@@ -1769,9 +1769,228 @@ glabel var7f1ab748
 /*  f09403c:	00000000 */ 	nop
 );
 
+// Mismatch: Two beq operators are swapped in this expression:
+//     g_AudioConfigs[confignum].unk14 != -1
+//s16 func0f0939f8(
+//		struct audiochannel *channel,
+//		struct prop *prop,
+//		s16 soundnum,
+//		s16 padnum,
+//		s32 arg4,
+//		u16 flags,
+//		u16 flags2,
+//		s32 arg7,
+//		struct coord *pos,
+//		f32 arg9,
+//		s16 *rooms,
+//		s32 room,
+//		f32 arg12,
+//		f32 arg13,
+//		f32 arg14)
+//{
+//	union soundnumhack spac;
+//	OSPri prevpri;
+//	u32 stack[3];
+//	struct pad pad;
+//	s32 i;
+//	s32 j;
+//
+//	if (arg7 == 0x11) {
+//		func0f0938ec(prop);
+//	}
+//
+//	spac.packed = soundnum;
+//
+//	if (channel == NULL) {
+//		if (arg7 != 16 && var8005ddd4 > 12) {
+//			return -1;
+//		}
+//
+//		for (i = 8; i < (IS4MB() ? 30 : 40); i++) {
+//			if (g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) {
+//				channel = &g_AudioChannels[i];
+//				channel->channelnum = i;
+//				break;
+//			}
+//		}
+//	}
+//
+//	if (padnum >= 0) {
+//		padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
+//		pos = &pad.pos;
+//		room = pad.room;
+//		prop = NULL;
+//	}
+//
+//	if (channel == NULL) {
+//		return -1;
+//	}
+//
+//	if (g_AudioPrevUuid < 0xffffffff) {
+//		g_AudioPrevUuid++;
+//	} else {
+//		g_AudioPrevUuid = 0;
+//	}
+//
+//	channel->flags = flags;
+//	channel->flags2 = flags2;
+//	channel->audiohandle = NULL;
+//	channel->unk06 = -1;
+//	channel->unk08 = -1;
+//	channel->unk0e = -1;
+//	channel->soundnum04 = (arg4 != -1) ? arg4 : -1;
+//	channel->unk0a = 64;
+//	channel->unk0c = 0;
+//	channel->unk10 = 0x7fff;
+//	channel->unk1a = 1;
+//	channel->unk44 = (arg9 > 0) ? arg9 : -1;
+//	channel->unk48 = channel->unk44;
+//	channel->unk20 = -1;
+//	channel->unk1c = -1;
+//	channel->padnum = padnum;
+//	channel->prop = prop;
+//	channel->unk28 = arg7;
+//	channel->unk12 = arg4;
+//	channel->unk40 = -1;
+//	channel->unk34 = (arg12 > 0) ? arg12 : 400;
+//	channel->unk38 = (arg13 > 0) ? arg13 : 2500;
+//	channel->unk3c = (arg14 > 0) ? arg14 : 3000;
+//	channel->unk18 = 0;
+//	channel->uuid = g_AudioPrevUuid;
+//
+//	if (spac.bits2.isruss) {
+//		s32 id = spac.bits.id;
+//		s32 confignum = g_AudioRussMappings[id].audioconfig_index;
+//		s32 newid = g_AudioRussMappings[id].soundnum;
+//
+//		channel->unk34 = g_AudioConfigs[confignum].unk00;
+//		channel->unk38 = g_AudioConfigs[confignum].unk04;
+//		channel->unk3c = g_AudioConfigs[confignum].unk08;
+//		channel->unk18 = g_AudioConfigs[confignum].unk18;
+//
+//		if (g_AudioConfigs[confignum].unk10 != 100) {
+//			channel->unk10 = g_AudioConfigs[confignum].unk10 * 327;
+//		}
+//
+//		if (g_AudioConfigs[confignum].unk0c > 0) {
+//			channel->unk44 = g_AudioConfigs[confignum].unk0c;
+//		}
+//
+//		if (g_AudioConfigs[confignum].unk14 != -1) {
+//			channel->unk0a = g_AudioConfigs[confignum].unk14;
+//			channel->flags |= AUDIOCHANNELFLAG_0020;
+//		}
+//
+//		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_01) {
+//			channel->flags |= AUDIOCHANNELFLAG_0800;
+//		}
+//
+//		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_04) {
+//			channel->flags2 |= AUDIOCHANNELFLAG2_0001;
+//		}
+//
+//		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_08) {
+//			if (channel->soundnum04 == -1) {
+//				channel->soundnum04 = channel->unk10;
+//			}
+//
+//			channel->flags |= AUDIOCHANNELFLAG_8000;
+//		}
+//
+//		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_10) {
+//			channel->flags2 |= AUDIOCHANNELFLAG2_0020;
+//		}
+//
+//		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_20) {
+//			channel->flags2 |= AUDIOCHANNELFLAG2_0010;
+//		}
+//
+//		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_40) {
+//			channel->flags2 |= AUDIOCHANNELFLAG2_0040;
+//		}
+//
+//		channel->flags |= AUDIOCHANNELFLAG_0040;
+//
+//		spac.packed = newid;
+//		spac.bits2.isruss = false;
+//		soundnum = spac.packed;
+//	}
+//
+//	if (channel->unk18) {
+//		channel->flags |= AUDIOCHANNELFLAG_0002;
+//	}
+//
+//	channel->soundnum26 = spac.packed;
+//	channel->unk2c = spac.bits3.id;
+//
+//	if (audioIsFiltered(channel->unk2c)) {
+//		channel->flags2 |= AUDIOCHANNELFLAG2_0020;
+//	}
+//
+//	if (spac.bits2.unk02) {
+//		channel->flags2 |= AUDIOCHANNELFLAG2_0010;
+//	}
+//
+//	if (pos) {
+//		channel->pos.x = pos->x;
+//		channel->pos.y = pos->y;
+//		channel->pos.z = pos->z;
+//		channel->posptr = &channel->pos;
+//	} else {
+//		channel->posptr = NULL;
+//	}
+//
+//	if (rooms) {
+//		// @dangerous: Array overflow will occur if rooms has more than 8 elements
+//		for (j = 0; rooms[j] != -1; j++) {
+//			channel->rooms[j] = rooms[j];
+//		}
+//
+//		channel->rooms[j] = -1;
+//	} else if (room != -1) {
+//		channel->rooms[0] = room;
+//		channel->rooms[1] = -1;
+//	} else {
+//		channel->rooms[0] = -1;
+//	}
+//
+//	if (!pos && !channel->prop) {
+//		channel->flags2 |= AUDIOCHANNELFLAG2_0010;
+//	}
+//
+//	if ((channel->flags2 & AUDIOCHANNELFLAG2_0010) && channel->soundnum04 == -1) {
+//		channel->soundnum04 = channel->unk10;
+//	}
+//
+//	channel->flags |= AUDIOCHANNELFLAG_1000;
+//
+//	if (func0000fba0(soundnum)) {
+//		channel->flags |= AUDIOCHANNELFLAG_0010;
+//
+//		prevpri = osGetThreadPri(0);
+//		osSetThreadPri(0, osGetThreadPri(&g_AudioThread) + 1);
+//		func0f092c04(channel->channelnum);
+//		osSetThreadPri(0, prevpri);
+//	} else {
+//		prevpri = osGetThreadPri(0);
+//		osSetThreadPri(0, osGetThreadPri(&g_AudioThread) + 1);
+//		func0f092c04(channel->channelnum);
+//		osSetThreadPri(0, prevpri);
+//	}
+//
+//	if (channel->flags & AUDIOCHANNELFLAG_0400) {
+//		channel->flags &= ~AUDIOCHANNELFLAG_0400;
+//		channel->flags2 |= AUDIOCHANNELFLAG2_0010;
+//	}
+//
+//	channel->flags &= ~AUDIOCHANNELFLAG_1000;
+//
+//	return channel->channelnum;
+//}
+
 s32 audioPlayFromProp(s32 channelnum, s16 soundnum, s32 arg2, struct prop *prop, s16 arg4, u16 arg5)
 {
-	s32 result = -1;
+	s32 retchannelnum = -1;
 
 	if (arg4 == 11) {
 		if (channelnum >= 0 && channelnum <= 7) {
@@ -1779,34 +1998,34 @@ s32 audioPlayFromProp(s32 channelnum, s16 soundnum, s32 arg2, struct prop *prop,
 				g_AudioChannels[channelnum].soundnum26 = soundnum;
 				g_AudioChannels[channelnum].unk28 = 11;
 				g_AudioChannels[channelnum].flags &= ~AUDIOCHANNELFLAG_IDLE;
-				result = channelnum;
+				retchannelnum = channelnum;
 			} else {
 				g_AudioChannels[channelnum].soundnum26 = soundnum;
 				g_AudioChannels[channelnum].unk28 = 11;
 				g_AudioChannels[channelnum].flags &= ~AUDIOCHANNELFLAG_IDLE;
-				result = channelnum;
+				retchannelnum = channelnum;
 			}
 		}
 	} else if (channelnum == 10) {
-		result = func0f0939f8(NULL, prop, soundnum, -1,
+		retchannelnum = func0f0939f8(NULL, prop, soundnum, -1,
 				(arg2 ? 0 : -1), arg5 | 0x0080, 0, arg4, 0, -1, 0, -1, -1, -1, -1);
 	} else if (channelnum < 0 || channelnum >= 8 || channelnum == 9) {
-		result = func0f0939f8(NULL, prop, soundnum, -1,
+		retchannelnum = func0f0939f8(NULL, prop, soundnum, -1,
 			(arg2 ? 0 : -1), arg5, 0, arg4, 0, -1, 0, -1, -1, -1, -1);
 	} else {
 		if ((g_AudioChannels[channelnum].flags & AUDIOCHANNELFLAG_IDLE) == 0) {
 			func0f092a98(channelnum);
 		}
 
-		g_AudioChannels[channelnum].unk2e = channelnum;
+		g_AudioChannels[channelnum].channelnum = channelnum;
 
-		func0f0939f8(&g_AudioChannels[channelnum].audiohandle, prop, soundnum, -1,
+		func0f0939f8(&g_AudioChannels[channelnum], prop, soundnum, -1,
 			(arg2 ? 0 : -1), arg5, 0, arg4, 0, -1, 0, -1, -1, -1, -1);
 
-		result = channelnum;
+		retchannelnum = channelnum;
 	}
 
-	return result;
+	return retchannelnum;
 }
 
 void audioMuteChannel(s32 channelnum)
@@ -1844,7 +2063,7 @@ bool audioIsChannelIdle(s32 channelnum)
 	return true;
 }
 
-void audioPlayFromProp2(s32 channelnum, s32 soundnum, s16 arg2, struct prop *prop, s32 arg4, s32 arg5, s32 arg6, u16 arg7)
+void audioPlayFromProp2(s32 channelnum, s32 soundnum, s16 padnum, struct prop *prop, s32 arg4, s32 arg5, s32 arg6, u16 arg7)
 {
 	struct audiochannel *channel = &g_AudioChannels[channelnum];
 	bool a1 = (arg4 >= 6) ? true : false;
@@ -1852,9 +2071,9 @@ void audioPlayFromProp2(s32 channelnum, s32 soundnum, s16 arg2, struct prop *pro
 
 	if (channelnum >= 0 && channelnum <= 7) {
 		if (channel->unk28 == 11) {
-			g_AudioChannels[channelnum].unk2e = channelnum;
+			g_AudioChannels[channelnum].channelnum = (u16)channelnum;
 
-			func0f0939f8(&g_AudioChannels[channelnum].audiohandle, prop, channel->soundnum26, -1,
+			func0f0939f8(&g_AudioChannels[channelnum], prop, channel->soundnum26, -1,
 					-1, arg7, 0, 0, 0, -1, 0, -1, 400, arg5, arg6);
 		} else {
 			if ((channel->flags & AUDIOCHANNELFLAG_2000) == 0 && soundnum >= 0) {
@@ -1865,8 +2084,8 @@ void audioPlayFromProp2(s32 channelnum, s32 soundnum, s16 arg2, struct prop *pro
 				channel->unk1c = arg4;
 			}
 
-			if (arg2 != -1) {
-				channel->unk24 = arg2;
+			if (padnum != -1) {
+				channel->padnum = padnum;
 			}
 
 			if (prop) {
@@ -1927,13 +2146,13 @@ glabel func0f0946b0
 /*  f094718:	0018cfc2 */ 	srl	$t9,$t8,0x1f
 /*  f09471c:	13200018 */ 	beqz	$t9,.L0f094780
 /*  f094720:	a7a2006c */ 	sh	$v0,0x6c($sp)
-/*  f094724:	3c0d8006 */ 	lui	$t5,%hi(audiodefinitions)
-/*  f094728:	25addde4 */ 	addiu	$t5,$t5,%lo(audiodefinitions)
+/*  f094724:	3c0d8006 */ 	lui	$t5,%hi(g_AudioRussMappings)
+/*  f094728:	25addde4 */ 	addiu	$t5,$t5,%lo(g_AudioRussMappings)
 /*  f09472c:	000b6080 */ 	sll	$t4,$t3,0x2
 /*  f094730:	018d1821 */ 	addu	$v1,$t4,$t5
 /*  f094734:	94650002 */ 	lhu	$a1,0x2($v1)
-/*  f094738:	3c188006 */ 	lui	$t8,%hi(audioconfigs)
-/*  f09473c:	2718e4d8 */ 	addiu	$t8,$t8,%lo(audioconfigs)
+/*  f094738:	3c188006 */ 	lui	$t8,%hi(g_AudioConfigs)
+/*  f09473c:	2718e4d8 */ 	addiu	$t8,$t8,%lo(g_AudioConfigs)
 /*  f094740:	00057940 */ 	sll	$t7,$a1,0x5
 /*  f094744:	01f81021 */ 	addu	$v0,$t7,$t8
 /*  f094748:	c4520008 */ 	lwc1	$f18,0x8($v0)
@@ -2563,13 +2782,13 @@ glabel var7f1ab784
 /*  f094f44:	e7a40040 */ 	swc1	$f4,0x40($sp)
 /*  f094f48:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f094f4c:	30997fff */ 	andi	$t9,$a0,0x7fff
-/*  f094f50:	3c0a8006 */ 	lui	$t2,%hi(audiodefinitions)
-/*  f094f54:	254adde4 */ 	addiu	$t2,$t2,%lo(audiodefinitions)
+/*  f094f50:	3c0a8006 */ 	lui	$t2,%hi(g_AudioRussMappings)
+/*  f094f54:	254adde4 */ 	addiu	$t2,$t2,%lo(g_AudioRussMappings)
 /*  f094f58:	00194880 */ 	sll	$t1,$t9,0x2
 /*  f094f5c:	012a1821 */ 	addu	$v1,$t1,$t2
 /*  f094f60:	94650002 */ 	lhu	$a1,0x2($v1)
-/*  f094f64:	3c0c8006 */ 	lui	$t4,%hi(audioconfigs)
-/*  f094f68:	258ce4d8 */ 	addiu	$t4,$t4,%lo(audioconfigs)
+/*  f094f64:	3c0c8006 */ 	lui	$t4,%hi(g_AudioConfigs)
+/*  f094f68:	258ce4d8 */ 	addiu	$t4,$t4,%lo(g_AudioConfigs)
 /*  f094f6c:	00055940 */ 	sll	$t3,$a1,0x5
 /*  f094f70:	016c1021 */ 	addu	$v0,$t3,$t4
 /*  f094f74:	8c4e001c */ 	lw	$t6,0x1c($v0)
@@ -2662,16 +2881,16 @@ glabel var7f1ab78c
 .L0f09509c:
 /*  f09509c:	8faf0058 */ 	lw	$t7,0x58($sp)
 /*  f0950a0:	97a40058 */ 	lhu	$a0,0x58($sp)
-/*  f0950a4:	3c0a8006 */ 	lui	$t2,%hi(audiodefinitions)
+/*  f0950a4:	3c0a8006 */ 	lui	$t2,%hi(g_AudioRussMappings)
 /*  f0950a8:	000fc7c2 */ 	srl	$t8,$t7,0x1f
 /*  f0950ac:	1300001e */ 	beqz	$t8,.L0f095128
 /*  f0950b0:	30997fff */ 	andi	$t9,$a0,0x7fff
 /*  f0950b4:	00194880 */ 	sll	$t1,$t9,0x2
-/*  f0950b8:	254adde4 */ 	addiu	$t2,$t2,%lo(audiodefinitions)
+/*  f0950b8:	254adde4 */ 	addiu	$t2,$t2,%lo(g_AudioRussMappings)
 /*  f0950bc:	012a1821 */ 	addu	$v1,$t1,$t2
 /*  f0950c0:	94650002 */ 	lhu	$a1,0x2($v1)
-/*  f0950c4:	3c0c8006 */ 	lui	$t4,%hi(audioconfigs)
-/*  f0950c8:	258ce4d8 */ 	addiu	$t4,$t4,%lo(audioconfigs)
+/*  f0950c4:	3c0c8006 */ 	lui	$t4,%hi(g_AudioConfigs)
+/*  f0950c8:	258ce4d8 */ 	addiu	$t4,$t4,%lo(g_AudioConfigs)
 /*  f0950cc:	00055940 */ 	sll	$t3,$a1,0x5
 /*  f0950d0:	016c1021 */ 	addu	$v0,$t3,$t4
 /*  f0950d4:	8c4e001c */ 	lw	$t6,0x1c($v0)

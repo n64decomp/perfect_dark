@@ -38822,7 +38822,7 @@ void ammotypePlayPickupSound(u32 ammotype)
 	}
 }
 
-u32 propPlayPickupSound(struct prop *prop, s32 weapon)
+s32 propPlayPickupSound(struct prop *prop, s32 weapon)
 {
 	s16 sound;
 

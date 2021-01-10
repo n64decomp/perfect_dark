@@ -20,7 +20,7 @@ void audioSetSoundMode(u32 mode);
 u32 func0000f49c(void);
 u32 func0000f67c(void);
 u32 func0000f804(void);
-u32 func0000fba0(void);
+bool func0000fba0(s32 soundnum);
 void func0000fbc4(s16 arg0);
 u32 func0000fc48(void);
 u32 func0000fd74(void);

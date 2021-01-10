@@ -3392,8 +3392,30 @@ struct something {
 	u32 unk08;
 };
 
-struct audiodefinition {
-	u16 unk00;
+union soundnumhack {
+	s16 packed;
+
+	struct {
+		u16 isruss : 1;
+		u16 id : 15;
+	} bits;
+
+	struct {
+		u16 isruss : 1;
+		u16 unk02 : 2;
+		u16 id : 13;
+	} bits2;
+
+	struct {
+		u16 isruss : 1;
+		u16 unk02 : 2;
+		u16 unk04 : 2;
+		u16 id : 11;
+	} bits3;
+};
+
+struct audiorussmapping {
+	s16 soundnum;
 	u16 audioconfig_index;
 };
 
@@ -3402,7 +3424,7 @@ struct audioconfig {
 	f32 unk04;
 	f32 unk08;
 	f32 unk0c;
-	u32 unk10;
+	s32 unk10;
 	s32 unk14;
 	u32 unk18;
 	u32 flags; // 0x10 = contains swearing
@@ -6680,38 +6702,37 @@ struct audiochannel {
 	/*0x00*/ struct audiohandle *audiohandle;
 	/*0x04*/ s16 soundnum04;
 	/*0x06*/ s16 unk06;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
+	/*0x08*/ s16 unk08;
+	/*0x0a*/ s16 unk0a;
+	/*0x0c*/ s16 unk0c;
+	/*0x0e*/ s16 unk0e;
+	/*0x10*/ s16 unk10;
+	/*0x12*/ u16 unk12;
 	/*0x14*/ u32 unk14;
-	/*0x18*/ u16 unk18;
+	/*0x18*/ s16 unk18;
+	/*0x1a*/ u8 unk1a;
 	/*0x1c*/ s32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ s16 unk24;
+	/*0x20*/ s32 unk20;
+	/*0x24*/ s16 padnum;
 	/*0x26*/ s16 soundnum26;
 	/*0x28*/ s16 unk28;
 	/*0x2a*/ u16 unk2a;
-	/*0x2c*/ u16 unk2c;
-	/*0x2e*/ u16 unk2e;
+	/*0x2c*/ s16 unk2c;
+	/*0x2e*/ s16 channelnum;
 	/*0x30*/ u16 flags;
-	/*0x32*/ u16 unk32;
+	/*0x32*/ u16 flags2;
 	/*0x34*/ f32 unk34;
 	/*0x38*/ f32 unk38;
 	/*0x3c*/ f32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
+	/*0x40*/ f32 unk40;
+	/*0x44*/ f32 unk44;
+	/*0x48*/ f32 unk48;
 	/*0x4c*/ f32 unk4c;
 	/*0x50*/ struct prop *prop;
-	/*0x54*/ u32 unk54;
-	/*0x58*/ u32 unk58;
-	/*0x5c*/ u32 unk5c;
-	/*0x60*/ u32 unk60;
-	/*0x64*/ u32 unk64;
-	/*0x68*/ u32 unk68;
-	/*0x6c*/ u32 unk6c;
-	/*0x70*/ u32 unk70;
-	/*0x74*/ u32 unk74;
+	/*0x54*/ struct coord *posptr;
+	/*0x58*/ struct coord pos;
+	/*0x64*/ s16 rooms[8];
+	/*0x74*/ u32 uuid;
 };
 
 struct var8007e3d0_data {

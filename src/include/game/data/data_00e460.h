@@ -138,7 +138,7 @@ extern u32 var8006ad8c;
 extern u32 var8006ad90;
 extern u32 var8006adf8;
 extern struct audiochannel *g_AudioChannels;
-extern u32 var8006ae14;
+extern u32 g_AudioPrevUuid;
 extern s8 var8006ae18;
 extern s8 var8006ae1c;
 extern s8 var8006ae20;

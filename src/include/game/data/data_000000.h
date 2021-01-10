@@ -27,8 +27,8 @@ extern bool g_CountdownTimerRunning;
 extern f32 g_CountdownTimerValue;
 extern u32 g_StageFlags;
 
-extern struct audiodefinition audiodefinitions[];
-extern struct audioconfig audioconfigs[];
+extern struct audiorussmapping g_AudioRussMappings[];
+extern struct audioconfig g_AudioConfigs[];
 
 extern bool (*g_CommandPointers[NUM_AICOMMANDS])(void);
 extern u16 g_CommandLengths[NUM_AICOMMANDS];
@@ -106,7 +106,7 @@ extern u32 var8005ddc0;
 extern u32 var8005ddc4;
 extern u16 g_SfxVolume;
 extern u32 g_SoundMode;
-extern u32 var8005ddd4;
+extern s32 var8005ddd4;
 extern u32 var8005ddd8;
 extern u32 var8005dde0;
 extern u32 var8005edf0;

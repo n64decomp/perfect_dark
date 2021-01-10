@@ -4596,7 +4596,7 @@ glabel aiSpeak
 //	s16 text_id = cmd[4] | (cmd[3] << 8);
 //	s32 prevplayernum = g_Vars.currentplayernum;
 //	s32 playernum = g_Vars.currentplayernum;
-//	u32 audioref;
+//	u32 channelnum;
 //	char *text = text_id >= 0 ? langGet(text_id) : NULL;
 //
 //	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -4610,13 +4610,13 @@ glabel aiSpeak
 //	}
 //
 //	if (cmd[2] == CHR_P1P2) {
-//		audioref = audioPlayFromProp(cmd[7], audio_id, 0, g_Vars.chrdata->prop, 0, 512);
+//		channelnum = audioPlayFromProp(cmd[7], audio_id, 0, g_Vars.chrdata->prop, 0, 512);
 //	} else {
-//		audioref = audioPlayFromProp(cmd[7], audio_id, 0, g_Vars.chrdata->prop, 9, 512);
+//		channelnum = audioPlayFromProp(cmd[7], audio_id, 0, g_Vars.chrdata->prop, 9, 512);
 //	}
 //
 //	if (text && !audioIsFiltered(audio_id)) {
-//		func0f0de160(text, 6, cmd[8], audioref);
+//		func0f0de160(text, 6, cmd[8], channelnum);
 //	}
 //
 //	setCurrentPlayerNum(prevplayernum);
