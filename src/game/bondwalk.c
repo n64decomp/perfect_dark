@@ -377,15 +377,13 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 
 			if (valid == true) {
 				valid = func0002a9f0(&g_Vars.currentplayer->prop->pos,
-						&dstpos,
-						width, dstrooms, sp60, 1,
+						&dstpos, width, dstrooms, sp60, 1,
 						ymax - g_Vars.currentplayer->prop->pos.y,
 						ymin - g_Vars.currentplayer->prop->pos.y);
 			}
 		} else {
 			valid = func0002a9f0(&g_Vars.currentplayer->prop->pos,
-					&dstpos,
-					width, sp64, sp60, 1,
+					&dstpos, width, sp64, sp60, 1,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 		}

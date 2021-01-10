@@ -8,7 +8,7 @@ void currentPlayerSetSwayTarget(s32 value);
 void currentPlayerAdjustCrouchPos(s32 value);
 void func0f0c3b38(struct coord *param_1, struct defaultobj *obj);
 bool currentPlayerHasGapToCeiling(f32 y);
-bool bwalkCalculateNewPosition(struct coord *vel, f32 arg1, bool arg2, f32 arg3, s32 arg4);
+bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, f32 extrawidth, s32 arg4);
 bool func0f0c4250(struct coord *delta, f32 arg1, bool arg2, f32 arg3, s32 arg4);
 bool func0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s32 arg3);
 s32 func0f0c47d0(struct coord *a, struct coord *b, struct coord *c, struct coord *d, struct coord *e, s32 arg6);
