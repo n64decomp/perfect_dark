@@ -498,7 +498,7 @@ bool func0f0cd05c(f32 y)
 	propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
 	func0f0cb79c(g_Vars.currentplayer, &newpos, rooms);
-	func0f064178(g_Vars.currentplayer->prop, false);
+	propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
 
 	ymin -= 0.1f;
 
@@ -506,7 +506,7 @@ bool func0f0cd05c(f32 y)
 			ymax - g_Vars.currentplayer->prop->pos.y,
 			ymin - g_Vars.currentplayer->prop->pos.y);
 
-	func0f064178(g_Vars.currentplayer->prop, true);
+	propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);
 
 	if (result == 1) {
 		g_Vars.currentplayer->prop->pos.y = newpos.y;
@@ -568,11 +568,11 @@ glabel var7f1ad9c4
 /*  f0cd1f4:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f0cd1f8:	8e180284 */ 	lw	$t8,0x284($s0)
 /*  f0cd1fc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0cd200:	0fc1905e */ 	jal	func0f064178
+/*  f0cd200:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0cd204:	8f0400bc */ 	lw	$a0,0xbc($t8)
 /*  f0cd208:	8e190284 */ 	lw	$t9,0x284($s0)
 /*  f0cd20c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0cd210:	0fc1905e */ 	jal	func0f064178
+/*  f0cd210:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0cd214:	8f241b5c */ 	lw	$a0,0x1b5c($t9)
 /*  f0cd218:	8e080284 */ 	lw	$t0,0x284($s0)
 /*  f0cd21c:	8fa300f0 */ 	lw	$v1,0xf0($sp)
@@ -676,7 +676,7 @@ glabel var7f1ad9c4
 /*  f0cd39c:	8e0c0284 */ 	lw	$t4,0x284($s0)
 .L0f0cd3a0:
 /*  f0cd3a0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cd3a4:	0fc1905e */ 	jal	func0f064178
+/*  f0cd3a4:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0cd3a8:	8d841b5c */ 	lw	$a0,0x1b5c($t4)
 /*  f0cd3ac:	8fad00ec */ 	lw	$t5,0xec($sp)
 /*  f0cd3b0:	24010001 */ 	addiu	$at,$zero,0x1
@@ -971,7 +971,7 @@ glabel var7f1ad9c4
 .L0f0cd7ec:
 /*  f0cd7ec:	c7b600b8 */ 	lwc1	$f22,0xb8($sp)
 /*  f0cd7f0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cd7f4:	0fc1905e */ 	jal	func0f064178
+/*  f0cd7f4:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0cd7f8:	8d6400bc */ 	lw	$a0,0xbc($t3)
 /*  f0cd7fc:	3c017f1b */ 	lui	$at,%hi(var7f1ad9c4)
 /*  f0cd800:	c422d9c4 */ 	lwc1	$f2,%lo(var7f1ad9c4)($at)
@@ -2292,10 +2292,10 @@ glabel var7f1ada30
 /*  f0cf03c:	46002181 */ 	sub.s	$f6,$f4,$f0
 /*  f0cf040:	46083281 */ 	sub.s	$f10,$f6,$f8
 /*  f0cf044:	e7aa0030 */ 	swc1	$f10,0x30($sp)
-/*  f0cf048:	0fc1905e */ 	jal	func0f064178
+/*  f0cf048:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0cf04c:	8e0400bc */ 	lw	$a0,0xbc($s0)
 /*  f0cf050:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f0cf054:	0fc1905e */ 	jal	func0f064178
+/*  f0cf054:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0cf058:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0cf05c:	3c10800a */ 	lui	$s0,%hi(g_Vars+0x284)
 /*  f0cf060:	8e10a244 */ 	lw	$s0,%lo(g_Vars+0x284)($s0)
@@ -2347,10 +2347,10 @@ glabel var7f1ada30
 /*  f0cf110:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
 /*  f0cf114:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
 /*  f0cf118:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cf11c:	0fc1905e */ 	jal	func0f064178
+/*  f0cf11c:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0cf120:	8f0400bc */ 	lw	$a0,0xbc($t8)
 /*  f0cf124:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f0cf128:	0fc1905e */ 	jal	func0f064178
+/*  f0cf128:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0cf12c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0cf130:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f0cf134:

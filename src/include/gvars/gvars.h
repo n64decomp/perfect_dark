@@ -83,8 +83,8 @@ struct g_vars {
 	/*00031c*/ s32 lvmpbotlevel;
 	/*000320*/ s32 unk000320;
 	/*000324*/ s32 unk000324;
-	/*000328*/ s32 unk000328;
-	/*00032c*/ u32 unk00032c;
+	/*000328*/ bool bondcollisions;
+	/*00032c*/ bool enableslopes;
 	/*000330*/ u32 unk000330;
 	/*000334*/ s32 maxprops;
 	/*000338*/ struct prop *props; // pointer to array

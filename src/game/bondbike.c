@@ -146,8 +146,8 @@ void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance)
 		pos.y = g_Vars.currentplayer->hoverbike->pos.y;
 		pos.z = g_Vars.currentplayer->hoverbike->pos.z + cosf(angle) * distance;
 
-		func0f064178(g_Vars.currentplayer->hoverbike, false);
-		func0f064178(g_Vars.currentplayer->prop, false);
+		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, false);
+		propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
 
 		func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &pos, rooms);
 		func0f0cb79c(g_Vars.currentplayer, &pos, rooms);
@@ -157,7 +157,7 @@ void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance)
 				ymax - g_Vars.currentplayer->prop->pos.y,
 				ymin - g_Vars.currentplayer->prop->pos.y);
 
-		func0f064178(g_Vars.currentplayer->hoverbike, true);
+		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, true);
 
 		if (usable == true) {
 			usable = func0002a684(&pos, width, rooms, 0x3f, true,
@@ -177,7 +177,7 @@ void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance)
 			g_Vars.currentplayer->moveinitspeed.z = bike->speed[1];
 		}
 
-		func0f064178(g_Vars.currentplayer->prop, true);
+		propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);
 	}
 }
 
@@ -907,11 +907,11 @@ glabel var7f1adb7c
 /*  f0d2eb0:	c7a4013c */ 	lwc1	$f4,0x13c($sp)
 /*  f0d2eb4:	8c6400bc */ 	lw	$a0,0xbc($v1)
 .L0f0d2eb8:
-/*  f0d2eb8:	0fc1905e */ 	jal	func0f064178
+/*  f0d2eb8:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0d2ebc:	afa60138 */ 	sw	$a2,0x138($sp)
 /*  f0d2ec0:	8e390284 */ 	lw	$t9,0x284($s1)
 /*  f0d2ec4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0d2ec8:	0fc1905e */ 	jal	func0f064178
+/*  f0d2ec8:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0d2ecc:	8f241a6c */ 	lw	$a0,0x1a6c($t9)
 /*  f0d2ed0:	8fa20138 */ 	lw	$v0,0x138($sp)
 /*  f0d2ed4:	c7a40128 */ 	lwc1	$f4,0x128($sp)
@@ -1066,11 +1066,11 @@ glabel var7f1adb7c
 .L0f0d311c:
 /*  f0d311c:	8e390284 */ 	lw	$t9,0x284($s1)
 /*  f0d3120:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0d3124:	0fc1905e */ 	jal	func0f064178
+/*  f0d3124:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0d3128:	8f2400bc */ 	lw	$a0,0xbc($t9)
 /*  f0d312c:	8e280284 */ 	lw	$t0,0x284($s1)
 /*  f0d3130:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0d3134:	0fc1905e */ 	jal	func0f064178
+/*  f0d3134:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0d3138:	8d041a6c */ 	lw	$a0,0x1a6c($t0)
 /*  f0d313c:	44800000 */ 	mtc1	$zero,$f0
 /*  f0d3140:	00000000 */ 	nop

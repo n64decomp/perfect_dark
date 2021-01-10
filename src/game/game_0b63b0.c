@@ -10307,7 +10307,7 @@ void setGvars324(s32 arg0)
 
 void setGvars328(s32 arg0)
 {
-	g_Vars.unk000328 = arg0;
+	g_Vars.bondcollisions = arg0;
 }
 
 void currentPlayerSetCameraMode(s32 mode)

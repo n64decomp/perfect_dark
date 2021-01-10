@@ -4027,7 +4027,7 @@ glabel var7f1a9f2c
 /*  f064174:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
 );
 
-void func0f064178(struct prop *prop, s32 enable)
+void propSetCollisionsEnabled(struct prop *prop, s32 enable)
 {
 	if (prop->type == PROPTYPE_CHR) {
 		chrSetOrUnsetHiddenFlag00000100(prop->chr, enable);

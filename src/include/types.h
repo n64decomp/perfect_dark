@@ -2727,7 +2727,7 @@ struct player {
 	/*0x1a9c*/ Mtxf bondentermtx;
 	/*0x1adc*/ struct coord bondenteraim;
 	/*0x1ae8*/ f32 bondonground;
-	/*0x1aec*/ u32 unk1aec;
+	/*0x1aec*/ struct prop *unk1aec;
 	/*0x1af0*/ struct prop *unk1af0;
 	/*0x1af4*/ u32 unk1af4;
 	/*0x1af8*/ s32 walkinitmove;

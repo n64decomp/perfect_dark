@@ -9943,7 +9943,7 @@ glabel chrCanSeeEntity
 /*  f039028:	11a00068 */ 	beqz	$t5,.L0f0391cc
 .L0f03902c:
 /*  f03902c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f039030:	0fc1905e */ 	jal	func0f064178
+/*  f039030:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f039034:	afa40054 */ 	sw	$a0,0x54($sp)
 /*  f039038:	8fae0084 */ 	lw	$t6,0x84($sp)
 /*  f03903c:	8faf0078 */ 	lw	$t7,0x78($sp)
@@ -10002,7 +10002,7 @@ glabel chrCanSeeEntity
 .L0f039108:
 /*  f039108:	8fa40054 */ 	lw	$a0,0x54($sp)
 .L0f03910c:
-/*  f03910c:	0fc1905e */ 	jal	func0f064178
+/*  f03910c:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f039110:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f039114:	1000002e */ 	b	.L0f0391d0
 /*  f039118:	8fa40078 */ 	lw	$a0,0x78($sp)
@@ -10247,9 +10247,9 @@ bool chrCanSeeProp(struct chrdata *chr, struct prop *prop)
 {
 	bool result;
 
-	func0f064178(prop, false);
+	propSetCollisionsEnabled(prop, false);
 	result = chrCanSeePos(chr, &prop->pos, prop->rooms);
-	func0f064178(prop, true);
+	propSetCollisionsEnabled(prop, true);
 
 	return result;
 }
@@ -11414,7 +11414,7 @@ glabel var7f1a8ed4
 /*  f03b42c:	00000000 */ 	nop
 /*  f03b430:	4502005a */ 	bc1fl	.L0f03b59c
 /*  f03b434:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b438:	0fc1905e */ 	jal	func0f064178
+/*  f03b438:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f03b43c:	26740008 */ 	addiu	$s4,$s3,0x8
 /*  f03b440:	02802025 */ 	or	$a0,$s4,$zero
 /*  f03b444:	8fa5004c */ 	lw	$a1,0x4c($sp)
@@ -11423,7 +11423,7 @@ glabel var7f1a8ed4
 /*  f03b450:	24070022 */ 	addiu	$a3,$zero,0x22
 /*  f03b454:	10400050 */ 	beqz	$v0,.L0f03b598
 /*  f03b458:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b45c:	0fc1905e */ 	jal	func0f064178
+/*  f03b45c:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f03b460:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03b464:	c6000008 */ 	lwc1	$f0,0x8($s0)
 /*  f03b468:	c6ca0008 */ 	lwc1	$f10,0x8($s6)
@@ -11510,7 +11510,7 @@ glabel var7f1a8ed4
 .L0f03b598:
 /*  f03b598:	02002025 */ 	or	$a0,$s0,$zero
 .L0f03b59c:
-/*  f03b59c:	0fc1905e */ 	jal	func0f064178
+/*  f03b59c:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f03b5a0:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03b5a4:	26520001 */ 	addiu	$s2,$s2,0x1
 .L0f03b5a8:
@@ -16341,7 +16341,7 @@ glabel var7f1a9184
 /*  f040950:	0c0011e4 */ 	jal	scaleTo1
 /*  f040954:	e7b201e8 */ 	swc1	$f18,0x1e8($sp)
 /*  f040958:	8fa4025c */ 	lw	$a0,0x25c($sp)
-/*  f04095c:	0fc1905e */ 	jal	func0f064178
+/*  f04095c:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f040960:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f040964:	1000002f */ 	b	.L0f040a24
 /*  f040968:	8fab0278 */ 	lw	$t3,0x278($sp)
@@ -17445,7 +17445,7 @@ glabel var7f1a9184
 /*  f041960:	8fa4025c */ 	lw	$a0,0x25c($sp)
 /*  f041964:	51c00004 */ 	beqzl	$t6,.L0f041978
 /*  f041968:	8fa80268 */ 	lw	$t0,0x268($sp)
-/*  f04196c:	0fc1905e */ 	jal	func0f064178
+/*  f04196c:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f041970:	00002825 */ 	or	$a1,$zero,$zero
 /*  f041974:	8fa80268 */ 	lw	$t0,0x268($sp)
 .L0f041978:
@@ -23199,11 +23199,11 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 
 	propChrGetBbox(prop, &width, &ymax, &ymin);
 	chrSetOrUnsetHiddenFlag00000100(chr, false);
-	func0f064178(target, false);
+	propSetCollisionsEnabled(target, false);
 	iVar2 = func0002d6ac(&prop->pos, prop->rooms, &target->pos, 51, 1,
 			ymax - prop->pos.y, ymin - prop->pos.y);
 	chrSetOrUnsetHiddenFlag00000100(chr, true);
-	func0f064178(target, true);
+	propSetCollisionsEnabled(target, true);
 
 	if (iVar2) {
 		diffs[0] = target->pos.x - chr->prop->pos.x;
@@ -26174,7 +26174,7 @@ bool func0f04b658(struct chrdata *chr)
 
 	if (chr->proppreset1 >= 0) {
 		chrSetOrUnsetHiddenFlag00000100(chr, false);
-		func0f064178(target, false);
+		propSetCollisionsEnabled(target, false);
 
 		if (!func0002dc18(&prop->pos, prop->rooms, &target->pos, 0x33)) {
 			struct prop *thing = func00024eb0();
@@ -26186,7 +26186,7 @@ bool func0f04b658(struct chrdata *chr)
 		}
 
 		chrSetOrUnsetHiddenFlag00000100(chr, true);
-		func0f064178(target, true);
+		propSetCollisionsEnabled(target, true);
 	}
 
 	return result;
@@ -26212,7 +26212,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 	pos2.z = pos->z;
 
 	roomsCopy(rooms, rooms2);
-	func0f064178(chr->prop, false);
+	propSetCollisionsEnabled(chr->prop, false);
 
 	if (func0f04af84(chr->chrwidth, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen, (chr->hidden & CHRHFLAG_00000200) != 0)) {
 		ground = coordFindGroundY(&pos2, chr->chrwidth, rooms2, &chr->floorcol,
@@ -26252,7 +26252,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 		result = true;
 	}
 
-	func0f064178(chr->prop, true);
+	propSetCollisionsEnabled(chr->prop, true);
 
 	return result;
 }

@@ -46,13 +46,13 @@ void initGlobalVariables(void)
 	g_Vars.unk000458 = 0;
 	g_Vars.numaibuddies = 0;
 	g_Vars.unk000324 = 1;
-	g_Vars.unk000328 = 1;
+	g_Vars.bondcollisions = true;
 	g_Vars.tickmode = TICKMODE_0;
 	g_Vars.roomcount = 350;
 	g_Vars.mplayerisrunning = 0;
 	g_Vars.normmplayerisrunning = 0;
 	g_Vars.perfectbuddynum = 0;
-	g_Vars.unk00032c = 0;
+	g_Vars.enableslopes = false;
 	g_Vars.restartlevel = 0;
 	g_Vars.unk00048c = 0;
 	g_Vars.unk000490 = 0;

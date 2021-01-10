@@ -141,7 +141,7 @@ glabel var7f1ada8c
 /*  f0cf2f0:	0fc087ea */ 	jal	func0f021fa8
 /*  f0cf2f4:	27a60050 */ 	addiu	$a2,$sp,0x50
 /*  f0cf2f8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0cf2fc:	0fc1905e */ 	jal	func0f064178
+/*  f0cf2fc:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0cf300:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0cf304:	3c017f1b */ 	lui	$at,%hi(var7f1ada84)
 /*  f0cf308:	c7a00044 */ 	lwc1	$f0,0x44($sp)
@@ -160,7 +160,7 @@ glabel var7f1ada8c
 /*  f0cf33c:	e7aa0014 */ 	swc1	$f10,0x14($sp)
 /*  f0cf340:	afa20074 */ 	sw	$v0,0x74($sp)
 /*  f0cf344:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0cf348:	0fc1905e */ 	jal	func0f064178
+/*  f0cf348:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0cf34c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0cf350:	8faa0074 */ 	lw	$t2,0x74($sp)
 /*  f0cf354:	24010001 */ 	addiu	$at,$zero,0x1
@@ -180,7 +180,7 @@ glabel var7f1ada8c
 /*  f0cf388:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-s32 func0f0cf38c(struct coord *vel)
+s32 eyespyCalculateNewPosition(struct coord *vel)
 {
 	bool result = true;
 	struct prop *eyespyprop = g_Vars.currentplayer->eyespy->prop;
@@ -204,17 +204,13 @@ s32 func0f0cf38c(struct coord *vel)
 	eyespyFindGround(&floorroom);
 
 	if (vel->x || vel->y || vel->z) {
-		func0f064178(eyespyprop, false);
+		propSetCollisionsEnabled(eyespyprop, false);
 
 		dstpos.x = vel->x + eyespyprop->pos.x;
 		dstpos.y = vel->y + eyespyprop->pos.y;
 		dstpos.z = vel->z + eyespyprop->pos.z;
 
-		if (g_Vars.unk000328) {
-			sp70 = 63;
-		} else {
-			sp70 = 32;
-		}
+		sp70 = g_Vars.bondcollisions ? 63 : 32;
 
 		// Allow eyespy to go up steps 30cm or less
 		if (g_Vars.currentplayer->eyespy->oldground <= chr->manground + 30) {
@@ -269,7 +265,7 @@ s32 func0f0cf38c(struct coord *vel)
 			}
 		}
 
-		func0f064178(eyespyprop, true);
+		propSetCollisionsEnabled(eyespyprop, true);
 
 		if (result == 1) {
 			// Apply the destination
@@ -288,7 +284,7 @@ s32 func0f0cf38c(struct coord *vel)
 
 bool func0f0cf728(struct coord *vel)
 {
-	s32 moved = func0f0cf38c(vel);
+	s32 moved = eyespyCalculateNewPosition(vel);
 	struct prop *prop;
 
 	if (moved != true) {
@@ -1373,7 +1369,7 @@ glabel var7f1ada9c
 /*  f0d07a8:	e62200d0 */ 	swc1	$f2,0xd0($s1)
 /*  f0d07ac:	8e190284 */ 	lw	$t9,0x284($s0)
 /*  f0d07b0:	8f290480 */ 	lw	$t1,0x480($t9)
-/*  f0d07b4:	0fc1905e */ 	jal	func0f064178
+/*  f0d07b4:	0fc1905e */ 	jal	propSetCollisionsEnabled
 /*  f0d07b8:	8d240000 */ 	lw	$a0,0x0($t1)
 /*  f0d07bc:	0fc5b9f1 */ 	jal	langGet
 /*  f0d07c0:	240458da */ 	addiu	$a0,$zero,0x58da
