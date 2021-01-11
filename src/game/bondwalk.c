@@ -135,134 +135,39 @@ void currentPlayerAdjustCrouchPos(s32 value)
 	}
 }
 
-const char var7f1ad750[] = "bondwalk.c";
+void func0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
+{
+	struct coord posunk;
+	struct coord vector;
+	struct coord tween;
+	struct coord globalthinga;
+	struct coord globalthingb;
+	struct coord abstarget;
 
-GLOBAL_ASM(
-glabel func0f0c3b38
-/*  f0c3b38:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f0c3b3c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0c3b40:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0c3b44:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0c3b48:	afa40070 */ 	sw	$a0,0x70($sp)
-/*  f0c3b4c:	afa50074 */ 	sw	$a1,0x74($sp)
-/*  f0c3b50:	8c4f00bc */ 	lw	$t7,0xbc($v0)
-/*  f0c3b54:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f0c3b58:	3c077f1b */ 	lui	$a3,%hi(var7f1ad750)
-/*  f0c3b5c:	c5e60008 */ 	lwc1	$f6,0x8($t7)
-/*  f0c3b60:	24e7d750 */ 	addiu	$a3,$a3,%lo(var7f1ad750)
-/*  f0c3b64:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f0c3b68:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0c3b6c:	240600df */ 	addiu	$a2,$zero,0xdf
-/*  f0c3b70:	e7a80028 */ 	swc1	$f8,0x28($sp)
-/*  f0c3b74:	8c5800bc */ 	lw	$t8,0xbc($v0)
-/*  f0c3b78:	c70a000c */ 	lwc1	$f10,0xc($t8)
-/*  f0c3b7c:	e7aa002c */ 	swc1	$f10,0x2c($sp)
-/*  f0c3b80:	8c5900bc */ 	lw	$t9,0xbc($v0)
-/*  f0c3b84:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f0c3b88:	27a40040 */ 	addiu	$a0,$sp,0x40
-/*  f0c3b8c:	c7320010 */ 	lwc1	$f18,0x10($t9)
-/*  f0c3b90:	46128100 */ 	add.s	$f4,$f16,$f18
-/*  f0c3b94:	0c009393 */ 	jal	func00024e4c
-/*  f0c3b98:	e7a40030 */ 	swc1	$f4,0x30($sp)
-/*  f0c3b9c:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
-/*  f0c3ba0:	c7a80048 */ 	lwc1	$f8,0x48($sp)
-/*  f0c3ba4:	44801000 */ 	mtc1	$zero,$f2
-/*  f0c3ba8:	c7aa0040 */ 	lwc1	$f10,0x40($sp)
-/*  f0c3bac:	46083001 */ 	sub.s	$f0,$f6,$f8
-/*  f0c3bb0:	c7b00034 */ 	lwc1	$f16,0x34($sp)
-/*  f0c3bb4:	27a40058 */ 	addiu	$a0,$sp,0x58
-/*  f0c3bb8:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f0c3bbc:	46001032 */ 	c.eq.s	$f2,$f0
-/*  f0c3bc0:	e7a00058 */ 	swc1	$f0,0x58($sp)
-/*  f0c3bc4:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f0c3bc8:	e7a2005c */ 	swc1	$f2,0x5c($sp)
-/*  f0c3bcc:	45000005 */ 	bc1f	.L0f0c3be4
-/*  f0c3bd0:	e7b20060 */ 	swc1	$f18,0x60($sp)
-/*  f0c3bd4:	46121032 */ 	c.eq.s	$f2,$f18
-/*  f0c3bd8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0c3bdc:	45030006 */ 	bc1tl	.L0f0c3bf8
-/*  f0c3be0:	44812000 */ 	mtc1	$at,$f4
-.L0f0c3be4:
-/*  f0c3be4:	0c0011e4 */ 	jal	scaleTo1
-/*  f0c3be8:	27a60060 */ 	addiu	$a2,$sp,0x60
-/*  f0c3bec:	10000005 */ 	b	.L0f0c3c04
-/*  f0c3bf0:	27a80064 */ 	addiu	$t0,$sp,0x64
-/*  f0c3bf4:	44812000 */ 	mtc1	$at,$f4
-.L0f0c3bf8:
-/*  f0c3bf8:	00000000 */ 	nop
-/*  f0c3bfc:	e7a40060 */ 	swc1	$f4,0x60($sp)
-/*  f0c3c00:	27a80064 */ 	addiu	$t0,$sp,0x64
-.L0f0c3c04:
-/*  f0c3c04:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0c3c08:	27a40040 */ 	addiu	$a0,$sp,0x40
-/*  f0c3c0c:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f0c3c10:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f0c3c14:	0fc0b8f7 */ 	jal	func0f02e3dc
-/*  f0c3c18:	27a70058 */ 	addiu	$a3,$sp,0x58
-/*  f0c3c1c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0c3c20:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0c3c24:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c3c28:	c7a60028 */ 	lwc1	$f6,0x28($sp)
-/*  f0c3c2c:	c460004c */ 	lwc1	$f0,0x4c($v1)
-/*  f0c3c30:	8c4900bc */ 	lw	$t1,0xbc($v0)
-/*  f0c3c34:	44801000 */ 	mtc1	$zero,$f2
-/*  f0c3c38:	c7b20030 */ 	lwc1	$f18,0x30($sp)
-/*  f0c3c3c:	c5280008 */ 	lwc1	$f8,0x8($t1)
-/*  f0c3c40:	e7a20050 */ 	swc1	$f2,0x50($sp)
-/*  f0c3c44:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*  f0c3c48:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*  f0c3c4c:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0c3c50:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0c3c54:	27a7004c */ 	addiu	$a3,$sp,0x4c
-/*  f0c3c58:	46005403 */ 	div.s	$f16,$f10,$f0
-/*  f0c3c5c:	e7b0004c */ 	swc1	$f16,0x4c($sp)
-/*  f0c3c60:	8c4a00bc */ 	lw	$t2,0xbc($v0)
-/*  f0c3c64:	c5440010 */ 	lwc1	$f4,0x10($t2)
-/*  f0c3c68:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0c3c6c:	46049181 */ 	sub.s	$f6,$f18,$f4
-/*  f0c3c70:	46003203 */ 	div.s	$f8,$f6,$f0
-/*  f0c3c74:	0fc20ba1 */ 	jal	func0f082e84
-/*  f0c3c78:	e7a80054 */ 	swc1	$f8,0x54($sp)
-/*  f0c3c7c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0c3c80:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*  f0c3c84:	03e00008 */ 	jr	$ra
-/*  f0c3c88:	00000000 */ 	nop
-);
+	abstarget.x = reltarget->x + g_Vars.currentplayer->prop->pos.x;
+	abstarget.y = g_Vars.currentplayer->prop->pos.y;
+	abstarget.z = reltarget->z + g_Vars.currentplayer->prop->pos.z;
 
-// Mismatch because the operands are swapped for the vector != 0 checks
-//void func0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
-//{
-//	struct coord posunk;
-//	struct coord vector;
-//	struct coord tween;
-//	struct coord globalthinga;
-//	struct coord globalthingb;
-//	struct coord abstarget;
-//
-//	abstarget.x = reltarget->x + g_Vars.currentplayer->prop->pos.x;
-//	abstarget.y = g_Vars.currentplayer->prop->pos.y;
-//	abstarget.z = reltarget->z + g_Vars.currentplayer->prop->pos.z;
-//
-//	func00024e4c(&globalthinga, &globalthingb, 0xdf, "bondwalk.c");
-//
-//	vector.x = globalthingb.z - globalthinga.z;
-//	vector.y = 0;
-//	vector.z = globalthinga.x - globalthingb.x;
-//
-//	if (vector.x != 0 || vector.z != 0) {
-//		scaleTo1(&vector.x, &vector.y, &vector.z);
-//	} else {
-//		vector.z = 1;
-//	}
-//
-//	func0f02e3dc(&globalthinga, &globalthingb, &abstarget, &vector, &posunk);
-//
-//	tween.x = (abstarget.x - g_Vars.currentplayer->prop->pos.x) / g_Vars.lvupdate240freal;
-//	tween.y = 0;
-//	tween.z = (abstarget.z - g_Vars.currentplayer->prop->pos.z) / g_Vars.lvupdate240freal;
-//
-//	func0f082e84(obj, &posunk, &vector, &tween, false);
-//}
+	func00024e4c(&globalthinga, &globalthingb, 223, "bondwalk.c");
+
+	vector.x = globalthingb.z - globalthinga.z;
+	vector.y = 0;
+	vector.z = globalthinga.x - globalthingb.x;
+
+	if (vector.f[0] != 0 || vector.f[2] != 0) {
+		scaleTo1(&vector.x, &vector.y, &vector.z);
+	} else {
+		vector.z = 1;
+	}
+
+	func0f02e3dc(&globalthinga, &globalthingb, &abstarget, &vector, &posunk);
+
+	tween.x = (abstarget.x - g_Vars.currentplayer->prop->pos.x) / g_Vars.lvupdate240freal;
+	tween.y = 0;
+	tween.z = (abstarget.z - g_Vars.currentplayer->prop->pos.z) / g_Vars.lvupdate240freal;
+
+	func0f082e84(obj, &posunk, &vector, &tween, false);
+}
 
 const char var7f1ad75c[] = "bondwalk.c";
 
