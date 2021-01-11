@@ -2000,26 +2000,17 @@ glabel func00024f10
 /*    24f68:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func00024f6c
-/*    24f6c:	3c01800a */ 	lui	$at,%hi(var8009a8b4)
-/*    24f70:	ac20a8b4 */ 	sw	$zero,%lo(var8009a8b4)($at)
-/*    24f74:	3c01800a */ 	lui	$at,%hi(var8009a8ac)
-/*    24f78:	ac20a8ac */ 	sw	$zero,%lo(var8009a8ac)($at)
-/*    24f7c:	3c01800a */ 	lui	$at,%hi(var8009a8d4)
-/*    24f80:	ac20a8d4 */ 	sw	$zero,%lo(var8009a8d4)($at)
-/*    24f84:	3c01800a */ 	lui	$at,%hi(var8009a8d8)
-/*    24f88:	ac20a8d8 */ 	sw	$zero,%lo(var8009a8d8)($at)
-/*    24f8c:	3c01800a */ 	lui	$at,%hi(var8009a8ec)
-/*    24f90:	ac20a8ec */ 	sw	$zero,%lo(var8009a8ec)($at)
-/*    24f94:	3c01800a */ 	lui	$at,%hi(var8009a8f4)
-/*    24f98:	ac20a8f4 */ 	sw	$zero,%lo(var8009a8f4)($at)
-/*    24f9c:	3c018006 */ 	lui	$at,%hi(var8005f034)
-/*    24fa0:	ac20f034 */ 	sw	$zero,%lo(var8005f034)($at)
-/*    24fa4:	3c018006 */ 	lui	$at,%hi(var8005f038)
-/*    24fa8:	03e00008 */ 	jr	$ra
-/*    24fac:	ac20f038 */ 	sw	$zero,%lo(var8005f038)($at)
-);
+void func00024f6c(void)
+{
+	var8009a8b4 = 0;
+	var8009a8ac = 0;
+	var8009a8d4 = 0;
+	var8009a8d8 = 0;
+	var8009a8ec = 0;
+	var8009a8f4 = 0;
+	var8005f034 = 0;
+	var8005f038 = 0;
+}
 
 GLOBAL_ASM(
 glabel func00024fb0
