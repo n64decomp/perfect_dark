@@ -76,109 +76,48 @@ f32 eyespyFindGround(s16 *floorroom)
 	return ground;
 }
 
-GLOBAL_ASM(
-glabel func0f0cf230
-.late_rodata
-glabel var7f1ada84
-.word 0x3dcccccd
-glabel var7f1ada88
-.word 0x3f847ae1
-glabel var7f1ada8c
-.word 0x47ae147b
-.text
-/*  f0cf230:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0cf234:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0cf238:	8c820284 */ 	lw	$v0,0x284($a0)
-/*  f0cf23c:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f0cf240:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0cf244:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0cf248:	8c4e0480 */ 	lw	$t6,0x480($v0)
-/*  f0cf24c:	8c8f0328 */ 	lw	$t7,0x328($a0)
-/*  f0cf250:	3c0141f0 */ 	lui	$at,0x41f0
-/*  f0cf254:	8dd00000 */ 	lw	$s0,0x0($t6)
-/*  f0cf258:	44817000 */ 	mtc1	$at,$f14
-/*  f0cf25c:	24190020 */ 	addiu	$t9,$zero,0x20
-/*  f0cf260:	c6040008 */ 	lwc1	$f4,0x8($s0)
-/*  f0cf264:	8e030004 */ 	lw	$v1,0x4($s0)
-/*  f0cf268:	2418003f */ 	addiu	$t8,$zero,0x3f
-/*  f0cf26c:	e7a40060 */ 	swc1	$f4,0x60($sp)
-/*  f0cf270:	c606000c */ 	lwc1	$f6,0xc($s0)
-/*  f0cf274:	27a60060 */ 	addiu	$a2,$sp,0x60
-/*  f0cf278:	27a70050 */ 	addiu	$a3,$sp,0x50
-/*  f0cf27c:	460c3200 */ 	add.s	$f8,$f6,$f12
-/*  f0cf280:	26040008 */ 	addiu	$a0,$s0,0x8
-/*  f0cf284:	26050028 */ 	addiu	$a1,$s0,0x28
-/*  f0cf288:	e7a80064 */ 	swc1	$f8,0x64($sp)
-/*  f0cf28c:	c60a0010 */ 	lwc1	$f10,0x10($s0)
-/*  f0cf290:	11e00003 */ 	beqz	$t7,.L0f0cf2a0
-/*  f0cf294:	e7aa0068 */ 	swc1	$f10,0x68($sp)
-/*  f0cf298:	10000002 */ 	b	.L0f0cf2a4
-/*  f0cf29c:	afb8004c */ 	sw	$t8,0x4c($sp)
-.L0f0cf2a0:
-/*  f0cf2a0:	afb9004c */ 	sw	$t9,0x4c($sp)
-.L0f0cf2a4:
-/*  f0cf2a4:	c46200b4 */ 	lwc1	$f2,0xb4($v1)
-/*  f0cf2a8:	8c480480 */ 	lw	$t0,0x480($v0)
-/*  f0cf2ac:	460e1400 */ 	add.s	$f16,$f2,$f14
-/*  f0cf2b0:	c50c005c */ 	lwc1	$f12,0x5c($t0)
-/*  f0cf2b4:	4610603e */ 	c.le.s	$f12,$f16
-/*  f0cf2b8:	00000000 */ 	nop
-/*  f0cf2bc:	45020006 */ 	bc1fl	.L0f0cf2d8
-/*  f0cf2c0:	c606000c */ 	lwc1	$f6,0xc($s0)
-/*  f0cf2c4:	c612000c */ 	lwc1	$f18,0xc($s0)
-/*  f0cf2c8:	46121101 */ 	sub.s	$f4,$f2,$f18
-/*  f0cf2cc:	10000003 */ 	b	.L0f0cf2dc
-/*  f0cf2d0:	460e2000 */ 	add.s	$f0,$f4,$f14
-/*  f0cf2d4:	c606000c */ 	lwc1	$f6,0xc($s0)
-.L0f0cf2d8:
-/*  f0cf2d8:	46066001 */ 	sub.s	$f0,$f12,$f6
-.L0f0cf2dc:
-/*  f0cf2dc:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f0cf2e0:	0fc1979d */ 	jal	func0f065e74
-/*  f0cf2e4:	e7a00044 */ 	swc1	$f0,0x44($sp)
-/*  f0cf2e8:	8e040004 */ 	lw	$a0,0x4($s0)
-/*  f0cf2ec:	27a50060 */ 	addiu	$a1,$sp,0x60
-/*  f0cf2f0:	0fc087ea */ 	jal	func0f021fa8
-/*  f0cf2f4:	27a60050 */ 	addiu	$a2,$sp,0x50
-/*  f0cf2f8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0cf2fc:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f0cf300:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0cf304:	3c017f1b */ 	lui	$at,%hi(var7f1ada84)
-/*  f0cf308:	c7a00044 */ 	lwc1	$f0,0x44($sp)
-/*  f0cf30c:	c428da84 */ 	lwc1	$f8,%lo(var7f1ada84)($at)
-/*  f0cf310:	3c014170 */ 	lui	$at,0x4170
-/*  f0cf314:	44815000 */ 	mtc1	$at,$f10
-/*  f0cf318:	46080001 */ 	sub.s	$f0,$f0,$f8
-/*  f0cf31c:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f0cf320:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0cf324:	27a40060 */ 	addiu	$a0,$sp,0x60
-/*  f0cf328:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f0cf32c:	3c0541d0 */ 	lui	$a1,0x41d0
-/*  f0cf330:	27a60050 */ 	addiu	$a2,$sp,0x50
-/*  f0cf334:	8fa7004c */ 	lw	$a3,0x4c($sp)
-/*  f0cf338:	0c00a9a1 */ 	jal	func0002a684
-/*  f0cf33c:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f0cf340:	afa20074 */ 	sw	$v0,0x74($sp)
-/*  f0cf344:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0cf348:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f0cf34c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cf350:	8faa0074 */ 	lw	$t2,0x74($sp)
-/*  f0cf354:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0cf358:	c7b00064 */ 	lwc1	$f16,0x64($sp)
-/*  f0cf35c:	15410006 */ 	bne	$t2,$at,.L0f0cf378
-/*  f0cf360:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0cf364:	0fc19711 */ 	jal	func0f065c44
-/*  f0cf368:	e610000c */ 	swc1	$f16,0xc($s0)
-/*  f0cf36c:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f0cf370:	0fc195e9 */ 	jal	roomsCopy
-/*  f0cf374:	8fa5003c */ 	lw	$a1,0x3c($sp)
-.L0f0cf378:
-/*  f0cf378:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0cf37c:	8fa20074 */ 	lw	$v0,0x74($sp)
-/*  f0cf380:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f0cf384:	03e00008 */ 	jr	$ra
-/*  f0cf388:	27bd0078 */ 	addiu	$sp,$sp,0x78
-);
+s32 eyespyCalculateNewY(f32 yvel)
+{
+	s32 result;
+	struct prop *prop = g_Vars.currentplayer->eyespy->prop;
+	struct chrdata *chr = prop->chr;
+	struct coord dstpos;
+	s16 dstrooms[8];
+	s32 sp4c;
+	u32 stack;
+	f32 f0;
+	u32 stack2;
+
+	dstpos.x = prop->pos.x;
+	dstpos.y = prop->pos.y + yvel;
+	dstpos.z = prop->pos.z;
+
+	sp4c = g_Vars.bondcollisions ? 63 : 32;
+
+	// Allow eyespy to go up steps 30cm or less
+	if (chr->manground + 30 >= g_Vars.currentplayer->eyespy->oldground) {
+		f0 = chr->manground - prop->pos.y + 30;
+	} else {
+		f0 = g_Vars.currentplayer->eyespy->oldground - prop->pos.y;
+	}
+
+	func0f065e74(&prop->pos, prop->rooms, &dstpos, dstrooms);
+	func0f021fa8(prop->chr, &dstpos, dstrooms);
+	propSetCollisionsEnabled(prop, false);
+
+	f0 -= 0.1f;
+
+	result = func0002a684(&dstpos, 26, dstrooms, sp4c, 1, 15, f0);
+	propSetCollisionsEnabled(prop, true);
+
+	if (result == 1) {
+		prop->pos.y = dstpos.y;
+		func0f065c44(prop);
+		roomsCopy(dstrooms, prop->rooms);
+	}
+
+	return result;
+}
 
 s32 eyespyCalculateNewPosition(struct coord *vel)
 {
@@ -715,6 +654,10 @@ const char var7f1ada74[] = "l";
 GLOBAL_ASM(
 glabel func0f0cfe24
 .late_rodata
+glabel var7f1ada88
+.word 0x3f847ae1
+glabel var7f1ada8c
+.word 0x47ae147b
 glabel var7f1ada90
 .word 0x3c23d70a
 glabel var7f1ada94
@@ -929,7 +872,7 @@ glabel var7f1ada94
 /*  f0d0134:	46027301 */ 	sub.s	$f12,$f14,$f2
 .L0f0d0138:
 /*  f0d0138:	e7ae006c */ 	swc1	$f14,0x6c($sp)
-/*  f0d013c:	0fc33c8c */ 	jal	func0f0cf230
+/*  f0d013c:	0fc33c8c */ 	jal	eyespyCalculateNewY
 /*  f0d0140:	e7b2008c */ 	swc1	$f18,0x8c($sp)
 /*  f0d0144:	c7ae006c */ 	lwc1	$f14,0x6c($sp)
 /*  f0d0148:	10400004 */ 	beqz	$v0,.L0f0d015c
@@ -989,7 +932,7 @@ glabel var7f1ada94
 /*  f0d0210:	46100301 */ 	sub.s	$f12,$f0,$f16
 .L0f0d0214:
 /*  f0d0214:	afa30030 */ 	sw	$v1,0x30($sp)
-/*  f0d0218:	0fc33c8c */ 	jal	func0f0cf230
+/*  f0d0218:	0fc33c8c */ 	jal	eyespyCalculateNewY
 /*  f0d021c:	e7a00034 */ 	swc1	$f0,0x34($sp)
 /*  f0d0220:	8fa30030 */ 	lw	$v1,0x30($sp)
 /*  f0d0224:	10400006 */ 	beqz	$v0,.L0f0d0240
