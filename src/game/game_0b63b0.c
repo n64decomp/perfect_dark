@@ -5682,7 +5682,7 @@ glabel var7f1ad6ac
 /*  f0bde54:	8d4a0750 */ 	lw	$t2,%lo(g_PlayersWithControl)($t2)
 /*  f0bde58:	5140000d */ 	beqzl	$t2,.L0f0bde90
 /*  f0bde5c:	924e0035 */ 	lbu	$t6,0x35($s2)
-/*  f0bde60:	0fc340c4 */ 	jal	func0f0d0310
+/*  f0bde60:	0fc340c4 */ 	jal	eyespyTryLaunch
 /*  f0bde64:	00000000 */ 	nop
 /*  f0bde68:	54400009 */ 	bnezl	$v0,.L0f0bde90
 /*  f0bde6c:	924e0035 */ 	lbu	$t6,0x35($s2)
@@ -7812,7 +7812,7 @@ glabel var7f1ad6ac
 //				// de34
 //				if ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->joybutinhibit & DEVICE_EYESPY)
 //						&& g_PlayersWithControl[playernum]
-//						&& func0f0d0310() == 0) {
+//						&& !eyespyTryLaunch()) {
 //					eyespy->init = true;
 //					eyespy->active = false;
 //					g_Vars.currentplayer->devicesactive &= ~DEVICE_EYESPY;

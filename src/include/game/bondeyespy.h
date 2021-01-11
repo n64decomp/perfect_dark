@@ -12,7 +12,7 @@ u32 func0f0cf9f8(void);
 u32 func0f0cfafc(void);
 bool func0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2);
 u32 func0f0cfe24(void);
-u32 func0f0d0310(void);
+bool eyespyTryLaunch(void);
 void func0f0d0928(bool arg0);
 
 #endif

@@ -1629,7 +1629,7 @@ struct eyespy {
 	/*0x00*/ struct prop *prop;
 	/*0x04*/ struct coord look;
 	/*0x10*/ struct coord up;
-	/*0x1c*/ f32 theta;
+	/*0x1c*/ f32 theta; // turn angle in degrees
 	/*0x20*/ f32 costheta;
 	/*0x24*/ f32 sintheta;
 	/*0x28*/ f32 verta;
@@ -1648,15 +1648,15 @@ struct eyespy {
 	/*0x4c*/ struct coord unk4c;
 	/*0x58*/ f32 speed;
 	/*0x5c*/ f32 oldground;
-	/*0x60*/ f32 height; // height above ground - 80 to 160
+	/*0x60*/ f32 height; // height above ground - 30 to 160 on G5 and CI training, 80 to 160 elsewhere
 	/*0x64*/ f32 gravity;
 	/*0x68*/ s8 camerashuttertime;
 	/*0x69*/ u8 hit;
 	/*0x6a*/ u8 opendoor;
 	/*0x6b*/ u8 mode;
-	/*0x6c*/ s32 velf[2];
-	/*0x74*/ s32 vels[2];
-	/*0x7c*/ s32 pitch;
+	/*0x6c*/ f32 velf[2];
+	/*0x74*/ f32 vels[2];
+	/*0x7c*/ f32 pitch;
 };
 
 struct audiohandle {

@@ -97,7 +97,7 @@ extern u32 var80070ea8;
 extern u8 var80070ec0;
 extern u8 var80070ec4;
 extern f32 g_EyespyMaxHeight;
-extern u32 var80070ed4;
+extern f32 g_EyespyMinHeight;
 extern u32 var80070ed8;
 extern u32 var80070edc;
 extern u32 var80070ee0;
