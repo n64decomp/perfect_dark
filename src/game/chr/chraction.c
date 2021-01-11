@@ -59,14 +59,6 @@
 
 const char var7f1a8ac0[] = "chraction.c";
 const char var7f1a8acc[] = "chraction.c";
-const char var7f1a8ad8[] = "chraction.c";
-const char var7f1a8ae4[] = "aimadjust=%d";
-const char var7f1a8af4[] = "chraction.c";
-const char var7f1a8b00[] = "firing(%d) %d, beam(%d) %s";
-const char var7f1a8b1c[] = "on";
-const char var7f1a8b20[] = "off";
-const char var7f1a8b24[] = "firecount(%d) = %d";
-const char var7f1a8b38[] = "numshots(%d) = %d";
 
 u32 var80068070 = 0x00000000;
 
@@ -11023,229 +11015,82 @@ bool func0f03af44(struct chrdata *chr, u32 anim_id, f32 fstartframe, f32 fendfra
 	return false;
 }
 
-GLOBAL_ASM(
-glabel chrTryRunFromTarget
-/*  f03afac:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f03afb0:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f03afb4:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f03afb8:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f03afbc:	afa40088 */ 	sw	$a0,0x88($sp)
-/*  f03afc0:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f03afc4:	8c90001c */ 	lw	$s0,0x1c($a0)
-/*  f03afc8:	0fc0e686 */ 	jal	chrIsReadyForOrders
-/*  f03afcc:	afa20084 */ 	sw	$v0,0x84($sp)
-/*  f03afd0:	1040007d */ 	beqz	$v0,.L0f03b1c8
-/*  f03afd4:	8fa30084 */ 	lw	$v1,0x84($sp)
-/*  f03afd8:	54600004 */ 	bnezl	$v1,.L0f03afec
-/*  f03afdc:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f03afe0:	1000007a */ 	b	.L0f03b1cc
-/*  f03afe4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03afe8:	c4640008 */ 	lwc1	$f4,0x8($v1)
-.L0f03afec:
-/*  f03afec:	c6060008 */ 	lwc1	$f6,0x8($s0)
-/*  f03aff0:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f03aff4:	44802000 */ 	mtc1	$zero,$f4
-/*  f03aff8:	e7a8004c */ 	swc1	$f8,0x4c($sp)
-/*  f03affc:	c6100010 */ 	lwc1	$f16,0x10($s0)
-/*  f03b000:	c46a0010 */ 	lwc1	$f10,0x10($v1)
-/*  f03b004:	e7a40050 */ 	swc1	$f4,0x50($sp)
-/*  f03b008:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f03b00c:	c7aa004c */ 	lwc1	$f10,0x4c($sp)
-/*  f03b010:	e7b20054 */ 	swc1	$f18,0x54($sp)
-/*  f03b014:	c7a60054 */ 	lwc1	$f6,0x54($sp)
-/*  f03b018:	46063202 */ 	mul.s	$f8,$f6,$f6
-/*  f03b01c:	00000000 */ 	nop
-/*  f03b020:	460a5402 */ 	mul.s	$f16,$f10,$f10
-/*  f03b024:	0c012974 */ 	jal	sqrtf
-/*  f03b028:	46104300 */ 	add.s	$f12,$f8,$f16
-/*  f03b02c:	3c01447a */ 	lui	$at,0x447a
-/*  f03b030:	44816000 */ 	mtc1	$at,$f12
-/*  f03b034:	3c013f80 */ 	lui	$at,0x3f80
-/*  f03b038:	44819000 */ 	mtc1	$at,$f18
-/*  f03b03c:	c7a4004c */ 	lwc1	$f4,0x4c($sp)
-/*  f03b040:	c7aa0054 */ 	lwc1	$f10,0x54($sp)
-/*  f03b044:	46009083 */ 	div.s	$f2,$f18,$f0
-/*  f03b048:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b04c:	27a50074 */ 	addiu	$a1,$sp,0x74
-/*  f03b050:	27a6007c */ 	addiu	$a2,$sp,0x7c
-/*  f03b054:	27a70078 */ 	addiu	$a3,$sp,0x78
-/*  f03b058:	46022182 */ 	mul.s	$f6,$f4,$f2
-/*  f03b05c:	00000000 */ 	nop
-/*  f03b060:	46025202 */ 	mul.s	$f8,$f10,$f2
-/*  f03b064:	e7a6004c */ 	swc1	$f6,0x4c($sp)
-/*  f03b068:	460c3482 */ 	mul.s	$f18,$f6,$f12
-/*  f03b06c:	e7a80054 */ 	swc1	$f8,0x54($sp)
-/*  f03b070:	c6100008 */ 	lwc1	$f16,0x8($s0)
-/*  f03b074:	460c4182 */ 	mul.s	$f6,$f8,$f12
-/*  f03b078:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*  f03b07c:	e7a40068 */ 	swc1	$f4,0x68($sp)
-/*  f03b080:	c60a0010 */ 	lwc1	$f10,0x10($s0)
-/*  f03b084:	46065401 */ 	sub.s	$f16,$f10,$f6
-/*  f03b088:	e7b00070 */ 	swc1	$f16,0x70($sp)
-/*  f03b08c:	c612000c */ 	lwc1	$f18,0xc($s0)
-/*  f03b090:	0fc19881 */ 	jal	propGetBbox
-/*  f03b094:	e7b2006c */ 	swc1	$f18,0x6c($sp)
-/*  f03b098:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f03b09c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f03b0a0:	c600000c */ 	lwc1	$f0,0xc($s0)
-/*  f03b0a4:	c7a4007c */ 	lwc1	$f4,0x7c($sp)
-/*  f03b0a8:	c7aa0078 */ 	lwc1	$f10,0x78($sp)
-/*  f03b0ac:	26040008 */ 	addiu	$a0,$s0,0x8
-/*  f03b0b0:	46002201 */ 	sub.s	$f8,$f4,$f0
-/*  f03b0b4:	26050028 */ 	addiu	$a1,$s0,0x28
-/*  f03b0b8:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f03b0bc:	46005181 */ 	sub.s	$f6,$f10,$f0
-/*  f03b0c0:	e7a80014 */ 	swc1	$f8,0x14($sp)
-/*  f03b0c4:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f03b0c8:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*  f03b0cc:	e7a60018 */ 	swc1	$f6,0x18($sp)
-/*  f03b0d0:	0c00b5f0 */ 	jal	func0002d7c0
-/*  f03b0d4:	24070033 */ 	addiu	$a3,$zero,0x33
-/*  f03b0d8:	14400005 */ 	bnez	$v0,.L0f03b0f0
-/*  f03b0dc:	27a40068 */ 	addiu	$a0,$sp,0x68
-/*  f03b0e0:	3c067f1b */ 	lui	$a2,%hi(var7f1a8ad8)
-/*  f03b0e4:	24c68ad8 */ 	addiu	$a2,$a2,%lo(var7f1a8ad8)
-/*  f03b0e8:	0c0093af */ 	jal	func00024ebc
-/*  f03b0ec:	24052254 */ 	addiu	$a1,$zero,0x2254
-.L0f03b0f0:
-/*  f03b0f0:	c7ac0074 */ 	lwc1	$f12,0x74($sp)
-/*  f03b0f4:	c7b0004c */ 	lwc1	$f16,0x4c($sp)
-/*  f03b0f8:	c7aa0054 */ 	lwc1	$f10,0x54($sp)
-/*  f03b0fc:	c7a40068 */ 	lwc1	$f4,0x68($sp)
-/*  f03b100:	460c8002 */ 	mul.s	$f0,$f16,$f12
-/*  f03b104:	c7b00070 */ 	lwc1	$f16,0x70($sp)
-/*  f03b108:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b10c:	460c5082 */ 	mul.s	$f2,$f10,$f12
-/*  f03b110:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*  f03b114:	46000480 */ 	add.s	$f18,$f0,$f0
-/*  f03b118:	46021180 */ 	add.s	$f6,$f2,$f2
-/*  f03b11c:	46049200 */ 	add.s	$f8,$f18,$f4
-/*  f03b120:	46103480 */ 	add.s	$f18,$f6,$f16
-/*  f03b124:	e7a80068 */ 	swc1	$f8,0x68($sp)
-/*  f03b128:	0fc0da5d */ 	jal	func0f036974
-/*  f03b12c:	e7b20070 */ 	swc1	$f18,0x70($sp)
-/*  f03b130:	10400025 */ 	beqz	$v0,.L0f03b1c8
-/*  f03b134:	8faf0088 */ 	lw	$t7,0x88($sp)
-/*  f03b138:	11e00003 */ 	beqz	$t7,.L0f03b148
-/*  f03b13c:	24100002 */ 	addiu	$s0,$zero,0x2
-/*  f03b140:	10000002 */ 	b	.L0f03b14c
-/*  f03b144:	91e202fe */ 	lbu	$v0,0x2fe($t7)
-.L0f03b148:
-/*  f03b148:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03b14c:
-/*  f03b14c:	14400012 */ 	bnez	$v0,.L0f03b198
-/*  f03b150:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f03b154:	0fc1250e */ 	jal	chrGetDistanceToCoord
-/*  f03b158:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*  f03b15c:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f03b160:	44812000 */ 	mtc1	$at,$f4
-/*  f03b164:	3c014248 */ 	lui	$at,0x4248
-/*  f03b168:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f03b16c:	00000000 */ 	nop
-/*  f03b170:	4503000a */ 	bc1tl	.L0f03b19c
-/*  f03b174:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f03b178:	44814000 */ 	mtc1	$at,$f8
-/*  f03b17c:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f03b180:	4608003c */ 	c.lt.s	$f0,$f8
-/*  f03b184:	00000000 */ 	nop
-/*  f03b188:	45000003 */ 	bc1f	.L0f03b198
-/*  f03b18c:	00000000 */ 	nop
-/*  f03b190:	10000001 */ 	b	.L0f03b198
-/*  f03b194:	00008025 */ 	or	$s0,$zero,$zero
-.L0f03b198:
-/*  f03b198:	8fa40038 */ 	lw	$a0,0x38($sp)
-.L0f03b19c:
-/*  f03b19c:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f03b1a0:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*  f03b1a4:	0fc1979d */ 	jal	func0f065e74
-/*  f03b1a8:	27a70058 */ 	addiu	$a3,$sp,0x58
-/*  f03b1ac:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f03b1b0:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*  f03b1b4:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f03b1b8:	0fc0e10f */ 	jal	chrGoToPos
-/*  f03b1bc:	02003825 */ 	or	$a3,$s0,$zero
-/*  f03b1c0:	10000002 */ 	b	.L0f03b1cc
-/*  f03b1c4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03b1c8:
-/*  f03b1c8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03b1cc:
-/*  f03b1cc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f03b1d0:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f03b1d4:	27bd0088 */ 	addiu	$sp,$sp,0x88
-/*  f03b1d8:	03e00008 */ 	jr	$ra
-/*  f03b1dc:	00000000 */ 	nop
-);
+bool chrTryRunFromTarget(struct chrdata *chr)
+{
+	struct prop *target = chrGetTargetProp(chr);
+	struct prop *prop = chr->prop;
+	f32 ymax;
+	f32 ymin;
+	f32 width;
+	struct coord dst;
+	s16 rooms[8];
+	struct coord diff;
+	f32 distance;
 
-//bool chrTryRunFromTarget(struct chrdata *chr)
-//{
-//	struct prop *target = chrGetTargetProp(chr); // sp132
-//	struct prop *prop = chr->prop;
-//	f32 ymax; // sp124
-//	f32 ymin; // sp120
-//	f32 width; // sp116
-//	struct coord dst; // sp104
-//	s16 rooms[8]; // sp88
-//	struct coord diff; // sp76
-//	f32 distance;
-//
-//	if (!chrIsReadyForOrders(chr) || !target) {
-//		return false;
-//	}
-//
-//	diff.x = target->pos.x - prop->pos.x;
-//	diff.y = 0;
-//	diff.z = target->pos.z - prop->pos.z;
-//
-//	distance = sqrtf(diff.z * diff.z + diff.x * diff.x);
-//
-//	// 02c
-//	// Scale diff into range -1 to +1
-//	diff.x *= (1 / distance);
-//	diff.y *= (1 / distance);
-//	diff.z *= (1 / distance);
-//
-//	// Set dst to 1000 units in the opposite direction
-//	dst.x = prop->pos.x - diff.x * 1000;
-//	dst.y = prop->pos.y;
-//	dst.z = prop->pos.z - diff.z * 1000;
-//
-//	propGetBbox(prop, &width, &ymax, &ymin);
-//
-//	// 098
-//	// If dst runs into a wall, set it to closest valid spot
-//	if (!func0002d7c0(&prop->pos, prop->rooms, &dst, 0x33, 1,
-//				ymax - prop->pos.y, ymin - prop->pos.y)) {
-//		func00024ebc(&dst, 8788, "chraction.c"); // var7f1a8ad8
-//	}
-//
-//	// 0f0
-//	// Adjust dst to be two chr widths closer to avoid collision with wall
-//	dst.x += diff.x * width + diff.x * width;
-//	dst.z += diff.z * width + diff.z * width;
-//
-//	if (func0f036974(prop, &dst)) {
-//		u32 speed = SPEED_RUN;
-//
-//		if (CHRRACE(chr) == RACE_HUMAN) {
-//			f32 dist = chrGetDistanceToCoord(chr, &dst);
-//
-//			if (dist > 100) {
-//				speed = SPEED_RUN;
-//			} else if (dist < 50) {
-//				speed = SPEED_WALK;
-//			} else {
-//				speed = SPEED_JOG;
-//			}
-//		}
-//
-//		func0f065e74(&prop->pos, prop->rooms, &dst, rooms);
-//		chrGoToPos(chr, &dst, rooms, speed);
-//
-//		return true;
-//	}
-//
-//	return false;
-//}
+	if (chrIsReadyForOrders(chr)) {
+		if (!target) {
+			return false;
+		}
+
+		diff.x = target->pos.x - prop->pos.x;
+		diff.z = target->pos.z - prop->pos.z;
+		diff.y = 0;
+
+		distance = sqrtf(diff.f[0] * diff.f[0] + diff.f[2] * diff.f[2]);
+
+		// Scale diff into range -1 to +1
+		diff.x *= (1 / distance);
+		diff.z *= (1 / distance);
+
+		// Set dst to 1000 units in the opposite direction
+		dst.x = prop->pos.x - diff.x * 1000;
+		dst.z = prop->pos.z - diff.z * 1000;
+		dst.y = prop->pos.y;
+
+		propGetBbox(prop, &width, &ymax, &ymin);
+
+		// If dst runs into a wall, set it to closest valid spot
+		if (!func0002d7c0(&prop->pos, prop->rooms, &dst, 0x33, 1,
+					ymax - prop->pos.y, ymin - prop->pos.y)) {
+			func00024ebc(&dst, 8788, "chraction.c");
+		}
+
+		// Adjust dst to be two chr widths closer to avoid collision with wall
+		dst.x = dst.x + (diff.x * width + diff.x * width);
+		dst.z = dst.z + (diff.z * width + diff.z * width);
+
+		if (func0f036974(prop, &dst)) {
+			u32 speed = SPEED_RUN;
+
+			if (CHRRACE(chr) == RACE_HUMAN) {
+				f32 dist = chrGetDistanceToCoord(chr, &dst);
+
+				if (dist > 100) {
+					speed = SPEED_RUN;
+				} else if (dist < 50) {
+					speed = SPEED_WALK;
+				} else {
+					speed = SPEED_JOG;
+				}
+			}
+
+			func0f065e74(&prop->pos, prop->rooms, &dst, rooms);
+			chrGoToPos(chr, &dst, rooms, speed);
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
+const char var7f1a8ae4[] = "aimadjust=%d";
+const char var7f1a8af4[] = "chraction.c";
+const char var7f1a8b00[] = "firing(%d) %d, beam(%d) %s";
+const char var7f1a8b1c[] = "on";
+const char var7f1a8b20[] = "off";
+const char var7f1a8b24[] = "firecount(%d) = %d";
+const char var7f1a8b38[] = "numshots(%d) = %d";
 
 GLOBAL_ASM(
 glabel func0f03b1e0
