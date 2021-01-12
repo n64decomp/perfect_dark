@@ -14113,7 +14113,7 @@ glabel var7f1aa320
 /*  f0727e8:	00808025 */ 	or	$s0,$a0,$zero
 /*  f0727ec:	afa500a4 */ 	sw	$a1,0xa4($sp)
 /*  f0727f0:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*  f0727f4:	0c0093ac */ 	jal	func00024eb0
+/*  f0727f4:	0c0093ac */ 	jal	cdGetObstacle
 /*  f0727f8:	e7a4009c */ 	swc1	$f4,0x9c($sp)
 /*  f0727fc:	104000b2 */ 	beqz	$v0,.L0f072ac8
 /*  f072800:	8faa00a4 */ 	lw	$t2,0xa4($sp)
@@ -23082,7 +23082,7 @@ glabel var7f1aa5a8
 /*  f07a310:	24c6a020 */ 	addiu	$a2,$a2,%lo(var7f1aa020)
 /*  f07a314:	0c0093af */ 	jal	func00024ebc
 /*  f07a318:	24052cc2 */ 	addiu	$a1,$zero,0x2cc2
-/*  f07a31c:	0c0093ac */ 	jal	func00024eb0
+/*  f07a31c:	0c0093ac */ 	jal	cdGetObstacle
 /*  f07a320:	00000000 */ 	nop
 /*  f07a324:	1040006a */ 	beqz	$v0,.L0f07a4d0
 /*  f07a328:	afa20178 */ 	sw	$v0,0x178($sp)
@@ -23224,7 +23224,7 @@ glabel var7f1aa5a8
 /*  f07a51c:	24c6a02c */ 	addiu	$a2,$a2,%lo(var7f1aa02c)
 /*  f07a520:	0c0093af */ 	jal	func00024ebc
 /*  f07a524:	24052cf9 */ 	addiu	$a1,$zero,0x2cf9
-/*  f07a528:	0c0093ac */ 	jal	func00024eb0
+/*  f07a528:	0c0093ac */ 	jal	cdGetObstacle
 /*  f07a52c:	00000000 */ 	nop
 /*  f07a530:	240c0001 */ 	addiu	$t4,$zero,0x1
 /*  f07a534:	afac0148 */ 	sw	$t4,0x148($sp)
@@ -26692,7 +26692,7 @@ glabel var7f1aa6e4
 /*  f07d690:	e7a00018 */ 	swc1	$f0,0x18($sp)
 /*  f07d694:	54400005 */ 	bnezl	$v0,.L0f07d6ac
 /*  f07d698:	8fa301f0 */ 	lw	$v1,0x1f0($sp)
-/*  f07d69c:	0c0093ac */ 	jal	func00024eb0
+/*  f07d69c:	0c0093ac */ 	jal	cdGetObstacle
 /*  f07d6a0:	00000000 */ 	nop
 /*  f07d6a4:	afa201f0 */ 	sw	$v0,0x1f0($sp)
 /*  f07d6a8:	8fa301f0 */ 	lw	$v1,0x1f0($sp)
@@ -27470,7 +27470,7 @@ glabel var7f1aa6e4
 //
 //		if (active) {
 //			if (func0002d7c0(&prop->pos, prop->rooms, &sp214, 0x5000, 0, 0, 0) == 0) {
-//				doorprop = func00024eb0();
+//				doorprop = cdGetObstacle();
 //			}
 //
 //			if (doorprop) {
@@ -46676,7 +46676,7 @@ glabel doorDoCalc
 /*  f08f1f4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f08f1f8:	56600051 */ 	bnezl	$s3,.L0f08f340
 /*  f08f1fc:	8e1000bc */ 	lw	$s0,0xbc($s0)
-/*  f08f200:	0c0093ac */ 	jal	func00024eb0
+/*  f08f200:	0c0093ac */ 	jal	cdGetObstacle
 /*  f08f204:	00000000 */ 	nop
 /*  f08f208:	1040004a */ 	beqz	$v0,.L0f08f334
 /*  f08f20c:	00000000 */ 	nop
@@ -49020,7 +49020,7 @@ glabel var7f1ab214
 /*  f09188c:	27a401f0 */ 	addiu	$a0,$sp,0x1f0
 /*  f091890:	0c0093af */ 	jal	func00024ebc
 /*  f091894:	24055fa2 */ 	addiu	$a1,$zero,0x5fa2
-/*  f091898:	0c0093ac */ 	jal	func00024eb0
+/*  f091898:	0c0093ac */ 	jal	cdGetObstacle
 /*  f09189c:	00000000 */ 	nop
 /*  f0918a0:	afa201d8 */ 	sw	$v0,0x1d8($sp)
 .L0f0918a4:

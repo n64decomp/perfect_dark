@@ -40,7 +40,7 @@ void func0f015010(void)
 			case OBJTYPE_29:
 			case OBJTYPE_GLASS:
 			case OBJTYPE_SAFE:
-			case OBJTYPE_2D:
+			case OBJTYPE_TANK:
 			case OBJTYPE_TINTEDGLASS:
 			case OBJTYPE_LIFT:
 			case OBJTYPE_HOVERBIKE:

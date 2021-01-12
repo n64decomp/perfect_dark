@@ -1037,7 +1037,7 @@ u8 func1004_guard_activation[] = {
 	#define enable_takeover_guard2(chr, function) \
 		show_chr(chr) \
 		set_ailist(chr, function) \
-		unset_chr_hiddenflag(chr, CHRHFLAG_40000000) \
+		unset_chr_hiddenflag(chr, CHRHFLAG_ANTICANNOTPUSH) \
 		unset_chr_chrflag(chr, CHRCFLAG_HIDDEN) \
 		yield
 
@@ -1089,7 +1089,7 @@ u8 func1004_guard_activation[] = {
 	#define enable_bottom_guard(chr) \
 		show_chr(chr) \
 		set_ailist(chr, AILIST_INIT_POSTTAKEOVER_GUARD) \
-		unset_chr_hiddenflag(chr, CHRHFLAG_40000000) \
+		unset_chr_hiddenflag(chr, CHRHFLAG_ANTICANNOTPUSH) \
 		unset_chr_chrflag(chr, CHRCFLAG_HIDDEN) \
 		yield
 
@@ -3982,7 +3982,7 @@ u8 func1024_double_dy357[] = {
  */
 u8 func0416_watch_flag[] = {
 	beginloop(0x00)
-		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_40000000, /*goto*/ 0x31)
+		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_ANTICANNOTPUSH, /*goto*/ 0x31)
 		dprint 'F','L','A','G',' ','N','O','T',' ','S','E','T','\n',0,
 		reloop(0x00)
 
@@ -4321,27 +4321,27 @@ u8 func1032_unhide_guards_near_plane[] = {
 	label(0x31)
 	show_chr(0x1b)
 	set_ailist(0x1b, 0x0422)
-	unset_chr_hiddenflag(0x1b, CHRHFLAG_40000000)
+	unset_chr_hiddenflag(0x1b, CHRHFLAG_ANTICANNOTPUSH)
 	unset_chr_chrflag(0x1b, CHRCFLAG_HIDDEN)
 	yield
 	show_chr(0x19)
 	set_ailist(0x19, AILIST_INIT_POSTTAKEOVER_GUARD)
-	unset_chr_hiddenflag(0x19, CHRHFLAG_40000000)
+	unset_chr_hiddenflag(0x19, CHRHFLAG_ANTICANNOTPUSH)
 	unset_chr_chrflag(0x19, CHRCFLAG_HIDDEN)
 	yield
 	show_chr(0x1d)
 	set_ailist(0x1d, AILIST_INIT_POSTTAKEOVER_GUARD)
-	unset_chr_hiddenflag(0x1d, CHRHFLAG_40000000)
+	unset_chr_hiddenflag(0x1d, CHRHFLAG_ANTICANNOTPUSH)
 	unset_chr_chrflag(0x1d, CHRCFLAG_HIDDEN)
 	yield
 	show_chr(0x1e)
 	set_ailist(0x1e, AILIST_INIT_POSTTAKEOVER_GUARD)
-	unset_chr_hiddenflag(0x1e, CHRHFLAG_40000000)
+	unset_chr_hiddenflag(0x1e, CHRHFLAG_ANTICANNOTPUSH)
 	unset_chr_chrflag(0x1e, CHRCFLAG_HIDDEN)
 	yield
 	show_chr(0x20)
 	set_ailist(0x20, AILIST_INIT_POSTTAKEOVER_GUARD)
-	unset_chr_hiddenflag(0x20, CHRHFLAG_40000000)
+	unset_chr_hiddenflag(0x20, CHRHFLAG_ANTICANNOTPUSH)
 	unset_chr_chrflag(0x20, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

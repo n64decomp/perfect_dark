@@ -651,7 +651,7 @@ struct path paths[] = {
 u8 func1001_objectives_failed_msg[] = {
 	yield
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_KEEPCORPSEKO)
-	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_01000000)
+	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_PUSHABLE)
 	set_chr_chrflag(CHR_LABTECH1, CHRCFLAG_KEEPCORPSEKO)
 	set_chr_chrflag(CHR_LABTECH2, CHRCFLAG_KEEPCORPSEKO)
 	set_chr_chrflag(CHR_LABTECH3, CHRCFLAG_KEEPCORPSEKO)

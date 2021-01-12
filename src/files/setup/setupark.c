@@ -525,7 +525,7 @@ u8 func0403_stop_and_idle[] = {
 };
 
 u8 func0404_init_drcaroll[] = {
-	set_self_chrflag(CHRCFLAG_01000000)
+	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_shield(100)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

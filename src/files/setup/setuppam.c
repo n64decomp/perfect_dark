@@ -747,7 +747,7 @@ u8 func1400_setup_counterop[] = {
 u8 func040b_init_elvis[] = {
 	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_self_chrflag(CHRCFLAG_00040000)
-	set_self_chrflag(CHRCFLAG_01000000)
+	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_accuracy(100)
 	set_reaction_speed(100)
 	set_alertness(100)
@@ -889,7 +889,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 
 	label(0x6f)
 	label(0x2e)
-	unset_self_chrflag(CHRCFLAG_01000000)
+	unset_self_chrflag(CHRCFLAG_PUSHABLE)
 	chr_do_animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 
 	beginloop(0x10)
@@ -900,7 +900,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	say_quip(CHR_BOND, 0x2c, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 	show_hudmsg(CHR_BOND, L_PAM(30)) // "Teleportals have been reactivated."
 	set_stage_flag(STAGEFLAG_TELEPORTALS_ACTIVATED)
-	set_self_chrflag(CHRCFLAG_01000000)
+	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	play_sound(0x8148, -1)
 	set_lights_state(0x003c, LIGHTOP_4, 0x00, 0xff, 0xb4)
 	set_chr_chrflag(0x14, CHRCFLAG_00040000)
@@ -1051,7 +1051,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 
 	label(0x6f)
 	label(0x2e)
-	unset_self_chrflag(CHRCFLAG_01000000)
+	unset_self_chrflag(CHRCFLAG_PUSHABLE)
 	restart_timer
 	chr_do_animation(ANIM_OPERATE_0205, -1, -1, 0x00, 0x10, CHR_SELF, 2)
 
@@ -1061,7 +1061,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, 0x2c, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
-	set_self_chrflag(CHRCFLAG_01000000)
+	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	show_hudmsg(CHR_BOND, L_PAM(20)) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_AGENT_MEGAWEAPON_DISABLED)
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
@@ -1223,7 +1223,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 
 	label(0x1b)
 	set_stage_flag(STAGEFLAG_ELVIS_STARTED_SA_MEGAWEAPON)
-	unset_self_chrflag(CHRCFLAG_01000000)
+	unset_self_chrflag(CHRCFLAG_PUSHABLE)
 	call_rng
 	if_rand_lt(86, /*goto*/ 0x63)
 	if_rand_lt(172, /*goto*/ 0x64)
@@ -1252,7 +1252,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 
 	label(0x2e)
 	say_quip(CHR_BOND, 0x2c, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
-	set_self_chrflag(CHRCFLAG_01000000)
+	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	show_hudmsg(CHR_BOND, L_PAM(20)) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
 	try_equip_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x04)

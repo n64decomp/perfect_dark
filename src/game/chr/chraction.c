@@ -16310,7 +16310,7 @@ glabel var7f1a9184
 /*  f040b24:	27a40228 */ 	addiu	$a0,$sp,0x228
 /*  f040b28:	0c0093af */ 	jal	func00024ebc
 /*  f040b2c:	24052f28 */ 	addiu	$a1,$zero,0x2f28
-/*  f040b30:	0c0093ac */ 	jal	func00024eb0
+/*  f040b30:	0c0093ac */ 	jal	cdGetObstacle
 /*  f040b34:	00000000 */ 	nop
 /*  f040b38:	afa201cc */ 	sw	$v0,0x1cc($sp)
 .L0f040b3c:
@@ -21425,7 +21425,7 @@ glabel var7f1a9260
 /*  f045aac:	e7a00018 */ 	swc1	$f0,0x18($sp)
 /*  f045ab0:	14400004 */ 	bnez	$v0,.L0f045ac4
 /*  f045ab4:	00000000 */ 	nop
-/*  f045ab8:	0c0093ac */ 	jal	func00024eb0
+/*  f045ab8:	0c0093ac */ 	jal	cdGetObstacle
 /*  f045abc:	00000000 */ 	nop
 /*  f045ac0:	00408025 */ 	or	$s0,$v0,$zero
 .L0f045ac4:
@@ -26022,7 +26022,7 @@ bool func0f04b658(struct chrdata *chr)
 		propSetCollisionsEnabled(target, false);
 
 		if (!func0002dc18(&prop->pos, prop->rooms, &target->pos, 0x33)) {
-			struct prop *thing = func00024eb0();
+			struct prop *thing = cdGetObstacle();
 
 			if (thing && thing->type == PROPTYPE_OBJ
 					&& chr->proppreset1 == (s16)(thing - g_Vars.props)) {

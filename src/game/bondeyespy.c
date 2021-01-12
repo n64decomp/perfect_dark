@@ -110,7 +110,7 @@ s32 eyespyCalculateNewY(f32 yvel)
 	result = func0002a684(&dstpos, 26, dstrooms, sp4c, 1, 15, f0);
 	propSetCollisionsEnabled(prop, true);
 
-	if (result == 1) {
+	if (result == CDRESULT_NOCOLLISION) {
 		prop->pos.y = dstpos.y;
 		func0f065c44(prop);
 		roomsCopy(dstrooms, prop->rooms);
@@ -185,15 +185,15 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 		if (xdiff > halflimit || zdiff > halflimit || xdiff < -halflimit || zdiff < -halflimit) {
 			result = func0002d95c(&eyespyprop->pos, eyespyprop->rooms, &dstpos, dstrooms, limit, sp70, 1, 15, f18);
 
-			if (result == 1) {
+			if (result == CDRESULT_NOCOLLISION) {
 				result = func0002a9f0(&eyespyprop->pos, &dstpos, limit, dstrooms, sp70, 1, 15, f18);
 			}
 		} else {
 			result = func0002a9f0(&eyespyprop->pos, &dstpos, limit, sp74, sp70, 1, 15, f18);
 		}
 
-		if (result == 0) {
-			prop = func00024eb0();
+		if (result == CDRESULT_COLLISION) {
+			prop = cdGetObstacle();
 
 			if (prop && prop->type == PROPTYPE_PLAYER) {
 				playernum = g_Vars.currentplayernum;
@@ -206,7 +206,7 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 
 		propSetCollisionsEnabled(eyespyprop, true);
 
-		if (result == 1) {
+		if (result == CDRESULT_NOCOLLISION) {
 			// Apply the destination
 			eyespyprop->pos.x = dstpos.x;
 			eyespyprop->pos.y = dstpos.y;
@@ -223,13 +223,13 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 
 bool func0f0cf728(struct coord *vel)
 {
-	s32 moved = eyespyCalculateNewPosition(vel);
+	s32 result = eyespyCalculateNewPosition(vel);
 	struct prop *prop;
 
-	if (moved != true) {
+	if (result != CDRESULT_NOCOLLISION) {
 		var80070ec4 = 1;
 
-		prop = func00024eb0();
+		prop = cdGetObstacle();
 
 		if (prop && g_Vars.lvupdate240 > 0) {
 			if (prop->type == PROPTYPE_DOOR) {
@@ -272,12 +272,11 @@ bool func0f0cf728(struct coord *vel)
 		}
 	}
 
-	return moved;
+	return result;
 }
 
 s32 func0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
 {
-
 	if (func00024ea4()) {
 		struct coord sp24;
 		s32 someint;
@@ -407,15 +406,15 @@ s32 func0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	return false;
 }
 
-bool func0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2)
+s32 func0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2)
 {
-	bool moved = func0f0cf728(vel);
+	bool result = func0f0cf728(vel);
 
-	if (moved != true) {
+	if (result != CDRESULT_NOCOLLISION) {
 		func00024e4c(arg1, arg2, 473, "bondeyespy.c");
 	}
 
-	return moved;
+	return result;
 }
 
 void eyespyCalculateVerticalMovement(void)
@@ -445,7 +444,7 @@ void eyespyCalculateVerticalMovement(void)
 	dist.y = 0;
 	dist.z = g_Vars.currentplayer->eyespy->vel.z;
 
-	if (func0f0cfdd0(&dist, &spac, &spa0) == 0) {
+	if (func0f0cfdd0(&dist, &spac, &spa0) == CDRESULT_COLLISION) {
 		if (func0f0cf890(&dist, &spac, &spa0, &sp60, &sp54)) {
 			if (func0f0cf9f8(&dist, &spac, &spa0) <= 0) {
 				func0f0cfafc(&dist, &spac, &spa0);

@@ -63,7 +63,7 @@ u32 setupGetCommandLength(u32 *cmd)
 	case OBJTYPE_PADLOCKEDDOOR:      return 4;
 	case OBJTYPE_TRUCK:              return 34;
 	case OBJTYPE_HELI:               return 35;
-	case OBJTYPE_2D:                 return 32;
+	case OBJTYPE_TANK:               return 32;
 	case OBJTYPE_CAMERA2:            return 7;
 	case OBJTYPE_LIFT:               return 37;
 	case OBJTYPE_CONDITIONALSCENERY: return 5;
@@ -326,7 +326,7 @@ struct defaultobj *setupCommandGetObject(u32 cmdindex)
 		case OBJTYPE_29:
 		case OBJTYPE_GLASS:
 		case OBJTYPE_SAFE:
-		case OBJTYPE_2D:
+		case OBJTYPE_TANK:
 		case OBJTYPE_TINTEDGLASS:
 		case OBJTYPE_LIFT:
 		case OBJTYPE_HOVERBIKE:

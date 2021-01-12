@@ -828,9 +828,9 @@ u8 func1006_hijack[] = {
 	set_chr_team(CHR_TRENT, TEAM_04)
 	set_chr_team(CHR_BLONDE1, TEAM_04)
 	set_chr_team(CHR_BLONDE2, TEAM_04)
-	unset_chr_hiddenflag(CHR_TRENT, CHRHFLAG_40000000)
-	unset_chr_hiddenflag(CHR_BLONDE1, CHRHFLAG_40000000)
-	unset_chr_hiddenflag(CHR_BLONDE2, CHRHFLAG_40000000)
+	unset_chr_hiddenflag(CHR_TRENT, CHRHFLAG_ANTICANNOTPUSH)
+	unset_chr_hiddenflag(CHR_BLONDE1, CHRHFLAG_ANTICANNOTPUSH)
+	unset_chr_hiddenflag(CHR_BLONDE2, CHRHFLAG_ANTICANNOTPUSH)
 	unlock_door(OBJ_COCKPITDOOR, 0x40)
 	rebuild_teams
 	rebuild_squadrons
@@ -1432,7 +1432,7 @@ u8 func0405_president_in_room[] = {
 };
 
 u8 func0404_president_running[] = {
-	set_self_chrflag(CHRCFLAG_01000000)
+	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_shotlist(AILIST_PRESIDENT_RUNNING)
 	set_target_chr(CHR_PRESET)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x06)
@@ -3328,7 +3328,7 @@ u8 func0407_stewardess[] = {
 	increase_squadron_alertness(100)
 
 	label(0x0a)
-	set_self_chrflag(CHRCFLAG_01000000)
+	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	chr_do_animation(ANIM_COWER_0229, -1, 190, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x83)
@@ -3754,7 +3754,7 @@ u8 func101c_check_equipment_switch_destroyed[] = {
 };
 
 u8 func040c_init_defend_pad[] = {
-	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_40000000)
+	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_ANTICANNOTPUSH)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	rebuild_teams
 	rebuild_squadrons
@@ -3786,7 +3786,7 @@ u8 func040d_init_defend_president[] = {
 };
 
 u8 func042c_remove_if_offscreen[] = {
-	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_40000000)
+	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_ANTICANNOTPUSH)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	rebuild_teams
 	rebuild_squadrons

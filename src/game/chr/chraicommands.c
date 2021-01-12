@@ -6903,11 +6903,11 @@ glabel aiDetectEnemyOnSameFloor
 //					&& chrCompareTeams(g_Vars.chrdata, chr, COMPARE_ENEMIES)
 //					&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
 //					&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0
-//					&& (chr->hidden & CHRHFLAG_40000000) == 0
+//					&& (chr->hidden & CHRHFLAG_ANTICANNOTPUSH) == 0
 //					&& y - chr->prop->pos.y > -200
 //					&& y - chr->prop->pos.y < 200
 //					&& ((g_Vars.chrdata->hidden & CHRHFLAG_PSYCHOSISED) == 0
-//						|| (chr->hidden & CHRHFLAG_40000000) == 0
+//						|| (chr->hidden & CHRHFLAG_ANTICANNOTPUSH) == 0
 //						|| chr->hidden & CHRHFLAG_08000000)
 //					&& g_Vars.chrdata->chrnum != chr->chrnum) {
 //				distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
@@ -6990,7 +6990,7 @@ bool aiDetectEnemy(void)
 					&& chr->team != TEAM_NONCOMBAT
 					&& (
 						(g_Vars.chrdata->hidden & CHRHFLAG_PSYCHOSISED) == 0
-						|| (chr->hidden & CHRHFLAG_40000000) == 0
+						|| (chr->hidden & CHRHFLAG_ANTICANNOTPUSH) == 0
 						|| chr->hidden & CHRHFLAG_08000000)) {
 				f32 distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
 

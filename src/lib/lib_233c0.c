@@ -1934,7 +1934,7 @@ glabel func00024ea4
 );
 
 GLOBAL_ASM(
-glabel func00024eb0
+glabel cdGetObstacle
 /*    24eb0:	3c02800a */ 	lui	$v0,%hi(var8009a8d4)
 /*    24eb4:	03e00008 */ 	jr	$ra
 /*    24eb8:	8c42a8d4 */ 	lw	$v0,%lo(var8009a8d4)($v0)
@@ -8303,12 +8303,12 @@ s32 func0002a9f0(struct coord *origpos, struct coord *dstpos, f32 width, s16 *ds
 	u32 stack[104];
 	s32 sp44;
 	struct coord dist;
-	s32 result = 1;
+	s32 result = CDRESULT_NOCOLLISION;
 
 	func00028df0(dstpos, width, dstrooms, arg4, 4, arg5, ymax, ymin, &sp44, 20);
 
 	if (sp44) {
-		result = 0;
+		result = CDRESULT_COLLISION;
 
 		dist.x = dstpos->x - origpos->x;
 		dist.y = dstpos->y - origpos->y;
@@ -11536,7 +11536,7 @@ s32 func0002d95c(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f
 
 	result = func0002d3b0(arg0, arg2, sp5c, arg5, 4, 0, arg6, arg7, arg8);
 
-	if (result == 0) {
+	if (result == CDRESULT_COLLISION) {
 		sp40.x = arg2->x - arg0->x;
 		sp40.y = arg2->y - arg0->y;
 		sp40.z = arg2->z - arg0->z;

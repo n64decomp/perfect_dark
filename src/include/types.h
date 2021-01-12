@@ -1059,6 +1059,9 @@ struct chrdata {
 	/*0x364*/ u32 unk364;
 };
 
+// This appears to be misnamed. Not only is it projectiles such as grenades and
+// crossbow bolts, but objects being pushed like couches also have this struct.
+// So I guess it denotes a generic moving object?
 struct projectile {
 	/*0x000*/ u32 flags;
 	/*0x004*/ struct coord unk004; // distance moved in last tick
@@ -2736,7 +2739,7 @@ struct player {
 	/*0x1a9c*/ Mtxf bondentermtx;
 	/*0x1adc*/ struct coord bondenteraim;
 	/*0x1ae8*/ f32 bondonground;
-	/*0x1aec*/ struct prop *unk1aec;
+	/*0x1aec*/ struct prop *tank;
 	/*0x1af0*/ struct prop *unk1af0;
 	/*0x1af4*/ u32 unk1af4;
 	/*0x1af8*/ s32 walkinitmove;

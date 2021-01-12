@@ -783,7 +783,7 @@ u8 func1007_check_medpack_collected[] = {
 };
 
 u8 func0403_init_jonathan[] = {
-	set_self_chrflag(CHRCFLAG_01000000)
+	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_self_chrflag(CHRCFLAG_NOAUTOAIM)
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x32)
 
@@ -967,7 +967,7 @@ u8 func0404_jonathan_following_and_mine[] = {
 
 	// In mine room
 	label(0x0a)
-	unset_self_chrflag(CHRCFLAG_01000000)
+	unset_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_stage_flag(STAGEFLAG_JON_ENTERED_MINE_ROOM)
 	speak(CHR_P1P2, L_TRA(27), 0x12b5, CHANNEL_4, COLOR_03_RED) // "Right, we're near. Cover me, Jo..."
 	set_shotlist(AILIST_JONATHAN_SHOT_WHILE_PLANTING)
@@ -1023,7 +1023,7 @@ u8 func0404_jonathan_following_and_mine[] = {
 	set_shotlist(AILIST_JONATHAN_FOLLOWING_AND_MINE)
 	set_stage_flag(STAGEFLAG_JON_FINISHED_EXPLOSIVES)
 	unset_stage_flag(STAGEFLAG_JON_SHOT_WHILE_PLANTING)
-	set_self_chrflag(CHRCFLAG_01000000)
+	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	speak(CHR_P1P2, L_TRA(28), 0x12b6, CHANNEL_4, COLOR_03_RED) // "Okay - stand back."
 	run_to_pad(0x0140)
 
@@ -1987,7 +1987,7 @@ u8 func100c_medpack_activation[] = {
 u8 func0412_init_elvis[] = {
 	dprint 'E','L','V','I','S',' ','W','O','K','E','\n',0,
 	stop_chr
-	set_self_chrflag(CHRCFLAG_01000000)
+	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_stage_flag(STAGEFLAG_ELVIS_REVIVED)
 	label(0x0a)
 	label(0x06)

@@ -1493,7 +1493,7 @@ u8 func041c_president_waiting[] = {
 };
 
 u8 func041d_president_running[] = {
-	set_self_chrflag(CHRCFLAG_01000000)
+	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_alertness(100)
 	set_shotlist(AILIST_PRESIDENT_RUNNING)
 	dprint 'R','E','S','T','A','R','T','\n',0,

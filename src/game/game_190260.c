@@ -630,7 +630,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 	case OBJTYPE_GLASS:
 	case OBJTYPE_SAFE:
 	case OBJTYPE_SAFEITEM:
-	case OBJTYPE_2D:
+	case OBJTYPE_TANK:
 	case OBJTYPE_CAMERA2:
 	case OBJTYPE_TINTEDGLASS:
 		break;

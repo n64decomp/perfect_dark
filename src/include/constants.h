@@ -465,7 +465,7 @@
 #define CHRHFLAG_08000000           0x08000000 // Globals, Villa and G5
 #define CHRHFLAG_10000000           0x10000000 // Related to invincible flag
 #define CHRHFLAG_CLOAKED            0x20000000
-#define CHRHFLAG_40000000           0x40000000 // Air Base and AF1
+#define CHRHFLAG_ANTICANNOTPUSH     0x40000000
 #define CHRHFLAG_PSYCHOSISED        0x80000000
 
 // chr->hidden2
@@ -501,7 +501,7 @@
 #define CHRCFLAG_00200000                    0x00200000 // Unset by cmd 00fd
 #define CHRCFLAG_00400000                    0x00400000 // Not used in scripts
 #define CHRCFLAG_UNPLAYABLE                  0x00800000
-#define CHRCFLAG_01000000                    0x01000000 // Typically set on allies during init
+#define CHRCFLAG_PUSHABLE                    0x01000000 // Typically set on allies during init
 #define CHRCFLAG_02000000                    0x02000000 // can be unset by cmd0168
 #define CHRCFLAG_KEEPCORPSEKO                0x04000000
 #define CHRCFLAG_CONSIDER_DODGE              0x08000000
@@ -523,6 +523,11 @@
 #define CMD_LABEL 0x0002
 #define CMD_END   0x0004
 #define CMD_PRINT 0x00b5
+
+// Collision detection
+#define CDRESULT_ERROR       -1
+#define CDRESULT_COLLISION   0
+#define CDRESULT_NOCOLLISION 1
 
 #define COLOR_00_GREEN  0x00
 #define COLOR_02_WHITE  0x02
@@ -2500,7 +2505,7 @@
 #define OBJTYPE_GLASS              0x2a
 #define OBJTYPE_SAFE               0x2b
 #define OBJTYPE_SAFEITEM           0x2c
-#define OBJTYPE_2D                 0x2d
+#define OBJTYPE_TANK               0x2d
 #define OBJTYPE_CAMERA2            0x2e
 #define OBJTYPE_TINTEDGLASS        0x2f
 #define OBJTYPE_LIFT               0x30
@@ -2639,6 +2644,8 @@
 #define PROJECTILEFLAG_00000001 0x00000001
 #define PROJECTILEFLAG_00000080 0x00000080
 #define PROJECTILEFLAG_00000800 0x00000800
+#define PROJECTILEFLAG_00001000 0x00001000
+#define PROJECTILEFLAG_00002000 0x00002000
 #define PROJECTILEFLAG_00004000 0x00004000
 #define PROJECTILEFLAG_FREE     0x80000000
 

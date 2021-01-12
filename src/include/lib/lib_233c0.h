@@ -26,7 +26,7 @@ u32 func00024e40(void);
 void func00024e4c(struct coord *arg0, struct coord *arg1, u32 line, char *file);
 f32 func00024e98(void);
 u32 func00024ea4(void);
-struct prop *func00024eb0(void);
+struct prop *cdGetObstacle(void);
 void func00024ebc(struct coord *pos, u32 line, char *file);
 u32 func00024ee8(void);
 u32 func00024f10(void);

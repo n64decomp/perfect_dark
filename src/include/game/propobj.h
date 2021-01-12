@@ -158,7 +158,7 @@ void func0f072adc(struct hoverbikeobj *hoverbike, f32 arg1, f32 arg2, f32 arg3);
 u32 func0f0732d4(void);
 u32 func0f073478(void);
 u32 func0f073ae8(void);
-u32 func0f073c6c(struct defaultobj *obj, bool *arg1);
+s32 func0f073c6c(struct defaultobj *obj, bool *arg1);
 void doorTick(struct prop *doorprop);
 void doorUpdatePortalIfWindowed(struct prop *door, s32 playercount);
 u32 func0f077448(void);

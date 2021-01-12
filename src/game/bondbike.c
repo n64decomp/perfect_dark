@@ -1178,7 +1178,7 @@ glabel func0f0d3298
 /*  f0d32ac:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0d32b0:	10410055 */ 	beq	$v0,$at,.L0f0d3408
 /*  f0d32b4:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f0d32b8:	0c0093ac */ 	jal	func00024eb0
+/*  f0d32b8:	0c0093ac */ 	jal	cdGetObstacle
 /*  f0d32bc:	00000000 */ 	nop
 /*  f0d32c0:	10400051 */ 	beqz	$v0,.L0f0d3408
 /*  f0d32c4:	3c05800a */ 	lui	$a1,%hi(g_Vars)

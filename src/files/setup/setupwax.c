@@ -1257,7 +1257,7 @@ u8 func0410_init_searching_guard[] = {
 
 u8 func0412_init_cass[] = {
 	set_chr_maxdamage(CHR_SELF, 40)
-	set_self_chrflag(CHRCFLAG_01000000)
+	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_ailist(CHR_SELF, AILIST_CASS_IN_OFFICE)
 	endlist
 };

@@ -40,7 +40,7 @@ void currentPlayerWalkInit(void)
 
 	g_Vars.currentplayer->bondmovemode = MOVEMODE_WALK;
 	g_Vars.currentplayer->bondonground = 0;
-	g_Vars.currentplayer->unk1aec = 0;
+	g_Vars.currentplayer->tank = NULL;
 	g_Vars.currentplayer->unk1af0 = NULL;
 	g_Vars.currentplayer->unk1af4 = 0;
 
@@ -110,7 +110,7 @@ void currentPlayerWalkInit(void)
 		delta.z = g_Vars.currentplayer->walkinitpos.z - g_Vars.currentplayer->prop->pos.z;
 
 		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, false);
-		func0f0c4250(&delta, 0, 1, 0, 63);
+		func0f0c4250(&delta, 0, true, 0, 63);
 		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, true);
 	} else if (prevmode != MOVEMODE_GRAB && prevmode != MOVEMODE_WALK) {
 		g_Vars.currentplayer->moveinitspeed.x = 0;
@@ -169,8 +169,6 @@ void func0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 	func0f082e84(obj, &posunk, &vector, &tween, false);
 }
 
-const char var7f1ad75c[] = "bondwalk.c";
-
 bool currentPlayerHasGapToCeiling(f32 y)
 {
 	bool result;
@@ -207,7 +205,7 @@ bool currentPlayerHasGapToCeiling(f32 y)
 
 	propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);
 
-	if (result == true) {
+	if (result == CDRESULT_NOCOLLISION) {
 		g_Vars.currentplayer->prop->pos.y = newpos.y;
 		func0f065c44(g_Vars.currentplayer->prop);
 		roomsCopy(rooms, g_Vars.currentplayer->prop->rooms);
@@ -220,7 +218,7 @@ bool currentPlayerHasGapToCeiling(f32 y)
 
 bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, f32 extrawidth, s32 arg4)
 {
-	bool valid = true;
+	s32 result = CDRESULT_NOCOLLISION;
 	f32 halfwidth;
 	struct coord dstpos;
 	s16 dstrooms[8];
@@ -245,8 +243,8 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 	dstpos.z = g_Vars.currentplayer->prop->pos.z;
 
 	if (vel->x || vel->y || vel->z) {
-		if (g_Vars.currentplayer->unk1aec) {
-			propSetCollisionsEnabled(g_Vars.currentplayer->unk1aec, false);
+		if (g_Vars.currentplayer->tank) {
+			propSetCollisionsEnabled(g_Vars.currentplayer->tank, false);
 		}
 
 		propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
@@ -274,20 +272,20 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 		halfwidth = width * 0.5f;
 
 		if (xdiff > halfwidth || zdiff > halfwidth || xdiff < -halfwidth || zdiff < -halfwidth) {
-			valid = func0002d95c(&g_Vars.currentplayer->prop->pos,
+			result = func0002d95c(&g_Vars.currentplayer->prop->pos,
 					g_Vars.currentplayer->prop->rooms,
 					&dstpos, dstrooms, width, sp60, 1,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 
-			if (valid == true) {
-				valid = func0002a9f0(&g_Vars.currentplayer->prop->pos,
+			if (result == CDRESULT_NOCOLLISION) {
+				result = func0002a9f0(&g_Vars.currentplayer->prop->pos,
 						&dstpos, width, dstrooms, sp60, 1,
 						ymax - g_Vars.currentplayer->prop->pos.y,
 						ymin - g_Vars.currentplayer->prop->pos.y);
 			}
 		} else {
-			valid = func0002a9f0(&g_Vars.currentplayer->prop->pos,
+			result = func0002a9f0(&g_Vars.currentplayer->prop->pos,
 					&dstpos, width, sp64, sp60, 1,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
@@ -295,12 +293,12 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 
 		propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);
 
-		if (g_Vars.currentplayer->unk1aec) {
-			propSetCollisionsEnabled(g_Vars.currentplayer->unk1aec, true);
+		if (g_Vars.currentplayer->tank) {
+			propSetCollisionsEnabled(g_Vars.currentplayer->tank, true);
 		}
 	}
 
-	if (valid == true && apply) {
+	if (result == CDRESULT_NOCOLLISION && apply) {
 		f32 angle = g_Vars.currentplayer->vv_theta + (rotateamount * 360) / M_BADTAU;
 
 		while (angle < 0) {
@@ -325,8 +323,10 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 
 	g_Vars.enableslopes = true;
 
-	return valid;
+	return result;
 }
+
+const char var7f1ad75c[] = "bondwalk.c";
 
 GLOBAL_ASM(
 glabel func0f0c4250
@@ -342,7 +342,7 @@ glabel func0f0c4250
 /*  f0c4274:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0c4278:	10410135 */ 	beq	$v0,$at,.L0f0c4750
 /*  f0c427c:	afa200a4 */ 	sw	$v0,0xa4($sp)
-/*  f0c4280:	0c0093ac */ 	jal	func00024eb0
+/*  f0c4280:	0c0093ac */ 	jal	cdGetObstacle
 /*  f0c4284:	00000000 */ 	nop
 /*  f0c4288:	10400131 */ 	beqz	$v0,.L0f0c4750
 /*  f0c428c:	afa200a0 */ 	sw	$v0,0xa0($sp)
@@ -671,11 +671,154 @@ glabel func0f0c4250
 /*  f0c4760:	00000000 */ 	nop
 );
 
-bool func0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s32 arg3)
-{
-	bool result = func0f0c4250(delta, 0, true, 0, arg3);
+// Mismatch: The below loads 0.5f twice in the chr push code while goal reuses it.
+//bool func0f0c4250(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 arg4)
+//{
+//	s32 result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, arg4);
+//
+//	if (result != CDRESULT_NOCOLLISION) {
+//		struct prop *obstacle = cdGetObstacle();
+//
+//		if (obstacle && g_Vars.lvupdate240 > 0) {
+//			if (obstacle->type == PROPTYPE_DOOR) {
+//				struct doorobj *door = obstacle->door;
+//				struct coord sp90;
+//				struct coord sp84;
+//				struct coord sp78;
+//
+//				if (door->doorflags & DOORFLAG_DAMAGEONCONTACT) {
+//					if (!g_Vars.currentplayer->isdead) {
+//						func00024e4c(&sp84, &sp78, 465, "bondwalk.c");
+//
+//						sp90.x = sp78.f[2] - sp84.f[2];
+//						sp90.y = 0;
+//						sp90.z = sp84.f[0] - sp78.f[0];
+//
+//						if (sp90.f[0] || sp90.f[2]) {
+//							scaleTo1(&sp90.x, &sp90.y, &sp90.z);
+//						} else {
+//							sp90.z = 1;
+//						}
+//
+//						func0f03417c(g_Vars.currentplayer->prop->chr, 0.4f, &sp90, 0, g_Vars.currentplayer->prop);
+//
+//						// Laser zap sound
+//						audioStart(var80095200, 0xf2, 0, -1, -1, -1, -1, -1);
+//					}
+//				}
+//			} else if (obstacle->type == PROPTYPE_CHR) {
+//				struct chrdata *chr = obstacle->chr;
+//				struct coord newpos;
+//				s16 newrooms[8];
+//				f32 movingdist;
+//				f32 xdist;
+//				f32 zdist;
+//				f32 disttochr;
+//				bool canpush = false;
+//
+//				if (g_Vars.normmplayerisrunning) {
+//					if (chrCompareTeams(g_Vars.currentplayer->prop->chr, chr, COMPARE_FRIENDS)) {
+//						// AI bot on same team
+//						canpush = true;
+//					}
+//				} else if (chr->chrflags & CHRCFLAG_PUSHABLE) {
+//					if (g_Vars.antiplayernum < 0
+//							|| g_Vars.currentplayer != g_Vars.anti
+//							|| (chr->hidden & CHRHFLAG_ANTICANNOTPUSH) == 0) {
+//						canpush = true;
+//					}
+//				}
+//
+//				if (canpush) {
+//					movingdist = sqrtf(delta->f[0] * delta->f[0] + delta->f[2] * delta->f[2]) / g_Vars.lvupdate240f;
+//
+//					xdist = obstacle->pos.x - g_Vars.currentplayer->prop->pos.x;
+//					zdist = obstacle->pos.z - g_Vars.currentplayer->prop->pos.z;
+//
+//					if (xdist || zdist) {
+//						disttochr = sqrtf(xdist * xdist + zdist * zdist);
+//
+//						if (disttochr > 0) {
+//							xdist *= (movingdist / disttochr);
+//							zdist *= (movingdist / disttochr);
+//
+//							chr->pushspeed[0] = 0.5f * xdist;
+//							chr->pushspeed[1] = 0.5f * zdist;
+//
+//							newpos.x = obstacle->pos.x + chr->pushspeed[0] * g_Vars.lvupdate240f;
+//							newpos.y = obstacle->pos.y;
+//							newpos.z = obstacle->pos.z + chr->pushspeed[1] * g_Vars.lvupdate240f;
+//
+//							func0f01e7f4(chr, &newpos, newrooms, 0);
+//
+//							obstacle->pos.x = newpos.x;
+//							obstacle->pos.y = newpos.y;
+//							obstacle->pos.z = newpos.z;
+//
+//							func0f065c44(obstacle);
+//							roomsCopy(newrooms, obstacle->rooms);
+//							func0f0220ac(chr);
+//							modelSetRootPosition(chr->model, &newpos);
+//
+//							result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, arg4);
+//						}
+//					}
+//				}
+//			} else if (obstacle->type == PROPTYPE_PLAYER) {
+//				// empty
+//			} else if (obstacle->type == PROPTYPE_OBJ) {
+//				struct defaultobj *obj = obstacle->obj;
+//				bool dothething;
+//
+//				if ((obj->hidden & OBJHFLAG_04000000) == 0 && (obj->hidden & OBJHFLAG_GRABBED) == 0) {
+//					if (g_Vars.currentplayer->unk1af0 == 0 && obj->type == OBJTYPE_TANK) {
+//						g_Vars.currentplayer->tank = obstacle;
+//					} else if (obj->flags3 & OBJFLAG3_PUSHABLE) {
+//						g_Vars.currentplayer->speedmaxtime60 = 0;
+//						dothething = true;
+//
+//						if ((obj->hidden & OBJHFLAG_AIRBORNE) &&
+//								(obj->projectile->flags & PROJECTILEFLAG_00001000)) {
+//							dothething = false;
+//						}
+//
+//						if (dothething) {
+//							func0f0c3b38(delta, obj);
+//
+//							if (obj->hidden & OBJHFLAG_AIRBORNE && (obj->projectile->flags & PROJECTILEFLAG_00000800)) {
+//								bool somevalue;
+//								bool somebool = false;
+//								somevalue = func0f073c6c(obj, &somebool);
+//
+//								if (obj->hidden & OBJHFLAG_AIRBORNE) {
+//									obj->projectile->flags |= PROJECTILEFLAG_00001000;
+//
+//									if (somevalue) {
+//										obj->projectile->flags |= PROJECTILEFLAG_00002000;
+//									} else {
+//										obj->projectile->flags &= ~PROJECTILEFLAG_00002000;
+//									}
+//								}
+//
+//								if (somevalue) {
+//									result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, arg4);
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	return result;
+//}
 
-	if (!result) {
+s32 func0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s32 arg3)
+{
+	s32 result = func0f0c4250(delta, 0, true, 0, arg3);
+
+	if (result == CDRESULT_COLLISION) {
 		func00024e4c(arg1, arg2, 0x25f, "bondwalk.c");
 	}
 
@@ -693,13 +836,13 @@ s32 func0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 		quarter.x = a->x * mult * 0.25f;
 		quarter.y = a->y * mult * 0.25f;
 		quarter.z = a->z * mult * 0.25f;
-		result = func0f0c4250(&quarter, 0, 1, 0, arg6);
+		result = func0f0c4250(&quarter, 0, true, 0, arg6);
 
-		if (result == 1) {
-			return 1;
+		if (result == CDRESULT_NOCOLLISION) {
+			return CDRESULT_NOCOLLISION;
 		}
 
-		if (result == 0) {
+		if (result == CDRESULT_COLLISION) {
 			func00024e4c(d, e, 0x27b, "bondwalk.c");
 
 			if (b->x != d->x
@@ -708,12 +851,12 @@ s32 func0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 					|| c->x != e->x
 					|| c->y != e->y
 					|| c->z != e->z) {
-				return 0;
+				return CDRESULT_COLLISION;
 			}
 		}
 	}
 
-	return -1;
+	return CDRESULT_ERROR;
 }
 
 s32 func0f0c494c(struct coord *a, struct coord *b, struct coord *c, s32 arg3)
@@ -738,7 +881,7 @@ s32 func0f0c494c(struct coord *a, struct coord *b, struct coord *c, s32 arg3)
 		sp2c.y = 0;
 		sp2c.z = sp38.z * tmp;
 
-		return func0f0c4250(&sp2c, 0, 1, 0, arg3);
+		return func0f0c4250(&sp2c, 0, true, 0, arg3);
 	}
 
 	return -1;
@@ -778,7 +921,7 @@ s32 func0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32
 			sp28.y = 0;
 			sp28.z = sp34.z;
 
-			if (func0f0c4250(&sp28, 0, 1, 0, arg3) == 1) {
+			if (func0f0c4250(&sp28, 0, true, 0, arg3) == 1) {
 				return true;
 			}
 		}
@@ -806,7 +949,7 @@ s32 func0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32
 				sp28.y = 0;
 				sp28.z = sp34.z;
 
-				if (func0f0c4250(&sp28, 0, 1, 0, arg3) == 1) {
+				if (func0f0c4250(&sp28, 0, true, 0, arg3) == 1) {
 					return true;
 				}
 			}
@@ -1042,7 +1185,7 @@ void currentPlayerUpdateVerticalMovement(void)
 				g_Vars.currentplayer->vv_manground = sumground;
 			} else {
 				// Not enough room above. If on a hoverbike, blow it up
-				prop = func00024eb0();
+				prop = cdGetObstacle();
 
 				if (prop
 						&& g_Vars.currentplayer->prop->pos.y < prop->pos.y
@@ -1115,7 +1258,7 @@ void currentPlayerUpdateVerticalMovement(void)
 					&& g_Vars.currentplayer->vv_ground < g_Vars.currentplayer->vv_manground - 30) {
 				// Not falling - but still at least 30 units off the ground.
 				// Must be something in the way...
-				prop = func00024eb0();
+				prop = cdGetObstacle();
 
 				if (prop) {
 					if (prop->type == PROPTYPE_CHR) {
@@ -1348,15 +1491,16 @@ void func0f0c6180(void)
 
 void func0f0c6318(void)
 {
-	f32 thing1;
-	f32 thing2;
+	f32 mult;
+	f32 rotateamount;
 	struct coord delta = {0, 0, 0};
 
-	thing1 = 159.0f / g_Vars.currentplayer->vv_eyeheight;
-	thing2 = g_Vars.currentplayer->speedtheta * thing1
+	// Turn speed is calculated from the chr's height
+	mult = 159.0f / g_Vars.currentplayer->vv_eyeheight;
+	rotateamount = g_Vars.currentplayer->speedtheta * mult
 		* g_Vars.lvupdate240freal * 0.0174505133f * 3.5f;
 
-	func0f0c4250(&delta, thing2, 1, 0, 63);
+	func0f0c4250(&delta, rotateamount, true, 0, 63);
 }
 
 u32 var80070e68 = 0x00000000;
@@ -1376,7 +1520,7 @@ void func0f0c63bc(struct coord *arg0, u32 arg1, s32 arg2)
 
 	func0f0c4d98();
 
-	if (func0f0c4764(arg0, &sp100, &sp88, arg2) == 0) {
+	if (func0f0c4764(arg0, &sp100, &sp88, arg2) == CDRESULT_COLLISION) {
 		struct coord sp76;
 		struct coord sp64;
 
@@ -1388,7 +1532,7 @@ void func0f0c63bc(struct coord *arg0, u32 arg1, s32 arg2)
 			}
 
 			if (arg1
-					&& func0f0c494c(arg0, &sp100, &sp88, arg2) < 1
+					&& func0f0c494c(arg0, &sp100, &sp88, arg2) <= CDRESULT_COLLISION
 					&& func0f0c4a5c(arg0, &sp100, &sp88, arg2) <= 0) {
 				// empty
 			}
@@ -1401,8 +1545,8 @@ void func0f0c63bc(struct coord *arg0, u32 arg1, s32 arg2)
 			}
 
 			if (arg1
-					&& func0f0c494c(arg0, &sp76, &sp64, arg2) < 1
-					&& func0f0c494c(arg0, &sp100, &sp88, arg2) < 1
+					&& func0f0c494c(arg0, &sp76, &sp64, arg2) <= CDRESULT_COLLISION
+					&& func0f0c494c(arg0, &sp100, &sp88, arg2) <= CDRESULT_COLLISION
 					&& func0f0c4a5c(arg0, &sp76, &sp64, arg2) < 1) {
 				func0f0c4a5c(arg0, &sp100, &sp88, arg2);
 			}
