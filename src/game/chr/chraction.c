@@ -23066,7 +23066,7 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 		chr->act_skjump.hit = false;
 		chr->act_skjump.unk03c = hspeed;
 		chr->act_skjump.unk04c = hspeed;
-		chr->act_skjump.y = func0002a330(&chr->prop->pos, chr->chrwidth, chr->prop->rooms, 0, 0);
+		chr->act_skjump.y = coordFindGroundYSimple(&chr->prop->pos, chr->chrwidth, chr->prop->rooms, NULL, NULL);
 	} else {
 		return false;
 	}
@@ -25703,7 +25703,7 @@ glabel var7f1a941c
 /*  f04b038:	4481a000 */ 	mtc1	$at,$f20
 /*  f04b03c:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f04b040:	00003825 */ 	or	$a3,$zero,$zero
-/*  f04b044:	0c00a8cc */ 	jal	func0002a330
+/*  f04b044:	0c00a8cc */ 	jal	coordFindGroundYSimple
 /*  f04b048:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f04b04c:	3c017f1b */ 	lui	$at,%hi(var7f1a940c)
 /*  f04b050:	c426940c */ 	lwc1	$f6,%lo(var7f1a940c)($at)
@@ -25802,7 +25802,7 @@ glabel var7f1a941c
 /*  f04b1ac:	8fa500a8 */ 	lw	$a1,0xa8($sp)
 /*  f04b1b0:	02003025 */ 	or	$a2,$s0,$zero
 /*  f04b1b4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f04b1b8:	0c00a8cc */ 	jal	func0002a330
+/*  f04b1b8:	0c00a8cc */ 	jal	coordFindGroundYSimple
 /*  f04b1bc:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f04b1c0:	3c017f1b */ 	lui	$at,%hi(var7f1a9414)
 /*  f04b1c4:	c4249414 */ 	lwc1	$f4,%lo(var7f1a9414)($at)

@@ -7800,24 +7800,10 @@ f32 func0002a324(void)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0002a330
-/*    2a330:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    2a334:	44856000 */ 	mtc1	$a1,$f12
-/*    2a338:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*    2a33c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    2a340:	44056000 */ 	mfc1	$a1,$f12
-/*    2a344:	afa00014 */ 	sw	$zero,0x14($sp)
-/*    2a348:	afa00018 */ 	sw	$zero,0x18($sp)
-/*    2a34c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*    2a350:	afa00020 */ 	sw	$zero,0x20($sp)
-/*    2a354:	0c00a86c */ 	jal	coordFindGroundY
-/*    2a358:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2a35c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    2a360:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    2a364:	03e00008 */ 	jr	$ra
-/*    2a368:	00000000 */ 	nop
-);
+f32 coordFindGroundYSimple(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol, u8 *floortype)
+{
+	return coordFindGroundY(pos, width, rooms, floorcol, floortype, NULL, NULL, NULL, NULL);
+}
 
 GLOBAL_ASM(
 glabel func0002a36c
