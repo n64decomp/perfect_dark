@@ -7795,12 +7795,10 @@ f32 coordFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
 	return ground;
 }
 
-GLOBAL_ASM(
-glabel func0002a324
-/*    2a324:	44800000 */ 	mtc1	$zero,$f0
-/*    2a328:	03e00008 */ 	jr	$ra
-/*    2a32c:	00000000 */ 	nop
-);
+f32 func0002a324(void)
+{
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0002a330
