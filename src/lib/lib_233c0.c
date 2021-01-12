@@ -1933,12 +1933,10 @@ glabel func00024ea4
 /*    24eac:	8c42a8ac */ 	lw	$v0,%lo(var8009a8ac)($v0)
 );
 
-GLOBAL_ASM(
-glabel cdGetObstacle
-/*    24eb0:	3c02800a */ 	lui	$v0,%hi(var8009a8d4)
-/*    24eb4:	03e00008 */ 	jr	$ra
-/*    24eb8:	8c42a8d4 */ 	lw	$v0,%lo(var8009a8d4)($v0)
-);
+struct prop *cdGetObstacle(void)
+{
+	return g_CdObstacle;
+}
 
 GLOBAL_ASM(
 glabel func00024ebc
@@ -2004,7 +2002,7 @@ void func00024f6c(void)
 {
 	var8009a8b4 = 0;
 	var8009a8ac = 0;
-	var8009a8d4 = 0;
+	g_CdObstacle = NULL;
 	var8009a8d8 = 0;
 	var8009a8ec = 0;
 	var8009a8f4 = 0;
@@ -2035,8 +2033,8 @@ glabel func00024fb0
 /*    24ff8:	ac2ea8b4 */ 	sw	$t6,%lo(var8009a8b4)($at)
 /*    24ffc:	3c01800a */ 	lui	$at,%hi(var8009a8ac)
 /*    25000:	ac20a8ac */ 	sw	$zero,%lo(var8009a8ac)($at)
-/*    25004:	3c01800a */ 	lui	$at,%hi(var8009a8d4)
-/*    25008:	ac26a8d4 */ 	sw	$a2,%lo(var8009a8d4)($at)
+/*    25004:	3c01800a */ 	lui	$at,%hi(g_CdObstacle)
+/*    25008:	ac26a8d4 */ 	sw	$a2,%lo(g_CdObstacle)($at)
 /*    2500c:	3c01800a */ 	lui	$at,%hi(var8009a8d8)
 /*    25010:	ac20a8d8 */ 	sw	$zero,%lo(var8009a8d8)($at)
 /*    25014:	3c01800a */ 	lui	$at,%hi(var8009a8ec)
@@ -2076,8 +2074,8 @@ glabel func00025038
 /*    2508c:	ac27a8b4 */ 	sw	$a3,%lo(var8009a8b4)($at)
 /*    25090:	3c01800a */ 	lui	$at,%hi(var8009a8ac)
 /*    25094:	ac27a8ac */ 	sw	$a3,%lo(var8009a8ac)($at)
-/*    25098:	3c01800a */ 	lui	$at,%hi(var8009a8d4)
-/*    2509c:	ac26a8d4 */ 	sw	$a2,%lo(var8009a8d4)($at)
+/*    25098:	3c01800a */ 	lui	$at,%hi(g_CdObstacle)
+/*    2509c:	ac26a8d4 */ 	sw	$a2,%lo(g_CdObstacle)($at)
 /*    250a0:	3c01800a */ 	lui	$at,%hi(var8009a8d8)
 /*    250a4:	ac20a8d8 */ 	sw	$zero,%lo(var8009a8d8)($at)
 /*    250a8:	3c01800a */ 	lui	$at,%hi(var8009a8ec)
@@ -2140,8 +2138,8 @@ glabel func00025168
 /*    2516c:	ac20a8b4 */ 	sw	$zero,%lo(var8009a8b4)($at)
 /*    25170:	3c01800a */ 	lui	$at,%hi(var8009a8ac)
 /*    25174:	ac20a8ac */ 	sw	$zero,%lo(var8009a8ac)($at)
-/*    25178:	3c01800a */ 	lui	$at,%hi(var8009a8d4)
-/*    2517c:	ac24a8d4 */ 	sw	$a0,%lo(var8009a8d4)($at)
+/*    25178:	3c01800a */ 	lui	$at,%hi(g_CdObstacle)
+/*    2517c:	ac24a8d4 */ 	sw	$a0,%lo(g_CdObstacle)($at)
 /*    25180:	3c01800a */ 	lui	$at,%hi(var8009a8d8)
 /*    25184:	ac20a8d8 */ 	sw	$zero,%lo(var8009a8d8)($at)
 /*    25188:	3c01800a */ 	lui	$at,%hi(var8009a8ec)
@@ -2186,8 +2184,8 @@ glabel func000251ac
 /*    25214:	ac29a8b4 */ 	sw	$t1,%lo(var8009a8b4)($at)
 /*    25218:	3c01800a */ 	lui	$at,%hi(var8009a8ac)
 /*    2521c:	ac20a8ac */ 	sw	$zero,%lo(var8009a8ac)($at)
-/*    25220:	3c01800a */ 	lui	$at,%hi(var8009a8d4)
-/*    25224:	ac27a8d4 */ 	sw	$a3,%lo(var8009a8d4)($at)
+/*    25220:	3c01800a */ 	lui	$at,%hi(g_CdObstacle)
+/*    25224:	ac27a8d4 */ 	sw	$a3,%lo(g_CdObstacle)($at)
 /*    25228:	3c01800a */ 	lui	$at,%hi(var8009a8d8)
 /*    2522c:	ac29a8d8 */ 	sw	$t1,%lo(var8009a8d8)($at)
 /*    25230:	3c01800a */ 	lui	$at,%hi(var8009a8ec)
@@ -2234,8 +2232,8 @@ glabel func00025254
 /*    252c4:	ac29a8b4 */ 	sw	$t1,%lo(var8009a8b4)($at)
 /*    252c8:	3c01800a */ 	lui	$at,%hi(var8009a8ac)
 /*    252cc:	ac20a8ac */ 	sw	$zero,%lo(var8009a8ac)($at)
-/*    252d0:	3c01800a */ 	lui	$at,%hi(var8009a8d4)
-/*    252d4:	ac27a8d4 */ 	sw	$a3,%lo(var8009a8d4)($at)
+/*    252d0:	3c01800a */ 	lui	$at,%hi(g_CdObstacle)
+/*    252d4:	ac27a8d4 */ 	sw	$a3,%lo(g_CdObstacle)($at)
 /*    252d8:	3c01800a */ 	lui	$at,%hi(var8009a8d8)
 /*    252dc:	ac29a8d8 */ 	sw	$t1,%lo(var8009a8d8)($at)
 /*    252e0:	3c01800a */ 	lui	$at,%hi(var8009a8f0)

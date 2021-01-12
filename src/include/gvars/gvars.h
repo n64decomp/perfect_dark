@@ -460,7 +460,7 @@ extern u32 var8009a8ac;
 extern u32 var8009a8b4;
 extern struct coord var8009a8b8;
 extern struct coord var8009a8c8;
-extern u32 var8009a8d4;
+extern struct prop *g_CdObstacle;
 extern u32 var8009a8d8;
 extern u32 var8009a8e0;
 extern u32 var8009a8ec;
