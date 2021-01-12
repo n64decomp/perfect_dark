@@ -275,105 +275,39 @@ bool func0f0cf728(struct coord *vel)
 	return moved;
 }
 
-const char var7f1ada50[] = "bondeyespy.c";
+s32 func0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
+{
 
-GLOBAL_ASM(
-glabel func0f0cf890
-/*  f0cf890:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0cf894:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0cf898:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f0cf89c:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f0cf8a0:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f0cf8a4:	0c0093a9 */ 	jal	func00024ea4
-/*  f0cf8a8:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f0cf8ac:	5040004e */ 	beqzl	$v0,.L0f0cf9e8
-/*  f0cf8b0:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0cf8b4:	0c0093a6 */ 	jal	func00024e98
-/*  f0cf8b8:	00000000 */ 	nop
-/*  f0cf8bc:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f0cf8c0:	3c013e80 */ 	lui	$at,0x3e80
-/*  f0cf8c4:	44811000 */ 	mtc1	$at,$f2
-/*  f0cf8c8:	c4640000 */ 	lwc1	$f4,0x0($v1)
-/*  f0cf8cc:	27a40024 */ 	addiu	$a0,$sp,0x24
-/*  f0cf8d0:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f0cf8d4:	00000000 */ 	nop
-/*  f0cf8d8:	46023202 */ 	mul.s	$f8,$f6,$f2
-/*  f0cf8dc:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f0cf8e0:	c46a0004 */ 	lwc1	$f10,0x4($v1)
-/*  f0cf8e4:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f0cf8e8:	00000000 */ 	nop
-/*  f0cf8ec:	46028482 */ 	mul.s	$f18,$f16,$f2
-/*  f0cf8f0:	e7b20028 */ 	swc1	$f18,0x28($sp)
-/*  f0cf8f4:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f0cf8f8:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f0cf8fc:	00000000 */ 	nop
-/*  f0cf900:	46023202 */ 	mul.s	$f8,$f6,$f2
-/*  f0cf904:	0fc33dca */ 	jal	func0f0cf728
-/*  f0cf908:	e7a8002c */ 	swc1	$f8,0x2c($sp)
-/*  f0cf90c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0cf910:	14410003 */ 	bne	$v0,$at,.L0f0cf920
-/*  f0cf914:	00000000 */ 	nop
-/*  f0cf918:	10000033 */ 	b	.L0f0cf9e8
-/*  f0cf91c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0cf920:
-/*  f0cf920:	14400030 */ 	bnez	$v0,.L0f0cf9e4
-/*  f0cf924:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*  f0cf928:	3c077f1b */ 	lui	$a3,%hi(var7f1ada50)
-/*  f0cf92c:	24e7da50 */ 	addiu	$a3,$a3,%lo(var7f1ada50)
-/*  f0cf930:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0cf934:	0c009393 */ 	jal	func00024e4c
-/*  f0cf938:	2406015e */ 	addiu	$a2,$zero,0x15e
-/*  f0cf93c:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*  f0cf940:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f0cf944:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*  f0cf948:	c4500000 */ 	lwc1	$f16,0x0($v0)
-/*  f0cf94c:	c46a0000 */ 	lwc1	$f10,0x0($v1)
-/*  f0cf950:	46105032 */ 	c.eq.s	$f10,$f16
-/*  f0cf954:	00000000 */ 	nop
-/*  f0cf958:	45000020 */ 	bc1f	.L0f0cf9dc
-/*  f0cf95c:	00000000 */ 	nop
-/*  f0cf960:	c4720004 */ 	lwc1	$f18,0x4($v1)
-/*  f0cf964:	c4440004 */ 	lwc1	$f4,0x4($v0)
-/*  f0cf968:	46049032 */ 	c.eq.s	$f18,$f4
-/*  f0cf96c:	00000000 */ 	nop
-/*  f0cf970:	4500001a */ 	bc1f	.L0f0cf9dc
-/*  f0cf974:	00000000 */ 	nop
-/*  f0cf978:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f0cf97c:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f0cf980:	8fa20038 */ 	lw	$v0,0x38($sp)
-/*  f0cf984:	46083032 */ 	c.eq.s	$f6,$f8
-/*  f0cf988:	00000000 */ 	nop
-/*  f0cf98c:	45000013 */ 	bc1f	.L0f0cf9dc
-/*  f0cf990:	00000000 */ 	nop
-/*  f0cf994:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
-/*  f0cf998:	c4500000 */ 	lwc1	$f16,0x0($v0)
-/*  f0cf99c:	46105032 */ 	c.eq.s	$f10,$f16
-/*  f0cf9a0:	00000000 */ 	nop
-/*  f0cf9a4:	4500000d */ 	bc1f	.L0f0cf9dc
-/*  f0cf9a8:	00000000 */ 	nop
-/*  f0cf9ac:	c4b20004 */ 	lwc1	$f18,0x4($a1)
-/*  f0cf9b0:	c4440004 */ 	lwc1	$f4,0x4($v0)
-/*  f0cf9b4:	46049032 */ 	c.eq.s	$f18,$f4
-/*  f0cf9b8:	00000000 */ 	nop
-/*  f0cf9bc:	45000007 */ 	bc1f	.L0f0cf9dc
-/*  f0cf9c0:	00000000 */ 	nop
-/*  f0cf9c4:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*  f0cf9c8:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f0cf9cc:	46083032 */ 	c.eq.s	$f6,$f8
-/*  f0cf9d0:	00000000 */ 	nop
-/*  f0cf9d4:	45030004 */ 	bc1tl	.L0f0cf9e8
-/*  f0cf9d8:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f0cf9dc:
-/*  f0cf9dc:	10000002 */ 	b	.L0f0cf9e8
-/*  f0cf9e0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0cf9e4:
-/*  f0cf9e4:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f0cf9e8:
-/*  f0cf9e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cf9ec:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0cf9f0:	03e00008 */ 	jr	$ra
-/*  f0cf9f4:	00000000 */ 	nop
-);
+	if (func00024ea4()) {
+		struct coord sp24;
+		s32 someint;
+		f32 somefloat = func00024e98();
+		sp24.x = arg0->x * somefloat * 0.25f;
+		sp24.y = arg0->y * somefloat * 0.25f;
+		sp24.z = arg0->z * somefloat * 0.25f;
+
+		someint = func0f0cf728(&sp24);
+
+		if (someint == 1) {
+			return 1;
+		}
+
+		if (someint == 0) {
+			func00024e4c(arg3, arg4, 350, "bondeyespy.c");
+
+			if (arg3->f[0] != arg1->f[0]
+					|| arg3->f[1] != arg1->f[1]
+					|| arg3->f[2] != arg1->f[2]
+					|| arg4->f[0] != arg2->f[0]
+					|| arg4->f[1] != arg2->f[1]
+					|| arg4->f[2] != arg2->f[2]) {
+				return 0;
+			}
+		}
+	}
+
+	return -1;
+}
 
 s32 func0f0cf9f8(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
