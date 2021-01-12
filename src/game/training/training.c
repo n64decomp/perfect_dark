@@ -25,7 +25,7 @@
 #include "game/game_150820.h"
 #include "game/game_1531a0.h"
 #include "game/game_157db0.h"
-#include "game/training/training.h"
+#include "game/training/menus.h"
 #include "game/training/training.h"
 #include "game/gamefile.h"
 #include "game/lang.h"
@@ -3500,33 +3500,36 @@ glabel var7f1b94e4
 /*  f1a0920:	27bd0170 */ 	addiu	$sp,$sp,0x170
 );
 
-// Mismatch issues:
-// - Floating point math at 448 is very different
-// - g_FrNumSounds at 590 is calculated differently
-// - Goal has extra mov.s instruction near 730
+// Mismatch due to floating point regalloc near 778
 //void frTick(void)
 //{
-//	struct coord diff; // sp344
-//	struct coord newpos; // sp332
-//	f32 s5[9]; // sp152
-//	f32 s4[21]; // sp188
 //	s32 ammotype;
 //	s32 capacity;
 //	s32 weaponnum;
+//	struct coord diff; // 158
+//	struct coord newpos; // 14c
 //	u8 weaponnum2;
 //	struct prop *prop;
 //	struct defaultobj *obj;
 //	struct defaultobj *obj2;
 //	s32 invincible;
-//	u8 exploding;
 //	s32 i;
 //	s32 j;
 //	f32 dist;
-//	f32 mult;
+//	u32 stack;
 //	struct inventory_ammo *ammo;
-//	struct model08thing *model08thing;
+//	u8 exploding; // 123
 //	bool oldside;
+//	struct model08thing *model08thing; // 118
+//	s32 tmp;
+//	f32 mult; // 110
 //	bool newside;
+//	struct chrdata *chr;
+//	bool cloaked;
+//	f32 toangle;
+//	f32 speed;
+//	Mtxf spbc; // bc
+//	f32 sp98[9]; // 98
 //
 //	// 9c8
 //	if (g_FrIsValidWeapon
@@ -3630,7 +3633,6 @@ glabel var7f1b94e4
 //	// Top up the player's ammo if the config defined more ammo than the
 //	// weapon allows, or if it defined unlimited ammo
 //	if (g_FrData.numshotssincetopup != 0) {
-//		u32 tmp;
 //		weaponnum = frGetWeaponBySlot(g_FrData.slot);
 //		ammotype = weaponGetAmmoType(weaponnum, 0);
 //		capacity = ammotypeGetMaxCapacity(ammotype);
@@ -3772,6 +3774,8 @@ glabel var7f1b94e4
 //					func0f0926bc(prop, 1, 0xffff);
 //				}
 //
+//				if (g_FrNumSounds);
+//
 //				// 1d0
 //				func0f150820(&prop->pos, &obj->realrot[0], &obj->realrot[3], &obj->realrot[6],
 //						model08thing->unk04[0], model08thing->unk04[1], model08thing->unk04[2],
@@ -3864,15 +3868,11 @@ glabel var7f1b94e4
 //					dist = -2;
 //				} else {
 //					// 448
-//					f32 sum = 0;
 //					diff.x = g_FrData.targets[i].dstpos.x - prop->pos.x;
 //					diff.y = g_FrData.targets[i].dstpos.y - prop->pos.y;
 //					diff.z = g_FrData.targets[i].dstpos.z - prop->pos.z;
-//					sum = sum + diff.x * diff.x;
-//					sum = sum + diff.y * diff.y;
-//					sum = sum + diff.z * diff.z;
 //
-//					dist = sqrtf(sum);
+//					dist = sqrtf(diff.f[0] * diff.f[0] + diff.f[1] * diff.f[1] + diff.f[2] * diff.f[2]);
 //					mult = 1;
 //
 //					// 4b0
@@ -3911,6 +3911,8 @@ glabel var7f1b94e4
 //						func0f0926bc(prop, 1, 0xffff);
 //						func0f0939f8(NULL, prop, 0x5da, -1,
 //								-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+//
+//						if (g_FrNumSounds);
 //					}
 //				}
 //
@@ -3926,8 +3928,8 @@ glabel var7f1b94e4
 //					&& g_FrData.targets[i].rotating == false) {
 //				// 650
 //				if (g_FrData.targets[i].timeuntilrotate == 0) {
-//					struct chrdata *chr = g_Vars.currentplayer->prop->chr;
-//					bool cloaked = chr->hidden & CHRHFLAG_CLOAKED;
+//					chr = g_Vars.currentplayer->prop->chr;
+//					cloaked = chr->hidden & CHRHFLAG_CLOAKED;
 //
 //					// 670
 //					if (cloaked) {
@@ -3955,34 +3957,36 @@ glabel var7f1b94e4
 //					}
 //				}
 //			} else /*70c*/ if (g_FrData.targets[i].rotating) {
-//				f32 speed = g_FrData.targets[i].rotatespeed;
-//				f32 toangle = g_FrData.targets[i].rotatetoangle;
+//				toangle = g_FrData.targets[i].rotatetoangle; // f2 = f12
+//				speed = g_FrData.targets[i].rotatespeed;
+//				if (toangle);
+//
 //				oldside = 0;
 //
 //				// 730
-//				if (g_FrData.targets[i].angle < toangle) {
+//				if (g_FrData.targets[i].angle < toangle) { // f0 < f12
 //					oldside = 1;
 //				}
 //
 //				oldside = (u8)oldside;
 //
 //				// 73c
-//				g_FrData.targets[i].angle += (speed * g_Vars.lvupdate240) * 0.25f;
+//				g_FrData.targets[i].angle += speed * g_Vars.lvupdate240 * 0.25f;
 //
 //				newside = 0;
 //
 //				// 778
-//				if (g_FrData.targets[i].angle < toangle) {
+//				if (g_FrData.targets[i].angle < g_FrData.targets[i].rotatetoangle) { // f0 < f2
 //					newside = 1;
 //				}
 //
 //				newside = (u8)newside;
 //
 //				// 78c
-//				if (newside != oldside || g_FrData.targets[i].angle == toangle) {
+//				if (newside != oldside || g_FrData.targets[i].angle == toangle) { // f2 == f0
 //					// 7b0
 //					// Reached desired angle
-//					g_FrData.targets[i].angle = toangle;
+//					g_FrData.targets[i].angle = g_FrData.targets[i].rotatetoangle; // = f12
 //					g_FrData.targets[i].rotating = false;
 //					g_FrData.targets[i].scriptenabled = true;
 //					g_FrData.targets[i].scriptsleep = 0;
@@ -3997,10 +4001,10 @@ glabel var7f1b94e4
 //				}
 //
 //				// 81c
-//				func00016374(g_FrData.targets[i].angle + M_PI, s4);
-//				func00015f04(obj->model->unk14, s4);
-//				func00015da0(s4, s5);
-//				func00015cd8(s5, obj->realrot);
+//				func00016374(g_FrData.targets[i].angle + M_PI, &spbc);
+//				func00015f04(obj->model->unk14, &spbc);
+//				func00015da0(&spbc, sp98);
+//				func00015cd8(sp98, obj->realrot);
 //			}
 //
 //			// 854

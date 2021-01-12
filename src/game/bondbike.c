@@ -188,7 +188,7 @@ void currentPlayerDismountBike(void)
 		struct hoverbikeobj *bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
 		struct model08thing *thing = func0f068af4(&bike->base);
 
-		f32 fVar5 = thing->unk08 * bike->base.model->unk14;
+		f32 fVar5 = thing->unk04[1] * bike->base.model->unk14;
 		f32 fVar3 = thing->unk18 * bike->base.model->unk14;
 		f32 uVar4 = sqrtf(fVar5 * fVar5 + fVar3 * fVar3);
 
