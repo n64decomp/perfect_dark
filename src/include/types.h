@@ -104,6 +104,11 @@ struct pad {
 	/*0x52*/ s16 unk52;
 };
 
+union filedataptr {
+	u8 *u8;
+	u32 *u32;
+};
+
 struct animfloats {
 	/*0x00*/ u16 animnum;
 	/*0x04*/ f32 unk04;
@@ -6881,6 +6886,14 @@ struct colour {
 struct var800ab570 {
 	u32 unk00;
 	u32 unk04;
+};
+
+struct collisionthing {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
 };
 
 #endif

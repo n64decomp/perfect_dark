@@ -5375,32 +5375,32 @@ glabel func0f064ce8
 /*  f0654e4:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
 );
 
-u32 func0f0654e8(struct prop *prop)
+u32 propDoorGetCdTypes(struct prop *prop)
 {
 	struct doorobj *door = prop->door;
-	u32 flags;
+	u32 types;
 
 	if (door->frac <= 0) {
-		flags = 0x1000;
+		types = CDTYPE_CLOSEDDOORS;
 	} else if (door->frac >= door->maxfrac) {
-		flags = 0x2000;
+		types = CDTYPE_OPENDOORS;
 	} else {
-		flags = 0x4000;
+		types = CDTYPE_AJARDOORS;
 	}
 
 	if (door->base.flags2 & OBJFLAG2_AICANNOTUSE) {
-		flags |= 0x8000;
+		types |= CDTYPE_DOORSLOCKEDTOAI;
 	}
 
-	return flags;
+	return types;
 }
 
-bool func0f06554c(struct prop *prop, u32 flags)
+bool propIsOfCdType(struct prop *prop, u32 types)
 {
 	bool result = true;
 
 	if (prop->type == PROPTYPE_DOOR) {
-		if (flags & 0x0100) {
+		if (types & CDTYPE_OBJSWITHOUTFLAG) {
 			struct defaultobj *obj = prop->obj;
 
 			if (obj->flags & OBJFLAG_04000000) {
@@ -5408,7 +5408,7 @@ bool func0f06554c(struct prop *prop, u32 flags)
 			}
 		}
 
-		if (flags & 0x0800) {
+		if (types & CDTYPE_DOORSWITHOUTFLAG) {
 			struct defaultobj *obj = prop->obj;
 
 			if (obj->flags3 & OBJFLAG3_80000000) {
@@ -5416,13 +5416,13 @@ bool func0f06554c(struct prop *prop, u32 flags)
 			}
 		}
 
-		if ((flags & 0x0002) == 0) {
-			if ((func0f0654e8(prop) & flags) == 0) {
+		if ((types & CDTYPE_DOORS) == 0) {
+			if ((propDoorGetCdTypes(prop) & types) == 0) {
 				result = false;
 			}
 		}
 	} else if (prop->type == PROPTYPE_PLAYER) {
-		if ((flags & 0x0004) == 0) {
+		if ((types & CDTYPE_PLAYERS) == 0) {
 			result = false;
 		} else {
 			struct player *player = g_Vars.players[propGetPlayerNum(prop)];
@@ -5432,7 +5432,7 @@ bool func0f06554c(struct prop *prop, u32 flags)
 			}
 		}
 	} else if (prop->type == PROPTYPE_CHR) {
-		if ((flags & 0x0008) == 0) {
+		if ((types & CDTYPE_CHRS) == 0) {
 			result = false;
 		} else {
 			struct chrdata *chr = prop->chr;
@@ -5449,33 +5449,33 @@ bool func0f06554c(struct prop *prop, u32 flags)
 		if (obj->geo == NULL) {
 			result = false;
 		} else {
-			if ((flags & 0x0100) && (obj->flags & OBJFLAG_04000000)) {
+			if ((types & CDTYPE_OBJSWITHOUTFLAG) && (obj->flags & OBJFLAG_04000000)) {
 				result = false;
 			}
 
-			if ((flags & 0x0080)
+			if ((types & CDTYPE_OBJSWITHFLAG)
 					&& (obj->flags & OBJFLAG_INVINCIBLE) == 0
 					&& (obj->flags2 & OBJFLAG2_00004000) == 0) {
 				result = false;
 			}
 
-			if ((flags & 0x0200)
+			if ((types & CDTYPE_OBJSWITHFLAG2)
 					&& (obj->flags & OBJFLAG_INVINCIBLE) == 0
 					&& (obj->flags2 & OBJFLAG2_00200000) == 0) {
 				result = false;
 			}
 
-			if ((flags & 0x0400)
+			if ((types & CDTYPE_OBJSNOTSAFEORHELI)
 					&& (obj->type == OBJTYPE_SAFE || obj->type == OBJTYPE_HELI)) {
 				result = false;
 			}
 
 			if ((obj->flags & OBJFLAG_00000800)) {
-				if ((flags & 0x0010) == 0) {
+				if ((types & CDTYPE_10) == 0) {
 					result = false;
 				}
 			} else {
-				if ((flags & 0x0001) == 0) {
+				if ((types & CDTYPE_OBJS) == 0) {
 					result = false;
 				}
 			}

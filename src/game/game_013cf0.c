@@ -22,9 +22,9 @@ void stageLoadTiles(void)
 	}
 
 	var8005d9a0 = 2;
-	g_TileFileData = func0f1670fc(g_Stages[index].tilefileid, 0x22);
-	g_TileNumRooms = *g_TileFileData;
-	g_TileRooms = g_TileFileData + 1;
+	g_TileFileData.u8 = func0f1670fc(g_Stages[index].tilefileid, 0x22);
+	g_TileNumRooms = *g_TileFileData.u32;
+	g_TileRooms = g_TileFileData.u32 + 1;
 
 	stageParseTiles();
 }
@@ -33,8 +33,8 @@ void stageLoadTiles(void)
 
 void stageParseTiles(void)
 {
-	struct tile *tile = (struct tile *)((u8 *)g_TileFileData + g_TileRooms[0]);
-	struct tile *end = (struct tile *)((u8 *)g_TileFileData + g_TileRooms[g_TileNumRooms]);
+	struct tile *tile = (struct tile *)(g_TileFileData.u8 + g_TileRooms[0]);
+	struct tile *end = (struct tile *)(g_TileFileData.u8 + g_TileRooms[g_TileNumRooms]);
 
 	while (tile < end) {
 		if (tile->unk00 == 0) {
