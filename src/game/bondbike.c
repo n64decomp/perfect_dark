@@ -1442,106 +1442,39 @@ s32 func0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	return result;
 }
 
-const char var7f1adb28[] = "bondbike.c";
+s32 func0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
+{
+	if (func00024ea4()) {
+		struct coord sp24;
+		f32 somefloat = func00024e98();
+		s32 someint;
 
-GLOBAL_ASM(
-glabel func0f0d36d4
-/*  f0d36d4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0d36d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0d36dc:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f0d36e0:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f0d36e4:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f0d36e8:	0c0093a9 */ 	jal	func00024ea4
-/*  f0d36ec:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f0d36f0:	5040004f */ 	beqzl	$v0,.L0f0d3830
-/*  f0d36f4:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0d36f8:	0c0093a6 */ 	jal	func00024e98
-/*  f0d36fc:	00000000 */ 	nop
-/*  f0d3700:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f0d3704:	3c013e80 */ 	lui	$at,0x3e80
-/*  f0d3708:	44811000 */ 	mtc1	$at,$f2
-/*  f0d370c:	c4640000 */ 	lwc1	$f4,0x0($v1)
-/*  f0d3710:	27a40024 */ 	addiu	$a0,$sp,0x24
-/*  f0d3714:	24050000 */ 	addiu	$a1,$zero,0x0
-/*  f0d3718:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f0d371c:	00000000 */ 	nop
-/*  f0d3720:	46023202 */ 	mul.s	$f8,$f6,$f2
-/*  f0d3724:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f0d3728:	c46a0004 */ 	lwc1	$f10,0x4($v1)
-/*  f0d372c:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f0d3730:	00000000 */ 	nop
-/*  f0d3734:	46028482 */ 	mul.s	$f18,$f16,$f2
-/*  f0d3738:	e7b20028 */ 	swc1	$f18,0x28($sp)
-/*  f0d373c:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f0d3740:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f0d3744:	00000000 */ 	nop
-/*  f0d3748:	46023202 */ 	mul.s	$f8,$f6,$f2
-/*  f0d374c:	0fc34ca6 */ 	jal	func0f0d3298
-/*  f0d3750:	e7a8002c */ 	swc1	$f8,0x2c($sp)
-/*  f0d3754:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0d3758:	14410003 */ 	bne	$v0,$at,.L0f0d3768
-/*  f0d375c:	00000000 */ 	nop
-/*  f0d3760:	10000033 */ 	b	.L0f0d3830
-/*  f0d3764:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0d3768:
-/*  f0d3768:	14400030 */ 	bnez	$v0,.L0f0d382c
-/*  f0d376c:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*  f0d3770:	3c077f1b */ 	lui	$a3,%hi(var7f1adb28)
-/*  f0d3774:	24e7db28 */ 	addiu	$a3,$a3,%lo(var7f1adb28)
-/*  f0d3778:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0d377c:	0c009393 */ 	jal	func00024e4c
-/*  f0d3780:	240602ad */ 	addiu	$a2,$zero,0x2ad
-/*  f0d3784:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*  f0d3788:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f0d378c:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*  f0d3790:	c4500000 */ 	lwc1	$f16,0x0($v0)
-/*  f0d3794:	c46a0000 */ 	lwc1	$f10,0x0($v1)
-/*  f0d3798:	46105032 */ 	c.eq.s	$f10,$f16
-/*  f0d379c:	00000000 */ 	nop
-/*  f0d37a0:	45000020 */ 	bc1f	.L0f0d3824
-/*  f0d37a4:	00000000 */ 	nop
-/*  f0d37a8:	c4720004 */ 	lwc1	$f18,0x4($v1)
-/*  f0d37ac:	c4440004 */ 	lwc1	$f4,0x4($v0)
-/*  f0d37b0:	46049032 */ 	c.eq.s	$f18,$f4
-/*  f0d37b4:	00000000 */ 	nop
-/*  f0d37b8:	4500001a */ 	bc1f	.L0f0d3824
-/*  f0d37bc:	00000000 */ 	nop
-/*  f0d37c0:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f0d37c4:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f0d37c8:	8fa20038 */ 	lw	$v0,0x38($sp)
-/*  f0d37cc:	46083032 */ 	c.eq.s	$f6,$f8
-/*  f0d37d0:	00000000 */ 	nop
-/*  f0d37d4:	45000013 */ 	bc1f	.L0f0d3824
-/*  f0d37d8:	00000000 */ 	nop
-/*  f0d37dc:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
-/*  f0d37e0:	c4500000 */ 	lwc1	$f16,0x0($v0)
-/*  f0d37e4:	46105032 */ 	c.eq.s	$f10,$f16
-/*  f0d37e8:	00000000 */ 	nop
-/*  f0d37ec:	4500000d */ 	bc1f	.L0f0d3824
-/*  f0d37f0:	00000000 */ 	nop
-/*  f0d37f4:	c4b20004 */ 	lwc1	$f18,0x4($a1)
-/*  f0d37f8:	c4440004 */ 	lwc1	$f4,0x4($v0)
-/*  f0d37fc:	46049032 */ 	c.eq.s	$f18,$f4
-/*  f0d3800:	00000000 */ 	nop
-/*  f0d3804:	45000007 */ 	bc1f	.L0f0d3824
-/*  f0d3808:	00000000 */ 	nop
-/*  f0d380c:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*  f0d3810:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f0d3814:	46083032 */ 	c.eq.s	$f6,$f8
-/*  f0d3818:	00000000 */ 	nop
-/*  f0d381c:	45030004 */ 	bc1tl	.L0f0d3830
-/*  f0d3820:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f0d3824:
-/*  f0d3824:	10000002 */ 	b	.L0f0d3830
-/*  f0d3828:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0d382c:
-/*  f0d382c:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f0d3830:
-/*  f0d3830:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0d3834:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0d3838:	03e00008 */ 	jr	$ra
-/*  f0d383c:	00000000 */ 	nop
-);
+		sp24.x = arg0->x * somefloat * 0.25f;
+		sp24.y = arg0->y * somefloat * 0.25f;
+		sp24.z = arg0->z * somefloat * 0.25f;
+
+		someint = func0f0d3298(&sp24, 0);
+
+		if (someint == 1) {
+			return 1;
+		}
+
+		if (someint == 0) {
+			func00024e4c(arg3, arg4, 685, "bondbike.c");
+
+			if (arg3->f[0] != arg1->f[0]
+					|| arg3->f[1] != arg1->f[1]
+					|| arg3->f[2] != arg1->f[2]
+					|| arg4->f[0] != arg2->f[0]
+					|| arg4->f[1] != arg2->f[1]
+					|| arg4->f[2] != arg2->f[2]) {
+				return 0;
+			}
+		}
+	}
+
+	return -1;
+}
 
 s32 func0f0d3840(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
