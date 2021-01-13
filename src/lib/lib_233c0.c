@@ -8041,40 +8041,23 @@ glabel func0002a5e4
 /*    2a680:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel cdTestVolume
-/*    2a684:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*    2a688:	44856000 */ 	mtc1	$a1,$f12
-/*    2a68c:	8fb80070 */ 	lw	$t8,0x70($sp)
-/*    2a690:	c7a40074 */ 	lwc1	$f4,0x74($sp)
-/*    2a694:	c7a60078 */ 	lwc1	$f6,0x78($sp)
-/*    2a698:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    2a69c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    2a6a0:	27b90038 */ 	addiu	$t9,$sp,0x38
-/*    2a6a4:	240f0004 */ 	addiu	$t7,$zero,0x4
-/*    2a6a8:	24080001 */ 	addiu	$t0,$zero,0x1
-/*    2a6ac:	44056000 */ 	mfc1	$a1,$f12
-/*    2a6b0:	afae0034 */ 	sw	$t6,0x34($sp)
-/*    2a6b4:	afa80024 */ 	sw	$t0,0x24($sp)
-/*    2a6b8:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*    2a6bc:	afb90020 */ 	sw	$t9,0x20($sp)
-/*    2a6c0:	afb80014 */ 	sw	$t8,0x14($sp)
-/*    2a6c4:	e7a40018 */ 	swc1	$f4,0x18($sp)
-/*    2a6c8:	0c009f47 */ 	jal	func00027d1c
-/*    2a6cc:	e7a6001c */ 	swc1	$f6,0x1c($sp)
-/*    2a6d0:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*    2a6d4:	51200005 */ 	beqzl	$t1,.L0002a6ec
-/*    2a6d8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    2a6dc:	afa00034 */ 	sw	$zero,0x34($sp)
-/*    2a6e0:	0c00945a */ 	jal	func00025168
-/*    2a6e4:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*    2a6e8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0002a6ec:
-/*    2a6ec:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*    2a6f0:	27bd0060 */ 	addiu	$sp,$sp,0x60
-/*    2a6f4:	03e00008 */ 	jr	$ra
-/*    2a6f8:	00000000 */ 	nop
-);
+/**
+ * Tests if a cylinder volume fits in the given position.
+ */
+s32 cdTestVolume(struct coord *pos, f32 width, s16 *rooms, s32 types, s32 arg4, f32 ymax, f32 ymin)
+{
+	u32 sp38[10];
+	bool result = true;
+
+	func00027d1c(pos, width, rooms, types, 4, arg4, ymax, ymin, sp38, 1);
+
+	if (sp38[0]) {
+		result = false;
+		func00025168(sp38[3]);
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0002a6fc
