@@ -529,6 +529,14 @@
 #define CDRESULT_COLLISION   0
 #define CDRESULT_NOCOLLISION 1
 
+#define CDTYPE_OBJS    0x01
+#define CDTYPE_DOORS   0x02
+#define CDTYPE_PLAYERS 0x04
+#define CDTYPE_CHRS    0x08
+#define CDTYPE_10      0x10
+#define CDTYPE_BG      0x20
+#define CDTYPE_ALL     0x3f
+
 #define COLOR_00_GREEN  0x00
 #define COLOR_02_WHITE  0x02
 #define COLOR_03_RED    0x03

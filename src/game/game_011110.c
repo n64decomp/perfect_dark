@@ -1104,7 +1104,7 @@ glabel var7f1a827c
 /*  f01219c:	27a6008c */ 	addiu	$a2,$sp,0x8c
 /*  f0121a0:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f0121a4:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f0121a8:	0c00a86c */ 	jal	coordFindGroundY
+/*  f0121a8:	0c00a86c */ 	jal	cdFindGroundY
 /*  f0121ac:	2447161a */ 	addiu	$a3,$v0,0x161a
 /*  f0121b0:	8e220284 */ 	lw	$v0,0x284($s1)
 /*  f0121b4:	3c0143b4 */ 	lui	$at,0x43b4
@@ -1572,7 +1572,7 @@ glabel var7f1a827c
 //		}
 //	}
 //
-//	groundy = coordFindGroundY(&pos, 30, rooms,
+//	groundy = cdFindGroundY(&pos, 30, rooms,
 //			&g_Vars.currentplayer->floorcol,
 //			&g_Vars.currentplayer->floortype,
 //			&g_Vars.currentplayer->floorflags,

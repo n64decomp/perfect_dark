@@ -110,7 +110,7 @@ void currentPlayerWalkInit(void)
 		delta.z = g_Vars.currentplayer->walkinitpos.z - g_Vars.currentplayer->prop->pos.z;
 
 		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, false);
-		func0f0c4250(&delta, 0, true, 0, 63);
+		func0f0c4250(&delta, 0, true, 0, CDTYPE_ALL);
 		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, true);
 	} else if (prevmode != MOVEMODE_GRAB && prevmode != MOVEMODE_WALK) {
 		g_Vars.currentplayer->moveinitspeed.x = 0;
@@ -169,13 +169,22 @@ void func0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 	func0f082e84(obj, &posunk, &vector, &tween, false);
 }
 
-bool currentPlayerHasGapToCeiling(f32 y)
+/**
+ * Attempt to move the current player up vertically by the given amount.
+ *
+ * Collision checks are done for the new location, and if successful the
+ * player's positional values are updated.
+ *
+ * The function is called with amount = 0 when attempting to stand up from a
+ * crouch, after increasing the player's bbox to the standing size.
+ */
+s32 bwalkTryMoveUpwards(f32 amount)
 {
 	bool result;
 	struct coord newpos;
 	s16 rooms[8];
 	u32 stack;
-	u32 something;
+	u32 types;
 	f32 ymax;
 	f32 ymin;
 	f32 width;
@@ -187,10 +196,10 @@ bool currentPlayerHasGapToCeiling(f32 y)
 	}
 
 	newpos.x = g_Vars.currentplayer->prop->pos.x;
-	newpos.y = g_Vars.currentplayer->prop->pos.y + y;
+	newpos.y = g_Vars.currentplayer->prop->pos.y + amount;
 	newpos.z = g_Vars.currentplayer->prop->pos.z;
 
-	something = g_Vars.bondcollisions ? 63 : 32;
+	types = g_Vars.bondcollisions ? CDTYPE_ALL : CDTYPE_BG;
 
 	propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
@@ -199,7 +208,7 @@ bool currentPlayerHasGapToCeiling(f32 y)
 
 	ymin -= 0.1f;
 
-	result = func0002a684(&newpos, width, rooms, something, 1,
+	result = cdTestVolume(&newpos, width, rooms, types, 1,
 			ymax - g_Vars.currentplayer->prop->pos.y,
 			ymin - g_Vars.currentplayer->prop->pos.y);
 
@@ -216,7 +225,7 @@ bool currentPlayerHasGapToCeiling(f32 y)
 	return result;
 }
 
-bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, f32 extrawidth, s32 arg4)
+bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, f32 extrawidth, s32 checktypes)
 {
 	s32 result = CDRESULT_NOCOLLISION;
 	f32 halfwidth;
@@ -224,7 +233,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 	s16 dstrooms[8];
 	bool copyrooms = false;
 	s16 sp64[22];
-	s32 sp60;
+	s32 types;
 	f32 ymax;
 	f32 ymin;
 	f32 width;
@@ -253,7 +262,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 		dstpos.y += vel->y;
 		dstpos.z += vel->z;
 
-		sp60 = g_Vars.bondcollisions ? arg4 : 32;
+		types = g_Vars.bondcollisions ? checktypes : CDTYPE_BG;
 
 		propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 		width += extrawidth;
@@ -266,27 +275,27 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 
 		// Check if the player is moving at least half their width along the
 		// X or Z axis in a single frame. If less, only do a collision check for
-		// the dst position. If more, do a halfway check too.
+		// the dst position. If more, do a halfway check too?
 		xdiff = dstpos.x - g_Vars.currentplayer->prop->pos.x;
 		zdiff = dstpos.z - g_Vars.currentplayer->prop->pos.z;
 		halfwidth = width * 0.5f;
 
 		if (xdiff > halfwidth || zdiff > halfwidth || xdiff < -halfwidth || zdiff < -halfwidth) {
-			result = func0002d95c(&g_Vars.currentplayer->prop->pos,
+			result = cdTestAToB3(&g_Vars.currentplayer->prop->pos,
 					g_Vars.currentplayer->prop->rooms,
-					&dstpos, dstrooms, width, sp60, 1,
+					&dstpos, dstrooms, width, types, 1,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 
 			if (result == CDRESULT_NOCOLLISION) {
-				result = func0002a9f0(&g_Vars.currentplayer->prop->pos,
-						&dstpos, width, dstrooms, sp60, 1,
+				result = cdTestAToB1(&g_Vars.currentplayer->prop->pos,
+						&dstpos, width, dstrooms, types, 1,
 						ymax - g_Vars.currentplayer->prop->pos.y,
 						ymin - g_Vars.currentplayer->prop->pos.y);
 			}
 		} else {
-			result = func0002a9f0(&g_Vars.currentplayer->prop->pos,
-					&dstpos, width, sp64, sp60, 1,
+			result = cdTestAToB1(&g_Vars.currentplayer->prop->pos,
+					&dstpos, width, sp64, types, 1,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 		}
@@ -672,9 +681,9 @@ glabel func0f0c4250
 );
 
 // Mismatch: The below loads 0.5f twice in the chr push code while goal reuses it.
-//bool func0f0c4250(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 arg4)
+//bool func0f0c4250(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 types)
 //{
-//	s32 result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, arg4);
+//	s32 result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, types);
 //
 //	if (result != CDRESULT_NOCOLLISION) {
 //		struct prop *obstacle = cdGetObstacle();
@@ -760,7 +769,7 @@ glabel func0f0c4250
 //							func0f0220ac(chr);
 //							modelSetRootPosition(chr->model, &newpos);
 //
-//							result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, arg4);
+//							result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, types);
 //						}
 //					}
 //				}
@@ -801,7 +810,7 @@ glabel func0f0c4250
 //								}
 //
 //								if (somevalue) {
-//									result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, arg4);
+//									result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, types);
 //								}
 //							}
 //						}
@@ -814,9 +823,9 @@ glabel func0f0c4250
 //	return result;
 //}
 
-s32 func0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s32 arg3)
+s32 func0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s32 types)
 {
-	s32 result = func0f0c4250(delta, 0, true, 0, arg3);
+	s32 result = func0f0c4250(delta, 0, true, 0, types);
 
 	if (result == CDRESULT_COLLISION) {
 		func00024e4c(arg1, arg2, 0x25f, "bondwalk.c");
@@ -826,7 +835,7 @@ s32 func0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s3
 }
 
 s32 func0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
-		struct coord *d, struct coord *e, s32 arg6)
+		struct coord *d, struct coord *e, s32 types)
 {
 	struct coord quarter;
 	bool result;
@@ -836,7 +845,7 @@ s32 func0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 		quarter.x = a->x * mult * 0.25f;
 		quarter.y = a->y * mult * 0.25f;
 		quarter.z = a->z * mult * 0.25f;
-		result = func0f0c4250(&quarter, 0, true, 0, arg6);
+		result = func0f0c4250(&quarter, 0, true, 0, types);
 
 		if (result == CDRESULT_NOCOLLISION) {
 			return CDRESULT_NOCOLLISION;
@@ -859,7 +868,7 @@ s32 func0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 	return CDRESULT_ERROR;
 }
 
-s32 func0f0c494c(struct coord *a, struct coord *b, struct coord *c, s32 arg3)
+s32 func0f0c494c(struct coord *a, struct coord *b, struct coord *c, s32 types)
 {
 	if (b->f[0] != c->f[0] || b->f[2] != c->f[2]) {
 		f32 tmp;
@@ -881,13 +890,13 @@ s32 func0f0c494c(struct coord *a, struct coord *b, struct coord *c, s32 arg3)
 		sp2c.y = 0;
 		sp2c.z = sp38.z * tmp;
 
-		return func0f0c4250(&sp2c, 0, true, 0, arg3);
+		return func0f0c4250(&sp2c, 0, true, 0, types);
 	}
 
 	return -1;
 }
 
-s32 func0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32 arg3)
+s32 func0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32 types)
 {
 	struct coord sp34;
 	struct coord sp28;
@@ -921,7 +930,7 @@ s32 func0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32
 			sp28.y = 0;
 			sp28.z = sp34.z;
 
-			if (func0f0c4250(&sp28, 0, true, 0, arg3) == 1) {
+			if (func0f0c4250(&sp28, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
 				return true;
 			}
 		}
@@ -949,7 +958,7 @@ s32 func0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32
 				sp28.y = 0;
 				sp28.z = sp34.z;
 
-				if (func0f0c4250(&sp28, 0, true, 0, arg3) == 1) {
+				if (func0f0c4250(&sp28, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
 					return true;
 				}
 			}
@@ -958,6 +967,7 @@ s32 func0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32
 
 	return false;
 }
+
 void func0f0c4d98(void)
 {
 	// empty
@@ -1043,7 +1053,7 @@ void currentPlayerUpdateVerticalMovement(void)
 	if (g_Vars.antiplayernum >= 0
 			&& g_Vars.currentplayer == g_Vars.anti
 			&& g_Vars.currentplayer->bond2.width != 30
-			&& func0002a684(&g_Vars.currentplayer->prop->pos, 30, g_Vars.currentplayer->prop->rooms, 0x3f, 1, ymax - g_Vars.currentplayer->prop->pos.y, ymin - g_Vars.currentplayer->prop->pos.y)) {
+			&& cdTestVolume(&g_Vars.currentplayer->prop->pos, 30, g_Vars.currentplayer->prop->rooms, CDTYPE_ALL, 1, ymax - g_Vars.currentplayer->prop->pos.y, ymin - g_Vars.currentplayer->prop->pos.y)) {
 		g_Vars.currentplayer->prop->chr->chrwidth = 30;
 		g_Vars.currentplayer->bond2.width = 30;
 		width = 30;
@@ -1080,7 +1090,7 @@ void currentPlayerUpdateVerticalMovement(void)
 
 	roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
 	func0f0cb79c(g_Vars.currentplayer, &testpos, rooms);
-	ground = coordFindGroundY(&testpos, g_Vars.currentplayer->bond2.width, rooms,
+	ground = cdFindGroundY(&testpos, g_Vars.currentplayer->bond2.width, rooms,
 			&g_Vars.currentplayer->floorcol, &g_Vars.currentplayer->floortype,
 			&g_Vars.currentplayer->floorflags, &g_Vars.currentplayer->floorroom,
 			&newinlift, &lift);
@@ -1112,7 +1122,7 @@ void currentPlayerUpdateVerticalMovement(void)
 							|| lift == NULL
 							|| lift->obj == NULL
 							|| (lift->obj->flags & OBJFLAG_CHOPPER_INACTIVE) == 0
-							|| currentPlayerHasGapToCeiling(moveamount) == true) {
+							|| bwalkTryMoveUpwards(moveamount) == CDRESULT_NOCOLLISION) {
 						// Going up
 						g_Vars.currentplayer->vv_manground += moveamount;
 						g_Vars.currentplayer->sumground = g_Vars.currentplayer->vv_manground / 0.045499980449677f;
@@ -1142,11 +1152,11 @@ void currentPlayerUpdateVerticalMovement(void)
 				(ground <= g_Vars.currentplayer->vv_manground &&
 				 ground <= g_Vars.currentplayer->vv_manground + g_Vars.currentplayer->ladderupdown)) {
 			// Still on ladder
-			if (currentPlayerHasGapToCeiling(g_Vars.currentplayer->ladderupdown) == true) {
+			if (bwalkTryMoveUpwards(g_Vars.currentplayer->ladderupdown) == CDRESULT_NOCOLLISION) {
 				g_Vars.currentplayer->vv_manground += g_Vars.currentplayer->ladderupdown;
 			}
 		} else {
-			if (currentPlayerHasGapToCeiling(ground - g_Vars.currentplayer->vv_manground) == true) {
+			if (bwalkTryMoveUpwards(ground - g_Vars.currentplayer->vv_manground) == CDRESULT_NOCOLLISION) {
 				g_Vars.currentplayer->vv_manground = ground;
 				onladder = false;
 			}
@@ -1181,7 +1191,7 @@ void currentPlayerUpdateVerticalMovement(void)
 				sumground = limit;
 			}
 
-			if (currentPlayerHasGapToCeiling(sumground - g_Vars.currentplayer->vv_manground) == true) {
+			if (bwalkTryMoveUpwards(sumground - g_Vars.currentplayer->vv_manground) == CDRESULT_NOCOLLISION) {
 				g_Vars.currentplayer->vv_manground = sumground;
 			} else {
 				// Not enough room above. If on a hoverbike, blow it up
@@ -1237,7 +1247,7 @@ void currentPlayerUpdateVerticalMovement(void)
 			fallspeed = -fallspeed;
 		}
 
-		if (currentPlayerHasGapToCeiling(newmanground - g_Vars.currentplayer->vv_manground) == true) {
+		if (bwalkTryMoveUpwards(newmanground - g_Vars.currentplayer->vv_manground) == CDRESULT_NOCOLLISION) {
 			// Falling
 			g_Vars.currentplayer->vv_manground = newmanground;
 			g_Vars.currentplayer->bdeltapos.y = fallspeed;
@@ -1471,7 +1481,7 @@ void func0f0c6180(void)
 
 		currentPlayerUpdateCrouchOffsetWalk();
 
-		if (!currentPlayerHasGapToCeiling(0)) {
+		if (bwalkTryMoveUpwards(0) == CDRESULT_COLLISION) {
 			// Crouch adjustment is blocked by ceiling
 			g_Vars.currentplayer->crouchoffset = prevcrouchoffset;
 			g_Vars.currentplayer->crouchoffsetreal = prevcrouchoffsetreal;
@@ -1500,7 +1510,7 @@ void func0f0c6318(void)
 	rotateamount = g_Vars.currentplayer->speedtheta * mult
 		* g_Vars.lvupdate240freal * 0.0174505133f * 3.5f;
 
-	func0f0c4250(&delta, rotateamount, true, 0, 63);
+	func0f0c4250(&delta, rotateamount, true, 0, CDTYPE_ALL);
 }
 
 u32 var80070e68 = 0x00000000;
@@ -1510,7 +1520,7 @@ u32 var80070e74 = 0x00000000;
 u32 var80070e78 = 0x00000000;
 u32 var80070e7c = 0x00000000;
 
-void func0f0c63bc(struct coord *arg0, u32 arg1, s32 arg2)
+void func0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
 {
 	struct coord sp100;
 	struct coord sp88;
@@ -1520,35 +1530,35 @@ void func0f0c63bc(struct coord *arg0, u32 arg1, s32 arg2)
 
 	func0f0c4d98();
 
-	if (func0f0c4764(arg0, &sp100, &sp88, arg2) == CDRESULT_COLLISION) {
+	if (func0f0c4764(arg0, &sp100, &sp88, types) == CDRESULT_COLLISION) {
 		struct coord sp76;
 		struct coord sp64;
 
-		s32 lVar1 = func0f0c47d0(arg0, &sp100, &sp88, &sp76, &sp64, arg2);
+		s32 result = func0f0c47d0(arg0, &sp100, &sp88, &sp76, &sp64, types);
 
-		if (lVar1 > 0 || lVar1 < 0) {
-			if (lVar1 > 0) {
+		if (result >= CDRESULT_NOCOLLISION || result <= CDRESULT_ERROR) {
+			if (result >= CDRESULT_NOCOLLISION) {
 				func0f0c4d98();
 			}
 
 			if (arg1
-					&& func0f0c494c(arg0, &sp100, &sp88, arg2) <= CDRESULT_COLLISION
-					&& func0f0c4a5c(arg0, &sp100, &sp88, arg2) <= 0) {
+					&& func0f0c494c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION
+					&& func0f0c4a5c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION) {
 				// empty
 			}
-		} else if (lVar1 == 0) {
+		} else if (result == CDRESULT_COLLISION) {
 			struct coord sp48;
 			struct coord sp36;
 
-			if (func0f0c47d0(arg0, &sp76, &sp64, &sp48, &sp36, arg2) > 0) {
+			if (func0f0c47d0(arg0, &sp76, &sp64, &sp48, &sp36, types) >= CDRESULT_NOCOLLISION) {
 				func0f0c4d98();
 			}
 
 			if (arg1
-					&& func0f0c494c(arg0, &sp76, &sp64, arg2) <= CDRESULT_COLLISION
-					&& func0f0c494c(arg0, &sp100, &sp88, arg2) <= CDRESULT_COLLISION
-					&& func0f0c4a5c(arg0, &sp76, &sp64, arg2) < 1) {
-				func0f0c4a5c(arg0, &sp100, &sp88, arg2);
+					&& func0f0c494c(arg0, &sp76, &sp64, types) <= CDRESULT_COLLISION
+					&& func0f0c494c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION
+					&& func0f0c4a5c(arg0, &sp76, &sp64, types) <= CDRESULT_COLLISION) {
+				func0f0c4a5c(arg0, &sp100, &sp88, types);
 			}
 		}
 	}

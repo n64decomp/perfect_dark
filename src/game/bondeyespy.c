@@ -67,7 +67,7 @@ f32 eyespyFindGround(s16 *floorroom)
 	pos.y = prop->pos.y + yoffset;
 	pos.z = prop->pos.z;
 
-	ground = coordFindGroundY(&pos, 26, prop->rooms, NULL, NULL, NULL, floorroom, &inlift, &lift);
+	ground = cdFindGroundY(&pos, 26, prop->rooms, NULL, NULL, NULL, floorroom, &inlift, &lift);
 
 	if (ground < -30000) {
 		ground = -30000;
@@ -83,7 +83,7 @@ s32 eyespyCalculateNewY(f32 yvel)
 	struct chrdata *chr = prop->chr;
 	struct coord dstpos;
 	s16 dstrooms[8];
-	s32 sp4c;
+	s32 types;
 	u32 stack;
 	f32 f0;
 	u32 stack2;
@@ -92,7 +92,7 @@ s32 eyespyCalculateNewY(f32 yvel)
 	dstpos.y = prop->pos.y + yvel;
 	dstpos.z = prop->pos.z;
 
-	sp4c = g_Vars.bondcollisions ? 63 : 32;
+	types = g_Vars.bondcollisions ? CDTYPE_ALL : CDTYPE_BG;
 
 	// Allow eyespy to go up steps 30cm or less
 	if (chr->manground + 30 >= g_Vars.currentplayer->eyespy->oldground) {
@@ -107,7 +107,7 @@ s32 eyespyCalculateNewY(f32 yvel)
 
 	f0 -= 0.1f;
 
-	result = func0002a684(&dstpos, 26, dstrooms, sp4c, 1, 15, f0);
+	result = cdTestVolume(&dstpos, 26, dstrooms, types, 1, 15, f0);
 	propSetCollisionsEnabled(prop, true);
 
 	if (result == CDRESULT_NOCOLLISION) {
@@ -128,7 +128,7 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 	s16 dstrooms[8];
 	s16 floorroom;
 	s16 sp74[24];
-	s32 sp70;
+	s32 types;
 	s32 i;
 	f32 f18;
 	f32 xdiff;
@@ -149,7 +149,7 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 		dstpos.y = vel->y + eyespyprop->pos.y;
 		dstpos.z = vel->z + eyespyprop->pos.z;
 
-		sp70 = g_Vars.bondcollisions ? 63 : 32;
+		types = g_Vars.bondcollisions ? CDTYPE_ALL : CDTYPE_BG;
 
 		// Allow eyespy to go up steps 30cm or less
 		if (g_Vars.currentplayer->eyespy->oldground <= chr->manground + 30) {
@@ -175,7 +175,7 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 
 		// Check if the eyespy is moving 13cm or more along either the X or Z
 		// axis in a single frame. If less, only do a collision check for the
-		// dst position. If more, do a halfway check too.
+		// dst position. If more, do a halfway check too?
 		xdiff = dstpos.x - eyespyprop->pos.x;
 		zdiff = dstpos.z - eyespyprop->pos.z;
 
@@ -183,13 +183,13 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 		halflimit = limit * 0.5f;
 
 		if (xdiff > halflimit || zdiff > halflimit || xdiff < -halflimit || zdiff < -halflimit) {
-			result = func0002d95c(&eyespyprop->pos, eyespyprop->rooms, &dstpos, dstrooms, limit, sp70, 1, 15, f18);
+			result = cdTestAToB3(&eyespyprop->pos, eyespyprop->rooms, &dstpos, dstrooms, limit, types, 1, 15, f18);
 
 			if (result == CDRESULT_NOCOLLISION) {
-				result = func0002a9f0(&eyespyprop->pos, &dstpos, limit, dstrooms, sp70, 1, 15, f18);
+				result = cdTestAToB1(&eyespyprop->pos, &dstpos, limit, dstrooms, types, 1, 15, f18);
 			}
 		} else {
-			result = func0002a9f0(&eyespyprop->pos, &dstpos, limit, sp74, sp70, 1, 15, f18);
+			result = cdTestAToB1(&eyespyprop->pos, &dstpos, limit, sp74, types, 1, 15, f18);
 		}
 
 		if (result == CDRESULT_COLLISION) {
@@ -641,8 +641,8 @@ bool eyespyTryLaunch(void)
 
 	func0f0c1e54(g_Vars.currentplayer->prop, 0);
 
-	if (insafe || !func0002dd90(&testfrompos, g_Vars.currentplayer->prop->rooms,
-				&g_Vars.currentplayer->eyespy->prop->pos, 63, 15)) {
+	if (insafe || !cdTestAToB4(&testfrompos, g_Vars.currentplayer->prop->rooms,
+				&g_Vars.currentplayer->eyespy->prop->pos, CDTYPE_ALL, 15)) {
 		// Launch failed due to not enough physical space, or we're in the G5 safe
 		g_Vars.currentplayer->eyespy->initialised = false;
 

@@ -482,7 +482,7 @@ glabel chrUnpack
 /*  f02d554:	2407003f */ 	addiu	$a3,$zero,0x3f
 /*  f02d558:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f02d55c:	a7ae0060 */ 	sh	$t6,0x60($sp)
-/*  f02d560:	0c00a9a1 */ 	jal	func0002a684
+/*  f02d560:	0c00a9a1 */ 	jal	cdTestVolume
 /*  f02d564:	e7a60018 */ 	swc1	$f6,0x18($sp)
 /*  f02d568:	5440000a */ 	bnezl	$v0,.L0f02d594
 /*  f02d56c:	8e020004 */ 	lw	$v0,0x4($s0)
@@ -978,7 +978,7 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 			chr->visionrange = 0;
 			chr->race = bodyGetRace(chr->bodynum);
 
-			ground = coordFindGroundY(&pad->pos, 30, rooms, NULL, NULL, NULL, NULL, &inlift, &lift);
+			ground = cdFindGroundY(&pad->pos, 30, rooms, NULL, NULL, NULL, NULL, &inlift, &lift);
 			chr->ground = ground;
 			chr->manground = ground;
 

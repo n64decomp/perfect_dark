@@ -1296,7 +1296,7 @@ glabel var7f1ad568
 /*  f0b7418:	27a600fc */ 	addiu	$a2,$sp,0xfc
 /*  f0b741c:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f0b7420:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f0b7424:	0c00a86c */ 	jal	coordFindGroundY
+/*  f0b7424:	0c00a86c */ 	jal	cdFindGroundY
 /*  f0b7428:	2607161a */ 	addiu	$a3,$s0,0x161a
 /*  f0b742c:	8e500284 */ 	lw	$s0,0x284($s2)
 /*  f0b7430:	3c0143b4 */ 	lui	$at,0x43b4
@@ -1596,7 +1596,7 @@ glabel var7f1ad568
 //
 //	angle = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop); // var7f1ad534
 //
-//	groundy = coordFindGroundY(&pos, 30, rooms,
+//	groundy = cdFindGroundY(&pos, 30, rooms,
 //			&g_Vars.currentplayer->floorcol,
 //			&g_Vars.currentplayer->floortype,
 //			&g_Vars.currentplayer->floorflags,

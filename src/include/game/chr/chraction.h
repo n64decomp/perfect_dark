@@ -56,7 +56,7 @@ u32 func0f034410(void);
 u32 func0f034480(void);
 void func0f034524(struct chrdata *chr, f32 arg1, struct coord *vector, u8 *arg3, struct prop *prop, u32 arg5, u32 arg6, struct prop *prop2, u32 arg8, u32 arg9, u32 arg10, u32 arg11, u32 arg12, u32 arg13);
 u32 func0f03645c(void);
-bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, struct coord *vector, f32 arg6, u32 arg7);
+bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, struct coord *vector, f32 arg6, u32 types);
 bool propchrHasClearLineToPos(struct prop *prop, struct coord *dstpos, struct coord *vector);
 bool propchrHasClearLineInVector(struct prop *prop, struct coord *coord, f32 arg2);
 bool func0f036974(struct prop *prop, struct coord *coord);

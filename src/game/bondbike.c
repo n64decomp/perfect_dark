@@ -123,7 +123,7 @@ void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance)
 	f32 angle;
 	struct coord pos;
 	s16 rooms[8];
-	s32 usable;
+	s32 result;
 	f32 ymax;
 	f32 ymin;
 	f32 width;
@@ -152,20 +152,20 @@ void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance)
 		func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &pos, rooms);
 		func0f0cb79c(g_Vars.currentplayer, &pos, rooms);
 
-		usable = func0002d72c(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
-				&pos, rooms, 0x3f, true,
+		result = cdTestAToB2(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+				&pos, rooms, CDTYPE_ALL, true,
 				ymax - g_Vars.currentplayer->prop->pos.y,
 				ymin - g_Vars.currentplayer->prop->pos.y);
 
 		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, true);
 
-		if (usable == true) {
-			usable = func0002a684(&pos, width, rooms, 0x3f, true,
+		if (result == CDRESULT_NOCOLLISION) {
+			result = cdTestVolume(&pos, width, rooms, CDTYPE_ALL, true,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 		}
 
-		if (usable == true) {
+		if (result == CDRESULT_NOCOLLISION) {
 			g_Vars.currentplayer->walkinitmove = true;
 
 			g_Vars.currentplayer->walkinitpos.x = pos.x;
@@ -1022,7 +1022,7 @@ glabel var7f1adb7c
 /*  f0d3070:	46005201 */ 	sub.s	$f8,$f10,$f0
 /*  f0d3074:	e7a6001c */ 	swc1	$f6,0x1c($sp)
 /*  f0d3078:	27a70118 */ 	addiu	$a3,$sp,0x118
-/*  f0d307c:	0c00b657 */ 	jal	func0002d95c
+/*  f0d307c:	0c00b657 */ 	jal	cdTestAToB3
 /*  f0d3080:	e7a80020 */ 	swc1	$f8,0x20($sp)
 /*  f0d3084:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0d3088:	14410024 */ 	bne	$v0,$at,.L0f0d311c
@@ -1043,7 +1043,7 @@ glabel var7f1adb7c
 /*  f0d30c4:	46002181 */ 	sub.s	$f6,$f4,$f0
 /*  f0d30c8:	e7b20018 */ 	swc1	$f18,0x18($sp)
 /*  f0d30cc:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0d30d0:	0c00aa7c */ 	jal	func0002a9f0
+/*  f0d30d0:	0c00aa7c */ 	jal	cdTestAToB1
 /*  f0d30d4:	e7a6001c */ 	swc1	$f6,0x1c($sp)
 /*  f0d30d8:	10000010 */ 	b	.L0f0d311c
 /*  f0d30dc:	afa20134 */ 	sw	$v0,0x134($sp)
@@ -1060,7 +1060,7 @@ glabel var7f1adb7c
 /*  f0d3104:	46008481 */ 	sub.s	$f18,$f16,$f0
 /*  f0d3108:	e7a80018 */ 	swc1	$f8,0x18($sp)
 /*  f0d310c:	27a700a8 */ 	addiu	$a3,$sp,0xa8
-/*  f0d3110:	0c00aa7c */ 	jal	func0002a9f0
+/*  f0d3110:	0c00aa7c */ 	jal	cdTestAToB1
 /*  f0d3114:	e7b2001c */ 	swc1	$f18,0x1c($sp)
 /*  f0d3118:	afa20134 */ 	sw	$v0,0x134($sp)
 .L0f0d311c:
@@ -1352,7 +1352,7 @@ glabel var7f1adb84
 /*  f0d3528:	afab001c */ 	sw	$t3,0x1c($sp)
 /*  f0d352c:	2447161a */ 	addiu	$a3,$v0,0x161a
 /*  f0d3530:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f0d3534:	0c00a86c */ 	jal	coordFindGroundY
+/*  f0d3534:	0c00a86c */ 	jal	cdFindGroundY
 /*  f0d3538:	24660028 */ 	addiu	$a2,$v1,0x28
 /*  f0d353c:	3c017f1b */ 	lui	$at,%hi(var7f1adb84)
 /*  f0d3540:	c42cdb84 */ 	lwc1	$f12,%lo(var7f1adb84)($at)

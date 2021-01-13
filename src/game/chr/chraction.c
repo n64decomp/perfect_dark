@@ -378,7 +378,7 @@ f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2)
 
 	propChrGetBbox(prop, &width, &ymax, &ymin);
 
-	return func0f02e550(prop, arg1, arg2, 0x3f, ymax, ymin);
+	return func0f02e550(prop, arg1, arg2, CDTYPE_ALL, ymax, ymin);
 }
 
 void chrStandChooseAnimation(struct chrdata *chr, f32 arg1)
@@ -7884,7 +7884,7 @@ glabel func0f03654c
 /*  f0365c8:	02203025 */ 	or	$a2,$s1,$zero
 /*  f0365cc:	46004281 */ 	sub.s	$f10,$f8,$f0
 /*  f0365d0:	e7a60018 */ 	swc1	$f6,0x18($sp)
-/*  f0365d4:	0c00b5cb */ 	jal	func0002d72c
+/*  f0365d4:	0c00b5cb */ 	jal	cdTestAToB2
 /*  f0365d8:	e7aa001c */ 	swc1	$f10,0x1c($sp)
 /*  f0365dc:	14400012 */ 	bnez	$v0,.L0f036628
 /*  f0365e0:	8fa700a0 */ 	lw	$a3,0xa0($sp)
@@ -8081,7 +8081,7 @@ glabel func0f03654c
 
 bool propchrHasClearLineToPos(struct prop *prop, struct coord *dstpos, struct coord *vector)
 {
-	return func0f03654c(prop->chr, &prop->pos, prop->rooms, dstpos, NULL, vector, prop->chr->chrwidth * 1.2f, 0x3f);
+	return func0f03654c(prop->chr, &prop->pos, prop->rooms, dstpos, NULL, vector, prop->chr->chrwidth * 1.2f, CDTYPE_ALL);
 }
 
 bool propchrHasClearLineInVector(struct prop *prop, struct coord *vector, f32 mult)
@@ -8097,7 +8097,7 @@ bool propchrHasClearLineInVector(struct prop *prop, struct coord *vector, f32 mu
 
 bool func0f036974(struct prop *prop, struct coord *pos)
 {
-	return func0f03654c(prop->chr, &prop->pos, prop->rooms, pos, NULL, NULL, prop->chr->chrwidth * 1.2f, 0x3f);
+	return func0f03654c(prop->chr, &prop->pos, prop->rooms, pos, NULL, NULL, prop->chr->chrwidth * 1.2f, CDTYPE_ALL);
 }
 
 void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vector)
@@ -8738,7 +8738,7 @@ glabel var7f1a8dac
 /*  f0376a4:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0376a8:	8fa40134 */ 	lw	$a0,0x134($sp)
 /*  f0376ac:	27a60118 */ 	addiu	$a2,$sp,0x118
-/*  f0376b0:	0c00a86c */ 	jal	coordFindGroundY
+/*  f0376b0:	0c00a86c */ 	jal	cdFindGroundY
 /*  f0376b4:	27a70106 */ 	addiu	$a3,$sp,0x106
 /*  f0376b8:	8fa80134 */ 	lw	$t0,0x134($sp)
 /*  f0376bc:	e7a00108 */ 	swc1	$f0,0x108($sp)
@@ -8777,7 +8777,7 @@ glabel var7f1a8dac
 /*  f037740:	2407003f */ 	addiu	$a3,$zero,0x3f
 /*  f037744:	46005481 */ 	sub.s	$f18,$f10,$f0
 /*  f037748:	e7b00014 */ 	swc1	$f16,0x14($sp)
-/*  f03774c:	0c00a9a1 */ 	jal	func0002a684
+/*  f03774c:	0c00a9a1 */ 	jal	cdTestVolume
 /*  f037750:	e7b20018 */ 	swc1	$f18,0x18($sp)
 /*  f037754:	1040007b */ 	beqz	$v0,.L0f037944
 /*  f037758:	8fa400f0 */ 	lw	$a0,0xf0($sp)
@@ -16300,7 +16300,7 @@ glabel var7f1a9184
 .L0f040b00:
 /*  f040b00:	24190010 */ 	addiu	$t9,$zero,0x10
 /*  f040b04:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f040b08:	0c00b764 */ 	jal	func0002dd90
+/*  f040b08:	0c00b764 */ 	jal	cdTestAToB4
 /*  f040b0c:	8fa701c8 */ 	lw	$a3,0x1c8($sp)
 /*  f040b10:	1440000a */ 	bnez	$v0,.L0f040b3c
 /*  f040b14:	240d0001 */ 	addiu	$t5,$zero,0x1
@@ -22727,7 +22727,7 @@ void chrTickGoPos(struct chrdata *chr)
 						}
 
 						// Some bbox related check
-						if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, 48)) {
+						if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, CDTYPE_10 | CDTYPE_BG)) {
 							chrGoPosAdvanceWaypoint(chr);
 							chrGoPosAdvanceWaypoint(chr);
 						}
@@ -22787,13 +22787,13 @@ void chrTickGoPos(struct chrdata *chr)
 
 						// sp160 < DEG2RAD(45) || sp160 > DEG2RAD(315)
 						if (sp160 < 0.7852731347084f || sp160 > 5.4969120025635f) {
-							if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, 48)) {
+							if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, CDTYPE_10 | CDTYPE_BG)) {
 								chrGoPosAdvanceWaypoint(chr);
 							}
 						}
 					}
 				} else {
-					if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, 48)) {
+					if (func0f03654c(chr, &prop->pos, prop->rooms, &pos, rooms, NULL, chr->chrwidth * 1.2f, CDTYPE_10 | CDTYPE_BG)) {
 						chrGoPosAdvanceWaypoint(chr);
 					}
 				}
@@ -23066,7 +23066,7 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 		chr->act_skjump.hit = false;
 		chr->act_skjump.unk03c = hspeed;
 		chr->act_skjump.unk04c = hspeed;
-		chr->act_skjump.y = coordFindGroundYSimple(&chr->prop->pos, chr->chrwidth, chr->prop->rooms, NULL, NULL);
+		chr->act_skjump.y = cdFindGroundYSimple(&chr->prop->pos, chr->chrwidth, chr->prop->rooms, NULL, NULL);
 	} else {
 		return false;
 	}
@@ -25703,7 +25703,7 @@ glabel var7f1a941c
 /*  f04b038:	4481a000 */ 	mtc1	$at,$f20
 /*  f04b03c:	02a03025 */ 	or	$a2,$s5,$zero
 /*  f04b040:	00003825 */ 	or	$a3,$zero,$zero
-/*  f04b044:	0c00a8cc */ 	jal	coordFindGroundYSimple
+/*  f04b044:	0c00a8cc */ 	jal	cdFindGroundYSimple
 /*  f04b048:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f04b04c:	3c017f1b */ 	lui	$at,%hi(var7f1a940c)
 /*  f04b050:	c426940c */ 	lwc1	$f6,%lo(var7f1a940c)($at)
@@ -25729,7 +25729,7 @@ glabel var7f1a941c
 /*  f04b09c:	4481f000 */ 	mtc1	$at,$f30
 /*  f04b0a0:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f04b0a4:	e7b40018 */ 	swc1	$f20,0x18($sp)
-/*  f04b0a8:	0c00a9a1 */ 	jal	func0002a684
+/*  f04b0a8:	0c00a9a1 */ 	jal	cdTestVolume
 /*  f04b0ac:	e7be0014 */ 	swc1	$f30,0x14($sp)
 /*  f04b0b0:	10400009 */ 	beqz	$v0,.L0f04b0d8
 /*  f04b0b4:	8fb900b8 */ 	lw	$t9,0xb8($sp)
@@ -25802,7 +25802,7 @@ glabel var7f1a941c
 /*  f04b1ac:	8fa500a8 */ 	lw	$a1,0xa8($sp)
 /*  f04b1b0:	02003025 */ 	or	$a2,$s0,$zero
 /*  f04b1b4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f04b1b8:	0c00a8cc */ 	jal	coordFindGroundYSimple
+/*  f04b1b8:	0c00a8cc */ 	jal	cdFindGroundYSimple
 /*  f04b1bc:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f04b1c0:	3c017f1b */ 	lui	$at,%hi(var7f1a9414)
 /*  f04b1c4:	c4249414 */ 	lwc1	$f4,%lo(var7f1a9414)($at)
@@ -25827,7 +25827,7 @@ glabel var7f1a941c
 /*  f04b20c:	afab0010 */ 	sw	$t3,0x10($sp)
 .L0f04b210:
 /*  f04b210:	e7be0014 */ 	swc1	$f30,0x14($sp)
-/*  f04b214:	0c00a9a1 */ 	jal	func0002a684
+/*  f04b214:	0c00a9a1 */ 	jal	cdTestVolume
 /*  f04b218:	e7b40018 */ 	swc1	$f20,0x18($sp)
 /*  f04b21c:	10400019 */ 	beqz	$v0,.L0f04b284
 /*  f04b220:	8fac00b8 */ 	lw	$t4,0xb8($sp)
@@ -26060,7 +26060,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 	propSetCollisionsEnabled(chr->prop, false);
 
 	if (func0f04af84(chr->chrwidth, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen, (chr->hidden & CHRHFLAG_00000200) != 0)) {
-		ground = coordFindGroundY(&pos2, chr->chrwidth, rooms2, &chr->floorcol,
+		ground = cdFindGroundY(&pos2, chr->chrwidth, rooms2, &chr->floorcol,
 				&chr->floortype, NULL, &chr->floorroom, NULL, NULL);
 
 		chr->ground = ground;
@@ -26760,7 +26760,7 @@ bool chrRunFromPos(struct chrdata *chr, u32 speed, f32 rundist, struct coord *fr
 
 		chrSetOrUnsetHiddenFlag00000100(chr, false);
 
-		if (!func0002dd90(&chr->prop->pos, chr->prop->rooms, &delta, 0x3f, 4)) {
+		if (cdTestAToB4(&chr->prop->pos, chr->prop->rooms, &delta, CDTYPE_ALL, 4) == CDRESULT_COLLISION) {
 			func00024ebc(&delta, 18547, "chraction.c");
 		}
 

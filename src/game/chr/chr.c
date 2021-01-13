@@ -593,7 +593,7 @@ glabel func0f01e7f4
 /*  f01ec1c:	46009201 */ 	sub.s	$f8,$f18,$f0
 /*  f01ec20:	e7a40018 */ 	swc1	$f4,0x18($sp)
 /*  f01ec24:	8fa700e0 */ 	lw	$a3,0xe0($sp)
-/*  f01ec28:	0c00b5cb */ 	jal	func0002d72c
+/*  f01ec28:	0c00b5cb */ 	jal	cdTestAToB2
 /*  f01ec2c:	e7a8001c */ 	swc1	$f8,0x1c($sp)
 /*  f01ec30:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f01ec34:	1441001d */ 	bne	$v0,$at,.L0f01ecac
@@ -609,7 +609,7 @@ glabel func0f01e7f4
 /*  f01ec5c:	46008101 */ 	sub.s	$f4,$f16,$f0
 /*  f01ec60:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f01ec64:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f01ec68:	0c00a9a1 */ 	jal	func0002a684
+/*  f01ec68:	0c00a9a1 */ 	jal	cdTestVolume
 /*  f01ec6c:	e7a40018 */ 	swc1	$f4,0x18($sp)
 /*  f01ec70:	1000000f */ 	b	.L0f01ecb0
 /*  f01ec74:	24010001 */ 	addiu	$at,$zero,0x1
@@ -625,7 +625,7 @@ glabel func0f01e7f4
 /*  f01ec98:	46005181 */ 	sub.s	$f6,$f10,$f0
 /*  f01ec9c:	e7a80014 */ 	swc1	$f8,0x14($sp)
 /*  f01eca0:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f01eca4:	0c00a9a1 */ 	jal	func0002a684
+/*  f01eca4:	0c00a9a1 */ 	jal	cdTestVolume
 /*  f01eca8:	e7a60018 */ 	swc1	$f6,0x18($sp)
 .L0f01ecac:
 /*  f01ecac:	24010001 */ 	addiu	$at,$zero,0x1
@@ -764,7 +764,7 @@ glabel func0f01e7f4
 /*  f01eeac:	46003281 */ 	sub.s	$f10,$f6,$f0
 /*  f01eeb0:	e7b00018 */ 	swc1	$f16,0x18($sp)
 /*  f01eeb4:	8fa700e0 */ 	lw	$a3,0xe0($sp)
-/*  f01eeb8:	0c00b5cb */ 	jal	func0002d72c
+/*  f01eeb8:	0c00b5cb */ 	jal	cdTestAToB2
 /*  f01eebc:	e7aa001c */ 	swc1	$f10,0x1c($sp)
 /*  f01eec0:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f01eec4:	1441001d */ 	bne	$v0,$at,.L0f01ef3c
@@ -780,7 +780,7 @@ glabel func0f01e7f4
 /*  f01eeec:	46009401 */ 	sub.s	$f16,$f18,$f0
 /*  f01eef0:	e7a80014 */ 	swc1	$f8,0x14($sp)
 /*  f01eef4:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f01eef8:	0c00a9a1 */ 	jal	func0002a684
+/*  f01eef8:	0c00a9a1 */ 	jal	cdTestVolume
 /*  f01eefc:	e7b00018 */ 	swc1	$f16,0x18($sp)
 /*  f01ef00:	1000000f */ 	b	.L0f01ef40
 /*  f01ef04:	24010001 */ 	addiu	$at,$zero,0x1
@@ -796,7 +796,7 @@ glabel func0f01e7f4
 /*  f01ef28:	46002201 */ 	sub.s	$f8,$f4,$f0
 /*  f01ef2c:	e7aa0014 */ 	swc1	$f10,0x14($sp)
 /*  f01ef30:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f01ef34:	0c00a9a1 */ 	jal	func0002a684
+/*  f01ef34:	0c00a9a1 */ 	jal	cdTestVolume
 /*  f01ef38:	e7a80018 */ 	swc1	$f8,0x18($sp)
 .L0f01ef3c:
 /*  f01ef3c:	24010001 */ 	addiu	$at,$zero,0x1
@@ -931,7 +931,7 @@ glabel func0f01e7f4
 /*  f01f12c:	46002401 */ 	sub.s	$f16,$f4,$f0
 /*  f01f130:	e7a80018 */ 	swc1	$f8,0x18($sp)
 /*  f01f134:	8fa700e0 */ 	lw	$a3,0xe0($sp)
-/*  f01f138:	0c00b5cb */ 	jal	func0002d72c
+/*  f01f138:	0c00b5cb */ 	jal	cdTestAToB2
 /*  f01f13c:	e7b0001c */ 	swc1	$f16,0x1c($sp)
 /*  f01f140:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f01f144:	1441001d */ 	bne	$v0,$at,.L0f01f1bc
@@ -947,7 +947,7 @@ glabel func0f01e7f4
 /*  f01f16c:	46005201 */ 	sub.s	$f8,$f10,$f0
 /*  f01f170:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f01f174:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f01f178:	0c00a9a1 */ 	jal	func0002a684
+/*  f01f178:	0c00a9a1 */ 	jal	cdTestVolume
 /*  f01f17c:	e7a80018 */ 	swc1	$f8,0x18($sp)
 /*  f01f180:	1000000f */ 	b	.L0f01f1c0
 /*  f01f184:	24010001 */ 	addiu	$at,$zero,0x1
@@ -963,7 +963,7 @@ glabel func0f01e7f4
 /*  f01f1a8:	46009181 */ 	sub.s	$f6,$f18,$f0
 /*  f01f1ac:	e7b00014 */ 	swc1	$f16,0x14($sp)
 /*  f01f1b0:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f01f1b4:	0c00a9a1 */ 	jal	func0002a684
+/*  f01f1b4:	0c00a9a1 */ 	jal	cdTestVolume
 /*  f01f1b8:	e7a60018 */ 	swc1	$f6,0x18($sp)
 .L0f01f1bc:
 /*  f01f1bc:	24010001 */ 	addiu	$at,$zero,0x1
@@ -1032,7 +1032,7 @@ bool func0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, 
 	func0f065e74(pos, rooms, &newpos, newrooms);
 	func0f021fa8(chr, &newpos, newrooms);
 	chrSetOrUnsetHiddenFlag00000100(chr, false);
-	result = func0002a684(&newpos, width, newrooms, 63, 1,
+	result = cdTestVolume(&newpos, width, newrooms, CDTYPE_ALL, 1,
 			ymax - chr->prop->pos.y,
 			ymin - chr->prop->pos.y);
 	chrSetOrUnsetHiddenFlag00000100(chr, true);
@@ -1186,7 +1186,7 @@ glabel var7f1a8720
 /*  f01f490:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f01f494:	02202025 */ 	or	$a0,$s1,$zero
 /*  f01f498:	27a600fc */ 	addiu	$a2,$sp,0xfc
-/*  f01f49c:	0c00a86c */ 	jal	coordFindGroundY
+/*  f01f49c:	0c00a86c */ 	jal	cdFindGroundY
 /*  f01f4a0:	2607018a */ 	addiu	$a3,$s0,0x18a
 /*  f01f4a4:	3c017f1b */ 	lui	$at,%hi(var7f1a86ac)
 /*  f01f4a8:	c42886ac */ 	lwc1	$f8,%lo(var7f1a86ac)($at)
@@ -1915,7 +1915,7 @@ glabel var7f1a8720
 /*  f01ff50:	afa20044 */ 	sw	$v0,0x44($sp)
 /*  f01ff54:	afa7004c */ 	sw	$a3,0x4c($sp)
 /*  f01ff58:	8fa40098 */ 	lw	$a0,0x98($sp)
-/*  f01ff5c:	0c00a86c */ 	jal	coordFindGroundY
+/*  f01ff5c:	0c00a86c */ 	jal	cdFindGroundY
 /*  f01ff60:	8fa60094 */ 	lw	$a2,0x94($sp)
 /*  f01ff64:	8e0202d4 */ 	lw	$v0,0x2d4($s0)
 /*  f01ff68:	3c08800a */ 	lui	$t0,%hi(g_Vars)
@@ -1972,7 +1972,7 @@ glabel var7f1a8720
 /*  f020034:	27a600fc */ 	addiu	$a2,$sp,0xfc
 /*  f020038:	8fa7004c */ 	lw	$a3,0x4c($sp)
 /*  f02003c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f020040:	0c00a86c */ 	jal	coordFindGroundY
+/*  f020040:	0c00a86c */ 	jal	cdFindGroundY
 /*  f020044:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f020048:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f02004c:	3c017f1b */ 	lui	$at,%hi(var7f1a86fc)
@@ -2617,7 +2617,7 @@ struct prop *func0f020b14(struct prop *prop, struct model *model,
 	testpos.y = pos->y + 100;
 	testpos.z = pos->z;
 
-	chr->ground = chr->manground = ground = coordFindGroundY(&testpos, chr->chrwidth, rooms, &chr->floorcol, &chr->floortype, NULL, &chr->floorroom, NULL, NULL);
+	chr->ground = chr->manground = ground = cdFindGroundY(&testpos, chr->chrwidth, rooms, &chr->floorcol, &chr->floortype, NULL, &chr->floorroom, NULL, NULL);
 
 	chr->sumground = ground * 9.999998f;
 

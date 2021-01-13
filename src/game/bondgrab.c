@@ -502,7 +502,7 @@ bool func0f0cd05c(f32 y)
 
 	ymin -= 0.1f;
 
-	result = func0002a684(&newpos, width, rooms, 63, 1,
+	result = cdTestVolume(&newpos, width, rooms, CDTYPE_ALL, 1,
 			ymax - g_Vars.currentplayer->prop->pos.y,
 			ymin - g_Vars.currentplayer->prop->pos.y);
 
@@ -1587,7 +1587,7 @@ void func0f0ce1ac(void)
 	f32 fVar3;
 	f32 f0;
 
-	f14 = coordFindGroundY(&g_Vars.currentplayer->prop->pos,
+	f14 = cdFindGroundY(&g_Vars.currentplayer->prop->pos,
 			g_Vars.currentplayer->bond2.width,
 			g_Vars.currentplayer->prop->rooms,
 			&g_Vars.currentplayer->floorcol,

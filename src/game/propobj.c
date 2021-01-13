@@ -8348,7 +8348,7 @@ glabel var7f1aa26c
 /*  f06d4a4:	27a70070 */ 	addiu	$a3,$sp,0x70
 /*  f06d4a8:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f06d4ac:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f06d4b0:	0c00aa7c */ 	jal	func0002a9f0
+/*  f06d4b0:	0c00aa7c */ 	jal	cdTestAToB1
 /*  f06d4b4:	e7a0001c */ 	swc1	$f0,0x1c($sp)
 /*  f06d4b8:	1040000d */ 	beqz	$v0,.L0f06d4f0
 /*  f06d4bc:	c7aa0080 */ 	lwc1	$f10,0x80($sp)
@@ -8599,7 +8599,7 @@ glabel var7f1aa26c
 /*  f06d838:	2407003f */ 	addiu	$a3,$zero,0x3f
 /*  f06d83c:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f06d840:	e7b00014 */ 	swc1	$f16,0x14($sp)
-/*  f06d844:	0c00a9a1 */ 	jal	func0002a684
+/*  f06d844:	0c00a9a1 */ 	jal	cdTestVolume
 /*  f06d848:	e7b20018 */ 	swc1	$f18,0x18($sp)
 /*  f06d84c:	10400014 */ 	beqz	$v0,.L0f06d8a0
 /*  f06d850:	c7a4004c */ 	lwc1	$f4,0x4c($sp)
@@ -12709,7 +12709,7 @@ glabel var7f1aa2c8
 /*  f07145c:	3c0540a0 */ 	lui	$a1,0x40a0
 /*  f071460:	27a6002c */ 	addiu	$a2,$sp,0x2c
 /*  f071464:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f071468:	0c00a8cc */ 	jal	coordFindGroundYSimple
+/*  f071468:	0c00a8cc */ 	jal	cdFindGroundYSimple
 /*  f07146c:	24e70058 */ 	addiu	$a3,$a3,0x58
 /*  f071470:	3c017f1b */ 	lui	$at,%hi(var7f1aa2c8)
 /*  f071474:	c432a2c8 */ 	lwc1	$f18,%lo(var7f1aa2c8)($at)
@@ -12926,7 +12926,7 @@ glabel var7f1aa314
 /*  f0716f8:	3c0540a0 */ 	lui	$a1,0x40a0
 /*  f0716fc:	27a60198 */ 	addiu	$a2,$sp,0x198
 /*  f071700:	26270058 */ 	addiu	$a3,$s1,0x58
-/*  f071704:	0c00a8cc */ 	jal	coordFindGroundYSimple
+/*  f071704:	0c00a8cc */ 	jal	cdFindGroundYSimple
 /*  f071708:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f07170c:	8fa40064 */ 	lw	$a0,0x64($sp)
 /*  f071710:	8fa50060 */ 	lw	$a1,0x60($sp)
@@ -12942,7 +12942,7 @@ glabel var7f1aa314
 /*  f071738:	3c0540a0 */ 	lui	$a1,0x40a0
 /*  f07173c:	27a60188 */ 	addiu	$a2,$sp,0x188
 /*  f071740:	00003825 */ 	or	$a3,$zero,$zero
-/*  f071744:	0c00a8cc */ 	jal	coordFindGroundYSimple
+/*  f071744:	0c00a8cc */ 	jal	cdFindGroundYSimple
 /*  f071748:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f07174c:	3c017f1b */ 	lui	$at,%hi(var7f1aa2d4)
 /*  f071750:	c42ca2d4 */ 	lwc1	$f12,%lo(var7f1aa2d4)($at)
@@ -16633,7 +16633,7 @@ glabel var7f1aa438
 /*  f074aac:	3c054000 */ 	lui	$a1,0x4000
 /*  f074ab0:	26460028 */ 	addiu	$a2,$s2,0x28
 /*  f074ab4:	26270058 */ 	addiu	$a3,$s1,0x58
-/*  f074ab8:	0c00a8cc */ 	jal	coordFindGroundYSimple
+/*  f074ab8:	0c00a8cc */ 	jal	cdFindGroundYSimple
 /*  f074abc:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f074ac0:	3c017f1b */ 	lui	$at,%hi(var7f1aa3ec)
 /*  f074ac4:	c424a3ec */ 	lwc1	$f4,%lo(var7f1aa3ec)($at)
@@ -20066,7 +20066,7 @@ glabel var7f1aa454
 /*  f077b4c:	1000000e */ 	b	.L0f077b88
 /*  f077b50:	e60a0070 */ 	swc1	$f10,0x70($s0)
 .L0f077b54:
-/*  f077b54:	0fc30f23 */ 	jal	currentPlayerHasGapToCeiling
+/*  f077b54:	0fc30f23 */ 	jal	bwalkTryMoveUpwards
 /*  f077b58:	4600a306 */ 	mov.s	$f12,$f20
 /*  f077b5c:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f077b60:	14410009 */ 	bne	$v0,$at,.L0f077b88
@@ -23074,7 +23074,7 @@ glabel var7f1aa5a8
 .L0f07a2f8:
 /*  f07a2f8:	240e0010 */ 	addiu	$t6,$zero,0x10
 .L0f07a2fc:
-/*  f07a2fc:	0c00b764 */ 	jal	func0002dd90
+/*  f07a2fc:	0c00b764 */ 	jal	cdTestAToB4
 /*  f07a300:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f07a304:	14400151 */ 	bnez	$v0,.L0f07a84c
 /*  f07a308:	27a4013c */ 	addiu	$a0,$sp,0x13c
@@ -23216,7 +23216,7 @@ glabel var7f1aa5a8
 /*  f07a4fc:	afa000a8 */ 	sw	$zero,0xa8($sp)
 /*  f07a500:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f07a504:	27a40168 */ 	addiu	$a0,$sp,0x168
-/*  f07a508:	0c00b764 */ 	jal	func0002dd90
+/*  f07a508:	0c00b764 */ 	jal	cdTestAToB4
 /*  f07a50c:	2407003b */ 	addiu	$a3,$zero,0x3b
 /*  f07a510:	1440000a */ 	bnez	$v0,.L0f07a53c
 /*  f07a514:	27a4013c */ 	addiu	$a0,$sp,0x13c
@@ -23283,7 +23283,7 @@ glabel var7f1aa5a8
 /*  f07a5f8:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f07a5fc:	27a50158 */ 	addiu	$a1,$sp,0x158
 /*  f07a600:	27a6013c */ 	addiu	$a2,$sp,0x13c
-/*  f07a604:	0c00b764 */ 	jal	func0002dd90
+/*  f07a604:	0c00b764 */ 	jal	cdTestAToB4
 /*  f07a608:	24070022 */ 	addiu	$a3,$zero,0x22
 /*  f07a60c:	14400007 */ 	bnez	$v0,.L0f07a62c
 /*  f07a610:	27a4013c */ 	addiu	$a0,$sp,0x13c
@@ -25536,7 +25536,7 @@ glabel var7f1aa698
 /*  f07c60c:	e626000c */ 	swc1	$f6,0xc($s1)
 /*  f07c610:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f07c614:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f07c618:	0c00a8cc */ 	jal	coordFindGroundYSimple
+/*  f07c618:	0c00a8cc */ 	jal	cdFindGroundYSimple
 /*  f07c61c:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f07c620:	e7a00060 */ 	swc1	$f0,0x60($sp)
 /*  f07c624:	3c0142c8 */ 	lui	$at,0x42c8
@@ -26594,7 +26594,7 @@ glabel var7f1aa6e4
 /*  f07d51c:	27a60210 */ 	addiu	$a2,$sp,0x210
 /*  f07d520:	00003825 */ 	or	$a3,$zero,$zero
 /*  f07d524:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f07d528:	0c00a8cc */ 	jal	coordFindGroundYSimple
+/*  f07d528:	0c00a8cc */ 	jal	cdFindGroundYSimple
 /*  f07d52c:	a7ad0210 */ 	sh	$t5,0x210($sp)
 /*  f07d530:	3c01420c */ 	lui	$at,0x420c
 /*  f07d534:	44814000 */ 	mtc1	$at,$f8
@@ -27213,7 +27213,7 @@ glabel var7f1aa6e4
 /*  f07de08:	13000017 */ 	beqz	$t8,.L0f07de68
 /*  f07de0c:	27a60140 */ 	addiu	$a2,$sp,0x140
 /*  f07de10:	00003825 */ 	or	$a3,$zero,$zero
-/*  f07de14:	0c00a8cc */ 	jal	coordFindGroundYSimple
+/*  f07de14:	0c00a8cc */ 	jal	cdFindGroundYSimple
 /*  f07de18:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f07de1c:	3c01420c */ 	lui	$at,0x420c
 /*  f07de20:	44812000 */ 	mtc1	$at,$f4
@@ -27439,7 +27439,7 @@ glabel var7f1aa6e4
 //			sp210[0] = pad.room;
 //			sp210[1] = -1;
 //
-//			sp214.y = coordFindGroundYSimple(&pad.pos, 5, sp210, NULL, NULL) + 35;
+//			sp214.y = cdFindGroundYSimple(&pad.pos, 5, sp210, NULL, NULL) + 35;
 //		} else {
 //			sp214.y = pad.pos.y;
 //		}
@@ -27634,7 +27634,7 @@ glabel var7f1aa6e4
 //
 //		// e08
 //		if (active) {
-//			sp150.y = coordFindGroundYSimple(&sp150, 5, sp140, NULL, NULL) + 35;
+//			sp150.y = cdFindGroundYSimple(&sp150, 5, sp140, NULL, NULL) + 35;
 //
 //			if (sp150.y < -100000) {
 //				sp150.y = prop->pos.y + sp194.y * (hovercar->speed * g_Vars.lvupdate240freal);
@@ -28323,7 +28323,7 @@ s32 objTick(struct prop *prop)
 				roomsCopy(sp220, prop->rooms);
 
 				if (sp148 <= sp144) {
-					prop->pos.y = coordFindGroundYSimple(&prop->pos, 5, prop->rooms, &obj->floorcol, NULL)
+					prop->pos.y = cdFindGroundYSimple(&prop->pos, 5, prop->rooms, &obj->floorcol, NULL)
 						+ func0f06a620(obj) + sp112;
 				}
 
@@ -34618,7 +34618,7 @@ glabel var7f1aa978
 /*  f083c34:	2407003f */ 	addiu	$a3,$zero,0x3f
 /*  f083c38:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f083c3c:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f083c40:	0c00a9a1 */ 	jal	func0002a684
+/*  f083c40:	0c00a9a1 */ 	jal	cdTestVolume
 /*  f083c44:	e7b20018 */ 	swc1	$f18,0x18($sp)
 /*  f083c48:	54400006 */ 	bnezl	$v0,.L0f083c64
 /*  f083c4c:	02002025 */ 	or	$a0,$s0,$zero
@@ -49010,7 +49010,7 @@ glabel var7f1ab214
 /*  f091864:	afa50050 */ 	sw	$a1,0x50($sp)
 /*  f091868:	8fa40208 */ 	lw	$a0,0x208($sp)
 /*  f09186c:	27a601f0 */ 	addiu	$a2,$sp,0x1f0
-/*  f091870:	0c00b764 */ 	jal	func0002dd90
+/*  f091870:	0c00b764 */ 	jal	cdTestAToB4
 /*  f091874:	2407003b */ 	addiu	$a3,$zero,0x3b
 /*  f091878:	1440000a */ 	bnez	$v0,.L0f0918a4
 /*  f09187c:	240a0001 */ 	addiu	$t2,$zero,0x1

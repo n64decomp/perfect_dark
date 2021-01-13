@@ -7743,7 +7743,7 @@ glabel func0002a13c
 /*    2a1ac:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-f32 coordFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
+f32 cdFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
 		u8 *floortype, u16 *floorflags, s16 *floorroom, s32 *inlift, struct prop **lift)
 {
 	u32 sp76[105];
@@ -7751,7 +7751,7 @@ f32 coordFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
 	f32 ground;
 	struct tile *tile = NULL;
 
-	func00027d1c(pos, width, rooms, 0x3f, 3, 0, 0, 0, sp76, 20);
+	func00027d1c(pos, width, rooms, CDTYPE_ALL, 3, 0, 0, 0, sp76, 20);
 	ground = func000296a0(sp76, pos, &sp72, width);
 
 	if (sp72) {
@@ -7800,9 +7800,9 @@ f32 func0002a324(void)
 	return 0;
 }
 
-f32 coordFindGroundYSimple(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol, u8 *floortype)
+f32 cdFindGroundYSimple(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol, u8 *floortype)
 {
-	return coordFindGroundY(pos, width, rooms, floorcol, floortype, NULL, NULL, NULL, NULL);
+	return cdFindGroundY(pos, width, rooms, floorcol, floortype, NULL, NULL, NULL, NULL);
 }
 
 GLOBAL_ASM(
@@ -8042,7 +8042,7 @@ glabel func0002a5e4
 );
 
 GLOBAL_ASM(
-glabel func0002a684
+glabel cdTestVolume
 /*    2a684:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*    2a688:	44856000 */ 	mtc1	$a1,$f12
 /*    2a68c:	8fb80070 */ 	lw	$t8,0x70($sp)
@@ -8280,14 +8280,14 @@ glabel func0002a6fc
 /*    2a9ec:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-s32 func0002a9f0(struct coord *origpos, struct coord *dstpos, f32 width, s16 *dstrooms, s32 arg4, s32 arg5, f32 ymax, f32 ymin)
+s32 cdTestAToB1(struct coord *origpos, struct coord *dstpos, f32 width, s16 *dstrooms, s32 types, s32 arg5, f32 ymax, f32 ymin)
 {
 	u32 stack[104];
 	s32 sp44;
 	struct coord dist;
 	s32 result = CDRESULT_NOCOLLISION;
 
-	func00028df0(dstpos, width, dstrooms, arg4, 4, arg5, ymax, ymin, &sp44, 20);
+	func00028df0(dstpos, width, dstrooms, types, 4, arg5, ymax, ymin, &sp44, 20);
 
 	if (sp44) {
 		result = CDRESULT_COLLISION;
@@ -11349,7 +11349,7 @@ glabel func0002d6ac
 );
 
 GLOBAL_ASM(
-glabel func0002d72c
+glabel cdTestAToB2
 /*    2d72c:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*    2d730:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*    2d734:	afa7007c */ 	sw	$a3,0x7c($sp)
@@ -11506,7 +11506,7 @@ glabel func0002d8b8
 /*    2d958:	00000000 */ 	nop
 );
 
-s32 func0002d95c(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f32 arg4, s32 arg5, s32 arg6, f32 arg7, f32 arg8)
+s32 cdTestAToB3(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f32 width, s32 types, s32 arg6, f32 ymax, f32 ymin)
 {
 	u32 stack[7];
 	s16 sp5c[8];
@@ -11516,14 +11516,14 @@ s32 func0002d95c(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f
 
 	func0f065d1c(arg0, arg1, arg2, sp4c, sp5c, 20);
 
-	result = func0002d3b0(arg0, arg2, sp5c, arg5, 4, 0, arg6, arg7, arg8);
+	result = func0002d3b0(arg0, arg2, sp5c, types, 4, 0, arg6, ymax, ymin);
 
 	if (result == CDRESULT_COLLISION) {
 		sp40.x = arg2->x - arg0->x;
 		sp40.y = arg2->y - arg0->y;
 		sp40.z = arg2->z - arg0->z;
 
-		func000250cc(arg0, &sp40, arg4);
+		func000250cc(arg0, &sp40, width);
 	} else if (!arrayIntersects(sp4c, arg3)) {
 		func00024f6c();
 		result = -1;
@@ -11772,7 +11772,7 @@ glabel func0002dcfc
 );
 
 GLOBAL_ASM(
-glabel func0002dd90
+glabel cdTestAToB4
 /*    2dd90:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*    2dd94:	afa60078 */ 	sw	$a2,0x78($sp)
 /*    2dd98:	00a03025 */ 	or	$a2,$a1,$zero
@@ -11812,7 +11812,7 @@ glabel func0002de10
 /*    2de10:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    2de14:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    2de18:	240e001c */ 	addiu	$t6,$zero,0x1c
-/*    2de1c:	0c00b764 */ 	jal	func0002dd90
+/*    2de1c:	0c00b764 */ 	jal	cdTestAToB4
 /*    2de20:	afae0010 */ 	sw	$t6,0x10($sp)
 /*    2de24:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*    2de28:	27bd0020 */ 	addiu	$sp,$sp,0x20
