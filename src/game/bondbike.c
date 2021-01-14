@@ -543,52 +543,41 @@ glabel var7f1adb74
 );
 
 // Mismatch due to stack placement.
-// Goal has a 6-word gap between contnum and sp60. It appears to be using this
-// space implicitly for some calculations then optimising the stack usage out.
-// The code below puts the implicit usage at the bottom of the stack, even if
-// sp60 onwards is moved to be declared at the latest possible location in the
-// function.
+// Need to declare another stack variable before sp3c to push sp3c onwards down,
+// but this makes the stack allocation too big.
 //void currentPlayerUpdateSpeedBike(struct movedata *data)
 //{
 //	struct hoverbikeobj *bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
 //	s8 contnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
-//	f32 a;
-//	f32 b;
-//	f32 c;
-//	f32 d;
-//	f32 sp60;
-//	struct coord sp48;
-//	f32 sp40[2];
-//	f32 sp36;
 //
 //	if ((optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_12
 //				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_14
 //				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_13
 //				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_11)
 //			&& !coreIsPaused()) {
-//		data->stepleft = contCountButtonsOnSpecificSamples(0, contnum, L_JPAD | L_CBUTTONS);
-//		data->stepright = contCountButtonsOnSpecificSamples(0, contnum, R_JPAD | R_CBUTTONS);
+//		data->digitalstepleft = contCountButtonsOnSpecificSamples(0, contnum, L_JPAD | L_CBUTTONS);
+//		data->digitalstepright = contCountButtonsOnSpecificSamples(0, contnum, R_JPAD | R_CBUTTONS);
 //	}
 //
 //	// Forward/back
-//	if (data->stepforward) {
-//		a = 1.0f - g_Vars.currentplayer->speedforwards;
+//	if (data->digitalstepforward) {
+//		f32 value = 1.0f - g_Vars.currentplayer->speedforwards;
 //
-//		if (a > 0.1f * g_Vars.lvupdate240freal) {
-//			a = 0.1f * g_Vars.lvupdate240freal;
+//		if (value > 0.1f * g_Vars.lvupdate240freal) {
+//			value = 0.1f * g_Vars.lvupdate240freal;
 //		}
 //
-//		g_Vars.currentplayer->speedforwards += a;
-//	} else if (data->stepback) {
-//		a = -1.0f - g_Vars.currentplayer->speedforwards;
+//		g_Vars.currentplayer->speedforwards += value;
+//	} else if (data->digitalstepback) {
+//		f32 value = -1.0f - g_Vars.currentplayer->speedforwards;
 //
-//		if (a < -0.1f * g_Vars.lvupdate240freal) {
-//			a = -0.1f * g_Vars.lvupdate240freal;
+//		if (value < -0.1f * g_Vars.lvupdate240freal) {
+//			value = -0.1f * g_Vars.lvupdate240freal;
 //		}
 //
-//		g_Vars.currentplayer->speedforwards += a;
-//	} else if (data->unk10) {
-//		g_Vars.currentplayer->speedforwards = data->unka8 / 70.0f;
+//		g_Vars.currentplayer->speedforwards += value;
+//	} else if (data->canlookahead) {
+//		g_Vars.currentplayer->speedforwards = data->analogwalk / 70.0f;
 //
 //		if (g_Vars.currentplayer->speedforwards > 1.0f) {
 //			g_Vars.currentplayer->speedforwards = 1;
@@ -600,24 +589,24 @@ glabel var7f1adb74
 //	}
 //
 //	// Sideways
-//	if (data->stepleft) {
-//		b = -1.0f - g_Vars.currentplayer->speedsideways;
+//	if (data->digitalstepleft) {
+//		f32 value = -1.0f - g_Vars.currentplayer->speedsideways;
 //
-//		if (b < data->stepleft * -0.1f) {
-//			b = data->stepleft * -0.1f;
+//		if (value < data->digitalstepleft * -0.1f) {
+//			value = data->digitalstepleft * -0.1f;
 //		}
 //
-//		g_Vars.currentplayer->speedsideways += b;
-//	} else if (data->stepright) {
-//		b = 1.0f - g_Vars.currentplayer->speedsideways;
+//		g_Vars.currentplayer->speedsideways += value;
+//	} else if (data->digitalstepright) {
+//		f32 value = 1.0f - g_Vars.currentplayer->speedsideways;
 //
-//		if (b > data->stepright * 0.1f) {
-//			b = data->stepright * 0.1f;
+//		if (value > data->digitalstepright * 0.1f) {
+//			value = data->digitalstepright * 0.1f;
 //		}
 //
-//		g_Vars.currentplayer->speedsideways += b;
+//		g_Vars.currentplayer->speedsideways += value;
 //	} else if (data->unk14) {
-//		g_Vars.currentplayer->speedsideways = data->unka4 / 70.0f;
+//		g_Vars.currentplayer->speedsideways = data->analogstrafe / 70.0f;
 //
 //		if (g_Vars.currentplayer->speedsideways > 1.0f) {
 //			g_Vars.currentplayer->speedsideways = 1.0f;
@@ -630,29 +619,34 @@ glabel var7f1adb74
 //		g_Vars.currentplayer->speedsideways = 0;
 //	}
 //
-//	sp60 = -bike->exreal;
+//	{
+//		f32 stack;
+//		f32 sp3c;
+//		struct coord sp30;
+//		f32 sp28[2];
 //
-//	if (bike->hov.unk14 < M_PI) {
-//		sp60 += -bike->hov.unk14 * 0.8f;
-//	} else {
-//		sp60 += (M_BADTAU - bike->hov.unk14) * 0.8f;
+//		sp3c = -bike->exreal;
+//
+//		if (bike->hov.unk14 < M_PI) {
+//			sp3c += -bike->hov.unk14 * 0.8f;
+//		} else {
+//			sp3c += (M_BADTAU - bike->hov.unk14) * 0.8f;
+//		}
+//
+//		if (sp3c < 0) {
+//			sp3c += M_BADTAU;
+//		} else if (sp3c >= M_BADTAU) {
+//			sp3c -= M_BADTAU;
+//		}
+//
+//		sp30.x = 0;
+//		sp30.y = -sinf(sp3c);
+//		sp30.z = cosf(sp3c);
+//
+//		func0f0b4d04(&sp30, sp28);
+//
+//		g_Vars.currentplayer->gunextraaimy = -((sp28[1] - currentPlayerGetScreenTop()) * 2.0f / currentPlayerGetScreenHeight() - 1.0f) * 0.75f;
 //	}
-//
-//	if (sp60 < 0) {
-//		sp60 += M_BADTAU;
-//	} else if (sp60 >= M_BADTAU) {
-//		sp60 -= M_BADTAU;
-//	}
-//
-//	sp48.x = 0;
-//	sp48.y = -sinf(sp60);
-//	sp48.z = cosf(sp60);
-//
-//	func0f0b4d04(&sp48, sp40);
-//
-//	sp36 = currentPlayerGetScreenTop();
-//	g_Vars.currentplayer->gunextraaimy =
-//		-(((sp40[1] - sp36) + (sp40[1] - sp36)) / currentPlayerGetScreenHeight() - 1.0f) * 0.75f;
 //}
 
 void func0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct defaultobj *obstacle)
