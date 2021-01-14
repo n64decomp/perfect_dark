@@ -1467,76 +1467,32 @@ bool func0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f0cdfbc
-/*  f0cdfbc:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0cdfc0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0cdfc4:	c4c20000 */ 	lwc1	$f2,0x0($a2)
-/*  f0cdfc8:	c4a00000 */ 	lwc1	$f0,0x0($a1)
-/*  f0cdfcc:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0cdfd0:	46020032 */ 	c.eq.s	$f0,$f2
-/*  f0cdfd4:	00000000 */ 	nop
-/*  f0cdfd8:	45020009 */ 	bc1fl	.L0f0ce000
-/*  f0cdfdc:	46001201 */ 	sub.s	$f8,$f2,$f0
-/*  f0cdfe0:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*  f0cdfe4:	c4c60008 */ 	lwc1	$f6,0x8($a2)
-/*  f0cdfe8:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0cdfec:	46062032 */ 	c.eq.s	$f4,$f6
-/*  f0cdff0:	00000000 */ 	nop
-/*  f0cdff4:	4501002d */ 	bc1t	.L0f0ce0ac
-/*  f0cdff8:	00000000 */ 	nop
-/*  f0cdffc:	46001201 */ 	sub.s	$f8,$f2,$f0
-.L0f0ce000:
-/*  f0ce000:	e7a80030 */ 	swc1	$f8,0x30($sp)
-/*  f0ce004:	c4b00008 */ 	lwc1	$f16,0x8($a1)
-/*  f0ce008:	c4ca0008 */ 	lwc1	$f10,0x8($a2)
-/*  f0ce00c:	c7a80030 */ 	lwc1	$f8,0x30($sp)
-/*  f0ce010:	afa70040 */ 	sw	$a3,0x40($sp)
-/*  f0ce014:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f0ce018:	e7b20038 */ 	swc1	$f18,0x38($sp)
-/*  f0ce01c:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*  f0ce020:	46042182 */ 	mul.s	$f6,$f4,$f4
-/*  f0ce024:	00000000 */ 	nop
-/*  f0ce028:	46084282 */ 	mul.s	$f10,$f8,$f8
-/*  f0ce02c:	0c012974 */ 	jal	sqrtf
-/*  f0ce030:	460a3300 */ 	add.s	$f12,$f6,$f10
-/*  f0ce034:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0ce038:	44818000 */ 	mtc1	$at,$f16
-/*  f0ce03c:	c7b20030 */ 	lwc1	$f18,0x30($sp)
-/*  f0ce040:	c7a80038 */ 	lwc1	$f8,0x38($sp)
-/*  f0ce044:	46008083 */ 	div.s	$f2,$f16,$f0
-/*  f0ce048:	8fa70040 */ 	lw	$a3,0x40($sp)
-/*  f0ce04c:	44807000 */ 	mtc1	$zero,$f14
-/*  f0ce050:	27a40024 */ 	addiu	$a0,$sp,0x24
-/*  f0ce054:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0ce058:	44057000 */ 	mfc1	$a1,$f14
-/*  f0ce05c:	46029102 */ 	mul.s	$f4,$f18,$f2
-/*  f0ce060:	00000000 */ 	nop
-/*  f0ce064:	46024182 */ 	mul.s	$f6,$f8,$f2
-/*  f0ce068:	e7a40030 */ 	swc1	$f4,0x30($sp)
-/*  f0ce06c:	e7a60038 */ 	swc1	$f6,0x38($sp)
-/*  f0ce070:	c4ea0008 */ 	lwc1	$f10,0x8($a3)
-/*  f0ce074:	c4f20000 */ 	lwc1	$f18,0x0($a3)
-/*  f0ce078:	e7ae0028 */ 	swc1	$f14,0x28($sp)
-/*  f0ce07c:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f0ce080:	00000000 */ 	nop
-/*  f0ce084:	46049202 */ 	mul.s	$f8,$f18,$f4
-/*  f0ce088:	46088300 */ 	add.s	$f12,$f16,$f8
-/*  f0ce08c:	460c2282 */ 	mul.s	$f10,$f4,$f12
-/*  f0ce090:	00000000 */ 	nop
-/*  f0ce094:	460c3482 */ 	mul.s	$f18,$f6,$f12
-/*  f0ce098:	e7aa0024 */ 	swc1	$f10,0x24($sp)
-/*  f0ce09c:	0fc3365c */ 	jal	func0f0cd970
-/*  f0ce0a0:	e7b2002c */ 	swc1	$f18,0x2c($sp)
-/*  f0ce0a4:	10000002 */ 	b	.L0f0ce0b0
-/*  f0ce0a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0ce0ac:
-/*  f0ce0ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0ce0b0:
-/*  f0ce0b0:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0ce0b4:	03e00008 */ 	jr	$ra
-/*  f0ce0b8:	00000000 */ 	nop
-);
+s32 func0f0cdfbc(struct coord *delta, struct coord *arg1, struct coord *arg2)
+{
+	if (arg1->f[0] != arg2->f[0] || arg1->f[2] != arg2->f[2]) {
+		f32 tmp;
+		struct coord sp30;
+		struct coord sp24;
+
+		sp30.x = arg2->x - arg1->x;
+		sp30.z = arg2->z - arg1->z;
+
+		tmp = 1.0f / sqrtf(sp30.f[0] * sp30.f[0] + sp30.f[2] * sp30.f[2]);
+
+		sp30.x *= tmp;
+		sp30.z *= tmp;
+
+		tmp = delta->f[0] * sp30.f[0] + delta->f[2] * sp30.f[2];
+
+		sp24.x = sp30.x * tmp;
+		sp24.y = 0;
+		sp24.z = sp30.z * tmp;
+
+		return func0f0cd970(&sp24, 0, true);
+	}
+
+	return -1;
+}
 
 void func0f0ce0bc(struct coord *arg0)
 {
