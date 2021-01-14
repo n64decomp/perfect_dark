@@ -23,7 +23,7 @@ void currentPlayerUpdateSpeedSidewaysGrab(f32 targetspeed, f32 accelspeed, s32 m
 void currentPlayerUpdateSpeedForwardsGrab(f32 target, f32 speed);
 void currentPlayerUpdateSpeedGrab(struct movedata *data);
 void currentPlayerUpdateSpeedThetaGrab(void);
-u32 func0f0ce924(void);
+void func0f0ce924(void);
 void func0f0ceec4(void);
 
 #endif

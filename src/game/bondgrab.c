@@ -2087,183 +2087,69 @@ glabel var7f1ada2c
 /*  f0ceec0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0ceec4
-.late_rodata
-glabel var7f1ada30
-.word 0xc6ea6000
-.text
-/*  f0ceec4:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0ceec8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0ceecc:	0fc33840 */ 	jal	currentPlayerUpdatePrevPosGrab
-/*  f0ceed0:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0ceed4:	0fc337bc */ 	jal	func0f0cdef0
-/*  f0ceed8:	00000000 */ 	nop
-/*  f0ceedc:	0fc32fd4 */ 	jal	func0f0cbf50
-/*  f0ceee0:	00000000 */ 	nop
-/*  f0ceee4:	0fc33a49 */ 	jal	func0f0ce924
-/*  f0ceee8:	00000000 */ 	nop
-/*  f0ceeec:	0fc3385e */ 	jal	func0f0ce178
-/*  f0ceef0:	00000000 */ 	nop
-/*  f0ceef4:	0fc3386b */ 	jal	func0f0ce1ac
-/*  f0ceef8:	00000000 */ 	nop
-/*  f0ceefc:	3c10800a */ 	lui	$s0,%hi(g_Vars+0x284)
-/*  f0cef00:	8e10a244 */ 	lw	$s0,%lo(g_Vars+0x284)($s0)
-/*  f0cef04:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f0cef08:	8e0600bc */ 	lw	$a2,0xbc($s0)
-/*  f0cef0c:	84ce0028 */ 	lh	$t6,0x28($a2)
-/*  f0cef10:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f0cef14:	50ae0018 */ 	beql	$a1,$t6,.L0f0cef78
-/*  f0cef18:	8e091b5c */ 	lw	$t1,0x1b5c($s0)
-/*  f0cef1c:	860419b0 */ 	lh	$a0,0x19b0($s0)
-/*  f0cef20:	84c30028 */ 	lh	$v1,0x28($a2)
-.L0f0cef24:
-/*  f0cef24:	54830010 */ 	bnel	$a0,$v1,.L0f0cef68
-/*  f0cef28:	8443002a */ 	lh	$v1,0x2a($v0)
-/*  f0cef2c:	0fc19711 */ 	jal	func0f065c44
-/*  f0cef30:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0cef34:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0cef38:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0cef3c:	8c500284 */ 	lw	$s0,0x284($v0)
-/*  f0cef40:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f0cef44:	860f19b0 */ 	lh	$t7,0x19b0($s0)
-/*  f0cef48:	8e1800bc */ 	lw	$t8,0xbc($s0)
-/*  f0cef4c:	a70f0028 */ 	sh	$t7,0x28($t8)
-/*  f0cef50:	8c590284 */ 	lw	$t9,0x284($v0)
-/*  f0cef54:	8f2800bc */ 	lw	$t0,0xbc($t9)
-/*  f0cef58:	a505002a */ 	sh	$a1,0x2a($t0)
-/*  f0cef5c:	10000005 */ 	b	.L0f0cef74
-/*  f0cef60:	8c500284 */ 	lw	$s0,0x284($v0)
-/*  f0cef64:	8443002a */ 	lh	$v1,0x2a($v0)
-.L0f0cef68:
-/*  f0cef68:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f0cef6c:	14a3ffed */ 	bne	$a1,$v1,.L0f0cef24
-/*  f0cef70:	00000000 */ 	nop
-.L0f0cef74:
-/*  f0cef74:	8e091b5c */ 	lw	$t1,0x1b5c($s0)
-.L0f0cef78:
-/*  f0cef78:	24010035 */ 	addiu	$at,$zero,0x35
-/*  f0cef7c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0cef80:	8d220004 */ 	lw	$v0,0x4($t1)
-/*  f0cef84:	90430003 */ 	lbu	$v1,0x3($v0)
-/*  f0cef88:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0cef8c:	54610004 */ 	bnel	$v1,$at,.L0f0cefa0
-/*  f0cef90:	24010033 */ 	addiu	$at,$zero,0x33
-/*  f0cef94:	10000005 */ 	b	.L0f0cefac
-/*  f0cef98:	2445005c */ 	addiu	$a1,$v0,0x5c
-/*  f0cef9c:	24010033 */ 	addiu	$at,$zero,0x33
-.L0f0cefa0:
-/*  f0cefa0:	14610002 */ 	bne	$v1,$at,.L0f0cefac
-/*  f0cefa4:	00000000 */ 	nop
-/*  f0cefa8:	2445005c */ 	addiu	$a1,$v0,0x5c
-.L0f0cefac:
-/*  f0cefac:	10a00005 */ 	beqz	$a1,.L0f0cefc4
-/*  f0cefb0:	00000000 */ 	nop
-/*  f0cefb4:	0fc1c52e */ 	jal	func0f0714b8
-/*  f0cefb8:	00000000 */ 	nop
-/*  f0cefbc:	3c10800a */ 	lui	$s0,%hi(g_Vars+0x284)
-/*  f0cefc0:	8e10a244 */ 	lw	$s0,%lo(g_Vars+0x284)($s0)
-.L0f0cefc4:
-/*  f0cefc4:	0fc32e31 */ 	jal	func0f0cb8c4
-/*  f0cefc8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0cefcc:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x284)
-/*  f0cefd0:	8d4aa244 */ 	lw	$t2,%lo(g_Vars+0x284)($t2)
-/*  f0cefd4:	8d4b00bc */ 	lw	$t3,0xbc($t2)
-/*  f0cefd8:	0fc257d8 */ 	jal	objectiveCheckRoomEntered
-/*  f0cefdc:	85640028 */ 	lh	$a0,0x28($t3)
-/*  f0cefe0:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x284)
-/*  f0cefe4:	8d8ca244 */ 	lw	$t4,%lo(g_Vars+0x284)($t4)
-/*  f0cefe8:	8d8400bc */ 	lw	$a0,0xbc($t4)
-/*  f0cefec:	0fc33067 */ 	jal	func0f0cc19c
-/*  f0ceff0:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0ceff4:	0fc307fd */ 	jal	currentPlayerUpdatePerimInfo
-/*  f0ceff8:	00000000 */ 	nop
-/*  f0ceffc:	0fc23064 */ 	jal	func0f08c190
-/*  f0cf000:	00000000 */ 	nop
-/*  f0cf004:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x284)
-/*  f0cf008:	8dada244 */ 	lw	$t5,%lo(g_Vars+0x284)($t5)
-/*  f0cf00c:	8da21b5c */ 	lw	$v0,0x1b5c($t5)
-/*  f0cf010:	50400048 */ 	beqzl	$v0,.L0f0cf134
-/*  f0cf014:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0cf018:	0fc1c4d8 */ 	jal	func0f071360
-/*  f0cf01c:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f0cf020:	3c10800a */ 	lui	$s0,%hi(g_Vars+0x284)
-/*  f0cf024:	8e10a244 */ 	lw	$s0,%lo(g_Vars+0x284)($s0)
-/*  f0cf028:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0cf02c:	8e021b5c */ 	lw	$v0,0x1b5c($s0)
-/*  f0cf030:	c6080074 */ 	lwc1	$f8,0x74($s0)
-/*  f0cf034:	c444000c */ 	lwc1	$f4,0xc($v0)
-/*  f0cf038:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f0cf03c:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f0cf040:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*  f0cf044:	e7aa0030 */ 	swc1	$f10,0x30($sp)
-/*  f0cf048:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f0cf04c:	8e0400bc */ 	lw	$a0,0xbc($s0)
-/*  f0cf050:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f0cf054:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f0cf058:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0cf05c:	3c10800a */ 	lui	$s0,%hi(g_Vars+0x284)
-/*  f0cf060:	8e10a244 */ 	lw	$s0,%lo(g_Vars+0x284)($s0)
-/*  f0cf064:	3c017f1b */ 	lui	$at,%hi(var7f1ada30)
-/*  f0cf068:	c430da30 */ 	lwc1	$f16,%lo(var7f1ada30)($at)
-/*  f0cf06c:	c6000078 */ 	lwc1	$f0,0x78($s0)
-/*  f0cf070:	3c01c2c8 */ 	lui	$at,0xc2c8
-/*  f0cf074:	c7a20030 */ 	lwc1	$f2,0x30($sp)
-/*  f0cf078:	4610003e */ 	c.le.s	$f0,$f16
-/*  f0cf07c:	00000000 */ 	nop
-/*  f0cf080:	45010021 */ 	bc1t	.L0f0cf108
-/*  f0cf084:	00000000 */ 	nop
-/*  f0cf088:	44819000 */ 	mtc1	$at,$f18
-/*  f0cf08c:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f0cf090:	4612103c */ 	c.lt.s	$f2,$f18
-/*  f0cf094:	00000000 */ 	nop
-/*  f0cf098:	4501001b */ 	bc1t	.L0f0cf108
-/*  f0cf09c:	00000000 */ 	nop
-/*  f0cf0a0:	44812000 */ 	mtc1	$at,$f4
-/*  f0cf0a4:	3c014248 */ 	lui	$at,0x4248
-/*  f0cf0a8:	4602203c */ 	c.lt.s	$f4,$f2
-/*  f0cf0ac:	00000000 */ 	nop
-/*  f0cf0b0:	45010015 */ 	bc1t	.L0f0cf108
-/*  f0cf0b4:	00000000 */ 	nop
-/*  f0cf0b8:	c6060074 */ 	lwc1	$f6,0x74($s0)
-/*  f0cf0bc:	44814000 */ 	mtc1	$at,$f8
-/*  f0cf0c0:	240e003f */ 	addiu	$t6,$zero,0x3f
-/*  f0cf0c4:	240f000c */ 	addiu	$t7,$zero,0xc
-/*  f0cf0c8:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*  f0cf0cc:	460a003c */ 	c.lt.s	$f0,$f10
-/*  f0cf0d0:	00000000 */ 	nop
-/*  f0cf0d4:	4501000c */ 	bc1t	.L0f0cf108
-/*  f0cf0d8:	00000000 */ 	nop
-/*  f0cf0dc:	8e0300bc */ 	lw	$v1,0xbc($s0)
-/*  f0cf0e0:	8e021b5c */ 	lw	$v0,0x1b5c($s0)
-/*  f0cf0e4:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0cf0e8:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0cf0ec:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f0cf0f0:	24650028 */ 	addiu	$a1,$v1,0x28
-/*  f0cf0f4:	24460008 */ 	addiu	$a2,$v0,0x8
-/*  f0cf0f8:	0c00b70f */ 	jal	hasLineOfSight
-/*  f0cf0fc:	24470028 */ 	addiu	$a3,$v0,0x28
-/*  f0cf100:	14400003 */ 	bnez	$v0,.L0f0cf110
-/*  f0cf104:	00000000 */ 	nop
-.L0f0cf108:
-/*  f0cf108:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
-/*  f0cf10c:	00002025 */ 	or	$a0,$zero,$zero
-.L0f0cf110:
-/*  f0cf110:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f0cf114:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f0cf118:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cf11c:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f0cf120:	8f0400bc */ 	lw	$a0,0xbc($t8)
-/*  f0cf124:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f0cf128:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f0cf12c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cf130:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0cf134:
-/*  f0cf134:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0cf138:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f0cf13c:	03e00008 */ 	jr	$ra
-/*  f0cf140:	00000000 */ 	nop
-/*  f0cf144:	00000000 */ 	nop
-/*  f0cf148:	00000000 */ 	nop
-/*  f0cf14c:	00000000 */ 	nop
-);
+void func0f0ceec4(void)
+{
+	s32 i;
+	struct defaultobj *obj;
+	struct hov *hov;
+
+	currentPlayerUpdatePrevPosGrab();
+	func0f0cdef0();
+	func0f0cbf50();
+	func0f0ce924();
+	func0f0ce178();
+	func0f0ce1ac();
+
+	for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
+		if (g_Vars.currentplayer->prop->rooms[i] == g_Vars.currentplayer->floorroom) {
+			func0f065c44(g_Vars.currentplayer->prop);
+			g_Vars.currentplayer->prop->rooms[0] = g_Vars.currentplayer->floorroom;
+			g_Vars.currentplayer->prop->rooms[1] = -1;
+			break;
+		}
+	}
+
+	obj = g_Vars.currentplayer->grabbedprop->obj;
+	hov = NULL;
+
+	if (obj->type == OBJTYPE_HOVERPROP) {
+		struct hoverpropobj *hoverprop = (struct hoverpropobj *)g_Vars.currentplayer->grabbedprop->obj;
+		hov = &hoverprop->hov;
+	} else if (obj->type == OBJTYPE_HOVERBIKE) {
+		struct hoverbikeobj *hoverbike = (struct hoverbikeobj *)g_Vars.currentplayer->grabbedprop->obj;
+		hov = &hoverbike->hov;
+	}
+
+	if (hov) {
+		func0f0714b8(obj, hov);
+	}
+
+	func0f0cb8c4(g_Vars.currentplayer);
+	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
+	func0f0cc19c(&g_Vars.currentplayer->prop->pos);
+	currentPlayerUpdatePerimInfo();
+	func0f08c190();
+
+	if (g_Vars.currentplayer->grabbedprop) {
+		// Determine if the grabbed prop should be force released
+		f32 ydiff = g_Vars.currentplayer->grabbedprop->pos.y
+			- func0f071360(g_Vars.currentplayer->grabbedprop->obj)
+			- g_Vars.currentplayer->vv_manground;
+
+		struct prop *grabbedprop = g_Vars.currentplayer->grabbedprop;
+
+		propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
+		propSetCollisionsEnabled(grabbedprop, false);
+
+		if (g_Vars.currentplayer->vv_ground <= -30000
+				|| ydiff < -100 || ydiff > 100
+				|| g_Vars.currentplayer->vv_ground < g_Vars.currentplayer->vv_manground - 50
+				|| !hasLineOfSight(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+					&g_Vars.currentplayer->grabbedprop->pos, g_Vars.currentplayer->grabbedprop->rooms, CDTYPE_ALL, 12)) {
+			currentPlayerSetMoveMode(MOVEMODE_WALK);
+		}
+
+		propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);
+		propSetCollisionsEnabled(grabbedprop, true);
+	}
+}
