@@ -190,62 +190,27 @@ void func0f17713c(struct coord *in, struct coord *out)
 	out->z = -in->z;
 }
 
-GLOBAL_ASM(
-glabel func0f177164
-/*  f177164:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f177168:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17716c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f177170:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f177174:	c4800000 */ 	lwc1	$f0,0x0($a0)
-/*  f177178:	c4820004 */ 	lwc1	$f2,0x4($a0)
-/*  f17717c:	c48c0008 */ 	lwc1	$f12,0x8($a0)
-/*  f177180:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f177184:	3c018008 */ 	lui	$at,%hi(var800845d4)
-/*  f177188:	c43045d4 */ 	lwc1	$f16,%lo(var800845d4)($at)
-/*  f17718c:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f177190:	3c038008 */ 	lui	$v1,%hi(var800845f4)
-/*  f177194:	246345f4 */ 	addiu	$v1,$v1,%lo(var800845f4)
-/*  f177198:	460c6282 */ 	mul.s	$f10,$f12,$f12
-/*  f17719c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f1771a0:	460a4380 */ 	add.s	$f14,$f8,$f10
-/*  f1771a4:	4610703c */ 	c.lt.s	$f14,$f16
-/*  f1771a8:	00000000 */ 	nop
-/*  f1771ac:	4502000a */ 	bc1fl	.L0f1771d8
-/*  f1771b0:	46007306 */ 	mov.s	$f12,$f14
-/*  f1771b4:	c4720000 */ 	lwc1	$f18,0x0($v1)
-/*  f1771b8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1771bc:	e4920000 */ 	swc1	$f18,0x0($a0)
-/*  f1771c0:	c4640004 */ 	lwc1	$f4,0x4($v1)
-/*  f1771c4:	e4840004 */ 	swc1	$f4,0x4($a0)
-/*  f1771c8:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f1771cc:	10000014 */ 	b	.L0f177220
-/*  f1771d0:	e4860008 */ 	swc1	$f6,0x8($a0)
-/*  f1771d4:	46007306 */ 	mov.s	$f12,$f14
-.L0f1771d8:
-/*  f1771d8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1771dc:	0c012974 */ 	jal	sqrtf
-/*  f1771e0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1771e4:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1771e8:	44814000 */ 	mtc1	$at,$f8
-/*  f1771ec:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f1771f0:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f1771f4:	46004083 */ 	div.s	$f2,$f8,$f0
-/*  f1771f8:	c48a0000 */ 	lwc1	$f10,0x0($a0)
-/*  f1771fc:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f177200:	46025402 */ 	mul.s	$f16,$f10,$f2
-/*  f177204:	e4b00000 */ 	swc1	$f16,0x0($a1)
-/*  f177208:	c4920004 */ 	lwc1	$f18,0x4($a0)
-/*  f17720c:	46029102 */ 	mul.s	$f4,$f18,$f2
-/*  f177210:	e4a40004 */ 	swc1	$f4,0x4($a1)
-/*  f177214:	c4860008 */ 	lwc1	$f6,0x8($a0)
-/*  f177218:	46023202 */ 	mul.s	$f8,$f6,$f2
-/*  f17721c:	e4a80008 */ 	swc1	$f8,0x8($a1)
-.L0f177220:
-/*  f177220:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f177224:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f177228:	03e00008 */ 	jr	$ra
-/*  f17722c:	00000000 */ 	nop
-);
+bool func0f177164(struct coord *arg0, struct coord *arg1, u32 line, char *file)
+{
+	f32 sqdist = arg0->x * arg0->x + arg0->y * arg0->y + arg0->z * arg0->z;
+	f32 mult;
+
+	if (sqdist < var800845d4) {
+		arg0->x = var800845f4.x;
+		arg0->y = var800845f4.y;
+		arg0->z = var800845f4.z;
+
+		return false;
+	}
+
+	mult = 1.0f / sqrtf(sqdist);
+
+	arg1->x = arg0->x * mult;
+	arg1->y = arg0->y * mult;
+	arg1->z = arg0->z * mult;
+
+	return true;
+}
 
 bool func0f177230(struct coord *a, struct coord *b, struct coord *c)
 {

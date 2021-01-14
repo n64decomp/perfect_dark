@@ -29,7 +29,7 @@ extern f32 var800845d0;
 extern f32 var800845d4;
 extern s32 var800845d8;
 extern u32 var800845dc;
-extern u32 var800845f4;
+extern struct coord var800845f4;
 extern struct menudialog g_MpPausePlayerRankingMenuDialog;
 extern struct menudialog g_MpPauseTeamRankingsMenuDialog;
 extern u16 g_OrdinalSuffixes[12];
