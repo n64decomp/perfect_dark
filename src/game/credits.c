@@ -1544,61 +1544,23 @@ glabel var7f1b57f8
 /*  f1382dc:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
 );
 
-GLOBAL_ASM(
-glabel func0f1382e0
-.late_rodata
-glabel var7f1b57fc
-.word 0xb8d1b717
-glabel var7f1b5800
-.word 0x38d1b717
-.text
-/*  f1382e0:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f1382e4:	f7ba0028 */ 	sdc1	$f26,0x28($sp)
-/*  f1382e8:	3c017f1b */ 	lui	$at,%hi(var7f1b57fc)
-/*  f1382ec:	c43a57fc */ 	lwc1	$f26,%lo(var7f1b57fc)($at)
-/*  f1382f0:	f7b80020 */ 	sdc1	$f24,0x20($sp)
-/*  f1382f4:	3c017f1b */ 	lui	$at,%hi(var7f1b5800)
-/*  f1382f8:	c4385800 */ 	lwc1	$f24,%lo(var7f1b5800)($at)
-/*  f1382fc:	f7b60018 */ 	sdc1	$f22,0x18($sp)
-/*  f138300:	3c012f80 */ 	lui	$at,0x2f80
-/*  f138304:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f138308:	4481b000 */ 	mtc1	$at,$f22
-/*  f13830c:	46006506 */ 	mov.s	$f20,$f12
-/*  f138310:	afbf0034 */ 	sw	$ra,0x34($sp)
-.L0f138314:
-/*  f138314:	0c004b70 */ 	jal	random
-/*  f138318:	00000000 */ 	nop
-/*  f13831c:	44822000 */ 	mtc1	$v0,$f4
-/*  f138320:	3c014f80 */ 	lui	$at,0x4f80
-/*  f138324:	04410004 */ 	bgez	$v0,.L0f138338
-/*  f138328:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f13832c:	44814000 */ 	mtc1	$at,$f8
-/*  f138330:	00000000 */ 	nop
-/*  f138334:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f138338:
-/*  f138338:	46163282 */ 	mul.s	$f10,$f6,$f22
-/*  f13833c:	00000000 */ 	nop
-/*  f138340:	46145002 */ 	mul.s	$f0,$f10,$f20
-/*  f138344:	46000400 */ 	add.s	$f16,$f0,$f0
-/*  f138348:	46148081 */ 	sub.s	$f2,$f16,$f20
-/*  f13834c:	4618103c */ 	c.lt.s	$f2,$f24
-/*  f138350:	46001306 */ 	mov.s	$f12,$f2
-/*  f138354:	45000005 */ 	bc1f	.L0f13836c
-/*  f138358:	00000000 */ 	nop
-/*  f13835c:	460cd03c */ 	c.lt.s	$f26,$f12
-/*  f138360:	00000000 */ 	nop
-/*  f138364:	4501ffeb */ 	bc1t	.L0f138314
-/*  f138368:	00000000 */ 	nop
-.L0f13836c:
-/*  f13836c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f138370:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f138374:	d7b60018 */ 	ldc1	$f22,0x18($sp)
-/*  f138378:	d7b80020 */ 	ldc1	$f24,0x20($sp)
-/*  f13837c:	d7ba0028 */ 	ldc1	$f26,0x28($sp)
-/*  f138380:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f138384:	03e00008 */ 	jr	$ra
-/*  f138388:	46001006 */ 	mov.s	$f0,$f2
-);
+/**
+ * Generate a random float between -range and range,
+ * without being within 0.0001f of zero.
+ *
+ * This is only called with max = 0.00223f.
+ */
+f32 func0f1382e0(f32 range)
+{
+	f32 value;
+
+	do {
+		value = random() * (1.0f / U32_MAX) * range;
+		value = (value + value) - range;
+	} while (value < 0.0001f && value > -0.0001f);
+
+	return value;
+}
 
 GLOBAL_ASM(
 glabel creditsRandomiseBackground

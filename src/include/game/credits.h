@@ -9,7 +9,7 @@ u32 func0f137874(void);
 u32 func0f137b4c(void);
 void func0f137ea8(s32 arg0, s32 arg1, s32 arg2);
 Gfx *creditsRenderBackground(Gfx *gdl);
-f32 func0f1382e0(f32 arg0);
+f32 func0f1382e0(f32 range);
 void creditsRandomiseBackground(u32 arg0);
 Gfx *func0f1384b4(Gfx *gdl, u32 arg1);
 u32 func0f13870c(void);
