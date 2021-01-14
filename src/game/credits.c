@@ -1601,7 +1601,7 @@ glabel var7f1b5800
 );
 
 GLOBAL_ASM(
-glabel func0f13838c
+glabel creditsRandomiseBackground
 .late_rodata
 glabel var7f1b5804
 .word 0x3b122531
@@ -1685,6 +1685,26 @@ glabel var7f1b5804
 /*  f1384ac:	03e00008 */ 	jr	$ra
 /*  f1384b0:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
+
+// Mismatch: regalloc
+//void creditsRandomiseBackground(u32 arg0)
+//{
+//	s32 i;
+//
+//	for (i = 0; i < 2; i++) {
+//		s32 tmp = i * 8;
+//
+//		if (g_CreditsData->unk41b0[i] == 0) {
+//			g_CreditsData->unk41b4[i + 2].type = random() % 12;
+//			g_CreditsData->unk41b4[i + 2].rotatespeed = func0f1382e0(0.00223f);
+//			g_CreditsData->unk41b4[i + 2].unk08 = func0f1382e0(0.00223f);
+//
+//			if ((arg0 >> tmp) & 2) {
+//				g_CreditsData->unk41b4[i + 2].unk0c = random() % 6;
+//			}
+//		}
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f1384b4
@@ -3871,7 +3891,7 @@ glabel var7f1b5874
 .L0f13a3b4:
 /*  f13a3b4:	1615ffe6 */ 	bne	$s0,$s5,.L0f13a350
 /*  f13a3b8:	00000000 */ 	nop
-/*  f13a3bc:	0fc4e0e3 */ 	jal	func0f13838c
+/*  f13a3bc:	0fc4e0e3 */ 	jal	creditsRandomiseBackground
 /*  f13a3c0:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f13a3c4:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .L0f13a3c8:
@@ -4698,21 +4718,21 @@ void creditsTick(void)
 	static u32 var8007f6d8 = 0xffff;
 
 	if (contGetButtonsPressedThisFrame(0, L_TRIG)) {
-		func0f13838c(-1);
+		creditsRandomiseBackground(0xffffffff);
 	}
 
 	func0000db30("for", &var8007f6d8);
 
 	if (var8007f6d8 < 0xffff) {
 		for (i = 0; i < 4; i++) {
-			g_CreditsData->unk41b4[i].unk00 = var8007f6d8;
+			g_CreditsData->unk41b4[i].type = var8007f6d8;
 		}
 	}
 
 	func0000db30("flick", &var8007f6d4);
 
 	if (var8007f6d4 != 0) {
-		func0f13838c(-1);
+		creditsRandomiseBackground(0xffffffff);
 		var8007f6d4 = 0;
 	}
 
@@ -4736,7 +4756,7 @@ void creditsTick(void)
 	if (g_CreditsData->unk41f4) {
 		func0f13a164();
 	} else if (random() * (1.0f / U32_MAX) < 0.01f && !contGetButtons(0, L_TRIG | R_TRIG)) {
-		func0f13838c(-1);
+		creditsRandomiseBackground(0xffffffff);
 	}
 
 	if (g_CreditsData->unk41f4 == 0 && g_CreditsData->unk4204 < 1360) {
@@ -5179,10 +5199,10 @@ void creditsInit(void)
 	g_CreditsData = malloc(sizeof(struct creditsdata), MEMPOOL_STAGE);
 
 	g_CreditsData->unk2eec = 0;
-	g_CreditsData->unk41b0 = 0;
-	g_CreditsData->unk41b1 = 0;
+	g_CreditsData->unk41b0[0] = 0;
+	g_CreditsData->unk41b0[1] = 0;
 
-	func0f13838c(-1);
+	creditsRandomiseBackground(0xffffffff);
 	func0f137ea8(2, 0, 1);
 	func0f137ea8(3, 1, 1);
 

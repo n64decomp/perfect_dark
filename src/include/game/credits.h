@@ -9,8 +9,8 @@ u32 func0f137874(void);
 u32 func0f137b4c(void);
 void func0f137ea8(s32 arg0, s32 arg1, s32 arg2);
 Gfx *creditsRenderBackground(Gfx *gdl);
-u32 func0f1382e0(void);
-void func0f13838c(s32 arg0);
+f32 func0f1382e0(f32 arg0);
+void creditsRandomiseBackground(u32 arg0);
 Gfx *func0f1384b4(Gfx *gdl, u32 arg1);
 u32 func0f13870c(void);
 void func0f13899c(void);
@@ -29,9 +29,9 @@ void creditsInit(void);
 void func0f13b660(void);
 
 struct credits41b4 {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
+	u32 type;
+	f32 rotatespeed;
+	f32 unk08;
 	u32 unk0c;
 };
 
@@ -4244,8 +4244,7 @@ struct creditsdata {
 	/*0x41a4*/ u32 unk41a4;
 	/*0x41a8*/ u32 unk41a8;
 	/*0x41ac*/ u32 unk41ac;
-	/*0x41b0*/ u8 unk41b0;
-	/*0x41b1*/ u8 unk41b1;
+	/*0x41b0*/ s8 unk41b0[2];
 	/*0x41b4*/ struct credits41b4 unk41b4[4];
 	/*0x41f4*/ u8 unk41f4;
 	/*0x41f8*/ u32 unk41f8;
