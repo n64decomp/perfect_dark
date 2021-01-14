@@ -31,7 +31,7 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
-void currentPlayerBikeInit(void)
+void bbikeInit(void)
 {
 	struct hoverbikeobj *hoverbike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
 	Mtxf matrix;
@@ -42,7 +42,7 @@ void currentPlayerBikeInit(void)
 	g_Vars.currentplayer->gunextraaimx = 0;
 	g_Vars.currentplayer->gunextraaimy = 0;
 
-	func0f0d2294();
+	bbikeUpdateVehicleOffset();
 
 	g_Vars.currentplayer->bondentert = 0;
 	g_Vars.currentplayer->bondentert2 = 1;
@@ -75,7 +75,7 @@ void currentPlayerBikeInit(void)
 	hoverbike->base.hidden |= OBJHFLAG_04000000;
 }
 
-void func0f0d2184(void)
+void bbikeExit(void)
 {
 	struct defaultobj *obj = g_Vars.currentplayer->hoverbike->obj;
 	struct hoverbikeobj *bikeobj = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
@@ -98,7 +98,7 @@ void func0f0d2184(void)
 	obj->flags |= OBJFLAG_40000000;
 }
 
-void func0f0d2294(void)
+void bbikeUpdateVehicleOffset(void)
 {
 	struct defaultobj *hoverbike = g_Vars.currentplayer->hoverbike->obj;
 
@@ -107,7 +107,7 @@ void func0f0d2294(void)
 	g_Vars.currentplayer->bondvehicleoffset.z = -50.0f / hoverbike->model->unk14;
 }
 
-void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance)
+void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 {
 	u32 stack;
 	struct hoverbikeobj *bike;
@@ -141,7 +141,7 @@ void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance)
 		propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
 
 		func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &pos, rooms);
-		func0f0cb79c(g_Vars.currentplayer, &pos, rooms);
+		bmove0f0cb79c(g_Vars.currentplayer, &pos, rooms);
 
 		result = cdTestAToB2(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 				&pos, rooms, CDTYPE_ALL, true,
@@ -172,7 +172,7 @@ void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance)
 	}
 }
 
-void currentPlayerDismountBike(void)
+void bbikeHandleActivate(void)
 {
 	if (g_Vars.currentplayer->bondvehiclemode == VEHICLEMODE_RUNNING
 			&& g_Vars.lvframe60 - g_Vars.currentplayer->activatetimelast < 25) {
@@ -185,17 +185,17 @@ void currentPlayerDismountBike(void)
 
 		g_Vars.currentplayer->walkinitmove = false;
 
-		currentPlayerTryBikeDismountAngle(1.5705462694168f, fVar5);
-		currentPlayerTryBikeDismountAngle(4.7116389274597f, fVar5);
-		currentPlayerTryBikeDismountAngle(0.7852731347084f, uVar4);
-		currentPlayerTryBikeDismountAngle(5.4969120025635f, uVar4);
-		currentPlayerTryBikeDismountAngle(2.3558194637299f, uVar4);
-		currentPlayerTryBikeDismountAngle(3.9263656139374f, uVar4);
-		currentPlayerTryBikeDismountAngle(0, fVar3);
-		currentPlayerTryBikeDismountAngle(3.1410925388336f, fVar3);
+		bbikeTryDismountAngle(1.5705462694168f, fVar5);
+		bbikeTryDismountAngle(4.7116389274597f, fVar5);
+		bbikeTryDismountAngle(0.7852731347084f, uVar4);
+		bbikeTryDismountAngle(5.4969120025635f, uVar4);
+		bbikeTryDismountAngle(2.3558194637299f, uVar4);
+		bbikeTryDismountAngle(3.9263656139374f, uVar4);
+		bbikeTryDismountAngle(0, fVar3);
+		bbikeTryDismountAngle(3.1410925388336f, fVar3);
 
 		if (g_Vars.currentplayer->walkinitmove) {
-			currentPlayerSetMoveMode(MOVEMODE_WALK);
+			bmoveSetMode(MOVEMODE_WALK);
 		}
 
 		g_Vars.currentplayer->bondactivateorreload = 0;
@@ -203,7 +203,7 @@ void currentPlayerDismountBike(void)
 }
 
 GLOBAL_ASM(
-glabel currentPlayerUpdateSpeedBike
+glabel bbikeApplyMoveData
 .late_rodata
 glabel var7f1adb54
 .word 0x3dcccccd
@@ -545,7 +545,7 @@ glabel var7f1adb74
 // Mismatch due to stack placement.
 // Need to declare another stack variable before sp3c to push sp3c onwards down,
 // but this makes the stack allocation too big.
-//void currentPlayerUpdateSpeedBike(struct movedata *data)
+//void bbikeApplyMoveData(struct movedata *data)
 //{
 //	struct hoverbikeobj *bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
 //	s8 contnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
@@ -649,7 +649,7 @@ glabel var7f1adb74
 //	}
 //}
 
-void func0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct defaultobj *obstacle)
+void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct defaultobj *obstacle)
 {
 	struct coord sp9c;
 	struct coord sp90;
@@ -713,7 +713,7 @@ void func0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct 
 }
 
 GLOBAL_ASM(
-glabel func0f0d2e18
+glabel bbikeCalculateNewPosition
 .late_rodata
 glabel var7f1adb7c
 .word 0x40c907a9
@@ -1020,11 +1020,11 @@ glabel var7f1adb7c
 /*  f0d3294:	27bd0138 */ 	addiu	$sp,$sp,0x138
 );
 
-s32 func0f0d3298(struct coord *arg0, f32 arg1)
+s32 bbikeCalculateNewPositionWithPush(struct coord *arg0, f32 arg1)
 {
-	s32 result = func0f0d2e18(arg0, arg1);
+	s32 result = bbikeCalculateNewPosition(arg0, arg1);
 
-	if (result != 1) {
+	if (result != CDRESULT_NOCOLLISION) {
 		struct prop *obstacle = cdGetObstacle();
 
 		if (obstacle && g_Vars.lvupdate240 > 0) {
@@ -1047,7 +1047,7 @@ s32 func0f0d3298(struct coord *arg0, f32 arg1)
 					}
 
 					if (pass) {
-						func0f0d2b40(bike, arg0, arg1, obj);
+						bbike0f0d2b40(bike, arg0, arg1, obj);
 
 						if ((obj->hidden & OBJHFLAG_AIRBORNE)
 								&& (obj->projectile->flags & PROJECTILEFLAG_00000800)) {
@@ -1066,7 +1066,7 @@ s32 func0f0d3298(struct coord *arg0, f32 arg1)
 							}
 
 							if (somevalue) {
-								result = func0f0d2e18(arg0, arg1);
+								result = bbikeCalculateNewPosition(arg0, arg1);
 							}
 						}
 					}
@@ -1078,7 +1078,7 @@ s32 func0f0d3298(struct coord *arg0, f32 arg1)
 	return result;
 }
 
-void func0f0d341c(struct coord *arg0)
+void bbikeUpdateVertical(struct coord *arg0)
 {
 	struct defaultobj *bike = g_Vars.currentplayer->hoverbike->obj;
 	f32 angle;
@@ -1090,7 +1090,7 @@ void func0f0d341c(struct coord *arg0)
 	angle = hoverpropGetTurnAngle(bike);
 
 	func0f065e74(&bike->prop->pos, bike->prop->rooms, arg0, newrooms);
-	func0f0cb79c(g_Vars.currentplayer, arg0, newrooms);
+	bmove0f0cb79c(g_Vars.currentplayer, arg0, newrooms);
 	func0f065c44(g_Vars.currentplayer->prop);
 	roomsCopy(newrooms, g_Vars.currentplayer->prop->rooms);
 
@@ -1139,19 +1139,19 @@ void func0f0d341c(struct coord *arg0)
 		currentPlayerDie(true);
 	}
 
-	func0f0cbf50();
+	bmoveUpdateVerta();
 }
 
-s32 func0f0d363c(f32 arg0)
+s32 bbike0f0d363c(f32 arg0)
 {
 	struct coord coord = {0, 0, 0};
 
-	return func0f0d3298(&coord, arg0);
+	return bbikeCalculateNewPositionWithPush(&coord, arg0);
 }
 
-s32 func0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+s32 bbike0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
-	s32 result = func0f0d3298(arg0, 0);
+	s32 result = bbikeCalculateNewPositionWithPush(arg0, 0);
 
 	if (!result) {
 		func00024e4c(arg1, arg2, 659, "bondbike.c");
@@ -1160,7 +1160,7 @@ s32 func0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	return result;
 }
 
-s32 func0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
+s32 bbike0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
 {
 	if (func00024ea4()) {
 		struct coord sp24;
@@ -1171,7 +1171,7 @@ s32 func0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, str
 		sp24.y = arg0->y * somefloat * 0.25f;
 		sp24.z = arg0->z * somefloat * 0.25f;
 
-		someint = func0f0d3298(&sp24, 0);
+		someint = bbikeCalculateNewPositionWithPush(&sp24, 0);
 
 		if (someint == 1) {
 			return 1;
@@ -1194,7 +1194,7 @@ s32 func0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, str
 	return -1;
 }
 
-s32 func0f0d3840(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+s32 bbike0f0d3840(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	s32 result;
 
@@ -1217,7 +1217,7 @@ s32 func0f0d3840(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 		sp24.y = 0;
 		sp24.z = sp30.z * tmp;
 
-		result = func0f0d3298(&sp24, 0);
+		result = bbikeCalculateNewPositionWithPush(&sp24, 0);
 	} else {
 		result = -1;
 	}
@@ -1225,7 +1225,7 @@ s32 func0f0d3840(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	return result;
 }
 
-s32 func0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+s32 bbike0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	struct coord sp34;
 	struct coord sp28;
@@ -1259,7 +1259,7 @@ s32 func0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 			sp28.y = 0;
 			sp28.z = sp34.z;
 
-			if (func0f0d3298(&sp28, 0) == CDRESULT_NOCOLLISION) {
+			if (bbikeCalculateNewPositionWithPush(&sp28, 0) == CDRESULT_NOCOLLISION) {
 				return true;
 			}
 		}
@@ -1287,7 +1287,7 @@ s32 func0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 				sp28.y = 0;
 				sp28.z = sp34.z;
 
-				if (func0f0d3298(&sp28, 0) == CDRESULT_NOCOLLISION) {
+				if (bbikeCalculateNewPositionWithPush(&sp28, 0) == CDRESULT_NOCOLLISION) {
 					return true;
 				}
 			}
@@ -1298,12 +1298,12 @@ s32 func0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 }
 
 GLOBAL_ASM(
-glabel func0f0d3c60
+glabel bbike0f0d3c60
 /*  f0d3c60:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f0d3c64:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f0d3c68:	afa40070 */ 	sw	$a0,0x70($sp)
 /*  f0d3c6c:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0d3c70:	0fc34da0 */ 	jal	func0f0d3680
+/*  f0d3c70:	0fc34da0 */ 	jal	bbike0f0d3680
 /*  f0d3c74:	27a60058 */ 	addiu	$a2,$sp,0x58
 /*  f0d3c78:	14400031 */ 	bnez	$v0,.L0f0d3d40
 /*  f0d3c7c:	8fa40070 */ 	lw	$a0,0x70($sp)
@@ -1311,19 +1311,19 @@ glabel func0f0d3c60
 /*  f0d3c84:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0d3c88:	27a50064 */ 	addiu	$a1,$sp,0x64
 /*  f0d3c8c:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0d3c90:	0fc34db5 */ 	jal	func0f0d36d4
+/*  f0d3c90:	0fc34db5 */ 	jal	bbike0f0d36d4
 /*  f0d3c94:	27a7004c */ 	addiu	$a3,$sp,0x4c
 /*  f0d3c98:	1c400002 */ 	bgtz	$v0,.L0f0d3ca4
 /*  f0d3c9c:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f0d3ca0:	0441000c */ 	bgez	$v0,.L0f0d3cd4
 .L0f0d3ca4:
 /*  f0d3ca4:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0d3ca8:	0fc34e10 */ 	jal	func0f0d3840
+/*  f0d3ca8:	0fc34e10 */ 	jal	bbike0f0d3840
 /*  f0d3cac:	27a60058 */ 	addiu	$a2,$sp,0x58
 /*  f0d3cb0:	1c400023 */ 	bgtz	$v0,.L0f0d3d40
 /*  f0d3cb4:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f0d3cb8:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0d3cbc:	0fc34e50 */ 	jal	func0f0d3940
+/*  f0d3cbc:	0fc34e50 */ 	jal	bbike0f0d3940
 /*  f0d3cc0:	27a60058 */ 	addiu	$a2,$sp,0x58
 /*  f0d3cc4:	5c40001f */ 	bgtzl	$v0,.L0f0d3d44
 /*  f0d3cc8:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -1336,26 +1336,26 @@ glabel func0f0d3c60
 /*  f0d3ce0:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0d3ce4:	27a5004c */ 	addiu	$a1,$sp,0x4c
 /*  f0d3ce8:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f0d3cec:	0fc34db5 */ 	jal	func0f0d36d4
+/*  f0d3cec:	0fc34db5 */ 	jal	bbike0f0d36d4
 /*  f0d3cf0:	27a70030 */ 	addiu	$a3,$sp,0x30
 /*  f0d3cf4:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f0d3cf8:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f0d3cfc:	0fc34e10 */ 	jal	func0f0d3840
+/*  f0d3cfc:	0fc34e10 */ 	jal	bbike0f0d3840
 /*  f0d3d00:	27a60040 */ 	addiu	$a2,$sp,0x40
 /*  f0d3d04:	1c40000e */ 	bgtz	$v0,.L0f0d3d40
 /*  f0d3d08:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f0d3d0c:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0d3d10:	0fc34e10 */ 	jal	func0f0d3840
+/*  f0d3d10:	0fc34e10 */ 	jal	bbike0f0d3840
 /*  f0d3d14:	27a60058 */ 	addiu	$a2,$sp,0x58
 /*  f0d3d18:	1c400009 */ 	bgtz	$v0,.L0f0d3d40
 /*  f0d3d1c:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f0d3d20:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f0d3d24:	0fc34e50 */ 	jal	func0f0d3940
+/*  f0d3d24:	0fc34e50 */ 	jal	bbike0f0d3940
 /*  f0d3d28:	27a60040 */ 	addiu	$a2,$sp,0x40
 /*  f0d3d2c:	1c400004 */ 	bgtz	$v0,.L0f0d3d40
 /*  f0d3d30:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f0d3d34:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f0d3d38:	0fc34e50 */ 	jal	func0f0d3940
+/*  f0d3d38:	0fc34e50 */ 	jal	bbike0f0d3940
 /*  f0d3d3c:	27a60058 */ 	addiu	$a2,$sp,0x58
 .L0f0d3d40:
 /*  f0d3d40:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -1366,7 +1366,7 @@ glabel func0f0d3c60
 );
 
 // Mismatch because the below copies arg0 into s0 but goal uses sp.
-//void func0f0d3c60(struct coord *arg0)
+//void bbike0f0d3c60(struct coord *arg0)
 //{
 //	struct coord sp100;
 //	struct coord sp88;
@@ -1376,28 +1376,28 @@ glabel func0f0d3c60
 //	struct coord sp48;
 //	struct coord sp36;
 //
-//	if (func0f0d3680(arg0, &sp100, &sp88) == 0) {
-//		lVar1 = func0f0d36d4(arg0, &sp100, &sp88, &sp76, &sp64);
+//	if (bbike0f0d3680(arg0, &sp100, &sp88) == 0) {
+//		lVar1 = bbike0f0d36d4(arg0, &sp100, &sp88, &sp76, &sp64);
 //
 //		if (lVar1 > 0 || lVar1 < 0) {
-//			if (func0f0d3840(arg0, &sp100, &sp88) < 1
-//					&& func0f0d3940(arg0, &sp100, &sp88) < 1) {
+//			if (bbike0f0d3840(arg0, &sp100, &sp88) < 1
+//					&& bbike0f0d3940(arg0, &sp100, &sp88) < 1) {
 //				// empty
 //			}
 //		} else if (lVar1 == 0) {
-//			func0f0d36d4(arg0, &sp76, &sp64, &sp48, &sp36);
+//			bbike0f0d36d4(arg0, &sp76, &sp64, &sp48, &sp36);
 //
-//			if (func0f0d3840(arg0, &sp76, &sp64) < 1
-//					&& func0f0d3840(arg0, &sp100, &sp88) < 1
-//					&& func0f0d3940(arg0, &sp76, &sp64) < 1) {
-//				func0f0d3940(arg0, &sp100, &sp88);
+//			if (bbike0f0d3840(arg0, &sp76, &sp64) < 1
+//					&& bbike0f0d3840(arg0, &sp100, &sp88) < 1
+//					&& bbike0f0d3940(arg0, &sp76, &sp64) < 1) {
+//				bbike0f0d3940(arg0, &sp100, &sp88);
 //			}
 //		}
 //	}
 //}
 
 GLOBAL_ASM(
-glabel func0f0d3d50
+glabel bbikeTick
 .late_rodata
 glabel var7f1adb88
 .word 0x4528c000
@@ -1558,7 +1558,7 @@ glabel var7f1adb9c
 .L0f0d3f6c:
 /*  f0d3f6c:	c606004c */ 	lwc1	$f6,0x4c($s0)
 /*  f0d3f70:	46065302 */ 	mul.s	$f12,$f10,$f6
-/*  f0d3f74:	0fc34d8f */ 	jal	func0f0d363c
+/*  f0d3f74:	0fc34d8f */ 	jal	bbike0f0d363c
 /*  f0d3f78:	00000000 */ 	nop
 /*  f0d3f7c:	8fa70218 */ 	lw	$a3,0x218($sp)
 /*  f0d3f80:	c600004c */ 	lwc1	$f0,0x4c($s0)
@@ -1575,7 +1575,7 @@ glabel var7f1adb9c
 /*  f0d3fac:	c4440008 */ 	lwc1	$f4,0x8($v0)
 /*  f0d3fb0:	e4e400a4 */ 	swc1	$f4,0xa4($a3)
 /*  f0d3fb4:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f0d3fb8:	0fc34f18 */ 	jal	func0f0d3c60
+/*  f0d3fb8:	0fc34f18 */ 	jal	bbike0f0d3c60
 /*  f0d3fbc:	e4ea00a8 */ 	swc1	$f10,0xa8($a3)
 /*  f0d3fc0:	8fa70218 */ 	lw	$a3,0x218($sp)
 /*  f0d3fc4:	c600004c */ 	lwc1	$f0,0x4c($s0)
@@ -1653,7 +1653,7 @@ glabel var7f1adb9c
 /*  f0d40dc:	27a601e8 */ 	addiu	$a2,$sp,0x1e8
 /*  f0d40e0:	0c0056da */ 	jal	func00015b68
 /*  f0d40e4:	24a51a70 */ 	addiu	$a1,$a1,0x1a70
-/*  f0d40e8:	0fc34d07 */ 	jal	func0f0d341c
+/*  f0d40e8:	0fc34d07 */ 	jal	bbikeUpdateVertical
 /*  f0d40ec:	27a401e8 */ 	addiu	$a0,$sp,0x1e8
 /*  f0d40f0:	8e080284 */ 	lw	$t0,0x284($s0)
 /*  f0d40f4:	2405ffff */ 	addiu	$a1,$zero,-1
@@ -1688,10 +1688,10 @@ glabel var7f1adb9c
 .L0f0d415c:
 /*  f0d415c:	44806000 */ 	mtc1	$zero,$f12
 /*  f0d4160:	25ae001c */ 	addiu	$t6,$t5,0x1c
-/*  f0d4164:	0fc44fc4 */ 	jal	currentPlayerAdjustHeadAnimation
+/*  f0d4164:	0fc44fc4 */ 	jal	bheadAdjustAnimation
 /*  f0d4168:	afae0060 */ 	sw	$t6,0x60($sp)
 /*  f0d416c:	44806000 */ 	mtc1	$zero,$f12
-/*  f0d4170:	0fc44e29 */ 	jal	currentPlayerUpdateHead
+/*  f0d4170:	0fc44e29 */ 	jal	bheadUpdate
 /*  f0d4174:	46006386 */ 	mov.s	$f14,$f12
 /*  f0d4178:	8e0f0284 */ 	lw	$t7,0x284($s0)
 /*  f0d417c:	3c0143b4 */ 	lui	$at,0x43b4
@@ -1957,13 +1957,13 @@ glabel var7f1adb9c
 /*  f0d4580:	c5c40010 */ 	lwc1	$f4,0x10($t6)
 /*  f0d4584:	46085182 */ 	mul.s	$f6,$f10,$f8
 /*  f0d4588:	46043280 */ 	add.s	$f10,$f6,$f4
-/*  f0d458c:	0fc33067 */ 	jal	func0f0cc19c
+/*  f0d458c:	0fc33067 */ 	jal	bmove0f0cc19c
 /*  f0d4590:	e7aa0080 */ 	swc1	$f10,0x80($sp)
 /*  f0d4594:	10000005 */ 	b	.L0f0d45ac
 /*  f0d4598:	8e0f0284 */ 	lw	$t7,0x284($s0)
 /*  f0d459c:	8d0400bc */ 	lw	$a0,0xbc($t0)
 .L0f0d45a0:
-/*  f0d45a0:	0fc33067 */ 	jal	func0f0cc19c
+/*  f0d45a0:	0fc33067 */ 	jal	bmove0f0cc19c
 /*  f0d45a4:	24840008 */ 	addiu	$a0,$a0,0x8
 /*  f0d45a8:	8e0f0284 */ 	lw	$t7,0x284($s0)
 .L0f0d45ac:
@@ -1971,7 +1971,7 @@ glabel var7f1adb9c
 /*  f0d45b0:	c426db98 */ 	lwc1	$f6,%lo(var7f1adb98)($at)
 /*  f0d45b4:	c5e8015c */ 	lwc1	$f8,0x15c($t7)
 /*  f0d45b8:	46064083 */ 	div.s	$f2,$f8,$f6
-/*  f0d45bc:	0fc4505b */ 	jal	func0f11416c
+/*  f0d45bc:	0fc4505b */ 	jal	bheadGetBreathingValue
 /*  f0d45c0:	e7a20070 */ 	swc1	$f2,0x70($sp)
 /*  f0d45c4:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0d45c8:	c7a20070 */ 	lwc1	$f2,0x70($sp)
@@ -2012,7 +2012,7 @@ glabel var7f1adb9c
 /*  f0d464c:	00000000 */ 	nop
 /*  f0d4650:	0fc307fd */ 	jal	currentPlayerUpdatePerimInfo
 /*  f0d4654:	00000000 */ 	nop
-/*  f0d4658:	0fc32e31 */ 	jal	func0f0cb8c4
+/*  f0d4658:	0fc32e31 */ 	jal	bmove0f0cb8c4
 /*  f0d465c:	8e040284 */ 	lw	$a0,0x284($s0)
 /*  f0d4660:	8e090284 */ 	lw	$t1,0x284($s0)
 /*  f0d4664:	8d2a00bc */ 	lw	$t2,0xbc($t1)

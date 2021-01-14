@@ -1538,7 +1538,7 @@ Gfx *coreRender(Gfx *gdl)
 				}
 			}
 
-			func0f148b40(bluramount);
+			bviewSetBlur(bluramount);
 
 			gSPDisplayList(gdl++, &var800613a0);
 
@@ -1606,7 +1606,7 @@ Gfx *coreRender(Gfx *gdl)
 				if (PLAYERCOUNT() == 1
 						|| g_Vars.coopplayernum >= 0
 						|| g_Vars.antiplayernum >= 0
-						|| (weaponHasFlag(handGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK) && currentPlayerIsInSightAimMode())) {
+						|| (weaponHasFlag(handGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK) && bmoveIsInSightAimMode())) {
 					g_Vars.currentplayer->lookingatprop.prop = func0f061d54(HAND_RIGHT, 0, 0);
 
 					if (g_Vars.currentplayer->lookingatprop.prop) {
@@ -1650,7 +1650,7 @@ Gfx *coreRender(Gfx *gdl)
 
 					if (frIsInTraining()
 							&& g_Vars.currentplayer->lookingatprop.prop
-							&& currentPlayerIsInSightAimMode()) {
+							&& bmoveIsInSightAimMode()) {
 						func0f1a0924(g_Vars.currentplayer->lookingatprop.prop);
 					} else if (coreCheckCmpFollowThreat(&g_Vars.currentplayer->lookingatprop, -1) == 0) {
 						g_Vars.currentplayer->lookingatprop.prop = NULL;
@@ -1922,7 +1922,7 @@ Gfx *coreRender(Gfx *gdl)
 					}
 
 					if (bluramount) {
-						func0f148b6c();
+						bviewClearBlur();
 						gdl = bviewRenderMotionBlur(gdl, 0xffffffff, bluramount);
 					}
 

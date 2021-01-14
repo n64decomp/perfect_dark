@@ -33,7 +33,7 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
-void currentPlayerWalkInit(void)
+void bwalkInit(void)
 {
 	u32 prevmode = g_Vars.currentplayer->bondmovemode;
 	s32 i;
@@ -69,14 +69,14 @@ void currentPlayerWalkInit(void)
 		g_Vars.currentplayer->crouchheight = 0;
 		g_Vars.currentplayer->crouchtime240 = 0;
 		g_Vars.currentplayer->crouchfall = 0;
-		g_Vars.currentplayer->crouchpos = CROUCH_STAND;
-		g_Vars.currentplayer->autocrouchpos = CROUCH_STAND;
+		g_Vars.currentplayer->crouchpos = CROUCHPOS_STAND;
+		g_Vars.currentplayer->autocrouchpos = CROUCHPOS_STAND;
 		g_Vars.currentplayer->crouchspeed = 0;
 		g_Vars.currentplayer->crouchoffset = 0;
 		g_Vars.currentplayer->guncloseroffset = 0;
 	}
 
-	currentPlayerUpdateCrouchOffsetWalk();
+	bwalkUpdateCrouchOffsetReal();
 
 	if (prevmode != MOVEMODE_GRAB && prevmode != MOVEMODE_WALK) {
 		for (i = 0; i != 3; i++) {
@@ -110,7 +110,7 @@ void currentPlayerWalkInit(void)
 		delta.z = g_Vars.currentplayer->walkinitpos.z - g_Vars.currentplayer->prop->pos.z;
 
 		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, false);
-		func0f0c4250(&delta, 0, true, 0, CDTYPE_ALL);
+		bwalkCalculateNewPositionWithPush(&delta, 0, true, 0, CDTYPE_ALL);
 		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, true);
 	} else if (prevmode != MOVEMODE_GRAB && prevmode != MOVEMODE_WALK) {
 		g_Vars.currentplayer->moveinitspeed.x = 0;
@@ -119,23 +119,23 @@ void currentPlayerWalkInit(void)
 	}
 }
 
-void currentPlayerSetSwayTarget(s32 value)
+void bwalkSetSwayTarget(s32 value)
 {
 	g_Vars.currentplayer->swaytarget = value * 75.0f;
 }
 
-void currentPlayerAdjustCrouchPos(s32 value)
+void bwalkAdjustCrouchPos(s32 value)
 {
 	g_Vars.currentplayer->crouchpos += value;
 
-	if (g_Vars.currentplayer->crouchpos < CROUCH_SQUAT) {
-		g_Vars.currentplayer->crouchpos = CROUCH_SQUAT;
-	} else if (g_Vars.currentplayer->crouchpos > CROUCH_STAND) {
-		g_Vars.currentplayer->crouchpos = CROUCH_STAND;
+	if (g_Vars.currentplayer->crouchpos < CROUCHPOS_SQUAT) {
+		g_Vars.currentplayer->crouchpos = CROUCHPOS_SQUAT;
+	} else if (g_Vars.currentplayer->crouchpos > CROUCHPOS_STAND) {
+		g_Vars.currentplayer->crouchpos = CROUCHPOS_STAND;
 	}
 }
 
-void func0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
+void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 {
 	struct coord posunk;
 	struct coord vector;
@@ -203,7 +203,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 
 	propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
-	func0f0cb79c(g_Vars.currentplayer, &newpos, rooms);
+	bmove0f0cb79c(g_Vars.currentplayer, &newpos, rooms);
 	propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
 
 	ymin -= 0.1f;
@@ -269,7 +269,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 
 		func0f065dfc(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 				&dstpos, dstrooms, sp64, 20);
-		func0f0cb79c(g_Vars.currentplayer, &dstpos, dstrooms);
+		bmove0f0cb79c(g_Vars.currentplayer, &dstpos, dstrooms);
 
 		copyrooms = true;
 
@@ -338,7 +338,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 const char var7f1ad75c[] = "bondwalk.c";
 
 GLOBAL_ASM(
-glabel func0f0c4250
+glabel bwalkCalculateNewPositionWithPush
 /*  f0c4250:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f0c4254:	8fae00b8 */ 	lw	$t6,0xb8($sp)
 /*  f0c4258:	afbf0024 */ 	sw	$ra,0x24($sp)
@@ -623,7 +623,7 @@ glabel func0f0c4250
 .L0f0c4690:
 /*  f0c4690:	50400030 */ 	beqzl	$v0,.L0f0c4754
 /*  f0c4694:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0c4698:	0fc30ece */ 	jal	func0f0c3b38
+/*  f0c4698:	0fc30ece */ 	jal	bwalk0f0c3b38
 /*  f0c469c:	afa60040 */ 	sw	$a2,0x40($sp)
 /*  f0c46a0:	8fa60040 */ 	lw	$a2,0x40($sp)
 /*  f0c46a4:	8ccf0040 */ 	lw	$t7,0x40($a2)
@@ -681,7 +681,7 @@ glabel func0f0c4250
 );
 
 // Mismatch: The below loads 0.5f twice in the chr push code while goal reuses it.
-//bool func0f0c4250(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 types)
+//bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 types)
 //{
 //	s32 result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, types);
 //
@@ -792,7 +792,7 @@ glabel func0f0c4250
 //						}
 //
 //						if (dothething) {
-//							func0f0c3b38(delta, obj);
+//							bwalk0f0c3b38(delta, obj);
 //
 //							if (obj->hidden & OBJHFLAG_AIRBORNE && (obj->projectile->flags & PROJECTILEFLAG_00000800)) {
 //								bool somevalue;
@@ -823,9 +823,9 @@ glabel func0f0c4250
 //	return result;
 //}
 
-s32 func0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s32 types)
+s32 bwalk0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s32 types)
 {
-	s32 result = func0f0c4250(delta, 0, true, 0, types);
+	s32 result = bwalkCalculateNewPositionWithPush(delta, 0, true, 0, types);
 
 	if (result == CDRESULT_COLLISION) {
 		func00024e4c(arg1, arg2, 0x25f, "bondwalk.c");
@@ -834,7 +834,7 @@ s32 func0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s3
 	return result;
 }
 
-s32 func0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
+s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 		struct coord *d, struct coord *e, s32 types)
 {
 	struct coord quarter;
@@ -845,7 +845,7 @@ s32 func0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 		quarter.x = a->x * mult * 0.25f;
 		quarter.y = a->y * mult * 0.25f;
 		quarter.z = a->z * mult * 0.25f;
-		result = func0f0c4250(&quarter, 0, true, 0, types);
+		result = bwalkCalculateNewPositionWithPush(&quarter, 0, true, 0, types);
 
 		if (result == CDRESULT_NOCOLLISION) {
 			return CDRESULT_NOCOLLISION;
@@ -868,7 +868,7 @@ s32 func0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 	return CDRESULT_ERROR;
 }
 
-s32 func0f0c494c(struct coord *a, struct coord *b, struct coord *c, s32 types)
+s32 bwalk0f0c494c(struct coord *a, struct coord *b, struct coord *c, s32 types)
 {
 	if (b->f[0] != c->f[0] || b->f[2] != c->f[2]) {
 		f32 tmp;
@@ -890,13 +890,13 @@ s32 func0f0c494c(struct coord *a, struct coord *b, struct coord *c, s32 types)
 		sp2c.y = 0;
 		sp2c.z = sp38.z * tmp;
 
-		return func0f0c4250(&sp2c, 0, true, 0, types);
+		return bwalkCalculateNewPositionWithPush(&sp2c, 0, true, 0, types);
 	}
 
 	return -1;
 }
 
-s32 func0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32 types)
+s32 bwalk0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32 types)
 {
 	struct coord sp34;
 	struct coord sp28;
@@ -930,7 +930,7 @@ s32 func0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32
 			sp28.y = 0;
 			sp28.z = sp34.z;
 
-			if (func0f0c4250(&sp28, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
+			if (bwalkCalculateNewPositionWithPush(&sp28, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
 				return true;
 			}
 		}
@@ -958,7 +958,7 @@ s32 func0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32
 				sp28.y = 0;
 				sp28.z = sp34.z;
 
-				if (func0f0c4250(&sp28, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
+				if (bwalkCalculateNewPositionWithPush(&sp28, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
 					return true;
 				}
 			}
@@ -968,12 +968,12 @@ s32 func0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32
 	return false;
 }
 
-void func0f0c4d98(void)
+void bwalk0f0c4d98(void)
 {
 	// empty
 }
 
-void currentPlayerUpdateSpeedSidewaysWalk(f32 targetspeed, f32 accelspeed, s32 mult)
+void bwalkUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
 {
 	if (g_Vars.normmplayerisrunning) {
 		targetspeed = (g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.unk1c + 25.0f) / 100 * targetspeed;
@@ -996,7 +996,7 @@ void currentPlayerUpdateSpeedSidewaysWalk(f32 targetspeed, f32 accelspeed, s32 m
 	g_Vars.currentplayer->speedsideways = g_Vars.currentplayer->speedstrafe;
 }
 
-void currentPlayerUpdateSpeedForwardsWalk(f32 targetspeed, f32 accelspeed)
+void bwalkUpdateSpeedForwards(f32 targetspeed, f32 accelspeed)
 {
 	if (g_Vars.normmplayerisrunning) {
 		targetspeed = (g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.unk1c + 25.0f) / 100 * targetspeed;
@@ -1019,7 +1019,7 @@ void currentPlayerUpdateSpeedForwardsWalk(f32 targetspeed, f32 accelspeed)
 	g_Vars.currentplayer->speedforwards = g_Vars.currentplayer->speedgo;
 }
 
-void currentPlayerUpdateVerticalMovement(void)
+void bwalkUpdateVertical(void)
 {
 	s32 i;
 	struct defaultobj *obj;
@@ -1073,7 +1073,7 @@ void currentPlayerUpdateVerticalMovement(void)
 		testpos.y = g_Vars.currentplayer->prop->pos.y - 10;
 		testpos.z = g_Vars.currentplayer->prop->pos.z;
 		roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
-		func0f0cb79c(g_Vars.currentplayer, &testpos, rooms);
+		bmove0f0cb79c(g_Vars.currentplayer, &testpos, rooms);
 		onladder2 = func00029ffc(&g_Vars.currentplayer->prop->pos,
 				width * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
 				g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y - 10,
@@ -1089,7 +1089,7 @@ void currentPlayerUpdateVerticalMovement(void)
 	}
 
 	roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
-	func0f0cb79c(g_Vars.currentplayer, &testpos, rooms);
+	bmove0f0cb79c(g_Vars.currentplayer, &testpos, rooms);
 	ground = cdFindGroundY(&testpos, g_Vars.currentplayer->bond2.width, rooms,
 			&g_Vars.currentplayer->floorcol, &g_Vars.currentplayer->floortype,
 			&g_Vars.currentplayer->floorflags, &g_Vars.currentplayer->floorroom,
@@ -1429,18 +1429,18 @@ void currentPlayerUpdateVerticalMovement(void)
 	}
 }
 
-void currentPlayerApplyCrouchSpeed(void)
+void bwalkApplyCrouchSpeed(void)
 {
-	if (currentPlayerGetCrouchPos() == CROUCH_HALF) {
+	if (bmoveGetCrouchPos() == CROUCHPOS_DUCK) {
 		g_Vars.currentplayer->speedforwards *= 0.5f;
 		g_Vars.currentplayer->speedsideways *= 0.5f;
-	} else if (currentPlayerGetCrouchPos() == CROUCH_SQUAT) {
+	} else if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT) {
 		g_Vars.currentplayer->speedforwards *= 0.35f;
 		g_Vars.currentplayer->speedsideways *= 0.35f;
 	}
 }
 
-void currentPlayerUpdateCrouchOffsetWalk(void)
+void bwalkUpdateCrouchOffsetReal(void)
 {
 	if (g_Vars.currentplayer->vv_eyeheight + -90.0f * g_Vars.currentplayer->vv_eyeheight * (1.0f / 159.0f) < 69.0f) {
 		g_Vars.currentplayer->crouchoffsetreal = g_Vars.currentplayer->crouchoffset * ((69.0f - g_Vars.currentplayer->vv_eyeheight) / -90.0f);
@@ -1457,15 +1457,15 @@ void currentPlayerUpdateCrouchOffsetWalk(void)
 	}
 }
 
-void func0f0c6180(void)
+void bwalkUpdateCrouchOffset(void)
 {
 	f32 targetoffset = 0;
 
-	if (currentPlayerGetCrouchPos() == CROUCH_SQUAT) {
+	if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT) {
 		targetoffset = -90;
-	} else if (currentPlayerGetCrouchPos() == CROUCH_HALF) {
+	} else if (bmoveGetCrouchPos() == CROUCHPOS_DUCK) {
 		targetoffset = -45;
-	} else if (currentPlayerGetCrouchPos() == CROUCH_STAND) {
+	} else if (bmoveGetCrouchPos() == CROUCHPOS_STAND) {
 		// empty
 	}
 
@@ -1479,7 +1479,7 @@ void func0f0c6180(void)
 		func0f06d90c(&g_Vars.currentplayer->crouchoffset, targetoffset,
 				&g_Vars.currentplayer->crouchspeed, 0.5, 0.5, 5);
 
-		currentPlayerUpdateCrouchOffsetWalk();
+		bwalkUpdateCrouchOffsetReal();
 
 		if (bwalkTryMoveUpwards(0) == CDRESULT_COLLISION) {
 			// Crouch adjustment is blocked by ceiling
@@ -1488,7 +1488,7 @@ void func0f0c6180(void)
 			g_Vars.currentplayer->crouchoffsetsmall = prevcrouchoffsetsmall;
 			g_Vars.currentplayer->crouchoffsetrealsmall = prevcrouchoffsetrealsmall;
 			g_Vars.currentplayer->crouchspeed = 0;
-			currentPlayerAdjustCrouchPos(-1);
+			bwalkAdjustCrouchPos(-1);
 		}
 	}
 
@@ -1499,7 +1499,7 @@ void func0f0c6180(void)
 	g_Vars.currentplayer->guncloseroffset = g_Vars.currentplayer->crouchoffset / -90;
 }
 
-void func0f0c6318(void)
+void bwalkUpdateTheta(void)
 {
 	f32 mult;
 	f32 rotateamount;
@@ -1510,7 +1510,7 @@ void func0f0c6318(void)
 	rotateamount = g_Vars.currentplayer->speedtheta * mult
 		* g_Vars.lvupdate240freal * 0.0174505133f * 3.5f;
 
-	func0f0c4250(&delta, rotateamount, true, 0, CDTYPE_ALL);
+	bwalkCalculateNewPositionWithPush(&delta, rotateamount, true, 0, CDTYPE_ALL);
 }
 
 u32 var80070e68 = 0x00000000;
@@ -1520,53 +1520,53 @@ u32 var80070e74 = 0x00000000;
 u32 var80070e78 = 0x00000000;
 u32 var80070e7c = 0x00000000;
 
-void func0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
+void bwalk0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
 {
 	struct coord sp100;
 	struct coord sp88;
 
 	g_Vars.currentplayer->unk1af4 = 0;
-	g_Vars.currentplayer->autocrouchpos = CROUCH_STAND;
+	g_Vars.currentplayer->autocrouchpos = CROUCHPOS_STAND;
 
-	func0f0c4d98();
+	bwalk0f0c4d98();
 
-	if (func0f0c4764(arg0, &sp100, &sp88, types) == CDRESULT_COLLISION) {
+	if (bwalk0f0c4764(arg0, &sp100, &sp88, types) == CDRESULT_COLLISION) {
 		struct coord sp76;
 		struct coord sp64;
 
-		s32 result = func0f0c47d0(arg0, &sp100, &sp88, &sp76, &sp64, types);
+		s32 result = bwalk0f0c47d0(arg0, &sp100, &sp88, &sp76, &sp64, types);
 
 		if (result >= CDRESULT_NOCOLLISION || result <= CDRESULT_ERROR) {
 			if (result >= CDRESULT_NOCOLLISION) {
-				func0f0c4d98();
+				bwalk0f0c4d98();
 			}
 
 			if (arg1
-					&& func0f0c494c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION
-					&& func0f0c4a5c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION) {
+					&& bwalk0f0c494c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION
+					&& bwalk0f0c4a5c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION) {
 				// empty
 			}
 		} else if (result == CDRESULT_COLLISION) {
 			struct coord sp48;
 			struct coord sp36;
 
-			if (func0f0c47d0(arg0, &sp76, &sp64, &sp48, &sp36, types) >= CDRESULT_NOCOLLISION) {
-				func0f0c4d98();
+			if (bwalk0f0c47d0(arg0, &sp76, &sp64, &sp48, &sp36, types) >= CDRESULT_NOCOLLISION) {
+				bwalk0f0c4d98();
 			}
 
 			if (arg1
-					&& func0f0c494c(arg0, &sp76, &sp64, types) <= CDRESULT_COLLISION
-					&& func0f0c494c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION
-					&& func0f0c4a5c(arg0, &sp76, &sp64, types) <= CDRESULT_COLLISION) {
-				func0f0c4a5c(arg0, &sp100, &sp88, types);
+					&& bwalk0f0c494c(arg0, &sp76, &sp64, types) <= CDRESULT_COLLISION
+					&& bwalk0f0c494c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION
+					&& bwalk0f0c4a5c(arg0, &sp76, &sp64, types) <= CDRESULT_COLLISION) {
+				bwalk0f0c4a5c(arg0, &sp100, &sp88, types);
 			}
 		}
 	}
 
-	func0f0c4d98();
+	bwalk0f0c4d98();
 }
 
-void currentPlayerUpdatePrevPosWalk(void)
+void bwalkUpdatePrevPos(void)
 {
 	g_Vars.currentplayer->bondprevpos.x = g_Vars.currentplayer->prop->pos.x;
 	g_Vars.currentplayer->bondprevpos.y = g_Vars.currentplayer->prop->pos.y;
@@ -1575,41 +1575,41 @@ void currentPlayerUpdatePrevPosWalk(void)
 	roomsCopy(g_Vars.currentplayer->prop->rooms, g_Vars.currentplayer->bondprevrooms);
 }
 
-void func0f0c65a8(void)
+void bwalkHandleActivate(void)
 {
 	if (g_Vars.currentplayer->walkinitmove) {
 		g_Vars.currentplayer->bondactivateorreload = 0;
 	}
 }
 
-void currentPlayerUpdateSpeedWalk(struct movedata *data)
+void bwalkApplyMoveData(struct movedata *data)
 {
 	if (g_Vars.currentplayer->walkinitmove == false) {
 		// Sideways
 		if (data->digitalstepleft) {
-			currentPlayerUpdateSpeedSidewaysWalk(-1, 0.2f, data->digitalstepleft);
+			bwalkUpdateSpeedSideways(-1, 0.2f, data->digitalstepleft);
 		} else if (data->digitalstepright) {
-			currentPlayerUpdateSpeedSidewaysWalk(1, 0.2f, data->digitalstepright);
+			bwalkUpdateSpeedSideways(1, 0.2f, data->digitalstepright);
 		} else if (data->unk14 == false) {
-			currentPlayerUpdateSpeedSidewaysWalk(0, 0.2f, g_Vars.lvupdate240_60);
+			bwalkUpdateSpeedSideways(0, 0.2f, g_Vars.lvupdate240_60);
 		}
 
 		if (data->unk14) {
-			currentPlayerUpdateSpeedSidewaysWalk(data->analogstrafe * 0.014285714365542f, 0.2f, g_Vars.lvupdate240_60);
+			bwalkUpdateSpeedSideways(data->analogstrafe * 0.014285714365542f, 0.2f, g_Vars.lvupdate240_60);
 		}
 
 		// Forward/back
 		if (data->digitalstepforward) {
-			currentPlayerUpdateSpeedForwardsWalk(1, 1);
+			bwalkUpdateSpeedForwards(1, 1);
 			g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate240_60;
 		} else if (data->digitalstepback) {
-			currentPlayerUpdateSpeedForwardsWalk(-1, 1);
+			bwalkUpdateSpeedForwards(-1, 1);
 		} else if (data->canlookahead == false) {
-			currentPlayerUpdateSpeedForwardsWalk(0, 1);
+			bwalkUpdateSpeedForwards(0, 1);
 		}
 
 		if (data->canlookahead) {
-			currentPlayerUpdateSpeedForwardsWalk(data->analogwalk * 0.014285714365542f, 1);
+			bwalkUpdateSpeedForwards(data->analogwalk * 0.014285714365542f, 1);
 
 			if (data->analogwalk > 60) {
 				g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate240_60;
@@ -1639,41 +1639,41 @@ void currentPlayerUpdateSpeedWalk(struct movedata *data)
 		g_Vars.currentplayer->speedforwards *= g_Vars.currentplayer->speedboost;
 
 		if ((data->canlookahead == false && data->digitalstepforward == false) ||
-				currentPlayerGetCrouchPos() != CROUCH_STAND) {
+				bmoveGetCrouchPos() != CROUCHPOS_STAND) {
 			g_Vars.currentplayer->speedmaxtime60 = 0;
 		}
 
 		if (data->rleanleft) {
-			currentPlayerSetSwayTarget(-1);
+			bwalkSetSwayTarget(-1);
 		} else if (data->rleanright) {
-			currentPlayerSetSwayTarget(1);
+			bwalkSetSwayTarget(1);
 		} else {
-			currentPlayerSetSwayTarget(0);
+			bwalkSetSwayTarget(0);
 		}
 
 		while (data->crouchdown-- > 0) {
-			currentPlayerAdjustCrouchPos(-1);
+			bwalkAdjustCrouchPos(-1);
 		}
 
 		while (data->crouchup-- > 0) {
-			currentPlayerAdjustCrouchPos(1);
+			bwalkAdjustCrouchPos(1);
 		}
 
 		g_Vars.currentplayer->eyesshut = data->eyesshut;
 	}
 }
 
-void currentPlayerApplyCrouchSpeedTheta(void)
+void bwalkUpdateSpeedTheta(void)
 {
-	if (currentPlayerGetCrouchPos() == CROUCH_SQUAT) {
+	if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT) {
 		g_Vars.currentplayer->speedtheta *= 0.5f;
-	} else if (currentPlayerGetCrouchPos() == CROUCH_HALF) {
+	} else if (bmoveGetCrouchPos() == CROUCHPOS_DUCK) {
 		g_Vars.currentplayer->speedtheta *= 0.75f;
 	}
 }
 
 GLOBAL_ASM(
-glabel func0f0c69b8
+glabel bwalk0f0c69b8
 .late_rodata
 glabel var7f1ad7fc
 .word 0xc27e6668
@@ -1838,28 +1838,28 @@ glabel var7f1ad854
 /*  f0c6b68:	c4661b4c */ 	lwc1	$f6,0x1b4c($v1)
 /*  f0c6b6c:	24671b08 */ 	addiu	$a3,$v1,0x1b08
 /*  f0c6b70:	46061101 */ 	sub.s	$f4,$f2,$f6
-/*  f0c6b74:	0fc330ee */ 	jal	func0f0cc3b8
+/*  f0c6b74:	0fc330ee */ 	jal	bmoveUpdateHead
 /*  f0c6b78:	e7a40010 */ 	swc1	$f4,0x10($sp)
 /*  f0c6b7c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c6b80:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
 /*  f0c6b84:	8d090284 */ 	lw	$t1,0x284($t0)
 /*  f0c6b88:	27a400cc */ 	addiu	$a0,$sp,0xcc
-/*  f0c6b8c:	0fc32ed2 */ 	jal	currentPlayerUpdateMoveInitSpeed
+/*  f0c6b8c:	0fc32ed2 */ 	jal	bmoveUpdateMoveInitSpeed
 /*  f0c6b90:	e53400cc */ 	swc1	$f20,0xcc($t1)
 /*  f0c6b94:	4405a000 */ 	mfc1	$a1,$f20
 /*  f0c6b98:	4407a000 */ 	mfc1	$a3,$f20
 /*  f0c6b9c:	240a003f */ 	addiu	$t2,$zero,0x3f
 /*  f0c6ba0:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f0c6ba4:	27a400cc */ 	addiu	$a0,$sp,0xcc
-/*  f0c6ba8:	0fc31094 */ 	jal	func0f0c4250
+/*  f0c6ba8:	0fc31094 */ 	jal	bwalkCalculateNewPositionWithPush
 /*  f0c6bac:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f0c6bb0:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c6bb4:	100002ea */ 	b	.L0f0c7760
 /*  f0c6bb8:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
 .L0f0c6bbc:
-/*  f0c6bbc:	0fc317fa */ 	jal	currentPlayerApplyCrouchSpeed
+/*  f0c6bbc:	0fc317fa */ 	jal	bwalkApplyCrouchSpeed
 /*  f0c6bc0:	00000000 */ 	nop
-/*  f0c6bc4:	0fc31860 */ 	jal	func0f0c6180
+/*  f0c6bc4:	0fc31860 */ 	jal	bwalkUpdateCrouchOffset
 /*  f0c6bc8:	00000000 */ 	nop
 /*  f0c6bcc:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c6bd0:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -1869,7 +1869,7 @@ glabel var7f1ad854
 /*  f0c6be0:	c468014c */ 	lwc1	$f8,0x14c($v1)
 /*  f0c6be4:	8c670150 */ 	lw	$a3,0x150($v1)
 /*  f0c6be8:	2466017c */ 	addiu	$a2,$v1,0x17c
-/*  f0c6bec:	0fc32ea2 */ 	jal	func0f0cba88
+/*  f0c6bec:	0fc32ea2 */ 	jal	bmove0f0cba88
 /*  f0c6bf0:	e7a80010 */ 	swc1	$f8,0x10($sp)
 /*  f0c6bf4:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c6bf8:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -2131,7 +2131,7 @@ glabel var7f1ad854
 /*  f0c6fa0:	44061000 */ 	mfc1	$a2,$f2
 /*  f0c6fa4:	c7ac0078 */ 	lwc1	$f12,0x78($sp)
 /*  f0c6fa8:	46044182 */ 	mul.s	$f6,$f8,$f4
-/*  f0c6fac:	0fc33195 */ 	jal	func0f0cc654
+/*  f0c6fac:	0fc33195 */ 	jal	bmove0f0cc654
 /*  f0c6fb0:	460a3380 */ 	add.s	$f14,$f6,$f10
 /*  f0c6fb4:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c6fb8:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -2183,7 +2183,7 @@ glabel var7f1ad854
 /*  f0c706c:	e7a800d4 */ 	swc1	$f8,0xd4($sp)
 /*  f0c7070:	46044180 */ 	add.s	$f6,$f8,$f4
 /*  f0c7074:	e7aa00cc */ 	swc1	$f10,0xcc($sp)
-/*  f0c7078:	0fc32ed2 */ 	jal	currentPlayerUpdateMoveInitSpeed
+/*  f0c7078:	0fc32ed2 */ 	jal	bmoveUpdateMoveInitSpeed
 /*  f0c707c:	e7a600d4 */ 	swc1	$f6,0xd4($sp)
 /*  f0c7080:	0fc47b82 */ 	jal	debugIsTurboModeEnabled
 /*  f0c7084:	00000000 */ 	nop
@@ -2396,7 +2396,7 @@ glabel var7f1ad854
 /*  f0c7398:	00000000 */ 	nop
 /*  f0c739c:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f0c73a0:
-/*  f0c73a0:	0fc318ef */ 	jal	func0f0c63bc
+/*  f0c73a0:	0fc318ef */ 	jal	bwalk0f0c63bc
 /*  f0c73a4:	2406003f */ 	addiu	$a2,$zero,0x3f
 /*  f0c73a8:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c73ac:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -2669,7 +2669,7 @@ glabel var7f1ad854
 /*  f0c7790:	c46600cc */ 	lwc1	$f6,0xcc($v1)
 /*  f0c7794:	e7a6003c */ 	swc1	$f6,0x3c($sp)
 /*  f0c7798:	460a2080 */ 	add.s	$f2,$f4,$f10
-/*  f0c779c:	0fc4505b */ 	jal	func0f11416c
+/*  f0c779c:	0fc4505b */ 	jal	bheadGetBreathingValue
 /*  f0c77a0:	e7a20040 */ 	swc1	$f2,0x40($sp)
 /*  f0c77a4:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0c77a8:	44817000 */ 	mtc1	$at,$f14
@@ -2723,16 +2723,16 @@ glabel var7f1ad854
 /*  f0c7858:	00000000 */ 	nop
 );
 
-void func0f0c785c(void)
+void bwalkTick(void)
 {
 	s32 i;
 	struct coord sStack16;
 
-	currentPlayerUpdatePrevPosWalk();
-	func0f0c6318();
-	func0f0cbf50();
-	func0f0c69b8();
-	currentPlayerUpdateVerticalMovement();
+	bwalkUpdatePrevPos();
+	bwalkUpdateTheta();
+	bmoveUpdateVerta();
+	bwalk0f0c69b8();
+	bwalkUpdateVertical();
 
 	for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
 		if (g_Vars.currentplayer->floorroom == g_Vars.currentplayer->prop->rooms[i]) {
@@ -2743,7 +2743,7 @@ void func0f0c785c(void)
 		}
 	}
 
-	func0f0cb8c4(g_Vars.currentplayer);
+	bmove0f0cb8c4(g_Vars.currentplayer);
 	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
 
 	if (g_Vars.currentplayer->walkinitmove) {
@@ -2756,9 +2756,9 @@ void func0f0c785c(void)
 		sStack16.z = (g_Vars.currentplayer->walkinitstart.z - g_Vars.currentplayer->walkinitpos.z)
 			* (1.0f - g_Vars.currentplayer->walkinitt2) + g_Vars.currentplayer->prop->pos.z;
 
-		func0f0cc19c(&sStack16);
+		bmove0f0cc19c(&sStack16);
 	} else {
-		func0f0cc19c(&g_Vars.currentplayer->prop->pos);
+		bmove0f0cc19c(&g_Vars.currentplayer->prop->pos);
 	}
 
 	currentPlayerUpdatePerimInfo();

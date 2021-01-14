@@ -24,12 +24,12 @@ struct var80075c00 var80075c00[] = {
 
 struct coord var80075c30 = {0, 0, 0};
 
-void currentPlayerFlipAnimation(void)
+void bheadFlipAnimation(void)
 {
 	g_Vars.currentplayer->model.anim->flip = !g_Vars.currentplayer->model.anim->flip;
 }
 
-void currentPlayerUpdateIdleHeadRoll(void)
+void bheadUpdateIdleRoll(void)
 {
 	f32 mult = 1.0f / U32_MAX;
 
@@ -49,7 +49,7 @@ void currentPlayerUpdateIdleHeadRoll(void)
 	g_Vars.currentplayer->standcnt = 1 - g_Vars.currentplayer->standcnt;
 }
 
-void currentPlayerUpdateHeadPos(struct coord *vel)
+void bheadUpdatePos(struct coord *vel)
 {
 	s32 i;
 
@@ -72,7 +72,7 @@ void currentPlayerUpdateHeadPos(struct coord *vel)
 	g_Vars.currentplayer->headpos.z = g_Vars.currentplayer->headpossum.z * 0.018000006f;
 }
 
-void currentPlayerUpdateHeadRot(struct coord *lookvel, struct coord *upvel)
+void bheadUpdateRot(struct coord *lookvel, struct coord *upvel)
 {
 	s32 i;
 
@@ -104,7 +104,7 @@ void currentPlayerUpdateHeadRot(struct coord *lookvel, struct coord *upvel)
 	g_Vars.currentplayer->headup.z = g_Vars.currentplayer->headupsum.z * (1.0f - g_Vars.currentplayer->headdamp);
 }
 
-void currentPlayerSetHeadDamp(f32 headdamp)
+void bheadSetdamp(f32 headdamp)
 {
 	if (headdamp != g_Vars.currentplayer->headdamp) {
 		f32 divisor = 1.0f - headdamp;
@@ -118,7 +118,7 @@ void currentPlayerSetHeadDamp(f32 headdamp)
 	}
 }
 
-void currentPlayerUpdateHead(f32 arg0, f32 arg1)
+void bheadUpdate(f32 arg0, f32 arg1)
 {
 	struct coord headpos = var80075c30;
 	struct coord lookvel = {0, 0, 1};
@@ -205,9 +205,9 @@ void currentPlayerUpdateHead(f32 arg0, f32 arg1)
 			g_Vars.currentplayer->headwalkingtime60 += g_Vars.lvupdate240_60;
 
 			if (g_Vars.currentplayer->headwalkingtime60 > 60) {
-				currentPlayerSetHeadDamp(0.982f);
+				bheadSetdamp(0.982f);
 			} else {
-				currentPlayerSetHeadDamp(0.99748998880386f);
+				bheadSetdamp(0.99748998880386f);
 			}
 		} else {
 			lookvel.x = g_Vars.currentplayer->unk0510.m[2][0];
@@ -218,7 +218,7 @@ void currentPlayerUpdateHead(f32 arg0, f32 arg1)
 			upvel.y = g_Vars.currentplayer->unk0510.m[1][1];
 			upvel.z = g_Vars.currentplayer->unk0510.m[1][2];
 
-			currentPlayerSetHeadDamp(0.96f);
+			bheadSetdamp(0.96f);
 		}
 	} else {
 		g_Vars.currentplayer->headbodyoffset.x = g_Vars.currentplayer->standbodyoffset.x;
@@ -230,15 +230,15 @@ void currentPlayerUpdateHead(f32 arg0, f32 arg1)
 		headpos.z = 0;
 
 		g_Vars.currentplayer->headwalkingtime60 = 0;
-		currentPlayerSetHeadDamp(0.99748998880386f);
+		bheadSetdamp(0.99748998880386f);
 
-		if (currentPlayerGetCrouchPos() != CROUCH_SQUAT) {
+		if (bmoveGetCrouchPos() != CROUCHPOS_SQUAT) {
 			g_Vars.currentplayer->standfrac +=
 				(0.0083333337679505f + 0.025000002235174f * g_Vars.currentplayer->bondbreathing)
 				* g_Vars.lvupdate240freal;
 
 			if (g_Vars.currentplayer->standfrac >= 1) {
-				currentPlayerUpdateIdleHeadRoll();
+				bheadUpdateIdleRoll();
 				g_Vars.currentplayer->standfrac -= 1;
 			}
 
@@ -260,11 +260,11 @@ void currentPlayerUpdateHead(f32 arg0, f32 arg1)
 		}
 	}
 
-	currentPlayerUpdateHeadPos(&headpos);
-	currentPlayerUpdateHeadRot(&lookvel, &upvel);
+	bheadUpdatePos(&headpos);
+	bheadUpdateRot(&lookvel, &upvel);
 }
 
-void currentPlayerAdjustHeadAnimation(f32 speed)
+void bheadAdjustAnimation(f32 speed)
 {
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 	s32 i;
@@ -289,7 +289,7 @@ void currentPlayerAdjustHeadAnimation(f32 speed)
 				modelSetAnimLooping(&g_Vars.currentplayer->model, var80075c00[i].loopframe, false);
 				modelSetAnimEndFrame(&g_Vars.currentplayer->model, var80075c00[i].endframe);
 
-				modelSetAnimFlipFunction(&g_Vars.currentplayer->model, currentPlayerFlipAnimation);
+				modelSetAnimFlipFunction(&g_Vars.currentplayer->model, bheadFlipAnimation);
 				g_Vars.currentplayer->headanim = i;
 			}
 
@@ -303,18 +303,18 @@ void currentPlayerAdjustHeadAnimation(f32 speed)
 	chr->oldframe = g_Vars.currentplayer->model.anim->frame;
 }
 
-void currentPlayerStartDeathAnimation(s16 animnum, u32 flip, f32 fstarttime, f32 speed)
+void bheadStartDeathAnimation(s16 animnum, u32 flip, f32 fstarttime, f32 speed)
 {
 	modelSetAnimation(&g_Vars.currentplayer->model, animnum, flip, fstarttime, speed * 0.5f, 12);
 	g_Vars.currentplayer->headanim = -1;
 }
 
-void currentPlayerSetAnimSpeed(f32 speed)
+void bheadSetSpeed(f32 speed)
 {
 	modelSetAnimSpeed(&g_Vars.currentplayer->model, speed * 0.5f, 0);
 }
 
-f32 func0f11416c(void)
+f32 bheadGetBreathingValue(void)
 {
 	if (g_Vars.currentplayer->headanim >= 0) {
 		f32 a = g_Vars.currentplayer->bondbreathing * 0.012500001f + 0.004166667f;

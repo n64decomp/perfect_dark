@@ -11,7 +11,7 @@
 #include "lib/lib_317f0.h"
 #include "types.h"
 
-void currentPlayerSetMoveModeCutscene(void)
+void bcutsceneInit(void)
 {
 	s32 i;
 	s32 j;
@@ -35,7 +35,7 @@ void currentPlayerSetMoveModeCutscene(void)
 	}
 }
 
-void func0f0c37c0(void)
+void bcutsceneTick(void)
 {
 	// empty
 }

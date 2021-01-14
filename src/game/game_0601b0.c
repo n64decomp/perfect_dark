@@ -2355,9 +2355,9 @@ void handInflictCloseRangeDamage(s32 handnum, struct hand *hand, bool arg2)
 									func0f03ff2c(chr, &playerprop->pos, &spac, &spa8, &sp9c, &spa4, &spa0);
 								}
 
-								if (currentPlayerGetCrouchPos() == CROUCH_HALF) {
+								if (bmoveGetCrouchPos() == CROUCHPOS_DUCK) {
 									sp9c = 200;
-								} else if (currentPlayerGetCrouchPos() == CROUCH_SQUAT) {
+								} else if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT) {
 									sp9c = 201;
 								} else {
 									sp9c = 15;
@@ -2456,10 +2456,10 @@ void handTickAttack(s32 handnum)
 			handCreateFiredProjectile(handnum);
 			break;
 		case HANDATTACKTYPE_CROUCH:
-			if (g_Vars.currentplayer->crouchpos == CROUCH_SQUAT) {
-				currentPlayerAdjustCrouchPos(2);
+			if (g_Vars.currentplayer->crouchpos == CROUCHPOS_SQUAT) {
+				bwalkAdjustCrouchPos(2);
 			} else {
-				currentPlayerAdjustCrouchPos(-2);
+				bwalkAdjustCrouchPos(-2);
 			}
 			break;
 		case HANDATTACKTYPE_THROWPROJECTILE:
@@ -4333,7 +4333,7 @@ glabel var7f1a9f54
 /*  f0645e4:	e7a0008c */ 	swc1	$f0,0x8c($sp)
 /*  f0645e8:	0fc25e5c */ 	jal	ceilf
 /*  f0645ec:	c7ac0084 */ 	lwc1	$f12,0x84($sp)
-/*  f0645f0:	0fc31ef4 */ 	jal	func0f0c7bd0
+/*  f0645f0:	0fc31ef4 */ 	jal	bmoveIsAutoAimXEnabledForCurrentWeapon
 /*  f0645f4:	e7a00084 */ 	swc1	$f0,0x84($sp)
 /*  f0645f8:	14400003 */ 	bnez	$v0,.L0f064608
 /*  f0645fc:	8fa900c0 */ 	lw	$t1,0xc0($sp)
@@ -4505,7 +4505,7 @@ glabel var7f1a9f54
 /*  f064860:	00000000 */ 	nop
 /*  f064864:	46008006 */ 	mov.s	$f0,$f16
 .L0f064868:
-/*  f064868:	0fc31ef4 */ 	jal	func0f0c7bd0
+/*  f064868:	0fc31ef4 */ 	jal	bmoveIsAutoAimXEnabledForCurrentWeapon
 /*  f06486c:	e5000004 */ 	swc1	$f0,0x4($t0)
 /*  f064870:	14400003 */ 	bnez	$v0,.L0f064880
 /*  f064874:	8fb900c0 */ 	lw	$t9,0xc0($sp)
@@ -5154,11 +5154,11 @@ glabel func0f064ce8
 /*  f0651b4:	10000060 */ 	b	.L0f065338
 /*  f0651b8:	00000000 */ 	nop
 .L0f0651bc:
-/*  f0651bc:	0fc31ea3 */ 	jal	func0f0c7a8c
+/*  f0651bc:	0fc31ea3 */ 	jal	bmoveIsAutoAimYEnabledForCurrentWeapon
 /*  f0651c0:	00000000 */ 	nop
 /*  f0651c4:	14400007 */ 	bnez	$v0,.L0f0651e4
 /*  f0651c8:	00000000 */ 	nop
-/*  f0651cc:	0fc31ef4 */ 	jal	func0f0c7bd0
+/*  f0651cc:	0fc31ef4 */ 	jal	bmoveIsAutoAimXEnabledForCurrentWeapon
 /*  f0651d0:	00000000 */ 	nop
 /*  f0651d4:	14400003 */ 	bnez	$v0,.L0f0651e4
 /*  f0651d8:	8faa00e4 */ 	lw	$t2,0xe4($sp)
@@ -5259,7 +5259,7 @@ glabel func0f064ce8
 .L0f065338:
 /*  f065338:	12600058 */ 	beqz	$s3,.L0f06549c
 /*  f06533c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f065340:	0fc31ea3 */ 	jal	func0f0c7a8c
+/*  f065340:	0fc31ea3 */ 	jal	bmoveIsAutoAimYEnabledForCurrentWeapon
 /*  f065344:	00000000 */ 	nop
 /*  f065348:	14400003 */ 	bnez	$v0,.L0f065358
 /*  f06534c:	8fac00e0 */ 	lw	$t4,0xe0($sp)
@@ -5281,10 +5281,10 @@ glabel func0f064ce8
 /*  f065388:	46123283 */ 	div.s	$f10,$f6,$f18
 /*  f06538c:	46105101 */ 	sub.s	$f4,$f10,$f16
 /*  f065390:	44052000 */ 	mfc1	$a1,$f4
-/*  f065394:	0fc31ec0 */ 	jal	currentPlayerUpdateAutoAimYProp
+/*  f065394:	0fc31ec0 */ 	jal	bmoveUpdateAutoAimYProp
 /*  f065398:	00000000 */ 	nop
 .L0f06539c:
-/*  f06539c:	0fc31ef4 */ 	jal	func0f0c7bd0
+/*  f06539c:	0fc31ef4 */ 	jal	bmoveIsAutoAimXEnabledForCurrentWeapon
 /*  f0653a0:	00000000 */ 	nop
 /*  f0653a4:	14400003 */ 	bnez	$v0,.L0f0653b4
 /*  f0653a8:	8fad00e0 */ 	lw	$t5,0xe0($sp)
@@ -5306,7 +5306,7 @@ glabel func0f064ce8
 /*  f0653e4:	46124283 */ 	div.s	$f10,$f8,$f18
 /*  f0653e8:	46105101 */ 	sub.s	$f4,$f10,$f16
 /*  f0653ec:	44052000 */ 	mfc1	$a1,$f4
-/*  f0653f0:	0fc31f0d */ 	jal	currentPlayerUpdateAutoAimXProp
+/*  f0653f0:	0fc31f0d */ 	jal	bmoveUpdateAutoAimXProp
 /*  f0653f4:	00000000 */ 	nop
 /*  f0653f8:	8fb900e4 */ 	lw	$t9,0xe4($sp)
 .L0f0653fc:
@@ -5353,10 +5353,10 @@ glabel func0f064ce8
 /*  f065494:	1000000a */ 	b	.L0f0654c0
 /*  f065498:	a04a1583 */ 	sb	$t2,0x1583($v0)
 .L0f06549c:
-/*  f06549c:	0fc31ec0 */ 	jal	currentPlayerUpdateAutoAimYProp
+/*  f06549c:	0fc31ec0 */ 	jal	bmoveUpdateAutoAimYProp
 /*  f0654a0:	24050000 */ 	addiu	$a1,$zero,0x0
 /*  f0654a4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0654a8:	0fc31f0d */ 	jal	currentPlayerUpdateAutoAimXProp
+/*  f0654a8:	0fc31f0d */ 	jal	bmoveUpdateAutoAimXProp
 /*  f0654ac:	24050000 */ 	addiu	$a1,$zero,0x0
 /*  f0654b0:	8ea20284 */ 	lw	$v0,0x284($s5)
 /*  f0654b4:	904c1583 */ 	lbu	$t4,0x1583($v0)

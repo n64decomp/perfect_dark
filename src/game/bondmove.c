@@ -44,27 +44,27 @@
 
 const char var7f1ad860[] = "bondmove.c";
 
-void currentPlayerSetControlDef(u32 controldef)
+void bmoveSetControlDef(u32 controldef)
 {
 	g_Vars.currentplayer->controldef = controldef;
 }
 
-void currentPlayerSetAutoMoveCentreEnabled(bool enabled)
+void bmoveSetAutoMoveCentreEnabled(bool enabled)
 {
 	g_Vars.currentplayer->automovecentreenabled = enabled;
 }
 
-bool currentPlayerIsAutoMoveCentreEnabled(void)
+bool bmoveIsAutoMoveCentreEnabled(void)
 {
 	return g_Vars.currentplayer->automovecentreenabled;
 }
 
-void currentPlayerSetAutoAimY(bool enabled)
+void bmoveSetAutoAimY(bool enabled)
 {
 	g_Vars.currentplayer->autoyaimenabled = enabled;
 }
 
-bool currentPlayerIsAutoAimYEnabled(void)
+bool bmoveIsAutoAimYEnabled(void)
 {
 	if (!g_Vars.normmplayerisrunning) {
 		return g_Vars.currentplayer->autoyaimenabled;
@@ -77,7 +77,7 @@ bool currentPlayerIsAutoAimYEnabled(void)
 	return optionsGetAutoAim(g_Vars.currentplayerstats->mpindex);
 }
 
-bool func0f0c7a8c(void)
+bool bmoveIsAutoAimYEnabledForCurrentWeapon(void)
 {
 	struct weaponfunc *func = currentPlayerGetWeaponFunction(0);
 
@@ -91,15 +91,15 @@ bool func0f0c7a8c(void)
 		}
 	}
 
-	return currentPlayerIsAutoAimYEnabled();
+	return bmoveIsAutoAimYEnabled();
 }
 
-bool currentPlayerIsInSightAimMode(void)
+bool bmoveIsInSightAimMode(void)
 {
 	return g_Vars.currentplayer->insightaimmode;
 }
 
-void currentPlayerUpdateAutoAimYProp(struct prop *prop, f32 autoaimy)
+void bmoveUpdateAutoAimYProp(struct prop *prop, f32 autoaimy)
 {
 	if (g_Vars.currentplayer->autoyaimtime60 >= 0) {
 		g_Vars.currentplayer->autoyaimtime60 -= g_Vars.lvupdate240_60;
@@ -117,12 +117,12 @@ void currentPlayerUpdateAutoAimYProp(struct prop *prop, f32 autoaimy)
 	g_Vars.currentplayer->autoaimy = autoaimy;
 }
 
-void currentPlayerSetAutoAimX(bool enabled)
+void bmoveSetAutoAimX(bool enabled)
 {
 	g_Vars.currentplayer->autoxaimenabled = enabled;
 }
 
-bool currentPlayerIsAutoAimXEnabled(void)
+bool bmoveIsAutoAimXEnabled(void)
 {
 	if (!g_Vars.normmplayerisrunning) {
 		return g_Vars.currentplayer->autoxaimenabled;
@@ -135,7 +135,7 @@ bool currentPlayerIsAutoAimXEnabled(void)
 	return optionsGetAutoAim(g_Vars.currentplayerstats->mpindex);
 }
 
-bool func0f0c7bd0(void)
+bool bmoveIsAutoAimXEnabledForCurrentWeapon(void)
 {
 	struct weaponfunc *func = currentPlayerGetWeaponFunction(0);
 
@@ -149,10 +149,10 @@ bool func0f0c7bd0(void)
 		}
 	}
 
-	return currentPlayerIsAutoAimXEnabled();
+	return bmoveIsAutoAimXEnabled();
 }
 
-void currentPlayerUpdateAutoAimXProp(struct prop *prop, f32 autoaimx)
+void bmoveUpdateAutoAimXProp(struct prop *prop, f32 autoaimx)
 {
 	if (g_Vars.currentplayer->autoxaimtime60 >= 0) {
 		g_Vars.currentplayer->autoxaimtime60 -= g_Vars.lvupdate240_60;
@@ -170,7 +170,7 @@ void currentPlayerUpdateAutoAimXProp(struct prop *prop, f32 autoaimx)
 	g_Vars.currentplayer->autoaimx = autoaimx;
 }
 
-struct prop *currentPlayerGetHoverbike(void)
+struct prop *bmoveGetHoverbike(void)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		return g_Vars.currentplayer->hoverbike;
@@ -179,7 +179,7 @@ struct prop *currentPlayerGetHoverbike(void)
 	return NULL;
 }
 
-struct prop *currentPlayerGetGrabbedProp(void)
+struct prop *bmoveGetGrabbedProp(void)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		return g_Vars.currentplayer->grabbedprop;
@@ -188,82 +188,82 @@ struct prop *currentPlayerGetGrabbedProp(void)
 	return NULL;
 }
 
-void currentPlayerGrabProp(struct prop *prop)
+void bmoveGrabProp(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 
 	if ((obj->hidden & OBJHFLAG_04000000) == 0 && (obj->hidden & OBJHFLAG_GRABBED) == 0) {
 		g_Vars.currentplayer->grabbedprop = prop;
-		currentPlayerGrabInit();
+		bgrabInit();
 	}
 }
 
-void currentPlayerSetMoveMode(u32 movemode)
+void bmoveSetMode(u32 movemode)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
-		currentPlayerUpdateGrabbedPropForRelease();
+		bgrabExit();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		func0f0d2184();
+		bbikeExit();
 	}
 
 	if (movemode == MOVEMODE_BIKE) {
-		currentPlayerBikeInit();
+		bbikeInit();
 	} else if (movemode == MOVEMODE_GRAB) {
-		currentPlayerGrabInit();
+		bgrabInit();
 	} else if (movemode == MOVEMODE_CUTSCENE) {
-		currentPlayerSetMoveModeCutscene();
+		bcutsceneInit();
 	} else if (movemode == MOVEMODE_WALK) {
-		currentPlayerWalkInit();
+		bwalkInit();
 	}
 }
 
-void setMoveModeForAllPlayers(u32 movemode)
+void bmoveSetModeForAllPlayers(u32 movemode)
 {
 	u32 prevplayernum = g_Vars.currentplayernum;
 	s32 i;
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
 		setCurrentPlayerNum(i);
-		currentPlayerSetMoveMode(movemode);
+		bmoveSetMode(movemode);
 	}
 
 	setCurrentPlayerNum(prevplayernum);
 }
 
-void func0f0c7f2c(void)
+void bmoveHandleActivate(void)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		currentPlayerDismountBike();
+		bbikeHandleActivate();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
-		func0f0ce450();
+		bgrabHandleActivate();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
-		func0f0c65a8();
+		bwalkHandleActivate();
 	}
 }
 
-void currentPlayerUpdateSpeed(struct movedata *data)
+void bmoveApplyMoveData(struct movedata *data)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		currentPlayerUpdateSpeedBike(data);
+		bbikeApplyMoveData(data);
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
-		currentPlayerUpdateSpeedGrab(data);
+		bgrabApplyMoveData(data);
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
-		currentPlayerUpdateSpeedWalk(data);
+		bwalkApplyMoveData(data);
 	}
 }
 
-void func0f0c8004(void)
+void bmoveUpdateSpeedTheta(void)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		// empty
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
-		currentPlayerUpdateSpeedThetaGrab();
+		bgrabUpdateSpeedTheta();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
-		currentPlayerApplyCrouchSpeedTheta();
+		bwalkUpdateSpeedTheta();
 	}
 }
 
-f32 func0f0c805c(f32 value)
+f32 bmoveGetSpeedVertaLimit(f32 value)
 {
 	if (value > 0) {
 		return (viGetFovY() * value * -0.7f) / 60.0f;
@@ -276,10 +276,10 @@ f32 func0f0c805c(f32 value)
 	return 0;
 }
 
-void currentPlayerUpdateSpeedVerta(f32 value)
+void bmoveUpdateSpeedVerta(f32 value)
 {
 	f32 mult = viGetFovY() / 60.0f;
-	f32 limit = func0f0c805c(value);
+	f32 limit = bmoveGetSpeedVertaLimit(value);
 
 	if (value > 0) {
 		if (g_Vars.currentplayer->speedverta > 0) {
@@ -318,7 +318,7 @@ void currentPlayerUpdateSpeedVerta(f32 value)
 	}
 }
 
-f32 func0f0c82f8(f32 value)
+f32 bmoveGetSpeedThetaControlLimit(f32 value)
 {
 	if (value > 0) {
 		return (viGetFovY() * value * -0.7f) / 60.0f;
@@ -331,10 +331,10 @@ f32 func0f0c82f8(f32 value)
 	return 0;
 }
 
-void currentPlayerUpdateSpeedThetaControl(f32 value)
+void bmoveUpdateSpeedThetaControl(f32 value)
 {
 	f32 mult = viGetFovY() / 60.0f;
-	f32 limit = func0f0c82f8(value);
+	f32 limit = bmoveGetSpeedThetaControlLimit(value);
 
 	if (value > 0) {
 		if (g_Vars.currentplayer->speedthetacontrol > 0) {
@@ -374,7 +374,7 @@ void currentPlayerUpdateSpeedThetaControl(f32 value)
 }
 
 GLOBAL_ASM(
-glabel func0f0c8598
+glabel bmove0f0c8598
 .late_rodata
 glabel var7f1ad8ac
 .word 0x3e4ccccd
@@ -729,7 +729,7 @@ glabel var7f1ad8b4
 /*  f0c8aa4:	27bd0168 */ 	addiu	$sp,$sp,0x168
 );
 
-void movedataReset(struct movedata *data)
+void bmoveResetMoveData(struct movedata *data)
 {
 	data->canswivelgun = 0;
 	data->canmanualaim = 0;
@@ -777,7 +777,7 @@ void movedataReset(struct movedata *data)
 }
 
 GLOBAL_ASM(
-glabel func0f0c8b90
+glabel bmoveProcessInput
 .late_rodata
 glabel var7f1ad8b8
 .word 0x3c23d70a
@@ -917,7 +917,7 @@ glabel var7f1ad8e4
 /*  f0c8d24:	0c005207 */ 	jal	contGetNumSamples
 /*  f0c8d28:	00000000 */ 	nop
 /*  f0c8d2c:	0040b025 */ 	or	$s6,$v0,$zero
-/*  f0c8d30:	0fc322aa */ 	jal	movedataReset
+/*  f0c8d30:	0fc322aa */ 	jal	bmoveResetMoveData
 /*  f0c8d34:	27a401b4 */ 	addiu	$a0,$sp,0x1b4
 /*  f0c8d38:	2a81fffb */ 	slti	$at,$s4,-5
 /*  f0c8d3c:	10200003 */ 	beqz	$at,.L0f0c8d4c
@@ -1804,7 +1804,7 @@ glabel var7f1ad8e4
 /*  f0c999c:	5616ffab */ 	bnel	$s0,$s6,.L0f0c984c
 /*  f0c99a0:	8fab01a8 */ 	lw	$t3,0x1a8($sp)
 .L0f0c99a4:
-/*  f0c99a4:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
+/*  f0c99a4:	0fc331a0 */ 	jal	bmoveGetCrouchPos
 /*  f0c99a8:	00000000 */ 	nop
 /*  f0c99ac:	1440001d */ 	bnez	$v0,.L0f0c9a24
 /*  f0c99b0:	00000000 */ 	nop
@@ -2712,7 +2712,7 @@ glabel var7f1ad8e4
 /*  f0ca668:	5616ffb3 */ 	bnel	$s0,$s6,.L0f0ca538
 /*  f0ca66c:	8fae01a8 */ 	lw	$t6,0x1a8($sp)
 .L0f0ca670:
-/*  f0ca670:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
+/*  f0ca670:	0fc331a0 */ 	jal	bmoveGetCrouchPos
 /*  f0ca674:	00000000 */ 	nop
 /*  f0ca678:	1440001e */ 	bnez	$v0,.L0f0ca6f4
 /*  f0ca67c:	00000000 */ 	nop
@@ -2895,7 +2895,7 @@ glabel var7f1ad8e4
 /*  f0ca8f4:	ad4901a0 */ 	sw	$t1,0x1a0($t2)
 /*  f0ca8f8:	8e4c0284 */ 	lw	$t4,0x284($s2)
 /*  f0ca8fc:	8fab01c0 */ 	lw	$t3,0x1c0($sp)
-/*  f0ca900:	0fc31fcb */ 	jal	func0f0c7f2c
+/*  f0ca900:	0fc31fcb */ 	jal	bmoveHandleActivate
 /*  f0ca904:	ad8b00d0 */ 	sw	$t3,0xd0($t4)
 /*  f0ca908:	8fad0238 */ 	lw	$t5,0x238($sp)
 .L0f0ca90c:
@@ -3181,7 +3181,7 @@ glabel var7f1ad8e4
 /*  f0cad20:	0fc2eab0 */ 	jal	currentPlayerUpdateZoom
 /*  f0cad24:	00000000 */ 	nop
 .L0f0cad28:
-/*  f0cad28:	0fc31fe6 */ 	jal	currentPlayerUpdateSpeed
+/*  f0cad28:	0fc31fe6 */ 	jal	bmoveApplyMoveData
 /*  f0cad2c:	27a401b4 */ 	addiu	$a0,$sp,0x1b4
 /*  f0cad30:	8e450284 */ 	lw	$a1,0x284($s2)
 /*  f0cad34:	8ca90178 */ 	lw	$t1,0x178($a1)
@@ -3268,7 +3268,7 @@ glabel var7f1ad8e4
 /*  f0cae60:	304f0003 */ 	andi	$t7,$v0,0x3
 /*  f0cae64:	55cf0008 */ 	bnel	$t6,$t7,.L0f0cae88
 /*  f0cae68:	c4ae1be0 */ 	lwc1	$f14,0x1be0($a1)
-/*  f0cae6c:	0fc32166 */ 	jal	func0f0c8598
+/*  f0cae6c:	0fc32166 */ 	jal	bmove0f0c8598
 /*  f0cae70:	afa40064 */ 	sw	$a0,0x64($sp)
 /*  f0cae74:	8e580284 */ 	lw	$t8,0x284($s2)
 /*  f0cae78:	8fa40064 */ 	lw	$a0,0x64($sp)
@@ -3431,7 +3431,7 @@ glabel var7f1ad8e4
 /*  f0cb0a8:	45020007 */ 	bc1fl	.L0f0cb0c8
 /*  f0cb0ac:	460c7401 */ 	sub.s	$f16,$f14,$f12
 /*  f0cb0b0:	44816000 */ 	mtc1	$at,$f12
-/*  f0cb0b4:	0fc3203e */ 	jal	currentPlayerUpdateSpeedVerta
+/*  f0cb0b4:	0fc3203e */ 	jal	bmoveUpdateSpeedVerta
 /*  f0cb0b8:	e7ae0094 */ 	swc1	$f14,0x94($sp)
 /*  f0cb0bc:	10000010 */ 	b	.L0f0cb100
 /*  f0cb0c0:	c7ae0094 */ 	lwc1	$f14,0x94($sp)
@@ -3443,13 +3443,13 @@ glabel var7f1ad8e4
 /*  f0cb0d4:	45020007 */ 	bc1fl	.L0f0cb0f4
 /*  f0cb0d8:	44806000 */ 	mtc1	$zero,$f12
 /*  f0cb0dc:	44816000 */ 	mtc1	$at,$f12
-/*  f0cb0e0:	0fc3203e */ 	jal	currentPlayerUpdateSpeedVerta
+/*  f0cb0e0:	0fc3203e */ 	jal	bmoveUpdateSpeedVerta
 /*  f0cb0e4:	e7ae0094 */ 	swc1	$f14,0x94($sp)
 /*  f0cb0e8:	10000005 */ 	b	.L0f0cb100
 /*  f0cb0ec:	c7ae0094 */ 	lwc1	$f14,0x94($sp)
 /*  f0cb0f0:	44806000 */ 	mtc1	$zero,$f12
 .L0f0cb0f4:
-/*  f0cb0f4:	0fc3203e */ 	jal	currentPlayerUpdateSpeedVerta
+/*  f0cb0f4:	0fc3203e */ 	jal	bmoveUpdateSpeedVerta
 /*  f0cb0f8:	e7ae0094 */ 	swc1	$f14,0x94($sp)
 /*  f0cb0fc:	c7ae0094 */ 	lwc1	$f14,0x94($sp)
 .L0f0cb100:
@@ -3552,7 +3552,7 @@ glabel var7f1ad8e4
 /*  f0cb25c:	00000000 */ 	nop
 /*  f0cb260:	45020010 */ 	bc1fl	.L0f0cb2a4
 /*  f0cb264:	44804000 */ 	mtc1	$zero,$f8
-/*  f0cb268:	0fc3203e */ 	jal	currentPlayerUpdateSpeedVerta
+/*  f0cb268:	0fc3203e */ 	jal	bmoveUpdateSpeedVerta
 /*  f0cb26c:	46003306 */ 	mov.s	$f12,$f6
 /*  f0cb270:	8fac01c4 */ 	lw	$t4,0x1c4($sp)
 /*  f0cb274:	8fad025c */ 	lw	$t5,0x25c($sp)
@@ -3574,7 +3574,7 @@ glabel var7f1ad8e4
 /*  f0cb2ac:	00000000 */ 	nop
 /*  f0cb2b0:	45020010 */ 	bc1fl	.L0f0cb2f4
 /*  f0cb2b4:	44806000 */ 	mtc1	$zero,$f12
-/*  f0cb2b8:	0fc3203e */ 	jal	currentPlayerUpdateSpeedVerta
+/*  f0cb2b8:	0fc3203e */ 	jal	bmoveUpdateSpeedVerta
 /*  f0cb2bc:	46008307 */ 	neg.s	$f12,$f16
 /*  f0cb2c0:	8fb801c4 */ 	lw	$t8,0x1c4($sp)
 /*  f0cb2c4:	8fb9025c */ 	lw	$t9,0x25c($sp)
@@ -3591,7 +3591,7 @@ glabel var7f1ad8e4
 /*  f0cb2ec:	ad28010c */ 	sw	$t0,0x10c($t1)
 /*  f0cb2f0:	44806000 */ 	mtc1	$zero,$f12
 .L0f0cb2f4:
-/*  f0cb2f4:	0fc3203e */ 	jal	currentPlayerUpdateSpeedVerta
+/*  f0cb2f4:	0fc3203e */ 	jal	bmoveUpdateSpeedVerta
 /*  f0cb2f8:	00000000 */ 	nop
 .L0f0cb2fc:
 /*  f0cb2fc:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -3666,7 +3666,7 @@ glabel var7f1ad8e4
 /*  f0cb3f0:	00000000 */ 	nop
 /*  f0cb3f4:	45020006 */ 	bc1fl	.L0f0cb410
 /*  f0cb3f8:	44809000 */ 	mtc1	$zero,$f18
-/*  f0cb3fc:	0fc320e5 */ 	jal	currentPlayerUpdateSpeedThetaControl
+/*  f0cb3fc:	0fc320e5 */ 	jal	bmoveUpdateSpeedThetaControl
 /*  f0cb400:	e7ac01f4 */ 	swc1	$f12,0x1f4($sp)
 /*  f0cb404:	10000010 */ 	b	.L0f0cb448
 /*  f0cb408:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -3678,19 +3678,19 @@ glabel var7f1ad8e4
 /*  f0cb41c:	45020007 */ 	bc1fl	.L0f0cb43c
 /*  f0cb420:	44806000 */ 	mtc1	$zero,$f12
 /*  f0cb424:	46000307 */ 	neg.s	$f12,$f0
-/*  f0cb428:	0fc320e5 */ 	jal	currentPlayerUpdateSpeedThetaControl
+/*  f0cb428:	0fc320e5 */ 	jal	bmoveUpdateSpeedThetaControl
 /*  f0cb42c:	e7a001f8 */ 	swc1	$f0,0x1f8($sp)
 /*  f0cb430:	10000005 */ 	b	.L0f0cb448
 /*  f0cb434:	8e450284 */ 	lw	$a1,0x284($s2)
 /*  f0cb438:	44806000 */ 	mtc1	$zero,$f12
 .L0f0cb43c:
-/*  f0cb43c:	0fc320e5 */ 	jal	currentPlayerUpdateSpeedThetaControl
+/*  f0cb43c:	0fc320e5 */ 	jal	bmoveUpdateSpeedThetaControl
 /*  f0cb440:	00000000 */ 	nop
 .L0f0cb444:
 /*  f0cb444:	8e450284 */ 	lw	$a1,0x284($s2)
 .L0f0cb448:
 /*  f0cb448:	c4a41b9c */ 	lwc1	$f4,0x1b9c($a1)
-/*  f0cb44c:	0fc32001 */ 	jal	func0f0c8004
+/*  f0cb44c:	0fc32001 */ 	jal	bmoveUpdateSpeedTheta
 /*  f0cb450:	e4a40148 */ 	swc1	$f4,0x148($a1)
 /*  f0cb454:	8fad0228 */ 	lw	$t5,0x228($sp)
 /*  f0cb458:	51a00008 */ 	beqzl	$t5,.L0f0cb47c
@@ -3761,11 +3761,11 @@ glabel var7f1ad8e4
 /*  f0cb538:	8faa022c */ 	lw	$t2,0x22c($sp)
 /*  f0cb53c:	11400015 */ 	beqz	$t2,.L0f0cb594
 /*  f0cb540:	00000000 */ 	nop
-/*  f0cb544:	0fc31ef4 */ 	jal	func0f0c7bd0
+/*  f0cb544:	0fc31ef4 */ 	jal	bmoveIsAutoAimXEnabledForCurrentWeapon
 /*  f0cb548:	00000000 */ 	nop
 /*  f0cb54c:	54400006 */ 	bnezl	$v0,.L0f0cb568
 /*  f0cb550:	8e450284 */ 	lw	$a1,0x284($s2)
-/*  f0cb554:	0fc31ea3 */ 	jal	func0f0c7a8c
+/*  f0cb554:	0fc31ea3 */ 	jal	bmoveIsAutoAimYEnabledForCurrentWeapon
 /*  f0cb558:	00000000 */ 	nop
 /*  f0cb55c:	1040000d */ 	beqz	$v0,.L0f0cb594
 /*  f0cb560:	00000000 */ 	nop
@@ -3944,7 +3944,7 @@ glabel var7f1ad8e4
  * - lookahead is applying when it shouldn't (eg. 1.2) and looks at the floor
  * - Farsight seek doesn't work
  */
-//void func0f0c8b90(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+//void bmoveProcessInput(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 //{
 //	struct movedata movedata; // 1b4 - 260
 //	s32 controlmode; // 1b0
@@ -4020,7 +4020,7 @@ glabel var7f1ad8e4
 //	}
 //
 //	numsamples = contGetNumSamples();
-//	movedataReset(&movedata);
+//	bmoveResetMoveData(&movedata);
 //
 //	// 8d3c
 //	if (c1stickx < -5) {
@@ -4410,7 +4410,7 @@ glabel var7f1ad8e4
 //					}
 //
 //					// 99a4
-//					if (currentPlayerGetCrouchPos() == CROUCH_SQUAT
+//					if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT
 //							&& g_Vars.currentplayer->crouchoffset == -90
 //							&& g_Vars.mplayerisrunning
 //							&& g_Vars.coopplayernum < 0) {
@@ -4790,7 +4790,7 @@ glabel var7f1ad8e4
 //
 //					// a670
 //					// Handle shutting eyes in multiplayer
-//					if (currentPlayerGetCrouchPos() == CROUCH_SQUAT
+//					if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT
 //							&& g_Vars.currentplayer->crouchoffset == -90
 //							&& g_Vars.mplayerisrunning
 //							&& g_Vars.coopplayernum <= -1) {
@@ -4855,7 +4855,7 @@ glabel var7f1ad8e4
 //		g_Vars.currentplayer->activatetimethis = g_Vars.lvframe60;
 //		g_Vars.currentplayer->bondactivateorreload = movedata.btapcount;
 //
-//		func0f0c7f2c();
+//		bmoveHandleActivate();
 //	}
 //
 //	if (!movedata.invertpitch) {
@@ -4952,7 +4952,7 @@ glabel var7f1ad8e4
 //	}
 //
 //	// ad28
-//	currentPlayerUpdateSpeed(&movedata);
+//	bmoveApplyMoveData(&movedata);
 //
 //	// Speed boost
 //	// After 3 seconds of holding forward at max speed, apply boost multiplier.
@@ -4987,7 +4987,7 @@ glabel var7f1ad8e4
 //		if (g_Vars.currentplayer->lookaheadcentreenabled) {
 //			if (g_Vars.lvframenum != g_Vars.currentplayer->lookaheadframe
 //					&& g_Vars.currentplayernum == (g_Vars.lvframenum % 4)) {
-//				g_Vars.currentplayer->cachedlookahead = func0f0c8598();
+//				g_Vars.currentplayer->cachedlookahead = bmove0f0c8598();
 //			}
 //
 //			lookahead = g_Vars.currentplayer->cachedlookahead;
@@ -5047,11 +5047,11 @@ glabel var7f1ad8e4
 //
 //				// b0a8
 //				if (g_Vars.currentplayer->vv_verta > lookahead + increment) {
-//					currentPlayerUpdateSpeedVerta(1);
+//					bmoveUpdateSpeedVerta(1);
 //				} else if (g_Vars.currentplayer->vv_verta < lookahead - increment) {
-//					currentPlayerUpdateSpeedVerta(-1);
+//					bmoveUpdateSpeedVerta(-1);
 //				} else {
-//					currentPlayerUpdateSpeedVerta(0);
+//					bmoveUpdateSpeedVerta(0);
 //				}
 //
 //				// b100
@@ -5088,19 +5088,19 @@ glabel var7f1ad8e4
 //
 //				g_Vars.currentplayer->speedverta = -(fVar25 * fVar26) * (viGetFovY() / 60.0f);
 //			} else if (movedata.speedvertadown > 0) {
-//				currentPlayerUpdateSpeedVerta(movedata.speedvertadown);
+//				bmoveUpdateSpeedVerta(movedata.speedvertadown);
 //
 //				if (movedata.canlookahead && (movedata.analogwalk > 60 || movedata.analogwalk < -60)) {
 //					g_Vars.currentplayer->movecentrerelease = true;
 //				}
 //			} else if (movedata.speedvertaup > 0) {
-//				currentPlayerUpdateSpeedVerta(-movedata.speedvertaup);
+//				bmoveUpdateSpeedVerta(-movedata.speedvertaup);
 //
 //				if (movedata.canlookahead && (movedata.analogwalk > 60 || movedata.analogwalk < -60)) {
 //					g_Vars.currentplayer->movecentrerelease = true;
 //				}
 //			} else {
-//				currentPlayerUpdateSpeedVerta(0);
+//				bmoveUpdateSpeedVerta(0);
 //			}
 //
 //			g_Vars.currentplayer->vv_verta +=
@@ -5122,16 +5122,16 @@ glabel var7f1ad8e4
 //
 //		g_Vars.currentplayer->speedthetacontrol = fVar25 * fVar26 * (viGetFovY() / 60.0f);
 //	} else if (movedata.aimturnleftspeed > 0) {
-//		currentPlayerUpdateSpeedThetaControl(movedata.aimturnleftspeed);
+//		bmoveUpdateSpeedThetaControl(movedata.aimturnleftspeed);
 //	} else if (movedata.aimturnrightspeed > 0) {
-//		currentPlayerUpdateSpeedThetaControl(-movedata.aimturnrightspeed);
+//		bmoveUpdateSpeedThetaControl(-movedata.aimturnrightspeed);
 //	} else {
-//		currentPlayerUpdateSpeedThetaControl(0);
+//		bmoveUpdateSpeedThetaControl(0);
 //	}
 //
 //	// b444
 //	g_Vars.currentplayer->speedtheta = g_Vars.currentplayer->speedthetacontrol;
-//	func0f0c8004();
+//	bmoveUpdateSpeedTheta();
 //
 //	if (movedata.detonating) {
 //		g_Vars.currentplayer->hands[HAND_RIGHT].unk0658 = 0;
@@ -5171,7 +5171,7 @@ glabel var7f1ad8e4
 //		if (
 //				(
 //				 movedata.canautoaim
-//				 && (func0f0c7bd0() || func0f0c7a8c())
+//				 && (bmoveIsAutoAimXEnabledForCurrentWeapon() || bmoveIsAutoAimYEnabledForCurrentWeapon())
 //				 && g_Vars.currentplayer->autoxaimprop
 //				 && g_Vars.currentplayer->autoyaimprop
 //				 && weaponHasInvEFlag(weaponnum, 0x00000002)
@@ -5226,7 +5226,7 @@ glabel var7f1ad8e4
 //	}
 //}
 
-void func0f0cb79c(struct player *player, struct coord *mid, s16 *rooms)
+void bmove0f0cb79c(struct player *player, struct coord *mid, s16 *rooms)
 {
 	struct coord lower;
 	struct coord upper;
@@ -5244,19 +5244,19 @@ void func0f0cb79c(struct player *player, struct coord *mid, s16 *rooms)
 	func0f1650d0(&lower, &upper, rooms, 7, 0);
 }
 
-void func0f0cb89c(struct player *player, s16 *rooms)
+void bmove0f0cb89c(struct player *player, s16 *rooms)
 {
-	func0f0cb79c(player, &player->prop->pos, rooms);
+	bmove0f0cb79c(player, &player->prop->pos, rooms);
 }
 
-void func0f0cb8c4(struct player *player)
+void bmove0f0cb8c4(struct player *player)
 {
 	func0f065c44(player->prop);
-	func0f0cb89c(player, player->prop->rooms);
+	bmove0f0cb89c(player, player->prop->rooms);
 	func0f065cb0(player->prop);
 }
 
-void func0f0cb904(struct coord *arg0)
+void bmove0f0cb904(struct coord *arg0)
 {
 	if (arg0->f[0] || arg0->f[2]) {
 		f32 hypotenuse = sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2]);
@@ -5292,10 +5292,10 @@ void func0f0cb904(struct coord *arg0)
 	}
 }
 
-void func0f0cba88(f32 *a, f32 *b, struct coord *c, f32 mult1, f32 mult2)
+void bmove0f0cba88(f32 *a, f32 *b, struct coord *c, f32 mult1, f32 mult2)
 {
 	if (c->x != 0 || c->z != 0) {
-		func0f0cb904(c);
+		bmove0f0cb904(c);
 		*a = c->z * mult2 + -c->x * mult1;
 		*b = -c->x * mult2 - c->z * mult1;
 	} else {
@@ -5304,7 +5304,7 @@ void func0f0cba88(f32 *a, f32 *b, struct coord *c, f32 mult1, f32 mult2)
 	}
 }
 
-void currentPlayerUpdateMoveInitSpeed(struct coord *newpos)
+void bmoveUpdateMoveInitSpeed(struct coord *newpos)
 {
 	if (g_Vars.currentplayer->moveinitspeed.x != 0) {
 		if (g_Vars.currentplayer->moveinitspeed.x < 0.001f && g_Vars.currentplayer->moveinitspeed.x > -0.001f) {
@@ -5325,7 +5325,7 @@ void currentPlayerUpdateMoveInitSpeed(struct coord *newpos)
 	}
 }
 
-void currentPlayerUpdateFootsteps(bool arg0, bool arg1, bool arg2, bool arg3)
+void bmoveTick(bool arg0, bool arg1, bool arg2, bool arg3)
 {
 	struct chrdata *chr;
 	u8 foot;
@@ -5335,18 +5335,19 @@ void currentPlayerUpdateFootsteps(bool arg0, bool arg1, bool arg2, bool arg3)
 	f32 zdiff;
 	f32 distance;
 
-	func0f0c8b90(arg0, arg1, arg2, arg3);
+	bmoveProcessInput(arg0, arg1, arg2, arg3);
 
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
-		func0f0d3d50();
+		bbikeTick();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
-		func0f0ceec4();
+		bgrabTick();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_CUTSCENE) {
-		func0f0c37c0();
+		bcutsceneTick();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
-		func0f0c785c();
+		bwalkTick();
 	}
 
+	// Update footstep sounds
 	if ((g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK || g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB)
 			&& (g_Vars.currentplayer->speedforwards || g_Vars.currentplayer->speedsideways)
 			&& (!g_Vars.normmplayerisrunning || PLAYERCOUNT() == 1)) {
@@ -5389,7 +5390,7 @@ void currentPlayerUpdateFootsteps(bool arg0, bool arg1, bool arg2, bool arg3)
 	}
 }
 
-void func0f0cbf50(void)
+void bmoveUpdateVerta(void)
 {
 	while (g_Vars.currentplayer->vv_verta < -180) {
 		g_Vars.currentplayer->vv_verta += 360;
@@ -5430,7 +5431,7 @@ void func0f0cbf50(void)
 	}
 }
 
-void func0f0cc19c(struct coord *arg)
+void bmove0f0cc19c(struct coord *arg)
 {
 	f32 min;
 	f32 mult;
@@ -5475,7 +5476,7 @@ void func0f0cc19c(struct coord *arg)
 	}
 }
 
-void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
+void bmoveUpdateHead(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 {
 	f32 sp244 = 0;
 	Mtxf sp180;
@@ -5485,7 +5486,7 @@ void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 	f32 sp68[4];
 
 	if (g_Vars.currentplayer->isdead == false) {
-		currentPlayerAdjustHeadAnimation(arg0);
+		bheadAdjustAnimation(arg0);
 
 		if (arg0 != 0) {
 			sp244 = arg1 / arg0;
@@ -5494,15 +5495,15 @@ void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 		}
 	} else {
 		if (g_Vars.currentplayer->startnewbonddie) {
-			currentPlayerStartDeathAnimation(g_DeathAnimations[random() % g_NumDeathAnimations], random() % 2, 0, 1);
+			bheadStartDeathAnimation(g_DeathAnimations[random() % g_NumDeathAnimations], random() % 2, 0, 1);
 			g_Vars.currentplayer->startnewbonddie = false;
 		}
 
-		currentPlayerSetAnimSpeed(0.5);
+		bheadSetSpeed(0.5);
 		arg2 = 0;
 	}
 
-	currentPlayerUpdateHead(sp244, arg2);
+	bheadUpdate(sp244, arg2);
 	func000162e8(BADDEG2RAD(360 - g_Vars.currentplayer->vv_verta360), &sp180);
 
 	if (optionsGetHeadRoll(g_Vars.currentplayerstats->mpindex)) {
@@ -5532,19 +5533,19 @@ void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 	g_Vars.currentplayer->bond2.unk28.z = sp180.m[1][2];
 }
 
-void func0f0cc654(f32 arg0, f32 arg1, f32 arg2)
+void bmove0f0cc654(f32 arg0, f32 arg1, f32 arg2)
 {
-	func0f0cc3b8(arg0, arg1, arg2, NULL, 0);
+	bmoveUpdateHead(arg0, arg1, arg2, NULL, 0);
 }
 
-s32 currentPlayerGetCrouchPos(void)
+s32 bmoveGetCrouchPos(void)
 {
 	return (g_Vars.currentplayer->crouchpos < g_Vars.currentplayer->autocrouchpos)
 		? g_Vars.currentplayer->crouchpos
 		: g_Vars.currentplayer->autocrouchpos;
 }
 
-s32 playerGetCrouchPos(s32 playernum)
+s32 bmoveGetCrouchPosByPlayer(s32 playernum)
 {
 	return (g_Vars.players[playernum]->crouchpos < g_Vars.players[playernum]->autocrouchpos)
 		? g_Vars.players[playernum]->crouchpos

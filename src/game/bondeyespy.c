@@ -76,7 +76,7 @@ f32 eyespyFindGround(s16 *floorroom)
 	return ground;
 }
 
-s32 eyespyCalculateNewY(f32 yvel)
+s32 eyespyTryMoveUpwards(f32 yvel)
 {
 	s32 result;
 	struct prop *prop = g_Vars.currentplayer->eyespy->prop;
@@ -221,7 +221,7 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 	return result;
 }
 
-bool func0f0cf728(struct coord *vel)
+bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 {
 	s32 result = eyespyCalculateNewPosition(vel);
 	struct prop *prop;
@@ -244,8 +244,8 @@ bool func0f0cf728(struct coord *vel)
 					func00024e4c(&sp2c, &sp20, 286, "bondeyespy.c");
 
 					// Nothing is actually done with these coordinates...
-					// maybe they were originally going to make the eyespy
-					// bounce off the lasers like Jo does?
+					// This code was likely copied from bondwalk then the bounce
+					// feature removed
 					sp38[0] = sp20.z - sp2c.z;
 					sp38[1] = 0;
 					sp38[2] = sp2c.x - sp20.x;
@@ -275,7 +275,7 @@ bool func0f0cf728(struct coord *vel)
 	return result;
 }
 
-s32 func0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
+s32 eyespy0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
 {
 	if (func00024ea4()) {
 		struct coord sp24;
@@ -285,7 +285,7 @@ s32 func0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, str
 		sp24.y = arg0->y * somefloat * 0.25f;
 		sp24.z = arg0->z * somefloat * 0.25f;
 
-		someint = func0f0cf728(&sp24);
+		someint = eyespyCalculateNewPositionWithPush(&sp24);
 
 		if (someint == 1) {
 			return 1;
@@ -308,7 +308,7 @@ s32 func0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, str
 	return -1;
 }
 
-s32 func0f0cf9f8(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+s32 eyespy0f0cf9f8(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	f32 tmp;
 	struct coord sp30;
@@ -331,13 +331,13 @@ s32 func0f0cf9f8(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 		sp24.y = 0;
 		sp24.z = sp30.z * tmp;
 
-		return func0f0cf728(&sp24);
+		return eyespyCalculateNewPositionWithPush(&sp24);
 	}
 
 	return -1;
 }
 
-s32 func0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+s32 eyespy0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	struct coord sp34;
 	struct coord sp28;
@@ -368,7 +368,7 @@ s32 func0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 			sp28.y = 0;
 			sp28.z = sp34.z;
 
-			if (func0f0cf728(&sp28) == 1) {
+			if (eyespyCalculateNewPositionWithPush(&sp28) == 1) {
 				return true;
 			}
 		}
@@ -396,7 +396,7 @@ s32 func0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 				sp28.y = 0;
 				sp28.z = sp34.z;
 
-				if (func0f0cf728(&sp28) == 1) {
+				if (eyespyCalculateNewPositionWithPush(&sp28) == 1) {
 					return true;
 				}
 			}
@@ -406,9 +406,9 @@ s32 func0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	return false;
 }
 
-s32 func0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2)
+s32 eyespy0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2)
 {
-	bool result = func0f0cf728(vel);
+	bool result = eyespyCalculateNewPositionWithPush(vel);
 
 	if (result != CDRESULT_NOCOLLISION) {
 		func00024e4c(arg1, arg2, 473, "bondeyespy.c");
@@ -417,7 +417,7 @@ s32 func0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2)
 	return result;
 }
 
-void eyespyCalculateVerticalMovement(void)
+void eyespyUpdateVertical(void)
 {
 	struct coord spac;
 	struct coord spa0;
@@ -444,18 +444,18 @@ void eyespyCalculateVerticalMovement(void)
 	dist.y = 0;
 	dist.z = g_Vars.currentplayer->eyespy->vel.z;
 
-	if (func0f0cfdd0(&dist, &spac, &spa0) == CDRESULT_COLLISION) {
-		if (func0f0cf890(&dist, &spac, &spa0, &sp60, &sp54)) {
-			if (func0f0cf9f8(&dist, &spac, &spa0) <= 0) {
-				func0f0cfafc(&dist, &spac, &spa0);
+	if (eyespy0f0cfdd0(&dist, &spac, &spa0) == CDRESULT_COLLISION) {
+		if (eyespy0f0cf890(&dist, &spac, &spa0, &sp60, &sp54)) {
+			if (eyespy0f0cf9f8(&dist, &spac, &spa0) <= 0) {
+				eyespy0f0cfafc(&dist, &spac, &spa0);
 			}
 		} else {
-			func0f0cf890(&dist, &sp60, &sp54, &sp44, &sp38);
+			eyespy0f0cf890(&dist, &sp60, &sp54, &sp44, &sp38);
 
-			if (func0f0cf9f8(&dist, &sp60, &sp54) <= 0
-					&& func0f0cf9f8(&dist, &spac, &spa0) <= 0
-					&& func0f0cfafc(&dist, &sp60, &sp54) <= 0) {
-				func0f0cfafc(&dist, &spac, &spa0);
+			if (eyespy0f0cf9f8(&dist, &sp60, &sp54) <= 0
+					&& eyespy0f0cf9f8(&dist, &spac, &spa0) <= 0
+					&& eyespy0f0cfafc(&dist, &sp60, &sp54) <= 0) {
+				eyespy0f0cfafc(&dist, &spac, &spa0);
 			}
 		}
 	}
@@ -506,7 +506,7 @@ void eyespyCalculateVerticalMovement(void)
 		}
 	}
 
-	if (eyespyCalculateNewY(newy - chr->manground)) {
+	if (eyespyTryMoveUpwards(newy - chr->manground)) {
 		chr->manground = newy;
 	} else {
 		g_Vars.currentplayer->eyespy->gravity = 0;
@@ -529,7 +529,7 @@ void eyespyCalculateVerticalMovement(void)
 			rebound = true;
 		}
 
-		if (eyespyCalculateNewY(newheight - g_Vars.currentplayer->eyespy->height)) {
+		if (eyespyTryMoveUpwards(newheight - g_Vars.currentplayer->eyespy->height)) {
 			g_Vars.currentplayer->eyespy->height = newheight;
 		} else {
 			rebound = true;
@@ -682,7 +682,7 @@ bool eyespyTryLaunch(void)
 }
 
 GLOBAL_ASM(
-glabel func0f0d0928
+glabel eyespyProcessInput
 .late_rodata
 glabel var7f1adaa0
 .word 0x3f75c28f
@@ -721,15 +721,15 @@ glabel var7f1adae0
 glabel var7f1adae4
 .word 0x3ccccccd
 glabel var7f1adae8
-.word func0f0d0928+0x1184 # f0d1aac
+.word eyespyProcessInput+0x1184 # f0d1aac
 glabel var7f1adaec
-.word func0f0d0928+0x1280 # f0d1ba8
+.word eyespyProcessInput+0x1280 # f0d1ba8
 glabel var7f1adaf0
-.word func0f0d0928+0x122c # f0d1b54
+.word eyespyProcessInput+0x122c # f0d1b54
 glabel var7f1adaf4
-.word func0f0d0928+0x12d4 # f0d1bfc
+.word eyespyProcessInput+0x12d4 # f0d1bfc
 glabel var7f1adaf8
-.word func0f0d0928+0x11d8 # f0d1b00
+.word eyespyProcessInput+0x11d8 # f0d1b00
 glabel var7f1adafc
 .word 0x40c907a9
 glabel var7f1adb00
@@ -1913,7 +1913,7 @@ glabel var7f1adb00
 /*  f0d1a28:	a02e0ec8 */ 	sb	$t6,%lo(var80070ec8)($at)
 /*  f0d1a2c:	a0400000 */ 	sb	$zero,0x0($v0)
 /*  f0d1a30:	3c018007 */ 	lui	$at,%hi(var80070ecc)
-/*  f0d1a34:	0fc33f89 */ 	jal	eyespyCalculateVerticalMovement
+/*  f0d1a34:	0fc33f89 */ 	jal	eyespyUpdateVertical
 /*  f0d1a38:	a0200ecc */ 	sb	$zero,%lo(var80070ecc)($at)
 /*  f0d1a3c:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0d1a40:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)

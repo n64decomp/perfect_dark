@@ -696,7 +696,7 @@ Gfx *bviewRenderZoomBlur(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
 
 const char var7f1b5dd4[] = "blurGfxFisheye";
 
-f32 func0f142d74(s32 arg0, f32 arg1, f32 arg2, f32 arg3)
+f32 bview0f142d74(s32 arg0, f32 arg1, f32 arg2, f32 arg3)
 {
 	f32 result;
 	f32 value = arg2;
@@ -888,7 +888,7 @@ glabel var7f1b5f48
 /*  f14306c:	014c6825 */ 	or	$t5,$t2,$t4
 /*  f143070:	4407c000 */ 	mfc1	$a3,$f24
 /*  f143074:	ac4d0004 */ 	sw	$t5,0x4($v0)
-/*  f143078:	0fc50b5d */ 	jal	func0f142d74
+/*  f143078:	0fc50b5d */ 	jal	bview0f142d74
 /*  f14307c:	26310008 */ 	addiu	$s1,$s1,0x8
 /*  f143080:	461e0102 */ 	mul.s	$f4,$f0,$f30
 /*  f143084:	02202025 */ 	or	$a0,$s1,$zero
@@ -981,7 +981,7 @@ glabel var7f1b5f48
 /*  f1431c4:	4405d000 */ 	mfc1	$a1,$f26
 /*  f1431c8:	4406e000 */ 	mfc1	$a2,$f28
 /*  f1431cc:	4407c000 */ 	mfc1	$a3,$f24
-/*  f1431d0:	0fc50b5d */ 	jal	func0f142d74
+/*  f1431d0:	0fc50b5d */ 	jal	bview0f142d74
 /*  f1431d4:	02402025 */ 	or	$a0,$s2,$zero
 /*  f1431d8:	46160182 */ 	mul.s	$f6,$f0,$f22
 /*  f1431dc:	02202025 */ 	or	$a0,$s1,$zero
@@ -1005,7 +1005,7 @@ glabel var7f1b5f48
 /*  f143224:	ac4e0004 */ 	sw	$t6,0x4($v0)
 /*  f143228:	ac540000 */ 	sw	$s4,0x0($v0)
 /*  f14322c:	26310008 */ 	addiu	$s1,$s1,0x8
-/*  f143230:	0fc50b5d */ 	jal	func0f142d74
+/*  f143230:	0fc50b5d */ 	jal	bview0f142d74
 /*  f143234:	02402025 */ 	or	$a0,$s2,$zero
 /*  f143238:	3c017f1b */ 	lui	$at,%hi(var7f1b5f40)
 /*  f14323c:	c42a5f40 */ 	lwc1	$f10,%lo(var7f1b5f40)($at)
@@ -1252,7 +1252,7 @@ glabel var7f1b5f48
 .L0f1435c4:
 /*  f1435c4:	4406e000 */ 	mfc1	$a2,$f28
 /*  f1435c8:	4407c000 */ 	mfc1	$a3,$f24
-/*  f1435cc:	0fc50b5d */ 	jal	func0f142d74
+/*  f1435cc:	0fc50b5d */ 	jal	bview0f142d74
 /*  f1435d0:	02402025 */ 	or	$a0,$s2,$zero
 /*  f1435d4:	44060000 */ 	mfc1	$a2,$f0
 /*  f1435d8:	02202025 */ 	or	$a0,$s1,$zero
@@ -7362,14 +7362,14 @@ Gfx *func0f148b38(Gfx *gdl)
 	return gdl;
 }
 
-void func0f148b40(u32 arg0)
+void bviewSetBlur(u32 bluramount)
 {
 	var8007f840 = 0;
 	var8007f848 = 0;
-	var8007f844 = (arg0 << 1) / 3;
+	var8007f844 = (bluramount << 1) / 3;
 }
 
-void func0f148b6c(void)
+void bviewClearBlur(void)
 {
 	var8007f844 = 0;
 }

@@ -10169,7 +10169,7 @@ bool aiClearInventory(void)
  */
 bool aiReleaseObject(void)
 {
-	setMoveModeForAllPlayers(MOVEMODE_WALK);
+	bmoveSetModeForAllPlayers(MOVEMODE_WALK);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -10190,9 +10190,9 @@ bool aiChrGrabObject(void)
 		setCurrentPlayerNum(playernum);
 
 		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
-				&& currentPlayerGetCrouchPos() == CROUCH_STAND
+				&& bmoveGetCrouchPos() == CROUCHPOS_STAND
 				&& g_Vars.currentplayer->crouchoffset == 0) {
-			currentPlayerGrabProp(obj->prop);
+			bmoveGrabProp(obj->prop);
 		}
 
 		setCurrentPlayerNum(prevplayernum);

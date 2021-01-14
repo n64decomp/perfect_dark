@@ -38,7 +38,7 @@ u32 var80070e90 = 0x00000000;
 u32 var80070e94 = 0x00000000;
 u32 var80070e98 = 0x00000000;
 
-void currentPlayerGrabInit(void)
+void bgrabInit(void)
 {
 	s32 prevmode = g_Vars.currentplayer->bondmovemode;
 	Mtxf matrix;
@@ -144,7 +144,7 @@ void currentPlayerGrabInit(void)
 	g_Vars.currentplayer->grabstarttime = g_Vars.lvframe60;
 }
 
-void currentPlayerUpdateGrabbedPropForRelease(void)
+void bgrabExit(void)
 {
 	struct coord moveamount;
 	struct defaultobj *obj;
@@ -179,7 +179,7 @@ void currentPlayerUpdateGrabbedPropForRelease(void)
 }
 
 GLOBAL_ASM(
-glabel func0f0ccbf0
+glabel bgrab0f0ccbf0
 .late_rodata
 glabel var7f1ad990
 .word 0x3dcccccd
@@ -482,7 +482,7 @@ glabel var7f1ad990
 /*  f0cd058:	00000000 */ 	nop
 );
 
-bool func0f0cd05c(f32 y)
+bool bgrabTryMoveUpwards(f32 y)
 {
 	bool result;
 	struct coord newpos;
@@ -497,7 +497,7 @@ bool func0f0cd05c(f32 y)
 
 	propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
-	func0f0cb79c(g_Vars.currentplayer, &newpos, rooms);
+	bmove0f0cb79c(g_Vars.currentplayer, &newpos, rooms);
 	propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
 
 	ymin -= 0.1f;
@@ -508,7 +508,7 @@ bool func0f0cd05c(f32 y)
 
 	propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);
 
-	if (result == 1) {
+	if (result == CDRESULT_NOCOLLISION) {
 		g_Vars.currentplayer->prop->pos.y = newpos.y;
 		func0f065c44(g_Vars.currentplayer->prop);
 		roomsCopy(rooms, g_Vars.currentplayer->prop->rooms);
@@ -518,7 +518,7 @@ bool func0f0cd05c(f32 y)
 }
 
 GLOBAL_ASM(
-glabel func0f0cd1a4
+glabel bgrabCalculateNewPosition
 .late_rodata
 glabel var7f1ad998
 .word 0x3c8ef461
@@ -621,7 +621,7 @@ glabel var7f1ad9c4
 /*  f0cd2c4:	24450028 */ 	addiu	$a1,$v0,0x28
 /*  f0cd2c8:	8e040284 */ 	lw	$a0,0x284($s0)
 /*  f0cd2cc:	27a500dc */ 	addiu	$a1,$sp,0xdc
-/*  f0cd2d0:	0fc32de7 */ 	jal	func0f0cb79c
+/*  f0cd2d0:	0fc32de7 */ 	jal	bmove0f0cb79c
 /*  f0cd2d4:	27a600cc */ 	addiu	$a2,$sp,0xcc
 /*  f0cd2d8:	8e0d0284 */ 	lw	$t5,0x284($s0)
 /*  f0cd2dc:	240c0001 */ 	addiu	$t4,$zero,0x1
@@ -1075,11 +1075,11 @@ glabel var7f1ad9c4
 /*  f0cd96c:	27bd00f0 */ 	addiu	$sp,$sp,0xf0
 );
 
-bool func0f0cd970(struct coord *delta, f32 angle, bool arg2)
+bool bgrabCalculateNewPositiontWithPush(struct coord *delta, f32 angle, bool arg2)
 {
-	s32 result = func0f0cd1a4(delta, angle, arg2);
+	s32 result = bgrabCalculateNewPosition(delta, angle, arg2);
 
-	if (result != 1) {
+	if (result != CDRESULT_NOCOLLISION) {
 		struct prop *obstacle = cdGetObstacle();
 
 		if (obstacle && g_Vars.lvupdate240 > 0) {
@@ -1103,7 +1103,7 @@ bool func0f0cd970(struct coord *delta, f32 angle, bool arg2)
 					}
 
 					if (canpush) {
-						func0f0ccbf0(delta, angle);
+						bgrab0f0ccbf0(delta, angle);
 
 						if ((obj->hidden & OBJHFLAG_AIRBORNE)
 								&& (obj->projectile->flags & PROJECTILEFLAG_00000800)) {
@@ -1122,7 +1122,7 @@ bool func0f0cd970(struct coord *delta, f32 angle, bool arg2)
 							}
 
 							if (someint) {
-								result = func0f0cd1a4(delta, angle, arg2);
+								result = bgrabCalculateNewPosition(delta, angle, arg2);
 							}
 						}
 					}
@@ -1134,20 +1134,20 @@ bool func0f0cd970(struct coord *delta, f32 angle, bool arg2)
 	return result;
 }
 
-bool func0f0cdb04(f32 angle, bool arg2)
+bool bgrab0f0cdb04(f32 angle, bool arg2)
 {
 	struct coord coord = {0, 0, 0};
 	bool result;
 
 	g_Vars.currentplayer->grabbeddoextra = true;
-	result = func0f0cd970(&coord, angle, arg2);
+	result = bgrabCalculateNewPositiontWithPush(&coord, angle, arg2);
 	g_Vars.currentplayer->grabbeddoextra = false;
 
 	return result;
 }
 
 GLOBAL_ASM(
-glabel func0f0cdb68
+glabel bgrab0f0cdb68
 .late_rodata
 glabel var7f1ad9c8
 .word 0x3f8147ae
@@ -1377,10 +1377,10 @@ glabel var7f1ad9c8
 /*  f0cdeb0:	46167202 */ 	mul.s	$f8,$f14,$f22
 /*  f0cdeb4:	e7a40054 */ 	swc1	$f4,0x54($sp)
 /*  f0cdeb8:	46004182 */ 	mul.s	$f6,$f8,$f0
-/*  f0cdebc:	0fc3382f */ 	jal	func0f0ce0bc
+/*  f0cdebc:	0fc3382f */ 	jal	bgrab0f0ce0bc
 /*  f0cdec0:	e7a6005c */ 	swc1	$f6,0x5c($sp)
 /*  f0cdec4:	c7ac00b0 */ 	lwc1	$f12,0xb0($sp)
-/*  f0cdec8:	0fc336c1 */ 	jal	func0f0cdb04
+/*  f0cdec8:	0fc336c1 */ 	jal	bgrab0f0cdb04
 /*  f0cdecc:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0cded0:	10000002 */ 	b	.L0f0cdedc
 /*  f0cded4:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -1394,20 +1394,20 @@ glabel var7f1ad9c8
 /*  f0cdeec:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
 );
 
-void func0f0cdef0(void)
+void bgrab0f0cdef0(void)
 {
 	if (g_Vars.lvupdate240 > 0) {
 		f32 angle = g_Vars.currentplayer->speedtheta * g_Vars.lvupdate240freal * 0.017450513318181f * 3.5f;
 
-		if (func0f0cdb04(angle, true) == 0) {
-			func0f0cdb68(angle);
+		if (bgrab0f0cdb04(angle, true) == 0) {
+			bgrab0f0cdb68(angle);
 		}
 	}
 }
 
-bool func0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2)
+bool bgrab0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2)
 {
-	bool result = func0f0cd970(delta, 0, true);
+	bool result = bgrabCalculateNewPositiontWithPush(delta, 0, true);
 
 	if (!result) {
 		func00024e4c(arg1, arg2, 0x32f, "bondgrab.c");
@@ -1416,7 +1416,7 @@ bool func0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2)
 	return result;
 }
 
-s32 func0f0cdfbc(struct coord *delta, struct coord *arg1, struct coord *arg2)
+s32 bgrab0f0cdfbc(struct coord *delta, struct coord *arg1, struct coord *arg2)
 {
 	if (arg1->f[0] != arg2->f[0] || arg1->f[2] != arg2->f[2]) {
 		f32 tmp;
@@ -1437,20 +1437,20 @@ s32 func0f0cdfbc(struct coord *delta, struct coord *arg1, struct coord *arg2)
 		sp24.y = 0;
 		sp24.z = sp30.z * tmp;
 
-		return func0f0cd970(&sp24, 0, true);
+		return bgrabCalculateNewPositiontWithPush(&sp24, 0, true);
 	}
 
 	return -1;
 }
 
-void func0f0ce0bc(struct coord *arg0)
+void bgrab0f0ce0bc(struct coord *arg0)
 {
 	struct coord a;
 	struct coord b;
-	s32 value = func0f0cdf64(arg0, &a, &b);
+	s32 value = bgrab0f0cdf64(arg0, &a, &b);
 
 	if (value == 0) {
-		value = func0f0cdfbc(arg0, &a, &b);
+		value = bgrab0f0cdfbc(arg0, &a, &b);
 
 		if (value <= 0) {
 			value = 1;
@@ -1462,7 +1462,7 @@ void func0f0ce0bc(struct coord *arg0)
 	}
 }
 
-void currentPlayerUpdatePrevPosGrab(void)
+void bgrabUpdatePrevPos(void)
 {
 	g_Vars.currentplayer->bondprevpos.x = g_Vars.currentplayer->prop->pos.x;
 	g_Vars.currentplayer->bondprevpos.y = g_Vars.currentplayer->prop->pos.y;
@@ -1475,12 +1475,12 @@ void currentPlayerUpdatePrevPosGrab(void)
 	g_Vars.currentplayer->grabbedprevpos.z = g_Vars.currentplayer->grabbedprop->pos.z;
 }
 
-void func0f0ce178(void)
+void bgrab0f0ce178(void)
 {
 	func0f069c70(g_Vars.currentplayer->grabbedprop->obj, 0, 1);
 }
 
-void func0f0ce1ac(void)
+void bgrabUpdateVertical(void)
 {
 	f32 stack;
 	s32 i;
@@ -1548,7 +1548,7 @@ void func0f0ce1ac(void)
 		tmp = g_Vars.currentplayer->vv_ground + 10.0f - g_Vars.currentplayer->prop->pos.y;
 	}
 
-	if (func0f0cd05c(tmp)) {
+	if (bgrabTryMoveUpwards(tmp)) {
 		g_Vars.currentplayer->sumground = fVar3;
 		g_Vars.currentplayer->vv_manground = fVar3 * 0.045499980449677f;
 	}
@@ -1559,17 +1559,17 @@ void func0f0ce1ac(void)
 	}
 }
 
-void func0f0ce450(void)
+void bgrabHandleActivate(void)
 {
 	if (currentPlayerTryMountHoverbike(g_Vars.currentplayer->grabbedprop)) {
 		g_Vars.currentplayer->bondactivateorreload = 0;
 	} else {
 		g_Vars.currentplayer->bondactivateorreload = 0;
-		currentPlayerSetMoveMode(MOVEMODE_WALK);
+		bmoveSetMode(MOVEMODE_WALK);
 	}
 }
 
-void currentPlayerUpdateSpeedSidewaysGrab(f32 targetspeed, f32 accelspeed, s32 mult)
+void bgrabUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
 {
 	if (targetspeed < g_Vars.currentplayer->speedstrafe) {
 		g_Vars.currentplayer->speedstrafe -= accelspeed * mult;
@@ -1588,7 +1588,7 @@ void currentPlayerUpdateSpeedSidewaysGrab(f32 targetspeed, f32 accelspeed, s32 m
 	g_Vars.currentplayer->speedsideways = g_Vars.currentplayer->speedstrafe;
 }
 
-void currentPlayerUpdateSpeedForwardsGrab(f32 target, f32 speed)
+void bgrabUpdateSpeedForwards(f32 target, f32 speed)
 {
 	if (g_Vars.currentplayer->speedgo < target) {
 		g_Vars.currentplayer->speedgo += speed * g_Vars.lvupdate240freal;
@@ -1607,33 +1607,33 @@ void currentPlayerUpdateSpeedForwardsGrab(f32 target, f32 speed)
 	g_Vars.currentplayer->speedforwards = g_Vars.currentplayer->speedgo;
 }
 
-void currentPlayerUpdateSpeedGrab(struct movedata *data)
+void bgrabApplyMoveData(struct movedata *data)
 {
 	// Sideways
 	if (data->digitalstepleft) {
-		currentPlayerUpdateSpeedSidewaysGrab(-1, 0.2f / 3.0f, data->digitalstepleft);
+		bgrabUpdateSpeedSideways(-1, 0.2f / 3.0f, data->digitalstepleft);
 	} else if (data->digitalstepright) {
-		currentPlayerUpdateSpeedSidewaysGrab(1, 0.2f / 3.0f, data->digitalstepright);
+		bgrabUpdateSpeedSideways(1, 0.2f / 3.0f, data->digitalstepright);
 	} else if (data->unk14 == 0) {
-		currentPlayerUpdateSpeedSidewaysGrab(0, 0.2f / 3.0f, g_Vars.lvupdate240_60);
+		bgrabUpdateSpeedSideways(0, 0.2f / 3.0f, g_Vars.lvupdate240_60);
 	}
 
 	if (data->unk14) {
-		currentPlayerUpdateSpeedSidewaysGrab(data->analogstrafe * 0.014285714365542f, 0.2f / 3.0f, g_Vars.lvupdate240_60);
+		bgrabUpdateSpeedSideways(data->analogstrafe * 0.014285714365542f, 0.2f / 3.0f, g_Vars.lvupdate240_60);
 	}
 
 	// Forward/back
 	if (data->digitalstepforward) {
-		currentPlayerUpdateSpeedForwardsGrab(1, 0.2f / 3.0f);
+		bgrabUpdateSpeedForwards(1, 0.2f / 3.0f);
 		g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate240_60;
 	} else if (data->digitalstepback) {
-		currentPlayerUpdateSpeedForwardsGrab(-1, 0.2f / 3.0f);
+		bgrabUpdateSpeedForwards(-1, 0.2f / 3.0f);
 	} else if (data->canlookahead == false) {
-		currentPlayerUpdateSpeedForwardsGrab(0, 0.2f / 3.0f);
+		bgrabUpdateSpeedForwards(0, 0.2f / 3.0f);
 	}
 
 	if (data->canlookahead) {
-		currentPlayerUpdateSpeedForwardsGrab(data->analogwalk * 0.014285714365542f, 0.2f / 3.0f);
+		bgrabUpdateSpeedForwards(data->analogwalk * 0.014285714365542f, 0.2f / 3.0f);
 
 		if (data->analogwalk > 60) {
 			g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate240_60;
@@ -1666,7 +1666,7 @@ void currentPlayerUpdateSpeedGrab(struct movedata *data)
 	}
 }
 
-void currentPlayerUpdateSpeedThetaGrab(void)
+void bgrabUpdateSpeedTheta(void)
 {
 	f32 mult = 0.98470002412796f;
 	f32 speedtheta = g_Vars.currentplayer->speedtheta * 0.75f;
@@ -1687,7 +1687,7 @@ u32 var80070eb8 = 0x00000000;
 u32 var80070ebc = 0x00000000;
 
 GLOBAL_ASM(
-glabel func0f0ce924
+glabel bgrab0f0ce924
 .late_rodata
 glabel var7f1ada18
 .word 0x3f4ccccd
@@ -1725,7 +1725,7 @@ glabel var7f1ada2c
 /*  f0ce974:	c444014c */ 	lwc1	$f4,0x14c($v0)
 /*  f0ce978:	8c470150 */ 	lw	$a3,0x150($v0)
 /*  f0ce97c:	2446017c */ 	addiu	$a2,$v0,0x17c
-/*  f0ce980:	0fc32ea2 */ 	jal	func0f0cba88
+/*  f0ce980:	0fc32ea2 */ 	jal	bmove0f0cba88
 /*  f0ce984:	e7a40010 */ 	swc1	$f4,0x10($sp)
 /*  f0ce988:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0ce98c:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -1840,7 +1840,7 @@ glabel var7f1ada2c
 /*  f0ceb1c:	c44e0170 */ 	lwc1	$f14,0x170($v0)
 .L0f0ceb20:
 /*  f0ceb20:	e7ac005c */ 	swc1	$f12,0x5c($sp)
-/*  f0ceb24:	0fc33195 */ 	jal	func0f0cc654
+/*  f0ceb24:	0fc33195 */ 	jal	bmove0f0cc654
 /*  f0ceb28:	8fa60088 */ 	lw	$a2,0x88($sp)
 /*  f0ceb2c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0ceb30:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -1888,7 +1888,7 @@ glabel var7f1ada2c
 /*  f0cebd4:	c7a4007c */ 	lwc1	$f4,0x7c($sp)
 /*  f0cebd8:	460e3282 */ 	mul.s	$f10,$f6,$f14
 /*  f0cebdc:	460a2200 */ 	add.s	$f8,$f4,$f10
-/*  f0cebe0:	0fc32ed2 */ 	jal	currentPlayerUpdateMoveInitSpeed
+/*  f0cebe0:	0fc32ed2 */ 	jal	bmoveUpdateMoveInitSpeed
 /*  f0cebe4:	e7a8007c */ 	swc1	$f8,0x7c($sp)
 /*  f0cebe8:	0fc47b82 */ 	jal	debugIsTurboModeEnabled
 /*  f0cebec:	00000000 */ 	nop
@@ -1926,7 +1926,7 @@ glabel var7f1ada2c
 /*  f0cec6c:	460a2200 */ 	add.s	$f8,$f4,$f10
 /*  f0cec70:	e7a8007c */ 	swc1	$f8,0x7c($sp)
 .L0f0cec74:
-/*  f0cec74:	0fc3382f */ 	jal	func0f0ce0bc
+/*  f0cec74:	0fc3382f */ 	jal	bgrab0f0ce0bc
 /*  f0cec78:	27a40074 */ 	addiu	$a0,$sp,0x74
 /*  f0cec7c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0cec80:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -2032,7 +2032,7 @@ glabel var7f1ada2c
 /*  f0cedf8:	c44a00cc */ 	lwc1	$f10,0xcc($v0)
 /*  f0cedfc:	46044083 */ 	div.s	$f2,$f8,$f4
 /*  f0cee00:	e7aa0038 */ 	swc1	$f10,0x38($sp)
-/*  f0cee04:	0fc4505b */ 	jal	func0f11416c
+/*  f0cee04:	0fc4505b */ 	jal	bheadGetBreathingValue
 /*  f0cee08:	e7a2003c */ 	swc1	$f2,0x3c($sp)
 /*  f0cee0c:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0cee10:	44817000 */ 	mtc1	$at,$f14
@@ -2087,18 +2087,18 @@ glabel var7f1ada2c
 /*  f0ceec0:	00000000 */ 	nop
 );
 
-void func0f0ceec4(void)
+void bgrabTick(void)
 {
 	s32 i;
 	struct defaultobj *obj;
 	struct hov *hov;
 
-	currentPlayerUpdatePrevPosGrab();
-	func0f0cdef0();
-	func0f0cbf50();
-	func0f0ce924();
-	func0f0ce178();
-	func0f0ce1ac();
+	bgrabUpdatePrevPos();
+	bgrab0f0cdef0();
+	bmoveUpdateVerta();
+	bgrab0f0ce924();
+	bgrab0f0ce178();
+	bgrabUpdateVertical();
 
 	for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
 		if (g_Vars.currentplayer->prop->rooms[i] == g_Vars.currentplayer->floorroom) {
@@ -2124,9 +2124,9 @@ void func0f0ceec4(void)
 		func0f0714b8(obj, hov);
 	}
 
-	func0f0cb8c4(g_Vars.currentplayer);
+	bmove0f0cb8c4(g_Vars.currentplayer);
 	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
-	func0f0cc19c(&g_Vars.currentplayer->prop->pos);
+	bmove0f0cc19c(&g_Vars.currentplayer->prop->pos);
 	currentPlayerUpdatePerimInfo();
 	func0f08c190();
 
@@ -2146,7 +2146,7 @@ void func0f0ceec4(void)
 				|| g_Vars.currentplayer->vv_ground < g_Vars.currentplayer->vv_manground - 50
 				|| !hasLineOfSight(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 					&g_Vars.currentplayer->grabbedprop->pos, g_Vars.currentplayer->grabbedprop->rooms, CDTYPE_ALL, 12)) {
-			currentPlayerSetMoveMode(MOVEMODE_WALK);
+			bmoveSetMode(MOVEMODE_WALK);
 		}
 
 		propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);

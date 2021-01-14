@@ -5766,18 +5766,18 @@ glabel func0f06ad2c
 .L0f06b004:
 /*  f06b004:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f06b008:	02002025 */ 	or	$a0,$s0,$zero
-/*  f06b00c:	0fc31f31 */ 	jal	currentPlayerGetGrabbedProp
+/*  f06b00c:	0fc31f31 */ 	jal	bmoveGetGrabbedProp
 /*  f06b010:	00000000 */ 	nop
 /*  f06b014:	8e2b0014 */ 	lw	$t3,0x14($s1)
 /*  f06b018:	104b0006 */ 	beq	$v0,$t3,.L0f06b034
 /*  f06b01c:	00000000 */ 	nop
-/*  f06b020:	0fc31f26 */ 	jal	currentPlayerGetHoverbike
+/*  f06b020:	0fc31f26 */ 	jal	bmoveGetHoverbike
 /*  f06b024:	00000000 */ 	nop
 /*  f06b028:	8e240014 */ 	lw	$a0,0x14($s1)
 /*  f06b02c:	14440004 */ 	bne	$v0,$a0,.L0f06b040
 /*  f06b030:	00000000 */ 	nop
 .L0f06b034:
-/*  f06b034:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
+/*  f06b034:	0fc31f4c */ 	jal	bmoveSetMode
 /*  f06b038:	00002025 */ 	or	$a0,$zero,$zero
 /*  f06b03c:	8e240014 */ 	lw	$a0,0x14($s1)
 .L0f06b040:
@@ -19984,11 +19984,11 @@ glabel var7f1aa454
 /*  f077a0c:	e7a40094 */ 	swc1	$f4,0x94($sp)
 /*  f077a10:	27a4008c */ 	addiu	$a0,$sp,0x8c
 /*  f077a14:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f077a18:	0fc318ef */ 	jal	func0f0c63bc
+/*  f077a18:	0fc318ef */ 	jal	bwalk0f0c63bc
 /*  f077a1c:	24060020 */ 	addiu	$a2,$zero,0x20
 /*  f077a20:	0fc307fd */ 	jal	currentPlayerUpdatePerimInfo
 /*  f077a24:	00000000 */ 	nop
-/*  f077a28:	0fc32e31 */ 	jal	func0f0cb8c4
+/*  f077a28:	0fc32e31 */ 	jal	bmove0f0cb8c4
 /*  f077a2c:	8e440064 */ 	lw	$a0,0x64($s2)
 /*  f077a30:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f077a34:	02e02025 */ 	or	$a0,$s7,$zero
@@ -20082,7 +20082,7 @@ glabel var7f1aa454
 .L0f077b88:
 /*  f077b88:	0fc307fd */ 	jal	currentPlayerUpdatePerimInfo
 /*  f077b8c:	00000000 */ 	nop
-/*  f077b90:	0fc32e31 */ 	jal	func0f0cb8c4
+/*  f077b90:	0fc32e31 */ 	jal	bmove0f0cb8c4
 /*  f077b94:	8e440064 */ 	lw	$a0,0x64($s2)
 /*  f077b98:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f077b9c:	02e02025 */ 	or	$a0,$s7,$zero
@@ -28401,7 +28401,7 @@ s32 objTick(struct prop *prop)
 
 	if (sp552) {
 		pass2 = false;
-	} else if (prop == currentPlayerGetHoverbike() || prop == currentPlayerGetGrabbedProp()) {
+	} else if (prop == bmoveGetHoverbike() || prop == bmoveGetGrabbedProp()) {
 		pass2 = posIsInDrawDistance(&prop->pos);
 	} else if (obj->flags2 & OBJFLAG2_04000000) {
 		pass2 = posIsInDrawDistance(&prop->pos);
@@ -37945,7 +37945,7 @@ glabel var7f1aab3c
 /*  f086a78:	14400028 */ 	bnez	$v0,.L0f086b1c
 /*  f086a7c:	00000000 */ 	nop
 /*  f086a80:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f086a84:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
+/*  f086a84:	0fc331a0 */ 	jal	bmoveGetCrouchPos
 /*  f086a88:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f086a8c:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f086a90:	8fa50024 */ 	lw	$a1,0x24($sp)
@@ -37969,7 +37969,7 @@ glabel var7f1aab3c
 /*  f086ad4:	15a00011 */ 	bnez	$t5,.L0f086b1c
 /*  f086ad8:	00000000 */ 	nop
 /*  f086adc:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f086ae0:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
+/*  f086ae0:	0fc331a0 */ 	jal	bmoveGetCrouchPos
 /*  f086ae4:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f086ae8:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f086aec:	8fa50024 */ 	lw	$a1,0x24($sp)
@@ -37992,7 +37992,7 @@ glabel var7f1aab3c
 /*  f086b2c:	0701000a */ 	bgez	$t8,.L0f086b58
 /*  f086b30:	00000000 */ 	nop
 /*  f086b34:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f086b38:	0fc31f26 */ 	jal	currentPlayerGetHoverbike
+/*  f086b38:	0fc31f26 */ 	jal	bmoveGetHoverbike
 /*  f086b3c:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f086b40:	8fb90030 */ 	lw	$t9,0x30($sp)
 /*  f086b44:	8fa50024 */ 	lw	$a1,0x24($sp)
@@ -38153,7 +38153,7 @@ bool currentPlayerTryMountHoverbike(struct prop *prop)
 			&& g_Vars.lvframe60 - g_Vars.currentplayer->activatetimelast < 30
 			&& (obj->hidden & OBJHFLAG_04000000) == 0) {
 		if (obj->hidden & OBJHFLAG_GRABBED) {
-			if (currentPlayerGetGrabbedProp() == prop) {
+			if (bmoveGetGrabbedProp() == prop) {
 				pass = true;
 			} else {
 				pass = false;
@@ -38165,7 +38165,7 @@ bool currentPlayerTryMountHoverbike(struct prop *prop)
 
 	if (pass && g_Vars.currentplayer->bondmovemode != MOVEMODE_GRAB) {
 		if (g_Vars.currentplayer->bondmovemode != MOVEMODE_WALK
-				|| currentPlayerGetCrouchPos() != CROUCH_STAND
+				|| bmoveGetCrouchPos() != CROUCHPOS_STAND
 				|| g_Vars.currentplayer->crouchoffset != 0) {
 			pass = false;
 		}
@@ -38184,7 +38184,7 @@ bool currentPlayerTryMountHoverbike(struct prop *prop)
 		if ((angle > 0.3926365673542f && angle < 2.3558194637299f)
 				|| (angle < 5.8895483016968f && angle > 3.9263656139374f)) {
 			g_Vars.currentplayer->hoverbike = prop;
-			currentPlayerSetMoveMode(MOVEMODE_BIKE);
+			bmoveSetMode(MOVEMODE_BIKE);
 			return true;
 		}
 	}
@@ -38295,10 +38295,10 @@ bool propobjInteract(struct prop *prop)
 	} else if (currentPlayerTryMountHoverbike(prop) == false
 			&& (obj->flags3 & OBJFLAG3_GRABBABLE)
 			&& g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
-			&& currentPlayerGetCrouchPos() == CROUCH_STAND
+			&& bmoveGetCrouchPos() == CROUCHPOS_STAND
 			&& g_Vars.currentplayer->crouchoffset == 0
 			&& g_Vars.currentplayer->onladder == false) {
-		currentPlayerGrabProp(prop);
+		bmoveGrabProp(prop);
 	}
 
 	if (g_Vars.normmplayerisrunning) {
@@ -43836,7 +43836,7 @@ glabel func0f08c190
 /*  f08c284:	0000a025 */ 	or	$s4,$zero,$zero
 /*  f08c288:	54410007 */ 	bnel	$v0,$at,.L0f08c2a8
 /*  f08c28c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f08c290:	0fc31f31 */ 	jal	currentPlayerGetGrabbedProp
+/*  f08c290:	0fc31f31 */ 	jal	bmoveGetGrabbedProp
 /*  f08c294:	00000000 */ 	nop
 /*  f08c298:	8c530004 */ 	lw	$s3,0x4($v0)
 /*  f08c29c:	10000009 */ 	b	.L0f08c2c4
@@ -43845,7 +43845,7 @@ glabel func0f08c190
 .L0f08c2a8:
 /*  f08c2a8:	54410007 */ 	bnel	$v0,$at,.L0f08c2c8
 /*  f08c2ac:	8c6400bc */ 	lw	$a0,0xbc($v1)
-/*  f08c2b0:	0fc31f26 */ 	jal	currentPlayerGetHoverbike
+/*  f08c2b0:	0fc31f26 */ 	jal	bmoveGetHoverbike
 /*  f08c2b4:	00000000 */ 	nop
 /*  f08c2b8:	8c530004 */ 	lw	$s3,0x4($v0)
 /*  f08c2bc:	24140001 */ 	addiu	$s4,$zero,0x1

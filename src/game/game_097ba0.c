@@ -7552,7 +7552,7 @@ glabel var7f1ac66c
 .L0f09d9b8:
 /*  f09d9b8:	e60015f8 */ 	swc1	$f0,0x15f8($s0)
 .L0f09d9bc:
-/*  f09d9bc:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
+/*  f09d9bc:	0fc331a0 */ 	jal	bmoveGetCrouchPos
 /*  f09d9c0:	e7b00050 */ 	swc1	$f16,0x50($sp)
 /*  f09d9c4:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f09d9c8:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
@@ -11261,7 +11261,7 @@ glabel func0f0a0cb0
 /*  f0a0d64:	46041082 */ 	mul.s	$f2,$f2,$f4
 /*  f0a0d68:	00000000 */ 	nop
 .L0f0a0d6c:
-/*  f0a0d6c:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
+/*  f0a0d6c:	0fc331a0 */ 	jal	bmoveGetCrouchPos
 /*  f0a0d70:	e7a2003c */ 	swc1	$f2,0x3c($sp)
 /*  f0a0d74:	14400006 */ 	bnez	$v0,.L0f0a0d90
 /*  f0a0d78:	c7a2003c */ 	lwc1	$f2,0x3c($sp)

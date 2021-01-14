@@ -1422,7 +1422,7 @@ glabel var7f1a8720
 .L0f01f80c:
 /*  f01f80c:	8e0402d4 */ 	lw	$a0,0x2d4($s0)
 /*  f01f810:	e7ac00e0 */ 	swc1	$f12,0xe0($sp)
-/*  f01f814:	0fc32e41 */ 	jal	func0f0cb904
+/*  f01f814:	0fc32e41 */ 	jal	bmove0f0cb904
 /*  f01f818:	24840108 */ 	addiu	$a0,$a0,0x108
 /*  f01f81c:	8e0f02d4 */ 	lw	$t7,0x2d4($s0)
 /*  f01f820:	3c028007 */ 	lui	$v0,%hi(var80075c00)

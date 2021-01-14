@@ -174,9 +174,9 @@ void currentPlayerInitAnimation(void)
 		modelSetAnimEndFrame(&g_Vars.currentplayer->model,
 				var80075c00[g_Vars.currentplayer->headanim].endframe);
 
-		modelSetAnimFlipFunction(&g_Vars.currentplayer->model, currentPlayerFlipAnimation);
+		modelSetAnimFlipFunction(&g_Vars.currentplayer->model, bheadFlipAnimation);
 
-		currentPlayerUpdateIdleHeadRoll();
+		bheadUpdateIdleRoll();
 	}
 }
 
