@@ -9,7 +9,7 @@ void func0f0d2294(void);
 void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance);
 void currentPlayerDismountBike(void);
 void currentPlayerUpdateSpeedBike(struct movedata *data);
-void func0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2);
+void func0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct defaultobj *obstacle);
 s32 func0f0d2e18(struct coord *arg0, f32 arg1);
 s32 func0f0d3298(struct coord *arg0, f32 arg1);
 void func0f0d341c(struct coord *arg0);
