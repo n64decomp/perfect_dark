@@ -683,7 +683,7 @@ extern u32 var800a4158;
 extern u32 var800a415c;
 extern u32 var800a4164;
 extern u32 var800a416c;
-extern u32 var800a4170;
+extern struct creditsdata *g_CreditsData;
 extern u32 var800a4184;
 extern u32 var800a418c;
 extern u32 var800a4190;
