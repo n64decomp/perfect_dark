@@ -165,7 +165,6 @@ extern u32 var8007f46c;
 extern struct credit g_Credits[];
 extern u32 var8007f6c4;
 extern u32 var8007f6d4;
-extern u32 var8007f6d8;
 extern u32 var8007f6e0;
 extern u32 var8007f6e4;
 extern u32 var8007f6e8;

@@ -13,7 +13,7 @@ u32 func0f1382e0(void);
 void func0f13838c(s32 arg0);
 Gfx *func0f1384b4(Gfx *gdl, u32 arg1);
 u32 func0f13870c(void);
-u32 func0f13899c(void);
+void func0f13899c(void);
 u32 func0f138e6c(void);
 Gfx *creditsRenderSprites(Gfx *gdl);
 u32 func0f1399d0(void);
@@ -27,6 +27,13 @@ void creditsTick(void);
 Gfx *creditsRender(Gfx *gdl);
 void creditsInit(void);
 void func0f13b660(void);
+
+struct credits41b4 {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+};
 
 struct creditsdata {
 	/*0x0000*/ u32 unk0000;
@@ -4239,22 +4246,7 @@ struct creditsdata {
 	/*0x41ac*/ u32 unk41ac;
 	/*0x41b0*/ u8 unk41b0;
 	/*0x41b1*/ u8 unk41b1;
-	/*0x41b4*/ u32 unk41b4;
-	/*0x41b8*/ u32 unk41b8;
-	/*0x41bc*/ u32 unk41bc;
-	/*0x41c0*/ u32 unk41c0;
-	/*0x41c4*/ u32 unk41c4;
-	/*0x41c8*/ u32 unk41c8;
-	/*0x41cc*/ u32 unk41cc;
-	/*0x41d0*/ u32 unk41d0;
-	/*0x41d4*/ u32 unk41d4;
-	/*0x41d8*/ u32 unk41d8;
-	/*0x41dc*/ u32 unk41dc;
-	/*0x41e0*/ u32 unk41e0;
-	/*0x41e4*/ u32 unk41e4;
-	/*0x41e8*/ u32 unk41e8;
-	/*0x41ec*/ u32 unk41ec;
-	/*0x41f0*/ u32 unk41f0;
+	/*0x41b4*/ struct credits41b4 unk41b4[4];
 	/*0x41f4*/ u8 unk41f4;
 	/*0x41f8*/ u32 unk41f8;
 	/*0x41fc*/ u32 unk41fc;

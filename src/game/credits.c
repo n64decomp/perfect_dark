@@ -33,8 +33,6 @@
 
 const char var7f1b57c0[] = "tload";
 const char var7f1b57c8[] = "dump";
-const char var7f1b57d0[] = "for";
-const char var7f1b57d4[] = "flick";
 
 u32 var8007f130 = 0x00000000;
 u32 var8007f134 = 0x00000000;
@@ -352,8 +350,6 @@ u32 var8007f6c8 = 0x41000000;
 u32 var8007f6cc = 0x41400000;
 u32 var8007f6d0 = 0x41800000;
 u32 var8007f6d4 = 0x00000000;
-u32 var8007f6d8 = 0x0000ffff;
-u32 var8007f6dc = 0;
 
 GLOBAL_ASM(
 glabel func0f1371b0
@@ -4696,174 +4692,59 @@ glabel func0f13ae04
 /*  f13ae08:	afa40000 */ 	sw	$a0,0x0($sp)
 );
 
-GLOBAL_ASM(
-glabel creditsTick
-.late_rodata
-glabel var7f1b5930
-.word 0x3c23d70a
-.text
-/*  f13ae0c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f13ae10:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f13ae14:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f13ae18:	00002025 */ 	or	$a0,$zero,$zero
-/*  f13ae1c:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
-/*  f13ae20:	24050020 */ 	addiu	$a1,$zero,0x20
-/*  f13ae24:	10400003 */ 	beqz	$v0,.L0f13ae34
-/*  f13ae28:	00000000 */ 	nop
-/*  f13ae2c:	0fc4e0e3 */ 	jal	func0f13838c
-/*  f13ae30:	2404ffff */ 	addiu	$a0,$zero,-1
-.L0f13ae34:
-/*  f13ae34:	3c047f1b */ 	lui	$a0,%hi(var7f1b57d0)
-/*  f13ae38:	3c058008 */ 	lui	$a1,%hi(var8007f6d8)
-/*  f13ae3c:	24a5f6d8 */ 	addiu	$a1,$a1,%lo(var8007f6d8)
-/*  f13ae40:	0c0036cc */ 	jal	func0000db30
-/*  f13ae44:	248457d0 */ 	addiu	$a0,$a0,%lo(var7f1b57d0)
-/*  f13ae48:	3c0e8008 */ 	lui	$t6,%hi(var8007f6d8)
-/*  f13ae4c:	8dcef6d8 */ 	lw	$t6,%lo(var8007f6d8)($t6)
-/*  f13ae50:	3401ffff */ 	dli	$at,0xffff
-/*  f13ae54:	3c047f1b */ 	lui	$a0,%hi(var7f1b57d4)
-/*  f13ae58:	01c1082b */ 	sltu	$at,$t6,$at
-/*  f13ae5c:	1020000c */ 	beqz	$at,.L0f13ae90
-/*  f13ae60:	248457d4 */ 	addiu	$a0,$a0,%lo(var7f1b57d4)
-/*  f13ae64:	3c10800a */ 	lui	$s0,%hi(g_CreditsData)
-/*  f13ae68:	26104170 */ 	addiu	$s0,$s0,%lo(g_CreditsData)
-/*  f13ae6c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f13ae70:	24030040 */ 	addiu	$v1,$zero,0x40
-.L0f13ae74:
-/*  f13ae74:	8e180000 */ 	lw	$t8,0x0($s0)
-/*  f13ae78:	3c0f8008 */ 	lui	$t7,%hi(var8007f6d8)
-/*  f13ae7c:	8deff6d8 */ 	lw	$t7,%lo(var8007f6d8)($t7)
-/*  f13ae80:	0302c821 */ 	addu	$t9,$t8,$v0
-/*  f13ae84:	24420010 */ 	addiu	$v0,$v0,0x10
-/*  f13ae88:	1443fffa */ 	bne	$v0,$v1,.L0f13ae74
-/*  f13ae8c:	af2f41b4 */ 	sw	$t7,0x41b4($t9)
-.L0f13ae90:
-/*  f13ae90:	3c10800a */ 	lui	$s0,%hi(g_CreditsData)
-/*  f13ae94:	3c058008 */ 	lui	$a1,%hi(var8007f6d4)
-/*  f13ae98:	26104170 */ 	addiu	$s0,$s0,%lo(g_CreditsData)
-/*  f13ae9c:	0c0036cc */ 	jal	func0000db30
-/*  f13aea0:	24a5f6d4 */ 	addiu	$a1,$a1,%lo(var8007f6d4)
-/*  f13aea4:	3c088008 */ 	lui	$t0,%hi(var8007f6d4)
-/*  f13aea8:	8d08f6d4 */ 	lw	$t0,%lo(var8007f6d4)($t0)
-/*  f13aeac:	11000005 */ 	beqz	$t0,.L0f13aec4
-/*  f13aeb0:	00000000 */ 	nop
-/*  f13aeb4:	0fc4e0e3 */ 	jal	func0f13838c
-/*  f13aeb8:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f13aebc:	3c018008 */ 	lui	$at,%hi(var8007f6d4)
-/*  f13aec0:	ac20f6d4 */ 	sw	$zero,%lo(var8007f6d4)($at)
-.L0f13aec4:
-/*  f13aec4:	3c06800a */ 	lui	$a2,%hi(var800a416c)
-/*  f13aec8:	24c6416c */ 	addiu	$a2,$a2,%lo(var800a416c)
-/*  f13aecc:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f13aed0:	3c098008 */ 	lui	$t1,%hi(var8007f138)
-/*  f13aed4:	14800016 */ 	bnez	$a0,.L0f13af30
-/*  f13aed8:	00000000 */ 	nop
-/*  f13aedc:	8d29f138 */ 	lw	$t1,%lo(var8007f138)($t1)
-/*  f13aee0:	1120000b */ 	beqz	$t1,.L0f13af10
-/*  f13aee4:	00000000 */ 	nop
-/*  f13aee8:	0fc5b67c */ 	jal	musicSetStage
-/*  f13aeec:	2404005c */ 	addiu	$a0,$zero,0x5c
-/*  f13aef0:	44806000 */ 	mtc1	$zero,$f12
-/*  f13aef4:	0fc5b52e */ 	jal	musicStartPrimary
-/*  f13aef8:	00000000 */ 	nop
-/*  f13aefc:	3c04800a */ 	lui	$a0,%hi(var800a416c)
-/*  f13af00:	3c06800a */ 	lui	$a2,%hi(var800a416c)
-/*  f13af04:	24c6416c */ 	addiu	$a2,$a2,%lo(var800a416c)
-/*  f13af08:	10000009 */ 	b	.L0f13af30
-/*  f13af0c:	8c84416c */ 	lw	$a0,%lo(var800a416c)($a0)
-.L0f13af10:
-/*  f13af10:	0fc5b67c */ 	jal	musicSetStage
-/*  f13af14:	2404005c */ 	addiu	$a0,$zero,0x5c
-/*  f13af18:	0fc5b647 */ 	jal	musicStartMenu2
-/*  f13af1c:	24040058 */ 	addiu	$a0,$zero,0x58
-/*  f13af20:	3c04800a */ 	lui	$a0,%hi(var800a416c)
-/*  f13af24:	3c06800a */ 	lui	$a2,%hi(var800a416c)
-/*  f13af28:	24c6416c */ 	addiu	$a2,$a2,%lo(var800a416c)
-/*  f13af2c:	8c84416c */ 	lw	$a0,%lo(var800a416c)($a0)
-.L0f13af30:
-/*  f13af30:	3c05800a */ 	lui	$a1,%hi(var800a4164)
-/*  f13af34:	24a54164 */ 	addiu	$a1,$a1,%lo(var800a4164)
-/*  f13af38:	8ca20000 */ 	lw	$v0,0x0($a1)
-/*  f13af3c:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x40)
-/*  f13af40:	8c63a000 */ 	lw	$v1,%lo(g_Vars+0x40)($v1)
-/*  f13af44:	3c01800a */ 	lui	$at,%hi(var800a4168)
-/*  f13af48:	ac224168 */ 	sw	$v0,%lo(var800a4168)($at)
-/*  f13af4c:	240112c0 */ 	addiu	$at,$zero,0x12c0
-/*  f13af50:	00835821 */ 	addu	$t3,$a0,$v1
-/*  f13af54:	0161001b */ 	divu	$zero,$t3,$at
-/*  f13af58:	00006810 */ 	mfhi	$t5
-/*  f13af5c:	448d2000 */ 	mtc1	$t5,$f4
-/*  f13af60:	00435021 */ 	addu	$t2,$v0,$v1
-/*  f13af64:	acaa0000 */ 	sw	$t2,0x0($a1)
-/*  f13af68:	accb0000 */ 	sw	$t3,0x0($a2)
-/*  f13af6c:	05a10005 */ 	bgez	$t5,.L0f13af84
-/*  f13af70:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f13af74:	3c014f80 */ 	lui	$at,0x4f80
-/*  f13af78:	44814000 */ 	mtc1	$at,$f8
-/*  f13af7c:	00000000 */ 	nop
-/*  f13af80:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f13af84:
-/*  f13af84:	3c014596 */ 	lui	$at,0x4596
-/*  f13af88:	44815000 */ 	mtc1	$at,$f10
-/*  f13af8c:	3c01800a */ 	lui	$at,%hi(var800a4160)
-/*  f13af90:	460a3403 */ 	div.s	$f16,$f6,$f10
-/*  f13af94:	0fc4e267 */ 	jal	func0f13899c
-/*  f13af98:	e4304160 */ 	swc1	$f16,%lo(var800a4160)($at)
-/*  f13af9c:	8e0e0000 */ 	lw	$t6,0x0($s0)
-/*  f13afa0:	91d841f4 */ 	lbu	$t8,0x41f4($t6)
-/*  f13afa4:	13000005 */ 	beqz	$t8,.L0f13afbc
-/*  f13afa8:	00000000 */ 	nop
-/*  f13afac:	0fc4e859 */ 	jal	func0f13a164
-/*  f13afb0:	00000000 */ 	nop
-/*  f13afb4:	1000001b */ 	b	.L0f13b024
-/*  f13afb8:	8e020000 */ 	lw	$v0,0x0($s0)
-.L0f13afbc:
-/*  f13afbc:	0c004b70 */ 	jal	random
-/*  f13afc0:	00000000 */ 	nop
-/*  f13afc4:	44829000 */ 	mtc1	$v0,$f18
-/*  f13afc8:	3c014f80 */ 	lui	$at,0x4f80
-/*  f13afcc:	04410004 */ 	bgez	$v0,.L0f13afe0
-/*  f13afd0:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f13afd4:	44814000 */ 	mtc1	$at,$f8
-/*  f13afd8:	00000000 */ 	nop
-/*  f13afdc:	46082100 */ 	add.s	$f4,$f4,$f8
-.L0f13afe0:
-/*  f13afe0:	3c012f80 */ 	lui	$at,0x2f80
-/*  f13afe4:	44813000 */ 	mtc1	$at,$f6
-/*  f13afe8:	3c017f1b */ 	lui	$at,%hi(var7f1b5930)
-/*  f13afec:	c4305930 */ 	lwc1	$f16,%lo(var7f1b5930)($at)
-/*  f13aff0:	46062282 */ 	mul.s	$f10,$f4,$f6
-/*  f13aff4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f13aff8:	4610503c */ 	c.lt.s	$f10,$f16
-/*  f13affc:	00000000 */ 	nop
-/*  f13b000:	45020008 */ 	bc1fl	.L0f13b024
-/*  f13b004:	8e020000 */ 	lw	$v0,0x0($s0)
-/*  f13b008:	0c0053d8 */ 	jal	contGetButtons
-/*  f13b00c:	24050030 */ 	addiu	$a1,$zero,0x30
-/*  f13b010:	54400004 */ 	bnezl	$v0,.L0f13b024
-/*  f13b014:	8e020000 */ 	lw	$v0,0x0($s0)
-/*  f13b018:	0fc4e0e3 */ 	jal	func0f13838c
-/*  f13b01c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f13b020:	8e020000 */ 	lw	$v0,0x0($s0)
-.L0f13b024:
-/*  f13b024:	904f41f4 */ 	lbu	$t7,0x41f4($v0)
-/*  f13b028:	55e0000a */ 	bnezl	$t7,.L0f13b054
-/*  f13b02c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f13b030:	8c434204 */ 	lw	$v1,0x4204($v0)
-/*  f13b034:	3c19800a */ 	lui	$t9,%hi(g_Vars)
-/*  f13b038:	2c610550 */ 	sltiu	$at,$v1,0x550
-/*  f13b03c:	50200005 */ 	beqzl	$at,.L0f13b054
-/*  f13b040:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f13b044:	8f399fc0 */ 	lw	$t9,%lo(g_Vars)($t9)
-/*  f13b048:	00794021 */ 	addu	$t0,$v1,$t9
-/*  f13b04c:	ac484204 */ 	sw	$t0,0x4204($v0)
-/*  f13b050:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f13b054:
-/*  f13b054:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f13b058:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f13b05c:	03e00008 */ 	jr	$ra
-/*  f13b060:	00000000 */ 	nop
-);
+void creditsTick(void)
+{
+	s32 i;
+	static u32 var8007f6d8 = 0xffff;
+
+	if (contGetButtonsPressedThisFrame(0, L_TRIG)) {
+		func0f13838c(-1);
+	}
+
+	func0000db30("for", &var8007f6d8);
+
+	if (var8007f6d8 < 0xffff) {
+		for (i = 0; i < 4; i++) {
+			g_CreditsData->unk41b4[i].unk00 = var8007f6d8;
+		}
+	}
+
+	func0000db30("flick", &var8007f6d4);
+
+	if (var8007f6d4 != 0) {
+		func0f13838c(-1);
+		var8007f6d4 = 0;
+	}
+
+	if (var800a416c == 0) {
+		if (var8007f138) {
+			musicSetStage(STAGE_CREDITS);
+			musicStartPrimary(0);
+		} else {
+			musicSetStage(STAGE_CREDITS);
+			musicStartMenu2(MUSIC_CREDITS);
+		}
+	}
+
+	var800a4168 = var800a4164;
+	var800a4164 += g_Vars.diffframe240;
+	var800a416c += g_Vars.diffframe240;
+	var800a4160 = (var800a416c % 4800) / 4800.0f;
+
+	func0f13899c();
+
+	if (g_CreditsData->unk41f4) {
+		func0f13a164();
+	} else if (random() * (1.0f / U32_MAX) < 0.01f && !contGetButtons(0, L_TRIG | R_TRIG)) {
+		func0f13838c(-1);
+	}
+
+	if (g_CreditsData->unk41f4 == 0 && g_CreditsData->unk4204 < 1360) {
+		g_CreditsData->unk4204 += g_Vars.diffframe60;
+	}
+}
+
+u32 var8007f6dc = 0;
 
 GLOBAL_ASM(
 glabel creditsRender

@@ -4866,11 +4866,11 @@ void func0f0bbf14(void)
 
 Gfx *hudRenderHealthBar(Gfx *gdl)
 {
-	f32 matrix[16];
-	f32 *addr = gfxAllocateMatrix();
+	Mtxf matrix;
+	Mtxf *addr = gfxAllocateMatrix();
 
-	func00016ae4(matrix, 0, 370, 0, 0, 0, 0, 0, 0, -1);
-	func00016054(matrix, addr);
+	func00016ae4(&matrix, 0, 370, 0, 0, 0, 0, 0, 0, -1);
+	func00016054(&matrix, addr);
 
 	gSPMatrix(gdl++, osVirtualToPhysical((void *)addr), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPPipeSync(gdl++);
