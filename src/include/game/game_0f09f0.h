@@ -45,7 +45,7 @@ void menuPopDialog(void);
 void func0f0f3704(struct menudialog *dialog);
 void func0f0f372c(u8 *arg0, f32 x, f32 y, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8);
 void func0f0f37a4(u8 *arg0);
-u32 func0f0f38b0(void);
+Gfx *func0f0f38b0(Gfx *gdl, u8 *arg1, u32 arg2);
 u32 func0f0f5004(void);
 Gfx *func0f0f50fc(Gfx *gdl);
 u32 func0f0f5360(void);

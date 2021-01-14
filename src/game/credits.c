@@ -17,6 +17,7 @@
 #include "game/credits.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
+#include "game/gfxmemory.h"
 #include "game/core.h"
 #include "game/music.h"
 #include "game/lang.h"
@@ -352,7 +353,7 @@ u32 var8007f6cc = 0x41400000;
 u32 var8007f6d0 = 0x41800000;
 u32 var8007f6d4 = 0x00000000;
 u32 var8007f6d8 = 0x0000ffff;
-u32 var8007f6dc = 0x00000000;
+u32 var8007f6dc = 0;
 
 GLOBAL_ASM(
 glabel func0f1371b0
@@ -1284,7 +1285,7 @@ glabel func0f137ea8
 );
 
 GLOBAL_ASM(
-glabel func0f137f24
+glabel creditsRenderBackground
 .late_rodata
 glabel var7f1b57f4
 .word 0x3e4ccccd
@@ -2671,7 +2672,7 @@ glabel var7f1b5844
 );
 
 GLOBAL_ASM(
-glabel func0f139290
+glabel creditsRenderSprites
 .late_rodata
 glabel var7f1b5848
 .word 0xc58ca000
@@ -4696,7 +4697,7 @@ glabel func0f13ae04
 );
 
 GLOBAL_ASM(
-glabel func0f13ae0c
+glabel creditsTick
 .late_rodata
 glabel var7f1b5930
 .word 0x3c23d70a
@@ -4926,7 +4927,7 @@ glabel var7f1b5948
 /*  f13b110:	318d0fff */ 	andi	$t5,$t4,0xfff
 /*  f13b114:	000d7300 */ 	sll	$t6,$t5,0xc
 /*  f13b118:	012e7825 */ 	or	$t7,$t1,$t6
-/*  f13b11c:	0fc4eb83 */ 	jal	func0f13ae0c
+/*  f13b11c:	0fc4eb83 */ 	jal	creditsTick
 /*  f13b120:	af0f0004 */ 	sw	$t7,0x4($t8)
 /*  f13b124:	3c07800a */ 	lui	$a3,%hi(g_CreditsData)
 /*  f13b128:	24e74170 */ 	addiu	$a3,$a3,%lo(g_CreditsData)
@@ -5077,9 +5078,9 @@ glabel var7f1b5948
 /*  f13b358:	e7a00060 */ 	swc1	$f0,0x60($sp)
 /*  f13b35c:	e7a6004c */ 	swc1	$f6,0x4c($sp)
 /*  f13b360:	e7b20050 */ 	swc1	$f18,0x50($sp)
-/*  f13b364:	0fc4dfc9 */ 	jal	func0f137f24
+/*  f13b364:	0fc4dfc9 */ 	jal	creditsRenderBackground
 /*  f13b368:	e7a40054 */ 	swc1	$f4,0x54($sp)
-/*  f13b36c:	0fc4e4a4 */ 	jal	func0f139290
+/*  f13b36c:	0fc4e4a4 */ 	jal	creditsRenderSprites
 /*  f13b370:	00402025 */ 	or	$a0,$v0,$zero
 /*  f13b374:	3c07800a */ 	lui	$a3,%hi(g_CreditsData)
 /*  f13b378:	24e74170 */ 	addiu	$a3,$a3,%lo(g_CreditsData)
@@ -5172,6 +5173,121 @@ glabel var7f1b5948
 /*  f13b4bc:	03e00008 */ 	jr	$ra
 /*  f13b4c0:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
+
+// Mismatch: Come back to to this when more is known about these symbols
+//Gfx *creditsRender(Gfx *gdl)
+//{
+//	Mtxf sp68;
+//	Mtxf *matrix = gfxAllocateMatrix();
+//	volatile struct coord sp58;
+//	volatile struct coord sp4c;
+//
+//	func0f1531dc(false);
+//
+//	g_ScreenWidthMultiplier = 1;
+//
+//	gdl = func0000b280(gdl);
+//	gdl = func0000b1d0(gdl);
+//	gdl = func0f1384b4(gdl, 0xff);
+//
+//	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 120, viGetX() * 4.0f, (viGetY() - 30) * 4.0f);
+//
+//	creditsTick();
+//
+//	if (g_CreditsData->unk41f4 || g_CreditsData->unk4204 < 60 || g_CreditsData->unk4204 > 1200) {
+//		if (g_CreditsData->unk41f4 == 0 && g_CreditsData->unk4204 > 1200) {
+//			if (var8007f130 == 0) {
+//				var8007f130 = 1;
+//				var8007f6dc = 0;
+//
+//				func0f0f37a4(&g_CreditsData->unk2ef0);
+//			}
+//
+//			var8007f6dc += g_Vars.diffframe240;
+//
+//			if (var8007f6dc > 14400) {
+//				var8007f6dc = 0;
+//			}
+//
+//			g_CreditsData->unk343c = 0;
+//			g_CreditsData->unk3414 = 0;
+//			g_CreditsData->unk3438 = -0.26175770163536;
+//			g_CreditsData->unk3410 = g_CreditsData->unk3438;
+//			g_CreditsData->unk3428 = 833.0f - (var8007f6dc / 14400.0f) * 2413.0f;
+//			g_CreditsData->unk3440 = 0;
+//			g_CreditsData->unk3418 = g_CreditsData->unk3440;
+//			g_CreditsData->unk342c = 70.86;
+//			g_CreditsData->unk3430 = -2050;
+//			g_CreditsData->unk3434 = 1.467;
+//
+//			g_CreditsData->unk2efc = 1200;
+//			g_CreditsData->unk34a1 |= 0x02;
+//			g_CreditsData->unk34a4 = 0;
+//
+//			gdl = func0f0f38b0(gdl, &g_CreditsData->unk2ef0, 4);
+//
+//			gSPMatrix(gdl++, osVirtualToPhysical(matrix), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+//
+//			gdl = func0f1384b4(gdl, 0xd8);
+//		}
+//
+//		func000159b0(&sp68);
+//		func00016054(&sp68, matrix);
+//		currentPlayerSetMatrix1740(&sp68);
+//
+//		gSPMatrix(gdl++, osVirtualToPhysical(matrix), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+//
+//		sp58.x = -1000;
+//		sp58.y = -1000;
+//		sp58.z = -1000;
+//
+//		sp4c.x = 0;
+//		sp4c.y = 0;
+//		sp4c.z = -100;
+//
+//		gdl = creditsRenderBackground(gdl);
+//		gdl = creditsRenderSprites(gdl);
+//
+//		if (g_CreditsData->unk41f4) {
+//			// Render text
+//			gdl = func0f0d479c(gdl);
+//			gdl = func0f13a3ec(gdl);
+//		}
+//
+//		if (g_CreditsData->unk41f4 == 0) {
+//			u32 uVar1 = g_CreditsData->unk4204;
+//			u32 uVar11 = 0;
+//
+//			if (uVar1 < 60) {
+//				uVar11 = (uVar1 * 0xff) / 60;
+//			}
+//
+//			if (uVar1 > 1200 && uVar1 < 1260) {
+//				uVar11 = 0xff - ((uVar1 - 1200) * 0xff) / 60;
+//			}
+//
+//			if (uVar11) {
+//				gdl = func0f1384b4(gdl, uVar11);
+//			}
+//		}
+//	}
+//
+//	if (var8007f138 && contGetButtonsPressedThisFrame(0, 0xffcf)) {
+//		g_TitleNextStage = STAGE_CITRAINING;
+//
+//		setNumPlayers(1);
+//		mainSetStageNum(g_TitleNextStage);
+//
+//		g_Vars.bondplayernum = 0;
+//		g_Vars.coopplayernum = -1;
+//		g_Vars.antiplayernum = -1;
+//
+//		coreSetDifficulty(DIFF_A);
+//		func00009ec4(1);
+//	}
+//
+//	return gdl;
+//}
 
 void creditsInit(void)
 {
