@@ -428,50 +428,20 @@ glabel func0f17758c
 /*  f1776c8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f1776cc
-/*  f1776cc:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f1776d0:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*  f1776d4:	c4c80004 */ 	lwc1	$f8,0x4($a2)
-/*  f1776d8:	c48a0004 */ 	lwc1	$f10,0x4($a0)
-/*  f1776dc:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f1776e0:	c4a60000 */ 	lwc1	$f6,0x0($a1)
-/*  f1776e4:	c4840008 */ 	lwc1	$f4,0x8($a0)
-/*  f1776e8:	460a4301 */ 	sub.s	$f12,$f8,$f10
-/*  f1776ec:	c4d20008 */ 	lwc1	$f18,0x8($a2)
-/*  f1776f0:	46023202 */ 	mul.s	$f8,$f6,$f2
-/*  f1776f4:	c4aa0004 */ 	lwc1	$f10,0x4($a1)
-/*  f1776f8:	46049381 */ 	sub.s	$f14,$f18,$f4
-/*  f1776fc:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*  f177700:	460a6482 */ 	mul.s	$f18,$f12,$f10
-/*  f177704:	3c018008 */ 	lui	$at,%hi(var800845d4)
-/*  f177708:	c42045d4 */ 	lwc1	$f0,%lo(var800845d4)($at)
-/*  f17770c:	46067282 */ 	mul.s	$f10,$f14,$f6
-/*  f177710:	46124100 */ 	add.s	$f4,$f8,$f18
-/*  f177714:	460a2400 */ 	add.s	$f16,$f4,$f10
-/*  f177718:	4600803c */ 	c.lt.s	$f16,$f0
-/*  f17771c:	00000000 */ 	nop
-/*  f177720:	45000009 */ 	bc1f	.L0f177748
-/*  f177724:	00000000 */ 	nop
-/*  f177728:	46000207 */ 	neg.s	$f8,$f0
-/*  f17772c:	3c018008 */ 	lui	$at,%hi(var800845d0)
-/*  f177730:	4610403c */ 	c.lt.s	$f8,$f16
-/*  f177734:	00000000 */ 	nop
-/*  f177738:	45000003 */ 	bc1f	.L0f177748
-/*  f17773c:	00000000 */ 	nop
-/*  f177740:	03e00008 */ 	jr	$ra
-/*  f177744:	c42045d0 */ 	lwc1	$f0,%lo(var800845d0)($at)
-.L0f177748:
-/*  f177748:	46021482 */ 	mul.s	$f18,$f2,$f2
-/*  f17774c:	00000000 */ 	nop
-/*  f177750:	460c6182 */ 	mul.s	$f6,$f12,$f12
-/*  f177754:	46069100 */ 	add.s	$f4,$f18,$f6
-/*  f177758:	460e7282 */ 	mul.s	$f10,$f14,$f14
-/*  f17775c:	460a2200 */ 	add.s	$f8,$f4,$f10
-/*  f177760:	46104003 */ 	div.s	$f0,$f8,$f16
-/*  f177764:	03e00008 */ 	jr	$ra
-/*  f177768:	00000000 */ 	nop
-);
+f32 func0f1776cc(struct coord *a, struct coord *b, struct coord *c)
+{
+	f32 xdiff = c->x - a->x;
+	f32 ydiff = c->y - a->y;
+	f32 zdiff = c->z - a->z;
+
+	f32 sqdist = xdiff * b->x + ydiff * b->y + zdiff * b->z;
+
+	if (sqdist < var800845d4 && sqdist > -var800845d4) {
+		return var800845d0;
+	}
+
+	return (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff) / sqdist;
+}
 
 bool func0f17776c(struct coord *a, struct coord *b, f32 mult, struct coord *out)
 {
@@ -489,7 +459,7 @@ bool func0f17776c(struct coord *a, struct coord *b, f32 mult, struct coord *out)
 
 bool func0f1777b8(struct coord *a, struct coord *b, struct coord *c, struct coord *out)
 {
-	f32 mult = func0f1776cc(a, b, c, out);
+	f32 mult = func0f1776cc(a, b, c);
 	func0f17776c(a, b, mult, out);
 
 	return true;

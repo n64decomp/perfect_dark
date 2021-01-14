@@ -25,6 +25,7 @@ extern u32 var800844d0;
 extern u32 var800844f0;
 extern u32 var800844f4;
 extern struct stagemusic g_StageTracks[];
+extern f32 var800845d0;
 extern f32 var800845d4;
 extern s32 var800845d8;
 extern u32 var800845dc;
