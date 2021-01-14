@@ -2735,7 +2735,7 @@ struct player {
 	/*0x1a68*/ u32 unk1a68;
 	/*0x1a6c*/ struct prop *hoverbike;
 	/*0x1a70*/ struct coord bondvehicleoffset;
-	/*0x1a7c*/ u32 bondvehiclemode;
+	/*0x1a7c*/ s32 bondvehiclemode;
 	/*0x1a80*/ f32 bondentert;
 	/*0x1a84*/ f32 bondentert2;
 	/*0x1a88*/ u32 bondentertheta;

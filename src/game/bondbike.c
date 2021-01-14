@@ -183,7 +183,7 @@ void currentPlayerTryBikeDismountAngle(f32 relativeangle, f32 distance)
 
 void currentPlayerDismountBike(void)
 {
-	if (g_Vars.currentplayer->bondvehiclemode == 2
+	if (g_Vars.currentplayer->bondvehiclemode == VEHICLEMODE_RUNNING
 			&& g_Vars.lvframe60 - g_Vars.currentplayer->activatetimelast < 25) {
 		struct hoverbikeobj *bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
 		struct model08thing *thing = func0f068af4(&bike->base);
@@ -1226,155 +1226,69 @@ s32 func0f0d3298(struct coord *arg0, f32 arg1)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f0d341c
-.late_rodata
-glabel var7f1adb80
-.word 0x40c907a9
-glabel var7f1adb84
-.word 0xc6ea6000
-.text
-/*  f0d341c:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f0d3420:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f0d3424:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f0d3428:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f0d342c:	8e0e0284 */ 	lw	$t6,0x284($s0)
-/*  f0d3430:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0d3434:	afa40068 */ 	sw	$a0,0x68($sp)
-/*  f0d3438:	8dcf1a6c */ 	lw	$t7,0x1a6c($t6)
-/*  f0d343c:	8de40004 */ 	lw	$a0,0x4($t7)
-/*  f0d3440:	afa00048 */ 	sw	$zero,0x48($sp)
-/*  f0d3444:	0fc1c836 */ 	jal	hoverpropGetTurnAngle
-/*  f0d3448:	afa40064 */ 	sw	$a0,0x64($sp)
-/*  f0d344c:	8fb80064 */ 	lw	$t8,0x64($sp)
-/*  f0d3450:	e7a00060 */ 	swc1	$f0,0x60($sp)
-/*  f0d3454:	8fa60068 */ 	lw	$a2,0x68($sp)
-/*  f0d3458:	8f020014 */ 	lw	$v0,0x14($t8)
-/*  f0d345c:	27a70050 */ 	addiu	$a3,$sp,0x50
-/*  f0d3460:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0d3464:	0fc1979d */ 	jal	func0f065e74
-/*  f0d3468:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f0d346c:	8e040284 */ 	lw	$a0,0x284($s0)
-/*  f0d3470:	8fa50068 */ 	lw	$a1,0x68($sp)
-/*  f0d3474:	0fc32de7 */ 	jal	func0f0cb79c
-/*  f0d3478:	27a60050 */ 	addiu	$a2,$sp,0x50
-/*  f0d347c:	8e190284 */ 	lw	$t9,0x284($s0)
-/*  f0d3480:	0fc19711 */ 	jal	func0f065c44
-/*  f0d3484:	8f2400bc */ 	lw	$a0,0xbc($t9)
-/*  f0d3488:	8e090284 */ 	lw	$t1,0x284($s0)
-/*  f0d348c:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f0d3490:	8d2500bc */ 	lw	$a1,0xbc($t1)
-/*  f0d3494:	0fc195e9 */ 	jal	roomsCopy
-/*  f0d3498:	24a50028 */ 	addiu	$a1,$a1,0x28
-/*  f0d349c:	3c017f1b */ 	lui	$at,%hi(var7f1adb80)
-/*  f0d34a0:	c420db80 */ 	lwc1	$f0,%lo(var7f1adb80)($at)
-/*  f0d34a4:	c7a40060 */ 	lwc1	$f4,0x60($sp)
-/*  f0d34a8:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f0d34ac:	44814000 */ 	mtc1	$at,$f8
-/*  f0d34b0:	46040181 */ 	sub.s	$f6,$f0,$f4
-/*  f0d34b4:	8e0a0284 */ 	lw	$t2,0x284($s0)
-/*  f0d34b8:	8fa80068 */ 	lw	$t0,0x68($sp)
-/*  f0d34bc:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f0d34c0:	46005403 */ 	div.s	$f16,$f10,$f0
-/*  f0d34c4:	e5500144 */ 	swc1	$f16,0x144($t2)
-/*  f0d34c8:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f0d34cc:	c5120000 */ 	lwc1	$f18,0x0($t0)
-/*  f0d34d0:	8d6c00bc */ 	lw	$t4,0xbc($t3)
-/*  f0d34d4:	27ab004c */ 	addiu	$t3,$sp,0x4c
-/*  f0d34d8:	e5920008 */ 	swc1	$f18,0x8($t4)
-/*  f0d34dc:	8e0d0284 */ 	lw	$t5,0x284($s0)
-/*  f0d34e0:	c5040004 */ 	lwc1	$f4,0x4($t0)
-/*  f0d34e4:	27ac0048 */ 	addiu	$t4,$sp,0x48
-/*  f0d34e8:	8dae00bc */ 	lw	$t6,0xbc($t5)
-/*  f0d34ec:	e5c4000c */ 	swc1	$f4,0xc($t6)
-/*  f0d34f0:	8e0f0284 */ 	lw	$t7,0x284($s0)
-/*  f0d34f4:	c5060008 */ 	lwc1	$f6,0x8($t0)
-/*  f0d34f8:	8df800bc */ 	lw	$t8,0xbc($t7)
-/*  f0d34fc:	e7060010 */ 	swc1	$f6,0x10($t8)
-/*  f0d3500:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d3504:	8c4300bc */ 	lw	$v1,0xbc($v0)
-/*  f0d3508:	8c450378 */ 	lw	$a1,0x378($v0)
-/*  f0d350c:	2459161e */ 	addiu	$t9,$v0,0x161e
-/*  f0d3510:	2449161c */ 	addiu	$t1,$v0,0x161c
-/*  f0d3514:	244a19b0 */ 	addiu	$t2,$v0,0x19b0
-/*  f0d3518:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*  f0d351c:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f0d3520:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f0d3524:	afac0020 */ 	sw	$t4,0x20($sp)
-/*  f0d3528:	afab001c */ 	sw	$t3,0x1c($sp)
-/*  f0d352c:	2447161a */ 	addiu	$a3,$v0,0x161a
-/*  f0d3530:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f0d3534:	0c00a86c */ 	jal	cdFindGroundY
-/*  f0d3538:	24660028 */ 	addiu	$a2,$v1,0x28
-/*  f0d353c:	3c017f1b */ 	lui	$at,%hi(var7f1adb84)
-/*  f0d3540:	c42cdb84 */ 	lwc1	$f12,%lo(var7f1adb84)($at)
-/*  f0d3544:	46000086 */ 	mov.s	$f2,$f0
-/*  f0d3548:	8fae004c */ 	lw	$t6,0x4c($sp)
-/*  f0d354c:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0d3550:	00000000 */ 	nop
-/*  f0d3554:	45020003 */ 	bc1fl	.L0f0d3564
-/*  f0d3558:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d355c:	46006086 */ 	mov.s	$f2,$f12
-/*  f0d3560:	8e020284 */ 	lw	$v0,0x284($s0)
-.L0f0d3564:
-/*  f0d3564:	8c4d02b0 */ 	lw	$t5,0x2b0($v0)
-/*  f0d3568:	51a0000d */ 	beqzl	$t5,.L0f0d35a0
-/*  f0d356c:	afa00048 */ 	sw	$zero,0x48($sp)
-/*  f0d3570:	51c0000b */ 	beqzl	$t6,.L0f0d35a0
-/*  f0d3574:	afa00048 */ 	sw	$zero,0x48($sp)
-/*  f0d3578:	8c4f1a7c */ 	lw	$t7,0x1a7c($v0)
-/*  f0d357c:	c4480078 */ 	lwc1	$f8,0x78($v0)
-/*  f0d3580:	15e00007 */ 	bnez	$t7,.L0f0d35a0
-/*  f0d3584:	46081001 */ 	sub.s	$f0,$f2,$f8
-/*  f0d3588:	c44a1a94 */ 	lwc1	$f10,0x1a94($v0)
-/*  f0d358c:	46005400 */ 	add.s	$f16,$f10,$f0
-/*  f0d3590:	e4501a94 */ 	swc1	$f16,0x1a94($v0)
-/*  f0d3594:	10000002 */ 	b	.L0f0d35a0
-/*  f0d3598:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d359c:	afa00048 */ 	sw	$zero,0x48($sp)
-.L0f0d35a0:
-/*  f0d35a0:	8fb8004c */ 	lw	$t8,0x4c($sp)
-/*  f0d35a4:	ac5802b0 */ 	sw	$t8,0x2b0($v0)
-/*  f0d35a8:	8fb9004c */ 	lw	$t9,0x4c($sp)
-/*  f0d35ac:	53200004 */ 	beqzl	$t9,.L0f0d35c0
-/*  f0d35b0:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*  f0d35b4:	8e090284 */ 	lw	$t1,0x284($s0)
-/*  f0d35b8:	e5220294 */ 	swc1	$f2,0x294($t1)
-/*  f0d35bc:	8faa0048 */ 	lw	$t2,0x48($sp)
-.L0f0d35c0:
-/*  f0d35c0:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f0d35c4:	ad6a0298 */ 	sw	$t2,0x298($t3)
-/*  f0d35c8:	8e0c0284 */ 	lw	$t4,0x284($s0)
-/*  f0d35cc:	e5820078 */ 	swc1	$f2,0x78($t4)
-/*  f0d35d0:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d35d4:	c45203c4 */ 	lwc1	$f18,0x3c4($v0)
-/*  f0d35d8:	c4440414 */ 	lwc1	$f4,0x414($v0)
-/*  f0d35dc:	c44819c4 */ 	lwc1	$f8,0x19c4($v0)
-/*  f0d35e0:	46049183 */ 	div.s	$f6,$f18,$f4
-/*  f0d35e4:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f0d35e8:	e44a19bc */ 	swc1	$f10,0x19bc($v0)
-/*  f0d35ec:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d35f0:	8c4d00bc */ 	lw	$t5,0xbc($v0)
-/*  f0d35f4:	c45219bc */ 	lwc1	$f18,0x19bc($v0)
-/*  f0d35f8:	c5b0000c */ 	lwc1	$f16,0xc($t5)
-/*  f0d35fc:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*  f0d3600:	e4440074 */ 	swc1	$f4,0x74($v0)
-/*  f0d3604:	8e0e0284 */ 	lw	$t6,0x284($s0)
-/*  f0d3608:	95cf161c */ 	lhu	$t7,0x161c($t6)
-/*  f0d360c:	31f84000 */ 	andi	$t8,$t7,0x4000
-/*  f0d3610:	13000003 */ 	beqz	$t8,.L0f0d3620
-/*  f0d3614:	00000000 */ 	nop
-/*  f0d3618:	0fc304ea */ 	jal	currentPlayerDie
-/*  f0d361c:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0d3620:
-/*  f0d3620:	0fc32fd4 */ 	jal	func0f0cbf50
-/*  f0d3624:	00000000 */ 	nop
-/*  f0d3628:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0d362c:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*  f0d3630:	27bd0068 */ 	addiu	$sp,$sp,0x68
-/*  f0d3634:	03e00008 */ 	jr	$ra
-/*  f0d3638:	00000000 */ 	nop
-);
+void func0f0d341c(struct coord *arg0)
+{
+	struct defaultobj *bike = g_Vars.currentplayer->hoverbike->obj;
+	f32 angle;
+	s16 newrooms[8];
+	bool newinlift;
+	struct prop *lift = NULL;
+	f32 ground;
+
+	angle = hoverpropGetTurnAngle(bike);
+
+	func0f065e74(&bike->prop->pos, bike->prop->rooms, arg0, newrooms);
+	func0f0cb79c(g_Vars.currentplayer, arg0, newrooms);
+	func0f065c44(g_Vars.currentplayer->prop);
+	roomsCopy(newrooms, g_Vars.currentplayer->prop->rooms);
+
+	g_Vars.currentplayer->vv_theta = (M_BADTAU - angle) * 360.0f / M_BADTAU;
+
+	g_Vars.currentplayer->prop->pos.x = arg0->x;
+	g_Vars.currentplayer->prop->pos.y = arg0->y;
+	g_Vars.currentplayer->prop->pos.z = arg0->z;
+
+	ground = cdFindGroundY(&g_Vars.currentplayer->prop->pos,
+			g_Vars.currentplayer->bond2.width,
+			g_Vars.currentplayer->prop->rooms,
+			&g_Vars.currentplayer->floorcol,
+			&g_Vars.currentplayer->floortype,
+			&g_Vars.currentplayer->floorflags,
+			&g_Vars.currentplayer->floorroom,
+			&newinlift, &lift);
+
+	if (ground < -30000) {
+		ground = -30000;
+	}
+
+	if (g_Vars.currentplayer->inlift && newinlift) {
+		f32 diff = ground - g_Vars.currentplayer->vv_ground;
+
+		// If getting on the bike
+		if (g_Vars.currentplayer->bondvehiclemode == VEHICLEMODE_OFF) {
+			g_Vars.currentplayer->bondenterpos.y += diff;
+		}
+	} else {
+		lift = NULL;
+	}
+
+	g_Vars.currentplayer->inlift = newinlift;
+
+	if (newinlift) {
+		g_Vars.currentplayer->liftground = ground;
+	}
+
+	g_Vars.currentplayer->lift = lift;
+	g_Vars.currentplayer->vv_ground = ground;
+	g_Vars.currentplayer->vv_height = g_Vars.currentplayer->headpos.y / g_Vars.currentplayer->standheight * g_Vars.currentplayer->vv_eyeheight;
+	g_Vars.currentplayer->vv_manground = g_Vars.currentplayer->prop->pos.y - g_Vars.currentplayer->vv_height;
+
+	if (g_Vars.currentplayer->floorflags & FLOORFLAG_DIE) {
+		currentPlayerDie(true);
+	}
+
+	func0f0cbf50();
+}
 
 s32 func0f0d363c(f32 arg0)
 {
