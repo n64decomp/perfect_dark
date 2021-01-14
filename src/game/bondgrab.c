@@ -1075,115 +1075,64 @@ glabel var7f1ad9c4
 /*  f0cd96c:	27bd00f0 */ 	addiu	$sp,$sp,0xf0
 );
 
-GLOBAL_ASM(
-glabel func0f0cd970
-/*  f0cd970:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0cd974:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0cd978:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f0cd97c:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f0cd980:	0fc33469 */ 	jal	func0f0cd1a4
-/*  f0cd984:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0cd988:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0cd98c:	10410058 */ 	beq	$v0,$at,.L0f0cdaf0
-/*  f0cd990:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f0cd994:	0c0093ac */ 	jal	cdGetObstacle
-/*  f0cd998:	00000000 */ 	nop
-/*  f0cd99c:	10400054 */ 	beqz	$v0,.L0f0cdaf0
-/*  f0cd9a0:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0cd9a4:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0cd9a8:	8c8e0034 */ 	lw	$t6,0x34($a0)
-/*  f0cd9ac:	59c00051 */ 	blezl	$t6,.L0f0cdaf4
-/*  f0cd9b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cd9b4:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f0cd9b8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0cd9bc:	1061004c */ 	beq	$v1,$at,.L0f0cdaf0
-/*  f0cd9c0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0cd9c4:	1061004a */ 	beq	$v1,$at,.L0f0cdaf0
-/*  f0cd9c8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0cd9cc:	54610049 */ 	bnel	$v1,$at,.L0f0cdaf4
-/*  f0cd9d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cd9d4:	8c460004 */ 	lw	$a2,0x4($v0)
-/*  f0cd9d8:	8cc30040 */ 	lw	$v1,0x40($a2)
-/*  f0cd9dc:	00037940 */ 	sll	$t7,$v1,0x5
-/*  f0cd9e0:	05e00043 */ 	bltz	$t7,.L0f0cdaf0
-/*  f0cd9e4:	0003c100 */ 	sll	$t8,$v1,0x4
-/*  f0cd9e8:	07020042 */ 	bltzl	$t8,.L0f0cdaf4
-/*  f0cd9ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cd9f0:	8cd90010 */ 	lw	$t9,0x10($a2)
-/*  f0cd9f4:	33280001 */ 	andi	$t0,$t9,0x1
-/*  f0cd9f8:	5100003e */ 	beqzl	$t0,.L0f0cdaf4
-/*  f0cd9fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cda00:	8c890284 */ 	lw	$t1,0x284($a0)
-/*  f0cda04:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0cda08:	ad200178 */ 	sw	$zero,0x178($t1)
-/*  f0cda0c:	8cca0040 */ 	lw	$t2,0x40($a2)
-/*  f0cda10:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f0cda14:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f0cda18:	314b0080 */ 	andi	$t3,$t2,0x80
-/*  f0cda1c:	11600007 */ 	beqz	$t3,.L0f0cda3c
-/*  f0cda20:	00000000 */ 	nop
-/*  f0cda24:	8ccc0048 */ 	lw	$t4,0x48($a2)
-/*  f0cda28:	8d8d0000 */ 	lw	$t5,0x0($t4)
-/*  f0cda2c:	31ae1000 */ 	andi	$t6,$t5,0x1000
-/*  f0cda30:	11c00002 */ 	beqz	$t6,.L0f0cda3c
-/*  f0cda34:	00000000 */ 	nop
-/*  f0cda38:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0cda3c:
-/*  f0cda3c:	5040002d */ 	beqzl	$v0,.L0f0cdaf4
-/*  f0cda40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cda44:	0fc332fc */ 	jal	func0f0ccbf0
-/*  f0cda48:	afa6002c */ 	sw	$a2,0x2c($sp)
-/*  f0cda4c:	8fa6002c */ 	lw	$a2,0x2c($sp)
-/*  f0cda50:	8ccf0040 */ 	lw	$t7,0x40($a2)
-/*  f0cda54:	31f80080 */ 	andi	$t8,$t7,0x80
-/*  f0cda58:	53000026 */ 	beqzl	$t8,.L0f0cdaf4
-/*  f0cda5c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cda60:	8cd90048 */ 	lw	$t9,0x48($a2)
-/*  f0cda64:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0cda68:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*  f0cda6c:	8f280000 */ 	lw	$t0,0x0($t9)
-/*  f0cda70:	31090800 */ 	andi	$t1,$t0,0x800
-/*  f0cda74:	5120001f */ 	beqzl	$t1,.L0f0cdaf4
-/*  f0cda78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cda7c:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f0cda80:	0fc1cf1b */ 	jal	func0f073c6c
-/*  f0cda84:	afa6002c */ 	sw	$a2,0x2c($sp)
-/*  f0cda88:	8fa6002c */ 	lw	$a2,0x2c($sp)
-/*  f0cda8c:	8cca0040 */ 	lw	$t2,0x40($a2)
-/*  f0cda90:	314b0080 */ 	andi	$t3,$t2,0x80
-/*  f0cda94:	11600010 */ 	beqz	$t3,.L0f0cdad8
-/*  f0cda98:	00000000 */ 	nop
-/*  f0cda9c:	8cc30048 */ 	lw	$v1,0x48($a2)
-/*  f0cdaa0:	8c6c0000 */ 	lw	$t4,0x0($v1)
-/*  f0cdaa4:	358d1000 */ 	ori	$t5,$t4,0x1000
-/*  f0cdaa8:	10400006 */ 	beqz	$v0,.L0f0cdac4
-/*  f0cdaac:	ac6d0000 */ 	sw	$t5,0x0($v1)
-/*  f0cdab0:	8cc30048 */ 	lw	$v1,0x48($a2)
-/*  f0cdab4:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f0cdab8:	35cf2000 */ 	ori	$t7,$t6,0x2000
-/*  f0cdabc:	10000006 */ 	b	.L0f0cdad8
-/*  f0cdac0:	ac6f0000 */ 	sw	$t7,0x0($v1)
-.L0f0cdac4:
-/*  f0cdac4:	8cc30048 */ 	lw	$v1,0x48($a2)
-/*  f0cdac8:	2401dfff */ 	addiu	$at,$zero,-8193
-/*  f0cdacc:	8c780000 */ 	lw	$t8,0x0($v1)
-/*  f0cdad0:	0301c824 */ 	and	$t9,$t8,$at
-/*  f0cdad4:	ac790000 */ 	sw	$t9,0x0($v1)
-.L0f0cdad8:
-/*  f0cdad8:	10400005 */ 	beqz	$v0,.L0f0cdaf0
-/*  f0cdadc:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f0cdae0:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f0cdae4:	0fc33469 */ 	jal	func0f0cd1a4
-/*  f0cdae8:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f0cdaec:	afa20034 */ 	sw	$v0,0x34($sp)
-.L0f0cdaf0:
-/*  f0cdaf0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0cdaf4:
-/*  f0cdaf4:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*  f0cdaf8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0cdafc:	03e00008 */ 	jr	$ra
-/*  f0cdb00:	00000000 */ 	nop
-);
+bool func0f0cd970(struct coord *delta, f32 angle, bool arg2)
+{
+	s32 result = func0f0cd1a4(delta, angle, arg2);
+
+	if (result != 1) {
+		struct prop *obstacle = cdGetObstacle();
+
+		if (obstacle && g_Vars.lvupdate240 > 0) {
+			if (obstacle->type == PROPTYPE_CHR) {
+				// empty
+			} else if (obstacle->type == PROPTYPE_PLAYER) {
+				// empty
+			} else if (obstacle->type == PROPTYPE_OBJ) {
+				struct defaultobj *obj = obstacle->obj;
+
+				if ((obj->hidden & OBJHFLAG_04000000) == 0
+						&& (obj->hidden & OBJHFLAG_GRABBED) == 0
+						&& (obj->flags3 & OBJFLAG3_PUSHABLE)) {
+					bool canpush = true;
+
+					g_Vars.currentplayer->speedmaxtime60 = 0;
+
+					if ((obj->hidden & OBJHFLAG_AIRBORNE)
+							&& (obj->projectile->flags & PROJECTILEFLAG_00001000)) {
+						canpush = false;
+					}
+
+					if (canpush) {
+						func0f0ccbf0(delta, angle);
+
+						if ((obj->hidden & OBJHFLAG_AIRBORNE)
+								&& (obj->projectile->flags & PROJECTILEFLAG_00000800)) {
+							s32 someint;
+							bool somebool = false;
+							someint = func0f073c6c(obj, &somebool);
+
+							if ((obj->hidden & OBJHFLAG_AIRBORNE)) {
+								obj->projectile->flags |= PROJECTILEFLAG_00001000;
+
+								if (someint) {
+									obj->projectile->flags |= PROJECTILEFLAG_00002000;
+								} else {
+									obj->projectile->flags &= ~PROJECTILEFLAG_00002000;
+								}
+							}
+
+							if (someint) {
+								result = func0f0cd1a4(delta, angle, arg2);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return result;
+}
 
 bool func0f0cdb04(f32 angle, bool arg2)
 {

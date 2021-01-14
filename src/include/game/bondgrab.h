@@ -5,9 +5,9 @@
 
 void currentPlayerGrabInit(void);
 void currentPlayerUpdateGrabbedPropForRelease(void);
-u32 func0f0ccbf0(void);
+void func0f0ccbf0(struct coord *delta, f32 angle);
 bool func0f0cd05c(f32 y);
-u32 func0f0cd1a4(void);
+s32 func0f0cd1a4(struct coord *delta, f32 angle, bool arg2);
 bool func0f0cd970(struct coord *delta, f32 angle, bool arg2);
 bool func0f0cdb04(f32 angle, bool arg2);
 void func0f0cdb68(f32 angle);
