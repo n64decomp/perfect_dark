@@ -1243,42 +1243,21 @@ glabel var7f1b5804
 //	}
 //}
 
+Gfx *creditsClearFramebuffer(Gfx *gdl, u32 colour)
+{
+	gSPDisplayList(gdl++, &var800613a0);
+
+	gdl = gfxSetPrimColour(gdl, colour);
+
+	gDPFillRectangle(gdl++, 0, 0, viGetX(), viGetY());
+
+	gdl = func0f153838(gdl);
+
+	return gdl;
+}
+
 GLOBAL_ASM(
-glabel func0f1384b4
-/*  f1384b4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f1384b8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1384bc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1384c0:	3c0f8006 */ 	lui	$t7,%hi(var800613a0)
-/*  f1384c4:	25ef13a0 */ 	addiu	$t7,$t7,%lo(var800613a0)
-/*  f1384c8:	3c0e0600 */ 	lui	$t6,0x600
-/*  f1384cc:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*  f1384d0:	ac8f0004 */ 	sw	$t7,0x4($a0)
-/*  f1384d4:	24900008 */ 	addiu	$s0,$a0,0x8
-/*  f1384d8:	0fc54df7 */ 	jal	gfxSetPrimColour
-/*  f1384dc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1384e0:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f1384e4:	0c002f02 */ 	jal	viGetX
-/*  f1384e8:	24500008 */ 	addiu	$s0,$v0,0x8
-/*  f1384ec:	0c002f06 */ 	jal	viGetY
-/*  f1384f0:	a7a20026 */ 	sh	$v0,0x26($sp)
-/*  f1384f4:	87a90026 */ 	lh	$t1,0x26($sp)
-/*  f1384f8:	305803ff */ 	andi	$t8,$v0,0x3ff
-/*  f1384fc:	8fa30028 */ 	lw	$v1,0x28($sp)
-/*  f138500:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f138504:	3c01f600 */ 	lui	$at,0xf600
-/*  f138508:	312a03ff */ 	andi	$t2,$t1,0x3ff
-/*  f13850c:	000a5b80 */ 	sll	$t3,$t2,0xe
-/*  f138510:	03214025 */ 	or	$t0,$t9,$at
-/*  f138514:	010b6025 */ 	or	$t4,$t0,$t3
-/*  f138518:	02002025 */ 	or	$a0,$s0,$zero
-/*  f13851c:	ac6c0000 */ 	sw	$t4,0x0($v1)
-/*  f138520:	0fc54e0e */ 	jal	func0f153838
-/*  f138524:	ac600004 */ 	sw	$zero,0x4($v1)
-/*  f138528:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f13852c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f138530:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f138534:	03e00008 */ 	jr	$ra
-/*  f138538:	00000000 */ 	nop
+glabel func0f13853c
 /*  f13853c:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f138540:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f138544:	00808025 */ 	or	$s0,$a0,$zero
@@ -4335,7 +4314,7 @@ glabel var7f1b5948
 /*  f13b098:	0c002c74 */ 	jal	func0000b1d0
 /*  f13b09c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f13b0a0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f13b0a4:	0fc4e12d */ 	jal	func0f1384b4
+/*  f13b0a4:	0fc4e12d */ 	jal	creditsClearFramebuffer
 /*  f13b0a8:	240500ff */ 	addiu	$a1,$zero,0xff
 /*  f13b0ac:	3c0fed00 */ 	lui	$t7,0xed00
 /*  f13b0b0:	35ef0078 */ 	ori	$t7,$t7,0x78
@@ -4483,7 +4462,7 @@ glabel var7f1b5948
 /*  f13b2d8:	8faf0040 */ 	lw	$t7,0x40($sp)
 /*  f13b2dc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f13b2e0:	240500d8 */ 	addiu	$a1,$zero,0xd8
-/*  f13b2e4:	0fc4e12d */ 	jal	func0f1384b4
+/*  f13b2e4:	0fc4e12d */ 	jal	creditsClearFramebuffer
 /*  f13b2e8:	ade20004 */ 	sw	$v0,0x4($t7)
 /*  f13b2ec:	00408025 */ 	or	$s0,$v0,$zero
 .L0f13b2f0:
@@ -4572,7 +4551,7 @@ glabel var7f1b5948
 .L0f13b430:
 /*  f13b430:	10a00004 */ 	beqz	$a1,.L0f13b444
 /*  f13b434:	00000000 */ 	nop
-/*  f13b438:	0fc4e12d */ 	jal	func0f1384b4
+/*  f13b438:	0fc4e12d */ 	jal	creditsClearFramebuffer
 /*  f13b43c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f13b440:	00408025 */ 	or	$s0,$v0,$zero
 .L0f13b444:
@@ -4626,7 +4605,7 @@ glabel var7f1b5948
 //
 //	gdl = func0000b280(gdl);
 //	gdl = func0000b1d0(gdl);
-//	gdl = func0f1384b4(gdl, 0xff);
+//	gdl = creditsClearFramebuffer(gdl, 0x000000ff);
 //
 //	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 120, viGetX() * 4.0f, (viGetY() - 30) * 4.0f);
 //
@@ -4666,7 +4645,7 @@ glabel var7f1b5948
 //
 //			gSPMatrix(gdl++, osVirtualToPhysical(matrix), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 //
-//			gdl = func0f1384b4(gdl, 0xd8);
+//			gdl = creditsClearFramebuffer(gdl, 0x000000d8);
 //		}
 //
 //		func000159b0(&sp68);
@@ -4694,18 +4673,18 @@ glabel var7f1b5948
 //
 //		if (g_CreditsData->unk41f4 == 0) {
 //			u32 uVar1 = g_CreditsData->unk4204;
-//			u32 uVar11 = 0;
+//			u32 colour = 0;
 //
 //			if (uVar1 < 60) {
-//				uVar11 = (uVar1 * 0xff) / 60;
+//				colour = (uVar1 * 0xff) / 60;
 //			}
 //
 //			if (uVar1 > 1200 && uVar1 < 1260) {
-//				uVar11 = 0xff - ((uVar1 - 1200) * 0xff) / 60;
+//				colour = 0xff - ((uVar1 - 1200) * 0xff) / 60;
 //			}
 //
-//			if (uVar11) {
-//				gdl = func0f1384b4(gdl, uVar11);
+//			if (colour) {
+//				gdl = creditsClearFramebuffer(gdl, colour);
 //			}
 //		}
 //	}

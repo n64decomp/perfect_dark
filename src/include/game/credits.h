@@ -11,7 +11,7 @@ void creditsCopyBackgroundLayer(s32 srcindex, s32 dstindex, bool move);
 Gfx *creditsRenderBackground(Gfx *gdl);
 f32 func0f1382e0(f32 range);
 void creditsRandomiseBackground(u32 arg0);
-Gfx *func0f1384b4(Gfx *gdl, u32 arg1);
+Gfx *creditsClearFramebuffer(Gfx *gdl, u32 colour);
 u32 func0f13870c(void);
 void func0f13899c(void);
 u32 func0f138e6c(void);
