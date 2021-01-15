@@ -3120,79 +3120,32 @@ glabel var7f1b5870
 /*  f139fdc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f139fe0
-/*  f139fe0:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f139fe4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f139fe8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f139fec:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f139ff0:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f139ff4:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f139ff8:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f139ffc:	00008025 */ 	or	$s0,$zero,$zero
-/*  f13a000:	27a30048 */ 	addiu	$v1,$sp,0x48
-.L0f13a004:
-/*  f13a004:	26020001 */ 	addiu	$v0,$s0,0x1
-/*  f13a008:	28410010 */ 	slti	$at,$v0,0x10
-/*  f13a00c:	00408025 */ 	or	$s0,$v0,$zero
-/*  f13a010:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f13a014:	1420fffb */ 	bnez	$at,.L0f13a004
-/*  f13a018:	a062ffff */ 	sb	$v0,-0x1($v1)
-/*  f13a01c:	3c13800a */ 	lui	$s3,%hi(g_CreditsData)
-/*  f13a020:	26734170 */ 	addiu	$s3,$s3,%lo(g_CreditsData)
-/*  f13a024:	00008025 */ 	or	$s0,$zero,$zero
-/*  f13a028:	00008825 */ 	or	$s1,$zero,$zero
-/*  f13a02c:	27b40048 */ 	addiu	$s4,$sp,0x48
-/*  f13a030:	24120010 */ 	addiu	$s2,$zero,0x10
-.L0f13a034:
-/*  f13a034:	0c004b70 */ 	jal	random
-/*  f13a038:	00000000 */ 	nop
-/*  f13a03c:	02502023 */ 	subu	$a0,$s2,$s0
-/*  f13a040:	0044001b */ 	divu	$zero,$v0,$a0
-/*  f13a044:	8e780000 */ 	lw	$t8,0x0($s3)
-/*  f13a048:	00002810 */ 	mfhi	$a1
-/*  f13a04c:	02857021 */ 	addu	$t6,$s4,$a1
-/*  f13a050:	91cf0000 */ 	lbu	$t7,0x0($t6)
-/*  f13a054:	14800002 */ 	bnez	$a0,.L0f13a060
-/*  f13a058:	00000000 */ 	nop
-/*  f13a05c:	0007000d */ 	break	0x7
-.L0f13a060:
-/*  f13a060:	00a4082a */ 	slt	$at,$a1,$a0
-/*  f13a064:	0311c821 */ 	addu	$t9,$t8,$s1
-/*  f13a068:	00a01825 */ 	or	$v1,$a1,$zero
-/*  f13a06c:	10200007 */ 	beqz	$at,.L0f13a08c
-/*  f13a070:	af2f4158 */ 	sw	$t7,0x4158($t9)
-/*  f13a074:	02851021 */ 	addu	$v0,$s4,$a1
-.L0f13a078:
-/*  f13a078:	90480001 */ 	lbu	$t0,0x1($v0)
-/*  f13a07c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f13a080:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f13a084:	1464fffc */ 	bne	$v1,$a0,.L0f13a078
-/*  f13a088:	a048ffff */ 	sb	$t0,-0x1($v0)
-.L0f13a08c:
-/*  f13a08c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f13a090:	1612ffe8 */ 	bne	$s0,$s2,.L0f13a034
-/*  f13a094:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f13a098:	8e690000 */ 	lw	$t1,0x0($s3)
-/*  f13a09c:	240a00f0 */ 	addiu	$t2,$zero,0xf0
-/*  f13a0a0:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f13a0a4:	ad204198 */ 	sw	$zero,0x4198($t1)
-/*  f13a0a8:	8e6b0000 */ 	lw	$t3,0x0($s3)
-/*  f13a0ac:	44802000 */ 	mtc1	$zero,$f4
-/*  f13a0b0:	a16a41a8 */ 	sb	$t2,0x41a8($t3)
-/*  f13a0b4:	8e6d0000 */ 	lw	$t5,0x0($s3)
-/*  f13a0b8:	a1ac419c */ 	sb	$t4,0x419c($t5)
-/*  f13a0bc:	8e6e0000 */ 	lw	$t6,0x0($s3)
-/*  f13a0c0:	e5c441a0 */ 	swc1	$f4,0x41a0($t6)
-/*  f13a0c4:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f13a0c8:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f13a0cc:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f13a0d0:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f13a0d4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f13a0d8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f13a0dc:	03e00008 */ 	jr	$ra
-/*  f13a0e0:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+void creditsInitSlides(void)
+{
+	u8 pool[16];
+	s32 i;
+
+	// Shuffle the core team slides
+	for (i = 0; i < 16; i++) {
+		pool[i] = i + 1;
+	}
+
+	for (i = 0; i < 16; i++) {
+		s32 index = random() % (16 - i);
+
+		g_CreditsData->coreteammap[i + 1] = pool[index];
+
+		while (index < (16 - i)) {
+			pool[index] = pool[index + 1];
+			index++;
+		}
+	}
+
+	g_CreditsData->creditnum = 0;
+	g_CreditsData->unk41a8[0] = 240;
+	g_CreditsData->numthisslide = 1;
+	g_CreditsData->slideage = 0;
+}
 
 /**
  * Get a credit to display, based on its row index on the current slide.
@@ -3201,8 +3154,8 @@ glabel func0f139fe0
  * Row 1 will usually be the first two names and so on.
  *
  * The first slide, "perfect dark", is always first, then the next 16 are the
- * core team and is in a random order. The rest are in the same order as defined
- * in the g_Credits array.
+ * core team and are in a random order. The rest are in the same order as
+ * defined in the g_Credits array.
  */
 struct credit *creditGetByRow(s32 row)
 {
@@ -4575,7 +4528,7 @@ void creditsInit(void)
 	g_CreditsData->slidesenabled = true;
 
 	func0f13870c();
-	func0f139fe0();
+	creditsInitSlides();
 	func0f0f8bb4(&g_CreditsData->unk2ef0, 0x25800, 1);
 
 	g_CreditsData->unk3470 = 0;

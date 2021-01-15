@@ -18,7 +18,7 @@ u32 func0f138e6c(void);
 Gfx *creditsRenderSprites(Gfx *gdl);
 u32 func0f1399d0(void);
 u32 func0f139d9c(void);
-u32 func0f139fe0(void);
+void creditsInitSlides(void);
 struct credit *creditGetByRow(s32 row);
 void creditsTickSlide(void);
 Gfx *func0f13a3ec(Gfx *gdl);
