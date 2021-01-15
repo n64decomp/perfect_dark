@@ -19,7 +19,7 @@ Gfx *creditsRenderSprites(Gfx *gdl);
 u32 func0f1399d0(void);
 u32 func0f139d9c(void);
 u32 func0f139fe0(void);
-struct credit *func0f13a0e4(s32 arg0);
+struct credit *creditGetByRow(s32 row);
 u32 func0f13a164(void);
 Gfx *func0f13a3ec(Gfx *gdl);
 u32 func0f13ae04(void);
@@ -4230,8 +4230,24 @@ struct creditsdata {
 	/*0x4148*/ u32 unk4148;
 	/*0x414c*/ u32 unk414c;
 	/*0x4150*/ u32 unk4150;
-	/*0x4154*/ u32 unk4154[17];
-	/*0x4198*/ s32 unk4198;
+
+	/**
+	 * Credit indexes 1 through 16 are randomised. coreteammap stores the chosen
+	 * order. The index is the apparent credit index and the value is the real
+	 * credit index that it maps to.
+	 */
+	/*0x4154*/ u32 coreteammap[17];
+
+	/**
+	 * creditnum is the credit index of the first credit being displayed on the
+	 * current slide. It's usually a title.
+	 *
+	 * However, if creditnum is between 1 and 16 then this value gets mapped
+	 * through the coreteammap, so its value won't actually correspond with the
+	 * credit being displayed.
+	 */
+	/*0x4198*/ s32 creditnum;
+
 	/*0x419c*/ u32 unk419c;
 	/*0x41a0*/ u32 unk41a0;
 	/*0x41a4*/ u32 unk41a4;

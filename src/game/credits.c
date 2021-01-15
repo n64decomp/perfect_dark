@@ -1012,105 +1012,126 @@ u32 var8007f468 = 0x00000025;
 u32 var8007f46c = 0x00000000;
 
 struct credit g_Credits[] = {
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(2),   L_TITLE(0)   }, // "perfect dark", ""
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(3),   L_TITLE(4)   }, // "beau ner chesluk", "guns and visual orgasms"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(5),   L_TITLE(6)   }, // "jonathan nasty mummery", "mover and shaker"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(7),   L_TITLE(8)   }, // "darkmark", "reality engineer"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(9),   L_TITLE(10)  }, // "chris tilston", "designs on the future"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(11),  L_TITLE(12)  }, // "chris darling", "weapons specialist"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(13),  L_TITLE(14)  }, // "duncan botwood", "grey area"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(15),  L_TITLE(16)  }, // "b jones", "bodybuilder"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(17),  L_TITLE(18)  }, // "steve malpass", "perfect locations and vox"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(19),  L_TITLE(20)  }, // "brian marshall", "-aqham-"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(21),  L_TITLE(22)  }, // "russel irwin", "well packed man"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(23),  L_TITLE(24)  }, // "jamie 'evo' williams", "manic welsh designer"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(25),  L_TITLE(26)  }, // "ross bury", "bionic backgrounds"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(27),  L_TITLE(28)  }, // "martin penny", "sound geezer"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(29),  L_TITLE(30)  }, // "grant kirkhope", "play that music maestro"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(31),  L_TITLE(32)  }, // "david clynick", "bangin hardcore choonz"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(33),  L_TITLE(34)  }, // "keith 'bunny' rabbette", "dinomic backgrounds"
-	{ 0xa0, CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
-	{ 0x80, CREDITSTYLE_C_MED,       L_TITLE(36),  L_TITLE(37)  }, // "kevin bayliss", "dean smith"
-	{ 0x00, CREDITSTYLE_C_MED,       L_TITLE(38),  L_TITLE(1)   }, // "graham smith", "\n"
-	{ 0xe0, CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
-	{ 0x80, CREDITSTYLE_C_MED,       L_TITLE(39),  L_TITLE(40)  }, // "mike 'curry' currington", "tony wong"
-	{ 0x00, CREDITSTYLE_C_MED,       L_TITLE(41),  L_TITLE(1)   }, // "simon farmer", "\n"
-	{ 0xc0, CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
-	{ 0x80, CREDITSTYLE_C_MED,       L_TITLE(42),  L_TITLE(43)  }, // "leigh loverday", "rob harrison"
-	{ 0x00, CREDITSTYLE_C_MED,       L_TITLE(44),  L_TITLE(1)   }, // "steven hurst", "\n"
-	{ 0x80, CREDITSTYLE_C_BIG,       L_TITLE(45),  L_TITLE(0)   }, // "fearsome foursome", ""
-	{ 0x80, CREDITSTYLE_C_MED,       L_TITLE(46),  L_TITLE(47)  }, // "phil dunne", "ricky berwick"
-	{ 0x00, CREDITSTYLE_C_MED,       L_TITLE(48),  L_TITLE(49)  }, // "gareth glover", "jonathan ambrose"
-	{ 0xa0, CREDITSTYLE_C_BIG,       L_TITLE(50),  L_TITLE(0)   }, // "trent's henchmen", ""
-	{ 0x80, CREDITSTYLE_C_MED,       L_TITLE(51),  L_TITLE(52)  }, // "lee musgrave", "johnni christensen"
-	{ 0x00, CREDITSTYLE_C_MED,       L_TITLE(53),  L_TITLE(1)   }, // "mark betteridge", "\n"
-	{ 0xc0, CREDITSTYLE_C_BIG,       L_TITLE(50),  L_TITLE(0)   }, // "trent's henchmen", ""
-	{ 0x80, CREDITSTYLE_C_MED,       L_TITLE(54),  L_TITLE(55)  }, // "chris marlow", "robin beanland"
-	{ 0x00, CREDITSTYLE_C_MED,       L_TITLE(56),  L_TITLE(57)  }, // "neil gallagher", "feargal plant"
-	{ 0xa0, CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
-	{ 0x80, CREDITSTYLE_C_MED,       L_TITLE(59),  L_TITLE(60)  }, // "eveline fischer", "chris sutherland"
-	{ 0x00, CREDITSTYLE_C_MED,       L_TITLE(61),  L_TITLE(62)  }, // "chris seavor", "john silke"
-	{ 0xe0, CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
-	{ 0x80, CREDITSTYLE_C_MED,       L_TITLE(63),  L_TITLE(64)  }, // "ben cullum", "louise tilston"
-	{ 0x00, CREDITSTYLE_C_MED,       L_TITLE(65),  L_TITLE(66)  }, // "alistair", "lindsay"
-	{ 0xc0, CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
-	{ 0x80, CREDITSTYLE_C_MED,       L_TITLE(68),  L_TITLE(67)  }, // "beau chesluk", "b jones"
-	{ 0x00, CREDITSTYLE_C_MED,       L_TITLE(69),  L_TITLE(1)   }, // "steve malpass", "\n"
-	{ 0xa0, CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(94),  L_TITLE(95)  }, // "huw ward", "adam munton"
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(96),  L_TITLE(97)  }, // "david wong", "luke munton"
-	{ 0x00, CREDITSTYLE_R_MED,       L_TITLE(98),  L_TITLE(109) }, // "gary phelps", "andrew wilson"
-	{ 0xe0, CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(99),  L_TITLE(100) }, // "john silke", "matthew carter"
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(101), L_TITLE(102) }, // "gavin price", "gareth stevenson"
-	{ 0x00, CREDITSTYLE_R_MED,       L_TITLE(103), L_TITLE(1)   }, // "bushbaby", "\n"
-	{ 0xc0, CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(104), L_TITLE(105) }, // "stephen stamper", "ross bullimore"
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(106), L_TITLE(107) }, // "justin cook", "dale murchie"
-	{ 0x00, CREDITSTYLE_R_MED,       L_TITLE(108), L_TITLE(1)   }, // "roger smith", "\n"
-	{ 0x80, CREDITSTYLE_L_BIG,       L_TITLE(70),  L_TITLE(0)   }, // "ci techs", ""
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(71),  L_TITLE(72)  }, // "richard 'force 9' gale", "mark green"
-	{ 0x00, CREDITSTYLE_R_MED,       L_TITLE(73),  L_TITLE(74)  }, // "alex zoro", "mark wilson"
-	{ 0x80, CREDITSTYLE_L_BIG,       L_TITLE(75),  L_TITLE(0)   }, // "hard and wary support", ""
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(76),  L_TITLE(77)  }, // "pete 'hardrom' cox", "maul 'max' mikell"
-	{ 0x00, CREDITSTYLE_R_MED,       L_TITLE(78),  L_TITLE(0)   }, // "doug crouch", ""
-	{ 0x80, CREDITSTYLE_L_BIG,       L_TITLE(83),  L_TITLE(0)   }, // "motion capture", ""
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(84),  L_TITLE(85)  }, // "alan tippertronic", "des easen"
-	{ 0x00, CREDITSTYLE_R_MED,       L_TITLE(86),  L_TITLE(0)   }, // "jim 'love' ballard", ""
-	{ 0x80, CREDITSTYLE_L_BIG,       L_TITLE(87),  L_TITLE(0)   }, // "going through the motions", ""
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(88),  L_TITLE(89)  }, // "duncan 'bot' botwood", "michelle tipper"
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(90),  L_TITLE(91)  }, // "sue 'falling' fell", "doug 'crouch' crouch"
-	{ 0x00, CREDITSTYLE_R_MED,       L_TITLE(92),  L_TITLE(0)   }, // "ross bury", ""
-	{ 0x80, CREDITSTYLE_L_BIG,       L_TITLE(118), L_TITLE(0)   }, // "testing (rare miami)", ""
-	{ 0x00, CREDITSTYLE_R_MED,       L_TITLE(119), L_TITLE(0)   }, // "keith coll", ""
-	{ 0x80, CREDITSTYLE_C_BIG,       L_TITLE(113), L_TITLE(0)   }, // "rare in the sun", ""
-	{ 0x80, CREDITSTYLE_C_MED,       L_TITLE(114), L_TITLE(115) }, // "joel hochberg", ""
-	{ 0x00, CREDITSTYLE_C_MED,       L_TITLE(116), L_TITLE(117) }, // "scott hochberg", ""
-	{ 0x80, CREDITSTYLE_C_BIG,       L_TITLE(110), L_TITLE(0)   }, // "dark commanders", ""
-	{ 0x00, CREDITSTYLE_C_MED,       L_TITLE(111), L_TITLE(112) }, // "bis", "wombat"
-	{ 0xa0, CREDITSTYLE_L_BIG,       L_TITLE(120), L_TITLE(0)   }, // "testing (noa)", ""
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(121), L_TITLE(122) }, // "michael kelbaugh", "tim bechtel"
-	{ 0x00, CREDITSTYLE_R_MED,       L_TITLE(123), L_TITLE(124) }, // "tom hertzog", "melvin 'sherwood' forrest"
-	{ 0xc0, CREDITSTYLE_L_BIG,       L_TITLE(120), L_TITLE(0)   }, // "testing (noa)", ""
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(125), L_TITLE(126) }, // "dougall campbell", "roger harrison"
-	{ 0x00, CREDITSTYLE_R_MED,       L_TITLE(127), L_TITLE(1)   }, // "jeff kalles", "\n"
-	{ 0x00, CREDITSTYLE_R_BIG_R_MED, L_TITLE(128), L_TITLE(129) }, // "the perfect core", "-darker than you"
-	{ 0x80, CREDITSTYLE_L_BIG,       L_TITLE(130), L_TITLE(0)   }, // "treehouse", ""
-	{ 0x80, CREDITSTYLE_R_MED,       L_TITLE(131), L_TITLE(132) }, // "armond williams junior", "henry sterchi"
-	{ 0x00, CREDITSTYLE_R_MED,       L_TITLE(133), L_TITLE(0)   }, // "ed ridgeway", ""
-	{ 0x80, CREDITSTYLE_L_BIG,       L_TITLE(134), L_TITLE(0)   }, // "perfect spelling", ""
-	{ 0x00, CREDITSTYLE_R_MED,       L_TITLE(135), L_TITLE(0)   }, // "teresa lillygren", ""
-	{ 0xa0, CREDITSTYLE_C_BIG,       L_TITLE(136), L_TITLE(0)   }, // "nintendo", ""
-	{ 0x80, CREDITSTYLE_C_MED,       L_TITLE(137), L_TITLE(138) }, // "mr arakawa", ""
-	{ 0x00, CREDITSTYLE_C_MED,       L_TITLE(139), L_TITLE(140) }, // "don james", ""
-	{ 0xc0, CREDITSTYLE_C_BIG,       L_TITLE(136), L_TITLE(0)   }, // "nintendo", ""
-	{ 0x80, CREDITSTYLE_C_MED,       L_TITLE(141), L_TITLE(142) }, // "howard lincoln", "ken lobb"
-	{ 0x00, CREDITSTYLE_C_MED,       L_TITLE(143), L_TITLE(144) }, // "jacqualee story", "gail"
-	{ 0x88, CREDITSTYLE_C_BIG_C_BIG, L_TITLE(148), L_TITLE(149) }, // "rare", "designs on the future"
-	{ 0x80, CREDITSTYLE_C_SML,       L_TITLE(1),   L_TITLE(145) }, // "\n", "copyright rare 2000"
-	{ 0x00, CREDITSTYLE_C_SML,       L_TITLE(146), L_TITLE(147) }, // "perfect dark and the pd device", "are trademarks"
-	{ 0x00, CREDITSTYLE_C_SML,       L_TITLE(150), L_TITLE(0)   }, // "perfect dark is forever", ""
-	{ 0x00, CREDITSTYLE_TERMINATOR,  L_TITLE(0),   L_TITLE(0)   }, // "", ""
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(2),   L_TITLE(0)   }, // "perfect dark", ""
+
+	// The order of these items are randomised
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(3),   L_TITLE(4)   }, // "beau ner chesluk", "guns and visual orgasms"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(5),   L_TITLE(6)   }, // "jonathan nasty mummery", "mover and shaker"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(7),   L_TITLE(8)   }, // "darkmark", "reality engineer"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(9),   L_TITLE(10)  }, // "chris tilston", "designs on the future"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(11),  L_TITLE(12)  }, // "chris darling", "weapons specialist"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(13),  L_TITLE(14)  }, // "duncan botwood", "grey area"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(15),  L_TITLE(16)  }, // "b jones", "bodybuilder"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(17),  L_TITLE(18)  }, // "steve malpass", "perfect locations and vox"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(19),  L_TITLE(20)  }, // "brian marshall", "-aqham-"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(21),  L_TITLE(22)  }, // "russel irwin", "well packed man"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(23),  L_TITLE(24)  }, // "jamie 'evo' williams", "manic welsh designer"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(25),  L_TITLE(26)  }, // "ross bury", "bionic backgrounds"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(27),  L_TITLE(28)  }, // "martin penny", "sound geezer"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(29),  L_TITLE(30)  }, // "grant kirkhope", "play that music maestro"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(31),  L_TITLE(32)  }, // "david clynick", "bangin hardcore choonz"
+	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(33),  L_TITLE(34)  }, // "keith 'bunny' rabbette", "dinomic backgrounds"
+
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANOUT,                       CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(36),  L_TITLE(37)  }, // "kevin bayliss", "dean smith"
+	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(38),  L_TITLE(1)   }, // "graham smith", "\n"
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN | CREDITFLAG_NOTRANOUT, CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(39),  L_TITLE(40)  }, // "mike 'curry' currington", "tony wong"
+	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(41),  L_TITLE(1)   }, // "simon farmer", "\n"
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN,                        CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(42),  L_TITLE(43)  }, // "leigh loverday", "rob harrison"
+	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(44),  L_TITLE(1)   }, // "steven hurst", "\n"
+
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_BIG,       L_TITLE(45),  L_TITLE(0)   }, // "fearsome foursome", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(46),  L_TITLE(47)  }, // "phil dunne", "ricky berwick"
+	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(48),  L_TITLE(49)  }, // "gareth glover", "jonathan ambrose"
+
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANOUT,                       CREDITSTYLE_C_BIG,       L_TITLE(50),  L_TITLE(0)   }, // "trent's henchmen", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(51),  L_TITLE(52)  }, // "lee musgrave", "johnni christensen"
+	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(53),  L_TITLE(1)   }, // "mark betteridge", "\n"
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN,                        CREDITSTYLE_C_BIG,       L_TITLE(50),  L_TITLE(0)   }, // "trent's henchmen", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(54),  L_TITLE(55)  }, // "chris marlow", "robin beanland"
+	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(56),  L_TITLE(57)  }, // "neil gallagher", "feargal plant"
+
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANOUT,                       CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(59),  L_TITLE(60)  }, // "eveline fischer", "chris sutherland"
+	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(61),  L_TITLE(62)  }, // "chris seavor", "john silke"
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN | CREDITFLAG_NOTRANOUT, CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(63),  L_TITLE(64)  }, // "ben cullum", "louise tilston"
+	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(65),  L_TITLE(66)  }, // "alistair", "lindsay"
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN,                        CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(68),  L_TITLE(67)  }, // "beau chesluk", "b jones"
+	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(69),  L_TITLE(1)   }, // "steve malpass", "\n"
+
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANOUT,                       CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(94),  L_TITLE(95)  }, // "huw ward", "adam munton"
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(96),  L_TITLE(97)  }, // "david wong", "luke munton"
+	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(98),  L_TITLE(109) }, // "gary phelps", "andrew wilson"
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN | CREDITFLAG_NOTRANOUT, CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(99),  L_TITLE(100) }, // "john silke", "matthew carter"
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(101), L_TITLE(102) }, // "gavin price", "gareth stevenson"
+	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(103), L_TITLE(1)   }, // "bushbaby", "\n"
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN,                        CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(104), L_TITLE(105) }, // "stephen stamper", "ross bullimore"
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(106), L_TITLE(107) }, // "justin cook", "dale murchie"
+	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(108), L_TITLE(1)   }, // "roger smith", "\n"
+
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(70),  L_TITLE(0)   }, // "ci techs", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(71),  L_TITLE(72)  }, // "richard 'force 9' gale", "mark green"
+	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(73),  L_TITLE(74)  }, // "alex zoro", "mark wilson"
+
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(75),  L_TITLE(0)   }, // "hard and wary support", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(76),  L_TITLE(77)  }, // "pete 'hardrom' cox", "maul 'max' mikell"
+	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(78),  L_TITLE(0)   }, // "doug crouch", ""
+
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(83),  L_TITLE(0)   }, // "motion capture", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(84),  L_TITLE(85)  }, // "alan tippertronic", "des easen"
+	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(86),  L_TITLE(0)   }, // "jim 'love' ballard", ""
+
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(87),  L_TITLE(0)   }, // "going through the motions", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(88),  L_TITLE(89)  }, // "duncan 'bot' botwood", "michelle tipper"
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(90),  L_TITLE(91)  }, // "sue 'falling' fell", "doug 'crouch' crouch"
+	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(92),  L_TITLE(0)   }, // "ross bury", ""
+
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(118), L_TITLE(0)   }, // "testing (rare miami)", ""
+	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(119), L_TITLE(0)   }, // "keith coll", ""
+
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_BIG,       L_TITLE(113), L_TITLE(0)   }, // "rare in the sun", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(114), L_TITLE(115) }, // "joel hochberg", ""
+	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(116), L_TITLE(117) }, // "scott hochberg", ""
+
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_BIG,       L_TITLE(110), L_TITLE(0)   }, // "dark commanders", ""
+	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(111), L_TITLE(112) }, // "bis", "wombat"
+
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANOUT,                       CREDITSTYLE_L_BIG,       L_TITLE(120), L_TITLE(0)   }, // "testing (noa)", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(121), L_TITLE(122) }, // "michael kelbaugh", "tim bechtel"
+	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(123), L_TITLE(124) }, // "tom hertzog", "melvin 'sherwood' forrest"
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN,                        CREDITSTYLE_L_BIG,       L_TITLE(120), L_TITLE(0)   }, // "testing (noa)", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(125), L_TITLE(126) }, // "dougall campbell", "roger harrison"
+	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(127), L_TITLE(1)   }, // "jeff kalles", "\n"
+
+	{ 0,                                                            CREDITSTYLE_R_BIG_R_MED, L_TITLE(128), L_TITLE(129) }, // "the perfect core", "-darker than you"
+
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(130), L_TITLE(0)   }, // "treehouse", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(131), L_TITLE(132) }, // "armond williams junior", "henry sterchi"
+	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(133), L_TITLE(0)   }, // "ed ridgeway", ""
+
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(134), L_TITLE(0)   }, // "perfect spelling", ""
+	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(135), L_TITLE(0)   }, // "teresa lillygren", ""
+
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANOUT,                       CREDITSTYLE_C_BIG,       L_TITLE(136), L_TITLE(0)   }, // "nintendo", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(137), L_TITLE(138) }, // "mr arakawa", ""
+	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(139), L_TITLE(140) }, // "don james", ""
+	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN,                        CREDITSTYLE_C_BIG,       L_TITLE(136), L_TITLE(0)   }, // "nintendo", ""
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(141), L_TITLE(142) }, // "howard lincoln", "ken lobb"
+	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(143), L_TITLE(144) }, // "jacqualee story", "gail tilden"
+
+	{ CREDITFLAG_MORE | CREDITFLAG_08,                              CREDITSTYLE_C_BIG_C_BIG, L_TITLE(148), L_TITLE(149) }, // "rare", "designs on the future"
+	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_SML,       L_TITLE(1),   L_TITLE(145) }, // "\n", "copyright rare 2000"
+	{ 0,                                                            CREDITSTYLE_C_SML,       L_TITLE(146), L_TITLE(147) }, // "perfect dark and the pd device", "are trademarks"
+
+	{ 0,                                                            CREDITSTYLE_C_SML,       L_TITLE(150), L_TITLE(0)   }, // "perfect dark is forever", ""
+	{ 0,                                                            CREDITSTYLE_TERMINATOR,  L_TITLE(0),   L_TITLE(0)   }, // "", ""
 };
 
 u32 var8007f6c4 = 0x40800000;
@@ -3205,17 +3226,28 @@ glabel func0f139fe0
 /*  f13a0e0:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-struct credit *func0f13a0e4(s32 arg0)
+/**
+ * Get a credit to display, based on its row index on the current slide.
+ *
+ * Row 0 will usually be a title.
+ * Row 1 will usually be the first two names and so on.
+ *
+ * The first slide, "perfect dark", is always first, then the next 16 are the
+ * core team and is in a random order. The rest are in the same order as defined
+ * in the g_Credits array.
+ */
+struct credit *creditGetByRow(s32 row)
 {
-	if (g_CreditsData->unk4198 > 0 && g_CreditsData->unk4198 < ARRAYCOUNT(g_CreditsData->unk4154)) {
-		if (arg0 > 0) {
+	// If core team, use the mapping
+	if (g_CreditsData->creditnum > 0 && g_CreditsData->creditnum < ARRAYCOUNT(g_CreditsData->coreteammap)) {
+		if (row > 0) {
 			return NULL;
 		}
 
-		return &g_Credits[g_CreditsData->unk4154[g_CreditsData->unk4198]];
+		return &g_Credits[g_CreditsData->coreteammap[g_CreditsData->creditnum]];
 	}
 
-	return &g_Credits[g_CreditsData->unk4198 + arg0];
+	return &g_Credits[g_CreditsData->creditnum + row];
 }
 
 GLOBAL_ASM(
@@ -3233,7 +3265,7 @@ glabel var7f1b5874
 /*  f13a17c:	afb10020 */ 	sw	$s1,0x20($sp)
 /*  f13a180:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*  f13a184:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f13a188:	0fc4e839 */ 	jal	func0f13a0e4
+/*  f13a188:	0fc4e839 */ 	jal	creditGetByRow
 /*  f13a18c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f13a190:	3c0e8008 */ 	lui	$t6,%hi(var8007f6c4)
 /*  f13a194:	25cef6c4 */ 	addiu	$t6,$t6,%lo(var8007f6c4)
@@ -3301,7 +3333,7 @@ glabel var7f1b5874
 /*  f13a28c:	8e2a0000 */ 	lw	$t2,0x0($s1)
 /*  f13a290:	9142419c */ 	lbu	$v0,0x419c($t2)
 .L0f13a294:
-/*  f13a294:	0fc4e839 */ 	jal	func0f13a0e4
+/*  f13a294:	0fc4e839 */ 	jal	creditGetByRow
 /*  f13a298:	2444ffff */ 	addiu	$a0,$v0,-1
 /*  f13a29c:	844c0000 */ 	lh	$t4,0x0($v0)
 /*  f13a2a0:	00408025 */ 	or	$s0,$v0,$zero
@@ -3522,7 +3554,7 @@ glabel var7f1b592c
 /*  f13a458:	8fb900a8 */ 	lw	$t9,0xa8($sp)
 .L0f13a45c:
 /*  f13a45c:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f13a460:	0fc4e839 */ 	jal	func0f13a0e4
+/*  f13a460:	0fc4e839 */ 	jal	creditGetByRow
 /*  f13a464:	afb900e4 */ 	sw	$t9,0xe4($sp)
 /*  f13a468:	1440000d */ 	bnez	$v0,.L0f13a4a0
 /*  f13a46c:	aec20000 */ 	sw	$v0,0x0($s6)
