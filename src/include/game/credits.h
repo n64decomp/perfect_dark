@@ -4,7 +4,7 @@
 #include "types.h"
 
 void func0f137430(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
-void func0f1377d0(struct gfxvtx *vertices, s32 arg1);
+void creditsInitVertices(struct gfxvtx *vertices, s32 z);
 void func0f137874(struct gfxvtx *vertices, u32 *colours, u32 arg2, u32 arg3, u32 arg4);
 Gfx *creditsRenderBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 arg4, s32 arg5);
 void creditsCopyBackgroundLayer(s32 srcindex, s32 dstindex, bool move);

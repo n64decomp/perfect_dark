@@ -567,55 +567,29 @@ glabel var7f1b57f0
 /*  f1377cc:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel func0f1377d0
-/*  f1377d0:	00801825 */ 	or	$v1,$a0,$zero
-/*  f1377d4:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f1377d8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1377dc:	24070009 */ 	addiu	$a3,$zero,0x9
-/*  f1377e0:	24060708 */ 	addiu	$a2,$zero,0x708
-.L0f1377e4:
-/*  f1377e4:	0044001a */ 	div	$zero,$v0,$a0
-/*  f1377e8:	00007010 */ 	mfhi	$t6
-/*  f1377ec:	2463000c */ 	addiu	$v1,$v1,0xc
-/*  f1377f0:	14800002 */ 	bnez	$a0,.L0f1377fc
-/*  f1377f4:	00000000 */ 	nop
-/*  f1377f8:	0007000d */ 	break	0x7
-.L0f1377fc:
-/*  f1377fc:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f137800:	14810004 */ 	bne	$a0,$at,.L0f137814
-/*  f137804:	3c018000 */ 	lui	$at,0x8000
-/*  f137808:	14410002 */ 	bne	$v0,$at,.L0f137814
-/*  f13780c:	00000000 */ 	nop
-/*  f137810:	0006000d */ 	break	0x6
-.L0f137814:
-/*  f137814:	01c60019 */ 	multu	$t6,$a2
-/*  f137818:	a465fff8 */ 	sh	$a1,-0x8($v1)
-/*  f13781c:	00007812 */ 	mflo	$t7
-/*  f137820:	25f8f8f8 */ 	addiu	$t8,$t7,-1800
-/*  f137824:	a478fff4 */ 	sh	$t8,-0xc($v1)
-/*  f137828:	0044001a */ 	div	$zero,$v0,$a0
-/*  f13782c:	0000c812 */ 	mflo	$t9
-/*  f137830:	14800002 */ 	bnez	$a0,.L0f13783c
-/*  f137834:	00000000 */ 	nop
-/*  f137838:	0007000d */ 	break	0x7
-.L0f13783c:
-/*  f13783c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f137840:	14810004 */ 	bne	$a0,$at,.L0f137854
-/*  f137844:	3c018000 */ 	lui	$at,0x8000
-/*  f137848:	14410002 */ 	bne	$v0,$at,.L0f137854
-/*  f13784c:	00000000 */ 	nop
-/*  f137850:	0006000d */ 	break	0x6
-.L0f137854:
-/*  f137854:	03260019 */ 	multu	$t9,$a2
-/*  f137858:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f13785c:	00004012 */ 	mflo	$t0
-/*  f137860:	2509f8f8 */ 	addiu	$t1,$t0,-1800
-/*  f137864:	1447ffdf */ 	bne	$v0,$a3,.L0f1377e4
-/*  f137868:	a469fff6 */ 	sh	$t1,-0xa($v1)
-/*  f13786c:	03e00008 */ 	jr	$ra
-/*  f137870:	00000000 */ 	nop
-);
+/**
+ * Initialises the vertices coordinates. The generated x and y coordinates are:
+ *
+ * 0:  -1800  -1800
+ * 1:  0      -1800
+ * 2:  1800   -1800
+ * 3:  -1800  0
+ * 4:  0      0
+ * 5:  1800   0
+ * 6:  -1800  1800
+ * 7:  0      1800
+ * 8:  1800   1800
+ */
+void creditsInitVertices(struct gfxvtx *vertices, s32 z)
+{
+	s32 i;
+
+	for (i = 0; i < 9; i++) {
+		vertices[i].x = (i % 3) * 1800 - 1800;
+		vertices[i].y = (i / 3) * 1800 - 1800;
+		vertices[i].z = z;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f137874
@@ -853,7 +827,7 @@ Gfx *creditsRenderBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 
 	colours = gfxAllocateColours(3);
 	vertices = gfxAllocateVertices(9);
 
-	func0f1377d0(vertices, (s32)((g_CreditsBgTypes[type].unk04 + 2000) * arg3) - 2000);
+	creditsInitVertices(vertices, (s32)((g_CreditsBgTypes[type].unk04 + 2000) * arg3) - 2000);
 
 	d = g_CreditsData->bglayers[layernum].rotatespeed * var800a416c * 0.25f;
 	a = g_CreditsData->bglayers[layernum].unk08 * var800a416c * 0.25f;
