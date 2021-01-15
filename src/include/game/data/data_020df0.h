@@ -154,7 +154,7 @@ extern u32 var8007f110;
 extern u32 var8007f120;
 extern u32 var8007f124;
 extern u32 var8007f130;
-extern u32 var8007f134;
+extern bool g_CreditsAltTitleRequested;
 extern u32 var8007f13c;
 extern u32 var8007f3cc;
 extern u32 var8007f410;

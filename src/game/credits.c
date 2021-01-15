@@ -35,8 +35,8 @@ const char var7f1b57c0[] = "tload";
 const char var7f1b57c8[] = "dump";
 
 u32 var8007f130 = 0x00000000;
-u32 var8007f134 = 0x00000000;
-u32 var8007f138 = 0x00000000;
+bool g_CreditsAltTitleRequested = false;
+bool g_CreditsUsingAltTitle = false;
 u32 var8007f13c = 0x3e4ccccd;
 u32 var8007f140 = 0x00010001;
 u32 var8007f144 = 0x02010001;
@@ -4274,7 +4274,7 @@ void creditsTick(void)
 	}
 
 	if (var800a416c == 0) {
-		if (var8007f138) {
+		if (g_CreditsUsingAltTitle) {
 			musicSetStage(STAGE_CREDITS);
 			musicStartPrimary(0);
 		} else {
@@ -4576,8 +4576,8 @@ glabel var7f1b5948
 /*  f13b43c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f13b440:	00408025 */ 	or	$s0,$v0,$zero
 .L0f13b444:
-/*  f13b444:	3c0c8008 */ 	lui	$t4,%hi(var8007f138)
-/*  f13b448:	8d8cf138 */ 	lw	$t4,%lo(var8007f138)($t4)
+/*  f13b444:	3c0c8008 */ 	lui	$t4,%hi(g_CreditsUsingAltTitle)
+/*  f13b448:	8d8cf138 */ 	lw	$t4,%lo(g_CreditsUsingAltTitle)($t4)
 /*  f13b44c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f13b450:	51800018 */ 	beqzl	$t4,.L0f13b4b4
 /*  f13b454:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -4710,7 +4710,7 @@ glabel var7f1b5948
 //		}
 //	}
 //
-//	if (var8007f138 && contGetButtonsPressedThisFrame(0, 0xffcf)) {
+//	if (g_CreditsUsingAltTitle && contGetButtonsPressedThisFrame(0, 0xffcf)) {
 //		g_TitleNextStage = STAGE_CITRAINING;
 //
 //		setNumPlayers(1);
@@ -4763,10 +4763,10 @@ void creditsInit(void)
 	g_CreditsData->unk3414 = g_CreditsData->unk343c;
 	g_CreditsData->unk3468 = 60;
 
-	var8007f138 = var8007f134;
+	g_CreditsUsingAltTitle = g_CreditsAltTitleRequested;
 
-	if (var8007f134) {
-		var8007f134 = 0;
+	if (g_CreditsAltTitleRequested) {
+		g_CreditsAltTitleRequested = false;
 
 		g_CreditsData->unk41f4 = 0;
 		g_CreditsData->unk4204 = 0x474;
@@ -4775,10 +4775,7 @@ void creditsInit(void)
 	currentPlayerConfigureVi();
 }
 
-GLOBAL_ASM(
-glabel func0f13b660
-/*  f13b660:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f13b664:	3c018008 */ 	lui	$at,%hi(var8007f134)
-/*  f13b668:	03e00008 */ 	jr	$ra
-/*  f13b66c:	ac2ef134 */ 	sw	$t6,%lo(var8007f134)($at)
-);
+void creditsRequestAltTitle(void)
+{
+	g_CreditsAltTitleRequested = true;
+}

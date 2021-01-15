@@ -26,7 +26,7 @@ u32 func0f13ae04(void);
 void creditsTick(void);
 Gfx *creditsRender(Gfx *gdl);
 void creditsInit(void);
-void func0f13b660(void);
+void creditsRequestAltTitle(void);
 
 struct creditsbgtype {
 	s16 unk00;

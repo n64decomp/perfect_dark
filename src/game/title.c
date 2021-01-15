@@ -1317,9 +1317,9 @@ void titleTickPdLogo(void)
 	var8009ccb8 = 1 - var8009ccb8;
 
 	if (var80062734) {
-		if (g_AltTitle && g_Is4Mb != true) {
+		if (g_AltTitle && !IS4MB()) {
 			g_TitleMode = TITLEMODE_SKIP;
-			func0f13b660();
+			creditsRequestAltTitle();
 			g_TitleNextStage = STAGE_CREDITS; // for alt title screen
 			setNumPlayers(1);
 			mainSetStageNum(g_TitleNextStage);
