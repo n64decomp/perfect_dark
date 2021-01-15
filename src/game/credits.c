@@ -3205,44 +3205,18 @@ glabel func0f139fe0
 /*  f13a0e0:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-GLOBAL_ASM(
-glabel func0f13a0e4
-/*  f13a0e4:	3c03800a */ 	lui	$v1,%hi(g_CreditsData)
-/*  f13a0e8:	8c634170 */ 	lw	$v1,%lo(g_CreditsData)($v1)
-/*  f13a0ec:	00045080 */ 	sll	$t2,$a0,0x2
-/*  f13a0f0:	01445023 */ 	subu	$t2,$t2,$a0
-/*  f13a0f4:	8c654198 */ 	lw	$a1,0x4198($v1)
-/*  f13a0f8:	000a5040 */ 	sll	$t2,$t2,0x1
-/*  f13a0fc:	3c0c8008 */ 	lui	$t4,%hi(g_Credits)
-/*  f13a100:	18a00010 */ 	blez	$a1,.L0f13a144
-/*  f13a104:	28a10011 */ 	slti	$at,$a1,0x11
-/*  f13a108:	5020000f */ 	beqzl	$at,.L0f13a148
-/*  f13a10c:	00054880 */ 	sll	$t1,$a1,0x2
-/*  f13a110:	18800003 */ 	blez	$a0,.L0f13a120
-/*  f13a114:	00057080 */ 	sll	$t6,$a1,0x2
-/*  f13a118:	03e00008 */ 	jr	$ra
-/*  f13a11c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f13a120:
-/*  f13a120:	006e7821 */ 	addu	$t7,$v1,$t6
-/*  f13a124:	8df84154 */ 	lw	$t8,0x4154($t7)
-/*  f13a128:	3c088008 */ 	lui	$t0,%hi(g_Credits)
-/*  f13a12c:	2508f470 */ 	addiu	$t0,$t0,%lo(g_Credits)
-/*  f13a130:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f13a134:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f13a138:	0019c840 */ 	sll	$t9,$t9,0x1
-/*  f13a13c:	03e00008 */ 	jr	$ra
-/*  f13a140:	03281021 */ 	addu	$v0,$t9,$t0
-.L0f13a144:
-/*  f13a144:	00054880 */ 	sll	$t1,$a1,0x2
-.L0f13a148:
-/*  f13a148:	01254823 */ 	subu	$t1,$t1,$a1
-/*  f13a14c:	00094840 */ 	sll	$t1,$t1,0x1
-/*  f13a150:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f13a154:	258cf470 */ 	addiu	$t4,$t4,%lo(g_Credits)
-/*  f13a158:	016c1021 */ 	addu	$v0,$t3,$t4
-/*  f13a15c:	03e00008 */ 	jr	$ra
-/*  f13a160:	00000000 */ 	nop
-);
+struct credit *func0f13a0e4(s32 arg0)
+{
+	if (g_CreditsData->unk4198 > 0 && g_CreditsData->unk4198 < ARRAYCOUNT(g_CreditsData->unk4154)) {
+		if (arg0 > 0) {
+			return NULL;
+		}
+
+		return &g_Credits[g_CreditsData->unk4154[g_CreditsData->unk4198]];
+	}
+
+	return &g_Credits[g_CreditsData->unk4198 + arg0];
+}
 
 GLOBAL_ASM(
 glabel func0f13a164
