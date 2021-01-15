@@ -3,10 +3,10 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f137430(void);
-u32 func0f1377d0(void);
-u32 func0f137874(void);
-Gfx *creditsRenderBackgroundLayer(Gfx *gdl, u8 type, u8 arg2, f32 arg3, u32 arg4, s32 arg5);
+void func0f137430(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
+void func0f1377d0(struct gfxvtx *vertices, s32 arg1);
+void func0f137874(struct gfxvtx *vertices, u32 *colours, u32 arg2, u32 arg3, u32 arg4);
+Gfx *creditsRenderBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 arg4, s32 arg5);
 void creditsCopyBackgroundLayer(s32 srcindex, s32 dstindex, bool move);
 Gfx *creditsRenderBackground(Gfx *gdl);
 f32 func0f1382e0(f32 range);
@@ -28,7 +28,16 @@ Gfx *creditsRender(Gfx *gdl);
 void creditsInit(void);
 void func0f13b660(void);
 
-struct credits41b4 {
+struct creditsbgtype {
+	s16 unk00;
+	s16 unk02;
+	s16 unk04;
+	s32 texturenum;
+	f32 unk0c;
+	f32 unk10;
+};
+
+struct creditsbglayer {
 	s32 type;
 	f32 rotatespeed;
 	f32 unk08;
@@ -4245,7 +4254,7 @@ struct creditsdata {
 	/*0x41a8*/ u32 unk41a8;
 	/*0x41ac*/ u32 unk41ac;
 	/*0x41b0*/ s8 unk41b0[2];
-	/*0x41b4*/ struct credits41b4 unk41b4[4];
+	/*0x41b4*/ struct creditsbglayer bglayers[4];
 	/*0x41f4*/ u8 unk41f4;
 	/*0x41f8*/ u32 unk41f8;
 	/*0x41fc*/ u32 unk41fc;
