@@ -7,7 +7,7 @@ u32 func0f137430(void);
 u32 func0f1377d0(void);
 u32 func0f137874(void);
 Gfx *creditsRenderBackgroundLayer(Gfx *gdl, u8 type, u8 arg2, f32 arg3, u32 arg4, s32 arg5);
-void func0f137ea8(s32 arg0, s32 arg1, s32 arg2);
+void creditsCopyBackgroundLayer(s32 srcindex, s32 dstindex, bool move);
 Gfx *creditsRenderBackground(Gfx *gdl);
 f32 func0f1382e0(f32 range);
 void creditsRandomiseBackground(u32 arg0);

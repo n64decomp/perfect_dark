@@ -1095,41 +1095,17 @@ glabel creditsRenderBackgroundLayer
 /*  f137ea4:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 
-GLOBAL_ASM(
-glabel func0f137ea8
-/*  f137ea8:	3c08800a */ 	lui	$t0,%hi(g_CreditsData)
-/*  f137eac:	25084170 */ 	addiu	$t0,$t0,%lo(g_CreditsData)
-/*  f137eb0:	8d020000 */ 	lw	$v0,0x0($t0)
-/*  f137eb4:	00043900 */ 	sll	$a3,$a0,0x4
-/*  f137eb8:	00051900 */ 	sll	$v1,$a1,0x4
-/*  f137ebc:	00477021 */ 	addu	$t6,$v0,$a3
-/*  f137ec0:	8dcf41b4 */ 	lw	$t7,0x41b4($t6)
-/*  f137ec4:	0043c021 */ 	addu	$t8,$v0,$v1
-/*  f137ec8:	af0f41b4 */ 	sw	$t7,0x41b4($t8)
-/*  f137ecc:	8d020000 */ 	lw	$v0,0x0($t0)
-/*  f137ed0:	0047c821 */ 	addu	$t9,$v0,$a3
-/*  f137ed4:	c72441b8 */ 	lwc1	$f4,0x41b8($t9)
-/*  f137ed8:	00434821 */ 	addu	$t1,$v0,$v1
-/*  f137edc:	e52441b8 */ 	swc1	$f4,0x41b8($t1)
-/*  f137ee0:	8d020000 */ 	lw	$v0,0x0($t0)
-/*  f137ee4:	00475021 */ 	addu	$t2,$v0,$a3
-/*  f137ee8:	c54641bc */ 	lwc1	$f6,0x41bc($t2)
-/*  f137eec:	00435821 */ 	addu	$t3,$v0,$v1
-/*  f137ef0:	e56641bc */ 	swc1	$f6,0x41bc($t3)
-/*  f137ef4:	8d020000 */ 	lw	$v0,0x0($t0)
-/*  f137ef8:	00476021 */ 	addu	$t4,$v0,$a3
-/*  f137efc:	8d8d41c0 */ 	lw	$t5,0x41c0($t4)
-/*  f137f00:	00437021 */ 	addu	$t6,$v0,$v1
-/*  f137f04:	10c00005 */ 	beqz	$a2,.L0f137f1c
-/*  f137f08:	adcd41c0 */ 	sw	$t5,0x41c0($t6)
-/*  f137f0c:	8d180000 */ 	lw	$t8,0x0($t0)
-/*  f137f10:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f137f14:	0307c821 */ 	addu	$t9,$t8,$a3
-/*  f137f18:	af2f41b4 */ 	sw	$t7,0x41b4($t9)
-.L0f137f1c:
-/*  f137f1c:	03e00008 */ 	jr	$ra
-/*  f137f20:	00000000 */ 	nop
-);
+void creditsCopyBackgroundLayer(s32 srcindex, s32 dstindex, bool move)
+{
+	g_CreditsData->unk41b4[dstindex].type = g_CreditsData->unk41b4[srcindex].type;
+	g_CreditsData->unk41b4[dstindex].rotatespeed = g_CreditsData->unk41b4[srcindex].rotatespeed;
+	g_CreditsData->unk41b4[dstindex].unk08 = g_CreditsData->unk41b4[srcindex].unk08;
+	g_CreditsData->unk41b4[dstindex].unk0c = g_CreditsData->unk41b4[srcindex].unk0c;
+
+	if (move) {
+		g_CreditsData->unk41b4[srcindex].type = -1;
+	}
+}
 
 Gfx *creditsRenderBackground(Gfx *gdl)
 {
@@ -1160,7 +1136,6 @@ Gfx *creditsRenderBackground(Gfx *gdl)
 				g_CreditsData->unk41b0[i] = 2;
 			}
 
-
 			uVar14 = ((value - 0.8f) / 0.2f) * 255.0f;
 
 			s1[len + 0] = val;
@@ -1176,7 +1151,7 @@ Gfx *creditsRenderBackground(Gfx *gdl)
 			len += 2;
 		} else {
 			if (g_CreditsData->unk41b0[i] == 1) {
-				func0f137ea8(i + 2, i, 1);
+				creditsCopyBackgroundLayer(i + 2, i, true);
 			}
 
 			g_CreditsData->unk41b0[i] = 0;
@@ -4979,8 +4954,10 @@ void creditsInit(void)
 	g_CreditsData->unk41b0[1] = 0;
 
 	creditsRandomiseBackground(0xffffffff);
-	func0f137ea8(2, 0, 1);
-	func0f137ea8(3, 1, 1);
+
+	// Move layers 2 and 3 to 0 and 1
+	creditsCopyBackgroundLayer(2, 0, true);
+	creditsCopyBackgroundLayer(3, 1, true);
 
 	g_CreditsData->unk41f4 = 1;
 
