@@ -3478,8 +3478,11 @@ struct playerstats {
 };
 
 struct credit {
-	u8 unk00;
-	u8 type;
+	u8 more : 1;
+	u8 notranin : 1;
+	u8 notranout : 1;
+	u8 durationindex : 2;
+	u8 style;
 	u16 text1;
 	u16 text2;
 };

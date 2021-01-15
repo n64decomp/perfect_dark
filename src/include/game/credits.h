@@ -10,7 +10,7 @@ Gfx *creditsRenderBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 
 void creditsCopyBackgroundLayer(s32 srcindex, s32 dstindex, bool move);
 Gfx *creditsRenderBackground(Gfx *gdl);
 f32 func0f1382e0(f32 range);
-void creditsRandomiseBackground(u32 arg0);
+void creditsCreatePendingBgLayers(u32 arg0);
 Gfx *creditsClearFramebuffer(Gfx *gdl, u32 colour);
 u32 func0f13870c(void);
 void func0f13899c(void);
@@ -20,7 +20,7 @@ u32 func0f1399d0(void);
 u32 func0f139d9c(void);
 u32 func0f139fe0(void);
 struct credit *creditGetByRow(s32 row);
-u32 func0f13a164(void);
+void creditsTickSlide(void);
 Gfx *func0f13a3ec(Gfx *gdl);
 u32 func0f13ae04(void);
 void creditsTick(void);
@@ -4248,19 +4248,18 @@ struct creditsdata {
 	 */
 	/*0x4198*/ s32 creditnum;
 
-	/*0x419c*/ u32 unk419c;
-	/*0x41a0*/ u32 unk41a0;
-	/*0x41a4*/ u32 unk41a4;
-	/*0x41a8*/ u32 unk41a8;
-	/*0x41ac*/ u32 unk41ac;
+	/*0x419c*/ u8 numthisslide;
+	/*0x41a0*/ f32 slideage; // age in seconds
+	/*0x41a4*/ f32 slidelifetime; // in seconds
+	/*0x41a8*/ u8 unk41a8[8];
 	/*0x41b0*/ s8 unk41b0[2];
 	/*0x41b4*/ struct creditsbglayer bglayers[4];
-	/*0x41f4*/ u8 unk41f4;
+	/*0x41f4*/ u8 slidesenabled;
 	/*0x41f8*/ u32 unk41f8;
 	/*0x41fc*/ u32 unk41fc;
 	/*0x4200*/ u32 unk4200;
-	/*0x4204*/ u32 unk4204;
-	/*0x4208*/ u32 unk4208;
+	/*0x4204*/ u32 unk4204; // time 60
+	/*0x4208*/ u8 unk4208;
 	/*0x420c*/ u32 unk420c;
 	/*0x4210*/ u32 unk4210;
 	/*0x4214*/ u32 unk4214;

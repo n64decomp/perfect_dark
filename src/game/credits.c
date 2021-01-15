@@ -1012,133 +1012,127 @@ u32 var8007f468 = 0x00000025;
 u32 var8007f46c = 0x00000000;
 
 struct credit g_Credits[] = {
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(2),   L_TITLE(0)   }, // "perfect dark", ""
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(2),   L_TITLE(0)   }, // "perfect dark", ""
 
 	// The order of these items are randomised
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(3),   L_TITLE(4)   }, // "beau ner chesluk", "guns and visual orgasms"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(5),   L_TITLE(6)   }, // "jonathan nasty mummery", "mover and shaker"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(7),   L_TITLE(8)   }, // "darkmark", "reality engineer"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(9),   L_TITLE(10)  }, // "chris tilston", "designs on the future"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(11),  L_TITLE(12)  }, // "chris darling", "weapons specialist"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(13),  L_TITLE(14)  }, // "duncan botwood", "grey area"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(15),  L_TITLE(16)  }, // "b jones", "bodybuilder"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(17),  L_TITLE(18)  }, // "steve malpass", "perfect locations and vox"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(19),  L_TITLE(20)  }, // "brian marshall", "-aqham-"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(21),  L_TITLE(22)  }, // "russel irwin", "well packed man"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(23),  L_TITLE(24)  }, // "jamie 'evo' williams", "manic welsh designer"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(25),  L_TITLE(26)  }, // "ross bury", "bionic backgrounds"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(27),  L_TITLE(28)  }, // "martin penny", "sound geezer"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(29),  L_TITLE(30)  }, // "grant kirkhope", "play that music maestro"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(31),  L_TITLE(32)  }, // "david clynick", "bangin hardcore choonz"
-	{ 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(33),  L_TITLE(34)  }, // "keith 'bunny' rabbette", "dinomic backgrounds"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(3),   L_TITLE(4)   }, // "beau ner chesluk", "guns and visual orgasms"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(5),   L_TITLE(6)   }, // "jonathan nasty mummery", "mover and shaker"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(7),   L_TITLE(8)   }, // "darkmark", "reality engineer"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(9),   L_TITLE(10)  }, // "chris tilston", "designs on the future"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(11),  L_TITLE(12)  }, // "chris darling", "weapons specialist"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(13),  L_TITLE(14)  }, // "duncan botwood", "grey area"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(15),  L_TITLE(16)  }, // "b jones", "bodybuilder"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(17),  L_TITLE(18)  }, // "steve malpass", "perfect locations and vox"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(19),  L_TITLE(20)  }, // "brian marshall", "-aqham-"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(21),  L_TITLE(22)  }, // "russel irwin", "well packed man"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(23),  L_TITLE(24)  }, // "jamie 'evo' williams", "manic welsh designer"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(25),  L_TITLE(26)  }, // "ross bury", "bionic backgrounds"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(27),  L_TITLE(28)  }, // "martin penny", "sound geezer"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(29),  L_TITLE(30)  }, // "grant kirkhope", "play that music maestro"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(31),  L_TITLE(32)  }, // "david clynick", "bangin hardcore choonz"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(33),  L_TITLE(34)  }, // "keith 'bunny' rabbette", "dinomic backgrounds"
 
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANOUT,                       CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(36),  L_TITLE(37)  }, // "kevin bayliss", "dean smith"
-	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(38),  L_TITLE(1)   }, // "graham smith", "\n"
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN | CREDITFLAG_NOTRANOUT, CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(39),  L_TITLE(40)  }, // "mike 'curry' currington", "tony wong"
-	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(41),  L_TITLE(1)   }, // "simon farmer", "\n"
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN,                        CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(42),  L_TITLE(43)  }, // "leigh loverday", "rob harrison"
-	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(44),  L_TITLE(1)   }, // "steven hurst", "\n"
+	{ 1, 0, 1, 0, CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(36),  L_TITLE(37)  }, // "kevin bayliss", "dean smith"
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(38),  L_TITLE(1)   }, // "graham smith", "\n"
+	{ 1, 1, 1, 0, CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(39),  L_TITLE(40)  }, // "mike 'curry' currington", "tony wong"
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(41),  L_TITLE(1)   }, // "simon farmer", "\n"
+	{ 1, 1, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(42),  L_TITLE(43)  }, // "leigh loverday", "rob harrison"
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(44),  L_TITLE(1)   }, // "steven hurst", "\n"
 
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_BIG,       L_TITLE(45),  L_TITLE(0)   }, // "fearsome foursome", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(46),  L_TITLE(47)  }, // "phil dunne", "ricky berwick"
-	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(48),  L_TITLE(49)  }, // "gareth glover", "jonathan ambrose"
+	{ 1, 0, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE(45),  L_TITLE(0)   }, // "fearsome foursome", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(46),  L_TITLE(47)  }, // "phil dunne", "ricky berwick"
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(48),  L_TITLE(49)  }, // "gareth glover", "jonathan ambrose"
 
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANOUT,                       CREDITSTYLE_C_BIG,       L_TITLE(50),  L_TITLE(0)   }, // "trent's henchmen", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(51),  L_TITLE(52)  }, // "lee musgrave", "johnni christensen"
-	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(53),  L_TITLE(1)   }, // "mark betteridge", "\n"
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN,                        CREDITSTYLE_C_BIG,       L_TITLE(50),  L_TITLE(0)   }, // "trent's henchmen", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(54),  L_TITLE(55)  }, // "chris marlow", "robin beanland"
-	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(56),  L_TITLE(57)  }, // "neil gallagher", "feargal plant"
+	{ 1, 0, 1, 0, CREDITSTYLE_C_BIG,       L_TITLE(50),  L_TITLE(0)   }, // "trent's henchmen", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(51),  L_TITLE(52)  }, // "lee musgrave", "johnni christensen"
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(53),  L_TITLE(1)   }, // "mark betteridge", "\n"
+	{ 1, 1, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE(50),  L_TITLE(0)   }, // "trent's henchmen", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(54),  L_TITLE(55)  }, // "chris marlow", "robin beanland"
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(56),  L_TITLE(57)  }, // "neil gallagher", "feargal plant"
 
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANOUT,                       CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(59),  L_TITLE(60)  }, // "eveline fischer", "chris sutherland"
-	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(61),  L_TITLE(62)  }, // "chris seavor", "john silke"
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN | CREDITFLAG_NOTRANOUT, CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(63),  L_TITLE(64)  }, // "ben cullum", "louise tilston"
-	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(65),  L_TITLE(66)  }, // "alistair", "lindsay"
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN,                        CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(68),  L_TITLE(67)  }, // "beau chesluk", "b jones"
-	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(69),  L_TITLE(1)   }, // "steve malpass", "\n"
+	{ 1, 0, 1, 0, CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(59),  L_TITLE(60)  }, // "eveline fischer", "chris sutherland"
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(61),  L_TITLE(62)  }, // "chris seavor", "john silke"
+	{ 1, 1, 1, 0, CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(63),  L_TITLE(64)  }, // "ben cullum", "louise tilston"
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(65),  L_TITLE(66)  }, // "alistair", "lindsay"
+	{ 1, 1, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(68),  L_TITLE(67)  }, // "beau chesluk", "b jones"
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(69),  L_TITLE(1)   }, // "steve malpass", "\n"
 
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANOUT,                       CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(94),  L_TITLE(95)  }, // "huw ward", "adam munton"
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(96),  L_TITLE(97)  }, // "david wong", "luke munton"
-	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(98),  L_TITLE(109) }, // "gary phelps", "andrew wilson"
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN | CREDITFLAG_NOTRANOUT, CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(99),  L_TITLE(100) }, // "john silke", "matthew carter"
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(101), L_TITLE(102) }, // "gavin price", "gareth stevenson"
-	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(103), L_TITLE(1)   }, // "bushbaby", "\n"
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN,                        CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(104), L_TITLE(105) }, // "stephen stamper", "ross bullimore"
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(106), L_TITLE(107) }, // "justin cook", "dale murchie"
-	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(108), L_TITLE(1)   }, // "roger smith", "\n"
+	{ 1, 0, 1, 0, CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(94),  L_TITLE(95)  }, // "huw ward", "adam munton"
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(96),  L_TITLE(97)  }, // "david wong", "luke munton"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(98),  L_TITLE(109) }, // "gary phelps", "andrew wilson"
+	{ 1, 1, 1, 0, CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(99),  L_TITLE(100) }, // "john silke", "matthew carter"
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(101), L_TITLE(102) }, // "gavin price", "gareth stevenson"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(103), L_TITLE(1)   }, // "bushbaby", "\n"
+	{ 1, 1, 0, 0, CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(104), L_TITLE(105) }, // "stephen stamper", "ross bullimore"
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(106), L_TITLE(107) }, // "justin cook", "dale murchie"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(108), L_TITLE(1)   }, // "roger smith", "\n"
 
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(70),  L_TITLE(0)   }, // "ci techs", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(71),  L_TITLE(72)  }, // "richard 'force 9' gale", "mark green"
-	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(73),  L_TITLE(74)  }, // "alex zoro", "mark wilson"
+	{ 1, 0, 0, 0, CREDITSTYLE_L_BIG,       L_TITLE(70),  L_TITLE(0)   }, // "ci techs", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(71),  L_TITLE(72)  }, // "richard 'force 9' gale", "mark green"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(73),  L_TITLE(74)  }, // "alex zoro", "mark wilson"
 
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(75),  L_TITLE(0)   }, // "hard and wary support", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(76),  L_TITLE(77)  }, // "pete 'hardrom' cox", "maul 'max' mikell"
-	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(78),  L_TITLE(0)   }, // "doug crouch", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_L_BIG,       L_TITLE(75),  L_TITLE(0)   }, // "hard and wary support", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(76),  L_TITLE(77)  }, // "pete 'hardrom' cox", "maul 'max' mikell"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(78),  L_TITLE(0)   }, // "doug crouch", ""
 
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(83),  L_TITLE(0)   }, // "motion capture", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(84),  L_TITLE(85)  }, // "alan tippertronic", "des easen"
-	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(86),  L_TITLE(0)   }, // "jim 'love' ballard", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_L_BIG,       L_TITLE(83),  L_TITLE(0)   }, // "motion capture", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(84),  L_TITLE(85)  }, // "alan tippertronic", "des easen"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(86),  L_TITLE(0)   }, // "jim 'love' ballard", ""
 
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(87),  L_TITLE(0)   }, // "going through the motions", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(88),  L_TITLE(89)  }, // "duncan 'bot' botwood", "michelle tipper"
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(90),  L_TITLE(91)  }, // "sue 'falling' fell", "doug 'crouch' crouch"
-	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(92),  L_TITLE(0)   }, // "ross bury", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_L_BIG,       L_TITLE(87),  L_TITLE(0)   }, // "going through the motions", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(88),  L_TITLE(89)  }, // "duncan 'bot' botwood", "michelle tipper"
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(90),  L_TITLE(91)  }, // "sue 'falling' fell", "doug 'crouch' crouch"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(92),  L_TITLE(0)   }, // "ross bury", ""
 
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(118), L_TITLE(0)   }, // "testing (rare miami)", ""
-	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(119), L_TITLE(0)   }, // "keith coll", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_L_BIG,       L_TITLE(118), L_TITLE(0)   }, // "testing (rare miami)", ""
+	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(119), L_TITLE(0)   }, // "keith coll", ""
 
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_BIG,       L_TITLE(113), L_TITLE(0)   }, // "rare in the sun", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(114), L_TITLE(115) }, // "joel hochberg", ""
-	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(116), L_TITLE(117) }, // "scott hochberg", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE(113), L_TITLE(0)   }, // "rare in the sun", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(114), L_TITLE(115) }, // "joel hochberg", ""
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(116), L_TITLE(117) }, // "scott hochberg", ""
 
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_BIG,       L_TITLE(110), L_TITLE(0)   }, // "dark commanders", ""
-	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(111), L_TITLE(112) }, // "bis", "wombat"
+	{ 1, 0, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE(110), L_TITLE(0)   }, // "dark commanders", ""
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(111), L_TITLE(112) }, // "bis", "wombat"
 
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANOUT,                       CREDITSTYLE_L_BIG,       L_TITLE(120), L_TITLE(0)   }, // "testing (noa)", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(121), L_TITLE(122) }, // "michael kelbaugh", "tim bechtel"
-	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(123), L_TITLE(124) }, // "tom hertzog", "melvin 'sherwood' forrest"
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN,                        CREDITSTYLE_L_BIG,       L_TITLE(120), L_TITLE(0)   }, // "testing (noa)", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(125), L_TITLE(126) }, // "dougall campbell", "roger harrison"
-	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(127), L_TITLE(1)   }, // "jeff kalles", "\n"
+	{ 1, 0, 1, 0, CREDITSTYLE_L_BIG,       L_TITLE(120), L_TITLE(0)   }, // "testing (noa)", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(121), L_TITLE(122) }, // "michael kelbaugh", "tim bechtel"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(123), L_TITLE(124) }, // "tom hertzog", "melvin 'sherwood' forrest"
+	{ 1, 1, 0, 0, CREDITSTYLE_L_BIG,       L_TITLE(120), L_TITLE(0)   }, // "testing (noa)", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(125), L_TITLE(126) }, // "dougall campbell", "roger harrison"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(127), L_TITLE(1)   }, // "jeff kalles", "\n"
 
-	{ 0,                                                            CREDITSTYLE_R_BIG_R_MED, L_TITLE(128), L_TITLE(129) }, // "the perfect core", "-darker than you"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(128), L_TITLE(129) }, // "the perfect core", "-darker than you"
 
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(130), L_TITLE(0)   }, // "treehouse", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_R_MED,       L_TITLE(131), L_TITLE(132) }, // "armond williams junior", "henry sterchi"
-	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(133), L_TITLE(0)   }, // "ed ridgeway", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_L_BIG,       L_TITLE(130), L_TITLE(0)   }, // "treehouse", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(131), L_TITLE(132) }, // "armond williams junior", "henry sterchi"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(133), L_TITLE(0)   }, // "ed ridgeway", ""
 
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_L_BIG,       L_TITLE(134), L_TITLE(0)   }, // "perfect spelling", ""
-	{ 0,                                                            CREDITSTYLE_R_MED,       L_TITLE(135), L_TITLE(0)   }, // "teresa lillygren", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_L_BIG,       L_TITLE(134), L_TITLE(0)   }, // "perfect spelling", ""
+	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(135), L_TITLE(0)   }, // "teresa lillygren", ""
 
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANOUT,                       CREDITSTYLE_C_BIG,       L_TITLE(136), L_TITLE(0)   }, // "nintendo", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(137), L_TITLE(138) }, // "mr arakawa", ""
-	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(139), L_TITLE(140) }, // "don james", ""
-	{ CREDITFLAG_MORE | CREDITFLAG_NOTRANIN,                        CREDITSTYLE_C_BIG,       L_TITLE(136), L_TITLE(0)   }, // "nintendo", ""
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_MED,       L_TITLE(141), L_TITLE(142) }, // "howard lincoln", "ken lobb"
-	{ 0,                                                            CREDITSTYLE_C_MED,       L_TITLE(143), L_TITLE(144) }, // "jacqualee story", "gail tilden"
+	{ 1, 0, 1, 0, CREDITSTYLE_C_BIG,       L_TITLE(136), L_TITLE(0)   }, // "nintendo", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(137), L_TITLE(138) }, // "mr arakawa", ""
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(139), L_TITLE(140) }, // "don james", ""
+	{ 1, 1, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE(136), L_TITLE(0)   }, // "nintendo", ""
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(141), L_TITLE(142) }, // "howard lincoln", "ken lobb"
+	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(143), L_TITLE(144) }, // "jacqualee story", "gail tilden"
 
-	{ CREDITFLAG_MORE | CREDITFLAG_08,                              CREDITSTYLE_C_BIG_C_BIG, L_TITLE(148), L_TITLE(149) }, // "rare", "designs on the future"
-	{ CREDITFLAG_MORE,                                              CREDITSTYLE_C_SML,       L_TITLE(1),   L_TITLE(145) }, // "\n", "copyright rare 2000"
-	{ 0,                                                            CREDITSTYLE_C_SML,       L_TITLE(146), L_TITLE(147) }, // "perfect dark and the pd device", "are trademarks"
+	{ 1, 0, 0, 1, CREDITSTYLE_C_BIG_C_BIG, L_TITLE(148), L_TITLE(149) }, // "rare", "designs on the future"
+	{ 1, 0, 0, 0, CREDITSTYLE_C_SML,       L_TITLE(1),   L_TITLE(145) }, // "\n", "copyright rare 2000"
+	{ 0, 0, 0, 0, CREDITSTYLE_C_SML,       L_TITLE(146), L_TITLE(147) }, // "perfect dark and the pd device", "are trademarks"
 
-	{ 0,                                                            CREDITSTYLE_C_SML,       L_TITLE(150), L_TITLE(0)   }, // "perfect dark is forever", ""
-	{ 0,                                                            CREDITSTYLE_TERMINATOR,  L_TITLE(0),   L_TITLE(0)   }, // "", ""
+	{ 0, 0, 0, 0, CREDITSTYLE_C_SML,       L_TITLE(150), L_TITLE(0)   }, // "perfect dark is forever", ""
+	{ 0, 0, 0, 0, CREDITSTYLE_TERMINATOR,  L_TITLE(0),   L_TITLE(0)   }, // "", ""
 };
-
-u32 var8007f6c4 = 0x40800000;
-u32 var8007f6c8 = 0x41000000;
-u32 var8007f6cc = 0x41400000;
-u32 var8007f6d0 = 0x41800000;
-u32 var8007f6d4 = 0x00000000;
 
 /**
  * Generate a random float between -range and range,
@@ -1159,7 +1153,7 @@ f32 func0f1382e0(f32 range)
 }
 
 GLOBAL_ASM(
-glabel creditsRandomiseBackground
+glabel creditsCreatePendingBgLayers
 .late_rodata
 glabel var7f1b5804
 .word 0x3b122531
@@ -1245,7 +1239,7 @@ glabel var7f1b5804
 );
 
 // Mismatch: regalloc
-//void creditsRandomiseBackground(u32 arg0)
+//void creditsCreatePendingBgLayers(u32 arg0)
 //{
 //	s32 i;
 //
@@ -3250,183 +3244,57 @@ struct credit *creditGetByRow(s32 row)
 	return &g_Credits[g_CreditsData->creditnum + row];
 }
 
-GLOBAL_ASM(
-glabel func0f13a164
-.late_rodata
-glabel var7f1b5874
-.word 0x3e116873
-.text
-/*  f13a164:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f13a168:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f13a16c:	afb50030 */ 	sw	$s5,0x30($sp)
-/*  f13a170:	afb4002c */ 	sw	$s4,0x2c($sp)
-/*  f13a174:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f13a178:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f13a17c:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f13a180:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f13a184:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f13a188:	0fc4e839 */ 	jal	creditGetByRow
-/*  f13a18c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f13a190:	3c0e8008 */ 	lui	$t6,%hi(var8007f6c4)
-/*  f13a194:	25cef6c4 */ 	addiu	$t6,$t6,%lo(var8007f6c4)
-/*  f13a198:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f13a19c:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f13a1a0:	3c11800a */ 	lui	$s1,%hi(g_CreditsData)
-/*  f13a1a4:	ac810000 */ 	sw	$at,0x0($a0)
-/*  f13a1a8:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f13a1ac:	26314170 */ 	addiu	$s1,$s1,%lo(g_CreditsData)
-/*  f13a1b0:	8e230000 */ 	lw	$v1,0x0($s1)
-/*  f13a1b4:	ac990004 */ 	sw	$t9,0x4($a0)
-/*  f13a1b8:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f13a1bc:	ac810008 */ 	sw	$at,0x8($a0)
-/*  f13a1c0:	8dd9000c */ 	lw	$t9,0xc($t6)
-/*  f13a1c4:	3c017f1b */ 	lui	$at,%hi(var7f1b5874)
-/*  f13a1c8:	ac99000c */ 	sw	$t9,0xc($a0)
-/*  f13a1cc:	906d419c */ 	lbu	$t5,0x419c($v1)
-/*  f13a1d0:	94480000 */ 	lhu	$t0,0x0($v0)
-/*  f13a1d4:	c4245874 */ 	lwc1	$f4,%lo(var7f1b5874)($at)
-/*  f13a1d8:	000dc040 */ 	sll	$t8,$t5,0x1
-/*  f13a1dc:	270fffff */ 	addiu	$t7,$t8,-1
-/*  f13a1e0:	448f3000 */ 	mtc1	$t7,$f6
-/*  f13a1e4:	00084cc0 */ 	sll	$t1,$t0,0x13
-/*  f13a1e8:	00095782 */ 	srl	$t2,$t1,0x1e
-/*  f13a1ec:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f13a1f0:	3c014000 */ 	lui	$at,0x4000
-/*  f13a1f4:	44818000 */ 	mtc1	$at,$f16
-/*  f13a1f8:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f13a1fc:	008b6021 */ 	addu	$t4,$a0,$t3
-/*  f13a200:	3c013f80 */ 	lui	$at,0x3f80
-/*  f13a204:	c5800000 */ 	lwc1	$f0,0x0($t4)
-/*  f13a208:	44813000 */ 	mtc1	$at,$f6
-/*  f13a20c:	46082282 */ 	mul.s	$f10,$f4,$f8
-/*  f13a210:	3c01800a */ 	lui	$at,%hi(g_Vars+0x48)
-/*  f13a214:	46060100 */ 	add.s	$f4,$f0,$f6
-/*  f13a218:	46100480 */ 	add.s	$f18,$f0,$f16
-/*  f13a21c:	e46441a4 */ 	swc1	$f4,0x41a4($v1)
-/*  f13a220:	c428a008 */ 	lwc1	$f8,%lo(g_Vars+0x48)($at)
-/*  f13a224:	3c014370 */ 	lui	$at,0x4370
-/*  f13a228:	44818000 */ 	mtc1	$at,$f16
-/*  f13a22c:	8e230000 */ 	lw	$v1,0x0($s1)
-/*  f13a230:	460a9080 */ 	add.s	$f2,$f18,$f10
-/*  f13a234:	c47241a0 */ 	lwc1	$f18,0x41a0($v1)
-/*  f13a238:	46104303 */ 	div.s	$f12,$f8,$f16
-/*  f13a23c:	460c9280 */ 	add.s	$f10,$f18,$f12
-/*  f13a240:	e46a41a0 */ 	swc1	$f10,0x41a0($v1)
-/*  f13a244:	8e230000 */ 	lw	$v1,0x0($s1)
-/*  f13a248:	c46641a0 */ 	lwc1	$f6,0x41a0($v1)
-/*  f13a24c:	4606103c */ 	c.lt.s	$f2,$f6
-/*  f13a250:	00000000 */ 	nop
-/*  f13a254:	4502005c */ 	bc1fl	.L0f13a3c8
-/*  f13a258:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f13a25c:	4480a000 */ 	mtc1	$zero,$f20
-/*  f13a260:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f13a264:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f13a268:	e47441a0 */ 	swc1	$f20,0x41a0($v1)
-/*  f13a26c:	8e230000 */ 	lw	$v1,0x0($s1)
-/*  f13a270:	24130014 */ 	addiu	$s3,$zero,0x14
-/*  f13a274:	8c6e4198 */ 	lw	$t6,0x4198($v1)
-/*  f13a278:	9079419c */ 	lbu	$t9,0x419c($v1)
-/*  f13a27c:	01d94021 */ 	addu	$t0,$t6,$t9
-/*  f13a280:	ac684198 */ 	sw	$t0,0x4198($v1)
-/*  f13a284:	8e290000 */ 	lw	$t1,0x0($s1)
-/*  f13a288:	a132419c */ 	sb	$s2,0x419c($t1)
-/*  f13a28c:	8e2a0000 */ 	lw	$t2,0x0($s1)
-/*  f13a290:	9142419c */ 	lbu	$v0,0x419c($t2)
-.L0f13a294:
-/*  f13a294:	0fc4e839 */ 	jal	creditGetByRow
-/*  f13a298:	2444ffff */ 	addiu	$a0,$v0,-1
-/*  f13a29c:	844c0000 */ 	lh	$t4,0x0($v0)
-/*  f13a2a0:	00408025 */ 	or	$s0,$v0,$zero
-/*  f13a2a4:	05810005 */ 	bgez	$t4,.L0f13a2bc
-/*  f13a2a8:	00000000 */ 	nop
-/*  f13a2ac:	8e230000 */ 	lw	$v1,0x0($s1)
-/*  f13a2b0:	906d419c */ 	lbu	$t5,0x419c($v1)
-/*  f13a2b4:	25b80001 */ 	addiu	$t8,$t5,0x1
-/*  f13a2b8:	a078419c */ 	sb	$t8,0x419c($v1)
-.L0f13a2bc:
-/*  f13a2bc:	10400017 */ 	beqz	$v0,.L0f13a31c
-/*  f13a2c0:	00000000 */ 	nop
-/*  f13a2c4:	904f0001 */ 	lbu	$t7,0x1($v0)
-/*  f13a2c8:	166f0014 */ 	bne	$s3,$t7,.L0f13a31c
-/*  f13a2cc:	00000000 */ 	nop
-/*  f13a2d0:	8e230000 */ 	lw	$v1,0x0($s1)
-/*  f13a2d4:	906e419c */ 	lbu	$t6,0x419c($v1)
-/*  f13a2d8:	168e0010 */ 	bne	$s4,$t6,.L0f13a31c
-/*  f13a2dc:	00000000 */ 	nop
-/*  f13a2e0:	ac604198 */ 	sw	$zero,0x4198($v1)
-/*  f13a2e4:	8e390000 */ 	lw	$t9,0x0($s1)
-/*  f13a2e8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f13a2ec:	a332419c */ 	sb	$s2,0x419c($t9)
-/*  f13a2f0:	8e280000 */ 	lw	$t0,0x0($s1)
-/*  f13a2f4:	e51441a0 */ 	swc1	$f20,0x41a0($t0)
-/*  f13a2f8:	8e290000 */ 	lw	$t1,0x0($s1)
-/*  f13a2fc:	a12041f4 */ 	sb	$zero,0x41f4($t1)
-/*  f13a300:	8e2a0000 */ 	lw	$t2,0x0($s1)
-/*  f13a304:	ad404204 */ 	sw	$zero,0x4204($t2)
-/*  f13a308:	8e2b0000 */ 	lw	$t3,0x0($s1)
-/*  f13a30c:	0fc5b6cf */ 	jal	musicResumeAfterUnpause
-/*  f13a310:	a1604208 */ 	sb	$zero,0x4208($t3)
-/*  f13a314:	0fc5b52e */ 	jal	musicStartPrimary
-/*  f13a318:	4600a306 */ 	mov.s	$f12,$f20
-.L0f13a31c:
-/*  f13a31c:	5200000a */ 	beqzl	$s0,.L0f13a348
-/*  f13a320:	00008025 */ 	or	$s0,$zero,$zero
-/*  f13a324:	860d0000 */ 	lh	$t5,0x0($s0)
-/*  f13a328:	05a30007 */ 	bgezl	$t5,.L0f13a348
-/*  f13a32c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f13a330:	8e380000 */ 	lw	$t8,0x0($s1)
-/*  f13a334:	9302419c */ 	lbu	$v0,0x419c($t8)
-/*  f13a338:	28410004 */ 	slti	$at,$v0,0x4
-/*  f13a33c:	1420ffd5 */ 	bnez	$at,.L0f13a294
-/*  f13a340:	00000000 */ 	nop
-/*  f13a344:	00008025 */ 	or	$s0,$zero,$zero
-.L0f13a348:
-/*  f13a348:	24150008 */ 	addiu	$s5,$zero,0x8
-/*  f13a34c:	24140003 */ 	addiu	$s4,$zero,0x3
-.L0f13a350:
-/*  f13a350:	0c004b70 */ 	jal	random
-/*  f13a354:	00000000 */ 	nop
-/*  f13a358:	0c004b70 */ 	jal	random
-/*  f13a35c:	00409025 */ 	or	$s2,$v0,$zero
-/*  f13a360:	0c004b70 */ 	jal	random
-/*  f13a364:	00409825 */ 	or	$s3,$v0,$zero
-/*  f13a368:	0274001b */ 	divu	$zero,$s3,$s4
-/*  f13a36c:	0000c810 */ 	mfhi	$t9
-/*  f13a370:	8e2c0000 */ 	lw	$t4,0x0($s1)
-/*  f13a374:	304f000f */ 	andi	$t7,$v0,0xf
-/*  f13a378:	0254001b */ 	divu	$zero,$s2,$s4
-/*  f13a37c:	00004810 */ 	mfhi	$t1
-/*  f13a380:	000f7100 */ 	sll	$t6,$t7,0x4
-/*  f13a384:	01d94025 */ 	or	$t0,$t6,$t9
-/*  f13a388:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f13a38c:	01906821 */ 	addu	$t5,$t4,$s0
-/*  f13a390:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f13a394:	010a5825 */ 	or	$t3,$t0,$t2
-/*  f13a398:	16800002 */ 	bnez	$s4,.L0f13a3a4
-/*  f13a39c:	00000000 */ 	nop
-/*  f13a3a0:	0007000d */ 	break	0x7
-.L0f13a3a4:
-/*  f13a3a4:	a1ab41a8 */ 	sb	$t3,0x41a8($t5)
-/*  f13a3a8:	16800002 */ 	bnez	$s4,.L0f13a3b4
-/*  f13a3ac:	00000000 */ 	nop
-/*  f13a3b0:	0007000d */ 	break	0x7
-.L0f13a3b4:
-/*  f13a3b4:	1615ffe6 */ 	bne	$s0,$s5,.L0f13a350
-/*  f13a3b8:	00000000 */ 	nop
-/*  f13a3bc:	0fc4e0e3 */ 	jal	creditsRandomiseBackground
-/*  f13a3c0:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f13a3c4:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f13a3c8:
-/*  f13a3c8:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f13a3cc:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f13a3d0:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f13a3d4:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f13a3d8:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f13a3dc:	8fb4002c */ 	lw	$s4,0x2c($sp)
-/*  f13a3e0:	8fb50030 */ 	lw	$s5,0x30($sp)
-/*  f13a3e4:	03e00008 */ 	jr	$ra
-/*  f13a3e8:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
+void creditsTickSlide(void)
+{
+	struct credit *credit = creditGetByRow(0);
+	s32 i;
+	f32 durations[] = {4, 8, 12, 16}; // in seconds
+	f32 loadat = durations[credit->durationindex] + 2.0f + 0.142f * (g_CreditsData->numthisslide * 2 - 1);
+	f32 seconds;
+
+	g_CreditsData->slidelifetime = durations[credit->durationindex] + 1.0f;
+	seconds = g_Vars.diffframe240f / 240.0f;
+	g_CreditsData->slideage += seconds;
+
+	if (g_CreditsData->slideage > loadat) {
+		// Load new slide
+		g_CreditsData->slideage = 0;
+		g_CreditsData->creditnum += g_CreditsData->numthisslide;
+		g_CreditsData->numthisslide = 1;
+
+		do {
+			credit = creditGetByRow(g_CreditsData->numthisslide - 1);
+
+			if (credit->more) {
+				g_CreditsData->numthisslide++;
+			}
+
+			if (credit && credit->style == CREDITSTYLE_TERMINATOR && g_CreditsData->numthisslide == 1) {
+				// Reached the end of the slides list
+				g_CreditsData->creditnum = 0;
+
+				credit = NULL;
+
+				g_CreditsData->numthisslide = 1;
+				g_CreditsData->slideage = 0;
+				g_CreditsData->slidesenabled = false;
+				g_CreditsData->unk4204 = 0;
+				g_CreditsData->unk4208 = 0;
+
+				musicResumeAfterUnpause();
+				musicStartPrimary(0);
+			}
+		} while (credit && credit->more && g_CreditsData->numthisslide < 4);
+
+		for (i = 0; i < 8; i++) {
+			g_CreditsData->unk41a8[i] = random() % 3 | random() % 3 << 2 | random() % 16 << 4;
+		}
+
+		creditsCreatePendingBgLayers(0xffffffff);
+	}
+}
+
+u32 var8007f6d4 = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f13a3ec
@@ -4240,7 +4108,7 @@ void creditsTick(void)
 	static u32 var8007f6d8 = 0xffff;
 
 	if (contGetButtonsPressedThisFrame(0, L_TRIG)) {
-		creditsRandomiseBackground(0xffffffff);
+		creditsCreatePendingBgLayers(0xffffffff);
 	}
 
 	func0000db30("for", &var8007f6d8);
@@ -4254,7 +4122,7 @@ void creditsTick(void)
 	func0000db30("flick", &var8007f6d4);
 
 	if (var8007f6d4 != 0) {
-		creditsRandomiseBackground(0xffffffff);
+		creditsCreatePendingBgLayers(0xffffffff);
 		var8007f6d4 = 0;
 	}
 
@@ -4275,13 +4143,13 @@ void creditsTick(void)
 
 	func0f13899c();
 
-	if (g_CreditsData->unk41f4) {
-		func0f13a164();
+	if (g_CreditsData->slidesenabled) {
+		creditsTickSlide();
 	} else if (random() * (1.0f / U32_MAX) < 0.01f && !contGetButtons(0, L_TRIG | R_TRIG)) {
-		creditsRandomiseBackground(0xffffffff);
+		creditsCreatePendingBgLayers(0xffffffff);
 	}
 
-	if (g_CreditsData->unk41f4 == 0 && g_CreditsData->unk4204 < 1360) {
+	if (!g_CreditsData->slidesenabled && g_CreditsData->unk4204 < 1360) {
 		g_CreditsData->unk4204 += g_Vars.diffframe60;
 	}
 }
@@ -4617,8 +4485,8 @@ glabel var7f1b5948
 //
 //	creditsTick();
 //
-//	if (g_CreditsData->unk41f4 || g_CreditsData->unk4204 < 60 || g_CreditsData->unk4204 > 1200) {
-//		if (g_CreditsData->unk41f4 == 0 && g_CreditsData->unk4204 > 1200) {
+//	if (g_CreditsData->slidesenabled || g_CreditsData->unk4204 < 60 || g_CreditsData->unk4204 > 1200) {
+//		if (!g_CreditsData->slidesenabled && g_CreditsData->unk4204 > 1200) {
 //			if (var8007f130 == 0) {
 //				var8007f130 = 1;
 //				var8007f6dc = 0;
@@ -4628,7 +4496,7 @@ glabel var7f1b5948
 //
 //			var8007f6dc += g_Vars.diffframe240;
 //
-//			if (var8007f6dc > 14400) {
+//			if (var8007f6dc > SECSTOTIME240(60)) {
 //				var8007f6dc = 0;
 //			}
 //
@@ -4671,13 +4539,13 @@ glabel var7f1b5948
 //		gdl = creditsRenderBackground(gdl);
 //		gdl = creditsRenderSprites(gdl);
 //
-//		if (g_CreditsData->unk41f4) {
+//		if (g_CreditsData->slidesenabled) {
 //			// Render text
 //			gdl = func0f0d479c(gdl);
 //			gdl = func0f13a3ec(gdl);
 //		}
 //
-//		if (g_CreditsData->unk41f4 == 0) {
+//		if (!g_CreditsData->slidesenabled) {
 //			u32 uVar1 = g_CreditsData->unk4204;
 //			u32 colour = 0;
 //
@@ -4724,13 +4592,13 @@ void creditsInit(void)
 	g_CreditsData->unk41b0[0] = 0;
 	g_CreditsData->unk41b0[1] = 0;
 
-	creditsRandomiseBackground(0xffffffff);
+	creditsCreatePendingBgLayers(0xffffffff);
 
 	// Move layers 2 and 3 to 0 and 1
 	creditsCopyBackgroundLayer(2, 0, true);
 	creditsCopyBackgroundLayer(3, 1, true);
 
-	g_CreditsData->unk41f4 = 1;
+	g_CreditsData->slidesenabled = true;
 
 	func0f13870c();
 	func0f139fe0();
@@ -4753,8 +4621,8 @@ void creditsInit(void)
 	if (g_CreditsAltTitleRequested) {
 		g_CreditsAltTitleRequested = false;
 
-		g_CreditsData->unk41f4 = 0;
-		g_CreditsData->unk4204 = 0x474;
+		g_CreditsData->slidesenabled = false;
+		g_CreditsData->unk4204 = SECSTOTIME60(19);
 	}
 
 	currentPlayerConfigureVi();
