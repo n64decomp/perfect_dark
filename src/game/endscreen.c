@@ -14,7 +14,7 @@
 #include "game/game_095320.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b0420.h"
-#include "game/game_0b63b0.h"
+#include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
 #include "game/game_0e0770.h"
 #include "game/game_0f09f0.h"

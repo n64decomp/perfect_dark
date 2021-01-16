@@ -15,7 +15,7 @@
 #include "game/game_0601b0.h"
 #include "game/game_095320.h"
 #include "game/game_097ba0.h"
-#include "game/game_0b63b0.h"
+#include "game/game_0b69d0.h"
 #include "game/bondhead.h"
 #include "game/propobj.h"
 #include "gvars/gvars.h"

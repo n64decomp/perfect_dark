@@ -10,7 +10,7 @@
 #include "game/data/data_02da90.h"
 #include "game/game_092610.h"
 #include "game/game_0b0420.h"
-#include "game/game_0b63b0.h"
+#include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
 #include "game/game_0dcdb0.h"
 #include "game/game_0e0770.h"

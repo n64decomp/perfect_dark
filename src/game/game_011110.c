@@ -17,7 +17,7 @@
 #include "game/game_0601b0.h"
 #include "game/game_091e10.h"
 #include "game/game_097ba0.h"
-#include "game/game_0b63b0.h"
+#include "game/game_0b69d0.h"
 #include "game/inventory/inventory.h"
 #include "game/game_1655c0.h"
 #include "game/mplayer/scenarios.h"

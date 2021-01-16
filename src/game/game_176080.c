@@ -8,7 +8,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02a0e0.h"
 #include "game/data/data_02da90.h"
-#include "game/game_0b63b0.h"
+#include "game/game_0b69d0.h"
 #include "game/game_176080.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pdoptions.h"

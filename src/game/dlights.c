@@ -11,7 +11,7 @@
 #include "game/dlights.h"
 #include "game/game_092610.h"
 #include "game/game_0b3350.h"
-#include "game/game_0b63b0.h"
+#include "game/game_0b69d0.h"
 #include "game/smoke/smoke.h"
 #include "game/sparks/sparks.h"
 #include "game/game_157db0.h"

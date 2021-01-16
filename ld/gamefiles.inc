@@ -96,6 +96,7 @@
 	build/ROMID/game/game_0b28d0.o (section); \
 	build/ROMID/game/game_0b3350.o (section); \
 	build/ROMID/game/game_0b63b0.o (section); \
+	build/ROMID/game/game_0b69d0.o (section); \
 	build/ROMID/game/game_0c33f0.o (section); \
 	build/ROMID/game/bondcutscene.o (section); \
 	build/ROMID/game/bondwalk.o (section); \

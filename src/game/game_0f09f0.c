@@ -15,7 +15,7 @@
 #include "game/game_096ca0.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b3350.h"
-#include "game/game_0b63b0.h"
+#include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
 #include "game/game_0e0770.h"
 #include "game/menu/items.h"

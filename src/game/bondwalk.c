@@ -18,7 +18,7 @@
 #include "game/game_092610.h"
 #include "game/game_095320.h"
 #include "game/game_097ba0.h"
-#include "game/game_0b63b0.h"
+#include "game/game_0b69d0.h"
 #include "game/inventory/inventory.h"
 #include "game/bondhead.h"
 #include "game/game_127910.h"
