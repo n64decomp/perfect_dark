@@ -155,7 +155,7 @@ extern u32 var8007f120;
 extern u32 var8007f124;
 extern u32 var8007f130;
 extern bool g_CreditsAltTitleRequested;
-extern u32 var8007f13c;
+extern struct creditthing var8007f13c[];
 extern u32 var8007f3cc;
 extern u32 var8007f410;
 extern u32 var8007f450;
