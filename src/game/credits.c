@@ -389,12 +389,19 @@ struct credit g_Credits[] = {
 	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(31),  L_TITLE(32)  }, // "david clynick", "bangin hardcore choonz"
 	{ 0, 0, 0, 0, CREDITSTYLE_R_BIG_R_MED, L_TITLE(33),  L_TITLE(34)  }, // "keith 'bunny' rabbette", "dinomic backgrounds"
 
+	//load next credit for same slide
+	//|  no transition in
+	//|  |  no transition out
+	//|  |  |  duration: 0=4s, 1=8s, 2=12s, 3=16s
+	//|  |  |  |
 	{ 1, 0, 1, 0, CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(36),  L_TITLE(37)  }, // "kevin bayliss", "dean smith"
 	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(38),  L_TITLE(1)   }, // "graham smith", "\n"
+
 	{ 1, 1, 1, 0, CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(39),  L_TITLE(40)  }, // "mike 'curry' currington", "tony wong"
 	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(41),  L_TITLE(1)   }, // "simon farmer", "\n"
+
 	{ 1, 1, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(42),  L_TITLE(43)  }, // "leigh loverday", "rob harrison"
 	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(44),  L_TITLE(1)   }, // "steven hurst", "\n"
@@ -406,6 +413,7 @@ struct credit g_Credits[] = {
 	{ 1, 0, 1, 0, CREDITSTYLE_C_BIG,       L_TITLE(50),  L_TITLE(0)   }, // "trent's henchmen", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(51),  L_TITLE(52)  }, // "lee musgrave", "johnni christensen"
 	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(53),  L_TITLE(1)   }, // "mark betteridge", "\n"
+
 	{ 1, 1, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE(50),  L_TITLE(0)   }, // "trent's henchmen", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(54),  L_TITLE(55)  }, // "chris marlow", "robin beanland"
 	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(56),  L_TITLE(57)  }, // "neil gallagher", "feargal plant"
@@ -413,9 +421,11 @@ struct credit g_Credits[] = {
 	{ 1, 0, 1, 0, CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(59),  L_TITLE(60)  }, // "eveline fischer", "chris sutherland"
 	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(61),  L_TITLE(62)  }, // "chris seavor", "john silke"
+
 	{ 1, 1, 1, 0, CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(63),  L_TITLE(64)  }, // "ben cullum", "louise tilston"
 	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(65),  L_TITLE(66)  }, // "alistair", "lindsay"
+
 	{ 1, 1, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE(58),  L_TITLE(0)   }, // "voices in the dark", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(68),  L_TITLE(67)  }, // "beau chesluk", "b jones"
 	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(69),  L_TITLE(1)   }, // "steve malpass", "\n"
@@ -424,10 +434,12 @@ struct credit g_Credits[] = {
 	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(94),  L_TITLE(95)  }, // "huw ward", "adam munton"
 	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(96),  L_TITLE(97)  }, // "david wong", "luke munton"
 	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(98),  L_TITLE(109) }, // "gary phelps", "andrew wilson"
+
 	{ 1, 1, 1, 0, CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(99),  L_TITLE(100) }, // "john silke", "matthew carter"
 	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(101), L_TITLE(102) }, // "gavin price", "gareth stevenson"
 	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(103), L_TITLE(1)   }, // "bushbaby", "\n"
+
 	{ 1, 1, 0, 0, CREDITSTYLE_L_BIG,       L_TITLE(93),  L_TITLE(0)   }, // "rare exterminators", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(104), L_TITLE(105) }, // "stephen stamper", "ross bullimore"
 	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(106), L_TITLE(107) }, // "justin cook", "dale murchie"
@@ -463,6 +475,7 @@ struct credit g_Credits[] = {
 	{ 1, 0, 1, 0, CREDITSTYLE_L_BIG,       L_TITLE(120), L_TITLE(0)   }, // "testing (noa)", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(121), L_TITLE(122) }, // "michael kelbaugh", "tim bechtel"
 	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(123), L_TITLE(124) }, // "tom hertzog", "melvin 'sherwood' forrest"
+
 	{ 1, 1, 0, 0, CREDITSTYLE_L_BIG,       L_TITLE(120), L_TITLE(0)   }, // "testing (noa)", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(125), L_TITLE(126) }, // "dougall campbell", "roger harrison"
 	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE(127), L_TITLE(1)   }, // "jeff kalles", "\n"
@@ -479,6 +492,7 @@ struct credit g_Credits[] = {
 	{ 1, 0, 1, 0, CREDITSTYLE_C_BIG,       L_TITLE(136), L_TITLE(0)   }, // "nintendo", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(137), L_TITLE(138) }, // "mr arakawa", ""
 	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(139), L_TITLE(140) }, // "don james", ""
+
 	{ 1, 1, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE(136), L_TITLE(0)   }, // "nintendo", ""
 	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(141), L_TITLE(142) }, // "howard lincoln", "ken lobb"
 	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(143), L_TITLE(144) }, // "jacqualee story", "gail tilden"
@@ -488,6 +502,7 @@ struct credit g_Credits[] = {
 	{ 0, 0, 0, 0, CREDITSTYLE_C_SML,       L_TITLE(146), L_TITLE(147) }, // "perfect dark and the pd device", "are trademarks"
 
 	{ 0, 0, 0, 0, CREDITSTYLE_C_SML,       L_TITLE(150), L_TITLE(0)   }, // "perfect dark is forever", ""
+
 	{ 0, 0, 0, 0, CREDITSTYLE_TERMINATOR,  L_TITLE(0),   L_TITLE(0)   }, // "", ""
 };
 
@@ -3356,8 +3371,8 @@ glabel var7f1b5948
 /*  f13b07c:	0fc54c77 */ 	jal	func0f1531dc
 /*  f13b080:	00002025 */ 	or	$a0,$zero,$zero
 /*  f13b084:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f13b088:	3c018008 */ 	lui	$at,%hi(g_ScreenWidthMultiplier)
-/*  f13b08c:	ac2efac0 */ 	sw	$t6,%lo(g_ScreenWidthMultiplier)($at)
+/*  f13b088:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
+/*  f13b08c:	ac2efac0 */ 	sw	$t6,%lo(g_ScaleX)($at)
 /*  f13b090:	0c002ca0 */ 	jal	func0000b280
 /*  f13b094:	02002025 */ 	or	$a0,$s0,$zero
 /*  f13b098:	0c002c74 */ 	jal	func0000b1d0
@@ -3650,7 +3665,7 @@ glabel var7f1b5948
 //
 //	func0f1531dc(false);
 //
-//	g_ScreenWidthMultiplier = 1;
+//	g_ScaleX = 1;
 //
 //	gdl = func0000b280(gdl);
 //	gdl = func0000b1d0(gdl);

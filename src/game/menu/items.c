@@ -452,7 +452,7 @@ glabel func0f0e6038
 
 Gfx *menuRenderOverlayList(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2)
 {
-	gDPFillRectangle(gdl++, x * g_ScreenWidthMultiplier, y, (x + x2) * g_ScreenWidthMultiplier, y + y2);
+	gDPFillRectangleScaled(gdl++, x, y, x + x2, y + y2);
 	return gdl;
 }
 
@@ -507,7 +507,7 @@ glabel menuRenderItemList
 .L0f0e63dc:
 /*  f0e63dc:	8e2a0008 */ 	lw	$t2,0x8($s1)
 /*  f0e63e0:	8e380010 */ 	lw	$t8,0x10($s1)
-/*  f0e63e4:	3c038008 */ 	lui	$v1,%hi(g_ScreenWidthMultiplier)
+/*  f0e63e4:	3c038008 */ 	lui	$v1,%hi(g_ScaleX)
 /*  f0e63e8:	8d4b0004 */ 	lw	$t3,0x4($t2)
 /*  f0e63ec:	8705001e */ 	lh	$a1,0x1e($t8)
 /*  f0e63f0:	000b6200 */ 	sll	$t4,$t3,0x8
@@ -515,7 +515,7 @@ glabel menuRenderItemList
 /*  f0e63f8:	00000000 */ 	nop
 /*  f0e63fc:	86250004 */ 	lh	$a1,0x4($s1)
 .L0f0e6400:
-/*  f0e6400:	8c63fac0 */ 	lw	$v1,%lo(g_ScreenWidthMultiplier)($v1)
+/*  f0e6400:	8c63fac0 */ 	lw	$v1,%lo(g_ScaleX)($v1)
 /*  f0e6404:	862d0000 */ 	lh	$t5,0x0($s1)
 /*  f0e6408:	3c028007 */ 	lui	$v0,%hi(g_ScissorX1)
 /*  f0e640c:	24421190 */ 	addiu	$v0,$v0,%lo(g_ScissorX1)
@@ -1258,8 +1258,8 @@ glabel menuRenderItemList
 /*  f0e6ed0:	afa50090 */ 	sw	$a1,0x90($sp)
 /*  f0e6ed4:	0c002f02 */ 	jal	viGetX
 /*  f0e6ed8:	afa7008c */ 	sw	$a3,0x8c($sp)
-/*  f0e6edc:	3c0a8008 */ 	lui	$t2,%hi(g_ScreenWidthMultiplier)
-/*  f0e6ee0:	8d4afac0 */ 	lw	$t2,%lo(g_ScreenWidthMultiplier)($t2)
+/*  f0e6edc:	3c0a8008 */ 	lui	$t2,%hi(g_ScaleX)
+/*  f0e6ee0:	8d4afac0 */ 	lw	$t2,%lo(g_ScaleX)($t2)
 /*  f0e6ee4:	8fa40094 */ 	lw	$a0,0x94($sp)
 /*  f0e6ee8:	8fa50090 */ 	lw	$a1,0x90($sp)
 /*  f0e6eec:	8fa7008c */ 	lw	$a3,0x8c($sp)
@@ -1282,8 +1282,8 @@ glabel menuRenderItemList
 /*  f0e6f28:	afa50090 */ 	sw	$a1,0x90($sp)
 /*  f0e6f2c:	0c002f02 */ 	jal	viGetX
 /*  f0e6f30:	afa7008c */ 	sw	$a3,0x8c($sp)
-/*  f0e6f34:	3c198008 */ 	lui	$t9,%hi(g_ScreenWidthMultiplier)
-/*  f0e6f38:	8f39fac0 */ 	lw	$t9,%lo(g_ScreenWidthMultiplier)($t9)
+/*  f0e6f34:	3c198008 */ 	lui	$t9,%hi(g_ScaleX)
+/*  f0e6f38:	8f39fac0 */ 	lw	$t9,%lo(g_ScaleX)($t9)
 /*  f0e6f3c:	8fa50090 */ 	lw	$a1,0x90($sp)
 /*  f0e6f40:	8fa7008c */ 	lw	$a3,0x8c($sp)
 /*  f0e6f44:	0059001a */ 	div	$zero,$v0,$t9
@@ -1304,8 +1304,8 @@ glabel menuRenderItemList
 /*  f0e6f74:	afa50090 */ 	sw	$a1,0x90($sp)
 /*  f0e6f78:	0c002f02 */ 	jal	viGetX
 /*  f0e6f7c:	afa7008c */ 	sw	$a3,0x8c($sp)
-/*  f0e6f80:	3c0b8008 */ 	lui	$t3,%hi(g_ScreenWidthMultiplier)
-/*  f0e6f84:	8d6bfac0 */ 	lw	$t3,%lo(g_ScreenWidthMultiplier)($t3)
+/*  f0e6f80:	3c0b8008 */ 	lui	$t3,%hi(g_ScaleX)
+/*  f0e6f84:	8d6bfac0 */ 	lw	$t3,%lo(g_ScaleX)($t3)
 /*  f0e6f88:	8fa7008c */ 	lw	$a3,0x8c($sp)
 /*  f0e6f8c:	8fa40094 */ 	lw	$a0,0x94($sp)
 /*  f0e6f90:	8fa50090 */ 	lw	$a1,0x90($sp)
@@ -1328,8 +1328,8 @@ glabel menuRenderItemList
 /*  f0e6fcc:	afa40094 */ 	sw	$a0,0x94($sp)
 /*  f0e6fd0:	0c002f02 */ 	jal	viGetX
 /*  f0e6fd4:	afa50090 */ 	sw	$a1,0x90($sp)
-/*  f0e6fd8:	3c0e8008 */ 	lui	$t6,%hi(g_ScreenWidthMultiplier)
-/*  f0e6fdc:	8dcefac0 */ 	lw	$t6,%lo(g_ScreenWidthMultiplier)($t6)
+/*  f0e6fd8:	3c0e8008 */ 	lui	$t6,%hi(g_ScaleX)
+/*  f0e6fdc:	8dcefac0 */ 	lw	$t6,%lo(g_ScaleX)($t6)
 /*  f0e6fe0:	8fa40094 */ 	lw	$a0,0x94($sp)
 /*  f0e6fe4:	8fa50090 */ 	lw	$a1,0x90($sp)
 /*  f0e6fe8:	004e001a */ 	div	$zero,$v0,$t6
@@ -1350,8 +1350,8 @@ glabel menuRenderItemList
 /*  f0e7018:	3c0fe700 */ 	lui	$t7,0xe700
 /*  f0e701c:	ac4f0000 */ 	sw	$t7,0x0($v0)
 /*  f0e7020:	ac400004 */ 	sw	$zero,0x4($v0)
-/*  f0e7024:	3c038008 */ 	lui	$v1,%hi(g_ScreenWidthMultiplier)
-/*  f0e7028:	8c63fac0 */ 	lw	$v1,%lo(g_ScreenWidthMultiplier)($v1)
+/*  f0e7024:	3c038008 */ 	lui	$v1,%hi(g_ScaleX)
+/*  f0e7028:	8c63fac0 */ 	lw	$v1,%lo(g_ScaleX)($v1)
 /*  f0e702c:	3c068007 */ 	lui	$a2,%hi(g_ScissorX1)
 /*  f0e7030:	24c61190 */ 	addiu	$a2,$a2,%lo(g_ScissorX1)
 /*  f0e7034:	00830019 */ 	multu	$a0,$v1
@@ -2756,14 +2756,14 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 
 	if (context->item->param3 == 0) {
 		// Half width
-		gDPFillRectangle(gdl++,
-				(context->x + 4) * g_ScreenWidthMultiplier, context->y + 1,
-				(context->x + 63) * g_ScreenWidthMultiplier, context->y + 10);
+		gDPFillRectangleScaled(gdl++,
+				context->x + 4, context->y + 1,
+				context->x + 63, context->y + 10);
 	} else {
 		// Full width
-		gDPFillRectangle(gdl++,
-				(context->x + 4) * g_ScreenWidthMultiplier, context->y + 1,
-				(context->x + 125) * g_ScreenWidthMultiplier, context->y + 10);
+		gDPFillRectangleScaled(gdl++,
+				context->x + 4, context->y + 1,
+				context->x + 125, context->y + 10);
 	}
 
 	// Render text value
@@ -2792,9 +2792,7 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 
 	gdl = gfxSetPrimColour(gdl, cursorcolour);
 
-	gDPFillRectangle(gdl++,
-			(x + 1) * g_ScreenWidthMultiplier, context->y + 2,
-			(x + 3) * g_ScreenWidthMultiplier, context->y + 9);
+	gDPFillRectangleScaled(gdl++, x + 1, context->y + 2, x + 3, context->y + 9);
 
 	gdl = func0f153838(gdl);
 
@@ -4177,15 +4175,11 @@ Gfx *menuRenderItemMeter(Gfx *gdl, struct menurendercontext *context)
 	x3 = x2 + 6;
 
 	gdl = gfxSetPrimColour(gdl, colour1);
-	gDPFillRectangle(gdl++,
-			x1 * g_ScreenWidthMultiplier, context->y,
-			x2 * g_ScreenWidthMultiplier, context->y + 5);
+	gDPFillRectangleScaled(gdl++, x1, context->y, x2, context->y + 5);
 	gdl = func0f153838(gdl);
 
 	gdl = gfxSetPrimColour(gdl, colour2);
-	gDPFillRectangle(gdl++,
-			x2 * g_ScreenWidthMultiplier, context->y,
-			x3 * g_ScreenWidthMultiplier, context->y + 5);
+	gDPFillRectangleScaled(gdl++, x2, context->y, x3, context->y + 5);
 	gdl = func0f153838(gdl);
 
 	text = menuResolveParam2Text(context->item);
@@ -6509,8 +6503,8 @@ glabel menuRenderItemMarquee
 /*  f0ed70c:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0ed710:	5041ffe6 */ 	beql	$v0,$at,.L0f0ed6ac
 /*  f0ed714:	92020000 */ 	lbu	$v0,0x0($s0)
-/*  f0ed718:	3c028008 */ 	lui	$v0,%hi(g_ScreenWidthMultiplier)
-/*  f0ed71c:	8c42fac0 */ 	lw	$v0,%lo(g_ScreenWidthMultiplier)($v0)
+/*  f0ed718:	3c028008 */ 	lui	$v0,%hi(g_ScaleX)
+/*  f0ed71c:	8c42fac0 */ 	lw	$v0,%lo(g_ScaleX)($v0)
 /*  f0ed720:	862c0000 */ 	lh	$t4,0x0($s1)
 /*  f0ed724:	3c038007 */ 	lui	$v1,%hi(g_ScissorX1)
 /*  f0ed728:	24631190 */ 	addiu	$v1,$v1,%lo(g_ScissorX1)
@@ -6789,9 +6783,9 @@ u32 var800711ec = 0x20000000;
 //
 //	// 718
 //	// context->x is loaded into a0 but should be t4. Additionally, the loads of
-//	// context->x and g_ScreenWidthMultiplier are swapped.
-//	g_ScissorX1 = context->x * g_ScreenWidthMultiplier;
-//	g_ScissorX2 = (context->x + context->width) * g_ScreenWidthMultiplier;
+//	// context->x and g_ScaleX are swapped.
+//	g_ScissorX1 = context->x * g_ScaleX;
+//	g_ScissorX2 = (context->x + context->width) * g_ScaleX;
 //	g_ScissorY1 = context->y;
 //	g_ScissorY2 = context->y + context->height - 1;
 //
@@ -7119,8 +7113,8 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 
 	gDPPipeSync(gdl++);
 
-	g_ScissorX1 = context->x * g_ScreenWidthMultiplier;
-	g_ScissorX2 = (context->x + context->width) * g_ScreenWidthMultiplier;
+	g_ScissorX1 = context->x * g_ScaleX;
+	g_ScissorX2 = (context->x + context->width) * g_ScaleX;
 	g_ScissorY1 = context->y + 10;
 	g_ScissorY2 = context->y + context->height - 1;
 
@@ -7368,8 +7362,8 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 
 		gDPPipeSync(gdl++);
 
-		g_ScissorX1 = context->x * g_ScreenWidthMultiplier;
-		g_ScissorX2 = (context->x + context->width) * g_ScreenWidthMultiplier;
+		g_ScissorX1 = context->x * g_ScaleX;
+		g_ScissorX2 = (context->x + context->width) * g_ScaleX;
 		g_ScissorY1 = context->y + ypos;
 		g_ScissorY2 = context->y + context->height;
 
@@ -7501,9 +7495,9 @@ void menuInitItemPlayerStats(struct menuitem *item, union menuitemdata *data)
 
 GLOBAL_ASM(
 glabel func0f0ef394
-/*  f0ef394:	3c098008 */ 	lui	$t1,%hi(g_ScreenWidthMultiplier)
+/*  f0ef394:	3c098008 */ 	lui	$t1,%hi(g_ScaleX)
 /*  f0ef398:	8faf0010 */ 	lw	$t7,0x10($sp)
-/*  f0ef39c:	2529fac0 */ 	addiu	$t1,$t1,%lo(g_ScreenWidthMultiplier)
+/*  f0ef39c:	2529fac0 */ 	addiu	$t1,$t1,%lo(g_ScaleX)
 /*  f0ef3a0:	8d390000 */ 	lw	$t9,0x0($t1)
 /*  f0ef3a4:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f0ef3a8:	04c10004 */ 	bgez	$a2,.L0f0ef3bc
@@ -7604,9 +7598,9 @@ Gfx *menuRenderControllerTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32 alp
 	gDPSetColor(gdl++, G_SETENVCOLOR, 0xffffff00 | alpha);
 
 	gSPTextureRectangle(gdl++,
-			(x << 2) * g_ScreenWidthMultiplier, y << 2,
-			((x + 32) << 2) * g_ScreenWidthMultiplier, (y + 32) << 2,
-			0, 16, 1008, 1024 / g_ScreenWidthMultiplier, 0xfc00);
+			(x << 2) * g_ScaleX, y << 2,
+			((x + 32) << 2) * g_ScaleX, (y + 32) << 2,
+			0, 16, 1008, 1024 / g_ScaleX, 0xfc00);
 
 	return gdl;
 }

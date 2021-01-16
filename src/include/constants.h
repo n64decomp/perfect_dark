@@ -20,6 +20,7 @@
 #define CHRRACE(chr)        (chr ? chr->race : RACE_HUMAN)
 #define FRAMEDURATION       (1 / 60.0f)
 #define IS4MB()             (g_Is4Mb == true)
+#define IS8MB()             (g_Is4Mb != true)
 #define PLAYERCOUNT()       ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0))
 #define PLAYERCOUNT3012()   ((g_Vars.players[3] ? 1 : 0) + (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0))
 #define SECSTOTIME240(secs) (secs * 240)
@@ -574,11 +575,6 @@
 #define COVERFLAG_0020 0x0020
 #define COVERFLAG_0040 0x0040
 #define COVERFLAG_0080 0x0080
-
-#define CREDITFLAG_08        0x08
-#define CREDITFLAG_NOTRANOUT 0x20 // Do not transition out - for titles which continue to the next
-#define CREDITFLAG_NOTRANIN  0x40 // Do not transition in - for titles which continue from the previous
-#define CREDITFLAG_MORE      0x80 // Load another credit to display on the current slide
 
 // L/C/R = left/centered/right
 // big/med/sml is the font size

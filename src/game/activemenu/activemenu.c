@@ -1109,7 +1109,7 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 		*y = (*y * 3) / 5;
 	}
 
-	*x += viGetViewLeft() / g_ScreenWidthMultiplier + viGetViewWidth() / (g_ScreenWidthMultiplier * 2);
+	*x += viGetViewLeft() / g_ScaleX + viGetViewWidth() / (g_ScaleX * 2);
 	*y += viGetViewTop() + viGetViewHeight() / 2;
 
 	if ((playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()))
@@ -1181,8 +1181,8 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 
 		textMeasure(&textheight, &textwidth, aibotname, g_AmFont1, g_AmFont2, 0);
 
-		x = viGetViewLeft() / g_ScreenWidthMultiplier
-			+ (s32)(viGetViewWidth() / g_ScreenWidthMultiplier * 0.5f)
+		x = viGetViewLeft() / g_ScaleX
+			+ (s32)(viGetViewWidth() / g_ScaleX * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
@@ -1193,7 +1193,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 		}
 
 		if (wide) {
-			x = viGetViewLeft() / g_ScreenWidthMultiplier + 32;
+			x = viGetViewLeft() / g_ScaleX + 32;
 		}
 
 		gdl = textRender(gdl, &x, &y, aibotname, g_AmFont1, g_AmFont2, -1,
@@ -1202,13 +1202,13 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 		y += (PLAYERCOUNT() >= 2) ? 0 : (s32)(textheight * 1.1f);
 		textMeasure(&textheight, &textwidth, weaponname, g_AmFont1, g_AmFont2, 0);
 
-		x = viGetViewLeft() / g_ScreenWidthMultiplier
-			+ (s32)(viGetViewWidth() / g_ScreenWidthMultiplier * 0.5f)
+		x = viGetViewLeft() / g_ScaleX
+			+ (s32)(viGetViewWidth() / g_ScaleX * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
 		if (wide) {
-			x = viGetViewLeft() / g_ScreenWidthMultiplier + 32;
+			x = viGetViewLeft() / g_ScaleX + 32;
 		}
 
 		gdl = textRender(gdl, &x, &y, weaponname, g_AmFont1, g_AmFont2, -1,
@@ -1220,8 +1220,8 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 
 		textMeasure(&textheight, &textwidth, title, g_AmFont1, g_AmFont2, 0);
 
-		x = viGetViewLeft() / g_ScreenWidthMultiplier
-			+ (s32)(viGetViewWidth() / g_ScreenWidthMultiplier * 0.5f)
+		x = viGetViewLeft() / g_ScaleX
+			+ (s32)(viGetViewWidth() / g_ScaleX * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
@@ -1232,7 +1232,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 		}
 
 		if (wide) {
-			x = viGetViewLeft() / g_ScreenWidthMultiplier + 32;
+			x = viGetViewLeft() / g_ScaleX + 32;
 		}
 
 		gdl = textRender(gdl, &x, &y, title, g_AmFont1, g_AmFont2, -1,
@@ -1303,10 +1303,10 @@ Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 
 	gdl = gfxSetPrimColour(gdl, colour);
 
-	gDPFillRectangle(gdl++,
-			(x - g_AmMenus[g_AmIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
+	gDPFillRectangleScaled(gdl++,
+			x - g_AmMenus[g_AmIndex].slotwidth / 2 + 1,
 			y - paddingtop + 1,
-			(x + g_AmMenus[g_AmIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
+			x + g_AmMenus[g_AmIndex].slotwidth / 2,
 			y + paddingbottom);
 
 	gdl = func0f153838(gdl);
@@ -1331,31 +1331,31 @@ Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 	gdl = gfxSetPrimColour(gdl, colour);
 
 	// Top border
-	gDPFillRectangle(gdl++,
-			(x - g_AmMenus[g_AmIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
+	gDPFillRectangleScaled(gdl++,
+			x - g_AmMenus[g_AmIndex].slotwidth / 2,
 			y - paddingtop,
-			(x + g_AmMenus[g_AmIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
+			x + g_AmMenus[g_AmIndex].slotwidth / 2 + 1,
 			y - paddingtop + 1);
 
 	// Bottom border
-	gDPFillRectangle(gdl++,
-			(x - g_AmMenus[g_AmIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
+	gDPFillRectangleScaled(gdl++,
+			x - g_AmMenus[g_AmIndex].slotwidth / 2,
 			y + paddingbottom,
-			(x + g_AmMenus[g_AmIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
+			x + g_AmMenus[g_AmIndex].slotwidth / 2 + 1,
 			y + paddingbottom + 1);
 
 	// Left border
-	gDPFillRectangle(gdl++,
-			(x - g_AmMenus[g_AmIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
+	gDPFillRectangleScaled(gdl++,
+			x - g_AmMenus[g_AmIndex].slotwidth / 2,
 			y - paddingtop + 1,
-			(x - g_AmMenus[g_AmIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
+			x - g_AmMenus[g_AmIndex].slotwidth / 2 + 1,
 			y + paddingbottom);
 
 	// Right border
-	gDPFillRectangle(gdl++,
-			(x + g_AmMenus[g_AmIndex].slotwidth / 2) * g_ScreenWidthMultiplier,
+	gDPFillRectangleScaled(gdl++,
+			x + g_AmMenus[g_AmIndex].slotwidth / 2,
 			y - paddingtop + 1,
-			(x + g_AmMenus[g_AmIndex].slotwidth / 2 + 1) * g_ScreenWidthMultiplier,
+			x + g_AmMenus[g_AmIndex].slotwidth / 2 + 1,
 			y + paddingbottom);
 
 	gdl = func0f153838(gdl);
@@ -1401,13 +1401,13 @@ glabel amRender
 /*  f100b08:	15c10005 */ 	bne	$t6,$at,.L0f100b20
 /*  f100b0c:	afa401d8 */ 	sw	$a0,0x1d8($sp)
 /*  f100b10:	240f0002 */ 	addiu	$t7,$zero,0x2
-/*  f100b14:	3c018008 */ 	lui	$at,%hi(g_ScreenWidthMultiplier)
+/*  f100b14:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
 /*  f100b18:	10000004 */ 	b	.L0f100b2c
-/*  f100b1c:	ac2ffac0 */ 	sw	$t7,%lo(g_ScreenWidthMultiplier)($at)
+/*  f100b1c:	ac2ffac0 */ 	sw	$t7,%lo(g_ScaleX)($at)
 .L0f100b20:
 /*  f100b20:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f100b24:	3c018008 */ 	lui	$at,%hi(g_ScreenWidthMultiplier)
-/*  f100b28:	ac38fac0 */ 	sw	$t8,%lo(g_ScreenWidthMultiplier)($at)
+/*  f100b24:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
+/*  f100b28:	ac38fac0 */ 	sw	$t8,%lo(g_ScaleX)($at)
 .L0f100b2c:
 /*  f100b2c:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
 /*  f100b30:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
@@ -2129,9 +2129,9 @@ glabel amRender
 /*  f1015c8:	3c0f800a */ 	lui	$t7,%hi(g_AmIndex)
 /*  f1015cc:	8def21b8 */ 	lw	$t7,%lo(g_AmIndex)($t7)
 /*  f1015d0:	8fa201d8 */ 	lw	$v0,0x1d8($sp)
-/*  f1015d4:	3c068008 */ 	lui	$a2,%hi(g_ScreenWidthMultiplier)
+/*  f1015d4:	3c068008 */ 	lui	$a2,%hi(g_ScaleX)
 /*  f1015d8:	01fe0019 */ 	multu	$t7,$s8
-/*  f1015dc:	24c6fac0 */ 	addiu	$a2,$a2,%lo(g_ScreenWidthMultiplier)
+/*  f1015dc:	24c6fac0 */ 	addiu	$a2,$a2,%lo(g_ScaleX)
 /*  f1015e0:	244e0008 */ 	addiu	$t6,$v0,0x8
 /*  f1015e4:	afae01d8 */ 	sw	$t6,0x1d8($sp)
 /*  f1015e8:	3c16f600 */ 	lui	$s6,0xf600
@@ -2526,8 +2526,8 @@ glabel amRender
 /*  f101b7c:	00000000 */ 	nop
 /*  f101b80:	0c002f40 */ 	jal	viGetViewLeft
 /*  f101b84:	00000000 */ 	nop
-/*  f101b88:	3c188008 */ 	lui	$t8,%hi(g_ScreenWidthMultiplier)
-/*  f101b8c:	8f18fac0 */ 	lw	$t8,%lo(g_ScreenWidthMultiplier)($t8)
+/*  f101b88:	3c188008 */ 	lui	$t8,%hi(g_ScaleX)
+/*  f101b8c:	8f18fac0 */ 	lw	$t8,%lo(g_ScaleX)($t8)
 /*  f101b90:	44972000 */ 	mtc1	$s7,$f4
 /*  f101b94:	0058001a */ 	div	$zero,$v0,$t8
 /*  f101b98:	00008012 */ 	mflo	$s0
@@ -2553,8 +2553,8 @@ glabel amRender
 /*  f101bdc:	00117c03 */ 	sra	$t7,$s1,0x10
 /*  f101be0:	0c002f40 */ 	jal	viGetViewLeft
 /*  f101be4:	01e08825 */ 	or	$s1,$t7,$zero
-/*  f101be8:	3c038008 */ 	lui	$v1,%hi(g_ScreenWidthMultiplier)
-/*  f101bec:	8c63fac0 */ 	lw	$v1,%lo(g_ScreenWidthMultiplier)($v1)
+/*  f101be8:	3c038008 */ 	lui	$v1,%hi(g_ScaleX)
+/*  f101bec:	8c63fac0 */ 	lw	$v1,%lo(g_ScaleX)($v1)
 /*  f101bf0:	44974000 */ 	mtc1	$s7,$f8
 /*  f101bf4:	3c013f00 */ 	lui	$at,0x3f00
 /*  f101bf8:	0043001a */ 	div	$zero,$v0,$v1
@@ -2709,11 +2709,11 @@ glabel amRender
 /*  f101e1c:	46082281 */ 	sub.s	$f10,$f4,$f8
 /*  f101e20:	44812000 */ 	mtc1	$at,$f4
 /*  f101e24:	afb901d8 */ 	sw	$t9,0x1d8($sp)
-/*  f101e28:	3c0b8008 */ 	lui	$t3,%hi(g_ScreenWidthMultiplier)
+/*  f101e28:	3c0b8008 */ 	lui	$t3,%hi(g_ScaleX)
 /*  f101e2c:	460a3482 */ 	mul.s	$f18,$f6,$f10
 /*  f101e30:	3c0cfa00 */ 	lui	$t4,0xfa00
 /*  f101e34:	35ce0060 */ 	ori	$t6,$t6,0x60
-/*  f101e38:	256bfac0 */ 	addiu	$t3,$t3,%lo(g_ScreenWidthMultiplier)
+/*  f101e38:	256bfac0 */ 	addiu	$t3,$t3,%lo(g_ScaleX)
 /*  f101e3c:	af0e0004 */ 	sw	$t6,0x4($t8)
 /*  f101e40:	af0c0000 */ 	sw	$t4,0x0($t8)
 /*  f101e44:	8d6e0000 */ 	lw	$t6,0x0($t3)
@@ -2729,7 +2729,7 @@ glabel amRender
 /*  f101e6c:	03201825 */ 	or	$v1,$t9,$zero
 /*  f101e70:	30e203ff */ 	andi	$v0,$a3,0x3ff
 /*  f101e74:	440f8000 */ 	mfc1	$t7,$f16
-/*  f101e78:	3c078008 */ 	lui	$a3,%hi(g_ScreenWidthMultiplier)
+/*  f101e78:	3c078008 */ 	lui	$a3,%hi(g_ScaleX)
 /*  f101e7c:	240d0080 */ 	addiu	$t5,$zero,0x80
 /*  f101e80:	022f3023 */ 	subu	$a2,$s1,$t7
 /*  f101e84:	00007812 */ 	mflo	$t7
@@ -2742,7 +2742,7 @@ glabel amRender
 /*  f101ea0:	0002c080 */ 	sll	$t8,$v0,0x2
 /*  f101ea4:	03001025 */ 	or	$v0,$t8,$zero
 /*  f101ea8:	00d90019 */ 	multu	$a2,$t9
-/*  f101eac:	24e7fac0 */ 	addiu	$a3,$a3,%lo(g_ScreenWidthMultiplier)
+/*  f101eac:	24e7fac0 */ 	addiu	$a3,$a3,%lo(g_ScaleX)
 /*  f101eb0:	00007012 */ 	mflo	$t6
 /*  f101eb4:	31cf03ff */ 	andi	$t7,$t6,0x3ff
 /*  f101eb8:	000fc380 */ 	sll	$t8,$t7,0xe
@@ -2798,9 +2798,9 @@ glabel amRender
 /*  f101f7c:	25cf0008 */ 	addiu	$t7,$t6,0x8
 /*  f101f80:	afaf01d8 */ 	sw	$t7,0x1d8($sp)
 /*  f101f84:	add80004 */ 	sw	$t8,0x4($t6)
-/*  f101f88:	3c188008 */ 	lui	$t8,%hi(g_ScreenWidthMultiplier)
+/*  f101f88:	3c188008 */ 	lui	$t8,%hi(g_ScaleX)
 /*  f101f8c:	adcc0000 */ 	sw	$t4,0x0($t6)
-/*  f101f90:	8f18fac0 */ 	lw	$t8,%lo(g_ScreenWidthMultiplier)($t8)
+/*  f101f90:	8f18fac0 */ 	lw	$t8,%lo(g_ScaleX)($t8)
 /*  f101f94:	8fa501d8 */ 	lw	$a1,0x1d8($sp)
 /*  f101f98:	00f54821 */ 	addu	$t1,$a3,$s5
 /*  f101f9c:	02380019 */ 	multu	$s1,$t8
@@ -2816,9 +2816,9 @@ glabel amRender
 /*  f101fc4:	000e7b80 */ 	sll	$t7,$t6,0xe
 /*  f101fc8:	01f6c025 */ 	or	$t8,$t7,$s6
 /*  f101fcc:	0303c825 */ 	or	$t9,$t8,$v1
-/*  f101fd0:	3c0f8008 */ 	lui	$t7,%hi(g_ScreenWidthMultiplier)
+/*  f101fd0:	3c0f8008 */ 	lui	$t7,%hi(g_ScaleX)
 /*  f101fd4:	acb90000 */ 	sw	$t9,0x0($a1)
-/*  f101fd8:	8deffac0 */ 	lw	$t7,%lo(g_ScreenWidthMultiplier)($t7)
+/*  f101fd8:	8deffac0 */ 	lw	$t7,%lo(g_ScaleX)($t7)
 /*  f101fdc:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f101fe0:	01c01025 */ 	or	$v0,$t6,$zero
 /*  f101fe4:	020f0019 */ 	multu	$s0,$t7
@@ -2828,8 +2828,8 @@ glabel amRender
 /*  f101ff4:	01c27825 */ 	or	$t7,$t6,$v0
 /*  f101ff8:	acaf0004 */ 	sw	$t7,0x4($a1)
 /*  f101ffc:	c7a60100 */ 	lwc1	$f6,0x100($sp)
-/*  f102000:	3c188008 */ 	lui	$t8,%hi(g_ScreenWidthMultiplier)
-/*  f102004:	8f18fac0 */ 	lw	$t8,%lo(g_ScreenWidthMultiplier)($t8)
+/*  f102000:	3c188008 */ 	lui	$t8,%hi(g_ScaleX)
+/*  f102004:	8f18fac0 */ 	lw	$t8,%lo(g_ScaleX)($t8)
 /*  f102008:	46061282 */ 	mul.s	$f10,$f2,$f6
 /*  f10200c:	8faa01d8 */ 	lw	$t2,0x1d8($sp)
 /*  f102010:	254f0008 */ 	addiu	$t7,$t2,0x8
@@ -2846,9 +2846,9 @@ glabel amRender
 /*  f10203c:	000e7b80 */ 	sll	$t7,$t6,0xe
 /*  f102040:	01f6c025 */ 	or	$t8,$t7,$s6
 /*  f102044:	0303c825 */ 	or	$t9,$t8,$v1
-/*  f102048:	3c0e8008 */ 	lui	$t6,%hi(g_ScreenWidthMultiplier)
+/*  f102048:	3c0e8008 */ 	lui	$t6,%hi(g_ScaleX)
 /*  f10204c:	ad590000 */ 	sw	$t9,0x0($t2)
-/*  f102050:	8dcefac0 */ 	lw	$t6,%lo(g_ScreenWidthMultiplier)($t6)
+/*  f102050:	8dcefac0 */ 	lw	$t6,%lo(g_ScaleX)($t6)
 /*  f102054:	026e0019 */ 	multu	$s3,$t6
 /*  f102058:	00007812 */ 	mflo	$t7
 /*  f10205c:	31f803ff */ 	andi	$t8,$t7,0x3ff
@@ -2860,8 +2860,8 @@ glabel amRender
 /*  f102074:	afb801d8 */ 	sw	$t8,0x1d8($sp)
 /*  f102078:	aded0004 */ 	sw	$t5,0x4($t7)
 /*  f10207c:	adec0000 */ 	sw	$t4,0x0($t7)
-/*  f102080:	3c0f8008 */ 	lui	$t7,%hi(g_ScreenWidthMultiplier)
-/*  f102084:	8deffac0 */ 	lw	$t7,%lo(g_ScreenWidthMultiplier)($t7)
+/*  f102080:	3c0f8008 */ 	lui	$t7,%hi(g_ScaleX)
+/*  f102084:	8deffac0 */ 	lw	$t7,%lo(g_ScaleX)($t7)
 /*  f102088:	8fa501d8 */ 	lw	$a1,0x1d8($sp)
 /*  f10208c:	00cf0019 */ 	multu	$a2,$t7
 /*  f102090:	24ae0008 */ 	addiu	$t6,$a1,0x8
@@ -2871,9 +2871,9 @@ glabel amRender
 /*  f1020a0:	00197380 */ 	sll	$t6,$t9,0xe
 /*  f1020a4:	01d67825 */ 	or	$t7,$t6,$s6
 /*  f1020a8:	01e3c025 */ 	or	$t8,$t7,$v1
-/*  f1020ac:	3c198008 */ 	lui	$t9,%hi(g_ScreenWidthMultiplier)
+/*  f1020ac:	3c198008 */ 	lui	$t9,%hi(g_ScaleX)
 /*  f1020b0:	acb80000 */ 	sw	$t8,0x0($a1)
-/*  f1020b4:	8f39fac0 */ 	lw	$t9,%lo(g_ScreenWidthMultiplier)($t9)
+/*  f1020b4:	8f39fac0 */ 	lw	$t9,%lo(g_ScaleX)($t9)
 /*  f1020b8:	01190019 */ 	multu	$t0,$t9
 /*  f1020bc:	00007012 */ 	mflo	$t6
 /*  f1020c0:	31cf03ff */ 	andi	$t7,$t6,0x3ff
@@ -2894,8 +2894,8 @@ glabel amRender
 /*  f1020f8:	adec0000 */ 	sw	$t4,0x0($t7)
 /*  f1020fc:	46104182 */ 	mul.s	$f6,$f8,$f16
 /*  f102100:	c7b200fc */ 	lwc1	$f18,0xfc($sp)
-/*  f102104:	3c1f8008 */ 	lui	$ra,%hi(g_ScreenWidthMultiplier)
-/*  f102108:	27fffac0 */ 	addiu	$ra,$ra,%lo(g_ScreenWidthMultiplier)
+/*  f102104:	3c1f8008 */ 	lui	$ra,%hi(g_ScaleX)
+/*  f102108:	27fffac0 */ 	addiu	$ra,$ra,%lo(g_ScaleX)
 /*  f10210c:	46121102 */ 	mul.s	$f4,$f2,$f18
 /*  f102110:	8ff80000 */ 	lw	$t8,0x0($ra)
 /*  f102114:	8fa401d8 */ 	lw	$a0,0x1d8($sp)
@@ -2904,10 +2904,10 @@ glabel amRender
 /*  f102120:	24990008 */ 	addiu	$t9,$a0,0x8
 /*  f102124:	4600328d */ 	trunc.w.s	$f10,$f6
 /*  f102128:	afb901d8 */ 	sw	$t9,0x1d8($sp)
-/*  f10212c:	3c038008 */ 	lui	$v1,%hi(g_ScreenWidthMultiplier)
+/*  f10212c:	3c038008 */ 	lui	$v1,%hi(g_ScaleX)
 /*  f102130:	4600220d */ 	trunc.w.s	$f8,$f4
 /*  f102134:	44155000 */ 	mfc1	$s5,$f10
-/*  f102138:	2463fac0 */ 	addiu	$v1,$v1,%lo(g_ScreenWidthMultiplier)
+/*  f102138:	2463fac0 */ 	addiu	$v1,$v1,%lo(g_ScaleX)
 /*  f10213c:	440f4000 */ 	mfc1	$t7,$f8
 /*  f102140:	00b53821 */ 	addu	$a3,$a1,$s5
 /*  f102144:	30ee03ff */ 	andi	$t6,$a3,0x3ff
@@ -2955,7 +2955,7 @@ glabel amRender
 /*  f1021ec:	8fbf004c */ 	lw	$ra,0x4c($sp)
 .L0f1021f0:
 /*  f1021f0:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f1021f4:	3c018008 */ 	lui	$at,%hi(g_ScreenWidthMultiplier)
+/*  f1021f4:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
 /*  f1021f8:	8fa201d8 */ 	lw	$v0,0x1d8($sp)
 /*  f1021fc:	8fb00028 */ 	lw	$s0,0x28($sp)
 /*  f102200:	8fb1002c */ 	lw	$s1,0x2c($sp)
@@ -2966,7 +2966,7 @@ glabel amRender
 /*  f102214:	8fb60040 */ 	lw	$s6,0x40($sp)
 /*  f102218:	8fb70044 */ 	lw	$s7,0x44($sp)
 /*  f10221c:	8fbe0048 */ 	lw	$s8,0x48($sp)
-/*  f102220:	ac2ffac0 */ 	sw	$t7,%lo(g_ScreenWidthMultiplier)($at)
+/*  f102220:	ac2ffac0 */ 	sw	$t7,%lo(g_ScaleX)($at)
 /*  f102224:	03e00008 */ 	jr	$ra
 /*  f102228:	27bd01d8 */ 	addiu	$sp,$sp,0x1d8
 /*  f10222c:	00000000 */ 	nop
@@ -2998,9 +2998,9 @@ glabel amRender
 //	s32 buddynum;
 //
 //	if (g_ViMode == VIMODE_HIRES) {
-//		g_ScreenWidthMultiplier = 2;
+//		g_ScaleX = 2;
 //	} else {
-//		g_ScreenWidthMultiplier = 1;
+//		g_ScaleX = 1;
 //	}
 //
 //	g_AmIndex = g_Vars.currentplayernum;
@@ -3221,31 +3221,31 @@ glabel amRender
 //			}
 //
 //			// Top
-//			gDPFillRectangle(gdl++,
-//					(g_AmMenus[g_AmIndex].selx - halfwidth) * g_ScreenWidthMultiplier,
+//			gDPFillRectangleScaled(gdl++,
+//					g_AmMenus[g_AmIndex].selx - halfwidth,
 //					g_AmMenus[g_AmIndex].sely - above,
-//					(g_AmMenus[g_AmIndex].selx + halfwidth + 1) * g_ScreenWidthMultiplier,
+//					g_AmMenus[g_AmIndex].selx + halfwidth + 1,
 //					g_AmMenus[g_AmIndex].sely - above + 1);
 //
 //			// Bottom
-//			gDPFillRectangle(gdl++,
-//					(g_AmMenus[g_AmIndex].selx - halfwidth) * g_ScreenWidthMultiplier,
+//			gDPFillRectangleScaled(gdl++,
+//					g_AmMenus[g_AmIndex].selx - halfwidth,
 //					g_AmMenus[g_AmIndex].sely + below,
-//					(g_AmMenus[g_AmIndex].selx + halfwidth + 1) * g_ScreenWidthMultiplier,
+//					g_AmMenus[g_AmIndex].selx + halfwidth + 1,
 //					g_AmMenus[g_AmIndex].sely + below + 1);
 //
 //			// Left
-//			gDPFillRectangle(gdl++,
-//					(g_AmMenus[g_AmIndex].selx - halfwidth) * g_ScreenWidthMultiplier,
+//			gDPFillRectangleScaled(gdl++,
+//					g_AmMenus[g_AmIndex].selx - halfwidth,
 //					g_AmMenus[g_AmIndex].sely - above + 1,
-//					(g_AmMenus[g_AmIndex].selx - halfwidth + 1) * g_ScreenWidthMultiplier,
+//					g_AmMenus[g_AmIndex].selx - halfwidth + 1,
 //					g_AmMenus[g_AmIndex].sely + below);
 //
 //			// Right
-//			gDPFillRectangle(gdl++,
-//					(g_AmMenus[g_AmIndex].selx + halfwidth) * g_ScreenWidthMultiplier,
+//			gDPFillRectangleScaled(gdl++,
+//					g_AmMenus[g_AmIndex].selx + halfwidth,
 //					g_AmMenus[g_AmIndex].sely - above + 1,
-//					(g_AmMenus[g_AmIndex].selx + halfwidth + 1) * g_ScreenWidthMultiplier,
+//					g_AmMenus[g_AmIndex].selx + halfwidth + 1,
 //					g_AmMenus[g_AmIndex].sely + below);
 //
 //			gdl = func0f153838(gdl);
@@ -3286,11 +3286,11 @@ glabel amRender
 //
 //		// 1b0c
 //		if (PLAYERCOUNT() == 1 && optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
-//			part1left = viGetViewLeft() / g_ScreenWidthMultiplier + 32; // s0
+//			part1left = viGetViewLeft() / g_ScaleX + 32; // s0
 //		} else {
 //			// 1bd0
-//			part1left = (s32)((viGetViewWidth() / g_ScreenWidthMultiplier) * 0.5f)
-//				+ (s32)(viGetViewLeft() / g_ScreenWidthMultiplier)
+//			part1left = (s32)((viGetViewWidth() / g_ScaleX) * 0.5f)
+//				+ (s32)(viGetViewLeft() / g_ScaleX)
 //				- (s32)(width * 0.5f)
 //				+ xoffset;
 //		}
@@ -3317,52 +3317,52 @@ glabel amRender
 //			gDPSetPrimColorViaWord(gdl++, 0, 0, 0xff000060);
 //
 //			// Part 1 red
-//			gDPFillRectangle(gdl++,
-//					((part1left + part1width - 1) - (s32)(part1width * 0.25f - healthfrac * 4)) * g_ScreenWidthMultiplier,
+//			gDPFillRectangleScaled(gdl++,
+//					(part1left + part1width - 1) - (s32)(part1width * 0.25f - healthfrac * 4),
 //					y,
-//					(part1left + part1width - 1) * g_ScreenWidthMultiplier,
+//					part1left + part1width - 1,
 //					y + healthheight);
 //
 //			gDPSetPrimColorViaWord(gdl++, 0, 0, 0x00000080);
 //
 //			// Part 1 black
-//			gDPFillRectangle(gdl++,
-//					part1left * g_ScreenWidthMultiplier,
+//			gDPFillRectangleScaled(gdl++,
+//					part1left,
 //					y,
-//					(part1left + part1width - 1 - (s32)(part1width * 0.25f - healthfrac * 4)) * g_ScreenWidthMultiplier,
+//					part1left + part1width - 1 - (s32)(part1width * 0.25f - healthfrac * 4),
 //					y + healthheight);
 //
 //			// Part 2 black
-//			gDPFillRectangle(gdl++,
-//					part2left * g_ScreenWidthMultiplier,
+//			gDPFillRectangleScaled(gdl++,
+//					part2left,
 //					y,
-//					(part1left + width) * g_ScreenWidthMultiplier,
+//					part1left + width,
 //					y + healthheight);
 //		} else {
 //			// 1f70
 //			gDPSetPrimColorViaWord(gdl++, 0, 0, 0x00c00060);
 //
 //			// Part 1 green
-//			gDPFillRectangle(gdl++,
-//					part1left * g_ScreenWidthMultiplier,
+//			gDPFillRectangleScaled(gdl++,
+//					part1left,
 //					y,
-//					(part1left + part1width - 1) * g_ScreenWidthMultiplier,
+//					part1left + part1width - 1,
 //					y + healthheight);
 //
 //			// Part 2 green
-//			gDPFillRectangle(gdl++,
-//					part2left * g_ScreenWidthMultiplier,
+//			gDPFillRectangleScaled(gdl++,
+//					part2left,
 //					y,
-//					(part1left + (s32)(width * healthfrac)) * g_ScreenWidthMultiplier,
+//					part1left + (s32)(width * healthfrac),
 //					y + healthheight);
 //
 //			gDPSetPrimColorViaWord(gdl++, 0, 0, 0x00000080);
 //
 //			// Part 2 black
-//			gDPFillRectangle(gdl++,
-//					(part1left + (s32)(width * healthfrac)) * g_ScreenWidthMultiplier,
+//			gDPFillRectangleScaled(gdl++,
+//					part1left + (s32)(width * healthfrac),
 //					y,
-//					(part1left + width) * g_ScreenWidthMultiplier,
+//					part1left + width,
 //					y + healthheight);
 //		}
 //
@@ -3370,22 +3370,22 @@ glabel amRender
 //		// 20d0
 //		gDPSetPrimColorViaWord(gdl++, 0, 0, 0x00c00060);
 //
-//		gDPFillRectangle(gdl++,
-//				part1left * g_ScreenWidthMultiplier,
+//		gDPFillRectangleScaled(gdl++,
+//				part1left,
 //				y + healthheight + 2,
-//				(part1left + (s32)(width * shieldfrac)) * g_ScreenWidthMultiplier,
+//				part1left + (s32)(width * shieldfrac),
 //				y + healthheight + 2 + (s32)(healthheight * 0.75f));
 //
 //		gDPSetPrimColorViaWord(gdl++, 0, 0, 0x00000080);
 //
-//		gDPFillRectangle(gdl++,
-//				(part1left + (s32)(width * shieldfrac)) * g_ScreenWidthMultiplier,
+//		gDPFillRectangleScaled(gdl++,
+//				part1left + (s32)(width * shieldfrac),
 //				y + healthheight + 2,
-//				(part1left + width) * g_ScreenWidthMultiplier,
+//				part1left + width,
 //				y + healthheight + 2 + (s32)(healthheight * 0.75f));
 //	}
 //
-//	g_ScreenWidthMultiplier = 1;
+//	g_ScaleX = 1;
 //
 //	return gdl;
 //}

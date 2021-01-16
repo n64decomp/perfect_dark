@@ -448,7 +448,7 @@ void coreLoadStage(s32 stagenum)
 		func0f10cb2c();
 	}
 
-	if (!IS4MB()) {
+	if (IS8MB()) {
 		func0f14a3c4();
 	}
 

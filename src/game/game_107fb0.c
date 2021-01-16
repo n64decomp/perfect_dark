@@ -1459,11 +1459,11 @@ Gfx *filemgrRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *rend
 		gDPTileSync(gdl++);
 
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 4) << 2) * g_ScreenWidthMultiplier,
+				((renderdata->x + 4) << 2) * g_ScaleX,
 				(renderdata->y + 2) << 2,
-				((renderdata->x + 20) << 2) * g_ScreenWidthMultiplier,
+				((renderdata->x + 20) << 2) * g_ScaleX,
 				(renderdata->y + 18) << 2,
-				G_TX_RENDERTILE, 0, 512, 1024 / g_ScreenWidthMultiplier, -1024);
+				G_TX_RENDERTILE, 0, 512, 1024 / g_ScaleX, -1024);
 
 		gDPLoadSync(gdl++);
 		gDPTileSync(gdl++);
@@ -2084,11 +2084,11 @@ s32 filemgrChooseAgentListMenuHandler(u32 operation, struct menuitem *item, unio
 				TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
 
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 4) << 2) * g_ScreenWidthMultiplier,
+				((renderdata->x + 4) << 2) * g_ScaleX,
 				(renderdata->y + 2) << 2,
-				((renderdata->x + 60) << 2) * g_ScreenWidthMultiplier,
+				((renderdata->x + 60) << 2) * g_ScaleX,
 				(renderdata->y + 38) << 2,
-				G_TX_RENDERTILE, 0, 1152, 1024 / g_ScreenWidthMultiplier, -1024);
+				G_TX_RENDERTILE, 0, 1152, 1024 / g_ScaleX, -1024);
 
 		x = renderdata->x + 62;
 		y = renderdata->y + 4;

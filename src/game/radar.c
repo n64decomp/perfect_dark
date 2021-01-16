@@ -30,7 +30,7 @@ void radarSetYIndicatorsEnabled(bool enable)
 	g_RadarYIndicatorsEnabled = enable;
 }
 
-Gfx *func0f18e5ac(Gfx *gdl, struct textureconfig *tconfig, s32 arg2, s32 arg3, s32 arg4)
+Gfx *radarRenderBackground(Gfx *gdl, struct textureconfig *tconfig, s32 arg2, s32 arg3, s32 arg4)
 {
 	f32 spb0[2];
 	f32 spa8[2];
@@ -49,14 +49,14 @@ Gfx *func0f18e5ac(Gfx *gdl, struct textureconfig *tconfig, s32 arg2, s32 arg3, s
 	gDPSetPrimColorViaWord(gdl++, 0, 0, 0x00000000);
 
 	gDPFillRectangle(gdl++,
-			arg2 * g_ScreenWidthMultiplier,
+			arg2 * g_ScaleX,
 			arg3,
-			(arg2 + tconfig->width) * g_ScreenWidthMultiplier,
+			(arg2 + tconfig->width) * g_ScaleX,
 			arg3 + tconfig->width);
 
-	spb0[0] = arg2 * g_ScreenWidthMultiplier;
+	spb0[0] = arg2 * g_ScaleX;
 	spb0[1] = arg3;
-	spa8[0] = arg4 * g_ScreenWidthMultiplier;
+	spa8[0] = arg4 * g_ScaleX;
 	spa8[1] = arg4;
 
 	func0f0b39c0(&gdl, tconfig, 2, 0, 0, 1, 0);
@@ -254,12 +254,12 @@ Gfx *radarRender(Gfx *gdl)
 	}
 
 	if (g_ViMode == VIMODE_HIRES) {
-		g_ScreenWidthMultiplier = 2;
+		g_ScaleX = 2;
 	} else {
-		g_ScreenWidthMultiplier = 1;
+		g_ScaleX = 1;
 	}
 
-	g_RadarX = (viGetViewLeft() + viGetViewWidth()) / g_ScreenWidthMultiplier - 41;
+	g_RadarX = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - 41;
 
 	if (playercount == 2) {
 		if (IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
@@ -301,7 +301,7 @@ Gfx *radarRender(Gfx *gdl)
 		}
 	}
 
-	gdl = func0f18e5ac(gdl, tconfig, g_RadarX, g_RadarY, 0x10);
+	gdl = radarRenderBackground(gdl, tconfig, g_RadarX, g_RadarY, 0x10);
 	gdl = func0f153134(gdl);
 
 	// Draw dots for human players
@@ -389,7 +389,7 @@ Gfx *radarRender(Gfx *gdl)
 		gdl = radarDrawDot(gdl, g_Vars.currentplayer->prop, &pos, colour, 0, 0);
 	}
 
-	g_ScreenWidthMultiplier = 1;
+	g_ScaleX = 1;
 
 	return gdl;
 }

@@ -106,10 +106,10 @@
 
 /**
  * gDPFillRectangle - a wrapper around gDPFillRectangle which applies
- * g_ScreenWidthMultiplier to the X coordinates.
+ * g_ScaleX to the X coordinates.
  *
- * g_ScreenWidthMultiplier is normally 1, but 2 when using hi-res.
+ * g_ScaleX is normally 1, but 2 when using hi-res.
  */
-#define gDPFillRectangleScaled(pkt, x1, y1, x2, y2) gDPFillRectangle(pkt, (x1) * g_ScreenWidthMultiplier, y1, (x2) * g_ScreenWidthMultiplier, y2)
+#define gDPFillRectangleScaled(pkt, x1, y1, x2, y2) gDPFillRectangle(pkt, (x1) * g_ScaleX, y1, (x2) * g_ScaleX, y2)
 
 #endif

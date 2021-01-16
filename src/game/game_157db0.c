@@ -6650,7 +6650,7 @@ void func0f15ca00(void)
 	if (tickmode == TICKMODE_NORMAL) {
 		var8007fc10 = 4;
 
-		if (!IS4MB() && var8007fc0c) {
+		if (IS8MB() && var8007fc0c) {
 			var8007fc0c--;
 			var8007fc10 = 200;
 		}

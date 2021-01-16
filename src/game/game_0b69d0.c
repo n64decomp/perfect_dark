@@ -1755,7 +1755,7 @@ void currentPlayerSpawn(void)
 			currentPlayerEquipWeaponWrapper(HAND_RIGHT, g_DefaultWeapons[HAND_RIGHT]);
 
 			if (g_Vars.currentplayer->unk00d4 == 0
-					&& (!IS4MB() || g_Vars.unk0004e0 || g_MpPlayerChrs[g_Vars.currentplayernum] == NULL)) {
+					&& (IS8MB() || g_Vars.unk0004e0 || g_MpPlayerChrs[g_Vars.currentplayernum] == NULL)) {
 				func0f0b8ba0();
 			}
 		}
@@ -4654,7 +4654,7 @@ s16 currentPlayerGetViewportHeight(void)
 		if (PLAYERCOUNT() == 2) {
 			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
 				height = tmp;
-			} else if (g_Vars.currentplayernum == 0 && !IS4MB()) {
+			} else if (g_Vars.currentplayernum == 0 && IS8MB()) {
 				height--;
 			}
 		} else if (g_Vars.currentplayernum == 0 || g_Vars.currentplayernum == 1) {
