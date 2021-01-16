@@ -448,106 +448,27 @@ bool padHasBboxData(s32 padnum)
 	return ((*header >> 14) & PADFLAG_HASBBOXDATA) != 0;
 }
 
-GLOBAL_ASM(
-glabel padGetCentre
-/*  f115f34:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f115f38:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f115f3c:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f115f40:	afa70074 */ 	sw	$a3,0x74($sp)
-/*  f115f44:	2405003e */ 	addiu	$a1,$zero,0x3e
-/*  f115f48:	0fc456ac */ 	jal	padUnpack
-/*  f115f4c:	27a6001c */ 	addiu	$a2,$sp,0x1c
-/*  f115f50:	c7a4004c */ 	lwc1	$f4,0x4c($sp)
-/*  f115f54:	c7a60050 */ 	lwc1	$f6,0x50($sp)
-/*  f115f58:	c7aa0040 */ 	lwc1	$f10,0x40($sp)
-/*  f115f5c:	c7b20054 */ 	lwc1	$f18,0x54($sp)
-/*  f115f60:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f115f64:	c7a40058 */ 	lwc1	$f4,0x58($sp)
-/*  f115f68:	3c013f00 */ 	lui	$at,0x3f00
-/*  f115f6c:	44810000 */ 	mtc1	$at,$f0
-/*  f115f70:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f115f74:	46049180 */ 	add.s	$f6,$f18,$f4
-/*  f115f78:	c7a80034 */ 	lwc1	$f8,0x34($sp)
-/*  f115f7c:	c7a4005c */ 	lwc1	$f4,0x5c($sp)
-/*  f115f80:	8fa70074 */ 	lw	$a3,0x74($sp)
-/*  f115f84:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f115f88:	c7a60060 */ 	lwc1	$f6,0x60($sp)
-/*  f115f8c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f115f90:	460a8480 */ 	add.s	$f18,$f16,$f10
-/*  f115f94:	c7b00028 */ 	lwc1	$f16,0x28($sp)
-/*  f115f98:	46088282 */ 	mul.s	$f10,$f16,$f8
-/*  f115f9c:	c7b0001c */ 	lwc1	$f16,0x1c($sp)
-/*  f115fa0:	46125100 */ 	add.s	$f4,$f10,$f18
-/*  f115fa4:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f115fa8:	46103200 */ 	add.s	$f8,$f6,$f16
-/*  f115fac:	e4e80000 */ 	swc1	$f8,0x0($a3)
-/*  f115fb0:	c7b20050 */ 	lwc1	$f18,0x50($sp)
-/*  f115fb4:	c7aa004c */ 	lwc1	$f10,0x4c($sp)
-/*  f115fb8:	c7a80054 */ 	lwc1	$f8,0x54($sp)
-/*  f115fbc:	c7a60044 */ 	lwc1	$f6,0x44($sp)
-/*  f115fc0:	46125100 */ 	add.s	$f4,$f10,$f18
-/*  f115fc4:	c7aa0058 */ 	lwc1	$f10,0x58($sp)
-/*  f115fc8:	46062402 */ 	mul.s	$f16,$f4,$f6
-/*  f115fcc:	460a4480 */ 	add.s	$f18,$f8,$f10
-/*  f115fd0:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*  f115fd4:	c7aa005c */ 	lwc1	$f10,0x5c($sp)
-/*  f115fd8:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f115fdc:	c7b20060 */ 	lwc1	$f18,0x60($sp)
-/*  f115fe0:	46125100 */ 	add.s	$f4,$f10,$f18
-/*  f115fe4:	46068200 */ 	add.s	$f8,$f16,$f6
-/*  f115fe8:	c7b0002c */ 	lwc1	$f16,0x2c($sp)
-/*  f115fec:	46048182 */ 	mul.s	$f6,$f16,$f4
-/*  f115ff0:	c7b00020 */ 	lwc1	$f16,0x20($sp)
-/*  f115ff4:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f115ff8:	46005482 */ 	mul.s	$f18,$f10,$f0
-/*  f115ffc:	46109100 */ 	add.s	$f4,$f18,$f16
-/*  f116000:	e4e40004 */ 	swc1	$f4,0x4($a3)
-/*  f116004:	c7a80050 */ 	lwc1	$f8,0x50($sp)
-/*  f116008:	c7a6004c */ 	lwc1	$f6,0x4c($sp)
-/*  f11600c:	c7a40054 */ 	lwc1	$f4,0x54($sp)
-/*  f116010:	c7b20048 */ 	lwc1	$f18,0x48($sp)
-/*  f116014:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f116018:	c7a60058 */ 	lwc1	$f6,0x58($sp)
-/*  f11601c:	46125402 */ 	mul.s	$f16,$f10,$f18
-/*  f116020:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f116024:	c7aa003c */ 	lwc1	$f10,0x3c($sp)
-/*  f116028:	c7a6005c */ 	lwc1	$f6,0x5c($sp)
-/*  f11602c:	460a4482 */ 	mul.s	$f18,$f8,$f10
-/*  f116030:	c7a80060 */ 	lwc1	$f8,0x60($sp)
-/*  f116034:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f116038:	46128100 */ 	add.s	$f4,$f16,$f18
-/*  f11603c:	c7b00030 */ 	lwc1	$f16,0x30($sp)
-/*  f116040:	460a8482 */ 	mul.s	$f18,$f16,$f10
-/*  f116044:	c7b00024 */ 	lwc1	$f16,0x24($sp)
-/*  f116048:	46049180 */ 	add.s	$f6,$f18,$f4
-/*  f11604c:	46003202 */ 	mul.s	$f8,$f6,$f0
-/*  f116050:	46104280 */ 	add.s	$f10,$f8,$f16
-/*  f116054:	e4ea0008 */ 	swc1	$f10,0x8($a3)
-/*  f116058:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11605c:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*  f116060:	03e00008 */ 	jr	$ra
-/*  f116064:	00000000 */ 	nop
-);
+void padGetCentre(s32 padnum, struct coord *coord)
+{
+	struct pad pad;
 
-//void padGetCentre(s32 padnum, struct coord *coord)
-//{
-//	struct pad pad;
-//
-//	padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX, &pad);
-//
-//	coord->x = pad.pos.x + (
-//			(pad.bbox.xmin + pad.bbox.xmax) * pad.normal.x +
-//			(pad.bbox.ymin + pad.bbox.ymax) * pad.up.x +
-//			pad.look.x * (pad.bbox.zmin + pad.bbox.zmax)) * 0.5f;
-//	coord->y = (
-//			(pad.bbox.xmax + pad.bbox.xmin) * pad.normal.y +
-//			(pad.bbox.ymin + pad.bbox.ymax) * pad.up.y +
-//			pad.look.y * (pad.bbox.zmin + pad.bbox.zmax)) * 0.5f + pad.pos.y;
-//	coord->z = (
-//			(pad.bbox.xmin + pad.bbox.xmax) * pad.normal.z +
-//			(pad.bbox.ymin + pad.bbox.ymax) * pad.up.z +
-//			pad.look.z * (pad.bbox.zmin + pad.bbox.zmax)) * 0.5f + pad.pos.z;
-//}
+	padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX, &pad);
+
+	coord->x = pad.pos.f[0] + (
+			(pad.bbox.xmin + pad.bbox.xmax) * pad.normal.f[0] +
+			(pad.bbox.ymin + pad.bbox.ymax) * pad.up.f[0] +
+			(pad.bbox.zmin + pad.bbox.zmax) * pad.look.f[0]) * 0.5f;
+
+	coord->y = pad.pos.f[1] + (
+			(pad.bbox.xmin + pad.bbox.xmax) * pad.normal.f[1] +
+			(pad.bbox.ymin + pad.bbox.ymax) * pad.up.f[1] +
+			(pad.bbox.zmin + pad.bbox.zmax) * pad.look.f[1]) * 0.5f;
+
+	coord->z = pad.pos.f[2] + (
+			(pad.bbox.xmin + pad.bbox.xmax) * pad.normal.f[2] +
+			(pad.bbox.ymin + pad.bbox.ymax) * pad.up.f[2] +
+			(pad.bbox.zmin + pad.bbox.zmax) * pad.look.f[2]) * 0.5f;
+}
 
 GLOBAL_ASM(
 glabel func0f116068
