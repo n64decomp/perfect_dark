@@ -1094,245 +1094,62 @@ glabel var7f1b784c
 //	}
 //}
 
-GLOBAL_ASM(
-glabel func0f168f24
-/*  f168f24:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f168f28:	f7b80030 */ 	sdc1	$f24,0x30($sp)
-/*  f168f2c:	3c01c000 */ 	lui	$at,0xc000
-/*  f168f30:	4481c000 */ 	mtc1	$at,$f24
-/*  f168f34:	f7b60028 */ 	sdc1	$f22,0x28($sp)
-/*  f168f38:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f168f3c:	4481b000 */ 	mtc1	$at,$f22
-/*  f168f40:	afb30044 */ 	sw	$s3,0x44($sp)
-/*  f168f44:	f7b40020 */ 	sdc1	$f20,0x20($sp)
-/*  f168f48:	3c014000 */ 	lui	$at,0x4000
-/*  f168f4c:	afbe0058 */ 	sw	$s8,0x58($sp)
-/*  f168f50:	afb70054 */ 	sw	$s7,0x54($sp)
-/*  f168f54:	afb60050 */ 	sw	$s6,0x50($sp)
-/*  f168f58:	afb5004c */ 	sw	$s5,0x4c($sp)
-/*  f168f5c:	afb40048 */ 	sw	$s4,0x48($sp)
-/*  f168f60:	afb20040 */ 	sw	$s2,0x40($sp)
-/*  f168f64:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f168f68:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f168f6c:	4481a000 */ 	mtc1	$at,$f20
-/*  f168f70:	00809025 */ 	or	$s2,$a0,$zero
-/*  f168f74:	00c0a825 */ 	or	$s5,$a2,$zero
-/*  f168f78:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f168f7c:	afb1003c */ 	sw	$s1,0x3c($sp)
-/*  f168f80:	afa5008c */ 	sw	$a1,0x8c($sp)
-/*  f168f84:	afa70094 */ 	sw	$a3,0x94($sp)
-/*  f168f88:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*  f168f8c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f168f90:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f168f94:	24160001 */ 	addiu	$s6,$zero,0x1
-/*  f168f98:	24170004 */ 	addiu	$s7,$zero,0x4
-/*  f168f9c:	8fbe0098 */ 	lw	$s8,0x98($sp)
-.L0f168fa0:
-/*  f168fa0:	8e6e0284 */ 	lw	$t6,0x284($s3)
-/*  f168fa4:	01d07821 */ 	addu	$t7,$t6,$s0
-/*  f168fa8:	8de31630 */ 	lw	$v1,0x1630($t7)
-/*  f168fac:	56430062 */ 	bnel	$s2,$v1,.L0f169138
-/*  f168fb0:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f168fb4:	92580001 */ 	lbu	$t8,0x1($s2)
-/*  f168fb8:	33190002 */ 	andi	$t9,$t8,0x2
-/*  f168fbc:	5320005e */ 	beqzl	$t9,.L0f169138
-/*  f168fc0:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f168fc4:	92420000 */ 	lbu	$v0,0x0($s2)
-/*  f168fc8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f168fcc:	52c20006 */ 	beql	$s6,$v0,.L0f168fe8
-/*  f168fd0:	8c680004 */ 	lw	$t0,0x4($v1)
-/*  f168fd4:	12e20003 */ 	beq	$s7,$v0,.L0f168fe4
-/*  f168fd8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f168fdc:	54410005 */ 	bnel	$v0,$at,.L0f168ff4
-/*  f168fe0:	24010003 */ 	addiu	$at,$zero,0x3
-.L0f168fe4:
-/*  f168fe4:	8c680004 */ 	lw	$t0,0x4($v1)
-.L0f168fe8:
-/*  f168fe8:	10000010 */ 	b	.L0f16902c
-/*  f168fec:	8d110018 */ 	lw	$s1,0x18($t0)
-/*  f168ff0:	24010003 */ 	addiu	$at,$zero,0x3
-.L0f168ff4:
-/*  f168ff4:	1041000b */ 	beq	$v0,$at,.L0f169024
-/*  f168ff8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f168ffc:	1441000b */ 	bne	$v0,$at,.L0f16902c
-/*  f169000:	00000000 */ 	nop
-/*  f169004:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f169008:	02402025 */ 	or	$a0,$s2,$zero
-/*  f16900c:	8e69028c */ 	lw	$t1,0x28c($s3)
-/*  f169010:	10490006 */ 	beq	$v0,$t1,.L0f16902c
-/*  f169014:	00000000 */ 	nop
-/*  f169018:	8e6a0284 */ 	lw	$t2,0x284($s3)
-/*  f16901c:	01505821 */ 	addu	$t3,$t2,$s0
-/*  f169020:	8d631630 */ 	lw	$v1,0x1630($t3)
-.L0f169024:
-/*  f169024:	8c6c0004 */ 	lw	$t4,0x4($v1)
-/*  f169028:	8d910020 */ 	lw	$s1,0x20($t4)
-.L0f16902c:
-/*  f16902c:	12200041 */ 	beqz	$s1,.L0f169134
-/*  f169030:	02202025 */ 	or	$a0,$s1,$zero
-/*  f169034:	27ad0080 */ 	addiu	$t5,$sp,0x80
-/*  f169038:	e7b6007c */ 	swc1	$f22,0x7c($sp)
-/*  f16903c:	e7b60080 */ 	swc1	$f22,0x80($sp)
-/*  f169040:	e7b80074 */ 	swc1	$f24,0x74($sp)
-/*  f169044:	e7b80078 */ 	swc1	$f24,0x78($sp)
-/*  f169048:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f16904c:	27a50074 */ 	addiu	$a1,$sp,0x74
-/*  f169050:	27a6007c */ 	addiu	$a2,$sp,0x7c
-/*  f169054:	0fc1a006 */ 	jal	modelSetRedBox
-/*  f169058:	27a70078 */ 	addiu	$a3,$sp,0x78
-/*  f16905c:	10400035 */ 	beqz	$v0,.L0f169134
-/*  f169060:	8fae0094 */ 	lw	$t6,0x94($sp)
-/*  f169064:	00141080 */ 	sll	$v0,$s4,0x2
-/*  f169068:	01c27821 */ 	addu	$t7,$t6,$v0
-/*  f16906c:	adf60000 */ 	sw	$s6,0x0($t7)
-/*  f169070:	c7a4007c */ 	lwc1	$f4,0x7c($sp)
-/*  f169074:	8e680284 */ 	lw	$t0,0x284($s3)
-/*  f169078:	46142181 */ 	sub.s	$f6,$f4,$f20
-/*  f16907c:	01104821 */ 	addu	$t1,$t0,$s0
-/*  f169080:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f169084:	44194000 */ 	mfc1	$t9,$f8
-/*  f169088:	00000000 */ 	nop
-/*  f16908c:	a5391634 */ 	sh	$t9,0x1634($t1)
-/*  f169090:	c7aa0074 */ 	lwc1	$f10,0x74($sp)
-/*  f169094:	8e6c0284 */ 	lw	$t4,0x284($s3)
-/*  f169098:	46145400 */ 	add.s	$f16,$f10,$f20
-/*  f16909c:	01906821 */ 	addu	$t5,$t4,$s0
-/*  f1690a0:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f1690a4:	440b9000 */ 	mfc1	$t3,$f18
-/*  f1690a8:	00000000 */ 	nop
-/*  f1690ac:	a5ab1638 */ 	sh	$t3,0x1638($t5)
-/*  f1690b0:	c7a40080 */ 	lwc1	$f4,0x80($sp)
-/*  f1690b4:	8e780284 */ 	lw	$t8,0x284($s3)
-/*  f1690b8:	03c25821 */ 	addu	$t3,$s8,$v0
-/*  f1690bc:	46142181 */ 	sub.s	$f6,$f4,$f20
-/*  f1690c0:	03104021 */ 	addu	$t0,$t8,$s0
-/*  f1690c4:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f1690c8:	440f4000 */ 	mfc1	$t7,$f8
-/*  f1690cc:	00000000 */ 	nop
-/*  f1690d0:	a50f1636 */ 	sh	$t7,0x1636($t0)
-/*  f1690d4:	c7aa0078 */ 	lwc1	$f10,0x78($sp)
-/*  f1690d8:	8e6a0284 */ 	lw	$t2,0x284($s3)
-/*  f1690dc:	46145400 */ 	add.s	$f16,$f10,$f20
-/*  f1690e0:	01506021 */ 	addu	$t4,$t2,$s0
-/*  f1690e4:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f1690e8:	44099000 */ 	mfc1	$t1,$f18
-/*  f1690ec:	00000000 */ 	nop
-/*  f1690f0:	a589163a */ 	sh	$t1,0x163a($t4)
-/*  f1690f4:	c6aa0000 */ 	lwc1	$f10,0x0($s5)
-/*  f1690f8:	c6480008 */ 	lwc1	$f8,0x8($s2)
-/*  f1690fc:	c6b20004 */ 	lwc1	$f18,0x4($s5)
-/*  f169100:	c650000c */ 	lwc1	$f16,0xc($s2)
-/*  f169104:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f169108:	c6a60008 */ 	lwc1	$f6,0x8($s5)
-/*  f16910c:	c6440010 */ 	lwc1	$f4,0x10($s2)
-/*  f169110:	46128301 */ 	sub.s	$f12,$f16,$f18
-/*  f169114:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f169118:	46021102 */ 	mul.s	$f4,$f2,$f2
-/*  f16911c:	00000000 */ 	nop
-/*  f169120:	460c6182 */ 	mul.s	$f6,$f12,$f12
-/*  f169124:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f169128:	46000282 */ 	mul.s	$f10,$f0,$f0
-/*  f16912c:	46085400 */ 	add.s	$f16,$f10,$f8
-/*  f169130:	e5700000 */ 	swc1	$f16,0x0($t3)
-.L0f169134:
-/*  f169134:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f169138:
-/*  f169138:	1697ff99 */ 	bne	$s4,$s7,.L0f168fa0
-/*  f16913c:	2610000c */ 	addiu	$s0,$s0,0xc
-/*  f169140:	8e44001c */ 	lw	$a0,0x1c($s2)
-/*  f169144:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f169148:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f16914c:	10800003 */ 	beqz	$a0,.L0f16915c
-/*  f169150:	8fa70094 */ 	lw	$a3,0x94($sp)
-/*  f169154:	0fc5a3c9 */ 	jal	func0f168f24
-/*  f169158:	afbe0010 */ 	sw	$s8,0x10($sp)
-.L0f16915c:
-/*  f16915c:	8fad008c */ 	lw	$t5,0x8c($sp)
-/*  f169160:	51a00009 */ 	beqzl	$t5,.L0f169188
-/*  f169164:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f169168:	8e440020 */ 	lw	$a0,0x20($s2)
-/*  f16916c:	01a02825 */ 	or	$a1,$t5,$zero
-/*  f169170:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f169174:	10800003 */ 	beqz	$a0,.L0f169184
-/*  f169178:	8fa70094 */ 	lw	$a3,0x94($sp)
-/*  f16917c:	0fc5a3c9 */ 	jal	func0f168f24
-/*  f169180:	afbe0010 */ 	sw	$s8,0x10($sp)
-.L0f169184:
-/*  f169184:	8fbf005c */ 	lw	$ra,0x5c($sp)
-.L0f169188:
-/*  f169188:	d7b40020 */ 	ldc1	$f20,0x20($sp)
-/*  f16918c:	d7b60028 */ 	ldc1	$f22,0x28($sp)
-/*  f169190:	d7b80030 */ 	ldc1	$f24,0x30($sp)
-/*  f169194:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f169198:	8fb1003c */ 	lw	$s1,0x3c($sp)
-/*  f16919c:	8fb20040 */ 	lw	$s2,0x40($sp)
-/*  f1691a0:	8fb30044 */ 	lw	$s3,0x44($sp)
-/*  f1691a4:	8fb40048 */ 	lw	$s4,0x48($sp)
-/*  f1691a8:	8fb5004c */ 	lw	$s5,0x4c($sp)
-/*  f1691ac:	8fb60050 */ 	lw	$s6,0x50($sp)
-/*  f1691b0:	8fb70054 */ 	lw	$s7,0x54($sp)
-/*  f1691b4:	8fbe0058 */ 	lw	$s8,0x58($sp)
-/*  f1691b8:	03e00008 */ 	jr	$ra
-/*  f1691bc:	27bd0088 */ 	addiu	$sp,$sp,0x88
-);
+void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 *activeslots, f32 *distances)
+{
+	s32 i;
+	f32 sp128;
+	f32 sp124;
+	f32 sp120;
+	f32 sp116;
+	struct model *model;
 
-// Mismatch because goal uses a nop when calculating distances[i].
-// I suspect this needs an earlier version of the compiler.
-//void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 *activeslots, f32 *distances)
-//{
-//	s32 i;
-//	struct model *model;
-//	f32 sp128;
-//	f32 sp124;
-//	f32 sp120;
-//	f32 sp116;
-//
-//	for (i = 0; i != 4; i++) {
-//		if (g_Vars.currentplayer->cmpfollowprops[i].prop == prop
-//				&& (prop->flags & PROPFLAG_02)) {
-//			model = NULL;
-//
-//			if (prop->type == PROPTYPE_OBJ
-//					|| prop->type == PROPTYPE_WEAPON
-//					|| prop->type == PROPTYPE_DOOR) {
-//				model = g_Vars.currentplayer->cmpfollowprops[i].prop->obj->model;
-//			} else {
-//				if (prop->type == PROPTYPE_CHR
-//						|| (prop->type == PROPTYPE_PLAYER
-//							&& propGetPlayerNum(prop) != g_Vars.currentplayernum)) {
-//					model = g_Vars.currentplayer->cmpfollowprops[i].prop->chr->model;
-//				}
-//			}
-//
-//			if (model) {
-//				sp128 = -1;
-//				sp124 = -1;
-//				sp120 = -2;
-//				sp116 = -2;
-//
-//				if (modelSetRedBox(model, &sp116, &sp124, &sp120, &sp128)) {
-//					activeslots[i] = true;
-//					g_Vars.currentplayer->cmpfollowprops[i].unk04 = sp124 - 2;
-//					g_Vars.currentplayer->cmpfollowprops[i].unk08 = sp116 + 2;
-//					g_Vars.currentplayer->cmpfollowprops[i].unk06 = sp128 - 2;
-//					g_Vars.currentplayer->cmpfollowprops[i].unk0a = sp120 + 2;
-//
-//					distances[i] = (prop->pos.x - playerpos->x) * (prop->pos.x - playerpos->x)
-//						+ (prop->pos.y - playerpos->y) * (prop->pos.y - playerpos->y)
-//						+ (prop->pos.z - playerpos->z) * (prop->pos.z - playerpos->z);
-//				}
-//			}
-//		}
-//	}
-//
-//	if (prop->child) {
-//		func0f168f24(prop->child, true, playerpos, activeslots, distances);
-//	}
-//
-//	if (inchild && prop->next) {
-//		func0f168f24(prop->next, inchild, playerpos, activeslots, distances);
-//	}
-//}
+	for (i = 0; i != 4; i++) {
+		if (g_Vars.currentplayer->cmpfollowprops[i].prop == prop
+				&& (prop->flags & PROPFLAG_02)) {
+			model = NULL;
+
+			if (prop->type == PROPTYPE_OBJ
+					|| prop->type == PROPTYPE_WEAPON
+					|| prop->type == PROPTYPE_DOOR) {
+				model = g_Vars.currentplayer->cmpfollowprops[i].prop->obj->model;
+			} else {
+				if (prop->type == PROPTYPE_CHR
+						|| (prop->type == PROPTYPE_PLAYER
+							&& propGetPlayerNum(prop) != g_Vars.currentplayernum)) {
+					model = g_Vars.currentplayer->cmpfollowprops[i].prop->chr->model;
+				}
+			}
+
+			if (model) {
+				sp124 = -1;
+				sp128 = -1;
+				sp116 = -2;
+				sp120 = -2;
+
+				if (modelSetRedBox(model, &sp116, &sp124, &sp120, &sp128)) {
+					activeslots[i] = true;
+					g_Vars.currentplayer->cmpfollowprops[i].unk04 = sp124 - 2;
+					g_Vars.currentplayer->cmpfollowprops[i].unk08 = sp116 + 2;
+					g_Vars.currentplayer->cmpfollowprops[i].unk06 = sp128 - 2;
+					g_Vars.currentplayer->cmpfollowprops[i].unk0a = sp120 + 2;
+
+					distances[i] =
+						(prop->pos.f[0] - playerpos->f[0]) * (prop->pos.f[0] - playerpos->f[0]) +
+						(prop->pos.f[1] - playerpos->f[1]) * (prop->pos.f[1] - playerpos->f[1]) +
+						(prop->pos.f[2] - playerpos->f[2]) * (prop->pos.f[2] - playerpos->f[2]);
+				}
+			}
+		}
+	}
+
+	if (prop->child) {
+		func0f168f24(prop->child, true, playerpos, activeslots, distances);
+	}
+
+	if (inchild && prop->next) {
+		func0f168f24(prop->next, inchild, playerpos, activeslots, distances);
+	}
+}
 
 void coreFindThreats(void)
 {
