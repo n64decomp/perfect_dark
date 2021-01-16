@@ -1245,125 +1245,49 @@ Gfx *creditsClearFramebuffer(Gfx *gdl, u32 colour)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f13853c
-/*  f13853c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f138540:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f138544:	00808025 */ 	or	$s0,$a0,$zero
-/*  f138548:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f13854c:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f138550:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f138554:	0fc59e73 */ 	jal	gfxAllocateColours
-/*  f138558:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f13855c:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f138560:	0fc59e59 */ 	jal	gfxAllocateVertices
-/*  f138564:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f138568:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f13856c:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f138570:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f138574:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f138578:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f13857c:	3c014120 */ 	lui	$at,0x4120
-/*  f138580:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f138584:	44810000 */ 	mtc1	$at,$f0
-/*  f138588:	24080004 */ 	addiu	$t0,$zero,0x4
-/*  f13858c:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f138590:	440f3000 */ 	mfc1	$t7,$f6
-/*  f138594:	3c0e0704 */ 	lui	$t6,0x704
-/*  f138598:	35ce0008 */ 	ori	$t6,$t6,0x8
-/*  f13859c:	a44f0000 */ 	sh	$t7,0x0($v0)
-/*  f1385a0:	c4a80004 */ 	lwc1	$f8,0x4($a1)
-/*  f1385a4:	02001825 */ 	or	$v1,$s0,$zero
-/*  f1385a8:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f1385ac:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f1385b0:	44195000 */ 	mfc1	$t9,$f10
-/*  f1385b4:	00000000 */ 	nop
-/*  f1385b8:	a4590002 */ 	sh	$t9,0x2($v0)
-/*  f1385bc:	c4b00008 */ 	lwc1	$f16,0x8($a1)
-/*  f1385c0:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f1385c4:	440b9000 */ 	mfc1	$t3,$f18
-/*  f1385c8:	00000000 */ 	nop
-/*  f1385cc:	a44b0004 */ 	sh	$t3,0x4($v0)
-/*  f1385d0:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f1385d4:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f1385d8:	440d3000 */ 	mfc1	$t5,$f6
-/*  f1385dc:	00000000 */ 	nop
-/*  f1385e0:	a44d000c */ 	sh	$t5,0xc($v0)
-/*  f1385e4:	c4a80004 */ 	lwc1	$f8,0x4($a1)
-/*  f1385e8:	46004280 */ 	add.s	$f10,$f8,$f0
-/*  f1385ec:	4600540d */ 	trunc.w.s	$f16,$f10
-/*  f1385f0:	440f8000 */ 	mfc1	$t7,$f16
-/*  f1385f4:	00000000 */ 	nop
-/*  f1385f8:	a44f000e */ 	sh	$t7,0xe($v0)
-/*  f1385fc:	c4b20008 */ 	lwc1	$f18,0x8($a1)
-/*  f138600:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f138604:	44192000 */ 	mfc1	$t9,$f4
-/*  f138608:	00000000 */ 	nop
-/*  f13860c:	a4590010 */ 	sh	$t9,0x10($v0)
-/*  f138610:	c4c60000 */ 	lwc1	$f6,0x0($a2)
-/*  f138614:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f138618:	440b4000 */ 	mfc1	$t3,$f8
-/*  f13861c:	00000000 */ 	nop
-/*  f138620:	a44b0018 */ 	sh	$t3,0x18($v0)
-/*  f138624:	c4ca0004 */ 	lwc1	$f10,0x4($a2)
-/*  f138628:	46005400 */ 	add.s	$f16,$f10,$f0
-/*  f13862c:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f138630:	440d9000 */ 	mfc1	$t5,$f18
-/*  f138634:	00000000 */ 	nop
-/*  f138638:	a44d001a */ 	sh	$t5,0x1a($v0)
-/*  f13863c:	c4c40008 */ 	lwc1	$f4,0x8($a2)
-/*  f138640:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f138644:	440f3000 */ 	mfc1	$t7,$f6
-/*  f138648:	00000000 */ 	nop
-/*  f13864c:	a44f001c */ 	sh	$t7,0x1c($v0)
-/*  f138650:	c4c80000 */ 	lwc1	$f8,0x0($a2)
-/*  f138654:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f138658:	44195000 */ 	mfc1	$t9,$f10
-/*  f13865c:	00000000 */ 	nop
-/*  f138660:	a4590024 */ 	sh	$t9,0x24($v0)
-/*  f138664:	c4d00004 */ 	lwc1	$f16,0x4($a2)
-/*  f138668:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f13866c:	440b9000 */ 	mfc1	$t3,$f18
-/*  f138670:	00000000 */ 	nop
-/*  f138674:	a44b0026 */ 	sh	$t3,0x26($v0)
-/*  f138678:	c4c40008 */ 	lwc1	$f4,0x8($a2)
-/*  f13867c:	a0400007 */ 	sb	$zero,0x7($v0)
-/*  f138680:	a0480013 */ 	sb	$t0,0x13($v0)
-/*  f138684:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f138688:	a048001f */ 	sb	$t0,0x1f($v0)
-/*  f13868c:	a040002b */ 	sb	$zero,0x2b($v0)
-/*  f138690:	440d3000 */ 	mfc1	$t5,$f6
-/*  f138694:	00000000 */ 	nop
-/*  f138698:	a44d0028 */ 	sh	$t5,0x28($v0)
-/*  f13869c:	ac890000 */ 	sw	$t1,0x0($a0)
-/*  f1386a0:	ac890004 */ 	sw	$t1,0x4($a0)
-/*  f1386a4:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*  f1386a8:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f1386ac:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f1386b0:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f1386b4:	3c0f0430 */ 	lui	$t7,0x430
-/*  f1386b8:	35ef0030 */ 	ori	$t7,$t7,0x30
-/*  f1386bc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1386c0:	ac620004 */ 	sw	$v0,0x4($v1)
-/*  f1386c4:	acaf0000 */ 	sw	$t7,0x0($a1)
-/*  f1386c8:	afa50020 */ 	sw	$a1,0x20($sp)
-/*  f1386cc:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f1386d0:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f1386d4:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f1386d8:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f1386dc:	02001825 */ 	or	$v1,$s0,$zero
-/*  f1386e0:	3c18b100 */ 	lui	$t8,0xb100
-/*  f1386e4:	aca20004 */ 	sw	$v0,0x4($a1)
-/*  f1386e8:	37180002 */ 	ori	$t8,$t8,0x2
-/*  f1386ec:	24193210 */ 	addiu	$t9,$zero,0x3210
-/*  f1386f0:	ac790004 */ 	sw	$t9,0x4($v1)
-/*  f1386f4:	ac780000 */ 	sw	$t8,0x0($v1)
-/*  f1386f8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1386fc:	26020008 */ 	addiu	$v0,$s0,0x8
-/*  f138700:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f138704:	03e00008 */ 	jr	$ra
-/*  f138708:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+/**
+ * An unused function. Renders a white line between two 3D coordinates.
+ * The line would be 10 units high, though I'm not sure if that's big or not.
+ */
+Gfx *creditsRenderLine(Gfx *gdl, struct coord *from, struct coord *to)
+{
+	struct gfxvtx *vertices;
+	u32 *colours;
+
+	colours = gfxAllocateColours(2);
+	vertices = gfxAllocateVertices(4);
+
+	vertices[0].x = from->x;
+	vertices[0].y = from->y;
+	vertices[0].z = from->z;
+
+	vertices[1].x = from->x;
+	vertices[1].y = from->y + 10.0f;
+	vertices[1].z = from->z;
+
+	vertices[2].x = to->x;
+	vertices[2].y = to->y + 10.0f;
+	vertices[2].z = to->z;
+
+	vertices[3].x = to->x;
+	vertices[3].y = to->y;
+	vertices[3].z = to->z;
+
+	vertices[0].s = 0;
+	vertices[1].s = 4;
+	vertices[2].s = 4;
+	vertices[3].s = 0;
+
+	colours[0] = 0xffffffff;
+	colours[1] = 0xffffffff;
+
+	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+	gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
+
+	gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+
+	return gdl;
+}
 
 void func0f13870c(void)
 {
