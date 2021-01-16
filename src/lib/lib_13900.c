@@ -358,191 +358,49 @@ u32 contGetConnectedControllers(void)
 	return g_ConnectedControllers;
 }
 
-GLOBAL_ASM(
-glabel contConsumeSamples
-/*    14058:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    1405c:	afb00004 */ 	sw	$s0,0x4($sp)
-/*    14060:	8c8e01e0 */ 	lw	$t6,0x1e0($a0)
-/*    14064:	8c8f01e8 */ 	lw	$t7,0x1e8($a0)
-/*    14068:	24100014 */ 	addiu	$s0,$zero,0x14
-/*    1406c:	00001025 */ 	or	$v0,$zero,$zero
-/*    14070:	ac8e01e4 */ 	sw	$t6,0x1e4($a0)
-/*    14074:	ac8f01e0 */ 	sw	$t7,0x1e0($a0)
-/*    14078:	0002c040 */ 	sll	$t8,$v0,0x1
-.L0001407c:
-/*    1407c:	00981821 */ 	addu	$v1,$a0,$t8
-/*    14080:	a46001f0 */ 	sh	$zero,0x1f0($v1)
-/*    14084:	a46001f8 */ 	sh	$zero,0x1f8($v1)
-/*    14088:	8c9901e0 */ 	lw	$t9,0x1e0($a0)
-/*    1408c:	8c8501e4 */ 	lw	$a1,0x1e4($a0)
-/*    14090:	3c18800a */ 	lui	$t8,%hi(g_ContDisableCooldown)
-/*    14094:	27189e68 */ 	addiu	$t8,$t8,%lo(g_ContDisableCooldown)
-/*    14098:	10b9005e */ 	beq	$a1,$t9,.L00014214
-/*    1409c:	24ae0001 */ 	addiu	$t6,$a1,0x1
-/*    140a0:	01d0001a */ 	div	$zero,$t6,$s0
-/*    140a4:	00023880 */ 	sll	$a3,$v0,0x2
-/*    140a8:	00003010 */ 	mfhi	$a2
-/*    140ac:	00e23823 */ 	subu	$a3,$a3,$v0
-/*    140b0:	00027880 */ 	sll	$t7,$v0,0x2
-/*    140b4:	01f86021 */ 	addu	$t4,$t7,$t8
-/*    140b8:	00073840 */ 	sll	$a3,$a3,0x1
-/*    140bc:	16000002 */ 	bnez	$s0,.L000140c8
-/*    140c0:	00000000 */ 	nop
-/*    140c4:	0007000d */ 	break	0x7
-.L000140c8:
-/*    140c8:	2401ffff */ 	addiu	$at,$zero,-1
-/*    140cc:	16010004 */ 	bne	$s0,$at,.L000140e0
-/*    140d0:	3c018000 */ 	lui	$at,0x8000
-/*    140d4:	15c10002 */ 	bne	$t6,$at,.L000140e0
-/*    140d8:	00000000 */ 	nop
-/*    140dc:	0006000d */ 	break	0x6
-.L000140e0:
-/*    140e0:	24cf0013 */ 	addiu	$t7,$a2,0x13
-.L000140e4:
-/*    140e4:	01f0001a */ 	div	$zero,$t7,$s0
-/*    140e8:	0006c880 */ 	sll	$t9,$a2,0x2
-/*    140ec:	0326c823 */ 	subu	$t9,$t9,$a2
-/*    140f0:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*    140f4:	00997021 */ 	addu	$t6,$a0,$t9
-/*    140f8:	0000c010 */ 	mfhi	$t8
-/*    140fc:	0018c880 */ 	sll	$t9,$t8,0x2
-/*    14100:	0338c823 */ 	subu	$t9,$t9,$t8
-/*    14104:	01c74021 */ 	addu	$t0,$t6,$a3
-/*    14108:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*    1410c:	00997021 */ 	addu	$t6,$a0,$t9
-/*    14110:	95050000 */ 	lhu	$a1,0x0($t0)
-/*    14114:	16000002 */ 	bnez	$s0,.L00014120
-/*    14118:	00000000 */ 	nop
-/*    1411c:	0007000d */ 	break	0x7
-.L00014120:
-/*    14120:	2401ffff */ 	addiu	$at,$zero,-1
-/*    14124:	16010004 */ 	bne	$s0,$at,.L00014138
-/*    14128:	3c018000 */ 	lui	$at,0x8000
-/*    1412c:	15e10002 */ 	bne	$t7,$at,.L00014138
-/*    14130:	00000000 */ 	nop
-/*    14134:	0006000d */ 	break	0x6
-.L00014138:
-/*    14138:	01c77821 */ 	addu	$t7,$t6,$a3
-/*    1413c:	95e90000 */ 	lhu	$t1,0x0($t7)
-/*    14140:	947801f0 */ 	lhu	$t8,0x1f0($v1)
-/*    14144:	00a05025 */ 	or	$t2,$a1,$zero
-/*    14148:	0120c827 */ 	nor	$t9,$t1,$zero
-/*    1414c:	00b97024 */ 	and	$t6,$a1,$t9
-/*    14150:	030e7825 */ 	or	$t7,$t8,$t6
-/*    14154:	947901f8 */ 	lhu	$t9,0x1f8($v1)
-/*    14158:	00a0c027 */ 	nor	$t8,$a1,$zero
-/*    1415c:	a46f01f0 */ 	sh	$t7,0x1f0($v1)
-/*    14160:	03097024 */ 	and	$t6,$t8,$t1
-/*    14164:	032e7825 */ 	or	$t7,$t9,$t6
-/*    14168:	a46f01f8 */ 	sh	$t7,0x1f8($v1)
-/*    1416c:	8d8d0000 */ 	lw	$t5,0x0($t4)
-/*    14170:	01205825 */ 	or	$t3,$t1,$zero
-/*    14174:	59a00017 */ 	blezl	$t5,.L000141d4
-/*    14178:	8c8e01e0 */ 	lw	$t6,0x1e0($a0)
-/*    1417c:	95180000 */ 	lhu	$t8,0x0($t0)
-/*    14180:	57000012 */ 	bnezl	$t8,.L000141cc
-/*    14184:	25b9ffff */ 	addiu	$t9,$t5,-1
-/*    14188:	81050002 */ 	lb	$a1,0x2($t0)
-/*    1418c:	28a1000f */ 	slti	$at,$a1,0xf
-/*    14190:	5020000e */ 	beqzl	$at,.L000141cc
-/*    14194:	25b9ffff */ 	addiu	$t9,$t5,-1
-/*    14198:	28a1fff2 */ 	slti	$at,$a1,-14
-/*    1419c:	5420000b */ 	bnezl	$at,.L000141cc
-/*    141a0:	25b9ffff */ 	addiu	$t9,$t5,-1
-/*    141a4:	81050003 */ 	lb	$a1,0x3($t0)
-/*    141a8:	28a1000f */ 	slti	$at,$a1,0xf
-/*    141ac:	50200007 */ 	beqzl	$at,.L000141cc
-/*    141b0:	25b9ffff */ 	addiu	$t9,$t5,-1
-/*    141b4:	28a1fff2 */ 	slti	$at,$a1,-14
-/*    141b8:	54200004 */ 	bnezl	$at,.L000141cc
-/*    141bc:	25b9ffff */ 	addiu	$t9,$t5,-1
-/*    141c0:	10000003 */ 	b	.L000141d0
-/*    141c4:	ad800000 */ 	sw	$zero,0x0($t4)
-/*    141c8:	25b9ffff */ 	addiu	$t9,$t5,-1
-.L000141cc:
-/*    141cc:	ad990000 */ 	sw	$t9,0x0($t4)
-.L000141d0:
-/*    141d0:	8c8e01e0 */ 	lw	$t6,0x1e0($a0)
-.L000141d4:
-/*    141d4:	50ce0010 */ 	beql	$a2,$t6,.L00014218
-/*    141d8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    141dc:	24cf0001 */ 	addiu	$t7,$a2,0x1
-/*    141e0:	01f0001a */ 	div	$zero,$t7,$s0
-/*    141e4:	00003010 */ 	mfhi	$a2
-/*    141e8:	16000002 */ 	bnez	$s0,.L000141f4
-/*    141ec:	00000000 */ 	nop
-/*    141f0:	0007000d */ 	break	0x7
-.L000141f4:
-/*    141f4:	2401ffff */ 	addiu	$at,$zero,-1
-/*    141f8:	16010004 */ 	bne	$s0,$at,.L0001420c
-/*    141fc:	3c018000 */ 	lui	$at,0x8000
-/*    14200:	15e10002 */ 	bne	$t7,$at,.L0001420c
-/*    14204:	00000000 */ 	nop
-/*    14208:	0006000d */ 	break	0x6
-.L0001420c:
-/*    1420c:	1000ffb5 */ 	b	.L000140e4
-/*    14210:	24cf0013 */ 	addiu	$t7,$a2,0x13
-.L00014214:
-/*    14214:	24420001 */ 	addiu	$v0,$v0,0x1
-.L00014218:
-/*    14218:	0002c600 */ 	sll	$t8,$v0,0x18
-/*    1421c:	00181603 */ 	sra	$v0,$t8,0x18
-/*    14220:	28410004 */ 	slti	$at,$v0,0x4
-/*    14224:	5420ff95 */ 	bnezl	$at,.L0001407c
-/*    14228:	0002c040 */ 	sll	$t8,$v0,0x1
-/*    1422c:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*    14230:	03e00008 */ 	jr	$ra
-/*    14234:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+void contConsumeSamples(struct contdata *contdata)
+{
+	s8 i;
+	s32 samplenum;
+	u16 buttons1;
+	u16 buttons2;
 
-// Mismatch because goal calculates &g_ContDisableCooldown before the % 20 on
-// the marked line, but the below does it after.
-//void contConsumeSamples(struct contdata *contdata)
-//{
-//	s8 i;
-//	s32 samplenum;
-//	u16 buttons1;
-//	u16 buttons2;
-//
-//	contdata->curstart = contdata->curlast;
-//	contdata->curlast = contdata->nextlast;
-//
-//	for (i = 0; i < 4; i++) {
-//		contdata->buttonspressed[i] = 0;
-//		contdata->buttonsreleased[i] = 0;
-//
-//		if (contdata->curlast != contdata->curstart) {
-//			// Mismatch here
-//			samplenum = (contdata->curstart + 1) % 20;
-//
-//			while (true) {
-//				buttons1 = contdata->samples[samplenum].pads[i].button;
-//				buttons2 = contdata->samples[(samplenum + 19) % 20].pads[i].button;
-//
-//				contdata->buttonspressed[i] |= buttons1 & ~buttons2;
-//				contdata->buttonsreleased[i] |= ~buttons1 & buttons2;
-//
-//				if (g_ContDisableCooldown[i] > 0) {
-//					if (contdata->samples[samplenum].pads[i].button == 0
-//							&& contdata->samples[samplenum].pads[i].stick_x < 15
-//							&& contdata->samples[samplenum].pads[i].stick_x > -15
-//							&& contdata->samples[samplenum].pads[i].stick_y < 15
-//							&& contdata->samples[samplenum].pads[i].stick_y > -15) {
-//						g_ContDisableCooldown[i] = 0;
-//					} else {
-//						g_ContDisableCooldown[i]--;
-//					}
-//				}
-//
-//				if (samplenum == contdata->curlast) {
-//					break;
-//				}
-//
-//				samplenum = (samplenum + 1) % 20;
-//			}
-//		}
-//	}
-//}
+	contdata->curstart = contdata->curlast;
+	contdata->curlast = contdata->nextlast;
+
+	for (i = 0; i < 4; i++) {
+		contdata->buttonspressed[i] = 0;
+		contdata->buttonsreleased[i] = 0;
+
+		if (contdata->curlast != contdata->curstart) {
+			samplenum = (contdata->curstart + 1) % 20; while (true) {
+				buttons1 = contdata->samples[samplenum].pads[i].button;
+				buttons2 = contdata->samples[(samplenum + 19) % 20].pads[i].button;
+
+				contdata->buttonspressed[i] |= buttons1 & ~buttons2;
+				contdata->buttonsreleased[i] |= ~buttons1 & buttons2;
+
+				if (g_ContDisableCooldown[i] > 0) {
+					if (contdata->samples[samplenum].pads[i].button == 0
+							&& contdata->samples[samplenum].pads[i].stick_x < 15
+							&& contdata->samples[samplenum].pads[i].stick_x > -15
+							&& contdata->samples[samplenum].pads[i].stick_y < 15
+							&& contdata->samples[samplenum].pads[i].stick_y > -15) {
+						g_ContDisableCooldown[i] = 0;
+					} else {
+						g_ContDisableCooldown[i]--;
+					}
+				}
+
+				if (samplenum == contdata->curlast) {
+					break;
+				}
+
+				samplenum = (samplenum + 1) % 20;
+			}
+		}
+	}
+}
 
 /**
  * The use of the static variable suggests that the function is able to be
