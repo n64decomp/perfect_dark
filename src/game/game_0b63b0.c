@@ -118,31 +118,15 @@ f32 func0f0b656c(s32 arg0)
 	return value;
 }
 
-GLOBAL_ASM(
-glabel func0f0b65a8
-/*  f0b65a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b65ac:	1880000c */ 	blez	$a0,.L0f0b65e0
-/*  f0b65b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b65b4:	3c01800a */ 	lui	$at,%hi(var8009ddcc)
-/*  f0b65b8:	ac24ddcc */ 	sw	$a0,%lo(var8009ddcc)($at)
-/*  f0b65bc:	00042040 */ 	sll	$a0,$a0,0x1
-/*  f0b65c0:	2484000f */ 	addiu	$a0,$a0,0xf
-/*  f0b65c4:	348e000f */ 	ori	$t6,$a0,0xf
-/*  f0b65c8:	39c4000f */ 	xori	$a0,$t6,0xf
-/*  f0b65cc:	0c0048f2 */ 	jal	malloc
-/*  f0b65d0:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f0b65d4:	3c01800a */ 	lui	$at,%hi(var8009ddc8)
-/*  f0b65d8:	10000003 */ 	b	.L0f0b65e8
-/*  f0b65dc:	ac22ddc8 */ 	sw	$v0,%lo(var8009ddc8)($at)
-.L0f0b65e0:
-/*  f0b65e0:	3c01800a */ 	lui	$at,%hi(var8009ddc8)
-/*  f0b65e4:	ac20ddc8 */ 	sw	$zero,%lo(var8009ddc8)($at)
-.L0f0b65e8:
-/*  f0b65e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b65ec:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b65f0:	03e00008 */ 	jr	$ra
-/*  f0b65f4:	00000000 */ 	nop
-);
+void func0f0b65a8(s32 arg0)
+{
+	if (arg0 > 0) {
+		var8009ddcc = arg0;
+		var8009ddc8 = malloc(ALIGN16(arg0 * 2), MEMPOOL_STAGE);
+	} else {
+		var8009ddc8 = NULL;
+	}
+}
 
 void func0f0b65f8(void)
 {
