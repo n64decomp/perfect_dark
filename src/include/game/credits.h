@@ -28,16 +28,16 @@ Gfx *creditsRender(Gfx *gdl);
 void creditsInit(void);
 void creditsRequestAltTitle(void);
 
-struct credits00 {
+struct credits000c {
 	f32 unk00;
-	u8 unk04;
-	u8 unk05;
-	u8 unk06;
-	u8 unk07;
-	u8 unk08;
+	f32 unk04;
+	f32 unk08;
 	f32 unk0c;
-	f32 unk10;
-	f32 unk14;
+	u8 unk10;
+	u8 unk11;
+	u8 unk12;
+	u8 unk13;
+	u8 unk14;
 };
 
 struct creditsbgtype {
@@ -57,10 +57,10 @@ struct creditsbglayer {
 };
 
 struct creditsdata {
-	/*0x0000*/ struct credits00 unk0000[500];
-	/*0x2ee0*/ u32 unk2ee0;
-	/*0x2ee4*/ u32 unk2ee4;
-	/*0x2ee8*/ u32 unk2ee8;
+	/*0x0000*/ u32 unk0000;
+	/*0x0004*/ u32 unk0004;
+	/*0x0008*/ u32 unk0008;
+	/*0x000c*/ struct credits000c unk000c[500];
 	/*0x2eec*/ u8 unk2eec;
 	/*0x2eed*/ u8 unk2eed;
 	/*0x2eee*/ u8 unk2eee;
@@ -1270,7 +1270,7 @@ struct creditsdata {
 	/*0x41f4*/ u8 slidesenabled;
 	/*0x41f5*/ s8 unk41f5;
 	/*0x41f6*/ u8 unk41f6;
-	/*0x41f8*/ u32 unk41f8;
+	/*0x41f8*/ f32 unk41f8;
 	/*0x41fc*/ u8 unk41fc;
 	/*0x41fd*/ u8 unk41fd;
 	/*0x41fe*/ u8 unk41fe;

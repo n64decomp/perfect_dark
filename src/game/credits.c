@@ -839,33 +839,33 @@ void func0f13870c(void)
 	g_CreditsData->unk4200 = 0;
 	g_CreditsData->unk41ff = 7;
 
-	for (i = 0; i < ARRAYCOUNT(g_CreditsData->unk0000); i++) {
+	for (i = 0; i < ARRAYCOUNT(g_CreditsData->unk000c); i++) {
 		tmp = random() * (1.0f / U32_MAX);
-		g_CreditsData->unk0000[i].unk0c = (tmp + tmp) * 3000.0f - 3000.0f;
+		g_CreditsData->unk000c[i].unk00 = (tmp + tmp) * 3000.0f - 3000.0f;
 
 		tmp = random() * (1.0f / U32_MAX);
-		g_CreditsData->unk0000[i].unk10 = (tmp + tmp) * 3000.0f - 3000.0f;
+		g_CreditsData->unk000c[i].unk04 = (tmp + tmp) * 3000.0f - 3000.0f;
 
-		g_CreditsData->unk0000[i + 1].unk06 = random() % 4;
-		g_CreditsData->unk0000[i + 1].unk08 = random() % 4;
-		g_CreditsData->unk0000[i + 1].unk00 = random() * (1.0f / U32_MAX) * M_BADTAU;
+		g_CreditsData->unk000c[i].unk12 = random() % 4;
+		g_CreditsData->unk000c[i].unk14 = random() % 4;
+		g_CreditsData->unk000c[i].unk0c = random() * (1.0f / U32_MAX) * M_BADTAU;
 
 		if (g_CreditsData->unk4200 < g_CreditsData->unk41ff) {
-			g_CreditsData->unk0000[i + 1].unk07 = g_CreditsData->unk4200
+			g_CreditsData->unk000c[i].unk13 = g_CreditsData->unk4200
 				+ (random() % (g_CreditsData->unk41ff - g_CreditsData->unk4200));
 		} else {
-			g_CreditsData->unk0000[i + 1].unk07 = g_CreditsData->unk4200;
+			g_CreditsData->unk000c[i].unk13 = g_CreditsData->unk4200;
 		}
 
-		g_CreditsData->unk0000[i + 1].unk04 = g_CreditsData->unk41fc;
+		g_CreditsData->unk000c[i].unk10 = g_CreditsData->unk41fc;
 
 		if (random() % 2 == 1) {
-			g_CreditsData->unk0000[i + 1].unk05 = g_CreditsData->unk41fd;
+			g_CreditsData->unk000c[i].unk11 = g_CreditsData->unk41fd;
 		} else {
-			g_CreditsData->unk0000[i + 1].unk05 = g_CreditsData->unk41fe;
+			g_CreditsData->unk000c[i].unk11 = g_CreditsData->unk41fe;
 		}
 
-		g_CreditsData->unk0000[i].unk14 = random() * (1.0f / U32_MAX) * -8000.0f;
+		g_CreditsData->unk000c[i].unk08 = random() * (1.0f / U32_MAX) * -8000.0f;
 	}
 }
 
@@ -1214,6 +1214,88 @@ glabel var7f1b5824
 /*  f138e64:	03e00008 */ 	jr	$ra
 /*  f138e68:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
+
+// Mismatch: 30.0f should be loaded earlier and needs to go into a callee-save
+// register.
+//void func0f13899c(void)
+//{
+//	s32 i;
+//	f32 tmp;
+//
+//	if (g_CreditsData->unk41f5 >= 0) {
+//		g_CreditsData->unk41f8 += g_Vars.diffframe240f / 720.0f;
+//
+//		if (g_CreditsData->unk41f8 > 1.0f) {
+//			g_CreditsData->unk41f6 = g_CreditsData->unk41f5;
+//			g_CreditsData->unk41f5 = -1;
+//		}
+//	} else {
+//		if (random() * (1.0f / U32_MAX) < 0.007f && contGetButtons(0, L_TRIG | R_TRIG) == 0) {
+//			g_CreditsData->unk41f5 = random() % 4;
+//			g_CreditsData->unk41f8 = 0;
+//		}
+//	}
+//
+//	if (random() * (1.0f / U32_MAX) < 0.002f && contGetButtons(0, L_TRIG | R_TRIG) == 0) {
+//		g_CreditsData->unk41fc = random() % 5;
+//	}
+//
+//	if (contGetButtonsPressedThisFrame(0, R_TRIG)) {
+//		g_CreditsData->unk41fc = random() % 5;
+//
+//		if (g_CreditsData->unk41f5 < 0) {
+//			g_CreditsData->unk41f5 = random() % 4;
+//			g_CreditsData->unk41f8 = 0;
+//		}
+//	}
+//
+//	if (random() * (1.0f / U32_MAX) < 0.007f) {
+//		g_CreditsData->unk41fd = random() % 2;
+//		g_CreditsData->unk41fe = random() % 2;
+//	}
+//
+//	for (i = 0; i < 500; i++) {
+//		tmp = ((i & 7) + 1) * 0.01f;
+//
+//		if ((i & 8) == 0) {
+//			tmp = -tmp;
+//		}
+//
+//		g_CreditsData->unk000c[i].unk0c += tmp;
+//
+//		g_CreditsData->unk000c[i].unk08 += g_Vars.diffframe240f * 30.0f * 0.25f;
+//
+//		if (g_CreditsData->unk000c[i].unk08 > 0) {
+//			tmp = random() * (1.0f / U32_MAX);
+//			g_CreditsData->unk000c[i].unk00 = (tmp + tmp) * 3000 - 3000;
+//
+//			tmp = random() * (1.0f / U32_MAX);
+//			g_CreditsData->unk000c[i].unk04 = (tmp + tmp) * 3000 - 3000;
+//
+//			g_CreditsData->unk000c[i].unk12 = random() % 4;
+//			g_CreditsData->unk000c[i].unk14 = random() % 4;
+//
+//			g_CreditsData->unk000c[i].unk0c = random() * (1.0f / U32_MAX) * M_BADTAU;
+//
+//			if (g_CreditsData->unk4200 < g_CreditsData->unk41ff) {
+//				g_CreditsData->unk000c[i].unk13 = g_CreditsData->unk4200
+//					+ random() % (g_CreditsData->unk41ff - g_CreditsData->unk4200);
+//			} else {
+//				g_CreditsData->unk000c[i].unk13 = g_CreditsData->unk4200;
+//			}
+//
+//			g_CreditsData->unk000c[i].unk10 = g_CreditsData->unk41fc;
+//
+//			if (random() % 2 == 1) {
+//				g_CreditsData->unk000c[i].unk11 = g_CreditsData->unk41fd;
+//			} else {
+//				g_CreditsData->unk000c[i].unk11 = g_CreditsData->unk41fe;
+//			}
+//
+//			g_CreditsData->unk000c[i].unk08 += -8000;
+//		}
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f138e6c
