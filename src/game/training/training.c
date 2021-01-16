@@ -2091,161 +2091,45 @@ bool frIsTargetFacingPos(struct prop *prop, struct coord *pos)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel frChooseAutogunTarget
-.late_rodata
-glabel var7f1b94b8
-.word 0x4096c5bf
-glabel var7f1b94bc
-.word 0x3fc90fdb
-.text
-/*  f19f39c:	27bdff30 */ 	addiu	$sp,$sp,-208
-/*  f19f3a0:	f7b60018 */ 	sdc1	$f22,0x18($sp)
-/*  f19f3a4:	3c014e00 */ 	lui	$at,0x4e00
-/*  f19f3a8:	4481b000 */ 	mtc1	$at,$f22
-/*  f19f3ac:	f7b80020 */ 	sdc1	$f24,0x20($sp)
-/*  f19f3b0:	3c017f1c */ 	lui	$at,%hi(var7f1b94b8)
-/*  f19f3b4:	afb10030 */ 	sw	$s1,0x30($sp)
-/*  f19f3b8:	c43894b8 */ 	lwc1	$f24,%lo(var7f1b94b8)($at)
-/*  f19f3bc:	afb50040 */ 	sw	$s5,0x40($sp)
-/*  f19f3c0:	afb4003c */ 	sw	$s4,0x3c($sp)
-/*  f19f3c4:	afb30038 */ 	sw	$s3,0x38($sp)
-/*  f19f3c8:	afb20034 */ 	sw	$s2,0x34($sp)
-/*  f19f3cc:	afb0002c */ 	sw	$s0,0x2c($sp)
-/*  f19f3d0:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f19f3d4:	3c017f1c */ 	lui	$at,%hi(var7f1b94bc)
-/*  f19f3d8:	3c11800b */ 	lui	$s1,%hi(g_FrData)
-/*  f19f3dc:	00809825 */ 	or	$s3,$a0,$zero
-/*  f19f3e0:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f19f3e4:	00009025 */ 	or	$s2,$zero,$zero
-/*  f19f3e8:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f19f3ec:	2631cd20 */ 	addiu	$s1,$s1,%lo(g_FrData)
-/*  f19f3f0:	c43494bc */ 	lwc1	$f20,%lo(var7f1b94bc)($at)
-/*  f19f3f4:	00008025 */ 	or	$s0,$zero,$zero
-/*  f19f3f8:	27b40084 */ 	addiu	$s4,$sp,0x84
-.L0f19f3fc:
-/*  f19f3fc:	8e220010 */ 	lw	$v0,0x10($s1)
-/*  f19f400:	000277c2 */ 	srl	$t6,$v0,0x1f
-/*  f19f404:	11c00014 */ 	beqz	$t6,.L0f19f458
-/*  f19f408:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f19f40c:	07000012 */ 	bltz	$t8,.L0f19f458
-/*  f19f410:	00024040 */ 	sll	$t0,$v0,0x1
-/*  f19f414:	05010010 */ 	bgez	$t0,.L0f19f458
-/*  f19f418:	02603025 */ 	or	$a2,$s3,$zero
-/*  f19f41c:	8e240014 */ 	lw	$a0,0x14($s1)
-/*  f19f420:	8e250038 */ 	lw	$a1,0x38($s1)
-/*  f19f424:	0fc67ca5 */ 	jal	frGetTargetAngleToPos
-/*  f19f428:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f19f42c:	4600a03c */ 	c.lt.s	$f20,$f0
-/*  f19f430:	00124880 */ 	sll	$t1,$s2,0x2
-/*  f19f434:	02895021 */ 	addu	$t2,$s4,$t1
-/*  f19f438:	45020006 */ 	bc1fl	.L0f19f454
-/*  f19f43c:	ad500000 */ 	sw	$s0,0x0($t2)
-/*  f19f440:	4618003c */ 	c.lt.s	$f0,$f24
-/*  f19f444:	00000000 */ 	nop
-/*  f19f448:	45030004 */ 	bc1tl	.L0f19f45c
-/*  f19f44c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19f450:	ad500000 */ 	sw	$s0,0x0($t2)
-.L0f19f454:
-/*  f19f454:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f19f458:
-/*  f19f458:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f19f45c:
-/*  f19f45c:	2a010012 */ 	slti	$at,$s0,0x12
-/*  f19f460:	1420ffe6 */ 	bnez	$at,.L0f19f3fc
-/*  f19f464:	2631003c */ 	addiu	$s1,$s1,0x3c
-/*  f19f468:	1a400021 */ 	blez	$s2,.L0f19f4f0
-/*  f19f46c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f19f470:	3c04800b */ 	lui	$a0,%hi(g_FrData)
-/*  f19f474:	2484cd20 */ 	addiu	$a0,$a0,%lo(g_FrData)
-/*  f19f478:	27a30084 */ 	addiu	$v1,$sp,0x84
-/*  f19f47c:	c6700000 */ 	lwc1	$f16,0x0($s3)
-/*  f19f480:	c6720004 */ 	lwc1	$f18,0x4($s3)
-/*  f19f484:	c6740008 */ 	lwc1	$f20,0x8($s3)
-/*  f19f488:	2405003c */ 	addiu	$a1,$zero,0x3c
-.L0f19f48c:
-/*  f19f48c:	8c6b0000 */ 	lw	$t3,0x0($v1)
-/*  f19f490:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19f494:	01650019 */ 	multu	$t3,$a1
-/*  f19f498:	00006012 */ 	mflo	$t4
-/*  f19f49c:	008c6821 */ 	addu	$t5,$a0,$t4
-/*  f19f4a0:	8da20014 */ 	lw	$v0,0x14($t5)
-/*  f19f4a4:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f19f4a8:	c446000c */ 	lwc1	$f6,0xc($v0)
-/*  f19f4ac:	c4480010 */ 	lwc1	$f8,0x10($v0)
-/*  f19f4b0:	46102001 */ 	sub.s	$f0,$f4,$f16
-/*  f19f4b4:	46123081 */ 	sub.s	$f2,$f6,$f18
-/*  f19f4b8:	46000282 */ 	mul.s	$f10,$f0,$f0
-/*  f19f4bc:	46144301 */ 	sub.s	$f12,$f8,$f20
-/*  f19f4c0:	46021102 */ 	mul.s	$f4,$f2,$f2
-/*  f19f4c4:	46045180 */ 	add.s	$f6,$f10,$f4
-/*  f19f4c8:	460c6202 */ 	mul.s	$f8,$f12,$f12
-/*  f19f4cc:	46083380 */ 	add.s	$f14,$f6,$f8
-/*  f19f4d0:	4616703c */ 	c.lt.s	$f14,$f22
-/*  f19f4d4:	00000000 */ 	nop
-/*  f19f4d8:	45000003 */ 	bc1f	.L0f19f4e8
-/*  f19f4dc:	00000000 */ 	nop
-/*  f19f4e0:	46007586 */ 	mov.s	$f22,$f14
-/*  f19f4e4:	0040a825 */ 	or	$s5,$v0,$zero
-.L0f19f4e8:
-/*  f19f4e8:	1612ffe8 */ 	bne	$s0,$s2,.L0f19f48c
-/*  f19f4ec:	24630004 */ 	addiu	$v1,$v1,0x4
-.L0f19f4f0:
-/*  f19f4f0:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f19f4f4:	02a01025 */ 	or	$v0,$s5,$zero
-/*  f19f4f8:	8fb50040 */ 	lw	$s5,0x40($sp)
-/*  f19f4fc:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f19f500:	d7b60018 */ 	ldc1	$f22,0x18($sp)
-/*  f19f504:	d7b80020 */ 	ldc1	$f24,0x20($sp)
-/*  f19f508:	8fb0002c */ 	lw	$s0,0x2c($sp)
-/*  f19f50c:	8fb10030 */ 	lw	$s1,0x30($sp)
-/*  f19f510:	8fb20034 */ 	lw	$s2,0x34($sp)
-/*  f19f514:	8fb30038 */ 	lw	$s3,0x38($sp)
-/*  f19f518:	8fb4003c */ 	lw	$s4,0x3c($sp)
-/*  f19f51c:	03e00008 */ 	jr	$ra
-/*  f19f520:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
-);
+struct prop *frChooseAutogunTarget(struct coord *autogunpos)
+{
+	f32 closestdist = 0x20000000;
+	s32 facingtargets[ARRAYCOUNT(g_FrData.targets)];
+	s32 len = 0;
+	struct prop *closesttarget = NULL;
+	s32 i;
 
-// Regalloc: s3 and s4 are swapped.
-// s3 should be autogunpos and s4 should be facingtargets.
-//struct prop *frChooseAutogunTarget(struct coord *autogunpos)
-//{
-//	f32 closestdist = 0x20000000;
-//	s32 facingtargets[ARRAYCOUNT(g_FrData.targets)];
-//	s32 len = 0;
-//	struct prop *closesttarget = NULL;
-//	s32 i;
-//
-//	// Make list of targets which are facing the laptop gun
-//	for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
-//		if (g_FrData.targets[i].inuse
-//				&& g_FrData.targets[i].destroyed == false
-//				&& g_FrData.targets[i].active) {
-//			f32 angle = frGetTargetAngleToPos(&g_FrData.targets[i].prop->pos, g_FrData.targets[i].angle, autogunpos);
-//
-//			//if (!(angle > BADDEG2RAD(90) && angle < BADDEG2RAD(270))) {
-//			if (!(angle > 1.5707963705063f && angle < 4.7116389274597f)) {
-//				facingtargets[len++] = i;
-//			}
-//		}
-//	}
-//
-//	// Determine which of the facing targets is closest
-//	for (i = 0; i < len; i++) {
-//		struct prop *prop = g_FrData.targets[facingtargets[i]].prop;
-//		f32 xdiff = prop->pos.x - autogunpos->x;
-//		f32 ydiff = prop->pos.y - autogunpos->y;
-//		f32 zdiff = prop->pos.z - autogunpos->z;
-//		f32 dist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
-//
-//		if (dist < closestdist) {
-//			closestdist = dist;
-//			closesttarget = prop;
-//		}
-//	}
-//
-//	return closesttarget;
-//}
+	// Make list of targets which are facing the laptop gun
+	for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
+		if (g_FrData.targets[i].inuse
+				&& g_FrData.targets[i].destroyed == false
+				&& g_FrData.targets[i].active) {
+			f32 angle = frGetTargetAngleToPos(&g_FrData.targets[i].prop->pos, g_FrData.targets[i].angle, autogunpos);
+
+			if (!(angle > 1.5707963705063f && angle < 4.7116389274597f)) {
+				facingtargets[len++] = i;
+			}
+		}
+	}
+
+	// Determine which of the facing targets is closest
+	for (i = 0; i < len; i++) {
+		struct prop *prop = g_FrData.targets[facingtargets[i]].prop;
+		f32 xdiff = prop->pos.f[0] - autogunpos->f[0];
+		f32 ydiff = prop->pos.f[1] - autogunpos->f[1];
+		f32 zdiff = prop->pos.f[2] - autogunpos->f[2];
+		f32 dist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
+
+		if (dist < closestdist) {
+			closestdist = dist;
+			closesttarget = prop;
+		}
+	}
+
+	if (facingtargets);
+
+	return closesttarget;
+}
 
 bool frIsAmmoWasted(void)
 {
