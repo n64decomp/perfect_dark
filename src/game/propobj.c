@@ -24044,144 +24044,40 @@ glabel func0f07b164
 /*  f07b28c:	46125001 */ 	sub.s	$f0,$f10,$f18
 );
 
-GLOBAL_ASM(
-glabel chopperFireRocket
-.late_rodata
-glabel var7f1aa5cc
-.word 0xc43c8000
-glabel var7f1aa5d0
-.word 0x443c8000
-.text
-/*  f07b290:	27bdff30 */ 	addiu	$sp,$sp,-208
-/*  f07b294:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f07b298:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f07b29c:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f07b2a0:	afa500d4 */ 	sw	$a1,0xd4($sp)
-/*  f07b2a4:	848e0092 */ 	lh	$t6,0x92($a0)
-/*  f07b2a8:	00803025 */ 	or	$a2,$a0,$zero
-/*  f07b2ac:	51c0004c */ 	beqzl	$t6,.L0f07b3e0
-/*  f07b2b0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f07b2b4:	0fc1eb6e */ 	jal	chopperGetTargetProp
-/*  f07b2b8:	afa600d0 */ 	sw	$a2,0xd0($sp)
-/*  f07b2bc:	8faf00d4 */ 	lw	$t7,0xd4($sp)
-/*  f07b2c0:	8fa600d0 */ 	lw	$a2,0xd0($sp)
-/*  f07b2c4:	00408825 */ 	or	$s1,$v0,$zero
-/*  f07b2c8:	11e00005 */ 	beqz	$t7,.L0f07b2e0
-/*  f07b2cc:	8cd00014 */ 	lw	$s0,0x14($a2)
-/*  f07b2d0:	3c017f1b */ 	lui	$at,%hi(var7f1aa5cc)
-/*  f07b2d4:	c424a5cc */ 	lwc1	$f4,%lo(var7f1aa5cc)($at)
-/*  f07b2d8:	10000004 */ 	b	.L0f07b2ec
-/*  f07b2dc:	e7a400b8 */ 	swc1	$f4,0xb8($sp)
-.L0f07b2e0:
-/*  f07b2e0:	3c017f1b */ 	lui	$at,%hi(var7f1aa5d0)
-/*  f07b2e4:	c426a5d0 */ 	lwc1	$f6,%lo(var7f1aa5d0)($at)
-/*  f07b2e8:	e7a600b8 */ 	swc1	$f6,0xb8($sp)
-.L0f07b2ec:
-/*  f07b2ec:	3c01c3c8 */ 	lui	$at,0xc3c8
-/*  f07b2f0:	44810000 */ 	mtc1	$at,$f0
-/*  f07b2f4:	24c4001c */ 	addiu	$a0,$a2,0x1c
-/*  f07b2f8:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*  f07b2fc:	e7a000bc */ 	swc1	$f0,0xbc($sp)
-/*  f07b300:	0c005755 */ 	jal	func00015d54
-/*  f07b304:	e7a000c0 */ 	swc1	$f0,0xc0($sp)
-/*  f07b308:	27a400b8 */ 	addiu	$a0,$sp,0xb8
-/*  f07b30c:	0c0059b7 */ 	jal	func000166dc
-/*  f07b310:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f07b314:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*  f07b318:	0c00567f */ 	jal	func000159fc
-/*  f07b31c:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f07b320:	c6080008 */ 	lwc1	$f8,0x8($s0)
-/*  f07b324:	c7aa009c */ 	lwc1	$f10,0x9c($sp)
-/*  f07b328:	c7a400a0 */ 	lwc1	$f4,0xa0($sp)
-/*  f07b32c:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f07b330:	c7aa00a4 */ 	lwc1	$f10,0xa4($sp)
-/*  f07b334:	e7b000b8 */ 	swc1	$f16,0xb8($sp)
-/*  f07b338:	c612000c */ 	lwc1	$f18,0xc($s0)
-/*  f07b33c:	46049180 */ 	add.s	$f6,$f18,$f4
-/*  f07b340:	c7a400b8 */ 	lwc1	$f4,0xb8($sp)
-/*  f07b344:	e7a600bc */ 	swc1	$f6,0xbc($sp)
-/*  f07b348:	c6080010 */ 	lwc1	$f8,0x10($s0)
-/*  f07b34c:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f07b350:	e7b000c0 */ 	swc1	$f16,0xc0($sp)
-/*  f07b354:	c6320008 */ 	lwc1	$f18,0x8($s1)
-/*  f07b358:	46049181 */ 	sub.s	$f6,$f18,$f4
-/*  f07b35c:	0c004b70 */ 	jal	random
-/*  f07b360:	e7a600c4 */ 	swc1	$f6,0xc4($sp)
-/*  f07b364:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f07b368:	0041001b */ 	divu	$zero,$v0,$at
-/*  f07b36c:	0000c010 */ 	mfhi	$t8
-/*  f07b370:	44989000 */ 	mtc1	$t8,$f18
-/*  f07b374:	c628000c */ 	lwc1	$f8,0xc($s1)
-/*  f07b378:	c7aa00bc */ 	lwc1	$f10,0xbc($sp)
-/*  f07b37c:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f07b380:	27a400c4 */ 	addiu	$a0,$sp,0xc4
-/*  f07b384:	27a500c8 */ 	addiu	$a1,$sp,0xc8
-/*  f07b388:	27a600cc */ 	addiu	$a2,$sp,0xcc
-/*  f07b38c:	460a4401 */ 	sub.s	$f16,$f8,$f10
-/*  f07b390:	c7aa00c0 */ 	lwc1	$f10,0xc0($sp)
-/*  f07b394:	46102180 */ 	add.s	$f6,$f4,$f16
-/*  f07b398:	e7a600c8 */ 	swc1	$f6,0xc8($sp)
-/*  f07b39c:	c6280010 */ 	lwc1	$f8,0x10($s1)
-/*  f07b3a0:	460a4481 */ 	sub.s	$f18,$f8,$f10
-/*  f07b3a4:	0c0011e4 */ 	jal	scaleTo1
-/*  f07b3a8:	e7b200cc */ 	swc1	$f18,0xcc($sp)
-/*  f07b3ac:	27a400b8 */ 	addiu	$a0,$sp,0xb8
-/*  f07b3b0:	26050028 */ 	addiu	$a1,$s0,0x28
-/*  f07b3b4:	0fc4ba08 */ 	jal	smokeCreateSimple
-/*  f07b3b8:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f07b3bc:	24190018 */ 	addiu	$t9,$zero,0x18
-/*  f07b3c0:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f07b3c4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07b3c8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f07b3cc:	27a600b8 */ 	addiu	$a2,$sp,0xb8
-/*  f07b3d0:	27a700c4 */ 	addiu	$a3,$sp,0xc4
-/*  f07b3d4:	0fc244b7 */ 	jal	projectileCreate
-/*  f07b3d8:	afb10014 */ 	sw	$s1,0x14($sp)
-/*  f07b3dc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f07b3e0:
-/*  f07b3e0:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f07b3e4:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f07b3e8:	03e00008 */ 	jr	$ra
-/*  f07b3ec:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
-);
+void chopperFireRocket(struct chopperobj *chopper, bool side)
+{
+	if (chopper->ontarget) {
+		struct coord direction;
+		struct coord pos;
+		struct prop *targetprop = chopperGetTargetProp(chopper);
+		struct prop *chopperprop = chopper->base.prop;
+		u32 stack;
+		Mtxf sp6c;
+		Mtxf sp2c;
 
-// Mismatch: Regalloc and swapped lwc1 instructions for second pos calculations
-//void chopperFireRocket(struct chopperobj *chopper, bool side)
-//{
-//	if (chopper->ontarget) {
-//		struct coord direction; // c4
-//		struct coord pos; // b8
-//		struct prop *targetprop = chopperGetTargetProp(chopper);
-//		struct prop *chopperprop = chopper->base.prop;
-//		u32 stack;
-//		Mtxf sp6c;
-//		Mtxf sp2c;
-//
-//		pos.x = side ? -754 : 754;
-//		pos.y = -400;
-//		pos.z = -400;
-//
-//		func00015d54(chopper->base.realrot, &sp2c);
-//		func000166dc(&pos, &sp6c);
-//		func000159fc(&sp2c, &sp6c);
-//
-//		pos.x = sp6c.m[3][0] + chopperprop->pos.x;
-//		pos.y = sp6c.m[3][1] + chopperprop->pos.y;
-//		pos.z = sp6c.m[3][2] + chopperprop->pos.z;
-//
-//		if (1);
-//
-//		direction.x = targetprop->pos.x - pos.x;
-//		direction.y = targetprop->pos.y - pos.y + (s32)(random() % 100);
-//		direction.z = targetprop->pos.z - pos.z;
-//
-//		scaleTo1(&direction.x, &direction.y, &direction.z);
-//
-//		smokeCreateSimple(&pos, chopperprop->rooms, SMOKETYPE_3);
-//
-//		projectileCreate(chopperprop, 0, &pos, &direction, WEAPON_ROCKETLAUNCHER, targetprop);
-//	}
-//}
+		pos.x = side ? -754 : 754;
+		pos.y = -400;
+		pos.z = -400;
+
+		func00015d54(chopper->base.realrot, &sp2c);
+		func000166dc(&pos, &sp6c);
+		func000159fc(&sp2c, &sp6c);
+
+		pos.x = sp6c.m[3][0] + chopperprop->pos.f[0];
+		pos.y = sp6c.m[3][1] + chopperprop->pos.f[1];
+		pos.z = sp6c.m[3][2] + chopperprop->pos.f[2];
+
+		direction.x = targetprop->pos.x - pos.x;
+		direction.y = targetprop->pos.y - pos.y + (s32)(random() % 100);
+		direction.z = targetprop->pos.z - pos.z;
+
+		scaleTo1(&direction.x, &direction.y, &direction.z);
+
+		smokeCreateSimple(&pos, chopperprop->rooms, SMOKETYPE_3);
+
+		projectileCreate(chopperprop, 0, &pos, &direction, WEAPON_ROCKETLAUNCHER, targetprop);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f07b3f0
