@@ -6681,8 +6681,8 @@ struct gfxvtx {
 	/*0x04*/ s16 z;
 	/*0x06*/ u8 flags;
 	/*0x07*/ u8 s;
-	/*0x08*/ u8 t;
-	/*0x0a*/ u16 unk0a;
+	/*0x08*/ s16 unk08;
+	/*0x0a*/ s16 unk0a;
 };
 
 struct var800a45c4 {
