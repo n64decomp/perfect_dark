@@ -20119,459 +20119,135 @@ glabel var7f1aa454
 /*  f077c0c:	27bd00c0 */ 	addiu	$sp,$sp,0xc0
 );
 
-GLOBAL_ASM(
-glabel liftTick
-/*  f077c10:	27bdfcc0 */ 	addiu	$sp,$sp,-832
-/*  f077c14:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f077c18:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f077c1c:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f077c20:	8c900004 */ 	lw	$s0,0x4($a0)
-/*  f077c24:	00808825 */ 	or	$s1,$a0,$zero
-/*  f077c28:	afb00338 */ 	sw	$s0,0x338($sp)
-/*  f077c2c:	c4840008 */ 	lwc1	$f4,0x8($a0)
-/*  f077c30:	82050085 */ 	lb	$a1,0x85($s0)
-/*  f077c34:	82030086 */ 	lb	$v1,0x86($s0)
-/*  f077c38:	e6040088 */ 	swc1	$f4,0x88($s0)
-/*  f077c3c:	c486000c */ 	lwc1	$f6,0xc($a0)
-/*  f077c40:	0005c080 */ 	sll	$t8,$a1,0x2
-/*  f077c44:	0218c821 */ 	addu	$t9,$s0,$t8
-/*  f077c48:	e606008c */ 	swc1	$f6,0x8c($s0)
-/*  f077c4c:	c4880010 */ 	lwc1	$f8,0x10($a0)
-/*  f077c50:	106500f1 */ 	beq	$v1,$a1,.L0f078018
-/*  f077c54:	e6080090 */ 	swc1	$f8,0x90($s0)
-/*  f077c58:	8fae0338 */ 	lw	$t6,0x338($sp)
-/*  f077c5c:	0005c880 */ 	sll	$t9,$a1,0x2
-/*  f077c60:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f077c64:	8dcf0008 */ 	lw	$t7,0x8($t6)
-/*  f077c68:	02194021 */ 	addu	$t0,$s0,$t9
-/*  f077c6c:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f077c70:	07030004 */ 	bgezl	$t8,.L0f077c84
-/*  f077c74:	8d040064 */ 	lw	$a0,0x64($t0)
-/*  f077c78:	1000000f */ 	b	.L0f077cb8
-/*  f077c7c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f077c80:	8d040064 */ 	lw	$a0,0x64($t0)
-.L0f077c84:
-/*  f077c84:	1080000c */ 	beqz	$a0,.L0f077cb8
-/*  f077c88:	00000000 */ 	nop
-/*  f077c8c:	0fc23948 */ 	jal	doorIsClosed
-/*  f077c90:	afa30268 */ 	sw	$v1,0x268($sp)
-/*  f077c94:	14400008 */ 	bnez	$v0,.L0f077cb8
-/*  f077c98:	8fa30268 */ 	lw	$v1,0x268($sp)
-/*  f077c9c:	82090085 */ 	lb	$t1,0x85($s0)
-/*  f077ca0:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f077ca4:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f077ca8:	020a5821 */ 	addu	$t3,$s0,$t2
-/*  f077cac:	0fc23922 */ 	jal	doorActivate
-/*  f077cb0:	8d640064 */ 	lw	$a0,0x64($t3)
-/*  f077cb4:	00001825 */ 	or	$v1,$zero,$zero
-.L0f077cb8:
-/*  f077cb8:	506000f2 */ 	beqzl	$v1,.L0f078084
-/*  f077cbc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f077cc0:	c62a0008 */ 	lwc1	$f10,0x8($s1)
-/*  f077cc4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f077cc8:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f077ccc:	e7aa0240 */ 	swc1	$f10,0x240($sp)
-/*  f077cd0:	c624000c */ 	lwc1	$f4,0xc($s1)
-/*  f077cd4:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f077cd8:	e7a40244 */ 	swc1	$f4,0x244($sp)
-/*  f077cdc:	c6260010 */ 	lwc1	$f6,0x10($s1)
-/*  f077ce0:	0c0099c7 */ 	jal	platformGetRidingProps
-/*  f077ce4:	e7a60248 */ 	swc1	$f6,0x248($sp)
-/*  f077ce8:	44807000 */ 	mtc1	$zero,$f14
-/*  f077cec:	c6080074 */ 	lwc1	$f8,0x74($s0)
-/*  f077cf0:	46087032 */ 	c.eq.s	$f14,$f8
-/*  f077cf4:	00000000 */ 	nop
-/*  f077cf8:	45020015 */ 	bc1fl	.L0f077d50
-/*  f077cfc:	82180085 */ 	lb	$t8,0x85($s0)
-/*  f077d00:	c60a0078 */ 	lwc1	$f10,0x78($s0)
-/*  f077d04:	460a7032 */ 	c.eq.s	$f14,$f10
-/*  f077d08:	00000000 */ 	nop
-/*  f077d0c:	45020010 */ 	bc1fl	.L0f077d50
-/*  f077d10:	82180085 */ 	lb	$t8,0x85($s0)
-/*  f077d14:	82040084 */ 	lb	$a0,0x84($s0)
-/*  f077d18:	0fc235e1 */ 	jal	func0f08d784
-/*  f077d1c:	8e050014 */ 	lw	$a1,0x14($s0)
-/*  f077d20:	8fa30338 */ 	lw	$v1,0x338($sp)
-/*  f077d24:	3c01bfff */ 	lui	$at,0xbfff
-/*  f077d28:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f077d2c:	8c620008 */ 	lw	$v0,0x8($v1)
-/*  f077d30:	00026040 */ 	sll	$t4,$v0,0x1
-/*  f077d34:	05810005 */ 	bgez	$t4,.L0f077d4c
-/*  f077d38:	00416824 */ 	and	$t5,$v0,$at
-/*  f077d3c:	3c011000 */ 	lui	$at,0x1000
-/*  f077d40:	ac6d0008 */ 	sw	$t5,0x8($v1)
-/*  f077d44:	01a17825 */ 	or	$t7,$t5,$at
-/*  f077d48:	ac6f0008 */ 	sw	$t7,0x8($v1)
-.L0f077d4c:
-/*  f077d4c:	82180085 */ 	lb	$t8,0x85($s0)
-.L0f077d50:
-/*  f077d50:	27a50270 */ 	addiu	$a1,$sp,0x270
-/*  f077d54:	0018c840 */ 	sll	$t9,$t8,0x1
-/*  f077d58:	02194021 */ 	addu	$t0,$s0,$t9
-/*  f077d5c:	0fc457cd */ 	jal	padGetCentre
-/*  f077d60:	8504005c */ 	lh	$a0,0x5c($t0)
-/*  f077d64:	82090085 */ 	lb	$t1,0x85($s0)
-/*  f077d68:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f077d6c:	27a602e0 */ 	addiu	$a2,$sp,0x2e0
-/*  f077d70:	00095040 */ 	sll	$t2,$t1,0x1
-/*  f077d74:	020a5821 */ 	addu	$t3,$s0,$t2
-/*  f077d78:	0fc456ac */ 	jal	padUnpack
-/*  f077d7c:	8564005c */ 	lh	$a0,0x5c($t3)
-/*  f077d80:	820c0086 */ 	lb	$t4,0x86($s0)
-/*  f077d84:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f077d88:	27a6028c */ 	addiu	$a2,$sp,0x28c
-/*  f077d8c:	000c6840 */ 	sll	$t5,$t4,0x1
-/*  f077d90:	020d7021 */ 	addu	$t6,$s0,$t5
-/*  f077d94:	0fc456ac */ 	jal	padUnpack
-/*  f077d98:	85c4005c */ 	lh	$a0,0x5c($t6)
-/*  f077d9c:	c7a4028c */ 	lwc1	$f4,0x28c($sp)
-/*  f077da0:	c7a602e0 */ 	lwc1	$f6,0x2e0($sp)
-/*  f077da4:	c7a80290 */ 	lwc1	$f8,0x290($sp)
-/*  f077da8:	c7aa02e4 */ 	lwc1	$f10,0x2e4($sp)
-/*  f077dac:	46062481 */ 	sub.s	$f18,$f4,$f6
-/*  f077db0:	c7a602e8 */ 	lwc1	$f6,0x2e8($sp)
-/*  f077db4:	c7a40294 */ 	lwc1	$f4,0x294($sp)
-/*  f077db8:	460a4001 */ 	sub.s	$f0,$f8,$f10
-/*  f077dbc:	46129202 */ 	mul.s	$f8,$f18,$f18
-/*  f077dc0:	e7b20284 */ 	swc1	$f18,0x284($sp)
-/*  f077dc4:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f077dc8:	46000282 */ 	mul.s	$f10,$f0,$f0
-/*  f077dcc:	e7a00280 */ 	swc1	$f0,0x280($sp)
-/*  f077dd0:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f077dd4:	e7a2027c */ 	swc1	$f2,0x27c($sp)
-/*  f077dd8:	460a4100 */ 	add.s	$f4,$f8,$f10
-/*  f077ddc:	0c012974 */ 	jal	sqrtf
-/*  f077de0:	46062300 */ 	add.s	$f12,$f4,$f6
-/*  f077de4:	c602007c */ 	lwc1	$f2,0x7c($s0)
-/*  f077de8:	c6100074 */ 	lwc1	$f16,0x74($s0)
-/*  f077dec:	44050000 */ 	mfc1	$a1,$f0
-/*  f077df0:	e7a20010 */ 	swc1	$f2,0x10($sp)
-/*  f077df4:	c6080080 */ 	lwc1	$f8,0x80($s0)
-/*  f077df8:	44071000 */ 	mfc1	$a3,$f2
-/*  f077dfc:	e7a00288 */ 	swc1	$f0,0x288($sp)
-/*  f077e00:	26040074 */ 	addiu	$a0,$s0,0x74
-/*  f077e04:	26060078 */ 	addiu	$a2,$s0,0x78
-/*  f077e08:	e7b0023c */ 	swc1	$f16,0x23c($sp)
-/*  f077e0c:	0fc1b643 */ 	jal	func0f06d90c
-/*  f077e10:	e7a80014 */ 	swc1	$f8,0x14($sp)
-/*  f077e14:	3c013f80 */ 	lui	$at,0x3f80
-/*  f077e18:	44815000 */ 	mtc1	$at,$f10
-/*  f077e1c:	c6000078 */ 	lwc1	$f0,0x78($s0)
-/*  f077e20:	44807000 */ 	mtc1	$zero,$f14
-/*  f077e24:	c7ac0288 */ 	lwc1	$f12,0x288($sp)
-/*  f077e28:	460a003c */ 	c.lt.s	$f0,$f10
-/*  f077e2c:	c7b0023c */ 	lwc1	$f16,0x23c($sp)
-/*  f077e30:	c7b20284 */ 	lwc1	$f18,0x284($sp)
-/*  f077e34:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f077e38:	4502001d */ 	bc1fl	.L0f077eb0
-/*  f077e3c:	460e6032 */ 	c.eq.s	$f12,$f14
-/*  f077e40:	44812000 */ 	mtc1	$at,$f4
-/*  f077e44:	00000000 */ 	nop
-/*  f077e48:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f077e4c:	00000000 */ 	nop
-/*  f077e50:	45020017 */ 	bc1fl	.L0f077eb0
-/*  f077e54:	460e6032 */ 	c.eq.s	$f12,$f14
-/*  f077e58:	460c803c */ 	c.lt.s	$f16,$f12
-/*  f077e5c:	00000000 */ 	nop
-/*  f077e60:	45020009 */ 	bc1fl	.L0f077e88
-/*  f077e64:	4610703c */ 	c.lt.s	$f14,$f16
-/*  f077e68:	c6060074 */ 	lwc1	$f6,0x74($s0)
-/*  f077e6c:	4606603e */ 	c.le.s	$f12,$f6
-/*  f077e70:	00000000 */ 	nop
-/*  f077e74:	45020004 */ 	bc1fl	.L0f077e88
-/*  f077e78:	4610703c */ 	c.lt.s	$f14,$f16
-/*  f077e7c:	1000000b */ 	b	.L0f077eac
-/*  f077e80:	e60c0074 */ 	swc1	$f12,0x74($s0)
-/*  f077e84:	4610703c */ 	c.lt.s	$f14,$f16
-.L0f077e88:
-/*  f077e88:	00000000 */ 	nop
-/*  f077e8c:	45020008 */ 	bc1fl	.L0f077eb0
-/*  f077e90:	460e6032 */ 	c.eq.s	$f12,$f14
-/*  f077e94:	c6080074 */ 	lwc1	$f8,0x74($s0)
-/*  f077e98:	460e403e */ 	c.le.s	$f8,$f14
-/*  f077e9c:	00000000 */ 	nop
-/*  f077ea0:	45020003 */ 	bc1fl	.L0f077eb0
-/*  f077ea4:	460e6032 */ 	c.eq.s	$f12,$f14
-/*  f077ea8:	e60e0074 */ 	swc1	$f14,0x74($s0)
-.L0f077eac:
-/*  f077eac:	460e6032 */ 	c.eq.s	$f12,$f14
-.L0f077eb0:
-/*  f077eb0:	00000000 */ 	nop
-/*  f077eb4:	45020004 */ 	bc1fl	.L0f077ec8
-/*  f077eb8:	c60a0074 */ 	lwc1	$f10,0x74($s0)
-/*  f077ebc:	10000003 */ 	b	.L0f077ecc
-/*  f077ec0:	46007006 */ 	mov.s	$f0,$f14
-/*  f077ec4:	c60a0074 */ 	lwc1	$f10,0x74($s0)
-.L0f077ec8:
-/*  f077ec8:	460c5003 */ 	div.s	$f0,$f10,$f12
-.L0f077ecc:
-/*  f077ecc:	46009182 */ 	mul.s	$f6,$f18,$f0
-/*  f077ed0:	c7a40270 */ 	lwc1	$f4,0x270($sp)
-/*  f077ed4:	c7aa0274 */ 	lwc1	$f10,0x274($sp)
-/*  f077ed8:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f077edc:	c7a40280 */ 	lwc1	$f4,0x280($sp)
-/*  f077ee0:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f077ee4:	e7a8025c */ 	swc1	$f8,0x25c($sp)
-/*  f077ee8:	c7a40278 */ 	lwc1	$f4,0x278($sp)
-/*  f077eec:	46065200 */ 	add.s	$f8,$f10,$f6
-/*  f077ef0:	c7aa027c */ 	lwc1	$f10,0x27c($sp)
-/*  f077ef4:	46005182 */ 	mul.s	$f6,$f10,$f0
-/*  f077ef8:	e7a80260 */ 	swc1	$f8,0x260($sp)
-/*  f077efc:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f077f00:	e7a80264 */ 	swc1	$f8,0x264($sp)
-/*  f077f04:	c60a0074 */ 	lwc1	$f10,0x74($s0)
-/*  f077f08:	460a6032 */ 	c.eq.s	$f12,$f10
-/*  f077f0c:	00000000 */ 	nop
-/*  f077f10:	4502001f */ 	bc1fl	.L0f077f90
-/*  f077f14:	26240008 */ 	addiu	$a0,$s1,0x8
-/*  f077f18:	820f0086 */ 	lb	$t7,0x86($s0)
-/*  f077f1c:	e60e0074 */ 	swc1	$f14,0x74($s0)
-/*  f077f20:	e60e0078 */ 	swc1	$f14,0x78($s0)
-/*  f077f24:	82040084 */ 	lb	$a0,0x84($s0)
-/*  f077f28:	8e050014 */ 	lw	$a1,0x14($s0)
-/*  f077f2c:	0fc23751 */ 	jal	func0f08dd44
-/*  f077f30:	a20f0085 */ 	sb	$t7,0x85($s0)
-/*  f077f34:	8fa30338 */ 	lw	$v1,0x338($sp)
-/*  f077f38:	3c01bfff */ 	lui	$at,0xbfff
-/*  f077f3c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f077f40:	8c620008 */ 	lw	$v0,0x8($v1)
-/*  f077f44:	0002c040 */ 	sll	$t8,$v0,0x1
-/*  f077f48:	07010005 */ 	bgez	$t8,.L0f077f60
-/*  f077f4c:	0041c824 */ 	and	$t9,$v0,$at
-/*  f077f50:	3c011000 */ 	lui	$at,0x1000
-/*  f077f54:	ac790008 */ 	sw	$t9,0x8($v1)
-/*  f077f58:	03214825 */ 	or	$t1,$t9,$at
-/*  f077f5c:	ac690008 */ 	sw	$t1,0x8($v1)
-.L0f077f60:
-/*  f077f60:	820a0085 */ 	lb	$t2,0x85($s0)
-/*  f077f64:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f077f68:	020b6021 */ 	addu	$t4,$s0,$t3
-/*  f077f6c:	8d840064 */ 	lw	$a0,0x64($t4)
-/*  f077f70:	50800007 */ 	beqzl	$a0,.L0f077f90
-/*  f077f74:	26240008 */ 	addiu	$a0,$s1,0x8
-/*  f077f78:	8c8d0074 */ 	lw	$t5,0x74($a0)
-/*  f077f7c:	55a00004 */ 	bnezl	$t5,.L0f077f90
-/*  f077f80:	26240008 */ 	addiu	$a0,$s1,0x8
-/*  f077f84:	0fc23922 */ 	jal	doorActivate
-/*  f077f88:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f077f8c:	26240008 */ 	addiu	$a0,$s1,0x8
-.L0f077f90:
-/*  f077f90:	26250028 */ 	addiu	$a1,$s1,0x28
-/*  f077f94:	afa50030 */ 	sw	$a1,0x30($sp)
-/*  f077f98:	afa40034 */ 	sw	$a0,0x34($sp)
-/*  f077f9c:	27a6025c */ 	addiu	$a2,$sp,0x25c
-/*  f077fa0:	0fc1979d */ 	jal	func0f065e74
-/*  f077fa4:	27a7024c */ 	addiu	$a3,$sp,0x24c
-/*  f077fa8:	c7a4025c */ 	lwc1	$f4,0x25c($sp)
-/*  f077fac:	02202025 */ 	or	$a0,$s1,$zero
-/*  f077fb0:	e6240008 */ 	swc1	$f4,0x8($s1)
-/*  f077fb4:	c7a60260 */ 	lwc1	$f6,0x260($sp)
-/*  f077fb8:	e626000c */ 	swc1	$f6,0xc($s1)
-/*  f077fbc:	c7a80264 */ 	lwc1	$f8,0x264($sp)
-/*  f077fc0:	0fc19711 */ 	jal	func0f065c44
-/*  f077fc4:	e6280010 */ 	swc1	$f8,0x10($s1)
-/*  f077fc8:	27a4024c */ 	addiu	$a0,$sp,0x24c
-/*  f077fcc:	0fc195e9 */ 	jal	roomsCopy
-/*  f077fd0:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f077fd4:	8fa40338 */ 	lw	$a0,0x338($sp)
-/*  f077fd8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f077fdc:	0fc1a71c */ 	jal	func0f069c70
-/*  f077fe0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f077fe4:	820e0086 */ 	lb	$t6,0x86($s0)
-/*  f077fe8:	820f0085 */ 	lb	$t7,0x85($s0)
-/*  f077fec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f077ff0:	01cf2826 */ 	xor	$a1,$t6,$t7
-/*  f077ff4:	0fc1c3c2 */ 	jal	func0f070f08
-/*  f077ff8:	2ca50001 */ 	sltiu	$a1,$a1,0x1
-/*  f077ffc:	02202025 */ 	or	$a0,$s1,$zero
-/*  f078000:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f078004:	27a60240 */ 	addiu	$a2,$sp,0x240
-/*  f078008:	0fc1dd9b */ 	jal	platformDisplaceProps
-/*  f07800c:	8fa70034 */ 	lw	$a3,0x34($sp)
-/*  f078010:	1000001c */ 	b	.L0f078084
-/*  f078014:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f078018:
-/*  f078018:	8f240064 */ 	lw	$a0,0x64($t9)
-/*  f07801c:	5080000a */ 	beqzl	$a0,.L0f078048
-/*  f078020:	00602825 */ 	or	$a1,$v1,$zero
-/*  f078024:	0fc23948 */ 	jal	doorIsClosed
-/*  f078028:	afa40334 */ 	sw	$a0,0x334($sp)
-/*  f07802c:	10400014 */ 	beqz	$v0,.L0f078080
-/*  f078030:	8fa40334 */ 	lw	$a0,0x334($sp)
-/*  f078034:	8c880074 */ 	lw	$t0,0x74($a0)
-/*  f078038:	55000012 */ 	bnezl	$t0,.L0f078084
-/*  f07803c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f078040:	82030086 */ 	lb	$v1,0x86($s0)
-/*  f078044:	00602825 */ 	or	$a1,$v1,$zero
-.L0f078048:
-/*  f078048:	24a50001 */ 	addiu	$a1,$a1,0x1
-.L0f07804c:
-/*  f07804c:	04a10004 */ 	bgez	$a1,.L0f078060
-/*  f078050:	30a90003 */ 	andi	$t1,$a1,0x3
-/*  f078054:	11200002 */ 	beqz	$t1,.L0f078060
-/*  f078058:	00000000 */ 	nop
-/*  f07805c:	2529fffc */ 	addiu	$t1,$t1,-4
-.L0f078060:
-/*  f078060:	00095040 */ 	sll	$t2,$t1,0x1
-/*  f078064:	020a5821 */ 	addu	$t3,$s0,$t2
-/*  f078068:	856c005c */ 	lh	$t4,0x5c($t3)
-/*  f07806c:	01202825 */ 	or	$a1,$t1,$zero
-/*  f078070:	0582fff6 */ 	bltzl	$t4,.L0f07804c
-/*  f078074:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f078078:	0fc1c43b */ 	jal	liftGoToStop
-/*  f07807c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f078080:
-/*  f078080:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f078084:
-/*  f078084:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f078088:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f07808c:	03e00008 */ 	jr	$ra
-/*  f078090:	27bd0340 */ 	addiu	$sp,$sp,0x340
-);
+void liftTick(struct prop *prop)
+{
+	struct liftobj *lift = (struct liftobj *)prop->obj;
+	struct defaultobj *obj = prop->obj;
+	struct doorobj *door;
+	struct pad padcur;
+	struct pad padaim;
+	f32 segdist;
+	f32 xdiff;
+	f32 ydiff;
+	f32 zdiff;
+	struct coord curcentre;
+	f32 frac;
+	s32 move;
+	struct coord newpos;
+	s16 newrooms[8];
+	struct coord prevpos;
+	f32 prevdist;
+	s16 propnums[256];
+	s32 stop;
 
-// Mismatch because goal loads xdiff earlier for multiply with frac.
-//void liftTick(struct prop *prop)
-//{
-//	struct liftobj *lift = (struct liftobj *)prop->obj;
-//	struct defaultobj *obj = prop->obj;
-//	struct doorobj *door; // sp820
-//	struct pad padcur; // sp736
-//	struct pad padaim; // sp652
-//	f32 segdist; // sp648
-//	f32 xdiff; // sp644
-//	f32 ydiff; // sp640
-//	f32 zdiff; // sp636
-//	struct coord curcentre; // sp624
-//	f32 frac;
-//	s32 move; // sp616
-//	struct coord newpos; // sp604
-//	s16 newrooms[8]; // sp588
-//	struct coord prevpos; // sp576
-//	f32 prevdist; // sp572
-//	s16 propnums[256]; // sp60
-//	s32 stop;
-//
-//	lift->prevpos.x = prop->pos.x;
-//	lift->prevpos.y = prop->pos.y;
-//	lift->prevpos.z = prop->pos.z;
-//
-//	// c50
-//	if (lift->levelaim != lift->levelcur) {
-//		// c58
-//		// Lift is not at the desired level. So try to move, but not if the lift
-//		// is disabled or if the door needs to be closed first.
-//		move = true;
-//
-//		if (obj->flags & OBJFLAG_DEACTIVATED) {
-//			move = false;
-//		} else {
-//			// c84
-//			if (lift->doors[lift->levelcur] && !doorIsClosed(lift->doors[lift->levelcur])) {
-//				doorActivate(lift->doors[lift->levelcur], DOORMODE_CLOSING);
-//				move = false;
-//			}
-//		}
-//
-//		// cb8
-//		if (move) {
-//			prevpos.x = prop->pos.x;
-//			prevpos.y = prop->pos.y;
-//			prevpos.z = prop->pos.z;
-//
-//			platformGetRidingProps(prop, propnums, sizeof(propnums));
-//
-//			if (lift->dist == 0 && lift->speed == 0) {
-//				// d18
-//				func0f08d784(lift->soundtype, lift->base.prop);
-//
-//				if (obj->flags & OBJFLAG_LIFT_TRIGGERDISABLE) {
-//					obj->flags &= ~OBJFLAG_LIFT_TRIGGERDISABLE;
-//					obj->flags |= OBJFLAG_DEACTIVATED;
-//				}
-//			}
-//
-//			padGetCentre(lift->pads[lift->levelcur], &curcentre);
-//			padUnpack(lift->pads[lift->levelcur], PADFIELD_POS, &padcur);
-//			padUnpack(lift->pads[lift->levelaim], PADFIELD_POS, &padaim);
-//
-//			xdiff = padaim.pos.x - padcur.pos.x;
-//			ydiff = padaim.pos.y - padcur.pos.y;
-//			zdiff = padaim.pos.z - padcur.pos.z;
-//
-//			segdist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
-//
-//			prevdist = lift->dist;
-//
-//			// e0c
-//			func0f06d90c(&lift->dist, segdist, &lift->speed, lift->accel, lift->accel, lift->maxspeed);
-//
-//			// If arriving at the destination, set the distance explicitly
-//			if (lift->speed < 1 && lift->speed > -1) {
-//				if (prevdist < segdist && lift->dist >= segdist) {
-//					lift->dist = segdist;
-//				} else if (prevdist > 0 && lift->dist <= 0) {
-//					lift->dist = 0;
-//				}
-//			}
-//
-//			// eb0
-//			frac = segdist == 0 ? 0 : lift->dist / segdist;
-//
-//			newpos.x = curcentre.x + xdiff * frac;
-//			newpos.y = curcentre.y + ydiff * frac;
-//			newpos.z = curcentre.z + zdiff * frac;
-//
-//			if (segdist == lift->dist) {
-//				// f18
-//				lift->dist = 0;
-//				lift->speed = 0;
-//				lift->levelcur = lift->levelaim;
-//
-//				func0f08dd44(lift->soundtype, lift->base.prop);
-//
-//				if (obj->flags & OBJFLAG_LIFT_TRIGGERDISABLE) {
-//					obj->flags &= ~OBJFLAG_LIFT_TRIGGERDISABLE;
-//					obj->flags |= OBJFLAG_DEACTIVATED;
-//				}
-//
-//				door = lift->doors[lift->levelcur];
-//
-//				if (door && door->keyflags == 0) {
-//					doorActivate(door, DOORMODE_OPENING);
-//				}
-//			}
-//
-//			func0f065e74(&prop->pos, prop->rooms, &newpos, newrooms);
-//
-//			prop->pos.x = newpos.x;
-//			prop->pos.y = newpos.y;
-//			prop->pos.z = newpos.z;
-//
-//			func0f065c44(prop);
-//			roomsCopy(newrooms, prop->rooms);
-//			func0f069c70(obj, true, true);
-//			func0f070f08(lift, lift->levelcur == lift->levelaim);
-//			platformDisplaceProps(prop, propnums, &prevpos, &prop->pos);
-//		}
-//	} else {
-//		// 018
-//		// Lift is at the aim stop
-//		door = lift->doors[lift->levelcur];
-//
-//		if (!door || (doorIsClosed(door) && door->keyflags == 0)) {
-//			// Find next stop
-//			// 040
-//			stop = lift->levelaim;
-//
-//			do {
-//				// 048
-//				stop = (stop + 1) % 4;
-//			} while (lift->pads[stop] < 0);
-//
-//			liftGoToStop(lift, stop);
-//		}
-//	}
-//}
+	lift->prevpos.x = prop->pos.x;
+	lift->prevpos.y = prop->pos.y;
+	lift->prevpos.z = prop->pos.z;
+
+	if (lift->levelcur != lift->levelaim) {
+		// Lift is not at the desired level. So try to move, but not if the lift
+		// is disabled or if the door needs to be closed first.
+		move = true;
+
+		if (obj->flags & OBJFLAG_DEACTIVATED) {
+			move = false;
+		} else if (lift->doors[lift->levelcur] && !doorIsClosed(lift->doors[lift->levelcur])) {
+			doorActivate(lift->doors[lift->levelcur], DOORMODE_CLOSING);
+			move = false;
+		}
+
+		if (move) {
+			prevpos.x = prop->pos.x;
+			prevpos.y = prop->pos.y;
+			prevpos.z = prop->pos.z;
+
+			platformGetRidingProps(prop, propnums, ARRAYCOUNT(propnums));
+
+			if (lift->dist == 0 && lift->speed == 0) {
+				func0f08d784(lift->soundtype, lift->base.prop);
+
+				if (obj->flags & OBJFLAG_LIFT_TRIGGERDISABLE) {
+					obj->flags &= ~OBJFLAG_LIFT_TRIGGERDISABLE;
+					obj->flags |= OBJFLAG_DEACTIVATED;
+				}
+			}
+
+			padGetCentre(lift->pads[lift->levelcur], &curcentre);
+			padUnpack(lift->pads[lift->levelcur], PADFIELD_POS, &padcur);
+			padUnpack(lift->pads[lift->levelaim], PADFIELD_POS, &padaim);
+
+			xdiff = padaim.pos.f[0] - padcur.pos.f[0];
+			ydiff = padaim.pos.f[1] - padcur.pos.f[1];
+			zdiff = padaim.pos.f[2] - padcur.pos.f[2];
+
+			segdist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+
+			prevdist = lift->dist;
+
+			func0f06d90c(&lift->dist, segdist, &lift->speed, lift->accel, lift->accel, lift->maxspeed);
+
+			// If arriving at the destination, set the distance explicitly
+			if (lift->speed < 1 && lift->speed > -1) {
+				if (prevdist < segdist && lift->dist >= segdist) {
+					lift->dist = segdist;
+				} else if (prevdist > 0 && lift->dist <= 0) {
+					lift->dist = 0;
+				}
+			}
+
+			frac = segdist == 0 ? 0 : lift->dist / segdist;
+
+			newpos.x = curcentre.f[0] + xdiff * frac;
+			newpos.y = curcentre.f[1] + ydiff * frac;
+			newpos.z = curcentre.f[2] + zdiff * frac;
+
+			if (segdist == lift->dist) {
+				lift->dist = 0;
+				lift->speed = 0;
+				lift->levelcur = lift->levelaim;
+
+				func0f08dd44(lift->soundtype, lift->base.prop);
+
+				if (obj->flags & OBJFLAG_LIFT_TRIGGERDISABLE) {
+					obj->flags &= ~OBJFLAG_LIFT_TRIGGERDISABLE;
+					obj->flags |= OBJFLAG_DEACTIVATED;
+				}
+
+				door = lift->doors[lift->levelcur];
+
+				if (door && door->keyflags == 0) {
+					doorActivate(door, DOORMODE_OPENING);
+				}
+			}
+
+			func0f065e74(&prop->pos, prop->rooms, &newpos, newrooms);
+
+			prop->pos.x = newpos.x;
+			prop->pos.y = newpos.y;
+			prop->pos.z = newpos.z;
+
+			func0f065c44(prop);
+			roomsCopy(newrooms, prop->rooms);
+			func0f069c70(obj, true, true);
+			func0f070f08(lift, lift->levelcur == lift->levelaim);
+			platformDisplaceProps(prop, propnums, &prevpos, &prop->pos);
+		}
+	} else {
+		// Lift is at the aim stop
+		door = lift->doors[lift->levelcur];
+
+		if (!door || (doorIsClosed(door) && door->keyflags == 0)) {
+			// Find next stop
+			stop = lift->levelaim;
+
+			do {
+				stop = (stop + 1) % 4;
+			} while (lift->pads[stop] < 0);
+
+			liftGoToStop(lift, stop);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel escalatorTick
