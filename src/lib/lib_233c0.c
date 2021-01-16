@@ -13175,136 +13175,44 @@ glabel func0002f02c
 /*    2f304:	afa50004 */ 	sw	$a1,0x4($sp)
 );
 
-GLOBAL_ASM(
-glabel func0002f308
-/*    2f308:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*    2f30c:	97ae005e */ 	lhu	$t6,0x5e($sp)
-/*    2f310:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    2f314:	afb10020 */ 	sw	$s1,0x20($sp)
-/*    2f318:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*    2f31c:	afa70054 */ 	sw	$a3,0x54($sp)
-/*    2f320:	00c08025 */ 	or	$s0,$a2,$zero
-/*    2f324:	00808825 */ 	or	$s1,$a0,$zero
-/*    2f328:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*    2f32c:	8fa70058 */ 	lw	$a3,0x58($sp)
-/*    2f330:	0c00b6e6 */ 	jal	func0002db98
-/*    2f334:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2f338:	50400004 */ 	beqzl	$v0,.L0002f34c
-/*    2f33c:	c6040000 */ 	lwc1	$f4,0x0($s0)
-/*    2f340:	1000003e */ 	b	.L0002f43c
-/*    2f344:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    2f348:	c6040000 */ 	lwc1	$f4,0x0($s0)
-.L0002f34c:
-/*    2f34c:	c6260000 */ 	lwc1	$f6,0x0($s1)
-/*    2f350:	44805000 */ 	mtc1	$zero,$f10
-/*    2f354:	27a40028 */ 	addiu	$a0,$sp,0x28
-/*    2f358:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*    2f35c:	e7aa002c */ 	swc1	$f10,0x2c($sp)
-/*    2f360:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*    2f364:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*    2f368:	e7a80028 */ 	swc1	$f8,0x28($sp)
-/*    2f36c:	c6320008 */ 	lwc1	$f18,0x8($s1)
-/*    2f370:	c6100008 */ 	lwc1	$f16,0x8($s0)
-/*    2f374:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*    2f378:	0c0011e4 */ 	jal	scaleTo1
-/*    2f37c:	e7a40030 */ 	swc1	$f4,0x30($sp)
-/*    2f380:	c7ac0054 */ 	lwc1	$f12,0x54($sp)
-/*    2f384:	c7a60028 */ 	lwc1	$f6,0x28($sp)
-/*    2f388:	c7a80030 */ 	lwc1	$f8,0x30($sp)
-/*    2f38c:	c60a0000 */ 	lwc1	$f10,0x0($s0)
-/*    2f390:	460c3002 */ 	mul.s	$f0,$f6,$f12
-/*    2f394:	97af005e */ 	lhu	$t7,0x5e($sp)
-/*    2f398:	02202025 */ 	or	$a0,$s1,$zero
-/*    2f39c:	460c4082 */ 	mul.s	$f2,$f8,$f12
-/*    2f3a0:	8fa5004c */ 	lw	$a1,0x4c($sp)
-/*    2f3a4:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*    2f3a8:	8fa70058 */ 	lw	$a3,0x58($sp)
-/*    2f3ac:	46025401 */ 	sub.s	$f16,$f10,$f2
-/*    2f3b0:	e7b0003c */ 	swc1	$f16,0x3c($sp)
-/*    2f3b4:	c6120004 */ 	lwc1	$f18,0x4($s0)
-/*    2f3b8:	e7b20040 */ 	swc1	$f18,0x40($sp)
-/*    2f3bc:	c6040008 */ 	lwc1	$f4,0x8($s0)
-/*    2f3c0:	e7a20034 */ 	swc1	$f2,0x34($sp)
-/*    2f3c4:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*    2f3c8:	46002180 */ 	add.s	$f6,$f4,$f0
-/*    2f3cc:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*    2f3d0:	0c00b6e6 */ 	jal	func0002db98
-/*    2f3d4:	e7a60044 */ 	swc1	$f6,0x44($sp)
-/*    2f3d8:	c7a00038 */ 	lwc1	$f0,0x38($sp)
-/*    2f3dc:	10400003 */ 	beqz	$v0,.L0002f3ec
-/*    2f3e0:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-/*    2f3e4:	10000015 */ 	b	.L0002f43c
-/*    2f3e8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0002f3ec:
-/*    2f3ec:	c6080000 */ 	lwc1	$f8,0x0($s0)
-/*    2f3f0:	97b8005e */ 	lhu	$t8,0x5e($sp)
-/*    2f3f4:	02202025 */ 	or	$a0,$s1,$zero
-/*    2f3f8:	46024280 */ 	add.s	$f10,$f8,$f2
-/*    2f3fc:	8fa5004c */ 	lw	$a1,0x4c($sp)
-/*    2f400:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*    2f404:	8fa70058 */ 	lw	$a3,0x58($sp)
-/*    2f408:	e7aa003c */ 	swc1	$f10,0x3c($sp)
-/*    2f40c:	c6100004 */ 	lwc1	$f16,0x4($s0)
-/*    2f410:	e7b00040 */ 	swc1	$f16,0x40($sp)
-/*    2f414:	c6120008 */ 	lwc1	$f18,0x8($s0)
-/*    2f418:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    2f41c:	46009101 */ 	sub.s	$f4,$f18,$f0
-/*    2f420:	0c00b6e6 */ 	jal	func0002db98
-/*    2f424:	e7a40044 */ 	swc1	$f4,0x44($sp)
-/*    2f428:	50400004 */ 	beqzl	$v0,.L0002f43c
-/*    2f42c:	00001025 */ 	or	$v0,$zero,$zero
-/*    2f430:	10000002 */ 	b	.L0002f43c
-/*    2f434:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    2f438:	00001025 */ 	or	$v0,$zero,$zero
-.L0002f43c:
-/*    2f43c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    2f440:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*    2f444:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*    2f448:	03e00008 */ 	jr	$ra
-/*    2f44c:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+bool func0002f308(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 arg4, u16 arg5)
+{
+	struct coord diff;
+	f32 x;
+	f32 z;
+	struct coord vector;
 
-//bool func0002f308(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 arg4, u16 arg5)
-//{
-//	struct coord diff; // sp60
-//	f32 x; // sp56
-//	f32 z; // sp52
-//	struct coord vector; // sp40
-//
-//	if (func0002db98(viewpos, rooms, targetpos, arg4, arg5)) {
-//		return true;
-//	}
-//
-//	vector.x = targetpos->x - viewpos->x;
-//	vector.y = 0;
-//	vector.z = targetpos->z - viewpos->z;
-//
-//	// 378
-//	scaleTo1(&vector.x, &vector.y, &vector.z);
-//
-//	x = vector.x * distance;
-//	z = vector.z * distance;
-//
-//	diff.x = targetpos->x - z;
-//	diff.y = targetpos->y;
-//	diff.z = targetpos->z + x;
-//
-//	// 3d0
-//	if (func0002db98(viewpos, rooms, &diff, arg4, arg5)) {
-//		return true;
-//	}
-//
-//	diff.x = targetpos->x + z;
-//	diff.y = targetpos->y;
-//	diff.z = targetpos->z - x;
-//
-//	// 420
-//	if (func0002db98(viewpos, rooms, &diff, arg4, arg5)) {
-//		return true;
-//	}
-//
-//	return false;
-//}
+	if (func0002db98(viewpos, rooms, targetpos, arg4, arg5)) {
+		return true;
+	}
+
+	vector.x = targetpos->x - viewpos->x;
+	vector.y = 0;
+	vector.z = targetpos->z - viewpos->z;
+
+	scaleTo1(&vector.x, &vector.y, &vector.z);
+
+	x = vector.f[0] * distance;
+	z = vector.f[2] * distance;
+
+	diff.x = targetpos->x - z;
+	diff.y = targetpos->y;
+	diff.z = targetpos->z + x;
+
+	if (func0002db98(viewpos, rooms, &diff, arg4, arg5)) {
+		return true;
+	}
+
+	diff.x = targetpos->x + z;
+	diff.y = targetpos->y;
+	diff.z = targetpos->z - x;
+
+	if (func0002db98(viewpos, rooms, &diff, arg4, arg5)) {
+		return true;
+	}
+
+	return false;
+}
 
 bool func0002f450(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f32 distance, s32 arg4)
 {
