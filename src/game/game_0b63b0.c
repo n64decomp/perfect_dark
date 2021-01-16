@@ -87,10 +87,6 @@ const char var7f1ad3d0[] = "%s%sL2 -> Surface area bodged for room %d - using %f
 const char var7f1ad408[] = "";
 const char var7f1ad40c[] = "";
 
-const u32 var7f1ad410[] = {0x3b808081};
-const u32 var7f1ad414[] = {0x3d888889};
-const u32 var7f1ad418[] = {0x4b989680};
-const u32 var7f1ad41c[] = {0x00000000};
 
 void func0f0b63b0(s32 portalnum, f32 frac)
 {
@@ -111,6 +107,10 @@ void func0f0b6470(s32 portalnum, f32 frac)
 
 GLOBAL_ASM(
 glabel func0f0b6534
+.late_rodata
+glabel var7f1ad410
+.word 0x3b808081
+.text
 /*  f0b6534:	3c0e800a */ 	lui	$t6,%hi(var8009ddc8)
 /*  f0b6538:	8dceddc8 */ 	lw	$t6,%lo(var8009ddc8)($t6)
 /*  f0b653c:	00047840 */ 	sll	$t7,$a0,0x1
@@ -127,33 +127,12 @@ glabel func0f0b6534
 /*  f0b6568:	46001006 */ 	mov.s	$f0,$f2
 );
 
-GLOBAL_ASM(
-glabel func0f0b656c
-/*  f0b656c:	3c0e800a */ 	lui	$t6,%hi(var8009ddc8)
-/*  f0b6570:	8dceddc8 */ 	lw	$t6,%lo(var8009ddc8)($t6)
-/*  f0b6574:	00047840 */ 	sll	$t7,$a0,0x1
-/*  f0b6578:	3c017f1b */ 	lui	$at,%hi(var7f1ad414)
-/*  f0b657c:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0b6580:	97190000 */ 	lhu	$t9,0x0($t8)
-/*  f0b6584:	c428d414 */ 	lwc1	$f8,%lo(var7f1ad414)($at)
-/*  f0b6588:	33280f00 */ 	andi	$t0,$t9,0xf00
-/*  f0b658c:	00084a03 */ 	sra	$t1,$t0,0x8
-/*  f0b6590:	44892000 */ 	mtc1	$t1,$f4
-/*  f0b6594:	00000000 */ 	nop
-/*  f0b6598:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0b659c:	46083082 */ 	mul.s	$f2,$f6,$f8
-/*  f0b65a0:	03e00008 */ 	jr	$ra
-/*  f0b65a4:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 func0f0b656c(s32 arg0)
+{
+	f32 value = ((var8009ddc8[arg0] & 0xf00) >> 8) * 0.06666667f;
 
-// Mismatch due to rodata - this file needs to be split somewhere after this
-// function and prior to the "tps" string.
-//f32 func0f0b656c(s32 arg0)
-//{
-//	f32 value = ((var8009ddc8[arg0] & 0xf00) >> 8) * 0.06666667f;
-//
-//	return value;
-//}
+	return value;
+}
 
 GLOBAL_ASM(
 glabel func0f0b65a8
@@ -227,6 +206,10 @@ void func0f0b65f8(void)
 
 GLOBAL_ASM(
 glabel acousticReset
+.late_rodata
+glabel var7f1ad418
+.word 0x4b989680
+.text
 /*  f0b6764:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
 /*  f0b6768:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
 /*  f0b676c:	8d6402bc */ 	lw	$a0,0x2bc($t3)
