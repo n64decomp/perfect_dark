@@ -87,7 +87,6 @@ const char var7f1ad3d0[] = "%s%sL2 -> Surface area bodged for room %d - using %f
 const char var7f1ad408[] = "";
 const char var7f1ad40c[] = "";
 
-
 void func0f0b63b0(s32 portalnum, f32 frac)
 {
 	if (portalnum >= 0) {
@@ -105,27 +104,12 @@ void func0f0b6470(s32 portalnum, f32 frac)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0b6534
-.late_rodata
-glabel var7f1ad410
-.word 0x3b808081
-.text
-/*  f0b6534:	3c0e800a */ 	lui	$t6,%hi(var8009ddc8)
-/*  f0b6538:	8dceddc8 */ 	lw	$t6,%lo(var8009ddc8)($t6)
-/*  f0b653c:	00047840 */ 	sll	$t7,$a0,0x1
-/*  f0b6540:	3c017f1b */ 	lui	$at,%hi(var7f1ad410)
-/*  f0b6544:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0b6548:	97190000 */ 	lhu	$t9,0x0($t8)
-/*  f0b654c:	c428d410 */ 	lwc1	$f8,%lo(var7f1ad410)($at)
-/*  f0b6550:	332800ff */ 	andi	$t0,$t9,0xff
-/*  f0b6554:	44882000 */ 	mtc1	$t0,$f4
-/*  f0b6558:	00000000 */ 	nop
-/*  f0b655c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0b6560:	46083082 */ 	mul.s	$f2,$f6,$f8
-/*  f0b6564:	03e00008 */ 	jr	$ra
-/*  f0b6568:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 func0f0b6534(s32 arg0)
+{
+	f32 value = (var8009ddc8[arg0] & 0xff) * 0.0039215688593686f;
+
+	return value;
+}
 
 f32 func0f0b656c(s32 arg0)
 {
