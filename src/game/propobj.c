@@ -24809,185 +24809,65 @@ void func0f07c7b0(struct prop *prop)
 	func0f07ba38(prop, roty, rotx, &coord, 0);
 }
 
-GLOBAL_ASM(
-glabel chopperTickAttackMode0
-/*  f07c830:	27bdff50 */ 	addiu	$sp,$sp,-176
-/*  f07c834:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f07c838:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f07c83c:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f07c840:	8c900004 */ 	lw	$s0,0x4($a0)
-/*  f07c844:	00808825 */ 	or	$s1,$a0,$zero
-/*  f07c848:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f07c84c:	c604007c */ 	lwc1	$f4,0x7c($s0)
-/*  f07c850:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07c854:	e7a400a4 */ 	swc1	$f4,0xa4($sp)
-/*  f07c858:	c6060080 */ 	lwc1	$f6,0x80($s0)
-/*  f07c85c:	0fc135ad */ 	jal	chraiExecute
-/*  f07c860:	e7a600a0 */ 	swc1	$f6,0xa0($sp)
-/*  f07c864:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f07c868:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f07c86c:	8c6f0038 */ 	lw	$t7,0x38($v1)
-/*  f07c870:	8e0e00c0 */ 	lw	$t6,0xc0($s0)
-/*  f07c874:	8e0200c4 */ 	lw	$v0,0xc4($s0)
-/*  f07c878:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f07c87c:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f07c880:	18400004 */ 	blez	$v0,.L0f07c894
-/*  f07c884:	ae1800c0 */ 	sw	$t8,0xc0($s0)
-/*  f07c888:	8c790038 */ 	lw	$t9,0x38($v1)
-/*  f07c88c:	00594023 */ 	subu	$t0,$v0,$t9
-/*  f07c890:	ae0800c4 */ 	sw	$t0,0xc4($s0)
-.L0f07c894:
-/*  f07c894:	8e020088 */ 	lw	$v0,0x88($s0)
-/*  f07c898:	50400051 */ 	beqzl	$v0,.L0f07c9e0
-/*  f07c89c:	8e0c0008 */ 	lw	$t4,0x8($s0)
-/*  f07c8a0:	8e0a008c */ 	lw	$t2,0x8c($s0)
-/*  f07c8a4:	8c490000 */ 	lw	$t1,0x0($v0)
-/*  f07c8a8:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f07c8ac:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f07c8b0:	012b6021 */ 	addu	$t4,$t1,$t3
-/*  f07c8b4:	0fc456ac */ 	jal	padUnpack
-/*  f07c8b8:	8d840000 */ 	lw	$a0,0x0($t4)
-/*  f07c8bc:	3c01c37a */ 	lui	$at,0xc37a
-/*  f07c8c0:	44815000 */ 	mtc1	$at,$f10
-/*  f07c8c4:	c7a80044 */ 	lwc1	$f8,0x44($sp)
-/*  f07c8c8:	26240008 */ 	addiu	$a0,$s1,0x8
-/*  f07c8cc:	00802825 */ 	or	$a1,$a0,$zero
-/*  f07c8d0:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f07c8d4:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f07c8d8:	3c0743af */ 	lui	$a3,0x43af
-/*  f07c8dc:	0fc111b8 */ 	jal	func0f0446e0
-/*  f07c8e0:	e7b00044 */ 	swc1	$f16,0x44($sp)
-/*  f07c8e4:	50400025 */ 	beqzl	$v0,.L0f07c97c
-/*  f07c8e8:	c7a80040 */ 	lwc1	$f8,0x40($sp)
-/*  f07c8ec:	920d0097 */ 	lbu	$t5,0x97($s0)
-/*  f07c8f0:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f07c8f4:	11a00003 */ 	beqz	$t5,.L0f07c904
-/*  f07c8f8:	00000000 */ 	nop
-/*  f07c8fc:	10000001 */ 	b	.L0f07c904
-/*  f07c900:	2407ffff */ 	addiu	$a3,$zero,-1
-.L0f07c904:
-/*  f07c904:	8e020088 */ 	lw	$v0,0x88($s0)
-/*  f07c908:	8e0e008c */ 	lw	$t6,0x8c($s0)
-/*  f07c90c:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f07c910:	94430006 */ 	lhu	$v1,0x6($v0)
-/*  f07c914:	00ee7821 */ 	addu	$t7,$a3,$t6
-/*  f07c918:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f07c91c:	01e3c021 */ 	addu	$t8,$t7,$v1
-/*  f07c920:	0303001a */ 	div	$zero,$t8,$v1
-/*  f07c924:	0000c810 */ 	mfhi	$t9
-/*  f07c928:	ae19008c */ 	sw	$t9,0x8c($s0)
-/*  f07c92c:	8c480000 */ 	lw	$t0,0x0($v0)
-/*  f07c930:	00194880 */ 	sll	$t1,$t9,0x2
-/*  f07c934:	14600002 */ 	bnez	$v1,.L0f07c940
-/*  f07c938:	00000000 */ 	nop
-/*  f07c93c:	0007000d */ 	break	0x7
-.L0f07c940:
-/*  f07c940:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f07c944:	14610004 */ 	bne	$v1,$at,.L0f07c958
-/*  f07c948:	3c018000 */ 	lui	$at,0x8000
-/*  f07c94c:	17010002 */ 	bne	$t8,$at,.L0f07c958
-/*  f07c950:	00000000 */ 	nop
-/*  f07c954:	0006000d */ 	break	0x6
-.L0f07c958:
-/*  f07c958:	01095821 */ 	addu	$t3,$t0,$t1
-/*  f07c95c:	0fc456ac */ 	jal	padUnpack
-/*  f07c960:	8d640000 */ 	lw	$a0,0x0($t3)
-/*  f07c964:	3c01c37a */ 	lui	$at,0xc37a
-/*  f07c968:	44812000 */ 	mtc1	$at,$f4
-/*  f07c96c:	c7b20044 */ 	lwc1	$f18,0x44($sp)
-/*  f07c970:	46049180 */ 	add.s	$f6,$f18,$f4
-/*  f07c974:	e7a60044 */ 	swc1	$f6,0x44($sp)
-/*  f07c978:	c7a80040 */ 	lwc1	$f8,0x40($sp)
-.L0f07c97c:
-/*  f07c97c:	c62a0008 */ 	lwc1	$f10,0x8($s1)
-/*  f07c980:	c7b00048 */ 	lwc1	$f16,0x48($sp)
-/*  f07c984:	c6320010 */ 	lwc1	$f18,0x10($s1)
-/*  f07c988:	460a4301 */ 	sub.s	$f12,$f8,$f10
-/*  f07c98c:	0fc259d4 */ 	jal	func0f096750
-/*  f07c990:	46128381 */ 	sub.s	$f14,$f16,$f18
-/*  f07c994:	e7a000a4 */ 	swc1	$f0,0xa4($sp)
-/*  f07c998:	c6260008 */ 	lwc1	$f6,0x8($s1)
-/*  f07c99c:	c7a40040 */ 	lwc1	$f4,0x40($sp)
-/*  f07c9a0:	c62a0010 */ 	lwc1	$f10,0x10($s1)
-/*  f07c9a4:	c7a80048 */ 	lwc1	$f8,0x48($sp)
-/*  f07c9a8:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f07c9ac:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f07c9b0:	46021402 */ 	mul.s	$f16,$f2,$f2
-/*  f07c9b4:	00000000 */ 	nop
-/*  f07c9b8:	460e7482 */ 	mul.s	$f18,$f14,$f14
-/*  f07c9bc:	0c012974 */ 	jal	sqrtf
-/*  f07c9c0:	46128300 */ 	add.s	$f12,$f16,$f18
-/*  f07c9c4:	c7a40044 */ 	lwc1	$f4,0x44($sp)
-/*  f07c9c8:	c626000c */ 	lwc1	$f6,0xc($s1)
-/*  f07c9cc:	46000386 */ 	mov.s	$f14,$f0
-/*  f07c9d0:	0fc259d4 */ 	jal	func0f096750
-/*  f07c9d4:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f07c9d8:	e7a000a0 */ 	swc1	$f0,0xa0($sp)
-/*  f07c9dc:	8e0c0008 */ 	lw	$t4,0x8($s0)
-.L0f07c9e0:
-/*  f07c9e0:	3c01dfff */ 	lui	$at,0xdfff
-/*  f07c9e4:	c7a800a4 */ 	lwc1	$f8,0xa4($sp)
-/*  f07c9e8:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f07c9ec:	05a10007 */ 	bgez	$t5,.L0f07ca0c
-/*  f07c9f0:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f07c9f4:	8e0e0008 */ 	lw	$t6,0x8($s0)
-/*  f07c9f8:	e608007c */ 	swc1	$f8,0x7c($s0)
-/*  f07c9fc:	c7aa00a0 */ 	lwc1	$f10,0xa0($sp)
-/*  f07ca00:	01c17824 */ 	and	$t7,$t6,$at
-/*  f07ca04:	ae0f0008 */ 	sw	$t7,0x8($s0)
-/*  f07ca08:	e60a0080 */ 	swc1	$f10,0x80($s0)
-.L0f07ca0c:
-/*  f07ca0c:	8e1800c4 */ 	lw	$t8,0xc4($s0)
-/*  f07ca10:	c7b00040 */ 	lwc1	$f16,0x40($sp)
-/*  f07ca14:	1b000012 */ 	blez	$t8,.L0f07ca60
-/*  f07ca18:	00000000 */ 	nop
-/*  f07ca1c:	c6320008 */ 	lwc1	$f18,0x8($s1)
-/*  f07ca20:	c7a60044 */ 	lwc1	$f6,0x44($sp)
-/*  f07ca24:	27a40094 */ 	addiu	$a0,$sp,0x94
-/*  f07ca28:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*  f07ca2c:	c7b00048 */ 	lwc1	$f16,0x48($sp)
-/*  f07ca30:	27a50098 */ 	addiu	$a1,$sp,0x98
-/*  f07ca34:	27a6009c */ 	addiu	$a2,$sp,0x9c
-/*  f07ca38:	e7a40094 */ 	swc1	$f4,0x94($sp)
-/*  f07ca3c:	c628000c */ 	lwc1	$f8,0xc($s1)
-/*  f07ca40:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*  f07ca44:	e7aa0098 */ 	swc1	$f10,0x98($sp)
-/*  f07ca48:	c6320010 */ 	lwc1	$f18,0x10($s1)
-/*  f07ca4c:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*  f07ca50:	0c0011e4 */ 	jal	scaleTo1
-/*  f07ca54:	e7a4009c */ 	swc1	$f4,0x9c($sp)
-/*  f07ca58:	10000012 */ 	b	.L0f07caa4
-/*  f07ca5c:	02202025 */ 	or	$a0,$s1,$zero
-.L0f07ca60:
-/*  f07ca60:	0c0068f4 */ 	jal	cosf
-/*  f07ca64:	c60c0080 */ 	lwc1	$f12,0x80($s0)
-/*  f07ca68:	e7a0003c */ 	swc1	$f0,0x3c($sp)
-/*  f07ca6c:	0c0068f7 */ 	jal	sinf
-/*  f07ca70:	c60c007c */ 	lwc1	$f12,0x7c($s0)
-/*  f07ca74:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
-/*  f07ca78:	46060202 */ 	mul.s	$f8,$f0,$f6
-/*  f07ca7c:	e7a80094 */ 	swc1	$f8,0x94($sp)
-/*  f07ca80:	0c0068f7 */ 	jal	sinf
-/*  f07ca84:	c60c0080 */ 	lwc1	$f12,0x80($s0)
-/*  f07ca88:	e7a00098 */ 	swc1	$f0,0x98($sp)
-/*  f07ca8c:	0c0068f4 */ 	jal	cosf
-/*  f07ca90:	c60c007c */ 	lwc1	$f12,0x7c($s0)
-/*  f07ca94:	c7aa003c */ 	lwc1	$f10,0x3c($sp)
-/*  f07ca98:	460a0402 */ 	mul.s	$f16,$f0,$f10
-/*  f07ca9c:	e7b0009c */ 	swc1	$f16,0x9c($sp)
-/*  f07caa0:	02202025 */ 	or	$a0,$s1,$zero
-.L0f07caa4:
-/*  f07caa4:	8fa500a4 */ 	lw	$a1,0xa4($sp)
-/*  f07caa8:	8fa600a0 */ 	lw	$a2,0xa0($sp)
-/*  f07caac:	27a70094 */ 	addiu	$a3,$sp,0x94
-/*  f07cab0:	0fc1ee8e */ 	jal	func0f07ba38
-/*  f07cab4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f07cab8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f07cabc:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f07cac0:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f07cac4:	03e00008 */ 	jr	$ra
-/*  f07cac8:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
-);
+void chopperTickPatrol(struct prop *chopperprop)
+{
+	struct chopperobj *chopper = (struct chopperobj *)chopperprop->obj;
+	f32 xdiff;
+	f32 roty = chopper->roty;
+	f32 rotx = chopper->rotx;
+	struct coord vector;
+	struct pad pad;
+	f32 mult;
+	f32 zdiff;
+
+	chraiExecute(chopper, PROPTYPE_OBJ);
+
+	chopper->timer60 += g_Vars.lvupdate240_60;
+
+	if (chopper->patroltimer60 > 0) {
+		chopper->patroltimer60 -= g_Vars.lvupdate240_60;
+	}
+
+	if (chopper->path) {
+		padUnpack(chopper->path->pads[chopper->nextstep], PADFIELD_POS, &pad);
+		pad.pos.y += -250;
+
+		if (func0f0446e0(&chopperprop->pos, &chopperprop->pos, &pad.pos, 350)) {
+			chopper->nextstep = ((chopper->cw ? -1 : 1) + chopper->nextstep + chopper->path->len) % chopper->path->len;
+
+			padUnpack(chopper->path->pads[chopper->nextstep], PADFIELD_POS, &pad);
+			pad.pos.y += -250;
+		}
+
+		roty = func0f096750(pad.pos.x - chopperprop->pos.x, pad.pos.z - chopperprop->pos.z);
+		xdiff = pad.pos.x - chopperprop->pos.x;
+		zdiff = pad.pos.z - chopperprop->pos.z;
+		rotx = func0f096750(pad.pos.y - chopperprop->pos.y, sqrtf(xdiff * xdiff + zdiff * zdiff));
+	}
+
+	if (chopper->base.flags & OBJFLAG_20000000) {
+		chopper->roty = roty;
+		chopper->rotx = rotx;
+		if (1);
+		chopper->base.flags &= ~OBJFLAG_20000000;
+	}
+
+	if (chopper->patroltimer60 > 0) {
+		vector.x = pad.pos.x - chopperprop->pos.x;
+		vector.y = pad.pos.y - chopperprop->pos.y;
+		vector.z = pad.pos.z - chopperprop->pos.z;
+
+		scaleTo1(&vector.x, &vector.y, &vector.z);
+	} else {
+		mult = cosf(chopper->rotx);
+
+		vector.x = sinf(chopper->roty) * mult;
+		vector.y = sinf(chopper->rotx);
+		vector.z = cosf(chopper->roty) * mult;
+	}
+
+	func0f07ba38(chopperprop, roty, rotx, &vector, 0);
+}
 
 GLOBAL_ASM(
 glabel chopperTickAttackMode1
@@ -27522,7 +27402,7 @@ s32 objTick(struct prop *prop)
 						if (obj->flags & OBJFLAG_CHOPPER_INACTIVE) {
 							func0f07c7b0(prop);
 						} else if (chopper->attackmode == 0) {
-							chopperTickAttackMode0(prop);
+							chopperTickPatrol(prop);
 						} else if (chopper->attackmode == 1) {
 							chopperTickAttackMode1(prop);
 						}

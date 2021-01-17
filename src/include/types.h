@@ -1612,7 +1612,7 @@ struct chopperobj { // objtype 0x39
 	/*0xb8*/ f32 bobstrength;
 	/*0xbc*/ u32 targetvisible;
 	/*0xc0*/ s32 timer60;
-	/*0xc4*/ u32 patroltimer60;
+	/*0xc4*/ s32 patroltimer60;
 	/*0xc8*/ u32 gunturnyspeed60;
 	/*0xcc*/ u32 gunturnxspeed60;
 	/*0xd0*/ f32 gunroty;
