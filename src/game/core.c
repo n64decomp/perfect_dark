@@ -1583,7 +1583,7 @@ void coreUpdateSoloHandicaps(void)
 {
 	if (g_Vars.antiplayernum >= 0) {
 		if (g_Difficulty == DIFF_A) {
-			var80069948 = 2;
+			g_CameraWaitMultiplier = 2;
 			var8006994c = 2;
 			var80069950 = 0.5f;
 			var80069954 = 0.5f;
@@ -1596,7 +1596,7 @@ void coreUpdateSoloHandicaps(void)
 			g_AmmoMultiplier = 3;
 			var80062cac = 0.2f;
 		} else if (g_Difficulty == DIFF_SA) {
-			var80069948 = 2;
+			g_CameraWaitMultiplier = 2;
 			var8006994c = 1.5f;
 			var80069950 = 0.5f;
 			var80069954 = 0.5f;
@@ -1609,7 +1609,7 @@ void coreUpdateSoloHandicaps(void)
 			g_AmmoMultiplier = 2.5f;
 			var80062cac = 0.5f;
 		} else {
-			var80069948 = 2;
+			g_CameraWaitMultiplier = 2;
 			var8006994c = 1;
 			var80069950 = 0.5f;
 			var80069954 = 0.5f;
@@ -1624,7 +1624,7 @@ void coreUpdateSoloHandicaps(void)
 		}
 	} else if (g_Vars.coopplayernum >= 0) {
 		if (g_Difficulty == DIFF_A) {
-			var80069948 = 2;
+			g_CameraWaitMultiplier = 2;
 			var8006994c = 2;
 			var80069950 = 0.5f;
 			var80069954 = 0.5f;
@@ -1637,7 +1637,7 @@ void coreUpdateSoloHandicaps(void)
 			g_AmmoMultiplier = 2;
 			var80062cac = 0.2f;
 		} else if (g_Difficulty == DIFF_SA) {
-			var80069948 = 1;
+			g_CameraWaitMultiplier = 1;
 			var8006994c = 1;
 			var80069950 = 0.75f;
 			var80069954 = 1;
@@ -1650,7 +1650,7 @@ void coreUpdateSoloHandicaps(void)
 			g_AmmoMultiplier = 1.5f;
 			var80062cac = 0.5f;
 		} else {
-			var80069948 = 1;
+			g_CameraWaitMultiplier = 1;
 			var8006994c = 1;
 			var80069950 = 1;
 			var80069954 = 1.5f;
@@ -1682,7 +1682,7 @@ void coreUpdateSoloHandicaps(void)
 				}
 			}
 
-			var80069948 = 2;
+			g_CameraWaitMultiplier = 2;
 			var8006994c = 2;
 			var80069950 = 0.5f * frac;
 			var80069954 = 0.5f * frac;
@@ -1695,7 +1695,7 @@ void coreUpdateSoloHandicaps(void)
 			g_AmmoMultiplier = 2;
 			var80062cac = 0.2f;
 		} else if (g_Difficulty == DIFF_SA) {
-			var80069948 = 1;
+			g_CameraWaitMultiplier = 1;
 			var8006994c = 1;
 			var80069950 = 0.75f;
 			var80069954 = 0.75f;
@@ -1708,7 +1708,7 @@ void coreUpdateSoloHandicaps(void)
 			g_AmmoMultiplier = 1.5f;
 			var80062cac = 0.5f;
 		} else if (g_Difficulty == DIFF_PA) {
-			var80069948 = 1;
+			g_CameraWaitMultiplier = 1;
 			var8006994c = 1;
 			var80069950 = 1;
 			var80069954 = 1;
@@ -1721,7 +1721,7 @@ void coreUpdateSoloHandicaps(void)
 			g_AmmoMultiplier = 1;
 			var80062cac = 1;
 		} else if (g_Difficulty == DIFF_PD) {
-			var80069948 = 1;
+			g_CameraWaitMultiplier = 1;
 			var8006994c = 1;
 			var80069950 = 1;
 			var80069954 = 1;

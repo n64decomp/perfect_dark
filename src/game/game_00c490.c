@@ -553,8 +553,8 @@ u32 var80061bec = 0x00000000;
 ///*  f00ca68:	3c018007 */ 	lui	$at,%hi(var80069934)
 ///*  f00ca6c:	2419ffff */ 	addiu	$t9,$zero,-1
 ///*  f00ca70:	ac399934 */ 	sw	$t9,%lo(var80069934)($at)
-///*  f00ca74:	3c018007 */ 	lui	$at,%hi(var80069948)
-///*  f00ca78:	e4209948 */ 	swc1	$f0,%lo(var80069948)($at)
+///*  f00ca74:	3c018007 */ 	lui	$at,%hi(g_CameraWaitMultiplier)
+///*  f00ca78:	e4209948 */ 	swc1	$f0,%lo(g_CameraWaitMultiplier)($at)
 ///*  f00ca7c:	3c018007 */ 	lui	$at,%hi(var8006994c)
 ///*  f00ca80:	e420994c */ 	swc1	$f0,%lo(var8006994c)($at)
 ///*  f00ca84:	3c018007 */ 	lui	$at,%hi(var80069950)
@@ -786,7 +786,7 @@ void setupInit(void)
 
 	var80069930 = 0;
 	var80069934 = -1;
-	var80069948 = 1;
+	g_CameraWaitMultiplier = 1;
 	var8006994c = 1;
 	var80069950 = 1;
 	var80069954 = 1;

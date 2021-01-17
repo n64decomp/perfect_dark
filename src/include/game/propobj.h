@@ -8,7 +8,7 @@ extern u32 var800698f4;
 extern u32 var80069914;
 extern u32 var80069930;
 extern s32 var80069934;
-extern f32 var80069948;
+extern f32 g_CameraWaitMultiplier;
 extern f32 var8006994c;
 extern f32 var80069950;
 extern f32 var80069954;
