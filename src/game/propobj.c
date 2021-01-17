@@ -280,62 +280,27 @@ u32 var80069bc8 = 0x00000003;
 u32 var80069bcc = 0x00000014;
 u32 var80069bd0 = 0x00000078;
 u32 g_DebugDoor = 0;
-u32 var80069bd8 = 0x00000000;
-u32 var80069bdc = 0xc4bfff5c;
-u32 var80069be0 = 0xc3ff8000;
-u32 var80069be4 = 0xc5a45171;
-u32 var80069be8 = 0x00000029;
-u32 var80069bec = 0xc4bfff5c;
-u32 var80069bf0 = 0xc3fce148;
-u32 var80069bf4 = 0xc5a22371;
-u32 var80069bf8 = 0x00000095;
-u32 var80069bfc = 0xc4bfff5c;
-u32 var80069c00 = 0xc3fc651f;
-u32 var80069c04 = 0xc59c8600;
-u32 var80069c08 = 0x000002ba;
-u32 var80069c0c = 0xc4bfff5c;
-u32 var80069c10 = 0xc2c9d1ec;
-u32 var80069c14 = 0xc58396e1;
-u32 var80069c18 = 0x000002f7;
-u32 var80069c1c = 0xc4bfff5c;
-u32 var80069c20 = 0xc2c5c7ae;
-u32 var80069c24 = 0xc5806cf6;
-u32 var80069c28 = 0x00000320;
-u32 var80069c2c = 0xc4bfff5c;
-u32 var80069c30 = 0xc2cc0000;
-u32 var80069c34 = 0xc57c70f6;
-u32 var80069c38 = 0xffffffff;
-u32 var80069c3c = 0x00000000;
-u32 var80069c40 = 0x00000000;
-u32 var80069c44 = 0x00000000;
-u32 var80069c48 = 0x00000000;
-u32 var80069c4c = 0xc4f188a4;
-u32 var80069c50 = 0xc2cc0000;
-u32 var80069c54 = 0xc56f0948;
-u32 var80069c58 = 0x00000029;
-u32 var80069c5c = 0xc4fa5a8f;
-u32 var80069c60 = 0xc2c5c7ae;
-u32 var80069c64 = 0xc56f0948;
-u32 var80069c68 = 0x00000066;
-u32 var80069c6c = 0xc503811f;
-u32 var80069c70 = 0xc2c9d1ec;
-u32 var80069c74 = 0xc56f0948;
-u32 var80069c78 = 0x0000028b;
-u32 var80069c7c = 0xc5355f5c;
-u32 var80069c80 = 0xc3fc651f;
-u32 var80069c84 = 0xc56f0948;
-u32 var80069c88 = 0x000002f7;
-u32 var80069c8c = 0xc5409a3d;
-u32 var80069c90 = 0xc3fce148;
-u32 var80069c94 = 0xc56f0948;
-u32 var80069c98 = 0x00000320;
-u32 var80069c9c = 0xc544f63d;
-u32 var80069ca0 = 0xc3ff8000;
-u32 var80069ca4 = 0xc56f0948;
-u32 var80069ca8 = 0xffffffff;
-u32 var80069cac = 0x00000000;
-u32 var80069cb0 = 0x00000000;
-u32 var80069cb4 = 0x00000000;
+
+struct escastepkeyframe g_EscaStepKeyframesX[] = {
+	{ 0,   { -1535.98, -511,    -5258.18 } },
+	{ 41,  { -1535.98, -505.76, -5188.43 } },
+	{ 149, { -1535.98, -504.79, -5008.75 } },
+	{ 698, { -1535.98, -100.91, -4210.86 } },
+	{ 759, { -1535.98, -98.89,  -4109.62 } },
+	{ 800, { -1535.98, -102,    -4039.06 } },
+	{ -1,  { 0,        0,       0        } },
+};
+
+struct escastepkeyframe g_EscaStepKeyframesZ[] = {
+	{ 0,   { -1932.27, -102,    -3824.58 } },
+	{ 41,  { -2002.83, -98.89,  -3824.58 } },
+	{ 102, { -2104.07, -100.91, -3824.58 } },
+	{ 651, { -2901.96, -504.79, -3824.58 } },
+	{ 759, { -3081.64, -505.76, -3824.58 } },
+	{ 800, { -3151.39, -511,    -3824.58 } },
+	{ -1,  { 0,        0,       0        } },
+};
+
 u32 var80069cb8 = 0x2b000000;
 u32 var80069cbc = 0x0e000001;
 u32 var80069cc0 = 0x00000000;
@@ -20249,152 +20214,71 @@ void liftTick(struct prop *prop)
 	}
 }
 
-GLOBAL_ASM(
-glabel escalatorTick
-/*  f078094:	27bdfda0 */ 	addiu	$sp,$sp,-608
-/*  f078098:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f07809c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0780a0:	8c870004 */ 	lw	$a3,0x4($a0)
-/*  f0780a4:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x38)
-/*  f0780a8:	8def9ff8 */ 	lw	$t7,%lo(g_Vars+0x38)($t7)
-/*  f0780ac:	afa70258 */ 	sw	$a3,0x258($sp)
-/*  f0780b0:	8cee005c */ 	lw	$t6,0x5c($a3)
-/*  f0780b4:	3c088007 */ 	lui	$t0,%hi(var80069bd8)
-/*  f0780b8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0780bc:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0780c0:	acf8005c */ 	sw	$t8,0x5c($a3)
-/*  f0780c4:	8fb90258 */ 	lw	$t9,0x258($sp)
-/*  f0780c8:	00004825 */ 	or	$t1,$zero,$zero
-/*  f0780cc:	25089bd8 */ 	addiu	$t0,$t0,%lo(var80069bd8)
-/*  f0780d0:	8f2a0008 */ 	lw	$t2,0x8($t9)
-/*  f0780d4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0780d8:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f0780dc:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f0780e0:	05610004 */ 	bgez	$t3,.L0f0780f4
-/*  f0780e4:	00000000 */ 	nop
-/*  f0780e8:	3c088007 */ 	lui	$t0,%hi(var80069c48)
-/*  f0780ec:	10000001 */ 	b	.L0f0780f4
-/*  f0780f0:	25089c48 */ 	addiu	$t0,$t0,%lo(var80069c48)
-.L0f0780f4:
-/*  f0780f4:	01001025 */ 	or	$v0,$t0,$zero
-/*  f0780f8:	8ce4005c */ 	lw	$a0,0x5c($a3)
-.L0f0780fc:
-/*  f0780fc:	8c430010 */ 	lw	$v1,0x10($v0)
-/*  f078100:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f078104:	14c3000a */ 	bne	$a2,$v1,.L0f078130
-/*  f078108:	0083082a */ 	slt	$at,$a0,$v1
-/*  f07810c:	8c4c0000 */ 	lw	$t4,0x0($v0)
-/*  f078110:	01001025 */ 	or	$v0,$t0,$zero
-/*  f078114:	24420000 */ 	addiu	$v0,$v0,0x0
-/*  f078118:	008c6823 */ 	subu	$t5,$a0,$t4
-/*  f07811c:	24c50001 */ 	addiu	$a1,$a2,0x1
-/*  f078120:	aced005c */ 	sw	$t5,0x5c($a3)
-/*  f078124:	01a02025 */ 	or	$a0,$t5,$zero
-/*  f078128:	1000fff4 */ 	b	.L0f0780fc
-/*  f07812c:	24090001 */ 	addiu	$t1,$zero,0x1
-.L0f078130:
-/*  f078130:	1020001d */ 	beqz	$at,.L0f0781a8
-/*  f078134:	00000000 */ 	nop
-/*  f078138:	8c450000 */ 	lw	$a1,0x0($v0)
-/*  f07813c:	c4400004 */ 	lwc1	$f0,0x4($v0)
-/*  f078140:	c4500014 */ 	lwc1	$f16,0x14($v0)
-/*  f078144:	00857023 */ 	subu	$t6,$a0,$a1
-/*  f078148:	00657823 */ 	subu	$t7,$v1,$a1
-/*  f07814c:	448f4000 */ 	mtc1	$t7,$f8
-/*  f078150:	448e2000 */ 	mtc1	$t6,$f4
-/*  f078154:	46008481 */ 	sub.s	$f18,$f16,$f0
-/*  f078158:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f07815c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f078160:	460a3303 */ 	div.s	$f12,$f6,$f10
-/*  f078164:	460c9102 */ 	mul.s	$f4,$f18,$f12
-/*  f078168:	46002200 */ 	add.s	$f8,$f4,$f0
-/*  f07816c:	e7a8024c */ 	swc1	$f8,0x24c($sp)
-/*  f078170:	c4460018 */ 	lwc1	$f6,0x18($v0)
-/*  f078174:	c4420008 */ 	lwc1	$f2,0x8($v0)
-/*  f078178:	46023281 */ 	sub.s	$f10,$f6,$f2
-/*  f07817c:	460c5402 */ 	mul.s	$f16,$f10,$f12
-/*  f078180:	46028480 */ 	add.s	$f18,$f16,$f2
-/*  f078184:	c7b0024c */ 	lwc1	$f16,0x24c($sp)
-/*  f078188:	e7b20250 */ 	swc1	$f18,0x250($sp)
-/*  f07818c:	c444001c */ 	lwc1	$f4,0x1c($v0)
-/*  f078190:	c440000c */ 	lwc1	$f0,0xc($v0)
-/*  f078194:	46002201 */ 	sub.s	$f8,$f4,$f0
-/*  f078198:	460c4182 */ 	mul.s	$f6,$f8,$f12
-/*  f07819c:	46003280 */ 	add.s	$f10,$f6,$f0
-/*  f0781a0:	10000003 */ 	b	.L0f0781b0
-/*  f0781a4:	e7aa0254 */ 	swc1	$f10,0x254($sp)
-.L0f0781a8:
-/*  f0781a8:	1000ffd4 */ 	b	.L0f0780fc
-/*  f0781ac:	24420010 */ 	addiu	$v0,$v0,0x10
-.L0f0781b0:
-/*  f0781b0:	55200017 */ 	bnezl	$t1,.L0f078210
-/*  f0781b4:	e4f00060 */ 	swc1	$f16,0x60($a3)
-/*  f0781b8:	c6100008 */ 	lwc1	$f16,0x8($s0)
-/*  f0781bc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0781c0:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f0781c4:	e7b00234 */ 	swc1	$f16,0x234($sp)
-/*  f0781c8:	c612000c */ 	lwc1	$f18,0xc($s0)
-/*  f0781cc:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f0781d0:	e7b20238 */ 	swc1	$f18,0x238($sp)
-/*  f0781d4:	c6040010 */ 	lwc1	$f4,0x10($s0)
-/*  f0781d8:	afa90030 */ 	sw	$t1,0x30($sp)
-/*  f0781dc:	afa7025c */ 	sw	$a3,0x25c($sp)
-/*  f0781e0:	0c0099c7 */ 	jal	platformGetRidingProps
-/*  f0781e4:	e7a4023c */ 	swc1	$f4,0x23c($sp)
-/*  f0781e8:	8fa7025c */ 	lw	$a3,0x25c($sp)
-/*  f0781ec:	c6080008 */ 	lwc1	$f8,0x8($s0)
-/*  f0781f0:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*  f0781f4:	e4e80060 */ 	swc1	$f8,0x60($a3)
-/*  f0781f8:	c606000c */ 	lwc1	$f6,0xc($s0)
-/*  f0781fc:	e4e60064 */ 	swc1	$f6,0x64($a3)
-/*  f078200:	c60a0010 */ 	lwc1	$f10,0x10($s0)
-/*  f078204:	10000006 */ 	b	.L0f078220
-/*  f078208:	e4ea0068 */ 	swc1	$f10,0x68($a3)
-/*  f07820c:	e4f00060 */ 	swc1	$f16,0x60($a3)
-.L0f078210:
-/*  f078210:	c7b20250 */ 	lwc1	$f18,0x250($sp)
-/*  f078214:	e4f20064 */ 	swc1	$f18,0x64($a3)
-/*  f078218:	c7a40254 */ 	lwc1	$f4,0x254($sp)
-/*  f07821c:	e4e40068 */ 	swc1	$f4,0x68($a3)
-.L0f078220:
-/*  f078220:	c7a8024c */ 	lwc1	$f8,0x24c($sp)
-/*  f078224:	26040008 */ 	addiu	$a0,$s0,0x8
-/*  f078228:	26050028 */ 	addiu	$a1,$s0,0x28
-/*  f07822c:	e6080008 */ 	swc1	$f8,0x8($s0)
-/*  f078230:	c7a60250 */ 	lwc1	$f6,0x250($sp)
-/*  f078234:	00003825 */ 	or	$a3,$zero,$zero
-/*  f078238:	e606000c */ 	swc1	$f6,0xc($s0)
-/*  f07823c:	c7aa0254 */ 	lwc1	$f10,0x254($sp)
-/*  f078240:	e60a0010 */ 	swc1	$f10,0x10($s0)
-/*  f078244:	8fb80258 */ 	lw	$t8,0x258($sp)
-/*  f078248:	8f190008 */ 	lw	$t9,0x8($t8)
-/*  f07824c:	27060058 */ 	addiu	$a2,$t8,0x58
-/*  f078250:	332a0400 */ 	andi	$t2,$t9,0x400
-/*  f078254:	55400005 */ 	bnezl	$t2,.L0f07826c
-/*  f078258:	8fa40258 */ 	lw	$a0,0x258($sp)
-/*  f07825c:	0c00a8db */ 	jal	func0002a36c
-/*  f078260:	afa90030 */ 	sw	$t1,0x30($sp)
-/*  f078264:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*  f078268:	8fa40258 */ 	lw	$a0,0x258($sp)
-.L0f07826c:
-/*  f07826c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f078270:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f078274:	0fc1a71c */ 	jal	func0f069c70
-/*  f078278:	afa90030 */ 	sw	$t1,0x30($sp)
-/*  f07827c:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*  f078280:	02002025 */ 	or	$a0,$s0,$zero
-/*  f078284:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f078288:	15200003 */ 	bnez	$t1,.L0f078298
-/*  f07828c:	27a60234 */ 	addiu	$a2,$sp,0x234
-/*  f078290:	0fc1dd9b */ 	jal	platformDisplaceProps
-/*  f078294:	26070008 */ 	addiu	$a3,$s0,0x8
-.L0f078298:
-/*  f078298:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f07829c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0782a0:	27bd0260 */ 	addiu	$sp,$sp,0x260
-/*  f0782a4:	03e00008 */ 	jr	$ra
-/*  f0782a8:	00000000 */ 	nop
-);
+void escastepTick(struct prop *prop)
+{
+	struct escalatorobj *step = (struct escalatorobj *)prop->obj;
+	struct defaultobj *obj = prop->obj;
+	struct coord newpos;
+	struct escastepkeyframe *keyframes;
+	s32 i;
+	f32 mult;
+	struct coord oldpos;
+	s16 propnums[256];
+	bool resetting;
+
+	resetting = false;
+
+	step->frame += g_Vars.lvupdate240_60;
+
+	keyframes = (obj->flags & OBJFLAG_ESCSTEP_ZALIGNED) ? g_EscaStepKeyframesZ : g_EscaStepKeyframesX;
+
+	for (i = 0; true; i++) {
+		if (keyframes[i + 1].frame == -1) {
+			step->frame -= keyframes[i].frame;
+			i = -1;
+			resetting = true;
+		} else if (step->frame < keyframes[i + 1].frame) {
+			mult = (f32)(step->frame - keyframes[i].frame) / (f32)(keyframes[i + 1].frame - keyframes[i].frame);
+
+			newpos.x = keyframes[i].pos.x + (keyframes[i + 1].pos.x - keyframes[i].pos.x) * mult;
+			newpos.y = keyframes[i].pos.y + (keyframes[i + 1].pos.y - keyframes[i].pos.y) * mult;
+			newpos.z = keyframes[i].pos.z + (keyframes[i + 1].pos.z - keyframes[i].pos.z) * mult;
+			break;
+		} else {
+			// empty
+		}
+	}
+
+	if (!resetting) {
+		oldpos.x = prop->pos.x;
+		oldpos.y = prop->pos.y;
+		oldpos.z = prop->pos.z;
+
+		platformGetRidingProps(prop, propnums, ARRAYCOUNT(propnums));
+
+		step->prevpos.x = prop->pos.x;
+		step->prevpos.y = prop->pos.y;
+		step->prevpos.z = prop->pos.z;
+	} else {
+		step->prevpos.x = newpos.f[0];
+		step->prevpos.y = newpos.f[1];
+		step->prevpos.z = newpos.f[2];
+	}
+
+	prop->pos.x = newpos.x;
+	prop->pos.y = newpos.y;
+	prop->pos.z = newpos.z;
+
+	if ((obj->flags & OBJFLAG_ILLUMINATED) == 0) {
+		func0002a36c(&prop->pos, prop->rooms, &obj->floorcol, 0);
+	}
+
+	func0f069c70(obj, true, true);
+
+	if (!resetting) {
+		platformDisplaceProps(prop, propnums, &oldpos, &prop->pos);
+	}
+}
 
 GLOBAL_ASM(
 glabel cameraTick
@@ -27651,8 +27535,8 @@ u32 func0f07e474(struct prop *prop)
 		bullettailTick(chopper->fireslotthing->bullettail);
 	} else if (obj->type == OBJTYPE_LIFT) {
 		liftTick(prop);
-	} else if (obj->type == OBJTYPE_ESCALATOR) {
-		escalatorTick(prop);
+	} else if (obj->type == OBJTYPE_ESCASTEP) {
+		escastepTick(prop);
 	}
 
 	return 0;
@@ -35786,7 +35670,7 @@ bool func0f085194(struct defaultobj *obj)
 	case OBJTYPE_HAT:
 	case OBJTYPE_MULTIAMMOCRATE:
 	case OBJTYPE_SHIELD:
-	case OBJTYPE_ESCALATOR:
+	case OBJTYPE_ESCASTEP:
 		return true;
 	}
 

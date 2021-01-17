@@ -1629,7 +1629,7 @@ struct mineobj { // objtype 0x3a
 
 struct escalatorobj { // objtype 0x3b
 	struct defaultobj base;
-	/*0x5c*/ u32 frame;
+	/*0x5c*/ s32 frame;
 	/*0x60*/ struct coord prevpos;
 };
 
@@ -6897,6 +6897,11 @@ struct collisionthing {
 	u32 unk08;
 	u32 unk0c;
 	u32 unk10;
+};
+
+struct escastepkeyframe {
+	s32 frame;
+	struct coord pos;
 };
 
 #endif

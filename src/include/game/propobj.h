@@ -164,7 +164,7 @@ void doorUpdatePortalIfWindowed(struct prop *door, s32 playercount);
 u32 func0f077448(void);
 void platformDisplaceProps(struct prop *platform, s16 *propnums, struct coord *prevpos, struct coord *newpos);
 void liftTick(struct prop *lift);
-void escalatorTick(struct prop *escalator);
+void escastepTick(struct prop *escalator);
 void cameraTick(struct prop *camera);
 u32 func0f078930(void);
 void fanTick(struct prop *fan);

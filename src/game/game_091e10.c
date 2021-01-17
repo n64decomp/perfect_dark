@@ -75,7 +75,7 @@ u32 setupGetCommandLength(u32 *cmd)
 	case OBJTYPE_CHOPPER:            return 58;
 	case OBJTYPE_PADEFFECT:          return 3;
 	case OBJTYPE_MINE:               return 26;
-	case OBJTYPE_ESCALATOR:          return 27;
+	case OBJTYPE_ESCASTEP:           return 27;
 	}
 
 	return 1;
@@ -334,7 +334,7 @@ struct defaultobj *setupCommandGetObject(u32 cmdindex)
 		case OBJTYPE_FAN:
 		case OBJTYPE_HOVERCAR:
 		case OBJTYPE_CHOPPER:
-		case OBJTYPE_ESCALATOR:
+		case OBJTYPE_ESCASTEP:
 			return (struct defaultobj *)cmd;
 		case OBJTYPE_DOORSCALE:
 		case OBJTYPE_CHR:

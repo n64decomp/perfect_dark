@@ -3208,7 +3208,7 @@ void setupParseObjects(s32 stagenum)
 						setupGenericObject(obj, index);
 					}
 					break;
-				case OBJTYPE_ESCALATOR:
+				case OBJTYPE_ESCASTEP:
 					if (withobjs && (obj->flags2 & diffflag) == 0) {
 						struct escalatorobj *step = (struct escalatorobj *)obj;
 						struct prop *prop;

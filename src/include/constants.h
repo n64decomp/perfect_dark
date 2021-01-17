@@ -2373,6 +2373,7 @@
 #define OBJFLAG_DEACTIVATED         0x10000000
 #define OBJFLAG_DOOR_HASPORTAL      0x10000000
 #define OBJFLAG_WEAPON_10000000     0x10000000
+#define OBJFLAG_ESCSTEP_ZALIGNED    0x10000000
 #define OBJFLAG_20000000            0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
 #define OBJFLAG_40000000            0x40000000
 #define OBJFLAG_DOOR_KEEPOPEN       0x40000000 // Editor: "Door open by default/Empty weapon"
@@ -2537,7 +2538,7 @@
 #define OBJTYPE_PADEFFECT          0x38
 #define OBJTYPE_CHOPPER            0x39 // Extraction hovercopter and A51 interceptors
 #define OBJTYPE_MINE               0x3a
-#define OBJTYPE_ESCALATOR          0x3b
+#define OBJTYPE_ESCASTEP           0x3b
 
 #define OPERATOR_LESS_THAN    0
 #define OPERATOR_GREATER_THAN 1

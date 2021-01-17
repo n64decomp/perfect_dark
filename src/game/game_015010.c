@@ -48,7 +48,7 @@ void func0f015010(void)
 			case OBJTYPE_FAN:
 			case OBJTYPE_HOVERCAR:
 			case OBJTYPE_CHOPPER:
-			case OBJTYPE_ESCALATOR:
+			case OBJTYPE_ESCASTEP:
 				func0f06b34c(ptr, 1);
 				break;
 			case OBJTYPE_DOORSCALE:
