@@ -39,6 +39,9 @@ const u32 var7f1b7414[] = {0x7f7fffff};
 const u32 var7f1b7418[] = {0x00000000};
 const u32 var7f1b741c[] = {0x00000000};
 
+extern s32 var8007fba0;
+extern s32 var8007fba4;
+
 GLOBAL_ASM(
 glabel func0f1531a0
 /*  f1531a0:	03e00008 */ 	jr	$ra
@@ -348,57 +351,20 @@ void func0f153b40(void)
 	gSPEndDisplayList(var800a4634++);
 }
 
-GLOBAL_ASM(
-glabel func0f153b6c
-/*  f153b6c:	3c0e8008 */ 	lui	$t6,%hi(var8007fba4)
-/*  f153b70:	8dcefba4 */ 	lw	$t6,%lo(var8007fba4)($t6)
-/*  f153b74:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f153b78:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f153b7c:	108e0024 */ 	beq	$a0,$t6,.L0f153c10
-/*  f153b80:	3c03800a */ 	lui	$v1,%hi(var800a45d0)
-/*  f153b84:	246345d0 */ 	addiu	$v1,$v1,%lo(var800a45d0)
-/*  f153b88:	8c6f0010 */ 	lw	$t7,0x10($v1)
-/*  f153b8c:	c4600014 */ 	lwc1	$f0,0x14($v1)
-/*  f153b90:	44805000 */ 	mtc1	$zero,$f10
-/*  f153b94:	008f1023 */ 	subu	$v0,$a0,$t7
-/*  f153b98:	00420019 */ 	multu	$v0,$v0
-/*  f153b9c:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f153ba0:	0000c012 */ 	mflo	$t8
-/*  f153ba4:	44983000 */ 	mtc1	$t8,$f6
-/*  f153ba8:	00000000 */ 	nop
-/*  f153bac:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f153bb0:	46082301 */ 	sub.s	$f12,$f4,$f8
-/*  f153bb4:	460c503c */ 	c.lt.s	$f10,$f12
-/*  f153bb8:	00000000 */ 	nop
-/*  f153bbc:	45000010 */ 	bc1f	.L0f153c00
-/*  f153bc0:	00000000 */ 	nop
-/*  f153bc4:	0c012974 */ 	jal	sqrtf
-/*  f153bc8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f153bcc:	3c03800a */ 	lui	$v1,%hi(var800a45d0)
-/*  f153bd0:	246345d0 */ 	addiu	$v1,$v1,%lo(var800a45d0)
-/*  f153bd4:	8c79000c */ 	lw	$t9,0xc($v1)
-/*  f153bd8:	3c018008 */ 	lui	$at,%hi(var8007fba0)
-/*  f153bdc:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f153be0:	44998000 */ 	mtc1	$t9,$f16
-/*  f153be4:	00000000 */ 	nop
-/*  f153be8:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f153bec:	46120180 */ 	add.s	$f6,$f0,$f18
-/*  f153bf0:	4600310d */ 	trunc.w.s	$f4,$f6
-/*  f153bf4:	44092000 */ 	mfc1	$t1,$f4
-/*  f153bf8:	10000003 */ 	b	.L0f153c08
-/*  f153bfc:	ac29fba0 */ 	sw	$t1,%lo(var8007fba0)($at)
-.L0f153c00:
-/*  f153c00:	3c018008 */ 	lui	$at,%hi(var8007fba0)
-/*  f153c04:	ac20fba0 */ 	sw	$zero,%lo(var8007fba0)($at)
-.L0f153c08:
-/*  f153c08:	3c018008 */ 	lui	$at,%hi(var8007fba4)
-/*  f153c0c:	ac24fba4 */ 	sw	$a0,%lo(var8007fba4)($at)
-.L0f153c10:
-/*  f153c10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f153c14:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f153c18:	03e00008 */ 	jr	$ra
-/*  f153c1c:	00000000 */ 	nop
-);
+void func0f153b6c(s32 arg0)
+{
+	if (arg0 != var8007fba4) {
+		f32 tmp = var800a45d0.unk14 * var800a45d0.unk14 - (f32)((arg0 - var800a45d0.unk10) * (arg0 - var800a45d0.unk10));
+
+		if (tmp > 0.0f) {
+			var8007fba0 = sqrtf(tmp) + var800a45d0.unk0c;
+		} else {
+			var8007fba0 = 0;
+		}
+
+		var8007fba4 = arg0;
+	}
+}
 
 void func0f153c20(s32 x, s32 y, f32 arg2, u8 arg3)
 {
