@@ -42,10 +42,13 @@ const u32 var7f1b741c[] = {0x00000000};
 extern s32 var8007fba0;
 extern s32 var8007fba4;
 
+void func0f1531a0(void)
+{
+	// empty
+}
+
 GLOBAL_ASM(
-glabel func0f1531a0
-/*  f1531a0:	03e00008 */ 	jr	$ra
-/*  f1531a4:	00000000 */ 	nop
+glabel func0f1531a8
 /*  f1531a8:	00047023 */ 	negu	$t6,$a0
 /*  f1531ac:	3c018008 */ 	lui	$at,%hi(var8007fac4)
 /*  f1531b0:	03e00008 */ 	jr	$ra
