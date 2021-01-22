@@ -24,7 +24,7 @@ u32 func0f126c3c(void);
 u32 func0f126de8(void);
 Gfx *func0f12715c(Gfx *gdl);
 void func0f127334(s32 arg0, s32 arg1, s32 arg2);
-u32 func0f127490(void);
+s32 func0f127490(s32 arg0, s32 arg1);
 Gfx *func0f1274d8(Gfx *gdl);
 
 #endif

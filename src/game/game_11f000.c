@@ -9023,30 +9023,22 @@ glabel func0f127334
 /*  f12748c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f127490
-/*  f127490:	00a4082a */ 	slt	$at,$a1,$a0
-/*  f127494:	14200009 */ 	bnez	$at,.L0f1274bc
-/*  f127498:	00857823 */ 	subu	$t7,$a0,$a1
-/*  f12749c:	00a47023 */ 	subu	$t6,$a1,$a0
-/*  f1274a0:	29c10009 */ 	slti	$at,$t6,0x9
-/*  f1274a4:	14200003 */ 	bnez	$at,.L0f1274b4
-/*  f1274a8:	00000000 */ 	nop
-/*  f1274ac:	03e00008 */ 	jr	$ra
-/*  f1274b0:	24820008 */ 	addiu	$v0,$a0,0x8
-.L0f1274b4:
-/*  f1274b4:	03e00008 */ 	jr	$ra
-/*  f1274b8:	00a01025 */ 	or	$v0,$a1,$zero
-.L0f1274bc:
-/*  f1274bc:	29e10009 */ 	slti	$at,$t7,0x9
-/*  f1274c0:	14200003 */ 	bnez	$at,.L0f1274d0
-/*  f1274c4:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f1274c8:	03e00008 */ 	jr	$ra
-/*  f1274cc:	2482fff8 */ 	addiu	$v0,$a0,-8
-.L0f1274d0:
-/*  f1274d0:	03e00008 */ 	jr	$ra
-/*  f1274d4:	00000000 */ 	nop
-);
+s32 func0f127490(s32 arg0, s32 arg1)
+{
+	if (arg1 >= arg0) {
+		if (arg1 - arg0 > 8) {
+			return arg0 + 8;
+		}
+
+		return arg1;
+	}
+
+	if (arg0 - arg1 > 8) {
+		return arg0 - 8;
+	}
+
+	return arg1;
+}
 
 GLOBAL_ASM(
 glabel func0f1274d8
