@@ -328,19 +328,10 @@ glabel func0f11f3d0
 /*  f11f40c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f11f410
-/*  f11f410:	3c013f00 */ 	lui	$at,0x3f00
-/*  f11f414:	44812000 */ 	mtc1	$at,$f4
-/*  f11f418:	00000000 */ 	nop
-/*  f11f41c:	46046180 */ 	add.s	$f6,$f12,$f4
-/*  f11f420:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f11f424:	440f4000 */ 	mfc1	$t7,$f8
-/*  f11f428:	00000000 */ 	nop
-/*  f11f42c:	448f5000 */ 	mtc1	$t7,$f10
-/*  f11f430:	03e00008 */ 	jr	$ra
-/*  f11f434:	46805020 */ 	cvt.s.w	$f0,$f10
-);
+f32 func0f11f410(f32 value)
+{
+	return (s32)(value + 0.5f);
+}
 
 GLOBAL_ASM(
 glabel func0f11f438
