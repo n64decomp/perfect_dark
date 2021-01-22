@@ -6,7 +6,7 @@
 u32 func0f11f000(void);
 u32 func0f11f07c(void);
 u32 func0f11f1fc(void);
-u32 func0f11f384(void);
+void func0f11f384(struct coord *arg0, struct coord *arg1, struct coord *out);
 f32 func0f11f3d0(f32 value, f32 min, f32 max);
 f32 func0f11f410(f32 value);
 u32 func0f11f438(void);

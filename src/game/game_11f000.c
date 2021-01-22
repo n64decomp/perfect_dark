@@ -283,29 +283,22 @@ glabel var7f1b4ff4
 /*  f11f380:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel func0f11f384
-/*  f11f384:	c4820004 */ 	lwc1	$f2,0x4($a0)
-/*  f11f388:	c4a40004 */ 	lwc1	$f4,0x4($a1)
-/*  f11f38c:	c48c0000 */ 	lwc1	$f12,0x0($a0)
-/*  f11f390:	c4a80000 */ 	lwc1	$f8,0x0($a1)
-/*  f11f394:	46041181 */ 	sub.s	$f6,$f2,$f4
-/*  f11f398:	44802000 */ 	mtc1	$zero,$f4
-/*  f11f39c:	460c4281 */ 	sub.s	$f10,$f8,$f12
-/*  f11f3a0:	e4c40004 */ 	swc1	$f4,0x4($a2)
-/*  f11f3a4:	46061003 */ 	div.s	$f0,$f2,$f6
-/*  f11f3a8:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f11f3ac:	460c8480 */ 	add.s	$f18,$f16,$f12
-/*  f11f3b0:	e4d20000 */ 	swc1	$f18,0x0($a2)
-/*  f11f3b4:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*  f11f3b8:	c48e0008 */ 	lwc1	$f14,0x8($a0)
-/*  f11f3bc:	460e3201 */ 	sub.s	$f8,$f6,$f14
-/*  f11f3c0:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f11f3c4:	460e5400 */ 	add.s	$f16,$f10,$f14
-/*  f11f3c8:	03e00008 */ 	jr	$ra
-/*  f11f3cc:	e4d00008 */ 	swc1	$f16,0x8($a2)
-);
+/**
+ * Scale base based on the height percentage between base and ref...
+ * except the new y is zero.
+ */
+void func0f11f384(struct coord *base, struct coord *ref, struct coord *out)
+{
+	f32 mult = base->y / (base->y - ref->y);
 
+	out->x = (ref->x - base->x) * mult + base->x;
+	out->y = 0;
+	out->z = (ref->z - base->z) * mult + base->z;
+}
+
+/**
+ * A clamp function.
+ */
 f32 func0f11f3d0(f32 value, f32 min, f32 max)
 {
 	if (value < min) {
@@ -319,6 +312,9 @@ f32 func0f11f3d0(f32 value, f32 min, f32 max)
 	return value;
 }
 
+/**
+ * A round function.
+ */
 f32 func0f11f410(f32 value)
 {
 	return (s32)(value + 0.5f);
