@@ -306,27 +306,18 @@ glabel func0f11f384
 /*  f11f3cc:	e4d00008 */ 	swc1	$f16,0x8($a2)
 );
 
-GLOBAL_ASM(
-glabel func0f11f3d0
-/*  f11f3d0:	460e603c */ 	c.lt.s	$f12,$f14
-/*  f11f3d4:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f11f3d8:	c7a40008 */ 	lwc1	$f4,0x8($sp)
-/*  f11f3dc:	45020004 */ 	bc1fl	.L0f11f3f0
-/*  f11f3e0:	460c203c */ 	c.lt.s	$f4,$f12
-/*  f11f3e4:	03e00008 */ 	jr	$ra
-/*  f11f3e8:	46007006 */ 	mov.s	$f0,$f14
-/*  f11f3ec:	460c203c */ 	c.lt.s	$f4,$f12
-.L0f11f3f0:
-/*  f11f3f0:	00000000 */ 	nop
-/*  f11f3f4:	45020004 */ 	bc1fl	.L0f11f408
-/*  f11f3f8:	46006006 */ 	mov.s	$f0,$f12
-/*  f11f3fc:	03e00008 */ 	jr	$ra
-/*  f11f400:	46002006 */ 	mov.s	$f0,$f4
-/*  f11f404:	46006006 */ 	mov.s	$f0,$f12
-.L0f11f408:
-/*  f11f408:	03e00008 */ 	jr	$ra
-/*  f11f40c:	00000000 */ 	nop
-);
+f32 func0f11f3d0(f32 value, f32 min, f32 max)
+{
+	if (value < min) {
+		return min;
+	}
+
+	if (value > max) {
+		return max;
+	}
+
+	return value;
+}
 
 f32 func0f11f410(f32 value)
 {
