@@ -1181,16 +1181,12 @@ glabel func0f13d40c
 /*  f13d548:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f13d54c
-/*  f13d54c:	3c0eba00 */ 	lui	$t6,0xba00
-/*  f13d550:	35ce1301 */ 	ori	$t6,$t6,0x1301
-/*  f13d554:	3c0f0008 */ 	lui	$t7,0x8
-/*  f13d558:	ac8f0004 */ 	sw	$t7,0x4($a0)
-/*  f13d55c:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*  f13d560:	03e00008 */ 	jr	$ra
-/*  f13d564:	24820008 */ 	addiu	$v0,$a0,0x8
-);
+Gfx *func0f13d54c(Gfx *gdl)
+{
+	gDPSetTexturePersp(gdl++, G_TP_PERSP);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f13d568
