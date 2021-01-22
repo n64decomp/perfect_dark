@@ -6906,7 +6906,7 @@ struct escastepkeyframe {
 
 struct font2a4 {
 	u8 index;
-	u8 baseline;
+	s8 baseline;
 	u8 height;
 	u8 width;
 	u32 unk04;
