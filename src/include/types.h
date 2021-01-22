@@ -6904,4 +6904,18 @@ struct escastepkeyframe {
 	struct coord pos;
 };
 
+struct font2a4 {
+	u8 index;
+	u8 baseline;
+	u8 height;
+	u8 width;
+	u32 unk04;
+	u8 *data;
+};
+
+struct font {
+	u32 unk000[169];
+	struct font2a4 unk2a4[94];
+};
+
 #endif

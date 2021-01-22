@@ -77,104 +77,73 @@ void func0f1531dc(bool arg0)
 	}
 }
 
-GLOBAL_ASM(
-glabel fontLoad
-/*  f153204:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f153208:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f15320c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f153210:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f153214:	00a42023 */ 	subu	$a0,$a1,$a0
-/*  f153218:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f15321c:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f153220:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f153224:	0c0048f2 */ 	jal	malloc
-/*  f153228:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f15322c:	244802a4 */ 	addiu	$t0,$v0,0x2a4
-/*  f153230:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f153234:	00402025 */ 	or	$a0,$v0,$zero
-/*  f153238:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f15323c:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f153240:	0c003504 */ 	jal	func0000d410
-/*  f153244:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f153248:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*  f15324c:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f153250:	00001825 */ 	or	$v1,$zero,$zero
-/*  f153254:	01001025 */ 	or	$v0,$t0,$zero
-.L0f153258:
-/*  f153258:	8c580008 */ 	lw	$t8,0x8($v0)
-/*  f15325c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f153260:	2861005e */ 	slti	$at,$v1,0x5e
-/*  f153264:	0307c821 */ 	addu	$t9,$t8,$a3
-/*  f153268:	2442000c */ 	addiu	$v0,$v0,0xc
-/*  f15326c:	1420fffa */ 	bnez	$at,.L0f153258
-/*  f153270:	ac59fffc */ 	sw	$t9,-0x4($v0)
-/*  f153274:	8fa90040 */ 	lw	$t1,0x40($sp)
-/*  f153278:	00002825 */ 	or	$a1,$zero,$zero
-/*  f15327c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f153280:	11200012 */ 	beqz	$t1,.L0f1532cc
-/*  f153284:	01001025 */ 	or	$v0,$t0,$zero
-.L0f153288:
-/*  f153288:	90430003 */ 	lbu	$v1,0x3($v0)
-/*  f15328c:	2484000c */ 	addiu	$a0,$a0,0xc
-/*  f153290:	00a3082a */ 	slt	$at,$a1,$v1
-/*  f153294:	50200003 */ 	beqzl	$at,.L0f1532a4
-/*  f153298:	28810468 */ 	slti	$at,$a0,0x468
-/*  f15329c:	00602825 */ 	or	$a1,$v1,$zero
-/*  f1532a0:	28810468 */ 	slti	$at,$a0,0x468
-.L0f1532a4:
-/*  f1532a4:	1420fff8 */ 	bnez	$at,.L0f153288
-/*  f1532a8:	2442000c */ 	addiu	$v0,$v0,0xc
-/*  f1532ac:	24a5ffff */ 	addiu	$a1,$a1,-1
-/*  f1532b0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1532b4:	01001025 */ 	or	$v0,$t0,$zero
-/*  f1532b8:	2404005e */ 	addiu	$a0,$zero,0x5e
-.L0f1532bc:
-/*  f1532bc:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f1532c0:	2442000c */ 	addiu	$v0,$v0,0xc
-/*  f1532c4:	1464fffd */ 	bne	$v1,$a0,.L0f1532bc
-/*  f1532c8:	a045fff7 */ 	sb	$a1,-0x9($v0)
-.L0f1532cc:
-/*  f1532cc:	8faa0038 */ 	lw	$t2,0x38($sp)
-/*  f1532d0:	ad470000 */ 	sw	$a3,0x0($t2)
-/*  f1532d4:	8fab003c */ 	lw	$t3,0x3c($sp)
-/*  f1532d8:	ad680000 */ 	sw	$t0,0x0($t3)
-/*  f1532dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1532e0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f1532e4:	03e00008 */ 	jr	$ra
-/*  f1532e8:	00000000 */ 	nop
-);
+void fontLoad(u8 *romstart, u8 *romend, struct font **font1, struct font2a4 **font2, bool monospace)
+{
+	u32 len = (u32)romend - (u32)romstart;
+	s32 maxwidth;
+	s32 i;
+	struct font *font = malloc(len, MEMPOOL_STAGE);
+	struct font2a4 *font2a4 = font->unk2a4;
+
+	func0000d410(font, romstart, len);
+
+	// Convert pointers
+	for (i = 0; i < 94; i++) {
+		font2a4[i].data += (u32)font;
+	}
+
+	// If requested monospace, set all widths to the max, minus 1 for some reason
+	if (monospace) {
+		maxwidth = 0;
+
+		for (i = 0; i < 94; i++) {
+			if (font2a4[i].width > maxwidth) {
+				maxwidth = font2a4[i].width;
+			}
+		}
+
+		maxwidth--;
+
+		for (i = 0; i < 94; i++) {
+			font2a4[i].width = maxwidth;
+		}
+	}
+
+	*font1 = font;
+	*font2 = font2a4;
+}
 
 void fontsLoadForCurrentStage(void)
 {
-	extern void *_fontbankgothicSegmentRomStart,     *_fontbankgothicSegmentRomEnd;
-	extern void *_fontzurichSegmentRomStart,         *_fontzurichSegmentRomEnd;
-	extern void *_fonttahomaSegmentRomStart,         *_fonttahomaSegmentRomEnd;
-	extern void *_fontnumericSegmentRomStart,        *_fontnumericSegmentRomEnd;
-	extern void *_fonthandelgothicsmSegmentRomStart, *_fonthandelgothicsmSegmentRomEnd;
-	extern void *_fonthandelgothicxsSegmentRomStart, *_fonthandelgothicxsSegmentRomEnd;
-	extern void *_fonthandelgothicmdSegmentRomStart, *_fonthandelgothicmdSegmentRomEnd;
-	extern void *_fonthandelgothiclgSegmentRomStart, *_fonthandelgothiclgSegmentRomEnd;
-	extern void *_fontocramdSegmentRomStart,         *_fontocramdSegmentRomEnd;
-	extern void *_fontocralgSegmentRomStart,         *_fontocralgSegmentRomEnd;
+	extern u8 _fontbankgothicSegmentRomStart,     _fontbankgothicSegmentRomEnd;
+	extern u8 _fontzurichSegmentRomStart,         _fontzurichSegmentRomEnd;
+	extern u8 _fonttahomaSegmentRomStart,         _fonttahomaSegmentRomEnd;
+	extern u8 _fontnumericSegmentRomStart,        _fontnumericSegmentRomEnd;
+	extern u8 _fonthandelgothicsmSegmentRomStart, _fonthandelgothicsmSegmentRomEnd;
+	extern u8 _fonthandelgothicxsSegmentRomStart, _fonthandelgothicxsSegmentRomEnd;
+	extern u8 _fonthandelgothicmdSegmentRomStart, _fonthandelgothicmdSegmentRomEnd;
+	extern u8 _fonthandelgothiclgSegmentRomStart, _fonthandelgothiclgSegmentRomEnd;
+	extern u8 _fontocramdSegmentRomStart,         _fontocramdSegmentRomEnd;
+	extern u8 _fontocralgSegmentRomStart,         _fontocralgSegmentRomEnd;
 
 	var8007faec = 0;
-	g_FontTahoma2 = 0;
-	g_FontNumeric2 = 0;
-	g_FontHandelGothicXs2 = 0;
-	g_FontHandelGothicSm2 = 0;
-	g_FontHandelGothicMd2 = 0;
-	g_FontHandelGothicLg2 = 0;
+	g_FontTahoma2 = NULL;
+	g_FontNumeric2 = NULL;
+	g_FontHandelGothicXs2 = NULL;
+	g_FontHandelGothicSm2 = NULL;
+	g_FontHandelGothicMd2 = NULL;
+	g_FontHandelGothicLg2 = NULL;
 	var8007fb24 = 0;
 	var8007fb2c = 0;
 	var8007fb34 = 0;
 
 	var8007faf0 = 0;
-	g_FontTahoma1 = 0;
-	g_FontNumeric1 = 0;
-	g_FontHandelGothicXs1 = 0;
-	g_FontHandelGothicSm1 = 0;
-	g_FontHandelGothicMd1 = 0;
-	g_FontHandelGothicLg1 = 0;
+	g_FontTahoma1 = NULL;
+	g_FontNumeric1 = NULL;
+	g_FontHandelGothicXs1 = NULL;
+	g_FontHandelGothicSm1 = NULL;
+	g_FontHandelGothicMd1 = NULL;
+	g_FontHandelGothicLg1 = NULL;
 	var8007fb28 = 0;
 	var8007fb30 = 0;
 	var8007fb38 = 0;

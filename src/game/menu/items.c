@@ -3959,8 +3959,8 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 	s32 y;
 	struct menudfc *menudfc;
 	u8 savedvalue = var8007fb9c;
-	u32 font1 = g_FontHandelGothicSm1;
-	u32 font2 = g_FontHandelGothicSm2;
+	struct font2a4 *font1 = g_FontHandelGothicSm1;
+	struct font *font2 = g_FontHandelGothicSm2;
 
 	x = context->x + 10;
 	y = context->y + 2;
@@ -4592,8 +4592,8 @@ const char var7f1adfb8[] = "";
 //	char *text;
 //	s32 x = context->x + 10;
 //	s32 y = context->y + 2;
-//	u32 font1 = g_FontHandelGothicSm1;
-//	u32 font2 = g_FontHandelGothicSm2;
+//	struct font2a4 *font1 = g_FontHandelGothicSm1;
+//	struct font *font2 = g_FontHandelGothicSm2;
 //
 //	if (context->item->param1 & 0x00000010) {
 //		x -= 6;
@@ -6004,8 +6004,8 @@ glabel menuRenderItemCheckbox
 //	u8 data[3];
 //	bool checked = false;
 //	u32 fillcolour = 0xff002faf;
-//	u32 font2 = g_FontHandelGothicSm2;
-//	u32 font1 = g_FontHandelGothicSm1;
+//	struct font *font2 = g_FontHandelGothicSm2;
+//	struct font2a4 *font1 = g_FontHandelGothicSm1;
 //
 //	if (context->item->param1 & 0x00000200) {
 //		font2 = g_FontHandelGothicXs2;
@@ -6732,8 +6732,8 @@ u32 var800711ec = 0x20000000;
 //	s32 textheight; // 68
 //	char string[] = {' ', '\0'}; // 64 - var800711ec
 //	s32 hasmore;
-//	u32 font2 = g_FontHandelGothicSm2; // 5c
-//	u32 font1 = g_FontHandelGothicSm1; // 58
+//	struct font *font2 = g_FontHandelGothicSm2; // 5c
+//	struct font2a4 *font1 = g_FontHandelGothicSm1; // 58
 //
 //	if (context->item->param1 & 0x00000200) {
 //		font2 = g_FontHandelGothicXs2;
@@ -6947,8 +6947,8 @@ bool menuTickItemMarquee(struct menuitem *item, union menuitemdata *data)
 	s32 i;
 	s32 textheight;
 	s32 textwidth;
-	u32 font1;
-	u32 font2;
+	struct font2a4 *font1;
+	struct font *font2;
 	s32 increment;
 	u16 sum = 0;
 	char *text = menuResolveParam2Text(item);
