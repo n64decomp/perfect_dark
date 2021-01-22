@@ -2799,12 +2799,12 @@ struct player {
 	/*0x1c1c*/ u32 unk1c1c;
 	/*0x1c20*/ u32 unk1c20;
 	/*0x1c24*/ u32 unk1c24;
-	/*0x1c28*/ u32 unk1c28;
-	/*0x1c2c*/ u32 unk1c2c;
-	/*0x1c30*/ u32 unk1c30;
-	/*0x1c34*/ u32 unk1c34;
-	/*0x1c38*/ u32 unk1c38;
-	/*0x1c3c*/ u32 unk1c3c;
+	/*0x1c28*/ s32 unk1c28;
+	/*0x1c2c*/ s32 unk1c2c;
+	/*0x1c30*/ s32 unk1c30;
+	/*0x1c34*/ s32 unk1c34;
+	/*0x1c38*/ s32 unk1c38;
+	/*0x1c3c*/ s32 unk1c3c;
 	/*0x1c40*/ u32 joybutinhibit;
 	/*0x1c44*/ f32 unk1c44;
 	/*0x1c48*/ f32 unk1c48;
