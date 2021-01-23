@@ -2789,17 +2789,10 @@ glabel sightRenderClassic
 /*  f0d9924:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel sightRenderType2
-/*  f0d9928:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0d992c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0d9930:	0fc36551 */ 	jal	sightRenderClassic
-/*  f0d9934:	00000000 */ 	nop
-/*  f0d9938:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0d993c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0d9940:	03e00008 */ 	jr	$ra
-/*  f0d9944:	00000000 */ 	nop
-);
+Gfx *sightRenderType2(Gfx *gdl, bool arg1)
+{
+	return sightRenderClassic(gdl, arg1);
+}
 
 GLOBAL_ASM(
 glabel func0f0d9948
