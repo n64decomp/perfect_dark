@@ -733,20 +733,18 @@ glabel func0f0b201c
 /*  f0b207c:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*  f0b2080:	03e00008 */ 	jr	$ra
 /*  f0b2084:	00000000 */ 	nop
-/*  f0b2088:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f0b208c:	3c038007 */ 	lui	$v1,%hi(g_Weapons)
-/*  f0b2090:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b2094:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0b2098:	006f1821 */ 	addu	$v1,$v1,$t7
-/*  f0b209c:	8c63ff18 */ 	lw	$v1,%lo(g_Weapons)($v1)
-/*  f0b20a0:	10600003 */ 	beqz	$v1,.L0f0b20b0
-/*  f0b20a4:	00000000 */ 	nop
-/*  f0b20a8:	03e00008 */ 	jr	$ra
-/*  f0b20ac:	8c620004 */ 	lw	$v0,0x4($v1)
-.L0f0b20b0:
-/*  f0b20b0:	03e00008 */ 	jr	$ra
-/*  f0b20b4:	00000000 */ 	nop
 );
+
+u32 *handGetEquipAnim(struct hand *hand)
+{
+	struct weapon *weapon = g_Weapons[hand->weaponnum];
+
+	if (weapon) {
+		return weapon->equip_animation;
+	}
+
+	return NULL;
+}
 
 u32 *handGetUnequipAnim(struct hand *hand)
 {
