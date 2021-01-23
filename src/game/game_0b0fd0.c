@@ -316,9 +316,12 @@ glabel func0f0b184c
 .L0f0b18a4:
 /*  f0b18a4:	03e00008 */ 	jr	$ra
 /*  f0b18a8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b18ac:	03e00008 */ 	jr	$ra
-/*  f0b18b0:	afa40000 */ 	sw	$a0,0x0($sp)
 );
+
+void func0f0b18ac(s32 arg0)
+{
+	// empty
+}
 
 void func0f0b18b4(s32 arg0)
 {
