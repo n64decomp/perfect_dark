@@ -12,7 +12,7 @@ void incrementKnockoutCount(void);
 void decrementKnockoutCount(void);
 u8 getKnockoutCount(void);
 u32 getKillCount(void);
-u32 func0f0b05a4(void);
+void mpstatsRecordKill(void);
 s32 currentPlayerGetNumKills(void);
 void currentPlayerIncrementDeathCount(void);
 void currentPlayerRecordSuicide(void);

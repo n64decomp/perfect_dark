@@ -3791,7 +3791,7 @@ glabel var7f1a8d44
 /*  f0329e8:	8dada24c */ 	lw	$t5,%lo(g_Vars+0x28c)($t5)
 /*  f0329ec:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f0329f0:	afad0058 */ 	sw	$t5,0x58($sp)
-/*  f0329f4:	0fc2c169 */ 	jal	func0f0b05a4
+/*  f0329f4:	0fc2c169 */ 	jal	mpstatsRecordKill
 /*  f0329f8:	00000000 */ 	nop
 /*  f0329fc:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f032a00:	8fa40058 */ 	lw	$a0,0x58($sp)
@@ -7529,7 +7529,7 @@ glabel var7f1a8d98
 /*  f03600c:	afa80074 */ 	sw	$t0,0x74($sp)
 /*  f036010:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f036014:	00402025 */ 	or	$a0,$v0,$zero
-/*  f036018:	0fc2c169 */ 	jal	func0f0b05a4
+/*  f036018:	0fc2c169 */ 	jal	mpstatsRecordKill
 /*  f03601c:	00000000 */ 	nop
 /*  f036020:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f036024:	8fa40074 */ 	lw	$a0,0x74($sp)

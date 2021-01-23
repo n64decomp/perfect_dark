@@ -23,8 +23,6 @@
 #include "lib/lib_13130.h"
 #include "types.h"
 
-const char var7f1acda0[] = "%s: %d\n";
-
 void func0f0b0420(struct hand *hand, s32 index)
 {
 	if (!weaponHasFlag(hand->weaponnum, WEAPONFLAG_00100000)) {
@@ -85,116 +83,62 @@ u32 getKillCount(void)
 	return g_Vars.killcount;
 }
 
-GLOBAL_ASM(
-glabel func0f0b05a4
-/*  f0b05a4:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f0b05a8:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f0b05ac:	8d030288 */ 	lw	$v1,0x288($t0)
-/*  f0b05b0:	27bdfec8 */ 	addiu	$sp,$sp,-312
-/*  f0b05b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b05b8:	8c6e001c */ 	lw	$t6,0x1c($v1)
-/*  f0b05bc:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f0b05c0:	ac6f001c */ 	sw	$t7,0x1c($v1)
-/*  f0b05c4:	8d020284 */ 	lw	$v0,0x284($t0)
-/*  f0b05c8:	8c581960 */ 	lw	$t8,0x1960($v0)
-/*  f0b05cc:	27190001 */ 	addiu	$t9,$t8,0x1
-/*  f0b05d0:	ac591960 */ 	sw	$t9,0x1960($v0)
-/*  f0b05d4:	8d090318 */ 	lw	$t1,0x318($t0)
-/*  f0b05d8:	51200055 */ 	beqzl	$t1,.L0f0b0730
-/*  f0b05dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b05e0:	0fc3089f */ 	jal	getMissionTime
-/*  f0b05e4:	00000000 */ 	nop
-/*  f0b05e8:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f0b05ec:	0fc5b9f1 */ 	jal	langGet
-/*  f0b05f0:	24044c01 */ 	addiu	$a0,$zero,0x4c01
-/*  f0b05f4:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f0b05f8:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f0b05fc:	8d0a0288 */ 	lw	$t2,0x288($t0)
-/*  f0b0600:	3c057f1b */ 	lui	$a1,%hi(var7f1acda0)
-/*  f0b0604:	24a5cda0 */ 	addiu	$a1,$a1,%lo(var7f1acda0)
-/*  f0b0608:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*  f0b060c:	00403025 */ 	or	$a2,$v0,$zero
-/*  f0b0610:	0c004dad */ 	jal	sprintf
-/*  f0b0614:	8d47001c */ 	lw	$a3,0x1c($t2)
-/*  f0b0618:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*  f0b061c:	0fc377c7 */ 	jal	hudmsgCreateViaPreset
-/*  f0b0620:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0b0624:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f0b0628:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f0b062c:	8d030288 */ 	lw	$v1,0x288($t0)
-/*  f0b0630:	8c6b001c */ 	lw	$t3,0x1c($v1)
-/*  f0b0634:	29610002 */ 	slti	$at,$t3,0x2
-/*  f0b0638:	54200011 */ 	bnezl	$at,.L0f0b0680
-/*  f0b063c:	8d020284 */ 	lw	$v0,0x284($t0)
-/*  f0b0640:	8d0d0284 */ 	lw	$t5,0x284($t0)
-/*  f0b0644:	8fac002c */ 	lw	$t4,0x2c($sp)
-/*  f0b0648:	8c6f0048 */ 	lw	$t7,0x48($v1)
-/*  f0b064c:	8dae194c */ 	lw	$t6,0x194c($t5)
-/*  f0b0650:	018e1023 */ 	subu	$v0,$t4,$t6
-/*  f0b0654:	01e2082a */ 	slt	$at,$t7,$v0
-/*  f0b0658:	50200004 */ 	beqzl	$at,.L0f0b066c
-/*  f0b065c:	8c780044 */ 	lw	$t8,0x44($v1)
-/*  f0b0660:	ac620048 */ 	sw	$v0,0x48($v1)
-/*  f0b0664:	8d030288 */ 	lw	$v1,0x288($t0)
-/*  f0b0668:	8c780044 */ 	lw	$t8,0x44($v1)
-.L0f0b066c:
-/*  f0b066c:	0058082a */ 	slt	$at,$v0,$t8
-/*  f0b0670:	50200003 */ 	beqzl	$at,.L0f0b0680
-/*  f0b0674:	8d020284 */ 	lw	$v0,0x284($t0)
-/*  f0b0678:	ac620044 */ 	sw	$v0,0x44($v1)
-/*  f0b067c:	8d020284 */ 	lw	$v0,0x284($t0)
-.L0f0b0680:
-/*  f0b0680:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f0b0684:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0b0688:	8c591954 */ 	lw	$t9,0x1954($v0)
-/*  f0b068c:	ac591958 */ 	sw	$t9,0x1958($v0)
-/*  f0b0690:	8d020284 */ 	lw	$v0,0x284($t0)
-/*  f0b0694:	8c491950 */ 	lw	$t1,0x1950($v0)
-/*  f0b0698:	ac491954 */ 	sw	$t1,0x1954($v0)
-/*  f0b069c:	8d020284 */ 	lw	$v0,0x284($t0)
-/*  f0b06a0:	8c4a194c */ 	lw	$t2,0x194c($v0)
-/*  f0b06a4:	ac4a1950 */ 	sw	$t2,0x1950($v0)
-/*  f0b06a8:	8d0d0284 */ 	lw	$t5,0x284($t0)
-/*  f0b06ac:	8fab002c */ 	lw	$t3,0x2c($sp)
-/*  f0b06b0:	adab194c */ 	sw	$t3,0x194c($t5)
-/*  f0b06b4:	8d020284 */ 	lw	$v0,0x284($t0)
-/*  f0b06b8:	8c451950 */ 	lw	$a1,0x1950($v0)
-/*  f0b06bc:	50c50016 */ 	beql	$a2,$a1,.L0f0b0718
-/*  f0b06c0:	8d030288 */ 	lw	$v1,0x288($t0)
-/*  f0b06c4:	8c43194c */ 	lw	$v1,0x194c($v0)
-/*  f0b06c8:	00656023 */ 	subu	$t4,$v1,$a1
-/*  f0b06cc:	29810078 */ 	slti	$at,$t4,0x78
-/*  f0b06d0:	50200011 */ 	beqzl	$at,.L0f0b0718
-/*  f0b06d4:	8d030288 */ 	lw	$v1,0x288($t0)
-/*  f0b06d8:	8c451954 */ 	lw	$a1,0x1954($v0)
-/*  f0b06dc:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f0b06e0:	10c5000c */ 	beq	$a2,$a1,.L0f0b0714
-/*  f0b06e4:	00657023 */ 	subu	$t6,$v1,$a1
-/*  f0b06e8:	29c10078 */ 	slti	$at,$t6,0x78
-/*  f0b06ec:	5020000a */ 	beqzl	$at,.L0f0b0718
-/*  f0b06f0:	8d030288 */ 	lw	$v1,0x288($t0)
-/*  f0b06f4:	8c451958 */ 	lw	$a1,0x1958($v0)
-/*  f0b06f8:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f0b06fc:	10c50005 */ 	beq	$a2,$a1,.L0f0b0714
-/*  f0b0700:	00657823 */ 	subu	$t7,$v1,$a1
-/*  f0b0704:	29e10078 */ 	slti	$at,$t7,0x78
-/*  f0b0708:	50200003 */ 	beqzl	$at,.L0f0b0718
-/*  f0b070c:	8d030288 */ 	lw	$v1,0x288($t0)
-/*  f0b0710:	24840001 */ 	addiu	$a0,$a0,0x1
-.L0f0b0714:
-/*  f0b0714:	8d030288 */ 	lw	$v1,0x288($t0)
-.L0f0b0718:
-/*  f0b0718:	8c780058 */ 	lw	$t8,0x58($v1)
-/*  f0b071c:	0304082a */ 	slt	$at,$t8,$a0
-/*  f0b0720:	50200003 */ 	beqzl	$at,.L0f0b0730
-/*  f0b0724:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b0728:	ac640058 */ 	sw	$a0,0x58($v1)
-/*  f0b072c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0b0730:
-/*  f0b0730:	27bd0138 */ 	addiu	$sp,$sp,0x138
-/*  f0b0734:	03e00008 */ 	jr	$ra
-/*  f0b0738:	00000000 */ 	nop
-);
+void mpstatsRecordKill(void)
+{
+	char text[256];
+	s32 simulkills;
+	s32 duration;
+	s32 time;
+
+	g_Vars.currentplayerstats->killcount++;
+	g_Vars.currentplayer->killsthislife++;
+
+	if (g_Vars.normmplayerisrunning) {
+		time = getMissionTime();
+
+		// Show HUD message
+		// "Kill count: %d"
+		sprintf(text, "%s: %d\n", langGet(L_GUN(1)), g_Vars.currentplayerstats->killcount);
+		hudmsgCreateViaPreset(text, HUDMSGTYPE_DEFAULT);
+
+		// Update slowest/fastest two kills
+		if (g_Vars.currentplayerstats->killcount > 1) {
+			duration = time - g_Vars.currentplayer->lastkilltime60;
+
+			if (duration > g_Vars.currentplayerstats->slowest2kills) {
+				g_Vars.currentplayerstats->slowest2kills = duration;
+			}
+
+			if (duration < g_Vars.currentplayerstats->fastest2kills) {
+				g_Vars.currentplayerstats->fastest2kills = duration;
+			}
+		}
+
+		// Update max simultaneous kills
+		simulkills = 1;
+
+		g_Vars.currentplayer->lastkilltime60_4 = g_Vars.currentplayer->lastkilltime60_3;
+		g_Vars.currentplayer->lastkilltime60_3 = g_Vars.currentplayer->lastkilltime60_2;
+		g_Vars.currentplayer->lastkilltime60_2 = g_Vars.currentplayer->lastkilltime60;
+		g_Vars.currentplayer->lastkilltime60 = time;
+
+		if (g_Vars.currentplayer->lastkilltime60_2 != -1 && g_Vars.currentplayer->lastkilltime60 - g_Vars.currentplayer->lastkilltime60_2 < 120) {
+			simulkills++;
+
+			if (g_Vars.currentplayer->lastkilltime60_3 != -1 && g_Vars.currentplayer->lastkilltime60 - g_Vars.currentplayer->lastkilltime60_3 < 120) {
+				simulkills++;
+
+				if (g_Vars.currentplayer->lastkilltime60_4 != -1 && g_Vars.currentplayer->lastkilltime60 - g_Vars.currentplayer->lastkilltime60_4 < 120) {
+					simulkills++;
+				}
+			}
+		}
+
+		if (simulkills > g_Vars.currentplayerstats->maxsimulkills) {
+			g_Vars.currentplayerstats->maxsimulkills = simulkills;
+		}
+	}
+}
 
 s32 currentPlayerGetNumKills(void)
 {
@@ -378,7 +322,7 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 				hudmsgCreateViaPreset(text, HUDMSGTYPE_DEFAULT);
 			}
 
-			func0f0b05a4();
+			mpstatsRecordKill();
 			setCurrentPlayerNum(prevplayernum);
 		}
 
