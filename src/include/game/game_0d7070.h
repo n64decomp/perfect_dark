@@ -21,7 +21,7 @@ Gfx *sightRenderSkedar(Gfx *gdl, bool arg1);
 Gfx *sightRenderZoom(Gfx *gdl, bool arg1);
 Gfx *sightRenderMaian(Gfx *gdl, bool arg1);
 Gfx *sightRenderTarget(Gfx *gdl);
-bool func0f0dca28(s32 sight);
+bool sightHasTargetWhileAiming(s32 sight);
 Gfx *sightRender(Gfx *gdl, bool arg1, s32 sight);
 
 #endif

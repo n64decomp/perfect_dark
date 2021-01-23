@@ -6155,19 +6155,14 @@ glabel sightRenderTarget
 /*  f0dca24:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0dca28
-/*  f0dca28:	10800003 */ 	beqz	$a0,.L0f0dca38
-/*  f0dca2c:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f0dca30:	14810003 */ 	bne	$a0,$at,.L0f0dca40
-/*  f0dca34:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0dca38:
-/*  f0dca38:	03e00008 */ 	jr	$ra
-/*  f0dca3c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0dca40:
-/*  f0dca40:	03e00008 */ 	jr	$ra
-/*  f0dca44:	00000000 */ 	nop
-);
+bool sightHasTargetWhileAiming(s32 sight)
+{
+	if (sight == SIGHT_DEFAULT || sight == SIGHT_ZOOM) {
+		return true;
+	}
+
+	return false;
+}
 
 Gfx *sightRender(Gfx *gdl, bool arg1, s32 sight)
 {
@@ -6224,7 +6219,7 @@ Gfx *sightRender(Gfx *gdl, bool arg1, s32 sight)
 
 	if (sight != SIGHT_NONE && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex)) {
 		if ((optionsGetAlwaysShowTarget(g_Vars.currentplayerstats->mpindex) && !arg1)
-				|| (arg1 && func0f0dca28(sight))) {
+				|| (arg1 && sightHasTargetWhileAiming(sight))) {
 			gdl = sightRenderTarget(gdl);
 		}
 	}
