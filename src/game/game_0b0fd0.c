@@ -318,9 +318,12 @@ glabel func0f0b184c
 /*  f0b18a8:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f0b18ac:	03e00008 */ 	jr	$ra
 /*  f0b18b0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f0b18b4:	03e00008 */ 	jr	$ra
-/*  f0b18b8:	afa40000 */ 	sw	$a0,0x0($sp)
 );
+
+void func0f0b18b4(s32 arg0)
+{
+	// empty
+}
 
 s32 currentPlayerGetDeviceState(s32 weaponnum)
 {
