@@ -746,20 +746,18 @@ glabel func0f0b201c
 .L0f0b20b0:
 /*  f0b20b0:	03e00008 */ 	jr	$ra
 /*  f0b20b4:	00000000 */ 	nop
-/*  f0b20b8:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f0b20bc:	3c038007 */ 	lui	$v1,%hi(g_Weapons)
-/*  f0b20c0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b20c4:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0b20c8:	006f1821 */ 	addu	$v1,$v1,$t7
-/*  f0b20cc:	8c63ff18 */ 	lw	$v1,%lo(g_Weapons)($v1)
-/*  f0b20d0:	10600003 */ 	beqz	$v1,.L0f0b20e0
-/*  f0b20d4:	00000000 */ 	nop
-/*  f0b20d8:	03e00008 */ 	jr	$ra
-/*  f0b20dc:	8c620008 */ 	lw	$v0,0x8($v1)
-.L0f0b20e0:
-/*  f0b20e0:	03e00008 */ 	jr	$ra
-/*  f0b20e4:	00000000 */ 	nop
 );
+
+u32 *handGetUnequipAnim(struct hand *hand)
+{
+	struct weapon *weapon = g_Weapons[hand->weaponnum];
+
+	if (weapon) {
+		return weapon->unequip_animation;
+	}
+
+	return NULL;
+}
 
 u32 *handGetPriToSecAnim(struct hand *hand)
 {
