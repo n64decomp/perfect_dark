@@ -78,70 +78,35 @@ glabel func0f0d715c
 /*  f0d7168:	00801025 */ 	or	$v0,$a0,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f0d716c
-/*  f0d716c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0d7170:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0d7174:	18a0000b */ 	blez	$a1,.L0f0d71a4
-/*  f0d7178:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0d717c:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x284)
-/*  f0d7180:	8c63a244 */ 	lw	$v1,%lo(g_Vars+0x284)($v1)
-.L0f0d7184:
-/*  f0d7184:	8c6e1630 */ 	lw	$t6,0x1630($v1)
-/*  f0d7188:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0d718c:	148e0003 */ 	bne	$a0,$t6,.L0f0d719c
-/*  f0d7190:	00000000 */ 	nop
-/*  f0d7194:	10000026 */ 	b	.L0f0d7230
-/*  f0d7198:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0d719c:
-/*  f0d719c:	1445fff9 */ 	bne	$v0,$a1,.L0f0d7184
-/*  f0d71a0:	2463000c */ 	addiu	$v1,$v1,12
-.L0f0d71a4:
-/*  f0d71a4:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f0d71a8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0d71ac:	54410004 */ 	bnel	$v0,$at,.L0f0d71c0
-/*  f0d71b0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0d71b4:	1000001e */ 	b	.L0f0d7230
-/*  f0d71b8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0d71bc:	24010006 */ 	addiu	$at,$zero,0x6
-.L0f0d71c0:
-/*  f0d71c0:	54410004 */ 	bnel	$v0,$at,.L0f0d71d4
-/*  f0d71c4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0d71c8:	10000019 */ 	b	.L0f0d7230
-/*  f0d71cc:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0d71d0:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f0d71d4:
-/*  f0d71d4:	10410005 */ 	beq	$v0,$at,.L0f0d71ec
-/*  f0d71d8:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0d71dc:	10410003 */ 	beq	$v0,$at,.L0f0d71ec
-/*  f0d71e0:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0d71e4:	1441000a */ 	bne	$v0,$at,.L0f0d7210
-/*  f0d71e8:	00000000 */ 	nop
-.L0f0d71ec:
-/*  f0d71ec:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f0d71f0:	10400007 */ 	beqz	$v0,.L0f0d7210
-/*  f0d71f4:	00000000 */ 	nop
-/*  f0d71f8:	8c4f0010 */ 	lw	$t7,0x10($v0)
-/*  f0d71fc:	31f88000 */ 	andi	$t8,$t7,0x8000
-/*  f0d7200:	13000003 */ 	beqz	$t8,.L0f0d7210
-/*  f0d7204:	00000000 */ 	nop
-/*  f0d7208:	10000009 */ 	b	.L0f0d7230
-/*  f0d720c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0d7210:
-/*  f0d7210:	0fc2866a */ 	jal	handGetWeaponNum
-/*  f0d7214:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0d7218:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f0d721c:	54410004 */ 	bnel	$v0,$at,.L0f0d7230
-/*  f0d7220:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0d7224:	10000002 */ 	b	.L0f0d7230
-/*  f0d7228:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0d722c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0d7230:
-/*  f0d7230:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0d7234:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0d7238:	03e00008 */ 	jr	$ra
-/*  f0d723c:	00000000 */ 	nop
-);
+bool func0f0d716c(struct prop *prop, s32 arg1)
+{
+	s32 i;
+
+	for (i = 0; i < arg1; i++) {
+		if (prop == g_Vars.currentplayer->cmpfollowprops[i].prop) {
+			return false;
+		}
+	}
+
+	if (prop->type == PROPTYPE_CHR) {
+		return true;
+	}
+
+	if (prop->type == PROPTYPE_PLAYER) {
+		return true;
+	}
+
+	if ((prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR)
+			&& prop->obj && (prop->obj->flags3 & OBJFLAG3_00008000)) {
+		return true;
+	}
+
+	if (handGetWeaponNum(HAND_RIGHT) == WEAPON_ROCKETLAUNCHER) {
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f0d7240
