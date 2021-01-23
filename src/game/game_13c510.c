@@ -1069,89 +1069,24 @@ u8 func0f13d3c4(u8 arg0, u8 arg1)
 	return arg1;
 }
 
-GLOBAL_ASM(
-glabel func0f13d40c
-/*  f13d40c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f13d410:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f13d414:	0fc59570 */ 	jal	stageGetCurrent
-/*  f13d418:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f13d41c:	904e0002 */ 	lbu	$t6,0x2($v0)
-/*  f13d420:	3c18800b */ 	lui	$t8,%hi(var800ab5a0)
-/*  f13d424:	8f18b5a0 */ 	lw	$t8,%lo(var800ab5a0)($t8)
-/*  f13d428:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f13d42c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f13d430:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f13d434:	24190002 */ 	addiu	$t9,$zero,0x2
-/*  f13d438:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f13d43c:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f13d440:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f13d444:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f13d448:	27a40028 */ 	addiu	$a0,$sp,0x28
-/*  f13d44c:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f13d450:	00003825 */ 	or	$a3,$zero,$zero
-/*  f13d454:	0fc2ce70 */ 	jal	func0f0b39c0
-/*  f13d458:	01f82821 */ 	addu	$a1,$t7,$t8
-/*  f13d45c:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*  f13d460:	3c0bba00 */ 	lui	$t3,0xba00
-/*  f13d464:	356b1402 */ 	ori	$t3,$t3,0x1402
-/*  f13d468:	252a0008 */ 	addiu	$t2,$t1,0x8
-/*  f13d46c:	afaa0028 */ 	sw	$t2,0x28($sp)
-/*  f13d470:	ad200004 */ 	sw	$zero,0x4($t1)
-/*  f13d474:	ad2b0000 */ 	sw	$t3,0x0($t1)
-/*  f13d478:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*  f13d47c:	3c0eb900 */ 	lui	$t6,0xb900
-/*  f13d480:	3c0f0050 */ 	lui	$t7,0x50
-/*  f13d484:	258d0008 */ 	addiu	$t5,$t4,0x8
-/*  f13d488:	afad0028 */ 	sw	$t5,0x28($sp)
-/*  f13d48c:	35ef4340 */ 	ori	$t7,$t7,0x4340
-/*  f13d490:	35ce031d */ 	ori	$t6,$t6,0x31d
-/*  f13d494:	ad8e0000 */ 	sw	$t6,0x0($t4)
-/*  f13d498:	ad8f0004 */ 	sw	$t7,0x4($t4)
-/*  f13d49c:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*  f13d4a0:	3c08ba00 */ 	lui	$t0,0xba00
-/*  f13d4a4:	35080c02 */ 	ori	$t0,$t0,0xc02
-/*  f13d4a8:	27190008 */ 	addiu	$t9,$t8,0x8
-/*  f13d4ac:	afb90028 */ 	sw	$t9,0x28($sp)
-/*  f13d4b0:	24092000 */ 	addiu	$t1,$zero,0x2000
-/*  f13d4b4:	af090004 */ 	sw	$t1,0x4($t8)
-/*  f13d4b8:	af080000 */ 	sw	$t0,0x0($t8)
-/*  f13d4bc:	8faa0028 */ 	lw	$t2,0x28($sp)
-/*  f13d4c0:	3c0cfcff */ 	lui	$t4,0xfcff
-/*  f13d4c4:	3c0dff36 */ 	lui	$t5,0xff36
-/*  f13d4c8:	254b0008 */ 	addiu	$t3,$t2,0x8
-/*  f13d4cc:	afab0028 */ 	sw	$t3,0x28($sp)
-/*  f13d4d0:	35adff7f */ 	ori	$t5,$t5,0xff7f
-/*  f13d4d4:	358c9bff */ 	ori	$t4,$t4,0x9bff
-/*  f13d4d8:	ad4c0000 */ 	sw	$t4,0x0($t2)
-/*  f13d4dc:	ad4d0004 */ 	sw	$t5,0x4($t2)
-/*  f13d4e0:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*  f13d4e4:	3c18ba00 */ 	lui	$t8,0xba00
-/*  f13d4e8:	37180602 */ 	ori	$t8,$t8,0x602
-/*  f13d4ec:	25cf0008 */ 	addiu	$t7,$t6,0x8
-/*  f13d4f0:	afaf0028 */ 	sw	$t7,0x28($sp)
-/*  f13d4f4:	24190040 */ 	addiu	$t9,$zero,0x40
-/*  f13d4f8:	add90004 */ 	sw	$t9,0x4($t6)
-/*  f13d4fc:	add80000 */ 	sw	$t8,0x0($t6)
-/*  f13d500:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*  f13d504:	3c0aba00 */ 	lui	$t2,0xba00
-/*  f13d508:	354a0402 */ 	ori	$t2,$t2,0x402
-/*  f13d50c:	25090008 */ 	addiu	$t1,$t0,0x8
-/*  f13d510:	afa90028 */ 	sw	$t1,0x28($sp)
-/*  f13d514:	ad000004 */ 	sw	$zero,0x4($t0)
-/*  f13d518:	ad0a0000 */ 	sw	$t2,0x0($t0)
-/*  f13d51c:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*  f13d520:	3c0dba00 */ 	lui	$t5,0xba00
-/*  f13d524:	35ad1301 */ 	ori	$t5,$t5,0x1301
-/*  f13d528:	256c0008 */ 	addiu	$t4,$t3,0x8
-/*  f13d52c:	afac0028 */ 	sw	$t4,0x28($sp)
-/*  f13d530:	ad600004 */ 	sw	$zero,0x4($t3)
-/*  f13d534:	ad6d0000 */ 	sw	$t5,0x0($t3)
-/*  f13d538:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f13d53c:	8fa20028 */ 	lw	$v0,0x28($sp)
-/*  f13d540:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f13d544:	03e00008 */ 	jr	$ra
-/*  f13d548:	00000000 */ 	nop
-);
+Gfx *func0f13d40c(Gfx *gdl)
+{
+	struct stagetableentry *stage = stageGetCurrent();
+
+	func0f0b39c0(&gdl, &var800ab5a0[stage->light_type], 4, 0, 2, 1, 0);
+
+	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+	gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
+	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+	gDPSetCombineLERP(gdl++,
+			0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0,
+			0, 0, 0, ENVIRONMENT, TEXEL0, 0, ENVIRONMENT, 0);
+	gDPSetColorDither(gdl++, G_CD_BAYER);
+	gDPSetAlphaDither(gdl++, G_AD_PATTERN);
+	gDPSetTexturePersp(gdl++, G_TP_NONE);
+
+	return gdl;
+}
 
 Gfx *func0f13d54c(Gfx *gdl)
 {
