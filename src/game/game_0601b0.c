@@ -2330,10 +2330,10 @@ void handInflictCloseRangeDamage(s32 handnum, struct hand *hand, bool arg2)
 							func0f0a0cb0(&spd8, &spcc, handnum, true);
 
 							if (func000225d4(spe4, &spd8, &spcc, &spc8) > 0) {
-								f32 somefloat = func0f0b1d28(hand) * 2.5f;
+								f32 damage = handGetDamage(hand) * 2.5f;
 								skipthething = true;
 								func0f0a8404(&playerprop->pos, playerprop->rooms, -1);
-								func0f085270(obj, somefloat, &prop->pos, hand->weaponnum, g_Vars.currentplayernum);
+								func0f085270(obj, damage, &prop->pos, hand->weaponnum, g_Vars.currentplayernum);
 								func0f070698(prop, false);
 							}
 						} else if (arg2) {
@@ -2364,7 +2364,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct hand *hand, bool arg2)
 									sp9c = 15;
 								}
 
-								func0f0341dc(chr, func0f0b1d28(hand), &spac, hand,
+								func0f0341dc(chr, handGetDamage(hand), &spac, hand,
 										g_Vars.currentplayer->prop, sp9c, chr->prop, spa8, spa4, spa0, 0);
 							}
 						}

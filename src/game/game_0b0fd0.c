@@ -543,81 +543,42 @@ f32 handGetSingleUnk34(struct hand *hand)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f0b1d28
-/*  f0b1d28:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b1d2c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1d30:	0fc2c41f */ 	jal	handGetWeaponFunction
-/*  f0b1d34:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0b1d38:	44801000 */ 	mtc1	$zero,$f2
-/*  f0b1d3c:	10400016 */ 	beqz	$v0,.L0f0b1d98
-/*  f0b1d40:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f0b1d44:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f0b1d48:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0b1d4c:	306e00ff */ 	andi	$t6,$v1,0xff
-/*  f0b1d50:	15c10002 */ 	bne	$t6,$at,.L0f0b1d5c
-/*  f0b1d54:	01c01825 */ 	or	$v1,$t6,$zero
-/*  f0b1d58:	c442001c */ 	lwc1	$f2,0x1c($v0)
-.L0f0b1d5c:
-/*  f0b1d5c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0b1d60:	5461000a */ 	bnel	$v1,$at,.L0f0b1d8c
-/*  f0b1d64:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0b1d68:	908f0000 */ 	lbu	$t7,0x0($a0)
-/*  f0b1d6c:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f0b1d70:	c4420014 */ 	lwc1	$f2,0x14($v0)
-/*  f0b1d74:	15e10004 */ 	bne	$t7,$at,.L0f0b1d88
-/*  f0b1d78:	3c01800a */ 	lui	$at,%hi(g_Vars+0x44)
-/*  f0b1d7c:	c424a004 */ 	lwc1	$f4,%lo(g_Vars+0x44)($at)
-/*  f0b1d80:	46041082 */ 	mul.s	$f2,$f2,$f4
-/*  f0b1d84:	00000000 */ 	nop
-.L0f0b1d88:
-/*  f0b1d88:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f0b1d8c:
-/*  f0b1d8c:	54610003 */ 	bnel	$v1,$at,.L0f0b1d9c
-/*  f0b1d90:	90980000 */ 	lbu	$t8,0x0($a0)
-/*  f0b1d94:	c4420020 */ 	lwc1	$f2,0x20($v0)
-.L0f0b1d98:
-/*  f0b1d98:	90980000 */ 	lbu	$t8,0x0($a0)
-.L0f0b1d9c:
-/*  f0b1d9c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0b1da0:	57010012 */ 	bnel	$t8,$at,.L0f0b1dec
-/*  f0b1da4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0b1da8:	90990002 */ 	lbu	$t9,0x2($a0)
-/*  f0b1dac:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0b1db0:	44993000 */ 	mtc1	$t9,$f6
-/*  f0b1db4:	07210004 */ 	bgez	$t9,.L0f0b1dc8
-/*  f0b1db8:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f0b1dbc:	44815000 */ 	mtc1	$at,$f10
-/*  f0b1dc0:	00000000 */ 	nop
-/*  f0b1dc4:	460a4200 */ 	add.s	$f8,$f8,$f10
-.L0f0b1dc8:
-/*  f0b1dc8:	3c014040 */ 	lui	$at,0x4040
-/*  f0b1dcc:	44818000 */ 	mtc1	$at,$f16
-/*  f0b1dd0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0b1dd4:	44812000 */ 	mtc1	$at,$f4
-/*  f0b1dd8:	46104483 */ 	div.s	$f18,$f8,$f16
-/*  f0b1ddc:	46049180 */ 	add.s	$f6,$f18,$f4
-/*  f0b1de0:	46023082 */ 	mul.s	$f2,$f6,$f2
-/*  f0b1de4:	00000000 */ 	nop
-/*  f0b1de8:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0b1dec:
-/*  f0b1dec:	0fc2883f */ 	jal	handIsAttackingOnThisTick
-/*  f0b1df0:	e7a20018 */ 	swc1	$f2,0x18($sp)
-/*  f0b1df4:	10400007 */ 	beqz	$v0,.L0f0b1e14
-/*  f0b1df8:	c7a20018 */ 	lwc1	$f2,0x18($sp)
-/*  f0b1dfc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b1e00:	0fc2883f */ 	jal	handIsAttackingOnThisTick
-/*  f0b1e04:	e7a20018 */ 	swc1	$f2,0x18($sp)
-/*  f0b1e08:	10400002 */ 	beqz	$v0,.L0f0b1e14
-/*  f0b1e0c:	c7a20018 */ 	lwc1	$f2,0x18($sp)
-/*  f0b1e10:	46021080 */ 	add.s	$f2,$f2,$f2
-.L0f0b1e14:
-/*  f0b1e14:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1e18:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0b1e1c:	46001006 */ 	mov.s	$f0,$f2
-/*  f0b1e20:	03e00008 */ 	jr	$ra
-/*  f0b1e24:	00000000 */ 	nop
-);
+f32 handGetDamage(struct hand *hand)
+{
+	struct weaponfunc *func = handGetWeaponFunction(hand);
+	f32 damage = 0;
+
+	if (func) {
+		if ((func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
+			struct weaponfunc_shootsingle *fullfunc = (struct weaponfunc_shootsingle *)func;
+			damage = fullfunc->damage;
+		}
+
+		if ((func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
+			struct weaponfunc_close *fullfunc = (struct weaponfunc_close *)func;
+			damage = fullfunc->damage;
+
+			if (hand->weaponnum == WEAPON_REAPER) {
+				damage *= g_Vars.lvupdate240f;
+			}
+		}
+
+		if ((func->type & 0xff) == INVENTORYFUNCTYPE_THROW) {
+			struct weaponfunc_throw *fullfunc = (struct weaponfunc_throw *)func;
+			damage = fullfunc->damage;
+		}
+	}
+
+	if (hand->weaponnum == WEAPON_MAULER) {
+		damage = (hand->unk063a / 3.0f + 1.0f) * damage;
+	}
+
+	if (handIsAttackingOnThisTick(HAND_LEFT) && handIsAttackingOnThisTick(HAND_RIGHT)) {
+		damage += damage;
+	}
+
+	return damage;
+}
 
 u8 handGetSingleUnk38(struct hand *hand)
 {

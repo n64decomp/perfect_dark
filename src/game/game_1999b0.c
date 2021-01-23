@@ -237,7 +237,7 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, str
 			s32 sp164 = -1;
 			s32 sp160 = 200;
 			u8 sp156[] = {WEAPON_FARSIGHTXR20, 0, 0, 0};
-			f32 fVar14 = func0f0b1d28((struct hand *)sp156);
+			f32 damage = handGetDamage((struct hand *)sp156);
 			s32 fallback = 30;
 			s32 value = fallback;
 
@@ -272,7 +272,7 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, str
 					}
 
 					chrEmitSparks(oppchr, oppprop, sp160, &oppprop->pos, arg2, chr);
-					func0f0341dc(oppchr, fVar14, arg2, (struct hand *)sp156, chr->prop, 200, oppprop, sp172, sp168, sp164, 0);
+					func0f0341dc(oppchr, damage, arg2, (struct hand *)sp156, chr->prop, 200, oppprop, sp172, sp168, sp164, 0);
 				}
 			}
 

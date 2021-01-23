@@ -5526,7 +5526,7 @@ glabel func0f0341dc
 /*  f03432c:	00000000 */ 	nop
 );
 
-void func0f034330(struct chrdata *chr, f32 arg1, struct coord *vector, u8 *arg3, struct prop *prop, s32 arg5)
+void func0f034330(struct chrdata *chr, f32 damage, struct coord *vector, u8 *arg3, struct prop *prop, s32 arg5)
 {
 	s32 sp76 = 0;
 	s32 sp72 = 0;
@@ -5536,7 +5536,7 @@ void func0f034330(struct chrdata *chr, f32 arg1, struct coord *vector, u8 *arg3,
 		func0f03ff2c(chr, &chr->prop->pos, vector, &sp76, &arg5, &sp72, &sp68);
 	}
 
-	func0f034524(chr, arg1, vector, arg3, prop, arg5, 1, chr->prop, sp76, sp72, sp68, 0, 0, 0);
+	func0f034524(chr, damage, vector, arg3, prop, arg5, 1, chr->prop, sp76, sp72, sp68, 0, 0, 0);
 }
 
 GLOBAL_ASM(
@@ -11599,7 +11599,7 @@ glabel func0f03ba44
 /*  f03bb60:	54410012 */ 	bnel	$v0,$at,.L0f03bbac
 /*  f03bb64:	93a40040 */ 	lbu	$a0,0x40($sp)
 .L0f03bb68:
-/*  f03bb68:	0fc2c74a */ 	jal	func0f0b1d28
+/*  f03bb68:	0fc2c74a */ 	jal	handGetDamage
 /*  f03bb6c:	27a40040 */ 	addiu	$a0,$sp,0x40
 /*  f03bb70:	8fad004c */ 	lw	$t5,0x4c($sp)
 /*  f03bb74:	8e0e001c */ 	lw	$t6,0x1c($s0)
@@ -16912,7 +16912,7 @@ glabel var7f1a9184
 /*  f0413ec:	8faa01cc */ 	lw	$t2,0x1cc($sp)
 /*  f0413f0:	13200065 */ 	beqz	$t9,.L0f041588
 /*  f0413f4:	00000000 */ 	nop
-/*  f0413f8:	0fc2c74a */ 	jal	func0f0b1d28
+/*  f0413f8:	0fc2c74a */ 	jal	handGetDamage
 /*  f0413fc:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041400:	8fab025c */ 	lw	$t3,0x25c($sp)
 /*  f041404:	240cffff */ 	addiu	$t4,$zero,-1
@@ -17070,7 +17070,7 @@ glabel var7f1a9184
 /*  f041634:	afa00080 */ 	sw	$zero,0x80($sp)
 /*  f041638:	afaf007c */ 	sw	$t7,0x7c($sp)
 /*  f04163c:	afb80078 */ 	sw	$t8,0x78($sp)
-/*  f041640:	0fc2c74a */ 	jal	func0f0b1d28
+/*  f041640:	0fc2c74a */ 	jal	handGetDamage
 /*  f041644:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041648:	8fa501cc */ 	lw	$a1,0x1cc($sp)
 /*  f04164c:	e7a00074 */ 	swc1	$f0,0x74($sp)
@@ -17203,7 +17203,7 @@ glabel var7f1a9184
 /*  f041828:	5560002e */ 	bnezl	$t3,.L0f0418e4
 /*  f04182c:	93ac0260 */ 	lbu	$t4,0x260($sp)
 .L0f041830:
-/*  f041830:	0fc2c74a */ 	jal	func0f0b1d28
+/*  f041830:	0fc2c74a */ 	jal	handGetDamage
 /*  f041834:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041838:	8faa0068 */ 	lw	$t2,0x68($sp)
 /*  f04183c:	44050000 */ 	mfc1	$a1,$f0

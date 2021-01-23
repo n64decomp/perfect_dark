@@ -816,8 +816,8 @@ bool ai0019(void)
 	struct coord pos = {0, 0, 0};
 
 	if (chr && chr->prop) {
-		f32 value = func0f0b1d28((struct hand *)&cmd[4]);
-		func0f034330(chr, value, &pos, &cmd[4], NULL, (s8)cmd[3]);
+		f32 damage = handGetDamage((struct hand *)&cmd[4]);
+		func0f034330(chr, damage, &pos, &cmd[4], NULL, (s8)cmd[3]);
 	}
 
 	g_Vars.aioffset += 8;
@@ -836,7 +836,7 @@ bool ai001a(void)
 
 	if (chr1 && chr2 && chr1->prop && chr2->prop) {
 		struct prop *prop = chrGetEquippedWeaponPropWithCheck(chr1, 0);
-		f32 thing;
+		f32 damage;
 		struct coord vector = {0, 0, 0};
 		struct weaponobj *weapon;
 
@@ -850,8 +850,8 @@ bool ai001a(void)
 			vector.z = chr2->prop->pos.z - chr1->prop->pos.z;
 			scaleTo1(&vector.x, &vector.y, &vector.z);
 			weapon = prop->weapon;
-			thing = func0f0b1d28((struct hand *)&weapon->weaponnum);
-			func0f034330(chr2, thing, &vector, &weapon->weaponnum, chr1->prop, (s8)cmd[4]);
+			damage = handGetDamage((struct hand *)&weapon->weaponnum);
+			func0f034330(chr2, damage, &vector, &weapon->weaponnum, chr1->prop, (s8)cmd[4]);
 		}
 	}
 

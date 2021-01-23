@@ -119,7 +119,7 @@ struct weaponfunc_shootsingle invfunc_00011160 = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x00000000,
-	0x3f800000,
+	1, // damage
 	0x40c00000,
 	6, 18, 2, 8,
 	0x40a00000,
@@ -232,7 +232,7 @@ struct weaponfunc_close invfunc_unarmed_punch = {
 	&invmenupos_00010fd0, // menupos
 	invanim_punch, // fire animation
 	0x0041a200, // flags
-	0x3f000000,
+	0.5, // damage
 	60,
 	0x00000069,
 	0x00000069,
@@ -256,7 +256,7 @@ struct weaponfunc_close invfunc_unarmed_disarm = {
 	&invmenupos_00010fd0, // menupos
 	invanim_punch, // fire animation
 	0x0041a600, // flags
-	0x3e99999a,
+	0.3, // damage
 	60,
 	0x00000069,
 	0x00000069,
@@ -442,7 +442,7 @@ struct weaponfunc_shootsingle invfunc_falcon2_singleshot = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x10000000,
-	0x3f800000,
+	1, // damage
 	0x3f800000,
 	3, 5, 2, 0,
 	0x41200000,
@@ -464,7 +464,7 @@ struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
 	0x00002000, // flags
 	&invmenupos_00011098,
 	0x10000000,
-	0x3f800000,
+	1, // damage
 	0x3f800000,
 	3, 5, 2, 0,
 	0x41200000,
@@ -484,7 +484,7 @@ struct weaponfunc_close invfunc_falcon2_pistolwhip = {
 	&invmenupos_00010fd0, // menupos
 	invanim_falcon2_pistolwhip, // fire animation
 	0x0041a200, // flags
-	0x3f666666,
+	0.9, // damage
 	60,
 	0x00000069,
 	0x00000069,
@@ -671,7 +671,7 @@ struct weaponfunc_shootsingle invfunc_magsec_singleshot = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x10000000,
-	0x3f8ccccd,
+	1.1, // damage
 	0x40c00000,
 	4, 8, 3, 0,
 	0x40a00000,
@@ -693,7 +693,7 @@ struct weaponfunc_shootsingle invfunc_magsec_burst = {
 	0x00000002, // flags
 	&invmenupos_00011098,
 	0x10000000,
-	0x3f8ccccd,
+	1.1, // damage
 	0x41200000,
 	9, 14, 0, 0,
 	0x41000000,
@@ -838,7 +838,7 @@ struct weaponfunc_shootsingle invfunc_dy357_singleshot = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x14000000,
-	0x40000000,
+	2, // damage
 	0x00000000,
 	8, 16, 0, -1,
 	0x41400000,
@@ -860,7 +860,7 @@ struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x1e000000,
-	0x43480000,
+	200, // damage
 	0x00000000,
 	8, 24, 0, -1,
 	0x41400000,
@@ -880,7 +880,7 @@ struct weaponfunc_close invfunc_dy357_pistolwhip = {
 	&invmenupos_00010fd0, // menupos
 	invanim_dy357_pistolwhip, // fire animation
 	0x0041a200, // flags
-	0x3f666666,
+	0.9, // damage
 	60,
 	0x00000069,
 	0x00000069,
@@ -1007,7 +1007,7 @@ struct weaponfunc_shootsingle invfunc_phoenix_singleshot = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x10000000,
-	0x3f8ccccd,
+	1.1, // damage
 	0x40400000,
 	3, 5, 2, 0,
 	0x41200000,
@@ -1029,7 +1029,7 @@ struct weaponfunc_shootsingle invfunc_phoenix_explosiveshells = {
 	0x00004000, // flags
 	&invmenupos_00011098,
 	0x10000000,
-	0x3f99999a,
+	1.2, // damage
 	0x40a00000,
 	13, 15, 25, 0,
 	0x41700000,
@@ -1147,7 +1147,7 @@ struct weaponfunc_shootsingle invfunc_mauler_singleshot = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x00000000,
-	0x3f99999a,
+	1.2, // damage
 	0x40c00000,
 	3, 9, 32, 28,
 	0x00000000,
@@ -1169,7 +1169,7 @@ struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x00000000,
-	0x3f99999a,
+	1.2, // damage
 	0x40c00000,
 	3, 9, 32, 28,
 	0x00000000,
@@ -1771,7 +1771,7 @@ struct weaponfunc_throw invfunc_dragon_selfdestruct = {
 	0x000000ff,
 	0x00f00000,
 	0x0000003c,
-	0x00000000,
+	0, // damage
 };
 
 struct inventory_ammo invammo_dragon = {
@@ -2319,7 +2319,7 @@ struct weaponfunc_throw invfunc_laptopgun_deploy = {
 	0x00000157,
 	0x00f00000,
 	0x0000003c,
-	0x00000000,
+	0, // damage
 };
 
 struct inventory_ammo invammo_laptopgun = {
@@ -2401,7 +2401,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_single = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x00000000,
-	0x3f19999a,
+	0.6, // damage
 	0x41f00000,
 	20, 28, 0, 0,
 	0x00000000,
@@ -2423,7 +2423,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_double = {
 	0x00001000, // flags
 	&invmenupos_00011098,
 	0x00000000,
-	0x3f19999a,
+	0.6, // damage
 	0x41800000,
 	20, 28, 0, 0,
 	0x00000000,
@@ -2546,7 +2546,7 @@ struct weaponfunc_close invfunc_reaper_grind = {
 	&invmenupos_0001100c, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
-	0x3d4ccccd,
+	0.05, // damage
 	80,
 	0x00000069,
 	0x00000069,
@@ -2999,7 +2999,7 @@ struct weaponfunc_throw invfunc_timedmine_throw = {
 	0x00000113,
 	0x00f00000,
 	0x00000000,
-	0x00000000,
+	0, // damage
 };
 
 struct inventory_ammo invammo_timedmine = {
@@ -3071,7 +3071,7 @@ struct weaponfunc_throw invfunc_remotemine_throw = {
 	0x00000115,
 	0x00f00000,
 	0x00000000,
-	0x00000000,
+	0, // damage
 };
 
 struct weaponfunc_special invfunc_remotemine_detonate = {
@@ -3136,7 +3136,7 @@ struct weaponfunc_throw invfunc_proxymine_throw = {
 	0x00000114,
 	0x00f00000,
 	0x00000000,
-	0x00000000,
+	0, // damage
 };
 
 struct inventory_ammo invammo_proximitymine = {
@@ -3199,7 +3199,7 @@ struct weaponfunc_throw invfunc_ecmmine_throw = {
 	0x00000116,
 	0x00f00000,
 	0x0000003c,
-	0x00000000,
+	0, // damage
 };
 
 struct inventory_ammo invammo_ecmmine = {
@@ -3292,7 +3292,7 @@ struct weaponfunc_throw invfunc_grenade_throw = {
 	0x00000112,
 	0x00f00000,
 	0x0000003c,
-	0x00000000,
+	0, // damage
 };
 
 struct weaponfunc_throw invfunc_grenade_pinball = {
@@ -3306,7 +3306,7 @@ struct weaponfunc_throw invfunc_grenade_pinball = {
 	0x00000112,
 	0x005a0000,
 	0x0000003c,
-	0x00000000,
+	0, // damage
 };
 
 struct inventory_ammo invammo_grenade = {
@@ -3353,7 +3353,7 @@ struct weaponfunc_throw invfunc_nbomb_throw = {
 	0x00000110,
 	0x00f00000,
 	0x0000003c,
-	0x00000000,
+	0, // damage
 };
 
 struct weaponfunc_throw invfunc_nbomb_proxy = {
@@ -3367,7 +3367,7 @@ struct weaponfunc_throw invfunc_nbomb_proxy = {
 	0x00000110,
 	0x00f00000,
 	0x0000003c,
-	0x00000000,
+	0, // damage
 };
 
 struct inventory_ammo invammo_nbomb = {
@@ -3443,7 +3443,7 @@ struct weaponfunc_shootsingle invfunc_farsight_shoot = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x00000000,
-	0x42c80000,
+	100, // damage
 	0x00000000,
 	70, 40, 0, 0,
 	0x00000000,
@@ -3465,7 +3465,7 @@ struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x00000000,
-	0x42c80000,
+	100, // damage
 	0x00000000,
 	70, 40, 0, 0,
 	0x00000000,
@@ -3706,7 +3706,7 @@ struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
 	0x00000200, // flags
 	&invmenupos_00011098,
 	0x10000000,
-	0x3e800000,
+	0.25, // damage
 	0x40400000,
 	3, 5, 5, 0,
 	0x3f800000,
@@ -3726,7 +3726,7 @@ struct weaponfunc_close invfunc_tranquilizer_lethal = {
 	&invmenupos_00010fe4, // menupos
 	invanim_tranquilizer_lethalinject, // fire animation
 	0x00002000, // flags
-	0x42c80000,
+	100, // damage
 	60,
 	0x00000069,
 	0x00000069,
@@ -3800,7 +3800,7 @@ struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
 	0x00200200, // flags
 	&invmenupos_00011098,
 	0x10000000,
-	0x3f000000,
+	0.5, // damage
 	0x40400000,
 	3, 5, 5, 0,
 	0x3f800000,
@@ -3882,7 +3882,7 @@ struct weaponfunc_shootsingle invfunc_sniperrifle_singleshot = {
 	0x00002000, // flags
 	&invmenupos_00011098,
 	0x10000000,
-	0x3f99999a,
+	1.2, // damage
 	0x00000000,
 	6, 10, 0, 0,
 	0x41000000,
@@ -3965,7 +3965,7 @@ struct weaponfunc_shootsingle invfunc_laser_pulse = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x00000000,
-	0x3f800000,
+	1, // damage
 	0x00000000,
 	6, 18, 24, -1,
 	0x00000000,
@@ -4054,7 +4054,7 @@ struct weaponfunc_shootsingle invfunc_pp9i_shoot = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x10000000,
-	0x3f800000,
+	1, // damage
 	0x3f800000,
 	4, 8, 3, 0,
 	0x40400000,
@@ -4115,7 +4115,7 @@ struct weaponfunc_shootsingle invfunc_cc13_shoot = {
 	0x00000000, // flags
 	&invmenupos_00011098,
 	0x10000000,
-	0x3f800000,
+	1, // damage
 	0x40c00000,
 	4, 8, 3, 0,
 	0x40a00000,
@@ -4736,7 +4736,7 @@ struct weaponfunc_close invfunc_combatknife_slash = {
 	&invmenupos_00010fd0, // menupos
 	invanim_combatknife_slash, // fire animation
 	0x00002000, // flags
-	0x40000000,
+	2, // damage
 	70,
 	0x00000069,
 	0x00000069,
@@ -4763,7 +4763,7 @@ struct weaponfunc_throw invfunc_combatknife_throw = {
 	0x0000010f,
 	0x00f00000,
 	0x0000003c,
-	0x3f800000,
+	1, // damage
 };
 
 struct inventory_ammo invammo_combatknife = {
@@ -4810,7 +4810,7 @@ struct weaponfunc_throw invfunc_bug_throw = {
 	0x00000012,
 	0x00f00000,
 	0x0000003c,
-	0x00000000,
+	0, // damage
 };
 
 struct weaponfunc_throw invfunc_targetamplifier_throw = {
@@ -4824,7 +4824,7 @@ struct weaponfunc_throw invfunc_targetamplifier_throw = {
 	0x000001b1,
 	0x00f00000,
 	0x0000003c,
-	0x00000000,
+	0, // damage
 };
 
 struct inventory_ammo invammo_bug = {
@@ -5929,7 +5929,7 @@ struct weaponfunc_shootsingle invfunc_tester_primary = {
 	0x00000000, // flags
 	&invmenupos_00011070,
 	0x10000000,
-	0x3f800000,
+	1, // damage
 	0x40c00000,
 	4, 8, 3, 0,
 	0x00000000,

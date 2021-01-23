@@ -2873,7 +2873,7 @@ struct weaponfunc_shootsingle {
 	struct weaponfunc base;
 	/*0x14*/ struct inventory_menupos *unk14;
 	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
+	/*0x1c*/ f32 damage;
 	/*0x20*/ u32 unk20;
 
 	/**
@@ -2949,12 +2949,12 @@ struct weaponfunc_throw {
 	/*0x14*/ s32 projectilemodelnum;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
+	/*0x20*/ f32 damage;
 };
 
 struct weaponfunc_close {
 	struct weaponfunc base;
-	/*0x14*/ u32 unk14;
+	/*0x14*/ f32 damage;
 	/*0x18*/ f32 range;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ u32 unk20;
