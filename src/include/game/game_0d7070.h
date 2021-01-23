@@ -5,7 +5,7 @@
 
 bool func0f0d7070(struct prop *prop);
 bool func0f0d716c(struct prop *prop, s32 arg1);
-u32 func0f0d7240(void);
+bool func0f0d7240(struct prop *prop);
 u32 func0f0d7328(void);
 u32 func0f0d7364(void);
 u32 func0f0d7390(void);

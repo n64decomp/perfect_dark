@@ -2860,7 +2860,7 @@ glabel func0f068760
 /*  f0687b4:	00000000 */ 	nop
 );
 
-u32 func0f0687b8(struct defaultobj *obj)
+s32 func0f0687b8(struct defaultobj *obj)
 {
 	if ((obj->hidden2 & OBJH2FLAG_40) == 0) {
 		return 0;

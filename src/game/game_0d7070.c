@@ -108,75 +108,37 @@ bool func0f0d716c(struct prop *prop, s32 arg1)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f0d7240
-/*  f0d7240:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0d7244:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0d7248:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f0d724c:	54600004 */ 	bnezl	$v1,.L0f0d7260
-/*  f0d7250:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f0d7254:	10000030 */ 	b	.L0f0d7318
-/*  f0d7258:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0d725c:	90820000 */ 	lbu	$v0,0x0($a0)
-.L0f0d7260:
-/*  f0d7260:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0d7264:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x4b4)
-/*  f0d7268:	10410005 */ 	beq	$v0,$at,.L0f0d7280
-/*  f0d726c:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0d7270:	10410003 */ 	beq	$v0,$at,.L0f0d7280
-/*  f0d7274:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0d7278:	14410016 */ 	bne	$v0,$at,.L0f0d72d4
-/*  f0d727c:	24050003 */ 	addiu	$a1,$zero,0x3
-.L0f0d7280:
-/*  f0d7280:	8dcea474 */ 	lw	$t6,%lo(g_Vars+0x4b4)($t6)
-/*  f0d7284:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f0d7288:	00602025 */ 	or	$a0,$v1,$zero
-/*  f0d728c:	15c1000b */ 	bne	$t6,$at,.L0f0d72bc
-/*  f0d7290:	00000000 */ 	nop
-/*  f0d7294:	84620004 */ 	lh	$v0,0x4($v1)
-/*  f0d7298:	240100b0 */ 	addiu	$at,$zero,0xb0
-/*  f0d729c:	10410005 */ 	beq	$v0,$at,.L0f0d72b4
-/*  f0d72a0:	240101aa */ 	addiu	$at,$zero,0x1aa
-/*  f0d72a4:	10410003 */ 	beq	$v0,$at,.L0f0d72b4
-/*  f0d72a8:	2401014c */ 	addiu	$at,$zero,0x14c
-/*  f0d72ac:	14410003 */ 	bne	$v0,$at,.L0f0d72bc
-/*  f0d72b0:	00000000 */ 	nop
-.L0f0d72b4:
-/*  f0d72b4:	10000018 */ 	b	.L0f0d7318
-/*  f0d72b8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0d72bc:
-/*  f0d72bc:	0fc1a1ee */ 	jal	func0f0687b8
-/*  f0d72c0:	00000000 */ 	nop
-/*  f0d72c4:	58400014 */ 	blezl	$v0,.L0f0d7318
-/*  f0d72c8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0d72cc:	10000012 */ 	b	.L0f0d7318
-/*  f0d72d0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0d72d4:
-/*  f0d72d4:	54a20010 */ 	bnel	$a1,$v0,.L0f0d7318
-/*  f0d72d8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0d72dc:	1060000d */ 	beqz	$v1,.L0f0d7314
-/*  f0d72e0:	00602025 */ 	or	$a0,$v1,$zero
-/*  f0d72e4:	906f02fe */ 	lbu	$t7,0x2fe($v1)
-/*  f0d72e8:	54af000b */ 	bnel	$a1,$t7,.L0f0d7318
-/*  f0d72ec:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0d72f0:	0fc0f011 */ 	jal	chrToEyespy
-/*  f0d72f4:	00000000 */ 	nop
-/*  f0d72f8:	10400004 */ 	beqz	$v0,.L0f0d730c
-/*  f0d72fc:	00000000 */ 	nop
-/*  f0d7300:	90580035 */ 	lbu	$t8,0x35($v0)
-/*  f0d7304:	57000004 */ 	bnezl	$t8,.L0f0d7318
-/*  f0d7308:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0d730c:
-/*  f0d730c:	10000002 */ 	b	.L0f0d7318
-/*  f0d7310:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0d7314:
-/*  f0d7314:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0d7318:
-/*  f0d7318:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0d731c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0d7320:	03e00008 */ 	jr	$ra
-/*  f0d7324:	00000000 */ 	nop
-);
+bool func0f0d7240(struct prop *prop)
+{
+	if (prop->obj == NULL) {
+		return false;
+	}
+
+	if ((prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) || prop->type == PROPTYPE_DOOR) {
+		struct defaultobj *obj = prop->obj;
+
+		if (g_Vars.stagenum == STAGE_CITRAINING
+				&& (obj->modelnum == MODEL_COMHUB || obj->modelnum == MODEL_CIHUB || obj->modelnum == MODEL_TARGET)) {
+			return true;
+		}
+
+		if (func0f0687b8(obj) > 0) {
+			return false;
+		}
+	} else if (prop->type == PROPTYPE_CHR) {
+		struct chrdata *chr = prop->chr;
+
+		if (chr && chr->race == RACE_EYESPY) {
+			struct eyespy *eyespy = chrToEyespy(chr);
+
+			if (!eyespy || !eyespy->initialised) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f0d7328
