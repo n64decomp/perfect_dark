@@ -6,7 +6,7 @@ PIRACYCHECKS ?= 1
 QEMU_IRIX ?= tools/irix/qemu-irix
 IRIX_ROOT ?= tools/irix/root
 
-CC ?= $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc
+IDOCC ?= $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc
 
 ################################################################################
 
@@ -282,7 +282,7 @@ $(B_DIR)/files/G%Z: $(E_DIR)/files/G%Z
 # Lang
 $(B_DIR)/files/lang/L%.o: src/files/lang/$(ROMID)/%.c
 	@mkdir -p $(B_DIR)/files/lang
-	$(CC) -c $(CFLAGS) $< -o $@ -O2
+	$(IDOCC) -c $(CFLAGS) $< -o $@ -O2
 
 $(B_DIR)/files/L%.elf: $(B_DIR)/files/lang/L%.o
 	TOOLCHAIN=$(TOOLCHAIN) tools/mksimpleelf $< $@
@@ -344,22 +344,22 @@ $(B_DIR)/copyright.o: $(B_DIR)/copyright.bin
 
 $(B_DIR)/boot/%.o: src/boot/%.c
 	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(CC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
 $(B_DIR)/lib/%.o: src/lib/%.c
 	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(CC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
 $(B_DIR)/game/%.o: src/game/%.c
 	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(CC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
 $(B_DIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) -c $(CFLAGS) $< -o $@ -O2
+	$(IDOCC) -c $(CFLAGS) $< -o $@ -O2
 
 extract:
 	ROMID=$(ROMID) tools/extract
