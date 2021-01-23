@@ -2857,7 +2857,8 @@
 
 #define SIGHT_DEFAULT  0
 #define SIGHT_CLASSIC  1
-#define SIGHT_EMPTYBOX 3
+#define SIGHT_2        2
+#define SIGHT_3        3
 #define SIGHT_SKEDAR   4
 #define SIGHT_ZOOM     5
 #define SIGHT_MAIAN    6

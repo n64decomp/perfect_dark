@@ -23345,9 +23345,9 @@ void currentPlayerSetGunSightVisible(u32 reason, bool visible)
 Gfx *func0f0abcb0(Gfx *gdl)
 {
 	if (g_Vars.currentplayer->gunsightoff == false && !g_Vars.currentplayer->mpmenuon) {
-		gdl = func0f0dca48(gdl, true, currentPlayerGetSight());
+		gdl = sightRender(gdl, true, currentPlayerGetSight());
 	} else {
-		gdl = func0f0dca48(gdl, false, currentPlayerGetSight());
+		gdl = sightRender(gdl, false, currentPlayerGetSight());
 	}
 
 	return gdl;
