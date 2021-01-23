@@ -153,21 +153,14 @@ s32 func0f0d7328(s32 arg0)
 	return -1;
 }
 
-GLOBAL_ASM(
-glabel func0f0d7364
-/*  f0d7364:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0d7368:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0d736c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0d7370:	24040030 */ 	addiu	$a0,$zero,0x30
-.L0f0d7374:
-/*  f0d7374:	8c4e0284 */ 	lw	$t6,0x284($v0)
-/*  f0d7378:	01c37821 */ 	addu	$t7,$t6,$v1
-/*  f0d737c:	2463000c */ 	addiu	$v1,$v1,0xc
-/*  f0d7380:	1464fffc */ 	bne	$v1,$a0,.L0f0d7374
-/*  f0d7384:	ade01630 */ 	sw	$zero,0x1630($t7)
-/*  f0d7388:	03e00008 */ 	jr	$ra
-/*  f0d738c:	00000000 */ 	nop
-);
+void func0f0d7364(void)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->cmpfollowprops); i++) {
+		g_Vars.currentplayer->cmpfollowprops[i].prop = NULL;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0d7390
