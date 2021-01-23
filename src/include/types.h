@@ -2677,10 +2677,10 @@ struct player {
 	/*0x193c*/ u32 damagetype;
 	/*0x1940*/ u32 deathcount;
 	/*0x1948*/ u32 oldcrosspos[2];
-	/*0x194c*/ u32 lastkilltime60;
-	/*0x1950*/ u32 lastkilltime60_2;
-	/*0x1954*/ u32 lastkilltime60_3;
-	/*0x1958*/ u32 lastkilltime60_4;
+	/*0x194c*/ s32 lastkilltime60;
+	/*0x1950*/ s32 lastkilltime60_2;
+	/*0x1954*/ s32 lastkilltime60_3;
+	/*0x1958*/ s32 lastkilltime60_4;
 	/*0x195c*/ s32 lifestarttime60;
 	/*0x1960*/ u32 killsthislife;
 	/*0x1964*/ u32 healthdisplaytime60;
@@ -3461,7 +3461,7 @@ struct bootbufferthing {
 
 struct playerstats {
 	/*0x00*/ u32 shotcount[7];
-	/*0x1c*/ u32 killcount;
+	/*0x1c*/ s32 killcount;
 	/*0x20*/ u32 ggkillcount;
 	/*0x24*/ u32 kills[4];
 	/*0x34*/ u32 drawplayercount;
@@ -3473,7 +3473,7 @@ struct playerstats {
 	/*0x4c*/ s32 longestlife;
 	/*0x50*/ s32 shortestlife;
 	/*0x54*/ u32 maxkills;
-	/*0x58*/ u32 maxsimulkills;
+	/*0x58*/ s32 maxsimulkills;
 	/*0x5c*/ f32 damagescale;
 	/*0x60*/ s32 tokenheldtime;
 	/*0x64*/ u32 unk64;

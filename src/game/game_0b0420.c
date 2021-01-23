@@ -24,12 +24,6 @@
 #include "types.h"
 
 const char var7f1acda0[] = "%s: %d\n";
-const char var7f1acda8[] = "%s %d %s\n";
-const char var7f1acdb4[] = "%s: %d\n";
-const char var7f1acdbc[] = "%s %s";
-const char var7f1acdc4[] = "%s %s";
-
-const u32 var7f1acdcc[] = {0x00000000};
 
 void func0f0b0420(struct hand *hand, s32 index)
 {
@@ -222,7 +216,7 @@ void currentPlayerIncrementDeathCount(void)
 		if (g_Vars.currentplayer->deathcount == 1) {
 			sprintf(buffer, langGet(L_GUN(2))); // "Died once"
 		} else {
-			sprintf(buffer, var7f1acda8,
+			sprintf(buffer, "%s %d %s\n",
 					langGet(L_GUN(3)), // "Died"
 					g_Vars.currentplayer->deathcount,
 					langGet(L_GUN(4))); // "times"
@@ -232,135 +226,73 @@ void currentPlayerIncrementDeathCount(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0b0818
-/*  f0b0818:	3c09800a */ 	lui	$t1,%hi(g_Vars)
-/*  f0b081c:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
-/*  f0b0820:	8d2e0318 */ 	lw	$t6,0x318($t1)
-/*  f0b0824:	27bdfec0 */ 	addiu	$sp,$sp,-320
-/*  f0b0828:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b082c:	51c0006e */ 	beqzl	$t6,.L0f0b09e8
-/*  f0b0830:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b0834:	0fc3089f */ 	jal	getMissionTime
-/*  f0b0838:	00000000 */ 	nop
-/*  f0b083c:	3c09800a */ 	lui	$t1,%hi(g_Vars)
-/*  f0b0840:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
-/*  f0b0844:	8d2f0288 */ 	lw	$t7,0x288($t1)
-/*  f0b0848:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f0b084c:	3c0c800b */ 	lui	$t4,%hi(g_MpSimulants)
-/*  f0b0850:	8de30070 */ 	lw	$v1,0x70($t7)
-/*  f0b0854:	258cc538 */ 	addiu	$t4,$t4,%lo(g_MpSimulants)
-/*  f0b0858:	24044c05 */ 	addiu	$a0,$zero,0x4c05
-/*  f0b085c:	28610004 */ 	slti	$at,$v1,0x4
-/*  f0b0860:	10200008 */ 	beqz	$at,.L0f0b0884
-/*  f0b0864:	00035080 */ 	sll	$t2,$v1,0x2
-/*  f0b0868:	0003c080 */ 	sll	$t8,$v1,0x2
-/*  f0b086c:	0303c021 */ 	addu	$t8,$t8,$v1
-/*  f0b0870:	3c19800b */ 	lui	$t9,%hi(g_MpPlayers)
-/*  f0b0874:	2739c7b8 */ 	addiu	$t9,$t9,%lo(g_MpPlayers)
-/*  f0b0878:	0018c140 */ 	sll	$t8,$t8,0x5
-/*  f0b087c:	10000007 */ 	b	.L0f0b089c
-/*  f0b0880:	03194021 */ 	addu	$t0,$t8,$t9
-.L0f0b0884:
-/*  f0b0884:	01435021 */ 	addu	$t2,$t2,$v1
-/*  f0b0888:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f0b088c:	01435023 */ 	subu	$t2,$t2,$v1
-/*  f0b0890:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f0b0894:	254bfed0 */ 	addiu	$t3,$t2,-304
-/*  f0b0898:	016c4021 */ 	addu	$t0,$t3,$t4
-.L0f0b089c:
-/*  f0b089c:	afa30030 */ 	sw	$v1,0x30($sp)
-/*  f0b08a0:	0fc5b9f1 */ 	jal	langGet
-/*  f0b08a4:	afa8002c */ 	sw	$t0,0x2c($sp)
-/*  f0b08a8:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f0b08ac:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*  f0b08b0:	3c057f1b */ 	lui	$a1,%hi(var7f1acdb4)
-/*  f0b08b4:	00036840 */ 	sll	$t5,$v1,0x1
-/*  f0b08b8:	010d7021 */ 	addu	$t6,$t0,$t5
-/*  f0b08bc:	85c70024 */ 	lh	$a3,0x24($t6)
-/*  f0b08c0:	24a5cdb4 */ 	addiu	$a1,$a1,%lo(var7f1acdb4)
-/*  f0b08c4:	27a40040 */ 	addiu	$a0,$sp,0x40
-/*  f0b08c8:	0c004dad */ 	jal	sprintf
-/*  f0b08cc:	00403025 */ 	or	$a2,$v0,$zero
-/*  f0b08d0:	27a40040 */ 	addiu	$a0,$sp,0x40
-/*  f0b08d4:	0fc377c7 */ 	jal	hudmsgCreateViaPreset
-/*  f0b08d8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0b08dc:	3c09800a */ 	lui	$t1,%hi(g_Vars)
-/*  f0b08e0:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
-/*  f0b08e4:	8d220288 */ 	lw	$v0,0x288($t1)
-/*  f0b08e8:	8c4f001c */ 	lw	$t7,0x1c($v0)
-/*  f0b08ec:	29e10002 */ 	slti	$at,$t7,0x2
-/*  f0b08f0:	54200011 */ 	bnezl	$at,.L0f0b0938
-/*  f0b08f4:	8d220284 */ 	lw	$v0,0x284($t1)
-/*  f0b08f8:	8d390284 */ 	lw	$t9,0x284($t1)
-/*  f0b08fc:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*  f0b0900:	8c4b0048 */ 	lw	$t3,0x48($v0)
-/*  f0b0904:	8f2a194c */ 	lw	$t2,0x194c($t9)
-/*  f0b0908:	030a1823 */ 	subu	$v1,$t8,$t2
-/*  f0b090c:	0163082a */ 	slt	$at,$t3,$v1
-/*  f0b0910:	50200004 */ 	beqzl	$at,.L0f0b0924
-/*  f0b0914:	8c4c0044 */ 	lw	$t4,0x44($v0)
-/*  f0b0918:	ac430048 */ 	sw	$v1,0x48($v0)
-/*  f0b091c:	8d220288 */ 	lw	$v0,0x288($t1)
-/*  f0b0920:	8c4c0044 */ 	lw	$t4,0x44($v0)
-.L0f0b0924:
-/*  f0b0924:	006c082a */ 	slt	$at,$v1,$t4
-/*  f0b0928:	50200003 */ 	beqzl	$at,.L0f0b0938
-/*  f0b092c:	8d220284 */ 	lw	$v0,0x284($t1)
-/*  f0b0930:	ac430044 */ 	sw	$v1,0x44($v0)
-/*  f0b0934:	8d220284 */ 	lw	$v0,0x284($t1)
-.L0f0b0938:
-/*  f0b0938:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f0b093c:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0b0940:	8c4d1954 */ 	lw	$t5,0x1954($v0)
-/*  f0b0944:	ac4d1958 */ 	sw	$t5,0x1958($v0)
-/*  f0b0948:	8d220284 */ 	lw	$v0,0x284($t1)
-/*  f0b094c:	8c4e1950 */ 	lw	$t6,0x1950($v0)
-/*  f0b0950:	ac4e1954 */ 	sw	$t6,0x1954($v0)
-/*  f0b0954:	8d220284 */ 	lw	$v0,0x284($t1)
-/*  f0b0958:	8c4f194c */ 	lw	$t7,0x194c($v0)
-/*  f0b095c:	ac4f1950 */ 	sw	$t7,0x1950($v0)
-/*  f0b0960:	8d380284 */ 	lw	$t8,0x284($t1)
-/*  f0b0964:	8fb90034 */ 	lw	$t9,0x34($sp)
-/*  f0b0968:	af19194c */ 	sw	$t9,0x194c($t8)
-/*  f0b096c:	8d220284 */ 	lw	$v0,0x284($t1)
-/*  f0b0970:	8c451950 */ 	lw	$a1,0x1950($v0)
-/*  f0b0974:	50c50016 */ 	beql	$a2,$a1,.L0f0b09d0
-/*  f0b0978:	8d220288 */ 	lw	$v0,0x288($t1)
-/*  f0b097c:	8c44194c */ 	lw	$a0,0x194c($v0)
-/*  f0b0980:	00855023 */ 	subu	$t2,$a0,$a1
-/*  f0b0984:	29410078 */ 	slti	$at,$t2,0x78
-/*  f0b0988:	50200011 */ 	beqzl	$at,.L0f0b09d0
-/*  f0b098c:	8d220288 */ 	lw	$v0,0x288($t1)
-/*  f0b0990:	8c451954 */ 	lw	$a1,0x1954($v0)
-/*  f0b0994:	24030002 */ 	addiu	$v1,$zero,0x2
-/*  f0b0998:	10c5000c */ 	beq	$a2,$a1,.L0f0b09cc
-/*  f0b099c:	00855823 */ 	subu	$t3,$a0,$a1
-/*  f0b09a0:	29610078 */ 	slti	$at,$t3,0x78
-/*  f0b09a4:	5020000a */ 	beqzl	$at,.L0f0b09d0
-/*  f0b09a8:	8d220288 */ 	lw	$v0,0x288($t1)
-/*  f0b09ac:	8c451958 */ 	lw	$a1,0x1958($v0)
-/*  f0b09b0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0b09b4:	10c50005 */ 	beq	$a2,$a1,.L0f0b09cc
-/*  f0b09b8:	00856023 */ 	subu	$t4,$a0,$a1
-/*  f0b09bc:	29810078 */ 	slti	$at,$t4,0x78
-/*  f0b09c0:	50200003 */ 	beqzl	$at,.L0f0b09d0
-/*  f0b09c4:	8d220288 */ 	lw	$v0,0x288($t1)
-/*  f0b09c8:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f0b09cc:
-/*  f0b09cc:	8d220288 */ 	lw	$v0,0x288($t1)
-.L0f0b09d0:
-/*  f0b09d0:	8c4d0058 */ 	lw	$t5,0x58($v0)
-/*  f0b09d4:	01a3082a */ 	slt	$at,$t5,$v1
-/*  f0b09d8:	50200003 */ 	beqzl	$at,.L0f0b09e8
-/*  f0b09dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b09e0:	ac430058 */ 	sw	$v1,0x58($v0)
-/*  f0b09e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0b09e8:
-/*  f0b09e8:	27bd0140 */ 	addiu	$sp,$sp,0x140
-/*  f0b09ec:	03e00008 */ 	jr	$ra
-/*  f0b09f0:	00000000 */ 	nop
-);
+void currentPlayerRecordSuicide(void)
+{
+	char text[256];
+	s32 simulkills;
+	s32 duration;
+	s32 time;
+	s32 mpindex;
+	struct mpchr *mpchr;
+
+	if (g_Vars.normmplayerisrunning) {
+		time = getMissionTime();
+		mpindex = g_Vars.currentplayerstats->mpindex;
+
+		if (mpindex < 4) {
+			mpchr = &g_MpPlayers[mpindex].base;
+		} else {
+			mpchr = &g_MpSimulants[mpindex - 4].base;
+		}
+
+		// Show HUD message
+		// "Suicide count: %d"
+		sprintf(text, "%s: %d\n", langGet(L_GUN(5)), mpchr->killcounts[mpindex]);
+		hudmsgCreateViaPreset(text, HUDMSGTYPE_DEFAULT);
+
+		// Update slowest/fastest two kills
+		if (g_Vars.currentplayerstats->killcount > 1) {
+			duration = time - g_Vars.currentplayer->lastkilltime60;
+
+			if (duration > g_Vars.currentplayerstats->slowest2kills) {
+				g_Vars.currentplayerstats->slowest2kills = duration;
+			}
+
+			if (duration < g_Vars.currentplayerstats->fastest2kills) {
+				g_Vars.currentplayerstats->fastest2kills = duration;
+			}
+		}
+
+		// Update max simultaneous kills
+		simulkills = 1;
+
+		g_Vars.currentplayer->lastkilltime60_4 = g_Vars.currentplayer->lastkilltime60_3;
+		g_Vars.currentplayer->lastkilltime60_3 = g_Vars.currentplayer->lastkilltime60_2;
+		g_Vars.currentplayer->lastkilltime60_2 = g_Vars.currentplayer->lastkilltime60;
+		g_Vars.currentplayer->lastkilltime60 = time;
+
+		if (g_Vars.currentplayer->lastkilltime60_2 != -1 && g_Vars.currentplayer->lastkilltime60 - g_Vars.currentplayer->lastkilltime60_2 < 120) {
+			simulkills++;
+
+			if (g_Vars.currentplayer->lastkilltime60_3 != -1 && g_Vars.currentplayer->lastkilltime60 - g_Vars.currentplayer->lastkilltime60_3 < 120) {
+				simulkills++;
+
+				if (g_Vars.currentplayer->lastkilltime60_4 != -1 && g_Vars.currentplayer->lastkilltime60 - g_Vars.currentplayer->lastkilltime60_4 < 120) {
+					simulkills++;
+				}
+			}
+		}
+
+		if (simulkills > g_Vars.currentplayerstats->maxsimulkills) {
+			g_Vars.currentplayerstats->maxsimulkills = simulkills;
+		}
+	}
+}
+
+const char var7f1acdbc[] = "%s %s";
+const char var7f1acdc4[] = "%s %s";
+
+const u32 var7f1acdcc[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func0f0b09f4
@@ -503,7 +435,7 @@ glabel func0f0b09f4
 /*  f0b0be4:	03202025 */ 	or	$a0,$t9,$zero
 /*  f0b0be8:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f0b0bec:	afac013c */ 	sw	$t4,0x13c($sp)
-/*  f0b0bf0:	0fc2c206 */ 	jal	func0f0b0818
+/*  f0b0bf0:	0fc2c206 */ 	jal	currentPlayerRecordSuicide
 /*  f0b0bf4:	00000000 */ 	nop
 /*  f0b0bf8:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f0b0bfc:	8fa4013c */ 	lw	$a0,0x13c($sp)
