@@ -3265,7 +3265,7 @@ glabel func0f09a310
 /*  f09a368:	a0d80003 */ 	sb	$t8,0x3($a2)
 /*  f09a36c:	afa30018 */ 	sw	$v1,0x18($sp)
 .L0f09a370:
-/*  f09a370:	0fc2c846 */ 	jal	func0f0b2118
+/*  f09a370:	0fc2c846 */ 	jal	handGetSecToPriAnim
 /*  f09a374:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f09a378:	8fa60028 */ 	lw	$a2,0x28($sp)
 /*  f09a37c:	8fa30018 */ 	lw	$v1,0x18($sp)

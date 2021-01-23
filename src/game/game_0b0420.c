@@ -1571,21 +1571,13 @@ u32 *handGetPriToSecAnim(struct hand *hand)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f0b2118
-/*  f0b2118:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f0b211c:	3c038007 */ 	lui	$v1,%hi(g_Weapons)
-/*  f0b2120:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b2124:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0b2128:	006f1821 */ 	addu	$v1,$v1,$t7
-/*  f0b212c:	8c63ff18 */ 	lw	$v1,%lo(g_Weapons)($v1)
-/*  f0b2130:	10600003 */ 	beqz	$v1,.L0f0b2140
-/*  f0b2134:	00000000 */ 	nop
-/*  f0b2138:	03e00008 */ 	jr	$ra
-/*  f0b213c:	8c620010 */ 	lw	$v0,0x10($v1)
-.L0f0b2140:
-/*  f0b2140:	03e00008 */ 	jr	$ra
-/*  f0b2144:	00000000 */ 	nop
-/*  f0b2148:	00000000 */ 	nop
-/*  f0b214c:	00000000 */ 	nop
-);
+u32 *handGetSecToPriAnim(struct hand *hand)
+{
+	struct weapon *weapon = g_Weapons[hand->weaponnum];
+
+	if (weapon) {
+		return weapon->sectopri_animation;
+	}
+
+	return NULL;
+}
