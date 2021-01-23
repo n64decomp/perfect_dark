@@ -409,7 +409,7 @@ u16 weaponGetModelNum2(s32 weaponnum)
 }
 
 GLOBAL_ASM(
-glabel func0f0b1af0
+glabel handPopulateFromCurrentPlayer
 /*  f0b1af0:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0b1af4:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
 /*  f0b1af8:	8cce0284 */ 	lw	$t6,0x284($a2)
@@ -493,6 +493,23 @@ glabel func0f0b1af0
 /*  f0b1c1c:	03e00008 */ 	jr	$ra
 /*  f0b1c20:	00000000 */ 	nop
 );
+
+// Mismatch: regalloc
+//void handPopulateFromCurrentPlayer(s32 handnum, struct hand *hand)
+//{
+//	hand->weaponnum = g_Vars.currentplayer->weaponnum;
+//	hand->weaponfunc = g_Vars.currentplayer->hands[handnum].weaponfunc;
+//	hand->unk063a = g_Vars.currentplayer->hands[handnum].unk063a;
+//	hand->unk0639 = g_Vars.currentplayer->hands[handnum].unk0639;
+//
+//	if (hand->weaponnum == WEAPON_MAULER) {
+//		hand->unk063a = g_Vars.currentplayer->hands[handnum].unk0874 * 10.0f;
+//	}
+//
+//	if (hand->weaponnum == WEAPON_LASER) {
+//		hand->unk063a = g_Vars.currentplayer->hands[handnum].unk0b90;
+//	}
+//}
 
 struct inventory_ammo *handGetAmmoDefinition(struct hand *hand)
 {

@@ -842,7 +842,7 @@ glabel var7f1a9eb8
 /*  f060e80:	c4e60004 */ 	lwc1	$f6,0x4($a3)
 /*  f060e84:	e7a6020c */ 	swc1	$f6,0x20c($sp)
 /*  f060e88:	c4e80008 */ 	lwc1	$f8,0x8($a3)
-/*  f060e8c:	0fc2c6bc */ 	jal	func0f0b1af0
+/*  f060e8c:	0fc2c6bc */ 	jal	handPopulateFromCurrentPlayer
 /*  f060e90:	e7a80210 */ 	swc1	$f8,0x210($sp)
 /*  f060e94:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f060e98:	27a40214 */ 	addiu	$a0,$sp,0x214
@@ -2409,7 +2409,7 @@ void handTickAttack(s32 handnum)
 
 		g_Vars.currentplayer->hands[handnum].unk0d0f_03 = false;
 
-		func0f0b1af0(handnum, (struct hand *)&tmpweaponnum);
+		handPopulateFromCurrentPlayer(handnum, (struct hand *)&tmpweaponnum);
 		frIncrementNumShots();
 
 		switch (type) {

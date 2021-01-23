@@ -1834,7 +1834,7 @@ struct hand {
 	/*0x0868*/ u32 unk0868;
 	/*0x086c*/ u32 unk086c;
 	/*0x0870*/ u32 unk0870;
-	/*0x0874*/ u32 unk0874;
+	/*0x0874*/ f32 unk0874; // Mauler charge amount? Or a timer
 	/*0x0878*/ u32 unk0878;
 	/*0x087c*/ u32 unk087c;
 	/*0x0880*/ u32 unk0880;

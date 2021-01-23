@@ -23,7 +23,7 @@ s32 currentPlayerGetDeviceState(s32 weaponnum);
 void currentPlayerSetDeviceActive(s32 weaponum, bool active);
 u16 weaponGetModelNum(s32 weaponnum);
 u16 weaponGetModelNum2(s32 weaponnum);
-void func0f0b1af0(s32 handnum, struct hand *hand);
+void handPopulateFromCurrentPlayer(s32 handnum, struct hand *hand);
 struct inventory_ammo *handGetAmmoDefinition(struct hand *hand);
 u8 handGetSingleUnk3c(struct hand *hand);
 f32 handGetSingleUnk34(struct hand *hand);
