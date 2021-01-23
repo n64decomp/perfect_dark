@@ -14,5 +14,7 @@ s32 func00002078(void);
 s32 func00002148(void);
 s32 func00002148(void);
 s32 func000022e0(void);
+void func000024e8(void);
+void func00002510(void);
 
 #endif

@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "boot/boot.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_00e460.h"
@@ -76,19 +77,11 @@ glabel func0f13c510
 /*  f13c548:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f13c54c
-/*  f13c54c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f13c550:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f13c554:	0c00093a */ 	jal	func000024e8
-/*  f13c558:	00000000 */ 	nop
-/*  f13c55c:	0c000944 */ 	jal	func00002510
-/*  f13c560:	00000000 */ 	nop
-/*  f13c564:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f13c568:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f13c56c:	03e00008 */ 	jr	$ra
-/*  f13c570:	00000000 */ 	nop
-);
+void func0f13c54c(void)
+{
+	func000024e8();
+	func00002510();
+}
 
 GLOBAL_ASM(
 glabel func0f13c574
