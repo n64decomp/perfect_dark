@@ -9737,7 +9737,7 @@ void currentPlayerDieByShooter(u32 shooter, bool force)
 		hudmsgRemoveForDeadPlayer(g_Vars.currentplayernum);
 
 		if (g_Vars.mplayerisrunning) {
-			func0f0b09f4(shooter, g_Vars.currentplayernum);
+			mpstatsRecordDeath(shooter, g_Vars.currentplayernum);
 		}
 
 		chrUncloak(g_Vars.currentplayer->prop->chr, true);

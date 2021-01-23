@@ -220,7 +220,7 @@ void chrJumpOut(struct chrdata *chr, bool side);
 void chrRunToPos(struct chrdata *chr, struct coord *pos);
 void chrBeginDead(struct chrdata *chr);
 f32 chrGetShield(struct chrdata *chr);
-void func0f036358(struct chrdata *chr, s32 arg1);
+void chrDie(struct chrdata *chr, s32 aplayernum);
 void chrGoPosGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, s16 *rooms);
 void chrGoPosClearRestartTtl(struct chrdata *chr);
 void chrPatrolGetCurWaypointInfo(struct chrdata *chr, struct coord *pos, s16 *rooms);

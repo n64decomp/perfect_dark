@@ -3781,7 +3781,7 @@ glabel var7f1a8d44
 /*  f0329c4:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f0329c8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0329cc:	8fa40128 */ 	lw	$a0,0x128($sp)
-/*  f0329d0:	0fc2c27d */ 	jal	func0f0b09f4
+/*  f0329d0:	0fc2c27d */ 	jal	mpstatsRecordDeath
 /*  f0329d4:	00402825 */ 	or	$a1,$v0,$zero
 /*  f0329d8:	1000000b */ 	b	.L0f032a08
 /*  f0329dc:	8fa20040 */ 	lw	$v0,0x40($sp)
@@ -7454,7 +7454,7 @@ glabel var7f1a8d98
 /*  f035ef8:	00000000 */ 	nop
 /*  f035efc:	450200e6 */ 	bc1fl	.L0f036298
 /*  f035f00:	c7a00080 */ 	lwc1	$f0,0x80($sp)
-/*  f035f04:	0fc0d8d6 */ 	jal	func0f036358
+/*  f035f04:	0fc0d8d6 */ 	jal	chrDie
 /*  f035f08:	8fa500f0 */ 	lw	$a1,0xf0($sp)
 /*  f035f0c:	100000e2 */ 	b	.L0f036298
 /*  f035f10:	c7a00080 */ 	lwc1	$f0,0x80($sp)
@@ -7511,7 +7511,7 @@ glabel var7f1a8d98
 /*  f035fc8:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f035fcc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f035fd0:	8fa400f0 */ 	lw	$a0,0xf0($sp)
-/*  f035fd4:	0fc2c27d */ 	jal	func0f0b09f4
+/*  f035fd4:	0fc2c27d */ 	jal	mpstatsRecordDeath
 /*  f035fd8:	00402825 */ 	or	$a1,$v0,$zero
 /*  f035fdc:	10000013 */ 	b	.L0f03602c
 /*  f035fe0:	8e0a0018 */ 	lw	$t2,0x18($s0)
@@ -7755,7 +7755,7 @@ glabel var7f1a8d98
 /*  f036354:	27bd0140 */ 	addiu	$sp,$sp,0x140
 );
 
-void func0f036358(struct chrdata *chr, s32 arg1)
+void chrDie(struct chrdata *chr, s32 aplayernum)
 {
 	if (chr->actiontype != ACT_DIE) {
 		chrStopFiring(chr);
@@ -7772,7 +7772,7 @@ void func0f036358(struct chrdata *chr, s32 arg1)
 		chr->ailist = ailistFindById(GAILIST_AI_BOT_DEAD);
 		chr->aioffset = 0;
 
-		func0f0b09f4(arg1, mpPlayerGetIndex(chr));
+		mpstatsRecordDeath(aplayernum, mpPlayerGetIndex(chr));
 		func0f199964(chr, chr->aibot->weaponnum);
 
 		chr->aibot->unk09c_00 = 0;

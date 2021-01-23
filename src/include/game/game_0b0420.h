@@ -16,7 +16,7 @@ u32 func0f0b05a4(void);
 s32 currentPlayerGetNumKills(void);
 void currentPlayerIncrementDeathCount(void);
 void currentPlayerRecordSuicide(void);
-s32 func0f0b09f4(s32 arg0, s32 playernum);
+void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum);
 struct weapon *weaponFindById(s32 itemid);
 struct weaponfunc *weaponGetFunctionById(u32 weaponnum, u32 which);
 struct weaponfunc *handGetWeaponFunction2(struct hand *hand);
