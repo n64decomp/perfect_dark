@@ -109,23 +109,16 @@ u32 weaponGetNumFunctions(u32 weaponnum)
 	return 2;
 }
 
-GLOBAL_ASM(
-glabel func0f0b11bc
-/*  f0b11bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b11c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b11c4:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b11c8:	90840000 */ 	lbu	$a0,0x0($a0)
-/*  f0b11cc:	10400003 */ 	beqz	$v0,.L0f0b11dc
-/*  f0b11d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b11d4:	10000003 */ 	b	.L0f0b11e4
-/*  f0b11d8:	8c420024 */ 	lw	$v0,0x24($v0)
-.L0f0b11dc:
-/*  f0b11dc:	3c028007 */ 	lui	$v0,%hi(inve_000110c0)
-/*  f0b11e0:	2442b0a0 */ 	addiu	$v0,$v0,%lo(inve_000110c0)
-.L0f0b11e4:
-/*  f0b11e4:	03e00008 */ 	jr	$ra
-/*  f0b11e8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+struct inventory_typee *func0f0b11bc(struct hand *hand)
+{
+	struct weapon *weapon = weaponFindById(hand->weaponnum);
+
+	if (weapon) {
+		return weapon->eptr;
+	}
+
+	return &inve_000110c0;
+}
 
 struct inventory_ammo *weaponGetAmmoByFunction(u32 weaponnum, u32 funcnum)
 {
