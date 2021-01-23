@@ -536,34 +536,18 @@ glabel var7f1adddc
 /*  f0d7898:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0d789c
-/*  f0d789c:	00e6082a */ 	slt	$at,$a3,$a2
-/*  f0d78a0:	10200002 */ 	beqz	$at,.L0f0d78ac
-/*  f0d78a4:	00857023 */ 	subu	$t6,$a0,$a1
-/*  f0d78a8:	00e03025 */ 	or	$a2,$a3,$zero
-.L0f0d78ac:
-/*  f0d78ac:	01c60019 */ 	multu	$t6,$a2
-/*  f0d78b0:	00007812 */ 	mflo	$t7
-/*  f0d78b4:	00000000 */ 	nop
-/*  f0d78b8:	00000000 */ 	nop
-/*  f0d78bc:	01e7001a */ 	div	$zero,$t7,$a3
-/*  f0d78c0:	0000c012 */ 	mflo	$t8
-/*  f0d78c4:	03051021 */ 	addu	$v0,$t8,$a1
-/*  f0d78c8:	14e00002 */ 	bnez	$a3,.L0f0d78d4
-/*  f0d78cc:	00000000 */ 	nop
-/*  f0d78d0:	0007000d */ 	break	0x7
-.L0f0d78d4:
-/*  f0d78d4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0d78d8:	14e10004 */ 	bne	$a3,$at,.L0f0d78ec
-/*  f0d78dc:	3c018000 */ 	lui	$at,0x8000
-/*  f0d78e0:	15e10002 */ 	bne	$t7,$at,.L0f0d78ec
-/*  f0d78e4:	00000000 */ 	nop
-/*  f0d78e8:	0006000d */ 	break	0x6
-.L0f0d78ec:
-/*  f0d78ec:	03e00008 */ 	jr	$ra
-/*  f0d78f0:	00000000 */ 	nop
-);
+s32 func0f0d789c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+{
+	s32 value;
+
+	if (arg3 < arg2) {
+		arg2 = arg3;
+	}
+
+	value = (arg0 - arg1) * arg2;
+
+	return value / arg3 + arg1;
+}
 
 GLOBAL_ASM(
 glabel func0f0d78f4
