@@ -140,27 +140,18 @@ bool func0f0d7240(struct prop *prop)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f0d7328
-/*  f0d7328:	1880000b */ 	blez	$a0,.L0f0d7358
-/*  f0d732c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0d7330:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0d7334:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-.L0f0d7338:
-/*  f0d7338:	8c4e1630 */ 	lw	$t6,0x1630($v0)
-/*  f0d733c:	55c00004 */ 	bnezl	$t6,.L0f0d7350
-/*  f0d7340:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0d7344:	03e00008 */ 	jr	$ra
-/*  f0d7348:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0d734c:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f0d7350:
-/*  f0d7350:	1464fff9 */ 	bne	$v1,$a0,.L0f0d7338
-/*  f0d7354:	2442000c */ 	addiu	$v0,$v0,12
-.L0f0d7358:
-/*  f0d7358:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0d735c:	03e00008 */ 	jr	$ra
-/*  f0d7360:	00000000 */ 	nop
-);
+s32 func0f0d7328(s32 arg0)
+{
+	s32 i;
+
+	for (i = 0; i < arg0; i++) {
+		if (g_Vars.currentplayer->cmpfollowprops[i].prop == NULL) {
+			return i;
+		}
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel func0f0d7364
