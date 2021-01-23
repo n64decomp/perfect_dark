@@ -191,6 +191,42 @@ glabel func0f13c574
 /*  f13c70c:	01601025 */ 	or	$v0,$t3,$zero
 );
 
+// Mismatch: Register usage for "right" is different
+//u16 func0f13c574(f32 arg0)
+//{
+//	u32 value = arg0 * 8.0f;
+//	u32 left;
+//	u32 right;
+//
+//	if (value > 0x3f800) {
+//		right = value & 0x7ff;
+//		left = 7;
+//	} else if (value > 0x3f000) {
+//		right = value & 0x7ff;
+//		left = 6;
+//	} else if (value > 0x3e000) {
+//		right = value >> 1 & 0x7ff;
+//		left = 5;
+//	} else if (value > 0x3c000) {
+//		right = value >> 2 & 0x7ff;
+//		left = 4;
+//	} else if (value > 0x38000) {
+//		right = value >> 3 & 0x7ff;
+//		left = 3;
+//	} else if (value > 0x30000) {
+//		right = value >> 4 & 0x7ff;
+//		left = 2;
+//	} else if (value > 0x20000) {
+//		right = value >> 5 & 0x7ff;
+//		left = 1;
+//	} else {
+//		right = value >> 6 & 0x7ff;
+//		left = 0;
+//	}
+//
+//	return left << 13 | right << 2;
+//}
+
 GLOBAL_ASM(
 glabel func0f13c710
 /*  f13c710:	44802000 */ 	mtc1	$zero,$f4
