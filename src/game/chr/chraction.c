@@ -22,7 +22,7 @@
 #include "game/game_0969d0.h"
 #include "game/game_097ba0.h"
 #include "game/game_0abe70.h"
-#include "game/game_0b0420.h"
+#include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b69d0.h"
@@ -43,6 +43,7 @@
 #include "game/pak/pak.h"
 #include "game/propobj.h"
 #include "game/wallhit.h"
+#include "game/mpstats.h"
 #include "gvars/gvars.h"
 #include "lib/lib_04790.h"
 #include "lib/lib_04a80.h"
@@ -2699,7 +2700,7 @@ glabel var7f1a8d44
 /*  f031a18:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f031a1c:	afb900e8 */ 	sw	$t9,0xe8($sp)
 .L0f031a20:
-/*  f031a20:	0fc2c15d */ 	jal	decrementKnockoutCount
+/*  f031a20:	0fc2c15d */ 	jal	mpstatsDecrementTotalKnockoutCount
 /*  f031a24:	afa700ec */ 	sw	$a3,0xec($sp)
 /*  f031a28:	8fa700ec */ 	lw	$a3,0xec($sp)
 .L0f031a2c:
@@ -3791,7 +3792,7 @@ glabel var7f1a8d44
 /*  f0329e8:	8dada24c */ 	lw	$t5,%lo(g_Vars+0x28c)($t5)
 /*  f0329ec:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f0329f0:	afad0058 */ 	sw	$t5,0x58($sp)
-/*  f0329f4:	0fc2c169 */ 	jal	mpstatsRecordKill
+/*  f0329f4:	0fc2c169 */ 	jal	mpstatsRecordPlayerKill
 /*  f0329f8:	00000000 */ 	nop
 /*  f0329fc:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f032a00:	8fa40058 */ 	lw	$a0,0x58($sp)
@@ -3801,7 +3802,7 @@ glabel var7f1a8d44
 /*  f032a0c:	000ecac0 */ 	sll	$t9,$t6,0xb
 /*  f032a10:	07210004 */ 	bgez	$t9,.L0f032a24
 /*  f032a14:	00000000 */ 	nop
-/*  f032a18:	0fc2c151 */ 	jal	incrementKillCount
+/*  f032a18:	0fc2c151 */ 	jal	mpstatsIncrementTotalKillCount
 /*  f032a1c:	00000000 */ 	nop
 /*  f032a20:	8fa20040 */ 	lw	$v0,0x40($sp)
 .L0f032a24:
@@ -4712,7 +4713,7 @@ glabel func0f0336a8
 /*  f0336d0:	2401001f */ 	addiu	$at,$zero,0x1f
 /*  f0336d4:	50410011 */ 	beql	$v0,$at,.L0f03371c
 /*  f0336d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0336dc:	0fc2c163 */ 	jal	getKnockoutCount
+/*  f0336dc:	0fc2c163 */ 	jal	mpstatsGetTotalKnockoutCount
 /*  f0336e0:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f0336e4:	28410002 */ 	slti	$at,$v0,0x2
 /*  f0336e8:	10200005 */ 	beqz	$at,.L0f033700
@@ -4722,7 +4723,7 @@ glabel func0f0336a8
 /*  f0336f8:	01c17825 */ 	or	$t7,$t6,$at
 /*  f0336fc:	ac8f0018 */ 	sw	$t7,0x18($a0)
 .L0f033700:
-/*  f033700:	0fc2c157 */ 	jal	incrementKnockoutCount
+/*  f033700:	0fc2c157 */ 	jal	mpstatsIncrementTotalKnockoutCount
 /*  f033704:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f033708:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f03370c:	24180020 */ 	addiu	$t8,$zero,0x20
@@ -6618,27 +6619,27 @@ glabel var7f1a8d98
 /*  f035324:	10000011 */ 	b	.L0f03536c
 /*  f035328:	8fa4014c */ 	lw	$a0,0x14c($sp)
 .L0f03532c:
-/*  f03532c:	0fc2c11b */ 	jal	func0f0b046c
+/*  f03532c:	0fc2c11b */ 	jal	mpstatsIncrementPlayerShotCount2
 /*  f035330:	8fa4014c */ 	lw	$a0,0x14c($sp)
 /*  f035334:	1000000f */ 	b	.L0f035374
 /*  f035338:	00000000 */ 	nop
 .L0f03533c:
-/*  f03533c:	0fc2c11b */ 	jal	func0f0b046c
+/*  f03533c:	0fc2c11b */ 	jal	mpstatsIncrementPlayerShotCount2
 /*  f035340:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f035344:	1000000b */ 	b	.L0f035374
 /*  f035348:	00000000 */ 	nop
 .L0f03534c:
-/*  f03534c:	0fc2c11b */ 	jal	func0f0b046c
+/*  f03534c:	0fc2c11b */ 	jal	mpstatsIncrementPlayerShotCount2
 /*  f035350:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f035354:	10000007 */ 	b	.L0f035374
 /*  f035358:	00000000 */ 	nop
 .L0f03535c:
-/*  f03535c:	0fc2c11b */ 	jal	func0f0b046c
+/*  f03535c:	0fc2c11b */ 	jal	mpstatsIncrementPlayerShotCount2
 /*  f035360:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f035364:	10000003 */ 	b	.L0f035374
 /*  f035368:	00000000 */ 	nop
 .L0f03536c:
-/*  f03536c:	0fc2c11b */ 	jal	func0f0b046c
+/*  f03536c:	0fc2c11b */ 	jal	mpstatsIncrementPlayerShotCount2
 /*  f035370:	24050003 */ 	addiu	$a1,$zero,0x3
 .L0f035374:
 /*  f035374:	0fc4a24b */ 	jal	setCurrentPlayerNum
@@ -7529,7 +7530,7 @@ glabel var7f1a8d98
 /*  f03600c:	afa80074 */ 	sw	$t0,0x74($sp)
 /*  f036010:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f036014:	00402025 */ 	or	$a0,$v0,$zero
-/*  f036018:	0fc2c169 */ 	jal	mpstatsRecordKill
+/*  f036018:	0fc2c169 */ 	jal	mpstatsRecordPlayerKill
 /*  f03601c:	00000000 */ 	nop
 /*  f036020:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f036024:	8fa40074 */ 	lw	$a0,0x74($sp)
@@ -7538,7 +7539,7 @@ glabel var7f1a8d98
 /*  f03602c:	000a5ac0 */ 	sll	$t3,$t2,0xb
 /*  f036030:	05630004 */ 	bgezl	$t3,.L0f036044
 /*  f036034:	8e0202d4 */ 	lw	$v0,0x2d4($s0)
-/*  f036038:	0fc2c151 */ 	jal	incrementKillCount
+/*  f036038:	0fc2c151 */ 	jal	mpstatsIncrementTotalKillCount
 /*  f03603c:	00000000 */ 	nop
 /*  f036040:	8e0202d4 */ 	lw	$v0,0x2d4($s0)
 .L0f036044:

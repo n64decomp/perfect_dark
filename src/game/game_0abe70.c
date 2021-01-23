@@ -10,7 +10,7 @@
 #include "game/game_0969d0.h"
 #include "game/game_097ba0.h"
 #include "game/game_0abe70.h"
-#include "game/game_0b0420.h"
+#include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0c33f0.h"
 #include "game/game_166e40.h"

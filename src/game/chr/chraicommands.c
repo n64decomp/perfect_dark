@@ -25,7 +25,7 @@
 #include "game/game_095320.h"
 #include "game/game_096750.h"
 #include "game/game_097ba0.h"
-#include "game/game_0b0420.h"
+#include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0dcdb0.h"
@@ -45,6 +45,7 @@
 #include "game/pad.h"
 #include "game/pdoptions.h"
 #include "game/propobj.h"
+#include "game/mpstats.h"
 #include "gvars/gvars.h"
 #include "lib/lib_04790.h"
 #include "lib/lib_04a80.h"
@@ -5877,9 +5878,9 @@ bool aiIfNumKnockedOutChrs(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (cmd[2] < getKnockoutCount() && cmd[3] == 0) {
+	if (cmd[2] < mpstatsGetTotalKnockoutCount() && cmd[3] == 0) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
-	} else if (getKnockoutCount() < cmd[2] && cmd[3] == 1) {
+	} else if (mpstatsGetTotalKnockoutCount() < cmd[2] && cmd[3] == 1) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;

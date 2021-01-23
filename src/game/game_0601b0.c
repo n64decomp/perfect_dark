@@ -18,7 +18,7 @@
 #include "game/floor.h"
 #include "game/ceil.h"
 #include "game/game_097ba0.h"
-#include "game/game_0b0420.h"
+#include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b69d0.h"
 #include "game/game_127910.h"
@@ -32,6 +32,7 @@
 #include "game/propobj.h"
 #include "game/splat.h"
 #include "game/wallhit.h"
+#include "game/mpstats.h"
 #include "gvars/gvars.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_12dc0.h"
@@ -2417,7 +2418,7 @@ void handTickAttack(s32 handnum)
 			// right hand is not (ie. prevent firing both guns on the same tick)
 			if (handnum == HAND_RIGHT || !handIsAttackingOnThisTick(HAND_RIGHT)) {
 				chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
-				func0f0b046c((struct hand *)&tmpweaponnum, 0);
+				mpstatsIncrementPlayerShotCount2((struct hand *)&tmpweaponnum, 0);
 
 				if (weaponnum == WEAPON_SHOTGUN) {
 					handCreateBulletRaycast(handnum, true, true, 1, true);
@@ -2430,7 +2431,7 @@ void handTickAttack(s32 handnum)
 					handCreateBulletRaycast(handnum, true, true, func0f0a1318(handnum), g_Vars.mplayerisrunning);
 				}
 
-				func0f0b0520();
+				mpstats0f0b0520();
 			}
 			break;
 		case HANDATTACKTYPE_CLOSERANGE:

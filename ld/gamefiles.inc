@@ -91,7 +91,8 @@
 	build/ROMID/game/game_097ba0.o (section); \
 	build/ROMID/game/data/data_0160b0.o (section); \
 	build/ROMID/game/game_0abe70.o (section); \
-	build/ROMID/game/game_0b0420.o (section); \
+	build/ROMID/game/mpstats.o (section); \
+	build/ROMID/game/game_0b0fd0.o (section); \
 	build/ROMID/game/game_0b2150.o (section); \
 	build/ROMID/game/game_0b28d0.o (section); \
 	build/ROMID/game/game_0b3350.o (section); \

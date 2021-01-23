@@ -2846,13 +2846,13 @@
 #define SCREENSPLIT_HORIZONTAL 0
 #define SCREENSPLIT_VERTICAL   1
 
-#define SHOTCOUNT_TOTAL  0
-#define SHOTCOUNT_HEAD   1
-#define SHOTCOUNT_BODY   2
-#define SHOTCOUNT_LIMB   3
-#define SHOTCOUNT_GUN    4
-#define SHOTCOUNT_5      5 // hat?
-#define SHOTCOUNT_OBJECT 6
+#define SHOTREGION_TOTAL  0
+#define SHOTREGION_HEAD   1
+#define SHOTREGION_BODY   2
+#define SHOTREGION_LIMB   3
+#define SHOTREGION_GUN    4
+#define SHOTREGION_5      5 // hat?
+#define SHOTREGION_OBJECT 6
 
 #define SIGHT_DEFAULT  0
 #define SIGHT_CLASSIC  1

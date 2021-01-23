@@ -31,7 +31,7 @@
 #include "game/ceil.h"
 #include "game/game_097ba0.h"
 #include "game/game_0abe70.h"
-#include "game/game_0b0420.h"
+#include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b69d0.h"
@@ -54,6 +54,7 @@
 #include "game/core.h"
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
+#include "game/mpstats.h"
 #include "game/game_190260.h"
 #include "game/game_1999b0.h"
 #include "game/training/training.h"
@@ -17863,7 +17864,7 @@ glabel var7f1aa438
 /*  f075d40:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f075d44:	00402025 */ 	or	$a0,$v0,$zero
 /*  f075d48:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*  f075d4c:	0fc2c108 */ 	jal	func0f0b0420
+/*  f075d4c:	0fc2c108 */ 	jal	mpstatsIncrementPlayerShotCount
 /*  f075d50:	00002825 */ 	or	$a1,$zero,$zero
 /*  f075d54:	3c058007 */ 	lui	$a1,%hi(var80069930)
 /*  f075d58:	8ca59930 */ 	lw	$a1,%lo(var80069930)($a1)
@@ -17880,7 +17881,7 @@ glabel var7f1aa438
 /*  f075d84:	1040004c */ 	beqz	$v0,.L0f075eb8
 /*  f075d88:	8fa70070 */ 	lw	$a3,0x70($sp)
 /*  f075d8c:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f075d90:	0fc2c108 */ 	jal	func0f0b0420
+/*  f075d90:	0fc2c108 */ 	jal	mpstatsIncrementPlayerShotCount
 /*  f075d94:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f075d98:	10000047 */ 	b	.L0f075eb8
 /*  f075d9c:	00000000 */ 	nop
@@ -17941,27 +17942,27 @@ glabel var7f1aa438
 /*  f075e68:	10000011 */ 	b	.L0f075eb0
 /*  f075e6c:	00e02025 */ 	or	$a0,$a3,$zero
 .L0f075e70:
-/*  f075e70:	0fc2c108 */ 	jal	func0f0b0420
+/*  f075e70:	0fc2c108 */ 	jal	mpstatsIncrementPlayerShotCount
 /*  f075e74:	00e02025 */ 	or	$a0,$a3,$zero
 /*  f075e78:	1000000f */ 	b	.L0f075eb8
 /*  f075e7c:	00000000 */ 	nop
 .L0f075e80:
-/*  f075e80:	0fc2c108 */ 	jal	func0f0b0420
+/*  f075e80:	0fc2c108 */ 	jal	mpstatsIncrementPlayerShotCount
 /*  f075e84:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f075e88:	1000000b */ 	b	.L0f075eb8
 /*  f075e8c:	00000000 */ 	nop
 .L0f075e90:
-/*  f075e90:	0fc2c108 */ 	jal	func0f0b0420
+/*  f075e90:	0fc2c108 */ 	jal	mpstatsIncrementPlayerShotCount
 /*  f075e94:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f075e98:	10000007 */ 	b	.L0f075eb8
 /*  f075e9c:	00000000 */ 	nop
 .L0f075ea0:
-/*  f075ea0:	0fc2c108 */ 	jal	func0f0b0420
+/*  f075ea0:	0fc2c108 */ 	jal	mpstatsIncrementPlayerShotCount
 /*  f075ea4:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f075ea8:	10000003 */ 	b	.L0f075eb8
 /*  f075eac:	00000000 */ 	nop
 .L0f075eb0:
-/*  f075eb0:	0fc2c108 */ 	jal	func0f0b0420
+/*  f075eb0:	0fc2c108 */ 	jal	mpstatsIncrementPlayerShotCount
 /*  f075eb4:	24050003 */ 	addiu	$a1,$zero,0x3
 .L0f075eb8:
 /*  f075eb8:	0fc4a24b */ 	jal	setCurrentPlayerNum
@@ -36408,7 +36409,7 @@ glabel func0f085eac
 /*  f086238:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f08623c:	53200004 */ 	beqzl	$t9,.L0f086250
 /*  f086240:	8faf00fc */ 	lw	$t7,0xfc($sp)
-/*  f086244:	0fc2c11b */ 	jal	func0f0b046c
+/*  f086244:	0fc2c11b */ 	jal	mpstatsIncrementPlayerShotCount2
 /*  f086248:	24050006 */ 	addiu	$a1,$zero,0x6
 .L0f08624c:
 /*  f08624c:	8faf00fc */ 	lw	$t7,0xfc($sp)

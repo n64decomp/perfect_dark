@@ -63,7 +63,7 @@
 #include "game/game_095320.h"
 #include "game/game_097ba0.h"
 #include "game/game_0abe70.h"
-#include "game/game_0b0420.h"
+#include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
 #include "game/game_0b63b0.h"
 #include "game/game_0b69d0.h"

@@ -1,22 +1,8 @@
-#ifndef IN_GAME_GAME_0B0420_H
-#define IN_GAME_GAME_0B0420_H
+#ifndef IN_GAME_GAME_0B0FD0_H
+#define IN_GAME_GAME_0B0FD0_H
 #include <ultra64.h>
 #include "types.h"
 
-void func0f0b0420(struct hand *hand, s32 index);
-void func0f0b046c(struct hand *hand, s32 index);
-void func0f0b0520(void);
-s32 currentPlayerGetShotCount(u32 type);
-void incrementKillCount(void);
-void incrementKnockoutCount(void);
-void decrementKnockoutCount(void);
-u8 getKnockoutCount(void);
-u32 getKillCount(void);
-void mpstatsRecordKill(void);
-s32 currentPlayerGetNumKills(void);
-void currentPlayerIncrementDeathCount(void);
-void currentPlayerRecordSuicide(void);
-void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum);
 struct weapon *weaponFindById(s32 itemid);
 struct weaponfunc *weaponGetFunctionById(u32 weaponnum, u32 which);
 struct weaponfunc *handGetWeaponFunction2(struct hand *hand);

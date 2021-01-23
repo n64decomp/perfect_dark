@@ -13,7 +13,7 @@
 #include "game/game_01b0a0.h"
 #include "game/game_095320.h"
 #include "game/game_097ba0.h"
-#include "game/game_0b0420.h"
+#include "game/game_0b0fd0.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
 #include "game/game_0e0770.h"
@@ -28,6 +28,7 @@
 #include "game/gamefile.h"
 #include "game/lang.h"
 #include "game/pdoptions.h"
+#include "game/mpstats.h"
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
 #include "lib/main.h"
@@ -178,50 +179,50 @@ struct menudialog g_NextMissionMenuDialog = {
 
 char *soloMenuTextNumKills(struct menuitem *item)
 {
-	sprintf(g_StringPointer, "%d", currentPlayerGetNumKills());
+	sprintf(g_StringPointer, "%d", mpstatsGetPlayerKillCount());
 	return g_StringPointer;
 }
 
 char *soloMenuTextNumShots(struct menuitem *item)
 {
-	sprintf(g_StringPointer, "%d", currentPlayerGetShotCount(SHOTCOUNT_TOTAL));
+	sprintf(g_StringPointer, "%d", mpstatsGetPlayerShotCountByRegion(SHOTREGION_TOTAL));
 	return g_StringPointer;
 }
 
 char *soloMenuTextNumHeadShots(struct menuitem *item)
 {
-	sprintf(g_StringPointer, "%d", currentPlayerGetShotCount(SHOTCOUNT_HEAD));
+	sprintf(g_StringPointer, "%d", mpstatsGetPlayerShotCountByRegion(SHOTREGION_HEAD));
 	return g_StringPointer;
 }
 
 char *soloMenuTextNumBodyShots(struct menuitem *item)
 {
-	sprintf(g_StringPointer, "%d", currentPlayerGetShotCount(SHOTCOUNT_BODY));
+	sprintf(g_StringPointer, "%d", mpstatsGetPlayerShotCountByRegion(SHOTREGION_BODY));
 	return g_StringPointer;
 }
 
 char *soloMenuTextNumLimbShots(struct menuitem *item)
 {
-	sprintf(g_StringPointer, "%d", currentPlayerGetShotCount(SHOTCOUNT_LIMB));
+	sprintf(g_StringPointer, "%d", mpstatsGetPlayerShotCountByRegion(SHOTREGION_LIMB));
 	return g_StringPointer;
 }
 
 char *soloMenuTextNumOtherShots(struct menuitem *item)
 {
-	u32 total = currentPlayerGetShotCount(SHOTCOUNT_GUN) + currentPlayerGetShotCount(SHOTCOUNT_5);
+	u32 total = mpstatsGetPlayerShotCountByRegion(SHOTREGION_GUN) + mpstatsGetPlayerShotCountByRegion(SHOTREGION_5);
 	sprintf(g_StringPointer, "%d", total);
 	return g_StringPointer;
 }
 
 char *soloMenuTextAccuracy(struct menuitem *item)
 {
-	s32 total = currentPlayerGetShotCount(SHOTCOUNT_TOTAL);
-	s32 numhead = currentPlayerGetShotCount(SHOTCOUNT_HEAD);
-	s32 numbody = currentPlayerGetShotCount(SHOTCOUNT_BODY);
-	s32 numlimb = currentPlayerGetShotCount(SHOTCOUNT_LIMB);
-	s32 numgun = currentPlayerGetShotCount(SHOTCOUNT_GUN);
-	s32 num5 = currentPlayerGetShotCount(SHOTCOUNT_5);
-	s32 numobject = currentPlayerGetShotCount(SHOTCOUNT_OBJECT);
+	s32 total = mpstatsGetPlayerShotCountByRegion(SHOTREGION_TOTAL);
+	s32 numhead = mpstatsGetPlayerShotCountByRegion(SHOTREGION_HEAD);
+	s32 numbody = mpstatsGetPlayerShotCountByRegion(SHOTREGION_BODY);
+	s32 numlimb = mpstatsGetPlayerShotCountByRegion(SHOTREGION_LIMB);
+	s32 numgun = mpstatsGetPlayerShotCountByRegion(SHOTREGION_GUN);
+	s32 num5 = mpstatsGetPlayerShotCountByRegion(SHOTREGION_5);
+	s32 numobject = mpstatsGetPlayerShotCountByRegion(SHOTREGION_OBJECT);
 	f32 accuracy;
 
 	if (total > 0) {

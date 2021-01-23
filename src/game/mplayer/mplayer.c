@@ -12,7 +12,7 @@
 #include "game/title.h"
 #include "game/game_01b0a0.h"
 #include "game/game_097ba0.h"
-#include "game/game_0b0420.h"
+#include "game/game_0b0fd0.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
 #include "game/game_0f09f0.h"
@@ -22,6 +22,7 @@
 #include "game/music.h"
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
+#include "game/mpstats.h"
 #include "game/game_19aa80.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
@@ -3167,10 +3168,10 @@ glabel var7f1b8db0
 /*  f18a6dc:	00002025 */ 	or	$a0,$zero,$zero
 /*  f18a6e0:	af001974 */ 	sw	$zero,0x1974($t8)
 /*  f18a6e4:	8c590284 */ 	lw	$t9,0x284($v0)
-/*  f18a6e8:	0fc2c14b */ 	jal	currentPlayerGetShotCount
+/*  f18a6e8:	0fc2c14b */ 	jal	mpstatsGetPlayerShotCountByRegion
 /*  f18a6ec:	af201978 */ 	sw	$zero,0x1978($t9)
 /*  f18a6f0:	ae620000 */ 	sw	$v0,0x0($s3)
-/*  f18a6f4:	0fc2c14b */ 	jal	currentPlayerGetShotCount
+/*  f18a6f4:	0fc2c14b */ 	jal	mpstatsGetPlayerShotCountByRegion
 /*  f18a6f8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f18a6fc:	ae620004 */ 	sw	$v0,0x4($s3)
 /*  f18a700:	ae600008 */ 	sw	$zero,0x8($s3)
@@ -3265,22 +3266,22 @@ glabel var7f1b8db0
 /*  f18a84c:	ae6e0034 */ 	sw	$t6,0x34($s3)
 /*  f18a850:	e6680028 */ 	swc1	$f8,0x28($s3)
 /*  f18a854:	46049183 */ 	div.s	$f6,$f18,$f4
-/*  f18a858:	0fc2c14b */ 	jal	currentPlayerGetShotCount
+/*  f18a858:	0fc2c14b */ 	jal	mpstatsGetPlayerShotCountByRegion
 /*  f18a85c:	e6660024 */ 	swc1	$f6,0x24($s3)
 /*  f18a860:	00409025 */ 	or	$s2,$v0,$zero
-/*  f18a864:	0fc2c14b */ 	jal	currentPlayerGetShotCount
+/*  f18a864:	0fc2c14b */ 	jal	mpstatsGetPlayerShotCountByRegion
 /*  f18a868:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f18a86c:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f18a870:	0fc2c14b */ 	jal	currentPlayerGetShotCount
+/*  f18a870:	0fc2c14b */ 	jal	mpstatsGetPlayerShotCountByRegion
 /*  f18a874:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f18a878:	afa20068 */ 	sw	$v0,0x68($sp)
-/*  f18a87c:	0fc2c14b */ 	jal	currentPlayerGetShotCount
+/*  f18a87c:	0fc2c14b */ 	jal	mpstatsGetPlayerShotCountByRegion
 /*  f18a880:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f18a884:	afa2006c */ 	sw	$v0,0x6c($sp)
-/*  f18a888:	0fc2c14b */ 	jal	currentPlayerGetShotCount
+/*  f18a888:	0fc2c14b */ 	jal	mpstatsGetPlayerShotCountByRegion
 /*  f18a88c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f18a890:	00408825 */ 	or	$s1,$v0,$zero
-/*  f18a894:	0fc2c14b */ 	jal	currentPlayerGetShotCount
+/*  f18a894:	0fc2c14b */ 	jal	mpstatsGetPlayerShotCountByRegion
 /*  f18a898:	24040006 */ 	addiu	$a0,$zero,0x6
 /*  f18a89c:	8e630000 */ 	lw	$v1,0x0($s3)
 /*  f18a8a0:	3c013f80 */ 	lui	$at,0x3f80
