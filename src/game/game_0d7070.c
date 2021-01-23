@@ -2787,9 +2787,68 @@ glabel sightRenderClassic
 /*  f0d9924:	00000000 */ 	nop
 );
 
-Gfx *sightRenderType2(Gfx *gdl, bool arg1)
+// Mismatch: Arguments for gDPFillRectangle are calculated differently
+//Gfx *sightRenderClassic(Gfx *gdl, bool aiming)
+//{
+//	struct textureconfig *tconfig = &var800ab580[0];
+//
+//	s32 x = g_Vars.currentplayer->crosspos[0];
+//	s32 y = g_Vars.currentplayer->crosspos[1];
+//
+//	f32 spc4[2];
+//	f32 spbc[2];
+//
+//	s32 xradius;
+//	s32 yradius;
+//
+//	if (!aiming) {
+//		return gdl;
+//	}
+//
+//	gDPSetColorDither(gdl++, G_CD_DISABLE);
+//	gDPSetTexturePersp(gdl++, G_TP_NONE);
+//	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//	gDPSetTextureLOD(gdl++, G_TL_TILE);
+//	gDPSetTextureFilter(gdl++, G_TF_POINT);
+//	gDPSetTextureConvert(gdl++, G_TC_FILT);
+//	gDPSetTextureLUT(gdl++, G_TT_NONE);
+//	gDPPipeSync(gdl++);
+//	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+//	gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
+//	gDPSetPrimColor(gdl++, 0, 0, 0x00, 0x00, 0x00, 0x00);
+//
+//	xradius = tconfig->width >> 1;
+//	yradius = tconfig->height >> 1;
+//
+//	gDPFillRectangle(gdl++, x - xradius, y - yradius, x + xradius, y + yradius);
+//
+//	spc4[0] = x;
+//	spc4[1] = y;
+//
+//	spbc[0] = (tconfig->width >> 1) * (f32)g_ScaleX;
+//	spbc[1] = tconfig->height >> 1;
+//
+//	func0f0b39c0(&gdl, tconfig, 2, 0, 0, 1, 0);
+//
+//	func0f0b278c(&gdl, spc4, spbc, tconfig->width, tconfig->height,
+//			0, 0, 1, 0xff, 0xff, 0xff, 0x7f, tconfig->level > 0, 0);
+//
+//	gDPPipeSync(gdl++);
+//	gDPSetColorDither(gdl++, G_CD_BAYER);
+//	gDPSetTexturePersp(gdl++, G_TP_PERSP);
+//	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//	gDPSetTextureLOD(gdl++, G_TL_LOD);
+//	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//	gDPSetTextureConvert(gdl++, G_TC_FILT);
+//	gDPSetTextureLUT(gdl++, G_TT_NONE);
+//
+//	return gdl;
+//}
+
+Gfx *sightRenderType2(Gfx *gdl, bool aiming)
 {
-	return sightRenderClassic(gdl, arg1);
+	return sightRenderClassic(gdl, aiming);
 }
 
 GLOBAL_ASM(
@@ -5964,7 +6023,7 @@ bool sightHasTargetWhileAiming(s32 sight)
 	return false;
 }
 
-Gfx *sightRender(Gfx *gdl, bool arg1, s32 sight)
+Gfx *sightRender(Gfx *gdl, bool aiming, s32 sight)
 {
 	if (sight);
 
@@ -5986,40 +6045,40 @@ Gfx *sightRender(Gfx *gdl, bool arg1, s32 sight)
 		sight = SIGHT_DEFAULT;
 	}
 
-	func0f0d7390(arg1);
+	func0f0d7390(aiming);
 
 	switch (sight) {
 	case SIGHT_DEFAULT:
-		gdl = sightRenderDefault(gdl, arg1 && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightRenderDefault(gdl, aiming && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_CLASSIC:
-		gdl = sightRenderClassic(gdl, arg1 && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightRenderClassic(gdl, aiming && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_2:
-		gdl = sightRenderType2(gdl, arg1 && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightRenderType2(gdl, aiming && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_3:
-		gdl = sightRenderDefault(gdl, arg1 && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightRenderDefault(gdl, aiming && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_SKEDAR:
-		gdl = sightRenderSkedar(gdl, arg1 && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightRenderSkedar(gdl, aiming && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_ZOOM:
-		gdl = sightRenderZoom(gdl, arg1 && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightRenderZoom(gdl, aiming && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_MAIAN:
-		gdl = sightRenderMaian(gdl, arg1 && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightRenderMaian(gdl, aiming && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	default:
-		gdl = sightRenderDefault(gdl, arg1 && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
+		gdl = sightRenderDefault(gdl, aiming && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex));
 		break;
 	case SIGHT_NONE:
 		break;
 	}
 
 	if (sight != SIGHT_NONE && optionsGetSightOnScreen(g_Vars.currentplayerstats->mpindex)) {
-		if ((optionsGetAlwaysShowTarget(g_Vars.currentplayerstats->mpindex) && !arg1)
-				|| (arg1 && sightHasTargetWhileAiming(sight))) {
+		if ((optionsGetAlwaysShowTarget(g_Vars.currentplayerstats->mpindex) && !aiming)
+				|| (aiming && sightHasTargetWhileAiming(sight))) {
 			gdl = sightRenderTarget(gdl);
 		}
 	}
