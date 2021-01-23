@@ -472,6 +472,7 @@
 // chr->hidden2
 #define CHRH2FLAG_0001        0x0001
 #define CHRH2FLAG_0002        0x0002 // Equivalent to OBJFLAG3_00020000
+#define CHRH2FLAG_0008        0x0008
 #define CHRH2FLAG_0010        0x0010
 #define CHRH2FLAG_0040        0x0040
 #define CHRH2FLAG_0080        0x0080

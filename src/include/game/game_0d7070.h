@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f0d7070(void);
+bool func0f0d7070(struct prop *prop);
 u32 func0f0d716c(void);
 u32 func0f0d7240(void);
 u32 func0f0d7328(void);

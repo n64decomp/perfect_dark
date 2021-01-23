@@ -39,74 +39,39 @@ u32 var80070f98 = 0x00000000;
 u32 var80070f9c = 0x00ff00ff;
 u32 var80070fa0 = 0x00ff0011;
 
+bool func0f0d7070(struct prop *prop)
+{
+	if (prop == NULL) {
+		prop = g_Vars.currentplayer->lookingatprop.prop;
+	}
+
+	if (prop == NULL) {
+		return false;
+	}
+
+	if (prop->type != PROPTYPE_CHR && prop->type != PROPTYPE_PLAYER) {
+		return false;
+	}
+
+	if (g_Vars.coopplayernum >= 0 && prop->type == PROPTYPE_PLAYER) {
+		return true;
+	}
+
+	if (g_Vars.antiplayernum >= 0 && prop->type == PROPTYPE_PLAYER) {
+		return false;
+	}
+
+	if (g_Vars.normmplayerisrunning == false
+			&& prop->chr
+			&& (prop->chr->hidden2 & CHRH2FLAG_0008)) {
+		return true;
+	}
+
+	return chrCompareTeams(g_Vars.currentplayer->prop->chr, prop->chr, COMPARE_FRIENDS);
+}
+
 GLOBAL_ASM(
-glabel func0f0d7070
-/*  f0d7070:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0d7074:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0d7078:	14800005 */ 	bnez	$a0,.L0f0d7090
-/*  f0d707c:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0d7080:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0d7084:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0d7088:	8c6e0284 */ 	lw	$t6,0x284($v1)
-/*  f0d708c:	8dc71624 */ 	lw	$a3,0x1624($t6)
-.L0f0d7090:
-/*  f0d7090:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0d7094:	14e00003 */ 	bnez	$a3,.L0f0d70a4
-/*  f0d7098:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0d709c:	1000002b */ 	b	.L0f0d714c
-/*  f0d70a0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0d70a4:
-/*  f0d70a4:	90e20000 */ 	lbu	$v0,0x0($a3)
-/*  f0d70a8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0d70ac:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f0d70b0:	50410006 */ 	beql	$v0,$at,.L0f0d70cc
-/*  f0d70b4:	8c6f0298 */ 	lw	$t7,0x298($v1)
-/*  f0d70b8:	50820004 */ 	beql	$a0,$v0,.L0f0d70cc
-/*  f0d70bc:	8c6f0298 */ 	lw	$t7,0x298($v1)
-/*  f0d70c0:	10000022 */ 	b	.L0f0d714c
-/*  f0d70c4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0d70c8:	8c6f0298 */ 	lw	$t7,0x298($v1)
-.L0f0d70cc:
-/*  f0d70cc:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f0d70d0:	05e20006 */ 	bltzl	$t7,.L0f0d70ec
-/*  f0d70d4:	8c78029c */ 	lw	$t8,0x29c($v1)
-/*  f0d70d8:	54820004 */ 	bnel	$a0,$v0,.L0f0d70ec
-/*  f0d70dc:	8c78029c */ 	lw	$t8,0x29c($v1)
-/*  f0d70e0:	1000001a */ 	b	.L0f0d714c
-/*  f0d70e4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0d70e8:	8c78029c */ 	lw	$t8,0x29c($v1)
-.L0f0d70ec:
-/*  f0d70ec:	07020006 */ 	bltzl	$t8,.L0f0d7108
-/*  f0d70f0:	8c790318 */ 	lw	$t9,0x318($v1)
-/*  f0d70f4:	54820004 */ 	bnel	$a0,$v0,.L0f0d7108
-/*  f0d70f8:	8c790318 */ 	lw	$t9,0x318($v1)
-/*  f0d70fc:	10000013 */ 	b	.L0f0d714c
-/*  f0d7100:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0d7104:	8c790318 */ 	lw	$t9,0x318($v1)
-.L0f0d7108:
-/*  f0d7108:	5720000b */ 	bnezl	$t9,.L0f0d7138
-/*  f0d710c:	8c6a0284 */ 	lw	$t2,0x284($v1)
-/*  f0d7110:	8ce20004 */ 	lw	$v0,0x4($a3)
-/*  f0d7114:	50400008 */ 	beqzl	$v0,.L0f0d7138
-/*  f0d7118:	8c6a0284 */ 	lw	$t2,0x284($v1)
-/*  f0d711c:	94480192 */ 	lhu	$t0,0x192($v0)
-/*  f0d7120:	31090008 */ 	andi	$t1,$t0,0x8
-/*  f0d7124:	51200004 */ 	beqzl	$t1,.L0f0d7138
-/*  f0d7128:	8c6a0284 */ 	lw	$t2,0x284($v1)
-/*  f0d712c:	10000007 */ 	b	.L0f0d714c
-/*  f0d7130:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0d7134:	8c6a0284 */ 	lw	$t2,0x284($v1)
-.L0f0d7138:
-/*  f0d7138:	8ce50004 */ 	lw	$a1,0x4($a3)
-/*  f0d713c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0d7140:	8d4b00bc */ 	lw	$t3,0xbc($t2)
-/*  f0d7144:	0fc12aa3 */ 	jal	chrCompareTeams
-/*  f0d7148:	8d640004 */ 	lw	$a0,0x4($t3)
-.L0f0d714c:
-/*  f0d714c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0d7150:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0d7154:	03e00008 */ 	jr	$ra
-/*  f0d7158:	00000000 */ 	nop
+glabel func0f0d715c
 /*  f0d715c:	03e00008 */ 	jr	$ra
 /*  f0d7160:	00000000 */ 	nop
 /*  f0d7164:	03e00008 */ 	jr	$ra
