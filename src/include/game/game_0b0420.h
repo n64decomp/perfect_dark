@@ -48,7 +48,7 @@ bool handHasFunctionFlags(struct hand *hand, u32 flags);
 s8 weaponGetMaxFireRatePerTick(u32 weaponnum, u32 funcindex);
 u32 currentPlayerGetSight(void);
 u32 func0f0b201c(void);
-u32 func0f0b20e8(void);
+u32 *handGetPriToSecAnim(struct hand *hand);
 u32 func0f0b2118(void);
 
 #endif
