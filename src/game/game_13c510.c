@@ -57,25 +57,15 @@ const u32 var7f1b5a04[] = {0x3b888889};
 const u32 var7f1b5a08[] = {0x3b888889};
 const u32 var7f1b5a0c[] = {0x3ecccccd};
 
-GLOBAL_ASM(
-glabel func0f13c510
-/*  f13c510:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f13c514:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f13c518:	0c000913 */ 	jal	func0000244c
-/*  f13c51c:	00000000 */ 	nop
-/*  f13c520:	00001825 */ 	or	$v1,$zero,$zero
-/*  f13c524:	00402025 */ 	or	$a0,$v0,$zero
-/*  f13c528:	24050078 */ 	addiu	$a1,$zero,0x78
-.L0f13c52c:
-/*  f13c52c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f13c530:	24840014 */ 	addiu	$a0,$a0,0x14
-/*  f13c534:	1465fffd */ 	bne	$v1,$a1,.L0f13c52c
-/*  f13c538:	a480ffec */ 	sh	$zero,-0x14($a0)
-/*  f13c53c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f13c540:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f13c544:	03e00008 */ 	jr	$ra
-/*  f13c548:	00000000 */ 	nop
-);
+void func0f13c510(void)
+{
+	struct bootbufferthing *thing = func0000244c();
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(thing->unk00); i++) {
+		thing->unk00[i].unk00 = 0;
+	}
+}
 
 void func0f13c54c(void)
 {

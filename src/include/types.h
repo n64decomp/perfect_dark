@@ -3447,8 +3447,16 @@ struct audioconfig {
 	u32 flags; // 0x10 = contains swearing
 };
 
+struct bootbufferthingdeep {
+	u16 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+};
+
 struct bootbufferthing {
-	u8 unk00[2400];
+	struct bootbufferthingdeep unk00[120];
 };
 
 struct playerstats {
