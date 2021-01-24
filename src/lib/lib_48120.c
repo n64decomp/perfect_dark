@@ -11,7 +11,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00048120
+glabel osWritebackDCacheAll
 /*    48120:	3c088000 */ 	lui	$t0,0x8000
 /*    48124:	240a2000 */ 	addiu	$t2,$zero,0x2000
 /*    48128:	010a4821 */ 	addu	$t1,$t0,$t2

@@ -26,6 +26,7 @@
 #include <PR/os_ai.h>
 #include <PR/libaudio.h>
 #include <PR/libultra.h>
+#include <PR/sched.h>
 
 #define OS_K0_TO_PHYSICAL(x) (u32)(((char *)(x)-0x80000000))
 #define OS_K1_TO_PHYSICAL(x) (u32)(((char *)(x)-0xa0000000))

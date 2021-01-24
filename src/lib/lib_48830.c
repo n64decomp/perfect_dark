@@ -51,7 +51,7 @@ glabel func00048870
 );
 
 GLOBAL_ASM(
-glabel func000488b0
+glabel osDpSetStatus
 /*    488b0:	3c0ea410 */ 	lui	$t6,0xa410
 /*    488b4:	03e00008 */ 	jr	$ra
 /*    488b8:	adc4000c */ 	sw	$a0,0xc($t6)

@@ -94,7 +94,7 @@ glabel func00005e40
 );
 
 GLOBAL_ASM(
-glabel func00005f4c
+glabel osSpTaskLoad
 /*     5f4c:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*     5f50:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*     5f54:	afb00014 */ 	sw	$s0,0x14($sp)
@@ -197,7 +197,7 @@ glabel func00005f4c
 );
 
 GLOBAL_ASM(
-glabel func000060b4
+glabel osSpTaskStartGo
 /*     60b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     60b8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     60bc:	0c012d78 */ 	jal	func0004b5e0

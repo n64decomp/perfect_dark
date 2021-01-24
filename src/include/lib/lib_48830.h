@@ -5,7 +5,6 @@
 
 u32 func00048830(void);
 u32 func00048870(void);
-u32 func000488b0(void);
 OSPri osGetThreadPri(OSThread *thread);
 
 #endif
