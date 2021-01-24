@@ -123,27 +123,9 @@ void osSpTaskLoad(OSTask *intp)
 	while (__osSpRawStartDma(1, SP_IMEM_START, tp->t.ucode_boot, tp->t.ucode_boot_size) == -1);
 }
 
-GLOBAL_ASM(
-glabel osSpTaskStartGo
-/*     60b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     60b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     60bc:	0c012d78 */ 	jal	__osSpDeviceBusy
-/*     60c0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*     60c4:	10400005 */ 	beqz	$v0,.L000060dc
-/*     60c8:	00000000 */ 	nop
-.L000060cc:
-/*     60cc:	0c012d78 */ 	jal	__osSpDeviceBusy
-/*     60d0:	00000000 */ 	nop
-/*     60d4:	1440fffd */ 	bnez	$v0,.L000060cc
-/*     60d8:	00000000 */ 	nop
-.L000060dc:
-/*     60dc:	0c012d40 */ 	jal	__osSpSetStatus
-/*     60e0:	24040125 */ 	addiu	$a0,$zero,0x125
-/*     60e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     60e8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     60ec:	03e00008 */ 	jr	$ra
-/*     60f0:	00000000 */ 	nop
-/*     60f4:	00000000 */ 	nop
-/*     60f8:	00000000 */ 	nop
-/*     60fc:	00000000 */ 	nop
-);
+void osSpTaskStartGo(OSTask *tp)
+{
+	while (__osSpDeviceBusy());
+
+	__osSpSetStatus(SP_SET_INTR_BREAK | SP_CLR_SSTEP | SP_CLR_BROKE | SP_CLR_HALT);
+}
