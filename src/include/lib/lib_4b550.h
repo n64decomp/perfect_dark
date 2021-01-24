@@ -3,6 +3,4 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0004b550(void);
-
 #endif

@@ -13,7 +13,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004b5e0
+glabel __osSpDeviceBusy
 /*    4b5e0:	3c0ea404 */ 	lui	$t6,0xa404
 /*    4b5e4:	8dc40010 */ 	lw	$a0,0x10($t6)
 /*    4b5e8:	27bdfff8 */ 	addiu	$sp,$sp,-8

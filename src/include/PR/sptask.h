@@ -8,7 +8,7 @@
 #define M_HVQTASK 6
 #define M_HVQMTASK 7
 
-#if (defined(F3DEX_GBI) || defined(F3DLP_GBI) || defined(F3DEX_GBI_2))
+#if (defined(F3DEX_GBI) || defined(F3DLP_GBI) || defined(F3DEX_GBI_2) || 1)
 #define OS_YIELD_DATA_SIZE 0xc00
 #else
 #define OS_YIELD_DATA_SIZE 0x900
@@ -18,6 +18,15 @@
 /* Flags  */
 #define M_TASK_FLAG0 1
 #define M_TASK_FLAG1 2
+
+#define OS_TASK_YIELDED			0x0001
+#define OS_TASK_DP_WAIT			0x0002
+#define	OS_TASK_LOADABLE		0x0004
+#define	OS_TASK_SP_ONLY			0x0008
+#define OS_TASK_USR0			0x0010
+#define OS_TASK_USR1			0x0020
+#define OS_TASK_USR2			0x0040
+#define OS_TASK_USR3			0x0080
 
 /* SpStatus */
 #define SPSTATUS_CLEAR_HALT 0x00000001

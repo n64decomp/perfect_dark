@@ -39,7 +39,7 @@ GLOBAL_ASM(
 glabel func00049100
 /*    49100:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    49104:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    49108:	0c012d40 */ 	jal	func0004b500
+/*    49108:	0c012d40 */ 	jal	__osSpSetStatus
 /*    4910c:	24040400 */ 	addiu	$a0,$zero,0x400
 /*    49110:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    49114:	27bd0018 */ 	addiu	$sp,$sp,0x18

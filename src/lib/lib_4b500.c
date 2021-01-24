@@ -11,7 +11,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004b500
+glabel __osSpSetStatus
 /*    4b500:	3c0ea404 */ 	lui	$t6,0xa404
 /*    4b504:	03e00008 */ 	jr	$ra
 /*    4b508:	adc40010 */ 	sw	$a0,0x10($t6)
@@ -19,7 +19,7 @@ glabel func0004b500
 );
 
 GLOBAL_ASM(
-glabel func0004b510
+glabel __osSpSetPc
 /*    4b510:	3c0ea404 */ 	lui	$t6,0xa404
 /*    4b514:	8dc50010 */ 	lw	$a1,0x10($t6)
 /*    4b518:	27bdfff8 */ 	addiu	$sp,$sp,-8

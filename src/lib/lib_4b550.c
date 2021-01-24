@@ -12,13 +12,13 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004b550
+glabel __osSpRawStartDma
 /*    4b550:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    4b554:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4b558:	afa40018 */ 	sw	$a0,0x18($sp)
 /*    4b55c:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*    4b560:	afa60020 */ 	sw	$a2,0x20($sp)
-/*    4b564:	0c012d78 */ 	jal	func0004b5e0
+/*    4b564:	0c012d78 */ 	jal	__osSpDeviceBusy
 /*    4b568:	afa70024 */ 	sw	$a3,0x24($sp)
 /*    4b56c:	10400003 */ 	beqz	$v0,.L0004b57c
 /*    4b570:	8fae001c */ 	lw	$t6,0x1c($sp)
