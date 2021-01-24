@@ -35,8 +35,6 @@ u32 var80070f8c = 0x00000000;
 u32 var80070f90 = 0x00000000;
 u32 var80070f94 = 0x00000000;
 u32 var80070f98 = 0x00000000;
-u32 var80070f9c = 0x00ff00ff;
-u32 var80070fa0 = 0x00ff0011;
 
 /**
  * Return true if the prop is considered friendly (blue sight).
@@ -341,7 +339,7 @@ s32 func0f0d789c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 }
 
 GLOBAL_ASM(
-glabel func0f0d78f4
+glabel sightRenderTargetBox
 /*  f0d78f4:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0d78f8:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f0d78fc:	afa40098 */ 	sw	$a0,0x98($sp)
@@ -2124,7 +2122,7 @@ glabel var7f1ade50
 /*  f0d926c:	25051624 */ 	addiu	$a1,$t0,0x1624
 /*  f0d9270:	132000ab */ 	beqz	$t9,.L0f0d9520
 /*  f0d9274:	00000000 */ 	nop
-/*  f0d9278:	0fc35e3d */ 	jal	func0f0d78f4
+/*  f0d9278:	0fc35e3d */ 	jal	sightRenderTargetBox
 /*  f0d927c:	95071b90 */ 	lhu	$a3,0x1b90($t0)
 /*  f0d9280:	100000a7 */ 	b	.L0f0d9520
 /*  f0d9284:	00409825 */ 	or	$s3,$v0,$zero
@@ -2141,7 +2139,7 @@ glabel var7f1ade50
 /*  f0d92ac:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0d92b0:	11600006 */ 	beqz	$t3,.L0f0d92cc
 /*  f0d92b4:	010c6821 */ 	addu	$t5,$t0,$t4
-/*  f0d92b8:	0fc35e3d */ 	jal	func0f0d78f4
+/*  f0d92b8:	0fc35e3d */ 	jal	sightRenderTargetBox
 /*  f0d92bc:	95a71b90 */ 	lhu	$a3,0x1b90($t5)
 /*  f0d92c0:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d92c4:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -2260,7 +2258,7 @@ glabel var7f1ade50
 /*  f0d9460:	01096821 */ 	addu	$t5,$t0,$t1
 .L0f0d9464:
 /*  f0d9464:	95a71b90 */ 	lhu	$a3,0x1b90($t5)
-/*  f0d9468:	0fc35e3d */ 	jal	func0f0d78f4
+/*  f0d9468:	0fc35e3d */ 	jal	sightRenderTargetBox
 /*  f0d946c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0d9470:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d9474:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -2269,7 +2267,7 @@ glabel var7f1ade50
 .L0f0d9480:
 /*  f0d9480:	01097021 */ 	addu	$t6,$t0,$t1
 /*  f0d9484:	95c71b90 */ 	lhu	$a3,0x1b90($t6)
-/*  f0d9488:	0fc35e3d */ 	jal	func0f0d78f4
+/*  f0d9488:	0fc35e3d */ 	jal	sightRenderTargetBox
 /*  f0d948c:	26060002 */ 	addiu	$a2,$s0,0x2
 /*  f0d9490:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f0d9494:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -2324,6 +2322,203 @@ glabel var7f1ade50
 /*  f0d953c:	03e00008 */ 	jr	$ra
 /*  f0d9540:	27bd0098 */ 	addiu	$sp,$sp,0x98
 );
+
+// Mismatch: Goal loads g_Vars.lvupdate240 differently for add to var80070f98.
+//Gfx *sightRenderDefault(Gfx *gdl, bool sighton)
+//{
+//	s32 s1;
+//	s32 sp90;
+//	u32 colour;
+//	s32 x = (s32)g_Vars.currentplayer->crosspos[0] / g_ScaleX; // 88
+//	s32 y = g_Vars.currentplayer->crosspos[1]; // 84
+//	s32 i;
+//
+//	gdl = func0f153628(gdl);
+//
+//	switch (g_Vars.currentplayer->target) {
+//	case SIGHTTARGET_0: // f0d9034
+//		if (sighton) {
+//			gdl = func0f0d7f54(gdl, x, y, 8, 5, 0x00ff0028);
+//		}
+//		break;
+//	case SIGHTTARGET_1: // f0d906c
+//		if (sighton) {
+//			// 084
+//			if (g_Vars.currentplayer->lookingatprop.prop == NULL) {
+//				colour = 0x00ff0028;
+//				s1 = 8;
+//				sp90 = 5;
+//			} else {
+//				// 094
+//				colour = sightIsPropFriendly(NULL) ? 0x0000ff60 : 0xff000060;
+//				s1 = 6;
+//				sp90 = 3;
+//			}
+//
+//			// 0b8
+//			func0000db30("sight", &var80070f94);
+//
+//			switch (var80070f94) {
+//			case 0:
+//				gdl = func0f0d7f54(gdl, x, y, s1, sp90, colour);
+//				break;
+//			case 1:
+//				gdl = func0f0d87a8(gdl, x, y, s1 * 2, sp90 * 2, colour);
+//				break;
+//			}
+//		}
+//		break;
+//	case SIGHTTARGET_2: // f0d913c
+//		if (sighton) {
+//			s32 textx; // 78
+//			s32 texty; // 74
+//
+//			// 154
+//			if (g_Vars.currentplayer->lookingatprop.prop == NULL) {
+//				colour = 0x00ff0028;
+//				s1 = 8;
+//				sp90 = 5;
+//			} else {
+//				// 164
+//				colour = sightIsPropFriendly(NULL) ? 0x0000ff60 : 0xff000060;
+//				s1 = 6;
+//				sp90 = 3;
+//			}
+//
+//			var80070f98 += g_Vars.lvupdate240;
+//
+//			textx = 135;
+//			texty = 200;
+//
+//			if (var80070f98 & 0x80) {
+//				// "Identify"
+//				gdl = textRender(gdl, &textx, &texty, langGet(L_MISC(439)),
+//						g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0x00ff00a0, 0x000000a0,
+//						viGetX(), viGetY(), 0, 0);
+//			}
+//
+//			gdl = func0f0d7f54(gdl, x, y, s1, sp90, colour);
+//
+//			if (g_Vars.currentplayer->lookingatprop.prop) {
+//				gdl = sightRenderTargetBox(gdl, &g_Vars.currentplayer->lookingatprop, 1, g_Vars.currentplayer->targetset[0]);
+//			}
+//		}
+//		break;
+//	case SIGHTTARGET_3: // f0d9288
+//		for (i = 0; i < 1; i++) {
+//			if (g_Vars.currentplayer->cmpfollowprops[i].prop) {
+//				gdl = sightRenderTargetBox(gdl, &g_Vars.currentplayer->cmpfollowprops[i], 0,
+//						g_Vars.currentplayer->targetset[i]);
+//			}
+//		}
+//
+//		if (sighton) {
+//			if (g_Vars.currentplayer->lookingatprop.prop == NULL) {
+//				colour = 0x00ff0028;
+//				s1 = 8;
+//				sp90 = 5;
+//			} else {
+//				colour = sightIsPropFriendly(NULL) ? 0x0000ff60 : 0xff000060;
+//				s1 = 6;
+//				sp90 = 3;
+//			}
+//
+//			gdl = func0f0d7f54(gdl, x, y, s1, sp90, colour);
+//		}
+//		break;
+//	case SIGHTTARGET_4: // f0d9350
+//	case SIGHTTARGET_5: // f0d9350
+//		for (i = 0; i < 4; i++) {
+//			struct threat *threat = &g_Vars.currentplayer->cmpfollowprops[i];
+//			struct prop *prop = threat->prop;
+//
+//			// 36c
+//			if (prop) {
+//				// 380
+//				if (g_Vars.currentplayer->target == SIGHTTARGET_5) {
+//					struct defaultobj *obj = prop->obj;
+//					struct weaponobj *weapon;
+//					u32 textid = 0;
+//
+//					// @dangerous: There is no check here to see if the prop
+//					// type is obj. However, it's likely that only objs can be
+//					// in the cmdfollowprops list at this point, so it's
+//					// probably OK.
+//					if (obj && obj->type == OBJTYPE_AUTOGUN
+//							&& (obj->flags2 & (OBJFLAG2_AICANNOTUSE | OBJFLAG2_80000000)) == 0) {
+//						textid = L_GUN(215); // "AUTOGUN"
+//					}
+//
+//					weapon = prop->weapon;
+//
+//					if (weapon && weapon->base.type == OBJTYPE_WEAPON) {
+//						switch (weapon->weaponnum) {
+//						case WEAPON_GRENADE:
+//							if (weapon->thrown == true) {
+//								textid = L_GUN(212); // "PROXY"
+//							} else {
+//								textid = L_GUN(213); // "TIMED"
+//							}
+//							break;
+//						case WEAPON_NBOMB:
+//							if (weapon->thrown == true) {
+//								textid = L_GUN(212); // "PROXY"
+//							} else {
+//								textid = L_GUN(216); // "IMPACT"
+//							}
+//							break;
+//						case WEAPON_TIMEDMINE:
+//							textid = L_GUN(213); // "TIMED"
+//							break;
+//						case WEAPON_PROXIMITYMINE:
+//							textid = L_GUN(212); // "PROXY"
+//							break;
+//						case WEAPON_REMOTEMINE:
+//							textid = L_GUN(214); // "REMOTE"
+//							break;
+//						case WEAPON_DRAGON:
+//							if (weapon->thrown == true) {
+//								textid = L_GUN(212); // "PROXY"
+//							}
+//							break;
+//						}
+//					}
+//
+//					gdl = sightRenderTargetBox(gdl, &g_Vars.currentplayer->cmpfollowprops[i], textid,
+//							g_Vars.currentplayer->targetset[i]);
+//				} else {
+//					// CMP150-tracked prop - render with index number
+//					// For some reason i + 2 is passed instead of i + 1,
+//					// but this is compensated for in sightRenderTargetBox.
+//					gdl = sightRenderTargetBox(gdl, &g_Vars.currentplayer->cmpfollowprops[i], i + 2,
+//							g_Vars.currentplayer->targetset[i]);
+//				}
+//			}
+//		}
+//
+//		if (sighton) {
+//			if (g_Vars.currentplayer->lookingatprop.prop == NULL) {
+//				colour = 0x00ff0028;
+//				s1 = 8;
+//				sp90 = 5;
+//			} else {
+//				colour = sightIsPropFriendly(NULL) ? 0x0000ff60 : 0xff000060;
+//				s1 = 6;
+//				sp90 = 3;
+//			}
+//
+//			gdl = func0f0d7f54(gdl, x, y, s1, sp90, colour);
+//		}
+//		break;
+//	}
+//
+//	gdl = func0f153780(gdl);
+//
+//	return gdl;
+//}
+
+u32 var80070f9c = 0x00ff00ff;
+u32 var80070fa0 = 0x00ff0011;
 
 GLOBAL_ASM(
 glabel sightRenderClassic

@@ -129,7 +129,6 @@ extern u32 var80070f68;
 extern u32 var80070f6c;
 extern u32 var80070f70;
 extern u32 var80070f80;
-extern u32 var80070f94;
 extern u32 var80070f9c;
 extern u32 var80070fa0;
 extern u32 g_Colours[];
