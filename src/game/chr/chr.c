@@ -9725,7 +9725,7 @@ void func0f028590(f32 arg0)
 #if PIRACYCHECKS
 					{
 						s32 *i = (s32 *)&func00002078;
-						s32 *end = (s32 *)&func00002148;
+						s32 *end = (s32 *)&__scHandleRetrace;
 						u32 checksum = 0;
 
 						while (i < end) {

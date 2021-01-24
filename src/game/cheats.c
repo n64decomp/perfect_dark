@@ -478,9 +478,9 @@ glabel cheatMenuHandleDialog
 /*  f1079c4:	0fc43c4f */ 	jal	savefileSetFlag
 /*  f1079c8:	24040023 */ 	addiu	$a0,$zero,0x23
 .L0f1079cc:
-/*  f1079cc:	3c067000 */ 	lui	$a2,%hi(func00002148)
+/*  f1079cc:	3c067000 */ 	lui	$a2,%hi(__scHandleRetrace)
 /*  f1079d0:	3c057000 */ 	lui	$a1,%hi(func000022e0)
-/*  f1079d4:	24c62148 */ 	addiu	$a2,$a2,%lo(func00002148)
+/*  f1079d4:	24c62148 */ 	addiu	$a2,$a2,%lo(__scHandleRetrace)
 /*  f1079d8:	24a422e0 */ 	addiu	$a0,$a1,%lo(func000022e0)
 /*  f1079dc:	00c4082b */ 	sltu	$at,$a2,$a0
 /*  f1079e0:	00c01025 */ 	or	$v0,$a2,$zero
@@ -530,7 +530,7 @@ glabel cheatMenuHandleDialog
 );
 
 // Mismatch because it optimises the `end = &ptr[4]` line.
-// It's calculating it as &func00002148 + 24 rather than ptr + 4.
+// It's calculating it as &__scHandleRetrace + 24 rather than ptr + 4.
 //bool cheatMenuHandleDialog(u32 operation, struct menudialog *dialog, struct menu *menu)
 //{
 //	if (operation == MENUOP_OPEN) {
@@ -542,7 +542,7 @@ glabel cheatMenuHandleDialog
 //
 //#if PIRACYCHECKS
 //		{
-//			u32 *ptr = (u32 *)&func00002148;
+//			u32 *ptr = (u32 *)&__scHandleRetrace;
 //			u32 *end = (u32 *)&func000022e0;
 //			u32 checksum = 0;
 //
@@ -552,7 +552,7 @@ glabel cheatMenuHandleDialog
 //			}
 //
 //			if (checksum != 0x6f764531) {
-//				ptr = (u32 *)&func00002148 + 20;
+//				ptr = (u32 *)&__scHandleRetrace + 20;
 //				end = &ptr[4];
 //
 //				while (ptr < end) {

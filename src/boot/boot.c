@@ -1746,7 +1746,7 @@ glabel func00001e94
 .L00001f34:
 /*     1f34:	0c00081e */ 	jal	func00002078
 /*     1f38:	02202025 */ 	or	$a0,$s1,$zero
-/*     1f3c:	0c000852 */ 	jal	func00002148
+/*     1f3c:	0c000852 */ 	jal	__scHandleRetrace
 /*     1f40:	02202025 */ 	or	$a0,$s1,$zero
 /*     1f44:	1000000b */ 	b	.L00001f74
 /*     1f48:	00000000 */ 	nop
@@ -1760,7 +1760,7 @@ glabel func00001e94
 /*     1f60:	24040008 */ 	addiu	$a0,$zero,0x8
 /*     1f64:	0c00098b */ 	jal	func0000262c
 /*     1f68:	02202025 */ 	or	$a0,$s1,$zero
-/*     1f6c:	0c000852 */ 	jal	func00002148
+/*     1f6c:	0c000852 */ 	jal	__scHandleRetrace
 /*     1f70:	02202025 */ 	or	$a0,$s1,$zero
 .L00001f74:
 /*     1f74:	52e0ffdb */ 	beqzl	$s7,.L00001ee4
@@ -1804,7 +1804,7 @@ glabel func00001fa8
 /*     1ffc:	8e0f00c8 */ 	lw	$t7,0xc8($s0)
 /*     2000:	51e00006 */ 	beqzl	$t7,.L0000201c
 /*     2004:	8e1800c8 */ 	lw	$t8,0xc8($s0)
-/*     2008:	0c000adc */ 	jal	func00002b70
+/*     2008:	0c000adc */ 	jal	__scYield
 /*     200c:	02002025 */ 	or	$a0,$s0,$zero
 /*     2010:	10000012 */ 	b	.L0000205c
 /*     2014:	00002025 */ 	or	$a0,$zero,$zero
@@ -1816,7 +1816,7 @@ glabel func00001fa8
 /*     2028:	00194040 */ 	sll	$t0,$t9,0x1
 /*     202c:	2d2a0001 */ 	sltiu	$t2,$t1,0x1
 /*     2030:	010a3825 */ 	or	$a3,$t0,$t2
-/*     2034:	0c000aeb */ 	jal	func00002bac
+/*     2034:	0c000aeb */ 	jal	__scSchedule
 /*     2038:	afa7002c */ 	sw	$a3,0x2c($sp)
 /*     203c:	8fa7002c */ 	lw	$a3,0x2c($sp)
 /*     2040:	02002025 */ 	or	$a0,$s0,$zero
@@ -1896,215 +1896,58 @@ glabel func00002078
 );
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00002148
-/*     2148:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*     214c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*     2150:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     2154:	00808825 */ 	or	$s1,$a0,$zero
-/*     2158:	afb30020 */ 	sw	$s3,0x20($sp)
-/*     215c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*     2160:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     2164:	afa00050 */ 	sw	$zero,0x50($sp)
-/*     2168:	afa00048 */ 	sw	$zero,0x48($sp)
-/*     216c:	0c0026a2 */ 	jal	func00009a88
-/*     2170:	afa00044 */ 	sw	$zero,0x44($sp)
-/*     2174:	27b30050 */ 	addiu	$s3,$sp,0x50
-/*     2178:	26320078 */ 	addiu	$s2,$s1,0x78
-/*     217c:	02402025 */ 	or	$a0,$s2,$zero
-/*     2180:	02602825 */ 	or	$a1,$s3,$zero
-/*     2184:	0c0121bc */ 	jal	osRecvMesg
-/*     2188:	00003025 */ 	or	$a2,$zero,$zero
-/*     218c:	2410ffff */ 	addiu	$s0,$zero,-1
-/*     2190:	10500009 */ 	beq	$v0,$s0,.L000021b8
-/*     2194:	02202025 */ 	or	$a0,$s1,$zero
-.L00002198:
-/*     2198:	0c000a87 */ 	jal	__scAppendList
-/*     219c:	8fa50050 */ 	lw	$a1,0x50($sp)
-/*     21a0:	02402025 */ 	or	$a0,$s2,$zero
-/*     21a4:	02602825 */ 	or	$a1,$s3,$zero
-/*     21a8:	0c0121bc */ 	jal	osRecvMesg
-/*     21ac:	00003025 */ 	or	$a2,$zero,$zero
-/*     21b0:	5450fff9 */ 	bnel	$v0,$s0,.L00002198
-/*     21b4:	02202025 */ 	or	$a0,$s1,$zero
-.L000021b8:
-/*     21b8:	8e2e00d4 */ 	lw	$t6,0xd4($s1)
-/*     21bc:	02202025 */ 	or	$a0,$s1,$zero
-/*     21c0:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*     21c4:	51c00009 */ 	beqzl	$t6,.L000021ec
-/*     21c8:	8e3800c8 */ 	lw	$t8,0xc8($s1)
-/*     21cc:	8e2f00c8 */ 	lw	$t7,0xc8($s1)
-/*     21d0:	51e00006 */ 	beqzl	$t7,.L000021ec
-/*     21d4:	8e3800c8 */ 	lw	$t8,0xc8($s1)
-/*     21d8:	0c000adc */ 	jal	func00002b70
-/*     21dc:	02202025 */ 	or	$a0,$s1,$zero
-/*     21e0:	10000010 */ 	b	.L00002224
-/*     21e4:	8e3000b4 */ 	lw	$s0,0xb4($s1)
-/*     21e8:	8e3800c8 */ 	lw	$t8,0xc8($s1)
-.L000021ec:
-/*     21ec:	8e2900cc */ 	lw	$t1,0xcc($s1)
-/*     21f0:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*     21f4:	2f190001 */ 	sltiu	$t9,$t8,0x1
-/*     21f8:	00194040 */ 	sll	$t0,$t9,0x1
-/*     21fc:	2d2a0001 */ 	sltiu	$t2,$t1,0x1
-/*     2200:	010a8025 */ 	or	$s0,$t0,$t2
-/*     2204:	0c000aeb */ 	jal	func00002bac
-/*     2208:	02003825 */ 	or	$a3,$s0,$zero
-/*     220c:	10500004 */ 	beq	$v0,$s0,.L00002220
-/*     2210:	02202025 */ 	or	$a0,$s1,$zero
-/*     2214:	8fa50048 */ 	lw	$a1,0x48($sp)
-/*     2218:	0c000aa1 */ 	jal	__scExec
-/*     221c:	8fa60044 */ 	lw	$a2,0x44($sp)
-.L00002220:
-/*     2220:	8e3000b4 */ 	lw	$s0,0xb4($s1)
-.L00002224:
-/*     2224:	1200000f */ 	beqz	$s0,.L00002264
-/*     2228:	00000000 */ 	nop
-/*     222c:	8e0b0008 */ 	lw	$t3,0x8($s0)
-.L00002230:
-/*     2230:	02202825 */ 	or	$a1,$s1,$zero
-/*     2234:	00003025 */ 	or	$a2,$zero,$zero
-/*     2238:	11600005 */ 	beqz	$t3,.L00002250
-/*     223c:	00000000 */ 	nop
-/*     2240:	8e2c00d0 */ 	lw	$t4,0xd0($s1)
-/*     2244:	318d0001 */ 	andi	$t5,$t4,0x1
-/*     2248:	55a00004 */ 	bnezl	$t5,.L0000225c
-/*     224c:	8e100000 */ 	lw	$s0,0x0($s0)
-.L00002250:
-/*     2250:	0c012238 */ 	jal	osSendMesg
-/*     2254:	8e040004 */ 	lw	$a0,0x4($s0)
-/*     2258:	8e100000 */ 	lw	$s0,0x0($s0)
-.L0000225c:
-/*     225c:	5600fff4 */ 	bnezl	$s0,.L00002230
-/*     2260:	8e0b0008 */ 	lw	$t3,0x8($s0)
-.L00002264:
-/*     2264:	3c057000 */ 	lui	$a1,%hi(allocateStack)
-/*     2268:	3c067000 */ 	lui	$a2,%hi(func000016cc)
-/*     226c:	24a418ac */ 	addiu	$a0,$a1,%lo(allocateStack)
-/*     2270:	24c216cc */ 	addiu	$v0,$a2,%lo(func000016cc)
-/*     2274:	0044082b */ 	sltu	$at,$v0,$a0
-/*     2278:	10200006 */ 	beqz	$at,.L00002294
-/*     227c:	00001825 */ 	or	$v1,$zero,$zero
-.L00002280:
-/*     2280:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*     2284:	24420004 */ 	addiu	$v0,$v0,0x4
-/*     2288:	0044082b */ 	sltu	$at,$v0,$a0
-/*     228c:	1420fffc */ 	bnez	$at,.L00002280
-/*     2290:	006e1826 */ 	xor	$v1,$v1,$t6
-.L00002294:
-/*     2294:	3c019144 */ 	lui	$at,0x99aa
-/*     2298:	34212ce7 */ 	ori	$at,$at,0xbbcc
-/*     229c:	10610009 */ 	beq	$v1,$at,.L000022c4
-/*     22a0:	00001025 */ 	or	$v0,$zero,$zero
-/*     22a4:	3c038009 */ 	lui	$v1,%hi(var80095210)
-/*     22a8:	24635210 */ 	addiu	$v1,$v1,%lo(var80095210)
-/*     22ac:	24050028 */ 	addiu	$a1,$zero,0x28
-/*     22b0:	240400ff */ 	addiu	$a0,$zero,0xff
-.L000022b4:
-/*     22b4:	00627821 */ 	addu	$t7,$v1,$v0
-/*     22b8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     22bc:	1445fffd */ 	bne	$v0,$a1,.L000022b4
-/*     22c0:	a1e40004 */ 	sb	$a0,0x4($t7)
-.L000022c4:
-/*     22c4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*     22c8:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*     22cc:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*     22d0:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*     22d4:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*     22d8:	03e00008 */ 	jr	$ra
-/*     22dc:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
-#else
-GLOBAL_ASM(
-glabel func00002148
-/*     23a0:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*     23a4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*     23a8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     23ac:	00808825 */ 	move	$s1,$a0
-/*     23b0:	afb30020 */ 	sw	$s3,0x20($sp)
-/*     23b4:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*     23b8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     23bc:	afa00038 */ 	sw	$zero,0x38($sp)
-/*     23c0:	afa00030 */ 	sw	$zero,0x30($sp)
-/*     23c4:	0c00270a */ 	jal	0x9c28
-/*     23c8:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*     23cc:	27b30038 */ 	addiu	$s3,$sp,0x38
-/*     23d0:	26320078 */ 	addiu	$s2,$s1,0x78
-/*     23d4:	02402025 */ 	move	$a0,$s2
-/*     23d8:	02602825 */ 	move	$a1,$s3
-/*     23dc:	0c0126b0 */ 	jal	0x49ac0
-/*     23e0:	00003025 */ 	move	$a2,$zero
-/*     23e4:	2410ffff */ 	li	$s0,-1
-/*     23e8:	10500009 */ 	beq	$v0,$s0,.L00002410
-/*     23ec:	02202025 */ 	move	$a0,$s1
-.L000023f0:
-/*     23f0:	0c000b05 */ 	jal	0x2c14
-/*     23f4:	8fa50038 */ 	lw	$a1,0x38($sp)
-/*     23f8:	02402025 */ 	move	$a0,$s2
-/*     23fc:	02602825 */ 	move	$a1,$s3
-/*     2400:	0c0126b0 */ 	jal	0x49ac0
-/*     2404:	00003025 */ 	move	$a2,$zero
-/*     2408:	5450fff9 */ 	bnel	$v0,$s0,.L000023f0
-/*     240c:	02202025 */ 	move	$a0,$s1
-.L00002410:
-/*     2410:	8e2e00d4 */ 	lw	$t6,0xd4($s1)
-/*     2414:	02202025 */ 	move	$a0,$s1
-/*     2418:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*     241c:	51c00009 */ 	beqzl	$t6,.L00002444
-/*     2420:	8e3800c8 */ 	lw	$t8,0xc8($s1)
-/*     2424:	8e2f00c8 */ 	lw	$t7,0xc8($s1)
-/*     2428:	51e00006 */ 	beqzl	$t7,.L00002444
-/*     242c:	8e3800c8 */ 	lw	$t8,0xc8($s1)
-/*     2430:	0c000b64 */ 	jal	0x2d90
-/*     2434:	02202025 */ 	move	$a0,$s1
-/*     2438:	10000010 */ 	b	.L0000247c
-/*     243c:	8e3000b4 */ 	lw	$s0,0xb4($s1)
-/*     2440:	8e3800c8 */ 	lw	$t8,0xc8($s1)
-.L00002444:
-/*     2444:	8e2900cc */ 	lw	$t1,0xcc($s1)
-/*     2448:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*     244c:	2f190001 */ 	sltiu	$t9,$t8,0x1
-/*     2450:	00194040 */ 	sll	$t0,$t9,0x1
-/*     2454:	2d2a0001 */ 	sltiu	$t2,$t1,0x1
-/*     2458:	010a8025 */ 	or	$s0,$t0,$t2
-/*     245c:	0c000b73 */ 	jal	0x2dcc
-/*     2460:	02003825 */ 	move	$a3,$s0
-/*     2464:	10500004 */ 	beq	$v0,$s0,.L00002478
-/*     2468:	02202025 */ 	move	$a0,$s1
-/*     246c:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*     2470:	0c000b1f */ 	jal	0x2c7c
-/*     2474:	8fa6002c */ 	lw	$a2,0x2c($sp)
-.L00002478:
-/*     2478:	8e3000b4 */ 	lw	$s0,0xb4($s1)
-.L0000247c:
-/*     247c:	52000010 */ 	beqzl	$s0,.L000024c0
-/*     2480:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*     2484:	8e0b0008 */ 	lw	$t3,0x8($s0)
-.L00002488:
-/*     2488:	02202825 */ 	move	$a1,$s1
-/*     248c:	00003025 */ 	move	$a2,$zero
-/*     2490:	11600005 */ 	beqz	$t3,.L000024a8
-/*     2494:	00000000 */ 	nop
-/*     2498:	8e2c00d0 */ 	lw	$t4,0xd0($s1)
-/*     249c:	318d0001 */ 	andi	$t5,$t4,0x1
-/*     24a0:	55a00004 */ 	bnezl	$t5,.L000024b4
-/*     24a4:	8e100000 */ 	lw	$s0,0x0($s0)
-.L000024a8:
-/*     24a8:	0c01272c */ 	jal	0x49cb0
-/*     24ac:	8e040004 */ 	lw	$a0,0x4($s0)
-/*     24b0:	8e100000 */ 	lw	$s0,0x0($s0)
-.L000024b4:
-/*     24b4:	5600fff4 */ 	bnezl	$s0,.L00002488
-/*     24b8:	8e0b0008 */ 	lw	$t3,0x8($s0)
-/*     24bc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L000024c0:
-/*     24c0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*     24c4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*     24c8:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*     24cc:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*     24d0:	03e00008 */ 	jr	$ra
-/*     24d4:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+void __scHandleRetrace(OSSched *sc)
+{
+	s32         state;
+	OSScTask    *rspTask = 0;
+	OSScClient  *client;
+	OSScTask    *sp = 0;
+	OSScTask    *dp = 0;
+
+	func00009a88();
+
+	while (osRecvMesg(&sc->cmdQ, (OSMesg*)&rspTask, OS_MESG_NOBLOCK) != -1) {
+		__scAppendList(sc, rspTask);
+	}
+
+	if (sc->doAudio && sc->curRSPTask) {
+		__scYield(sc);
+	} else {
+		state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
+
+		if ( __scSchedule (sc, &sp, &dp, state) != state) {
+			__scExec(sc, sp, dp);
+		}
+	}
+
+	for (client = sc->clientList; client != 0; client = client->next) {
+		if ((*((s32*)client + 2) == 0) || ((sc->frameCount & 1) == 0)) {
+			osSendMesg(client->msgQ, (OSMesg) &sc->retraceMsg, OS_MESG_NOBLOCK);
+		}
+	}
+
+#if PIRACYCHECKS
+	{
+		u32 checksum = 0;
+		s32 *end = (s32 *)&allocateStack;
+		s32 *ptr = (s32 *)&func000016cc;
+		s32 i;
+
+		while (ptr < end) {
+			checksum ^= *ptr;
+			ptr++;
+		}
+
+		if (checksum != CHECKSUM_PLACEHOLDER) {
+			u8 *addr = var80095210;
+
+			for (i = 0; i < 40; i++) {
+				addr[4 + i] = 0xff;
+			}
+		}
+	}
+#endif
+}
 #endif
 
 GLOBAL_ASM(
@@ -2168,7 +2011,7 @@ glabel func000022e0
 /*     23b0:	03293825 */ 	or	$a3,$t9,$t1
 /*     23b4:	afa70020 */ 	sw	$a3,0x20($sp)
 /*     23b8:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*     23bc:	0c000aeb */ 	jal	func00002bac
+/*     23bc:	0c000aeb */ 	jal	__scSchedule
 /*     23c0:	27a60024 */ 	addiu	$a2,$sp,0x24
 /*     23c4:	8fa70020 */ 	lw	$a3,0x20($sp)
 /*     23c8:	02002025 */ 	or	$a0,$s0,$zero
@@ -2346,7 +2189,7 @@ glabel func0000262c
 /*     26c0:	014c3825 */ 	or	$a3,$t2,$t4
 /*     26c4:	afa70020 */ 	sw	$a3,0x20($sp)
 /*     26c8:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*     26cc:	0c000aeb */ 	jal	func00002bac
+/*     26cc:	0c000aeb */ 	jal	__scSchedule
 /*     26d0:	27a60024 */ 	addiu	$a2,$sp,0x24
 /*     26d4:	8fa70020 */ 	lw	$a3,0x20($sp)
 /*     26d8:	02002025 */ 	or	$a0,$s0,$zero
@@ -2658,7 +2501,7 @@ glabel func00002d68nb
 #endif
 
 GLOBAL_ASM(
-glabel func00002b70
+glabel __scYield
 /*     2b70:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     2b74:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     2b78:	8c8200c8 */ 	lw	$v0,0xc8($a0)
@@ -2678,7 +2521,7 @@ glabel func00002b70
 );
 
 GLOBAL_ASM(
-glabel func00002bac
+glabel __scSchedule
 /*     2bac:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*     2bb0:	afb10018 */ 	sw	$s1,0x18($sp)
 /*     2bb4:	00808825 */ 	or	$s1,$a0,$zero
