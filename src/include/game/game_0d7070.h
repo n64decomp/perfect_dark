@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-bool func0f0d7070(struct prop *prop);
+bool sightIsPropFriendly(struct prop *prop);
 bool func0f0d716c(struct prop *prop, s32 arg1);
 bool func0f0d7240(struct prop *prop);
 s32 func0f0d7328(s32 arg0);

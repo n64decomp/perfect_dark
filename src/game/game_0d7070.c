@@ -16,6 +16,7 @@
 #include "game/game_0d7070.h"
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
+#include "game/gfxmemory.h"
 #include "game/lang.h"
 #include "game/pdoptions.h"
 #include "game/propobj.h"
@@ -37,7 +38,7 @@ u32 var80070f98 = 0x00000000;
 u32 var80070f9c = 0x00ff00ff;
 u32 var80070fa0 = 0x00ff0011;
 
-bool func0f0d7070(struct prop *prop)
+bool sightIsPropFriendly(struct prop *prop)
 {
 	if (prop == NULL) {
 		prop = g_Vars.currentplayer->lookingatprop.prop;
@@ -684,7 +685,7 @@ glabel func0f0d78f4
 /*  f0d7ae0:	afa2006c */ 	sw	$v0,0x6c($sp)
 /*  f0d7ae4:	afa80074 */ 	sw	$t0,0x74($sp)
 /*  f0d7ae8:	afa90078 */ 	sw	$t1,0x78($sp)
-/*  f0d7aec:	0fc35c1c */ 	jal	func0f0d7070
+/*  f0d7aec:	0fc35c1c */ 	jal	sightIsPropFriendly
 /*  f0d7af0:	afaa0070 */ 	sw	$t2,0x70($sp)
 /*  f0d7af4:	8fa6006c */ 	lw	$a2,0x6c($sp)
 /*  f0d7af8:	8fa80074 */ 	lw	$t0,0x74($sp)
@@ -2200,7 +2201,7 @@ glabel var7f1ade50
 /*  f0d908c:	1000000a */ 	b	.L0f0d90b8
 /*  f0d9090:	24030005 */ 	addiu	$v1,$zero,0x5
 .L0f0d9094:
-/*  f0d9094:	0fc35c1c */ 	jal	func0f0d7070
+/*  f0d9094:	0fc35c1c */ 	jal	sightIsPropFriendly
 /*  f0d9098:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0d909c:	10400003 */ 	beqz	$v0,.L0f0d90ac
 /*  f0d90a0:	24110006 */ 	addiu	$s1,$zero,0x6
@@ -2258,7 +2259,7 @@ glabel var7f1ade50
 /*  f0d915c:	1000000c */ 	b	.L0f0d9190
 /*  f0d9160:	24030005 */ 	addiu	$v1,$zero,0x5
 .L0f0d9164:
-/*  f0d9164:	0fc35c1c */ 	jal	func0f0d7070
+/*  f0d9164:	0fc35c1c */ 	jal	sightIsPropFriendly
 /*  f0d9168:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0d916c:	10400003 */ 	beqz	$v0,.L0f0d917c
 /*  f0d9170:	24110006 */ 	addiu	$s1,$zero,0x6
@@ -2370,7 +2371,7 @@ glabel var7f1ade50
 /*  f0d9300:	1000000a */ 	b	.L0f0d932c
 /*  f0d9304:	24030005 */ 	addiu	$v1,$zero,0x5
 .L0f0d9308:
-/*  f0d9308:	0fc35c1c */ 	jal	func0f0d7070
+/*  f0d9308:	0fc35c1c */ 	jal	sightIsPropFriendly
 /*  f0d930c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0d9310:	10400003 */ 	beqz	$v0,.L0f0d9320
 /*  f0d9314:	24110006 */ 	addiu	$s1,$zero,0x6
@@ -2500,7 +2501,7 @@ glabel var7f1ade50
 /*  f0d94d4:	1000000a */ 	b	.L0f0d9500
 /*  f0d94d8:	24030005 */ 	addiu	$v1,$zero,0x5
 .L0f0d94dc:
-/*  f0d94dc:	0fc35c1c */ 	jal	func0f0d7070
+/*  f0d94dc:	0fc35c1c */ 	jal	sightIsPropFriendly
 /*  f0d94e0:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0d94e4:	10400003 */ 	beqz	$v0,.L0f0d94f4
 /*  f0d94e8:	24110006 */ 	addiu	$s1,$zero,0x6
@@ -2962,7 +2963,7 @@ glabel func0f0d9948
 /*  f0d9adc:	0006ce02 */ 	srl	$t9,$a2,0x18
 /*  f0d9ae0:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f0d9ae4:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f0d9ae8:	0fc35c1c */ 	jal	func0f0d7070
+/*  f0d9ae8:	0fc35c1c */ 	jal	sightIsPropFriendly
 /*  f0d9aec:	afa80020 */ 	sw	$t0,0x20($sp)
 /*  f0d9af0:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*  f0d9af4:	8fa60050 */ 	lw	$a2,0x50($sp)
@@ -5715,7 +5716,7 @@ glabel sightRenderMaian
 /*  f0dc2a8:	10000109 */ 	b	.L0f0dc6d0
 /*  f0dc2ac:	02001025 */ 	or	$v0,$s0,$zero
 .L0f0dc2b0:
-/*  f0dc2b0:	0fc35c1c */ 	jal	func0f0d7070
+/*  f0dc2b0:	0fc35c1c */ 	jal	sightIsPropFriendly
 /*  f0dc2b4:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0dc2b8:	10400002 */ 	beqz	$v0,.L0f0dc2c4
 /*  f0dc2bc:	340fff60 */ 	dli	$t7,0xff60
@@ -5989,6 +5990,115 @@ glabel sightRenderMaian
 /*  f0dc6dc:	03e00008 */ 	jr	$ra
 /*  f0dc6e0:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
 );
+
+// Mismatch: Many reordered instructions from around vertices[4] onwards
+//Gfx *sightRenderMaian(Gfx *gdl, bool aiming)
+//{
+//	s32 viewleft = viGetViewLeft() / g_ScaleX; // ac
+//	s32 viewtop = viGetViewTop(); // a8
+//	s32 viewwidth = viGetViewWidth() / g_ScaleX; // a4
+//	s32 viewheight = viGetViewHeight(); // a0
+//	s32 viewright = viewleft + viewwidth - 1;
+//	s32 viewbottom = viewtop + viewheight - 1; // 98
+//
+//	s32 x = (s32)g_Vars.currentplayer->crosspos[0] / g_ScaleX; // 94
+//	s32 y = g_Vars.currentplayer->crosspos[1]; // 90
+//
+//	struct gfxvtx *vertices; // 8c
+//	u32 *colours; // 88
+//
+//	s32 innertop = y - 4; // 84
+//	s32 innerbottom = y + 4; // 80
+//	s32 innerleft = x - 4; // 7c
+//	s32 innerright = x + 4; // 78
+//
+//	bool hasprop = g_Vars.currentplayer->lookingatprop.prop != NULL; // 74
+//	u32 colour = 0xff000060; // 70
+//	u32 stack;
+//	u32 stack2;
+//
+//	if (!aiming) {
+//		return gdl;
+//	}
+//
+//	if (sightIsPropFriendly(NULL)) {
+//		colour = 0x0000ff60;
+//	}
+//
+//	vertices = gfxAllocateVertices(8);
+//	colours = gfxAllocateColours(2);
+//	gdl = func0f0d479c(gdl);
+//
+//	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+//	gSPSetGeometryMode(gdl++, G_SHADE | G_SHADING_SMOOTH);
+//	gDPSetCombineMode(gdl++, G_CC_SHADE, G_CC_SHADE);
+//	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+//
+//	vertices[0].x = (viewleft + (viewwidth >> 1)) * 10;
+//	vertices[0].y = (viewtop + 10) * 10;
+//	vertices[0].z = -10;
+//
+//	vertices[1].x = (viewleft + (viewwidth >> 1)) * 10;
+//	vertices[1].y = (viewbottom - 10) * 10;
+//	vertices[1].z = -10;
+//
+//	vertices[2].x = (viewleft + 48) * 10;
+//	vertices[2].y = (viewtop + (viewheight >> 1)) * 10;
+//	vertices[2].z = -10;
+//
+//	vertices[3].x = (viewright - 48) * 10;
+//	vertices[3].y = (viewtop + (viewheight >> 1)) * 10;
+//	vertices[3].z = -10;
+//
+//	vertices[4].x = innerleft * 10;
+//	vertices[4].y = innertop * 10;
+//	vertices[4].z = -10;
+//
+//	vertices[5].x = innerright * 10;
+//	vertices[5].y = innertop * 10;
+//	vertices[5].z = -10;
+//
+//	vertices[6].x = innerright * 10;
+//	vertices[6].y = innerbottom * 10;
+//	vertices[6].z = -10;
+//
+//	vertices[7].x = innerleft * 10;
+//	vertices[7].y = innerbottom * 10;
+//	vertices[7].z = -10;
+//
+//	vertices[0].s = 0;
+//	vertices[1].s = 0;
+//	vertices[2].s = 0;
+//	vertices[3].s = 0;
+//	vertices[4].s = 4;
+//	vertices[5].s = 4;
+//	vertices[6].s = 4;
+//	vertices[7].s = 4;
+//
+//	colours[0] = 0x00ff000f;
+//	colours[1] = hasprop ? colour : 0x00ff0044;
+//
+//	// Draw the main 4 triangles
+//	gDPSetColorArray(gdl++, colours, 2);
+//	gDPSetVerticeArray(gdl++, vertices, 8);
+//	gDPTri4(gdl++, 0, 4, 5, 5, 3, 6, 7, 6, 1, 4, 7, 2);
+//
+//	gdl = func0f0d49c8(gdl);
+//	gdl = gfxSetPrimColour(gdl, 0x00ff0028);
+//
+//	// 580
+//	// Draw border over inner points
+//	gDPFillRectangleScaled(gdl++, x - 4, y - 4, x - 3, y + 5); // left
+//	gDPFillRectangleScaled(gdl++, x + 4, y - 4, x + 5, y + 5); // right
+//	gDPFillRectangleScaled(gdl++, x - 4, y - 4, x + 5, y - 3); // top
+//	gDPFillRectangleScaled(gdl++, x - 4, y + 4, x + 5, y + 5); // bottom
+//
+//	gdl = func0f153838(gdl);
+//
+//	return gdl;
+//}
 
 Gfx *sightRenderTarget(Gfx *gdl)
 {
