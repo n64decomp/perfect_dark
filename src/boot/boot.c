@@ -1794,7 +1794,7 @@ glabel func00001fa8
 /*     1fd4:	0c01210c */ 	jal	osSetThreadPri
 /*     1fd8:	2405001f */ 	addiu	$a1,$zero,0x1f
 /*     1fdc:	02002025 */ 	or	$a0,$s0,$zero
-/*     1fe0:	0c000a87 */ 	jal	func00002a1c
+/*     1fe0:	0c000a87 */ 	jal	__scAppendList
 /*     1fe4:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*     1fe8:	8e0e00d4 */ 	lw	$t6,0xd4($s0)
 /*     1fec:	02002025 */ 	or	$a0,$s0,$zero
@@ -1919,7 +1919,7 @@ glabel func00002148
 /*     2190:	10500009 */ 	beq	$v0,$s0,.L000021b8
 /*     2194:	02202025 */ 	or	$a0,$s1,$zero
 .L00002198:
-/*     2198:	0c000a87 */ 	jal	func00002a1c
+/*     2198:	0c000a87 */ 	jal	__scAppendList
 /*     219c:	8fa50050 */ 	lw	$a1,0x50($sp)
 /*     21a0:	02402025 */ 	or	$a0,$s2,$zero
 /*     21a4:	02602825 */ 	or	$a1,$s3,$zero
@@ -2582,39 +2582,32 @@ glabel func00002768
 /*     2a18:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00002a1c
-/*     2a1c:	8ca20010 */ 	lw	$v0,0x10($a1)
-/*     2a20:	24010002 */ 	addiu	$at,$zero,0x2
-/*     2a24:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*     2a28:	5441000b */ 	bnel	$v0,$at,.L00002a58
-/*     2a2c:	8c8200c4 */ 	lw	$v0,0xc4($a0)
-/*     2a30:	8c8200c0 */ 	lw	$v0,0xc0($a0)
-/*     2a34:	50400004 */ 	beqzl	$v0,.L00002a48
-/*     2a38:	ac8500b8 */ 	sw	$a1,0xb8($a0)
-/*     2a3c:	10000002 */ 	b	.L00002a48
-/*     2a40:	ac450000 */ 	sw	$a1,0x0($v0)
-/*     2a44:	ac8500b8 */ 	sw	$a1,0xb8($a0)
-.L00002a48:
-/*     2a48:	ac8500c0 */ 	sw	$a1,0xc0($a0)
-/*     2a4c:	10000008 */ 	b	.L00002a70
-/*     2a50:	ac8e00d4 */ 	sw	$t6,0xd4($a0)
-/*     2a54:	8c8200c4 */ 	lw	$v0,0xc4($a0)
-.L00002a58:
-/*     2a58:	50400004 */ 	beqzl	$v0,.L00002a6c
-/*     2a5c:	ac8500bc */ 	sw	$a1,0xbc($a0)
-/*     2a60:	10000002 */ 	b	.L00002a6c
-/*     2a64:	ac450000 */ 	sw	$a1,0x0($v0)
-/*     2a68:	ac8500bc */ 	sw	$a1,0xbc($a0)
-.L00002a6c:
-/*     2a6c:	ac8500c4 */ 	sw	$a1,0xc4($a0)
-.L00002a70:
-/*     2a70:	8caf0008 */ 	lw	$t7,0x8($a1)
-/*     2a74:	aca00000 */ 	sw	$zero,0x0($a1)
-/*     2a78:	31f80003 */ 	andi	$t8,$t7,0x3
-/*     2a7c:	03e00008 */ 	jr	$ra
-/*     2a80:	acb80004 */ 	sw	$t8,0x4($a1)
-);
+void __scAppendList(OSSched *sc, OSScTask *t)
+{
+	long type = t->list.t.type;
+
+	if (type == M_AUDTASK) {
+		if (sc->audioListTail) {
+			sc->audioListTail->next = t;
+		} else {
+			sc->audioListHead = t;
+		}
+
+		sc->audioListTail = t;
+		sc->doAudio = 1;
+	} else {
+		if (sc->gfxListTail) {
+			sc->gfxListTail->next = t;
+		} else {
+			sc->gfxListHead = t;
+		}
+
+		sc->gfxListTail = t;
+	}
+
+	t->next = NULL;
+	t->state = t->flags & OS_SC_RCP_MASK;
+}
 
 void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
 {
