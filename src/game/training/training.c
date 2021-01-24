@@ -3942,7 +3942,7 @@ void func0f1a0924(struct prop *prop)
 				g_Vars.currentplayer->cmpfollowprops[i].unk08 = sp56 + 2;
 				g_Vars.currentplayer->cmpfollowprops[i].unk06 = sp68 - 2;
 				g_Vars.currentplayer->cmpfollowprops[i].unk0a = sp60 + 2;
-				g_Vars.currentplayer->unk1b90[i] = 0;
+				g_Vars.currentplayer->targetset[i] = 0;
 				return;
 			}
 		}

@@ -2864,6 +2864,13 @@
 #define SIGHT_MAIAN    6
 #define SIGHT_NONE     7
 
+#define SIGHTTARGET_0 0
+#define SIGHTTARGET_1 1
+#define SIGHTTARGET_2 2
+#define SIGHTTARGET_3 3
+#define SIGHTTARGET_4 4
+#define SIGHTTARGET_5 5
+
 #define SIMDIFF_MEAT     0
 #define SIMDIFF_EASY     1
 #define SIMDIFF_NORMAL   2

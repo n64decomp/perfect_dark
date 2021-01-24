@@ -2677,7 +2677,7 @@ struct player {
 	/*0x199c*/ u32 unk199c;
 	/*0x19a0*/ f32 armourscale;
 	/*0x19a4*/ f32 speedgo;
-	/*0x19a8*/ u32 unk19a8;
+	/*0x19a8*/ s32 sighttimer240;
 	/*0x19ac*/ s32 crouchoffsetreal;
 	/*0x19b0*/ s16 floorroom;
 	/*0x19b2*/ u8 unk19b2;
@@ -2740,9 +2740,9 @@ struct player {
 	/*0x1b80*/ f32 bondwatchtime60;
 	/*0x1b84*/ bool tickdiefinished;
 	/*0x1b88*/ s32 introanimnum;
-	/*0x1b8c*/ u32 unk1b8c;
-	/*0x1b90*/ u16 unk1b90[4]; // related to cmpfollowprops
-	/*0x1b98*/ u32 unk1b98;
+	/*0x1b8c*/ s32 lastsighton;
+	/*0x1b90*/ u16 targetset[4]; // related to cmpfollowprops
+	/*0x1b98*/ u8 target;
 	/*0x1b9c*/ f32 speedthetacontrol;
 	/*0x1ba0*/ s32 cam_room;
 	/*0x1ba4*/ s16 autocontrol_aimpad;

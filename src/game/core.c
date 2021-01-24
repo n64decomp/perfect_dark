@@ -581,11 +581,11 @@ bool coreCheckCmpFollowThreat(struct threat *threat, s32 index)
 			if (chrIsDead(threat->prop->chr)) {
 				if (index >= 0) {
 					// Existing threat
-					if (g_Vars.currentplayer->unk1b90[index] <= 128) {
-						g_Vars.currentplayer->unk1b90[index] = 129;
+					if (g_Vars.currentplayer->targetset[index] < 129) {
+						g_Vars.currentplayer->targetset[index] = 129;
 					}
 
-					if (g_Vars.currentplayer->unk1b90[index] >= 175) {
+					if (g_Vars.currentplayer->targetset[index] >= 175) {
 						threat->prop = NULL;
 						return false;
 					}
@@ -755,7 +755,7 @@ void coreFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playe
 				g_Vars.currentplayer->cmpfollowprops[index].unk08 = sp76 + 2;
 				g_Vars.currentplayer->cmpfollowprops[index].unk06 = sp88 - 2;
 				g_Vars.currentplayer->cmpfollowprops[index].unk0a = sp80 + 2;
-				g_Vars.currentplayer->unk1b90[index] = 0;
+				g_Vars.currentplayer->targetset[index] = 0;
 				activeslots[index] = true;
 				distances[index] = sqdist;
 			}
