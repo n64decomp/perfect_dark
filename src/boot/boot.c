@@ -2364,37 +2364,17 @@ s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP)
 	return avail;
 }
 
-GLOBAL_ASM(
-glabel func00002d90
-/*     2d90:	3c04800a */ 	lui	$a0,%hi(g_MenuData)
-/*     2d94:	248419c0 */ 	addiu	$a0,$a0,%lo(g_MenuData)
-/*     2d98:	90820016 */ 	lbu	$v0,0x16($a0)
-/*     2d9c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     2da0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*     2da4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     2da8:	14a2000c */ 	bne	$a1,$v0,.L00002ddc
-/*     2dac:	00401825 */ 	or	$v1,$v0,$zero
-/*     2db0:	3c0e8009 */ 	lui	$t6,%hi(g_Is4Mb)
-/*     2db4:	91ce0af0 */ 	lbu	$t6,%lo(g_Is4Mb)($t6)
-/*     2db8:	50ae0006 */ 	beql	$a1,$t6,.L00002dd4
-/*     2dbc:	300200ff */ 	andi	$v0,$zero,0xff
-/*     2dc0:	0fc381dc */ 	jal	func0f0e0770
-/*     2dc4:	00000000 */ 	nop
-/*     2dc8:	3c04800a */ 	lui	$a0,%hi(g_MenuData)
-/*     2dcc:	248419c0 */ 	addiu	$a0,$a0,%lo(g_MenuData)
-/*     2dd0:	300200ff */ 	andi	$v0,$zero,0xff
-.L00002dd4:
-/*     2dd4:	00401825 */ 	or	$v1,$v0,$zero
-/*     2dd8:	a0800016 */ 	sb	$zero,0x16($a0)
-.L00002ddc:
-/*     2ddc:	28610002 */ 	slti	$at,$v1,0x2
-/*     2de0:	14200002 */ 	bnez	$at,.L00002dec
-/*     2de4:	244fffff */ 	addiu	$t7,$v0,-1
-/*     2de8:	a08f0016 */ 	sb	$t7,0x16($a0)
-.L00002dec:
-/*     2dec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     2df0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     2df4:	03e00008 */ 	jr	$ra
-/*     2df8:	00000000 */ 	nop
-/*     2dfc:	00000000 */ 	nop
-);
+void func00002d90(void)
+{
+	if (g_MenuData.unk016 == 1) {
+		if (IS8MB()) {
+			func0f0e0770();
+		}
+
+		g_MenuData.unk016 = 0;
+	}
+
+	if (g_MenuData.unk016 >= 2) {
+		g_MenuData.unk016--;
+	}
+}
