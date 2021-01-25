@@ -3,8 +3,8 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00048830(void);
-u32 func00048870(void);
+void *osViGetCurrentFramebuffer(void);
+void *osViGetNextFramebuffer(void);
 OSPri osGetThreadPri(OSThread *thread);
 
 #endif

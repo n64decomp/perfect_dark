@@ -1625,7 +1625,7 @@ void __scMain(void *arg)
 
 		switch ((int) msg) {
 		case VIDEO_MSG:
-			if (func00048830() == func00048870()) {
+			if (osViGetCurrentFramebuffer() == osViGetNextFramebuffer()) {
 				osDpSetStatus(4);
 			}
 
@@ -1997,37 +1997,23 @@ void __scHandleRDP(OSSched *sc)
 	}
 }
 
-GLOBAL_ASM(
-glabel __scTaskReady
-/*     2704:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*     2708:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     270c:	10800011 */ 	beqz	$a0,.L00002754
-/*     2710:	afa40028 */ 	sw	$a0,0x28($sp)
-/*     2714:	0c012334 */ 	jal	func00048cd0
-/*     2718:	00000000 */ 	nop
-/*     271c:	304f0002 */ 	andi	$t7,$v0,0x2
-/*     2720:	15e0000a */ 	bnez	$t7,.L0000274c
-/*     2724:	00000000 */ 	nop
-/*     2728:	0c01220c */ 	jal	func00048830
-/*     272c:	00000000 */ 	nop
-/*     2730:	0c01221c */ 	jal	func00048870
-/*     2734:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*     2738:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*     273c:	10580003 */ 	beq	$v0,$t8,.L0000274c
-/*     2740:	00000000 */ 	nop
-/*     2744:	10000004 */ 	b	.L00002758
-/*     2748:	00001025 */ 	or	$v0,$zero,$zero
-.L0000274c:
-/*     274c:	10000002 */ 	b	.L00002758
-/*     2750:	8fa20028 */ 	lw	$v0,0x28($sp)
-.L00002754:
-/*     2754:	00001025 */ 	or	$v0,$zero,$zero
-.L00002758:
-/*     2758:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     275c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*     2760:	03e00008 */ 	jr	$ra
-/*     2764:	00000000 */ 	nop
-);
+OSScTask *__scTaskReady(OSScTask *t)
+{
+	void *a;
+	void *b;
+
+	if (t) {
+		if ((func00048cd0() & 2) == 0) {
+			if (osViGetCurrentFramebuffer() != osViGetNextFramebuffer()) {
+				return 0;
+			}
+		}
+
+		return t;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel __scTaskComplete

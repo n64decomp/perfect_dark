@@ -11,7 +11,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00048830
+glabel osViGetCurrentFramebuffer
 /*    48830:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    48834:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    48838:	0c01256c */ 	jal	__osDisableInt
@@ -31,7 +31,7 @@ glabel func00048830
 );
 
 GLOBAL_ASM(
-glabel func00048870
+glabel osViGetNextFramebuffer
 /*    48870:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    48874:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    48878:	0c01256c */ 	jal	__osDisableInt
