@@ -15,7 +15,7 @@
 #include "lib/lib_48150.h"
 #include "lib/lib_4a360.h"
 #include "lib/lib_4a5e0.h"
-#include "lib/lib_4a680.h"
+#include "lib/libc/ldiv.h"
 #include "lib/libc/ll.h"
 #include "types.h"
 
@@ -367,7 +367,7 @@ glabel func00004c50
 /*     4ef8:	02602025 */ 	or	$a0,$s3,$zero
 .L00004efc:
 /*     4efc:	02202825 */ 	or	$a1,$s1,$zero
-/*     4f00:	0c0129e0 */ 	jal	func0004a780
+/*     4f00:	0c0129e0 */ 	jal	ldiv
 /*     4f04:	2406000a */ 	addiu	$a2,$zero,0xa
 /*     4f08:	8fa80070 */ 	lw	$t0,0x70($sp)
 /*     4f0c:	2652ffff */ 	addiu	$s2,$s2,-1
