@@ -1315,7 +1315,7 @@ glabel func000019f4
 /*     1a7c:	0c00078c */ 	jal	osScAddClient
 /*     1a80:	00003825 */ 	or	$a3,$zero,$zero
 /*     1a84:	3c048009 */ 	lui	$a0,%hi(var8008dbd0)
-/*     1a88:	0c0007a3 */ 	jal	func00001e8c
+/*     1a88:	0c0007a3 */ 	jal	osScGetCmdQ
 /*     1a8c:	2484dbd0 */ 	addiu	$a0,$a0,%lo(var8008dbd0)
 /*     1a90:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     1a94:	3c018009 */ 	lui	$at,%hi(var8008dbc8)
@@ -1593,11 +1593,10 @@ glabel osScRemoveClient
 );
 #endif
 
-GLOBAL_ASM(
-glabel func00001e8c
-/*     1e8c:	03e00008 */ 	jr	$ra
-/*     1e90:	24820078 */ 	addiu	$v0,$a0,0x78
-);
+OSMesgQueue *osScGetCmdQ(OSSched *sc)
+{
+	return &sc->cmdQ;
+}
 
 void __scMain(void *arg)
 {
