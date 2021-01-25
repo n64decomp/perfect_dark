@@ -99,7 +99,7 @@ typedef struct {
 } OSSched;
 
 void            osCreateScheduler(OSSched *s, void *stack, u8 mode, u32 numFields);
-void            osScAddClient(OSSched *s, OSScClient *c, OSMesgQueue *msgQ);
+void            osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ, OSScClient *next);
 void            osScRemoveClient(OSSched *s, OSScClient *c);
 OSMesgQueue     *osScGetCmdQ(OSSched *s);
 

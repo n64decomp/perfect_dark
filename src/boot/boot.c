@@ -1312,7 +1312,7 @@ glabel func000019f4
 /*     1a70:	24c6db30 */ 	addiu	$a2,$a2,%lo(var8008db30)
 /*     1a74:	24a5dca8 */ 	addiu	$a1,$a1,%lo(var8008dca8)
 /*     1a78:	2484dbd0 */ 	addiu	$a0,$a0,%lo(var8008dbd0)
-/*     1a7c:	0c00078c */ 	jal	func00001e30
+/*     1a7c:	0c00078c */ 	jal	osScAddClient
 /*     1a80:	00003825 */ 	or	$a3,$zero,$zero
 /*     1a84:	3c048009 */ 	lui	$a0,%hi(var8008dbd0)
 /*     1a88:	0c0007a3 */ 	jal	func00001e8c
@@ -1535,36 +1535,23 @@ void osCreateScheduler(OSSched *sc, void *stack, u8 mode, u32 numFields)
 	osStartThread(sc->thread);
 }
 
-GLOBAL_ASM(
-glabel func00001e30
-/*     1e30:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     1e34:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     1e38:	afa40018 */ 	sw	$a0,0x18($sp)
-/*     1e3c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*     1e40:	afa70024 */ 	sw	$a3,0x24($sp)
-/*     1e44:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     1e48:	0c012194 */ 	jal	osSetIntMask
-/*     1e4c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*     1e50:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*     1e54:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*     1e58:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*     1e5c:	00402025 */ 	or	$a0,$v0,$zero
-/*     1e60:	acae0004 */ 	sw	$t6,0x4($a1)
-/*     1e64:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*     1e68:	acaf0008 */ 	sw	$t7,0x8($a1)
-/*     1e6c:	8c7800b4 */ 	lw	$t8,0xb4($v1)
-/*     1e70:	acb80000 */ 	sw	$t8,0x0($a1)
-/*     1e74:	0c012194 */ 	jal	osSetIntMask
-/*     1e78:	ac6500b4 */ 	sw	$a1,0xb4($v1)
-/*     1e7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     1e80:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     1e84:	03e00008 */ 	jr	$ra
-/*     1e88:	00000000 */ 	nop
-);
+void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ, OSScClient *next)
+{
+	OSIntMask mask;
+
+	mask = osSetIntMask(1);
+
+	c->msgQ = msgQ;
+	c[1].next = next;
+	c->next = sc->clientList;
+	sc->clientList = c;
+
+	osSetIntMask(mask);
+}
 
 #if VERSION == VERSION_NTSC_BETA
 GLOBAL_ASM(
-glabel func0000205cnb
+glabel osScRemoveClient
 /*     205c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*     2060:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     2064:	afa40020 */ 	sw	$a0,0x20($sp)
@@ -1572,7 +1559,7 @@ glabel func0000205cnb
 /*     206c:	afa00018 */ 	sw	$zero,0x18($sp)
 /*     2070:	afa50024 */ 	sw	$a1,0x24($sp)
 /*     2074:	24040001 */ 	li	$a0,0x1
-/*     2078:	0c012688 */ 	jal	0x49a20
+/*     2078:	0c012688 */ 	jal	osSetIntMask
 /*     207c:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*     2080:	8fa3001c */ 	lw	$v1,0x1c($sp)
 /*     2084:	8fa50024 */ 	lw	$a1,0x24($sp)
@@ -1597,7 +1584,7 @@ glabel func0000205cnb
 /*     20c4:	1460fff3 */ 	bnez	$v1,.L00002094
 /*     20c8:	00000000 */ 	nop
 .L000020cc:
-/*     20cc:	0c012688 */ 	jal	0x49a20
+/*     20cc:	0c012688 */ 	jal	osSetIntMask
 /*     20d0:	00000000 */ 	nop
 /*     20d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     20d8:	27bd0020 */ 	addiu	$sp,$sp,0x20
