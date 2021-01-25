@@ -19,6 +19,34 @@
 #include "lib/libc/ll.h"
 #include "types.h"
 
+/* float properties */
+#define _D0 0
+#define _DBIAS 0x3ff
+#define _DLONG 1
+#define _DOFF 4
+#define _FBIAS 0x7e
+#define _FOFF 7
+#define _FRND 1
+#define _LBIAS 0x3ffe
+#define _LOFF 15
+
+/* integer properties */
+#define _C2 1
+#define _CSIGN 1
+#define _ILONG 0
+#define _MBMAX 8
+#define NAN 2
+#define INF 1
+#define FINITE -1
+#define _DFRAC ((1 << _DOFF) - 1)
+#define _DMASK (0x7fff & ~_DFRAC)
+#define _DMAX ((1 << (15 - _DOFF)) - 1)
+#define _DNAN (0x8000 | _DMAX << _DOFF | 1 << (_DOFF - 1))
+#define _DSIGN 0x8000
+#define _D1 1 /* big-endian order */
+#define _D2 2
+#define _D3 3
+
 const u32 var700524c0[] = {0x3c8efa35};
 const u32 var700524c4[] = {0x00000000};
 const u32 var700524c8[] = {0x00000000};
@@ -509,60 +537,33 @@ glabel _Ldtob
 /*     50e8:	27bd00e0 */ 	addiu	$sp,$sp,0xe0
 );
 
-GLOBAL_ASM(
-glabel _Ldunscale
-/*     50ec:	94a60000 */ 	lhu	$a2,0x0($a1)
-/*     50f0:	240107ff */ 	addiu	$at,$zero,0x7ff
-/*     50f4:	30c37ff0 */ 	andi	$v1,$a2,0x7ff0
-/*     50f8:	00037103 */ 	sra	$t6,$v1,0x4
-/*     50fc:	000e7c00 */ 	sll	$t7,$t6,0x10
-/*     5100:	000f1c03 */ 	sra	$v1,$t7,0x10
-/*     5104:	14610018 */ 	bne	$v1,$at,.L00005168
-/*     5108:	00000000 */ 	nop
-/*     510c:	a4800000 */ 	sh	$zero,0x0($a0)
-/*     5110:	94b90000 */ 	lhu	$t9,0x0($a1)
-/*     5114:	24030002 */ 	addiu	$v1,$zero,0x2
-/*     5118:	00031400 */ 	sll	$v0,$v1,0x10
-/*     511c:	3328000f */ 	andi	$t0,$t9,0xf
-/*     5120:	1500000a */ 	bnez	$t0,.L0000514c
-/*     5124:	00026403 */ 	sra	$t4,$v0,0x10
-/*     5128:	94a90002 */ 	lhu	$t1,0x2($a1)
-/*     512c:	15200007 */ 	bnez	$t1,.L0000514c
-/*     5130:	00000000 */ 	nop
-/*     5134:	94aa0004 */ 	lhu	$t2,0x4($a1)
-/*     5138:	15400004 */ 	bnez	$t2,.L0000514c
-/*     513c:	00000000 */ 	nop
-/*     5140:	94ab0006 */ 	lhu	$t3,0x6($a1)
-/*     5144:	51600004 */ 	beqzl	$t3,.L00005158
-/*     5148:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0000514c:
-/*     514c:	03e00008 */ 	jr	$ra
-/*     5150:	01801025 */ 	or	$v0,$t4,$zero
-/*     5154:	24030001 */ 	addiu	$v1,$zero,0x1
-.L00005158:
-/*     5158:	00031400 */ 	sll	$v0,$v1,0x10
-/*     515c:	00026403 */ 	sra	$t4,$v0,0x10
-/*     5160:	03e00008 */ 	jr	$ra
-/*     5164:	01801025 */ 	or	$v0,$t4,$zero
-.L00005168:
-/*     5168:	18600007 */ 	blez	$v1,.L00005188
-/*     516c:	30cd800f */ 	andi	$t5,$a2,0x800f
-/*     5170:	35ae3ff0 */ 	ori	$t6,$t5,0x3ff0
-/*     5174:	a4ae0000 */ 	sh	$t6,0x0($a1)
-/*     5178:	246ffc02 */ 	addiu	$t7,$v1,-1022
-/*     517c:	a48f0000 */ 	sh	$t7,0x0($a0)
-/*     5180:	03e00008 */ 	jr	$ra
-/*     5184:	2402ffff */ 	addiu	$v0,$zero,-1
-.L00005188:
-/*     5188:	04610003 */ 	bgez	$v1,.L00005198
-/*     518c:	00001025 */ 	or	$v0,$zero,$zero
-/*     5190:	03e00008 */ 	jr	$ra
-/*     5194:	24020002 */ 	addiu	$v0,$zero,0x2
-.L00005198:
-/*     5198:	a4800000 */ 	sh	$zero,0x0($a0)
-/*     519c:	03e00008 */ 	jr	$ra
-/*     51a0:	00000000 */ 	nop
-);
+short _Ldunscale(short *pex, printf_struct *px)
+{
+	unsigned short *ps = (unsigned short *)px;
+	short xchar = (ps[_D0] & _DMASK) >> _DOFF;
+
+	if (xchar == _DMAX) {
+		/* NaN or INF */
+		*pex = 0;
+
+		return ps[_D0] & _DFRAC || ps[_D1] || ps[_D2] || ps[_D3] ? NAN : INF;
+	}
+
+	if (xchar > 0) {
+		ps[_D0] = (ps[_D0] & ~_DMASK) | (_DBIAS << _DOFF);
+		*pex = xchar - (_DBIAS - 1);
+
+		return FINITE;
+	}
+
+	if (xchar < 0) {
+		return NAN;
+	}
+
+	*pex = 0;
+
+	return 0;
+}
 
 void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp)
 {

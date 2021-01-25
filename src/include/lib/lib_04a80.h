@@ -31,7 +31,7 @@ typedef struct {
 u32 func00004a80(void);
 u32 func00004c04(void);
 u32 _Ldtob(void);
-u32 _Ldunscale(void);
+short _Ldunscale(short *pex, printf_struct *px);
 void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp);
 
 #endif
