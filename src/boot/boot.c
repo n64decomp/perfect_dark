@@ -1816,84 +1816,40 @@ void __scHandleRetrace(OSSched *sc)
 }
 #endif
 
-GLOBAL_ASM(
-glabel __scHandleRSP
-/*     22e0:	3c0e8006 */ 	lui	$t6,%hi(var8005ced0)
-/*     22e4:	81ceced0 */ 	lb	$t6,%lo(var8005ced0)($t6)
-/*     22e8:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*     22ec:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     22f0:	00808025 */ 	or	$s0,$a0,$zero
-/*     22f4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     22f8:	afa00028 */ 	sw	$zero,0x28($sp)
-/*     22fc:	15c00038 */ 	bnez	$t6,.L000023e0
-/*     2300:	afa00024 */ 	sw	$zero,0x24($sp)
-/*     2304:	8c8500c8 */ 	lw	$a1,0xc8($a0)
-/*     2308:	ac8000c8 */ 	sw	$zero,0xc8($a0)
-/*     230c:	3c040001 */ 	lui	$a0,0x1
-/*     2310:	34840001 */ 	ori	$a0,$a0,0x1
-/*     2314:	0c0026a8 */ 	jal	func00009aa0
-/*     2318:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*     231c:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*     2320:	8caf0004 */ 	lw	$t7,0x4($a1)
-/*     2324:	24a40010 */ 	addiu	$a0,$a1,0x10
-/*     2328:	31f80010 */ 	andi	$t8,$t7,0x10
-/*     232c:	53000015 */ 	beqzl	$t8,.L00002384
-/*     2330:	8cad0004 */ 	lw	$t5,0x4($a1)
-/*     2334:	0c012300 */ 	jal	func00048c00
-/*     2338:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*     233c:	10400010 */ 	beqz	$v0,.L00002380
-/*     2340:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*     2344:	8cb90004 */ 	lw	$t9,0x4($a1)
-/*     2348:	8ca90008 */ 	lw	$t1,0x8($a1)
-/*     234c:	24010003 */ 	addiu	$at,$zero,0x3
-/*     2350:	37280020 */ 	ori	$t0,$t9,0x20
-/*     2354:	312a0007 */ 	andi	$t2,$t1,0x7
-/*     2358:	1541000f */ 	bne	$t2,$at,.L00002398
-/*     235c:	aca80004 */ 	sw	$t0,0x4($a1)
-/*     2360:	8e0b00bc */ 	lw	$t3,0xbc($s0)
-/*     2364:	acab0000 */ 	sw	$t3,0x0($a1)
-/*     2368:	8e0c00c4 */ 	lw	$t4,0xc4($s0)
-/*     236c:	ae0500bc */ 	sw	$a1,0xbc($s0)
-/*     2370:	5580000a */ 	bnezl	$t4,.L0000239c
-/*     2374:	8e0f00c8 */ 	lw	$t7,0xc8($s0)
-/*     2378:	10000007 */ 	b	.L00002398
-/*     237c:	ae0500c4 */ 	sw	$a1,0xc4($s0)
-.L00002380:
-/*     2380:	8cad0004 */ 	lw	$t5,0x4($a1)
-.L00002384:
-/*     2384:	2401fffd */ 	addiu	$at,$zero,-3
-/*     2388:	02002025 */ 	or	$a0,$s0,$zero
-/*     238c:	01a17024 */ 	and	$t6,$t5,$at
-/*     2390:	0c0009da */ 	jal	func00002768
-/*     2394:	acae0004 */ 	sw	$t6,0x4($a1)
-.L00002398:
-/*     2398:	8e0f00c8 */ 	lw	$t7,0xc8($s0)
-.L0000239c:
-/*     239c:	8e0800cc */ 	lw	$t0,0xcc($s0)
-/*     23a0:	02002025 */ 	or	$a0,$s0,$zero
-/*     23a4:	2df80001 */ 	sltiu	$t8,$t7,0x1
-/*     23a8:	0018c840 */ 	sll	$t9,$t8,0x1
-/*     23ac:	2d090001 */ 	sltiu	$t1,$t0,0x1
-/*     23b0:	03293825 */ 	or	$a3,$t9,$t1
-/*     23b4:	afa70020 */ 	sw	$a3,0x20($sp)
-/*     23b8:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*     23bc:	0c000aeb */ 	jal	__scSchedule
-/*     23c0:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*     23c4:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*     23c8:	02002025 */ 	or	$a0,$s0,$zero
-/*     23cc:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*     23d0:	50470004 */ 	beql	$v0,$a3,.L000023e4
-/*     23d4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     23d8:	0c000aa1 */ 	jal	__scExec
-/*     23dc:	8fa60024 */ 	lw	$a2,0x24($sp)
-.L000023e0:
-/*     23e0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L000023e4:
-/*     23e4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     23e8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*     23ec:	03e00008 */ 	jr	$ra
-/*     23f0:	00000000 */ 	nop
-);
+void __scHandleRSP(OSSched *sc)
+{
+	OSScTask *t, *sp = 0, *dp = 0;
+	s32 state;
+
+	if (!var8005ced0) {
+		t = sc->curRSPTask;
+		sc->curRSPTask = 0;
+
+		func00009aa0(0x10001);
+
+		if ((t->state & OS_SC_YIELD) && osSpTaskYielded(&t->list)) {
+			t->state |= OS_SC_YIELDED;
+
+			if ((t->flags & OS_SC_TYPE_MASK) == OS_SC_XBUS) {
+				t->next = sc->gfxListHead;
+				sc->gfxListHead = t;
+
+				if (sc->gfxListTail == 0) {
+					sc->gfxListTail = t;
+				}
+			}
+		} else {
+			t->state &= ~OS_SC_NEEDS_RSP;
+			__scTaskComplete(sc, t);
+		}
+
+		state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
+
+		if (__scSchedule(sc, &sp, &dp, state) != state) {
+			__scExec(sc, sp, dp);
+		}
+	}
+}
 
 u32 *func000023f4(void)
 {
@@ -2044,7 +2000,7 @@ glabel __scHandleRDP
 /*     2694:	8cb80004 */ 	lw	$t8,0x4($a1)
 /*     2698:	02002025 */ 	or	$a0,$s0,$zero
 /*     269c:	0301c824 */ 	and	$t9,$t8,$at
-/*     26a0:	0c0009da */ 	jal	func00002768
+/*     26a0:	0c0009da */ 	jal	__scTaskComplete
 /*     26a4:	acb90004 */ 	sw	$t9,0x4($a1)
 /*     26a8:	8e0800c8 */ 	lw	$t0,0xc8($s0)
 /*     26ac:	8e0b00cc */ 	lw	$t3,0xcc($s0)
@@ -2105,7 +2061,7 @@ glabel func00002704
 );
 
 GLOBAL_ASM(
-glabel func00002768
+glabel __scTaskComplete
 /*     2768:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     276c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     2770:	afa40018 */ 	sw	$a0,0x18($sp)

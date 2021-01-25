@@ -12,7 +12,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00048c00
+glabel osSpTaskYielded
 /*    48c00:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    48c04:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    48c08:	0c014624 */ 	jal	func00051890

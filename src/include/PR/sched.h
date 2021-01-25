@@ -44,8 +44,20 @@ typedef struct OSScTask_s {
 #define OS_SC_RCP_MASK		0x0003	/* mask for needs bits */
 #define OS_SC_TYPE_MASK		0x0007	/* complete type mask */
 
+#define OS_SC_DP                0x0001  /* set if still needs dp        */
+#define OS_SC_SP                0x0002  /* set if still needs sp        */
 #define OS_SC_YIELD             0x0010  /* set if yield requested       */
 #define OS_SC_YIELDED           0x0020  /* set if yield completed       */
+
+/*
+ * OSScTask->flags type identifier
+ */
+#define OS_SC_XBUS      (OS_SC_SP | OS_SC_DP)
+#define OS_SC_DRAM      (OS_SC_SP | OS_SC_DP | OS_SC_DRAM_DLIST)
+#define OS_SC_DP_XBUS   (OS_SC_SP)
+#define OS_SC_DP_DRAM   (OS_SC_SP | OS_SC_DRAM_DLIST)
+#define OS_SC_SP_XBUS   (OS_SC_DP)
+#define OS_SC_SP_DRAM   (OS_SC_DP | OS_SC_DRAM_DLIST)
 
 /*
  * private typedefs and defines
