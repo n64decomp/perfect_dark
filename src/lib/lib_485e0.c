@@ -11,7 +11,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func000485e0
+glabel osViSetEvent
 /*    485e0:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    485e4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    485e8:	afa40028 */ 	sw	$a0,0x28($sp)

@@ -16,6 +16,7 @@ s32 func000022e0(void);
 void __scHandleRetrace(OSSched *sc);
 void __scAppendList(OSSched *sc, OSScTask *t);
 void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
+void __scMain(void *arg);
 struct bootbufferthing *func0000244c(void);
 void func000024e8(void);
 void func00002510(void);

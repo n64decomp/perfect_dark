@@ -30,12 +30,12 @@ glabel resetproc
 /*     2e54:	24010002 */ 	addiu	$at,$zero,0x2
 /*     2e58:	24020400 */ 	addiu	$v0,$zero,0x400
 /*     2e5c:	15e10004 */ 	bne	$t7,$at,.L00002e70
-/*     2e60:	3c048006 */ 	lui	$a0,%hi(var8005f7b0)
-/*     2e64:	3c048006 */ 	lui	$a0,%hi(var80060070)
+/*     2e60:	3c048006 */ 	lui	$a0,%hi(osViModeTable+0xa0)
+/*     2e64:	3c048006 */ 	lui	$a0,%hi(osViModeTable+0x960)
 /*     2e68:	10000002 */ 	b	.L00002e74
-/*     2e6c:	24840070 */ 	addiu	$a0,$a0,%lo(var80060070)
+/*     2e6c:	24840070 */ 	addiu	$a0,$a0,%lo(osViModeTable+0x960)
 .L00002e70:
-/*     2e70:	2484f7b0 */ 	addiu	$a0,$a0,%lo(var8005f7b0)
+/*     2e70:	2484f7b0 */ 	addiu	$a0,$a0,%lo(osViModeTable+0xa0)
 .L00002e74:
 /*     2e74:	ac82002c */ 	sw	$v0,0x2c($a0)
 /*     2e78:	0c012354 */ 	jal	func00048d50
@@ -87,9 +87,9 @@ glabel resetproc
 /*     2f2c:	1420ffed */ 	bnez	$at,.L00002ee4
 /*     2f30:	00000000 */ 	nop
 .L00002f34:
-/*     2f34:	3c048006 */ 	lui	$a0,%hi(var8005f7b0)
+/*     2f34:	3c048006 */ 	lui	$a0,%hi(osViModeTable+0xa0)
 /*     2f38:	0c005467 */ 	jal	func0001519c
-/*     2f3c:	2484f7b0 */ 	addiu	$a0,$a0,%lo(var8005f7b0)
+/*     2f3c:	2484f7b0 */ 	addiu	$a0,$a0,%lo(osViModeTable+0xa0)
 .L00002f40:
 /*     2f40:	1000ffff */ 	b	.L00002f40
 /*     2f44:	00000000 */ 	nop

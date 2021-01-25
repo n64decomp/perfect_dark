@@ -525,846 +525,1471 @@ u32 var8005f700 = 0x00000000;
 u32 var8005f704 = 0x00000000;
 u32 var8005f708 = 0x00000000;
 u32 var8005f70c = 0x00000000;
-u32 var8005f710 = 0x00000000;
-u32 var8005f714 = 0x0000320e;
-u32 var8005f718 = 0x00000140;
-u32 var8005f71c = 0x03e52239;
-u32 var8005f720 = 0x0000020d;
-u32 var8005f724 = 0x00000c15;
-u32 var8005f728 = 0x0c150c15;
-u32 var8005f72c = 0x006c02ec;
-u32 var8005f730 = 0x00000200;
-u32 var8005f734 = 0x00000000;
-u32 var8005f738 = 0x00000280;
-u32 var8005f73c = 0x00000400;
-u32 var8005f740 = 0x002501ff;
-u32 var8005f744 = 0x000e0204;
-u32 var8005f748 = 0x00000002;
-u32 var8005f74c = 0x00000280;
-u32 var8005f750 = 0x00000400;
-u32 var8005f754 = 0x002501ff;
-u32 var8005f758 = 0x000e0204;
-u32 var8005f75c = 0x00000002;
-u32 var8005f760 = 0x01000000;
-u32 var8005f764 = 0x0000324e;
-u32 var8005f768 = 0x00000140;
-u32 var8005f76c = 0x03e52239;
-u32 var8005f770 = 0x0000020c;
-u32 var8005f774 = 0x00000c15;
-u32 var8005f778 = 0x0c150c15;
-u32 var8005f77c = 0x006c02ec;
-u32 var8005f780 = 0x00000200;
-u32 var8005f784 = 0x00000000;
-u32 var8005f788 = 0x00000280;
-u32 var8005f78c = 0x01000400;
-u32 var8005f790 = 0x002301fd;
-u32 var8005f794 = 0x000e0204;
-u32 var8005f798 = 0x00000002;
-u32 var8005f79c = 0x00000280;
-u32 var8005f7a0 = 0x03000400;
-u32 var8005f7a4 = 0x002501ff;
-u32 var8005f7a8 = 0x000e0204;
-u32 var8005f7ac = 0x00000002;
-u32 var8005f7b0 = 0x02000000;
-u32 var8005f7b4 = 0x0000311e;
-u32 var8005f7b8 = 0x00000140;
-u32 var8005f7bc = 0x03e52239;
-u32 var8005f7c0 = 0x0000020d;
-u32 var8005f7c4 = 0x00000c15;
-u32 var8005f7c8 = 0x0c150c15;
-u32 var8005f7cc = 0x006c02ec;
-u32 var8005f7d0 = 0x00000200;
-u32 var8005f7d4 = 0x00000000;
-u32 var8005f7d8 = 0x00000280;
-u32 var8005f7dc = 0x00000400;
-u32 var8005f7e0 = 0x002501ff;
-u32 var8005f7e4 = 0x000e0204;
-u32 var8005f7e8 = 0x00000002;
-u32 var8005f7ec = 0x00000280;
-u32 var8005f7f0 = 0x00000400;
-u32 var8005f7f4 = 0x002501ff;
-u32 var8005f7f8 = 0x000e0204;
-u32 var8005f7fc = 0x00000002;
-u32 var8005f800 = 0x03000000;
-u32 var8005f804 = 0x0000305e;
-u32 var8005f808 = 0x00000140;
-u32 var8005f80c = 0x03e52239;
-u32 var8005f810 = 0x0000020c;
-u32 var8005f814 = 0x00000c15;
-u32 var8005f818 = 0x0c150c15;
-u32 var8005f81c = 0x006c02ec;
-u32 var8005f820 = 0x00000200;
-u32 var8005f824 = 0x00000000;
-u32 var8005f828 = 0x00000280;
-u32 var8005f82c = 0x01000400;
-u32 var8005f830 = 0x002301fd;
-u32 var8005f834 = 0x000e0204;
-u32 var8005f838 = 0x00000002;
-u32 var8005f83c = 0x00000280;
-u32 var8005f840 = 0x03000400;
-u32 var8005f844 = 0x002501ff;
-u32 var8005f848 = 0x000e0204;
-u32 var8005f84c = 0x00000002;
-u32 var8005f850 = 0x04000000;
-u32 var8005f854 = 0x0000330f;
-u32 var8005f858 = 0x00000140;
-u32 var8005f85c = 0x03e52239;
-u32 var8005f860 = 0x0000020d;
-u32 var8005f864 = 0x00000c15;
-u32 var8005f868 = 0x0c150c15;
-u32 var8005f86c = 0x006c02ec;
-u32 var8005f870 = 0x00000200;
-u32 var8005f874 = 0x00000000;
-u32 var8005f878 = 0x00000500;
-u32 var8005f87c = 0x00000400;
-u32 var8005f880 = 0x002501ff;
-u32 var8005f884 = 0x000e0204;
-u32 var8005f888 = 0x00000002;
-u32 var8005f88c = 0x00000500;
-u32 var8005f890 = 0x00000400;
-u32 var8005f894 = 0x002501ff;
-u32 var8005f898 = 0x000e0204;
-u32 var8005f89c = 0x00000002;
-u32 var8005f8a0 = 0x05000000;
-u32 var8005f8a4 = 0x0000324f;
-u32 var8005f8a8 = 0x00000140;
-u32 var8005f8ac = 0x03e52239;
-u32 var8005f8b0 = 0x0000020c;
-u32 var8005f8b4 = 0x00000c15;
-u32 var8005f8b8 = 0x0c150c15;
-u32 var8005f8bc = 0x006c02ec;
-u32 var8005f8c0 = 0x00000200;
-u32 var8005f8c4 = 0x00000000;
-u32 var8005f8c8 = 0x00000500;
-u32 var8005f8cc = 0x01000400;
-u32 var8005f8d0 = 0x002301fd;
-u32 var8005f8d4 = 0x000e0204;
-u32 var8005f8d8 = 0x00000002;
-u32 var8005f8dc = 0x00000500;
-u32 var8005f8e0 = 0x03000400;
-u32 var8005f8e4 = 0x002501ff;
-u32 var8005f8e8 = 0x000e0204;
-u32 var8005f8ec = 0x00000002;
-u32 var8005f8f0 = 0x06000000;
-u32 var8005f8f4 = 0x0000301f;
-u32 var8005f8f8 = 0x00000140;
-u32 var8005f8fc = 0x03e52239;
-u32 var8005f900 = 0x0000020d;
-u32 var8005f904 = 0x00000c15;
-u32 var8005f908 = 0x0c150c15;
-u32 var8005f90c = 0x006c02ec;
-u32 var8005f910 = 0x00000200;
-u32 var8005f914 = 0x00000000;
-u32 var8005f918 = 0x00000500;
-u32 var8005f91c = 0x00000400;
-u32 var8005f920 = 0x002501ff;
-u32 var8005f924 = 0x000e0204;
-u32 var8005f928 = 0x00000002;
-u32 var8005f92c = 0x00000500;
-u32 var8005f930 = 0x00000400;
-u32 var8005f934 = 0x002501ff;
-u32 var8005f938 = 0x000e0204;
-u32 var8005f93c = 0x00000002;
-u32 var8005f940 = 0x07000000;
-u32 var8005f944 = 0x0000305f;
-u32 var8005f948 = 0x00000140;
-u32 var8005f94c = 0x03e52239;
-u32 var8005f950 = 0x0000020c;
-u32 var8005f954 = 0x00000c15;
-u32 var8005f958 = 0x0c150c15;
-u32 var8005f95c = 0x006c02ec;
-u32 var8005f960 = 0x00000200;
-u32 var8005f964 = 0x00000000;
-u32 var8005f968 = 0x00000500;
-u32 var8005f96c = 0x01000400;
-u32 var8005f970 = 0x002301fd;
-u32 var8005f974 = 0x000e0204;
-u32 var8005f978 = 0x00000002;
-u32 var8005f97c = 0x00000500;
-u32 var8005f980 = 0x03000400;
-u32 var8005f984 = 0x002501ff;
-u32 var8005f988 = 0x000e0204;
-u32 var8005f98c = 0x00000002;
-u32 var8005f990 = 0x08000000;
-u32 var8005f994 = 0x0000324e;
-u32 var8005f998 = 0x00000500;
-u32 var8005f99c = 0x03e52239;
-u32 var8005f9a0 = 0x0000020c;
-u32 var8005f9a4 = 0x00000c15;
-u32 var8005f9a8 = 0x0c150c15;
-u32 var8005f9ac = 0x006c02ec;
-u32 var8005f9b0 = 0x00000400;
-u32 var8005f9b4 = 0x00000000;
-u32 var8005f9b8 = 0x00000500;
-u32 var8005f9bc = 0x00000400;
-u32 var8005f9c0 = 0x002301fd;
-u32 var8005f9c4 = 0x000e0204;
-u32 var8005f9c8 = 0x00000002;
-u32 var8005f9cc = 0x00000a00;
-u32 var8005f9d0 = 0x00000400;
-u32 var8005f9d4 = 0x002501ff;
-u32 var8005f9d8 = 0x000e0204;
-u32 var8005f9dc = 0x00000002;
-u32 var8005f9e0 = 0x09000000;
-u32 var8005f9e4 = 0x0000324e;
-u32 var8005f9e8 = 0x00000280;
-u32 var8005f9ec = 0x03e52239;
-u32 var8005f9f0 = 0x0000020c;
-u32 var8005f9f4 = 0x00000c15;
-u32 var8005f9f8 = 0x0c150c15;
-u32 var8005f9fc = 0x006c02ec;
-u32 var8005fa00 = 0x00000400;
-u32 var8005fa04 = 0x00000000;
-u32 var8005fa08 = 0x00000500;
-u32 var8005fa0c = 0x02000800;
-u32 var8005fa10 = 0x002301fd;
-u32 var8005fa14 = 0x000e0204;
-u32 var8005fa18 = 0x00000002;
-u32 var8005fa1c = 0x00000a00;
-u32 var8005fa20 = 0x02000800;
-u32 var8005fa24 = 0x002501ff;
-u32 var8005fa28 = 0x000e0204;
-u32 var8005fa2c = 0x00000002;
-u32 var8005fa30 = 0x0a000000;
-u32 var8005fa34 = 0x0000305e;
-u32 var8005fa38 = 0x00000500;
-u32 var8005fa3c = 0x03e52239;
-u32 var8005fa40 = 0x0000020c;
-u32 var8005fa44 = 0x00000c15;
-u32 var8005fa48 = 0x0c150c15;
-u32 var8005fa4c = 0x006c02ec;
-u32 var8005fa50 = 0x00000400;
-u32 var8005fa54 = 0x00000000;
-u32 var8005fa58 = 0x00000500;
-u32 var8005fa5c = 0x00000400;
-u32 var8005fa60 = 0x002301fd;
-u32 var8005fa64 = 0x000e0204;
-u32 var8005fa68 = 0x00000002;
-u32 var8005fa6c = 0x00000a00;
-u32 var8005fa70 = 0x00000400;
-u32 var8005fa74 = 0x002501ff;
-u32 var8005fa78 = 0x000e0204;
-u32 var8005fa7c = 0x00000002;
-u32 var8005fa80 = 0x0b000000;
-u32 var8005fa84 = 0x0000305e;
-u32 var8005fa88 = 0x00000280;
-u32 var8005fa8c = 0x03e52239;
-u32 var8005fa90 = 0x0000020c;
-u32 var8005fa94 = 0x00000c15;
-u32 var8005fa98 = 0x0c150c15;
-u32 var8005fa9c = 0x006c02ec;
-u32 var8005faa0 = 0x00000400;
-u32 var8005faa4 = 0x00000000;
-u32 var8005faa8 = 0x00000500;
-u32 var8005faac = 0x02000800;
-u32 var8005fab0 = 0x002301fd;
-u32 var8005fab4 = 0x000e0204;
-u32 var8005fab8 = 0x00000002;
-u32 var8005fabc = 0x00000a00;
-u32 var8005fac0 = 0x02000800;
-u32 var8005fac4 = 0x002501ff;
-u32 var8005fac8 = 0x000e0204;
-u32 var8005facc = 0x00000002;
-u32 var8005fad0 = 0x0c000000;
-u32 var8005fad4 = 0x0000334f;
-u32 var8005fad8 = 0x00000500;
-u32 var8005fadc = 0x03e52239;
-u32 var8005fae0 = 0x0000020c;
-u32 var8005fae4 = 0x00000c15;
-u32 var8005fae8 = 0x0c150c15;
-u32 var8005faec = 0x006c02ec;
-u32 var8005faf0 = 0x00000400;
-u32 var8005faf4 = 0x00000000;
-u32 var8005faf8 = 0x00000a00;
-u32 var8005fafc = 0x00000400;
-u32 var8005fb00 = 0x002301fd;
-u32 var8005fb04 = 0x000e0204;
-u32 var8005fb08 = 0x00000002;
-u32 var8005fb0c = 0x00001400;
-u32 var8005fb10 = 0x00000400;
-u32 var8005fb14 = 0x002501ff;
-u32 var8005fb18 = 0x000e0204;
-u32 var8005fb1c = 0x00000002;
-u32 var8005fb20 = 0x0d000000;
-u32 var8005fb24 = 0x0000324f;
-u32 var8005fb28 = 0x00000280;
-u32 var8005fb2c = 0x03e52239;
-u32 var8005fb30 = 0x0000020c;
-u32 var8005fb34 = 0x00000c15;
-u32 var8005fb38 = 0x0c150c15;
-u32 var8005fb3c = 0x006c02ec;
-u32 var8005fb40 = 0x00000400;
-u32 var8005fb44 = 0x00000000;
-u32 var8005fb48 = 0x00000a00;
-u32 var8005fb4c = 0x02000800;
-u32 var8005fb50 = 0x002301fd;
-u32 var8005fb54 = 0x000e0204;
-u32 var8005fb58 = 0x00000002;
-u32 var8005fb5c = 0x00001400;
-u32 var8005fb60 = 0x02000800;
-u32 var8005fb64 = 0x002501ff;
-u32 var8005fb68 = 0x000e0204;
-u32 var8005fb6c = 0x00000002;
-u32 var8005fb70 = 0x0e000000;
-u32 var8005fb74 = 0x0000320e;
-u32 var8005fb78 = 0x00000140;
-u32 var8005fb7c = 0x04541e3a;
-u32 var8005fb80 = 0x00000271;
-u32 var8005fb84 = 0x00170c69;
-u32 var8005fb88 = 0x0c6f0c6d;
-u32 var8005fb8c = 0x00800300;
-u32 var8005fb90 = 0x00000200;
-u32 var8005fb94 = 0x00000000;
-u32 var8005fb98 = 0x00000280;
-u32 var8005fb9c = 0x00000400;
-u32 var8005fba0 = 0x005f0239;
-u32 var8005fba4 = 0x0009026b;
-u32 var8005fba8 = 0x00000002;
-u32 var8005fbac = 0x00000280;
-u32 var8005fbb0 = 0x00000400;
-u32 var8005fbb4 = 0x005f0239;
-u32 var8005fbb8 = 0x0009026b;
-u32 var8005fbbc = 0x00000002;
-u32 var8005fbc0 = 0x0f000000;
-u32 var8005fbc4 = 0x0000324e;
-u32 var8005fbc8 = 0x00000140;
-u32 var8005fbcc = 0x04541e3a;
-u32 var8005fbd0 = 0x00000270;
-u32 var8005fbd4 = 0x00170c69;
-u32 var8005fbd8 = 0x0c6f0c6d;
-u32 var8005fbdc = 0x00800300;
-u32 var8005fbe0 = 0x00000200;
-u32 var8005fbe4 = 0x00000000;
-u32 var8005fbe8 = 0x00000280;
-u32 var8005fbec = 0x01000400;
-u32 var8005fbf0 = 0x005d0237;
-u32 var8005fbf4 = 0x0009026b;
-u32 var8005fbf8 = 0x00000002;
-u32 var8005fbfc = 0x00000280;
-u32 var8005fc00 = 0x03000400;
-u32 var8005fc04 = 0x005f0239;
-u32 var8005fc08 = 0x000d0269;
-u32 var8005fc0c = 0x00000002;
-u32 var8005fc10 = 0x10000000;
-u32 var8005fc14 = 0x0000311e;
-u32 var8005fc18 = 0x00000140;
-u32 var8005fc1c = 0x04541e3a;
-u32 var8005fc20 = 0x00000271;
-u32 var8005fc24 = 0x00170c69;
-u32 var8005fc28 = 0x0c6f0c6d;
-u32 var8005fc2c = 0x00800300;
-u32 var8005fc30 = 0x00000200;
-u32 var8005fc34 = 0x00000000;
-u32 var8005fc38 = 0x00000280;
-u32 var8005fc3c = 0x00000400;
-u32 var8005fc40 = 0x005f0239;
-u32 var8005fc44 = 0x0009026b;
-u32 var8005fc48 = 0x00000002;
-u32 var8005fc4c = 0x00000280;
-u32 var8005fc50 = 0x00000400;
-u32 var8005fc54 = 0x005f0239;
-u32 var8005fc58 = 0x0009026b;
-u32 var8005fc5c = 0x00000002;
-u32 var8005fc60 = 0x11000000;
-u32 var8005fc64 = 0x0000305e;
-u32 var8005fc68 = 0x00000140;
-u32 var8005fc6c = 0x04541e3a;
-u32 var8005fc70 = 0x00000270;
-u32 var8005fc74 = 0x00170c69;
-u32 var8005fc78 = 0x0c6f0c6d;
-u32 var8005fc7c = 0x00800300;
-u32 var8005fc80 = 0x00000200;
-u32 var8005fc84 = 0x00000000;
-u32 var8005fc88 = 0x00000280;
-u32 var8005fc8c = 0x01000400;
-u32 var8005fc90 = 0x005d0237;
-u32 var8005fc94 = 0x0009026b;
-u32 var8005fc98 = 0x00000002;
-u32 var8005fc9c = 0x00000280;
-u32 var8005fca0 = 0x03000400;
-u32 var8005fca4 = 0x005f0239;
-u32 var8005fca8 = 0x000d0269;
-u32 var8005fcac = 0x00000002;
-u32 var8005fcb0 = 0x12000000;
-u32 var8005fcb4 = 0x0000330f;
-u32 var8005fcb8 = 0x00000140;
-u32 var8005fcbc = 0x04541e3a;
-u32 var8005fcc0 = 0x00000271;
-u32 var8005fcc4 = 0x00170c69;
-u32 var8005fcc8 = 0x0c6f0c6d;
-u32 var8005fccc = 0x00800300;
-u32 var8005fcd0 = 0x00000200;
-u32 var8005fcd4 = 0x00000000;
-u32 var8005fcd8 = 0x00000500;
-u32 var8005fcdc = 0x00000400;
-u32 var8005fce0 = 0x005f0239;
-u32 var8005fce4 = 0x0009026b;
-u32 var8005fce8 = 0x00000002;
-u32 var8005fcec = 0x00000500;
-u32 var8005fcf0 = 0x00000400;
-u32 var8005fcf4 = 0x005f0239;
-u32 var8005fcf8 = 0x0009026b;
-u32 var8005fcfc = 0x00000002;
-u32 var8005fd00 = 0x13000000;
-u32 var8005fd04 = 0x0000324f;
-u32 var8005fd08 = 0x00000140;
-u32 var8005fd0c = 0x04541e3a;
-u32 var8005fd10 = 0x00000270;
-u32 var8005fd14 = 0x00170c69;
-u32 var8005fd18 = 0x0c6f0c6d;
-u32 var8005fd1c = 0x00800300;
-u32 var8005fd20 = 0x00000200;
-u32 var8005fd24 = 0x00000000;
-u32 var8005fd28 = 0x00000500;
-u32 var8005fd2c = 0x01000400;
-u32 var8005fd30 = 0x005d0237;
-u32 var8005fd34 = 0x0009026b;
-u32 var8005fd38 = 0x00000002;
-u32 var8005fd3c = 0x00000500;
-u32 var8005fd40 = 0x03000400;
-u32 var8005fd44 = 0x005f0239;
-u32 var8005fd48 = 0x000d0269;
-u32 var8005fd4c = 0x00000002;
-u32 var8005fd50 = 0x14000000;
-u32 var8005fd54 = 0x0000301f;
-u32 var8005fd58 = 0x00000140;
-u32 var8005fd5c = 0x04541e3a;
-u32 var8005fd60 = 0x00000271;
-u32 var8005fd64 = 0x00170c69;
-u32 var8005fd68 = 0x0c6f0c6d;
-u32 var8005fd6c = 0x00800300;
-u32 var8005fd70 = 0x00000200;
-u32 var8005fd74 = 0x00000000;
-u32 var8005fd78 = 0x00000500;
-u32 var8005fd7c = 0x00000400;
-u32 var8005fd80 = 0x005f0239;
-u32 var8005fd84 = 0x0009026b;
-u32 var8005fd88 = 0x00000002;
-u32 var8005fd8c = 0x00000500;
-u32 var8005fd90 = 0x00000400;
-u32 var8005fd94 = 0x005f0239;
-u32 var8005fd98 = 0x0009026b;
-u32 var8005fd9c = 0x00000002;
-u32 var8005fda0 = 0x15000000;
-u32 var8005fda4 = 0x0000305f;
-u32 var8005fda8 = 0x00000140;
-u32 var8005fdac = 0x04541e3a;
-u32 var8005fdb0 = 0x00000270;
-u32 var8005fdb4 = 0x00170c69;
-u32 var8005fdb8 = 0x0c6f0c6d;
-u32 var8005fdbc = 0x00800300;
-u32 var8005fdc0 = 0x00000200;
-u32 var8005fdc4 = 0x00000000;
-u32 var8005fdc8 = 0x00000500;
-u32 var8005fdcc = 0x01000400;
-u32 var8005fdd0 = 0x005d0237;
-u32 var8005fdd4 = 0x0009026b;
-u32 var8005fdd8 = 0x00000002;
-u32 var8005fddc = 0x00000500;
-u32 var8005fde0 = 0x03000400;
-u32 var8005fde4 = 0x005f0239;
-u32 var8005fde8 = 0x000d0269;
-u32 var8005fdec = 0x00000002;
-u32 var8005fdf0 = 0x16000000;
-u32 var8005fdf4 = 0x0000324e;
-u32 var8005fdf8 = 0x00000500;
-u32 var8005fdfc = 0x04541e3a;
-u32 var8005fe00 = 0x00000270;
-u32 var8005fe04 = 0x00170c69;
-u32 var8005fe08 = 0x0c6f0c6d;
-u32 var8005fe0c = 0x00800300;
-u32 var8005fe10 = 0x00000400;
-u32 var8005fe14 = 0x00000000;
-u32 var8005fe18 = 0x00000500;
-u32 var8005fe1c = 0x00000400;
-u32 var8005fe20 = 0x005d0237;
-u32 var8005fe24 = 0x0009026b;
-u32 var8005fe28 = 0x00000002;
-u32 var8005fe2c = 0x00000a00;
-u32 var8005fe30 = 0x00000400;
-u32 var8005fe34 = 0x005f0239;
-u32 var8005fe38 = 0x000d0269;
-u32 var8005fe3c = 0x00000002;
-u32 var8005fe40 = 0x17000000;
-u32 var8005fe44 = 0x0000324e;
-u32 var8005fe48 = 0x00000280;
-u32 var8005fe4c = 0x04541e3a;
-u32 var8005fe50 = 0x00000270;
-u32 var8005fe54 = 0x00170c69;
-u32 var8005fe58 = 0x0c6f0c6d;
-u32 var8005fe5c = 0x00800300;
-u32 var8005fe60 = 0x00000400;
-u32 var8005fe64 = 0x00000000;
-u32 var8005fe68 = 0x00000500;
-u32 var8005fe6c = 0x02000800;
-u32 var8005fe70 = 0x005d0237;
-u32 var8005fe74 = 0x0009026b;
-u32 var8005fe78 = 0x00000002;
-u32 var8005fe7c = 0x00000a00;
-u32 var8005fe80 = 0x02000800;
-u32 var8005fe84 = 0x005f0239;
-u32 var8005fe88 = 0x000d0269;
-u32 var8005fe8c = 0x00000002;
-u32 var8005fe90 = 0x18000000;
-u32 var8005fe94 = 0x0000305e;
-u32 var8005fe98 = 0x00000500;
-u32 var8005fe9c = 0x04541e3a;
-u32 var8005fea0 = 0x00000270;
-u32 var8005fea4 = 0x00170c69;
-u32 var8005fea8 = 0x0c6f0c6d;
-u32 var8005feac = 0x00800300;
-u32 var8005feb0 = 0x00000400;
-u32 var8005feb4 = 0x00000000;
-u32 var8005feb8 = 0x00000500;
-u32 var8005febc = 0x00000400;
-u32 var8005fec0 = 0x005d0237;
-u32 var8005fec4 = 0x0009026b;
-u32 var8005fec8 = 0x00000002;
-u32 var8005fecc = 0x00000a00;
-u32 var8005fed0 = 0x00000400;
-u32 var8005fed4 = 0x005f0239;
-u32 var8005fed8 = 0x000d0269;
-u32 var8005fedc = 0x00000002;
-u32 var8005fee0 = 0x19000000;
-u32 var8005fee4 = 0x0000305e;
-u32 var8005fee8 = 0x00000280;
-u32 var8005feec = 0x04541e3a;
-u32 var8005fef0 = 0x00000270;
-u32 var8005fef4 = 0x00170c69;
-u32 var8005fef8 = 0x0c6f0c6d;
-u32 var8005fefc = 0x00800300;
-u32 var8005ff00 = 0x00000400;
-u32 var8005ff04 = 0x00000000;
-u32 var8005ff08 = 0x00000500;
-u32 var8005ff0c = 0x02000800;
-u32 var8005ff10 = 0x005d0237;
-u32 var8005ff14 = 0x0009026b;
-u32 var8005ff18 = 0x00000002;
-u32 var8005ff1c = 0x00000a00;
-u32 var8005ff20 = 0x02000800;
-u32 var8005ff24 = 0x005f0239;
-u32 var8005ff28 = 0x000d0269;
-u32 var8005ff2c = 0x00000002;
-u32 var8005ff30 = 0x1a000000;
-u32 var8005ff34 = 0x0000334f;
-u32 var8005ff38 = 0x00000500;
-u32 var8005ff3c = 0x04541e3a;
-u32 var8005ff40 = 0x00000270;
-u32 var8005ff44 = 0x00170c69;
-u32 var8005ff48 = 0x0c6f0c6d;
-u32 var8005ff4c = 0x00800300;
-u32 var8005ff50 = 0x00000400;
-u32 var8005ff54 = 0x00000000;
-u32 var8005ff58 = 0x00000a00;
-u32 var8005ff5c = 0x00000400;
-u32 var8005ff60 = 0x005d0237;
-u32 var8005ff64 = 0x0009026b;
-u32 var8005ff68 = 0x00000002;
-u32 var8005ff6c = 0x00001400;
-u32 var8005ff70 = 0x00000400;
-u32 var8005ff74 = 0x005f0239;
-u32 var8005ff78 = 0x000d0269;
-u32 var8005ff7c = 0x00000002;
-u32 var8005ff80 = 0x1b000000;
-u32 var8005ff84 = 0x0000324f;
-u32 var8005ff88 = 0x00000280;
-u32 var8005ff8c = 0x04541e3a;
-u32 var8005ff90 = 0x00000270;
-u32 var8005ff94 = 0x00170c69;
-u32 var8005ff98 = 0x0c6f0c6d;
-u32 var8005ff9c = 0x00800300;
-u32 var8005ffa0 = 0x00000400;
-u32 var8005ffa4 = 0x00000000;
-u32 var8005ffa8 = 0x00000a00;
-u32 var8005ffac = 0x02000800;
-u32 var8005ffb0 = 0x005d0237;
-u32 var8005ffb4 = 0x0009026b;
-u32 var8005ffb8 = 0x00000002;
-u32 var8005ffbc = 0x00001400;
-u32 var8005ffc0 = 0x02000800;
-u32 var8005ffc4 = 0x005f0239;
-u32 var8005ffc8 = 0x000d0269;
-u32 var8005ffcc = 0x00000002;
-u32 var8005ffd0 = 0x1c000000;
-u32 var8005ffd4 = 0x0000320e;
-u32 var8005ffd8 = 0x00000140;
-u32 var8005ffdc = 0x04651e39;
-u32 var8005ffe0 = 0x0000020d;
-u32 var8005ffe4 = 0x00040c11;
-u32 var8005ffe8 = 0x0c190c1a;
-u32 var8005ffec = 0x006c02ec;
-u32 var8005fff0 = 0x00000200;
-u32 var8005fff4 = 0x00000000;
-u32 var8005fff8 = 0x00000280;
-u32 var8005fffc = 0x00000400;
-u32 var80060000 = 0x002501ff;
-u32 var80060004 = 0x000e0204;
-u32 var80060008 = 0x00000002;
-u32 var8006000c = 0x00000280;
-u32 var80060010 = 0x00000400;
-u32 var80060014 = 0x002501ff;
-u32 var80060018 = 0x000e0204;
-u32 var8006001c = 0x00000002;
-u32 var80060020 = 0x1d000000;
-u32 var80060024 = 0x0000324e;
-u32 var80060028 = 0x00000140;
-u32 var8006002c = 0x04651e39;
-u32 var80060030 = 0x0000020c;
-u32 var80060034 = 0x00000c10;
-u32 var80060038 = 0x0c1c0c1c;
-u32 var8006003c = 0x006c02ec;
-u32 var80060040 = 0x00000200;
-u32 var80060044 = 0x00000000;
-u32 var80060048 = 0x00000280;
-u32 var8006004c = 0x01000400;
-u32 var80060050 = 0x002301fd;
-u32 var80060054 = 0x000b0202;
-u32 var80060058 = 0x00000002;
-u32 var8006005c = 0x00000280;
-u32 var80060060 = 0x03000400;
-u32 var80060064 = 0x002501ff;
-u32 var80060068 = 0x000e0204;
-u32 var8006006c = 0x00000002;
-u32 var80060070 = 0x1e000000;
-u32 var80060074 = 0x0000311e;
-u32 var80060078 = 0x00000140;
-u32 var8006007c = 0x04651e39;
-u32 var80060080 = 0x0000020d;
-u32 var80060084 = 0x00040c11;
-u32 var80060088 = 0x0c190c1a;
-u32 var8006008c = 0x006c02ec;
-u32 var80060090 = 0x00000200;
-u32 var80060094 = 0x00000000;
-u32 var80060098 = 0x00000280;
-u32 var8006009c = 0x00000400;
-u32 var800600a0 = 0x002501ff;
-u32 var800600a4 = 0x000e0204;
-u32 var800600a8 = 0x00000002;
-u32 var800600ac = 0x00000280;
-u32 var800600b0 = 0x00000400;
-u32 var800600b4 = 0x002501ff;
-u32 var800600b8 = 0x000e0204;
-u32 var800600bc = 0x00000002;
-u32 var800600c0 = 0x1f000000;
-u32 var800600c4 = 0x0000305e;
-u32 var800600c8 = 0x00000140;
-u32 var800600cc = 0x04651e39;
-u32 var800600d0 = 0x0000020c;
-u32 var800600d4 = 0x00000c10;
-u32 var800600d8 = 0x0c1c0c1c;
-u32 var800600dc = 0x006c02ec;
-u32 var800600e0 = 0x00000200;
-u32 var800600e4 = 0x00000000;
-u32 var800600e8 = 0x00000280;
-u32 var800600ec = 0x01000400;
-u32 var800600f0 = 0x002301fd;
-u32 var800600f4 = 0x000b0202;
-u32 var800600f8 = 0x00000002;
-u32 var800600fc = 0x00000280;
-u32 var80060100 = 0x03000400;
-u32 var80060104 = 0x002501ff;
-u32 var80060108 = 0x000e0204;
-u32 var8006010c = 0x00000002;
-u32 var80060110 = 0x20000000;
-u32 var80060114 = 0x0000330f;
-u32 var80060118 = 0x00000140;
-u32 var8006011c = 0x04651e39;
-u32 var80060120 = 0x0000020d;
-u32 var80060124 = 0x00040c11;
-u32 var80060128 = 0x0c190c1a;
-u32 var8006012c = 0x006c02ec;
-u32 var80060130 = 0x00000200;
-u32 var80060134 = 0x00000000;
-u32 var80060138 = 0x00000500;
-u32 var8006013c = 0x00000400;
-u32 var80060140 = 0x002501ff;
-u32 var80060144 = 0x000e0204;
-u32 var80060148 = 0x00000002;
-u32 var8006014c = 0x00000500;
-u32 var80060150 = 0x00000400;
-u32 var80060154 = 0x002501ff;
-u32 var80060158 = 0x000e0204;
-u32 var8006015c = 0x00000002;
-u32 var80060160 = 0x21000000;
-u32 var80060164 = 0x0000324f;
-u32 var80060168 = 0x00000140;
-u32 var8006016c = 0x04651e39;
-u32 var80060170 = 0x0000020c;
-u32 var80060174 = 0x00000c10;
-u32 var80060178 = 0x0c1c0c1c;
-u32 var8006017c = 0x006c02ec;
-u32 var80060180 = 0x00000200;
-u32 var80060184 = 0x00000000;
-u32 var80060188 = 0x00000500;
-u32 var8006018c = 0x01000400;
-u32 var80060190 = 0x002301fd;
-u32 var80060194 = 0x000b0202;
-u32 var80060198 = 0x00000002;
-u32 var8006019c = 0x00000500;
-u32 var800601a0 = 0x03000400;
-u32 var800601a4 = 0x002501ff;
-u32 var800601a8 = 0x000e0204;
-u32 var800601ac = 0x00000002;
-u32 var800601b0 = 0x22000000;
-u32 var800601b4 = 0x0000301f;
-u32 var800601b8 = 0x00000140;
-u32 var800601bc = 0x04651e39;
-u32 var800601c0 = 0x0000020d;
-u32 var800601c4 = 0x00040c11;
-u32 var800601c8 = 0x0c190c1a;
-u32 var800601cc = 0x006c02ec;
-u32 var800601d0 = 0x00000200;
-u32 var800601d4 = 0x00000000;
-u32 var800601d8 = 0x00000500;
-u32 var800601dc = 0x00000400;
-u32 var800601e0 = 0x002501ff;
-u32 var800601e4 = 0x000e0204;
-u32 var800601e8 = 0x00000002;
-u32 var800601ec = 0x00000500;
-u32 var800601f0 = 0x00000400;
-u32 var800601f4 = 0x002501ff;
-u32 var800601f8 = 0x000e0204;
-u32 var800601fc = 0x00000002;
-u32 var80060200 = 0x23000000;
-u32 var80060204 = 0x0000305f;
-u32 var80060208 = 0x00000140;
-u32 var8006020c = 0x04651e39;
-u32 var80060210 = 0x0000020c;
-u32 var80060214 = 0x00000c10;
-u32 var80060218 = 0x0c1c0c1c;
-u32 var8006021c = 0x006c02ec;
-u32 var80060220 = 0x00000200;
-u32 var80060224 = 0x00000000;
-u32 var80060228 = 0x00000500;
-u32 var8006022c = 0x01000400;
-u32 var80060230 = 0x002301fd;
-u32 var80060234 = 0x000b0202;
-u32 var80060238 = 0x00000002;
-u32 var8006023c = 0x00000500;
-u32 var80060240 = 0x03000400;
-u32 var80060244 = 0x002501ff;
-u32 var80060248 = 0x000e0204;
-u32 var8006024c = 0x00000002;
-u32 var80060250 = 0x24000000;
-u32 var80060254 = 0x0000324e;
-u32 var80060258 = 0x00000500;
-u32 var8006025c = 0x04651e39;
-u32 var80060260 = 0x0000020c;
-u32 var80060264 = 0x00000c10;
-u32 var80060268 = 0x0c1c0c1c;
-u32 var8006026c = 0x006c02ec;
-u32 var80060270 = 0x00000400;
-u32 var80060274 = 0x00000000;
-u32 var80060278 = 0x00000500;
-u32 var8006027c = 0x00000400;
-u32 var80060280 = 0x002301fd;
-u32 var80060284 = 0x000b0202;
-u32 var80060288 = 0x00000002;
-u32 var8006028c = 0x00000a00;
-u32 var80060290 = 0x00000400;
-u32 var80060294 = 0x002501ff;
-u32 var80060298 = 0x000e0204;
-u32 var8006029c = 0x00000002;
-u32 var800602a0 = 0x25000000;
-u32 var800602a4 = 0x0000324e;
-u32 var800602a8 = 0x00000280;
-u32 var800602ac = 0x04651e39;
-u32 var800602b0 = 0x0000020c;
-u32 var800602b4 = 0x00000c10;
-u32 var800602b8 = 0x0c1c0c1c;
-u32 var800602bc = 0x006c02ec;
-u32 var800602c0 = 0x00000400;
-u32 var800602c4 = 0x00000000;
-u32 var800602c8 = 0x00000500;
-u32 var800602cc = 0x02000800;
-u32 var800602d0 = 0x002301fd;
-u32 var800602d4 = 0x000b0202;
-u32 var800602d8 = 0x00000002;
-u32 var800602dc = 0x00000a00;
-u32 var800602e0 = 0x02000800;
-u32 var800602e4 = 0x002501ff;
-u32 var800602e8 = 0x000e0204;
-u32 var800602ec = 0x00000002;
-u32 var800602f0 = 0x26000000;
-u32 var800602f4 = 0x0000305e;
-u32 var800602f8 = 0x00000500;
-u32 var800602fc = 0x04651e39;
-u32 var80060300 = 0x0000020c;
-u32 var80060304 = 0x00000c10;
-u32 var80060308 = 0x0c1c0c1c;
-u32 var8006030c = 0x006c02ec;
-u32 var80060310 = 0x00000400;
-u32 var80060314 = 0x00000000;
-u32 var80060318 = 0x00000500;
-u32 var8006031c = 0x00000400;
-u32 var80060320 = 0x002301fd;
-u32 var80060324 = 0x000b0202;
-u32 var80060328 = 0x00000002;
-u32 var8006032c = 0x00000a00;
-u32 var80060330 = 0x00000400;
-u32 var80060334 = 0x002501ff;
-u32 var80060338 = 0x000e0204;
-u32 var8006033c = 0x00000002;
-u32 var80060340 = 0x27000000;
-u32 var80060344 = 0x0000305e;
-u32 var80060348 = 0x00000280;
-u32 var8006034c = 0x04651e39;
-u32 var80060350 = 0x0000020c;
-u32 var80060354 = 0x00000c10;
-u32 var80060358 = 0x0c1c0c1c;
-u32 var8006035c = 0x006c02ec;
-u32 var80060360 = 0x00000400;
-u32 var80060364 = 0x00000000;
-u32 var80060368 = 0x00000500;
-u32 var8006036c = 0x02000800;
-u32 var80060370 = 0x002301fd;
-u32 var80060374 = 0x000b0202;
-u32 var80060378 = 0x00000002;
-u32 var8006037c = 0x00000a00;
-u32 var80060380 = 0x02000800;
-u32 var80060384 = 0x002501ff;
-u32 var80060388 = 0x000e0204;
-u32 var8006038c = 0x00000002;
-u32 var80060390 = 0x28000000;
-u32 var80060394 = 0x0000334f;
-u32 var80060398 = 0x00000500;
-u32 var8006039c = 0x04651e39;
-u32 var800603a0 = 0x0000020c;
-u32 var800603a4 = 0x00000c10;
-u32 var800603a8 = 0x0c1c0c1c;
-u32 var800603ac = 0x006c02ec;
-u32 var800603b0 = 0x00000400;
-u32 var800603b4 = 0x00000000;
-u32 var800603b8 = 0x00000a00;
-u32 var800603bc = 0x00000400;
-u32 var800603c0 = 0x002301fd;
-u32 var800603c4 = 0x000b0202;
-u32 var800603c8 = 0x00000002;
-u32 var800603cc = 0x00001400;
-u32 var800603d0 = 0x00000400;
-u32 var800603d4 = 0x002501ff;
-u32 var800603d8 = 0x000e0204;
-u32 var800603dc = 0x00000002;
-u32 var800603e0 = 0x29000000;
-u32 var800603e4 = 0x0000324f;
-u32 var800603e8 = 0x00000280;
-u32 var800603ec = 0x04651e39;
-u32 var800603f0 = 0x0000020c;
-u32 var800603f4 = 0x00000c10;
-u32 var800603f8 = 0x0c1c0c1c;
-u32 var800603fc = 0x006c02ec;
-u32 var80060400 = 0x00000400;
-u32 var80060404 = 0x00000000;
-u32 var80060408 = 0x00000a00;
-u32 var8006040c = 0x02000800;
-u32 var80060410 = 0x002301fd;
-u32 var80060414 = 0x000b0202;
-u32 var80060418 = 0x00000002;
-u32 var8006041c = 0x00001400;
-u32 var80060420 = 0x02000800;
-u32 var80060424 = 0x002501ff;
-u32 var80060428 = 0x000e0204;
-u32 var8006042c = 0x00000002;
+
+OSViMode osViModeTable[42] = {
+	{OS_VI_NTSC_LPN1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(525),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(640),        //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(640),        //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_NTSC_LPF1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(640),        //origin
+				SCALE(1, 0.25),     //yScale
+				HSTART(35, 509),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(640),        //origin
+				SCALE(1, 0.75),     //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_NTSC_LAN1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_ANTIALIAS_MODE_1 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(525),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(640),        //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(640),        //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_NTSC_LAF1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_SERRATE_ON |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(640),        //origin
+				SCALE(1, 0.25),     //yScale
+				HSTART(35, 509),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(640),        //origin
+				SCALE(1, 0.75),     //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_NTSC_LPN2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_ANTIALIAS_MODE_3 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(525),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_NTSC_LPF2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0.25),     //yScale
+				HSTART(35, 509),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0.75),     //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_NTSC_LAN2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(525),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_NTSC_LAF2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_SERRATE_ON |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0.25),     //yScale
+				HSTART(35, 509),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0.75),     //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_NTSC_HPN1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(1280),          //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(35, 509),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(2560),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_NTSC_HPF1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(640),           //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(0.5, 0.5),    //yScale
+				HSTART(35, 509),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(2560),       //origin
+				SCALE(0.5, 0.5),    //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_NTSC_HAN1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_SERRATE_ON |
+				0x3000,           //ctrl
+			WIDTH(1280),          //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(35, 509),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(2560),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_NTSC_HAF1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_SERRATE_ON |
+				0x3000,           //ctrl
+			WIDTH(640),           //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(0.5, 0.5),    //yScale
+				HSTART(35, 509),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(2560),       //origin
+				SCALE(0.5, 0.5),    //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_NTSC_HPN2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_3 |
+				0x3000,           //ctrl
+			WIDTH(1280),          //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(2560),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(35, 509),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(5120),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_NTSC_HPF2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(640),           //width
+			BURST(57, 34, 5, 62), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3093, 0),       //hSync
+			LEAP(3093, 3093),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(2560),       //origin
+				SCALE(0.5, 0.5),    //yScale
+				HSTART(35, 509),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(5120),       //origin
+				SCALE(0.5, 0.5),    //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_PAL_LPN1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(625),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(640),         //origin
+				SCALE(1, 0),         //yScale
+				HSTART(95, 569),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(640),         //origin
+				SCALE(1, 0),         //yScale
+				HSTART(95, 569),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			}}},
+	{OS_VI_PAL_LPF1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(624),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(640),         //origin
+				SCALE(1, 0.25),      //yScale
+				HSTART(93, 567),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(640),          //origin
+				SCALE(1, 0.75),       //yScale
+				HSTART(95, 569),      //vStart
+				BURST(105, 2, 13, 0), //vBurst
+				VINTR(2),             //vIntr
+			}}},
+	{OS_VI_PAL_LAN1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_ANTIALIAS_MODE_1 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(625),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(640),         //origin
+				SCALE(1, 0),         //yScale
+				HSTART(95, 569),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(640),         //origin
+				SCALE(1, 0),         //yScale
+				HSTART(95, 569),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			}}},
+	{OS_VI_PAL_LAF1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_SERRATE_ON |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(624),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(640),         //origin
+				SCALE(1, 0.25),      //yScale
+				HSTART(93, 567),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(640),          //origin
+				SCALE(1, 0.75),       //yScale
+				HSTART(95, 569),      //vStart
+				BURST(105, 2, 13, 0), //vBurst
+				VINTR(2),             //vIntr
+			}}},
+	{OS_VI_PAL_LPN2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_ANTIALIAS_MODE_3 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(625),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),        //origin
+				SCALE(1, 0),         //yScale
+				HSTART(95, 569),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(1280),        //origin
+				SCALE(1, 0),         //yScale
+				HSTART(95, 569),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			}}},
+	{OS_VI_PAL_LPF2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(624),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),        //origin
+				SCALE(1, 0.25),      //yScale
+				HSTART(93, 567),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(1280),         //origin
+				SCALE(1, 0.75),       //yScale
+				HSTART(95, 569),      //vStart
+				BURST(105, 2, 13, 0), //vBurst
+				VINTR(2),             //vIntr
+			}}},
+	{OS_VI_PAL_LAN2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(625),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),        //origin
+				SCALE(1, 0),         //yScale
+				HSTART(95, 569),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(1280),        //origin
+				SCALE(1, 0),         //yScale
+				HSTART(95, 569),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			}}},
+	{OS_VI_PAL_LAF2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_SERRATE_ON |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(624),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),        //origin
+				SCALE(1, 0.25),      //yScale
+				HSTART(93, 567),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(1280),         //origin
+				SCALE(1, 0.75),       //yScale
+				HSTART(95, 569),      //vStart
+				BURST(105, 2, 13, 0), //vBurst
+				VINTR(2),             //vIntr
+			}}},
+	{OS_VI_PAL_HPN1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(1280),          //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(624),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),        //origin
+				SCALE(1, 0),         //yScale
+				HSTART(93, 567),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(2560),         //origin
+				SCALE(1, 0),          //yScale
+				HSTART(95, 569),      //vStart
+				BURST(105, 2, 13, 0), //vBurst
+				VINTR(2),             //vIntr
+			}}},
+	{OS_VI_PAL_HPF1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(640),           //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(624),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),        //origin
+				SCALE(0.5, 0.5),     //yScale
+				HSTART(93, 567),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(2560),         //origin
+				SCALE(0.5, 0.5),      //yScale
+				HSTART(95, 569),      //vStart
+				BURST(105, 2, 13, 0), //vBurst
+				VINTR(2),             //vIntr
+			}}},
+	{OS_VI_PAL_HAN1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_SERRATE_ON |
+				0x3000,           //ctrl
+			WIDTH(1280),          //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(624),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),        //origin
+				SCALE(1, 0),         //yScale
+				HSTART(93, 567),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(2560),         //origin
+				SCALE(1, 0),          //yScale
+				HSTART(95, 569),      //vStart
+				BURST(105, 2, 13, 0), //vBurst
+				VINTR(2),             //vIntr
+			}}},
+	{OS_VI_PAL_HAF1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_SERRATE_ON |
+				0x3000,           //ctrl
+			WIDTH(640),           //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(624),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),        //origin
+				SCALE(0.5, 0.5),     //yScale
+				HSTART(93, 567),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(2560),         //origin
+				SCALE(0.5, 0.5),      //yScale
+				HSTART(95, 569),      //vStart
+				BURST(105, 2, 13, 0), //vBurst
+				VINTR(2),             //vIntr
+			}}},
+	{OS_VI_PAL_HPN2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_3 |
+				0x3000,           //ctrl
+			WIDTH(1280),          //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(624),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(2560),        //origin
+				SCALE(1, 0),         //yScale
+				HSTART(93, 567),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(5120),         //origin
+				SCALE(1, 0),          //yScale
+				HSTART(95, 569),      //vStart
+				BURST(105, 2, 13, 0), //vBurst
+				VINTR(2),             //vIntr
+			}}},
+	{OS_VI_PAL_HPF2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(640),           //width
+			BURST(58, 30, 4, 69), //burst
+			VSYNC(624),           //vSync
+			HSYNC(3177, 23),      //hSync
+			LEAP(3183, 3181),     //leap
+			HSTART(128, 768),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(2560),        //origin
+				SCALE(0.5, 0.5),     //yScale
+				HSTART(93, 567),     //vStart
+				BURST(107, 2, 9, 0), //vBurst
+				VINTR(2),            //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(5120),         //origin
+				SCALE(0.5, 0.5),      //yScale
+				HSTART(95, 569),      //vStart
+				BURST(105, 2, 13, 0), //vBurst
+				VINTR(2),             //vIntr
+			}}},
+	{OS_VI_MPAL_LPN1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(525),           //vSync
+			HSYNC(3089, 4),       //hSync
+			LEAP(3097, 3098),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(640),        //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(640),        //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_MPAL_LPF1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3088, 0),       //hSync
+			LEAP(3100, 3100),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(640),        //origin
+				SCALE(1, 0.25),     //yScale
+				HSTART(35, 509),    //vStart
+				BURST(2, 2, 11, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(640),        //origin
+				SCALE(1, 0.75),     //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_MPAL_LAN1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_ANTIALIAS_MODE_1 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(525),           //vSync
+			HSYNC(3089, 4),       //hSync
+			LEAP(3097, 3098),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(640),        //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(640),        //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_MPAL_LAF1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_SERRATE_ON |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3088, 0),       //hSync
+			LEAP(3100, 3100),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(640),        //origin
+				SCALE(1, 0.25),     //yScale
+				HSTART(35, 509),    //vStart
+				BURST(2, 2, 11, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(640),        //origin
+				SCALE(1, 0.75),     //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_MPAL_LPN2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_ANTIALIAS_MODE_3 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(525),           //vSync
+			HSYNC(3089, 4),       //hSync
+			LEAP(3097, 3098),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_MPAL_LPF2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3088, 0),       //hSync
+			LEAP(3100, 3100),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0.25),     //yScale
+				HSTART(35, 509),    //vStart
+				BURST(2, 2, 11, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0.75),     //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_MPAL_LAN2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(525),           //vSync
+			HSYNC(3089, 4),       //hSync
+			LEAP(3097, 3098),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_MPAL_LAF2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_SERRATE_ON |
+				0x3000,           //ctrl
+			WIDTH(320),           //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3088, 0),       //hSync
+			LEAP(3100, 3100),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(2, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0.25),     //yScale
+				HSTART(35, 509),    //vStart
+				BURST(2, 2, 11, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0.75),     //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_MPAL_HPN1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(1280),          //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3088, 0),       //hSync
+			LEAP(3100, 3100),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(35, 509),    //vStart
+				BURST(2, 2, 11, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(2560),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_MPAL_HPF1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(640),           //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3088, 0),       //hSync
+			LEAP(3100, 3100),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(0.5, 0.5),    //yScale
+				HSTART(35, 509),    //vStart
+				BURST(2, 2, 11, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(2560),       //origin
+				SCALE(0.5, 0.5),    //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_MPAL_HAN1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_SERRATE_ON |
+				0x3000,           //ctrl
+			WIDTH(1280),          //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3088, 0),       //hSync
+			LEAP(3100, 3100),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(35, 509),    //vStart
+				BURST(2, 2, 11, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(2560),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_MPAL_HAF1, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_16 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_DIVOT_ON |
+				VI_CTRL_SERRATE_ON |
+				0x3000,           //ctrl
+			WIDTH(640),           //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3088, 0),       //hSync
+			LEAP(3100, 3100),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(1280),       //origin
+				SCALE(0.5, 0.5),    //yScale
+				HSTART(35, 509),    //vStart
+				BURST(2, 2, 11, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(2560),       //origin
+				SCALE(0.5, 0.5),    //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_MPAL_HPN2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_3 |
+				0x3000,           //ctrl
+			WIDTH(1280),          //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3088, 0),       //hSync
+			LEAP(3100, 3100),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(2560),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(35, 509),    //vStart
+				BURST(2, 2, 11, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(5120),       //origin
+				SCALE(1, 0),        //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+	{OS_VI_MPAL_HPF2, //type
+		{
+			//comRegs
+			VI_CTRL_TYPE_32 |
+				VI_CTRL_GAMMA_DITHER_ON |
+				VI_CTRL_GAMMA_ON |
+				VI_CTRL_SERRATE_ON |
+				VI_CTRL_ANTIALIAS_MODE_2 |
+				0x3000,           //ctrl
+			WIDTH(640),           //width
+			BURST(57, 30, 5, 70), //burst
+			VSYNC(524),           //vSync
+			HSYNC(3088, 0),       //hSync
+			LEAP(3100, 3100),     //leap
+			HSTART(108, 748),     //hStart
+			SCALE(1, 0),          //xScale
+			VCURRENT(0),          //vCurrent
+		},
+		{//fldRegs
+			{
+				//[0]
+				ORIGIN(2560),       //origin
+				SCALE(0.5, 0.5),    //yScale
+				HSTART(35, 509),    //vStart
+				BURST(2, 2, 11, 0), //vBurst
+				VINTR(2),           //vIntr
+			},
+			{
+				//[1]
+				ORIGIN(5120),       //origin
+				SCALE(0.5, 0.5),    //yScale
+				HSTART(37, 511),    //vStart
+				BURST(4, 2, 14, 0), //vBurst
+				VINTR(2),           //vIntr
+			}}},
+};
+
 u32 var80060430 = 0x2a000000;
 u32 var80060434 = 0x0000320e;
 u32 var80060438 = 0x00000140;

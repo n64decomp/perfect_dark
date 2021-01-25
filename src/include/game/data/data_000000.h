@@ -162,7 +162,7 @@ extern u32 var8005f108;
 extern u32 var8005f548;
 extern u32 var8005f6f8;
 extern u32 var8005f6fc;
-extern u32 var8005f710;
+extern OSViMode osViModeTable[42];
 extern u32 var8005f7b0;
 extern u32 var8005f8f0;
 extern u32 var8005fa80;

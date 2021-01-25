@@ -48,6 +48,14 @@ typedef struct OSScTask_s {
 #define OS_SC_YIELDED           0x0020  /* set if yield completed       */
 
 /*
+ * private typedefs and defines
+ */
+#define VIDEO_MSG       666
+#define RSP_DONE_MSG    667
+#define RDP_DONE_MSG    668
+#define PRE_NMI_MSG     669
+
+/*
  * OSScClient:
  *
  * Data structure used by threads that wish to communicate to the
@@ -78,8 +86,7 @@ typedef struct {
     s32         doAudio;
 } OSSched;
 
-void            osCreateScheduler(OSSched *s, void *stack, OSPri priority,
-                                  u8 mode, u8 numFields);
+void            osCreateScheduler(OSSched *s, void *stack, u8 mode, u32 numFields);
 void            osScAddClient(OSSched *s, OSScClient *c, OSMesgQueue *msgQ);
 void            osScRemoveClient(OSSched *s, OSScClient *c);
 OSMesgQueue     *osScGetCmdQ(OSSched *s);

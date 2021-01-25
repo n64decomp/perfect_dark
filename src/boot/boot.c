@@ -1295,7 +1295,7 @@ glabel func000019f4
 /*     1a34:	24a5d900 */ 	addiu	$a1,$a1,%lo(var8008d900)
 /*     1a38:	2484dbd0 */ 	addiu	$a0,$a0,%lo(var8008dbd0)
 /*     1a3c:	2406001e */ 	addiu	$a2,$zero,0x1e
-/*     1a40:	0c000713 */ 	jal	func00001c4c
+/*     1a40:	0c000713 */ 	jal	osCreateScheduler
 /*     1a44:	24070001 */ 	addiu	$a3,$zero,0x1
 /*     1a48:	10000006 */ 	b	.L00001a64
 /*     1a4c:	00000000 */ 	nop
@@ -1303,7 +1303,7 @@ glabel func000019f4
 /*     1a50:	3c058009 */ 	lui	$a1,%hi(var8008d900)
 /*     1a54:	24a5d900 */ 	addiu	$a1,$a1,%lo(var8008d900)
 /*     1a58:	24060002 */ 	addiu	$a2,$zero,0x2
-/*     1a5c:	0c000713 */ 	jal	func00001c4c
+/*     1a5c:	0c000713 */ 	jal	osCreateScheduler
 /*     1a60:	24070001 */ 	addiu	$a3,$zero,0x1
 .L00001a64:
 /*     1a64:	3c048009 */ 	lui	$a0,%hi(var8008dbd0)
@@ -1490,137 +1490,50 @@ void func00001b98(u32 value)
 	}
 }
 
-void func00001c28(void)
+void osCreateLog(void)
 {
 	var8005ce70 = osGetCount();
 }
 
-GLOBAL_ASM(
-glabel func00001c4c
-/*     1c4c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*     1c50:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*     1c54:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*     1c58:	afb10020 */ 	sw	$s1,0x20($sp)
-/*     1c5c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*     1c60:	afa70034 */ 	sw	$a3,0x34($sp)
-/*     1c64:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*     1c68:	240f0005 */ 	addiu	$t7,$zero,0x5
-/*     1c6c:	00808025 */ 	or	$s0,$a0,$zero
-/*     1c70:	ac8000c8 */ 	sw	$zero,0xc8($a0)
-/*     1c74:	ac8000cc */ 	sw	$zero,0xcc($a0)
-/*     1c78:	ac8000b4 */ 	sw	$zero,0xb4($a0)
-/*     1c7c:	ac8000d0 */ 	sw	$zero,0xd0($a0)
-/*     1c80:	ac8000b8 */ 	sw	$zero,0xb8($a0)
-/*     1c84:	ac8000bc */ 	sw	$zero,0xbc($a0)
-/*     1c88:	ac8000c0 */ 	sw	$zero,0xc0($a0)
-/*     1c8c:	ac8000c4 */ 	sw	$zero,0xc4($a0)
-/*     1c90:	a48e0000 */ 	sh	$t6,0x0($a0)
-/*     1c94:	a48f0020 */ 	sh	$t7,0x20($a0)
-/*     1c98:	0c000bdc */ 	jal	resetThreadCreate
-/*     1c9c:	ac8500b0 */ 	sw	$a1,0xb0($a0)
-/*     1ca0:	26110040 */ 	addiu	$s1,$s0,0x40
-/*     1ca4:	02202025 */ 	or	$a0,$s1,$zero
-/*     1ca8:	26050058 */ 	addiu	$a1,$s0,0x58
-/*     1cac:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*     1cb0:	24060008 */ 	addiu	$a2,$zero,0x8
-/*     1cb4:	26040078 */ 	addiu	$a0,$s0,0x78
-/*     1cb8:	26050090 */ 	addiu	$a1,$s0,0x90
-/*     1cbc:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*     1cc0:	24060008 */ 	addiu	$a2,$zero,0x8
-/*     1cc4:	0c000c14 */ 	jal	osCreateViManager
-/*     1cc8:	240400fe */ 	addiu	$a0,$zero,0xfe
-/*     1ccc:	93b80033 */ 	lbu	$t8,0x33($sp)
-/*     1cd0:	3c098006 */ 	lui	$t1,%hi(var8005f710)
-/*     1cd4:	2529f710 */ 	addiu	$t1,$t1,%lo(var8005f710)
-/*     1cd8:	0018c880 */ 	sll	$t9,$t8,0x2
-/*     1cdc:	0338c821 */ 	addu	$t9,$t9,$t8
-/*     1ce0:	0019c900 */ 	sll	$t9,$t9,0x4
-/*     1ce4:	03291021 */ 	addu	$v0,$t9,$t1
-/*     1ce8:	8c4a001c */ 	lw	$t2,0x1c($v0)
-/*     1cec:	3c018009 */ 	lui	$at,%hi(var8008de08)
-/*     1cf0:	3c038009 */ 	lui	$v1,%hi(var8008dd60)
-/*     1cf4:	ac2ade08 */ 	sw	$t2,%lo(var8008de08)($at)
-/*     1cf8:	8c4b0030 */ 	lw	$t3,0x30($v0)
-/*     1cfc:	3c018009 */ 	lui	$at,%hi(var8008de0c)
-/*     1d00:	3c078009 */ 	lui	$a3,%hi(var8008dd68)
-/*     1d04:	ac2bde0c */ 	sw	$t3,%lo(var8008de0c)($at)
-/*     1d08:	8c4c0044 */ 	lw	$t4,0x44($v0)
-/*     1d0c:	3c018009 */ 	lui	$at,%hi(var8008de10)
-/*     1d10:	24e7dd68 */ 	addiu	$a3,$a3,%lo(var8008dd68)
-/*     1d14:	2463dd60 */ 	addiu	$v1,$v1,%lo(var8008dd60)
-/*     1d18:	3c088009 */ 	lui	$t0,%hi(var8008ddb8)
-/*     1d1c:	ac2cde10 */ 	sw	$t4,%lo(var8008de10)($at)
-/*     1d20:	2508ddb8 */ 	addiu	$t0,$t0,%lo(var8008ddb8)
-/*     1d24:	ac670000 */ 	sw	$a3,0x0($v1)
-/*     1d28:	ac680004 */ 	sw	$t0,0x4($v1)
-/*     1d2c:	00e0c025 */ 	or	$t8,$a3,$zero
-/*     1d30:	00407825 */ 	or	$t7,$v0,$zero
-/*     1d34:	244e0048 */ 	addiu	$t6,$v0,0x48
-.L00001d38:
-/*     1d38:	8de10000 */ 	lw	$at,0x0($t7)
-/*     1d3c:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*     1d40:	2718000c */ 	addiu	$t8,$t8,0xc
-/*     1d44:	af01fff4 */ 	sw	$at,-0xc($t8)
-/*     1d48:	8de1fff8 */ 	lw	$at,-0x8($t7)
-/*     1d4c:	af01fff8 */ 	sw	$at,-0x8($t8)
-/*     1d50:	8de1fffc */ 	lw	$at,-0x4($t7)
-/*     1d54:	15eefff8 */ 	bne	$t7,$t6,.L00001d38
-/*     1d58:	af01fffc */ 	sw	$at,-0x4($t8)
-/*     1d5c:	8de10000 */ 	lw	$at,0x0($t7)
-/*     1d60:	00405025 */ 	or	$t2,$v0,$zero
-/*     1d64:	01005825 */ 	or	$t3,$t0,$zero
-/*     1d68:	af010000 */ 	sw	$at,0x0($t8)
-/*     1d6c:	8dee0004 */ 	lw	$t6,0x4($t7)
-/*     1d70:	24490048 */ 	addiu	$t1,$v0,0x48
-/*     1d74:	af0e0004 */ 	sw	$t6,0x4($t8)
-.L00001d78:
-/*     1d78:	8d410000 */ 	lw	$at,0x0($t2)
-/*     1d7c:	254a000c */ 	addiu	$t2,$t2,0xc
-/*     1d80:	256b000c */ 	addiu	$t3,$t3,0xc
-/*     1d84:	ad61fff4 */ 	sw	$at,-0xc($t3)
-/*     1d88:	8d41fff8 */ 	lw	$at,-0x8($t2)
-/*     1d8c:	ad61fff8 */ 	sw	$at,-0x8($t3)
-/*     1d90:	8d41fffc */ 	lw	$at,-0x4($t2)
-/*     1d94:	1549fff8 */ 	bne	$t2,$t1,.L00001d78
-/*     1d98:	ad61fffc */ 	sw	$at,-0x4($t3)
-/*     1d9c:	8d410000 */ 	lw	$at,0x0($t2)
-/*     1da0:	24040004 */ 	addiu	$a0,$zero,0x4
-/*     1da4:	02202825 */ 	or	$a1,$s1,$zero
-/*     1da8:	ad610000 */ 	sw	$at,0x0($t3)
-/*     1dac:	8d490004 */ 	lw	$t1,0x4($t2)
-/*     1db0:	2406029b */ 	addiu	$a2,$zero,0x29b
-/*     1db4:	0c012148 */ 	jal	osSetEventMesg
-/*     1db8:	ad690004 */ 	sw	$t1,0x4($t3)
-/*     1dbc:	24040009 */ 	addiu	$a0,$zero,0x9
-/*     1dc0:	02202825 */ 	or	$a1,$s1,$zero
-/*     1dc4:	0c012148 */ 	jal	osSetEventMesg
-/*     1dc8:	2406029c */ 	addiu	$a2,$zero,0x29c
-/*     1dcc:	02202025 */ 	or	$a0,$s1,$zero
-/*     1dd0:	2405029a */ 	addiu	$a1,$zero,0x29a
-/*     1dd4:	0c012178 */ 	jal	func000485e0
-/*     1dd8:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*     1ddc:	0c00070a */ 	jal	func00001c28
-/*     1de0:	00000000 */ 	nop
-/*     1de4:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     1de8:	0c00062b */ 	jal	allocateStack
-/*     1dec:	24050400 */ 	addiu	$a1,$zero,0x400
-/*     1df0:	8e0400b0 */ 	lw	$a0,0xb0($s0)
-/*     1df4:	3c067000 */ 	lui	$a2,%hi(func00001e94)
-/*     1df8:	240c001e */ 	addiu	$t4,$zero,0x1e
-/*     1dfc:	afac0014 */ 	sw	$t4,0x14($sp)
-/*     1e00:	24c61e94 */ 	addiu	$a2,$a2,%lo(func00001e94)
-/*     1e04:	afa20010 */ 	sw	$v0,0x10($sp)
-/*     1e08:	24050002 */ 	addiu	$a1,$zero,0x2
-/*     1e0c:	0c000fb8 */ 	jal	osCreateThread
-/*     1e10:	02003825 */ 	or	$a3,$s0,$zero
-/*     1e14:	0c01207c */ 	jal	osStartThread
-/*     1e18:	8e0400b0 */ 	lw	$a0,0xb0($s0)
-/*     1e1c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*     1e20:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*     1e24:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*     1e28:	03e00008 */ 	jr	$ra
-/*     1e2c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void osCreateScheduler(OSSched *sc, void *stack, u8 mode, u32 numFields)
+{
+	sc->curRSPTask = 0;
+	sc->curRDPTask = 0;
+	sc->clientList = 0;
+	sc->frameCount = 0;
+	sc->audioListHead = 0;
+	sc->gfxListHead = 0;
+	sc->audioListTail = 0;
+	sc->gfxListTail = 0;
+	sc->retraceMsg.type = OS_SC_RETRACE_MSG;
+	sc->prenmiMsg.type = 5; // OS_SC_PRE_NMI_MSG
+	sc->thread = stack;
+
+	resetThreadCreate();
+
+	osCreateMesgQueue(&sc->interruptQ, sc->intBuf, OS_SC_MAX_MESGS);
+	osCreateMesgQueue(&sc->cmdQ, sc->cmdMsgBuf, OS_SC_MAX_MESGS);
+
+	osCreateViManager(OS_PRIORITY_VIMGR);
+
+	var8008de08 = osViModeTable[mode].comRegs.hStart;
+	var8008de0c = osViModeTable[mode].fldRegs[0].vStart;
+	var8008de10 = osViModeTable[mode].fldRegs[1].vStart;
+
+	var8008dd60[0] = &var8008dd68;
+	var8008dd60[1] = &var8008ddb8;
+
+	var8008dd68 = osViModeTable[mode];
+	var8008ddb8 = osViModeTable[mode];
+
+	osSetEventMesg(OS_EVENT_SP, &sc->interruptQ, (OSMesg)RSP_DONE_MSG);
+	osSetEventMesg(OS_EVENT_DP, &sc->interruptQ, (OSMesg)RDP_DONE_MSG);
+
+	osViSetEvent(&sc->interruptQ, (OSMesg)VIDEO_MSG, numFields);
+	osCreateLog();
+	osCreateThread(sc->thread, THREAD_SCHED, &__scMain, sc, allocateStack(THREAD_SCHED, 0x400), 30);
+	osStartThread(sc->thread);
+}
 
 GLOBAL_ASM(
 glabel func00001e30
@@ -1700,7 +1613,7 @@ glabel func00001e8c
 );
 
 GLOBAL_ASM(
-glabel func00001e94
+glabel __scMain
 /*     1e94:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*     1e98:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*     1e9c:	afb70030 */ 	sw	$s7,0x30($sp)
@@ -2357,12 +2270,12 @@ glabel func00002768
 /*     2920:	adcc0004 */ 	sw	$t4,0x4($t6)
 /*     2924:	3c0d8006 */ 	lui	$t5,%hi(var8005ce74)
 /*     2928:	8dadce74 */ 	lw	$t5,%lo(var8005ce74)($t5)
-/*     292c:	3c048009 */ 	lui	$a0,%hi(var8008dd64)
+/*     292c:	3c048009 */ 	lui	$a0,%hi(var8008dd60+0x4)
 /*     2930:	000dc080 */ 	sll	$t8,$t5,0x2
 /*     2934:	00187823 */ 	negu	$t7,$t8
 /*     2938:	008f2021 */ 	addu	$a0,$a0,$t7
 /*     293c:	0c012354 */ 	jal	func00048d50
-/*     2940:	8c84dd64 */ 	lw	$a0,%lo(var8008dd64)($a0)
+/*     2940:	8c84dd64 */ 	lw	$a0,%lo(var8008dd60+0x4)($a0)
 /*     2944:	3c048006 */ 	lui	$a0,%hi(var8005ce90+0x3)
 /*     2948:	0c012338 */ 	jal	func00048ce0
 /*     294c:	9084ce93 */ 	lbu	$a0,%lo(var8005ce90+0x3)($a0)
