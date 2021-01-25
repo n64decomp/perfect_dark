@@ -1998,7 +1998,7 @@ void __scHandleRDP(OSSched *sc)
 }
 
 GLOBAL_ASM(
-glabel func00002704
+glabel __scTaskReady
 /*     2704:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*     2708:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     270c:	10800011 */ 	beqz	$a0,.L00002754
@@ -2301,143 +2301,96 @@ void __scYield(OSSched *sc)
 	}
 }
 
-GLOBAL_ASM(
-glabel __scSchedule
-/*     2bac:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*     2bb0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     2bb4:	00808825 */ 	or	$s1,$a0,$zero
-/*     2bb8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     2bbc:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     2bc0:	2408fffd */ 	addiu	$t0,$zero,-3
-.L00002bc4:
-/*     2bc4:	8e2e00d4 */ 	lw	$t6,0xd4($s1)
-/*     2bc8:	00e01825 */ 	or	$v1,$a3,$zero
-/*     2bcc:	8e3000bc */ 	lw	$s0,0xbc($s1)
-/*     2bd0:	11c00016 */ 	beqz	$t6,.L00002c2c
-/*     2bd4:	8e2200b8 */ 	lw	$v0,0xb8($s1)
-/*     2bd8:	30ef0002 */ 	andi	$t7,$a3,0x2
-/*     2bdc:	51e00014 */ 	beqzl	$t7,.L00002c30
-/*     2be0:	02002025 */ 	or	$a0,$s0,$zero
-/*     2be4:	52000009 */ 	beqzl	$s0,.L00002c0c
-/*     2be8:	aca20000 */ 	sw	$v0,0x0($a1)
-/*     2bec:	8e180008 */ 	lw	$t8,0x8($s0)
-/*     2bf0:	00e81824 */ 	and	$v1,$a3,$t0
-/*     2bf4:	33190010 */ 	andi	$t9,$t8,0x10
-/*     2bf8:	53200004 */ 	beqzl	$t9,.L00002c0c
-/*     2bfc:	aca20000 */ 	sw	$v0,0x0($a1)
-/*     2c00:	10000059 */ 	b	.L00002d68
-/*     2c04:	acb00000 */ 	sw	$s0,0x0($a1)
-/*     2c08:	aca20000 */ 	sw	$v0,0x0($a1)
-.L00002c0c:
-/*     2c0c:	8e2a00b8 */ 	lw	$t2,0xb8($s1)
-/*     2c10:	ae2000d4 */ 	sw	$zero,0xd4($s1)
-/*     2c14:	00e81824 */ 	and	$v1,$a3,$t0
-/*     2c18:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*     2c1c:	15600052 */ 	bnez	$t3,.L00002d68
-/*     2c20:	ae2b00b8 */ 	sw	$t3,0xb8($s1)
-/*     2c24:	10000050 */ 	b	.L00002d68
-/*     2c28:	ae2000c0 */ 	sw	$zero,0xc0($s1)
-.L00002c2c:
-/*     2c2c:	02002025 */ 	or	$a0,$s0,$zero
-.L00002c30:
-/*     2c30:	afa30024 */ 	sw	$v1,0x24($sp)
-/*     2c34:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*     2c38:	afa60030 */ 	sw	$a2,0x30($sp)
-/*     2c3c:	0c0009c1 */ 	jal	func00002704
-/*     2c40:	afa70034 */ 	sw	$a3,0x34($sp)
-/*     2c44:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*     2c48:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*     2c4c:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*     2c50:	8fa70034 */ 	lw	$a3,0x34($sp)
-/*     2c54:	2408fffd */ 	addiu	$t0,$zero,-3
-/*     2c58:	10400043 */ 	beqz	$v0,.L00002d68
-/*     2c5c:	2409fffe */ 	addiu	$t1,$zero,-2
-/*     2c60:	8e0d0008 */ 	lw	$t5,0x8($s0)
-/*     2c64:	31ae0007 */ 	andi	$t6,$t5,0x7
-/*     2c68:	25cfffff */ 	addiu	$t7,$t6,-1
-/*     2c6c:	2de10007 */ 	sltiu	$at,$t7,0x7
-/*     2c70:	1020003d */ 	beqz	$at,.L00002d68
-/*     2c74:	000f7880 */ 	sll	$t7,$t7,0x2
-/*     2c78:	3c017005 */ 	lui	$at,%hi(var70052430)
-/*     2c7c:	002f0821 */ 	addu	$at,$at,$t7
-/*     2c80:	8c2f2430 */ 	lw	$t7,%lo(var70052430)($at)
-/*     2c84:	01e00008 */ 	jr	$t7
-/*     2c88:	00000000 */ 	nop
-);
+s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP)
+{
+	s32 avail = availRCP;
+	OSScTask *gfx = sc->gfxListHead;
+	OSScTask *audio = sc->audioListHead;
 
-GLOBAL_ASM(
-glabel func00002c8c
-/*     2c8c:	8e180004 */ 	lw	$t8,0x4($s0)
-/*     2c90:	30ea0002 */ 	andi	$t2,$a3,0x2
-/*     2c94:	24010003 */ 	addiu	$at,$zero,0x3
-/*     2c98:	33190020 */ 	andi	$t9,$t8,0x20
-/*     2c9c:	13200011 */ 	beqz	$t9,.L00002ce4
-/*     2ca0:	00000000 */ 	nop
-/*     2ca4:	11400030 */ 	beqz	$t2,.L00002d68
-/*     2ca8:	00000000 */ 	nop
-/*     2cac:	acb00000 */ 	sw	$s0,0x0($a1)
-/*     2cb0:	8e0b0004 */ 	lw	$t3,0x4($s0)
-/*     2cb4:	00e81824 */ 	and	$v1,$a3,$t0
-/*     2cb8:	316c0001 */ 	andi	$t4,$t3,0x1
-/*     2cbc:	51800004 */ 	beqzl	$t4,.L00002cd0
-/*     2cc0:	8e2d00bc */ 	lw	$t5,0xbc($s1)
-/*     2cc4:	acd00000 */ 	sw	$s0,0x0($a2)
-/*     2cc8:	00691824 */ 	and	$v1,$v1,$t1
-/*     2ccc:	8e2d00bc */ 	lw	$t5,0xbc($s1)
-.L00002cd0:
-/*     2cd0:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*     2cd4:	15c00024 */ 	bnez	$t6,.L00002d68
-/*     2cd8:	ae2e00bc */ 	sw	$t6,0xbc($s1)
-/*     2cdc:	10000022 */ 	b	.L00002d68
-/*     2ce0:	ae2000c4 */ 	sw	$zero,0xc4($s1)
-.L00002ce4:
-/*     2ce4:	14e10020 */ 	bne	$a3,$at,.L00002d68
-/*     2ce8:	00000000 */ 	nop
-/*     2cec:	acd00000 */ 	sw	$s0,0x0($a2)
-/*     2cf0:	acb00000 */ 	sw	$s0,0x0($a1)
-/*     2cf4:	8e3800bc */ 	lw	$t8,0xbc($s1)
-/*     2cf8:	2401fffc */ 	addiu	$at,$zero,-4
-/*     2cfc:	00e11824 */ 	and	$v1,$a3,$at
-/*     2d00:	8f190000 */ 	lw	$t9,0x0($t8)
-/*     2d04:	17200018 */ 	bnez	$t9,.L00002d68
-/*     2d08:	ae3900bc */ 	sw	$t9,0xbc($s1)
-/*     2d0c:	10000016 */ 	b	.L00002d68
-/*     2d10:	ae2000c4 */ 	sw	$zero,0xc4($s1)
-/*     2d14:	8e020004 */ 	lw	$v0,0x4($s0)
-/*     2d18:	30ec0002 */ 	andi	$t4,$a3,0x2
-/*     2d1c:	304b0002 */ 	andi	$t3,$v0,0x2
-/*     2d20:	11600006 */ 	beqz	$t3,.L00002d3c
-/*     2d24:	304d0001 */ 	andi	$t5,$v0,0x1
-/*     2d28:	1180000f */ 	beqz	$t4,.L00002d68
-/*     2d2c:	00000000 */ 	nop
-/*     2d30:	acb00000 */ 	sw	$s0,0x0($a1)
-/*     2d34:	1000000c */ 	b	.L00002d68
-/*     2d38:	00e81824 */ 	and	$v1,$a3,$t0
-.L00002d3c:
-/*     2d3c:	11a0000a */ 	beqz	$t5,.L00002d68
-/*     2d40:	30ee0001 */ 	andi	$t6,$a3,0x1
-/*     2d44:	11c00008 */ 	beqz	$t6,.L00002d68
-/*     2d48:	00000000 */ 	nop
-/*     2d4c:	acd00000 */ 	sw	$s0,0x0($a2)
-/*     2d50:	8e2f00bc */ 	lw	$t7,0xbc($s1)
-/*     2d54:	00e91824 */ 	and	$v1,$a3,$t1
-/*     2d58:	8df80000 */ 	lw	$t8,0x0($t7)
-/*     2d5c:	17000002 */ 	bnez	$t8,.L00002d68
-/*     2d60:	ae3800bc */ 	sw	$t8,0xbc($s1)
-/*     2d64:	ae2000c4 */ 	sw	$zero,0xc4($s1)
-.L00002d68:
-/*     2d68:	50670004 */ 	beql	$v1,$a3,.L00002d7c
-/*     2d6c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     2d70:	1000ff94 */ 	b	.L00002bc4
-/*     2d74:	00603825 */ 	or	$a3,$v1,$zero
-/*     2d78:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L00002d7c:
-/*     2d7c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*     2d80:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*     2d84:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*     2d88:	03e00008 */ 	jr	$ra
-/*     2d8c:	00601025 */ 	or	$v0,$v1,$zero
-);
+	if (sc->doAudio && (avail & OS_SC_SP)) {
+		if (gfx && (gfx->flags & OS_SC_PARALLEL_TASK)) {
+			*sp = gfx;
+			avail &= ~OS_SC_SP;
+		} else {
+			*sp = audio;
+			avail &= ~OS_SC_SP;
+			sc->doAudio = 0;
+			sc->audioListHead = sc->audioListHead->next;
+
+			if (sc->audioListHead == NULL) {
+				sc->audioListTail = NULL;
+			}
+		}
+	} else {
+		if (__scTaskReady(gfx)) {
+			switch (gfx->flags & OS_SC_TYPE_MASK) {
+			case OS_SC_XBUS:
+				if (gfx->state & OS_SC_YIELDED) {
+					if (avail & OS_SC_SP) {
+						*sp = gfx;
+						avail &= ~OS_SC_SP;
+
+						if (gfx->state & OS_SC_DP) {
+							*dp = gfx;
+							avail &= ~OS_SC_DP;
+
+							if (avail & OS_SC_DP == 0) {
+								assert(sc->curRDPTask == gfx);
+							}
+						}
+
+						sc->gfxListHead = sc->gfxListHead->next;
+
+						if (sc->gfxListHead == NULL) {
+							sc->gfxListTail = NULL;
+						}
+					}
+				} else {
+					if (avail == (OS_SC_SP | OS_SC_DP)) {
+						*sp = *dp = gfx;
+						avail &= ~(OS_SC_SP | OS_SC_DP);
+						sc->gfxListHead = sc->gfxListHead->next;
+
+						if (sc->gfxListHead == NULL) {
+							sc->gfxListTail = NULL;
+						}
+					}
+				}
+				break;
+			case OS_SC_DRAM:
+			case OS_SC_DP_DRAM:
+			case OS_SC_DP_XBUS:
+				if (gfx->state & OS_SC_SP) {
+					if (avail & OS_SC_SP) {
+						*sp = gfx;
+						avail &= ~OS_SC_SP;
+					}
+				} else if (gfx->state & OS_SC_DP) {
+					if (avail & OS_SC_DP) {
+						*dp = gfx;
+						avail &= ~OS_SC_DP;
+						sc->gfxListHead = sc->gfxListHead->next;
+
+						if (sc->gfxListHead == NULL) {
+							sc->gfxListTail = NULL;
+						}
+					}
+				}
+				break;
+			case OS_SC_SP_DRAM:
+			case OS_SC_SP_XBUS:
+			default:
+				break;
+			}
+		}
+	}
+
+	if (avail != availRCP) {
+		avail = __scSchedule(sc, sp, dp, avail);
+	}
+
+	return avail;
+}
 
 GLOBAL_ASM(
 glabel func00002d90

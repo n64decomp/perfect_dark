@@ -188,6 +188,7 @@ SECTIONS
 	BEGIN_SEG(lib)
 	{
 		LIBFILES(.text)
+		BOOTFILES(.rodata)
 		LIBFILES(.rodata)
 	}
 	END_SEG(lib)

@@ -1,14 +1,5 @@
 #include <libultra_internal.h>
 
-const u32 var70052430[] = {0x70002d68};
-const u32 var70052434[] = {0x70002d14};
-const u32 var70052438[] = {0x70002c8c};
-const u32 var7005243c[] = {0x70002d68};
-const u32 var70052440[] = {0x70002d68};
-const u32 var70052444[] = {0x70002d14};
-const u32 var70052448[] = {0x70002d14};
-const u32 var7005244c[] = {0x00000000};
-
 GLOBAL_ASM(
 glabel osCreateViManager
 /*     3050:	27bdffd0 */ 	addiu	$sp,$sp,-48
