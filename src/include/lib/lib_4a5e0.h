@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 memcpy(void);
+void *memcpy(void *, const void *, size_t);
 u32 strlen(char *str);
 u32 strchr(void);
 

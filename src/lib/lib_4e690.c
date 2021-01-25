@@ -350,7 +350,7 @@ glabel func0004e690
 .L0004eb44:
 /*    4eb44:	02002025 */ 	or	$a0,$s0,$zero
 /*    4eb48:	03077021 */ 	addu	$t6,$t8,$a3
-/*    4eb4c:	0c001314 */ 	jal	func00004c50
+/*    4eb4c:	0c001314 */ 	jal	_Ldtob
 /*    4eb50:	ae0e0008 */ 	sw	$t6,0x8($s0)
 /*    4eb54:	10000067 */ 	b	.L0004ecf4
 /*    4eb58:	8fbf0014 */ 	lw	$ra,0x14($sp)
