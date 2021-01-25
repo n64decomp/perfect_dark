@@ -1612,84 +1612,37 @@ glabel func00001e8c
 /*     1e90:	24820078 */ 	addiu	$v0,$a0,0x78
 );
 
-GLOBAL_ASM(
-glabel __scMain
-/*     1e94:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*     1e98:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*     1e9c:	afb70030 */ 	sw	$s7,0x30($sp)
-/*     1ea0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     1ea4:	00808825 */ 	or	$s1,$a0,$zero
-/*     1ea8:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*     1eac:	afb50028 */ 	sw	$s5,0x28($sp)
-/*     1eb0:	afb40024 */ 	sw	$s4,0x24($sp)
-/*     1eb4:	afb30020 */ 	sw	$s3,0x20($sp)
-/*     1eb8:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*     1ebc:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     1ec0:	afa0004c */ 	sw	$zero,0x4c($sp)
-/*     1ec4:	0c000900 */ 	jal	func00002400
-/*     1ec8:	0000b825 */ 	or	$s7,$zero,$zero
-/*     1ecc:	26320040 */ 	addiu	$s2,$s1,0x40
-/*     1ed0:	2416029c */ 	addiu	$s6,$zero,0x29c
-/*     1ed4:	2415029b */ 	addiu	$s5,$zero,0x29b
-/*     1ed8:	2414029a */ 	addiu	$s4,$zero,0x29a
-/*     1edc:	27b3004c */ 	addiu	$s3,$sp,0x4c
-/*     1ee0:	02402025 */ 	or	$a0,$s2,$zero
-.L00001ee4:
-/*     1ee4:	02602825 */ 	or	$a1,$s3,$zero
-/*     1ee8:	0c0121bc */ 	jal	osRecvMesg
-/*     1eec:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     1ef0:	8fae004c */ 	lw	$t6,0x4c($sp)
-/*     1ef4:	11d40007 */ 	beq	$t6,$s4,.L00001f14
-/*     1ef8:	00000000 */ 	nop
-/*     1efc:	11d50013 */ 	beq	$t6,$s5,.L00001f4c
-/*     1f00:	00000000 */ 	nop
-/*     1f04:	11d60015 */ 	beq	$t6,$s6,.L00001f5c
-/*     1f08:	00000000 */ 	nop
-/*     1f0c:	10000019 */ 	b	.L00001f74
-/*     1f10:	00000000 */ 	nop
-.L00001f14:
-/*     1f14:	0c01220c */ 	jal	func00048830
-/*     1f18:	00000000 */ 	nop
-/*     1f1c:	0c01221c */ 	jal	func00048870
-/*     1f20:	00408025 */ 	or	$s0,$v0,$zero
-/*     1f24:	14500003 */ 	bne	$v0,$s0,.L00001f34
-/*     1f28:	00000000 */ 	nop
-/*     1f2c:	0c01222c */ 	jal	osDpSetStatus
-/*     1f30:	24040004 */ 	addiu	$a0,$zero,0x4
-.L00001f34:
-/*     1f34:	0c00081e */ 	jal	func00002078
-/*     1f38:	02202025 */ 	or	$a0,$s1,$zero
-/*     1f3c:	0c000852 */ 	jal	__scHandleRetrace
-/*     1f40:	02202025 */ 	or	$a0,$s1,$zero
-/*     1f44:	1000000b */ 	b	.L00001f74
-/*     1f48:	00000000 */ 	nop
-.L00001f4c:
-/*     1f4c:	0c0008b8 */ 	jal	func000022e0
-/*     1f50:	02202025 */ 	or	$a0,$s1,$zero
-/*     1f54:	10000007 */ 	b	.L00001f74
-/*     1f58:	00000000 */ 	nop
-.L00001f5c:
-/*     1f5c:	0c01222c */ 	jal	osDpSetStatus
-/*     1f60:	24040008 */ 	addiu	$a0,$zero,0x8
-/*     1f64:	0c00098b */ 	jal	func0000262c
-/*     1f68:	02202025 */ 	or	$a0,$s1,$zero
-/*     1f6c:	0c000852 */ 	jal	__scHandleRetrace
-/*     1f70:	02202025 */ 	or	$a0,$s1,$zero
-.L00001f74:
-/*     1f74:	52e0ffdb */ 	beqzl	$s7,.L00001ee4
-/*     1f78:	02402025 */ 	or	$a0,$s2,$zero
-/*     1f7c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*     1f80:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*     1f84:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*     1f88:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*     1f8c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*     1f90:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*     1f94:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*     1f98:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*     1f9c:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*     1fa0:	03e00008 */ 	jr	$ra
-/*     1fa4:	27bd0050 */ 	addiu	$sp,$sp,0x50
-);
+void __scMain(void *arg)
+{
+    OSMesg msg = 0;
+    OSSched *sc = (OSSched *)arg;
+    int done = 0;
+
+	func00002400();
+
+	while (!done) {
+		osRecvMesg(&sc->interruptQ, (OSMesg *)&msg, OS_MESG_BLOCK);
+
+		switch ((int) msg) {
+		case VIDEO_MSG:
+			if (func00048830() == func00048870()) {
+				osDpSetStatus(4);
+			}
+
+			func00002078(sc);
+			__scHandleRetrace(sc);
+			break;
+		case RSP_DONE_MSG:
+			__scHandleRSP(sc);
+			break;
+		case RDP_DONE_MSG:
+			osDpSetStatus(8);
+			__scHandleRDP(sc);
+			__scHandleRetrace(sc);
+			break;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func00001fa8
@@ -1864,7 +1817,7 @@ void __scHandleRetrace(OSSched *sc)
 #endif
 
 GLOBAL_ASM(
-glabel func000022e0
+glabel __scHandleRSP
 /*     22e0:	3c0e8006 */ 	lui	$t6,%hi(var8005ced0)
 /*     22e4:	81ceced0 */ 	lb	$t6,%lo(var8005ced0)($t6)
 /*     22e8:	27bdffd0 */ 	addiu	$sp,$sp,-48
@@ -2060,7 +2013,7 @@ glabel func00002580
 );
 
 GLOBAL_ASM(
-glabel func0000262c
+glabel __scHandleRDP
 /*     262c:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*     2630:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*     2634:	afb00018 */ 	sw	$s0,0x18($sp)
