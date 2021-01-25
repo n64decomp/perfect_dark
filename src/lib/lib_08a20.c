@@ -724,7 +724,7 @@ glabel func00009448
 /*     946c:	3c018009 */ 	lui	$at,%hi(var800918f4)
 /*     9470:	ac2618f4 */ 	sw	$a2,%lo(var800918f4)($at)
 /*     9474:	2484dbd0 */ 	addiu	$a0,$a0,%lo(var8008dbd0)
-/*     9478:	0c0007ea */ 	jal	func00001fa8
+/*     9478:	0c0007ea */ 	jal	__scHandleRetraceViaPri
 /*     947c:	00c02825 */ 	or	$a1,$a2,$zero
 .L00009480:
 /*     9480:	0c00264f */ 	jal	func0000993c

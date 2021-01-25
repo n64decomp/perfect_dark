@@ -1630,63 +1630,29 @@ void __scMain(void *arg)
 	}
 }
 
-GLOBAL_ASM(
-glabel func00001fa8
-/*     1fa8:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*     1fac:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     1fb0:	00808025 */ 	or	$s0,$a0,$zero
-/*     1fb4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     1fb8:	afa50034 */ 	sw	$a1,0x34($sp)
-/*     1fbc:	afa00028 */ 	sw	$zero,0x28($sp)
-/*     1fc0:	afa00024 */ 	sw	$zero,0x24($sp)
-/*     1fc4:	0c012230 */ 	jal	osGetThreadPri
-/*     1fc8:	00002025 */ 	or	$a0,$zero,$zero
-/*     1fcc:	afa20020 */ 	sw	$v0,0x20($sp)
-/*     1fd0:	00002025 */ 	or	$a0,$zero,$zero
-/*     1fd4:	0c01210c */ 	jal	osSetThreadPri
-/*     1fd8:	2405001f */ 	addiu	$a1,$zero,0x1f
-/*     1fdc:	02002025 */ 	or	$a0,$s0,$zero
-/*     1fe0:	0c000a87 */ 	jal	__scAppendList
-/*     1fe4:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*     1fe8:	8e0e00d4 */ 	lw	$t6,0xd4($s0)
-/*     1fec:	02002025 */ 	or	$a0,$s0,$zero
-/*     1ff0:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*     1ff4:	51c00009 */ 	beqzl	$t6,.L0000201c
-/*     1ff8:	8e1800c8 */ 	lw	$t8,0xc8($s0)
-/*     1ffc:	8e0f00c8 */ 	lw	$t7,0xc8($s0)
-/*     2000:	51e00006 */ 	beqzl	$t7,.L0000201c
-/*     2004:	8e1800c8 */ 	lw	$t8,0xc8($s0)
-/*     2008:	0c000adc */ 	jal	__scYield
-/*     200c:	02002025 */ 	or	$a0,$s0,$zero
-/*     2010:	10000012 */ 	b	.L0000205c
-/*     2014:	00002025 */ 	or	$a0,$zero,$zero
-/*     2018:	8e1800c8 */ 	lw	$t8,0xc8($s0)
-.L0000201c:
-/*     201c:	8e0900cc */ 	lw	$t1,0xcc($s0)
-/*     2020:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*     2024:	2f190001 */ 	sltiu	$t9,$t8,0x1
-/*     2028:	00194040 */ 	sll	$t0,$t9,0x1
-/*     202c:	2d2a0001 */ 	sltiu	$t2,$t1,0x1
-/*     2030:	010a3825 */ 	or	$a3,$t0,$t2
-/*     2034:	0c000aeb */ 	jal	__scSchedule
-/*     2038:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*     203c:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*     2040:	02002025 */ 	or	$a0,$s0,$zero
-/*     2044:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*     2048:	50470004 */ 	beql	$v0,$a3,.L0000205c
-/*     204c:	00002025 */ 	or	$a0,$zero,$zero
-/*     2050:	0c000aa1 */ 	jal	__scExec
-/*     2054:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*     2058:	00002025 */ 	or	$a0,$zero,$zero
-.L0000205c:
-/*     205c:	0c01210c */ 	jal	osSetThreadPri
-/*     2060:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*     2064:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     2068:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     206c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*     2070:	03e00008 */ 	jr	$ra
-/*     2074:	00000000 */ 	nop
-);
+void __scHandleRetraceViaPri(OSSched *sc, OSScTask *t)
+{
+	s32 state;
+	OSScTask *sp = 0;
+	OSScTask *dp = 0;
+
+	OSPri prevpri = osGetThreadPri(0);
+	osSetThreadPri(0, 31);
+
+	__scAppendList(sc, t);
+
+	if (sc->doAudio && sc->curRSPTask) {
+		__scYield(sc);
+	} else {
+		state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
+
+		if (__scSchedule(sc, &sp, &dp, state) != state) {
+			__scExec(sc, sp, dp);
+		}
+	}
+
+	osSetThreadPri(0, prevpri);
+}
 
 GLOBAL_ASM(
 glabel func00002078
@@ -1767,7 +1733,7 @@ void __scHandleRetrace(OSSched *sc)
 	} else {
 		state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
 
-		if ( __scSchedule (sc, &sp, &dp, state) != state) {
+		if (__scSchedule(sc, &sp, &dp, state) != state) {
 			__scExec(sc, sp, dp);
 		}
 	}
