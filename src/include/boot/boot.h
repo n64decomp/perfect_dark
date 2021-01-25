@@ -13,6 +13,7 @@ s32 func00001e30(void);
 s32 func00001fa8(void);
 s32 func00002078(OSSched *sc);
 void __scHandleRSP(OSSched *sc);
+void __scHandleRDP(OSSched *sc);
 void __scHandleRetrace(OSSched *sc);
 void __scAppendList(OSSched *sc, OSScTask *t);
 void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
@@ -21,5 +22,7 @@ struct bootbufferthing *func0000244c(void);
 void func00002400(void);
 void func000024e8(void);
 void func00002510(void);
+void func00002580(void);
+void func00002d90(void);
 
 #endif

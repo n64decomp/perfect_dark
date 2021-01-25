@@ -1968,65 +1968,34 @@ glabel func00002580
 /*     2628:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel __scHandleRDP
-/*     262c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*     2630:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     2634:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     2638:	afa00028 */ 	sw	$zero,0x28($sp)
-/*     263c:	afa00024 */ 	sw	$zero,0x24($sp)
-/*     2640:	8c8e00cc */ 	lw	$t6,0xcc($a0)
-/*     2644:	00808025 */ 	or	$s0,$a0,$zero
-/*     2648:	51c0002a */ 	beqzl	$t6,.L000026f4
-/*     264c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     2650:	0c000960 */ 	jal	func00002580
-/*     2654:	00000000 */ 	nop
-/*     2658:	3c0f8006 */ 	lui	$t7,%hi(var8005dd18)
-/*     265c:	8defdd18 */ 	lw	$t7,%lo(var8005dd18)($t7)
-/*     2660:	55e00004 */ 	bnezl	$t7,.L00002674
-/*     2664:	3c040001 */ 	lui	$a0,0x1
-/*     2668:	0c000b64 */ 	jal	func00002d90
-/*     266c:	00000000 */ 	nop
-/*     2670:	3c040001 */ 	lui	$a0,0x1
-.L00002674:
-/*     2674:	0c0026a8 */ 	jal	func00009aa0
-/*     2678:	34840002 */ 	ori	$a0,$a0,0x2
-/*     267c:	3c048009 */ 	lui	$a0,%hi(var8008de38)
-/*     2680:	0c012320 */ 	jal	func00048c80
-/*     2684:	2484de38 */ 	addiu	$a0,$a0,%lo(var8008de38)
-/*     2688:	8e0500cc */ 	lw	$a1,0xcc($s0)
-/*     268c:	ae0000cc */ 	sw	$zero,0xcc($s0)
-/*     2690:	2401fffe */ 	addiu	$at,$zero,-2
-/*     2694:	8cb80004 */ 	lw	$t8,0x4($a1)
-/*     2698:	02002025 */ 	or	$a0,$s0,$zero
-/*     269c:	0301c824 */ 	and	$t9,$t8,$at
-/*     26a0:	0c0009da */ 	jal	__scTaskComplete
-/*     26a4:	acb90004 */ 	sw	$t9,0x4($a1)
-/*     26a8:	8e0800c8 */ 	lw	$t0,0xc8($s0)
-/*     26ac:	8e0b00cc */ 	lw	$t3,0xcc($s0)
-/*     26b0:	02002025 */ 	or	$a0,$s0,$zero
-/*     26b4:	2d090001 */ 	sltiu	$t1,$t0,0x1
-/*     26b8:	00095040 */ 	sll	$t2,$t1,0x1
-/*     26bc:	2d6c0001 */ 	sltiu	$t4,$t3,0x1
-/*     26c0:	014c3825 */ 	or	$a3,$t2,$t4
-/*     26c4:	afa70020 */ 	sw	$a3,0x20($sp)
-/*     26c8:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*     26cc:	0c000aeb */ 	jal	__scSchedule
-/*     26d0:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*     26d4:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*     26d8:	02002025 */ 	or	$a0,$s0,$zero
-/*     26dc:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*     26e0:	50470004 */ 	beql	$v0,$a3,.L000026f4
-/*     26e4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     26e8:	0c000aa1 */ 	jal	__scExec
-/*     26ec:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*     26f0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L000026f4:
-/*     26f4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     26f8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*     26fc:	03e00008 */ 	jr	$ra
-/*     2700:	00000000 */ 	nop
-);
+void __scHandleRDP(OSSched *sc)
+{
+	OSScTask *t, *sp = NULL, *dp = NULL;
+	s32 state;
+
+	if (sc->curRDPTask != NULL) {
+		func00002580();
+
+		if (var8005dd18 == 0) {
+			func00002d90();
+		}
+
+		func00009aa0(0x10002);
+		osDpGetCounters(&var8008de38);
+
+		t = sc->curRDPTask;
+		sc->curRDPTask = NULL;
+		t->state &= ~OS_SC_NEEDS_RDP;
+
+		__scTaskComplete(sc, t);
+
+		state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
+
+		if (__scSchedule(sc, &sp, &dp, state) != state) {
+			__scExec(sc, sp, dp);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func00002704

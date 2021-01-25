@@ -51,7 +51,7 @@ glabel osSpTaskYielded
 );
 
 GLOBAL_ASM(
-glabel func00048c80
+glabel osDpGetCounters
 /*    48c80:	3c0ea410 */ 	lui	$t6,0xa410
 /*    48c84:	8dcf0010 */ 	lw	$t7,0x10($t6)
 /*    48c88:	3c18a410 */ 	lui	$t8,0xa410

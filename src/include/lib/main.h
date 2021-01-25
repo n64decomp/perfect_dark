@@ -3,6 +3,8 @@
 #include <ultra64.h>
 #include "types.h"
 
+extern s32 var8005dd18;
+
 void mainInit(void);
 void mainEntry(void);
 void func0000db30(char *string, u32 *ptr);
