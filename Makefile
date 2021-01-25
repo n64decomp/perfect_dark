@@ -56,7 +56,11 @@ else
     TOOLCHAIN := mips-elf
 endif
 
-CFLAGS := -DVERSION=$(VERSION) \
+MIPSISET := -mips2 -32
+
+$(B_DIR)/lib/libc/ll.o: MIPSISET := -mips3 -o32
+
+CFLAGS = -DVERSION=$(VERSION) \
 	-DNTSC=$(NTSC) \
 	-DPAL=$(PAL) \
 	-DJPN=$(JPN) \
@@ -69,7 +73,7 @@ CFLAGS := -DVERSION=$(VERSION) \
 	-woff 581,649,819,820,821,838,852 \
 	-w2 \
 	-I src/include \
-	-mips2
+	$(MIPSISET)
 
 C_FILES := $(shell find src/gvars src/boot src/lib src/game src/inflate src/mpconfigs src/mpstrings/$(ROMID) src/firingrange src/filenames src/textureconfig -name '*.c')
 O_FILES := $(patsubst src/%.c, $(B_DIR)/%.o, $(C_FILES))
@@ -346,6 +350,11 @@ $(B_DIR)/boot/%.o: src/boot/%.c
 	@mkdir -p $(dir $@)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+
+$(B_DIR)/lib/libc/ll.o: src/lib/libc/ll.c
+	@mkdir -p $(dir $@)
+	$(IDOCC) -c $(CFLAGS) $< -o $@ -O1
+	tools/patchmips3 $@ || rm $@
 
 $(B_DIR)/lib/%.o: src/lib/%.c
 	@mkdir -p $(dir $@)

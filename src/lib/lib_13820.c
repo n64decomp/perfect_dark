@@ -8,7 +8,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
-#include "lib/lib_4ae00.h"
+#include "lib/libc/ll.h"
 #include "types.h"
 
 const char var70054030[] = "0123456789abcdefghijklmnopqrstuvwxyz";
@@ -47,7 +47,7 @@ glabel func00013820
 /*    1387c:	8fa40038 */ 	lw	$a0,0x38($sp)
 /*    13880:	8fa5003c */ 	lw	$a1,0x3c($sp)
 /*    13884:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*    13888:	0c012b8b */ 	jal	func0004ae2c
+/*    13888:	0c012b8b */ 	jal	__ull_rem
 /*    1388c:	8fa70024 */ 	lw	$a3,0x24($sp)
 /*    13890:	00715021 */ 	addu	$t2,$v1,$s1
 /*    13894:	914b0000 */ 	lbu	$t3,0x0($t2)
@@ -55,7 +55,7 @@ glabel func00013820
 /*    1389c:	8fa70024 */ 	lw	$a3,0x24($sp)
 /*    138a0:	8fa60020 */ 	lw	$a2,0x20($sp)
 /*    138a4:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*    138a8:	0c012b9a */ 	jal	func0004ae68
+/*    138a8:	0c012b9a */ 	jal	__ull_div
 /*    138ac:	8fa40038 */ 	lw	$a0,0x38($sp)
 /*    138b0:	afa20038 */ 	sw	$v0,0x38($sp)
 /*    138b4:	afa3003c */ 	sw	$v1,0x3c($sp)

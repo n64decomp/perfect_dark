@@ -19,7 +19,7 @@
 #include "lib/lib_233c0.h"
 #include "lib/lib_2f490.h"
 #include "lib/lib_4a360.h"
-#include "lib/lib_4ae00.h"
+#include "lib/libc/ll.h"
 #include "lib/lib_4b170.h"
 #include "types.h"
 
@@ -3022,21 +3022,21 @@ glabel func00025c74
 /*    25e00:	86070010 */ 	lh	$a3,0x10($s0)
 /*    25e04:	8fa40060 */ 	lw	$a0,0x60($sp)
 /*    25e08:	8fa50064 */ 	lw	$a1,0x64($sp)
-/*    25e0c:	0c012bda */ 	jal	func0004af68
+/*    25e0c:	0c012bda */ 	jal	__ll_mul
 /*    25e10:	000737c3 */ 	sra	$a2,$a3,0x1f
 /*    25e14:	afa20038 */ 	sw	$v0,0x38($sp)
 /*    25e18:	afa3003c */ 	sw	$v1,0x3c($sp)
 /*    25e1c:	8607000e */ 	lh	$a3,0xe($s0)
 /*    25e20:	8fa40058 */ 	lw	$a0,0x58($sp)
 /*    25e24:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*    25e28:	0c012bda */ 	jal	func0004af68
+/*    25e28:	0c012bda */ 	jal	__ll_mul
 /*    25e2c:	000737c3 */ 	sra	$a2,$a3,0x1f
 /*    25e30:	afa20040 */ 	sw	$v0,0x40($sp)
 /*    25e34:	afa30044 */ 	sw	$v1,0x44($sp)
 /*    25e38:	86070012 */ 	lh	$a3,0x12($s0)
 /*    25e3c:	8fa40068 */ 	lw	$a0,0x68($sp)
 /*    25e40:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*    25e44:	0c012bda */ 	jal	func0004af68
+/*    25e44:	0c012bda */ 	jal	__ll_mul
 /*    25e48:	000737c3 */ 	sra	$a2,$a3,0x1f
 /*    25e4c:	8fab0044 */ 	lw	$t3,0x44($sp)
 /*    25e50:	8faf003c */ 	lw	$t7,0x3c($sp)

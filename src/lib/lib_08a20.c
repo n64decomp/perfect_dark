@@ -16,7 +16,7 @@
 #include "lib/lib_2fc60.h"
 #include "lib/lib_30ce0.h"
 #include "lib/lib_490b0.h"
-#include "lib/lib_4ae00.h"
+#include "lib/libc/ll.h"
 #include "lib/lib_4e270.h"
 #include "lib/lib_4e3c0.h"
 #include "lib/lib_4e470.h"
@@ -614,7 +614,7 @@ glabel func00009154
 /*     92e0:	8e040000 */ 	lw	$a0,0x0($s0)
 /*     92e4:	8e050004 */ 	lw	$a1,0x4($s0)
 /*     92e8:	24060000 */ 	addiu	$a2,$zero,0x0
-/*     92ec:	0c012b9a */ 	jal	func0004ae68
+/*     92ec:	0c012b9a */ 	jal	__ull_div
 /*     92f0:	240700f0 */ 	addiu	$a3,$zero,0xf0
 /*     92f4:	3c018009 */ 	lui	$at,%hi(var80091578)
 /*     92f8:	ac221578 */ 	sw	$v0,%lo(var80091578)($at)

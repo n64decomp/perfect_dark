@@ -124,7 +124,8 @@
 	build/ROMID/lib/ultra/io/sirawread.o (section); \
 	build/ROMID/lib/ultra/io/sirawwrite.o (section); \
 	build/ROMID/lib/ultra/os/writebackdcache.o (section); \
-	build/ROMID/lib/lib_4ae00.o (section); \
+	build/ROMID/lib/libc/ll.o (section); \
+	build/ROMID/lib/bzero.o (section); \
 	build/ROMID/lib/ultra/os/getcause.o (section); \
 	build/ROMID/lib/lib_4b170.o (section); \
 	build/ROMID/lib/ultra/os/virtualtophysical.o (section); \

@@ -26,7 +26,7 @@
 #include "lib/lib_1a500.h"
 #include "lib/lib_4a360.h"
 #include "lib/lib_4a5e0.h"
-#include "lib/lib_4ae00.h"
+#include "lib/libc/ll.h"
 #include "types.h"
 
 const char var7f1b6050[] = "Init";
@@ -6000,7 +6000,7 @@ glabel func0f14e884
 /*  f14ea84:	8fa40038 */ 	lw	$a0,0x38($sp)
 /*  f14ea88:	8fa5003c */ 	lw	$a1,0x3c($sp)
 /*  f14ea8c:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f14ea90:	0c012ba9 */ 	jal	func0004aea4
+/*  f14ea90:	0c012ba9 */ 	jal	__ll_lshift
 /*  f14ea94:	8fa70044 */ 	lw	$a3,0x44($sp)
 /*  f14ea98:	8fb00034 */ 	lw	$s0,0x34($sp)
 /*  f14ea9c:	afa20028 */ 	sw	$v0,0x28($sp)
@@ -6008,7 +6008,7 @@ glabel func0f14e884
 /*  f14eaa4:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f14eaa8:	8fa50074 */ 	lw	$a1,0x74($sp)
 /*  f14eaac:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f14eab0:	0c012ba9 */ 	jal	func0004aea4
+/*  f14eab0:	0c012ba9 */ 	jal	__ll_lshift
 /*  f14eab4:	8fa70044 */ 	lw	$a3,0x44($sp)
 /*  f14eab8:	8fad002c */ 	lw	$t5,0x2c($sp)
 /*  f14eabc:	8e0b0004 */ 	lw	$t3,0x4($s0)

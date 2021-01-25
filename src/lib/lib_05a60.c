@@ -16,7 +16,7 @@
 #include "lib/lib_4a360.h"
 #include "lib/lib_4a5e0.h"
 #include "lib/lib_4a680.h"
-#include "lib/lib_4ae00.h"
+#include "lib/libc/ll.h"
 #include "types.h"
 
 GLOBAL_ASM(

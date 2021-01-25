@@ -8,7 +8,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
-#include "lib/lib_4ae00.h"
+#include "lib/libc/ll.h"
 #include "types.h"
 
 GLOBAL_ASM(
@@ -21,14 +21,14 @@ glabel func0004a680
 /*    4a694:	00c02025 */ 	or	$a0,$a2,$zero
 /*    4a698:	00e02825 */ 	or	$a1,$a3,$zero
 /*    4a69c:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*    4a6a0:	0c012bc3 */ 	jal	func0004af0c
+/*    4a6a0:	0c012bc3 */ 	jal	__ll_div
 /*    4a6a4:	8fa60040 */ 	lw	$a2,0x40($sp)
 /*    4a6a8:	afa20020 */ 	sw	$v0,0x20($sp)
 /*    4a6ac:	afa30024 */ 	sw	$v1,0x24($sp)
 /*    4a6b0:	8fa40040 */ 	lw	$a0,0x40($sp)
 /*    4a6b4:	8fa50044 */ 	lw	$a1,0x44($sp)
 /*    4a6b8:	00403025 */ 	or	$a2,$v0,$zero
-/*    4a6bc:	0c012bda */ 	jal	func0004af68
+/*    4a6bc:	0c012bda */ 	jal	__ll_mul
 /*    4a6c0:	00603825 */ 	or	$a3,$v1,$zero
 /*    4a6c4:	8fae0038 */ 	lw	$t6,0x38($sp)
 /*    4a6c8:	8faf003c */ 	lw	$t7,0x3c($sp)

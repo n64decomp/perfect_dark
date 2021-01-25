@@ -15,7 +15,7 @@
 #include "lib/lib_12dc0.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_4a360.h"
-#include "lib/lib_4ae00.h"
+#include "lib/libc/ll.h"
 #include "types.h"
 
 const char var7f1b3a80[] = "padhalllv.c";
@@ -451,7 +451,7 @@ struct waygroup *func0f114810(s32 *groupnums, s32 value, u32 mask)
 						break;
 					}
 				} else {
-					u64 sp50 = func0004aea4(g_WaypointHashes[0], 0x20) | g_WaypointHashes[1];
+					u64 sp50 = ((u64)g_WaypointHashes[0] << 32) | g_WaypointHashes[1];
 
 					if (func00012e1c(&sp50) % 2 == 0) {
 						break;
@@ -572,7 +572,7 @@ struct waypoint *func0f114b7c(s32 *pointnums, s32 arg1, s32 groupnum, u32 mask)
 						break;
 					}
 				} else {
-					u64 sp50 = func0004aea4(g_WaypointHashes[0], 0x20) | g_WaypointHashes[1];
+					u64 sp50 = ((u64)g_WaypointHashes[0] << 32) | g_WaypointHashes[1];
 
 					if (func00012e1c(&sp50) % 2 == 0) {
 						break;
@@ -732,7 +732,7 @@ void func0f11505c(struct waygroup *groupa, struct waygroup *groupb, struct waypo
 							break;
 						}
 					} else {
-						u64 sp50 = func0004aea4(g_WaypointHashes[0], 0x20) | g_WaypointHashes[1];
+						u64 sp50 = ((u64)g_WaypointHashes[0] << 32) | g_WaypointHashes[1];
 
 						if ((func00012e1c(&sp50) % 2) == 0) {
 							break;

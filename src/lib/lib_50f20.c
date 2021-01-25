@@ -9,7 +9,7 @@
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
 #include "lib/lib_06330.h"
-#include "lib/lib_4ae00.h"
+#include "lib/libc/ll.h"
 #include "lib/lib_4d6f0.h"
 #include "lib/lib_50a00.h"
 #include "lib/lib_513b0.h"

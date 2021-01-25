@@ -59,7 +59,7 @@
 #include "lib/lib_233c0.h"
 #include "lib/lib_317f0.h"
 #include "lib/lib_48830.h"
-#include "lib/lib_4ae00.h"
+#include "lib/libc/ll.h"
 #include "types.h"
 
 /**
@@ -10905,9 +10905,8 @@ bool aiRemoveWeaponFromInventory(void)
  */
 bool ai01dd(void)
 {
-	u64 value = func0004af68(osGetCount(), 64);
-	value = func0004ae68(value, 3000);
-	func00005b30(value);
+	u64 value = (u64)osGetCount() * 64;
+	func00005b30(value / 3000);
 
 	if (var800840c4) {
 		g_Vars.aioffset += 4;
