@@ -58,6 +58,7 @@ endif
 
 MIPSISET := -mips2 -32
 
+$(B_DIR)/lib/libc/llcvt.o: MIPSISET := -mips3 -o32
 $(B_DIR)/lib/libc/ll.o: MIPSISET := -mips3 -o32
 
 CFLAGS = -DVERSION=$(VERSION) \
@@ -350,6 +351,12 @@ $(B_DIR)/boot/%.o: src/boot/%.c
 	@mkdir -p $(dir $@)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+
+$(B_DIR)/lib/libc/llcvt.o: src/lib/libc/llcvt.c
+	@mkdir -p $(dir $@)
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O1
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+	tools/patchmips3 $@ || rm $@
 
 $(B_DIR)/lib/libc/ll.o: src/lib/libc/ll.c
 	@mkdir -p $(dir $@)

@@ -11,7 +11,7 @@
 	build/ROMID/lib/lib_04840.o (section); \
 	build/ROMID/lib/lib_04a80.o (section); \
 	build/ROMID/lib/ultra/io/pfsisplug.o (section); \
-	build/ROMID/lib/lib_05a60.o (section); \
+	build/ROMID/lib/libc/llcvt.o (section); \
 	build/ROMID/lib/ultra/os/initialize.o (section); \
 	build/ROMID/lib/lib_05dc0.o (section); \
 	build/ROMID/lib/lib_05e40.o (section); \

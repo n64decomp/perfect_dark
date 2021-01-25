@@ -26390,7 +26390,7 @@ glabel func0f04ba34
 /*  f04bdb4:	4502000d */ 	bc1fl	.L0f04bdec
 /*  f04bdb8:	8fae0078 */ 	lw	$t6,0x78($sp)
 .L0f04bdbc:
-/*  f04bdbc:	0c00169f */ 	jal	func00005a7c
+/*  f04bdbc:	0c00169f */ 	jal	__f_to_ull
 /*  f04bdc0:	afa40050 */ 	sw	$a0,0x50($sp)
 /*  f04bdc4:	8fa40050 */ 	lw	$a0,0x50($sp)
 /*  f04bdc8:	8e4a0000 */ 	lw	$t2,0x0($s2)

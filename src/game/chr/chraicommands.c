@@ -10905,8 +10905,7 @@ bool aiRemoveWeaponFromInventory(void)
  */
 bool ai01dd(void)
 {
-	u64 value = (u64)osGetCount() * 64;
-	func00005b30(value / 3000);
+	f32 value = (u64)osGetCount() * 64 / 3000;
 
 	if (var800840c4) {
 		g_Vars.aioffset += 4;
