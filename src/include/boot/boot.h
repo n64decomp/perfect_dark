@@ -18,6 +18,7 @@ void __scHandleRetrace(OSSched *sc);
 void __scAppendList(OSSched *sc, OSScTask *t);
 void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
 void __scMain(void *arg);
+void __scYield(OSSched *sc);
 struct bootbufferthing *func0000244c(void);
 void func00002400(void);
 void func000024e8(void);

@@ -2291,25 +2291,15 @@ glabel func00002d68nb
 );
 #endif
 
-GLOBAL_ASM(
-glabel __scYield
-/*     2b70:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     2b74:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     2b78:	8c8200c8 */ 	lw	$v0,0xc8($a0)
-/*     2b7c:	24010001 */ 	addiu	$at,$zero,0x1
-/*     2b80:	8c4e0010 */ 	lw	$t6,0x10($v0)
-/*     2b84:	55c10006 */ 	bnel	$t6,$at,.L00002ba0
-/*     2b88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     2b8c:	8c4f0004 */ 	lw	$t7,0x4($v0)
-/*     2b90:	35f80010 */ 	ori	$t8,$t7,0x10
-/*     2b94:	0c012440 */ 	jal	func00049100
-/*     2b98:	ac580004 */ 	sw	$t8,0x4($v0)
-/*     2b9c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L00002ba0:
-/*     2ba0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     2ba4:	03e00008 */ 	jr	$ra
-/*     2ba8:	00000000 */ 	nop
-);
+void __scYield(OSSched *sc)
+{
+	if (sc->curRSPTask->list.t.type == M_GFXTASK) {
+		sc->curRSPTask->state |= 0x0010;
+		osSpTaskYield();
+	} else {
+		// empty
+	}
+}
 
 GLOBAL_ASM(
 glabel __scSchedule
