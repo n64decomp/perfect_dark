@@ -365,15 +365,15 @@ glabel func0000c2b8
 /*     c2e0:	10000010 */ 	b	.L0000c324
 /*     c2e4:	00001025 */ 	or	$v0,$zero,$zero
 .L0000c2e8:
-/*     c2e8:	3c048006 */ 	lui	$a0,%hi(var8005ce10)
-/*     c2ec:	3c038006 */ 	lui	$v1,%hi(var8005ce2c)
+/*     c2e8:	3c048006 */ 	lui	$a0,%hi(g_StackStartAddrs)
+/*     c2ec:	3c038006 */ 	lui	$v1,%hi(g_StackEndAddrs)
 /*     c2f0:	3c018000 */ 	lui	$at,0x8000
 /*     c2f4:	00822021 */ 	addu	$a0,$a0,$v0
 /*     c2f8:	00621821 */ 	addu	$v1,$v1,$v0
 /*     c2fc:	00c1082b */ 	sltu	$at,$a2,$at
-/*     c300:	8c84ce10 */ 	lw	$a0,%lo(var8005ce10)($a0)
+/*     c300:	8c84ce10 */ 	lw	$a0,%lo(g_StackStartAddrs)($a0)
 /*     c304:	14200003 */ 	bnez	$at,.L0000c314
-/*     c308:	8c63ce2c */ 	lw	$v1,%lo(var8005ce2c)($v1)
+/*     c308:	8c63ce2c */ 	lw	$v1,%lo(g_StackEndAddrs)($v1)
 /*     c30c:	10000005 */ 	b	.L0000c324
 /*     c310:	00601025 */ 	or	$v0,$v1,$zero
 .L0000c314:
@@ -403,12 +403,12 @@ glabel func0000c334
 /*     c358:	1000000b */ 	b	.L0000c388
 /*     c35c:	00001025 */ 	or	$v0,$zero,$zero
 .L0000c360:
-/*     c360:	3c038006 */ 	lui	$v1,%hi(var8005ce10)
+/*     c360:	3c038006 */ 	lui	$v1,%hi(g_StackStartAddrs)
 /*     c364:	3c018000 */ 	lui	$at,0x8000
 /*     c368:	006e1821 */ 	addu	$v1,$v1,$t6
 /*     c36c:	0081082b */ 	sltu	$at,$a0,$at
 /*     c370:	14200003 */ 	bnez	$at,.L0000c380
-/*     c374:	8c63ce10 */ 	lw	$v1,%lo(var8005ce10)($v1)
+/*     c374:	8c63ce10 */ 	lw	$v1,%lo(g_StackStartAddrs)($v1)
 /*     c378:	10000003 */ 	b	.L0000c388
 /*     c37c:	00601025 */ 	or	$v0,$v1,$zero
 .L0000c380:
