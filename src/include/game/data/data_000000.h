@@ -48,6 +48,7 @@ extern u32 var8005ce8c;
 extern u32 var8005ce90;
 extern u32 var8005ce94;
 extern u32 var8005ce9c;
+extern OSMesg var8005cea8;
 extern s8 var8005ced0;
 extern u32 __osViDevMgr;
 extern u32 __osPiDevMgr;

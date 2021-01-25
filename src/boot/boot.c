@@ -1654,64 +1654,23 @@ void __scHandleRetraceViaPri(OSSched *sc, OSScTask *t)
 	osSetThreadPri(0, prevpri);
 }
 
-GLOBAL_ASM(
-glabel func00002078
-/*     2078:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*     207c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*     2080:	afa40028 */ 	sw	$a0,0x28($sp)
-/*     2084:	8c8f00d0 */ 	lw	$t7,0xd0($a0)
-/*     2088:	3c038006 */ 	lui	$v1,%hi(var8005ced0)
-/*     208c:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*     2090:	ac9800d0 */ 	sw	$t8,0xd0($a0)
-/*     2094:	8063ced0 */ 	lb	$v1,%lo(var8005ced0)($v1)
-/*     2098:	33080001 */ 	andi	$t0,$t8,0x1
-/*     209c:	1460001b */ 	bnez	$v1,.L0000210c
-/*     20a0:	00000000 */ 	nop
-/*     20a4:	15000004 */ 	bnez	$t0,.L000020b8
-/*     20a8:	3c098009 */ 	lui	$t1,%hi(g_Is4Mb)
-/*     20ac:	91290af0 */ 	lbu	$t1,%lo(g_Is4Mb)($t1)
-/*     20b0:	24010001 */ 	addiu	$at,$zero,0x1
-/*     20b4:	15210015 */ 	bne	$t1,$at,.L0000210c
-.L000020b8:
-/*     20b8:	3c048009 */ 	lui	$a0,%hi(var8008de18)
-/*     20bc:	0c01228c */ 	jal	osStopTimer
-/*     20c0:	2484de18 */ 	addiu	$a0,$a0,%lo(var8008de18)
-/*     20c4:	0c002446 */ 	jal	func00009118
-/*     20c8:	00000000 */ 	nop
-/*     20cc:	3c0c8006 */ 	lui	$t4,%hi(var8005cea8)
-/*     20d0:	258ccea8 */ 	addiu	$t4,$t4,%lo(var8005cea8)
-/*     20d4:	3c048009 */ 	lui	$a0,%hi(var8008de18)
-/*     20d8:	3c070004 */ 	lui	$a3,0x4
-/*     20dc:	240a0000 */ 	addiu	$t2,$zero,0x0
-/*     20e0:	240b0000 */ 	addiu	$t3,$zero,0x0
-/*     20e4:	afab0014 */ 	sw	$t3,0x14($sp)
-/*     20e8:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*     20ec:	34e745c0 */ 	ori	$a3,$a3,0x45c0
-/*     20f0:	2484de18 */ 	addiu	$a0,$a0,%lo(var8008de18)
-/*     20f4:	afac001c */ 	sw	$t4,0x1c($sp)
-/*     20f8:	24060000 */ 	addiu	$a2,$zero,0x0
-/*     20fc:	0c0122c8 */ 	jal	osSetTimer
-/*     2100:	afa20018 */ 	sw	$v0,0x18($sp)
-/*     2104:	3c038006 */ 	lui	$v1,%hi(var8005ced0)
-/*     2108:	8063ced0 */ 	lb	$v1,%lo(var8005ced0)($v1)
-.L0000210c:
-/*     210c:	14600003 */ 	bnez	$v1,.L0000211c
-/*     2110:	00000000 */ 	nop
-/*     2114:	0c0027b5 */ 	jal	func00009ed4
-/*     2118:	00000000 */ 	nop
-.L0000211c:
-/*     211c:	0c005121 */ 	jal	contPoll
-/*     2120:	00000000 */ 	nop
-/*     2124:	0c003f86 */ 	jal	func0000fe18
-/*     2128:	00000000 */ 	nop
-/*     212c:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*     2130:	0c0006e6 */ 	jal	func00001b98
-/*     2134:	8da400d0 */ 	lw	$a0,0xd0($t5)
-/*     2138:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*     213c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*     2140:	03e00008 */ 	jr	$ra
-/*     2144:	00000000 */ 	nop
-);
+void func00002078(OSSched *sc)
+{
+	sc->frameCount++;
+
+	if (var8005ced0 == 0 && ((sc->frameCount & 1) != 0 || IS4MB())) {
+		osStopTimer(&var8008de18);
+		osSetTimer(&var8008de18, 280000, 0, func00009118(), &var8005cea8);
+	}
+
+	if (var8005ced0 == 0) {
+		func00009ed4();
+	}
+
+	contPoll();
+	func0000fe18();
+	func00001b98(sc->frameCount);
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void __scHandleRetrace(OSSched *sc)

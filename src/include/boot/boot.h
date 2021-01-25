@@ -10,7 +10,7 @@ s32 osGetMemSize(void);
 void *allocateStack(s32 threadid, s32 size);
 void func00001b28(u32 arg0);
 void __scHandleRetraceViaPri(OSSched *sc, OSScTask *t);
-s32 func00002078(OSSched *sc);
+void func00002078(OSSched *sc);
 void __scHandleRSP(OSSched *sc);
 void __scHandleRDP(OSSched *sc);
 void __scHandleRetrace(OSSched *sc);

@@ -340,7 +340,7 @@ extern OSViMode var8008ddb8;
 extern u32 var8008de08;
 extern u32 var8008de0c;
 extern u32 var8008de10;
-extern u32 var8008de18;
+extern OSTimer var8008de18;
 extern u32 var8008fa68;
 extern OSMesg g_ResetMesg;
 extern OSMesgQueue g_ResetMesgQueue;

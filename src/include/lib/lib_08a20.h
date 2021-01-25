@@ -6,7 +6,7 @@
 void audioAllocateStack(void);
 u32 func00008a48(void);
 void audioStartThread(void);
-u32 func00009118(void);
+OSMesgQueue *func00009118(void);
 void audioStopThread(void);
 u32 func00009448(void);
 u32 func00009614(void);
