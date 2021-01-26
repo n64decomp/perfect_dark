@@ -10,7 +10,6 @@
 #include "gvars/gvars.h"
 #include "lib/lib_06550.h"
 #include "lib/lib_4b170.h"
-#include "lib/lib_4b5e0.h"
 #include "lib/lib_4c090.h"
 #include "lib/lib_4cc10.h"
 #include "lib/lib_4cde0.h"

@@ -11,7 +11,6 @@
 #include "lib/lib_04790.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_4a360.h"
-#include "lib/lib_4b5e0.h"
 #include "lib/lib_4cde0.h"
 #include "lib/lib_4f5e0.h"
 #include "lib/lib_51d50.h"
