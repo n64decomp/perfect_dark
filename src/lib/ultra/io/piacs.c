@@ -1,4 +1,5 @@
 #include <libultra_internal.h>
+#include "gvars/gvars.h"
 
 GLOBAL_ASM(
 glabel __osPiCreateAccessQueue
@@ -46,17 +47,7 @@ glabel __osPiGetAccess
 /*    49b20:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel __osPiRelAccess
-/*    49b24:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    49b28:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    49b2c:	3c04800a */ 	lui	$a0,%hi(__osPiAccessQueue)
-/*    49b30:	2484c7a8 */ 	addiu	$a0,$a0,%lo(__osPiAccessQueue)
-/*    49b34:	00002825 */ 	or	$a1,$zero,$zero
-/*    49b38:	0c012238 */ 	jal	osSendMesg
-/*    49b3c:	00003025 */ 	or	$a2,$zero,$zero
-/*    49b40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    49b44:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    49b48:	03e00008 */ 	jr	$ra
-/*    49b4c:	00000000 */ 	nop
-);
+void __osPiRelAccess(void)
+{
+	osSendMesg(&__osPiAccessQueue, NULL, OS_MESG_NOBLOCK);
+}

@@ -484,7 +484,7 @@ extern u32 var8009c780;
 extern u32 var8009c788;
 extern u32 var8009c78c;
 extern u32 var8009c7a0;
-extern u32 __osPiAccessQueue;
+extern OSMesgQueue __osPiAccessQueue;
 extern u32 var8009c7c0;
 extern u32 var8009c7c8;
 extern u32 __osContPifRam;
