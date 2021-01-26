@@ -37,7 +37,7 @@ u32 __osSpGetStatus();
 s32 __osSpSetPc(u32);
 s32 __osSpDeviceBusy();
 s32 __osSiDeviceBusy();
-s32 __osSpRawStartDma(u32 dir, u32 sp_ptr, void *dram_ptr, size_t size);
+s32 __osSpRawStartDma(s32 direction, u32 devAddr, void *dramAddr, u32 size);
 void __osViInit();
 OSViContext * __osViGetCurrentContext();
 void __osViSwapContext();

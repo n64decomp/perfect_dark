@@ -135,7 +135,7 @@
 	build/ROMID/lib/ultra/os/virtualtophysical.o (section); \
 	build/ROMID/lib/ultra/io/spsetstat.o (section); \
 	build/ROMID/lib/ultra/io/spsetpc.o (section); \
-	build/ROMID/lib/lib_4b550.o (section); \
+	build/ROMID/lib/ultra/io/sprawdma.o (section); \
 	build/ROMID/lib/ultra/io/sp.o (section); \
 	build/ROMID/lib/ultra/io/contramwrite.o (section); \
 	build/ROMID/lib/ultra/io/contramread.o (section); \
