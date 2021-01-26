@@ -12,6 +12,8 @@
 #define OS_TV_NTSC 1
 #define OS_TV_MPAL 2
 
+#if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
+
 typedef signed char            s8;
 typedef unsigned char          u8;
 typedef signed short int       s16;
@@ -34,5 +36,7 @@ typedef float  f32;
 typedef double f64;
 
 typedef unsigned long size_t;
+
+#endif
 
 #endif
