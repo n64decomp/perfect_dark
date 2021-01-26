@@ -1,4 +1,5 @@
 #include <libultra_internal.h>
+#include "game/data/data_000000.h"
 #include "gvars/gvars.h"
 
 GLOBAL_ASM(
@@ -25,27 +26,16 @@ glabel __osPiCreateAccessQueue
 /*    49adc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel __osPiGetAccess
-/*    49ae0:	3c0e8006 */ 	lui	$t6,%hi(__osPiAccessQueueEnabled)
-/*    49ae4:	8dce0920 */ 	lw	$t6,%lo(__osPiAccessQueueEnabled)($t6)
-/*    49ae8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    49aec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    49af0:	15c00003 */ 	bnez	$t6,.L00049b00
-/*    49af4:	00000000 */ 	nop
-/*    49af8:	0c0126a4 */ 	jal	__osPiCreateAccessQueue
-/*    49afc:	00000000 */ 	nop
-.L00049b00:
-/*    49b00:	3c04800a */ 	lui	$a0,%hi(__osPiAccessQueue)
-/*    49b04:	2484c7a8 */ 	addiu	$a0,$a0,%lo(__osPiAccessQueue)
-/*    49b08:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    49b0c:	0c0121bc */ 	jal	osRecvMesg
-/*    49b10:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    49b14:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    49b18:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    49b1c:	03e00008 */ 	jr	$ra
-/*    49b20:	00000000 */ 	nop
-);
+void __osPiGetAccess(void)
+{
+	OSMesg dummyMesg;
+
+	if (!__osPiAccessQueueEnabled) {
+		__osPiCreateAccessQueue();
+	}
+
+	osRecvMesg(&__osPiAccessQueue, &dummyMesg, OS_MESG_BLOCK);
+}
 
 void __osPiRelAccess(void)
 {
