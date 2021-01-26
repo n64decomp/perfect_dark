@@ -171,7 +171,7 @@
 	build/ROMID/lib/lib_50f20.o (section); \
 	build/ROMID/lib/lib_513b0.o (section); \
 	build/ROMID/lib/ultra/os/setcompare.o (section); \
-	build/ROMID/lib/lib_51890.o (section); \
+	build/ROMID/lib/ultra/io/spgetstat.o (section); \
 	build/ROMID/lib/ultra/os/resetglobalintmask.o (section); \
 	build/ROMID/lib/ultra/io/epirawwrite.o (section); \
 	build/ROMID/lib/ultra/io/epirawread.o (section); \
