@@ -69,6 +69,8 @@
 #define OS_VI_UNK200 0x200
 #define OS_VI_UNK100 0x100
 
+#define VI_STATE_BLACK 0x20
+
 #define VI_CTRL_ANTIALIAS_MODE_3 0x00300 /* Bit [9:8] anti-alias mode */
 #define VI_CTRL_ANTIALIAS_MODE_2 0x00200 /* Bit [9:8] anti-alias mode */
 #define VI_CTRL_ANTIALIAS_MODE_1 0x00100 /* Bit [9:8] anti-alias mode */

@@ -2278,10 +2278,9 @@ u32 __osTimerList = (u32) &var8009c760;
 u32 var800608a4 = 0x00000000;
 u32 var800608a8 = 0x00000000;
 u32 var800608ac = 0x00000000;
-__OSViContext var800608b0 = {0};
-__OSViContext var800608e0 = {0};
-__OSViContext *__osViCurr = &var800608b0;
-__OSViContext *__osViNext = &var800608e0;
+__OSViContext var800608b0[2] = {0};
+__OSViContext *__osViCurr = &var800608b0[0];
+__OSViContext *__osViNext = &var800608b0[1];
 u32 var80060918 = 0x00000000;
 u32 var8006091c = 0x00000000;
 u32 __osPiAccessQueueEnabled = 0x00000000;
@@ -2868,66 +2867,106 @@ u32 var80061230 = 0x03030303;
 u32 var80061234 = 0x00000000;
 u32 var80061238 = 0x00000000;
 u32 var8006123c = 0x00000000;
-u32 var80061240 = 0x10000000;
-u32 var80061244 = 0x0000311e;
-u32 var80061248 = 0x00000140;
-u32 var8006124c = 0x04541e3a;
-u32 var80061250 = 0x00000271;
-u32 var80061254 = 0x00170c69;
-u32 var80061258 = 0x0c6f0c6d;
-u32 var8006125c = 0x00800300;
-u32 var80061260 = 0x00000200;
-u32 var80061264 = 0x00000000;
-u32 var80061268 = 0x00000280;
-u32 var8006126c = 0x00000400;
-u32 var80061270 = 0x005f0239;
-u32 var80061274 = 0x0009026b;
-u32 var80061278 = 0x00000002;
-u32 var8006127c = 0x00000280;
-u32 var80061280 = 0x00000400;
-u32 var80061284 = 0x005f0239;
-u32 var80061288 = 0x0009026b;
-u32 var8006128c = 0x00000002;
-u32 var80061290 = 0x1e000000;
-u32 var80061294 = 0x0000311e;
-u32 var80061298 = 0x00000140;
-u32 var8006129c = 0x04651e39;
-u32 var800612a0 = 0x0000020d;
-u32 var800612a4 = 0x00040c11;
-u32 var800612a8 = 0x0c190c1a;
-u32 var800612ac = 0x006c02ec;
-u32 var800612b0 = 0x00000200;
-u32 var800612b4 = 0x00000000;
-u32 var800612b8 = 0x00000280;
-u32 var800612bc = 0x00000400;
-u32 var800612c0 = 0x002501ff;
-u32 var800612c4 = 0x000e0204;
-u32 var800612c8 = 0x00000002;
-u32 var800612cc = 0x00000280;
-u32 var800612d0 = 0x00000400;
-u32 var800612d4 = 0x002501ff;
-u32 var800612d8 = 0x000e0204;
-u32 var800612dc = 0x00000002;
-u32 var800612e0 = 0x02000000;
-u32 var800612e4 = 0x0000311e;
-u32 var800612e8 = 0x00000140;
-u32 var800612ec = 0x03e52239;
-u32 var800612f0 = 0x0000020d;
-u32 var800612f4 = 0x00000c15;
-u32 var800612f8 = 0x0c150c15;
-u32 var800612fc = 0x006c02ec;
-u32 var80061300 = 0x00000200;
-u32 var80061304 = 0x00000000;
-u32 var80061308 = 0x00000280;
-u32 var8006130c = 0x00000400;
-u32 var80061310 = 0x002501ff;
-u32 var80061314 = 0x000e0204;
-u32 var80061318 = 0x00000002;
-u32 var8006131c = 0x00000280;
-u32 var80061320 = 0x00000400;
-u32 var80061324 = 0x002501ff;
-u32 var80061328 = 0x000e0204;
-u32 var8006132c = 0x00000002;
+
+OSViMode osViModePalLan1 = {
+	OS_VI_PAL_LAN1,  // type
+	{
+		// comRegs
+		VI_CTRL_TYPE_16 | VI_CTRL_GAMMA_DITHER_ON | VI_CTRL_GAMMA_ON |
+			VI_CTRL_DIVOT_ON | VI_CTRL_ANTIALIAS_MODE_1 | 0x3000,  // ctrl
+		WIDTH(320),                                                // width
+		BURST(58, 30, 4, 69),                                      // burst
+		VSYNC(625),                                                // vSync
+		HSYNC(3177, 23),                                           // hSync
+		LEAP(3183, 3181),                                          // leap
+		HSTART(128, 768),                                          // hStart
+		SCALE(2, 0),                                               // xScale
+		VCURRENT(0),                                               // vCurrent
+	},
+	{// fldRegs
+		{
+			//[0]
+			ORIGIN(640),          // origin
+			SCALE(1, 0),          // yScale
+			HSTART(95, 569),      // vStart
+			BURST(107, 2, 9, 0),  // vBurst
+			VINTR(2),             // vIntr
+		},
+		{
+			//[1]
+			ORIGIN(640),          // origin
+			SCALE(1, 0),          // yScale
+			HSTART(95, 569),      // vStart
+			BURST(107, 2, 9, 0),  // vBurst
+			VINTR(2),             // vIntr
+		}}};
+
+OSViMode osViModeMpalLan1 = {
+	OS_VI_MPAL_LAN1,  // type
+	{
+		// comRegs
+		VI_CTRL_TYPE_16 | VI_CTRL_GAMMA_DITHER_ON | VI_CTRL_GAMMA_ON |
+			VI_CTRL_DIVOT_ON | VI_CTRL_ANTIALIAS_MODE_1 | 0x3000,  // ctrl
+		WIDTH(320),                                                // width
+		BURST(57, 30, 5, 70),                                      // burst
+		VSYNC(525),                                                // vSync
+		HSYNC(3089, 4),                                            // hSync
+		LEAP(3097, 3098),                                          // leap
+		HSTART(108, 748),                                          // hStart
+		SCALE(2, 0),                                               // xScale
+		VCURRENT(0),                                               // vCurrent
+	},
+	{// fldRegs
+		{
+			//[0]
+			ORIGIN(640),         // origin
+			SCALE(1, 0),         // yScale
+			HSTART(37, 511),     // vStart
+			BURST(4, 2, 14, 0),  // vBurst
+			VINTR(2),            // vIntr
+		},
+		{
+			//[1]
+			ORIGIN(640),         // origin
+			SCALE(1, 0),         // yScale
+			HSTART(37, 511),     // vStart
+			BURST(4, 2, 14, 0),  // vBurst
+			VINTR(2),            // vIntr
+		}}};
+
+OSViMode osViModeNtscLan1 = {
+	OS_VI_NTSC_LAN1,  // type
+	{
+		// comRegs
+		VI_CTRL_TYPE_16 | VI_CTRL_GAMMA_DITHER_ON | VI_CTRL_GAMMA_ON |
+			VI_CTRL_DIVOT_ON | VI_CTRL_ANTIALIAS_MODE_1 | 0x3000,  // ctrl
+		WIDTH(320),                                                // width
+		BURST(57, 34, 5, 62),                                      // burst
+		VSYNC(525),                                                // vSync
+		HSYNC(3093, 0),                                            // hSync
+		LEAP(3093, 3093),                                          // leap
+		HSTART(108, 748),                                          // hStart
+		SCALE(2, 0),                                               // xScale
+		VCURRENT(0),                                               // vCurrent
+	},
+	{// fldRegs
+		{
+			//[0]
+			ORIGIN(640),         // origin
+			SCALE(1, 0),         // yScale
+			HSTART(37, 511),     // vStart
+			BURST(4, 2, 14, 0),  // vBurst
+			VINTR(2),            // vIntr
+		},
+		{
+			//[1]
+			ORIGIN(640),         // origin
+			SCALE(1, 0),         // yScale
+			HSTART(37, 511),     // vStart
+			BURST(4, 2, 14, 0),  // vBurst
+			VINTR(2),            // vIntr
+		}}};
+
 u32 var80061330 = 0x30313233;
 u32 var80061334 = 0x34353637;
 u32 var80061338 = 0x38396162;

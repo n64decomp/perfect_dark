@@ -69,6 +69,7 @@ $(B_DIR)/lib/ultra/io/dpctr.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/sp.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/spsetpc.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/sptaskyielded.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/io/vi.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/vigetcurrframebuf.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/vigetnextframebuf.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/visetevent.o: OPT_LVL := -O1
