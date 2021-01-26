@@ -69,11 +69,24 @@
 #define OS_VI_UNK200 0x200
 #define OS_VI_UNK100 0x100
 
+#define VI_STATE_01             0x01
+#define VI_STATE_XSCALE_UPDATED 0x02
+#define VI_STATE_YSCALE_UPDATED 0x04
+#define VI_STATE_08             0x08
+#define VI_STATE_10             0x10
+#define VI_STATE_BLACK          0x20
+#define VI_STATE_REPEATLINE     0x40
+#define VI_STATE_FADE           0x80
+
 #define VI_STATE_BLACK 0x20
 
 #define VI_CTRL_ANTIALIAS_MODE_3 0x00300 /* Bit [9:8] anti-alias mode */
 #define VI_CTRL_ANTIALIAS_MODE_2 0x00200 /* Bit [9:8] anti-alias mode */
 #define VI_CTRL_ANTIALIAS_MODE_1 0x00100 /* Bit [9:8] anti-alias mode */
+
+#define VI_SCALE_MASK      0xfff
+#define VI_2_10_FPART_MASK 0x3ff
+#define VI_SUBPIXEL_SH     0x10
 
 #define BURST(hsync_width, color_width, vsync_width, color_start) \
     (hsync_width | (color_width << 8) | (vsync_width << 16) | (color_start << 20))
