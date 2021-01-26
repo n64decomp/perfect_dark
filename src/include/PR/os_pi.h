@@ -64,6 +64,17 @@ typedef struct
     //OSPiHandle *piHandle; //from the official definition
 } OSIoMesg;
 
+typedef struct {
+	s32             active;		/* Status flag */
+	OSThread	*thread;	/* Calling thread */
+	OSMesgQueue  	*cmdQueue;	/* Command queue */
+	OSMesgQueue  	*evtQueue;	/* Event queue */
+	OSMesgQueue  	*acsQueue;	/* Access queue */
+	/* Raw DMA routine */
+	s32             (*dma)(s32, u32, void *, u32);
+	s32             (*edma)(OSPiHandle *, s32, u32, void *, u32);
+} OSDevMgr;
+
 /* Definitions */
 
 #define OS_READ 0  // device -> RDRAM

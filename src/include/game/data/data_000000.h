@@ -52,7 +52,7 @@ extern OSMesg var8005cea8;
 extern s8 var8005ced0;
 extern u32 __osViDevMgr;
 extern u32 var8005cefc;
-extern u32 __osPiDevMgr;
+extern OSDevMgr __osPiDevMgr;
 extern u32 var8005cf30;
 extern u32 var8005cf60;
 extern u32 osViClock;
