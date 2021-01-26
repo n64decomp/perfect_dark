@@ -49,22 +49,3 @@ glabel osViGetNextFramebuffer
 /*    488a8:	03e00008 */ 	jr	$ra
 /*    488ac:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
-
-GLOBAL_ASM(
-glabel osDpSetStatus
-/*    488b0:	3c0ea410 */ 	lui	$t6,0xa410
-/*    488b4:	03e00008 */ 	jr	$ra
-/*    488b8:	adc4000c */ 	sw	$a0,0xc($t6)
-/*    488bc:	00000000 */ 	nop
-);
-
-extern OSThread *__osRunningThread;
-
-OSPri osGetThreadPri(OSThread *thread)
-{
-	if (thread == NULL) {
-		thread = __osRunningThread;
-	}
-
-	return thread->priority;
-}
