@@ -187,6 +187,7 @@ extern u32 __osThreadTail;
 extern OSThread *__osRunQueue;
 extern OSThread *__osActiveQueue;
 extern OSThread *__osRunningThread;
+extern u32 __osSiAccessQueueEnabled;
 extern u32 var80060970;
 extern u32 var800609a0;
 extern u32 var800609c4;
