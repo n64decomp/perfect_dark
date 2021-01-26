@@ -11,7 +11,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00051890
+glabel __osSpGetStatus
 /*    51890:	3c0ea404 */ 	lui	$t6,0xa404
 /*    51894:	03e00008 */ 	jr	$ra
 /*    51898:	8dc20010 */ 	lw	$v0,0x10($t6)
