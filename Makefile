@@ -65,6 +65,7 @@ $(B_DIR)/lib/libc/llcvt.o: MIPSISET := -mips3 -o32
 
 $(B_DIR)/lib/libc/ll.o: OPT_LVL := -O1
 $(B_DIR)/lib/libc/llcvt.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/io/spsetpc.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/vigetcurrframebuf.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/vigetnextframebuf.o: OPT_LVL := -O1
 

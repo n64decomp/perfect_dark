@@ -133,6 +133,7 @@
 	build/ROMID/lib/lib_4b170.o (section); \
 	build/ROMID/lib/ultra/os/virtualtophysical.o (section); \
 	build/ROMID/lib/lib_4b500.o (section); \
+	build/ROMID/lib/ultra/io/spsetpc.o (section); \
 	build/ROMID/lib/lib_4b550.o (section); \
 	build/ROMID/lib/lib_4b5e0.o (section); \
 	build/ROMID/lib/ultra/io/contramwrite.o (section); \
