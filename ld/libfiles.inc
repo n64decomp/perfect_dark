@@ -89,7 +89,7 @@
 	build/ROMID/lib/ultra/os/setthreadpri.o (section); \
 	build/ROMID/lib/ultra/os/getcount.o (section); \
 	build/ROMID/lib/ultra/os/seteventmesg.o (section); \
-	build/ROMID/lib/lib_485e0.o (section); \
+	build/ROMID/lib/ultra/io/visetevent.o (section); \
 	build/ROMID/lib/ultra/os/setintmask.o (section); \
 	build/ROMID/lib/ultra/os/recvmesg.o (section); \
 	build/ROMID/lib/ultra/io/vigetcurrframebuf.o (section); \
