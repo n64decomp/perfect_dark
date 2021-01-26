@@ -1,6 +1,6 @@
 #include <ultra64.h>
+#include "boot/sched.h"
 #include "constants.h"
-#include "boot/boot.h"
 #include "game/bondmove.h"
 #include "game/cheats.h"
 #include "game/chr/chraction.h"

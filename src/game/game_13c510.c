@@ -1,6 +1,6 @@
 #include <ultra64.h>
+#include "boot/sched.h"
 #include "constants.h"
-#include "boot/boot.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_00e460.h"

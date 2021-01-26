@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "boot/boot.h"
+#include "boot/sched.h"
 #include "constants.h"
 #include "game/camdraw.h"
 #include "game/cheats.h"

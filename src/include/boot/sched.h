@@ -1,13 +1,7 @@
-#ifndef _IN_BOOT_H
-#define _IN_BOOT_H
+#ifndef _IN_BOOT_SCHED_H
+#define _IN_BOOT_SCHED_H
 #include <ultra64.h>
 
-s32 func000010a4(void);
-s32 func0000113c(void);
-s32 func00001180(void);
-s32 func000016cc(void);
-s32 osGetMemSize(void);
-void *allocateStack(s32 threadid, s32 size);
 void func00001b28(u32 arg0);
 void __scHandleRetraceViaPri(OSSched *sc, OSScTask *t);
 void func00002078(OSSched *sc);
