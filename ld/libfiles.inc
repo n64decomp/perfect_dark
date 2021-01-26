@@ -100,6 +100,7 @@
 	build/ROMID/lib/ultra/os/stoptimer.o (section); \
 	build/ROMID/lib/ultra/os/settimer.o (section); \
 	build/ROMID/lib/lib_48c00.o (section); \
+	build/ROMID/lib/ultra/io/dpctr.o (section); \
 	build/ROMID/lib/lib_48cd0.o (section); \
 	build/ROMID/lib/lib_48dc0.o (section); \
 	build/ROMID/lib/lib_48ef0.o (section); \

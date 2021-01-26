@@ -49,27 +49,3 @@ glabel osSpTaskYielded
 /*    48c78:	03e00008 */ 	jr	$ra
 /*    48c7c:	00000000 */ 	nop
 );
-
-GLOBAL_ASM(
-glabel osDpGetCounters
-/*    48c80:	3c0ea410 */ 	lui	$t6,0xa410
-/*    48c84:	8dcf0010 */ 	lw	$t7,0x10($t6)
-/*    48c88:	3c18a410 */ 	lui	$t8,0xa410
-/*    48c8c:	3c08a410 */ 	lui	$t0,0xa410
-/*    48c90:	ac8f0000 */ 	sw	$t7,0x0($a0)
-/*    48c94:	8f190014 */ 	lw	$t9,0x14($t8)
-/*    48c98:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    48c9c:	3c0aa410 */ 	lui	$t2,0xa410
-/*    48ca0:	ac990000 */ 	sw	$t9,0x0($a0)
-/*    48ca4:	8d090018 */ 	lw	$t1,0x18($t0)
-/*    48ca8:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    48cac:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    48cb0:	ac89fffc */ 	sw	$t1,-0x4($a0)
-/*    48cb4:	8d4b001c */ 	lw	$t3,0x1c($t2)
-/*    48cb8:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    48cbc:	03e00008 */ 	jr	$ra
-/*    48cc0:	ac8bfffc */ 	sw	$t3,-0x4($a0)
-/*    48cc4:	00000000 */ 	nop
-/*    48cc8:	00000000 */ 	nop
-/*    48ccc:	00000000 */ 	nop
-);
