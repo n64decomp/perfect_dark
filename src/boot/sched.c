@@ -349,30 +349,19 @@ u32 *func000023f4(void)
 	return &var8008de38;
 }
 
-GLOBAL_ASM(
-glabel func00002400
-/*     2400:	3c038009 */ 	lui	$v1,%hi(var8008de48)
-/*     2404:	3c058009 */ 	lui	$a1,%hi(var8008fa68)
-/*     2408:	3c078009 */ 	lui	$a3,%hi(var8008fa68+0x3)
-/*     240c:	24e7fa6b */ 	addiu	$a3,$a3,%lo(var8008fa68+0x3)
-/*     2410:	24a5fa68 */ 	addiu	$a1,$a1,%lo(var8008fa68)
-/*     2414:	2463de48 */ 	addiu	$v1,$v1,%lo(var8008de48)
-/*     2418:	24060078 */ 	addiu	$a2,$zero,0x78
-.L0000241c:
-/*     241c:	00001025 */ 	or	$v0,$zero,$zero
-/*     2420:	00602025 */ 	or	$a0,$v1,$zero
-.L00002424:
-/*     2424:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     2428:	24840014 */ 	addiu	$a0,$a0,0x14
-/*     242c:	1446fffd */ 	bne	$v0,$a2,.L00002424
-/*     2430:	a480ffec */ 	sh	$zero,-0x14($a0)
-/*     2434:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*     2438:	24630960 */ 	addiu	$v1,$v1,0x960
-/*     243c:	14a7fff7 */ 	bne	$a1,$a3,.L0000241c
-/*     2440:	a0a0ffff */ 	sb	$zero,-0x1($a1)
-/*     2444:	03e00008 */ 	jr	$ra
-/*     2448:	00000000 */ 	nop
-);
+void func00002400(void)
+{
+	s32 i;
+	s32 j;
+
+	for (i = 0; i < 3; i++) {
+		for (j = 0; j < 120; j++) {
+			var8008de48[i].unk00[j].unk00 = 0;
+		}
+
+		var8008fa68[i] = 0;
+	}
+}
 
 struct bootbufferthing *func0000244c(void)
 {
