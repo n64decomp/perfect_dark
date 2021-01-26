@@ -145,7 +145,7 @@ void faultproc(void *arg0);
 void faultCreateThread2(void)
 {
 	osCreateMesgQueue(&g_FaultMesgQueue, &g_FaultMesg, 1);
-	osCreateThread(&g_FaultThread, THREAD_FAULT, faultproc, NULL, &g_FaultSp, 40);
+	osCreateThread(&g_FaultThread, THREAD_FAULT, faultproc, NULL, &g_FaultSp, THREADPRI_FAULT);
 	osStartThread(&g_FaultThread);
 }
 

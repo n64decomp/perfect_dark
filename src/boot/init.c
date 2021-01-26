@@ -446,65 +446,29 @@ void idleproc(void *data)
 
 void idleCreateThread(void)
 {
-	osCreateThread(&g_IdleThread, THREAD_IDLE, idleproc, NULL, allocateStack(THREAD_IDLE, 64), 0);
+	osCreateThread(&g_IdleThread, THREAD_IDLE, idleproc, NULL, allocateStack(THREAD_IDLE, STACKSIZE_IDLE), THREADPRI_IDLE);
 	osStartThread(&g_IdleThread);
 }
 
 void rmonCreateThread(void)
 {
-	osCreateThread(&g_RmonThread, 0, rmonproc, NULL, allocateStack(0, 0x300), 250);
+	osCreateThread(&g_RmonThread, THREAD_RMON, rmonproc, NULL, allocateStack(THREAD_RMON, STACKSIZE_RMON), THREADPRI_RMON);
 	osStartThread(&g_RmonThread);
 }
 
-GLOBAL_ASM(
-glabel func000019f4
-/*     19f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     19f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     19fc:	3c048009 */ 	lui	$a0,%hi(var8008db30)
-/*     1a00:	3c058009 */ 	lui	$a1,%hi(var8008db48)
-/*     1a04:	24a5db48 */ 	addiu	$a1,$a1,%lo(var8008db48)
-/*     1a08:	2484db30 */ 	addiu	$a0,$a0,%lo(var8008db30)
-/*     1a0c:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*     1a10:	24060020 */ 	addiu	$a2,$zero,0x20
-/*     1a14:	3c0e8000 */ 	lui	$t6,0x8000
-/*     1a18:	8dce0300 */ 	lw	$t6,0x300($t6)
-/*     1a1c:	24010002 */ 	addiu	$at,$zero,0x2
-/*     1a20:	3c048009 */ 	lui	$a0,%hi(var8008dbd0)
-/*     1a24:	15c1000a */ 	bne	$t6,$at,.L00001a50
-/*     1a28:	2484dbd0 */ 	addiu	$a0,$a0,%lo(var8008dbd0)
-/*     1a2c:	3c048009 */ 	lui	$a0,%hi(var8008dbd0)
-/*     1a30:	3c058009 */ 	lui	$a1,%hi(var8008d900)
-/*     1a34:	24a5d900 */ 	addiu	$a1,$a1,%lo(var8008d900)
-/*     1a38:	2484dbd0 */ 	addiu	$a0,$a0,%lo(var8008dbd0)
-/*     1a3c:	2406001e */ 	addiu	$a2,$zero,0x1e
-/*     1a40:	0c000713 */ 	jal	osCreateScheduler
-/*     1a44:	24070001 */ 	addiu	$a3,$zero,0x1
-/*     1a48:	10000006 */ 	b	.L00001a64
-/*     1a4c:	00000000 */ 	nop
-.L00001a50:
-/*     1a50:	3c058009 */ 	lui	$a1,%hi(var8008d900)
-/*     1a54:	24a5d900 */ 	addiu	$a1,$a1,%lo(var8008d900)
-/*     1a58:	24060002 */ 	addiu	$a2,$zero,0x2
-/*     1a5c:	0c000713 */ 	jal	osCreateScheduler
-/*     1a60:	24070001 */ 	addiu	$a3,$zero,0x1
-.L00001a64:
-/*     1a64:	3c048009 */ 	lui	$a0,%hi(var8008dbd0)
-/*     1a68:	3c058009 */ 	lui	$a1,%hi(var8008dca8)
-/*     1a6c:	3c068009 */ 	lui	$a2,%hi(var8008db30)
-/*     1a70:	24c6db30 */ 	addiu	$a2,$a2,%lo(var8008db30)
-/*     1a74:	24a5dca8 */ 	addiu	$a1,$a1,%lo(var8008dca8)
-/*     1a78:	2484dbd0 */ 	addiu	$a0,$a0,%lo(var8008dbd0)
-/*     1a7c:	0c00078c */ 	jal	osScAddClient
-/*     1a80:	00003825 */ 	or	$a3,$zero,$zero
-/*     1a84:	3c048009 */ 	lui	$a0,%hi(var8008dbd0)
-/*     1a88:	0c0007a3 */ 	jal	osScGetCmdQ
-/*     1a8c:	2484dbd0 */ 	addiu	$a0,$a0,%lo(var8008dbd0)
-/*     1a90:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     1a94:	3c018009 */ 	lui	$at,%hi(var8008dbc8)
-/*     1a98:	ac22dbc8 */ 	sw	$v0,%lo(var8008dbc8)($at)
-/*     1a9c:	03e00008 */ 	jr	$ra
-/*     1aa0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void schedCreateThread(void)
+{
+	osCreateMesgQueue(&var8008db30, &var8008db48, 32);
+
+	if (osTvType == OS_TV_MPAL) {
+		osCreateScheduler(&g_SchedThread, &var8008d900, OS_VI_MPAL_LAN1, 1);
+	} else {
+		osCreateScheduler(&g_SchedThread, &var8008d900, OS_VI_NTSC_LAN1, 1);
+	}
+
+	osScAddClient(&g_SchedThread, &var8008dca8, &var8008db30, 0);
+	g_SchedCmdQ = osScGetCmdQ(&g_SchedThread);
+}
 
 void mainproc(u32 value)
 {
@@ -514,11 +478,11 @@ void mainproc(u32 value)
 	rmonCreateThread();
 
 	if (func00012f30()) {
-		osStopThread(0);
+		osStopThread(NULL);
 	}
 
-	osSetThreadPri(0, 10);
-	func000019f4();
+	osSetThreadPri(0, THREADPRI_MAIN);
+	schedCreateThread();
 	mainEntry();
 }
 

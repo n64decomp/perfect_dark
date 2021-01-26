@@ -8,6 +8,10 @@
 #define TRUE 1
 #define FALSE 0
 
+#define OS_TV_PAL  0
+#define OS_TV_NTSC 1
+#define OS_TV_MPAL 2
+
 typedef signed char            s8;
 typedef unsigned char          u8;
 typedef signed short int       s16;

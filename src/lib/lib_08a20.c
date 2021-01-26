@@ -24,7 +24,7 @@
 
 void audioAllocateStack(void)
 {
-	g_AudioSp = allocateStack(THREAD_AUDIO, 4096);
+	g_AudioSp = allocateStack(THREAD_AUDIO, STACKSIZE_AUDIO);
 }
 
 GLOBAL_ASM(
@@ -519,7 +519,7 @@ glabel func00009154
 /*     916c:	afb30024 */ 	sw	$s3,0x24($sp)
 /*     9170:	afb20020 */ 	sw	$s2,0x20($sp)
 /*     9174:	2dce0001 */ 	sltiu	$t6,$t6,0x1
-/*     9178:	3c048009 */ 	lui	$a0,%hi(var8008dbd0)
+/*     9178:	3c048009 */ 	lui	$a0,%hi(g_SchedThread)
 /*     917c:	3c058009 */ 	lui	$a1,%hi(var800918d0)
 /*     9180:	3c068009 */ 	lui	$a2,%hi(var80091810)
 /*     9184:	afbe0038 */ 	sw	$s8,0x38($sp)
@@ -535,7 +535,7 @@ glabel func00009154
 /*     91ac:	afa00060 */ 	sw	$zero,0x60($sp)
 /*     91b0:	24c61810 */ 	addiu	$a2,$a2,%lo(var80091810)
 /*     91b4:	24a518d0 */ 	addiu	$a1,$a1,%lo(var800918d0)
-/*     91b8:	2484dbd0 */ 	addiu	$a0,$a0,%lo(var8008dbd0)
+/*     91b8:	2484dbd0 */ 	addiu	$a0,$a0,%lo(g_SchedThread)
 /*     91bc:	0c00078c */ 	jal	osScAddClient
 /*     91c0:	2dc70001 */ 	sltiu	$a3,$t6,0x1
 /*     91c4:	3c158009 */ 	lui	$s5,%hi(var80091590)
@@ -720,10 +720,10 @@ glabel func00009448
 /*     945c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*     9460:	10c00007 */ 	beqz	$a2,.L00009480
 /*     9464:	afa50034 */ 	sw	$a1,0x34($sp)
-/*     9468:	3c048009 */ 	lui	$a0,%hi(var8008dbd0)
+/*     9468:	3c048009 */ 	lui	$a0,%hi(g_SchedThread)
 /*     946c:	3c018009 */ 	lui	$at,%hi(var800918f4)
 /*     9470:	ac2618f4 */ 	sw	$a2,%lo(var800918f4)($at)
-/*     9474:	2484dbd0 */ 	addiu	$a0,$a0,%lo(var8008dbd0)
+/*     9474:	2484dbd0 */ 	addiu	$a0,$a0,%lo(g_SchedThread)
 /*     9478:	0c0007ea */ 	jal	__scHandleRetraceViaPri
 /*     947c:	00c02825 */ 	or	$a1,$a2,$zero
 .L00009480:
