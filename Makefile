@@ -73,6 +73,7 @@ $(B_DIR)/lib/ultra/io/vi.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/vigetcurrframebuf.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/vigetnextframebuf.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/visetevent.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/os/destroythread.o: OPT_LVL := -O1
 
 CFLAGS = -DVERSION=$(VERSION) \
 	-DNTSC=$(NTSC) \

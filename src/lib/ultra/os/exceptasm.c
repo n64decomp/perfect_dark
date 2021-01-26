@@ -718,7 +718,7 @@ glabel __osDispatchThread
 
 GLOBAL_ASM(
 glabel __osCleanupThread
-/*     3ecc:	0c012894 */ 	jal	__osDestroyThread
+/*     3ecc:	0c012894 */ 	jal	osDestroyThread
 /*     3ed0:	00002025 */ 	or	$a0,$zero,$zero
 /*     3ed4:	00000000 */ 	nop
 /*     3ed8:	00000000 */ 	nop

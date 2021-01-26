@@ -185,7 +185,7 @@ extern __OSViContext *__osViNext;
 extern u32 __osPiAccessQueueEnabled;
 extern u32 __osThreadTail;
 extern u32 __osRunQueue;
-extern u32 __osActiveQueue;
+extern OSThread *__osActiveQueue;
 extern OSThread *__osRunningThread;
 extern u32 var80060970;
 extern u32 var800609a0;
