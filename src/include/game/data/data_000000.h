@@ -180,7 +180,7 @@ extern u32 var80060340;
 extern u32 var80060368;
 extern u32 var800608b0;
 extern u32 var80060910;
-extern u32 var80060914;
+extern __OSViContext *__osViNext;
 extern u32 __osThreadTail;
 extern u32 __osRunQueue;
 extern u32 __osActiveQueue;

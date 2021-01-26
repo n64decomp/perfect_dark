@@ -29,23 +29,3 @@ glabel osViGetCurrentFramebuffer
 /*    48868:	03e00008 */ 	jr	$ra
 /*    4886c:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
-
-GLOBAL_ASM(
-glabel osViGetNextFramebuffer
-/*    48870:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    48874:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    48878:	0c01256c */ 	jal	__osDisableInt
-/*    4887c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    48880:	3c0e8006 */ 	lui	$t6,%hi(var80060914)
-/*    48884:	8dce0914 */ 	lw	$t6,%lo(var80060914)($t6)
-/*    48888:	00408025 */ 	or	$s0,$v0,$zero
-/*    4888c:	02002025 */ 	or	$a0,$s0,$zero
-/*    48890:	8dcf0004 */ 	lw	$t7,0x4($t6)
-/*    48894:	0c012588 */ 	jal	__osRestoreInt
-/*    48898:	afaf0020 */ 	sw	$t7,0x20($sp)
-/*    4889c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    488a0:	8fa20020 */ 	lw	$v0,0x20($sp)
-/*    488a4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    488a8:	03e00008 */ 	jr	$ra
-/*    488ac:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);

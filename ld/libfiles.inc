@@ -93,6 +93,7 @@
 	build/ROMID/lib/ultra/os/setintmask.o (section); \
 	build/ROMID/lib/ultra/os/recvmesg.o (section); \
 	build/ROMID/lib/lib_48830.o (section); \
+	build/ROMID/lib/ultra/io/vigetnextframebuf.o (section); \
 	build/ROMID/lib/ultra/io/dpsetstat.o (section); \
 	build/ROMID/lib/ultra/os/getthreadpri.o (section); \
 	build/ROMID/lib/ultra/os/sendmesg.o (section); \
