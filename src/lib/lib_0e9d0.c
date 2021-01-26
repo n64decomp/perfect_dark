@@ -26,7 +26,6 @@
 #include "lib/lib_38d10.h"
 #include "lib/lib_38d30.h"
 #include "lib/lib_39c80.h"
-#include "lib/lib_48830.h"
 #include "types.h"
 
 const char var70053b20[] = "RUSSES SOUND GUARD STRING";
