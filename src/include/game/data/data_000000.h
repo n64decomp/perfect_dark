@@ -40,8 +40,8 @@ extern s32 g_AlarmTimer; // counts upwards
 extern u32 var80059fe0;
 extern u32 var8005a0b0;
 extern u32 var8005b4d0;
-extern u8 *g_StackStartAddrs[];
-extern u8 *g_StackEndAddrs[];
+extern u8 *g_StackStartAddrs[7];
+extern u8 *g_StackEndAddrs[7];
 extern u8 *g_StackAllocatedPos;
 extern s32 var8005ce74;
 extern f32 var8005ce78[2];

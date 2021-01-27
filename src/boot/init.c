@@ -1,6 +1,8 @@
 #include <ultra64.h>
+#include "boot/entry.h"
 #include "boot/init.h"
 #include "boot/reset.h"
+#include "boot/segments.h"
 #include "constants.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
@@ -41,9 +43,21 @@ s32 osGetMemSize(void)
 }
 #endif
 
+extern u8 *_bootSegmentStart;
+extern u8 *_datazipSegmentRomStart;
+extern u8 *_datazipSegmentRomEnd;
+extern u8 *_dataSegmentStart;
+extern u8 *_inflateSegmentRomStart;
+extern u8 *_inflateSegmentRomEnd;
+extern u32 var803f50b8;
+extern u32 vara00002e8;
+extern u16 varbc000c02;
+extern u16 *var800902e4;
+extern s16 var800902e8;
+
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func000016cc
+glabel init
 /*     16cc:	3c0e8000 */ 	lui	$t6,0x8000
 /*     16d0:	8dce030c */ 	lw	$t6,0x30c($t6)
 /*     16d4:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -147,15 +161,15 @@ glabel func000016cc
 /*     183c:	3c048000 */ 	lui	$a0,0x8000
 /*     1840:	0c012054 */ 	jal	osInvalICache
 /*     1844:	24054000 */ 	addiu	$a1,$zero,0x4000
-/*     1848:	0c012074 */ 	jal	func000481d0
+/*     1848:	0c012074 */ 	jal	__osGetFpcCsr
 /*     184c:	00000000 */ 	nop
 /*     1850:	0c012078 */ 	jal	__osSetFpcCsr
 /*     1854:	34440e80 */ 	ori	$a0,$v0,0xe80
 /*     1858:	24040003 */ 	addiu	$a0,$zero,0x3
 /*     185c:	0c00062b */ 	jal	allocateStack
 /*     1860:	34059800 */ 	dli	$a1,0x9800
-/*     1864:	3c108009 */ 	lui	$s0,%hi(var8008d6d0)
-/*     1868:	2610d6d0 */ 	addiu	$s0,$s0,%lo(var8008d6d0)
+/*     1864:	3c108009 */ 	lui	$s0,%hi(g_MainThread)
+/*     1868:	2610d6d0 */ 	addiu	$s0,$s0,%lo(g_MainThread)
 /*     186c:	3c067000 */ 	lui	$a2,%hi(mainproc)
 /*     1870:	2409000a */ 	addiu	$t1,$zero,0xa
 /*     1874:	afa90014 */ 	sw	$t1,0x14($sp)
@@ -175,7 +189,7 @@ glabel func000016cc
 );
 #else
 GLOBAL_ASM(
-glabel func000016cc
+glabel init
 /*     1720:	3c040003 */ 	lui	$a0,0x3
 /*     1724:	3c0e0004 */ 	lui	$t6,0x4
 /*     1728:	3c0f0004 */ 	lui	$t7,0x4
@@ -287,6 +301,99 @@ glabel func000016cc
 /*     18c0:	00000000 */ 	nop
 );
 #endif
+
+/**
+ * Prepares the inflate, .data and lib segments, then creates and starts the
+ * main thread.
+ *
+ * This function relies on the fact that the N64 BIOS loads the first 1MB of ROM
+ * data into memory at power on. The inflate, .data and lib segments are already
+ * in RAM thanks to this but need to be relocated, and .data and lib need to be
+ * unzipped too.
+ */
+// Mismatch: Goal uses s0 for dst in some places.
+// Also uses way less stack somehow.
+//void init(void)
+//{
+//	u32 datacomplen;
+//	u32 inflatelen;
+//	u32 src;
+//	u32 dst;
+//	u32 i;
+//	s32 j;
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//	if (osResetType == RESET_TYPE_NMI) {
+//		g_OsMemSize = var803f50b8;
+//	} else {
+//		g_OsMemSize = osMemSize;
+//		var803f50b8 = g_OsMemSize;
+//	}
+//#endif
+//
+//	// Copy compressed .data and inflate segments
+//	// .data is copied to 0x701eb000 - 0x70200000
+//	// inflate is copied to 0x70200000 - 0x702013f0
+//	src = (u32)&_datazipSegmentRomStart | 0x70000000;
+//	datacomplen = (u32)&_datazipSegmentRomEnd - (u32)&_datazipSegmentRomStart;
+//	inflatelen = (u32)&_inflateSegmentRomEnd - (u32)&_inflateSegmentRomStart;
+//	dst = 0x70200000 - datacomplen;
+//
+//	for (j = datacomplen + inflatelen - 1; j >= 0; j--) {
+//		((u8 *)dst)[j] = ((u8 *)src)[j];
+//	}
+//
+//	// Copy compressed lib segment to 0x70280000.
+//	// It's assumed that lib is placed immediately after boot in the ROM and
+//	// that boot's length is 0x2000.
+//	// It's also assumed that lib's compressed length is less than 0x124f8
+//	// words. This is fine, as it's about half that.
+//	src = 0;
+//	src += (u32)&_bootSegmentStart;
+//	src += 0x2000;
+//	dst = 0x70280000;
+//
+//	for (i = 0; i < 0x124f8; i++) {
+//		((u32 *)dst)[i] = ((u32 *)src)[i];
+//	}
+//
+//	// Inflate lib
+//	bootInflate(dst, src, 0x80300000);
+//
+//	// Inflate .data
+//	bootInflate(0x70200000 - datacomplen, &_dataSegmentStart, 0x80300000);
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//#if PIRACYCHECKS
+//	if (vara00002e8 != 0xc86e2000) {
+//		while (1);
+//	}
+//#endif
+//#endif
+//
+//	func00001634(1, 0x1f);
+//
+//	// Clear the stack allocation pointers
+//	for (i = 0; i < ARRAYCOUNT(g_StackStartAddrs); i++) {
+//		g_StackStartAddrs[i] = NULL;
+//		g_StackEndAddrs[i] = NULL;
+//	}
+//
+//	osInitialize();
+//	osWritebackDCacheAll();
+//	osInvalICache((void *) 0x80000000, 0x4000);
+//	__osSetFpcCsr(__osGetFpcCsr() | 0xe80);
+//
+//#if VERSION == VERSION_NTSC_BETA
+//	var800902e4 = &varbc000c02;
+//	var800902e8 = 0x4040;
+//	varbc000c02 = 0x4040;
+//#endif
+//
+//	// Create and start the main thread
+//	osCreateThread(&g_MainThread, THREAD_MAIN, mainproc, NULL, allocateStack(THREAD_MAIN, STACKSIZE_MAIN), THREADPRI_MAIN);
+//	osStartThread(&g_MainThread);
+//}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -467,7 +574,7 @@ void schedCreateThread(void)
 	g_SchedCmdQ = osScGetCmdQ(&g_SchedThread);
 }
 
-void mainproc(u32 value)
+void mainproc(void *arg)
 {
 	idleCreateThread();
 	func00013750();

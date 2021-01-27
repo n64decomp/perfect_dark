@@ -254,7 +254,8 @@ void func00002078(OSSched *sc)
 	func00001b98(sc->frameCount);
 }
 
-#if VERSION >= VERSION_NTSC_1_0
+//#if VERSION >= VERSION_NTSC_1_0
+#if VERSION >= 0
 void __scHandleRetrace(OSSched *sc)
 {
 	s32         state;
@@ -289,7 +290,7 @@ void __scHandleRetrace(OSSched *sc)
 	{
 		u32 checksum = 0;
 		s32 *end = (s32 *)&allocateStack;
-		s32 *ptr = (s32 *)&func000016cc;
+		s32 *ptr = (s32 *)&init;
 		s32 i;
 
 		while (ptr < end) {

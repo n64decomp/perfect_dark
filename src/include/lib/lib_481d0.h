@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func000481d0(void);
+u32 __osGetFpcCsr(void);
 
 #endif

@@ -119,9 +119,19 @@ SECTIONS
 	_antipiracyUncloakWriteAddress = 0x7002a324;
 
 	osTvType = 0x80000300;
+	osRomType = 0x80000304;
 	osRomBase = 0x80000308;
 	osResetType = 0x8000030c;
 	osCicId = 0x80000310;
+	osVersion = 0x80000314;
+	osMemSize = 0x80000318;
+	osAppNMIBuffer = 0x8000031c;
+
+	var803f50b8 = 0x803f50b8;
+	vara00002e8 = 0xa00002e8;
+	varbc000c02 = 0xbc000c02; /* for ntsc-beta */
+	var800902e4 = 0x800902e4; /* for ntsc-beta */
+	var800902e8 = 0x800902e8; /* for ntsc-beta */
 
 	/***************************************************************************
 	 * romheader
@@ -170,6 +180,8 @@ SECTIONS
 		BOOTFILES(.text)
 	}
 	END_SEG(boot)
+
+	_bootSegmentStart = 0x70001050;
 
 	/***************************************************************************
 	 * lib

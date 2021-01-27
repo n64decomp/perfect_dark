@@ -2,8 +2,9 @@
 #define _IN_BOOT_INIT_H
 #include <ultra64.h>
 
-s32 func000016cc(void);
+void init(void);
 s32 osGetMemSize(void);
 void *allocateStack(s32 threadid, s32 size);
+void mainproc(void *arg);
 
 #endif

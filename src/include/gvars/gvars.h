@@ -326,7 +326,7 @@ extern u32 var8008be38;
 extern u32 var8008d238;
 extern OSThread g_RmonThread;
 extern OSThread g_IdleThread;
-extern OSThread var8008d6d0;
+extern OSThread g_MainThread;
 extern u32 var8008d900;
 extern OSMesgQueue var8008db30;
 extern OSMesg var8008db48;
