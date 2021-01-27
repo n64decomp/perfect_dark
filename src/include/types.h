@@ -3426,9 +3426,10 @@ struct audioconfig {
 
 struct bootbufferthingdeep {
 	u16 unk00;
+	u16 unk02;
 	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
+	u16 *unk08;
+	u16 *unk0c;
 	u32 unk10;
 };
 

@@ -454,7 +454,7 @@ void coreLoadStage(s32 stagenum)
 
 	func0f011124(false);
 	var80084018 = 1;
-	func00002560();
+	bbufResetIndexes();
 	coreSetPaused(0);
 
 #if PIRACYCHECKS

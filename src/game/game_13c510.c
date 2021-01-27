@@ -59,7 +59,7 @@ const u32 var7f1b5a0c[] = {0x3ecccccd};
 
 void func0f13c510(void)
 {
-	struct bootbufferthing *thing = func0000244c();
+	struct bootbufferthing *thing = bbufGetIndex0Buffer();
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(thing->unk00); i++) {
@@ -69,8 +69,8 @@ void func0f13c510(void)
 
 void func0f13c54c(void)
 {
-	func000024e8();
-	func00002510();
+	bbufIncIndex0();
+	bbufIncIndex1();
 }
 
 GLOBAL_ASM(
@@ -280,7 +280,7 @@ glabel func0f13c780
 /*  f13c7b8:	f7b80028 */ 	sdc1	$f24,0x28($sp)
 /*  f13c7bc:	f7b60020 */ 	sdc1	$f22,0x20($sp)
 /*  f13c7c0:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f13c7c4:	0c000913 */ 	jal	func0000244c
+/*  f13c7c4:	0c000913 */ 	jal	bbufGetIndex0Buffer
 /*  f13c7c8:	afa401d8 */ 	sw	$a0,0x1d8($sp)
 /*  f13c7cc:	8fa501d8 */ 	lw	$a1,0x1d8($sp)
 /*  f13c7d0:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
@@ -1151,7 +1151,7 @@ glabel func0f13d568
 /*  f13d5a4:	f7b60038 */ 	sdc1	$f22,0x38($sp)
 /*  f13d5a8:	f7b40030 */ 	sdc1	$f20,0x30($sp)
 /*  f13d5ac:	afa40160 */ 	sw	$a0,0x160($sp)
-/*  f13d5b0:	0c000920 */ 	jal	func00002480
+/*  f13d5b0:	0c000920 */ 	jal	bbufGetIndex1Buffer
 /*  f13d5b4:	afa50164 */ 	sw	$a1,0x164($sp)
 /*  f13d5b8:	0040a025 */ 	or	$s4,$v0,$zero
 /*  f13d5bc:	0fc00331 */ 	jal	roomGetUnk5c

@@ -186,7 +186,7 @@ void __scMain(void *arg)
     OSSched *sc = (OSSched *)arg;
     int done = 0;
 
-	func00002400();
+	bbufResetBuffers();
 
 	while (!done) {
 		osRecvMesg(&sc->interruptQ, (OSMesg *)&msg, OS_MESG_BLOCK);
@@ -349,106 +349,88 @@ u32 *func000023f4(void)
 	return &var8008de38;
 }
 
-void func00002400(void)
+void bbufResetBuffers(void)
 {
 	s32 i;
 	s32 j;
 
 	for (i = 0; i < 3; i++) {
 		for (j = 0; j < 120; j++) {
-			var8008de48[i].unk00[j].unk00 = 0;
+			g_BootBuffers[i].unk00[j].unk00 = 0;
 		}
 
-		var8008fa68[i] = 0;
+		g_BootBufferDirtyIndexes[i] = 0;
 	}
 }
 
-struct bootbufferthing *func0000244c(void)
+struct bootbufferthing *bbufGetIndex0Buffer(void)
 {
-	return &var8008de48[var8008fa6c];
+	return &g_BootBuffers[g_BootBufferIndex0];
 }
 
-struct bootbufferthing *func00002480(void)
+struct bootbufferthing *bbufGetIndex1Buffer(void)
 {
-	return &var8008de48[var8008fa70];
+	return &g_BootBuffers[g_BootBufferIndex1];
 }
 
-struct bootbufferthing *func000024b4(void)
+struct bootbufferthing *bbufGetIndex2Buffer(void)
 {
-	return &var8008de48[var8008fa74];
+	return &g_BootBuffers[g_BootBufferIndex2];
 }
 
-void func000024e8(void)
+void bbufIncIndex0(void)
 {
-	var8008fa6c = (var8008fa6c + 1) % 3;
+	g_BootBufferIndex0 = (g_BootBufferIndex0 + 1) % 3;
 }
 
-void func00002510(void)
+void bbufIncIndex1(void)
 {
-	var8008fa70 = (var8008fa70 + 1) % 3;
+	g_BootBufferIndex1 = (g_BootBufferIndex1 + 1) % 3;
 }
 
-void func00002538(void)
+void bbufIncIndex2(void)
 {
-	var8008fa74 = (var8008fa74 + 1) % 3;
+	g_BootBufferIndex2 = (g_BootBufferIndex2 + 1) % 3;
 }
 
-void func00002560(void)
+void bbufResetIndexes(void)
 {
-	var8008fa6c = 0;
-	var8008fa70 = 1;
-	var8008fa74 = 0;
+	g_BootBufferIndex0 = 0;
+	g_BootBufferIndex1 = 1;
+	g_BootBufferIndex2 = 0;
 }
 
-GLOBAL_ASM(
-glabel func00002580
-/*     2580:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     2584:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     2588:	0c00092d */ 	jal	func000024b4
-/*     258c:	00000000 */ 	nop
-/*     2590:	3c0b8009 */ 	lui	$t3,%hi(var8008fa74)
-/*     2594:	3c0a8009 */ 	lui	$t2,%hi(var8008fa68)
-/*     2598:	254afa68 */ 	addiu	$t2,$t2,%lo(var8008fa68)
-/*     259c:	256bfa74 */ 	addiu	$t3,$t3,%lo(var8008fa74)
-/*     25a0:	00003825 */ 	or	$a3,$zero,$zero
-/*     25a4:	00401825 */ 	or	$v1,$v0,$zero
-/*     25a8:	24090960 */ 	addiu	$t1,$zero,0x960
-/*     25ac:	24080001 */ 	addiu	$t0,$zero,0x1
-.L000025b0:
-/*     25b0:	946e0000 */ 	lhu	$t6,0x0($v1)
-/*     25b4:	24e70014 */ 	addiu	$a3,$a3,0x14
-/*     25b8:	11c00012 */ 	beqz	$t6,.L00002604
-/*     25bc:	00000000 */ 	nop
-/*     25c0:	8d6f0000 */ 	lw	$t7,0x0($t3)
-/*     25c4:	8c640008 */ 	lw	$a0,0x8($v1)
-/*     25c8:	014fc021 */ 	addu	$t8,$t2,$t7
-/*     25cc:	93190000 */ 	lbu	$t9,0x0($t8)
-/*     25d0:	94850000 */ 	lhu	$a1,0x0($a0)
-/*     25d4:	5519000b */ 	bnel	$t0,$t9,.L00002604
-/*     25d8:	a4650002 */ 	sh	$a1,0x2($v1)
-/*     25dc:	8c64000c */ 	lw	$a0,0xc($v1)
-/*     25e0:	94860000 */ 	lhu	$a2,0x0($a0)
-/*     25e4:	00a6082a */ 	slt	$at,$a1,$a2
-/*     25e8:	10200003 */ 	beqz	$at,.L000025f8
-/*     25ec:	00000000 */ 	nop
-/*     25f0:	10000004 */ 	b	.L00002604
-/*     25f4:	a4650002 */ 	sh	$a1,0x2($v1)
-.L000025f8:
-/*     25f8:	10000002 */ 	b	.L00002604
-/*     25fc:	a4660002 */ 	sh	$a2,0x2($v1)
-/*     2600:	a4650002 */ 	sh	$a1,0x2($v1)
-.L00002604:
-/*     2604:	14e9ffea */ 	bne	$a3,$t1,.L000025b0
-/*     2608:	24630014 */ 	addiu	$v1,$v1,0x14
-/*     260c:	8d6c0000 */ 	lw	$t4,0x0($t3)
-/*     2610:	014c6821 */ 	addu	$t5,$t2,$t4
-/*     2614:	0c00094e */ 	jal	func00002538
-/*     2618:	a1a00000 */ 	sb	$zero,0x0($t5)
-/*     261c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     2620:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     2624:	03e00008 */ 	jr	$ra
-/*     2628:	00000000 */ 	nop
-);
+void bbufUpdateIndex2Buffer(void)
+{
+	struct bootbufferthing *thing = bbufGetIndex2Buffer();
+	s32 i;
+
+	for (i = 0; i < 120; i++) {
+		struct bootbufferthingdeep *deep = &thing->unk00[i];
+
+		if (deep->unk00) {
+			u16 *unk08 = deep->unk08;
+			u16 value08 = unk08[0];
+
+			if (g_BootBufferDirtyIndexes[g_BootBufferIndex2] == 1) {
+				u16 *unk0c = deep->unk0c;
+				u16 value0c = unk0c[0];
+
+				if (value0c > value08) {
+					deep->unk02 = value08;
+				} else {
+					deep->unk02 = value0c;
+				}
+			} else {
+				deep->unk02 = value08;
+			}
+		}
+	}
+
+	g_BootBufferDirtyIndexes[g_BootBufferIndex2] = 0;
+
+	bbufIncIndex2();
+}
 
 void __scHandleRDP(OSSched *sc)
 {
@@ -456,7 +438,7 @@ void __scHandleRDP(OSSched *sc)
 	s32 state;
 
 	if (sc->curRDPTask != NULL) {
-		func00002580();
+		bbufUpdateIndex2Buffer();
 
 		if (var8005dd18 == 0) {
 			func00002d90();

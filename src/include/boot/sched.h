@@ -12,11 +12,11 @@ void __scAppendList(OSSched *sc, OSScTask *t);
 void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
 void __scMain(void *arg);
 void __scYield(OSSched *sc);
-struct bootbufferthing *func0000244c(void);
-void func00002400(void);
-void func000024e8(void);
-void func00002510(void);
-void func00002580(void);
+struct bootbufferthing *bbufGetIndex0Buffer(void);
+void bbufResetBuffers(void);
+void bbufIncIndex0(void);
+void bbufIncIndex1(void);
+void bbufUpdateIndex2Buffer(void);
 void func00002d90(void);
 
 #endif
