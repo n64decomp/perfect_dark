@@ -316,8 +316,8 @@ extern u8 g_Is4Mb;
 extern u32 var80090af4;
 extern u32 var80090af8;
 extern u32 var80090afc;
-extern u32 var8009cac0;
-extern u32 var8009cac4;
+extern void *var8009cac0; // framebuffer?
+extern void *var8009cac4; // framebuffer?
 
 extern u32 var8008ae2c;
 extern u32 var8008ae30;
@@ -334,10 +334,9 @@ extern OSMesgQueue *g_SchedCmdQ;
 extern OSSched g_SchedThread;
 extern OSScClient var8008dca8;
 extern u32 g_OsMemSize;
-extern u32 var8008dcc0;
+extern OSViMode var8008dcc0[2];
 extern OSViMode *var8008dd60[2];
-extern OSViMode var8008dd68;
-extern OSViMode var8008ddb8;
+extern OSViMode var8008dd68[2];
 extern u32 var8008de08;
 extern u32 var8008de0c;
 extern u32 var8008de10;

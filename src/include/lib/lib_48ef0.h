@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00048ef0(void);
+void func00048ef0(f32 arg0);
 
 #endif
