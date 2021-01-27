@@ -12,6 +12,11 @@
 #include "lib/lib_4e470.h"
 #include "types.h"
 
+u8 var8005d9a0 = 0;
+u32 var8005d9a4 = 0x00000000;
+u32 var8005d9a8 = 0x00000000;
+u32 var8005d9ac = 0x00000000;
+
 GLOBAL_ASM(
 glabel func0000d0a0
 /*     d0a0:	27bdffe8 */ 	addiu	$sp,$sp,-24

@@ -206,7 +206,7 @@ glabel mainInit
 /*     d52c:	afb00028 */ 	sw	$s0,0x28($sp)
 /*     d530:	0c003428 */ 	jal	func0000d0a0
 /*     d534:	00000000 */ 	nop
-/*     d538:	0c002288 */ 	jal	audioAllocateStack
+/*     d538:	0c002288 */ 	jal	amgrAllocateStack
 /*     d53c:	00000000 */ 	nop
 /*     d540:	0c005618 */ 	jal	initGlobalVariables
 /*     d544:	00000000 */ 	nop
@@ -622,7 +622,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //
 //	faultCreateThread();
 //	func0000d0a0();
-//	audioAllocateStack();
+//	amgrAllocateStack();
 //	initGlobalVariables();
 //	func000121e0();
 //	func00012a0c();

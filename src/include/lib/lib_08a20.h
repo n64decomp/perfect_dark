@@ -3,12 +3,11 @@
 #include <ultra64.h>
 #include "types.h"
 
-void audioAllocateStack(void);
-u32 func00008a48(void);
-void audioStartThread(void);
-OSMesgQueue *func00009118(void);
-void audioStopThread(void);
-u32 func00009448(void);
-u32 func00009614(void);
+void amgrAllocateStack(void);
+u32 amgrCreate(void);
+void amgrStartThread(void);
+OSMesgQueue *amgr0009118(void);
+void amgrStopThread(void);
+u32 amgrHandleFrameMsg(void);
 
 #endif

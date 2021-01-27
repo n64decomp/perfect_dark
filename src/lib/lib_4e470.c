@@ -11,7 +11,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004e470
+glabel osAiGetLength
 /*    4e470:	3c0ea450 */ 	lui	$t6,0xa450
 /*    4e474:	03e00008 */ 	jr	$ra
 /*    4e478:	8dc20004 */ 	lw	$v0,0x4($t6)

@@ -1886,7 +1886,7 @@ glabel func0000f804
 /*     faec:	afb90084 */ 	sw	$t9,0x84($sp)
 /*     faf0:	a7a8008c */ 	sh	$t0,0x8c($sp)
 /*     faf4:	afa90088 */ 	sw	$t1,0x88($sp)
-/*     faf8:	0c002292 */ 	jal	func00008a48
+/*     faf8:	0c002292 */ 	jal	amgrCreate
 /*     fafc:	27a40054 */ 	addiu	$a0,$sp,0x54
 /*     fb00:	3c0a8006 */ 	lui	$t2,%hi(var8005ddd0)
 /*     fb04:	8d4addd0 */ 	lw	$t2,%lo(var8005ddd0)($t2)
@@ -1920,7 +1920,7 @@ glabel func0000f804
 /*     fb6c:	3c047001 */ 	lui	$a0,%hi(func0000f7b8)
 /*     fb70:	0c00cd8d */ 	jal	func00033634
 /*     fb74:	2484f7b8 */ 	addiu	$a0,$a0,%lo(func0000f7b8)
-/*     fb78:	0c00243b */ 	jal	audioStartThread
+/*     fb78:	0c00243b */ 	jal	amgrStartThread
 /*     fb7c:	00000000 */ 	nop
 /*     fb80:	3c048006 */ 	lui	$a0,%hi(g_SoundMode)
 /*     fb84:	0c003ce3 */ 	jal	audioSetSoundMode

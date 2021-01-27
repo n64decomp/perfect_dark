@@ -33,6 +33,50 @@ const u32 var700526d4[] = {0x02800000};
 const u32 var700526d8[] = {0x00dc00dc};
 const u32 var700526dc[] = {0x01b80000};
 
+u32 var8005d520 = 0x00000000;
+u32 var8005d524 = 0x00000000;
+u32 var8005d528 = 0x00000000;
+u32 var8005d52c = 0x00000000;
+
+struct rend_vidat var8005d530 = {
+	NULL,
+	320, 220,         // x and y
+	60,               // fovy
+	1.4545454978943f, // aspect
+	30,               // znear
+	10000,            // zfar
+	320, 220,         // bufx and bufy
+	320, 220,         // viewx and viewy
+	0, 0,             // viewleft and viewtop
+	true,             // usezbuf
+	0,
+};
+
+struct rend_vidat var8005d55c = {
+	NULL,
+	320, 220,         // x and y
+	60,               // fovy
+	1.4545454978943f, // aspect
+	30,               // znear
+	10000,            // zfar
+	320, 220,         // bufx and bufy
+	320, 220,         // viewx and viewy
+	0, 0,             // viewleft and viewtop
+	true,             // usezbuf
+	0,
+};
+
+u32 var8005d588 = 0x00000000;
+u32 var8005d58c = 0x00000000;
+struct rend_vidat *var8005d590 = &var8005d530;
+struct rend_vidat *g_ViData = &var8005d530;
+u32 var8005d598 = 0x00000001;
+u32 var8005d59c = 0x00000000;
+u32 var8005d5a0 = 0x00000000;
+u32 var8005d5a4 = 0x00000000;
+u32 var8005d5a8 = 0x00000000;
+u32 var8005d5ac = 0x00000000;
+
 GLOBAL_ASM(
 glabel func00009660
 /*     9660:	27bdffe8 */ 	addiu	$sp,$sp,-24
