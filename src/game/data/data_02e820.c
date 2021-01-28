@@ -695,6 +695,8 @@ u32 var8008a2c0 = 0x00000000;
 u32 var8008a2c4 = 0x00000000;
 u32 var8008a2c8 = 0x00000000;
 u32 var8008a2cc = 0x00000000;
+
+// aspMainDataStart
 u32 var8008a2d0 = 0x00000000;
 u32 var8008a2d4 = 0x0f7f1080;
 u32 var8008a2d8 = 0x00000f80;
@@ -1207,6 +1209,8 @@ u32 var8008aac0 = 0x0037ffdc;
 u32 var8008aac4 = 0x03000163;
 u32 var8008aac8 = 0x10fd18d1;
 u32 var8008aacc = 0x735c99ee;
+// aspMainDataEnd
+
 u32 var8008aad0 = 0xf613f046;
 u32 var8008aad4 = 0x0108fdb0;
 u32 var8008aad8 = 0x0053ffdb;

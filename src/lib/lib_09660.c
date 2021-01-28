@@ -286,7 +286,7 @@ glabel func00009844
 );
 
 GLOBAL_ASM(
-glabel func0000993c
+glabel amgrClearDmaBuffers
 /*     993c:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*     9940:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*     9944:	3c128009 */ 	lui	$s2,%hi(var80091900)

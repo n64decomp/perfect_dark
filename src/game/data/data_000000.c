@@ -13,7 +13,7 @@
 #include "stagesetup.h"
 #include "types.h"
 
-// Assembly
+// rspbootTextStart
 u32 var80059fe0 = 0x09000419;
 u32 var80059fe4 = 0x20010fc0;
 u32 var80059fe8 = 0x8c220010;
@@ -66,6 +66,8 @@ u32 var8005a0a0 = 0x00000000;
 u32 var8005a0a4 = 0x09000402;
 u32 var8005a0a8 = 0x00000000;
 u32 var8005a0ac = 0x00000000;
+// rspbootTextEnd
+
 u32 var8005a0b0 = 0x090005ee;
 u32 var8005a0b4 = 0x201d0110;
 u32 var8005a0b8 = 0x0d000447;
@@ -1354,6 +1356,8 @@ u32 var8005b4c0 = 0x2400beef;
 u32 var8005b4c4 = 0x00000000;
 u32 var8005b4c8 = 0x00000000;
 u32 var8005b4cc = 0x00000000;
+
+// aspMainTextStart
 u32 var8005b4d0 = 0x40055800;
 u32 var8005b4d4 = 0x8c3c0030;
 u32 var8005b4d8 = 0x8c3b0034;
@@ -2378,6 +2382,8 @@ u32 var8005c4c0 = 0x21cd0220;
 u32 var8005c4c4 = 0x334c001e;
 u32 var8005c4c8 = 0x0d00045f;
 u32 var8005c4cc = 0x2063ffff;
+// aspMainTextEnd
+
 u32 var8005c4d0 = 0x20030180;
 u32 var8005c4d4 = 0x2294fe80;
 u32 var8005c4d8 = 0x20120180;

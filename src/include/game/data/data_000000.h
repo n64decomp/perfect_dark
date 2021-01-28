@@ -63,7 +63,7 @@ extern u32 var8005cf6c;
 extern u32 __osGlobalIntMask;
 extern u32 var8005cf84;
 extern u32 var8005cf90;
-extern u32 var8005cf94;
+extern u8 var8005cf94;
 extern u32 var8005cf98;
 extern u32 var8005cfc0;
 extern u32 var8005cfe8;

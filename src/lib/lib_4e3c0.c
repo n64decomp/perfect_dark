@@ -12,7 +12,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004e3c0
+glabel osAiSetNextBuffer
 /*    4e3c0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    4e3c4:	3c0f8006 */ 	lui	$t7,%hi(var80060990)
 /*    4e3c8:	91ef0990 */ 	lbu	$t7,%lo(var80060990)($t7)

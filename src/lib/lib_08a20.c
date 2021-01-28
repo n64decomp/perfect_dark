@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "boot/init.h"
+#include "boot/sched.h"
 #include "constants.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
@@ -23,7 +24,7 @@
 #include "types.h"
 
 u32 var8005cf90 = 0x00000000;
-u32 var8005cf94 = 0x01000000;
+u8 var8005cf94 = 1;
 u32 var8005cf98 = 0x00000001;
 u32 var8005cf9c = 0x000014a0;
 u32 var8005cfa0 = 0x00000000;
@@ -379,7 +380,7 @@ u32 var8005d514 = 0x00000001;
 
 struct audioinfo {
     s16 *data;
-    s16 frameSamples;
+    s16 framesamples;
     OSScTask task;
 };
 
@@ -1075,8 +1076,8 @@ glabel amgrMain
 
 GLOBAL_ASM(
 glabel amgrHandleFrameMsg
-/*     9448:	3c068009 */ 	lui	$a2,%hi(var800918f4)
-/*     944c:	8cc618f4 */ 	lw	$a2,%lo(var800918f4)($a2)
+/*     9448:	3c068009 */ 	lui	$a2,%hi(g_AmgrCurrentCmdList)
+/*     944c:	8cc618f4 */ 	lw	$a2,%lo(g_AmgrCurrentCmdList)($a2)
 /*     9450:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*     9454:	afb00018 */ 	sw	$s0,0x18($sp)
 /*     9458:	00808025 */ 	or	$s0,$a0,$zero
@@ -1084,13 +1085,13 @@ glabel amgrHandleFrameMsg
 /*     9460:	10c00007 */ 	beqz	$a2,.L00009480
 /*     9464:	afa50034 */ 	sw	$a1,0x34($sp)
 /*     9468:	3c048009 */ 	lui	$a0,%hi(g_SchedThread)
-/*     946c:	3c018009 */ 	lui	$at,%hi(var800918f4)
-/*     9470:	ac2618f4 */ 	sw	$a2,%lo(var800918f4)($at)
+/*     946c:	3c018009 */ 	lui	$at,%hi(g_AmgrCurrentCmdList)
+/*     9470:	ac2618f4 */ 	sw	$a2,%lo(g_AmgrCurrentCmdList)($at)
 /*     9474:	2484dbd0 */ 	addiu	$a0,$a0,%lo(g_SchedThread)
 /*     9478:	0c0007ea */ 	jal	__scHandleRetraceViaPri
 /*     947c:	00c02825 */ 	or	$a1,$a2,$zero
 .L00009480:
-/*     9480:	0c00264f */ 	jal	func0000993c
+/*     9480:	0c00264f */ 	jal	amgrClearDmaBuffers
 /*     9484:	00000000 */ 	nop
 /*     9488:	3c198006 */ 	lui	$t9,%hi(var8005cf90)
 /*     948c:	8f39cf90 */ 	lw	$t9,%lo(var8005cf90)($t9)
@@ -1113,7 +1114,7 @@ glabel amgrHandleFrameMsg
 /*     94d0:	8c640000 */ 	lw	$a0,0x0($v1)
 /*     94d4:	afa20028 */ 	sw	$v0,0x28($sp)
 /*     94d8:	00055080 */ 	sll	$t2,$a1,0x2
-/*     94dc:	0c0138f0 */ 	jal	func0004e3c0
+/*     94dc:	0c0138f0 */ 	jal	osAiSetNextBuffer
 /*     94e0:	01402825 */ 	or	$a1,$t2,$zero
 /*     94e4:	8fa60028 */ 	lw	$a2,0x28($sp)
 /*     94e8:	8fab002c */ 	lw	$t3,0x2c($sp)
@@ -1145,7 +1146,7 @@ glabel amgrHandleFrameMsg
 /*     9548:	a0780000 */ 	sb	$t8,0x0($v1)
 .L0000954c:
 /*     954c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*     9550:	0c00c4b9 */ 	jal	func000312e4
+/*     9550:	0c00c4b9 */ 	jal	alAudioFrame
 /*     9554:	86070004 */ 	lh	$a3,0x4($s0)
 /*     9558:	26060008 */ 	addiu	$a2,$s0,0x8
 /*     955c:	3c038006 */ 	lui	$v1,%hi(var80059fe0)
@@ -1175,7 +1176,7 @@ glabel amgrHandleFrameMsg
 /*     95bc:	accc0024 */ 	sw	$t4,0x24($a2)
 /*     95c0:	accd002c */ 	sw	$t5,0x2c($a2)
 /*     95c4:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*     95c8:	3c018009 */ 	lui	$at,%hi(var800918f4)
+/*     95c8:	3c018009 */ 	lui	$at,%hi(g_AmgrCurrentCmdList)
 /*     95cc:	acce0040 */ 	sw	$t6,0x40($a2)
 /*     95d0:	8faf0024 */ 	lw	$t7,0x24($sp)
 /*     95d4:	acc00048 */ 	sw	$zero,0x48($a2)
@@ -1191,10 +1192,80 @@ glabel amgrHandleFrameMsg
 /*     95fc:	8fb00018 */ 	lw	$s0,0x18($sp)
 /*     9600:	392a0001 */ 	xori	$t2,$t1,0x1
 /*     9604:	ac4a0000 */ 	sw	$t2,0x0($v0)
-/*     9608:	ac2618f4 */ 	sw	$a2,%lo(var800918f4)($at)
+/*     9608:	ac2618f4 */ 	sw	$a2,%lo(g_AmgrCurrentCmdList)($at)
 /*     960c:	03e00008 */ 	jr	$ra
 /*     9610:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
+
+// Mismatch:
+// - Regalloc, likely relating to g_AmgrCurrentCmdList = g_AmgrCurrentCmdList
+// - g_AmgrCurrentCmdList needs to be moved into this file
+//void amgrHandleFrameMsg(struct audioinfo *info, struct audioinfo *previnfo)
+//{
+//	u32 somevalue;
+//	s16 *outbuffer;
+//	Acmd *datastart;
+//	Acmd *cmd;
+//	OSScTask *task;
+//	static OSScTask *g_AmgrCurrentCmdList;
+//
+//	extern u32 vara4500004;
+//	extern u8 rspbootTextStart;
+//	extern u8 rspbootTextEnd;
+//	extern u8 aspMainTextStart;
+//	extern u8 aspMainDataStart;
+//
+//	if (g_AmgrCurrentCmdList) {
+//		g_AmgrCurrentCmdList = g_AmgrCurrentCmdList;
+//		__scHandleRetraceViaPri(&g_SchedThread, g_AmgrCurrentCmdList);
+//	}
+//
+//	amgrClearDmaBuffers();
+//
+//	somevalue = vara4500004 / 4;
+//	datastart = var800915c8[var8005cf90];
+//	outbuffer = (s16 *) osVirtualToPhysical(info->data);
+//
+//	if (previnfo) {
+//		osAiSetNextBuffer(previnfo->data, previnfo->framesamples * 4);
+//	}
+//
+//	if (somevalue > 248 && var8005cf94 == 0) {
+//		info->framesamples = var800918dc;
+//		var8005cf94 = 2;
+//	} else {
+//		info->framesamples = var800918e0;
+//
+//		if (var8005cf94 != 0) {
+//			var8005cf94--;
+//		}
+//	}
+//
+//	cmd = alAudioFrame(datastart, &var800918e8, outbuffer, info->framesamples);
+//
+//	task = &info->task;
+//
+//	task->next = NULL;
+//	task->msgQ = &var80091848;
+//	task->msg = info;
+//	task->flags = OS_SC_NEEDS_RSP;
+//	task->list.t.type = M_AUDTASK;
+//	task->list.t.flags = 0;
+//	task->list.t.ucode_boot = (u64 *) &rspbootTextStart;
+//	task->list.t.ucode_boot_size = (u32) &rspbootTextEnd - (u32) &rspbootTextStart;
+//	task->list.t.ucode = (u64 *) &aspMainTextStart;
+//	task->list.t.ucode_data = (u64 *) &aspMainDataStart;
+//	task->list.t.ucode_size = SP_UCODE_SIZE;
+//	task->list.t.ucode_data_size = SP_UCODE_DATA_SIZE;
+//	task->list.t.data_ptr = (u64 *) datastart;
+//	task->list.t.data_size = (cmd - datastart) * sizeof(Acmd);
+//	task->list.t.yield_data_ptr = NULL;
+//	task->list.t.yield_data_size = 0;
+//
+//	var8005cf90 ^= 1;
+//
+//	g_AmgrCurrentCmdList = task;
+//}
 
 void amgrHandleDoneMsg(struct audioinfo *info)
 {

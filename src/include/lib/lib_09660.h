@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func00009660(void);
-u32 func0000993c(void);
+void amgrClearDmaBuffers(void);
 u32 func00009a08(void);
 void func00009a80(void);
 void func00009a88(void);

@@ -424,7 +424,7 @@ glabel func00030ce0
 );
 
 GLOBAL_ASM(
-glabel func000312e4
+glabel alAudioFrame
 /*    312e4:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*    312e8:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    312ec:	afa40040 */ 	sw	$a0,0x40($sp)

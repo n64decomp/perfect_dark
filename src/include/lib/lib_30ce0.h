@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func00030ce0(void);
-u32 func000312e4(void);
+Acmd *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen);
 u32 func00031504(void);
 u32 func00031564(void);
 u32 func00031590(void);

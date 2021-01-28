@@ -118,6 +118,13 @@ SECTIONS
 
 	_antipiracyUncloakWriteAddress = 0x7002a324;
 
+	rspbootTextStart = 0x80059fe0;
+	rspbootTextEnd = 0x8005a0b0;
+	aspMainTextStart = 0x8005b4d0;
+	aspMainTextEnd = 0x8005c4d0;
+	aspMainDataStart = 0x8008a2d0;
+	aspMainDataEnd = 0x8008aad0;
+
 	osTvType = 0x80000300;
 	osRomType = 0x80000304;
 	osRomBase = 0x80000308;
@@ -129,6 +136,7 @@ SECTIONS
 
 	var803f50b8 = 0x803f50b8;
 	vara00002e8 = 0xa00002e8;
+	vara4500004 = 0xa4500004;
 	varbc000c02 = 0xbc000c02; /* for ntsc-beta */
 	var800902e4 = 0x800902e4; /* for ntsc-beta */
 	var800902e8 = 0x800902e8; /* for ntsc-beta */

@@ -8,6 +8,5 @@ u32 amgrCreate(void);
 void amgrStartThread(void);
 OSMesgQueue *amgr0009118(void);
 void amgrStopThread(void);
-u32 amgrHandleFrameMsg(void);
 
 #endif
