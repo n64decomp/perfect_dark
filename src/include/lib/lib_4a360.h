@@ -3,7 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0004a460(void);
 f32 sqrtf(f32 value);
 
 #endif

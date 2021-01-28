@@ -20,10 +20,6 @@ const u32 var70052490[] = {0x700037a8};
 const u32 var70052494[] = {0x00000000};
 const u32 var70052498[] = {0x00000000};
 const u32 var7005249c[] = {0x00000000};
-const u32 var700524a0[] = {0x3a83126f};
-const u32 var700524a4[] = {0x3a83126f};
-const u32 var700524a8[] = {0x3a83126f};
-const u32 var700524ac[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel __osExceptionPreamble
