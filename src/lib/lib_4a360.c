@@ -12,7 +12,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004a360
+glabel guMtxF2L
 /*    4a360:	3c014780 */ 	lui	$at,0x4780
 /*    4a364:	44810000 */ 	mtc1	$at,$f0
 /*    4a368:	00a01025 */ 	or	$v0,$a1,$zero
@@ -129,7 +129,7 @@ glabel func0004a460
 /*    4a4f4:	0c012918 */ 	jal	func0004a460
 /*    4a4f8:	27a40018 */ 	addiu	$a0,$sp,0x18
 /*    4a4fc:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*    4a500:	0c0128d8 */ 	jal	func0004a360
+/*    4a500:	0c0128d8 */ 	jal	guMtxF2L
 /*    4a504:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*    4a508:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4a50c:	27bd0058 */ 	addiu	$sp,$sp,0x58

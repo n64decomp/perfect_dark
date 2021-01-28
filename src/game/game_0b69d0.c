@@ -8750,7 +8750,7 @@ glabel func0f0bfc7c
 /*  f0bff24:	0fc2d3ee */ 	jal	currentPlayerSetUnk006c
 /*  f0bff28:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bff2c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0bff30:	0c0128d8 */ 	jal	func0004a360
+/*  f0bff30:	0c0128d8 */ 	jal	guMtxF2L
 /*  f0bff34:	02202825 */ 	or	$a1,$s1,$zero
 /*  f0bff38:	0fc2d3fe */ 	jal	currentPlayerSetUnk1758
 /*  f0bff3c:	02202025 */ 	or	$a0,$s1,$zero
@@ -8759,7 +8759,7 @@ glabel func0f0bfc7c
 /*  f0bff48:	27a5008c */ 	addiu	$a1,$sp,0x8c
 /*  f0bff4c:	8e4d0284 */ 	lw	$t5,0x284($s2)
 /*  f0bff50:	27a4008c */ 	addiu	$a0,$sp,0x8c
-/*  f0bff54:	0c0128d8 */ 	jal	func0004a360
+/*  f0bff54:	0c0128d8 */ 	jal	guMtxF2L
 /*  f0bff58:	8da5005c */ 	lw	$a1,0x5c($t5)
 /*  f0bff5c:	8e430284 */ 	lw	$v1,0x284($s2)
 /*  f0bff60:	8c64005c */ 	lw	$a0,0x5c($v1)
@@ -8861,10 +8861,10 @@ glabel func0f0bfc7c
 //	}
 //
 //	currentPlayerSetUnk006c(s0);
-//	func0004a360(s0, s1);
+//	guMtxF2L(s0, s1);
 //	currentPlayerSetUnk1758(s1);
 //	func00015f04(scale, &sp8c);
-//	func0004a360(&sp8c, g_Vars.currentplayer->matrix5c);
+//	guMtxF2L(&sp8c, g_Vars.currentplayer->matrix5c);
 //	func00016820(g_Vars.currentplayer->matrix5c, g_Vars.currentplayer->matrix60);
 //	currentPlayerSetUnk173c(g_Vars.currentplayer->matrix5c);
 //	currentPlayerSetUnk1738(g_Vars.currentplayer->matrix60);

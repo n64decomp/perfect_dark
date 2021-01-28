@@ -13,7 +13,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00003fb0
+glabel guLookAtF
 /*     3fb0:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*     3fb4:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*     3fb8:	afb00048 */ 	sw	$s0,0x48($sp)
@@ -208,37 +208,13 @@ glabel func00003fb0
 /*     42a0:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-GLOBAL_ASM(
-glabel func000042a4
-/*     42a4:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*     42a8:	44856000 */ 	mtc1	$a1,$f12
-/*     42ac:	44867000 */ 	mtc1	$a2,$f14
-/*     42b0:	c7a40080 */ 	lwc1	$f4,0x80($sp)
-/*     42b4:	c7a60084 */ 	lwc1	$f6,0x84($sp)
-/*     42b8:	c7a80088 */ 	lwc1	$f8,0x88($sp)
-/*     42bc:	c7aa008c */ 	lwc1	$f10,0x8c($sp)
-/*     42c0:	c7b00090 */ 	lwc1	$f16,0x90($sp)
-/*     42c4:	c7b20094 */ 	lwc1	$f18,0x94($sp)
-/*     42c8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     42cc:	afa40070 */ 	sw	$a0,0x70($sp)
-/*     42d0:	44056000 */ 	mfc1	$a1,$f12
-/*     42d4:	44067000 */ 	mfc1	$a2,$f14
-/*     42d8:	afa7007c */ 	sw	$a3,0x7c($sp)
-/*     42dc:	27a40030 */ 	addiu	$a0,$sp,0x30
-/*     42e0:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*     42e4:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*     42e8:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*     42ec:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*     42f0:	e7b00020 */ 	swc1	$f16,0x20($sp)
-/*     42f4:	0c000fec */ 	jal	func00003fb0
-/*     42f8:	e7b20024 */ 	swc1	$f18,0x24($sp)
-/*     42fc:	27a40030 */ 	addiu	$a0,$sp,0x30
-/*     4300:	0c0128d8 */ 	jal	func0004a360
-/*     4304:	8fa50070 */ 	lw	$a1,0x70($sp)
-/*     4308:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*     430c:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*     4310:	03e00008 */ 	jr	$ra
-/*     4314:	00000000 */ 	nop
-/*     4318:	00000000 */ 	nop
-/*     431c:	00000000 */ 	nop
-);
+void guLookAt(Mtx *m, float xEye, float yEye, float zEye,
+		float xAt,  float yAt,  float zAt,
+		float xUp,  float yUp,  float zUp)
+{
+	float mf[4][4];
+
+	guLookAtF(mf, xEye, yEye, zEye, xAt, yAt, zAt, xUp, yUp, zUp);
+
+	guMtxF2L(mf, m);
+}
