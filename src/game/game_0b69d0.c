@@ -3786,10 +3786,10 @@ void func0f0baf38(void)
 Gfx *func0f0baf84(Gfx *gdl)
 {
 	if (g_Vars.currentplayer->pausemode != PAUSEMODE_UNPAUSED) {
-		f32 *a = gfxAllocateMatrix();
+		Mtx *a = gfxAllocateMatrix();
 		u16 b;
 
-		func00004a24(a, &b, g_Vars.currentplayer->zoominfovy,
+		guPerspective(a, &b, g_Vars.currentplayer->zoominfovy,
 				1.4545454978943f, 10, 300, 1);
 
 		gSPMatrix(gdl++, 0x80000000 + (u32)a, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
