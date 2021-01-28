@@ -136,7 +136,7 @@ void menuPlaySound(s32 menusound)
 	if (sound != -1) {
 		s32 handle;
 		OSPri prevpri = osGetThreadPri(NULL);
-		osSetThreadPri(0, osGetThreadPri(&g_AudioThread) + 1);
+		osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 
 		handle = audioStart(var80095200, sound, NULL, -1, -1, -1, -1, -1);
 

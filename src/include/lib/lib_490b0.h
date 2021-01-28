@@ -4,6 +4,6 @@
 #include "types.h"
 
 void func000490b0(void *framebuffer);
-u32 func00049120(void);
+u64 func00049120(void);
 
 #endif

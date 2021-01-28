@@ -46,7 +46,7 @@ glabel func0002fba0
 );
 
 GLOBAL_ASM(
-glabel func0002fc0c
+glabel alClose
 /*    2fc0c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    2fc10:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    2fc14:	afa40018 */ 	sw	$a0,0x18($sp)

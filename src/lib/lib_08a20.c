@@ -378,13 +378,7 @@ u32 var8005d50c = 0x00000000;
 s8 g_AudioIsThreadRunning = false;
 u32 var8005d514 = 0x00000001;
 
-struct audioinfo {
-    s16 *data;
-    s16 framesamples;
-    OSScTask task;
-};
-
-void amgrHandleDoneMsg(struct audioinfo *info);
+void amgrHandleDoneMsg(AudioInfo *info);
 
 void amgrAllocateStack(void)
 {
@@ -469,16 +463,16 @@ glabel amgrCreate
 /*     8b5c:	3c018006 */ 	lui	$at,%hi(var8005cf94)
 /*     8b60:	0c002598 */ 	jal	func00009660
 /*     8b64:	a020cf94 */ 	sb	$zero,%lo(var8005cf94)($at)
-/*     8b68:	3c048009 */ 	lui	$a0,%hi(var80091848)
+/*     8b68:	3c048009 */ 	lui	$a0,%hi(g_AudioManager+0x280)
 /*     8b6c:	3c058009 */ 	lui	$a1,%hi(var80091860)
 /*     8b70:	24a51860 */ 	addiu	$a1,$a1,%lo(var80091860)
-/*     8b74:	24841848 */ 	addiu	$a0,$a0,%lo(var80091848)
+/*     8b74:	24841848 */ 	addiu	$a0,$a0,%lo(g_AudioManager+0x280)
 /*     8b78:	0c0120d0 */ 	jal	osCreateMesgQueue
 /*     8b7c:	24060008 */ 	addiu	$a2,$zero,0x8
-/*     8b80:	3c048009 */ 	lui	$a0,%hi(var80091810)
-/*     8b84:	3c058009 */ 	lui	$a1,%hi(var80091828)
-/*     8b88:	24a51828 */ 	addiu	$a1,$a1,%lo(var80091828)
-/*     8b8c:	24841810 */ 	addiu	$a0,$a0,%lo(var80091810)
+/*     8b80:	3c048009 */ 	lui	$a0,%hi(g_AudioManager+0x248)
+/*     8b84:	3c058009 */ 	lui	$a1,%hi(g_AudioManager+0x260)
+/*     8b88:	24a51828 */ 	addiu	$a1,$a1,%lo(g_AudioManager+0x260)
+/*     8b8c:	24841810 */ 	addiu	$a0,$a0,%lo(g_AudioManager+0x248)
 /*     8b90:	0c0120d0 */ 	jal	osCreateMesgQueue
 /*     8b94:	24060008 */ 	addiu	$a2,$zero,0x8
 /*     8b98:	92af0000 */ 	lbu	$t7,0x0($s5)
@@ -490,12 +484,12 @@ glabel amgrCreate
 /*     8bb0:	000ec843 */ 	sra	$t9,$t6,0x1
 /*     8bb4:	ae590000 */ 	sw	$t9,0x0($s2)
 .L00008bb8:
-/*     8bb8:	3c108009 */ 	lui	$s0,%hi(var800915c8)
-/*     8bbc:	3c138009 */ 	lui	$s3,%hi(var800915d0)
+/*     8bb8:	3c108009 */ 	lui	$s0,%hi(g_AudioManager)
+/*     8bbc:	3c138009 */ 	lui	$s3,%hi(g_AudioManager+0x8)
 /*     8bc0:	3c118009 */ 	lui	$s1,%hi(var800951f0)
 /*     8bc4:	263151f0 */ 	addiu	$s1,$s1,%lo(var800951f0)
-/*     8bc8:	267315d0 */ 	addiu	$s3,$s3,%lo(var800915d0)
-/*     8bcc:	261015c8 */ 	addiu	$s0,$s0,%lo(var800915c8)
+/*     8bc8:	267315d0 */ 	addiu	$s3,$s3,%lo(g_AudioManager+0x8)
+/*     8bcc:	261015c8 */ 	addiu	$s0,$s0,%lo(g_AudioManager)
 .L00008bd0:
 /*     8bd0:	8e480000 */ 	lw	$t0,0x0($s2)
 /*     8bd4:	00002025 */ 	or	$a0,$zero,$zero
@@ -509,10 +503,10 @@ glabel amgrCreate
 /*     8bf4:	0213082b */ 	sltu	$at,$s0,$s3
 /*     8bf8:	1420fff5 */ 	bnez	$at,.L00008bd0
 /*     8bfc:	ae02fffc */ 	sw	$v0,-0x4($s0)
-/*     8c00:	3c108009 */ 	lui	$s0,%hi(var800915c8)
-/*     8c04:	3c128009 */ 	lui	$s2,%hi(var800915d4)
-/*     8c08:	265215d4 */ 	addiu	$s2,$s2,%lo(var800915d4)
-/*     8c0c:	261015c8 */ 	addiu	$s0,$s0,%lo(var800915c8)
+/*     8c00:	3c108009 */ 	lui	$s0,%hi(g_AudioManager)
+/*     8c04:	3c128009 */ 	lui	$s2,%hi(g_AudioManager+0x0c)
+/*     8c08:	265215d4 */ 	addiu	$s2,$s2,%lo(g_AudioManager+0x0c)
+/*     8c0c:	261015c8 */ 	addiu	$s0,$s0,%lo(g_AudioManager)
 .L00008c10:
 /*     8c10:	240a0060 */ 	addiu	$t2,$zero,0x60
 /*     8c14:	afaa0010 */ 	sw	$t2,0x10($sp)
@@ -817,8 +811,8 @@ glabel amgrCreate
 /*     9074:	5420fff6 */ 	bnezl	$at,.L00009050
 /*     9078:	92b80000 */ 	lbu	$t8,0x0($s5)
 .L0000907c:
-/*     907c:	3c048009 */ 	lui	$a0,%hi(var80091880)
-/*     9080:	24841880 */ 	addiu	$a0,$a0,%lo(var80091880)
+/*     907c:	3c048009 */ 	lui	$a0,%hi(g_AudioManager+0x2b8)
+/*     9080:	24841880 */ 	addiu	$a0,$a0,%lo(g_AudioManager+0x2b8)
 /*     9084:	0c00bee8 */ 	jal	func0002fba0
 /*     9088:	00e02825 */ 	or	$a1,$a3,$zero
 /*     908c:	00002025 */ 	or	$a0,$zero,$zero
@@ -826,12 +820,12 @@ glabel amgrCreate
 /*     9094:	2405003c */ 	addiu	$a1,$zero,0x3c
 /*     9098:	3c088009 */ 	lui	$t0,%hi(g_AudioSp)
 /*     909c:	8d0818f0 */ 	lw	$t0,%lo(g_AudioSp)($t0)
-/*     90a0:	3c048009 */ 	lui	$a0,%hi(g_AudioThread)
+/*     90a0:	3c048009 */ 	lui	$a0,%hi(g_AudioManager+0x18)
 /*     90a4:	3c067001 */ 	lui	$a2,%hi(amgrMain)
 /*     90a8:	24090014 */ 	addiu	$t1,$zero,0x14
 /*     90ac:	afa90014 */ 	sw	$t1,0x14($sp)
 /*     90b0:	24c69154 */ 	addiu	$a2,$a2,%lo(amgrMain)
-/*     90b4:	248415e0 */ 	addiu	$a0,$a0,%lo(g_AudioThread)
+/*     90b4:	248415e0 */ 	addiu	$a0,$a0,%lo(g_AudioManager+0x18)
 /*     90b8:	24050004 */ 	addiu	$a1,$zero,0x4
 /*     90bc:	00003825 */ 	or	$a3,$zero,$zero
 /*     90c0:	0c000fb8 */ 	jal	osCreateThread
@@ -849,15 +843,15 @@ glabel amgrCreate
 
 void amgrStartThread(void)
 {
-	osStartThread(&g_AudioThread);
+	osStartThread(&g_AudioManager.thread);
 	g_AudioIsThreadRunning = true;
 }
 
 GLOBAL_ASM(
 glabel amgr0009118
-/*     9118:	3c028009 */ 	lui	$v0,%hi(var80091810)
+/*     9118:	3c028009 */ 	lui	$v0,%hi(g_AudioManager+0x248)
 /*     911c:	03e00008 */ 	jr	$ra
-/*     9120:	24421810 */ 	addiu	$v0,$v0,%lo(var80091810)
+/*     9120:	24421810 */ 	addiu	$v0,$v0,%lo(g_AudioManager+0x248)
 );
 
 /**
@@ -868,7 +862,7 @@ glabel amgr0009118
 void amgrStopThread(void)
 {
 	if (g_AudioIsThreadRunning) {
-		osStopThread(&g_AudioThread);
+		osStopThread(&g_AudioManager.thread);
 	}
 }
 
@@ -885,7 +879,7 @@ glabel amgrMain
 /*     9174:	2dce0001 */ 	sltiu	$t6,$t6,0x1
 /*     9178:	3c048009 */ 	lui	$a0,%hi(g_SchedThread)
 /*     917c:	3c058009 */ 	lui	$a1,%hi(var800918d0)
-/*     9180:	3c068009 */ 	lui	$a2,%hi(var80091810)
+/*     9180:	3c068009 */ 	lui	$a2,%hi(g_AudioManager+0x248)
 /*     9184:	afbe0038 */ 	sw	$s8,0x38($sp)
 /*     9188:	afb70034 */ 	sw	$s7,0x34($sp)
 /*     918c:	afb60030 */ 	sw	$s6,0x30($sp)
@@ -897,7 +891,7 @@ glabel amgrMain
 /*     91a4:	00009825 */ 	or	$s3,$zero,$zero
 /*     91a8:	afa00064 */ 	sw	$zero,0x64($sp)
 /*     91ac:	afa00060 */ 	sw	$zero,0x60($sp)
-/*     91b0:	24c61810 */ 	addiu	$a2,$a2,%lo(var80091810)
+/*     91b0:	24c61810 */ 	addiu	$a2,$a2,%lo(g_AudioManager+0x248)
 /*     91b4:	24a518d0 */ 	addiu	$a1,$a1,%lo(var800918d0)
 /*     91b8:	2484dbd0 */ 	addiu	$a0,$a0,%lo(g_SchedThread)
 /*     91bc:	0c00078c */ 	jal	osScAddClient
@@ -914,8 +908,8 @@ glabel amgrMain
 /*     91e8:	24170004 */ 	addiu	$s7,$zero,0x4
 /*     91ec:	27b60064 */ 	addiu	$s6,$sp,0x64
 .L000091f0:
-/*     91f0:	3c048009 */ 	lui	$a0,%hi(var80091810)
-/*     91f4:	24841810 */ 	addiu	$a0,$a0,%lo(var80091810)
+/*     91f0:	3c048009 */ 	lui	$a0,%hi(g_AudioManager+0x248)
+/*     91f4:	24841810 */ 	addiu	$a0,$a0,%lo(g_AudioManager+0x248)
 /*     91f8:	02c02825 */ 	or	$a1,$s6,$zero
 /*     91fc:	0c0121bc */ 	jal	osRecvMesg
 /*     9200:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -939,12 +933,12 @@ glabel amgrMain
 /*     9244:	3c188009 */ 	lui	$t8,%hi(var80092828)
 /*     9248:	8f182828 */ 	lw	$t8,%lo(var80092828)($t8)
 /*     924c:	24010003 */ 	addiu	$at,$zero,0x3
-/*     9250:	3c048009 */ 	lui	$a0,%hi(var800915d0)
+/*     9250:	3c048009 */ 	lui	$a0,%hi(g_AudioManager+0x8)
 /*     9254:	0301001b */ 	divu	$zero,$t8,$at
 /*     9258:	0000c810 */ 	mfhi	$t9
 /*     925c:	00194080 */ 	sll	$t0,$t9,0x2
 /*     9260:	00882021 */ 	addu	$a0,$a0,$t0
-/*     9264:	8c8415d0 */ 	lw	$a0,%lo(var800915d0)($a0)
+/*     9264:	8c8415d0 */ 	lw	$a0,%lo(g_AudioManager+0x8)($a0)
 /*     9268:	0c002512 */ 	jal	amgrHandleFrameMsg
 /*     926c:	8fa50060 */ 	lw	$a1,0x60($sp)
 /*     9270:	0c002682 */ 	jal	func00009a08
@@ -961,9 +955,9 @@ glabel amgrMain
 /*     929c:	006d082b */ 	sltu	$at,$v1,$t5
 /*     92a0:	01014023 */ 	subu	$t0,$t0,$at
 /*     92a4:	aea30004 */ 	sw	$v1,0x4($s5)
-/*     92a8:	3c018009 */ 	lui	$at,%hi(var80091574)
+/*     92a8:	3c018009 */ 	lui	$at,%hi(var80091570+0x4)
 /*     92ac:	006d4823 */ 	subu	$t1,$v1,$t5
-/*     92b0:	ac291574 */ 	sw	$t1,%lo(var80091574)($at)
+/*     92b0:	ac291574 */ 	sw	$t1,%lo(var80091570+0x4)($at)
 /*     92b4:	ac281570 */ 	sw	$t0,0x1570($at)
 /*     92b8:	240100f0 */ 	addiu	$at,$zero,0xf0
 /*     92bc:	0241001a */ 	div	$zero,$s2,$at
@@ -1037,8 +1031,8 @@ glabel amgrMain
 /*     93c0:	ae2f0004 */ 	sw	$t7,0x4($s1)
 .L000093c4:
 /*     93c4:	8f18d514 */ 	lw	$t8,%lo(var8005d514)($t8)
-/*     93c8:	3c048009 */ 	lui	$a0,%hi(var80091848)
-/*     93cc:	24841848 */ 	addiu	$a0,$a0,%lo(var80091848)
+/*     93c8:	3c048009 */ 	lui	$a0,%hi(g_AudioManager+0x280)
+/*     93cc:	24841848 */ 	addiu	$a0,$a0,%lo(g_AudioManager+0x280)
 /*     93d0:	17000003 */ 	bnez	$t8,.L000093e0
 /*     93d4:	27a50060 */ 	addiu	$a1,$sp,0x60
 /*     93d8:	0c0121bc */ 	jal	osRecvMesg
@@ -1057,9 +1051,9 @@ glabel amgrMain
 .L00009404:
 /*     9404:	1260ff7a */ 	beqz	$s3,.L000091f0
 /*     9408:	00000000 */ 	nop
-/*     940c:	3c048009 */ 	lui	$a0,%hi(var80091880)
-/*     9410:	0c00bf03 */ 	jal	func0002fc0c
-/*     9414:	24841880 */ 	addiu	$a0,$a0,%lo(var80091880)
+/*     940c:	3c048009 */ 	lui	$a0,%hi(g_AudioManager+0x2b8)
+/*     9410:	0c00bf03 */ 	jal	alClose
+/*     9414:	24841880 */ 	addiu	$a0,$a0,%lo(g_AudioManager+0x2b8)
 /*     9418:	8fbf003c */ 	lw	$ra,0x3c($sp)
 /*     941c:	8fb00018 */ 	lw	$s0,0x18($sp)
 /*     9420:	8fb1001c */ 	lw	$s1,0x1c($sp)
@@ -1073,6 +1067,69 @@ glabel amgrMain
 /*     9440:	03e00008 */ 	jr	$ra
 /*     9444:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
+
+// Mismatch: needs bss relocation
+//void amgrMain(void *arg)
+//{
+//	s32 count = 0; // s2
+//	bool done = false; // s3
+//	s16 *msg = NULL; // 64
+//	AudioInfo *info = NULL; // 60
+//
+//	static u32 var8005d514;
+//	static u64 var80091570;
+//	static u64 var80091578;
+//
+//	osScAddClient(&g_SchedThread, &var800918d0, &g_AudioManager.audioFrameMsgQ, (void *)!IS4MB());
+//
+//	while (!done) {
+//		osRecvMesg(&g_AudioManager.audioFrameMsgQ, (OSMesg *) &msg, OS_MESG_BLOCK);
+//
+//		switch (*msg) {
+//		case 4:
+//			var80091588 = func00049120();
+//			func00009aa0(0x30000);
+//			amgrHandleFrameMsg(var800915d0[var80092828 % 3], info);
+//			func00009a08();
+//
+//			count++;
+//			func00009aa0(0x60000);
+//
+//			var80091590 = func00049120();
+//			var80091570 = var80091590 - var80091588;
+//
+//			// 2d8
+//			if (count % 240 == 0) {
+//				var80091578 = var80091580 / 240;
+//				var80091568 = 0;
+//				var80091580 = 0;
+//			} else {
+//				// 34c
+//				var80091580 = (var80091580 + var80091590) - var80091588;
+//			}
+//
+//			if (var80091568 < var80091590 - var80091588) {
+//				var80091568 = var80091590 - var80091588;
+//			}
+//
+//			if (var8005d514 == 0) {
+//				osRecvMesg(&g_AudioManager.audioReplyMsgQ, (OSMesg *) &info, OS_MESG_BLOCK);
+//			}
+//
+//			var8005d514 = 0;
+//			amgrHandleDoneMsg(info);
+//			break;
+//		case 5:
+//			done = true;
+//			break;
+//		case 10:
+//			done = true;
+//			break;
+//		}
+//	}
+//
+//	alClose(&g_AudioManager.g);
+//}
 
 GLOBAL_ASM(
 glabel amgrHandleFrameMsg
@@ -1096,11 +1153,11 @@ glabel amgrHandleFrameMsg
 /*     9488:	3c198006 */ 	lui	$t9,%hi(var8005cf90)
 /*     948c:	8f39cf90 */ 	lw	$t9,%lo(var8005cf90)($t9)
 /*     9490:	3c0ea450 */ 	lui	$t6,0xa450
-/*     9494:	3c098009 */ 	lui	$t1,%hi(var800915c8)
+/*     9494:	3c098009 */ 	lui	$t1,%hi(g_AudioManager)
 /*     9498:	00194080 */ 	sll	$t0,$t9,0x2
 /*     949c:	8dcf0004 */ 	lw	$t7,0x4($t6)
 /*     94a0:	01284821 */ 	addu	$t1,$t1,$t0
-/*     94a4:	8d2915c8 */ 	lw	$t1,%lo(var800915c8)($t1)
+/*     94a4:	8d2915c8 */ 	lw	$t1,%lo(g_AudioManager)($t1)
 /*     94a8:	000fc082 */ 	srl	$t8,$t7,0x2
 /*     94ac:	afb8002c */ 	sw	$t8,0x2c($sp)
 /*     94b0:	afa90024 */ 	sw	$t1,0x24($sp)
@@ -1153,11 +1210,11 @@ glabel amgrHandleFrameMsg
 /*     9560:	3c088006 */ 	lui	$t0,%hi(var8005a0b0)
 /*     9564:	24639fe0 */ 	addiu	$v1,$v1,%lo(var80059fe0)
 /*     9568:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     956c:	3c198009 */ 	lui	$t9,%hi(var80091848)
+/*     956c:	3c198009 */ 	lui	$t9,%hi(g_AudioManager+0x280)
 /*     9570:	2508a0b0 */ 	addiu	$t0,$t0,%lo(var8005a0b0)
 /*     9574:	3c0a8006 */ 	lui	$t2,%hi(var8005b4d0)
 /*     9578:	3c0b8009 */ 	lui	$t3,%hi(var8008a2d0)
-/*     957c:	27391848 */ 	addiu	$t9,$t9,%lo(var80091848)
+/*     957c:	27391848 */ 	addiu	$t9,$t9,%lo(g_AudioManager+0x280)
 /*     9580:	01034823 */ 	subu	$t1,$t0,$v1
 /*     9584:	254ab4d0 */ 	addiu	$t2,$t2,%lo(var8005b4d0)
 /*     9588:	256ba2d0 */ 	addiu	$t3,$t3,%lo(var8008a2d0)
@@ -1223,7 +1280,7 @@ glabel amgrHandleFrameMsg
 //	amgrClearDmaBuffers();
 //
 //	somevalue = vara4500004 / 4;
-//	datastart = var800915c8[var8005cf90];
+//	datastart = g_AudioManager.ACMDList[var8005cf90];
 //	outbuffer = (s16 *) osVirtualToPhysical(info->data);
 //
 //	if (previnfo) {
@@ -1267,7 +1324,7 @@ glabel amgrHandleFrameMsg
 //	g_AmgrCurrentCmdList = task;
 //}
 
-void amgrHandleDoneMsg(struct audioinfo *info)
+void amgrHandleDoneMsg(AudioInfo *info)
 {
 	static bool firsttime = true;
 

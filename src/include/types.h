@@ -6904,4 +6904,48 @@ struct font {
 	struct font2a4 unk2a4[94];
 };
 
+typedef union {
+	struct {
+		short     type;
+	} gen;
+
+	struct {
+		short     type;
+		struct    AudioInfo_s *info;
+	} done;
+
+	OSScMsg       app;
+} AudioMsg;
+
+typedef struct AudioInfo_s {
+	short         *data;          /* Output data pointer */
+	short         frameSamples;   /* # of samples synthesized in this frame */
+	OSScTask      task;           /* scheduler structure */
+	AudioMsg      msg;            /* completion message */
+} AudioInfo;
+
+typedef struct {
+	Acmd          *ACMDList[2];
+	AudioInfo     *audioInfo[3];
+	OSThread      thread;
+	OSMesgQueue   audioFrameMsgQ;
+	OSMesg        audioFrameMsgBuf[8];
+	OSMesgQueue   audioReplyMsgQ;
+	OSMesg        audioReplyMsgBuf[8];
+	ALGlobals     g;
+} AMAudioMgr;
+
+typedef struct {
+	ALLink        node;
+	u32           startAddr;
+	u32           lastFrame;
+	char          *ptr;
+} AMDMABuffer;
+
+typedef struct {
+	u8            initialized;
+	AMDMABuffer   *firstUsed;
+	AMDMABuffer   *firstFree;
+} AMDMAState;
+
 #endif
