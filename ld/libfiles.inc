@@ -118,6 +118,7 @@
 	build/ROMID/lib/ultra/os/thread.o (section); \
 	build/ROMID/lib/ultra/os/destroythread.o (section); \
 	build/ROMID/lib/lib_4a360.o (section); \
+	build/ROMID/lib/ultra/gu/sqrtf.o (section); \
 	build/ROMID/lib/lib_4a5e0.o (section); \
 	build/ROMID/lib/libc/ldiv.o (section); \
 	build/ROMID/lib/ultra/io/siacs.o (section); \

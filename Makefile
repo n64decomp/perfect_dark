@@ -59,6 +59,9 @@ endif
 
 MIPSISET := -mips2 -32
 OPT_LVL := -O2
+LOOPUNROLL := -Wo,-loopunroll,0
+
+$(B_DIR)/lib/lib_4a360.o: LOOPUNROLL :=
 
 $(B_DIR)/lib/libc/ll.o: MIPSISET := -mips3 -o32
 $(B_DIR)/lib/libc/llcvt.o: MIPSISET := -mips3 -o32
@@ -87,7 +90,7 @@ CFLAGS = -DVERSION=$(VERSION) \
 	-DPAL=$(PAL) \
 	-DJPN=$(JPN) \
 	-DPIRACYCHECKS=$(PIRACYCHECKS) \
-	-Wo,-loopunroll,0 \
+	$(LOOPUNROLL) \
 	-Wab,-r4300_mul \
 	-non_shared \
 	-G 0 \

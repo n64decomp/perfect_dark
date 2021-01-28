@@ -82,47 +82,19 @@ glabel guMtxF2L
 /*    4a45c:	00000000 */ 	nop
 );
 
+void guMtxIdentF(float mf[4][4])
+{
+	int	i, j;
+
+	for (i = 0; i < 4; i++) {
+		for (j = 0; j < 4; j++) {
+			mf[i][j] = i == j ? 1 : 0;
+		}
+	}
+}
+
 GLOBAL_ASM(
-glabel guMtxIdentF
-/*    4a460:	3c013f80 */ 	lui	$at,0x3f80
-/*    4a464:	00801825 */ 	or	$v1,$a0,$zero
-/*    4a468:	44810000 */ 	mtc1	$at,$f0
-/*    4a46c:	44801000 */ 	mtc1	$zero,$f2
-/*    4a470:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    4a474:	00001025 */ 	or	$v0,$zero,$zero
-/*    4a478:	24070004 */ 	addiu	$a3,$zero,0x4
-/*    4a47c:	24060003 */ 	addiu	$a2,$zero,0x3
-/*    4a480:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0004a484:
-/*    4a484:	54400004 */ 	bnezl	$v0,.L0004a498
-/*    4a488:	e4620000 */ 	swc1	$f2,0x0($v1)
-/*    4a48c:	10000002 */ 	b	.L0004a498
-/*    4a490:	e4600000 */ 	swc1	$f0,0x0($v1)
-/*    4a494:	e4620000 */ 	swc1	$f2,0x0($v1)
-.L0004a498:
-/*    4a498:	54440004 */ 	bnel	$v0,$a0,.L0004a4ac
-/*    4a49c:	e4620004 */ 	swc1	$f2,0x4($v1)
-/*    4a4a0:	10000002 */ 	b	.L0004a4ac
-/*    4a4a4:	e4600004 */ 	swc1	$f0,0x4($v1)
-/*    4a4a8:	e4620004 */ 	swc1	$f2,0x4($v1)
-.L0004a4ac:
-/*    4a4ac:	54450004 */ 	bnel	$v0,$a1,.L0004a4c0
-/*    4a4b0:	e4620008 */ 	swc1	$f2,0x8($v1)
-/*    4a4b4:	10000002 */ 	b	.L0004a4c0
-/*    4a4b8:	e4600008 */ 	swc1	$f0,0x8($v1)
-/*    4a4bc:	e4620008 */ 	swc1	$f2,0x8($v1)
-.L0004a4c0:
-/*    4a4c0:	54460004 */ 	bnel	$v0,$a2,.L0004a4d4
-/*    4a4c4:	e462000c */ 	swc1	$f2,0xc($v1)
-/*    4a4c8:	10000002 */ 	b	.L0004a4d4
-/*    4a4cc:	e460000c */ 	swc1	$f0,0xc($v1)
-/*    4a4d0:	e462000c */ 	swc1	$f2,0xc($v1)
-.L0004a4d4:
-/*    4a4d4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    4a4d8:	1447ffea */ 	bne	$v0,$a3,.L0004a484
-/*    4a4dc:	24630010 */ 	addiu	$v1,$v1,0x10
-/*    4a4e0:	03e00008 */ 	jr	$ra
-/*    4a4e4:	00000000 */ 	nop
+glabel func0004a4e8
 /*    4a4e8:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*    4a4ec:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4a4f0:	afa40058 */ 	sw	$a0,0x58($sp)
@@ -135,6 +107,10 @@ glabel guMtxIdentF
 /*    4a50c:	27bd0058 */ 	addiu	$sp,$sp,0x58
 /*    4a510:	03e00008 */ 	jr	$ra
 /*    4a514:	00000000 */ 	nop
+);
+
+GLOBAL_ASM(
+glabel func0004a518
 /*    4a518:	3c013780 */ 	lui	$at,0x3780
 /*    4a51c:	44810000 */ 	mtc1	$at,$f0
 /*    4a520:	27bdfff0 */ 	addiu	$sp,$sp,-16
@@ -183,13 +159,4 @@ glabel guMtxIdentF
 /*    4a5c4:	03e00008 */ 	jr	$ra
 /*    4a5c8:	27bd0010 */ 	addiu	$sp,$sp,0x10
 /*    4a5cc:	00000000 */ 	nop
-);
-
-// func0004a5d0
-GLOBAL_ASM(
-glabel sqrtf
-/*    4a5d0:	03e00008 */ 	jr	$ra
-/*    4a5d4:	46006004 */ 	sqrt.s	$f0,$f12
-/*    4a5d8:	00000000 */ 	nop
-/*    4a5dc:	00000000 */ 	nop
 );
