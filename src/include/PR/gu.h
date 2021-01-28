@@ -2,6 +2,11 @@
 #define _ULTRA64_GU_H_
 
 #define GU_PI 3.1415926
+
+#define	FTOFIX32(x)	(long)((x) * (float)0x00010000)
+#define	FIX32TOF(x)	((float)(x) * (1.0f / (float)0x00010000))
+#define	FTOFRAC8(x)	((int) MIN(((x) * (128.0f)), 127.0f) & 0xff)
+
 /* Functions */
 
 void guPerspectiveF(float mf[4][4], u16 *perspNorm, float fovy, float aspect,
