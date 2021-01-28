@@ -12,8 +12,13 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
+void guLookAtReflectF(float mf[4][4], LookAt *l,
+		      float xEye, float yEye, float zEye,
+		      float xAt,  float yAt,  float zAt,
+		      float xUp,  float yUp,  float zUp);
+
 GLOBAL_ASM(
-glabel func00004320
+glabel guLookAtReflectF
 /*     4320:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*     4324:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*     4328:	f7be0038 */ 	sdc1	$f30,0x38($sp)
@@ -275,39 +280,14 @@ glabel func00004320
 /*     4708:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-GLOBAL_ASM(
-glabel func0000470c
-/*     470c:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*     4710:	c7a40088 */ 	lwc1	$f4,0x88($sp)
-/*     4714:	44866000 */ 	mtc1	$a2,$f12
-/*     4718:	44877000 */ 	mtc1	$a3,$f14
-/*     471c:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*     4720:	c7a400a0 */ 	lwc1	$f4,0xa0($sp)
-/*     4724:	c7a6008c */ 	lwc1	$f6,0x8c($sp)
-/*     4728:	c7a80090 */ 	lwc1	$f8,0x90($sp)
-/*     472c:	c7aa0094 */ 	lwc1	$f10,0x94($sp)
-/*     4730:	c7b00098 */ 	lwc1	$f16,0x98($sp)
-/*     4734:	c7b2009c */ 	lwc1	$f18,0x9c($sp)
-/*     4738:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*     473c:	afa40078 */ 	sw	$a0,0x78($sp)
-/*     4740:	44066000 */ 	mfc1	$a2,$f12
-/*     4744:	44077000 */ 	mfc1	$a3,$f14
-/*     4748:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*     474c:	e7a40028 */ 	swc1	$f4,0x28($sp)
-/*     4750:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*     4754:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*     4758:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*     475c:	e7b00020 */ 	swc1	$f16,0x20($sp)
-/*     4760:	0c0010c8 */ 	jal	func00004320
-/*     4764:	e7b20024 */ 	swc1	$f18,0x24($sp)
-/*     4768:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*     476c:	0c0128d8 */ 	jal	guMtxF2L
-/*     4770:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*     4774:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*     4778:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*     477c:	03e00008 */ 	jr	$ra
-/*     4780:	00000000 */ 	nop
-/*     4784:	00000000 */ 	nop
-/*     4788:	00000000 */ 	nop
-/*     478c:	00000000 */ 	nop
-);
+void guLookAtReflect(Mtx *m, LookAt *l, float xEye, float yEye, float zEye,
+		float xAt,  float yAt,  float zAt,
+		float xUp,  float yUp,  float zUp)
+{
+	float mf[4][4];
+
+	guLookAtReflectF(mf, l, xEye, yEye, zEye, xAt, yAt, zAt,
+			xUp, yUp, zUp);
+
+	guMtxF2L(mf, m);
+}

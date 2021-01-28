@@ -8665,7 +8665,7 @@ glabel func0f0bfc7c
 /*  f0bfde0:	8fa70078 */ 	lw	$a3,0x78($sp)
 /*  f0bfde4:	e7a40024 */ 	swc1	$f4,0x24($sp)
 /*  f0bfde8:	c6280008 */ 	lwc1	$f8,0x8($s1)
-/*  f0bfdec:	0c0011c3 */ 	jal	func0000470c
+/*  f0bfdec:	0c0011c3 */ 	jal	guLookAtReflect
 /*  f0bfdf0:	e7a80028 */ 	swc1	$f8,0x28($sp)
 /*  f0bfdf4:	8fa20110 */ 	lw	$v0,0x110($sp)
 /*  f0bfdf8:	8e4a0284 */ 	lw	$t2,0x284($s2)
@@ -8831,7 +8831,7 @@ glabel func0f0bfc7c
 //			cam_look->x, cam_look->y, cam_look->z,
 //			cam_up->x, cam_up->y, cam_up->z);
 //
-//	func0000470c(spd0, spcc,
+//	guLookAtReflect(spd0, spcc,
 //			sp74.x, sp74.y, sp74.z,
 //			sp80.x, sp80.y, sp80.z,
 //			cam_up->x, cam_up->y, cam_up->z);
