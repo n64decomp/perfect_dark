@@ -23,7 +23,6 @@
 #include "lib/lib_2fa00.h"
 #include "lib/lib_48150.h"
 #include "lib/lib_48cd0.h"
-#include "lib/lib_48f50.h"
 #include "types.h"
 
 void func00001b10(u32 value)
@@ -502,7 +501,7 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 					osViBlack(var8005ce90);
 					osViSetXScale(var8005ce78[1 - var8005ce74]);
 					osViSetYScale(var8005ce80[1 - var8005ce74]);
-					func00048f50(0x42);
+					osViSetSpecialFeatures(0x42);
 				}
 
 				var8005ce88[1 - var8005ce74] = 0;
