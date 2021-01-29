@@ -1,16 +1,4 @@
 #include <ultra64.h>
-#include "constants.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
-#include "gvars/gvars.h"
-#include "lib/lib_4a360.h"
-#include "lib/lib_4fe20.h"
-#include "types.h"
 
 void guFrustumF(float mf[4][4], float l, float r, float b, float t, float n, float f, float scale)
 {
@@ -35,7 +23,7 @@ void guFrustumF(float mf[4][4], float l, float r, float b, float t, float n, flo
 }
 
 GLOBAL_ASM(
-glabel func0004ff80
+glabel guFrustum
 /*    4ff80:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*    4ff84:	44856000 */ 	mtc1	$a1,$f12
 /*    4ff88:	44867000 */ 	mtc1	$a2,$f14
@@ -65,3 +53,13 @@ glabel func0004ff80
 /*    4ffe8:	00000000 */ 	nop
 /*    4ffec:	00000000 */ 	nop
 );
+
+// Mismatch: Goal moves a3 to f16, while this stores it in the stack.
+//void guFrustum(Mtx *m, float l, float r, float b, float t, float n, float f, float scale)
+//{
+//	float mf[4][4];
+//
+//	guFrustumF(mf, l, r, b, t, n, f, scale);
+//
+//	guMtxF2L(mf, m);
+//}
