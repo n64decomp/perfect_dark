@@ -10,7 +10,6 @@
 #include "game/game_0b28d0.h"
 #include "gvars/gvars.h"
 #include "lib/memory.h"
-#include "lib/lib_1a500.h"
 #include "types.h"
 
 GLOBAL_ASM(

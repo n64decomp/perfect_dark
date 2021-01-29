@@ -14,7 +14,6 @@
 #include "game/game_1a7560.h"
 #include "game/propobj.h"
 #include "gvars/gvars.h"
-#include "lib/lib_1a500.h"
 #include "types.h"
 
 u32 setupGetCommandLength(u32 *cmd)

@@ -9,9 +9,8 @@
 #include "game/data/data_02da90.h"
 #include "game/pak/pak.h"
 #include "gvars/gvars.h"
-#include "lib/lib_04a80.h"
 #include "lib/main.h"
-#include "lib/lib_13900.h"
+#include "lib/controller.h"
 #include "lib/lib_4f5e0.h"
 #include "types.h"
 

@@ -14,8 +14,8 @@
 #include "game/pad.h"
 #include "gvars/gvars.h"
 #include "lib/lib_159b0.h"
-#include "lib/lib_1a500.h"
 #include "lib/lib_233c0.h"
+#include "lib/model.h"
 #include "types.h"
 
 GLOBAL_ASM(

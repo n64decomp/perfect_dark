@@ -103,17 +103,16 @@
 #include "game/utils.h"
 #include "game/wallhit.h"
 #include "gvars/gvars.h"
+#include "lib/controller.h"
 #include "lib/lib_06440.h"
 #include "lib/lib_09660.h"
 #include "lib/main.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_11420.h"
 #include "lib/lib_12dc0.h"
-#include "lib/lib_13900.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_317f0.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 const char var7f1b7730[] = "fr: %d\n";

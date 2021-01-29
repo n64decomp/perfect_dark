@@ -21,7 +21,6 @@
 #include "lib/lib_12dc0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_317f0.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 const char var7f1ab400[] = "Propsnd : USING TIME 60\n";

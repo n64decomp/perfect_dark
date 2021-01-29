@@ -15,8 +15,8 @@
 #include "game/game_127910.h"
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"
+#include "lib/controller.h"
 #include "lib/lib_13130.h"
-#include "lib/lib_13900.h"
 #include "types.h"
 
 void amTick(void)

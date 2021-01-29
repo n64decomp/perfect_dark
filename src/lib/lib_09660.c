@@ -13,7 +13,6 @@
 #include "game/game_176080.h"
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"
-#include "lib/lib_04840.h"
 #include "lib/lib_09660.h"
 #include "lib/memory.h"
 #include "lib/lib_159b0.h"
@@ -23,9 +22,7 @@
 #include "lib/lib_48dc0.h"
 #include "lib/lib_48ef0.h"
 #include "lib/lib_48f50.h"
-#include "lib/lib_4a360.h"
 #include "lib/lib_4b170.h"
-#include "lib/lib_4e470.h"
 #include "types.h"
 
 const u32 var700526d0[] = {0x01400140};

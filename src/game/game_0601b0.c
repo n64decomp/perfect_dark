@@ -38,10 +38,8 @@
 #include "lib/lib_12dc0.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_1a500.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_317f0.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 f32 var80069880 = 1;

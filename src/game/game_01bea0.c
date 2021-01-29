@@ -31,7 +31,6 @@
 #include "lib/lib_09660.h"
 #include "lib/main.h"
 #include "lib/lib_0e9d0.h"
-#include "lib/lib_13900.h"
 #include "types.h"
 
 const char var7f1a85b0[] = "lvup: %d\n";

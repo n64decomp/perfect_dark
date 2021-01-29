@@ -15,7 +15,6 @@
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"
 #include "lib/lib_13130.h"
-#include "lib/lib_13900.h"
 #include "types.h"
 
 f32 pdmodeGetReaction(void)

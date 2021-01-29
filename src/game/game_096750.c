@@ -9,7 +9,6 @@
 #include "game/data/data_02da90.h"
 #include "game/game_0969d0.h"
 #include "gvars/gvars.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 f32 func0f096750(f32 x, f32 z)

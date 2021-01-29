@@ -11,7 +11,6 @@
 #include "game/game_096ca0.h"
 #include "gvars/gvars.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 const u32 var7f1ab870[] = {0x3c23d70a};

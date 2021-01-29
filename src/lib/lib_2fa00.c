@@ -9,7 +9,6 @@
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
 #include "lib/lib_0c000.h"
-#include "lib/lib_4e690.h"
 #include "types.h"
 
 void rmonproc()

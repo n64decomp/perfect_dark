@@ -11,7 +11,6 @@
 #include "game/game_157db0.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
-#include "lib/lib_04790.h"
 #include "lib/memory.h"
 #include "lib/lib_233c0.h"
 #include "types.h"

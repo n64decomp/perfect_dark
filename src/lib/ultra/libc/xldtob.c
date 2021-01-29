@@ -1,22 +1,4 @@
 #include <ultra64.h>
-#include "constants.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
-#include "gvars/gvars.h"
-#include "lib/lib_04790.h"
-#include "lib/lib_04a80.h"
-#include "lib/lib_16110.h"
-#include "lib/lib_48150.h"
-#include "lib/lib_4a360.h"
-#include "lib/lib_4a5e0.h"
-#include "lib/libc/ldiv.h"
-#include "lib/libc/ll.h"
-#include "types.h"
 
 /* float properties */
 #define _D0 0
@@ -45,6 +27,35 @@
 #define _D1 1 /* big-endian order */
 #define _D2 2
 #define _D3 3
+
+typedef struct {
+    union {
+        /* 00 */ long long s64;
+        double f64;
+    } value;
+    /* 08 */ char *buff;
+    /* 0c */ int n0;
+    /* 10 */ int num_leading_zeros;
+    /* 14 */ int part2_len;
+    /* 18 */ int num_mid_zeros;
+    /* 1c */ int part3_len;
+    /* 20 */ int num_trailing_zeros;
+    /* 24 */ int precision;
+    /* 28 */ int width;
+    /* 2c */ unsigned int size;
+    /* 30 */ unsigned int flags;
+    /* 34 */ char length;
+} printf_struct;
+
+#define FLAGS_SPACE 1
+#define FLAGS_PLUS 2
+#define FLAGS_MINUS 4
+#define FLAGS_HASH 8
+#define FLAGS_ZERO 16
+
+u32 _Ldtob(void);
+short _Ldunscale(short *pex, printf_struct *px);
+void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp);
 
 const u32 var700524d0[] = {0x40240000};
 const u32 var700524d4[] = {0x00000000};

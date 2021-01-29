@@ -115,7 +115,7 @@ glabel viMgrMain
 /*     31f0:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*     31f4:	afb10018 */ 	sw	$s1,0x18($sp)
 /*     31f8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     31fc:	0c0125e0 */ 	jal	func00049780
+/*     31fc:	0c0125e0 */ 	jal	__osViGetCurrentContext
 /*     3200:	afa00044 */ 	sw	$zero,0x44($sp)
 /*     3204:	94430002 */ 	lhu	$v1,0x2($v0)
 /*     3208:	3c018009 */ 	lui	$at,%hi(var80090290)
@@ -158,7 +158,7 @@ glabel viMgrMain
 /*     328c:	306fffff */ 	andi	$t7,$v1,0xffff
 /*     3290:	15e0000e */ 	bnez	$t7,.L000032cc
 /*     3294:	a42f0290 */ 	sh	$t7,%lo(var80090290)($at)
-/*     3298:	0c0125e0 */ 	jal	func00049780
+/*     3298:	0c0125e0 */ 	jal	__osViGetCurrentContext
 /*     329c:	00000000 */ 	nop
 /*     32a0:	8c580010 */ 	lw	$t8,0x10($v0)
 /*     32a4:	00408025 */ 	or	$s0,$v0,$zero

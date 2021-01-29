@@ -9,7 +9,6 @@
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
 #include "lib/lib_3e730.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 GLOBAL_ASM(

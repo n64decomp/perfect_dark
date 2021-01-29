@@ -1,17 +1,7 @@
 #include <ultra64.h>
-#include "constants.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
-#include "gvars/gvars.h"
-#include "types.h"
 
 GLOBAL_ASM(
-glabel func0004e270
+glabel osAiSetFrequency
 /*    4e270:	3c058006 */ 	lui	$a1,%hi(osViClock)
 /*    4e274:	24a5cf68 */ 	addiu	$a1,$a1,%lo(osViClock)
 /*    4e278:	8cae0000 */ 	lw	$t6,0x0($a1)

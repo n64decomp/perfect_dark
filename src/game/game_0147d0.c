@@ -17,7 +17,6 @@
 #include "lib/memory.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_1a500.h"
 #include "types.h"
 
 void func0f0147d0(void)

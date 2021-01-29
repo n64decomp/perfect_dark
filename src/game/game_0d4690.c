@@ -17,7 +17,6 @@
 #include "lib/lib_13130.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_4fe20.h"
 #include "types.h"
 
 const u32 var7f1adba0[] = {0x74786d75};

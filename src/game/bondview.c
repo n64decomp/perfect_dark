@@ -22,9 +22,7 @@
 #include "lib/main.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_13130.h"
-#include "lib/lib_13900.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 #include "gbiex.h"
 

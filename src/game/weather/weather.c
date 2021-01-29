@@ -22,7 +22,6 @@
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_317f0.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 struct weatherdata *g_WeatherData = NULL;

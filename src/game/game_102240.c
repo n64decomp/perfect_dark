@@ -37,7 +37,6 @@
 #include "lib/main.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_13130.h"
-#include "lib/lib_13900.h"
 #include "types.h"
 
 char *menuTextCurrentStageName(struct menuitem *item)

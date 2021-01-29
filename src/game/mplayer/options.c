@@ -41,7 +41,6 @@
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 s32 menuhandlerMpOpenOptions(u32 operation, struct menuitem *item, union handlerdata *data)

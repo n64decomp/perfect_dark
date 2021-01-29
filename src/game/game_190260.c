@@ -32,9 +32,9 @@
 #include "game/propobj.h"
 #include "game/splat.h"
 #include "gvars/gvars.h"
+#include "lib/model.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_1a500.h"
 #include "lib/lib_233c0.h"
 #include "types.h"
 

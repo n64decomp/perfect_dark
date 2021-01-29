@@ -10,8 +10,6 @@
 #include "gvars/gvars.h"
 #include "lib/lib_0bfb0.h"
 #include "lib/lib_13130.h"
-#include "lib/lib_4a5e0.h"
-#include "lib/lib_4e690.h"
 #include "types.h"
 
 const char var70054010[] = "s1";

@@ -61,14 +61,14 @@ MIPSISET := -mips2 -32
 OPT_LVL := -O2
 LOOPUNROLL := -Wo,-loopunroll,0
 
-$(B_DIR)/lib/lib_4a360.o: LOOPUNROLL :=
-$(B_DIR)/lib/lib_4fe20.o: LOOPUNROLL :=
+$(B_DIR)/lib/ultra/gu/mtxutil.o: LOOPUNROLL :=
+$(B_DIR)/lib/ultra/gu/frustum.o: LOOPUNROLL :=
 
-$(B_DIR)/lib/libc/ll.o: MIPSISET := -mips3 -o32
-$(B_DIR)/lib/libc/llcvt.o: MIPSISET := -mips3 -o32
+$(B_DIR)/lib/ultra/libc/ll.o: MIPSISET := -mips3 -o32
+$(B_DIR)/lib/ultra/libc/llcvt.o: MIPSISET := -mips3 -o32
 
-$(B_DIR)/lib/libc/ll.o: OPT_LVL := -O1
-$(B_DIR)/lib/libc/llcvt.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/libc/ll.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/libc/llcvt.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/dpctr.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/pigetcmdq.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/sp.o: OPT_LVL := -O1
@@ -386,13 +386,13 @@ $(B_DIR)/boot/%.o: src/boot/%.c
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ $(OPT_LVL)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
-$(B_DIR)/lib/libc/llcvt.o: src/lib/libc/llcvt.c
+$(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.c
 	@mkdir -p $(dir $@)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ $(OPT_LVL)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 	tools/patchmips3 $@ || rm $@
 
-$(B_DIR)/lib/libc/ll.o: src/lib/libc/ll.c
+$(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c
 	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@ $(OPT_LVL)
 	tools/patchmips3 $@ || rm $@

@@ -65,23 +65,18 @@
 #include "game/propobj.h"
 #include "game/wallhit.h"
 #include "gvars/gvars.h"
-#include "lib/lib_04790.h"
-#include "lib/lib_04a80.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_0d0a0.h"
 #include "lib/main.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/memory.h"
+#include "lib/model.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_13130.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_1a500.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_317f0.h"
-#include "lib/lib_4a360.h"
-#include "lib/lib_4a5e0.h"
-#include "lib/lib_4e270.h"
 #include "types.h"
 
 const char var7f1a9f60[] = "debugdoors";
@@ -34971,7 +34966,7 @@ glabel func0f084cf0
 /*  f084e14:	03284821 */ 	addu	$t1,$t9,$t0
 /*  f084e18:	50490004 */ 	beql	$v0,$t1,.L0f084e2c
 /*  f084e1c:	8e2a0040 */ 	lw	$t2,0x40($s1)
-/*  f084e20:	0c01389c */ 	jal	func0004e270
+/*  f084e20:	0c01389c */ 	jal	osAiSetFrequency
 /*  f084e24:	34843880 */ 	ori	$a0,$a0,0x3880
 /*  f084e28:	8e2a0040 */ 	lw	$t2,0x40($s1)
 .L0f084e2c:

@@ -18,7 +18,6 @@
 #include "lib/lib_0d0a0.h"
 #include "lib/main.h"
 #include "lib/memory.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 const char var7f1b73b0[] = "burncol";

@@ -9,7 +9,6 @@
 #include "game/data/data_02da90.h"
 #include "game/game_000880.h"
 #include "gvars/gvars.h"
-#include "lib/lib_50090.h"
 #include "types.h"
 
 void func0f000880(void)

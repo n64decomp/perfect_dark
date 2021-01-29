@@ -14,7 +14,6 @@
 #include "gvars/gvars.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_1a500.h"
 #include "types.h"
 
 bool (*g_CommandPointers[])(void) = {

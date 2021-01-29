@@ -11,10 +11,8 @@
 #include "game/game_096750.h"
 #include "game/padhalllv.h"
 #include "gvars/gvars.h"
-#include "lib/lib_04790.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_4a360.h"
 #include "lib/lib_4f5e0.h"
 #include "types.h"
 

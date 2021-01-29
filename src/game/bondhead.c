@@ -13,8 +13,8 @@
 #include "gvars/gvars.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_159b0.h"
-#include "lib/lib_1a500.h"
 #include "lib/lib_233c0.h"
+#include "lib/model.h"
 #include "types.h"
 
 struct var80075c00 var80075c00[] = {

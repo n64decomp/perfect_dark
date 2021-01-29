@@ -38,12 +38,11 @@
 #include "game/propobj.h"
 #include "gvars/gvars.h"
 #include "lib/memory.h"
+#include "lib/model.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_1a500.h"
 #include "lib/lib_233c0.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 struct monitorscreen var80061a80 = {

@@ -14,9 +14,7 @@
 #include "lib/lib_0d0a0.h"
 #include "lib/main.h"
 #include "lib/memory.h"
-#include "lib/lib_48120.h"
 #include "lib/lib_4b170.h"
-#include "lib/lib_4e470.h"
 #include "types.h"
 
 void func0f16e810(u32 arg0)

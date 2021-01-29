@@ -18,8 +18,6 @@
 #include "lib/lib_09660.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_4a360.h"
-#include "lib/lib_50090.h"
 #include "types.h"
 
 GLOBAL_ASM(

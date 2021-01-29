@@ -8,10 +8,9 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
-#include "lib/lib_15860.h"
 #include "types.h"
 
-void initGlobalVariables(void)
+void gvarsInit(void)
 {
 	g_Vars.diffframe60f = 1;
 	g_Vars.lvframe60 = 0;

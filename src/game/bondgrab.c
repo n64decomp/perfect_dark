@@ -19,11 +19,9 @@
 #include "game/bondhead.h"
 #include "game/propobj.h"
 #include "gvars/gvars.h"
-#include "lib/lib_04790.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 const char var7f1ad940[] = "bondgrab.c";

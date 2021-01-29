@@ -49,7 +49,6 @@
 #include "gvars/gvars.h"
 #include "lib/lib_070d0.h"
 #include "lib/lib_074f0.h"
-#include "lib/lib_08a20.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_0bfb0.h"
 #include "lib/lib_0c000.h"
@@ -62,8 +61,6 @@
 #include "lib/lib_13130.h"
 #include "lib/lib_13750.h"
 #include "lib/lib_13790.h"
-#include "lib/lib_13900.h"
-#include "lib/lib_15860.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_2f490.h"
 #include "lib/lib_2fa00.h"
@@ -208,7 +205,7 @@ glabel mainInit
 /*     d534:	00000000 */ 	nop
 /*     d538:	0c002288 */ 	jal	amgrAllocateStack
 /*     d53c:	00000000 */ 	nop
-/*     d540:	0c005618 */ 	jal	initGlobalVariables
+/*     d540:	0c005618 */ 	jal	gvarsInit
 /*     d544:	00000000 */ 	nop
 /*     d548:	0c004878 */ 	jal	func000121e0
 /*     d54c:	00000000 */ 	nop
@@ -623,7 +620,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	faultCreateThread();
 //	func0000d0a0();
 //	amgrAllocateStack();
-//	initGlobalVariables();
+//	gvarsInit();
 //	func000121e0();
 //	func00012a0c();
 //	func00013758();

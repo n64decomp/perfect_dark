@@ -1,5 +1,5 @@
-#ifndef _IN_LIB_LIB_08A20_H
-#define _IN_LIB_LIB_08A20_H
+#ifndef _IN_LIB_AUDIOMGR_H
+#define _IN_LIB_AUDIOMGR_H
 #include <ultra64.h>
 #include "types.h"
 

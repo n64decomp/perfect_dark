@@ -9,7 +9,6 @@
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
 #include "lib/lib_0d0a0.h"
-#include "lib/lib_4e470.h"
 #include "types.h"
 
 u8 var8005d9a0 = 0;

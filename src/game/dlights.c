@@ -29,7 +29,6 @@
 #include "lib/lib_16110.h"
 #include "lib/lib_2f490.h"
 #include "lib/lib_317f0.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 const char var7f1a78e0[] = "LIGHTS : Hit occured on light %d in room %d\n";

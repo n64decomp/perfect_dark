@@ -12,13 +12,11 @@
 #include "game/sky.h"
 #include "game/game_1531a0.h"
 #include "gvars/gvars.h"
-#include "lib/lib_04790.h"
 #include "lib/lib_09660.h"
 #include "lib/memory.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 u32 var8007f120 = 0x00000000;

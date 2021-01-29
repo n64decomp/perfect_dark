@@ -11,7 +11,6 @@
 #include "game/utils.h"
 #include "gvars/gvars.h"
 #include "lib/memory.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 const char var7f1b7cb0[] = "UM_Make : In\n";

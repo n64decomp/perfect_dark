@@ -20,14 +20,12 @@
 #include "game/game_157db0.h"
 #include "game/game_166e40.h"
 #include "gvars/gvars.h"
-#include "lib/lib_04790.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_317f0.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 const u32 var7f1a7e80[] = {0x00000092};

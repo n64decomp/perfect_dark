@@ -30,7 +30,6 @@
 #include "lib/lib_12dc0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 const char var7f1b5230[] = "VTXSTORE : vtxfixrefs -> Start - p1=%x, p2=%x\n";

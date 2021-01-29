@@ -15,7 +15,6 @@
 #include "game/game_173a00.h"
 #include "gvars/gvars.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 s32 func0f0b3350(s32 value)

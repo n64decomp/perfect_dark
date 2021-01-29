@@ -11,7 +11,6 @@
 #include "game/game_000130.h"
 #include "game/chr/chr.h"
 #include "gvars/gvars.h"
-#include "lib/lib_1a500.h"
 #include "types.h"
 
 void func0f000090(void)

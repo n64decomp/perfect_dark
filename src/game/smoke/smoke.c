@@ -18,7 +18,6 @@
 #include "gvars/gvars.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_4a360.h"
 #include "types.h"
 
 const u32 var7f1b55d0[] = {0x46ea6000};
