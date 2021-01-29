@@ -180,6 +180,7 @@ void osViSetEvent(OSMesgQueue *mq, OSMesg msg, u32 retraceCount);
 void osViBlack(u8 active);
 void osViSetSpecialFeatures(u32 func);
 void osViSwapBuffer(void *vaddr);
+void osViSetXScale(f32 scale);
 void osViSetYScale(f32 scale);
 
 

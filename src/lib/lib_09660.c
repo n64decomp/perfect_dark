@@ -19,7 +19,6 @@
 #include "lib/lib_2faf0.h"
 #include "lib/lib_30ce0.h"
 #include "lib/lib_48cd0.h"
-#include "lib/lib_48dc0.h"
 #include "lib/lib_48f50.h"
 #include "lib/lib_4b170.h"
 #include "types.h"
@@ -793,7 +792,7 @@ glabel func00009ed4
 /*     9ff8:	000a5880 */ 	sll	$t3,$t2,0x2
 /*     9ffc:	000b6823 */ 	negu	$t5,$t3
 /*     a000:	002d0821 */ 	addu	$at,$at,$t5
-/*     a004:	0c012370 */ 	jal	func00048dc0
+/*     a004:	0c012370 */ 	jal	osViSetXScale
 /*     a008:	c42cce7c */ 	lwc1	$f12,%lo(var8005ce78+0x4)($at)
 /*     a00c:	3c0e8006 */ 	lui	$t6,%hi(var8005ce74)
 /*     a010:	8dcece74 */ 	lw	$t6,%lo(var8005ce74)($t6)
