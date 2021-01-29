@@ -428,7 +428,7 @@ glabel faultproc
 /*     c0b8:	24060001 */ 	addiu	$a2,$zero,0x1
 /*     c0bc:	0c012194 */ 	jal	osSetIntMask
 /*     c0c0:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     c0c4:	0c013990 */ 	jal	func0004e640
+/*     c0c4:	0c013990 */ 	jal	__osGetCurrFaultedThread
 /*     c0c8:	00408025 */ 	or	$s0,$v0,$zero
 /*     c0cc:	3c018009 */ 	lui	$at,%hi(var80094acc)
 /*     c0d0:	1040fff6 */ 	beqz	$v0,.L0000c0ac
@@ -467,7 +467,7 @@ glabel faultproc
 //		do {
 //			osRecvMesg(&g_FaultMesgQueue, &msg, 1);
 //			mask = osSetIntMask(1);
-//			result = func0004e640();
+//			result = __osGetCurrFaultedThread();
 //		} while (!result);
 //
 //		osSetIntMask(mask);

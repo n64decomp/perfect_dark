@@ -406,8 +406,8 @@ glabel __osException
 /*     3a80:	08000f44 */ 	j	0x3d10
 /*     3a84:	ad3a0000 */ 	sw	$k0,0x0($t1)
 .L00003a88:
-/*     3a88:	3c018006 */ 	lui	$at,%hi(var80060944)
-/*     3a8c:	ac3a0944 */ 	sw	$k0,%lo(var80060944)($at)
+/*     3a88:	3c018006 */ 	lui	$at,%hi(__osFaultedThread)
+/*     3a8c:	ac3a0944 */ 	sw	$k0,%lo(__osFaultedThread)($at)
 /*     3a90:	24090001 */ 	addiu	$t1,$zero,0x1
 /*     3a94:	a7490010 */ 	sh	$t1,0x10($k0)
 /*     3a98:	24090002 */ 	addiu	$t1,$zero,0x2

@@ -160,7 +160,7 @@
 	build/ROMID/lib/ultra/io/aigetlen.o (section); \
 	build/ROMID/lib/ultra/os/invaldcache.o (section); \
 	build/ROMID/lib/ultra/io/pidma.o (section); \
-	build/ROMID/lib/lib_4e640.o (section); \
+	build/ROMID/lib/ultra/os/getcurrfaultthread.o (section); \
 	build/ROMID/lib/ultra/io/piread.o (section); \
 	build/ROMID/lib/ultra/libc/xprintf.o (section); \
 	build/ROMID/lib/ultra/io/contquery.o (section); \
