@@ -70,6 +70,7 @@ $(B_DIR)/lib/ultra/libc/llcvt.o: MIPSISET := -mips3 -o32
 
 $(B_DIR)/lib/ultra/io/dpctr.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/pigetcmdq.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/io/si.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/sp.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/spsetpc.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/sptaskyielded.o: OPT_LVL := -O1
