@@ -9171,7 +9171,7 @@ glabel var7f1ac704
 /*  f09eedc:	46128100 */ 	add.s	$f4,$f16,$f18
 /*  f09eee0:	46044183 */ 	div.s	$f6,$f8,$f4
 /*  f09eee4:	44053000 */ 	mfc1	$a1,$f6
-/*  f09eee8:	0c0012a0 */ 	jal	func00004a80
+/*  f09eee8:	0c0012a0 */ 	jal	guRotateF
 /*  f09eeec:	00000000 */ 	nop
 /*  f09eef0:	10000004 */ 	b	.L0f09ef04
 /*  f09eef4:	8fa800b0 */ 	lw	$t0,0xb0($sp)

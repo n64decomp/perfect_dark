@@ -43292,14 +43292,14 @@ glabel var7f1aaf48
 /*  f08c85c:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f08c860:	e7b00010 */ 	swc1	$f16,0x10($sp)
 /*  f08c864:	44055000 */ 	mfc1	$a1,$f10
-/*  f08c868:	0c0012a0 */ 	jal	func00004a80
+/*  f08c868:	0c0012a0 */ 	jal	guRotateF
 /*  f08c86c:	00000000 */ 	nop
 /*  f08c870:	1000001e */ 	b	.L0f08c8ec
 /*  f08c874:	27a40098 */ 	addiu	$a0,$sp,0x98
 .L0f08c878:
 /*  f08c878:	c7a60058 */ 	lwc1	$f6,0x58($sp)
 /*  f08c87c:	8e05007c */ 	lw	$a1,0x7c($s0)
-/*  f08c880:	0c0012a0 */ 	jal	func00004a80
+/*  f08c880:	0c0012a0 */ 	jal	guRotateF
 /*  f08c884:	e7a60010 */ 	swc1	$f6,0x10($sp)
 /*  f08c888:	10000018 */ 	b	.L0f08c8ec
 /*  f08c88c:	27a40098 */ 	addiu	$a0,$sp,0x98
