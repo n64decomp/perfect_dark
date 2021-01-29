@@ -134,12 +134,14 @@ SECTIONS
 	osMemSize = 0x80000318;
 	osAppNMIBuffer = 0x8000031c;
 
-	var803f50b8 = 0x803f50b8;
-	vara00002e8 = 0xa00002e8;
-	vara4500004 = 0xa4500004;
-	varbc000c02 = 0xbc000c02; /* for ntsc-beta */
 	var800902e4 = 0x800902e4; /* for ntsc-beta */
 	var800902e8 = 0x800902e8; /* for ntsc-beta */
+
+	var803f50b8 = 0x803f50b8;
+
+	vara00002e8 = 0xa00002e8;
+
+	varbc000c02 = 0xbc000c02; /* for ntsc-beta */
 
 	/***************************************************************************
 	 * romheader

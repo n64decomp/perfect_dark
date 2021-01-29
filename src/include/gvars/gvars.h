@@ -358,6 +358,7 @@ extern u32 piEventQueue;
 extern u32 piEventBuf;
 extern u32 var800907f0;
 extern u32 __osPfsPifRam;
+extern u32 __osFinalRom;
 extern u32 var80090a70;
 extern u32 var80090ab0;
 extern u32 var80090ad0;
