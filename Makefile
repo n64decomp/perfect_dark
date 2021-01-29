@@ -82,6 +82,7 @@ $(B_DIR)/lib/ultra/io/visetevent.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/visetmode.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/visetxscale.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/visetyscale.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/io/viswapbuf.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/createmesgqueue.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/destroythread.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/jammesg.o: OPT_LVL := -O1

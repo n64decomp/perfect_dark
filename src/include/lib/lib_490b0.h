@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func000490b0(void *framebuffer);
+void osViSwapBuffer(void *framebuffer);
 u64 func00049120(void);
 
 #endif

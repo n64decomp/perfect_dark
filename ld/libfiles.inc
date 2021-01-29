@@ -108,7 +108,9 @@
 	build/ROMID/lib/ultra/io/visetxscale.o (section); \
 	build/ROMID/lib/ultra/io/visetyscale.o (section); \
 	build/ROMID/lib/lib_48f50.o (section); \
-	build/ROMID/lib/lib_490b0.o (section); \
+	build/ROMID/lib/ultra/io/viswapbuf.o (section); \
+	build/ROMID/lib/ultra/io/sptaskyield.o (section); \
+	build/ROMID/lib/lib_49120.o (section); \
 	build/ROMID/lib/ultra/os/timerintr.o (section); \
 	build/ROMID/lib/ultra/os/interrupt.o (section); \
 	build/ROMID/lib/ultra/io/vi.o (section); \

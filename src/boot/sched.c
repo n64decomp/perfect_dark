@@ -24,7 +24,6 @@
 #include "lib/lib_48150.h"
 #include "lib/lib_48cd0.h"
 #include "lib/lib_48f50.h"
-#include "lib/lib_490b0.h"
 #include "types.h"
 
 void func00001b10(u32 value)
@@ -514,7 +513,7 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 			}
 
 			func00001b40(t->framebuffer);
-			func000490b0(t->framebuffer);
+			osViSwapBuffer(t->framebuffer);
 		}
 
 		osSendMesg(t->msgQ, t->msg, OS_MESG_BLOCK);
