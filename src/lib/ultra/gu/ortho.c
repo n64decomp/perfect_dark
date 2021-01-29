@@ -22,7 +22,7 @@ void guOrthoF(float mf[4][4], float l, float r, float b, float t, float n, float
 }
 
 GLOBAL_ASM(
-glabel func0004fdb4
+glabel guOrtho
 /*    4fdb4:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*    4fdb8:	44856000 */ 	mtc1	$a1,$f12
 /*    4fdbc:	44867000 */ 	mtc1	$a2,$f14
@@ -51,3 +51,13 @@ glabel func0004fdb4
 /*    4fe18:	00000000 */ 	nop
 /*    4fe1c:	00000000 */ 	nop
 );
+
+// Mismatch: Goal moves a3 to f16, while this stores it in the stack.
+//void guOrtho(Mtx *m, float l, float r, float b, float t, float n, float f, float scale)
+//{
+//	float mf[4][4];
+//
+//	guOrthoF(mf, l, r, b, t, n, f, scale);
+//
+//	guMtxF2L(mf, m);
+//}
