@@ -22,7 +22,6 @@
 #include "lib/lib_13750.h"
 #include "lib/lib_2fa00.h"
 #include "lib/lib_48150.h"
-#include "lib/lib_48cd0.h"
 #include "types.h"
 
 void func00001b10(u32 value)
@@ -459,7 +458,7 @@ OSScTask *__scTaskReady(OSScTask *t)
 	void *b;
 
 	if (t) {
-		if ((func00048cd0() & 2) == 0) {
+		if ((osDpGetStatus() & DPC_STATUS_FREEZE) == 0) {
 			if (osViGetCurrentFramebuffer() != osViGetNextFramebuffer()) {
 				return 0;
 			}

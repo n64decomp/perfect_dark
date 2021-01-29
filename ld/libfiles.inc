@@ -102,7 +102,7 @@
 	build/ROMID/lib/ultra/os/settimer.o (section); \
 	build/ROMID/lib/ultra/io/sptaskyielded.o (section); \
 	build/ROMID/lib/ultra/io/dpctr.o (section); \
-	build/ROMID/lib/lib_48cd0.o (section); \
+	build/ROMID/lib/ultra/io/dpgetstat.o (section); \
 	build/ROMID/lib/ultra/io/viblack.o (section); \
 	build/ROMID/lib/ultra/io/visetmode.o (section); \
 	build/ROMID/lib/ultra/io/visetxscale.o (section); \
