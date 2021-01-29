@@ -12,30 +12,15 @@
 #include "lib/lib_50090.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func00050090
-/*    50090:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    50094:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    50098:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    5009c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*    500a0:	afa70024 */ 	sw	$a3,0x24($sp)
-/*    500a4:	0c012918 */ 	jal	guMtxIdentF
-/*    500a8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    500ac:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    500b0:	c7a4001c */ 	lwc1	$f4,0x1c($sp)
-/*    500b4:	3c013f80 */ 	lui	$at,0x3f80
-/*    500b8:	44815000 */ 	mtc1	$at,$f10
-/*    500bc:	e4840000 */ 	swc1	$f4,0x0($a0)
-/*    500c0:	c7a60020 */ 	lwc1	$f6,0x20($sp)
-/*    500c4:	e4860014 */ 	swc1	$f6,0x14($a0)
-/*    500c8:	c7a80024 */ 	lwc1	$f8,0x24($sp)
-/*    500cc:	e48a003c */ 	swc1	$f10,0x3c($a0)
-/*    500d0:	e4880028 */ 	swc1	$f8,0x28($a0)
-/*    500d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    500d8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    500dc:	03e00008 */ 	jr	$ra
-/*    500e0:	00000000 */ 	nop
-);
+void guScaleF(float mf[4][4], float x, float y, float z)
+{
+	guMtxIdentF(mf);
+
+	mf[0][0] = x;
+	mf[1][1] = y;
+	mf[2][2] = z;
+	mf[3][3] = 1;
+}
 
 GLOBAL_ASM(
 glabel func000500e4
@@ -48,7 +33,7 @@ glabel func000500e4
 /*    500fc:	44056000 */ 	mfc1	$a1,$f12
 /*    50100:	44067000 */ 	mfc1	$a2,$f14
 /*    50104:	44078000 */ 	mfc1	$a3,$f16
-/*    50108:	0c014024 */ 	jal	func00050090
+/*    50108:	0c014024 */ 	jal	guScaleF
 /*    5010c:	27a40018 */ 	addiu	$a0,$sp,0x18
 /*    50110:	27a40018 */ 	addiu	$a0,$sp,0x18
 /*    50114:	0c0128d8 */ 	jal	guMtxF2L
