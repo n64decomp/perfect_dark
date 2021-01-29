@@ -31,21 +31,14 @@ void guMtxIdentF(float mf[4][4])
 	}
 }
 
-GLOBAL_ASM(
-glabel func0004a4e8
-/*    4a4e8:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*    4a4ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    4a4f0:	afa40058 */ 	sw	$a0,0x58($sp)
-/*    4a4f4:	0c012918 */ 	jal	guMtxIdentF
-/*    4a4f8:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*    4a4fc:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*    4a500:	0c0128d8 */ 	jal	guMtxF2L
-/*    4a504:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*    4a508:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    4a50c:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*    4a510:	03e00008 */ 	jr	$ra
-/*    4a514:	00000000 */ 	nop
-);
+void guMtxIdent(Mtx *m)
+{
+	float mf[4][4];
+
+	guMtxIdentF(mf);
+
+	guMtxF2L(mf, m);
+}
 
 GLOBAL_ASM(
 glabel func0004a518
