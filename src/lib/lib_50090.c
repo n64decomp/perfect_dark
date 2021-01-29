@@ -1,16 +1,4 @@
 #include <ultra64.h>
-#include "constants.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
-#include "gvars/gvars.h"
-#include "lib/lib_4a360.h"
-#include "lib/lib_50090.h"
-#include "types.h"
 
 void guScaleF(float mf[4][4], float x, float y, float z)
 {
@@ -23,7 +11,7 @@ void guScaleF(float mf[4][4], float x, float y, float z)
 }
 
 GLOBAL_ASM(
-glabel func000500e4
+glabel guScale
 /*    500e4:	44856000 */ 	mtc1	$a1,$f12
 /*    500e8:	44867000 */ 	mtc1	$a2,$f14
 /*    500ec:	44878000 */ 	mtc1	$a3,$f16
@@ -44,3 +32,13 @@ glabel func000500e4
 /*    50128:	00000000 */ 	nop
 /*    5012c:	00000000 */ 	nop
 );
+
+// Mismatch: Goal moves a3 to f16, while this stores it in the stack.
+//void guScale(Mtx *m, float x, float y, float z)
+//{
+//	f32 mf[4][4];
+//
+//	guScaleF(mf, x, y, z);
+//
+//	guMtxF2L(mf, m);
+//}
