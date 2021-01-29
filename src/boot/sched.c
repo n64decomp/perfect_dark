@@ -480,7 +480,7 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 				&& (t->flags & OS_SC_SWAPBUFFER)
 				&& (t->flags & OS_SC_LAST_TASK)) {
 			if (var8005cec8) {
-				func00048ce0(0);
+				osViBlack(0);
 				var8005cec8 = 0;
 			}
 
@@ -500,7 +500,7 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 					osSetIntMask(mask);
 
 					osViSetMode(var8008dd60[1 - var8005ce74]);
-					func00048ce0(var8005ce90);
+					osViBlack(var8005ce90);
 					osViSetXScale(var8005ce78[1 - var8005ce74]);
 					osViSetYScale(var8005ce80[1 - var8005ce74]);
 					func00048f50(0x42);

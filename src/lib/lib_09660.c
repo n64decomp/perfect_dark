@@ -784,7 +784,7 @@ glabel func00009ed4
 /*     9fd8:	0c012354 */ 	jal	osViSetMode
 /*     9fdc:	8c84dd64 */ 	lw	$a0,%lo(var8008dd60+0x4)($a0)
 /*     9fe0:	3c048006 */ 	lui	$a0,%hi(var8005ce90+0x3)
-/*     9fe4:	0c012338 */ 	jal	func00048ce0
+/*     9fe4:	0c012338 */ 	jal	osViBlack
 /*     9fe8:	9084ce93 */ 	lbu	$a0,%lo(var8005ce90+0x3)($a0)
 /*     9fec:	3c0a8006 */ 	lui	$t2,%hi(var8005ce74)
 /*     9ff0:	8d4ace74 */ 	lw	$t2,%lo(var8005ce74)($t2)
@@ -836,7 +836,7 @@ glabel func0000a044
 /*     a094:	44816000 */ 	mtc1	$at,$f12
 /*     a098:	0c0123bc */ 	jal	osViSetYScale
 /*     a09c:	00000000 */ 	nop
-/*     a0a0:	0c012338 */ 	jal	func00048ce0
+/*     a0a0:	0c012338 */ 	jal	osViBlack
 /*     a0a4:	24040001 */ 	addiu	$a0,$zero,0x1
 /*     a0a8:	3c098006 */ 	lui	$t1,%hi(g_ViData)
 /*     a0ac:	8d29d594 */ 	lw	$t1,%lo(g_ViData)($t1)
