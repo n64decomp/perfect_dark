@@ -22,7 +22,6 @@
 #include "lib/lib_48150.h"
 #include "lib/lib_48cd0.h"
 #include "lib/lib_48dc0.h"
-#include "lib/lib_48ef0.h"
 #include "lib/lib_48f50.h"
 #include "lib/lib_490b0.h"
 #include "types.h"

@@ -20,7 +20,6 @@
 #include "lib/lib_30ce0.h"
 #include "lib/lib_48cd0.h"
 #include "lib/lib_48dc0.h"
-#include "lib/lib_48ef0.h"
 #include "lib/lib_48f50.h"
 #include "lib/lib_4b170.h"
 #include "types.h"
@@ -802,7 +801,7 @@ glabel func00009ed4
 /*     a018:	000e6080 */ 	sll	$t4,$t6,0x2
 /*     a01c:	000cc023 */ 	negu	$t8,$t4
 /*     a020:	00380821 */ 	addu	$at,$at,$t8
-/*     a024:	0c0123bc */ 	jal	func00048ef0
+/*     a024:	0c0123bc */ 	jal	osViSetYScale
 /*     a028:	c42cce84 */ 	lwc1	$f12,%lo(var8005ce80+0x4)($at)
 /*     a02c:	0c0123d4 */ 	jal	func00048f50
 /*     a030:	24040042 */ 	addiu	$a0,$zero,0x42
@@ -836,7 +835,7 @@ glabel func0000a044
 .L0000a090:
 /*     a090:	3c013f80 */ 	lui	$at,0x3f80
 /*     a094:	44816000 */ 	mtc1	$at,$f12
-/*     a098:	0c0123bc */ 	jal	func00048ef0
+/*     a098:	0c0123bc */ 	jal	osViSetYScale
 /*     a09c:	00000000 */ 	nop
 /*     a0a0:	0c012338 */ 	jal	func00048ce0
 /*     a0a4:	24040001 */ 	addiu	$a0,$zero,0x1

@@ -104,7 +104,7 @@
 	build/ROMID/lib/ultra/io/dpctr.o (section); \
 	build/ROMID/lib/lib_48cd0.o (section); \
 	build/ROMID/lib/lib_48dc0.o (section); \
-	build/ROMID/lib/lib_48ef0.o (section); \
+	build/ROMID/lib/ultra/io/visetyscale.o (section); \
 	build/ROMID/lib/lib_48f50.o (section); \
 	build/ROMID/lib/lib_490b0.o (section); \
 	build/ROMID/lib/ultra/os/timerintr.o (section); \

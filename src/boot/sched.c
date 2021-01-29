@@ -24,7 +24,6 @@
 #include "lib/lib_48150.h"
 #include "lib/lib_48cd0.h"
 #include "lib/lib_48dc0.h"
-#include "lib/lib_48ef0.h"
 #include "lib/lib_48f50.h"
 #include "lib/lib_490b0.h"
 #include "types.h"
@@ -504,7 +503,7 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 					func00048d50(var8008dd60[1 - var8005ce74]);
 					func00048ce0(var8005ce90);
 					func00048dc0(var8005ce78[1 - var8005ce74]);
-					func00048ef0(var8005ce80[1 - var8005ce74]);
+					osViSetYScale(var8005ce80[1 - var8005ce74]);
 					func00048f50(0x42);
 				}
 
