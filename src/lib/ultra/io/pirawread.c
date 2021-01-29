@@ -1,27 +1,12 @@
 #include <libultra_internal.h>
 
-GLOBAL_ASM(
-glabel osPiRawReadIo
-/*    52070:	3c03a460 */ 	lui	$v1,0xa460
-/*    52074:	34630010 */ 	ori	$v1,$v1,0x10
-/*    52078:	8c620000 */ 	lw	$v0,0x0($v1)
-/*    5207c:	3c188000 */ 	lui	$t8,0x8000
-/*    52080:	304e0003 */ 	andi	$t6,$v0,0x3
-/*    52084:	11c00005 */ 	beqz	$t6,.L0005209c
-/*    52088:	00000000 */ 	nop
-/*    5208c:	8c620000 */ 	lw	$v0,0x0($v1)
-.L00052090:
-/*    52090:	304f0003 */ 	andi	$t7,$v0,0x3
-/*    52094:	55e0fffe */ 	bnezl	$t7,.L00052090
-/*    52098:	8c620000 */ 	lw	$v0,0x0($v1)
-.L0005209c:
-/*    5209c:	8f180308 */ 	lw	$t8,0x308($t8)
-/*    520a0:	3c01a000 */ 	lui	$at,0xa000
-/*    520a4:	00001025 */ 	or	$v0,$zero,$zero
-/*    520a8:	0304c825 */ 	or	$t9,$t8,$a0
-/*    520ac:	03214025 */ 	or	$t0,$t9,$at
-/*    520b0:	8d090000 */ 	lw	$t1,0x0($t0)
-/*    520b4:	03e00008 */ 	jr	$ra
-/*    520b8:	aca90000 */ 	sw	$t1,0x0($a1)
-/*    520bc:	00000000 */ 	nop
-);
+s32 osPiRawReadIo(u32 devAddr, u32 *data)
+{
+	register u32 stat;
+
+	WAIT_ON_IOBUSY(stat);
+
+	*data = IO_READ((u32)osRomBase | devAddr);
+
+	return 0;
+}

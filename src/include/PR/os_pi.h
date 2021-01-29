@@ -83,6 +83,11 @@ typedef struct {
 #define OS_MESG_PRI_NORMAL 0
 #define OS_MESG_PRI_HIGH 1
 
+#define WAIT_ON_IOBUSY(stat)                                \
+    stat = IO_READ(PI_STATUS_REG);                          \
+    while (stat & (PI_STATUS_IO_BUSY | PI_STATUS_DMA_BUSY)) \
+        stat = IO_READ(PI_STATUS_REG);
+
 /* Functions */
 
 s32 osPiStartDma(OSIoMesg *mb, s32 priority, s32 direction,
