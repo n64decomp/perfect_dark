@@ -16,7 +16,7 @@ glabel osContInit
 .L0004a9ac:
 /*    4a9ac:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*    4a9b0:	3c018006 */ 	lui	$at,%hi(__osContInitialized)
-/*    4a9b4:	0c012448 */ 	jal	func00049120
+/*    4a9b4:	0c012448 */ 	jal	osGetTime
 /*    4a9b8:	ac2f0960 */ 	sw	$t7,%lo(__osContInitialized)($at)
 /*    4a9bc:	afa20060 */ 	sw	$v0,0x60($sp)
 /*    4a9c0:	8fb80060 */ 	lw	$t8,0x60($sp)

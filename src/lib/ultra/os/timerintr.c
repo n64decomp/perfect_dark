@@ -2,15 +2,15 @@
 
 GLOBAL_ASM(
 glabel __osTimerServicesInit
-/*    491b0:	3c01800a */ 	lui	$at,%hi(var8009c784)
+/*    491b0:	3c01800a */ 	lui	$at,%hi(__osCurrentTime+0x4)
 /*    491b4:	240e0000 */ 	addiu	$t6,$zero,0x0
 /*    491b8:	240f0000 */ 	addiu	$t7,$zero,0x0
-/*    491bc:	ac2fc784 */ 	sw	$t7,%lo(var8009c784)($at)
+/*    491bc:	ac2fc784 */ 	sw	$t7,%lo(__osCurrentTime+0x4)($at)
 /*    491c0:	ac2ec780 */ 	sw	$t6,-0x3880($at)
-/*    491c4:	3c01800a */ 	lui	$at,%hi(var8009c788)
+/*    491c4:	3c01800a */ 	lui	$at,%hi(__osBaseCounter)
 /*    491c8:	3c188006 */ 	lui	$t8,%hi(__osTimerList)
 /*    491cc:	8f1808a0 */ 	lw	$t8,%lo(__osTimerList)($t8)
-/*    491d0:	ac20c788 */ 	sw	$zero,%lo(var8009c788)($at)
+/*    491d0:	ac20c788 */ 	sw	$zero,%lo(__osBaseCounter)($at)
 /*    491d4:	3c01800a */ 	lui	$at,%hi(var8009c78c)
 /*    491d8:	ac20c78c */ 	sw	$zero,%lo(var8009c78c)($at)
 /*    491dc:	3c198006 */ 	lui	$t9,%hi(__osTimerList)

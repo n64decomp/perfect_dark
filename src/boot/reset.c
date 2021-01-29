@@ -42,11 +42,11 @@ glabel resetproc
 /*     2e7c:	ac820040 */ 	sw	$v0,0x40($a0)
 /*     2e80:	0c012338 */ 	jal	osViBlack
 /*     2e84:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     2e88:	0c012448 */ 	jal	func00049120
+/*     2e88:	0c012448 */ 	jal	osGetTime
 /*     2e8c:	00000000 */ 	nop
 /*     2e90:	3c018009 */ 	lui	$at,%hi(g_ResetSp)
 /*     2e94:	ac22fdf0 */ 	sw	$v0,%lo(g_ResetSp)($at)
-/*     2e98:	0c012448 */ 	jal	func00049120
+/*     2e98:	0c012448 */ 	jal	osGetTime
 /*     2e9c:	ac23fdf4 */ 	sw	$v1,-0x20c($at)
 /*     2ea0:	3c198009 */ 	lui	$t9,%hi(var8008fdf4)
 /*     2ea4:	8f39fdf4 */ 	lw	$t9,%lo(var8008fdf4)($t9)
@@ -66,7 +66,7 @@ glabel resetproc
 /*     2edc:	10200015 */ 	beqz	$at,.L00002f34
 /*     2ee0:	00000000 */ 	nop
 .L00002ee4:
-/*     2ee4:	0c012448 */ 	jal	func00049120
+/*     2ee4:	0c012448 */ 	jal	osGetTime
 /*     2ee8:	00000000 */ 	nop
 /*     2eec:	3c0b8009 */ 	lui	$t3,%hi(var8008fdf4)
 /*     2ef0:	8d6bfdf4 */ 	lw	$t3,%lo(var8008fdf4)($t3)

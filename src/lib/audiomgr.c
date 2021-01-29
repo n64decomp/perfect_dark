@@ -919,7 +919,7 @@ glabel amgrMain
 /*     9224:	10000077 */ 	b	.L00009404
 /*     9228:	00000000 */ 	nop
 .L0000922c:
-/*     922c:	0c012448 */ 	jal	func00049120
+/*     922c:	0c012448 */ 	jal	osGetTime
 /*     9230:	00000000 */ 	nop
 /*     9234:	ae820000 */ 	sw	$v0,0x0($s4)
 /*     9238:	ae830004 */ 	sw	$v1,0x4($s4)
@@ -941,7 +941,7 @@ glabel amgrMain
 /*     9278:	26520001 */ 	addiu	$s2,$s2,0x1
 /*     927c:	0c0026a8 */ 	jal	func00009aa0
 /*     9280:	3c040006 */ 	lui	$a0,0x6
-/*     9284:	0c012448 */ 	jal	func00049120
+/*     9284:	0c012448 */ 	jal	osGetTime
 /*     9288:	00000000 */ 	nop
 /*     928c:	8e8c0000 */ 	lw	$t4,0x0($s4)
 /*     9290:	8e8d0004 */ 	lw	$t5,0x4($s4)
@@ -1082,7 +1082,7 @@ glabel amgrMain
 //
 //		switch (*msg) {
 //		case 4:
-//			var80091588 = func00049120();
+//			var80091588 = osGetTime();
 //			func00009aa0(0x30000);
 //			amgrHandleFrameMsg(var800915d0[var80092828 % 3], info);
 //			func00009a08();
@@ -1090,7 +1090,7 @@ glabel amgrMain
 //			count++;
 //			func00009aa0(0x60000);
 //
-//			var80091590 = func00049120();
+//			var80091590 = osGetTime();
 //			var80091570 = var80091590 - var80091588;
 //
 //			// 2d8
