@@ -51,35 +51,3 @@ glabel func00048ce0
 /*    48d48:	03e00008 */ 	jr	$ra
 /*    48d4c:	00000000 */ 	nop
 );
-
-GLOBAL_ASM(
-glabel func00048d50
-/*    48d50:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    48d54:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    48d58:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    48d5c:	0c01256c */ 	jal	__osDisableInt
-/*    48d60:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    48d64:	3c0f8006 */ 	lui	$t7,%hi(__osViNext)
-/*    48d68:	8def0914 */ 	lw	$t7,%lo(__osViNext)($t7)
-/*    48d6c:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    48d70:	3c198006 */ 	lui	$t9,%hi(__osViNext)
-/*    48d74:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    48d78:	adee0008 */ 	sw	$t6,0x8($t7)
-/*    48d7c:	8f390914 */ 	lw	$t9,%lo(__osViNext)($t9)
-/*    48d80:	3c088006 */ 	lui	$t0,%hi(__osViNext)
-/*    48d84:	00408025 */ 	or	$s0,$v0,$zero
-/*    48d88:	a7380000 */ 	sh	$t8,0x0($t9)
-/*    48d8c:	8d080914 */ 	lw	$t0,%lo(__osViNext)($t0)
-/*    48d90:	02002025 */ 	or	$a0,$s0,$zero
-/*    48d94:	8d090008 */ 	lw	$t1,0x8($t0)
-/*    48d98:	8d2a0004 */ 	lw	$t2,0x4($t1)
-/*    48d9c:	0c012588 */ 	jal	__osRestoreInt
-/*    48da0:	ad0a000c */ 	sw	$t2,0xc($t0)
-/*    48da4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    48da8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    48dac:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    48db0:	03e00008 */ 	jr	$ra
-/*    48db4:	00000000 */ 	nop
-/*    48db8:	00000000 */ 	nop
-/*    48dbc:	00000000 */ 	nop
-);

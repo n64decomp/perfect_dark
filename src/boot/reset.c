@@ -38,7 +38,7 @@ glabel resetproc
 /*     2e70:	2484f7b0 */ 	addiu	$a0,$a0,%lo(osViModeTable+0xa0)
 .L00002e74:
 /*     2e74:	ac82002c */ 	sw	$v0,0x2c($a0)
-/*     2e78:	0c012354 */ 	jal	func00048d50
+/*     2e78:	0c012354 */ 	jal	osViSetMode
 /*     2e7c:	ac820040 */ 	sw	$v0,0x40($a0)
 /*     2e80:	0c012338 */ 	jal	func00048ce0
 /*     2e84:	24040001 */ 	addiu	$a0,$zero,0x1

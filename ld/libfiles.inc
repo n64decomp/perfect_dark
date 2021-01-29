@@ -103,6 +103,7 @@
 	build/ROMID/lib/ultra/io/sptaskyielded.o (section); \
 	build/ROMID/lib/ultra/io/dpctr.o (section); \
 	build/ROMID/lib/lib_48cd0.o (section); \
+	build/ROMID/lib/ultra/io/visetmode.o (section); \
 	build/ROMID/lib/ultra/io/visetxscale.o (section); \
 	build/ROMID/lib/ultra/io/visetyscale.o (section); \
 	build/ROMID/lib/lib_48f50.o (section); \
