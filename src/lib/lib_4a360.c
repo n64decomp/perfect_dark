@@ -1,86 +1,24 @@
 #include <ultra64.h>
-#include "constants.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
-#include "gvars/gvars.h"
-#include "lib/lib_4a360.h"
-#include "types.h"
 
-GLOBAL_ASM(
-glabel guMtxF2L
-/*    4a360:	3c014780 */ 	lui	$at,0x4780
-/*    4a364:	44810000 */ 	mtc1	$at,$f0
-/*    4a368:	00a01025 */ 	or	$v0,$a1,$zero
-/*    4a36c:	24a30020 */ 	addiu	$v1,$a1,0x20
-/*    4a370:	00003025 */ 	or	$a2,$zero,$zero
-/*    4a374:	00803825 */ 	or	$a3,$a0,$zero
-/*    4a378:	240c0004 */ 	addiu	$t4,$zero,0x4
-/*    4a37c:	240b0002 */ 	addiu	$t3,$zero,0x2
-/*    4a380:	3c0affff */ 	lui	$t2,0xffff
-.L0004a384:
-/*    4a384:	00002025 */ 	or	$a0,$zero,$zero
-/*    4a388:	00e04025 */ 	or	$t0,$a3,$zero
-/*    4a38c:	c50e0004 */ 	lwc1	$f14,0x4($t0)
-/*    4a390:	24840001 */ 	addiu	$a0,$a0,0x1
-/*    4a394:	c5120000 */ 	lwc1	$f18,0x0($t0)
-/*    4a398:	46007402 */ 	mul.s	$f16,$f14,$f0
-/*    4a39c:	108b0019 */ 	beq	$a0,$t3,.L0004a404
-/*    4a3a0:	00000000 */ 	nop
-.L0004a3a4:
-/*    4a3a4:	46009382 */ 	mul.s	$f14,$f18,$f0
-/*    4a3a8:	24840001 */ 	addiu	$a0,$a0,0x1
-/*    4a3ac:	24420004 */ 	addiu	$v0,$v0,0x4
-/*    4a3b0:	24630004 */ 	addiu	$v1,$v1,0x4
-/*    4a3b4:	25080008 */ 	addiu	$t0,$t0,0x8
-/*    4a3b8:	4600830d */ 	trunc.w.s	$f12,$f16
-/*    4a3bc:	4600738d */ 	trunc.w.s	$f14,$f14
-/*    4a3c0:	44096000 */ 	mfc1	$t1,$f12
-/*    4a3c4:	44057000 */ 	mfc1	$a1,$f14
-/*    4a3c8:	0009cc03 */ 	sra	$t9,$t1,0x10
-/*    4a3cc:	332dffff */ 	andi	$t5,$t9,0xffff
-/*    4a3d0:	00aac024 */ 	and	$t8,$a1,$t2
-/*    4a3d4:	030d7025 */ 	or	$t6,$t8,$t5
-/*    4a3d8:	00057c00 */ 	sll	$t7,$a1,0x10
-/*    4a3dc:	01eac824 */ 	and	$t9,$t7,$t2
-/*    4a3e0:	ac4efffc */ 	sw	$t6,-0x4($v0)
-/*    4a3e4:	3138ffff */ 	andi	$t8,$t1,0xffff
-/*    4a3e8:	03386825 */ 	or	$t5,$t9,$t8
-/*    4a3ec:	ac6dfffc */ 	sw	$t5,-0x4($v1)
-/*    4a3f0:	c50e0004 */ 	lwc1	$f14,0x4($t0)
-/*    4a3f4:	c5120000 */ 	lwc1	$f18,0x0($t0)
-/*    4a3f8:	46007402 */ 	mul.s	$f16,$f14,$f0
-/*    4a3fc:	148bffe9 */ 	bne	$a0,$t3,.L0004a3a4
-/*    4a400:	00000000 */ 	nop
-.L0004a404:
-/*    4a404:	46009382 */ 	mul.s	$f14,$f18,$f0
-/*    4a408:	25080008 */ 	addiu	$t0,$t0,0x8
-/*    4a40c:	24420004 */ 	addiu	$v0,$v0,0x4
-/*    4a410:	24630004 */ 	addiu	$v1,$v1,0x4
-/*    4a414:	4600830d */ 	trunc.w.s	$f12,$f16
-/*    4a418:	4600738d */ 	trunc.w.s	$f14,$f14
-/*    4a41c:	44096000 */ 	mfc1	$t1,$f12
-/*    4a420:	44057000 */ 	mfc1	$a1,$f14
-/*    4a424:	0009cc03 */ 	sra	$t9,$t1,0x10
-/*    4a428:	332dffff */ 	andi	$t5,$t9,0xffff
-/*    4a42c:	00aac024 */ 	and	$t8,$a1,$t2
-/*    4a430:	030d7025 */ 	or	$t6,$t8,$t5
-/*    4a434:	00057c00 */ 	sll	$t7,$a1,0x10
-/*    4a438:	01eac824 */ 	and	$t9,$t7,$t2
-/*    4a43c:	3138ffff */ 	andi	$t8,$t1,0xffff
-/*    4a440:	ac4efffc */ 	sw	$t6,-0x4($v0)
-/*    4a444:	03386825 */ 	or	$t5,$t9,$t8
-/*    4a448:	ac6dfffc */ 	sw	$t5,-0x4($v1)
-/*    4a44c:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*    4a450:	14ccffcc */ 	bne	$a2,$t4,.L0004a384
-/*    4a454:	24e70010 */ 	addiu	$a3,$a3,0x10
-/*    4a458:	03e00008 */ 	jr	$ra
-/*    4a45c:	00000000 */ 	nop
-);
+void guMtxF2L(f32 mf[4][4], Mtx *m)
+{
+	int	i, j;
+	int	e1, e2;
+	int	*ai, *af;
+
+	ai = (int *) &m->m[0][0];
+	af = (int *) &m->m[2][0];
+
+	for (i = 0; i < 4; i++) {
+		for (j = 0; j < 2; j++) {
+			e1 = FTOFIX32(mf[i][j * 2]);
+			e2 = FTOFIX32(mf[i][j * 2 + 1]);
+
+			*(ai++) = (e1 & 0xffff0000) | ((e2 >> 16) & 0xffff);
+			*(af++) = ((e1 << 16) & 0xffff0000) | (e2 & 0xffff);
+		}
+	}
+}
 
 void guMtxIdentF(float mf[4][4])
 {
