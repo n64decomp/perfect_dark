@@ -61,8 +61,9 @@ MIPSISET := -mips2 -32
 OPT_LVL := -O2
 LOOPUNROLL := -Wo,-loopunroll,0
 
-$(B_DIR)/lib/ultra/gu/mtxutil.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/gu/frustum.o: LOOPUNROLL :=
+$(B_DIR)/lib/ultra/gu/mtxutil.o: LOOPUNROLL :=
+$(B_DIR)/lib/ultra/gu/ortho.o: LOOPUNROLL :=
 
 $(B_DIR)/lib/ultra/libc/ll.o: MIPSISET := -mips3 -o32
 $(B_DIR)/lib/ultra/libc/llcvt.o: MIPSISET := -mips3 -o32

@@ -9,6 +9,5 @@ bool func0004f854(OSMesgQueue *mq, struct var800a3180 *arg1, s32 arg2);
 u32 func0004f9b0(void);
 u32 func0004fbc0(void);
 u32 func0004fbf0(void);
-u32 func0004fc60(void);
 
 #endif
