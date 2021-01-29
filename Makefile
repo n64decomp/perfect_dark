@@ -79,6 +79,7 @@ $(B_DIR)/lib/ultra/io/vigetcurrframebuf.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/vigetnextframebuf.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/visetevent.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/destroythread.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/os/jammesg.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/resetglobalintmask.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/setthreadpri.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/startthread.o: OPT_LVL := -O1
