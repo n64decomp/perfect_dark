@@ -58,7 +58,7 @@ extern u32 var8005cefc;
 extern OSDevMgr __osPiDevMgr;
 extern u32 var8005cf30;
 extern OSTime osClockRate;
-extern u32 osViClock;
+extern s32 osViClock;
 extern u32 var8005cf6c;
 extern u32 __osGlobalIntMask;
 extern u32 var8005cf84;
