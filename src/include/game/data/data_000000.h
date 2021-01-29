@@ -184,6 +184,7 @@ extern u32 var800601b0;
 extern u32 var80060340;
 extern u32 var80060368;
 extern OSTimer *__osTimerList;
+extern u32 var80060890;
 extern __OSViContext var800608b0[2];
 extern __OSViContext *__osViCurr;
 extern __OSViContext *__osViNext;

@@ -21,7 +21,7 @@
 
 /*---------------------------------------------------------------------*
         Copyright (C) 1998 Nintendo. (Originated by SGI)
-        
+
         $RCSfile: os_message.h,v $
         $Revision: 1.1 $
         $Date: 1998/10/09 08:01:15 $
@@ -65,6 +65,10 @@ typedef struct OSMesgQueue_s {
 	OSMesg		*msg;		/* Points to message buffer array */
 } OSMesgQueue;
 
+typedef struct __OSEventState {
+	OSMesgQueue *messageQueue;
+	OSMesg message;
+} __OSEventState;
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

@@ -469,7 +469,7 @@ extern u32 var8009c2d0;
 extern u32 var8009c390;
 extern u32 var8009c400;
 extern u32 var8009c650;
-extern u32 __osEventStateTab;
+extern __OSEventState __osEventStateTab[15];
 extern OSTimer var8009c760;
 extern u32 var8009c780;
 extern u32 var8009c788;
