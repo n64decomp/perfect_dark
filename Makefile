@@ -81,6 +81,7 @@ $(B_DIR)/lib/ultra/io/visetevent.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/destroythread.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/jammesg.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/resetglobalintmask.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/os/sendmesg.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/setthreadpri.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/startthread.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/stopthread.o: OPT_LVL := -O1
