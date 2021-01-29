@@ -462,7 +462,7 @@ glabel func0f0142e8
 /*  f014538:	44802000 */ 	mtc1	$zero,$f4
 /*  f01453c:	24850004 */ 	addiu	$a1,$a0,0x4
 /*  f014540:	24860008 */ 	addiu	$a2,$a0,0x8
-/*  f014544:	0c0011e4 */ 	jal	scaleTo1
+/*  f014544:	0c0011e4 */ 	jal	guNormalize
 /*  f014548:	e4840004 */ 	swc1	$f4,0x4($a0)
 .L0f01454c:
 /*  f01454c:	8fa408dc */ 	lw	$a0,0x8dc($sp)

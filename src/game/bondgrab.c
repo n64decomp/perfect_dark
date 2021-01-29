@@ -241,7 +241,7 @@ glabel var7f1ad990
 /*  f0cccc8:	45030006 */ 	bc1tl	.L0f0ccce4
 /*  f0ccccc:	44812000 */ 	mtc1	$at,$f4
 .L0f0cccd0:
-/*  f0cccd0:	0c0011e4 */ 	jal	scaleTo1
+/*  f0cccd0:	0c0011e4 */ 	jal	guNormalize
 /*  f0cccd4:	27a600d0 */ 	addiu	$a2,$sp,0xd0
 /*  f0cccd8:	10000005 */ 	b	.L0f0cccf0
 /*  f0cccdc:	27ab00d4 */ 	addiu	$t3,$sp,0xd4
@@ -364,7 +364,7 @@ glabel var7f1ad990
 /*  f0cce9c:	45030007 */ 	bc1tl	.L0f0ccebc
 /*  f0ccea0:	44814000 */ 	mtc1	$at,$f8
 .L0f0ccea4:
-/*  f0ccea4:	0c0011e4 */ 	jal	scaleTo1
+/*  f0ccea4:	0c0011e4 */ 	jal	guNormalize
 /*  f0ccea8:	27a60088 */ 	addiu	$a2,$sp,0x88
 /*  f0cceac:	44809000 */ 	mtc1	$zero,$f18
 /*  f0cceb0:	10000004 */ 	b	.L0f0ccec4

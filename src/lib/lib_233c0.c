@@ -13190,7 +13190,7 @@ bool func0002f308(struct coord *viewpos, s16 *rooms, struct coord *targetpos, f3
 	vector.y = 0;
 	vector.z = targetpos->z - viewpos->z;
 
-	scaleTo1(&vector.x, &vector.y, &vector.z);
+	guNormalize(&vector.x, &vector.y, &vector.z);
 
 	x = vector.f[0] * distance;
 	z = vector.f[2] * distance;

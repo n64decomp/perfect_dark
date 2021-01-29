@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-void scaleTo1(f32 *x, f32 *y, f32 *z);
+void guNormalize(f32 *x, f32 *y, f32 *z);
 
 #endif

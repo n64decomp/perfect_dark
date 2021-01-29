@@ -251,7 +251,7 @@ bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 					sp38[2] = sp2c.x - sp20.x;
 
 					if (sp38[0] || sp38[2]) {
-						scaleTo1(&sp38[0], &sp38[1], &sp38[2]);
+						guNormalize(&sp38[0], &sp38[1], &sp38[2]);
 					} else {
 						sp38[2] = 1;
 					}

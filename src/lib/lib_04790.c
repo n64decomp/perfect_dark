@@ -12,7 +12,7 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
-void scaleTo1(f32 *x, f32 *y, f32 *z)
+void guNormalize(f32 *x, f32 *y, f32 *z)
 {
 	f32 hyp = sqrtf(*x * *x + *y * *y + *z * *z);
 

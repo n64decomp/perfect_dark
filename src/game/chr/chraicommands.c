@@ -847,7 +847,7 @@ bool ai001a(void)
 			vector.x = chr2->prop->pos.x - chr1->prop->pos.x;
 			vector.y = chr2->prop->pos.y - chr1->prop->pos.y;
 			vector.z = chr2->prop->pos.z - chr1->prop->pos.z;
-			scaleTo1(&vector.x, &vector.y, &vector.z);
+			guNormalize(&vector.x, &vector.y, &vector.z);
 			weapon = prop->weapon;
 			damage = handGetDamage((struct hand *)&weapon->weaponnum);
 			func0f034330(chr2, damage, &vector, &weapon->weaponnum, chr1->prop, (s8)cmd[4]);

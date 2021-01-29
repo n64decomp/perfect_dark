@@ -28,7 +28,6 @@ typedef struct {
 #define FLAGS_HASH 8
 #define FLAGS_ZERO 16
 
-u32 func00004c04(void);
 u32 _Ldtob(void);
 short _Ldunscale(short *pex, printf_struct *px);
 void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp);

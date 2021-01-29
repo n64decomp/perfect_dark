@@ -155,7 +155,7 @@ void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 	vector.z = globalthinga.x - globalthingb.x;
 
 	if (vector.f[0] != 0 || vector.f[2] != 0) {
-		scaleTo1(&vector.x, &vector.y, &vector.z);
+		guNormalize(&vector.x, &vector.y, &vector.z);
 	} else {
 		vector.z = 1;
 	}
@@ -399,7 +399,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c4334:	45010006 */ 	bc1t	.L0f0c4350
 .L0f0c4338:
 /*  f0c4338:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f0c433c:	0c0011e4 */ 	jal	scaleTo1
+/*  f0c433c:	0c0011e4 */ 	jal	guNormalize
 /*  f0c4340:	27a60098 */ 	addiu	$a2,$sp,0x98
 /*  f0c4344:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c4348:	10000004 */ 	b	.L0f0c435c
@@ -704,7 +704,7 @@ glabel bwalkCalculateNewPositionWithPush
 //						sp90.z = sp84.f[0] - sp78.f[0];
 //
 //						if (sp90.f[0] || sp90.f[2]) {
-//							scaleTo1(&sp90.x, &sp90.y, &sp90.z);
+//							guNormalize(&sp90.x, &sp90.y, &sp90.z);
 //						} else {
 //							sp90.z = 1;
 //						}
@@ -2249,7 +2249,7 @@ glabel var7f1ad854
 /*  f0c7168:	246502a4 */ 	addiu	$a1,$v1,0x2a4
 /*  f0c716c:	51a0006a */ 	beqzl	$t5,.L0f0c7318
 /*  f0c7170:	8c640298 */ 	lw	$a0,0x298($v1)
-/*  f0c7174:	0c0011e4 */ 	jal	scaleTo1
+/*  f0c7174:	0c0011e4 */ 	jal	guNormalize
 /*  f0c7178:	246602a8 */ 	addiu	$a2,$v1,0x2a8
 /*  f0c717c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c7180:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)

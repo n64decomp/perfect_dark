@@ -676,7 +676,7 @@ void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct
 	sp90.z = arg1->f[2];
 
 	if (sp90.f[0] || sp90.f[2]) {
-		scaleTo1(&sp90.x, &sp90.y, &sp90.z);
+		guNormalize(&sp90.x, &sp90.y, &sp90.z);
 	} else {
 		sp90.z = 1;
 	}
