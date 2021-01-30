@@ -10,7 +10,7 @@ s32 strcmp(char *a, char *b);
 u32 func000132c0(void);
 char toupper(char c);
 s32 isdigit(char c);
-u32 func00013378(void);
+s32 isalpha(char c);
 u32 func000133b4(void);
 s32 func00013408(char *arg0, s32 *arg1, s32 arg2);
 int sprintf(char *dest, const char *format, ...);
