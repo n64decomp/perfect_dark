@@ -6,6 +6,7 @@
 #include "game/data/data_0160b0.h"
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
+#include "game/data/data_02a0e0.h"
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
 #include "lib/lib_12dc0.h"
@@ -125,79 +126,46 @@ char *argParseString(char *str)
 
 void argSetString(char *string)
 {
-	strcpy(g_ArgString, string);
-	argParseString(g_ArgString);
+	strcpy(g_ArgBuffer, string);
+	argParseString((char *) g_ArgBuffer);
 }
 
-const char var70053ff4[] = "-d";
-const char var70053ff8[] = "-s";
-const char var70053ffc[] = "-j";
+bool argsParseDebugArgs(void)
+{
+	u32 devaddr;
+	u32 stack;
+	s32 i;
+	bool ret = false;
 
-GLOBAL_ASM(
-glabel func00012f30
-/*    12f30:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    12f34:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*    12f38:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    12f3c:	3c1101ff */ 	lui	$s1,0x1ff
-/*    12f40:	afb20020 */ 	sw	$s2,0x20($sp)
-/*    12f44:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    12f48:	afa00028 */ 	sw	$zero,0x28($sp)
-/*    12f4c:	0c00be82 */ 	jal	func0002fa08
-/*    12f50:	3631ff00 */ 	ori	$s1,$s1,0xff00
-/*    12f54:	10400004 */ 	beqz	$v0,.L00012f68
-/*    12f58:	3c10800a */ 	lui	$s0,%hi(g_ArgString)
-/*    12f5c:	3c01800a */ 	lui	$at,%hi(g_ArgString)
-/*    12f60:	1000000a */ 	b	.L00012f8c
-/*    12f64:	ac209880 */ 	sw	$zero,%lo(g_ArgString)($at)
-.L00012f68:
-/*    12f68:	3c12800a */ 	lui	$s2,%hi(var800998f8)
-/*    12f6c:	265298f8 */ 	addiu	$s2,$s2,%lo(var800998f8)
-/*    12f70:	26109880 */ 	addiu	$s0,$s0,%lo(g_ArgString)
-.L00012f74:
-/*    12f74:	02202025 */ 	or	$a0,$s1,$zero
-/*    12f78:	0c013994 */ 	jal	osPiReadIo
-/*    12f7c:	02002825 */ 	or	$a1,$s0,$zero
-/*    12f80:	26100004 */ 	addiu	$s0,$s0,0x4
-/*    12f84:	1612fffb */ 	bne	$s0,$s2,.L00012f74
-/*    12f88:	26310004 */ 	addiu	$s1,$s1,0x4
-.L00012f8c:
-/*    12f8c:	3c04800a */ 	lui	$a0,%hi(g_ArgString)
-/*    12f90:	0c004b98 */ 	jal	argParseString
-/*    12f94:	24849880 */ 	addiu	$a0,$a0,%lo(g_ArgString)
-/*    12f98:	3c057005 */ 	lui	$a1,%hi(var70053ff4)
-/*    12f9c:	24a53ff4 */ 	addiu	$a1,$a1,%lo(var70053ff4)
-/*    12fa0:	0c004c04 */ 	jal	argFindByPrefix
-/*    12fa4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    12fa8:	10400003 */ 	beqz	$v0,.L00012fb8
-/*    12fac:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    12fb0:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    12fb4:	afae0028 */ 	sw	$t6,0x28($sp)
-.L00012fb8:
-/*    12fb8:	3c057005 */ 	lui	$a1,%hi(var70053ff8)
-/*    12fbc:	0c004c04 */ 	jal	argFindByPrefix
-/*    12fc0:	24a53ff8 */ 	addiu	$a1,$a1,%lo(var70053ff8)
-/*    12fc4:	10400004 */ 	beqz	$v0,.L00012fd8
-/*    12fc8:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    12fcc:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    12fd0:	3c018006 */ 	lui	$at,%hi(var8005dda0)
-/*    12fd4:	ac2fdda0 */ 	sw	$t7,%lo(var8005dda0)($at)
-.L00012fd8:
-/*    12fd8:	3c057005 */ 	lui	$a1,%hi(var70053ffc)
-/*    12fdc:	0c004c04 */ 	jal	argFindByPrefix
-/*    12fe0:	24a53ffc */ 	addiu	$a1,$a1,%lo(var70053ffc)
-/*    12fe4:	10400003 */ 	beqz	$v0,.L00012ff4
-/*    12fe8:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    12fec:	3c018008 */ 	lui	$at,%hi(g_LanguageId)
-/*    12ff0:	ac384120 */ 	sw	$t8,%lo(g_LanguageId)($at)
-.L00012ff4:
-/*    12ff4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    12ff8:	8fa20028 */ 	lw	$v0,0x28($sp)
-/*    12ffc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    13000:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*    13004:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*    13008:	03e00008 */ 	jr	$ra
-/*    1300c:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+	devaddr = 0x1ffff00;
+
+	if (rmonIsDisabled()) {
+		g_ArgBuffer[0] = 0;
+	} else {
+		for (i = 0; i < 30; i++) {
+			osPiReadIo(devaddr, &g_ArgBuffer[i]);
+			devaddr += 4;
+		}
+	}
+
+	argParseString((char *) g_ArgBuffer);
+
+	// I'm guessing the -d stands for debug. If set at boot, the main thread
+	// stops itself immediately after creating the rmon thread.
+	if (argFindByPrefix(1, "-d")) {
+		ret = true;
+	}
+
+	if (argFindByPrefix(1, "-s")) {
+		g_Silent = true;
+	}
+
+	if (argFindByPrefix(1, "-j")) {
+		g_LanguageId = LANGUAGE_JAPANESE;
+	}
+
+	return ret;
+}
 
 /**
  * Find a program argument based on its prefix and occurrence of that prefix,

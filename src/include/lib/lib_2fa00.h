@@ -4,7 +4,7 @@
 #include "types.h"
 
 void rmonproc();
-u32 func0002fa08(void);
+bool rmonIsDisabled(void);
 void func0002faa4(char *format, ...);
 
 #endif

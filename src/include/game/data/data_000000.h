@@ -103,7 +103,7 @@ extern u32 var8005dd1c;
 extern s32 g_MainStageNum;
 extern u32 var8005dd5c;
 extern u32 var8005dd7c;
-extern u32 var8005dda0;
+extern bool g_Silent;
 extern u32 var8005dda8;
 extern u32 var8005ddac;
 extern u32 var8005ddb4;

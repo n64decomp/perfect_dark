@@ -16,7 +16,7 @@ void rmonproc()
 	// empty
 }
 
-bool func0002fa08(void)
+bool rmonIsDisabled(void)
 {
 	return true;
 }

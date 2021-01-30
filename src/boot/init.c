@@ -570,7 +570,7 @@ void mainproc(void *arg)
 	func00013710();
 	rmonCreateThread();
 
-	if (func00012f30()) {
+	if (argsParseDebugArgs()) {
 		osStopThread(NULL);
 	}
 

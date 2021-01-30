@@ -214,7 +214,7 @@ glabel mainInit
 /*     d55c:	00000000 */ 	nop
 /*     d560:	0c0026ac */ 	jal	func00009ab0
 /*     d564:	00000000 */ 	nop
-/*     d568:	0c00be82 */ 	jal	func0002fa08
+/*     d568:	0c00be82 */ 	jal	rmonIsDisabled
 /*     d56c:	00000000 */ 	nop
 /*     d570:	3c018006 */ 	lui	$at,%hi(var8005d9b0)
 /*     d574:	0c004f25 */ 	jal	contSystemInit
@@ -624,7 +624,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func00012a0c();
 //	func00013758();
 //	func00009ab0();
-//	var8005d9b0 = func0002fa08();
+//	var8005d9b0 = rmonIsDisabled();
 //	contSystemInit();
 //	osCreateMesgQueue(&queue, &msg, 1);
 //
