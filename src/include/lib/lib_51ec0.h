@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00051ec0(void);
+u32 __osAiDeviceBusy(void);
 
 #endif

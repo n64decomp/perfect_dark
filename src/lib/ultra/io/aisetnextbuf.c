@@ -28,7 +28,7 @@ glabel osAiSetNextBuffer
 /*    4e414:	3c018006 */ 	lui	$at,%hi(var80060990)
 /*    4e418:	a0200990 */ 	sb	$zero,%lo(var80060990)($at)
 .L0004e41c:
-/*    4e41c:	0c0147b0 */ 	jal	func00051ec0
+/*    4e41c:	0c0147b0 */ 	jal	__osAiDeviceBusy
 /*    4e420:	00000000 */ 	nop
 /*    4e424:	10400003 */ 	beqz	$v0,.L0004e434
 /*    4e428:	00000000 */ 	nop
@@ -52,3 +52,29 @@ glabel osAiSetNextBuffer
 /*    4e468:	00000000 */ 	nop
 /*    4e46c:	00000000 */ 	nop
 );
+
+// Mismatch: Needs data relocation
+//s32 osAiSetNextBuffer(void *bufPtr, u32 size)
+//{
+//	static u8 hdwrBugFlag = 0;
+//	char *bptr = bufPtr;
+//
+//	if (hdwrBugFlag != 0) {
+//		bptr -= 0x2000;
+//	}
+//
+//	if ((((u32)bufPtr + size) & 0x1fff) == 0) {
+//		hdwrBugFlag = 1;
+//	} else {
+//		hdwrBugFlag = 0;
+//	}
+//
+//	if (__osAiDeviceBusy()) {
+//		return -1;
+//	}
+//
+//	IO_WRITE(AI_DRAM_ADDR_REG, osVirtualToPhysical(bptr));
+//	IO_WRITE(AI_LEN_REG, size);
+//
+//	return 0;
+//}

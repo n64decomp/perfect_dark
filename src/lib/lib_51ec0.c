@@ -1,7 +1,7 @@
 #include <ultra64.h>
 
 GLOBAL_ASM(
-glabel func00051ec0
+glabel __osAiDeviceBusy
 /*    51ec0:	3c0ea450 */ 	lui	$t6,0xa450
 /*    51ec4:	8dc4000c */ 	lw	$a0,0xc($t6)
 /*    51ec8:	3c018000 */ 	lui	$at,0x8000
