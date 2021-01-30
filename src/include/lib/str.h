@@ -12,6 +12,6 @@ char toupper(char c);
 s32 isdigit(char c);
 s32 isalpha(char c);
 s32 isspace(char c);
-s32 func00013408(char *arg0, s32 *arg1, s32 arg2);
+s32 strtol(char *arg0, char **arg1, s32 arg2);
 
 #endif

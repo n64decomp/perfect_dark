@@ -143,7 +143,7 @@ s32 isspace(char c)
 }
 
 GLOBAL_ASM(
-glabel func00013408
+glabel strtol
 /*    13408:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*    1340c:	afb30024 */ 	sw	$s3,0x24($sp)
 /*    13410:	00c09825 */ 	or	$s3,$a2,$zero
@@ -331,3 +331,105 @@ glabel func00013408
 /*    13688:	27bd0060 */ 	addiu	$sp,$sp,0x60
 /*    1368c:	00000000 */ 	nop
 );
+
+// Mismatch: The below moves c from s0 to v1 near 590 for the compare with
+// cutlim and the add to value, while goal keeps it in s0. Also tried verbatim
+// strtol from glibc 1995 (commit 28f540f45b) which has the same codegen.
+//s32 strtol(char *src, char **endptr, s32 base)
+//{
+//	bool negative;
+//	u32 cutoff;
+//	u32 cutlim;
+//	u32 value;
+//	char *ptr;
+//	char c;
+//	char *save;
+//	bool overflow;
+//
+//	if (base < 0 || base == 1 || base > 36) {
+//		base = 10;
+//	}
+//
+//	ptr = src;
+//
+//	while (isspace(*ptr)) {
+//		ptr++;
+//	}
+//
+//	if (*ptr != '\0') {
+//		if (*ptr == '-') {
+//			negative = true;
+//			ptr++;
+//		} else if (*ptr == '+') {
+//			negative = false;
+//			ptr++;
+//		} else {
+//			negative = false;
+//		}
+//
+//		if (base == 16 && ptr[0] == '0' && toupper(ptr[1]) == 'X') {
+//			ptr += 2;
+//		}
+//
+//		if (base == 0) {
+//			if (*ptr == '0') {
+//				if (toupper(ptr[1]) == 'X') {
+//					ptr += 2;
+//					base = 16;
+//				} else {
+//					base = 8;
+//				}
+//			} else {
+//				base = 10;
+//			}
+//		}
+//
+//		save = ptr;
+//
+//		cutoff = U32_MAX / base;
+//		cutlim = U32_MAX % base;
+//		overflow = false;
+//		value = 0;
+//
+//		for (c = *ptr; c != '\0'; c = *++ptr) {
+//			if (isdigit(c)) {
+//				c -= '0';
+//			} else if (isalpha(c)) {
+//				c = toupper(c) - 'A' + 10;
+//			} else {
+//				break;
+//			}
+//
+//			// 590
+//			if (c >= base) {
+//				break;
+//			}
+//
+//			// 5a4
+//			if (value > cutoff || (value == cutoff && c > cutlim)) {
+//				overflow = true;
+//			} else {
+//				value *= base;
+//				value += c;
+//			}
+//		}
+//
+//		if (ptr != save) {
+//			if (endptr != NULL) {
+//				*endptr = ptr;
+//			}
+//
+//			if (overflow) {
+//				return -1;
+//			}
+//
+//			return negative ? -value : value;
+//		}
+//	}
+//
+//	if (endptr != NULL) {
+//		*endptr = src;
+//	}
+//
+//	return 0;
+//}

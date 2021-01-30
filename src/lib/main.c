@@ -961,7 +961,7 @@ void mainLoop(void)
 		func0f1672f0(4);
 
 		if (argFindByPrefix(1, "-ma")) {
-			var8005d9b8 = func00013408(argFindByPrefix(1, "-ma"), NULL, 0) * 1024;
+			var8005d9b8 = strtol(argFindByPrefix(1, "-ma"), NULL, 0) * 1024;
 		}
 
 		func00012a14(malloc(var8005d9b8, MEMPOOL_STAGE), var8005d9b8);
@@ -972,7 +972,7 @@ void mainLoop(void)
 			numplayers = 0;
 		} else {
 			if (argFindByPrefix(1, "-play")) {
-				numplayers = func00013408(argFindByPrefix(1, "-play"), NULL, 0);
+				numplayers = strtol(argFindByPrefix(1, "-play"), NULL, 0);
 			} else {
 				numplayers = 1;
 			}
