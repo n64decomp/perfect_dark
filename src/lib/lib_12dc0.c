@@ -12,11 +12,6 @@
 #include "lib/lib_2fa00.h"
 #include "types.h"
 
-const u32 var70053ff0[] = {0x00000000};
-const char var70053ff4[] = "-d";
-const char var70053ff8[] = "-s";
-const char var70053ffc[] = "-j";
-
 u64 rand_seed = 0xab8d9f7781280783;
 
 u32 var8005ee08 = 0x00000000;
@@ -103,54 +98,30 @@ glabel func00012e1c
 /*    12e5c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00012e60
-/*    12e60:	3c058006 */ 	lui	$a1,%hi(argv)
-/*    12e64:	3c068006 */ 	lui	$a2,%hi(argc)
-/*    12e68:	3c0e7005 */ 	lui	$t6,%hi(var70053ff0)
-/*    12e6c:	24c6ee10 */ 	addiu	$a2,$a2,%lo(argc)
-/*    12e70:	24a5ee14 */ 	addiu	$a1,$a1,%lo(argv)
-/*    12e74:	25ce3ff0 */ 	addiu	$t6,$t6,%lo(var70053ff0)
-/*    12e78:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    12e7c:	acae0000 */ 	sw	$t6,0x0($a1)
-/*    12e80:	accf0000 */ 	sw	$t7,0x0($a2)
-/*    12e84:	90820000 */ 	lbu	$v0,0x0($a0)
-/*    12e88:	24070020 */ 	addiu	$a3,$zero,0x20
-/*    12e8c:	10400019 */ 	beqz	$v0,.L00012ef4
-/*    12e90:	00000000 */ 	nop
-.L00012e94:
-/*    12e94:	54e20007 */ 	bnel	$a3,$v0,.L00012eb4
-/*    12e98:	8cc30000 */ 	lw	$v1,0x0($a2)
-/*    12e9c:	90980001 */ 	lbu	$t8,0x1($a0)
-.L00012ea0:
-/*    12ea0:	a0800000 */ 	sb	$zero,0x0($a0)
-/*    12ea4:	24840001 */ 	addiu	$a0,$a0,0x1
-/*    12ea8:	50f8fffd */ 	beql	$a3,$t8,.L00012ea0
-/*    12eac:	90980001 */ 	lbu	$t8,0x1($a0)
-/*    12eb0:	8cc30000 */ 	lw	$v1,0x0($a2)
-.L00012eb4:
-/*    12eb4:	0003c880 */ 	sll	$t9,$v1,0x2
-/*    12eb8:	00b94021 */ 	addu	$t0,$a1,$t9
-/*    12ebc:	ad040000 */ 	sw	$a0,0x0($t0)
-/*    12ec0:	24690001 */ 	addiu	$t1,$v1,0x1
-/*    12ec4:	acc90000 */ 	sw	$t1,0x0($a2)
-/*    12ec8:	90820000 */ 	lbu	$v0,0x0($a0)
-/*    12ecc:	28410021 */ 	slti	$at,$v0,0x21
-/*    12ed0:	14200006 */ 	bnez	$at,.L00012eec
-/*    12ed4:	00000000 */ 	nop
-/*    12ed8:	90820001 */ 	lbu	$v0,0x1($a0)
-.L00012edc:
-/*    12edc:	24840001 */ 	addiu	$a0,$a0,0x1
-/*    12ee0:	28410021 */ 	slti	$at,$v0,0x21
-/*    12ee4:	5020fffd */ 	beqzl	$at,.L00012edc
-/*    12ee8:	90820001 */ 	lbu	$v0,0x1($a0)
-.L00012eec:
-/*    12eec:	1440ffe9 */ 	bnez	$v0,.L00012e94
-/*    12ef0:	00000000 */ 	nop
-.L00012ef4:
-/*    12ef4:	03e00008 */ 	jr	$ra
-/*    12ef8:	00801025 */ 	or	$v0,$a0,$zero
-);
+/**
+ * Split the given string into words and populate the argv array.
+ */
+char *argParseString(char *str)
+{
+	argv[0] = "";
+	argc = 1;
+
+	while (*str != '\0') {
+		while (*str == ' ') {
+			*str = '\0';
+			str++;
+		}
+
+		argv[argc] = str;
+		argc++;
+
+		while (*str > ' ') {
+			*str++;
+		}
+	}
+
+	return str;
+}
 
 GLOBAL_ASM(
 glabel func00012efc
@@ -161,13 +132,17 @@ glabel func00012efc
 /*    12f0c:	0c004c4c */ 	jal	strcpy
 /*    12f10:	24849880 */ 	addiu	$a0,$a0,%lo(var80099880)
 /*    12f14:	3c04800a */ 	lui	$a0,%hi(var80099880)
-/*    12f18:	0c004b98 */ 	jal	func00012e60
+/*    12f18:	0c004b98 */ 	jal	argParseString
 /*    12f1c:	24849880 */ 	addiu	$a0,$a0,%lo(var80099880)
 /*    12f20:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    12f24:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    12f28:	03e00008 */ 	jr	$ra
 /*    12f2c:	00000000 */ 	nop
 );
+
+const char var70053ff4[] = "-d";
+const char var70053ff8[] = "-s";
+const char var70053ffc[] = "-j";
 
 GLOBAL_ASM(
 glabel func00012f30
@@ -198,7 +173,7 @@ glabel func00012f30
 /*    12f88:	26310004 */ 	addiu	$s1,$s1,0x4
 .L00012f8c:
 /*    12f8c:	3c04800a */ 	lui	$a0,%hi(var80099880)
-/*    12f90:	0c004b98 */ 	jal	func00012e60
+/*    12f90:	0c004b98 */ 	jal	argParseString
 /*    12f94:	24849880 */ 	addiu	$a0,$a0,%lo(var80099880)
 /*    12f98:	3c057005 */ 	lui	$a1,%hi(var70053ff4)
 /*    12f9c:	24a53ff4 */ 	addiu	$a1,$a1,%lo(var70053ff4)
