@@ -661,7 +661,7 @@ glabel func0f117520
 /*  f1176c0:	10000026 */ 	beqz	$zero,.L0f11775c
 /*  f1176c4:	2402000f */ 	addiu	$v0,$zero,0xf
 .L0f1176c8:
-/*  f1176c8:	0c004c04 */ 	jal	func00013010
+/*  f1176c8:	0c004c04 */ 	jal	argFindByPrefix
 /*  f1176cc:	24a53b80 */ 	addiu	$a1,$a1,%lo(var7f1b3b80)
 /*  f1176d0:	10400003 */ 	beqz	$v0,.L0f1176e0
 /*  f1176d4:	8fae0064 */ 	lw	$t6,0x64($sp)
@@ -6370,7 +6370,7 @@ glabel func0f11bc54
 /*  f11bde8:	a618000c */ 	sh	$t8,0xc($s0)
 /*  f11bdec:	a60c000a */ 	sh	$t4,0xa($s0)
 /*  f11bdf0:	24a545e4 */ 	addiu	$a1,$a1,%lo(var7f1b45e4)
-/*  f11bdf4:	0c004c04 */ 	jal	func00013010
+/*  f11bdf4:	0c004c04 */ 	jal	argFindByPrefix
 /*  f11bdf8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f11bdfc:	10400003 */ 	beqz	$v0,.L0f11be0c
 /*  f11be00:	8fa420d4 */ 	lw	$a0,0x20d4($sp)
@@ -9463,7 +9463,7 @@ void pakProbeEeprom(void)
 	if (type == EEPROM_TYPE_16K) {
 		g_PakHasEeprom = true;
 
-		if (func00013010(1, "-scrub")) {
+		if (argFindByPrefix(1, "-scrub")) {
 			pakForceScrub(SAVEDEVICE_GAMEPAK);
 		}
 	} else {

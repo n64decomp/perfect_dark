@@ -707,8 +707,8 @@ void mpSetDefaultSetup(void)
 		func0f1881d4(i);
 	}
 
-	if (func00013010(1, "-mpwpnset")) {
-		char *value = func00013010(1, "-mpwpnset");
+	if (argFindByPrefix(1, "-mpwpnset")) {
+		char *value = argFindByPrefix(1, "-mpwpnset");
 		mpSetWeaponSet(*value - 0x30);
 	} else {
 		mpSetWeaponSet(0);

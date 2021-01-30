@@ -24,26 +24,26 @@ u64 rand_seed = 0xab8d9f7781280783;
 
 u32 var8005ee08 = 0x00000000;
 u32 var8005ee0c = 0x00000000;
-u32 var8005ee10 = 0x00000001;
-u32 var8005ee14 = 0x00000000;
-u32 var8005ee18 = 0x00000000;
-u32 var8005ee1c = 0x00000000;
-u32 var8005ee20 = 0x00000000;
-u32 var8005ee24 = 0x00000000;
-u32 var8005ee28 = 0x00000000;
-u32 var8005ee2c = 0x00000000;
-u32 var8005ee30 = 0x00000000;
-u32 var8005ee34 = 0x00000000;
-u32 var8005ee38 = 0x00000000;
-u32 var8005ee3c = 0x00000000;
-u32 var8005ee40 = 0x00000000;
-u32 var8005ee44 = 0x00000000;
-u32 var8005ee48 = 0x00000000;
-u32 var8005ee4c = 0x00000000;
-u32 var8005ee50 = 0x00000000;
-u32 var8005ee54 = 0x00000000;
-u32 var8005ee58 = 0x00000000;
-u32 var8005ee5c = 0x00000000;
+s32 argc = 1;
+
+char *argv[17] = {
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+};
 
 GLOBAL_ASM(
 glabel random
@@ -108,11 +108,11 @@ glabel func00012e1c
 
 GLOBAL_ASM(
 glabel func00012e60
-/*    12e60:	3c058006 */ 	lui	$a1,%hi(var8005ee14)
-/*    12e64:	3c068006 */ 	lui	$a2,%hi(var8005ee10)
+/*    12e60:	3c058006 */ 	lui	$a1,%hi(argv)
+/*    12e64:	3c068006 */ 	lui	$a2,%hi(argc)
 /*    12e68:	3c0e7005 */ 	lui	$t6,%hi(var70053ff0)
-/*    12e6c:	24c6ee10 */ 	addiu	$a2,$a2,%lo(var8005ee10)
-/*    12e70:	24a5ee14 */ 	addiu	$a1,$a1,%lo(var8005ee14)
+/*    12e6c:	24c6ee10 */ 	addiu	$a2,$a2,%lo(argc)
+/*    12e70:	24a5ee14 */ 	addiu	$a1,$a1,%lo(argv)
 /*    12e74:	25ce3ff0 */ 	addiu	$t6,$t6,%lo(var70053ff0)
 /*    12e78:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*    12e7c:	acae0000 */ 	sw	$t6,0x0($a1)
@@ -205,7 +205,7 @@ glabel func00012f30
 /*    12f94:	24849880 */ 	addiu	$a0,$a0,%lo(var80099880)
 /*    12f98:	3c057005 */ 	lui	$a1,%hi(var70053ff4)
 /*    12f9c:	24a53ff4 */ 	addiu	$a1,$a1,%lo(var70053ff4)
-/*    12fa0:	0c004c04 */ 	jal	func00013010
+/*    12fa0:	0c004c04 */ 	jal	argFindByPrefix
 /*    12fa4:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    12fa8:	10400003 */ 	beqz	$v0,.L00012fb8
 /*    12fac:	24040001 */ 	addiu	$a0,$zero,0x1
@@ -213,7 +213,7 @@ glabel func00012f30
 /*    12fb4:	afae0028 */ 	sw	$t6,0x28($sp)
 .L00012fb8:
 /*    12fb8:	3c057005 */ 	lui	$a1,%hi(var70053ff8)
-/*    12fbc:	0c004c04 */ 	jal	func00013010
+/*    12fbc:	0c004c04 */ 	jal	argFindByPrefix
 /*    12fc0:	24a53ff8 */ 	addiu	$a1,$a1,%lo(var70053ff8)
 /*    12fc4:	10400004 */ 	beqz	$v0,.L00012fd8
 /*    12fc8:	24040001 */ 	addiu	$a0,$zero,0x1
@@ -222,7 +222,7 @@ glabel func00012f30
 /*    12fd4:	ac2fdda0 */ 	sw	$t7,%lo(var8005dda0)($at)
 .L00012fd8:
 /*    12fd8:	3c057005 */ 	lui	$a1,%hi(var70053ffc)
-/*    12fdc:	0c004c04 */ 	jal	func00013010
+/*    12fdc:	0c004c04 */ 	jal	argFindByPrefix
 /*    12fe0:	24a53ffc */ 	addiu	$a1,$a1,%lo(var70053ffc)
 /*    12fe4:	10400003 */ 	beqz	$v0,.L00012ff4
 /*    12fe8:	24180001 */ 	addiu	$t8,$zero,0x1
@@ -238,62 +238,30 @@ glabel func00012f30
 /*    1300c:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel func00013010
-/*    13010:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    13014:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*    13018:	00809025 */ 	or	$s2,$a0,$zero
-/*    1301c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    13020:	afb40024 */ 	sw	$s4,0x24($sp)
-/*    13024:	00a0a025 */ 	or	$s4,$a1,$zero
-/*    13028:	afb50028 */ 	sw	$s5,0x28($sp)
-/*    1302c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    13030:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    13034:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    13038:	0c012983 */ 	jal	strlen
-/*    1303c:	00a02025 */ 	or	$a0,$a1,$zero
-/*    13040:	3c158006 */ 	lui	$s5,%hi(var8005ee10)
-/*    13044:	26b5ee10 */ 	addiu	$s5,$s5,%lo(var8005ee10)
-/*    13048:	8eae0000 */ 	lw	$t6,0x0($s5)
-/*    1304c:	00409825 */ 	or	$s3,$v0,$zero
-/*    13050:	24110001 */ 	addiu	$s1,$zero,0x1
-/*    13054:	29c10002 */ 	slti	$at,$t6,0x2
-/*    13058:	14200014 */ 	bnez	$at,.L000130ac
-/*    1305c:	3c108006 */ 	lui	$s0,%hi(var8005ee18)
-/*    13060:	2610ee18 */ 	addiu	$s0,$s0,%lo(var8005ee18)
-/*    13064:	02802025 */ 	or	$a0,$s4,$zero
-.L00013068:
-/*    13068:	8e050000 */ 	lw	$a1,0x0($s0)
-/*    1306c:	0c004cb0 */ 	jal	strncmp
-/*    13070:	02603025 */ 	or	$a2,$s3,$zero
-/*    13074:	54400008 */ 	bnezl	$v0,.L00013098
-/*    13078:	8eb80000 */ 	lw	$t8,0x0($s5)
-/*    1307c:	2652ffff */ 	addiu	$s2,$s2,-1
-/*    13080:	56400005 */ 	bnezl	$s2,.L00013098
-/*    13084:	8eb80000 */ 	lw	$t8,0x0($s5)
-/*    13088:	8e0f0000 */ 	lw	$t7,0x0($s0)
-/*    1308c:	10000008 */ 	b	.L000130b0
-/*    13090:	01f31021 */ 	addu	$v0,$t7,$s3
-/*    13094:	8eb80000 */ 	lw	$t8,0x0($s5)
-.L00013098:
-/*    13098:	26310001 */ 	addiu	$s1,$s1,0x1
-/*    1309c:	26100004 */ 	addiu	$s0,$s0,0x4
-/*    130a0:	0238082a */ 	slt	$at,$s1,$t8
-/*    130a4:	5420fff0 */ 	bnezl	$at,.L00013068
-/*    130a8:	02802025 */ 	or	$a0,$s4,$zero
-.L000130ac:
-/*    130ac:	00001025 */ 	or	$v0,$zero,$zero
-.L000130b0:
-/*    130b0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    130b4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    130b8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    130bc:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*    130c0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*    130c4:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*    130c8:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*    130cc:	03e00008 */ 	jr	$ra
-/*    130d0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+/**
+ * Find a program argument based on its prefix and occurrence of that prefix,
+ * and return a pointer to whatever comes after the prefix.
+ *
+ * Typically called with arguments such as 1, "-hard". In this example, if the
+ * argument "-hard2" exists then it would return a pointer to "2".
+ */
+char *argFindByPrefix(s32 occurrence, char *str)
+{
+	s32 len = strlen(str);
+	s32 i;
+
+	for (i = 1; i < argc; i++) {
+		if (strncmp(str, argv[i], len) == 0) {
+			occurrence--;
+
+			if (occurrence == 0) {
+				return &argv[i][len];
+			}
+		}
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func000130d4
@@ -302,7 +270,7 @@ glabel func000130d4
 /*    130dc:	afa40018 */ 	sw	$a0,0x18($sp)
 /*    130e0:	3c057005 */ 	lui	$a1,%hi(var70054000)
 /*    130e4:	24a54000 */ 	addiu	$a1,$a1,%lo(var70054000)
-/*    130e8:	0c004c04 */ 	jal	func00013010
+/*    130e8:	0c004c04 */ 	jal	argFindByPrefix
 /*    130ec:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    130f0:	5040000b */ 	beqzl	$v0,.L00013120
 /*    130f4:	8fbf0014 */ 	lw	$ra,0x14($sp)

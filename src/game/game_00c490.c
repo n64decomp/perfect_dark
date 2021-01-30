@@ -2934,8 +2934,8 @@ glabel func0f00eb64
 
 void setupParseObjects(s32 stagenum)
 {
-	s32 withchrs = !func00013010(1, "-nochr") && !func00013010(1, "-noprop");
-	s32 withobjs = !func00013010(1, "-noobj") && !func00013010(1, "-noprop");
+	s32 withchrs = !argFindByPrefix(1, "-nochr") && !argFindByPrefix(1, "-noprop");
+	s32 withobjs = !argFindByPrefix(1, "-noobj") && !argFindByPrefix(1, "-noprop");
 	s32 withhovercars;
 	s32 escstepx;
 	s32 escstepy;

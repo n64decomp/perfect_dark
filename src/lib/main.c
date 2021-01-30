@@ -262,7 +262,7 @@ glabel mainInit
 /*     d610:	3c070047 */ 	lui	$a3,0x47
 /*     d614:	3c057005 */ 	lui	$a1,%hi(var70053a98)
 /*     d618:	24a53a98 */ 	addiu	$a1,$a1,%lo(var70053a98)
-/*     d61c:	0c004c04 */ 	jal	func00013010
+/*     d61c:	0c004c04 */ 	jal	argFindByPrefix
 /*     d620:	24040001 */ 	addiu	$a0,$zero,0x1
 /*     d624:	14400004 */ 	bnez	$v0,.L0000d638
 /*     d628:	00002025 */ 	or	$a0,$zero,$zero
@@ -639,7 +639,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		}
 //	}
 //
-//	if (func00013010(1, "-level_") == 0) {
+//	if (argFindByPrefix(1, "-level_") == 0) {
 //		var8005d9b0 = 1;
 //	}
 //
@@ -864,8 +864,8 @@ void mainLoop(void)
 		if (g_StageNum < STAGE_TITLE) {
 			func0f01b148(0);
 
-			if (func00013010(1, "-hard")) {
-				coreSetDifficulty(func00013010(1, "-hard")[0] - '0');
+			if (argFindByPrefix(1, "-hard")) {
+				coreSetDifficulty(argFindByPrefix(1, "-hard")[0] - '0');
 			}
 		}
 	}
@@ -960,8 +960,8 @@ void mainLoop(void)
 		memResetPool(MEMPOOL_STAGE);
 		func0f1672f0(4);
 
-		if (func00013010(1, "-ma")) {
-			var8005d9b8 = func00013408(func00013010(1, "-ma"), NULL, 0) * 1024;
+		if (argFindByPrefix(1, "-ma")) {
+			var8005d9b8 = func00013408(argFindByPrefix(1, "-ma"), NULL, 0) * 1024;
 		}
 
 		func00012a14(malloc(var8005d9b8, MEMPOOL_STAGE), var8005d9b8);
@@ -971,8 +971,8 @@ void mainLoop(void)
 		if (g_StageNum >= STAGE_TITLE) {
 			numplayers = 0;
 		} else {
-			if (func00013010(1, "-play")) {
-				numplayers = func00013408(func00013010(1, "-play"), NULL, 0);
+			if (argFindByPrefix(1, "-play")) {
+				numplayers = func00013408(argFindByPrefix(1, "-play"), NULL, 0);
 			} else {
 				numplayers = 1;
 			}
@@ -986,11 +986,11 @@ void mainLoop(void)
 			g_Vars.bondplayernum = 0;
 			g_Vars.coopplayernum = -1;
 			g_Vars.antiplayernum = -1;
-		} else if (func00013010(1, "-coop")) {
+		} else if (argFindByPrefix(1, "-coop")) {
 			g_Vars.bondplayernum = 0;
 			g_Vars.coopplayernum = 1;
 			g_Vars.antiplayernum = -1;
-		} else if (func00013010(1, "-anti")) {
+		} else if (argFindByPrefix(1, "-anti")) {
 			g_Vars.bondplayernum = 0;
 			g_Vars.coopplayernum = -1;
 			g_Vars.antiplayernum = 1;
@@ -998,7 +998,7 @@ void mainLoop(void)
 
 		playersAllocate(numplayers);
 
-		if (func00013010(1, "-mpbots")) {
+		if (argFindByPrefix(1, "-mpbots")) {
 			g_Vars.lvmpbotlevel = 1;
 		}
 
@@ -1008,7 +1008,7 @@ void mainLoop(void)
 		} else if (g_Vars.perfectbuddynum) {
 			func0f187944();
 		} else if (g_Vars.mplayerisrunning == false
-				&& (numplayers >= 2 || g_Vars.lvmpbotlevel || func00013010(1, "-play"))) {
+				&& (numplayers >= 2 || g_Vars.lvmpbotlevel || argFindByPrefix(1, "-play"))) {
 			g_MpSetup.chrslots = 1;
 
 			if (numplayers >= 2) {

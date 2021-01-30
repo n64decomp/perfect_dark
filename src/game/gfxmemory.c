@@ -49,14 +49,14 @@ void gfxInitMemory(void)
 {
 	s32 stack;
 
-	if (func00013010(1, "-mgfx")) {
+	if (argFindByPrefix(1, "-mgfx")) {
 		// Argument specified master_dl_size\n
 		s32 gfx;
 		s32 gfxtra = 0;
 
-		gfx = func00013408(func00013010(1, "-mgfx"), NULL, 0) * 1024;
+		gfx = func00013408(argFindByPrefix(1, "-mgfx"), NULL, 0) * 1024;
 
-		if (func00013010(1, "-mgfxtra")) {
+		if (argFindByPrefix(1, "-mgfxtra")) {
 			// ******** Extra specified but are we in the correct game mode I wonder???\n
 			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
 				// ******** Extra Display List Memeory Required\n
@@ -64,7 +64,7 @@ void gfxInitMemory(void)
 				// ******** If you try and run hi-res then\n
 				// ******** you're gonna shafted up the arse\n
 				// ******** so don't blame me\n
-				gfxtra = func00013408(func00013010(1, "-mgfxtra"), NULL, 0) * 1024;
+				gfxtra = func00013408(argFindByPrefix(1, "-mgfxtra"), NULL, 0) * 1024;
 			} else {
 				// ******** No we're not so there\n
 			}
@@ -76,9 +76,9 @@ void gfxInitMemory(void)
 		g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] = gfx + gfxtra;
 	}
 
-	if (func00013010(1, "-mvtx")) {
+	if (argFindByPrefix(1, "-mvtx")) {
 		// Argument specified mtxvtx_size\n
-		g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] = func00013408(func00013010(1, "-mvtx"), NULL, 0) * 1024;
+		g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] = func00013408(argFindByPrefix(1, "-mvtx"), NULL, 0) * 1024;
 	}
 
 	// %d Players : Allocating %d bytes for master dl's\n
