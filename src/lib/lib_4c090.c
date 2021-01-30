@@ -10,7 +10,6 @@
 #include "gvars/gvars.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4c090.h"
-#include "lib/lib_4cde0.h"
 #include "lib/lib_4d6f0.h"
 #include "types.h"
 
@@ -150,7 +149,7 @@ glabel func0004c200
 /*    4c268:	924f0065 */ 	lbu	$t7,0x65($s2)
 /*    4c26c:	51e00008 */ 	beqzl	$t7,.L0004c290
 /*    4c270:	27b1007c */ 	addiu	$s1,$sp,0x7c
-/*    4c274:	0c013378 */ 	jal	func0004cde0
+/*    4c274:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4c278:	00002825 */ 	or	$a1,$zero,$zero
 /*    4c27c:	50400004 */ 	beqzl	$v0,.L0004c290
 /*    4c280:	27b1007c */ 	addiu	$s1,$sp,0x7c
@@ -162,7 +161,7 @@ glabel func0004c200
 /*    4c294:	27b0009c */ 	addiu	$s0,$sp,0x9c
 /*    4c298:	02402025 */ 	or	$a0,$s2,$zero
 .L0004c29c:
-/*    4c29c:	0c013378 */ 	jal	func0004cde0
+/*    4c29c:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4c2a0:	326500ff */ 	andi	$a1,$s3,0xff
 /*    4c2a4:	10400003 */ 	beqz	$v0,.L0004c2b4
 /*    4c2a8:	00003025 */ 	or	$a2,$zero,$zero
@@ -223,7 +222,7 @@ glabel func0004c200
 /*    4c368:	02402025 */ 	or	$a0,$s2,$zero
 /*    4c36c:	5a600013 */ 	blezl	$s3,.L0004c3bc
 /*    4c370:	26730001 */ 	addiu	$s3,$s3,0x1
-/*    4c374:	0c013378 */ 	jal	func0004cde0
+/*    4c374:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4c378:	00002825 */ 	or	$a1,$zero,$zero
 /*    4c37c:	10400003 */ 	beqz	$v0,.L0004c38c
 /*    4c380:	00003025 */ 	or	$a2,$zero,$zero
@@ -253,7 +252,7 @@ glabel func0004c200
 /*    4c3cc:	02402025 */ 	or	$a0,$s2,$zero
 /*    4c3d0:	11200007 */ 	beqz	$t1,.L0004c3f0
 /*    4c3d4:	00000000 */ 	nop
-/*    4c3d8:	0c013378 */ 	jal	func0004cde0
+/*    4c3d8:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4c3dc:	00002825 */ 	or	$a1,$zero,$zero
 /*    4c3e0:	10400003 */ 	beqz	$v0,.L0004c3f0
 /*    4c3e4:	00000000 */ 	nop
@@ -378,7 +377,7 @@ glabel func0004c550
 /*    4c57c:	00809825 */ 	or	$s3,$a0,$zero
 /*    4c580:	51c00008 */ 	beqzl	$t6,.L0004c5a4
 /*    4c584:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    4c588:	0c013378 */ 	jal	func0004cde0
+/*    4c588:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4c58c:	00002825 */ 	or	$a1,$zero,$zero
 /*    4c590:	50400004 */ 	beqzl	$v0,.L0004c5a4
 /*    4c594:	240f0001 */ 	addiu	$t7,$zero,0x1
@@ -476,7 +475,7 @@ glabel func0004c6b4
 /*    4c6c8:	00808025 */ 	or	$s0,$a0,$zero
 /*    4c6cc:	51c00008 */ 	beqzl	$t6,.L0004c6f0
 /*    4c6d0:	8e040004 */ 	lw	$a0,0x4($s0)
-/*    4c6d4:	0c013378 */ 	jal	func0004cde0
+/*    4c6d4:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4c6d8:	00002825 */ 	or	$a1,$zero,$zero
 /*    4c6dc:	50400004 */ 	beqzl	$v0,.L0004c6f0
 /*    4c6e0:	8e040004 */ 	lw	$a0,0x4($s0)
@@ -598,13 +597,13 @@ glabel func0004c860
 /*    4c870:	00808025 */ 	or	$s0,$a0,$zero
 /*    4c874:	51c0000f */ 	beqzl	$t6,.L0004c8b4
 /*    4c878:	8e040004 */ 	lw	$a0,0x4($s0)
-/*    4c87c:	0c013378 */ 	jal	func0004cde0
+/*    4c87c:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4c880:	00002825 */ 	or	$a1,$zero,$zero
 /*    4c884:	24010002 */ 	addiu	$at,$zero,0x2
 /*    4c888:	14410005 */ 	bne	$v0,$at,.L0004c8a0
 /*    4c88c:	00401825 */ 	or	$v1,$v0,$zero
 /*    4c890:	02002025 */ 	or	$a0,$s0,$zero
-/*    4c894:	0c013378 */ 	jal	func0004cde0
+/*    4c894:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4c898:	00002825 */ 	or	$a1,$zero,$zero
 /*    4c89c:	00401825 */ 	or	$v1,$v0,$zero
 .L0004c8a0:
@@ -690,7 +689,7 @@ glabel func0004c934
 /*    4c9ac:	02402025 */ 	or	$a0,$s2,$zero
 /*    4c9b0:	51200008 */ 	beqzl	$t1,.L0004c9d4
 /*    4c9b4:	93a30067 */ 	lbu	$v1,0x67($sp)
-/*    4c9b8:	0c013378 */ 	jal	func0004cde0
+/*    4c9b8:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4c9bc:	00002825 */ 	or	$a1,$zero,$zero
 /*    4c9c0:	50400004 */ 	beqzl	$v0,.L0004c9d4
 /*    4c9c4:	93a30067 */ 	lbu	$v1,0x67($sp)

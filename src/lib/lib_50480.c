@@ -9,7 +9,6 @@
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
 #include "lib/lib_4c090.h"
-#include "lib/lib_4cde0.h"
 #include "lib/lib_50480.h"
 #include "types.h"
 
@@ -133,7 +132,7 @@ glabel func00050554
 /*    50604:	02402025 */ 	or	$a0,$s2,$zero
 /*    50608:	51200008 */ 	beqzl	$t1,.L0005062c
 /*    5060c:	8e4a005c */ 	lw	$t2,0x5c($s2)
-/*    50610:	0c013378 */ 	jal	func0004cde0
+/*    50610:	0c013378 */ 	jal	__osPfsSelectBank
 /*    50614:	00002825 */ 	or	$a1,$zero,$zero
 /*    50618:	50400004 */ 	beqzl	$v0,.L0005062c
 /*    5061c:	8e4a005c */ 	lw	$t2,0x5c($s2)
@@ -251,7 +250,7 @@ glabel func00050554
 /*    50798:	02402025 */ 	or	$a0,$s2,$zero
 /*    5079c:	53280008 */ 	beql	$t9,$t0,.L000507c0
 /*    507a0:	93a90049 */ 	lbu	$t1,0x49($sp)
-/*    507a4:	0c013378 */ 	jal	func0004cde0
+/*    507a4:	0c013378 */ 	jal	__osPfsSelectBank
 /*    507a8:	03202825 */ 	or	$a1,$t9,$zero
 /*    507ac:	50400004 */ 	beqzl	$v0,.L000507c0
 /*    507b0:	93a90049 */ 	lbu	$t1,0x49($sp)
@@ -300,7 +299,7 @@ glabel func00050554
 /*    50848:	02402025 */ 	or	$a0,$s2,$zero
 /*    5084c:	53000008 */ 	beqzl	$t8,.L00050870
 /*    50850:	8e48005c */ 	lw	$t0,0x5c($s2)
-/*    50854:	0c013378 */ 	jal	func0004cde0
+/*    50854:	0c013378 */ 	jal	__osPfsSelectBank
 /*    50858:	00002825 */ 	or	$a1,$zero,$zero
 /*    5085c:	50400004 */ 	beqzl	$v0,.L00050870
 /*    50860:	8e48005c */ 	lw	$t0,0x5c($s2)
@@ -368,7 +367,7 @@ glabel func000508d0
 /*    5092c:	02202025 */ 	or	$a0,$s1,$zero
 /*    50930:	53000008 */ 	beqzl	$t8,.L00050954
 /*    50934:	8e390050 */ 	lw	$t9,0x50($s1)
-/*    50938:	0c013378 */ 	jal	func0004cde0
+/*    50938:	0c013378 */ 	jal	__osPfsSelectBank
 /*    5093c:	00002825 */ 	or	$a1,$zero,$zero
 /*    50940:	50400004 */ 	beqzl	$v0,.L00050954
 /*    50944:	8e390050 */ 	lw	$t9,0x50($s1)

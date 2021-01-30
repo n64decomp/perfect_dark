@@ -9,7 +9,6 @@
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_4cde0.h"
 #include "lib/lib_4f5e0.h"
 #include "lib/lib_51d50.h"
 #include "types.h"
@@ -203,13 +202,13 @@ glabel func0004f854
 /*    4f87c:	aca00000 */ 	sw	$zero,0x0($a1)
 /*    4f880:	00a02025 */ 	or	$a0,$a1,$zero
 /*    4f884:	acaf0008 */ 	sw	$t7,0x8($a1)
-/*    4f888:	0c013378 */ 	jal	func0004cde0
+/*    4f888:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4f88c:	240500fe */ 	addiu	$a1,$zero,0xfe
 /*    4f890:	24010002 */ 	addiu	$at,$zero,0x2
 /*    4f894:	14410005 */ 	bne	$v0,$at,.L0004f8ac
 /*    4f898:	00401825 */ 	or	$v1,$v0,$zero
 /*    4f89c:	02002025 */ 	or	$a0,$s0,$zero
-/*    4f8a0:	0c013378 */ 	jal	func0004cde0
+/*    4f8a0:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4f8a4:	24050080 */ 	addiu	$a1,$zero,0x80
 /*    4f8a8:	00401825 */ 	or	$v1,$v0,$zero
 .L0004f8ac:
@@ -238,7 +237,7 @@ glabel func0004f854
 /*    4f8f8:	10000028 */ 	b	.L0004f99c
 /*    4f8fc:	2402000b */ 	addiu	$v0,$zero,0xb
 .L0004f900:
-/*    4f900:	0c013378 */ 	jal	func0004cde0
+/*    4f900:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4f904:	24050080 */ 	addiu	$a1,$zero,0x80
 /*    4f908:	24010002 */ 	addiu	$at,$zero,0x2
 /*    4f90c:	14410002 */ 	bne	$v0,$at,.L0004f918

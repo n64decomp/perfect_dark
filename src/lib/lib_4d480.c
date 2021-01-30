@@ -11,7 +11,6 @@
 #include "lib/libc/ll.h"
 #include "lib/lib_4c090.h"
 #include "lib/lib_4cc10.h"
-#include "lib/lib_4cde0.h"
 #include "lib/lib_4d480.h"
 #include "types.h"
 
@@ -50,7 +49,7 @@ glabel func0004d480
 /*    4d4ec:	02402025 */ 	or	$a0,$s2,$zero
 /*    4d4f0:	53200008 */ 	beqzl	$t9,.L0004d514
 /*    4d4f4:	8e48005c */ 	lw	$t0,0x5c($s2)
-/*    4d4f8:	0c013378 */ 	jal	func0004cde0
+/*    4d4f8:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4d4fc:	00002825 */ 	or	$a1,$zero,$zero
 /*    4d500:	50400004 */ 	beqzl	$v0,.L0004d514
 /*    4d504:	8e48005c */ 	lw	$t0,0x5c($s2)

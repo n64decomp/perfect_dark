@@ -10,7 +10,6 @@
 #include "gvars/gvars.h"
 #include "lib/libc/ll.h"
 #include "lib/lib_4c090.h"
-#include "lib/lib_4cde0.h"
 #include "lib/lib_4d6f0.h"
 #include "types.h"
 
@@ -168,7 +167,7 @@ glabel func0004d6f0
 /*    4d90c:	02602025 */ 	or	$a0,$s3,$zero
 /*    4d910:	51c00008 */ 	beqzl	$t6,.L0004d934
 /*    4d914:	8e6d005c */ 	lw	$t5,0x5c($s3)
-/*    4d918:	0c013378 */ 	jal	func0004cde0
+/*    4d918:	0c013378 */ 	jal	__osPfsSelectBank
 /*    4d91c:	00002825 */ 	or	$a1,$zero,$zero
 /*    4d920:	50400004 */ 	beqzl	$v0,.L0004d934
 /*    4d924:	8e6d005c */ 	lw	$t5,0x5c($s3)

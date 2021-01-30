@@ -35,6 +35,14 @@
 #define FLAGS_HASH 8
 #define FLAGS_ZERO 16
 
+#define BLOCKSIZE 32
+
+#define ARRLEN(x) ((s32)(sizeof(x) / sizeof(x[0])))
+
+#define ERRCK(fn) \
+    ret = fn;     \
+    if (ret != 0) \
+        return ret;
 
 typedef struct {
     union {

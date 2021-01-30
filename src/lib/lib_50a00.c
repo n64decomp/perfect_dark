@@ -12,7 +12,6 @@
 #include "lib/lib_06330.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4c090.h"
-#include "lib/lib_4cde0.h"
 #include "lib/lib_4d6f0.h"
 #include "lib/lib_50a00.h"
 #include "lib/lib_513b0.h"
@@ -58,7 +57,7 @@ glabel func00050a00
 /*    50a7c:	02602025 */ 	or	$a0,$s3,$zero
 /*    50a80:	53200008 */ 	beqzl	$t9,.L00050aa4
 /*    50a84:	8e68005c */ 	lw	$t0,0x5c($s3)
-/*    50a88:	0c013378 */ 	jal	func0004cde0
+/*    50a88:	0c013378 */ 	jal	__osPfsSelectBank
 /*    50a8c:	00002825 */ 	or	$a1,$zero,$zero
 /*    50a90:	50400004 */ 	beqzl	$v0,.L00050aa4
 /*    50a94:	8e68005c */ 	lw	$t0,0x5c($s3)

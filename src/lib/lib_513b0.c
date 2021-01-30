@@ -10,7 +10,6 @@
 #include "gvars/gvars.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4c090.h"
-#include "lib/lib_4cde0.h"
 #include "lib/lib_4d6f0.h"
 #include "lib/lib_513b0.h"
 #include "lib/lib_52360.h"
@@ -170,7 +169,7 @@ glabel func000513b0
 /*    515d8:	10000063 */ 	b	.L00051768
 /*    515dc:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L000515e0:
-/*    515e0:	0c013378 */ 	jal	func0004cde0
+/*    515e0:	0c013378 */ 	jal	__osPfsSelectBank
 /*    515e4:	00002825 */ 	or	$a1,$zero,$zero
 /*    515e8:	10400003 */ 	beqz	$v0,.L000515f8
 /*    515ec:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -290,7 +289,7 @@ glabel func00051778
 /*    5177c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*    51780:	afb00020 */ 	sw	$s0,0x20($sp)
 /*    51784:	00808025 */ 	or	$s0,$a0,$zero
-/*    51788:	0c013378 */ 	jal	func0004cde0
+/*    51788:	0c013378 */ 	jal	__osPfsSelectBank
 /*    5178c:	00002825 */ 	or	$a1,$zero,$zero
 /*    51790:	10400003 */ 	beqz	$v0,.L000517a0
 /*    51794:	00003025 */ 	or	$a2,$zero,$zero

@@ -12,7 +12,6 @@
 #include "lib/lib_4b170.h"
 #include "lib/lib_4c090.h"
 #include "lib/lib_4cc10.h"
-#include "lib/lib_4cde0.h"
 #include "lib/lib_4ce60.h"
 #include "lib/lib_4d000.h"
 #include "lib/lib_4d480.h"
@@ -100,7 +99,7 @@ glabel func00006550
 /*     6660:	00002825 */ 	or	$a1,$zero,$zero
 /*     6664:	51600008 */ 	beqzl	$t3,.L00006688
 /*     6668:	8eac005c */ 	lw	$t4,0x5c($s5)
-/*     666c:	0c013378 */ 	jal	func0004cde0
+/*     666c:	0c013378 */ 	jal	__osPfsSelectBank
 /*     6670:	a2a00065 */ 	sb	$zero,0x65($s5)
 /*     6674:	50400004 */ 	beqzl	$v0,.L00006688
 /*     6678:	8eac005c */ 	lw	$t4,0x5c($s5)
@@ -638,7 +637,7 @@ glabel func00006d60
 /*     6dcc:	1000006e */ 	b	.L00006f88
 /*     6dd0:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L00006dd4:
-/*     6dd4:	0c013378 */ 	jal	func0004cde0
+/*     6dd4:	0c013378 */ 	jal	__osPfsSelectBank
 /*     6dd8:	00002825 */ 	or	$a1,$zero,$zero
 /*     6ddc:	10400003 */ 	beqz	$v0,.L00006dec
 /*     6de0:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -769,7 +768,7 @@ glabel func00006f98
 /*     6f9c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*     6fa0:	afb00020 */ 	sw	$s0,0x20($sp)
 /*     6fa4:	00808025 */ 	or	$s0,$a0,$zero
-/*     6fa8:	0c013378 */ 	jal	func0004cde0
+/*     6fa8:	0c013378 */ 	jal	__osPfsSelectBank
 /*     6fac:	00002825 */ 	or	$a1,$zero,$zero
 /*     6fb0:	10400003 */ 	beqz	$v0,.L00006fc0
 /*     6fb4:	00003025 */ 	or	$a2,$zero,$zero

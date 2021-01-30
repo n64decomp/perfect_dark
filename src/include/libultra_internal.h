@@ -48,4 +48,6 @@ s32 __osAiDeviceBusy();
 void __osDispatchThread();
 u32 __osGetCause();
 s32 __osAtomicDec(u32*);
+s32 __osPfsSelectBank(OSPfs *pfs, u8 bank);
+
 #endif
