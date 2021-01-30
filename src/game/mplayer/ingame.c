@@ -23,7 +23,6 @@
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"
 #include "lib/main.h"
-#include "lib/lib_13130.h"
 #include "types.h"
 
 const char var7f1b7e80[] = "";

@@ -1,5 +1,5 @@
-#ifndef _IN_LIB_LIB_13130_H
-#define _IN_LIB_LIB_13130_H
+#ifndef _IN_LIB_STR_H
+#define _IN_LIB_STR_H
 #include <ultra64.h>
 #include "types.h"
 
@@ -13,6 +13,5 @@ s32 isdigit(char c);
 s32 isalpha(char c);
 s32 isspace(char c);
 s32 func00013408(char *arg0, s32 *arg1, s32 arg2);
-int sprintf(char *dest, const char *format, ...);
 
 #endif

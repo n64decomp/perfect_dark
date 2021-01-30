@@ -20,7 +20,6 @@
 #include "game/mplayer/mplayer.h"
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"
-#include "lib/lib_13130.h"
 #include "types.h"
 
 struct weapon *weaponFindById(s32 itemid)

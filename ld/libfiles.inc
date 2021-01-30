@@ -33,7 +33,8 @@
 	build/ROMID/lib/memory.o (section); \
 	build/ROMID/lib/lib_126b0.o (section); \
 	build/ROMID/lib/lib_12dc0.o (section); \
-	build/ROMID/lib/lib_13130.o (section); \
+	build/ROMID/lib/str.o (section); \
+	build/ROMID/lib/ultra/libc/sprintf.o (section); \
 	build/ROMID/lib/lib_13710.o (section); \
 	build/ROMID/lib/lib_13750.o (section); \
 	build/ROMID/lib/lib_13790.o (section); \

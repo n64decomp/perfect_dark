@@ -9,7 +9,6 @@
 #include "game/data/data_02da90.h"
 #include "gvars/gvars.h"
 #include "lib/lib_12dc0.h"
-#include "lib/lib_13130.h"
 #include "lib/lib_2fa00.h"
 #include "types.h"
 

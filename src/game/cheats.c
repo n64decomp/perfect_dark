@@ -16,7 +16,6 @@
 #include "game/lang.h"
 #include "game/pak/pak.h"
 #include "gvars/gvars.h"
-#include "lib/lib_13130.h"
 #include "types.h"
 
 struct cheat g_Cheats[NUM_CHEATS] = {
