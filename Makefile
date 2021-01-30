@@ -116,6 +116,7 @@ CFLAGS = -DVERSION=$(VERSION) \
 	-woff 581,649,819,820,821,838,852 \
 	-w2 \
 	-I src/include \
+	$(OPT_LVL) \
 	$(MIPSISET)
 
 C_FILES := $(shell find src/gvars src/boot src/lib src/game src/inflate src/mpconfigs src/mpstrings/$(ROMID) src/firingrange src/filenames src/textureconfig -name '*.c')
@@ -332,7 +333,7 @@ $(B_DIR)/files/G%Z: $(E_DIR)/files/G%Z
 # Lang
 $(B_DIR)/files/lang/L%.o: src/files/lang/$(ROMID)/%.c
 	@mkdir -p $(B_DIR)/files/lang
-	$(IDOCC) -c $(CFLAGS) $< -o $@ $(OPT_LVL)
+	$(IDOCC) -c $(CFLAGS) $< -o $@
 
 $(B_DIR)/files/L%.elf: $(B_DIR)/files/lang/L%.o
 	TOOLCHAIN=$(TOOLCHAIN) tools/mksimpleelf $< $@
@@ -394,37 +395,37 @@ $(B_DIR)/copyright.o: $(B_DIR)/copyright.bin
 
 $(B_DIR)/boot/%.o: src/boot/%.c
 	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ $(OPT_LVL)
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
 $(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.c
 	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ $(OPT_LVL)
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 	tools/patchmips3 $@ || rm $@
 
 $(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c
 	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) $< -o $@ $(OPT_LVL)
+	$(IDOCC) -c $(CFLAGS) $< -o $@
 	tools/patchmips3 $@ || rm $@
 
 $(B_DIR)/lib/%.o: src/lib/%.c
 	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ $(OPT_LVL)
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
 $(B_DIR)/game/%.o: src/game/%.c
 	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ $(OPT_LVL)
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
 $(B_DIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) $< -o $@ $(OPT_LVL)
+	$(IDOCC) -c $(CFLAGS) $< -o $@
 
 $(B_DIR)/%.o: src/%.s
 	@mkdir -p $(dir $@)
-	$(IDOAS) $(CFLAGS) $< -o $@ $(OPT_LVL)
+	$(IDOAS) $(CFLAGS) $< -o $@
 
 extract:
 	ROMID=$(ROMID) tools/extract

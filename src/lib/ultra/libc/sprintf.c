@@ -32,3 +32,21 @@ glabel sprintf
 /*    13708:	00000000 */ 	nop
 /*    1370c:	00000000 */ 	nop
 );
+
+// Mismatch:
+// Goal takes v0 from _Printf and copies it to v1 but leaves v0 unmodified.
+// The below copies v0 to v1 then back to v0 for the return.
+//int sprintf(char *dst, const char *fmt, ...)
+//{
+//	int ans;
+//	va_list ap;
+//
+//	va_start(ap, fmt);
+//	ans = _Printf(proutSprintf, dst, fmt, ap);
+//
+//	if (ans >= 0) {
+//		dst[ans] = 0;
+//	}
+//
+//	return ans;
+//}
