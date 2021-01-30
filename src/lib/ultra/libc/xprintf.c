@@ -142,7 +142,7 @@ glabel func0004e690
 .L0004e890:
 /*    4e890:	02002025 */ 	or	$a0,$s0,$zero
 /*    4e894:	03277821 */ 	addu	$t7,$t9,$a3
-/*    4e898:	0c014830 */ 	jal	func000520c0
+/*    4e898:	0c014830 */ 	jal	_Litob
 /*    4e89c:	ae0f0008 */ 	sw	$t7,0x8($s0)
 /*    4e8a0:	10000114 */ 	b	.L0004ecf4
 /*    4e8a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -234,7 +234,7 @@ glabel func0004e690
 .L0004e9e0:
 /*    4e9e0:	02002025 */ 	or	$a0,$s0,$zero
 /*    4e9e4:	03077821 */ 	addu	$t7,$t8,$a3
-/*    4e9e8:	0c014830 */ 	jal	func000520c0
+/*    4e9e8:	0c014830 */ 	jal	_Litob
 /*    4e9ec:	ae0f0008 */ 	sw	$t7,0x8($s0)
 /*    4e9f0:	100000c0 */ 	b	.L0004ecf4
 /*    4e9f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -410,7 +410,7 @@ glabel func0004e690
 /*    4ec58:	ae0e0004 */ 	sw	$t6,0x4($s0)
 /*    4ec5c:	01e77021 */ 	addu	$t6,$t7,$a3
 /*    4ec60:	ae180000 */ 	sw	$t8,0x0($s0)
-/*    4ec64:	0c014830 */ 	jal	func000520c0
+/*    4ec64:	0c014830 */ 	jal	_Litob
 /*    4ec68:	ae0e0008 */ 	sw	$t6,0x8($s0)
 /*    4ec6c:	10000021 */ 	b	.L0004ecf4
 /*    4ec70:	8fbf0014 */ 	lw	$ra,0x14($sp)

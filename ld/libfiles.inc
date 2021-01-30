@@ -191,5 +191,5 @@
 	build/ROMID/lib/ultra/os/jammesg.o (section); \
 	build/ROMID/lib/ultra/io/pigetcmdq.o (section); \
 	build/ROMID/lib/ultra/io/pirawread.o (section); \
-	build/ROMID/lib/lib_520c0.o (section); \
+	build/ROMID/lib/ultra/libc/xlitob.o (section); \
 	build/ROMID/lib/lib_52360.o (section);
