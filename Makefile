@@ -73,6 +73,7 @@ $(B_DIR)/lib/ultra/gu/ortho.o: OPT_LVL := -O3
 $(B_DIR)/lib/ultra/gu/scale.o: OPT_LVL := -O3
 $(B_DIR)/lib/ultra/io/ai.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/aisetnextbuf.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/io/conteeplongread.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/contquery.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/dpctr.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/pigetcmdq.o: OPT_LVL := -O1
