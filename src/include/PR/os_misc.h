@@ -93,6 +93,10 @@ typedef char *va_list;
                                           : __va_stack_arg(list, mode))))[-1]
 #define va_end(__list)
 
+#define EEPROM_MAXBLOCKS	64
+#define EEP16K_MAXBLOCKS	256
+#define EEPROM_BLOCK_SIZE	8
+
 /* Miscellaneous OS functions */
 
 void osInitialize(void);

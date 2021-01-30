@@ -71,6 +71,103 @@ typedef struct {
 	u8	errno;
 } OSContRamIo;
 
+typedef struct
+{
+    /* 0x0 */ u32 ramarray[15];
+    /* 0x3C */ u32 pifstatus;
+} OSPifRam;
+
+typedef struct
+{
+    /* 0x0 */ u8 dummy;
+    /* 0x1 */ u8 txsize;
+    /* 0x2 */ u8 rxsize;
+    /* 0x3 */ u8 cmd;
+    /* 0x4 */ u16 button;
+    /* 0x6 */ s8 stick_x;
+    /* 0x7 */ s8 stick_y;
+} __OSContReadFormat;
+
+typedef struct
+{
+    /* 0x0 */ u8 dummy;
+    /* 0x1 */ u8 txsize;
+    /* 0x2 */ u8 rxsize;
+    /* 0x3 */ u8 cmd;
+    /* 0x4 */ u8 typeh;
+    /* 0x5 */ u8 typel;
+    /* 0x6 */ u8 status;
+    /* 0x7 */ u8 dummy1;
+} __OSContRequestFormat;
+
+typedef struct
+{
+    /* 0x0 */ u8 txsize;
+    /* 0x1 */ u8 rxsize;
+    /* 0x2 */ u8 cmd;
+    /* 0x3 */ u8 typeh;
+    /* 0x4 */ u8 typel;
+    /* 0x5 */ u8 status;
+} __OSContRequestFormatShort;
+
+typedef struct
+{
+    /* 0x0 */ u8 dummy;
+    /* 0x1 */ u8 txsize;
+    /* 0x2 */ u8 rxsize;
+    /* 0x3 */ u8 cmd;
+    /* 0x4 */ u16 address;
+    /* 0x6 */ u8 data[BLOCKSIZE];
+    /* 0x26 */ u8 datacrc;
+} __OSContRamReadFormat;
+
+typedef union {
+    /* 0x0 */ struct
+    {
+        /* 0x0 */ u8 bank;
+        /* 0x1 */ u8 page;
+    } inode_t;
+    /* 0x0 */ u16 ipage;
+} __OSInodeUnit;
+
+typedef struct
+{
+    /* 0x0 */ u32 game_code;
+    /* 0x4 */ u16 company_code;
+    /* 0x6 */ __OSInodeUnit start_page;
+    /* 0x8 */ u8 status;
+    /* 0x9 */ s8 reserved;
+    /* 0xA */ u16 data_sum;
+    /* 0xC */ u8 ext_name[16];
+    /* 0x10 */ u8 game_name[4];
+} __OSDir;
+
+typedef struct
+{
+    /* 0x0 */ __OSInodeUnit inode_page[128];
+} __OSInode;
+
+typedef struct
+{
+    /* 0x0 */ u32 repaired;
+    /* 0x4 */ u32 random;
+    /* 0x8 */ u64 serial_mid;
+    /* 0x10 */ u64 serial_low;
+    /* 0x18 */ u16 deviceid;
+    /* 0x1A */ u8 banks;
+    /* 0x1B */ u8 version;
+    /* 0x1C */ u16 checksum;
+    /* 0x1E */ u16 inverted_checksum;
+} __OSPackId;
+
+typedef struct
+{
+    /* 0x0 */ u8 txsize;
+    /* 0x1 */ u8 rxsize;
+    /* 0x2 */ u8 cmd;
+    /* 0x3 */ u8 address;
+    /* 0x4 */ u8 data[EEPROM_BLOCK_SIZE];
+} __OSContEepromFormat;
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 
@@ -193,6 +290,8 @@ typedef struct {
 #define DIR_STATUS_EMPTY    0
 #define DIR_STATUS_UNKNOWN  1
 #define DIR_STATUS_OCCUPIED 2
+
+#define CHNL_ERR(format) ((format.rxsize & CHNL_ERR_MASK) >> 4)
 
 #if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
 

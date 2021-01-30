@@ -1,4 +1,5 @@
 #include <libultra_internal.h>
+#include "gvars/gvars.h"
 
 GLOBAL_ASM(
 glabel __osPfsGetStatus
@@ -116,49 +117,23 @@ glabel __osPfsRequestOneChannel
 /*    4bc20:	a04dffff */ 	sb	$t5,-0x1($v0)
 );
 
-GLOBAL_ASM(
-glabel __osPfsGetOneChannelData
-/*    4bc24:	3c028009 */ 	lui	$v0,%hi(__osPfsPifRam)
-/*    4bc28:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    4bc2c:	24420a20 */ 	addiu	$v0,$v0,%lo(__osPfsPifRam)
-/*    4bc30:	1880000b */ 	blez	$a0,.L0004bc60
-/*    4bc34:	00001825 */ 	or	$v1,$zero,$zero
-/*    4bc38:	30870003 */ 	andi	$a3,$a0,0x3
-/*    4bc3c:	10e00005 */ 	beqz	$a3,.L0004bc54
-/*    4bc40:	00e03025 */ 	or	$a2,$a3,$zero
-.L0004bc44:
-/*    4bc44:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    4bc48:	14c3fffe */ 	bne	$a2,$v1,.L0004bc44
-/*    4bc4c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    4bc50:	10640003 */ 	beq	$v1,$a0,.L0004bc60
-.L0004bc54:
-/*    4bc54:	24630004 */ 	addiu	$v1,$v1,0x4
-/*    4bc58:	1464fffe */ 	bne	$v1,$a0,.L0004bc54
-/*    4bc5c:	24420004 */ 	addiu	$v0,$v0,0x4
-.L0004bc60:
-/*    4bc60:	88410000 */ 	lwl	$at,0x0($v0)
-/*    4bc64:	98410003 */ 	lwr	$at,0x3($v0)
-/*    4bc68:	27ae000c */ 	addiu	$t6,$sp,0xc
-/*    4bc6c:	adc10000 */ 	sw	$at,0x0($t6)
-/*    4bc70:	90410004 */ 	lbu	$at,0x4($v0)
-/*    4bc74:	a1c10004 */ 	sb	$at,0x4($t6)
-/*    4bc78:	90580005 */ 	lbu	$t8,0x5($v0)
-/*    4bc7c:	a1d80005 */ 	sb	$t8,0x5($t6)
-/*    4bc80:	93b9000d */ 	lbu	$t9,0xd($sp)
-/*    4bc84:	332800c0 */ 	andi	$t0,$t9,0xc0
-/*    4bc88:	00084903 */ 	sra	$t1,$t0,0x4
-/*    4bc8c:	312a00ff */ 	andi	$t2,$t1,0xff
-/*    4bc90:	15400008 */ 	bnez	$t2,.L0004bcb4
-/*    4bc94:	a0a90003 */ 	sb	$t1,0x3($a1)
-/*    4bc98:	93ab0010 */ 	lbu	$t3,0x10($sp)
-/*    4bc9c:	93ad000f */ 	lbu	$t5,0xf($sp)
-/*    4bca0:	000b6200 */ 	sll	$t4,$t3,0x8
-/*    4bca4:	018d7825 */ 	or	$t7,$t4,$t5
-/*    4bca8:	a4af0000 */ 	sh	$t7,0x0($a1)
-/*    4bcac:	93ae0011 */ 	lbu	$t6,0x11($sp)
-/*    4bcb0:	a0ae0002 */ 	sb	$t6,0x2($a1)
-.L0004bcb4:
-/*    4bcb4:	03e00008 */ 	jr	$ra
-/*    4bcb8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    4bcbc:	00000000 */ 	nop
-);
+void __osPfsGetOneChannelData(int channel, OSContStatus *data)
+{
+	u8 *ptr;
+	__OSContRequestFormatShort requestformat;
+	int i;
+
+	ptr = (u8*)&__osPfsPifRam;
+
+    for (i = 0; i < channel; i++) {
+        ptr++;
+	}
+
+	requestformat = *(__OSContRequestFormatShort *)ptr;
+	data->errno = CHNL_ERR(requestformat);
+
+	if (data->errno == 0) {
+		data->type = (requestformat.typel << 8) | (requestformat.typeh);
+		data->status = requestformat.status;
+	}
+}
