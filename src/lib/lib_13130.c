@@ -152,38 +152,28 @@ glabel strcmp
 /*    132bc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func000132c0
-.L000132c0:
-/*    132c0:	54c00004 */ 	bnezl	$a2,.L000132d4
-/*    132c4:	90820000 */ 	lbu	$v0,0x0($a0)
-/*    132c8:	03e00008 */ 	jr	$ra
-/*    132cc:	00001025 */ 	or	$v0,$zero,$zero
-/*    132d0:	90820000 */ 	lbu	$v0,0x0($a0)
-.L000132d4:
-/*    132d4:	90a30000 */ 	lbu	$v1,0x0($a1)
-/*    132d8:	24c6ffff */ 	addiu	$a2,$a2,-1
-/*    132dc:	24840001 */ 	addiu	$a0,$a0,0x1
-/*    132e0:	10430007 */ 	beq	$v0,$v1,.L00013300
-/*    132e4:	0043082a */ 	slt	$at,$v0,$v1
-/*    132e8:	10200003 */ 	beqz	$at,.L000132f8
-/*    132ec:	00000000 */ 	nop
-/*    132f0:	03e00008 */ 	jr	$ra
-/*    132f4:	2402ffff */ 	addiu	$v0,$zero,-1
-.L000132f8:
-/*    132f8:	03e00008 */ 	jr	$ra
-/*    132fc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L00013300:
-/*    13300:	14400003 */ 	bnez	$v0,.L00013310
-/*    13304:	00000000 */ 	nop
-/*    13308:	03e00008 */ 	jr	$ra
-/*    1330c:	00001025 */ 	or	$v0,$zero,$zero
-.L00013310:
-/*    13310:	1000ffeb */ 	b	.L000132c0
-/*    13314:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*    13318:	03e00008 */ 	jr	$ra
-/*    1331c:	00000000 */ 	nop
-);
+s32 strncmp(char *s1, char *s2, s32 len)
+{
+	if (len == 0) {
+		return 0;
+	}
+
+	len--;
+
+	if (*s1 != *s2) {
+		if (*s1 < *s2) {
+			return -1;
+		} else {
+			return 1;
+		}
+	}
+
+	if (*s1 == '\0') {
+		return 0;
+	}
+
+	return strncmp(s1 + 1, s2 + 1, len);
+}
 
 char toupper(char c)
 {
