@@ -65,37 +65,34 @@ glabel strcpy
 /*    131c4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel strncpy
-/*    131c8:	90a20000 */ 	lbu	$v0,0x0($a1)
-/*    131cc:	24830001 */ 	addiu	$v1,$a0,0x1
-/*    131d0:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*    131d4:	10400009 */ 	beqz	$v0,.L000131fc
-/*    131d8:	a0820000 */ 	sb	$v0,0x0($a0)
-.L000131dc:
-/*    131dc:	24c6ffff */ 	addiu	$a2,$a2,-1
-/*    131e0:	50c00007 */ 	beqzl	$a2,.L00013200
-/*    131e4:	00c01025 */ 	or	$v0,$a2,$zero
-/*    131e8:	90a20000 */ 	lbu	$v0,0x0($a1)
-/*    131ec:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    131f0:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*    131f4:	1440fff9 */ 	bnez	$v0,.L000131dc
-/*    131f8:	a062ffff */ 	sb	$v0,-0x1($v1)
-.L000131fc:
-/*    131fc:	00c01025 */ 	or	$v0,$a2,$zero
-.L00013200:
-/*    13200:	10c00006 */ 	beqz	$a2,.L0001321c
-/*    13204:	24c6ffff */ 	addiu	$a2,$a2,-1
-.L00013208:
-/*    13208:	00c01025 */ 	or	$v0,$a2,$zero
-/*    1320c:	a0600000 */ 	sb	$zero,0x0($v1)
-/*    13210:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    13214:	14c0fffc */ 	bnez	$a2,.L00013208
-/*    13218:	24c6ffff */ 	addiu	$a2,$a2,-1
-.L0001321c:
-/*    1321c:	03e00008 */ 	jr	$ra
-/*    13220:	00801025 */ 	or	$v0,$a0,$zero
-);
+char *strncpy(char *dst, char *src, s32 len)
+{
+	char *ptr = dst;
+	char c;
+
+	*ptr = c = *src;
+	ptr++;
+	src++;
+
+	while (c != '\0') {
+		len--;
+
+		if (len == 0) {
+			break;
+		}
+
+		*ptr = c = *src;
+		ptr++;
+		src++;
+	}
+
+	while (len--) {
+		*ptr = '\0';
+		ptr++;
+	}
+
+	return dst;
+}
 
 char *strcat(char *dst, char *src)
 {
