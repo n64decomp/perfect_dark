@@ -125,32 +125,22 @@ glabel strcat
 /*    13270:	00801025 */ 	or	$v0,$a0,$zero
 );
 
-GLOBAL_ASM(
-glabel strcmp
-.L00013274:
-/*    13274:	90820000 */ 	lbu	$v0,0x0($a0)
-/*    13278:	90a30000 */ 	lbu	$v1,0x0($a1)
-/*    1327c:	24840001 */ 	addiu	$a0,$a0,0x1
-/*    13280:	10430007 */ 	beq	$v0,$v1,.L000132a0
-/*    13284:	0043082a */ 	slt	$at,$v0,$v1
-/*    13288:	10200003 */ 	beqz	$at,.L00013298
-/*    1328c:	00000000 */ 	nop
-/*    13290:	03e00008 */ 	jr	$ra
-/*    13294:	2402ffff */ 	addiu	$v0,$zero,-1
-.L00013298:
-/*    13298:	03e00008 */ 	jr	$ra
-/*    1329c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L000132a0:
-/*    132a0:	14400003 */ 	bnez	$v0,.L000132b0
-/*    132a4:	00000000 */ 	nop
-/*    132a8:	03e00008 */ 	jr	$ra
-/*    132ac:	00001025 */ 	or	$v0,$zero,$zero
-.L000132b0:
-/*    132b0:	1000fff0 */ 	b	.L00013274
-/*    132b4:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*    132b8:	03e00008 */ 	jr	$ra
-/*    132bc:	00000000 */ 	nop
-);
+s32 strcmp(char *s1, char *s2)
+{
+	if (*s1 != *s2) {
+		if (*s1 < *s2) {
+			return -1;
+		} else {
+			return 1;
+		}
+	}
+
+	if (*s1 == '\0') {
+		return 0;
+	}
+
+	return strcmp(s1 + 1, s2 + 1);
+}
 
 s32 strncmp(char *s1, char *s2, s32 len)
 {
