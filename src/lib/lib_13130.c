@@ -185,28 +185,18 @@ glabel func000132c0
 /*    1331c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00013320
-/*    13320:	308e00ff */ 	andi	$t6,$a0,0xff
-/*    13324:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    13328:	29c10061 */ 	slti	$at,$t6,0x61
-/*    1332c:	14200007 */ 	bnez	$at,.L0001334c
-/*    13330:	01c02025 */ 	or	$a0,$t6,$zero
-/*    13334:	29c1007b */ 	slti	$at,$t6,0x7b
-/*    13338:	10200004 */ 	beqz	$at,.L0001334c
-/*    1333c:	25c2ffe0 */ 	addiu	$v0,$t6,-32
-/*    13340:	304f00ff */ 	andi	$t7,$v0,0xff
-/*    13344:	03e00008 */ 	jr	$ra
-/*    13348:	01e01025 */ 	or	$v0,$t7,$zero
-.L0001334c:
-/*    1334c:	00801025 */ 	or	$v0,$a0,$zero
-/*    13350:	03e00008 */ 	jr	$ra
-/*    13354:	00000000 */ 	nop
-);
-
-s32 isdigit(char value)
+char toupper(char c)
 {
-	return value >= '0' && value <= '9';
+	if (c >= 'a' && c <= 'z') {
+		return c - 0x20;
+	}
+
+	return c;
+}
+
+s32 isdigit(char c)
+{
+	return c >= '0' && c <= '9';
 }
 
 GLOBAL_ASM(
@@ -315,7 +305,7 @@ glabel func00013408
 /*    134c8:	24010030 */ 	addiu	$at,$zero,0x30
 /*    134cc:	15e10007 */ 	bne	$t7,$at,.L000134ec
 /*    134d0:	00000000 */ 	nop
-/*    134d4:	0c004cc8 */ 	jal	func00013320
+/*    134d4:	0c004cc8 */ 	jal	toupper
 /*    134d8:	92440001 */ 	lbu	$a0,0x1($s2)
 /*    134dc:	24010058 */ 	addiu	$at,$zero,0x58
 /*    134e0:	14410002 */ 	bne	$v0,$at,.L000134ec
@@ -327,7 +317,7 @@ glabel func00013408
 /*    134f4:	24010030 */ 	addiu	$at,$zero,0x30
 /*    134f8:	1441000b */ 	bne	$v0,$at,.L00013528
 /*    134fc:	2413000a */ 	addiu	$s3,$zero,0xa
-/*    13500:	0c004cc8 */ 	jal	func00013320
+/*    13500:	0c004cc8 */ 	jal	toupper
 /*    13504:	92440001 */ 	lbu	$a0,0x1($s2)
 /*    13508:	24010058 */ 	addiu	$at,$zero,0x58
 /*    1350c:	14410004 */ 	bne	$v0,$at,.L00013520
@@ -361,7 +351,7 @@ glabel func00013408
 /*    1356c:	320400ff */ 	andi	$a0,$s0,0xff
 /*    13570:	50400026 */ 	beqzl	$v0,.L0001360c
 /*    13574:	8faa0044 */ 	lw	$t2,0x44($sp)
-/*    13578:	0c004cc8 */ 	jal	func00013320
+/*    13578:	0c004cc8 */ 	jal	toupper
 /*    1357c:	320400ff */ 	andi	$a0,$s0,0xff
 /*    13580:	2450ffc9 */ 	addiu	$s0,$v0,-55
 /*    13584:	321900ff */ 	andi	$t9,$s0,0xff
