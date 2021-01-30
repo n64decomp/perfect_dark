@@ -123,22 +123,11 @@ char *argParseString(char *str)
 	return str;
 }
 
-GLOBAL_ASM(
-glabel func00012efc
-/*    12efc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    12f00:	00802825 */ 	or	$a1,$a0,$zero
-/*    12f04:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12f08:	3c04800a */ 	lui	$a0,%hi(var80099880)
-/*    12f0c:	0c004c4c */ 	jal	strcpy
-/*    12f10:	24849880 */ 	addiu	$a0,$a0,%lo(var80099880)
-/*    12f14:	3c04800a */ 	lui	$a0,%hi(var80099880)
-/*    12f18:	0c004b98 */ 	jal	argParseString
-/*    12f1c:	24849880 */ 	addiu	$a0,$a0,%lo(var80099880)
-/*    12f20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    12f24:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    12f28:	03e00008 */ 	jr	$ra
-/*    12f2c:	00000000 */ 	nop
-);
+void argSetString(char *string)
+{
+	strcpy(g_ArgString, string);
+	argParseString(g_ArgString);
+}
 
 const char var70053ff4[] = "-d";
 const char var70053ff8[] = "-s";
@@ -156,14 +145,14 @@ glabel func00012f30
 /*    12f4c:	0c00be82 */ 	jal	func0002fa08
 /*    12f50:	3631ff00 */ 	ori	$s1,$s1,0xff00
 /*    12f54:	10400004 */ 	beqz	$v0,.L00012f68
-/*    12f58:	3c10800a */ 	lui	$s0,%hi(var80099880)
-/*    12f5c:	3c01800a */ 	lui	$at,%hi(var80099880)
+/*    12f58:	3c10800a */ 	lui	$s0,%hi(g_ArgString)
+/*    12f5c:	3c01800a */ 	lui	$at,%hi(g_ArgString)
 /*    12f60:	1000000a */ 	b	.L00012f8c
-/*    12f64:	ac209880 */ 	sw	$zero,%lo(var80099880)($at)
+/*    12f64:	ac209880 */ 	sw	$zero,%lo(g_ArgString)($at)
 .L00012f68:
 /*    12f68:	3c12800a */ 	lui	$s2,%hi(var800998f8)
 /*    12f6c:	265298f8 */ 	addiu	$s2,$s2,%lo(var800998f8)
-/*    12f70:	26109880 */ 	addiu	$s0,$s0,%lo(var80099880)
+/*    12f70:	26109880 */ 	addiu	$s0,$s0,%lo(g_ArgString)
 .L00012f74:
 /*    12f74:	02202025 */ 	or	$a0,$s1,$zero
 /*    12f78:	0c013994 */ 	jal	osPiReadIo
@@ -172,9 +161,9 @@ glabel func00012f30
 /*    12f84:	1612fffb */ 	bne	$s0,$s2,.L00012f74
 /*    12f88:	26310004 */ 	addiu	$s1,$s1,0x4
 .L00012f8c:
-/*    12f8c:	3c04800a */ 	lui	$a0,%hi(var80099880)
+/*    12f8c:	3c04800a */ 	lui	$a0,%hi(g_ArgString)
 /*    12f90:	0c004b98 */ 	jal	argParseString
-/*    12f94:	24849880 */ 	addiu	$a0,$a0,%lo(var80099880)
+/*    12f94:	24849880 */ 	addiu	$a0,$a0,%lo(g_ArgString)
 /*    12f98:	3c057005 */ 	lui	$a1,%hi(var70053ff4)
 /*    12f9c:	24a53ff4 */ 	addiu	$a1,$a1,%lo(var70053ff4)
 /*    12fa0:	0c004c04 */ 	jal	argFindByPrefix

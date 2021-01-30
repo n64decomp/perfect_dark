@@ -417,7 +417,7 @@ extern u32 var80099474;
 extern u32 var80099478;
 extern u32 var80099484;
 extern u32 var8009985c;
-extern u32 var80099880;
+extern char g_ArgString[120];
 extern u32 var800998f8;
 extern u32 var80099900;
 extern u32 var80099a00;

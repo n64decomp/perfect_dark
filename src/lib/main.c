@@ -495,7 +495,7 @@ glabel mainInit
 /*     d970:	8d8cd9b0 */ 	lw	$t4,%lo(var8005d9b0)($t4)
 /*     d974:	11800003 */ 	beqz	$t4,.L0000d984
 /*     d978:	3c047005 */ 	lui	$a0,%hi(var70053aa0)
-/*     d97c:	0c004bbf */ 	jal	func00012efc
+/*     d97c:	0c004bbf */ 	jal	argSetString
 /*     d980:	24843aa0 */ 	addiu	$a0,$a0,%lo(var70053aa0)
 .L0000d984:
 /*     d984:	3c04800b */ 	lui	$a0,%hi(_gvarsSegmentEnd)
@@ -753,7 +753,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func0f175f90();
 //
 //	if (var8005d9b0) {
-//		func00012efc("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
+//		argSetString("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
 //	}
 //
 //	uVar2 = osVirtualToPhysical(&_gvarsSegmentEnd) | 0x80000000;
@@ -919,7 +919,7 @@ void mainLoop(void)
 					}
 				}
 
-				func00012efc(g_StageAllocations4Mb[index].string);
+				argSetString(g_StageAllocations4Mb[index].string);
 			} else {
 				// 8MB
 				if (g_StageNum < STAGE_TITLE && getNumPlayers() >= 2) {
@@ -950,7 +950,7 @@ void mainLoop(void)
 					}
 				}
 
-				func00012efc(g_StageAllocations8Mb[index].string);
+				argSetString(g_StageAllocations8Mb[index].string);
 			}
 		}
 
