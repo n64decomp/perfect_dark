@@ -851,7 +851,7 @@ void mainLoop(void)
 	func0f175f98();
 
 	var8005d9c4 = 0;
-	func000130d4(&g_StageNum);
+	argGetLevel(&g_StageNum);
 
 	if (g_DoBootPakMenu) {
 		g_Vars.unk0004e4 = 253;

@@ -16,9 +16,6 @@ const u32 var70053ff0[] = {0x00000000};
 const char var70053ff4[] = "-d";
 const char var70053ff8[] = "-s";
 const char var70053ffc[] = "-j";
-const char var70054000[] = "-level_";
-const char var70054008[] = "";
-const char var7005400c[] = "";
 
 u64 rand_seed = 0xab8d9f7781280783;
 
@@ -263,30 +260,11 @@ char *argFindByPrefix(s32 occurrence, char *str)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func000130d4
-/*    130d4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    130d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    130dc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    130e0:	3c057005 */ 	lui	$a1,%hi(var70054000)
-/*    130e4:	24a54000 */ 	addiu	$a1,$a1,%lo(var70054000)
-/*    130e8:	0c004c04 */ 	jal	argFindByPrefix
-/*    130ec:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    130f0:	5040000b */ 	beqzl	$v0,.L00013120
-/*    130f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    130f8:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*    130fc:	904e0001 */ 	lbu	$t6,0x1($v0)
-/*    13100:	8fa90018 */ 	lw	$t1,0x18($sp)
-/*    13104:	000fc080 */ 	sll	$t8,$t7,0x2
-/*    13108:	030fc021 */ 	addu	$t8,$t8,$t7
-/*    1310c:	0018c040 */ 	sll	$t8,$t8,0x1
-/*    13110:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*    13114:	2728fdf0 */ 	addiu	$t0,$t9,-528
-/*    13118:	ad280000 */ 	sw	$t0,0x0($t1)
-/*    1311c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L00013120:
-/*    13120:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    13124:	03e00008 */ 	jr	$ra
-/*    13128:	00000000 */ 	nop
-/*    1312c:	00000000 */ 	nop
-);
+void argGetLevel(s32 *stagenum)
+{
+	char *ptr = argFindByPrefix(1, "-level_");
+
+	if (ptr) {
+		*stagenum = ptr[0] * 10 + ptr[1] - 528;
+	}
+}
