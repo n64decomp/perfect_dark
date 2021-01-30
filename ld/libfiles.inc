@@ -187,7 +187,7 @@
 	build/ROMID/lib/ultra/io/si.o (section); \
 	build/ROMID/lib/ultra/os/probetlb.o (section); \
 	build/ROMID/lib/lib_51d50.o (section); \
-	build/ROMID/lib/lib_51ec0.o (section); \
+	build/ROMID/lib/ultra/io/ai.o (section); \
 	build/ROMID/lib/ultra/os/jammesg.o (section); \
 	build/ROMID/lib/ultra/io/pigetcmdq.o (section); \
 	build/ROMID/lib/ultra/io/pirawread.o (section); \
