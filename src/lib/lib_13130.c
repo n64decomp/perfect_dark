@@ -97,33 +97,27 @@ glabel strncpy
 /*    13220:	00801025 */ 	or	$v0,$a0,$zero
 );
 
-GLOBAL_ASM(
-glabel strcat
-/*    13224:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*    13228:	00801025 */ 	or	$v0,$a0,$zero
-/*    1322c:	51c00006 */ 	beqzl	$t6,.L00013248
-/*    13230:	90a30000 */ 	lbu	$v1,0x0($a1)
-/*    13234:	904f0001 */ 	lbu	$t7,0x1($v0)
-.L00013238:
-/*    13238:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    1323c:	55e0fffe */ 	bnezl	$t7,.L00013238
-/*    13240:	904f0001 */ 	lbu	$t7,0x1($v0)
-/*    13244:	90a30000 */ 	lbu	$v1,0x0($a1)
-.L00013248:
-/*    13248:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    1324c:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*    13250:	10600006 */ 	beqz	$v1,.L0001326c
-/*    13254:	a043ffff */ 	sb	$v1,-0x1($v0)
-.L00013258:
-/*    13258:	90a30000 */ 	lbu	$v1,0x0($a1)
-/*    1325c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    13260:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*    13264:	1460fffc */ 	bnez	$v1,.L00013258
-/*    13268:	a043ffff */ 	sb	$v1,-0x1($v0)
-.L0001326c:
-/*    1326c:	03e00008 */ 	jr	$ra
-/*    13270:	00801025 */ 	or	$v0,$a0,$zero
-);
+char *strcat(char *dst, char *src)
+{
+	char *ptr = dst;
+	char c;
+
+	while (*ptr != '\0') {
+		ptr++;
+	}
+
+	*ptr = c = *src;
+	ptr++;
+	src++;
+
+	while (c != '\0') {
+		*ptr = c = *src;
+		ptr++;
+		src++;
+	}
+
+	return dst;
+}
 
 s32 strcmp(char *s1, char *s2)
 {

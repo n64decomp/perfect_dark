@@ -5,7 +5,7 @@
 
 char *strcpy(char *dest, char *src);
 char *strncpy(char *dest, char *src, u32 len);
-u32 strcat(char *dst, char *src);
+char *strcat(char *dst, char *src);
 s32 strcmp(char *s1, char *s2);
 s32 strncmp(char *s1, char *s2, s32 len);
 char toupper(char c);
