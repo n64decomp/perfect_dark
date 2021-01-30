@@ -9,7 +9,7 @@ u32 strcat(char *dst, char *src);
 s32 strcmp(char *a, char *b);
 u32 func000132c0(void);
 u32 func00013320(void);
-u32 func00013358(void);
+s32 isdigit(char value);
 u32 func00013378(void);
 u32 func000133b4(void);
 s32 func00013408(char *arg0, s32 *arg1, s32 arg2);
