@@ -21,7 +21,7 @@
 #include "lib/lib_06550.h"
 #include "lib/main.h"
 #include "lib/memory.h"
-#include "lib/lib_12dc0.h"
+#include "lib/rng.h"
 #include "lib/lib_4cc10.h"
 #include "lib/lib_4ce60.h"
 #include "lib/lib_4d000.h"

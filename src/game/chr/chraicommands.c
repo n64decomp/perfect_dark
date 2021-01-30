@@ -51,7 +51,7 @@
 #include "lib/model.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_11420.h"
-#include "lib/lib_12dc0.h"
+#include "lib/rng.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"

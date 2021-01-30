@@ -4,7 +4,7 @@
 #include "types.h"
 
 extern s32 g_StageNum;
-extern u64 rand_seed;
+extern u64 g_RngSeed;
 
 extern struct chrdata *g_ChrSlots; // pointer to first element of chrs array
 extern s32 g_NumChrSlots;

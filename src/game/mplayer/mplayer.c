@@ -28,9 +28,10 @@
 #include "game/mplayer/mplayer.h"
 #include "game/pak/pak.h"
 #include "gvars/gvars.h"
+#include "lib/args.h"
 #include "lib/lib_09660.h"
 #include "lib/main.h"
-#include "lib/lib_12dc0.h"
+#include "lib/rng.h"
 #include "lib/lib_317f0.h"
 #include "types.h"
 

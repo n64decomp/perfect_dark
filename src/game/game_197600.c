@@ -20,7 +20,7 @@
 #include "game/mplayer/mplayer.h"
 #include "game/propobj.h"
 #include "gvars/gvars.h"
-#include "lib/lib_12dc0.h"
+#include "lib/rng.h"
 #include "types.h"
 
 const u32 var7f1b8fd0[] = {0x48742400};

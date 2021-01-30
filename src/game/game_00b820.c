@@ -15,7 +15,7 @@
 #include "game/game_091e10.h"
 #include "gvars/gvars.h"
 #include "lib/memory.h"
-#include "lib/lib_12dc0.h"
+#include "lib/rng.h"
 #include "types.h"
 
 GLOBAL_ASM(

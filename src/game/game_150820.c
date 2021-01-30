@@ -14,7 +14,7 @@
 #include "game/game_150820.h"
 #include "game/game_166e40.h"
 #include "gvars/gvars.h"
-#include "lib/lib_12dc0.h"
+#include "lib/rng.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "types.h"

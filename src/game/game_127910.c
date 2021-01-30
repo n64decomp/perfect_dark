@@ -14,7 +14,7 @@
 #include "game/propobj.h"
 #include "gvars/gvars.h"
 #include "lib/memory.h"
-#include "lib/lib_12dc0.h"
+#include "lib/rng.h"
 #include "types.h"
 
 const u32 var7f1b5150[] = {0xc3653838};

@@ -23,7 +23,7 @@
 #include "gvars/gvars.h"
 #include "lib/lib_0d0a0.h"
 #include "lib/memory.h"
-#include "lib/lib_12dc0.h"
+#include "lib/rng.h"
 #include "lib/lib_159b0.h"
 #include "types.h"
 

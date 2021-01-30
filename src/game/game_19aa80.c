@@ -22,7 +22,7 @@
 #include "game/pad.h"
 #include "gvars/gvars.h"
 #include "lib/lib_0d0a0.h"
-#include "lib/lib_12dc0.h"
+#include "lib/rng.h"
 #include "types.h"
 
 u32 g_MpChallengeIndex = 0;

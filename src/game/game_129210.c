@@ -13,7 +13,7 @@
 #include "game/propobj.h"
 #include "gvars/gvars.h"
 #include "lib/lib_126b0.h"
-#include "lib/lib_12dc0.h"
+#include "lib/rng.h"
 #include "types.h"
 
 /**
