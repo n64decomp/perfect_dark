@@ -13,7 +13,7 @@ f32 sinf(f32 arg0);
 f32 sqrtf(f32 arg0);
 
 void *memcpy(void *, const void *, size_t);
-u32 strlen(char *str);
+size_t strlen(const char *s);
 char *strchr(const char *s, int c);
 
 #endif
