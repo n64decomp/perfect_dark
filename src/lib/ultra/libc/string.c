@@ -33,28 +33,17 @@ glabel strlen
 /*    4a630:	00641023 */ 	subu	$v0,$v1,$a0
 );
 
-GLOBAL_ASM(
-glabel strchr
-/*    4a634:	90830000 */ 	lbu	$v1,0x0($a0)
-/*    4a638:	30ae00ff */ 	andi	$t6,$a1,0xff
-/*    4a63c:	30a200ff */ 	andi	$v0,$a1,0xff
-/*    4a640:	51c3000a */ 	beql	$t6,$v1,.L0004a66c
-/*    4a644:	00801025 */ 	or	$v0,$a0,$zero
-.L0004a648:
-/*    4a648:	54600004 */ 	bnezl	$v1,.L0004a65c
-/*    4a64c:	90830001 */ 	lbu	$v1,0x1($a0)
-/*    4a650:	03e00008 */ 	jr	$ra
-/*    4a654:	00001025 */ 	or	$v0,$zero,$zero
-/*    4a658:	90830001 */ 	lbu	$v1,0x1($a0)
-.L0004a65c:
-/*    4a65c:	24840001 */ 	addiu	$a0,$a0,0x1
-/*    4a660:	1443fff9 */ 	bne	$v0,$v1,.L0004a648
-/*    4a664:	00000000 */ 	nop
-/*    4a668:	00801025 */ 	or	$v0,$a0,$zero
-.L0004a66c:
-/*    4a66c:	03e00008 */ 	jr	$ra
-/*    4a670:	00000000 */ 	nop
-/*    4a674:	00000000 */ 	nop
-/*    4a678:	00000000 */ 	nop
-/*    4a67c:	00000000 */ 	nop
-);
+char *strchr(const char *s, int c)
+{
+	const char ch = c;
+
+	while (*s != ch) {
+		if (*s == 0) {
+			return NULL;
+		}
+
+		s++;
+	}
+
+	return (char *)s;
+}

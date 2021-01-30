@@ -14,6 +14,6 @@ f32 sqrtf(f32 arg0);
 
 void *memcpy(void *, const void *, size_t);
 u32 strlen(char *str);
-u32 strchr(void);
+char *strchr(const char *s, int c);
 
 #endif
