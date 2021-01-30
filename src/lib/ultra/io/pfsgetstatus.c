@@ -1,65 +1,40 @@
 #include <libultra_internal.h>
+#include "game/data/data_000000.h"
 #include "gvars/gvars.h"
 
-GLOBAL_ASM(
-glabel __osPfsGetStatus
-/*    4ba90:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    4ba94:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    4ba98:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    4ba9c:	afa50034 */ 	sw	$a1,0x34($sp)
-/*    4baa0:	240e00fa */ 	addiu	$t6,$zero,0xfa
-/*    4baa4:	3c018006 */ 	lui	$at,%hi(var80060984)
-/*    4baa8:	00a02025 */ 	or	$a0,$a1,$zero
-/*    4baac:	a02e0984 */ 	sb	$t6,%lo(var80060984)($at)
-/*    4bab0:	0c012ed8 */ 	jal	__osPfsRequestOneChannel
-/*    4bab4:	00002825 */ 	or	$a1,$zero,$zero
-/*    4bab8:	3c058009 */ 	lui	$a1,%hi(__osPfsPifRam)
-/*    4babc:	24a50a20 */ 	addiu	$a1,$a1,%lo(__osPfsPifRam)
-/*    4bac0:	0c012a34 */ 	jal	__osSiRawStartDma
-/*    4bac4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    4bac8:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    4bacc:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*    4bad0:	0c0121bc */ 	jal	osRecvMesg
-/*    4bad4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4bad8:	3c058009 */ 	lui	$a1,%hi(__osPfsPifRam)
-/*    4badc:	24a50a20 */ 	addiu	$a1,$a1,%lo(__osPfsPifRam)
-/*    4bae0:	0c012a34 */ 	jal	__osSiRawStartDma
-/*    4bae4:	00002025 */ 	or	$a0,$zero,$zero
-/*    4bae8:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*    4baec:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    4baf0:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*    4baf4:	0c0121bc */ 	jal	osRecvMesg
-/*    4baf8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4bafc:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*    4bb00:	0c012f09 */ 	jal	__osPfsGetOneChannelData
-/*    4bb04:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*    4bb08:	93a20026 */ 	lbu	$v0,0x26($sp)
-/*    4bb0c:	93b80027 */ 	lbu	$t8,0x27($sp)
-/*    4bb10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    4bb14:	30430001 */ 	andi	$v1,$v0,0x1
-/*    4bb18:	10600005 */ 	beqz	$v1,.L0004bb30
-/*    4bb1c:	304f0002 */ 	andi	$t7,$v0,0x2
-/*    4bb20:	11e00003 */ 	beqz	$t7,.L0004bb30
-/*    4bb24:	00000000 */ 	nop
-/*    4bb28:	1000000b */ 	b	.L0004bb58
-/*    4bb2c:	24020002 */ 	addiu	$v0,$zero,0x2
-.L0004bb30:
-/*    4bb30:	17000003 */ 	bnez	$t8,.L0004bb40
-/*    4bb34:	00000000 */ 	nop
-/*    4bb38:	14600003 */ 	bnez	$v1,.L0004bb48
-/*    4bb3c:	30590004 */ 	andi	$t9,$v0,0x4
-.L0004bb40:
-/*    4bb40:	10000005 */ 	b	.L0004bb58
-/*    4bb44:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0004bb48:
-/*    4bb48:	13200003 */ 	beqz	$t9,.L0004bb58
-/*    4bb4c:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*    4bb50:	10000001 */ 	b	.L0004bb58
-/*    4bb54:	24020004 */ 	addiu	$v0,$zero,0x4
-.L0004bb58:
-/*    4bb58:	03e00008 */ 	jr	$ra
-/*    4bb5c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void __osPfsRequestOneChannel(int channel, int cmd);
+void __osPfsGetOneChannelData(int channel, OSContStatus *data);
+
+s32 __osPfsGetStatus(OSMesgQueue *queue, int channel)
+{
+	s32 ret;
+	OSMesg dummy;
+	OSContStatus data;
+
+	ret = 0;
+	var80060984 = 0xfa;
+
+	__osPfsRequestOneChannel(channel, CONT_CMD_REQUEST_STATUS);
+	ret = __osSiRawStartDma(OS_WRITE, &__osPfsPifRam);
+	osRecvMesg(queue, &dummy, OS_MESG_BLOCK);
+	ret = __osSiRawStartDma(OS_READ, &__osPfsPifRam);
+	osRecvMesg(queue, &dummy, OS_MESG_BLOCK);
+	__osPfsGetOneChannelData(channel, &data);
+
+	if ((data.status & CONT_CARD_ON) && (data.status & CONT_CARD_PULL)) {
+		return PFS_ERR_NEW_PACK;
+	}
+
+	if (data.errno != 0 || (data.status & CONT_CARD_ON) == 0) {
+		return PFS_ERR_NOPACK;
+	}
+
+	if (data.status & CONT_ADDR_CRC_ER) {
+		return PFS_ERR_CONTRFAIL;
+	}
+
+	return ret;
+}
 
 GLOBAL_ASM(
 glabel __osPfsRequestOneChannel
