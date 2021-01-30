@@ -21,7 +21,7 @@
 
 /*---------------------------------------------------------------------*
         Copyright (C) 1998 Nintendo. (Originated by SGI)
-        
+
         $RCSfile: os_cont.h,v $
         $Revision: 1.1 $
         $Date: 1998/10/09 08:01:05 $
@@ -47,7 +47,7 @@ extern "C" {
  */
 
 /*
- * Structure for controllers 
+ * Structure for controllers
  */
 
 typedef struct {
@@ -96,7 +96,7 @@ typedef struct {
 #ifdef _HW_VERSION_1
 #define CONT_FRAME_ERROR                0x2
 #define CONT_COLLISION_ERROR            0x1
-#endif 
+#endif
 
 /* Controller type */
 
@@ -162,6 +162,37 @@ typedef struct {
 #define	CONT_ERR_VOICE_WORD		14
 #define	CONT_ERR_VOICE_NO_RESPONSE	15
 
+#define CONT_CMD_REQUEST_STATUS 0
+#define CONT_CMD_READ_BUTTON    1
+#define CONT_CMD_READ_MEMPACK   2
+#define CONT_CMD_WRITE_MEMPACK  3
+#define CONT_CMD_READ_EEPROM    4
+#define CONT_CMD_WRITE_EEPROM   5
+#define CONT_CMD_RESET          0xff
+
+#define CONT_CMD_REQUEST_STATUS_TX 1
+#define CONT_CMD_READ_BUTTON_TX    1
+#define CONT_CMD_READ_MEMPACK_TX   3
+#define CONT_CMD_WRITE_MEMPACK_TX  35
+#define CONT_CMD_READ_EEPROM_TX    2
+#define CONT_CMD_WRITE_EEPROM_TX   10
+#define CONT_CMD_RESET_TX          1
+
+#define CONT_CMD_REQUEST_STATUS_RX 3
+#define CONT_CMD_READ_BUTTON_RX    4
+#define CONT_CMD_READ_MEMPACK_RX   33
+#define CONT_CMD_WRITE_MEMPACK_RX  1
+#define CONT_CMD_READ_EEPROM_RX    8
+#define CONT_CMD_WRITE_EEPROM_RX   1
+#define CONT_CMD_RESET_RX          3
+
+#define CONT_CMD_NOP 0xff
+#define CONT_CMD_END 0xfe //indicates end of a command
+#define CONT_CMD_EXE 1    //set pif ram status byte to this to do a command
+
+#define DIR_STATUS_EMPTY    0
+#define DIR_STATUS_UNKNOWN  1
+#define DIR_STATUS_OCCUPIED 2
 
 #if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
 
