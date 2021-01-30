@@ -69,6 +69,7 @@ $(B_DIR)/lib/ultra/libc/ll.o: MIPSISET := -mips3 -o32
 $(B_DIR)/lib/ultra/libc/llcvt.o: MIPSISET := -mips3 -o32
 
 $(B_DIR)/lib/ultra/gu/ortho.o: OPT_LVL := -O3
+$(B_DIR)/lib/ultra/gu/scale.o: OPT_LVL := -O3
 $(B_DIR)/lib/ultra/io/ai.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/aisetnextbuf.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/dpctr.o: OPT_LVL := -O1
