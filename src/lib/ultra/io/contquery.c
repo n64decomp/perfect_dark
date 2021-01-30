@@ -38,17 +38,8 @@ glabel osContStartQuery
 /*    4f3d0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel osContGetQuery
-/*    4f3d4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    4f3d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    4f3dc:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    4f3e0:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*    4f3e4:	0c012abc */ 	jal	__osContGetInitData
-/*    4f3e8:	27a4001f */ 	addiu	$a0,$sp,0x1f
-/*    4f3ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    4f3f0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    4f3f4:	03e00008 */ 	jr	$ra
-/*    4f3f8:	00000000 */ 	nop
-/*    4f3fc:	00000000 */ 	nop
-);
+void osContGetQuery(OSContStatus *data)
+{
+	u8 pattern;
+	__osContGetInitData(&pattern, data);
+}
