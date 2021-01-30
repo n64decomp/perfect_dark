@@ -12,58 +12,31 @@
 #include "lib/lib_13130.h"
 #include "types.h"
 
-const char var70054010[] = "s1";
-const char var70054014[] = "str.c";
-const char var7005401c[] = "s2";
-const char var70054020[] = "str.c";
-const char var70054028[] = "";
-const char var7005402c[] = "";
+char *strcpy(char *dst, char *src)
+{
+	char *ptr = dst;
+	char c;
 
-GLOBAL_ASM(
-glabel strcpy
-/*    13130:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    13134:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    13138:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    1313c:	14800009 */ 	bnez	$a0,.L00013164
-/*    13140:	00a03825 */ 	or	$a3,$a1,$zero
-/*    13144:	3c047005 */ 	lui	$a0,%hi(var70054010)
-/*    13148:	3c057005 */ 	lui	$a1,%hi(var70054014)
-/*    1314c:	24a54014 */ 	addiu	$a1,$a1,%lo(var70054014)
-/*    13150:	24844010 */ 	addiu	$a0,$a0,%lo(var70054010)
-/*    13154:	2406002c */ 	addiu	$a2,$zero,0x2c
-/*    13158:	0c002ff4 */ 	jal	func0000bfd0
-/*    1315c:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*    13160:	8fa7001c */ 	lw	$a3,0x1c($sp)
-.L00013164:
-/*    13164:	14e00008 */ 	bnez	$a3,.L00013188
-/*    13168:	3c047005 */ 	lui	$a0,%hi(var7005401c)
-/*    1316c:	3c057005 */ 	lui	$a1,%hi(var70054020)
-/*    13170:	24a54020 */ 	addiu	$a1,$a1,%lo(var70054020)
-/*    13174:	2484401c */ 	addiu	$a0,$a0,%lo(var7005401c)
-/*    13178:	2406002d */ 	addiu	$a2,$zero,0x2d
-/*    1317c:	0c002ff4 */ 	jal	func0000bfd0
-/*    13180:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*    13184:	8fa7001c */ 	lw	$a3,0x1c($sp)
-.L00013188:
-/*    13188:	90e20000 */ 	lbu	$v0,0x0($a3)
-/*    1318c:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*    13190:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*    13194:	a1e20000 */ 	sb	$v0,0x0($t7)
-/*    13198:	10400006 */ 	beqz	$v0,.L000131b4
-/*    1319c:	25e30001 */ 	addiu	$v1,$t7,0x1
-.L000131a0:
-/*    131a0:	90e20000 */ 	lbu	$v0,0x0($a3)
-/*    131a4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    131a8:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*    131ac:	1440fffc */ 	bnez	$v0,.L000131a0
-/*    131b0:	a062ffff */ 	sb	$v0,-0x1($v1)
-.L000131b4:
-/*    131b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    131b8:	8fa20018 */ 	lw	$v0,0x18($sp)
-/*    131bc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    131c0:	03e00008 */ 	jr	$ra
-/*    131c4:	00000000 */ 	nop
-);
+	if (dst == NULL) {
+		func0000bfd0("s1", "str.c", 44);
+	}
+
+	if (src == NULL) {
+		func0000bfd0("s2", "str.c", 45);
+	}
+
+	*ptr = c = *src;
+	ptr++;
+	src++;
+
+	while (c != '\0') {
+		*ptr = c = *src;
+		ptr++;
+		src++;
+	}
+
+	return dst;
+}
 
 char *strncpy(char *dst, char *src, s32 len)
 {

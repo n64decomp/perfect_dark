@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-char *strcpy(char *dest, char *src);
+char *strcpy(char *dst, char *src);
 char *strncpy(char *dst, char *s2, s32 len);
 char *strcat(char *dst, char *src);
 s32 strcmp(char *s1, char *s2);
