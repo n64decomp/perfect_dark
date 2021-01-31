@@ -126,12 +126,12 @@ glabel viMgrMain
 /*     321c:	3c018009 */ 	lui	$at,%hi(var80090290)
 /*     3220:	a4230290 */ 	sh	$v1,%lo(var80090290)($at)
 .L00003224:
-/*     3224:	3c13800a */ 	lui	$s3,%hi(var8009c78c)
+/*     3224:	3c13800a */ 	lui	$s3,%hi(__osViIntrCount)
 /*     3228:	3c12800a */ 	lui	$s2,%hi(__osBaseCounter)
 /*     322c:	3c11800a */ 	lui	$s1,%hi(__osCurrentTime)
 /*     3230:	2631c780 */ 	addiu	$s1,$s1,%lo(__osCurrentTime)
 /*     3234:	2652c788 */ 	addiu	$s2,$s2,%lo(__osBaseCounter)
-/*     3238:	2673c78c */ 	addiu	$s3,$s3,%lo(var8009c78c)
+/*     3238:	2673c78c */ 	addiu	$s3,$s3,%lo(__osViIntrCount)
 /*     323c:	2415000d */ 	addiu	$s5,$zero,0xd
 /*     3240:	27b40044 */ 	addiu	$s4,$sp,0x44
 .L00003244:

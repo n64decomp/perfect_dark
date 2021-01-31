@@ -13,8 +13,8 @@ glabel __osTimerServicesInit
 /*    491c8:	3c188006 */ 	lui	$t8,%hi(__osTimerList)
 /*    491cc:	8f1808a0 */ 	lw	$t8,%lo(__osTimerList)($t8)
 /*    491d0:	ac20c788 */ 	sw	$zero,%lo(__osBaseCounter)($at)
-/*    491d4:	3c01800a */ 	lui	$at,%hi(var8009c78c)
-/*    491d8:	ac20c78c */ 	sw	$zero,%lo(var8009c78c)($at)
+/*    491d4:	3c01800a */ 	lui	$at,%hi(__osViIntrCount)
+/*    491d8:	ac20c78c */ 	sw	$zero,%lo(__osViIntrCount)($at)
 /*    491dc:	3c198006 */ 	lui	$t9,%hi(__osTimerList)
 /*    491e0:	af180004 */ 	sw	$t8,0x4($t8)
 /*    491e4:	8f3908a0 */ 	lw	$t9,%lo(__osTimerList)($t9)
@@ -40,6 +40,21 @@ glabel __osTimerServicesInit
 /*    49234:	03e00008 */ 	jr	$ra
 /*    49238:	af00001c */ 	sw	$zero,0x1c($t8)
 );
+
+// Mismatch: Needs bss relocation for __osCurrentTime
+//void __osTimerServicesInit(void)
+//{
+//	__osCurrentTime = 0;
+//	__osBaseCounter = 0;
+//	__osViIntrCount = 0;
+//
+//	__osTimerList->prev = __osTimerList;
+//	__osTimerList->next = __osTimerList->prev;
+//	__osTimerList->remaining = 0;
+//	__osTimerList->interval = __osTimerList->remaining;
+//	__osTimerList->mq = NULL;
+//	__osTimerList->msg = 0;
+//}
 
 void __osTimerInterrupt(void)
 {
