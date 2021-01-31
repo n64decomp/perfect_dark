@@ -275,20 +275,10 @@ void func0002373c(void)
 	var8005f020 = 0;
 }
 
-GLOBAL_ASM(
-glabel animGetNumFrames
-/*    23768:	00047400 */ 	sll	$t6,$a0,0x10
-/*    2376c:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*    23770:	3c188006 */ 	lui	$t8,%hi(g_Anims)
-/*    23774:	8f18f00c */ 	lw	$t8,%lo(g_Anims)($t8)
-/*    23778:	000fc880 */ 	sll	$t9,$t7,0x2
-/*    2377c:	032fc823 */ 	subu	$t9,$t9,$t7
-/*    23780:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    23784:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    23788:	03194021 */ 	addu	$t0,$t8,$t9
-/*    2378c:	03e00008 */ 	jr	$ra
-/*    23790:	95020000 */ 	lhu	$v0,0x0($t0)
-);
+s32 animGetNumFrames(s16 animnum)
+{
+	return g_Anims[animnum].numframes;
+}
 
 GLOBAL_ASM(
 glabel func00023794
