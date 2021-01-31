@@ -1204,7 +1204,7 @@ struct doorobj { // objtype 0x01
 	/*0x72*/ u16 doortype;
 	/*0x74*/ u32 keyflags;
 	/*0x78*/ s32 autoclosetime;
-	/*0x7c*/ f32 frac;
+	/*0x7c*/ f32 frac; // 0 = closed, maxfrac = fully open
 	/*0x80*/ f32 fracspeed;
 	/*0x84*/ s8 mode;
 	/*0x85*/ u8 glasshits;

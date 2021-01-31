@@ -3785,52 +3785,31 @@ glabel func0f00a1f8
 /*  f00a39c:	27bd0048 */ 	addiu	$sp,$sp,0x48
 /*  f00a3a0:	03e00008 */ 	jr	$ra
 /*  f00a3a4:	00000000 */ 	nop
-/*  f00a3a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f00a3ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f00a3b0:	0fc2556c */ 	jal	objFindByTagId
-/*  f00a3b4:	00000000 */ 	nop
-/*  f00a3b8:	1040001f */ 	beqz	$v0,.L0f00a438
-/*  f00a3bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00a3c0:	8c4e0014 */ 	lw	$t6,0x14($v0)
-/*  f00a3c4:	51c0001d */ 	beqzl	$t6,.L0f00a43c
-/*  f00a3c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f00a3cc:	904f0003 */ 	lbu	$t7,0x3($v0)
-/*  f00a3d0:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f00a3d4:	548f0019 */ 	bnel	$a0,$t7,.L0f00a43c
-/*  f00a3d8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f00a3dc:	80430084 */ 	lb	$v1,0x84($v0)
-/*  f00a3e0:	1460000b */ 	bnez	$v1,.L0f00a410
-/*  f00a3e4:	00000000 */ 	nop
-/*  f00a3e8:	44802000 */ 	mtc1	$zero,$f4
-/*  f00a3ec:	c446007c */ 	lwc1	$f6,0x7c($v0)
-/*  f00a3f0:	4604303e */ 	c.le.s	$f6,$f4
-/*  f00a3f4:	00000000 */ 	nop
-/*  f00a3f8:	45000003 */ 	bc1f	.L0f00a408
-/*  f00a3fc:	00000000 */ 	nop
-/*  f00a400:	1000000e */ 	b	.L0f00a43c
-/*  f00a404:	00001025 */ 	or	$v0,$zero,$zero
-.L0f00a408:
-/*  f00a408:	1000000c */ 	b	.L0f00a43c
-/*  f00a40c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f00a410:
-/*  f00a410:	14830003 */ 	bne	$a0,$v1,.L0f00a420
-/*  f00a414:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f00a418:	10000008 */ 	b	.L0f00a43c
-/*  f00a41c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f00a420:
-/*  f00a420:	14610003 */ 	bne	$v1,$at,.L0f00a430
-/*  f00a424:	00000000 */ 	nop
-/*  f00a428:	10000004 */ 	b	.L0f00a43c
-/*  f00a42c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f00a430:
-/*  f00a430:	10000002 */ 	b	.L0f00a43c
-/*  f00a434:	00001025 */ 	or	$v0,$zero,$zero
-.L0f00a438:
-/*  f00a438:	00001025 */ 	or	$v0,$zero,$zero
-.L0f00a43c:
-/*  f00a43c:	03e00008 */ 	jr	$ra
-/*  f00a440:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
+
+bool doorIsOpenOrOpening(s32 tagnum)
+{
+	struct defaultobj *obj = objFindByTagId(tagnum);
+
+	if (obj && obj->prop && obj->type == OBJTYPE_DOOR) {
+		struct doorobj *door = (struct doorobj *)obj;
+
+		if (door->mode == DOORMODE_IDLE) {
+			if (door->frac <= 0) {
+				return false;
+			}
+			return true;
+		} else if (door->mode == DOORMODE_OPENING) {
+			return true;
+		} else if (door->mode == DOORMODE_CLOSING) {
+			return false;
+		} else {
+			return false;
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f00a444
