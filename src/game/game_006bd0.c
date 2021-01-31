@@ -3811,31 +3811,17 @@ bool doorIsOpenOrOpening(s32 tagnum)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f00a444
-/*  f00a444:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f00a448:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f00a44c:	0fc2556c */ 	jal	objFindByTagId
-/*  f00a450:	00000000 */ 	nop
-/*  f00a454:	1040000a */ 	beqz	$v0,.L0f00a480
-/*  f00a458:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00a45c:	8c4e0014 */ 	lw	$t6,0x14($v0)
-/*  f00a460:	51c00008 */ 	beqzl	$t6,.L0f00a484
-/*  f00a464:	44800000 */ 	mtc1	$zero,$f0
-/*  f00a468:	904f0003 */ 	lbu	$t7,0x3($v0)
-/*  f00a46c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f00a470:	55e10004 */ 	bnel	$t7,$at,.L0f00a484
-/*  f00a474:	44800000 */ 	mtc1	$zero,$f0
-/*  f00a478:	10000003 */ 	b	.L0f00a488
-/*  f00a47c:	c440007c */ 	lwc1	$f0,0x7c($v0)
-.L0f00a480:
-/*  f00a480:	44800000 */ 	mtc1	$zero,$f0
-.L0f00a484:
-/*  f00a484:	00000000 */ 	nop
-.L0f00a488:
-/*  f00a488:	03e00008 */ 	jr	$ra
-/*  f00a48c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+f32 doorGetFrac(s32 tagnum)
+{
+	struct defaultobj *obj = objFindByTagId(tagnum);
+
+	if (obj && obj->prop && obj->type == OBJTYPE_DOOR) {
+		struct doorobj *door = (struct doorobj *)obj;
+		return door->frac;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f00a490
@@ -4234,7 +4220,7 @@ glabel hudRenderGasIfEnabled
 /*  f00aa78:	24110001 */ 	addiu	$s1,$zero,0x1
 /*  f00aa7c:	24040032 */ 	addiu	$a0,$zero,0x32
 /*  f00aa80:	46083101 */ 	sub.s	$f4,$f6,$f8
-/*  f00aa84:	0fc02911 */ 	jal	func0f00a444
+/*  f00aa84:	0fc02911 */ 	jal	doorGetFrac
 /*  f00aa88:	e7a40108 */ 	swc1	$f4,0x108($sp)
 /*  f00aa8c:	10000017 */ 	b	.L0f00aaec
 /*  f00aa90:	e7a000b8 */ 	swc1	$f0,0xb8($sp)
@@ -4243,10 +4229,10 @@ glabel hudRenderGasIfEnabled
 /*  f00aa98:	24050091 */ 	addiu	$a1,$zero,0x91
 /*  f00aa9c:	50400014 */ 	beqzl	$v0,.L0f00aaf0
 /*  f00aaa0:	c7a40108 */ 	lwc1	$f4,0x108($sp)
-/*  f00aaa4:	0fc02911 */ 	jal	func0f00a444
+/*  f00aaa4:	0fc02911 */ 	jal	doorGetFrac
 /*  f00aaa8:	24040030 */ 	addiu	$a0,$zero,0x30
 /*  f00aaac:	24040031 */ 	addiu	$a0,$zero,0x31
-/*  f00aab0:	0fc02911 */ 	jal	func0f00a444
+/*  f00aab0:	0fc02911 */ 	jal	doorGetFrac
 /*  f00aab4:	e7a000b0 */ 	swc1	$f0,0xb0($sp)
 /*  f00aab8:	c7a200b0 */ 	lwc1	$f2,0xb0($sp)
 /*  f00aabc:	3c017f1a */ 	lui	$at,%hi(var7f1a7f4c)
