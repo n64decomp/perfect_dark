@@ -6835,7 +6835,7 @@ struct var8006996c {
 	/*0x28*/ u32 unk28;
 };
 
-struct var8009cb08 {
+struct gaspart {
 	u32 unk00;
 	u32 unk04;
 	u32 unk08;
@@ -6844,8 +6844,8 @@ struct var8009cb08 {
 	u32 unk14;
 	u32 unk18;
 	u32 unk1c;
-	u32 unk20;
-	u32 unk24;
+	struct audiohandle *audiohandle20;
+	struct audiohandle *audiohandle24;
 };
 
 struct roomacousticdata {

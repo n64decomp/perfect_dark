@@ -131,14 +131,14 @@ void menuPlaySound(s32 menusound)
 	}
 
 	if (sound != -1) {
-		s32 handle;
+		struct audiohandle *handle;
 		OSPri prevpri = osGetThreadPri(NULL);
 		osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 
 		handle = audioStart(var80095200, sound, NULL, -1, -1, -1, -1, -1);
 
 		if (handle && flag1) {
-			func00033e50(handle, 16, *(u32 *)&speed);
+			func00033e50(handle, 16, *(s32 *)&speed);
 		}
 
 		if (handle && flag2) {

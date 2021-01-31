@@ -12,7 +12,7 @@
 #include "lib/memory.h"
 #include "types.h"
 
-s32 g_WeatherEnabled = false;
+s32 g_WeatherActive = false;
 u32 var800623f4 = 0x00000000;
 u32 var800623f8 = 0x00000000;
 u32 var800623fc = 0x00000000;
@@ -59,7 +59,7 @@ u32 var8006249c = 0x00000000;
 
 void weatherInit(void)
 {
-	g_WeatherEnabled = false;
+	g_WeatherActive = false;
 	g_WeatherData = NULL;
 
 	if ((g_StageIndex == STAGEINDEX_CHICAGO
@@ -117,6 +117,6 @@ void weatherInit(void)
 		g_WeatherData->unkd0 = 0;
 		g_WeatherData->unkd4 = 0;
 
-		g_WeatherEnabled = true;
+		g_WeatherActive = true;
 	}
 }

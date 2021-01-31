@@ -9396,7 +9396,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 			gdl = func0f15b114(gdl);
 		}
 
-		if (var80061640 != 0) {
+		if (g_GasActive != 0) {
 			gdl = func0f00a490(gdl);
 		}
 

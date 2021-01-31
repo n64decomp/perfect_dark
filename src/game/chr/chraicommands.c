@@ -10290,7 +10290,7 @@ bool aiChrBeginOrEndTeleport(void)
 	u32 playernum;
 	u32 prevplayernum;
 	s32 audiopri;
-	s32 c;
+	struct audiohandle *handle;
 	fvalue = 0.4;
 	chr = chrFindById(g_Vars.chrdata, cmd[4]);
 	prevplayernum = g_Vars.currentplayernum;
@@ -10312,10 +10312,10 @@ bool aiChrBeginOrEndTeleport(void)
 		mainpri = osGetThreadPri(0);
 		audiopri = osGetThreadPri(&g_AudioManager.thread);
 		osSetThreadPri(0, audiopri + 1);
-		c = audioStart(var80095200, 0x0433, NULL, -1, -1, -1, -1, -1);
+		handle = audioStart(var80095200, 0x0433, NULL, -1, -1, -1, -1, -1);
 
-		if (c) {
-			func00033e50(c, 16, *(u32 *)&fvalue);
+		if (handle) {
+			func00033e50(handle, 16, *(u32 *)&fvalue);
 		}
 
 		osSetThreadPri(0, mainpri);
@@ -10339,7 +10339,7 @@ bool aiIfChrTeleportFullWhite(void)
 	s32 mainpri;
 	f32 fvalue;
 	s32 audiopri;
-	s32 c;
+	struct audiohandle *handle;
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 playernum = propGetPlayerNum(chr->prop);
@@ -10353,10 +10353,10 @@ bool aiIfChrTeleportFullWhite(void)
 		mainpri = osGetThreadPri(0);
 		audiopri = osGetThreadPri(&g_AudioManager.thread);
 		osSetThreadPri(0, audiopri + 1);
-		c = audioStart(var80095200, 0x8055, NULL, -1, -1, -1, -1, -1);
+		handle = audioStart(var80095200, 0x8055, NULL, -1, -1, -1, -1, -1);
 
-		if (c) {
-			func00033e50(c, 16, *(u32 *)&fvalue);
+		if (handle) {
+			func00033e50(handle, 16, *(u32 *)&fvalue);
 		}
 
 		osSetThreadPri(0, mainpri);
