@@ -107,6 +107,7 @@ $(B_DIR)/lib/ultra/os/startthread.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/stopthread.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/stoptimer.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/thread.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/os/timerintr.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/virtualtophysical.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/yieldthread.o: OPT_LVL := -O1
 

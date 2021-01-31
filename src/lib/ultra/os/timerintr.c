@@ -1,4 +1,5 @@
 #include <libultra_internal.h>
+#include "game/data/data_000000.h"
 
 GLOBAL_ASM(
 glabel __osTimerServicesInit
@@ -177,107 +178,32 @@ glabel __osSetTimerIntr
 /*    49424:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel __osInsertTimer
-/*    49428:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    4942c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    49430:	0c01256c */ 	jal	__osDisableInt
-/*    49434:	afa40038 */ 	sw	$a0,0x38($sp)
-/*    49438:	3c0e8006 */ 	lui	$t6,%hi(__osTimerList)
-/*    4943c:	8dce08a0 */ 	lw	$t6,%lo(__osTimerList)($t6)
-/*    49440:	afa20024 */ 	sw	$v0,0x24($sp)
-/*    49444:	8fb80038 */ 	lw	$t8,0x38($sp)
-/*    49448:	8dcf0000 */ 	lw	$t7,0x0($t6)
-/*    4944c:	afaf0034 */ 	sw	$t7,0x34($sp)
-/*    49450:	8f090014 */ 	lw	$t1,0x14($t8)
-/*    49454:	8f080010 */ 	lw	$t0,0x10($t8)
-/*    49458:	afa9002c */ 	sw	$t1,0x2c($sp)
-/*    4945c:	11ee0029 */ 	beq	$t7,$t6,.L00049504
-/*    49460:	afa80028 */ 	sw	$t0,0x28($sp)
-/*    49464:	8dea0010 */ 	lw	$t2,0x10($t7)
-/*    49468:	8deb0014 */ 	lw	$t3,0x14($t7)
-/*    4946c:	010a082b */ 	sltu	$at,$t0,$t2
-/*    49470:	14200024 */ 	bnez	$at,.L00049504
-/*    49474:	0148082b */ 	sltu	$at,$t2,$t0
-/*    49478:	14200003 */ 	bnez	$at,.L00049488
-/*    4947c:	0169082b */ 	sltu	$at,$t3,$t1
-/*    49480:	10200020 */ 	beqz	$at,.L00049504
-/*    49484:	00000000 */ 	nop
-.L00049488:
-/*    49488:	27b90028 */ 	addiu	$t9,$sp,0x28
-/*    4948c:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*    49490:	afb90020 */ 	sw	$t9,0x20($sp)
-/*    49494:	8f2d0004 */ 	lw	$t5,0x4($t9)
-/*    49498:	8f2c0000 */ 	lw	$t4,0x0($t9)
-/*    4949c:	8f0f0014 */ 	lw	$t7,0x14($t8)
-/*    494a0:	8f0e0010 */ 	lw	$t6,0x10($t8)
-/*    494a4:	3c188006 */ 	lui	$t8,%hi(__osTimerList)
-/*    494a8:	01af082b */ 	sltu	$at,$t5,$t7
-/*    494ac:	018e4023 */ 	subu	$t0,$t4,$t6
-/*    494b0:	01014023 */ 	subu	$t0,$t0,$at
-/*    494b4:	01af4823 */ 	subu	$t1,$t5,$t7
-/*    494b8:	af290004 */ 	sw	$t1,0x4($t9)
-/*    494bc:	af280000 */ 	sw	$t0,0x0($t9)
-/*    494c0:	8faa0034 */ 	lw	$t2,0x34($sp)
-/*    494c4:	8f1808a0 */ 	lw	$t8,%lo(__osTimerList)($t8)
-/*    494c8:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*    494cc:	1178000d */ 	beq	$t3,$t8,.L00049504
-/*    494d0:	afab0034 */ 	sw	$t3,0x34($sp)
-/*    494d4:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*    494d8:	8d6e0010 */ 	lw	$t6,0x10($t3)
-/*    494dc:	8fad002c */ 	lw	$t5,0x2c($sp)
-/*    494e0:	8d6f0014 */ 	lw	$t7,0x14($t3)
-/*    494e4:	01cc082b */ 	sltu	$at,$t6,$t4
-/*    494e8:	1420ffe7 */ 	bnez	$at,.L00049488
-/*    494ec:	00000000 */ 	nop
-/*    494f0:	018e082b */ 	sltu	$at,$t4,$t6
-/*    494f4:	14200003 */ 	bnez	$at,.L00049504
-/*    494f8:	01ed082b */ 	sltu	$at,$t7,$t5
-/*    494fc:	1420ffe2 */ 	bnez	$at,.L00049488
-/*    49500:	00000000 */ 	nop
-.L00049504:
-/*    49504:	8fb90038 */ 	lw	$t9,0x38($sp)
-/*    49508:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*    4950c:	8fa9002c */ 	lw	$t1,0x2c($sp)
-/*    49510:	3c188006 */ 	lui	$t8,%hi(__osTimerList)
-/*    49514:	af280010 */ 	sw	$t0,0x10($t9)
-/*    49518:	af290014 */ 	sw	$t1,0x14($t9)
-/*    4951c:	8f1808a0 */ 	lw	$t8,%lo(__osTimerList)($t8)
-/*    49520:	8faa0034 */ 	lw	$t2,0x34($sp)
-/*    49524:	1158000d */ 	beq	$t2,$t8,.L0004955c
-/*    49528:	00000000 */ 	nop
-/*    4952c:	254b0010 */ 	addiu	$t3,$t2,0x10
-/*    49530:	afab001c */ 	sw	$t3,0x1c($sp)
-/*    49534:	8d4d0014 */ 	lw	$t5,0x14($t2)
-/*    49538:	8d4c0010 */ 	lw	$t4,0x10($t2)
-/*    4953c:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    49540:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*    49544:	018e4023 */ 	subu	$t0,$t4,$t6
-/*    49548:	01af082b */ 	sltu	$at,$t5,$t7
-/*    4954c:	01014023 */ 	subu	$t0,$t0,$at
-/*    49550:	01af4823 */ 	subu	$t1,$t5,$t7
-/*    49554:	ad490014 */ 	sw	$t1,0x14($t2)
-/*    49558:	ad480010 */ 	sw	$t0,0x10($t2)
-.L0004955c:
-/*    4955c:	8fb90034 */ 	lw	$t9,0x34($sp)
-/*    49560:	8fb80038 */ 	lw	$t8,0x38($sp)
-/*    49564:	af190000 */ 	sw	$t9,0x0($t8)
-/*    49568:	8fab0034 */ 	lw	$t3,0x34($sp)
-/*    4956c:	8fad0038 */ 	lw	$t5,0x38($sp)
-/*    49570:	8d6c0004 */ 	lw	$t4,0x4($t3)
-/*    49574:	adac0004 */ 	sw	$t4,0x4($t5)
-/*    49578:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*    4957c:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*    49580:	8de80004 */ 	lw	$t0,0x4($t7)
-/*    49584:	ad0e0000 */ 	sw	$t6,0x0($t0)
-/*    49588:	8faa0034 */ 	lw	$t2,0x34($sp)
-/*    4958c:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*    49590:	ad490004 */ 	sw	$t1,0x4($t2)
-/*    49594:	0c012588 */ 	jal	__osRestoreInt
-/*    49598:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    4959c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    495a0:	8fa20028 */ 	lw	$v0,0x28($sp)
-/*    495a4:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*    495a8:	03e00008 */ 	jr	$ra
-/*    495ac:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+OSTime __osInsertTimer(OSTimer *t)
+{
+	OSTimer *timep;
+	OSTime tim;
+	u32 savedMask;
+
+	savedMask = __osDisableInt();
+
+	for (timep = __osTimerList->next, tim = t->remaining;
+			timep != __osTimerList && tim > timep->remaining;
+			tim -= timep->remaining, timep = timep->next) {
+		;
+	}
+
+	t->remaining = tim;
+
+	if (timep != __osTimerList) {
+		timep->remaining -= tim;
+	}
+
+	t->next = timep;
+	t->prev = timep->prev;
+	timep->prev->next = t;
+	timep->prev = t;
+
+	__osRestoreInt(savedMask);
+
+	return tim;
+}
