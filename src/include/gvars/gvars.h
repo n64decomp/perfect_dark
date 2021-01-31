@@ -474,6 +474,7 @@ extern OSTimer var8009c760;
 extern u64 __osCurrentTime;
 extern u32 __osBaseCounter;
 extern u32 var8009c78c;
+extern u32 __osTimerCounter;
 extern OSMesg piAccessBuf;
 extern OSMesgQueue __osPiAccessQueue;
 extern OSMesg siAccessBuf;

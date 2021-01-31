@@ -1,5 +1,6 @@
 #include <libultra_internal.h>
 #include "game/data/data_000000.h"
+#include "gvars/gvars.h"
 
 GLOBAL_ASM(
 glabel __osTimerServicesInit
@@ -57,21 +58,21 @@ glabel __osTimerInterrupt
 /*    49268:	afb90024 */ 	sw	$t9,0x24($sp)
 /*    4926c:	0c014620 */ 	jal	__osSetCompare
 /*    49270:	00002025 */ 	or	$a0,$zero,$zero
-/*    49274:	3c01800a */ 	lui	$at,%hi(var8009c790)
+/*    49274:	3c01800a */ 	lui	$at,%hi(__osTimerCounter)
 /*    49278:	1000004a */ 	b	.L000493a4
-/*    4927c:	ac20c790 */ 	sw	$zero,%lo(var8009c790)($at)
+/*    4927c:	ac20c790 */ 	sw	$zero,%lo(__osTimerCounter)($at)
 .L00049280:
 /*    49280:	0c012144 */ 	jal	osGetCount
 /*    49284:	00000000 */ 	nop
 /*    49288:	afa20020 */ 	sw	$v0,0x20($sp)
-/*    4928c:	3c09800a */ 	lui	$t1,%hi(var8009c790)
-/*    49290:	8d29c790 */ 	lw	$t1,%lo(var8009c790)($t1)
+/*    4928c:	3c09800a */ 	lui	$t1,%hi(__osTimerCounter)
+/*    49290:	8d29c790 */ 	lw	$t1,%lo(__osTimerCounter)($t1)
 /*    49294:	8fa80020 */ 	lw	$t0,0x20($sp)
 /*    49298:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    4929c:	3c01800a */ 	lui	$at,%hi(var8009c790)
+/*    4929c:	3c01800a */ 	lui	$at,%hi(__osTimerCounter)
 /*    492a0:	01095023 */ 	subu	$t2,$t0,$t1
 /*    492a4:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*    492a8:	ac28c790 */ 	sw	$t0,%lo(var8009c790)($at)
+/*    492a8:	ac28c790 */ 	sw	$t0,%lo(__osTimerCounter)($at)
 /*    492ac:	8dee0010 */ 	lw	$t6,0x10($t7)
 /*    492b0:	8fab001c */ 	lw	$t3,0x1c($sp)
 /*    492b4:	240c0000 */ 	addiu	$t4,$zero,0x0
@@ -145,38 +146,19 @@ glabel __osTimerInterrupt
 /*    493b0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel __osSetTimerIntr
-/*    493b4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    493b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    493bc:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    493c0:	0c01256c */ 	jal	__osDisableInt
-/*    493c4:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    493c8:	0c012144 */ 	jal	osGetCount
-/*    493cc:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    493d0:	3c01800a */ 	lui	$at,%hi(var8009c790)
-/*    493d4:	ac22c790 */ 	sw	$v0,%lo(var8009c790)($at)
-/*    493d8:	3c0e800a */ 	lui	$t6,%hi(var8009c790)
-/*    493dc:	8dcec790 */ 	lw	$t6,%lo(var8009c790)($t6)
-/*    493e0:	8fa9002c */ 	lw	$t1,0x2c($sp)
-/*    493e4:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*    493e8:	01c0c825 */ 	or	$t9,$t6,$zero
-/*    493ec:	03295821 */ 	addu	$t3,$t9,$t1
-/*    493f0:	24180000 */ 	addiu	$t8,$zero,0x0
-/*    493f4:	0169082b */ 	sltu	$at,$t3,$t1
-/*    493f8:	00385021 */ 	addu	$t2,$at,$t8
-/*    493fc:	01485021 */ 	addu	$t2,$t2,$t0
-/*    49400:	afaa0020 */ 	sw	$t2,0x20($sp)
-/*    49404:	afab0024 */ 	sw	$t3,0x24($sp)
-/*    49408:	0c014620 */ 	jal	__osSetCompare
-/*    4940c:	01602025 */ 	or	$a0,$t3,$zero
-/*    49410:	0c012588 */ 	jal	__osRestoreInt
-/*    49414:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    49418:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    4941c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    49420:	03e00008 */ 	jr	$ra
-/*    49424:	00000000 */ 	nop
-);
+void __osSetTimerIntr(OSTime tim)
+{
+	OSTime NewTime;
+	u32 savedMask;
+
+	savedMask = __osDisableInt();
+
+	__osTimerCounter = osGetCount();
+	NewTime = tim + __osTimerCounter;
+	__osSetCompare(NewTime);
+
+	__osRestoreInt(savedMask);
+}
 
 OSTime __osInsertTimer(OSTimer *t)
 {
