@@ -86,57 +86,25 @@ const u32 var7f1a7f54[] = {0x453b8000};
 const u32 var7f1a7f58[] = {0x00000000};
 const u32 var7f1a7f5c[] = {0x00000000};
 
-GLOBAL_ASM(
-glabel func0f006bd0
-/*  f006bd0:	3c014080 */ 	lui	$at,0x4080
-/*  f006bd4:	44817000 */ 	mtc1	$at,$f14
-/*  f006bd8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f006bdc:	44818000 */ 	mtc1	$at,$f16
-/*  f006be0:	460e6002 */ 	mul.s	$f0,$f12,$f14
-/*  f006be4:	4600010d */ 	trunc.w.s	$f4,$f0
-/*  f006be8:	440f2000 */ 	mfc1	$t7,$f4
-/*  f006bec:	00000000 */ 	nop
-/*  f006bf0:	05e10003 */ 	bgez	$t7,.L0f006c00
-/*  f006bf4:	000fc083 */ 	sra	$t8,$t7,0x2
-/*  f006bf8:	25e10003 */ 	addiu	$at,$t7,0x3
-/*  f006bfc:	0001c083 */ 	sra	$t8,$at,0x2
-.L0f006c00:
-/*  f006c00:	44983000 */ 	mtc1	$t8,$f6
-/*  f006c04:	3c014000 */ 	lui	$at,0x4000
-/*  f006c08:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f006c0c:	460e4282 */ 	mul.s	$f10,$f8,$f14
-/*  f006c10:	460a0081 */ 	sub.s	$f2,$f0,$f10
-/*  f006c14:	4610103c */ 	c.lt.s	$f2,$f16
-/*  f006c18:	00000000 */ 	nop
-/*  f006c1c:	45020004 */ 	bc1fl	.L0f006c30
-/*  f006c20:	44816000 */ 	mtc1	$at,$f12
-/*  f006c24:	03e00008 */ 	jr	$ra
-/*  f006c28:	46001006 */ 	mov.s	$f0,$f2
-/*  f006c2c:	44816000 */ 	mtc1	$at,$f12
-.L0f006c30:
-/*  f006c30:	3c014040 */ 	lui	$at,0x4040
-/*  f006c34:	460c103c */ 	c.lt.s	$f2,$f12
-/*  f006c38:	00000000 */ 	nop
-/*  f006c3c:	45020004 */ 	bc1fl	.L0f006c50
-/*  f006c40:	44819000 */ 	mtc1	$at,$f18
-/*  f006c44:	03e00008 */ 	jr	$ra
-/*  f006c48:	46008006 */ 	mov.s	$f0,$f16
-/*  f006c4c:	44819000 */ 	mtc1	$at,$f18
-.L0f006c50:
-/*  f006c50:	00000000 */ 	nop
-/*  f006c54:	4612103c */ 	c.lt.s	$f2,$f18
-/*  f006c58:	00000000 */ 	nop
-/*  f006c5c:	45020005 */ 	bc1fl	.L0f006c74
-/*  f006c60:	44800000 */ 	mtc1	$zero,$f0
-/*  f006c64:	460c1101 */ 	sub.s	$f4,$f2,$f12
-/*  f006c68:	03e00008 */ 	jr	$ra
-/*  f006c6c:	46048001 */ 	sub.s	$f0,$f16,$f4
-/*  f006c70:	44800000 */ 	mtc1	$zero,$f0
-.L0f006c74:
-/*  f006c74:	00000000 */ 	nop
-/*  f006c78:	03e00008 */ 	jr	$ra
-/*  f006c7c:	00000000 */ 	nop
-);
+f32 func0f006bd0(f32 arg0)
+{
+	s32 ival = arg0 * 4.0f;
+	f32 fval = arg0 * 4.0f - (f32)(ival / 4) * 4.0f;
+
+	if (fval < 1.0f) {
+		return fval;
+	}
+
+	if (fval < 2.0f) {
+		return 1.0f;
+	}
+
+	if (fval < 3.0f) {
+		return 1.0f - (fval - 2.0f);
+	}
+
+	return 0.0f;
+}
 
 GLOBAL_ASM(
 glabel func0f006c80
