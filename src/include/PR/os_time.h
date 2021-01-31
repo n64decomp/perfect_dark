@@ -20,6 +20,6 @@ typedef u64 OSTime;
 
 OSTime osGetTime(void);
 void osSetTime(OSTime time);
-u32 osSetTimer(OSTimer *, OSTime, u64, OSMesgQueue *, OSMesg);
+int osSetTimer(OSTimer *t, OSTime value, OSTime interval, OSMesgQueue *mq, OSMesg msg);
 
 #endif
