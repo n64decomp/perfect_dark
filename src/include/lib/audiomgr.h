@@ -6,7 +6,7 @@
 void amgrAllocateStack(void);
 u32 amgrCreate(void);
 void amgrStartThread(void);
-OSMesgQueue *amgr0009118(void);
+OSMesgQueue *amgr00009118(void);
 void amgrStopThread(void);
 
 #endif

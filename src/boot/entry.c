@@ -22,8 +22,12 @@
 #include "lib/lib_48150.h"
 #include "types.h"
 
+/**
+ * This function is generated automatically by makerom. It clears the BSS
+ * segment, sets the stack pointer to 0x80000f10 and then calls boot.
+ */
 GLOBAL_ASM(
-glabel func00001000
+glabel preamble
 /*     1000:	3c088009 */ 	lui	$t0,%hi(var8008ae20)
 /*     1004:	3c090002 */ 	lui	$t1,0x2
 /*     1008:	2508ae20 */ 	addiu	$t0,$t0,%lo(var8008ae20)
@@ -47,8 +51,11 @@ glabel func00001000
 /*     104c:	00000000 */ 	nop
 );
 
+/**
+ * Sets up TLB index 0 (0x70000000), then calls init.
+ */
 GLOBAL_ASM(
-glabel func00001050
+glabel boot
 /*     1050:	3c08007f */ 	lui	$t0,0x7f
 /*     1054:	3508e000 */ 	ori	$t0,$t0,0xe000
 /*     1058:	40882800 */ 	mtc0	$t0,$5
@@ -73,7 +80,7 @@ glabel func00001050
 );
 
 GLOBAL_ASM(
-glabel func000010a4
+glabel boot000010a4
 /*     10a4:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*     10a8:	afbf0000 */ 	sw	$ra,0x0($sp)
 /*     10ac:	40802000 */ 	mtc0	$zero,$4
@@ -115,7 +122,7 @@ glabel func000010a4
 );
 
 GLOBAL_ASM(
-glabel func0000113c
+glabel boot0000113c
 /*     113c:	240800ff */ 	addiu	$t0,$zero,0xff
 /*     1140:	3c028009 */ 	lui	$v0,%hi(var8008d25c)
 /*     1144:	8c42d25c */ 	lw	$v0,%lo(var8008d25c)($v0)
@@ -139,7 +146,7 @@ glabel func0000113c
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func00001180
+glabel boot00001180
 /*     1180:	40082000 */ 	mfc0	$t0,$4
 /*     1184:	0008aa40 */ 	sll	$s5,$t0,0x9
 /*     1188:	3c097f00 */ 	lui	$t1,0x7f00
@@ -470,7 +477,7 @@ glabel func00001180
 );
 #else
 GLOBAL_ASM(
-glabel func00001180
+glabel boot00001180
 /*     1180:	40082000 */ 	mfc0	$t0,$4
 /*     1184:	0008aa40 */ 	sll	$s5,$t0,0x9
 /*     1188:	3c097f00 */ 	lui	$t1,0x7f00
@@ -816,7 +823,7 @@ glabel func00001180
 #endif
 
 GLOBAL_ASM(
-glabel func00001634
+glabel bootUnmapTLBRange
 /*     1634:	40085000 */ 	mfc0	$t0,$10
 /*     1638:	3c0a8000 */ 	lui	$t2,0x8000
 /*     163c:	408a5000 */ 	mtc0	$t2,$10

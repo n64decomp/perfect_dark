@@ -569,8 +569,8 @@ GLOBAL_ASM(
 glabel func0000c240
 /*     c240:	308e0003 */ 	andi	$t6,$a0,0x3
 /*     c244:	15c00019 */ 	bnez	$t6,.L0000c2ac
-/*     c248:	3c0f7000 */ 	lui	$t7,%hi(func00001050)
-/*     c24c:	25ef1050 */ 	addiu	$t7,$t7,%lo(func00001050)
+/*     c248:	3c0f7000 */ 	lui	$t7,%hi(boot)
+/*     c24c:	25ef1050 */ 	addiu	$t7,$t7,%lo(boot)
 /*     c250:	008f082b */ 	sltu	$at,$a0,$t7
 /*     c254:	14200015 */ 	bnez	$at,.L0000c2ac
 /*     c258:	3c187006 */ 	lui	$t8,0x7006
@@ -1107,8 +1107,8 @@ glabel rmonDrawCrashScreen
 /*     c9e8:	0c00bea9 */ 	jal	func0002faa4
 /*     c9ec:	24842c60 */ 	addiu	$a0,$a0,%lo(var70052c60)
 .L0000c9f0:
-/*     c9f0:	3c057000 */ 	lui	$a1,%hi(func00001050)
-/*     c9f4:	24a51050 */ 	addiu	$a1,$a1,%lo(func00001050)
+/*     c9f0:	3c057000 */ 	lui	$a1,%hi(boot)
+/*     c9f4:	24a51050 */ 	addiu	$a1,$a1,%lo(boot)
 /*     c9f8:	02002025 */ 	or	$a0,$s0,$zero
 /*     c9fc:	02203025 */ 	or	$a2,$s1,$zero
 /*     ca00:	0c003046 */ 	jal	func0000c118

@@ -82,7 +82,7 @@ glabel init
 /*     1744:	010e1821 */ 	addu	$v1,$t0,$t6
 /*     1748:	2462ffff */ 	addiu	$v0,$v1,-1
 /*     174c:	0440000b */ 	bltz	$v0,.L0000177c
-/*     1750:	3c057000 */ 	lui	$a1,%hi(func00001050)
+/*     1750:	3c057000 */ 	lui	$a1,%hi(boot)
 /*     1754:	3c017000 */ 	lui	$at,0x7000
 /*     1758:	3c0f7020 */ 	lui	$t7,0x7020
 /*     175c:	01e88023 */ 	subu	$s0,$t7,$t0
@@ -95,7 +95,7 @@ glabel init
 /*     1774:	0441fffb */ 	bgez	$v0,.L00001764
 /*     1778:	a1390000 */ 	sb	$t9,0x0($t1)
 .L0000177c:
-/*     177c:	24a51050 */ 	addiu	$a1,$a1,%lo(func00001050)
+/*     177c:	24a51050 */ 	addiu	$a1,$a1,%lo(boot)
 /*     1780:	3c07702c */ 	lui	$a3,0x702c
 /*     1784:	3c0a7020 */ 	lui	$t2,0x7020
 /*     1788:	01488023 */ 	subu	$s0,$t2,$t0
@@ -129,7 +129,7 @@ glabel init
 /*     17f0:	1000ffff */ 	b	.L000017f0
 /*     17f4:	00000000 */ 	nop
 .L000017f8:
-/*     17f8:	0c00058d */ 	jal	func00001634
+/*     17f8:	0c00058d */ 	jal	bootUnmapTLBRange
 /*     17fc:	2405001f */ 	addiu	$a1,$zero,0x1f
 /*     1800:	3c048006 */ 	lui	$a0,%hi(g_StackStartAddrs)
 /*     1804:	3c038006 */ 	lui	$v1,%hi(g_StackEndAddrs)
@@ -360,7 +360,7 @@ glabel init
 //#endif
 //#endif
 //
-//	func00001634(1, 0x1f);
+//	bootUnmapTLBRange(1, 31);
 //
 //	// Clear the stack allocation pointers
 //	for (i = 0; i < ARRAYCOUNT(g_StackStartAddrs); i++) {

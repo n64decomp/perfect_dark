@@ -402,7 +402,7 @@ struct credit g_Credits[] = {
 	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(41),  L_TITLE(1)   }, // "simon farmer", "\n"
 
 	{ 1, 1, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE(35),  L_TITLE(0)   }, // "dd snipers", ""
-	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(42),  L_TITLE(43)  }, // "leigh loverday", "rob harrison"
+	{ 1, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(42),  L_TITLE(43)  }, // "leigh loveday", "rob harrison"
 	{ 0, 0, 0, 0, CREDITSTYLE_C_MED,       L_TITLE(44),  L_TITLE(1)   }, // "steven hurst", "\n"
 
 	{ 1, 0, 0, 0, CREDITSTYLE_C_BIG,       L_TITLE(45),  L_TITLE(0)   }, // "fearsome foursome", ""

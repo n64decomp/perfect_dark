@@ -843,7 +843,7 @@ void amgrStartThread(void)
 }
 
 GLOBAL_ASM(
-glabel amgr0009118
+glabel amgr00009118
 /*     9118:	3c028009 */ 	lui	$v0,%hi(g_AudioManager+0x248)
 /*     911c:	03e00008 */ 	jr	$ra
 /*     9120:	24421810 */ 	addiu	$v0,$v0,%lo(g_AudioManager+0x248)
