@@ -2757,17 +2757,17 @@ glabel func0f0094b4
 );
 
 /**
- * If part->unk0c is 0 to 310, return 127
- * If part->unk0c is 311 to 349, return a scaled number between 127 and 0
- * If part->unk0c is 350+, return 0
+ * If part->age240 is 0 to 310, return 127
+ * If part->age240 is 311 to 349, return a scaled number between 127 and 0
+ * If part->age240 is 350+, return 0
  */
 s32 func0f0094bc(struct gaspart *part)
 {
 	s32 result = 127;
 
-	if (part->unk0c > 310) {
-		if (part->unk0c < 350) {
-			result = (350 * 127 - part->unk0c * 127) / 40;
+	if (part->age240 > 310) {
+		if (part->age240 < 350) {
+			result = (350 * 127 - part->age240 * 127) / 40;
 		} else {
 			result = 0;
 		}
@@ -3040,9 +3040,9 @@ void func0f0099a4(void)
 	g_GasAudioHandle = NULL;
 
 	for (i = 0; i < ARRAYCOUNT(g_GasParts); i++) {
-		g_GasParts[i].unk0c = -1;
-		g_GasParts[i].audiohandle20 = 0;
-		g_GasParts[i].audiohandle24 = 0;
+		g_GasParts[i].age240 = -1;
+		g_GasParts[i].audiohandle20 = NULL;
+		g_GasParts[i].audiohandle24 = NULL;
 	}
 }
 
@@ -3267,127 +3267,46 @@ glabel var7f1a7f20
 /*  f009d0c:	27bd0308 */ 	addiu	$sp,$sp,0x308
 );
 
-GLOBAL_ASM(
-glabel func0f009d10
-.late_rodata
-glabel var7f1a7f24
-.word 0x3d565b7b
-glabel var7f1a7f28
-.word 0x3d4ccccd
-glabel var7f1a7f2c
-.word 0x3d565b7b
-.text
-/*  f009d10:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f009d14:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f009d18:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f009d1c:	8c82000c */ 	lw	$v0,0xc($a0)
-/*  f009d20:	00808025 */ 	or	$s0,$a0,$zero
-/*  f009d24:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x34)
-/*  f009d28:	0442005c */ 	bltzl	$v0,.L0f009e9c
-/*  f009d2c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f009d30:	8dce9ff4 */ 	lw	$t6,%lo(g_Vars+0x34)($t6)
-/*  f009d34:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f009d38:	000fc083 */ 	sra	$t8,$t7,0x2
-/*  f009d3c:	0058c821 */ 	addu	$t9,$v0,$t8
-/*  f009d40:	afb80020 */ 	sw	$t8,0x20($sp)
-/*  f009d44:	2b210050 */ 	slti	$at,$t9,0x50
-/*  f009d48:	ac99000c */ 	sw	$t9,0xc($a0)
-/*  f009d4c:	1020000e */ 	beqz	$at,.L0f009d88
-/*  f009d50:	03201025 */ 	or	$v0,$t9,$zero
-/*  f009d54:	44822000 */ 	mtc1	$v0,$f4
-/*  f009d58:	3c0142a0 */ 	lui	$at,0x42a0
-/*  f009d5c:	44814000 */ 	mtc1	$at,$f8
-/*  f009d60:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f009d64:	46083303 */ 	div.s	$f12,$f6,$f8
-/*  f009d68:	0c012974 */ 	jal	sqrtf
-/*  f009d6c:	e48c0010 */ 	swc1	$f12,0x10($a0)
-/*  f009d70:	0c012974 */ 	jal	sqrtf
-/*  f009d74:	46000306 */ 	mov.s	$f12,$f0
-/*  f009d78:	44805000 */ 	mtc1	$zero,$f10
-/*  f009d7c:	e6000010 */ 	swc1	$f0,0x10($s0)
-/*  f009d80:	10000024 */ 	b	.L0f009e14
-/*  f009d84:	e60a0018 */ 	swc1	$f10,0x18($s0)
-.L0f009d88:
-/*  f009d88:	2448ffb0 */ 	addiu	$t0,$v0,-80
-/*  f009d8c:	44888000 */ 	mtc1	$t0,$f16
-/*  f009d90:	3c017f1a */ 	lui	$at,%hi(var7f1a7f24)
-/*  f009d94:	c4247f24 */ 	lwc1	$f4,%lo(var7f1a7f24)($at)
-/*  f009d98:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f009d9c:	46049302 */ 	mul.s	$f12,$f18,$f4
-/*  f009da0:	0c0068f7 */ 	jal	sinf
-/*  f009da4:	00000000 */ 	nop
-/*  f009da8:	3c017f1a */ 	lui	$at,%hi(var7f1a7f28)
-/*  f009dac:	c4267f28 */ 	lwc1	$f6,%lo(var7f1a7f28)($at)
-/*  f009db0:	8e09000c */ 	lw	$t1,0xc($s0)
-/*  f009db4:	3c013f80 */ 	lui	$at,0x3f80
-/*  f009db8:	46060202 */ 	mul.s	$f8,$f0,$f6
-/*  f009dbc:	44815000 */ 	mtc1	$at,$f10
-/*  f009dc0:	252affb0 */ 	addiu	$t2,$t1,-80
-/*  f009dc4:	448a9000 */ 	mtc1	$t2,$f18
-/*  f009dc8:	3c017f1a */ 	lui	$at,%hi(var7f1a7f2c)
-/*  f009dcc:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f009dd0:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f009dd4:	e6100010 */ 	swc1	$f16,0x10($s0)
-/*  f009dd8:	c4267f2c */ 	lwc1	$f6,%lo(var7f1a7f2c)($at)
-/*  f009ddc:	46062302 */ 	mul.s	$f12,$f4,$f6
-/*  f009de0:	0c0068f7 */ 	jal	sinf
-/*  f009de4:	00000000 */ 	nop
-/*  f009de8:	8e0b000c */ 	lw	$t3,0xc($s0)
-/*  f009dec:	3c014387 */ 	lui	$at,0x4387
-/*  f009df0:	44818000 */ 	mtc1	$at,$f16
-/*  f009df4:	256cffb0 */ 	addiu	$t4,$t3,-80
-/*  f009df8:	448c4000 */ 	mtc1	$t4,$f8
-/*  f009dfc:	3c014040 */ 	lui	$at,0x4040
-/*  f009e00:	44812000 */ 	mtc1	$at,$f4
-/*  f009e04:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f009e08:	46105483 */ 	div.s	$f18,$f10,$f16
-/*  f009e0c:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f009e10:	e6060018 */ 	swc1	$f6,0x18($s0)
-.L0f009e14:
-/*  f009e14:	3c0143fa */ 	lui	$at,0x43fa
-/*  f009e18:	44815000 */ 	mtc1	$at,$f10
-/*  f009e1c:	c6080010 */ 	lwc1	$f8,0x10($s0)
-/*  f009e20:	02002025 */ 	or	$a0,$s0,$zero
-/*  f009e24:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f009e28:	0fc02679 */ 	jal	func0f0099e4
-/*  f009e2c:	e6100010 */ 	swc1	$f16,0x10($s0)
-/*  f009e30:	8e02000c */ 	lw	$v0,0xc($s0)
-/*  f009e34:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*  f009e38:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f009e3c:	04410003 */ 	bgez	$v0,.L0f009e4c
-/*  f009e40:	00021883 */ 	sra	$v1,$v0,0x2
-/*  f009e44:	24410003 */ 	addiu	$at,$v0,0x3
-/*  f009e48:	00011883 */ 	sra	$v1,$at,0x2
-.L0f009e4c:
-/*  f009e4c:	28610029 */ 	slti	$at,$v1,0x29
-/*  f009e50:	14200002 */ 	bnez	$at,.L0f009e5c
-/*  f009e54:	00000000 */ 	nop
-/*  f009e58:	24030028 */ 	addiu	$v1,$zero,0x28
-.L0f009e5c:
-/*  f009e5c:	01c30019 */ 	multu	$t6,$v1
-/*  f009e60:	860d0014 */ 	lh	$t5,0x14($s0)
-/*  f009e64:	28410173 */ 	slti	$at,$v0,0x173
-/*  f009e68:	00007812 */ 	mflo	$t7
-/*  f009e6c:	01afc021 */ 	addu	$t8,$t5,$t7
-/*  f009e70:	a6180014 */ 	sh	$t8,0x14($s0)
-/*  f009e74:	86190014 */ 	lh	$t9,0x14($s0)
-/*  f009e78:	07210004 */ 	bgez	$t9,.L0f009e8c
-/*  f009e7c:	332807ff */ 	andi	$t0,$t9,0x7ff
-/*  f009e80:	11000002 */ 	beqz	$t0,.L0f009e8c
-/*  f009e84:	00000000 */ 	nop
-/*  f009e88:	2508f800 */ 	addiu	$t0,$t0,-2048
-.L0f009e8c:
-/*  f009e8c:	14200002 */ 	bnez	$at,.L0f009e98
-/*  f009e90:	a6080014 */ 	sh	$t0,0x14($s0)
-/*  f009e94:	ae09000c */ 	sw	$t1,0xc($s0)
-.L0f009e98:
-/*  f009e98:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f009e9c:
-/*  f009e9c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f009ea0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f009ea4:	03e00008 */ 	jr	$ra
-/*  f009ea8:	00000000 */ 	nop
-);
+void func0f009d10(struct gaspart *part)
+{
+	if (part->age240 >= 0) {
+		s32 age60;
+		s32 increment = (g_Vars.lvupdate240 + 2) >> 2;
+
+		part->age240 += increment;
+
+		if (part->age240 < 80) {
+			part->unk10 = part->age240 / 80.0f;
+
+			part->unk10 = sqrtf(sqrtf(part->unk10));
+			part->unk18 = 0;
+		} else {
+			part->unk10 = sinf((part->age240 - 80) * 0.0523333363235f) * 0.05f + 1.0f;
+
+			// Return value is not used - could have been printed
+			sinf((part->age240 - 80) * 0.0523333363235f);
+
+			part->unk18 = ((part->age240 - 80) / 270.0f) * 3.0f;
+		}
+
+		part->unk10 *= 500.0f;
+
+		func0f0099e4(part);
+
+		age60 = part->age240 / 4;
+
+		if (age60 > 40) {
+			age60 = 40;
+		}
+
+		part->unk14 += increment * age60;
+		part->unk14 %= 0x800;
+
+		if (part->age240 > 370) {
+			part->age240 = -1;
+		}
+	}
+}
 
 void gasTick(void)
 {
@@ -3400,11 +3319,11 @@ void gasTick(void)
 	}
 
 	for (i = 0; i < 6; i++) {
-		if (g_Vars.lvupdate240 != 0 && g_GasParts[i].unk0c >= 0) {
+		if (g_Vars.lvupdate240 != 0 && g_GasParts[i].age240 >= 0) {
 			func0f009d10(&g_GasParts[i]);
 
-			if (g_GasParts[i].unk0c < smallest) {
-				smallest = g_GasParts[i].unk0c;
+			if (g_GasParts[i].age240 < smallest) {
+				smallest = g_GasParts[i].age240;
 			}
 
 			g_GasActive = true;
@@ -3448,7 +3367,7 @@ void gasTick(void)
 
 	if (g_Vars.lvupdate240 == 0) {
 		for (i = 0; i < 6; i++) {
-			if (g_GasParts[i].unk0c >= 0) {
+			if (g_GasParts[i].age240 >= 0) {
 				if (g_GasParts[i].audiohandle20 && audioIsPlaying(g_GasParts[i].audiohandle20)) {
 					audioStop(g_GasParts[i].audiohandle20);
 				}
@@ -3467,7 +3386,7 @@ Gfx *func0f00a168(Gfx *gdl)
 	Gfx *subgdl = NULL;
 
 	for (i = 0; i < 6; i++) {
-		if (g_GasParts[i].unk0c >= 0) {
+		if (g_GasParts[i].age240 >= 0) {
 			if (!subgdl) {
 				subgdl = func0f009504();
 			}

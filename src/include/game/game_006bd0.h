@@ -11,7 +11,7 @@ s32 func0f0094bc(struct gaspart *part);
 Gfx *func0f009504(void);
 Gfx *func0f009818(Gfx *gdl, struct gaspart *part, Gfx *subgdl);
 void func0f0099a4(void);
-u32 func0f0099e4(void);
+void func0f0099e4(struct gaspart *part);
 void func0f009d10(struct gaspart *part);
 void gasTick(void);
 Gfx *func0f00a168(Gfx *gdl);

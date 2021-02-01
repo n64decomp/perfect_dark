@@ -6837,10 +6837,10 @@ struct var8006996c {
 
 struct gaspart {
 	struct coord pos;
-	s32 unk0c;
+	s32 age240;
 	f32 unk10;
 	s16 unk14;
-	u32 unk18;
+	f32 unk18;
 	u32 unk1c;
 	struct audiohandle *audiohandle20;
 	struct audiohandle *audiohandle24;
