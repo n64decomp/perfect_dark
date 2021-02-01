@@ -6841,7 +6841,7 @@ struct nbomb {
 	f32 radius;
 	s16 unk14;
 	f32 unk18;
-	u32 unk1c;
+	struct prop *prop;
 	struct audiohandle *audiohandle20;
 	struct audiohandle *audiohandle24;
 };
@@ -6945,5 +6945,10 @@ typedef struct {
 	AMDMABuffer   *firstUsed;
 	AMDMABuffer   *firstFree;
 } AMDMAState;
+
+union audioparam {
+	s32 s32;
+	f32 f32;
+};
 
 #endif

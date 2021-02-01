@@ -10930,7 +10930,7 @@ glabel var7f1aa2c4
 /*  f06f938:	8c45001c */ 	lw	$a1,0x1c($v0)
 .L0f06f93c:
 /*  f06f93c:	8fa601b0 */ 	lw	$a2,0x1b0($sp)
-/*  f06f940:	0fc0287e */ 	jal	func0f00a1f8
+/*  f06f940:	0fc0287e */ 	jal	nbombCreate
 /*  f06f944:	24c40008 */ 	addiu	$a0,$a2,0x8
 /*  f06f948:	0fc10e62 */ 	jal	propUnsetDangerous
 /*  f06f94c:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
@@ -11403,7 +11403,7 @@ glabel var7f1aa2c4
 /*  f06ffd8:	8c45001c */ 	lw	$a1,0x1c($v0)
 .L0f06ffdc:
 /*  f06ffdc:	8fa601b0 */ 	lw	$a2,0x1b0($sp)
-/*  f06ffe0:	0fc0287e */ 	jal	func0f00a1f8
+/*  f06ffe0:	0fc0287e */ 	jal	nbombCreate
 /*  f06ffe4:	24c40008 */ 	addiu	$a0,$a2,0x8
 /*  f06ffe8:	0fc10e62 */ 	jal	propUnsetDangerous
 /*  f06ffec:	8fa401b0 */ 	lw	$a0,0x1b0($sp)

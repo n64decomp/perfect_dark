@@ -2738,7 +2738,7 @@ glabel var7f1a7f18
 );
 
 GLOBAL_ASM(
-glabel func0f0094b4
+glabel nbombResetAge
 /*  f0094b4:	03e00008 */ 	jr	$ra
 /*  f0094b8:	ac80000c */ 	sw	$zero,0xc($a0)
 );
@@ -3385,131 +3385,57 @@ Gfx *nbombsRender(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f00a1f8
-.late_rodata
-glabel var7f1a7f3c
-.word 0x3ecccccd
-glabel var7f1a7f40
-.word 0x3ecccccd
-.text
-/*  f00a1f8:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f00a1fc:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f00a200:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f00a204:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f00a208:	3c018006 */ 	lui	$at,%hi(g_NbombsActive)
-/*  f00a20c:	3c03800a */ 	lui	$v1,%hi(g_Nbombs)
-/*  f00a210:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f00a214:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f00a218:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f00a21c:	00004025 */ 	or	$t0,$zero,$zero
-/*  f00a220:	ac2e1640 */ 	sw	$t6,%lo(g_NbombsActive)($at)
-/*  f00a224:	2463cb08 */ 	addiu	$v1,$v1,%lo(g_Nbombs)
-/*  f00a228:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f00a22c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f00a230:	00003025 */ 	or	$a2,$zero,$zero
-.L0f00a234:
-/*  f00a234:	8c62000c */ 	lw	$v0,0xc($v1)
-/*  f00a238:	14820009 */ 	bne	$a0,$v0,.L0f00a260
-/*  f00a23c:	00e2082a */ 	slt	$at,$a3,$v0
-/*  f00a240:	8c6f0020 */ 	lw	$t7,0x20($v1)
-/*  f00a244:	15e00006 */ 	bnez	$t7,.L0f00a260
-/*  f00a248:	00000000 */ 	nop
-/*  f00a24c:	8c780024 */ 	lw	$t8,0x24($v1)
-/*  f00a250:	17000003 */ 	bnez	$t8,.L0f00a260
-/*  f00a254:	00000000 */ 	nop
-/*  f00a258:	10000008 */ 	b	.L0f00a27c
-/*  f00a25c:	00c04025 */ 	or	$t0,$a2,$zero
-.L0f00a260:
-/*  f00a260:	50200004 */ 	beqzl	$at,.L0f00a274
-/*  f00a264:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f00a268:	00c04025 */ 	or	$t0,$a2,$zero
-/*  f00a26c:	00403825 */ 	or	$a3,$v0,$zero
-/*  f00a270:	24c60001 */ 	addiu	$a2,$a2,0x1
-.L0f00a274:
-/*  f00a274:	14c5ffef */ 	bne	$a2,$a1,.L0f00a234
-/*  f00a278:	24630028 */ 	addiu	$v1,$v1,0x28
-.L0f00a27c:
-/*  f00a27c:	0008c880 */ 	sll	$t9,$t0,0x2
-/*  f00a280:	0328c821 */ 	addu	$t9,$t9,$t0
-/*  f00a284:	3c09800a */ 	lui	$t1,%hi(g_Nbombs)
-/*  f00a288:	2529cb08 */ 	addiu	$t1,$t1,%lo(g_Nbombs)
-/*  f00a28c:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f00a290:	03298021 */ 	addu	$s0,$t9,$t1
-/*  f00a294:	0fc0252d */ 	jal	func0f0094b4
-/*  f00a298:	02002025 */ 	or	$a0,$s0,$zero
-/*  f00a29c:	8fa20048 */ 	lw	$v0,0x48($sp)
-/*  f00a2a0:	8e0b0020 */ 	lw	$t3,0x20($s0)
-/*  f00a2a4:	8faa004c */ 	lw	$t2,0x4c($sp)
-/*  f00a2a8:	c4440000 */ 	lwc1	$f4,0x0($v0)
-/*  f00a2ac:	3c048009 */ 	lui	$a0,%hi(var80095200)
-/*  f00a2b0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f00a2b4:	e6040000 */ 	swc1	$f4,0x0($s0)
-/*  f00a2b8:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*  f00a2bc:	26060020 */ 	addiu	$a2,$s0,0x20
-/*  f00a2c0:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f00a2c4:	e6060004 */ 	swc1	$f6,0x4($s0)
-/*  f00a2c8:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f00a2cc:	ae00000c */ 	sw	$zero,0xc($s0)
-/*  f00a2d0:	ae0a001c */ 	sw	$t2,0x1c($s0)
-/*  f00a2d4:	15600015 */ 	bnez	$t3,.L0f00a32c
-/*  f00a2d8:	e6080008 */ 	swc1	$f8,0x8($s0)
-/*  f00a2dc:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f00a2e0:	44815000 */ 	mtc1	$at,$f10
-/*  f00a2e4:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f00a2e8:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f00a2ec:	240effff */ 	addiu	$t6,$zero,-1
-/*  f00a2f0:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f00a2f4:	afad0018 */ 	sw	$t5,0x18($sp)
-/*  f00a2f8:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f00a2fc:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*  f00a300:	0c004241 */ 	jal	audioStart
-/*  f00a304:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f00a308:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f00a30c:	3c017f1a */ 	lui	$at,%hi(var7f1a7f3c)
-/*  f00a310:	50800007 */ 	beqzl	$a0,.L0f00a330
-/*  f00a314:	8e0f0024 */ 	lw	$t7,0x24($s0)
-/*  f00a318:	c4307f3c */ 	lwc1	$f16,%lo(var7f1a7f3c)($at)
-/*  f00a31c:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f00a320:	e7b00034 */ 	swc1	$f16,0x34($sp)
-/*  f00a324:	0c00cf94 */ 	jal	func00033e50
-/*  f00a328:	8fa60034 */ 	lw	$a2,0x34($sp)
-.L0f00a32c:
-/*  f00a32c:	8e0f0024 */ 	lw	$t7,0x24($s0)
-.L0f00a330:
-/*  f00a330:	3c048009 */ 	lui	$a0,%hi(var80095200)
-/*  f00a334:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f00a338:	15e00016 */ 	bnez	$t7,.L0f00a394
-/*  f00a33c:	26060024 */ 	addiu	$a2,$s0,0x24
-/*  f00a340:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f00a344:	44819000 */ 	mtc1	$at,$f18
-/*  f00a348:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f00a34c:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f00a350:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f00a354:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*  f00a358:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f00a35c:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f00a360:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*  f00a364:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f00a368:	0c004241 */ 	jal	audioStart
-/*  f00a36c:	e7b20014 */ 	swc1	$f18,0x14($sp)
-/*  f00a370:	8e040024 */ 	lw	$a0,0x24($s0)
-/*  f00a374:	3c017f1a */ 	lui	$at,%hi(var7f1a7f40)
-/*  f00a378:	50800007 */ 	beqzl	$a0,.L0f00a398
-/*  f00a37c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f00a380:	c4247f40 */ 	lwc1	$f4,%lo(var7f1a7f40)($at)
-/*  f00a384:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f00a388:	e7a40030 */ 	swc1	$f4,0x30($sp)
-/*  f00a38c:	0c00cf94 */ 	jal	func00033e50
-/*  f00a390:	8fa60030 */ 	lw	$a2,0x30($sp)
-.L0f00a394:
-/*  f00a394:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f00a398:
-/*  f00a398:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f00a39c:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f00a3a0:	03e00008 */ 	jr	$ra
-/*  f00a3a4:	00000000 */ 	nop
-);
+void nbombCreate(struct coord *pos, struct prop *prop)
+{
+	u32 stack;
+	s32 oldest240 = -1;
+	s32 index = 0;
+	s32 i;
+
+	g_NbombsActive = true;
+
+	for (i = 0; i < 6; i++) {
+		if (g_Nbombs[i].age240 == -1
+				&& g_Nbombs[i].audiohandle20 == NULL
+				&& g_Nbombs[i].audiohandle24 == NULL) {
+			index = i;
+			break;
+		}
+
+		if (g_Nbombs[i].age240 > oldest240) {
+			index = i;
+			oldest240 = g_Nbombs[i].age240;
+		}
+	}
+
+	nbombResetAge(&g_Nbombs[index]);
+
+	g_Nbombs[index].pos.x = pos->x;
+	g_Nbombs[index].pos.y = pos->y;
+	g_Nbombs[index].pos.z = pos->z;
+	g_Nbombs[index].age240 = 0;
+	g_Nbombs[index].prop = prop;
+
+	if (g_Nbombs[index].audiohandle20 == NULL) {
+		audioStart(var80095200, 1, &g_Nbombs[index].audiohandle20, -1, -1, -1, -1, -1);
+
+		if (g_Nbombs[index].audiohandle20) {
+			union audioparam param;
+			param.f32 = 0.4f;
+			func00033e50(g_Nbombs[index].audiohandle20, 16, param.s32);
+		}
+	}
+
+	if (g_Nbombs[index].audiohandle24 == NULL) {
+		audioStart(var80095200, 1, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
+
+		if (g_Nbombs[index].audiohandle24) {
+			union audioparam param;
+			param.f32 = 0.4f;
+			func00033e50(g_Nbombs[index].audiohandle24, 16, param.s32);
+		}
+	}
+}
 
 bool doorIsOpenOrOpening(s32 tagnum)
 {
