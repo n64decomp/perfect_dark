@@ -1214,8 +1214,8 @@ Gfx *coreRender(Gfx *gdl)
 				gdl = func0f130044(gdl);
 				gdl = weatherRender(gdl);
 
-				if (g_GasActive) {
-					gdl = func0f00a168(gdl);
+				if (g_NbombsActive) {
+					gdl = nbombsRender(gdl);
 				}
 
 				if (var80075d60 == 2) {
@@ -2184,8 +2184,8 @@ void coreTick(void)
 			weatherTick();
 		}
 
-		if (g_GasActive) {
-			gasTick();
+		if (g_NbombsActive) {
+			nbombsTick();
 		}
 
 		coreUpdateMiscSfx();

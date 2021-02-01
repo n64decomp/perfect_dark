@@ -6835,10 +6835,10 @@ struct var8006996c {
 	/*0x28*/ u32 unk28;
 };
 
-struct gaspart {
+struct nbomb {
 	struct coord pos;
 	s32 age240;
-	f32 unk10;
+	f32 radius;
 	s16 unk14;
 	f32 unk18;
 	u32 unk1c;

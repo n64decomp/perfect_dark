@@ -2744,27 +2744,27 @@ glabel func0f0094b4
 );
 
 /**
- * If part->age240 is 0 to 310, return 127
- * If part->age240 is 311 to 349, return a scaled number between 127 and 0
- * If part->age240 is 350+, return 0
+ * If nbomb->age240 is 0 to 310, return 127
+ * If nbomb->age240 is 311 to 349, return a scaled number between 127 and 0
+ * If nbomb->age240 is 350+, return 0
  */
-s32 func0f0094bc(struct gaspart *part)
+s32 nbombCalculateAlpha(struct nbomb *nbomb)
 {
-	s32 result = 127;
+	s32 alpha = 127;
 
-	if (part->age240 > 310) {
-		if (part->age240 < 350) {
-			result = (350 * 127 - part->age240 * 127) / 40;
+	if (nbomb->age240 > 310) {
+		if (nbomb->age240 < 350) {
+			alpha = (350 * 127 - nbomb->age240 * 127) / 40;
 		} else {
-			result = 0;
+			alpha = 0;
 		}
 	}
 
-	return result;
+	return alpha;
 }
 
 GLOBAL_ASM(
-glabel func0f009504
+glabel nbombAllocateGdl
 /*  f009504:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f009508:	3c0e8006 */ 	lui	$t6,%hi(var800616dc)
 /*  f00950c:	afbf0024 */ 	sw	$ra,0x24($sp)
@@ -2973,7 +2973,7 @@ glabel func0f009504
 /*  f009814:	00000000 */ 	nop
 );
 
-Gfx *func0f009818(Gfx *gdl, struct gaspart *part, Gfx *subgdl)
+Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 {
 	f32 divider = 2048;
 	Mtxf *mtx;
@@ -2986,7 +2986,7 @@ Gfx *func0f009818(Gfx *gdl, struct gaspart *part, Gfx *subgdl)
 
 	mtx = gfxAllocateMatrix();
 	var80061644 = 2000.0f;
-	colour = func0f0094bc(part);
+	colour = nbombCalculateAlpha(nbomb);
 
 	colours = gfxAllocateColours(2);
 	colours[0] = colour;
@@ -2999,14 +2999,14 @@ Gfx *func0f009818(Gfx *gdl, struct gaspart *part, Gfx *subgdl)
 	sp3c.z = -100;
 
 	func000159b0(&sp48);
-	func000166dc(&part->pos, &sp48);
+	func000166dc(&nbomb->pos, &sp48);
 
 	sp3c.x = 0;
-	sp3c.y = part->unk14 / divider * M_TAU;
+	sp3c.y = nbomb->unk14 / divider * M_TAU;
 	sp3c.z = 0;
 
 	func0001648c(&sp3c, &sp88);
-	func00015f04(part->unk10 / 2000.0f, &sp88);
+	func00015f04(nbomb->radius / 2000.0f, &sp88);
 	func00015a00(&sp48, &sp88, &spc8);
 
 	func00015be0(currentPlayerGetMatrix1740(), &spc8);
@@ -3023,13 +3023,13 @@ void func0f0099a4(void)
 {
 	s32 i;
 
-	g_GasActive = false;
-	g_GasAudioHandle = NULL;
+	g_NbombsActive = false;
+	g_NbombAudioHandle = NULL;
 
-	for (i = 0; i < ARRAYCOUNT(g_GasParts); i++) {
-		g_GasParts[i].age240 = -1;
-		g_GasParts[i].audiohandle20 = NULL;
-		g_GasParts[i].audiohandle24 = NULL;
+	for (i = 0; i < ARRAYCOUNT(g_Nbombs); i++) {
+		g_Nbombs[i].age240 = -1;
+		g_Nbombs[i].audiohandle20 = NULL;
+		g_Nbombs[i].audiohandle24 = NULL;
 	}
 }
 
@@ -3254,131 +3254,131 @@ glabel var7f1a7f20
 /*  f009d0c:	27bd0308 */ 	addiu	$sp,$sp,0x308
 );
 
-void func0f009d10(struct gaspart *part)
+void nbombTick(struct nbomb *nbomb)
 {
-	if (part->age240 >= 0) {
+	if (nbomb->age240 >= 0) {
 		s32 age60;
 		s32 increment = (g_Vars.lvupdate240 + 2) >> 2;
 
-		part->age240 += increment;
+		nbomb->age240 += increment;
 
-		if (part->age240 < 80) {
-			part->unk10 = part->age240 / 80.0f;
+		if (nbomb->age240 < 80) {
+			nbomb->radius = nbomb->age240 / 80.0f;
 
-			part->unk10 = sqrtf(sqrtf(part->unk10));
-			part->unk18 = 0;
+			nbomb->radius = sqrtf(sqrtf(nbomb->radius));
+			nbomb->unk18 = 0;
 		} else {
-			part->unk10 = sinf((part->age240 - 80) * 0.0523333363235f) * 0.05f + 1.0f;
+			nbomb->radius = sinf((nbomb->age240 - 80) * 0.0523333363235f) * 0.05f + 1.0f;
 
 			// Return value is not used - could have been printed
-			sinf((part->age240 - 80) * 0.0523333363235f);
+			sinf((nbomb->age240 - 80) * 0.0523333363235f);
 
-			part->unk18 = ((part->age240 - 80) / 270.0f) * 3.0f;
+			nbomb->unk18 = ((nbomb->age240 - 80) / 270.0f) * 3.0f;
 		}
 
-		part->unk10 *= 500.0f;
+		nbomb->radius *= 500.0f;
 
-		func0f0099e4(part);
+		func0f0099e4(nbomb);
 
-		age60 = part->age240 / 4;
+		age60 = nbomb->age240 / 4;
 
 		if (age60 > 40) {
 			age60 = 40;
 		}
 
-		part->unk14 += increment * age60;
-		part->unk14 %= 0x800;
+		nbomb->unk14 += increment * age60;
+		nbomb->unk14 %= 0x800;
 
-		if (part->age240 > 370) {
-			part->age240 = -1;
+		if (nbomb->age240 > 370) {
+			nbomb->age240 = -1;
 		}
 	}
 }
 
-void gasTick(void)
+void nbombsTick(void)
 {
 	s32 i;
-	s32 smallest = 20000;
+	s32 youngest240 = 20000;
 	s32 somevalue;
 
 	if (g_Vars.lvupdate240 != 0) {
-		g_GasActive = false;
+		g_NbombsActive = false;
 	}
 
 	for (i = 0; i < 6; i++) {
-		if (g_Vars.lvupdate240 != 0 && g_GasParts[i].age240 >= 0) {
-			func0f009d10(&g_GasParts[i]);
+		if (g_Vars.lvupdate240 != 0 && g_Nbombs[i].age240 >= 0) {
+			nbombTick(&g_Nbombs[i]);
 
-			if (g_GasParts[i].age240 < smallest) {
-				smallest = g_GasParts[i].age240;
+			if (g_Nbombs[i].age240 < youngest240) {
+				youngest240 = g_Nbombs[i].age240;
 			}
 
-			g_GasActive = true;
+			g_NbombsActive = true;
 		}
 	}
 
 	somevalue = 0;
 
-	if (smallest < 350) {
+	if (youngest240 < 350) {
 		if (g_Vars.lvupdate240 != 0) {
-			if (g_GasAudioHandle == 0) {
-				audioStart(var80095200, 0x810c, &g_GasAudioHandle, -1, -1, -1, -1, -1);
+			if (g_NbombAudioHandle == 0) {
+				audioStart(var80095200, 0x810c, &g_NbombAudioHandle, -1, -1, -1, -1, -1);
 			}
 
 			somevalue = 32767;
 
-			if (g_GasAudioHandle) {
+			if (g_NbombAudioHandle) {
 				f32 speed = func0f006b08(20) * 0.02f + 0.4f;
 
-				if (smallest > 300) {
-					somevalue = (1.0f - (f32)(smallest - 300) / 50.0f) * 32767.0f;
+				if (youngest240 > 300) {
+					somevalue = (1.0f - (f32)(youngest240 - 300) / 50.0f) * 32767.0f;
 				}
 
-				if (smallest >= 350) {
+				if (youngest240 >= 350) {
 					somevalue = 0;
 				}
 
-				func00033e50(g_GasAudioHandle, 8, somevalue);
-				func00033e50(g_GasAudioHandle, 16, *(s32 *)&speed);
+				func00033e50(g_NbombAudioHandle, 8, somevalue);
+				func00033e50(g_NbombAudioHandle, 16, *(s32 *)&speed);
 			}
 		} else {
-			if (g_GasAudioHandle && audioIsPlaying(g_GasAudioHandle)) {
-				audioStop(g_GasAudioHandle);
+			if (g_NbombAudioHandle && audioIsPlaying(g_NbombAudioHandle)) {
+				audioStop(g_NbombAudioHandle);
 			}
 		}
 	} else {
-		if (g_GasAudioHandle && audioIsPlaying(g_GasAudioHandle)) {
-			audioStop(g_GasAudioHandle);
+		if (g_NbombAudioHandle && audioIsPlaying(g_NbombAudioHandle)) {
+			audioStop(g_NbombAudioHandle);
 		}
 	}
 
 	if (g_Vars.lvupdate240 == 0) {
 		for (i = 0; i < 6; i++) {
-			if (g_GasParts[i].age240 >= 0) {
-				if (g_GasParts[i].audiohandle20 && audioIsPlaying(g_GasParts[i].audiohandle20)) {
-					audioStop(g_GasParts[i].audiohandle20);
+			if (g_Nbombs[i].age240 >= 0) {
+				if (g_Nbombs[i].audiohandle20 && audioIsPlaying(g_Nbombs[i].audiohandle20)) {
+					audioStop(g_Nbombs[i].audiohandle20);
 				}
 
-				if (g_GasParts[i].audiohandle24 && audioIsPlaying(g_GasParts[i].audiohandle24)) {
-					audioStop(g_GasParts[i].audiohandle24);
+				if (g_Nbombs[i].audiohandle24 && audioIsPlaying(g_Nbombs[i].audiohandle24)) {
+					audioStop(g_Nbombs[i].audiohandle24);
 				}
 			}
 		}
 	}
 }
 
-Gfx *func0f00a168(Gfx *gdl)
+Gfx *nbombsRender(Gfx *gdl)
 {
 	s32 i;
 	Gfx *subgdl = NULL;
 
 	for (i = 0; i < 6; i++) {
-		if (g_GasParts[i].age240 >= 0) {
+		if (g_Nbombs[i].age240 >= 0) {
 			if (!subgdl) {
-				subgdl = func0f009504();
+				subgdl = nbombAllocateGdl();
 			}
 
-			gdl = func0f009818(gdl, &g_GasParts[i], subgdl);
+			gdl = nbombRender(gdl, &g_Nbombs[i], subgdl);
 		}
 	}
 
@@ -3397,14 +3397,14 @@ glabel var7f1a7f40
 /*  f00a1fc:	afa40048 */ 	sw	$a0,0x48($sp)
 /*  f00a200:	afa5004c */ 	sw	$a1,0x4c($sp)
 /*  f00a204:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f00a208:	3c018006 */ 	lui	$at,%hi(g_GasActive)
-/*  f00a20c:	3c03800a */ 	lui	$v1,%hi(g_GasParts)
+/*  f00a208:	3c018006 */ 	lui	$at,%hi(g_NbombsActive)
+/*  f00a20c:	3c03800a */ 	lui	$v1,%hi(g_Nbombs)
 /*  f00a210:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f00a214:	afb00028 */ 	sw	$s0,0x28($sp)
 /*  f00a218:	2407ffff */ 	addiu	$a3,$zero,-1
 /*  f00a21c:	00004025 */ 	or	$t0,$zero,$zero
-/*  f00a220:	ac2e1640 */ 	sw	$t6,%lo(g_GasActive)($at)
-/*  f00a224:	2463cb08 */ 	addiu	$v1,$v1,%lo(g_GasParts)
+/*  f00a220:	ac2e1640 */ 	sw	$t6,%lo(g_NbombsActive)($at)
+/*  f00a224:	2463cb08 */ 	addiu	$v1,$v1,%lo(g_Nbombs)
 /*  f00a228:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f00a22c:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f00a230:	00003025 */ 	or	$a2,$zero,$zero
@@ -3432,8 +3432,8 @@ glabel var7f1a7f40
 .L0f00a27c:
 /*  f00a27c:	0008c880 */ 	sll	$t9,$t0,0x2
 /*  f00a280:	0328c821 */ 	addu	$t9,$t9,$t0
-/*  f00a284:	3c09800a */ 	lui	$t1,%hi(g_GasParts)
-/*  f00a288:	2529cb08 */ 	addiu	$t1,$t1,%lo(g_GasParts)
+/*  f00a284:	3c09800a */ 	lui	$t1,%hi(g_Nbombs)
+/*  f00a288:	2529cb08 */ 	addiu	$t1,$t1,%lo(g_Nbombs)
 /*  f00a28c:	0019c8c0 */ 	sll	$t9,$t9,0x3
 /*  f00a290:	03298021 */ 	addu	$s0,$t9,$t1
 /*  f00a294:	0fc0252d */ 	jal	func0f0094b4
@@ -3535,7 +3535,7 @@ bool doorIsOpenOrOpening(s32 tagnum)
 	return false;
 }
 
-f32 doorGetFrac(s32 tagnum)
+f32 gasGetDoorFrac(s32 tagnum)
 {
 	struct defaultobj *obj = objFindByTagId(tagnum);
 
@@ -3560,7 +3560,7 @@ glabel func0f00a490
 /*  f00a4b0:	afa40080 */ 	sw	$a0,0x80($sp)
 /*  f00a4b4:	afa00050 */ 	sw	$zero,0x50($sp)
 /*  f00a4b8:	c4441bb0 */ 	lwc1	$f4,0x1bb0($v0)
-/*  f00a4bc:	3c10800a */ 	lui	$s0,%hi(g_GasParts)
+/*  f00a4bc:	3c10800a */ 	lui	$s0,%hi(g_Nbombs)
 /*  f00a4c0:	3c11800a */ 	lui	$s1,%hi(var8009cbf8)
 /*  f00a4c4:	e7a40070 */ 	swc1	$f4,0x70($sp)
 /*  f00a4c8:	c4461bb4 */ 	lwc1	$f6,0x1bb4($v0)
@@ -3569,7 +3569,7 @@ glabel func0f00a490
 /*  f00a4d4:	e7a60074 */ 	swc1	$f6,0x74($sp)
 /*  f00a4d8:	c4481bb8 */ 	lwc1	$f8,0x1bb8($v0)
 /*  f00a4dc:	2631cbf8 */ 	addiu	$s1,$s1,%lo(var8009cbf8)
-/*  f00a4e0:	2610cb08 */ 	addiu	$s0,$s0,%lo(g_GasParts)
+/*  f00a4e0:	2610cb08 */ 	addiu	$s0,$s0,%lo(g_Nbombs)
 /*  f00a4e4:	e7a80078 */ 	swc1	$f8,0x78($sp)
 /*  f00a4e8:	8e02000c */ 	lw	$v0,0xc($s0)
 .L0f00a4ec:
@@ -3597,7 +3597,7 @@ glabel func0f00a490
 /*  f00a540:	00000000 */ 	nop
 /*  f00a544:	45020008 */ 	bc1fl	.L0f00a568
 /*  f00a548:	26100028 */ 	addiu	$s0,$s0,0x28
-/*  f00a54c:	0fc0252f */ 	jal	func0f0094bc
+/*  f00a54c:	0fc0252f */ 	jal	nbombCalculateAlpha
 /*  f00a550:	24120001 */ 	addiu	$s2,$zero,0x1
 /*  f00a554:	0262082b */ 	sltu	$at,$s3,$v0
 /*  f00a558:	50200003 */ 	beqzl	$at,.L0f00a568
@@ -3960,7 +3960,7 @@ glabel var7f1a7f5c
 /*  f00aa78:	24110001 */ 	addiu	$s1,$zero,0x1
 /*  f00aa7c:	24040032 */ 	addiu	$a0,$zero,0x32
 /*  f00aa80:	46083101 */ 	sub.s	$f4,$f6,$f8
-/*  f00aa84:	0fc02911 */ 	jal	doorGetFrac
+/*  f00aa84:	0fc02911 */ 	jal	gasGetDoorFrac
 /*  f00aa88:	e7a40108 */ 	swc1	$f4,0x108($sp)
 /*  f00aa8c:	10000017 */ 	b	.L0f00aaec
 /*  f00aa90:	e7a000b8 */ 	swc1	$f0,0xb8($sp)
@@ -3969,10 +3969,10 @@ glabel var7f1a7f5c
 /*  f00aa98:	24050091 */ 	addiu	$a1,$zero,0x91
 /*  f00aa9c:	50400014 */ 	beqzl	$v0,.L0f00aaf0
 /*  f00aaa0:	c7a40108 */ 	lwc1	$f4,0x108($sp)
-/*  f00aaa4:	0fc02911 */ 	jal	doorGetFrac
+/*  f00aaa4:	0fc02911 */ 	jal	gasGetDoorFrac
 /*  f00aaa8:	24040030 */ 	addiu	$a0,$zero,0x30
 /*  f00aaac:	24040031 */ 	addiu	$a0,$zero,0x31
-/*  f00aab0:	0fc02911 */ 	jal	doorGetFrac
+/*  f00aab0:	0fc02911 */ 	jal	gasGetDoorFrac
 /*  f00aab4:	e7a000b0 */ 	swc1	$f0,0xb0($sp)
 /*  f00aab8:	c7a200b0 */ 	lwc1	$f2,0xb0($sp)
 /*  f00aabc:	3c017f1a */ 	lui	$at,%hi(var7f1a7f4c)
@@ -4492,13 +4492,13 @@ const u32 var7f1a7eac[] = {0x00000090};
 //			if (distance < 1328.0f) {
 //				show = true;
 //				alphafrac = 1.0f - distance / 1328.0f;
-//				intensityfrac = doorGetFrac(0x32);
+//				intensityfrac = gasGetDoorFrac(0x32);
 //			}
 //		} else {
 //			if (roomContainsCoord(&campos, 0x91)) {
 //				// In the small room between the first two doors
-//				frac1 = doorGetFrac(0x30);
-//				frac2 = doorGetFrac(0x31);
+//				frac1 = gasGetDoorFrac(0x30);
+//				frac2 = gasGetDoorFrac(0x31);
 //
 //				if (frac2 > frac1) {
 //					intensityfrac = frac2;
