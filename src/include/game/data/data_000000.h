@@ -223,7 +223,7 @@ extern u16 var800615a0[][2];
 extern f32 var80061630;
 extern u32 var80061634;
 extern bool g_GasActive;
-extern u32 var80061644;
+extern f32 var80061644;
 extern u32 var80061648;
 extern u32 var8006164c;
 extern u32 var80061694;

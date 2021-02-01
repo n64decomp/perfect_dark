@@ -19,6 +19,7 @@
 #include "game/game_0d4690.h"
 #include "game/game_157db0.h"
 #include "game/game_166e40.h"
+#include "game/gfxmemory.h"
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_0e9d0.h"
@@ -2985,112 +2986,51 @@ glabel func0f009504
 /*  f009814:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f009818
-.late_rodata
-glabel var7f1a7f1c
-.word 0x40c90fdb
-.text
-/*  f009818:	27bdfef0 */ 	addiu	$sp,$sp,-272
-/*  f00981c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f009820:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f009824:	00808025 */ 	or	$s0,$a0,$zero
-/*  f009828:	afa50114 */ 	sw	$a1,0x114($sp)
-/*  f00982c:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*  f009830:	afa60118 */ 	sw	$a2,0x118($sp)
-/*  f009834:	3c0144fa */ 	lui	$at,0x44fa
-/*  f009838:	44812000 */ 	mtc1	$at,$f4
-/*  f00983c:	3c018006 */ 	lui	$at,%hi(var80061644)
-/*  f009840:	afa20108 */ 	sw	$v0,0x108($sp)
-/*  f009844:	8fa40114 */ 	lw	$a0,0x114($sp)
-/*  f009848:	0fc0252f */ 	jal	func0f0094bc
-/*  f00984c:	e4241644 */ 	swc1	$f4,%lo(var80061644)($at)
-/*  f009850:	afa20038 */ 	sw	$v0,0x38($sp)
-/*  f009854:	0fc59e73 */ 	jal	gfxAllocateColours
-/*  f009858:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f00985c:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*  f009860:	240fff00 */ 	addiu	$t7,$zero,-256
-/*  f009864:	3c180704 */ 	lui	$t8,0x704
-/*  f009868:	ac4f0004 */ 	sw	$t7,0x4($v0)
-/*  f00986c:	37180008 */ 	ori	$t8,$t8,0x8
-/*  f009870:	02001825 */ 	or	$v1,$s0,$zero
-/*  f009874:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*  f009878:	ac780000 */ 	sw	$t8,0x0($v1)
-/*  f00987c:	afa30030 */ 	sw	$v1,0x30($sp)
-/*  f009880:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f009884:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f009888:	00402025 */ 	or	$a0,$v0,$zero
-/*  f00988c:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f009890:	44800000 */ 	mtc1	$zero,$f0
-/*  f009894:	3c01c2c8 */ 	lui	$at,0xc2c8
-/*  f009898:	44813000 */ 	mtc1	$at,$f6
-/*  f00989c:	ac620004 */ 	sw	$v0,0x4($v1)
-/*  f0098a0:	27a40048 */ 	addiu	$a0,$sp,0x48
-/*  f0098a4:	e7a0003c */ 	swc1	$f0,0x3c($sp)
-/*  f0098a8:	e7a00040 */ 	swc1	$f0,0x40($sp)
-/*  f0098ac:	0c00566c */ 	jal	func000159b0
-/*  f0098b0:	e7a60044 */ 	swc1	$f6,0x44($sp)
-/*  f0098b4:	8fa40114 */ 	lw	$a0,0x114($sp)
-/*  f0098b8:	0c0059b7 */ 	jal	func000166dc
-/*  f0098bc:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f0098c0:	44800000 */ 	mtc1	$zero,$f0
-/*  f0098c4:	8fb90114 */ 	lw	$t9,0x114($sp)
-/*  f0098c8:	3c014500 */ 	lui	$at,0x4500
-/*  f0098cc:	e7a0003c */ 	swc1	$f0,0x3c($sp)
-/*  f0098d0:	87280014 */ 	lh	$t0,0x14($t9)
-/*  f0098d4:	44818000 */ 	mtc1	$at,$f16
-/*  f0098d8:	3c017f1a */ 	lui	$at,%hi(var7f1a7f1c)
-/*  f0098dc:	44884000 */ 	mtc1	$t0,$f8
-/*  f0098e0:	c4247f1c */ 	lwc1	$f4,%lo(var7f1a7f1c)($at)
-/*  f0098e4:	27a4003c */ 	addiu	$a0,$sp,0x3c
-/*  f0098e8:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f0098ec:	27a50088 */ 	addiu	$a1,$sp,0x88
-/*  f0098f0:	e7a00044 */ 	swc1	$f0,0x44($sp)
-/*  f0098f4:	46105483 */ 	div.s	$f18,$f10,$f16
-/*  f0098f8:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f0098fc:	0c005923 */ 	jal	func0001648c
-/*  f009900:	e7a60040 */ 	swc1	$f6,0x40($sp)
-/*  f009904:	8fa90114 */ 	lw	$t1,0x114($sp)
-/*  f009908:	3c0144fa */ 	lui	$at,0x44fa
-/*  f00990c:	44815000 */ 	mtc1	$at,$f10
-/*  f009910:	c5280010 */ 	lwc1	$f8,0x10($t1)
-/*  f009914:	27a50088 */ 	addiu	$a1,$sp,0x88
-/*  f009918:	0c0057c1 */ 	jal	func00015f04
-/*  f00991c:	460a4303 */ 	div.s	$f12,$f8,$f10
-/*  f009920:	27a40048 */ 	addiu	$a0,$sp,0x48
-/*  f009924:	27a50088 */ 	addiu	$a1,$sp,0x88
-/*  f009928:	0c005680 */ 	jal	func00015a00
-/*  f00992c:	27a600c8 */ 	addiu	$a2,$sp,0xc8
-/*  f009930:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
-/*  f009934:	00000000 */ 	nop
-/*  f009938:	00402025 */ 	or	$a0,$v0,$zero
-/*  f00993c:	0c0056f8 */ 	jal	func00015be0
-/*  f009940:	27a500c8 */ 	addiu	$a1,$sp,0xc8
-/*  f009944:	27a400c8 */ 	addiu	$a0,$sp,0xc8
-/*  f009948:	0c005815 */ 	jal	func00016054
-/*  f00994c:	8fa50108 */ 	lw	$a1,0x108($sp)
-/*  f009950:	3c0a0102 */ 	lui	$t2,0x102
-/*  f009954:	354a0040 */ 	ori	$t2,$t2,0x40
-/*  f009958:	02002825 */ 	or	$a1,$s0,$zero
-/*  f00995c:	acaa0000 */ 	sw	$t2,0x0($a1)
-/*  f009960:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f009964:	8fa40108 */ 	lw	$a0,0x108($sp)
-/*  f009968:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f00996c:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f009970:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f009974:	02001825 */ 	or	$v1,$s0,$zero
-/*  f009978:	3c0b0600 */ 	lui	$t3,0x600
-/*  f00997c:	aca20004 */ 	sw	$v0,0x4($a1)
-/*  f009980:	ac6b0000 */ 	sw	$t3,0x0($v1)
-/*  f009984:	8fac0118 */ 	lw	$t4,0x118($sp)
-/*  f009988:	26020008 */ 	addiu	$v0,$s0,0x8
-/*  f00998c:	ac6c0004 */ 	sw	$t4,0x4($v1)
-/*  f009990:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f009994:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f009998:	27bd0110 */ 	addiu	$sp,$sp,0x110
-/*  f00999c:	03e00008 */ 	jr	$ra
-/*  f0099a0:	00000000 */ 	nop
-);
+Gfx *func0f009818(Gfx *gdl, struct gaspart *part, Gfx *subgdl)
+{
+	f32 divider = 2048;
+	Mtxf *mtx;
+	Mtxf spc8;
+	Mtxf sp88;
+	Mtxf sp48;
+	struct coord sp3c;
+	u32 colour;
+	u32 *colours;
+
+	mtx = gfxAllocateMatrix();
+	var80061644 = 2000.0f;
+	colour = func0f0094bc(part);
+
+	colours = gfxAllocateColours(2);
+	colours[0] = colour;
+	colours[1] = 0xffffff00;
+
+	gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+
+	sp3c.x = 0;
+	sp3c.y = 0;
+	sp3c.z = -100;
+
+	func000159b0(&sp48);
+	func000166dc(&part->pos, &sp48);
+
+	sp3c.x = 0;
+	sp3c.y = part->unk14 / divider * M_TAU;
+	sp3c.z = 0;
+
+	func0001648c(&sp3c, &sp88);
+	func00015f04(part->unk10 / 2000.0f, &sp88);
+	func00015a00(&sp48, &sp88, &spc8);
+
+	func00015be0(currentPlayerGetMatrix1740(), &spc8);
+	func00016054(&spc8, mtx);
+
+	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+
+	gSPDisplayList(gdl++, subgdl);
+
+	return gdl;
+}
 
 void func0f0099a4(void)
 {
@@ -3524,15 +3464,15 @@ void gasTick(void)
 Gfx *func0f00a168(Gfx *gdl)
 {
 	s32 i;
-	s32 value = 0;
+	Gfx *subgdl = NULL;
 
 	for (i = 0; i < 6; i++) {
 		if (g_GasParts[i].unk0c >= 0) {
-			if (!value) {
-				value = func0f009504();
+			if (!subgdl) {
+				subgdl = func0f009504();
 			}
 
-			gdl = func0f009818(gdl, &g_GasParts[i], value);
+			gdl = func0f009818(gdl, &g_GasParts[i], subgdl);
 		}
 	}
 
