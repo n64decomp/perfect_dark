@@ -7,7 +7,7 @@ f32 func0f006bd0(f32 arg0);
 u32 func0f006c80(void);
 u32 func0f008558(void);
 u32 func0f0094b4(void);
-u32 func0f0094bc(void);
+s32 func0f0094bc(struct gaspart *part);
 s32 func0f009504(void);
 Gfx *func0f009818(Gfx *gdl, struct gaspart *arg1, s32 arg2);
 void func0f0099a4(void);

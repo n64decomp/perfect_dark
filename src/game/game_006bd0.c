@@ -2755,28 +2755,25 @@ glabel func0f0094b4
 /*  f0094b8:	ac80000c */ 	sw	$zero,0xc($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f0094bc
-/*  f0094bc:	8c82000c */ 	lw	$v0,0xc($a0)
-/*  f0094c0:	2403007f */ 	addiu	$v1,$zero,0x7f
-/*  f0094c4:	28410137 */ 	slti	$at,$v0,0x137
-/*  f0094c8:	1420000c */ 	bnez	$at,.L0f0094fc
-/*  f0094cc:	2841015e */ 	slti	$at,$v0,0x15e
-/*  f0094d0:	1020000a */ 	beqz	$at,.L0f0094fc
-/*  f0094d4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0094d8:	000271c0 */ 	sll	$t6,$v0,0x7
-/*  f0094dc:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f0094e0:	340fada2 */ 	dli	$t7,0xada2
-/*  f0094e4:	01ee1823 */ 	subu	$v1,$t7,$t6
-/*  f0094e8:	24010028 */ 	addiu	$at,$zero,0x28
-/*  f0094ec:	0061001a */ 	div	$zero,$v1,$at
-/*  f0094f0:	00001012 */ 	mflo	$v0
-/*  f0094f4:	03e00008 */ 	jr	$ra
-/*  f0094f8:	00000000 */ 	nop
-.L0f0094fc:
-/*  f0094fc:	03e00008 */ 	jr	$ra
-/*  f009500:	00601025 */ 	or	$v0,$v1,$zero
-);
+/**
+ * If part->unk0c is 0 to 310, return 127
+ * If part->unk0c is 311 to 349, return a scaled number between 127 and 0
+ * If part->unk0c is 350+, return 0
+ */
+s32 func0f0094bc(struct gaspart *part)
+{
+	s32 result = 127;
+
+	if (part->unk0c > 310) {
+		if (part->unk0c < 350) {
+			result = (350 * 127 - part->unk0c * 127) / 40;
+		} else {
+			result = 0;
+		}
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f009504
