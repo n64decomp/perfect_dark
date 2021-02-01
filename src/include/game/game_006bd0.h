@@ -18,7 +18,7 @@ Gfx *func0f00a168(Gfx *gdl);
 u32 func0f00a1f8(void);
 f32 doorGetFrac(s32 tagnum);
 Gfx *func0f00a490(Gfx *gdl);
-Gfx *hudRenderGasIfEnabled(Gfx *gdl);
+Gfx *gasRender(Gfx *gdl);
 void func0f00b180(void);
 
 #endif

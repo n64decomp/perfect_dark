@@ -5871,7 +5871,7 @@ glabel func0f065d1c
 /*  f065d74:	27b00048 */ 	addiu	$s0,$sp,0x48
 /*  f065d78:	86050000 */ 	lh	$a1,0x0($s0)
 .L0f065d7c:
-/*  f065d7c:	0fc586b7 */ 	jal	func0f161adc
+/*  f065d7c:	0fc586b7 */ 	jal	roomContainsCoord
 /*  f065d80:	02402025 */ 	or	$a0,$s2,$zero
 /*  f065d84:	10400005 */ 	beqz	$v0,.L0f065d9c
 /*  f065d88:	00114840 */ 	sll	$t1,$s1,0x1

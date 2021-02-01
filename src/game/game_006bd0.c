@@ -29,19 +29,6 @@
 #include "lib/lib_317f0.h"
 #include "types.h"
 
-const u32 var7f1a7e80[] = {0x00000092};
-const u32 var7f1a7e84[] = {0x00000093};
-const u32 var7f1a7e88[] = {0x00000094};
-const u32 var7f1a7e8c[] = {0x00000095};
-const u32 var7f1a7e90[] = {0x00000096};
-const u32 var7f1a7e94[] = {0x00000097};
-const u32 var7f1a7e98[] = {0x00000098};
-const u32 var7f1a7e9c[] = {0x00000099};
-const u32 var7f1a7ea0[] = {0x0000009a};
-const u32 var7f1a7ea4[] = {0x00000091};
-const u32 var7f1a7ea8[] = {0x0000008f};
-const u32 var7f1a7eac[] = {0x00000090};
-
 f32 func0f006bd0(f32 arg0)
 {
 	s32 ival = arg0 * 4.0f;
@@ -3872,7 +3859,7 @@ glabel func0f00a490
 );
 
 GLOBAL_ASM(
-glabel hudRenderGasIfEnabled
+glabel gasRender
 .late_rodata
 glabel var7f1a7f44
 .word 0xc6557000
@@ -3930,7 +3917,7 @@ glabel var7f1a7f5c
 /*  f00a9d4:	e7a80104 */ 	swc1	$f8,0x104($sp)
 /*  f00a9d8:	27a400fc */ 	addiu	$a0,$sp,0xfc
 .L0f00a9dc:
-/*  f00a9dc:	0fc586b7 */ 	jal	func0f161adc
+/*  f00a9dc:	0fc586b7 */ 	jal	roomContainsCoord
 /*  f00a9e0:	86050002 */ 	lh	$a1,0x2($s0)
 /*  f00a9e4:	10400002 */ 	beqz	$v0,.L0f00a9f0
 /*  f00a9e8:	26100004 */ 	addiu	$s0,$s0,0x4
@@ -3978,7 +3965,7 @@ glabel var7f1a7f5c
 /*  f00aa8c:	10000017 */ 	b	.L0f00aaec
 /*  f00aa90:	e7a000b8 */ 	swc1	$f0,0xb8($sp)
 .L0f00aa94:
-/*  f00aa94:	0fc586b7 */ 	jal	func0f161adc
+/*  f00aa94:	0fc586b7 */ 	jal	roomContainsCoord
 /*  f00aa98:	24050091 */ 	addiu	$a1,$zero,0x91
 /*  f00aa9c:	50400014 */ 	beqzl	$v0,.L0f00aaf0
 /*  f00aaa0:	c7a40108 */ 	lwc1	$f4,0x108($sp)
@@ -4435,6 +4422,222 @@ glabel var7f1a7f5c
 /*  f00b178:	03e00008 */ 	jr	$ra
 /*  f00b17c:	27bd0110 */ 	addiu	$sp,$sp,0x110
 );
+
+const u32 var7f1a7e80[] = {0x00000092};
+const u32 var7f1a7e84[] = {0x00000093};
+const u32 var7f1a7e88[] = {0x00000094};
+const u32 var7f1a7e8c[] = {0x00000095};
+const u32 var7f1a7e90[] = {0x00000096};
+const u32 var7f1a7e94[] = {0x00000097};
+const u32 var7f1a7e98[] = {0x00000098};
+const u32 var7f1a7e9c[] = {0x00000099};
+const u32 var7f1a7ea0[] = {0x0000009a};
+const u32 var7f1a7ea4[] = {0x00000091};
+const u32 var7f1a7ea8[] = {0x0000008f};
+const u32 var7f1a7eac[] = {0x00000090};
+
+// Mismatch: Float calculations
+//Gfx *gasRender(Gfx *gdl)
+//{
+//	bool show = false;
+//	f32 alphafrac = 1.0f; // 108
+//	struct coord campos; // fc
+//	s16 spfa; // fa
+//	u32 alpha;
+//	s32 i;
+//	bool drawn = false; // ec
+//	const u32 gasrooms[] = { 0x92, 0x93, 0x94, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9a, 0x91, 0x8f, 0x90 }; // bc
+//	f32 intensityfrac; // b8
+//	u32 stack;
+//	f32 frac1; // b0
+//	f32 frac2;
+//
+//	f32 distance;
+//	u32 *colours; // a4
+//	struct gfxvtx *vertices;
+//	s16 viewleft; // 9e
+//	s16 viewtop; // 9c
+//	s16 viewright; // 9a
+//	s16 viewbottom; // 98
+//	f32 fVar19;
+//	f32 camposx; // 8c
+//	f32 camposz; // 88
+//	f32 sp78; // 78
+//	s16 sp76; // 76
+//	s16 sp72; // 72
+//	s16 sVar15;
+//	s32 uVar21;
+//	f32 sp38; // 38
+//
+//	if (g_Vars.stagenum == STAGE_ESCAPE) {
+//		intensityfrac = 1.0f;
+//
+//		campos.x = g_Vars.currentplayer->cam_pos.x;
+//		campos.y = g_Vars.currentplayer->cam_pos.y;
+//		campos.z = g_Vars.currentplayer->cam_pos.z;
+//
+//		for (i = 0; i < 12; i++) {
+//			if (roomContainsCoord(&campos, gasrooms[i])) {
+//				show = true;
+//			}
+//		}
+//
+//		if (!show) {
+//			// Outside of the gas rooms list - check distance to abitrary point
+//			distance = sqrtf(
+//					(campos.f[0] - -1473.0f) * (campos.f[0] - -1473.0f) +
+//					(campos.f[1] - -308.0f) * (campos.f[1] - -308.0f) +
+//					(campos.f[2] - -13660.0f) * (campos.f[2] - -13660.0f));
+//
+//			if (distance < 1328.0f) {
+//				show = true;
+//				alphafrac = 1.0f - distance / 1328.0f;
+//				intensityfrac = doorGetFrac(0x32);
+//			}
+//		} else {
+//			if (roomContainsCoord(&campos, 0x91)) {
+//				// In the small room between the first two doors
+//				frac1 = doorGetFrac(0x30);
+//				frac2 = doorGetFrac(0x31);
+//
+//				if (frac2 > frac1) {
+//					intensityfrac = frac2;
+//				} else {
+//					intensityfrac = frac1;
+//				}
+//
+//				intensityfrac += 0.2f;
+//			}
+//		}
+//
+//		alphafrac *= intensityfrac;
+//
+//		if (show && g_Vars.tickmode == TICKMODE_CUTSCENE) {
+//			if (g_CameraAnimCurFrame < 2180) {
+//				show = false;
+//			} else {
+//				if (g_CameraAnimCurFrame < 2600) {
+//					alphafrac *= (g_CameraAnimCurFrame - 2180) / 420.0f;
+//				}
+//			}
+//		}
+//
+//		if (show) {
+//			f32 lookx;
+//			f32 lookz;
+//			f32 tmp;
+//			f32 tmp2;
+//			s32 tmp3;
+//			colours = gfxAllocateColours(1);
+//			vertices = gfxAllocateVertices(8);
+//			viewleft = viGetViewLeft() * 10;
+//			viewtop = viGetViewTop() * 10;
+//			viewright = (viGetViewLeft() + viGetViewWidth()) * 10;
+//			viewbottom = (viGetViewTop() + viGetViewHeight()) * 10;
+//
+//			lookx = g_Vars.currentplayer->cam_look.x;
+//			lookz = g_Vars.currentplayer->cam_look.z;
+//			camposx = g_Vars.currentplayer->cam_pos.f[0];
+//			camposz = g_Vars.currentplayer->cam_pos.f[2];
+//
+//			sp78 = func0f096750(-lookx, lookz) / M_BADTAU;
+//			sp38 = (func0f006b08(4) - 0.5f) / 6.0f;
+//
+//			fVar19 = (camposx + camposz) / 3000.0f;
+//			fVar19 -= (s32)fVar19;
+//			tmp = sp38 + sp78 + fVar19 * 1.5f;
+//
+//			sp76 = (s32)((2.0f * tmp) * 128.0f * 32.0f) % 0x800;
+//
+//			tmp2 = (func0f006b54(4) - 0.5f) / -9.0f;
+//			drawn = true;
+//			fVar19 = tmp2 + sp78 + sp38;
+//
+//			sVar15 = (s32)((2.0f * fVar19) * 128.0f * 32.0f) % 0x800;
+//
+//			tmp3 = (s32)(campos.y * 8.0f) % 0x800;
+//
+//			spfa = tmp3 + (s32)((2.0f * var80061630) * 128.0f * 32.0f);
+//			sp72 = tmp3 + (s32)((2.0f * var80061630) * 64.0f * 32.0f);
+//
+//			gdl = func0f0d479c(gdl);
+//
+//			func0f0b39c0(&gdl, &var800ab5a8[6], 4, 1, 2, 1, 0);
+//
+//			gDPPipeSync(gdl++);
+//			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//			gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//			gDPSetCombineMode(gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
+//			gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+//			gDPSetColorDither(gdl++, G_CD_DISABLE);
+//			gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//			gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
+//			gDPSetTexturePersp(gdl++, G_TP_PERSP);
+//
+//			vertices[0].x = viewleft;
+//			vertices[0].y = viewtop;
+//			vertices[0].z = -10;
+//			vertices[1].z = -10;
+//			vertices[2].z = -10;
+//			vertices[3].z = -10;
+//			vertices[4].z = -10;
+//			vertices[5].z = -10;
+//			vertices[6].z = -10;
+//			vertices[7].z = -10;
+//			vertices[0].unk08 = sVar15;
+//			vertices[0].unk0a = sp72;
+//			vertices[1].y = viewtop;
+//			vertices[4].y = viewtop;
+//			vertices[5].y = viewtop;
+//			vertices[3].x = viewleft;
+//			vertices[4].x = viewleft;
+//			vertices[7].x = viewleft;
+//			vertices[2].y = viewbottom;
+//			vertices[3].y = viewbottom;
+//			vertices[6].y = viewbottom;
+//			vertices[7].y = viewbottom;
+//			vertices[1].x = viewright;
+//			vertices[2].x = viewright;
+//			vertices[5].x = viewright;
+//			vertices[6].x = viewright;
+//			vertices[1].unk08 = sVar15 + 960;
+//			vertices[2].unk08 = sVar15 + 960;
+//			vertices[2].unk0a = sp72 + 640;
+//			vertices[3].unk08 = sVar15;
+//			vertices[3].unk0a = sp72 + 640;
+//			vertices[0].s = 0;
+//			vertices[1].s = 0;
+//			vertices[2].s = 0;
+//			vertices[3].s = 0;
+//			vertices[1].unk0a = sp72;
+//			vertices[4].unk0a = spfa;
+//			vertices[4].unk08 = sp76;
+//			vertices[5].unk08 = sp76 + 640;
+//			vertices[6].unk08 = sp76 + 640;
+//			vertices[6].unk0a = spfa + 480;
+//			vertices[7].unk0a = spfa + 480;
+//			vertices[4].s = 0;
+//			vertices[5].s = 0;
+//			vertices[6].s = 0;
+//			vertices[7].s = 0;
+//			vertices[5].unk0a = spfa;
+//			vertices[7].unk08 = sp76;
+//
+//			colours[0] = 0x3faf1100 | (u32)(alphafrac * 127.0f);
+//
+//			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
+//			gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 8);
+//
+//			gDPTri4(gdl++, 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4);
+//		}
+//	}
+//
+//	if (drawn) {
+//		gdl = func0f0d49c8(gdl);
+//	}
+//
+//	return gdl;
+//}
 
 GLOBAL_ASM(
 glabel func0f00b180

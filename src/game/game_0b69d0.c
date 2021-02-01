@@ -9380,7 +9380,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 		}
 
 		if (g_Vars.stagenum == STAGE_ESCAPE) {
-			gdl = hudRenderGasIfEnabled(gdl);
+			gdl = gasRender(gdl);
 		}
 
 		return gdl;
@@ -9401,7 +9401,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 		}
 
 		if (g_Vars.stagenum == STAGE_ESCAPE) {
-			gdl = hudRenderGasIfEnabled(gdl);
+			gdl = gasRender(gdl);
 		}
 
 		gdl = func0f0c0190(gdl);
@@ -9947,7 +9947,7 @@ glabel func0f0c1840
 /*  f0c18b4:	86050000 */ 	lh	$a1,0x0($s0)
 /*  f0c18b8:	02802025 */ 	or	$a0,$s4,$zero
 .L0f0c18bc:
-/*  f0c18bc:	0fc586b7 */ 	jal	func0f161adc
+/*  f0c18bc:	0fc586b7 */ 	jal	roomContainsCoord
 /*  f0c18c0:	afa6004c */ 	sw	$a2,0x4c($sp)
 /*  f0c18c4:	14400012 */ 	bnez	$v0,.L0f0c1910
 /*  f0c18c8:	8fa6004c */ 	lw	$a2,0x4c($sp)

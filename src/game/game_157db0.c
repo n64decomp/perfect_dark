@@ -11902,7 +11902,7 @@ s32 func0f161ab4(s32 room)
 }
 
 GLOBAL_ASM(
-glabel func0f161adc
+glabel roomContainsCoord
 /*  f161adc:	27bdfff0 */ 	addiu	$sp,$sp,-16
 /*  f161ae0:	afa50014 */ 	sw	$a1,0x14($sp)
 /*  f161ae4:	c4840000 */ 	lwc1	$f4,0x0($a0)
