@@ -2737,11 +2737,10 @@ glabel var7f1a7f18
 /*  f0094b0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel nbombResetAge
-/*  f0094b4:	03e00008 */ 	jr	$ra
-/*  f0094b8:	ac80000c */ 	sw	$zero,0xc($a0)
-);
+void nbombResetAge(struct nbomb *nbomb)
+{
+	nbomb->age240 = 0;
+}
 
 /**
  * If nbomb->age240 is 0 to 310, return 127
