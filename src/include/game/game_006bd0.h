@@ -5,10 +5,10 @@
 
 f32 func0f006bd0(f32 arg0);
 u32 func0f006c80(void);
-u32 func0f008558(void);
+Gfx *func0f008558(Gfx *gdl, s32 arg1);
 void nbombResetAge(struct nbomb *nbomb);
 s32 nbombCalculateAlpha(struct nbomb *nbomb);
-Gfx *nbombAllocateGdl(void);
+Gfx *nbombCreateGdl(void);
 Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl);
 void func0f0099a4(void);
 void func0f0099e4(struct nbomb *nbomb);

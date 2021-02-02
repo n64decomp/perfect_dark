@@ -18,6 +18,15 @@
 #include "lib/rng.h"
 #include "types.h"
 
+struct stageheadlimit g_StageHeadLimits[3] = {
+	{ STAGE_INFILTRATION, 5 },
+	{ STAGE_RESCUE,       4 },
+	{ STAGE_ESCAPE,       5 },
+};
+
+u32 var80061708 = 0x00000000;
+u32 var8006170c = 0x00000000;
+
 GLOBAL_ASM(
 glabel stageChooseActiveHeads
 /*  f00b820:	27bdffd0 */ 	addiu	$sp,$sp,-48

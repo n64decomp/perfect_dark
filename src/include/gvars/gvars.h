@@ -494,6 +494,7 @@ extern u32 var8009cadc;
 extern u32 var8009cae0;
 extern u8 var8009caec[4];
 extern u8 var8009caf0;
+extern s16 var8009cb00;
 extern struct nbomb g_Nbombs[6];
 extern u32 var8009cbf8;
 extern struct prop *g_DangerousProps[MAX_DANGEROUSPROPS];
