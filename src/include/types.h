@@ -1384,7 +1384,7 @@ struct objective { // objtype 0x17
 	/*0x04*/ s32 index;
 	/*0x08*/ u32 text;
 	/*0x0c*/ u16 unk0c;
-	/*0x0e*/ u8 unk0e;
+	/*0x0e*/ u8 flags;
 	/*0x0f*/ s8 difficulties;
 };
 
@@ -4489,14 +4489,14 @@ struct mpscenario {
 	void (*initfunc)(void);
 	s32 (*unk08)(void);
 	void (*resetfunc)(void);
-	void (*unk10)(void);
+	void (*tickfunc)(void);
 	void (*unk14)(struct chrdata *chr);
 	void *unk18;
 	void (*killfunc)(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3);
 	Gfx *(*radarfunc)(Gfx *gdl);
 	bool (*radar2func)(Gfx **gdl, struct prop *prop);
 	bool (*highlightfunc)(struct prop *prop, u32 *colour);
-	bool (*unk2c)(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4);
+	bool (*spawnfunc)(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4);
 	s32 (*maxteamsfunc)(void);
 	bool (*isroomhighlightedfunc)(s16 room);
 	void (*unk38)(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);

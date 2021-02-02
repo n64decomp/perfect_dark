@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_16E810_H
-#define IN_GAME_GAME_16E810_H
+#ifndef IN_GAME_TEXTURE_H
+#define IN_GAME_TEXTURE_H
 #include <ultra64.h>
 #include "types.h"
 

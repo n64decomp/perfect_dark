@@ -315,7 +315,7 @@ void musicSetStage(s32 stagenum)
 	g_MusicStageNum = stagenum;
 }
 
-void func0f16d9fc(void)
+void musicReset(void)
 {
 	func0f16d430();
 	func0f16d3d0();

@@ -12,13 +12,13 @@
 #include "game/dlights.h"
 #include "game/game_005fd0.h"
 #include "game/game_00c490.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "game/game_092610.h"
 #include "game/game_096750.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
-#include "game/game_0dcdb0.h"
+#include "game/hudmsg.h"
 #include "game/game_0f09f0.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
@@ -486,7 +486,7 @@ void scenarioHtbReset(void)
 	func0f1800a8();
 }
 
-void scenarioHtbCallback10(void)
+void scenarioHtbTick(void)
 {
 	s32 i;
 	u32 prevplayernum = g_Vars.currentplayernum;
@@ -841,7 +841,7 @@ s32 scenarioCtcCallback08(void)
 	return 4;
 }
 
-void scenarioCtcCallback10(void)
+void scenarioCtcTick(void)
 {
 	// empty
 }
@@ -1402,13 +1402,13 @@ void mpCtcAddPad(s32 *cmd)
 	}
 }
 
-bool scenarioCtcCallback2c(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4)
+bool scenarioCtcChooseSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, f32 *arg4)
 {
 	struct chrdata *chr = prop->chr;
 	s32 index = radarGetTeamIndex(chr->team);
 
 	if (g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[index]].numspawnpads > 0) {
-		*arg4 = func0f0b69d0(arg0, pos, rooms, prop,
+		*arg4 = playerChooseSpawnLocation(arg0, pos, rooms, prop,
 				g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[index]].spawnpads,
 				g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[index]].numspawnpads);
 		return true;
@@ -1579,7 +1579,7 @@ void scenarioKohReset(void)
 }
 
 GLOBAL_ASM(
-glabel scenarioKohCallback10
+glabel scenarioKohTick
 .late_rodata
 glabel var7f1b893c
 .word 0x3f733333
@@ -2919,7 +2919,7 @@ glabel var7f1b8954
 /*  f1830a0:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-void scenarioHtmCallback10(void)
+void scenarioHtmTick(void)
 {
 	u8 stack[8];
 	s32 i;
@@ -4412,7 +4412,7 @@ glabel func0f1847b8
 );
 
 GLOBAL_ASM(
-glabel scenarioPacCallback10
+glabel scenarioPacTick
 /*  f1848c0:	3c09800b */ 	lui	$t1,%hi(g_ScenarioData)
 /*  f1848c4:	2529c110 */ 	addiu	$t1,$t1,%lo(g_ScenarioData)
 /*  f1848c8:	8d2e0004 */ 	lw	$t6,0x4($t1)
@@ -4509,7 +4509,7 @@ glabel scenarioPacCallback10
 /*  f184a14:	00000000 */ 	nop
 );
 
-//void scenarioPacCallback10(void)
+//void scenarioPacTick(void)
 //{
 //	if (g_ScenarioData.pac.victimindex == -1) {
 //		func0f1845bc();

@@ -1922,8 +1922,12 @@ void mpSetPaused(u8 mode)
 	g_MpSetup.paused = mode;
 }
 
+/**
+ * Render "Paused" in the middle of the viewport if paused,
+ * or "Press START" if player has finished their death animation.
+ */
 GLOBAL_ASM(
-glabel func0f18973c
+glabel mpRenderModalText
 /*  f18973c:	3c02800b */ 	lui	$v0,%hi(g_MpSetup+0x1e)
 /*  f189740:	9042cba6 */ 	lbu	$v0,%lo(g_MpSetup+0x1e)($v0)
 /*  f189744:	27bdff60 */ 	addiu	$sp,$sp,-160

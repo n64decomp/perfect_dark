@@ -1,5 +1,5 @@
-#ifndef _IN_GAME_GAME_0D7070_H
-#define _IN_GAME_GAME_0D7070_H
+#ifndef _IN_GAME_SIGHT_H
+#define _IN_GAME_SIGHT_H
 #include <ultra64.h>
 #include "types.h"
 

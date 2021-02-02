@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_157DB0_H
-#define IN_GAME_GAME_157DB0_H
+#ifndef IN_GAME_ROOM_H
+#define IN_GAME_ROOM_H
 #include <ultra64.h>
 #include "types.h"
 
@@ -32,7 +32,7 @@ f32 currentPlayerGetScaleBg2Gfx(void);
 void currentPlayerSetScaleBg2Gfx(f32 arg0);
 void func0f15c920(void);
 void func0f15ca00(void);
-Gfx *func0f15cae0(Gfx *gdl);
+Gfx *bgRender(Gfx *gdl);
 Gfx *func0f15cb74(Gfx *gdl);
 u32 func0f15cbb4(void);
 Gfx *currentPlayerSetScissor(Gfx *gdl, s32 viewleft, s32 viewtop, s32 viewright, s32 viewbottom);

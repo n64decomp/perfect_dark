@@ -12,7 +12,7 @@
 #include "game/game_013550.h"
 #include "game/game_013ee0.h"
 #include "game/chr/chr.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "game/ceil.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b3350.h"
@@ -22,14 +22,14 @@
 #include "game/game_13b670.h"
 #include "game/game_13c510.h"
 #include "game/game_1531a0.h"
-#include "game/game_157db0.h"
+#include "game/room.h"
 #include "game/game_165360.h"
 #include "game/game_1655c0.h"
 #include "game/game_165670.h"
 #include "game/game_1668e0.h"
-#include "game/game_166e40.h"
+#include "game/file.h"
 #include "game/core.h"
-#include "game/game_16e810.h"
+#include "game/texture.h"
 #include "game/game_173a00.h"
 #include "game/wallhit.h"
 #include "gvars/gvars.h"
@@ -6667,7 +6667,7 @@ void func0f15ca00(void)
 	func0f163e34();
 }
 
-Gfx *func0f15cae0(Gfx *gdl)
+Gfx *bgRender(Gfx *gdl)
 {
 	gdl = func0f001300(gdl);
 

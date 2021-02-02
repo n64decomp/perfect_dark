@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "game/chr/chraicommands.h"
 #include "game/game_000000.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "game/data/ailists.h"
 #include "stagesetup.h"
 #include "types.h"

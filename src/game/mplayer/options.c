@@ -12,13 +12,13 @@
 #include "game/dlights.h"
 #include "game/game_005fd0.h"
 #include "game/game_00c490.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "game/game_092610.h"
 #include "game/game_096750.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
-#include "game/game_0dcdb0.h"
+#include "game/hudmsg.h"
 #include "game/game_0f09f0.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
@@ -184,15 +184,15 @@ glabel func0f185568
 /*  f1856a8:	27bd00c0 */ 	addiu	$sp,$sp,0xc0
 );
 
-void scenarioCallback10(void)
+void scenarioTick(void)
 {
 	if (g_Vars.normmplayerisrunning) {
 		if (g_Vars.lvframenum == 5) {
 			func0f185568();
 		}
 
-		if (g_MpScenarios[g_MpSetup.scenario].unk10) {
-			g_MpScenarios[g_MpSetup.scenario].unk10();
+		if (g_MpScenarios[g_MpSetup.scenario].tickfunc) {
+			g_MpScenarios[g_MpSetup.scenario].tickfunc();
 		}
 	}
 }
@@ -894,16 +894,16 @@ glabel var7f1b89b8
 /*  f186178:	00000000 */ 	nop
 );
 
-f32 scenarioCallback2c(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop)
+f32 scenarioChooseSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop)
 {
 	f32 result;
 
-	if (g_Vars.normmplayerisrunning && g_MpScenarios[g_MpSetup.scenario].unk2c &&
-			g_MpScenarios[g_MpSetup.scenario].unk2c(arg0, pos, rooms, prop, &result)) {
+	if (g_Vars.normmplayerisrunning && g_MpScenarios[g_MpSetup.scenario].spawnfunc &&
+			g_MpScenarios[g_MpSetup.scenario].spawnfunc(arg0, pos, rooms, prop, &result)) {
 		return result;
 	}
 
-	return func0f0b72a8(arg0, pos, rooms, prop);
+	return playerChooseGeneralSpawnLocation(arg0, pos, rooms, prop);
 }
 
 void mpPrepareScenario(void)

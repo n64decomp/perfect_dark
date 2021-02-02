@@ -12,7 +12,7 @@
 #include "game/game_096750.h"
 #include "game/game_0b3350.h"
 #include "game/game_150820.h"
-#include "game/game_166e40.h"
+#include "game/file.h"
 #include "gvars/gvars.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"

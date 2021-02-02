@@ -12,13 +12,13 @@
 #include "game/game_0b0fd0.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
-#include "game/game_0dcdb0.h"
+#include "game/hudmsg.h"
 #include "game/game_0e0770.h"
 #include "game/game_127910.h"
 #include "game/game_1531a0.h"
 #include "game/core.h"
 #include "game/mplayer/mplayer.h"
-#include "game/pdoptions.h"
+#include "game/options.h"
 #include "game/propobj.h"
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
@@ -1583,7 +1583,7 @@ void func0f0ddd44(s32 value)
 	}
 }
 
-void hudmsgSystemInit(void)
+void hudmsgsInit(void)
 {
 	s32 i;
 
@@ -3149,20 +3149,20 @@ glabel hudmsgCreate
 //}
 
 GLOBAL_ASM(
-glabel func0f0df364
+glabel hudmsgsTick
 .late_rodata
 glabel var7f1adec4
-.word func0f0df364+0x680 # f0df9e4
+.word hudmsgsTick+0x680 # f0df9e4
 glabel var7f1adec8
-.word func0f0df364+0x1e4 # f0df548
+.word hudmsgsTick+0x1e4 # f0df548
 glabel var7f1adecc
-.word func0f0df364+0x39c # f0df700
+.word hudmsgsTick+0x39c # f0df700
 glabel var7f1aded0
-.word func0f0df364+0x3dc # f0df740
+.word hudmsgsTick+0x3dc # f0df740
 glabel var7f1aded4
-.word func0f0df364+0x564 # f0df8c8
+.word hudmsgsTick+0x564 # f0df8c8
 glabel var7f1aded8
-.word func0f0df364+0x604 # f0df968
+.word hudmsgsTick+0x604 # f0df968
 .text
 /*  f0df364:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f0df368:	3c0e8007 */ 	lui	$t6,%hi(g_ViMode)
@@ -3656,22 +3656,22 @@ void hudmsgRemoveForDeadPlayer(s32 playernum)
 }
 
 GLOBAL_ASM(
-glabel hudRenderMessages
+glabel hudmsgsRender
 .late_rodata
 glabel var7f1adedc
 .word 0x40490fdb
 glabel var7f1adee0
-.word hudRenderMessages+0xa34 # f0e0504
+.word hudmsgsRender+0xa34 # f0e0504
 glabel var7f1adee4
-.word hudRenderMessages+0xa34 # f0e0504
+.word hudmsgsRender+0xa34 # f0e0504
 glabel var7f1adee8
-.word hudRenderMessages+0xa34 # f0e0504
+.word hudmsgsRender+0xa34 # f0e0504
 glabel var7f1adeec
-.word hudRenderMessages+0x3ec # f0dfebc
+.word hudmsgsRender+0x3ec # f0dfebc
 glabel var7f1adef0
-.word hudRenderMessages+0x644 # f0e0114
+.word hudmsgsRender+0x644 # f0e0114
 glabel var7f1adef4
-.word hudRenderMessages+0x7c8 # f0e0298
+.word hudmsgsRender+0x7c8 # f0e0298
 .text
 /*  f0dfad0:	27bdff00 */ 	addiu	$sp,$sp,-256
 /*  f0dfad4:	3c0f8007 */ 	lui	$t7,%hi(g_ViMode)
@@ -4514,7 +4514,7 @@ glabel var7f1adef4
 );
 
 // Mismatch most likely due to variable re-use.
-//Gfx *hudRenderMessages(Gfx *gdl)
+//Gfx *hudmsgsRender(Gfx *gdl)
 //{
 //	s32 i;
 //	u32 textcolour; // s3

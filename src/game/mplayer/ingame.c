@@ -20,7 +20,7 @@
 #include "game/game_19aa80.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
-#include "game/pdoptions.h"
+#include "game/options.h"
 #include "gvars/gvars.h"
 #include "lib/main.h"
 #include "types.h"

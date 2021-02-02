@@ -11,7 +11,7 @@
 #include "game/chr/chr.h"
 #include "game/game_0b3350.h"
 #include "game/sparks/sparks.h"
-#include "game/game_166e40.h"
+#include "game/file.h"
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
 #include "lib/rng.h"
@@ -709,7 +709,7 @@ glabel sparksCreate
 );
 
 GLOBAL_ASM(
-glabel func0f130044
+glabel sparksRender
 /*  f130044:	27bdfe90 */ 	addiu	$sp,$sp,-368
 /*  f130048:	3c0e8008 */ 	lui	$t6,%hi(g_SparksAreActive)
 /*  f13004c:	8dcef0b8 */ 	lw	$t6,%lo(g_SparksAreActive)($t6)

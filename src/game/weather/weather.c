@@ -11,8 +11,8 @@
 #include "game/game_0b3350.h"
 #include "game/sparks/sparks.h"
 #include "game/weather/weather.h"
-#include "game/game_157db0.h"
-#include "game/game_166e40.h"
+#include "game/room.h"
+#include "game/file.h"
 #include "game/core.h"
 #include "gvars/gvars.h"
 #include "lib/main.h"
@@ -4074,7 +4074,7 @@ glabel var7f1b5790
 /*  f135bd4:	27bd1398 */ 	addiu	$sp,$sp,0x1398
 );
 
-void weatherFree(void)
+void weatherReset(void)
 {
 	if (g_WeatherData) {
 		if (g_WeatherData->audiohandles[0]) {

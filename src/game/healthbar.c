@@ -8,9 +8,9 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "game/game_0b69d0.h"
-#include "game/game_0d5a90.h"
+#include "game/healthbar.h"
 #include "game/game_1531a0.h"
-#include "game/game_166e40.h"
+#include "game/file.h"
 #include "gvars/gvars.h"
 #include "lib/main.h"
 #include "types.h"
@@ -330,7 +330,7 @@ glabel func0f0d5c60
 );
 
 GLOBAL_ASM(
-glabel func0f0d5d8c
+glabel healthbarRender
 /*  f0d5d8c:	27bdfbd8 */ 	addiu	$sp,$sp,-1064
 /*  f0d5d90:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*  f0d5d94:	afb10024 */ 	sw	$s1,0x24($sp)

@@ -48,7 +48,7 @@ void titleExit(void);
 void titleInitFromAiCmd(u32 arg0);
 bool func0f01ad5c(void);
 void func0f01adb8(void);
-void func0f01ae30(void);
+void titleTickOld(void);
 Gfx *titleRender(Gfx *gdl);
 void titleExitLegal(void);
 s32 getNumPlayers(void);

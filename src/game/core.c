@@ -17,13 +17,13 @@
 #include "game/debug.h"
 #include "game/dlights.h"
 #include "game/game_005fd0.h"
-#include "game/game_006bd0.h"
+#include "game/nbomb.h"
 #include "game/game_00b480.h"
 #include "game/game_00b820.h"
 #include "game/game_00c240.h"
 #include "game/game_00c490.h"
 #include "game/game_0108d0.h"
-#include "game/game_0109d0.h"
+#include "game/objectives.h"
 #include "game/casing.h"
 #include "game/game_011110.h"
 #include "game/inventory/init.h"
@@ -40,11 +40,10 @@
 #include "game/game_014f10.h"
 #include "game/game_015010.h"
 #include "game/game_0150a0.h"
-#include "game/game_0151f0.h"
 #include "game/stubs/game_015260.h"
 #include "game/stubs/game_015270.h"
-#include "game/explosions/free.h"
-#include "game/smoke/free.h"
+#include "game/explosions/reset.h"
+#include "game/smoke/reset.h"
 #include "game/stubs/game_0153f0.h"
 #include "game/stubs/game_015400.h"
 #include "game/stubs/game_015410.h"
@@ -58,7 +57,7 @@
 #include "game/game_01d990.h"
 #include "game/game_01de30.h"
 #include "game/chr/chr.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "game/game_095320.h"
 #include "game/game_097ba0.h"
 #include "game/game_0abe70.h"
@@ -67,7 +66,7 @@
 #include "game/game_0b63b0.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
-#include "game/game_0dcdb0.h"
+#include "game/hudmsg.h"
 #include "game/game_0f09f0.h"
 #include "game/game_107fb0.h"
 #include "game/game_10c9c0.h"
@@ -83,11 +82,11 @@
 #include "game/bondview.h"
 #include "game/game_150820.h"
 #include "game/game_1531a0.h"
-#include "game/game_157db0.h"
+#include "game/room.h"
 #include "game/game_165670.h"
 #include "game/core.h"
 #include "game/music.h"
-#include "game/game_16e810.h"
+#include "game/texture.h"
 #include "game/game_176080.h"
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
@@ -292,7 +291,7 @@ void coreLoadStage(s32 stagenum)
 	func0f013b80();
 	texturesLoadConfigs();
 	fontsLoadForCurrentStage();
-	hudmsgSystemInit();
+	hudmsgsInit();
 
 	if (stagenum == STAGE_TEST_OLD) {
 		func0f00b480();
@@ -355,7 +354,7 @@ void coreLoadStage(s32 stagenum)
 
 	mpSetDefaultNamesIfEmpty();
 	func0002373c();
-	setupResetObjectives();
+	objectivesReset();
 	func0f013ba0();
 	func0f011110();
 	func0f0108d0();
@@ -1206,11 +1205,11 @@ Gfx *coreRender(Gfx *gdl)
 				}
 
 				func0f0641f4();
-				gdl = func0f15cae0(gdl);
+				gdl = bgRender(gdl);
 				func0f028498(var80075d68 == 15 || var8005f020);
 				gdl = propsRenderBulletTails(gdl);
 				gdl = func0f1526e4(gdl);
-				gdl = func0f130044(gdl);
+				gdl = sparksRender(gdl);
 				gdl = weatherRender(gdl);
 
 				if (g_NbombsActive) {
@@ -1502,11 +1501,11 @@ Gfx *coreRender(Gfx *gdl)
 				func00016748(g_Vars.currentplayerstats->scale_bg2gfx);
 
 				if (g_Vars.mplayerisrunning) {
-					gdl = func0f18973c(gdl);
+					gdl = mpRenderModalText(gdl);
 				}
 
 				if (g_Vars.currentplayer->dostartnewlife) {
-					func0f0b72dc();
+					currentPlayerStartNewLife();
 				}
 			}
 
@@ -2000,7 +1999,7 @@ void coreTick(void)
 	g_Vars.lvupdate240freal = g_Vars.lvupdate240f;
 
 	speedpillTick();
-	func0f0df364();
+	hudmsgsTick();
 
 	if ((contGetButtonsPressedThisFrame(0, 0xffff) != 0
 				|| contGetStickX(0) > 10
@@ -2145,7 +2144,7 @@ void coreTick(void)
 	viSetUseZBuf(true);
 
 	if (g_Vars.stagenum == STAGE_TEST_OLD) {
-		func0f01ae30();
+		titleTickOld();
 		func00011d84();
 	}
 
@@ -2190,12 +2189,12 @@ void coreTick(void)
 		coreUpdateMiscSfx();
 		func0000fe88();
 		pakExecuteDebugOperations();
-		func0f0033b0();
+		lightingTick();
 		func0f0b2904();
 		func0f0aefb8();
 		amTick();
 		menuTickAll();
-		scenarioCallback10();
+		scenarioTick();
 
 		if (var8005d9d0 == 0) {
 			func0f01e250();
@@ -2257,21 +2256,21 @@ void coreUnloadStage(void)
 		stub0f015270();
 	}
 
-	func0f014f10();
-	explosionsFree();
-	smokeFree();
+	chrsReset();
+	explosionsReset();
+	smokeReset();
 	stub0f015400();
 	stub0f015410();
 	func0f015420();
 	stub0f0153f0();
-	func0f014fe0();
-	func0f015010();
-	weatherFree();
-	func0f0151f0();
+	alarmReset();
+	func0f015010(); // props/setup related
+	weatherReset();
+	objectivesAutocomplete();
 	stub0f015260();
 	func0f015470();
 	func0f0150a0();
-	func0f16d9fc();
+	musicReset();
 	hudmsgsReset();
 
 	if (g_Vars.stagenum < NUM_STAGES) {

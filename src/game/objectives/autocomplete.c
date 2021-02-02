@@ -10,13 +10,15 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-void func0f0151f0(void)
+void objectivesAutocomplete(void)
 {
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_Objectives); i++) {
-		if (g_Objectives[i] && (g_Objectives[i]->unk0e & 1) && g_ObjectiveStatuses[i] != 2) {
-			g_ObjectiveStatuses[i] = 1;
+		if (g_Objectives[i]
+				&& (g_Objectives[i]->flags & OBJECTIVEFLAG_AUTOCOMPLETE)
+				&& g_ObjectiveStatuses[i] != OBJECTIVE_FAILED) {
+			g_ObjectiveStatuses[i] = OBJECTIVE_COMPLETE;
 		}
 	}
 }

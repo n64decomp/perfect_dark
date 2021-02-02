@@ -12,7 +12,7 @@
 #include "lib/main.h"
 #include "types.h"
 
-void setupResetObjectives(void)
+void objectivesReset(void)
 {
 	s32 i;
 

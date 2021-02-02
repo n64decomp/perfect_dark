@@ -12,11 +12,11 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "game/inventory/items.h"
-#include "game/game_006bd0.h"
+#include "game/nbomb.h"
 #include "game/title.h"
 #include "game/chr/chr.h"
 #include "game/game_02cde0.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "game/game_092610.h"
 #include "game/game_095320.h"
 #include "game/game_096750.h"
@@ -27,8 +27,8 @@
 #include "game/game_0b2150.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b69d0.h"
-#include "game/game_0d5a90.h"
-#include "game/game_0dcdb0.h"
+#include "game/healthbar.h"
+#include "game/hudmsg.h"
 #include "game/game_0f09f0.h"
 #include "game/game_102240.h"
 #include "game/game_107fb0.h"
@@ -37,14 +37,14 @@
 #include "game/explosions/explosions.h"
 #include "game/bondview.h"
 #include "game/game_1531a0.h"
-#include "game/game_157db0.h"
+#include "game/room.h"
 #include "game/game_1655c0.h"
 #include "game/game_165670.h"
 #include "game/game_1668e0.h"
 #include "game/gfxmemory.h"
 #include "game/core.h"
 #include "game/music.h"
-#include "game/game_16e810.h"
+#include "game/texture.h"
 #include "game/mplayer/ingame.h"
 #include "game/mplayer/scenarios.h"
 #include "game/radar.h"
@@ -53,7 +53,7 @@
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "game/pak/pak.h"
-#include "game/pdoptions.h"
+#include "game/options.h"
 #include "game/propobj.h"
 #include "game/splat.h"
 #include "game/mpstats.h"
@@ -160,7 +160,7 @@ struct healthdamagetype g_HealthDamageTypes[] = {
 };
 
 GLOBAL_ASM(
-glabel func0f0b69d0
+glabel playerChooseSpawnLocation
 /*  f0b69d0:	27bdfd78 */ 	addiu	$sp,$sp,-648
 /*  f0b69d4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f0b69d8:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
@@ -776,38 +776,38 @@ glabel func0f0b69d0
 /*  f0b72a4:	46001006 */ 	mov.s	$f0,$f2
 );
 
-f32 func0f0b72a8(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop)
+f32 playerChooseGeneralSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop)
 {
-	return func0f0b69d0(arg0, pos, rooms, prop, g_SpawnPoints, g_NumSpawnPoints);
+	return playerChooseSpawnLocation(arg0, pos, rooms, prop, g_SpawnPoints, g_NumSpawnPoints);
 }
 
 GLOBAL_ASM(
-glabel func0f0b72dc
+glabel currentPlayerStartNewLife
 .late_rodata
 glabel var7f1ad53c
-.word func0f0b72dc+0x374 # f0b7650
+.word currentPlayerStartNewLife+0x374 # f0b7650
 glabel var7f1ad540
-.word func0f0b72dc+0x38c # f0b7668
+.word currentPlayerStartNewLife+0x38c # f0b7668
 glabel var7f1ad544
-.word func0f0b72dc+0x3c4 # f0b76a0
+.word currentPlayerStartNewLife+0x3c4 # f0b76a0
 glabel var7f1ad548
-.word func0f0b72dc+0x3e4 # f0b76c0
+.word currentPlayerStartNewLife+0x3e4 # f0b76c0
 glabel var7f1ad54c
-.word func0f0b72dc+0x3ec # f0b76c8
+.word currentPlayerStartNewLife+0x3ec # f0b76c8
 glabel var7f1ad550
-.word func0f0b72dc+0x3f4 # f0b76d0
+.word currentPlayerStartNewLife+0x3f4 # f0b76d0
 glabel var7f1ad554
-.word func0f0b72dc+0x3fc # f0b76d8
+.word currentPlayerStartNewLife+0x3fc # f0b76d8
 glabel var7f1ad558
-.word func0f0b72dc+0x404 # f0b76e0
+.word currentPlayerStartNewLife+0x404 # f0b76e0
 glabel var7f1ad55c
-.word func0f0b72dc+0x404 # f0b76e0
+.word currentPlayerStartNewLife+0x404 # f0b76e0
 glabel var7f1ad560
-.word func0f0b72dc+0x37c # f0b7658
+.word currentPlayerStartNewLife+0x37c # f0b7658
 glabel var7f1ad564
-.word func0f0b72dc+0x37c # f0b7658
+.word currentPlayerStartNewLife+0x37c # f0b7658
 glabel var7f1ad568
-.word func0f0b72dc+0x384 # f0b7660
+.word currentPlayerStartNewLife+0x384 # f0b7660
 .text
 /*  f0b72dc:	27bdfee8 */ 	addiu	$sp,$sp,-280
 /*  f0b72e0:	3c0f8007 */ 	lui	$t7,%hi(var80070780)
@@ -876,7 +876,7 @@ glabel var7f1ad568
 /*  f0b73d0:	44816000 */ 	mtc1	$at,$f12
 /*  f0b73d4:	27a5010c */ 	addiu	$a1,$sp,0x10c
 /*  f0b73d8:	27a600fc */ 	addiu	$a2,$sp,0xfc
-/*  f0b73dc:	0fc6185f */ 	jal	scenarioCallback2c
+/*  f0b73dc:	0fc6185f */ 	jal	scenarioChooseSpawnLocation
 /*  f0b73e0:	8da700bc */ 	lw	$a3,0xbc($t5)
 /*  f0b73e4:	3c017f1b */ 	lui	$at,%hi(var7f1ad534)
 /*  f0b73e8:	c424d534 */ 	lwc1	$f4,%lo(var7f1ad534)($at)
@@ -1153,7 +1153,7 @@ glabel var7f1ad568
 
 // Mismatch: assigns to bondprevpos and player->prop->pos have extra loads
 // from pos.
-//void func0f0b72dc(void)
+//void currentPlayerStartNewLife(void)
 //{
 //	struct coord pos = {0, 0, 0}; // 10c
 //	s16 rooms[8]; // fc
@@ -1192,7 +1192,7 @@ glabel var7f1ad568
 //
 //	currentPlayerUnsetFlag(0xffffffff);
 //
-//	angle = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop); // var7f1ad534
+//	angle = M_BADTAU - scenarioChooseSpawnLocation(30, &pos, rooms, g_Vars.currentplayer->prop); // var7f1ad534
 //
 //	groundy = cdFindGroundY(&pos, 30, rooms,
 //			&g_Vars.currentplayer->floorcol,
@@ -4479,7 +4479,7 @@ Gfx *hudRenderHealthBar(Gfx *gdl)
 	gDPSetPrimColorViaWord(gdl++, 0, 0, 0xe6e6e600);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 
-	gdl = func0f0d5d8c(gdl, 0, 0, 0);
+	gdl = healthbarRender(gdl, 0, 0, 0);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
@@ -9373,7 +9373,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 	if (g_Vars.currentplayer->cameramode == CAMERAMODE_THIRDPERSON) {
 		gdl = func0f0aeed8(gdl);
 		gdl = func0f15b114(gdl);
-		gdl = hudRenderMessages(gdl);
+		gdl = hudmsgsRender(gdl);
 
 		if (g_Vars.currentplayer->isdead == false) {
 			gdl = currentPlayerDrawFade(gdl);
@@ -9664,7 +9664,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 		}
 
 		gdl = radarRender(gdl);
-		gdl = hudRenderMessages(gdl);
+		gdl = hudmsgsRender(gdl);
 		gdl = currentPlayerDrawFade(gdl);
 	} else {
 		gdl = func0f15b114(gdl);
@@ -9702,7 +9702,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 			gdl = func0f153780(gdl);
 		}
 
-		gdl = hudRenderMessages(gdl);
+		gdl = hudmsgsRender(gdl);
 		gdl = currentPlayerDrawFade(gdl);
 	}
 

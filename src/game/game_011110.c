@@ -14,7 +14,7 @@
 #include "game/game_011110.h"
 #include "game/chr/chr.h"
 #include "game/game_02cde0.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "game/game_091e10.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b69d0.h"
@@ -1049,7 +1049,7 @@ glabel var7f1a827c
 /*  f0120d4:	27a6008c */ 	addiu	$a2,$sp,0x8c
 /*  f0120d8:	8e380284 */ 	lw	$t8,0x284($s1)
 /*  f0120dc:	44816000 */ 	mtc1	$at,$f12
-/*  f0120e0:	0fc6185f */ 	jal	scenarioCallback2c
+/*  f0120e0:	0fc6185f */ 	jal	scenarioChooseSpawnLocation
 /*  f0120e4:	8f0700bc */ 	lw	$a3,0xbc($t8)
 /*  f0120e8:	3c017f1b */ 	lui	$at,%hi(var7f1a8270)
 /*  f0120ec:	c4328270 */ 	lwc1	$f18,%lo(var7f1a8270)($at)
@@ -1066,7 +1066,7 @@ glabel var7f1a827c
 /*  f012114:	44816000 */ 	mtc1	$at,$f12
 /*  f012118:	27a5009c */ 	addiu	$a1,$sp,0x9c
 /*  f01211c:	27a6008c */ 	addiu	$a2,$sp,0x8c
-/*  f012120:	0fc6185f */ 	jal	scenarioCallback2c
+/*  f012120:	0fc6185f */ 	jal	scenarioChooseSpawnLocation
 /*  f012124:	8de700bc */ 	lw	$a3,0xbc($t7)
 /*  f012128:	3c017f1b */ 	lui	$at,%hi(var7f1a8274)
 /*  f01212c:	c4288274 */ 	lwc1	$f8,%lo(var7f1a8274)($at)
@@ -1084,7 +1084,7 @@ glabel var7f1a827c
 .L0f012158:
 /*  f012158:	3c0141f0 */ 	lui	$at,0x41f0
 /*  f01215c:	44816000 */ 	mtc1	$at,$f12
-/*  f012160:	0fc6185f */ 	jal	scenarioCallback2c
+/*  f012160:	0fc6185f */ 	jal	scenarioChooseSpawnLocation
 /*  f012164:	8d6700bc */ 	lw	$a3,0xbc($t3)
 /*  f012168:	3c017f1b */ 	lui	$at,%hi(var7f1a8278)
 /*  f01216c:	c4308278 */ 	lwc1	$f16,%lo(var7f1a8278)($at)
@@ -1560,15 +1560,15 @@ glabel var7f1a827c
 //
 //	if (g_NumSpawnPoints > 0) {
 //		if (g_Vars.coopplayernum >= 0) {
-//			turnanglerad = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop);
+//			turnanglerad = M_BADTAU - scenarioChooseSpawnLocation(30, &pos, rooms, g_Vars.currentplayer->prop);
 //		} else if (g_Vars.antiplayernum >= 0) {
-//			turnanglerad = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop);
+//			turnanglerad = M_BADTAU - scenarioChooseSpawnLocation(30, &pos, rooms, g_Vars.currentplayer->prop);
 //		} else {
 //			if (g_Vars.mplayerisrunning == 0) {
 //				g_NumSpawnPoints = 1;
 //			}
 //
-//			turnanglerad = M_BADTAU - scenarioCallback2c(30, &pos, rooms, g_Vars.currentplayer->prop);
+//			turnanglerad = M_BADTAU - scenarioChooseSpawnLocation(30, &pos, rooms, g_Vars.currentplayer->prop);
 //		}
 //	}
 //

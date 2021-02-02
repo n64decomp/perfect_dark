@@ -16,6 +16,6 @@ void weatherConfigureSnow(u32 intensity);
 bool weatherIsRoomWeatherProof(u32 param_1);
 u32 weatherRenderRain(void);
 u32 weatherRenderSnow(void);
-void weatherFree(void);
+void weatherReset(void);
 
 #endif

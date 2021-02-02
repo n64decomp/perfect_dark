@@ -8,7 +8,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "game/music.h"
-#include "game/pdoptions.h"
+#include "game/options.h"
 #include "gvars/gvars.h"
 #include "types.h"
 

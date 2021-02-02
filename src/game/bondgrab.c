@@ -12,7 +12,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "game/debug.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "game/game_095320.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b69d0.h"

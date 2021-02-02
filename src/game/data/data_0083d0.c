@@ -1,9 +1,9 @@
 #include <ultra64.h>
 #include "game/chr/chraicommands.h"
 #include "game/game_000000.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "game/game_015470.h"
-#include "game/game_0dcdb0.h"
+#include "game/hudmsg.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_00e460.h"
 #include "stagesetup.h"

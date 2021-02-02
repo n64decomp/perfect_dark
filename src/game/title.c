@@ -17,7 +17,7 @@
 #include "game/credits.h"
 #include "game/bondview.h"
 #include "game/game_1531a0.h"
-#include "game/game_166e40.h"
+#include "game/file.h"
 #include "game/core.h"
 #include "game/music.h"
 #include "game/training/training.h"
@@ -4967,7 +4967,7 @@ void func0f01adb8(void)
 	viSetViewPosition(0, 0);
 }
 
-void func0f01ae30(void)
+void titleTickOld(void)
 {
 	if (titleIsKeepingMode()) {
 		func00014810(false);

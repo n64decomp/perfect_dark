@@ -7,22 +7,26 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "gvars/gvars.h"
+#include "lib/lib_09660.h"
 #include "types.h"
 
-void smokeFree(void)
+void explosionsReset(void)
 {
 	s32 i;
 
-	if (g_Smokes) {
-		for (i = 0; i < g_MaxSmokes; i++) {
-			if (g_Smokes[i].prop) {
-				propRemoveFromCurrentList(g_Smokes[i].prop);
-				propHide(g_Smokes[i].prop);
-				propFree(g_Smokes[i].prop);
+	var8007e4a0 = 0;
+	func0000aa50(0);
 
-				g_Smokes[i].prop = NULL;
+	if (g_Explosions) {
+		for (i = 0; i < 6; i++) {
+			if (g_Explosions[i].prop) {
+				propRemoveFromCurrentList(g_Explosions[i].prop);
+				propHide(g_Explosions[i].prop);
+				propFree(g_Explosions[i].prop);
+
+				g_Explosions[i].prop = NULL;
 			}
 		}
 	}

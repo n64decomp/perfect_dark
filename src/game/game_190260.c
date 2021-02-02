@@ -10,14 +10,14 @@
 #include "game/data/data_02da90.h"
 #include "game/debug.h"
 #include "game/chr/chr.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "game/game_092610.h"
 #include "game/game_096750.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b69d0.h"
 #include "game/game_127910.h"
-#include "game/game_157db0.h"
+#include "game/room.h"
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
 #include "game/radar.h"
@@ -439,7 +439,7 @@ void mpInitSimulant(struct chrdata *chr, u8 full)
 	if (aibot) {
 		mpChrReset(chr, full);
 		chrInitSplats(chr);
-		thing = scenarioCallback2c(chr->chrwidth, &pos, rooms, chr->prop);
+		thing = scenarioChooseSpawnLocation(chr->chrwidth, &pos, rooms, chr->prop);
 		chr->hidden |= CHRHFLAG_00100000;
 		chrMoveToPos(chr, &pos, rooms, thing, true);
 		chr->aibot->unk0a4 = func0001ae44(chr->model);

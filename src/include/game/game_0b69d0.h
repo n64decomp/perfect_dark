@@ -3,9 +3,9 @@
 #include <ultra64.h>
 #include "types.h"
 
-f32 func0f0b69d0(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, s16 *spawnpads, s16 numspawnpads);
-f32 func0f0b72a8(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop);
-void func0f0b72dc(void);
+f32 playerChooseSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, s16 *spawnpads, s16 numspawnpads);
+f32 playerChooseGeneralSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop);
+void currentPlayerStartNewLife(void);
 void currentPlayerResetToDefault(void);
 bool currentPlayerAssumeChrForAnti(struct chrdata *chr, s32 param_2);
 void currentPlayerSpawn(void);

@@ -8,8 +8,8 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "game/game_013cf0.h"
-#include "game/game_157db0.h"
-#include "game/game_166e40.h"
+#include "game/room.h"
+#include "game/file.h"
 #include "gvars/gvars.h"
 #include "types.h"
 

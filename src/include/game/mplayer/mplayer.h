@@ -37,7 +37,7 @@ void func0f1895e8(void);
 s32 mpGetWeaponSet(void);
 bool mpIsPaused(void);
 void mpSetPaused(u8 mode);
-Gfx *func0f18973c(Gfx *gdl);
+Gfx *mpRenderModalText(Gfx *gdl);
 u32 func0f189cc0(void);
 u32 func0f189dc8(void);
 u32 func0f189ed0(void);

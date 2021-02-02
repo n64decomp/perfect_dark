@@ -2342,6 +2342,8 @@
 #define OBJECTIVE_COMPLETE   1
 #define OBJECTIVE_FAILED     2
 
+#define OBJECTIVEFLAG_AUTOCOMPLETE 0x01
+
 // obj->flags
 #define OBJFLAG_00000001            0x00000001 // Editor: "Fall to Ground"
 #define OBJFLAG_00000002            0x00000002 // Editor: "In Air Rotated 90 Deg Upside-Down"

@@ -8,7 +8,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "game/game_00c240.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "gvars/gvars.h"
 #include "lib/memory.h"
 #include "types.h"

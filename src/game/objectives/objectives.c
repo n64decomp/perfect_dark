@@ -9,11 +9,11 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "game/debug.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "game/game_091e10.h"
 #include "game/game_095320.h"
 #include "game/game_0b3350.h"
-#include "game/game_0dcdb0.h"
+#include "game/hudmsg.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/core.h"
@@ -500,3 +500,53 @@ void objectiveCheckHolograph(f32 maxdist)
 		criteria = criteria->next;
 	}
 }
+
+// Too much stack usage and unknown functions to decompile this accurately
+// at the moment.
+//void objectiveCheckHolograph(s32 arg0)
+//{
+//	struct criteria_holograph *criteria = g_HolographCriterias;
+//
+//	while (criteria) {
+//		if (g_Vars.stagenum == STAGE_CITRAINING) {
+//			criteria->status = OBJECTIVE_INCOMPLETE;
+//		}
+//
+//		if (criteria->status == OBJECTIVE_INCOMPLETE) {
+//			struct defaultobj *obj = objFindByTagId(criteria->obj);
+//
+//			if (obj && obj->prop && obj->prop->flags & 2 && obj->prop->z > 0 && func0f0869a8(obj)) {
+//				f32 fVar11 = arg0;
+//				s32 a[2];
+//				s32 b[2];
+//				s32 c[2];
+//
+//				if (fVar11 != 0.00000000) {
+//					float xdiff = obj->prop->pos.x - g_Vars.currentplayer->cam_pos.x;
+//					float zdiff = obj->prop->pos.z - g_Vars.currentplayer->cam_pos.z;
+//					pass = xdiff * xdiff + zdiff * zdiff < fVar11 * fVar11;
+//				} else {
+//					pass = fVar11 > -1;
+//				}
+//
+//				if (pass && func0f0899dc(obj->prop, a, b, c))  {
+//					func0f06803c(a, b, c, &fStack56);
+//
+//					if (currentPlayerGetScreenLeft() < fStack56 && fStack56 < currentPlayerGetScreenWidth() + currentPlayerGetScreenLeft() &&
+//							currentPlayerGetScreenLeft() < fStack64 && fStack64 < currentPlayerGetScreenWidth() + currentPlayerGetScreenLeft() &&
+//							currentPlayerGetScreenTop() < fStack52 && fStack52 < currentPlayerGetScreenHeight() + currentPlayerGetScreenTop() &&
+//							currentPlayerGetScreenTop() < fStack60 && fStack60 < currentPlayerGetScreenHeight() + currentPlayerGetScreenTop()) {
+//						criteria->status = OBJECTIVE_COMPLETE;
+//
+//						if (g_Vars.stagenum == STAGE_CITRAINING) {
+//							struct trainingdata *data = dtGetData();
+//							data->holographedpc = true;
+//						}
+//					}
+//				}
+//			}
+//		}
+//
+//		criteria = criteria->next;
+//	}
+//}

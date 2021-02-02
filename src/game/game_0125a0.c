@@ -10,7 +10,7 @@
 #include "game/game_0125a0.h"
 #include "game/game_013ee0.h"
 #include "game/bondhead.h"
-#include "game/game_157db0.h"
+#include "game/room.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
 #include "lib/lib_159b0.h"

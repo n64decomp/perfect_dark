@@ -14,8 +14,8 @@
 #include "game/game_0b69d0.h"
 #include "game/smoke/smoke.h"
 #include "game/sparks/sparks.h"
-#include "game/game_157db0.h"
-#include "game/game_166e40.h"
+#include "game/room.h"
+#include "game/file.h"
 #include "game/core.h"
 #include "game/game_176080.h"
 #include "game/mplayer/scenarios.h"
@@ -1162,7 +1162,7 @@ glabel func0f001c0c
 /*  f0020c8:	24130001 */ 	addiu	$s3,$zero,0x1
 .L0f0020cc:
 /*  f0020cc:	3c10800a */ 	lui	$s0,%hi(g_Rooms)
-/*  f0020d0:	0fc00cec */ 	jal	func0f0033b0
+/*  f0020d0:	0fc00cec */ 	jal	lightingTick
 /*  f0020d4:	26104928 */ 	addiu	$s0,$s0,%lo(g_Rooms)
 /*  f0020d8:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x2bc)
 /*  f0020dc:	8dada27c */ 	lw	$t5,%lo(g_Vars+0x2bc)($t5)
@@ -2227,7 +2227,7 @@ glabel func0f002ef8
 /*  f0033ac:	00000000 */ 	nop
 );
 
-void func0f0033b0(void)
+void lightingTick(void)
 {
 	s32 i;
 

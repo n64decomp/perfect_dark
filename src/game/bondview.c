@@ -16,7 +16,7 @@
 #include "game/game_1531a0.h"
 #include "game/gfxmemory.h"
 #include "game/lang.h"
-#include "game/pdoptions.h"
+#include "game/options.h"
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
 #include "lib/main.h"

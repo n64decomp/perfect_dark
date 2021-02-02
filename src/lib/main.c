@@ -23,7 +23,6 @@
 #include "game/stubs/game_0008f0.h"
 #include "game/stubs/game_000900.h"
 #include "game/stubs/game_000910.h"
-#include "game/game_006bd0.h"
 #include "game/game_00b190.h"
 #include "game/stubs/game_00b180.h"
 #include "game/stubs/game_00b200.h"

@@ -9,12 +9,12 @@
 #include "game/data/data_02da90.h"
 #include "game/game_014f10.h"
 #include "game/chr/chr.h"
-#include "game/game_0601b0.h"
+#include "game/prop.h"
 #include "game/propobj.h"
 #include "gvars/gvars.h"
 #include "types.h"
 
-void func0f014f10(void)
+void chrsReset(void)
 {
 	s32 i;
 
@@ -30,7 +30,7 @@ void func0f014f10(void)
 	}
 }
 
-void func0f014fe0(void)
+void alarmReset(void)
 {
 	alarmDeactivate();
 	func0f0904e0();

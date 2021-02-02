@@ -12,7 +12,7 @@
 #include "game/game_0b0fd0.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
-#include "game/pdoptions.h"
+#include "game/options.h"
 #include "gvars/gvars.h"
 #include "types.h"
 

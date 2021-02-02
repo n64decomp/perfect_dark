@@ -31,56 +31,6 @@ const u32 var7f1ab824[] = {0x3fd55555};
 const u32 var7f1ab828[] = {0x40555555};
 const u32 var7f1ab82c[] = {0x3e8e38e4};
 
-// Too much stack usage and unknown functions to decompile this accurately
-// at the moment.
-//void objectiveCheckHolograph(s32 arg0)
-//{
-//	struct criteria_holograph *criteria = g_HolographCriterias;
-//
-//	while (criteria) {
-//		if (g_Vars.stagenum == STAGE_CITRAINING) {
-//			criteria->status = OBJECTIVE_INCOMPLETE;
-//		}
-//
-//		if (criteria->status == OBJECTIVE_INCOMPLETE) {
-//			struct defaultobj *obj = objFindByTagId(criteria->obj);
-//
-//			if (obj && obj->prop && obj->prop->flags & 2 && obj->prop->z > 0 && func0f0869a8(obj)) {
-//				f32 fVar11 = arg0;
-//				s32 a[2];
-//				s32 b[2];
-//				s32 c[2];
-//
-//				if (fVar11 != 0.00000000) {
-//					float xdiff = obj->prop->pos.x - g_Vars.currentplayer->cam_pos.x;
-//					float zdiff = obj->prop->pos.z - g_Vars.currentplayer->cam_pos.z;
-//					pass = xdiff * xdiff + zdiff * zdiff < fVar11 * fVar11;
-//				} else {
-//					pass = fVar11 > -1;
-//				}
-//
-//				if (pass && func0f0899dc(obj->prop, a, b, c))  {
-//					func0f06803c(a, b, c, &fStack56);
-//
-//					if (currentPlayerGetScreenLeft() < fStack56 && fStack56 < currentPlayerGetScreenWidth() + currentPlayerGetScreenLeft() &&
-//							currentPlayerGetScreenLeft() < fStack64 && fStack64 < currentPlayerGetScreenWidth() + currentPlayerGetScreenLeft() &&
-//							currentPlayerGetScreenTop() < fStack52 && fStack52 < currentPlayerGetScreenHeight() + currentPlayerGetScreenTop() &&
-//							currentPlayerGetScreenTop() < fStack60 && fStack60 < currentPlayerGetScreenHeight() + currentPlayerGetScreenTop()) {
-//						criteria->status = OBJECTIVE_COMPLETE;
-//
-//						if (g_Vars.stagenum == STAGE_CITRAINING) {
-//							struct trainingdata *data = dtGetData();
-//							data->holographedpc = true;
-//						}
-//					}
-//				}
-//			}
-//		}
-//
-//		criteria = criteria->next;
-//	}
-//}
-
 GLOBAL_ASM(
 glabel func0f096360
 /*  f096360:	27bdffd8 */ 	addiu	$sp,$sp,-40

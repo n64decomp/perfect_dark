@@ -21,7 +21,7 @@ void musicStartX(f32 arg0);
 void musicStartMenu2(s32 tracknum);
 void musicSetStageAndStartMusic(s32 stagenum);
 void musicSetStage(s32 stagenum);
-void func0f16d9fc(void);
+void musicReset(void);
 void func0f16da2c(void);
 void func0f16daa4(void);
 void musicStartForMenu(void);

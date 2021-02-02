@@ -11,7 +11,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0f09f0.h"
 #include "game/stubs/game_102230.h"
-#include "game/game_157db0.h"
+#include "game/room.h"
 #include "game/lang.h"
 #include "game/pak/pak.h"
 #include "game/splat.h"
