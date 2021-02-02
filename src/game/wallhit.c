@@ -345,52 +345,22 @@ glabel func0f13e1b0
 /*  f13e408:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f13e40c
-/*  f13e40c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f13e410:	00057600 */ 	sll	$t6,$a1,0x18
-/*  f13e414:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f13e418:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f13e41c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f13e420:	00808025 */ 	or	$s0,$a0,$zero
-/*  f13e424:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f13e428:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f13e42c:	11e0000e */ 	beqz	$t7,.L0f13e468
-/*  f13e430:	00808825 */ 	or	$s1,$a0,$zero
-/*  f13e434:	8c980044 */ 	lw	$t8,0x44($a0)
-/*  f13e438:	53000017 */ 	beqzl	$t8,.L0f13e498
-/*  f13e43c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f13e440:	8e040044 */ 	lw	$a0,0x44($s0)
-.L0f13e444:
-/*  f13e444:	0fc4f990 */ 	jal	func0f13e640
-/*  f13e448:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f13e44c:	0fc4f86c */ 	jal	func0f13e1b0
-/*  f13e450:	8e040044 */ 	lw	$a0,0x44($s0)
-/*  f13e454:	8e390044 */ 	lw	$t9,0x44($s1)
-/*  f13e458:	5720fffa */ 	bnezl	$t9,.L0f13e444
-/*  f13e45c:	8e040044 */ 	lw	$a0,0x44($s0)
-/*  f13e460:	1000000d */ 	b	.L0f13e498
-/*  f13e464:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f13e468:
-/*  f13e468:	8e080040 */ 	lw	$t0,0x40($s0)
-/*  f13e46c:	5100000a */ 	beqzl	$t0,.L0f13e498
-/*  f13e470:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f13e474:	8e040040 */ 	lw	$a0,0x40($s0)
-.L0f13e478:
-/*  f13e478:	0fc4f990 */ 	jal	func0f13e640
-/*  f13e47c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f13e480:	0fc4f86c */ 	jal	func0f13e1b0
-/*  f13e484:	8e040040 */ 	lw	$a0,0x40($s0)
-/*  f13e488:	8e290040 */ 	lw	$t1,0x40($s1)
-/*  f13e48c:	5520fffa */ 	bnezl	$t1,.L0f13e478
-/*  f13e490:	8e040040 */ 	lw	$a0,0x40($s0)
-/*  f13e494:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f13e498:
-/*  f13e498:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f13e49c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f13e4a0:	03e00008 */ 	jr	$ra
-/*  f13e4a4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void func0f13e40c(struct prop *prop, s8 arg1)
+{
+	struct prop *copy = prop;
+
+	if (arg1) {
+		while (copy->unk44) {
+			func0f13e640(copy->unk44, 1);
+			func0f13e1b0(copy->unk44);
+		}
+	} else {
+		while (copy->unk40) {
+			func0f13e640(copy->unk40, 1);
+			func0f13e1b0(copy->unk40);
+		}
+	}
+}
 
 bool chrIsUsingPaintball(struct chrdata *chr)
 {

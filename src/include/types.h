@@ -88,8 +88,8 @@ struct prop {
 	/*0x3f*/ u8 unk3f_05 : 1;
 	/*0x3f*/ u8 unk3f_06 : 1;
 	/*0x3f*/ u8 unk3f_07 : 1;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
+	/*0x40*/ struct var800a41b0 *unk40;
+	/*0x44*/ struct var800a41b0 *unk44;
 };
 
 struct pad {
