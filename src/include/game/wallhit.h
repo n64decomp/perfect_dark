@@ -14,7 +14,7 @@ u32 func0f13e994(void);
 void func0f13eb44(void);
 u32 func0f13f3f4(void);
 u32 func0f13f504(void);
-u32 func0f140750(void);
+s32 func0f140750(struct coord *coord);
 u32 func0f1408a8(void);
 u32 func0f140b7c(void);
 u32 func0f140e20(void);
