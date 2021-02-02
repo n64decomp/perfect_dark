@@ -110,9 +110,9 @@ void func0f013550(void)
 			var800a41b0[i].unk6d = 0;
 			var800a41b0[i].unk6e = 0;
 			var800a41b0[i].unk70 = var800a41b0[i].unk70 ^ ((var800a41b0[i].unk70 >> 4) << 4);
-			var800a41b0[i].unk6f &= 0xff7f;
+			var800a41b0[i].unk6f_00 = 0;
 			var800a41b0[i].unk68 = -1;
-			var800a41b0[i].unk5c = 0;
+			var800a41b0[i].prop = NULL;
 			var800a41b0[i].unk60 = 0;
 
 			var8009cc4c++;
