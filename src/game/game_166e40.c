@@ -8,7 +8,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "game/game_166e40.h"
-#include "game/game_175f50.h"
+#include "game/stubs/game_175f50.h"
 #include "gvars/gvars.h"
 #include "lib/lib_074f0.h"
 #include "lib/lib_0d0a0.h"
@@ -189,7 +189,7 @@ glabel func0f167054
 /*  f167094:	02012824 */ 	and	$a1,$s0,$at
 /*  f167098:	00a08025 */ 	or	$s0,$a1,$zero
 /*  f16709c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1670a0:	0fc5d7d6 */ 	jal	func0f175f58
+/*  f1670a0:	0fc5d7d6 */ 	jal	stub0f175f58
 /*  f1670a4:	24060010 */ 	addiu	$a2,$zero,0x10
 /*  f1670a8:	10000004 */ 	b	.L0f1670bc
 /*  f1670ac:	00000000 */ 	nop

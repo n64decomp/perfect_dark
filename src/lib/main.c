@@ -14,18 +14,19 @@
 #include "game/game_000000.h"
 #include "game/game_000090.h"
 #include "game/game_000130.h"
-#include "game/game_000840.h"
-#include "game/game_000850.h"
-#include "game/game_000860.h"
-#include "game/game_000870.h"
+#include "game/stubs/game_000840.h"
+#include "game/stubs/game_000850.h"
+#include "game/stubs/game_000860.h"
+#include "game/stubs/game_000870.h"
 #include "game/game_000880.h"
-#include "game/game_0008e0.h"
-#include "game/game_0008f0.h"
-#include "game/game_000900.h"
-#include "game/game_000910.h"
+#include "game/stubs/game_0008e0.h"
+#include "game/stubs/game_0008f0.h"
+#include "game/stubs/game_000900.h"
+#include "game/stubs/game_000910.h"
 #include "game/game_006bd0.h"
 #include "game/game_00b190.h"
-#include "game/game_00b200.h"
+#include "game/stubs/game_00b180.h"
+#include "game/stubs/game_00b200.h"
 #include "game/game_00b210.h"
 #include "game/game_00b320.h"
 #include "game/title.h"
@@ -38,7 +39,7 @@
 #include "game/core.h"
 #include "game/timing.h"
 #include "game/music.h"
-#include "game/game_175f50.h"
+#include "game/stubs/game_175f50.h"
 #include "game/game_175f90.h"
 #include "game/game_176080.h"
 #include "game/game_1a78b0.h"
@@ -487,7 +488,7 @@ glabel mainInit
 /*     d950:	00000000 */ 	nop
 /*     d954:	0fc59bdd */ 	jal	func0f166f74
 /*     d958:	00000000 */ 	nop
-/*     d95c:	0fc5d7d4 */ 	jal	func0f175f50
+/*     d95c:	0fc5d7d4 */ 	jal	stub0f175f50
 /*     d960:	00000000 */ 	nop
 /*     d964:	0fc5d7e4 */ 	jal	func0f175f90
 /*     d968:	00000000 */ 	nop
@@ -537,25 +538,25 @@ glabel mainInit
 /*     da14:	00000000 */ 	nop
 /*     da18:	0fc5b384 */ 	jal	frametimeInit
 /*     da1c:	00000000 */ 	nop
-/*     da20:	0fc02c80 */ 	jal	func0f00b200
+/*     da20:	0fc02c80 */ 	jal	stub0f00b200
 /*     da24:	00000000 */ 	nop
 /*     da28:	0c0026a0 */ 	jal	func00009a80
 /*     da2c:	00000000 */ 	nop
-/*     da30:	0fc0021c */ 	jal	func0f000870
+/*     da30:	0fc0021c */ 	jal	stub0f000870
 /*     da34:	00000000 */ 	nop
 /*     da38:	0fc00220 */ 	jal	func0f000880
 /*     da3c:	00000000 */ 	nop
-/*     da40:	0fc00238 */ 	jal	func0f0008e0
+/*     da40:	0fc00238 */ 	jal	stub0f0008e0
 /*     da44:	00000000 */ 	nop
-/*     da48:	0fc0023c */ 	jal	func0f0008f0
+/*     da48:	0fc0023c */ 	jal	stub0f0008f0
 /*     da4c:	00000000 */ 	nop
-/*     da50:	0fc00240 */ 	jal	func0f000900
+/*     da50:	0fc00240 */ 	jal	stub0f000900
 /*     da54:	00000000 */ 	nop
-/*     da58:	0fc02c60 */ 	jal	func0f00b180
+/*     da58:	0fc02c60 */ 	jal	stub0f00b180
 /*     da5c:	00000000 */ 	nop
-/*     da60:	0fc00244 */ 	jal	func0f000910
+/*     da60:	0fc00244 */ 	jal	stub0f000910
 /*     da64:	00000000 */ 	nop
-/*     da68:	0fc00210 */ 	jal	func0f000840
+/*     da68:	0fc00210 */ 	jal	stub0f000840
 /*     da6c:	00000000 */ 	nop
 /*     da70:	0fc62084 */ 	jal	mpSetDefaultSetup
 /*     da74:	00000000 */ 	nop
@@ -571,9 +572,9 @@ glabel mainInit
 /*     da9c:	00000000 */ 	nop
 /*     daa0:	0fc0004c */ 	jal	func0f000130
 /*     daa4:	00000000 */ 	nop
-/*     daa8:	0fc00214 */ 	jal	func0f000850
+/*     daa8:	0fc00214 */ 	jal	stub0f000850
 /*     daac:	00000000 */ 	nop
-/*     dab0:	0fc00218 */ 	jal	func0f000860
+/*     dab0:	0fc00218 */ 	jal	stub0f000860
 /*     dab4:	00000000 */ 	nop
 /*     dab8:	0fc00024 */ 	jal	func0f000090
 /*     dabc:	00000000 */ 	nop
@@ -749,7 +750,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func000070d0();
 //	func0f1a78b0();
 //	func0f166f74();
-//	func0f175f50();
+//	stub0f175f50();
 //	func0f175f90();
 //
 //	if (var8005d9b0) {
@@ -775,16 +776,16 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func00013790();
 //	func0f127910();
 //	frametimeInit();
-//	func0f00b200();
+//	stub0f00b200();
 //	func00009a80();
-//	func0f000870();
+//	stub0f000870();
 //	func0f000880();
-//	func0f0008e0();
-//	func0f0008f0();
-//	func0f000900();
-//	func0f00b180();
-//	func0f000910();
-//	func0f000840();
+//	stub0f0008e0();
+//	stub0f0008f0();
+//	stub0f000900();
+//	stub0f00b180();
+//	stub0f000910();
+//	stub0f000840();
 //	mpSetDefaultSetup();
 //	func0f14a328();
 //	func0f1189d8();
@@ -792,8 +793,8 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func000233c0();
 //	func0f000100();
 //	func0f000130();
-//	func0f000850();
-//	func0f000860();
+//	stub0f000850();
+//	stub0f000860();
 //	func0f000090();
 //	func00009bf8();
 //	func00009ec4(1);

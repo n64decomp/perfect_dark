@@ -4549,11 +4549,3 @@ const u32 var7f1a7eac[] = {0x00000090};
 //
 //	return gdl;
 //}
-
-GLOBAL_ASM(
-glabel func0f00b180
-/*  f00b180:	03e00008 */ 	jr	$ra
-/*  f00b184:	00000000 */ 	nop
-/*  f00b188:	00000000 */ 	nop
-/*  f00b18c:	00000000 */ 	nop
-);

@@ -10,7 +10,7 @@
 #include "game/data/data_02da90.h"
 #include "game/game_0b3350.h"
 #include "game/game_0f09f0.h"
-#include "game/game_102230.h"
+#include "game/stubs/game_102230.h"
 #include "game/game_157db0.h"
 #include "game/lang.h"
 #include "game/pak/pak.h"
@@ -3037,7 +3037,7 @@ glabel var7f1b7320
 /*  f14c194:	35380080 */ 	ori	$t8,$t1,0x80
 /*  f14c198:	a05803f4 */ 	sb	$t8,0x3f4($v0)
 /*  f14c19c:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*  f14c1a0:	0fc4088c */ 	jal	func0f102230
+/*  f14c1a0:	0fc4088c */ 	jal	stub0f102230
 /*  f14c1a4:	ac2a1448 */ 	sw	$t2,%lo(g_MpPlayerNum)($at)
 /*  f14c1a8:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
 /*  f14c1ac:	ac201448 */ 	sw	$zero,%lo(g_MpPlayerNum)($at)

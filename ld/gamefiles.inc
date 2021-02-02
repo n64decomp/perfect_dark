@@ -3,20 +3,21 @@
 	build/ROMID/game/game_000000.o (section); \
 	build/ROMID/game/game_000090.o (section); \
 	build/ROMID/game/game_000130.o (section); \
-	build/ROMID/game/game_000840.o (section); \
-	build/ROMID/game/game_000850.o (section); \
-	build/ROMID/game/game_000860.o (section); \
-	build/ROMID/game/game_000870.o (section); \
+	build/ROMID/game/stubs/game_000840.o (section); \
+	build/ROMID/game/stubs/game_000850.o (section); \
+	build/ROMID/game/stubs/game_000860.o (section); \
+	build/ROMID/game/stubs/game_000870.o (section); \
 	build/ROMID/game/game_000880.o (section); \
-	build/ROMID/game/game_0008e0.o (section); \
-	build/ROMID/game/game_0008f0.o (section); \
-	build/ROMID/game/game_000900.o (section); \
-	build/ROMID/game/game_000910.o (section); \
+	build/ROMID/game/stubs/game_0008e0.o (section); \
+	build/ROMID/game/stubs/game_0008f0.o (section); \
+	build/ROMID/game/stubs/game_000900.o (section); \
+	build/ROMID/game/stubs/game_000910.o (section); \
 	build/ROMID/game/dlights.o (section); \
 	build/ROMID/game/game_005fd0.o (section); \
 	build/ROMID/game/game_006bd0.o (section); \
+	build/ROMID/game/stubs/game_00b180.o (section); \
 	build/ROMID/game/game_00b190.o (section); \
-	build/ROMID/game/game_00b200.o (section); \
+	build/ROMID/game/stubs/game_00b200.o (section); \
 	build/ROMID/game/game_00b210.o (section); \
 	build/ROMID/game/game_00b320.o (section); \
 	build/ROMID/game/game_00b480.o (section); \
@@ -34,7 +35,7 @@
 	build/ROMID/game/smoke/init.o (section); \
 	build/ROMID/game/sparks/init.o (section); \
 	build/ROMID/game/weather/init.o (section); \
-	build/ROMID/game/game_013540.o (section); \
+	build/ROMID/game/stubs/game_013540.o (section); \
 	build/ROMID/game/game_013550.o (section); \
 	build/ROMID/game/game_013cf0.o (section); \
 	build/ROMID/game/game_013ee0.o (section); \
@@ -44,13 +45,13 @@
 	build/ROMID/game/game_015010.o (section); \
 	build/ROMID/game/game_0150a0.o (section); \
 	build/ROMID/game/game_0151f0.o (section); \
-	build/ROMID/game/game_015260.o (section); \
-	build/ROMID/game/game_015270.o (section); \
+	build/ROMID/game/stubs/game_015260.o (section); \
+	build/ROMID/game/stubs/game_015270.o (section); \
 	build/ROMID/game/explosions/free.o (section); \
 	build/ROMID/game/smoke/free.o (section); \
-	build/ROMID/game/game_0153f0.o (section); \
-	build/ROMID/game/game_015400.o (section); \
-	build/ROMID/game/game_015410.o (section); \
+	build/ROMID/game/stubs/game_0153f0.o (section); \
+	build/ROMID/game/stubs/game_015400.o (section); \
+	build/ROMID/game/stubs/game_015410.o (section); \
 	build/ROMID/game/game_015420.o (section); \
 	build/ROMID/game/game_015470.o (section); \
 	build/ROMID/game/title.o (section); \
@@ -113,7 +114,7 @@
 	build/ROMID/game/menu/items.o (section); \
 	build/ROMID/game/game_0f09f0.o (section); \
 	build/ROMID/game/activemenu/activemenu.o (section); \
-	build/ROMID/game/game_102230.o (section); \
+	build/ROMID/game/stubs/game_102230.o (section); \
 	build/ROMID/game/game_102240.o (section); \
 	build/ROMID/game/cheats.o (section); \
 	build/ROMID/game/game_107fb0.o (section); \
@@ -127,7 +128,7 @@
 	build/ROMID/game/pad.o (section); \
 	build/ROMID/game/pak/pak.o (section); \
 	build/ROMID/game/debug.o (section); \
-	build/ROMID/game/game_11eff0.o (section); \
+	build/ROMID/game/stubs/game_11eff0.o (section); \
 	build/ROMID/game/data/ailists.o (section); \
 	build/ROMID/game/data/data_020df0.o (section); \
 	build/ROMID/game/game_11f000.o (section); \
@@ -165,9 +166,9 @@
 	build/ROMID/game/lang.o (section); \
 	build/ROMID/game/game_16e810.o (section); \
 	build/ROMID/game/game_173a00.o (section); \
-	build/ROMID/game/game_175f50.o (section); \
+	build/ROMID/game/stubs/game_175f50.o (section); \
 	build/ROMID/game/game_175f90.o (section); \
-	build/ROMID/game/game_176000.o (section); \
+	build/ROMID/game/stubs/game_176000.o (section); \
 	build/ROMID/game/game_176080.o (section); \
 	build/ROMID/game/utils.o (section); \
 	build/ROMID/game/mplayer/ingame.o (section); \

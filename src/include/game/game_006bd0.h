@@ -19,6 +19,5 @@ void nbombCreate(struct coord *pos, struct prop *prop);
 f32 gasGetDoorFrac(s32 tagnum);
 Gfx *func0f00a490(Gfx *gdl);
 Gfx *gasRender(Gfx *gdl);
-void func0f00b180(void);
 
 #endif

@@ -32,7 +32,7 @@
 #include "game/smoke/init.h"
 #include "game/sparks/init.h"
 #include "game/weather/init.h"
-#include "game/game_013540.h"
+#include "game/stubs/game_013540.h"
 #include "game/game_013550.h"
 #include "game/game_013cf0.h"
 #include "game/game_0147a0.h"
@@ -41,13 +41,13 @@
 #include "game/game_015010.h"
 #include "game/game_0150a0.h"
 #include "game/game_0151f0.h"
-#include "game/game_015260.h"
-#include "game/game_015270.h"
+#include "game/stubs/game_015260.h"
+#include "game/stubs/game_015270.h"
 #include "game/explosions/free.h"
 #include "game/smoke/free.h"
-#include "game/game_0153f0.h"
-#include "game/game_015400.h"
-#include "game/game_015410.h"
+#include "game/stubs/game_0153f0.h"
+#include "game/stubs/game_015400.h"
+#include "game/stubs/game_015410.h"
 #include "game/game_015420.h"
 #include "game/game_015470.h"
 #include "game/title.h"
@@ -388,7 +388,7 @@ void coreLoadStage(s32 stagenum)
 	func0f0099a4();
 	func0f0147d0();
 	func0f0147f8();
-	func0f013540();
+	stub0f013540();
 	func0f0139f0();
 	frUnloadData();
 
@@ -2255,21 +2255,21 @@ void coreUnloadStage(void)
 	if (g_Vars.stagenum < NUM_STAGES) {
 		s32 bank = langGetLangBankIndexFromStagenum(g_Vars.stagenum);
 		langClearBank(bank);
-		func0f015270();
+		stub0f015270();
 	}
 
 	func0f014f10();
 	explosionsFree();
 	smokeFree();
-	func0f015400();
-	func0f015410();
+	stub0f015400();
+	stub0f015410();
 	func0f015420();
-	func0f0153f0();
+	stub0f0153f0();
 	func0f014fe0();
 	func0f015010();
 	weatherFree();
 	func0f0151f0();
-	func0f015260();
+	stub0f015260();
 	func0f015470();
 	func0f0150a0();
 	func0f16d9fc();
