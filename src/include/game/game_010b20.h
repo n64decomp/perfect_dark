@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f010b20(void);
+void casingsReset(void);
 void func0f010bb0(void);
 
 #endif

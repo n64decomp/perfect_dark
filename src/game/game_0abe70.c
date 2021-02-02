@@ -2113,15 +2113,15 @@ void bullettailTick(struct bullettail *tail)
 
 GLOBAL_ASM(
 glabel func0f0adcc8
-/*  f0adcc8:	3c0e800a */ 	lui	$t6,%hi(var8009d510+0x40)
-/*  f0adccc:	8dced550 */ 	lw	$t6,%lo(var8009d510+0x40)($t6)
+/*  f0adcc8:	3c0e800a */ 	lui	$t6,%hi(g_Casings+0x40)
+/*  f0adccc:	8dced550 */ 	lw	$t6,%lo(g_Casings+0x40)($t6)
 /*  f0adcd0:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f0adcd4:	3c08800a */ 	lui	$t0,%hi(var8009d510)
+/*  f0adcd4:	3c08800a */ 	lui	$t0,%hi(g_Casings)
 /*  f0adcd8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0adcdc:	00803825 */ 	or	$a3,$a0,$zero
 /*  f0adce0:	00a03025 */ 	or	$a2,$a1,$zero
 /*  f0adce4:	11c0000a */ 	beqz	$t6,.L0f0add10
-/*  f0adce8:	2508d510 */ 	addiu	$t0,$t0,%lo(var8009d510)
+/*  f0adce8:	2508d510 */ 	addiu	$t0,$t0,%lo(g_Casings)
 /*  f0adcec:	3c02800a */ 	lui	$v0,%hi(var8009da60)
 /*  f0adcf0:	2442da60 */ 	addiu	$v0,$v0,%lo(var8009da60)
 /*  f0adcf4:	25080044 */ 	addiu	$t0,$t0,0x44
@@ -2188,8 +2188,8 @@ glabel func0f0adcc8
 /*  f0addd4:	14c9ffe5 */ 	bne	$a2,$t1,.L0f0add6c
 /*  f0addd8:	24e70006 */ 	addiu	$a3,$a3,0x6
 /*  f0adddc:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0adde0:	3c018007 */ 	lui	$at,%hi(var80070524)
-/*  f0adde4:	ac2a0524 */ 	sw	$t2,%lo(var80070524)($at)
+/*  f0adde0:	3c018007 */ 	lui	$at,%hi(g_CasingsActive)
+/*  f0adde4:	ac2a0524 */ 	sw	$t2,%lo(g_CasingsActive)($at)
 /*  f0adde8:	10000001 */ 	b	.L0f0addf0
 /*  f0addec:	01001025 */ 	or	$v0,$t0,$zero
 .L0f0addf0:
@@ -3211,8 +3211,8 @@ glabel var7f1acd6c
 
 GLOBAL_ASM(
 glabel func0f0aebe0
-/*  f0aebe0:	3c0e8007 */ 	lui	$t6,%hi(var80070524)
-/*  f0aebe4:	8dce0524 */ 	lw	$t6,%lo(var80070524)($t6)
+/*  f0aebe0:	3c0e8007 */ 	lui	$t6,%hi(g_CasingsActive)
+/*  f0aebe4:	8dce0524 */ 	lw	$t6,%lo(g_CasingsActive)($t6)
 /*  f0aebe8:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f0aebec:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f0aebf0:	00809025 */ 	or	$s2,$a0,$zero
@@ -3221,9 +3221,9 @@ glabel func0f0aebe0
 /*  f0aebfc:	11c0000f */ 	beqz	$t6,.L0f0aec3c
 /*  f0aec00:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0aec04:	3c11800a */ 	lui	$s1,%hi(var8009da60)
-/*  f0aec08:	3c10800a */ 	lui	$s0,%hi(var8009d510)
+/*  f0aec08:	3c10800a */ 	lui	$s0,%hi(g_Casings)
 /*  f0aec0c:	2631da60 */ 	addiu	$s1,$s1,%lo(var8009da60)
-/*  f0aec10:	2610d510 */ 	addiu	$s0,$s0,%lo(var8009d510)
+/*  f0aec10:	2610d510 */ 	addiu	$s0,$s0,%lo(g_Casings)
 /*  f0aec14:	8e0f0040 */ 	lw	$t7,0x40($s0)
 .L0f0aec18:
 /*  f0aec18:	02002025 */ 	or	$a0,$s0,$zero

@@ -14367,7 +14367,7 @@ struct tag **g_TagPtrs = 0;
 
 u32 var8009d0cc = 0;
 u32 var8009d0d0[2] = {0};
-u32 var8009d0d8 = 0;
+s32 var8009d0d8 = 0;
 u32 var8009d0dc = 0;
 u32 var8009d0e0[4] = {0};
 u32 var8009d0f0 = 0;
@@ -14395,7 +14395,7 @@ u32 var8009d144 = 0;
 u32 var8009d148 = 0;
 u32 var8009d14c = 0;
 struct fireslot g_Fireslots[NUM_FIRESLOTS] = {0};
-struct var8009d510 var8009d510[20] = {0};
+struct casing g_Casings[20] = {0};
 struct var8009da60 var8009da60[8] = {0};
 struct var8009dbe0 var8009dbe0[4] = {0};
 u32 var8009dd00 = 0;

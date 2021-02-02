@@ -6036,7 +6036,7 @@ struct var800aa5d8 {
 	s16 unk18;
 };
 
-struct var8009d510 {
+struct casing {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;

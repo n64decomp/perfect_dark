@@ -406,7 +406,7 @@ void coreLoadStage(s32 stagenum)
 		s32 i;
 
 		func0f1777f8();
-		func0f010b20();
+		casingsReset();
 
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			setCurrentPlayerNum(i);
@@ -2174,7 +2174,7 @@ void coreTick(void)
 		coreUpdateSoloHandicaps();
 		func0f01d8c0();
 		func0f01d990();
-		func0f01dd6c();
+		casingsTick();
 		func0f01de30();
 		sparksTick();
 		func0f13eb44();

@@ -15,7 +15,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0f010b20
+glabel casingsReset
 /*  f010b20:	3c04800a */ 	lui	$a0,%hi(var8009d0d0)
 /*  f010b24:	2484d0d0 */ 	addiu	$a0,$a0,%lo(var8009d0d0)
 /*  f010b28:	ac800000 */ 	sw	$zero,0x0($a0)
@@ -31,19 +31,19 @@ glabel func0f010b20
 /*  f010b4c:	1462fffe */ 	bne	$v1,$v0,.L0f010b48
 /*  f010b50:	ac60fffc */ 	sw	$zero,-0x4($v1)
 /*  f010b54:	3c02800a */ 	lui	$v0,%hi(var8009da60)
-/*  f010b58:	3c03800a */ 	lui	$v1,%hi(var8009d510)
+/*  f010b58:	3c03800a */ 	lui	$v1,%hi(g_Casings)
 /*  f010b5c:	2442da60 */ 	addiu	$v0,$v0,%lo(var8009da60)
-/*  f010b60:	2463d510 */ 	addiu	$v1,$v1,%lo(var8009d510)
+/*  f010b60:	2463d510 */ 	addiu	$v1,$v1,%lo(g_Casings)
 .L0f010b64:
 /*  f010b64:	24630044 */ 	addiu	$v1,$v1,0x44
 /*  f010b68:	0062082b */ 	sltu	$at,$v1,$v0
 /*  f010b6c:	1420fffd */ 	bnez	$at,.L0f010b64
 /*  f010b70:	ac60fffc */ 	sw	$zero,-0x4($v1)
-/*  f010b74:	3c018007 */ 	lui	$at,%hi(var80070524)
+/*  f010b74:	3c018007 */ 	lui	$at,%hi(g_CasingsActive)
 /*  f010b78:	3c03800a */ 	lui	$v1,%hi(g_Fireslots)
-/*  f010b7c:	3c04800a */ 	lui	$a0,%hi(var8009d510)
-/*  f010b80:	ac200524 */ 	sw	$zero,%lo(var80070524)($at)
-/*  f010b84:	2484d510 */ 	addiu	$a0,$a0,%lo(var8009d510)
+/*  f010b7c:	3c04800a */ 	lui	$a0,%hi(g_Casings)
+/*  f010b80:	ac200524 */ 	sw	$zero,%lo(g_CasingsActive)($at)
+/*  f010b84:	2484d510 */ 	addiu	$a0,$a0,%lo(g_Casings)
 /*  f010b88:	2463d150 */ 	addiu	$v1,$v1,%lo(g_Fireslots)
 /*  f010b8c:	2402ffff */ 	addiu	$v0,$zero,-1
 .L0f010b90:
@@ -58,7 +58,7 @@ glabel func0f010b20
 );
 
 // Mismatch: Two instructions are swapped
-//void func0f010b20(void)
+//void casingsReset(void)
 //{
 //	s32 i;
 //
@@ -70,11 +70,11 @@ glabel func0f010b20
 //		var8009d0e0[i] = 0;
 //	}
 //
-//	for (i = 0; i < ARRAYCOUNT(var8009d510); i++) {
-//		var8009d510[i].unk40 = 0;
+//	for (i = 0; i < ARRAYCOUNT(g_Casings); i++) {
+//		g_Casings[i].unk40 = 0;
 //	}
 //
-//	var80070524 = 0;
+//	g_CasingsActive = 0;
 //
 //	for (i = 0; i < ARRAYCOUNT(g_Fireslots); i++) {
 //		g_Fireslots[i].unk00 = -1;

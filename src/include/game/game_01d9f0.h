@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f01d9f0(void);
-void func0f01dd6c(void);
+void casingTick(struct casing *arg0);
+void casingsTick(void);
 
 #endif

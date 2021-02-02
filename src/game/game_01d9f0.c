@@ -21,7 +21,7 @@ const u32 var7f1a8668[] = {0x00000000};
 const u32 var7f1a866c[] = {0x00000000};
 
 GLOBAL_ASM(
-glabel func0f01d9f0
+glabel casingTick
 /*  f01d9f0:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f01d9f4:	afb40034 */ 	sw	$s4,0x34($sp)
 /*  f01d9f8:	3c14800a */ 	lui	$s4,%hi(g_Vars)
@@ -263,7 +263,7 @@ glabel func0f01d9f0
 );
 
 GLOBAL_ASM(
-glabel func0f01dd6c
+glabel casingsTick
 /*  f01dd6c:	3c03800a */ 	lui	$v1,%hi(var8009d0d8)
 /*  f01dd70:	2463d0d8 */ 	addiu	$v1,$v1,%lo(var8009d0d8)
 /*  f01dd74:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -281,23 +281,23 @@ glabel func0f01dd6c
 /*  f01dda4:	01e01025 */ 	or	$v0,$t7,$zero
 .L0f01dda8:
 /*  f01dda8:	04410002 */ 	bgez	$v0,.L0f01ddb4
-/*  f01ddac:	3c118007 */ 	lui	$s1,%hi(var80070524)
+/*  f01ddac:	3c118007 */ 	lui	$s1,%hi(g_CasingsActive)
 /*  f01ddb0:	ac600000 */ 	sw	$zero,0x0($v1)
 .L0f01ddb4:
-/*  f01ddb4:	26310524 */ 	addiu	$s1,$s1,%lo(var80070524)
+/*  f01ddb4:	26310524 */ 	addiu	$s1,$s1,%lo(g_CasingsActive)
 /*  f01ddb8:	8e380000 */ 	lw	$t8,0x0($s1)
 /*  f01ddbc:	3c13800a */ 	lui	$s3,%hi(var8009da60)
 /*  f01ddc0:	2673da60 */ 	addiu	$s3,$s3,%lo(var8009da60)
 /*  f01ddc4:	13000011 */ 	beqz	$t8,.L0f01de0c
-/*  f01ddc8:	3c10800a */ 	lui	$s0,%hi(var8009d510)
+/*  f01ddc8:	3c10800a */ 	lui	$s0,%hi(g_Casings)
 /*  f01ddcc:	ae200000 */ 	sw	$zero,0x0($s1)
-/*  f01ddd0:	2610d510 */ 	addiu	$s0,$s0,%lo(var8009d510)
+/*  f01ddd0:	2610d510 */ 	addiu	$s0,$s0,%lo(g_Casings)
 /*  f01ddd4:	24120001 */ 	addiu	$s2,$zero,0x1
 /*  f01ddd8:	8e190040 */ 	lw	$t9,0x40($s0)
 .L0f01dddc:
 /*  f01dddc:	53200008 */ 	beqzl	$t9,.L0f01de00
 /*  f01dde0:	26100044 */ 	addiu	$s0,$s0,0x44
-/*  f01dde4:	0fc0767c */ 	jal	func0f01d9f0
+/*  f01dde4:	0fc0767c */ 	jal	casingTick
 /*  f01dde8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01ddec:	8e280000 */ 	lw	$t0,0x0($s1)
 /*  f01ddf0:	55000003 */ 	bnezl	$t0,.L0f01de00
@@ -319,3 +319,32 @@ glabel func0f01dd6c
 /*  f01de28:	00000000 */ 	nop
 /*  f01de2c:	00000000 */ 	nop
 );
+
+// Mismatch: g_Casings needs to be moved into this file.
+// Also end loop condition is bnel but needs to be sltu, bnezl.
+//void casingsTick(void)
+//{
+//	s32 i;
+//
+//	if (var8009d0d8 > 0) {
+//		var8009d0d8 -= g_Vars.lvupdate240;
+//	}
+//
+//	if (var8009d0d8 < 0) {
+//		var8009d0d8 = 0;
+//	}
+//
+//	if (g_CasingsActive) {
+//		g_CasingsActive = false;
+//
+//		for (i = 0; i < ARRAYCOUNT(g_Casings); i++) {
+//			if (g_Casings[i].unk40) {
+//				casingTick(&g_Casings[i]);
+//
+//				if (!g_CasingsActive) {
+//					g_CasingsActive = true;
+//				}
+//			}
+//		}
+//	}
+//}
