@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f13e0e0(void);
+s16 func0f13e0e0(f32 arg0);
 void func0f13e1b0(struct var800a41b0 *arg0);
 void func0f13e40c(struct prop *prop, s8 arg1);
 bool chrIsUsingPaintball(struct chrdata *chr);
