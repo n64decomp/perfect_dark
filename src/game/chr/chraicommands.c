@@ -5894,8 +5894,8 @@ bool ai00fd(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && (chr->chrflags & CHRCFLAG_00200000)) {
-		chr->chrflags &= ~CHRCFLAG_00200000;
+	if (chr && (chr->chrflags & CHRCFLAG_TRIGGERSHOTLIST)) {
+		chr->chrflags &= ~CHRCFLAG_TRIGGERSHOTLIST;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -9047,7 +9047,7 @@ bool aiChrAdjustMotionBlur(void)
 /**
  * @cmd 016e
  */
-bool aiDamagePlayer(void)
+bool aiPoisonChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct coord coord = {0, 0, 0};
@@ -9055,12 +9055,12 @@ bool aiDamagePlayer(void)
 
 	if (chr && chr->prop) {
 		if (cmd[4] == 2) {
-			u8 sp40[] = {0x1a, 0, 0, 3};
-			func0f034124(chr, (s32)cmd[3] * 0.03125f, &coord, sp40, NULL);
+			u8 sp40[] = {WEAPON_COMBATKNIFE, 0, 0, 3};
+			chrPoison(chr, (s32)cmd[3] * 0.03125f, &coord, sp40, NULL);
 		} else if (cmd[4] == 0) {
-			func0f034124(chr, (s32)cmd[3] * 0.03125f, &coord, NULL, NULL);
+			chrPoison(chr, (s32)cmd[3] * 0.03125f, &coord, NULL, NULL);
 		} else {
-			func0f034124(chr, (s32)cmd[3] * -0.03125f, &coord, NULL, NULL);
+			chrPoison(chr, (s32)cmd[3] * -0.03125f, &coord, NULL, NULL);
 		}
 	}
 

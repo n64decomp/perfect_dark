@@ -4361,7 +4361,7 @@ glabel var7f1a87b8
 /*  f022ed4:	3c0542c8 */ 	lui	$a1,0x42c8
 /*  f022ed8:	27a60034 */ 	addiu	$a2,$sp,0x34
 /*  f022edc:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f022ee0:	0fc0d049 */ 	jal	func0f034124
+/*  f022ee0:	0fc0d049 */ 	jal	chrPoison
 /*  f022ee4:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f022ee8:	3c054049 */ 	lui	$a1,0x4049
 /*  f022eec:	34a50fdb */ 	ori	$a1,$a1,0xfdb
@@ -4426,7 +4426,7 @@ glabel var7f1a87b8
 /*  f022fb8:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f022fbc:	8e0800e8 */ 	lw	$t0,0xe8($s0)
 /*  f022fc0:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f022fc4:	0fc0d049 */ 	jal	func0f034124
+/*  f022fc4:	0fc0d049 */ 	jal	chrPoison
 /*  f022fc8:	afa80010 */ 	sw	$t0,0x10($sp)
 .L0f022fcc:
 /*  f022fcc:	8fbf0024 */ 	lw	$ra,0x24($sp)

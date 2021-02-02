@@ -40,7 +40,7 @@ void func0f0035c0(void);
 void func0f00372c(void);
 void func0f0037ac(void);
 void func0f004314(void);
-void func0f00438c(s32 roomnum, s32 start, s32 limit);
+void roomAdjustLighting(s32 roomnum, s32 start, s32 limit);
 void func0f004558(s32 roomnum, s32 increment, s32 limit);
 void func0f004604(s32 roomnum);
 void func0f004c6c(void);

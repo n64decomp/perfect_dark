@@ -481,7 +481,7 @@ glabel var7f1b5584
 /*  f12a264:	240600ff */ 	addiu	$a2,$zero,0xff
 /*  f12a268:	4600310d */ 	trunc.w.s	$f4,$f6
 /*  f12a26c:	44052000 */ 	mfc1	$a1,$f4
-/*  f12a270:	0fc010e3 */ 	jal	func0f00438c
+/*  f12a270:	0fc010e3 */ 	jal	roomAdjustLighting
 /*  f12a274:	00000000 */ 	nop
 /*  f12a278:	86130002 */ 	lh	$s3,0x2($s0)
 /*  f12a27c:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -1514,7 +1514,7 @@ glabel var7f1b559c
 /*  f12b24c:	240600ff */ 	addiu	$a2,$zero,0xff
 /*  f12b250:	4600320d */ 	trunc.w.s	$f8,$f6
 /*  f12b254:	44054000 */ 	mfc1	$a1,$f8
-/*  f12b258:	0fc010e3 */ 	jal	func0f00438c
+/*  f12b258:	0fc010e3 */ 	jal	roomAdjustLighting
 /*  f12b25c:	00000000 */ 	nop
 .L0f12b260:
 /*  f12b260:	86ce002a */ 	lh	$t6,0x2a($s6)

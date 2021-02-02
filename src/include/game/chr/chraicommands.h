@@ -343,7 +343,7 @@
 /*0x016b*/ bool ai016b(void);
 /*0x016c*/ bool aiNoOp016c(void);
 /*0x016d*/ bool aiChrAdjustMotionBlur(void);
-/*0x016e*/ bool aiDamagePlayer(void);
+/*0x016e*/ bool aiPoisonChr(void);
 /*0x016f*/ bool aiIfChrHasGun(void);
 /*0x0170*/ bool aiDoGunCommand(void);
 /*0x0171*/ bool aiIfDistanceToGunLessThan(void);

@@ -500,7 +500,7 @@
 #define CHRCFLAG_00040000                    0x00040000 // Used a lot
 #define CHRCFLAG_RUNFASTER                   0x00080000
 #define CHRCFLAG_KILLCOUNTABLE               0x00100000
-#define CHRCFLAG_00200000                    0x00200000 // Unset by cmd 00fd
+#define CHRCFLAG_TRIGGERSHOTLIST             0x00200000
 #define CHRCFLAG_00400000                    0x00400000 // Not used in scripts
 #define CHRCFLAG_UNPLAYABLE                  0x00800000
 #define CHRCFLAG_PUSHABLE                    0x01000000 // Typically set on allies during init

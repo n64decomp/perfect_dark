@@ -383,7 +383,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x016b*/ ai016b,
 	/*0x016c*/ aiNoOp016c,
 	/*0x016d*/ aiChrAdjustMotionBlur,
-	/*0x016e*/ aiDamagePlayer,
+	/*0x016e*/ aiPoisonChr,
 	/*0x016f*/ aiIfChrHasGun,
 	/*0x0170*/ aiDoGunCommand,
 	/*0x0171*/ aiIfDistanceToGunLessThan,
@@ -708,7 +708,7 @@ void chraiExecute(void *entity, s32 proptype)
 		}
 
 		// Check if the ailist should be switched to a different one
-		if (g_Vars.chrdata && (g_Vars.chrdata->chrflags & CHRCFLAG_00200000)) {
+		if (g_Vars.chrdata && (g_Vars.chrdata->chrflags & CHRCFLAG_TRIGGERSHOTLIST)) {
 			u32 animnum = modelGetAnimNum(g_Vars.chrdata->model);
 			if (g_Vars.chrdata->aishotlist >= 0
 					&& g_Vars.chrdata->cshield <= 0
@@ -717,7 +717,7 @@ void chraiExecute(void *entity, s32 proptype)
 					&& animnum != ANIM_SNIPING_026B
 					&& animnum != ANIM_SNIPING_026A) {
 				// Set shot list
-				g_Vars.chrdata->chrflags &= ~CHRCFLAG_00200000;
+				g_Vars.chrdata->chrflags &= ~CHRCFLAG_TRIGGERSHOTLIST;
 				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aishotlist);
 				g_Vars.aioffset = 0;
 			}

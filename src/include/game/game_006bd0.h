@@ -11,7 +11,7 @@ s32 nbombCalculateAlpha(struct nbomb *nbomb);
 Gfx *nbombCreateGdl(void);
 Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl);
 void func0f0099a4(void);
-void func0f0099e4(struct nbomb *nbomb);
+void nbombInflictDamage(struct nbomb *nbomb);
 void nbombTick(struct nbomb *nbomb);
 void nbombsTick(void);
 Gfx *nbombsRender(Gfx *gdl);

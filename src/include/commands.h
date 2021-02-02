@@ -3156,10 +3156,18 @@
 	value, \
 	bool,
 
-#define damage_player(chr, u1, operation) \
+/**
+ * Poison or unpoison the given chr by the given amount.
+ *
+ * If operation is 0, the chr is poisoned, likely without any ongoing effects.
+ * If operation is 2, the chr is poisoned, likely with the same effects as being
+ * hit by a combat knife.
+ * If operation is anything else, the chr is unpoisoned by the given amount.
+ */
+#define poison_chr(chr, amount, operation) \
 	mkshort(0x016e), \
 	chr, \
-	u1, \
+	amount, \
 	operation,
 
 // Likely related to being disarmed.

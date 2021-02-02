@@ -2175,7 +2175,7 @@ glabel func0f002ef8
 .L0f0032ec:
 /*  f0032ec:	8fa400d8 */ 	lw	$a0,0xd8($sp)
 /*  f0032f0:	24050040 */ 	addiu	$a1,$zero,0x40
-/*  f0032f4:	0fc010e3 */ 	jal	func0f00438c
+/*  f0032f4:	0fc010e3 */ 	jal	roomAdjustLighting
 /*  f0032f8:	24060050 */ 	addiu	$a2,$zero,0x50
 /*  f0032fc:	0fc25480 */ 	jal	func0f095200
 /*  f003300:	00000000 */ 	nop
@@ -3132,7 +3132,7 @@ void func0f004314(void)
 	func0f005bb0();
 
 	if (hand1->torchon || hand2->torchon) {
-		func0f00438c(g_Vars.currentplayer->prop->rooms[0], 64, 80);
+		roomAdjustLighting(g_Vars.currentplayer->prop->rooms[0], 64, 80);
 	}
 }
 
@@ -3141,7 +3141,7 @@ void func0f004384(void)
 	// empty
 }
 
-void func0f00438c(s32 roomnum, s32 start, s32 limit)
+void roomAdjustLighting(s32 roomnum, s32 start, s32 limit)
 {
 	if (var80061420 && !(g_Rooms[roomnum].flags & ROOMFLAG_OUTDOORS ? 1 : 0)) {
 		s32 value;

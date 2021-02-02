@@ -5398,7 +5398,7 @@ glabel func0f034080
 /*  f034120:	00000000 */ 	nop
 );
 
-void func0f034124(struct chrdata *chr, f32 arg1, struct coord *vector, u8 *arg3, struct prop *prop)
+void chrPoison(struct chrdata *chr, f32 arg1, struct coord *vector, u8 *arg3, struct prop *prop)
 {
 	func0f034524(chr, arg1, vector, arg3, prop, 200, 0, 0, 0, 0, -1, 0, 0, 0);
 }
@@ -22564,7 +22564,7 @@ void chrTickGoPos(struct chrdata *chr)
 			// Try and warp the chr past whatever obstacle is blocking them?
 			struct coord sp196 = {0, 0, 0};
 
-			func0f034124(chr, 1, &sp196, NULL, NULL);
+			chrPoison(chr, 1, &sp196, NULL, NULL);
 
 			chr->lastmoveok60 = g_Vars.lvframe60;
 			return;

@@ -12,6 +12,7 @@
 #include "game/game_005fd0.h"
 #include "game/game_006bd0.h"
 #include "game/chr/chr.h"
+#include "game/chr/chraction.h"
 #include "game/game_0601b0.h"
 #include "game/game_095320.h"
 #include "game/game_096750.h"
@@ -2859,12 +2860,6 @@ Gfx *nbombCreateGdl(void)
 }
 
 struct audiohandle *g_NbombAudioHandle = NULL;
-u32 var800616e8 = 0x00000000;
-u32 var800616ec = 0x00000000;
-u32 var800616f0 = 0x00000000;
-u32 var800616f4 = 0x00000000;
-u32 var800616f8 = 0x00000000;
-u32 var800616fc = 0x00000000;
 
 Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 {
@@ -2927,7 +2922,7 @@ void func0f0099a4(void)
 }
 
 GLOBAL_ASM(
-glabel func0f0099e4
+glabel nbombInflictDamage
 .late_rodata
 glabel var7f1a7f20
 .word 0x3c23d70a
@@ -3033,7 +3028,7 @@ glabel var7f1a7f20
 /*  f009b68:	afa30040 */ 	sw	$v1,0x40($sp)
 /*  f009b6c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f009b70:	2405ffda */ 	addiu	$a1,$zero,-38
-/*  f009b74:	0fc010e3 */ 	jal	func0f00438c
+/*  f009b74:	0fc010e3 */ 	jal	roomAdjustLighting
 /*  f009b78:	2406ff4c */ 	addiu	$a2,$zero,-180
 /*  f009b7c:	8fa30040 */ 	lw	$v1,0x40($sp)
 /*  f009b80:	8ea402bc */ 	lw	$a0,0x2bc($s5)
@@ -3116,7 +3111,7 @@ glabel var7f1a7f20
 /*  f009ca0:	46049002 */ 	mul.s	$f0,$f18,$f4
 /*  f009ca4:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f009ca8:	44050000 */ 	mfc1	$a1,$f0
-/*  f009cac:	0fc0d049 */ 	jal	func0f034124
+/*  f009cac:	0fc0d049 */ 	jal	chrPoison
 /*  f009cb0:	00000000 */ 	nop
 /*  f009cb4:	8e0c0018 */ 	lw	$t4,0x18($s0)
 /*  f009cb8:	8e0e0014 */ 	lw	$t6,0x14($s0)
@@ -3147,6 +3142,103 @@ glabel var7f1a7f20
 /*  f009d0c:	27bd0308 */ 	addiu	$sp,$sp,0x308
 );
 
+// Mismatch: different usage of callee-save registers relating to room loop
+//void nbombInflictDamage(struct nbomb *nbomb)
+//{
+//	s32 index = 0;
+//	u32 stack;
+//	s16 propnums[256]; // 100
+//	struct coord bbmin; // f4
+//	struct coord bbmax; // e8
+//	s16 roomnums[54]; // 7c
+//	s16 *propnumptr;
+//	s32 i;
+//	u8 sp70[4];
+//	u32 stack2;
+//
+//	sp70[0] = WEAPON_NBOMB;
+//	sp70[3] = 0;
+//
+//	if (g_Vars.lvupdate240 <= 0 || nbomb->age240 > 350) {
+//		return;
+//	}
+//
+//	if (g_Rooms);
+//
+//	// Find rooms which intersect the nbomb dome's bbox
+//	bbmin.x = nbomb->pos.f[0] - nbomb->radius;
+//	bbmin.y = nbomb->pos.f[1] - nbomb->radius;
+//	bbmin.z = nbomb->pos.f[2] - nbomb->radius;
+//
+//	bbmax.x = nbomb->pos.f[0] + nbomb->radius;
+//	bbmax.y = nbomb->pos.f[1] + nbomb->radius;
+//	bbmax.z = nbomb->pos.f[2] + nbomb->radius;
+//
+//	if (g_Vars.roomcount);
+//	if (g_Vars.roomcount);
+//
+//	for (i = 1; i < g_Vars.roomcount; i++) {
+//		if (!(bbmax.f[0] < g_Rooms[i].bbmin[0]
+//				|| bbmin.f[0] > g_Rooms[i].bbmax[0]
+//				|| bbmax.f[1] < g_Rooms[i].bbmin[1]
+//				|| bbmin.f[1] > g_Rooms[i].bbmax[1]
+//				|| bbmax.f[2] < g_Rooms[i].bbmin[2]
+//				|| bbmin.f[2] > g_Rooms[i].bbmax[2])
+//				&& index < 52) {
+//			roomnums[index] = i;
+//			index++;
+//			roomAdjustLighting(i, -38, -180);
+//		}
+//	}
+//
+//	roomnums[index] = -1;
+//
+//	// Iterate props in the affected rooms and damage any chrs
+//	roomGetProps(roomnums, propnums, 256);
+//
+//	propnumptr = propnums;
+//
+//	while (*propnumptr >= 0) {
+//		struct prop *prop = &g_Vars.props[*propnumptr];
+//
+//		if (prop->timetoregen == 0) {
+//			if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+//				f32 xdiff = prop->pos.f[0] - nbomb->pos.f[0];
+//				f32 ydiff = prop->pos.f[1] - nbomb->pos.f[1];
+//				f32 zdiff = prop->pos.f[2] - nbomb->pos.f[2];
+//
+//				f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+//
+//				if (dist < nbomb->radius) {
+//					struct chrdata *chr = prop->chr;
+//
+//					if (chr) {
+//						struct coord vector = {0, 0, 0};
+//						f32 damage = 0.0099999997764826f * g_Vars.lvupdate240freal;
+//
+//						chrPoison(chr, damage, &vector, sp70, nbomb->prop);
+//
+//						chr->chrflags |= CHRCFLAG_TRIGGERSHOTLIST;
+//
+//						if (chr->hidden & CHRHFLAG_CLOAKED) {
+//							chrUncloak(chr, true);
+//						}
+//					}
+//				}
+//			}
+//		}
+//
+//		propnumptr++;
+//	}
+//}
+
+u32 var800616e8 = 0x00000000;
+u32 var800616ec = 0x00000000;
+u32 var800616f0 = 0x00000000;
+u32 var800616f4 = 0x00000000;
+u32 var800616f8 = 0x00000000;
+u32 var800616fc = 0x00000000;
+
 void nbombTick(struct nbomb *nbomb)
 {
 	if (nbomb->age240 >= 0) {
@@ -3171,7 +3263,7 @@ void nbombTick(struct nbomb *nbomb)
 
 		nbomb->radius *= 500.0f;
 
-		func0f0099e4(nbomb);
+		nbombInflictDamage(nbomb);
 
 		age60 = nbomb->age240 / 4;
 

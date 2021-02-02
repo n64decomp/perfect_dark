@@ -42385,7 +42385,7 @@ glabel func0f08bb5c
 /*  f08bc34:	11c10004 */ 	beq	$t6,$at,.L0f08bc48
 /*  f08bc38:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f08bc3c:	24050030 */ 	addiu	$a1,$zero,0x30
-/*  f08bc40:	0fc010e3 */ 	jal	func0f00438c
+/*  f08bc40:	0fc010e3 */ 	jal	roomAdjustLighting
 /*  f08bc44:	24060080 */ 	addiu	$a2,$zero,0x80
 .L0f08bc48:
 /*  f08bc48:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -45267,7 +45267,7 @@ glabel func0f08ea50
 /*  f08ed30:	02202025 */ 	or	$a0,$s1,$zero
 .L0f08ed34:
 /*  f08ed34:	24050080 */ 	addiu	$a1,$zero,0x80
-/*  f08ed38:	0fc010e3 */ 	jal	func0f00438c
+/*  f08ed38:	0fc010e3 */ 	jal	roomAdjustLighting
 /*  f08ed3c:	240600c8 */ 	addiu	$a2,$zero,0xc8
 /*  f08ed40:	8e690014 */ 	lw	$t1,0x14($s3)
 /*  f08ed44:	26100002 */ 	addiu	$s0,$s0,0x2
@@ -46910,7 +46910,7 @@ glabel var7f1ab19c
 /*  f0906bc:	8defa244 */ 	lw	$t7,%lo(g_Vars+0x284)($t7)
 /*  f0906c0:	8df800bc */ 	lw	$t8,0xbc($t7)
 /*  f0906c4:	8f040004 */ 	lw	$a0,0x4($t8)
-/*  f0906c8:	0fc0d049 */ 	jal	func0f034124
+/*  f0906c8:	0fc0d049 */ 	jal	chrPoison
 /*  f0906cc:	afa00010 */ 	sw	$zero,0x10($sp)
 .L0f0906d0:
 /*  f0906d0:	3c028007 */ 	lui	$v0,%hi(var800698fc)
