@@ -26,6 +26,7 @@
 	build/ROMID/game/game_00c490.o (section); \
 	build/ROMID/game/game_0108d0.o (section); \
 	build/ROMID/game/game_0109d0.o (section); \
+	build/ROMID/game/casing/reset.o (section); \
 	build/ROMID/game/game_010b20.o (section); \
 	build/ROMID/game/game_011110.o (section); \
 	build/ROMID/game/inventory/init.o (section); \
@@ -62,7 +63,7 @@
 	build/ROMID/game/weather/tick.o (section); \
 	build/ROMID/game/game_01d860.o (section); \
 	build/ROMID/game/game_01d990.o (section); \
-	build/ROMID/game/game_01d9f0.o (section); \
+	build/ROMID/game/casing/tick.o (section); \
 	build/ROMID/game/game_01de30.o (section); \
 	build/ROMID/game/sparks/tick.o (section); \
 	build/ROMID/game/chr/chr.o (section); \

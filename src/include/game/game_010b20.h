@@ -3,7 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-void casingsReset(void);
 void func0f010bb0(void);
 
 #endif
