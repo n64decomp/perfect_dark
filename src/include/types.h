@@ -6804,7 +6804,8 @@ struct var800a41b0 {
 	/*0x6f*/ u8 unk6f_01 : 1;
 	/*0x6f*/ u8 unk6f_02 : 1;
 	/*0x6f*/ u8 unk6f_03 : 1;
-	/*0x70*/ u32 unk70;
+	/*0x70*/ u32 unk70_00 : 28;
+	/*0x70*/ u32 unk70_28 : 4;
 	/*0x74*/ struct var800a41b0 *prev;
 	/*0x78*/ u32 unk78;
 };
