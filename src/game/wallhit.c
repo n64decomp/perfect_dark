@@ -67,7 +67,7 @@ const char var7f1b5ccc[] = "";
 const char var7f1b5cd0[] = "Wallhit colour %d not implemented, substituting black\n";
 
 u32 var8007f740 = 0x00000000;
-u32 var8007f744 = 0x400a0a00;
+u8 var8007f744[4] = {0x40, 0x0a, 0x0a, 0x00};
 u32 var8007f748 = 0x3f800000;
 u32 var8007f74c = 0x3f800000;
 u32 var8007f750 = 0x00000000;
@@ -410,42 +410,17 @@ bool chrIsUsingPaintball(struct chrdata *chr)
 	return paintball;
 }
 
-GLOBAL_ASM(
-glabel func0f13e5c8
-/*  f13e5c8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f13e5cc:	10800011 */ 	beqz	$a0,.L0f13e614
-/*  f13e5d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f13e5d4:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f13e5d8:	1060000e */ 	beqz	$v1,.L0f13e614
-/*  f13e5dc:	00000000 */ 	nop
-/*  f13e5e0:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f13e5e4:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f13e5e8:	3c058008 */ 	lui	$a1,%hi(var8007f744)
-/*  f13e5ec:	10410004 */ 	beq	$v0,$at,.L0f13e600
-/*  f13e5f0:	24a5f744 */ 	addiu	$a1,$a1,%lo(var8007f744)
-/*  f13e5f4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f13e5f8:	14410006 */ 	bne	$v0,$at,.L0f13e614
-/*  f13e5fc:	00000000 */ 	nop
-.L0f13e600:
-/*  f13e600:	84640010 */ 	lh	$a0,0x10($v1)
-/*  f13e604:	0fc09451 */ 	jal	bodyGetBloodColour
-/*  f13e608:	00003025 */ 	or	$a2,$zero,$zero
-/*  f13e60c:	10000009 */ 	b	.L0f13e634
-/*  f13e610:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f13e614:
-/*  f13e614:	3c058008 */ 	lui	$a1,%hi(var8007f744)
-/*  f13e618:	24a5f744 */ 	addiu	$a1,$a1,%lo(var8007f744)
-/*  f13e61c:	2402000a */ 	addiu	$v0,$zero,0xa
-/*  f13e620:	240e0040 */ 	addiu	$t6,$zero,0x40
-/*  f13e624:	a0ae0000 */ 	sb	$t6,0x0($a1)
-/*  f13e628:	a0a20001 */ 	sb	$v0,0x1($a1)
-/*  f13e62c:	a0a20002 */ 	sb	$v0,0x2($a1)
-/*  f13e630:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f13e634:
-/*  f13e634:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f13e638:	03e00008 */ 	jr	$ra
-/*  f13e63c:	00000000 */ 	nop
-);
+void func0f13e5c8(struct prop *prop)
+{
+	if (prop && prop->chr && (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER)) {
+		struct chrdata *chr = prop->chr;
+		bodyGetBloodColour(chr->bodynum, var8007f744, NULL);
+	} else {
+		var8007f744[0] = 0x40;
+		var8007f744[1] = 0x0a;
+		var8007f744[2] = 0x0a;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f13e640

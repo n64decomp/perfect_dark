@@ -174,7 +174,6 @@ extern u32 var8007f6f8;
 extern u32 var8007f6fc;
 extern u32 var8007f700;
 extern u32 var8007f740;
-extern u32 var8007f744;
 extern u32 var8007f748;
 extern u32 var8007f750;
 extern u32 var8007f754;

@@ -7,7 +7,7 @@ u32 func0f13e0e0(void);
 u32 func0f13e1b0(void);
 void func0f13e40c(struct prop *prop, bool arg1);
 bool chrIsUsingPaintball(struct chrdata *chr);
-u32 func0f13e5c8(void);
+void func0f13e5c8(struct prop *prop);
 void func0f13e640(struct var800a41b0 *arg0, s32 arg1);
 u32 func0f13e744(void);
 u32 func0f13e994(void);
