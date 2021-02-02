@@ -499,7 +499,7 @@ extern struct nbomb g_Nbombs[6];
 extern u32 var8009cbf8;
 extern struct prop *g_DangerousProps[MAX_DANGEROUSPROPS];
 extern s32 var8009cc30;
-extern s16 *var8009cc40;
+extern u16 *var8009cc40;
 extern s32 var8009cc44;
 extern u32 var8009cc48;
 extern u32 var8009cc4c;
