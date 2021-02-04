@@ -11901,90 +11901,20 @@ s32 func0f161ab4(s32 room)
 	return g_Rooms[room].unk02;
 }
 
-GLOBAL_ASM(
-glabel roomContainsCoord
-/*  f161adc:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*  f161ae0:	afa50014 */ 	sw	$a1,0x14($sp)
-/*  f161ae4:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f161ae8:	00057400 */ 	sll	$t6,$a1,0x10
-/*  f161aec:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*  f161af0:	e7a40004 */ 	swc1	$f4,0x4($sp)
-/*  f161af4:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*  f161af8:	000fc8c0 */ 	sll	$t9,$t7,0x3
-/*  f161afc:	032fc821 */ 	addu	$t9,$t9,$t7
-/*  f161b00:	3c18800a */ 	lui	$t8,%hi(g_Rooms)
-/*  f161b04:	e7a60008 */ 	swc1	$f6,0x8($sp)
-/*  f161b08:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f161b0c:	8f184928 */ 	lw	$t8,%lo(g_Rooms)($t8)
-/*  f161b10:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f161b14:	032fc823 */ 	subu	$t9,$t9,$t7
-/*  f161b18:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f161b1c:	e7a8000c */ 	swc1	$f8,0xc($sp)
-/*  f161b20:	03191821 */ 	addu	$v1,$t8,$t9
-/*  f161b24:	c4700018 */ 	lwc1	$f16,0x18($v1)
-/*  f161b28:	c7aa0004 */ 	lwc1	$f10,0x4($sp)
-/*  f161b2c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f161b30:	460a803e */ 	c.le.s	$f16,$f10
-/*  f161b34:	00000000 */ 	nop
-/*  f161b38:	45000002 */ 	bc1f	.L0f161b44
-/*  f161b3c:	00000000 */ 	nop
-/*  f161b40:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f161b44:
-/*  f161b44:	1040002e */ 	beqz	$v0,.L0f161c00
-/*  f161b48:	00000000 */ 	nop
-/*  f161b4c:	c4720024 */ 	lwc1	$f18,0x24($v1)
-/*  f161b50:	00001025 */ 	or	$v0,$zero,$zero
-/*  f161b54:	c7a4000c */ 	lwc1	$f4,0xc($sp)
-/*  f161b58:	4612503e */ 	c.le.s	$f10,$f18
-/*  f161b5c:	00000000 */ 	nop
-/*  f161b60:	45000002 */ 	bc1f	.L0f161b6c
-/*  f161b64:	00000000 */ 	nop
-/*  f161b68:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f161b6c:
-/*  f161b6c:	10400024 */ 	beqz	$v0,.L0f161c00
-/*  f161b70:	00000000 */ 	nop
-/*  f161b74:	c4660020 */ 	lwc1	$f6,0x20($v1)
-/*  f161b78:	00001025 */ 	or	$v0,$zero,$zero
-/*  f161b7c:	4604303e */ 	c.le.s	$f6,$f4
-/*  f161b80:	00000000 */ 	nop
-/*  f161b84:	45000002 */ 	bc1f	.L0f161b90
-/*  f161b88:	00000000 */ 	nop
-/*  f161b8c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f161b90:
-/*  f161b90:	1040001b */ 	beqz	$v0,.L0f161c00
-/*  f161b94:	00000000 */ 	nop
-/*  f161b98:	c468002c */ 	lwc1	$f8,0x2c($v1)
-/*  f161b9c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f161ba0:	c7b00008 */ 	lwc1	$f16,0x8($sp)
-/*  f161ba4:	4608203e */ 	c.le.s	$f4,$f8
-/*  f161ba8:	00000000 */ 	nop
-/*  f161bac:	45000002 */ 	bc1f	.L0f161bb8
-/*  f161bb0:	00000000 */ 	nop
-/*  f161bb4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f161bb8:
-/*  f161bb8:	10400011 */ 	beqz	$v0,.L0f161c00
-/*  f161bbc:	00000000 */ 	nop
-/*  f161bc0:	c472001c */ 	lwc1	$f18,0x1c($v1)
-/*  f161bc4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f161bc8:	4610903e */ 	c.le.s	$f18,$f16
-/*  f161bcc:	00000000 */ 	nop
-/*  f161bd0:	45000002 */ 	bc1f	.L0f161bdc
-/*  f161bd4:	00000000 */ 	nop
-/*  f161bd8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f161bdc:
-/*  f161bdc:	10400008 */ 	beqz	$v0,.L0f161c00
-/*  f161be0:	00000000 */ 	nop
-/*  f161be4:	c46a0028 */ 	lwc1	$f10,0x28($v1)
-/*  f161be8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f161bec:	460a803e */ 	c.le.s	$f16,$f10
-/*  f161bf0:	00000000 */ 	nop
-/*  f161bf4:	45000002 */ 	bc1f	.L0f161c00
-/*  f161bf8:	00000000 */ 	nop
-/*  f161bfc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f161c00:
-/*  f161c00:	03e00008 */ 	jr	$ra
-/*  f161c04:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);
+bool roomContainsCoord(struct coord *pos, s16 roomnum)
+{
+	struct coord copy;
+	copy.x = pos->x;
+	copy.y = pos->y;
+	copy.z = pos->z;
+
+	return copy.f[0] >= g_Rooms[roomnum].bbmin[0]
+		&& copy.f[0] <= g_Rooms[roomnum].bbmax[0]
+		&& copy.f[2] >= g_Rooms[roomnum].bbmin[2]
+		&& copy.f[2] <= g_Rooms[roomnum].bbmax[2]
+		&& copy.f[1] >= g_Rooms[roomnum].bbmin[1]
+		&& copy.f[1] <= g_Rooms[roomnum].bbmax[1];
+}
 
 GLOBAL_ASM(
 glabel func0f161c08
