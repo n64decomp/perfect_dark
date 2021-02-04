@@ -715,7 +715,7 @@ extern struct var800a4ccc *var800a4ccc; // indexed by portalnum
 extern u8 *var800a4cd0;
 extern struct portalcmd *g_PortalCommands;
 extern u8 *g_LightsFileData;
-extern s16 *var800a4ce0; // portal numbers
+extern s16 *g_RoomPortals; // portal numbers for each room, ordered by room
 extern s16 var800a4ce4[2];
 extern struct var800a4ce8 *var800a4ce8;
 extern struct portalthing *g_PortalThings;

@@ -643,8 +643,8 @@ glabel var7f1b5584
 /*  f12a4dc:	afa80094 */ 	sw	$t0,0x94($sp)
 /*  f12a4e0:	844c000e */ 	lh	$t4,0xe($v0)
 .L0f12a4e4:
-/*  f12a4e4:	3c19800a */ 	lui	$t9,%hi(var800a4ce0)
-/*  f12a4e8:	8f394ce0 */ 	lw	$t9,%lo(var800a4ce0)($t9)
+/*  f12a4e4:	3c19800a */ 	lui	$t9,%hi(g_RoomPortals)
+/*  f12a4e8:	8f394ce0 */ 	lw	$t9,%lo(g_RoomPortals)($t9)
 /*  f12a4ec:	8fa70090 */ 	lw	$a3,0x90($sp)
 /*  f12a4f0:	000c6840 */ 	sll	$t5,$t4,0x1
 /*  f12a4f4:	032d7021 */ 	addu	$t6,$t9,$t5
@@ -865,8 +865,8 @@ glabel var7f1b5584
 /*  f12a810:	00008825 */ 	or	$s1,$zero,$zero
 /*  f12a814:	844d000e */ 	lh	$t5,0xe($v0)
 .L0f12a818:
-/*  f12a818:	3c19800a */ 	lui	$t9,%hi(var800a4ce0)
-/*  f12a81c:	8f394ce0 */ 	lw	$t9,%lo(var800a4ce0)($t9)
+/*  f12a818:	3c19800a */ 	lui	$t9,%hi(g_RoomPortals)
+/*  f12a81c:	8f394ce0 */ 	lw	$t9,%lo(g_RoomPortals)($t9)
 /*  f12a820:	000d7040 */ 	sll	$t6,$t5,0x1
 /*  f12a824:	8fac0118 */ 	lw	$t4,0x118($sp)
 /*  f12a828:	032ec021 */ 	addu	$t8,$t9,$t6

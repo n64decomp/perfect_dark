@@ -3534,13 +3534,13 @@ struct room {
 	/*0x00*/ u16 flags;
 	/*0x02*/ s16 unk02;
 	/*0x04*/ u8 portalrecursioncount;
-	/*0x05*/ s8 unk05;
+	/*0x05*/ s8 numportals;
 	/*0x06*/ u8 unk06;
 	/*0x07*/ u8 unk07;
 	/*0x08*/ s8 numlights;
 	/*0x0a*/ u16 lightindex; // index of start of this room's lights in data file
 	/*0x0c*/ u16 unk0c;
-	/*0x0e*/ s16 unk0e;
+	/*0x0e*/ s16 roomportallistoffset;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ struct room14 *unk14;
 	/*0x18*/ f32 bbmin[3];
@@ -4662,8 +4662,8 @@ struct scenariodata {
 
 struct portal {
 	u16 unk00;
-	s16 unk02;
-	s16 unk04;
+	s16 roomnum1;
+	s16 roomnum2;
 	u8 flags;
 };
 

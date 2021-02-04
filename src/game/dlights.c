@@ -1564,8 +1564,8 @@ glabel var7f1a7d94
 .L0f0026b0:
 /*  f0026b0:	18400013 */ 	blez	$v0,.L0f002700
 /*  f0026b4:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0026b8:	3c13800a */ 	lui	$s3,%hi(var800a4ce0)
-/*  f0026bc:	26734ce0 */ 	addiu	$s3,$s3,%lo(var800a4ce0)
+/*  f0026b8:	3c13800a */ 	lui	$s3,%hi(g_RoomPortals)
+/*  f0026bc:	26734ce0 */ 	addiu	$s3,$s3,%lo(g_RoomPortals)
 /*  f0026c0:	864a000e */ 	lh	$t2,0xe($s2)
 .L0f0026c4:
 /*  f0026c4:	8e690000 */ 	lw	$t1,0x0($s3)
@@ -1726,11 +1726,11 @@ glabel func0f002844
 /*  f002904:	0000a025 */ 	or	$s4,$zero,$zero
 /*  f002908:	19c00055 */ 	blez	$t6,.L0f002a60
 /*  f00290c:	3c1e8006 */ 	lui	$s8,%hi(var80061438)
-/*  f002910:	3c17800a */ 	lui	$s7,%hi(var800a4ce0)
+/*  f002910:	3c17800a */ 	lui	$s7,%hi(g_RoomPortals)
 /*  f002914:	3c128006 */ 	lui	$s2,%hi(var80061434)
 /*  f002918:	4480a000 */ 	mtc1	$zero,$f20
 /*  f00291c:	26521434 */ 	addiu	$s2,$s2,%lo(var80061434)
-/*  f002920:	26f74ce0 */ 	addiu	$s7,$s7,%lo(var800a4ce0)
+/*  f002920:	26f74ce0 */ 	addiu	$s7,$s7,%lo(g_RoomPortals)
 /*  f002924:	27de1438 */ 	addiu	$s8,$s8,%lo(var80061438)
 /*  f002928:	8458000e */ 	lh	$t8,0xe($v0)
 .L0f00292c:
@@ -3999,8 +3999,8 @@ glabel func0f00505c
 /*  f00512c:	8fb90070 */ 	lw	$t9,0x70($sp)
 /*  f005130:	844c000e */ 	lh	$t4,0xe($v0)
 .L0f005134:
-/*  f005134:	3c0b800a */ 	lui	$t3,%hi(var800a4ce0)
-/*  f005138:	8d6b4ce0 */ 	lw	$t3,%lo(var800a4ce0)($t3)
+/*  f005134:	3c0b800a */ 	lui	$t3,%hi(g_RoomPortals)
+/*  f005138:	8d6b4ce0 */ 	lw	$t3,%lo(g_RoomPortals)($t3)
 /*  f00513c:	000c6840 */ 	sll	$t5,$t4,0x1
 /*  f005140:	3c19800a */ 	lui	$t9,%hi(var8009cad8)
 /*  f005144:	016d7021 */ 	addu	$t6,$t3,$t5
@@ -4542,8 +4542,8 @@ glabel var7f1a7de4
 /*  f0058e4:	0015a880 */ 	sll	$s5,$s5,0x2
 /*  f0058e8:	00554021 */ 	addu	$t0,$v0,$s5
 /*  f0058ec:	81030005 */ 	lb	$v1,0x5($t0)
-/*  f0058f0:	3c14800a */ 	lui	$s4,%hi(var800a4ce0)
-/*  f0058f4:	26944ce0 */ 	addiu	$s4,$s4,%lo(var800a4ce0)
+/*  f0058f0:	3c14800a */ 	lui	$s4,%hi(g_RoomPortals)
+/*  f0058f4:	26944ce0 */ 	addiu	$s4,$s4,%lo(g_RoomPortals)
 /*  f0058f8:	afb100a4 */ 	sw	$s1,0xa4($sp)
 /*  f0058fc:	afb0009c */ 	sw	$s0,0x9c($sp)
 /*  f005900:	afa90060 */ 	sw	$t1,0x60($sp)
@@ -4661,8 +4661,8 @@ glabel var7f1a7de4
 /*  f005aa4:	02f6b823 */ 	subu	$s7,$s7,$s6
 /*  f005aa8:	0017b880 */ 	sll	$s7,$s7,0x2
 /*  f005aac:	00571821 */ 	addu	$v1,$v0,$s7
-/*  f005ab0:	3c14800a */ 	lui	$s4,%hi(var800a4ce0)
-/*  f005ab4:	26944ce0 */ 	addiu	$s4,$s4,%lo(var800a4ce0)
+/*  f005ab0:	3c14800a */ 	lui	$s4,%hi(g_RoomPortals)
+/*  f005ab4:	26944ce0 */ 	addiu	$s4,$s4,%lo(g_RoomPortals)
 /*  f005ab8:	80640005 */ 	lb	$a0,0x5($v1)
 .L0f005abc:
 /*  f005abc:	84b9000e */ 	lh	$t9,0xe($a1)
