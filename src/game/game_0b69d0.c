@@ -159,631 +159,274 @@ struct healthdamagetype g_HealthDamageTypes[] = {
 	{ 20, 55, 88, 130, 145 },
 };
 
-GLOBAL_ASM(
-glabel playerChooseSpawnLocation
-/*  f0b69d0:	27bdfd78 */ 	addiu	$sp,$sp,-648
-/*  f0b69d4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0b69d8:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0b69dc:	8c4e006c */ 	lw	$t6,0x6c($v0)
-/*  f0b69e0:	afb20040 */ 	sw	$s2,0x40($sp)
-/*  f0b69e4:	00e09025 */ 	or	$s2,$a3,$zero
-/*  f0b69e8:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f0b69ec:	afbe0058 */ 	sw	$s8,0x58($sp)
-/*  f0b69f0:	afb70054 */ 	sw	$s7,0x54($sp)
-/*  f0b69f4:	afb60050 */ 	sw	$s6,0x50($sp)
-/*  f0b69f8:	afb5004c */ 	sw	$s5,0x4c($sp)
-/*  f0b69fc:	afb40048 */ 	sw	$s4,0x48($sp)
-/*  f0b6a00:	afb30044 */ 	sw	$s3,0x44($sp)
-/*  f0b6a04:	afb1003c */ 	sw	$s1,0x3c($sp)
-/*  f0b6a08:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f0b6a0c:	f7b60030 */ 	sdc1	$f22,0x30($sp)
-/*  f0b6a10:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f0b6a14:	e7ac0288 */ 	swc1	$f12,0x288($sp)
-/*  f0b6a18:	afa5028c */ 	sw	$a1,0x28c($sp)
-/*  f0b6a1c:	afa60290 */ 	sw	$a2,0x290($sp)
-/*  f0b6a20:	11c00003 */ 	beqz	$t6,.L0f0b6a30
-/*  f0b6a24:	afa00144 */ 	sw	$zero,0x144($sp)
-/*  f0b6a28:	10000002 */ 	b	.L0f0b6a34
-/*  f0b6a2c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0b6a30:
-/*  f0b6a30:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0b6a34:
-/*  f0b6a34:	8c4f0068 */ 	lw	$t7,0x68($v0)
-/*  f0b6a38:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0b6a3c:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f0b6a40:	11e00003 */ 	beqz	$t7,.L0f0b6a50
-/*  f0b6a44:	00000000 */ 	nop
-/*  f0b6a48:	10000001 */ 	b	.L0f0b6a50
-/*  f0b6a4c:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0b6a50:
-/*  f0b6a50:	8c580064 */ 	lw	$t8,0x64($v0)
-/*  f0b6a54:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b6a58:	13000003 */ 	beqz	$t8,.L0f0b6a68
-/*  f0b6a5c:	00000000 */ 	nop
-/*  f0b6a60:	10000001 */ 	b	.L0f0b6a68
-/*  f0b6a64:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0b6a68:
-/*  f0b6a68:	8c590070 */ 	lw	$t9,0x70($v0)
-/*  f0b6a6c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b6a70:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0b6a74:	13200003 */ 	beqz	$t9,.L0f0b6a84
-/*  f0b6a78:	00000000 */ 	nop
-/*  f0b6a7c:	10000001 */ 	b	.L0f0b6a84
-/*  f0b6a80:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0b6a84:
-/*  f0b6a84:	8faa029c */ 	lw	$t2,0x29c($sp)
-/*  f0b6a88:	00444021 */ 	addu	$t0,$v0,$a0
-/*  f0b6a8c:	01034821 */ 	addu	$t1,$t0,$v1
-/*  f0b6a90:	01253821 */ 	addu	$a3,$t1,$a1
-/*  f0b6a94:	194000a0 */ 	blez	$t2,.L0f0b6d18
-/*  f0b6a98:	afa70138 */ 	sw	$a3,0x138($sp)
-/*  f0b6a9c:	8fa20298 */ 	lw	$v0,0x298($sp)
-/*  f0b6aa0:	4481b000 */ 	mtc1	$at,$f22
-/*  f0b6aa4:	27b30270 */ 	addiu	$s3,$sp,0x270
-/*  f0b6aa8:	27b70258 */ 	addiu	$s7,$sp,0x258
-/*  f0b6aac:	27b601f8 */ 	addiu	$s6,$sp,0x1f8
-/*  f0b6ab0:	afa70084 */ 	sw	$a3,0x84($sp)
-/*  f0b6ab4:	27be0098 */ 	addiu	$s8,$sp,0x98
-/*  f0b6ab8:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f0b6abc:	afa20080 */ 	sw	$v0,0x80($sp)
-.L0f0b6ac0:
-/*  f0b6ac0:	8fa20080 */ 	lw	$v0,0x80($sp)
-/*  f0b6ac4:	4600b506 */ 	mov.s	$f20,$f22
-/*  f0b6ac8:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f0b6acc:	27a600d0 */ 	addiu	$a2,$sp,0xd0
-/*  f0b6ad0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0b6ad4:	0fc456ac */ 	jal	padUnpack
-/*  f0b6ad8:	84440000 */ 	lh	$a0,0x0($v0)
-/*  f0b6adc:	a2600000 */ 	sb	$zero,0x0($s3)
-/*  f0b6ae0:	a2e00000 */ 	sb	$zero,0x0($s7)
-/*  f0b6ae4:	8fab0084 */ 	lw	$t3,0x84($sp)
-/*  f0b6ae8:	5960003b */ 	blezl	$t3,.L0f0b6bd8
-/*  f0b6aec:	8fa40118 */ 	lw	$a0,0x118($sp)
-/*  f0b6af0:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f0b6af4:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f0b6af8:	8e0c0064 */ 	lw	$t4,0x64($s0)
-.L0f0b6afc:
-/*  f0b6afc:	8d8200bc */ 	lw	$v0,0xbc($t4)
-/*  f0b6b00:	5040002f */ 	beqzl	$v0,.L0f0b6bc0
-/*  f0b6b04:	8faf0138 */ 	lw	$t7,0x138($sp)
-/*  f0b6b08:	5242002d */ 	beql	$s2,$v0,.L0f0b6bc0
-/*  f0b6b0c:	8faf0138 */ 	lw	$t7,0x138($sp)
-/*  f0b6b10:	12400008 */ 	beqz	$s2,.L0f0b6b34
-/*  f0b6b14:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0b6b18:	8e440004 */ 	lw	$a0,0x4($s2)
-/*  f0b6b1c:	0fc12aa3 */ 	jal	chrCompareTeams
-/*  f0b6b20:	8c450004 */ 	lw	$a1,0x4($v0)
-/*  f0b6b24:	50400026 */ 	beqzl	$v0,.L0f0b6bc0
-/*  f0b6b28:	8faf0138 */ 	lw	$t7,0x138($sp)
-/*  f0b6b2c:	8e0d0064 */ 	lw	$t5,0x64($s0)
-/*  f0b6b30:	8da200bc */ 	lw	$v0,0xbc($t5)
-.L0f0b6b34:
-/*  f0b6b34:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f0b6b38:	c7a600d0 */ 	lwc1	$f6,0xd0($sp)
-/*  f0b6b3c:	c448000c */ 	lwc1	$f8,0xc($v0)
-/*  f0b6b40:	c7aa00d4 */ 	lwc1	$f10,0xd4($sp)
-/*  f0b6b44:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f0b6b48:	c4500010 */ 	lwc1	$f16,0x10($v0)
-/*  f0b6b4c:	c7b200d8 */ 	lwc1	$f18,0xd8($sp)
-/*  f0b6b50:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f0b6b54:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f0b6b58:	8fa40118 */ 	lw	$a0,0x118($sp)
-/*  f0b6b5c:	46128301 */ 	sub.s	$f12,$f16,$f18
-/*  f0b6b60:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f0b6b64:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0b6b68:	460c6282 */ 	mul.s	$f10,$f12,$f12
-/*  f0b6b6c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0b6b70:	460a4380 */ 	add.s	$f14,$f8,$f10
-/*  f0b6b74:	4614703c */ 	c.lt.s	$f14,$f20
-/*  f0b6b78:	00000000 */ 	nop
-/*  f0b6b7c:	45000002 */ 	bc1f	.L0f0b6b88
-/*  f0b6b80:	00000000 */ 	nop
-/*  f0b6b84:	46007506 */ 	mov.s	$f20,$f14
-.L0f0b6b88:
-/*  f0b6b88:	0fc575e8 */ 	jal	roomIsVisibleByPlayer
-/*  f0b6b8c:	00000000 */ 	nop
-/*  f0b6b90:	10400002 */ 	beqz	$v0,.L0f0b6b9c
-/*  f0b6b94:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0b6b98:	a2740000 */ 	sb	$s4,0x0($s3)
-.L0f0b6b9c:
-/*  f0b6b9c:	926e0000 */ 	lbu	$t6,0x0($s3)
-/*  f0b6ba0:	55c00006 */ 	bnezl	$t6,.L0f0b6bbc
-/*  f0b6ba4:	a2f40000 */ 	sb	$s4,0x0($s7)
-/*  f0b6ba8:	0fc57602 */ 	jal	roomIsVisibleByAibot
-/*  f0b6bac:	8fa40118 */ 	lw	$a0,0x118($sp)
-/*  f0b6bb0:	50400003 */ 	beqzl	$v0,.L0f0b6bc0
-/*  f0b6bb4:	8faf0138 */ 	lw	$t7,0x138($sp)
-/*  f0b6bb8:	a2f40000 */ 	sb	$s4,0x0($s7)
-.L0f0b6bbc:
-/*  f0b6bbc:	8faf0138 */ 	lw	$t7,0x138($sp)
-.L0f0b6bc0:
-/*  f0b6bc0:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0b6bc4:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f0b6bc8:	562fffcc */ 	bnel	$s1,$t7,.L0f0b6afc
-/*  f0b6bcc:	8e0c0064 */ 	lw	$t4,0x64($s0)
-/*  f0b6bd0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0b6bd4:	8fa40118 */ 	lw	$a0,0x118($sp)
-.L0f0b6bd8:
-/*  f0b6bd8:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f0b6bdc:	a7b800c6 */ 	sh	$t8,0xc6($sp)
-/*  f0b6be0:	03c02825 */ 	or	$a1,$s8,$zero
-/*  f0b6be4:	24060014 */ 	addiu	$a2,$zero,0x14
-/*  f0b6be8:	0fc5916a */ 	jal	func0f1645a8
-/*  f0b6bec:	a7a400c4 */ 	sh	$a0,0xc4($sp)
-/*  f0b6bf0:	3c198008 */ 	lui	$t9,%hi(g_NumMpSimulantChrs)
-/*  f0b6bf4:	93397d10 */ 	lbu	$t9,%lo(g_NumMpSimulantChrs)($t9)
-/*  f0b6bf8:	5b20003e */ 	blezl	$t9,.L0f0b6cf4
-/*  f0b6bfc:	e6d40000 */ 	swc1	$f20,0x0($s6)
-/*  f0b6c00:	3c10800b */ 	lui	$s0,%hi(g_MpSimulantChrs)
-/*  f0b6c04:	2610cc80 */ 	addiu	$s0,$s0,%lo(g_MpSimulantChrs)
-/*  f0b6c08:	8e050000 */ 	lw	$a1,0x0($s0)
-.L0f0b6c0c:
-/*  f0b6c0c:	8ca2001c */ 	lw	$v0,0x1c($a1)
-/*  f0b6c10:	10400030 */ 	beqz	$v0,.L0f0b6cd4
-/*  f0b6c14:	00000000 */ 	nop
-/*  f0b6c18:	1242002e */ 	beq	$s2,$v0,.L0f0b6cd4
-/*  f0b6c1c:	00000000 */ 	nop
-/*  f0b6c20:	12400007 */ 	beqz	$s2,.L0f0b6c40
-/*  f0b6c24:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0b6c28:	0fc12aa3 */ 	jal	chrCompareTeams
-/*  f0b6c2c:	8e440004 */ 	lw	$a0,0x4($s2)
-/*  f0b6c30:	10400028 */ 	beqz	$v0,.L0f0b6cd4
-/*  f0b6c34:	00000000 */ 	nop
-/*  f0b6c38:	8e080000 */ 	lw	$t0,0x0($s0)
-/*  f0b6c3c:	8d02001c */ 	lw	$v0,0x1c($t0)
-.L0f0b6c40:
-/*  f0b6c40:	c4500008 */ 	lwc1	$f16,0x8($v0)
-/*  f0b6c44:	c7b200d0 */ 	lwc1	$f18,0xd0($sp)
-/*  f0b6c48:	c444000c */ 	lwc1	$f4,0xc($v0)
-/*  f0b6c4c:	c7a600d4 */ 	lwc1	$f6,0xd4($sp)
-/*  f0b6c50:	46128001 */ 	sub.s	$f0,$f16,$f18
-/*  f0b6c54:	c4480010 */ 	lwc1	$f8,0x10($v0)
-/*  f0b6c58:	c7aa00d8 */ 	lwc1	$f10,0xd8($sp)
-/*  f0b6c5c:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f0b6c60:	46000402 */ 	mul.s	$f16,$f0,$f0
-/*  f0b6c64:	27a400c4 */ 	addiu	$a0,$sp,0xc4
-/*  f0b6c68:	460a4301 */ 	sub.s	$f12,$f8,$f10
-/*  f0b6c6c:	46021482 */ 	mul.s	$f18,$f2,$f2
-/*  f0b6c70:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f0b6c74:	460c6182 */ 	mul.s	$f6,$f12,$f12
-/*  f0b6c78:	46128100 */ 	add.s	$f4,$f16,$f18
-/*  f0b6c7c:	46062380 */ 	add.s	$f14,$f4,$f6
-/*  f0b6c80:	4614703c */ 	c.lt.s	$f14,$f20
-/*  f0b6c84:	00000000 */ 	nop
-/*  f0b6c88:	45000002 */ 	bc1f	.L0f0b6c94
-/*  f0b6c8c:	00000000 */ 	nop
-/*  f0b6c90:	46007506 */ 	mov.s	$f20,$f14
-.L0f0b6c94:
-/*  f0b6c94:	0fc19620 */ 	jal	arrayIntersects
-/*  f0b6c98:	00000000 */ 	nop
-/*  f0b6c9c:	50400003 */ 	beqzl	$v0,.L0f0b6cac
-/*  f0b6ca0:	92690000 */ 	lbu	$t1,0x0($s3)
-/*  f0b6ca4:	a2740000 */ 	sb	$s4,0x0($s3)
-/*  f0b6ca8:	92690000 */ 	lbu	$t1,0x0($s3)
-.L0f0b6cac:
-/*  f0b6cac:	55200009 */ 	bnezl	$t1,.L0f0b6cd4
-/*  f0b6cb0:	a2f40000 */ 	sb	$s4,0x0($s7)
-/*  f0b6cb4:	8e0a0000 */ 	lw	$t2,0x0($s0)
-/*  f0b6cb8:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f0b6cbc:	8d45001c */ 	lw	$a1,0x1c($t2)
-/*  f0b6cc0:	0fc19620 */ 	jal	arrayIntersects
-/*  f0b6cc4:	24a50028 */ 	addiu	$a1,$a1,0x28
-/*  f0b6cc8:	10400002 */ 	beqz	$v0,.L0f0b6cd4
-/*  f0b6ccc:	00000000 */ 	nop
-/*  f0b6cd0:	a2f40000 */ 	sb	$s4,0x0($s7)
-.L0f0b6cd4:
-/*  f0b6cd4:	3c0b8008 */ 	lui	$t3,%hi(g_NumMpSimulantChrs)
-/*  f0b6cd8:	916b7d10 */ 	lbu	$t3,%lo(g_NumMpSimulantChrs)($t3)
-/*  f0b6cdc:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0b6ce0:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f0b6ce4:	022b082a */ 	slt	$at,$s1,$t3
-/*  f0b6ce8:	5420ffc8 */ 	bnezl	$at,.L0f0b6c0c
-/*  f0b6cec:	8e050000 */ 	lw	$a1,0x0($s0)
-/*  f0b6cf0:	e6d40000 */ 	swc1	$f20,0x0($s6)
-.L0f0b6cf4:
-/*  f0b6cf4:	8fac0080 */ 	lw	$t4,0x80($sp)
-/*  f0b6cf8:	8fae029c */ 	lw	$t6,0x29c($sp)
-/*  f0b6cfc:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f0b6d00:	258d0002 */ 	addiu	$t5,$t4,0x2
-/*  f0b6d04:	afad0080 */ 	sw	$t5,0x80($sp)
-/*  f0b6d08:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f0b6d0c:	26f70001 */ 	addiu	$s7,$s7,0x1
-/*  f0b6d10:	16aeff6b */ 	bne	$s5,$t6,.L0f0b6ac0
-/*  f0b6d14:	26d60004 */ 	addiu	$s6,$s6,0x4
-.L0f0b6d18:
-/*  f0b6d18:	0c004b70 */ 	jal	random
-/*  f0b6d1c:	00000000 */ 	nop
-/*  f0b6d20:	8faf029c */ 	lw	$t7,0x29c($sp)
-/*  f0b6d24:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0b6d28:	4481b000 */ 	mtc1	$at,$f22
-/*  f0b6d2c:	004f001b */ 	divu	$zero,$v0,$t7
-/*  f0b6d30:	00002010 */ 	mfhi	$a0
-/*  f0b6d34:	3c017f1b */ 	lui	$at,%hi(var7f1ad528)
-/*  f0b6d38:	00808825 */ 	or	$s1,$a0,$zero
-/*  f0b6d3c:	c434d528 */ 	lwc1	$f20,%lo(var7f1ad528)($at)
-/*  f0b6d40:	0080a825 */ 	or	$s5,$a0,$zero
-/*  f0b6d44:	27be01c8 */ 	addiu	$s8,$sp,0x1c8
-/*  f0b6d48:	27b701f8 */ 	addiu	$s7,$sp,0x1f8
-/*  f0b6d4c:	27b40258 */ 	addiu	$s4,$sp,0x258
-/*  f0b6d50:	15e00002 */ 	bnez	$t7,.L0f0b6d5c
-/*  f0b6d54:	00000000 */ 	nop
-/*  f0b6d58:	0007000d */ 	break	0x7
-.L0f0b6d5c:
-/*  f0b6d5c:	0015c080 */ 	sll	$t8,$s5,0x2
-.L0f0b6d60:
-/*  f0b6d60:	02f8b021 */ 	addu	$s6,$s7,$t8
-/*  f0b6d64:	c6c80000 */ 	lwc1	$f8,0x0($s6)
-/*  f0b6d68:	4608a03c */ 	c.lt.s	$f20,$f8
-/*  f0b6d6c:	00000000 */ 	nop
-/*  f0b6d70:	45020039 */ 	bc1fl	.L0f0b6e58
-/*  f0b6d74:	26ae0001 */ 	addiu	$t6,$s5,0x1
-/*  f0b6d78:	0295c821 */ 	addu	$t9,$s4,$s5
-/*  f0b6d7c:	93280000 */ 	lbu	$t0,0x0($t9)
-/*  f0b6d80:	27af0198 */ 	addiu	$t7,$sp,0x198
-/*  f0b6d84:	55000034 */ 	bnezl	$t0,.L0f0b6e58
-/*  f0b6d88:	26ae0001 */ 	addiu	$t6,$s5,0x1
-/*  f0b6d8c:	8fa20144 */ 	lw	$v0,0x144($sp)
-/*  f0b6d90:	8fa90298 */ 	lw	$t1,0x298($sp)
-/*  f0b6d94:	00155040 */ 	sll	$t2,$s5,0x1
-/*  f0b6d98:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f0b6d9c:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f0b6da0:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0b6da4:	27ad0158 */ 	addiu	$t5,$sp,0x158
-/*  f0b6da8:	27b90148 */ 	addiu	$t9,$sp,0x148
-/*  f0b6dac:	00026100 */ 	sll	$t4,$v0,0x4
-/*  f0b6db0:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f0b6db4:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f0b6db8:	85640000 */ 	lh	$a0,0x0($t3)
-/*  f0b6dbc:	03199821 */ 	addu	$s3,$t8,$t9
-/*  f0b6dc0:	018d9021 */ 	addu	$s2,$t4,$t5
-/*  f0b6dc4:	01cf8021 */ 	addu	$s0,$t6,$t7
-/*  f0b6dc8:	24050046 */ 	addiu	$a1,$zero,0x46
-/*  f0b6dcc:	0fc456ac */ 	jal	padUnpack
-/*  f0b6dd0:	27a600d0 */ 	addiu	$a2,$sp,0xd0
-/*  f0b6dd4:	8fa40118 */ 	lw	$a0,0x118($sp)
-/*  f0b6dd8:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f0b6ddc:	a6480002 */ 	sh	$t0,0x2($s2)
-/*  f0b6de0:	a6440000 */ 	sh	$a0,0x0($s2)
-/*  f0b6de4:	c7aa00d0 */ 	lwc1	$f10,0xd0($sp)
-/*  f0b6de8:	e60a0000 */ 	swc1	$f10,0x0($s0)
-/*  f0b6dec:	c7b000d4 */ 	lwc1	$f16,0xd4($sp)
-/*  f0b6df0:	e6100004 */ 	swc1	$f16,0x4($s0)
-/*  f0b6df4:	c7b200d8 */ 	lwc1	$f18,0xd8($sp)
-/*  f0b6df8:	e6120008 */ 	swc1	$f18,0x8($s0)
-/*  f0b6dfc:	c7ae00e4 */ 	lwc1	$f14,0xe4($sp)
-/*  f0b6e00:	0fc259d4 */ 	jal	func0f096750
-/*  f0b6e04:	c7ac00dc */ 	lwc1	$f12,0xdc($sp)
-/*  f0b6e08:	e6600000 */ 	swc1	$f0,0x0($s3)
-/*  f0b6e0c:	44070000 */ 	mfc1	$a3,$f0
-/*  f0b6e10:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f0b6e14:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0b6e18:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0b6e1c:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0b6e20:	c7ac0288 */ 	lwc1	$f12,0x288($sp)
-/*  f0b6e24:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0b6e28:	0fc12be1 */ 	jal	func0f04af84
-/*  f0b6e2c:	02403025 */ 	or	$a2,$s2,$zero
-/*  f0b6e30:	50400008 */ 	beqzl	$v0,.L0f0b6e54
-/*  f0b6e34:	e6d60000 */ 	swc1	$f22,0x0($s6)
-/*  f0b6e38:	8faa0144 */ 	lw	$t2,0x144($sp)
-/*  f0b6e3c:	000a5840 */ 	sll	$t3,$t2,0x1
-/*  f0b6e40:	03cb6021 */ 	addu	$t4,$s8,$t3
-/*  f0b6e44:	a5950000 */ 	sh	$s5,0x0($t4)
-/*  f0b6e48:	254d0001 */ 	addiu	$t5,$t2,0x1
-/*  f0b6e4c:	afad0144 */ 	sw	$t5,0x144($sp)
-/*  f0b6e50:	e6d60000 */ 	swc1	$f22,0x0($s6)
-.L0f0b6e54:
-/*  f0b6e54:	26ae0001 */ 	addiu	$t6,$s5,0x1
-.L0f0b6e58:
-/*  f0b6e58:	8faf029c */ 	lw	$t7,0x29c($sp)
-/*  f0b6e5c:	8fb80144 */ 	lw	$t8,0x144($sp)
-/*  f0b6e60:	01cf001a */ 	div	$zero,$t6,$t7
-/*  f0b6e64:	15e00002 */ 	bnez	$t7,.L0f0b6e70
-/*  f0b6e68:	00000000 */ 	nop
-/*  f0b6e6c:	0007000d */ 	break	0x7
-.L0f0b6e70:
-/*  f0b6e70:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0b6e74:	15e10004 */ 	bne	$t7,$at,.L0f0b6e88
-/*  f0b6e78:	3c018000 */ 	lui	$at,0x8000
-/*  f0b6e7c:	15c10002 */ 	bne	$t6,$at,.L0f0b6e88
-/*  f0b6e80:	00000000 */ 	nop
-/*  f0b6e84:	0006000d */ 	break	0x6
-.L0f0b6e88:
-/*  f0b6e88:	0000a810 */ 	mfhi	$s5
-/*  f0b6e8c:	2b010004 */ 	slti	$at,$t8,0x4
-/*  f0b6e90:	12b10003 */ 	beq	$s5,$s1,.L0f0b6ea0
-/*  f0b6e94:	00000000 */ 	nop
-/*  f0b6e98:	5420ffb1 */ 	bnezl	$at,.L0f0b6d60
-/*  f0b6e9c:	0015c080 */ 	sll	$t8,$s5,0x2
-.L0f0b6ea0:
-/*  f0b6ea0:	3c017f1b */ 	lui	$at,%hi(var7f1ad52c)
-/*  f0b6ea4:	c434d52c */ 	lwc1	$f20,%lo(var7f1ad52c)($at)
-/*  f0b6ea8:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0b6eac:	4481b000 */ 	mtc1	$at,$f22
-/*  f0b6eb0:	27b701f8 */ 	addiu	$s7,$sp,0x1f8
-/*  f0b6eb4:	0c004b70 */ 	jal	random
-/*  f0b6eb8:	27be01c8 */ 	addiu	$s8,$sp,0x1c8
-/*  f0b6ebc:	8fa3029c */ 	lw	$v1,0x29c($sp)
-/*  f0b6ec0:	8fa70144 */ 	lw	$a3,0x144($sp)
-/*  f0b6ec4:	0043001b */ 	divu	$zero,$v0,$v1
-/*  f0b6ec8:	00002010 */ 	mfhi	$a0
-/*  f0b6ecc:	28e10004 */ 	slti	$at,$a3,0x4
-/*  f0b6ed0:	14600002 */ 	bnez	$v1,.L0f0b6edc
-/*  f0b6ed4:	00000000 */ 	nop
-/*  f0b6ed8:	0007000d */ 	break	0x7
-.L0f0b6edc:
-/*  f0b6edc:	00808825 */ 	or	$s1,$a0,$zero
-/*  f0b6ee0:	10200051 */ 	beqz	$at,.L0f0b7028
-/*  f0b6ee4:	0080a825 */ 	or	$s5,$a0,$zero
-/*  f0b6ee8:	27b40270 */ 	addiu	$s4,$sp,0x270
-/*  f0b6eec:	0015c880 */ 	sll	$t9,$s5,0x2
-.L0f0b6ef0:
-/*  f0b6ef0:	02f9b021 */ 	addu	$s6,$s7,$t9
-/*  f0b6ef4:	c6c40000 */ 	lwc1	$f4,0x0($s6)
-/*  f0b6ef8:	4604a03c */ 	c.lt.s	$f20,$f4
-/*  f0b6efc:	00000000 */ 	nop
-/*  f0b6f00:	45020039 */ 	bc1fl	.L0f0b6fe8
-/*  f0b6f04:	26af0001 */ 	addiu	$t7,$s5,0x1
-/*  f0b6f08:	02954021 */ 	addu	$t0,$s4,$s5
-/*  f0b6f0c:	91090000 */ 	lbu	$t1,0x0($t0)
-/*  f0b6f10:	00077880 */ 	sll	$t7,$a3,0x2
-/*  f0b6f14:	01e77823 */ 	subu	$t7,$t7,$a3
-/*  f0b6f18:	15200032 */ 	bnez	$t1,.L0f0b6fe4
-/*  f0b6f1c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0b6f20:	8fab0298 */ 	lw	$t3,0x298($sp)
-/*  f0b6f24:	00156040 */ 	sll	$t4,$s5,0x1
-/*  f0b6f28:	00076900 */ 	sll	$t5,$a3,0x4
-/*  f0b6f2c:	27ae0158 */ 	addiu	$t6,$sp,0x158
-/*  f0b6f30:	27b80198 */ 	addiu	$t8,$sp,0x198
-/*  f0b6f34:	0007c880 */ 	sll	$t9,$a3,0x2
-/*  f0b6f38:	27a80148 */ 	addiu	$t0,$sp,0x148
-/*  f0b6f3c:	016c5021 */ 	addu	$t2,$t3,$t4
-/*  f0b6f40:	85440000 */ 	lh	$a0,0x0($t2)
-/*  f0b6f44:	03289821 */ 	addu	$s3,$t9,$t0
-/*  f0b6f48:	01f88021 */ 	addu	$s0,$t7,$t8
-/*  f0b6f4c:	01ae9021 */ 	addu	$s2,$t5,$t6
-/*  f0b6f50:	24050046 */ 	addiu	$a1,$zero,0x46
-/*  f0b6f54:	0fc456ac */ 	jal	padUnpack
-/*  f0b6f58:	27a600d0 */ 	addiu	$a2,$sp,0xd0
-/*  f0b6f5c:	8fa40118 */ 	lw	$a0,0x118($sp)
-/*  f0b6f60:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f0b6f64:	a6490002 */ 	sh	$t1,0x2($s2)
-/*  f0b6f68:	a6440000 */ 	sh	$a0,0x0($s2)
-/*  f0b6f6c:	c7a600d0 */ 	lwc1	$f6,0xd0($sp)
-/*  f0b6f70:	e6060000 */ 	swc1	$f6,0x0($s0)
-/*  f0b6f74:	c7a800d4 */ 	lwc1	$f8,0xd4($sp)
-/*  f0b6f78:	e6080004 */ 	swc1	$f8,0x4($s0)
-/*  f0b6f7c:	c7aa00d8 */ 	lwc1	$f10,0xd8($sp)
-/*  f0b6f80:	e60a0008 */ 	swc1	$f10,0x8($s0)
-/*  f0b6f84:	c7ae00e4 */ 	lwc1	$f14,0xe4($sp)
-/*  f0b6f88:	0fc259d4 */ 	jal	func0f096750
-/*  f0b6f8c:	c7ac00dc */ 	lwc1	$f12,0xdc($sp)
-/*  f0b6f90:	e6600000 */ 	swc1	$f0,0x0($s3)
-/*  f0b6f94:	44070000 */ 	mfc1	$a3,$f0
-/*  f0b6f98:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f0b6f9c:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0b6fa0:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0b6fa4:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0b6fa8:	c7ac0288 */ 	lwc1	$f12,0x288($sp)
-/*  f0b6fac:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0b6fb0:	0fc12be1 */ 	jal	func0f04af84
-/*  f0b6fb4:	02403025 */ 	or	$a2,$s2,$zero
-/*  f0b6fb8:	50400008 */ 	beqzl	$v0,.L0f0b6fdc
-/*  f0b6fbc:	e6d60000 */ 	swc1	$f22,0x0($s6)
-/*  f0b6fc0:	8fac0144 */ 	lw	$t4,0x144($sp)
-/*  f0b6fc4:	000c5040 */ 	sll	$t2,$t4,0x1
-/*  f0b6fc8:	03ca6821 */ 	addu	$t5,$s8,$t2
-/*  f0b6fcc:	a5b50000 */ 	sh	$s5,0x0($t5)
-/*  f0b6fd0:	258e0001 */ 	addiu	$t6,$t4,0x1
-/*  f0b6fd4:	afae0144 */ 	sw	$t6,0x144($sp)
-/*  f0b6fd8:	e6d60000 */ 	swc1	$f22,0x0($s6)
-.L0f0b6fdc:
-/*  f0b6fdc:	8fa3029c */ 	lw	$v1,0x29c($sp)
-/*  f0b6fe0:	8fa70144 */ 	lw	$a3,0x144($sp)
-.L0f0b6fe4:
-/*  f0b6fe4:	26af0001 */ 	addiu	$t7,$s5,0x1
-.L0f0b6fe8:
-/*  f0b6fe8:	01e3001a */ 	div	$zero,$t7,$v1
-/*  f0b6fec:	14600002 */ 	bnez	$v1,.L0f0b6ff8
-/*  f0b6ff0:	00000000 */ 	nop
-/*  f0b6ff4:	0007000d */ 	break	0x7
-.L0f0b6ff8:
-/*  f0b6ff8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0b6ffc:	14610004 */ 	bne	$v1,$at,.L0f0b7010
-/*  f0b7000:	3c018000 */ 	lui	$at,0x8000
-/*  f0b7004:	15e10002 */ 	bne	$t7,$at,.L0f0b7010
-/*  f0b7008:	00000000 */ 	nop
-/*  f0b700c:	0006000d */ 	break	0x6
-.L0f0b7010:
-/*  f0b7010:	0000a810 */ 	mfhi	$s5
-/*  f0b7014:	28e10004 */ 	slti	$at,$a3,0x4
-/*  f0b7018:	52b10004 */ 	beql	$s5,$s1,.L0f0b702c
-/*  f0b701c:	28e10004 */ 	slti	$at,$a3,0x4
-/*  f0b7020:	5420ffb3 */ 	bnezl	$at,.L0f0b6ef0
-/*  f0b7024:	0015c880 */ 	sll	$t9,$s5,0x2
-.L0f0b7028:
-/*  f0b7028:	28e10004 */ 	slti	$at,$a3,0x4
-.L0f0b702c:
-/*  f0b702c:	10200050 */ 	beqz	$at,.L0f0b7170
-/*  f0b7030:	00000000 */ 	nop
-/*  f0b7034:	8fa3029c */ 	lw	$v1,0x29c($sp)
-.L0f0b7038:
-/*  f0b7038:	8fa70144 */ 	lw	$a3,0x144($sp)
-/*  f0b703c:	2411ffff */ 	addiu	$s1,$zero,-1
-/*  f0b7040:	4600b506 */ 	mov.s	$f20,$f22
-/*  f0b7044:	1860000c */ 	blez	$v1,.L0f0b7078
-/*  f0b7048:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f0b704c:	27b601f8 */ 	addiu	$s6,$sp,0x1f8
-.L0f0b7050:
-/*  f0b7050:	c6c00000 */ 	lwc1	$f0,0x0($s6)
-/*  f0b7054:	4600a03c */ 	c.lt.s	$f20,$f0
-/*  f0b7058:	00000000 */ 	nop
-/*  f0b705c:	45020004 */ 	bc1fl	.L0f0b7070
-/*  f0b7060:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f0b7064:	46000506 */ 	mov.s	$f20,$f0
-/*  f0b7068:	02a08825 */ 	or	$s1,$s5,$zero
-/*  f0b706c:	26b50001 */ 	addiu	$s5,$s5,0x1
-.L0f0b7070:
-/*  f0b7070:	16a3fff7 */ 	bne	$s5,$v1,.L0f0b7050
-/*  f0b7074:	26d60004 */ 	addiu	$s6,$s6,0x4
-.L0f0b7078:
-/*  f0b7078:	0620003d */ 	bltz	$s1,.L0f0b7170
-/*  f0b707c:	3c017f1b */ 	lui	$at,%hi(var7f1ad530)
-/*  f0b7080:	c430d530 */ 	lwc1	$f16,%lo(var7f1ad530)($at)
-/*  f0b7084:	8fb80298 */ 	lw	$t8,0x298($sp)
-/*  f0b7088:	0011c840 */ 	sll	$t9,$s1,0x1
-/*  f0b708c:	4614803c */ 	c.lt.s	$f16,$f20
-/*  f0b7090:	24050046 */ 	addiu	$a1,$zero,0x46
-/*  f0b7094:	27a600d0 */ 	addiu	$a2,$sp,0xd0
-/*  f0b7098:	00074900 */ 	sll	$t1,$a3,0x4
-/*  f0b709c:	45010002 */ 	bc1t	.L0f0b70a8
-/*  f0b70a0:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f0b70a4:	14e00032 */ 	bnez	$a3,.L0f0b7170
-.L0f0b70a8:
-/*  f0b70a8:	00075080 */ 	sll	$t2,$a3,0x2
-/*  f0b70ac:	01475023 */ 	subu	$t2,$t2,$a3
-/*  f0b70b0:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f0b70b4:	27ab0158 */ 	addiu	$t3,$sp,0x158
-/*  f0b70b8:	27ad0198 */ 	addiu	$t5,$sp,0x198
-/*  f0b70bc:	00076080 */ 	sll	$t4,$a3,0x2
-/*  f0b70c0:	27ae0148 */ 	addiu	$t6,$sp,0x148
-/*  f0b70c4:	018e9821 */ 	addu	$s3,$t4,$t6
-/*  f0b70c8:	014d8021 */ 	addu	$s0,$t2,$t5
-/*  f0b70cc:	012b9021 */ 	addu	$s2,$t1,$t3
-/*  f0b70d0:	0fc456ac */ 	jal	padUnpack
-/*  f0b70d4:	85040000 */ 	lh	$a0,0x0($t0)
-/*  f0b70d8:	8fa40118 */ 	lw	$a0,0x118($sp)
-/*  f0b70dc:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f0b70e0:	a64f0002 */ 	sh	$t7,0x2($s2)
-/*  f0b70e4:	a6440000 */ 	sh	$a0,0x0($s2)
-/*  f0b70e8:	c7b200d0 */ 	lwc1	$f18,0xd0($sp)
-/*  f0b70ec:	e6120000 */ 	swc1	$f18,0x0($s0)
-/*  f0b70f0:	c7a400d4 */ 	lwc1	$f4,0xd4($sp)
-/*  f0b70f4:	e6040004 */ 	swc1	$f4,0x4($s0)
-/*  f0b70f8:	c7a600d8 */ 	lwc1	$f6,0xd8($sp)
-/*  f0b70fc:	e6060008 */ 	swc1	$f6,0x8($s0)
-/*  f0b7100:	c7ae00e4 */ 	lwc1	$f14,0xe4($sp)
-/*  f0b7104:	0fc259d4 */ 	jal	func0f096750
-/*  f0b7108:	c7ac00dc */ 	lwc1	$f12,0xdc($sp)
-/*  f0b710c:	e6600000 */ 	swc1	$f0,0x0($s3)
-/*  f0b7110:	44070000 */ 	mfc1	$a3,$f0
-/*  f0b7114:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f0b7118:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f0b711c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0b7120:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0b7124:	c7ac0288 */ 	lwc1	$f12,0x288($sp)
-/*  f0b7128:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0b712c:	0fc12be1 */ 	jal	func0f04af84
-/*  f0b7130:	02403025 */ 	or	$a2,$s2,$zero
-/*  f0b7134:	10400007 */ 	beqz	$v0,.L0f0b7154
-/*  f0b7138:	00115080 */ 	sll	$t2,$s1,0x2
-/*  f0b713c:	8fb90144 */ 	lw	$t9,0x144($sp)
-/*  f0b7140:	00194040 */ 	sll	$t0,$t9,0x1
-/*  f0b7144:	03c84821 */ 	addu	$t1,$s8,$t0
-/*  f0b7148:	a5310000 */ 	sh	$s1,0x0($t1)
-/*  f0b714c:	272b0001 */ 	addiu	$t3,$t9,0x1
-/*  f0b7150:	afab0144 */ 	sw	$t3,0x144($sp)
-.L0f0b7154:
-/*  f0b7154:	02ea6821 */ 	addu	$t5,$s7,$t2
-/*  f0b7158:	e5b60000 */ 	swc1	$f22,0x0($t5)
-/*  f0b715c:	8fac0144 */ 	lw	$t4,0x144($sp)
-/*  f0b7160:	29810004 */ 	slti	$at,$t4,0x4
-/*  f0b7164:	5420ffb4 */ 	bnezl	$at,.L0f0b7038
-/*  f0b7168:	8fa3029c */ 	lw	$v1,0x29c($sp)
-/*  f0b716c:	01803825 */ 	or	$a3,$t4,$zero
-.L0f0b7170:
-/*  f0b7170:	18e0001f */ 	blez	$a3,.L0f0b71f0
-/*  f0b7174:	00000000 */ 	nop
-/*  f0b7178:	0c004b70 */ 	jal	random
-/*  f0b717c:	00000000 */ 	nop
-/*  f0b7180:	8fae0144 */ 	lw	$t6,0x144($sp)
-/*  f0b7184:	27b80198 */ 	addiu	$t8,$sp,0x198
-/*  f0b7188:	8fa8028c */ 	lw	$t0,0x28c($sp)
-/*  f0b718c:	004e001b */ 	divu	$zero,$v0,$t6
-/*  f0b7190:	00001810 */ 	mfhi	$v1
-/*  f0b7194:	00037880 */ 	sll	$t7,$v1,0x2
-/*  f0b7198:	01e37823 */ 	subu	$t7,$t7,$v1
-/*  f0b719c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0b71a0:	01f83021 */ 	addu	$a2,$t7,$t8
-/*  f0b71a4:	c4c80000 */ 	lwc1	$f8,0x0($a2)
-/*  f0b71a8:	00034900 */ 	sll	$t1,$v1,0x4
-/*  f0b71ac:	27b90158 */ 	addiu	$t9,$sp,0x158
-/*  f0b71b0:	e5080000 */ 	swc1	$f8,0x0($t0)
-/*  f0b71b4:	c4ca0004 */ 	lwc1	$f10,0x4($a2)
-/*  f0b71b8:	15c00002 */ 	bnez	$t6,.L0f0b71c4
-/*  f0b71bc:	00000000 */ 	nop
-/*  f0b71c0:	0007000d */ 	break	0x7
-.L0f0b71c4:
-/*  f0b71c4:	e50a0004 */ 	swc1	$f10,0x4($t0)
-/*  f0b71c8:	c4d00008 */ 	lwc1	$f16,0x8($a2)
-/*  f0b71cc:	0060a825 */ 	or	$s5,$v1,$zero
-/*  f0b71d0:	01392021 */ 	addu	$a0,$t1,$t9
-/*  f0b71d4:	e5100008 */ 	swc1	$f16,0x8($t0)
-/*  f0b71d8:	0fc195e9 */ 	jal	roomsCopy
-/*  f0b71dc:	8fa50290 */ 	lw	$a1,0x290($sp)
-/*  f0b71e0:	00155880 */ 	sll	$t3,$s5,0x2
-/*  f0b71e4:	03ab5021 */ 	addu	$t2,$sp,$t3
-/*  f0b71e8:	10000020 */ 	b	.L0f0b726c
-/*  f0b71ec:	c5420148 */ 	lwc1	$f2,0x148($t2)
-.L0f0b71f0:
-/*  f0b71f0:	0c004b70 */ 	jal	random
-/*  f0b71f4:	00000000 */ 	nop
-/*  f0b71f8:	8fac029c */ 	lw	$t4,0x29c($sp)
-/*  f0b71fc:	8fad0298 */ 	lw	$t5,0x298($sp)
-/*  f0b7200:	24050046 */ 	addiu	$a1,$zero,0x46
-/*  f0b7204:	004c001b */ 	divu	$zero,$v0,$t4
-/*  f0b7208:	00007010 */ 	mfhi	$t6
-/*  f0b720c:	000e7840 */ 	sll	$t7,$t6,0x1
-/*  f0b7210:	15800002 */ 	bnez	$t4,.L0f0b721c
-/*  f0b7214:	00000000 */ 	nop
-/*  f0b7218:	0007000d */ 	break	0x7
-.L0f0b721c:
-/*  f0b721c:	01afc021 */ 	addu	$t8,$t5,$t7
-/*  f0b7220:	87040000 */ 	lh	$a0,0x0($t8)
-/*  f0b7224:	0fc456ac */ 	jal	padUnpack
-/*  f0b7228:	27a600d0 */ 	addiu	$a2,$sp,0xd0
-/*  f0b722c:	8fa90290 */ 	lw	$t1,0x290($sp)
-/*  f0b7230:	8fa80118 */ 	lw	$t0,0x118($sp)
-/*  f0b7234:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f0b7238:	a5390002 */ 	sh	$t9,0x2($t1)
-/*  f0b723c:	a5280000 */ 	sh	$t0,0x0($t1)
-/*  f0b7240:	8fab028c */ 	lw	$t3,0x28c($sp)
-/*  f0b7244:	c7b200d0 */ 	lwc1	$f18,0xd0($sp)
-/*  f0b7248:	e5720000 */ 	swc1	$f18,0x0($t3)
-/*  f0b724c:	c7a400d4 */ 	lwc1	$f4,0xd4($sp)
-/*  f0b7250:	e5640004 */ 	swc1	$f4,0x4($t3)
-/*  f0b7254:	c7a600d8 */ 	lwc1	$f6,0xd8($sp)
-/*  f0b7258:	e5660008 */ 	swc1	$f6,0x8($t3)
-/*  f0b725c:	c7ae00e4 */ 	lwc1	$f14,0xe4($sp)
-/*  f0b7260:	0fc259d4 */ 	jal	func0f096750
-/*  f0b7264:	c7ac00dc */ 	lwc1	$f12,0xdc($sp)
-/*  f0b7268:	46000086 */ 	mov.s	$f2,$f0
-.L0f0b726c:
-/*  f0b726c:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f0b7270:	d7b40028 */ 	ldc1	$f20,0x28($sp)
-/*  f0b7274:	d7b60030 */ 	ldc1	$f22,0x30($sp)
-/*  f0b7278:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f0b727c:	8fb1003c */ 	lw	$s1,0x3c($sp)
-/*  f0b7280:	8fb20040 */ 	lw	$s2,0x40($sp)
-/*  f0b7284:	8fb30044 */ 	lw	$s3,0x44($sp)
-/*  f0b7288:	8fb40048 */ 	lw	$s4,0x48($sp)
-/*  f0b728c:	8fb5004c */ 	lw	$s5,0x4c($sp)
-/*  f0b7290:	8fb60050 */ 	lw	$s6,0x50($sp)
-/*  f0b7294:	8fb70054 */ 	lw	$s7,0x54($sp)
-/*  f0b7298:	8fbe0058 */ 	lw	$s8,0x58($sp)
-/*  f0b729c:	27bd0288 */ 	addiu	$sp,$sp,0x288
-/*  f0b72a0:	03e00008 */ 	jr	$ra
-/*  f0b72a4:	46001006 */ 	mov.s	$f0,$f2
-);
-
-f32 playerChooseGeneralSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop)
+/**
+ * Choose which location to spawn into from the given pads. Write the position
+ * and rooms to the dstpos and dstrooms pointers and return the angle that the
+ * player should be facing.
+ *
+ * It works by splitting each pad into one of three categories: good pads, bad
+ * pads, and very bad pads. Categorisation logic is based on distances to enemy
+ * chrs and room visibility. A shortlist of 4 pads is then created based on the
+ * best pads, and a random pad is selected from the shortlist.
+ *
+ * @dangerous: If there are too many pads (24+) in the setup then array
+ * overflows may occur.
+ */
+f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms, struct prop *prop, s16 *pads, s32 numpads)
 {
-	return playerChooseSpawnLocation(arg0, pos, rooms, prop, g_SpawnPoints, g_NumSpawnPoints);
+	u8 verybadpads[24];
+	u8 badpads[24];
+	f32 padsqdists[24];
+
+	u8 stack1[0x10];
+	f32 xdiff;
+	f32 ydiff;
+	f32 zdiff;
+	f32 sqdist;
+
+	// "sl" prefixes are for shortlist
+	s16 slpadindexes[8];
+	struct coord slpositions[4];
+	s16 slrooms[4][8];
+	f32 slangles[4];
+	s32 sllen = 0;
+
+	s32 i;
+	s32 p;
+	s32 playercount = PLAYERCOUNT();
+	f32 dstangle;
+	u8 stack2[0x10];
+	struct pad pad;
+	s32 stack3[2];
+	s16 tmppadrooms[2];
+	f32 bestsqdist;
+	s16 neighbours[20];
+
+	// Iterate all spawn pads and populate the category arrays
+	for (p = 0; p < numpads; p++) {
+		bestsqdist = U32_MAX;
+		padUnpack(pads[p], PADFIELD_POS | PADFIELD_ROOM, &pad);
+		verybadpads[p] = false;
+		badpads[p] = false;
+
+		// Iterate players other than the one being spawned.
+		// Note the closest chr's distance.
+		// Decide whether the pad is considered to be ok, bad or very bad.
+		for (i = 0; i < playercount; i++) {
+			if (g_Vars.players[i]->prop
+					&& g_Vars.players[i]->prop != prop
+					&& (!prop || chrCompareTeams(prop->chr, g_Vars.players[i]->prop->chr, COMPARE_ENEMIES))) {
+				xdiff = g_Vars.players[i]->prop->pos.x - pad.pos.x;
+				ydiff = g_Vars.players[i]->prop->pos.y - pad.pos.y;
+				zdiff = g_Vars.players[i]->prop->pos.z - pad.pos.z;
+
+				sqdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
+
+				if (sqdist < bestsqdist) {
+					bestsqdist = sqdist;
+				}
+
+				if (roomIsVisibleByPlayer(pad.room, i)) {
+					verybadpads[p] = true;
+				}
+
+				// @bug: The aibot check should be in the aibot loop. As it
+				// stands it's using the playernum iterator as the AI bot num,
+				// so if there's more AI bots than players then some AI bots
+				// will be excluded from the room visibility check.
+				if (verybadpads[p] || roomIsVisibleByAibot(pad.room, i)) {
+					badpads[p] = true;
+				}
+			}
+		}
+
+		// Do the same as above, but for simulants
+		tmppadrooms[0] = pad.room;
+		tmppadrooms[1] = -1;
+
+		roomGetNeighbours(pad.room, neighbours, 20);
+
+		for (i = 0; i < g_NumMpSimulantChrs; i++) {
+			if (g_MpSimulantChrs[i]->prop
+					&& g_MpSimulantChrs[i]->prop != prop
+					&& (!prop || chrCompareTeams(prop->chr, g_MpSimulantChrs[i], COMPARE_ENEMIES))) {
+				xdiff = g_MpSimulantChrs[i]->prop->pos.x - pad.pos.x;
+				ydiff = g_MpSimulantChrs[i]->prop->pos.y - pad.pos.y;
+				zdiff = g_MpSimulantChrs[i]->prop->pos.z - pad.pos.z;
+
+				sqdist = xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
+
+				if (sqdist < bestsqdist) {
+					bestsqdist = sqdist;
+				}
+
+				if (arrayIntersects(tmppadrooms, g_MpSimulantChrs[i]->prop->rooms)) {
+					verybadpads[p] = true;
+				}
+
+				if (verybadpads[p] || arrayIntersects(neighbours, g_MpSimulantChrs[i]->prop->rooms)) {
+					badpads[p] = true;
+				}
+			}
+		}
+
+		padsqdists[p] = bestsqdist;
+	}
+
+	// Now start building the shortlist arrays.
+	// Start with a random index into the array, then process it circularly
+	// until the shortlist is full or a full iteration is done.
+	// Look for pads that aren't bad (and therefore aren't very bad either) and
+	// are at least 10m away. For each pad added, set their distance to -1 so
+	// they don't get reused later.
+	i = random() % numpads;
+	p = i; while (sllen < 4) {
+		if (padsqdists[p] > 1000 * 1000 && !badpads[p]) {
+			padUnpack(pads[p], PADFIELD_POS | PADFIELD_ROOM | PADFIELD_LOOK, &pad);
+
+			slrooms[sllen][0] = pad.room;
+			slrooms[sllen][1] = -1;
+
+			slpositions[sllen].x = pad.pos.x;
+			slpositions[sllen].y = pad.pos.y;
+			slpositions[sllen].z = pad.pos.z;
+
+			slangles[sllen] = func0f096750(pad.look.x, pad.look.z);
+
+			if (func0f04af84(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
+				slpadindexes[sllen] = p;
+				sllen++;
+			}
+
+			padsqdists[p] = -1.0f;
+		}
+
+		p = (p + 1) % numpads;
+
+		if (p == i) {
+			break;
+		}
+	}
+
+	// If the shortlist still has vacant slots, iterate the pads again but this
+	// time take the bad pads. Keep the very bad pads out of contention for now.
+	p = i = random() % numpads;
+
+	while (sllen < 4) {
+		if (padsqdists[p] > 1000 * 1000 && !verybadpads[p]) {
+			padUnpack(pads[p], PADFIELD_POS | PADFIELD_ROOM | PADFIELD_LOOK, &pad);
+
+			slrooms[sllen][0] = pad.room;
+			slrooms[sllen][1] = -1;
+
+			slpositions[sllen].x = pad.pos.x;
+			slpositions[sllen].y = pad.pos.y;
+			slpositions[sllen].z = pad.pos.z;
+
+			slangles[sllen] = func0f096750(pad.look.x, pad.look.z);
+
+			if (func0f04af84(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
+				slpadindexes[sllen] = p;
+				sllen++;
+			}
+
+			padsqdists[p] = -1.0f;
+		}
+
+		if (numpads);
+
+		p = (p + 1) % numpads;
+
+		if (p == i) {
+			break;
+		}
+	}
+
+	// If there's still vacancies in the shortlist, fill them using any
+	// remaining pads in distance order.
+	while (sllen < 4) {
+		i = -1;
+		bestsqdist = -1.0f;
+
+		for (p = 0; p < numpads; p++) {
+			if (padsqdists[p] > bestsqdist) {
+				bestsqdist = padsqdists[p];
+				i = p;
+			}
+		}
+
+		// If there's no more pads, bail out of the loop
+		if (i < 0) {
+			break;
+		}
+
+		// If the pad with the furtherest chr is less than 2m away from that
+		// chr, bail out of the loop provided there's at least something in the
+		// shortlist.
+		if (!(bestsqdist > 200 * 200) && sllen != 0) {
+			break;
+		}
+
+		// Add this pad to the shortlist
+		padUnpack(pads[i], PADFIELD_POS | PADFIELD_ROOM | PADFIELD_LOOK, &pad);
+
+		slrooms[sllen][0] = pad.room;
+		slrooms[sllen][1] = -1;
+
+		slpositions[sllen].x = pad.pos.x;
+		slpositions[sllen].y = pad.pos.y;
+		slpositions[sllen].z = pad.pos.z;
+
+		slangles[sllen] = func0f096750(pad.look.x, pad.look.z);
+
+		if (func0f04af84(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
+			slpadindexes[sllen] = i;
+			sllen++;
+		}
+
+		padsqdists[i] = -1.0f;
+	}
+
+	// Finally, choose a random pad from the shortlist
+	if (sllen > 0) {
+		p = random() % sllen;
+
+		dstpos->x = slpositions[p].x;
+		dstpos->y = slpositions[p].y;
+		dstpos->z = slpositions[p].z;
+
+		roomsCopy(slrooms[p], dstrooms);
+
+		dstangle = slangles[p];
+	} else {
+		// No shortlisted pads, so pick a random one from the full selection
+		padUnpack(pads[random() % numpads], PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
+
+		dstrooms[0] = pad.room;
+		dstrooms[1] = -1;
+
+		dstpos->x = pad.pos.x;
+		dstpos->y = pad.pos.y;
+		dstpos->z = pad.pos.z;
+
+		dstangle = func0f096750(pad.look.x, pad.look.z);
+	}
+
+	return dstangle;
+}
+
+f32 playerChooseGeneralSpawnLocation(f32 chrwidth, struct coord *pos, s16 *rooms, struct prop *prop)
+{
+	return playerChooseSpawnLocation(chrwidth, pos, rooms, prop, g_SpawnPoints, g_NumSpawnPoints);
 }
 
 GLOBAL_ASM(
 glabel currentPlayerStartNewLife
 .late_rodata
+glabel var7f1ad534
+.word 0x40c907a9
+glabel var7f1ad538
+.word 0x40c907a9
 glabel var7f1ad53c
 .word currentPlayerStartNewLife+0x374 # f0b7650
 glabel var7f1ad540
@@ -8260,12 +7903,6 @@ glabel var7f1ad6ac
 //		mainEndStage();
 //	}
 //}
-
-const u32 var7f1ad528[] = {0x49742400};
-const u32 var7f1ad52c[] = {0x49742400};
-const u32 var7f1ad530[] = {0x471c4000};
-const u32 var7f1ad534[] = {0x40c907a9};
-const u32 var7f1ad538[] = {0x40c907a9};
 
 u32 var800709f4 = 0x02810000;
 u32 var800709f8 = 0x00000000;

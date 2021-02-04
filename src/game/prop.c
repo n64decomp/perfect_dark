@@ -4093,7 +4093,7 @@ glabel var7f1a9f4c
 /*  f06427c:	84440028 */ 	lh	$a0,0x28($v0)
 /*  f064280:	02202825 */ 	or	$a1,$s1,$zero
 .L0f064284:
-/*  f064284:	0fc5916a */ 	jal	func0f1645a8
+/*  f064284:	0fc5916a */ 	jal	roomGetNeighbours
 /*  f064288:	2406000a */ 	addiu	$a2,$zero,0xa
 /*  f06428c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f064290:	02602825 */ 	or	$a1,$s3,$zero

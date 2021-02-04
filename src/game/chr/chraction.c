@@ -25258,7 +25258,7 @@ glabel func0f04a848
 /*  f04a8ec:	27b10084 */ 	addiu	$s1,$sp,0x84
 /*  f04a8f0:	02202825 */ 	or	$a1,$s1,$zero
 .L0f04a8f4:
-/*  f04a8f4:	0fc5916a */ 	jal	func0f1645a8
+/*  f04a8f4:	0fc5916a */ 	jal	roomGetNeighbours
 /*  f04a8f8:	2406000a */ 	addiu	$a2,$zero,0xa
 /*  f04a8fc:	02202025 */ 	or	$a0,$s1,$zero
 /*  f04a900:	02602825 */ 	or	$a1,$s3,$zero
@@ -26274,7 +26274,7 @@ glabel func0f04ba34
 /*  f04bc28:	a7b800a8 */ 	sh	$t8,0xa8($sp)
 /*  f04bc2c:	84440028 */ 	lh	$a0,0x28($v0)
 /*  f04bc30:	27a500aa */ 	addiu	$a1,$sp,0xaa
-/*  f04bc34:	0fc5916a */ 	jal	func0f1645a8
+/*  f04bc34:	0fc5916a */ 	jal	roomGetNeighbours
 /*  f04bc38:	24060006 */ 	addiu	$a2,$zero,0x6
 /*  f04bc3c:	10000008 */ 	b	.L0f04bc60
 /*  f04bc40:	8fa9004c */ 	lw	$t1,0x4c($sp)
@@ -26283,7 +26283,7 @@ glabel func0f04ba34
 /*  f04bc48:	11000004 */ 	beqz	$t0,.L0f04bc5c
 /*  f04bc4c:	27a500a8 */ 	addiu	$a1,$sp,0xa8
 /*  f04bc50:	84440028 */ 	lh	$a0,0x28($v0)
-/*  f04bc54:	0fc5916a */ 	jal	func0f1645a8
+/*  f04bc54:	0fc5916a */ 	jal	roomGetNeighbours
 /*  f04bc58:	24060007 */ 	addiu	$a2,$zero,0x7
 .L0f04bc5c:
 /*  f04bc5c:	8fa9004c */ 	lw	$t1,0x4c($sp)

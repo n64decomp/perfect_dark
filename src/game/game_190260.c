@@ -1104,7 +1104,7 @@ glabel func0f19124c
 /*  f1912a4:	84440028 */ 	lh	$a0,0x28($v0)
 /*  f1912a8:	02202825 */ 	or	$a1,$s1,$zero
 .L0f1912ac:
-/*  f1912ac:	0fc5916a */ 	jal	func0f1645a8
+/*  f1912ac:	0fc5916a */ 	jal	roomGetNeighbours
 /*  f1912b0:	2406000a */ 	addiu	$a2,$zero,0xa
 /*  f1912b4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1912b8:	02602825 */ 	or	$a1,$s3,$zero

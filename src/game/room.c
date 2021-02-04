@@ -15144,7 +15144,7 @@ glabel func0f164534
 );
 
 GLOBAL_ASM(
-glabel func0f1645a8
+glabel roomGetNeighbours
 /*  f1645a8:	000438c0 */ 	sll	$a3,$a0,0x3
 /*  f1645ac:	00e43821 */ 	addu	$a3,$a3,$a0
 /*  f1645b0:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)

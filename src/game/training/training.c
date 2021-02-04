@@ -1917,7 +1917,7 @@ void frEndSession(bool hidetargets)
 		roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
 
 		for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
-			func0f1645a8(g_Vars.currentplayer->prop->rooms[i], rooms2, 10);
+			roomGetNeighbours(g_Vars.currentplayer->prop->rooms[i], rooms2, 10);
 			func0f0657d8(rooms2, rooms, 20);
 		}
 
@@ -2191,7 +2191,7 @@ bool frIsAmmoWasted(void)
 			roomsCopy(g_Vars.currentplayer->prop->rooms, rooms20);
 
 			for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
-				func0f1645a8(g_Vars.currentplayer->prop->rooms[i], rooms10, 10);
+				roomGetNeighbours(g_Vars.currentplayer->prop->rooms[i], rooms10, 10);
 				func0f0657d8(rooms10, rooms20, 20);
 			}
 

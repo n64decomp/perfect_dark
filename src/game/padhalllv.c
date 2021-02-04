@@ -73,7 +73,7 @@ glabel waypointFindClosestToPos
 /*  f1142f0:	85240000 */ 	lh	$a0,0x0($t1)
 /*  f1142f4:	02402825 */ 	or	$a1,$s2,$zero
 .L0f1142f8:
-/*  f1142f8:	0fc5916a */ 	jal	func0f1645a8
+/*  f1142f8:	0fc5916a */ 	jal	roomGetNeighbours
 /*  f1142fc:	2406000a */ 	addiu	$a2,$zero,0xa
 /*  f114300:	02402025 */ 	or	$a0,$s2,$zero
 /*  f114304:	02602825 */ 	or	$a1,$s3,$zero

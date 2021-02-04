@@ -3,8 +3,8 @@
 #include <ultra64.h>
 #include "types.h"
 
-f32 playerChooseSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop, s16 *spawnpads, s16 numspawnpads);
-f32 playerChooseGeneralSpawnLocation(f32 arg0, struct coord *pos, s16 *rooms, struct prop *prop);
+f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms, struct prop *prop, s16 *spawnpads, s32 numspawnpads);
+f32 playerChooseGeneralSpawnLocation(f32 chrwidth, struct coord *pos, s16 *rooms, struct prop *prop);
 void currentPlayerStartNewLife(void);
 void currentPlayerResetToDefault(void);
 bool currentPlayerAssumeChrForAnti(struct chrdata *chr, s32 param_2);
