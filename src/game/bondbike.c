@@ -710,313 +710,106 @@ void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct
 	}
 }
 
-GLOBAL_ASM(
-glabel bbikeCalculateNewPosition
-.late_rodata
-glabel var7f1adb7c
-.word 0x40c907a9
-.text
-/*  f0d2e18:	27bdfec8 */ 	addiu	$sp,$sp,-312
-/*  f0d2e1c:	afb10030 */ 	sw	$s1,0x30($sp)
-/*  f0d2e20:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f0d2e24:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f0d2e28:	8e230284 */ 	lw	$v1,0x284($s1)
-/*  f0d2e2c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0d2e30:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0d2e34:	afb0002c */ 	sw	$s0,0x2c($sp)
-/*  f0d2e38:	afa5013c */ 	sw	$a1,0x13c($sp)
-/*  f0d2e3c:	afae0134 */ 	sw	$t6,0x134($sp)
-/*  f0d2e40:	afa000d4 */ 	sw	$zero,0xd4($sp)
-/*  f0d2e44:	8c621a6c */ 	lw	$v0,0x1a6c($v1)
-/*  f0d2e48:	44800000 */ 	mtc1	$zero,$f0
-/*  f0d2e4c:	00803025 */ 	or	$a2,$a0,$zero
-/*  f0d2e50:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f0d2e54:	8c500004 */ 	lw	$s0,0x4($v0)
-/*  f0d2e58:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0d2e5c:	e7a40128 */ 	swc1	$f4,0x128($sp)
-/*  f0d2e60:	8c6f1a6c */ 	lw	$t7,0x1a6c($v1)
-/*  f0d2e64:	c5e6000c */ 	lwc1	$f6,0xc($t7)
-/*  f0d2e68:	e7a6012c */ 	swc1	$f6,0x12c($sp)
-/*  f0d2e6c:	8c781a6c */ 	lw	$t8,0x1a6c($v1)
-/*  f0d2e70:	c7080010 */ 	lwc1	$f8,0x10($t8)
-/*  f0d2e74:	e7a80130 */ 	swc1	$f8,0x130($sp)
-/*  f0d2e78:	c48a0000 */ 	lwc1	$f10,0x0($a0)
-/*  f0d2e7c:	460a0032 */ 	c.eq.s	$f0,$f10
-/*  f0d2e80:	00000000 */ 	nop
-/*  f0d2e84:	4502000c */ 	bc1fl	.L0f0d2eb8
-/*  f0d2e88:	8c6400bc */ 	lw	$a0,0xbc($v1)
-/*  f0d2e8c:	c4900004 */ 	lwc1	$f16,0x4($a0)
-/*  f0d2e90:	46100032 */ 	c.eq.s	$f0,$f16
-/*  f0d2e94:	00000000 */ 	nop
-/*  f0d2e98:	45020007 */ 	bc1fl	.L0f0d2eb8
-/*  f0d2e9c:	8c6400bc */ 	lw	$a0,0xbc($v1)
-/*  f0d2ea0:	c4920008 */ 	lwc1	$f18,0x8($a0)
-/*  f0d2ea4:	46120032 */ 	c.eq.s	$f0,$f18
-/*  f0d2ea8:	00000000 */ 	nop
-/*  f0d2eac:	450300a6 */ 	bc1tl	.L0f0d3148
-/*  f0d2eb0:	c7a4013c */ 	lwc1	$f4,0x13c($sp)
-/*  f0d2eb4:	8c6400bc */ 	lw	$a0,0xbc($v1)
-.L0f0d2eb8:
-/*  f0d2eb8:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f0d2ebc:	afa60138 */ 	sw	$a2,0x138($sp)
-/*  f0d2ec0:	8e390284 */ 	lw	$t9,0x284($s1)
-/*  f0d2ec4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0d2ec8:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f0d2ecc:	8f241a6c */ 	lw	$a0,0x1a6c($t9)
-/*  f0d2ed0:	8fa20138 */ 	lw	$v0,0x138($sp)
-/*  f0d2ed4:	c7a40128 */ 	lwc1	$f4,0x128($sp)
-/*  f0d2ed8:	c7aa0130 */ 	lwc1	$f10,0x130($sp)
-/*  f0d2edc:	c4460000 */ 	lwc1	$f6,0x0($v0)
-/*  f0d2ee0:	8e280284 */ 	lw	$t0,0x284($s1)
-/*  f0d2ee4:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f0d2ee8:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0d2eec:	27a6009c */ 	addiu	$a2,$sp,0x9c
-/*  f0d2ef0:	27a70098 */ 	addiu	$a3,$sp,0x98
-/*  f0d2ef4:	e7a80128 */ 	swc1	$f8,0x128($sp)
-/*  f0d2ef8:	c4500008 */ 	lwc1	$f16,0x8($v0)
-/*  f0d2efc:	46105480 */ 	add.s	$f18,$f10,$f16
-/*  f0d2f00:	e7b20130 */ 	swc1	$f18,0x130($sp)
-/*  f0d2f04:	0fc21d5b */ 	jal	propObjGetBbox
-/*  f0d2f08:	8d041a6c */ 	lw	$a0,0x1a6c($t0)
-/*  f0d2f0c:	8e290284 */ 	lw	$t1,0x284($s1)
-/*  f0d2f10:	27aa00a8 */ 	addiu	$t2,$sp,0xa8
-/*  f0d2f14:	240b0014 */ 	addiu	$t3,$zero,0x14
-/*  f0d2f18:	8d221a6c */ 	lw	$v0,0x1a6c($t1)
-/*  f0d2f1c:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f0d2f20:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f0d2f24:	27a60128 */ 	addiu	$a2,$sp,0x128
-/*  f0d2f28:	27a70118 */ 	addiu	$a3,$sp,0x118
-/*  f0d2f2c:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0d2f30:	0fc1977f */ 	jal	func0f065dfc
-/*  f0d2f34:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f0d2f38:	2606001c */ 	addiu	$a2,$s0,0x1c
-/*  f0d2f3c:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0d2f40:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0d2f44:	27a50128 */ 	addiu	$a1,$sp,0x128
-/*  f0d2f48:	0fc248cf */ 	jal	func0f09233c
-/*  f0d2f4c:	27a70118 */ 	addiu	$a3,$sp,0x118
-/*  f0d2f50:	27a500d8 */ 	addiu	$a1,$sp,0xd8
-/*  f0d2f54:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f0d2f58:	afac00d4 */ 	sw	$t4,0xd4($sp)
-/*  f0d2f5c:	00a0c825 */ 	or	$t9,$a1,$zero
-/*  f0d2f60:	0200c025 */ 	or	$t8,$s0,$zero
-/*  f0d2f64:	260f003c */ 	addiu	$t7,$s0,0x3c
-.L0f0d2f68:
-/*  f0d2f68:	8f01005c */ 	lw	$at,0x5c($t8)
-/*  f0d2f6c:	2718000c */ 	addiu	$t8,$t8,0xc
-/*  f0d2f70:	2739000c */ 	addiu	$t9,$t9,0xc
-/*  f0d2f74:	af21fff4 */ 	sw	$at,-0xc($t9)
-/*  f0d2f78:	8f010054 */ 	lw	$at,0x54($t8)
-/*  f0d2f7c:	af21fff8 */ 	sw	$at,-0x8($t9)
-/*  f0d2f80:	8f010058 */ 	lw	$at,0x58($t8)
-/*  f0d2f84:	170ffff8 */ 	bne	$t8,$t7,.L0f0d2f68
-/*  f0d2f88:	af21fffc */ 	sw	$at,-0x4($t9)
-/*  f0d2f8c:	8f01005c */ 	lw	$at,0x5c($t8)
-/*  f0d2f90:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0d2f94:	27a60128 */ 	addiu	$a2,$sp,0x128
-/*  f0d2f98:	af210000 */ 	sw	$at,0x0($t9)
-/*  f0d2f9c:	8fa80040 */ 	lw	$t0,0x40($sp)
-/*  f0d2fa0:	27a70118 */ 	addiu	$a3,$sp,0x118
-/*  f0d2fa4:	0fc1c4f9 */ 	jal	func0f0713e4
-/*  f0d2fa8:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0d2fac:	c7a4010c */ 	lwc1	$f4,0x10c($sp)
-/*  f0d2fb0:	c6060090 */ 	lwc1	$f6,0x90($s0)
-/*  f0d2fb4:	c7aa012c */ 	lwc1	$f10,0x12c($sp)
-/*  f0d2fb8:	8e290284 */ 	lw	$t1,0x284($s1)
-/*  f0d2fbc:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0d2fc0:	3c013f00 */ 	lui	$at,0x3f00
-/*  f0d2fc4:	c7b20128 */ 	lwc1	$f18,0x128($sp)
-/*  f0d2fc8:	c7a60130 */ 	lwc1	$f6,0x130($sp)
-/*  f0d2fcc:	46085400 */ 	add.s	$f16,$f10,$f8
-/*  f0d2fd0:	c7a80094 */ 	lwc1	$f8,0x94($sp)
-/*  f0d2fd4:	240a003f */ 	addiu	$t2,$zero,0x3f
-/*  f0d2fd8:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f0d2fdc:	e7b0012c */ 	swc1	$f16,0x12c($sp)
-/*  f0d2fe0:	44818000 */ 	mtc1	$at,$f16
-/*  f0d2fe4:	8d221a6c */ 	lw	$v0,0x1a6c($t1)
-/*  f0d2fe8:	46104002 */ 	mul.s	$f0,$f8,$f16
-/*  f0d2fec:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f0d2ff0:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f0d2ff4:	46049081 */ 	sub.s	$f2,$f18,$f4
-/*  f0d2ff8:	c7b20094 */ 	lwc1	$f18,0x94($sp)
-/*  f0d2ffc:	460a3301 */ 	sub.s	$f12,$f6,$f10
-/*  f0d3000:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f0d3004:	00000000 */ 	nop
-/*  f0d3008:	45030010 */ 	bc1tl	.L0f0d304c
-/*  f0d300c:	e7b20010 */ 	swc1	$f18,0x10($sp)
-/*  f0d3010:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0d3014:	00000000 */ 	nop
-/*  f0d3018:	4503000c */ 	bc1tl	.L0f0d304c
-/*  f0d301c:	e7b20010 */ 	swc1	$f18,0x10($sp)
-/*  f0d3020:	46000387 */ 	neg.s	$f14,$f0
-/*  f0d3024:	460e103c */ 	c.lt.s	$f2,$f14
-/*  f0d3028:	00000000 */ 	nop
-/*  f0d302c:	45030007 */ 	bc1tl	.L0f0d304c
-/*  f0d3030:	e7b20010 */ 	swc1	$f18,0x10($sp)
-/*  f0d3034:	460e603c */ 	c.lt.s	$f12,$f14
-/*  f0d3038:	240f003f */ 	addiu	$t7,$zero,0x3f
-/*  f0d303c:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f0d3040:	45020028 */ 	bc1fl	.L0f0d30e4
-/*  f0d3044:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0d3048:	e7b20010 */ 	swc1	$f18,0x10($sp)
-.L0f0d304c:
-/*  f0d304c:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f0d3050:	afab0018 */ 	sw	$t3,0x18($sp)
-/*  f0d3054:	c440000c */ 	lwc1	$f0,0xc($v0)
-/*  f0d3058:	c7a4009c */ 	lwc1	$f4,0x9c($sp)
-/*  f0d305c:	c7aa0098 */ 	lwc1	$f10,0x98($sp)
-/*  f0d3060:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0d3064:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f0d3068:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f0d306c:	27a60128 */ 	addiu	$a2,$sp,0x128
-/*  f0d3070:	46005201 */ 	sub.s	$f8,$f10,$f0
-/*  f0d3074:	e7a6001c */ 	swc1	$f6,0x1c($sp)
-/*  f0d3078:	27a70118 */ 	addiu	$a3,$sp,0x118
-/*  f0d307c:	0c00b657 */ 	jal	cdTestAToB3
-/*  f0d3080:	e7a80020 */ 	swc1	$f8,0x20($sp)
-/*  f0d3084:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0d3088:	14410024 */ 	bne	$v0,$at,.L0f0d311c
-/*  f0d308c:	afa20134 */ 	sw	$v0,0x134($sp)
-/*  f0d3090:	8e2c0284 */ 	lw	$t4,0x284($s1)
-/*  f0d3094:	240e003f */ 	addiu	$t6,$zero,0x3f
-/*  f0d3098:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f0d309c:	8d821a6c */ 	lw	$v0,0x1a6c($t4)
-/*  f0d30a0:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f0d30a4:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0d30a8:	c440000c */ 	lwc1	$f0,0xc($v0)
-/*  f0d30ac:	c7b0009c */ 	lwc1	$f16,0x9c($sp)
-/*  f0d30b0:	c7a40098 */ 	lwc1	$f4,0x98($sp)
-/*  f0d30b4:	27a50128 */ 	addiu	$a1,$sp,0x128
-/*  f0d30b8:	46008481 */ 	sub.s	$f18,$f16,$f0
-/*  f0d30bc:	8fa60094 */ 	lw	$a2,0x94($sp)
-/*  f0d30c0:	27a70118 */ 	addiu	$a3,$sp,0x118
-/*  f0d30c4:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f0d30c8:	e7b20018 */ 	swc1	$f18,0x18($sp)
-/*  f0d30cc:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0d30d0:	0c00aa7c */ 	jal	cdTestAToB1
-/*  f0d30d4:	e7a6001c */ 	swc1	$f6,0x1c($sp)
-/*  f0d30d8:	10000010 */ 	b	.L0f0d311c
-/*  f0d30dc:	afa20134 */ 	sw	$v0,0x134($sp)
-/*  f0d30e0:	afaf0010 */ 	sw	$t7,0x10($sp)
-.L0f0d30e4:
-/*  f0d30e4:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f0d30e8:	c440000c */ 	lwc1	$f0,0xc($v0)
-/*  f0d30ec:	c7aa009c */ 	lwc1	$f10,0x9c($sp)
-/*  f0d30f0:	c7b00098 */ 	lwc1	$f16,0x98($sp)
-/*  f0d30f4:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0d30f8:	46005201 */ 	sub.s	$f8,$f10,$f0
-/*  f0d30fc:	27a50128 */ 	addiu	$a1,$sp,0x128
-/*  f0d3100:	8fa60094 */ 	lw	$a2,0x94($sp)
-/*  f0d3104:	46008481 */ 	sub.s	$f18,$f16,$f0
-/*  f0d3108:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*  f0d310c:	27a700a8 */ 	addiu	$a3,$sp,0xa8
-/*  f0d3110:	0c00aa7c */ 	jal	cdTestAToB1
-/*  f0d3114:	e7b2001c */ 	swc1	$f18,0x1c($sp)
-/*  f0d3118:	afa20134 */ 	sw	$v0,0x134($sp)
-.L0f0d311c:
-/*  f0d311c:	8e390284 */ 	lw	$t9,0x284($s1)
-/*  f0d3120:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0d3124:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f0d3128:	8f2400bc */ 	lw	$a0,0xbc($t9)
-/*  f0d312c:	8e280284 */ 	lw	$t0,0x284($s1)
-/*  f0d3130:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0d3134:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f0d3138:	8d041a6c */ 	lw	$a0,0x1a6c($t0)
-/*  f0d313c:	44800000 */ 	mtc1	$zero,$f0
-/*  f0d3140:	00000000 */ 	nop
-/*  f0d3144:	c7a4013c */ 	lwc1	$f4,0x13c($sp)
-.L0f0d3148:
-/*  f0d3148:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0d314c:	2609001c */ 	addiu	$t1,$s0,0x1c
-/*  f0d3150:	46002032 */ 	c.eq.s	$f4,$f0
-/*  f0d3154:	00000000 */ 	nop
-/*  f0d3158:	45030023 */ 	bc1tl	.L0f0d31e8
-/*  f0d315c:	8fab0134 */ 	lw	$t3,0x134($sp)
-/*  f0d3160:	0fc1c836 */ 	jal	hoverpropGetTurnAngle
-/*  f0d3164:	afa90040 */ 	sw	$t1,0x40($sp)
-/*  f0d3168:	c7a6013c */ 	lwc1	$f6,0x13c($sp)
-/*  f0d316c:	3c017f1b */ 	lui	$at,%hi(var7f1adb7c)
-/*  f0d3170:	c42edb7c */ 	lwc1	$f14,%lo(var7f1adb7c)($at)
-/*  f0d3174:	46060081 */ 	sub.s	$f2,$f0,$f6
-/*  f0d3178:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0d317c:	4602703e */ 	c.le.s	$f14,$f2
-/*  f0d3180:	46001306 */ 	mov.s	$f12,$f2
-/*  f0d3184:	45020004 */ 	bc1fl	.L0f0d3198
-/*  f0d3188:	44805000 */ 	mtc1	$zero,$f10
-/*  f0d318c:	10000008 */ 	b	.L0f0d31b0
-/*  f0d3190:	460e1301 */ 	sub.s	$f12,$f2,$f14
-/*  f0d3194:	44805000 */ 	mtc1	$zero,$f10
-.L0f0d3198:
-/*  f0d3198:	00000000 */ 	nop
-/*  f0d319c:	460a103c */ 	c.lt.s	$f2,$f10
-/*  f0d31a0:	00000000 */ 	nop
-/*  f0d31a4:	45020003 */ 	bc1fl	.L0f0d31b4
-/*  f0d31a8:	44056000 */ 	mfc1	$a1,$f12
-/*  f0d31ac:	460e1300 */ 	add.s	$f12,$f2,$f14
-.L0f0d31b0:
-/*  f0d31b0:	44056000 */ 	mfc1	$a1,$f12
-.L0f0d31b4:
-/*  f0d31b4:	0fc1c844 */ 	jal	hoverpropSetTurnAngle
-/*  f0d31b8:	e7ac0084 */ 	swc1	$f12,0x84($sp)
-/*  f0d31bc:	c7ac0084 */ 	lwc1	$f12,0x84($sp)
-/*  f0d31c0:	0c0058dd */ 	jal	func00016374
-/*  f0d31c4:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f0d31c8:	8e0a0018 */ 	lw	$t2,0x18($s0)
-/*  f0d31cc:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f0d31d0:	0c0057c1 */ 	jal	func00015f04
-/*  f0d31d4:	c54c0014 */ 	lwc1	$f12,0x14($t2)
-/*  f0d31d8:	27a40044 */ 	addiu	$a0,$sp,0x44
-/*  f0d31dc:	0c005768 */ 	jal	func00015da0
-/*  f0d31e0:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*  f0d31e4:	8fab0134 */ 	lw	$t3,0x134($sp)
-.L0f0d31e8:
-/*  f0d31e8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0d31ec:	8fac00d4 */ 	lw	$t4,0xd4($sp)
-/*  f0d31f0:	55610024 */ 	bnel	$t3,$at,.L0f0d3284
-/*  f0d31f4:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0d31f8:	51800022 */ 	beqzl	$t4,.L0f0d3284
-/*  f0d31fc:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0d3200:	8e2e0284 */ 	lw	$t6,0x284($s1)
-/*  f0d3204:	c7a80128 */ 	lwc1	$f8,0x128($sp)
-/*  f0d3208:	2608005c */ 	addiu	$t0,$s0,0x5c
-/*  f0d320c:	8dcd1a6c */ 	lw	$t5,0x1a6c($t6)
-/*  f0d3210:	e5a80008 */ 	swc1	$f8,0x8($t5)
-/*  f0d3214:	8e2f0284 */ 	lw	$t7,0x284($s1)
-/*  f0d3218:	c7b00130 */ 	lwc1	$f16,0x130($sp)
-/*  f0d321c:	8df81a6c */ 	lw	$t8,0x1a6c($t7)
-/*  f0d3220:	e7100010 */ 	swc1	$f16,0x10($t8)
-/*  f0d3224:	8e390284 */ 	lw	$t9,0x284($s1)
-/*  f0d3228:	8f241a6c */ 	lw	$a0,0x1a6c($t9)
-/*  f0d322c:	0fc19711 */ 	jal	func0f065c44
-/*  f0d3230:	afa80040 */ 	sw	$t0,0x40($sp)
-/*  f0d3234:	8e290284 */ 	lw	$t1,0x284($s1)
-/*  f0d3238:	27a40118 */ 	addiu	$a0,$sp,0x118
-/*  f0d323c:	8d251a6c */ 	lw	$a1,0x1a6c($t1)
-/*  f0d3240:	0fc195e9 */ 	jal	roomsCopy
-/*  f0d3244:	24a50028 */ 	addiu	$a1,$a1,0x28
-/*  f0d3248:	27ab00d8 */ 	addiu	$t3,$sp,0xd8
-/*  f0d324c:	256d003c */ 	addiu	$t5,$t3,0x3c
-/*  f0d3250:	8faa0040 */ 	lw	$t2,0x40($sp)
-.L0f0d3254:
-/*  f0d3254:	8d610000 */ 	lw	$at,0x0($t3)
-/*  f0d3258:	256b000c */ 	addiu	$t3,$t3,0xc
-/*  f0d325c:	254a000c */ 	addiu	$t2,$t2,0xc
-/*  f0d3260:	ad41fff4 */ 	sw	$at,-0xc($t2)
-/*  f0d3264:	8d61fff8 */ 	lw	$at,-0x8($t3)
-/*  f0d3268:	ad41fff8 */ 	sw	$at,-0x8($t2)
-/*  f0d326c:	8d61fffc */ 	lw	$at,-0x4($t3)
-/*  f0d3270:	156dfff8 */ 	bne	$t3,$t5,.L0f0d3254
-/*  f0d3274:	ad41fffc */ 	sw	$at,-0x4($t2)
-/*  f0d3278:	8d610000 */ 	lw	$at,0x0($t3)
-/*  f0d327c:	ad410000 */ 	sw	$at,0x0($t2)
-/*  f0d3280:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f0d3284:
-/*  f0d3284:	8fa20134 */ 	lw	$v0,0x134($sp)
-/*  f0d3288:	8fb0002c */ 	lw	$s0,0x2c($sp)
-/*  f0d328c:	8fb10030 */ 	lw	$s1,0x30($sp)
-/*  f0d3290:	03e00008 */ 	jr	$ra
-/*  f0d3294:	27bd0138 */ 	addiu	$sp,$sp,0x138
-);
+s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
+{
+	s32 result = CDRESULT_NOCOLLISION;
+	struct coord dstpos;
+	s16 dstrooms[8];
+	struct hov hov;
+	bool hasvel = false;
+	struct hoverbikeobj *bike = (struct hoverbikeobj *) g_Vars.currentplayer->hoverbike->obj;
+	s16 spa8[20];
+	f32 xdiff;
+	f32 zdiff;
+	f32 ymax;
+	f32 ymin;
+	f32 width;
+	f32 halfwidth;
+
+	dstpos.x = g_Vars.currentplayer->hoverbike->pos.x;
+	dstpos.y = g_Vars.currentplayer->hoverbike->pos.y;
+	dstpos.z = g_Vars.currentplayer->hoverbike->pos.z;
+
+	if (vel->x || vel->y || vel->z) {
+		propSetCollisionsEnabled(g_Vars.currentplayer->prop, false);
+		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, false);
+
+		dstpos.x += vel->x;
+		dstpos.z += vel->z;
+
+		propObjGetBbox(g_Vars.currentplayer->hoverbike, &width, &ymax, &ymin);
+		func0f065dfc(&g_Vars.currentplayer->hoverbike->pos,
+				g_Vars.currentplayer->hoverbike->rooms,
+				&dstpos, dstrooms, spa8, 20);
+
+		func0f09233c(&bike->base, &dstpos, bike->base.realrot, dstrooms);
+
+		hasvel = true;
+
+		hov = bike->hov;
+
+		func0f0713e4(&bike->base, &hov, &dstpos, dstrooms, bike->base.realrot);
+
+		dstpos.y += hov.unk34 - bike->hov.unk34;
+
+		halfwidth = width * 0.5f;
+		xdiff = dstpos.x - g_Vars.currentplayer->hoverbike->pos.x;
+		zdiff = dstpos.z - g_Vars.currentplayer->hoverbike->pos.z;
+
+		if (xdiff > halfwidth || zdiff > halfwidth || xdiff < -halfwidth || zdiff < -halfwidth) {
+			result = cdTestAToB3(&g_Vars.currentplayer->hoverbike->pos,
+					g_Vars.currentplayer->hoverbike->rooms,
+					&dstpos, dstrooms, width, CDTYPE_ALL, 1,
+					ymax - g_Vars.currentplayer->hoverbike->pos.y,
+					ymin - g_Vars.currentplayer->hoverbike->pos.y);
+
+			if (result == CDRESULT_NOCOLLISION) {
+				result = cdTestAToB1(&g_Vars.currentplayer->hoverbike->pos,
+						&dstpos, width, dstrooms, CDTYPE_ALL, 1,
+						ymax - g_Vars.currentplayer->hoverbike->pos.y,
+						ymin - g_Vars.currentplayer->hoverbike->pos.y);
+			}
+		} else {
+			result = cdTestAToB1(&g_Vars.currentplayer->hoverbike->pos,
+					&dstpos, width, spa8, CDTYPE_ALL, 1,
+					ymax - g_Vars.currentplayer->hoverbike->pos.y,
+					ymin - g_Vars.currentplayer->hoverbike->pos.y);
+		}
+
+		propSetCollisionsEnabled(g_Vars.currentplayer->prop, true);
+		propSetCollisionsEnabled(g_Vars.currentplayer->hoverbike, true);
+	}
+
+	if (angledelta) {
+		u32 stack[2];
+		f32 newangle = hoverpropGetTurnAngle(&bike->base) - angledelta;
+		Mtxf sp44;
+
+		if (newangle >= M_BADTAU) {
+			newangle -= M_BADTAU;
+		} else if (newangle < 0.0f) {
+			newangle += M_BADTAU;
+		}
+
+		hoverpropSetTurnAngle(&bike->base, newangle);
+
+		func00016374(newangle, &sp44);
+		func00015f04(bike->base.model->unk14, &sp44);
+		func00015da0(&sp44, bike->base.realrot);
+	}
+
+	if (result == CDRESULT_NOCOLLISION && hasvel) {
+		g_Vars.currentplayer->hoverbike->pos.x = dstpos.x;
+		g_Vars.currentplayer->hoverbike->pos.z = dstpos.z;
+
+		func0f065c44(g_Vars.currentplayer->hoverbike);
+		roomsCopy(dstrooms, g_Vars.currentplayer->hoverbike->rooms);
+
+		bike->hov = hov;
+	}
+
+	return result;
+}
 
 s32 bbikeCalculateNewPositionWithPush(struct coord *arg0, f32 arg1)
 {
