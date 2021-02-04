@@ -2713,6 +2713,8 @@ struct player {
 	/*0x1a6c*/ struct prop *hoverbike;
 	/*0x1a70*/ struct coord bondvehicleoffset;
 	/*0x1a7c*/ s32 bondvehiclemode;
+
+	// All bondenter properties are related to mounting the hoverbike
 	/*0x1a80*/ f32 bondentert;
 	/*0x1a84*/ f32 bondentert2;
 	/*0x1a88*/ u32 bondentertheta;
@@ -2720,6 +2722,7 @@ struct player {
 	/*0x1a90*/ struct coord bondenterpos;
 	/*0x1a9c*/ Mtxf bondentermtx;
 	/*0x1adc*/ struct coord bondenteraim;
+
 	/*0x1ae8*/ f32 bondonground;
 	/*0x1aec*/ struct prop *tank;
 	/*0x1af0*/ struct prop *unk1af0;

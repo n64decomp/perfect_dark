@@ -54,7 +54,7 @@ f32 func0f09cf58(u32 arg0);
 void func0f09cf88(void);
 void func0f09d140(s32 hand);
 u32 func0f09d550(void);
-u32 func0f09d8dc(void);
+void func0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
 u32 func0f09dd7c(void);
 u32 func0f09ddcc(void);
 u32 func0f09ddec(void);
