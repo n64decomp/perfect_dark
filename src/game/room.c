@@ -11916,87 +11916,31 @@ bool roomContainsCoord(struct coord *pos, s16 roomnum)
 		&& copy.f[1] <= g_Rooms[roomnum].bbmax[1];
 }
 
-GLOBAL_ASM(
-glabel func0f161c08
-/*  f161c08:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f161c0c:	00057400 */ 	sll	$t6,$a1,0x10
-/*  f161c10:	000e2c03 */ 	sra	$a1,$t6,0x10
-/*  f161c14:	0005c8c0 */ 	sll	$t9,$a1,0x3
-/*  f161c18:	0325c821 */ 	addu	$t9,$t9,$a1
-/*  f161c1c:	3c18800a */ 	lui	$t8,%hi(g_Rooms)
-/*  f161c20:	8f184928 */ 	lw	$t8,%lo(g_Rooms)($t8)
-/*  f161c24:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f161c28:	0325c823 */ 	subu	$t9,$t9,$a1
-/*  f161c2c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f161c30:	03191821 */ 	addu	$v1,$t8,$t9
-/*  f161c34:	80660005 */ 	lb	$a2,0x5($v1)
-/*  f161c38:	00803825 */ 	or	$a3,$a0,$zero
-/*  f161c3c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f161c40:	18c00038 */ 	blez	$a2,.L0f161d24
-/*  f161c44:	3c0b800a */ 	lui	$t3,%hi(g_RoomPortals)
-/*  f161c48:	846c000e */ 	lh	$t4,0xe($v1)
-/*  f161c4c:	8d6b4ce0 */ 	lw	$t3,%lo(g_RoomPortals)($t3)
-/*  f161c50:	3c08800a */ 	lui	$t0,%hi(var800a4ccc)
-/*  f161c54:	3c0a800a */ 	lui	$t2,%hi(g_Portals)
-/*  f161c58:	000c6840 */ 	sll	$t5,$t4,0x1
-/*  f161c5c:	254a4cc8 */ 	addiu	$t2,$t2,%lo(g_Portals)
-/*  f161c60:	8d084ccc */ 	lw	$t0,%lo(var800a4ccc)($t0)
-/*  f161c64:	c4e20008 */ 	lwc1	$f2,0x8($a3)
-/*  f161c68:	c4ec0000 */ 	lwc1	$f12,0x0($a3)
-/*  f161c6c:	c4ee0004 */ 	lwc1	$f14,0x4($a3)
-/*  f161c70:	24090014 */ 	addiu	$t1,$zero,0x14
-/*  f161c74:	016d2021 */ 	addu	$a0,$t3,$t5
-.L0f161c78:
-/*  f161c78:	84830000 */ 	lh	$v1,0x0($a0)
-/*  f161c7c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f161c80:	0046082a */ 	slt	$at,$v0,$a2
-/*  f161c84:	00690019 */ 	multu	$v1,$t1
-/*  f161c88:	00007012 */ 	mflo	$t6
-/*  f161c8c:	01c83821 */ 	addu	$a3,$t6,$t0
-/*  f161c90:	c4e40000 */ 	lwc1	$f4,0x0($a3)
-/*  f161c94:	c4e80004 */ 	lwc1	$f8,0x4($a3)
-/*  f161c98:	c4f20008 */ 	lwc1	$f18,0x8($a3)
-/*  f161c9c:	460c2182 */ 	mul.s	$f6,$f4,$f12
-/*  f161ca0:	00000000 */ 	nop
-/*  f161ca4:	460e4282 */ 	mul.s	$f10,$f8,$f14
-/*  f161ca8:	c4e8000c */ 	lwc1	$f8,0xc($a3)
-/*  f161cac:	46121102 */ 	mul.s	$f4,$f2,$f18
-/*  f161cb0:	460a3400 */ 	add.s	$f16,$f6,$f10
-/*  f161cb4:	46102000 */ 	add.s	$f0,$f4,$f16
-/*  f161cb8:	4608003c */ 	c.lt.s	$f0,$f8
-/*  f161cbc:	00000000 */ 	nop
-/*  f161cc0:	45000009 */ 	bc1f	.L0f161ce8
-/*  f161cc4:	00000000 */ 	nop
-/*  f161cc8:	8d4f0000 */ 	lw	$t7,0x0($t2)
-/*  f161ccc:	0003c0c0 */ 	sll	$t8,$v1,0x3
-/*  f161cd0:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f161cd4:	872c0002 */ 	lh	$t4,0x2($t9)
-/*  f161cd8:	10ac0010 */ 	beq	$a1,$t4,.L0f161d1c
-/*  f161cdc:	00000000 */ 	nop
-/*  f161ce0:	03e00008 */ 	jr	$ra
-/*  f161ce4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f161ce8:
-/*  f161ce8:	c4e60010 */ 	lwc1	$f6,0x10($a3)
-/*  f161cec:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f161cf0:	00000000 */ 	nop
-/*  f161cf4:	45000009 */ 	bc1f	.L0f161d1c
-/*  f161cf8:	00000000 */ 	nop
-/*  f161cfc:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*  f161d00:	000368c0 */ 	sll	$t5,$v1,0x3
-/*  f161d04:	016d7021 */ 	addu	$t6,$t3,$t5
-/*  f161d08:	85cf0004 */ 	lh	$t7,0x4($t6)
-/*  f161d0c:	10af0003 */ 	beq	$a1,$t7,.L0f161d1c
-/*  f161d10:	00000000 */ 	nop
-/*  f161d14:	03e00008 */ 	jr	$ra
-/*  f161d18:	00001025 */ 	or	$v0,$zero,$zero
-.L0f161d1c:
-/*  f161d1c:	1420ffd6 */ 	bnez	$at,.L0f161c78
-/*  f161d20:	24840002 */ 	addiu	$a0,$a0,0x2
-.L0f161d24:
-/*  f161d24:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f161d28:	03e00008 */ 	jr	$ra
-/*  f161d2c:	00000000 */ 	nop
-);
+bool func0f161c08(struct coord *arg0, s16 roomnum)
+{
+	s32 i;
+
+	for (i = 0; i < g_Rooms[roomnum].numportals; i++) {
+		s32 portalnum = g_RoomPortals[g_Rooms[roomnum].roomportallistoffset + i];
+		struct var800a4ccc *thing = &var800a4ccc[portalnum];
+
+		f32 value = thing->coord.f[0] * arg0->f[0]
+			+ thing->coord.f[1] * arg0->f[1]
+			+ thing->coord.f[2] * arg0->f[2];
+
+		if (value < thing->unk0c) {
+			if (roomnum != g_Portals[portalnum].roomnum1) {
+				return false;
+			}
+		} else if (value > thing->unk10) {
+			if (roomnum != g_Portals[portalnum].roomnum2) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f161d30
@@ -12270,7 +12214,7 @@ glabel func0f161d30
 /*  f162124:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
 
-void func0f162128(f32 *arg0, s16 roomnum)
+void func0f162128(struct coord *arg0, s16 roomnum)
 {
 	if (g_Rooms[roomnum].flags & ROOMFLAG_0010) {
 		func0f161d30(arg0, roomnum);
