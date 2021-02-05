@@ -24886,62 +24886,26 @@ bool chrCanHearAlarm(struct chrdata *chr)
 	return alarmIsActive();
 }
 
-GLOBAL_ASM(
-glabel waypointIsWithin90DegreesOfPosAngle
-.late_rodata
-glabel var7f1a93e4
-.word 0x40c907a9
-glabel var7f1a93e8
-.word 0x3fc907a9
-glabel var7f1a93ec
-.word 0x4096c5bf
-.text
-/*  f04a2d4:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f04a2d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04a2dc:	afa50084 */ 	sw	$a1,0x84($sp)
-/*  f04a2e0:	afa60088 */ 	sw	$a2,0x88($sp)
-/*  f04a2e4:	8c840000 */ 	lw	$a0,0x0($a0)
-/*  f04a2e8:	27a6001c */ 	addiu	$a2,$sp,0x1c
-/*  f04a2ec:	0fc456ac */ 	jal	padUnpack
-/*  f04a2f0:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f04a2f4:	8fa20084 */ 	lw	$v0,0x84($sp)
-/*  f04a2f8:	c7a4001c */ 	lwc1	$f4,0x1c($sp)
-/*  f04a2fc:	c7a80024 */ 	lwc1	$f8,0x24($sp)
-/*  f04a300:	c4460000 */ 	lwc1	$f6,0x0($v0)
-/*  f04a304:	c44a0008 */ 	lwc1	$f10,0x8($v0)
-/*  f04a308:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f04a30c:	0fc259d4 */ 	jal	atan2f
-/*  f04a310:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f04a314:	c7ae0088 */ 	lwc1	$f14,0x88($sp)
-/*  f04a318:	3c017f1b */ 	lui	$at,%hi(var7f1a93e4)
-/*  f04a31c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04a320:	4600703c */ 	c.lt.s	$f14,$f0
-/*  f04a324:	46007301 */ 	sub.s	$f12,$f14,$f0
-/*  f04a328:	45000003 */ 	bc1f	.L0f04a338
-/*  f04a32c:	46006086 */ 	mov.s	$f2,$f12
-/*  f04a330:	c43093e4 */ 	lwc1	$f16,%lo(var7f1a93e4)($at)
-/*  f04a334:	46106080 */ 	add.s	$f2,$f12,$f16
-.L0f04a338:
-/*  f04a338:	3c017f1b */ 	lui	$at,%hi(var7f1a93e8)
-/*  f04a33c:	c43293e8 */ 	lwc1	$f18,%lo(var7f1a93e8)($at)
-/*  f04a340:	3c017f1b */ 	lui	$at,%hi(var7f1a93ec)
-/*  f04a344:	4612103c */ 	c.lt.s	$f2,$f18
-/*  f04a348:	00000000 */ 	nop
-/*  f04a34c:	45010007 */ 	bc1t	.L0f04a36c
-/*  f04a350:	00000000 */ 	nop
-/*  f04a354:	c42493ec */ 	lwc1	$f4,%lo(var7f1a93ec)($at)
-/*  f04a358:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04a35c:	4602203c */ 	c.lt.s	$f4,$f2
-/*  f04a360:	00000000 */ 	nop
-/*  f04a364:	45000003 */ 	bc1f	.L0f04a374
-/*  f04a368:	00000000 */ 	nop
-.L0f04a36c:
-/*  f04a36c:	10000001 */ 	b	.L0f04a374
-/*  f04a370:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f04a374:
-/*  f04a374:	03e00008 */ 	jr	$ra
-/*  f04a378:	27bd0080 */ 	addiu	$sp,$sp,0x80
-);
+bool waypointIsWithin90DegreesOfPosAngle(struct waypoint *waypoint, struct coord *pos, f32 angle)
+{
+	u32 stack[3];
+	f32 diffangle;
+	struct pad pad;
+
+	padUnpack(waypoint->padnum, PADFIELD_POS, &pad);
+
+	diffangle = angle - atan2f(pad.pos.x - pos->x, pad.pos.z - pos->z);
+
+	if (diffangle < 0) {
+		diffangle += M_BADTAU;
+	}
+
+	if (diffangle < 1.5705462694168f || diffangle > 4.7116389274597f) {
+		return true;
+	}
+
+	return false;
+}
 
 /**
  * Attempt to find a waypoint near pos which is in a particular quadrant to pos,
