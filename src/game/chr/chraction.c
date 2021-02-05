@@ -24964,112 +24964,59 @@ s32 chrFindWaypointWithinPosQuadrant(struct coord *pos, s16 *rooms, f32 angle, u
 	return -1;
 }
 
-GLOBAL_ASM(
-glabel func0f04a4ec
-/*  f04a4ec:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f04a4f0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f04a4f4:	30b000ff */ 	andi	$s0,$a1,0xff
-/*  f04a4f8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f04a4fc:	24010010 */ 	addiu	$at,$zero,0x10
-/*  f04a500:	00808825 */ 	or	$s1,$a0,$zero
-/*  f04a504:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04a508:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f04a50c:	12010004 */ 	beq	$s0,$at,.L0f04a520
-/*  f04a510:	02003025 */ 	or	$a2,$s0,$zero
-/*  f04a514:	24010020 */ 	addiu	$at,$zero,0x20
-/*  f04a518:	16010043 */ 	bne	$s0,$at,.L0f04a628
-/*  f04a51c:	00000000 */ 	nop
-.L0f04a520:
-/*  f04a520:	8e30001c */ 	lw	$s0,0x1c($s1)
-/*  f04a524:	afa60024 */ 	sw	$a2,0x24($sp)
-/*  f04a528:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f04a52c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04a530:	26040008 */ 	addiu	$a0,$s0,0x8
-/*  f04a534:	26050028 */ 	addiu	$a1,$s0,0x28
-/*  f04a538:	0fc45095 */ 	jal	waypointFindClosestToPos
-/*  f04a53c:	afa20048 */ 	sw	$v0,0x48($sp)
-/*  f04a540:	8fa30048 */ 	lw	$v1,0x48($sp)
-/*  f04a544:	00408025 */ 	or	$s0,$v0,$zero
-/*  f04a548:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f04a54c:	0fc45095 */ 	jal	waypointFindClosestToPos
-/*  f04a550:	24650028 */ 	addiu	$a1,$v1,0x28
-/*  f04a554:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f04a558:	12000040 */ 	beqz	$s0,.L0f04a65c
-/*  f04a55c:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f04a560:	1040003e */ 	beqz	$v0,.L0f04a65c
-/*  f04a564:	24010010 */ 	addiu	$at,$zero,0x10
-/*  f04a568:	14c1001a */ 	bne	$a2,$at,.L0f04a5d4
-/*  f04a56c:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x8)
-/*  f04a570:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x8)
-/*  f04a574:	8dce9fc8 */ 	lw	$t6,%lo(g_Vars+0x8)($t6)
-/*  f04a578:	86390000 */ 	lh	$t9,0x0($s1)
-/*  f04a57c:	000e7a43 */ 	sra	$t7,$t6,0x9
-/*  f04a580:	000fc1c0 */ 	sll	$t8,$t7,0x7
-/*  f04a584:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f04a588:	03082021 */ 	addu	$a0,$t8,$t0
-/*  f04a58c:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f04a590:	00802825 */ 	or	$a1,$a0,$zero
-/*  f04a594:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04a598:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*  f04a59c:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f04a5a0:	0fc4547b */ 	jal	waypointFindRoute
-/*  f04a5a4:	24070003 */ 	addiu	$a3,$zero,0x3
-/*  f04a5a8:	00408025 */ 	or	$s0,$v0,$zero
-/*  f04a5ac:	00002025 */ 	or	$a0,$zero,$zero
-/*  f04a5b0:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f04a5b4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04a5b8:	2a010003 */ 	slti	$at,$s0,0x3
-/*  f04a5bc:	14200027 */ 	bnez	$at,.L0f04a65c
-/*  f04a5c0:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*  f04a5c4:	8d2a0000 */ 	lw	$t2,0x0($t1)
-/*  f04a5c8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f04a5cc:	10000024 */ 	b	.L0f04a660
-/*  f04a5d0:	a62a0128 */ 	sh	$t2,0x128($s1)
-.L0f04a5d4:
-/*  f04a5d4:	8d6b9fc8 */ 	lw	$t3,%lo(g_Vars+0x8)($t3)
-/*  f04a5d8:	862e0000 */ 	lh	$t6,0x0($s1)
-/*  f04a5dc:	000b6243 */ 	sra	$t4,$t3,0x9
-/*  f04a5e0:	000c69c0 */ 	sll	$t5,$t4,0x7
-/*  f04a5e4:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f04a5e8:	01af2021 */ 	addu	$a0,$t5,$t7
-/*  f04a5ec:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f04a5f0:	00802825 */ 	or	$a1,$a0,$zero
-/*  f04a5f4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04a5f8:	0fc45578 */ 	jal	func0f1155e0
-/*  f04a5fc:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*  f04a600:	00408025 */ 	or	$s0,$v0,$zero
-/*  f04a604:	00002025 */ 	or	$a0,$zero,$zero
-/*  f04a608:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f04a60c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04a610:	52000013 */ 	beqzl	$s0,.L0f04a660
-/*  f04a614:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04a618:	8e190000 */ 	lw	$t9,0x0($s0)
-/*  f04a61c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f04a620:	1000000f */ 	b	.L0f04a660
-/*  f04a624:	a6390128 */ 	sh	$t9,0x128($s1)
-.L0f04a628:
-/*  f04a628:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f04a62c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04a630:	8e22001c */ 	lw	$v0,0x1c($s1)
-/*  f04a634:	44060000 */ 	mfc1	$a2,$f0
-/*  f04a638:	320700ff */ 	andi	$a3,$s0,0xff
-/*  f04a63c:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f04a640:	0fc128df */ 	jal	chrFindWaypointWithinPosQuadrant
-/*  f04a644:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f04a648:	04420005 */ 	bltzl	$v0,.L0f04a660
-/*  f04a64c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04a650:	a6220128 */ 	sh	$v0,0x128($s1)
-/*  f04a654:	10000002 */ 	b	.L0f04a660
-/*  f04a658:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f04a65c:
-/*  f04a65c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04a660:
-/*  f04a660:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04a664:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f04a668:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f04a66c:	03e00008 */ 	jr	$ra
-/*  f04a670:	27bd0050 */ 	addiu	$sp,$sp,0x50
-);
+bool func0f04a4ec(struct chrdata *chr, u8 quadrant)
+{
+	if (quadrant == QUADRANT_2NDWPTOTARGET || quadrant == QUADRANT_20) {
+		struct prop *prop = chr->prop;
+		struct prop *target = chrGetTargetProp(chr);
+
+		struct waypoint *fromwp = waypointFindClosestToPos(&prop->pos, prop->rooms);
+		struct waypoint *towp = waypointFindClosestToPos(&target->pos, target->rooms);
+
+		// @dangerous: I'm creating an array overflow here to get a match.
+		// waypoints should have len 3 but this causes a mismatch due to too
+		// much stack usage. If compiling using anything other than IDO and -O2
+		// then this will need to be changed to 3.
+		s32 numwaypoints;
+		struct waypoint *waypoints[2];
+		u32 hash;
+
+		if (fromwp && towp) {
+			if (quadrant == QUADRANT_2NDWPTOTARGET) {
+				hash = (g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8;
+
+				waypointSetHashThing(hash, hash);
+				numwaypoints = waypointFindRoute(fromwp, towp, waypoints, 3);
+				waypointSetHashThing(0, 0);
+
+				if (numwaypoints >= 3) {
+					chr->padpreset1 = waypoints[1]->padnum;
+					return true;
+				}
+			} else {
+				hash = (g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8;
+
+				waypointSetHashThing(hash, hash);
+				fromwp = func0f1155e0(fromwp, towp);
+				waypointSetHashThing(0, 0);
+
+				if (fromwp) {
+					chr->padpreset1 = fromwp->padnum;
+					return true;
+				}
+			}
+		}
+	} else {
+		s32 padnum = chrFindWaypointWithinPosQuadrant(&chr->prop->pos, chr->prop->rooms, chrGetInverseTheta(chr), quadrant);
+
+		if (padnum >= 0) {
+			chr->padpreset1 = padnum;
+			return true;
+		}
+	}
+
+	return false;
+}
 
 bool chrSetPadPresetToWaypointWithinTargetQuadrant(struct chrdata *chr, u8 quadrant)
 {
@@ -25077,7 +25024,7 @@ bool chrSetPadPresetToWaypointWithinTargetQuadrant(struct chrdata *chr, u8 quadr
 	s32 padnum;
 	struct prop *prop;
 
-	if (quadrant == QUADRANT_10 || quadrant == QUADRANT_20) {
+	if (quadrant == QUADRANT_2NDWPTOTARGET || quadrant == QUADRANT_20) {
 		return func0f04a4ec(chr, quadrant);
 	}
 

@@ -187,7 +187,7 @@ bool chrSawInjury(struct chrdata *chr, u8 arg1);
 bool chrSawDeath(struct chrdata *chr, u8 arg1);
 bool waypointIsWithin90DegreesOfPosAngle(struct waypoint *waypoint, struct coord *pos, f32 angle);
 s32 chrFindWaypointWithinPosQuadrant(struct coord *pos, s16 *rooms, f32 angle, u8 quadrant);
-u32 func0f04a4ec(struct chrdata *chr, u8 arg1);
+bool func0f04a4ec(struct chrdata *chr, u8 quadrant);
 bool chrSetPadPresetToWaypointWithinTargetQuadrant(struct chrdata *chr, u8 arg1);
 bool func0f04a7dc(u32 chrnum, struct chrdata *chr, f32 distance, s32 padnum);
 bool func0f04a848(u8 chrnum, struct chrdata *chr, f32 distance, struct coord *pos, s16 *room);
