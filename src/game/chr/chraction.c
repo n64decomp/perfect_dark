@@ -24158,87 +24158,37 @@ glabel func0f048b78
 /*  f048cbc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f048cc0
-.late_rodata
-glabel var7f1a9330
-.word 0x40c907a9
-glabel var7f1a9334
-.word 0x40c907a9
-.text
-/*  f048cc0:	44809000 */ 	mtc1	$zero,$f18
-/*  f048cc4:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f048cc8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f048ccc:	8c83001c */ 	lw	$v1,0x1c($a0)
-/*  f048cd0:	e7b20034 */ 	swc1	$f18,0x34($sp)
-/*  f048cd4:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f048cd8:	afa30030 */ 	sw	$v1,0x30($sp)
-/*  f048cdc:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f048ce0:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-/*  f048ce4:	50600035 */ 	beqzl	$v1,.L0f048dbc
-/*  f048ce8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f048cec:	50400033 */ 	beqzl	$v0,.L0f048dbc
-/*  f048cf0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f048cf4:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f048cf8:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f048cfc:	c4680010 */ 	lwc1	$f8,0x10($v1)
-/*  f048d00:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f048d04:	e7a20034 */ 	swc1	$f2,0x34($sp)
-/*  f048d08:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f048d0c:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f048d10:	0fc259d4 */ 	jal	atan2f
-/*  f048d14:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f048d18:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f048d1c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f048d20:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-/*  f048d24:	90a20000 */ 	lbu	$v0,0x0($a1)
-/*  f048d28:	46000306 */ 	mov.s	$f12,$f0
-/*  f048d2c:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f048d30:	54410012 */ 	bnel	$v0,$at,.L0f048d7c
-/*  f048d34:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f048d38:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f048d3c:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f048d40:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f048d44:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x64)
-/*  f048d48:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f048d4c:	8defa024 */ 	lw	$t7,%lo(g_Vars+0x64)($t7)
-/*  f048d50:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f048d54:	44810000 */ 	mtc1	$at,$f0
-/*  f048d58:	c5f00144 */ 	lwc1	$f16,0x144($t7)
-/*  f048d5c:	3c017f1b */ 	lui	$at,%hi(var7f1a9330)
-/*  f048d60:	c4249330 */ 	lwc1	$f4,%lo(var7f1a9330)($at)
-/*  f048d64:	46100481 */ 	sub.s	$f18,$f0,$f16
-/*  f048d68:	c7ac0020 */ 	lwc1	$f12,0x20($sp)
-/*  f048d6c:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f048d70:	10000009 */ 	b	.L0f048d98
-/*  f048d74:	46003083 */ 	div.s	$f2,$f6,$f0
-/*  f048d78:	24010003 */ 	addiu	$at,$zero,0x3
-.L0f048d7c:
-/*  f048d7c:	54410007 */ 	bnel	$v0,$at,.L0f048d9c
-/*  f048d80:	4602603c */ 	c.lt.s	$f12,$f2
-/*  f048d84:	8ca40004 */ 	lw	$a0,0x4($a1)
-/*  f048d88:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f048d8c:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f048d90:	c7ac0020 */ 	lwc1	$f12,0x20($sp)
-/*  f048d94:	46000086 */ 	mov.s	$f2,$f0
-.L0f048d98:
-/*  f048d98:	4602603c */ 	c.lt.s	$f12,$f2
-.L0f048d9c:
-/*  f048d9c:	3c017f1b */ 	lui	$at,%hi(var7f1a9334)
-/*  f048da0:	46026001 */ 	sub.s	$f0,$f12,$f2
-/*  f048da4:	45000004 */ 	bc1f	.L0f048db8
-/*  f048da8:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*  f048dac:	c4289334 */ 	lwc1	$f8,%lo(var7f1a9334)($at)
-/*  f048db0:	46080280 */ 	add.s	$f10,$f0,$f8
-/*  f048db4:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-.L0f048db8:
-/*  f048db8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f048dbc:
-/*  f048dbc:	c7a0001c */ 	lwc1	$f0,0x1c($sp)
-/*  f048dc0:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f048dc4:	03e00008 */ 	jr	$ra
-/*  f048dc8:	00000000 */ 	nop
-);
+f32 chrGetAngleFromTargetsFov(struct chrdata *chr)
+{
+	f32 targetfacingangle = 0;
+	struct prop *prop = chr->prop;
+	struct prop *target = chrGetTargetProp(chr);
+	f32 xdiff;
+	f32 zdiff;
+	f32 angletotarget;
+	f32 result;
+
+	if (prop && target) {
+		xdiff = prop->pos.f[0] - target->pos.f[0];
+		zdiff = prop->pos.f[2] - target->pos.f[2];
+		angletotarget = atan2f(xdiff, zdiff);
+
+		if (target->type == PROPTYPE_PLAYER) {
+			s32 playernum = propGetPlayerNum(target);
+			targetfacingangle = (360.0f - g_Vars.players[playernum]->vv_theta) * M_BADTAU / 360.0f;
+		} else if (target->type == PROPTYPE_CHR) {
+			targetfacingangle = chrGetInverseTheta(target->chr);
+		}
+
+		result = angletotarget - targetfacingangle;
+
+		if (angletotarget < targetfacingangle) {
+			result += M_BADTAU;
+		}
+	}
+
+	return result;
+}
 
 f32 chrGetVerticalAngleToTarget(struct chrdata *chr)
 {
@@ -24267,7 +24217,7 @@ f32 chrGetVerticalAngleToTarget(struct chrdata *chr)
 
 bool func0f048e74(struct chrdata *chr, u8 fov)
 {
-	f32 angle = func0f048cc0(chr);
+	f32 angle = chrGetAngleFromTargetsFov(chr);
 
 	if ((angle < fov * 0.024539785459638f && angle < M_PI)
 			|| (angle > M_BADTAU - fov * 0.024539785459638f && angle > M_PI)) {
