@@ -68,15 +68,15 @@ s32 chrChooseFootstepSound(struct chrdata *chr, u32 arg1)
 
 		if (floortype == FLOORTYPE_METAL) {
 			if (chr->lastfootsample) {
-				result = 0x8191;
+				result = SFX_FOOTSTEP_8191;
 			} else {
-				result = 0x8192;
+				result = SFX_FOOTSTEP_8192;
 			}
 		} else {
 			if (chr->lastfootsample) {
-				result = 0x818f;
+				result = SFX_FOOTSTEP_818F;
 			} else {
-				result = 0x8190;
+				result = SFX_FOOTSTEP_8190;
 			}
 		}
 

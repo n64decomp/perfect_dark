@@ -2058,7 +2058,7 @@ glabel var7f1a863c
 //
 //				if (g_MpSetup.chrslots & 0xf) {
 //					// Explosion sound
-//					audioStart(var80095200, 0x8098, 0, -1, -1, -1, -1, -1);
+//					audioStart(var80095200, SFX_EXPLOSION_8098, 0, -1, -1, -1, -1, -1);
 //
 //					// c444
 //					currentPlayerPause(IS4MB() ? MENUROOT_4MBMAINMENU : MENUROOT_MPSETUP);
@@ -2180,7 +2180,7 @@ glabel var7f1a863c
 //						if (g_Vars.unk000490 == 2) {
 //							if (g_Vars.unk000494[i] == 0) {
 //								// Explosion sound
-//								audioStart(var80095200, 0x809a, 0, -1, -1, -1, -1, -1);
+//								audioStart(var80095200, SFX_EXPLOSION_809A, 0, -1, -1, -1, -1, -1);
 //							}
 //
 //							g_Vars.unk000494[i] = 1;
@@ -2396,7 +2396,7 @@ glabel var7f1a863c
 //				if (g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU) {
 //					pass = true;
 //					// Explosion sound
-//					audioStart(var80095200, 0x8098, 0, -1, -1, -1, -1, -1);
+//					audioStart(var80095200, SFX_EXPLOSION_8098, 0, -1, -1, -1, -1, -1);
 //				}
 //
 //				if (g_MenuData.root == MENUROOT_MAINMENU || g_MenuData.root == MENUROOT_TRAINING) {

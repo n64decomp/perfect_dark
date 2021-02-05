@@ -7071,7 +7071,7 @@ glabel var7f1ad6ac
 //					eyespy->camerashuttertime = 0;
 //					eyespy->startuptimer60 = 0;
 //					eyespy->prop->chr->soundtimer = 10;
-//					audioStart(var80095200, 0x80ab, NULL, -1, -1, -1, -1, -1);
+//					audioStart(var80095200, SFX_DETONATE, NULL, -1, -1, -1, -1, -1);
 //				}
 //
 //				g_Vars.currentplayer->invdowntime = -40;

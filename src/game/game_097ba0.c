@@ -23277,7 +23277,7 @@ void cboostAdd(s32 amount)
 	}
 
 	if (!g_Vars.speedpillwant) {
-		u32 sound = coreGetSlowMotionType() ? 0x2ad : 0x5c9;
+		u32 sound = coreGetSlowMotionType() ? SFX_JO_BOOST_REVERT : SFX_JO_BOOST_ACTIVATE;
 
 		audioStart(var80095200, sound, 0, -1, -1, -1, -1, -1);
 	}

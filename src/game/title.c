@@ -3471,7 +3471,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 
 	if (var80062868) {
 		if (g_TitleAudioHandle == NULL) {
-			audioStart(var80095200, 0x3e, &g_TitleAudioHandle, -1, -1, -1, -1, -1);
+			audioStart(var80095200, SFX_TITLE_RAREPRESENTS, &g_TitleAudioHandle, -1, -1, -1, -1, -1);
 		}
 	} else {
 		if (g_TitleAudioHandle) {

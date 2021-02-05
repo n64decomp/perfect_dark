@@ -388,7 +388,7 @@ void frInitLighting(void)
 
 		g_FrData.donelighting = true;
 
-		audioStart(var80095200, 0x5d5, NULL, -1, -1, -1, -1, -1);
+		audioStart(var80095200, SFX_FR_LIGHTSON, NULL, -1, -1, -1, -1, -1);
 	}
 
 	chrSetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
@@ -407,7 +407,7 @@ void frRestoreLighting(void)
 
 		g_FrData.donelighting = false;
 
-		audioStart(var80095200, 0x5d6, NULL, -1, -1, -1, -1, -1);
+		audioStart(var80095200, SFX_FR_LIGHTSOFF, NULL, -1, -1, -1, -1, -1);
 	}
 }
 
@@ -1466,7 +1466,7 @@ glabel var7f1b941c
 //			} else {
 //				if (g_FrNumSounds < 3) {
 //					g_FrNumSounds++;
-//					func0f0939f8(NULL, g_FrData.targets[targetnum].prop, 0x5d9, -1,
+//					func0f0939f8(NULL, g_FrData.targets[targetnum].prop, SFX_FR_CONVEYER, -1,
 //							-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 //				}
 //
@@ -3451,11 +3451,11 @@ glabel var7f1b94e4
 //				func0f0f85e0(&g_FrTrainingInfoPreGameMenuDialog, MENUROOT_TRAINING);
 //				break;
 //			case FRMENUTYPE_FAILED:
-//				audioStart(var80095200, 0x5db, NULL, -1, -1, -1, -1, -1);
+//				audioStart(var80095200, SFX_TRAINING_FAIL, NULL, -1, -1, -1, -1, -1);
 //				func0f0f85e0(&g_FrFailedMenuDialog, MENUROOT_TRAINING);
 //				break;
 //			case FRMENUTYPE_COMPLETED:
-//				audioStart(var80095200, 0x5dc, NULL, -1, -1, -1, -1, -1);
+//				audioStart(var80095200, SFX_TRAINING_COMPLETE, NULL, -1, -1, -1, -1, -1);
 //				func0f0f85e0(&g_FrCompletedMenuDialog, MENUROOT_TRAINING);
 //				func0f1094e4(&g_FilemgrLoadedMainFile, 0, 0);
 //				break;
@@ -3568,7 +3568,7 @@ glabel var7f1b94e4
 //		if (g_FrData.numshots == 0) {
 //			if (g_FrData.donealarm == false && g_FrData.timetaken > -180) {
 //				g_FrData.donealarm = true;
-//				audioStart(var80095200, 0x5d4, NULL, -1, -1, -1, -1, -1);
+//				audioStart(var80095200, SFX_FR_ALARM, NULL, -1, -1, -1, -1, -1);
 //			}
 //
 //			if (!g_FrData.donelighting && g_FrData.timetaken > -225) {
@@ -3612,7 +3612,7 @@ glabel var7f1b94e4
 //					&& g_FrData.targets[i].silent
 //					&& g_FrData.targets[i].travelspeed != -1) {
 //				g_FrData.targets[i].silent = false;
-//				func0f0939f8(NULL, g_FrData.targets[i].prop, 0x5d9, -1,
+//				func0f0939f8(NULL, g_FrData.targets[i].prop, SFX_FR_CONVEYER, -1,
 //						-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 //			}
 //
@@ -3791,7 +3791,7 @@ glabel var7f1b94e4
 //
 //						// 5b8
 //						func0f0926bc(prop, 1, 0xffff);
-//						func0f0939f8(NULL, prop, 0x5da, -1,
+//						func0f0939f8(NULL, prop, SFX_FR_CONVEYER_STOP, -1,
 //								-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 //
 //						if (g_FrNumSounds);

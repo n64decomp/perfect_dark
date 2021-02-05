@@ -12566,7 +12566,7 @@ void chrTickAnim(struct chrdata *chr)
 			&& modelGetCurAnimFrame(chr->model) >= 42
 			&& (g_Vars.lvframenum & 1) == 0
 			&& chrGetDistanceToCurrentPlayer(chr) < 800) {
-		func0f0939f8(NULL, chr->prop, 0x37, -1,
+		func0f0939f8(NULL, chr->prop, SFX_0037, -1,
 				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 	}
 
@@ -12747,21 +12747,32 @@ void chrTickDie(struct chrdata *chr)
 	struct model *model = chr->model;
 	u32 race = CHRRACE(chr);
 
-	// Thud noises
-	u16 thuds[] = { 0x808d, 0x808e, 0x808f, 0x8090, 0x8091, 0x8092, 0x8093, 0x8094, 0x8095, 0x8096, 0x8097 };
+	u16 thuds[] = {
+		SFX_THUD_808D,
+		SFX_THUD_808E,
+		SFX_THUD_808F,
+		SFX_THUD_8090,
+		SFX_THUD_8091,
+		SFX_THUD_8092,
+		SFX_THUD_8093,
+		SFX_THUD_8094,
+		SFX_THUD_8095,
+		SFX_THUD_8096,
+		SFX_THUD_8097,
+	};
 
 	u16 specialdiesounds[] = {
-		0x8129, // "Noooo!"
-		0x812f, // Death scream
-		0x813a, // "Noooo!"
-		0x813a, // "Noooo!"
-		0x812f, // Death scream
-		0x8092, // Thud
-		0x8093, // Thud
-		0x8094, // Thud
-		0x8095, // Thud
-		0x8096, // Thud
-		0x8097, // Thud
+		SFX_M1_NOOO, // "Noooo!"
+		SFX_M1_SCREAM, // Death scream
+		SFX_M2_NOOO, // "Noooo!"
+		SFX_M2_NOOO, // "Noooo!"
+		SFX_M1_SCREAM, // Death scream
+		SFX_THUD_8092,
+		SFX_THUD_8093,
+		SFX_THUD_8094,
+		SFX_THUD_8095,
+		SFX_THUD_8096,
+		SFX_THUD_8097,
 	};
 
 	static s32 thudindex = 0;
@@ -12783,7 +12794,15 @@ void chrTickDie(struct chrdata *chr)
 
 		if (g_DrCarollDyingTimer > 120 && chr->voicebox) {
 			// Play speech
-			u16 phrases[] = { 0x024d, 0x024e, 0x024f, 0x0256, 0x0257, 0x0258 };
+			u16 phrases[] = {
+				SFX_DRCAROLL_SYSTEMS_FAILURE,
+				SFX_DRCAROLL_YOU_GO_ON,
+				SFX_DRCAROLL_I_CANT_MAKE_IT,
+				SFX_DRCAROLL_IM_DYING,
+				SFX_DRCAROLL_GOODBYE,
+				SFX_DRCAROLL_YOU_WERE_SUPPOSED,
+			};
+
 			func0f0939f8(NULL, chr->prop, phrases[random() % 5], -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 			chr->voicebox = 0;
@@ -12807,7 +12826,7 @@ void chrTickDie(struct chrdata *chr)
 			// Play shield damage sound
 			chr->soundtimer = 0;
 			var80068080 -= 5;
-			func0f0939f8(NULL, prop, 0x64, -1,
+			func0f0939f8(NULL, prop, SFX_SHIELD_DAMAGE, -1,
 					-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 			sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, 1);
 		}
@@ -12838,7 +12857,7 @@ void chrTickDie(struct chrdata *chr)
 	// If due, play thud 2 sound
 	if (chr->act_die.thudframe2 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe2) {
 		if (chr->specialdie < 5) {
-			func0f0939f8(NULL, chr->prop, 0x808e, -1,
+			func0f0939f8(NULL, chr->prop, SFX_THUD_808E, -1,
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		} else {
 			func0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
@@ -13060,17 +13079,17 @@ void chrTickDruggedDrop(struct chrdata *chr)
 	struct model *model = chr->model;
 
 	u16 thuds[11] = {
-		0x808d,
-		0x808e,
-		0x808f,
-		0x8090,
-		0x8091,
-		0x8092,
-		0x8093,
-		0x8094,
-		0x8095,
-		0x8096,
-		0x8097,
+		SFX_THUD_808D,
+		SFX_THUD_808E,
+		SFX_THUD_808F,
+		SFX_THUD_8090,
+		SFX_THUD_8091,
+		SFX_THUD_8092,
+		SFX_THUD_8093,
+		SFX_THUD_8094,
+		SFX_THUD_8095,
+		SFX_THUD_8096,
+		SFX_THUD_8097,
 	};
 
 	static s32 thudindex = 0;
@@ -23090,7 +23109,12 @@ void chrTickSkJump(struct chrdata *chr)
 			modelSetAnimSpeed(chr->model, 2.5, 0);
 			break;
 		case SKJUMPSTATE_AIRBORNE: {
-				u16 sounds[] = { 0x532, 0x533, 0x534 };
+				u16 sounds[] = {
+					SFX_SKEDAR_ROAR_0532,
+					SFX_SKEDAR_ROAR_0533,
+					SFX_SKEDAR_ROAR_0534,
+				};
+
 				func0f0939f8(NULL, chr->prop, sounds[random() % 3], -1,
 						-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 				modelSetAnimation(chr->model, ANIM_SKEDAR_JUMPAIR, 0, 0, -1, 16);
@@ -27715,8 +27739,7 @@ bool chrIsAvoiding(struct chrdata *chr)
 void chrDrCarollEmitSparks(struct chrdata *chr)
 {
 	if (chr && chr->prop) {
-		// Spark/shield sound
-		func0f0939f8(0, chr->prop, 0x64, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+		func0f0939f8(0, chr->prop, SFX_SHIELD_DAMAGE, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 		sparksCreate(chr->prop->rooms[0], chr->prop, &chr->prop->pos, NULL, 0, 1);
 	}
 }

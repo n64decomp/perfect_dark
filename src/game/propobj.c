@@ -19479,15 +19479,13 @@ glabel var7f1aa43c
 //		if (door->frac > soundpoint) {
 //			if (prevfrac <= soundpoint) {
 //				// frac increased past the soundpoint
-//				// Sounds like a door closing?
-//				func0f0939f8(NULL, doorprop, 0x8014, -1,
+//				func0f0939f8(NULL, doorprop, SFX_DOOR_8014, -1,
 //						-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 //			}
 //		} else {
 //			if (prevfrac > soundpoint) {
 //				// frac decreased past the soundpoint
-//				// Also sounds like a door closing
-//				func0f0939f8(NULL, doorprop, 0x8015, -1,
+//				func0f0939f8(NULL, doorprop, SFX_DOOR_8015, -1,
 //						-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
 //			}
 //		}
@@ -26409,7 +26407,7 @@ glabel var7f1aa6e4
 //				hovercar->sparkstimer60 = 50;
 //
 //				// Play damage sound
-//				func0f0939f8(NULL, prop, 0x64, -1,
+//				func0f0939f8(NULL, prop, SFX_SHIELD_DAMAGE, -1,
 //						-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 //
 //				// Create sparks
@@ -27082,7 +27080,7 @@ u32 func0f07e474(struct prop *prop)
 
 			if (!silent) {
 				// Play respawn sound
-				func0f0939f8(NULL, prop, 0x52, -1,
+				func0f0939f8(NULL, prop, SFX_REGEN, -1,
 						-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 			}
 		}
@@ -37273,13 +37271,13 @@ bool propobjInteract(struct prop *prop)
 
 		if (handled) {
 			// Typing sound
-			audioStart(var80095200, 0x8118, NULL, -1, -1, -1, -1, -1);
+			audioStart(var80095200, SFX_TYPING_8118, NULL, -1, -1, -1, -1, -1);
 		}
 
 		func0f0fd494(&prop->pos);
 	} else if (obj->type == OBJTYPE_ALARM) {
 		// Button press sound
-		audioStart(var80095200, 0xba, NULL, -1, -1, -1, -1, -1);
+		audioStart(var80095200, SFX_PRESS_SWITCH, NULL, -1, -1, -1, -1, -1);
 
 		if (alarmIsActive()) {
 			alarmDeactivate();
@@ -37825,7 +37823,7 @@ void ammotypePlayPickupSound(u32 ammotype)
 	case AMMOTYPE_CLOAK:
 	case AMMOTYPE_BOOST:
 	case AMMOTYPE_TOKEN:
-		audioStart(var80095200, 0xea, NULL, -1, -1, -1, -1, -1);
+		audioStart(var80095200, SFX_PICKUP_AMMO, NULL, -1, -1, -1, -1, -1);
 		break;
 	case AMMOTYPE_REMOTE_MINE:
 	case AMMOTYPE_PROXY_MINE:
@@ -37834,10 +37832,10 @@ void ammotypePlayPickupSound(u32 ammotype)
 	case AMMOTYPE_MICROCAMERA:
 	case AMMOTYPE_PLASTIQUE:
 	case AMMOTYPE_ECM_MINE:
-		audioStart(var80095200, 0xeb, NULL, -1, -1, -1, -1, -1);
+		audioStart(var80095200, SFX_PICKUP_MINE, NULL, -1, -1, -1, -1, -1);
 		break;
 	case AMMOTYPE_KNIFE:
-		audioStart(var80095200, 0xe9, NULL, -1, -1, -1, -1, -1);
+		audioStart(var80095200, SFX_PICKUP_KNIFE, NULL, -1, -1, -1, -1, -1);
 		break;
 	}
 }
@@ -37847,7 +37845,7 @@ s32 propPlayPickupSound(struct prop *prop, s32 weapon)
 	s16 sound;
 
 	if (weapon == WEAPON_COMBATKNIFE || weapon == WEAPON_COMBATKNIFE) {
-		sound = 0xe9;
+		sound = SFX_PICKUP_KNIFE;
 	} else if (weapon == WEAPON_REMOTEMINE
 			|| weapon == WEAPON_PROXIMITYMINE
 			|| weapon == WEAPON_TIMEDMINE
@@ -37855,16 +37853,16 @@ s32 propPlayPickupSound(struct prop *prop, s32 weapon)
 			|| weapon == WEAPON_TRACERBUG
 			|| weapon == WEAPON_TARGETAMPLIFIER
 			|| weapon == WEAPON_ECMMINE) {
-		sound = 0xeb;
+		sound = SFX_PICKUP_MINE;
 	} else if (weapon == WEAPON_GRENADE
 			|| weapon == WEAPON_GRENADEROUND
 			|| weapon == WEAPON_ROCKET
 			|| weapon == WEAPON_HOMINGROCKET) {
-		sound = 0xea;
+		sound = SFX_PICKUP_AMMO;
 	} else if (weapon == WEAPON_LASER) {
-		sound = 0xf2;
+		sound = SFX_PICKUP_LASER;
 	} else {
-		sound = 0xe8;
+		sound = SFX_PICKUP_GUN;
 	}
 
 	return func0f0939f8(NULL, prop, sound, -1,
@@ -37876,7 +37874,7 @@ void func0f087d10(s32 weaponnum)
 	s32 sound;
 
 	if (weaponnum == WEAPON_COMBATKNIFE || weaponnum == WEAPON_COMBATKNIFE) {
-		sound = 0xe9;
+		sound = SFX_PICKUP_KNIFE;
 	} else if (weaponnum == WEAPON_REMOTEMINE
 			|| weaponnum == WEAPON_PROXIMITYMINE
 			|| weaponnum == WEAPON_TIMEDMINE
@@ -37884,22 +37882,22 @@ void func0f087d10(s32 weaponnum)
 			|| weaponnum == WEAPON_TARGETAMPLIFIER
 			|| weaponnum == WEAPON_COMMSRIDER
 			|| weaponnum == WEAPON_ECMMINE) {
-		sound = 0xeb;
+		sound = SFX_PICKUP_MINE;
 	} else if (weaponnum == WEAPON_GRENADE
 			|| weaponnum == WEAPON_GRENADEROUND
 			|| weaponnum == WEAPON_ROCKET
 			|| weaponnum == WEAPON_HOMINGROCKET) {
-		sound = 0xea;
+		sound = SFX_PICKUP_AMMO;
 	} else if (weaponnum == WEAPON_LASER) {
-		sound = 0xf2;
+		sound = SFX_PICKUP_LASER;
 	} else if (weaponnum == WEAPON_BOLT) {
-		sound = 0xe8;
+		sound = SFX_PICKUP_GUN;
 	} else if (weaponnum == WEAPON_EYESPY) {
-		sound = 0xe5;
+		sound = SFX_PICKUP_KEYCARD;
 	} else if (weaponnum > WEAPON_PSYCHOSISGUN) {
-		sound = 0xe5;
+		sound = SFX_PICKUP_KEYCARD;
 	} else {
-		sound = 0xe8;
+		sound = SFX_PICKUP_GUN;
 	}
 
 	audioStart(var80095200, sound, NULL, -1, -1, -1, -1, -1);
@@ -38899,7 +38897,7 @@ glabel var7f1aae70
 //	switch (obj->type) {
 //	case 0x04: // f0888b4 - key
 //		if (g_Vars.in_cutscene == false) {
-//			audioStart(var80095200, 0xe5, NULL, -1, -1, -1, -1, -1);
+//			audioStart(var80095200, SFX_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
 //		}
 //
 //		if (showhudmsg) {
@@ -38938,7 +38936,7 @@ glabel var7f1aae70
 //			}
 //
 //			if (g_Vars.in_cutscene == false) {
-//				audioStart(var80095200, 0xea, NULL, -1, -1, -1, -1, -1);
+//				audioStart(var80095200, SFX_PICKUP_AMMO, NULL, -1, -1, -1, -1, -1);
 //			}
 //
 //			sp148[1] = 1;
@@ -39089,7 +39087,7 @@ glabel var7f1aae70
 //			currentPlayerSetShieldFrac(shield->amount);
 //
 //			if (g_Vars.in_cutscene == false) {
-//				audioStart(var80095200, 0x1cd, NULL, -1, -1, -1, -1, -1);
+//				audioStart(var80095200, SFX_PICKUP_SHIELD, NULL, -1, -1, -1, -1, -1);
 //			}
 //
 //			if (showhudmsg) {
@@ -39155,7 +39153,7 @@ glabel var7f1aae70
 //	case 0x2f: // f088f20
 //	default:
 //		if (g_Vars.in_cutscene == false) {
-//			audioStart(var80095200, 0xe5, NULL, -1, -1, -1, -1, -1);
+//			audioStart(var80095200, SFX_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
 //		}
 //
 //		if (showhudmsg) {
@@ -41061,7 +41059,7 @@ void playerActivateRemoteMineDetonator(s32 playernum)
 {
 	var80069910 |= 1 << playernum;
 
-	audioStart(var80095200, 0x80ab, 0, -1, -1, -1, -1, -1);
+	audioStart(var80095200, SFX_DETONATE, 0, -1, -1, -1, -1, -1);
 
 	playerDetonateRemoteMines(playernum);
 }
@@ -44381,42 +44379,42 @@ void func0f08d784(s32 soundtype, struct prop *prop)
 	}
 
 	switch (soundtype) {
-	case 28: sound1 = 0x8007; break;
-	case 1:  sound1 = 0x801a; sound2 = 0x801b; break;
-	case 29: sound1 = 0x8015; sound2 = 0x801d; break;
-	case 2:  sound1 = 0x801a; sound2 = 0x801c; break;
-	case 3:  sound1 = 0x8014; sound2 = 0x8016; break;
-	case 4:  sound1 = 0x801e; sound2 = 0x8020; break;
-	case 5:  sound1 = 0x8001; break;
-	case 6:  sound1 = 0x8004; break;
-	case 7:  sound1 = 0x8005; break;
-	case 8:  sound1 = 0x800a; sound2 = 0x8008; break;
-	case 9:  sound1 = 0x8004; sound2 = 0x800b; break;
-	case 10: sound1 = 0x800c; break;
-	case 11: sound1 = 0x800e; break;
-	case 12: sound1 = 0x8010; break;
-	case 13: sound1 = 0x8012; break;
-	case 30: sound1 = 0x816b; sound2 = 0x81aa; break;
-	case 14: sound1 = 0x8017; sound2 = 0x8019; break;
-	case 15: sound1 = 0x8022; break;
-	case 25: sound1 = 0x81b8; break;
-	case 16: sound1 = 0x8026; break;
-	case 17: sound1 = 0x801e; break;
+	case 28: sound1 = SFX_DOOR_8007; break;
+	case 1:  sound1 = SFX_DOOR_801A; sound2 = SFX_DOOR_801B; break;
+	case 29: sound1 = SFX_DOOR_8015; sound2 = SFX_DOOR_801D; break;
+	case 2:  sound1 = SFX_DOOR_801A; sound2 = SFX_DOOR_801C; break;
+	case 3:  sound1 = SFX_DOOR_8014; sound2 = SFX_DOOR_8016; break;
+	case 4:  sound1 = SFX_DOOR_801E; sound2 = SFX_DOOR_8020; break;
+	case 5:  sound1 = SFX_DOOR_8001; break;
+	case 6:  sound1 = SFX_DOOR_8004; break;
+	case 7:  sound1 = SFX_DOOR_8005; break;
+	case 8:  sound1 = SFX_DOOR_800A; sound2 = SFX_DOOR_8008; break;
+	case 9:  sound1 = SFX_DOOR_8004; sound2 = SFX_DOOR_800B; break;
+	case 10: sound1 = SFX_DOOR_800C; break;
+	case 11: sound1 = SFX_DOOR_800E; break;
+	case 12: sound1 = SFX_DOOR_8010; break;
+	case 13: sound1 = SFX_DOOR_8012; break;
+	case 30: sound1 = SFX_DOOR_816B; sound2 = SFX_DOOR_81AA; break;
+	case 14: sound1 = SFX_DOOR_8017; sound2 = SFX_DOOR_8019; break;
+	case 15: sound1 = SFX_DOOR_8022; break;
+	case 25: sound1 = SFX_DOOR_81B8; break;
+	case 16: sound1 = SFX_DOOR_8026; break;
+	case 17: sound1 = SFX_DOOR_801E; break;
 	case 18:
-		 sound1 = 0x81b0;
-		 sound2 = 0x8014;
-		 sound3 = 0x8016;
+		 sound1 = SFX_DOOR_81B0;
+		 sound2 = SFX_DOOR_8014;
+		 sound3 = SFX_DOOR_8016;
 		 break;
-	case 19: sound1 = 0x81ae; sound2 = 0x81b3; break;
-	case 26: sound1 = 0x042c; sound2 = 0x042b; break;
-	case 20: sound1 = 0x81b1; sound2 = 0x81b6; break;
-	case 21: sound1 = 0x81a8; sound2 = 0x81aa; break;
-	case 32: sound1 = 0x81ab; sound2 = 0x81ad; break;
-	case 31: sound1 = 0x81ab; sound2 = 0x81b4; break;
-	case 22: sound1 = 0x81ae; sound2 = 0x81b5; break;
-	case 23: sound1 = 0x80ac; sound2 = 0x80ae; break;
-	case 24: sound1 = 0x816b; sound2 = 0x816c; break;
-	case 27: sound1 = 0x8014; sound2 = 0x042b; break;
+	case 19: sound1 = SFX_DOOR_81AE; sound2 = SFX_DOOR_81B3; break;
+	case 26: sound1 = SFX_DOOR_042C; sound2 = SFX_DOOR_042B; break;
+	case 20: sound1 = SFX_DOOR_81B1; sound2 = SFX_DOOR_81B6; break;
+	case 21: sound1 = SFX_DOOR_81A8; sound2 = SFX_DOOR_81AA; break;
+	case 32: sound1 = SFX_DOOR_81AB; sound2 = SFX_DOOR_81AD; break;
+	case 31: sound1 = SFX_DOOR_81AB; sound2 = SFX_DOOR_81B4; break;
+	case 22: sound1 = SFX_DOOR_81AE; sound2 = SFX_DOOR_81B5; break;
+	case 23: sound1 = SFX_DOOR_80AC; sound2 = SFX_DOOR_80AE; break;
+	case 24: sound1 = SFX_DOOR_816B; sound2 = SFX_DOOR_816C; break;
+	case 27: sound1 = SFX_DOOR_8014; sound2 = SFX_DOOR_042B; break;
 	}
 
 	if (sound1) {
@@ -44453,29 +44451,29 @@ void func0f08daa8(s32 soundtype, struct prop *prop)
 	}
 
 	switch (soundtype) {
-	case 28: sound1 = 0x8007; break;
-	case 1:  sound1 = 0x801a; sound2 = 0x801b; break;
-	case 29: sound1 = 0x8015; sound2 = 0x801d; break;
-	case 2:  sound1 = 0x801a; sound2 = 0x801c; break;
-	case 3:  sound1 = 0x8014; sound2 = 0x8016; break;
-	case 4:  sound1 = 0x801e; sound2 = 0x8020; break;
-	case 5:  sound1 = 0x8001; break;
-	case 8:  sound1 = 0x800a; sound2 = 0x8008; break;
-	case 9:  sound1 = 0x8004; sound2 = 0x800b; break;
-	case 10: sound1 = 0x800c; break;
-	case 30: sound1 = 0x816b; sound2 = 0x81aa; break;
-	case 14: sound1 = 0x8017; sound2 = 0x8019; break;
-	case 15: sound1 = 0x8022; break;
-	case 25: sound1 = 0x81b8; break;
-	case 16: sound1 = 0x8026; break;
-	case 17: sound1 = 0x801e; break;
+	case 28: sound1 = SFX_DOOR_8007; break;
+	case 1:  sound1 = SFX_DOOR_801A; sound2 = SFX_DOOR_801B; break;
+	case 29: sound1 = SFX_DOOR_8015; sound2 = SFX_DOOR_801D; break;
+	case 2:  sound1 = SFX_DOOR_801A; sound2 = SFX_DOOR_801C; break;
+	case 3:  sound1 = SFX_DOOR_8014; sound2 = SFX_DOOR_8016; break;
+	case 4:  sound1 = SFX_DOOR_801E; sound2 = SFX_DOOR_8020; break;
+	case 5:  sound1 = SFX_DOOR_8001; break;
+	case 8:  sound1 = SFX_DOOR_800A; sound2 = SFX_DOOR_8008; break;
+	case 9:  sound1 = SFX_DOOR_8004; sound2 = SFX_DOOR_800B; break;
+	case 10: sound1 = SFX_DOOR_800C; break;
+	case 30: sound1 = SFX_DOOR_816B; sound2 = SFX_DOOR_81AA; break;
+	case 14: sound1 = SFX_DOOR_8017; sound2 = SFX_DOOR_8019; break;
+	case 15: sound1 = SFX_DOOR_8022; break;
+	case 25: sound1 = SFX_DOOR_81B8; break;
+	case 16: sound1 = SFX_DOOR_8026; break;
+	case 17: sound1 = SFX_DOOR_801E; break;
 	case 18:
-		 sound1 = 0x81b0;
-		 sound2 = 0x8014;
-		 sound3 = 0x8016;
+		 sound1 = SFX_DOOR_81B0;
+		 sound2 = SFX_DOOR_8014;
+		 sound3 = SFX_DOOR_8016;
 		 break;
-	case 23: sound1 = 0x80ac; sound2 = 0x80ae; break;
-	case 24: sound1 = 0x816b; sound2 = 0x816c; break;
+	case 23: sound1 = SFX_DOOR_80AC; sound2 = SFX_DOOR_80AE; break;
+	case 24: sound1 = SFX_DOOR_816B; sound2 = SFX_DOOR_816C; break;
 	}
 
 	if (sound1) {
@@ -44507,33 +44505,33 @@ void func0f08dd44(s32 soundtype, struct prop *prop)
 	}
 
 	switch (soundtype) {
-	case 28: sound = 0x801a; break;
-	case 1:  sound = 0x801a; break;
-	case 29: sound = 0x8015; break;
-	case 2:  sound = 0x801a; break;
-	case 3:  sound = 0x8015; break;
-	case 4:  sound = 0x801f; break;
-	case 5:  sound = 0x8002; break;
-	case 8:  sound = 0x801a; break;
-	case 9:  sound = 0x8003; break;
-	case 10: sound = 0x800d; break;
-	case 30: sound = 0x816d; break;
-	case 14: sound = 0x816d; break;
-	case 15: sound = 0x8021; break;
-	case 25: sound = 0x81b7; break;
-	case 16: sound = 0x8027; break;
-	case 17: sound = 0x801f; break;
-	case 18: sound = 0x8015; break;
-	case 26: sound = 0x042c; break;
-	case 19: sound = 0x81af; break;
-	case 20: sound = 0x81b2; break;
-	case 21: sound = 0x81a8; break;
-	case 32: sound = 0x81ab; break;
-	case 31: sound = 0x81ab; break;
-	case 22: sound = 0x81af; break;
-	case 23: sound = 0x80ad; break;
-	case 24: sound = 0x816d; break;
-	case 27: sound = 0x8015; break;
+	case 28: sound = SFX_DOOR_801A; break;
+	case 1:  sound = SFX_DOOR_801A; break;
+	case 29: sound = SFX_DOOR_8015; break;
+	case 2:  sound = SFX_DOOR_801A; break;
+	case 3:  sound = SFX_DOOR_8015; break;
+	case 4:  sound = SFX_DOOR_801F; break;
+	case 5:  sound = SFX_DOOR_8002; break;
+	case 8:  sound = SFX_DOOR_801A; break;
+	case 9:  sound = SFX_DOOR_8003; break;
+	case 10: sound = SFX_DOOR_800D; break;
+	case 30: sound = SFX_DOOR_816D; break;
+	case 14: sound = SFX_DOOR_816D; break;
+	case 15: sound = SFX_DOOR_8021; break;
+	case 25: sound = SFX_DOOR_81B7; break;
+	case 16: sound = SFX_DOOR_8027; break;
+	case 17: sound = SFX_DOOR_801F; break;
+	case 18: sound = SFX_DOOR_8015; break;
+	case 26: sound = SFX_DOOR_042C; break;
+	case 19: sound = SFX_DOOR_81AF; break;
+	case 20: sound = SFX_DOOR_81B2; break;
+	case 21: sound = SFX_DOOR_81A8; break;
+	case 32: sound = SFX_DOOR_81AB; break;
+	case 31: sound = SFX_DOOR_81AB; break;
+	case 22: sound = SFX_DOOR_81AF; break;
+	case 23: sound = SFX_DOOR_80AD; break;
+	case 24: sound = SFX_DOOR_816D; break;
+	case 27: sound = SFX_DOOR_8015; break;
 	}
 
 	if (sound) {
@@ -44555,30 +44553,30 @@ void func0f08df10(s32 soundtype, struct prop *prop)
 	}
 
 	switch (soundtype) {
-	case 28: sound = 0x801a; break;
-	case 1:  sound = 0x801a; break;
-	case 29: sound = 0x8015; break;
-	case 2:  sound = 0x801a; break;
-	case 3:  sound = 0x8015; break;
-	case 4:  sound = 0x801f; break;
-	case 5:  sound = 0x8002; break;
-	case 6:  sound = 0x8003; break;
-	case 7:  sound = 0x8006; break;
-	case 8:  sound = 0x801a; break;
-	case 9:  sound = 0x8003; break;
-	case 10: sound = 0x800d; break;
-	case 11: sound = 0x800f; break;
-	case 12: sound = 0x8011; break;
-	case 13: sound = 0x8013; break;
-	case 30: sound = 0x816d; break;
-	case 14: sound = 0x8018; break;
-	case 15: sound = 0x8021; break;
-	case 25: sound = 0x81b7; break;
-	case 16: sound = 0x8027; break;
-	case 17: sound = 0x801f; break;
-	case 18: sound = 0x8015; break;
-	case 23: sound = 0x80ad; break;
-	case 24: sound = 0x816d; break;
+	case 28: sound = SFX_DOOR_801A; break;
+	case 1:  sound = SFX_DOOR_801A; break;
+	case 29: sound = SFX_DOOR_8015; break;
+	case 2:  sound = SFX_DOOR_801A; break;
+	case 3:  sound = SFX_DOOR_8015; break;
+	case 4:  sound = SFX_DOOR_801F; break;
+	case 5:  sound = SFX_DOOR_8002; break;
+	case 6:  sound = SFX_DOOR_8003; break;
+	case 7:  sound = SFX_DOOR_8006; break;
+	case 8:  sound = SFX_DOOR_801A; break;
+	case 9:  sound = SFX_DOOR_8003; break;
+	case 10: sound = SFX_DOOR_800D; break;
+	case 11: sound = SFX_DOOR_800F; break;
+	case 12: sound = SFX_DOOR_8011; break;
+	case 13: sound = SFX_DOOR_8013; break;
+	case 30: sound = SFX_DOOR_816D; break;
+	case 14: sound = SFX_DOOR_8018; break;
+	case 15: sound = SFX_DOOR_8021; break;
+	case 25: sound = SFX_DOOR_81B7; break;
+	case 16: sound = SFX_DOOR_8027; break;
+	case 17: sound = SFX_DOOR_801F; break;
+	case 18: sound = SFX_DOOR_8015; break;
+	case 23: sound = SFX_DOOR_80AD; break;
+	case 24: sound = SFX_DOOR_816D; break;
 	}
 
 	if (sound) {
@@ -47400,13 +47398,13 @@ void alarmTick(void)
 		// These sounds are alarm sounds.
 		// They go for a fraction of a second and are repeated by this function.
 		switch (g_Vars.stagenum) {
-		case STAGE_CHICAGO:      sound = 0x6455; break;
-		case STAGE_G5BUILDING:   sound = 0x00a2; break;
-		case STAGE_AIRBASE:      sound = 0x00a1; break;
-		case STAGE_PELAGIC:      sound = 0x00a2; break;
-		case STAGE_ATTACKSHIP:   sound = 0x05c2; break;
-		case STAGE_INFILTRATION: sound = 0x04ac; break;
-		default:                 sound = 0x00a3; break;
+		case STAGE_CHICAGO:      sound = SFX_ALARM_CHICAGO; break;
+		case STAGE_G5BUILDING:   sound = SFX_ALARM_2; break;
+		case STAGE_AIRBASE:      sound = SFX_ALARM_AIRBASE; break;
+		case STAGE_PELAGIC:      sound = SFX_ALARM_2; break;
+		case STAGE_ATTACKSHIP:   sound = SFX_ALARM_ATTACKSHIP; break;
+		case STAGE_INFILTRATION: sound = SFX_ALARM_INFILTRATION; break;
+		default:                 sound = SFX_ALARM_DEFAULT; break;
 		}
 
 		if (!coreIsPaused()) {

@@ -3287,7 +3287,7 @@ void nbombsTick(void)
 	if (youngest240 < 350) {
 		if (g_Vars.lvupdate240 != 0) {
 			if (g_NbombAudioHandle == 0) {
-				audioStart(var80095200, 0x810c, &g_NbombAudioHandle, -1, -1, -1, -1, -1);
+				audioStart(var80095200, SFX_SHIP_HUM, &g_NbombAudioHandle, -1, -1, -1, -1, -1);
 			}
 
 			somevalue = 32767;
@@ -3382,7 +3382,7 @@ void nbombCreate(struct coord *pos, struct prop *prop)
 	g_Nbombs[index].prop = prop;
 
 	if (g_Nbombs[index].audiohandle20 == NULL) {
-		audioStart(var80095200, 1, &g_Nbombs[index].audiohandle20, -1, -1, -1, -1, -1);
+		audioStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle20, -1, -1, -1, -1, -1);
 
 		if (g_Nbombs[index].audiohandle20) {
 			union audioparam param;
@@ -3392,7 +3392,7 @@ void nbombCreate(struct coord *pos, struct prop *prop)
 	}
 
 	if (g_Nbombs[index].audiohandle24 == NULL) {
-		audioStart(var80095200, 1, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
+		audioStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
 
 		if (g_Nbombs[index].audiohandle24) {
 			union audioparam param;

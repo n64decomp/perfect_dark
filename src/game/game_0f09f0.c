@@ -89,42 +89,42 @@ void menuPlaySound(s32 menusound)
 
 	switch (menusound) {
 	case MENUSOUND_SWIPE:
-		sound = 0x5bb;
+		sound = SFX_MENU_SWIPE;
 		break;
 	case MENUSOUND_OPENDIALOG:
-		sound = 0x5bc;
+		sound = SFX_MENU_OPENDIALOG;
 		break;
 	case MENUSOUND_FOCUS:
-		sound = 0x441;
+		sound = SFX_MENU_FOCUS;
 		break;
 	case MENUSOUND_SELECT:
-		sound = 0x5dd;
+		sound = SFX_MENU_SELECT;
 		break;
 	case MENUSOUND_ERROR:
 		speed = 0.4f;
-		sound = 0x8040;
+		sound = SFX_MENU_ERROR;
 		flag1 = true;
 		break;
 	case MENUSOUND_EXPLOSION:
-		sound = 0x8098;
+		sound = SFX_EXPLOSION_8098;
 		break;
 	case MENUSOUND_TOGGLEON:
-		sound = 0x5dd;
+		sound = SFX_MENU_SELECT;
 		break;
 	case MENUSOUND_TOGGLEOFF:
-		sound = 0x43e;
+		sound = SFX_MENU_SUBFOCUS;
 		break;
 	case MENUSOUND_SUBFOCUS:
-		sound = 0x43e;
+		sound = SFX_MENU_SUBFOCUS;
 		break;
 	case MENUSOUND_KEYBOARDFOCUS:
-		sound = 0xea;
+		sound = SFX_PICKUP_AMMO;
 		flag1 = true;
 		flag2 = true;
 		speed = 3.5f;
 		break;
 	case MENUSOUND_KEYBOARDCANCEL:
-		sound = 0x2b;
+		sound = SFX_MENU_CANCEL;
 		flag1 = true;
 		speed = 0.41904801130295f;
 		break;

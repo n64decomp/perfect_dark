@@ -90,7 +90,7 @@ void func0f17fcb0(s32 silent)
 
 	if (!silent) {
 		// Explosion sound
-		audioStart(var80095200, 0x809a, NULL, -1, -1, -1, -1, -1);
+		audioStart(var80095200, SFX_EXPLOSION_809A, NULL, -1, -1, -1, -1, -1);
 	}
 }
 
@@ -564,8 +564,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 			chr->aibot->unk0a0 += g_Vars.lvupdate240;
 
 			if (chr->aibot->unk0a0 >= SECSTOTIME240(30)) {
-				// Point scored sound
-				audioStart(var80095200, 0x5b8, NULL, -1, -1, -1, -1, -1);
+				audioStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				var800ac500[mpPlayerGetIndex(chr)]->unk3e++;
 				chr->aibot->unk0a0 = 0;
 			}
@@ -577,8 +576,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 			g_Vars.currentplayerstats->tokenheldtime += g_Vars.lvupdate240;
 
 			if (g_Vars.currentplayerstats->tokenheldtime >= SECSTOTIME240(30)) {
-				// Point scored sound
-				audioStart(var80095200, 0x5b8, NULL, -1, -1, -1, -1, -1);
+				audioStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				var800ac500[g_Vars.currentplayernum]->unk3e++;
 				func0f0ddfa4(langGet(L_MPWEAPONS(24)), 9, 1); // "1 Point!"
 				g_Vars.currentplayerstats->tokenheldtime = 0;

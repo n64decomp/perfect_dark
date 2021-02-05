@@ -709,7 +709,7 @@ glabel bwalkCalculateNewPositionWithPush
 //						func0f03417c(g_Vars.currentplayer->prop->chr, 0.4f, &sp90, 0, g_Vars.currentplayer->prop);
 //
 //						// Laser zap sound
-//						audioStart(var80095200, 0xf2, 0, -1, -1, -1, -1, -1);
+//						audioStart(var80095200, SFX_PICKUP_LASER, 0, -1, -1, -1, -1, -1);
 //					}
 //				}
 //			} else if (obstacle->type == PROPTYPE_CHR) {
@@ -1355,7 +1355,11 @@ void bwalkUpdateVertical(void)
 					&& (chr->headnum == HEAD_DARK_COMBAT || chr->headnum == HEAD_DARK_FROCK)
 					&& g_Vars.lvframe60 - g_Vars.currentplayer->fallstart > 40) {
 				// Play Jo landing grunt
-				s32 sounds[] = { 0x046f, 0x05b6, 0x05b7 };
+				s32 sounds[] = {
+					SFX_JO_LANDING_046F,
+					SFX_JO_LANDING_05B6,
+					SFX_JO_LANDING_05B7
+				};
 
 				func0f0939f8(NULL, g_Vars.currentplayer->prop, sounds[random() % 3],
 						-1, -1, 0x8400, 0, 0, 0, -1, 0, -1, -1, -1, -1);

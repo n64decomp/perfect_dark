@@ -656,14 +656,14 @@ bool eyespyTryLaunch(void)
 		// Launch successful
 		g_Vars.currentplayer->eyespy->initialised = true;
 
-		audioStart(var80095200, 0x80ab, 0, -1, -1, -1, -1, -1);
+		audioStart(var80095200, SFX_DETONATE, 0, -1, -1, -1, -1, -1);
 
 		launched = true;
 
 		chr->chrflags &= ~CHRCFLAG_HIDDEN;
 		chr->chrflags &= ~CHRCFLAG_INVINCIBLE_TO_GUNFIRE;
 
-		func0f0939f8(NULL, g_Vars.currentplayer->eyespy->prop, 0x1bd, -1,
+		func0f0939f8(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
 				-1, 2, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 	}
 

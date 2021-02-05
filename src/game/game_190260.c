@@ -492,7 +492,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			}
 
 			// Pickup sound
-			func0f0939f8(NULL, prop, 0xea, -1,
+			func0f0939f8(NULL, prop, SFX_PICKUP_AMMO, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 			func0f06ad2c(obj, 0, obj->hidden2 & OBJH2FLAG_04);
@@ -543,7 +543,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			}
 
 			// Pickup sound
-			func0f0939f8(NULL, prop, 0xea, -1,
+			func0f0939f8(NULL, prop, SFX_PICKUP_AMMO, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 			func0f06ad2c(obj, 0, obj->hidden2 & OBJH2FLAG_04);
@@ -596,8 +596,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 		{
 			struct shieldobj *shield = (struct shieldobj *)prop->obj;
 
-			// Shield pickup sound
-			func0f0939f8(NULL, prop, 0x1cd, -1,
+			func0f0939f8(NULL, prop, SFX_PICKUP_SHIELD, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 			chrSetShield(chr, shield->amount * 8);

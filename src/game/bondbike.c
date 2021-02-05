@@ -90,7 +90,7 @@ void bbikeExit(void)
 	func0f082a1c(obj, &coord, w, 0, 0);
 	func0f0926bc(g_Vars.currentplayer->hoverbike, 1, 0xffff);
 	func0f0926bc(g_Vars.currentplayer->prop, 1, 0xffff);
-	func0f0939f8(NULL, g_Vars.currentplayer->hoverbike, 0x80af, -1,
+	func0f0939f8(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_PULSE, -1,
 			-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 	obj->flags |= OBJFLAG_40000000;
@@ -1354,16 +1354,13 @@ void bbikeTick(void)
 
 			func0f0926bc(g_Vars.currentplayer->hoverbike, 1, 0xffff);
 
-			// Take-off sound
-			func0f0939f8(NULL, g_Vars.currentplayer->prop, 0xf5, -1,
+			func0f0939f8(NULL, g_Vars.currentplayer->prop, SFX_BIKE_TAKEOFF, -1,
 					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 
-			// Pulsating hum
-			func0f0939f8(NULL, g_Vars.currentplayer->prop, 0x80af, -1,
+			func0f0939f8(NULL, g_Vars.currentplayer->prop, SFX_BIKE_PULSE, -1,
 					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 
-			// Thruster
-			func0f0939f8(NULL, g_Vars.currentplayer->hoverbike, 0x1b4, -1,
+			func0f0939f8(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_ENGINE, -1,
 					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 		}
 

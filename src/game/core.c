@@ -135,7 +135,13 @@ struct audiohandle *g_MiscAudioHandle = NULL;
 s32 g_NumReasonsToEndMpMatch = 0;
 f32 g_StageTimeElapsed1f = 0;
 bool var80084040 = true;
-u32 g_MiscSfxSounds[] = {0x05c8, 0x8068, 0x01c8};
+
+u32 g_MiscSfxSounds[] = {
+	SFX_HEARTBEAT,
+	SFX_SLAYER_WHIR,
+	SFX_SLAYER_BEEP,
+};
+
 s32 var80084050 = 0;
 
 s16 g_FadeNumFrames = 0;
@@ -1163,12 +1169,12 @@ Gfx *coreRender(Gfx *gdl)
 						&& g_Vars.currentplayer->eyespy->camerabuttonheld) {
 					if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
 						objectiveCheckHolograph(400);
-						audioStart(var80095200, 0x4ff, 0, -1, -1, -1, -1, -1);
+						audioStart(var80095200, SFX_CAMSPY_SHUTTER, 0, -1, -1, -1, -1, -1);
 					} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
 						if (g_Vars.currentplayer->eyespydarts) {
 							// Fire dart
 							struct coord direction;
-							audioStart(var80095200, 0x8057, 0, -1, -1, -1, -1, -1);
+							audioStart(var80095200, SFX_DRUGSPY_FIREDART, 0, -1, -1, -1, -1, -1);
 							g_Vars.currentplayer->eyespydarts--;
 
 							direction.x = g_Vars.currentplayer->eyespy->look.x;
@@ -1179,7 +1185,7 @@ Gfx *coreRender(Gfx *gdl)
 									&g_Vars.currentplayer->eyespy->prop->pos, &direction, WEAPON_TRANQUILIZER, NULL);
 						} else {
 							// No dart ammo
-							audioStart(var80095200, 0x8052, 0, -1, -1, -1, -1, -1);
+							audioStart(var80095200, SFX_DRUGSPY_FIREEMPTY, 0, -1, -1, -1, -1, -1);
 						}
 					} else { // EYESPYMODE_BOMBSPY
 						struct coord spd4 = {0, 0, 0};
@@ -1293,7 +1299,7 @@ Gfx *coreRender(Gfx *gdl)
 								cutscenehasstatic = true;
 
 								if (g_CutsceneStaticAudioHandle == NULL) {
-									audioStart(var80095200, 0x59f, &g_CutsceneStaticAudioHandle, -1, -1, -1, -1, -1);
+									audioStart(var80095200, SFX_INFIL_STATIC_LONG, &g_CutsceneStaticAudioHandle, -1, -1, -1, -1, -1);
 								}
 
 								g_CutsceneStaticTimer -= g_Vars.diffframe60;
@@ -1308,7 +1314,7 @@ Gfx *coreRender(Gfx *gdl)
 								if (g_CutsceneStaticTimer < 15) {
 									if (g_CutsceneStaticActive == false) {
 										g_CutsceneStaticActive = true;
-										audioStart(var80095200, 0x59e, NULL, -1, -1, -1, -1, -1);
+										audioStart(var80095200, SFX_INFIL_STATIC_MEDIUM, NULL, -1, -1, -1, -1, -1);
 									}
 
 									cutscenestatic = 225 - g_CutsceneStaticTimer * 10;
@@ -1318,7 +1324,7 @@ Gfx *coreRender(Gfx *gdl)
 								// to the main static above
 								if (random() % 60 == 1) {
 									cutscenestatic = 255;
-									audioStart(var80095200, 0x59d, NULL, -1, -1, -1, -1, -1);
+									audioStart(var80095200, SFX_INFIL_STATIC_SHORT, NULL, -1, -1, -1, -1, -1);
 								}
 
 								if (cutscenestatic) {
@@ -1370,7 +1376,7 @@ Gfx *coreRender(Gfx *gdl)
 							|| (g_Vars.speedpillwant && !g_Vars.speedpillon)
 							|| (!g_Vars.speedpillwant && g_Vars.speedpillon)) {
 						if (g_Vars.speedpillchange == 30 && !g_Vars.speedpillwant) {
-							audioStart(var80095200, coreGetSlowMotionType() ? 0x5c9 : 0x2ad, 0, -1, -1, -1, -1, -1);
+							audioStart(var80095200, coreGetSlowMotionType() ? SFX_JO_BOOST_ACTIVATE : SFX_JO_BOOST_REVERT, 0, -1, -1, -1, -1, -1);
 						}
 
 						if (g_Vars.speedpillchange < 15) {
