@@ -9535,14 +9535,14 @@ void setInvincible(bool enable)
 	}
 }
 
-void setGvars324(s32 arg0)
+void setBondVisible(bool visible)
 {
-	g_Vars.unk000324 = arg0;
+	g_Vars.bondvisible = visible;
 }
 
-void setGvars328(s32 arg0)
+void setBondCollisions(bool enabled)
 {
-	g_Vars.bondcollisions = arg0;
+	g_Vars.bondcollisions = enabled;
 }
 
 void currentPlayerSetCameraMode(s32 mode)

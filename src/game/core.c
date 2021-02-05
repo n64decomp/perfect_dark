@@ -162,7 +162,7 @@ void setVar80084040(u32 value)
 
 void func0f167af8(void)
 {
-	g_Vars.unk000320 = 0;
+	g_Vars.lockscreen = 0;
 	g_Vars.unk0004d8 = -1;
 }
 
@@ -1063,7 +1063,7 @@ Gfx *coreRender(Gfx *gdl)
 					&& !g_Vars.normmplayerisrunning
 					&& g_Vars.tickmode != TICKMODE_CUTSCENE) {
 				if (var80084050 < 6) {
-					g_Vars.unk000320 = 1;
+					g_Vars.lockscreen = 1;
 				}
 
 				var80084050++;
@@ -1075,9 +1075,9 @@ Gfx *coreRender(Gfx *gdl)
 				g_Vars.currentplayer->unk1583_06 = func0f09eae4();
 			}
 
-			if (g_Vars.unk000320) {
+			if (g_Vars.lockscreen) {
 				gdl = bviewRenderMotionBlur(gdl, 0xffffffff, 255);
-				g_Vars.unk000320--;
+				g_Vars.lockscreen--;
 			} else if (var8009dfc0) {
 				gdl = func0000b330(gdl);
 				gdl = func0f15cb74(gdl);

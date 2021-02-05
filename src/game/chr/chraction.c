@@ -24856,7 +24856,7 @@ bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
 		}
 
 		if (target->type == PROPTYPE_PLAYER) {
-			if (g_Vars.unk000324 &&
+			if (g_Vars.bondvisible &&
 					(hasLineOfSight(&target->pos, target->rooms, &chr->prop->pos, chr->prop->rooms, 51, 8))) {
 				struct model *model = chr->model;
 				struct coord sp68;
@@ -25475,122 +25475,57 @@ void chrSetPadPresetByChrnum(struct chrdata *basechr, s32 chrnum, s32 pad_id)
 	}
 }
 
-GLOBAL_ASM(
-glabel chrIsInLoadedRoom
-/*  f04ad08:	27bdff28 */ 	addiu	$sp,$sp,-216
-/*  f04ad0c:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f04ad10:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f04ad14:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f04ad18:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f04ad1c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f04ad20:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f04ad24:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f04ad28:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04ad2c:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f04ad30:	afa400d8 */ 	sw	$a0,0xd8($sp)
-/*  f04ad34:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*  f04ad38:	8fae00d8 */ 	lw	$t6,0xd8($sp)
-/*  f04ad3c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f04ad40:	00408825 */ 	or	$s1,$v0,$zero
-/*  f04ad44:	15e10004 */ 	bne	$t7,$at,.L0f04ad58
-/*  f04ad48:	8dc3001c */ 	lw	$v1,0x1c($t6)
-/*  f04ad4c:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x324)
-/*  f04ad50:	8f18a2e4 */ 	lw	$t8,%lo(g_Vars+0x324)($t8)
-/*  f04ad54:	1300004b */ 	beqz	$t8,.L0f04ae84
-.L0f04ad58:
-/*  f04ad58:	24740008 */ 	addiu	$s4,$v1,0x8
-/*  f04ad5c:	24750028 */ 	addiu	$s5,$v1,0x28
-/*  f04ad60:	26360008 */ 	addiu	$s6,$s1,0x8
-/*  f04ad64:	02c03025 */ 	or	$a2,$s6,$zero
-/*  f04ad68:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f04ad6c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f04ad70:	0c00b706 */ 	jal	func0002dc18
-/*  f04ad74:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f04ad78:	10400003 */ 	beqz	$v0,.L0f04ad88
-/*  f04ad7c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f04ad80:	10000041 */ 	b	.L0f04ae88
-/*  f04ad84:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04ad88:
-/*  f04ad88:	0fc45095 */ 	jal	waypointFindClosestToPos
-/*  f04ad8c:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f04ad90:	26330028 */ 	addiu	$s3,$s1,0x28
-/*  f04ad94:	00408025 */ 	or	$s0,$v0,$zero
-/*  f04ad98:	02602825 */ 	or	$a1,$s3,$zero
-/*  f04ad9c:	0fc45095 */ 	jal	waypointFindClosestToPos
-/*  f04ada0:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f04ada4:	12000037 */ 	beqz	$s0,.L0f04ae84
-/*  f04ada8:	00408825 */ 	or	$s1,$v0,$zero
-/*  f04adac:	10400035 */ 	beqz	$v0,.L0f04ae84
-/*  f04adb0:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x8)
-/*  f04adb4:	8faa00d8 */ 	lw	$t2,0xd8($sp)
-/*  f04adb8:	8f399fc8 */ 	lw	$t9,%lo(g_Vars+0x8)($t9)
-/*  f04adbc:	854b0000 */ 	lh	$t3,0x0($t2)
-/*  f04adc0:	00194243 */ 	sra	$t0,$t9,0x9
-/*  f04adc4:	000849c0 */ 	sll	$t1,$t0,0x7
-/*  f04adc8:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*  f04adcc:	012c2021 */ 	addu	$a0,$t1,$t4
-/*  f04add0:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f04add4:	00802825 */ 	or	$a1,$a0,$zero
-/*  f04add8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04addc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f04ade0:	27a600b4 */ 	addiu	$a2,$sp,0xb4
-/*  f04ade4:	0fc4547b */ 	jal	waypointFindRoute
-/*  f04ade8:	24070005 */ 	addiu	$a3,$zero,0x5
-/*  f04adec:	00408025 */ 	or	$s0,$v0,$zero
-/*  f04adf0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f04adf4:	0fc45090 */ 	jal	waypointSetHashThing
-/*  f04adf8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04adfc:	2a010003 */ 	slti	$at,$s0,0x3
-/*  f04ae00:	14200020 */ 	bnez	$at,.L0f04ae84
-/*  f04ae04:	8fad00b4 */ 	lw	$t5,0xb4($sp)
-/*  f04ae08:	11a0001e */ 	beqz	$t5,.L0f04ae84
-/*  f04ae0c:	27b000b4 */ 	addiu	$s0,$sp,0xb4
-/*  f04ae10:	8e020000 */ 	lw	$v0,0x0($s0)
-/*  f04ae14:	27b10058 */ 	addiu	$s1,$sp,0x58
-/*  f04ae18:	00409025 */ 	or	$s2,$v0,$zero
-.L0f04ae1c:
-/*  f04ae1c:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f04ae20:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f04ae24:	0fc456ac */ 	jal	padUnpack
-/*  f04ae28:	02203025 */ 	or	$a2,$s1,$zero
-/*  f04ae2c:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f04ae30:	02602825 */ 	or	$a1,$s3,$zero
-/*  f04ae34:	02203025 */ 	or	$a2,$s1,$zero
-/*  f04ae38:	0c00b706 */ 	jal	func0002dc18
-/*  f04ae3c:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f04ae40:	1040000c */ 	beqz	$v0,.L0f04ae74
-/*  f04ae44:	02802025 */ 	or	$a0,$s4,$zero
-/*  f04ae48:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f04ae4c:	02203025 */ 	or	$a2,$s1,$zero
-/*  f04ae50:	0c00b706 */ 	jal	func0002dc18
-/*  f04ae54:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f04ae58:	50400007 */ 	beqzl	$v0,.L0f04ae78
-/*  f04ae5c:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f04ae60:	8e4f0000 */ 	lw	$t7,0x0($s2)
-/*  f04ae64:	8fb800d8 */ 	lw	$t8,0xd8($sp)
-/*  f04ae68:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f04ae6c:	10000006 */ 	b	.L0f04ae88
-/*  f04ae70:	a70f0128 */ 	sh	$t7,0x128($t8)
-.L0f04ae74:
-/*  f04ae74:	8e020004 */ 	lw	$v0,0x4($s0)
-.L0f04ae78:
-/*  f04ae78:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f04ae7c:	5440ffe7 */ 	bnezl	$v0,.L0f04ae1c
-/*  f04ae80:	00409025 */ 	or	$s2,$v0,$zero
-.L0f04ae84:
-/*  f04ae84:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04ae88:
-/*  f04ae88:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f04ae8c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f04ae90:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f04ae94:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f04ae98:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f04ae9c:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f04aea0:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f04aea4:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f04aea8:	03e00008 */ 	jr	$ra
-/*  f04aeac:	27bd00d8 */ 	addiu	$sp,$sp,0xd8
-);
+/**
+ * Check if chr has line of sight (I think?) to their target. If so, find a
+ * route to them, then iterate the route backwards (from target to chr). Find
+ * the first waypoint with line of sight and store it as the chr's pad preset.
+ */
+bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr)
+{
+	struct prop *target = chrGetTargetProp(chr);
+	struct prop *prop = chr->prop;
+	struct waypoint *fromwp;
+	struct waypoint *towp;
+	struct waypoint *waypoints[5];
+	s32 numwaypoints;
+	s32 i;
+	struct pad pad;
+
+	if (target->type != PROPTYPE_PLAYER || g_Vars.bondvisible) {
+		if (func0002dc18(&prop->pos, prop->rooms, &target->pos, CDTYPE_BG)) {
+			return false;
+		}
+
+		fromwp = waypointFindClosestToPos(&prop->pos, prop->rooms);
+		towp = waypointFindClosestToPos(&target->pos, target->rooms);
+
+		if (fromwp && towp) {
+			u32 hash = (g_Vars.lvframe60 >> 9) * 128 + chr->chrnum * 8;
+
+			// Note from/to are swapped here, so the route is from target to chr
+			waypointSetHashThing(hash, hash);
+			numwaypoints = waypointFindRoute(towp, fromwp, waypoints, 5);
+			waypointSetHashThing(0, 0);
+
+			if (numwaypoints >= 3) {
+				for (i = 0; waypoints[i] != NULL; i++) {
+					struct waypoint *wp = waypoints[i];
+
+					padUnpack(wp->padnum, PADFIELD_POS, &pad);
+
+					if (func0002dc18(&target->pos, target->rooms, &pad.pos, CDTYPE_BG)) {
+						if (func0002dc18(&prop->pos, prop->rooms, &pad.pos, CDTYPE_BG)) {
+							chr->padpreset1 = wp->padnum;
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f04aeb0

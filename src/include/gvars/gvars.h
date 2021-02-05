@@ -81,11 +81,11 @@ struct g_vars {
 	/*000314*/ bool mplayerisrunning;     // combat sim with any number of players, coop with human buddy, and counter-op
 	/*000318*/ bool normmplayerisrunning; // combat sim with any number of players
 	/*00031c*/ s32 lvmpbotlevel;
-	/*000320*/ s32 unk000320;
-	/*000324*/ s32 unk000324;
+	/*000320*/ s32 lockscreen;
+	/*000324*/ bool bondvisible;
 	/*000328*/ bool bondcollisions;
 	/*00032c*/ bool enableslopes;
-	/*000330*/ u32 unk000330;
+	/*000330*/ u32 padrandomroutes;
 	/*000334*/ s32 maxprops;
 	/*000338*/ struct prop *props; // pointer to array
 	/*00033c*/ struct prop *list1head;

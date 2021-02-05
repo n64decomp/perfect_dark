@@ -20308,7 +20308,7 @@ void cameraTick(struct prop *camprop)
 		}
 	}
 
-	if (g_Vars.unk000324 == 0
+	if (g_Vars.bondvisible == false
 			|| (obj->flags & OBJFLAG_CAMERA_DISABLED)
 			|| (playerprop->chr->hidden & CHRHFLAG_CLOAKED)) {
 		canseeplayer = false;
@@ -23121,7 +23121,7 @@ bool chopperCheckTargetInSight(struct chopperobj *obj)
 		bool visible = false;
 		struct prop *target = chopperGetTargetProp(chopper);
 
-		if (target->type != PROPTYPE_PLAYER || g_Vars.unk000324) {
+		if (target->type != PROPTYPE_PLAYER || g_Vars.bondvisible) {
 			visible = hasLineOfSight(&target->pos, target->rooms, &chopper->base.prop->pos, chopper->base.prop->rooms, 307, 16);
 		}
 

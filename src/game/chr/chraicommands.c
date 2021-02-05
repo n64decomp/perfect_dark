@@ -1409,9 +1409,9 @@ bool aiIfNearlyInTargetsSight(void)
 /**
  * @cmd 0042
  */
-bool aiIfInLoadedRoom(void)
+bool aiSetPadPresetToPadOnRouteToTarget(void)
 {
-	if (chrIsInLoadedRoom(g_Vars.chrdata)) {
+	if (chrSetPadPresetToPadOnRouteToTarget(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

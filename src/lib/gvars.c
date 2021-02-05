@@ -16,7 +16,7 @@ void gvarsInit(void)
 	g_Vars.lvframe60 = 0;
 	g_Vars.lvframenum = 0;
 	g_Vars.lvmpbotlevel = 0;
-	g_Vars.unk000320 = 0;
+	g_Vars.lockscreen = 0;
 	g_Vars.diffframe60 = 1;
 	g_Vars.lastframe240 = -1;
 	g_Vars.thisframe240 = 0;
@@ -44,7 +44,7 @@ void gvarsInit(void)
 	g_Vars.pendingantiplayernum = 1;
 	g_Vars.unk000458 = 0;
 	g_Vars.numaibuddies = 0;
-	g_Vars.unk000324 = 1;
+	g_Vars.bondvisible = true;
 	g_Vars.bondcollisions = true;
 	g_Vars.tickmode = TICKMODE_0;
 	g_Vars.roomcount = 350;

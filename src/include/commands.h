@@ -612,9 +612,11 @@
 	label,
 
 /**
- * Checks if the chr is in a loaded room.
+ * Checks if the current chr can see their target. If so, the chr's pad preset
+ * is set to a pad along the route to their target. The pad chosen is the pad
+ * on the route which is closest to the target and in sight of the current chr.
  */
-#define if_in_loaded_room(label) \
+#define set_pad_preset_to_pad_on_route_to_target(label) \
 	mkshort(0x0042), \
 	label,
 

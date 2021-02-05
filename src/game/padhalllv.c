@@ -441,7 +441,7 @@ struct waygroup *func0f114810(s32 *groupnums, s32 value, u32 mask)
 			if (group->unk08 == value) {
 				best = group;
 
-				if (g_Vars.unk000330 == 0) {
+				if (!g_Vars.padrandomroutes) {
 					break;
 				}
 
@@ -562,7 +562,7 @@ struct waypoint *func0f114b7c(s32 *pointnums, s32 arg1, s32 groupnum, u32 mask)
 			if (point->groupnum == groupnum && point->unk0c == arg1) {
 				best = point;
 
-				if (g_Vars.unk000330 == 0) {
+				if (!g_Vars.padrandomroutes) {
 					break;
 				}
 
@@ -722,7 +722,7 @@ void func0f11505c(struct waygroup *groupa, struct waygroup *groupb, struct waypo
 					*pointa = groupapoint;
 					*pointb = neighbour;
 
-					if (g_Vars.unk000330 == 0) {
+					if (!g_Vars.padrandomroutes) {
 						break;
 					}
 

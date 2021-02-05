@@ -69,7 +69,7 @@
 /*0x003f*/ bool aiIfCanSeeTarget(void);
 /*0x0040*/ bool aiIfTargetNearlyInSight(void);
 /*0x0041*/ bool aiIfNearlyInTargetsSight(void);
-/*0x0042*/ bool aiIfInLoadedRoom(void);
+/*0x0042*/ bool aiSetPadPresetToPadOnRouteToTarget(void);
 /*0x0043*/ bool aiIfSawTargetRecently(void);
 /*0x0044*/ bool aiIfHeardTargetRecently(void);
 /*0x0045*/ bool ai0045(void);

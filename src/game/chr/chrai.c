@@ -83,7 +83,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x003f*/ aiIfCanSeeTarget,
 	/*0x0040*/ aiIfTargetNearlyInSight,
 	/*0x0041*/ aiIfNearlyInTargetsSight,
-	/*0x0042*/ aiIfInLoadedRoom,
+	/*0x0042*/ aiSetPadPresetToPadOnRouteToTarget,
 	/*0x0043*/ aiIfSawTargetRecently,
 	/*0x0044*/ aiIfHeardTargetRecently,
 	/*0x0045*/ ai0045,

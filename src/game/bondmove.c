@@ -4869,7 +4869,7 @@ glabel var7f1ad8e4
 //	// a944
 //	// I think this is checking which gun is making the loudest noise and is
 //	// alerting nearby chrs to it.
-//	if (g_Vars.unk000324 && (handIsAttackingOnThisTick(0) || handIsAttackingOnThisTick(1))) {
+//	if (g_Vars.bondvisible && (handIsAttackingOnThisTick(0) || handIsAttackingOnThisTick(1))) {
 //		spb4 = 0;
 //
 //		if (handIsAttackingOnThisTick(0) && func0f09cf58(0) > spb4) {

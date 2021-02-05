@@ -191,7 +191,7 @@ u32 func0f04a4ec(struct chrdata *chr, u8 arg1);
 bool chrSetPadPresetToWaypointWithinTargetQuadrant(struct chrdata *chr, u8 arg1);
 bool func0f04a7dc(u32 chrnum, struct chrdata *chr, f32 distance, s32 padnum);
 bool func0f04a848(u8 chrnum, struct chrdata *chr, f32 distance, struct coord *pos, s16 *room);
-u32 chrIsInLoadedRoom(struct chrdata *chr);
+bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr);
 u32 func0f04aeb0(void);
 bool func0f04af84(f32 chrwidth, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5, bool arg6);
 struct prop *chrSpawnAtCoord(s32 body, s32 head, struct coord *pos, s16 *room, f32 arg4, u8 *ailist, u32 flags);
