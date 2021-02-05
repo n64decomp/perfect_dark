@@ -24240,56 +24240,30 @@ glabel var7f1a9334
 /*  f048dc8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f048dcc
-.late_rodata
-glabel var7f1a9338
-.word 0x40c907a9
-.text
-/*  f048dcc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f048dd0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f048dd4:	8c83001c */ 	lw	$v1,0x1c($a0)
-/*  f048dd8:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f048ddc:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f048de0:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f048de4:	44801000 */ 	mtc1	$zero,$f2
-/*  f048de8:	5060001e */ 	beqzl	$v1,.L0f048e64
-/*  f048dec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f048df0:	5040001c */ 	beqzl	$v0,.L0f048e64
-/*  f048df4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f048df8:	c468000c */ 	lwc1	$f8,0xc($v1)
-/*  f048dfc:	c44a000c */ 	lwc1	$f10,0xc($v0)
-/*  f048e00:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f048e04:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f048e08:	460a4401 */ 	sub.s	$f16,$f8,$f10
-/*  f048e0c:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f048e10:	e7b00018 */ 	swc1	$f16,0x18($sp)
-/*  f048e14:	c4440010 */ 	lwc1	$f4,0x10($v0)
-/*  f048e18:	c4720010 */ 	lwc1	$f18,0x10($v1)
-/*  f048e1c:	46000182 */ 	mul.s	$f6,$f0,$f0
-/*  f048e20:	46049081 */ 	sub.s	$f2,$f18,$f4
-/*  f048e24:	46021202 */ 	mul.s	$f8,$f2,$f2
-/*  f048e28:	0c012974 */ 	jal	sqrtf
-/*  f048e2c:	46083300 */ 	add.s	$f12,$f6,$f8
-/*  f048e30:	c7ac0018 */ 	lwc1	$f12,0x18($sp)
-/*  f048e34:	0fc259d4 */ 	jal	func0f096750
-/*  f048e38:	46000386 */ 	mov.s	$f14,$f0
-/*  f048e3c:	44805000 */ 	mtc1	$zero,$f10
-/*  f048e40:	46000086 */ 	mov.s	$f2,$f0
-/*  f048e44:	3c017f1b */ 	lui	$at,%hi(var7f1a9338)
-/*  f048e48:	460a003c */ 	c.lt.s	$f0,$f10
-/*  f048e4c:	00000000 */ 	nop
-/*  f048e50:	45020004 */ 	bc1fl	.L0f048e64
-/*  f048e54:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f048e58:	c4309338 */ 	lwc1	$f16,%lo(var7f1a9338)($at)
-/*  f048e5c:	46100080 */ 	add.s	$f2,$f0,$f16
-/*  f048e60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f048e64:
-/*  f048e64:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f048e68:	46001006 */ 	mov.s	$f0,$f2
-/*  f048e6c:	03e00008 */ 	jr	$ra
-/*  f048e70:	00000000 */ 	nop
-);
+f32 chrGetVerticalAngleToTarget(struct chrdata *chr)
+{
+	struct prop *prop = chr->prop;
+	struct prop *target = chrGetTargetProp(chr);
+	f32 result = 0;
+
+	if (prop && target) {
+		f32 ydiff;
+		f32 xdiff;
+		f32 zdiff;
+
+		xdiff = prop->pos.x - target->pos.x;
+		ydiff = prop->pos.y - target->pos.y;
+		zdiff = prop->pos.z - target->pos.z;
+
+		result = func0f096750(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
+
+		if (result < 0) {
+			result += M_BADTAU;
+		}
+	}
+
+	return result;
+}
 
 bool func0f048e74(struct chrdata *chr, u8 fov)
 {
@@ -24305,7 +24279,7 @@ bool func0f048e74(struct chrdata *chr, u8 fov)
 
 bool func0f048f20(struct chrdata *chr, u8 angle)
 {
-	f32 val = func0f048dcc(chr);
+	f32 val = chrGetVerticalAngleToTarget(chr);
 
 	if ((val < angle * 0.024539785459638f && val < M_PI)
 			|| (val > M_BADTAU - angle * 0.024539785459638f && val > M_PI)) {
