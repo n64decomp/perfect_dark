@@ -14,7 +14,7 @@
 #include "game/game_00c490.h"
 #include "game/prop.h"
 #include "game/game_092610.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"

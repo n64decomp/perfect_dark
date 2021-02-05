@@ -13,7 +13,7 @@
 #include "game/prop.h"
 #include "game/game_092610.h"
 #include "game/game_095320.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b69d0.h"
@@ -2053,7 +2053,7 @@ f32 frGetTargetAngleToPos(struct coord *targetpos, f32 targetangle, struct coord
 {
 	f32 xdiff = targetpos->x - pos->x;
 	f32 zdiff = targetpos->z - pos->z;
-	f32 directangle = func0f096750(xdiff, zdiff);
+	f32 directangle = atan2f(xdiff, zdiff);
 	f32 relativeangle = directangle - targetangle;
 
 	if (directangle < targetangle) {

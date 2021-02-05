@@ -24,7 +24,7 @@
 #include "game/game_092610.h"
 #include "game/game_095320.h"
 #include "game/game_096360.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_0969d0.h"
 #include "game/game_096ca0.h"
 #include "game/floor.h"
@@ -9902,7 +9902,7 @@ glabel var7f1aa2a0
 /*  f06eaa8:	e7a6011c */ 	swc1	$f6,0x11c($sp)
 .L0f06eaac:
 /*  f06eaac:	c7ac0118 */ 	lwc1	$f12,0x118($sp)
-/*  f06eab0:	0fc259d4 */ 	jal	func0f096750
+/*  f06eab0:	0fc259d4 */ 	jal	atan2f
 /*  f06eab4:	c7ae0114 */ 	lwc1	$f14,0x114($sp)
 /*  f06eab8:	e7a000f4 */ 	swc1	$f0,0xf4($sp)
 /*  f06eabc:	46000307 */ 	neg.s	$f12,$f0
@@ -9918,7 +9918,7 @@ glabel var7f1aa2a0
 /*  f06eae4:	0c0056c4 */ 	jal	func00015b10
 /*  f06eae8:	e7a4002c */ 	swc1	$f4,0x2c($sp)
 /*  f06eaec:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f06eaf0:	0fc259d4 */ 	jal	func0f096750
+/*  f06eaf0:	0fc259d4 */ 	jal	atan2f
 /*  f06eaf4:	c7ae0028 */ 	lwc1	$f14,0x28($sp)
 /*  f06eaf8:	3c017f1b */ 	lui	$at,%hi(var7f1aa29c)
 /*  f06eafc:	c426a29c */ 	lwc1	$f6,%lo(var7f1aa29c)($at)
@@ -10412,7 +10412,7 @@ glabel func0f06f0a0
 /*  f06f1d4:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f06f1d8:	8fa20030 */ 	lw	$v0,0x30($sp)
 /*  f06f1dc:	c44c0000 */ 	lwc1	$f12,0x0($v0)
-/*  f06f1e0:	0fc259d4 */ 	jal	func0f096750
+/*  f06f1e0:	0fc259d4 */ 	jal	atan2f
 /*  f06f1e4:	c44e0008 */ 	lwc1	$f14,0x8($v0)
 /*  f06f1e8:	e6000060 */ 	swc1	$f0,0x60($s0)
 /*  f06f1ec:	8faf0030 */ 	lw	$t7,0x30($sp)
@@ -10425,7 +10425,7 @@ glabel func0f06f0a0
 /*  f06f208:	46062300 */ 	add.s	$f12,$f4,$f6
 /*  f06f20c:	8fb80030 */ 	lw	$t8,0x30($sp)
 /*  f06f210:	46000386 */ 	mov.s	$f14,$f0
-/*  f06f214:	0fc259d4 */ 	jal	func0f096750
+/*  f06f214:	0fc259d4 */ 	jal	atan2f
 /*  f06f218:	c70c0004 */ 	lwc1	$f12,0x4($t8)
 /*  f06f21c:	c6080060 */ 	lwc1	$f8,0x60($s0)
 /*  f06f220:	e6000074 */ 	swc1	$f0,0x74($s0)
@@ -12918,7 +12918,7 @@ glabel var7f1aa314
 /*  f071778:	45020011 */ 	bc1fl	.L0f0717c0
 /*  f07177c:	4602603e */ 	c.le.s	$f12,$f2
 /*  f071780:	46101301 */ 	sub.s	$f12,$f2,$f16
-/*  f071784:	0fc259d4 */ 	jal	func0f096750
+/*  f071784:	0fc259d4 */ 	jal	atan2f
 /*  f071788:	46062381 */ 	sub.s	$f14,$f4,$f6
 /*  f07178c:	3c017f1b */ 	lui	$at,%hi(var7f1aa2d8)
 /*  f071790:	c428a2d8 */ 	lwc1	$f8,%lo(var7f1aa2d8)($at)
@@ -12940,7 +12940,7 @@ glabel var7f1aa314
 /*  f0717c8:	4600603e */ 	c.le.s	$f12,$f0
 /*  f0717cc:	c6040034 */ 	lwc1	$f4,0x34($s0)
 /*  f0717d0:	46007387 */ 	neg.s	$f14,$f14
-/*  f0717d4:	0fc259d4 */ 	jal	func0f096750
+/*  f0717d4:	0fc259d4 */ 	jal	atan2f
 /*  f0717d8:	46041301 */ 	sub.s	$f12,$f2,$f4
 /*  f0717dc:	3c017f1b */ 	lui	$at,%hi(var7f1aa2e0)
 /*  f0717e0:	c426a2e0 */ 	lwc1	$f6,%lo(var7f1aa2e0)($at)
@@ -12962,7 +12962,7 @@ glabel var7f1aa314
 /*  f071818:	44804000 */ 	mtc1	$zero,$f8
 /*  f07181c:	c60a0034 */ 	lwc1	$f10,0x34($s0)
 /*  f071820:	c7ae01cc */ 	lwc1	$f14,0x1cc($sp)
-/*  f071824:	0fc259d4 */ 	jal	func0f096750
+/*  f071824:	0fc259d4 */ 	jal	atan2f
 /*  f071828:	46105301 */ 	sub.s	$f12,$f10,$f16
 /*  f07182c:	3c017f1b */ 	lui	$at,%hi(var7f1aa2e8)
 /*  f071830:	c424a2e8 */ 	lwc1	$f4,%lo(var7f1aa2e8)($at)
@@ -15103,7 +15103,7 @@ glabel var7f1aa3d0
 /*  f0735bc:	00000000 */ 	nop
 /*  f0735c0:	460e7182 */ 	mul.s	$f6,$f14,$f14
 /*  f0735c4:	e7a40044 */ 	swc1	$f4,0x44($sp)
-/*  f0735c8:	0fc259d4 */ 	jal	func0f096750
+/*  f0735c8:	0fc259d4 */ 	jal	atan2f
 /*  f0735cc:	e7a60040 */ 	swc1	$f6,0x40($sp)
 /*  f0735d0:	c7a80044 */ 	lwc1	$f8,0x44($sp)
 /*  f0735d4:	c7aa0040 */ 	lwc1	$f10,0x40($sp)
@@ -15111,7 +15111,7 @@ glabel var7f1aa3d0
 /*  f0735dc:	0c012974 */ 	jal	sqrtf
 /*  f0735e0:	460a4300 */ 	add.s	$f12,$f8,$f10
 /*  f0735e4:	4600a306 */ 	mov.s	$f12,$f20
-/*  f0735e8:	0fc259d4 */ 	jal	func0f096750
+/*  f0735e8:	0fc259d4 */ 	jal	atan2f
 /*  f0735ec:	46000386 */ 	mov.s	$f14,$f0
 /*  f0735f0:	3c15800a */ 	lui	$s5,%hi(g_Vars)
 /*  f0735f4:	26b59fc0 */ 	addiu	$s5,$s5,%lo(g_Vars)
@@ -20316,7 +20316,7 @@ void cameraTick(struct prop *camprop)
 
 	// Check horizontal angle
 	if (canseeplayer) {
-		f32 angle = func0f096750(xdist, zdist);
+		f32 angle = atan2f(xdist, zdist);
 		f32 yrot = camera->yrot;
 		f32 finalangle;
 
@@ -20355,7 +20355,7 @@ void cameraTick(struct prop *camprop)
 
 	// Check vertical angle
 	if (canseeplayer) {
-		f32 angle = func0f096750(ydist, sqrtf(xdist * xdist + zdist * zdist));
+		f32 angle = atan2f(ydist, sqrtf(xdist * xdist + zdist * zdist));
 		f32 finalangle = angle - camera->xzero;
 
 		if (angle < camera->xzero) {
@@ -21245,11 +21245,11 @@ glabel var7f1aa580
 /*  f0793cc:	45020112 */ 	bc1fl	.L0f079818
 /*  f0793d0:	8fb8007c */ 	lw	$t8,0x7c($sp)
 /*  f0793d4:	afa800ac */ 	sw	$t0,0xac($sp)
-/*  f0793d8:	0fc259d4 */ 	jal	func0f096750
+/*  f0793d8:	0fc259d4 */ 	jal	atan2f
 /*  f0793dc:	e7b200a4 */ 	swc1	$f18,0xa4($sp)
 /*  f0793e0:	e7a00050 */ 	swc1	$f0,0x50($sp)
 /*  f0793e4:	c7ac0090 */ 	lwc1	$f12,0x90($sp)
-/*  f0793e8:	0fc259d4 */ 	jal	func0f096750
+/*  f0793e8:	0fc259d4 */ 	jal	atan2f
 /*  f0793ec:	c7ae0080 */ 	lwc1	$f14,0x80($sp)
 /*  f0793f0:	8fae00a8 */ 	lw	$t6,0xa8($sp)
 /*  f0793f4:	e7a0004c */ 	swc1	$f0,0x4c($sp)
@@ -23090,7 +23090,7 @@ bool chopperCheckTargetInFov(struct chopperobj *hovercar, u8 fov)
 		f32 roty = chopper->roty;
 		struct prop *target = chopperGetTargetProp(chopper);
 		struct prop *prop = chopper->base.prop;
-		f32 angle = func0f096750(prop->pos.x - target->pos.x, prop->pos.z - target->pos.z);
+		f32 angle = atan2f(prop->pos.x - target->pos.x, prop->pos.z - target->pos.z);
 		f32 anglediff = angle - roty;
 
 		if (angle < roty) {
@@ -23497,7 +23497,7 @@ glabel var7f1aa610
 /*  f07b608:	c44a0010 */ 	lwc1	$f10,0x10($v0)
 /*  f07b60c:	c4440008 */ 	lwc1	$f4,0x8($v0)
 /*  f07b610:	46085381 */ 	sub.s	$f14,$f10,$f8
-/*  f07b614:	0fc259d4 */ 	jal	func0f096750
+/*  f07b614:	0fc259d4 */ 	jal	atan2f
 /*  f07b618:	46062301 */ 	sub.s	$f12,$f4,$f6
 /*  f07b61c:	44802000 */ 	mtc1	$zero,$f4
 /*  f07b620:	46000406 */ 	mov.s	$f16,$f0
@@ -23550,7 +23550,7 @@ glabel var7f1aa610
 /*  f07b6cc:	c7aa004c */ 	lwc1	$f10,0x4c($sp)
 /*  f07b6d0:	c7a800f4 */ 	lwc1	$f8,0xf4($sp)
 /*  f07b6d4:	46000386 */ 	mov.s	$f14,$f0
-/*  f07b6d8:	0fc259d4 */ 	jal	func0f096750
+/*  f07b6d8:	0fc259d4 */ 	jal	atan2f
 /*  f07b6dc:	46085301 */ 	sub.s	$f12,$f10,$f8
 /*  f07b6e0:	c6040080 */ 	lwc1	$f4,0x80($s0)
 /*  f07b6e4:	3c017f1b */ 	lui	$at,%hi(var7f1aa5ec)
@@ -24832,10 +24832,10 @@ void chopperTickPatrol(struct prop *chopperprop)
 			pad.pos.y += -250;
 		}
 
-		roty = func0f096750(pad.pos.x - chopperprop->pos.x, pad.pos.z - chopperprop->pos.z);
+		roty = atan2f(pad.pos.x - chopperprop->pos.x, pad.pos.z - chopperprop->pos.z);
 		xdiff = pad.pos.x - chopperprop->pos.x;
 		zdiff = pad.pos.z - chopperprop->pos.z;
-		rotx = func0f096750(pad.pos.y - chopperprop->pos.y, sqrtf(xdiff * xdiff + zdiff * zdiff));
+		rotx = atan2f(pad.pos.y - chopperprop->pos.y, sqrtf(xdiff * xdiff + zdiff * zdiff));
 	}
 
 	if (chopper->base.flags & OBJFLAG_20000000) {
@@ -25311,7 +25311,7 @@ glabel var7f1aa6a8
 /*  f07d118:	c4660008 */ 	lwc1	$f6,0x8($v1)
 /*  f07d11c:	c4720010 */ 	lwc1	$f18,0x10($v1)
 /*  f07d120:	460a3301 */ 	sub.s	$f12,$f6,$f10
-/*  f07d124:	0fc259d4 */ 	jal	func0f096750
+/*  f07d124:	0fc259d4 */ 	jal	atan2f
 /*  f07d128:	46089381 */ 	sub.s	$f14,$f18,$f8
 /*  f07d12c:	8fa2015c */ 	lw	$v0,0x15c($sp)
 /*  f07d130:	8fa30170 */ 	lw	$v1,0x170($sp)
@@ -25332,7 +25332,7 @@ glabel var7f1aa6a8
 /*  f07d16c:	46000386 */ 	mov.s	$f14,$f0
 /*  f07d170:	c5f0000c */ 	lwc1	$f16,0xc($t7)
 /*  f07d174:	c504000c */ 	lwc1	$f4,0xc($t0)
-/*  f07d178:	0fc259d4 */ 	jal	func0f096750
+/*  f07d178:	0fc259d4 */ 	jal	atan2f
 /*  f07d17c:	46048301 */ 	sub.s	$f12,$f16,$f4
 /*  f07d180:	8e6300bc */ 	lw	$v1,0xbc($s3)
 /*  f07d184:	46000086 */ 	mov.s	$f2,$f0
@@ -25655,7 +25655,7 @@ glabel var7f1aa6e4
 /*  f07d5bc:	c4440008 */ 	lwc1	$f4,0x8($v0)
 /*  f07d5c0:	c4460010 */ 	lwc1	$f6,0x10($v0)
 /*  f07d5c4:	46044301 */ 	sub.s	$f12,$f8,$f4
-/*  f07d5c8:	0fc259d4 */ 	jal	func0f096750
+/*  f07d5c8:	0fc259d4 */ 	jal	atan2f
 /*  f07d5cc:	46065381 */ 	sub.s	$f14,$f10,$f6
 /*  f07d5d0:	8fa20278 */ 	lw	$v0,0x278($sp)
 /*  f07d5d4:	e7a00200 */ 	swc1	$f0,0x200($sp)
@@ -25674,7 +25674,7 @@ glabel var7f1aa6e4
 /*  f07d608:	c7aa0218 */ 	lwc1	$f10,0x218($sp)
 /*  f07d60c:	46000386 */ 	mov.s	$f14,$f0
 /*  f07d610:	c566000c */ 	lwc1	$f6,0xc($t3)
-/*  f07d614:	0fc259d4 */ 	jal	func0f096750
+/*  f07d614:	0fc259d4 */ 	jal	atan2f
 /*  f07d618:	46065301 */ 	sub.s	$f12,$f10,$f6
 /*  f07d61c:	e7a001fc */ 	swc1	$f0,0x1fc($sp)
 /*  f07d620:	8e0c0008 */ 	lw	$t4,0x8($s0)
@@ -25763,7 +25763,7 @@ glabel var7f1aa6e4
 /*  f07d754:	05630016 */ 	bgezl	$t3,.L0f07d7b0
 /*  f07d758:	44807000 */ 	mtc1	$zero,$f14
 /*  f07d75c:	c60c0034 */ 	lwc1	$f12,0x34($s0)
-/*  f07d760:	0fc259d4 */ 	jal	func0f096750
+/*  f07d760:	0fc259d4 */ 	jal	atan2f
 /*  f07d764:	c60e003c */ 	lwc1	$f14,0x3c($s0)
 /*  f07d768:	c6020034 */ 	lwc1	$f2,0x34($s0)
 /*  f07d76c:	c60e003c */ 	lwc1	$f14,0x3c($s0)
@@ -25774,7 +25774,7 @@ glabel var7f1aa6e4
 /*  f07d780:	0c012974 */ 	jal	sqrtf
 /*  f07d784:	46065300 */ 	add.s	$f12,$f10,$f6
 /*  f07d788:	c60c0038 */ 	lwc1	$f12,0x38($s0)
-/*  f07d78c:	0fc259d4 */ 	jal	func0f096750
+/*  f07d78c:	0fc259d4 */ 	jal	atan2f
 /*  f07d790:	46000386 */ 	mov.s	$f14,$f0
 /*  f07d794:	8e0c0008 */ 	lw	$t4,0x8($s0)
 /*  f07d798:	3c01dfff */ 	lui	$at,0xdfff
@@ -26471,8 +26471,8 @@ glabel var7f1aa6e4
 //			padUnpack(*padnum, PADFIELD_POS, &pad);
 //		}
 //
-//		sp200 = func0f096750(sp214.x - prop->pos.x, sp214.z - prop->pos.z);
-//		sp1fc = func0f096750(sp214.y - prop->pos.y,
+//		sp200 = atan2f(sp214.x - prop->pos.x, sp214.z - prop->pos.z);
+//		sp1fc = atan2f(sp214.y - prop->pos.y,
 //				sqrtf((sp214.x - prop->pos.x) * (sp214.x - prop->pos.x) + (sp214.z - prop->pos.z) * (sp214.z - prop->pos.z)));
 //
 //		// 630
@@ -26509,8 +26509,8 @@ glabel var7f1aa6e4
 //	} else {
 //		// 750
 //		if (hovercar->base.flags & OBJFLAG_20000000) {
-//			hovercar->roty = func0f096750(hovercar->base.realrot[6], hovercar->base.realrot[8]);
-//			hovercar->rotx = func0f096750(hovercar->base.realrot[7], sqrtf(hovercar->base.realrot[8] * hovercar->base.realrot[8] + hovercar->base.realrot[6] * hovercar->base.realrot[6]));
+//			hovercar->roty = atan2f(hovercar->base.realrot[6], hovercar->base.realrot[8]);
+//			hovercar->rotx = atan2f(hovercar->base.realrot[7], sqrtf(hovercar->base.realrot[8] * hovercar->base.realrot[8] + hovercar->base.realrot[6] * hovercar->base.realrot[6]));
 //			hovercar->base.flags &= ~OBJFLAG_20000000;
 //		}
 //	}
@@ -27236,7 +27236,7 @@ s32 objTick(struct prop *prop)
 
 						if (hov) {
 							func0f0713e4(obj, hov, &prop->pos, prop->rooms, obj->realrot);
-							hoverpropSetTurnAngle(obj, func0f096750(sp412.m[2][0], sp412.m[2][2]));
+							hoverpropSetTurnAngle(obj, atan2f(sp412.m[2][0], sp412.m[2][2]));
 
 							hov->unk14 = 0;
 							hov->unk1c = 0;
@@ -32956,7 +32956,7 @@ glabel var7f1aa978
 /*  f08321c:	c7ac00e4 */ 	lwc1	$f12,0xe4($sp)
 /*  f083220:	c7ae00ec */ 	lwc1	$f14,0xec($sp)
 /*  f083224:	46125182 */ 	mul.s	$f6,$f10,$f18
-/*  f083228:	0fc259d4 */ 	jal	func0f096750
+/*  f083228:	0fc259d4 */ 	jal	atan2f
 /*  f08322c:	e7a600a4 */ 	swc1	$f6,0xa4($sp)
 /*  f083230:	0c004b70 */ 	jal	random
 /*  f083234:	e7a000a0 */ 	swc1	$f0,0xa0($sp)
@@ -33330,7 +33330,7 @@ glabel var7f1aa978
 /*  f0837a8:	c4480010 */ 	lwc1	$f8,0x10($v0)
 /*  f0837ac:	afa600cc */ 	sw	$a2,0xcc($sp)
 /*  f0837b0:	460a3301 */ 	sub.s	$f12,$f6,$f10
-/*  f0837b4:	0fc259d4 */ 	jal	func0f096750
+/*  f0837b4:	0fc259d4 */ 	jal	atan2f
 /*  f0837b8:	46089381 */ 	sub.s	$f14,$f18,$f8
 /*  f0837bc:	0c004b70 */ 	jal	random
 /*  f0837c0:	e7a00058 */ 	swc1	$f0,0x58($sp)
@@ -37099,7 +37099,7 @@ glabel var7f1aab3c
 /*  f086c78:	45020035 */ 	bc1fl	.L0f086d50
 /*  f086c7c:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f086c80:	afa30020 */ 	sw	$v1,0x20($sp)
-/*  f086c84:	0fc259d4 */ 	jal	func0f096750
+/*  f086c84:	0fc259d4 */ 	jal	atan2f
 /*  f086c88:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f086c8c:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
 /*  f086c90:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
@@ -37190,7 +37190,7 @@ bool currentPlayerTryMountHoverbike(struct prop *prop)
 	}
 
 	if (pass) {
-		f32 angle = func0f096750(
+		f32 angle = atan2f(
 				prop->pos.x - g_Vars.currentplayer->prop->pos.x,
 				prop->pos.z - g_Vars.currentplayer->prop->pos.z);
 		angle -= hoverpropGetTurnAngle(obj);
@@ -45939,7 +45939,7 @@ glabel var7f1ab17c
 .text
 /*  f08f538:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f08f53c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08f540:	0fc259d4 */ 	jal	func0f096750
+/*  f08f540:	0fc259d4 */ 	jal	atan2f
 /*  f08f544:	00000000 */ 	nop
 /*  f08f548:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x284)
 /*  f08f54c:	8c63a244 */ 	lw	$v1,%lo(g_Vars+0x284)($v1)

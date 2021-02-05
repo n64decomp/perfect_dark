@@ -9,7 +9,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_0b2150.h"
 #include "game/game_0b3350.h"
 #include "game/game_152fa0.h"
@@ -109,7 +109,7 @@ Gfx *radarDrawDot(Gfx *gdl, struct prop *prop, struct coord *dist, u32 colour1, 
 
 	osSyncPrintf("RadarDrawDot : Prop=%x", prop);
 
-	spcc = (func0f096750(dist->x, dist->z) * 180.0f) / M_PI + g_Vars.currentplayer->vv_theta + 180.0f;
+	spcc = (atan2f(dist->x, dist->z) * 180.0f) / M_PI + g_Vars.currentplayer->vv_theta + 180.0f;
 	sqdist = sqrtf(dist->z * dist->z + dist->x * dist->x) * 0.004f;
 
 	if (sqdist < 16.0f) {

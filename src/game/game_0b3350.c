@@ -7,7 +7,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_0b3350.h"
 #include "game/game_127910.h"
 #include "game/room.h"
@@ -1602,7 +1602,7 @@ void currentPlayerSetPerspective(f32 near, f32 fovy, f32 aspect)
 
 f32 func0f0b49b8(f32 arg0)
 {
-	f32 result = func0f096750(g_Vars.currentplayer->c_scalelod60 * arg0 * g_Vars.currentplayer->c_halfheight, 1.0f);
+	f32 result = atan2f(g_Vars.currentplayer->c_scalelod60 * arg0 * g_Vars.currentplayer->c_halfheight, 1.0f);
 	result *= 114.591552f;
 
 	if (result < 0) {

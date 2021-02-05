@@ -23,7 +23,7 @@
 #include "game/game_091e10.h"
 #include "game/game_092610.h"
 #include "game/game_095320.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
@@ -5341,7 +5341,7 @@ bool aiChrMoveToPad(void)
 
 			if (padnum >= 0) {
 				padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
-				somefloat = func0f096750(pad.look.x, pad.look.z);
+				somefloat = atan2f(pad.look.x, pad.look.z);
 
 				rooms[0] = pad.room;
 				rooms[1] = -1;

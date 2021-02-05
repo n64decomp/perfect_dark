@@ -12,7 +12,7 @@
 #include "game/chr/chr.h"
 #include "game/prop.h"
 #include "game/game_092610.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b69d0.h"
@@ -1493,7 +1493,7 @@ glabel var7f1b8ec8
 /*  f191804:	c44a0010 */ 	lwc1	$f10,0x10($v0)
 /*  f191808:	e7a0001c */ 	swc1	$f0,0x1c($sp)
 /*  f19180c:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f191810:	0fc259d4 */ 	jal	func0f096750
+/*  f191810:	0fc259d4 */ 	jal	atan2f
 /*  f191814:	460a4381 */ 	sub.s	$f14,$f8,$f10
 /*  f191818:	c7b0001c */ 	lwc1	$f16,0x1c($sp)
 /*  f19181c:	8fa6002c */ 	lw	$a2,0x2c($sp)

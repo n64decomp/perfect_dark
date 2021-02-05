@@ -9,7 +9,7 @@
 #include "game/data/data_02da90.h"
 #include "game/dlights.h"
 #include "game/game_005fd0.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_0d4690.h"
 #include "game/game_11f000.h"
 #include "game/bondview.h"
@@ -7114,7 +7114,7 @@ Gfx *bviewRenderHorizonScanner(Gfx *gdl)
 		{'n', '\0', '\0'},
 	};
 
-	s32 turnangle = func0f096750(-lookx, lookz) * 180.0f / M_PI;
+	s32 turnangle = atan2f(-lookx, lookz) * 180.0f / M_PI;
 	f32 fovy;
 	char arrows[12];
 	s32 tmplensheight = 130;

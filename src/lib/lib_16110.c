@@ -8,7 +8,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/padhalllv.h"
 #include "gvars/gvars.h"
 #include "lib/lib_159b0.h"
@@ -279,16 +279,16 @@ glabel func000165d8
 /*    1661c:	45020010 */ 	bc1fl	.L00016660
 /*    16620:	44805000 */ 	mtc1	$zero,$f10
 /*    16624:	c60c0018 */ 	lwc1	$f12,0x18($s0)
-/*    16628:	0fc259d4 */ 	jal	func0f096750
+/*    16628:	0fc259d4 */ 	jal	atan2f
 /*    1662c:	c60e0028 */ 	lwc1	$f14,0x28($s0)
 /*    16630:	e6200000 */ 	swc1	$f0,0x0($s1)
 /*    16634:	c60c0008 */ 	lwc1	$f12,0x8($s0)
 /*    16638:	c7ae0024 */ 	lwc1	$f14,0x24($sp)
-/*    1663c:	0fc259d4 */ 	jal	func0f096750
+/*    1663c:	0fc259d4 */ 	jal	atan2f
 /*    16640:	46006307 */ 	neg.s	$f12,$f12
 /*    16644:	e6200004 */ 	swc1	$f0,0x4($s1)
 /*    16648:	c60e0000 */ 	lwc1	$f14,0x0($s0)
-/*    1664c:	0fc259d4 */ 	jal	func0f096750
+/*    1664c:	0fc259d4 */ 	jal	atan2f
 /*    16650:	c60c0004 */ 	lwc1	$f12,0x4($s0)
 /*    16654:	1000000e */ 	b	.L00016690
 /*    16658:	e6200008 */ 	swc1	$f0,0x8($s1)
@@ -298,12 +298,12 @@ glabel func000165d8
 /*    16664:	e62a0000 */ 	swc1	$f10,0x0($s1)
 /*    16668:	c60c0008 */ 	lwc1	$f12,0x8($s0)
 /*    1666c:	c7ae0024 */ 	lwc1	$f14,0x24($sp)
-/*    16670:	0fc259d4 */ 	jal	func0f096750
+/*    16670:	0fc259d4 */ 	jal	atan2f
 /*    16674:	46006307 */ 	neg.s	$f12,$f12
 /*    16678:	e6200004 */ 	swc1	$f0,0x4($s1)
 /*    1667c:	c60c0010 */ 	lwc1	$f12,0x10($s0)
 /*    16680:	c60e0014 */ 	lwc1	$f14,0x14($s0)
-/*    16684:	0fc259d4 */ 	jal	func0f096750
+/*    16684:	0fc259d4 */ 	jal	atan2f
 /*    16688:	46006307 */ 	neg.s	$f12,$f12
 /*    1668c:	e6200008 */ 	swc1	$f0,0x8($s1)
 .L00016690:

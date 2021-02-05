@@ -19,7 +19,7 @@
 #include "game/prop.h"
 #include "game/game_092610.h"
 #include "game/game_095320.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_096ca0.h"
 #include "game/game_097ba0.h"
 #include "game/game_0abe70.h"
@@ -291,7 +291,7 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 			slpositions[sllen].y = pad.pos.y;
 			slpositions[sllen].z = pad.pos.z;
 
-			slangles[sllen] = func0f096750(pad.look.x, pad.look.z);
+			slangles[sllen] = atan2f(pad.look.x, pad.look.z);
 
 			if (func0f04af84(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
 				slpadindexes[sllen] = p;
@@ -323,7 +323,7 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 			slpositions[sllen].y = pad.pos.y;
 			slpositions[sllen].z = pad.pos.z;
 
-			slangles[sllen] = func0f096750(pad.look.x, pad.look.z);
+			slangles[sllen] = atan2f(pad.look.x, pad.look.z);
 
 			if (func0f04af84(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
 				slpadindexes[sllen] = p;
@@ -377,7 +377,7 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 		slpositions[sllen].y = pad.pos.y;
 		slpositions[sllen].z = pad.pos.z;
 
-		slangles[sllen] = func0f096750(pad.look.x, pad.look.z);
+		slangles[sllen] = atan2f(pad.look.x, pad.look.z);
 
 		if (func0f04af84(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
 			slpadindexes[sllen] = i;
@@ -409,7 +409,7 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 		dstpos->y = pad.pos.y;
 		dstpos->z = pad.pos.z;
 
-		dstangle = func0f096750(pad.look.x, pad.look.z);
+		dstangle = atan2f(pad.look.x, pad.look.z);
 	}
 
 	return dstangle;
@@ -2840,7 +2840,7 @@ void func0f0ba190(u32 arg0)
 	func00024050(0, 0, &stagethinglist_221b4, g_CameraAnimNum, sp7f, &sp94, &sp88, &sp7c);
 	func0001648c(&sp94, &sp38);
 
-	theta = func0f096750(-sp38.m[2][0], -sp38.m[2][2]);
+	theta = atan2f(-sp38.m[2][0], -sp38.m[2][2]);
 	theta = (M_BADTAU - theta) * 57.304901123047f;
 	g_Vars.bond->vv_theta = theta;
 
@@ -6542,7 +6542,7 @@ glabel var7f1ad6ac
 /*  f0bf618:	460a4301 */ 	sub.s	$f12,$f8,$f10
 /*  f0bf61c:	46062381 */ 	sub.s	$f14,$f4,$f6
 /*  f0bf620:	e7ac00d8 */ 	swc1	$f12,0xd8($sp)
-/*  f0bf624:	0fc259d4 */ 	jal	func0f096750
+/*  f0bf624:	0fc259d4 */ 	jal	atan2f
 /*  f0bf628:	e7ae00d4 */ 	swc1	$f14,0xd4($sp)
 /*  f0bf62c:	3c017f1b */ 	lui	$at,%hi(var7f1ad694)
 /*  f0bf630:	c436d694 */ 	lwc1	$f22,%lo(var7f1ad694)($at)
@@ -6562,7 +6562,7 @@ glabel var7f1ad6ac
 /*  f0bf664:	8e700284 */ 	lw	$s0,0x284($s3)
 .L0f0bf668:
 /*  f0bf668:	c60c036c */ 	lwc1	$f12,0x36c($s0)
-/*  f0bf66c:	0fc259d4 */ 	jal	func0f096750
+/*  f0bf66c:	0fc259d4 */ 	jal	atan2f
 /*  f0bf670:	c60e0374 */ 	lwc1	$f14,0x374($s0)
 /*  f0bf674:	4600b03c */ 	c.lt.s	$f22,$f0
 /*  f0bf678:	44804000 */ 	mtc1	$zero,$f8
@@ -7747,7 +7747,7 @@ glabel var7f1ad6ac
 //
 //						sp216 = pad.pos.x - g_Vars.currentplayer->bond2.unk10.x;
 //						sp212 = pad.pos.z - g_Vars.currentplayer->bond2.unk10.z;
-//						fVar20 = func0f096750(sp216, sp212);
+//						fVar20 = atan2f(sp216, sp212);
 //
 //						if (fVar20 > M_TAU) {
 //							fVar20 -= M_TAU;
@@ -7758,7 +7758,7 @@ glabel var7f1ad6ac
 //						}
 //
 //						fVar22 = M_TAU;
-//						fVar18 = func0f096750(g_Vars.currentplayer->bond2.unk00.x, g_Vars.currentplayer->bond2.unk00.z);
+//						fVar18 = atan2f(g_Vars.currentplayer->bond2.unk00.x, g_Vars.currentplayer->bond2.unk00.z);
 //
 //						if (fVar18 > fVar22) {
 //							fVar18 -= fVar22;
@@ -8526,7 +8526,7 @@ Gfx *currentPlayerUpdateShootRot(Gfx *gdl)
 
 	value = sqrtf(sp3c.z * sp3c.z + sp3c.x * sp3c.x);
 
-	rotx = func0f096750(y, value);
+	rotx = atan2f(y, value);
 	rotx += (g_Vars.currentplayer->vv_verta * M_BADTAU) / 360.0f;
 
 	if (rotx >= M_PI) {
@@ -8535,7 +8535,7 @@ Gfx *currentPlayerUpdateShootRot(Gfx *gdl)
 
 	g_Vars.currentplayer->shootrotx = rotx;
 
-	roty = func0f096750(-sp3c.x, -sp3c.z);
+	roty = atan2f(-sp3c.x, -sp3c.z);
 
 	if (roty >= M_PI) {
 		roty -= M_BADTAU;
@@ -9415,7 +9415,7 @@ void currentPlayerCheckIfShotInBack(s32 attackerplayernum, f32 x, f32 z)
 {
 	if (g_Vars.normmplayerisrunning) {
 		s32 victimplayernum = g_Vars.currentplayernum;
-		f32 angle = func0f096750(x, z);
+		f32 angle = atan2f(x, z);
 		f32 finalangle = g_Vars.players[victimplayernum]->vv_theta - (360.0f - RAD2DEG(angle));
 
 		if (finalangle < 0) {
@@ -10835,7 +10835,7 @@ glabel var7f1ad744
 /*  f0c2e74:	01cf1021 */ 	addu	$v0,$t6,$t7
 .L0f0c2e78:
 /*  f0c2e78:	afa50038 */ 	sw	$a1,0x38($sp)
-/*  f0c2e7c:	0fc259d4 */ 	jal	func0f096750
+/*  f0c2e7c:	0fc259d4 */ 	jal	atan2f
 /*  f0c2e80:	e7b00020 */ 	swc1	$f16,0x20($sp)
 /*  f0c2e84:	3c017f1b */ 	lui	$at,%hi(var7f1ad718)
 /*  f0c2e88:	c42ed718 */ 	lwc1	$f14,%lo(var7f1ad718)($at)

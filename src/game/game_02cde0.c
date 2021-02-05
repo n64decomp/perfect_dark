@@ -12,7 +12,7 @@
 #include "game/chr/chr.h"
 #include "game/game_02cde0.h"
 #include "game/prop.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_0b28d0.h"
 #include "game/core.h"
 #include "game/game_1a7560.h"
@@ -602,7 +602,7 @@ glabel chrUnpack
 .L0f02d70c:
 /*  f02d70c:	10400122 */ 	beqz	$v0,.L0f02db98
 /*  f02d710:	c7ac0070 */ 	lwc1	$f12,0x70($sp)
-/*  f02d714:	0fc259d4 */ 	jal	func0f096750
+/*  f02d714:	0fc259d4 */ 	jal	atan2f
 /*  f02d718:	c7ae0078 */ 	lwc1	$f14,0x78($sp)
 /*  f02d71c:	e7a00044 */ 	swc1	$f0,0x44($sp)
 /*  f02d720:	0c006134 */ 	jal	ailistFindById

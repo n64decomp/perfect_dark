@@ -10,7 +10,7 @@
 #include "game/data/data_02da90.h"
 #include "game/dlights.h"
 #include "game/game_092610.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/hudmsg.h"
 #include "game/file.h"
 #include "game/core.h"
@@ -2509,7 +2509,7 @@ glabel var7f1ab768
 /*  f094bc4:	c4461bb0 */ 	lwc1	$f6,0x1bb0($v0)
 /*  f094bc8:	24421bb0 */ 	addiu	$v0,$v0,0x1bb0
 /*  f094bcc:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f094bd0:	0fc259d4 */ 	jal	func0f096750
+/*  f094bd0:	0fc259d4 */ 	jal	atan2f
 /*  f094bd4:	46062301 */ 	sub.s	$f12,$f4,$f6
 /*  f094bd8:	3c014334 */ 	lui	$at,0x4334
 /*  f094bdc:	44812000 */ 	mtc1	$at,$f4
@@ -2556,7 +2556,7 @@ glabel var7f1ab768
 /*  f094c7c:	46000386 */ 	mov.s	$f14,$f0
 /*  f094c80:	46000387 */ 	neg.s	$f14,$f0
 .L0f094c84:
-/*  f094c84:	0fc259d4 */ 	jal	func0f096750
+/*  f094c84:	0fc259d4 */ 	jal	atan2f
 /*  f094c88:	e7b0003c */ 	swc1	$f16,0x3c($sp)
 /*  f094c8c:	c7b0003c */ 	lwc1	$f16,0x3c($sp)
 /*  f094c90:	44809000 */ 	mtc1	$zero,$f18

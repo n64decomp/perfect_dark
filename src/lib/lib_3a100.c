@@ -7,7 +7,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "gvars/gvars.h"
 #include "lib/lib_2faf0.h"
 #include "lib/lib_3a100.h"
@@ -1555,7 +1555,7 @@ glabel func0003b710
 /*    3b76c:	c7b00028 */ 	lwc1	$f16,0x28($sp)
 /*    3b770:	46044282 */ 	mul.s	$f10,$f8,$f4
 /*    3b774:	460083a1 */ 	cvt.d.s	$f14,$f16
-/*    3b778:	0fc259d4 */ 	jal	func0f096750
+/*    3b778:	0fc259d4 */ 	jal	atan2f
 /*    3b77c:	46005321 */ 	cvt.d.s	$f12,$f10
 /*    3b780:	44829000 */ 	mtc1	$v0,$f18
 /*    3b784:	00000000 */ 	nop

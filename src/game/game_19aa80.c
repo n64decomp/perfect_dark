@@ -11,7 +11,7 @@
 #include "game/data/data_02a0e0.h"
 #include "game/data/data_02da90.h"
 #include "game/prop.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_127910.h"
 #include "game/mplayer/setup.h"
 #include "game/game_190260.h"
@@ -311,7 +311,7 @@ glabel func0f19ab70
 /*  f19ae3c:	e5e80008 */ 	swc1	$f8,0x8($t7)
 /*  f19ae40:	8fb8015c */ 	lw	$t8,0x15c($sp)
 /*  f19ae44:	c70c0008 */ 	lwc1	$f12,0x8($t8)
-/*  f19ae48:	0fc259d4 */ 	jal	func0f096750
+/*  f19ae48:	0fc259d4 */ 	jal	atan2f
 /*  f19ae4c:	c70e0000 */ 	lwc1	$f14,0x0($t8)
 /*  f19ae50:	8fb90220 */ 	lw	$t9,0x220($sp)
 /*  f19ae54:	2408ffff */ 	addiu	$t0,$zero,-1
@@ -339,7 +339,7 @@ glabel func0f19ab70
 /*  f19aea8:	c7b20060 */ 	lwc1	$f18,0x60($sp)
 /*  f19aeac:	e5d20008 */ 	swc1	$f18,0x8($t6)
 /*  f19aeb0:	c7ae0064 */ 	lwc1	$f14,0x64($sp)
-/*  f19aeb4:	0fc259d4 */ 	jal	func0f096750
+/*  f19aeb4:	0fc259d4 */ 	jal	atan2f
 /*  f19aeb8:	c7ac006c */ 	lwc1	$f12,0x6c($sp)
 /*  f19aebc:	8faf0220 */ 	lw	$t7,0x220($sp)
 /*  f19aec0:	2408ffff */ 	addiu	$t0,$zero,-1

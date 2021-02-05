@@ -14,7 +14,7 @@
 #include "game/game_00c490.h"
 #include "game/prop.h"
 #include "game/game_092610.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
@@ -3215,7 +3215,7 @@ glabel var7f1b8960
 .L0f1836d4:
 /*  f1836d4:	afa30078 */ 	sw	$v1,0x78($sp)
 /*  f1836d8:	e7b0008c */ 	swc1	$f16,0x8c($sp)
-/*  f1836dc:	0fc259d4 */ 	jal	func0f096750
+/*  f1836dc:	0fc259d4 */ 	jal	atan2f
 /*  f1836e0:	e7b20090 */ 	swc1	$f18,0x90($sp)
 /*  f1836e4:	3c014334 */ 	lui	$at,0x4334
 /*  f1836e8:	44816000 */ 	mtc1	$at,$f12

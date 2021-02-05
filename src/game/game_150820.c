@@ -9,7 +9,7 @@
 #include "game/data/data_02da90.h"
 #include "game/dlights.h"
 #include "game/game_092610.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_0b3350.h"
 #include "game/game_150820.h"
 #include "game/file.h"
@@ -118,7 +118,7 @@ glabel func0f150820
 /*  f150964:	4600e702 */ 	mul.s	$f28,$f28,$f0
 /*  f150968:	e7b000c8 */ 	swc1	$f16,0xc8($sp)
 /*  f15096c:	c64e0008 */ 	lwc1	$f14,0x8($s2)
-/*  f150970:	0fc259d4 */ 	jal	func0f096750
+/*  f150970:	0fc259d4 */ 	jal	atan2f
 /*  f150974:	c64c0000 */ 	lwc1	$f12,0x0($s2)
 /*  f150978:	3c0e800a */ 	lui	$t6,%hi(var800a45c0)
 /*  f15097c:	8dce45c0 */ 	lw	$t6,%lo(var800a45c0)($t6)

@@ -18,7 +18,7 @@
 #include "game/prop.h"
 #include "game/game_092610.h"
 #include "game/game_095320.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/game_0969d0.h"
 #include "game/game_097ba0.h"
 #include "game/game_0abe70.h"
@@ -521,8 +521,8 @@ bool chrFaceCover(struct chrdata *chr)
 	chr->act_stand.unk038 = 0;
 	chr->act_stand.face_entitytype = ENTITYTYPE_DIRECTION;
 	chr->act_stand.unk03c = 1;
-	//chr->act_stand.face_entityid = func0f096750(-cover.look->x, -cover.look->z) * (0x4000 / BADDEG2RAD(90));
-	chr->act_stand.face_entityid = func0f096750(-cover.look->x, -cover.look->z) * 10432.039f;
+	//chr->act_stand.face_entityid = atan2f(-cover.look->x, -cover.look->z) * (0x4000 / BADDEG2RAD(90));
+	chr->act_stand.face_entityid = atan2f(-cover.look->x, -cover.look->z) * 10432.039f;
 
 	return true;
 }
@@ -4420,7 +4420,7 @@ glabel var7f1a8d5c
 /*  f0332ac:	c4aa0008 */ 	lwc1	$f10,0x8($a1)
 /*  f0332b0:	c4a60000 */ 	lwc1	$f6,0x0($a1)
 /*  f0332b4:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f0332b8:	0fc259d4 */ 	jal	func0f096750
+/*  f0332b8:	0fc259d4 */ 	jal	atan2f
 /*  f0332bc:	46062301 */ 	sub.s	$f12,$f4,$f6
 /*  f0332c0:	8fa20058 */ 	lw	$v0,0x58($sp)
 /*  f0332c4:	8fa50064 */ 	lw	$a1,0x64($sp)
@@ -8386,7 +8386,7 @@ void chrGoPosInitCheap(struct chrdata *chr, struct waydata *waydata, struct coor
 	f32 xdiff1 = padpos->x - chr->prop->pos.x;
 	f32 zdiff1 = padpos->z - chr->prop->pos.z;
 
-	f32 angle = func0f096750(xdiff1, zdiff1);
+	f32 angle = atan2f(xdiff1, zdiff1);
 
 	f32 xdiff2 = padpos->x - chrpos->x;
 	f32 zdiff2 = padpos->z - chrpos->z;
@@ -8868,7 +8868,7 @@ glabel var7f1a8dac
 /*  f0378b0:	c5e40008 */ 	lwc1	$f4,0x8($t7)
 /*  f0378b4:	c5e80010 */ 	lwc1	$f8,0x10($t7)
 /*  f0378b8:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f0378bc:	0fc259d4 */ 	jal	func0f096750
+/*  f0378bc:	0fc259d4 */ 	jal	atan2f
 /*  f0378c0:	46104381 */ 	sub.s	$f14,$f8,$f16
 /*  f0378c4:	44050000 */ 	mfc1	$a1,$f0
 /*  f0378c8:	0fc0f94e */ 	jal	func0f03e538
@@ -10215,7 +10215,7 @@ bool chrHasLineOfSightToPos(struct chrdata *viewerchr, struct coord *pos, s16 *r
 bool chrCanSeePos(struct chrdata *chr, struct coord *pos, s16 *rooms)
 {
 	f32 facingangle = chrGetInverseTheta(chr);
-	f32 posangle = func0f096750(pos->x - chr->prop->pos.x, pos->z - chr->prop->pos.z);
+	f32 posangle = atan2f(pos->x - chr->prop->pos.x, pos->z - chr->prop->pos.z);
 	f32 diffangle = posangle - facingangle;
 
 	if (posangle < facingangle) {
@@ -10308,7 +10308,7 @@ bool chrCheckTargetInSight(struct chrdata *chr)
 	f32 y = target->pos.y - prop->pos.y;
 	f32 z = target->pos.z - prop->pos.z;
 
-	f32 fVar6 = func0f096750(x, z);
+	f32 fVar6 = atan2f(x, z);
 	f32 angle = fVar6 - fVar5;
 	bool result = false;
 
@@ -10410,7 +10410,7 @@ bool chrTrySidestep(struct chrdata *chr)
 		struct prop *prop = chr->prop;
 		struct prop *target = chrGetTargetProp(chr);
 		f32 a = chrGetInverseTheta(chr);
-		f32 b = func0f096750(target->pos.x - prop->pos.x, target->pos.z - prop->pos.z);
+		f32 b = atan2f(target->pos.x - prop->pos.x, target->pos.z - prop->pos.z);
 		f32 angle = b - a;
 		u32 stack[2];
 
@@ -10444,7 +10444,7 @@ bool chrTryJumpOut(struct chrdata *chr)
 		struct prop *target = chrGetTargetProp(chr);
 
 		f32 a = chrGetInverseTheta(chr);
-		f32 b = func0f096750(target->pos.x - prop->pos.x, target->pos.z - prop->pos.z);
+		f32 b = atan2f(target->pos.x - prop->pos.x, target->pos.z - prop->pos.z);
 		f32 angle = b - a;
 		u32 stack[2];
 
@@ -14388,7 +14388,7 @@ glabel var7f1a8fc8
 /*  f03f1ac:	0c012974 */ 	jal	sqrtf
 /*  f03f1b0:	46043300 */ 	add.s	$f12,$f6,$f4
 /*  f03f1b4:	c7ac0174 */ 	lwc1	$f12,0x174($sp)
-/*  f03f1b8:	0fc259d4 */ 	jal	func0f096750
+/*  f03f1b8:	0fc259d4 */ 	jal	atan2f
 /*  f03f1bc:	46000386 */ 	mov.s	$f14,$f0
 /*  f03f1c0:	3c017f1b */ 	lui	$at,%hi(var7f1a8f98)
 /*  f03f1c4:	c42a8f98 */ 	lwc1	$f10,%lo(var7f1a8f98)($at)
@@ -14591,7 +14591,7 @@ glabel var7f1a8fc8
 /*  f03f4b0:	e7a80170 */ 	swc1	$f8,0x170($sp)
 /*  f03f4b4:	c7ac0178 */ 	lwc1	$f12,0x178($sp)
 .L0f03f4b8:
-/*  f03f4b8:	0fc259d4 */ 	jal	func0f096750
+/*  f03f4b8:	0fc259d4 */ 	jal	atan2f
 /*  f03f4bc:	c7ae0170 */ 	lwc1	$f14,0x170($sp)
 /*  f03f4c0:	c7a60130 */ 	lwc1	$f6,0x130($sp)
 /*  f03f4c4:	3c017f1b */ 	lui	$at,%hi(var7f1a8fa4)
@@ -15097,7 +15097,7 @@ glabel var7f1a90b4
 /*  f03fb04:	c46a0010 */ 	lwc1	$f10,0x10($v1)
 /*  f03fb08:	e7ac0054 */ 	swc1	$f12,0x54($sp)
 /*  f03fb0c:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f03fb10:	0fc259d4 */ 	jal	func0f096750
+/*  f03fb10:	0fc259d4 */ 	jal	atan2f
 /*  f03fb14:	e7ae004c */ 	swc1	$f14,0x4c($sp)
 /*  f03fb18:	e7a00048 */ 	swc1	$f0,0x48($sp)
 /*  f03fb1c:	0fc0f97c */ 	jal	func0f03e5f0
@@ -18365,7 +18365,7 @@ glabel var7f1a91a0
 void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2)
 {
 	struct prop *prop = chrGetTargetProp(chr);
-	f32 distance = func0f096750(prop->pos.x - chr->prop->pos.x, prop->pos.z - chr->prop->pos.z);
+	f32 distance = atan2f(prop->pos.x - chr->prop->pos.x, prop->pos.z - chr->prop->pos.z);
 	f32 value = func0001afe8(arg2, distance, arg1);
 	func0f03e538(chr, value);
 }
@@ -18619,7 +18619,7 @@ glabel var7f1a91dc
 /*  f042d64:	c7c40010 */ 	lwc1	$f4,0x10($s8)
 /*  f042d68:	c7ca0008 */ 	lwc1	$f10,0x8($s8)
 /*  f042d6c:	46062381 */ 	sub.s	$f14,$f4,$f6
-/*  f042d70:	0fc259d4 */ 	jal	func0f096750
+/*  f042d70:	0fc259d4 */ 	jal	atan2f
 /*  f042d74:	46105301 */ 	sub.s	$f12,$f10,$f16
 /*  f042d78:	c7ac00fc */ 	lwc1	$f12,0xfc($sp)
 /*  f042d7c:	3c017f1b */ 	lui	$at,%hi(var7f1a91b8)
@@ -18665,7 +18665,7 @@ glabel var7f1a91dc
 /*  f042e0c:	46123300 */ 	add.s	$f12,$f6,$f18
 /*  f042e10:	c6080004 */ 	lwc1	$f8,0x4($s0)
 /*  f042e14:	46000386 */ 	mov.s	$f14,$f0
-/*  f042e18:	0fc259d4 */ 	jal	func0f096750
+/*  f042e18:	0fc259d4 */ 	jal	atan2f
 /*  f042e1c:	4608a301 */ 	sub.s	$f12,$f20,$f8
 /*  f042e20:	4600f081 */ 	sub.s	$f2,$f30,$f0
 /*  f042e24:	3c017f1b */ 	lui	$at,%hi(var7f1a91c4)
@@ -19669,7 +19669,7 @@ glabel var7f1a9234
 /*  f043f58:	afa0002c */ 	sw	$zero,0x2c($sp)
 /*  f043f5c:	afa40058 */ 	sw	$a0,0x58($sp)
 /*  f043f60:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f043f64:	0fc259d4 */ 	jal	func0f096750
+/*  f043f64:	0fc259d4 */ 	jal	atan2f
 /*  f043f68:	460a4381 */ 	sub.s	$f14,$f8,$f10
 /*  f043f6c:	8fa40058 */ 	lw	$a0,0x58($sp)
 /*  f043f70:	0fc0f95e */ 	jal	func0f03e578
@@ -21801,7 +21801,7 @@ glabel var7f1a927c
 /*  f045fa4:	c6260010 */ 	lwc1	$f6,0x10($s1)
 /*  f045fa8:	c604000c */ 	lwc1	$f4,0xc($s0)
 /*  f045fac:	46125301 */ 	sub.s	$f12,$f10,$f18
-/*  f045fb0:	0fc259d4 */ 	jal	func0f096750
+/*  f045fb0:	0fc259d4 */ 	jal	atan2f
 /*  f045fb4:	46062381 */ 	sub.s	$f14,$f4,$f6
 /*  f045fb8:	c6160010 */ 	lwc1	$f22,0x10($s0)
 /*  f045fbc:	c6320008 */ 	lwc1	$f18,0x8($s1)
@@ -21809,7 +21809,7 @@ glabel var7f1a927c
 /*  f045fc4:	c62a0010 */ 	lwc1	$f10,0x10($s1)
 /*  f045fc8:	4612b301 */ 	sub.s	$f12,$f22,$f18
 /*  f045fcc:	46000506 */ 	mov.s	$f20,$f0
-/*  f045fd0:	0fc259d4 */ 	jal	func0f096750
+/*  f045fd0:	0fc259d4 */ 	jal	atan2f
 /*  f045fd4:	460a8381 */ 	sub.s	$f14,$f16,$f10
 /*  f045fd8:	4600a581 */ 	sub.s	$f22,$f20,$f0
 /*  f045fdc:	c612001c */ 	lwc1	$f18,0x1c($s0)
@@ -21818,7 +21818,7 @@ glabel var7f1a927c
 /*  f045fe8:	c6280010 */ 	lwc1	$f8,0x10($s1)
 /*  f045fec:	46109301 */ 	sub.s	$f12,$f18,$f16
 /*  f045ff0:	e7b600d0 */ 	swc1	$f22,0xd0($sp)
-/*  f045ff4:	0fc259d4 */ 	jal	func0f096750
+/*  f045ff4:	0fc259d4 */ 	jal	atan2f
 /*  f045ff8:	46085381 */ 	sub.s	$f14,$f10,$f8
 /*  f045ffc:	c7b000d0 */ 	lwc1	$f16,0xd0($sp)
 /*  f046000:	4600a301 */ 	sub.s	$f12,$f20,$f0
@@ -21890,7 +21890,7 @@ glabel var7f1a927c
 /*  f0460ec:	c60a0018 */ 	lwc1	$f10,0x18($s0)
 /*  f0460f0:	c6320010 */ 	lwc1	$f18,0x10($s1)
 /*  f0460f4:	46083301 */ 	sub.s	$f12,$f6,$f8
-/*  f0460f8:	0fc259d4 */ 	jal	func0f096750
+/*  f0460f8:	0fc259d4 */ 	jal	atan2f
 /*  f0460fc:	46125381 */ 	sub.s	$f14,$f10,$f18
 /*  f046100:	4600a481 */ 	sub.s	$f18,$f20,$f0
 /*  f046104:	c7b000f4 */ 	lwc1	$f16,0xf4($sp)
@@ -21899,7 +21899,7 @@ glabel var7f1a927c
 /*  f046110:	c6260010 */ 	lwc1	$f6,0x10($s1)
 /*  f046114:	460a8301 */ 	sub.s	$f12,$f16,$f10
 /*  f046118:	e7b200c0 */ 	swc1	$f18,0xc0($sp)
-/*  f04611c:	0fc259d4 */ 	jal	func0f096750
+/*  f04611c:	0fc259d4 */ 	jal	atan2f
 /*  f046120:	46064381 */ 	sub.s	$f14,$f8,$f6
 /*  f046124:	c7b000c0 */ 	lwc1	$f16,0xc0($sp)
 /*  f046128:	4600a301 */ 	sub.s	$f12,$f20,$f0
@@ -21981,7 +21981,7 @@ glabel var7f1a927c
 /*  f046238:	c6080024 */ 	lwc1	$f8,0x24($s0)
 /*  f04623c:	c62a0010 */ 	lwc1	$f10,0x10($s1)
 /*  f046240:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f046244:	0fc259d4 */ 	jal	func0f096750
+/*  f046244:	0fc259d4 */ 	jal	atan2f
 /*  f046248:	460a4381 */ 	sub.s	$f14,$f8,$f10
 /*  f04624c:	4600a481 */ 	sub.s	$f18,$f20,$f0
 /*  f046250:	c7b000f4 */ 	lwc1	$f16,0xf4($sp)
@@ -21990,7 +21990,7 @@ glabel var7f1a927c
 /*  f04625c:	c6260010 */ 	lwc1	$f6,0x10($s1)
 /*  f046260:	460a8301 */ 	sub.s	$f12,$f16,$f10
 /*  f046264:	e7b200b0 */ 	swc1	$f18,0xb0($sp)
-/*  f046268:	0fc259d4 */ 	jal	func0f096750
+/*  f046268:	0fc259d4 */ 	jal	atan2f
 /*  f04626c:	46064381 */ 	sub.s	$f14,$f8,$f6
 /*  f046270:	c7b000b0 */ 	lwc1	$f16,0xb0($sp)
 /*  f046274:	4600a301 */ 	sub.s	$f12,$f20,$f0
@@ -24047,7 +24047,7 @@ f32 chrGetAngleToPos(struct chrdata *chr, struct coord *pos)
 	}
 
 	prop = chr->prop;
-	fVar2 = func0f096750(pos->x - prop->pos.x, pos->z - prop->pos.z);
+	fVar2 = atan2f(pos->x - prop->pos.x, pos->z - prop->pos.z);
 	fVar4 = fVar2 - fVar3;
 
 	if (fVar2 < fVar3) {
@@ -24186,7 +24186,7 @@ glabel var7f1a9334
 /*  f048d04:	e7a20034 */ 	swc1	$f2,0x34($sp)
 /*  f048d08:	afa2002c */ 	sw	$v0,0x2c($sp)
 /*  f048d0c:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f048d10:	0fc259d4 */ 	jal	func0f096750
+/*  f048d10:	0fc259d4 */ 	jal	atan2f
 /*  f048d14:	460a4381 */ 	sub.s	$f14,$f8,$f10
 /*  f048d18:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*  f048d1c:	24010006 */ 	addiu	$at,$zero,0x6
@@ -24255,7 +24255,7 @@ f32 chrGetVerticalAngleToTarget(struct chrdata *chr)
 		ydiff = prop->pos.y - target->pos.y;
 		zdiff = prop->pos.z - target->pos.z;
 
-		result = func0f096750(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
+		result = atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
 
 		if (result < 0) {
 			result += M_BADTAU;
@@ -24299,7 +24299,7 @@ f32 func0f048fcc(struct chrdata *chr, u8 arg1)
 	f32 xdiff = chrprop->pos.x - targetprop->pos.x;
 	f32 zdiff = chrprop->pos.z - targetprop->pos.z;
 
-	f32 angle1 = func0f096750(-xdiff, -zdiff);
+	f32 angle1 = atan2f(-xdiff, -zdiff);
 	f32 angle2 = chrGetInverseTheta(chr) + M_PI * (s32)arg1;
 
 	result = angle1 - angle2;
@@ -24960,7 +24960,7 @@ glabel var7f1a93ec
 /*  f04a300:	c4460000 */ 	lwc1	$f6,0x0($v0)
 /*  f04a304:	c44a0008 */ 	lwc1	$f10,0x8($v0)
 /*  f04a308:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f04a30c:	0fc259d4 */ 	jal	func0f096750
+/*  f04a30c:	0fc259d4 */ 	jal	atan2f
 /*  f04a310:	460a4381 */ 	sub.s	$f14,$f8,$f10
 /*  f04a314:	c7ae0088 */ 	lwc1	$f14,0x88($sp)
 /*  f04a318:	3c017f1b */ 	lui	$at,%hi(var7f1a93e4)
@@ -25922,7 +25922,7 @@ struct prop *chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_
 	s16 room[2];
 	f32 fvalue;
 	padUnpack(resolved_pad_id, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
-	fvalue = func0f096750(pad.look.x, pad.look.z);
+	fvalue = atan2f(pad.look.x, pad.look.z);
 	room[0] = pad.room;
 	room[1] = -1;
 
@@ -26799,7 +26799,7 @@ glabel var7f1a9428
 /*  f04c808:	c44a0008 */ 	lwc1	$f10,0x8($v0)
 /*  f04c80c:	e7b00024 */ 	swc1	$f16,0x24($sp)
 /*  f04c810:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f04c814:	0fc259d4 */ 	jal	func0f096750
+/*  f04c814:	0fc259d4 */ 	jal	atan2f
 /*  f04c818:	460a4381 */ 	sub.s	$f14,$f8,$f10
 /*  f04c81c:	3c0143b4 */ 	lui	$at,0x43b4
 /*  f04c820:	44817000 */ 	mtc1	$at,$f14

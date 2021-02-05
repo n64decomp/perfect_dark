@@ -23,7 +23,7 @@
 #include "game/game_02cde0.h"
 #include "game/prop.h"
 #include "game/game_091e10.h"
-#include "game/game_096750.h"
+#include "game/atan2f.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/room.h"
@@ -1618,8 +1618,8 @@ void setupCamera(struct cameraobj *camera, s32 cmdindex)
 		camera->maxdist = *(s32 *)&camera->maxdist;
 		camera->yrot = camera->yleft;
 
-		camera->yzero = func0f096750(xdiff, zdiff);
-		camera->xzero = M_BADTAU - func0f096750(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
+		camera->yzero = atan2f(xdiff, zdiff);
+		camera->xzero = M_BADTAU - atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
 
 		if (xdiff || zdiff) {
 			// empty
@@ -1669,8 +1669,8 @@ void setupAutogun(struct autogunobj *autogun, s32 cmdindex)
 		ydiff = pad.pos.y - autogun->base.prop->pos.y;
 		zdiff = pad.pos.z - autogun->base.prop->pos.z;
 
-		autogun->angleh = func0f096750(xdiff, zdiff);
-		autogun->anglev = func0f096750(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
+		autogun->angleh = atan2f(xdiff, zdiff);
+		autogun->anglev = atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
 	} else if (autogun->base.modelnum == MODEL_CETROOFGUN) {
 		// Deep Sea roofgun
 		autogun->anglev = -1.5705462694168f;
@@ -2364,7 +2364,7 @@ void setupHov(struct defaultobj *obj, struct hov *hov)
 	hov->unk04 = 0;
 	hov->unk08 = 0;
 	hov->unk0c = 0;
-	hov->unk10 = func0f096750(obj->realrot[6], obj->realrot[8]);
+	hov->unk10 = atan2f(obj->realrot[6], obj->realrot[8]);
 	hov->unk14 = 0;
 	hov->unk18 = 0;
 	hov->unk1c = 0;
