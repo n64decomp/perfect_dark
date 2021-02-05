@@ -631,7 +631,7 @@ u8 func041e_colleague[] = {
 		goto_first(0x59)
 
 		label(0x06)
-		if_player_looking_at_something_maybe(0x14, 0x01, 0x00, /*goto*/ 0x06)
+		if_within_targets_fovx_by_angle(20, /*goto*/ 0x06)
 		goto_first(0x59)
 
 		label(0x06)
@@ -658,7 +658,7 @@ u8 func041e_colleague[] = {
 			goto_next(0x2f)
 
 			label(0x06)
-			if_player_looking_at_something_maybe(0x14, 0x01, 0x00, /*goto*/ 0x30)
+			if_within_targets_fovx_by_angle(20, /*goto*/ 0x30)
 			label(0x2f)
 			if_chr_idle(/*goto*/ 0x06)
 			if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x7f)
@@ -4052,7 +4052,7 @@ u8 func042f_holo2_part2[] = {
 	endloop(0x08)
 
 	beginloop(0x04)
-		if_player_looking_at_something_maybe(0x14, 0x01, 0x00, /*goto*/ 0x06)
+		if_within_targets_fovx_by_angle(20, /*goto*/ 0x06)
 		goto_next(0x2f)
 
 		label(0x06)
@@ -5153,7 +5153,7 @@ u8 func0415_holo_guard_unarmed_unalert[] = {
 
 	beginloop(0x08)
 		if_timer_gt(120, /*goto*/ 0x04)
-		if_player_looking_at_something_maybe(0x28, 0x01, 0x00, /*goto*/ 0x04)
+		if_within_targets_fovx_by_angle(40, /*goto*/ 0x04)
 	endloop(0x08)
 
 	beginloop(0x04)

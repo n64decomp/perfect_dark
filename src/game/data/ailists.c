@@ -161,7 +161,7 @@ u8 func0006_unalerted[] = {
 	// Warned
 	label(0x13)
 	dprint 'A','1','\n',0,
-	if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
+	if_target_outside_my_yvisang(/*goto*/ 0x16)
 	if_target_in_sight(/*goto*/ LABEL_SEE_DETECT)
 	label(0x16)
 	dprint 'B','4',' ','A','I','V','S','A','I','\n',0,
@@ -344,7 +344,7 @@ u8 func0006_unalerted[] = {
 
 	label(0xe9)
 	label(0x13)
-	if_player_looking_at_something_maybe(0x0a, 0x01, 0x00, /*goto*/ 0x13)
+	if_within_targets_fovx_by_angle(10, /*goto*/ 0x13)
 	goto_next(0x15)
 
 	label(0x13)
@@ -542,7 +542,7 @@ u8 func0006_unalerted[] = {
 		if_saw_injury(0x00, /*goto*/ 0x16)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x13)
+		if_target_outside_my_yvisang(/*goto*/ 0x13)
 		if_target_in_sight(/*goto*/ 0x16)
 		label(0x13)
 		if_distance_to_chr_lt(150, CHR_SEEDIE, /*goto*/ 0x7f)
@@ -565,7 +565,7 @@ u8 func0006_unalerted[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_hears_target(/*goto*/ 0x16)
-		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x13)
+		if_target_outside_my_yvisang(/*goto*/ 0x13)
 		if_target_in_sight(/*goto*/ 0x17)
 		label(0x13)
 		if_self_flag_bankx_eq(CHRFLAG0_CAN_EXAMINE_BODY, FALSE, BANK_0, /*goto*/ 0x13)
@@ -1417,7 +1417,7 @@ u8 func0007_alerted[] = {
 	//
 	label(0x52)
 	dprint 'A','M','B','U','S','H',' ','F','A','I','L','E','D','3','\n',0,
-	if_player_looking_at_something_maybe(0x3c, 0x01, 0x00, /*goto*/ 0x16)
+	if_within_targets_fovx_by_angle(60, /*goto*/ 0x16)
 	goto_next(0x68)
 
 	label(0x16)
@@ -1429,7 +1429,7 @@ u8 func0007_alerted[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_00000080, TRUE, BANK_0, /*goto*/ 0x13)
 	call_rng
 	if_rand_gt(100, /*goto*/ 0x13)
-	if_player_looking_at_something_maybe(0x1e, 0x01, 0x00, /*goto*/ 0x16)
+	if_within_targets_fovx_by_angle(30, /*goto*/ 0x16)
 	label(0x13)
 	if_nearly_in_targets_sight(30, /*goto*/ 0x5f)
 	label(0x16)
@@ -1554,7 +1554,7 @@ u8 func0007_alerted[] = {
 	label(0x69)
 	if_distance_to_target_gt(4000, /*goto*/ 0x16)
 	label(0x6a)
-	if_player_looking_at_something_maybe(0x11, 0x01, 0x00, /*goto*/ 0x63)
+	if_within_targets_fovx_by_angle(17, /*goto*/ 0x63)
 	label(0x16)
 	label(0x64)
 	set_action(MA_COVERBREAK, FALSE)
@@ -1583,7 +1583,7 @@ u8 func0007_alerted[] = {
 
 	label(0x63)
 	if_self_flag_bankx_eq(CHRFLAG0_00008000, FALSE, BANK_0, /*goto*/ 0x13)
-	if_player_looking_at_something_maybe(0x11, 0x01, 0x00, /*goto*/ 0x16)
+	if_within_targets_fovx_by_angle(17, /*goto*/ 0x16)
 	goto_first(0x64)
 
 	label(0x13)
@@ -1730,7 +1730,7 @@ u8 func0007_alerted[] = {
 	label(0x4d)
 	if_self_flag_bankx_eq(CHRFLAG1_00040000, TRUE, BANK_1, /*goto*/ 0x32)
 	call_rng
-	if_player_looking_at_something_maybe(0x1e, 0x01, 0x00, /*goto*/ 0x16)
+	if_within_targets_fovx_by_angle(30, /*goto*/ 0x16)
 	goto_next(0x32)
 
 	label(0x16)
@@ -1795,7 +1795,7 @@ u8 func0007_alerted[] = {
 	if_self_flag_bankx_eq(CHRFLAG1_00020000, TRUE, BANK_1, /*goto*/ 0x2f)
 
 	label(0x32)
-	if_player_looking_at_something_maybe(0x14, 0x01, 0x00, /*goto*/ 0x16)
+	if_within_targets_fovx_by_angle(20, /*goto*/ 0x16)
 	goto_next(0x2f)
 
 	label(0x16)
@@ -1822,7 +1822,7 @@ u8 func0007_alerted[] = {
 	goto_next(LABEL_TRACK)
 
 	label(0x51)
-	if_player_looking_at_something_maybe(0x15, 0x01, 0x00, /*goto*/ 0x16)
+	if_within_targets_fovx_by_angle(21, /*goto*/ 0x16)
 	goto_next(LABEL_TRACK)
 
 	//
@@ -1930,7 +1930,7 @@ u8 func0007_alerted[] = {
 		if_timer_gt(600, /*goto*/ 0x3d)
 		if_timer_gt(60, /*goto*/ 0x16)
 		label(0x16)
-		if_player_looking_at_something_maybe(0x15, 0x01, 0x00, /*goto*/ 0x16)
+		if_within_targets_fovx_by_angle(21, /*goto*/ 0x16)
 		goto_next(LABEL_TRACK)
 		label(0x16)
 		if_distance_to_target_gt(2000, /*goto*/ 0x41)
@@ -2061,7 +2061,7 @@ u8 func0007_alerted[] = {
 	label(0x13)
 	label(0x8b)
 	dprint 'B','A','C','K','O','F','F','\n',0,
-	if_player_looking_at_something_maybe(0x14, 0x01, 0x00, /*goto*/ 0x13)
+	if_within_targets_fovx_by_angle(20, /*goto*/ 0x13)
 	goto_next(0x50)
 
 	label(0x13)
@@ -2181,7 +2181,7 @@ u8 func0007_alerted[] = {
 		if_distance_to_target_gt(1300, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_01000000, TRUE, BANK_1, /*goto*/ 0x16)
 		if_self_flag_bankx_eq(CHRFLAG1_02000000, FALSE, BANK_1, /*goto*/ 0x16)
-		if_player_looking_at_something_maybe(0x15, 0x01, 0x00, /*goto*/ 0x3b)
+		if_within_targets_fovx_by_angle(21, /*goto*/ 0x3b)
 		goto_next(0x16)
 
 		label(0xc8)
@@ -2218,13 +2218,13 @@ u8 func0007_alerted[] = {
 
 		label(0x39)
 		if_self_flag_bankx_eq(CHRFLAG1_01000000, TRUE, BANK_1, /*goto*/ 0x3c)
-		if_player_looking_at_something_maybe(0x15, 0x01, 0x00, /*goto*/ 0x3b)
+		if_within_targets_fovx_by_angle(21, /*goto*/ 0x3b)
 		if_distance_to_target_lt(1300, /*goto*/ 0x3b)
 		goto_next(0x17)
 
 		label(0x3a)
 		if_self_flag_bankx_eq(CHRFLAG1_01000000, TRUE, BANK_1, /*goto*/ 0x3c)
-		if_player_looking_at_something_maybe(0x15, 0x01, 0x00, /*goto*/ 0x3b)
+		if_within_targets_fovx_by_angle(21, /*goto*/ 0x3b)
 		goto_next(0x3c)
 
 		label(0x3c)
@@ -4156,7 +4156,7 @@ u8 func001b_observe_camspy[] = {
 		if_distance_to_target_lt(300, /*goto*/ 0x13)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
+		if_target_outside_my_yvisang(/*goto*/ 0x16)
 		if_target_in_sight(/*goto*/ 0x0b)
 		label(0x16)
 		set_target_chr(CHR_PRESET)
@@ -4176,7 +4176,7 @@ u8 func001b_observe_camspy[] = {
 		if_distance_to_target_gt(400, /*goto*/ 0x13)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
+		if_target_outside_my_yvisang(/*goto*/ 0x16)
 		if_target_in_sight(/*goto*/ 0x0b)
 		label(0x16)
 		set_target_chr(CHR_PRESET)
@@ -4198,7 +4198,7 @@ u8 func001b_observe_camspy[] = {
 		label(0x13)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
+		if_target_outside_my_yvisang(/*goto*/ 0x16)
 		if_target_in_sight(/*goto*/ 0x0b)
 		label(0x16)
 		set_target_chr(CHR_PRESET)
@@ -4322,7 +4322,7 @@ u8 func001d_search_for_player[] = {
 		label(0x13)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x15)
+		if_target_outside_my_yvisang(/*goto*/ 0x15)
 		if_target_in_sight(/*goto*/ 0x12)
 		label(0x15)
 		if_timer_gt(30, /*goto*/ 0x05)
@@ -4402,7 +4402,7 @@ u8 func001d_search_for_player[] = {
 		if_distance_to_target_gt(500, /*goto*/ 0x15)
 		label(0x13)
 		dprint 'C','H','E','K',' ','V','I','S','\n',0,
-		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x15)
+		if_target_outside_my_yvisang(/*goto*/ 0x15)
 		if_target_in_sight(/*goto*/ 0x12)
 		label(0x15)
 		if_saw_death(0x00, /*goto*/ 0x28)
@@ -4480,7 +4480,7 @@ u8 func001f_related_to_spawning[] = {
 	label(0x16)
 	if_saw_death(0x01, /*goto*/ 0x1e)
 	if_saw_injury(0x01, /*goto*/ 0x1e)
-	if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
+	if_target_outside_my_yvisang(/*goto*/ 0x16)
 	if_target_in_sight(/*goto*/ 0x1e)
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x16)

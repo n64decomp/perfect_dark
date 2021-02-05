@@ -24215,24 +24215,24 @@ f32 chrGetVerticalAngleToTarget(struct chrdata *chr)
 	return result;
 }
 
-bool func0f048e74(struct chrdata *chr, u8 fov)
+bool chrIsInTargetsFovX(struct chrdata *chr, u8 fov360)
 {
 	f32 angle = chrGetAngleFromTargetsFov(chr);
 
-	if ((angle < fov * 0.024539785459638f && angle < M_PI)
-			|| (angle > M_BADTAU - fov * 0.024539785459638f && angle > M_PI)) {
+	if ((angle < fov360 * 0.024539785459638f && angle < M_PI)
+			|| (angle > M_BADTAU - fov360 * 0.024539785459638f && angle > M_PI)) {
 		return true;
 	}
 
 	return false;
 }
 
-bool func0f048f20(struct chrdata *chr, u8 angle)
+bool chrIsVerticalAngleToTargetWithin(struct chrdata *chr, u8 fov360)
 {
 	f32 val = chrGetVerticalAngleToTarget(chr);
 
-	if ((val < angle * 0.024539785459638f && val < M_PI)
-			|| (val > M_BADTAU - angle * 0.024539785459638f && val > M_PI)) {
+	if ((val < fov360 * 0.024539785459638f && val < M_PI)
+			|| (val > M_BADTAU - fov360 * 0.024539785459638f && val > M_PI)) {
 		return true;
 	}
 
@@ -24776,7 +24776,7 @@ bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
 				return false;
 			}
 
-			return func0f048e74(chr, 20);
+			return chrIsInTargetsFovX(chr, 20);
 		}
 
 		if (target->type == PROPTYPE_PLAYER) {

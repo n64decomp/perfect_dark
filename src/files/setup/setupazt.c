@@ -1421,7 +1421,7 @@ u8 func041a_pres_clone[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x31)
-		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x08)
+		if_target_outside_my_yvisang(/*goto*/ 0x08)
 		if_target_in_sight(/*goto*/ 0x31)
 		label(0x08)
 	endloop(0x06)

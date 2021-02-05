@@ -95,7 +95,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x004b*/ aiIfNearMiss,
 	/*0x004c*/ aiIfSeesSuspiciousItem,
 	/*0x004d*/ aiIfTargetInFovLeft,
-	/*0x004e*/ ai004e,
+	/*0x004e*/ aiIfCheckFovWithTarget,
 	/*0x004f*/ aiIfTargetOutOfFovLeft,
 	/*0x0050*/ aiIfTargetInFov,
 	/*0x0051*/ aiIfTargetOutOfFov,

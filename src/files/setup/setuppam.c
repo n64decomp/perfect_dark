@@ -3210,7 +3210,7 @@ u8 func041d_sniper[] = {
 
 	label(0x2e)
 	dprint 'C','H','E','C','K',' ','P','L','A','Y','E','R',' ','D','I','R','\n',0,
-	if_player_looking_at_something_maybe(0x14, 0x01, 0x00, /*goto*/ 0x0d)
+	if_within_targets_fovx_by_angle(20, /*goto*/ 0x0d)
 	dprint '3','\n',0,
 	label(0x06)
 	if_can_see_target(/*goto*/ 0x2e)

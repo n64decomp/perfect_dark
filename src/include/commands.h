@@ -708,14 +708,34 @@
 	angle, \
 	label,
 
-// Either bool1 or bool2 are set - never none or both
-// When bool1 is set, u1 is populated
-// When bool2 is set, u1 is 0 (likely unused)
-#define if_player_looking_at_something_maybe(u1, bool1, bool2, label) \
+/**
+ * Check if the current chr is in their target's field of view (FOV).
+ *
+ * Depending on the arguments given, the check is either on the X axis or the Y
+ * axis. If the X axis is being used then the turn direction that the target is
+ * facing is relevant. If the Y axis is being used then the pitch that the
+ * target is ignored and the check is purely positional.
+ *
+ * if op2 is TRUE, the command checks if the chr is *outside* of their target's
+ * FOV Y and is based on the chr's yvisang property. The given angle is ignored.
+ *
+ * if op2 is FALSE, then op1 is checked:
+ *
+ * if op1 is TRUE, the command checks if the chr is within their target's FOV X
+ * by the given angle (ie. their target is looking at them).
+ *
+ * if op1 is FALSE, the command checks if the chr is within their target's FOV Y.
+ *
+ * Consider using the following macros for this command instead:
+ * if_within_targets_fovx_by_angle
+ * if_y_angle_to_target_lt
+ * if_target_outside_my_yvisang
+ */
+#define if_fov_check_with_target(angle, op1, op2, label) \
 	mkshort(0x004e), \
-	u1, \
-	bool1, \
-	bool2, \
+	angle, \
+	op1, \
+	op2, \
 	label,
 
 /**
@@ -4180,15 +4200,34 @@
 	mkshort(0x01e0),
 
 // Convenience macros for readability
-#define beginloop(id) label(id) yield
+#define beginloop(id) \
+	label(id) \
+	yield
 
-#define endloop(id) goto_first(id)
+#define endloop(id) \
+	goto_first(id)
 
-#define reloop(id) goto_first(id)
+#define reloop(id) \
+	goto_first(id)
 
-#define remove_hudmsgs show_hudmsg_middle(0x02, 0, 0x0002)
+#define remove_hudmsgs \
+	show_hudmsg_middle(0x02, 0, 0x0002)
 
-#define if_stage_is_not(stage, label) if_stage_lt(stage, label) if_stage_gt(stage, label)
+#define if_stage_is_not(stage, label) \
+	if_stage_lt(stage, label) \
+	if_stage_gt(stage, label)
 
-#define go_to_gun(label) do_gun_command(0, label)
-#define if_gun_landed(label) do_gun_command(1, label)
+#define go_to_gun(label) \
+	do_gun_command(0, label)
+
+#define if_gun_landed(label) \
+	do_gun_command(1, label)
+
+#define if_within_targets_fovx_by_angle(angle, label) \
+	if_fov_check_with_target(angle, TRUE, FALSE, label)
+
+#define if_y_angle_to_target_lt(angle, label) \
+	if_fov_check_with_target(angle, FALSE, FALSE, label)
+
+#define if_target_outside_my_yvisang(label) \
+	if_fov_check_with_target(0, FALSE, TRUE, label)

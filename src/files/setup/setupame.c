@@ -1817,7 +1817,7 @@ u8 func0414_programmer[] = {
 			if_can_see_target(/*goto*/ 0x06)
 			goto_next(0x2c)
 			label(0x06)
-			if_player_looking_at_something_maybe(0x28, 0x01, 0x00, /*goto*/ LABEL_JO_SPEAK)
+			if_within_targets_fovx_by_angle(40, /*goto*/ LABEL_JO_SPEAK)
 			label(0x2c)
 		endloop(0x0d)
 
@@ -1887,7 +1887,7 @@ u8 func0414_programmer[] = {
 		if_chr_stopped(/*goto*/ LABEL_LOG_ON)
 		if_stage_flag_eq(STAGEFLAG_PROGRAMMER_INJURED, TRUE, /*goto*/ 0x06)
 		if_distance_to_target_lt(500, /*goto*/ 0x06)
-		if_player_looking_at_something_maybe(0x28, 0x01, 0x00, /*goto*/ 0x06)
+		if_within_targets_fovx_by_angle(40, /*goto*/ 0x06)
 		if_chr_in_room(CHR_PROGRAMMER, 0x00, 0x007d, /*goto*/ 0x06)
 		if_chr_in_room(CHR_PROGRAMMER, 0x00, 0x007e, /*goto*/ 0x06)
 		if_chr_in_room(CHR_PROGRAMMER, 0x00, 0x007f, /*goto*/ 0x06)

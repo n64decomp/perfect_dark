@@ -1704,7 +1704,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 		if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x2e)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x60)
 		label(0x2e)
-		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
+		if_target_outside_my_yvisang(/*goto*/ 0x06)
 		if_target_in_sight(/*goto*/ 0x60)
 		label(0x06)
 		if_just_injured(CHR_SELF, /*goto*/ 0x58)
@@ -1716,7 +1716,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	endloop(0x5f)
 
 	label(0x06)
-	if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x2d)
+	if_target_outside_my_yvisang(/*goto*/ 0x2d)
 	if_target_in_sight(/*goto*/ 0x60)
 	label(0x2d)
 	set_target_chr(CHR_BOND)
@@ -1768,7 +1768,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	call_rng
 	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
-	if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
+	if_target_outside_my_yvisang(/*goto*/ 0x06)
 	if_target_in_sight(/*goto*/ 0x6b)
 	label(0x06)
 	if_timer_gt(60, /*goto*/ 0x6c)

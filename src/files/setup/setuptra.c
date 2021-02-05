@@ -831,7 +831,7 @@ u8 func0402_jonathan_waiting_for_meetup[] = {
 	do_preset_animation(3)
 
 	beginloop(0x09)
-		if_player_looking_at_something_maybe(0x0a, 0x01, 0x00, /*goto*/ 0x06)
+		if_within_targets_fovx_by_angle(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 

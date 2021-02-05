@@ -1625,19 +1625,19 @@ bool aiIfSeesSuspiciousItem(void)
 /**
  * @cmd 004e
  */
-bool ai004e(void)
+bool aiIfCheckFovWithTarget(void)
 {
 	bool pass;
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if (cmd[4] == 0) {
 		if (cmd[3]) {
-			pass = func0f048e74(g_Vars.chrdata, cmd[2]);
+			pass = chrIsInTargetsFovX(g_Vars.chrdata, cmd[2]);
 		} else {
-			pass = func0f048f20(g_Vars.chrdata, cmd[2]);
+			pass = chrIsVerticalAngleToTargetWithin(g_Vars.chrdata, cmd[2]);
 		}
 	} else {
-		pass = g_Vars.chrdata->yvisang && func0f048f20(g_Vars.chrdata, g_Vars.chrdata->yvisang) == 0;
+		pass = g_Vars.chrdata->yvisang && chrIsVerticalAngleToTargetWithin(g_Vars.chrdata, g_Vars.chrdata->yvisang) == 0;
 	}
 
 	if (pass) {
@@ -6790,7 +6790,7 @@ bool aiDetectEnemy(void)
 						s16 prevtarget = g_Vars.chrdata->target;
 						g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, chr->chrnum);
 
-						if (func0f048f20(g_Vars.chrdata, g_Vars.chrdata->yvisang)) {
+						if (chrIsVerticalAngleToTargetWithin(g_Vars.chrdata, g_Vars.chrdata->yvisang)) {
 							closestdist = distance;
 							closesttarg = chr->chrnum;
 						}
@@ -8192,8 +8192,12 @@ bool aiSetTeamOrders(void)
 	s32 num;
 	u32 stack;
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	// Get list of chrs in the current chr's squadron
 	chrnums = squadronGetChrIds(g_Vars.chrdata->squadron);
 
+	// Iterate chrs in squadron and build list of their actions.
+	// Put the current chr's action first.
 	chraction = chractions;
 	chraction->chrnum = g_Vars.chrdata->chrnum;
 	chraction->myaction = g_Vars.chrdata->myaction;
@@ -8227,6 +8231,8 @@ bool aiSetTeamOrders(void)
 
 	chraction->myaction = MA_END;
 
+	// Iterate the list of chrs and decide how to reassign orders to them
+	// based on the current chr's action
 	if (chrcount != 1) {
 		chraction = &chractions[1];
 		num = 1;
@@ -8236,25 +8242,25 @@ bool aiSetTeamOrders(void)
 
 			switch (chractions[0].myaction) {
 			case MA_COVERGOTO:
-				if (func0f048e74(chr, 45) == 0) {
+				if (!chrIsInTargetsFovX(chr, 45)) {
 					chr->orders = MA_SHOOTING;
 				}
 				break;
 			case MA_COVERBREAK:
-				if (func0f048e74(chr, 30) == 0) {
+				if (!chrIsInTargetsFovX(chr, 30)) {
 					chr->orders = MA_SHOOTING;
 				}
 				num++;
 				break;
 			case MA_COVERSEEN:
-				if (func0f048e74(chr, 30) == 0) {
+				if (!chrIsInTargetsFovX(chr, 30)) {
 					chr->orders = MA_SHOOTING;
 					g_Vars.chrdata->orders = MA_COVERGOTO;
 				}
 				num++;
 				break;
 			case MA_FLANKLEFT:
-				if (func0f048e74(chr, 50)) {
+				if (chrIsInTargetsFovX(chr, 50)) {
 					chr->orders = MA_FLANKRIGHT;
 				} else {
 					chr->orders = MA_SHOOTING;
@@ -8263,7 +8269,7 @@ bool aiSetTeamOrders(void)
 				g_Vars.chrdata->orders = MA_FLANKLEFT;
 				break;
 			case MA_FLANKRIGHT:
-				if (func0f048e74(chr, 50)) {
+				if (chrIsInTargetsFovX(chr, 50)) {
 					chr->orders = MA_FLANKLEFT;
 				} else {
 					chr->orders = MA_SHOOTING;
@@ -8272,7 +8278,7 @@ bool aiSetTeamOrders(void)
 				g_Vars.chrdata->orders = MA_FLANKRIGHT;
 				break;
 			case MA_DODGE:
-				if (func0f048e74(chr, 30) == 0 &&
+				if (!chrIsInTargetsFovX(chr, 30) &&
 						chrHasFlagById(chr, CHR_SELF, CHRFLAG0_CAN_BACKOFF, BANK_0)) {
 					chr->orders = MA_WITHDRAW;
 				} else {
@@ -8289,7 +8295,7 @@ bool aiSetTeamOrders(void)
 				num++;
 				break;
 			case MA_WAITSEEN:
-				if (func0f048e74(chr, 30) &&
+				if (chrIsInTargetsFovX(chr, 30) &&
 						chrHasFlagById(chr, CHR_SELF, CHRFLAG0_CAN_BACKOFF, BANK_0)) {
 					chr->orders = MA_WITHDRAW;
 				} else {

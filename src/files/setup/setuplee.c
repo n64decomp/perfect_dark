@@ -2998,7 +2998,7 @@ u8 func0421_bridge_skedar[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		label(0x2c)
 		set_target_chr(CHR_P1P2)
-		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
+		if_target_outside_my_yvisang(/*goto*/ 0x06)
 		if_target_in_sight(/*goto*/ 0xc8)
 		label(0x06)
 		if_saw_injury(0x00, /*goto*/ 0xc8)
@@ -3008,7 +3008,7 @@ u8 func0421_bridge_skedar[] = {
 		reloop(0xc7)
 
 		label(0x06)
-		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x2c)
+		if_target_outside_my_yvisang(/*goto*/ 0x2c)
 		if_target_in_sight(/*goto*/ 0xc8)
 		label(0x2c)
 		set_target_chr(CHR_BOND)
@@ -3053,7 +3053,7 @@ u8 func0421_bridge_skedar[] = {
 	call_rng
 	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
-	if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
+	if_target_outside_my_yvisang(/*goto*/ 0x06)
 	if_target_in_sight(/*goto*/ 0xce)
 	label(0x06)
 	if_timer_gt(60, /*goto*/ 0xcf)

@@ -3467,7 +3467,7 @@ u8 func0426_check_looking_at_alien[] = {
 
 		// Jo is in range
 		label(0x64)
-		if_player_looking_at_something_maybe(0x0a, 0x01, 0x00, /*goto*/ 0x2d)
+		if_within_targets_fovx_by_angle(10, /*goto*/ 0x2d)
 
 		// Jo is too far away or not looking at alien
 		label(0x66)
@@ -3477,7 +3477,7 @@ u8 func0426_check_looking_at_alien[] = {
 
 		// Velvet is in range
 		label(0x68)
-		if_player_looking_at_something_maybe(0x0a, 0x01, 0x00, /*goto*/ 0x2d)
+		if_within_targets_fovx_by_angle(10, /*goto*/ 0x2d)
 
 		// Both players are too far away
 		label(0x69)

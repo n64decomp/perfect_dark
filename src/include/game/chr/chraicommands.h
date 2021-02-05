@@ -81,7 +81,7 @@
 /*0x004b*/ bool aiIfNearMiss(void);
 /*0x004c*/ bool aiIfSeesSuspiciousItem(void);
 /*0x004d*/ bool aiIfTargetInFovLeft(void);
-/*0x004e*/ bool ai004e(void);
+/*0x004e*/ bool aiIfCheckFovWithTarget(void);
 /*0x004f*/ bool aiIfTargetOutOfFovLeft(void);
 /*0x0050*/ bool aiIfTargetInFov(void);
 /*0x0051*/ bool aiIfTargetOutOfFov(void);
