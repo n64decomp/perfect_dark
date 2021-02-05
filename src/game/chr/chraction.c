@@ -26511,76 +26511,30 @@ bool chrIsNearlyInTargetsSight(struct chrdata *chr, u32 distance)
 	return func0002f450(&target->pos, target->rooms, &chr->prop->pos, distance, 32);
 }
 
-GLOBAL_ASM(
-glabel func0f04c784
-.late_rodata
-glabel var7f1a9428
-.word 0x40c907a9
-.text
-/*  f04c784:	44808000 */ 	mtc1	$zero,$f16
-/*  f04c788:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f04c78c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04c790:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f04c794:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f04c798:	e7b00024 */ 	swc1	$f16,0x24($sp)
-/*  f04c79c:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f04c7a0:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f04c7a4:	c7b00024 */ 	lwc1	$f16,0x24($sp)
-/*  f04c7a8:	14610007 */ 	bne	$v1,$at,.L0f04c7c8
-/*  f04c7ac:	00402825 */ 	or	$a1,$v0,$zero
-/*  f04c7b0:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f04c7b4:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f04c7b8:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f04c7bc:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f04c7c0:	1000000c */ 	b	.L0f04c7f4
-/*  f04c7c4:	46000406 */ 	mov.s	$f16,$f0
-.L0f04c7c8:
-/*  f04c7c8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f04c7cc:	14610009 */ 	bne	$v1,$at,.L0f04c7f4
-/*  f04c7d0:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f04c7d4:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f04c7d8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f04c7dc:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f04c7e0:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x64)
-/*  f04c7e4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f04c7e8:	8defa024 */ 	lw	$t7,%lo(g_Vars+0x64)($t7)
-/*  f04c7ec:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f04c7f0:	c5f00144 */ 	lwc1	$f16,0x144($t7)
-.L0f04c7f4:
-/*  f04c7f4:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*  f04c7f8:	c4a40010 */ 	lwc1	$f4,0x10($a1)
-/*  f04c7fc:	c4a80008 */ 	lwc1	$f8,0x8($a1)
-/*  f04c800:	8f02001c */ 	lw	$v0,0x1c($t8)
-/*  f04c804:	c4460010 */ 	lwc1	$f6,0x10($v0)
-/*  f04c808:	c44a0008 */ 	lwc1	$f10,0x8($v0)
-/*  f04c80c:	e7b00024 */ 	swc1	$f16,0x24($sp)
-/*  f04c810:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f04c814:	0fc259d4 */ 	jal	atan2f
-/*  f04c818:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f04c81c:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f04c820:	44817000 */ 	mtc1	$at,$f14
-/*  f04c824:	3c017f1b */ 	lui	$at,%hi(var7f1a9428)
-/*  f04c828:	c4249428 */ 	lwc1	$f4,%lo(var7f1a9428)($at)
-/*  f04c82c:	460e0482 */ 	mul.s	$f18,$f0,$f14
-/*  f04c830:	c7b00024 */ 	lwc1	$f16,0x24($sp)
-/*  f04c834:	3c0142b4 */ 	lui	$at,0x42b4
-/*  f04c838:	44815000 */ 	mtc1	$at,$f10
-/*  f04c83c:	3c014334 */ 	lui	$at,0x4334
-/*  f04c840:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04c844:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f04c848:	46049183 */ 	div.s	$f6,$f18,$f4
-/*  f04c84c:	44819000 */ 	mtc1	$at,$f18
-/*  f04c850:	46103201 */ 	sub.s	$f8,$f6,$f16
-/*  f04c854:	460a4080 */ 	add.s	$f2,$f8,$f10
-/*  f04c858:	4602903c */ 	c.lt.s	$f18,$f2
-/*  f04c85c:	46001306 */ 	mov.s	$f12,$f2
-/*  f04c860:	45000002 */ 	bc1f	.L0f04c86c
-/*  f04c864:	00000000 */ 	nop
-/*  f04c868:	460e1301 */ 	sub.s	$f12,$f2,$f14
-.L0f04c86c:
-/*  f04c86c:	03e00008 */ 	jr	$ra
-/*  f04c870:	46006006 */ 	mov.s	$f0,$f12
-);
+f32 func0f04c784(struct chrdata *chr)
+{
+	f32 targetfacingangle = 0;
+	u32 stack;
+	struct prop *target = chrGetTargetProp(chr);
+	f32 angletotarget;
+	f32 result;
+
+	if (target->type == PROPTYPE_CHR) {
+		targetfacingangle = chrGetInverseTheta(target->chr);
+	} else if (target->type == PROPTYPE_PLAYER) {
+		s32 playernum = propGetPlayerNum(target);
+		targetfacingangle = g_Vars.players[playernum]->vv_theta;
+	}
+
+	angletotarget = atan2f(target->pos.z - chr->prop->pos.z, target->pos.x - chr->prop->pos.x);
+	result = (angletotarget * 360 / M_BADTAU - targetfacingangle) + 90;
+
+	if (result > 180) {
+		result -= 360;
+	}
+
+	return result;
+}
 
 const char var7f1a8ce4[] = "chraction.c";
 
