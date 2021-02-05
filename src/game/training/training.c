@@ -1918,7 +1918,7 @@ void frEndSession(bool hidetargets)
 
 		for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
 			roomGetNeighbours(g_Vars.currentplayer->prop->rooms[i], rooms2, 10);
-			func0f0657d8(rooms2, rooms, 20);
+			roomsAppend(rooms2, rooms, 20);
 		}
 
 		// Remove projectiles and throwables
@@ -2192,7 +2192,7 @@ bool frIsAmmoWasted(void)
 
 			for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
 				roomGetNeighbours(g_Vars.currentplayer->prop->rooms[i], rooms10, 10);
-				func0f0657d8(rooms10, rooms20, 20);
+				roomsAppend(rooms10, rooms20, 20);
 			}
 
 			roomGetProps(rooms20, propnums, 256);

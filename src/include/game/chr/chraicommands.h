@@ -265,8 +265,8 @@
 /*0x0106*/ bool aiSetTarget(void);
 /*0x0107*/ bool aiIfPresetsTargetIsNotMyTarget(void);
 /*0x0108*/ bool aiIfChrTarget(void);
-/*0x0109*/ bool ai0109(void);
-/*0x010a*/ bool ai010a(void);
+/*0x0109*/ bool aiSetChrPresetToChrNearSelf(void);
+/*0x010a*/ bool aiSetChrPresetToChrNearPad(void);
 /*0x010b*/ bool aiChrSetTeam(void);
 /*0x010c*/ bool aiIfCompareChrPresetsTeam(void);
 /*0x010d*/ bool aiNoOp010d(void);

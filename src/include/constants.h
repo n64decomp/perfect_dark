@@ -559,6 +559,7 @@
 #define COLOR_08_RED    0x08
 #define COLOR_09_BLUE   0x09
 
+#define COMPARE_ANY     0
 #define COMPARE_FRIENDS 1
 #define COMPARE_ENEMIES 2
 

@@ -25047,17 +25047,17 @@ bool chrSetPadPresetToWaypointWithinTargetQuadrant(struct chrdata *chr, u8 quadr
 	return false;
 }
 
-bool func0f04a76c(struct chrdata *chr, f32 distance)
+bool chrSetChrPresetToAnyChrNearSelf(struct chrdata *chr, f32 distance)
 {
-	return func0f04a79c(0, chr, distance);
+	return chrSetChrPresetToChrNearSelf(COMPARE_ANY, chr, distance);
 }
 
-bool func0f04a79c(u8 chrnum, struct chrdata *chr, f32 distance)
+bool chrSetChrPresetToChrNearSelf(u8 checktype, struct chrdata *chr, f32 distance)
 {
-	return func0f04a848(chrnum, chr, distance, &chr->prop->pos, chr->prop->rooms);
+	return chrSetChrPresetToChrNearPos(checktype, chr, distance, &chr->prop->pos, chr->prop->rooms);
 }
 
-bool func0f04a7dc(u32 chrnum, struct chrdata *chr, f32 distance, s32 padnum)
+bool chrSetChrPresetToChrNearPad(u32 checktype, struct chrdata *chr, f32 distance, s32 padnum)
 {
 	struct pad pad;
 	s16 rooms[2];
@@ -25068,169 +25068,64 @@ bool func0f04a7dc(u32 chrnum, struct chrdata *chr, f32 distance, s32 padnum)
 	rooms[0] = pad.room;
 	rooms[1] = -1;
 
-	return func0f04a848(chrnum, chr, distance, &pad.pos, rooms);
+	return chrSetChrPresetToChrNearPos(checktype, chr, distance, &pad.pos, rooms);
 }
 
-GLOBAL_ASM(
-glabel func0f04a848
-/*  f04a848:	27bdfd18 */ 	addiu	$sp,$sp,-744
-/*  f04a84c:	44866000 */ 	mtc1	$a2,$f12
-/*  f04a850:	afbf006c */ 	sw	$ra,0x6c($sp)
-/*  f04a854:	afbe0068 */ 	sw	$s8,0x68($sp)
-/*  f04a858:	afb70064 */ 	sw	$s7,0x64($sp)
-/*  f04a85c:	afb60060 */ 	sw	$s6,0x60($sp)
-/*  f04a860:	afb5005c */ 	sw	$s5,0x5c($sp)
-/*  f04a864:	afb40058 */ 	sw	$s4,0x58($sp)
-/*  f04a868:	afb30054 */ 	sw	$s3,0x54($sp)
-/*  f04a86c:	afb20050 */ 	sw	$s2,0x50($sp)
-/*  f04a870:	afb1004c */ 	sw	$s1,0x4c($sp)
-/*  f04a874:	afb00048 */ 	sw	$s0,0x48($sp)
-/*  f04a878:	f7be0040 */ 	sdc1	$f30,0x40($sp)
-/*  f04a87c:	f7bc0038 */ 	sdc1	$f28,0x38($sp)
-/*  f04a880:	f7ba0030 */ 	sdc1	$f26,0x30($sp)
-/*  f04a884:	f7b80028 */ 	sdc1	$f24,0x28($sp)
-/*  f04a888:	f7b60020 */ 	sdc1	$f22,0x20($sp)
-/*  f04a88c:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f04a890:	afa402e8 */ 	sw	$a0,0x2e8($sp)
-/*  f04a894:	c4e00000 */ 	lwc1	$f0,0x0($a3)
-/*  f04a898:	c4e20004 */ 	lwc1	$f2,0x4($a3)
-/*  f04a89c:	c4ee0008 */ 	lwc1	$f14,0x8($a3)
-/*  f04a8a0:	8fb102f8 */ 	lw	$s1,0x2f8($sp)
-/*  f04a8a4:	27b300b4 */ 	addiu	$s3,$sp,0xb4
-/*  f04a8a8:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f04a8ac:	309e00ff */ 	andi	$s8,$a0,0xff
-/*  f04a8b0:	02602825 */ 	or	$a1,$s3,$zero
-/*  f04a8b4:	460c0501 */ 	sub.s	$f20,$f0,$f12
-/*  f04a8b8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04a8bc:	460c0580 */ 	add.s	$f22,$f0,$f12
-/*  f04a8c0:	460c1601 */ 	sub.s	$f24,$f2,$f12
-/*  f04a8c4:	460c1680 */ 	add.s	$f26,$f2,$f12
-/*  f04a8c8:	460c7701 */ 	sub.s	$f28,$f14,$f12
-/*  f04a8cc:	0fc195e9 */ 	jal	roomsCopy
-/*  f04a8d0:	460c7780 */ 	add.s	$f30,$f14,$f12
-/*  f04a8d4:	862e0000 */ 	lh	$t6,0x0($s1)
-/*  f04a8d8:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f04a8dc:	02208025 */ 	or	$s0,$s1,$zero
-/*  f04a8e0:	524e000f */ 	beql	$s2,$t6,.L0f04a920
-/*  f04a8e4:	27b000e0 */ 	addiu	$s0,$sp,0xe0
-/*  f04a8e8:	86240000 */ 	lh	$a0,0x0($s1)
-/*  f04a8ec:	27b10084 */ 	addiu	$s1,$sp,0x84
-/*  f04a8f0:	02202825 */ 	or	$a1,$s1,$zero
-.L0f04a8f4:
-/*  f04a8f4:	0fc5916a */ 	jal	roomGetNeighbours
-/*  f04a8f8:	2406000a */ 	addiu	$a2,$zero,0xa
-/*  f04a8fc:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04a900:	02602825 */ 	or	$a1,$s3,$zero
-/*  f04a904:	0fc195f6 */ 	jal	func0f0657d8
-/*  f04a908:	24060014 */ 	addiu	$a2,$zero,0x14
-/*  f04a90c:	86040002 */ 	lh	$a0,0x2($s0)
-/*  f04a910:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f04a914:	5644fff7 */ 	bnel	$s2,$a0,.L0f04a8f4
-/*  f04a918:	02202825 */ 	or	$a1,$s1,$zero
-/*  f04a91c:	27b000e0 */ 	addiu	$s0,$sp,0xe0
-.L0f04a920:
-/*  f04a920:	02002825 */ 	or	$a1,$s0,$zero
-/*  f04a924:	02602025 */ 	or	$a0,$s3,$zero
-/*  f04a928:	0fc197e0 */ 	jal	roomGetProps
-/*  f04a92c:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f04a930:	87af00e0 */ 	lh	$t7,0xe0($sp)
-/*  f04a934:	02009025 */ 	or	$s2,$s0,$zero
-/*  f04a938:	27b800e0 */ 	addiu	$t8,$sp,0xe0
-/*  f04a93c:	05e00040 */ 	bltz	$t7,.L0f04aa40
-/*  f04a940:	24170006 */ 	addiu	$s7,$zero,0x6
-/*  f04a944:	3c15800a */ 	lui	$s5,%hi(g_Vars)
-/*  f04a948:	26b59fc0 */ 	addiu	$s5,$s5,%lo(g_Vars)
-/*  f04a94c:	87020000 */ 	lh	$v0,0x0($t8)
-/*  f04a950:	24160003 */ 	addiu	$s6,$zero,0x3
-/*  f04a954:	24130048 */ 	addiu	$s3,$zero,0x48
-.L0f04a958:
-/*  f04a958:	00530019 */ 	multu	$v0,$s3
-/*  f04a95c:	8ea80338 */ 	lw	$t0,0x338($s5)
-/*  f04a960:	0000c812 */ 	mflo	$t9
-/*  f04a964:	03288021 */ 	addu	$s0,$t9,$t0
-/*  f04a968:	92030000 */ 	lbu	$v1,0x0($s0)
-/*  f04a96c:	52c30004 */ 	beql	$s6,$v1,.L0f04a980
-/*  f04a970:	8e110004 */ 	lw	$s1,0x4($s0)
-/*  f04a974:	56e3002f */ 	bnel	$s7,$v1,.L0f04aa34
-/*  f04a978:	86420002 */ 	lh	$v0,0x2($s2)
-/*  f04a97c:	8e110004 */ 	lw	$s1,0x4($s0)
-.L0f04a980:
-/*  f04a980:	86890000 */ 	lh	$t1,0x0($s4)
-/*  f04a984:	862a0000 */ 	lh	$t2,0x0($s1)
-/*  f04a988:	512a002a */ 	beql	$t1,$t2,.L0f04aa34
-/*  f04a98c:	86420002 */ 	lh	$v0,0x2($s2)
-/*  f04a990:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f04a994:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04a998:	54400026 */ 	bnezl	$v0,.L0f04aa34
-/*  f04a99c:	86420002 */ 	lh	$v0,0x2($s2)
-/*  f04a9a0:	c6000008 */ 	lwc1	$f0,0x8($s0)
-/*  f04a9a4:	4600a03e */ 	c.le.s	$f20,$f0
-/*  f04a9a8:	00000000 */ 	nop
-/*  f04a9ac:	45020021 */ 	bc1fl	.L0f04aa34
-/*  f04a9b0:	86420002 */ 	lh	$v0,0x2($s2)
-/*  f04a9b4:	4616003e */ 	c.le.s	$f0,$f22
-/*  f04a9b8:	00000000 */ 	nop
-/*  f04a9bc:	4502001d */ 	bc1fl	.L0f04aa34
-/*  f04a9c0:	86420002 */ 	lh	$v0,0x2($s2)
-/*  f04a9c4:	c600000c */ 	lwc1	$f0,0xc($s0)
-/*  f04a9c8:	4600c03e */ 	c.le.s	$f24,$f0
-/*  f04a9cc:	00000000 */ 	nop
-/*  f04a9d0:	45020018 */ 	bc1fl	.L0f04aa34
-/*  f04a9d4:	86420002 */ 	lh	$v0,0x2($s2)
-/*  f04a9d8:	461a003e */ 	c.le.s	$f0,$f26
-/*  f04a9dc:	00000000 */ 	nop
-/*  f04a9e0:	45020014 */ 	bc1fl	.L0f04aa34
-/*  f04a9e4:	86420002 */ 	lh	$v0,0x2($s2)
-/*  f04a9e8:	c6000010 */ 	lwc1	$f0,0x10($s0)
-/*  f04a9ec:	4600e03e */ 	c.le.s	$f28,$f0
-/*  f04a9f0:	00000000 */ 	nop
-/*  f04a9f4:	4502000f */ 	bc1fl	.L0f04aa34
-/*  f04a9f8:	86420002 */ 	lh	$v0,0x2($s2)
-/*  f04a9fc:	461e003e */ 	c.le.s	$f0,$f30
-/*  f04aa00:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04aa04:	02802825 */ 	or	$a1,$s4,$zero
-/*  f04aa08:	4502000a */ 	bc1fl	.L0f04aa34
-/*  f04aa0c:	86420002 */ 	lh	$v0,0x2($s2)
-/*  f04aa10:	0fc12aa3 */ 	jal	chrCompareTeams
-/*  f04aa14:	33c600ff */ 	andi	$a2,$s8,0xff
-/*  f04aa18:	50400006 */ 	beqzl	$v0,.L0f04aa34
-/*  f04aa1c:	86420002 */ 	lh	$v0,0x2($s2)
-/*  f04aa20:	862b0000 */ 	lh	$t3,0x0($s1)
-/*  f04aa24:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f04aa28:	10000006 */ 	b	.L0f04aa44
-/*  f04aa2c:	a68b012a */ 	sh	$t3,0x12a($s4)
-/*  f04aa30:	86420002 */ 	lh	$v0,0x2($s2)
-.L0f04aa34:
-/*  f04aa34:	26520002 */ 	addiu	$s2,$s2,0x2
-/*  f04aa38:	0441ffc7 */ 	bgez	$v0,.L0f04a958
-/*  f04aa3c:	00000000 */ 	nop
-.L0f04aa40:
-/*  f04aa40:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04aa44:
-/*  f04aa44:	8fbf006c */ 	lw	$ra,0x6c($sp)
-/*  f04aa48:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f04aa4c:	d7b60020 */ 	ldc1	$f22,0x20($sp)
-/*  f04aa50:	d7b80028 */ 	ldc1	$f24,0x28($sp)
-/*  f04aa54:	d7ba0030 */ 	ldc1	$f26,0x30($sp)
-/*  f04aa58:	d7bc0038 */ 	ldc1	$f28,0x38($sp)
-/*  f04aa5c:	d7be0040 */ 	ldc1	$f30,0x40($sp)
-/*  f04aa60:	8fb00048 */ 	lw	$s0,0x48($sp)
-/*  f04aa64:	8fb1004c */ 	lw	$s1,0x4c($sp)
-/*  f04aa68:	8fb20050 */ 	lw	$s2,0x50($sp)
-/*  f04aa6c:	8fb30054 */ 	lw	$s3,0x54($sp)
-/*  f04aa70:	8fb40058 */ 	lw	$s4,0x58($sp)
-/*  f04aa74:	8fb5005c */ 	lw	$s5,0x5c($sp)
-/*  f04aa78:	8fb60060 */ 	lw	$s6,0x60($sp)
-/*  f04aa7c:	8fb70064 */ 	lw	$s7,0x64($sp)
-/*  f04aa80:	8fbe0068 */ 	lw	$s8,0x68($sp)
-/*  f04aa84:	03e00008 */ 	jr	$ra
-/*  f04aa88:	27bd02e8 */ 	addiu	$sp,$sp,0x2e8
-);
+bool chrSetChrPresetToChrNearPos(u8 checktype, struct chrdata *chr, f32 distance, struct coord *pos, s16 *rooms)
+{
+	s32 i;
+	s16 *propnumptr;
+	s16 propnums[256];
+	s16 allrooms[21];
+	f32 xmin = pos->x - distance;
+	f32 xmax = pos->x + distance;
+	f32 ymin = pos->y - distance;
+	f32 ymax = pos->y + distance;
+	f32 zmin = pos->z - distance;
+	f32 zmax = pos->z + distance;
+	s16 neighbours[11];
+
+	roomsCopy(rooms, allrooms);
+
+	for (i = 0; rooms[i] != -1; i++) {
+		roomGetNeighbours(rooms[i], neighbours, 10);
+		roomsAppend(neighbours, allrooms, 20);
+	}
+
+	roomGetProps(allrooms, propnums, 256);
+
+	propnumptr = propnums;
+
+	while (*propnumptr >= 0) {
+		struct prop *prop = &g_Vars.props[*propnumptr];
+
+		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+			struct chrdata *loopchr = prop->chr;
+
+			if (loopchr->chrnum != chr->chrnum
+					&& !chrIsDead(loopchr)
+					&& prop->pos.x >= xmin
+					&& prop->pos.x <= xmax
+					&& prop->pos.y >= ymin
+					&& prop->pos.y <= ymax
+					&& prop->pos.z >= zmin
+					&& prop->pos.z <= zmax
+					&& chrCompareTeams(loopchr, chr, checktype)) {
+				chr->chrpreset1 = loopchr->chrnum;
+				return true;
+			}
+		}
+
+		*propnumptr++;
+	}
+
+	return false;
+}
 
 bool chrCompareTeams(struct chrdata *chr1, struct chrdata *chr2, u8 checktype)
 {
 	if (chr1 && chr1->prop) {
-		if (checktype == 0) {
+		if (checktype == COMPARE_ANY) {
 			return true;
 		}
 

@@ -4097,7 +4097,7 @@ glabel var7f1a9f4c
 /*  f064288:	2406000a */ 	addiu	$a2,$zero,0xa
 /*  f06428c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f064290:	02602825 */ 	or	$a1,$s3,$zero
-/*  f064294:	0fc195f6 */ 	jal	func0f0657d8
+/*  f064294:	0fc195f6 */ 	jal	roomsAppend
 /*  f064298:	24060014 */ 	addiu	$a2,$zero,0x14
 /*  f06429c:	8e890284 */ 	lw	$t1,0x284($s4)
 /*  f0642a0:	26100002 */ 	addiu	$s0,$s0,0x2
@@ -5499,7 +5499,7 @@ void roomsCopy(s16 *src, s16 *dst)
 }
 
 GLOBAL_ASM(
-glabel func0f0657d8
+glabel roomsAppend
 /*  f0657d8:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*  f0657dc:	afb00004 */ 	sw	$s0,0x4($sp)
 /*  f0657e0:	848e0000 */ 	lh	$t6,0x0($a0)
@@ -5911,7 +5911,7 @@ void func0f065dfc(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newr
 		func0f065e98(pos, rooms, newpos, newrooms);
 
 		if (morerooms) {
-			func0f0657d8(newrooms, morerooms, arg5);
+			roomsAppend(newrooms, morerooms, arg5);
 		}
 	}
 }

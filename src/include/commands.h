@@ -2366,24 +2366,41 @@
 	anytarget, \
 	label,
 
-#define cmd0109(u1, distance, label) \
+/**
+ * Check all chrs within the given distance of the current chr. If any chr
+ * passes a team check (as given by checktype), set the current chr's chrpreset
+ * to that chr and follow the label.
+ *
+ * Checktype can be COMPARE_FRIENDS, COMPARE_ENEMIES or COMPANY_ANY.
+ */
+#define set_chrpreset_to_chr_near_self(checktype, distance, label) \
 	mkshort(0x0109), \
-	u1, \
+	checktype, \
 	mkshort(distance), \
 	label, \
 
-#define cmd010a(u1, distance, u2, label) \
+/**
+ * Check all chrs within the given distance of the given pad. If any chr passes
+ * a team check (as given by checktype), set the current chr's chrpreset to that
+ * chr and follow the label.
+ *
+ * Checktype can be COMPARE_FRIENDS, COMPARE_ENEMIES or COMPANY_ANY.
+ */
+#define set_chrpreset_to_chr_near_pad(checktype, distance, padnum, label) \
 	mkshort(0x010a), \
-	u1, \
+	checktype, \
 	mkshort(distance / 10), \
-	mkshort(u2), \
+	mkshort(padnum), \
 	label,
 
 /**
  * Set the team that the chr is on.
  *
- * The values are not well understood yet. Enemies are typically assigned to
- * team 0x02 and allies to team 0x10, but this varies.
+ * The value is a single byte bitfield. If two chrs have any matching bits then
+ * they will be friends. If no bits match then they will be enemies.
+ *
+ * Team 0x80 is a special case, and is a non-combat team.
+ * Chrs will not engage in combat with anyone who is on this team.
  */
 #define set_chr_team(chr, team) \
 	mkshort(0x010b), \
