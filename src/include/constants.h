@@ -854,8 +854,6 @@
 #define GAILIST_INIT_SEARCH            0x002c // unused
 #define GAILIST_INVINCIBLE_AND_IDLE    0x002d
 
-#define GEOTYPE_2 2
-
 #define GOPOSFLAG_SPEED        0x03 // bits 0x01 and 0x02 combined
 #define GOPOSFLAG_INIT         0x04
 #define GOPOSFLAG_ONPRESETPATH 0x08
@@ -3182,8 +3180,17 @@
 #define TICKMODE_CUTSCENE 6
 #define TICKMODE_AUTOWALK 7
 
+#define TILEFLAG_0004 0x0004
+#define TILEFLAG_0008 0x0008
+#define TILEFLAG_0010 0x0010
 #define TILEFLAG_0020 0x0020
+#define TILEFLAG_0080 0x0080
 #define TILEFLAG_0200 0x0200
+
+#define TILETYPE_00 0x00 // Standard BG tiles
+#define TILETYPE_01 0x01 //
+#define TILETYPE_02 0x02 //
+#define TILETYPE_03 0x03 // Chr geometry
 
 #define TITLEMODE_LEGAL            0
 #define TITLEMODE_CHECKCONTROLLERS 1

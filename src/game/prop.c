@@ -5444,7 +5444,7 @@ bool propIsOfCdType(struct prop *prop, u32 types)
 	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
 		struct defaultobj *obj = prop->obj;
 
-		if (obj->geo == NULL) {
+		if (obj->unkgeo == NULL) {
 			result = false;
 		} else {
 			if ((types & CDTYPE_OBJSWITHOUTFLAG) && (obj->flags & OBJFLAG_04000000)) {
@@ -6197,7 +6197,7 @@ void propGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 	}
 }
 
-bool propUpdateGeometry(struct prop *prop, struct geo **arg1, struct geo **arg2)
+bool propUpdateGeometry(struct prop *prop, struct tiletype3 **arg1, struct tiletype3 **arg2)
 {
 	bool result = false;
 

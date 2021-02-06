@@ -4348,9 +4348,9 @@ glabel func0f069b4c
 
 void func0f069c1c(struct defaultobj *obj)
 {
-	if (obj->geo) {
+	if (obj->geo3) {
 		if (obj->hidden2 & OBJH2FLAG_08) {
-			func0f069850(obj, &obj->prop->pos, obj->realrot, obj->geo);
+			func0f069850(obj, &obj->prop->pos, obj->realrot, obj->geo3);
 		}
 
 		func0f069b4c(obj);
@@ -27275,8 +27275,8 @@ s32 objTick(struct prop *prop)
 			struct coord sp116 = {0, 0, 0};
 			f32 sp112;
 			s32 tagnum;
-			struct geo *geos[2];
-			struct geo *sp96;
+			struct tiletype3 *geos[2];
+			struct tiletype3 *sp96;
 			f32 damage;
 
 			if (sp572) {
@@ -27349,7 +27349,7 @@ s32 objTick(struct prop *prop)
 				sp592 = true;
 
 				if (objUpdateGeometry(prop, geos, &sp96)
-						&& geos[0]->type == GEOTYPE_2
+						&& geos[0]->header.type == TILETYPE_02
 						&& func0002e4c4(geos[0], prop->rooms, 4) == 0) {
 					damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
 					obj->flags &= ~OBJFLAG_INVINCIBLE;
@@ -37428,15 +37428,15 @@ void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 {
 	struct defaultobj *obj = prop->obj;
 
-	if (obj->geo && obj->hidden2 & OBJH2FLAG_08) {
+	if (obj->unkgeo && obj->hidden2 & OBJH2FLAG_08) {
 		if (obj->flags3 & OBJFLAG3_02000000) {
-			*width = obj->geo->width;
-			*ymin = obj->geo->ymin;
-			*ymax = obj->geo->ymax;
+			*width = obj->unkgeo->width;
+			*ymin = obj->unkgeo->ymin;
+			*ymax = obj->unkgeo->ymax;
 		} else {
 			*width = func0001af80(obj->model);
-			*ymin = obj->geo->ymin;
-			*ymax = obj->geo->ymax;
+			*ymin = obj->unkgeo->ymin;
+			*ymax = obj->unkgeo->ymax;
 		}
 	} else {
 		*width = 1;
@@ -44594,12 +44594,12 @@ void func0f08e0c4(struct doorobj *door)
 	doorActivatePortal(door);
 
 	if (door->doortype == DOORTYPE_8) {
-		struct geo *geo = door->base.geo;
+		struct tiletype3 *geo = door->base.geo3;
 		door->base.flags |= OBJFLAG_CANNOT_ACTIVATE;
 		door->perimfrac = 0;
 
 		if (geo && (door->base.flags & OBJFLAG_00000100)) {
-			geo->unk01 = 0;
+			geo->header.numvertices = 0;
 			door->base.flags &= ~OBJFLAG_00000100;
 		}
 	}

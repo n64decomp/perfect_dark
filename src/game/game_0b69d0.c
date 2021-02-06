@@ -1002,8 +1002,8 @@ void currentPlayerResetToDefault(void)
 	bmoveSetMode(MOVEMODE_WALK);
 
 	g_Vars.currentplayer->bondperimenabled = true;
-	g_Vars.currentplayer->periminfo.type = 3;
-	g_Vars.currentplayer->periminfo.unk02 = 20;
+	g_Vars.currentplayer->periminfo.header.type = TILETYPE_03;
+	g_Vars.currentplayer->periminfo.header.flags = TILEFLAG_0004 | TILEFLAG_0010;
 	g_Vars.currentplayer->periminfo.ymax = 0;
 	g_Vars.currentplayer->periminfo.ymin = 0;
 	g_Vars.currentplayer->periminfo.x = 0;
@@ -9878,7 +9878,7 @@ void func0f0c1e54(struct prop *prop, bool enable)
 	g_Vars.players[playernum]->bondperimenabled = enable;
 }
 
-bool playerUpdateGeometry(struct prop *prop, struct geo **arg1, struct geo **arg2)
+bool playerUpdateGeometry(struct prop *prop, struct tiletype3 **arg1, struct tiletype3 **arg2)
 {
 	s32 playernum = propGetPlayerNum(prop);
 
@@ -9906,8 +9906,8 @@ bool playerUpdateGeometry(struct prop *prop, struct geo **arg1, struct geo **arg
 
 void currentPlayerUpdatePerimInfo(void)
 {
-	g_Vars.currentplayer->periminfo.type = 3;
-	g_Vars.currentplayer->periminfo.unk02 = 20;
+	g_Vars.currentplayer->periminfo.header.type = TILETYPE_03;
+	g_Vars.currentplayer->periminfo.header.flags = TILEFLAG_0004 | TILEFLAG_0010;
 
 	g_Vars.currentplayer->periminfo.ymin = g_Vars.currentplayer->vv_manground;
 	g_Vars.currentplayer->periminfo.ymax = g_Vars.currentplayer->vv_manground + g_Vars.currentplayer->vv_headheight;

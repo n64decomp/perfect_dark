@@ -547,6 +547,60 @@ struct aibot {
 	/*0x2d4*/ f32 unk2d4;
 };
 
+struct tile {
+	/*0x00*/ u8 type;
+	/*0x01*/ u8 numvertices;
+	/*0x02*/ u16 flags;
+};
+
+struct tiletype0 {
+	struct tile header;
+	/*0x04*/ u16 floortype;
+	/*0x06*/ u8 xmin; // These are byte offsets relative to the start of tile
+	/*0x07*/ u8 ymin;
+	/*0x08*/ u8 zmin;
+	/*0x09*/ u8 xmax;
+	/*0x0a*/ u8 ymax;
+	/*0x0b*/ u8 zmax;
+	/*0x0c*/ u16 floorcol;
+	u16 unk0e;
+};
+
+struct tiletype1 {
+	struct tile header;
+	/*0x04*/ u16 floortype;
+	/*0x06*/ u8 xmin; // These are byte offsets relative to the start of tile
+	/*0x07*/ u8 ymin;
+	/*0x08*/ u8 zmin;
+	/*0x09*/ u8 xmax;
+	/*0x0a*/ u8 ymax;
+	/*0x0b*/ u8 zmax;
+	/*0x0c*/ u16 floorcol;
+};
+
+struct tiletype2 {
+	struct tile header;
+	/*0x04*/ f32 ymax;
+	/*0x04*/ f32 ymin;
+};
+
+struct tiletype3 {
+	struct tile header;
+	/*0x04*/ f32 ymax;
+	/*0x08*/ f32 ymin;
+	/*0x0c*/ f32 x;
+	/*0x10*/ f32 z;
+	/*0x14*/ f32 width;
+};
+
+struct tilething {
+	struct tile *tile;
+	u32 unk04;
+	u32 unk08;
+	struct prop *lift;
+	u32 floorroom;
+};
+
 struct act_stand {
 	/*0x2c*/ s32 unk02c;
 	/*0x30*/ u32 face_entitytype;
@@ -819,17 +873,6 @@ struct act_skjump {
 	/*0x50*/ f32 y;
 };
 
-struct geo {
-	/*0x00*/ u8 type;
-	/*0x01*/ u8 unk01;
-	/*0x02*/ u16 unk02;
-	/*0x04*/ f32 ymax;
-	/*0x08*/ f32 ymin;
-	/*0x0c*/ f32 x;
-	/*0x10*/ f32 z;
-	/*0x14*/ f32 width;
-};
-
 struct chrdata {
 	/*0x000*/ s16 chrnum;
 	/*0x002*/ s8 accuracyrating;
@@ -918,7 +961,7 @@ struct chrdata {
 	/*0x12e*/ s16 chrseeshot;
 	/*0x130*/ s16 chrseedie;
 	/*0x132*/ s16 chrdup;
-	struct geo geo;
+	struct tiletype3 geo;
 	/*0x14c*/ f32 shotbondsum;
 	/*0x150*/ f32 aimuplshoulder;
 	/*0x154*/ f32 aimuprshoulder;
@@ -1180,7 +1223,11 @@ struct defaultobj {
 	/*0x18*/ struct model *model;
 	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden;
-	/*0x44*/ struct geo *geo;
+	union {
+		/*0x44*/ struct tiletype2 *geo2;
+		/*0x44*/ struct tiletype3 *geo3;
+		/*0x44*/ struct tiletype3 *unkgeo; // temporary, to indicate that I don't know which geo pointer is being used
+	};
 	union {
 		/*0x48*/ struct projectile *projectile;
 		/*0x48*/ struct monitorthing *monitorthing;
@@ -2688,8 +2735,8 @@ struct player {
 	/*0x19c0*/ f32 vv_headheight; // 172 when Jo, regardless of crouch state
 	/*0x19c4*/ f32 vv_eyeheight;  // 159 when Jo, regardless of crouch state
 	/*0x19c8*/ bool haschrbody;
-	/*0x19cc*/ struct geo periminfo;
-	/*0x19e4*/ struct geo perimshoot;
+	/*0x19cc*/ struct tiletype3 periminfo;
+	/*0x19e4*/ struct tiletype3 perimshoot;
 	/*0x19fc*/ f32 bondprevtheta;
 	/*0x1a00*/ struct coord grabbedprevpos;
 	/*0x1a0c*/ f32 grabbedrotoffset;
@@ -5806,28 +5853,6 @@ struct mpconfigfull {
 	struct mpstrings strings;
 };
 
-struct tile {
-	/*0x00*/ u8 unk00; // 0 or 1 to enable floorcol, 2 or 3 to disable
-	/*0x01*/ u8 numvertices;
-	/*0x02*/ u16 flags;
-	/*0x04*/ u16 floortype;
-	/*0x06*/ u8 unk06;
-	/*0x07*/ u8 unk07;
-	/*0x08*/ u8 unk08;
-	/*0x09*/ u8 unk09;
-	/*0x0a*/ u8 unk0a;
-	/*0x0b*/ u8 unk0b;
-	/*0x0c*/ u16 floorcol;
-};
-
-struct tilething {
-	struct tile *tile;
-	u32 unk04;
-	u32 unk08;
-	struct prop *lift;
-	u32 floorroom;
-};
-
 struct movedata {
 	/*0x00*/ s32 canswivelgun;
 	/*0x04*/ s32 canmanualaim;
@@ -6888,7 +6913,7 @@ struct collisionthing {
 	u32 unk04;
 	u32 unk08;
 	u32 unk0c;
-	u32 unk10;
+	u32 roomnum;
 };
 
 struct escastepkeyframe {

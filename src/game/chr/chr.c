@@ -9798,7 +9798,7 @@ struct prop *chrGetTargetProp(struct chrdata *chr)
 	return ret;
 }
 
-bool chrUpdateGeometry(struct prop *prop, struct geo **arg1, struct geo **arg2)
+bool chrUpdateGeometry(struct prop *prop, struct tiletype3 **arg1, struct tiletype3 **arg2)
 {
 	struct chrdata *chr = prop->chr;
 
@@ -9806,12 +9806,12 @@ bool chrUpdateGeometry(struct prop *prop, struct geo **arg1, struct geo **arg2)
 			chr->actiontype != ACT_DRUGGEDKO &&
 			(chr->chrflags & (CHRCFLAG_00010000 | CHRCFLAG_HIDDEN)) == 0 &&
 			(chr->hidden & CHRHFLAG_00000100) == 0) {
-		chr->geo.type = PROPTYPE_CHR;
+		chr->geo.header.type = TILETYPE_03;
 
 		if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DRUGGEDDROP) {
-			chr->geo.unk02 = 16;
+			chr->geo.header.flags = TILEFLAG_0010;
 		} else {
-			chr->geo.unk02 = 20;
+			chr->geo.header.flags = TILEFLAG_0004 | TILEFLAG_0010;
 		}
 
 		chr->geo.ymin = chr->manground;

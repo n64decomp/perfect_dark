@@ -88,7 +88,7 @@ struct chrdata *chrFindByLiteralId(s32 chrnum);
 struct prop *chrGetEquippedWeaponProp(struct chrdata *chr, s32 hand);
 struct prop *chrGetEquippedWeaponPropWithCheck(struct chrdata *chr, s32 hand);
 struct prop *chrGetTargetProp(struct chrdata *chr);
-bool chrUpdateGeometry(struct prop *prop, struct geo **arg1, struct geo **arg2);
+bool chrUpdateGeometry(struct prop *prop, struct tiletype3 **arg1, struct tiletype3 **arg2);
 void propChrGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
 
 #endif
