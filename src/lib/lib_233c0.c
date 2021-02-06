@@ -1926,7 +1926,7 @@ struct prop *cdGetObstacle(void)
 }
 
 GLOBAL_ASM(
-glabel func00024ebc
+glabel cdGetPos
 /*    24ebc:	3c02800a */ 	lui	$v0,%hi(var8009a8e0)
 /*    24ec0:	2442a8e0 */ 	addiu	$v0,$v0,%lo(var8009a8e0)
 /*    24ec4:	c4440000 */ 	lwc1	$f4,0x0($v0)

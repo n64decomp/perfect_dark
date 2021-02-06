@@ -177,20 +177,20 @@ void bbikeHandleActivate(void)
 		struct hoverbikeobj *bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
 		struct model08thing *thing = func0f068af4(&bike->base);
 
-		f32 fVar5 = thing->unk04[1] * bike->base.model->unk14;
-		f32 fVar3 = thing->unk18 * bike->base.model->unk14;
-		f32 uVar4 = sqrtf(fVar5 * fVar5 + fVar3 * fVar3);
+		f32 sidedist = thing->unk04[1] * bike->base.model->unk14;
+		f32 frontdist = thing->unk18 * bike->base.model->unk14;
+		f32 diagdist = sqrtf(sidedist * sidedist + frontdist * frontdist);
 
 		g_Vars.currentplayer->walkinitmove = false;
 
-		bbikeTryDismountAngle(1.5705462694168f, fVar5);
-		bbikeTryDismountAngle(4.7116389274597f, fVar5);
-		bbikeTryDismountAngle(0.7852731347084f, uVar4);
-		bbikeTryDismountAngle(5.4969120025635f, uVar4);
-		bbikeTryDismountAngle(2.3558194637299f, uVar4);
-		bbikeTryDismountAngle(3.9263656139374f, uVar4);
-		bbikeTryDismountAngle(0, fVar3);
-		bbikeTryDismountAngle(3.1410925388336f, fVar3);
+		bbikeTryDismountAngle(1.5705462694168f, sidedist);  // 90  - left
+		bbikeTryDismountAngle(4.7116389274597f, sidedist);  // 270 - right
+		bbikeTryDismountAngle(0.7852731347084f, diagdist);  // 45  - front left
+		bbikeTryDismountAngle(5.4969120025635f, diagdist);  // 315 - front right
+		bbikeTryDismountAngle(2.3558194637299f, diagdist);  // 135 - back left
+		bbikeTryDismountAngle(3.9263656139374f, diagdist);  // 225 - back right
+		bbikeTryDismountAngle(0, frontdist);                // 0   - front
+		bbikeTryDismountAngle(3.1410925388336f, frontdist); // 180 - back
 
 		if (g_Vars.currentplayer->walkinitmove) {
 			bmoveSetMode(MOVEMODE_WALK);

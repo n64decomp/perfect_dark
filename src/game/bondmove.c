@@ -471,7 +471,7 @@ glabel var7f1ad8b4
 /*  f0c86f0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c86f4:	3c067f1b */ 	lui	$a2,%hi(var7f1ad860)
 /*  f0c86f8:	24c6d860 */ 	addiu	$a2,$a2,%lo(var7f1ad860)
-/*  f0c86fc:	0c0093af */ 	jal	func00024ebc
+/*  f0c86fc:	0c0093af */ 	jal	cdGetPos
 /*  f0c8700:	240501c7 */ 	addiu	$a1,$zero,0x1c7
 /*  f0c8704:	0c0093c4 */ 	jal	func00024f10
 /*  f0c8708:	00000000 */ 	nop

@@ -340,7 +340,7 @@ glabel func0f02e550
 .L0f02e61c:
 /*  f02e61c:	3c067f1b */ 	lui	$a2,%hi(var7f1a8acc)
 /*  f02e620:	24c68acc */ 	addiu	$a2,$a2,%lo(var7f1a8acc)
-/*  f02e624:	0c0093af */ 	jal	func00024ebc
+/*  f02e624:	0c0093af */ 	jal	cdGetPos
 /*  f02e628:	24050949 */ 	addiu	$a1,$zero,0x949
 /*  f02e62c:	c7a8003c */ 	lwc1	$f8,0x3c($sp)
 /*  f02e630:	c60a0008 */ 	lwc1	$f10,0x8($s0)
@@ -11049,7 +11049,7 @@ bool chrTryRunFromTarget(struct chrdata *chr)
 		// If dst runs into a wall, set it to closest valid spot
 		if (!func0002d7c0(&prop->pos, prop->rooms, &dst, 0x33, 1,
 					ymax - prop->pos.y, ymin - prop->pos.y)) {
-			func00024ebc(&dst, 8788, "chraction.c");
+			cdGetPos(&dst, 8788, "chraction.c");
 		}
 
 		// Adjust dst to be two chr widths closer to avoid collision with wall
@@ -16324,7 +16324,7 @@ glabel var7f1a9184
 /*  f040b1c:	afad0224 */ 	sw	$t5,0x224($sp)
 /*  f040b20:	24c68af4 */ 	addiu	$a2,$a2,%lo(var7f1a8af4)
 /*  f040b24:	27a40228 */ 	addiu	$a0,$sp,0x228
-/*  f040b28:	0c0093af */ 	jal	func00024ebc
+/*  f040b28:	0c0093af */ 	jal	cdGetPos
 /*  f040b2c:	24052f28 */ 	addiu	$a1,$zero,0x2f28
 /*  f040b30:	0c0093ac */ 	jal	cdGetObstacle
 /*  f040b34:	00000000 */ 	nop
@@ -26447,7 +26447,7 @@ bool chrRunFromPos(struct chrdata *chr, u32 speed, f32 rundist, struct coord *fr
 		chrSetOrUnsetHiddenFlag00000100(chr, false);
 
 		if (cdTestAToB4(&chr->prop->pos, chr->prop->rooms, &delta, CDTYPE_ALL, 4) == CDRESULT_COLLISION) {
-			func00024ebc(&delta, 18547, "chraction.c");
+			cdGetPos(&delta, 18547, "chraction.c");
 		}
 
 		chrSetOrUnsetHiddenFlag00000100(chr, true);
@@ -26657,7 +26657,7 @@ glabel var7f1a942c
 /*  f04ca20:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04ca24:	3c067f1b */ 	lui	$a2,%hi(var7f1a8ce4)
 /*  f04ca28:	24c68ce4 */ 	addiu	$a2,$a2,%lo(var7f1a8ce4)
-/*  f04ca2c:	0c0093af */ 	jal	func00024ebc
+/*  f04ca2c:	0c0093af */ 	jal	cdGetPos
 /*  f04ca30:	240548fe */ 	addiu	$a1,$zero,0x48fe
 /*  f04ca34:	c6040000 */ 	lwc1	$f4,0x0($s0)
 /*  f04ca38:	c7a600c8 */ 	lwc1	$f6,0xc8($sp)
@@ -26780,6 +26780,119 @@ glabel var7f1a942c
 /*  f04cbfc:	03e00008 */ 	jr	$ra
 /*  f04cc00:	24020001 */ 	addiu	$v0,$zero,0x1
 );
+
+// Mismatch: Probably due to variable reuse.
+//bool func0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, u8 arg4)
+//{
+//	struct prop *target = chrGetTargetProp(chr);
+//	f32 fVar7 = 0;
+//	f32 uVar9 = func0f04c784(chr);
+//	struct coord chrpos; // c8, cc, d0
+//	struct coord saved; // a8, ac, b0
+//	f32 ymax; // a0
+//	f32 ymin; // 9c
+//	f32 width; // 98
+//	f32 cosine;
+//	f32 sine;
+//	f32 xdiff;
+//	f32 ydiff;
+//	f32 zdiff;
+//	f32 xdiff2;
+//	f32 ydiff2;
+//	f32 zdiff2;
+//	f32 scale;
+//	bool again;
+//
+//	chrpos.x = chr->prop->pos.x;
+//	chrpos.y = chr->prop->pos.y;
+//	chrpos.z = chr->prop->pos.z;
+//
+//	do {
+//		s32 result;
+//		f32 angle360f = angle360;
+//
+//		if (angle360f > 180) {
+//			angle360f -= 360;
+//		}
+//
+//		cosine = cosf((angle360f - uVar9) * 0.017450513318181f);
+//		sine = sinf((angle360f - uVar9) * 0.017450513318181f);
+//		xdiff = chrpos.x - target->pos.x;
+//		zdiff = chrpos.z - target->pos.z;
+//
+//		pos->x = target->pos.x + (xdiff * cosine - zdiff * sine);
+//		pos->y = chrpos.y;
+//		pos->z = target->pos.z + (xdiff * sine + zdiff * cosine);
+//
+//		propChrGetBbox(chr->prop, &width, &ymax, &ymin);
+//
+//		// a14
+//		result = func0002d7c0(&chrpos, chr->prop->rooms, pos,
+//				CDTYPE_BG | CDTYPE_OBJS | CDTYPE_DOORS, 1,
+//				ymax - chrpos.y,
+//				ymin - chrpos.y);
+//
+//		if (result == CDRESULT_COLLISION) {
+//			f32 xdiff;
+//			f32 zdiff;
+//			f32 tmp;
+//			cdGetPos(pos, 18686, "chraction.c");
+//
+//			xdiff = pos->x - chrpos.x;
+//			zdiff = pos->z - chrpos.z;
+//			tmp = sqrtf(xdiff * xdiff + zdiff * zdiff);
+//			scale = (tmp - 50.0f) / tmp;
+//
+//			if (scale < 0) {
+//				pos->x = chrpos.x;
+//				pos->y = chrpos.y;
+//				pos->z = chrpos.z;
+//			} else {
+//				pos->x = chrpos.x + xdiff * scale;
+//				pos->y = chrpos.y;
+//				pos->z = chrpos.z + zdiff * scale;
+//			}
+//		}
+//
+//		// ac8
+//		if (arg3) {
+//			xdiff2 = chrpos.x - pos->x;
+//			ydiff2 = chrpos.y - pos->y;
+//			zdiff2 = chrpos.z - pos->z;
+//
+//			saved.x = pos->x;
+//			saved.y = pos->y;
+//			saved.z = pos->z;
+//
+//			fVar7 = xdiff2 * xdiff2 + ydiff2 * ydiff2 + zdiff2 * zdiff2;
+//
+//			angle360 = 360 - angle360;
+//			again = true;
+//			arg3 = 0;
+//		} else {
+//			again = false;
+//		}
+//	} while (again);
+//
+//	if (fVar7 != 0) {
+//		f32 tmp;
+//		xdiff2 = chrpos.x - pos->x;
+//		ydiff2 = chrpos.y - pos->y;
+//		zdiff2 = chrpos.z - pos->z;
+//
+//		tmp = xdiff2 * xdiff2 + ydiff2 * ydiff2 + zdiff2 * zdiff2;
+//
+//		if (tmp < fVar7) {
+//			pos->x = saved.x;
+//			pos->y = saved.y;
+//			pos->z = saved.z;
+//		}
+//	}
+//
+//	func0f03abd0(chr, pos, arg4);
+//
+//	return true;
+//}
 
 GLOBAL_ASM(
 glabel rebuildTeams
