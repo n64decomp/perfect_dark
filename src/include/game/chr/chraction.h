@@ -199,7 +199,7 @@ bool func0f04b658(struct chrdata *chr);
 bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle, bool allowonscreen);
 bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool arg2);
 s32 func0f04ba34(struct chrdata *chr, u16 arg1, u32 arg2);
-u32 func0f04bffc(struct chrdata *chr, s32 arg1, s32 arg2);
+s32 chrAssignCoverAwayFromDanger(struct chrdata *chr, s32 mindist, s32 maxdist);
 bool chrRunFromPos(struct chrdata *chr, u32 speed, f32 distance, struct coord *frompos);
 f32 func0f04c784(struct chrdata *chr);
 bool func0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, u8 arg4);

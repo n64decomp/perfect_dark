@@ -2066,7 +2066,7 @@ void chrBeginDead(struct chrdata *chr)
 		chrStopFiring(chr);
 
 		if (chr->cover != -1) {
-			coverSetFlag0002(chr->cover, false);
+			coverSetInUse(chr->cover, false);
 			chr->cover = -1;
 		}
 
@@ -10940,7 +10940,7 @@ s32 func0f03aca0(struct chrdata *chr, f32 arg1, u8 arg2)
 		somefloat = 2000;
 	}
 
-	if (func0f04bffc(chr, somefloat, arg1 + 10000) == 0) {
+	if (chrAssignCoverAwayFromDanger(chr, somefloat, arg1 + 10000) == 0) {
 		func0f04ba34(g_Vars.chrdata, 0x90a, 0);
 	}
 
@@ -25926,7 +25926,7 @@ glabel func0f04ba34
 /*  f04bba4:	322a2000 */ 	andi	$t2,$s1,0x2000
 /*  f04bba8:	5540000b */ 	bnezl	$t2,.L0f04bbd8
 /*  f04bbac:	322c0040 */ 	andi	$t4,$s1,0x40
-/*  f04bbb0:	0fc45917 */ 	jal	coverHasFlag0002
+/*  f04bbb0:	0fc45917 */ 	jal	coverIsInUse
 /*  f04bbb4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04bbb8:	1440008b */ 	bnez	$v0,.L0f04bde8
 /*  f04bbbc:	8fab0098 */ 	lw	$t3,0x98($sp)
@@ -26206,13 +26206,13 @@ glabel func0f04ba34
 /*  f04bf80:	8faa0084 */ 	lw	$t2,0x84($sp)
 /*  f04bf84:	11410004 */ 	beq	$t2,$at,.L0f04bf98
 /*  f04bf88:	01402025 */ 	or	$a0,$t2,$zero
-/*  f04bf8c:	0fc45929 */ 	jal	coverSetFlag0002
+/*  f04bf8c:	0fc45929 */ 	jal	coverSetInUse
 /*  f04bf90:	afa70048 */ 	sw	$a3,0x48($sp)
 /*  f04bf94:	8fa70048 */ 	lw	$a3,0x48($sp)
 .L0f04bf98:
 /*  f04bf98:	86840292 */ 	lh	$a0,0x292($s4)
 /*  f04bf9c:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f04bfa0:	0fc45929 */ 	jal	coverSetFlag0002
+/*  f04bfa0:	0fc45929 */ 	jal	coverSetInUse
 /*  f04bfa4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f04bfa8:	8fa70048 */ 	lw	$a3,0x48($sp)
 /*  f04bfac:	8e4b0000 */ 	lw	$t3,0x0($s2)
@@ -26241,7 +26241,7 @@ glabel func0f04ba34
 );
 
 GLOBAL_ASM(
-glabel func0f04bffc
+glabel chrAssignCoverAwayFromDanger
 /*  f04bffc:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f04c000:	afbf005c */ 	sw	$ra,0x5c($sp)
 /*  f04c004:	afbe0058 */ 	sw	$s8,0x58($sp)
@@ -26304,7 +26304,7 @@ glabel func0f04bffc
 /*  f04c0e4:	02402825 */ 	or	$a1,$s2,$zero
 /*  f04c0e8:	5040003e */ 	beqzl	$v0,.L0f04c1e4
 /*  f04c0ec:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f04c0f0:	0fc45917 */ 	jal	coverHasFlag0002
+/*  f04c0f0:	0fc45917 */ 	jal	coverIsInUse
 /*  f04c0f4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04c0f8:	14400039 */ 	bnez	$v0,.L0f04c1e0
 /*  f04c0fc:	8fa90064 */ 	lw	$t1,0x64($sp)
@@ -26379,11 +26379,11 @@ glabel func0f04bffc
 /*  f04c204:	8fbf005c */ 	lw	$ra,0x5c($sp)
 /*  f04c208:	50820004 */ 	beql	$a0,$v0,.L0f04c21c
 /*  f04c20c:	86240292 */ 	lh	$a0,0x292($s1)
-/*  f04c210:	0fc45929 */ 	jal	coverSetFlag0002
+/*  f04c210:	0fc45929 */ 	jal	coverSetInUse
 /*  f04c214:	00002825 */ 	or	$a1,$zero,$zero
 /*  f04c218:	86240292 */ 	lh	$a0,0x292($s1)
 .L0f04c21c:
-/*  f04c21c:	0fc45929 */ 	jal	coverSetFlag0002
+/*  f04c21c:	0fc45929 */ 	jal	coverSetInUse
 /*  f04c220:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f04c224:	8fbf005c */ 	lw	$ra,0x5c($sp)
 .L0f04c228:
@@ -26404,6 +26404,119 @@ glabel func0f04bffc
 /*  f04c260:	03e00008 */ 	jr	$ra
 /*  f04c264:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
+
+/**
+ * Find cover in the opposite direction (?) of the chr's runfrompos and assign
+ * it to the chr. The distance from the runfrompos to the cover must be between
+ * mindist and maxdist along the X/Z plane. The chr will not choose cover more
+ * than 170cm higher than their current elevation, but strangely there is no
+ * lower Y limit.
+ *
+ * Testing with this function logic results in the following, where:
+ * R = run from pos
+ * C = chr's pos
+ * A = available cover
+ * . = unavailable cover
+ *
+ *  A A A A A A A A A A A A A A . . . . . .
+ *  A A A A A A A A A A A A A A . . . . . .
+ *  A A A A A A A A A A A A A A . . . . . .
+ *  A A A A A A A A A A A A A A . . . . . .
+ *  A A A A A A A A A A A A A A . . . . . .
+ *  A A A A A A A R A A A A A A . . . . . .
+ *  A A A A A A A A A A A A A A . . . . . .
+ *  A A A A A A A A A A A A A A . . . . . .
+ *  A A A A A A A A A A A A A A . . . . . .
+ *  A A A A A A A A A A A A A A . . . . . .
+ *  A A A A A A A A A A A A A A . . . . . .
+ *  A A A A A A A A A A A A A A . . . . . .
+ *  A A A A A A A A A A A A A A . . . . . .
+ *  A A A A A A A A A A A A A A . . . . . .
+ *  A A A A A A A A A A A A A A . . . . . A
+ *  A A A A A A A A A A A A A A . . . A A A
+ *  A A A A A A A A A A A A A A . A A A A A
+ *  A A A A A A A A A A A A A C A A A A A A
+ *  . . . . . . . . . . . A A A A A A A A A
+ *  . . . . . . . . . A A A A A A A A A A A
+ *
+ * The block of available cover around the runfrompos might be a bug, but if
+ * this function is called with mindist = chr - runfrompos or higher then it
+ * will work as expected.
+ *
+ * Preference is given to cover which is the "most opposite", meaning ones
+ * which are directly behind the chr from the perspective of runfrompos.
+ */
+// Mismatch: Regalloc in callee-save registers
+//s32 chrAssignCoverAwayFromDanger(struct chrdata *chr, s32 mindist, s32 maxdist)
+//{
+//	s32 i;
+//	f32 vecfromdanger[2];
+//	f32 vectocover[2];
+//	f32 y;
+//	f32 ymax;
+//	f32 bestsqdist;
+//	f32 sqdist;
+//	s32 numcovers;
+//	s32 prevcover;
+//	s32 newcover;
+//	f32 coversqdistfrompos;
+//	struct cover cover;
+//
+//	ymax = chr->prop->pos.y + 170;
+//	y = 0;
+//	bestsqdist = 0;
+//	newcover = -1;
+//	numcovers = coverGetCount();
+//	prevcover = chr->cover;
+//
+//	mindist = mindist * mindist;
+//	maxdist = maxdist * maxdist;
+//
+//	if (mindist);
+//	if (maxdist);
+//
+//	vecfromdanger[0] = chr->prop->pos.x - chr->runfrompos.x;
+//	vecfromdanger[1] = chr->prop->pos.z - chr->runfrompos.z;
+//
+//	guNormalize(&vecfromdanger[0], &y, &vecfromdanger[1]);
+//
+//	for (i = 0; i < numcovers; i++) {
+//		if (coverLoad(i, &cover)
+//				&& !coverIsInUse(i)
+//				&& !(cover.pos->y > ymax)
+//				&& !coverHasSomeFlags(&cover)) {
+//			coversqdistfrompos = coordGetSquaredDistanceToCoord(&chr->runfrompos, cover.pos);
+//
+//			if (!(coversqdistfrompos < mindist) && !(coversqdistfrompos > maxdist)) {
+//				vectocover[0] = cover.pos->x - chr->prop->pos.x;
+//				vectocover[1] = cover.pos->z - chr->prop->pos.z;
+//
+//				guNormalize(&vectocover[0], &y, &vectocover[1]);
+//
+//				sqdist = vecfromdanger[0] * vectocover[0] + vecfromdanger[1] * vectocover[1];
+//
+//				if (!(sqdist < 0) && sqdist > bestsqdist) {
+//					bestsqdist = sqdist;
+//					newcover = i;
+//				}
+//			}
+//		}
+//
+//		if (numcovers);
+//	}
+//
+//	chr->cover = newcover;
+//
+//	if (newcover != -1) {
+//		if (prevcover != -1) {
+//			coverSetInUse(prevcover, false);
+//		}
+//
+//		coverSetInUse(chr->cover, true);
+//	}
+//
+//	return newcover;
+//}
 
 s16 chrGoToCover(struct chrdata *chr, u8 speed)
 {

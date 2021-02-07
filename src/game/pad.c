@@ -719,23 +719,23 @@ s32 func0f116450(s32 arg0, s32 arg1)
 	return arg0;
 }
 
-bool coverHasFlag0002(s32 covernum)
+bool coverIsInUse(s32 covernum)
 {
 	// @bug: Second condition should be >=
 	if (covernum < 0 || covernum > g_PadsFile[1]) {
 		return false;
 	}
 
-	return g_CoverFlags[covernum] & COVERFLAG_0002;
+	return g_CoverFlags[covernum] & COVERFLAG_INUSE;
 }
 
-void coverSetFlag0002(s32 covernum, bool enable)
+void coverSetInUse(s32 covernum, bool enable)
 {
 	if (covernum >= 0 && covernum < g_PadsFile[1]) {
 		if (enable) {
-			g_CoverFlags[covernum] |= COVERFLAG_0002;
+			g_CoverFlags[covernum] |= COVERFLAG_INUSE;
 		} else {
-			g_CoverFlags[covernum] &= ~COVERFLAG_0002;
+			g_CoverFlags[covernum] &= ~COVERFLAG_INUSE;
 		}
 	}
 }

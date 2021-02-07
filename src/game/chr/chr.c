@@ -2713,7 +2713,7 @@ void func0f020d44(struct prop *prop, bool removechr)
 		chrDeregister(chr->chrnum);
 
 		if (chr->cover != -1) {
-			coverSetFlag0002(chr->cover, false);
+			coverSetInUse(chr->cover, false);
 			chr->cover = -1;
 		}
 

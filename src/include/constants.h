@@ -573,11 +573,11 @@
 #define CONTROLMODE_23 6
 #define CONTROLMODE_24 7
 
-#define COVERFLAG_0001 0x0001
-#define COVERFLAG_0002 0x0002 // In use?
-#define COVERFLAG_0020 0x0020
-#define COVERFLAG_0040 0x0040
-#define COVERFLAG_0080 0x0080
+#define COVERFLAG_0001  0x0001
+#define COVERFLAG_INUSE 0x0002
+#define COVERFLAG_0020  0x0020
+#define COVERFLAG_0040  0x0040
+#define COVERFLAG_0080  0x0080
 
 // L/C/R = left/centered/right
 // big/med/sml is the font size
