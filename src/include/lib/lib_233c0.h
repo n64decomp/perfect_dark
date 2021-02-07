@@ -71,9 +71,9 @@ s32 func00028200(struct tiletype0 *tile, struct coord *pos, f32 width, f32 y1, f
 u32 func0002840c(void);
 u32 func00028638(void);
 u32 func0002885c(void);
-u32 func00028914(void);
-void func00028df0(struct coord *dstpos, f32 width, s16 *dstrooms, s32 types, s32 arg4, s32 arg5, f32 ymax, f32 ymin, s32 *arg8, s32 arg9);
-void func0002901c(struct coord *pos, struct coord *dist, f32 width, s32 *arg3);
+s32 func00028914(struct tile *start, struct tile *end, struct coord *pos, f32 width, u16 flags, bool checkvertical, f32 arg6, f32 arg7, struct prop *prop, struct collisionthing *things, s32 maxthings, s32 *thingnum);
+void func00028df0(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4, u32 arg5, f32 ymax, f32 ymin, struct collisionthing *arg8, s32 arg9);
+void func0002901c(struct coord *pos, struct coord *dist, f32 width, struct collisionthing *arg3);
 f32 func000296a0(struct collisionthing *arg0, struct coord *pos, struct tilething **arg2, f32 width);
 bool func00029ffc(struct coord *pos, f32 width, f32 foreheadheight, f32 inversefeettoeyesheight, s16 *rooms, u32 arg5, struct coord *laddernormal);
 u32 func0002a13c(void);
