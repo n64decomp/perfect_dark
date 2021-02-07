@@ -417,6 +417,18 @@ $(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 	tools/patchmips3 $@ || rm $@
 
+# Files that use -O3 must be compiled without the ASM processor, otherwise it
+# introduces a race condition when using make -j because they create a temporary
+# include-stdin.u file during compilation.
+$(B_DIR)/lib/ultra/gu/frustum.o: src/lib/ultra/gu/frustum.c
+	$(IDOCC) -c $(CFLAGS) $< -o $@
+
+$(B_DIR)/lib/ultra/gu/ortho.o: src/lib/ultra/gu/ortho.c
+	$(IDOCC) -c $(CFLAGS) $< -o $@
+
+$(B_DIR)/lib/ultra/gu/scale.o: src/lib/ultra/gu/scale.c
+	$(IDOCC) -c $(CFLAGS) $< -o $@
+
 $(B_DIR)/lib/%.o: src/lib/%.c
 	@mkdir -p $(dir $@)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
