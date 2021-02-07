@@ -10752,47 +10752,22 @@ glabel func0002d6ac
 /*    2d728:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel cdTestAToB2
-/*    2d72c:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*    2d730:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    2d734:	afa7007c */ 	sw	$a3,0x7c($sp)
-/*    2d738:	27ae0044 */ 	addiu	$t6,$sp,0x44
-/*    2d73c:	240f0014 */ 	addiu	$t7,$zero,0x14
-/*    2d740:	afa40070 */ 	sw	$a0,0x70($sp)
-/*    2d744:	afa60078 */ 	sw	$a2,0x78($sp)
-/*    2d748:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2d74c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2d750:	0fc19747 */ 	jal	func0f065d1c
-/*    2d754:	27a70034 */ 	addiu	$a3,$sp,0x34
-/*    2d758:	27a40034 */ 	addiu	$a0,$sp,0x34
-/*    2d75c:	0fc19620 */ 	jal	arrayIntersects
-/*    2d760:	8fa5007c */ 	lw	$a1,0x7c($sp)
-/*    2d764:	10400011 */ 	beqz	$v0,.L0002d7ac
-/*    2d768:	00001825 */ 	or	$v1,$zero,$zero
-/*    2d76c:	8fb90084 */ 	lw	$t9,0x84($sp)
-/*    2d770:	c7a40088 */ 	lwc1	$f4,0x88($sp)
-/*    2d774:	c7a6008c */ 	lwc1	$f6,0x8c($sp)
-/*    2d778:	24180004 */ 	addiu	$t8,$zero,0x4
-/*    2d77c:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    2d780:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*    2d784:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*    2d788:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*    2d78c:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*    2d790:	afa00014 */ 	sw	$zero,0x14($sp)
-/*    2d794:	afb90018 */ 	sw	$t9,0x18($sp)
-/*    2d798:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*    2d79c:	0c00b457 */ 	jal	func0002d15c
-/*    2d7a0:	e7a60020 */ 	swc1	$f6,0x20($sp)
-/*    2d7a4:	10000001 */ 	b	.L0002d7ac
-/*    2d7a8:	00401825 */ 	or	$v1,$v0,$zero
-.L0002d7ac:
-/*    2d7ac:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    2d7b0:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*    2d7b4:	00601025 */ 	or	$v0,$v1,$zero
-/*    2d7b8:	03e00008 */ 	jr	$ra
-/*    2d7bc:	00000000 */ 	nop
-);
+s32 cdTestAToB2(struct coord *pos, s16 *rooms, struct coord *coord2, s16 *rooms2, u32 types, s32 arg5, f32 arg6, f32 arg7)
+{
+	s32 result;
+	s16 sp44[20];
+	s16 sp34[8];
+
+	func0f065d1c(pos, rooms, coord2, sp34, sp44, 20);
+
+	if (arrayIntersects(sp34, rooms2)) {
+		result = func0002d15c(pos, coord2, sp44, types, 4, 0, arg5, arg6, arg7);
+	} else {
+		result = 0;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0002d7c0
