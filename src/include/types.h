@@ -563,7 +563,7 @@ struct tiletype0 {
 	/*0x0a*/ u8 ymax;
 	/*0x0b*/ u8 zmax;
 	/*0x0c*/ u16 floorcol;
-	u16 unk0e;
+	/*0x0e*/ s16 vertices[1][3];
 };
 
 struct tiletype1 {
