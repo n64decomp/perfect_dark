@@ -421,12 +421,15 @@ $(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c
 # introduces a race condition when using make -j because they create a temporary
 # include-stdin.u file during compilation.
 $(B_DIR)/lib/ultra/gu/frustum.o: src/lib/ultra/gu/frustum.c
+	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 
 $(B_DIR)/lib/ultra/gu/ortho.o: src/lib/ultra/gu/ortho.c
+	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 
 $(B_DIR)/lib/ultra/gu/scale.o: src/lib/ultra/gu/scale.c
+	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 
 $(B_DIR)/lib/%.o: src/lib/%.c
