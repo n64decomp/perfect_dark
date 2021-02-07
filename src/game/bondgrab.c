@@ -1551,7 +1551,7 @@ void bgrabUpdateVertical(void)
 		g_Vars.currentplayer->vv_manground = fVar3 * 0.045499980449677f;
 	}
 
-	if ((g_Vars.currentplayer->floorflags & FLOORFLAG_DIE) &&
+	if ((g_Vars.currentplayer->floorflags & TILEFLAG_DIE) &&
 			g_Vars.currentplayer->vv_manground - 20.0f < g_Vars.currentplayer->vv_ground) {
 		currentPlayerDie(true);
 	}

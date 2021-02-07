@@ -730,17 +730,15 @@
 #define FILETYPE_MPSETUP  1
 #define FILETYPE_MPPLAYER 2
 
-#define FLOORFLAG_0100 0x0100
-#define FLOORFLAG_DIE  0x4000
-
-#define FLOORTYPE_WOOD   1
-#define FLOORTYPE_STONE  2
-#define FLOORTYPE_CARPET 3
-#define FLOORTYPE_METAL  4
-#define FLOORTYPE_MUD    5
-#define FLOORTYPE_WATER  6
-#define FLOORTYPE_DIRT   7
-#define FLOORTYPE_SNOW   8
+#define FLOORTYPE_DEFAULT 0
+#define FLOORTYPE_WOOD    1
+#define FLOORTYPE_STONE   2
+#define FLOORTYPE_CARPET  3
+#define FLOORTYPE_METAL   4
+#define FLOORTYPE_MUD     5
+#define FLOORTYPE_WATER   6
+#define FLOORTYPE_DIRT    7
+#define FLOORTYPE_SNOW    8
 
 #define FRCMD_ADDTARGET           0x00
 #define FRCMD_SETMAXACTIVETARGETS 0x01
@@ -3180,17 +3178,27 @@
 #define TICKMODE_CUTSCENE 6
 #define TICKMODE_AUTOWALK 7
 
-#define TILEFLAG_0004 0x0004
-#define TILEFLAG_0008 0x0008
-#define TILEFLAG_0010 0x0010
-#define TILEFLAG_0020 0x0020
-#define TILEFLAG_0080 0x0080
-#define TILEFLAG_0200 0x0200
+#define TILEFLAG_0001           0x0001 // Editor: Traversable
+#define TILEFLAG_0002           0x0002
+#define TILEFLAG_0004           0x0004 // Editor: Collisions
+#define TILEFLAG_0008           0x0008
+#define TILEFLAG_0010           0x0010 // Editor: Block AI fire/sight
+#define TILEFLAG_0020           0x0020
+#define TILEFLAG_LADDER         0x0040
+#define TILEFLAG_0080           0x0080
+#define TILEFLAG_0100           0x0100 // Editor: Low wall/edge
+#define TILEFLAG_UNDERWATER     0x0200
+#define TILEFLAG_0400           0x0400
+#define TILEFLAG_AIBOTCROUCH    0x0800
+#define TILEFLAG_AIBOTDUCK      0x1000
+#define TILEFLAG_2000           0x2000 // Editor: Incline
+#define TILEFLAG_DIE            0x4000
+#define TILEFLAG_CLIMBABLELEDGE 0x8000 // used for most ledges in Chicago, but not near drain pickup
 
-#define TILETYPE_00 0x00 // Standard BG tiles
-#define TILETYPE_01 0x01 //
-#define TILETYPE_02 0x02 //
-#define TILETYPE_03 0x03 // Chr geometry
+#define TILETYPE_00 0 // Standard BG tiles
+#define TILETYPE_01 1
+#define TILETYPE_02 2
+#define TILETYPE_03 3 // Chr/obj geometry
 
 #define TITLEMODE_LEGAL            0
 #define TITLEMODE_CHECKCONTROLLERS 1

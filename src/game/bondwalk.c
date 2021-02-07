@@ -186,7 +186,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 	f32 ymin;
 	f32 width;
 
-	if (g_Vars.currentplayer->floorflags & FLOORFLAG_0100) {
+	if (g_Vars.currentplayer->floorflags & TILEFLAG_0100) {
 		g_Vars.enableslopes = false;
 	} else {
 		g_Vars.enableslopes = true;
@@ -238,7 +238,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 	f32 zdiff;
 	u32 stack;
 
-	if (g_Vars.currentplayer->floorflags & FLOORFLAG_0100) {
+	if (g_Vars.currentplayer->floorflags & TILEFLAG_0100) {
 		g_Vars.enableslopes = false;
 	} else {
 		g_Vars.enableslopes = true;
@@ -1208,8 +1208,8 @@ void bwalkUpdateVertical(void)
 			}
 		}
 
-		// Kill player if standing on tile with FLOORFLAG_DIE
-		if ((g_Vars.currentplayer->floorflags & FLOORFLAG_DIE)
+		// Kill player if standing on tile with TILEFLAG_DIE
+		if ((g_Vars.currentplayer->floorflags & TILEFLAG_DIE)
 				&& g_Vars.currentplayer->vv_manground - 20.0f < g_Vars.currentplayer->vv_ground
 				&& g_Vars.currentplayer->onladder == false
 				&& onladder2 == false) {

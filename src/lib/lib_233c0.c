@@ -2869,7 +2869,7 @@ void tileGetFloorType(struct tile *tile, u8 *floortype)
 {
 	bool water = false;
 
-	if (tile && (tile->flags & TILEFLAG_0200)) {
+	if (tile && (tile->flags & TILEFLAG_UNDERWATER)) {
 		water = true;
 	}
 
