@@ -28,9 +28,9 @@
  */
 GLOBAL_ASM(
 glabel preamble
-/*     1000:	3c088009 */ 	lui	$t0,%hi(var8008ae20)
+/*     1000:	3c088009 */ 	lui	$t0,%hi(_gvarsSegmentStart)
 /*     1004:	3c090002 */ 	lui	$t1,0x2
-/*     1008:	2508ae20 */ 	addiu	$t0,$t0,%lo(var8008ae20)
+/*     1008:	2508ae20 */ 	addiu	$t0,$t0,%lo(_gvarsSegmentStart)
 /*     100c:	352923a0 */ 	ori	$t1,$t1,0x23a0
 .L00001010:
 /*     1010:	2129fff8 */ 	addi	$t1,$t1,-8

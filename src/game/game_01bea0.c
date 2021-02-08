@@ -125,8 +125,8 @@ glabel var7f1a863c
 /*  f01bf88:	0fc06fb8 */ 	jal	menuCountDialogs
 /*  f01bf8c:	26b519c0 */ 	addiu	$s5,$s5,%lo(g_MenuData)
 /*  f01bf90:	3c03800a */ 	lui	$v1,%hi(g_Menus)
-/*  f01bf94:	3c05800a */ 	lui	$a1,%hi(g_MenuData)
-/*  f01bf98:	24a519c0 */ 	addiu	$a1,$a1,%lo(g_MenuData)
+/*  f01bf94:	3c05800a */ 	lui	$a1,%hi(g_Menus+0x39c0)
+/*  f01bf98:	24a519c0 */ 	addiu	$a1,$a1,%lo(g_Menus+0x39c0)
 /*  f01bf9c:	2463e000 */ 	addiu	$v1,$v1,%lo(g_Menus)
 /*  f01bfa0:	9062083c */ 	lbu	$v0,0x83c($v1)
 .L0f01bfa4:
@@ -165,8 +165,8 @@ glabel var7f1a863c
 /*  f01c018:	00003025 */ 	or	$a2,$zero,$zero
 /*  f01c01c:	11e00024 */ 	beqz	$t7,.L0f01c0b0
 /*  f01c020:	3c04800a */ 	lui	$a0,%hi(g_Menus)
-/*  f01c024:	3c05800a */ 	lui	$a1,%hi(g_MenuData)
-/*  f01c028:	24a519c0 */ 	addiu	$a1,$a1,%lo(g_MenuData)
+/*  f01c024:	3c05800a */ 	lui	$a1,%hi(g_Menus+0x39c0)
+/*  f01c028:	24a519c0 */ 	addiu	$a1,$a1,%lo(g_Menus+0x39c0)
 /*  f01c02c:	2484e000 */ 	addiu	$a0,$a0,%lo(g_Menus)
 /*  f01c030:	24090002 */ 	addiu	$t1,$zero,0x2
 /*  f01c034:	8c8304f8 */ 	lw	$v1,0x4f8($a0)
@@ -670,7 +670,7 @@ glabel var7f1a863c
 /*  f01c70c:	2401000b */ 	addiu	$at,$zero,0xb
 /*  f01c710:	3050ffff */ 	andi	$s0,$v0,0xffff
 /*  f01c714:	17010014 */ 	bne	$t8,$at,.L0f01c768
-/*  f01c718:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x88)
+/*  f01c718:	3c0e800b */ 	lui	$t6,%hi(g_MpSetupSaveFile+0x60)
 /*  f01c71c:	8e790490 */ 	lw	$t9,0x490($s3)
 /*  f01c720:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f01c724:	02c02025 */ 	or	$a0,$s6,$zero
@@ -696,7 +696,7 @@ glabel var7f1a863c
 .L0f01c768:
 /*  f01c768:	02c02025 */ 	or	$a0,$s6,$zero
 .L0f01c76c:
-/*  f01c76c:	91cecc10 */ 	lbu	$t6,%lo(g_MpSetup+0x88)($t6)
+/*  f01c76c:	91cecc10 */ 	lbu	$t6,%lo(g_MpSetupSaveFile+0x60)($t6)
 /*  f01c770:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f01c774:	0011c080 */ 	sll	$t8,$s1,0x2
 /*  f01c778:	15c10005 */ 	bne	$t6,$at,.L0f01c790
@@ -1010,10 +1010,10 @@ glabel var7f1a863c
 .L0f01cbc0:
 /*  f01cbc0:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
 /*  f01cbc4:	3c03800a */ 	lui	$v1,%hi(g_Menus)
-/*  f01cbc8:	3c02800a */ 	lui	$v0,%hi(g_MenuData)
+/*  f01cbc8:	3c02800a */ 	lui	$v0,%hi(g_Menus+0x39c0)
 /*  f01cbcc:	ac201448 */ 	sw	$zero,%lo(g_MpPlayerNum)($at)
 /*  f01cbd0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01cbd4:	244219c0 */ 	addiu	$v0,$v0,%lo(g_MenuData)
+/*  f01cbd4:	244219c0 */ 	addiu	$v0,$v0,%lo(g_Menus+0x39c0)
 /*  f01cbd8:	2463e000 */ 	addiu	$v1,$v1,%lo(g_Menus)
 /*  f01cbdc:	8c6d04f8 */ 	lw	$t5,0x4f8($v1)
 .L0f01cbe0:
@@ -1503,8 +1503,8 @@ glabel var7f1a863c
 .L0f01d2b8:
 /*  f01d2b8:	0fc625cb */ 	jal	mpSetPaused
 /*  f01d2bc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01d2c0:	3c02800b */ 	lui	$v0,%hi(g_MpSetup+0x28)
-/*  f01d2c4:	2442cbb0 */ 	addiu	$v0,$v0,%lo(g_MpSetup+0x28)
+/*  f01d2c0:	3c02800b */ 	lui	$v0,%hi(g_MpSetupSaveFile)
+/*  f01d2c4:	2442cbb0 */ 	addiu	$v0,$v0,%lo(g_MpSetupSaveFile)
 /*  f01d2c8:	904e0060 */ 	lbu	$t6,0x60($v0)
 /*  f01d2cc:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f01d2d0:	ae600314 */ 	sw	$zero,0x314($s3)
@@ -2372,7 +2372,7 @@ glabel var7f1a863c
 //							mpPushEndscreenDialog(sp288, i);
 //							sp344 = true;
 //
-//							if (g_MpPlayers[i].saved && g_MpPlayers[i].unk50) {
+//							if (g_MpPlayers[i].unk4c.unk00 && g_MpPlayers[i].unk4c.unk04) {
 //								func0f0fd548(i);
 //							}
 //						}
