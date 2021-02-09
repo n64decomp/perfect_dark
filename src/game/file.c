@@ -379,28 +379,15 @@ u32 fileGetUnk04(s32 filenum)
 	return g_FileInfo[filenum].unk04;
 }
 
-GLOBAL_ASM(
-glabel func0f1672a8
-/*  f1672a8:	3c0f800a */ 	lui	$t7,%hi(g_FileInfo)
-/*  f1672ac:	25ef6680 */ 	addiu	$t7,$t7,%lo(g_FileInfo)
-/*  f1672b0:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f1672b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1672b8:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f1672bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1672c0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1672c4:	ac460000 */ 	sw	$a2,0x0($v0)
-/*  f1672c8:	10e00005 */ 	beqz	$a3,.L0f1672e0
-/*  f1672cc:	ac460004 */ 	sw	$a2,0x4($v0)
-/*  f1672d0:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f1672d4:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f1672d8:	0c00490c */ 	jal	memReallocate
-/*  f1672dc:	24060004 */ 	addiu	$a2,$zero,0x4
-.L0f1672e0:
-/*  f1672e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1672e4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1672e8:	03e00008 */ 	jr	$ra
-/*  f1672ec:	00000000 */ 	nop
-);
+void func0f1672a8(s32 filenum, void *ptr, u32 size, bool resizing)
+{
+	g_FileInfo[filenum].size = size;
+	g_FileInfo[filenum].unk04 = size;
+
+	if (resizing) {
+		memReallocate((u32) ptr, g_FileInfo[filenum].size, MEMPOOL_STAGE);
+	}
+}
 
 void func0f1672f0(u8 arg0)
 {

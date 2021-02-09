@@ -15,7 +15,7 @@ void *func0f1670fc(u32 filenum, u32 arg1);
 void *func0f167200(s32 file_id, s32 arg1, u8 *arg2, s32 arg3);
 u32 fileGetSize(s32 filenum);
 u32 fileGetUnk04(s32 filenum);
-u32 func0f1672a8(void);
+void func0f1672a8(s32 filenum, void *ptr, u32 size, bool resizing);
 void func0f1672f0(u8 arg0);
 void func0f167330(void);
 
