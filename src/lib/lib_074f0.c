@@ -1563,7 +1563,7 @@ glabel func000088b0
 );
 
 GLOBAL_ASM(
-glabel func000089dc
+glabel rzipIs1173
 /*     89dc:	24090011 */ 	addiu	$t1,$zero,0x11
 /*     89e0:	90880000 */ 	lbu	$t0,0x0($a0)
 /*     89e4:	15090006 */ 	bne	$t0,$t1,.L00008a00

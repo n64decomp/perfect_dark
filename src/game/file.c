@@ -148,7 +148,7 @@ void func0f166ff0(u16 filenum, void *memaddr, s32 offset, u32 len)
 }
 
 GLOBAL_ASM(
-glabel func0f167054
+glabel fileGetInflatedLength
 /*  f167054:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f167058:	3c0f8008 */ 	lui	$t7,%hi(filetable)
 /*  f16705c:	25ef2060 */ 	addiu	$t7,$t7,%lo(filetable)
@@ -177,7 +177,7 @@ glabel func0f167054
 /*  f1670b4:	0c003504 */ 	jal	func0000d410
 /*  f1670b8:	00808025 */ 	or	$s0,$a0,$zero
 .L0f1670bc:
-/*  f1670bc:	0c002277 */ 	jal	func000089dc
+/*  f1670bc:	0c002277 */ 	jal	rzipIs1173
 /*  f1670c0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1670c4:	10400009 */ 	beqz	$v0,.L0f1670ec
 /*  f1670c8:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -196,6 +196,32 @@ glabel func0f167054
 /*  f1670f4:	03e00008 */ 	jr	$ra
 /*  f1670f8:	27bd0088 */ 	addiu	$sp,$sp,0x88
 );
+
+//u32 fileGetInflatedLength(u32 filenum)
+//{
+//	u8 buffer[0x50];
+//	u8 *alignedbuffer;
+//	void *romaddr;
+//	u32 tmp;
+//
+//	romaddr = filetable[filenum];
+//	alignedbuffer = buffer;
+//
+//	if (romaddr == NULL) {
+//		alignedbuffer = (u8 *)(((u32)alignedbuffer) & ~0xf);
+//
+//		stub0f175f58(func0f166ea8((u32 *) &filetable[filenum]), (u32)alignedbuffer, 16);
+//	} else {
+//		alignedbuffer = (u8 *)(((u32)alignedbuffer) & ~0xf);
+//		func0000d410((void *)alignedbuffer, romaddr, 0x40);
+//	}
+//
+//	if (rzipIs1173((void *)alignedbuffer)) {
+//		return (alignedbuffer[2] << 16) | (alignedbuffer[3] << 8) | alignedbuffer[4];
+//	}
+//
+//	return 0;
+//}
 
 GLOBAL_ASM(
 glabel func0f1670fc
@@ -218,7 +244,7 @@ glabel func0f1670fc
 /*  f167138:	8e080000 */ 	lw	$t0,0x0($s0)
 /*  f16713c:	5500000e */ 	bnezl	$t0,.L0f167178
 /*  f167140:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f167144:	0fc59c15 */ 	jal	func0f167054
+/*  f167144:	0fc59c15 */ 	jal	fileGetInflatedLength
 /*  f167148:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f16714c:	24490020 */ 	addiu	$t1,$v0,0x20
 /*  f167150:	2401fff0 */ 	addiu	$at,$zero,-16
@@ -284,7 +310,7 @@ glabel func0f1670fc
 //
 //		// 13c
 //		if (info->unk00 == 0) {
-//			info->unk00 = (func0f167054(filenum) + 0x20) & 0xfffffff0;
+//			info->unk00 = (fileGetInflatedLength(filenum) + 0x20) & 0xfffffff0;
 //
 //			// 164
 //			if (arg1 == 0x11) {

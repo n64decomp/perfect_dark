@@ -12,7 +12,7 @@ u32 func00008024(void);
 u32 func00008064(void);
 u32 func00008610(void);
 u32 func000088b0(void);
-u32 func000089dc(void);
+bool rzipIs1173(void *buffer);
 u32 func00008a08(void);
 
 #endif
