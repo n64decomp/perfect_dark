@@ -16,7 +16,7 @@ void stub0f175f50(void)
 	// empty
 }
 
-void stub0f175f58(s32 arg0, s32 arg1, s32 arg2)
+void stub0f175f58(s32 arg0, u32 addr, u32 numwords)
 {
 	// empty
 }

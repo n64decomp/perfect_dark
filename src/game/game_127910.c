@@ -1147,93 +1147,18 @@ void setCurrentPlayerNum(s32 playernum)
 	g_Vars.currentplayerindex = calculatePlayerIndex(playernum);
 }
 
-GLOBAL_ASM(
-glabel propGetPlayerNum
-/*  f12897c:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
-/*  f128980:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
-/*  f128984:	8d42006c */ 	lw	$v0,0x6c($t2)
-/*  f128988:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f12898c:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f128990:	00808025 */ 	or	$s0,$a0,$zero
-/*  f128994:	10400003 */ 	beqz	$v0,.L0f1289a4
-/*  f128998:	00001825 */ 	or	$v1,$zero,$zero
-/*  f12899c:	10000002 */ 	b	.L0f1289a8
-/*  f1289a0:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f1289a4:
-/*  f1289a4:	00002025 */ 	or	$a0,$zero,$zero
-.L0f1289a8:
-/*  f1289a8:	8d450068 */ 	lw	$a1,0x68($t2)
-/*  f1289ac:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1289b0:	00004025 */ 	or	$t0,$zero,$zero
-/*  f1289b4:	10a00003 */ 	beqz	$a1,.L0f1289c4
-/*  f1289b8:	0003c880 */ 	sll	$t9,$v1,0x2
-/*  f1289bc:	10000001 */ 	b	.L0f1289c4
-/*  f1289c0:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f1289c4:
-/*  f1289c4:	8d470064 */ 	lw	$a3,0x64($t2)
-/*  f1289c8:	3c0c800a */ 	lui	$t4,%hi(g_Vars)
-/*  f1289cc:	258c9fc0 */ 	addiu	$t4,$t4,%lo(g_Vars)
-/*  f1289d0:	10e00003 */ 	beqz	$a3,.L0f1289e0
-/*  f1289d4:	032c5821 */ 	addu	$t3,$t9,$t4
-/*  f1289d8:	10000001 */ 	b	.L0f1289e0
-/*  f1289dc:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f1289e0:
-/*  f1289e0:	8d490070 */ 	lw	$t1,0x70($t2)
-/*  f1289e4:	00005025 */ 	or	$t2,$zero,$zero
-/*  f1289e8:	11200003 */ 	beqz	$t1,.L0f1289f8
-/*  f1289ec:	00000000 */ 	nop
-/*  f1289f0:	10000001 */ 	b	.L0f1289f8
-/*  f1289f4:	240a0001 */ 	addiu	$t2,$zero,0x1
-.L0f1289f8:
-/*  f1289f8:	01487021 */ 	addu	$t6,$t2,$t0
-/*  f1289fc:	01c67821 */ 	addu	$t7,$t6,$a2
-/*  f128a00:	01e4c021 */ 	addu	$t8,$t7,$a0
-/*  f128a04:	5b000022 */ 	blezl	$t8,.L0f128a90
-/*  f128a08:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f128a0c:	8d6d0064 */ 	lw	$t5,0x64($t3)
-.L0f128a10:
-/*  f128a10:	256b0004 */ 	addiu	$t3,$t3,0x4
-/*  f128a14:	00002025 */ 	or	$a0,$zero,$zero
-/*  f128a18:	8dae00bc */ 	lw	$t6,0xbc($t5)
-/*  f128a1c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f128a20:	00004025 */ 	or	$t0,$zero,$zero
-/*  f128a24:	160e0003 */ 	bne	$s0,$t6,.L0f128a34
-/*  f128a28:	00005025 */ 	or	$t2,$zero,$zero
-/*  f128a2c:	10000018 */ 	b	.L0f128a90
-/*  f128a30:	00601025 */ 	or	$v0,$v1,$zero
-.L0f128a34:
-/*  f128a34:	10400003 */ 	beqz	$v0,.L0f128a44
-/*  f128a38:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f128a3c:	10000001 */ 	b	.L0f128a44
-/*  f128a40:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f128a44:
-/*  f128a44:	10a00003 */ 	beqz	$a1,.L0f128a54
-/*  f128a48:	00000000 */ 	nop
-/*  f128a4c:	10000001 */ 	b	.L0f128a54
-/*  f128a50:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f128a54:
-/*  f128a54:	10e00003 */ 	beqz	$a3,.L0f128a64
-/*  f128a58:	00000000 */ 	nop
-/*  f128a5c:	10000001 */ 	b	.L0f128a64
-/*  f128a60:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f128a64:
-/*  f128a64:	11200003 */ 	beqz	$t1,.L0f128a74
-/*  f128a68:	00000000 */ 	nop
-/*  f128a6c:	10000001 */ 	b	.L0f128a74
-/*  f128a70:	240a0001 */ 	addiu	$t2,$zero,0x1
-.L0f128a74:
-/*  f128a74:	01487821 */ 	addu	$t7,$t2,$t0
-/*  f128a78:	01e6c021 */ 	addu	$t8,$t7,$a2
-/*  f128a7c:	0304c821 */ 	addu	$t9,$t8,$a0
-/*  f128a80:	0079082a */ 	slt	$at,$v1,$t9
-/*  f128a84:	5420ffe2 */ 	bnezl	$at,.L0f128a10
-/*  f128a88:	8d6d0064 */ 	lw	$t5,0x64($t3)
-/*  f128a8c:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f128a90:
-/*  f128a90:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f128a94:	03e00008 */ 	jr	$ra
-/*  f128a98:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+s32 propGetPlayerNum(struct prop *prop)
+{
+	s32 i;
+
+	for (i = 0; i < PLAYERCOUNT(); i++) {
+		if (prop == g_Vars.players[i]->prop) {
+			return i;
+		}
+	}
+
+	return -1;
+}
 
 void currentPlayerSetViewSize(s32 viewx, s32 viewy)
 {
