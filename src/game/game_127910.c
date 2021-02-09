@@ -1066,78 +1066,19 @@ glabel var7f1b522c
 /*  f128830:	27bd07c8 */ 	addiu	$sp,$sp,0x7c8
 );
 
-GLOBAL_ASM(
-glabel currentPlayerCalculateAiBuddyNums
-/*  f128834:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
-/*  f128838:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
-/*  f12883c:	8d4e006c */ 	lw	$t6,0x6c($t2)
-/*  f128840:	8d42028c */ 	lw	$v0,0x28c($t2)
-/*  f128844:	00001825 */ 	or	$v1,$zero,$zero
-/*  f128848:	11c00003 */ 	beqz	$t6,.L0f128858
-/*  f12884c:	3c09800b */ 	lui	$t1,%hi(g_MpNumPlayers)
-/*  f128850:	10000001 */ 	b	.L0f128858
-/*  f128854:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f128858:
-/*  f128858:	8d4f0068 */ 	lw	$t7,0x68($t2)
-/*  f12885c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f128860:	00002825 */ 	or	$a1,$zero,$zero
-/*  f128864:	11e00003 */ 	beqz	$t7,.L0f128874
-/*  f128868:	00003025 */ 	or	$a2,$zero,$zero
-/*  f12886c:	10000001 */ 	b	.L0f128874
-/*  f128870:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f128874:
-/*  f128874:	8d580064 */ 	lw	$t8,0x64($t2)
-/*  f128878:	3c0e800b */ 	lui	$t6,%hi(var800ac500)
-/*  f12887c:	25cec500 */ 	addiu	$t6,$t6,%lo(var800ac500)
-/*  f128880:	13000003 */ 	beqz	$t8,.L0f128890
-/*  f128884:	00000000 */ 	nop
-/*  f128888:	10000001 */ 	b	.L0f128890
-/*  f12888c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f128890:
-/*  f128890:	8d590070 */ 	lw	$t9,0x70($t2)
-/*  f128894:	13200003 */ 	beqz	$t9,.L0f1288a4
-/*  f128898:	00000000 */ 	nop
-/*  f12889c:	10000001 */ 	b	.L0f1288a4
-/*  f1288a0:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f1288a4:
-/*  f1288a4:	8d29c530 */ 	lw	$t1,%lo(g_MpNumPlayers)($t1)
-/*  f1288a8:	00c55821 */ 	addu	$t3,$a2,$a1
-/*  f1288ac:	01646021 */ 	addu	$t4,$t3,$a0
-/*  f1288b0:	01833821 */ 	addu	$a3,$t4,$v1
-/*  f1288b4:	00e9082a */ 	slt	$at,$a3,$t1
-/*  f1288b8:	1020001a */ 	beqz	$at,.L0f128924
-/*  f1288bc:	00e04025 */ 	or	$t0,$a3,$zero
-/*  f1288c0:	00076880 */ 	sll	$t5,$a3,0x2
-/*  f1288c4:	00022080 */ 	sll	$a0,$v0,0x2
-/*  f1288c8:	008e2821 */ 	addu	$a1,$a0,$t6
-/*  f1288cc:	01ae1821 */ 	addu	$v1,$t5,$t6
-.L0f1288d0:
-/*  f1288d0:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*  f1288d4:	8cb90000 */ 	lw	$t9,0x0($a1)
-/*  f1288d8:	01441021 */ 	addu	$v0,$t2,$a0
-/*  f1288dc:	91f80011 */ 	lbu	$t8,0x11($t7)
-/*  f1288e0:	932b0011 */ 	lbu	$t3,0x11($t9)
-/*  f1288e4:	570b000c */ 	bnel	$t8,$t3,.L0f128918
-/*  f1288e8:	25080001 */ 	addiu	$t0,$t0,0x1
-/*  f1288ec:	8c460064 */ 	lw	$a2,0x64($v0)
-/*  f1288f0:	3c09800b */ 	lui	$t1,%hi(g_MpNumPlayers)
-/*  f1288f4:	90cc1be6 */ 	lbu	$t4,0x1be6($a2)
-/*  f1288f8:	00cc6821 */ 	addu	$t5,$a2,$t4
-/*  f1288fc:	a1a81be7 */ 	sb	$t0,0x1be7($t5)
-/*  f128900:	8c460064 */ 	lw	$a2,0x64($v0)
-/*  f128904:	90ce1be6 */ 	lbu	$t6,0x1be6($a2)
-/*  f128908:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f12890c:	a0cf1be6 */ 	sb	$t7,0x1be6($a2)
-/*  f128910:	8d29c530 */ 	lw	$t1,%lo(g_MpNumPlayers)($t1)
-/*  f128914:	25080001 */ 	addiu	$t0,$t0,0x1
-.L0f128918:
-/*  f128918:	0109082a */ 	slt	$at,$t0,$t1
-/*  f12891c:	1420ffec */ 	bnez	$at,.L0f1288d0
-/*  f128920:	24630004 */ 	addiu	$v1,$v1,0x4
-.L0f128924:
-/*  f128924:	03e00008 */ 	jr	$ra
-/*  f128928:	00000000 */ 	nop
-);
+void currentPlayerCalculateAiBuddyNums(void)
+{
+	s32 i;
+	s32 playernum = g_Vars.currentplayernum;
+	s32 playercount = PLAYERCOUNT();
+
+	for (i = playercount; i < g_MpNumPlayers; i++) {
+		if (var800ac500[i]->team == var800ac500[playernum]->team) {
+			g_Vars.players[playernum]->aibuddynums[g_Vars.players[playernum]->numaibuddies] = i;
+			g_Vars.players[playernum]->numaibuddies++;
+		}
+	}
+}
 
 void setCurrentPlayerNum(s32 playernum)
 {
