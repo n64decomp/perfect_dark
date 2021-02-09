@@ -348,6 +348,20 @@ glabel func0f167200
 /*  f16727c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
+// Mismatch: Reordered instructions, most likely related to debug ifdefs.
+//void *func0f167200(s32 filenum, s32 arg1, u8 *ptr, u32 size)
+//{
+//	if (arg1 == 0x11 || arg1 == 0x22) {
+//		g_FileInfo[filenum].unk04 = size;
+//
+//		func0f166eb4(ptr, size, &filetable[filenum], &g_FileInfo[filenum]);
+//	} else {
+//		while (1);
+//	}
+//
+//	return ptr;
+//}
+
 u32 fileGetSize(s32 filenum)
 {
 	return g_FileInfo[filenum].size;
