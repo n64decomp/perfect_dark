@@ -39,12 +39,10 @@ s32 fileGetRomSizeByFileNum(s32 filenum)
 	return fileGetRomSizeByTableAddress((u32 *)&filetable[filenum]);
 }
 
-GLOBAL_ASM(
-glabel func0f166ea8
-/*  f166ea8:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f166eac:	03e00008 */ 	jr	$ra
-/*  f166eb0:	00001025 */ 	or	$v0,$zero,$zero
-);
+u32 func0f166ea8(u32 *filetableaddr)
+{
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f166eb4
