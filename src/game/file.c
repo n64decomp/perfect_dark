@@ -102,6 +102,18 @@ glabel func0f166f74
 /*  f166fec:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
+//void func0f166f74(void)
+//{
+//	s32 i;
+//
+//	for (i = 1; i < NUM_FILES; i++) {
+//		g_FileInfo[i].size = 0;
+//		g_FileInfo[i].unk04 = 0;
+//
+//		fileGetRomSizeByTableAddress(&filetable[i]);
+//	}
+//}
+
 void func0f166ff0(u16 filenum, void *memaddr, s32 offset, u32 len)
 {
 	u32 stack[2];
