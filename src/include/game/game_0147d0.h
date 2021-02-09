@@ -6,7 +6,7 @@
 void func0f0147d0(void);
 void func0f0147f8(void);
 void mpRemoveAllSimulants(void);
-void func0f014848(s32 arg0, s32 arg1);
+void aibotAllocate(s32 chrnum, s32 aibotnum);
 void aibotAllocateUnk014(struct chrdata *chr, s32 count);
 
 #endif

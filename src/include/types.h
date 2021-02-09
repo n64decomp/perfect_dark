@@ -374,9 +374,10 @@ struct aibot014 {
 
 struct aibot {
 	/*0x000*/ u8 unk000;
+	/*0x002*/ s16 aibotnum;
 	/*0x004*/ struct mpsim *simulant;
-	/*0x008*/ u16 unk008;
-	/*0x008*/ s16 followingplayernum;
+	/*0x008*/ s16 unk008;
+	/*0x00a*/ s16 followingplayernum;
 	/*0x00c*/ s16 dangerouspropnum; // index into g_DangerousProps
 	/*0x010*/ struct prop *prop;
 	/*0x014*/ struct aibot014 *unk014;
@@ -479,7 +480,7 @@ struct aibot {
 	/*0x108*/ f32 unk108;
 	/*0x10c*/ f32 unk10c;
 	/*0x110*/ f32 unk110;
-	/*0x114*/ u32 unk114;
+	/*0x114*/ s32 unk114;
 	/*0x118*/ u32 unk118;
 	/*0x11c*/ u32 unk11c;
 	/*0x120*/ s32 unk120;
@@ -491,16 +492,16 @@ struct aibot {
 	/*0x16c*/ u8 unk16c[12];
 	/*0x178*/ s32 unk178[12];
 	/*0x1a8*/ s16 unk1a8[12];
-	/*0x1c0*/ u32 unk1c0;
-	/*0x1c4*/ u32 unk1c4;
-	/*0x1c8*/ u32 unk1c8;
-	/*0x1cc*/ u32 unk1cc;
+	/*0x1c0*/ f32 unk1c0;
+	/*0x1c4*/ f32 unk1c4;
+	/*0x1c8*/ f32 unk1c8;
+	/*0x1cc*/ s32 unk1cc;
 	/*0x1d0*/ u32 unk1d0;
-	/*0x1d4*/ u32 unk1d4;
+	/*0x1d4*/ f32 unk1d4;
 	/*0x1d8*/ u32 unk1d8;
 	/*0x1dc*/ u32 unk1dc;
 	/*0x1e0*/ u32 unk1e0;
-	/*0x1e4*/ u32 unk1e4;
+	/*0x1e4*/ s32 unk1e4;
 	/*0x1e8*/ u32 unk1e8;
 	/*0x1ec*/ u32 unk1ec;
 	/*0x1f0*/ u32 unk1f0;
@@ -514,25 +515,9 @@ struct aibot {
 	/*0x210*/ u32 unk210;
 	/*0x214*/ f32 unk214[6][2];
 	/*0x244*/ f32 unk244[6][2];
-	/*0x274*/ u32 unk274;
-	/*0x278*/ u32 unk278;
-	/*0x27c*/ u32 unk27c;
-	/*0x280*/ u32 unk280;
-	/*0x284*/ u32 unk284;
-	/*0x288*/ u32 unk288;
-	/*0x28c*/ u32 unk28c;
-	/*0x290*/ u32 unk290;
-	/*0x294*/ u32 unk294;
-	/*0x298*/ u32 unk298;
-	/*0x29c*/ u32 unk29c;
-	/*0x2a0*/ u32 unk2a0;
+	/*0x274*/ u32 unk274[6][2];
 	/*0x2a4*/ u32 unk2a4;
-	/*0x2a8*/ u32 unk2a8;
-	/*0x2ac*/ u32 unk2ac;
-	/*0x2b0*/ u32 unk2b0;
-	/*0x2b4*/ u32 unk2b4;
-	/*0x2b8*/ u32 unk2b8;
-	/*0x2bc*/ u32 unk2bc;
+	/*0x2a8*/ u32 unk2a8[6];
 	/*0x2c0*/ u32 unk2c0;
 
 	/**
@@ -545,6 +530,8 @@ struct aibot {
 	/*0x2cc*/ u32 unk2cc;
 	/*0x2d0*/ u32 unk2d0;
 	/*0x2d4*/ f32 unk2d4;
+	/*0x2d8*/ u32 unk2d8;
+	/*0x2dc*/ u32 unk2dc;
 };
 
 struct tile {

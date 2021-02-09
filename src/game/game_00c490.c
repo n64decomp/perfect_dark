@@ -2995,7 +2995,7 @@ void setupParseObjects(s32 stagenum)
 				u32 stack[4];
 				s32 i;
 				s32 slotsdone[8];
-				s32 someindex = 0;
+				s32 chrnum = 0;
 				s32 maxsimulants;
 				s32 slotnum;
 
@@ -3018,8 +3018,8 @@ void setupParseObjects(s32 stagenum)
 
 					if ((g_MpSetup.chrslots & (1 << (slotnum + 4)))
 							&& mpIsSimSlotEnabled(slotnum)) {
-						func0f014848(someindex, slotnum);
-						someindex++;
+						aibotAllocate(chrnum, slotnum);
+						chrnum++;
 					}
 
 					slotsdone[slotnum] = true;

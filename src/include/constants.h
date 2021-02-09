@@ -3242,10 +3242,10 @@
 #define VISIONMODE_SLAYERROCKET 2
 #define VISIONMODE_3            3
 
-#define VOICEBOX_0 0
-#define VOICEBOX_1 1
-#define VOICEBOX_2 2
-#define VOICEBOX_3 3
+#define VOICEBOX_MALE0  0
+#define VOICEBOX_MALE1  1
+#define VOICEBOX_MALE2  2
+#define VOICEBOX_FEMALE 3
 
 #define WAYMODE_EXPENSIVE 0
 #define WAYMODE_CHEAP     6

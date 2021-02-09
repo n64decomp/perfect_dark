@@ -7495,7 +7495,7 @@ glabel var7f1ad6ac
 //										chr->team = TEAM_ALLY;
 //										chr->squadron = SQUADRON_01;
 //										chr->hidden |= CHRHFLAG_PSYCHOSISED;
-//										chr->voicebox = VOICEBOX_3;
+//										chr->voicebox = VOICEBOX_FEMALE;
 //										chr->teamscandist = 50;
 //										chr->accuracyrating = 100;
 //										chr->speedrating = 100;
@@ -7544,7 +7544,7 @@ glabel var7f1ad6ac
 //										chr->squadron = SQUADRON_01;
 //										chr->teamscandist = 100;
 //										chr->hidden |= CHRHFLAG_PSYCHOSISED;
-//										chr->voicebox = VOICEBOX_1;
+//										chr->voicebox = VOICEBOX_MALE1;
 //										chr->accuracyrating = 100;
 //										chr->speedrating = 100;
 //
@@ -7589,7 +7589,7 @@ glabel var7f1ad6ac
 //										chr->team = TEAM_ALLY;
 //										chr->squadron = SQUADRON_01;
 //										chr->hidden |= CHRHFLAG_PSYCHOSISED;
-//										chr->voicebox = VOICEBOX_2;
+//										chr->voicebox = VOICEBOX_MALE2;
 //										chr->teamscandist = 50;
 //										chr->accuracyrating = 50;
 //										chr->speedrating = 100;
@@ -7637,7 +7637,7 @@ glabel var7f1ad6ac
 //										chr->team = TEAM_ALLY;
 //										chr->squadron = SQUADRON_01;
 //										chr->hidden |= CHRHFLAG_PSYCHOSISED;
-//										chr->voicebox = VOICEBOX_0;
+//										chr->voicebox = VOICEBOX_MALE0;
 //										chr->teamscandist = 100;
 //										chr->accuracyrating = 50;
 //										chr->speedrating = 100;
@@ -7686,7 +7686,7 @@ glabel var7f1ad6ac
 //										chr->team = TEAM_ALLY;
 //										chr->squadron = SQUADRON_01;
 //										chr->hidden |= CHRHFLAG_PSYCHOSISED;
-//										chr->voicebox = VOICEBOX_0;
+//										chr->voicebox = VOICEBOX_MALE0;
 //										chr->teamscandist = 150;
 //										chr->accuracyrating = 100;
 //										chr->speedrating = 100;
