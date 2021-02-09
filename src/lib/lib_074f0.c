@@ -79,7 +79,7 @@ const char var7005261c[] =
 	"RareZipAsmDecompress: input not in any known rare zip format\n";
 
 GLOBAL_ASM(
-glabel func000074f0
+glabel rzipInflate
 /*     74f0:	27bdf578 */ 	addiu	$sp,$sp,-2696
 /*     74f4:	afb00a48 */ 	sw	$s0,0xa48($sp)
 /*     74f8:	afb10a4c */ 	sw	$s1,0xa4c($sp)

@@ -44,61 +44,27 @@ u32 func0f166ea8(u32 *filetableaddr)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f166eb4
-/*  f166eb4:	27bdebd0 */ 	addiu	$sp,$sp,-5168
-/*  f166eb8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f166ebc:	afa41430 */ 	sw	$a0,0x1430($sp)
-/*  f166ec0:	afa51434 */ 	sw	$a1,0x1434($sp)
-/*  f166ec4:	afa61438 */ 	sw	$a2,0x1438($sp)
-/*  f166ec8:	afa7143c */ 	sw	$a3,0x143c($sp)
-/*  f166ecc:	0fc59b95 */ 	jal	fileGetRomSizeByTableAddress
-/*  f166ed0:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f166ed4:	8fa41434 */ 	lw	$a0,0x1434($sp)
-/*  f166ed8:	8fa71430 */ 	lw	$a3,0x1430($sp)
-/*  f166edc:	8fa91438 */ 	lw	$t1,0x1438($sp)
-/*  f166ee0:	14800006 */ 	bnez	$a0,.L0f166efc
-/*  f166ee4:	00403025 */ 	or	$a2,$v0,$zero
-/*  f166ee8:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f166eec:	0c003504 */ 	jal	func0000d410
-/*  f166ef0:	8d250000 */ 	lw	$a1,0x0($t1)
-/*  f166ef4:	1000001c */ 	b	.L0f166f68
-/*  f166ef8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f166efc:
-/*  f166efc:	2408fff8 */ 	addiu	$t0,$zero,-8
-/*  f166f00:	244e0007 */ 	addiu	$t6,$v0,0x7
-/*  f166f04:	01c87824 */ 	and	$t7,$t6,$t0
-/*  f166f08:	00e41821 */ 	addu	$v1,$a3,$a0
-/*  f166f0c:	006fc023 */ 	subu	$t8,$v1,$t7
-/*  f166f10:	0307c823 */ 	subu	$t9,$t8,$a3
-/*  f166f14:	2f210008 */ 	sltiu	$at,$t9,0x8
-/*  f166f18:	10200004 */ 	beqz	$at,.L0f166f2c
-/*  f166f1c:	24cb0007 */ 	addiu	$t3,$a2,0x7
-/*  f166f20:	8faa143c */ 	lw	$t2,0x143c($sp)
-/*  f166f24:	1000000f */ 	b	.L0f166f64
-/*  f166f28:	ad400000 */ 	sw	$zero,0x0($t2)
-.L0f166f2c:
-/*  f166f2c:	01686024 */ 	and	$t4,$t3,$t0
-/*  f166f30:	006c2023 */ 	subu	$a0,$v1,$t4
-/*  f166f34:	8d250000 */ 	lw	$a1,0x0($t1)
-/*  f166f38:	0c003504 */ 	jal	func0000d410
-/*  f166f3c:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f166f40:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f166f44:	8fa51430 */ 	lw	$a1,0x1430($sp)
-/*  f166f48:	0c001d3c */ 	jal	func000074f0
-/*  f166f4c:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f166f50:	8fb8143c */ 	lw	$t8,0x143c($sp)
-/*  f166f54:	244d000f */ 	addiu	$t5,$v0,0xf
-/*  f166f58:	35ae000f */ 	ori	$t6,$t5,0xf
-/*  f166f5c:	39cf000f */ 	xori	$t7,$t6,0xf
-/*  f166f60:	af0f0000 */ 	sw	$t7,0x0($t8)
-.L0f166f64:
-/*  f166f64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f166f68:
-/*  f166f68:	27bd1430 */ 	addiu	$sp,$sp,0x1430
-/*  f166f6c:	03e00008 */ 	jr	$ra
-/*  f166f70:	00000000 */ 	nop
-);
+void func0f166eb4(void *dst, u32 scratchlen, u32 *romaddrptr, struct fileinfo *info)
+{
+	u32 romsize = fileGetRomSizeByTableAddress(romaddrptr);
+	u8 buffer[5 * 1024];
+	u32 tmp;
+
+	if (scratchlen == 0) {
+		// DMA with no inflate
+		func0000d410(dst, (void *)*romaddrptr, romsize);
+	} else {
+		// DMA the compressed data to scratch space then inflate
+		u32 scratchaddr = ((u32)dst + scratchlen) - (romsize + 7 & 0xfffffff8);
+
+		if (scratchaddr - (u32)dst < 8) {
+			info->size = 0;
+		} else {
+			func0000d410((void *)scratchaddr, (void *)*romaddrptr, romsize);
+			info->size = ALIGN16(rzipInflate((void *)scratchaddr, dst, buffer));
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f166f74

@@ -374,7 +374,7 @@ glabel mainInit
 /*     d7b8:	02012821 */ 	addu	$a1,$s0,$at
 /*     d7bc:	afa50048 */ 	sw	$a1,0x48($sp)
 /*     d7c0:	02002025 */ 	or	$a0,$s0,$zero
-/*     d7c4:	0c001d3c */ 	jal	func000074f0
+/*     d7c4:	0c001d3c */ 	jal	rzipInflate
 /*     d7c8:	27a60050 */ 	addiu	$a2,$sp,0x50
 /*     d7cc:	3c050004 */ 	lui	$a1,0x4
 /*     d7d0:	8faa0048 */ 	lw	$t2,0x48($sp)
@@ -686,7 +686,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		texture = fb - 507 * 48;
 //
 //		// Convert the texture format? Probably reading from fb and writing to texture
-//		func000074f0(fb, texture, &sp50);
+//		rzipInflate(fb, texture, &sp50);
 //
 //		// Clear the framebuffer
 //		// This seems a bit wasteful. The buffer is 640x480, so the y increment

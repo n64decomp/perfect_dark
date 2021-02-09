@@ -7,7 +7,7 @@ void *fileGetRomAddress(s32 filenum);
 u32 fileGetRomSizeByTableAddress(u32 *filetableaddr);
 s32 fileGetRomSizeByFileNum(s32 filenum);
 u32 func0f166ea8(u32 *filetableaddr);
-void func0f166eb4(void *ptr, u32 len, void *table, struct fileinfo *info);
+void func0f166eb4(void *dst, u32 scratchlen, u32 *romaddrptr, struct fileinfo *info);
 void func0f166f74(void);
 void func0f166ff0(u16 filenum, void *memaddr, s32 offset, u32 len);
 u32 fileGetInflatedLength(u32 filenum);

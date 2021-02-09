@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func000074f0(void *src, void *dst, void *arg2);
+u32 rzipInflate(void *src, void *dst, void *tmpbuffer);
 u32 func00007908(void);
 u32 func0000796c(void);
 u32 func00007a10(void);
