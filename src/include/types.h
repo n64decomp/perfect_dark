@@ -2861,7 +2861,7 @@ struct cover {
 struct stagesetup {
 	/*0x00*/ struct waypoint *waypoints;
 	/*0x04*/ struct waygroup *waygroups;
-	/*0x08*/ struct coverdefinition *cover;
+	/*0x08*/ void *cover;
 	/*0x0c*/ s32 *intro;
 	/*0x10*/ u32 *props;
 	/*0x14*/ struct path *paths;

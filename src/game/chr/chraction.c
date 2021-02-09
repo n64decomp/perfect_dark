@@ -513,7 +513,7 @@ bool chrFaceCover(struct chrdata *chr)
 {
 	struct cover cover;
 
-	if (!coverLoad(chr->cover, &cover)) {
+	if (!coverUnpack(chr->cover, &cover)) {
 		return false;
 	}
 
@@ -25795,7 +25795,7 @@ bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool arg2)
 	bool targetcanseecover;
 
 	// @bug: Should be >= coverGetCount()
-	if (covernum < 0 || covernum > coverGetCount() || !coverLoad(covernum, &cover)) {
+	if (covernum < 0 || covernum > coverGetCount() || !coverUnpack(covernum, &cover)) {
 		return false;
 	}
 
@@ -25886,7 +25886,7 @@ glabel func0f04ba34
 /*  f04bb18:	afa400c0 */ 	sw	$a0,0xc0($sp)
 /*  f04bb1c:	02002025 */ 	or	$a0,$s0,$zero
 .L0f04bb20:
-/*  f04bb20:	0fc458b8 */ 	jal	coverLoad
+/*  f04bb20:	0fc458b8 */ 	jal	coverUnpack
 /*  f04bb24:	27a50098 */ 	addiu	$a1,$sp,0x98
 /*  f04bb28:	504000b0 */ 	beqzl	$v0,.L0f04bdec
 /*  f04bb2c:	8fae0078 */ 	lw	$t6,0x78($sp)
@@ -26300,7 +26300,7 @@ glabel chrAssignCoverAwayFromDanger
 /*  f04c0d8:	27b20064 */ 	addiu	$s2,$sp,0x64
 /*  f04c0dc:	02002025 */ 	or	$a0,$s0,$zero
 .L0f04c0e0:
-/*  f04c0e0:	0fc458b8 */ 	jal	coverLoad
+/*  f04c0e0:	0fc458b8 */ 	jal	coverUnpack
 /*  f04c0e4:	02402825 */ 	or	$a1,$s2,$zero
 /*  f04c0e8:	5040003e */ 	beqzl	$v0,.L0f04c1e4
 /*  f04c0ec:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -26481,7 +26481,7 @@ glabel chrAssignCoverAwayFromDanger
 //	guNormalize(&vecfromdanger[0], &y, &vecfromdanger[1]);
 //
 //	for (i = 0; i < numcovers; i++) {
-//		if (coverLoad(i, &cover)
+//		if (coverUnpack(i, &cover)
 //				&& !coverIsInUse(i)
 //				&& !(cover.pos->y > ymax)
 //				&& !coverHasSomeFlags(&cover)) {
@@ -26526,7 +26526,7 @@ s16 chrGoToCover(struct chrdata *chr, u8 speed)
 		return 0;
 	}
 
-	if (chrIsReadyForOrders(chr) && chr->cover != -1 && coverLoad(chr->cover, &cover)) {
+	if (chrIsReadyForOrders(chr) && chr->cover != -1 && coverUnpack(chr->cover, &cover)) {
 		chrGoToPos(chr, cover.pos, &cover.room, speed);
 		return chr->cover;
 	}

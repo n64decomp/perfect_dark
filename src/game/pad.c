@@ -610,85 +610,37 @@ s32 coverGetCount(void)
 	return g_PadsFile[1];
 }
 
-GLOBAL_ASM(
-glabel coverLoad
-/*  f1162e0:	3c0e800a */ 	lui	$t6,%hi(g_PadsFile)
-/*  f1162e4:	8dce2350 */ 	lw	$t6,%lo(g_PadsFile)($t6)
-/*  f1162e8:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f1162ec:	8dcf0004 */ 	lw	$t7,0x4($t6)
-/*  f1162f0:	008f082a */ 	slt	$at,$a0,$t7
-/*  f1162f4:	10200008 */ 	beqz	$at,.L0f116318
-/*  f1162f8:	00000000 */ 	nop
-/*  f1162fc:	04800006 */ 	bltz	$a0,.L0f116318
-/*  f116300:	3c03800a */ 	lui	$v1,%hi(g_StageSetup+0x8)
-/*  f116304:	8c63d038 */ 	lw	$v1,%lo(g_StageSetup+0x8)($v1)
-/*  f116308:	3c09800a */ 	lui	$t1,%hi(g_CoverFlags)
-/*  f11630c:	25292360 */ 	addiu	$t1,$t1,%lo(g_CoverFlags)
-/*  f116310:	14600003 */ 	bnez	$v1,.L0f116320
-/*  f116314:	309800ff */ 	andi	$t8,$a0,0xff
-.L0f116318:
-/*  f116318:	03e00008 */ 	jr	$ra
-/*  f11631c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f116320:
-/*  f116320:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f116324:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f116328:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11632c:	00792821 */ 	addu	$a1,$v1,$t9
-/*  f116330:	24aa000c */ 	addiu	$t2,$a1,0xc
-/*  f116334:	acc50000 */ 	sw	$a1,0x0($a2)
-/*  f116338:	acca0004 */ 	sw	$t2,0x4($a2)
-/*  f11633c:	8d2b0000 */ 	lw	$t3,0x0($t1)
-/*  f116340:	00043840 */ 	sll	$a3,$a0,0x1
-/*  f116344:	94ad0018 */ 	lhu	$t5,0x18($a1)
-/*  f116348:	01674021 */ 	addu	$t0,$t3,$a3
-/*  f11634c:	950c0000 */ 	lhu	$t4,0x0($t0)
-/*  f116350:	3c0a800a */ 	lui	$t2,%hi(g_CoverRooms)
-/*  f116354:	00045880 */ 	sll	$t3,$a0,0x2
-/*  f116358:	018d7025 */ 	or	$t6,$t4,$t5
-/*  f11635c:	a50e0000 */ 	sh	$t6,0x0($t0)
-/*  f116360:	8d2f0000 */ 	lw	$t7,0x0($t1)
-/*  f116364:	240effff */ 	addiu	$t6,$zero,-1
-/*  f116368:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f11636c:	01e7c021 */ 	addu	$t8,$t7,$a3
-/*  f116370:	97190000 */ 	lhu	$t9,0x0($t8)
-/*  f116374:	a4d9000c */ 	sh	$t9,0xc($a2)
-/*  f116378:	8d4a2364 */ 	lw	$t2,%lo(g_CoverRooms)($t2)
-/*  f11637c:	014b6021 */ 	addu	$t4,$t2,$t3
-/*  f116380:	8d8d0000 */ 	lw	$t5,0x0($t4)
-/*  f116384:	a4ce000a */ 	sh	$t6,0xa($a2)
-/*  f116388:	a4cd0008 */ 	sh	$t5,0x8($a2)
-/*  f11638c:	03e00008 */ 	jr	$ra
-/*  f116390:	00000000 */ 	nop
-);
+bool coverUnpack(s32 covernum, struct cover *cover)
+{
+	struct coverdefinition *def;
 
-// Mismatch because it swaps the addu arguments when calculating def
-//bool coverLoad(s32 covernum, struct cover *cover)
-//{
-//	struct coverdefinition *def;
-//
-//	if (covernum >= g_PadsFile[1] || covernum < 0 || !g_StageSetup.cover) {
-//		return false;
-//	}
-//
-//	// Possible @bug: Cast to u8 means it would load the position from an
-//	// incorrect cover if covernum is greater than 255.
-//	def = &g_StageSetup.cover[(u8)covernum];
-//	cover->pos = &def->pos;
-//	cover->look = &def->look;
-//	g_CoverFlags[covernum] |= def->flags;
-//	cover->flags = g_CoverFlags[covernum];
-//	cover->room = g_CoverRooms[covernum];
-//	cover->unk0a = -1;
-//
-//	return true;
-//}
+	if (covernum >= g_PadsFile[1] || covernum < 0 || !g_StageSetup.cover) {
+		return false;
+	}
+
+	// @bug: Cast to u8 means it loads the pos, look and flags
+	// from an incorrect cover if covernum is greater than 255.
+	def = g_StageSetup.cover;
+	def += (u8)covernum;
+
+	cover->pos = &def->pos;
+	cover->look = &def->look;
+
+	g_CoverFlags[covernum] |= def->flags;
+
+	cover->flags = g_CoverFlags[covernum];
+	cover->room = g_CoverRooms[covernum];
+	cover->unk0a = -1;
+
+	return true;
+}
 
 u16 getVar800a236c(void)
 {
 	return var800a236c;
 }
 
-bool coverLoadByIndex(s32 index, struct cover *cover)
+bool coverUnpackByIndex(s32 index, struct cover *cover)
 {
 	// Probable @bug: last check should be index >= var800a236c
 	// This function is never called though.
@@ -696,7 +648,7 @@ bool coverLoadByIndex(s32 index, struct cover *cover)
 		return false;
 	}
 
-	if (coverLoad(g_CoverNums[index], cover)) {
+	if (coverUnpack(g_CoverNums[index], cover)) {
 		return true;
 	}
 
