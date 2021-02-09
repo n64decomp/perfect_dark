@@ -138,35 +138,14 @@ glabel func0f166f74
 /*  f166fec:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f166ff0
-/*  f166ff0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f166ff4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f166ff8:	97ae002a */ 	lhu	$t6,0x2a($sp)
-/*  f166ffc:	3c188008 */ 	lui	$t8,%hi(filetable)
-/*  f167000:	27182060 */ 	addiu	$t8,$t8,%lo(filetable)
-/*  f167004:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f167008:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16700c:	01f82021 */ 	addu	$a0,$t7,$t8
-/*  f167010:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f167014:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f167018:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f16701c:	0fc59b95 */ 	jal	fileGetRomSizeByTableAddress
-/*  f167020:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f167024:	10400007 */ 	beqz	$v0,.L0f167044
-/*  f167028:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*  f16702c:	8f280000 */ 	lw	$t0,0x0($t9)
-/*  f167030:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*  f167034:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f167038:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f16703c:	0c003504 */ 	jal	func0000d410
-/*  f167040:	01092821 */ 	addu	$a1,$t0,$t1
-.L0f167044:
-/*  f167044:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f167048:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f16704c:	03e00008 */ 	jr	$ra
-/*  f167050:	00000000 */ 	nop
-);
+void func0f166ff0(u16 filenum, void *memaddr, s32 offset, u32 len)
+{
+	u32 stack[2];
+
+	if (fileGetRomSizeByTableAddress((u32 *)&filetable[filenum])) {
+		func0000d410(memaddr, (void *)((u32)filetable[filenum] + offset), len);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f167054
