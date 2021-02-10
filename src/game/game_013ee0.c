@@ -260,49 +260,18 @@ glabel func0f013ee0
 /*  f01424c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel coverAllocateSpecial
-/*  f014250:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f014254:	3c06800a */ 	lui	$a2,%hi(g_NumSpecialCovers)
-/*  f014258:	24c6236c */ 	addiu	$a2,$a2,%lo(g_NumSpecialCovers)
-/*  f01425c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f014260:	94c40000 */ 	lhu	$a0,0x0($a2)
-/*  f014264:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f014268:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f01426c:	00047040 */ 	sll	$t6,$a0,0x1
-/*  f014270:	25c4000f */ 	addiu	$a0,$t6,0xf
-/*  f014274:	348f000f */ 	ori	$t7,$a0,0xf
-/*  f014278:	0c0048f2 */ 	jal	malloc
-/*  f01427c:	39e4000f */ 	xori	$a0,$t7,0xf
-/*  f014280:	3c05800a */ 	lui	$a1,%hi(g_SpecialCoverNums)
-/*  f014284:	24a52370 */ 	addiu	$a1,$a1,%lo(g_SpecialCoverNums)
-/*  f014288:	3c06800a */ 	lui	$a2,%hi(g_NumSpecialCovers)
-/*  f01428c:	24c6236c */ 	addiu	$a2,$a2,%lo(g_NumSpecialCovers)
-/*  f014290:	10400011 */ 	beqz	$v0,.L0f0142d8
-/*  f014294:	aca20000 */ 	sw	$v0,0x0($a1)
-/*  f014298:	94c80000 */ 	lhu	$t0,0x0($a2)
-/*  f01429c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0142a0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0142a4:	1900000c */ 	blez	$t0,.L0f0142d8
-/*  f0142a8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0142ac:	8caa0000 */ 	lw	$t2,0x0($a1)
-.L0f0142b0:
-/*  f0142b0:	94890000 */ 	lhu	$t1,0x0($a0)
-/*  f0142b4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0142b8:	01435821 */ 	addu	$t3,$t2,$v1
-/*  f0142bc:	a5690000 */ 	sh	$t1,0x0($t3)
-/*  f0142c0:	94cc0000 */ 	lhu	$t4,0x0($a2)
-/*  f0142c4:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f0142c8:	24840002 */ 	addiu	$a0,$a0,0x2
-/*  f0142cc:	004c082a */ 	slt	$at,$v0,$t4
-/*  f0142d0:	5420fff7 */ 	bnezl	$at,.L0f0142b0
-/*  f0142d4:	8caa0000 */ 	lw	$t2,0x0($a1)
-.L0f0142d8:
-/*  f0142d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0142dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0142e0:	03e00008 */ 	jr	$ra
-/*  f0142e4:	00000000 */ 	nop
-);
+void coverAllocateSpecial(u16 *specialcovernums)
+{
+	s32 i;
+
+	g_SpecialCoverNums = malloc(ALIGN16(g_NumSpecialCovers * sizeof(u16)), MEMPOOL_STAGE);
+
+	if (g_SpecialCoverNums != NULL) {
+		for (i = 0; i < g_NumSpecialCovers; i++) {
+			g_SpecialCoverNums[i] = specialcovernums[i];
+		}
+	}
+}
 
 void coverLoad(void)
 {
@@ -312,7 +281,7 @@ void coverLoad(void)
 	f32 scale = 1;
 	struct coord aimpos;
 	struct cover cover;
-	s16 specialcovernums[1024];
+	u16 specialcovernums[1024];
 	s16 rooms1[21];
 	s16 rooms2[21];
 
