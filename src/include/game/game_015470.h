@@ -4,6 +4,8 @@
 #include "types.h"
 
 void func0f015470(void);
-u32 func0f0155f0(void);
+void func0f015e04(void *addr);
+Gfx *func0f015e88(Gfx *gdl);
+
 
 #endif
