@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f012d50(void);
+void waypointsLoad(void);
 
 #endif

@@ -38,7 +38,7 @@ struct g_vars {
 	/*000054*/ s32 lastframe240;
 	/*000058*/ s32 thisframe240;
 	/*00005c*/ f32 diffframe240freal;
-	/*000060*/ u32 unk000060;
+	/*000060*/ s16 *waypointnums; // ordered by room asc, padnum asc
 	/*000064*/ struct player *players[4];
 	/*000074*/ struct playerstats playerstats[4];
 	/*000274*/ u32 playerorder[4];

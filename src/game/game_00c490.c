@@ -2443,7 +2443,7 @@ void setupParseObjects(s32 stagenum)
 			func0f012aa0();
 		}
 
-		func0f012d50();
+		waypointsLoad();
 
 		if (withchrs) {
 			s32 numchrs = 0;

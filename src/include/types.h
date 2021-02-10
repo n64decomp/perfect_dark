@@ -3572,8 +3572,9 @@ struct room {
 	/*0x06*/ u8 unk06;
 	/*0x07*/ u8 unk07;
 	/*0x08*/ s8 numlights;
+	/*0x09*/ u8 numwaypoints; // note: excludes waypoints with PADFLAG_AIDROP
 	/*0x0a*/ u16 lightindex; // index of start of this room's lights in data file
-	/*0x0c*/ u16 unk0c;
+	/*0x0c*/ u16 firstwaypoint; // offset into g_Vars.waypoints
 	/*0x0e*/ s16 roomportallistoffset;
 	/*0x10*/ s16 unk10;
 	/*0x14*/ struct room14 *unk14;
