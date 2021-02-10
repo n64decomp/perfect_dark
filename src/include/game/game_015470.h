@@ -4,8 +4,8 @@
 #include "types.h"
 
 void func0f015470(void);
-void func0f015e04(void *addr);
-Gfx *func0f015e88(Gfx *gdl);
+void getitleInit(void *addr, u32 arg1);
+Gfx *getitleRender(Gfx *gdl);
 
 
 #endif

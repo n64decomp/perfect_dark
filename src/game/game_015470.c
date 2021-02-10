@@ -607,44 +607,24 @@ glabel func0f0155f0
 /*  f015e00:	27bd0108 */ 	addiu	$sp,$sp,0x108
 );
 
-GLOBAL_ASM(
-glabel func0f015e04
-/*  f015e04:	3c018006 */ 	lui	$at,%hi(var80062414)
-/*  f015e08:	a0202414 */ 	sb	$zero,%lo(var80062414)($at)
-/*  f015e0c:	3c01445c */ 	lui	$at,0x445c
-/*  f015e10:	44812000 */ 	mtc1	$at,$f4
-/*  f015e14:	3c01800a */ 	lui	$at,%hi(var8009cc8c)
-/*  f015e18:	3c0e0200 */ 	lui	$t6,0x200
-/*  f015e1c:	e424cc8c */ 	swc1	$f4,%lo(var8009cc8c)($at)
-/*  f015e20:	3c01c220 */ 	lui	$at,0xc220
-/*  f015e24:	44813000 */ 	mtc1	$at,$f6
-/*  f015e28:	3c0f0200 */ 	lui	$t7,0x200
-/*  f015e2c:	3c018006 */ 	lui	$at,%hi(var80062484)
-/*  f015e30:	25ef0000 */ 	addiu	$t7,$t7,0x0
-/*  f015e34:	25ce65d0 */ 	addiu	$t6,$t6,0x65d0
-/*  f015e38:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f015e3c:	01cf3023 */ 	subu	$a2,$t6,$t7
-/*  f015e40:	e4262484 */ 	swc1	$f6,%lo(var80062484)($at)
-/*  f015e44:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f015e48:	3c02800a */ 	lui	$v0,%hi(var8009cc90)
-/*  f015e4c:	3c018006 */ 	lui	$at,%hi(var80062498)
-/*  f015e50:	24c6003f */ 	addiu	$a2,$a2,0x3f
-/*  f015e54:	2442cc90 */ 	addiu	$v0,$v0,%lo(var8009cc90)
-/*  f015e58:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f015e5c:	ac202498 */ 	sw	$zero,%lo(var80062498)($at)
-/*  f015e60:	34d8003f */ 	ori	$t8,$a2,0x3f
-/*  f015e64:	3c05007f */ 	lui	$a1,%hi(_unknown2SegmentRomStart)
-/*  f015e68:	ac440000 */ 	sw	$a0,0x0($v0)
-/*  f015e6c:	24a5bdc0 */ 	addiu	$a1,$a1,%lo(_unknown2SegmentRomStart)
-/*  f015e70:	0c003504 */ 	jal	func0000d410
-/*  f015e74:	3b06003f */ 	xori	$a2,$t8,0x3f
-/*  f015e78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f015e7c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f015e80:	03e00008 */ 	jr	$ra
-/*  f015e84:	00000000 */ 	nop
-);
+extern u8 _unknown2SegmentRomStart;
+extern u8 _unknown2SegmentStart;
+extern u8 _unknown2SegmentEnd;
 
-Gfx *func0f015e88(Gfx *gdl)
+void getitleInit(void *addr, u32 arg1)
+{
+	u32 len = (u32)&_unknown2SegmentEnd - (u32)&_unknown2SegmentStart;
+
+	var80062414 = 0;
+	var8009cc8c = 880;
+	var80062484 = -40;
+	var80062498 = 0;
+	var8009cc90 = addr;
+
+	func0000d410(var8009cc90, &_unknown2SegmentRomStart, ALIGN64(len));
+}
+
+Gfx *getitleRender(Gfx *gdl)
 {
 	var80062410 = 1 - var80062410;
 
