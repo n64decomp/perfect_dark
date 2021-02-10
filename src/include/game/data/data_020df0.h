@@ -203,7 +203,7 @@ extern u32 var8007f9d8;
 extern u32 var8007f9fc;
 extern u32 var8007fa60;
 extern u32 var8007fa80;
-extern u32 var8007fa84;
+extern bool g_ShardsActive;
 extern u8 g_InGameSubtitles;
 extern u8 g_CutsceneSubtitles;
 extern s32 g_ScreenSize;

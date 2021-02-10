@@ -127,27 +127,27 @@ void func0f013550(void)
 	}
 }
 
-void func0f0139f0(void)
+void shardsInit(void)
 {
 	s32 i;
 
-	var800a45c0 = 200 / PLAYERCOUNT();
+	g_MaxShards = 200 / PLAYERCOUNT();
 
 	if (IS4MB()) {
-		var800a45c0 = var800a45c0 / 2;
+		g_MaxShards = g_MaxShards / 2;
 	}
 
 	if (g_Vars.stagenum >= STAGE_TITLE) {
-		var800a45c0 = 0;
+		g_MaxShards = 0;
 	}
 
-	if (var800a45c0 == 0) {
-		var800a45c4 = 0;
+	if (g_MaxShards == 0) {
+		g_Shards = NULL;
 	} else {
-		var800a45c4 = malloc(var800a45c0 * sizeof(struct var800a45c4) + 0xf & ~0xf, MEMPOOL_STAGE);
+		g_Shards = malloc(g_MaxShards * sizeof(struct shard) + 0xf & ~0xf, MEMPOOL_STAGE);
 
-		for (i = 0; i < var800a45c0; i++) {
-			var800a45c4[i].unk04 = 0;
+		for (i = 0; i < g_MaxShards; i++) {
+			g_Shards[i].age60 = 0;
 		}
 	}
 

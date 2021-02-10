@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f01de30(void);
+void shardsTick(void);
 
 #endif

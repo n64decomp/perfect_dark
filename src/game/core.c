@@ -393,7 +393,7 @@ void coreLoadStage(s32 stagenum)
 	func0f0147d0();
 	func0f0147f8();
 	stub0f013540();
-	func0f0139f0();
+	shardsInit();
 	frUnloadData();
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
@@ -2179,7 +2179,7 @@ void coreTick(void)
 		func0f01d8c0();
 		func0f01d990();
 		casingsTick();
-		func0f01de30();
+		shardsTick();
 		sparksTick();
 		func0f13eb44();
 		func0f149864();
@@ -2267,7 +2267,7 @@ void coreUnloadStage(void)
 	smokeReset();
 	stub0f015400();
 	stub0f015410();
-	func0f015420();
+	shardsReset();
 	stub0f0153f0();
 	alarmReset();
 	func0f015010(); // props/setup related

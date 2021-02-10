@@ -10,11 +10,11 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-void func0f015420(void)
+void shardsReset(void)
 {
 	s32 i;
 
-	for (i = 0; i < var800a45c0; i++) {
-		var800a45c4[i].unk04 = 0;
+	for (i = 0; i < g_MaxShards; i++) {
+		g_Shards[i].age60 = 0;
 	}
 }

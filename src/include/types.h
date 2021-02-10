@@ -6687,21 +6687,13 @@ struct gfxvtx {
 	/*0x0a*/ s16 unk0a;
 };
 
-struct var800a45c4 {
+struct shard {
 	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
+	/*0x04*/ s32 age60;
+	/*0x08*/ struct coord pos;
+	/*0x14*/ struct coord rot;
+	/*0x20*/ struct coord vel;
+	/*0x2c*/ struct coord rotspeed;
 	/*0x38*/ u32 unk38;
 	/*0x3c*/ u32 unk3c;
 	/*0x40*/ u32 unk40;
