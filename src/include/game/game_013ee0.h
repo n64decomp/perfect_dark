@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f013ee0(void);
-u32 func0f014250(void);
-u32 func0f0142e8(void);
+void coverAllocateSpecial(s16 *specialcovernums);
+void coverLoad(void);
 
 #endif

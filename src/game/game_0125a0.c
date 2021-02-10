@@ -320,7 +320,7 @@ glabel func0f012aa0
 /*  f012c9c:	004a5821 */ 	addu	$t3,$v0,$t2
 /*  f012ca0:	11600003 */ 	beqz	$t3,.L0f012cb0
 /*  f012ca4:	aeab0008 */ 	sw	$t3,0x8($s5)
-/*  f012ca8:	0fc050ba */ 	jal	func0f0142e8
+/*  f012ca8:	0fc050ba */ 	jal	coverLoad
 /*  f012cac:	00000000 */ 	nop
 .L0f012cb0:
 /*  f012cb0:	8ea20000 */ 	lw	$v0,0x0($s5)

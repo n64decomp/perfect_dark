@@ -573,11 +573,14 @@
 #define CONTROLMODE_23 6
 #define CONTROLMODE_24 7
 
-#define COVERFLAG_0001  0x0001
-#define COVERFLAG_INUSE 0x0002
-#define COVERFLAG_0020  0x0020
-#define COVERFLAG_0040  0x0040
-#define COVERFLAG_0080  0x0080
+#define COVERFLAG_0001            0x0001
+#define COVERFLAG_INUSE           0x0002
+#define COVERFLAG_AIMSAMEROOM     0x0004 // look + 6 metres is in the same room
+#define COVERFLAG_AIMDIFFROOM     0x0008 // look + 6 metres is not in the same room
+#define COVERFLAG_OMNIDIRECTIONAL 0x0010
+#define COVERFLAG_0020            0x0020
+#define COVERFLAG_0040            0x0040
+#define COVERFLAG_0080            0x0080
 
 // L/C/R = left/centered/right
 // big/med/sml is the font size

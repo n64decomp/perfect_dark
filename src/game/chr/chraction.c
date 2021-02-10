@@ -25890,7 +25890,7 @@ glabel func0f04ba34
 /*  f04bb24:	27a50098 */ 	addiu	$a1,$sp,0x98
 /*  f04bb28:	504000b0 */ 	beqzl	$v0,.L0f04bdec
 /*  f04bb2c:	8fae0078 */ 	lw	$t6,0x78($sp)
-/*  f04bb30:	0fc4596c */ 	jal	coverHasSomeFlags
+/*  f04bb30:	0fc4596c */ 	jal	coverIsSpecial
 /*  f04bb34:	27a40098 */ 	addiu	$a0,$sp,0x98
 /*  f04bb38:	144000ab */ 	bnez	$v0,.L0f04bde8
 /*  f04bb3c:	32292000 */ 	andi	$t1,$s1,0x2000
@@ -26313,7 +26313,7 @@ glabel chrAssignCoverAwayFromDanger
 /*  f04c108:	00000000 */ 	nop
 /*  f04c10c:	45030035 */ 	bc1tl	.L0f04c1e4
 /*  f04c110:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f04c114:	0fc4596c */ 	jal	coverHasSomeFlags
+/*  f04c114:	0fc4596c */ 	jal	coverIsSpecial
 /*  f04c118:	02402025 */ 	or	$a0,$s2,$zero
 /*  f04c11c:	14400030 */ 	bnez	$v0,.L0f04c1e0
 /*  f04c120:	262402c8 */ 	addiu	$a0,$s1,0x2c8
@@ -26484,7 +26484,7 @@ glabel chrAssignCoverAwayFromDanger
 //		if (coverUnpack(i, &cover)
 //				&& !coverIsInUse(i)
 //				&& !(cover.pos->y > ymax)
-//				&& !coverHasSomeFlags(&cover)) {
+//				&& !coverIsSpecial(&cover)) {
 //			coversqdistfrompos = coordGetSquaredDistanceToCoord(&chr->runfrompos, cover.pos);
 //
 //			if (!(coversqdistfrompos < mindist) && !(coversqdistfrompos > maxdist)) {

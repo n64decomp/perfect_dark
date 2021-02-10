@@ -635,35 +635,35 @@ bool coverUnpack(s32 covernum, struct cover *cover)
 	return true;
 }
 
-u16 getVar800a236c(void)
+u16 getNumSpecialCovers(void)
 {
-	return var800a236c;
+	return g_NumSpecialCovers;
 }
 
-bool coverUnpackByIndex(s32 index, struct cover *cover)
+bool coverUnpackBySpecialNum(s32 index, struct cover *cover)
 {
-	// Probable @bug: last check should be index >= var800a236c
+	// Probable @bug: last check should be index >= g_NumSpecialCovers
 	// This function is never called though.
-	if (!g_CoverNums || index < 0 || index > var800a236c) {
+	if (!g_SpecialCoverNums || index < 0 || index > g_NumSpecialCovers) {
 		return false;
 	}
 
-	if (coverUnpack(g_CoverNums[index], cover)) {
+	if (coverUnpack(g_SpecialCoverNums[index], cover)) {
 		return true;
 	}
 
 	return false;
 }
 
-s32 coverGetNumByIndex(s32 index)
+s32 coverGetNumBySpecialNum(s32 index)
 {
-	// Probable @bug: last check should be index >= var800a236c
+	// Probable @bug: last check should be index >= g_NumSpecialCovers
 	// This function is never called though.
-	if (!g_CoverNums || index < 0 || index > var800a236c) {
+	if (!g_SpecialCoverNums || index < 0 || index > g_NumSpecialCovers) {
 		return -1;
 	}
 
-	return g_CoverNums[index];
+	return g_SpecialCoverNums[index];
 }
 
 s32 func0f116450(s32 arg0, s32 arg1)
@@ -713,7 +713,7 @@ void coverSetFlag0001(s32 covernum, bool enable)
 	}
 }
 
-bool coverHasSomeFlags(struct cover *cover)
+bool coverIsSpecial(struct cover *cover)
 {
 	return (cover->flags & (COVERFLAG_0080 | COVERFLAG_0040 | COVERFLAG_0020)) != 0;
 }
