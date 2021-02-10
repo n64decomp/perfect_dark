@@ -7,7 +7,6 @@ extern u32 var800623b0;
 extern s32 g_WeatherActive;
 extern u32 var80062400;
 extern u32 var80062410;
-extern u32 var80062414;
 extern u32 var80062448;
 extern u32 var80062450;
 extern u32 var80062460;
