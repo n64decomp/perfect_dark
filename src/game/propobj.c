@@ -45,7 +45,6 @@
 #include "game/explosions/explosions.h"
 #include "game/smoke/smoke.h"
 #include "game/sparks/sparks.h"
-#include "game/game_150820.h"
 #include "game/game_1531a0.h"
 #include "game/room.h"
 #include "game/game_1655c0.h"
@@ -34922,7 +34921,7 @@ glabel func0f084cf0
 /*  f084d78:	c46a0010 */ 	lwc1	$f10,0x10($v1)
 /*  f084d7c:	afb00024 */ 	sw	$s0,0x24($sp)
 /*  f084d80:	afae0020 */ 	sw	$t6,0x20($sp)
-/*  f084d84:	0fc54208 */ 	jal	func0f150820
+/*  f084d84:	0fc54208 */ 	jal	shardsCreate
 /*  f084d88:	e7aa001c */ 	swc1	$f10,0x1c($sp)
 /*  f084d8c:	10000011 */ 	b	.L0f084dd4
 /*  f084d90:	3c04bcde */ 	lui	$a0,0xbcde
@@ -34940,7 +34939,7 @@ glabel func0f084cf0
 /*  f084dbc:	c4660010 */ 	lwc1	$f6,0x10($v1)
 /*  f084dc0:	afb00024 */ 	sw	$s0,0x24($sp)
 /*  f084dc4:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f084dc8:	0fc54208 */ 	jal	func0f150820
+/*  f084dc8:	0fc54208 */ 	jal	shardsCreate
 /*  f084dcc:	e7a6001c */ 	swc1	$f6,0x1c($sp)
 /*  f084dd0:	3c04bcde */ 	lui	$a0,0xbcde
 .L0f084dd4:
@@ -35034,7 +35033,7 @@ glabel func0f084e58
 /*  f084f14:	c50a0010 */ 	lwc1	$f10,0x10($t0)
 /*  f084f18:	afa00020 */ 	sw	$zero,0x20($sp)
 /*  f084f1c:	afab0024 */ 	sw	$t3,0x24($sp)
-/*  f084f20:	0fc54208 */ 	jal	func0f150820
+/*  f084f20:	0fc54208 */ 	jal	shardsCreate
 /*  f084f24:	e7aa001c */ 	swc1	$f10,0x1c($sp)
 /*  f084f28:	8fa4008c */ 	lw	$a0,0x8c($sp)
 /*  f084f2c:	0fc4f903 */ 	jal	func0f13e40c
@@ -35098,7 +35097,7 @@ glabel func0f084f64
 /*  f085000:	c60a0010 */ 	lwc1	$f10,0x10($s0)
 /*  f085004:	afa00020 */ 	sw	$zero,0x20($sp)
 /*  f085008:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f08500c:	0fc54208 */ 	jal	func0f150820
+/*  f08500c:	0fc54208 */ 	jal	shardsCreate
 /*  f085010:	e7aa001c */ 	swc1	$f10,0x1c($sp)
 /*  f085014:	8fa4008c */ 	lw	$a0,0x8c($sp)
 .L0f085018:

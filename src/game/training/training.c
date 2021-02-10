@@ -22,7 +22,6 @@
 #include "game/game_107fb0.h"
 #include "game/inventory/inventory.h"
 #include "game/explosions/explosions.h"
-#include "game/game_150820.h"
 #include "game/game_1531a0.h"
 #include "game/room.h"
 #include "game/training/menus.h"
@@ -2869,7 +2868,7 @@ glabel var7f1b94e4
 /*  f1a01c4:	c5060010 */ 	lwc1	$f6,0x10($t0)
 /*  f1a01c8:	afb10024 */ 	sw	$s1,0x24($sp)
 /*  f1a01cc:	afae0020 */ 	sw	$t6,0x20($sp)
-/*  f1a01d0:	0fc54208 */ 	jal	func0f150820
+/*  f1a01d0:	0fc54208 */ 	jal	shardsCreate
 /*  f1a01d4:	e7a6001c */ 	swc1	$f6,0x1c($sp)
 /*  f1a01d8:	92af0455 */ 	lbu	$t7,0x455($s5)
 /*  f1a01dc:	24070005 */ 	addiu	$a3,$zero,0x5
@@ -3659,7 +3658,7 @@ glabel var7f1b94e4
 //				if (g_FrNumSounds);
 //
 //				// 1d0
-//				func0f150820(&prop->pos, &obj->realrot[0], &obj->realrot[3], &obj->realrot[6],
+//				shardsCreate(&prop->pos, &obj->realrot[0], &obj->realrot[3], &obj->realrot[6],
 //						model08thing->unk04[0], model08thing->unk04[1], model08thing->unk04[2],
 //						model08thing->unk04[3], 2, prop);
 //

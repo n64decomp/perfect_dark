@@ -39,6 +39,8 @@
 	build/ROMID/game/weather/init.o (section); \
 	build/ROMID/game/stubs/game_013540.o (section); \
 	build/ROMID/game/game_013550.o (section); \
+	build/ROMID/game/shards/init.o (section); \
+	build/ROMID/game/game_013b80.o (section); \
 	build/ROMID/game/game_013cf0.o (section); \
 	build/ROMID/game/game_013ee0.o (section); \
 	build/ROMID/game/game_0147a0.o (section); \
@@ -54,7 +56,7 @@
 	build/ROMID/game/stubs/game_0153f0.o (section); \
 	build/ROMID/game/stubs/game_015400.o (section); \
 	build/ROMID/game/stubs/game_015410.o (section); \
-	build/ROMID/game/game_015420.o (section); \
+	build/ROMID/game/shards/reset.o (section); \
 	build/ROMID/game/game_015470.o (section); \
 	build/ROMID/game/title.o (section); \
 	build/ROMID/game/game_01afc0.o (section); \
@@ -65,7 +67,7 @@
 	build/ROMID/game/game_01d860.o (section); \
 	build/ROMID/game/game_01d990.o (section); \
 	build/ROMID/game/casing/tick.o (section); \
-	build/ROMID/game/game_01de30.o (section); \
+	build/ROMID/game/shards/tick.o (section); \
 	build/ROMID/game/sparks/tick.o (section); \
 	build/ROMID/game/chr/chr.o (section); \
 	build/ROMID/game/game_02cde0.o (section); \
@@ -150,7 +152,8 @@
 	build/ROMID/game/data/data_0258c0.o (section); \
 	build/ROMID/game/splat.o (section); \
 	build/ROMID/game/camdraw.o (section); \
-	build/ROMID/game/game_150820.o (section); \
+	build/ROMID/game/shards/create.o (section); \
+	build/ROMID/game/shards/render.o (section); \
 	build/ROMID/game/options.o (section); \
 	build/ROMID/game/game_152fa0.o (section); \
 	build/ROMID/game/game_1531a0.o (section); \

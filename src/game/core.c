@@ -47,7 +47,7 @@
 #include "game/stubs/game_0153f0.h"
 #include "game/stubs/game_015400.h"
 #include "game/stubs/game_015410.h"
-#include "game/game_015420.h"
+#include "game/shards.h"
 #include "game/game_015470.h"
 #include "game/title.h"
 #include "game/game_01b0a0.h"
@@ -55,7 +55,6 @@
 #include "game/weather/tick.h"
 #include "game/game_01d860.h"
 #include "game/game_01d990.h"
-#include "game/game_01de30.h"
 #include "game/chr/chr.h"
 #include "game/prop.h"
 #include "game/game_095320.h"
@@ -80,7 +79,6 @@
 #include "game/credits.h"
 #include "game/game_13c510.h"
 #include "game/bondview.h"
-#include "game/game_150820.h"
 #include "game/game_1531a0.h"
 #include "game/room.h"
 #include "game/game_165670.h"
@@ -1214,7 +1212,7 @@ Gfx *coreRender(Gfx *gdl)
 				gdl = bgRender(gdl);
 				func0f028498(var80075d68 == 15 || var8005f020);
 				gdl = propsRenderBulletTails(gdl);
-				gdl = func0f1526e4(gdl);
+				gdl = shardsRender(gdl);
 				gdl = sparksRender(gdl);
 				gdl = weatherRender(gdl);
 

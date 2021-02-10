@@ -3,9 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f013550(void);
-void shardsInit(void);
-void func0f013b80(void);
-void func0f013ba0(void);
+void func0f013550(void);
 
 #endif
