@@ -735,8 +735,10 @@ extern u32 var800a661c;
 extern u32 var800a6620;
 extern u32 var800a6630;
 extern u8 *var800a6660;
+extern s16 *var800a6664;
 extern s16 *var800a6668;
-extern u32 var800a666c;
+extern f32 *var800a666c;
+extern void *var800a6670; // pointer to structs of len 0x40
 extern struct fileinfo g_FileInfo[NUM_FILES];
 extern u8 *g_GfxBuffers[3];
 extern u8 *g_VtxBuffers[3];

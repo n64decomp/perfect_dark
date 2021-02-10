@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f013ee0(void);
+void func0f013ee0(void);
 void coverAllocateSpecial(u16 *specialcovernums);
 void coverLoad(void);
 
