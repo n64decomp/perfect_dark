@@ -11,7 +11,7 @@
 #include "lib/lib_0d0a0.h"
 #include "types.h"
 
-u8 var8005d9a0 = 0;
+u8 g_LoadState = 0;
 u32 var8005d9a4 = 0x00000000;
 u32 var8005d9a8 = 0x00000000;
 u32 var8005d9ac = 0x00000000;
@@ -162,8 +162,8 @@ u32 xorDeadbabe(u32 value)
 
 GLOBAL_ASM(
 glabel func0000d29c
-/*     d29c:	3c0e8006 */ 	lui	$t6,%hi(var8005d9a0)
-/*     d2a0:	91ced9a0 */ 	lbu	$t6,%lo(var8005d9a0)($t6)
+/*     d29c:	3c0e8006 */ 	lui	$t6,%hi(g_LoadState)
+/*     d2a0:	91ced9a0 */ 	lbu	$t6,%lo(g_LoadState)($t6)
 /*     d2a4:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*     d2a8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     d2ac:	11c00024 */ 	beqz	$t6,.L0000d340
@@ -203,8 +203,8 @@ glabel func0000d29c
 /*     d32c:	03284826 */ 	xor	$t1,$t9,$t0
 /*     d330:	1482fffa */ 	bne	$a0,$v0,.L0000d31c
 /*     d334:	ac69fffc */ 	sw	$t1,-0x4($v1)
-/*     d338:	3c018006 */ 	lui	$at,%hi(var8005d9a0)
-/*     d33c:	a020d9a0 */ 	sb	$zero,%lo(var8005d9a0)($at)
+/*     d338:	3c018006 */ 	lui	$at,%hi(g_LoadState)
+/*     d33c:	a020d9a0 */ 	sb	$zero,%lo(g_LoadState)($at)
 .L0000d340:
 /*     d340:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     d344:	27bd0030 */ 	addiu	$sp,$sp,0x30

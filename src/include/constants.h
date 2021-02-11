@@ -1135,6 +1135,11 @@
 #define LIGHTOP_TURNON  6
 #define LIGHTOP_TURNOFF 7
 
+#define LOADSTATE_TILES 2
+#define LOADSTATE_SETUP 4
+#define LOADSTATE_PADS  5
+#define LOADSTATE_6     6
+
 // These actions are assigned to chr->myaction
 #define MA_NONE            0
 #define MA_NORMAL          1

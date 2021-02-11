@@ -11,7 +11,7 @@ void func0f166eb4(void *dst, u32 scratchlen, u32 *romaddrptr, struct fileinfo *i
 void func0f166f74(void);
 void func0f166ff0(u16 filenum, void *memaddr, s32 offset, u32 len);
 u32 fileGetInflatedLength(u32 filenum);
-void *func0f1670fc(u32 filenum, u32 arg1);
+void *func0f1670fc(s32 filenum, u32 arg1);
 void *func0f167200(s32 filenum, s32 arg1, u8 *ptr, u32 size);
 u32 fileGetSize(s32 filenum);
 u32 fileGetUnk04(s32 filenum);

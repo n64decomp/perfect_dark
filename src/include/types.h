@@ -5011,7 +5011,7 @@ struct chrnumaction {
 	u8 myaction;
 };
 
-struct propdefinition {
+struct modelstate {
 	struct modelfiledata *filedata;
 	u16 fileid;
 	u16 scale;

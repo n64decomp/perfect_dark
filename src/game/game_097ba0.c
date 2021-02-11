@@ -8230,8 +8230,8 @@ glabel func0f09e144
 /*  f09e1cc:	240b0007 */ 	addiu	$t3,$zero,0x7
 /*  f09e1d0:	02003825 */ 	or	$a3,$s0,$zero
 .L0f09e1d4:
-/*  f09e1d4:	3c018006 */ 	lui	$at,%hi(var8005d9a0)
-/*  f09e1d8:	a02bd9a0 */ 	sb	$t3,%lo(var8005d9a0)($at)
+/*  f09e1d4:	3c018006 */ 	lui	$at,%hi(g_LoadState)
+/*  f09e1d8:	a02bd9a0 */ 	sb	$t3,%lo(g_LoadState)($at)
 /*  f09e1dc:	964415b2 */ 	lhu	$a0,0x15b2($s2)
 /*  f09e1e0:	24050011 */ 	addiu	$a1,$zero,0x11
 /*  f09e1e4:	0fc59c80 */ 	jal	func0f167200

@@ -362,7 +362,7 @@ void coreLoadStage(s32 stagenum)
 	func0f013ba0();
 	func0f011110();
 	func0f0108d0();
-	func0f00eb64(stagenum);
+	setupLoadFiles(stagenum);
 	mpPrepareScenario();
 	gvarsInitProps();
 	setupInit();

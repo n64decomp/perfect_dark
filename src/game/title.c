@@ -1003,8 +1003,8 @@ glabel titleInitPdLogo
 /*  f016d68:	adc10000 */ 	sw	$at,0x0($t6)
 /*  f016d6c:	8de10008 */ 	lw	$at,0x8($t7)
 /*  f016d70:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f016d74:	3c118008 */ 	lui	$s1,%hi(g_Props)
-/*  f016d78:	2631b06c */ 	addiu	$s1,$s1,%lo(g_Props)
+/*  f016d74:	3c118008 */ 	lui	$s1,%hi(g_ModelStates)
+/*  f016d78:	2631b06c */ 	addiu	$s1,$s1,%lo(g_ModelStates)
 /*  f016d7c:	3c060004 */ 	lui	$a2,0x4
 /*  f016d80:	adc10008 */ 	sw	$at,0x8($t6)
 /*  f016d84:	adc80004 */ 	sw	$t0,0x4($t6)
@@ -1207,59 +1207,59 @@ glabel titleInitPdLogo
 //
 //	{
 //		struct coord coord = {0, 0, 0}; // var80062738
-//		g_Props[MODEL_NLOGO].filedata = func0f1a7794(g_Props[MODEL_NLOGO].fileid, nextaddr, 0x47800, 0);
-//		size = ALIGN64(fileGetSize(g_Props[MODEL_NLOGO].fileid));
+//		g_ModelStates[MODEL_NLOGO].filedata = func0f1a7794(g_ModelStates[MODEL_NLOGO].fileid, nextaddr, 0x47800, 0);
+//		size = ALIGN64(fileGetSize(g_ModelStates[MODEL_NLOGO].fileid));
 //		nextaddr += size;
 //		remaining = 0x47800 - size;
-//		func00022d24(g_Props[MODEL_NLOGO].filedata);
+//		func00022d24(g_ModelStates[MODEL_NLOGO].filedata);
 //
-//		g_TitleModel = func0f0b3280(g_Props[MODEL_NLOGO].filedata);
+//		g_TitleModel = func0f0b3280(g_ModelStates[MODEL_NLOGO].filedata);
 //		modelSetUnk14(g_TitleModel, 1);
 //		modelSetRootPosition(g_TitleModel, &coord);
 //	}
 //
 //	{
 //		struct coord coord = {0, 0, 0}; // var80062744
-//		g_Props[MODEL_NLOGO2].filedata = func0f1a7794(g_Props[MODEL_NLOGO2].fileid, nextaddr, remaining, 0);
-//		size = ALIGN64(fileGetSize(g_Props[MODEL_NLOGO2].fileid));
+//		g_ModelStates[MODEL_NLOGO2].filedata = func0f1a7794(g_ModelStates[MODEL_NLOGO2].fileid, nextaddr, remaining, 0);
+//		size = ALIGN64(fileGetSize(g_ModelStates[MODEL_NLOGO2].fileid));
 //		nextaddr += size;
 //		remaining -= size;
-//		func00022d24(g_Props[MODEL_NLOGO2].filedata);
+//		func00022d24(g_ModelStates[MODEL_NLOGO2].filedata);
 //
-//		g_TitleModel2 = func0f0b3280(g_Props[MODEL_NLOGO2].filedata);
+//		g_TitleModel2 = func0f0b3280(g_ModelStates[MODEL_NLOGO2].filedata);
 //		modelSetUnk14(g_TitleModel2, 1);
 //		modelSetRootPosition(g_TitleModel2, &coord);
 //	}
 //
 //	{
 //		struct coord coord = {0, 0, 0}; // var80062750
-//		g_Props[MODEL_PDTWO].filedata = func0f1a7794(g_Props[MODEL_PDTWO].fileid, nextaddr, remaining, 0);
-//		size = ALIGN64(fileGetSize(g_Props[MODEL_PDTWO].fileid));
+//		g_ModelStates[MODEL_PDTWO].filedata = func0f1a7794(g_ModelStates[MODEL_PDTWO].fileid, nextaddr, remaining, 0);
+//		size = ALIGN64(fileGetSize(g_ModelStates[MODEL_PDTWO].fileid));
 //		nextaddr += size;
 //		remaining -= size;
-//		func00022d24(g_Props[MODEL_PDTWO].filedata);
+//		func00022d24(g_ModelStates[MODEL_PDTWO].filedata);
 //
-//		var80062508 = func0f0b30ac(g_Props[MODEL_PDTWO].filedata);
+//		var80062508 = func0f0b30ac(g_ModelStates[MODEL_PDTWO].filedata);
 //		modelSetUnk14(var80062508, 1);
 //		modelSetRootPosition(var80062508, &coord);
 //	}
 //
 //	{
 //		struct coord coord = {0, 0, 0}; // var8006275c
-//		g_Props[MODEL_PDTHREE].filedata = func0f1a7794(g_Props[MODEL_PDTHREE].fileid, nextaddr, remaining, 0);
-//		size = ALIGN64(fileGetSize(g_Props[MODEL_PDTHREE].fileid));
+//		g_ModelStates[MODEL_PDTHREE].filedata = func0f1a7794(g_ModelStates[MODEL_PDTHREE].fileid, nextaddr, remaining, 0);
+//		size = ALIGN64(fileGetSize(g_ModelStates[MODEL_PDTHREE].fileid));
 //		nextaddr += size;
 //		remaining -= size;
-//		func00022d24(g_Props[MODEL_PDTHREE].filedata);
+//		func00022d24(g_ModelStates[MODEL_PDTHREE].filedata);
 //
-//		var8006250c = func0f0b30ac(g_Props[MODEL_PDTHREE].filedata);
+//		var8006250c = func0f0b30ac(g_ModelStates[MODEL_PDTHREE].filedata);
 //		modelSetUnk14(var8006250c, 1);
 //		modelSetRootPosition(var8006250c, &coord);
 //	}
 //
 //	{
 //		// fb0
-//		struct modelthing *modelthing = modelGetPartNodeData(g_Props[MODEL_PDTWO].filedata, 2);
+//		struct modelthing *modelthing = modelGetPartNodeData(g_ModelStates[MODEL_PDTWO].filedata, 2);
 //		u32 size2;
 //
 //		size = ALIGN8(modelthing->unk10 * 0xc);
@@ -3516,10 +3516,10 @@ void titleInitNintendoLogo(void)
 	{
 		struct coord coord = {0, 0, 0};
 
-		g_Props[MODEL_NINTENDOLOGO].filedata = func0f1a7794(g_Props[MODEL_NINTENDOLOGO].fileid, nextaddr, 0x47800, 0);
+		g_ModelStates[MODEL_NINTENDOLOGO].filedata = func0f1a7794(g_ModelStates[MODEL_NINTENDOLOGO].fileid, nextaddr, 0x47800, 0);
 
-		func00022d24(g_Props[MODEL_NINTENDOLOGO].filedata);
-		g_TitleModel = func0f0b30ac(g_Props[MODEL_NINTENDOLOGO].filedata);
+		func00022d24(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
+		g_TitleModel = func0f0b30ac(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
 		modelSetUnk14(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
 		var800624f4 = 1;
@@ -3895,10 +3895,10 @@ void titleInitRareLogo(void)
 	{
 		struct coord coord = {0, 0, 0};
 
-		g_Props[MODEL_RARELOGO].filedata = func0f1a7794(g_Props[MODEL_RARELOGO].fileid, nextaddr, 0x47800, 0);
+		g_ModelStates[MODEL_RARELOGO].filedata = func0f1a7794(g_ModelStates[MODEL_RARELOGO].fileid, nextaddr, 0x47800, 0);
 
-		func00022d24(g_Props[MODEL_RARELOGO].filedata);
-		g_TitleModel = func0f0b30ac(g_Props[MODEL_RARELOGO].filedata);
+		func00022d24(g_ModelStates[MODEL_RARELOGO].filedata);
+		g_TitleModel = func0f0b30ac(g_ModelStates[MODEL_RARELOGO].filedata);
 		modelSetUnk14(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
 

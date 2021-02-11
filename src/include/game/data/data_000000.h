@@ -92,7 +92,7 @@ extern u32 var8005d5b8;
 extern u32 var8005d5bc;
 extern u32 var8005d880;
 extern u32 var8005d994;
-extern u8 var8005d9a0;
+extern u8 g_LoadState;
 extern s32 var8005d9c8;
 extern u32 var8005d9cc;
 extern s32 var8005d9d0;

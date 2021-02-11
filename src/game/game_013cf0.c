@@ -21,7 +21,7 @@ void stageLoadTiles(void)
 		index = 0;
 	}
 
-	var8005d9a0 = 2;
+	g_LoadState = LOADSTATE_TILES;
 	g_TileFileData.u8 = func0f1670fc(g_Stages[index].tilefileid, 0x22);
 	g_TileNumRooms = *g_TileFileData.u32;
 	g_TileRooms = g_TileFileData.u32 + 1;

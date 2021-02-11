@@ -476,7 +476,7 @@ struct stagethinglist stagethinglist_21084 = {
 };
 
 // 2108c
-struct propdefinition g_Props[] = {
+struct modelstate g_ModelStates[441] = {
 	//                 file                         scale
 	/*0x0000*/ { NULL, FILE_PROOFGUN,               0x0199 },
 	/*0x0001*/ { NULL, FILE_PGROUNDGUN,             0x0199 },

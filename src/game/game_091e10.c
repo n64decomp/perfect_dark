@@ -191,9 +191,9 @@ glabel setupGetCommandOffset
 
 bool propLoad(s32 propnum)
 {
-	if (g_Props[propnum].filedata == NULL) {
-		g_Props[propnum].filedata = fileLoad(g_Props[propnum].fileid);
-		func00022d24(g_Props[propnum].filedata);
+	if (g_ModelStates[propnum].filedata == NULL) {
+		g_ModelStates[propnum].filedata = fileLoad(g_ModelStates[propnum].fileid);
+		func00022d24(g_ModelStates[propnum].filedata);
 		return true;
 	}
 

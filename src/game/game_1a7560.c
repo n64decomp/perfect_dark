@@ -193,7 +193,7 @@ void *func0f1a7794(u16 fileid, u8 *arg1, s32 arg2, s32 arg3)
 {
 	void *ptr;
 
-	var8005d9a0 = 6;
+	g_LoadState = LOADSTATE_6;
 
 	if (arg1) {
 		ptr = func0f167200(fileid, 0x11, arg1, arg2);

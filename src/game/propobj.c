@@ -4467,7 +4467,7 @@ glabel var7f1aa1fc
 /*  f069dcc:	1549fff8 */ 	bne	$t2,$t1,.L0f069db0
 /*  f069dd0:	ad61fffc */ 	sw	$at,-0x4($t3)
 /*  f069dd4:	8d410000 */ 	lw	$at,0x0($t2)
-/*  f069dd8:	3c058008 */ 	lui	$a1,%hi(g_Props)
+/*  f069dd8:	3c058008 */ 	lui	$a1,%hi(g_ModelStates)
 /*  f069ddc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f069de0:	ad610000 */ 	sw	$at,0x0($t3)
 /*  f069de4:	8d490004 */ 	lw	$t1,0x4($t2)
@@ -4479,7 +4479,7 @@ glabel var7f1aa1fc
 /*  f069dfc:	000fc0c0 */ 	sll	$t8,$t7,0x3
 /*  f069e00:	00b82821 */ 	addu	$a1,$a1,$t8
 /*  f069e04:	0fc1a94b */ 	jal	func0f06a52c
-/*  f069e08:	8ca5b06c */ 	lw	$a1,%lo(g_Props)($a1)
+/*  f069e08:	8ca5b06c */ 	lw	$a1,%lo(g_ModelStates)($a1)
 /*  f069e0c:	104000d3 */ 	beqz	$v0,.L0f06a15c
 /*  f069e10:	8fae00a8 */ 	lw	$t6,0xa8($sp)
 /*  f069e14:	8e040014 */ 	lw	$a0,0x14($s0)
@@ -4845,14 +4845,14 @@ glabel func0f06a1ec
 /*  f06a33c:	a60a0058 */ 	sh	$t2,0x58($s0)
 /*  f06a340:	ad700004 */ 	sw	$s0,0x4($t3)
 /*  f06a344:	8e0c0018 */ 	lw	$t4,0x18($s0)
-/*  f06a348:	3c0f8008 */ 	lui	$t7,%hi(g_Props+0x6)
+/*  f06a348:	3c0f8008 */ 	lui	$t7,%hi(g_ModelStates+0x6)
 /*  f06a34c:	3c014f80 */ 	lui	$at,0x4f80
 /*  f06a350:	a1800001 */ 	sb	$zero,0x1($t4)
 /*  f06a354:	860d0004 */ 	lh	$t5,0x4($s0)
 /*  f06a358:	8e040018 */ 	lw	$a0,0x18($s0)
 /*  f06a35c:	000d70c0 */ 	sll	$t6,$t5,0x3
 /*  f06a360:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f06a364:	95efb072 */ 	lhu	$t7,%lo(g_Props+0x6)($t7)
+/*  f06a364:	95efb072 */ 	lhu	$t7,%lo(g_ModelStates+0x6)($t7)
 /*  f06a368:	448f2000 */ 	mtc1	$t7,$f4
 /*  f06a36c:	05e10004 */ 	bgez	$t7,.L0f06a380
 /*  f06a370:	468021a0 */ 	cvt.s.w	$f6,$f4
@@ -4986,7 +4986,7 @@ struct prop *func0f06a52c(struct singlemonitorobj *monitor, struct modelfiledata
 
 struct prop *func0f06a550(struct singlemonitorobj *monitor)
 {
-	return func0f06a52c(monitor, g_Props[monitor->base.modelnum].filedata);
+	return func0f06a52c(monitor, g_ModelStates[monitor->base.modelnum].filedata);
 }
 
 GLOBAL_ASM(
@@ -35618,7 +35618,7 @@ glabel var7f1aab30
 /*  f085714:	ad41fffc */ 	sw	$at,-0x4($t2)
 /*  f085718:	8f010000 */ 	lw	$at,0x0($t8)
 /*  f08571c:	000260c0 */ 	sll	$t4,$v0,0x3
-/*  f085720:	3c058008 */ 	lui	$a1,%hi(g_Props)
+/*  f085720:	3c058008 */ 	lui	$a1,%hi(g_ModelStates)
 /*  f085724:	ad410000 */ 	sw	$at,0x0($t2)
 /*  f085728:	8f090004 */ 	lw	$t1,0x4($t8)
 /*  f08572c:	00ac2821 */ 	addu	$a1,$a1,$t4
@@ -35628,7 +35628,7 @@ glabel var7f1aab30
 /*  f08573c:	acf9005c */ 	sw	$t9,0x5c($a3)
 /*  f085740:	afa700a0 */ 	sw	$a3,0xa0($sp)
 /*  f085744:	0fc1a94b */ 	jal	func0f06a52c
-/*  f085748:	8ca5b06c */ 	lw	$a1,%lo(g_Props)($a1)
+/*  f085748:	8ca5b06c */ 	lw	$a1,%lo(g_ModelStates)($a1)
 /*  f08574c:	1040007f */ 	beqz	$v0,.L0f08594c
 /*  f085750:	8fa700a0 */ 	lw	$a3,0xa0($sp)
 /*  f085754:	8ce40014 */ 	lw	$a0,0x14($a3)
@@ -40163,7 +40163,7 @@ void func0f089d64(struct hatobj *hat, struct chrdata *chr)
 
 	propLoad(modelnum);
 
-	func0f089c70(hat, chr, g_Props[modelnum].filedata, 0, 0);
+	func0f089c70(hat, chr, g_ModelStates[modelnum].filedata, 0, 0);
 }
 
 void hatAssignToChr(struct hatobj *hat, struct chrdata *chr)
@@ -40184,10 +40184,10 @@ glabel chrTryEquipHat
 /*  f089df8:	0fc2486d */ 	jal	propLoad
 /*  f089dfc:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f089e00:	8fae00a4 */ 	lw	$t6,0xa4($sp)
-/*  f089e04:	3c188008 */ 	lui	$t8,%hi(g_Props)
+/*  f089e04:	3c188008 */ 	lui	$t8,%hi(g_ModelStates)
 /*  f089e08:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f089e0c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f089e10:	8f18b06c */ 	lw	$t8,%lo(g_Props)($t8)
+/*  f089e10:	8f18b06c */ 	lw	$t8,%lo(g_ModelStates)($t8)
 /*  f089e14:	0fc180d6 */ 	jal	propAllocate
 /*  f089e18:	afb8009c */ 	sw	$t8,0x9c($sp)
 /*  f089e1c:	00408025 */ 	or	$s0,$v0,$zero
@@ -41623,7 +41623,7 @@ void func0f08b208(struct weaponobj *weapon, struct chrdata *chr)
 	s32 modelnum = weapon->base.modelnum;
 
 	propLoad(modelnum);
-	func0f08b108(weapon, chr, g_Props[modelnum].filedata, 0, 0);
+	func0f08b108(weapon, chr, g_ModelStates[modelnum].filedata, 0, 0);
 }
 
 void func0f08b25c(struct weaponobj *weapon, struct chrdata *chr)
@@ -41673,7 +41673,7 @@ glabel var7f1aae98
 /*  f08b2e0:	8fa400a8 */ 	lw	$a0,0xa8($sp)
 /*  f08b2e4:	8faa0094 */ 	lw	$t2,0x94($sp)
 /*  f08b2e8:	8fb900a8 */ 	lw	$t9,0xa8($sp)
-/*  f08b2ec:	3c098008 */ 	lui	$t1,%hi(g_Props)
+/*  f08b2ec:	3c098008 */ 	lui	$t1,%hi(g_ModelStates)
 /*  f08b2f0:	000a5880 */ 	sll	$t3,$t2,0x2
 /*  f08b2f4:	016a5823 */ 	subu	$t3,$t3,$t2
 /*  f08b2f8:	000b5880 */ 	sll	$t3,$t3,0x2
@@ -41681,7 +41681,7 @@ glabel var7f1aae98
 /*  f08b300:	01284821 */ 	addu	$t1,$t1,$t0
 /*  f08b304:	3c0c8007 */ 	lui	$t4,%hi(g_ThrownLaptops)
 /*  f08b308:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f08b30c:	8d29b06c */ 	lw	$t1,%lo(g_Props)($t1)
+/*  f08b30c:	8d29b06c */ 	lw	$t1,%lo(g_ModelStates)($t1)
 /*  f08b310:	8d8c9968 */ 	lw	$t4,%lo(g_ThrownLaptops)($t4)
 /*  f08b314:	000b5880 */ 	sll	$t3,$t3,0x2
 /*  f08b318:	016a5823 */ 	subu	$t3,$t3,$t2
@@ -41992,10 +41992,10 @@ glabel var7f1aaf24
 /*  f08b670:	0fc2486d */ 	jal	propLoad
 /*  f08b674:	afa600a8 */ 	sw	$a2,0xa8($sp)
 /*  f08b678:	8fae00a0 */ 	lw	$t6,0xa0($sp)
-/*  f08b67c:	3c188008 */ 	lui	$t8,%hi(g_Props)
+/*  f08b67c:	3c188008 */ 	lui	$t8,%hi(g_ModelStates)
 /*  f08b680:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f08b684:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f08b688:	8f18b06c */ 	lw	$t8,%lo(g_Props)($t8)
+/*  f08b688:	8f18b06c */ 	lw	$t8,%lo(g_ModelStates)($t8)
 /*  f08b68c:	0fc180d6 */ 	jal	propAllocate
 /*  f08b690:	afb8009c */ 	sw	$t8,0x9c($sp)
 /*  f08b694:	00408825 */ 	or	$s1,$v0,$zero
@@ -42176,10 +42176,10 @@ glabel func0f08b8e8
 /*  f08b914:	0fc2486d */ 	jal	propLoad
 /*  f08b918:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f08b91c:	8faf00a4 */ 	lw	$t7,0xa4($sp)
-/*  f08b920:	3c198008 */ 	lui	$t9,%hi(g_Props)
+/*  f08b920:	3c198008 */ 	lui	$t9,%hi(g_ModelStates)
 /*  f08b924:	000fc0c0 */ 	sll	$t8,$t7,0x3
 /*  f08b928:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f08b92c:	8f39b06c */ 	lw	$t9,%lo(g_Props)($t9)
+/*  f08b92c:	8f39b06c */ 	lw	$t9,%lo(g_ModelStates)($t9)
 /*  f08b930:	afb900b4 */ 	sw	$t9,0xb4($sp)
 .L0f08b934:
 /*  f08b934:	0fc180d6 */ 	jal	propAllocate
@@ -44238,10 +44238,10 @@ glabel var7f1aaf78
 /*  f08d5a8:	0c005746 */ 	jal	func00015d18
 /*  f08d5ac:	27a50038 */ 	addiu	$a1,$sp,0x38
 /*  f08d5b0:	86090004 */ 	lh	$t1,0x4($s0)
-/*  f08d5b4:	3c0b8008 */ 	lui	$t3,%hi(g_Props+0x6)
+/*  f08d5b4:	3c0b8008 */ 	lui	$t3,%hi(g_ModelStates+0x6)
 /*  f08d5b8:	000950c0 */ 	sll	$t2,$t1,0x3
 /*  f08d5bc:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f08d5c0:	956bb072 */ 	lhu	$t3,%lo(g_Props+0x6)($t3)
+/*  f08d5c0:	956bb072 */ 	lhu	$t3,%lo(g_ModelStates+0x6)($t3)
 /*  f08d5c4:	448b2000 */ 	mtc1	$t3,$f4
 /*  f08d5c8:	05610005 */ 	bgez	$t3,.L0f08d5e0
 /*  f08d5cc:	468021a0 */ 	cvt.s.w	$f6,$f4

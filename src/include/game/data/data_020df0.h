@@ -55,7 +55,7 @@ extern struct stagethinglist stagethinglist_20fb8;
 extern struct stagethinglist stagethinglist_20fd8;
 extern struct stagethinglist stagethinglist_20fe8;
 extern struct stagethinglist stagethinglist_20ff8;
-extern struct propdefinition g_Props[];
+extern struct modelstate g_ModelStates[441];
 extern u8 propexplosiontypes[];
 extern struct stagethinglist stagethinglist_2208c;
 extern struct stagethinglist stagethinglist_220d0;
