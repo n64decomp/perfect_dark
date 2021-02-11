@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "boot/sched.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_00e460.h"
@@ -640,6 +641,79 @@ glabel func0f1766b4
 /*  f176c38:	03e00008 */ 	jr	$ra
 /*  f176c3c:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
+
+// Mismatch: Need to know more about the stack variables and
+// bootbufferthingdeep->unk0c.
+//Gfx *func0f1766b4(Gfx *gdl)
+//{
+//	struct bootbufferthing *thing = bbufGetIndex0Buffer();
+//	u32 sp4c = (u32) var800844f0;
+//	s32 s4 = 0;
+//	u32 sp44;
+//	s32 i;
+//
+//	viGetUnk28();
+//	sp44 = (u32)func0f176668(g_BootBufferIndex0);
+//	g_BootBufferDirtyIndexes[g_BootBufferIndex0] = 1;
+//
+//	gDPPipeSync(gdl++);
+//	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufX(), OS_PHYSICAL_TO_K0(sp44));
+//	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, 320, 240);
+//	gDPSetCycleType(gdl++, G_CYC_COPY);
+//	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, 5, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+//	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0080, 4, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+//	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 160, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+//	gDPSetTile(gdl++, G_IM_FMT_I, G_IM_SIZ_8b, 160, 0x0080, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, 15);
+//	gSPTexture(gdl++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
+//	gDPSetEnvColor(gdl++, 0xff, 0xff, 0xff, 0xff);
+//	gDPSetPrimColor(gdl++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+//	gDPSetRenderMode(gdl++, G_RM_NOOP, G_RM_NOOP2);
+//	gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
+//	gDPSetTextureFilter(gdl++, G_TF_POINT);
+//	gDPSetTexturePersp(gdl++, G_TP_NONE);
+//	gDPSetColorDither(gdl++, G_CD_DISABLE);
+//	gDPSetAlphaDither(gdl++, G_AD_DISABLE);
+//	gDPSetTextureLOD(gdl++, G_TL_TILE);
+//	gDPSetTextureDetail(gdl++, G_TD_CLAMP);
+//	gDPSetTextureLUT(gdl++, G_TT_NONE);
+//	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//	gSPClearGeometryMode(gdl++, G_ZBUFFER);
+//	gDPTileSync(gdl++);
+//
+//	for (i = 0; i < 120; i++) {
+//		if (thing->unk00[i].unk00) {
+//			u32 tmp = viGetX() * thing->unk00[i].unk0c.u16_1 * 2 + sp4c;
+//
+//			gDPPipeSync(gdl++);
+//			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, tmp);
+//			gDPLoadSync(gdl++);
+//			gDPLoadBlock(gdl++, 5, 0, 0, viGetX() - 1, 0);
+//			gDPPipeSync(gdl++);
+//
+//			gSPTextureRectangle(gdl++,
+//					s4 << 2, 0,
+//					(s4 + 3) << 2, 0,
+//					G_TX_RENDERTILE, (thing->unk00[i].unk0c.u16_2 * 32) + 16, 0x0010, 0x1000, 0);
+//
+//			// Note: s4 should have * 2 in the following expression,
+//			// but this produces a shifted codegen.
+//			thing->unk00[i].unk0c.u16p = (u16 *)(s4 + sp44);
+//			s4++;
+//		}
+//	}
+//
+//	gDPPipeSync(gdl++);
+//	gDPLoadSync(gdl++);
+//	gDPTileSync(gdl++);
+//	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufX(), OS_PHYSICAL_TO_K0(viGetUnk28()));
+//	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetX() * 4.0f, viGetY() * 4.0f);
+//	gSPSetGeometryMode(gdl++, G_ZBUFFER);
+//	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//	gDPSetTexturePersp(gdl++, G_TP_PERSP);
+//	gDPSetColorDither(gdl++, G_CD_BAYER);
+//
+//	return gdl;
+//}
 
 s32 stageGetPrimaryTrack(s32 stagenum)
 {

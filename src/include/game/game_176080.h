@@ -10,7 +10,7 @@ void func0f176298(void);
 Gfx *func0f1762ac(Gfx *gdl);
 u32 func0f1763f4(void);
 void *func0f176668(s32 arg0);
-u32 func0f1766b4(void);
+Gfx *func0f1766b4(Gfx *gdl);
 s32 stageGetPrimaryTrack(s32 stagenum);
 s32 stageGetAmbientTrack(s32 stagenum);
 s32 stageGetXTrack(s32 stagenum);

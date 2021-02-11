@@ -404,7 +404,7 @@ void bbufUpdateIndex2Buffer(void)
 			u16 value08 = unk08[0];
 
 			if (g_BootBufferDirtyIndexes[g_BootBufferIndex2] == 1) {
-				u16 *unk0c = deep->unk0c;
+				u16 *unk0c = deep->unk0c.u16p;
 				u16 value0c = unk0c[0];
 
 				if (value0c > value08) {
