@@ -1576,17 +1576,17 @@ glabel func0000aab0
 /*     ab18:	ac20d598 */ 	sw	$zero,%lo(var8005d598)($at)
 );
 
-u32 viGetUnk28(void)
+void *viGetUnk28(void)
 {
 	return g_ViData->unk28;
 }
 
-u32 vi2GetUnk28(void)
+void *vi2GetUnk28(void)
 {
 	return var8005d590->unk28;
 }
 
-void viSetUnk28(u32 arg0)
+void viSetUnk28(void *arg0)
 {
 	g_ViData->unk28 = arg0;
 }

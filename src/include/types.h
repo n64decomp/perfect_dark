@@ -5974,7 +5974,7 @@ struct rend_vidat {
 	/*0x20*/ s16 viewleft;
 	/*0x22*/ s16 viewtop;
 	/*0x24*/ bool usezbuf;
-	/*0x28*/ u32 unk28;
+	/*0x28*/ void *unk28;
 };
 
 struct var80062a8c {

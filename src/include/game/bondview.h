@@ -4,7 +4,7 @@
 #include "types.h"
 
 Gfx *bviewRenderIrRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2);
-Gfx *bviewRenderLensRect(Gfx *gdl, s32 arg1, s32 top, s32 arg3, s32 arg4, f32 arg5, s32 left, s32 width);
+Gfx *bviewRenderLensRect(Gfx *gdl, void *arg1, s32 top, s32 arg3, s32 arg4, f32 arg5, s32 left, s32 width);
 Gfx *bviewRenderFisheyeRect(Gfx *gdl, s32 arg1, f32 arg2, s32 arg3, s32 arg4);
 Gfx *bviewPrepareStaticRgba16(Gfx *gdl, u32 colour, u32 alpha);
 Gfx *bviewPrepareStaticI8(Gfx *gdl, u32 colour, u32 alpha);

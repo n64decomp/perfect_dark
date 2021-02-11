@@ -34,25 +34,12 @@ u32 var80062438 = 0xffffff00;
 u32 var8006243c = 0xffffff00;
 u32 var80062440 = 0x007f0000;
 u32 var80062444 = 0x00000000;
-u32 var80062448 = 0xffffff00;
-u32 var8006244c = 0xffffff00;
-u32 var80062450 = 0x00000000;
-u32 var80062454 = 0x00000000;
-u32 var80062458 = 0x00000000;
-u32 var8006245c = 0x00000000;
-u32 var80062460 = 0x00000000;
-u32 var80062464 = 0x00000000;
-u32 var80062468 = 0x45989800;
-u32 var8006246c = 0x00000000;
-u32 var80062470 = 0x00000000;
-u32 var80062474 = 0xbf800000;
-u32 var80062478 = 0x00000000;
-u32 var8006247c = 0x3f800000;
-u32 var80062480 = 0x00000000;
+Lights1 var80062448 = gdSPDefLights1(0xff, 0xff, 0xff, 0, 0, 0, 0, 0, 0);
+struct coord g_GetitleCamPos = {0, 0, 4883};
+struct coord g_GetitleCamLook = {0, 0, -1};
+struct coord g_GetitleCamUp = {0, 1, 0};
 f32 var80062484 = 0;
-u32 var80062488 = 0x3f800000;
-u32 var8006248c = 0x00000000;
-u32 var80062490 = 0x00000000;
+struct coord var80062488 = {1, 0, 0};
 u32 var80062494 = 0x00000001;
 s32 var80062498 = 0;
 u32 var8006249c = 0x00000000;
@@ -73,20 +60,18 @@ void func0f015470(void)
 	}
 }
 
-Gfx *func0f0155f0(Gfx *gdl, s32 arg1, u32 arg2);
-
 GLOBAL_ASM(
 glabel func0f0155f0
 /*  f0155f0:	44852000 */ 	mtc1	$a1,$f4
 /*  f0155f4:	27bdfef8 */ 	addiu	$sp,$sp,-264
-/*  f0155f8:	3c018006 */ 	lui	$at,%hi(var80062468)
+/*  f0155f8:	3c018006 */ 	lui	$at,%hi(g_GetitleCamPos+0x8)
 /*  f0155fc:	468021a0 */ 	cvt.s.w	$f6,$f4
 /*  f015600:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f015604:	afb00030 */ 	sw	$s0,0x30($sp)
 /*  f015608:	afa60110 */ 	sw	$a2,0x110($sp)
 /*  f01560c:	3c0f8006 */ 	lui	$t7,%hi(var80061360)
 /*  f015610:	25ef1360 */ 	addiu	$t7,$t7,%lo(var80061360)
-/*  f015614:	e4262468 */ 	swc1	$f6,%lo(var80062468)($at)
+/*  f015614:	e4262468 */ 	swc1	$f6,%lo(g_GetitleCamPos+0x8)($at)
 /*  f015618:	3c0e0600 */ 	lui	$t6,0x600
 /*  f01561c:	ac8e0000 */ 	sw	$t6,0x0($a0)
 /*  f015620:	ac8f0004 */ 	sw	$t7,0x4($a0)
@@ -192,10 +177,10 @@ glabel func0f0155f0
 /*  f0157a8:	37182204 */ 	ori	$t8,$t8,0x2204
 /*  f0157ac:	ad0f0000 */ 	sw	$t7,0x0($t0)
 /*  f0157b0:	ad180004 */ 	sw	$t8,0x4($t0)
-/*  f0157b4:	3c098006 */ 	lui	$t1,%hi(var8006246c)
-/*  f0157b8:	3c0c8006 */ 	lui	$t4,%hi(var80062460)
-/*  f0157bc:	258c2460 */ 	addiu	$t4,$t4,%lo(var80062460)
-/*  f0157c0:	2529246c */ 	addiu	$t1,$t1,%lo(var8006246c)
+/*  f0157b4:	3c098006 */ 	lui	$t1,%hi(g_GetitleCamLook)
+/*  f0157b8:	3c0c8006 */ 	lui	$t4,%hi(g_GetitleCamPos)
+/*  f0157bc:	258c2460 */ 	addiu	$t4,$t4,%lo(g_GetitleCamPos)
+/*  f0157c0:	2529246c */ 	addiu	$t1,$t1,%lo(g_GetitleCamLook)
 /*  f0157c4:	c5320000 */ 	lwc1	$f18,0x0($t1)
 /*  f0157c8:	c5800000 */ 	lwc1	$f0,0x0($t4)
 /*  f0157cc:	c5260004 */ 	lwc1	$f6,0x4($t1)
@@ -203,8 +188,8 @@ glabel func0f0155f0
 /*  f0157d4:	46009100 */ 	add.s	$f4,$f18,$f0
 /*  f0157d8:	c52a0008 */ 	lwc1	$f10,0x8($t1)
 /*  f0157dc:	c58c0008 */ 	lwc1	$f12,0x8($t4)
-/*  f0157e0:	3c0a8006 */ 	lui	$t2,%hi(var80062478)
-/*  f0157e4:	254a2478 */ 	addiu	$t2,$t2,%lo(var80062478)
+/*  f0157e0:	3c0a8006 */ 	lui	$t2,%hi(g_GetitleCamUp)
+/*  f0157e4:	254a2478 */ 	addiu	$t2,$t2,%lo(g_GetitleCamUp)
 /*  f0157e8:	3c198006 */ 	lui	$t9,%hi(var80062410)
 /*  f0157ec:	46023200 */ 	add.s	$f8,$f6,$f2
 /*  f0157f0:	8f392410 */ 	lw	$t9,%lo(var80062410)($t9)
@@ -267,8 +252,8 @@ glabel func0f0155f0
 /*  f0158d4:	acf80000 */ 	sw	$t8,0x0($a3)
 /*  f0158d8:	acf90004 */ 	sw	$t9,0x4($a3)
 /*  f0158dc:	3c0e0386 */ 	lui	$t6,0x386
-/*  f0158e0:	3c0f8006 */ 	lui	$t7,%hi(var80062450)
-/*  f0158e4:	25ef2450 */ 	addiu	$t7,$t7,%lo(var80062450)
+/*  f0158e0:	3c0f8006 */ 	lui	$t7,%hi(var80062448+0x8)
+/*  f0158e4:	25ef2450 */ 	addiu	$t7,$t7,%lo(var80062448+0x8)
 /*  f0158e8:	35ce0010 */ 	ori	$t6,$t6,0x10
 /*  f0158ec:	26100008 */ 	addiu	$s0,$s0,0x8
 /*  f0158f0:	3c038006 */ 	lui	$v1,%hi(var80062448)
@@ -606,6 +591,100 @@ glabel func0f0155f0
 /*  f015dfc:	03e00008 */ 	jr	$ra
 /*  f015e00:	27bd0108 */ 	addiu	$sp,$sp,0x108
 );
+
+extern u8 var020043f8;
+extern u8 var02004468;
+extern u8 var02004700;
+extern u8 var02004d28;
+extern u8 var02004dc8;
+extern u8 var02005dd0;
+
+Gfx *func0f0155f0(Gfx *gdl, s32 arg1, u32 arg2);
+
+// Mismatch: arg2 is should be accessed using lbu. Changing it a to a u8 does
+// this and creates a match, but causes the caller to cast it to u8 which
+// creates a mismatch in the caller. GE uses lw so it's likely a u32.
+//Gfx *func0f0155f0(Gfx *gdl, s32 arg1, u32 arg2)
+//{
+//	g_GetitleCamPos.z = arg1;
+//
+//	gSPDisplayList(gdl++, &var80061360);
+//
+//	if (var80062494) {
+//		gdl = func0f01afc0(gdl);
+//		var80062494 = 0;
+//	} else {
+//		gDPSetCycleType(gdl++, G_CYC_FILL);
+//		gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetX(), osVirtualToPhysical(viGetUnk28()));
+//		gDPSetFillColor(gdl++, 0x00010001);
+//		gDPFillRectangle(gdl++, 200, 100, 439, 379);
+//	}
+//
+//	{
+//		u16 perspnorm;
+//		guPerspective(&var8009cc80[var80062410], &perspnorm, 60, 320.0f / 240.0f, 100, 5000, 1);
+//		gSPPerspNormalize(gdl++, perspnorm);
+//	}
+//
+//	gSPMatrix(gdl++, osVirtualToPhysical(&var8009cc80[var80062410]), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+//	gSPClearGeometryMode(gdl++, 0xffffffff);
+//	gSPSetGeometryMode(gdl++, G_SHADE | G_CULL_BACK | G_LIGHTING | G_TEXTURE_GEN | G_SHADING_SMOOTH);
+//
+//	guLookAt(&var8009cc84[var80062410],
+//			g_GetitleCamPos.x, g_GetitleCamPos.y, g_GetitleCamPos.z,
+//			g_GetitleCamLook.x + g_GetitleCamPos.x, g_GetitleCamLook.y + g_GetitleCamPos.y, g_GetitleCamLook.z + g_GetitleCamPos.z,
+//			g_GetitleCamUp.x, g_GetitleCamUp.y, g_GetitleCamUp.z);
+//
+//	gSPMatrix(gdl++, osVirtualToPhysical(&var8009cc84[var80062410]), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+//	gSPMatrix(gdl++, osVirtualToPhysical(&var8009cc88[var80062410]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+//
+//	gSPSetLights1(gdl++, var80062448);
+//
+//	{
+//		struct coord dir = var80062488;
+//
+//		guNormalize(&dir.x, &dir.y, &dir.z);
+//
+//		var80062448.a.l.col[0] = 0;
+//		var80062448.a.l.col[1] = 0;
+//		var80062448.a.l.col[2] = 0;
+//		var80062448.a.l.colc[0] = 0;
+//		var80062448.a.l.colc[1] = 0;
+//		var80062448.a.l.colc[2] = 0;
+//
+//		var80062448.l[0].l.col[0] = arg2;
+//		var80062448.l[0].l.col[1] = arg2;
+//		var80062448.l[0].l.col[2] = arg2;
+//		var80062448.l[0].l.colc[0] = var80062448.l[0].l.col[0];
+//		var80062448.l[0].l.colc[1] = var80062448.l[0].l.col[0];
+//		var80062448.l[0].l.colc[2] = var80062448.l[0].l.col[0];
+//
+//		var80062448.l[0].l.dir[0] = (u32)(dir.x * 127.0f);
+//		var80062448.l[0].l.dir[1] = (u32)(dir.y * 127.0f);
+//		var80062448.l[0].l.dir[2] = (u32)(dir.z * 127.0f);
+//
+//		gDPPipeSync(gdl++);
+//		gDPPipeSync(gdl++);
+//		gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
+//		gDPSetTexturePersp(gdl++, G_TP_PERSP);
+//		gDPSetTextureDetail(gdl++, G_TD_CLAMP);
+//		gDPSetTextureLOD(gdl++, G_TL_TILE);
+//		gDPSetTextureLUT(gdl++, G_TT_NONE);
+//		gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//		gDPSetTextureConvert(gdl++, G_TC_FILT);
+//		gDPPipeSync(gdl++);
+//		gDPPipeSync(gdl++);
+//		gSPTexture(gdl++, 0x0800, 0x0800, 0, G_TX_RENDERTILE, G_ON);
+//		gDPLoadTextureBlock(gdl++, &var02004dc8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
+//		gSPDisplayList(gdl++, &var020043f8);
+//		gSPDisplayList(gdl++, &var02004468);
+//		gDPLoadTextureBlock(gdl++, &var02005dd0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
+//		gSPDisplayList(gdl++, &var02004700);
+//		gSPDisplayList(gdl++, &var02004d28);
+//	}
+//
+//	return gdl;
+//}
 
 extern u8 _unknown2SegmentRomStart;
 extern u8 _unknown2SegmentStart;

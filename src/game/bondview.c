@@ -492,7 +492,7 @@ Gfx *bviewPrepareStaticI8(Gfx *gdl, u32 colour, u32 alpha)
 
 Gfx *bviewRenderMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
 {
-	s32 unk28 = vi2GetUnk28();
+	void *unk28 = vi2GetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	f32 fxxx;
@@ -541,12 +541,12 @@ Gfx *bviewRenderMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
 
 Gfx *bviewRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
 {
-	s32 unk28 = vi2GetUnk28();
+	void *unk28 = vi2GetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
 	s32 viewleft = viGetViewLeft();
-	s32 rand = random() & 0xfff00 | 0x80000000;
+	void *ptr = (void *)(random() & 0xfff00 | 0x80000000);
 	s32 y;
 
 	gDPPipeSync(gdl++);
@@ -554,10 +554,10 @@ Gfx *bviewRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
 	gdl = bviewPrepareStaticI8(gdl, arg1, arg2);
 
 	for (y = viewtop; y < viewtop + viewheight; y++) {
-		gdl = bviewRenderLensRect(gdl, rand, random() % 240, 5, y, 1.0f, viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, ptr, random() % 240, 5, y, 1.0f, viewleft, viewwidth);
 	}
 
-	if (rand) {
+	if (ptr) {
 		// empty
 	}
 
@@ -566,7 +566,7 @@ Gfx *bviewRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
 
 Gfx *bviewRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 {
-	s32 sp7c = viGetUnk28();
+	void *sp7c = viGetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
@@ -611,7 +611,7 @@ Gfx *bviewRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 
 Gfx *bviewRenderFilmLens(Gfx *gdl, u32 colour, u32 alpha)
 {
-	s32 unk28 = viGetUnk28();
+	void *unk28 = viGetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 y;
@@ -661,7 +661,7 @@ Gfx *bviewRenderFilmLens(Gfx *gdl, u32 colour, u32 alpha)
  */
 Gfx *bviewRenderZoomBlur(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
 {
-	s32 unk28 = vi2GetUnk28();
+	void *unk28 = vi2GetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
@@ -6473,7 +6473,7 @@ glabel bviewRenderNvLens
 // and regalloc near random().
 //Gfx *bviewRenderNvLens(Gfx *gdl)
 //{
-//	s32 unk28 = viGetUnk28();
+//	void *unk28 = viGetUnk28();
 //	s32 viewheight = viGetViewHeight();
 //	s32 viewwidth = viGetViewWidth();
 //	s32 viewtop = viGetViewTop();
@@ -7058,7 +7058,7 @@ glabel bviewRenderIrLens
  */
 Gfx *bviewRenderRarePresents(Gfx *gdl)
 {
-	s32 unk28 = viGetUnk28();
+	void *unk28 = viGetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
@@ -7088,7 +7088,7 @@ u8 var8007f878 = 0;
 
 Gfx *bviewRenderHorizonScanner(Gfx *gdl)
 {
-	s32 sp194 = viGetUnk28();
+	void *sp194 = viGetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
