@@ -258,31 +258,26 @@ glabel func0f1763f4
 /*  f176664:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-GLOBAL_ASM(
-glabel func0f176668
-/*  f176668:	14800004 */ 	bnez	$a0,.L0f17667c
-/*  f17666c:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f176670:	3c03800b */ 	lui	$v1,%hi(var800ab7c8)
-/*  f176674:	2463b7c8 */ 	addiu	$v1,$v1,%lo(var800ab7c8)
-/*  f176678:	afa30004 */ 	sw	$v1,0x4($sp)
-.L0f17667c:
-/*  f17667c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f176680:	14810003 */ 	bne	$a0,$at,.L0f176690
-/*  f176684:	8fa30004 */ 	lw	$v1,0x4($sp)
-/*  f176688:	3c03800b */ 	lui	$v1,%hi(var800abac8)
-/*  f17668c:	2463bac8 */ 	addiu	$v1,$v1,%lo(var800abac8)
-.L0f176690:
-/*  f176690:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f176694:	14810003 */ 	bne	$a0,$at,.L0f1766a4
-/*  f176698:	27bd0008 */ 	addiu	$sp,$sp,0x8
-/*  f17669c:	3c03800b */ 	lui	$v1,%hi(var800abdc8)
-/*  f1766a0:	2463bdc8 */ 	addiu	$v1,$v1,%lo(var800abdc8)
-.L0f1766a4:
-/*  f1766a4:	2463003f */ 	addiu	$v1,$v1,0x3f
-/*  f1766a8:	2401ffc0 */ 	addiu	$at,$zero,-64
-/*  f1766ac:	03e00008 */ 	jr	$ra
-/*  f1766b0:	00611024 */ 	and	$v0,$v1,$at
-);
+void *func0f176668(s32 arg0)
+{
+	void *addr;
+
+	if (arg0 == 0) {
+		addr = &var800ab7c8;
+	}
+
+	if (arg0 == 1) {
+		addr = &var800abac8;
+	}
+
+	if (arg0 == 2) {
+		addr = &var800abdc8;
+	}
+
+	addr = (void *)(((u32)addr + 0x3f) & ~0x3f);
+
+	return addr;
+}
 
 GLOBAL_ASM(
 glabel func0f1766b4
