@@ -17,12 +17,10 @@
 #include "lib/memory.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f176080
-/*  f176080:	3c028008 */ 	lui	$v0,%hi(var800844f0)
-/*  f176084:	03e00008 */ 	jr	$ra
-/*  f176088:	8c4244f0 */ 	lw	$v0,%lo(var800844f0)($v0)
-);
+void *func0f176080(void)
+{
+	return var800844f0;
+}
 
 void func0f17608c(s32 stagenum)
 {
