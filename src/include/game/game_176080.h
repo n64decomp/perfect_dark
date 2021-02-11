@@ -8,7 +8,7 @@ void func0f17608c(s32 stagenum);
 void func0f1760c4(void);
 void func0f176298(void);
 Gfx *func0f1762ac(Gfx *gdl);
-u32 func0f1763f4(void);
+Gfx *func0f1763f4(Gfx *gdl);
 void *func0f176668(s32 arg0);
 Gfx *func0f1766b4(Gfx *gdl);
 s32 stageGetPrimaryTrack(s32 stagenum);
