@@ -62,99 +62,30 @@ void func0f176298(void)
 	var800844f4 = var800844f0;
 }
 
-GLOBAL_ASM(
-glabel func0f1762ac
-/*  f1762ac:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f1762b0:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f1762b4:	8c4e0318 */ 	lw	$t6,0x318($v0)
-/*  f1762b8:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f1762bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1762c0:	11c0003a */ 	beqz	$t6,.L0f1763ac
-/*  f1762c4:	00803825 */ 	or	$a3,$a0,$zero
-/*  f1762c8:	8c46028c */ 	lw	$a2,0x28c($v0)
-/*  f1762cc:	28c10002 */ 	slti	$at,$a2,0x2
-/*  f1762d0:	10200020 */ 	beqz	$at,.L0f176354
-/*  f1762d4:	00000000 */ 	nop
-/*  f1762d8:	8c4f006c */ 	lw	$t7,0x6c($v0)
-/*  f1762dc:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1762e0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1762e4:	11e00003 */ 	beqz	$t7,.L0f1762f4
-/*  f1762e8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1762ec:	10000001 */ 	b	.L0f1762f4
-/*  f1762f0:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f1762f4:
-/*  f1762f4:	8c580068 */ 	lw	$t8,0x68($v0)
-/*  f1762f8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1762fc:	13000003 */ 	beqz	$t8,.L0f17630c
-/*  f176300:	00000000 */ 	nop
-/*  f176304:	10000001 */ 	b	.L0f17630c
-/*  f176308:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f17630c:
-/*  f17630c:	8c590064 */ 	lw	$t9,0x64($v0)
-/*  f176310:	13200003 */ 	beqz	$t9,.L0f176320
-/*  f176314:	00000000 */ 	nop
-/*  f176318:	10000001 */ 	b	.L0f176320
-/*  f17631c:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f176320:
-/*  f176320:	8c480070 */ 	lw	$t0,0x70($v0)
-/*  f176324:	00001025 */ 	or	$v0,$zero,$zero
-/*  f176328:	11000003 */ 	beqz	$t0,.L0f176338
-/*  f17632c:	00000000 */ 	nop
-/*  f176330:	10000001 */ 	b	.L0f176338
-/*  f176334:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f176338:
-/*  f176338:	00444821 */ 	addu	$t1,$v0,$a0
-/*  f17633c:	01235021 */ 	addu	$t2,$t1,$v1
-/*  f176340:	01455821 */ 	addu	$t3,$t2,$a1
-/*  f176344:	15610019 */ 	bne	$t3,$at,.L0f1763ac
-/*  f176348:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f17634c:	54c10018 */ 	bnel	$a2,$at,.L0f1763b0
-/*  f176350:	00003025 */ 	or	$a2,$zero,$zero
-.L0f176354:
-/*  f176354:	0fc2f113 */ 	jal	viGetFbWidth
-/*  f176358:	afa70040 */ 	sw	$a3,0x40($sp)
-/*  f17635c:	0fc2f11e */ 	jal	viGetFbHeight
-/*  f176360:	a7a2001e */ 	sh	$v0,0x1e($sp)
-/*  f176364:	87ac001e */ 	lh	$t4,0x1e($sp)
-/*  f176368:	3c0d8009 */ 	lui	$t5,%hi(g_Is4Mb)
-/*  f17636c:	91ad0af0 */ 	lbu	$t5,%lo(g_Is4Mb)($t5)
-/*  f176370:	004c0019 */ 	multu	$v0,$t4
-/*  f176374:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f176378:	8fa70040 */ 	lw	$a3,0x40($sp)
-/*  f17637c:	00003012 */ 	mflo	$a2
-/*  f176380:	11a10008 */ 	beq	$t5,$at,.L0f1763a4
-/*  f176384:	00000000 */ 	nop
-/*  f176388:	afa6003c */ 	sw	$a2,0x3c($sp)
-/*  f17638c:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f176390:	afa70040 */ 	sw	$a3,0x40($sp)
-/*  f176394:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f176398:	8fa6003c */ 	lw	$a2,0x3c($sp)
-/*  f17639c:	14410004 */ 	bne	$v0,$at,.L0f1763b0
-/*  f1763a0:	8fa70040 */ 	lw	$a3,0x40($sp)
-.L0f1763a4:
-/*  f1763a4:	10000002 */ 	b	.L0f1763b0
-/*  f1763a8:	00003025 */ 	or	$a2,$zero,$zero
-.L0f1763ac:
-/*  f1763ac:	00003025 */ 	or	$a2,$zero,$zero
-.L0f1763b0:
-/*  f1763b0:	3c0e8008 */ 	lui	$t6,%hi(var800844f4)
-/*  f1763b4:	8dce44f4 */ 	lw	$t6,%lo(var800844f4)($t6)
-/*  f1763b8:	3c18e700 */ 	lui	$t8,0xe700
-/*  f1763bc:	2401ffc0 */ 	addiu	$at,$zero,-64
-/*  f1763c0:	acf80000 */ 	sw	$t8,0x0($a3)
-/*  f1763c4:	ace00004 */ 	sw	$zero,0x4($a3)
-/*  f1763c8:	24e50008 */ 	addiu	$a1,$a3,0x8
-/*  f1763cc:	01c61823 */ 	subu	$v1,$t6,$a2
-/*  f1763d0:	00617824 */ 	and	$t7,$v1,$at
-/*  f1763d4:	3c19fe00 */ 	lui	$t9,0xfe00
-/*  f1763d8:	acb90000 */ 	sw	$t9,0x0($a1)
-/*  f1763dc:	acaf0004 */ 	sw	$t7,0x4($a1)
-/*  f1763e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1763e4:	24a20008 */ 	addiu	$v0,$a1,0x8
-/*  f1763e8:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f1763ec:	03e00008 */ 	jr	$ra
-/*  f1763f0:	00000000 */ 	nop
-);
+Gfx *func0f1762ac(Gfx *gdl)
+{
+	u32 subamount;
+	u32 addr;
+
+	if (g_Vars.normmplayerisrunning
+			&& (g_Vars.currentplayernum >= 2 || (PLAYERCOUNT() == 2 && g_Vars.currentplayernum == 1))) {
+		subamount = viGetFbWidth() * viGetFbHeight();
+
+		if (IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+			subamount = 0;
+		}
+	} else {
+		subamount = 0;
+	}
+
+	addr = (u32)var800844f4 - subamount;
+	addr &= ~0x3f;
+
+	gDPPipeSync(gdl++);
+	gDPSetDepthImage(gdl++, addr);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f1763f4
