@@ -6980,4 +6980,13 @@ struct animationdefinition {
 	u8 flags;
 };
 
+struct var80094ae8 {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+};
+
 #endif

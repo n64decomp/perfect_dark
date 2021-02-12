@@ -206,61 +206,25 @@ void dmaCheckPiracy(void *memaddr, u32 len)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0000d350
-/*     d350:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*     d354:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*     d358:	3c128009 */ 	lui	$s2,%hi(var80094ae0)
-/*     d35c:	26524ae0 */ 	addiu	$s2,$s2,%lo(var80094ae0)
-/*     d360:	8e4e0000 */ 	lw	$t6,0x0($s2)
-/*     d364:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     d368:	afb50028 */ 	sw	$s5,0x28($sp)
-/*     d36c:	afb40024 */ 	sw	$s4,0x24($sp)
-/*     d370:	afb30020 */ 	sw	$s3,0x20($sp)
-/*     d374:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     d378:	11c0001c */ 	beqz	$t6,.L0000d3ec
-/*     d37c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     d380:	3c158009 */ 	lui	$s5,%hi(var80094de8)
-/*     d384:	3c138009 */ 	lui	$s3,%hi(var80094e88)
-/*     d388:	26734e88 */ 	addiu	$s3,$s3,%lo(var80094e88)
-/*     d38c:	26b54de8 */ 	addiu	$s5,$s5,%lo(var80094de8)
-/*     d390:	27b40040 */ 	addiu	$s4,$sp,0x40
-/*     d394:	24110020 */ 	addiu	$s1,$zero,0x20
-/*     d398:	02602025 */ 	or	$a0,$s3,$zero
-.L0000d39c:
-/*     d39c:	02802825 */ 	or	$a1,$s4,$zero
-/*     d3a0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     d3a4:	0c0121bc */ 	jal	osRecvMesg
-/*     d3a8:	00008025 */ 	or	$s0,$zero,$zero
-/*     d3ac:	3c028009 */ 	lui	$v0,%hi(var80094ae8)
-/*     d3b0:	24424ae8 */ 	addiu	$v0,$v0,%lo(var80094ae8)
-/*     d3b4:	8fa30040 */ 	lw	$v1,0x40($sp)
-.L0000d3b8:
-/*     d3b8:	50620005 */ 	beql	$v1,$v0,.L0000d3d0
-/*     d3bc:	02b07821 */ 	addu	$t7,$s5,$s0
-/*     d3c0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     d3c4:	1611fffc */ 	bne	$s0,$s1,.L0000d3b8
-/*     d3c8:	24420018 */ 	addiu	$v0,$v0,0x18
-/*     d3cc:	02b07821 */ 	addu	$t7,$s5,$s0
-.L0000d3d0:
-/*     d3d0:	a1e00000 */ 	sb	$zero,0x0($t7)
-/*     d3d4:	8e420000 */ 	lw	$v0,0x0($s2)
-/*     d3d8:	2458ffff */ 	addiu	$t8,$v0,-1
-/*     d3dc:	ae580000 */ 	sw	$t8,0x0($s2)
-/*     d3e0:	8e590000 */ 	lw	$t9,0x0($s2)
-/*     d3e4:	5720ffed */ 	bnezl	$t9,.L0000d39c
-/*     d3e8:	02602025 */ 	or	$a0,$s3,$zero
-.L0000d3ec:
-/*     d3ec:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*     d3f0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*     d3f4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*     d3f8:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*     d3fc:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*     d400:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*     d404:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*     d408:	03e00008 */ 	jr	$ra
-/*     d40c:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+void func0000d350(void)
+{
+	u32 stack;
+	struct var80094ae8 *msg;
+	s32 i;
+
+	while (var80094ae0) {
+		osRecvMesg(&var80094e88, (OSMesg) &msg, OS_MESG_BLOCK);
+
+		for (i = 0; i < ARRAYCOUNT(var80094ae8); i++) {
+			if (&var80094ae8[i] == msg) {
+				break;
+			}
+		}
+
+		var80094de8[i] = 0;
+		var80094ae0--;
+	}
+}
 
 void func0000d410(void *memaddr, void *romaddr, u32 len)
 {
