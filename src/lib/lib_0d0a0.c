@@ -43,6 +43,20 @@ glabel func0000d0a0
 /*     d0f4:	00000000 */ 	nop
 );
 
+// Mismatch: The store to var80094ae0 is done differently.
+//void func0000d0a0(void)
+//{
+//	s32 i;
+//
+//	for (i = 0; i < ARRAYCOUNT(var80094de8); i++) {
+//		var80094de8[i] = 0;
+//	}
+//
+//	var80094ae0 = 0;
+//
+//	osCreateMesgQueue(&var80094e88, &var80094e08, 0x20);
+//}
+
 GLOBAL_ASM(
 glabel func0000d0f8
 /*     d0f8:	27bdffa8 */ 	addiu	$sp,$sp,-88
