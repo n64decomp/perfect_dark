@@ -33,14 +33,21 @@
 #define MPSTRINGS(lang) \
 	BEGIN_SEG(mpstrings##lang) \
 	{ \
-		build/ROMID/mpstrings/ROMID/mpstrings##lang.o (.data); \
+		build/ROMID/assets/mpstrings/ROMID/mpstrings##lang.o (.data); \
 	} \
 	END_SEG(mpstrings##lang)
+
+#define FILE(id, filename, varname) \
+	varname = __rompos; \
+	.file##id : AT(__rompos) { \
+		build/ROMID/assets/files/filename.o (.data); \
+	} \
+	__rompos += SIZEOF(.file##id)
 
 #define FONT(name) \
 	BEGIN_SEG(font##name) \
 	{ \
-		build/ROMID/font##name.o (.data); \
+		build/ROMID/assets/fonts/name.o (.data); \
 	} \
 	END_SEG(font##name)
 
@@ -171,7 +178,7 @@ SECTIONS
 
 	BEGIN_SEG(rspboot)
 	{
-		build/ROMID/rspboot.o (.data);
+		build/ROMID/assets/rspboot.o (.data);
 	}
 	END_SEG(rspboot)
 
@@ -317,7 +324,7 @@ SECTIONS
 
 	BEGIN_SEG(animations)
 	{
-		build/ROMID/animations.o (.data);
+		build/ROMID/assets/animations.o (.data);
 	}
 	END_SEG(animations)
 
@@ -334,7 +341,7 @@ SECTIONS
 
 	BEGIN_SEG(mpconfigs)
 	{
-		build/ROMID/mpconfigs/mpconfigs.o (.data);
+		build/ROMID/assets/mpconfigs.o (.data);
 	}
 	END_SEG(mpconfigs)
 
@@ -364,7 +371,7 @@ SECTIONS
 
 	BEGIN_SEG(firingrange)
 	{
-		build/ROMID/firingrange/firingrange.o (.data);
+		build/ROMID/assets/firingrange.o (.data);
 	}
 	END_SEG(firingrange)
 
@@ -380,26 +387,26 @@ SECTIONS
 
 	BEGIN_SEG(textureconfig)
 	{
-		build/ROMID/textureconfig/textureconfig.o (.data);
+		build/ROMID/assets/textures/config.o (.data);
 	}
 	END_SEG(textureconfig)
 
 	/***************************************************************************
-	 * unknown2
+	 * getitle
 	 * -------------------------------------------------------------------------
 	 * ROM range: 0x007ebdc0 - 0x007f2390
 	 * RAM range: N/A
 	 * -------------------------------------------------------------------------
 	 */
 
-	BEGIN_SEG(unknown2)
+	BEGIN_SEG(getitle)
 	{
-		build/ROMID/unknown2.o (.data);
+		build/ROMID/assets/getitle.o (.data);
 	}
-	END_SEG(unknown2)
+	END_SEG(getitle)
 
-	_unknown2SegmentStart = 0x02000000;
-	_unknown2SegmentEnd = 0x020065d0;
+	_getitleSegmentStart = 0x02000000;
+	_getitleSegmentEnd = 0x020065d0;
 	var020043f8 = 0x020043f8;
 	var02004468 = 0x02004468;
 	var02004700 = 0x02004700;
@@ -439,7 +446,7 @@ SECTIONS
 
 	BEGIN_SEG(sfxctl)
 	{
-		build/ROMID/sfx.ctl.o (.data);
+		build/ROMID/assets/sfx.ctl.o (.data);
 	}
 	END_SEG(sfxctl)
 
@@ -453,7 +460,7 @@ SECTIONS
 
 	BEGIN_SEG(sfxtbl)
 	{
-		build/ROMID/sfx.tbl.o (.data);
+		build/ROMID/assets/sfx.tbl.o (.data);
 	}
 	END_SEG(sfxtbl)
 
@@ -467,7 +474,7 @@ SECTIONS
 
 	BEGIN_SEG(seqctl)
 	{
-		build/ROMID/seq.ctl.o (.data);
+		build/ROMID/assets/seq.ctl.o (.data);
 	}
 	END_SEG(seqctl)
 
@@ -481,7 +488,7 @@ SECTIONS
 
 	BEGIN_SEG(seqtbl)
 	{
-		build/ROMID/seq.tbl.o (.data);
+		build/ROMID/assets/seq.tbl.o (.data);
 	}
 	END_SEG(seqtbl)
 
@@ -495,7 +502,7 @@ SECTIONS
 
 	BEGIN_SEG(sequences)
 	{
-		build/ROMID/sequences.o (.data);
+		build/ROMID/assets/sequences.o (.data);
 	}
 	END_SEG(sequences)
 
@@ -510,7 +517,7 @@ SECTIONS
 	. = 0;
 	_filesSegmentRomStart = __rompos;
 
-#include "filesegments.inc"
+#include "../src/assets/files/list.ld"
 
 	_filesSegmentRomEnd = __rompos;
 
@@ -526,8 +533,8 @@ SECTIONS
 
 	BEGIN_SEG(filenames)
 	{
-		build/ROMID/filenames/filenames.o (.data);
-		build/ROMID/filenames/filenames.o (.rodata);
+		build/ROMID/assets/files/list.o (.data);
+		build/ROMID/assets/files/list.o (.rodata);
 	}
 	END_SEG(filenames)
 
@@ -556,7 +563,7 @@ SECTIONS
 
 	BEGIN_SEG(textures)
 	{
-		build/ROMID/textures.o (.data);
+		build/ROMID/assets/textures.o (.data);
 	}
 	END_SEG(textures)
 
@@ -575,7 +582,7 @@ SECTIONS
 
 	BEGIN_SEG(copyright)
 	{
-		build/ROMID/copyright.o (.data);
+		build/ROMID/copyrightZ.o (.data);
 	}
 	END_SEG(copyright)
 
@@ -590,7 +597,7 @@ SECTIONS
 #if VERSION >= VERSION_NTSC_1_0
 	BEGIN_SEG(accessingpak)
 	{
-		build/ROMID/accessingpak.o (.data);
+		build/ROMID/accessingpakZ.o (.data);
 	}
 	END_SEG(accessingpak)
 #else

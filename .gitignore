@@ -2,3 +2,16 @@
 pd.*.z64
 build
 extracted
+src/assets/*.bin
+src/assets/*.ctl
+src/assets/*.tbl
+src/assets/files/audio/*.mp3
+src/assets/files/bgdata/*.bin
+src/assets/files/bgdata/*.seg
+src/assets/files/chrs/*.bin
+src/assets/files/guns/*.bin
+src/assets/files/props/*.bin
+src/assets/fonts/*.bin
+src/assets/garbage/*/*.bin
+src/assets/sequences/*.seq
+src/assets/textures/*.bin

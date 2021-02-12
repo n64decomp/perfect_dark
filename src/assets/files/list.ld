@@ -1,10 +1,14 @@
-#define FILE(id, filename, varname) \
-	varname = __rompos; \
-	.file##id : AT(__rompos) { \
-		build/ROMID/files/filename.o (.data); \
-	} \
-	__rompos += SIZEOF(.file##id)
-
+/**
+ * This file is included by the main linker map file (pd.ld).
+ *
+ * It is preprocessed using the C prepressor, so version constants can be used.
+ *
+ * A file macro is used here to allow easy listing of files. The arguments are:
+ *
+ * - The number of the file, in hex
+ * - The path to the file
+ * - The variable name which will be externed
+ */
 FILE(0001, bgdata/bg_sev.seg,       _file_bg_sev_seg);
 FILE(0002, bgdata/bg_silo.seg,      _file_bg_silo_seg);
 FILE(0003, bgdata/bg_stat.seg,      _file_bg_stat_seg);

@@ -686,13 +686,13 @@ Gfx *func0f0155f0(Gfx *gdl, s32 arg1, u32 arg2);
 //	return gdl;
 //}
 
-extern u8 _unknown2SegmentRomStart;
-extern u8 _unknown2SegmentStart;
-extern u8 _unknown2SegmentEnd;
+extern u8 _getitleSegmentRomStart;
+extern u8 _getitleSegmentStart;
+extern u8 _getitleSegmentEnd;
 
 void getitleInit(void *addr, u32 arg1)
 {
-	u32 len = (u32)&_unknown2SegmentEnd - (u32)&_unknown2SegmentStart;
+	u32 len = (u32)&_getitleSegmentEnd - (u32)&_getitleSegmentStart;
 
 	var80062414 = 0;
 	var8009cc8c = 880;
@@ -700,7 +700,7 @@ void getitleInit(void *addr, u32 arg1)
 	var80062498 = 0;
 	var8009cc90 = addr;
 
-	func0000d410(var8009cc90, &_unknown2SegmentRomStart, ALIGN64(len));
+	func0000d410(var8009cc90, &_getitleSegmentRomStart, ALIGN64(len));
 }
 
 Gfx *getitleRender(Gfx *gdl)

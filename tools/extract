@@ -34,19 +34,19 @@ class Extractor:
         self.extract_rspboot()
         self.extract_textures()
         self.extract_textureconfig()
-        self.extract_unknown2()
+        self.extract_getitle()
 
     def extract_accessingpak(self):
         # ntsc-beta doesn't have this texture
         if self.romid != 'ntsc-beta':
             addr = self.val('copyright') + 0xb30
             data = self.decompress(self.rom[addr:addr+0x8b0])
-            self.write('segments/accessingpak.bin', data)
+            self.write_asset('accessingpak.bin', data)
 
     def extract_animations(self):
         start = self.val('animations')
         end = self.val('mpconfigs')
-        self.write('segments/animations.bin', self.rom[start:end])
+        self.write_asset('animations.bin', self.rom[start:end])
 
     def extract_audio(self):
         sfxctl = self.val('sfxctl')
@@ -54,22 +54,22 @@ class Extractor:
         seqctl = sfxtbl + 0x4c2160
         seqtbl = seqctl + 0xa060
         sequencestbl = seqtbl + 0x17c070
-        self.write('segments/sfx.ctl.bin', self.rom[sfxctl:sfxtbl])
-        self.write('segments/sfx.tbl.bin', self.rom[sfxtbl:seqctl])
-        self.write('segments/seq.ctl.bin', self.rom[seqctl:seqtbl])
-        self.write('segments/seq.tbl.bin', self.rom[seqtbl:sequencestbl])
+        self.write_asset('sfx.ctl', self.rom[sfxctl:sfxtbl])
+        self.write_asset('sfx.tbl', self.rom[sfxtbl:seqctl])
+        self.write_asset('seq.ctl', self.rom[seqctl:seqtbl])
+        self.write_asset('seq.tbl', self.rom[seqtbl:sequencestbl])
 
         length = 0x563b0 if self.romid == 'ntsc-beta' else 0x563a0
 
         sequences = self.rom[sequencestbl:sequencestbl+length]
-        self.write('segments/sequences.bin', sequences)
+        self.write_asset('sequences.bin', sequences)
 
         # Extract sequences
         count = int.from_bytes(sequences[0:2], 'big')
         i = 0
         while i < count:
             sequence = self.extract_sequence(sequences, i)
-            self.write('sequences/%03d.seq' % i, sequence)
+            self.write_asset('sequences/%03d.seq' % i, sequence)
             i += 1
 
     def extract_sequence(self, sequences, index):
@@ -78,15 +78,15 @@ class Extractor:
         return self.decompress(sequences[offset:])
 
     def extract_boot(self):
-        self.write('segments/boot.bin', self.rom[0x1000:0x3050])
+        self.write_extracted('segments/boot.bin', self.rom[0x1000:0x3050])
 
     def extract_copyright(self):
         addr = self.val('copyright')
         data = self.decompress(self.rom[addr:addr+0xb30])
-        self.write('segments/copyright.bin', data)
+        self.write_asset('copyright.bin', data)
 
     def extract_data(self):
-        self.write('segments/data.bin', self.data)
+        self.write_extracted('segments/data.bin', self.data)
 
     def extract_files(self):
         offsets = self.get_file_offsets()
@@ -110,27 +110,30 @@ class Extractor:
                 if len(unused):
                     content = content[:-len(unused)]
 
-            self.write('files/%s' % name, content)
-
             unzippedname = name[:-1] if name.endswith('Z') else name
 
-            if name.endswith('tilesZ'):
-                self.write('files/bgdata/%s.bin' % unzippedname, unzipped)
-
-            if name.startswith('C'):
-                self.write('files/chrs/%s.bin' % unzippedname, unzipped)
-
-            if name.startswith('G'):
-                self.write('files/guns/%s.bin' % unzippedname, unzipped)
-
-            if name.startswith('L'):
-                self.write('files/lang/%s.bin' % unzippedname, unzipped)
-
-            if name.startswith('P') and len(content):
-                self.write('files/props/%s.bin' % unzippedname, unzipped)
-
-            if name.startswith('U'):
-                self.write('files/setup/%s.bin' % unzippedname, unzipped)
+            if name.endswith('.seg') and not name.endswith('ob_mid.seg'):
+                self.write_asset('files/bgdata/%s' % os.path.basename(unzippedname), content)
+            elif name.endswith('padsZ'):
+                self.write_asset('files/bgdata/%s.bin' % os.path.basename(unzippedname), unzipped)
+            elif name.endswith('tilesZ'):
+                self.write_extracted('files/bgdata/%s.bin' % os.path.basename(unzippedname), unzipped)
+            elif name.startswith('A'):
+                self.write_asset('files/audio/%s.mp3' % unzippedname[1:-1], content)
+            elif name.startswith('C'):
+                self.write_asset('files/chrs/%s.bin' % unzippedname[1:], unzipped)
+            elif name.startswith('G'):
+                self.write_asset('files/guns/%s.bin' % unzippedname[1:], unzipped)
+            elif name.startswith('L'):
+                self.write_extracted('files/lang/%s.bin' % unzippedname[1:], unzipped)
+            elif name.startswith('P'):
+                self.write_asset('files/props/%s.bin' % unzippedname[1:], unzipped)
+            elif name.startswith('U'):
+                self.write_extracted('files/setup/%s.bin' % unzippedname[1:], unzipped)
+            elif name == 'ob/ob_mid.seg':
+                self.write_asset('files/%s' % name, unzipped)
+            else:
+                print('Warning: skipping unrecognised file %s' % name)
 
     def get_file_offsets(self):
         i = self.val('files')
@@ -171,27 +174,27 @@ class Extractor:
                 break
             i += 4
 
-        self.write('segments/game.bin', binary)
+        self.write_extracted('segments/game.bin', binary)
 
     def extract_inflate(self):
-        self.write('segments/inflate.bin', self.rom[0x4e850:0x4fc40])
+        self.write_extracted('segments/inflate.bin', self.rom[0x4e850:0x4fc40])
 
     def extract_garbage1(self):
         start = self.val('garbage1')
         end = self.val('data')
-        self.write('segments/garbage1.bin', self.rom[start:end])
+        self.write_asset('garbage/%s/garbage1.bin' % self.romid, self.rom[start:end])
 
     def extract_garbage2(self):
         start = self.val('garbage2')
         end = self.val('animations')
-        self.write('segments/garbage2.bin', self.rom[start:end])
+        self.write_asset('garbage/%s/garbage2.bin' % self.romid, self.rom[start:end])
 
     def extract_lib(self):
-        self.write('segments/lib.bin', self.decompress(self.rom[0x3050:]))
+        self.write_extracted('segments/lib.bin', self.decompress(self.rom[0x3050:]))
 
     def extract_mpconfigs(self):
         addr = self.val('mpconfigs')
-        self.write('segments/mpconfigs.bin', self.rom[addr:addr+0x68*44])
+        self.write_extracted('segments/mpconfigs.bin', self.rom[addr:addr+0x68*44])
 
     def extract_mpstrings(self):
         self.extract_mpstrings_lang(0, 'E')
@@ -204,16 +207,16 @@ class Extractor:
 
     def extract_mpstrings_lang(self, index, lang):
         addr = self.val('mpconfigs') + 0x68 * 44 + 0x3700 * index
-        self.write('segments/mpstrings%s.bin' % lang, self.rom[addr:addr+0x3700])
+        self.write_extracted('segments/mpstrings%s.bin' % lang, self.rom[addr:addr+0x3700])
 
     def extract_firingrange(self):
         addr = self.val('firingrange')
-        self.write('segments/firingrange.bin', self.rom[addr:addr+0x1550])
+        self.write_extracted('segments/firingrange.bin', self.rom[addr:addr+0x1550])
 
     def extract_font(self, startvar, endvar, fontname):
         start = self.val(startvar)
         end = self.val(endvar)
-        self.write('segments/font%s.bin' % fontname, self.rom[start:end])
+        self.write_asset('fonts/%s.bin' % fontname, self.rom[start:end])
 
     def extract_fonts(self):
         self.extract_font('font0', 'font1', 'bankgothic')
@@ -228,7 +231,7 @@ class Extractor:
         self.extract_font('font9', 'sfxctl', 'ocralg')
 
     def extract_rspboot(self):
-        self.write('segments/rspboot.bin', self.rom[0x40:0x1000])
+        self.write_asset('rspboot.bin', self.rom[0x40:0x1000])
 
     def extract_textures(self):
         base = self.val('textures')
@@ -241,20 +244,20 @@ class Extractor:
             if int.from_bytes(self.rom[tablepos+12:tablepos+16], 'big') != 0:
                 break
             texturedata = self.rom[base+start:base+end]
-            self.write('textures/%04x.bin' % index, texturedata)
+            self.write_asset('textures/%04x.bin' % index, texturedata)
             index += 1
             tablepos += 8
 
         tablepos += 8
-        self.write('segments/textures.bin', self.rom[base:tablepos])
+        self.write_asset('textures.bin', self.rom[base:tablepos])
 
     def extract_textureconfig(self):
         addr = self.val('textureconfig')
-        self.write('segments/textureconfig.bin', self.rom[addr:addr+0xb50])
+        self.write_extracted('segments/textureconfig.bin', self.rom[addr:addr+0xb50])
 
-    def extract_unknown2(self):
+    def extract_getitle(self):
         addr = self.val('textureconfig') + 0xb50
-        self.write('segments/unknown2.bin', self.rom[addr:addr+0x65d0])
+        self.write_asset('getitle.bin', self.rom[addr:addr+0x65d0])
 
     #
     # Misc functions
@@ -272,15 +275,32 @@ class Extractor:
         bin = obj.decompress(buffer[5:])
         return (bin, obj.unused_data)
 
-    def write(self, filename, data):
+    def write_extracted(self, filename, data):
         filename = 'extracted/%s/%s' % (self.romid, filename)
+        self.write(filename, data)
 
+    def write_asset(self, filename, data):
+        filename = 'src/assets/%s' % filename
+        self.write(filename, data)
+
+    def write(self, filename, data):
         dirname = os.path.dirname(filename)
         if not os.path.exists(dirname):
             os.makedirs(dirname)
 
+        if os.path.isfile(filename):
+            fd = open(filename, 'rb')
+            existing_data = fd.read()
+            fd.close()
+
+            if existing_data != data and data is not None:
+                print('Warning: %s already exists and contains different content to what we want to write. To overwrite the file, remove it manually then run the extractor again.' % filename)
+
+            return
+
         fd = open(filename, 'wb')
-        fd.write(data)
+        if data:
+            fd.write(data)
         fd.close()
 
     def val(self, name):

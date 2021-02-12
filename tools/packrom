@@ -25,11 +25,11 @@ def zip(binary):
     os.remove(filename)
     return zipped
 
+def adir():
+    return 'src/assets'
+
 def bdir():
     return 'build/%s' % os.environ['ROMID']
-
-def edir():
-    return 'extracted/%s' % os.environ['ROMID']
 
 def get_start(locations, segname):
     return next(filter(lambda l: l['name'] == segname, locations))['addr']
@@ -98,7 +98,7 @@ def get_locations():
     return list(map(make_numeric, matches))
 
 def write_garbage_part(fd, addr, filename):
-    fd2 = open(edir() + '/segments/' + filename, 'rb')
+    fd2 = open(adir() + '/garbage/' + os.environ['ROMID'] + '/' + filename, 'rb')
     binary = fd2.read()
     fd2.close()
 

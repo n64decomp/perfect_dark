@@ -39,7 +39,11 @@ The project uses the `$ROMID` environment variable to know which version to work
 Before you do anything you need an existing ROM to extract assets from.
 
 1. Save your existing ROM file into the root of the repository with the name `pd.ntsc-final.z64`. It should not be byteswapped (the first four bytes should be `0x80371240`).
-2. Run `make extract`. This will create an `extracted/ntsc-final` directory containing assets from your ROM.
+2. Run `make extract`.
+
+This will extract assets to `src/assets`. If any asset already exists then it will not be overwritten. This means you can modify assets as desired, and your changes will not be overwritten if you run the extract command again.
+
+The extract command will also create an `extracted/ntsc-final` directory. This directory contains some compiled code segments from the ROM and is only used for comparison purposes.
 
 ## Compiling
 

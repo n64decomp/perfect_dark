@@ -2,6 +2,8 @@
 
 size=$(stat --format="%s" $1)
 
+test $size -gt 0 || exit 0
+
 printf "0: 1173 %.6x" $size | xxd -r -g0
 
 tools/gzip -c --no-name --best $1 | head --bytes=-8 | tail --bytes=+11
