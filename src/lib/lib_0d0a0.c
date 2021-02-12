@@ -270,29 +270,17 @@ glabel func0000d350
 
 void func0000d410(void *memaddr, void *romaddr, u32 len)
 {
-	func0000d0f8(memaddr, romaddr, len, 0);
+	func0000d0f8(memaddr, romaddr, len, false);
 	func0000d350();
 	func0000d29c(memaddr, len);
 }
 
-GLOBAL_ASM(
-glabel func0000d44c
-/*     d44c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     d450:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     d454:	afa40018 */ 	sw	$a0,0x18($sp)
-/*     d458:	afa60020 */ 	sw	$a2,0x20($sp)
-/*     d45c:	0c00343e */ 	jal	func0000d0f8
-/*     d460:	24070001 */ 	addiu	$a3,$zero,0x1
-/*     d464:	0c0034d4 */ 	jal	func0000d350
-/*     d468:	00000000 */ 	nop
-/*     d46c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*     d470:	0c0034a7 */ 	jal	func0000d29c
-/*     d474:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*     d478:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     d47c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     d480:	03e00008 */ 	jr	$ra
-/*     d484:	00000000 */ 	nop
-);
+void func0000d44c(void *memaddr, void *romaddr, u32 len)
+{
+	func0000d0f8(memaddr, romaddr, len, true);
+	func0000d350();
+	func0000d29c(memaddr, len);
+}
 
 GLOBAL_ASM(
 glabel func0000d488
