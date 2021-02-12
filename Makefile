@@ -145,6 +145,8 @@ ASSET_FILES := \
 	$(patsubst src/assets/files/lang/$(ROMID)/%.c, $(B_DIR)/assets/files/L%Z, $(shell find src/assets/files/lang/$(ROMID) -name '*_str_[fgis].c')) \
 	$(B_DIR)/assets/files/ob/ob_mid.seg.o
 
+SEQ_FILES := $(shell find src/assets/sequences -name '*.seq')
+
 O_FILES := \
 	$(patsubst src/%.c, $(B_DIR)/%.o, $(C_FILES)) \
 	$(patsubst src/%.s, $(B_DIR)/%.o, $(S_FILES)) \
@@ -273,9 +275,6 @@ $(B_DIR)/assets/sfx.ctl.o: src/assets/sfx.ctl
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/assets/sfx.tbl.o: src/assets/sfx.tbl
-	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
-
-$(B_DIR)/assets/sequences.o: src/assets/sequences.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/assets/textures.o: src/assets/textures.bin
@@ -413,6 +412,12 @@ $(B_DIR)/assets/accessingpakZ.o: $(B_DIR)/assets/accessingpakZ
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/assets/copyrightZ.o: $(B_DIR)/assets/copyrightZ
+	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
+
+$(B_DIR)/assets/sequences.bin: $(SEQ_FILES) src/assets/sequences/sequences.py
+	tools/mksequences
+
+$(B_DIR)/assets/sequences.o: $(B_DIR)/assets/sequences.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/boot/%.o: src/boot/%.c
