@@ -2,8 +2,12 @@
 
 set -e
 
-echo -e "\n.data\n.incbin \"$1\"\n.balign 0x10" > build/$ROMID/file-$$.s
+INFILE="$1"
+OUTFILE="$2"
+ALIGN="${3:-0x10}"
 
-$TOOLCHAIN-as -mabi=32 -mips2 -I src/include -EB -o "$2" build/$ROMID/file-$$.s
+echo -e "\n.data\n.incbin \"$INFILE\"\n.balign $ALIGN" > build/$ROMID/file-$$.s
+
+$TOOLCHAIN-as -mabi=32 -mips2 -I src/include -EB --no-pad-sections -o "$OUTFILE" build/$ROMID/file-$$.s
 
 rm -f build/$ROMID/file-$$.s

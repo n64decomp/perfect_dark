@@ -6971,4 +6971,13 @@ union audioparam {
 	f32 f32;
 };
 
+struct animationdefinition {
+	u16 numkeyframes;
+	u16 numkeyframebytes;
+	void *data;
+	u16 unk08;
+	u8 unk0a;
+	u8 flags;
+};
+
 #endif

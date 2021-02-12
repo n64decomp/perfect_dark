@@ -1,7 +1,7 @@
 /**
  * This file is included by the main linker map file (pd.ld).
  *
- * It is preprocessed using the C prepressor, so version constants can be used.
+ * It is preprocessed using the C preprocessor, so version constants can be used.
  *
  * A file macro is used here to allow easy listing of files. The arguments are:
  *

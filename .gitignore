@@ -6,6 +6,7 @@ extracted
 src/assets/*.bin
 src/assets/*.ctl
 src/assets/*.tbl
+src/assets/animations/*.bin
 src/assets/files/audio/*.mp3
 src/assets/files/bgdata/*.bin
 src/assets/files/bgdata/*.seg

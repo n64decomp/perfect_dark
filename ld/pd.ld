@@ -321,10 +321,17 @@ SECTIONS
 	 */
 
 	__rompos = _inflateSegmentRomEnd + ROMALLOCATION_GAME;
+	__refpos = .;
 
-	BEGIN_SEG(animations)
+#define ANIM(id, filename) \
+	anim##id = . - __refpos; \
+	build/ROMID/assets/animations/filename (.data)
+
+	BEGIN_SEG(animations) SUBALIGN(1)
 	{
-		build/ROMID/assets/animations.o (.data);
+#include "../src/assets/animations/list.ld"
+		. = ALIGN(0x10);
+		build/ROMID/assets/animations/list.o (.data);
 	}
 	END_SEG(animations)
 
@@ -582,7 +589,7 @@ SECTIONS
 
 	BEGIN_SEG(copyright)
 	{
-		build/ROMID/copyrightZ.o (.data);
+		build/ROMID/assets/copyrightZ.o (.data);
 	}
 	END_SEG(copyright)
 
@@ -597,7 +604,7 @@ SECTIONS
 #if VERSION >= VERSION_NTSC_1_0
 	BEGIN_SEG(accessingpak)
 	{
-		build/ROMID/accessingpakZ.o (.data);
+		build/ROMID/assets/accessingpakZ.o (.data);
 	}
 	END_SEG(accessingpak)
 #else

@@ -44,9 +44,21 @@ class Extractor:
             self.write_asset('accessingpak.bin', data)
 
     def extract_animations(self):
-        start = self.val('animations')
-        end = self.val('mpconfigs')
-        self.write_asset('animations.bin', self.rom[start:end])
+        segstart = self.val('animations')
+        segend = self.val('mpconfigs')
+
+        pos = segstart + 0x62bbe4
+        i = 0
+
+        while pos + 0xc <= segend:
+            datastart = int.from_bytes(self.rom[pos+4:pos+8], 'big')
+            dataend = int.from_bytes(self.rom[pos+4+0xc:pos+8+0xc], 'big')
+            data = self.rom[segstart+datastart:segstart+dataend]
+
+            self.write_asset('animations/%04x.bin' % i, data)
+
+            pos += 0xc
+            i += 1
 
     def extract_audio(self):
         sfxctl = self.val('sfxctl')

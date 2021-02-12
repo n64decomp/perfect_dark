@@ -145,14 +145,16 @@ ASSET_FILES := \
 	$(patsubst src/assets/files/lang/$(ROMID)/%.c, $(B_DIR)/assets/files/L%Z, $(shell find src/assets/files/lang/$(ROMID) -name '*_str_[fgis].c')) \
 	$(B_DIR)/assets/files/ob/ob_mid.seg.o
 
+ANIM_FILES := $(shell find src/assets/animations -name '*.bin')
 SEQ_FILES := $(shell find src/assets/sequences -name '*.seq')
 
 O_FILES := \
 	$(patsubst src/%.c, $(B_DIR)/%.o, $(C_FILES)) \
 	$(patsubst src/%.s, $(B_DIR)/%.o, $(S_FILES)) \
 	$(patsubst %, %.o, $(ASSET_FILES)) \
+	$(patsubst src/%.bin, $(B_DIR)/%.o, $(ANIM_FILES)) \
+	$(B_DIR)/assets/animations/list.o \
 	$(B_DIR)/assets/accessingpakZ.o \
-	$(B_DIR)/assets/animations.o \
 	$(B_DIR)/assets/copyrightZ.o \
 	$(B_DIR)/assets/files/list.o \
 	$(B_DIR)/assets/firingrange.o \
@@ -251,9 +253,6 @@ $(B_DIR)/segments/%.bin: $(B_DIR)/stage2.bin
 
 ################################################################################
 # Raw data segments
-
-$(B_DIR)/assets/animations.o: src/assets/animations.bin
-	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/assets/fonts/%.o: src/assets/fonts/%.bin
 	mkdir -p $(B_DIR)/assets/fonts
@@ -419,6 +418,14 @@ $(B_DIR)/assets/sequences.bin: $(SEQ_FILES) src/assets/sequences/sequences.py
 
 $(B_DIR)/assets/sequences.o: $(B_DIR)/assets/sequences.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
+
+$(B_DIR)/assets/animations/%.o: src/assets/animations/%.bin
+	@mkdir -p $(dir $@)
+	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@ 0x1
+
+$(B_DIR)/assets/animations/list.o: src/assets/animations/list.c
+	@mkdir -p $(dir $@)
+	$(IDOCC) -c $(CFLAGS) $< -o $@
 
 $(B_DIR)/boot/%.o: src/boot/%.c
 	@mkdir -p $(dir $@)
