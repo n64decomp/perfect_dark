@@ -16,46 +16,18 @@ u32 var8005d9a4 = 0x00000000;
 u32 var8005d9a8 = 0x00000000;
 u32 var8005d9ac = 0x00000000;
 
-GLOBAL_ASM(
-glabel func0000d0a0
-/*     d0a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     d0a4:	3c028009 */ 	lui	$v0,%hi(var80094de8)
-/*     d0a8:	3c038009 */ 	lui	$v1,%hi(var80094e08)
-/*     d0ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     d0b0:	24634e08 */ 	addiu	$v1,$v1,%lo(var80094e08)
-/*     d0b4:	24424de8 */ 	addiu	$v0,$v0,%lo(var80094de8)
-.L0000d0b8:
-/*     d0b8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     d0bc:	1443fffe */ 	bne	$v0,$v1,.L0000d0b8
-/*     d0c0:	a040ffff */ 	sb	$zero,-0x1($v0)
-/*     d0c4:	3c0e8009 */ 	lui	$t6,%hi(var80094ae0)
-/*     d0c8:	25ce4ae0 */ 	addiu	$t6,$t6,%lo(var80094ae0)
-/*     d0cc:	3c048009 */ 	lui	$a0,%hi(var80094e88)
-/*     d0d0:	3c058009 */ 	lui	$a1,%hi(var80094e08)
-/*     d0d4:	adc00000 */ 	sw	$zero,0x0($t6)
-/*     d0d8:	24a54e08 */ 	addiu	$a1,$a1,%lo(var80094e08)
-/*     d0dc:	24844e88 */ 	addiu	$a0,$a0,%lo(var80094e88)
-/*     d0e0:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*     d0e4:	24060020 */ 	addiu	$a2,$zero,0x20
-/*     d0e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     d0ec:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     d0f0:	03e00008 */ 	jr	$ra
-/*     d0f4:	00000000 */ 	nop
-);
+void dmaInit(void)
+{
+	s32 i;
 
-// Mismatch: The store to var80094ae0 is done differently.
-//void func0000d0a0(void)
-//{
-//	s32 i;
-//
-//	for (i = 0; i < ARRAYCOUNT(var80094de8); i++) {
-//		var80094de8[i] = 0;
-//	}
-//
-//	var80094ae0 = 0;
-//
-//	osCreateMesgQueue(&var80094e88, &var80094e08, 0x20);
-//}
+	for (i = 0; i < ARRAYCOUNT(var80094de8); i++) {
+		var80094de8[i] = 0;
+	}
+
+	var80094ae0 = 0;
+
+	osCreateMesgQueue(&var80094e88, &var80094e08, 0x20);
+}
 
 GLOBAL_ASM(
 glabel func0000d0f8

@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0000d0a0(void);
+void dmaInit(void);
 void func0000d0f8(void *memaddr, void *romaddr, u32 len, bool arg3);
 u32 xorDeadbeef(u32 value);
 u32 xorDeadbabe(u32 value);
