@@ -160,57 +160,37 @@ u32 xorDeadbabe(u32 value)
 	return value ^ 0xdeadbabe;
 }
 
-GLOBAL_ASM(
-glabel func0000d29c
-/*     d29c:	3c0e8006 */ 	lui	$t6,%hi(g_LoadState)
-/*     d2a0:	91ced9a0 */ 	lbu	$t6,%lo(g_LoadState)($t6)
-/*     d2a4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*     d2a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     d2ac:	11c00024 */ 	beqz	$t6,.L0000d340
-/*     d2b0:	00803025 */ 	or	$a2,$a0,$zero
-/*     d2b4:	2ca10081 */ 	sltiu	$at,$a1,0x81
-/*     d2b8:	14200021 */ 	bnez	$at,.L0000d340
-/*     d2bc:	3c04dd9d */ 	lui	$a0,0xdd9d
-/*     d2c0:	348476cf */ 	ori	$a0,$a0,0x76cf
-/*     d2c4:	0c00349f */ 	jal	xorDeadbeef
-/*     d2c8:	afa60030 */ 	sw	$a2,0x30($sp)
-/*     d2cc:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*     d2d0:	00002025 */ 	or	$a0,$zero,$zero
-/*     d2d4:	00c01825 */ 	or	$v1,$a2,$zero
-.L0000d2d8:
-/*     d2d8:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*     d2dc:	24840001 */ 	addiu	$a0,$a0,0x1
-/*     d2e0:	28810008 */ 	slti	$at,$a0,0x8
-/*     d2e4:	01e2c026 */ 	xor	$t8,$t7,$v0
-/*     d2e8:	24630004 */ 	addiu	$v1,$v1,0x4
-/*     d2ec:	1420fffa */ 	bnez	$at,.L0000d2d8
-/*     d2f0:	ac78fffc */ 	sw	$t8,-0x4($v1)
-/*     d2f4:	3c046ead */ 	lui	$a0,0x6ead
-/*     d2f8:	3484b9fe */ 	ori	$a0,$a0,0xb9fe
-/*     d2fc:	0c0034a3 */ 	jal	xorDeadbabe
-/*     d300:	afa60030 */ 	sw	$a2,0x30($sp)
-/*     d304:	00402025 */ 	or	$a0,$v0,$zero
-/*     d308:	0c013994 */ 	jal	osPiReadIo
-/*     d30c:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*     d310:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*     d314:	00002025 */ 	or	$a0,$zero,$zero
-/*     d318:	24020008 */ 	addiu	$v0,$zero,0x8
-.L0000d31c:
-/*     d31c:	8c790000 */ 	lw	$t9,0x0($v1)
-/*     d320:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*     d324:	24840001 */ 	addiu	$a0,$a0,0x1
-/*     d328:	24630004 */ 	addiu	$v1,$v1,0x4
-/*     d32c:	03284826 */ 	xor	$t1,$t9,$t0
-/*     d330:	1482fffa */ 	bne	$a0,$v0,.L0000d31c
-/*     d334:	ac69fffc */ 	sw	$t1,-0x4($v1)
-/*     d338:	3c018006 */ 	lui	$at,%hi(g_LoadState)
-/*     d33c:	a020d9a0 */ 	sb	$zero,%lo(g_LoadState)($at)
-.L0000d340:
-/*     d340:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     d344:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*     d348:	03e00008 */ 	jr	$ra
-/*     d34c:	00000000 */ 	nop
-);
+/**
+ * This is executed after a DMA transfer. It xors the first 8 words with
+ * 0x0330c820, then reads a value from the boot loader (0x340 in ROM) which
+ * should be the same value, and xors the memory again with that value.
+ */
+void dmaCheckPiracy(void *memaddr, u32 len)
+{
+	if (g_LoadState != LOADSTATE_NONE && len > 128) {
+#if PIRACYCHECKS
+		u32 value = xorDeadbeef(0x0330c820 ^ 0xdeadbeef);
+		u32 *ptr = (u32 *)memaddr;
+		u32 data;
+		u32 devaddr;
+		s32 i;
+
+		for (i = 0; i < 8; i++) {
+			ptr[i] ^= value;
+		}
+
+		devaddr = xorDeadbabe(0xb0000340 ^ 0xdeadbabe);
+
+		osPiReadIo(devaddr, &data);
+
+		for (i = 0; i < 8; i++) {
+			ptr[i] ^= data;
+		}
+#endif
+
+		g_LoadState = LOADSTATE_NONE;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0000d350
@@ -272,14 +252,14 @@ void func0000d410(void *memaddr, void *romaddr, u32 len)
 {
 	func0000d0f8(memaddr, romaddr, len, false);
 	func0000d350();
-	func0000d29c(memaddr, len);
+	dmaCheckPiracy(memaddr, len);
 }
 
 void func0000d44c(void *memaddr, void *romaddr, u32 len)
 {
 	func0000d0f8(memaddr, romaddr, len, true);
 	func0000d350();
-	func0000d29c(memaddr, len);
+	dmaCheckPiracy(memaddr, len);
 }
 
 GLOBAL_ASM(
