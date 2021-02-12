@@ -568,14 +568,17 @@ SECTIONS
 
 	__rampos = 0;
 
-	BEGIN_SEG(textures)
+	BEGIN_SEG(texturesdata)
 	{
-		build/ROMID/assets/textures.o (.data);
+		build/ROMID/assets/texturesdata.o (.data);
 	}
-	END_SEG(textures)
+	END_SEG(texturesdata)
 
-	_texturesTableRomStart = _texturesSegmentRomEnd - 0x6d80;
-	_texturesTableRomEnd = _texturesSegmentRomEnd;
+	BEGIN_SEG(textureslist)
+	{
+		build/ROMID/assets/textureslist.o (.data);
+	}
+	END_SEG(textureslist)
 
 	/***************************************************************************
 	 * copyright

@@ -260,7 +260,6 @@ class Extractor:
             tablepos += 8
 
         tablepos += 8
-        self.write_asset('textures.bin', self.rom[base:tablepos])
 
     def extract_textureconfig(self):
         addr = self.val('textureconfig')

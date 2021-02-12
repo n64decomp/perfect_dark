@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+import os
+import sys
+
+sys.path.append('src/assets/textures')
+from textures import textures
+
+fdd = open('build/%s/assets/texturesdata.bin' % os.environ['ROMID'], 'wb')
+fdl = open('build/%s/assets/textureslist.bin' % os.environ['ROMID'], 'wb')
+
+offset = 0
+
+for row in textures:
+    name = row[0]
+    flags = row[1]
+
+    filename = 'src/assets/textures/' + name;
+    fd = open(filename, 'rb')
+    data = fd.read()
+    fd.close()
+
+    length = len(data)
+
+    fdl.write(flags.to_bytes(1, 'big'))
+    fdl.write(offset.to_bytes(3, 'big'))
+    fdl.seek(4, os.SEEK_CUR)
+
+    fdd.write(data)
+
+    offset += length
+
+fdl.write(offset.to_bytes(4, 'big'))
+fdl.close()
+
+fdd.close()

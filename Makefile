@@ -146,7 +146,6 @@ ASSET_FILES := \
 	$(B_DIR)/assets/files/ob/ob_mid.seg.o
 
 ANIM_FILES := $(shell find src/assets/animations -name '*.bin')
-SEQ_FILES := $(shell find src/assets/sequences -name '*.seq')
 
 O_FILES := \
 	$(patsubst src/%.c, $(B_DIR)/%.o, $(C_FILES)) \
@@ -183,7 +182,8 @@ O_FILES := \
 	$(B_DIR)/assets/sequences.o \
 	$(B_DIR)/assets/sfx.ctl.o \
 	$(B_DIR)/assets/sfx.tbl.o \
-	$(B_DIR)/assets/textures.o \
+	$(B_DIR)/assets/texturesdata.o \
+	$(B_DIR)/assets/textureslist.o \
 	$(B_DIR)/assets/textures/config.o \
 	$(B_DIR)/romheader.o \
 
@@ -413,10 +413,22 @@ $(B_DIR)/assets/accessingpakZ.o: $(B_DIR)/assets/accessingpakZ
 $(B_DIR)/assets/copyrightZ.o: $(B_DIR)/assets/copyrightZ
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/assets/sequences.bin: $(SEQ_FILES) src/assets/sequences/sequences.py
+$(B_DIR)/assets/sequences.bin: src/assets/sequences/sequences.py
 	tools/mksequences
 
 $(B_DIR)/assets/sequences.o: $(B_DIR)/assets/sequences.bin
+	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
+
+$(B_DIR)/assets/texturesdata.bin: src/assets/textures/textures.py
+	tools/mktextures
+
+$(B_DIR)/assets/textureslist.bin: src/assets/textures/textures.py
+	tools/mktextures
+
+$(B_DIR)/assets/texturesdata.o: $(B_DIR)/assets/texturesdata.bin
+	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
+
+$(B_DIR)/assets/textureslist.o: $(B_DIR)/assets/textureslist.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/assets/animations/%.o: src/assets/animations/%.bin
