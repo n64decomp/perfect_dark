@@ -962,11 +962,14 @@ struct chrdata {
 	/*0x17c*/ s8 fireslot[2];
 	/*0x17e*/ s16 target; // index into g_Vars.props
 	/*0x180*/ f32 cshield;
-	/*0x184*/ u8 cmnum;
-	/*0x185*/ u8 cmnum2;
-	/*0x186*/ u8 cmnum3;
-	/*0x187*/ u8 cmnum4;
+
+	// The cm fields are related to the chr's shield visual effect
+	/*0x184*/ s8 cmnum;
+	/*0x185*/ s8 cmnum2;
+	/*0x186*/ s8 cmnum3;
+	/*0x187*/ s8 cmnum4;
 	/*0x188*/ u16 cmcount;
+
 	/*0x18a*/ u16 floorcol;
 	/*0x18c*/ f32 oldframe;
 	/*0x190*/ s8 footstep;
