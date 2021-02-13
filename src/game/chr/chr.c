@@ -4162,75 +4162,25 @@ void chrUpdateCloak(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f022be4
-.late_rodata
-glabel var7f1a87b4
-.word 0x40490fdb
-.text
-/*  f022be4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f022be8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f022bec:	908202e1 */ 	lbu	$v0,0x2e1($a0)
-/*  f022bf0:	240300ff */ 	addiu	$v1,$zero,0xff
-/*  f022bf4:	00022842 */ 	srl	$a1,$v0,0x1
-/*  f022bf8:	1ca00006 */ 	bgtz	$a1,.L0f022c14
-/*  f022bfc:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f022c00:	948f02e0 */ 	lhu	$t7,0x2e0($a0)
-/*  f022c04:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f022c08:	31f80001 */ 	andi	$t8,$t7,0x1
-/*  f022c0c:	5701002a */ 	bnel	$t8,$at,.L0f022cb8
-/*  f022c10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f022c14:
-/*  f022c14:	949902e0 */ 	lhu	$t9,0x2e0($a0)
-/*  f022c18:	00054840 */ 	sll	$t1,$a1,0x1
-/*  f022c1c:	240a00ff */ 	addiu	$t2,$zero,0xff
-/*  f022c20:	33280001 */ 	andi	$t0,$t9,0x1
-/*  f022c24:	55000004 */ 	bnezl	$t0,.L0f022c38
-/*  f022c28:	44822000 */ 	mtc1	$v0,$f4
-/*  f022c2c:	1000001e */ 	b	.L0f022ca8
-/*  f022c30:	01491823 */ 	subu	$v1,$t2,$t1
-/*  f022c34:	44822000 */ 	mtc1	$v0,$f4
-.L0f022c38:
-/*  f022c38:	3c014f80 */ 	lui	$at,0x4f80
-/*  f022c3c:	04410004 */ 	bgez	$v0,.L0f022c50
-/*  f022c40:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f022c44:	44814000 */ 	mtc1	$at,$f8
-/*  f022c48:	00000000 */ 	nop
-/*  f022c4c:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f022c50:
-/*  f022c50:	3c0142fe */ 	lui	$at,0x42fe
-/*  f022c54:	44815000 */ 	mtc1	$at,$f10
-/*  f022c58:	3c017f1b */ 	lui	$at,%hi(var7f1a87b4)
-/*  f022c5c:	c43287b4 */ 	lwc1	$f18,%lo(var7f1a87b4)($at)
-/*  f022c60:	460a3003 */ 	div.s	$f0,$f6,$f10
-/*  f022c64:	46000400 */ 	add.s	$f16,$f0,$f0
-/*  f022c68:	46128302 */ 	mul.s	$f12,$f16,$f18
-/*  f022c6c:	0c0068f4 */ 	jal	cosf
-/*  f022c70:	00000000 */ 	nop
-/*  f022c74:	3c013f80 */ 	lui	$at,0x3f80
-/*  f022c78:	44812000 */ 	mtc1	$at,$f4
-/*  f022c7c:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f022c80:	44813000 */ 	mtc1	$at,$f6
-/*  f022c84:	46002201 */ 	sub.s	$f8,$f4,$f0
-/*  f022c88:	3c013f00 */ 	lui	$at,0x3f00
-/*  f022c8c:	44818000 */ 	mtc1	$at,$f16
-/*  f022c90:	46064282 */ 	mul.s	$f10,$f8,$f6
-/*  f022c94:	00000000 */ 	nop
-/*  f022c98:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f022c9c:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f022ca0:	44032000 */ 	mfc1	$v1,$f4
-/*  f022ca4:	00000000 */ 	nop
-.L0f022ca8:
-/*  f022ca8:	54600003 */ 	bnezl	$v1,.L0f022cb8
-/*  f022cac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f022cb0:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f022cb4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f022cb8:
-/*  f022cb8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f022cbc:	00601025 */ 	or	$v0,$v1,$zero
-/*  f022cc0:	03e00008 */ 	jr	$ra
-/*  f022cc4:	00000000 */ 	nop
-);
+s32 func0f022be4(struct chrdata *chr)
+{
+	s32 result = 255;
+
+	if (chr->cloakfadefrac > 0 || chr->cloakfadefinished == true) {
+		if (!chr->cloakfadefinished) {
+			result = 255 - chr->cloakfadefrac * 2;
+		} else {
+			f32 fVar3 = (f32)cosf((chr->cloakfadefrac / 127.0f + chr->cloakfadefrac / 127.0f) * M_PI);
+			result = (1.0f - fVar3) * 20.0f * 0.5f;
+		}
+
+		if (result == 0) {
+			result = 1;
+		}
+	}
+
+	return result;
+}
 
 void chrSetPoisoned(struct chrdata *chr, void *arg1)
 {

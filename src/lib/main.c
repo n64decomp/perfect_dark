@@ -830,7 +830,7 @@ void mainEntry(void)
 	}
 }
 
-void func0000db30(char *string, u32 *ptr)
+void func0000db30(char *string, void *ptr)
 {
 	// empty
 }
