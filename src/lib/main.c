@@ -351,7 +351,7 @@ glabel mainInit
 /*     d764:	256bfe00 */ 	addiu	$t3,$t3,%lo(_accessingpakSegmentRomEnd)
 /*     d768:	39c4003f */ 	xori	$a0,$t6,0x3f
 /*     d76c:	00808025 */ 	or	$s0,$a0,$zero
-/*     d770:	0c003504 */ 	jal	func0000d410
+/*     d770:	0c003504 */ 	jal	dmaExec
 /*     d774:	01653023 */ 	subu	$a2,$t3,$a1
 /*     d778:	1000000e */ 	b	.L0000d7b4
 /*     d77c:	3c01ffff */ 	lui	$at,0xffff
@@ -366,7 +366,7 @@ glabel mainInit
 /*     d79c:	25eff550 */ 	addiu	$t7,$t7,%lo(_copyrightSegmentRomEnd)
 /*     d7a0:	3b04003f */ 	xori	$a0,$t8,0x3f
 /*     d7a4:	00808025 */ 	or	$s0,$a0,$zero
-/*     d7a8:	0c003504 */ 	jal	func0000d410
+/*     d7a8:	0c003504 */ 	jal	dmaExec
 /*     d7ac:	01e53023 */ 	subu	$a2,$t7,$a1
 /*     d7b0:	3c01ffff */ 	lui	$at,0xffff
 .L0000d7b4:
@@ -676,9 +676,9 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		// the texture format can be changed then copied into the framebuffer in
 //		// the correct format.
 //		if (g_DoBootPakMenu) {
-//			func0000d410(fb, &_accessingpakSegmentRomStart, &_accessingpakSegmentRomEnd - &_accessingpakSegmentRomStart);
+//			dmaExec(fb, &_accessingpakSegmentRomStart, &_accessingpakSegmentRomEnd - &_accessingpakSegmentRomStart);
 //		} else {
-//			func0000d410(fb, &_copyrightSegmentRomStart, &_copyrightSegmentRomEnd - &_copyrightSegmentRomStart);
+//			dmaExec(fb, &_copyrightSegmentRomStart, &_copyrightSegmentRomEnd - &_copyrightSegmentRomStart);
 //		}
 //
 //		// Prepare space for the texture immediately before the framebuffer

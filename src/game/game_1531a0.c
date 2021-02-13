@@ -85,7 +85,7 @@ void fontLoad(u8 *romstart, u8 *romend, struct font **font1, struct font2a4 **fo
 	struct font *font = malloc(len, MEMPOOL_STAGE);
 	struct font2a4 *font2a4 = font->unk2a4;
 
-	func0000d410(font, romstart, len);
+	dmaExec(font, romstart, len);
 
 	// Convert pointers
 	for (i = 0; i < 94; i++) {

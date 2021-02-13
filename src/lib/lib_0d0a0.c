@@ -12,129 +12,59 @@
 #include "types.h"
 
 u8 g_LoadState = 0;
-u32 var8005d9a4 = 0x00000000;
-u32 var8005d9a8 = 0x00000000;
-u32 var8005d9ac = 0x00000000;
 
 void dmaInit(void)
 {
 	s32 i;
 
-	for (i = 0; i < ARRAYCOUNT(var80094de8); i++) {
-		var80094de8[i] = 0;
+	for (i = 0; i < ARRAYCOUNT(g_DmaSlotsBusy); i++) {
+		g_DmaSlotsBusy[i] = 0;
 	}
 
-	var80094ae0 = 0;
+	g_DmaNumSlotsBusy = 0;
 
-	osCreateMesgQueue(&var80094e88, &var80094e08, 0x20);
+	osCreateMesgQueue(&g_DmaMesgQueue, &var80094e08, 0x20);
 }
 
-GLOBAL_ASM(
-glabel func0000d0f8
-/*     d0f8:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*     d0fc:	afb70044 */ 	sw	$s7,0x44($sp)
-/*     d100:	3c178009 */ 	lui	$s7,%hi(var80094ae0)
-/*     d104:	26f74ae0 */ 	addiu	$s7,$s7,%lo(var80094ae0)
-/*     d108:	8eee0000 */ 	lw	$t6,0x0($s7)
-/*     d10c:	afb40038 */ 	sw	$s4,0x38($sp)
-/*     d110:	afb30034 */ 	sw	$s3,0x34($sp)
-/*     d114:	afb00028 */ 	sw	$s0,0x28($sp)
-/*     d118:	00c08025 */ 	or	$s0,$a2,$zero
-/*     d11c:	00809825 */ 	or	$s3,$a0,$zero
-/*     d120:	00a0a025 */ 	or	$s4,$a1,$zero
-/*     d124:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*     d128:	afbe0048 */ 	sw	$s8,0x48($sp)
-/*     d12c:	afb60040 */ 	sw	$s6,0x40($sp)
-/*     d130:	afb5003c */ 	sw	$s5,0x3c($sp)
-/*     d134:	afb20030 */ 	sw	$s2,0x30($sp)
-/*     d138:	afb1002c */ 	sw	$s1,0x2c($sp)
-/*     d13c:	11c00003 */ 	beqz	$t6,.L0000d14c
-/*     d140:	afa70064 */ 	sw	$a3,0x64($sp)
-/*     d144:	0c0034d4 */ 	jal	func0000d350
-/*     d148:	00000000 */ 	nop
-.L0000d14c:
-/*     d14c:	3c010008 */ 	lui	$at,0x8
-/*     d150:	0201082b */ 	sltu	$at,$s0,$at
-/*     d154:	10200005 */ 	beqz	$at,.L0000d16c
-/*     d158:	02602025 */ 	or	$a0,$s3,$zero
-/*     d15c:	320f3fff */ 	andi	$t7,$s0,0x3fff
-/*     d160:	0010f382 */ 	srl	$s8,$s0,0xe
-/*     d164:	10000003 */ 	b	.L0000d174
-/*     d168:	afaf0050 */ 	sw	$t7,0x50($sp)
-.L0000d16c:
-/*     d16c:	0000f025 */ 	or	$s8,$zero,$zero
-/*     d170:	afb00050 */ 	sw	$s0,0x50($sp)
-.L0000d174:
-/*     d174:	0c013920 */ 	jal	osInvalDCache
-/*     d178:	02002825 */ 	or	$a1,$s0,$zero
-/*     d17c:	13c0001b */ 	beqz	$s8,.L0000d1ec
-/*     d180:	00009025 */ 	or	$s2,$zero,$zero
-/*     d184:	3c108009 */ 	lui	$s0,%hi(var80094de8)
-/*     d188:	3c118009 */ 	lui	$s1,%hi(var80094ae8)
-/*     d18c:	3c168009 */ 	lui	$s6,%hi(var80094e88)
-/*     d190:	26d64e88 */ 	addiu	$s6,$s6,%lo(var80094e88)
-/*     d194:	26314ae8 */ 	addiu	$s1,$s1,%lo(var80094ae8)
-/*     d198:	26104de8 */ 	addiu	$s0,$s0,%lo(var80094de8)
-/*     d19c:	24150001 */ 	addiu	$s5,$zero,0x1
-.L0000d1a0:
-/*     d1a0:	a2150000 */ 	sb	$s5,0x0($s0)
-/*     d1a4:	8ee20000 */ 	lw	$v0,0x0($s7)
-/*     d1a8:	24194000 */ 	addiu	$t9,$zero,0x4000
-/*     d1ac:	afb90014 */ 	sw	$t9,0x14($sp)
-/*     d1b0:	24580001 */ 	addiu	$t8,$v0,0x1
-/*     d1b4:	aef80000 */ 	sw	$t8,0x0($s7)
-/*     d1b8:	02202025 */ 	or	$a0,$s1,$zero
-/*     d1bc:	8fa50064 */ 	lw	$a1,0x64($sp)
-/*     d1c0:	00003025 */ 	or	$a2,$zero,$zero
-/*     d1c4:	02803825 */ 	or	$a3,$s4,$zero
-/*     d1c8:	afb30010 */ 	sw	$s3,0x10($sp)
-/*     d1cc:	0c01394c */ 	jal	osPiStartDma
-/*     d1d0:	afb60018 */ 	sw	$s6,0x18($sp)
-/*     d1d4:	26520001 */ 	addiu	$s2,$s2,0x1
-/*     d1d8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     d1dc:	26310018 */ 	addiu	$s1,$s1,0x18
-/*     d1e0:	26944000 */ 	addiu	$s4,$s4,0x4000
-/*     d1e4:	165effee */ 	bne	$s2,$s8,.L0000d1a0
-/*     d1e8:	26734000 */ 	addiu	$s3,$s3,0x4000
-.L0000d1ec:
-/*     d1ec:	8fa30050 */ 	lw	$v1,0x50($sp)
-/*     d1f0:	3c168009 */ 	lui	$s6,%hi(var80094e88)
-/*     d1f4:	26d64e88 */ 	addiu	$s6,$s6,%lo(var80094e88)
-/*     d1f8:	10600014 */ 	beqz	$v1,.L0000d24c
-/*     d1fc:	24150001 */ 	addiu	$s5,$zero,0x1
-/*     d200:	3c018009 */ 	lui	$at,%hi(var80094de8)
-/*     d204:	00320821 */ 	addu	$at,$at,$s2
-/*     d208:	a0354de8 */ 	sb	$s5,%lo(var80094de8)($at)
-/*     d20c:	8ee20000 */ 	lw	$v0,0x0($s7)
-/*     d210:	00124880 */ 	sll	$t1,$s2,0x2
-/*     d214:	01324823 */ 	subu	$t1,$t1,$s2
-/*     d218:	3c0a8009 */ 	lui	$t2,%hi(var80094ae8)
-/*     d21c:	254a4ae8 */ 	addiu	$t2,$t2,%lo(var80094ae8)
-/*     d220:	000948c0 */ 	sll	$t1,$t1,0x3
-/*     d224:	24480001 */ 	addiu	$t0,$v0,0x1
-/*     d228:	aee80000 */ 	sw	$t0,0x0($s7)
-/*     d22c:	012a2021 */ 	addu	$a0,$t1,$t2
-/*     d230:	8fa50064 */ 	lw	$a1,0x64($sp)
-/*     d234:	00003025 */ 	or	$a2,$zero,$zero
-/*     d238:	02803825 */ 	or	$a3,$s4,$zero
-/*     d23c:	afb30010 */ 	sw	$s3,0x10($sp)
-/*     d240:	afa30014 */ 	sw	$v1,0x14($sp)
-/*     d244:	0c01394c */ 	jal	osPiStartDma
-/*     d248:	afb60018 */ 	sw	$s6,0x18($sp)
-.L0000d24c:
-/*     d24c:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*     d250:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*     d254:	8fb1002c */ 	lw	$s1,0x2c($sp)
-/*     d258:	8fb20030 */ 	lw	$s2,0x30($sp)
-/*     d25c:	8fb30034 */ 	lw	$s3,0x34($sp)
-/*     d260:	8fb40038 */ 	lw	$s4,0x38($sp)
-/*     d264:	8fb5003c */ 	lw	$s5,0x3c($sp)
-/*     d268:	8fb60040 */ 	lw	$s6,0x40($sp)
-/*     d26c:	8fb70044 */ 	lw	$s7,0x44($sp)
-/*     d270:	8fbe0048 */ 	lw	$s8,0x48($sp)
-/*     d274:	03e00008 */ 	jr	$ra
-/*     d278:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+void dmaStart(void *memaddr, u32 romaddr, u32 len, bool priority)
+{
+	u32 numiterations;
+	u32 remainder;
+	s32 i;
+
+	if (g_DmaNumSlotsBusy) {
+		dmaWait();
+	}
+
+	if (len < 0x4000 * ARRAYCOUNT(g_DmaIoMsgs)) {
+		numiterations = len / 0x4000;
+		remainder = len % 0x4000;
+	} else {
+		// DMA size is 0x80000 or more. It won't fit in the queue, so do it
+		// all in one call to osPiStartDma using the remainder variable.
+		numiterations = 0;
+		remainder = len;
+	}
+
+	osInvalDCache(memaddr, len);
+
+	for (i = 0; i != numiterations; i++) {
+		g_DmaSlotsBusy[i] = true;
+		g_DmaNumSlotsBusy++;
+
+		osPiStartDma(&g_DmaIoMsgs[i], priority, 0, romaddr, memaddr, 0x4000, &g_DmaMesgQueue);
+
+		romaddr += 0x4000;
+		memaddr = (void *)((u32)memaddr + 0x4000);
+	}
+
+	if (remainder) {
+		g_DmaSlotsBusy[i] = true;
+		g_DmaNumSlotsBusy++;
+
+		osPiStartDma(&g_DmaIoMsgs[i], priority, 0, romaddr, memaddr, remainder, &g_DmaMesgQueue);
+	}
+}
 
 u32 xorDeadbeef(u32 value)
 {
@@ -178,37 +108,37 @@ void dmaCheckPiracy(void *memaddr, u32 len)
 	}
 }
 
-void func0000d350(void)
+void dmaWait(void)
 {
 	u32 stack;
-	struct var80094ae8 *msg;
+	OSIoMesg *msg;
 	s32 i;
 
-	while (var80094ae0) {
-		osRecvMesg(&var80094e88, (OSMesg) &msg, OS_MESG_BLOCK);
+	while (g_DmaNumSlotsBusy) {
+		osRecvMesg(&g_DmaMesgQueue, (OSMesg) &msg, OS_MESG_BLOCK);
 
-		for (i = 0; i < ARRAYCOUNT(var80094ae8); i++) {
-			if (&var80094ae8[i] == msg) {
+		for (i = 0; i < ARRAYCOUNT(g_DmaIoMsgs); i++) {
+			if (&g_DmaIoMsgs[i] == msg) {
 				break;
 			}
 		}
 
-		var80094de8[i] = 0;
-		var80094ae0--;
+		g_DmaSlotsBusy[i] = false;
+		g_DmaNumSlotsBusy--;
 	}
 }
 
-void func0000d410(void *memaddr, void *romaddr, u32 len)
+void dmaExec(void *memaddr, void *romaddr, u32 len)
 {
-	func0000d0f8(memaddr, romaddr, len, false);
-	func0000d350();
+	dmaStart(memaddr, (u32) romaddr, len, false);
+	dmaWait();
 	dmaCheckPiracy(memaddr, len);
 }
 
-void func0000d44c(void *memaddr, void *romaddr, u32 len)
+void dmaExecHighPriority(void *memaddr, void *romaddr, u32 len)
 {
-	func0000d0f8(memaddr, romaddr, len, true);
-	func0000d350();
+	dmaStart(memaddr, (u32) romaddr, len, true);
+	dmaWait();
 	dmaCheckPiracy(memaddr, len);
 }
 
@@ -243,7 +173,7 @@ glabel func0000d488
 /*     d4ec:	3b06000f */ 	xori	$a2,$t8,0xf
 /*     d4f0:	afa4001c */ 	sw	$a0,0x1c($sp)
 /*     d4f4:	afa30018 */ 	sw	$v1,0x18($sp)
-/*     d4f8:	0c003504 */ 	jal	func0000d410
+/*     d4f8:	0c003504 */ 	jal	dmaExec
 /*     d4fc:	01c02825 */ 	or	$a1,$t6,$zero
 /*     d500:	8fa30018 */ 	lw	$v1,0x18($sp)
 /*     d504:	8fa4001c */ 	lw	$a0,0x1c($sp)

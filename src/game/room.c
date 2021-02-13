@@ -4032,7 +4032,7 @@ glabel func0f15b534
 /*  f15b7e0:	3c010001 */ 	lui	$at,0x1
 /*  f15b7e4:	3421fffe */ 	ori	$at,$at,0xfffe
 /*  f15b7e8:	00412824 */ 	and	$a1,$v0,$at
-/*  f15b7ec:	0c003504 */ 	jal	func0000d410
+/*  f15b7ec:	0c003504 */ 	jal	dmaExec
 /*  f15b7f0:	24060040 */ 	addiu	$a2,$zero,0x40
 .L0f15b7f4:
 /*  f15b7f4:	3c04800a */ 	lui	$a0,%hi(var800a491c)

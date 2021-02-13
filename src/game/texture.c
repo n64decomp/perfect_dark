@@ -5443,7 +5443,7 @@ glabel func0f173010
 /*  f173108:	00065902 */ 	srl	$t3,$a2,0x4
 /*  f17310c:	000b3100 */ 	sll	$a2,$t3,0x4
 /*  f173110:	032a2821 */ 	addu	$a1,$t9,$t2
-/*  f173114:	0c003504 */ 	jal	func0000d410
+/*  f173114:	0c003504 */ 	jal	dmaExec
 /*  f173118:	afaf0044 */ 	sw	$t7,0x44($sp)
 /*  f17311c:	8fa30044 */ 	lw	$v1,0x44($sp)
 /*  f173120:	8fac002c */ 	lw	$t4,0x2c($sp)
@@ -5805,7 +5805,7 @@ glabel texturesLoadConfigs
 /*  f173600:	ac620000 */ 	sw	$v0,0x0($v1)
 /*  f173604:	24a5b270 */ 	addiu	$a1,$a1,%lo(_textureconfigSegmentRomStart)
 /*  f173608:	00402025 */ 	or	$a0,$v0,$zero
-/*  f17360c:	0c003504 */ 	jal	func0000d410
+/*  f17360c:	0c003504 */ 	jal	dmaExec
 /*  f173610:	02203025 */ 	or	$a2,$s1,$zero
 /*  f173614:	3c18800b */ 	lui	$t8,%hi(g_TextureConfigSegment)
 /*  f173618:	8f18b554 */ 	lw	$t8,%lo(g_TextureConfigSegment)($t8)
@@ -6083,7 +6083,7 @@ glabel texturesLoadConfigs
 //	s32 i;
 //
 //	g_TextureConfigSegment = malloc(len, MEMPOOL_STAGE);
-//	func0000d410(g_TextureConfigSegment, &_textureconfigSegmentRomStart, len);
+//	dmaExec(g_TextureConfigSegment, &_textureconfigSegmentRomStart, len);
 //
 //	var800ab550 = (u32)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart);
 //	var800ab564 = (Gfx *)((u32)g_TextureConfigSegment - (u32)&_textureconfigSegmentStart + 0x000); // gdl000

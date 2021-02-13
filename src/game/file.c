@@ -52,7 +52,7 @@ void func0f166eb4(void *dst, u32 scratchlen, u32 *romaddrptr, struct fileinfo *i
 
 	if (scratchlen == 0) {
 		// DMA with no inflate
-		func0000d410(dst, (void *)*romaddrptr, romsize);
+		dmaExec(dst, (void *)*romaddrptr, romsize);
 	} else {
 		// DMA the compressed data to scratch space then inflate
 		u32 scratchaddr = ((u32)dst + scratchlen) - (romsize + 7 & 0xfffffff8);
@@ -60,7 +60,7 @@ void func0f166eb4(void *dst, u32 scratchlen, u32 *romaddrptr, struct fileinfo *i
 		if (scratchaddr - (u32)dst < 8) {
 			info->size = 0;
 		} else {
-			func0000d410((void *)scratchaddr, (void *)*romaddrptr, romsize);
+			dmaExec((void *)scratchaddr, (void *)*romaddrptr, romsize);
 			info->size = ALIGN16(rzipInflate((void *)scratchaddr, dst, buffer));
 		}
 	}
@@ -119,7 +119,7 @@ void func0f166ff0(u16 filenum, void *memaddr, s32 offset, u32 len)
 	u32 stack[2];
 
 	if (fileGetRomSizeByTableAddress((u32 *)&filetable[filenum])) {
-		func0000d410(memaddr, (void *)((u32)filetable[filenum] + offset), len);
+		dmaExec(memaddr, (void *)((u32)filetable[filenum] + offset), len);
 	}
 }
 
@@ -150,7 +150,7 @@ glabel fileGetInflatedLength
 /*  f1670ac:	00000000 */ 	nop
 .L0f1670b0:
 /*  f1670b0:	02012024 */ 	and	$a0,$s0,$at
-/*  f1670b4:	0c003504 */ 	jal	func0000d410
+/*  f1670b4:	0c003504 */ 	jal	dmaExec
 /*  f1670b8:	00808025 */ 	or	$s0,$a0,$zero
 .L0f1670bc:
 /*  f1670bc:	0c002277 */ 	jal	rzipIs1173
@@ -189,7 +189,7 @@ glabel fileGetInflatedLength
 //		stub0f175f58(func0f166ea8((u32 *) &filetable[filenum]), (u32)alignedbuffer, 16);
 //	} else {
 //		alignedbuffer = (u8 *)(((u32)alignedbuffer) & ~0xf);
-//		func0000d410((void *)alignedbuffer, romaddr, 0x40);
+//		dmaExec((void *)alignedbuffer, romaddr, 0x40);
 //	}
 //
 //	if (rzipIs1173((void *)alignedbuffer)) {
