@@ -9620,29 +9620,17 @@ void func0f0284ac(s32 arg0)
 	}
 }
 
+void func0f0284f4(s32 arg0)
+{
+	var80062970 += arg0;
+
+	if (var80062970 >= func000237dc()) {
+		var80062970 = 1;
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f0284f4
-/*  f0284f4:	3c038006 */ 	lui	$v1,%hi(var80062970)
-/*  f0284f8:	24632970 */ 	addiu	$v1,$v1,%lo(var80062970)
-/*  f0284fc:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f028500:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f028504:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f028508:	01c47821 */ 	addu	$t7,$t6,$a0
-/*  f02850c:	0c008df7 */ 	jal	func000237dc
-/*  f028510:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*  f028514:	3c038006 */ 	lui	$v1,%hi(var80062970)
-/*  f028518:	24632970 */ 	addiu	$v1,$v1,%lo(var80062970)
-/*  f02851c:	8c780000 */ 	lw	$t8,0x0($v1)
-/*  f028520:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f028524:	0302082a */ 	slt	$at,$t8,$v0
-/*  f028528:	54200003 */ 	bnezl	$at,.L0f028538
-/*  f02852c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f028530:	ac790000 */ 	sw	$t9,0x0($v1)
-/*  f028534:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f028538:
-/*  f028538:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f02853c:	03e00008 */ 	jr	$ra
-/*  f028540:	00000000 */ 	nop
+glabel func0f028544
 /*  f028544:	3c038006 */ 	lui	$v1,%hi(var80062974)
 /*  f028548:	24632974 */ 	addiu	$v1,$v1,%lo(var80062974)
 /*  f02854c:	8c620000 */ 	lw	$v0,0x0($v1)
