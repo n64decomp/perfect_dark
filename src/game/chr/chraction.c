@@ -5476,38 +5476,15 @@ glabel func0f034080
 /*  f034120:	00000000 */ 	nop
 );
 
-void chrPoison(struct chrdata *chr, f32 arg1, struct coord *vector, u8 *arg3, struct prop *prop)
+void chrPoison(struct chrdata *chr, f32 damage, struct coord *vector, u8 *arg3, struct prop *prop)
 {
-	func0f034524(chr, arg1, vector, arg3, prop, 200, 0, 0, 0, 0, -1, 0, 0, 0);
+	func0f034524(chr, damage, vector, arg3, prop, 200, 0, 0, 0, 0, -1, 0, 0, 0);
 }
 
-GLOBAL_ASM(
-glabel func0f03417c
-/*  f03417c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f034180:	8fae0050 */ 	lw	$t6,0x50($sp)
-/*  f034184:	240f00c8 */ 	addiu	$t7,$zero,0xc8
-/*  f034188:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f03418c:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f034190:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f034194:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f034198:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f03419c:	8c99001c */ 	lw	$t9,0x1c($a0)
-/*  f0341a0:	44856000 */ 	mtc1	$a1,$f12
-/*  f0341a4:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f0341a8:	afa80028 */ 	sw	$t0,0x28($sp)
-/*  f0341ac:	44056000 */ 	mfc1	$a1,$f12
-/*  f0341b0:	afa00034 */ 	sw	$zero,0x34($sp)
-/*  f0341b4:	afa00030 */ 	sw	$zero,0x30($sp)
-/*  f0341b8:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f0341bc:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f0341c0:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f0341c4:	0fc0d149 */ 	jal	func0f034524
-/*  f0341c8:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f0341cc:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0341d0:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0341d4:	03e00008 */ 	jr	$ra
-/*  f0341d8:	00000000 */ 	nop
-);
+void func0f03417c(struct chrdata *chr, f32 damage, struct coord *vector, u8 *arg3, struct prop *prop)
+{
+	func0f034524(chr, damage, vector, arg3, prop, 200, 1, chr->prop, 0, 0, -1, 0, 0, 0);
+}
 
 GLOBAL_ASM(
 glabel func0f0341dc
