@@ -1488,71 +1488,24 @@ glabel func0f189088
 /*  f1890a4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel mpGetWeaponSetName
-/*  f1890a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1890ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1890b0:	0fc623e7 */ 	jal	func0f188f9c
-/*  f1890b4:	00000000 */ 	nop
-/*  f1890b8:	04400004 */ 	bltz	$v0,.L0f1890cc
-/*  f1890bc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1890c0:	2841000e */ 	slti	$at,$v0,0xe
-/*  f1890c4:	54200006 */ 	bnezl	$at,.L0f1890e0
-/*  f1890c8:	2401000d */ 	addiu	$at,$zero,0xd
-.L0f1890cc:
-/*  f1890cc:	0fc5b9f1 */ 	jal	langGet
-/*  f1890d0:	24045429 */ 	addiu	$a0,$zero,0x5429
-/*  f1890d4:	10000016 */ 	b	.L0f189130
-/*  f1890d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1890dc:	2401000d */ 	addiu	$at,$zero,0xd
-.L0f1890e0:
-/*  f1890e0:	54410006 */ 	bnel	$v0,$at,.L0f1890fc
-/*  f1890e4:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f1890e8:	0fc5b9f1 */ 	jal	langGet
-/*  f1890ec:	2404542a */ 	addiu	$a0,$zero,0x542a
-/*  f1890f0:	1000000f */ 	b	.L0f189130
-/*  f1890f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1890f8:	2401000c */ 	addiu	$at,$zero,0xc
-.L0f1890fc:
-/*  f1890fc:	14410005 */ 	bne	$v0,$at,.L0f189114
-/*  f189100:	000570c0 */ 	sll	$t6,$a1,0x3
-/*  f189104:	0fc5b9f1 */ 	jal	langGet
-/*  f189108:	2404542b */ 	addiu	$a0,$zero,0x542b
-/*  f18910c:	10000008 */ 	b	.L0f189130
-/*  f189110:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f189114:
-/*  f189114:	01c57021 */ 	addu	$t6,$t6,$a1
-/*  f189118:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f18911c:	3c048008 */ 	lui	$a0,%hi(g_MpWeaponSets)
-/*  f189120:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f189124:	0fc5b9f1 */ 	jal	langGet
-/*  f189128:	948473f0 */ 	lhu	$a0,%lo(g_MpWeaponSets)($a0)
-/*  f18912c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f189130:
-/*  f189130:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f189134:	03e00008 */ 	jr	$ra
-/*  f189138:	00000000 */ 	nop
-);
+char *mpGetWeaponSetName(s32 index)
+{
+	index = func0f188f9c(index);
 
-// regalloc
-//char *mpGetWeaponSetName(s32 arg0)
-//{
-//	s32 index = func0f188f9c(arg0);
-//
-//	if (index < 0 || index >= 14) {
-//		return langGet(L_MPWEAPONS(41)); // "Custom"
-//	}
-//
-//	if (index == 13) {
-//		return langGet(L_MPWEAPONS(42)); // "Random"
-//	}
-//
-//	if (index == 12) {
-//		return langGet(L_MPWEAPONS(43)); // "Random Five"
-//	}
-//
-//	return langGet(g_MpWeaponSets[index].name);
-//}
+	if (index < 0 || index >= 14) {
+		return langGet(L_MPWEAPONS(41)); // "Custom"
+	}
+
+	if (index == 13) {
+		return langGet(L_MPWEAPONS(42)); // "Random"
+	}
+
+	if (index == 12) {
+		return langGet(L_MPWEAPONS(43)); // "Random Five"
+	}
+
+	return langGet(g_MpWeaponSets[index].name);
+}
 
 GLOBAL_ASM(
 glabel func0f18913c
