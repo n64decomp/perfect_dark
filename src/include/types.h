@@ -827,23 +827,24 @@ struct act_attackamount {
 };
 
 struct act_robotattack {
-	/*0x2c*/ u32 unk02c;
-	/*0x30*/ u32 unk030;
-	/*0x34*/ u32 unk034;
-	/*0x38*/ u32 unk038;
-	/*0x3c*/ u32 unk03c;
-	/*0x40*/ u32 unk040;
-	/*0x44*/ u32 unk044;
-	/*0x48*/ u32 unk048;
-	/*0x4c*/ u32 unk04c;
-	/*0x50*/ u32 unk050;
-	/*0x54*/ u32 unk054;
-	/*0x58*/ u32 unk058;
+	/*0x2c*/ f32 unk02c;
+	/*0x30*/ f32 unk030;
+	/*0x34*/ f32 unk034;
+	/*0x38*/ f32 unk038;
+	/*0x3c*/ f32 unk03c;
+	/*0x40*/ f32 unk040;
+	/*0x44*/ f32 unk044;
+	/*0x48*/ f32 unk048;
+	/*0x4c*/ f32 unk04c;
+	/*0x50*/ f32 unk050;
+	/*0x54*/ f32 unk054;
+	/*0x58*/ f32 unk058;
 	/*0x5c*/ u32 unk05c;
 	/*0x60*/ u32 unk060;
 	/*0x64*/ u32 unk064;
 	/*0x68*/ u32 unk068;
-	/*0x6c*/ u16 unk06c;
+	/*0x6c*/ u8 unk06c;
+	/*0x6d*/ u8 unk06d;
 	/*0x6e*/ u8 unk06e;
 };
 

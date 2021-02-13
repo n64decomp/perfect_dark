@@ -18229,138 +18229,59 @@ void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool enabled)
 	}
 }
 
-GLOBAL_ASM(
-glabel robotAttack
-.late_rodata
-glabel var7f1a9194
-.word 0x3f59999a
-glabel var7f1a9198
-.word 0x3e4ccccd
-glabel var7f1a919c
-.word 0x3f59999a
-glabel var7f1a91a0
-.word 0x3e4ccccd
-.text
-/*  f042808:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f04280c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f042810:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f042814:	0c004b70 */ 	jal	random
-/*  f042818:	00808025 */ 	or	$s0,$a0,$zero
-/*  f04281c:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f042820:	0041001b */ 	divu	$zero,$v0,$at
-/*  f042824:	00007010 */ 	mfhi	$t6
-/*  f042828:	afae0024 */ 	sw	$t6,0x24($sp)
-/*  f04282c:	8e030348 */ 	lw	$v1,0x348($s0)
-/*  f042830:	50600065 */ 	beqzl	$v1,.L0f0429c8
-/*  f042834:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f042838:	8e0f034c */ 	lw	$t7,0x34c($s0)
-/*  f04283c:	24180022 */ 	addiu	$t8,$zero,0x22
-/*  f042840:	51e00061 */ 	beqzl	$t7,.L0f0429c8
-/*  f042844:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f042848:	a2180007 */ 	sb	$t8,0x7($s0)
-/*  f04284c:	8c680004 */ 	lw	$t0,0x4($v1)
-/*  f042850:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f042854:	0c004b70 */ 	jal	random
-/*  f042858:	a1190000 */ 	sb	$t9,0x0($t0)
-/*  f04285c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f042860:	0041001b */ 	divu	$zero,$v0,$at
-/*  f042864:	8e0a0348 */ 	lw	$t2,0x348($s0)
-/*  f042868:	00004810 */ 	mfhi	$t1
-/*  f04286c:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f042870:	a1490000 */ 	sb	$t1,0x0($t2)
-/*  f042874:	8e0b0348 */ 	lw	$t3,0x348($s0)
-/*  f042878:	3c017f1b */ 	lui	$at,%hi(var7f1a9194)
-/*  f04287c:	a1600001 */ 	sb	$zero,0x1($t3)
-/*  f042880:	8e0d0348 */ 	lw	$t5,0x348($s0)
-/*  f042884:	adac0008 */ 	sw	$t4,0x8($t5)
-/*  f042888:	8e0e0348 */ 	lw	$t6,0x348($s0)
-/*  f04288c:	c4249194 */ 	lwc1	$f4,%lo(var7f1a9194)($at)
-/*  f042890:	0fc5b367 */ 	jal	coreGetDifficulty
-/*  f042894:	e5c4000c */ 	swc1	$f4,0xc($t6)
-/*  f042898:	384f0002 */ 	xori	$t7,$v0,0x2
-/*  f04289c:	2def0001 */ 	sltiu	$t7,$t7,0x1
-/*  f0428a0:	448f4000 */ 	mtc1	$t7,$f8
-/*  f0428a4:	3c017f1b */ 	lui	$at,%hi(var7f1a9198)
-/*  f0428a8:	c4309198 */ 	lwc1	$f16,%lo(var7f1a9198)($at)
-/*  f0428ac:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f0428b0:	44803000 */ 	mtc1	$zero,$f6
-/*  f0428b4:	44800000 */ 	mtc1	$zero,$f0
-/*  f0428b8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0428bc:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f0428c0:	46123032 */ 	c.eq.s	$f6,$f18
-/*  f0428c4:	00000000 */ 	nop
-/*  f0428c8:	45030007 */ 	bc1tl	.L0f0428e8
-/*  f0428cc:	44814000 */ 	mtc1	$at,$f8
-/*  f0428d0:	3c014000 */ 	lui	$at,0x4000
-/*  f0428d4:	44812000 */ 	mtc1	$at,$f4
-/*  f0428d8:	8e180348 */ 	lw	$t8,0x348($s0)
-/*  f0428dc:	10000004 */ 	b	.L0f0428f0
-/*  f0428e0:	e7040010 */ 	swc1	$f4,0x10($t8)
-/*  f0428e4:	44814000 */ 	mtc1	$at,$f8
-.L0f0428e8:
-/*  f0428e8:	8e190348 */ 	lw	$t9,0x348($s0)
-/*  f0428ec:	e7280010 */ 	swc1	$f8,0x10($t9)
-.L0f0428f0:
-/*  f0428f0:	8e080348 */ 	lw	$t0,0x348($s0)
-/*  f0428f4:	2409005a */ 	addiu	$t1,$zero,0x5a
-/*  f0428f8:	240affff */ 	addiu	$t2,$zero,-1
-/*  f0428fc:	e5000014 */ 	swc1	$f0,0x14($t0)
-/*  f042900:	8e0b034c */ 	lw	$t3,0x34c($s0)
-/*  f042904:	e600002c */ 	swc1	$f0,0x2c($s0)
-/*  f042908:	e6000030 */ 	swc1	$f0,0x30($s0)
-/*  f04290c:	e6000034 */ 	swc1	$f0,0x34($s0)
-/*  f042910:	e6000044 */ 	swc1	$f0,0x44($s0)
-/*  f042914:	e6000048 */ 	swc1	$f0,0x48($s0)
-/*  f042918:	e600004c */ 	swc1	$f0,0x4c($s0)
-/*  f04291c:	ae09005c */ 	sw	$t1,0x5c($s0)
-/*  f042920:	a200006c */ 	sb	$zero,0x6c($s0)
-/*  f042924:	8d6c0004 */ 	lw	$t4,0x4($t3)
-/*  f042928:	0c004b70 */ 	jal	random
-/*  f04292c:	a18a0000 */ 	sb	$t2,0x0($t4)
-/*  f042930:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f042934:	0041001b */ 	divu	$zero,$v0,$at
-/*  f042938:	8e0e034c */ 	lw	$t6,0x34c($s0)
-/*  f04293c:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f042940:	00006810 */ 	mfhi	$t5
-/*  f042944:	a1cd0000 */ 	sb	$t5,0x0($t6)
-/*  f042948:	8e0f034c */ 	lw	$t7,0x34c($s0)
-/*  f04294c:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f042950:	3c017f1b */ 	lui	$at,%hi(var7f1a919c)
-/*  f042954:	a1e00001 */ 	sb	$zero,0x1($t7)
-/*  f042958:	8e19034c */ 	lw	$t9,0x34c($s0)
-/*  f04295c:	44800000 */ 	mtc1	$zero,$f0
-/*  f042960:	240a005a */ 	addiu	$t2,$zero,0x5a
-/*  f042964:	af380008 */ 	sw	$t8,0x8($t9)
-/*  f042968:	8e08034c */ 	lw	$t0,0x34c($s0)
-/*  f04296c:	c42a919c */ 	lwc1	$f10,%lo(var7f1a919c)($at)
-/*  f042970:	3c017f1b */ 	lui	$at,%hi(var7f1a91a0)
-/*  f042974:	02002025 */ 	or	$a0,$s0,$zero
-/*  f042978:	e50a000c */ 	swc1	$f10,0xc($t0)
-/*  f04297c:	8e09034c */ 	lw	$t1,0x34c($s0)
-/*  f042980:	c43091a0 */ 	lwc1	$f16,%lo(var7f1a91a0)($at)
-/*  f042984:	3c054180 */ 	lui	$a1,0x4180
-/*  f042988:	e5300010 */ 	swc1	$f16,0x10($t1)
-/*  f04298c:	8e0b034c */ 	lw	$t3,0x34c($s0)
-/*  f042990:	e5600014 */ 	swc1	$f0,0x14($t3)
-/*  f042994:	ae0a0060 */ 	sw	$t2,0x60($s0)
-/*  f042998:	a200006d */ 	sb	$zero,0x6d($s0)
-/*  f04299c:	a200006e */ 	sb	$zero,0x6e($s0)
-/*  f0429a0:	ae030064 */ 	sw	$v1,0x64($s0)
-/*  f0429a4:	ae030068 */ 	sw	$v1,0x68($s0)
-/*  f0429a8:	e6000038 */ 	swc1	$f0,0x38($s0)
-/*  f0429ac:	e600003c */ 	swc1	$f0,0x3c($s0)
-/*  f0429b0:	e6000040 */ 	swc1	$f0,0x40($s0)
-/*  f0429b4:	e6000050 */ 	swc1	$f0,0x50($s0)
-/*  f0429b8:	e6000054 */ 	swc1	$f0,0x54($s0)
-/*  f0429bc:	0fc0b9b7 */ 	jal	chrStandChooseAnimation
-/*  f0429c0:	e6000058 */ 	swc1	$f0,0x58($s0)
-/*  f0429c4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0429c8:
-/*  f0429c8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0429cc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0429d0:	03e00008 */ 	jr	$ra
-/*  f0429d4:	00000000 */ 	nop
-);
+void robotAttack(struct chrdata *chr)
+{
+	u32 rand = random() % 20;
+
+	if (chr->unk348 && chr->unk34c) {
+		chr->actiontype = ACT_ROBOTATTACK;
+
+		chr->unk348->bullettail->age = -1;
+		chr->unk348->unk00 = random() % 3;
+		chr->unk348->unk01 = 0;
+		chr->unk348->unk08 = -1;
+		chr->unk348->unk0c = 0.85f;
+
+		if ((coreGetDifficulty() == DIFF_PA) * 0.2f) {
+			chr->unk348->unk10 = 2.0f;
+		} else {
+			chr->unk348->unk10 = 1.0f;
+		}
+
+		chr->unk348->unk14 = 0.0f;
+
+		chr->act_robotattack.unk02c = 0.0f;
+		chr->act_robotattack.unk030 = 0.0f;
+		chr->act_robotattack.unk034 = 0.0f;
+		chr->act_robotattack.unk044 = 0.0f;
+		chr->act_robotattack.unk048 = 0.0f;
+		chr->act_robotattack.unk04c = 0.0f;
+		chr->act_robotattack.unk05c = 90;
+		chr->act_robotattack.unk06c = 0;
+
+		chr->unk34c->bullettail->age = -1;
+		chr->unk34c->unk00 = random() % 3;
+		chr->unk34c->unk01 = 0;
+		chr->unk34c->unk08 = -1;
+		chr->unk34c->unk0c = 0.85f;
+		chr->unk34c->unk10 = 0.2f;
+		chr->unk34c->unk14 = 0.0f;
+
+		chr->act_robotattack.unk060 = 90;
+		chr->act_robotattack.unk06d = 0;
+		chr->act_robotattack.unk06e = 0;
+		chr->act_robotattack.unk064 = rand;
+		chr->act_robotattack.unk068 = rand;
+		chr->act_robotattack.unk038 = 0.0f;
+		chr->act_robotattack.unk03c = 0.0f;
+		chr->act_robotattack.unk040 = 0.0f;
+		chr->act_robotattack.unk050 = 0.0f;
+		chr->act_robotattack.unk054 = 0.0f;
+		chr->act_robotattack.unk058 = 0.0f;
+
+		chrStandChooseAnimation(chr, 16);
+	}
+}
 
 void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2)
 {
