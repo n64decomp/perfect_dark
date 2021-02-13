@@ -32,7 +32,7 @@ void chrDropWeapons(struct chrdata *chr);
 void func0f0246e4(u8 *arg0);
 bool func0f024738(struct chrdata *chr);
 u32 func0f024b18(void);
-void func0f025074(struct prop *prop, struct modelrenderdata *renderdata, bool withalpha, struct chrdata *chr);
+void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderdata, bool withalpha, struct chrdata *chr);
 void bodyGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2);
 Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha);
 void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 arg2, struct coord *coord, struct coord *coord2, struct chrdata *chr2);

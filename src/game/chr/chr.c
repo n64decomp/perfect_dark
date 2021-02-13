@@ -6627,65 +6627,41 @@ glabel var7f1a87f8
 /*  f025070:	27bd0118 */ 	addiu	$sp,$sp,0x118
 );
 
-GLOBAL_ASM(
-glabel func0f025074
-/*  f025074:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f025078:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f02507c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f025080:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f025084:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f025088:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f02508c:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f025090:	908f0001 */ 	lbu	$t7,0x1($a0)
-/*  f025094:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f025098:	00e09025 */ 	or	$s2,$a3,$zero
-/*  f02509c:	31f80002 */ 	andi	$t8,$t7,0x2
-/*  f0250a0:	13000021 */ 	beqz	$t8,.L0f025128
-/*  f0250a4:	00c09825 */ 	or	$s3,$a2,$zero
-/*  f0250a8:	8c900004 */ 	lw	$s0,0x4($a0)
-/*  f0250ac:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0250b0:	8e050018 */ 	lw	$a1,0x18($s0)
-/*  f0250b4:	0c0087bd */ 	jal	modelRender
-/*  f0250b8:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f0250bc:	92190002 */ 	lbu	$t9,0x2($s0)
-/*  f0250c0:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0250c4:	02684804 */ 	sllv	$t1,$t0,$s3
-/*  f0250c8:	03295024 */ 	and	$t2,$t9,$t1
-/*  f0250cc:	11400005 */ 	beqz	$t2,.L0f0250e4
-/*  f0250d0:	8fa50038 */ 	lw	$a1,0x38($sp)
-/*  f0250d4:	8e24000c */ 	lw	$a0,0xc($s1)
-/*  f0250d8:	0fc50388 */ 	jal	func0f140e20
-/*  f0250dc:	02603025 */ 	or	$a2,$s3,$zero
-/*  f0250e0:	ae22000c */ 	sw	$v0,0xc($s1)
-.L0f0250e4:
-/*  f0250e4:	8fab0038 */ 	lw	$t3,0x38($sp)
-/*  f0250e8:	8d70001c */ 	lw	$s0,0x1c($t3)
-/*  f0250ec:	12000008 */ 	beqz	$s0,.L0f025110
-/*  f0250f0:	02002025 */ 	or	$a0,$s0,$zero
-.L0f0250f4:
-/*  f0250f4:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0250f8:	02603025 */ 	or	$a2,$s3,$zero
-/*  f0250fc:	0fc0941d */ 	jal	func0f025074
-/*  f025100:	02403825 */ 	or	$a3,$s2,$zero
-/*  f025104:	8e100020 */ 	lw	$s0,0x20($s0)
-/*  f025108:	5600fffa */ 	bnezl	$s0,.L0f0250f4
-/*  f02510c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f025110:
-/*  f025110:	12600005 */ 	beqz	$s3,.L0f025128
-/*  f025114:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*  f025118:	8c4c0008 */ 	lw	$t4,0x8($v0)
-/*  f02511c:	8c44000c */ 	lw	$a0,0xc($v0)
-/*  f025120:	0fc30cfc */ 	jal	func0f0c33f0
-/*  f025124:	8585000e */ 	lh	$a1,0xe($t4)
-.L0f025128:
-/*  f025128:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f02512c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f025130:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f025134:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f025138:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f02513c:	03e00008 */ 	jr	$ra
-/*  f025140:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+/**
+ * Render an object that's attached to or held by a chr such as their weapon,
+ * mines that are stuck to them, and knives/bolts which are embedded in them.
+ *
+ * This function is recursive. The chr's gun can have mines placed on it, and
+ * mines can also have further mines placed on them.
+ */
+void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderdata, bool withalpha, struct chrdata *chr)
+{
+	if (prop->flags & PROPFLAG_02) {
+		u32 stack;
+		struct defaultobj *obj = prop->obj;
+		struct model *model = obj->model;
+		struct prop *child;
+
+		modelRender(renderdata, model);
+
+		// Note: OBJH2FLAG_RENDEROPAQUE << 1 is OBJH2FLAG_RENDERALPHA
+		// so this is just checking if the appropriate flag is enabled
+		if (obj->hidden2 & OBJH2FLAG_RENDEROPAQUE << withalpha) {
+			renderdata->gdl = func0f140e20(renderdata->gdl, prop, withalpha);
+		}
+
+		child = prop->child;
+
+		while (child) {
+			chrRenderAttachedObject(child, renderdata, withalpha, chr);
+			child = child->next;
+		}
+
+		if (withalpha) {
+			func0f0c33f0(model->unk0c, model->filedata->unk0e);
+		}
+	}
+}
 
 void bodyGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2)
 {
@@ -6986,7 +6962,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		child = prop->child;
 
 		while (child) {
-			func0f025074(child, &renderdata, withalpha, chr);
+			chrRenderAttachedObject(child, &renderdata, withalpha, chr);
 			child = child->next;
 		}
 

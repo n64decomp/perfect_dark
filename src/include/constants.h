@@ -2488,10 +2488,12 @@
 #define OBJHFLAG_20000000          0x20000000 // upper nibble might be a single 4-bit value
 
 // obj->hidden2
-#define OBJH2FLAG_04 0x04
-#define OBJH2FLAG_08 0x08
-#define OBJH2FLAG_10 0x10
-#define OBJH2FLAG_40 0x40
+#define OBJH2FLAG_RENDEROPAQUE 0x01
+#define OBJH2FLAG_RENDERALPHA  0x02 // must be immediately after OBJH2FLAG_RENDEROPAQUE
+#define OBJH2FLAG_04           0x04
+#define OBJH2FLAG_08           0x08
+#define OBJH2FLAG_10           0x10
+#define OBJH2FLAG_40           0x40
 
 #define OBJTYPE_DOOR               0x01
 #define OBJTYPE_DOORSCALE          0x02
