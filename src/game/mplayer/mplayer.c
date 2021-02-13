@@ -1241,37 +1241,19 @@ s32 func0f188bcc(void)
 	return 39;
 }
 
-GLOBAL_ASM(
-glabel mpGetNumWeaponOptions
-/*  f188bd4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f188bd8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f188bdc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f188be0:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f188be4:	3c108008 */ 	lui	$s0,%hi(g_MpWeapons)
-/*  f188be8:	3c128008 */ 	lui	$s2,%hi(g_MpWeapons+0x186)
-/*  f188bec:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f188bf0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f188bf4:	265273ee */ 	addiu	$s2,$s2,%lo(g_MpWeapons+0x186)
-/*  f188bf8:	26107268 */ 	addiu	$s0,$s0,%lo(g_MpWeapons)
-/*  f188bfc:	96040004 */ 	lhu	$a0,0x4($s0)
-.L0f188c00:
-/*  f188c00:	308e007f */ 	andi	$t6,$a0,0x7f
-/*  f188c04:	0fc67244 */ 	jal	mpIsFeatureUnlocked
-/*  f188c08:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f188c0c:	10400002 */ 	beqz	$v0,.L0f188c18
-/*  f188c10:	2610000a */ 	addiu	$s0,$s0,0xa
-/*  f188c14:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f188c18:
-/*  f188c18:	5612fff9 */ 	bnel	$s0,$s2,.L0f188c00
-/*  f188c1c:	96040004 */ 	lhu	$a0,0x4($s0)
-/*  f188c20:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f188c24:	02201025 */ 	or	$v0,$s1,$zero
-/*  f188c28:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f188c2c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f188c30:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f188c34:	03e00008 */ 	jr	$ra
-/*  f188c38:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 mpGetNumWeaponOptions(void)
+{
+	s32 count = 0;
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(g_MpWeapons); i++) {
+		if (mpIsFeatureUnlocked(g_MpWeapons[i].unlockfeature)) {
+			count++;
+		}
+	}
+
+	return count;
+}
 
 char *mpGetWeaponLabel(s32 weaponnum)
 {

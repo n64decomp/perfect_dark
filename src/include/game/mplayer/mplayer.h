@@ -20,7 +20,7 @@ s32 mpGetPlayerRankings(struct mpteaminfo *info);
 u32 func0f188930(void);
 s32 mpGetTeamRankings(struct mpteaminfo *info);
 s32 func0f188bcc(void);
-u32 mpGetNumWeaponOptions(void);
+s32 mpGetNumWeaponOptions(void);
 char *mpGetWeaponLabel(s32 weaponnum);
 void mpSetWeaponSlot(s32 slot, s32 mpweaponnum);
 s32 mpGetWeaponSlot(s32 slot);
