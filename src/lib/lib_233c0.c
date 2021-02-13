@@ -56,10 +56,10 @@ glabel func000233c0
 /*    23418:	2484a894 */ 	addiu	$a0,$a0,%lo(var8009a894)
 /*    2341c:	8c6a0000 */ 	lw	$t2,0x0($v1)
 /*    23420:	3c05800a */ 	lui	$a1,%hi(var8009a898)
-/*    23424:	3c098006 */ 	lui	$t1,%hi(var8005f008)
+/*    23424:	3c098006 */ 	lui	$t1,%hi(g_NumAnimations)
 /*    23428:	a48a0000 */ 	sh	$t2,0x0($a0)
 /*    2342c:	848b0000 */ 	lh	$t3,0x0($a0)
-/*    23430:	2529f008 */ 	addiu	$t1,$t1,%lo(var8005f008)
+/*    23430:	2529f008 */ 	addiu	$t1,$t1,%lo(g_NumAnimations)
 /*    23434:	24a5a898 */ 	addiu	$a1,$a1,%lo(var8009a898)
 /*    23438:	246c0004 */ 	addiu	$t4,$v1,0x4
 /*    2343c:	acac0000 */ 	sw	$t4,0x0($a1)
@@ -116,10 +116,10 @@ glabel func000233c0
 /*    234f8:	39e4003f */ 	xori	$a0,$t7,0x3f
 /*    234fc:	0c0048f2 */ 	jal	malloc
 /*    23500:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    23504:	3c098006 */ 	lui	$t1,%hi(var8005f008)
+/*    23504:	3c098006 */ 	lui	$t1,%hi(g_NumAnimations)
 /*    23508:	3c018006 */ 	lui	$at,%hi(var8005f010)
 /*    2350c:	ac22f010 */ 	sw	$v0,%lo(var8005f010)($at)
-/*    23510:	2529f008 */ 	addiu	$t1,$t1,%lo(var8005f008)
+/*    23510:	2529f008 */ 	addiu	$t1,$t1,%lo(g_NumAnimations)
 /*    23514:	85240000 */ 	lh	$a0,0x0($t1)
 /*    23518:	24050006 */ 	addiu	$a1,$zero,0x6
 /*    2351c:	0004c840 */ 	sll	$t9,$a0,0x1
@@ -199,8 +199,8 @@ glabel func000233c0
 
 GLOBAL_ASM(
 glabel func00023640
-/*    23640:	3c048006 */ 	lui	$a0,%hi(var8005f008)
-/*    23644:	2484f008 */ 	addiu	$a0,$a0,%lo(var8005f008)
+/*    23640:	3c048006 */ 	lui	$a0,%hi(g_NumAnimations)
+/*    23644:	2484f008 */ 	addiu	$a0,$a0,%lo(g_NumAnimations)
 /*    23648:	848e0000 */ 	lh	$t6,0x0($a0)
 /*    2364c:	00001025 */ 	or	$v0,$zero,$zero
 /*    23650:	00001825 */ 	or	$v1,$zero,$zero
@@ -270,7 +270,7 @@ glabel func00023640
 
 void func0002373c(void)
 {
-	var8005f008 = var8009a894;
+	g_NumAnimations = var8009a894;
 	g_Anims = var8009a898;
 	var8005f020 = 0;
 }
@@ -282,8 +282,8 @@ s32 animGetNumFrames(s16 animnum)
 
 GLOBAL_ASM(
 glabel func00023794
-/*    23794:	3c188006 */ 	lui	$t8,%hi(var8005f008)
-/*    23798:	8718f008 */ 	lh	$t8,%lo(var8005f008)($t8)
+/*    23794:	3c188006 */ 	lui	$t8,%hi(g_NumAnimations)
+/*    23798:	8718f008 */ 	lh	$t8,%lo(g_NumAnimations)($t8)
 /*    2379c:	00047400 */ 	sll	$t6,$a0,0x10
 /*    237a0:	000e7c03 */ 	sra	$t7,$t6,0x10
 /*    237a4:	01f8102a */ 	slt	$v0,$t7,$t8
@@ -304,10 +304,10 @@ glabel func00023794
 );
 
 GLOBAL_ASM(
-glabel func000237dc
-/*    237dc:	3c028006 */ 	lui	$v0,%hi(var8005f008)
+glabel getNumAnimations
+/*    237dc:	3c028006 */ 	lui	$v0,%hi(g_NumAnimations)
 /*    237e0:	03e00008 */ 	jr	$ra
-/*    237e4:	8442f008 */ 	lh	$v0,%lo(var8005f008)($v0)
+/*    237e4:	8442f008 */ 	lh	$v0,%lo(g_NumAnimations)($v0)
 );
 
 GLOBAL_ASM(

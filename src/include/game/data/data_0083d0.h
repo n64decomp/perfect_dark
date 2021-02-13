@@ -83,7 +83,7 @@ extern void *var80062960;
 extern u32 var80062964;
 extern f32 var80062968;
 extern bool var8006296c;
-extern s32 var80062970;
+extern s32 g_SelectedAnimNum;
 extern u32 var80062974;
 extern u32 var80062978;
 extern u32 var8006297c;

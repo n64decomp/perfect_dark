@@ -7,7 +7,7 @@ extern s32 var8005dd18;
 
 void mainInit(void);
 void mainEntry(void);
-void func0000db30(char *string, u32 *ptr);
+void func0000db30(char *string, void *ptr);
 void mainLoop(void);
 void mainTick(void);
 void mainEndStage(void);

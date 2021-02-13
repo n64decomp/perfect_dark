@@ -39,7 +39,7 @@ void func0f00b510(void)
 
 	var80062968 = 1;
 	var8006296c = 0;
-	var80062970 = 0;
+	g_SelectedAnimNum = 0;
 	var80062974 = 0;
 	var80062978 = 0;
 	var8006297c = 0;

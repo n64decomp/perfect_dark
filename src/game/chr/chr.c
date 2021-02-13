@@ -52,7 +52,6 @@
 #include "types.h"
 
 const char var7f1a8690[] = "chr/chr.c";
-const char var7f1a869c[] = "selectanimnum";
 
 u8 g_FileState = 0;
 u8 var80062944 = 0;
@@ -66,7 +65,7 @@ void *var80062960 = NULL;
 u32 var80062964 = 0x00000000;
 f32 var80062968 = 0;
 bool var8006296c = false;
-s32 var80062970 = 0;
+s32 g_SelectedAnimNum = 0;
 u32 var80062974 = 0x00000000;
 u32 var80062978 = 0x00000000;
 u32 var8006297c = 0;
@@ -4655,17 +4654,17 @@ glabel var7f1a87d8
 /*  f023328:	8e020014 */ 	lw	$v0,0x14($s0)
 .L0f02332c:
 /*  f02332c:	8f18296c */ 	lw	$t8,%lo(var8006296c)($t8)
-/*  f023330:	3c048006 */ 	lui	$a0,%hi(var80062970+0x2)
+/*  f023330:	3c048006 */ 	lui	$a0,%hi(g_SelectedAnimNum+0x2)
 /*  f023334:	13000022 */ 	beqz	$t8,.L0f0233c0
 /*  f023338:	00000000 */ 	nop
 /*  f02333c:	0c008de5 */ 	jal	func00023794
-/*  f023340:	84842972 */ 	lh	$a0,%lo(var80062970+0x2)($a0)
+/*  f023340:	84842972 */ 	lh	$a0,%lo(g_SelectedAnimNum+0x2)($a0)
 /*  f023344:	10400025 */ 	beqz	$v0,.L0f0233dc
 /*  f023348:	00000000 */ 	nop
 /*  f02334c:	0c00744f */ 	jal	modelGetAnimNum
 /*  f023350:	8fa40208 */ 	lw	$a0,0x208($sp)
-/*  f023354:	3c038006 */ 	lui	$v1,%hi(var80062970)
-/*  f023358:	8c632970 */ 	lw	$v1,%lo(var80062970)($v1)
+/*  f023354:	3c038006 */ 	lui	$v1,%hi(g_SelectedAnimNum)
+/*  f023358:	8c632970 */ 	lw	$v1,%lo(g_SelectedAnimNum)($v1)
 /*  f02335c:	5443000b */ 	bnel	$v0,$v1,.L0f02338c
 /*  f023360:	44800000 */ 	mtc1	$zero,$f0
 /*  f023364:	0c00744f */ 	jal	modelGetAnimNum
@@ -4675,8 +4674,8 @@ glabel var7f1a87d8
 /*  f023374:	0c008de5 */ 	jal	func00023794
 /*  f023378:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f02337c:	14400017 */ 	bnez	$v0,.L0f0233dc
-/*  f023380:	3c038006 */ 	lui	$v1,%hi(var80062970)
-/*  f023384:	8c632970 */ 	lw	$v1,%lo(var80062970)($v1)
+/*  f023380:	3c038006 */ 	lui	$v1,%hi(g_SelectedAnimNum)
+/*  f023384:	8c632970 */ 	lw	$v1,%lo(g_SelectedAnimNum)($v1)
 /*  f023388:	44800000 */ 	mtc1	$zero,$f0
 .L0f02338c:
 /*  f02338c:	3c013f00 */ 	lui	$at,0x3f00
@@ -9613,19 +9612,19 @@ void func0f028498(bool value)
 
 void func0f0284ac(s32 arg0)
 {
-	var80062970 -= arg0;
+	g_SelectedAnimNum -= arg0;
 
-	if (var80062970 <= 0) {
-		var80062970 = func000237dc() - 1;
+	if (g_SelectedAnimNum <= 0) {
+		g_SelectedAnimNum = getNumAnimations() - 1;
 	}
 }
 
 void func0f0284f4(s32 arg0)
 {
-	var80062970 += arg0;
+	g_SelectedAnimNum += arg0;
 
-	if (var80062970 >= func000237dc()) {
-		var80062970 = 1;
+	if (g_SelectedAnimNum >= getNumAnimations()) {
+		g_SelectedAnimNum = 1;
 	}
 }
 
@@ -9634,22 +9633,12 @@ void func0f028544(void)
 	var80062974 = !var80062974;
 }
 
-GLOBAL_ASM(
-glabel func0f02855c
-/*  f02855c:	3c018006 */ 	lui	$at,%hi(var80062978)
-/*  f028560:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f028564:	ac242978 */ 	sw	$a0,%lo(var80062978)($at)
-/*  f028568:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f02856c:	3c047f1b */ 	lui	$a0,%hi(var7f1a869c)
-/*  f028570:	3c058006 */ 	lui	$a1,%hi(var80062970)
-/*  f028574:	24a52970 */ 	addiu	$a1,$a1,%lo(var80062970)
-/*  f028578:	0c0036cc */ 	jal	func0000db30
-/*  f02857c:	2484869c */ 	addiu	$a0,$a0,%lo(var7f1a869c)
-/*  f028580:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f028584:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f028588:	03e00008 */ 	jr	$ra
-/*  f02858c:	00000000 */ 	nop
-);
+void func0f02855c(s32 arg0)
+{
+	var80062978 = arg0;
+
+	func0000db30("selectanimnum", &g_SelectedAnimNum);
+}
 
 void func0f028590(f32 arg0)
 {
