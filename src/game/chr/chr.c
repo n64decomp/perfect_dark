@@ -9629,14 +9629,13 @@ void func0f0284f4(s32 arg0)
 	}
 }
 
+void func0f028544(void)
+{
+	var80062974 = !var80062974;
+}
+
 GLOBAL_ASM(
-glabel func0f028544
-/*  f028544:	3c038006 */ 	lui	$v1,%hi(var80062974)
-/*  f028548:	24632974 */ 	addiu	$v1,$v1,%lo(var80062974)
-/*  f02854c:	8c620000 */ 	lw	$v0,0x0($v1)
-/*  f028550:	2c4e0001 */ 	sltiu	$t6,$v0,0x1
-/*  f028554:	03e00008 */ 	jr	$ra
-/*  f028558:	ac6e0000 */ 	sw	$t6,0x0($v1)
+glabel func0f02855c
 /*  f02855c:	3c018006 */ 	lui	$at,%hi(var80062978)
 /*  f028560:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f028564:	ac242978 */ 	sw	$a0,%lo(var80062978)($at)
