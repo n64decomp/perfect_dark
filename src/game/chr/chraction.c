@@ -57,7 +57,9 @@
 const char var7f1a8ac0[] = "chraction.c";
 const char var7f1a8acc[] = "chraction.c";
 
-u32 var80068070 = 0x00000000;
+u32 var80068020 = 0x00000000;
+u32 var80068024 = 0x00000000;
+u32 var80068028 = 0x00000000;
 
 f32 func0f02dff0(s16 animnum)
 {
@@ -1262,6 +1264,63 @@ glabel chrAttackKneel
 /*  f030580:	00000000 */ 	nop
 );
 
+//void chrAttackKneel(struct chrdata *chr, s32 entitytype, s32 entityid)
+//{
+//	struct prop *leftprop = chrGetEquippedWeaponProp(chr, HAND_LEFT); // 54
+//	struct prop *rightprop = chrGetEquippedWeaponProp(chr, HAND_RIGHT); // 50
+//	s32 sp4c;
+//	s32 sp48;
+//	bool firing[2] = {false, false}; // 40, 44 (var8006802c and var80068030)
+//	s32 race = CHRRACE(chr); // 3c
+//	struct prop *leftprop2; // 38
+//	struct prop *rightprop2;
+//	struct var80065750 **iVar5;
+//
+//	if (leftprop && rightprop) {
+//		// Holding two items
+//		leftprop2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_LEFT);
+//		rightprop2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_RIGHT);
+//
+//		if (leftprop2 && rightprop2) {
+//			// And both are capable of firing
+//			sp48 = random() % 2;
+//
+//			if (random() % 3 == 0) {
+//				// 1 in 4 chance of firing just one of them (50/50 as to which)
+//				iVar5 = var80066ef0[race];
+//				firing[HAND_LEFT] = sp48;
+//				firing[HAND_RIGHT] = !firing[HAND_LEFT];
+//			} else {
+//				// 3 in 4 chance of firing both
+//				iVar5 = var80067328[race];
+//				firing[HAND_LEFT] = true;
+//				firing[HAND_RIGHT] = true;
+//			}
+//		} else {
+//			// Fire whichever one is capable
+//			sp48 = !rightprop2;
+//			iVar5 = var80066ef0[race];
+//			firing[HAND_LEFT] = !rightprop2;
+//			firing[HAND_RIGHT] = !firing[HAND_LEFT];
+//		}
+//	} else {
+//		if (weaponIsOneHanded(leftprop) || weaponIsOneHanded(rightprop)) {
+//			// Light weight weapon
+//			iVar5 = var80066ef0[race];
+//			sp48 = (bool)leftprop;
+//		} else {
+//			// Heavy weapon
+//			iVar5 = var80066a70[race];
+//			sp48 = (bool)leftprop;
+//		}
+//
+//		firing[HAND_LEFT] = (bool)leftprop;
+//		firing[HAND_RIGHT] = !firing[HAND_LEFT];
+//	}
+//
+//	func0f031384(chr, iVar5, sp48, firing, entitytype, entityid, 0);
+//}
+
 void chrAttackWalkChooseAnimation(struct chrdata *chr)
 {
 	if (chr->aibot == NULL) {
@@ -1269,6 +1328,25 @@ void chrAttackWalkChooseAnimation(struct chrdata *chr)
 				chr->act_attackwalk.flip, chr->act_attackwalk.animfloats->unk10, 0.5, 16);
 	}
 }
+
+u32 var8006802c = 0x00000000;
+u32 var80068030 = 0x00000000;
+u32 var80068034 = 0x00000000;
+u32 var80068038 = 0x00000000;
+u32 var8006803c = 0x00000000;
+u32 var80068040 = 0x00000000;
+u32 var80068044 = 0x00000000;
+u32 var80068048 = 0x00000000;
+u32 var8006804c = 0x00000000;
+u32 var80068050 = 0x00000000;
+u32 var80068054 = 0x00000000;
+u32 var80068058 = 0x00000000;
+u32 var8006805c = 0x00000000;
+u32 var80068060 = 0x00000000;
+u32 var80068064 = 0x00000000;
+u32 var80068068 = 0x00000000;
+u32 var8006806c = 0x00000000;
+u32 var80068070 = 0x00000000;
 
 GLOBAL_ASM(
 glabel chrAttackWalk
