@@ -96,35 +96,6 @@ u32 var800629c8 = 0x00000000;
 u32 var800629cc = 0x00000000;
 u32 var800629d0 = 0x00000000;
 u32 var800629d4 = 0x00000000;
-u32 var800629d8 = 0x00000000;
-u32 var800629dc = 0x00000000;
-u32 var800629e0 = 0x00000000;
-u32 var800629e4 = 0x1a000003;
-u32 var800629e8 = 0x3f800000;
-u32 var800629ec = 0x00000000;
-u32 var800629f0 = 0x00000000;
-u32 var800629f4 = 0x00000000;
-u32 var800629f8 = 0x00000000;
-u32 var800629fc = 0x00000000;
-u32 var80062a00 = 0x00000001;
-u32 var80062a04 = 0x00000003;
-u32 var80062a08 = 0x00000000;
-u32 var80062a0c = 0x00000000;
-u32 var80062a10 = 0x00000000;
-u32 var80062a14 = 0x00000000;
-u32 var80062a18 = 0x00000000;
-u32 var80062a1c = 0x00000000;
-u32 var80062a20 = 0x00000000;
-u32 var80062a24 = 0x00000000;
-u32 var80062a28 = 0x00000000;
-u32 var80062a2c = 0x00000000;
-u32 var80062a30 = 0x00000000;
-u32 var80062a34 = 0x00000000;
-u32 var80062a38 = 0x00000000;
-u32 var80062a3c = 0x00000000;
-u32 var80062a40 = 0x00000000;
-u32 var80062a44 = 0x00000000;
-u8 var80062a48[] = { 64, 10, 10 };
 
 void func0f01e250(void)
 {
@@ -2578,7 +2549,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->aimtesttimer60 = random() % 30;
 	chr->lastfootsample = 0;
 	chr->poisoncounter = 0;
-	chr->unk0e8 = NULL;
+	chr->poisonprop = NULL;
 	chr->lastshooter = -1;
 	chr->timeshooter = 0;
 	chr->unk32c_19 = 0;
@@ -4182,7 +4153,7 @@ s32 func0f022be4(struct chrdata *chr)
 	return result;
 }
 
-void chrSetPoisoned(struct chrdata *chr, void *arg1)
+void chrSetPoisoned(struct chrdata *chr, struct prop *poisonprop)
 {
 	if (chr->actiontype != ACT_DEAD
 			&& chr->actiontype != ACT_DIE
@@ -4192,197 +4163,97 @@ void chrSetPoisoned(struct chrdata *chr, void *arg1)
 	}
 
 	if (g_Vars.normmplayerisrunning) {
-		chr->unk0e8 = arg1;
+		chr->poisonprop = poisonprop;
 		chr->poisoncounter += 3360;
 	} else if (chr->poisoncounter == 0) {
 		chr->poisoncounter = 1680;
-		chr->unk0e8 = arg1;
+		chr->poisonprop = poisonprop;
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f022d60
-.late_rodata
-glabel var7f1a87b8
-.word 0x3a83126f
-.text
-/*  f022d60:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f022d64:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f022d68:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f022d6c:	848e0358 */ 	lh	$t6,0x358($a0)
-/*  f022d70:	3c188006 */ 	lui	$t8,%hi(var800629d8)
-/*  f022d74:	00808025 */ 	or	$s0,$a0,$zero
-/*  f022d78:	19c00094 */ 	blez	$t6,.L0f022fcc
-/*  f022d7c:	271829d8 */ 	addiu	$t8,$t8,%lo(var800629d8)
-/*  f022d80:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f022d84:	27af0034 */ 	addiu	$t7,$sp,0x34
-/*  f022d88:	8f080004 */ 	lw	$t0,0x4($t8)
-/*  f022d8c:	ade10000 */ 	sw	$at,0x0($t7)
-/*  f022d90:	8f010008 */ 	lw	$at,0x8($t8)
-/*  f022d94:	3c098006 */ 	lui	$t1,%hi(var800629e4)
-/*  f022d98:	ade80004 */ 	sw	$t0,0x4($t7)
-/*  f022d9c:	ade10008 */ 	sw	$at,0x8($t7)
-/*  f022da0:	8d2929e4 */ 	lw	$t1,%lo(var800629e4)($t1)
-/*  f022da4:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f022da8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f022dac:	afa90030 */ 	sw	$t1,0x30($sp)
-/*  f022db0:	80820007 */ 	lb	$v0,0x7($a0)
-/*  f022db4:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f022db8:	10410003 */ 	beq	$v0,$at,.L0f022dc8
-/*  f022dbc:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f022dc0:	54410014 */ 	bnel	$v0,$at,.L0f022e14
-/*  f022dc4:	8e04001c */ 	lw	$a0,0x1c($s0)
-.L0f022dc8:
-/*  f022dc8:	8c6a0318 */ 	lw	$t2,0x318($v1)
-/*  f022dcc:	3c0d800b */ 	lui	$t5,%hi(g_MpSetup+0xc)
-/*  f022dd0:	55400004 */ 	bnezl	$t2,.L0f022de4
-/*  f022dd4:	860b0358 */ 	lh	$t3,0x358($s0)
-/*  f022dd8:	1000007c */ 	b	.L0f022fcc
-/*  f022ddc:	a6000358 */ 	sh	$zero,0x358($s0)
-/*  f022de0:	860b0358 */ 	lh	$t3,0x358($s0)
-.L0f022de4:
-/*  f022de4:	240c0e10 */ 	addiu	$t4,$zero,0xe10
-/*  f022de8:	29610e11 */ 	slti	$at,$t3,0xe11
-/*  f022dec:	14200002 */ 	bnez	$at,.L0f022df8
-/*  f022df0:	00000000 */ 	nop
-/*  f022df4:	a60c0358 */ 	sh	$t4,0x358($s0)
-.L0f022df8:
-/*  f022df8:	8dadcb94 */ 	lw	$t5,%lo(g_MpSetup+0xc)($t5)
-/*  f022dfc:	31ae0001 */ 	andi	$t6,$t5,0x1
-/*  f022e00:	51c00073 */ 	beqzl	$t6,.L0f022fd0
-/*  f022e04:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f022e08:	10000070 */ 	b	.L0f022fcc
-/*  f022e0c:	a6000358 */ 	sh	$zero,0x358($s0)
-/*  f022e10:	8e04001c */ 	lw	$a0,0x1c($s0)
-.L0f022e14:
-/*  f022e14:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f022e18:	90990000 */ 	lbu	$t9,0x0($a0)
-/*  f022e1c:	1721001f */ 	bne	$t9,$at,.L0f022e9c
-/*  f022e20:	00000000 */ 	nop
-/*  f022e24:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f022e28:	00000000 */ 	nop
-/*  f022e2c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f022e30:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f022e34:	00027880 */ 	sll	$t7,$v0,0x2
-/*  f022e38:	006fc021 */ 	addu	$t8,$v1,$t7
-/*  f022e3c:	8f080064 */ 	lw	$t0,0x64($t8)
-/*  f022e40:	3c017f1b */ 	lui	$at,%hi(var7f1a87b8)
-/*  f022e44:	c42687b8 */ 	lwc1	$f6,%lo(var7f1a87b8)($at)
-/*  f022e48:	c50400dc */ 	lwc1	$f4,0xdc($t0)
-/*  f022e4c:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f022e50:	00000000 */ 	nop
-/*  f022e54:	45000011 */ 	bc1f	.L0f022e9c
-/*  f022e58:	00000000 */ 	nop
-/*  f022e5c:	8c690318 */ 	lw	$t1,0x318($v1)
-/*  f022e60:	3c0c800b */ 	lui	$t4,%hi(g_MpSetup+0xc)
-/*  f022e64:	5120005a */ 	beqzl	$t1,.L0f022fd0
-/*  f022e68:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f022e6c:	860a0358 */ 	lh	$t2,0x358($s0)
-/*  f022e70:	240b0e10 */ 	addiu	$t3,$zero,0xe10
-/*  f022e74:	29410e11 */ 	slti	$at,$t2,0xe11
-/*  f022e78:	14200002 */ 	bnez	$at,.L0f022e84
-/*  f022e7c:	00000000 */ 	nop
-/*  f022e80:	a60b0358 */ 	sh	$t3,0x358($s0)
-.L0f022e84:
-/*  f022e84:	8d8ccb94 */ 	lw	$t4,%lo(g_MpSetup+0xc)($t4)
-/*  f022e88:	318d0001 */ 	andi	$t5,$t4,0x1
-/*  f022e8c:	51a00050 */ 	beqzl	$t5,.L0f022fd0
-/*  f022e90:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f022e94:	1000004d */ 	b	.L0f022fcc
-/*  f022e98:	a6000358 */ 	sh	$zero,0x358($s0)
-.L0f022e9c:
-/*  f022e9c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f022ea0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f022ea4:	8c790034 */ 	lw	$t9,0x34($v1)
-/*  f022ea8:	860e0358 */ 	lh	$t6,0x358($s0)
-/*  f022eac:	01d97823 */ 	subu	$t7,$t6,$t9
-/*  f022eb0:	a60f0358 */ 	sh	$t7,0x358($s0)
-/*  f022eb4:	86020358 */ 	lh	$v0,0x358($s0)
-/*  f022eb8:	5c400014 */ 	bgtzl	$v0,.L0f022f0c
-/*  f022ebc:	28410690 */ 	slti	$at,$v0,0x690
-/*  f022ec0:	8c780318 */ 	lw	$t8,0x318($v1)
-/*  f022ec4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f022ec8:	1700000d */ 	bnez	$t8,.L0f022f00
-/*  f022ecc:	00000000 */ 	nop
-/*  f022ed0:	8e0800e8 */ 	lw	$t0,0xe8($s0)
-/*  f022ed4:	3c0542c8 */ 	lui	$a1,0x42c8
-/*  f022ed8:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f022edc:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f022ee0:	0fc0d049 */ 	jal	chrPoison
-/*  f022ee4:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f022ee8:	3c054049 */ 	lui	$a1,0x4049
-/*  f022eec:	34a50fdb */ 	ori	$a1,$a1,0xfdb
-/*  f022ef0:	0fc084e8 */ 	jal	chrDoFlinchcntThing
-/*  f022ef4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f022ef8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f022efc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-.L0f022f00:
-/*  f022f00:	1000000b */ 	b	.L0f022f30
-/*  f022f04:	a6000358 */ 	sh	$zero,0x358($s0)
-/*  f022f08:	28410690 */ 	slti	$at,$v0,0x690
-.L0f022f0c:
-/*  f022f0c:	50200009 */ 	beqzl	$at,.L0f022f34
-/*  f022f10:	8c6d0318 */ 	lw	$t5,0x318($v1)
-/*  f022f14:	8c6a0034 */ 	lw	$t2,0x34($v1)
-/*  f022f18:	860902d8 */ 	lh	$t1,0x2d8($s0)
-/*  f022f1c:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f022f20:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f022f24:	000b5840 */ 	sll	$t3,$t3,0x1
-/*  f022f28:	012b6021 */ 	addu	$t4,$t1,$t3
-/*  f022f2c:	a60c02d8 */ 	sh	$t4,0x2d8($s0)
-.L0f022f30:
-/*  f022f30:	8c6d0318 */ 	lw	$t5,0x318($v1)
-.L0f022f34:
-/*  f022f34:	240402d0 */ 	addiu	$a0,$zero,0x2d0
-/*  f022f38:	51a00025 */ 	beqzl	$t5,.L0f022fd0
-/*  f022f3c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f022f40:	86020358 */ 	lh	$v0,0x358($s0)
-/*  f022f44:	8c6e0034 */ 	lw	$t6,0x34($v1)
-/*  f022f48:	3c053fa6 */ 	lui	$a1,0x3fa6
-/*  f022f4c:	34a56666 */ 	ori	$a1,$a1,0x6666
-/*  f022f50:	004ec821 */ 	addu	$t9,$v0,$t6
-/*  f022f54:	0324001a */ 	div	$zero,$t9,$a0
-/*  f022f58:	00007812 */ 	mflo	$t7
-/*  f022f5c:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f022f60:	14800002 */ 	bnez	$a0,.L0f022f6c
-/*  f022f64:	00000000 */ 	nop
-/*  f022f68:	0007000d */ 	break	0x7
-.L0f022f6c:
-/*  f022f6c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f022f70:	14810004 */ 	bne	$a0,$at,.L0f022f84
-/*  f022f74:	3c018000 */ 	lui	$at,0x8000
-/*  f022f78:	17210002 */ 	bne	$t9,$at,.L0f022f84
-/*  f022f7c:	00000000 */ 	nop
-/*  f022f80:	0006000d */ 	break	0x6
-.L0f022f84:
-/*  f022f84:	0044001a */ 	div	$zero,$v0,$a0
-/*  f022f88:	0000c012 */ 	mflo	$t8
-/*  f022f8c:	14800002 */ 	bnez	$a0,.L0f022f98
-/*  f022f90:	00000000 */ 	nop
-/*  f022f94:	0007000d */ 	break	0x7
-.L0f022f98:
-/*  f022f98:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f022f9c:	14810004 */ 	bne	$a0,$at,.L0f022fb0
-/*  f022fa0:	3c018000 */ 	lui	$at,0x8000
-/*  f022fa4:	14410002 */ 	bne	$v0,$at,.L0f022fb0
-/*  f022fa8:	00000000 */ 	nop
-/*  f022fac:	0006000d */ 	break	0x6
-.L0f022fb0:
-/*  f022fb0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f022fb4:	51f80006 */ 	beql	$t7,$t8,.L0f022fd0
-/*  f022fb8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f022fbc:	8e0800e8 */ 	lw	$t0,0xe8($s0)
-/*  f022fc0:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f022fc4:	0fc0d049 */ 	jal	chrPoison
-/*  f022fc8:	afa80010 */ 	sw	$t0,0x10($sp)
-.L0f022fcc:
-/*  f022fcc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f022fd0:
-/*  f022fd0:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f022fd4:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f022fd8:	03e00008 */ 	jr	$ra
-/*  f022fdc:	00000000 */ 	nop
-);
+void chrTickPoisoned(struct chrdata *chr)
+{
+	if (chr->poisoncounter > 0) {
+		struct coord coord = {0, 0, 0};
+
+		u8 thing[] = {
+			0x1a, 0x00, 0x00, 0x03,
+		};
+
+		if (chr->actiontype == ACT_DEAD || chr->actiontype == ACT_DIE) {
+			// Dying chr
+			if (!g_Vars.normmplayerisrunning) {
+				chr->poisoncounter = 0;
+			} else {
+				if (chr->poisoncounter > 3600) {
+					chr->poisoncounter = 3600;
+				}
+
+				if (g_MpSetup.options & MPOPTION_ONEHITKILLS) {
+					chr->poisoncounter = 0;
+				}
+			}
+		} else if (chr->prop->type == PROPTYPE_PLAYER
+				&& g_Vars.players[propGetPlayerNum(chr->prop)]->bondhealth < 0.001f) {
+			// Alive player chr
+			if (g_Vars.normmplayerisrunning) {
+				if (chr->poisoncounter > 3600) {
+					chr->poisoncounter = 3600;
+				}
+
+				if (g_MpSetup.options & MPOPTION_ONEHITKILLS) {
+					chr->poisoncounter = 0;
+				}
+			}
+		} else {
+			// Alive non-player chr
+			chr->poisoncounter -= g_Vars.lvupdate240;
+
+			if (chr->poisoncounter <= 0) {
+				if (!g_Vars.normmplayerisrunning) {
+					chrPoison(chr, 100, &coord, thing, chr->poisonprop);
+					chrDoFlinchcntThing(chr, M_PI);
+				}
+
+				chr->poisoncounter = 0;
+			} else if (chr->poisoncounter < SECSTOTIME240(7)) {
+				chr->blurdrugamount += g_Vars.lvupdate240 * 10;
+			}
+
+			if (g_Vars.normmplayerisrunning) {
+				if (chr->poisoncounter / 720 != (chr->poisoncounter + g_Vars.lvupdate240) / 720) {
+					chrPoison(chr, 1.3f, &coord, thing, chr->poisonprop);
+				}
+			}
+		}
+	}
+}
+
+u32 var800629e8 = 0x3f800000;
+u32 var800629ec = 0x00000000;
+u32 var800629f0 = 0x00000000;
+u32 var800629f4 = 0x00000000;
+u32 var800629f8 = 0x00000000;
+u32 var800629fc = 0x00000000;
+u32 var80062a00 = 0x00000001;
+u32 var80062a04 = 0x00000003;
+u32 var80062a08 = 0x00000000;
+u32 var80062a0c = 0x00000000;
+u32 var80062a10 = 0x00000000;
+u32 var80062a14 = 0x00000000;
+u32 var80062a18 = 0x00000000;
+u32 var80062a1c = 0x00000000;
+u32 var80062a20 = 0x00000000;
+u32 var80062a24 = 0x00000000;
+u32 var80062a28 = 0x00000000;
+u32 var80062a2c = 0x00000000;
+u32 var80062a30 = 0x00000000;
+u32 var80062a34 = 0x00000000;
+u32 var80062a38 = 0x00000000;
+u32 var80062a3c = 0x00000000;
+u32 var80062a40 = 0x00000000;
+u32 var80062a44 = 0x00000000;
+u8 var80062a48[] = { 64, 10, 10 };
 
 bool propchrDoFireslotThing(struct prop *prop)
 {
@@ -4593,7 +4464,7 @@ glabel var7f1a87d8
 .L0f023300:
 /*  f023300:	0fc08989 */ 	jal	chrUpdateCloak
 /*  f023304:	02002025 */ 	or	$a0,$s0,$zero
-/*  f023308:	0fc08b58 */ 	jal	func0f022d60
+/*  f023308:	0fc08b58 */ 	jal	chrTickPoisoned
 /*  f02330c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f023310:	8e020018 */ 	lw	$v0,0x18($s0)
 /*  f023314:	3c188006 */ 	lui	$t8,%hi(var8006296c)

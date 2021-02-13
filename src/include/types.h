@@ -920,7 +920,7 @@ struct chrdata {
 	/*0x0dc*/ f32 visionrange;
 	/*0x0e0*/ s32 lastseetarget60;
 	/*0x0e4*/ s32 lastvisibletarget60;
-	/*0x0e8*/ void *unk0e8;
+	/*0x0e8*/ struct prop *poisonprop;
 	/*0x0ec*/ s16 lastshooter;
 	/*0x0ee*/ s16 timeshooter;
 	/*0x0f0*/ f32 hearingscale;
