@@ -6766,7 +6766,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		}
 
 		if (chr->race == RACE_DRCAROLL) {
-			func0f02ccb4(chr, chr->drcarollimage_left, chr->drcarollimage_right);
+			chrSetDrCarollImages(chr, chr->drcarollimage_left, chr->drcarollimage_right);
 		}
 
 		g_Vars.currentplayerstats->drawplayercount++;
@@ -14092,89 +14092,34 @@ glabel var7f1a8984
 /*  f02ccb0:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-GLOBAL_ASM(
-glabel func0f02ccb4
-/*  f02ccb4:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f02ccb8:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f02ccbc:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f02ccc0:	00a0b025 */ 	or	$s6,$a1,$zero
-/*  f02ccc4:	00c0b825 */ 	or	$s7,$a2,$zero
-/*  f02ccc8:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f02cccc:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f02ccd0:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f02ccd4:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f02ccd8:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f02ccdc:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f02cce0:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f02cce4:	1080002f */ 	beqz	$a0,.L0f02cda4
-/*  f02cce8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f02ccec:	04a0002d */ 	bltz	$a1,.L0f02cda4
-/*  f02ccf0:	28a10006 */ 	slti	$at,$a1,0x6
-/*  f02ccf4:	5020002c */ 	beqzl	$at,.L0f02cda8
-/*  f02ccf8:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f02ccfc:	04c00029 */ 	bltz	$a2,.L0f02cda4
-/*  f02cd00:	28c10006 */ 	slti	$at,$a2,0x6
-/*  f02cd04:	10200027 */ 	beqz	$at,.L0f02cda4
-/*  f02cd08:	00008825 */ 	or	$s1,$zero,$zero
-/*  f02cd0c:	8c930020 */ 	lw	$s3,0x20($a0)
-/*  f02cd10:	241e0006 */ 	addiu	$s8,$zero,0x6
-/*  f02cd14:	27b50064 */ 	addiu	$s5,$sp,0x64
-/*  f02cd18:	27b4005c */ 	addiu	$s4,$sp,0x5c
-/*  f02cd1c:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f02cd20:	8e640008 */ 	lw	$a0,0x8($s3)
-.L0f02cd24:
-/*  f02cd24:	0c006a47 */ 	jal	modelGetPart
-/*  f02cd28:	02202825 */ 	or	$a1,$s1,$zero
-/*  f02cd2c:	afa2005c */ 	sw	$v0,0x5c($sp)
-/*  f02cd30:	8e640008 */ 	lw	$a0,0x8($s3)
-/*  f02cd34:	0c006a47 */ 	jal	modelGetPart
-/*  f02cd38:	26250006 */ 	addiu	$a1,$s1,0x6
-/*  f02cd3c:	afa20060 */ 	sw	$v0,0x60($sp)
-/*  f02cd40:	27b0005c */ 	addiu	$s0,$sp,0x5c
-/*  f02cd44:	8e050000 */ 	lw	$a1,0x0($s0)
-.L0f02cd48:
-/*  f02cd48:	50a00011 */ 	beqzl	$a1,.L0f02cd90
-/*  f02cd4c:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f02cd50:	0c006a87 */ 	jal	modelGetNodeData
-/*  f02cd54:	02602025 */ 	or	$a0,$s3,$zero
-/*  f02cd58:	16140007 */ 	bne	$s0,$s4,.L0f02cd78
-/*  f02cd5c:	00000000 */ 	nop
-/*  f02cd60:	16d10003 */ 	bne	$s6,$s1,.L0f02cd70
-/*  f02cd64:	00000000 */ 	nop
-/*  f02cd68:	10000008 */ 	b	.L0f02cd8c
-/*  f02cd6c:	ac520000 */ 	sw	$s2,0x0($v0)
-.L0f02cd70:
-/*  f02cd70:	10000006 */ 	b	.L0f02cd8c
-/*  f02cd74:	ac400000 */ 	sw	$zero,0x0($v0)
-.L0f02cd78:
-/*  f02cd78:	56f10004 */ 	bnel	$s7,$s1,.L0f02cd8c
-/*  f02cd7c:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  f02cd80:	10000002 */ 	b	.L0f02cd8c
-/*  f02cd84:	ac520000 */ 	sw	$s2,0x0($v0)
-/*  f02cd88:	ac400000 */ 	sw	$zero,0x0($v0)
-.L0f02cd8c:
-/*  f02cd8c:	26100004 */ 	addiu	$s0,$s0,0x4
-.L0f02cd90:
-/*  f02cd90:	5615ffed */ 	bnel	$s0,$s5,.L0f02cd48
-/*  f02cd94:	8e050000 */ 	lw	$a1,0x0($s0)
-/*  f02cd98:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f02cd9c:	563effe1 */ 	bnel	$s1,$s8,.L0f02cd24
-/*  f02cda0:	8e640008 */ 	lw	$a0,0x8($s3)
-.L0f02cda4:
-/*  f02cda4:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f02cda8:
-/*  f02cda8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f02cdac:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f02cdb0:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f02cdb4:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f02cdb8:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f02cdbc:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f02cdc0:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f02cdc4:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f02cdc8:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f02cdcc:	03e00008 */ 	jr	$ra
-/*  f02cdd0:	27bd0068 */ 	addiu	$sp,$sp,0x68
-/*  f02cdd4:	00000000 */ 	nop
-/*  f02cdd8:	00000000 */ 	nop
-/*  f02cddc:	00000000 */ 	nop
-);
+void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imageright)
+{
+	if (drcaroll && imageleft >= 0 && imageleft < 6 && imageright >= 0 && imageright < 6) {
+		struct model *model = drcaroll->model;
+		struct modelnode *nodes[2];
+		struct modeldata_partid *data;
+		s32 i;
+		s32 j;
+		u32 stack;
+
+		// Iterate model parts relating to images
+		// Parts 0-5 are the left image
+		// Parts 6-11 are the right image
+		for (i = 0; i < 6; i++) {
+			nodes[0] = modelGetPart(model->filedata, i);
+			nodes[1] = modelGetPart(model->filedata, i + 6);
+
+			for (j = 0; j < 2; j++) {
+				if (nodes[j]) {
+					data = modelGetNodeData(model, nodes[j]);
+
+					if (j == 0) {
+						data->visible.u32 = (imageleft == i) ? true : false;
+					} else {
+						data->visible.u32 = (imageright == i) ? true : false;
+					}
+				}
+			}
+		}
+	}
+}
