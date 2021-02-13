@@ -36,19 +36,10 @@ s32 menuhandlerMpDropOut(u32 operation, struct menuitem *item, union handlerdata
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel mpGetCurrentPlayerName
-/*  f17909c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f1790a0:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f1790a4:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers)
-/*  f1790a8:	2718c7b8 */ 	addiu	$t8,$t8,%lo(g_MpPlayers)
-/*  f1790ac:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f1790b0:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1790b4:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f1790b8:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f1790bc:	03e00008 */ 	jr	$ra
-/*  f1790c0:	01f81021 */ 	addu	$v0,$t7,$t8
-);
+char *mpGetCurrentPlayerName(struct menuitem *item)
+{
+	return g_MpPlayers[g_MpPlayerNum].base.name;
+}
 
 s32 menuhandlerMpTeamsLabel(u32 operation, struct menuitem *item, union handlerdata *data)
 {
