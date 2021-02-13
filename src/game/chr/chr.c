@@ -65,7 +65,7 @@ u32 var8006295c = 0x00000000;
 void *var80062960 = NULL;
 u32 var80062964 = 0x00000000;
 f32 var80062968 = 0;
-u32 var8006296c = 0x00000000;
+bool var8006296c = false;
 u32 var80062970 = 0x00000000;
 u32 var80062974 = 0x00000000;
 u32 var80062978 = 0x00000000;
@@ -9605,13 +9605,14 @@ void func0f028490(f32 arg1)
 	// empty
 }
 
+void func0f028498(bool value)
+{
+	var8006296c = value;
+	var8005efbc = value;
+}
+
 GLOBAL_ASM(
-glabel func0f028498
-/*  f028498:	3c018006 */ 	lui	$at,%hi(var8006296c)
-/*  f02849c:	ac24296c */ 	sw	$a0,%lo(var8006296c)($at)
-/*  f0284a0:	3c018006 */ 	lui	$at,%hi(var8005efbc)
-/*  f0284a4:	03e00008 */ 	jr	$ra
-/*  f0284a8:	ac24efbc */ 	sw	$a0,%lo(var8005efbc)($at)
+glabel func0f0284ac
 /*  f0284ac:	3c038006 */ 	lui	$v1,%hi(var80062970)
 /*  f0284b0:	24632970 */ 	addiu	$v1,$v1,%lo(var80062970)
 /*  f0284b4:	8c6e0000 */ 	lw	$t6,0x0($v1)

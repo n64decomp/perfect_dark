@@ -82,7 +82,7 @@ extern bool g_WeatherTickEnabled;
 extern void *var80062960;
 extern u32 var80062964;
 extern f32 var80062968;
-extern u32 var8006296c;
+extern bool var8006296c;
 extern u32 var80062970;
 extern u32 var80062974;
 extern u32 var80062978;
