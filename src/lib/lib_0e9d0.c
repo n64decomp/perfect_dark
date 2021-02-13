@@ -12,7 +12,7 @@
 #include "game/music.h"
 #include "gvars/gvars.h"
 #include "lib/lib_074f0.h"
-#include "lib/lib_0d0a0.h"
+#include "lib/dma.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/memory.h"
 #include "lib/rng.h"

@@ -11,7 +11,7 @@
 #include "game/game_01afc0.h"
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
-#include "lib/lib_0d0a0.h"
+#include "lib/dma.h"
 #include "lib/lib_317f0.h"
 #include "types.h"
 

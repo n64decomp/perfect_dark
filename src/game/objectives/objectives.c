@@ -21,7 +21,7 @@
 #include "game/lang.h"
 #include "game/propobj.h"
 #include "gvars/gvars.h"
-#include "lib/lib_0d0a0.h"
+#include "lib/dma.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"

@@ -11,7 +11,7 @@
 #include "game/stubs/game_175f50.h"
 #include "gvars/gvars.h"
 #include "lib/lib_074f0.h"
-#include "lib/lib_0d0a0.h"
+#include "lib/dma.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "types.h"

@@ -11,7 +11,7 @@
 #include "game/game_1531a0.h"
 #include "game/room.h"
 #include "gvars/gvars.h"
-#include "lib/lib_0d0a0.h"
+#include "lib/dma.h"
 #include "lib/memory.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"

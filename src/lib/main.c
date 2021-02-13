@@ -53,7 +53,7 @@
 #include "lib/lib_09660.h"
 #include "lib/lib_0bfb0.h"
 #include "lib/lib_0c000.h"
-#include "lib/lib_0d0a0.h"
+#include "lib/dma.h"
 #include "lib/main.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/memory.h"

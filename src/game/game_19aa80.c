@@ -21,7 +21,7 @@
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
-#include "lib/lib_0d0a0.h"
+#include "lib/dma.h"
 #include "lib/rng.h"
 #include "types.h"
 
