@@ -2138,7 +2138,7 @@ s32 var80087260 = 0x00000000;
 u32 var80087264 = 0x00000000;
 
 // 2d288
-struct mpweapon g_MpWeapons[] = {
+struct mpweapon g_MpWeapons[0x27] = {
 	/*0x00*/ { WEAPON_NONE,             0x00, 0x00, 0x00, 0x00, 1, 0,                                MODEL_CHRTT33,          0x0100 },
 	/*0x01*/ { WEAPON_FALCON2,          0x01, 0x50, 0x00, 0x00, 1, 0,                                MODEL_CHRFALCON2,       0x0100 },
 	/*0x02*/ { WEAPON_FALCON2_SILENCER, 0x01, 0x50, 0x00, 0x00, 1, MPFEATURE_WEAPON_FALCON2SILENCED, MODEL_CHRFALCON2SIL,    0x0100 },
