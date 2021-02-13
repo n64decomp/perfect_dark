@@ -66,7 +66,7 @@ void *var80062960 = NULL;
 u32 var80062964 = 0x00000000;
 f32 var80062968 = 0;
 bool var8006296c = false;
-u32 var80062970 = 0x00000000;
+s32 var80062970 = 0;
 u32 var80062974 = 0x00000000;
 u32 var80062978 = 0x00000000;
 u32 var8006297c = 0;
@@ -9611,27 +9611,17 @@ void func0f028498(bool value)
 	var8005efbc = value;
 }
 
+void func0f0284ac(s32 arg0)
+{
+	var80062970 -= arg0;
+
+	if (var80062970 <= 0) {
+		var80062970 = func000237dc() - 1;
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f0284ac
-/*  f0284ac:	3c038006 */ 	lui	$v1,%hi(var80062970)
-/*  f0284b0:	24632970 */ 	addiu	$v1,$v1,%lo(var80062970)
-/*  f0284b4:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f0284b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0284bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0284c0:	01c47823 */ 	subu	$t7,$t6,$a0
-/*  f0284c4:	1de00007 */ 	bgtz	$t7,.L0f0284e4
-/*  f0284c8:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*  f0284cc:	0c008df7 */ 	jal	func000237dc
-/*  f0284d0:	00000000 */ 	nop
-/*  f0284d4:	3c038006 */ 	lui	$v1,%hi(var80062970)
-/*  f0284d8:	24632970 */ 	addiu	$v1,$v1,%lo(var80062970)
-/*  f0284dc:	2459ffff */ 	addiu	$t9,$v0,-1
-/*  f0284e0:	ac790000 */ 	sw	$t9,0x0($v1)
-.L0f0284e4:
-/*  f0284e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0284e8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0284ec:	03e00008 */ 	jr	$ra
-/*  f0284f0:	00000000 */ 	nop
+glabel func0f0284f4
 /*  f0284f4:	3c038006 */ 	lui	$v1,%hi(var80062970)
 /*  f0284f8:	24632970 */ 	addiu	$v1,$v1,%lo(var80062970)
 /*  f0284fc:	8c6e0000 */ 	lw	$t6,0x0($v1)

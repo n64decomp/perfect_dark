@@ -8,7 +8,7 @@ u32 func00023640(void);
 void func0002373c(void);
 s32 animGetNumFrames(s16 anim_id);
 bool func00023794(s16 animnum);
-u32 func000237dc(void);
+s32 func000237dc(void);
 u32 func000237e8(void);
 s32 func0002384c(s32 animnum, s32 frame);
 u32 func00023908(void);
