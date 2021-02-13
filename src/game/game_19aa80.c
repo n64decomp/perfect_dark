@@ -739,7 +739,7 @@ glabel mpLoadConfig
 /*  f19b990:	01495021 */ 	addu	$t2,$t2,$t1
 /*  f19b994:	000a50c0 */ 	sll	$t2,$t2,0x3
 /*  f19b998:	014b2821 */ 	addu	$a1,$t2,$t3
-/*  f19b99c:	0c003522 */ 	jal	func0000d488
+/*  f19b99c:	0c003522 */ 	jal	dmaExecWithAutoAlign
 /*  f19b9a0:	24060068 */ 	addiu	$a2,$zero,0x68
 /*  f19b9a4:	8fac0050 */ 	lw	$t4,0x50($sp)
 /*  f19b9a8:	8fb901c8 */ 	lw	$t9,0x1c8($sp)
@@ -752,7 +752,7 @@ glabel mpLoadConfig
 /*  f19b9c4:	0018c180 */ 	sll	$t8,$t8,0x6
 /*  f19b9c8:	afa201c4 */ 	sw	$v0,0x1c4($sp)
 /*  f19b9cc:	24060140 */ 	addiu	$a2,$zero,0x140
-/*  f19b9d0:	0c003522 */ 	jal	func0000d488
+/*  f19b9d0:	0c003522 */ 	jal	dmaExecWithAutoAlign
 /*  f19b9d4:	00782821 */ 	addu	$a1,$v1,$t8
 /*  f19b9d8:	8fa701c4 */ 	lw	$a3,0x1c4($sp)
 /*  f19b9dc:	00404825 */ 	or	$t1,$v0,$zero
@@ -825,11 +825,11 @@ glabel mpLoadConfig
 //	};
 //
 //	// Load mpconfigs
-//	mpconfig = func0000d488(buffer, &_mpconfigsSegmentRomStart[confignum], sizeof(struct mpconfig));
+//	mpconfig = dmaExecWithAutoAlign(buffer, &_mpconfigsSegmentRomStart[confignum], sizeof(struct mpconfig));
 //
 //	// Load mpstrings
 //	bank = banks[language_id][0];
-//	loadedstrings = func0000d488(buffer2, &bank[confignum], sizeof(struct mpstrings));
+//	loadedstrings = dmaExecWithAutoAlign(buffer2, &bank[confignum], sizeof(struct mpstrings));
 //
 //	mpconfig->strings = *loadedstrings;
 //

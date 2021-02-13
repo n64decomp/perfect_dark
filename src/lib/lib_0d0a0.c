@@ -142,46 +142,33 @@ void dmaExecHighPriority(void *memaddr, void *romaddr, u32 len)
 	dmaCheckPiracy(memaddr, len);
 }
 
-GLOBAL_ASM(
-glabel func0000d488
-/*     d488:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*     d48c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     d490:	afa40030 */ 	sw	$a0,0x30($sp)
-/*     d494:	afa60038 */ 	sw	$a2,0x38($sp)
-/*     d498:	14c00009 */ 	bnez	$a2,.L0000d4c0
-/*     d49c:	00a03825 */ 	or	$a3,$a1,$zero
-/*     d4a0:	2498000f */ 	addiu	$t8,$a0,0xf
-/*     d4a4:	34a90001 */ 	ori	$t1,$a1,0x1
-/*     d4a8:	392a0001 */ 	xori	$t2,$t1,0x1
-/*     d4ac:	3719000f */ 	ori	$t9,$t8,0xf
-/*     d4b0:	3b28000f */ 	xori	$t0,$t9,0xf
-/*     d4b4:	00aa5823 */ 	subu	$t3,$a1,$t2
-/*     d4b8:	10000014 */ 	b	.L0000d50c
-/*     d4bc:	010b1021 */ 	addu	$v0,$t0,$t3
-.L0000d4c0:
-/*     d4c0:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*     d4c4:	8faf0038 */ 	lw	$t7,0x38($sp)
-/*     d4c8:	34e50001 */ 	ori	$a1,$a3,0x1
-/*     d4cc:	38ae0001 */ 	xori	$t6,$a1,0x1
-/*     d4d0:	00ee1823 */ 	subu	$v1,$a3,$t6
-/*     d4d4:	2484000f */ 	addiu	$a0,$a0,0xf
-/*     d4d8:	006f3021 */ 	addu	$a2,$v1,$t7
-/*     d4dc:	24c6000f */ 	addiu	$a2,$a2,0xf
-/*     d4e0:	348c000f */ 	ori	$t4,$a0,0xf
-/*     d4e4:	3984000f */ 	xori	$a0,$t4,0xf
-/*     d4e8:	34d8000f */ 	ori	$t8,$a2,0xf
-/*     d4ec:	3b06000f */ 	xori	$a2,$t8,0xf
-/*     d4f0:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*     d4f4:	afa30018 */ 	sw	$v1,0x18($sp)
-/*     d4f8:	0c003504 */ 	jal	dmaExec
-/*     d4fc:	01c02825 */ 	or	$a1,$t6,$zero
-/*     d500:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*     d504:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*     d508:	00831021 */ 	addu	$v0,$a0,$v1
-.L0000d50c:
-/*     d50c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     d510:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*     d514:	03e00008 */ 	jr	$ra
-/*     d518:	00000000 */ 	nop
-/*     d51c:	00000000 */ 	nop
-);
+/**
+ * DMA data from ROM to RAM with automatic alignment.
+ *
+ * The destination memory address is aligned to 0x10.
+ *
+ * The ROM address is aligned to 2 bytes (ie. subtract 1 if ROM address is odd).
+ * If this is done then the returned memory pointer is bumped forwards by one
+ * to compensate. The length of data to be transferred is also increased by one
+ * to make it 2-byte aligned.
+ *
+ * It is assumed that the passed len is 2-byte aligned (ie. an even number).
+ *
+ * If a length of zero is passed, no DMA is done. This can be used to retrieve
+ * the memory address that would have been returned.
+ */
+void *dmaExecWithAutoAlign(void *memaddr, u32 romaddr, u32 len)
+{
+	u32 alignedrom = ALIGN2(romaddr);
+	u32 alignedmem = ALIGN16((u32)memaddr);
+	u32 offset = romaddr - alignedrom; // 0 or 1
+	u32 alignedlen = ALIGN16(offset + len);
+
+	if (len == 0) {
+		return (void *)(alignedmem + offset);
+	}
+
+	dmaExec((void *)alignedmem, (void *)alignedrom, alignedlen);
+
+	return (void *)(alignedmem + offset);
+}

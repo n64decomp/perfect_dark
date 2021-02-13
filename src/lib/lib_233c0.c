@@ -332,7 +332,7 @@ glabel func000237e8
 /*    23828:	3c08001a */ 	lui	$t0,0x1a
 /*    2382c:	250815c0 */ 	addiu	$t0,$t0,0x15c0
 /*    23830:	00e02025 */ 	or	$a0,$a3,$zero
-/*    23834:	0c003522 */ 	jal	func0000d488
+/*    23834:	0c003522 */ 	jal	dmaExecWithAutoAlign
 /*    23838:	03282821 */ 	addu	$a1,$t9,$t0
 .L0002383c:
 /*    2383c:	8fbf0014 */ 	lw	$ra,0x14($sp)
