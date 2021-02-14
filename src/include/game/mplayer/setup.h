@@ -53,7 +53,7 @@ char *mpMenuTextSelectTuneOrTunes(struct menuitem *item);
 s32 menuhandler0017dc84(u32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextCurrentTrack(struct menuitem *item);
 s32 menuhandler0017e06c(u32 operation, struct menuitem *item, union handlerdata *data);
-u32 func0f17e288(void);
+char *mpMenuTextTeamName(struct menuitem *item);
 char *func0f17e318(struct menudialog *dialog);
 s32 menudialog0017e3fc(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menuhandler0017e4d4(u32 operation, struct menuitem *item, union handlerdata *data);

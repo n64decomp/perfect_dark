@@ -1384,14 +1384,14 @@ struct menudialog g_MpChangeTeamNameMenuDialog = {
 
 // 2be50
 struct menuitem g_MpTeamNamesMenuItems[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(8), (u32)&func0f17e288, menuhandlerMpTeamNameSlot }, // "Red"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(9), (u32)&func0f17e288, menuhandlerMpTeamNameSlot }, // "Yellow"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(10), (u32)&func0f17e288, menuhandlerMpTeamNameSlot }, // "Blue"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(11), (u32)&func0f17e288, menuhandlerMpTeamNameSlot }, // "Magenta"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(12), (u32)&func0f17e288, menuhandlerMpTeamNameSlot }, // "Cyan"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(13), (u32)&func0f17e288, menuhandlerMpTeamNameSlot }, // "Orange"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(14), (u32)&func0f17e288, menuhandlerMpTeamNameSlot }, // "Pink"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(15), (u32)&func0f17e288, menuhandlerMpTeamNameSlot }, // "Brown"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(8), (u32)&mpMenuTextTeamName, menuhandlerMpTeamNameSlot }, // "Red"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(9), (u32)&mpMenuTextTeamName, menuhandlerMpTeamNameSlot }, // "Yellow"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(10), (u32)&mpMenuTextTeamName, menuhandlerMpTeamNameSlot }, // "Blue"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(11), (u32)&mpMenuTextTeamName, menuhandlerMpTeamNameSlot }, // "Magenta"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(12), (u32)&mpMenuTextTeamName, menuhandlerMpTeamNameSlot }, // "Cyan"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(13), (u32)&mpMenuTextTeamName, menuhandlerMpTeamNameSlot }, // "Orange"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(14), (u32)&mpMenuTextTeamName, menuhandlerMpTeamNameSlot }, // "Pink"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_OPTIONS(15), (u32)&mpMenuTextTeamName, menuhandlerMpTeamNameSlot }, // "Brown"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(60), 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },

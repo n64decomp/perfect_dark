@@ -4746,18 +4746,18 @@ glabel menuhandler0017e06c
 /*  f17e284:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f17e288
-/*  f17e288:	8c830008 */ 	lw	$v1,0x8($a0)
-/*  f17e28c:	3c0f800b */ 	lui	$t7,%hi(g_MpSetup+0x28)
-/*  f17e290:	25efcbb0 */ 	addiu	$t7,$t7,%lo(g_MpSetup+0x28)
-/*  f17e294:	2463a9f8 */ 	addiu	$v1,$v1,-22024
-/*  f17e298:	00037080 */ 	sll	$t6,$v1,0x2
-/*  f17e29c:	01c37023 */ 	subu	$t6,$t6,$v1
-/*  f17e2a0:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f17e2a4:	03e00008 */ 	jr	$ra
-/*  f17e2a8:	01cf1021 */ 	addu	$v0,$t6,$t7
-);
+/**
+ * item->param2 is a text ID for that team's colour. The text IDs for team
+ * colours are consecutive, so the index of the team is determined by
+ * subtracting the first team's colour text ID.
+ */
+char *mpMenuTextTeamName(struct menuitem *item)
+{
+	s32 index = item->param2;
+	index -= L_OPTIONS(8);
+
+	return g_MpSetupSaveFile.teamnames[index];
+}
 
 s32 menuhandlerMpTeamNameSlot(u32 operation, struct menuitem *item, union handlerdata *data)
 {
