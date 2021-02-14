@@ -4223,54 +4223,22 @@ char *mpMenuTextChrNameForTeamSetup(struct menuitem *item)
 	return "";
 }
 
-const char var7f1b8044[] = "\n";
+s32 func0f17dac4(u32 operation, struct menuitem *item, union handlerdata *data)
+{
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		data->list.value = scenarioGetMaxTeams();
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) == 0) {
+			return (s32) "\n";
+		}
 
-GLOBAL_ASM(
-glabel func0f17dac4
-/*  f17dac4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17dac8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f17dacc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17dad0:	10810006 */ 	beq	$a0,$at,.L0f17daec
-/*  f17dad4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17dad8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f17dadc:	1081000a */ 	beq	$a0,$at,.L0f17db08
-/*  f17dae0:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0xc)
-/*  f17dae4:	10000017 */ 	b	.L0f17db44
-/*  f17dae8:	00000000 */ 	nop
-.L0f17daec:
-/*  f17daec:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17daf0:	0fc61902 */ 	jal	scenarioGetMaxTeams
-/*  f17daf4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17daf8:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f17dafc:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f17db00:	10000010 */ 	b	.L0f17db44
-/*  f17db04:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f17db08:
-/*  f17db08:	8dcecb94 */ 	lw	$t6,%lo(g_MpSetup+0xc)($t6)
-/*  f17db0c:	3c027f1c */ 	lui	$v0,%hi(var7f1b8044)
-/*  f17db10:	31cf0002 */ 	andi	$t7,$t6,0x2
-/*  f17db14:	55e00004 */ 	bnezl	$t7,.L0f17db28
-/*  f17db18:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*  f17db1c:	1000000b */ 	b	.L0f17db4c
-/*  f17db20:	24428044 */ 	addiu	$v0,$v0,%lo(var7f1b8044)
-/*  f17db24:	8cd80000 */ 	lw	$t8,0x0($a2)
-.L0f17db28:
-/*  f17db28:	3c08800b */ 	lui	$t0,%hi(g_MpSetup+0x28)
-/*  f17db2c:	2508cbb0 */ 	addiu	$t0,$t0,%lo(g_MpSetup+0x28)
-/*  f17db30:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f17db34:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f17db38:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f17db3c:	10000003 */ 	b	.L0f17db4c
-/*  f17db40:	03281021 */ 	addu	$v0,$t9,$t0
-.L0f17db44:
-/*  f17db44:	0fc5e431 */ 	jal	menuhandlerMpTeamsLabel
-/*  f17db48:	8fa5001c */ 	lw	$a1,0x1c($sp)
-.L0f17db4c:
-/*  f17db4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17db50:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17db54:	03e00008 */ 	jr	$ra
-/*  f17db58:	00000000 */ 	nop
-);
+		return (s32) g_MpSetupSaveFile.teamnames[data->list.value];
+	}
+
+	return menuhandlerMpTeamsLabel(operation, item, data);
+}
 
 s32 menuhandlerMpTeamSlot(u32 operation, struct menuitem *item, union handlerdata *data)
 {
