@@ -1237,14 +1237,14 @@ struct menudialog g_MpEditSimulantMenuDialog = {
 struct menuitem g_MpSimulantsMenuItems[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_MPMENU(84), 0x00000000, menuhandlerMpAddSimulant }, // "Add Simulant..."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPMENU(85), (u32)&func0f17d378, menuhandlerMpSimulantSlot }, // "1:"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, L_MPMENU(86), (u32)&func0f17d378, menuhandlerMpSimulantSlot }, // "2:"
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, L_MPMENU(87), (u32)&func0f17d378, menuhandlerMpSimulantSlot }, // "3:"
-	{ MENUITEMTYPE_SELECTABLE,  3, 0x00000000, L_MPMENU(88), (u32)&func0f17d378, menuhandlerMpSimulantSlot }, // "4:"
-	{ MENUITEMTYPE_SELECTABLE,  4, 0x00000000, L_MPMENU(89), (u32)&func0f17d378, menuhandlerMpSimulantSlot }, // "5:"
-	{ MENUITEMTYPE_SELECTABLE,  5, 0x00000000, L_MPMENU(90), (u32)&func0f17d378, menuhandlerMpSimulantSlot }, // "6:"
-	{ MENUITEMTYPE_SELECTABLE,  6, 0x00000000, L_MPMENU(91), (u32)&func0f17d378, menuhandlerMpSimulantSlot }, // "7:"
-	{ MENUITEMTYPE_SELECTABLE,  7, 0x00000000, L_MPMENU(92), (u32)&func0f17d378, menuhandlerMpSimulantSlot }, // "8:"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPMENU(85), (u32)&mpMenuTextSimulantName, menuhandlerMpSimulantSlot }, // "1:"
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, L_MPMENU(86), (u32)&mpMenuTextSimulantName, menuhandlerMpSimulantSlot }, // "2:"
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, L_MPMENU(87), (u32)&mpMenuTextSimulantName, menuhandlerMpSimulantSlot }, // "3:"
+	{ MENUITEMTYPE_SELECTABLE,  3, 0x00000000, L_MPMENU(88), (u32)&mpMenuTextSimulantName, menuhandlerMpSimulantSlot }, // "4:"
+	{ MENUITEMTYPE_SELECTABLE,  4, 0x00000000, L_MPMENU(89), (u32)&mpMenuTextSimulantName, menuhandlerMpSimulantSlot }, // "5:"
+	{ MENUITEMTYPE_SELECTABLE,  5, 0x00000000, L_MPMENU(90), (u32)&mpMenuTextSimulantName, menuhandlerMpSimulantSlot }, // "6:"
+	{ MENUITEMTYPE_SELECTABLE,  6, 0x00000000, L_MPMENU(91), (u32)&mpMenuTextSimulantName, menuhandlerMpSimulantSlot }, // "7:"
+	{ MENUITEMTYPE_SELECTABLE,  7, 0x00000000, L_MPMENU(92), (u32)&mpMenuTextSimulantName, menuhandlerMpSimulantSlot }, // "8:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, L_MPMENU(93), 0x00000000, menuhandlerMpClearAllSimulants }, // "Clear All"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(94), 0x00000000, NULL }, // "Back"

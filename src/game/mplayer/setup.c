@@ -3187,9 +3187,6 @@ char *mpMenuTextHandicapPlayerName(struct menuitem *item)
 
 const char var7f1b8028[] = "\n";
 const char var7f1b802c[] = "%s";
-const char var7f1b8030[] = "";
-const char var7f1b8034[] = "";
-const char var7f1b8038[] = "%d:\n";
 
 s32 menuhandlerMpRestoreHandicapDefaults(u32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -3828,35 +3825,22 @@ s32 menuhandlerMpSimulantSlot(u32 operation, struct menuitem *item, union handle
 	return 0;
 }
 
+char *mpMenuTextSimulantName(struct menuitem *item)
+{
+	s32 index = item->param;
+
+	if (g_MpSimulants[index].base.name[0] == '\0' || (g_MpSetup.chrslots & 1 << (index + 4)) == 0) {
+		return "";
+	}
+
+	return g_MpSimulants[index].base.name;
+}
+
+const char var7f1b8034[] = "";
+const char var7f1b8038[] = "%d:\n";
+
 GLOBAL_ASM(
-glabel func0f17d378
-/*  f17d378:	90820001 */ 	lbu	$v0,0x1($a0)
-/*  f17d37c:	3c0f800b */ 	lui	$t7,%hi(g_MpSimulants)
-/*  f17d380:	25efc538 */ 	addiu	$t7,$t7,%lo(g_MpSimulants)
-/*  f17d384:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f17d388:	01c27021 */ 	addu	$t6,$t6,$v0
-/*  f17d38c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f17d390:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f17d394:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f17d398:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f17d39c:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f17d3a0:	24480004 */ 	addiu	$t0,$v0,0x4
-/*  f17d3a4:	3c19800b */ 	lui	$t9,%hi(g_MpSetup+0x16)
-/*  f17d3a8:	13000007 */ 	beqz	$t8,.L0f17d3c8
-/*  f17d3ac:	3c027f1c */ 	lui	$v0,%hi(var7f1b8030)
-/*  f17d3b0:	9739cb9e */ 	lhu	$t9,%lo(g_MpSetup+0x16)($t9)
-/*  f17d3b4:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f17d3b8:	01095004 */ 	sllv	$t2,$t1,$t0
-/*  f17d3bc:	032a5824 */ 	and	$t3,$t9,$t2
-/*  f17d3c0:	55600004 */ 	bnezl	$t3,.L0f17d3d4
-/*  f17d3c4:	00601025 */ 	or	$v0,$v1,$zero
-.L0f17d3c8:
-/*  f17d3c8:	03e00008 */ 	jr	$ra
-/*  f17d3cc:	24428030 */ 	addiu	$v0,$v0,%lo(var7f1b8030)
-/*  f17d3d0:	00601025 */ 	or	$v0,$v1,$zero
-.L0f17d3d4:
-/*  f17d3d4:	03e00008 */ 	jr	$ra
-/*  f17d3d8:	00000000 */ 	nop
+glabel func0f17d3dc
 /*  f17d3dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f17d3e0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f17d3e4:	90820001 */ 	lbu	$v0,0x1($a0)
