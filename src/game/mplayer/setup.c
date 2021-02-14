@@ -5437,117 +5437,51 @@ s32 menudialogMpQuickGo(u32 operation, struct menudialog *dialog, union handlerd
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f17f100
-.late_rodata
-glabel var7f1b828c
-.word func0f17f100+0x60 # f17f160
-glabel var7f1b8290
-.word func0f17f100+0x7c # f17f17c
-glabel var7f1b8294
-.word func0f17f100+0x98 # f17f198
-glabel var7f1b8298
-.word func0f17f100+0xe0 # f17f1e0
-glabel var7f1b829c
-.word func0f17f100+0x118 # f17f218
-.text
-/*  f17f100:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x4b0)
-/*  f17f104:	8dcea470 */ 	lw	$t6,%lo(g_Vars+0x4b0)($t6)
-/*  f17f108:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f17f10c:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f17f110:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f17f114:	11c1004d */ 	beq	$t6,$at,.L0f17f24c
-/*  f17f118:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f17f11c:	00008025 */ 	or	$s0,$zero,$zero
-.L0f17f120:
-/*  f17f120:	0fc632ff */ 	jal	mpRemoveSimulant
-/*  f17f124:	02002025 */ 	or	$a0,$s0,$zero
-/*  f17f128:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f17f12c:	2a010008 */ 	slti	$at,$s0,0x8
-/*  f17f130:	1420fffb */ 	bnez	$at,.L0f17f120
-/*  f17f134:	00000000 */ 	nop
-/*  f17f138:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x4b0)
-/*  f17f13c:	8defa470 */ 	lw	$t7,%lo(g_Vars+0x4b0)($t7)
-/*  f17f140:	2de10005 */ 	sltiu	$at,$t7,0x5
-/*  f17f144:	10200041 */ 	beqz	$at,.L0f17f24c
-/*  f17f148:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17f14c:	3c017f1c */ 	lui	$at,%hi(var7f1b828c)
-/*  f17f150:	002f0821 */ 	addu	$at,$at,$t7
-/*  f17f154:	8c2f828c */ 	lw	$t7,%lo(var7f1b828c)($at)
-/*  f17f158:	01e00008 */ 	jr	$t7
-/*  f17f15c:	00000000 */ 	nop
-/*  f17f160:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f17f164:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f17f168:	8c98000c */ 	lw	$t8,0xc($a0)
-/*  f17f16c:	2401fffd */ 	addiu	$at,$zero,-3
-/*  f17f170:	0301c824 */ 	and	$t9,$t8,$at
-/*  f17f174:	10000035 */ 	b	.L0f17f24c
-/*  f17f178:	ac99000c */ 	sw	$t9,0xc($a0)
-/*  f17f17c:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f17f180:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f17f184:	8c88000c */ 	lw	$t0,0xc($a0)
-/*  f17f188:	2401fffd */ 	addiu	$at,$zero,-3
-/*  f17f18c:	01014824 */ 	and	$t1,$t0,$at
-/*  f17f190:	1000002e */ 	b	.L0f17f24c
-/*  f17f194:	ac89000c */ 	sw	$t1,0xc($a0)
-/*  f17f198:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f17f19c:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f17f1a0:	8c8a000c */ 	lw	$t2,0xc($a0)
-/*  f17f1a4:	3c02800b */ 	lui	$v0,%hi(g_MpPlayers)
-/*  f17f1a8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f17f1ac:	354b0002 */ 	ori	$t3,$t2,0x2
-/*  f17f1b0:	ac8b000c */ 	sw	$t3,0xc($a0)
-/*  f17f1b4:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x4)
-/*  f17f1b8:	24849fc4 */ 	addiu	$a0,$a0,%lo(g_Vars+0x4)
-/*  f17f1bc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f17f1c0:	2442c7b8 */ 	addiu	$v0,$v0,%lo(g_MpPlayers)
-.L0f17f1c4:
-/*  f17f1c4:	806c04ac */ 	lb	$t4,0x4ac($v1)
-/*  f17f1c8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f17f1cc:	244200a0 */ 	addiu	$v0,$v0,0xa0
-/*  f17f1d0:	1464fffc */ 	bne	$v1,$a0,.L0f17f1c4
-/*  f17f1d4:	a04cff71 */ 	sb	$t4,-0x8f($v0)
-/*  f17f1d8:	1000001d */ 	b	.L0f17f250
-/*  f17f1dc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f17f1e0:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f17f1e4:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f17f1e8:	8c8d000c */ 	lw	$t5,0xc($a0)
-/*  f17f1ec:	3c02800b */ 	lui	$v0,%hi(g_MpPlayers)
-/*  f17f1f0:	3c03800b */ 	lui	$v1,%hi(g_MpPlayers+0x280)
-/*  f17f1f4:	35ae0002 */ 	ori	$t6,$t5,0x2
-/*  f17f1f8:	ac8e000c */ 	sw	$t6,0xc($a0)
-/*  f17f1fc:	2463ca38 */ 	addiu	$v1,$v1,%lo(g_MpPlayers+0x280)
-/*  f17f200:	2442c7b8 */ 	addiu	$v0,$v0,%lo(g_MpPlayers)
-.L0f17f204:
-/*  f17f204:	244200a0 */ 	addiu	$v0,$v0,0xa0
-/*  f17f208:	1443fffe */ 	bne	$v0,$v1,.L0f17f204
-/*  f17f20c:	a040ff71 */ 	sb	$zero,-0x8f($v0)
-/*  f17f210:	1000000f */ 	b	.L0f17f250
-/*  f17f214:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f17f218:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f17f21c:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f17f220:	8c8f000c */ 	lw	$t7,0xc($a0)
-/*  f17f224:	3c02800b */ 	lui	$v0,%hi(g_MpPlayers)
-/*  f17f228:	2442c7b8 */ 	addiu	$v0,$v0,%lo(g_MpPlayers)
-/*  f17f22c:	35f80002 */ 	ori	$t8,$t7,0x2
-/*  f17f230:	ac98000c */ 	sw	$t8,0xc($a0)
-/*  f17f234:	00008025 */ 	or	$s0,$zero,$zero
-/*  f17f238:	24030004 */ 	addiu	$v1,$zero,0x4
-.L0f17f23c:
-/*  f17f23c:	a0500011 */ 	sb	$s0,0x11($v0)
-/*  f17f240:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f17f244:	1603fffd */ 	bne	$s0,$v1,.L0f17f23c
-/*  f17f248:	244200a0 */ 	addiu	$v0,$v0,0xa0
-.L0f17f24c:
-/*  f17f24c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f17f250:
-/*  f17f250:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f17f254:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f17f258:	03e00008 */ 	jr	$ra
-/*  f17f25c:	00000000 */ 	nop
-);
+void mpConfigureQuickTeamPlayers(void)
+{
+	s32 i;
 
-void mpDecideQuickTeams(void)
+	if (g_Vars.mpquickteam != MPQUICKTEAM_NONE) {
+		for (i = 0; i < 8; i++) {
+			mpRemoveSimulant(i);
+		}
+
+		switch (g_Vars.mpquickteam) {
+		case MPQUICKTEAM_PLAYERSONLY:
+			g_MpSetup.options &= ~MPOPTION_TEAMSENABLED;
+			break;
+		case MPQUICKTEAM_PLAYERSANDSIMS:
+			g_MpSetup.options &= ~MPOPTION_TEAMSENABLED;
+			break;
+		case MPQUICKTEAM_PLAYERSTEAMS:
+			g_MpSetup.options |= MPOPTION_TEAMSENABLED;
+
+			for (i = 0; i < 4; i++) {
+				g_MpPlayers[i].base.team = g_Vars.mpplayerteams[i];
+			}
+
+			break;
+		case MPQUICKTEAM_PLAYERSVSSIMS:
+			g_MpSetup.options |= MPOPTION_TEAMSENABLED;
+
+			for (i = 0; i < 4; i++) {
+				g_MpPlayers[i].base.team = 0;
+			}
+
+			break;
+		case MPQUICKTEAM_PLAYERSIMTEAMS:
+			g_MpSetup.options |= MPOPTION_TEAMSENABLED;
+
+			for (i = 0; i < 4; i++) {
+				g_MpPlayers[i].base.team = i;
+			}
+
+			break;
+		}
+	}
+}
+
+void mpConfigureQuickTeamSimulants(void)
 {
 	struct mpchr *mpchr;
 	s32 numchrs;
@@ -5609,7 +5543,7 @@ void mpDecideQuickTeams(void)
 
 void func0f17f428(void)
 {
-	func0f17f100();
+	mpConfigureQuickTeamPlayers();
 
 	if (IS4MB()) {
 		func0f0f820c(&g_MpQuickGo4MbMenuDialog, MENUROOT_4MBMAINMENU);

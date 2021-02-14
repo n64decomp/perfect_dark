@@ -84,7 +84,7 @@ void mpStartMatch(void)
 	s32 numplayers = 0;
 	s32 stagenum;
 
-	mpDecideQuickTeams();
+	mpConfigureQuickTeamSimulants();
 
 	if (!mpIsFeatureUnlocked(MPFEATURE_ONEHITKILLS)) {
 		g_MpSetup.options &= ~MPOPTION_ONEHITKILLS;
