@@ -5549,7 +5549,6 @@ glabel var7f1b829c
 
 GLOBAL_ASM(
 glabel func0f17f260
-# This rodata belongs to menuhandlerPlayerTeam
 .late_rodata
 glabel var7f1b82a0
 .word func0f17f260+0x1a0 # f17f400
@@ -5561,28 +5560,6 @@ glabel var7f1b82ac
 .word func0f17f260+0xa4 # f17f304
 glabel var7f1b82b0
 .word func0f17f260+0x110 # f17f370
-glabel var7f1b82b4
-.word menuhandlerPlayerTeam+0x24 # f17f520
-glabel var7f1b82b8
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82bc
-.word menuhandlerPlayerTeam+0x30 # f17f52c
-glabel var7f1b82c0
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82c4
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82c8
-.word menuhandlerPlayerTeam+0x50 # f17f54c
-glabel var7f1b82cc
-.word menuhandlerPlayerTeam+0x68 # f17f564
-glabel var7f1b82d0
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82d4
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82d8
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82dc
-.word menuhandlerPlayerTeam+0x9c # f17f598
 .text
 /*  f17f260:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f17f264:	afb30024 */ 	sw	$s3,0x24($sp)
@@ -5768,8 +5745,29 @@ s32 menuhandlerQuickTeamSeparator(u32 operation, struct menuitem *item, union ha
 
 GLOBAL_ASM(
 glabel menuhandlerPlayerTeam
-# Rodata continued from earlier
 .late_rodata
+glabel var7f1b82b4
+.word menuhandlerPlayerTeam+0x24 # f17f520
+glabel var7f1b82b8
+.word menuhandlerPlayerTeam+0x9c # f17f598
+glabel var7f1b82bc
+.word menuhandlerPlayerTeam+0x30 # f17f52c
+glabel var7f1b82c0
+.word menuhandlerPlayerTeam+0x9c # f17f598
+glabel var7f1b82c4
+.word menuhandlerPlayerTeam+0x9c # f17f598
+glabel var7f1b82c8
+.word menuhandlerPlayerTeam+0x50 # f17f54c
+glabel var7f1b82cc
+.word menuhandlerPlayerTeam+0x68 # f17f564
+glabel var7f1b82d0
+.word menuhandlerPlayerTeam+0x9c # f17f598
+glabel var7f1b82d4
+.word menuhandlerPlayerTeam+0x9c # f17f598
+glabel var7f1b82d8
+.word menuhandlerPlayerTeam+0x9c # f17f598
+glabel var7f1b82dc
+.word menuhandlerPlayerTeam+0x9c # f17f598
 glabel var7f1b82e0
 .word menuhandlerPlayerTeam+0x9c # f17f598
 glabel var7f1b82e4

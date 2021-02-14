@@ -102,109 +102,6 @@ void playersAllocate(s32 count)
 
 GLOBAL_ASM(
 glabel playerAllocate
-# This rodata belongs to weaponGetModel
-.late_rodata
-glabel var7f1b5168
-.word weaponGetModel+0x60 # f128b54
-glabel var7f1b516c
-.word weaponGetModel+0x60 # f128b54
-glabel var7f1b5170
-.word weaponGetModel+0x68 # f128b5c
-glabel var7f1b5174
-.word weaponGetModel+0x98 # f128b8c
-glabel var7f1b5178
-.word weaponGetModel+0xa0 # f128b94
-glabel var7f1b517c
-.word weaponGetModel+0x70 # f128b64
-glabel var7f1b5180
-.word weaponGetModel+0x78 # f128b6c
-glabel var7f1b5184
-.word weaponGetModel+0x90 # f128b84
-glabel var7f1b5188
-.word weaponGetModel+0x80 # f128b74
-glabel var7f1b518c
-.word weaponGetModel+0x88 # f128b7c
-glabel var7f1b5190
-.word weaponGetModel+0xa8 # f128b9c
-glabel var7f1b5194
-.word weaponGetModel+0xd0 # f128bc4
-glabel var7f1b5198
-.word weaponGetModel+0xd8 # f128bcc
-glabel var7f1b519c
-.word weaponGetModel+0xe0 # f128bd4
-glabel var7f1b51a0
-.word weaponGetModel+0xe8 # f128bdc
-glabel var7f1b51a4
-.word weaponGetModel+0xb8 # f128bac
-glabel var7f1b51a8
-.word weaponGetModel+0xc8 # f128bbc
-glabel var7f1b51ac
-.word weaponGetModel+0xb0 # f128ba4
-glabel var7f1b51b0
-.word weaponGetModel+0xc0 # f128bb4
-glabel var7f1b51b4
-.word weaponGetModel+0xf0 # f128be4
-glabel var7f1b51b8
-.word weaponGetModel+0xf8 # f128bec
-glabel var7f1b51bc
-.word weaponGetModel+0x120 # f128c14
-glabel var7f1b51c0
-.word weaponGetModel+0x118 # f128c0c
-glabel var7f1b51c4
-.word weaponGetModel+0x108 # f128bfc
-glabel var7f1b51c8
-.word weaponGetModel+0x100 # f128bf4
-glabel var7f1b51cc
-.word weaponGetModel+0x110 # f128c04
-glabel var7f1b51d0
-.word weaponGetModel+0x138 # f128c2c
-glabel var7f1b51d4
-.word weaponGetModel+0x128 # f128c1c
-glabel var7f1b51d8
-.word weaponGetModel+0x140 # f128c34
-glabel var7f1b51dc
-.word weaponGetModel+0x130 # f128c24
-glabel var7f1b51e0
-.word weaponGetModel+0x158 # f128c4c
-glabel var7f1b51e4
-.word weaponGetModel+0x150 # f128c44
-glabel var7f1b51e8
-.word weaponGetModel+0x170 # f128c64
-glabel var7f1b51ec
-.word weaponGetModel+0x168 # f128c5c
-glabel var7f1b51f0
-.word weaponGetModel+0x160 # f128c54
-glabel var7f1b51f4
-.word weaponGetModel+0x1c8 # f128cbc
-glabel var7f1b51f8
-.word weaponGetModel+0x188 # f128c7c
-glabel var7f1b51fc
-.word weaponGetModel+0x190 # f128c84
-glabel var7f1b5200
-.word weaponGetModel+0x198 # f128c8c
-glabel var7f1b5204
-.word weaponGetModel+0x1a0 # f128c94
-glabel var7f1b5208
-.word weaponGetModel+0x1a8 # f128c9c
-glabel var7f1b520c
-.word weaponGetModel+0x1b0 # f128ca4
-glabel var7f1b5210
-.word weaponGetModel+0x1b8 # f128cac
-glabel var7f1b5214
-.word weaponGetModel+0x1c0 # f128cb4
-glabel var7f1b5218
-.word weaponGetModel+0x148 # f128c3c
-glabel var7f1b521c
-.word weaponGetModel+0x1e0 # f128cd4
-glabel var7f1b5220
-.word weaponGetModel+0x1e0 # f128cd4
-glabel var7f1b5224
-.word weaponGetModel+0x1e0 # f128cd4
-glabel var7f1b5228
-.word weaponGetModel+0x1e0 # f128cd4
-glabel var7f1b522c
-.word weaponGetModel+0x180 # f128c74
-.text
 /*  f127ae4:	27bdf838 */ 	addiu	$sp,$sp,-1992
 /*  f127ae8:	3c0f8008 */ 	lui	$t7,%hi(var8007dc10)
 /*  f127aec:	25efdc10 */ 	addiu	$t7,$t7,%lo(var8007dc10)
@@ -1125,6 +1022,108 @@ void currentPlayerSetAspectRatio(f32 aspect)
 
 GLOBAL_ASM(
 glabel weaponGetModel
+.late_rodata
+glabel var7f1b5168
+.word weaponGetModel+0x60 # f128b54
+glabel var7f1b516c
+.word weaponGetModel+0x60 # f128b54
+glabel var7f1b5170
+.word weaponGetModel+0x68 # f128b5c
+glabel var7f1b5174
+.word weaponGetModel+0x98 # f128b8c
+glabel var7f1b5178
+.word weaponGetModel+0xa0 # f128b94
+glabel var7f1b517c
+.word weaponGetModel+0x70 # f128b64
+glabel var7f1b5180
+.word weaponGetModel+0x78 # f128b6c
+glabel var7f1b5184
+.word weaponGetModel+0x90 # f128b84
+glabel var7f1b5188
+.word weaponGetModel+0x80 # f128b74
+glabel var7f1b518c
+.word weaponGetModel+0x88 # f128b7c
+glabel var7f1b5190
+.word weaponGetModel+0xa8 # f128b9c
+glabel var7f1b5194
+.word weaponGetModel+0xd0 # f128bc4
+glabel var7f1b5198
+.word weaponGetModel+0xd8 # f128bcc
+glabel var7f1b519c
+.word weaponGetModel+0xe0 # f128bd4
+glabel var7f1b51a0
+.word weaponGetModel+0xe8 # f128bdc
+glabel var7f1b51a4
+.word weaponGetModel+0xb8 # f128bac
+glabel var7f1b51a8
+.word weaponGetModel+0xc8 # f128bbc
+glabel var7f1b51ac
+.word weaponGetModel+0xb0 # f128ba4
+glabel var7f1b51b0
+.word weaponGetModel+0xc0 # f128bb4
+glabel var7f1b51b4
+.word weaponGetModel+0xf0 # f128be4
+glabel var7f1b51b8
+.word weaponGetModel+0xf8 # f128bec
+glabel var7f1b51bc
+.word weaponGetModel+0x120 # f128c14
+glabel var7f1b51c0
+.word weaponGetModel+0x118 # f128c0c
+glabel var7f1b51c4
+.word weaponGetModel+0x108 # f128bfc
+glabel var7f1b51c8
+.word weaponGetModel+0x100 # f128bf4
+glabel var7f1b51cc
+.word weaponGetModel+0x110 # f128c04
+glabel var7f1b51d0
+.word weaponGetModel+0x138 # f128c2c
+glabel var7f1b51d4
+.word weaponGetModel+0x128 # f128c1c
+glabel var7f1b51d8
+.word weaponGetModel+0x140 # f128c34
+glabel var7f1b51dc
+.word weaponGetModel+0x130 # f128c24
+glabel var7f1b51e0
+.word weaponGetModel+0x158 # f128c4c
+glabel var7f1b51e4
+.word weaponGetModel+0x150 # f128c44
+glabel var7f1b51e8
+.word weaponGetModel+0x170 # f128c64
+glabel var7f1b51ec
+.word weaponGetModel+0x168 # f128c5c
+glabel var7f1b51f0
+.word weaponGetModel+0x160 # f128c54
+glabel var7f1b51f4
+.word weaponGetModel+0x1c8 # f128cbc
+glabel var7f1b51f8
+.word weaponGetModel+0x188 # f128c7c
+glabel var7f1b51fc
+.word weaponGetModel+0x190 # f128c84
+glabel var7f1b5200
+.word weaponGetModel+0x198 # f128c8c
+glabel var7f1b5204
+.word weaponGetModel+0x1a0 # f128c94
+glabel var7f1b5208
+.word weaponGetModel+0x1a8 # f128c9c
+glabel var7f1b520c
+.word weaponGetModel+0x1b0 # f128ca4
+glabel var7f1b5210
+.word weaponGetModel+0x1b8 # f128cac
+glabel var7f1b5214
+.word weaponGetModel+0x1c0 # f128cb4
+glabel var7f1b5218
+.word weaponGetModel+0x148 # f128c3c
+glabel var7f1b521c
+.word weaponGetModel+0x1e0 # f128cd4
+glabel var7f1b5220
+.word weaponGetModel+0x1e0 # f128cd4
+glabel var7f1b5224
+.word weaponGetModel+0x1e0 # f128cd4
+glabel var7f1b5228
+.word weaponGetModel+0x1e0 # f128cd4
+glabel var7f1b522c
+.word weaponGetModel+0x180 # f128c74
+.text
 /*  f128af4:	28810052 */ 	slti	$at,$a0,0x52
 /*  f128af8:	14200007 */ 	bnez	$at,.L0f128b18
 /*  f128afc:	24010052 */ 	addiu	$at,$zero,0x52
