@@ -174,9 +174,9 @@ void sightTick(bool sighton)
 	u8 newtarget;
 	s32 i;
 	s32 index;
-	struct inventory_typee *thing = func0f0b11bc(&g_Vars.currentplayer->hands[0]);
-	struct weaponfunc *func = weaponGetFunctionById(g_Vars.currentplayer->hands[0].weaponnum,
-			g_Vars.currentplayer->hands[0].weaponfunc);
+	struct inventory_typee *thing = func0f0b11bc(&g_Vars.currentplayer->hands[0].base);
+	struct weaponfunc *func = weaponGetFunctionById(g_Vars.currentplayer->hands[0].base.weaponnum,
+			g_Vars.currentplayer->hands[0].base.weaponfunc);
 
 	g_Vars.currentplayer->sighttimer240 += g_Vars.lvupdate240;
 
@@ -198,7 +198,7 @@ void sightTick(bool sighton)
 
 	newtarget = thing->unk18 >> 28;
 
-	if (handHasFunctionFlags(&g_Vars.currentplayer->hands[0], FUNCFLAG_00080000)) {
+	if (handHasFunctionFlags(&g_Vars.currentplayer->hands[0].base, FUNCFLAG_00080000)) {
 		newtarget = 5;
 	}
 

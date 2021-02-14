@@ -4176,8 +4176,8 @@ void chrTickPoisoned(struct chrdata *chr)
 	if (chr->poisoncounter > 0) {
 		struct coord coord = {0, 0, 0};
 
-		u8 thing[] = {
-			0x1a, 0x00, 0x00, 0x03,
+		struct shorthand hand = {
+			WEAPON_COMBATKNIFE, 0, 0, 3,
 		};
 
 		if (chr->actiontype == ACT_DEAD || chr->actiontype == ACT_DIE) {
@@ -4211,7 +4211,7 @@ void chrTickPoisoned(struct chrdata *chr)
 
 			if (chr->poisoncounter <= 0) {
 				if (!g_Vars.normmplayerisrunning) {
-					chrPoison(chr, 100, &coord, thing, chr->poisonprop);
+					chrPoison(chr, 100, &coord, &hand, chr->poisonprop);
 					chrDoFlinchcntThing(chr, M_PI);
 				}
 
@@ -4222,7 +4222,7 @@ void chrTickPoisoned(struct chrdata *chr)
 
 			if (g_Vars.normmplayerisrunning) {
 				if (chr->poisoncounter / 720 != (chr->poisoncounter + g_Vars.lvupdate240) / 720) {
-					chrPoison(chr, 1.3f, &coord, thing, chr->poisonprop);
+					chrPoison(chr, 1.3f, &coord, &hand, chr->poisonprop);
 				}
 			}
 		}

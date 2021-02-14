@@ -1234,7 +1234,7 @@ glabel var7f1ac1b0
 /*  f098880:	27bd0158 */ 	addiu	$sp,$sp,0x158
 );
 
-bool func0f098884(struct remoteminething *arg0, struct hand *hand)
+bool func0f098884(struct remoteminething *arg0, struct shorthand *hand)
 {
 	s32 result = false;
 
@@ -1261,7 +1261,7 @@ void func0f0988e0(struct remoteminething *arg0, bool arg1, struct hand *hand)
 		u32 rand = random() % 100;
 
 		while (loopthing->unk00) {
-			if (func0f098884(loopthing, hand) && !done) {
+			if (func0f098884(loopthing, &hand->base) && !done) {
 				if (loopthing->unk00 == 6) {
 					done = true;
 					func0f0988e0(loopthing->next, arg1, hand);
@@ -13188,7 +13188,7 @@ bool weaponIsMissionCritical(s32 weaponnum)
 void currentPlayerLoseGunInNbombStorm(struct prop *prop)
 {
 	struct player *player = g_Vars.currentplayer;
-	s32 weaponnum = player->hands[0].weaponnum;
+	s32 weaponnum = player->hands[0].base.weaponnum;
 	struct chrdata *chr;
 	s32 modelnum;
 	s32 i;
@@ -13224,13 +13224,13 @@ void currentPlayerLoseGunInNbombStorm(struct prop *prop)
 		// Or drop it at player's feet with the pin pulled maybe...
 		if (weaponnum == WEAPON_GRENADE || weaponnum == WEAPON_NBOMB) {
 			for (i = 0; i < 2; i++) {
-				struct weaponfunc *func = handGetWeaponFunction(&player->hands[i]);
+				struct weaponfunc *func = handGetWeaponFunction(&player->hands[i].base);
 
 				if ((func->type & 0xff) == INVENTORYFUNCTYPE_THROW
 						&& player->hands[i].unk0c3c == 4
 						&& player->hands[i].unk0c40 == 0) {
 					drop = false;
-					handCreateThrownProjectile(i + 2, &player->hands[i]);
+					handCreateThrownProjectile(i + 2, &player->hands[i].base);
 				}
 			}
 		}
@@ -13571,7 +13571,7 @@ void playerDetonateRemoteMines(s32 playernum)
 	s32 prevplayernum = g_Vars.currentplayernum;
 	setCurrentPlayerNum(playernum);
 
-	if (g_Vars.currentplayer->hands[HAND_LEFT].weaponnum == WEAPON_REMOTEMINE) {
+	if (g_Vars.currentplayer->hands[HAND_LEFT].base.weaponnum == WEAPON_REMOTEMINE) {
 		func0f0988e0(var80070200, 1, &g_Vars.currentplayer->hands[HAND_LEFT]);
 	}
 
@@ -20631,7 +20631,7 @@ void currentPlayerTickInventory(bool triggeron)
 			struct hand *lhand = &g_Vars.currentplayer->hands[HAND_LEFT];
 			struct hand *rhand = &g_Vars.currentplayer->hands[HAND_RIGHT];
 
-			weapon = weaponFindById(rhand->weaponnum);
+			weapon = weaponFindById(rhand->base.weaponnum);
 
 			for (i = 0; i != 2; i++) {
 				if (weapon && weapon->ammos[i] &&

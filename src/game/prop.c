@@ -2223,7 +2223,7 @@ glabel func0f061fa8
 /*  f06226c:	00000000 */ 	nop
 );
 
-void handInflictCloseRangeDamage(s32 handnum, struct hand *hand, bool arg2)
+void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
 {
 	s32 someval;
 	struct prop **ptr;
@@ -2406,7 +2406,7 @@ void handTickAttack(s32 handnum)
 
 		g_Vars.currentplayer->hands[handnum].unk0d0f_03 = false;
 
-		handPopulateFromCurrentPlayer(handnum, (struct hand *)&tmpweaponnum);
+		handPopulateFromCurrentPlayer(handnum, (struct shorthand *)&tmpweaponnum);
 		frIncrementNumShots();
 
 		switch (type) {
@@ -2415,7 +2415,7 @@ void handTickAttack(s32 handnum)
 			// right hand is not (ie. prevent firing both guns on the same tick)
 			if (handnum == HAND_RIGHT || !handIsAttackingOnThisTick(HAND_RIGHT)) {
 				chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
-				mpstatsIncrementPlayerShotCount2((struct hand *)&tmpweaponnum, 0);
+				mpstatsIncrementPlayerShotCount2((struct shorthand *)&tmpweaponnum, 0);
 
 				if (weaponnum == WEAPON_SHOTGUN) {
 					handCreateBulletRaycast(handnum, true, true, 1, true);
@@ -2433,10 +2433,10 @@ void handTickAttack(s32 handnum)
 			break;
 		case HANDATTACKTYPE_CLOSERANGE:
 			chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
-			handInflictCloseRangeDamage(handnum, (struct hand *)&tmpweaponnum, false);
+			handInflictCloseRangeDamage(handnum, (struct shorthand *)&tmpweaponnum, false);
 			break;
 		case HANDATTACKTYPE_CLOSERANGENOUNCLOAK:
-			handInflictCloseRangeDamage(handnum, (struct hand *)&tmpweaponnum, true);
+			handInflictCloseRangeDamage(handnum, (struct shorthand *)&tmpweaponnum, true);
 			break;
 		case HANDATTACKTYPE_DETONATE:
 			playerActivateRemoteMineDetonator(g_Vars.currentplayernum);
@@ -2461,7 +2461,7 @@ void handTickAttack(s32 handnum)
 			}
 			break;
 		case HANDATTACKTYPE_THROWPROJECTILE:
-			handCreateThrownProjectile(handnum, (struct hand *)&tmpweaponnum);
+			handCreateThrownProjectile(handnum, (struct shorthand *)&tmpweaponnum);
 			break;
 		case HANDATTACKTYPE_RCP120CLOAK:
 			cloaked = (g_Vars.currentplayer->devicesactive & DEVICE_CLOAKRCP120) != 0;

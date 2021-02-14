@@ -1731,16 +1731,17 @@ struct bullettail {
 	/*0x28*/ f32 dist;
 };
 
+// The first 4 bytes of the hand struct
+struct shorthand {
+	u8 weaponnum;
+	u8 unk0639;
+	u8 unk063a;
+	u8 weaponfunc; // 0 or 1
+};
+
 // Weapon data per hand
-// @TODO: The first 4 bytes are suspected to be a separate struct because there
-// are places where 4 bytes are allocated on the stack then passed to functions
-// which currently expect hand pointers. However this also means changing the
-// weaponobj struct so it also uses this struct.
 struct hand {
-	/*0x0638*/ u8 weaponnum;
-	/*0x0639*/ u8 unk0639;
-	/*0x063a*/ u8 unk063a;
-	/*0x063b*/ u8 weaponfunc; // 0 or 1
+	struct shorthand base;
 	/*0x063c*/ s8 unk063c;
 	/*0x063d*/ s8 torchon;
 	/*0x063e*/ u8 unk063e;

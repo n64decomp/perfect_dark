@@ -641,7 +641,7 @@ void amApply(s32 slot)
 				if (g_FrIsValidWeapon) {
 					s32 weaponnum = frGetWeaponBySlot(frGetSlot());
 
-					if (g_Vars.currentplayer->hands[HAND_RIGHT].weaponnum == weaponnum) {
+					if (g_Vars.currentplayer->hands[HAND_RIGHT].base.weaponnum == weaponnum) {
 						pass = false;
 					}
 				}
@@ -762,8 +762,8 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 		if (slot == 4) {
 			strcpy(label, langGet(L_MISC(171))); // "Function"
 		} else if (slot == 1 || slot == 7) {
-			prifunc = weaponGetFunction(&g_Vars.currentplayer->hands[HAND_RIGHT].weaponnum, FUNC_PRIMARY);
-			secfunc = weaponGetFunction(&g_Vars.currentplayer->hands[HAND_RIGHT].weaponnum, FUNC_SECONDARY);
+			prifunc = weaponGetFunction(&g_Vars.currentplayer->hands[HAND_RIGHT].base.weaponnum, FUNC_PRIMARY);
+			secfunc = weaponGetFunction(&g_Vars.currentplayer->hands[HAND_RIGHT].base.weaponnum, FUNC_SECONDARY);
 
 			if (slot == 1) {
 				if (!secfunc

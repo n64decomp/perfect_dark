@@ -5476,19 +5476,19 @@ glabel func0f034080
 /*  f034120:	00000000 */ 	nop
 );
 
-void chrPoison(struct chrdata *chr, f32 damage, struct coord *vector, u8 *arg3, struct prop *prop)
+void chrPoison(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop)
 {
-	func0f034524(chr, damage, vector, arg3, prop, 200, 0, 0, 0, 0, -1, 0, 0, 0);
+	func0f034524(chr, damage, vector, hand, prop, 200, 0, 0, 0, 0, -1, 0, 0, 0);
 }
 
-void func0f03417c(struct chrdata *chr, f32 damage, struct coord *vector, u8 *arg3, struct prop *prop)
+void func0f03417c(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop)
 {
-	func0f034524(chr, damage, vector, arg3, prop, 200, 1, chr->prop, 0, 0, -1, 0, 0, 0);
+	func0f034524(chr, damage, vector, hand, prop, 200, 1, chr->prop, 0, 0, -1, 0, 0, 0);
 }
 
-void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct hand *hand, struct prop *prop, u32 arg5, struct prop *prop2, s32 arg7, s32 arg8, s32 arg9, u32 arg10)
+void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 arg5, struct prop *prop2, s32 arg7, s32 arg8, s32 arg9, u32 arg10)
 {
-	func0f034524(chr, damage, vector, (u8 *)hand, prop, arg5, 1, prop2, arg7, arg8, arg9, arg10, 0, 0);
+	func0f034524(chr, damage, vector, hand, prop, arg5, 1, prop2, arg7, arg8, arg9, arg10, 0, 0);
 }
 
 GLOBAL_ASM(
@@ -5555,7 +5555,7 @@ glabel func0f034248
 /*  f03432c:	00000000 */ 	nop
 );
 
-void func0f034330(struct chrdata *chr, f32 damage, struct coord *vector, u8 *arg3, struct prop *prop, s32 arg5)
+void func0f034330(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, s32 arg5)
 {
 	s32 sp76 = 0;
 	s32 sp72 = 0;
@@ -5565,7 +5565,7 @@ void func0f034330(struct chrdata *chr, f32 damage, struct coord *vector, u8 *arg
 		func0f03ff2c(chr, &chr->prop->pos, vector, &sp76, &arg5, &sp72, &sp68);
 	}
 
-	func0f034524(chr, damage, vector, arg3, prop, arg5, 1, chr->prop, sp76, sp72, sp68, 0, 0, 0);
+	func0f034524(chr, damage, vector, hand, prop, arg5, 1, chr->prop, sp76, sp72, sp68, 0, 0, 0);
 }
 
 GLOBAL_ASM(

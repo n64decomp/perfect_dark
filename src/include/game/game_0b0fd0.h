@@ -5,11 +5,11 @@
 
 struct weapon *weaponFindById(s32 itemid);
 struct weaponfunc *weaponGetFunctionById(u32 weaponnum, u32 which);
-struct weaponfunc *handGetWeaponFunction2(struct hand *hand);
-struct weaponfunc *handGetWeaponFunction(struct hand *hand);
+struct weaponfunc *handGetWeaponFunction2(struct shorthand *hand);
+struct weaponfunc *handGetWeaponFunction(struct shorthand *hand);
 struct weaponfunc *weaponGetFunction(u8 *arg0, s32 which);
 struct weaponfunc *currentPlayerGetWeaponFunction(u32 hand);
-struct inventory_typee *func0f0b11bc(struct hand *hand);
+struct inventory_typee *func0f0b11bc(struct shorthand *hand);
 struct inventory_ammo *weaponGetAmmoByFunction(u32 weaponnum, u32 funcnum);
 f32 handGetXOffset(u32 arg0);
 f32 func0f0b131c(u32 hand);
@@ -23,18 +23,18 @@ s32 currentPlayerGetDeviceState(s32 weaponnum);
 void currentPlayerSetDeviceActive(s32 weaponum, bool active);
 u16 weaponGetModelNum(s32 weaponnum);
 u16 weaponGetModelNum2(s32 weaponnum);
-void handPopulateFromCurrentPlayer(s32 handnum, struct hand *hand);
-struct inventory_ammo *handGetAmmoDefinition(struct hand *hand);
-u8 handGetSingleUnk3c(struct hand *hand);
-f32 handGetSingleUnk34(struct hand *hand);
-f32 handGetDamage(struct hand *hand);
-u8 handGetSingleUnk38(struct hand *hand);
-u16 handGetSingleShootSound(struct hand *hand);
-bool handHasFunctionFlags(struct hand *hand, u32 flags);
+void handPopulateFromCurrentPlayer(s32 handnum, struct shorthand *hand);
+struct inventory_ammo *handGetAmmoDefinition(struct shorthand *hand);
+u8 handGetSingleUnk3c(struct shorthand *hand);
+f32 handGetSingleUnk34(struct shorthand *hand);
+f32 handGetDamage(struct shorthand *hand);
+u8 handGetSingleUnk38(struct shorthand *hand);
+u16 handGetSingleShootSound(struct shorthand *hand);
+bool handHasFunctionFlags(struct shorthand *hand, u32 flags);
 s8 weaponGetMaxFireRatePerTick(u32 weaponnum, u32 funcindex);
 u32 currentPlayerGetSight(void);
 u32 func0f0b201c(void);
-u32 *handGetPriToSecAnim(struct hand *hand);
-u32 *handGetSecToPriAnim(struct hand *hand);
+u32 *handGetPriToSecAnim(struct shorthand *hand);
+u32 *handGetSecToPriAnim(struct shorthand *hand);
 
 #endif

@@ -22,14 +22,14 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-void mpstatsIncrementPlayerShotCount(struct hand *hand, s32 region)
+void mpstatsIncrementPlayerShotCount(struct shorthand *hand, s32 region)
 {
 	if (!weaponHasFlag(hand->weaponnum, WEAPONFLAG_00100000)) {
 		g_Vars.currentplayerstats->shotcount[region]++;
 	}
 }
 
-void mpstatsIncrementPlayerShotCount2(struct hand *hand, s32 region)
+void mpstatsIncrementPlayerShotCount2(struct shorthand *hand, s32 region)
 {
 	if (region == 0) {
 		if (!weaponHasFlag(hand->weaponnum, WEAPONFLAG_00100000)) {

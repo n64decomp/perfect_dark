@@ -46,7 +46,7 @@ struct weaponfunc *weaponGetFunctionById(u32 weaponnum, u32 which)
 	return NULL;
 }
 
-struct weaponfunc *handGetWeaponFunction2(struct hand *hand)
+struct weaponfunc *handGetWeaponFunction2(struct shorthand *hand)
 {
 	struct weapon *weapon = weaponFindById(hand->weaponnum);
 
@@ -57,7 +57,7 @@ struct weaponfunc *handGetWeaponFunction2(struct hand *hand)
 	return NULL;
 }
 
-struct weaponfunc *handGetWeaponFunction(struct hand *hand)
+struct weaponfunc *handGetWeaponFunction(struct shorthand *hand)
 {
 	struct weapon *weapon = g_Weapons[hand->weaponnum];
 
@@ -81,10 +81,10 @@ struct weaponfunc *weaponGetFunction(u8 *arg0, s32 which)
 
 struct weaponfunc *currentPlayerGetWeaponFunction(u32 hand)
 {
-	struct weapon *weapon = weaponFindById(g_Vars.currentplayer->hands[hand].weaponnum);
+	struct weapon *weapon = weaponFindById(g_Vars.currentplayer->hands[hand].base.weaponnum);
 
 	if (weapon) {
-		return weapon->functions[g_Vars.currentplayer->hands[hand].weaponfunc];
+		return weapon->functions[g_Vars.currentplayer->hands[hand].base.weaponfunc];
 	}
 
 	return NULL;
@@ -108,7 +108,7 @@ u32 weaponGetNumFunctions(u32 weaponnum)
 	return 2;
 }
 
-struct inventory_typee *func0f0b11bc(struct hand *hand)
+struct inventory_typee *func0f0b11bc(struct shorthand *hand)
 {
 	struct weapon *weapon = weaponFindById(hand->weaponnum);
 
@@ -494,7 +494,7 @@ glabel handPopulateFromCurrentPlayer
 );
 
 // Mismatch: regalloc
-//void handPopulateFromCurrentPlayer(s32 handnum, struct hand *hand)
+//void handPopulateFromCurrentPlayer(s32 handnum, struct shorthand *hand)
 //{
 //	hand->weaponnum = g_Vars.currentplayer->weaponnum;
 //	hand->weaponfunc = g_Vars.currentplayer->hands[handnum].weaponfunc;
@@ -510,7 +510,7 @@ glabel handPopulateFromCurrentPlayer
 //	}
 //}
 
-struct inventory_ammo *handGetAmmoDefinition(struct hand *hand)
+struct inventory_ammo *handGetAmmoDefinition(struct shorthand *hand)
 {
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 	struct weapon *weapon = weaponFindById(hand->weaponnum);
@@ -522,7 +522,7 @@ struct inventory_ammo *handGetAmmoDefinition(struct hand *hand)
 	return NULL;
 }
 
-u8 handGetSingleUnk3c(struct hand *hand)
+u8 handGetSingleUnk3c(struct shorthand *hand)
 {
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 
@@ -534,7 +534,7 @@ u8 handGetSingleUnk3c(struct hand *hand)
 	return 0;
 }
 
-u32 handGetCasingEject(struct hand *hand)
+u32 handGetCasingEject(struct shorthand *hand)
 {
 	u32 result = 0;
 	struct inventory_ammo *ammo = handGetAmmoDefinition(hand);
@@ -546,7 +546,7 @@ u32 handGetCasingEject(struct hand *hand)
 	return result;
 }
 
-f32 handGetSingleUnk34(struct hand *hand)
+f32 handGetSingleUnk34(struct shorthand *hand)
 {
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 	f32 result = 0;
@@ -559,7 +559,7 @@ f32 handGetSingleUnk34(struct hand *hand)
 	return result;
 }
 
-f32 handGetDamage(struct hand *hand)
+f32 handGetDamage(struct shorthand *hand)
 {
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 	f32 damage = 0;
@@ -596,7 +596,7 @@ f32 handGetDamage(struct hand *hand)
 	return damage;
 }
 
-u8 handGetSingleUnk38(struct hand *hand)
+u8 handGetSingleUnk38(struct shorthand *hand)
 {
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 
@@ -608,7 +608,7 @@ u8 handGetSingleUnk38(struct hand *hand)
 	return 0;
 }
 
-u16 handGetSingleShootSound(struct hand *hand)
+u16 handGetSingleShootSound(struct shorthand *hand)
 {
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 
@@ -620,7 +620,7 @@ u16 handGetSingleShootSound(struct hand *hand)
 	return 0;
 }
 
-bool handHasFunctionFlags(struct hand *hand, u32 flags)
+bool handHasFunctionFlags(struct shorthand *hand, u32 flags)
 {
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 
@@ -650,8 +650,8 @@ s8 weaponGetMaxFireRatePerTick(u32 weaponnum, u32 funcindex)
 u32 currentPlayerGetSight(void)
 {
 	struct weaponfunc *func = weaponGetFunctionById(
-			g_Vars.currentplayer->hands[HAND_RIGHT].weaponnum,
-			g_Vars.currentplayer->hands[HAND_RIGHT].weaponfunc);
+			g_Vars.currentplayer->hands[HAND_RIGHT].base.weaponnum,
+			g_Vars.currentplayer->hands[HAND_RIGHT].base.weaponfunc);
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
 		return SIGHT_NONE;
@@ -661,7 +661,7 @@ u32 currentPlayerGetSight(void)
 		return SIGHT_CLASSIC;
 	}
 
-	switch (g_Vars.currentplayer->hands[HAND_RIGHT].weaponnum) {
+	switch (g_Vars.currentplayer->hands[HAND_RIGHT].base.weaponnum) {
 	case WEAPON_HORIZONSCANNER:
 		return SIGHT_NONE;
 	case WEAPON_NONE:
@@ -751,7 +751,7 @@ glabel func0f0b201c
 /*  f0b2084:	00000000 */ 	nop
 );
 
-u32 *handGetEquipAnim(struct hand *hand)
+u32 *handGetEquipAnim(struct shorthand *hand)
 {
 	struct weapon *weapon = g_Weapons[hand->weaponnum];
 
@@ -762,7 +762,7 @@ u32 *handGetEquipAnim(struct hand *hand)
 	return NULL;
 }
 
-u32 *handGetUnequipAnim(struct hand *hand)
+u32 *handGetUnequipAnim(struct shorthand *hand)
 {
 	struct weapon *weapon = g_Weapons[hand->weaponnum];
 
@@ -773,7 +773,7 @@ u32 *handGetUnequipAnim(struct hand *hand)
 	return NULL;
 }
 
-u32 *handGetPriToSecAnim(struct hand *hand)
+u32 *handGetPriToSecAnim(struct shorthand *hand)
 {
 	struct weapon *weapon = g_Weapons[hand->weaponnum];
 
@@ -784,7 +784,7 @@ u32 *handGetPriToSecAnim(struct hand *hand)
 	return NULL;
 }
 
-u32 *handGetSecToPriAnim(struct hand *hand)
+u32 *handGetSecToPriAnim(struct shorthand *hand)
 {
 	struct weapon *weapon = g_Weapons[hand->weaponnum];
 

@@ -1337,7 +1337,7 @@ u32 func0f1915b4(struct chrdata *chr)
 		return chr->aibot->weaponnum;
 	}
 
-	return g_Vars.players[propGetPlayerNum(chr->prop)]->hands[HAND_RIGHT].weaponnum;
+	return g_Vars.players[propGetPlayerNum(chr->prop)]->hands[HAND_RIGHT].base.weaponnum;
 }
 
 u8 func0f191600(struct chrdata *chr)
