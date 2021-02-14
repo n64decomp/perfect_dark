@@ -5547,149 +5547,65 @@ glabel var7f1b829c
 /*  f17f25c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f17f260
-.late_rodata
-glabel var7f1b82a0
-.word func0f17f260+0x1a0 # f17f400
-glabel var7f1b82a4
-.word func0f17f260+0x58 # f17f2b8
-glabel var7f1b82a8
-.word func0f17f260+0x1a0 # f17f400
-glabel var7f1b82ac
-.word func0f17f260+0xa4 # f17f304
-glabel var7f1b82b0
-.word func0f17f260+0x110 # f17f370
-.text
-/*  f17f260:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f17f264:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f17f268:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f17f26c:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*  f17f270:	8e6204b0 */ 	lw	$v0,0x4b0($s3)
-/*  f17f274:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f17f278:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f17f27c:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f17f280:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f17f284:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f17f288:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f17f28c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f17f290:	1041005b */ 	beq	$v0,$at,.L0f17f400
-/*  f17f294:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f17f298:	2c410005 */ 	sltiu	$at,$v0,0x5
-/*  f17f29c:	10200058 */ 	beqz	$at,.L0f17f400
-/*  f17f2a0:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f17f2a4:	3c017f1c */ 	lui	$at,%hi(var7f1b82a0)
-/*  f17f2a8:	002e0821 */ 	addu	$at,$at,$t6
-/*  f17f2ac:	8c2e82a0 */ 	lw	$t6,%lo(var7f1b82a0)($at)
-/*  f17f2b0:	01c00008 */ 	jr	$t6
-/*  f17f2b4:	00000000 */ 	nop
-/*  f17f2b8:	8e6f04a4 */ 	lw	$t7,0x4a4($s3)
-/*  f17f2bc:	0000b025 */ 	or	$s6,$zero,$zero
-/*  f17f2c0:	19e0000c */ 	blez	$t7,.L0f17f2f4
-/*  f17f2c4:	00000000 */ 	nop
-.L0f17f2c8:
-/*  f17f2c8:	0fc632ee */ 	jal	mpGetNumSimulants
-/*  f17f2cc:	00000000 */ 	nop
-/*  f17f2d0:	04400003 */ 	bltz	$v0,.L0f17f2e0
-/*  f17f2d4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f17f2d8:	0fc63261 */ 	jal	func0f18c984
-/*  f17f2dc:	926504ab */ 	lbu	$a1,0x4ab($s3)
-.L0f17f2e0:
-/*  f17f2e0:	8e7804a4 */ 	lw	$t8,0x4a4($s3)
-/*  f17f2e4:	26d60001 */ 	addiu	$s6,$s6,0x1
-/*  f17f2e8:	02d8082a */ 	slt	$at,$s6,$t8
-/*  f17f2ec:	1420fff6 */ 	bnez	$at,.L0f17f2c8
-/*  f17f2f0:	00000000 */ 	nop
-.L0f17f2f4:
-/*  f17f2f4:	0fc63377 */ 	jal	func0f18cddc
-/*  f17f2f8:	00000000 */ 	nop
-/*  f17f2fc:	10000041 */ 	b	.L0f17f404
-/*  f17f300:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f17f304:	8e7904a4 */ 	lw	$t9,0x4a4($s3)
-/*  f17f308:	0000b025 */ 	or	$s6,$zero,$zero
-/*  f17f30c:	1b20000c */ 	blez	$t9,.L0f17f340
-/*  f17f310:	00000000 */ 	nop
-.L0f17f314:
-/*  f17f314:	0fc632ee */ 	jal	mpGetNumSimulants
-/*  f17f318:	00000000 */ 	nop
-/*  f17f31c:	04400003 */ 	bltz	$v0,.L0f17f32c
-/*  f17f320:	00402025 */ 	or	$a0,$v0,$zero
-/*  f17f324:	0fc63261 */ 	jal	func0f18c984
-/*  f17f328:	926504ab */ 	lbu	$a1,0x4ab($s3)
-.L0f17f32c:
-/*  f17f32c:	8e6804a4 */ 	lw	$t0,0x4a4($s3)
-/*  f17f330:	26d60001 */ 	addiu	$s6,$s6,0x1
-/*  f17f334:	02c8082a */ 	slt	$at,$s6,$t0
-/*  f17f338:	1420fff6 */ 	bnez	$at,.L0f17f314
-/*  f17f33c:	00000000 */ 	nop
-.L0f17f340:
-/*  f17f340:	0fc63377 */ 	jal	func0f18cddc
-/*  f17f344:	00000000 */ 	nop
-/*  f17f348:	3c02800b */ 	lui	$v0,%hi(g_MpSimulants)
-/*  f17f34c:	3c04800b */ 	lui	$a0,%hi(g_MpSimulantDifficultiesPerNumPlayers)
-/*  f17f350:	2484c798 */ 	addiu	$a0,$a0,%lo(g_MpSimulantDifficultiesPerNumPlayers)
-/*  f17f354:	2442c538 */ 	addiu	$v0,$v0,%lo(g_MpSimulants)
-/*  f17f358:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f17f35c:
-/*  f17f35c:	2442004c */ 	addiu	$v0,$v0,0x4c
-/*  f17f360:	1444fffe */ 	bne	$v0,$a0,.L0f17f35c
-/*  f17f364:	a043ffc5 */ 	sb	$v1,-0x3b($v0)
-/*  f17f368:	10000026 */ 	b	.L0f17f404
-/*  f17f36c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f17f370:	0fc6321f */ 	jal	mpGetNumChrs
-/*  f17f374:	00000000 */ 	nop
-/*  f17f378:	2456ffff */ 	addiu	$s6,$v0,-1
-/*  f17f37c:	06c0001e */ 	bltz	$s6,.L0f17f3f8
-/*  f17f380:	2415004c */ 	addiu	$s5,$zero,0x4c
-/*  f17f384:	3c14800b */ 	lui	$s4,%hi(g_MpSimulants)
-/*  f17f388:	2694c538 */ 	addiu	$s4,$s4,%lo(g_MpSimulants)
-/*  f17f38c:	02c02025 */ 	or	$a0,$s6,$zero
-.L0f17f390:
-/*  f17f390:	0fc631e5 */ 	jal	func0f18c794
-/*  f17f394:	00008825 */ 	or	$s1,$zero,$zero
-/*  f17f398:	8e6904a0 */ 	lw	$t1,0x4a0($s3)
-/*  f17f39c:	00409025 */ 	or	$s2,$v0,$zero
-/*  f17f3a0:	59200013 */ 	blezl	$t1,.L0f17f3f0
-/*  f17f3a4:	26d6ffff */ 	addiu	$s6,$s6,-1
-.L0f17f3a8:
-/*  f17f3a8:	0fc632ee */ 	jal	mpGetNumSimulants
-/*  f17f3ac:	00000000 */ 	nop
-/*  f17f3b0:	04400009 */ 	bltz	$v0,.L0f17f3d8
-/*  f17f3b4:	00408025 */ 	or	$s0,$v0,$zero
-/*  f17f3b8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f17f3bc:	0fc63261 */ 	jal	func0f18c984
-/*  f17f3c0:	926504ab */ 	lbu	$a1,0x4ab($s3)
-/*  f17f3c4:	02150019 */ 	multu	$s0,$s5
-/*  f17f3c8:	924a0011 */ 	lbu	$t2,0x11($s2)
-/*  f17f3cc:	00005812 */ 	mflo	$t3
-/*  f17f3d0:	028b6021 */ 	addu	$t4,$s4,$t3
-/*  f17f3d4:	a18a0011 */ 	sb	$t2,0x11($t4)
-.L0f17f3d8:
-/*  f17f3d8:	8e6d04a0 */ 	lw	$t5,0x4a0($s3)
-/*  f17f3dc:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f17f3e0:	022d082a */ 	slt	$at,$s1,$t5
-/*  f17f3e4:	1420fff0 */ 	bnez	$at,.L0f17f3a8
-/*  f17f3e8:	00000000 */ 	nop
-/*  f17f3ec:	26d6ffff */ 	addiu	$s6,$s6,-1
-.L0f17f3f0:
-/*  f17f3f0:	06c3ffe7 */ 	bgezl	$s6,.L0f17f390
-/*  f17f3f4:	02c02025 */ 	or	$a0,$s6,$zero
-.L0f17f3f8:
-/*  f17f3f8:	0fc63377 */ 	jal	func0f18cddc
-/*  f17f3fc:	00000000 */ 	nop
-.L0f17f400:
-/*  f17f400:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f17f404:
-/*  f17f404:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f17f408:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f17f40c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f17f410:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f17f414:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f17f418:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f17f41c:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f17f420:	03e00008 */ 	jr	$ra
-/*  f17f424:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void mpDecideQuickTeams(void)
+{
+	struct mpchr *mpchr;
+	s32 numchrs;
+	s32 numsims;
+	s32 i;
+	s32 j;
+
+	if (g_Vars.mpquickteam != MPQUICKTEAM_NONE) {
+		switch (g_Vars.mpquickteam) {
+		case MPQUICKTEAM_PLAYERSANDSIMS:
+			for (i = 0; i < g_Vars.mpquickteamnumsims; i++) {
+				numsims = mpGetNumSimulants();
+
+				if (numsims >= 0) {
+					func0f18c984(numsims, g_Vars.unk0004a8);
+				}
+			}
+
+			func0f18cddc();
+			break;
+		case MPQUICKTEAM_PLAYERSVSSIMS:
+			for (i = 0; i < g_Vars.mpquickteamnumsims; i++) {
+				numsims = mpGetNumSimulants();
+
+				if (numsims >= 0) {
+					func0f18c984(numsims, g_Vars.unk0004a8);
+				}
+			}
+
+			func0f18cddc();
+
+			for (i = 0; i < ARRAYCOUNT(g_MpSimulants); i++) {
+				g_MpSimulants[i].base.team = 1;
+			}
+
+			break;
+		case MPQUICKTEAM_PLAYERSIMTEAMS:
+			for (i = mpGetNumChrs() - 1; i >= 0; i--) {
+				mpchr = func0f18c794(i);
+
+				for (j = 0; j < g_Vars.unk0004a0; j++) {
+					numsims = mpGetNumSimulants();
+
+					if (numsims >= 0) {
+						func0f18c984(numsims, g_Vars.unk0004a8);
+						g_MpSimulants[numsims].base.team = mpchr->team;
+					}
+				}
+			}
+
+			func0f18cddc();
+			break;
+		case MPQUICKTEAM_PLAYERSONLY:
+		case MPQUICKTEAM_PLAYERSTEAMS:
+			break;
+		}
+	}
+}
 
 void func0f17f428(void)
 {
@@ -6079,7 +5995,7 @@ s32 menudialogCombatSimulator(u32 operation, struct menudialog *dialog, union ha
 			&& g_Menus[g_MpPlayerNum].curframe->dialog == &g_CombatSimulatorMenuDialog
 			&& operation == MENUOP_TICK) {
 		g_Vars.unk000490 = 2;
-		g_Vars.mpquickteam = MPQUICKTEAM_5;
+		g_Vars.mpquickteam = MPQUICKTEAM_NONE;
 		g_Vars.unk00049c = 0;
 		mpClearCurrentChallenge();
 		mpRemoveLock();

@@ -103,7 +103,7 @@ s32 menudialog4MbMainMenu(u32 operation, struct menudialog *dialog, union handle
 			g_Menus[g_MpPlayerNum].curframe->dialog == &g_MainMenu4MbMenuDialog &&
 			operation == MENUOP_TICK) {
 		g_Vars.unk000490 = 2;
-		g_Vars.mpquickteam = MPQUICKTEAM_5;
+		g_Vars.mpquickteam = MPQUICKTEAM_NONE;
 		g_Vars.unk00049c = 0;
 		mpClearCurrentChallenge();
 		mpRemoveLock();

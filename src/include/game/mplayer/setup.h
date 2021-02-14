@@ -63,7 +63,7 @@ char *mpMenuTextSavePlayerOrCopy(struct menuitem *item);
 char *mpMenuTextArenaName(struct menuitem *item);
 char *mpMenuTextWeaponSetName(struct menuitem *item);
 void func0f17f100(void);
-void func0f17f260(void);
+void mpDecideQuickTeams(void);
 void func0f17f428(void);
 s32 menuhandlerPlayerTeam(u32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpNumberOfSimulants(u32 operation, struct menuitem *item, union handlerdata *data);
