@@ -52,7 +52,7 @@ void chrPoison(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 void func0f03417c(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop);
 void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 arg5, struct prop *prop2, s32 arg7, s32 arg8, s32 arg9, u32 arg10);
 void func0f034330(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, s32 arg5);
-u32 func0f034410(void);
+void func0f034410(struct chrdata *chr, f32 damage, struct coord *vector, struct prop *prop, u32 arg4);
 u32 func0f034480(void);
 void func0f034524(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 arg5, u32 arg6, struct prop *prop2, u32 arg8, u32 arg9, u32 arg10, s32 arg11, u32 arg12, u32 arg13);
 u32 func0f03645c(void);
