@@ -50,7 +50,7 @@ s32 func0f17d4b0(u32 operation, struct menuitem *item, union handlerdata *data, 
 char *mpMenuTextChrNameForTeamSetup(struct menuitem *item);
 s32 func0f17dac4(u32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextSelectTuneOrTunes(struct menuitem *item);
-s32 menuhandler0017dc84(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 mpSelectTuneListHandler(u32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextCurrentTrack(struct menuitem *item);
 s32 menuhandler0017e06c(u32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextTeamName(struct menuitem *item);

@@ -1249,32 +1249,33 @@
 #define MENUITEMTYPE_CONTROLLER  0x19
 #define MENUITEMTYPE_END         0x1a
 
-#define MENUOP_GETOPTIONCOUNT     1
-#define MENUOP_GETOPTGROUPCOUNT   2
-#define MENUOP_GETOPTIONTEXT      3
-#define MENUOP_GETOPTGROUPTEXT    4
-#define MENUOP_GETGROUPSTARTINDEX 5
-#define MENUOP_SET                6
-#define MENUOP_GETOPTIONVALUE     7
-#define MENUOP_GET                8
-#define MENUOP_GETSLIDER          9
-#define MENUOP_GETSLIDERLABEL     10
-#define MENUOP_11                 11
-#define MENUOP_CHECKDISABLED      12
-#define MENUOP_FOCUS              13
-#define MENUOP_CHECKPREFOCUSED    15
-#define MENUOP_16                 16
-#define MENUOP_GETTEXT            17
-#define MENUOP_SETTEXT            18
-#define MENUOP_RENDER             19
-#define MENUOP_GETOPTIONHEIGHT    20
-#define MENUOP_21                 21
-#define MENUOP_GETCOLOUR          22
-#define MENUOP_CHECKHIDDEN        24
-#define MENUOP_25                 25
-#define MENUOP_OPEN               100
-#define MENUOP_CLOSE              101
-#define MENUOP_TICK               102
+#define MENUOP_GETOPTIONCOUNT      1
+#define MENUOP_GETOPTGROUPCOUNT    2
+#define MENUOP_GETOPTIONTEXT       3
+#define MENUOP_GETOPTGROUPTEXT     4
+#define MENUOP_GETGROUPSTARTINDEX  5
+#define MENUOP_SET                 6
+#define MENUOP_GETOPTIONVALUE      7
+#define MENUOP_GET                 8
+#define MENUOP_GETSLIDER           9
+#define MENUOP_GETSLIDERLABEL      10
+#define MENUOP_11                  11
+#define MENUOP_CHECKDISABLED       12
+#define MENUOP_FOCUS               13
+#define MENUOP_GETLISTITEMCHECKBOX 14
+#define MENUOP_CHECKPREFOCUSED     15
+#define MENUOP_LISTITEMFOCUS       16
+#define MENUOP_GETTEXT             17
+#define MENUOP_SETTEXT             18
+#define MENUOP_RENDER              19
+#define MENUOP_GETOPTIONHEIGHT     20
+#define MENUOP_21                  21
+#define MENUOP_GETCOLOUR           22
+#define MENUOP_CHECKHIDDEN         24
+#define MENUOP_25                  25
+#define MENUOP_OPEN                100
+#define MENUOP_CLOSE               101
+#define MENUOP_TICK                102
 
 #define MENUROOT_ENDSCREEN    1
 #define MENUROOT_MAINMENU     2
@@ -1802,6 +1803,10 @@
 #define MODELPART_DRCAROLL_0B 0x0b
 
 #define MODELPART_ELVIS_03 0x03
+
+#define MODFILE_SOLO    1
+#define MODFILE_MPSETUP 2
+#define MODFILE_GLOBAL  4
 
 #define MOVEMODE_WALK     0
 #define MOVEMODE_BIKE     3

@@ -2327,9 +2327,9 @@ glabel var7f1a863c
 //				mpStartMatch();
 //				func0f01bea0();
 //
-//				if (g_Vars.unk000458 & 0x00000002) {
+//				if (g_Vars.modifiedfiles & MODFILE_MPSETUP) {
 //					func0f1109c0();
-//					g_Vars.unk000458 &= ~0x00000002;
+//					g_Vars.modifiedfiles &= ~MODFILE_MPSETUP;
 //				}
 //			} else /*cd1c*/ if (g_MenuData.unk008 == -6) {
 //				s32 sp288 = 0;

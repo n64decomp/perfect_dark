@@ -4313,245 +4313,104 @@ char *mpMenuTextSelectTuneOrTunes(struct menuitem *item)
 	return langGet(L_MPMENU(68)); // "Select Tunes"
 }
 
-GLOBAL_ASM(
-glabel menuhandler0017dc84
-.late_rodata
-glabel var7f1b81ec
-.word menuhandler0017dc84+0x30 # f17dcb4
-glabel var7f1b81f0
-.word menuhandler0017dc84+0x2dc # f17df60
-glabel var7f1b81f4
-.word menuhandler0017dc84+0x6c # f17dcf0
-glabel var7f1b81f8
-.word menuhandler0017dc84+0x2dc # f17df60
-glabel var7f1b81fc
-.word menuhandler0017dc84+0x2dc # f17df60
-glabel var7f1b8200
-.word menuhandler0017dc84+0x10c # f17dd90
-glabel var7f1b8204
-.word menuhandler0017dc84+0x21c # f17dea0
-glabel var7f1b8208
-.word menuhandler0017dc84+0x2dc # f17df60
-glabel var7f1b820c
-.word menuhandler0017dc84+0x2dc # f17df60
-glabel var7f1b8210
-.word menuhandler0017dc84+0x2dc # f17df60
-glabel var7f1b8214
-.word menuhandler0017dc84+0x2dc # f17df60
-glabel var7f1b8218
-.word menuhandler0017dc84+0x2dc # f17df60
-glabel var7f1b821c
-.word menuhandler0017dc84+0x2dc # f17df60
-glabel var7f1b8220
-.word menuhandler0017dc84+0x29c # f17df20
-glabel var7f1b8224
-.word menuhandler0017dc84+0x2dc # f17df60
-glabel var7f1b8228
-.word menuhandler0017dc84+0x268 # f17deec
-.text
-/*  f17dc84:	248effff */ 	addiu	$t6,$a0,-1
-/*  f17dc88:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f17dc8c:	2dc10010 */ 	sltiu	$at,$t6,0x10
-/*  f17dc90:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17dc94:	102000b2 */ 	beqz	$at,.L0f17df60
-/*  f17dc98:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f17dc9c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f17dca0:	3c017f1c */ 	lui	$at,%hi(var7f1b81ec)
-/*  f17dca4:	002e0821 */ 	addu	$at,$at,$t6
-/*  f17dca8:	8c2e81ec */ 	lw	$t6,%lo(var7f1b81ec)($at)
-/*  f17dcac:	01c00008 */ 	jr	$t6
-/*  f17dcb0:	00000000 */ 	nop
-/*  f17dcb4:	0fc63080 */ 	jal	func0f18c200
-/*  f17dcb8:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f17dcbc:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f17dcc0:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
-/*  f17dcc4:	acc20000 */ 	sw	$v0,0x0($a2)
-/*  f17dcc8:	10400005 */ 	beqz	$v0,.L0f17dce0
-/*  f17dccc:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f17dcd0:	8ccf0000 */ 	lw	$t7,0x0($a2)
-/*  f17dcd4:	25f80003 */ 	addiu	$t8,$t7,0x3
-/*  f17dcd8:	100000a1 */ 	b	.L0f17df60
-/*  f17dcdc:	acd80000 */ 	sw	$t8,0x0($a2)
-.L0f17dce0:
-/*  f17dce0:	8cd90000 */ 	lw	$t9,0x0($a2)
-/*  f17dce4:	27280001 */ 	addiu	$t0,$t9,0x1
-/*  f17dce8:	1000009d */ 	b	.L0f17df60
-/*  f17dcec:	acc80000 */ 	sw	$t0,0x0($a2)
-/*  f17dcf0:	0fc63080 */ 	jal	func0f18c200
-/*  f17dcf4:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f17dcf8:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f17dcfc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f17dd00:	8cc30000 */ 	lw	$v1,0x0($a2)
-/*  f17dd04:	0062082b */ 	sltu	$at,$v1,$v0
-/*  f17dd08:	50200006 */ 	beqzl	$at,.L0f17dd24
-/*  f17dd0c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f17dd10:	0fc63097 */ 	jal	mpGetTrackName
-/*  f17dd14:	00602025 */ 	or	$a0,$v1,$zero
-/*  f17dd18:	10000093 */ 	b	.L0f17df68
-/*  f17dd1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17dd20:	afa5002c */ 	sw	$a1,0x2c($sp)
-.L0f17dd24:
-/*  f17dd24:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
-/*  f17dd28:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f17dd2c:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f17dd30:	1040000c */ 	beqz	$v0,.L0f17dd64
-/*  f17dd34:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f17dd38:	8cc90000 */ 	lw	$t1,0x0($a2)
-/*  f17dd3c:	00055880 */ 	sll	$t3,$a1,0x2
-/*  f17dd40:	000b6023 */ 	negu	$t4,$t3
-/*  f17dd44:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f17dd48:	014c6821 */ 	addu	$t5,$t2,$t4
-/*  f17dd4c:	3c048008 */ 	lui	$a0,%hi(var80085cec)
-/*  f17dd50:	008d2021 */ 	addu	$a0,$a0,$t5
-/*  f17dd54:	0fc5b9f1 */ 	jal	langGet
-/*  f17dd58:	8c845cec */ 	lw	$a0,%lo(var80085cec)($a0)
-/*  f17dd5c:	10000082 */ 	b	.L0f17df68
-/*  f17dd60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17dd64:
-/*  f17dd64:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f17dd68:	0005c080 */ 	sll	$t8,$a1,0x2
-/*  f17dd6c:	0018c823 */ 	negu	$t9,$t8
-/*  f17dd70:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f17dd74:	01f94021 */ 	addu	$t0,$t7,$t9
-/*  f17dd78:	3c048008 */ 	lui	$a0,%hi(var80085ce8)
-/*  f17dd7c:	00882021 */ 	addu	$a0,$a0,$t0
-/*  f17dd80:	0fc5b9f1 */ 	jal	langGet
-/*  f17dd84:	8c845ce8 */ 	lw	$a0,%lo(var80085ce8)($a0)
-/*  f17dd88:	10000077 */ 	b	.L0f17df68
-/*  f17dd8c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17dd90:	0fc63080 */ 	jal	func0f18c200
-/*  f17dd94:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f17dd98:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f17dd9c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f17dda0:	8cc30000 */ 	lw	$v1,0x0($a2)
-/*  f17dda4:	0062082b */ 	sltu	$at,$v1,$v0
-/*  f17dda8:	5020000d */ 	beqzl	$at,.L0f17dde0
-/*  f17ddac:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f17ddb0:	8cc90004 */ 	lw	$t1,0x4($a2)
-/*  f17ddb4:	15200003 */ 	bnez	$t1,.L0f17ddc4
-/*  f17ddb8:	00000000 */ 	nop
-/*  f17ddbc:	0fc630e3 */ 	jal	mpSetTrackSlotEnabled
-/*  f17ddc0:	00602025 */ 	or	$a0,$v1,$zero
-.L0f17ddc4:
-/*  f17ddc4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f17ddc8:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f17ddcc:	8c4b0458 */ 	lw	$t3,0x458($v0)
-/*  f17ddd0:	356a0002 */ 	ori	$t2,$t3,0x2
-/*  f17ddd4:	10000062 */ 	b	.L0f17df60
-/*  f17ddd8:	ac4a0458 */ 	sw	$t2,0x458($v0)
-/*  f17dddc:	afa40028 */ 	sw	$a0,0x28($sp)
-.L0f17dde0:
-/*  f17dde0:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
-/*  f17dde4:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f17dde8:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f17ddec:	10400024 */ 	beqz	$v0,.L0f17de80
-/*  f17ddf0:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f17ddf4:	8ccc0000 */ 	lw	$t4,0x0($a2)
-/*  f17ddf8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f17ddfc:	01841023 */ 	subu	$v0,$t4,$a0
-/*  f17de00:	10400007 */ 	beqz	$v0,.L0f17de20
-/*  f17de04:	00000000 */ 	nop
-/*  f17de08:	1041000d */ 	beq	$v0,$at,.L0f17de40
-/*  f17de0c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f17de10:	10410013 */ 	beq	$v0,$at,.L0f17de60
-/*  f17de14:	00000000 */ 	nop
-/*  f17de18:	10000052 */ 	b	.L0f17df64
-/*  f17de1c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17de20:
-/*  f17de20:	0fc630f9 */ 	jal	mpEnableAllMultiTracks
-/*  f17de24:	00000000 */ 	nop
-/*  f17de28:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f17de2c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f17de30:	8c4d0458 */ 	lw	$t5,0x458($v0)
-/*  f17de34:	35ae0002 */ 	ori	$t6,$t5,0x2
-/*  f17de38:	10000049 */ 	b	.L0f17df60
-/*  f17de3c:	ac4e0458 */ 	sw	$t6,0x458($v0)
-.L0f17de40:
-/*  f17de40:	0fc63103 */ 	jal	mpDisableAllMultiTracks
-/*  f17de44:	00000000 */ 	nop
-/*  f17de48:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f17de4c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f17de50:	8c580458 */ 	lw	$t8,0x458($v0)
-/*  f17de54:	370f0002 */ 	ori	$t7,$t8,0x2
-/*  f17de58:	10000041 */ 	b	.L0f17df60
-/*  f17de5c:	ac4f0458 */ 	sw	$t7,0x458($v0)
-.L0f17de60:
-/*  f17de60:	0fc6310c */ 	jal	mpRandomiseMultiTracks
-/*  f17de64:	00000000 */ 	nop
-/*  f17de68:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f17de6c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f17de70:	8c590458 */ 	lw	$t9,0x458($v0)
-/*  f17de74:	37280002 */ 	ori	$t0,$t9,0x2
-/*  f17de78:	10000039 */ 	b	.L0f17df60
-/*  f17de7c:	ac480458 */ 	sw	$t0,0x458($v0)
-.L0f17de80:
-/*  f17de80:	0fc6311e */ 	jal	mpSetTrackToRandom
-/*  f17de84:	00000000 */ 	nop
-/*  f17de88:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f17de8c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f17de90:	8c490458 */ 	lw	$t1,0x458($v0)
-/*  f17de94:	352b0002 */ 	ori	$t3,$t1,0x2
-/*  f17de98:	10000031 */ 	b	.L0f17df60
-/*  f17de9c:	ac4b0458 */ 	sw	$t3,0x458($v0)
-/*  f17dea0:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
-/*  f17dea4:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f17dea8:	10400005 */ 	beqz	$v0,.L0f17dec0
-/*  f17deac:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f17deb0:	3c0a000f */ 	lui	$t2,0xf
-/*  f17deb4:	354affff */ 	ori	$t2,$t2,0xffff
-/*  f17deb8:	10000029 */ 	b	.L0f17df60
-/*  f17debc:	acca0000 */ 	sw	$t2,0x0($a2)
-.L0f17dec0:
-/*  f17dec0:	0fc63122 */ 	jal	mpGetCurrentTrackSlotNum
-/*  f17dec4:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f17dec8:	04410006 */ 	bgez	$v0,.L0f17dee4
-/*  f17decc:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f17ded0:	0fc63080 */ 	jal	func0f18c200
-/*  f17ded4:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f17ded8:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f17dedc:	10000020 */ 	b	.L0f17df60
-/*  f17dee0:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f17dee4:
-/*  f17dee4:	1000001e */ 	b	.L0f17df60
-/*  f17dee8:	acc20000 */ 	sw	$v0,0x0($a2)
-/*  f17deec:	0fc63080 */ 	jal	func0f18c200
-/*  f17def0:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f17def4:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f17def8:	8cc30000 */ 	lw	$v1,0x0($a2)
-/*  f17defc:	0062082b */ 	sltu	$at,$v1,$v0
-/*  f17df00:	50200018 */ 	beqzl	$at,.L0f17df64
-/*  f17df04:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17df08:	0fc63088 */ 	jal	mpGetTrackMusicNum
-/*  f17df0c:	00602025 */ 	or	$a0,$v1,$zero
-/*  f17df10:	0fc5b647 */ 	jal	musicStartMenu2
-/*  f17df14:	00402025 */ 	or	$a0,$v0,$zero
-/*  f17df18:	10000012 */ 	b	.L0f17df64
-/*  f17df1c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17df20:	0fc63080 */ 	jal	func0f18c200
-/*  f17df24:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f17df28:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
-/*  f17df2c:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f17df30:	1040000b */ 	beqz	$v0,.L0f17df60
-/*  f17df34:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f17df38:	8cc30000 */ 	lw	$v1,0x0($a2)
-/*  f17df3c:	8fac001c */ 	lw	$t4,0x1c($sp)
-/*  f17df40:	00602025 */ 	or	$a0,$v1,$zero
-/*  f17df44:	006c082b */ 	sltu	$at,$v1,$t4
-/*  f17df48:	50200006 */ 	beqzl	$at,.L0f17df64
-/*  f17df4c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17df50:	0fc630ac */ 	jal	mpIsMultiTrackSlotEnabled
-/*  f17df54:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f17df58:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f17df5c:	acc20004 */ 	sw	$v0,0x4($a2)
-.L0f17df60:
-/*  f17df60:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17df64:
-/*  f17df64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17df68:
-/*  f17df68:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f17df6c:	03e00008 */ 	jr	$ra
-/*  f17df70:	00000000 */ 	nop
-);
+/**
+ * List handler for the select tune dialog.
+ *
+ * If multiple tracks are disabled, the listing contains the track listing plus
+ * one item for Randomize.
+ *
+ * If multiple tracks are disabled, the listing contains the track listing plus
+ * 3 items for Select All, Select None and Randomize.
+ */
+s32 mpSelectTuneListHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+{
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		data->list.value = mpGetNumUnlockedTracks();
+
+		if (mpGetUsingMultipleTunes()) {
+			data->list.value += 3;
+		} else {
+			data->list.value++;
+		}
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		{
+			s32 numtracks = mpGetNumUnlockedTracks();
+
+			if (data->list.value < numtracks) {
+				return (s32) mpGetTrackName(data->list.value);
+			}
+
+			if (mpGetUsingMultipleTunes()) {
+				return (s32) langGet(var80085ce8[1 + data->list.value - numtracks]);
+			}
+
+			return (s32) langGet(var80085ce8[data->list.value - numtracks]);
+		}
+	case MENUOP_SET:
+		{
+			s32 numtracks = mpGetNumUnlockedTracks();
+
+			if (data->list.value < numtracks) {
+				if (data->list.unk04 == 0) {
+					mpSetTrackSlotEnabled(data->list.value);
+				}
+				g_Vars.modifiedfiles |= MODFILE_MPSETUP;
+			} else if (mpGetUsingMultipleTunes()) {
+				s32 index = data->list.value - numtracks;
+
+				switch (index) {
+				case 0:
+					mpEnableAllMultiTracks();
+					g_Vars.modifiedfiles |= MODFILE_MPSETUP;
+					break;
+				case 1:
+					mpDisableAllMultiTracks();
+					g_Vars.modifiedfiles |= MODFILE_MPSETUP;
+					break;
+				case 2:
+					mpRandomiseMultiTracks();
+					g_Vars.modifiedfiles |= MODFILE_MPSETUP;
+					break;
+				}
+			} else {
+				mpSetTrackToRandom();
+				g_Vars.modifiedfiles |= MODFILE_MPSETUP;
+			}
+		}
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		if (mpGetUsingMultipleTunes()) {
+			data->list.value = 0x000fffff;
+		} else {
+			s32 slotnum = mpGetCurrentTrackSlotNum();
+
+			if (slotnum < 0) {
+				data->list.value = mpGetNumUnlockedTracks();
+			} else {
+				data->list.value = slotnum;
+			}
+		}
+		break;
+	case MENUOP_LISTITEMFOCUS:
+		if (data->list.value < mpGetNumUnlockedTracks()) {
+			musicStartMenu2(mpGetTrackMusicNum(data->list.value));
+		}
+		break;
+	case MENUOP_GETLISTITEMCHECKBOX:
+		{
+			s32 numtracks = mpGetNumUnlockedTracks();
+
+			if (mpGetUsingMultipleTunes() && data->list.value < numtracks) {
+				data->list.unk04 = mpIsMultiTrackSlotEnabled(data->list.value);
+			}
+		}
+		break;
+	}
+
+	return 0;
+}
 
 s32 menudialogMpSelectTune(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
@@ -4590,7 +4449,7 @@ s32 menuhandlerMpMultipleTunes(u32 operation, struct menuitem *item, union handl
 		return mpGetUsingMultipleTunes();
 	case MENUOP_SET:
 		mpSetUsingMultipleTunes(data->checkbox.value);
-		g_Vars.unk000458 |= 2;
+		g_Vars.modifiedfiles |= MODFILE_MPSETUP;
 	}
 
 	return 0;
@@ -5310,7 +5169,7 @@ s32 menuhandlerMpLock(u32 operation, struct menuitem *item, union handlerdata *d
 		if (mpGetLockType() != MPLOCKTYPE_CHALLENGE) {
 			mpSetLock(data->dropdown.value, g_MpPlayerNum);
 		}
-		g_Vars.unk000458 |= 2;
+		g_Vars.modifiedfiles |= MODFILE_MPSETUP;
 		break;
 	case MENUOP_GETOPTIONVALUE:
 		data->dropdown.value = mpGetLockType() == MPLOCKTYPE_CHALLENGE ? 0 : mpGetLockType();

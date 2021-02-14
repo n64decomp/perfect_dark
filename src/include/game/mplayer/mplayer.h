@@ -65,7 +65,7 @@ void mpCalculateLockIfLastWinnerOrLoser(void);
 bool mpIsTrackUnlocked(s32 tracknum);
 s32 mpGetTrackSlotIndex(s32 tracknum);
 s32 mpGetTrackNumAtSlotIndex(s32 slotindex);
-s32 func0f18c200(void);
+s32 mpGetNumUnlockedTracks(void);
 s32 mpGetTrackMusicNum(s32 slotindex);
 char *mpGetTrackName(s32 slotindex);
 void mpSetUsingMultipleTunes(bool enable);

@@ -42,7 +42,7 @@ void gvarsInit(void)
 	g_Vars.coopfriendlyfire = 1;
 	g_Vars.antiradaron = 1;
 	g_Vars.pendingantiplayernum = 1;
-	g_Vars.unk000458 = 0;
+	g_Vars.modifiedfiles = 0;
 	g_Vars.numaibuddies = 0;
 	g_Vars.bondvisible = true;
 	g_Vars.bondcollisions = true;

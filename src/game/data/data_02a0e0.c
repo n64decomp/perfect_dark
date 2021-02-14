@@ -1323,14 +1323,16 @@ struct menudialog g_MpTeamsMenuDialog = {
 	NULL,
 };
 
-u32 var80085ce8 = L_MISC(166); // "Random"
-u32 var80085cec = L_MISC(167); // "Select All"
-u32 var80085cf0 = L_MISC(168); // "Select None"
-u32 var80085cf4 = L_MISC(169); // "Randomize"
+u32 var80085ce8[] = {
+	L_MISC(166), // "Random"
+	L_MISC(167), // "Select All"
+	L_MISC(168), // "Select None"
+	L_MISC(169), // "Randomize"
+};
 
 // 2bd18
 struct menuitem g_MpSelectTunesMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00020000, 0x00000078, 0x0000004d, menuhandler0017dc84 },
+	{ MENUITEMTYPE_LIST,        0, 0x00020000, 0x00000078, 0x0000004d, mpSelectTuneListHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

@@ -115,7 +115,7 @@ struct g_vars {
 	/*00044c*/ s32 antiradaron;
 	/*000450*/ s32 pendingantiplayernum;
 	/*000454*/ s32 coopfriendlyfire;
-	/*000458*/ u32 unk000458;
+	/*000458*/ u32 modifiedfiles;
 	/*00045c*/ s32 speedpilltime;
 	/*000460*/ s32 speedpillchange;
 	/*000464*/ u32 speedpillwant;

@@ -1819,7 +1819,7 @@ bool menuTickItemList(struct menuitem *item, struct menuinputs *inputs, u32 arg2
 
 				if (prev2 != data->list.unk02) {
 					handlerdata.list.value = data->list.unk02;
-					item->handler(MENUOP_16, item, &handlerdata);
+					item->handler(MENUOP_LISTITEMFOCUS, item, &handlerdata);
 
 					menuPlaySound(MENUSOUND_SUBFOCUS);
 				}
@@ -1901,7 +1901,7 @@ void menuInitItemDropdown(struct menuitem *item, union menuitemdata *data)
 
 	data->dropdown.unk04 = func0f0e5ef8(data->dropdown.unk02, item);
 
-	item->handler(MENUOP_16, item, &handlerdata);
+	item->handler(MENUOP_LISTITEMFOCUS, item, &handlerdata);
 }
 
 GLOBAL_ASM(

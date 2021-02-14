@@ -402,7 +402,7 @@ glabel var7f1b8d94
 /*  f187d1c:	00000000 */ 	nop
 /*  f187d20:	10400013 */ 	beqz	$v0,.L0f187d70
 /*  f187d24:	00008025 */ 	or	$s0,$zero,$zero
-/*  f187d28:	0fc63080 */ 	jal	func0f18c200
+/*  f187d28:	0fc63080 */ 	jal	mpGetNumUnlockedTracks
 /*  f187d2c:	00008825 */ 	or	$s1,$zero,$zero
 /*  f187d30:	1840000b */ 	blez	$v0,.L0f187d60
 /*  f187d34:	00409025 */ 	or	$s2,$v0,$zero
@@ -4801,7 +4801,7 @@ s32 mpGetTrackNumAtSlotIndex(s32 slotindex)
 	return i;
 }
 
-s32 func0f18c200(void)
+s32 mpGetNumUnlockedTracks(void)
 {
 	return mpGetTrackSlotIndex(NUM_MPTRACKS);
 }
@@ -4920,7 +4920,7 @@ glabel func0f18c4c0
 /*  f18c4e4:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f18c4e8:	10400069 */ 	beqz	$v0,.L0f18c690
 /*  f18c4ec:	00000000 */ 	nop
-/*  f18c4f0:	0fc63080 */ 	jal	func0f18c200
+/*  f18c4f0:	0fc63080 */ 	jal	mpGetNumUnlockedTracks
 /*  f18c4f4:	00000000 */ 	nop
 /*  f18c4f8:	0040a025 */ 	or	$s4,$v0,$zero
 /*  f18c4fc:	0000a825 */ 	or	$s5,$zero,$zero
@@ -5043,7 +5043,7 @@ glabel func0f18c4c0
 /*  f18c694:	00000000 */ 	nop
 /*  f18c698:	04410022 */ 	bgez	$v0,.L0f18c724
 /*  f18c69c:	00409825 */ 	or	$s3,$v0,$zero
-/*  f18c6a0:	0fc63080 */ 	jal	func0f18c200
+/*  f18c6a0:	0fc63080 */ 	jal	mpGetNumUnlockedTracks
 /*  f18c6a4:	00000000 */ 	nop
 /*  f18c6a8:	3c16800b */ 	lui	$s6,%hi(g_MpLockInfo)
 /*  f18c6ac:	00408025 */ 	or	$s0,$v0,$zero
