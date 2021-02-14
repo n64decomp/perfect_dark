@@ -4769,38 +4769,11 @@ s32 menuhandlerMpTeamNameSlot(u32 operation, struct menuitem *item, union handle
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f17e318
-/*  f17e318:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f17e31c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17e320:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f17e324:	0fc5b9f1 */ 	jal	langGet
-/*  f17e328:	24045038 */ 	addiu	$a0,$zero,0x5038
-/*  f17e32c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17e330:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17e334:	3c04800a */ 	lui	$a0,%hi(g_Menus+0xe1c)
-/*  f17e338:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f17e33c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f17e340:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17e344:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17e348:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17e34c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f17e350:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17e354:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17e358:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f17e35c:	0fc66dbe */ 	jal	mpGetChallengeNameBySlot
-/*  f17e360:	8c84ee1c */ 	lw	$a0,%lo(g_Menus+0xe1c)($a0)
-/*  f17e364:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17e368:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17e36c:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f17e370:	0c004dad */ 	jal	sprintf
-/*  f17e374:	00403025 */ 	or	$a2,$v0,$zero
-/*  f17e378:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17e37c:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17e380:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f17e384:	03e00008 */ 	jr	$ra
-/*  f17e388:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+char *func0f17e318(struct menudialog *dialog)
+{
+	sprintf(g_StringPointer, langGet(L_MPMENU(56)), mpGetChallengeNameBySlot(g_Menus[g_MpPlayerNum].data.mpsetup.slotindex));
+	return g_StringPointer;
+}
 
 /**
  * An "Accept" item somewhere. Probably accepting a challenge.
