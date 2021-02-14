@@ -3836,50 +3836,18 @@ char *mpMenuTextSimulantName(struct menuitem *item)
 	return g_MpSimulants[index].base.name;
 }
 
-const char var7f1b8034[] = "";
-const char var7f1b8038[] = "%d:\n";
+char *func0f17d3dc(struct menuitem *item)
+{
+	s32 index = item->param;
 
-GLOBAL_ASM(
-glabel func0f17d3dc
-/*  f17d3dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17d3e0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17d3e4:	90820001 */ 	lbu	$v0,0x1($a0)
-/*  f17d3e8:	3c0f800b */ 	lui	$t7,%hi(g_MpSimulants)
-/*  f17d3ec:	3c18800b */ 	lui	$t8,%hi(g_MpSetup+0x16)
-/*  f17d3f0:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f17d3f4:	01c27021 */ 	addu	$t6,$t6,$v0
-/*  f17d3f8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f17d3fc:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f17d400:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f17d404:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17d408:	91efc538 */ 	lbu	$t7,%lo(g_MpSimulants)($t7)
-/*  f17d40c:	24590004 */ 	addiu	$t9,$v0,0x4
-/*  f17d410:	11e00007 */ 	beqz	$t7,.L0f17d430
-/*  f17d414:	00000000 */ 	nop
-/*  f17d418:	9718cb9e */ 	lhu	$t8,%lo(g_MpSetup+0x16)($t8)
-/*  f17d41c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f17d420:	03284804 */ 	sllv	$t1,$t0,$t9
-/*  f17d424:	03095024 */ 	and	$t2,$t8,$t1
-/*  f17d428:	15400004 */ 	bnez	$t2,.L0f17d43c
-/*  f17d42c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-.L0f17d430:
-/*  f17d430:	3c027f1c */ 	lui	$v0,%hi(var7f1b8034)
-/*  f17d434:	10000008 */ 	b	.L0f17d458
-/*  f17d438:	24428034 */ 	addiu	$v0,$v0,%lo(var7f1b8034)
-.L0f17d43c:
-/*  f17d43c:	3c057f1c */ 	lui	$a1,%hi(var7f1b8038)
-/*  f17d440:	24a58038 */ 	addiu	$a1,$a1,%lo(var7f1b8038)
-/*  f17d444:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17d448:	0c004dad */ 	jal	sprintf
-/*  f17d44c:	24460001 */ 	addiu	$a2,$v0,0x1
-/*  f17d450:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17d454:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-.L0f17d458:
-/*  f17d458:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17d45c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17d460:	03e00008 */ 	jr	$ra
-/*  f17d464:	00000000 */ 	nop
-);
+	if (g_MpSimulants[index].base.name[0] == '\0'
+			|| ((g_MpSetup.chrslots & 1 << (index + 4)) == 0)) {
+		return "";
+	}
+
+	sprintf(g_StringPointer, "%d:\n", index + 1);
+	return g_StringPointer;
+}
 
 s32 menudialogMpSimulants(u32 operation, struct menudialog *dialog, union handlerdata *data)
 {
