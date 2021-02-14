@@ -5486,35 +5486,13 @@ void func0f03417c(struct chrdata *chr, f32 damage, struct coord *vector, u8 *arg
 	func0f034524(chr, damage, vector, arg3, prop, 200, 1, chr->prop, 0, 0, -1, 0, 0, 0);
 }
 
+void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct hand *hand, struct prop *prop, u32 arg5, struct prop *prop2, s32 arg7, s32 arg8, s32 arg9, u32 arg10)
+{
+	func0f034524(chr, damage, vector, (u8 *)hand, prop, arg5, 1, prop2, arg7, arg8, arg9, arg10, 0, 0);
+}
+
 GLOBAL_ASM(
-glabel func0f0341dc
-/*  f0341dc:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0341e0:	44856000 */ 	mtc1	$a1,$f12
-/*  f0341e4:	8fae0050 */ 	lw	$t6,0x50($sp)
-/*  f0341e8:	8faf0054 */ 	lw	$t7,0x54($sp)
-/*  f0341ec:	8fb90058 */ 	lw	$t9,0x58($sp)
-/*  f0341f0:	8fa8005c */ 	lw	$t0,0x5c($sp)
-/*  f0341f4:	8fa90060 */ 	lw	$t1,0x60($sp)
-/*  f0341f8:	8faa0064 */ 	lw	$t2,0x64($sp)
-/*  f0341fc:	8fab0068 */ 	lw	$t3,0x68($sp)
-/*  f034200:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f034204:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f034208:	44056000 */ 	mfc1	$a1,$f12
-/*  f03420c:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f034210:	afa00030 */ 	sw	$zero,0x30($sp)
-/*  f034214:	afa00034 */ 	sw	$zero,0x34($sp)
-/*  f034218:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f03421c:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f034220:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f034224:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f034228:	afa90024 */ 	sw	$t1,0x24($sp)
-/*  f03422c:	afaa0028 */ 	sw	$t2,0x28($sp)
-/*  f034230:	0fc0d149 */ 	jal	func0f034524
-/*  f034234:	afab002c */ 	sw	$t3,0x2c($sp)
-/*  f034238:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f03423c:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f034240:	03e00008 */ 	jr	$ra
-/*  f034244:	00000000 */ 	nop
+glabel func0f034248
 /*  f034248:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f03424c:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f034250:	240e00c8 */ 	addiu	$t6,$zero,0xc8

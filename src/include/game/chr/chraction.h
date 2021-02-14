@@ -50,7 +50,7 @@ void chrSetShield(struct chrdata *chr, f32 shield);
 u32 func0f034080(void);
 void chrPoison(struct chrdata *chr, f32 damage, struct coord *vector, u8 *arg3, struct prop *prop);
 void func0f03417c(struct chrdata *chr, f32 damage, struct coord *vector, u8 *arg3, struct prop *prop);
-void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *coord, struct hand *hand, struct prop *prop, u32 arg5, struct prop *prop2, s32 arg7, s32 arg8, s32 arg9, u32 arg10);
+void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct hand *hand, struct prop *prop, u32 arg5, struct prop *prop2, s32 arg7, s32 arg8, s32 arg9, u32 arg10);
 void func0f034330(struct chrdata *chr, f32 damage, struct coord *vector, u8 *arg3, struct prop *prop, s32 arg5);
 u32 func0f034410(void);
 u32 func0f034480(void);
