@@ -6,7 +6,7 @@
 void func0f127910(void);
 void playersUnrefAll(void);
 void playersAllocate(s32 count);
-void playerAllocate(u32 index);
+void playerAllocate(s32 index);
 void currentPlayerCalculateAiBuddyNums(void);
 s32 propGetPlayerNum(struct prop *prop);
 void currentPlayerSetViewSize(s32 viewx, s32 viewy);

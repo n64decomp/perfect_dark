@@ -16,6 +16,13 @@
 #include "lib/rng.h"
 #include "types.h"
 
+struct var8007e3d0 var8007e3d0[] = {
+	{ 3000, 120, 3000, 80, 0, 0, 500,  20, 12, 0, 0, 0, 0 },
+	{ 1500, 40,  500,  20, 0, 0, 500,  20, 12, 0, 0, 0, 0 },
+	{ 6000, 120, 6000, 80, 0, 0, 1000, 20, 4,  0, 0, 0, 0 },
+	{ 1500, 40,  500,  20, 0, 0, 500,  20, 4,  0, 0, 0, 0 },
+};
+
 /**
  * Search all props and their model data for something, and replace it with
  * something else.

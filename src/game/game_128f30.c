@@ -11,6 +11,9 @@
 #include "lib/rng.h"
 #include "types.h"
 
+u32 var8007e3c0 = 0xab8d9f77;
+u32 var8007e3c4 = 0x81280783;
+
 GLOBAL_ASM(
 glabel func0f128f30
 /*  f128f30:	27bdffa8 */ 	addiu	$sp,$sp,-88

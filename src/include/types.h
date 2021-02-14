@@ -2153,8 +2153,8 @@ struct hand {
 	/*0x0cc8*/ u8 unk0cc8_03 : 1;
 	/*0x0cc9*/ u8 unk0cc9;
 	/*0x0ccc*/ f32 crosspos[2];
-	/*0x0cd4*/ u32 unk0cd4;
-	/*0x0cd8*/ u32 unk0cd8;
+	/*0x0cd4*/ f32 unk0cd4;
+	/*0x0cd8*/ f32 unk0cd8;
 	/*0x0cdc*/ u32 unk0cdc;
 	/*0x0ce0*/ u32 unk0ce0;
 	/*0x0ce4*/ u32 attacktype;
@@ -2222,6 +2222,17 @@ struct hand {
 	/*0x0dd0*/ u32 unk0dd0;
 	/*0x0dd4*/ u32 unk0dd4;
 	/*0x0dd8*/ u32 unk0dd8;
+};
+
+struct player0610 {
+	/*0x00*/ u16 unk00;
+	/*0x02*/ u16 unk02;
+	/*0x04*/ u16 unk04;
+	/*0x06*/ u16 unk06;
+	/*0x08*/ u16 unk08;
+	/*0x0a*/ u16 unk0a;
+	/*0x0c*/ u16 unk0c;
+	/*0x0e*/ u16 unk0e;
 };
 
 struct player {
@@ -2328,42 +2339,8 @@ struct player {
 	/*0x01b0*/ s32 bondmovemode;
 	/*0x01b4*/ f32 gunextraaimx;
 	/*0x01b8*/ f32 gunextraaimy;
-	/*0x01bc*/ u32 unk01bc;
-	/*0x01c0*/ u32 unk01c0;
-	/*0x01c4*/ u32 unk01c4;
-	/*0x01c8*/ u32 unk01c8;
-	/*0x01cc*/ u32 unk01cc;
-	/*0x01d0*/ u32 unk01d0;
-	/*0x01d4*/ u32 unk01d4;
-	/*0x01d8*/ u32 unk01d8;
-	/*0x01dc*/ u32 unk01dc;
-	/*0x01e0*/ u32 unk01e0;
-	/*0x01e4*/ u32 unk01e4;
-	/*0x01e8*/ u32 unk01e8;
-	/*0x01ec*/ u32 unk01ec;
-	/*0x01f0*/ u32 unk01f0;
-	/*0x01f4*/ u32 unk01f4;
-	/*0x01f8*/ u32 unk01f8;
-	/*0x01fc*/ u32 unk01fc;
-	/*0x0200*/ u32 unk0200;
-	/*0x0204*/ u32 unk0204;
-	/*0x0208*/ u32 unk0208;
-	/*0x020c*/ u32 unk020c;
-	/*0x0210*/ u32 unk0210;
-	/*0x0214*/ u32 unk0214;
-	/*0x0218*/ u32 unk0218;
-	/*0x021c*/ u32 unk021c;
-	/*0x0220*/ u32 unk0220;
-	/*0x0224*/ u32 unk0224;
-	/*0x0228*/ u32 unk0228;
-	/*0x022c*/ u32 unk022c;
-	/*0x0230*/ u32 unk0230;
-	/*0x0234*/ u32 unk0234;
-	/*0x0238*/ u32 unk0238;
-	/*0x023c*/ u32 unk023c;
-	/*0x0240*/ u32 unk0240;
-	/*0x0244*/ u32 unk0244;
-	/*0x0248*/ u32 unk0248;
+	/*0x01bc*/ s32 playwatchup;
+	/*0x01c0*/ struct anim unk01c0;
 	/*0x024c*/ s16 invdowntime;
 	/*0x024e*/ s16 usedowntime;
 	/*0x0250*/ u8 activemenumode;
@@ -2413,7 +2390,7 @@ struct player {
 	/*0x0328*/ bool startnewbonddie;
 	/*0x032c*/ bool redbloodfinished;
 	/*0x0330*/ bool deathanimfinished;
-	/*0x0334*/ u32 controldef;
+	/*0x0334*/ s32 controldef;
 	/*0x0338*/ struct playerbond bonddie;
 	/*0x036c*/ struct playerbond bond2;
 	/*0x03a0*/ bool resetheadpos;
@@ -2508,14 +2485,7 @@ struct player {
 	/*0x0604*/ u32 unk0604;
 	/*0x0608*/ u32 unk0608;
 	/*0x060c*/ u32 unk060c;
-	/*0x0610*/ u32 unk0610;
-	/*0x0614*/ u32 unk0614;
-	/*0x0618*/ u32 unk0618;
-	/*0x061c*/ u32 unk061c;
-	/*0x0620*/ u32 unk0620;
-	/*0x0624*/ u32 unk0624;
-	/*0x0628*/ u32 unk0628;
-	/*0x062c*/ u32 unk062c;
+	/*0x0610*/ struct player0610 unk0610[2];
 	/*0x0630*/ s16 viewx;    // 320 lo-res, 640 hi-res
 	/*0x0632*/ s16 viewy;    // 220 regardless of res
 	/*0x0634*/ s16 viewleft; // 0
@@ -2636,7 +2606,7 @@ struct player {
 	/*0x1738*/ void *unk1738;
 	/*0x173c*/ Mtx *unk173c;
 	/*0x1740*/ Mtxf *matrix1740;
-	/*0x1744*/ u32 c_viewfmdynticknum;
+	/*0x1744*/ s32 c_viewfmdynticknum;
 	/*0x1748*/ u32 unk1748;
 	/*0x174c*/ Mtxf *unk174c;
 	/*0x1750*/ void *unk1750;
@@ -2644,7 +2614,7 @@ struct player {
 	/*0x1758*/ Mtx *unk1758;
 	/*0x175c*/ void *unk175c;
 	/*0x1760*/ Mtxf *prev1740;
-	/*0x1764*/ u32 c_prevviewfmdynticknum;
+	/*0x1764*/ s32 c_prevviewfmdynticknum;
 	/*0x1768*/ Mtxf *unk1768;
 	/*0x176c*/ f32 c_scalelod60;
 	/*0x1770*/ f32 c_scalelod;
@@ -2671,7 +2641,7 @@ struct player {
 	/*0x1854*/ f32 fovy;
 	/*0x1858*/ f32 aspect;
 	/*0x185c*/ u32 flags;
-	/*0x1860*/ u32 unk1860;
+	/*0x1860*/ s32 unk1860;
 	/*0x1864*/ struct invitem *weapons; // circular linked list, sorted
 	/*0x1868*/ struct invitem *equipment; // slots, allocated, unsorted
 	/*0x186c*/ s32 equipmaxitems;
@@ -2679,7 +2649,7 @@ struct player {
 	/*0x1874*/ u32 equipcuritem;
 	/*0x1878*/ struct gunheld gunheldarr[10];
 	/*0x18f0*/ s32 magnetattracttime;
-	/*0x18f4*/ u32 angleoffset;
+	/*0x18f4*/ f32 angleoffset;
 	/*0x18f8*/ u32 buthist[10];
 	/*0x1920*/ u8 buthistindex;
 	/*0x1921*/ u8 buthistlen;
@@ -2713,7 +2683,7 @@ struct player {
 	/*0x1990*/ u32 unk1990;
 	/*0x1994*/ u32 unk1994;
 	/*0x1998*/ u32 unk1998;
-	/*0x199c*/ u32 unk199c;
+	/*0x199c*/ f32 unk199c;
 	/*0x19a0*/ f32 armourscale;
 	/*0x19a4*/ f32 speedgo;
 	/*0x19a8*/ s32 sighttimer240;
@@ -2740,15 +2710,15 @@ struct player {
 	/*0x1a2c*/ struct coord grabbedposextra;
 	/*0x1a38*/ f32 grabbedrotextrasum;
 	/*0x1a3c*/ struct coord grabbedposextrasum;
-	/*0x1a48*/ u32 unk1a48;
-	/*0x1a4c*/ u32 unk1a4c;
-	/*0x1a50*/ u32 unk1a50;
-	/*0x1a54*/ u32 unk1a54;
-	/*0x1a58*/ u32 unk1a58;
-	/*0x1a5c*/ u32 unk1a5c;
-	/*0x1a60*/ u32 unk1a60;
-	/*0x1a64*/ u32 unk1a64;
-	/*0x1a68*/ u32 unk1a68;
+	/*0x1a48*/ f32 unk1a48;
+	/*0x1a4c*/ f32 unk1a4c;
+	/*0x1a50*/ f32 unk1a50;
+	/*0x1a54*/ f32 unk1a54;
+	/*0x1a58*/ f32 unk1a58;
+	/*0x1a5c*/ f32 unk1a5c;
+	/*0x1a60*/ f32 unk1a60;
+	/*0x1a64*/ f32 unk1a64;
+	/*0x1a68*/ s32 unk1a68;
 	/*0x1a6c*/ struct prop *hoverbike;
 	/*0x1a70*/ struct coord bondvehicleoffset;
 	/*0x1a7c*/ s32 bondvehiclemode;
@@ -2798,7 +2768,7 @@ struct player {
 	/*0x1bd4*/ u32 unk1bd4;
 	/*0x1bd8*/ s32 autocontrol_x;
 	/*0x1bdc*/ s32 autocontrol_y;
-	/*0x1be0*/ s32 cachedlookahead;
+	/*0x1be0*/ f32 cachedlookahead;
 	/*0x1be4*/ u16 lookaheadframe;
 	/*0x1be6*/ u8 numaibuddies;
 	/*0x1be7*/ u8 aibuddynums[MAX_SIMULANTS];
@@ -2835,6 +2805,8 @@ struct player {
 	/*0x1c5c*/ f32 stealhealth;
 	/*0x1c60*/ s32 unk1c60;
 	/*0x1c64*/ s32 unk1c64;
+	/*0x1c68*/ u32 unk1c68;
+	/*0x1c6c*/ u32 unk1c6c;
 };
 
 struct ailist {
