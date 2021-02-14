@@ -53,7 +53,7 @@ void func0f03417c(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 arg5, struct prop *prop2, s32 arg7, s32 arg8, s32 arg9, u32 arg10);
 void func0f034330(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, s32 arg5);
 void func0f034410(struct chrdata *chr, f32 damage, struct coord *vector, struct prop *prop, u32 arg4);
-u32 func0f034480(void);
+void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 damage);
 void func0f034524(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 arg5, u32 arg6, struct prop *prop2, u32 arg8, u32 arg9, u32 arg10, s32 arg11, u32 arg12, u32 arg13);
 u32 func0f03645c(void);
 bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, struct coord *vector, f32 arg6, u32 types);

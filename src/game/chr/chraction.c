@@ -5523,53 +5523,26 @@ void func0f034410(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 	func0f034524(chr, damage, vector, NULL, prop, 200, 1, chr->prop, 0, 0, -1, 0, 1, arg4);
 }
 
-GLOBAL_ASM(
-glabel func0f034480
-/*  f034480:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f034484:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f034488:	10800011 */ 	beqz	$a0,.L0f0344d0
-/*  f03448c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f034490:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f034494:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f034498:	15c1000d */ 	bne	$t6,$at,.L0f0344d0
-/*  f03449c:	00000000 */ 	nop
-/*  f0344a0:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f0344a4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0344a8:	04400009 */ 	bltz	$v0,.L0f0344d0
-/*  f0344ac:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f0344b0:	3c18800a */ 	lui	$t8,%hi(g_Vars)
-/*  f0344b4:	27189fc0 */ 	addiu	$t8,$t8,%lo(g_Vars)
-/*  f0344b8:	000279c0 */ 	sll	$t7,$v0,0x7
-/*  f0344bc:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f0344c0:	c46400f0 */ 	lwc1	$f4,0xf0($v1)
-/*  f0344c4:	c7a60020 */ 	lwc1	$f6,0x20($sp)
-/*  f0344c8:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0344cc:	e46800f0 */ 	swc1	$f8,0xf0($v1)
-.L0f0344d0:
-/*  f0344d0:	50a00011 */ 	beqzl	$a1,.L0f034518
-/*  f0344d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0344d8:	90b90000 */ 	lbu	$t9,0x0($a1)
-/*  f0344dc:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0344e0:	5721000d */ 	bnel	$t9,$at,.L0f034518
-/*  f0344e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0344e8:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f0344ec:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f0344f0:	04400008 */ 	bltz	$v0,.L0f034514
-/*  f0344f4:	000241c0 */ 	sll	$t0,$v0,0x7
-/*  f0344f8:	3c09800a */ 	lui	$t1,%hi(g_Vars)
-/*  f0344fc:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
-/*  f034500:	01091821 */ 	addu	$v1,$t0,$t1
-/*  f034504:	c46a00ec */ 	lwc1	$f10,0xec($v1)
-/*  f034508:	c7b00020 */ 	lwc1	$f16,0x20($sp)
-/*  f03450c:	46105480 */ 	add.s	$f18,$f10,$f16
-/*  f034510:	e47200ec */ 	swc1	$f18,0xec($v1)
-.L0f034514:
-/*  f034514:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f034518:
-/*  f034518:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03451c:	03e00008 */ 	jr	$ra
-/*  f034520:	00000000 */ 	nop
-);
+void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 damage)
+{
+	s32 playernum;
+
+	if (attacker && attacker->type == PROPTYPE_PLAYER) {
+		playernum = propGetPlayerNum(attacker);
+
+		if (playernum >= 0) {
+			g_Vars.playerstats[playernum].damtransmitted += damage;
+		}
+	}
+
+	if (victim && victim->type == PROPTYPE_PLAYER) {
+		playernum = propGetPlayerNum(victim);
+
+		if (playernum >= 0) {
+			g_Vars.playerstats[playernum].damreceived += damage;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f034524
@@ -6999,7 +6972,7 @@ glabel var7f1a8d98
 /*  f035938:	46000086 */ 	mov.s	$f2,$f0
 /*  f03593c:	44061000 */ 	mfc1	$a2,$f2
 .L0f035940:
-/*  f035940:	0fc0d120 */ 	jal	func0f034480
+/*  f035940:	0fc0d120 */ 	jal	playerUpdateDamageStats
 /*  f035944:	e7ac005c */ 	swc1	$f12,0x5c($sp)
 /*  f035948:	0fc2eda7 */ 	jal	func0f0bb69c
 /*  f03594c:	00000000 */ 	nop
@@ -7362,7 +7335,7 @@ glabel var7f1a8d98
 /*  f035e54:	02202025 */ 	or	$a0,$s1,$zero
 /*  f035e58:	8fa50128 */ 	lw	$a1,0x128($sp)
 /*  f035e5c:	44061000 */ 	mfc1	$a2,$f2
-/*  f035e60:	0fc0d120 */ 	jal	func0f034480
+/*  f035e60:	0fc0d120 */ 	jal	playerUpdateDamageStats
 /*  f035e64:	00000000 */ 	nop
 /*  f035e68:	c60a0100 */ 	lwc1	$f10,0x100($s0)
 /*  f035e6c:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x318)
