@@ -5491,69 +5491,19 @@ void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 	func0f034524(chr, damage, vector, hand, prop, arg5, 1, prop2, arg7, arg8, arg9, arg10, 0, 0);
 }
 
-GLOBAL_ASM(
-glabel func0f034248
-/*  f034248:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f03424c:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f034250:	240e00c8 */ 	addiu	$t6,$zero,0xc8
-/*  f034254:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f034258:	afa60058 */ 	sw	$a2,0x58($sp)
-/*  f03425c:	afa7005c */ 	sw	$a3,0x5c($sp)
-/*  f034260:	afa0004c */ 	sw	$zero,0x4c($sp)
-/*  f034264:	afa00048 */ 	sw	$zero,0x48($sp)
-/*  f034268:	afa00044 */ 	sw	$zero,0x44($sp)
-/*  f03426c:	afae0040 */ 	sw	$t6,0x40($sp)
-/*  f034270:	0fc0cfe8 */ 	jal	chrGetShield
-/*  f034274:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f034278:	44802000 */ 	mtc1	$zero,$f4
-/*  f03427c:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f034280:	4600203e */ 	c.le.s	$f4,$f0
-/*  f034284:	00000000 */ 	nop
-/*  f034288:	45020011 */ 	bc1fl	.L0f0342d0
-/*  f03428c:	8fa90060 */ 	lw	$t1,0x60($sp)
-/*  f034290:	8c8f0020 */ 	lw	$t7,0x20($a0)
-/*  f034294:	8fa60058 */ 	lw	$a2,0x58($sp)
-/*  f034298:	27a7004c */ 	addiu	$a3,$sp,0x4c
-/*  f03429c:	11e0000b */ 	beqz	$t7,.L0f0342cc
-/*  f0342a0:	27b80040 */ 	addiu	$t8,$sp,0x40
-/*  f0342a4:	8c85001c */ 	lw	$a1,0x1c($a0)
-/*  f0342a8:	27b90048 */ 	addiu	$t9,$sp,0x48
-/*  f0342ac:	27a80044 */ 	addiu	$t0,$sp,0x44
-/*  f0342b0:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f0342b4:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f0342b8:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f0342bc:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f0342c0:	0fc0ffcb */ 	jal	func0f03ff2c
-/*  f0342c4:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f0342c8:	8fa40050 */ 	lw	$a0,0x50($sp)
-.L0f0342cc:
-/*  f0342cc:	8fa90060 */ 	lw	$t1,0x60($sp)
-.L0f0342d0:
-/*  f0342d0:	240a00c8 */ 	addiu	$t2,$zero,0xc8
-/*  f0342d4:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f0342d8:	afab0018 */ 	sw	$t3,0x18($sp)
-/*  f0342dc:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f0342e0:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0342e4:	8c8c001c */ 	lw	$t4,0x1c($a0)
-/*  f0342e8:	8fad004c */ 	lw	$t5,0x4c($sp)
-/*  f0342ec:	8fae0048 */ 	lw	$t6,0x48($sp)
-/*  f0342f0:	8faf0044 */ 	lw	$t7,0x44($sp)
-/*  f0342f4:	afa00034 */ 	sw	$zero,0x34($sp)
-/*  f0342f8:	afa00030 */ 	sw	$zero,0x30($sp)
-/*  f0342fc:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f034300:	8fa50054 */ 	lw	$a1,0x54($sp)
-/*  f034304:	8fa60058 */ 	lw	$a2,0x58($sp)
-/*  f034308:	8fa7005c */ 	lw	$a3,0x5c($sp)
-/*  f03430c:	afac001c */ 	sw	$t4,0x1c($sp)
-/*  f034310:	afad0020 */ 	sw	$t5,0x20($sp)
-/*  f034314:	afae0024 */ 	sw	$t6,0x24($sp)
-/*  f034318:	0fc0d149 */ 	jal	func0f034524
-/*  f03431c:	afaf0028 */ 	sw	$t7,0x28($sp)
-/*  f034320:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f034324:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f034328:	03e00008 */ 	jr	$ra
-/*  f03432c:	00000000 */ 	nop
-);
+void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop)
+{
+	s32 sp4c = 0;
+	s32 sp48 = 0;
+	s32 sp44 = 0;
+	s32 sp40 = 200;
+
+	if (chrGetShield(chr) >= 0 && chr->model) {
+		func0f03ff2c(chr, &chr->prop->pos, vector, &sp4c, &sp40, &sp48, &sp44);
+	}
+
+	func0f034524(chr, damage, vector, hand, prop, 200, 1, chr->prop, sp4c, sp48, sp44, 0, 0, 0);
+}
 
 void func0f034330(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, s32 arg5)
 {
