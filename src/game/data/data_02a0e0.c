@@ -948,13 +948,36 @@ struct menudialog g_MpCompletedChallengesMenuDialog = {
 	NULL,
 };
 
-u32 var800851bc = 0x4e806f76;
-u32 var800851c0 = 0x7ca688ab;
-u32 var800851c4 = 0x95bfa6ad;
-u32 var800851c8 = 0xee888700;
-u32 var800851cc = 0x5e6d5e7f;
-u32 var800851d0 = 0x416c7d95;
-u32 var800851d4 = 0x2e280000;
+u8 var800851bc[15] = {
+	'E' + 9 * 1,
+	'n' + 9 * 2,
+	'T' + 9 * 3,
+	'R' + 9 * 4,
+	'O' + 9 * 5,
+	'p' + 9 * 6,
+	'I' + 9 * 7,
+	'c' + 9 * 8,
+	'D' + 9 * 9,
+	'e' + 9 * 10,
+	'C' + 9 * 11,
+	'A' + 9 * 12,
+	'y' + 9 * 13,
+	'\n' + 9 * 14,
+	'\0' + 9 * 15,
+};
+
+u8 var800851cc[10] = {
+	'Z' + 4 * 1,
+	'e' + 4 * 2,
+	'R' + 4 * 3,
+	'o' + 4 * 4,
+	'-' + 4 * 5,
+	'T' + 4 * 6,
+	'a' + 4 * 7,
+	'u' + 4 * 8,
+	'\n' + 4 * 9,
+	'\0' + 4 * 10,
+};
 
 // 2b1f8
 struct menuitem g_MpPlayerStatsMenuItems[] = {

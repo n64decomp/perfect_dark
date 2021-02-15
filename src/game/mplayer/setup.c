@@ -1551,73 +1551,25 @@ s32 menuhandlerMpUsernamePassword(s32 operation, struct menuitem *item, union ha
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel mpMenuTextUsernamePassword
-/*  f17b408:	3c0f8008 */ 	lui	$t7,%hi(var800851bc)
-/*  f17b40c:	25ef51bc */ 	addiu	$t7,$t7,%lo(var800851bc)
-/*  f17b410:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f17b414:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f17b418:	27ae0020 */ 	addiu	$t6,$sp,0x20
-/*  f17b41c:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f17b420:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f17b424:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f17b428:	3c0a8008 */ 	lui	$t2,%hi(var800851cc)
-/*  f17b42c:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f17b430:	99e1000e */ 	lwr	$at,0xe($t7)
-/*  f17b434:	254a51cc */ 	addiu	$t2,$t2,%lo(var800851cc)
-/*  f17b438:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f17b43c:	b9c1000e */ 	swr	$at,0xe($t6)
-/*  f17b440:	8d410000 */ 	lw	$at,0x0($t2)
-/*  f17b444:	27a90014 */ 	addiu	$t1,$sp,0x14
-/*  f17b448:	8d4d0004 */ 	lw	$t5,0x4($t2)
-/*  f17b44c:	ad210000 */ 	sw	$at,0x0($t1)
-/*  f17b450:	95410008 */ 	lhu	$at,0x8($t2)
-/*  f17b454:	ad2d0004 */ 	sw	$t5,0x4($t1)
-/*  f17b458:	27a30020 */ 	addiu	$v1,$sp,0x20
-/*  f17b45c:	a5210008 */ 	sh	$at,0x8($t1)
-/*  f17b460:	90990001 */ 	lbu	$t9,0x1($a0)
-/*  f17b464:	00002025 */ 	or	$a0,$zero,$zero
-/*  f17b468:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17b46c:	1720000f */ 	bnez	$t9,.L0f17b4ac
-/*  f17b470:	2406000f */ 	addiu	$a2,$zero,0xf
-/*  f17b474:	3c058007 */ 	lui	$a1,%hi(g_StringPointer)
-/*  f17b478:	24a51440 */ 	addiu	$a1,$a1,%lo(g_StringPointer)
-.L0f17b47c:
-/*  f17b47c:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f17b480:	8ca80000 */ 	lw	$t0,0x0($a1)
-/*  f17b484:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f17b488:	03047023 */ 	subu	$t6,$t8,$a0
-/*  f17b48c:	01026021 */ 	addu	$t4,$t0,$v0
-/*  f17b490:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f17b494:	25cffff7 */ 	addiu	$t7,$t6,-9
-/*  f17b498:	24840009 */ 	addiu	$a0,$a0,0x9
-/*  f17b49c:	1446fff7 */ 	bne	$v0,$a2,.L0f17b47c
-/*  f17b4a0:	a18f0000 */ 	sb	$t7,0x0($t4)
-/*  f17b4a4:	10000012 */ 	b	.L0f17b4f0
-/*  f17b4a8:	8ca20000 */ 	lw	$v0,0x0($a1)
-.L0f17b4ac:
-/*  f17b4ac:	3c058007 */ 	lui	$a1,%hi(g_StringPointer)
-/*  f17b4b0:	24a51440 */ 	addiu	$a1,$a1,%lo(g_StringPointer)
-/*  f17b4b4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17b4b8:	27a30014 */ 	addiu	$v1,$sp,0x14
-/*  f17b4bc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f17b4c0:	2406000a */ 	addiu	$a2,$zero,0xa
-.L0f17b4c4:
-/*  f17b4c4:	906b0000 */ 	lbu	$t3,0x0($v1)
-/*  f17b4c8:	8cad0000 */ 	lw	$t5,0x0($a1)
-/*  f17b4cc:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f17b4d0:	01644823 */ 	subu	$t1,$t3,$a0
-/*  f17b4d4:	01a2c821 */ 	addu	$t9,$t5,$v0
-/*  f17b4d8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f17b4dc:	252afffc */ 	addiu	$t2,$t1,-4
-/*  f17b4e0:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f17b4e4:	1446fff7 */ 	bne	$v0,$a2,.L0f17b4c4
-/*  f17b4e8:	a32a0000 */ 	sb	$t2,0x0($t9)
-/*  f17b4ec:	8ca20000 */ 	lw	$v0,0x0($a1)
-.L0f17b4f0:
-/*  f17b4f0:	03e00008 */ 	jr	$ra
-/*  f17b4f4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+char *mpMenuTextUsernamePassword(struct menuitem *item)
+{
+	u8 username[15] = var800851bc;
+	u8 password[10] = var800851cc;
+	u32 stack;
+	s32 i;
+
+	if (item->param == 0) {
+		for (i = 0; i < 15; i++) {
+			g_StringPointer[i] = username[i] - i * 9 - 9;
+		}
+	} else {
+		for (i = 0; i < 10; i++) {
+			g_StringPointer[i] = password[i] - i * 4 - 4;
+		}
+	}
+
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f17b4f8
