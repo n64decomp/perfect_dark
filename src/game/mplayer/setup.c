@@ -571,56 +571,25 @@ s32 func0f179c14(u32 operation, struct menuitem *item, union handlerdata *data)
 	return 0;
 }
 
+s32 func0f179cc0(u32 operation, struct menuitem *item, union handlerdata *data)
+{
+	switch (operation) {
+	case MENUOP_GETSLIDER:
+		data->slider.value = g_MpPlayers[g_MpPlayerNum].base.unk1c;
+		break;
+	case MENUOP_SET:
+		g_MpPlayers[g_MpPlayerNum].base.unk1c = data->slider.value;
+		break;
+	case MENUOP_GETSLIDERLABEL:
+		sprintf(data->slider.label, "%d%%\n", data->slider.value + 25);
+		break;
+	}
+
+	return 0;
+}
+
 GLOBAL_ASM(
-glabel func0f179cc0
-/*  f179cc0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f179cc4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f179cc8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f179ccc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f179cd0:	10810012 */ 	beq	$a0,$at,.L0f179d1c
-/*  f179cd4:	00c03825 */ 	or	$a3,$a2,$zero
-/*  f179cd8:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f179cdc:	10810006 */ 	beq	$a0,$at,.L0f179cf8
-/*  f179ce0:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f179ce4:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f179ce8:	10810016 */ 	beq	$a0,$at,.L0f179d44
-/*  f179cec:	3c057f1b */ 	lui	$a1,%hi(var7f1b7ea0)
-/*  f179cf0:	1000001a */ 	b	.L0f179d5c
-/*  f179cf4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f179cf8:
-/*  f179cf8:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f179cfc:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers+0x1c)
-/*  f179d00:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f179d04:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f179d08:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f179d0c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f179d10:	9718c7d4 */ 	lhu	$t8,%lo(g_MpPlayers+0x1c)($t8)
-/*  f179d14:	10000010 */ 	b	.L0f179d58
-/*  f179d18:	acf80000 */ 	sw	$t8,0x0($a3)
-.L0f179d1c:
-/*  f179d1c:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f179d20:	8d081448 */ 	lw	$t0,%lo(g_MpPlayerNum)($t0)
-/*  f179d24:	8cf90000 */ 	lw	$t9,0x0($a3)
-/*  f179d28:	3c01800b */ 	lui	$at,%hi(g_MpPlayers+0x1c)
-/*  f179d2c:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f179d30:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f179d34:	00094940 */ 	sll	$t1,$t1,0x5
-/*  f179d38:	00290821 */ 	addu	$at,$at,$t1
-/*  f179d3c:	10000006 */ 	b	.L0f179d58
-/*  f179d40:	a439c7d4 */ 	sh	$t9,%lo(g_MpPlayers+0x1c)($at)
-.L0f179d44:
-/*  f179d44:	8ce60000 */ 	lw	$a2,0x0($a3)
-/*  f179d48:	8ce40004 */ 	lw	$a0,0x4($a3)
-/*  f179d4c:	24a57ea0 */ 	addiu	$a1,$a1,%lo(var7f1b7ea0)
-/*  f179d50:	0c004dad */ 	jal	sprintf
-/*  f179d54:	24c60019 */ 	addiu	$a2,$a2,0x19
-.L0f179d58:
-/*  f179d58:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f179d5c:
-/*  f179d5c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f179d60:	00001025 */ 	or	$v0,$zero,$zero
-/*  f179d64:	03e00008 */ 	jr	$ra
-/*  f179d68:	00000000 */ 	nop
+glabel func0f179d6c
 /*  f179d6c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f179d70:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f179d74:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -1446,7 +1415,6 @@ glabel mpMenuTextMedalSurvivor
 /*  f17a99c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-const char var7f1b7ea0[] = "%d%%\n";
 const char var7f1b7ea8[] = "Menu99 -> Calling Camera Module Start\n";
 const char var7f1b7ed0[] = "Menu99 -> Calling Camera Module Finish\n";
 const char var7f1b7ef8[] = "%d\n";
