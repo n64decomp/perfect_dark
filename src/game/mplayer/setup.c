@@ -1162,7 +1162,6 @@ const char var7f1b7efc[] = "%d\n";
 const char var7f1b7f00[] = "%d\n";
 const char var7f1b7f04[] = "%d\n";
 const char var7f1b7f08[] = "%d\n";
-const char var7f1b7f0c[] = "%d\n";
 
 GLOBAL_ASM(
 glabel mpMenuTextKills
@@ -1289,30 +1288,11 @@ glabel mpMenuTextGamesLost
 /*  f17a7f8:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel mpMenuTextHeadShots
-/*  f17a7fc:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17a800:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17a804:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17a808:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17a80c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f17a810:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17a814:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f17a818:	3c06800b */ 	lui	$a2,%hi(g_MpPlayers+0x7c)
-/*  f17a81c:	00cf3021 */ 	addu	$a2,$a2,$t7
-/*  f17a820:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17a824:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17a828:	3c057f1b */ 	lui	$a1,%hi(var7f1b7f0c)
-/*  f17a82c:	24a57f0c */ 	addiu	$a1,$a1,%lo(var7f1b7f0c)
-/*  f17a830:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17a834:	0c004dad */ 	jal	sprintf
-/*  f17a838:	8cc6c834 */ 	lw	$a2,%lo(g_MpPlayers+0x7c)($a2)
-/*  f17a83c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17a840:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17a844:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f17a848:	03e00008 */ 	jr	$ra
-/*  f17a84c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *mpMenuTextHeadShots(struct menuitem *item)
+{ \
+	sprintf(g_StringPointer, "%d\n", g_MpPlayers[g_MpPlayerNum].headshots);
+	return g_StringPointer;
+}
 
 char *mpMenuTextMedalAccuracy(struct menuitem *item)
 { \
