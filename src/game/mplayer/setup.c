@@ -1160,7 +1160,6 @@ const char var7f1b7ed0[] = "Menu99 -> Calling Camera Module Finish\n";
 const char var7f1b7ef8[] = "%d\n";
 const char var7f1b7efc[] = "%d\n";
 const char var7f1b7f00[] = "%d\n";
-const char var7f1b7f04[] = "%d\n";
 
 GLOBAL_ASM(
 glabel mpMenuTextKills
@@ -1237,30 +1236,11 @@ glabel mpMenuTextGamesPlayed
 /*  f17a750:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel mpMenuTextGamesWon
-/*  f17a754:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17a758:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17a75c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17a760:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17a764:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f17a768:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17a76c:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f17a770:	3c06800b */ 	lui	$a2,%hi(g_MpPlayers+0x60)
-/*  f17a774:	00cf3021 */ 	addu	$a2,$a2,$t7
-/*  f17a778:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17a77c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17a780:	3c057f1b */ 	lui	$a1,%hi(var7f1b7f04)
-/*  f17a784:	24a57f04 */ 	addiu	$a1,$a1,%lo(var7f1b7f04)
-/*  f17a788:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17a78c:	0c004dad */ 	jal	sprintf
-/*  f17a790:	8cc6c818 */ 	lw	$a2,%lo(g_MpPlayers+0x60)($a2)
-/*  f17a794:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17a798:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17a79c:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f17a7a0:	03e00008 */ 	jr	$ra
-/*  f17a7a4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *mpMenuTextGamesWon(struct menuitem *item)
+{ \
+	sprintf(g_StringPointer, "%d\n", g_MpPlayers[g_MpPlayerNum].gameswon);
+	return g_StringPointer;
+}
 
 char *mpMenuTextGamesLost(struct menuitem *item)
 { \

@@ -14,7 +14,7 @@ s32 menuhandler0017a20c(u32 operation, struct menuitem *item, union handlerdata 
 u32 mpMenuTextKills(void);
 u32 mpMenuTextDeaths(void);
 u32 mpMenuTextGamesPlayed(void);
-u32 mpMenuTextGamesWon(void);
+char *mpMenuTextGamesWon(struct menuitem *item);
 char *mpMenuTextGamesLost(struct menuitem *item);
 char *mpMenuTextHeadShots(struct menuitem *item);
 char *mpMenuTextMedalAccuracy(struct menuitem *item);
