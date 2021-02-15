@@ -19,7 +19,7 @@ u32 mpMenuTextGamesLost(void);
 u32 mpMenuTextHeadShots(void);
 u32 mpMenuTextMedalAccuracy(void);
 u32 mpMenuTextMedalHeadShot(void);
-u32 mpMenuTextMedalKillMaster(void);
+char *mpMenuTextMedalKillMaster(struct menuitem *item);
 char *mpMenuTextMedalSurvivor(struct menuitem *item);
 char *mpMenuTextAmmoUsed(struct menuitem *item);
 char *mpMenuTextDistance(struct menuitem *item);
