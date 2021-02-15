@@ -3688,9 +3688,7 @@ void func0f141704(struct prop *prop)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f141814
-/*  f141814:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f141818:	03e00008 */ 	jr	$ra
-/*  f14181c:	00801025 */ 	or	$v0,$a0,$zero
-);
+s32 func0f141814(s32 arg0, s32 arg1)
+{
+	return arg0;
+}
