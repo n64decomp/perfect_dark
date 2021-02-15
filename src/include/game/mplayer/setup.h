@@ -44,7 +44,7 @@ s32 menuhandler0017c6a4(s32 operation, struct menuitem *item, union handlerdata 
 char *mpMenuTextSimulantDescription(struct menuitem *item);
 s32 menudialog0017ccfc(s32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menuhandlerMpSimulantDifficulty(s32 operation, struct menuitem *item, union handlerdata *data);
-u32 func0f17cfc0(void);
+char *mpMenuTitleEditSimulant(struct menudialog *dialog);
 char *mpMenuTextSimulantName(struct menuitem *item);
 s32 menuhandlerMpNTeams(s32 operation, struct menuitem *item, union handlerdata *data, s32 numteams);
 char *mpMenuTextChrNameForTeamSetup(struct menuitem *item);

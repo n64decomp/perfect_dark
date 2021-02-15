@@ -1226,7 +1226,7 @@ struct menuitem g_MpEditSimulantMenuItems[] = {
 // 2b94c
 struct menudialog g_MpEditSimulantMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f17cfc0,
+	(u32)&mpMenuTitleEditSimulant,
 	g_MpEditSimulantMenuItems,
 	menudialogMpSimulant,
 	0x00000010,

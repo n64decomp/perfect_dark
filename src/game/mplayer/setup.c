@@ -2673,7 +2673,6 @@ char *mpMenuTextHandicapPlayerName(struct menuitem *item)
 }
 
 const char var7f1b8028[] = "\n";
-const char var7f1b802c[] = "%s";
 
 s32 menuhandlerMpRestoreHandicapDefaults(s32 operation, struct menuitem *item, union handlerdata *data)
 {
@@ -3196,42 +3195,11 @@ s32 menuhandlerMpDeleteSimulant(s32 operation, struct menuitem *item, union hand
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f17cfc0
-/*  f17cfc0:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17cfc4:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17cfc8:	3c18800a */ 	lui	$t8,%hi(g_Menus+0xe1c)
-/*  f17cfcc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17cfd0:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f17cfd4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17cfd8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17cfdc:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17cfe0:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f17cfe4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17cfe8:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17cfec:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f17cff0:	8f18ee1c */ 	lw	$t8,%lo(g_Menus+0xe1c)($t8)
-/*  f17cff4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17cff8:	3c08800b */ 	lui	$t0,%hi(g_MpSimulants)
-/*  f17cffc:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f17d000:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f17d004:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f17d008:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f17d00c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17d010:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f17d014:	2508c538 */ 	addiu	$t0,$t0,%lo(g_MpSimulants)
-/*  f17d018:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17d01c:	3c057f1c */ 	lui	$a1,%hi(var7f1b802c)
-/*  f17d020:	24a5802c */ 	addiu	$a1,$a1,%lo(var7f1b802c)
-/*  f17d024:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17d028:	0c004dad */ 	jal	sprintf
-/*  f17d02c:	03283021 */ 	addu	$a2,$t9,$t0
-/*  f17d030:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17d034:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17d038:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f17d03c:	03e00008 */ 	jr	$ra
-/*  f17d040:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *mpMenuTitleEditSimulant(struct menudialog *dialog)
+{
+	sprintf(g_StringPointer, "%s", &g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.name);
+	return g_StringPointer;
+}
 
 s32 menuhandlerMpChangeSimulantType(s32 operation, struct menuitem *item, union handlerdata *data)
 {
