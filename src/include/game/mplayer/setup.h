@@ -17,7 +17,7 @@ u32 mpMenuTextGamesPlayed(void);
 u32 mpMenuTextGamesWon(void);
 u32 mpMenuTextGamesLost(void);
 u32 mpMenuTextHeadShots(void);
-u32 mpMenuTextMedalAccuracy(void);
+char *mpMenuTextMedalAccuracy(struct menuitem *item);
 char *mpMenuTextMedalHeadShot(struct menuitem *item);
 char *mpMenuTextMedalKillMaster(struct menuitem *item);
 char *mpMenuTextMedalSurvivor(struct menuitem *item);
