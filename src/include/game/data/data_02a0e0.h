@@ -56,7 +56,7 @@ extern u32 var800857d0;
 extern struct menudialog g_MpAddSimulantMenuDialog;
 extern struct menudialog g_MpChangeSimulantMenuDialog;
 extern struct menudialog g_MpEditSimulantMenuDialog;
-extern u32 var80085a74;
+extern s32 var80085a74[4];
 extern u32 var80085ce8[];
 extern u8 g_TeamIdsForPairing[4];
 extern struct menudialog g_MpChangeTeamNameMenuDialog;

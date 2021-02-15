@@ -1261,10 +1261,7 @@ struct menudialog g_MpSimulantsMenuDialog = {
 	NULL,
 };
 
-u32 var80085a74 = 0x00000000;
-u32 var80085a78 = 0x00000000;
-u32 var80085a7c = 0x00000000;
-u32 var80085a80 = 0x00000000;
+s32 var80085a74[4] = {0};
 u8 g_TeamIdsForPairing[] = {0, 1, 2, 3};
 
 // 2baa8
