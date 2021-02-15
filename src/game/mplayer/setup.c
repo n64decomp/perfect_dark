@@ -588,24 +588,14 @@ s32 func0f179cc0(u32 operation, struct menuitem *item, union handlerdata *data)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f179d6c
-/*  f179d6c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f179d70:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f179d74:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f179d78:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f179d7c:	14810004 */ 	bne	$a0,$at,.L0f179d90
-/*  f179d80:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f179d84:	3c048007 */ 	lui	$a0,%hi(g_MpPlayerNum)
-/*  f179d88:	0fc61fef */ 	jal	func0f187fbc
-/*  f179d8c:	8c841448 */ 	lw	$a0,%lo(g_MpPlayerNum)($a0)
-.L0f179d90:
-/*  f179d90:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f179d94:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f179d98:	00001025 */ 	or	$v0,$zero,$zero
-/*  f179d9c:	03e00008 */ 	jr	$ra
-/*  f179da0:	00000000 */ 	nop
-);
+s32 func0f179d6c(u32 operation, struct menuitem *item, union handlerdata *data)
+{
+	if (operation == MENUOP_SET) {
+		func0f187fbc(g_MpPlayerNum);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f179da4
