@@ -11,7 +11,7 @@ char *mpMenuTextSetupName(struct menuitem *item);
 s32 func0f179da4(u32 operation, struct menuitem *item, union handlerdata *data, s32 mpheadnum, s32 mpbodynum, s32 arg5);
 s32 menudialog0017a174(u32 operation, struct menudialog *dialog, union handlerdata *data);
 s32 menuhandler0017a20c(u32 operation, struct menuitem *item, union handlerdata *data);
-u32 mpMenuTextKills(void);
+char *mpMenuTextKills(struct menuitem *item);
 char *mpMenuTextDeaths(struct menuitem *item);
 char *mpMenuTextGamesPlayed(struct menuitem *item);
 char *mpMenuTextGamesWon(struct menuitem *item);

@@ -1157,32 +1157,12 @@ glabel menuhandler0017a20c
 
 const char var7f1b7ea8[] = "Menu99 -> Calling Camera Module Start\n";
 const char var7f1b7ed0[] = "Menu99 -> Calling Camera Module Finish\n";
-const char var7f1b7ef8[] = "%d\n";
 
-GLOBAL_ASM(
-glabel mpMenuTextKills
-/*  f17a658:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17a65c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17a660:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17a664:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17a668:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f17a66c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17a670:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f17a674:	3c06800b */ 	lui	$a2,%hi(g_MpPlayers+0x54)
-/*  f17a678:	00cf3021 */ 	addu	$a2,$a2,$t7
-/*  f17a67c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17a680:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17a684:	3c057f1b */ 	lui	$a1,%hi(var7f1b7ef8)
-/*  f17a688:	24a57ef8 */ 	addiu	$a1,$a1,%lo(var7f1b7ef8)
-/*  f17a68c:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17a690:	0c004dad */ 	jal	sprintf
-/*  f17a694:	8cc6c80c */ 	lw	$a2,%lo(g_MpPlayers+0x54)($a2)
-/*  f17a698:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17a69c:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17a6a0:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f17a6a4:	03e00008 */ 	jr	$ra
-/*  f17a6a8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *mpMenuTextKills(struct menuitem *item)
+{ \
+	sprintf(g_StringPointer, "%d\n", g_MpPlayers[g_MpPlayerNum].kills);
+	return g_StringPointer;
+}
 
 char *mpMenuTextDeaths(struct menuitem *item)
 { \
