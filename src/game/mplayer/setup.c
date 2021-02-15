@@ -1155,6 +1155,18 @@ glabel menuhandler0017a20c
 /*  f17a654:	27bd00c8 */ 	addiu	$sp,$sp,0xc8
 );
 
+const char var7f1b7ea8[] = "Menu99 -> Calling Camera Module Start\n";
+const char var7f1b7ed0[] = "Menu99 -> Calling Camera Module Finish\n";
+const char var7f1b7ef8[] = "%d\n";
+const char var7f1b7efc[] = "%d\n";
+const char var7f1b7f00[] = "%d\n";
+const char var7f1b7f04[] = "%d\n";
+const char var7f1b7f08[] = "%d\n";
+const char var7f1b7f0c[] = "%d\n";
+const char var7f1b7f10[] = "%d\n";
+const char var7f1b7f14[] = "%d\n";
+const char var7f1b7f18[] = "%d\n";
+
 GLOBAL_ASM(
 glabel mpMenuTextKills
 /*  f17a658:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
@@ -1380,43 +1392,11 @@ glabel mpMenuTextMedalKillMaster
 /*  f17a948:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel mpMenuTextMedalSurvivor
-/*  f17a94c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17a950:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17a954:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17a958:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17a95c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f17a960:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17a964:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f17a968:	3c06800b */ 	lui	$a2,%hi(g_MpPlayers+0x90)
-/*  f17a96c:	00cf3021 */ 	addu	$a2,$a2,$t7
-/*  f17a970:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17a974:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17a978:	3c057f1b */ 	lui	$a1,%hi(var7f1b7f1c)
-/*  f17a97c:	24a57f1c */ 	addiu	$a1,$a1,%lo(var7f1b7f1c)
-/*  f17a980:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17a984:	0c004dad */ 	jal	sprintf
-/*  f17a988:	8cc6c848 */ 	lw	$a2,%lo(g_MpPlayers+0x90)($a2)
-/*  f17a98c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17a990:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17a994:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f17a998:	03e00008 */ 	jr	$ra
-/*  f17a99c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
-
-const char var7f1b7ea8[] = "Menu99 -> Calling Camera Module Start\n";
-const char var7f1b7ed0[] = "Menu99 -> Calling Camera Module Finish\n";
-const char var7f1b7ef8[] = "%d\n";
-const char var7f1b7efc[] = "%d\n";
-const char var7f1b7f00[] = "%d\n";
-const char var7f1b7f04[] = "%d\n";
-const char var7f1b7f08[] = "%d\n";
-const char var7f1b7f0c[] = "%d\n";
-const char var7f1b7f10[] = "%d\n";
-const char var7f1b7f14[] = "%d\n";
-const char var7f1b7f18[] = "%d\n";
-const char var7f1b7f1c[] = "%d\n";
+char *mpMenuTextMedalSurvivor(struct menuitem *item)
+{ \
+	sprintf(g_StringPointer, "%d\n", g_MpPlayers[g_MpPlayerNum].survivormedals);
+	return g_StringPointer;
+}
 
 char *mpMenuTextAmmoUsed(struct menuitem *item)
 {
