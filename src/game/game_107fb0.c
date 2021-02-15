@@ -40,7 +40,7 @@ char *filemgrGetDeviceName(s32 index)
 	return NULL;
 }
 
-s32 filemgrDeviceNameMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrDeviceNameMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		if ((g_Menus[g_MpPlayerNum].unke3c & 0x7f) >= SAVEDEVICE_INVALID) {
@@ -105,7 +105,7 @@ const char var7f1b2f28[] = "Setup: item = %x\n";
 
 const u32 var7f1b2f3c[] = {0xa0, 0x31, 0x4e, 0x4a0};
 
-s32 filemgrFileNameMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrFileNameMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		if (g_Menus[g_MpPlayerNum].unke38 == 0) {
@@ -177,7 +177,7 @@ char *func0f108484(struct menuitem *item)
 	return g_StringPointer;
 }
 
-s32 filemgrDeviceNameForErrorMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrDeviceNameForErrorMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		if ((g_Menus[g_MpPlayerNum].unke3c & 0x7f) >= SAVEDEVICE_INVALID) {
@@ -425,7 +425,7 @@ void func0f108a80(void)
 	}
 }
 
-s32 filemgrRetrySaveMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrRetrySaveMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		filemgrRetrySave(2);
@@ -434,7 +434,7 @@ s32 filemgrRetrySaveMenuHandler(u32 operation, struct menuitem *item, union hand
 	return 0;
 }
 
-s32 filemgrSaveElsewhereYesMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrSaveElsewhereYesMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		s32 sp1c;
@@ -464,7 +464,7 @@ s32 filemgrSaveElsewhereYesMenuHandler(u32 operation, struct menuitem *item, uni
 	return 0;
 }
 
-s32 filemgrCancelSave2MenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrCancelSave2MenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuCloseDialog();
@@ -478,7 +478,7 @@ s32 filemgrCancelSave2MenuHandler(u32 operation, struct menuitem *item, union ha
 /**
  * Unused.
  */
-s32 func0f108d14(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 func0f108d14(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		filemgrRetrySave(2);
@@ -487,7 +487,7 @@ s32 func0f108d14(u32 operation, struct menuitem *item, union handlerdata *data)
 	return 0;
 }
 
-s32 filemgrAcknowledgeFileLostMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrAcknowledgeFileLostMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuCloseDialog();
@@ -518,7 +518,7 @@ void filemgrEraseCorruptFile(void)
 	menuPushDialog(&g_FilemgrFileLostMenuDialog);
 }
 
-s32 filemgrInsertOriginalPakMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 filemgrInsertOriginalPakMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curframe &&
@@ -530,7 +530,7 @@ s32 filemgrInsertOriginalPakMenuDialog(u32 operation, struct menudialog *dialog,
 	return false;
 }
 
-s32 filemgrReinsertedOkMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrReinsertedOkMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		pakExecuteDebugOperations();
@@ -540,7 +540,7 @@ s32 filemgrReinsertedOkMenuHandler(u32 operation, struct menuitem *item, union h
 	return 0;
 }
 
-s32 filemgrReinsertedCancelMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrReinsertedCancelMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (g_Menus[g_MpPlayerNum].unke42 < 100 && g_Menus[g_MpPlayerNum].unke42 != 1) {
@@ -1215,7 +1215,7 @@ void func0f109ec4(void)
 	}
 }
 
-s32 filemgrConfirmRenameMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrConfirmRenameMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	char *name = data->keyboard.string;
 
@@ -1234,7 +1234,7 @@ s32 filemgrConfirmRenameMenuHandler(u32 operation, struct menuitem *item, union 
 	return 0;
 }
 
-s32 filemgrDuplicateRenameMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrDuplicateRenameMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -1244,7 +1244,7 @@ s32 filemgrDuplicateRenameMenuHandler(u32 operation, struct menuitem *item, unio
 	return 0;
 }
 
-s32 filemgrDuplicateCancelMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrDuplicateCancelMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -1361,7 +1361,7 @@ const char var7f1b34ac[] = "Deleting files, wad %d\n";
 /**
  * item->param is a SAVEDEVICE constant.
  */
-s32 filemgrSelectLocationMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrSelectLocationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (g_FileLists[g_Menus[g_MpPlayerNum].listnum] == NULL) {
 		return 0;
@@ -1381,7 +1381,7 @@ s32 filemgrSelectLocationMenuHandler(u32 operation, struct menuitem *item, union
 	return 0;
 }
 
-s32 filemgrCancelSaveMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrCancelSaveMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -1390,7 +1390,7 @@ s32 filemgrCancelSaveMenuHandler(u32 operation, struct menuitem *item, union han
 	return 0;
 }
 
-s32 filemgrDeleteFilesForSaveMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrDeleteFilesForSaveMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		filemgrPushDeleteFileDialog(g_Menus[g_MpPlayerNum].listnum);
@@ -1410,7 +1410,7 @@ void filemgrPushSelectLocationDialog(s32 arg0, u32 arg1)
 	menuPushDialog(&g_FilemgrSelectLocationMenuDialog);
 }
 
-s32 filemgrConfirmDeleteMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrConfirmDeleteMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -1515,7 +1515,7 @@ bool filemgrIsFileInUse(struct savelocation000 *arg0)
 /**
  * item->param is 0 if copying, 1 if deleting.
  */
-s32 filemgrFileToCopyOrDeleteListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data, bool isdelete)
+s32 filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data, bool isdelete)
 {
 	s32 x;
 	s32 y;
@@ -1588,7 +1588,7 @@ s32 filemgrFileToCopyOrDeleteListMenuHandler(u32 operation, struct menuitem *ite
 	return 0;
 }
 
-s32 filemgrFileToDeleteListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrFileToDeleteListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (g_FileLists[g_Menus[g_MpPlayerNum].listnum] == NULL) {
 		return 0;
@@ -1613,7 +1613,7 @@ s32 filemgrFileToDeleteListMenuHandler(u32 operation, struct menuitem *item, uni
 	return filemgrFileToCopyOrDeleteListMenuHandler(operation, item, data, true);
 }
 
-s32 filemgrFileToCopyListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrFileToCopyListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct filelist *list = g_FileLists[0];
 
@@ -1636,7 +1636,7 @@ s32 filemgrFileToCopyListMenuHandler(u32 operation, struct menuitem *item, union
 	return filemgrFileToCopyOrDeleteListMenuHandler(operation, item, data, false);
 }
 
-s32 filemgrCopyOrDeleteListMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 filemgrCopyOrDeleteListMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
 		if (g_Menus[g_MpPlayerNum].data.filemgr.isdeletingforsave == true) {
@@ -1667,7 +1667,7 @@ void filemgrPushDeleteFileDialog(s32 listnum)
 	menuPushDialog(&g_FilemgrDeleteMenuDialog);
 }
 
-s32 pakDeleteGameNoteMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 pakDeleteGameNoteMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		OSPfsState *note = &g_EditingPak->notes[g_Menus[g_MpPlayerNum].data.pak.noteindex];
@@ -1690,7 +1690,7 @@ s32 pakDeleteGameNoteMenuHandler(u32 operation, struct menuitem *item, union han
 	return 0;
 }
 
-s32 pakGameNoteListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	s32 x;
 	s32 y;
@@ -1782,7 +1782,7 @@ s32 pakGameNoteListMenuHandler(u32 operation, struct menuitem *item, union handl
 const char var7f1b34dc[] = "GOT OKed!\n";
 const char var7f1b34e8[] = "Try to find last opened file...\n";
 
-s32 pakGameNotesMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 pakGameNotesMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curframe
@@ -1865,7 +1865,7 @@ char *pakMenuTextEditingPakName(struct menuitem *item)
 	return filemgrGetDeviceName(g_Menus[g_MpPlayerNum].data.pak.device);
 }
 
-s32 pakSelectionMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 pakSelectionMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
 		if (!pakIsConnected((s8)item->param)) {
@@ -1881,7 +1881,7 @@ s32 pakSelectionMenuHandler(u32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-s32 pakChoosePakMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 pakChoosePakMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -1910,7 +1910,7 @@ s32 pakChoosePakMenuDialog(u32 operation, struct menudialog *dialog, union handl
 	return 0;
 }
 
-s32 filemgrOpenCopyFileMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrOpenCopyFileMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_Menus[g_MpPlayerNum].data.filemgr.filetypeplusone = item->param + 1;
@@ -1923,7 +1923,7 @@ s32 filemgrOpenCopyFileMenuHandler(u32 operation, struct menuitem *item, union h
 	return 0;
 }
 
-s32 filemgrOpenDeleteFileMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrOpenDeleteFileMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_Menus[g_MpPlayerNum].data.filemgr.filetypeplusone = item->param + 1;
@@ -1935,7 +1935,7 @@ s32 filemgrOpenDeleteFileMenuHandler(u32 operation, struct menuitem *item, union
 	return 0;
 }
 
-s32 filemgrAgentNameKeyboardMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrAgentNameKeyboardMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	char *name = data->keyboard.string;
 
@@ -1959,7 +1959,7 @@ s32 filemgrAgentNameKeyboardMenuHandler(u32 operation, struct menuitem *item, un
 	return 0;
 }
 
-s32 filemgrChooseAgentListMenuHandler(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	s32 x;
 	s32 y;
@@ -2184,7 +2184,7 @@ s32 filemgrChooseAgentListMenuHandler(u32 operation, struct menuitem *item, unio
 	return 0;
 }
 
-s32 filemgrMainMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 filemgrMainMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	s32 i;
 

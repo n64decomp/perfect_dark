@@ -94,7 +94,7 @@ void func0f17fcb0(s32 silent)
 	}
 }
 
-s32 menuhandlerMpDisplayTeam(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerMpDisplayTeam(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
 		if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
@@ -107,7 +107,7 @@ s32 menuhandlerMpDisplayTeam(u32 operation, struct menuitem *item, union handler
 	return menuhandlerMpCheckboxOption(operation, item, data);
 }
 
-s32 menuhandlerMpOneHitKills(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerMpOneHitKills(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED || operation == MENUOP_CHECKHIDDEN) {
 		if (mpIsFeatureUnlocked(MPFEATURE_ONEHITKILLS)) {
@@ -1500,7 +1500,7 @@ glabel scenarioCtcCallback38
 /*  f181a94:	00000000 */ 	nop
 );
 
-s32 menuhandlerMpHillTime(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerMpHillTime(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GETSLIDER:
@@ -4826,7 +4826,7 @@ glabel scenarioPacRadar2
  * While the options dialog is open, check if another player has changed the
  * scenario to a different one. If so, replace this dialog with the new one.
  */
-s32 mpOptionsMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 mpOptionsMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curframe->dialog != g_MpScenarios[g_MpSetup.scenario].optionsdialog) {

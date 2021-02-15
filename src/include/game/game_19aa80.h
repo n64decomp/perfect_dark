@@ -39,7 +39,7 @@ void mpLoadAndStoreCurrentChallenge(u8 *buffer, s32 len);
 void mpClearCurrentChallenge(void);
 bool mpIsChallengeLoaded(void);
 s32 mpGetAutoFocusedChallengeIndex(s32 mpchrnum);
-char *mpChallengeGetNameWithArg(s32 arg0, s32 challengeindex);
+char *mpChallengeGetNameWithArg(s32 playernum, s32 challengeindex);
 bool mpIsChallengeCompletedByPlayerWithNumPlayers2(s32 mpchrnum, s32 index, s32 numplayers);
 bool mpIsChallengeCompletedByAnyPlayerWithNumPlayers(s32 index, s32 numplayers);
 void mpSetChallengeCompletedByAnyPlayerWithNumPlayers(s32 index, s32 numplayers, bool completed);

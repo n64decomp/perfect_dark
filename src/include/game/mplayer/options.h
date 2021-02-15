@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-s32 menuhandlerMpOpenOptions(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerMpOpenOptions(s32 operation, struct menuitem *item, union handlerdata *data);
 void scenarioCallback40(s32 *arg0);
 void scenarioCallback44(s32 *arg0);
 void scenarioInit(void);

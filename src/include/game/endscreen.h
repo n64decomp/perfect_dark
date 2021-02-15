@@ -3,14 +3,14 @@
 #include <ultra64.h>
 #include "types.h"
 
-s32 menudialogRetryMission(u32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 menudialogSolo2PEndscreenCompleted(u32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 menudialogSolo2PEndscreenFailed(u32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 menuhandlerDeclineMission(u32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandlerEndscreenCheats(u32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandlerContinueMission(u32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandlerReplayLastLevel(u32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandlerReplayPreviousMission(u32 operation, struct menuitem *item, union handlerdata *data);
+s32 menudialogRetryMission(s32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 menudialogSolo2PEndscreenCompleted(s32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 menudialogSolo2PEndscreenFailed(s32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 menuhandlerDeclineMission(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerEndscreenCheats(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerContinueMission(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerReplayLastLevel(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerReplayPreviousMission(s32 operation, struct menuitem *item, union handlerdata *data);
 char *menuDialogTitleRetryStageName(struct menudialog *dialog);
 char *menuDialogTitleNextMissionStageName(struct menudialog *dialog);
 char *soloMenuTextNumKills(struct menuitem *item);

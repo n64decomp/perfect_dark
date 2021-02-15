@@ -409,7 +409,7 @@ glabel cheatMenuHandleCheatCheckbox
 //	return 0;
 //}
 
-s32 cheatMenuHandleBuddyCheckbox(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 cheatMenuHandleBuddyCheckbox(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GET:
@@ -530,7 +530,7 @@ glabel cheatMenuHandleDialog
 
 // Mismatch because it optimises the `end = &ptr[4]` line.
 // It's calculating it as &__scHandleRetrace + 24 rather than ptr + 4.
-//bool cheatMenuHandleDialog(u32 operation, struct menudialog *dialog, struct menu *menu)
+//bool cheatMenuHandleDialog(s32 operation, struct menudialog *dialog, struct menu *menu)
 //{
 //	if (operation == MENUOP_OPEN) {
 //		func0f14a52c();
@@ -658,7 +658,7 @@ char *cheatGetMarquee(struct menuitem *arg0)
 	return langGet(L_MPWEAPONS(142)); // "Select cheat for information"
 }
 
-s32 cheatMenuHandleTurnOffAllCheats(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 cheatMenuHandleTurnOffAllCheats(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_CheatsEnabledBank0 = 0;

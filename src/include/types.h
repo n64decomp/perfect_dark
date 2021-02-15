@@ -3375,8 +3375,8 @@ struct menuitem {
 	s32 param3;
 
 	union {
-		s32 (*handler)(u32 operation, struct menuitem *item, union handlerdata *data);
-		void (*handlervoid)(u32 operation, struct menuitem *item, union handlerdata *data);
+		s32 (*handler)(s32 operation, struct menuitem *item, union handlerdata *data);
+		void (*handlervoid)(s32 operation, struct menuitem *item, union handlerdata *data);
 	};
 };
 
@@ -3384,7 +3384,7 @@ struct menudialog {
 	u8 type;
 	u32 title;
 	struct menuitem *items;
-	s32 (*handler)(u32 operation, struct menudialog *dialog, union handlerdata *data);
+	s32 (*handler)(s32 operation, struct menudialog *dialog, union handlerdata *data);
 	u32 unk10;
 	struct menudialog *nextsibling;
 };

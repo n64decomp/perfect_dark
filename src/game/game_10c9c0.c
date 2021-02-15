@@ -14,7 +14,7 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-s32 menuhandler4MbDropOut(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandler4MbDropOut(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -28,7 +28,7 @@ s32 menuhandler4MbDropOut(u32 operation, struct menuitem *item, union handlerdat
 	return 0;
 }
 
-s32 menuhandler0010ca1c(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandler0010ca1c(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (g_Vars.stagenum == STAGE_4MBMENU) {
@@ -41,7 +41,7 @@ s32 menuhandler0010ca1c(u32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 
-s32 menuhandler4MbAdvancedSetup(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandler4MbAdvancedSetup(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		func0f0f820c(&g_AdvancedSetup4MbMenuDialog, MENUROOT_4MBMAINMENU);
@@ -50,7 +50,7 @@ s32 menuhandler4MbAdvancedSetup(u32 operation, struct menuitem *item, union hand
 	return 0;
 }
 
-s32 menuhandler0010cabc(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandler0010cabc(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		mpSetCurrentChallenge(g_Menus[g_MpPlayerNum].data.main4mb.slotindex);
@@ -90,7 +90,7 @@ void func0f10cb2c(void)
 	g_MpPlayerNum = prevplayernum;
 }
 
-s32 menudialog4MbMainMenu(u32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialog4MbMainMenu(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Vars.unk000494[0] = 0;

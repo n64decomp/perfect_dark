@@ -34,7 +34,7 @@
 #include "lib/main.h"
 #include "types.h"
 
-s32 menuhandlerDeclineMission(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerDeclineMission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -44,7 +44,7 @@ s32 menuhandlerDeclineMission(u32 operation, struct menuitem *item, union handle
 	return 0;
 }
 
-s32 menudialogRetryMission(u32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogRetryMission(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_TICK:
@@ -132,7 +132,7 @@ char *menuDialogTitleNextMissionStageName(struct menudialog *dialog)
 	return g_StringPointer;
 }
 
-s32 menuhandlerReplayPreviousMission(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerReplayPreviousMission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.stageindex--;
@@ -374,7 +374,7 @@ void func0f10d770(void)
 	g_Menus[3].unk844 = func0f09ddec() + func0f0e4fe0();
 }
 
-s32 menuhandlerReplayLastLevel(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerReplayLastLevel(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
@@ -438,7 +438,7 @@ struct menudialog g_2PMissionEndscreenObjectivesCompletedVMenuDialog = {
 /**
  * Displayed after Defense and Skedar Ruins completion screens.
  */
-s32 menuhandlerContinueMission(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerContinueMission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		endscreenHandleContinue(2);
@@ -564,7 +564,7 @@ void endscreenHandleContinue(s32 context)
 	}
 }
 
-s32 menudialogSolo2PEndscreenCompleted(u32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogSolo2PEndscreenCompleted(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Menus[g_MpPlayerNum].data.endscreen.unke1c = 0;
@@ -598,7 +598,7 @@ s32 menudialogSolo2PEndscreenCompleted(u32 operation, struct menudialog *dialog,
 	return 0;
 }
 
-s32 menudialogSolo2PEndscreenFailed(u32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialogSolo2PEndscreenFailed(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
 		g_Menus[g_MpPlayerNum].data.endscreen.unke1c = 0;
@@ -705,7 +705,7 @@ struct menuitem g_MissionEndscreenMenuItems[] = {
  * 5 = timed cheat name
  * 6 = limb shots
  */
-s32 menuhandlerEndscreenCheats(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerEndscreenCheats(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_GETCOLOUR
 			&& ((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x200) || item->param == 5)) {

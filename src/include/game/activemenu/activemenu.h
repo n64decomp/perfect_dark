@@ -4,8 +4,8 @@
 #include "types.h"
 
 void amOpenPickTarget(void);
-s32 menudialog000fcd48(u32 operation, struct menudialog *dialog, union handlerdata *data);
-s32 amPickTargetMenuDialog(u32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 menudialog000fcd48(s32 operation, struct menudialog *dialog, union handlerdata *data);
+s32 amPickTargetMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data);
 void amSetAiBuddyTemperament(bool aggressive);
 void amSetAiBuddyStealth(void);
 s32 amGetFirstBuddyIndex(void);

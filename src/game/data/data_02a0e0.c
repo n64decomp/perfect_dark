@@ -934,7 +934,7 @@ struct menudialog g_MpControlMenuDialog = {
 
 // 2b19c
 struct menuitem g_MpCompletedChallengesMenuItems[] = {
-	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x00000078, 0x0000004d, menuhandler0017a20c },
+	{ MENUITEMTYPE_LIST,        0, 0x00200000, 0x00000078, 0x0000004d, mpChallengesListHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

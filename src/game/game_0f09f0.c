@@ -13509,7 +13509,7 @@ glabel menuhandler000fcc34
 /*  f0fcd44:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-s32 menudialog000fcd48(u32 operation, struct menudialog *dialog, union handlerdata *data)
+s32 menudialog000fcd48(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curframe
@@ -13541,7 +13541,7 @@ glabel func0f0fcdd0
 /*  f0fce04:	00000000 */ 	nop
 );
 
-s32 menuhandlerRepairPak(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerRepairPak(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (pakRepair(g_Menus[g_MpPlayerNum].savedevice)) {
@@ -13724,7 +13724,7 @@ char *menuTextSaveDeviceName(struct menuitem *item)
 	return NULL;
 }
 
-s32 menuhandlerRetrySavePak(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerRetrySavePak(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
@@ -13736,7 +13736,7 @@ s32 menuhandlerRetrySavePak(u32 operation, struct menuitem *item, union handlerd
 	return 0;
 }
 
-s32 menuhandlerWarnRepairPak(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerWarnRepairPak(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPushDialog(&g_PakAttemptRepairMenuDialog);

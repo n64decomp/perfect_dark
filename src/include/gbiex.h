@@ -104,6 +104,8 @@
 	_g->words.w1 =  (rgba);                         \
 }
 
+#define	gDPSetEnvColorViaWord(pkt, rgba) gDPSetColor(pkt, G_SETENVCOLOR, rgba)
+
 /**
  * gDPFillRectangle - a wrapper around gDPFillRectangle which applies
  * g_ScaleX to the X coordinates.

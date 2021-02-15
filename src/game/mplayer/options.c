@@ -42,7 +42,7 @@
 #include "lib/lib_233c0.h"
 #include "types.h"
 
-s32 menuhandlerMpOpenOptions(u32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerMpOpenOptions(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		menuPushDialog(g_MpScenarios[g_MpSetup.scenario].optionsdialog);
