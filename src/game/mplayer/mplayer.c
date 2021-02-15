@@ -36,7 +36,6 @@
 #include "types.h"
 
 const char var7f1b8a00[] = "||||||||||||| Starting game... players %d\n";
-const char var7f1b8a2c[] = "%s %d\n";
 
 /**
  * Converts the given value into a float on a curved scale from 0.1 to 10.
@@ -533,140 +532,93 @@ void func0f187fec(void)
 	g_MpSetup.teamscorelimit = 19;
 }
 
-GLOBAL_ASM(
-glabel func0f18800c
-/*  f18800c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f188010:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f188014:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f188018:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f18801c:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f188020:	00809825 */ 	or	$s3,$a0,$zero
-/*  f188024:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f188028:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f18802c:	0fc61fef */ 	jal	func0f187fbc
-/*  f188030:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f188034:	00137080 */ 	sll	$t6,$s3,0x2
-/*  f188038:	01d37021 */ 	addu	$t6,$t6,$s3
-/*  f18803c:	3c0f800b */ 	lui	$t7,%hi(g_MpPlayers)
-/*  f188040:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_MpPlayers)
-/*  f188044:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f188048:	01cf8021 */ 	addu	$s0,$t6,$t7
-/*  f18804c:	241807ee */ 	addiu	$t8,$zero,0x7ee
-/*  f188050:	24190080 */ 	addiu	$t9,$zero,0x80
-/*  f188054:	a2000044 */ 	sb	$zero,0x44($s0)
-/*  f188058:	a6180048 */ 	sh	$t8,0x48($s0)
-/*  f18805c:	1260000a */ 	beqz	$s3,.L0f188088
-/*  f188060:	a219009d */ 	sb	$t9,0x9d($s0)
-/*  f188064:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f188068:	12610009 */ 	beq	$s3,$at,.L0f188090
-/*  f18806c:	24080011 */ 	addiu	$t0,$zero,0x11
-/*  f188070:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f188074:	12610008 */ 	beq	$s3,$at,.L0f188098
-/*  f188078:	2409000e */ 	addiu	$t1,$zero,0xe
-/*  f18807c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f188080:	12610007 */ 	beq	$s3,$at,.L0f1880a0
-/*  f188084:	240a0014 */ 	addiu	$t2,$zero,0x14
-.L0f188088:
-/*  f188088:	10000006 */ 	b	.L0f1880a4
-/*  f18808c:	a2000010 */ 	sb	$zero,0x10($s0)
-.L0f188090:
-/*  f188090:	10000004 */ 	b	.L0f1880a4
-/*  f188094:	a2080010 */ 	sb	$t0,0x10($s0)
-.L0f188098:
-/*  f188098:	10000002 */ 	b	.L0f1880a4
-/*  f18809c:	a2090010 */ 	sb	$t1,0x10($s0)
-.L0f1880a0:
-/*  f1880a0:	a20a0010 */ 	sb	$t2,0x10($s0)
-.L0f1880a4:
-/*  f1880a4:	0fc62f27 */ 	jal	mpGetMpheadnumByMpbodynum
-/*  f1880a8:	92040010 */ 	lbu	$a0,0x10($s0)
-/*  f1880ac:	240b000c */ 	addiu	$t3,$zero,0xc
-/*  f1880b0:	a202000f */ 	sb	$v0,0xf($s0)
-/*  f1880b4:	ae0b0014 */ 	sw	$t3,0x14($s0)
-/*  f1880b8:	ae00004c */ 	sw	$zero,0x4c($s0)
-/*  f1880bc:	1220000b */ 	beqz	$s1,.L0f1880ec
-/*  f1880c0:	a6000050 */ 	sh	$zero,0x50($s0)
-/*  f1880c4:	0fc5b9f1 */ 	jal	langGet
-/*  f1880c8:	240459b5 */ 	addiu	$a0,$zero,0x59b5
-/*  f1880cc:	3c057f1c */ 	lui	$a1,%hi(var7f1b8a2c)
-/*  f1880d0:	24a58a2c */ 	addiu	$a1,$a1,%lo(var7f1b8a2c)
-/*  f1880d4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1880d8:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1880dc:	0c004dad */ 	jal	sprintf
-/*  f1880e0:	26670001 */ 	addiu	$a3,$s3,0x1
-/*  f1880e4:	10000003 */ 	b	.L0f1880f4
-/*  f1880e8:	240c03e8 */ 	addiu	$t4,$zero,0x3e8
-.L0f1880ec:
-/*  f1880ec:	a2000000 */ 	sb	$zero,0x0($s0)
-/*  f1880f0:	240c03e8 */ 	addiu	$t4,$zero,0x3e8
-.L0f1880f4:
-/*  f1880f4:	2a610004 */ 	slti	$at,$s3,0x4
-/*  f1880f8:	ae000054 */ 	sw	$zero,0x54($s0)
-/*  f1880fc:	ae000058 */ 	sw	$zero,0x58($s0)
-/*  f188100:	ae00005c */ 	sw	$zero,0x5c($s0)
-/*  f188104:	ae000060 */ 	sw	$zero,0x60($s0)
-/*  f188108:	ae000064 */ 	sw	$zero,0x64($s0)
-/*  f18810c:	ae000068 */ 	sw	$zero,0x68($s0)
-/*  f188110:	ae00006c */ 	sw	$zero,0x6c($s0)
-/*  f188114:	ae0c0070 */ 	sw	$t4,0x70($s0)
-/*  f188118:	ae000074 */ 	sw	$zero,0x74($s0)
-/*  f18811c:	ae000078 */ 	sw	$zero,0x78($s0)
-/*  f188120:	ae00007c */ 	sw	$zero,0x7c($s0)
-/*  f188124:	ae000080 */ 	sw	$zero,0x80($s0)
-/*  f188128:	ae000084 */ 	sw	$zero,0x84($s0)
-/*  f18812c:	ae000088 */ 	sw	$zero,0x88($s0)
-/*  f188130:	ae00008c */ 	sw	$zero,0x8c($s0)
-/*  f188134:	ae000090 */ 	sw	$zero,0x90($s0)
-/*  f188138:	10200012 */ 	beqz	$at,.L0f188184
-/*  f18813c:	a2000095 */ 	sb	$zero,0x95($s0)
-/*  f188140:	00008825 */ 	or	$s1,$zero,$zero
-/*  f188144:	2414001e */ 	addiu	$s4,$zero,0x1e
-/*  f188148:	24120005 */ 	addiu	$s2,$zero,0x5
-/*  f18814c:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f188150:
-/*  f188150:	02602025 */ 	or	$a0,$s3,$zero
-.L0f188154:
-/*  f188154:	02202825 */ 	or	$a1,$s1,$zero
-/*  f188158:	02003025 */ 	or	$a2,$s0,$zero
-/*  f18815c:	0fc6712e */ 	jal	mpSetChallengeCompletedByPlayerWithNumPlayers
-/*  f188160:	00003825 */ 	or	$a3,$zero,$zero
-/*  f188164:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f188168:	5612fffa */ 	bnel	$s0,$s2,.L0f188154
-/*  f18816c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f188170:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f188174:	5634fff6 */ 	bnel	$s1,$s4,.L0f188150
-/*  f188178:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f18817c:	0fc66bf7 */ 	jal	mpDetermineUnlockedFeatures
-/*  f188180:	00000000 */ 	nop
-.L0f188184:
-/*  f188184:	00136880 */ 	sll	$t5,$s3,0x2
-/*  f188188:	01b36821 */ 	addu	$t5,$t5,$s3
-/*  f18818c:	3c0e800b */ 	lui	$t6,%hi(g_MpPlayers)
-/*  f188190:	25cec7b8 */ 	addiu	$t6,$t6,%lo(g_MpPlayers)
-/*  f188194:	000d6940 */ 	sll	$t5,$t5,0x5
-/*  f188198:	01ae1021 */ 	addu	$v0,$t5,$t6
-/*  f18819c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f1881a0:	24030006 */ 	addiu	$v1,$zero,0x6
-.L0f1881a4:
-/*  f1881a4:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f1881a8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f1881ac:	1623fffd */ 	bne	$s1,$v1,.L0f1881a4
-/*  f1881b0:	a0400096 */ 	sb	$zero,0x96($v0)
-/*  f1881b4:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f1881b8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1881bc:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f1881c0:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1881c4:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f1881c8:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f1881cc:	03e00008 */ 	jr	$ra
-/*  f1881d0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void mpPlayerSetDefaults(s32 playernum, bool autonames)
+{
+	s32 i;
+	s32 j;
+
+	func0f187fbc(playernum);
+
+	g_MpPlayers[playernum].base.controlmode = CONTROLMODE_11;
+
+	g_MpPlayers[playernum].options = OPTION_LOOKAHEAD
+		| OPTION_SIGHTONSCREEN
+		| OPTION_AUTOAIM
+		| OPTION_AMMOONSCREEN
+		| OPTION_SHOWGUNFUNCTION
+		| OPTION_HEADROLL
+		| OPTION_0100
+		| OPTION_ALWAYSSHOWTARGET
+		| OPTION_SHOWZOOMRANGE;
+
+	g_MpPlayers[playernum].handicap = 128;
+
+	switch (playernum) {
+	case 0:
+	default:
+		g_MpPlayers[playernum].base.mpbodynum = MPBODY_DARK_COMBAT;
+		break;
+	case 1:
+		g_MpPlayers[playernum].base.mpbodynum = MPBODY_CASSANDRA;
+		break;
+	case 2:
+		g_MpPlayers[playernum].base.mpbodynum = MPBODY_CARRINGTON;
+		break;
+	case 3:
+		g_MpPlayers[playernum].base.mpbodynum = MPBODY_CILABTECH;
+		break;
+	}
+
+	g_MpPlayers[playernum].base.mpheadnum = mpGetMpheadnumByMpbodynum(g_MpPlayers[playernum].base.mpbodynum);
+	g_MpPlayers[playernum].base.displayoptions = MPDISPLAYOPTION_RADAR | MPDISPLAYOPTION_HIGHLIGHTTEAMS;
+	g_MpPlayers[playernum].unk4c.unk00 = 0;
+	g_MpPlayers[playernum].unk4c.unk04 = 0;
+
+	if (autonames) {
+		// "Player 1" etc
+		sprintf(g_MpPlayers[playernum].base.name, "%s %d\n", langGet(L_MISC(437)), playernum + 1);
+	} else {
+		g_MpPlayers[playernum].base.name[0] = '\0';
+	}
+
+	g_MpPlayers[playernum].kills = 0;
+	g_MpPlayers[playernum].deaths = 0;
+	g_MpPlayers[playernum].gamesplayed = 0;
+	g_MpPlayers[playernum].gameswon = 0;
+	g_MpPlayers[playernum].gameslost = 0;
+	g_MpPlayers[playernum].time = 0;
+	g_MpPlayers[playernum].distance = 0;
+	g_MpPlayers[playernum].accuracy = 1000;
+	g_MpPlayers[playernum].damagedealt = 0;
+	g_MpPlayers[playernum].painreceived = 0;
+	g_MpPlayers[playernum].headshots = 0;
+	g_MpPlayers[playernum].ammoused = 0;
+	g_MpPlayers[playernum].accuracymedals = 0;
+	g_MpPlayers[playernum].headshotmedals = 0;
+	g_MpPlayers[playernum].killmastermedals = 0;
+	g_MpPlayers[playernum].survivormedals = 0;
+	g_MpPlayers[playernum].title = MPPLAYERTITLE_BEGINNER;
+
+	if (playernum < 4) {
+		for (i = 0; i < 30; i++) {
+			for (j = 1; j <= 4; j++) {
+				mpSetChallengeCompletedByPlayerWithNumPlayers(playernum, i, j, false);
+			}
+		}
+
+		mpDetermineUnlockedFeatures();
+	}
+
+	for (i = 0; i < 6; i++) {
+		g_MpPlayers[playernum].gunfuncs[i] = 0;
+	}
+}
 
 void func0f1881d4(s32 index)
 {
 	g_MpSimulants[index].base.name[0] = '\0';
-	g_MpSimulants[index].base.headnum = 0;
-	g_MpSimulants[index].base.bodynum = 0;
+	g_MpSimulants[index].base.mpheadnum = MPHEAD_DARK_COMBAT;
+	g_MpSimulants[index].base.mpbodynum = MPBODY_DARK_COMBAT;
 	g_MpSimulants[index].base.simtype = SIMTYPE_GENERAL;
 	g_MpSimulants[index].difficulty = SIMDIFF_DISABLED;
 }
@@ -701,7 +653,7 @@ void mpSetDefaultSetup(void)
 	strcpy(g_MpSetup.name, "");
 
 	for (i = 0; i < 6; i++) {
-		func0f18800c(i, false);
+		mpPlayerSetDefaults(i, false);
 	}
 
 	for (i = 0; i < 8; i++) {
@@ -4506,14 +4458,14 @@ s32 mpGetMpbodynumByBodynum(u16 bodynum)
 	return g_MpBodies[0].bodynum;
 }
 
-char *mpGetBodyName(u8 bodynum)
+char *mpGetBodyName(u8 mpbodynum)
 {
 	// Possible @bug: This should probably be >=
-	if (bodynum > NUM_MPBODIES) {
-		bodynum = 0;
+	if (mpbodynum > NUM_MPBODIES) {
+		mpbodynum = 0;
 	}
 
-	return langGet(g_MpBodies[bodynum].name);
+	return langGet(g_MpBodies[mpbodynum].name);
 }
 
 u8 mpGetBodyRequiredFeature(u8 bodynum)

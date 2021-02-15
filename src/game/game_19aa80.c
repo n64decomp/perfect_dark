@@ -1030,8 +1030,8 @@ void mpForceUnlockSimulantFeatures(void)
 		}
 
 		// Force unlock the simulant's body
-		if (g_MpSimulants[i].base.bodynum < ARRAYCOUNT(g_MpBodies)) {
-			s32 featurenum = g_MpBodies[g_MpSimulants[i].base.bodynum].requirefeature;
+		if (g_MpSimulants[i].base.mpbodynum < ARRAYCOUNT(g_MpBodies)) {
+			s32 featurenum = g_MpBodies[g_MpSimulants[i].base.mpbodynum].requirefeature;
 
 			if (featurenum) {
 				index = mpForceUnlockFeature(featurenum, g_MpFeaturesForceUnlocked, index, ARRAYCOUNT(g_MpFeaturesForceUnlocked));
@@ -1039,8 +1039,8 @@ void mpForceUnlockSimulantFeatures(void)
 		}
 
 		// Force unlock the simulant's head
-		if (g_MpSimulants[i].base.headnum < ARRAYCOUNT(g_MpHeads)) {
-			s32 featurenum = g_MpHeads[g_MpSimulants[i].base.headnum].requirefeature;
+		if (g_MpSimulants[i].base.mpheadnum < ARRAYCOUNT(g_MpHeads)) {
+			s32 featurenum = g_MpHeads[g_MpSimulants[i].base.mpheadnum].requirefeature;
 
 			if (featurenum) {
 				index = mpForceUnlockFeature(featurenum, g_MpFeaturesForceUnlocked, index, ARRAYCOUNT(g_MpFeaturesForceUnlocked));

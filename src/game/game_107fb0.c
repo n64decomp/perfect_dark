@@ -787,7 +787,7 @@ void filemgrDeleteCurrentFile(void)
 		for (i = 0; i < 4; i++) {
 			if (g_FilemgrFileToDelete.unk00 == g_MpPlayers[i].unk4c.unk00
 					&& g_FilemgrFileToDelete.unk04 == g_MpPlayers[i].unk4c.unk04) {
-				func0f18800c(i, true);
+				mpPlayerSetDefaults(i, true);
 			}
 		}
 	}

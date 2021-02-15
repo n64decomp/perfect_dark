@@ -883,10 +883,10 @@ struct menudialog g_MpQuickTeamWeaponsMenuDialog = {
 
 // 2afa0
 struct menuitem g_MpPlayerOptionsMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(168), 0x00000002, menuhandlerMpDisplayOptionCheckbox }, // "Highlight Pickups"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(169), 0x00000001, menuhandlerMpDisplayOptionCheckbox }, // "Highlight Players"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(170), 0x00000008, menuhandlerMpDisplayOptionCheckbox }, // "Highlight Teams"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(171), 0x00000004, menuhandlerMpDisplayOptionCheckbox }, // "Radar"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(168), MPDISPLAYOPTION_HIGHLIGHTPICKUPS, menuhandlerMpDisplayOptionCheckbox }, // "Highlight Pickups"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(169), MPDISPLAYOPTION_HIGHLIGHTPLAYERS, menuhandlerMpDisplayOptionCheckbox }, // "Highlight Players"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(170), MPDISPLAYOPTION_HIGHLIGHTTEAMS,   menuhandlerMpDisplayOptionCheckbox }, // "Highlight Teams"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(171), MPDISPLAYOPTION_RADAR,            menuhandlerMpDisplayOptionCheckbox }, // "Radar"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(172), 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -904,22 +904,22 @@ struct menudialog g_MpPlayerOptionsMenuDialog = {
 
 // 2b044
 struct menuitem g_MpControlMenuItems[] = {
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MPMENU(200), 0x00000000, menuhandlerMpControlStyle }, // "Control Style"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(201), 0x00000001, menuhandlerMpControlCheckbox }, // "Reverse Pitch"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(202), 0x00000002, menuhandlerMpControlCheckbox }, // "Look Ahead"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(203), 0x00000080, menuhandlerMpControlCheckbox }, // "Head Roll"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(204), 0x00000008, menuhandlerMpControlCheckbox }, // "Auto-Aim"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MPMENU(205), 0x00000000, menuhandlerMpAimControl }, // "Aim Control"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(206), 0x00000004, menuhandlerMpControlCheckbox }, // "Sight on Screen"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(207), L_AME(0), menuhandlerMpControlCheckbox }, // "Show Target"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(208), L_ARCH(0), menuhandlerMpControlCheckbox }, // "Show Zoom Range"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(209), 0x00000020, menuhandlerMpControlCheckbox }, // "Ammo on Screen"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(210), 0x00000040, menuhandlerMpControlCheckbox }, // "Gun Function"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(211), L_ASH(0), menuhandlerMpControlCheckbox }, // "Paintball"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(212), 0x00000000, NULL }, // "Back"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MPMENU(200), 0x00000000,              menuhandlerMpControlStyle }, // "Control Style"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(201), OPTION_FORWARDPITCH,     menuhandlerMpControlCheckbox }, // "Reverse Pitch"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(202), OPTION_LOOKAHEAD,        menuhandlerMpControlCheckbox }, // "Look Ahead"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(203), OPTION_HEADROLL,         menuhandlerMpControlCheckbox }, // "Head Roll"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(204), OPTION_AUTOAIM,          menuhandlerMpControlCheckbox }, // "Auto-Aim"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MPMENU(205), 0x00000000,              menuhandlerMpAimControl }, // "Aim Control"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000,    0x00000000,              NULL },
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(206), OPTION_SIGHTONSCREEN,    menuhandlerMpControlCheckbox }, // "Sight on Screen"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(207), OPTION_ALWAYSSHOWTARGET, menuhandlerMpControlCheckbox }, // "Show Target"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(208), OPTION_SHOWZOOMRANGE,    menuhandlerMpControlCheckbox }, // "Show Zoom Range"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(209), OPTION_AMMOONSCREEN,     menuhandlerMpControlCheckbox }, // "Ammo on Screen"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(210), OPTION_SHOWGUNFUNCTION,  menuhandlerMpControlCheckbox }, // "Gun Function"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPMENU(211), OPTION_PAINTBALL,        menuhandlerMpControlCheckbox }, // "Paintball"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000,    0x00000000,              NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(212), 0x00000000,              NULL }, // "Back"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000,    0x00000000,              NULL },
 };
 
 // 2b184

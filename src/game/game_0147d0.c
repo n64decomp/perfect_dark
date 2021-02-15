@@ -62,8 +62,8 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 
 	rooms[0] = -1;
 
-	headnum = mpGetHeadId(g_MpSimulants[aibotnum].base.headnum);
-	bodynum = mpGetBodyId(g_MpSimulants[aibotnum].base.bodynum);
+	headnum = mpGetHeadId(g_MpSimulants[aibotnum].base.mpheadnum);
+	bodynum = mpGetBodyId(g_MpSimulants[aibotnum].base.mpbodynum);
 
 	if (IS4MB()) {
 		headnum = HEAD_DDSHOCK;

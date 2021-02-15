@@ -825,24 +825,24 @@ s32 menuhandlerMpCharacterBody(u32 operation, struct menuitem *item, union handl
 {
 	switch (operation) {
 	case MENUOP_SET:
-		if (g_MpPlayers[g_MpPlayerNum].base.headnum < mpGetNumHeads()) {
+		if (g_MpPlayers[g_MpPlayerNum].base.mpheadnum < mpGetNumHeads()) {
 			if (!data->carousel.unk04) {
-				g_MpPlayers[g_MpPlayerNum].base.headnum = mpGetMpheadnumByMpbodynum(data->carousel.value);
+				g_MpPlayers[g_MpPlayerNum].base.mpheadnum = mpGetMpheadnumByMpbodynum(data->carousel.value);
 			}
 		}
-		g_MpPlayers[g_MpPlayerNum].base.bodynum = data->carousel.value;
+		g_MpPlayers[g_MpPlayerNum].base.mpbodynum = data->carousel.value;
 		func0f17b8f0();
 		break;
 	case MENUOP_CHECKPREFOCUSED:
 		func0f179da4(operation, item, data,
-				g_MpPlayers[g_MpPlayerNum].base.bodynum,
-				g_MpPlayers[g_MpPlayerNum].base.headnum, 1);
+				g_MpPlayers[g_MpPlayerNum].base.mpbodynum,
+				g_MpPlayers[g_MpPlayerNum].base.mpheadnum, 1);
 		return true;
 	}
 
 	return func0f179da4(operation, item, data,
-			g_MpPlayers[g_MpPlayerNum].base.bodynum,
-			g_MpPlayers[g_MpPlayerNum].base.headnum, 1);
+			g_MpPlayers[g_MpPlayerNum].base.mpbodynum,
+			g_MpPlayers[g_MpPlayerNum].base.mpheadnum, 1);
 }
 
 s32 menudialog0017a174(u32 operation, struct menudialog *dialog, union handlerdata *data)
@@ -2297,15 +2297,15 @@ glabel var7f1b814c
 s32 menuhandlerMpCharacterHead(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		g_MpPlayers[g_MpPlayerNum].base.headnum = data->carousel.value;
+		g_MpPlayers[g_MpPlayerNum].base.mpheadnum = data->carousel.value;
 	}
 
-	return func0f17b4f8(operation, item, data, g_MpPlayers[g_MpPlayerNum].base.headnum, 1);
+	return func0f17b4f8(operation, item, data, g_MpPlayers[g_MpPlayerNum].base.mpheadnum, 1);
 }
 
 char *mpMenuTextBodyName(struct menuitem *item)
 {
-	return mpGetBodyName(g_MpPlayers[g_MpPlayerNum].base.bodynum);
+	return mpGetBodyName(g_MpPlayers[g_MpPlayerNum].base.mpbodynum);
 }
 
 void func0f17b8f0(void)
@@ -2897,7 +2897,7 @@ glabel var7f1b81a8
 /*  f17c0c0:	01d8c824 */ 	and	$t9,$t6,$t8
 /*  f17c0c4:	17200005 */ 	bnez	$t9,.L0f17c0dc
 /*  f17c0c8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f17c0cc:	0fc62003 */ 	jal	func0f18800c
+/*  f17c0cc:	0fc62003 */ 	jal	mpPlayerSetDefaults
 /*  f17c0d0:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f17c0d4:	10000003 */ 	b	.L0f17c0e4
 /*  f17c0d8:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -3426,28 +3426,28 @@ s32 menuhandlerMpSimulantHead(u32 operation, struct menuitem *item, union handle
 	 */
 	switch (operation) {
 	case MENUOP_SET:
-		g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.headnum = start + data->carousel.value;
+		g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.mpheadnum = start + data->carousel.value;
 	case MENUOP_FOCUS:
 		if (operation == MENUOP_FOCUS
 				&& item->param2 == 1
-				&& g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.headnum < start) {
-			g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.headnum = start;
+				&& g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.mpheadnum < start) {
+			g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.mpheadnum = start;
 		}
 		break;
 	}
 
-	return func0f17b4f8(operation, item, data, g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.headnum, 0);
+	return func0f17b4f8(operation, item, data, g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.mpheadnum, 0);
 }
 
 s32 menuhandlerMpSimulantBody(u32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.bodynum = data->carousel.value;
+		g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.mpbodynum = data->carousel.value;
 	}
 
 	return func0f179da4(operation, item, data,
-			g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.bodynum,
-			g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.headnum,
+			g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.mpbodynum,
+			g_MpSimulants[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].base.mpheadnum,
 			0);
 }
 

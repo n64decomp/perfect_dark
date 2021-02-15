@@ -75,7 +75,7 @@ void func0f10cb2c(void)
 		g_FileState = FILESTATE_SELECTED;
 
 		for (i = 0; i != 6; i++) {
-			func0f18800c(i, true);
+			mpPlayerSetDefaults(i, true);
 		}
 
 		g_Vars.bondplayernum = 0;
