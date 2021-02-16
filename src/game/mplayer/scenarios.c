@@ -4266,7 +4266,7 @@ glabel func0f1845bc
 /*  f1846c0:	2529c500 */ 	addiu	$t1,$t1,%lo(var800ac500)
 /*  f1846c4:	00144080 */ 	sll	$t0,$s4,0x2
 /*  f1846c8:	01098021 */ 	addu	$s0,$t0,$t1
-/*  f1846cc:	0fc619e0 */ 	jal	func0f186780
+/*  f1846cc:	0fc619e0 */ 	jal	mpChrsAreSameTeam
 /*  f1846d0:	02202825 */ 	or	$a1,$s1,$zero
 /*  f1846d4:	10400009 */ 	beqz	$v0,.L0f1846fc
 /*  f1846d8:	00000000 */ 	nop
@@ -4355,7 +4355,7 @@ glabel func0f1847b8
 /*  f1847f8:	3c01800b */ 	lui	$at,%hi(g_ScenarioData+0x2)
 /*  f1847fc:	04800026 */ 	bltz	$a0,.L0f184898
 /*  f184800:	00000000 */ 	nop
-/*  f184804:	0fc619e0 */ 	jal	func0f186780
+/*  f184804:	0fc619e0 */ 	jal	mpChrsAreSameTeam
 /*  f184808:	00000000 */ 	nop
 /*  f18480c:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
 /*  f184810:	1040000d */ 	beqz	$v0,.L0f184848

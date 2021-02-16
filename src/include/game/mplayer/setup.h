@@ -110,7 +110,7 @@ bool func0f185e20(struct prop *prop, s32 *arg1);
 void mpPrepareScenario(void);
 u32 func0f186508(void);
 void mpCreateScenarioHudmsg(s32 playernum, char *message);
-u32 func0f186780(void);
+bool mpChrsAreSameTeam(s32 arg0, s32 arg1);
 u32 chrGiveBriefcase(struct chrdata *chr, struct prop *prop);
 void func0f187288(struct chrdata *chr, struct prop *prop);
 bool chrGiveUplink(struct chrdata *chr, struct prop *prop);
