@@ -7244,7 +7244,7 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 	s32 x;
 	s32 y;
 	u32 maincolour;
-	s32 playernum = var8009deb0[g_MpPlayerNum];
+	s32 playernum = g_MpSelectedPlayersForStats[g_MpPlayerNum];
 	struct mpchr *mpchr;
 	u32 selectioncolour;
 	s32 textheight;
@@ -7487,7 +7487,7 @@ Gfx *menuRenderOverlayPlayerStats(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct
 void menuInitItemPlayerStats(struct menuitem *item, union menuitemdata *data)
 {
 	data->dropdown.scrolloffset = 0;
-	var8009deb0[g_MpPlayerNum] = g_MpPlayerNum;
+	g_MpSelectedPlayersForStats[g_MpPlayerNum] = g_MpPlayerNum;
 
 	menuInitItemDropdown(item, data);
 }

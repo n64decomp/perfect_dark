@@ -527,7 +527,7 @@ struct menuitem g_MpInGamePlayerStatsMenuItems[] = {
 // 2a858
 struct menudialog g_MpPausePlayerStatsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f1783a0,
+	(u32)&mpMenuTitleStatsFor,
 	g_MpInGamePlayerStatsMenuItems,
 	NULL,
 	0x00000000,
@@ -537,7 +537,7 @@ struct menudialog g_MpPausePlayerStatsMenuDialog = {
 // 2a870
 struct menudialog g_MpEndscreenPlayerStatsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f1783a0,
+	(u32)&mpMenuTitleStatsFor,
 	g_MpInGamePlayerStatsMenuItems,
 	NULL,
 	0x00000000,
