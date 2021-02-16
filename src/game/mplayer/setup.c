@@ -4607,128 +4607,29 @@ s32 menuhandlerQuickTeamSeparator(s32 operation, struct menuitem *item, union ha
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerPlayerTeam
-.late_rodata
-glabel var7f1b82b4
-.word menuhandlerPlayerTeam+0x24 # f17f520
-glabel var7f1b82b8
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82bc
-.word menuhandlerPlayerTeam+0x30 # f17f52c
-glabel var7f1b82c0
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82c4
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82c8
-.word menuhandlerPlayerTeam+0x50 # f17f54c
-glabel var7f1b82cc
-.word menuhandlerPlayerTeam+0x68 # f17f564
-glabel var7f1b82d0
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82d4
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82d8
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82dc
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82e0
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82e4
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82e8
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82ec
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82f0
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82f4
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82f8
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b82fc
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b8300
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b8304
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b8308
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b830c
-.word menuhandlerPlayerTeam+0x9c # f17f598
-glabel var7f1b8310
-.word menuhandlerPlayerTeam+0x80 # f17f57c
-.text
-/*  f17f4fc:	248effff */ 	addiu	$t6,$a0,-1
-/*  f17f500:	2dc10018 */ 	sltiu	$at,$t6,0x18
-/*  f17f504:	10200024 */ 	beqz	$at,.L0f17f598
-/*  f17f508:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f17f50c:	3c017f1c */ 	lui	$at,%hi(var7f1b82b4)
-/*  f17f510:	002e0821 */ 	addu	$at,$at,$t6
-/*  f17f514:	8c2e82b4 */ 	lw	$t6,%lo(var7f1b82b4)($at)
-/*  f17f518:	01c00008 */ 	jr	$t6
-/*  f17f51c:	00000000 */ 	nop
-/*  f17f520:	240f0008 */ 	addiu	$t7,$zero,0x8
-/*  f17f524:	1000001c */ 	b	.L0f17f598
-/*  f17f528:	accf0000 */ 	sw	$t7,0x0($a2)
-/*  f17f52c:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*  f17f530:	3c08800b */ 	lui	$t0,%hi(g_MpSetup+0x28)
-/*  f17f534:	2508cbb0 */ 	addiu	$t0,$t0,%lo(g_MpSetup+0x28)
-/*  f17f538:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f17f53c:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f17f540:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f17f544:	03e00008 */ 	jr	$ra
-/*  f17f548:	03281021 */ 	addu	$v0,$t9,$t0
-/*  f17f54c:	90aa0001 */ 	lbu	$t2,0x1($a1)
-/*  f17f550:	8cc90000 */ 	lw	$t1,0x0($a2)
-/*  f17f554:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4ac)
-/*  f17f558:	002a0821 */ 	addu	$at,$at,$t2
-/*  f17f55c:	1000000e */ 	b	.L0f17f598
-/*  f17f560:	a029a46c */ 	sb	$t1,%lo(g_Vars+0x4ac)($at)
-/*  f17f564:	90ab0001 */ 	lbu	$t3,0x1($a1)
-/*  f17f568:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x4ac)
-/*  f17f56c:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f17f570:	818ca46c */ 	lb	$t4,%lo(g_Vars+0x4ac)($t4)
-/*  f17f574:	10000008 */ 	b	.L0f17f598
-/*  f17f578:	accc0000 */ 	sw	$t4,0x0($a2)
-/*  f17f57c:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x4b0)
-/*  f17f580:	8dada470 */ 	lw	$t5,%lo(g_Vars+0x4b0)($t5)
-/*  f17f584:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f17f588:	51a10004 */ 	beql	$t5,$at,.L0f17f59c
-/*  f17f58c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17f590:	03e00008 */ 	jr	$ra
-/*  f17f594:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f17f598:
-/*  f17f598:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17f59c:
-/*  f17f59c:	03e00008 */ 	jr	$ra
-/*  f17f5a0:	00000000 */ 	nop
-);
+s32 menuhandlerPlayerTeam(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		data->dropdown.value = 8;
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return (s32) &g_MpSetupSaveFile.teamnames[data->dropdown.value];
+	case MENUOP_SET:
+		g_Vars.mpplayerteams[item->param] = data->dropdown.value;
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		data->dropdown.value = g_Vars.mpplayerteams[item->param];
+		break;
+	case MENUOP_CHECKHIDDEN:
+		if (g_Vars.mpquickteam != MPQUICKTEAM_PLAYERSTEAMS) {
+			return true;
+		}
+		break;
+	}
 
-// Mismatch because it calculates the address of g_MpSetup.teamnames differently
-//s32 menuhandlerPlayerTeam(s32 operation, struct menuitem *item, s32 *value)
-//{
-//	switch (operation) {
-//	case MENUOP_GETOPTIONCOUNT:
-//		*value = 8;
-//		break;
-//	case MENUOP_GETOPTIONTEXT:
-//		return (u32)&g_MpSetup.teamnames[*value];
-//	case MENUOP_SET:
-//		g_Vars.mpplayerteams[item->param] = *value;
-//		break;
-//	case MENUOP_GETOPTIONVALUE:
-//		*value = g_Vars.mpplayerteams[item->param];
-//		break;
-//	case MENUOP_CHECKHIDDEN:
-//		if (g_Vars.mpquickteam != MPQUICKTEAM_PLAYERSTEAMS) {
-//			return true;
-//		}
-//		break;
-//	}
-//
-//	return 0;
-//}
+	return 0;
+}
 
 s32 menuhandlerMpNumberOfSimulants(s32 operation, struct menuitem *item, union handlerdata *data)
 {
