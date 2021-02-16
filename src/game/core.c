@@ -330,8 +330,8 @@ void coreLoadStage(s32 stagenum)
 
 		if (g_Vars.mplayerisrunning == false) {
 			g_Vars.playerstats[0].mpindex = 4;
-			g_MpPlayers[4].base.unk45 = 0;
-			g_MpPlayers[4].base.unk46 = 1;
+			g_MpPlayers[4].base.contpad1 = 0;
+			g_MpPlayers[4].base.contpad2 = 1;
 		}
 
 		for (i = 0; i != ARRAYCOUNT(g_Vars.playerstats); i++) {

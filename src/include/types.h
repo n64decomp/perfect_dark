@@ -3478,7 +3478,13 @@ struct playerstats {
 	/*0x64*/ u32 unk64;
 	/*0x68*/ u32 cloaktime;
 	/*0x6c*/ u32 speedpillcount;
+
+	// Temporary hack
+	union {
 	/*0x70*/ s32 mpindex;
+	/*0x70*/ u32 mpindexu32;
+	};
+
 	/*0x74*/ f32 scale_bg2gfx;
 	/*0x78*/ f32 damreceived;
 	/*0x7c*/ f32 damtransmitted;
@@ -4411,8 +4417,8 @@ struct mpchr {
 	/*0x3e*/ s16 unk3e;
 	/*0x40*/ u32 unk40;
 	/*0x44*/ u8 controlmode;
-	/*0x45*/ s8 unk45; // controller index?
-	/*0x46*/ s8 unk46;
+	/*0x45*/ s8 contpad1;
+	/*0x46*/ s8 contpad2;
 	/*0x47*/ u8 simtype;
 };
 

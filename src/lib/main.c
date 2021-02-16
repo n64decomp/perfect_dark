@@ -1004,9 +1004,9 @@ void mainLoop(void)
 
 		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 			g_MpSetup.chrslots = 0x03;
-			func0f187944();
+			mpInit();
 		} else if (g_Vars.perfectbuddynum) {
-			func0f187944();
+			mpInit();
 		} else if (g_Vars.mplayerisrunning == false
 				&& (numplayers >= 2 || g_Vars.lvmpbotlevel || argFindByPrefix(1, "-play"))) {
 			g_MpSetup.chrslots = 1;
@@ -1024,7 +1024,7 @@ void mainLoop(void)
 			}
 
 			g_MpSetup.stagenum = g_StageNum;
-			func0f187944();
+			mpInit();
 		}
 
 		gfxInitMemory();

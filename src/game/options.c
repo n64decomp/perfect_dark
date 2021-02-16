@@ -24,12 +24,12 @@ void optionsSetControlMode(s32 mpchrnum, s32 mode)
 
 s32 optionsGetContpadNum1(s32 mpchrnum)
 {
-	return g_MpPlayers[mpchrnum].base.unk45;
+	return g_MpPlayers[mpchrnum].base.contpad1;
 }
 
 s32 optionsGetContpadNum2(s32 mpchrnum)
 {
-	return g_MpPlayers[mpchrnum].base.unk46;
+	return g_MpPlayers[mpchrnum].base.contpad2;
 }
 
 s32 optionsGetForwardPitch(s32 mpchrnum)

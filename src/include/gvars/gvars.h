@@ -78,8 +78,8 @@ struct g_vars {
 	/*000308*/ u32 unk000308;
 	/*00030c*/ u32 unk00030c;
 	/*000310*/ u32 unk000310;
-	/*000314*/ bool mplayerisrunning;     // combat sim with any number of players, coop with human buddy, and counter-op
-	/*000318*/ bool normmplayerisrunning; // combat sim with any number of players
+	/*000314*/ u32 mplayerisrunning;     // combat sim with any number of players, coop with human buddy, and counter-op
+	/*000318*/ u32 normmplayerisrunning; // combat sim with any number of players
 	/*00031c*/ s32 lvmpbotlevel;
 	/*000320*/ s32 lockscreen;
 	/*000324*/ bool bondvisible;
@@ -121,7 +121,7 @@ struct g_vars {
 	/*000464*/ u32 speedpillwant;
 	/*000468*/ bool speedpillon;
 	/*00046c*/ s32 restartlevel;
-	/*000470*/ u32 perfectbuddynum;
+	/*000470*/ s32 perfectbuddynum;
 	/*000474*/ s32 numaibuddies;
 	/*000478*/ u32 unk000478;
 	/*00047c*/ u32 unk00047c;
