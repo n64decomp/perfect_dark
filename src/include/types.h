@@ -4404,7 +4404,7 @@ struct mpchr {
 	/*0x18*/ u16 unk18;
 	/*0x1a*/ u16 unk1a;
 	/*0x1c*/ u16 unk1c;
-	/*0x1e*/ s8 placement;
+	/*0x1e*/ s8 placement; // 0 = winner, 1 = second place etc
 	/*0x20*/ u32 unk20;
 	/*0x24*/ s16 killcounts[12]; // per player - each index is a chrslot
 	/*0x3c*/ s16 numdeaths;
