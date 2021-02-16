@@ -1694,7 +1694,7 @@ struct menuitem g_MpQuickTeamGameSetupMenuItems[] = {
 	{ MENUITEMTYPE_DROPDOWN,    3, 0x00000000, L_MISC(452), 0x00000000, menuhandlerPlayerTeam }, // "Player 4 Team"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MISC(453), 0x00000000, menuhandlerMpNumberOfSimulants }, // "Number Of Simulants"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MISC(454), 0x00000000, menuhandlerMpSimulantsPerTeam }, // "Simulants Per Team"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MISC(455), 0x00000000, menuhandler0017f74c }, // "Simulant Difficulty"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MISC(455), 0x00000000, mpQuickTeamSimulantDifficultyHandler }, // "Simulant Difficulty"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MISC(448), 0x00000000, menuhandlerMpFinishedSetup }, // "Finished Setup"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },

@@ -63,7 +63,7 @@ void gvarsInit(void)
 	g_Vars.unk00049c = 0;
 	g_Vars.unk0004a0 = 1;
 	g_Vars.mpquickteamnumsims = 1;
-	g_Vars.unk0004a8 = 2;
+	g_Vars.mpsimdifficulty = SIMDIFF_NORMAL;
 	g_Vars.mpplayerteams[0] = 0;
 	g_Vars.mpplayerteams[1] = 1;
 	g_Vars.mpplayerteams[2] = 2;

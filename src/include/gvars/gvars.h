@@ -141,7 +141,7 @@ struct g_vars {
 	/*00049c*/ s32 unk00049c;
 	/*0004a0*/ s32 unk0004a0;
 	/*0004a4*/ s32 mpquickteamnumsims;
-	/*0004a8*/ s32 unk0004a8;
+	/*0004a8*/ s32 mpsimdifficulty;
 	/*0004ac*/ s8 mpplayerteams[4];
 	/*0004b0*/ u32 mpquickteam;
 	/*0004b4*/ s32 stagenum;

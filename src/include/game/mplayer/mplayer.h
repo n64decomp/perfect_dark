@@ -83,7 +83,7 @@ struct mpchr *func0f18c794(s32 index);
 u32 func0f18c828(void);
 s32 mpGetNumChrs(void);
 u32 func0f18c8b8(void);
-void func0f18c984(s32 arg0, u8 arg1);
+void func0f18c984(s32 numsims, u8 difficulty);
 u32 func0f18cb60(void);
 s32 mpGetNumSimulants(void);
 void mpRemoveSimulant(s32 index);

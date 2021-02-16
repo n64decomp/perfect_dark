@@ -68,7 +68,7 @@ void func0f17f428(void);
 s32 menuhandlerPlayerTeam(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpNumberOfSimulants(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpSimulantsPerTeam(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandler0017f74c(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 mpQuickTeamSimulantDifficultyHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 u32 func0f17fa28(void);
 void func0f17fcb0(s32 silent);
 s32 menuhandlerMpSlowMotion(s32 operation, struct menuitem *item, union handlerdata *data);
