@@ -179,7 +179,6 @@
 	build/ROMID/game/mplayer/ingame.o (section); \
 	build/ROMID/game/mplayer/setup.o (section); \
 	build/ROMID/game/mplayer/scenarios.o (section); \
-	build/ROMID/game/mplayer/options.o (section); \
 	build/ROMID/game/mplayer/mplayer.o (section); \
 	build/ROMID/game/data/data_02da90.o (section); \
 	build/ROMID/game/radar.o (section); \

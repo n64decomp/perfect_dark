@@ -103,7 +103,7 @@ s32 mpOptionsMenuDialog(s32 operation, struct menudialog *dialog, union handlerd
 char *mpMenuTextScenarioShortName(struct menuitem *item);
 char *mpMenuTextScenarioName(struct menuitem *item);
 s32 menuhandler00185068(s32 operation, struct menuitem *item, union handlerdata *data);
-void func0f185568(void);
+void mpCreateMatchStartHudmsgs(void);
 Gfx *func0f185774(Gfx *gdl);
 u32 func0f185c14(void);
 bool func0f185e20(struct prop *prop, s32 *arg1);
