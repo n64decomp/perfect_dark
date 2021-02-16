@@ -28,7 +28,7 @@ struct mpweapon *func0f188e24(s32 arg0);
 s32 mpCountWeaponSetThing(s32 weaponsetindex);
 s32 func0f188f9c(s32 arg0);
 s32 func0f189058(s32 arg0);
-u32 func0f189088(void);
+s32 func0f189088(void);
 char *mpGetWeaponSetName(s32 arg0);
 u32 func0f18913c(void);
 u32 func0f1892dc(void);

@@ -1372,17 +1372,10 @@ s32 func0f189058(s32 arg0)
 	return mpCountWeaponSetThing(arg0 ? 15 : 12);
 }
 
-GLOBAL_ASM(
-glabel func0f189088
-/*  f189088:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18908c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f189090:	0fc623b5 */ 	jal	mpCountWeaponSetThing
-/*  f189094:	2404000e */ 	addiu	$a0,$zero,0xe
-/*  f189098:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18909c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1890a0:	03e00008 */ 	jr	$ra
-/*  f1890a4:	00000000 */ 	nop
-);
+s32 func0f189088(void)
+{
+	return mpCountWeaponSetThing(14);
+}
 
 char *mpGetWeaponSetName(s32 index)
 {
