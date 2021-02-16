@@ -582,85 +582,16 @@ glabel menuhandler001786d8
 /*  f178a90:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-GLOBAL_ASM(
-glabel menuhandler00178a94
-/*  f178a94:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f178a98:	24010016 */ 	addiu	$at,$zero,0x16
-/*  f178a9c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f178aa0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f178aa4:	1481003d */ 	bne	$a0,$at,.L0f178b9c
-/*  f178aa8:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f178aac:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f178ab0:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f178ab4:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers)
-/*  f178ab8:	2718c7b8 */ 	addiu	$t8,$t8,%lo(g_MpPlayers)
-/*  f178abc:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f178ac0:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f178ac4:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f178ac8:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f178acc:	90590095 */ 	lbu	$t9,0x95($v0)
-/*  f178ad0:	90480096 */ 	lbu	$t0,0x96($v0)
-/*  f178ad4:	3c014220 */ 	lui	$at,0x4220
-/*  f178ad8:	53280031 */ 	beql	$t9,$t0,.L0f178ba0
-/*  f178adc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f178ae0:	44816000 */ 	mtc1	$at,$f12
-/*  f178ae4:	0fc01ac2 */ 	jal	func0f006b08
-/*  f178ae8:	00000000 */ 	nop
-/*  f178aec:	3c01437f */ 	lui	$at,0x437f
-/*  f178af0:	44812000 */ 	mtc1	$at,$f4
-/*  f178af4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f178af8:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*  f178afc:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f178b00:	3c05ffff */ 	lui	$a1,0xffff
-/*  f178b04:	34a500ff */ 	ori	$a1,$a1,0xff
-/*  f178b08:	3c014f00 */ 	lui	$at,0x4f00
-/*  f178b0c:	8d240004 */ 	lw	$a0,0x4($t1)
-/*  f178b10:	444af800 */ 	cfc1	$t2,$31
-/*  f178b14:	44c6f800 */ 	ctc1	$a2,$31
-/*  f178b18:	00000000 */ 	nop
-/*  f178b1c:	46003224 */ 	cvt.w.s	$f8,$f6
-/*  f178b20:	4446f800 */ 	cfc1	$a2,$31
-/*  f178b24:	00000000 */ 	nop
-/*  f178b28:	30c60078 */ 	andi	$a2,$a2,0x78
-/*  f178b2c:	50c00013 */ 	beqzl	$a2,.L0f178b7c
-/*  f178b30:	44064000 */ 	mfc1	$a2,$f8
-/*  f178b34:	44814000 */ 	mtc1	$at,$f8
-/*  f178b38:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f178b3c:	46083201 */ 	sub.s	$f8,$f6,$f8
-/*  f178b40:	44c6f800 */ 	ctc1	$a2,$31
-/*  f178b44:	00000000 */ 	nop
-/*  f178b48:	46004224 */ 	cvt.w.s	$f8,$f8
-/*  f178b4c:	4446f800 */ 	cfc1	$a2,$31
-/*  f178b50:	00000000 */ 	nop
-/*  f178b54:	30c60078 */ 	andi	$a2,$a2,0x78
-/*  f178b58:	14c00005 */ 	bnez	$a2,.L0f178b70
-/*  f178b5c:	00000000 */ 	nop
-/*  f178b60:	44064000 */ 	mfc1	$a2,$f8
-/*  f178b64:	3c018000 */ 	lui	$at,0x8000
-/*  f178b68:	10000007 */ 	b	.L0f178b88
-/*  f178b6c:	00c13025 */ 	or	$a2,$a2,$at
-.L0f178b70:
-/*  f178b70:	10000005 */ 	b	.L0f178b88
-/*  f178b74:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f178b78:	44064000 */ 	mfc1	$a2,$f8
-.L0f178b7c:
-/*  f178b7c:	00000000 */ 	nop
-/*  f178b80:	04c0fffb */ 	bltz	$a2,.L0f178b70
-/*  f178b84:	00000000 */ 	nop
-.L0f178b88:
-/*  f178b88:	44caf800 */ 	ctc1	$t2,$31
-/*  f178b8c:	0fc01a40 */ 	jal	colourBlend
-/*  f178b90:	00000000 */ 	nop
-/*  f178b94:	8fab0020 */ 	lw	$t3,0x20($sp)
-/*  f178b98:	ad620004 */ 	sw	$v0,0x4($t3)
-.L0f178b9c:
-/*  f178b9c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f178ba0:
-/*  f178ba0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f178ba4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f178ba8:	03e00008 */ 	jr	$ra
-/*  f178bac:	00000000 */ 	nop
-);
+s32 mpPlayerTitleMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	if (operation == MENUOP_GETCOLOUR) {
+		if (g_MpPlayers[g_MpPlayerNum].title != g_MpPlayers[g_MpPlayerNum].newtitle) {
+			data->label.colour2 = colourBlend(data->label.colour2, 0xffff00ff, func0f006b08(40) * 255);
+		}
+	}
+
+	return 0;
+}
 
 char *mpMenuTextPlayerTitle(s32 arg0)
 {

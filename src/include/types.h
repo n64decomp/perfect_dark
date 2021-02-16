@@ -4443,7 +4443,7 @@ struct mpplayer {
 	/*0x90*/ u32 survivormedals;
 	/*0x94*/ u8 unk94;
 	/*0x95*/ u8 title;
-	/*0x96*/ u8 unk96;
+	/*0x96*/ u8 newtitle;
 	/*0x97*/ u8 gunfuncs[5];
 	/*0x9c*/ u8 unk9c;
 	/*0x9d*/ u8 handicap;
