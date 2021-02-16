@@ -520,7 +520,7 @@ struct menudialog g_2PMissionInventoryVMenuDialog = {
 
 // 2a830
 struct menuitem g_MpInGamePlayerStatsMenuItems[] = {
-	{ MENUITEMTYPE_PLAYERSTATS, 0, 0x00000000, 0x00000000, 0x00000000, menuhandler00177e00 },
+	{ MENUITEMTYPE_PLAYERSTATS, 0, 0x00000000, 0x00000000, 0x00000000, mpStatsForPlayerDropdownHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

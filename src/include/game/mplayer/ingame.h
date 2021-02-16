@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-s32 menuhandler00177e00(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextInGameLimit(struct menuitem *item);
 char *menutextPauseOrUnpause(s32 arg0);
 char *menutextMatchTime(s32 arg0);

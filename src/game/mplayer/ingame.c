@@ -25,145 +25,79 @@
 #include "lib/main.h"
 #include "types.h"
 
-const char var7f1b7e80[] = "";
+s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	char *name;
+	s32 v0;
+	s32 v1;
+	s32 a1;
 
-GLOBAL_ASM(
-glabel menuhandler00177e00
-/*  f177e00:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f177e04:	1081000c */ 	beq	$a0,$at,.L0f177e38
-/*  f177e08:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f177e0c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f177e10:	1081001b */ 	beq	$a0,$at,.L0f177e80
-/*  f177e14:	00001025 */ 	or	$v0,$zero,$zero
-/*  f177e18:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f177e1c:	1081003d */ 	beq	$a0,$at,.L0f177f14
-/*  f177e20:	00001025 */ 	or	$v0,$zero,$zero
-/*  f177e24:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f177e28:	10810053 */ 	beq	$a0,$at,.L0f177f78
-/*  f177e2c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f177e30:	10000067 */ 	b	.L0f177fd0
-/*  f177e34:	00001025 */ 	or	$v0,$zero,$zero
-.L0f177e38:
-/*  f177e38:	3c05800b */ 	lui	$a1,%hi(g_MpSetup)
-/*  f177e3c:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f177e40:	24a5cb88 */ 	addiu	$a1,$a1,%lo(g_MpSetup)
-/*  f177e44:	00001025 */ 	or	$v0,$zero,$zero
-/*  f177e48:	2408000c */ 	addiu	$t0,$zero,0xc
-/*  f177e4c:	94ae0016 */ 	lhu	$t6,0x16($a1)
-.L0f177e50:
-/*  f177e50:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f177e54:	004fc004 */ 	sllv	$t8,$t7,$v0
-/*  f177e58:	01d8c824 */ 	and	$t9,$t6,$t8
-/*  f177e5c:	13200004 */ 	beqz	$t9,.L0f177e70
-/*  f177e60:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f177e64:	8ccd0000 */ 	lw	$t5,0x0($a2)
-/*  f177e68:	25af0001 */ 	addiu	$t7,$t5,0x1
-/*  f177e6c:	accf0000 */ 	sw	$t7,0x0($a2)
-.L0f177e70:
-/*  f177e70:	5448fff7 */ 	bnel	$v0,$t0,.L0f177e50
-/*  f177e74:	94ae0016 */ 	lhu	$t6,0x16($a1)
-/*  f177e78:	10000055 */ 	b	.L0f177fd0
-/*  f177e7c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f177e80:
-/*  f177e80:	3c03800b */ 	lui	$v1,%hi(g_MpSetup+0x16)
-/*  f177e84:	3c0b800b */ 	lui	$t3,%hi(g_MpSimulants)
-/*  f177e88:	3c09800b */ 	lui	$t1,%hi(g_MpPlayers)
-/*  f177e8c:	2529c7b8 */ 	addiu	$t1,$t1,%lo(g_MpPlayers)
-/*  f177e90:	256bc538 */ 	addiu	$t3,$t3,%lo(g_MpSimulants)
-/*  f177e94:	9463cb9e */ 	lhu	$v1,%lo(g_MpSetup+0x16)($v1)
-/*  f177e98:	00002825 */ 	or	$a1,$zero,$zero
-/*  f177e9c:	240c004c */ 	addiu	$t4,$zero,0x4c
-/*  f177ea0:	240a00a0 */ 	addiu	$t2,$zero,0xa0
-/*  f177ea4:	2408000c */ 	addiu	$t0,$zero,0xc
-/*  f177ea8:	240e0001 */ 	addiu	$t6,$zero,0x1
-.L0f177eac:
-/*  f177eac:	00aec004 */ 	sllv	$t8,$t6,$a1
-/*  f177eb0:	0078c824 */ 	and	$t9,$v1,$t8
-/*  f177eb4:	13200011 */ 	beqz	$t9,.L0f177efc
-/*  f177eb8:	28a10004 */ 	slti	$at,$a1,0x4
-/*  f177ebc:	10200006 */ 	beqz	$at,.L0f177ed8
-/*  f177ec0:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f177ec4:	00aa0019 */ 	multu	$a1,$t2
-/*  f177ec8:	00006812 */ 	mflo	$t5
-/*  f177ecc:	012d3821 */ 	addu	$a3,$t1,$t5
-/*  f177ed0:	10000005 */ 	b	.L0f177ee8
-/*  f177ed4:	00000000 */ 	nop
-.L0f177ed8:
-/*  f177ed8:	00ac0019 */ 	multu	$a1,$t4
-/*  f177edc:	00007812 */ 	mflo	$t7
-/*  f177ee0:	016f3821 */ 	addu	$a3,$t3,$t7
-/*  f177ee4:	24e7fed0 */ 	addiu	$a3,$a3,-304
-.L0f177ee8:
-/*  f177ee8:	54440004 */ 	bnel	$v0,$a0,.L0f177efc
-/*  f177eec:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f177ef0:	03e00008 */ 	jr	$ra
-/*  f177ef4:	00e01025 */ 	or	$v0,$a3,$zero
-/*  f177ef8:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f177efc:
-/*  f177efc:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f177f00:	54a8ffea */ 	bnel	$a1,$t0,.L0f177eac
-/*  f177f04:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f177f08:	3c027f1b */ 	lui	$v0,%hi(var7f1b7e80)
-/*  f177f0c:	03e00008 */ 	jr	$ra
-/*  f177f10:	24427e80 */ 	addiu	$v0,$v0,%lo(var7f1b7e80)
-.L0f177f14:
-/*  f177f14:	3c03800b */ 	lui	$v1,%hi(g_MpSetup+0x16)
-/*  f177f18:	3c098007 */ 	lui	$t1,%hi(g_MpPlayerNum)
-/*  f177f1c:	3c07800a */ 	lui	$a3,%hi(g_MpSelectedPlayersForStats)
-/*  f177f20:	24e7deb0 */ 	addiu	$a3,$a3,%lo(g_MpSelectedPlayersForStats)
-/*  f177f24:	25291448 */ 	addiu	$t1,$t1,%lo(g_MpPlayerNum)
-/*  f177f28:	9463cb9e */ 	lhu	$v1,%lo(g_MpSetup+0x16)($v1)
-/*  f177f2c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f177f30:	2408000c */ 	addiu	$t0,$zero,0xc
-/*  f177f34:	240e0001 */ 	addiu	$t6,$zero,0x1
-.L0f177f38:
-/*  f177f38:	00aec004 */ 	sllv	$t8,$t6,$a1
-/*  f177f3c:	0078c824 */ 	and	$t9,$v1,$t8
-/*  f177f40:	53200009 */ 	beqzl	$t9,.L0f177f68
-/*  f177f44:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f177f48:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f177f4c:	54440005 */ 	bnel	$v0,$a0,.L0f177f64
-/*  f177f50:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f177f54:	8d2d0000 */ 	lw	$t5,0x0($t1)
-/*  f177f58:	00ed7821 */ 	addu	$t7,$a3,$t5
-/*  f177f5c:	a1e50000 */ 	sb	$a1,0x0($t7)
-/*  f177f60:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f177f64:
-/*  f177f64:	24a50001 */ 	addiu	$a1,$a1,0x1
-.L0f177f68:
-/*  f177f68:	54a8fff3 */ 	bnel	$a1,$t0,.L0f177f38
-/*  f177f6c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f177f70:	10000017 */ 	b	.L0f177fd0
-/*  f177f74:	00001025 */ 	or	$v0,$zero,$zero
-.L0f177f78:
-/*  f177f78:	3c05800b */ 	lui	$a1,%hi(g_MpSetup)
-/*  f177f7c:	24a5cb88 */ 	addiu	$a1,$a1,%lo(g_MpSetup)
-/*  f177f80:	00001825 */ 	or	$v1,$zero,$zero
-/*  f177f84:	2408000c */ 	addiu	$t0,$zero,0xc
-/*  f177f88:	94ae0016 */ 	lhu	$t6,0x16($a1)
-.L0f177f8c:
-/*  f177f8c:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f177f90:	0078c804 */ 	sllv	$t9,$t8,$v1
-/*  f177f94:	01d96824 */ 	and	$t5,$t6,$t9
-/*  f177f98:	11a00009 */ 	beqz	$t5,.L0f177fc0
-/*  f177f9c:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
-/*  f177fa0:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f177fa4:	3c04800a */ 	lui	$a0,%hi(g_MpSelectedPlayersForStats)
-/*  f177fa8:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f177fac:	9084deb0 */ 	lbu	$a0,%lo(g_MpSelectedPlayersForStats)($a0)
-/*  f177fb0:	54640003 */ 	bnel	$v1,$a0,.L0f177fc0
-/*  f177fb4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f177fb8:	acc20000 */ 	sw	$v0,0x0($a2)
-/*  f177fbc:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f177fc0:
-/*  f177fc0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f177fc4:	5468fff1 */ 	bnel	$v1,$t0,.L0f177f8c
-/*  f177fc8:	94ae0016 */ 	lhu	$t6,0x16($a1)
-/*  f177fcc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f177fd0:
-/*  f177fd0:	03e00008 */ 	jr	$ra
-/*  f177fd4:	00000000 */ 	nop
-);
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		data->list.value = 0;
+
+		for (v0 = 0; v0 < 12; v0++) {
+			if (g_MpSetup.chrslots & (1 << v0)) {
+				data->list.value++;
+			}
+		}
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		v0 = 0;
+
+		for (a1 = 0; a1 < 12; a1++) {
+			if (g_MpSetup.chrslots & (1 << a1)) {
+				if (a1 < 4) {
+					name = g_MpPlayers[a1].base.name;
+				} else {
+					name = g_MpSimulants[a1 - 4].base.name;
+				}
+
+				if (v0 == data->list.value) {
+					return (s32) name;
+				}
+
+				v0++;
+			}
+		}
+
+		return (s32) "";
+	case MENUOP_SET:
+		v0 = 0;
+
+		for (a1 = 0; a1 < 12; a1++) {
+			if (g_MpSetup.chrslots & (1 << a1)) {
+				if (v0);
+
+				if (data->list.value == v0) {
+					g_MpSelectedPlayersForStats[g_MpPlayerNum] = a1;
+				}
+
+				v0++;
+			}
+		}
+
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		v0 = 0;
+
+		for (v1 = 0; v1 < 12; v1++) {
+			if (g_MpSetup.chrslots & (1 << v1)) {
+				if (v0);
+
+				if (g_MpSelectedPlayersForStats[g_MpPlayerNum] == v1) {
+					data->list.value = v0;
+				}
+
+				v0++;
+			}
+		}
+
+		break;
+	}
+
+	return 0;
+}
 
 s32 menuhandlerMpEndGame(s32 operation, struct menuitem *item, union handlerdata *data)
 {
