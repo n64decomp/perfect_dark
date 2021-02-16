@@ -4415,7 +4415,8 @@ struct mpchr {
 	/*0x24*/ s16 killcounts[12]; // per player - each index is a chrslot
 	/*0x3c*/ s16 numdeaths;
 	/*0x3e*/ s16 unk3e;
-	/*0x40*/ u32 unk40;
+	/*0x40*/ s16 unk40;
+	/*0x42*/ u16 unk42;
 	/*0x44*/ u8 controlmode;
 	/*0x45*/ s8 contpad1;
 	/*0x46*/ s8 contpad2;

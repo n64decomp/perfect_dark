@@ -61,21 +61,18 @@ f32 func0f187770(u8 value)
 	return tmp * tmp * 3 - 2;
 }
 
-GLOBAL_ASM(
-glabel func0f187838
-/*  f187838:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18783c:	00801825 */ 	or	$v1,$a0,$zero
-/*  f187840:	2405000c */ 	addiu	$a1,$zero,0xc
-.L0f187844:
-/*  f187844:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f187848:	a4600024 */ 	sh	$zero,0x24($v1)
-/*  f18784c:	1445fffd */ 	bne	$v0,$a1,.L0f187844
-/*  f187850:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f187854:	a480003c */ 	sh	$zero,0x3c($a0)
-/*  f187858:	a480003e */ 	sh	$zero,0x3e($a0)
-/*  f18785c:	03e00008 */ 	jr	$ra
-/*  f187860:	a4800040 */ 	sh	$zero,0x40($a0)
-);
+void func0f187838(struct mpchr *mpchr)
+{
+	s32 i = 0;
+
+	while (i < ARRAYCOUNT(mpchr->killcounts)) {
+		mpchr->killcounts[i++] = 0;
+	}
+
+	mpchr->numdeaths = 0;
+	mpchr->unk3e = 0;
+	mpchr->unk40 = 0;
+}
 
 void mpStartMatch(void)
 {
