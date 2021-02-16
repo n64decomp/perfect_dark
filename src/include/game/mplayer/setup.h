@@ -25,7 +25,7 @@ char *mpMenuTextAmmoUsed(struct menuitem *item);
 char *mpMenuTextDistance(struct menuitem *item);
 u32 mpMenuTextTime(void);
 char *mpMenuTextAccuracy(struct menuitem *item);
-void func0f17ad80(char *dst, f32 arg0);
+void mpFormatDamageValue(char *dst, f32 damage);
 char *mpMenuTextPainReceived(struct menuitem *item);
 char *mpMenuTextDamageDealt(struct menuitem *item);
 s32 menuhandlerMpMedal(s32 operation, struct menuitem *item, union handlerdata *data);

@@ -1176,138 +1176,38 @@ char *mpMenuTextAccuracy(struct menuitem *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f17ad80
-.late_rodata
-glabel var7f1b80e0
-.word 0x461c4000
-glabel var7f1b80e4
-.word 0x47c35000
-glabel var7f1b80e8
-.word 0x49742400
-glabel var7f1b80ec
-.word 0x4b189680
-.text
-/*  f17ad80:	3c01447a */ 	lui	$at,0x447a
-/*  f17ad84:	44810000 */ 	mtc1	$at,$f0
-/*  f17ad88:	44856000 */ 	mtc1	$a1,$f12
-/*  f17ad8c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f17ad90:	3c057f1b */ 	lui	$a1,%hi(var7f1b7f8c)
-/*  f17ad94:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f17ad98:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f17ad9c:	24a57f8c */ 	addiu	$a1,$a1,%lo(var7f1b7f8c)
-/*  f17ada0:	3c067f1b */ 	lui	$a2,%hi(var7f1b7f98)
-/*  f17ada4:	45000009 */ 	bc1f	.L0f17adcc
-/*  f17ada8:	3c017f1c */ 	lui	$at,%hi(var7f1b80e0)
-/*  f17adac:	46006121 */ 	cvt.d.s	$f4,$f12
-/*  f17adb0:	3c077f1b */ 	lui	$a3,%hi(var7f1b7f9c)
-/*  f17adb4:	24e77f9c */ 	addiu	$a3,$a3,%lo(var7f1b7f9c)
-/*  f17adb8:	f7a40010 */ 	sdc1	$f4,0x10($sp)
-/*  f17adbc:	0c004dad */ 	jal	sprintf
-/*  f17adc0:	24c67f98 */ 	addiu	$a2,$a2,%lo(var7f1b7f98)
-/*  f17adc4:	10000052 */ 	b	.L0f17af10
-/*  f17adc8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f17adcc:
-/*  f17adcc:	c42680e0 */ 	lwc1	$f6,%lo(var7f1b80e0)($at)
-/*  f17add0:	3c057f1b */ 	lui	$a1,%hi(var7f1b7fa0)
-/*  f17add4:	3c067f1b */ 	lui	$a2,%hi(var7f1b7fac)
-/*  f17add8:	4606603c */ 	c.lt.s	$f12,$f6
-/*  f17addc:	24c67fac */ 	addiu	$a2,$a2,%lo(var7f1b7fac)
-/*  f17ade0:	24a57fa0 */ 	addiu	$a1,$a1,%lo(var7f1b7fa0)
-/*  f17ade4:	3c077f1b */ 	lui	$a3,%hi(var7f1b7fb0)
-/*  f17ade8:	45000007 */ 	bc1f	.L0f17ae08
-/*  f17adec:	3c017f1c */ 	lui	$at,%hi(var7f1b80e4)
-/*  f17adf0:	46006221 */ 	cvt.d.s	$f8,$f12
-/*  f17adf4:	24e77fb0 */ 	addiu	$a3,$a3,%lo(var7f1b7fb0)
-/*  f17adf8:	0c004dad */ 	jal	sprintf
-/*  f17adfc:	f7a80010 */ 	sdc1	$f8,0x10($sp)
-/*  f17ae00:	10000043 */ 	b	.L0f17af10
-/*  f17ae04:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f17ae08:
-/*  f17ae08:	c42a80e4 */ 	lwc1	$f10,%lo(var7f1b80e4)($at)
-/*  f17ae0c:	3c017f1c */ 	lui	$at,%hi(var7f1b80e8)
-/*  f17ae10:	460a603c */ 	c.lt.s	$f12,$f10
-/*  f17ae14:	00000000 */ 	nop
-/*  f17ae18:	4500000d */ 	bc1f	.L0f17ae50
-/*  f17ae1c:	00000000 */ 	nop
-/*  f17ae20:	46006303 */ 	div.s	$f12,$f12,$f0
-/*  f17ae24:	3c057f1b */ 	lui	$a1,%hi(var7f1b7fb4)
-/*  f17ae28:	3c067f1b */ 	lui	$a2,%hi(var7f1b7fc0)
-/*  f17ae2c:	3c077f1b */ 	lui	$a3,%hi(var7f1b7fc4)
-/*  f17ae30:	24e77fc4 */ 	addiu	$a3,$a3,%lo(var7f1b7fc4)
-/*  f17ae34:	24c67fc0 */ 	addiu	$a2,$a2,%lo(var7f1b7fc0)
-/*  f17ae38:	24a57fb4 */ 	addiu	$a1,$a1,%lo(var7f1b7fb4)
-/*  f17ae3c:	46006421 */ 	cvt.d.s	$f16,$f12
-/*  f17ae40:	0c004dad */ 	jal	sprintf
-/*  f17ae44:	f7b00010 */ 	sdc1	$f16,0x10($sp)
-/*  f17ae48:	10000031 */ 	b	.L0f17af10
-/*  f17ae4c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f17ae50:
-/*  f17ae50:	c43280e8 */ 	lwc1	$f18,%lo(var7f1b80e8)($at)
-/*  f17ae54:	3c017f1c */ 	lui	$at,%hi(var7f1b80ec)
-/*  f17ae58:	4612603c */ 	c.lt.s	$f12,$f18
-/*  f17ae5c:	00000000 */ 	nop
-/*  f17ae60:	4500000d */ 	bc1f	.L0f17ae98
-/*  f17ae64:	00000000 */ 	nop
-/*  f17ae68:	46006303 */ 	div.s	$f12,$f12,$f0
-/*  f17ae6c:	3c057f1b */ 	lui	$a1,%hi(var7f1b7fc8)
-/*  f17ae70:	3c067f1b */ 	lui	$a2,%hi(var7f1b7fd4)
-/*  f17ae74:	3c077f1b */ 	lui	$a3,%hi(var7f1b7fd8)
-/*  f17ae78:	24e77fd8 */ 	addiu	$a3,$a3,%lo(var7f1b7fd8)
-/*  f17ae7c:	24c67fd4 */ 	addiu	$a2,$a2,%lo(var7f1b7fd4)
-/*  f17ae80:	24a57fc8 */ 	addiu	$a1,$a1,%lo(var7f1b7fc8)
-/*  f17ae84:	46006121 */ 	cvt.d.s	$f4,$f12
-/*  f17ae88:	0c004dad */ 	jal	sprintf
-/*  f17ae8c:	f7a40010 */ 	sdc1	$f4,0x10($sp)
-/*  f17ae90:	1000001f */ 	b	.L0f17af10
-/*  f17ae94:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f17ae98:
-/*  f17ae98:	c42680ec */ 	lwc1	$f6,%lo(var7f1b80ec)($at)
-/*  f17ae9c:	4606603c */ 	c.lt.s	$f12,$f6
-/*  f17aea0:	00000000 */ 	nop
-/*  f17aea4:	4502000f */ 	bc1fl	.L0f17aee4
-/*  f17aea8:	46006303 */ 	div.s	$f12,$f12,$f0
-/*  f17aeac:	46006303 */ 	div.s	$f12,$f12,$f0
-/*  f17aeb0:	3c057f1b */ 	lui	$a1,%hi(var7f1b7fdc)
-/*  f17aeb4:	3c067f1b */ 	lui	$a2,%hi(var7f1b7fe8)
-/*  f17aeb8:	3c077f1b */ 	lui	$a3,%hi(var7f1b7fec)
-/*  f17aebc:	24e77fec */ 	addiu	$a3,$a3,%lo(var7f1b7fec)
-/*  f17aec0:	24c67fe8 */ 	addiu	$a2,$a2,%lo(var7f1b7fe8)
-/*  f17aec4:	24a57fdc */ 	addiu	$a1,$a1,%lo(var7f1b7fdc)
-/*  f17aec8:	46006303 */ 	div.s	$f12,$f12,$f0
-/*  f17aecc:	46006221 */ 	cvt.d.s	$f8,$f12
-/*  f17aed0:	0c004dad */ 	jal	sprintf
-/*  f17aed4:	f7a80010 */ 	sdc1	$f8,0x10($sp)
-/*  f17aed8:	1000000d */ 	b	.L0f17af10
-/*  f17aedc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f17aee0:	46006303 */ 	div.s	$f12,$f12,$f0
-.L0f17aee4:
-/*  f17aee4:	3c057f1b */ 	lui	$a1,%hi(var7f1b7ff0)
-/*  f17aee8:	3c067f1b */ 	lui	$a2,%hi(var7f1b7ffc)
-/*  f17aeec:	3c077f1c */ 	lui	$a3,%hi(var7f1b8000)
-/*  f17aef0:	24e78000 */ 	addiu	$a3,$a3,%lo(var7f1b8000)
-/*  f17aef4:	24c67ffc */ 	addiu	$a2,$a2,%lo(var7f1b7ffc)
-/*  f17aef8:	24a57ff0 */ 	addiu	$a1,$a1,%lo(var7f1b7ff0)
-/*  f17aefc:	46006303 */ 	div.s	$f12,$f12,$f0
-/*  f17af00:	460062a1 */ 	cvt.d.s	$f10,$f12
-/*  f17af04:	0c004dad */ 	jal	sprintf
-/*  f17af08:	f7aa0010 */ 	sdc1	$f10,0x10($sp)
-/*  f17af0c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f17af10:
-/*  f17af10:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f17af14:	03e00008 */ 	jr	$ra
-/*  f17af18:	00000000 */ 	nop
-);
+void mpFormatDamageValue(char *dst, f32 damage)
+{
+	if (damage < 1000) {
+		sprintf(dst, "%s%s%.1f", "", "", damage);
+	} else if (damage < 10000) {
+		sprintf(dst, "%s%s%.0f", "", "", damage);
+	} else if (damage < 100000) {
+		damage = damage / 1000;
+		sprintf(dst, "%s%s%.1fK", "", "", damage);
+	} else if (damage < 1000000) {
+		damage = damage / 1000;
+		sprintf(dst, "%s%s%.0fK", "", "", damage);
+	} else if (damage < 10000000) {
+		damage = damage / 1000;
+		damage = damage / 1000;
+		sprintf(dst, "%s%s%.1fM", "", "", damage);
+	} else {
+		damage = damage / 1000;
+		damage = damage / 1000;
+		sprintf(dst, "%s%s%.0fM", "", "", damage);
+	}
+}
 
 char *mpMenuTextPainReceived(struct menuitem *item)
 {
-	func0f17ad80(g_StringPointer, g_MpPlayers[g_MpPlayerNum].painreceived / 10.0f);
+	mpFormatDamageValue(g_StringPointer, g_MpPlayers[g_MpPlayerNum].painreceived / 10.0f);
 	return g_StringPointer;
 }
 
 char *mpMenuTextDamageDealt(struct menuitem *item)
 {
-	func0f17ad80(g_StringPointer, g_MpPlayers[g_MpPlayerNum].damagedealt / 10.0f);
+	mpFormatDamageValue(g_StringPointer, g_MpPlayers[g_MpPlayerNum].damagedealt / 10.0f);
 	return g_StringPointer;
 }
 
@@ -2243,25 +2143,6 @@ glabel var7f1b818c
 /*  f17be24:	03e00008 */ 	jr	$ra
 /*  f17be28:	00000000 */ 	nop
 );
-
-const char var7f1b7f8c[] = "%s%s%.1f";
-const char var7f1b7f98[] = "";
-const char var7f1b7f9c[] = "";
-const char var7f1b7fa0[] = "%s%s%.0f";
-const char var7f1b7fac[] = "";
-const char var7f1b7fb0[] = "";
-const char var7f1b7fb4[] = "%s%s%.1fK";
-const char var7f1b7fc0[] = "";
-const char var7f1b7fc4[] = "";
-const char var7f1b7fc8[] = "%s%s%.0fK";
-const char var7f1b7fd4[] = "";
-const char var7f1b7fd8[] = "";
-const char var7f1b7fdc[] = "%s%s%.1fM";
-const char var7f1b7fe8[] = "";
-const char var7f1b7fec[] = "";
-const char var7f1b7ff0[] = "%s%s%.0fM";
-const char var7f1b7ffc[] = "";
-const char var7f1b8000[] = "";
 
 char *mpMenuTextMpconfigMarquee(struct menuitem *item)
 {
