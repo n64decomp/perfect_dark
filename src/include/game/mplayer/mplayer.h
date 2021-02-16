@@ -111,7 +111,7 @@ void func0f18dcec(struct mpconfigfull *mpconfig);
 u32 func0f18dec4(void);
 u32 func0f18df5c(void);
 u32 func0f18e16c(void);
-u32 func0f18e39c(void);
+void func0f18e39c(char *arg0, char *filename, u16 *numsims, u16 *stagenum, u16 *scenarionum);
 s32 func0f18e420(s32 arg0, s32 arg1, u16 arg2);
 s32 func0f18e4c8(s32 arg0, s32 arg1, u16 arg2);
 void func0f18e558(void);

@@ -2244,116 +2244,61 @@ glabel var7f1b818c
 /*  f17be28:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f17be2c
-/*  f17be2c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17be30:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17be34:	3c02800a */ 	lui	$v0,%hi(g_Menus+0xe1c)
-/*  f17be38:	3401ffff */ 	dli	$at,0xffff
-/*  f17be3c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f17be40:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17be44:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17be48:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17be4c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f17be50:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17be54:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17be58:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f17be5c:	8c42ee1c */ 	lw	$v0,%lo(g_Menus+0xe1c)($v0)
-/*  f17be60:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f17be64:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f17be68:	0041082b */ 	sltu	$at,$v0,$at
-/*  f17be6c:	1020004e */ 	beqz	$at,.L0f17bfa8
-/*  f17be70:	afa40058 */ 	sw	$a0,0x58($sp)
-/*  f17be74:	3c038007 */ 	lui	$v1,%hi(g_FileLists+0x4)
-/*  f17be78:	8c635bc4 */ 	lw	$v1,%lo(g_FileLists+0x4)($v1)
-/*  f17be7c:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f17be80:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f17be84:	10600048 */ 	beqz	$v1,.L0f17bfa8
-/*  f17be88:	0302c023 */ 	subu	$t8,$t8,$v0
-/*  f17be8c:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f17be90:	00782021 */ 	addu	$a0,$v1,$t8
-/*  f17be94:	27b9003e */ 	addiu	$t9,$sp,0x3e
-/*  f17be98:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f17be9c:	24840006 */ 	addiu	$a0,$a0,0x6
-/*  f17bea0:	27a50044 */ 	addiu	$a1,$sp,0x44
-/*  f17bea4:	27a60042 */ 	addiu	$a2,$sp,0x42
-/*  f17bea8:	27a70040 */ 	addiu	$a3,$sp,0x40
-/*  f17beac:	0fc638e7 */ 	jal	func0f18e39c
-/*  f17beb0:	afa80038 */ 	sw	$t0,0x38($sp)
-/*  f17beb4:	3c038008 */ 	lui	$v1,%hi(g_MpArenas)
-/*  f17beb8:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*  f17bebc:	24634b98 */ 	addiu	$v1,$v1,%lo(g_MpArenas)
-/*  f17bec0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17bec4:	97a40040 */ 	lhu	$a0,0x40($sp)
-/*  f17bec8:	24050011 */ 	addiu	$a1,$zero,0x11
-.L0f17becc:
-/*  f17becc:	84690000 */ 	lh	$t1,0x0($v1)
-/*  f17bed0:	54890003 */ 	bnel	$a0,$t1,.L0f17bee0
-/*  f17bed4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f17bed8:	00404025 */ 	or	$t0,$v0,$zero
-/*  f17bedc:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f17bee0:
-/*  f17bee0:	1445fffa */ 	bne	$v0,$a1,.L0f17becc
-/*  f17bee4:	24630006 */ 	addiu	$v1,$v1,0x6
-/*  f17bee8:	97aa003e */ 	lhu	$t2,0x3e($sp)
-/*  f17beec:	29410006 */ 	slti	$at,$t2,0x6
-/*  f17bef0:	10200028 */ 	beqz	$at,.L0f17bf94
-/*  f17bef4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f17bef8:	11010026 */ 	beq	$t0,$at,.L0f17bf94
-/*  f17befc:	97a20042 */ 	lhu	$v0,0x42($sp)
-/*  f17bf00:	04400024 */ 	bltz	$v0,.L0f17bf94
-/*  f17bf04:	93ab0044 */ 	lbu	$t3,0x44($sp)
-/*  f17bf08:	11600022 */ 	beqz	$t3,.L0f17bf94
-/*  f17bf0c:	28410009 */ 	slti	$at,$v0,0x9
-/*  f17bf10:	10200020 */ 	beqz	$at,.L0f17bf94
-/*  f17bf14:	2404508c */ 	addiu	$a0,$zero,0x508c
-/*  f17bf18:	0fc5b9f1 */ 	jal	langGet
-/*  f17bf1c:	afa80038 */ 	sw	$t0,0x38($sp)
-/*  f17bf20:	97ac003e */ 	lhu	$t4,0x3e($sp)
-/*  f17bf24:	3c048008 */ 	lui	$a0,%hi(g_MpScenarioOverviews)
-/*  f17bf28:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f17bf2c:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f17bf30:	01ac6823 */ 	subu	$t5,$t5,$t4
-/*  f17bf34:	000d6840 */ 	sll	$t5,$t5,0x1
-/*  f17bf38:	008d2021 */ 	addu	$a0,$a0,$t5
-/*  f17bf3c:	0fc5b9f1 */ 	jal	langGet
-/*  f17bf40:	94847148 */ 	lhu	$a0,%lo(g_MpScenarioOverviews)($a0)
-/*  f17bf44:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*  f17bf48:	3c048008 */ 	lui	$a0,%hi(g_MpArenas+0x4)
-/*  f17bf4c:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f17bf50:	00087080 */ 	sll	$t6,$t0,0x2
-/*  f17bf54:	01c87023 */ 	subu	$t6,$t6,$t0
-/*  f17bf58:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f17bf5c:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f17bf60:	0fc5b9f1 */ 	jal	langGet
-/*  f17bf64:	94844b9c */ 	lhu	$a0,%lo(g_MpArenas+0x4)($a0)
-/*  f17bf68:	97af0042 */ 	lhu	$t7,0x42($sp)
-/*  f17bf6c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17bf70:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17bf74:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f17bf78:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*  f17bf7c:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f17bf80:	afa20010 */ 	sw	$v0,0x10($sp)
-/*  f17bf84:	0c004dad */ 	jal	sprintf
-/*  f17bf88:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f17bf8c:	10000004 */ 	b	.L0f17bfa0
-/*  f17bf90:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-.L0f17bf94:
-/*  f17bf94:	3c027f1c */ 	lui	$v0,%hi(var7f1b8004)
-/*  f17bf98:	10000005 */ 	b	.L0f17bfb0
-/*  f17bf9c:	24428004 */ 	addiu	$v0,$v0,%lo(var7f1b8004)
-.L0f17bfa0:
-/*  f17bfa0:	10000003 */ 	b	.L0f17bfb0
-/*  f17bfa4:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-.L0f17bfa8:
-/*  f17bfa8:	3c027f1c */ 	lui	$v0,%hi(var7f1b8008)
-/*  f17bfac:	24428008 */ 	addiu	$v0,$v0,%lo(var7f1b8008)
-.L0f17bfb0:
-/*  f17bfb0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f17bfb4:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*  f17bfb8:	03e00008 */ 	jr	$ra
-/*  f17bfbc:	00000000 */ 	nop
-);
+const char var7f1b7f8c[] = "%s%s%.1f";
+const char var7f1b7f98[] = "";
+const char var7f1b7f9c[] = "";
+const char var7f1b7fa0[] = "%s%s%.0f";
+const char var7f1b7fac[] = "";
+const char var7f1b7fb0[] = "";
+const char var7f1b7fb4[] = "%s%s%.1fK";
+const char var7f1b7fc0[] = "";
+const char var7f1b7fc4[] = "";
+const char var7f1b7fc8[] = "%s%s%.0fK";
+const char var7f1b7fd4[] = "";
+const char var7f1b7fd8[] = "";
+const char var7f1b7fdc[] = "%s%s%.1fM";
+const char var7f1b7fe8[] = "";
+const char var7f1b7fec[] = "";
+const char var7f1b7ff0[] = "%s%s%.0fM";
+const char var7f1b7ffc[] = "";
+const char var7f1b8000[] = "";
+
+char *mpMenuTextMpconfigMarquee(struct menuitem *item)
+{
+	char filename[20];
+	u16 numsims;
+	u16 stagenum;
+	u16 scenarionum;
+	s32 arenanum;
+	s32 i;
+
+	if (g_Menus[g_MpPlayerNum].data.mpsetup.slotindex < 0xffff && g_FileLists[1]) {
+		arenanum = -1;
+		func0f18e39c(g_FileLists[1]->unk000[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].unk06,
+				filename, &numsims, &stagenum, &scenarionum);
+
+		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
+			if (g_MpArenas[i].stagenum == stagenum) {
+				arenanum = i;
+			}
+		}
+
+		if (scenarionum <= 5 && arenanum != -1 && numsims >= 0 && filename[0] != '\0' && numsims <= 8) {
+			// "%s:  Scenario: %s   Arena: %s    Simulants: %d"
+			sprintf(g_StringPointer, langGet(L_MPMENU(140)),
+					filename,
+					langGet(g_MpScenarioOverviews[scenarionum].name),
+					langGet(g_MpArenas[arenanum].name),
+					numsims);
+		} else {
+			return "";
+		}
+
+		return g_StringPointer;
+	}
+
+	return "";
+}
 
 GLOBAL_ASM(
 glabel menuhandler0017bfc0
@@ -2503,27 +2448,6 @@ glabel var7f1b81a8
 /*  f17c19c:	03e00008 */ 	jr	$ra
 /*  f17c1a0:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
-
-const char var7f1b7f8c[] = "%s%s%.1f";
-const char var7f1b7f98[] = "";
-const char var7f1b7f9c[] = "";
-const char var7f1b7fa0[] = "%s%s%.0f";
-const char var7f1b7fac[] = "";
-const char var7f1b7fb0[] = "";
-const char var7f1b7fb4[] = "%s%s%.1fK";
-const char var7f1b7fc0[] = "";
-const char var7f1b7fc4[] = "";
-const char var7f1b7fc8[] = "%s%s%.0fK";
-const char var7f1b7fd4[] = "";
-const char var7f1b7fd8[] = "";
-const char var7f1b7fdc[] = "%s%s%.1fM";
-const char var7f1b7fe8[] = "";
-const char var7f1b7fec[] = "";
-const char var7f1b7ff0[] = "%s%s%.0fM";
-const char var7f1b7ffc[] = "";
-const char var7f1b8000[] = "";
-const char var7f1b8004[] = "";
-const char var7f1b8008[] = "";
 
 s32 menuhandlerMpTimeLimitSlider(s32 operation, struct menuitem *item, union handlerdata *data)
 {

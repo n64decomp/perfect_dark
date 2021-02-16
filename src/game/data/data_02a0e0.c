@@ -1063,7 +1063,7 @@ struct menudialog g_MpPlayerNameMenuDialog = {
 // 2b518
 struct menuitem g_MpLoadSettingsMenuItems[] = {
 	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x00000078, 0x00000042, menuhandler0017bab4 },
-	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&func0f17be2c, 0x00000000, NULL },
+	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&mpMenuTextMpconfigMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -1080,7 +1080,7 @@ struct menudialog g_MpLoadSettingsMenuDialog = {
 // 2b56c
 struct menuitem g_MpLoadPresetMenuItems[] = {
 	{ MENUITEMTYPE_LIST,        1, 0x00000000, 0x00000078, 0x00000042, menuhandler0017bab4 },
-	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&func0f17be2c, 0x00000000, NULL },
+	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&mpMenuTextMpconfigMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
