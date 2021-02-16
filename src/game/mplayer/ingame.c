@@ -287,13 +287,12 @@ char *mpMenuTitleStatsFor(struct menudialog *dialog)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f178440
-/*  f178440:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f178444:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f178448:	03e00008 */ 	jr	$ra
-/*  f17844c:	00001025 */ 	or	$v0,$zero,$zero
-);
+s32 func0f178440(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	if (operation);
+
+	return 0;
+}
 
 char *mpMenuTextWeaponOfChoiceName(struct menuitem *item)
 {
