@@ -109,7 +109,7 @@ u32 func0f185c14(void);
 bool func0f185e20(struct prop *prop, s32 *arg1);
 void mpPrepareScenario(void);
 u32 func0f186508(void);
-void func0f1866b8(s32 playernum, char *message);
+void mpCreateScenarioHudmsg(s32 playernum, char *message);
 u32 func0f186780(void);
 u32 chrGiveBriefcase(struct chrdata *chr, struct prop *prop);
 void func0f187288(struct chrdata *chr, struct prop *prop);

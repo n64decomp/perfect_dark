@@ -1138,65 +1138,16 @@ glabel func0f186508
 /*  f1866b4:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-GLOBAL_ASM(
-glabel func0f1866b8
-/*  f1866b8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1866bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1866c0:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f1866c4:	0480002a */ 	bltz	$a0,.L0f186770
-/*  f1866c8:	00803825 */ 	or	$a3,$a0,$zero
-/*  f1866cc:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f1866d0:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f1866d4:	8cae006c */ 	lw	$t6,0x6c($a1)
-/*  f1866d8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1866dc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1866e0:	11c00003 */ 	beqz	$t6,.L0f1866f0
-/*  f1866e4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1866e8:	10000001 */ 	b	.L0f1866f0
-/*  f1866ec:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f1866f0:
-/*  f1866f0:	8caf0068 */ 	lw	$t7,0x68($a1)
-/*  f1866f4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1866f8:	11e00003 */ 	beqz	$t7,.L0f186708
-/*  f1866fc:	00000000 */ 	nop
-/*  f186700:	10000001 */ 	b	.L0f186708
-/*  f186704:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f186708:
-/*  f186708:	8cb80064 */ 	lw	$t8,0x64($a1)
-/*  f18670c:	13000003 */ 	beqz	$t8,.L0f18671c
-/*  f186710:	00000000 */ 	nop
-/*  f186714:	10000001 */ 	b	.L0f18671c
-/*  f186718:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f18671c:
-/*  f18671c:	8cb90070 */ 	lw	$t9,0x70($a1)
-/*  f186720:	13200003 */ 	beqz	$t9,.L0f186730
-/*  f186724:	00000000 */ 	nop
-/*  f186728:	10000001 */ 	b	.L0f186730
-/*  f18672c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f186730:
-/*  f186730:	00444021 */ 	addu	$t0,$v0,$a0
-/*  f186734:	01034821 */ 	addu	$t1,$t0,$v1
-/*  f186738:	01265021 */ 	addu	$t2,$t1,$a2
-/*  f18673c:	00ea082a */ 	slt	$at,$a3,$t2
-/*  f186740:	5020000c */ 	beqzl	$at,.L0f186774
-/*  f186744:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f186748:	8cab028c */ 	lw	$t3,0x28c($a1)
-/*  f18674c:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f186750:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f186754:	afab001c */ 	sw	$t3,0x1c($sp)
-/*  f186758:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f18675c:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f186760:	0fc377e9 */ 	jal	func0f0ddfa4
-/*  f186764:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f186768:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f18676c:	8fa4001c */ 	lw	$a0,0x1c($sp)
-.L0f186770:
-/*  f186770:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f186774:
-/*  f186774:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f186778:	03e00008 */ 	jr	$ra
-/*  f18677c:	00000000 */ 	nop
-);
+void mpCreateScenarioHudmsg(s32 playernum, char *message)
+{
+	if (playernum >= 0 && playernum < PLAYERCOUNT()) {
+		s32 prevplayernum = g_Vars.currentplayernum;
+
+		setCurrentPlayerNum(playernum);
+		func0f0ddfa4(message, HUDMSGTYPE_MPSCENARIO, 1);
+		setCurrentPlayerNum(prevplayernum);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f186780

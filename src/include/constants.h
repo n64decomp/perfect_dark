@@ -930,6 +930,7 @@
 #define HUDMSGTYPE_3                 3
 #define HUDMSGTYPE_4                 4
 #define HUDMSGTYPE_SUBTITLE          6
+#define HUDMSGTYPE_MPSCENARIO        9
 #define HUDMSGTYPE_TRAINING          10
 #define HUDMSGTYPE_11                11
 

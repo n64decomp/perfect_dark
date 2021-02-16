@@ -4287,7 +4287,7 @@ glabel func0f1845bc
 /*  f184710:	8e060000 */ 	lw	$a2,0x0($s0)
 /*  f184714:	02202025 */ 	or	$a0,$s1,$zero
 .L0f184718:
-/*  f184718:	0fc619ae */ 	jal	func0f1866b8
+/*  f184718:	0fc619ae */ 	jal	mpCreateScenarioHudmsg
 /*  f18471c:	02402825 */ 	or	$a1,$s2,$zero
 /*  f184720:	8e6a006c */ 	lw	$t2,0x6c($s3)
 /*  f184724:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -4363,12 +4363,12 @@ glabel func0f1847b8
 /*  f184818:	0fc5b9f1 */ 	jal	langGet
 /*  f18481c:	24045408 */ 	addiu	$a0,$zero,0x5408
 /*  f184820:	02002025 */ 	or	$a0,$s0,$zero
-/*  f184824:	0fc619ae */ 	jal	func0f1866b8
+/*  f184824:	0fc619ae */ 	jal	mpCreateScenarioHudmsg
 /*  f184828:	00402825 */ 	or	$a1,$v0,$zero
 /*  f18482c:	0fc5b9f1 */ 	jal	langGet
 /*  f184830:	24045409 */ 	addiu	$a0,$zero,0x5409
 /*  f184834:	02002025 */ 	or	$a0,$s0,$zero
-/*  f184838:	0fc619ae */ 	jal	func0f1866b8
+/*  f184838:	0fc619ae */ 	jal	mpCreateScenarioHudmsg
 /*  f18483c:	00402825 */ 	or	$a1,$v0,$zero
 /*  f184840:	10000015 */ 	b	.L0f184898
 /*  f184844:	00000000 */ 	nop
@@ -4381,17 +4381,17 @@ glabel func0f1847b8
 /*  f18485c:	0fc5b9f1 */ 	jal	langGet
 /*  f184860:	a44b0020 */ 	sh	$t3,0x20($v0)
 /*  f184864:	02002025 */ 	or	$a0,$s0,$zero
-/*  f184868:	0fc619ae */ 	jal	func0f1866b8
+/*  f184868:	0fc619ae */ 	jal	mpCreateScenarioHudmsg
 /*  f18486c:	00402825 */ 	or	$a1,$v0,$zero
 /*  f184870:	0fc5b9f1 */ 	jal	langGet
 /*  f184874:	2404540b */ 	addiu	$a0,$zero,0x540b
 /*  f184878:	02002025 */ 	or	$a0,$s0,$zero
-/*  f18487c:	0fc619ae */ 	jal	func0f1866b8
+/*  f18487c:	0fc619ae */ 	jal	mpCreateScenarioHudmsg
 /*  f184880:	00402825 */ 	or	$a1,$v0,$zero
 /*  f184884:	0fc5b9f1 */ 	jal	langGet
 /*  f184888:	2404540c */ 	addiu	$a0,$zero,0x540c
 /*  f18488c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f184890:	0fc619ae */ 	jal	func0f1866b8
+/*  f184890:	0fc619ae */ 	jal	mpCreateScenarioHudmsg
 /*  f184894:	00402825 */ 	or	$a1,$v0,$zero
 .L0f184898:
 /*  f184898:	0fc6116f */ 	jal	func0f1845bc
@@ -4497,7 +4497,7 @@ glabel scenarioPacTick
 /*  f1849f4:	00402825 */ 	or	$a1,$v0,$zero
 /*  f1849f8:	000b6040 */ 	sll	$t4,$t3,0x1
 /*  f1849fc:	008c2021 */ 	addu	$a0,$a0,$t4
-/*  f184a00:	0fc619ae */ 	jal	func0f1866b8
+/*  f184a00:	0fc619ae */ 	jal	mpCreateScenarioHudmsg
 /*  f184a04:	8484c118 */ 	lh	$a0,%lo(g_ScenarioData+0x8)($a0)
 .L0f184a08:
 /*  f184a08:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -4521,7 +4521,7 @@ glabel scenarioPacTick
 //			if (g_ScenarioData.pac.age240 > SECSTOTIME240(60)) {
 //				g_ScenarioData.pac.age240 = 0;
 //				g_ScenarioData.pac.wincounts[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]++;
-//				func0f1866b8(g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex], langGet(L_MPWEAPONS(7))); // "Have a point for living!"
+//				mpCreateScenarioHudmsg(g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex], langGet(L_MPWEAPONS(7))); // "Have a point for living!"
 //			}
 //		}
 //	}
