@@ -14,7 +14,7 @@ char *mpMenuTextAward1(struct menuitem *item);
 char *mpMenuTextAward2(struct menuitem *item);
 char *mpMenuTextPlacementWithSuffix(struct menuitem *item);
 s32 mpPlacementMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandler001786d8(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 mpAwardsMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 mpPlayerTitleMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data);
 char *mpMenuTextPlayerTitle(s32 arg0);
 s32 menuhandler00178bf4(s32 operation, struct menuitem *item, union handlerdata *data);
