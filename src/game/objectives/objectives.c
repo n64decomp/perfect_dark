@@ -27,6 +27,9 @@
 #include "lib/lib_159b0.h"
 #include "types.h"
 
+s32 g_ObjectiveLastIndex = -1;
+bool g_ObjectiveChecksDisabled = false;
+
 u32 xorBaffbeff(u32 value)
 {
 	return value ^ 0xbaffbeff;

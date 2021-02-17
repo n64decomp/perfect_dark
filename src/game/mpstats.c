@@ -22,6 +22,8 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
+u32 var80070590 = 0x00000000;
+
 void mpstatsIncrementPlayerShotCount(struct shorthand *hand, s32 region)
 {
 	if (!weaponHasFlag(hand->weaponnum, WEAPONFLAG_00100000)) {

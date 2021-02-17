@@ -20,6 +20,14 @@
 #include "lib/lib_16110.h"
 #include "types.h"
 
+u32 var8007f8a0 = 0x3e19999a;
+u32 var8007f8a4 = 0x40400000;
+f32 var8007f8a8 = 12;
+u32 var8007f8ac = 0x00000008;
+u32 var8007f8b0 = 0x43340000;
+u32 var8007f8b4 = 0x40a00000;
+u32 var8007f8b8 = 0x42480000;
+
 void splatTick(struct prop *prop)
 {
 	struct chrdata *chr = prop->chr;

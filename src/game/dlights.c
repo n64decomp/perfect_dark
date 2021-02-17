@@ -73,6 +73,31 @@ const char var7f1a7d10[] = "L2 -> Allocated %uK for the compressed acoustic shad
 const char var7f1a7d50[] = "L2(%d) -> ";
 const char var7f1a7d5c[] = "L2 -> Finished building portal range table\n";
 
+struct var80061420 *var80061420 = NULL;
+u32 var80061424 = 0x00000000;
+u32 var80061428 = 0x00000000;
+u32 var8006142c = 0x00000000;
+u16 **var80061430 = NULL;
+u32 var80061434 = 0x00000000;
+u32 var80061438 = 0x00000000;
+u32 var8006143c = 0x42480000;
+u32 var80061440 = 0x00000000;
+u32 var80061444 = 1;
+u32 var80061448 = 0x00000000;
+u32 var8006144c = 0x00000000;
+u32 var80061450 = 0x00000000;
+u32 var80061454 = 0xffffffff;
+s32 var80061458 = 0x00000000;
+u32 var8006145c = 0x00000000;
+u32 var80061460 = 0x96969600;
+u32 var80061464 = 0x96969600;
+u32 var80061468 = 0xffffff00;
+u32 var8006146c = 0xffffff00;
+u32 var80061470 = 0x4d4d2e00;
+u32 var80061474 = 0x00000000;
+u32 var80061478 = 0x00000000;
+u32 var8006147c = 0x00000000;
+
 /**
  * These numbers are suspected to be portal indexes, based on the size of the
  * array and the number of portals in CI Training. No idea what the returned

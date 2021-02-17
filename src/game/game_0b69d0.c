@@ -81,6 +81,82 @@ const char var7f1ad4c4[] = "Gunmem: bondmeml 0x%08x size 0x%08x\n";
 const char var7f1ad4ec[] = "Gunmem: tex block free 0x%08x\n";
 const char var7f1ad50c[] = "Gunmem: Free at end %d\n";
 
+struct vimode g_ViModes[] = {
+	//  fbwidth
+	//  |    fbheight
+	//  |    |    width
+	//  |    |    |  yscale
+	//  |    |    |  |                 xscale
+	//  |    |    |  |                 |    fullheight
+	//  |    |    |  |                 |    |  fulltop
+	//  |    |    |  |                 |    |  |     wideheight
+	//  |    |    |  |                 |    |  |     |  widetop
+	//  |    |    |  |                 |    |  |     |  |     cinemaheight
+	//  |    |    |  |                 |    |  |     |  |     |  cinematop
+	//  |    |    |  |                 |    |  |     |  |     |  |
+	{ 320, 220, 320, 1,                1, 220, 0,  180, 20, 136, 42  }, // default
+	{ 640, 220, 640, 0.5,              1, 220, 0,  180, 20, 136, 42  }, // hi-res
+	{ 320, 480, 320, 2,                2, 440, 20, 360, 60, 272, 104 }, // unused
+	{ 440, 330, 440, 1,                1, 330, 0,  330, 0,  330, 0   }, // unused
+	{ 440, 240, 440, 0.72727274894714, 1, 220, 0,  180, 0,  136, 0   }, // unused
+	{ 400, 300, 400, 1,                2, 300, 0,  300, 0,  300, 0   }, // unused
+};
+
+s32 g_ViMode = VIMODE_DEFAULT;
+bool g_HiResEnabled = false;
+u32 var800706d0 = 0x00000000;
+u32 var800706d4 = 0x00000000;
+u32 var800706d8 = 0x00000000;
+u32 var800706dc = 0x00000000;
+u32 var800706e0 = 0x00000000;
+u32 var800706e4 = 0xbf800000;
+u32 var800706e8 = 0x00000000;
+u32 var800706ec = 0x3f800000;
+u32 var800706f0 = 0x00000000;
+u32 var800706f4 = 0x00000000;
+u32 var800706f8 = 0x3f800000;
+u32 var800706fc = 0x00000000;
+u32 var80070700 = 0x00000000;
+u32 var80070704 = 0x3f800000;
+u32 var80070708 = 0x00000000;
+u32 var8007070c = 0x00000000;
+u32 var80070710 = 0x00000000;
+u32 var80070714 = 0x00000000;
+u32 var80070718 = 0x00000000;
+u32 var8007071c = 0x00000000;
+u32 var80070720 = 0x00000000;
+u32 var80070724 = 0x00000000;
+u32 var80070728 = 0x3f800000;
+s32 var8007072c = 1;
+u32 var80070730 = 0xffffffff;
+u32 var80070734 = 0xffffffff;
+u32 var80070738 = 0;
+u32 var8007073c = 0;
+struct gecreditsdata *g_CurrentGeCreditsData = NULL;
+u32 var80070744 = 0;
+u32 var80070748 = 0;
+u32 var8007074c = 0;
+
+bool g_PlayersWithControl[] = {
+	true, true, true, true
+};
+
+bool g_PlayerInvincible = false;
+s32 g_InCutscene = 0x00000000;
+
+s16 g_DeathAnimations[] = {
+	ANIM_DEATH_001A,
+	ANIM_DEATH_001C,
+	ANIM_DEATH_0020,
+	ANIM_DEATH_0021,
+	ANIM_DEATH_0022,
+	ANIM_DEATH_0023,
+	ANIM_DEATH_0024,
+	ANIM_DEATH_0025,
+	0,
+};
+
+u32 g_NumDeathAnimations = 0;
 u32 var80070780 = 0x00000000;
 u32 var80070784 = 0x00000000;
 u32 var80070788 = 0x00000000;

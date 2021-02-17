@@ -27,6 +27,114 @@
 #include "lib/lib_233c0.h"
 #include "types.h"
 
+s32 g_NumBondBodies = 0;
+s32 g_NumMaleGuardHeads = 0;
+s32 g_NumFemaleGuardHeads = 0;
+s32 g_NumMaleGuardTeamHeads = 0;
+s32 g_NumFemaleGuardTeamHeads = 0;
+s32 var80062b14 = 0;
+s32 var80062b18 = 0;
+
+s32 g_BondBodies[] = {
+	BODY_DJBOND,
+	BODY_CONNERY,
+	BODY_DALTON,
+	BODY_MOORE,
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+};
+
+s32 g_MaleGuardHeads[] = {
+	HEAD_BEAU1,
+	HEAD_CHRIST,
+	HEAD_DARLING,
+	HEAD_JON,
+	HEAD_ROSS,
+	HEAD_RUSS,
+	HEAD_MARK2,
+	HEAD_JAMIE,
+	HEAD_DUNCAN2,
+	HEAD_BRIAN,
+	HEAD_STEVEM,
+	HEAD_KEITH,
+	HEAD_GRANT,
+	HEAD_PENNY,
+	HEAD_DAVEC,
+	HEAD_JONES,
+	HEAD_GRAHAM,
+	HEAD_SHAUN,
+	HEAD_NEIL2,
+	HEAD_EDMCG,
+	HEAD_MATT_C,
+	HEAD_PEER_S,
+	HEAD_ANDY_R,
+	HEAD_BEN_R,
+	HEAD_STEVE_K,
+	HEAD_SCOTT_H,
+	HEAD_SANCHEZ,
+	HEAD_COOK,
+	HEAD_PRYCE,
+	HEAD_SILKE,
+	HEAD_SMITH,
+	HEAD_GARETH,
+	HEAD_MURCHIE,
+	HEAD_WONG,
+	HEAD_CARTER,
+	HEAD_TINTIN,
+	HEAD_MUNTON,
+	HEAD_PHELPS,
+	HEAD_KEN,
+	HEAD_JOEL,
+	HEAD_TIM,
+	HEAD_ROBIN,
+	-1,
+};
+
+s32 g_MaleGuardTeamHeads[] = {
+	HEAD_BEAU1,
+	HEAD_CHRIST,
+	HEAD_DARLING,
+	HEAD_JON,
+	HEAD_ROSS,
+	HEAD_RUSS,
+	HEAD_MARK2,
+	HEAD_JAMIE,
+	HEAD_DUNCAN2,
+	HEAD_BRIAN,
+	HEAD_STEVEM,
+	HEAD_KEITH,
+	HEAD_GRANT,
+	HEAD_PENNY,
+	HEAD_DAVEC,
+	HEAD_JONES,
+	-1,
+};
+
+s32 g_FemaleGuardHeads[] = {
+	HEAD_LESLIE_S,
+	HEAD_ANKA,
+	HEAD_EILEEN_T,
+	HEAD_EILEEN_H,
+	-1,
+};
+
+s32 g_FemaleGuardTeamHeads[] = {
+	HEAD_LESLIE_S,
+	HEAD_ANKA,
+	HEAD_EILEEN_T,
+	HEAD_EILEEN_H,
+	-1,
+};
+
+s32 var80062c80 = 0;
+s32 g_ActiveMaleHeadsIndex = 0;
+s32 g_ActiveFemaleHeadsIndex = 0;
+
+s32 g_FemGuardHeads[3] = {
+	HEAD_ALEX,
+	HEAD_JULIANNE,
+	HEAD_LAURA,
+};
+
 u32 bodyGetRace(s32 bodynum)
 {
 	switch (bodynum) {

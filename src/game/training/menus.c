@@ -3326,6 +3326,7 @@ s32 ciHangarInformationMenuHandler(s32 operation, struct menuitem *item, union h
 u32 var800897b4 = 0x1b0d0e10;
 u32 var800897b8 = 0x11121316;
 u32 var800897bc = 0x1718191a;
+u32 var800897c0 = 0x1c1d0000;
 
 GLOBAL_ASM(
 glabel menuhandler001a6ea4
@@ -3786,6 +3787,22 @@ glabel var7f1b99d8
 /*  f1a7550:	00000000 */ 	nop
 );
 
+s8 var800897c4[] = {-73, 0, 5, 0};
+u32 var800897c8 = 0x0400ff00;
+
+struct hoverprop hoverprops[] = {
+	// File ID, Y offset, size
+	{ FILE_PDROPSHIP,       7,   8    },
+	{ FILE_PHOVERCRATE1,    -5,  600  },
+	{ FILE_PHOVBIKE,        -10, 50   },
+	{ FILE_PHOOVERBOT,      -20, 1000 },
+	{ FILE_PDD_HOVERCOPTER, 35,  30   },
+	{ FILE_CCHICROB,        0,   70   },
+	{ FILE_PA51INTERCEPTOR, -30, 500  },
+	{ FILE_PELVIS_SAUCER,   0,   15   },
+	{ FILE_PSK_SHUTTLE,     0,   10   },
+};
+
 // Can't match the 4bc part
 //s32 ciHangarHolographMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
 //{
@@ -3832,3 +3849,60 @@ struct menudialog *ciGetFrWeaponListMenuDialog(void)
 {
 	return &g_FrWeaponListMenuDialog;
 }
+
+struct menuitem g_HangarDetailsMenuItems[] = {
+	{ MENUITEMTYPE_MODEL,      0,                     0x00200002, 0x00000104,    0x0000002c, menuhandler001a6ea4 },
+	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000002, 0x00000000,    0x00000000, NULL                },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HANGARBIO, 0x00000000, 0x00000104,    0x0000005a, NULL                },
+	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000002, 0x00000000,    0x00000000, NULL                },
+	{ MENUITEMTYPE_LABEL,      0,                     0x00000022, L_MPMENU(414), 0x00000000, NULL                }, // "Press the B Button to go back."
+	{ MENUITEMTYPE_END,        0,                     0x00000000, 0x00000000,    0x00000000, NULL                },
+};
+
+struct menuitem g_HangarVehicleHolographMenuItems[] = {
+	{ MENUITEMTYPE_MODEL,       0, 0x00000002, 0x00000104, 0x0000006e, NULL },
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000002, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000022, L_MPMENU(414), 0x00000000, NULL }, // "Press the B Button to go back."
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_HangarVehicleHolographMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MISC(471), // "Holograph"
+	g_HangarVehicleHolographMenuItems,
+	ciHangarHolographMenuDialog,
+	0x00000202,
+	NULL,
+};
+
+struct menudialog g_HangarVehicleDetailsMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	(u32)&bioMenuTextName,
+	g_HangarDetailsMenuItems,
+	NULL,
+	0x00000202,
+	&g_HangarVehicleHolographMenuDialog,
+};
+
+struct menudialog g_HangarLocationDetailsMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	(u32)&bioMenuTextName,
+	g_HangarDetailsMenuItems,
+	NULL,
+	0x00000202,
+	NULL,
+};
+
+struct menuitem g_HangarListMenuItems[] = {
+	{ MENUITEMTYPE_LIST,        0, 0x00000008, 0x000000a0, 0x00000000, ciHangarInformationMenuHandler },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_HangarListMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(415), // "Hangar Information"
+	g_HangarListMenuItems,
+	NULL,
+	0x00000000,
+	NULL,
+};

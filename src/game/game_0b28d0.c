@@ -12,6 +12,15 @@
 #include "lib/memory.h"
 #include "types.h"
 
+u32 var800705a0 = 0x00000000;
+u32 var800705a4 = 0x00000000;
+bool var800705a8 = false;
+u32 var800705ac = 0x00000000;
+u32 var800705b0 = 0x00000000;
+u32 var800705b4 = 0x00000000;
+u32 var800705b8 = 0x00000000;
+u32 var800705bc = 0x00000000;
+
 GLOBAL_ASM(
 glabel func0f0b28d0
 /*  f0b28d0:	84a30014 */ 	lh	$v1,0x14($a1)

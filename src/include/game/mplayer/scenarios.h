@@ -3,6 +3,9 @@
 #include <ultra64.h>
 #include "types.h"
 
+extern struct menudialog g_MpScenarioMenuDialog;
+extern struct menudialog g_MpQuickTeamScenarioMenuDialog;
+
 void scenarioHtbInit(void);
 s32 scenarioHtbCallback08(void);
 void scenarioHtbReset(void);
@@ -15,7 +18,7 @@ bool scenarioHtbHighlight(struct prop *prop, u32 *colour);
 void scenarioCtcInit(void);
 s32 scenarioCtcCallback08(void);
 void scenarioCtcTick(void);
-void scenarioCtcCallback14();
+void scenarioCtcCallback14(struct chrdata *chr);
 void scenarioCtcKill(struct mpchr *mpchr, s32 mpchrnum, s32 *score, s32 *arg3);
 Gfx *scenarioCtcRadar(Gfx *gdl);
 bool scenarioCtcRadar2(Gfx **gdl, struct prop *prop);

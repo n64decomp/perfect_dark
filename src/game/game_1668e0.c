@@ -12,6 +12,8 @@
 #include "lib/lib_159b0.h"
 #include "types.h"
 
+s32 var80082050 = 0;
+
 void currentPlayerSetLastRoomForOffset(s32 room)
 {
 	g_Vars.currentplayer->lastroomforoffset = room;

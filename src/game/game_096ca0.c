@@ -22,6 +22,9 @@ const u32 var7f1ab884[] = {0x00000000};
 const u32 var7f1ab888[] = {0x00000000};
 const u32 var7f1ab88c[] = {0x00000000};
 
+u32 var8006afa0 = 0x00000001;
+u32 var8006afa4 = 0x00000002;
+
 GLOBAL_ASM(
 glabel func0f096ca0
 /*  f096ca0:	27bdffc0 */ 	addiu	$sp,$sp,-64

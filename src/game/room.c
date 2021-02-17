@@ -71,6 +71,34 @@ const char var7f1b7584[] = " Failed 1 - Crossed portal %d";
 const char var7f1b75a4[] = " Passed";
 const char var7f1b75ac[] = "edist";
 
+u32 g_StageIndex = 1;
+u32 var8007fc04 = 0x00000000;
+u32 var8007fc08 = 0x00000000;
+s16 var8007fc0c = 0;
+u16 var8007fc10 = 0;
+s32 var8007fc14 = 0;
+u32 var8007fc18 = 0x01000100;
+u32 var8007fc1c = 0x00000000;
+s32 g_CamRoom = 0x00000001;
+u32 var8007fc24 = (u32) &var800a4640 + 0x2d0;
+u32 var8007fc28 = 0x00000000;
+u32 var8007fc2c = 0x00000000;
+s32 var8007fc30 = 0x00000000;
+s32 var8007fc34 = 0x00000000;
+u32 var8007fc38 = 0x00000000;
+u16 var8007fc3c = 0xfffe;
+s32 g_NumPortalThings = 0;
+u32 var8007fc44 = 0xffffffff;
+u32 var8007fc48 = 0xffff0000;
+u32 var8007fc4c = 0x00000000;
+u32 var8007fc50 = 0x00000000;
+u32 var8007fc54 = 0x00000000;
+bool g_PortalStack[20] = {0};
+s32 g_PortalStackIndex = 0x00000000;
+u32 g_PortalMode = 0x00000000;
+u32 var8007fcb0 = 0x00000190;
+f32 var8007fcb4 = 0;
+
 GLOBAL_ASM(
 glabel func0f157db0
 /*  f157db0:	27bdfdb8 */ 	addiu	$sp,$sp,-584

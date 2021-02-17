@@ -11,15 +11,6 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-const char var7f1b78c0[] = "null";
-const char var7f1b78c8[] = "leveltune";
-const char var7f1b78d4[] = "nrgtune,watchtune,mpdeathtune";
-const char var7f1b78f4[] = "ambience";
-const char var7f1b7900[] = "NULL";
-const char var7f1b7908[] = "playing";
-const char var7f1b7910[] = "paused";
-const char var7f1b7918[] = "MUSIC : activedeath=%d\n";
-
 void frametimeInit(void)
 {
 	g_Vars.thisframetime = osGetCount();

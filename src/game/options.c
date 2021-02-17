@@ -12,6 +12,18 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
+u8 g_InGameSubtitles = 1;
+u8 g_CutsceneSubtitles = 0;
+u32 var8007fa98 = 0x00000000;
+u32 var8007fa9c = 0x00000001;
+u32 var8007faa0 = 0x00000000;
+u32 var8007faa4 = 0x00000001;
+u32 var8007faa8 = 0x00000001;
+u32 var8007faac = 0x00000001;
+s32 g_ScreenSize = SCREENSIZE_FULL;
+s32 g_ScreenRatio = SCREENRATIO_NORMAL;
+u8 g_ScreenSplit = SCREENSPLIT_HORIZONTAL;
+
 s32 optionsGetControlMode(s32 mpchrnum)
 {
 	return g_MpPlayers[mpchrnum].base.controlmode;

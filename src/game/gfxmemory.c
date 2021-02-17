@@ -39,6 +39,23 @@
  * marker for the end of the second element's allocation.
  */
 
+u32 g_GfxSizesByPlayerCount[] = {
+	0x00010000,
+	0x00018000,
+	0x00020000,
+	0x00028000,
+};
+
+u32 g_VtxSizesByPlayerCount[] = {
+	0x00010000,
+	0x00018000,
+	0x00020000,
+	0x00028000,
+};
+
+s32 g_GfxNumSwapsPerBuffer[2] = {0, 1};
+u32 g_GfxNumSwaps = 0x00000002;
+
 /**
  * Allocate graphics memory from the heap. Presumably called on stage load.
  *

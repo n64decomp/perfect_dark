@@ -38,6 +38,45 @@
 #include "lib/lib_233c0.h"
 #include "types.h"
 
+u8 g_NumMpSimulantChrs = 0;
+
+struct simdifficulty g_SimDifficulties[] = {
+	{ 90, 0.26175770163536,  0.52351540327072,  600, 10, 0.69802051782608, 0.34901025891304,  1000 },
+	{ 60, 0.12215359508991,  0.24430719017982,  360, 10, 0.49733963608742, 0.13960410654545,  1000 },
+	{ 30, 0.069802053272724, 0.13960410654545,  180, 4,  0.34901025891304, 0.08725256472826,  1500 },
+	{ 15, 0.026175770908594, 0.069802053272724, 90,  2,  0.24430719017982, 0.034901026636362, 2500 },
+	{ 0,  0,                 0.034901026636362, 45,  1,  0.17450512945652, 0,                 4000 },
+	{ 0,  0,                 0,                 0,   0,  0.13960410654545, 0,                 4000 },
+	{ 0,  0,                 0,                 0,   0,  0,                0,                 0    },
+};
+
+u32 g_MpBotCommands[NUM_MPBOTCOMMANDS] = {
+	L_MISC(175), // "Follow"
+	L_MISC(176), // "Attack"
+	L_MISC(177), // "Defend"
+	L_MISC(178), // "Hold"
+	L_MISC(179), // "Normal"
+	L_MISC(180), // "Download"
+	L_MISC(181), // "Get Case"
+	L_MISC(182), // "Tag Box"
+	L_MISC(209), // "Save Case"
+	L_MISC(210), // "Def Hill"
+	L_MISC(211), // "Hold Hill"
+	L_MISC(212), // "Get Case"
+	L_MISC(213), // "Pop Cap"
+	L_MISC(214), // "Protect"
+};
+
+u32 var80087e2c = 0x00000000;
+u32 var80087e30 = 0x00000000;
+u32 var80087e34 = 0x00000000;
+u32 var80087e38 = 0x00000000;
+u32 var80087e3c = 0x00000000;
+u32 var80087e40 = 0x00000000;
+u32 var80087e44 = 0x00000000;
+u32 var80087e48 = 0x00000000;
+u32 var80087e4c = 0x00000000;
+
 bool func0f190260(struct chrdata *chr)
 {
 	return chr->blurdrugamount >= g_SimDifficulties[chr->aibot->simulant->difficulty].blurdrugamount;

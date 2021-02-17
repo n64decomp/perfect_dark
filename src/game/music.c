@@ -17,6 +17,35 @@
 #include "lib/lib_11420.h"
 #include "types.h"
 
+s32 g_MenuTrack = -1;
+u32 var800840c4 = 0x00000000;
+s32 g_TemporaryPrimaryTrack = -1;
+s32 g_TemporaryAmbientTrack = -1;
+s32 var800840d0 = -1;
+u32 var800840d4 = 0x00000000;
+u32 var800840d8 = 0x00000000;
+s32 var800840dc = 0;
+u32 var800840e0 = 0x0000000f;
+u32 var800840e4 = 0x00000000;
+s32 var800840e8 = 0;
+u16 var800840ec = 0x5000;
+u32 var800840f0 = 0x00000000;
+u32 var800840f4 = 0x00000000;
+u32 var800840f8 = 0x00000078;
+u32 var800840fc = 0x00000000;
+
+char *var80084100[] = {
+	"null",
+	"leveltune",
+	"nrgtune,watchtune,mpdeathtune",
+	"ambience",
+	"NULL",
+	"playing",
+	"paused",
+};
+
+const char var7f1b7918[] = "MUSIC : activedeath=%d\n";
+
 u16 musicGetVolume(void)
 {
 	u32 volume;

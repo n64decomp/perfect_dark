@@ -18,6 +18,9 @@
 #include "lib/lib_16110.h"
 #include "types.h"
 
+u32 var8007fa80 = 0x00000000;
+bool g_ShardsActive = false;
+
 const u32 var7f1b7370[] = {0x3dcccccd};
 const u32 var7f1b7374[] = {0x3f333333};
 const u32 var7f1b7378[] = {0x3f8f5c29};

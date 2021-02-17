@@ -71,14 +71,11 @@
 	build/ROMID/game/sparks/tick.o (section); \
 	build/ROMID/game/chr/chr.o (section); \
 	build/ROMID/game/game_02cde0.o (section); \
-	build/ROMID/game/data/data_0083d0.o (section); \
 	build/ROMID/game/chr/chraction.o (section); \
 	build/ROMID/game/chr/chrai.o (section); \
 	build/ROMID/game/chr/chraicommands.o (section); \
 	build/ROMID/game/prop.o (section); \
 	build/ROMID/game/propobj.o (section); \
-	build/ROMID/game/data/data_00e460.o (section); \
-	build/ROMID/game/inventory/items.o (section); \
 	build/ROMID/game/game_091e10.o (section); \
 	build/ROMID/game/game_092610.o (section); \
 	build/ROMID/game/objectives/objectives.o (section); \
@@ -93,8 +90,8 @@
 	build/ROMID/game/ceil.o (section); \
 	build/ROMID/game/game_097a50.o (section); \
 	build/ROMID/game/game_097aa0.o (section); \
+	build/ROMID/game/inventory/items.o (section); \
 	build/ROMID/game/game_097ba0.o (section); \
-	build/ROMID/game/data/data_0160b0.o (section); \
 	build/ROMID/game/game_0abe70.o (section); \
 	build/ROMID/game/mpstats.o (section); \
 	build/ROMID/game/game_0b0fd0.o (section); \
@@ -123,7 +120,6 @@
 	build/ROMID/game/cheats.o (section); \
 	build/ROMID/game/game_107fb0.o (section); \
 	build/ROMID/game/game_10c9c0.o (section); \
-	build/ROMID/game/data/data_01a3a0.o (section); \
 	build/ROMID/game/endscreen.o (section); \
 	build/ROMID/game/gamefile.o (section); \
 	build/ROMID/game/inventory/inventory.o (section); \
@@ -149,7 +145,6 @@
 	build/ROMID/game/game_13c510.o (section); \
 	build/ROMID/game/wallhit.o (section); \
 	build/ROMID/game/bondview.o (section); \
-	build/ROMID/game/data/data_0258c0.o (section); \
 	build/ROMID/game/splat.o (section); \
 	build/ROMID/game/camdraw.o (section); \
 	build/ROMID/game/shards/create.o (section); \
@@ -165,7 +160,6 @@
 	build/ROMID/game/file.o (section); \
 	build/ROMID/game/gfxmemory.o (section); \
 	build/ROMID/game/core.o (section); \
-	build/ROMID/game/data/data_02a0e0.o (section); \
 	build/ROMID/game/timing.o (section); \
 	build/ROMID/game/music.o (section); \
 	build/ROMID/game/lang.o (section); \
@@ -180,7 +174,6 @@
 	build/ROMID/game/mplayer/setup.o (section); \
 	build/ROMID/game/mplayer/scenarios.o (section); \
 	build/ROMID/game/mplayer/mplayer.o (section); \
-	build/ROMID/game/data/data_02da90.o (section); \
 	build/ROMID/game/radar.o (section); \
 	build/ROMID/game/game_190260.o (section); \
 	build/ROMID/game/game_197600.o (section); \
@@ -189,5 +182,4 @@
 	build/ROMID/game/training/training.o (section); \
 	build/ROMID/game/training/menus.o (section); \
 	build/ROMID/game/game_1a7560.o (section); \
-	build/ROMID/game/data/data_02e820.o (section); \
 	build/ROMID/game/game_1a78b0.o (section);

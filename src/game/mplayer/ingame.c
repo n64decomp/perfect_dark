@@ -14,12 +14,14 @@
 #include "game/game_0b3350.h"
 #include "game/game_0d4690.h"
 #include "game/game_0f09f0.h"
+#include "game/game_102240.h"
 #include "game/game_107fb0.h"
 #include "game/core.h"
 #include "game/mplayer/ingame.h"
 #include "game/game_19aa80.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
+#include "game/mplayer/setup.h"
 #include "game/options.h"
 #include "gvars/gvars.h"
 #include "lib/main.h"
@@ -243,9 +245,163 @@ char *mpMenuTextAward2(struct menuitem *item)
 	return g_Vars.players[g_Menus[g_MpPlayerNum].playernum]->award2;
 }
 
+struct menuitem g_MpEndGameMenuItems[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x02000020, L_MPMENU(291), 0x00000000, NULL }, // "Are you sure?"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU(292), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPMENU(293), 0x00000000, menuhandlerMpEndGame }, // "End Game"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MpEndGameMenuDialog = {
+	MENUDIALOGTYPE_DANGER,
+	L_MPMENU(290), // "End Game"
+	g_MpEndGameMenuItems,
+	NULL,
+	0x00000000,
+	NULL,
+};
+
+struct menuitem g_MpPauseControlMenuItems[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&mpMenuTextChallengeName, 0x00000000, menuhandler00178018 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&mpMenuTextScenarioName, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_MPWEAPONS(162), (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Time Limit:"
+	{ MENUITEMTYPE_LABEL,       1, 0x00000200, L_MPWEAPONS(163), (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Score Limit:"
+	{ MENUITEMTYPE_LABEL,       2, 0x00000200, L_MPWEAPONS(164), (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Team Score Limit:"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(286), (u32)&menutextMatchTime, NULL }, // "Game Time:"
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000020, (u32)&menutextPauseOrUnpause, 0x00000000, menuhandlerMpPause },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000024, L_MPMENU(287), 0x00000000, (void *)&g_MpEndGameMenuDialog }, // "End Game"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MpPauseControlMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(285), // "Control"
+	g_MpPauseControlMenuItems,
+	NULL,
+	0x00000000,
+	NULL,
+};
+
+struct menuitem g_Mp2PMissionInventoryMenuItems[] = {
+	{ MENUITEMTYPE_LIST,        0, 0x00000000, 0x00000078, 0x00000042, menuhandler00106178 },
+	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&mpMenuTextWeaponDescription, 0x00000000, NULL },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MpPauseInventoryMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(284), // "Inventory"
+	g_Mp2PMissionInventoryMenuItems,
+	NULL,
+	0x00000000,
+	&g_MpPauseControlMenuDialog,
+};
+
+struct menudialog g_2PMissionInventoryHMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(284), // "Inventory"
+	g_Mp2PMissionInventoryMenuItems,
+	NULL,
+	0x00000000,
+	&g_2PMissionOptionsHMenuDialog,
+};
+
+struct menudialog g_2PMissionInventoryVMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(284), // "Inventory"
+	g_Mp2PMissionInventoryMenuItems,
+	NULL,
+	0x00000000,
+	&g_2PMissionOptionsVMenuDialog,
+};
+
+struct menuitem g_MpInGamePlayerStatsMenuItems[] = {
+	{ MENUITEMTYPE_PLAYERSTATS, 0, 0x00000000, 0x00000000, 0x00000000, mpStatsForPlayerDropdownHandler },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MpPausePlayerStatsMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	(u32)&mpMenuTitleStatsFor,
+	g_MpInGamePlayerStatsMenuItems,
+	NULL,
+	0x00000000,
+	&g_MpPauseInventoryMenuDialog,
+};
+
+struct menudialog g_MpEndscreenPlayerStatsMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	(u32)&mpMenuTitleStatsFor,
+	g_MpInGamePlayerStatsMenuItems,
+	NULL,
+	0x00000000,
+	NULL,
+};
+
+struct menuitem g_MpPlayerRankingMenuItems[] = {
+	{ MENUITEMTYPE_RANKING,     0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MpPausePlayerRankingMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(276), // "Player Ranking"
+	g_MpPlayerRankingMenuItems,
+	NULL,
+	0x00000000,
+	&g_MpPausePlayerStatsMenuDialog,
+};
+
+struct menudialog g_MpEndscreenPlayerRankingMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(276), // "Player Ranking"
+	g_MpPlayerRankingMenuItems,
+	NULL,
+	0x00000000,
+	&g_MpEndscreenPlayerStatsMenuDialog,
+};
+
+struct menuitem g_MpTeamRankingsMenuItems[] = {
+	{ MENUITEMTYPE_RANKING,     0, 0x00000000, 0x00000001, 0x00000000, NULL },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MpPauseTeamRankingsMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(279), // "Team Ranking"
+	g_MpTeamRankingsMenuItems,
+	NULL,
+	0x00000000,
+	&g_MpPausePlayerRankingMenuDialog,
+};
+
+struct menudialog g_MpEndscreenTeamRankingMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(279), // "Team Ranking"
+	g_MpTeamRankingsMenuItems,
+	NULL,
+	0x00000000,
+	&g_MpEndscreenPlayerRankingMenuDialog,
+};
+
 char *mpMenuTextPlacementWithSuffix(struct menuitem *item)
 {
-	u16 suffixes[12] = g_OrdinalSuffixes;
+	u16 suffixes[] = {
+		L_MPMENU(264), // "1st"
+		L_MPMENU(265), // "2nd"
+		L_MPMENU(266), // "3rd"
+		L_MPMENU(267), // "4th"
+		L_MPMENU(268), // "5th"
+		L_MPMENU(269), // "6th"
+		L_MPMENU(270), // "7th"
+		L_MPMENU(271), // "8th"
+		L_MPMENU(272), // "9th"
+		L_MPMENU(273), // "10th"
+		L_MPMENU(274), // "11th"
+		L_MPMENU(275), // "12th"
+	};
 
 	return langGet(suffixes[g_MpPlayers[g_MpPlayerNum].base.placement]);
 }
@@ -529,3 +685,92 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 
 	g_MpPlayerNum = prevplayernum;
 }
+
+struct menuitem g_MpGameOverMenuItems[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x01000010, (u32)&mpGetCurrentPlayerName, (u32)&mpMenuTextPlacementWithSuffix, mpPlacementMenuHandler },
+	{ MENUITEMTYPE_LABEL,       0, 0x01000000, L_MPMENU(261), (u32)&mpMenuTextPlayerTitle, mpPlayerTitleMenuHandler }, // "Title:"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_MPMENU(262), 0x00000000, NULL }, // "Weapon of Choice:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000120, (u32)&mpMenuTextWeaponOfChoiceName, 0x00000000, NULL },
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00200210, L_MPMENU(263), 0x00000000, mpAwardsMenuHandler }, // "Awards:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000120, (u32)&mpMenuTextAward1, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000120, (u32)&mpMenuTextAward2, 0x00000000, NULL },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MpEndscreenIndGameOverMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(260), // "Game Over"
+	g_MpGameOverMenuItems,
+	NULL,
+	0x00000000,
+	&g_MpEndscreenPlayerRankingMenuDialog,
+};
+
+struct menudialog g_MpEndscreenTeamGameOverMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(260), // "Game Over"
+	g_MpGameOverMenuItems,
+	NULL,
+	0x00000000,
+	&g_MpEndscreenTeamRankingMenuDialog,
+};
+
+struct menudialog g_MpEndscreenChallengeCompletedMenuDialog = {
+	MENUDIALOGTYPE_SUCCESS,
+	L_MPWEAPONS(165), // "Challenge Completed!"
+	g_MpTeamRankingsMenuItems,
+	NULL,
+	0x00000000,
+	&g_MpEndscreenIndGameOverMenuDialog,
+};
+
+struct menudialog g_MpEndscreenChallengeCheatedMenuDialog = {
+	MENUDIALOGTYPE_DANGER,
+	L_MPWEAPONS(167), // "Challenge Cheated!"
+	g_MpTeamRankingsMenuItems,
+	NULL,
+	0x00000000,
+	&g_MpEndscreenIndGameOverMenuDialog,
+};
+
+struct menudialog g_MpEndscreenChallengeFailedMenuDialog = {
+	MENUDIALOGTYPE_DANGER,
+	L_MPWEAPONS(166), // "Challenge Failed!"
+	g_MpTeamRankingsMenuItems,
+	NULL,
+	0x00000000,
+	&g_MpEndscreenIndGameOverMenuDialog,
+};
+
+struct menuitem g_MpEndscreenConfirmNameMenuItems[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(250), 0x00000000, NULL }, // "Confirm player name:"
+	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandler00178bf4 },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MpEndscreenConfirmNameMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPMENU(142), // "Player Name"
+	g_MpEndscreenConfirmNameMenuItems,
+	NULL,
+	0x00000000,
+	NULL,
+};
+
+struct menuitem g_MpEndscreenSavePlayerMenuItems[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(247), 0x00000000, NULL }, // "Save new player and statistics?"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x0000002c, L_MPWEAPONS(248), 0x00000000, (void *)&g_MpEndscreenConfirmNameMenuDialog }, // "Save Now"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS(249), 0x00000000, NULL }, // "No Thanks!"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menudialog g_MpEndscreenSavePlayerMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_MPWEAPONS(246), // "Save Player"
+	g_MpEndscreenSavePlayerMenuItems,
+	NULL,
+	0x00000004,
+	NULL,
+};

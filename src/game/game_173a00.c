@@ -13,24 +13,157 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-const char var7f1b7ba0[] = "default";
-const char var7f1b7ba8[] = "stone";
-const char var7f1b7bb0[] = "wood";
-const char var7f1b7bb8[] = "metal";
-const char var7f1b7bc0[] = "glass";
-const char var7f1b7bc8[] = "shallow water";
-const char var7f1b7bd8[] = "snow";
-const char var7f1b7be0[] = "dirt";
-const char var7f1b7be8[] = "mud";
-const char var7f1b7bec[] = "tile";
-const char var7f1b7bf4[] = "metalobj";
-const char var7f1b7c00[] = "chr";
-const char var7f1b7c04[] = "glass xlu";
-const char var7f1b7c10[] = "no hit";
-const char var7f1b7c18[] = "deep water";
+u32 var80084330 = 0x80878088;
+u32 var80084334 = 0x06000000;
+
+struct something something_2a358 = {
+	&var80084330, &var80084334, 0x00020001,
+};
+
+u32 var80084344 = 0x80878088;
+u32 var80084348 = 0x01000000;
+
+struct something something_2a36c = {
+	&var80084344, &var80084348, 0x00020001,
+};
+
+u32 var80084358 = 0x807e807f;
+u32 var8008435c = 0x10000000;
+
+struct something something_2a380 = {
+	&var80084358, &var8008435c, 0x00020001,
+};
+
+u32 var8008436c = 0x8079807b;
+u32 var80084370 = 0x11000000;
+
+struct something something_2a394 = {
+	&var8008436c, &var80084370, 0x00020001,
+};
+
+u32 var80084380 = 0x80770000;
+u32 var80084384 = 0x03040500;
+
+struct something something_2a3a8 = {
+	&var80084380, &var80084384, 0x00010003,
+};
+
+u32 var80084394 = 0x807d0000;
+u32 var80084398 = 0x01000000;
+
+struct something something_2a3bc = {
+	&var80084394, &var80084398, 0x00010001,
+};
+
+u32 var800843a8 = 0x80848085;
+u32 var800843ac = 0x02000000;
+
+struct something something_2a3d0 = {
+	&var800843a8, &var800843ac, 0x00020001,
+};
+
+u32 var800843bc = 0x80818082;
+u32 var800843c0 = 0x80830000;
+u32 var800843c4 = 0x02000000;
+
+struct something something_2a3e8 = {
+	&var800843bc, &var800843c4, 0x00030001,
+};
+
+u32 var800843d4 = 0x80860000;
+u32 var800843d8 = 0x01000000;
+
+struct something something_2a3fc = {
+	&var800843d4, &var800843d8, 0x00010001,
+};
+
+u32 var800843e8 = 0x8089808a;
+u32 var800843ec = 0x01060000;
+
+struct something something_2a410 = {
+	&var800843e8, &var800843ec, 0x00020002,
+};
+
+u32 var800843fc = 0x80760000;
+u32 var80084400 = 0x02000000;
+
+struct something something_2a424 = {
+	&var800843fc, &var80084400, 0x00010001,
+};
+
+u32 var80084410 = 0x80770000;
+u32 var80084414 = 0x03040500;
+
+struct something something_2a438 = {
+	&var80084410, &var80084414, 0x00010003,
+};
+
+struct something something_2a444 = {
+	NULL, NULL, 0x00000000,
+};
+
+u32 var80084430 = 0x80800000;
+u32 var80084434 = 0x00000000;
+
+struct something something_2a458 = {
+	&var80084430, &var80084434, 0x00010001,
+};
+
+u32 var80084444 = 0x80800000;
+u32 var80084448 = 0x00000000;
+
+struct something something_2a46c = {
+	&var80084444, &var80084448, 0x00010001,
+};
+
+struct something *somethings[] = {
+	/* 0*/ &something_2a358,
+	/* 1*/ &something_2a36c,
+	/* 2*/ &something_2a380,
+	/* 3*/ &something_2a394,
+	/* 4*/ &something_2a3a8,
+	/* 5*/ &something_2a458,
+	/* 6*/ &something_2a3bc,
+	/* 7*/ &something_2a3d0,
+	/* 8*/ &something_2a3e8,
+	/* 9*/ &something_2a3fc,
+	/*10*/ &something_2a410,
+	/*11*/ &something_2a424,
+	/*12*/ &something_2a438,
+	/*13*/ &something_2a444,
+	/*14*/ &something_2a46c,
+};
+
+char *var80084494[] = {
+	"default",
+	"stone",
+	"wood",
+	"metal",
+	"glass",
+	"shallow water",
+	"snow",
+	"dirt",
+	"mud",
+	"tile",
+	"metalobj",
+	"chr",
+	"glass xlu",
+	"no hit",
+	"deep water",
+};
+
 const char var7f1b7c24[] = "";
 const char var7f1b7c28[] = "";
 const char var7f1b7c2c[] = "";
+
+u32 var800844d0 = 0x00000000;
+u32 var800844d4 = 0x00000000;
+u32 var800844d8 = 0x00000000;
+u32 var800844dc = 0x00000000;
+u32 var800844e0 = 0x00000103;
+u32 var800844e4 = 0x00000000;
+u32 var800844e8 = 0x00000000;
+u32 var800844ec = 0x00000000;
 
 void func0f173a00(void)
 {

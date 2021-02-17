@@ -3,6 +3,16 @@
 #include <ultra64.h>
 #include "types.h"
 
+extern struct animfloats var800656c0[];
+extern struct animfloats var80065be0[];
+extern struct animfloats var800663d8[];
+extern struct animfloats var80067a10;
+extern struct animfloats var80067a58;
+extern struct animfloats var80067aa0;
+extern struct animfloats var80067ae8;
+extern struct animfloats var80067b30;
+extern struct animfloats var80067b78;
+
 f32 func0f02dff0(s16 animnum);
 s32 func0f02e064(struct chrdata *chr);
 bool weaponIsOneHanded(struct prop *prop);

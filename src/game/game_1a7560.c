@@ -30,6 +30,86 @@
 #include "lib/main.h"
 #include "types.h"
 
+u32 var80089990 = (u32) &stagethinglist_22e60;
+u32 var80089994 = (u32) &stagethinglist_221cc;
+u32 var80089998 = (u32) &stagethinglist_22200;
+u32 var8008999c = (u32) &stagethinglist_22220;
+u32 var800899a0 = (u32) &stagethinglist_2208c;
+u32 var800899a4 = (u32) &stagethinglist_20e54;
+u32 var800899a8 = (u32) &stagethinglist_20ef8;
+u32 var800899ac = (u32) &stagethinglist_20ea4;
+u32 var800899b0 = (u32) &stagethinglist_20eec;
+u32 var800899b4 = (u32) &stagethinglist_20ec8;
+u32 var800899b8 = (u32) &stagethinglist_20e60;
+u32 var800899bc = (u32) &stagethinglist_20e6c;
+u32 var800899c0 = (u32) &stagethinglist_20e94;
+u32 var800899c4 = (u32) &stagethinglist_20f0c;
+u32 var800899c8 = (u32) &stagethinglist_20edc;
+u32 var800899cc = (u32) &stagethinglist_20e80;
+u32 var800899d0 = (u32) &stagethinglist_221a4;
+u32 var800899d4 = (u32) &stagethinglist_220d0;
+u32 var800899d8 = (u32) &stagethinglist_221e4;
+u32 var800899dc = (u32) &stagethinglist_220a4;
+u32 var800899e0 = (u32) &stagethinglist_20f18;
+u32 var800899e4 = (u32) &stagethinglist_2224c;
+u32 var800899e8 = (u32) &stagethinglist_20e48;
+u32 var800899ec = (u32) &stagethinglist_22eb8;
+u32 var800899f0 = (u32) &stagethinglist_20f24;
+u32 var800899f4 = (u32) &stagethinglist_20f50;
+u32 var800899f8 = (u32) &stagethinglist_20f5c;
+u32 var800899fc = (u32) &stagethinglist_20f74;
+u32 var80089a00 = (u32) &stagethinglist_221b4;
+u32 var80089a04 = (u32) &stagethinglist_222b4;
+u32 var80089a08 = (u32) &stagethinglist_22f0c;
+u32 var80089a0c = (u32) &stagethinglist_22318;
+u32 var80089a10 = (u32) &stagethinglist_22374;
+u32 var80089a14 = (u32) &stagethinglist_20f84;
+u32 var80089a18 = (u32) &stagethinglist_223d4;
+u32 var80089a1c = (u32) &stagethinglist_22424;
+u32 var80089a20 = (u32) &stagethinglist_22ec8;
+u32 var80089a24 = (u32) &stagethinglist_20fb8;
+u32 var80089a28 = (u32) &stagethinglist_2247c;
+u32 var80089a2c = (u32) &stagethinglist_20fd8;
+u32 var80089a30 = (u32) &stagethinglist_224d8;
+u32 var80089a34 = (u32) &stagethinglist_22538;
+u32 var80089a38 = (u32) &stagethinglist_2258c;
+u32 var80089a3c = (u32) &stagethinglist_225d8;
+u32 var80089a40 = (u32) &stagethinglist_22630;
+u32 var80089a44 = (u32) &stagethinglist_22698;
+u32 var80089a48 = (u32) &stagethinglist_226e8;
+u32 var80089a4c = (u32) &stagethinglist_22754;
+u32 var80089a50 = (u32) &stagethinglist_20e10;
+u32 var80089a54 = (u32) &stagethinglist_227ac;
+u32 var80089a58 = (u32) &stagethinglist_22804;
+u32 var80089a5c = (u32) &stagethinglist_22f1c;
+u32 var80089a60 = (u32) &stagethinglist_2285c;
+u32 var80089a64 = (u32) &stagethinglist_228b4;
+u32 var80089a68 = (u32) &stagethinglist_2291c;
+u32 var80089a6c = (u32) &stagethinglist_22970;
+u32 var80089a70 = (u32) &stagethinglist_229c4;
+u32 var80089a74 = (u32) &stagethinglist_22a20;
+u32 var80089a78 = (u32) &stagethinglist_22a78;
+u32 var80089a7c = (u32) &stagethinglist_22adc;
+u32 var80089a80 = (u32) &stagethinglist_22c54;
+u32 var80089a84 = (u32) &stagethinglist_22b28;
+u32 var80089a88 = (u32) &stagethinglist_22b80;
+u32 var80089a8c = (u32) &stagethinglist_22be0;
+u32 var80089a90 = (u32) &stagethinglist_22ca0;
+u32 var80089a94 = (u32) &stagethinglist_22c3c;
+u32 var80089a98 = (u32) &stagethinglist_20e3c;
+u32 var80089a9c = (u32) &stagethinglist_22cf0;
+u32 var80089aa0 = (u32) &stagethinglist_20fe8;
+u32 var80089aa4 = (u32) &stagethinglist_22d40;
+u32 var80089aa8 = (u32) &stagethinglist_20ff8;
+u32 var80089aac = (u32) &stagethinglist_2100c;
+u32 var80089ab0 = (u32) &stagethinglist_21018;
+u32 var80089ab4 = (u32) &stagethinglist_22d90;
+u32 var80089ab8 = (u32) &stagethinglist_22de0;
+u32 var80089abc = (u32) &stagethinglist_21024;
+u32 var80089ac0 = (u32) &stagethinglist_21034;
+u32 var80089ac4 = (u32) &stagethinglist_22e34;
+u32 var80089ac8 = (u32) &stagethinglist_21084;
+
 GLOBAL_ASM(
 glabel func0f1a7560
 /*  f1a7560:	27bdff70 */ 	addiu	$sp,$sp,-144

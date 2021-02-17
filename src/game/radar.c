@@ -22,7 +22,32 @@
 #include "lib/lib_16110.h"
 #include "types.h"
 
-extern bool g_RadarYIndicatorsEnabled;
+bool g_RadarYIndicatorsEnabled = true;
+
+u32 g_TeamColours[] = {
+	0xff000000, // Red
+	0xffff0000, // Yellow
+	0x0000ff00, // Blue
+	0xff00ff00, // Magenta
+	0x00ffff00, // Cyan
+	0xff885500, // Orange
+	0x8800ff00, // Pink
+	0x88445500, // Brown
+};
+
+u16 var80087ce4[] = {
+	0xf801, 0xf801,
+	0xffc1, 0xffc1,
+	0x003f, 0x003f,
+	0xf83f, 0xf83f,
+	0x07ff, 0x07ff,
+	0xfc55, 0xfc55,
+	0xfc63, 0xfc63,
+	0x8a15, 0x8a15,
+	0x0000, 0x0000,
+	0x0000, 0x0000,
+	0x0000, 0x0000,
+};
 
 void radarSetYIndicatorsEnabled(bool enable)
 {
