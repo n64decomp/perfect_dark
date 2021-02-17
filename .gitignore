@@ -7,6 +7,7 @@ src/assets/*.bin
 src/assets/*.ctl
 src/assets/*.tbl
 src/assets/animations/*.bin
+src/assets/bootloader/*.bin
 src/assets/files/audio/*.mp3
 src/assets/files/bgdata/*.bin
 src/assets/files/bgdata/*.seg
@@ -15,5 +16,6 @@ src/assets/files/guns/*.bin
 src/assets/files/props/*.bin
 src/assets/fonts/*.bin
 src/assets/garbage/*/*.bin
+src/assets/rsp/*.bin
 src/assets/sequences/*.seq
 src/assets/textures/*.bin

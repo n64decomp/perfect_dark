@@ -1771,13 +1771,13 @@ glabel coreGetSlowMotionType
 /*  f16b884:	27a50028 */ 	addiu	$a1,$sp,0x28
 /*  f16b888:	8fae0028 */ 	lw	$t6,0x28($sp)
 /*  f16b88c:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*  f16b890:	3c058006 */ 	lui	$a1,%hi(var80059fe0)
-/*  f16b894:	24a29fe0 */ 	addiu	$v0,$a1,%lo(var80059fe0)
+/*  f16b890:	3c058006 */ 	lui	$a1,%hi(rspbootTextStart)
+/*  f16b894:	24a29fe0 */ 	addiu	$v0,$a1,%lo(rspbootTextStart)
 /*  f16b898:	11cf000d */ 	beq	$t6,$t7,.L0f16b8d0
 /*  f16b89c:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x318)
-/*  f16b8a0:	3c188006 */ 	lui	$t8,%hi(var80059fe0+0x1)
+/*  f16b8a0:	3c188006 */ 	lui	$t8,%hi(rspbootTextStart+0x1)
 /*  f16b8a4:	24431000 */ 	addiu	$v1,$v0,0x1000
-/*  f16b8a8:	27189fe1 */ 	addiu	$t8,$t8,%lo(var80059fe0+0x1)
+/*  f16b8a8:	27189fe1 */ 	addiu	$t8,$t8,%lo(rspbootTextStart+0x1)
 /*  f16b8ac:	0078082b */ 	sltu	$at,$v1,$t8
 /*  f16b8b0:	14200007 */ 	bnez	$at,.L0f16b8d0
 /*  f16b8b4:	00000000 */ 	nop
@@ -1845,12 +1845,12 @@ glabel coreGetSlowMotionType
 //	osPiReadIo(addr, &actual);
 //
 //	if (actual != expected) {
-//		extern u32 _rspMicrocodeStart;
-//		extern u32 _rspMicrocodeStartPlusOne;
-//		u32 *ptr = &_rspMicrocodeStart;
+//		extern u32 rspbootTextStart;
+//		extern u32 rspbootStartPlusOne;
+//		u32 *ptr = &rspbootStart;
 //		u32 *end = &ptr[1024];
 //
-//		if (!(end < &_rspMicrocodeStartPlusOne)) {
+//		if (!(end < &rspbootStartPlusOne)) {
 //			do {
 //				*ptr += 8;
 //				ptr++;

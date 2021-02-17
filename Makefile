@@ -154,6 +154,7 @@ O_FILES := \
 	$(patsubst src/%.bin, $(B_DIR)/%.o, $(ANIM_FILES)) \
 	$(B_DIR)/assets/animations/list.o \
 	$(B_DIR)/assets/accessingpakZ.o \
+	$(B_DIR)/assets/bootloader/bootloader.o \
 	$(B_DIR)/assets/copyrightZ.o \
 	$(B_DIR)/assets/files/list.o \
 	$(B_DIR)/assets/firingrange.o \
@@ -176,7 +177,11 @@ O_FILES := \
 	$(B_DIR)/assets/mpstrings/$(ROMID)/mpstringsJ.o \
 	$(B_DIR)/assets/mpstrings/$(ROMID)/mpstringsP.o \
 	$(B_DIR)/assets/mpstrings/$(ROMID)/mpstringsS.o \
-	$(B_DIR)/assets/rspboot.o \
+	$(B_DIR)/assets/rsp/rspboot.text.o \
+	$(B_DIR)/assets/rsp/asp.data.o \
+	$(B_DIR)/assets/rsp/asp.text.o \
+	$(B_DIR)/assets/rsp/gsp.data.o \
+	$(B_DIR)/assets/rsp/gsp.text.o \
 	$(B_DIR)/assets/seq.ctl.o \
 	$(B_DIR)/assets/seq.tbl.o \
 	$(B_DIR)/assets/sequences.o \
@@ -185,7 +190,7 @@ O_FILES := \
 	$(B_DIR)/assets/texturesdata.o \
 	$(B_DIR)/assets/textureslist.o \
 	$(B_DIR)/assets/textures/config.o \
-	$(B_DIR)/romheader.o \
+	$(B_DIR)/romheader.o
 
 default: rom
 
@@ -259,9 +264,6 @@ $(B_DIR)/assets/fonts/%.o: src/assets/fonts/%.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/assets/getitle.o: src/assets/getitle.bin
-	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
-
-$(B_DIR)/assets/rspboot.o: src/assets/rspboot.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/assets/seq.ctl.o: src/assets/seq.ctl
@@ -398,6 +400,10 @@ $(B_DIR)/assets/files/%.bin: $(B_DIR)/assets/files/%.elf
 ################################################################################
 # Miscellaneous
 
+$(B_DIR)/assets/bootloader/bootloader.o: src/assets/bootloader/bootloader.bin
+	@mkdir -p $(dir $@)
+	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
+
 $(B_DIR)/romheader.o: src/romheader/romheader.s
 	$(TOOLCHAIN)-as --defsym VERSION=$(VERSION) -march=vr4300 -mabi=32 -I src/include -EB -o $@ $<
 
@@ -411,6 +417,10 @@ $(B_DIR)/assets/accessingpakZ.o: $(B_DIR)/assets/accessingpakZ
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/assets/copyrightZ.o: $(B_DIR)/assets/copyrightZ
+	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
+
+$(B_DIR)/assets/rsp/%.o: src/assets/rsp/%.bin
+	@mkdir -p $(dir $@)
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/assets/sequences.bin: src/assets/sequences/sequences.py

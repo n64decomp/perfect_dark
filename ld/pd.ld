@@ -167,7 +167,7 @@ SECTIONS
 	END_SEG(romheader)
 
 	/***************************************************************************
-	 * rspboot
+	 * bootloader
 	 * -------------------------------------------------------------------------
 	 * ROM range: 0x00000040 - 0x00001000
 	 * RAM range: N/A
@@ -176,11 +176,11 @@ SECTIONS
 
 	__rompos = 0x40;
 
-	BEGIN_SEG(rspboot)
+	BEGIN_SEG(bootloader)
 	{
-		build/ROMID/assets/rspboot.o (.data);
+		build/ROMID/assets/bootloader/bootloader.o (.data);
 	}
-	END_SEG(rspboot)
+	END_SEG(bootloader)
 
 	/***************************************************************************
 	 * boot
@@ -241,16 +241,29 @@ SECTIONS
 
 	BEGIN_SEG(data)
 	{
+		build/ROMID/assets/rsp/rspboot.text.o (.data);
+		build/ROMID/assets/rsp/gsp.text.o (.data);
+		build/ROMID/assets/rsp/asp.text.o (.data);
 		LIBFILES(.data)
 		GAMEFILES(.data)
+		build/ROMID/assets/rsp/gsp.data.o (.data);
+		build/ROMID/assets/rsp/asp.data.o (.data);
 	}
 	END_SEG(data)
 
 	_datazipSegmentRomEnd = _datazipSegmentRomStart + ROMALLOCATION_DATA;
 
-	_rspMicrocodeStart = _dataSegmentStart;
-	_rspMicrocodeStartPlusOne = _rspMicrocodeStart + 1;
-	_rspMicrocodeEnd = _rspMicrocodeStart + 0x1000;
+	rspbootTextStart = _dataSegmentStart;
+	rspbootTextEnd = rspbootTextStart + 0xd0;
+	gspTextStart = rspbootTextEnd;
+	gspTextEnd = gspTextStart + 0x1420;
+	aspTextStart = gspTextEnd;
+	aspTextEnd = aspTextStart + 0x1930;
+
+	gspDataStart = _dataSegmentEnd - 0x800 - 0xb50;
+	gspDataEnd = gspDataStart + 0x800;
+	aspMainDataStart = gspDataEnd;
+	aspMainDataEnd = aspMainDataStart + 0xb50;
 
 	/***************************************************************************
 	 * bss

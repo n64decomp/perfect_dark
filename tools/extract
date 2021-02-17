@@ -20,6 +20,7 @@ class Extractor:
         self.extract_animations()
         self.extract_audio()
         self.extract_boot()
+        self.extract_bootloader()
         self.extract_copyright()
         self.extract_data()
         self.extract_files()
@@ -28,13 +29,13 @@ class Extractor:
         self.extract_game()
         self.extract_garbage1()
         self.extract_garbage2()
+        self.extract_getitle()
         self.extract_lib()
         self.extract_mpconfigs()
         self.extract_mpstrings()
-        self.extract_rspboot()
-        self.extract_textures()
+        self.extract_rsp()
         self.extract_textureconfig()
-        self.extract_getitle()
+        self.extract_textures()
 
     def extract_accessingpak(self):
         # ntsc-beta doesn't have this texture
@@ -241,8 +242,24 @@ class Extractor:
         self.extract_font('font8', 'font9', 'ocramd')
         self.extract_font('font9', 'sfxctl', 'ocralg')
 
-    def extract_rspboot(self):
-        self.write_asset('rspboot.bin', self.rom[0x40:0x1000])
+    def extract_bootloader(self):
+        self.write_asset('bootloader/bootloader.bin', self.rom[0x40:0x1000])
+
+    def extract_rsp_segment(self, name, pos, length):
+        if pos < 0:
+            pos = len(self.data) + pos
+
+        end = pos + length
+        content = self.data[pos:end]
+
+        self.write_asset(name, content)
+
+    def extract_rsp(self):
+        self.extract_rsp_segment('rsp/rspboot.text.bin', 0, 0xd0)
+        self.extract_rsp_segment('rsp/gsp.text.bin', 0xd0, 0x1420)
+        self.extract_rsp_segment('rsp/asp.text.bin', 0x14f0, 0x1930)
+        self.extract_rsp_segment('rsp/gsp.data.bin', -0x1350, 0x800)
+        self.extract_rsp_segment('rsp/asp.data.bin', -0xb50, 0xb50)
 
     def extract_textures(self):
         base = self.val('textures')
