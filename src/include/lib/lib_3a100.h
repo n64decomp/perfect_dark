@@ -1,6 +1,7 @@
 #ifndef _IN_LIB_LIB_3A100_H
 #define _IN_LIB_LIB_3A100_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 u32 func0003a100(void);

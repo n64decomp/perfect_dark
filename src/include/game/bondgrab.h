@@ -1,6 +1,7 @@
 #ifndef IN_GAME_BONDGRAB_H
 #define IN_GAME_BONDGRAB_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void bgrabInit(void);

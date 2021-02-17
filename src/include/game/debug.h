@@ -1,6 +1,7 @@
 #ifndef IN_GAME_DEBUG_H
 #define IN_GAME_DEBUG_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 u32 dprint();

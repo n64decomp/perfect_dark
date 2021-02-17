@@ -1,6 +1,7 @@
 #ifndef IN_GAME_MPSTATS_H
 #define IN_GAME_MPSTATS_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void mpstatsIncrementPlayerShotCount(struct shorthand *hand, s32 region);

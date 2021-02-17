@@ -1,6 +1,7 @@
 #ifndef _IN_LIB_LIB_461C0_H
 #define _IN_LIB_LIB_461C0_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 u32 func000461c0(void);

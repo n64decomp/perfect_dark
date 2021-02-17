@@ -1,6 +1,7 @@
 #ifndef IN_GAME_EXPLOSIONS_EXPLOSIONS_H
 #define IN_GAME_EXPLOSIONS_EXPLOSIONS_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 bool explosionCreateSimple(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, s32 playernum);

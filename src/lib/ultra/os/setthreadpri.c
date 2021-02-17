@@ -1,5 +1,5 @@
 #include <libultra_internal.h>
-#include "game/data/data_000000.h"
+#include "data.h"
 
 void osSetThreadPri(OSThread *t, OSPri pri)
 {

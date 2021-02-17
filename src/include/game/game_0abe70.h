@@ -1,6 +1,7 @@
 #ifndef IN_GAME_GAME_0ABE70_H
 #define IN_GAME_GAME_0ABE70_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 u32 func0f0abe70(void);

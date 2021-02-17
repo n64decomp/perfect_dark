@@ -1,6 +1,7 @@
 #ifndef IN_GAME_BONDWALK_H
 #define IN_GAME_BONDWALK_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void bwalkInit(void);

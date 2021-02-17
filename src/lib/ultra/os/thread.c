@@ -1,4 +1,5 @@
 #include <libultra_internal.h>
+#include "data.h"
 
 void __osDequeueThread(OSThread **queue, OSThread *t)
 {

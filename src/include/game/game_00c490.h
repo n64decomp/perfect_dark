@@ -1,6 +1,7 @@
 #ifndef IN_GAME_GAME_00C490_H
 #define IN_GAME_GAME_00C490_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void setupInit(void);

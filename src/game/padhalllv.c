@@ -1,12 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
 #include "game/prop.h"
 #include "game/room.h"
 #include "game/pad.h"
@@ -15,6 +8,7 @@
 #include "lib/rng.h"
 #include "lib/lib_233c0.h"
 #include "lib/libc/ll.h"
+#include "data.h"
 #include "types.h"
 
 const char var7f1b3a80[] = "padhalllv.c";

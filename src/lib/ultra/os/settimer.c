@@ -1,5 +1,5 @@
 #include <libultra_internal.h>
-#include "game/data/data_000000.h"
+#include "data.h"
 
 int osSetTimer(OSTimer *t, OSTime value, OSTime interval, OSMesgQueue *mq, OSMesg msg)
 {

@@ -1,6 +1,7 @@
 #ifndef IN_GAME_PDOPTIONS_H
 #define IN_GAME_PDOPTIONS_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 s32 optionsGetControlMode(s32 mpchrnum);

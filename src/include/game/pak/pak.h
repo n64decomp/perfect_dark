@@ -1,6 +1,7 @@
 #ifndef IN_GAME_PAK_PAK_H
 #define IN_GAME_PAK_PAK_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 u32 func0f1165d0(s8 device);

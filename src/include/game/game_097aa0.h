@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_GAME_097AA0_H
 #define _IN_GAME_GAME_097AA0_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 f32 func0f097aa0(f32 arg0);

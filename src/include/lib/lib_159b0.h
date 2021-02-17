@@ -1,6 +1,7 @@
 #ifndef _IN_LIB_LIB_159B0_H
 #define _IN_LIB_LIB_159B0_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void func000159b0(Mtxf *matrix);

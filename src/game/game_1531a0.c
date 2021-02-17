@@ -1,13 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02a0e0.h"
-#include "game/data/data_02da90.h"
 #include "game/game_005fd0.h"
 #include "game/game_0d4690.h"
 #include "game/game_1531a0.h"
@@ -18,6 +10,7 @@
 #include "lib/dma.h"
 #include "lib/main.h"
 #include "lib/memory.h"
+#include "data.h"
 #include "types.h"
 
 const char var7f1b73b0[] = "burncol";

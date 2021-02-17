@@ -1,6 +1,7 @@
 #ifndef IN_GAME_BONDMOVE_H
 #define IN_GAME_BONDMOVE_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void bmoveSetControlDef(u32 controldef);

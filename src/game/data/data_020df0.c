@@ -13,10 +13,9 @@
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
 #include "game/training/training.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_020df0.h"
 #include "gvars/gvars.h"
 #include "stagesetup.h"
+#include "data.h"
 #include "types.h"
 
 // 20df0

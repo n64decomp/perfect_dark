@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_MPLAYER_SETUP_H
 #define _IN_GAME_MPLAYER_SETUP_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 char *mpGetCurrentPlayerName(struct menuitem *item);

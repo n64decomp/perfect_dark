@@ -1,6 +1,7 @@
 #ifndef IN_GAME_BONDHEAD_H
 #define IN_GAME_BONDHEAD_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void bheadFlipAnimation(void);

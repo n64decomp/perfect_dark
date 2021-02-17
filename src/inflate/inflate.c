@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "inflate/inflate.h"
+#include "data.h"
 #include "types.h"
 
 #define GETBYTE()   (inbuf[inptr++])

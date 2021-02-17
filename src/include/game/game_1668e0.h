@@ -1,6 +1,7 @@
 #ifndef IN_GAME_GAME_1668E0_H
 #define IN_GAME_GAME_1668E0_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void currentPlayerSetLastRoomForOffset(s32 room);

@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_GAME_19AA80_H
 #define _IN_GAME_GAME_19AA80_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 extern u32 g_MpChallengeIndex;

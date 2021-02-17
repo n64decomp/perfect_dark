@@ -4,13 +4,12 @@
 #include "game/prop.h"
 #include "game/game_015470.h"
 #include "game/hudmsg.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_00e460.h"
 #include "lib/lib_0c000.h"
 #include "lib/main.h"
 #include "lib/lib_3e730.h"
 #include "gvars/gvars.h"
 #include "stagesetup.h"
+#include "data.h"
 #include "types.h"
 
 u32 var8005ce00 = 0x00000000;

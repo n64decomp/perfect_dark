@@ -1,6 +1,7 @@
 #ifndef IN_GAME_ENDSCREEN_H
 #define IN_GAME_ENDSCREEN_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 s32 menudialogRetryMission(s32 operation, struct menudialog *dialog, union handlerdata *data);

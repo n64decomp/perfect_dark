@@ -1,6 +1,7 @@
 #ifndef IN_GAME_GAME_175F50_H
 #define IN_GAME_GAME_175F50_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void stub0f175f50(void);

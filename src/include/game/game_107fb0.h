@@ -1,6 +1,7 @@
 #ifndef IN_GAME_GAME_107FB0_H
 #define IN_GAME_GAME_107FB0_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 char *filemgrGetDeviceName(s32 index);

@@ -1,14 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02a0e0.h"
-#include "game/data/data_02da90.h"
-#include "game/data/data_02e820.h"
 #include "game/cheats.h"
 #include "game/game_00c490.h"
 #include "game/title.h"
@@ -36,7 +27,12 @@
 #include "lib/lib_09660.h"
 #include "lib/main.h"
 #include "lib/lib_0e9d0.h"
+#include "data.h"
 #include "types.h"
+
+struct menudialog g_2PMissionControlStyleMenuDialog;
+struct menudialog g_CiControlPlayer2MenuDialog;
+struct menudialog g_CinemaMenuDialog;
 
 char *menuTextCurrentStageName(struct menuitem *item)
 {

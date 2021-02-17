@@ -1,6 +1,7 @@
 #ifndef IN_GAME_RADAR_H
 #define IN_GAME_RADAR_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 Gfx *radarRenderBackground(Gfx *gdl, struct textureconfig *tconfig, s32 arg2, s32 arg3, s32 arg4);

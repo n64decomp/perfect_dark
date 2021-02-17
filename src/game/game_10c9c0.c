@@ -1,12 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
 #include "game/game_0f09f0.h"
 #include "game/game_107fb0.h"
 #include "game/game_10c9c0.h"
@@ -16,6 +9,7 @@
 #include "game/mplayer/scenarios.h"
 #include "game/mplayer/setup.h"
 #include "gvars/gvars.h"
+#include "data.h"
 #include "types.h"
 
 s32 menuhandler4MbDropOut(s32 operation, struct menuitem *item, union handlerdata *data)

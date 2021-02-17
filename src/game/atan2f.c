@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "game/game_0969d0.h"
+#include "data.h"
 #include "types.h"
 
 f32 atan2f(f32 x, f32 z)

@@ -1,6 +1,7 @@
 #ifndef IN_GAME_PADHALLLV_H
 #define IN_GAME_PADHALLLV_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void waypointSetHashThing(s32 hash1, s32 hash2);

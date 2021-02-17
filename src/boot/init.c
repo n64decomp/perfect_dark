@@ -4,13 +4,6 @@
 #include "boot/reset.h"
 #include "boot/segments.h"
 #include "constants.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
 #include "game/game_0e0770.h"
 #include "gvars/gvars.h"
 #include "lib/args.h"
@@ -23,6 +16,7 @@
 #include "lib/lib_13750.h"
 #include "lib/lib_2fa00.h"
 #include "lib/lib_48150.h"
+#include "data.h"
 #include "types.h"
 
 #if VERSION >= VERSION_NTSC_1_0

@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_WEATHER_WEATHER_H
 #define _IN_GAME_WEATHER_WEATHER_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 Gfx *weatherRender(Gfx *gdl);

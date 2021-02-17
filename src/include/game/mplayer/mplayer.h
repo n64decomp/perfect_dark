@@ -1,6 +1,7 @@
 #ifndef IN_GAME_MPLAYER_MPLAYER_H
 #define IN_GAME_MPLAYER_MPLAYER_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 f32 func0f187770(u8 value);

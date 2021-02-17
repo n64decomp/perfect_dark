@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_GAME_02CDE0_H
 #define _IN_GAME_GAME_02CDE0_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 u32 bodyGetRace(s32 bodynum);

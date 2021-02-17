@@ -1,13 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/camdraw.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
 #include "game/game_0f09f0.h"
 #include "game/game_128f30.h"
 #include "game/gamefile.h"
@@ -31,6 +24,7 @@
 #include "lib/lib_50480.h"
 #include "lib/lib_50a00.h"
 #include "lib/lib_513b0.h"
+#include "data.h"
 #include "types.h"
 
 const char var7f1b3a90[] = "\0************** 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#'*+,-./:=?@";

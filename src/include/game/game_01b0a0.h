@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_GAME_01B0A0_H
 #define _IN_GAME_GAME_01B0A0_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 f32 pdmodeGetReaction(void);

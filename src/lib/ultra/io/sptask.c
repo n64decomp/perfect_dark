@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "libultra_internal.h"
+#include "data.h"
 
 OSTask *_VirtualToPhysicalTask(OSTask *intp);
 

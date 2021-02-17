@@ -4,6 +4,7 @@
 #include "game/prop.h"
 #include "game/inventory/items.h"
 #include "stagesetup.h"
+#include "data.h"
 #include "types.h"
 
 struct inventory_menupos invmenupos_00010fd0 = {

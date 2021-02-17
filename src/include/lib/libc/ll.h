@@ -1,6 +1,7 @@
 #ifndef _IN_LIB_LIBC_LL_H
 #define _IN_LIB_LIBC_LL_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 unsigned long long __ull_rshift(unsigned long long a0, unsigned long long a1);

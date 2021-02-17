@@ -1,14 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/camdraw.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02a0e0.h"
-#include "game/data/data_02da90.h"
 #include "game/game_0b3350.h"
 #include "game/game_0d4690.h"
 #include "game/game_0f09f0.h"
@@ -26,7 +18,15 @@
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
 #include "lib/rng.h"
+#include "data.h"
 #include "types.h"
+
+struct menuitem g_MpCharacterMenuItems[];
+struct menudialog g_MpAddSimulantMenuDialog;
+struct menudialog g_MpChangeSimulantMenuDialog;
+struct menudialog g_MpChangeTeamNameMenuDialog;
+struct menudialog g_MpEditSimulantMenuDialog;
+struct menudialog g_MpSaveSetupNameMenuDialog;
 
 s32 menuhandlerMpDropOut(s32 operation, struct menuitem *item, union handlerdata *data)
 {

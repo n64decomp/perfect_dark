@@ -1,6 +1,7 @@
 #ifndef IN_GAME_GAME_0F09F0_H
 #define IN_GAME_GAME_0F09F0_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 extern const struct menucolourpalette g_MenuColourPalettes[];

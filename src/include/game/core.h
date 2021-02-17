@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_CORE_H
 #define _IN_GAME_CORE_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 u32 getVar80084040(void);

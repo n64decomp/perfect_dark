@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_BONDVIEW_H
 #define _IN_GAME_BONDVIEW_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 Gfx *bviewRenderIrRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2);

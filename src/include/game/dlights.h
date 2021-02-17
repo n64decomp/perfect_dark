@@ -1,6 +1,7 @@
 #ifndef IN_GAME_DLIGHTS_H
 #define IN_GAME_DLIGHTS_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 s32 func0f000920(s32 num1, s32 num2);

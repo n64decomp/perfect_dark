@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_GAME_00B480_H
 #define _IN_GAME_GAME_00B480_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void func0f00b480(void);

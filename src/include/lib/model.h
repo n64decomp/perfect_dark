@@ -1,6 +1,7 @@
 #ifndef _IN_LIB_MODEL_H
 #define _IN_LIB_MODEL_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 u32 func0001a500(void);

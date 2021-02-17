@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_WALLHIT_H
 #define _IN_GAME_WALLHIT_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 s16 func0f13e0e0(f32 arg0);

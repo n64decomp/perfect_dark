@@ -1,6 +1,6 @@
 #include <ultra64.h>
+#include "data.h"
 #include "lib/libc/ldiv.h"
-#include "game/data/data_000000.h"
 
 #define BUFF_LEN 0x18
 

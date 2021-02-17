@@ -1,6 +1,7 @@
 #ifndef _IN_LIB_LIB_4F5E0_H
 #define _IN_LIB_LIB_4F5E0_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void func0004f5e0(struct var800a3180 *arg0, u32 arg1);

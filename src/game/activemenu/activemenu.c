@@ -1,15 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chr/chraction.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02a0e0.h"
-#include "game/data/data_02da90.h"
-#include "game/data/data_02e820.h"
 #include "game/game_005fd0.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b0fd0.h"
@@ -30,7 +21,10 @@
 #include "lib/lib_09660.h"
 #include "lib/main.h"
 #include "lib/lib_16110.h"
+#include "data.h"
 #include "types.h"
+
+struct menudialog g_AmPickTargetMenuDialog;
 
 /**
  * This is a map of weapon numbers (as per the weapon set) to active menu slots.

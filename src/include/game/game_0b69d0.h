@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_GAME_0B69D0_H
 #define _IN_GAME_GAME_0B69D0_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms, struct prop *prop, s16 *spawnpads, s32 numspawnpads);

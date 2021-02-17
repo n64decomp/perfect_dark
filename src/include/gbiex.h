@@ -1,6 +1,7 @@
 #ifndef _IN_GBIEX_H
 #define _IN_GBIEX_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 /**

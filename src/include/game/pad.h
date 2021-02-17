@@ -1,6 +1,7 @@
 #ifndef IN_GAME_PAD_H
 #define IN_GAME_PAD_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void padUnpack(s32 padnum, u32 fields, struct pad *pad);

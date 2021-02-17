@@ -1,6 +1,7 @@
 #ifndef _IN_LIB_LIB_0E9D0_H
 #define _IN_LIB_LIB_0E9D0_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 bool audioIsFiltered(s32 audioid);

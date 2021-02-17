@@ -1,6 +1,7 @@
 #ifndef IN_GAME_TEXTURE_H
 #define IN_GAME_TEXTURE_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void func0f16e810(u32 arg0);

@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_SPARKS_SPARKS_H
 #define _IN_GAME_SPARKS_SPARKS_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 u32 func0f12f6c0(void);

@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "boot/reset.h"
 #include "gvars/gvars.h"
+#include "data.h"
 #include "types.h"
 
 GLOBAL_ASM(

@@ -1,6 +1,7 @@
 #ifndef IN_GAME_HUDMSG_H
 #define IN_GAME_HUDMSG_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 u8 func0f0dcdb0(void);

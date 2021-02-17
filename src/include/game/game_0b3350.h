@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_GAME_0B3350_H
 #define _IN_GAME_GAME_0B3350_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 s32 func0f0b3350(s32 value);

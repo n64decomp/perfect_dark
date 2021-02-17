@@ -1,6 +1,7 @@
 #ifndef IN_GAME_CHEATS_H
 #define IN_GAME_CHEATS_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 extern struct menudialog g_CheatsMenuDialog;

@@ -6,14 +6,6 @@
 #include "game/camdraw.h"
 #include "game/cheats.h"
 #include "game/chr/chraction.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02a0e0.h"
-#include "game/data/data_02da90.h"
 #include "game/debug.h"
 #include "game/dlights.h"
 #include "game/game_005fd0.h"
@@ -110,6 +102,7 @@
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_317f0.h"
+#include "data.h"
 #include "types.h"
 
 const char var7f1b7730[] = "fr: %d\n";

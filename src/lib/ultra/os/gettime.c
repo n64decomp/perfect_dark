@@ -1,5 +1,4 @@
 #include <ultra64.h>
-#include "game/data/data_000000.h"
 #include "gvars/gvars.h"
 
 OSTime osGetTime()

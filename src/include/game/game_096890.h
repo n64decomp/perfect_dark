@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_GAME_096890_H
 #define _IN_GAME_GAME_096890_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 s32 func0f096890(s32 arg0);

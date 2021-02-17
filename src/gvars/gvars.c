@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "gvars/gvars.h"
+#include "data.h"
 #include "types.h"
 
 u32 var8008ae20 = 0;

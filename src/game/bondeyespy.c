@@ -2,13 +2,6 @@
 #include "constants.h"
 #include "game/bondeyespy.h"
 #include "game/chr/chraction.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
 #include "game/chr/chr.h"
 #include "game/prop.h"
 #include "game/game_092610.h"
@@ -26,6 +19,7 @@
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"
+#include "data.h"
 #include "types.h"
 
 u8 var80070ec0 = 0;

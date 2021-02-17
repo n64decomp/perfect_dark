@@ -1,4 +1,5 @@
 #include <libultra_internal.h>
+#include "data.h"
 #include "gvars/gvars.h"
 
 void __osPackReadData(void);

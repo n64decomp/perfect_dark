@@ -1,4 +1,5 @@
 #include <libultra_internal.h>
+#include "data.h"
 
 u32 osVirtualToPhysical(void *addr)
 {

@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_TITLE_H
 #define _IN_GAME_TITLE_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 extern u32 var800624d4;

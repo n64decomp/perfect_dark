@@ -1,6 +1,7 @@
 #ifndef IN_GAME_ACTIVEMENU_ACTIVEMENU_H
 #define IN_GAME_ACTIVEMENU_ACTIVEMENU_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void amOpenPickTarget(void);

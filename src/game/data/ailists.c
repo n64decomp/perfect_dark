@@ -2,8 +2,8 @@
 #include "game/chr/chraicommands.h"
 #include "game/game_000000.h"
 #include "game/prop.h"
-#include "game/data/ailists.h"
 #include "stagesetup.h"
+#include "data.h"
 #include "types.h"
 
 u8 func0000_idle[] = {

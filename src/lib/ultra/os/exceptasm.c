@@ -1,4 +1,5 @@
 #include <libultra_internal.h>
+#include "data.h"
 
 const u32 var70052450[] = {0x00141818};
 const u32 var70052454[] = {0x1c1c1c1c};

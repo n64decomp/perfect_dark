@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_SIGHT_H
 #define _IN_GAME_SIGHT_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 bool sightIsPropFriendly(struct prop *prop);

@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "game/data/data_000000.h"
+#include "data.h"
 
 void osViSetMode(OSViMode *modep)
 {

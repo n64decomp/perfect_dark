@@ -1,6 +1,7 @@
 #ifndef IN_GAME_GAME_102240_H
 #define IN_GAME_GAME_102240_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 extern u16 g_ControlStyleOptions[];

@@ -1,6 +1,7 @@
 #ifndef IN_GAME_MENU_ITEMS_H
 #define IN_GAME_MENU_ITEMS_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 u32 func0f0e5d2c(void);

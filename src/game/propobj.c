@@ -5,15 +5,6 @@
 #include "game/cheats.h"
 #include "game/chr/chraction.h"
 #include "game/chr/chrai.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02a0e0.h"
-#include "game/data/data_02da90.h"
-#include "game/data/data_02e820.h"
 #include "game/debug.h"
 #include "game/dlights.h"
 #include "game/nbomb.h"
@@ -75,6 +66,7 @@
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_317f0.h"
+#include "data.h"
 #include "types.h"
 
 const char var7f1a9f60[] = "debugdoors";
@@ -36878,10 +36870,56 @@ glabel func0f085eac
 /*  f086914:	00000000 */ 	nop
 );
 
+u32 var8006abb0 = 0x00000000;
+u32 var8006abb4 = 0x00000000;
+u32 var8006abb8 = 0x00000000;
+u32 var8006abbc = 0x00000000;
+u32 var8006abc0 = 0x00000000;
+u32 var8006abc4 = 0x00000000;
+u32 var8006abc8 = 0x00000000;
+u32 var8006abcc = 0x00000000;
+u32 var8006abd0 = 0x00000000;
+u32 var8006abd4 = 0x00000000;
+u32 var8006abd8 = 0x00000000;
+u32 var8006abdc = 0x00000000;
+u32 var8006abe0 = 0x00000000;
+u32 var8006abe4 = 0x00000000;
+u32 var8006abe8 = 0x00000000;
+u32 var8006abec = 0x00000000;
+u32 var8006abf0 = 0x00000000;
+u32 var8006abf4 = 0x00000000;
+u32 var8006abf8 = 0x00000000;
+u32 var8006abfc = 0x00000000;
+u32 var8006ac00 = 0x00000000;
+u32 var8006ac04 = 0x00000000;
+u32 var8006ac08 = 0x01000007;
+u32 var8006ac0c = 0x0000ffff;
+u32 var8006ac10 = 0x00000001;
+u32 var8006ac14 = 0x00000000;
+u32 var8006ac18 = 0x00000000;
+u32 var8006ac1c = 0x00000000;
+u32 var8006ac20 = 0x00000000;
+u32 var8006ac24 = 0x3f800000;
+u32 var8006ac28 = 0x00000000;
+u32 var8006ac2c = 0x00000000;
+u32 var8006ac30 = 0x00000000;
+u32 var8006ac34 = 0x3f800000;
+u32 var8006ac38 = 0x00000000;
+u32 var8006ac3c = 0x00000000;
+u32 var8006ac40 = 0x00000000;
+u32 var8006ac44 = 0x3f800000;
+u32 var8006ac48 = 0x00000000;
+u32 var8006ac4c = 0x00000000;
+u32 var8006ac50 = 0x00000000;
+u32 var8006ac54 = 0x000003e8;
+u32 var8006ac58 = 0xffffff00;
+u32 var8006ac5c = 0xffffff00;
+u32 var8006ac60 = 0x0fff0000;
+
 u32 propobjGetCiTagId(struct prop *prop)
 {
 	if (prop && g_Vars.stagenum == STAGE_CITRAINING) {
-		u8 tags[8] = g_CiTaggedTerminals;
+		u8 tags[8] = { 0x0e, 0x0f, 0x10, 0x47, 0x46, 0x45, 0x1b, 0x7f };
 		struct defaultobj *obj = prop->obj;
 		u32 i;
 
@@ -48405,52 +48443,6 @@ u32 func0f091e04(u32 arg0, u32 arg1)
 	return arg0;
 }
 
-u32 var8006abb0 = 0x00000000;
-u32 var8006abb4 = 0x00000000;
-u32 var8006abb8 = 0x00000000;
-u32 var8006abbc = 0x00000000;
-u32 var8006abc0 = 0x00000000;
-u32 var8006abc4 = 0x00000000;
-u32 var8006abc8 = 0x00000000;
-u32 var8006abcc = 0x00000000;
-u32 var8006abd0 = 0x00000000;
-u32 var8006abd4 = 0x00000000;
-u32 var8006abd8 = 0x00000000;
-u32 var8006abdc = 0x00000000;
-u32 var8006abe0 = 0x00000000;
-u32 var8006abe4 = 0x00000000;
-u32 var8006abe8 = 0x00000000;
-u32 var8006abec = 0x00000000;
-u32 var8006abf0 = 0x00000000;
-u32 var8006abf4 = 0x00000000;
-u32 var8006abf8 = 0x00000000;
-u32 var8006abfc = 0x00000000;
-u32 var8006ac00 = 0x00000000;
-u32 var8006ac04 = 0x00000000;
-u32 var8006ac08 = 0x01000007;
-u32 var8006ac0c = 0x0000ffff;
-u32 var8006ac10 = 0x00000001;
-u32 var8006ac14 = 0x00000000;
-u32 var8006ac18 = 0x00000000;
-u32 var8006ac1c = 0x00000000;
-u32 var8006ac20 = 0x00000000;
-u32 var8006ac24 = 0x3f800000;
-u32 var8006ac28 = 0x00000000;
-u32 var8006ac2c = 0x00000000;
-u32 var8006ac30 = 0x00000000;
-u32 var8006ac34 = 0x3f800000;
-u32 var8006ac38 = 0x00000000;
-u32 var8006ac3c = 0x00000000;
-u32 var8006ac40 = 0x00000000;
-u32 var8006ac44 = 0x3f800000;
-u32 var8006ac48 = 0x00000000;
-u32 var8006ac4c = 0x00000000;
-u32 var8006ac50 = 0x00000000;
-u32 var8006ac54 = 0x000003e8;
-u32 var8006ac58 = 0xffffff00;
-u32 var8006ac5c = 0xffffff00;
-u32 var8006ac60 = 0x0fff0000;
-u8 g_CiTaggedTerminals[] = { 0x0e, 0x0f, 0x10, 0x47, 0x46, 0x45, 0x1b, 0x7f };
 u32 var8006ac6c = 0x01000011;
 u32 var8006ac70 = 0x00000000;
 u32 var8006ac74 = 0x00004000;

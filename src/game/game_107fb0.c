@@ -1,12 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
 #include "game/game_0b3350.h"
 #include "game/game_0d4690.h"
 #include "game/game_0f09f0.h"
@@ -20,7 +13,28 @@
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_126b0.h"
+#include "data.h"
 #include "types.h"
+
+// These might be able to be removed by relocating their symbols
+struct menudialog g_FilemgrCopyMenuDialog;
+struct menudialog g_FilemgrConfirmDeleteMenuDialog;
+struct menudialog g_FilemgrDeleteMenuDialog;
+struct menudialog g_FilemgrDuplicateNameMenuDialog;
+struct menudialog g_FilemgrEnterNameMenuDialog;
+struct menudialog g_FilemgrErrorMenuDialog;
+struct menudialog g_FilemgrFileInUseMenuDialog;
+struct menudialog g_FilemgrFileLostMenuDialog;
+struct menudialog g_FilemgrFileSavedMenuDialog;
+struct menudialog g_FilemgrFileSelectMenuDialog;
+struct menudialog g_FilemgrRenameMenuDialog;
+struct menudialog g_FilemgrSaveElsewhereMenuDialog;
+struct menudialog g_FilemgrSaveErrorMenuDialog;
+struct menudialog g_FilemgrSelectLocationMenuDialog;
+struct menudialog g_PakDeleteNoteMenuDialog;
+struct menudialog g_PakGameNotesMenuDialog;
+struct menudialog g_PakNotOriginalMenuDialog;
+struct pakdata *g_EditingPak;
 
 char *filemgrGetDeviceName(s32 index)
 {

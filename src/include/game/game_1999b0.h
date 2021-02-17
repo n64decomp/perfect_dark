@@ -1,6 +1,7 @@
 #ifndef IN_GAME_GAME_1999B0_H
 #define IN_GAME_GAME_1999B0_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 s32 weaponGetAmmoTypeByFunction(s32 weaponnum, u32 funcnum);

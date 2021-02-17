@@ -1,6 +1,7 @@
 #ifndef IN_GAME_GAME_005FD0_H
 #define IN_GAME_GAME_005FD0_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 bool func0f005fd0(s32 arg0);

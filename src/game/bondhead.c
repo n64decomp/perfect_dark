@@ -1,13 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/bondmove.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
 #include "game/game_096b20.h"
 #include "game/bondhead.h"
 #include "gvars/gvars.h"
@@ -15,6 +8,7 @@
 #include "lib/lib_159b0.h"
 #include "lib/lib_233c0.h"
 #include "lib/model.h"
+#include "data.h"
 #include "types.h"
 
 struct var80075c00 var80075c00[] = {

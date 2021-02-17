@@ -1,6 +1,7 @@
 #ifndef IN_GAME_PROPOBJ_H
 #define IN_GAME_PROPOBJ_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 extern u32 var800698f0;

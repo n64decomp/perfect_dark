@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 extern u8 anim0000;

@@ -1,13 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/camdraw.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
 #include "game/game_005fd0.h"
 #include "game/game_006bd0.h"
 #include "game/game_02cde0.h"
@@ -46,7 +39,16 @@
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_317f0.h"
+#include "data.h"
 #include "types.h"
+
+struct menudialog g_PakCannotReadGameBoyMenuDialog;
+struct menudialog g_PakDamagedMenuDialog;
+struct menudialog g_PakDataLostMenuDialog;
+struct menudialog g_PakFullMenuDialog;
+struct menudialog g_PakRemovedMenuDialog;
+struct menudialog g_PakRepairFailedMenuDialog;
+struct menudialog g_PakRepairSuccessMenuDialog;
 
 const struct menucolourpalette g_MenuColourPalettes[] = {
 	{ 0x20202000, 0x20202000, 0x20202000, 0x4f4f4f00, 0x00000000, 0x00000000, 0x4f4f4f00, 0x4f4f4f00, 0x4f4f4f00, 0x4f4f4f00, 0x00000000, 0x00000000, 0x4f4f4f00, 0x00000000, 0x00000000 },

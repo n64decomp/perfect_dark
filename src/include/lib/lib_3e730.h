@@ -1,6 +1,7 @@
 #ifndef _IN_LIB_LIB_3E730_H
 #define _IN_LIB_LIB_3E730_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 extern const u32 var70054b40[];

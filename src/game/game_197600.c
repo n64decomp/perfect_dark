@@ -1,13 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chr/chraction.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
 #include "game/debug.h"
 #include "game/chr/chr.h"
 #include "game/ceil.h"
@@ -21,6 +14,7 @@
 #include "game/propobj.h"
 #include "gvars/gvars.h"
 #include "lib/rng.h"
+#include "data.h"
 #include "types.h"
 
 const u32 var7f1b8fd0[] = {0x48742400};

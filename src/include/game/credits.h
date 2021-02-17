@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_CREDITS_H
 #define _IN_GAME_CREDITS_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 void func0f137430(struct gfxvtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);

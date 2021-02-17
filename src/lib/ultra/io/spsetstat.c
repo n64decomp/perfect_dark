@@ -1,4 +1,5 @@
 #include "libultra_internal.h"
+#include "data.h"
 
 void __osSpSetStatus(u32 data)
 {

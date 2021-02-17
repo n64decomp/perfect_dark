@@ -1,12 +1,5 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/data/data_000000.h"
-#include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
-#include "game/data/data_0160b0.h"
-#include "game/data/data_01a3a0.h"
-#include "game/data/data_020df0.h"
-#include "game/data/data_02da90.h"
 #include "game/file.h"
 #include "game/core.h"
 #include "game/music.h"
@@ -24,6 +17,7 @@
 #include "lib/lib_38d10.h"
 #include "lib/lib_38d30.h"
 #include "lib/lib_39c80.h"
+#include "data.h"
 #include "types.h"
 
 const char var70053b20[] = "RUSSES SOUND GUARD STRING";

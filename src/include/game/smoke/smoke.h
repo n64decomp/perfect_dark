@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_SMOKE_SMOKE_H
 #define _IN_GAME_SMOKE_SMOKE_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 Gfx *smokeRenderPart(struct smoke *smoke, struct smokepart *part, Gfx *gdl, struct coord *coord, f32 size);

@@ -1,6 +1,7 @@
 #ifndef IN_GAME_GAME_092610_H
 #define IN_GAME_GAME_092610_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 bool func0f092610(struct prop *prop, s32 arg1);

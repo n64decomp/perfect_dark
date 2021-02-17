@@ -1,6 +1,7 @@
 #ifndef _IN_CHR_CHRAICOMMANDS_H
 #define _IN_CHR_CHRAICOMMANDS_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 /*0x0000*/ bool aiGoToNext(void);

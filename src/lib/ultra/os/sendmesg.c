@@ -1,5 +1,5 @@
 #include <libultra_internal.h>
-#include "game/data/data_000000.h"
+#include "data.h"
 
 s32 osSendMesg(OSMesgQueue *mq, OSMesg msg, s32 flags)
 {

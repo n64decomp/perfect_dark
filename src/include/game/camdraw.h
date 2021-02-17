@@ -1,6 +1,7 @@
 #ifndef _IN_GAME_CAMDRAW_H
 #define _IN_GAME_CAMDRAW_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 u32 func0f149c90(void);

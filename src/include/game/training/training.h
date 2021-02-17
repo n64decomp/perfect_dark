@@ -1,6 +1,7 @@
 #ifndef IN_GAME_TRAINING_TRAINING_H
 #define IN_GAME_TRAINING_TRAINING_H
 #include <ultra64.h>
+#include "data.h"
 #include "types.h"
 
 extern u8 g_FrIsValidWeapon;
