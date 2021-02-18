@@ -6616,7 +6616,7 @@ void func0f15c920(void)
 #endif
 }
 
-void func0f15ca00(void)
+void roomsTick(void)
 {
 	s32 tickmode;
 
@@ -8188,6 +8188,33 @@ glabel func0f15e728
 /*  f15e854:	03e00008 */ 	jr	$ra
 /*  f15e858:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
+
+// Mismatch: var800a4bf0 is handled differently
+//void func0f15e728(void)
+//{
+//	s32 count = 0;
+//	s32 i;
+//
+//	for (i = 1; i < g_Vars.roomcount; i++) {
+//		if (g_Rooms[i].unk02) {
+//			g_Rooms[i].unk02++;
+//
+//			if (g_Rooms[i].unk02 >= var800a4bf0[0]) {
+//				g_Rooms[i].unk02 = var800a4bf0[0];
+//			}
+//
+//			if (g_Rooms[i].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+//				g_Rooms[i].unk02 = 1;
+//			}
+//
+//			if (count < 2 && var800a4bf0[1] == g_Rooms[i].unk02) {
+//				func0f15e474(i);
+//				func000127b8();
+//				count++;
+//			}
+//		}
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f15e85c

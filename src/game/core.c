@@ -1084,7 +1084,7 @@ Gfx *coreRender(Gfx *gdl)
 
 				gdl = func0000b330(gdl);
 				gdl = func0f11f984(gdl);
-				func0f15ca00();
+				roomsTick();
 				func0f004314();
 				func0f06302c(islastplayer);
 				scenarioCallback14(NULL);
