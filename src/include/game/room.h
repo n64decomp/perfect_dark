@@ -57,7 +57,7 @@ u32 func0f15dbb4(void);
 void func0f15dc58(s32 roomnum);
 void func0f15e474(s32 room);
 void func0f15e538(void);
-void func0f15e5b8(u32 size, u32 arg1);
+void func0f15e5b8(s32 size, u32 arg1);
 u32 func0f15e728(void);
 Gfx *func0f15e85c(Gfx *gdl, s32 roomnum, u32 arg2, bool arg3);
 Gfx *func0f15eb28(Gfx *gdl, s32 roomnum);
