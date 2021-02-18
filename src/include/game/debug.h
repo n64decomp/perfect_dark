@@ -10,7 +10,7 @@ bool debug0f11ed78(void);
 bool debug0f11ed80(void);
 bool debug0f11edb0(void);
 bool debug0f11edb8(void);
-bool debug0f11edc0(void);
+bool debugIsRoomStateDebugEnabled(void);
 s32 debugIsTurboModeEnabled(void);
 bool debugForceAllObjectivesComplete(void);
 bool debug0f11ee28(void);

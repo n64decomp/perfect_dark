@@ -7203,71 +7203,44 @@ glabel func0f15d870
 .L0f15d8c0:
 /*  f15d8c0:	03e00008 */ 	jr	$ra
 /*  f15d8c4:	00000000 */ 	nop
-/*  f15d8c8:	27bdfd10 */ 	addiu	$sp,$sp,-752
-/*  f15d8cc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f15d8d0:	0fc47b70 */ 	jal	debug0f11edc0
-/*  f15d8d4:	00000000 */ 	nop
-/*  f15d8d8:	1040002f */ 	beqz	$v0,.L0f15d998
-/*  f15d8dc:	3c06800a */ 	lui	$a2,%hi(g_Vars+0x2bc)
-/*  f15d8e0:	8cc6a27c */ 	lw	$a2,%lo(g_Vars+0x2bc)($a2)
-/*  f15d8e4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f15d8e8:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f15d8ec:	28c10002 */ 	slti	$at,$a2,0x2
-/*  f15d8f0:	14200027 */ 	bnez	$at,.L0f15d990
-/*  f15d8f4:	27a20030 */ 	addiu	$v0,$sp,0x30
-/*  f15d8f8:	3c05800a */ 	lui	$a1,%hi(g_Rooms)
-/*  f15d8fc:	8ca54928 */ 	lw	$a1,%lo(g_Rooms)($a1)
-/*  f15d900:	240b002e */ 	addiu	$t3,$zero,0x2e
-/*  f15d904:	240a004c */ 	addiu	$t2,$zero,0x4c
-/*  f15d908:	2409000a */ 	addiu	$t1,$zero,0xa
-/*  f15d90c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f15d910:	24070028 */ 	addiu	$a3,$zero,0x28
-/*  f15d914:	24a5008c */ 	addiu	$a1,$a1,140
-.L0f15d918:
-/*  f15d918:	246effff */ 	addiu	$t6,$v1,-1
-/*  f15d91c:	01c7001a */ 	div	$zero,$t6,$a3
-/*  f15d920:	00007810 */ 	mfhi	$t7
-/*  f15d924:	14e00002 */ 	bnez	$a3,.L0f15d930
-/*  f15d928:	00000000 */ 	nop
-/*  f15d92c:	0007000d */ 	break	0x7
-.L0f15d930:
-/*  f15d930:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f15d934:	14e10004 */ 	bne	$a3,$at,.L0f15d948
-/*  f15d938:	3c018000 */ 	lui	$at,0x8000
-/*  f15d93c:	15c10002 */ 	bne	$t6,$at,.L0f15d948
-/*  f15d940:	00000000 */ 	nop
-/*  f15d944:	0006000d */ 	break	0x6
-.L0f15d948:
-/*  f15d948:	55e00007 */ 	bnezl	$t7,.L0f15d968
-/*  f15d94c:	84b80002 */ 	lh	$t8,0x2($a1)
-/*  f15d950:	50680005 */ 	beql	$v1,$t0,.L0f15d968
-/*  f15d954:	84b80002 */ 	lh	$t8,0x2($a1)
-/*  f15d958:	a0490000 */ 	sb	$t1,0x0($v0)
-/*  f15d95c:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f15d960:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f15d964:	84b80002 */ 	lh	$t8,0x2($a1)
-.L0f15d968:
-/*  f15d968:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f15d96c:	24a5008c */ 	addiu	$a1,$a1,0x8c
-/*  f15d970:	13000003 */ 	beqz	$t8,.L0f15d980
-/*  f15d974:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f15d978:	10000002 */ 	b	.L0f15d984
-/*  f15d97c:	a04a0000 */ 	sb	$t2,0x0($v0)
-.L0f15d980:
-/*  f15d980:	a04b0000 */ 	sb	$t3,0x0($v0)
-.L0f15d984:
-/*  f15d984:	0066082a */ 	slt	$at,$v1,$a2
-/*  f15d988:	1420ffe3 */ 	bnez	$at,.L0f15d918
-/*  f15d98c:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f15d990:
-/*  f15d990:	03a4c821 */ 	addu	$t9,$sp,$a0
-/*  f15d994:	a3200030 */ 	sb	$zero,0x30($t9)
-.L0f15d998:
-/*  f15d998:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f15d99c:	27bd02f0 */ 	addiu	$sp,$sp,0x2f0
-/*  f15d9a0:	03e00008 */ 	jr	$ra
-/*  f15d9a4:	00000000 */ 	nop
 );
+
+/**
+ * Build a string showing the state of all rooms in the stage.
+ *
+ * The string contains "L" if a room is loaded, "." if not, and has line breaks
+ * every 40 characters.
+ *
+ * Nothing is done with the string though. It's likely that debug versions of
+ * the game would send the string to the host computer or display it on the HUD.
+ */
+void roomsHandleStateDebugging(void)
+{
+	if (debugIsRoomStateDebugEnabled()) {
+		u8 string[704];
+		s32 len = 0;
+		s32 i;
+
+		for (i = 1; i < g_Vars.roomcount; i++) {
+			if ((i - 1) % 40 == 0) {
+				if (i != 1) {
+					string[len] = '\n';
+					len++;
+				}
+			}
+
+			if (g_Rooms[i].unk02) {
+				string[len] = 'L';
+			} else {
+				string[len] = '.';
+			}
+
+			len++;
+		}
+
+		string[len] = '\0';
+	}
+}
 
 u32 roomInflate(void *src, void *dst, u32 len)
 {

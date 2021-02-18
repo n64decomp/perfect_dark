@@ -148,7 +148,7 @@ bool debug0f11edb8(void)
 	return false;
 }
 
-bool debug0f11edc0(void)
+bool debugIsRoomStateDebugEnabled(void)
 {
 	return false;
 }
