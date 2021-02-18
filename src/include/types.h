@@ -6965,4 +6965,9 @@ struct animationdefinition {
 	u8 flags;
 };
 
+struct portalvertices {
+	s16 count;
+	struct coord vertices[1];
+};
+
 #endif

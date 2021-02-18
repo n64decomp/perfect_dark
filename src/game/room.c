@@ -3815,62 +3815,29 @@ glabel func0f15b274
 /*  f15b3d8:	8fb40058 */ 	lw	$s4,0x58($sp)
 /*  f15b3dc:	03e00008 */ 	jr	$ra
 /*  f15b3e0:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
-/*  f15b3e4:	3c03800a */ 	lui	$v1,%hi(g_Portals)
-/*  f15b3e8:	8c634cc8 */ 	lw	$v1,%lo(g_Portals)($v1)
-/*  f15b3ec:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f15b3f0:	006e7821 */ 	addu	$t7,$v1,$t6
-/*  f15b3f4:	95f80000 */ 	lhu	$t8,0x0($t7)
-/*  f15b3f8:	03031021 */ 	addu	$v0,$t8,$v1
-/*  f15b3fc:	c4440004 */ 	lwc1	$f4,0x4($v0)
-/*  f15b400:	e4a40000 */ 	swc1	$f4,0x0($a1)
-/*  f15b404:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f15b408:	e4a60004 */ 	swc1	$f6,0x4($a1)
-/*  f15b40c:	c448000c */ 	lwc1	$f8,0xc($v0)
-/*  f15b410:	e4a80008 */ 	swc1	$f8,0x8($a1)
-/*  f15b414:	c4500004 */ 	lwc1	$f16,0x4($v0)
-/*  f15b418:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f15b41c:	00042880 */ 	sll	$a1,$a0,0x2
-/*  f15b420:	00a42821 */ 	addu	$a1,$a1,$a0
-/*  f15b424:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f15b428:	00052880 */ 	sll	$a1,$a1,0x2
-/*  f15b42c:	e4d20000 */ 	swc1	$f18,0x0($a2)
-/*  f15b430:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f15b434:	c4440014 */ 	lwc1	$f4,0x14($v0)
-/*  f15b438:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f15b43c:	e4c80004 */ 	swc1	$f8,0x4($a2)
-/*  f15b440:	c450000c */ 	lwc1	$f16,0xc($v0)
-/*  f15b444:	c44a0018 */ 	lwc1	$f10,0x18($v0)
-/*  f15b448:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f15b44c:	e4d20008 */ 	swc1	$f18,0x8($a2)
-/*  f15b450:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*  f15b454:	c4440010 */ 	lwc1	$f4,0x10($v0)
-/*  f15b458:	3c06800a */ 	lui	$a2,%hi(var800a4ccc)
-/*  f15b45c:	24c64ccc */ 	addiu	$a2,$a2,%lo(var800a4ccc)
-/*  f15b460:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f15b464:	e4e80000 */ 	swc1	$f8,0x0($a3)
-/*  f15b468:	c4500008 */ 	lwc1	$f16,0x8($v0)
-/*  f15b46c:	c44a0014 */ 	lwc1	$f10,0x14($v0)
-/*  f15b470:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f15b474:	e4f20004 */ 	swc1	$f18,0x4($a3)
-/*  f15b478:	c446000c */ 	lwc1	$f6,0xc($v0)
-/*  f15b47c:	c4440018 */ 	lwc1	$f4,0x18($v0)
-/*  f15b480:	8fa30010 */ 	lw	$v1,0x10($sp)
-/*  f15b484:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f15b488:	e4e80008 */ 	swc1	$f8,0x8($a3)
-/*  f15b48c:	8cd90000 */ 	lw	$t9,0x0($a2)
-/*  f15b490:	00b94021 */ 	addu	$t0,$a1,$t9
-/*  f15b494:	c50a0000 */ 	lwc1	$f10,0x0($t0)
-/*  f15b498:	e46a0000 */ 	swc1	$f10,0x0($v1)
-/*  f15b49c:	8cc90000 */ 	lw	$t1,0x0($a2)
-/*  f15b4a0:	00a95021 */ 	addu	$t2,$a1,$t1
-/*  f15b4a4:	c5500004 */ 	lwc1	$f16,0x4($t2)
-/*  f15b4a8:	e4700004 */ 	swc1	$f16,0x4($v1)
-/*  f15b4ac:	8ccb0000 */ 	lw	$t3,0x0($a2)
-/*  f15b4b0:	00ab6021 */ 	addu	$t4,$a1,$t3
-/*  f15b4b4:	c5920008 */ 	lwc1	$f18,0x8($t4)
-/*  f15b4b8:	03e00008 */ 	jr	$ra
-/*  f15b4bc:	e4720008 */ 	swc1	$f18,0x8($v1)
 );
+
+void func0f15b3e4(s32 portalnum, struct coord *a, struct coord *b, struct coord *c, struct coord *d)
+{
+	struct portalvertices *pvertices;
+	pvertices = (struct portalvertices *)((u32)g_Portals + g_Portals[portalnum].unk00);
+
+	a->x = pvertices->vertices[0].x;
+	a->y = pvertices->vertices[0].y;
+	a->z = pvertices->vertices[0].z;
+
+	b->x = pvertices->vertices[1].x - pvertices->vertices[0].x;
+	b->y = pvertices->vertices[1].y - pvertices->vertices[0].y;
+	b->z = pvertices->vertices[1].z - pvertices->vertices[0].z;
+
+	c->x = pvertices->vertices[1].x - pvertices->vertices[0].x;
+	c->y = pvertices->vertices[1].y - pvertices->vertices[0].y;
+	c->z = pvertices->vertices[1].z - pvertices->vertices[0].z;
+
+	d->x = (var800a4ccc + portalnum)->coord.x;
+	d->y = (var800a4ccc + portalnum)->coord.y;
+	d->z = (var800a4ccc + portalnum)->coord.z;
+}
 
 u8 func0f15b4c0(s32 portal)
 {
