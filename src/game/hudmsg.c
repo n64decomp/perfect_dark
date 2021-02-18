@@ -325,9 +325,9 @@ glabel hudRenderMissionTimer
 /*  f0dd230:	03195821 */ 	addu	$t3,$t8,$t9
 /*  f0dd234:	256c0003 */ 	addiu	$t4,$t3,0x3
 /*  f0dd238:	afac008c */ 	sw	$t4,0x8c($sp)
-/*  f0dd23c:	0c002f02 */ 	jal	viGetX
+/*  f0dd23c:	0c002f02 */ 	jal	viGetWidth
 /*  f0dd240:	afa70088 */ 	sw	$a3,0x88($sp)
-/*  f0dd244:	0c002f06 */ 	jal	viGetY
+/*  f0dd244:	0c002f06 */ 	jal	viGetHeight
 /*  f0dd248:	a7a20042 */ 	sh	$v0,0x42($sp)
 /*  f0dd24c:	3c0d8008 */ 	lui	$t5,%hi(g_FontNumeric1)
 /*  f0dd250:	3c0e8008 */ 	lui	$t6,%hi(g_FontNumeric2)
@@ -432,7 +432,7 @@ glabel hudRenderMissionTimer
 //	// 208
 //	formatTime(buffer, getMissionTime(), 4);
 //
-//	return textRender(gdl, &sp8c, &sp88, buffer, g_FontNumeric1, g_FontNumeric2, textcolour, 0x000000a0, viGetX(), viGetY(), 0, 0);
+//	return textRender(gdl, &sp8c, &sp88, buffer, g_FontNumeric1, g_FontNumeric2, textcolour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 //}
 
 #if VERSION >= VERSION_NTSC_FINAL
@@ -659,9 +659,9 @@ glabel hudRenderZoomRange
 /*  f0dd5c4:	27a60074 */ 	addiu	$a2,$sp,0x74
 /*  f0dd5c8:	0fc54e39 */ 	jal	func0f1538e4
 /*  f0dd5cc:	27a70068 */ 	addiu	$a3,$sp,0x68
-/*  f0dd5d0:	0c002f02 */ 	jal	viGetX
+/*  f0dd5d0:	0c002f02 */ 	jal	viGetWidth
 /*  f0dd5d4:	afa200c0 */ 	sw	$v0,0xc0($sp)
-/*  f0dd5d8:	0c002f06 */ 	jal	viGetY
+/*  f0dd5d8:	0c002f06 */ 	jal	viGetHeight
 /*  f0dd5dc:	a7a2004c */ 	sh	$v0,0x4c($sp)
 /*  f0dd5e0:	8fa300c4 */ 	lw	$v1,0xc4($sp)
 /*  f0dd5e4:	240100ff */ 	addiu	$at,$zero,0xff
@@ -725,9 +725,9 @@ glabel hudRenderZoomRange
 /*  f0dd6cc:	27a60074 */ 	addiu	$a2,$sp,0x74
 /*  f0dd6d0:	0fc54e39 */ 	jal	func0f1538e4
 /*  f0dd6d4:	27a70068 */ 	addiu	$a3,$sp,0x68
-/*  f0dd6d8:	0c002f02 */ 	jal	viGetX
+/*  f0dd6d8:	0c002f02 */ 	jal	viGetWidth
 /*  f0dd6dc:	afa200c0 */ 	sw	$v0,0xc0($sp)
-/*  f0dd6e0:	0c002f06 */ 	jal	viGetY
+/*  f0dd6e0:	0c002f06 */ 	jal	viGetHeight
 /*  f0dd6e4:	a7a2004c */ 	sh	$v0,0x4c($sp)
 /*  f0dd6e8:	3c098008 */ 	lui	$t1,%hi(g_FontNumeric1)
 /*  f0dd6ec:	3c0a8008 */ 	lui	$t2,%hi(g_FontNumeric2)
@@ -788,9 +788,9 @@ glabel hudRenderZoomRange
 /*  f0dd7c8:	27a60074 */ 	addiu	$a2,$sp,0x74
 /*  f0dd7cc:	0fc54e39 */ 	jal	func0f1538e4
 /*  f0dd7d0:	27a70068 */ 	addiu	$a3,$sp,0x68
-/*  f0dd7d4:	0c002f02 */ 	jal	viGetX
+/*  f0dd7d4:	0c002f02 */ 	jal	viGetWidth
 /*  f0dd7d8:	afa200c0 */ 	sw	$v0,0xc0($sp)
-/*  f0dd7dc:	0c002f06 */ 	jal	viGetY
+/*  f0dd7dc:	0c002f06 */ 	jal	viGetHeight
 /*  f0dd7e0:	a7a2004c */ 	sh	$v0,0x4c($sp)
 /*  f0dd7e4:	3c0a8008 */ 	lui	$t2,%hi(g_FontNumeric1)
 /*  f0dd7e8:	3c0b8008 */ 	lui	$t3,%hi(g_FontNumeric2)
@@ -4032,11 +4032,11 @@ glabel var7f1adef4
 /*  f0e0014:	2706fffd */ 	addiu	$a2,$t8,-3
 /*  f0e0018:	0fc37612 */ 	jal	hudRenderMessageBox
 /*  f0e001c:	25c5fffd */ 	addiu	$a1,$t6,-3
-/*  f0e0020:	0c002f02 */ 	jal	viGetX
+/*  f0e0020:	0c002f02 */ 	jal	viGetWidth
 /*  f0e0024:	00409025 */ 	or	$s2,$v0,$zero
 /*  f0e0028:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  f0e002c:	00115403 */ 	sra	$t2,$s1,0x10
-/*  f0e0030:	0c002f06 */ 	jal	viGetY
+/*  f0e0030:	0c002f06 */ 	jal	viGetHeight
 /*  f0e0034:	01408825 */ 	or	$s1,$t2,$zero
 /*  f0e0038:	8e080008 */ 	lw	$t0,0x8($s0)
 /*  f0e003c:	02402025 */ 	or	$a0,$s2,$zero
@@ -4063,11 +4063,11 @@ glabel var7f1adef4
 /*  f0e008c:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0e0090:	0fc54e8d */ 	jal	func0f153a34
 /*  f0e0094:	01c53821 */ 	addu	$a3,$t6,$a1
-/*  f0e0098:	0c002f02 */ 	jal	viGetX
+/*  f0e0098:	0c002f02 */ 	jal	viGetWidth
 /*  f0e009c:	00409025 */ 	or	$s2,$v0,$zero
 /*  f0e00a0:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  f0e00a4:	00114c03 */ 	sra	$t1,$s1,0x10
-/*  f0e00a8:	0c002f06 */ 	jal	viGetY
+/*  f0e00a8:	0c002f06 */ 	jal	viGetHeight
 /*  f0e00ac:	01208825 */ 	or	$s1,$t1,$zero
 /*  f0e00b0:	8e0b0008 */ 	lw	$t3,0x8($s0)
 /*  f0e00b4:	02402025 */ 	or	$a0,$s2,$zero
@@ -4135,11 +4135,11 @@ glabel var7f1adef4
 /*  f0e019c:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0e01a0:	0fc37612 */ 	jal	hudRenderMessageBox
 /*  f0e01a4:	2566fffd */ 	addiu	$a2,$t3,-3
-/*  f0e01a8:	0c002f02 */ 	jal	viGetX
+/*  f0e01a8:	0c002f02 */ 	jal	viGetWidth
 /*  f0e01ac:	00409025 */ 	or	$s2,$v0,$zero
 /*  f0e01b0:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  f0e01b4:	00116c03 */ 	sra	$t5,$s1,0x10
-/*  f0e01b8:	0c002f06 */ 	jal	viGetY
+/*  f0e01b8:	0c002f06 */ 	jal	viGetHeight
 /*  f0e01bc:	01a08825 */ 	or	$s1,$t5,$zero
 /*  f0e01c0:	8e190008 */ 	lw	$t9,0x8($s0)
 /*  f0e01c4:	02402025 */ 	or	$a0,$s2,$zero
@@ -4168,11 +4168,11 @@ glabel var7f1adef4
 /*  f0e021c:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0e0220:	0fc54e8d */ 	jal	func0f153a34
 /*  f0e0224:	01253821 */ 	addu	$a3,$t1,$a1
-/*  f0e0228:	0c002f02 */ 	jal	viGetX
+/*  f0e0228:	0c002f02 */ 	jal	viGetWidth
 /*  f0e022c:	00409025 */ 	or	$s2,$v0,$zero
 /*  f0e0230:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  f0e0234:	00116403 */ 	sra	$t4,$s1,0x10
-/*  f0e0238:	0c002f06 */ 	jal	viGetY
+/*  f0e0238:	0c002f06 */ 	jal	viGetHeight
 /*  f0e023c:	01808825 */ 	or	$s1,$t4,$zero
 /*  f0e0240:	8e0e0008 */ 	lw	$t6,0x8($s0)
 /*  f0e0244:	02402025 */ 	or	$a0,$s2,$zero
@@ -4300,11 +4300,11 @@ glabel var7f1adef4
 /*  f0e0410:	2565fffd */ 	addiu	$a1,$t3,-3
 /*  f0e0414:	0fc37612 */ 	jal	hudRenderMessageBox
 /*  f0e0418:	2586fffd */ 	addiu	$a2,$t4,-3
-/*  f0e041c:	0c002f02 */ 	jal	viGetX
+/*  f0e041c:	0c002f02 */ 	jal	viGetWidth
 /*  f0e0420:	00409025 */ 	or	$s2,$v0,$zero
 /*  f0e0424:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  f0e0428:	00114c03 */ 	sra	$t1,$s1,0x10
-/*  f0e042c:	0c002f06 */ 	jal	viGetY
+/*  f0e042c:	0c002f06 */ 	jal	viGetHeight
 /*  f0e0430:	01208825 */ 	or	$s1,$t1,$zero
 /*  f0e0434:	8e180008 */ 	lw	$t8,0x8($s0)
 /*  f0e0438:	02402025 */ 	or	$a0,$s2,$zero
@@ -4330,11 +4330,11 @@ glabel var7f1adef4
 /*  f0e0484:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0e0488:	0fc54e8d */ 	jal	func0f153a34
 /*  f0e048c:	01653821 */ 	addu	$a3,$t3,$a1
-/*  f0e0490:	0c002f02 */ 	jal	viGetX
+/*  f0e0490:	0c002f02 */ 	jal	viGetWidth
 /*  f0e0494:	00409025 */ 	or	$s2,$v0,$zero
 /*  f0e0498:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  f0e049c:	0011cc03 */ 	sra	$t9,$s1,0x10
-/*  f0e04a0:	0c002f06 */ 	jal	viGetY
+/*  f0e04a0:	0c002f06 */ 	jal	viGetHeight
 /*  f0e04a4:	03208825 */ 	or	$s1,$t9,$zero
 /*  f0e04a8:	8e0f0008 */ 	lw	$t7,0x8($s0)
 /*  f0e04ac:	02402025 */ 	or	$a0,$s2,$zero
@@ -4644,12 +4644,12 @@ glabel var7f1adef4
 //					// fe0
 //					gdl = hudRenderMessageBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, spc0);
 //					// 020
-//					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetX(), viGetY(), 0, 0);
+//					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
 //				} else {
 //					// 078
 //					gdl = func0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
 //					// 0e4
-//					gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetX(), viGetY(), 0, 0);
+//					gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);
 //				}
 //
 //				if (msg->alignv == 6) {
@@ -4671,12 +4671,12 @@ glabel var7f1adef4
 //				// 1a0
 //				gdl = hudRenderMessageBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f);
 //				// 1f0
-//				gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetX(), viGetY(), 0, 0);
+//				gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
 //			} else {
 //				// 200
 //				gdl = func0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
 //				// 274
-//				gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetX(), viGetY(), 0, 0);
+//				gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);
 //			}
 //			if (msg->alignv == 6) {
 //				timerthing = 0;
@@ -4718,12 +4718,12 @@ glabel var7f1adef4
 //					// 414
 //					gdl = hudRenderMessageBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f - spa8);
 //					// 464
-//					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetX(), viGetY(), 0, 0);
+//					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
 //				} else {
 //					// 474
 //					gdl = func0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
 //					// 4dc
-//					gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetX(), viGetY(), 0, 0);
+//					gdl = textRender(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, viGetWidth(), viGetHeight(), 0, 0);
 //				}
 //
 //				if (msg->alignv == 6) {

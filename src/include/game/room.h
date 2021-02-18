@@ -92,7 +92,7 @@ Gfx *func0f164150(Gfx *gdl);
 s32 roomsGetActive(s16 *rooms, s32 len);
 s32 roomGetNeighbours(s32 room, s16 *rooms, s32 len);
 bool roomsAreNeighbours(s32 roomnum1, s32 roomnum2);
-u32 func0f164748(void);
+void currentPlayerCalculateScreenProperties(void);
 u32 func0f1648cc(void);
 void portalSwapRooms(u32 portal);
 u32 func0f164ab8(void);

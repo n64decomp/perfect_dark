@@ -1249,7 +1249,7 @@ glabel menuRenderItemList
 /*  f0e6ecc:	afa40094 */ 	sw	$a0,0x94($sp)
 .L0f0e6ed0:
 /*  f0e6ed0:	afa50090 */ 	sw	$a1,0x90($sp)
-/*  f0e6ed4:	0c002f02 */ 	jal	viGetX
+/*  f0e6ed4:	0c002f02 */ 	jal	viGetWidth
 /*  f0e6ed8:	afa7008c */ 	sw	$a3,0x8c($sp)
 /*  f0e6edc:	3c0a8008 */ 	lui	$t2,%hi(g_ScaleX)
 /*  f0e6ee0:	8d4afac0 */ 	lw	$t2,%lo(g_ScaleX)($t2)
@@ -1273,7 +1273,7 @@ glabel menuRenderItemList
 /*  f0e6f20:	50200014 */ 	beqzl	$at,.L0f0e6f74
 /*  f0e6f24:	afa40094 */ 	sw	$a0,0x94($sp)
 /*  f0e6f28:	afa50090 */ 	sw	$a1,0x90($sp)
-/*  f0e6f2c:	0c002f02 */ 	jal	viGetX
+/*  f0e6f2c:	0c002f02 */ 	jal	viGetWidth
 /*  f0e6f30:	afa7008c */ 	sw	$a3,0x8c($sp)
 /*  f0e6f34:	3c198008 */ 	lui	$t9,%hi(g_ScaleX)
 /*  f0e6f38:	8f39fac0 */ 	lw	$t9,%lo(g_ScaleX)($t9)
@@ -1295,7 +1295,7 @@ glabel menuRenderItemList
 /*  f0e6f70:	afa40094 */ 	sw	$a0,0x94($sp)
 .L0f0e6f74:
 /*  f0e6f74:	afa50090 */ 	sw	$a1,0x90($sp)
-/*  f0e6f78:	0c002f02 */ 	jal	viGetX
+/*  f0e6f78:	0c002f02 */ 	jal	viGetWidth
 /*  f0e6f7c:	afa7008c */ 	sw	$a3,0x8c($sp)
 /*  f0e6f80:	3c0b8008 */ 	lui	$t3,%hi(g_ScaleX)
 /*  f0e6f84:	8d6bfac0 */ 	lw	$t3,%lo(g_ScaleX)($t3)
@@ -1319,7 +1319,7 @@ glabel menuRenderItemList
 /*  f0e6fc4:	50200014 */ 	beqzl	$at,.L0f0e7018
 /*  f0e6fc8:	02401025 */ 	or	$v0,$s2,$zero
 /*  f0e6fcc:	afa40094 */ 	sw	$a0,0x94($sp)
-/*  f0e6fd0:	0c002f02 */ 	jal	viGetX
+/*  f0e6fd0:	0c002f02 */ 	jal	viGetWidth
 /*  f0e6fd4:	afa50090 */ 	sw	$a1,0x90($sp)
 /*  f0e6fd8:	3c0e8008 */ 	lui	$t6,%hi(g_ScaleX)
 /*  f0e6fdc:	8dcefac0 */ 	lw	$t6,%lo(g_ScaleX)($t6)
@@ -1682,7 +1682,7 @@ glabel menuRenderItemList
 /*  f0e7500:	01ee5021 */ 	addu	$t2,$t7,$t6
 /*  f0e7504:	0fc5b9f1 */ 	jal	langGet
 /*  f0e7508:	afaa012c */ 	sw	$t2,0x12c($sp)
-/*  f0e750c:	0c002f06 */ 	jal	viGetY
+/*  f0e750c:	0c002f06 */ 	jal	viGetHeight
 /*  f0e7510:	00409825 */ 	or	$s3,$v0,$zero
 /*  f0e7514:	8fad00e8 */ 	lw	$t5,0xe8($sp)
 /*  f0e7518:	8fb800f4 */ 	lw	$t8,0xf4($sp)
@@ -7897,7 +7897,7 @@ Gfx *menuRenderControllerText(Gfx *gdl, s32 curmode, struct menurendercontext *c
 			// Rendering a label such as "L/R BUTTONS:"
 			rx = context->x + x + 76;
 			gdl = textRenderProjected(gdl, &rx, &ry, langGet(labels[i]),
-					g_FontHandelGothicXs1, g_FontHandelGothicXs2, labelcolour, viGetX(), viGetY(), 0, 0);
+					g_FontHandelGothicXs1, g_FontHandelGothicXs2, labelcolour, viGetWidth(), viGetHeight(), 0, 0);
 		}
 
 		textnum = menuControllerGetButtonAction(curmode, i);
@@ -7932,7 +7932,7 @@ Gfx *menuRenderControllerText(Gfx *gdl, s32 curmode, struct menurendercontext *c
 		}
 
 		gdl = textRenderProjected(gdl, &rx, &ry, langGet(textnum),
-				g_FontHandelGothicXs1, g_FontHandelGothicXs2, colour, viGetX(), viGetY(), 0, 0);
+				g_FontHandelGothicXs1, g_FontHandelGothicXs2, colour, viGetWidth(), viGetHeight(), 0, 0);
 	}
 
 	return func0f153780(gdl);
@@ -8050,7 +8050,7 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
 	x = context->x + 2;
 	y = context->y + 2;
 	gdl = textRenderProjected(gdl, &x, &y, text,
-			g_FontHandelGothicSm1, g_FontHandelGothicSm2, colour, viGetX(), viGetY(), 0, 0);
+			g_FontHandelGothicSm1, g_FontHandelGothicSm2, colour, viGetWidth(), viGetHeight(), 0, 0);
 	gdl = func0f153780(gdl);
 
 	textcolour = colourBlend(colour, colour & 0xffffff00, textalpha);
@@ -8072,7 +8072,7 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
 		y = context->y + 92;
 		gdl = func0f153628(gdl);
 		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPWEAPONS(216)), // "Hold weapon button for ..."
-				g_FontHandelGothicSm1, g_FontHandelGothicSm2, colour, viGetX(), viGetY(), 0, 0);
+				g_FontHandelGothicSm1, g_FontHandelGothicSm2, colour, viGetWidth(), viGetHeight(), 0, 0);
 		gdl = func0f153780(gdl);
 	}
 

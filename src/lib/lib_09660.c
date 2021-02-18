@@ -2129,9 +2129,9 @@ glabel func0000b330
 /*     b354:	ac780000 */ 	sw	$t8,0x0($v1)
 /*     b358:	24660008 */ 	addiu	$a2,$v1,0x8
 /*     b35c:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*     b360:	0c002f02 */ 	jal	viGetX
+/*     b360:	0c002f02 */ 	jal	viGetWidth
 /*     b364:	afa300a0 */ 	sw	$v1,0xa0($sp)
-/*     b368:	0c002f06 */ 	jal	viGetY
+/*     b368:	0c002f06 */ 	jal	viGetHeight
 /*     b36c:	a7a20056 */ 	sh	$v0,0x56($sp)
 /*     b370:	44822000 */ 	mtc1	$v0,$f4
 /*     b374:	87af0056 */ 	lh	$t7,0x56($sp)
@@ -2219,7 +2219,7 @@ glabel func0000b330
 /*     b4a4:	8fa600a8 */ 	lw	$a2,0xa8($sp)
 /*     b4a8:	afa60098 */ 	sw	$a2,0x98($sp)
 /*     b4ac:	24c60008 */ 	addiu	$a2,$a2,0x8
-/*     b4b0:	0c002f02 */ 	jal	viGetX
+/*     b4b0:	0c002f02 */ 	jal	viGetWidth
 /*     b4b4:	afa600a8 */ 	sw	$a2,0xa8($sp)
 /*     b4b8:	0c002f44 */ 	jal	viGetViewTop
 /*     b4bc:	a7a20056 */ 	sh	$v0,0x56($sp)
@@ -2247,7 +2247,7 @@ glabel func0000b330
 /*     b510:	afa600a8 */ 	sw	$a2,0xa8($sp)
 /*     b514:	0c002f44 */ 	jal	viGetViewTop
 /*     b518:	a7a20042 */ 	sh	$v0,0x42($sp)
-/*     b51c:	0c002f06 */ 	jal	viGetY
+/*     b51c:	0c002f06 */ 	jal	viGetHeight
 /*     b520:	a7a20056 */ 	sh	$v0,0x56($sp)
 /*     b524:	87b80056 */ 	lh	$t8,0x56($sp)
 /*     b528:	87ad0042 */ 	lh	$t5,0x42($sp)
@@ -2258,9 +2258,9 @@ glabel func0000b330
 /*     b53c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     b540:	afa60090 */ 	sw	$a2,0x90($sp)
 /*     b544:	24c60008 */ 	addiu	$a2,$a2,0x8
-/*     b548:	0c002f02 */ 	jal	viGetX
+/*     b548:	0c002f02 */ 	jal	viGetWidth
 /*     b54c:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*     b550:	0c002f06 */ 	jal	viGetY
+/*     b550:	0c002f06 */ 	jal	viGetHeight
 /*     b554:	a7a20056 */ 	sh	$v0,0x56($sp)
 /*     b558:	87b90056 */ 	lh	$t9,0x56($sp)
 /*     b55c:	244effff */ 	addiu	$t6,$v0,-1
@@ -2372,7 +2372,7 @@ glabel func0000b330
 /*     b6d0:	24c60008 */ 	addiu	$a2,$a2,0x8
 /*     b6d4:	afa600a8 */ 	sw	$a2,0xa8($sp)
 /*     b6d8:	afa4007c */ 	sw	$a0,0x7c($sp)
-/*     b6dc:	0c002f02 */ 	jal	viGetX
+/*     b6dc:	0c002f02 */ 	jal	viGetWidth
 /*     b6e0:	afac0084 */ 	sw	$t4,0x84($sp)
 /*     b6e4:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x64)
 /*     b6e8:	8f18a024 */ 	lw	$t8,%lo(g_Vars+0x64)($t8)
@@ -2398,7 +2398,7 @@ glabel func0000b330
 /*     b738:	24c60008 */ 	addiu	$a2,$a2,0x8
 .L0000b73c:
 /*     b73c:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*     b740:	0c002f06 */ 	jal	viGetY
+/*     b740:	0c002f06 */ 	jal	viGetHeight
 /*     b744:	afac0084 */ 	sw	$t4,0x84($sp)
 /*     b748:	8fac0084 */ 	lw	$t4,0x84($sp)
 /*     b74c:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
@@ -2416,9 +2416,9 @@ glabel func0000b330
 /*     b77c:	afa60074 */ 	sw	$a2,0x74($sp)
 /*     b780:	24c60008 */ 	addiu	$a2,$a2,0x8
 /*     b784:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*     b788:	0c002f02 */ 	jal	viGetX
+/*     b788:	0c002f02 */ 	jal	viGetWidth
 /*     b78c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*     b790:	0c002f06 */ 	jal	viGetY
+/*     b790:	0c002f06 */ 	jal	viGetHeight
 /*     b794:	a7a20056 */ 	sh	$v0,0x56($sp)
 /*     b798:	87ad0056 */ 	lh	$t5,0x56($sp)
 /*     b79c:	2459ffff */ 	addiu	$t9,$v0,-1
@@ -2450,7 +2450,7 @@ glabel func0000b330
 .L0000b804:
 /*     b804:	24c60008 */ 	addiu	$a2,$a2,0x8
 /*     b808:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*     b80c:	0c002f02 */ 	jal	viGetX
+/*     b80c:	0c002f02 */ 	jal	viGetWidth
 /*     b810:	afa4006c */ 	sw	$a0,0x6c($sp)
 /*     b814:	8fae0080 */ 	lw	$t6,0x80($sp)
 /*     b818:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
@@ -2596,7 +2596,7 @@ glabel func0000b330
 /*     ba00:	24c60008 */ 	addiu	$a2,$a2,0x8
 /*     ba04:	afa600a8 */ 	sw	$a2,0xa8($sp)
 /*     ba08:	afa50064 */ 	sw	$a1,0x64($sp)
-/*     ba0c:	0c002f06 */ 	jal	viGetY
+/*     ba0c:	0c002f06 */ 	jal	viGetHeight
 /*     ba10:	afac001c */ 	sw	$t4,0x1c($sp)
 /*     ba14:	8fac001c */ 	lw	$t4,0x1c($sp)
 /*     ba18:	8fa50064 */ 	lw	$a1,0x64($sp)
@@ -2664,9 +2664,9 @@ glabel func0000b330
 /*     baf4:	afa6005c */ 	sw	$a2,0x5c($sp)
 /*     baf8:	24c60008 */ 	addiu	$a2,$a2,0x8
 /*     bafc:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*     bb00:	0c002f02 */ 	jal	viGetX
+/*     bb00:	0c002f02 */ 	jal	viGetWidth
 /*     bb04:	afac001c */ 	sw	$t4,0x1c($sp)
-/*     bb08:	0c002f06 */ 	jal	viGetY
+/*     bb08:	0c002f06 */ 	jal	viGetHeight
 /*     bb0c:	a7a20056 */ 	sh	$v0,0x56($sp)
 /*     bb10:	87b80056 */ 	lh	$t8,0x56($sp)
 /*     bb14:	244effff */ 	addiu	$t6,$v0,-1
@@ -2730,12 +2730,12 @@ void viSetXY(s16 x, s16 y)
 	g_ViData->y = y;
 }
 
-s16 viGetX(void)
+s16 viGetWidth(void)
 {
 	return g_ViData->x;
 }
 
-s16 viGetY(void)
+s16 viGetHeight(void)
 {
 	return g_ViData->y;
 }

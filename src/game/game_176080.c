@@ -122,7 +122,7 @@ Gfx *func0f1763f4(Gfx *gdl)
 
 	gDPPipeSync(gdl++);
 	gDPSetRenderMode(gdl++, G_RM_NOOP, G_RM_NOOP2);
-	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetX(), OS_PHYSICAL_TO_K0(var800844f4));
+	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetWidth(), OS_PHYSICAL_TO_K0(var800844f4));
 	gDPSetCycleType(gdl++, G_CYC_FILL);
 	gDPSetFillColor(gdl++, 0xfffcfffc);
 	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetFbWidth() * 4.0f, viGetFbHeight() * 4.0f);
@@ -356,7 +356,7 @@ glabel func0f1766b4
 /*  f176998:	8fae0044 */ 	lw	$t6,0x44($sp)
 /*  f17699c:	1180004a */ 	beqz	$t4,.L0f176ac8
 /*  f1769a0:	00146840 */ 	sll	$t5,$s4,0x1
-/*  f1769a4:	0c002f02 */ 	jal	viGetX
+/*  f1769a4:	0c002f02 */ 	jal	viGetWidth
 /*  f1769a8:	01ae9021 */ 	addu	$s2,$t5,$t6
 /*  f1769ac:	962f000c */ 	lhu	$t7,0xc($s1)
 /*  f1769b0:	8fa8004c */ 	lw	$t0,0x4c($sp)
@@ -379,13 +379,13 @@ glabel func0f1766b4
 /*  f1769f4:	acb70000 */ 	sw	$s7,0x0($a1)
 /*  f1769f8:	3c09f300 */ 	lui	$t1,0xf300
 /*  f1769fc:	ae690000 */ 	sw	$t1,0x0($s3)
-/*  f176a00:	0c002f02 */ 	jal	viGetX
+/*  f176a00:	0c002f02 */ 	jal	viGetWidth
 /*  f176a04:	26100008 */ 	addiu	$s0,$s0,0x8
 /*  f176a08:	244affff */ 	addiu	$t2,$v0,-1
 /*  f176a0c:	294107ff */ 	slti	$at,$t2,0x7ff
 /*  f176a10:	10200005 */ 	beqz	$at,.L0f176a28
 /*  f176a14:	240507ff */ 	addiu	$a1,$zero,0x7ff
-/*  f176a18:	0c002f02 */ 	jal	viGetX
+/*  f176a18:	0c002f02 */ 	jal	viGetWidth
 /*  f176a1c:	00000000 */ 	nop
 /*  f176a20:	10000001 */ 	b	.L0f176a28
 /*  f176a24:	2445ffff */ 	addiu	$a1,$v0,-1
@@ -463,11 +463,11 @@ glabel func0f1766b4
 /*  f176b3c:	02009025 */ 	or	$s2,$s0,$zero
 /*  f176b40:	3c18ed00 */ 	lui	$t8,0xed00
 /*  f176b44:	ae580000 */ 	sw	$t8,0x0($s2)
-/*  f176b48:	0c002f02 */ 	jal	viGetX
+/*  f176b48:	0c002f02 */ 	jal	viGetWidth
 /*  f176b4c:	26100008 */ 	addiu	$s0,$s0,0x8
 /*  f176b50:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  f176b54:	0011cc03 */ 	sra	$t9,$s1,0x10
-/*  f176b58:	0c002f06 */ 	jal	viGetY
+/*  f176b58:	0c002f06 */ 	jal	viGetHeight
 /*  f176b5c:	03208825 */ 	or	$s1,$t9,$zero
 /*  f176b60:	44822000 */ 	mtc1	$v0,$f4
 /*  f176b64:	44918000 */ 	mtc1	$s1,$f16
@@ -567,12 +567,12 @@ glabel func0f1766b4
 //
 //	for (i = 0; i < 120; i++) {
 //		if (thing->unk00[i].unk00) {
-//			u32 tmp = viGetX() * thing->unk00[i].unk0c.u16_1 * 2 + sp4c;
+//			u32 tmp = viGetWidth() * thing->unk00[i].unk0c.u16_1 * 2 + sp4c;
 //
 //			gDPPipeSync(gdl++);
 //			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, tmp);
 //			gDPLoadSync(gdl++);
-//			gDPLoadBlock(gdl++, 5, 0, 0, viGetX() - 1, 0);
+//			gDPLoadBlock(gdl++, 5, 0, 0, viGetWidth() - 1, 0);
 //			gDPPipeSync(gdl++);
 //
 //			gSPTextureRectangle(gdl++,
@@ -591,7 +591,7 @@ glabel func0f1766b4
 //	gDPLoadSync(gdl++);
 //	gDPTileSync(gdl++);
 //	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufX(), OS_PHYSICAL_TO_K0(viGetUnk28()));
-//	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetX() * 4.0f, viGetY() * 4.0f);
+//	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth() * 4.0f, viGetHeight() * 4.0f);
 //	gSPSetGeometryMode(gdl++, G_ZBUFFER);
 //	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 //	gDPSetTexturePersp(gdl++, G_TP_PERSP);

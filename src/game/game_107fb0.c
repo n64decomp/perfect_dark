@@ -1576,7 +1576,7 @@ s32 filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, struct menuitem *ite
 				if (location000) {
 					filemgrGetFileName(text, location000, g_Menus[g_MpPlayerNum].data.filemgr.filetypeplusone - 1);
 					gdl = textRenderProjected(gdl, &x, &y, text, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
-							colour, viGetX(), viGetY(), 0, 1);
+							colour, viGetWidth(), viGetHeight(), 0, 1);
 					y = renderdata->y + 12;
 					x = renderdata->x + 2;
 				}
@@ -1740,7 +1740,7 @@ s32 pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handl
 		x = renderdata->x + 4;
 		y = renderdata->y + 1;
 		gdl = textRenderProjected(gdl, &x, &y, generalbuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
-				renderdata->colour, viGetX(), viGetY(), 0, 1);
+				renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
 
 		// Prepare buffers for remaining text
 		if (g_EditingPak->notesinuse[data->list.unk04] == 1) {
@@ -1762,13 +1762,13 @@ s32 pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handl
 		x = renderdata->x + 20;
 		y = renderdata->y + 1;
 		gdl = textRenderProjected(gdl, &x, &y, generalbuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
-				renderdata->colour, viGetX(), viGetY(), 0, 1);
+				renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
 
 		// Render ext character (for when a game has multiple notes)
 		x = renderdata->x + 190;
 		y = renderdata->y + 1;
 		gdl = textRenderProjected(gdl, &x, &y, extbuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
-				renderdata->colour, viGetX(), viGetY(), 0, 1);
+				renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
 
 		// Render number of pages
 		textMeasure(&textheight, &textwidth, pagesbuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0);
@@ -1776,7 +1776,7 @@ s32 pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handl
 		x = renderdata->x + renderdata->width - textwidth - 6;
 		y = renderdata->y + 1;
 		gdl = textRenderProjected(gdl, &x, &y, pagesbuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
-				renderdata->colour, viGetX(), viGetY(), 0, 1);
+				renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
 
 		return (u32)gdl;
 	case MENUOP_GETOPTIONHEIGHT:
@@ -2109,12 +2109,12 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 		if (data->list.unk04 == g_FileLists[0]->numfiles) {
 			// "New Agent..."
 			gdl = textRenderProjected(gdl, &x, &y, langGet(L_OPTIONS(403)),
-					g_FontHandelGothicMd1, g_FontHandelGothicMd2, renderdata->colour, viGetX(), viGetY(), 0, 0);
+					g_FontHandelGothicMd1, g_FontHandelGothicMd2, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
 		} else {
 			if (location000) {
 				// Render file name
 				gdl = textRenderProjected(gdl, &x, &y, name,
-						g_FontHandelGothicMd1, g_FontHandelGothicMd2, renderdata->colour, viGetX(), viGetY(), 0, 1);
+						g_FontHandelGothicMd1, g_FontHandelGothicMd2, renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
 
 				// Prepare and render stage name
 				y = renderdata->y + 18;
@@ -2131,7 +2131,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 
 				strcat(buffer, "\n");
 				gdl = textRenderProjected(gdl, &x, &y, buffer,
-						g_FontHandelGothicSm1, g_FontHandelGothicSm2, renderdata->colour, viGetX(), viGetY(), 0, 0);
+						g_FontHandelGothicSm1, g_FontHandelGothicSm2, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
 
 				// Prepare and render mission time
 				x = renderdata->x + 62;
@@ -2149,14 +2149,14 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 				textMeasure(&textheight, &textwidth, buffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0);
 
 				gdl = textRenderProjected(gdl, &x, &y, buffer,
-						g_FontHandelGothicSm1, g_FontHandelGothicSm2, renderdata->colour, viGetX(), viGetY(), 0, 0);
+						g_FontHandelGothicSm1, g_FontHandelGothicSm2, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
 
 				// Render seconds part of mission time (uses a smaller font)
 				y++;
 				x++;
 				sprintf(buffer, ".%02d", seconds);
 				gdl = textRenderProjected(gdl, &x, &y, buffer,
-						g_FontHandelGothicXs1, g_FontHandelGothicXs2, renderdata->colour, viGetX(), viGetY(), 0, 0);
+						g_FontHandelGothicXs1, g_FontHandelGothicXs2, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
 			}
 		}
 		gdl = func0f153780(gdl);

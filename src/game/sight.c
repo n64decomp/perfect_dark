@@ -711,9 +711,9 @@ glabel sightRenderTargetBox
 /*  f0d7e58:	27af004c */ 	addiu	$t7,$sp,0x4c
 /*  f0d7e5c:	2498002f */ 	addiu	$t8,$a0,0x2f
 /*  f0d7e60:	b9e10002 */ 	swr	$at,0x2($t7)
-/*  f0d7e64:	0c002f02 */ 	jal	viGetX
+/*  f0d7e64:	0c002f02 */ 	jal	viGetWidth
 /*  f0d7e68:	a3b8004c */ 	sb	$t8,0x4c($sp)
-/*  f0d7e6c:	0c002f06 */ 	jal	viGetY
+/*  f0d7e6c:	0c002f06 */ 	jal	viGetHeight
 /*  f0d7e70:	a7a20040 */ 	sh	$v0,0x40($sp)
 /*  f0d7e74:	3c0f8008 */ 	lui	$t7,%hi(g_FontNumeric1)
 /*  f0d7e78:	8deffb00 */ 	lw	$t7,%lo(g_FontNumeric1)($t7)
@@ -741,9 +741,9 @@ glabel sightRenderTargetBox
 .L0f0d7ed0:
 /*  f0d7ed0:	0fc5b9f1 */ 	jal	langGet
 /*  f0d7ed4:	00000000 */ 	nop
-/*  f0d7ed8:	0c002f02 */ 	jal	viGetX
+/*  f0d7ed8:	0c002f02 */ 	jal	viGetWidth
 /*  f0d7edc:	afa20048 */ 	sw	$v0,0x48($sp)
-/*  f0d7ee0:	0c002f06 */ 	jal	viGetY
+/*  f0d7ee0:	0c002f06 */ 	jal	viGetHeight
 /*  f0d7ee4:	a7a20040 */ 	sh	$v0,0x40($sp)
 /*  f0d7ee8:	3c198008 */ 	lui	$t9,%hi(g_FontHandelGothicXs1)
 /*  f0d7eec:	8f39fb08 */ 	lw	$t9,%lo(g_FontHandelGothicXs1)($t9)
@@ -2072,9 +2072,9 @@ glabel var7f1ade50
 /*  f0d91c0:	240459b7 */ 	addiu	$a0,$zero,0x59b7
 /*  f0d91c4:	0fc5b9f1 */ 	jal	langGet
 /*  f0d91c8:	afa30090 */ 	sw	$v1,0x90($sp)
-/*  f0d91cc:	0c002f02 */ 	jal	viGetX
+/*  f0d91cc:	0c002f02 */ 	jal	viGetWidth
 /*  f0d91d0:	00409025 */ 	or	$s2,$v0,$zero
-/*  f0d91d4:	0c002f06 */ 	jal	viGetY
+/*  f0d91d4:	0c002f06 */ 	jal	viGetHeight
 /*  f0d91d8:	a7a20060 */ 	sh	$v0,0x60($sp)
 /*  f0d91dc:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicXs1)
 /*  f0d91e0:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicXs2)
@@ -2388,7 +2388,7 @@ glabel var7f1ade50
 //				// "Identify"
 //				gdl = textRender(gdl, &textx, &texty, langGet(L_MISC(439)),
 //						g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0x00ff00a0, 0x000000a0,
-//						viGetX(), viGetY(), 0, 0);
+//						viGetWidth(), viGetHeight(), 0, 0);
 //			}
 //
 //			gdl = func0f0d7f54(gdl, x, y, s1, sp90, colour);

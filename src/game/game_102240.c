@@ -2566,11 +2566,11 @@ glabel var7f1b2dfc
 /*  f105480:	24a52d50 */ 	addiu	$a1,$a1,%lo(var7f1b2d50)
 /*  f105484:	0c004c89 */ 	jal	strcat
 /*  f105488:	27a400f0 */ 	addiu	$a0,$sp,0xf0
-/*  f10548c:	0c002f02 */ 	jal	viGetX
+/*  f10548c:	0c002f02 */ 	jal	viGetWidth
 /*  f105490:	00000000 */ 	nop
 /*  f105494:	00028400 */ 	sll	$s0,$v0,0x10
 /*  f105498:	00107c03 */ 	sra	$t7,$s0,0x10
-/*  f10549c:	0c002f06 */ 	jal	viGetY
+/*  f10549c:	0c002f06 */ 	jal	viGetHeight
 /*  f1054a0:	01e08025 */ 	or	$s0,$t7,$zero
 /*  f1054a4:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicMd1)
 /*  f1054a8:	3c198008 */ 	lui	$t9,%hi(g_FontHandelGothicMd2)
@@ -2597,11 +2597,11 @@ glabel var7f1b2dfc
 /*  f1054fc:	27a400f0 */ 	addiu	$a0,$sp,0xf0
 /*  f105500:	0c004c4c */ 	jal	strcpy
 /*  f105504:	00402825 */ 	or	$a1,$v0,$zero
-/*  f105508:	0c002f02 */ 	jal	viGetX
+/*  f105508:	0c002f02 */ 	jal	viGetWidth
 /*  f10550c:	00000000 */ 	nop
 /*  f105510:	00028400 */ 	sll	$s0,$v0,0x10
 /*  f105514:	00107403 */ 	sra	$t6,$s0,0x10
-/*  f105518:	0c002f06 */ 	jal	viGetY
+/*  f105518:	0c002f06 */ 	jal	viGetHeight
 /*  f10551c:	01c08025 */ 	or	$s0,$t6,$zero
 /*  f105520:	3c198008 */ 	lui	$t9,%hi(g_FontHandelGothicSm1)
 /*  f105524:	3c188008 */ 	lui	$t8,%hi(g_FontHandelGothicSm2)

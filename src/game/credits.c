@@ -629,7 +629,7 @@ Gfx *creditsClearFramebuffer(Gfx *gdl, u32 colour)
 
 	gdl = gfxSetPrimColour(gdl, colour);
 
-	gDPFillRectangle(gdl++, 0, 0, viGetX(), viGetY());
+	gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
 
 	gdl = func0f153838(gdl);
 
@@ -3377,9 +3377,9 @@ glabel var7f1b5948
 /*  f13b0b0:	35ef0078 */ 	ori	$t7,$t7,0x78
 /*  f13b0b4:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f13b0b8:	ac4f0000 */ 	sw	$t7,0x0($v0)
-/*  f13b0bc:	0c002f02 */ 	jal	viGetX
+/*  f13b0bc:	0c002f02 */ 	jal	viGetWidth
 /*  f13b0c0:	24500008 */ 	addiu	$s0,$v0,0x8
-/*  f13b0c4:	0c002f06 */ 	jal	viGetY
+/*  f13b0c4:	0c002f06 */ 	jal	viGetHeight
 /*  f13b0c8:	a7a20036 */ 	sh	$v0,0x36($sp)
 /*  f13b0cc:	2458ffe2 */ 	addiu	$t8,$v0,-30
 /*  f13b0d0:	44982000 */ 	mtc1	$t8,$f4
@@ -3664,7 +3664,7 @@ glabel var7f1b5948
 //	gdl = func0000b1d0(gdl);
 //	gdl = creditsClearFramebuffer(gdl, 0x000000ff);
 //
-//	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 120, viGetX() * 4.0f, (viGetY() - 30) * 4.0f);
+//	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 120, viGetWidth() * 4.0f, (viGetHeight() - 30) * 4.0f);
 //
 //	creditsTick();
 //

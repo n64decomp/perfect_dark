@@ -2205,14 +2205,14 @@ glabel func0f15568c
 /*  f155764:	8e590000 */ 	lw	$t9,0x0($s2)
 /*  f155768:	5b200221 */ 	blezl	$t9,.L0f155ff0
 /*  f15576c:	92380003 */ 	lbu	$t8,0x3($s1)
-/*  f155770:	0c002f02 */ 	jal	viGetX
+/*  f155770:	0c002f02 */ 	jal	viGetWidth
 /*  f155774:	afaa0090 */ 	sw	$t2,0x90($sp)
 /*  f155778:	8e4e0000 */ 	lw	$t6,0x0($s2)
 /*  f15577c:	8faa0090 */ 	lw	$t2,0x90($sp)
 /*  f155780:	004e082a */ 	slt	$at,$v0,$t6
 /*  f155784:	5420021a */ 	bnezl	$at,.L0f155ff0
 /*  f155788:	92380003 */ 	lbu	$t8,0x3($s1)
-/*  f15578c:	0c002f06 */ 	jal	viGetY
+/*  f15578c:	0c002f06 */ 	jal	viGetHeight
 /*  f155790:	afaa0090 */ 	sw	$t2,0x90($sp)
 /*  f155794:	8faa0090 */ 	lw	$t2,0x90($sp)
 /*  f155798:	822f0001 */ 	lb	$t7,0x1($s1)
@@ -3314,13 +3314,13 @@ glabel func0f156790
 /*  f15681c:	01986823 */ 	subu	$t5,$t4,$t8
 /*  f156820:	19a00071 */ 	blez	$t5,.L0f1569e8
 /*  f156824:	acad0000 */ 	sw	$t5,0x0($a1)
-/*  f156828:	0c002f02 */ 	jal	viGetX
+/*  f156828:	0c002f02 */ 	jal	viGetWidth
 /*  f15682c:	00000000 */ 	nop
 /*  f156830:	8e2b0000 */ 	lw	$t3,0x0($s1)
 /*  f156834:	004b082a */ 	slt	$at,$v0,$t3
 /*  f156838:	1420006b */ 	bnez	$at,.L0f1569e8
 /*  f15683c:	00000000 */ 	nop
-/*  f156840:	0c002f06 */ 	jal	viGetY
+/*  f156840:	0c002f06 */ 	jal	viGetHeight
 /*  f156844:	00000000 */ 	nop
 /*  f156848:	8faf0038 */ 	lw	$t7,0x38($sp)
 /*  f15684c:	82590001 */ 	lb	$t9,0x1($s2)

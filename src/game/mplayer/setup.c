@@ -953,7 +953,7 @@ s32 mpChallengesListHandler(s32 operation, struct menuitem *item, union handlerd
 
 		gdl = textRenderProjected(gdl, &x, &y, name,
 				g_FontHandelGothicSm1, g_FontHandelGothicSm2, renderdata->colour,
-				viGetX(), viGetY(), 0, 0);
+				viGetWidth(), viGetHeight(), 0, 0);
 
 		gdl = func0f153780(gdl);
 
@@ -4412,11 +4412,11 @@ glabel var7f1b8288
 /*  f17e660:	afa200b4 */ 	sw	$v0,0xb4($sp)
 /*  f17e664:	0fc66dbe */ 	jal	mpGetChallengeNameBySlot
 /*  f17e668:	8ec40004 */ 	lw	$a0,0x4($s6)
-/*  f17e66c:	0c002f02 */ 	jal	viGetX
+/*  f17e66c:	0c002f02 */ 	jal	viGetWidth
 /*  f17e670:	00408825 */ 	or	$s1,$v0,$zero
 /*  f17e674:	00029400 */ 	sll	$s2,$v0,0x10
 /*  f17e678:	0012c403 */ 	sra	$t8,$s2,0x10
-/*  f17e67c:	0c002f06 */ 	jal	viGetY
+/*  f17e67c:	0c002f06 */ 	jal	viGetHeight
 /*  f17e680:	03009025 */ 	or	$s2,$t8,$zero
 /*  f17e684:	3c198008 */ 	lui	$t9,%hi(g_FontHandelGothicSm1)
 /*  f17e688:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicSm2)

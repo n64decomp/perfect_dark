@@ -8,9 +8,9 @@
 Gfx *func0f01afc0(Gfx *gdl)
 {
 	gDPSetCycleType(gdl++, G_CYC_FILL);
-	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetX(), osVirtualToPhysical((void *)viGetUnk28()));
+	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetWidth(), osVirtualToPhysical((void *)viGetUnk28()));
 	gDPSetFillColor(gdl++, 0x00010001);
-	gDPFillRectangle(gdl++, 0, 0, viGetX() - 1, viGetY() - 1);
+	gDPFillRectangle(gdl++, 0, 0, viGetWidth() - 1, viGetHeight() - 1);
 
 	return gdl;
 }

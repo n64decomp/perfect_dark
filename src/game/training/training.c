@@ -5264,7 +5264,7 @@ Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, u3
 	gdl = func0f153858(gdl, &x2, &y2, &textwidth, &textheight);
 
 	gdl = textRender(gdl, &x2, &y2, string1,
-			g_FontHandelGothicMd1, g_FontHandelGothicMd2, fullcolour, halfalpha, viGetX(), viGetY(), 0, 0);
+			g_FontHandelGothicMd1, g_FontHandelGothicMd2, fullcolour, halfalpha, viGetWidth(), viGetHeight(), 0, 0);
 
 	if (string2) {
 		textMeasure(&textheight, &textwidth, string2, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
@@ -5274,7 +5274,7 @@ Gfx *frRenderHudElement(Gfx *gdl, s32 x, s32 y, char *string1, char *string2, u3
 		gdl = func0f153858(gdl, &x2, &y2, &textwidth, &textheight);
 
 		gdl = textRender(gdl, &x2, &y2, string2,
-			g_FontHandelGothicXs1, g_FontHandelGothicXs2, fullcolour, halfalpha, viGetX(), viGetY(), 0, 0);
+			g_FontHandelGothicXs1, g_FontHandelGothicXs2, fullcolour, halfalpha, viGetWidth(), viGetHeight(), 0, 0);
 	}
 
 	return gdl;

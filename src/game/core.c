@@ -1561,7 +1561,7 @@ Gfx *coreRender(Gfx *gdl)
 		}
 	}
 
-	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetX(), viGetY());
+	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth(), viGetHeight());
 
 	return gdl;
 }

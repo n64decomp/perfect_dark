@@ -13186,7 +13186,7 @@ glabel func0f162d9c
 /*  f162dc8:	afb20028 */ 	sw	$s2,0x28($sp)
 /*  f162dcc:	afb10024 */ 	sw	$s1,0x24($sp)
 /*  f162dd0:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f162dd4:	0fc591d2 */ 	jal	func0f164748
+/*  f162dd4:	0fc591d2 */ 	jal	currentPlayerCalculateScreenProperties
 /*  f162dd8:	8e160284 */ 	lw	$s6,0x284($s0)
 /*  f162ddc:	3c038008 */ 	lui	$v1,%hi(var8007fc34)
 /*  f162de0:	2463fc34 */ 	addiu	$v1,$v1,%lo(var8007fc34)
@@ -14221,7 +14221,7 @@ glabel func0f163e34
 /*  f163e44:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f163e48:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f163e4c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f163e50:	0fc591d2 */ 	jal	func0f164748
+/*  f163e50:	0fc591d2 */ 	jal	currentPlayerCalculateScreenProperties
 /*  f163e54:	8e500284 */ 	lw	$s0,0x284($s2)
 /*  f163e58:	c6041794 */ 	lwc1	$f4,0x1794($s0)
 /*  f163e5c:	3c04800a */ 	lui	$a0,%hi(var800a4cf0+0x8)
@@ -14443,7 +14443,7 @@ glabel func0f163e34
 //	struct screenbox box;
 //	struct player *player = g_Vars.currentplayer;
 //
-//	func0f164748();
+//	currentPlayerCalculateScreenProperties();
 //
 //	box.xmin = player->screenxminf;
 //	box.ymin = player->screenyminf;
@@ -14853,114 +14853,54 @@ bool roomsAreNeighbours(s32 roomnum1, s32 roomnum2)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f164748
-/*  f164748:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f16474c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f164750:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f164754:	3c10800a */ 	lui	$s0,%hi(g_Vars+0x284)
-/*  f164758:	0c002f02 */ 	jal	viGetX
-/*  f16475c:	8e10a244 */ 	lw	$s0,%lo(g_Vars+0x284)($s0)
-/*  f164760:	44822000 */ 	mtc1	$v0,$f4
-/*  f164764:	00000000 */ 	nop
-/*  f164768:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f16476c:	0c002f06 */ 	jal	viGetY
-/*  f164770:	e7a60030 */ 	swc1	$f6,0x30($sp)
-/*  f164774:	44824000 */ 	mtc1	$v0,$f8
-/*  f164778:	00000000 */ 	nop
-/*  f16477c:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f164780:	0c002f40 */ 	jal	viGetViewLeft
-/*  f164784:	e7aa0028 */ 	swc1	$f10,0x28($sp)
-/*  f164788:	44828000 */ 	mtc1	$v0,$f16
-/*  f16478c:	44801000 */ 	mtc1	$zero,$f2
-/*  f164790:	46808020 */ 	cvt.s.w	$f0,$f16
-/*  f164794:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f164798:	e6001794 */ 	swc1	$f0,0x1794($s0)
-/*  f16479c:	45020003 */ 	bc1fl	.L0f1647ac
-/*  f1647a0:	c7a00030 */ 	lwc1	$f0,0x30($sp)
-/*  f1647a4:	e6021794 */ 	swc1	$f2,0x1794($s0)
-/*  f1647a8:	c7a00030 */ 	lwc1	$f0,0x30($sp)
-.L0f1647ac:
-/*  f1647ac:	c6121794 */ 	lwc1	$f18,0x1794($s0)
-/*  f1647b0:	4612003c */ 	c.lt.s	$f0,$f18
-/*  f1647b4:	00000000 */ 	nop
-/*  f1647b8:	45000002 */ 	bc1f	.L0f1647c4
-/*  f1647bc:	00000000 */ 	nop
-/*  f1647c0:	e6001794 */ 	swc1	$f0,0x1794($s0)
-.L0f1647c4:
-/*  f1647c4:	0c002f44 */ 	jal	viGetViewTop
-/*  f1647c8:	00000000 */ 	nop
-/*  f1647cc:	44822000 */ 	mtc1	$v0,$f4
-/*  f1647d0:	44801000 */ 	mtc1	$zero,$f2
-/*  f1647d4:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f1647d8:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f1647dc:	e6001798 */ 	swc1	$f0,0x1798($s0)
-/*  f1647e0:	45020003 */ 	bc1fl	.L0f1647f0
-/*  f1647e4:	c7a00028 */ 	lwc1	$f0,0x28($sp)
-/*  f1647e8:	e6021798 */ 	swc1	$f2,0x1798($s0)
-/*  f1647ec:	c7a00028 */ 	lwc1	$f0,0x28($sp)
-.L0f1647f0:
-/*  f1647f0:	c6061798 */ 	lwc1	$f6,0x1798($s0)
-/*  f1647f4:	4606003c */ 	c.lt.s	$f0,$f6
-/*  f1647f8:	00000000 */ 	nop
-/*  f1647fc:	45000002 */ 	bc1f	.L0f164808
-/*  f164800:	00000000 */ 	nop
-/*  f164804:	e6001798 */ 	swc1	$f0,0x1798($s0)
-.L0f164808:
-/*  f164808:	0c002f40 */ 	jal	viGetViewLeft
-/*  f16480c:	00000000 */ 	nop
-/*  f164810:	0c002f22 */ 	jal	viGetViewWidth
-/*  f164814:	a7a20022 */ 	sh	$v0,0x22($sp)
-/*  f164818:	87ae0022 */ 	lh	$t6,0x22($sp)
-/*  f16481c:	44801000 */ 	mtc1	$zero,$f2
-/*  f164820:	004e7821 */ 	addu	$t7,$v0,$t6
-/*  f164824:	448f4000 */ 	mtc1	$t7,$f8
-/*  f164828:	00000000 */ 	nop
-/*  f16482c:	46804020 */ 	cvt.s.w	$f0,$f8
-/*  f164830:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f164834:	e600179c */ 	swc1	$f0,0x179c($s0)
-/*  f164838:	45020003 */ 	bc1fl	.L0f164848
-/*  f16483c:	c7aa0030 */ 	lwc1	$f10,0x30($sp)
-/*  f164840:	e602179c */ 	swc1	$f2,0x179c($s0)
-/*  f164844:	c7aa0030 */ 	lwc1	$f10,0x30($sp)
-.L0f164848:
-/*  f164848:	c610179c */ 	lwc1	$f16,0x179c($s0)
-/*  f16484c:	4610503c */ 	c.lt.s	$f10,$f16
-/*  f164850:	00000000 */ 	nop
-/*  f164854:	45000002 */ 	bc1f	.L0f164860
-/*  f164858:	00000000 */ 	nop
-/*  f16485c:	e60a179c */ 	swc1	$f10,0x179c($s0)
-.L0f164860:
-/*  f164860:	0c002f44 */ 	jal	viGetViewTop
-/*  f164864:	00000000 */ 	nop
-/*  f164868:	0c002f26 */ 	jal	viGetViewHeight
-/*  f16486c:	a7a20022 */ 	sh	$v0,0x22($sp)
-/*  f164870:	87b80022 */ 	lh	$t8,0x22($sp)
-/*  f164874:	44801000 */ 	mtc1	$zero,$f2
-/*  f164878:	0058c821 */ 	addu	$t9,$v0,$t8
-/*  f16487c:	44999000 */ 	mtc1	$t9,$f18
-/*  f164880:	00000000 */ 	nop
-/*  f164884:	46809020 */ 	cvt.s.w	$f0,$f18
-/*  f164888:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f16488c:	e60017a0 */ 	swc1	$f0,0x17a0($s0)
-/*  f164890:	45020003 */ 	bc1fl	.L0f1648a0
-/*  f164894:	c7a40028 */ 	lwc1	$f4,0x28($sp)
-/*  f164898:	e60217a0 */ 	swc1	$f2,0x17a0($s0)
-/*  f16489c:	c7a40028 */ 	lwc1	$f4,0x28($sp)
-.L0f1648a0:
-/*  f1648a0:	c60617a0 */ 	lwc1	$f6,0x17a0($s0)
-/*  f1648a4:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f1648a8:	00000000 */ 	nop
-/*  f1648ac:	45020003 */ 	bc1fl	.L0f1648bc
-/*  f1648b0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1648b4:	e60417a0 */ 	swc1	$f4,0x17a0($s0)
-/*  f1648b8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f1648bc:
-/*  f1648bc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1648c0:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f1648c4:	03e00008 */ 	jr	$ra
-/*  f1648c8:	00000000 */ 	nop
-);
+void currentPlayerCalculateScreenProperties(void)
+{
+	struct player *player = g_Vars.currentplayer;
+	f32 width = viGetWidth();
+	u32 stack;
+	f32 height = viGetHeight();
+	u32 stack2;
+
+	player->screenxminf = viGetViewLeft();
+
+	if (player->screenxminf < 0) {
+		player->screenxminf = 0;
+	}
+
+	if (player->screenxminf > width) {
+		player->screenxminf = width;
+	}
+
+	player->screenyminf = viGetViewTop();
+
+	if (player->screenyminf < 0) {
+		player->screenyminf = 0;
+	}
+
+	if (player->screenyminf > height) {
+		player->screenyminf = height;
+	}
+
+	player->screenxmaxf = viGetViewLeft() + viGetViewWidth();
+
+	if (player->screenxmaxf < 0) {
+		player->screenxmaxf = 0;
+	}
+
+	if (player->screenxmaxf > width) {
+		player->screenxmaxf = width;
+	}
+
+	player->screenymaxf = viGetViewTop() + viGetViewHeight();
+
+	if (player->screenymaxf < 0) {
+		player->screenymaxf = 0;
+	}
+
+	if (player->screenymaxf > height) {
+		player->screenymaxf = height;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1648cc
