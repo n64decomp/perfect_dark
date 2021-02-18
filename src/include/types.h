@@ -5748,9 +5748,10 @@ struct portalcmd {
 };
 
 struct var800a4640_00 {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
+	s16 unk00;
+	u8 unk02;
+	u8 unk03;
+	struct screenbox box;
 };
 
 struct var800a4640 {

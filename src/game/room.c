@@ -69,7 +69,7 @@ u32 g_StageIndex = 1;
 u32 var8007fc04 = 0x00000000;
 u32 var8007fc08 = 0x00000000;
 s16 var8007fc0c = 0;
-u16 var8007fc10 = 0;
+s16 var8007fc10 = 0;
 s32 var8007fc14 = 0;
 u32 var8007fc18 = 0x01000100;
 u32 var8007fc1c = 0x00000000;
@@ -303,6 +303,84 @@ glabel func0f157e94
 /*  f158100:	03e00008 */ 	jr	$ra
 /*  f158104:	00000000 */ 	nop
 );
+
+// Mismatch: var800a4ce4 is handled differently
+//void func0f157e94(s32 roomnum, s32 arg1, struct screenbox *box)
+//{
+//	s32 index;
+//
+//	if ((g_Rooms[roomnum].flags & ROOMFLAG_DISABLED) == 0) {
+//		g_Rooms[roomnum].flags |= ROOMFLAG_VISIBLEBYPLAYER;
+//
+//		if (g_Rooms[roomnum].flags & ROOMFLAG_0800) {
+//			box->xmin = var800a4640.unk2d4.xmin;
+//			box->ymin = var800a4640.unk2d4.ymin;
+//			box->xmax = var800a4640.unk2d4.xmax;
+//			box->ymax = var800a4640.unk2d4.ymax;
+//		}
+//
+//		if (var8007fc3c == var800a4ce8[roomnum].unk00) {
+//			s32 index = var800a4ce8[roomnum].unk02;
+//			struct var800a4640_00 *thing = &var800a4640.unk000[index];
+//
+//			if (thing->unk03 < arg1) {
+//				thing->unk03 = arg1;
+//
+//				if (var800a4ce4[1] < thing->unk03) {
+//					var800a4ce4[1] = thing->unk03;
+//				}
+//
+//				if (var800a4ce4[0] > thing->unk03) {
+//					var800a4ce4[0] = thing->unk03;
+//				}
+//			}
+//
+//			boxExpand(&thing->box, box);
+//		} else {
+//			index = var8007fc2c;
+//
+//			if (index > 59) {
+//				index = 59;
+//			}
+//
+//			var800a4640.unk000[index].unk00 = roomnum;
+//			var800a4640.unk000[index].unk03 = arg1;
+//
+//			var800a4640.unk000[index].box.xmin = box->xmin;
+//			var800a4640.unk000[index].box.ymin = box->ymin;
+//			var800a4640.unk000[index].box.xmax = box->xmax;
+//			var800a4640.unk000[index].box.ymax = box->ymax;
+//
+//			if (var800a4ce4[1] < var800a4640.unk000[index].unk03) {
+//				var800a4ce4[1] = var800a4640.unk000[index].unk03;
+//			}
+//
+//			if (var800a4ce4[0] > var800a4640.unk000[index].unk03) {
+//				var800a4ce4[0] = var800a4640.unk000[index].unk03;
+//			}
+//
+//			var800a4ce8[roomnum].unk00 = var8007fc3c;
+//			var800a4ce8[roomnum].unk02 = index;
+//
+//			var8007fc30++;
+//
+//			if (var8007fc30 < 60) {
+//				var8007fc2c = var8007fc30;
+//			}
+//
+//			roomMovePropsToList1(roomnum, false);
+//
+//			if (g_Rooms[roomnum].unk02 == 0 && var8007fc10 > 0) {
+//				var8007fc10--;
+//				func0f15dc58(roomnum);
+//			} else {
+//				if (g_Rooms[roomnum].unk02 == 0) {
+//					var8007fc10--;
+//				}
+//			}
+//		}
+//	}
+//}
 
 void func0f158108(s32 roomnum, u8 *arg1, u8 *arg2)
 {
