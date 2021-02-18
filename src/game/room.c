@@ -2810,7 +2810,7 @@ glabel func0f15a2c4
 /*  f15a4a8:	afaa0238 */ 	sw	$t2,0x238($sp)
 /*  f15a4ac:	ad320004 */ 	sw	$s2,0x4($t1)
 /*  f15a4b0:	ad310000 */ 	sw	$s1,0x0($t1)
-/*  f15a4b4:	0fc572dd */ 	jal	func0f15cb74
+/*  f15a4b4:	0fc572dd */ 	jal	currentPlayerScissorToViewport
 /*  f15a4b8:	8fa40238 */ 	lw	$a0,0x238($sp)
 /*  f15a4bc:	3c12800a */ 	lui	$s2,%hi(var800a4ce4)
 /*  f15a4c0:	26524ce4 */ 	addiu	$s2,$s2,%lo(var800a4ce4)
@@ -2853,7 +2853,7 @@ glabel func0f15a2c4
 /*  f15a544:	1020ffe8 */ 	beqz	$at,.L0f15a4e8
 /*  f15a548:	00000000 */ 	nop
 .L0f15a54c:
-/*  f15a54c:	0fc572dd */ 	jal	func0f15cb74
+/*  f15a54c:	0fc572dd */ 	jal	currentPlayerScissorToViewport
 /*  f15a550:	8fa40238 */ 	lw	$a0,0x238($sp)
 /*  f15a554:	244e0008 */ 	addiu	$t6,$v0,0x8
 /*  f15a558:	afae0238 */ 	sw	$t6,0x238($sp)
@@ -2903,7 +2903,7 @@ glabel func0f15a2c4
 /*  f15a600:	44063000 */ 	mfc1	$a2,$f6
 /*  f15a604:	46805420 */ 	cvt.s.w	$f16,$f10
 /*  f15a608:	44052000 */ 	mfc1	$a1,$f4
-/*  f15a60c:	0fc572ed */ 	jal	func0f15cbb4
+/*  f15a60c:	0fc572ed */ 	jal	currentPlayerScissorWithinViewportF
 /*  f15a610:	e7b00010 */ 	swc1	$f16,0x10($sp)
 /*  f15a614:	244d0008 */ 	addiu	$t5,$v0,0x8
 /*  f15a618:	afad0238 */ 	sw	$t5,0x238($sp)
@@ -3049,7 +3049,7 @@ glabel func0f15a6f4
 /*  f15a808:	00000000 */ 	nop
 .L0f15a80c:
 /*  f15a80c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f15a810:	0fc572dd */ 	jal	func0f15cb74
+/*  f15a810:	0fc572dd */ 	jal	currentPlayerScissorToViewport
 /*  f15a814:	0000a025 */ 	or	$s4,$zero,$zero
 /*  f15a818:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x284)
 /*  f15a81c:	8c63a244 */ 	lw	$v1,%lo(g_Vars+0x284)($v1)
@@ -3427,7 +3427,7 @@ glabel func0f15a6f4
 /*  f15ad64:	44063000 */ 	mfc1	$a2,$f6
 /*  f15ad68:	46805420 */ 	cvt.s.w	$f16,$f10
 /*  f15ad6c:	44052000 */ 	mfc1	$a1,$f4
-/*  f15ad70:	0fc572ed */ 	jal	func0f15cbb4
+/*  f15ad70:	0fc572ed */ 	jal	currentPlayerScissorWithinViewportF
 /*  f15ad74:	e7b00010 */ 	swc1	$f16,0x10($sp)
 /*  f15ad78:	00402025 */ 	or	$a0,$v0,$zero
 /*  f15ad7c:	0fc59928 */ 	jal	func0f1664a0
@@ -3497,7 +3497,7 @@ glabel func0f15a6f4
 .L0f15ae6c:
 /*  f15ae6c:	0fc599b2 */ 	jal	gfxConsiderDisableFog
 /*  f15ae70:	02202025 */ 	or	$a0,$s1,$zero
-/*  f15ae74:	0fc572dd */ 	jal	func0f15cb74
+/*  f15ae74:	0fc572dd */ 	jal	currentPlayerScissorToViewport
 /*  f15ae78:	00402025 */ 	or	$a0,$v0,$zero
 /*  f15ae7c:	3c0f0103 */ 	lui	$t7,0x103
 /*  f15ae80:	35ef0040 */ 	ori	$t7,$t7,0x40
@@ -3584,7 +3584,7 @@ glabel func0f15a6f4
 /*  f15afb8:	44062000 */ 	mfc1	$a2,$f4
 /*  f15afbc:	468042a0 */ 	cvt.s.w	$f10,$f8
 /*  f15afc0:	44059000 */ 	mfc1	$a1,$f18
-/*  f15afc4:	0fc572ed */ 	jal	func0f15cbb4
+/*  f15afc4:	0fc572ed */ 	jal	currentPlayerScissorWithinViewportF
 /*  f15afc8:	e7aa0010 */ 	swc1	$f10,0x10($sp)
 /*  f15afcc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f15afd0:	0fc59928 */ 	jal	func0f1664a0
@@ -6686,7 +6686,7 @@ Gfx *bgRender(Gfx *gdl)
 
 	gdl = func0f1664a0(gdl, 0);
 	gdl = func0f164150(gdl);
-	gdl = func0f15cb74(gdl);
+	gdl = currentPlayerScissorToViewport(gdl);
 	gdl = gfxConsiderDisableFog(gdl);
 
 	gSPMatrix(gdl++, var80092870, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
@@ -6706,45 +6706,23 @@ glabel func0f15cb5c
 /*  f15cb70:	c7000004 */ 	lwc1	$f0,0x4($t8)
 );
 
-Gfx *func0f15cb74(Gfx *gdl)
+Gfx *currentPlayerScissorToViewport(Gfx *gdl)
 {
-	return currentPlayerSetScissor(gdl,
+	return currentPlayerScissorWithinViewport(gdl,
 			g_Vars.currentplayer->viewleft,
 			g_Vars.currentplayer->viewtop,
 			g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewx,
 			g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewy);
 }
 
-GLOBAL_ASM(
-glabel func0f15cbb4
-/*  f15cbb4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f15cbb8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f15cbbc:	44876000 */ 	mtc1	$a3,$f12
-/*  f15cbc0:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f15cbc4:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f15cbc8:	0fc25e7a */ 	jal	ceil
-/*  f15cbcc:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f15cbd0:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f15cbd4:	0fc25e7a */ 	jal	ceil
-/*  f15cbd8:	c7ac0038 */ 	lwc1	$f12,0x38($sp)
-/*  f15cbdc:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*  f15cbe0:	c7a80030 */ 	lwc1	$f8,0x30($sp)
-/*  f15cbe4:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f15cbe8:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f15cbec:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f15cbf0:	afa20010 */ 	sw	$v0,0x10($sp)
-/*  f15cbf4:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f15cbf8:	44053000 */ 	mfc1	$a1,$f6
-/*  f15cbfc:	44065000 */ 	mfc1	$a2,$f10
-/*  f15cc00:	0fc57306 */ 	jal	currentPlayerSetScissor
-/*  f15cc04:	00000000 */ 	nop
-/*  f15cc08:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f15cc0c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f15cc10:	03e00008 */ 	jr	$ra
-/*  f15cc14:	00000000 */ 	nop
-);
+Gfx *currentPlayerScissorWithinViewportF(Gfx *gdl, f32 viewleft, f32 viewtop, f32 viewright, f32 viewbottom)
+{
+	gdl = currentPlayerScissorWithinViewport(gdl, viewleft, viewtop, ceil(viewright), ceil(viewbottom));
 
-Gfx *currentPlayerSetScissor(Gfx *gdl, s32 viewleft, s32 viewtop, s32 viewright, s32 viewbottom)
+	return gdl;
+}
+
+Gfx *currentPlayerScissorWithinViewport(Gfx *gdl, s32 viewleft, s32 viewtop, s32 viewright, s32 viewbottom)
 {
 	if (viewleft < g_Vars.currentplayer->viewleft) {
 		viewleft = g_Vars.currentplayer->viewleft;
@@ -14665,7 +14643,7 @@ glabel var7f1b76c0
 /*  f164168:	f7b60018 */ 	sdc1	$f22,0x18($sp)
 /*  f16416c:	0fc569bd */ 	jal	func0f15a6f4
 /*  f164170:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f164174:	0fc572dd */ 	jal	func0f15cb74
+/*  f164174:	0fc572dd */ 	jal	currentPlayerScissorToViewport
 /*  f164178:	00402025 */ 	or	$a0,$v0,$zero
 /*  f16417c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f164180:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)

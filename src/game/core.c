@@ -936,7 +936,7 @@ Gfx *coreRender(Gfx *gdl)
 
 		gdl = func0000b1d0(gdl);
 		gdl = func0000b330(gdl);
-		gdl = func0f15cb74(gdl);
+		gdl = currentPlayerScissorToViewport(gdl);
 		gdl = func0f0fbc30(gdl);
 	} else if (g_Vars.stagenum == STAGE_4MBMENU) {
 		gSPClipRatio(gdl++, FRUSTRATIO_2);
@@ -950,7 +950,7 @@ Gfx *coreRender(Gfx *gdl)
 		func00016748(1);
 
 		gdl = func0000b1d0(gdl);
-		gdl = func0f15cb74(gdl);
+		gdl = currentPlayerScissorToViewport(gdl);
 		gdl = func0f0fbc30(gdl);
 
 		if (g_Vars.currentplayer->pausemode != PAUSEMODE_UNPAUSED) {
@@ -1046,7 +1046,7 @@ Gfx *coreRender(Gfx *gdl)
 			func0f176298();
 			gdl = func0000b280(gdl);
 			gdl = func0000b1d0(gdl);
-			gdl = func0f15cb74(gdl);
+			gdl = currentPlayerScissorToViewport(gdl);
 			func0f13c510();
 
 			if ((g_Vars.stagenum != STAGE_CITRAINING || (var80087260 <= 0 && g_MenuData.root != MENUROOT_MPSETUP))
@@ -1071,7 +1071,7 @@ Gfx *coreRender(Gfx *gdl)
 				g_Vars.lockscreen--;
 			} else if (var8009dfc0) {
 				gdl = func0000b330(gdl);
-				gdl = func0f15cb74(gdl);
+				gdl = currentPlayerScissorToViewport(gdl);
 				func00016748(1);
 
 				if (g_Vars.currentplayer->unk1c50_01) {

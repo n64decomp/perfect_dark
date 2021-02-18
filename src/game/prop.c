@@ -410,7 +410,7 @@ Gfx *propsRender(Gfx *gdl, s16 arg1, s32 arg2, s16 *arg3)
 		}
 	}
 
-	gdl = func0f15cb74(gdl);
+	gdl = currentPlayerScissorToViewport(gdl);
 
 	return gdl;
 }

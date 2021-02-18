@@ -2064,9 +2064,9 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		}
 
 		if (func0f08e5a8(prop->rooms, &screenbox) > 0) {
-			gdl = currentPlayerSetScissor(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
+			gdl = currentPlayerScissorWithinViewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
 		} else {
-			gdl = func0f15cb74(gdl);
+			gdl = currentPlayerScissorToViewport(gdl);
 		}
 
 		gSPClearGeometryMode(gdl++, G_CULL_BOTH | G_FOG);

@@ -30684,14 +30684,14 @@ glabel var7f1aa82c
 /*  f08173c:	87a6009a */ 	lh	$a2,0x9a($sp)
 /*  f081740:	87a7009c */ 	lh	$a3,0x9c($sp)
 /*  f081744:	afa8007c */ 	sw	$t0,0x7c($sp)
-/*  f081748:	0fc57306 */ 	jal	currentPlayerSetScissor
+/*  f081748:	0fc57306 */ 	jal	currentPlayerScissorWithinViewport
 /*  f08174c:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f081750:	10000005 */ 	b	.L0f081768
 /*  f081754:	8fa8007c */ 	lw	$t0,0x7c($sp)
 .L0f081758:
 /*  f081758:	8fa400fc */ 	lw	$a0,0xfc($sp)
 .L0f08175c:
-/*  f08175c:	0fc572dd */ 	jal	func0f15cb74
+/*  f08175c:	0fc572dd */ 	jal	currentPlayerScissorToViewport
 /*  f081760:	afa8007c */ 	sw	$t0,0x7c($sp)
 /*  f081764:	8fa8007c */ 	lw	$t0,0x7c($sp)
 .L0f081768:
@@ -31149,9 +31149,9 @@ glabel var7f1aa82c
 //	}
 //
 //	if ((obj->flags2 & OBJFLAG2_04000000) == 0 && func0f08e5a8(prop->rooms, &screenbox) > 0) {
-//		gdl = currentPlayerSetScissor(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
+//		gdl = currentPlayerScissorWithinViewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
 //	} else {
-//		gdl = func0f15cb74(gdl);
+//		gdl = currentPlayerScissorToViewport(gdl);
 //	}
 //
 //	renderdata.unk08 = sp84;
