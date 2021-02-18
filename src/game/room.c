@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "game/debug.h"
 #include "game/dlights.h"
+#include "game/game_005fd0.h"
 #include "game/game_013550.h"
 #include "game/game_013ee0.h"
 #include "game/chr/chr.h"
@@ -6604,107 +6605,43 @@ void currentPlayerSetScaleBg2Gfx(f32 scale)
 	func00016748(g_Vars.currentplayerstats->scale_bg2gfx);
 }
 
-GLOBAL_ASM(
-glabel func0f15c920
-/*  f15c920:	3c038008 */ 	lui	$v1,%hi(var8007fc3c)
-/*  f15c924:	2463fc3c */ 	addiu	$v1,$v1,%lo(var8007fc3c)
-/*  f15c928:	946e0000 */ 	lhu	$t6,0x0($v1)
-/*  f15c92c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f15c930:	3401ffff */ 	dli	$at,0xffff
-/*  f15c934:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f15c938:	31e2ffff */ 	andi	$v0,$t7,0xffff
-/*  f15c93c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f15c940:	14410006 */ 	bne	$v0,$at,.L0f15c95c
-/*  f15c944:	a46f0000 */ 	sh	$t7,0x0($v1)
-/*  f15c948:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f15c94c:	0fc5734a */ 	jal	func0f15cd28
-/*  f15c950:	a4780000 */ 	sh	$t8,0x0($v1)
-/*  f15c954:	3c028008 */ 	lui	$v0,%hi(var8007fc3c)
-/*  f15c958:	9442fc3c */ 	lhu	$v0,%lo(var8007fc3c)($v0)
-.L0f15c95c:
-/*  f15c95c:	305900ff */ 	andi	$t9,$v0,0xff
-/*  f15c960:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f15c964:	17210022 */ 	bne	$t9,$at,.L0f15c9f0
-/*  f15c968:	3c027f00 */ 	lui	$v0,%hi(func0f0069dc)
-/*  f15c96c:	3c067f00 */ 	lui	$a2,%hi(func0f006b08)
-/*  f15c970:	244469dc */ 	addiu	$a0,$v0,%lo(func0f0069dc)
-/*  f15c974:	24c56b08 */ 	addiu	$a1,$a2,%lo(func0f006b08)
-/*  f15c978:	0085082b */ 	sltu	$at,$a0,$a1
-/*  f15c97c:	1020000b */ 	beqz	$at,.L0f15c9ac
-/*  f15c980:	00001825 */ 	or	$v1,$zero,$zero
-.L0f15c984:
-/*  f15c984:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f15c988:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f15c98c:	0085082b */ 	sltu	$at,$a0,$a1
-/*  f15c990:	00404027 */ 	nor	$t0,$v0,$zero
-/*  f15c994:	00681826 */ 	xor	$v1,$v1,$t0
-/*  f15c998:	00024940 */ 	sll	$t1,$v0,0x5
-/*  f15c99c:	00691826 */ 	xor	$v1,$v1,$t1
-/*  f15c9a0:	000253c3 */ 	sra	$t2,$v0,0xf
-/*  f15c9a4:	1420fff7 */ 	bnez	$at,.L0f15c984
-/*  f15c9a8:	006a1826 */ 	xor	$v1,$v1,$t2
-.L0f15c9ac:
-/*  f15c9ac:	3c012c7b */ 	lui	$at,0x99aa
-/*  f15c9b0:	342182c8 */ 	ori	$at,$at,0xbbcc
-/*  f15c9b4:	1061000e */ 	beq	$v1,$at,.L0f15c9f0
-/*  f15c9b8:	3c027f16 */ 	lui	$v0,%hi(func0f15b908)
-/*  f15c9bc:	2442b908 */ 	addiu	$v0,$v0,%lo(func0f15b908)
-/*  f15c9c0:	24440050 */ 	addiu	$a0,$v0,0x50
-/*  f15c9c4:	24850010 */ 	addiu	$a1,$a0,0x10
-/*  f15c9c8:	0085082b */ 	sltu	$at,$a0,$a1
-/*  f15c9cc:	10200008 */ 	beqz	$at,.L0f15c9f0
-/*  f15c9d0:	3c02fffd */ 	lui	$v0,0xfffd
-/*  f15c9d4:	3442b1df */ 	ori	$v0,$v0,0xb1df
-.L0f15c9d8:
-/*  f15c9d8:	8c8b0000 */ 	lw	$t3,0x0($a0)
-/*  f15c9dc:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f15c9e0:	0085082b */ 	sltu	$at,$a0,$a1
-/*  f15c9e4:	01626021 */ 	addu	$t4,$t3,$v0
-/*  f15c9e8:	1420fffb */ 	bnez	$at,.L0f15c9d8
-/*  f15c9ec:	ac8cfffc */ 	sw	$t4,-0x4($a0)
-.L0f15c9f0:
-/*  f15c9f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f15c9f4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f15c9f8:	03e00008 */ 	jr	$ra
-/*  f15c9fc:	00000000 */ 	nop
-);
+void func0f15c920(void)
+{
+	var8007fc3c++;
 
-// Mismatch because it calculates end by adding 24 to &func0f16b908,
-// but needs to calculating it by adding 4 to ptr.
-//void func0f15c920(void)
-//{
-//	var8007fc3c++;
-//
-//	if (var8007fc3c == 0xffff) {
-//		var8007fc3c = 1;
-//		func0f15cd28();
-//	}
-//
-//#if PIRACYCHECKS
-//	if ((var8007fc3c & 0xff) == 0xff) {
-//		u32 checksum = 0;
-//		s32 *ptr = (s32 *)&func0f0069dc;
-//		s32 *end = (s32 *)&func0f006b08;
-//
-//		while (ptr < end) {
-//			checksum ^= ~*ptr;
-//			checksum ^= *ptr << 5;
-//			checksum ^= *ptr >> 15;
-//			ptr++;
-//		}
-//
-//		if (checksum != CHECKSUM_PLACEHOLDER) {
-//			ptr = (s32 *)&func0f15b908 + 20;
-//			end = &ptr[4];
-//
-//			while (ptr < end) {
-//				*ptr -= 0x24e21;
-//				ptr++;
-//			}
-//		}
-//	}
-//#endif
-//}
+	if (var8007fc3c == 0xffff) {
+		var8007fc3c = 1;
+		func0f15cd28();
+	}
+
+#if PIRACYCHECKS
+	if ((var8007fc3c & 0xff) == 0xff) {
+		u32 checksum = 0;
+		s32 *ptr = (s32 *)&func0f0069dc;
+		s32 *end = (s32 *)&func0f006b08;
+
+		while (ptr < end) {
+			checksum ^= ~*ptr;
+			checksum ^= *ptr << 5;
+			checksum ^= *ptr >> 15;
+			ptr++;
+		}
+
+		if (checksum != CHECKSUM_PLACEHOLDER) {
+			ptr = (s32 *)&func0f15b908 + 20;
+
+			if (1) {
+				end = &ptr[4];
+			}
+
+			while (ptr < end) {
+				*ptr -= 0x24e21;
+				ptr++;
+			}
+		}
+	}
+#endif
+}
 
 void func0f15ca00(void)
 {
