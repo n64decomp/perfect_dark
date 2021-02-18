@@ -93,70 +93,44 @@ u32 g_PortalMode = 0x00000000;
 u32 var8007fcb0 = 0x00000190;
 f32 var8007fcb4 = 0;
 
-GLOBAL_ASM(
-glabel func0f157db0
-/*  f157db0:	27bdfdb8 */ 	addiu	$sp,$sp,-584
-/*  f157db4:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f157db8:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f157dbc:	27b10038 */ 	addiu	$s1,$sp,0x38
-/*  f157dc0:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f157dc4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f157dc8:	a7a40238 */ 	sh	$a0,0x238($sp)
-/*  f157dcc:	240effff */ 	addiu	$t6,$zero,-1
-/*  f157dd0:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f157dd4:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f157dd8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f157ddc:	a7ae023a */ 	sh	$t6,0x23a($sp)
-/*  f157de0:	27a40238 */ 	addiu	$a0,$sp,0x238
-/*  f157de4:	02202825 */ 	or	$a1,$s1,$zero
-/*  f157de8:	0fc197e0 */ 	jal	roomGetProps
-/*  f157dec:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f157df0:	87af0038 */ 	lh	$t7,0x38($sp)
-/*  f157df4:	02208025 */ 	or	$s0,$s1,$zero
-/*  f157df8:	27b80038 */ 	addiu	$t8,$sp,0x38
-/*  f157dfc:	05e0001d */ 	bltz	$t7,.L0f157e74
-/*  f157e00:	2413002f */ 	addiu	$s3,$zero,0x2f
-/*  f157e04:	3c12800a */ 	lui	$s2,%hi(g_Vars)
-/*  f157e08:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
-/*  f157e0c:	87020000 */ 	lh	$v0,0x0($t8)
-/*  f157e10:	24110048 */ 	addiu	$s1,$zero,0x48
-.L0f157e14:
-/*  f157e14:	00510019 */ 	multu	$v0,$s1
-/*  f157e18:	8e480338 */ 	lw	$t0,0x338($s2)
-/*  f157e1c:	0000c812 */ 	mflo	$t9
-/*  f157e20:	03282021 */ 	addu	$a0,$t9,$t0
-/*  f157e24:	8c89003c */ 	lw	$t1,0x3c($a0)
-/*  f157e28:	00095ec0 */ 	sll	$t3,$t1,0x1b
-/*  f157e2c:	0562000e */ 	bltzl	$t3,.L0f157e68
-/*  f157e30:	86020002 */ 	lh	$v0,0x2($s0)
-/*  f157e34:	12800009 */ 	beqz	$s4,.L0f157e5c
-/*  f157e38:	00000000 */ 	nop
-/*  f157e3c:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f157e40:	904c0003 */ 	lbu	$t4,0x3($v0)
-/*  f157e44:	566c0008 */ 	bnel	$s3,$t4,.L0f157e68
-/*  f157e48:	86020002 */ 	lh	$v0,0x2($s0)
-/*  f157e4c:	0fc18beb */ 	jal	propMoveFromList2To1
-/*  f157e50:	00000000 */ 	nop
-/*  f157e54:	10000004 */ 	b	.L0f157e68
-/*  f157e58:	86020002 */ 	lh	$v0,0x2($s0)
-.L0f157e5c:
-/*  f157e5c:	0fc18beb */ 	jal	propMoveFromList2To1
-/*  f157e60:	00000000 */ 	nop
-/*  f157e64:	86020002 */ 	lh	$v0,0x2($s0)
-.L0f157e68:
-/*  f157e68:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f157e6c:	0441ffe9 */ 	bgez	$v0,.L0f157e14
-/*  f157e70:	00000000 */ 	nop
-.L0f157e74:
-/*  f157e74:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f157e78:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f157e7c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f157e80:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f157e84:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f157e88:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f157e8c:	03e00008 */ 	jr	$ra
-/*  f157e90:	27bd0248 */ 	addiu	$sp,$sp,0x248
-);
+void roomMovePropsToList1(u32 roomnum, bool tintedglassonly)
+{
+	struct prop *prop;
+	struct defaultobj *obj;
+	s16 *propnumptr;
+	s16 rooms[2];
+	s16 propnums[256];
+
+	rooms[0] = roomnum;
+	rooms[1] = -1;
+
+	roomGetProps(rooms, propnums, 256);
+
+	propnumptr = propnums;
+
+	while (*propnumptr >= 0) {
+		prop = &g_Vars.props[*propnumptr];
+
+		if (!prop->inlist1) {
+			if (tintedglassonly) {
+				/**
+				 * @bug: A missing prop->type check means this is inadvertently
+				 * casting other pointer types to obj pointers. By chance this
+				 * happens to be harmless.
+				 */
+				obj = prop->obj;
+
+				if (obj->type == OBJTYPE_TINTEDGLASS) {
+					propMoveFromList2To1(prop);
+				}
+			} else {
+				propMoveFromList2To1(prop);
+			}
+		}
+
+		propnumptr++;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f157e94
@@ -295,7 +269,7 @@ glabel func0f157e94
 /*  f158088:	afef0000 */ 	sw	$t7,0x0($ra)
 .L0f15808c:
 /*  f15808c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f158090:	0fc55f6c */ 	jal	func0f157db0
+/*  f158090:	0fc55f6c */ 	jal	roomMovePropsToList1
 /*  f158094:	afab0018 */ 	sw	$t3,0x18($sp)
 /*  f158098:	3c0c800a */ 	lui	$t4,%hi(g_Rooms)
 /*  f15809c:	258c4928 */ 	addiu	$t4,$t4,%lo(g_Rooms)
@@ -13587,7 +13561,7 @@ glabel func0f162d9c
 /*  f1630d0:	a6180000 */ 	sh	$t8,0x0($s0)
 /*  f1630d4:	00d98821 */ 	addu	$s1,$a2,$t9
 /*  f1630d8:	a6320000 */ 	sh	$s2,0x0($s1)
-/*  f1630dc:	0fc55f6c */ 	jal	func0f157db0
+/*  f1630dc:	0fc55f6c */ 	jal	roomMovePropsToList1
 /*  f1630e0:	02402025 */ 	or	$a0,$s2,$zero
 /*  f1630e4:	8ea80000 */ 	lw	$t0,0x0($s5)
 /*  f1630e8:	c7a40088 */ 	lwc1	$f4,0x88($sp)
@@ -14171,7 +14145,7 @@ glabel func0f16397c
 /*  f163a64:	25ae0001 */ 	addiu	$t6,$t5,0x1
 /*  f163a68:	ae0e0000 */ 	sw	$t6,0x0($s0)
 .L0f163a6c:
-/*  f163a6c:	0fc55f6c */ 	jal	func0f157db0
+/*  f163a6c:	0fc55f6c */ 	jal	roomMovePropsToList1
 /*  f163a70:	afab003c */ 	sw	$t3,0x3c($sp)
 /*  f163a74:	8eea0000 */ 	lw	$t2,0x0($s7)
 /*  f163a78:	8fab003c */ 	lw	$t3,0x3c($sp)
@@ -14269,7 +14243,7 @@ glabel func0f16397c
 /*  f163bd4:	25f80001 */ 	addiu	$t8,$t7,0x1
 /*  f163bd8:	ae180000 */ 	sw	$t8,0x0($s0)
 .L0f163bdc:
-/*  f163bdc:	0fc55f6c */ 	jal	func0f157db0
+/*  f163bdc:	0fc55f6c */ 	jal	roomMovePropsToList1
 /*  f163be0:	afac0048 */ 	sw	$t4,0x48($sp)
 /*  f163be4:	8eea0000 */ 	lw	$t2,0x0($s7)
 /*  f163be8:	8fac0048 */ 	lw	$t4,0x48($sp)
