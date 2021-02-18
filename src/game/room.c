@@ -7087,47 +7087,22 @@ glabel func0f15d10c
 /*  f15d4a4:	27bd0300 */ 	addiu	$sp,$sp,0x300
 );
 
-Gfx *func0f15d4a8(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
+Gfx *boxRenderBorder(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 {
 	gDPFillRectangle(gdl++, x1, y1, x2 + 1, y2 + 1);
 
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f15d4f4
-/*  f15d4f4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f15d4f8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f15d4fc:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f15d500:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f15d504:	afa60010 */ 	sw	$a2,0x10($sp)
-/*  f15d508:	0fc5752a */ 	jal	func0f15d4a8
-/*  f15d50c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f15d510:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f15d514:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*  f15d518:	00402025 */ 	or	$a0,$v0,$zero
-/*  f15d51c:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f15d520:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f15d524:	0fc5752a */ 	jal	func0f15d4a8
-/*  f15d528:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f15d52c:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f15d530:	00402025 */ 	or	$a0,$v0,$zero
-/*  f15d534:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f15d538:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f15d53c:	0fc5752a */ 	jal	func0f15d4a8
-/*  f15d540:	afa60010 */ 	sw	$a2,0x10($sp)
-/*  f15d544:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f15d548:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*  f15d54c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f15d550:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f15d554:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f15d558:	0fc5752a */ 	jal	func0f15d4a8
-/*  f15d55c:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f15d560:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f15d564:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f15d568:	03e00008 */ 	jr	$ra
-/*  f15d56c:	00000000 */ 	nop
-);
+Gfx *boxRender(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
+{
+	gdl = boxRenderBorder(gdl, x1, y1, x2, y1); // top
+	gdl = boxRenderBorder(gdl, x2, y1, x2, y2); // right
+	gdl = boxRenderBorder(gdl, x1, y2, x2, y2); // bottom
+	gdl = boxRenderBorder(gdl, x1, y1, x1, y2); // left
+
+	return gdl;
+}
 
 bool boxGetIntersection(struct screenbox *a, struct screenbox *b)
 {
