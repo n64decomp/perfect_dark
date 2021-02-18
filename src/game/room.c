@@ -7087,27 +7087,15 @@ glabel func0f15d10c
 /*  f15d4a4:	27bd0300 */ 	addiu	$sp,$sp,0x300
 );
 
+Gfx *func0f15d4a8(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
+{
+	gDPFillRectangle(gdl++, x1, y1, x2 + 1, y2 + 1);
+
+	return gdl;
+}
+
 GLOBAL_ASM(
-glabel func0f15d4a8
-/*  f15d4a8:	8fa80010 */ 	lw	$t0,0x10($sp)
-/*  f15d4ac:	24ee0001 */ 	addiu	$t6,$a3,0x1
-/*  f15d4b0:	31cf03ff */ 	andi	$t7,$t6,0x3ff
-/*  f15d4b4:	000fc380 */ 	sll	$t8,$t7,0xe
-/*  f15d4b8:	3c01f600 */ 	lui	$at,0xf600
-/*  f15d4bc:	25090001 */ 	addiu	$t1,$t0,0x1
-/*  f15d4c0:	312a03ff */ 	andi	$t2,$t1,0x3ff
-/*  f15d4c4:	0301c825 */ 	or	$t9,$t8,$at
-/*  f15d4c8:	30cf03ff */ 	andi	$t7,$a2,0x3ff
-/*  f15d4cc:	30ad03ff */ 	andi	$t5,$a1,0x3ff
-/*  f15d4d0:	000d7380 */ 	sll	$t6,$t5,0xe
-/*  f15d4d4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f15d4d8:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f15d4dc:	032b6025 */ 	or	$t4,$t9,$t3
-/*  f15d4e0:	01d84025 */ 	or	$t0,$t6,$t8
-/*  f15d4e4:	ac880004 */ 	sw	$t0,0x4($a0)
-/*  f15d4e8:	ac8c0000 */ 	sw	$t4,0x0($a0)
-/*  f15d4ec:	03e00008 */ 	jr	$ra
-/*  f15d4f0:	24820008 */ 	addiu	$v0,$a0,0x8
+glabel func0f15d4f4
 /*  f15d4f4:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f15d4f8:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f15d4fc:	afa50024 */ 	sw	$a1,0x24($sp)
