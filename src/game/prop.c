@@ -997,7 +997,7 @@ glabel var7f1a9eb8
 /*  f0610dc:	544cfffe */ 	bnel	$v0,$t4,.L0f0610d8
 /*  f0610e0:	848c0002 */ 	lh	$t4,0x2($a0)
 .L0f0610e4:
-/*  f0610e4:	0fc5914d */ 	jal	func0f164534
+/*  f0610e4:	0fc5914d */ 	jal	roomsGetActive
 /*  f0610e8:	24050064 */ 	addiu	$a1,$zero,0x64
 /*  f0610ec:	87ad00d8 */ 	lh	$t5,0xd8($sp)
 /*  f0610f0:	2401ffff */ 	addiu	$at,$zero,-1

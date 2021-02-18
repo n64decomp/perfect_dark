@@ -7859,7 +7859,7 @@ glabel var7f1aa268
 /*  f06ce3c:	56cffffe */ 	bnel	$s6,$t7,.L0f06ce38
 /*  f06ce40:	848f0002 */ 	lh	$t7,0x2($a0)
 .L0f06ce44:
-/*  f06ce44:	0fc5914d */ 	jal	func0f164534
+/*  f06ce44:	0fc5914d */ 	jal	roomsGetActive
 /*  f06ce48:	24050064 */ 	addiu	$a1,$zero,0x64
 /*  f06ce4c:	87b800cc */ 	lh	$t8,0xcc($sp)
 /*  f06ce50:	27b100cc */ 	addiu	$s1,$sp,0xcc

@@ -6647,7 +6647,7 @@ void func0f15ca00(void)
 {
 	s32 tickmode;
 
-	var800a4bec = 0;
+	g_NumActiveRooms = 0;
 
 	func0f15c920();
 
@@ -12848,16 +12848,16 @@ glabel var7f1b76bc
 /*  f162a2c:	8e04000c */ 	lw	$a0,0xc($s0)
 /*  f162a30:	0fc55fa5 */ 	jal	func0f157e94
 /*  f162a34:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f162a38:	3c02800a */ 	lui	$v0,%hi(var800a4bec)
-/*  f162a3c:	8c424bec */ 	lw	$v0,%lo(var800a4bec)($v0)
+/*  f162a38:	3c02800a */ 	lui	$v0,%hi(g_NumActiveRooms)
+/*  f162a3c:	8c424bec */ 	lw	$v0,%lo(g_NumActiveRooms)($v0)
 /*  f162a40:	8e18000c */ 	lw	$t8,0xc($s0)
-/*  f162a44:	3c01800a */ 	lui	$at,%hi(var800a4930)
+/*  f162a44:	3c01800a */ 	lui	$at,%hi(g_ActiveRoomNums)
 /*  f162a48:	0002c840 */ 	sll	$t9,$v0,0x1
 /*  f162a4c:	00390821 */ 	addu	$at,$at,$t9
-/*  f162a50:	a4384930 */ 	sh	$t8,%lo(var800a4930)($at)
-/*  f162a54:	3c01800a */ 	lui	$at,%hi(var800a4bec)
+/*  f162a50:	a4384930 */ 	sh	$t8,%lo(g_ActiveRoomNums)($at)
+/*  f162a54:	3c01800a */ 	lui	$at,%hi(g_NumActiveRooms)
 /*  f162a58:	24480001 */ 	addiu	$t0,$v0,0x1
-/*  f162a5c:	ac284bec */ 	sw	$t0,%lo(var800a4bec)($at)
+/*  f162a5c:	ac284bec */ 	sw	$t0,%lo(g_NumActiveRooms)($at)
 .L0f162a60:
 /*  f162a60:	92090001 */ 	lbu	$t1,0x1($s0)
 .L0f162a64:
@@ -13157,7 +13157,7 @@ glabel var7f1b76bc
 //			if (execute) {
 //				if (g_PortalMode == PORTALMODE_SHOW && func0f15cd90(cmd[1].param, &var800a65c0)) {
 //					func0f157e94(cmd[1].param, 0, &var800a65c0);
-//					var800a4930[var800a4bec++] = cmd[1].param;
+//					g_ActiveRoomNums[g_NumActiveRooms++] = cmd[1].param;
 //				}
 //			}
 //			cmd += cmd->len;
@@ -14897,41 +14897,26 @@ glabel var7f1b76c0
 /*  f164530:	01601025 */ 	or	$v0,$t3,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f164534
-/*  f164534:	3c08800a */ 	lui	$t0,%hi(var800a4bec)
-/*  f164538:	25084bec */ 	addiu	$t0,$t0,%lo(var800a4bec)
-/*  f16453c:	8d0e0000 */ 	lw	$t6,0x0($t0)
-/*  f164540:	00001825 */ 	or	$v1,$zero,$zero
-/*  f164544:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f164548:	59c00013 */ 	blezl	$t6,.L0f164598
-/*  f16454c:	00035040 */ 	sll	$t2,$v1,0x1
-/*  f164550:	18a00010 */ 	blez	$a1,.L0f164594
-/*  f164554:	00001040 */ 	sll	$v0,$zero,0x1
-/*  f164558:	3c0f800a */ 	lui	$t7,%hi(var800a4930)
-/*  f16455c:	25ef4930 */ 	addiu	$t7,$t7,%lo(var800a4930)
-/*  f164560:	004f3821 */ 	addu	$a3,$v0,$t7
-/*  f164564:	00823021 */ 	addu	$a2,$a0,$v0
-/*  f164568:	84f80000 */ 	lh	$t8,0x0($a3)
-.L0f16456c:
-/*  f16456c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f164570:	24c60002 */ 	addiu	$a2,$a2,0x2
-/*  f164574:	a4d8fffe */ 	sh	$t8,-0x2($a2)
-/*  f164578:	8d190000 */ 	lw	$t9,0x0($t0)
-/*  f16457c:	24e70002 */ 	addiu	$a3,$a3,0x2
-/*  f164580:	0079082a */ 	slt	$at,$v1,$t9
-/*  f164584:	10200003 */ 	beqz	$at,.L0f164594
-/*  f164588:	0065082a */ 	slt	$at,$v1,$a1
-/*  f16458c:	5420fff7 */ 	bnezl	$at,.L0f16456c
-/*  f164590:	84f80000 */ 	lh	$t8,0x0($a3)
-.L0f164594:
-/*  f164594:	00035040 */ 	sll	$t2,$v1,0x1
-.L0f164598:
-/*  f164598:	008a5821 */ 	addu	$t3,$a0,$t2
-/*  f16459c:	a5690000 */ 	sh	$t1,0x0($t3)
-/*  f1645a0:	03e00008 */ 	jr	$ra
-/*  f1645a4:	00601025 */ 	or	$v0,$v1,$zero
-);
+/**
+ * @dangerous: This function assumes that the passed len is the allocated length
+ * minus one. ie. It assumes there is space to write the -1 terminator once the
+ * length is reached.
+ *
+ * This is only called from two places, both with len=100, so you'd need to have
+ * over 100 rooms active at the same time before this would overflow the array.
+ */
+s32 roomsGetActive(s16 *rooms, s32 len)
+{
+	s32 i;
+
+	for (i = 0; i < g_NumActiveRooms && i < len; i++) {
+		rooms[i] = g_ActiveRoomNums[i];
+	}
+
+	rooms[i] = -1;
+
+	return i;
+}
 
 s32 roomGetNeighbours(s32 roomnum, s16 *dstrooms, s32 len)
 {

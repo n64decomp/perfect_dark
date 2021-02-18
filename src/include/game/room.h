@@ -89,7 +89,7 @@ u32 func0f163904(void);
 u32 func0f16397c(void);
 void func0f163e34(void);
 Gfx *func0f164150(Gfx *gdl);
-u32 func0f164534(void);
+s32 roomsGetActive(s16 *rooms, s32 len);
 s32 roomGetNeighbours(s32 room, s16 *rooms, s32 len);
 bool roomsAreNeighbours(s32 roomnum1, s32 roomnum2);
 u32 func0f164748(void);
