@@ -68,7 +68,7 @@ const char var7f1b75ac[] = "edist";
 
 u32 g_StageIndex = 1;
 u32 var8007fc04 = 0x00000000;
-u32 var8007fc08 = 0x00000000;
+u8 *var8007fc08 = NULL;
 s16 var8007fc0c = 0;
 s16 var8007fc10 = 0;
 s32 var8007fc14 = 0;
@@ -3695,41 +3695,14 @@ Gfx *func0f15b114(Gfx *gdl)
 	return func0f12715c(gdl);
 }
 
-GLOBAL_ASM(
-glabel func0f15b1c4
-/*  f15b1c4:	3c0e8008 */ 	lui	$t6,%hi(var8007fc04)
-/*  f15b1c8:	8dcefc04 */ 	lw	$t6,%lo(var8007fc04)($t6)
-/*  f15b1cc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f15b1d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f15b1d4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f15b1d8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f15b1dc:	11c00008 */ 	beqz	$t6,.L0f15b200
-/*  f15b1e0:	00c03825 */ 	or	$a3,$a2,$zero
-/*  f15b1e4:	3c0f8008 */ 	lui	$t7,%hi(var8007fc08)
-/*  f15b1e8:	8deffc08 */ 	lw	$t7,%lo(var8007fc08)($t7)
-/*  f15b1ec:	01e52021 */ 	addu	$a0,$t7,$a1
-/*  f15b1f0:	0c012c5c */ 	jal	func0004b170
-/*  f15b1f4:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f15b1f8:	1000000d */ 	b	.L0f15b230
-/*  f15b1fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f15b200:
-/*  f15b200:	3c198008 */ 	lui	$t9,%hi(g_StageIndex)
-/*  f15b204:	8f39fc00 */ 	lw	$t9,%lo(g_StageIndex)($t9)
-/*  f15b208:	3c048008 */ 	lui	$a0,%hi(g_Stages+0x8)
-/*  f15b20c:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f15b210:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f15b214:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f15b218:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f15b21c:	00882021 */ 	addu	$a0,$a0,$t0
-/*  f15b220:	9484fcc8 */ 	lhu	$a0,%lo(g_Stages+0x8)($a0)
-/*  f15b224:	0fc59bfc */ 	jal	func0f166ff0
-/*  f15b228:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f15b22c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f15b230:
-/*  f15b230:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f15b234:	03e00008 */ 	jr	$ra
-/*  f15b238:	00000000 */ 	nop
-);
+void bgLoadFile(void *memaddr, u32 offset, u32 len)
+{
+	if (var8007fc04) {
+		func0004b170(var8007fc08 + offset, memaddr, len);
+	} else {
+		func0f166ff0(g_Stages[g_StageIndex].bgfileid, memaddr, offset, len);
+	}
+}
 
 s32 stageGetIndex2(s32 stagenum)
 {
@@ -3966,7 +3939,7 @@ glabel func0f15b534
 /*  f15b5b4:	3b24000f */ 	xori	$a0,$t9,0xf
 /*  f15b5b8:	afa4002c */ 	sw	$a0,0x2c($sp)
 /*  f15b5bc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f15b5c0:	0fc56c71 */ 	jal	func0f15b1c4
+/*  f15b5c0:	0fc56c71 */ 	jal	bgLoadFile
 /*  f15b5c4:	24060040 */ 	addiu	$a2,$zero,0x40
 /*  f15b5c8:	8fa3002c */ 	lw	$v1,0x2c($sp)
 /*  f15b5cc:	3c028008 */ 	lui	$v0,%hi(var8007fc54)
@@ -4006,7 +3979,7 @@ glabel func0f15b534
 /*  f15b654:	00808025 */ 	or	$s0,$a0,$zero
 /*  f15b658:	a02dd9a0 */ 	sb	$t5,%lo(g_LoadState)($at)
 /*  f15b65c:	39c6000f */ 	xori	$a2,$t6,0xf
-/*  f15b660:	0fc56c71 */ 	jal	func0f15b1c4
+/*  f15b660:	0fc56c71 */ 	jal	bgLoadFile
 /*  f15b664:	00002825 */ 	or	$a1,$zero,$zero
 /*  f15b668:	3c05800a */ 	lui	$a1,%hi(var800a491c)
 /*  f15b66c:	8fa60058 */ 	lw	$a2,0x58($sp)
@@ -4022,7 +3995,7 @@ glabel func0f15b534
 /*  f15b694:	8fa4002c */ 	lw	$a0,0x2c($sp)
 /*  f15b698:	24060040 */ 	addiu	$a2,$zero,0x40
 /*  f15b69c:	24a5000c */ 	addiu	$a1,$a1,12
-/*  f15b6a0:	0fc56c71 */ 	jal	func0f15b1c4
+/*  f15b6a0:	0fc56c71 */ 	jal	bgLoadFile
 /*  f15b6a4:	afa50028 */ 	sw	$a1,0x28($sp)
 /*  f15b6a8:	8fa2002c */ 	lw	$v0,0x2c($sp)
 /*  f15b6ac:	34018000 */ 	dli	$at,0x8000
@@ -4045,7 +4018,7 @@ glabel func0f15b534
 /*  f15b6f0:	afa20064 */ 	sw	$v0,0x64($sp)
 /*  f15b6f4:	00808025 */ 	or	$s0,$a0,$zero
 /*  f15b6f8:	25460001 */ 	addiu	$a2,$t2,0x1
-/*  f15b6fc:	0fc56c71 */ 	jal	func0f15b1c4
+/*  f15b6fc:	0fc56c71 */ 	jal	bgLoadFile
 /*  f15b700:	24a50004 */ 	addiu	$a1,$a1,0x4
 /*  f15b704:	02002025 */ 	or	$a0,$s0,$zero
 /*  f15b708:	8fa50064 */ 	lw	$a1,0x64($sp)
@@ -5148,7 +5121,7 @@ glabel var7f1b75d0
 /*  f15c2e8:	3b04000f */ 	xori	$a0,$t8,0xf
 /*  f15c2ec:	00808025 */ 	or	$s0,$a0,$zero
 /*  f15c2f0:	8e450000 */ 	lw	$a1,0x0($s2)
-/*  f15c2f4:	0fc56c71 */ 	jal	func0f15b1c4
+/*  f15c2f4:	0fc56c71 */ 	jal	bgLoadFile
 /*  f15c2f8:	24060040 */ 	addiu	$a2,$zero,0x40
 /*  f15c2fc:	96020000 */ 	lhu	$v0,0x0($s0)
 /*  f15c300:	34018000 */ 	dli	$at,0x8000
@@ -5168,7 +5141,7 @@ glabel var7f1b75d0
 /*  f15c338:	afa2008c */ 	sw	$v0,0x8c($sp)
 /*  f15c33c:	00808025 */ 	or	$s0,$a0,$zero
 /*  f15c340:	27060001 */ 	addiu	$a2,$t8,0x1
-/*  f15c344:	0fc56c71 */ 	jal	func0f15b1c4
+/*  f15c344:	0fc56c71 */ 	jal	bgLoadFile
 /*  f15c348:	24a50004 */ 	addiu	$a1,$a1,0x4
 /*  f15c34c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f15c350:	8fa5008c */ 	lw	$a1,0x8c($sp)
@@ -7333,16 +7306,16 @@ glabel func0f15d870
 /*  f15d9a4:	00000000 */ 	nop
 );
 
-void *roomInflate(void *src, void *dst, void *arg2)
+u32 roomInflate(void *src, void *dst, u32 len)
 {
-	void *result;
+	u32 result;
 	char tmpbuffer[5120];
 
 	if (rzipIs1173(src)) {
-		result = (void *) rzipInflate(src, dst, tmpbuffer);
+		result = rzipInflate(src, dst, tmpbuffer);
 	} else {
-		result = arg2;
-		func0004b170(src, dst, arg2);
+		result = len;
+		func0004b170(src, dst, len);
 	}
 
 	return result;
@@ -7612,7 +7585,7 @@ glabel func0f15dc58
 /*  f15dd90:	00f26823 */ 	subu	$t5,$a3,$s2
 /*  f15dd94:	01b49821 */ 	addu	$s3,$t5,$s4
 /*  f15dd98:	02602025 */ 	or	$a0,$s3,$zero
-/*  f15dd9c:	0fc56c71 */ 	jal	func0f15b1c4
+/*  f15dd9c:	0fc56c71 */ 	jal	bgLoadFile
 /*  f15dda0:	02403025 */ 	or	$a2,$s2,$zero
 /*  f15dda4:	0c002277 */ 	jal	rzipIs1173
 /*  f15dda8:	02602025 */ 	or	$a0,$s3,$zero
