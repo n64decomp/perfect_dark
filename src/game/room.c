@@ -14248,305 +14248,79 @@ glabel func0f16397c
 /*  f163e30:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-GLOBAL_ASM(
-glabel func0f163e34
-/*  f163e34:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f163e38:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f163e3c:	3c12800a */ 	lui	$s2,%hi(g_Vars)
-/*  f163e40:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
-/*  f163e44:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f163e48:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f163e4c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f163e50:	0fc591d2 */ 	jal	currentPlayerCalculateScreenProperties
-/*  f163e54:	8e500284 */ 	lw	$s0,0x284($s2)
-/*  f163e58:	c6041794 */ 	lwc1	$f4,0x1794($s0)
-/*  f163e5c:	3c04800a */ 	lui	$a0,%hi(var800a4cf0+0x8)
-/*  f163e60:	24844cf8 */ 	addiu	$a0,$a0,%lo(var800a4cf0+0x8)
-/*  f163e64:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f163e68:	440f3000 */ 	mfc1	$t7,$f6
-/*  f163e6c:	00000000 */ 	nop
-/*  f163e70:	a7af0038 */ 	sh	$t7,0x38($sp)
-/*  f163e74:	c6081798 */ 	lwc1	$f8,0x1798($s0)
-/*  f163e78:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f163e7c:	44195000 */ 	mfc1	$t9,$f10
-/*  f163e80:	00000000 */ 	nop
-/*  f163e84:	a7b9003a */ 	sh	$t9,0x3a($sp)
-/*  f163e88:	c610179c */ 	lwc1	$f16,0x179c($s0)
-/*  f163e8c:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f163e90:	440a9000 */ 	mfc1	$t2,$f18
-/*  f163e94:	00000000 */ 	nop
-/*  f163e98:	a7aa003c */ 	sh	$t2,0x3c($sp)
-/*  f163e9c:	c60417a0 */ 	lwc1	$f4,0x17a0($s0)
-/*  f163ea0:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f163ea4:	440c3000 */ 	mfc1	$t4,$f6
-/*  f163ea8:	0c002fb8 */ 	jal	viGetZRange
-/*  f163eac:	a7ac003e */ 	sh	$t4,0x3e($sp)
-/*  f163eb0:	8e4d0288 */ 	lw	$t5,0x288($s2)
-/*  f163eb4:	3c08800a */ 	lui	$t0,%hi(var800a4cf0)
-/*  f163eb8:	25084cf0 */ 	addiu	$t0,$t0,%lo(var800a4cf0)
-/*  f163ebc:	c508000c */ 	lwc1	$f8,0xc($t0)
-/*  f163ec0:	c5aa0074 */ 	lwc1	$f10,0x74($t5)
-/*  f163ec4:	8e4e02bc */ 	lw	$t6,0x2bc($s2)
-/*  f163ec8:	3c02800a */ 	lui	$v0,%hi(g_Rooms)
-/*  f163ecc:	460a4403 */ 	div.s	$f16,$f8,$f10
-/*  f163ed0:	24424928 */ 	addiu	$v0,$v0,%lo(g_Rooms)
-/*  f163ed4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f163ed8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f163edc:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f163ee0:	2406ffd2 */ 	addiu	$a2,$zero,-46
-/*  f163ee4:	19c00015 */ 	blez	$t6,.L0f163f3c
-/*  f163ee8:	e510000c */ 	swc1	$f16,0xc($t0)
-/*  f163eec:	8c4f0000 */ 	lw	$t7,0x0($v0)
-.L0f163ef0:
-/*  f163ef0:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f163ef4:	01e32021 */ 	addu	$a0,$t7,$v1
-/*  f163ef8:	94980000 */ 	lhu	$t8,0x0($a0)
-/*  f163efc:	0306c824 */ 	and	$t9,$t8,$a2
-/*  f163f00:	a4990000 */ 	sh	$t9,0x0($a0)
-/*  f163f04:	8c490000 */ 	lw	$t1,0x0($v0)
-/*  f163f08:	01235021 */ 	addu	$t2,$t1,$v1
-/*  f163f0c:	a1400004 */ 	sb	$zero,0x4($t2)
-/*  f163f10:	8c4b0000 */ 	lw	$t3,0x0($v0)
-/*  f163f14:	01636021 */ 	addu	$t4,$t3,$v1
-/*  f163f18:	a1800006 */ 	sb	$zero,0x6($t4)
-/*  f163f1c:	8c4d0000 */ 	lw	$t5,0x0($v0)
-/*  f163f20:	01a37021 */ 	addu	$t6,$t5,$v1
-/*  f163f24:	a1c70007 */ 	sb	$a3,0x7($t6)
-/*  f163f28:	8e4f02bc */ 	lw	$t7,0x2bc($s2)
-/*  f163f2c:	2463008c */ 	addiu	$v1,$v1,0x8c
-/*  f163f30:	00af082a */ 	slt	$at,$a1,$t7
-/*  f163f34:	5420ffee */ 	bnezl	$at,.L0f163ef0
-/*  f163f38:	8c4f0000 */ 	lw	$t7,0x0($v0)
-.L0f163f3c:
-/*  f163f3c:	96180010 */ 	lhu	$t8,0x10($s0)
-/*  f163f40:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f163f44:	3c038008 */ 	lui	$v1,%hi(var8007fc34)
-/*  f163f48:	17010005 */ 	bne	$t8,$at,.L0f163f60
-/*  f163f4c:	2463fc34 */ 	addiu	$v1,$v1,%lo(var8007fc34)
-/*  f163f50:	0fc58b67 */ 	jal	func0f162d9c
-/*  f163f54:	00000000 */ 	nop
-/*  f163f58:	10000078 */ 	b	.L0f16413c
-/*  f163f5c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f163f60:
-/*  f163f60:	3c058008 */ 	lui	$a1,%hi(var8007fc30)
-/*  f163f64:	24a5fc30 */ 	addiu	$a1,$a1,%lo(var8007fc30)
-/*  f163f68:	8ca20000 */ 	lw	$v0,0x0($a1)
-/*  f163f6c:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f163f70:	3c10800a */ 	lui	$s0,%hi(var800a65b8)
-/*  f163f74:	261065b8 */ 	addiu	$s0,$s0,%lo(var800a65b8)
-/*  f163f78:	0322082a */ 	slt	$at,$t9,$v0
-/*  f163f7c:	10200002 */ 	beqz	$at,.L0f163f88
-/*  f163f80:	24097fff */ 	addiu	$t1,$zero,0x7fff
-/*  f163f84:	ac620000 */ 	sw	$v0,0x0($v1)
-.L0f163f88:
-/*  f163f88:	3c018008 */ 	lui	$at,%hi(var8007fc2c)
-/*  f163f8c:	ac20fc2c */ 	sw	$zero,%lo(var8007fc2c)($at)
-/*  f163f90:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f163f94:	3c01800a */ 	lui	$at,%hi(var800a4ce4+0x2)
-/*  f163f98:	a4204ce6 */ 	sh	$zero,%lo(var800a4ce4+0x2)($at)
-/*  f163f9c:	3c01800a */ 	lui	$at,%hi(var800a4ce4)
-/*  f163fa0:	a4294ce4 */ 	sh	$t1,%lo(var800a4ce4)($at)
-/*  f163fa4:	3c02800a */ 	lui	$v0,%hi(var800a4640)
-/*  f163fa8:	24424640 */ 	addiu	$v0,$v0,%lo(var800a4640)
-/*  f163fac:	87ac0038 */ 	lh	$t4,0x38($sp)
-/*  f163fb0:	87ad003a */ 	lh	$t5,0x3a($sp)
-/*  f163fb4:	87ae003c */ 	lh	$t6,0x3c($sp)
-/*  f163fb8:	87af003e */ 	lh	$t7,0x3e($sp)
-/*  f163fbc:	240affff */ 	addiu	$t2,$zero,-1
-/*  f163fc0:	240b00ff */ 	addiu	$t3,$zero,0xff
-/*  f163fc4:	a44a02d0 */ 	sh	$t2,0x2d0($v0)
-/*  f163fc8:	a04b02d3 */ 	sb	$t3,0x2d3($v0)
-/*  f163fcc:	a5000000 */ 	sh	$zero,0x0($t0)
-/*  f163fd0:	a5000002 */ 	sh	$zero,0x2($t0)
-/*  f163fd4:	a5000004 */ 	sh	$zero,0x4($t0)
-/*  f163fd8:	ae000000 */ 	sw	$zero,0x0($s0)
-/*  f163fdc:	3c04800a */ 	lui	$a0,%hi(g_PortalCommands)
-/*  f163fe0:	a44c02d4 */ 	sh	$t4,0x2d4($v0)
-/*  f163fe4:	a44d02d6 */ 	sh	$t5,0x2d6($v0)
-/*  f163fe8:	a44e02d8 */ 	sh	$t6,0x2d8($v0)
-/*  f163fec:	a44f02da */ 	sh	$t7,0x2da($v0)
-/*  f163ff0:	0fc58b3c */ 	jal	portalCommandsExecuteForCurrentPlayer
-/*  f163ff4:	8c844cd4 */ 	lw	$a0,%lo(g_PortalCommands)($a0)
-/*  f163ff8:	8e180000 */ 	lw	$t8,0x0($s0)
-/*  f163ffc:	3c19800a */ 	lui	$t9,%hi(g_Portals)
-/*  f164000:	1700004b */ 	bnez	$t8,.L0f164130
-/*  f164004:	00000000 */ 	nop
-/*  f164008:	8f394cc8 */ 	lw	$t9,%lo(g_Portals)($t9)
-/*  f16400c:	3c108008 */ 	lui	$s0,%hi(g_CamRoom)
-/*  f164010:	27b10038 */ 	addiu	$s1,$sp,0x38
-/*  f164014:	97290000 */ 	lhu	$t1,0x0($t9)
-/*  f164018:	2610fc20 */ 	addiu	$s0,$s0,%lo(g_CamRoom)
-/*  f16401c:	02203025 */ 	or	$a2,$s1,$zero
-/*  f164020:	1520002d */ 	bnez	$t1,.L0f1640d8
-/*  f164024:	00002825 */ 	or	$a1,$zero,$zero
-/*  f164028:	8e4a02bc */ 	lw	$t2,0x2bc($s2)
-/*  f16402c:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f164030:	27b10038 */ 	addiu	$s1,$sp,0x38
-/*  f164034:	29410002 */ 	slti	$at,$t2,0x2
-/*  f164038:	1420003d */ 	bnez	$at,.L0f164130
-/*  f16403c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f164040:
-/*  f164040:	0fc57364 */ 	jal	func0f15cd90
-/*  f164044:	02202825 */ 	or	$a1,$s1,$zero
-/*  f164048:	1040001c */ 	beqz	$v0,.L0f1640bc
-/*  f16404c:	3c028008 */ 	lui	$v0,%hi(g_StageIndex)
-/*  f164050:	8c42fc00 */ 	lw	$v0,%lo(g_StageIndex)($v0)
-/*  f164054:	2401001b */ 	addiu	$at,$zero,0x1b
-/*  f164058:	10410004 */ 	beq	$v0,$at,.L0f16406c
-/*  f16405c:	24010021 */ 	addiu	$at,$zero,0x21
-/*  f164060:	10410002 */ 	beq	$v0,$at,.L0f16406c
-/*  f164064:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f164068:	14410002 */ 	bne	$v0,$at,.L0f164074
-.L0f16406c:
-/*  f16406c:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f164070:	12010012 */ 	beq	$s0,$at,.L0f1640bc
-.L0f164074:
-/*  f164074:	24010016 */ 	addiu	$at,$zero,0x16
-/*  f164078:	14410002 */ 	bne	$v0,$at,.L0f164084
-/*  f16407c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f164080:	1201000e */ 	beq	$s0,$at,.L0f1640bc
-.L0f164084:
-/*  f164084:	2401001c */ 	addiu	$at,$zero,0x1c
-/*  f164088:	10410002 */ 	beq	$v0,$at,.L0f164094
-/*  f16408c:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f164090:	14410002 */ 	bne	$v0,$at,.L0f16409c
-.L0f164094:
-/*  f164094:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f164098:	12010008 */ 	beq	$s0,$at,.L0f1640bc
-.L0f16409c:
-/*  f16409c:	24010020 */ 	addiu	$at,$zero,0x20
-/*  f1640a0:	14410003 */ 	bne	$v0,$at,.L0f1640b0
-/*  f1640a4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1640a8:	24010071 */ 	addiu	$at,$zero,0x71
-/*  f1640ac:	12010003 */ 	beq	$s0,$at,.L0f1640bc
-.L0f1640b0:
-/*  f1640b0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1640b4:	0fc55fa5 */ 	jal	func0f157e94
-/*  f1640b8:	02203025 */ 	or	$a2,$s1,$zero
-.L0f1640bc:
-/*  f1640bc:	8e4b02bc */ 	lw	$t3,0x2bc($s2)
-/*  f1640c0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1640c4:	020b082a */ 	slt	$at,$s0,$t3
-/*  f1640c8:	5420ffdd */ 	bnezl	$at,.L0f164040
-/*  f1640cc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1640d0:	10000017 */ 	b	.L0f164130
-/*  f1640d4:	00000000 */ 	nop
-.L0f1640d8:
-/*  f1640d8:	0fc55fa5 */ 	jal	func0f157e94
-/*  f1640dc:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f1640e0:	86040002 */ 	lh	$a0,0x2($s0)
-/*  f1640e4:	3c08800a */ 	lui	$t0,%hi(var800a4cf0)
-/*  f1640e8:	25084cf0 */ 	addiu	$t0,$t0,%lo(var800a4cf0)
-/*  f1640ec:	00042c00 */ 	sll	$a1,$a0,0x10
-/*  f1640f0:	00056403 */ 	sra	$t4,$a1,0x10
-/*  f1640f4:	a5000000 */ 	sh	$zero,0x0($t0)
-/*  f1640f8:	a5000002 */ 	sh	$zero,0x2($t0)
-/*  f1640fc:	a5000004 */ 	sh	$zero,0x4($t0)
-/*  f164100:	01802825 */ 	or	$a1,$t4,$zero
-/*  f164104:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f164108:	0fc58cb5 */ 	jal	func0f1632d4
-/*  f16410c:	02203825 */ 	or	$a3,$s1,$zero
-/*  f164110:	0fc58e41 */ 	jal	func0f163904
-/*  f164114:	00000000 */ 	nop
-/*  f164118:	10400005 */ 	beqz	$v0,.L0f164130
-/*  f16411c:	00000000 */ 	nop
-.L0f164120:
-/*  f164120:	0fc58e41 */ 	jal	func0f163904
-/*  f164124:	00000000 */ 	nop
-/*  f164128:	1440fffd */ 	bnez	$v0,.L0f164120
-/*  f16412c:	00000000 */ 	nop
-.L0f164130:
-/*  f164130:	0fc58e5f */ 	jal	func0f16397c
-/*  f164134:	00000000 */ 	nop
-/*  f164138:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f16413c:
-/*  f16413c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f164140:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f164144:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f164148:	03e00008 */ 	jr	$ra
-/*  f16414c:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+void func0f163e34(void)
+{
+	s32 i;
+	s32 room;
+	struct screenbox box;
+	struct player *player = g_Vars.currentplayer;
 
-//s16 var800a4ce4;
-//s16 var800a4ce6;
+	currentPlayerCalculateScreenProperties();
 
-// Mismatch because var800a4ce4 and var800a4ce6 need to be moved out of gvars.c
-// and into this file.
-//void func0f163e34(void)
-//{
-//	s32 i;
-//	s32 room;
-//	struct screenbox box;
-//	struct player *player = g_Vars.currentplayer;
-//
-//	currentPlayerCalculateScreenProperties();
-//
-//	box.xmin = player->screenxminf;
-//	box.ymin = player->screenyminf;
-//	box.xmax = player->screenxmaxf;
-//	box.ymax = player->screenymaxf;
-//
-//	viGetZRange(&var800a4cf0.zrange);
-//	var800a4cf0.zrange.far = var800a4cf0.zrange.far / g_Vars.currentplayerstats->scale_bg2gfx;
-//
-//	for (i = 0; i < g_Vars.roomcount; i++) {
-//		g_Rooms[i].flags &= ~0x2d;
-//		g_Rooms[i].unk04 = 0;
-//		g_Rooms[i].unk06 = 0;
-//		g_Rooms[i].unk07 = 1;
-//	}
-//
-//	if (player->visionmode == VISIONMODE_XRAY) {
-//		func0f162d9c();
-//	} else {
-//		if (var8007fc34 < var8007fc30) {
-//			var8007fc34 = var8007fc30;
-//		}
-//
-//		var8007fc2c = 0;
-//		var8007fc30 = 0;
-//		var800a4ce4[1] = 0;
-//		var800a4ce4[0] = 32767;
-//		//var800a4ce6 = 0;
-//		//var800a4ce4 = 32767;
-//		var800a4640.unk2d0 = -1;
-//		var800a4640.unk2d3 = 255;
-//		var800a4cf0.unk00 = 0;
-//		var800a4cf0.unk02 = 0;
-//		var800a4cf0.unk04 = 0;
-//		var800a65b8 = 0;
-//		var800a4640.unk2d4.xmin = box.xmin;
-//		var800a4640.unk2d4.ymin = box.ymin;
-//		var800a4640.unk2d4.xmax = box.xmax;
-//		var800a4640.unk2d4.ymax = box.ymax;
-//
-//		portalCommandsExecuteForCurrentPlayer(g_PortalCommands);
-//
-//		if (var800a65b8 == 0) {
-//			if (g_Portals[0].unk00 == 0) {
-//				for (room = 1; room < g_Vars.roomcount; room++) {
-//					if (func0f15cd90(room, &box)
-//							&& ((g_StageIndex != STAGEINDEX_INFILTRATION && g_StageIndex != STAGEINDEX_RESCUE && g_StageIndex != STAGEINDEX_ESCAPE) || room != 0xf)
-//							&& (g_StageIndex != STAGEINDEX_SKEDARRUINS || room != 0x02)
-//							&& ((g_StageIndex != STAGEINDEX_DEFECTION && g_StageIndex != STAGEINDEX_EXTRACTION) || room != 0x01)
-//							&& (g_StageIndex != STAGEINDEX_ATTACKSHIP || room != 0x71)) {
-//						func0f157e94(j, 0, &box);
-//					}
-//				}
-//			} else {
-//				func0f157e94(g_CamRoom, 0, &box);
-//				var800a4cf0.unk00 = 0;
-//				var800a4cf0.unk02 = 0;
-//				var800a4cf0.unk04 = 0;
-//				func0f1632d4(g_CamRoom, g_CamRoom, 1, &box);
-//
-//				while (func0f163904());
-//			}
-//		}
-//
-//		func0f16397c();
-//	}
-//}
+	box.xmin = player->screenxminf;
+	box.ymin = player->screenyminf;
+	box.xmax = player->screenxmaxf;
+	box.ymax = player->screenymaxf;
+
+	viGetZRange(&var800a4cf0.zrange);
+	var800a4cf0.zrange.far = var800a4cf0.zrange.far / g_Vars.currentplayerstats->scale_bg2gfx;
+
+	for (i = 0; i < g_Vars.roomcount; i++) {
+		g_Rooms[i].flags &= ~(ROOMFLAG_DISABLED | ROOMFLAG_VISIBLEBYPLAYER | ROOMFLAG_VISIBLEBYAIBOT | ROOMFLAG_0020);
+		g_Rooms[i].portalrecursioncount = 0;
+		g_Rooms[i].unk06 = 0;
+		g_Rooms[i].unk07 = 1;
+	}
+
+	if (player->visionmode == VISIONMODE_XRAY) {
+		func0f162d9c();
+	} else {
+		if (var8007fc34 < var8007fc30) {
+			var8007fc34 = var8007fc30;
+		}
+
+		var8007fc2c = 0;
+		var8007fc30 = 0;
+		var800a4ce6 = 0;
+		var800a4ce4 = 32767;
+		var800a4640.unk2d0 = -1;
+		var800a4640.unk2d3 = 255;
+		var800a4cf0.unk00 = 0;
+		var800a4cf0.index = 0;
+		var800a4cf0.unk04 = 0;
+		var800a65b8 = 0;
+		var800a4640.unk2d4.xmin = box.xmin;
+		var800a4640.unk2d4.ymin = box.ymin;
+		var800a4640.unk2d4.xmax = box.xmax;
+		var800a4640.unk2d4.ymax = box.ymax;
+
+		portalCommandsExecuteForCurrentPlayer(g_PortalCommands);
+
+		if (var800a65b8 == 0) {
+			if (g_Portals[0].unk00 == 0) {
+				for (room = 1; room < g_Vars.roomcount; room++) {
+					if (func0f15cd90(room, &box)
+							&& ((g_StageIndex != STAGEINDEX_INFILTRATION && g_StageIndex != STAGEINDEX_RESCUE && g_StageIndex != STAGEINDEX_ESCAPE) || room != 0xf)
+							&& (g_StageIndex != STAGEINDEX_SKEDARRUINS || room != 0x02)
+							&& ((g_StageIndex != STAGEINDEX_DEFECTION && g_StageIndex != STAGEINDEX_EXTRACTION) || room != 0x01)
+							&& (g_StageIndex != STAGEINDEX_ATTACKSHIP || room != 0x71)) {
+						func0f157e94(room, 0, &box);
+					}
+				}
+			} else {
+				func0f157e94(g_CamRoom, 0, &box);
+				var800a4cf0.unk00 = 0;
+				var800a4cf0.index = 0;
+				var800a4cf0.unk04 = 0;
+				func0f1632d4(g_CamRoom, g_CamRoom, 1, &box);
+
+				while (func0f163904());
+			}
+		}
+
+		func0f16397c();
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f164150
