@@ -6970,4 +6970,13 @@ struct portalvertices {
 	struct coord vertices[1];
 };
 
+struct bgprimaryheader {
+	u32 unk00;
+	u32 roomtable;
+	u32 portaltable;
+	u32 portalcommands;
+	u32 lighttable;
+	u32 unk14;
+};
+
 #endif

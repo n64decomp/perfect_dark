@@ -307,8 +307,8 @@ void coreLoadStage(s32 stagenum)
 		s32 j;
 
 		stageLoadTiles();
-		func0f15b534(g_Vars.stagenum);
-		func0f15b908(g_Vars.stagenum);
+		bgInit(g_Vars.stagenum);
+		bgRoomsInit(g_Vars.stagenum);
 		func0f0147a0(g_Vars.stagenum);
 
 		if (g_Vars.normmplayerisrunning) {

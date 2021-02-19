@@ -3855,7 +3855,7 @@ u8 func0f15b508(s32 index)
 	return var800a4cd0[index];
 }
 
-u32 func0f15b51c(u32 arg)
+u32 not(u32 arg)
 {
 	return ~arg;
 }
@@ -3867,7 +3867,7 @@ u32 xorBabebabe(u32 value)
 
 #if VERSION >= VERSION_NTSC_FINAL
 GLOBAL_ASM(
-glabel func0f15b534
+glabel bgInit
 /*  f15b534:	3c0f8009 */ 	lui	$t7,%hi(g_Is4Mb)
 /*  f15b538:	91ef0af0 */ 	lbu	$t7,%lo(g_Is4Mb)($t7)
 /*  f15b53c:	240e0008 */ 	addiu	$t6,$zero,0x8
@@ -3933,9 +3933,9 @@ glabel func0f15b534
 /*  f15b620:	00515021 */ 	addu	$t2,$v0,$s1
 /*  f15b624:	3401800f */ 	dli	$at,0x800f
 /*  f15b628:	01478023 */ 	subu	$s0,$t2,$a3
-/*  f15b62c:	3c03800a */ 	lui	$v1,%hi(var800a491c)
+/*  f15b62c:	3c03800a */ 	lui	$v1,%hi(g_BgPrimaryData)
 /*  f15b630:	02018021 */ 	addu	$s0,$s0,$at
-/*  f15b634:	2463491c */ 	addiu	$v1,$v1,%lo(var800a491c)
+/*  f15b634:	2463491c */ 	addiu	$v1,$v1,%lo(g_BgPrimaryData)
 /*  f15b638:	360b000f */ 	ori	$t3,$s0,0xf
 /*  f15b63c:	24e6001e */ 	addiu	$a2,$a3,0x1e
 /*  f15b640:	ac620000 */ 	sw	$v0,0x0($v1)
@@ -3948,13 +3948,13 @@ glabel func0f15b534
 /*  f15b65c:	39c6000f */ 	xori	$a2,$t6,0xf
 /*  f15b660:	0fc56c71 */ 	jal	bgLoadFile
 /*  f15b664:	00002825 */ 	or	$a1,$zero,$zero
-/*  f15b668:	3c05800a */ 	lui	$a1,%hi(var800a491c)
+/*  f15b668:	3c05800a */ 	lui	$a1,%hi(g_BgPrimaryData)
 /*  f15b66c:	8fa60058 */ 	lw	$a2,0x58($sp)
 /*  f15b670:	2604000c */ 	addiu	$a0,$s0,0xc
-/*  f15b674:	0fc5766a */ 	jal	roomInflate
-/*  f15b678:	8ca5491c */ 	lw	$a1,%lo(var800a491c)($a1)
-/*  f15b67c:	3c04800a */ 	lui	$a0,%hi(var800a491c)
-/*  f15b680:	8c84491c */ 	lw	$a0,%lo(var800a491c)($a0)
+/*  f15b674:	0fc5766a */ 	jal	bgInflate
+/*  f15b678:	8ca5491c */ 	lw	$a1,%lo(g_BgPrimaryData)($a1)
+/*  f15b67c:	3c04800a */ 	lui	$a0,%hi(g_BgPrimaryData)
+/*  f15b680:	8c84491c */ 	lw	$a0,%lo(g_BgPrimaryData)($a0)
 /*  f15b684:	02202825 */ 	or	$a1,$s1,$zero
 /*  f15b688:	0c00490c */ 	jal	memReallocate
 /*  f15b68c:	24060004 */ 	addiu	$a2,$zero,0x4
@@ -3989,7 +3989,7 @@ glabel func0f15b534
 /*  f15b700:	24a50004 */ 	addiu	$a1,$a1,0x4
 /*  f15b704:	02002025 */ 	or	$a0,$s0,$zero
 /*  f15b708:	8fa50064 */ 	lw	$a1,0x64($sp)
-/*  f15b70c:	0fc5766a */ 	jal	roomInflate
+/*  f15b70c:	0fc5766a */ 	jal	bgInflate
 /*  f15b710:	8fa60050 */ 	lw	$a2,0x50($sp)
 /*  f15b714:	8fab002c */ 	lw	$t3,0x2c($sp)
 /*  f15b718:	00001825 */ 	or	$v1,$zero,$zero
@@ -4016,12 +4016,12 @@ glabel func0f15b534
 /*  f15b764:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f15b768:	8fae0028 */ 	lw	$t6,0x28($sp)
 /*  f15b76c:	8faf0050 */ 	lw	$t7,0x50($sp)
-/*  f15b770:	3c01800a */ 	lui	$at,%hi(var800a4924)
+/*  f15b770:	3c01800a */ 	lui	$at,%hi(g_BgSection3)
 /*  f15b774:	3c044fff */ 	lui	$a0,0x4fff
 /*  f15b778:	01cfc021 */ 	addu	$t8,$t6,$t7
 /*  f15b77c:	27190004 */ 	addiu	$t9,$t8,0x4
-/*  f15b780:	ac394924 */ 	sw	$t9,%lo(var800a4924)($at)
-/*  f15b784:	0fc56d47 */ 	jal	func0f15b51c
+/*  f15b780:	ac394924 */ 	sw	$t9,%lo(g_BgSection3)($at)
+/*  f15b784:	0fc56d47 */ 	jal	not
 /*  f15b788:	3484fbab */ 	ori	$a0,$a0,0xfbab
 /*  f15b78c:	3c04bbb7 */ 	lui	$a0,0xbbb7
 /*  f15b790:	00408025 */ 	or	$s0,$v0,$zero
@@ -4050,8 +4050,8 @@ glabel func0f15b534
 /*  f15b7ec:	0c003504 */ 	jal	dmaExec
 /*  f15b7f0:	24060040 */ 	addiu	$a2,$zero,0x40
 .L0f15b7f4:
-/*  f15b7f4:	3c04800a */ 	lui	$a0,%hi(var800a491c)
-/*  f15b7f8:	8c84491c */ 	lw	$a0,%lo(var800a491c)($a0)
+/*  f15b7f4:	3c04800a */ 	lui	$a0,%hi(g_BgPrimaryData)
+/*  f15b7f8:	8c84491c */ 	lw	$a0,%lo(g_BgPrimaryData)($a0)
 /*  f15b7fc:	3c02800a */ 	lui	$v0,%hi(var800a4920)
 /*  f15b800:	24424920 */ 	addiu	$v0,$v0,%lo(var800a4920)
 /*  f15b804:	8c8a0000 */ 	lw	$t2,0x0($a0)
@@ -4059,8 +4059,8 @@ glabel func0f15b534
 /*  f15b80c:	3c08800a */ 	lui	$t0,%hi(var800a4cc4)
 /*  f15b810:	15400038 */ 	bnez	$t2,.L0f15b8f4
 /*  f15b814:	ac4a0000 */ 	sw	$t2,0x0($v0)
-/*  f15b818:	3c02800a */ 	lui	$v0,%hi(var800a4cc0)
-/*  f15b81c:	24424cc0 */ 	addiu	$v0,$v0,%lo(var800a4cc0)
+/*  f15b818:	3c02800a */ 	lui	$v0,%hi(g_BgPrimaryData2)
+/*  f15b81c:	24424cc0 */ 	addiu	$v0,$v0,%lo(g_BgPrimaryData2)
 /*  f15b820:	ac440000 */ 	sw	$a0,0x0($v0)
 /*  f15b824:	8c8c0004 */ 	lw	$t4,0x4($a0)
 /*  f15b828:	3c03800a */ 	lui	$v1,%hi(g_Vars)
@@ -4130,7 +4130,7 @@ glabel func0f15b534
 );
 #else
 GLOBAL_ASM(
-glabel func0f15b534
+glabel bgInit
 /*  f15b304:	3c0f8009 */ 	lui	$t7,%hi(g_Is4Mb)
 /*  f15b308:	91ef0af0 */ 	lbu	$t7,%lo(g_Is4Mb)($t7)
 /*  f15b30c:	240e0008 */ 	addiu	$t6,$zero,0x8
@@ -4196,9 +4196,9 @@ glabel func0f15b534
 /*  f15b3f0:	00515021 */ 	addu	$t2,$v0,$s1
 /*  f15b3f4:	3401800f */ 	dli	$at,0x800f
 /*  f15b3f8:	01478023 */ 	subu	$s0,$t2,$a3
-/*  f15b3fc:	3c03800a */ 	lui	$v1,%hi(var800a491c)
+/*  f15b3fc:	3c03800a */ 	lui	$v1,%hi(g_BgPrimaryData)
 /*  f15b400:	02018021 */ 	addu	$s0,$s0,$at
-/*  f15b404:	2463491c */ 	addiu	$v1,$v1,%lo(var800a491c)
+/*  f15b404:	2463491c */ 	addiu	$v1,$v1,%lo(g_BgPrimaryData)
 /*  f15b408:	360b000f */ 	ori	$t3,$s0,0xf
 /*  f15b40c:	24e6001e */ 	addiu	$a2,$a3,0x1e
 /*  f15b410:	ac620000 */ 	sw	$v0,0x0($v1)
@@ -4211,13 +4211,13 @@ glabel func0f15b534
 /*  f15b42c:	39c6000f */ 	xori	$a2,$t6,0xf
 /*  f15b430:	0fc56be5 */ 	jal	0xf15af94
 /*  f15b434:	00002825 */ 	or	$a1,$zero,$zero
-/*  f15b438:	3c05800a */ 	lui	$a1,%hi(var800a491c)
+/*  f15b438:	3c05800a */ 	lui	$a1,%hi(g_BgPrimaryData)
 /*  f15b43c:	8fa60058 */ 	lw	$a2,0x58($sp)
 /*  f15b440:	2604000c */ 	addiu	$a0,$s0,0xc
 /*  f15b444:	0fc575d9 */ 	jal	0xf15d764
-/*  f15b448:	8ca5491c */ 	lw	$a1,%lo(var800a491c)($a1)
-/*  f15b44c:	3c04800a */ 	lui	$a0,%hi(var800a491c)
-/*  f15b450:	8c84491c */ 	lw	$a0,%lo(var800a491c)($a0)
+/*  f15b448:	8ca5491c */ 	lw	$a1,%lo(g_BgPrimaryData)($a1)
+/*  f15b44c:	3c04800a */ 	lui	$a0,%hi(g_BgPrimaryData)
+/*  f15b450:	8c84491c */ 	lw	$a0,%lo(g_BgPrimaryData)($a0)
 /*  f15b454:	02202825 */ 	or	$a1,$s1,$zero
 /*  f15b458:	0c00490c */ 	jal	0x12430
 /*  f15b45c:	24060004 */ 	addiu	$a2,$zero,0x4
@@ -4276,11 +4276,11 @@ glabel func0f15b534
 /*  f15b528:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f15b52c:	8fae0028 */ 	lw	$t6,0x28($sp)
 /*  f15b530:	8faf0050 */ 	lw	$t7,0x50($sp)
-/*  f15b534:	3c01800a */ 	lui	$at,%hi(var800a4924)
+/*  f15b534:	3c01800a */ 	lui	$at,%hi(g_BgSection3)
 /*  f15b538:	3c044fff */ 	lui	$a0,0x4fff
 /*  f15b53c:	01cfc021 */ 	addu	$t8,$t6,$t7
 /*  f15b540:	27190004 */ 	addiu	$t9,$t8,0x4
-/*  f15b544:	ac394924 */ 	sw	$t9,%lo(var800a4924)($at)
+/*  f15b544:	ac394924 */ 	sw	$t9,%lo(g_BgSection3)($at)
 /*  f15b548:	0fc56cbb */ 	jal	0xf15b2ec
 /*  f15b54c:	3484fbab */ 	ori	$a0,$a0,0xfbab
 /*  f15b550:	3c04bbb7 */ 	lui	$a0,0xbbb7
@@ -4310,8 +4310,8 @@ glabel func0f15b534
 /*  f15b5b0:	0c003504 */ 	jal	0xd410
 /*  f15b5b4:	24060040 */ 	addiu	$a2,$zero,0x40
 .L0f15b5b8:
-/*  f15b5b8:	3c04800a */ 	lui	$a0,%hi(var800a491c)
-/*  f15b5bc:	8c84491c */ 	lw	$a0,%lo(var800a491c)($a0)
+/*  f15b5b8:	3c04800a */ 	lui	$a0,%hi(g_BgPrimaryData)
+/*  f15b5bc:	8c84491c */ 	lw	$a0,%lo(g_BgPrimaryData)($a0)
 /*  f15b5c0:	3c02800a */ 	lui	$v0,%hi(var800a4920)
 /*  f15b5c4:	24424920 */ 	addiu	$v0,$v0,%lo(var800a4920)
 /*  f15b5c8:	8c8a0000 */ 	lw	$t2,0x0($a0)
@@ -4319,8 +4319,8 @@ glabel func0f15b534
 /*  f15b5d0:	3c08800a */ 	lui	$t0,%hi(var800a4cc4)
 /*  f15b5d4:	15400038 */ 	bnez	$t2,.L0f15b6b8
 /*  f15b5d8:	ac4a0000 */ 	sw	$t2,0x0($v0)
-/*  f15b5dc:	3c02800a */ 	lui	$v0,%hi(var800a4cc0)
-/*  f15b5e0:	24424cc0 */ 	addiu	$v0,$v0,%lo(var800a4cc0)
+/*  f15b5dc:	3c02800a */ 	lui	$v0,%hi(g_BgPrimaryData2)
+/*  f15b5e0:	24424cc0 */ 	addiu	$v0,$v0,%lo(g_BgPrimaryData2)
 /*  f15b5e4:	ac440000 */ 	sw	$a0,0x0($v0)
 /*  f15b5e8:	8c8c0004 */ 	lw	$t4,0x4($a0)
 /*  f15b5ec:	3c03800a */ 	lui	$v1,%hi(g_Vars)
@@ -4390,9 +4390,193 @@ glabel func0f15b534
 );
 #endif
 
+/**
+ * Extracts and inflates primary data (room/portal/light tables) from the
+ * BG file to memory, ensures required textures are loaded, and sets some
+ * global pointers to each table within the primary data.
+ *
+ * -- Overview -----------------------------------------------------------------
+ *
+ * The structure of a BG File is:
+ *
+ * - Section 1:
+ *   - Primary data (compressed):
+ *     - Room table, with pointers to their room gfx data
+ *     - Portal table
+ *     - Portal command list
+ *     - Light table
+ *   - For each room, a compressed binary containing gfx data
+ * - Section 2 (compressed) - list of texture IDs to load
+ * - Section 3 (compressed) - unknown and not read by this function
+ *
+ * Each section has a header (uncompressed) containing size information:
+ *
+ * Section 1 header is 0x0c bytes long:
+ * - 4 bytes decompressed size of primary data
+ * - 4 bytes compressed size of section 1 in its entirety
+ * - 4 bytes compressed size of primary data
+ *
+ * Section 2 and 3 headers are 0x04 bytes long:
+ * - 2 bytes decompressed size of data (mask with 0x7fff)
+ * - 2 bytes compressed size of data
+ *
+ * -- Primary Data (compressed) ------------------------------------------------
+ *
+ * Header is 0x18 bytes long:
+ * - 4 bytes null
+ * - 4 bytes pointer to room table
+ * - 4 bytes pointer to portal table
+ * - 4 bytes pointer to portal commands list
+ * - 4 bytes pointer to light table
+ * - 4 bytes null
+ */
+// Mismatch: var800a4bf0 needs to be moved into this file, among many other
+// things.
+//void bgInit(s32 stagenum)
+//{
+//	u8 headerbuffer[0x50];
+//	u8 *header;
+//	s32 numtextures;
+//	s32 i;
+//	u8 *section1scratch;
+//	u32 section1compsize;
+//	u32 primcompsize;
+//	u32 priminfsize;
+//	u32 priminfsizealigned;
+//	u16 *section2;
+//	u32 section2compsize;
+//	u32 section2infsize;
+//	u32 section2start;
+//	u8 *section2scratch;
+//
+//	var8007fc0c = 8;
+//
+//	if (IS4MB()) {
+//		var800a4bf0[0] = 6;
+//		var800a4bf0[1] = 6;
+//	} else {
+//		var800a4bf0[0] = 120;
+//		var800a4bf0[1] = 120;
+//	}
+//
+//	g_StageIndex = stageGetIndex2(stagenum);
+//
+//	if (g_StageIndex < 0) {
+//		g_StageIndex = 0;
+//	}
+//
+//	// Copy section 1 header to stack and parse into variables
+//	header = (u8 *)ALIGN16((u32)headerbuffer);
+//	bgLoadFile(header, 0, 0x40);
+//	priminfsize = *(u32 *)&header[0];
+//	section1compsize = *(u32 *)&header[4];
+//	primcompsize = *(u32 *)&header[8];
+//	priminfsizealigned = ALIGN16(priminfsize);
+//	var8007fc54 = (priminfsize - primcompsize) - 0xc;
+//
+//	// Allocate space for the primary bg data
+//	// An extra 0x8000 or so is given as temporary scratch space
+//	g_BgPrimaryData = malloc(ALIGN16(priminfsizealigned + 0x8010), MEMPOOL_STAGE);
+//
+//	// Set up pointer to scratch space
+//	section1scratch = (u8 *)ALIGN16((u32)g_BgPrimaryData + (priminfsizealigned - primcompsize) + 0x8000);
+//
+//	g_LoadState = LOADSTATE_BG;
+//
+//	// Copy section 1 header + compressed primary to scratch space
+//	bgLoadFile(section1scratch, 0, ALIGN16(primcompsize + 15));
+//
+//	// Inflate primary data to the start of the buffer
+//	bgInflate(section1scratch + 0xc, g_BgPrimaryData, primcompsize);
+//
+//	// Shrink the allocation (ie. free the scratch space)
+//	memReallocate((u32)g_BgPrimaryData, priminfsizealigned, MEMPOOL_STAGE);
+//
+//	// Load the section 2 header
+//	section2start = section1compsize + 0xc;
+//
+//	bgLoadFile(header, section2start, 0x40);
+//
+//	section2infsize = *(u16 *)&header[0] & 0x7fff;
+//	section2compsize = *(u16 *)&header[2];
+//
+//	// Allocate space for the section 2 data
+//	// An extra 0x8000 or so is given as temporary scratch space
+//	section2 = malloc((section2infsize - 1 | 0xf) + 0x8001, MEMPOOL_STAGE);
+//
+//	// Copy section 2 (texture ID list, compressed) to scratch space
+//	section2scratch = (u8 *)section2 + 0x8000;
+//	bgLoadFile(section2scratch, section1compsize + 0x10, (section2compsize - 1 | 0xf) + 1);
+//
+//	// Inflate section 2 to start of buffer
+//	bgInflate(section2scratch, section2, section2compsize);
+//
+//	// Iterate texture IDs and ensure they're loaded
+//	numtextures = section2infsize / 2;
+//
+//	for (i = 0; i != numtextures; i++) {
+//		func0f1734e8(section2[i], NULL);
+//	}
+//
+//	// Free section 2
+//	memReallocate((u32)section2, 0, MEMPOOL_STAGE);
+//
+//	g_BgSection3 = section2start + section2compsize + 4;
+//
+//#if PIRACYCHECKS
+//	{
+//		u32 addr = not(~0xb0000454);
+//		u32 expectedvalue = xorBabebabe(0x0109082b ^ 0xbabebabe);
+//		u32 actualvalue;
+//
+//		osPiReadIo(addr, &actualvalue);
+//
+//		if (actualvalue != expectedvalue) {
+//			// Copy 0x40 bytes from a random location in ROM to a random
+//			// location in RAM. The write address can be anywhere in the
+//			// boot segment or in the lib segment up to func00020f30.
+//			dmaExec((void *)(PHYS_TO_K0(0x1000) + (random() & 0x1fff8)), (void *)(random() & 0x1fffe), 0x40);
+//		}
+//	}
+//#endif
+//
+//	if (g_BgPrimaryData->unk00 == 0) {
+//		g_BgPrimaryData2 = g_BgPrimaryData;
+//		var800a4cc4 = (struct var800a4cc4 *)((u32)g_BgPrimaryData + g_BgPrimaryData->roomtable - 0x0f000000);
+//
+//		g_Vars.roomcount = 0;
+//
+//		for (i = 0; var800a4cc4[i].unk00 != 0; i++) {
+//			g_Vars.roomcount++;
+//		}
+//
+//		g_Portals = (struct portal *)((u32)g_BgPrimaryData + g_BgPrimaryData->portaltable - 0x0f000000);
+//
+//		if (g_BgPrimaryData->portalcommands == 0) {
+//			g_PortalCommands = NULL;
+//		} else {
+//			g_PortalCommands = (struct portalcmd *)((u32)g_BgPrimaryData + g_BgPrimaryData->portalcommands - 0x0f000000);
+//		}
+//
+//		if (g_BgPrimaryData->lighttable == 0) {
+//			g_LightsFileData = NULL;
+//		} else {
+//			g_LightsFileData = (u8 *)((u32)g_BgPrimaryData + g_BgPrimaryData->lighttable - 0x0f000000);
+//		}
+//
+//		if (g_BgPrimaryData->unk14 == 0) {
+//			var800a4cdc = NULL;
+//		} else {
+//			var800a4cdc = (void *)((u32)g_BgPrimaryData + g_BgPrimaryData->unk14 - 0x0f000000);
+//		}
+//	}
+//
+//	var800a4920 = g_BgPrimaryData->unk00;
+//}
+
 #if VERSION >= VERSION_NTSC_FINAL
 GLOBAL_ASM(
-glabel func0f15b908
+glabel bgRoomsInit
 .late_rodata
 glabel var7f1b75cc
 .word 0x7f7fffff
@@ -5000,8 +5184,8 @@ glabel var7f1b75d0
 /*  f15c19c:	00608025 */ 	or	$s0,$v1,$zero
 /*  f15c1a0:	11c00017 */ 	beqz	$t6,.L0f15c200
 /*  f15c1a4:	31c200ff */ 	andi	$v0,$t6,0xff
-/*  f15c1a8:	3c13800a */ 	lui	$s3,%hi(var800a491c)
-/*  f15c1ac:	2673491c */ 	addiu	$s3,$s3,%lo(var800a491c)
+/*  f15c1a8:	3c13800a */ 	lui	$s3,%hi(g_BgPrimaryData)
+/*  f15c1ac:	2673491c */ 	addiu	$s3,$s3,%lo(g_BgPrimaryData)
 /*  f15c1b0:	3c14f100 */ 	lui	$s4,0xf100
 /*  f15c1b4:	24110064 */ 	addiu	$s1,$zero,0x64
 .L0f15c1b8:
@@ -5082,9 +5266,9 @@ glabel var7f1b75d0
 /*  f15c2d0:	e730002c */ 	swc1	$f16,0x2c($t9)
 /*  f15c2d4:	03a08025 */ 	or	$s0,$sp,$zero
 /*  f15c2d8:	261000b3 */ 	addiu	$s0,$s0,0xb3
-/*  f15c2dc:	3c12800a */ 	lui	$s2,%hi(var800a4924)
+/*  f15c2dc:	3c12800a */ 	lui	$s2,%hi(g_BgSection3)
 /*  f15c2e0:	3618000f */ 	ori	$t8,$s0,0xf
-/*  f15c2e4:	26524924 */ 	addiu	$s2,$s2,%lo(var800a4924)
+/*  f15c2e4:	26524924 */ 	addiu	$s2,$s2,%lo(g_BgSection3)
 /*  f15c2e8:	3b04000f */ 	xori	$a0,$t8,0xf
 /*  f15c2ec:	00808025 */ 	or	$s0,$a0,$zero
 /*  f15c2f0:	8e450000 */ 	lw	$a1,0x0($s2)
@@ -5112,7 +5296,7 @@ glabel var7f1b75d0
 /*  f15c348:	24a50004 */ 	addiu	$a1,$a1,0x4
 /*  f15c34c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f15c350:	8fa5008c */ 	lw	$a1,0x8c($sp)
-/*  f15c354:	0fc5766a */ 	jal	roomInflate
+/*  f15c354:	0fc5766a */ 	jal	bgInflate
 /*  f15c358:	02203025 */ 	or	$a2,$s1,$zero
 /*  f15c35c:	8e6302bc */ 	lw	$v1,0x2bc($s3)
 /*  f15c360:	8fb0008c */ 	lw	$s0,0x8c($sp)
@@ -5456,7 +5640,7 @@ glabel var7f1b75d0
 );
 #else
 GLOBAL_ASM(
-glabel func0f15b908
+glabel bgRoomsInit
 .late_rodata
 glabel var7f1b75cc
 .word 0x7f7fffff
@@ -6064,8 +6248,8 @@ glabel var7f1b75d0
 /*  f15bf60:	00608025 */ 	or	$s0,$v1,$zero
 /*  f15bf64:	11c00017 */ 	beqz	$t6,.L0f15bfc4
 /*  f15bf68:	31c200ff */ 	andi	$v0,$t6,0xff
-/*  f15bf6c:	3c13800a */ 	lui	$s3,%hi(var800a491c)
-/*  f15bf70:	2673491c */ 	addiu	$s3,$s3,%lo(var800a491c)
+/*  f15bf6c:	3c13800a */ 	lui	$s3,%hi(g_BgPrimaryData)
+/*  f15bf70:	2673491c */ 	addiu	$s3,$s3,%lo(g_BgPrimaryData)
 /*  f15bf74:	3c14f100 */ 	lui	$s4,0xf100
 /*  f15bf78:	24110064 */ 	addiu	$s1,$zero,0x64
 .L0f15bf7c:
@@ -6146,9 +6330,9 @@ glabel var7f1b75d0
 /*  f15c094:	e730002c */ 	swc1	$f16,0x2c($t9)
 /*  f15c098:	03a08025 */ 	or	$s0,$sp,$zero
 /*  f15c09c:	261000b3 */ 	addiu	$s0,$s0,0xb3
-/*  f15c0a0:	3c12800a */ 	lui	$s2,%hi(var800a4924)
+/*  f15c0a0:	3c12800a */ 	lui	$s2,%hi(g_BgSection3)
 /*  f15c0a4:	3618000f */ 	ori	$t8,$s0,0xf
-/*  f15c0a8:	26524924 */ 	addiu	$s2,$s2,%lo(var800a4924)
+/*  f15c0a8:	26524924 */ 	addiu	$s2,$s2,%lo(g_BgSection3)
 /*  f15c0ac:	3b04000f */ 	xori	$a0,$t8,0xf
 /*  f15c0b0:	00808025 */ 	or	$s0,$a0,$zero
 /*  f15c0b4:	8e450000 */ 	lw	$a1,0x0($s2)
@@ -6568,7 +6752,7 @@ void func0f15c920(void)
 		}
 
 		if (checksum != CHECKSUM_PLACEHOLDER) {
-			ptr = (s32 *)&func0f15b908 + 20;
+			ptr = (s32 *)&bgRoomsInit + 20;
 
 			if (1) {
 				end = &ptr[4];
@@ -6622,7 +6806,7 @@ Gfx *bgRender(Gfx *gdl)
 {
 	gdl = func0f001300(gdl);
 
-	gSPSegment(gdl++, 0x0f, var800a491c);
+	gSPSegment(gdl++, 0x0f, g_BgPrimaryData);
 
 	gdl = func0f1664a0(gdl, 0);
 	gdl = func0f164150(gdl);
@@ -7209,7 +7393,7 @@ void roomsHandleStateDebugging(void)
 	}
 }
 
-u32 roomInflate(void *src, void *dst, u32 len)
+u32 bgInflate(void *src, void *dst, u32 len)
 {
 	u32 result;
 	char tmpbuffer[5120];
@@ -7463,8 +7647,8 @@ glabel func0f15dc58
 /*  f15dd30:	01f01021 */ 	addu	$v0,$t7,$s0
 /*  f15dd34:	8c430000 */ 	lw	$v1,0x0($v0)
 /*  f15dd38:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f15dd3c:	3c04800a */ 	lui	$a0,%hi(var800a491c)
-/*  f15dd40:	8c84491c */ 	lw	$a0,%lo(var800a491c)($a0)
+/*  f15dd3c:	3c04800a */ 	lui	$a0,%hi(g_BgPrimaryData)
+/*  f15dd40:	8c84491c */ 	lw	$a0,%lo(g_BgPrimaryData)($a0)
 /*  f15dd44:	03039023 */ 	subu	$s2,$t8,$v1
 /*  f15dd48:	2652000f */ 	addiu	$s2,$s2,0xf
 /*  f15dd4c:	2401fff0 */ 	addiu	$at,$zero,-16
@@ -7510,7 +7694,7 @@ glabel func0f15dc58
 /*  f15dde0:	03101021 */ 	addu	$v0,$t8,$s0
 /*  f15dde4:	8c590014 */ 	lw	$t9,0x14($v0)
 /*  f15dde8:	8c4b0000 */ 	lw	$t3,0x0($v0)
-/*  f15ddec:	0fc5766a */ 	jal	roomInflate
+/*  f15ddec:	0fc5766a */ 	jal	bgInflate
 /*  f15ddf0:	032b3023 */ 	subu	$a2,$t9,$t3
 /*  f15ddf4:	3c09800a */ 	lui	$t1,%hi(g_Rooms)
 /*  f15ddf8:	25294928 */ 	addiu	$t1,$t1,%lo(g_Rooms)

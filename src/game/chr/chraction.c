@@ -12739,8 +12739,8 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 #if PIRACYCHECKS
 			{
 				u32 checksum = 0;
-				s32 *i = (s32 *)&func0f15b534;
-				s32 *end = (s32 *)&func0f15b908;
+				s32 *i = (s32 *)&bgInit;
+				s32 *end = (s32 *)&bgRoomsInit;
 
 				while (i < end) {
 					checksum += *i;

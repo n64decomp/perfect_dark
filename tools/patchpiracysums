@@ -192,7 +192,7 @@ class Tool:
         self.patch(algo05, 'func0f028590', 'func00002078')
         self.patch(algo06, 'coreLoadStage', 'coreGetSlowMotionType')
         self.patch(algo07, 'propAllocateEyespy', 'coreLoadStage')
-        self.patch(algo08, 'chrConsiderGrenadeThrow', 'func0f15b534')
+        self.patch(algo08, 'chrConsiderGrenadeThrow', 'bgInit')
         self.patch(algo09, 'func0f09e144', 'tagsAllocatePtrs')
         self.patch(algo10, 'explosionAlertChrs', 'func0f084cf0')
         self.patch(algo11, 'func0f0069dc', 'func00015fd0')
