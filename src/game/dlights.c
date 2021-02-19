@@ -121,7 +121,7 @@ s32 func0f000920(s32 num1, s32 num2)
 
 struct light *roomGetLight(s32 roomnum, s32 lightnum)
 {
-	return (struct light *)&g_LightsFileData[(g_Rooms[roomnum].lightindex + lightnum) * 0x22];
+	return (struct light *)&g_BgLightsFileData[(g_Rooms[roomnum].lightindex + lightnum) * 0x22];
 }
 
 u8 func0f0009c0(s32 roomnum)
@@ -248,7 +248,7 @@ f32 func0f000dbc(s32 roomnum)
 
 bool lightGetBboxCentre(s32 roomnum, u32 lightnum, struct coord *pos)
 {
-	struct light *light = (struct light *)&g_LightsFileData[g_Rooms[roomnum].lightindex * 0x22];
+	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
 	s32 i;
 	light += lightnum;
 
@@ -309,7 +309,7 @@ void roomSetUnk52(s32 roomnum, s32 value)
 
 void lightGetUnk07(s32 roomnum, u32 lightnum, struct coord *coord)
 {
-	struct light *light = (struct light *)&g_LightsFileData[g_Rooms[roomnum].lightindex * 0x22];
+	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
 	light += lightnum;
 
 	coord->x = light->unk07;
@@ -580,7 +580,7 @@ void roomInitLights(s32 roomnum)
 
 	room->flags |= ROOMFLAG_DIRTY;
 
-	light = (struct light *)&g_LightsFileData[(u32)g_Rooms[roomnum].lightindex * 0x22];
+	light = (struct light *)&g_BgLightsFileData[(u32)g_Rooms[roomnum].lightindex * 0x22];
 
 	for (i = 0; i < room->numlights; i++) {
 		light->unk04 = g_Rooms[roomnum].unk4a;
@@ -636,12 +636,12 @@ glabel func0f001734
 /*  f00178c:	00064080 */ 	sll	$t0,$a2,0x2
 /*  f001790:	01064021 */ 	addu	$t0,$t0,$a2
 /*  f001794:	17000003 */ 	bnez	$t8,.L0f0017a4
-/*  f001798:	3c19800a */ 	lui	$t9,%hi(var800a4cc4)
+/*  f001798:	3c19800a */ 	lui	$t9,%hi(g_BgRooms)
 .L0f00179c:
 /*  f00179c:	100000a5 */ 	b	.L0f001a34
 /*  f0017a0:	00001025 */ 	or	$v0,$zero,$zero
 .L0f0017a4:
-/*  f0017a4:	8f394cc4 */ 	lw	$t9,%lo(var800a4cc4)($t9)
+/*  f0017a4:	8f394cc4 */ 	lw	$t9,%lo(g_BgRooms)($t9)
 /*  f0017a8:	00084080 */ 	sll	$t0,$t0,0x2
 /*  f0017ac:	c4840000 */ 	lwc1	$f4,0x0($a0)
 /*  f0017b0:	03281021 */ 	addu	$v0,$t9,$t0
@@ -694,8 +694,8 @@ glabel func0f001734
 /*  f00186c:	46009083 */ 	div.s	$f2,$f18,$f0
 /*  f001870:	c7a80094 */ 	lwc1	$f8,0x94($sp)
 /*  f001874:	8fc90000 */ 	lw	$t1,0x0($s8)
-/*  f001878:	3c0c800a */ 	lui	$t4,%hi(g_LightsFileData)
-/*  f00187c:	8d8c4cd8 */ 	lw	$t4,%lo(g_LightsFileData)($t4)
+/*  f001878:	3c0c800a */ 	lui	$t4,%hi(g_BgLightsFileData)
+/*  f00187c:	8d8c4cd8 */ 	lw	$t4,%lo(g_BgLightsFileData)($t4)
 /*  f001880:	01371021 */ 	addu	$v0,$t1,$s7
 /*  f001884:	00009825 */ 	or	$s3,$zero,$zero
 /*  f001888:	27b6008c */ 	addiu	$s6,$sp,0x8c
@@ -827,7 +827,7 @@ glabel func0f001734
 
 void roomSetLightsFaulty(s32 roomnum, s32 chance)
 {
-	struct light *light = (struct light *)&g_LightsFileData[g_Rooms[roomnum].lightindex * 0x22];
+	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
 	s32 i;
 
 	if (g_Rooms[roomnum].numlights) {
@@ -878,8 +878,8 @@ glabel func0f001c0c
 /*  f001c3c:	3c018006 */ 	lui	$at,%hi(var80061440)
 /*  f001c40:	0fc008ee */ 	jal	func0f0023b8
 /*  f001c44:	ac201440 */ 	sw	$zero,%lo(var80061440)($at)
-/*  f001c48:	3c17800a */ 	lui	$s7,%hi(g_Portals)
-/*  f001c4c:	26f74cc8 */ 	addiu	$s7,$s7,%lo(g_Portals)
+/*  f001c48:	3c17800a */ 	lui	$s7,%hi(g_BgPortals)
+/*  f001c4c:	26f74cc8 */ 	addiu	$s7,$s7,%lo(g_BgPortals)
 /*  f001c50:	8ee30000 */ 	lw	$v1,0x0($s7)
 /*  f001c54:	3c10800a */ 	lui	$s0,%hi(var8009cadc)
 /*  f001c58:	2610cadc */ 	addiu	$s0,$s0,%lo(var8009cadc)
@@ -1729,8 +1729,8 @@ glabel func0f002844
 /*  f0028a0:	afae0060 */ 	sw	$t6,0x60($sp)
 /*  f0028a4:	10e1000c */ 	beq	$a3,$at,.L0f0028d8
 /*  f0028a8:	ac580000 */ 	sw	$t8,0x0($v0)
-/*  f0028ac:	3c08800a */ 	lui	$t0,%hi(g_Portals)
-/*  f0028b0:	8d084cc8 */ 	lw	$t0,%lo(g_Portals)($t0)
+/*  f0028ac:	3c08800a */ 	lui	$t0,%hi(g_BgPortals)
+/*  f0028b0:	8d084cc8 */ 	lw	$t0,%lo(g_BgPortals)($t0)
 /*  f0028b4:	000748c0 */ 	sll	$t1,$a3,0x3
 /*  f0028b8:	01091021 */ 	addu	$v0,$t0,$t1
 /*  f0028bc:	84430002 */ 	lh	$v1,0x2($v0)
@@ -1769,14 +1769,14 @@ glabel func0f002844
 /*  f002938:	01f94021 */ 	addu	$t0,$t7,$t9
 /*  f00293c:	01144821 */ 	addu	$t1,$t0,$s4
 /*  f002940:	85310000 */ 	lh	$s1,0x0($t1)
-/*  f002944:	3c0e800a */ 	lui	$t6,%hi(g_Portals)
+/*  f002944:	3c0e800a */ 	lui	$t6,%hi(g_BgPortals)
 /*  f002948:	8faf0060 */ 	lw	$t7,0x60($sp)
 /*  f00294c:	00115880 */ 	sll	$t3,$s1,0x2
 /*  f002950:	014b6021 */ 	addu	$t4,$t2,$t3
 /*  f002954:	8d8d0000 */ 	lw	$t5,0x0($t4)
 /*  f002958:	11a00037 */ 	beqz	$t5,.L0f002a38
 /*  f00295c:	00000000 */ 	nop
-/*  f002960:	8dce4cc8 */ 	lw	$t6,%lo(g_Portals)($t6)
+/*  f002960:	8dce4cc8 */ 	lw	$t6,%lo(g_BgPortals)($t6)
 /*  f002964:	0011c0c0 */ 	sll	$t8,$s1,0x3
 /*  f002968:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f00296c:	01d81021 */ 	addu	$v0,$t6,$t8
@@ -1882,7 +1882,7 @@ void func0f002a98(void)
 
 void roomSetLightsOn(s32 roomnum, s32 enable)
 {
-	struct light *light = (struct light *)&g_LightsFileData[g_Rooms[roomnum].lightindex * 0x22];
+	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
 	s32 i;
 
 	if (g_Rooms[roomnum].numlights) {
@@ -1952,8 +1952,8 @@ glabel func0f002ef8
 /*  f002f20:	afa500dc */ 	sw	$a1,0xdc($sp)
 /*  f002f24:	01d8c821 */ 	addu	$t9,$t6,$t8
 /*  f002f28:	972a000a */ 	lhu	$t2,0xa($t9)
-/*  f002f2c:	3c0f800a */ 	lui	$t7,%hi(g_LightsFileData)
-/*  f002f30:	8def4cd8 */ 	lw	$t7,%lo(g_LightsFileData)($t7)
+/*  f002f2c:	3c0f800a */ 	lui	$t7,%hi(g_BgLightsFileData)
+/*  f002f30:	8def4cd8 */ 	lw	$t7,%lo(g_BgLightsFileData)($t7)
 /*  f002f34:	01456021 */ 	addu	$t4,$t2,$a1
 /*  f002f38:	000c6900 */ 	sll	$t5,$t4,0x4
 /*  f002f3c:	01ac6821 */ 	addu	$t5,$t5,$t4
@@ -2164,8 +2164,8 @@ glabel func0f002ef8
 /*  f00324c:	27a60074 */ 	addiu	$a2,$sp,0x74
 /*  f003250:	0fc0037f */ 	jal	lightGetBboxCentre
 /*  f003254:	afa90068 */ 	sw	$t1,0x68($sp)
-/*  f003258:	3c0b800a */ 	lui	$t3,%hi(var800a4cc4)
-/*  f00325c:	8d6b4cc4 */ 	lw	$t3,%lo(var800a4cc4)($t3)
+/*  f003258:	3c0b800a */ 	lui	$t3,%hi(g_BgRooms)
+/*  f00325c:	8d6b4cc4 */ 	lw	$t3,%lo(g_BgRooms)($t3)
 /*  f003260:	8fac0058 */ 	lw	$t4,0x58($sp)
 /*  f003264:	c7a60074 */ 	lwc1	$f6,0x74($sp)
 /*  f003268:	c7a40078 */ 	lwc1	$f4,0x78($sp)
@@ -2279,7 +2279,7 @@ void func0f003444(void)
 	s32 j;
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
-		struct light *light = (struct light *)&g_LightsFileData[g_Rooms[i].lightindex * 0x22];
+		struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[i].lightindex * 0x22];
 		g_Rooms[i].bitfield.prevop = 1;
 		g_Rooms[i].unk60 = 0.5f;
 
@@ -2302,7 +2302,7 @@ void func0f0035c0(void)
 	s32 j;
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
-		struct light *light = (struct light *)&g_LightsFileData[g_Rooms[i].lightindex * 0x22];
+		struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[i].lightindex * 0x22];
 		g_Rooms[i].bitfield.prevop = 1;
 		g_Rooms[i].unk60 = 0;
 
@@ -2652,8 +2652,8 @@ glabel var7f1a7dd4
 /*  f003c10:	10800032 */ 	beqz	$a0,.L0f003cdc
 /*  f003c14:	00001825 */ 	or	$v1,$zero,$zero
 /*  f003c18:	9609000a */ 	lhu	$t1,0xa($s0)
-/*  f003c1c:	3c0b800a */ 	lui	$t3,%hi(g_LightsFileData)
-/*  f003c20:	8d6b4cd8 */ 	lw	$t3,%lo(g_LightsFileData)($t3)
+/*  f003c1c:	3c0b800a */ 	lui	$t3,%hi(g_BgLightsFileData)
+/*  f003c20:	8d6b4cd8 */ 	lw	$t3,%lo(g_BgLightsFileData)($t3)
 /*  f003c24:	00095100 */ 	sll	$t2,$t1,0x4
 /*  f003c28:	01495021 */ 	addu	$t2,$t2,$t1
 /*  f003c2c:	000a5040 */ 	sll	$t2,$t2,0x1
@@ -2725,14 +2725,14 @@ glabel var7f1a7dd4
 .L0f003d14:
 /*  f003d14:	c610005c */ 	lwc1	$f16,0x5c($s0)
 .L0f003d18:
-/*  f003d18:	3c0f800a */ 	lui	$t7,%hi(g_LightsFileData)
+/*  f003d18:	3c0f800a */ 	lui	$t7,%hi(g_BgLightsFileData)
 /*  f003d1c:	46100002 */ 	mul.s	$f0,$f0,$f16
 /*  f003d20:	4600028d */ 	trunc.w.s	$f10,$f0
 /*  f003d24:	440b5000 */ 	mfc1	$t3,$f10
 /*  f003d28:	00000000 */ 	nop
 /*  f003d2c:	a60b0050 */ 	sh	$t3,0x50($s0)
 /*  f003d30:	8e6c0000 */ 	lw	$t4,0x0($s3)
-/*  f003d34:	8def4cd8 */ 	lw	$t7,%lo(g_LightsFileData)($t7)
+/*  f003d34:	8def4cd8 */ 	lw	$t7,%lo(g_BgLightsFileData)($t7)
 /*  f003d38:	01928021 */ 	addu	$s0,$t4,$s2
 /*  f003d3c:	960d000a */ 	lhu	$t5,0xa($s0)
 /*  f003d40:	82040008 */ 	lb	$a0,0x8($s0)
@@ -4005,8 +4005,8 @@ glabel func0f00505c
 /*  f0050dc:	afad0044 */ 	sw	$t5,0x44($sp)
 .L0f0050e0:
 /*  f0050e0:	8fb90070 */ 	lw	$t9,0x70($sp)
-/*  f0050e4:	3c0e800a */ 	lui	$t6,%hi(g_Portals)
-/*  f0050e8:	8dce4cc8 */ 	lw	$t6,%lo(g_Portals)($t6)
+/*  f0050e4:	3c0e800a */ 	lui	$t6,%hi(g_BgPortals)
+/*  f0050e8:	8dce4cc8 */ 	lw	$t6,%lo(g_BgPortals)($t6)
 /*  f0050ec:	8faf0044 */ 	lw	$t7,0x44($sp)
 /*  f0050f0:	0000f025 */ 	or	$s8,$zero,$zero
 /*  f0050f4:	13200003 */ 	beqz	$t9,.L0f005104

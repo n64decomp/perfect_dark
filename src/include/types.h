@@ -4686,7 +4686,7 @@ struct scenariodata {
 	};
 };
 
-struct portal {
+struct bgportal {
 	u16 unk00;
 	s16 roomnum1;
 	s16 roomnum2;
@@ -5995,7 +5995,7 @@ struct var80062a8c {
 	/*0x58*/ u32 unk058;
 };
 
-struct var800a4cc4 {
+struct bgroom {
 	u32 unk00;
 	struct coord pos;
 	u8 unk10;
@@ -6968,15 +6968,6 @@ struct animationdefinition {
 struct portalvertices {
 	s16 count;
 	struct coord vertices[1];
-};
-
-struct bgprimaryheader {
-	u32 unk00;
-	u32 roomtable;
-	u32 portaltable;
-	u32 portalcommands;
-	u32 lighttable;
-	u32 unk14;
 };
 
 #endif

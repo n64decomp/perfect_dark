@@ -14,7 +14,7 @@ void weatherTickRain(struct weatherdata *weather);
 void weatherTickSnow(struct weatherdata *weather);
 void weatherConfigureRain(u32 intensity);
 void weatherConfigureSnow(u32 intensity);
-bool weatherIsRoomWeatherProof(u32 param_1);
+bool weatherIsRoomWeatherProof(s32 room);
 u32 weatherRenderRain(void);
 u32 weatherRenderSnow(void);
 void weatherReset(void);

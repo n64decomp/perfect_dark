@@ -5653,8 +5653,8 @@ glabel func0f06ad2c
 /*  f06aee8:	0fc59392 */ 	jal	portalSetEnabled
 /*  f06aeec:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f06aef0:	862e0062 */ 	lh	$t6,0x62($s1)
-/*  f06aef4:	3c0d800a */ 	lui	$t5,%hi(g_Portals)
-/*  f06aef8:	8dad4cc8 */ 	lw	$t5,%lo(g_Portals)($t5)
+/*  f06aef4:	3c0d800a */ 	lui	$t5,%hi(g_BgPortals)
+/*  f06aef8:	8dad4cc8 */ 	lw	$t5,%lo(g_BgPortals)($t5)
 /*  f06aefc:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f06af00:	01af1021 */ 	addu	$v0,$t5,$t7
 /*  f06af04:	90580006 */ 	lbu	$t8,0x6($v0)
@@ -5678,10 +5678,10 @@ glabel func0f06ad2c
 /*  f06af44:	0fc2353a */ 	jal	doorActivatePortal
 /*  f06af48:	02202025 */ 	or	$a0,$s1,$zero
 /*  f06af4c:	862300c4 */ 	lh	$v1,0xc4($s1)
-/*  f06af50:	3c08800a */ 	lui	$t0,%hi(g_Portals)
+/*  f06af50:	3c08800a */ 	lui	$t0,%hi(g_BgPortals)
 /*  f06af54:	04620008 */ 	bltzl	$v1,.L0f06af78
 /*  f06af58:	8e2c0014 */ 	lw	$t4,0x14($s1)
-/*  f06af5c:	8d084cc8 */ 	lw	$t0,%lo(g_Portals)($t0)
+/*  f06af5c:	8d084cc8 */ 	lw	$t0,%lo(g_BgPortals)($t0)
 /*  f06af60:	000348c0 */ 	sll	$t1,$v1,0x3
 /*  f06af64:	01091021 */ 	addu	$v0,$t0,$t1
 /*  f06af68:	904a0006 */ 	lbu	$t2,0x6($v0)
@@ -27143,15 +27143,15 @@ s32 objTick(struct prop *prop)
 			struct tintedglassobj *glass = (struct tintedglassobj *)obj;
 
 			if (glass->portalnum >= 0) {
-				pass = (g_Portals[glass->portalnum].flags & PORTALFLAG_ENABLED) && (g_Portals[glass->portalnum].flags & PORTALFLAG_04) == 0;
-				g_Portals[glass->portalnum].flags |= PORTALFLAG_04;
+				pass = (g_BgPortals[glass->portalnum].flags & PORTALFLAG_ENABLED) && (g_BgPortals[glass->portalnum].flags & PORTALFLAG_04) == 0;
+				g_BgPortals[glass->portalnum].flags |= PORTALFLAG_04;
 			}
 		} else if (obj->type == OBJTYPE_DOOR) {
 			struct doorobj *door = (struct doorobj *)obj;
 
 			if (door->portalnum >= 0) {
-				pass = (g_Portals[door->portalnum].flags & PORTALFLAG_ENABLED) && (g_Portals[door->portalnum].flags & PORTALFLAG_04) == 0;
-				g_Portals[door->portalnum].flags |= PORTALFLAG_04;
+				pass = (g_BgPortals[door->portalnum].flags & PORTALFLAG_ENABLED) && (g_BgPortals[door->portalnum].flags & PORTALFLAG_04) == 0;
+				g_BgPortals[door->portalnum].flags |= PORTALFLAG_04;
 			}
 		}
 
@@ -35002,11 +35002,11 @@ glabel func0f084e58
 /*  f084e80:	afa20088 */ 	sw	$v0,0x88($sp)
 /*  f084e84:	8fa60098 */ 	lw	$a2,0x98($sp)
 /*  f084e88:	00404025 */ 	or	$t0,$v0,$zero
-/*  f084e8c:	3c0f800a */ 	lui	$t7,%hi(g_Portals)
+/*  f084e8c:	3c0f800a */ 	lui	$t7,%hi(g_BgPortals)
 /*  f084e90:	84c400c4 */ 	lh	$a0,0xc4($a2)
 /*  f084e94:	04820010 */ 	bltzl	$a0,.L0f084ed8
 /*  f084e98:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f084e9c:	8def4cc8 */ 	lw	$t7,%lo(g_Portals)($t7)
+/*  f084e9c:	8def4cc8 */ 	lw	$t7,%lo(g_BgPortals)($t7)
 /*  f084ea0:	0004c0c0 */ 	sll	$t8,$a0,0x3
 /*  f084ea4:	01f82821 */ 	addu	$a1,$t7,$t8
 /*  f084ea8:	90a30006 */ 	lbu	$v1,0x6($a1)

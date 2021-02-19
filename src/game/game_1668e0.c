@@ -199,15 +199,15 @@ glabel func0f166a6c
 /*  f166b48:	00000000 */ 	nop
 /*  f166b4c:	846d0700 */ 	lh	$t5,0x700($v1)
 .L0f166b50:
-/*  f166b50:	3c03800a */ 	lui	$v1,%hi(var800a4cc4)
+/*  f166b50:	3c03800a */ 	lui	$v1,%hi(g_BgRooms)
 /*  f166b54:	24010071 */ 	addiu	$at,$zero,0x71
 /*  f166b58:	144d0015 */ 	bne	$v0,$t5,.L0f166bb0
-/*  f166b5c:	24634cc4 */ 	addiu	$v1,$v1,%lo(var800a4cc4)
+/*  f166b5c:	24634cc4 */ 	addiu	$v1,$v1,%lo(g_BgRooms)
 /*  f166b60:	54a10014 */ 	bnel	$a1,$at,.L0f166bb4
 /*  f166b64:	8c6a0000 */ 	lw	$t2,0x0($v1)
 .L0f166b68:
-/*  f166b68:	3c03800a */ 	lui	$v1,%hi(var800a4cc4)
-/*  f166b6c:	24634cc4 */ 	addiu	$v1,$v1,%lo(var800a4cc4)
+/*  f166b68:	3c03800a */ 	lui	$v1,%hi(g_BgRooms)
+/*  f166b6c:	24634cc4 */ 	addiu	$v1,$v1,%lo(g_BgRooms)
 /*  f166b70:	8c6e0000 */ 	lw	$t6,0x0($v1)
 /*  f166b74:	00051080 */ 	sll	$v0,$a1,0x2
 /*  f166b78:	00451021 */ 	addu	$v0,$v0,$a1
@@ -380,12 +380,12 @@ glabel func0f166d7c
 
 struct coord *func0f166dd0(s32 room)
 {
-	return &var800a4cc4[room].pos;
+	return &g_BgRooms[room].pos;
 }
 
 void func0f166df0(s32 room, struct coord *globaldrawworldoffset)
 {
-	globaldrawworldoffset->x = var800a4cc4[room].pos.x;
-	globaldrawworldoffset->y = var800a4cc4[room].pos.y;
-	globaldrawworldoffset->z = var800a4cc4[room].pos.z;
+	globaldrawworldoffset->x = g_BgRooms[room].pos.x;
+	globaldrawworldoffset->y = g_BgRooms[room].pos.y;
+	globaldrawworldoffset->z = g_BgRooms[room].pos.z;
 }

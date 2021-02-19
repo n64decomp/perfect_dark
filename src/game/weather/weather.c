@@ -236,7 +236,7 @@ struct weatherparticledata *weatherAllocateParticles(void)
 
 	weatherSetBoundaries(data, 0, -800, 800);
 
-	if (g_StageIndex == STAGEINDEX_CRASHSITE) {
+	if ((u32)g_StageIndex == STAGEINDEX_CRASHSITE) {
 		weatherSetBoundaries(data, 1, -500, 500);
 	} else {
 		weatherSetBoundaries(data, 1, -800, 800);
@@ -250,7 +250,7 @@ struct weatherparticledata *weatherAllocateParticles(void)
 		data->unk3ec8[i++] = 0;
 	}
 
-	for (i = 0; i != ARRAYCOUNT(g_WeatherData->particledata->particles); i++) {
+	for (i = 0; i != (s32)ARRAYCOUNT(g_WeatherData->particledata->particles); i++) {
 		struct weatherparticle *particle = &data->particles[i];
 		particle->pos.x = random() * (1.0f / U32_MAX) * 1600 - 800;
 		particle->pos.y = random() * (1.0f / U32_MAX) * 1600 - 800;
@@ -763,7 +763,7 @@ void weatherConfigureSnow(u32 intensity)
 	}
 }
 
-bool weatherIsRoomWeatherProof(u32 room)
+bool weatherIsRoomWeatherProof(s32 room)
 {
 	if (g_StageIndex == STAGEINDEX_CHICAGO) {
 		// Rooms listed do not have weather

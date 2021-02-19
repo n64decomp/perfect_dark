@@ -701,22 +701,19 @@ extern struct shard *g_Shards;
 extern struct var800a45d0 var800a45d0;
 extern Gfx *var800a4634;
 extern struct var800a4640 var800a4640;
-extern struct bgprimaryheader *g_BgPrimaryData;
-extern u32 var800a4920;
 extern u32 g_BgSection3;
 extern struct room *g_Rooms;
 extern u8 *g_MpRoomVisibility;
 extern s16 g_ActiveRoomNums[350];
 extern s32 g_NumActiveRooms;
 extern s16 var800a4bf8[100];
-extern struct bgprimaryheader *g_BgPrimaryData2;
-extern struct var800a4cc4 *var800a4cc4;
-extern struct portal *g_Portals;
+extern struct bgroom *g_BgRooms;
+extern struct bgportal *g_BgPortals;
 extern struct var800a4ccc *var800a4ccc; // indexed by portalnum
 extern u8 *var800a4cd0;
-extern struct portalcmd *g_PortalCommands;
-extern u8 *g_LightsFileData;
-extern void *var800a4cdc;
+extern struct portalcmd *g_BgPortalCommands;
+extern u8 *g_BgLightsFileData;
+extern void *g_BgTable5;
 extern s16 *g_RoomPortals; // portal numbers for each room, ordered by room
 extern struct var800a4ce8 *var800a4ce8;
 extern struct portalthing *g_PortalThings;

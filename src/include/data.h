@@ -459,7 +459,7 @@ extern struct font2a4 *g_FontHandelGothicMd1;
 extern struct font *g_FontHandelGothicLg2;
 extern struct font2a4 *g_FontHandelGothicLg1;
 extern u32 var8007fb9c;
-extern u32 g_StageIndex;
+extern s32 g_StageIndex;
 extern s16 var8007fc0c;
 extern u32 var8007fc24;
 extern u16 var8007fc3c;

@@ -1840,8 +1840,8 @@ glabel func00017cbc
 
 GLOBAL_ASM(
 glabel func00017ce0
-/*    17ce0:	3c03800a */ 	lui	$v1,%hi(g_Portals)
-/*    17ce4:	8c634cc8 */ 	lw	$v1,%lo(g_Portals)($v1)
+/*    17ce0:	3c03800a */ 	lui	$v1,%hi(g_BgPortals)
+/*    17ce4:	8c634cc8 */ 	lw	$v1,%lo(g_BgPortals)($v1)
 /*    17ce8:	000470c0 */ 	sll	$t6,$a0,0x3
 /*    17cec:	3c013f80 */ 	lui	$at,0x3f80
 /*    17cf0:	006e7821 */ 	addu	$t7,$v1,$t6
@@ -1950,10 +1950,10 @@ glabel func00017e30
 /*    17e54:	c4a40004 */ 	lwc1	$f4,0x4($a1)
 /*    17e58:	460e6282 */ 	mul.s	$f10,$f12,$f14
 /*    17e5c:	c5020008 */ 	lwc1	$f2,0x8($t0)
-/*    17e60:	3c07800a */ 	lui	$a3,%hi(g_Portals)
+/*    17e60:	3c07800a */ 	lui	$a3,%hi(g_BgPortals)
 /*    17e64:	46102182 */ 	mul.s	$f6,$f4,$f16
 /*    17e68:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*    17e6c:	8ce74cc8 */ 	lw	$a3,%lo(g_Portals)($a3)
+/*    17e6c:	8ce74cc8 */ 	lw	$a3,%lo(g_BgPortals)($a3)
 /*    17e70:	000478c0 */ 	sll	$t7,$a0,0x3
 /*    17e74:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*    17e78:	00efc021 */ 	addu	$t8,$a3,$t7
@@ -2197,7 +2197,7 @@ glabel func00018148
 /*    181e8:	240100ff */ 	addiu	$at,$zero,0xff
 /*    181ec:	312a00ff */ 	andi	$t2,$t1,0xff
 /*    181f0:	15410010 */ 	bne	$t2,$at,.L00018234
-/*    181f4:	3c14800a */ 	lui	$s4,%hi(g_Portals)
+/*    181f4:	3c14800a */ 	lui	$s4,%hi(g_BgPortals)
 /*    181f8:	3c038008 */ 	lui	$v1,%hi(g_NumPortalThings)
 /*    181fc:	8c63fc40 */ 	lw	$v1,%lo(g_NumPortalThings)($v1)
 /*    18200:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x520)
@@ -2216,7 +2216,7 @@ glabel func00018148
 /*    1822c:	3c018006 */ 	lui	$at,%hi(var8005ef20)
 /*    18230:	a020ef20 */ 	sb	$zero,%lo(var8005ef20)($at)
 .L00018234:
-/*    18234:	26944cc8 */ 	addiu	$s4,$s4,%lo(g_Portals)
+/*    18234:	26944cc8 */ 	addiu	$s4,$s4,%lo(g_BgPortals)
 /*    18238:	87b5009c */ 	lh	$s5,0x9c($sp)
 .L0001823c:
 /*    1823c:	a7a4007c */ 	sh	$a0,0x7c($sp)
