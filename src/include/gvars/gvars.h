@@ -708,7 +708,6 @@ extern struct room *g_Rooms;
 extern u8 *g_MpRoomVisibility;
 extern s16 g_ActiveRoomNums[350];
 extern s32 g_NumActiveRooms;
-extern u16 var800a4bf0[2];
 extern s16 var800a4bf8[100];
 extern struct bgprimaryheader *g_BgPrimaryData2;
 extern struct var800a4cc4 *var800a4cc4;
