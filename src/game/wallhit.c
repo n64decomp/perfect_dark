@@ -60,6 +60,10 @@ const char var7f1b5cc8[] = "";
 const char var7f1b5ccc[] = "";
 const char var7f1b5cd0[] = "Wallhit colour %d not implemented, substituting black\n";
 
+struct var800a41b0 *var800a41b0;
+struct var800a41b0 *var800a41b4;
+u32 var800a41b8;
+
 u32 var8007f740 = 0x00000000;
 u8 var8007f744[4] = {0x40, 0x0a, 0x0a, 0x00};
 u32 var8007f748 = 0x3f800000;

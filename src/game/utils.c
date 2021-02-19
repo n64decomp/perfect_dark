@@ -14,6 +14,19 @@ const char var7f1b7d2c[] = "";
 const char var7f1b7d30[] = "";
 const char var7f1b7d34[] = "Utils -> Attempt to normalise zeo length vector\n";
 
+u32 var800ac0d0;
+u32 var800ac0d4;
+u32 var800ac0d8;
+u32 var800ac0dc;
+u32 var800ac0e0;
+u32 var800ac0e4;
+u32 var800ac0e8;
+u32 var800ac0ec;
+u32 var800ac0f0;
+u32 var800ac0f4;
+u32 var800ac0f8[4];
+u32 var800ac108;
+
 f32 var800845d0 = 999999;
 f32 var800845d4 = 0.00001f;
 s32 var800845d8 = 1;

@@ -2027,6 +2027,9 @@ extern void *_file_Asaucerexp1M;
 #endif
 extern void *_filenamesSegmentRomStart;
 
+struct fileinfo g_FileInfo[NUM_FILES];
+u32 var800aa570;
+
 void *filetable[] = {
 	/*0x0000*/ NULL,
 	/*0x0001*/ &_file_bg_sev_seg,

@@ -12,6 +12,15 @@
 const char var7f1b5960[] = "modula";
 const char var7f1b5968[] = "ripsize";
 
+u32 var800a4180;
+u32 var800a4184;
+u32 var800a4188;
+u32 var800a418c;
+u32 var800a4190;
+u32 var800a4194;
+u32 var800a4198;
+u32 var800a419c;
+
 u32 var8007f6e0 = 0xffffffff;
 u32 var8007f6e4 = 0xffffffff;
 u32 var8007f6e8 = 0x00000000;

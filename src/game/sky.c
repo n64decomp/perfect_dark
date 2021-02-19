@@ -13,6 +13,11 @@
 #include "data.h"
 #include "types.h"
 
+u32 var800a4150;
+f32 *var800a4154;
+s32 var800a4158;
+u32 var800a415c;
+
 u32 var8007f120 = 0x00000000;
 u32 var8007f124 = 0x00000000;
 u32 var8007f128 = 0x00000000;

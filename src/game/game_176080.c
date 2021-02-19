@@ -11,6 +11,12 @@
 #include "data.h"
 #include "types.h"
 
+u32 var800ab7c0;
+u32 var800ab7c4;
+u8 var800ab7c8[0x300];
+u8 var800abac8[0x300];
+u8 var800abdc8[0x300];
+
 void *var800844f0 = NULL;
 void *var800844f4 = NULL;
 u32 var800844f8 = 0;

@@ -32,6 +32,11 @@ const u32 var7f1b7414[] = {0x7f7fffff};
 const u32 var7f1b7418[] = {0x00000000};
 const u32 var7f1b741c[] = {0x00000000};
 
+struct var800a45d0 var800a45d0;
+Gfx *var800a4634;
+u32 var800a4638;
+u32 var800a463c;
+
 s32 g_ScaleX = 1;
 u32 var8007fac4 = 0x00000000;
 u32 var8007fac8 = 0x00000000;

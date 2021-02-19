@@ -21,6 +21,39 @@
 #include "data.h"
 #include "types.h"
 
+u32 var800a22d0;
+u32 var800a22d4;
+u32 var800a22d8;
+u32 var800a22dc;
+u32 var800a22e0;
+u32 var800a22e4;
+u32 var800a22e8;
+u32 var800a22ec;
+u32 var800a22f0;
+u32 var800a22f4;
+u32 var800a22f8;
+u32 var800a22fc;
+u32 var800a2300;
+u32 var800a2304;
+u32 var800a2308;
+u32 var800a230c;
+u32 var800a2310;
+u32 var800a2314;
+u32 var800a2318;
+u32 var800a231c;
+u32 var800a2320;
+u32 var800a2324;
+u8 var800a2328[];
+u8 g_AltTitle;
+u32 var800a2330;
+u32 var800a2334;
+u32 var800a2338;
+u32 var800a233c;
+u32 var800a2340;
+u32 var800a2344;
+u32 var800a2348;
+u32 var800a234c;
+
 struct filelist *g_FileLists[] = { NULL, NULL, NULL, NULL };
 bool var80075bd0[] = { true, true, true, true };
 

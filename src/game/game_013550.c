@@ -5,6 +5,22 @@
 #include "data.h"
 #include "types.h"
 
+u16 *var8009cc40;
+s32 var8009cc44;
+u32 var8009cc48;
+u32 var8009cc4c;
+u32 var8009cc50;
+u32 var8009cc54;
+u32 var8009cc58;
+u32 var8009cc5c;
+u32 var8009cc60;
+s32 var8009cc64;
+u32 var8009cc68;
+u32 var8009cc6c;
+u32 var8009cc70;
+u32 var8009cc74;
+f32 var8009cc78;
+
 /**
  * Initialises an array of room numbers and a linked list of structs.
  *

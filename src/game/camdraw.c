@@ -19,6 +19,15 @@
 #include "data.h"
 #include "types.h"
 
+u32 var800a45a0;
+u32 var800a45a4;
+u32 var800a45a8;
+u32 var800a45ac;
+u32 var800a45b0;
+u32 var800a45b4;
+u32 var800a45b8;
+u32 var800a45bc;
+
 const char var7f1b6050[] = "Init";
 const char var7f1b6058[] = "Start Header Read";
 const char var7f1b606c[] = "Header Read Done";

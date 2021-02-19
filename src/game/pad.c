@@ -5,6 +5,16 @@
 #include "data.h"
 #include "types.h"
 
+s32 *g_PadsFile;
+u16 *g_PadOffsets;
+u32 var800a2358;
+u32 var800a235c;
+u16 *g_CoverFlags;
+s32 *g_CoverRooms;
+void *var800a2368;
+u16 g_NumSpecialCovers;
+u16 *g_SpecialCoverNums;
+
 GLOBAL_ASM(
 glabel padUnpack
 /*  f115ab0:	3c0e800a */ 	lui	$t6,%hi(g_PadOffsets)

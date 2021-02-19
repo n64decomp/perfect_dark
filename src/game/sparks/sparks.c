@@ -21,6 +21,19 @@ const u32 var7f1b5614[] = {0x00000000};
 const u32 var7f1b5618[] = {0x00000000};
 const u32 var7f1b561c[] = {0x00000000};
 
+struct spark g_Sparks[100];
+u32 g_NextSparkIndex;
+u32 var800a3fc4;
+struct sparkgroup g_SparkGroups[10];
+u32 var800a4130;
+u32 var800a4134;
+u32 var800a4138;
+u32 var800a413c;
+u32 var800a4140;
+u32 var800a4144;
+u32 var800a4148;
+u32 var800a414c;
+
 struct sparktype g_SparkTypes[] = {
 	//                                     weight
 	//                                     |     max age

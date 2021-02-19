@@ -12,6 +12,8 @@
 #include "data.h"
 #include "types.h"
 
+struct prop *g_DangerousProps[MAX_DANGEROUSPROPS];
+
 struct stageheadlimit g_StageHeadLimits[3] = {
 	{ STAGE_INFILTRATION, 5 },
 	{ STAGE_RESCUE,       4 },

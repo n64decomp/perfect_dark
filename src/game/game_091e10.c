@@ -10,6 +10,9 @@
 #include "data.h"
 #include "types.h"
 
+struct stagesetup g_StageSetup;
+u8 *g_GeCreditsData;
+
 u32 setupGetCommandLength(u32 *cmd)
 {
 	switch ((u8)cmd[0]) {

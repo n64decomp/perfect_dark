@@ -283,7 +283,9 @@ SECTIONS
 
 	BEGIN_NOLOAD(gvars)
 	{
+		LIBFILES(.bss)
 		build/ROMID/gvars/gvars.o (.data);
+		GAMEFILES(.bss)
 	}
 	END_NOLOAD(gvars)
 

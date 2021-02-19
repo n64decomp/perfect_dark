@@ -33,6 +33,13 @@
  * marker for the end of the second element's allocation.
  */
 
+u8 *g_GfxBuffers[3];
+u32 var800aa58c;
+u8 *g_VtxBuffers[3];
+u8 *g_GfxMemPos;
+u8 g_GfxActiveBufferIndex;
+u32 g_GfxRequestedDisplayList;
+
 u32 g_GfxSizesByPlayerCount[] = {
 	0x00010000,
 	0x00018000,

@@ -12,6 +12,9 @@
 #include "data.h"
 #include "types.h"
 
+s32 g_MaxShards;
+struct shard *g_Shards;
+
 u32 var8007fa80 = 0x00000000;
 bool g_ShardsActive = false;
 

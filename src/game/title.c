@@ -29,6 +29,12 @@
 #include "data.h"
 #include "types.h"
 
+u8 *var8009cca0;
+u32 var8009cca4;
+u8 *var8009cca8[2];
+u8 *var8009ccb0[2];
+u32 var8009ccb8;
+
 s16 var800624a0 = 480;
 s32 var800624a4 = false;
 u32 var800624a8 = 0x00000000;

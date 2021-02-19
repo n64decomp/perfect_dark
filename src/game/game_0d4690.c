@@ -31,6 +31,11 @@ const u32 var7f1adbe4[] = {0x00000000};
 const u32 var7f1adbe8[] = {0x00000000};
 const u32 var7f1adbec[] = {0x00000000};
 
+u32 var8009de90;
+u32 var8009de94;
+u32 var8009de98;
+u32 var8009de9c;
+
 u32 var80070f10 = 0x00000000;
 u32 var80070f14 = 0x000003e8;
 u32 var80070f18 = 0x00000014;

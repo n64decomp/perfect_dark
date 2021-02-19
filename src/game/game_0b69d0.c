@@ -75,6 +75,34 @@ const char var7f1ad4c4[] = "Gunmem: bondmeml 0x%08x size 0x%08x\n";
 const char var7f1ad4ec[] = "Gunmem: tex block free 0x%08x\n";
 const char var7f1ad50c[] = "Gunmem: Free at end %d\n";
 
+s32 g_DefaultWeapons[2];
+f32 var8009ddd8;
+f32 var8009dddc;
+f32 var8009dde0;
+f32 var8009dde4;
+s16 g_WarpPadId;
+u32 *var8009ddec;
+f32 var8009ddf0;
+f32 var8009ddf4;
+f32 var8009ddf8;
+f32 var8009ddfc;
+f32 var8009de00;
+u32 var8009de04;
+u32 var8009de08;
+u32 var8009de0c;
+s32 g_CameraAnimCurFrame;
+u32 var8009de14;
+s16 g_CameraAnimNum;
+f32 g_CutsceneBlurFrac;
+s32 var8009de20;
+s32 var8009de24;
+f32 var8009de28;
+s32 var8009de2c;
+f32 var8009de30;
+u32 var8009de34;
+s16 g_SpawnPoints[MAX_SPAWNPOINTS];
+s32 g_NumSpawnPoints;
+
 struct vimode g_ViModes[] = {
 	//  fbwidth
 	//  |    fbheight

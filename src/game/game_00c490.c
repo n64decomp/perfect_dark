@@ -37,6 +37,11 @@
 #include "data.h"
 #include "types.h"
 
+s32 var8009cc30;
+u32 var8009cc34;
+u32 var8009cc38;
+u32 var8009cc3c;
+
 struct monitorscreen var80061a80 = {
 	(u32) &var80069d90,
 	0x0000ffff,

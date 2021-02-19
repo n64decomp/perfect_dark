@@ -48,6 +48,10 @@
 #include "data.h"
 #include "types.h"
 
+u32 var8009d140;
+u32 var8009d144;
+u32 var8009d148;
+
 u32 var80070090 = 0x96969600;
 u32 var80070094 = 0x96969600;
 u32 var80070098 = 0xffffff00;

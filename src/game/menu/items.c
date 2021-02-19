@@ -21,6 +21,8 @@
 #include "data.h"
 #include "types.h"
 
+u8 g_MpSelectedPlayersForStats[4];
+
 const char var7f1adfa0[] = "brcol";
 const char var7f1adfa8[] = "%d: ";
 const char var7f1adfb0[] = "%s";

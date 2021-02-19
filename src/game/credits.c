@@ -27,6 +27,12 @@
 const char var7f1b57c0[] = "tload";
 const char var7f1b57c8[] = "dump";
 
+f32 var800a4160;
+u32 var800a4164;
+u32 var800a4168;
+u32 var800a416c;
+struct creditsdata *g_CreditsData;
+
 u32 var8007f130 = 0x00000000;
 bool g_CreditsAltTitleRequested = false;
 bool g_CreditsUsingAltTitle = false;

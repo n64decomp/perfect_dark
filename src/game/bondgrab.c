@@ -22,6 +22,15 @@ const char var7f1ad940[] = "bondgrab.c";
 const char var7f1ad94c[] = "bondgrab.c";
 const char var7f1ad958[] = "bondgrab.c";
 
+u32 var8009de70;
+u32 var8009de74;
+u32 var8009de78;
+u32 var8009de7c;
+u32 var8009de80;
+u32 var8009de84;
+u32 var8009de88;
+u32 var8009de8c;
+
 u32 var80070e80 = 0x00000000;
 u32 var80070e84 = 0x00000000;
 u32 var80070e88 = 0x00000000;

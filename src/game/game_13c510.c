@@ -50,6 +50,11 @@ const u32 var7f1b5a04[] = {0x3b888889};
 const u32 var7f1b5a08[] = {0x3b888889};
 const u32 var7f1b5a0c[] = {0x3ecccccd};
 
+u32 var800a41a0;
+u32 var800a41a4;
+u32 var800a41a8;
+u32 var800a41ac;
+
 void func0f13c510(void)
 {
 	struct bootbufferthing *thing = bbufGetIndex0Buffer();

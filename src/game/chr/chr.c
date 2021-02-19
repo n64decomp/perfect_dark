@@ -47,6 +47,12 @@
 
 const char var7f1a8690[] = "chr/chr.c";
 
+void *var8009ccc0[20];
+s32 g_NumChrs;
+s16 *g_Chrnums;
+s16 *g_ChrIndexes;
+u32 var8009cd1c;
+
 u8 g_FileState = 0;
 u8 var80062944 = 0;
 u8 var80062948 = 0;

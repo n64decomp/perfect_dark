@@ -30,6 +30,8 @@
 #include "data.h"
 #include "types.h"
 
+u8 g_InventoryWeapon;
+
 struct menudialog g_2PMissionControlStyleMenuDialog;
 struct menudialog g_CiControlPlayer2MenuDialog;
 struct menudialog g_CinemaMenuDialog;

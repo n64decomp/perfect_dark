@@ -32,6 +32,8 @@
 #include "data.h"
 #include "types.h"
 
+struct chrdata *g_MpSimulantChrs[MAX_SIMULANTS];
+
 u8 g_NumMpSimulantChrs = 0;
 
 struct simdifficulty g_SimDifficulties[] = {

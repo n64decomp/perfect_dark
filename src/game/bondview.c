@@ -19,6 +19,8 @@
 #include "types.h"
 #include "gbiex.h"
 
+char var800a41c0[990];
+
 s32 var8007f840 = 0x00000000;
 u8 var8007f844 = 0;
 u8 var8007f848 = 0;
@@ -6662,8 +6664,8 @@ glabel bviewRenderIrLens
 /*  f147744:	524c0010 */ 	beql	$s2,$t4,.L0f147788
 /*  f147748:	240800ff */ 	addiu	$t0,$zero,0xff
 /*  f14774c:	8ecd028c */ 	lw	$t5,0x28c($s6)
-/*  f147750:	3c0f800a */ 	lui	$t7,%hi(var800a41d8)
-/*  f147754:	25ef41d8 */ 	addiu	$t7,$t7,%lo(var800a41d8)
+/*  f147750:	3c0f800a */ 	lui	$t7,%hi(var800a41c0+0x18)
+/*  f147754:	25ef41d8 */ 	addiu	$t7,$t7,%lo(var800a41c0+0x18)
 /*  f147758:	000d7100 */ 	sll	$t6,$t5,0x4
 /*  f14775c:	01cd7023 */ 	subu	$t6,$t6,$t5
 /*  f147760:	000e7140 */ 	sll	$t6,$t6,0x5
@@ -6683,8 +6685,8 @@ glabel bviewRenderIrLens
 /*  f147790:	18a0001b */ 	blez	$a1,.L0f147800
 /*  f147794:	afa70064 */ 	sw	$a3,0x64($sp)
 /*  f147798:	afa70064 */ 	sw	$a3,0x64($sp)
-/*  f14779c:	3c07800a */ 	lui	$a3,%hi(var800a41d8)
-/*  f1477a0:	24e741d8 */ 	addiu	$a3,$a3,%lo(var800a41d8)
+/*  f14779c:	3c07800a */ 	lui	$a3,%hi(var800a41c0+0x18)
+/*  f1477a0:	24e741d8 */ 	addiu	$a3,$a3,%lo(var800a41c0+0x18)
 /*  f1477a4:	afa600ac */ 	sw	$a2,0xac($sp)
 /*  f1477a8:	240400ff */ 	addiu	$a0,$zero,0xff
 .L0f1477ac:
@@ -6734,13 +6736,13 @@ glabel bviewRenderIrLens
 /*  f147850:	8ecf0288 */ 	lw	$t7,0x288($s6)
 /*  f147854:	02b50019 */ 	multu	$s5,$s5
 /*  f147858:	8ecb028c */ 	lw	$t3,0x28c($s6)
-/*  f14785c:	3c0d800a */ 	lui	$t5,%hi(var800a41d8)
+/*  f14785c:	3c0d800a */ 	lui	$t5,%hi(var800a41c0+0x18)
 /*  f147860:	3c013f80 */ 	lui	$at,0x3f80
 /*  f147864:	000b6100 */ 	sll	$t4,$t3,0x4
 /*  f147868:	018b6023 */ 	subu	$t4,$t4,$t3
 /*  f14786c:	000c6140 */ 	sll	$t4,$t4,0x5
 /*  f147870:	0191c821 */ 	addu	$t9,$t4,$s1
-/*  f147874:	25ad41d8 */ 	addiu	$t5,$t5,%lo(var800a41d8)
+/*  f147874:	25ad41d8 */ 	addiu	$t5,$t5,%lo(var800a41c0+0x18)
 /*  f147878:	4481b000 */ 	mtc1	$at,$f22
 /*  f14787c:	0000b812 */ 	mflo	$s7
 /*  f147880:	032d1021 */ 	addu	$v0,$t9,$t5
@@ -6856,8 +6858,8 @@ glabel bviewRenderIrLens
 /*  f147a24:	0040a025 */ 	or	$s4,$v0,$zero
 .L0f147a28:
 /*  f147a28:	8eca028c */ 	lw	$t2,0x28c($s6)
-/*  f147a2c:	3c19800a */ 	lui	$t9,%hi(var800a41d8)
-/*  f147a30:	273941d8 */ 	addiu	$t9,$t9,%lo(var800a41d8)
+/*  f147a2c:	3c19800a */ 	lui	$t9,%hi(var800a41c0+0x18)
+/*  f147a30:	273941d8 */ 	addiu	$t9,$t9,%lo(var800a41c0+0x18)
 /*  f147a34:	000a5900 */ 	sll	$t3,$t2,0x4
 /*  f147a38:	016a5823 */ 	subu	$t3,$t3,$t2
 /*  f147a3c:	000b5940 */ 	sll	$t3,$t3,0x5

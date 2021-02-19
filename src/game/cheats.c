@@ -12,6 +12,11 @@
 #include "data.h"
 #include "types.h"
 
+u32 g_CheatsActiveBank0;
+u32 g_CheatsActiveBank1;
+u32 g_CheatsEnabledBank0;
+u32 g_CheatsEnabledBank1;
+
 struct menuitem g_CheatsBuddiesMenuItems[];
 struct menudialog g_CheatsBuddiesMenuDialog;
 

@@ -83,6 +83,22 @@ const char var7f1a9fd0[] = "kkg";
 const char var7f1a9fd4[] = "kkd";
 const char var7f1a9fd8[] = "kkp";
 
+struct weaponobj *g_ProxyMines[30];
+u32 var8009ce38;
+u32 var8009ce3c;
+s32 var8009ce40;
+s32 var8009ce44;
+s32 var8009ce48;
+s32 var8009ce4c;
+s32 g_NumProjectiles;
+s32 g_NumMonitorThings;
+struct var8009ce58 *var8009ce58;
+struct defaultobj *var8009ce5c;
+struct var8009ce60 *var8009ce60;
+struct defaultobj *var8009ce64;
+struct projectile *g_Projectiles;
+struct monitorthing *g_MonitorThings;
+
 u32 g_TintedGlassEnabled = 0;
 s32 g_AlarmTimer = 0;
 struct audiohandle *g_AlarmAudioHandle = NULL;
@@ -94,9 +110,9 @@ f32 var800698ec[3] = {0};
 u32 var800698f8 = 0x00000000;
 f32 var800698fc = 0;
 struct audiohandle *var80069900 = NULL;
-u32 g_CountdownTimerVisible = 1; // 80069904
-bool g_CountdownTimerRunning = false; // 80069908
-f32 g_CountdownTimerValue = 0; // 8006990c
+u32 g_CountdownTimerVisible = 1;
+bool g_CountdownTimerRunning = false;
+f32 g_CountdownTimerValue = 0;
 u32 var80069910 = 0x00000000;
 u32 var80069914 = 0x00000000;
 u32 var80069918 = 0x00000000;

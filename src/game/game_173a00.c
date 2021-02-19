@@ -7,6 +7,11 @@
 #include "data.h"
 #include "types.h"
 
+s32 var800ab5b0;
+u32 var800ab5b4;
+struct var800ab5b8 var800ab5b8[8];
+struct var800ab718 var800ab718[8];
+
 u32 var80084330 = 0x80878088;
 u32 var80084334 = 0x06000000;
 
@@ -381,10 +386,10 @@ glabel func0f173cb8
 /*  f173d04:	14680006 */ 	bne	$v1,$t0,.L0f173d20
 /*  f173d08:	00064900 */ 	sll	$t1,$a2,0x4
 /*  f173d0c:	01255021 */ 	addu	$t2,$t1,$a1
-/*  f173d10:	3c02800b */ 	lui	$v0,%hi(var800aabe0)
+/*  f173d10:	3c02800b */ 	lui	$v0,%hi(var800aabd8+0x8)
 /*  f173d14:	004a1021 */ 	addu	$v0,$v0,$t2
 /*  f173d18:	03e00008 */ 	jr	$ra
-/*  f173d1c:	9042abe0 */ 	lbu	$v0,%lo(var800aabe0)($v0)
+/*  f173d1c:	9042abe0 */ 	lbu	$v0,%lo(var800aabd8+0x8)($v0)
 .L0f173d20:
 /*  f173d20:	24c60001 */ 	addiu	$a2,$a2,0x1
 /*  f173d24:	00c2082a */ 	slt	$at,$a2,$v0

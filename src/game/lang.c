@@ -7,6 +7,10 @@
 #include "data.h"
 #include "types.h"
 
+u32 *g_LangBanks[69];
+void *var800aabb4;
+struct var800aabb8 *var800aabb8;
+
 u32 g_LanguageId = 0;
 
 u16 g_LangFiles[] = {

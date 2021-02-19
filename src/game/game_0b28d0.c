@@ -6,6 +6,15 @@
 #include "data.h"
 #include "types.h"
 
+u32 var8009dd00;
+u32 var8009dd04;
+u32 var8009dd08;
+u32 var8009dd0c;
+u32 var8009dd10;
+u32 var8009dd14;
+u32 var8009dd18;
+u32 var8009dd1c;
+
 u32 var800705a0 = 0x00000000;
 u32 var800705a4 = 0x00000000;
 bool var800705a8 = false;

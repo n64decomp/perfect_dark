@@ -111,6 +111,10 @@ const char var7f1b774c[] = "pos:%s%s %.2f %.2f %.2f\n";
 const char var7f1b7768[] = "";
 const char var7f1b776c[] = "";
 
+struct audiohandle *g_MiscSfxAudioHandles[3];
+u32 var800aa5bc;
+s32 g_MiscSfxActiveTypes[3];
+
 u32 var80084010 = 0;
 bool var80084014 = false;
 f32 var80084018 = 1;

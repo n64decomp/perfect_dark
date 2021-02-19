@@ -47,6 +47,9 @@ const char var7f1b5564[] = "";
 const char var7f1b5568[] = "";
 const char var7f1b556c[] = "";
 
+struct explosion *g_Explosions;
+s32 g_MaxExplosions;
+
 u32 var8007e4a0 = 0x00000000;
 u32 var8007e4a4 = 0x00000000;
 f32 var8007e4a8 = 1;

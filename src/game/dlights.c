@@ -67,6 +67,16 @@ const char var7f1a7d10[] = "L2 -> Allocated %uK for the compressed acoustic shad
 const char var7f1a7d50[] = "L2(%d) -> ";
 const char var7f1a7d5c[] = "L2 -> Finished building portal range table\n";
 
+u32 var8009cad0;
+u32 var8009cad4;
+u32 var8009cad8;
+u32 var8009cadc;
+u32 var8009cae0;
+u32 var8009cae4;
+u32 var8009cae8;
+u8 var8009caec[4];
+u8 var8009caf0;
+
 struct var80061420 *var80061420 = NULL;
 u32 var80061424 = 0x00000000;
 u32 var80061428 = 0x00000000;

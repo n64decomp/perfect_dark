@@ -14,6 +14,12 @@ const u32 var7f1a83b4[] = {0x00000000};
 const u32 var7f1a83b8[] = {0x00000000};
 const u32 var7f1a83bc[] = {0x00000000};
 
+Mtx *var8009cc80;
+Mtx *var8009cc84;
+Mtx *var8009cc88;
+f32 var8009cc8c;
+void *var8009cc90;
+
 u32 var80062410 = 0x00000000;
 u8 var80062414 = 3;
 u32 var80062418 = 0x00dc0000;

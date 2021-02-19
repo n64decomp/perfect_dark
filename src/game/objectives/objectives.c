@@ -21,6 +21,41 @@
 #include "data.h"
 #include "types.h"
 
+struct objective *g_Objectives[MAX_OBJECTIVES];
+u32 g_ObjectiveStatuses[MAX_OBJECTIVES];
+struct tag *g_TagsLinkedList;
+struct briefingobj *g_BriefingObjs;
+struct criteria_roomentered *g_RoomEnteredCriterias;
+struct criteria_multiroomentered *g_MultiroomEnteredCriterias;
+struct criteria_holograph *g_HolographCriterias;
+s32 g_NumTags;
+struct tag **g_TagPtrs;
+u32 var8009d0cc;
+u32 var8009d0d0[2];
+s32 var8009d0d8;
+u32 var8009d0dc;
+u32 var8009d0e0[4];
+u32 var8009d0f0;
+u32 var8009d0f4;
+u32 var8009d0f8;
+u32 var8009d0fc;
+u32 var8009d100;
+u32 var8009d104;
+u32 var8009d108;
+u32 var8009d10c;
+u32 var8009d110;
+u32 var8009d114;
+u32 var8009d118;
+u32 var8009d11c;
+u32 var8009d120;
+u32 var8009d124;
+u32 var8009d128;
+u32 var8009d12c;
+u32 var8009d130;
+u32 var8009d134;
+u32 var8009d138;
+u32 var8009d13c;
+
 s32 g_ObjectiveLastIndex = -1;
 bool g_ObjectiveChecksDisabled = false;
 

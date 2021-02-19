@@ -40,6 +40,11 @@ const u32 var7f1acc64[] = {0x461c4000};
 const u32 var7f1acc68[] = {0xc61c4000};
 const u32 var7f1acc6c[] = {0x3fb50481};
 
+struct fireslot g_Fireslots[NUM_FIRESLOTS];
+struct casing g_Casings[20];
+struct var8009da60 var8009da60[8];
+struct var8009dbe0 var8009dbe0[4];
+
 u32 var80070500 = 0x00000000;
 u32 var80070504 = 0x00000000;
 u32 var80070508 = 0x00000000;

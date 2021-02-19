@@ -76,6 +76,7 @@
 	build/ROMID/game/chr/chraicommands.o (section); \
 	build/ROMID/game/prop.o (section); \
 	build/ROMID/game/propobj.o (section); \
+	build/ROMID/game/propobjbss.o (section); \
 	build/ROMID/game/game_091e10.o (section); \
 	build/ROMID/game/game_092610.o (section); \
 	build/ROMID/game/objectives/objectives.o (section); \
@@ -153,6 +154,7 @@
 	build/ROMID/game/game_152fa0.o (section); \
 	build/ROMID/game/game_1531a0.o (section); \
 	build/ROMID/game/room.o (section); \
+	build/ROMID/game/roombss.o (section); \
 	build/ROMID/game/game_165360.o (section); \
 	build/ROMID/game/game_1655c0.o (section); \
 	build/ROMID/game/game_165670.o (section); \

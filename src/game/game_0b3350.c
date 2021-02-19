@@ -11,6 +11,27 @@
 #include "data.h"
 #include "types.h"
 
+u32 var8009dd20;
+u32 var8009dd24;
+u32 var8009dd28;
+u32 var8009dd2c;
+u32 var8009dd30;
+u32 var8009dd34;
+u32 var8009dd38;
+u32 var8009dd3c;
+u32 var8009dd40;
+u32 var8009dd44;
+u32 var8009dd48;
+u32 var8009dd4c;
+u32 var8009dd50;
+u32 var8009dd54;
+u32 var8009dd58;
+u32 var8009dd5c;
+u32 var8009dd60;
+u32 var8009dd64;
+u32 var8009dd68;
+u32 var8009dd6c;
+
 s32 func0f0b3350(s32 value)
 {
 	if (value < 2) {

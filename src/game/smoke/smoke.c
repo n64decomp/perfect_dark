@@ -27,6 +27,11 @@ const u32 var7f1b55f4[] = {0x00000000};
 const u32 var7f1b55f8[] = {0x00000000};
 const u32 var7f1b55fc[] = {0x00000000};
 
+struct smoke *g_Smokes;
+s32 g_MaxSmokes;
+Mtx var800a3448;
+Mtx var800a3488;
+
 struct smoketype g_SmokeTypes[NUM_SMOKETYPES] = {
 	//       duration
 	//       |    fadespeed

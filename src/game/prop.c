@@ -36,6 +36,15 @@
 #include "data.h"
 #include "types.h"
 
+s16 *var8009cda0;
+struct var8009cda4 *var8009cda4;
+struct prop *var8009cda8;
+u32 var8009cdac;
+u32 var8009cdb0;
+u32 var8009cdb4;
+u32 var8009cdb8;
+u32 var8009cdbc;
+
 f32 var80069880 = 1;
 
 GLOBAL_ASM(

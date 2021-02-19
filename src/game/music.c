@@ -10,6 +10,14 @@
 #include "data.h"
 #include "types.h"
 
+s32 g_MusicStageNum;
+u32 var800aa5d4;
+struct var800aa5d8 var800aa5d8[40];
+struct var800aaa38 var800aaa38[3];
+u32 g_AudioXReasonsActive[4];
+u32 var800aaa78[4];
+u32 g_AudioXReasonDurations[4];
+
 s32 g_MenuTrack = -1;
 u32 var800840c4 = 0x00000000;
 s32 g_TemporaryPrimaryTrack = -1;

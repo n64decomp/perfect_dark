@@ -11,6 +11,41 @@
 #include "data.h"
 #include "types.h"
 
+struct texture *g_Textures;
+u32 var800aabc4;
+u32 var800aabc8[4];
+u8 var800aabd8[2400];
+u32 var800ab538;
+u32 var800ab53c;
+u32 var800ab540;
+u32 var800ab544;
+u32 var800ab548;
+u32 var800ab54c;
+u32 var800ab550;
+u8 *g_TextureConfigSegment;
+u32 var800ab558;
+struct textureconfig *var800ab55c;
+struct textureconfig *var800ab560;
+Gfx *var800ab564;
+Gfx *var800ab568;
+Gfx *var800ab56c;
+struct var800ab570 *var800ab570;
+struct textureconfig *var800ab574;
+struct textureconfig *var800ab578;
+struct textureconfig *var800ab57c;
+struct textureconfig *var800ab580;
+struct textureconfig *var800ab584;
+struct textureconfig *var800ab588;
+struct textureconfig *var800ab58c;
+struct textureconfig *var800ab590;
+struct textureconfig *var800ab594;
+struct textureconfig *var800ab598;
+struct textureconfig *var800ab59c;
+struct textureconfig *var800ab5a0;
+struct textureconfig *var800ab5a4;
+struct textureconfig *var800ab5a8;
+struct textureconfig *var800ab5ac;
+
 u32 var800841b0 = 0x0006ddd0;
 u32 var800841b4 = 0x00000000;
 u32 var800841b8 = 0x00000004;

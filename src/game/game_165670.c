@@ -13,6 +13,35 @@ const u32 var7f1b76e4[] = {0x3a83126f};
 const u32 var7f1b76e8[] = {0x7f7fffff};
 const u32 var7f1b76ec[] = {0x00000000};
 
+u32 var800a65f0;
+u32 var800a65f4;
+u32 var800a65f8;
+u32 var800a65fc;
+u32 var800a6600;
+u32 var800a6604;
+u32 var800a6608;
+u32 var800a660c;
+u32 var800a6610;
+u32 var800a6614;
+u32 var800a6618;
+u32 var800a661c;
+u32 var800a6620;
+u32 var800a6624;
+u32 var800a6628;
+u32 var800a662c;
+u32 var800a6630;
+u32 var800a6634;
+u32 var800a6638;
+u32 var800a663c;
+u32 var800a6640;
+u32 var800a6644;
+u32 var800a6648;
+u32 var800a664c;
+u32 var800a6650;
+u32 var800a6654;
+u32 var800a6658;
+u32 var800a665c;
+
 struct twowords twowords_26a40[] = {
 	{ 0xfc26a004, 0x1f1093ff },
 	{ 0xfc232dff, 0xfffffe38 },

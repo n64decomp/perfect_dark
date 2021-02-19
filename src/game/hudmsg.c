@@ -29,6 +29,8 @@ const char var7f1ade98[] = "%s%s%4.2fX";
 const char var7f1adea4[] = "";
 const char var7f1adea8[] = "";
 
+u32 g_NextHudMessageId;
+
 u8 var80070fb0 = 0;
 
 u32 g_Colours[] = {

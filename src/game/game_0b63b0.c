@@ -76,6 +76,12 @@ const char var7f1ad3d0[] = "%s%sL2 -> Surface area bodged for room %d - using %f
 const char var7f1ad408[] = "";
 const char var7f1ad40c[] = "";
 
+struct roomacousticdata *g_RoomAcousticData;
+u32 var8009dd74;
+struct var8009dd78 var8009dd78[10];
+u16 *var8009ddc8;
+s32 var8009ddcc;
+
 void func0f0b63b0(s32 portalnum, f32 frac)
 {
 	if (portalnum >= 0) {

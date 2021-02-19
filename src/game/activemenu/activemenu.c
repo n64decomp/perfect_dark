@@ -24,6 +24,11 @@
 #include "data.h"
 #include "types.h"
 
+struct activemenu g_AmMenus[4];
+struct font2a4 *g_AmFont1;
+struct font *g_AmFont2;
+s32 g_AmIndex;
+
 struct menudialog g_AmPickTargetMenuDialog;
 
 /**

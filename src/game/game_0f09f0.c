@@ -42,6 +42,54 @@
 #include "data.h"
 #include "types.h"
 
+char g_CheatMarqueeString[252];
+u32 var8009dfbc;
+s32 var8009dfc0;
+u32 var8009dfc4;
+struct briefing g_Briefing;
+u32 var8009dfe4;
+struct missionconfig g_MissionConfig;
+struct menu g_Menus[4];
+struct menudata g_MenuData;
+u32 var800a2038;
+u32 var800a203c;
+u32 var800a2040;
+u32 var800a2044;
+u32 var800a2048;
+u32 var800a204c;
+u32 var800a2050;
+u32 var800a2054;
+u32 var800a2058;
+u32 var800a205c;
+u32 var800a2060;
+u32 var800a2064;
+u32 var800a2068;
+u32 var800a206c;
+u32 var800a2070;
+u32 var800a2074;
+u32 var800a2078;
+u32 var800a207c;
+u32 var800a2080;
+u32 var800a2084;
+u32 var800a2088;
+u32 var800a208c;
+u32 var800a2090;
+u32 var800a2094;
+u32 var800a2098;
+u32 var800a209c;
+u32 var800a20a0;
+u32 var800a20a4;
+u32 var800a20a8;
+u32 var800a20ac;
+u32 var800a20b0;
+u32 var800a20b4;
+u32 var800a20b8;
+u32 var800a20bc;
+u32 var800a20c0;
+u32 var800a20c4;
+u32 var800a20c8;
+u32 var800a20cc;
+
 struct menudialog g_PakCannotReadGameBoyMenuDialog;
 struct menudialog g_PakDamagedMenuDialog;
 struct menudialog g_PakDataLostMenuDialog;

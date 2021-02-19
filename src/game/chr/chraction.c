@@ -51,6 +51,14 @@
 const char var7f1a8ac0[] = "chraction.c";
 const char var7f1a8acc[] = "chraction.c";
 
+s32 g_RecentQuipsPlayed[5];
+u32 var8009cd84;
+u32 var8009cd88;
+u32 var8009cd8c;
+u32 var8009cd90;
+u32 var8009cd94;
+u8 g_RecentQuipsIndex;
+
 f32 var80062ca0 = 1;
 f32 var80062ca4 = 1;
 f32 var80062ca8 = 1;

@@ -6,6 +6,12 @@
 #include "data.h"
 #include "types.h"
 
+u8 *var800a6660;
+s16 *var800a6664;
+s16 *var800a6668;
+f32 *var800a666c;
+void *var800a6670;
+
 s32 var80082050 = 0;
 
 void currentPlayerSetLastRoomForOffset(s32 room)

@@ -16,6 +16,9 @@
 #include "data.h"
 #include "types.h"
 
+u32 g_RadarX;
+u32 g_RadarY;
+
 bool g_RadarYIndicatorsEnabled = true;
 
 u32 g_TeamColours[] = {

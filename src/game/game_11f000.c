@@ -14,6 +14,43 @@
 #include "data.h"
 #include "types.h"
 
+u32 var800a33a0;
+u32 var800a33a4;
+u32 var800a33a8;
+u32 var800a33ac;
+u32 var800a33b0;
+u32 var800a33b4;
+u32 var800a33b8;
+u32 var800a33bc;
+u32 var800a33c0;
+u32 var800a33c4;
+u32 var800a33c8;
+u32 var800a33cc;
+u32 var800a33d0;
+u32 var800a33d4;
+u32 var800a33d8;
+u32 var800a33dc;
+u32 var800a33e0;
+u32 var800a33e4;
+u32 var800a33e8;
+u32 var800a33ec;
+u32 var800a33f0;
+u32 var800a33f4;
+u32 var800a33f8;
+u32 var800a33fc;
+u32 var800a3400;
+u32 var800a3404;
+u32 var800a3408;
+u32 var800a340c;
+u32 var800a3410;
+u32 var800a3414;
+u32 var800a3418;
+u32 var800a341c;
+u32 var800a3420;
+u32 var800a3424;
+u32 var800a3428;
+u32 var800a342c;
+
 GLOBAL_ASM(
 glabel func0f11f000
 /*  f11f000:	27bdffd8 */ 	addiu	$sp,$sp,-40

@@ -16,6 +16,15 @@
 #include "data.h"
 #include "types.h"
 
+// bss
+struct savelocation_2d8 g_FilemgrFileToCopy;
+struct savelocation_2d8 var800a21e8;
+struct savelocation_2d8 g_FilemgrFileToDelete;
+struct savelocation_2d8 var800a21f8;
+struct savefile_solo g_SoloSaveFile;
+u32 var800a22bc;
+struct savelocation_2d8 g_FilemgrLoadedMainFile;
+
 // These might be able to be removed by relocating their symbols
 struct menudialog g_FilemgrCopyMenuDialog;
 struct menudialog g_FilemgrConfirmDeleteMenuDialog;

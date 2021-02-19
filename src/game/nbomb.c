@@ -24,6 +24,11 @@
 #include "data.h"
 #include "types.h"
 
+s16 var8009cb00;
+u32 var8009cb04;
+struct nbomb g_Nbombs[6];
+u32 var8009cbf8;
+
 bool g_NbombsActive = false;
 f32 var80061644 = 100;
 u32 var80061648 = 0x00000000;

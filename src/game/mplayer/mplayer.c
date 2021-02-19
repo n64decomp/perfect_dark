@@ -28,6 +28,22 @@
 #include "data.h"
 #include "types.h"
 
+// bss
+struct chrdata *g_MpPlayerChrs[MAX_MPCHRS];
+struct mpchr *var800ac500[MAX_MPCHRS];
+s32 g_MpNumPlayers;
+u32 var800ac534;
+struct mpsim g_MpSimulants[MAX_SIMULANTS];
+u8 g_MpSimulantDifficultiesPerNumPlayers[32];
+struct mpplayer g_MpPlayers[6];
+u8 g_AmBotCommands[16];
+struct mpsetup g_MpSetup;
+struct savefile_setup g_MpSetupSaveFile;
+u32 var800acc1c;
+struct mplockinfo g_MpLockInfo;
+u32 var800acc28[18];
+
+// Forward declaractions
 struct mpweaponset g_MpWeaponSets[12];
 u32 var800874c8;
 

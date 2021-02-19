@@ -18,6 +18,9 @@
 #include "data.h"
 #include "types.h"
 
+u8 g_MpFeaturesForceUnlocked[40];
+u8 g_MpFeaturesUnlocked[80];
+
 u32 g_MpChallengeIndex = 0;
 struct mpconfigfull *g_MpCurrentChallengeConfig = NULL;
 

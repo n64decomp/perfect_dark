@@ -43,6 +43,10 @@
 extern u8 *_firingrangeSegmentRomStart;
 extern u8 *_firingrangeSegmentRomEnd;
 
+struct frdata g_FrData;
+struct trainingdata g_DtData;
+struct trainingdata g_HtData;
+
 u16 *g_FrScriptOffsets = NULL;
 u8 g_FrIsValidWeapon = false;
 u8 g_FrDataLoaded = false;
@@ -4817,21 +4821,21 @@ char *dtGetTip2(void)
 
 struct trainingdata *getHoloTrainingData(void)
 {
-	return &g_HoloTrainingData;
+	return &g_HtData;
 }
 
 void htPushEndscreen(void)
 {
-	if (g_HoloTrainingData.completed) {
+	if (g_HtData.completed) {
 		func0f0f85e0(&g_HtCompletedMenuDialog, MENUROOT_TRAINING);
-	} else if (g_HoloTrainingData.failed) {
+	} else if (g_HtData.failed) {
 		func0f0f85e0(&g_HtFailedMenuDialog, MENUROOT_TRAINING);
 	}
 
-	g_HoloTrainingData.timeleft = 0;
-	g_HoloTrainingData.completed = false;
-	g_HoloTrainingData.failed = false;
-	g_HoloTrainingData.finished = false;
+	g_HtData.timeleft = 0;
+	g_HtData.completed = false;
+	g_HtData.failed = false;
+	g_HtData.finished = false;
 }
 
 u8 var80088bb4 = 0;
@@ -4840,8 +4844,8 @@ u8 var80088bb8 = 0;
 void htTick(void)
 {
 	if (var80088bb8) {
-		if (g_HoloTrainingData.intraining) {
-			g_HoloTrainingData.timetaken += g_Vars.lvupdate240_60;
+		if (g_HtData.intraining) {
+			g_HtData.timetaken += g_Vars.lvupdate240_60;
 
 			if (g_Vars.currentplayer->isdead) {
 				htEnd();
@@ -4849,20 +4853,20 @@ void htTick(void)
 
 			if (chrHasStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE)) {
 				htEnd();
-				g_HoloTrainingData.failed = true;
-				g_HoloTrainingData.timeleft = 1;
-				g_HoloTrainingData.finished = true;
+				g_HtData.failed = true;
+				g_HtData.timeleft = 1;
+				g_HtData.finished = true;
 			} else if (chrHasStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_SUCCESS)) {
 				htEnd();
-				g_HoloTrainingData.completed = true;
-				g_HoloTrainingData.timeleft = 1;
-				g_HoloTrainingData.finished = true;
+				g_HtData.completed = true;
+				g_HtData.timeleft = 1;
+				g_HtData.finished = true;
 			}
-		} else if (g_HoloTrainingData.finished) {
-			if (g_HoloTrainingData.timeleft <= 0) {
+		} else if (g_HtData.finished) {
+			if (g_HtData.timeleft <= 0) {
 				htPushEndscreen();
 			} else {
-				g_HoloTrainingData.timeleft -= g_Vars.lvupdate240_60;
+				g_HtData.timeleft -= g_Vars.lvupdate240_60;
 			}
 		}
 	}
@@ -4872,12 +4876,12 @@ void func0f1a2198(void)
 {
 	if (var80088bb8 == false) {
 		var80088bb8 = true;
-		g_HoloTrainingData.intraining = false;
-		g_HoloTrainingData.failed = false;
-		g_HoloTrainingData.completed = false;
-		g_HoloTrainingData.finished = false;
-		g_HoloTrainingData.timeleft = 0;
-		g_HoloTrainingData.timetaken = 0;
+		g_HtData.intraining = false;
+		g_HtData.failed = false;
+		g_HtData.completed = false;
+		g_HtData.finished = false;
+		g_HtData.timeleft = 0;
+		g_HtData.timetaken = 0;
 		chrUnsetStageFlag(NULL, STAGEFLAG_CI_HOLO_ABORTING);
 		chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_SUCCESS);
 		chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
@@ -4888,8 +4892,8 @@ void htBegin(void)
 {
 	struct waypoint *waypoints = g_StageSetup.waypoints;
 
-	g_HoloTrainingData.intraining = true;
-	g_HoloTrainingData.timetaken = 0;
+	g_HtData.intraining = true;
+	g_HtData.timetaken = 0;
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_HOLO_ABORTING);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_SUCCESS);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
@@ -4911,7 +4915,7 @@ void htEnd(void)
 	s16 rooms[5] = { 0x0016, 0x0017, 0x0018, 0x0019, -1 };
 	struct waypoint *waypoints = g_StageSetup.waypoints;
 
-	g_HoloTrainingData.intraining = false;
+	g_HtData.intraining = false;
 	chrSetStageFlag(NULL, STAGEFLAG_CI_HOLO_ABORTING);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
 	chrUnsetStageFlag(NULL, func0f1a25c0(htGetIndexBySlot(var80088bb4)));
