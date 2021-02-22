@@ -816,47 +816,24 @@ void func0f197c00(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f197c70
-/*  f197c70:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f197c74:	10800004 */ 	beqz	$a0,.L0f197c88
-/*  f197c78:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f197c7c:	8c8602d4 */ 	lw	$a2,0x2d4($a0)
-/*  f197c80:	54c00004 */ 	bnezl	$a2,.L0f197c94
-/*  f197c84:	80c50018 */ 	lb	$a1,0x18($a2)
-.L0f197c88:
-/*  f197c88:	10000015 */ 	b	.L0f197ce0
-/*  f197c8c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f197c90:	80c50018 */ 	lb	$a1,0x18($a2)
-.L0f197c94:
-/*  f197c94:	00001025 */ 	or	$v0,$zero,$zero
-/*  f197c98:	18a0000e */ 	blez	$a1,.L0f197cd4
-/*  f197c9c:	00000000 */ 	nop
-/*  f197ca0:	8cc70014 */ 	lw	$a3,0x14($a2)
-/*  f197ca4:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f197ca8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f197cac:	00e01825 */ 	or	$v1,$a3,$zero
-.L0f197cb0:
-/*  f197cb0:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f197cb4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f197cb8:	0045082a */ 	slt	$at,$v0,$a1
-/*  f197cbc:	14ce0003 */ 	bne	$a2,$t6,.L0f197ccc
-/*  f197cc0:	24630014 */ 	addiu	$v1,$v1,0x14
-/*  f197cc4:	10000006 */ 	b	.L0f197ce0
-/*  f197cc8:	00e41021 */ 	addu	$v0,$a3,$a0
-.L0f197ccc:
-/*  f197ccc:	1420fff8 */ 	bnez	$at,.L0f197cb0
-/*  f197cd0:	24840014 */ 	addiu	$a0,$a0,0x14
-.L0f197cd4:
-/*  f197cd4:	0fc47bba */ 	jal	dprint
-/*  f197cd8:	00000000 */ 	nop
-/*  f197cdc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f197ce0:
-/*  f197ce0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f197ce4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f197ce8:	03e00008 */ 	jr	$ra
-/*  f197cec:	00000000 */ 	nop
-);
+struct aibot014 *aibotGetFreeUnk014(struct chrdata *chr)
+{
+	s32 i;
+
+	if (!chr || !chr->aibot) {
+		return NULL;
+	}
+
+	for (i = 0; i < chr->aibot->unk018; i++) {
+		if (chr->aibot->unk014[i].unk00 == -1) {
+			return &chr->aibot->unk014[i];
+		}
+	}
+
+	dprint();
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel aibotGetInvItem
@@ -990,7 +967,7 @@ bool func0f197e8c(struct chrdata *chr, u32 weaponnum)
 	}
 
 	if (!aibotGetInvItemType(chr, weaponnum)) {
-		struct aibot014 *aibot014 = func0f197c70(chr);
+		struct aibot014 *aibot014 = aibotGetFreeUnk014(chr);
 
 		if (aibot014) {
 			aibot014->unk00 = 1;
