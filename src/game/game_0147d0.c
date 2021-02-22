@@ -256,11 +256,11 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 					aibot->unk20c = 0;
 
 					for (i = 0; i < 6; i++) {
-						aibot->unk214[i][0] = 0.0f;
-						aibot->unk214[i][1] = 0.0f;
+						aibot->killsbygunfunc[i][0] = 0.0f;
+						aibot->killsbygunfunc[i][1] = 0.0f;
 
-						aibot->unk244[i][0] = 0.0f;
-						aibot->unk244[i][1] = 0.0f;
+						aibot->suicidesbygunfunc[i][0] = 0.0f;
+						aibot->suicidesbygunfunc[i][1] = 0.0f;
 
 						aibot->unk274[i][0] = 0;
 						aibot->unk274[i][1] = 0;

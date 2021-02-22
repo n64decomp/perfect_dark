@@ -1273,36 +1273,20 @@ glabel func0f198278
 /*  f1982d0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f1982d4
-/*  f1982d4:	3c05800b */ 	lui	$a1,%hi(g_MpSetup)
-/*  f1982d8:	3c068008 */ 	lui	$a2,%hi(g_MpWeapons)
-/*  f1982dc:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f1982e0:	24c67268 */ 	addiu	$a2,$a2,%lo(g_MpWeapons)
-/*  f1982e4:	24a5cb88 */ 	addiu	$a1,$a1,%lo(g_MpSetup)
-/*  f1982e8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1982ec:	24080006 */ 	addiu	$t0,$zero,0x6
-/*  f1982f0:	2407000a */ 	addiu	$a3,$zero,0xa
-.L0f1982f4:
-/*  f1982f4:	90ae0018 */ 	lbu	$t6,0x18($a1)
-/*  f1982f8:	28410006 */ 	slti	$at,$v0,0x6
-/*  f1982fc:	01c70019 */ 	multu	$t6,$a3
-/*  f198300:	00007812 */ 	mflo	$t7
-/*  f198304:	00cfc021 */ 	addu	$t8,$a2,$t7
-/*  f198308:	93190000 */ 	lbu	$t9,0x0($t8)
-/*  f19830c:	54990006 */ 	bnel	$a0,$t9,.L0f198328
-/*  f198310:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f198314:	50200004 */ 	beqzl	$at,.L0f198328
-/*  f198318:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f19831c:	03e00008 */ 	jr	$ra
-/*  f198320:	00000000 */ 	nop
-/*  f198324:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f198328:
-/*  f198328:	1448fff2 */ 	bne	$v0,$t0,.L0f1982f4
-/*  f19832c:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f198330:	03e00008 */ 	jr	$ra
-/*  f198334:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 mpGetWeaponIndexByWeaponNum(s32 weaponnum)
+{
+	s32 result = -1;
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
+		if (g_MpWeapons[g_MpSetup.weapons[i]].weaponnum == weaponnum && i < 6) {
+			result = i;
+			break;
+		}
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f198338
@@ -1999,7 +1983,7 @@ glabel var7f1b908c
 /*  f198c4c:	afa30034 */ 	sw	$v1,0x34($sp)
 /*  f198c50:	afa8004c */ 	sw	$t0,0x4c($sp)
 /*  f198c54:	afaa0048 */ 	sw	$t2,0x48($sp)
-/*  f198c58:	0fc660b5 */ 	jal	func0f1982d4
+/*  f198c58:	0fc660b5 */ 	jal	mpGetWeaponIndexByWeaponNum
 /*  f198c5c:	e7ae002c */ 	swc1	$f14,0x2c($sp)
 /*  f198c60:	8fa30034 */ 	lw	$v1,0x34($sp)
 /*  f198c64:	8fa8004c */ 	lw	$t0,0x4c($sp)
@@ -2221,7 +2205,7 @@ glabel var7f1b9094
 /*  f198f38:	8fbf004c */ 	lw	$ra,0x4c($sp)
 /*  f198f3c:	8c440020 */ 	lw	$a0,0x20($v0)
 /*  f198f40:	afa500a0 */ 	sw	$a1,0xa0($sp)
-/*  f198f44:	0fc660b5 */ 	jal	func0f1982d4
+/*  f198f44:	0fc660b5 */ 	jal	mpGetWeaponIndexByWeaponNum
 /*  f198f48:	afa20090 */ 	sw	$v0,0x90($sp)
 /*  f198f4c:	0440000e */ 	bltz	$v0,.L0f198f88
 /*  f198f50:	8fa40090 */ 	lw	$a0,0x90($sp)

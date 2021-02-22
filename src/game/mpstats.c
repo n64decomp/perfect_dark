@@ -331,13 +331,13 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 	}
 
 	if (g_Vars.normmplayerisrunning && aplayernum >= 0 && g_MpPlayerChrs[aplayernum]->aibot) {
-		s32 thing = func0f1982d4(g_MpPlayerChrs[aplayernum]->aibot->weaponnum);
+		s32 index = mpGetWeaponIndexByWeaponNum(g_MpPlayerChrs[aplayernum]->aibot->weaponnum);
 
-		if (thing >= 0) {
+		if (index >= 0) {
 			if (aplayernum == vplayernum) {
-				g_MpPlayerChrs[aplayernum]->aibot->unk244[thing][g_MpPlayerChrs[aplayernum]->aibot->gunfunc]++;
+				g_MpPlayerChrs[aplayernum]->aibot->suicidesbygunfunc[index][g_MpPlayerChrs[aplayernum]->aibot->gunfunc]++;
 			} else {
-				g_MpPlayerChrs[aplayernum]->aibot->unk214[thing][g_MpPlayerChrs[aplayernum]->aibot->gunfunc]++;
+				g_MpPlayerChrs[aplayernum]->aibot->killsbygunfunc[index][g_MpPlayerChrs[aplayernum]->aibot->gunfunc]++;
 			}
 		}
 	}
