@@ -287,7 +287,7 @@ glabel mpChrReset
 /*  f1905a4:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f1905a8:	960f0064 */ 	lhu	$t7,0x64($s0)
 /*  f1905ac:	31f8fffe */ 	andi	$t8,$t7,0xfffe
-/*  f1905b0:	0fc6609e */ 	jal	func0f198278
+/*  f1905b0:	0fc6609e */ 	jal	mpHasShield
 /*  f1905b4:	a6180064 */ 	sh	$t8,0x64($s0)
 /*  f1905b8:	10400004 */ 	beqz	$v0,.L0f1905cc
 /*  f1905bc:	3c014100 */ 	lui	$at,0x4100
@@ -438,7 +438,7 @@ glabel mpChrReset
 //		if (aibot->simulant->difficulty == SIMDIFF_DARK) {
 //			aibot->unk064 &= ~1;
 //
-//			if (func0f198278()) {
+//			if (mpHasShield()) {
 //				chr->cshield = 8;
 //			}
 //		}

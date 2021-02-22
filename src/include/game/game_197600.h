@@ -16,7 +16,7 @@ void aibotGiveDualWeapon(struct chrdata *chr, u32 weaponnum);
 s16 aibotGetWeaponPad(struct chrdata *chr, u32 weaponnum);
 void aibotGiveProp(struct chrdata *chr, struct prop *prop);
 u32 func0f198068(void);
-u32 func0f198278(void);
+bool mpHasShield(void);
 s32 mpGetWeaponIndexByWeaponNum(s32 weaponnum);
 u32 func0f198338(void);
 u32 func0f198db4(void);

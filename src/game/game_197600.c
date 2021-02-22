@@ -1244,34 +1244,20 @@ glabel func0f198068
 /*  f198274:	27bd0088 */ 	addiu	$sp,$sp,0x88
 );
 
-GLOBAL_ASM(
-glabel func0f198278
-/*  f198278:	3c03800b */ 	lui	$v1,%hi(g_MpSetup)
-/*  f19827c:	3c07800b */ 	lui	$a3,%hi(g_MpSetup+0x6)
-/*  f198280:	3c048008 */ 	lui	$a0,%hi(g_MpWeapons)
-/*  f198284:	24847268 */ 	addiu	$a0,$a0,%lo(g_MpWeapons)
-/*  f198288:	24e7cb8e */ 	addiu	$a3,$a3,%lo(g_MpSetup+0x6)
-/*  f19828c:	2463cb88 */ 	addiu	$v1,$v1,%lo(g_MpSetup)
-/*  f198290:	2406005b */ 	addiu	$a2,$zero,0x5b
-/*  f198294:	2405000a */ 	addiu	$a1,$zero,0xa
-/*  f198298:	906e0018 */ 	lbu	$t6,0x18($v1)
-.L0f19829c:
-/*  f19829c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f1982a0:	01c50019 */ 	multu	$t6,$a1
-/*  f1982a4:	00007812 */ 	mflo	$t7
-/*  f1982a8:	008fc021 */ 	addu	$t8,$a0,$t7
-/*  f1982ac:	93020000 */ 	lbu	$v0,0x0($t8)
-/*  f1982b0:	14460003 */ 	bne	$v0,$a2,.L0f1982c0
-/*  f1982b4:	00000000 */ 	nop
-/*  f1982b8:	03e00008 */ 	jr	$ra
-/*  f1982bc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1982c0:
-/*  f1982c0:	5467fff6 */ 	bnel	$v1,$a3,.L0f19829c
-/*  f1982c4:	906e0018 */ 	lbu	$t6,0x18($v1)
-/*  f1982c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1982cc:	03e00008 */ 	jr	$ra
-/*  f1982d0:	00000000 */ 	nop
-);
+bool mpHasShield(void)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
+		s32 weaponnum = g_MpWeapons[g_MpSetup.weapons[i]].weaponnum;
+
+		if (weaponnum == WEAPON_MPSHIELD) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 s32 mpGetWeaponIndexByWeaponNum(s32 weaponnum)
 {
