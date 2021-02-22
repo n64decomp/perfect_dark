@@ -6732,7 +6732,7 @@ glabel chrGiveBriefcase
 /*  f186920:	8c8302d4 */ 	lw	$v1,0x2d4($a0)
 /*  f186924:	906e009c */ 	lbu	$t6,0x9c($v1)
 /*  f186928:	35d80080 */ 	ori	$t8,$t6,0x80
-/*  f18692c:	0fc65fa3 */ 	jal	func0f197e8c
+/*  f18692c:	0fc65fa3 */ 	jal	aibotGiveSingleWeapon
 /*  f186930:	a078009c */ 	sb	$t8,0x9c($v1)
 /*  f186934:	3c11800a */ 	lui	$s1,%hi(g_Vars)
 /*  f186938:	10000020 */ 	b	.L0f1869bc
@@ -7357,7 +7357,7 @@ glabel chrGiveBriefcase
 /*  f1871e8:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f1871ec:	13200009 */ 	beqz	$t9,.L0f187214
 /*  f1871f0:	00000000 */ 	nop
-/*  f1871f4:	0fc65fa3 */ 	jal	func0f197e8c
+/*  f1871f4:	0fc65fa3 */ 	jal	aibotGiveSingleWeapon
 /*  f1871f8:	24050057 */ 	addiu	$a1,$zero,0x57
 /*  f1871fc:	8fab0124 */ 	lw	$t3,0x124($sp)
 /*  f187200:	00001025 */ 	or	$v0,$zero,$zero
@@ -7548,7 +7548,7 @@ bool chrGiveUplink(struct chrdata *chr, struct prop *prop)
 
 		if (chr->aibot) {
 			propPlayPickupSound(prop, WEAPON_DATAUPLINK);
-			func0f197e8c(chr, WEAPON_DATAUPLINK);
+			aibotGiveSingleWeapon(chr, WEAPON_DATAUPLINK);
 			chr->aibot->unk04c_05 = true;
 			obj->hidden |= 4;
 			return false;

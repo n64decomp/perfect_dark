@@ -6,12 +6,12 @@
 
 u32 func0f197600(void);
 void mpAibotApplyCommand(struct chrdata *chr, u32 command);
-void func0f197c00(struct chrdata *chr);
-struct aibot014 *aibotGetFreeUnk014(struct chrdata *chr);
+void aibotClearInventory(struct chrdata *chr);
+struct invitem *aibotGetFreeInvSlot(struct chrdata *chr);
 struct invitem *aibotGetInvItem(struct chrdata *chr, u32 weaponnum);
 void func0f197d94(struct chrdata *chr, s32 weaponnum);
 u32 aibotGetInvItemType(struct chrdata *chr, u32 weaponnum);
-bool func0f197e8c(struct chrdata *chr, u32 weaponnum);
+bool aibotGiveSingleWeapon(struct chrdata *chr, u32 weaponnum);
 void aibotGiveDualWeapon(struct chrdata *chr, u32 weaponnum);
 s16 aibotGetWeaponPad(struct chrdata *chr, u32 weaponnum);
 void aibotGiveProp(struct chrdata *chr, struct prop *prop);

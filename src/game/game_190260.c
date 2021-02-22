@@ -145,7 +145,7 @@ glabel mpChrReset
 /*  f190380:	28610084 */ 	slti	$at,$v1,0x84
 /*  f190384:	1420fffb */ 	bnez	$at,.L0f190374
 /*  f190388:	af000000 */ 	sw	$zero,0x0($t8)
-/*  f19038c:	0fc65f00 */ 	jal	func0f197c00
+/*  f19038c:	0fc65f00 */ 	jal	aibotClearInventory
 /*  f190390:	02202025 */ 	or	$a0,$s1,$zero
 /*  f190394:	9208004c */ 	lbu	$t0,0x4c($s0)
 /*  f190398:	920e009c */ 	lbu	$t6,0x9c($s0)
@@ -350,7 +350,7 @@ glabel mpChrReset
 //				aibot->unk01c->unk00[i] = 0;
 //			}
 //
-//			func0f197c00(chr);
+//			aibotClearInventory(chr);
 //
 //			aibot->gunfunc = 0;
 //			aibot->unk04c_01 = 1;
