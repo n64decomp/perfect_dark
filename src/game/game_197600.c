@@ -860,60 +860,29 @@ struct invitem *aibotGetInvItem(struct chrdata *chr, u32 weaponnum)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f197d94
-/*  f197d94:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f197d98:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f197d9c:	10800025 */ 	beqz	$a0,.L0f197e34
-/*  f197da0:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f197da4:	8c8202d4 */ 	lw	$v0,0x2d4($a0)
-/*  f197da8:	50400023 */ 	beqzl	$v0,.L0f197e38
-/*  f197dac:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f197db0:	80440018 */ 	lb	$a0,0x18($v0)
-/*  f197db4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f197db8:	240a0003 */ 	addiu	$t2,$zero,0x3
-/*  f197dbc:	5880001e */ 	blezl	$a0,.L0f197e38
-/*  f197dc0:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f197dc4:	8c430014 */ 	lw	$v1,0x14($v0)
-/*  f197dc8:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f197dcc:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f197dd0:	00603025 */ 	or	$a2,$v1,$zero
-.L0f197dd4:
-/*  f197dd4:	8cc70000 */ 	lw	$a3,0x0($a2)
-/*  f197dd8:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f197ddc:	15070005 */ 	bne	$t0,$a3,.L0f197df4
-/*  f197de0:	00000000 */ 	nop
-/*  f197de4:	00041080 */ 	sll	$v0,$a0,0x2
-/*  f197de8:	00441021 */ 	addu	$v0,$v0,$a0
-/*  f197dec:	1000000d */ 	b	.L0f197e24
-/*  f197df0:	00021080 */ 	sll	$v0,$v0,0x2
-.L0f197df4:
-/*  f197df4:	51270004 */ 	beql	$t1,$a3,.L0f197e08
-/*  f197df8:	844e0004 */ 	lh	$t6,0x4($v0)
-/*  f197dfc:	55470007 */ 	bnel	$t2,$a3,.L0f197e1c
-/*  f197e00:	00041080 */ 	sll	$v0,$a0,0x2
-/*  f197e04:	844e0004 */ 	lh	$t6,0x4($v0)
-.L0f197e08:
-/*  f197e08:	160e0003 */ 	bne	$s0,$t6,.L0f197e18
-/*  f197e0c:	00657821 */ 	addu	$t7,$v1,$a1
-/*  f197e10:	10000008 */ 	b	.L0f197e34
-/*  f197e14:	ade80000 */ 	sw	$t0,0x0($t7)
-.L0f197e18:
-/*  f197e18:	00041080 */ 	sll	$v0,$a0,0x2
-.L0f197e1c:
-/*  f197e1c:	00441021 */ 	addu	$v0,$v0,$a0
-/*  f197e20:	00021080 */ 	sll	$v0,$v0,0x2
-.L0f197e24:
-/*  f197e24:	24a50014 */ 	addiu	$a1,$a1,0x14
-/*  f197e28:	00a2082a */ 	slt	$at,$a1,$v0
-/*  f197e2c:	1420ffe9 */ 	bnez	$at,.L0f197dd4
-/*  f197e30:	24c60014 */ 	addiu	$a2,$a2,0x14
-.L0f197e34:
-/*  f197e34:	8fb00004 */ 	lw	$s0,0x4($sp)
-.L0f197e38:
-/*  f197e38:	03e00008 */ 	jr	$ra
-/*  f197e3c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+void aibotRemoveInvItem(struct chrdata *chr, s32 weaponnum)
+{
+	s32 i;
+
+	if (!chr || !chr->aibot) {
+		return;
+	}
+
+	for (i = 0; i < chr->aibot->maxitems; i++) {
+		struct invitem *item = &chr->aibot->items[i];
+
+		if (item->type == -1) {
+			continue;
+		}
+
+		if (item->type == INVITEMTYPE_WEAP || item->type == INVITEMTYPE_DUAL) {
+			if (item->type_weap.weapon1 == weaponnum) {
+				chr->aibot->items[i].type = -1;
+				return;
+			}
+		}
+	}
+}
 
 u32 aibotGetInvItemType(struct chrdata *chr, u32 weaponnum)
 {
@@ -2855,7 +2824,7 @@ glabel func0f19978c
 /*  f19992c:	356c0001 */ 	ori	$t4,$t3,0x1
 /*  f199930:	16800003 */ 	bnez	$s4,.L0f199940
 /*  f199934:	ae6c0014 */ 	sw	$t4,0x14($s3)
-/*  f199938:	0fc65f65 */ 	jal	func0f197d94
+/*  f199938:	0fc65f65 */ 	jal	aibotRemoveInvItem
 /*  f19993c:	02a02825 */ 	or	$a1,$s5,$zero
 .L0f199940:
 /*  f199940:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -2925,7 +2894,7 @@ glabel func0f19978c
 //	chr->hidden |= CHRHFLAG_00000001;
 //
 //	if (!arg2) {
-//		func0f197d94(chr, weaponnum);
+//		aibotRemoveInvItem(chr, weaponnum);
 //	}
 //}
 

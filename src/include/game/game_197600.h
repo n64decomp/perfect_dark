@@ -9,7 +9,7 @@ void mpAibotApplyCommand(struct chrdata *chr, u32 command);
 void aibotClearInventory(struct chrdata *chr);
 struct invitem *aibotGetFreeInvSlot(struct chrdata *chr);
 struct invitem *aibotGetInvItem(struct chrdata *chr, u32 weaponnum);
-void func0f197d94(struct chrdata *chr, s32 weaponnum);
+void aibotRemoveInvItem(struct chrdata *chr, s32 weaponnum);
 u32 aibotGetInvItemType(struct chrdata *chr, u32 weaponnum);
 bool aibotGiveSingleWeapon(struct chrdata *chr, u32 weaponnum);
 void aibotGiveDualWeapon(struct chrdata *chr, u32 weaponnum);

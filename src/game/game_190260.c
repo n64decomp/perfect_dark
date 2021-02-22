@@ -2525,7 +2525,7 @@ void func0f192628(struct chrdata *chr, struct prop *arg1)
 			}
 		}
 
-		func0f197d94(chr, chr->aibot->weaponnum);
+		aibotRemoveInvItem(chr, chr->aibot->weaponnum);
 
 		chr->aibot->unk024[0] = 0;
 		chr->aibot->unk024[1] = 0;
@@ -7614,7 +7614,7 @@ glabel var7f1b8fc8
 /*  f19713c:	000fcb40 */ 	sll	$t9,$t7,0xd
 /*  f197140:	07230008 */ 	bgezl	$t9,.L0f197164
 /*  f197144:	8e8902d4 */ 	lw	$t1,0x2d4($s4)
-/*  f197148:	0fc65f65 */ 	jal	func0f197d94
+/*  f197148:	0fc65f65 */ 	jal	aibotRemoveInvItem
 /*  f19714c:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f197150:	02802025 */ 	or	$a0,$s4,$zero
 /*  f197154:	02e02825 */ 	or	$a1,$s7,$zero
