@@ -33,7 +33,7 @@ extern s32 osViClock;
 extern u32 var8005cf6c;
 extern u32 __osGlobalIntMask;
 extern u32 var8005cf84;
-extern u8 g_LoadState;
+extern u8 g_LoadType;
 extern s32 var8005d9d0;
 extern s32 var8005dd18;
 extern u32 var8005dd58;

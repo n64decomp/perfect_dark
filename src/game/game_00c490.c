@@ -1886,8 +1886,8 @@ glabel func0f00e980
 /*  f00e9e0:	004e1021 */ 	addu	$v0,$v0,$t6
 /*  f00e9e4:	9444fcce */ 	lhu	$a0,%lo(g_Stages+0xe)($v0)
 /*  f00e9e8:	240f0003 */ 	addiu	$t7,$zero,0x3
-/*  f00e9ec:	3c018006 */ 	lui	$at,%hi(g_LoadState)
-/*  f00e9f0:	a02fd9a0 */ 	sb	$t7,%lo(g_LoadState)($at)
+/*  f00e9ec:	3c018006 */ 	lui	$at,%hi(g_LoadType)
+/*  f00e9f0:	a02fd9a0 */ 	sb	$t7,%lo(g_LoadType)($at)
 /*  f00e9f4:	24050022 */ 	addiu	$a1,$zero,0x22
 /*  f00e9f8:	02403025 */ 	or	$a2,$s2,$zero
 /*  f00e9fc:	02a03825 */ 	or	$a3,$s5,$zero
@@ -2019,7 +2019,7 @@ void setupLoadFiles(s32 stagenum)
 			filenum = g_Stages[g_StageIndex].setupfileid;
 		}
 
-		g_LoadState = LOADSTATE_SETUP;
+		g_LoadType = LOADTYPE_SETUP;
 
 		g_GeCreditsData = (u8 *)func0f1670fc(filenum, 0x22);
 		setup = (struct stagesetup *)g_GeCreditsData;
@@ -2030,7 +2030,7 @@ void setupLoadFiles(s32 stagenum)
 		g_StageSetup.paths = (struct path *)((u32)setup + (u32)setup->paths);
 		g_StageSetup.ailists = (struct ailist *)((u32)setup + (u32)setup->ailists);
 
-		g_LoadState = LOADSTATE_PADS;
+		g_LoadType = LOADTYPE_PADS;
 
 		g_StageSetup.padfiledata = func0f1670fc(g_Stages[g_StageIndex].padsfileid, 0x22);
 

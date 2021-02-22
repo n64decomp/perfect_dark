@@ -175,7 +175,7 @@ struct anim {
 };
 
 struct modeltype {
-	u16 stage;
+	s16 type;
 	u16 numthings;
 	u16 *things;
 };

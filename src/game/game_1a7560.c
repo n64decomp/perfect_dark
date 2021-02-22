@@ -233,55 +233,37 @@ glabel func0f1a7560
 /*  f1a772c:	27bd0090 */ 	addiu	$sp,$sp,0x90
 );
 
-GLOBAL_ASM(
-glabel func0f1a7730
-/*  f1a7730:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f1a7734:	3c010001 */ 	lui	$at,0x1
-/*  f1a7738:	3c0e8009 */ 	lui	$t6,%hi(g_ModelTypes)
-/*  f1a773c:	0041082b */ 	sltu	$at,$v0,$at
-/*  f1a7740:	10200012 */ 	beqz	$at,.L0f1a778c
-/*  f1a7744:	00000000 */ 	nop
-/*  f1a7748:	8dce9990 */ 	lw	$t6,%lo(g_ModelTypes)($t6)
-/*  f1a774c:	00021c00 */ 	sll	$v1,$v0,0x10
-/*  f1a7750:	00037c03 */ 	sra	$t7,$v1,0x10
-/*  f1a7754:	11c0000d */ 	beqz	$t6,.L0f1a778c
-/*  f1a7758:	01e01825 */ 	or	$v1,$t7,$zero
-/*  f1a775c:	3c188009 */ 	lui	$t8,%hi(g_ModelTypes)
-/*  f1a7760:	27059990 */ 	addiu	$a1,$t8,%lo(g_ModelTypes)
-/*  f1a7764:	8ca60000 */ 	lw	$a2,0x0($a1)
-/*  f1a7768:	84d90000 */ 	lh	$t9,0x0($a2)
-.L0f1a776c:
-/*  f1a776c:	54790004 */ 	bnel	$v1,$t9,.L0f1a7780
-/*  f1a7770:	8ca60004 */ 	lw	$a2,0x4($a1)
-/*  f1a7774:	03e00008 */ 	jr	$ra
-/*  f1a7778:	ac860004 */ 	sw	$a2,0x4($a0)
-/*  f1a777c:	8ca60004 */ 	lw	$a2,0x4($a1)
-.L0f1a7780:
-/*  f1a7780:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f1a7784:	54c0fff9 */ 	bnezl	$a2,.L0f1a776c
-/*  f1a7788:	84d90000 */ 	lh	$t9,0x0($a2)
-.L0f1a778c:
-/*  f1a778c:	03e00008 */ 	jr	$ra
-/*  f1a7790:	00000000 */ 	nop
-);
+void modelPromoteTypeToPointer(struct modelfiledata *filedata)
+{
+	s32 i;
+
+	if ((u32)filedata->type < 0x10000) {
+		for (i = 0; g_ModelTypes[i] != NULL; i++) {
+			if ((s16)filedata->type == g_ModelTypes[i]->type) {
+				filedata->type = g_ModelTypes[i];
+				return;
+			}
+		}
+	}
+}
 
 void *func0f1a7794(u16 fileid, u8 *arg1, s32 arg2, s32 arg3)
 {
-	void *ptr;
+	void *filedata;
 
-	g_LoadState = LOADSTATE_6;
+	g_LoadType = LOADTYPE_MODEL;
 
 	if (arg1) {
-		ptr = func0f167200(fileid, 0x11, arg1, arg2);
+		filedata = func0f167200(fileid, 0x11, arg1, arg2);
 	} else {
-		ptr = func0f1670fc(fileid, 0x11);
+		filedata = func0f1670fc(fileid, 0x11);
 	}
 
-	func0f1a7730(ptr);
-	func00022a24(ptr, 0x5000000, ptr);
-	func0f1a7560(ptr, fileid, 0x5000000, ptr, arg3, arg1 == NULL);
+	modelPromoteTypeToPointer(filedata);
+	func00022a24(filedata, 0x5000000, filedata);
+	func0f1a7560(filedata, fileid, 0x5000000, filedata, arg3, arg1 == NULL);
 
-	return ptr;
+	return filedata;
 }
 
 void *fileLoad(u16 fileid)

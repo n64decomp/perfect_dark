@@ -5,7 +5,7 @@
 #include "data.h"
 #include "types.h"
 
-u8 g_LoadState = 0;
+u8 g_LoadType = 0;
 
 void dmaInit(void)
 {
@@ -77,7 +77,7 @@ u32 xorDeadbabe(u32 value)
  */
 void dmaCheckPiracy(void *memaddr, u32 len)
 {
-	if (g_LoadState != LOADSTATE_NONE && len > 128) {
+	if (g_LoadType != LOADTYPE_NONE && len > 128) {
 #if PIRACYCHECKS
 		u32 value = xorDeadbeef(0x0330c820 ^ 0xdeadbeef);
 		u32 *ptr = (u32 *)memaddr;
@@ -98,7 +98,7 @@ void dmaCheckPiracy(void *memaddr, u32 len)
 		}
 #endif
 
-		g_LoadState = LOADSTATE_NONE;
+		g_LoadType = LOADTYPE_NONE;
 	}
 }
 

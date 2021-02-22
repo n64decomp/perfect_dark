@@ -3807,7 +3807,7 @@ void bgInit(s32 stagenum)
 	scratch = ((u32)g_BgPrimaryData + inflatedsize) - primcompsize;
 	scratch = ALIGN16(scratch + 0x8000);
 
-	g_LoadState = LOADSTATE_BG;
+	g_LoadType = LOADTYPE_BG;
 
 	// Copy section 1 header + compressed primary to scratch space
 	bgLoadFile((u8 *)scratch, 0, ALIGN16(primcompsize + 15));
