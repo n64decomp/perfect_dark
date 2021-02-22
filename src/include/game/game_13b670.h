@@ -13,7 +13,7 @@ u32 func0f13bc48(void);
 u32 func0f13c07c(void);
 u32 func0f13c2e8(void);
 u32 func0f13c370(void);
-u32 func0f13c3f4(void);
+void func0f13c3f4(void);
 u32 func0f13c4f0(void);
 
 #endif

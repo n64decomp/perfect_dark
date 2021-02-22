@@ -3570,10 +3570,8 @@ struct room {
 	/*0x14*/ struct room14 *unk14;
 	/*0x18*/ f32 bbmin[3];
 	/*0x24*/ f32 bbmax[3];
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
+	/*0x30*/ struct coord centre;
+	/*0x3c*/ f32 radius; // from volume centre to the corner in 3D
 	/*0x40*/ u32 unk40;
 	/*0x44*/ void *unk44;
 	/*0x48*/ u8 unk48;
@@ -6966,7 +6964,7 @@ struct animationdefinition {
 };
 
 struct portalvertices {
-	s16 count;
+	u8 count;
 	struct coord vertices[1];
 };
 

@@ -3915,7 +3915,7 @@ void bgInit(s32 stagenum)
 
 #if VERSION >= VERSION_NTSC_FINAL
 GLOBAL_ASM(
-glabel bgRoomsInit
+glabel bgBuildTables
 .late_rodata
 glabel var7f1b75cc
 .word 0x7f7fffff
@@ -4979,7 +4979,7 @@ glabel var7f1b75d0
 );
 #else
 GLOBAL_ASM(
-glabel bgRoomsInit
+glabel bgBuildTables
 .late_rodata
 glabel var7f1b75cc
 .word 0x7f7fffff
@@ -6041,6 +6041,422 @@ glabel var7f1b75d0
 );
 #endif
 
+// Mismatch: Not functionally identical (some portals are broken), and due to
+// differences in callee-save register usage it's hard to spot why.
+// I suspect pvertices is just a byte array but haven't tested that theory.
+//void bgBuildTables(s32 stagenum)
+//{
+//	s32 s4;
+//	s32 s6;
+//	s32 k;
+//	u8 *header;
+//	u8 headerbuffer[0x50];
+//	s32 numportals;
+//	s32 index;
+//	f32 fVar35;
+//	f32 xdiff;
+//	f32 ydiff;
+//	f32 zdiff;
+//	s16 lightindex;
+//	s32 numlights;
+//	u32 inflatedsize;
+//	u8 *section3;
+//	u8 *section3ptr;
+//	u32 section3compsize;
+//	u32 scratch;
+//	struct portalvertices *pvertices;
+//
+//	g_Rooms = malloc(ALIGN16(g_Vars.roomcount * sizeof(struct room)), MEMPOOL_STAGE);
+//	var800a4ce8 = malloc(ALIGN16(g_Vars.roomcount * sizeof(struct var800a4ce8)), MEMPOOL_STAGE);
+//
+//	// 9b8
+//	for (s4 = 0; s4 < g_Vars.roomcount; s4++) {
+//		var800a4ce8[s4].unk00 = 0xffff;
+//		var800a4ce8[s4].unk02 = 0;
+//	}
+//
+//	// 9ec
+//	if (g_Vars.mplayerisrunning) {
+//		g_MpRoomVisibility = malloc(ALIGN16(g_Vars.roomcount), MEMPOOL_STAGE);
+//
+//		for (s4 = 0; s4 < g_Vars.roomcount; s4++) {
+//			g_MpRoomVisibility[s4] = 0;
+//		}
+//	}
+//
+//	// a48
+//	for (s4 = 0; s4 < g_Vars.roomcount; s4++) {
+//		g_Rooms[s4].unk44 = NULL;
+//		g_Rooms[s4].numlights = 0;
+//		g_Rooms[s4].lightindex = 0;
+//		g_Rooms[s4].flags = 0;
+//		g_Rooms[s4].unk4d = 0;
+//		g_Rooms[s4].bitfield.prevop = 0;
+//		g_Rooms[s4].bitfield.b = 0;
+//	}
+//
+//	// ae4
+//	func0f15c880(g_Stages[g_StageIndex].unk14);
+//	func0f028490(g_Stages[g_StageIndex].unk14);
+//
+//	// b34
+//	for (s4 = 0; s4 < 4; s4++) { // might not be s4
+//		g_Vars.playerstats[s4].scale_bg2gfx = g_Stages[g_StageIndex].unk18;
+//	}
+//
+//	func00016748(1);
+//
+//	// b64
+//	if (var800a4920 == 0) {
+//		// b84
+//		s32 offset;
+//		s32 numvertices;
+//
+//		numportals = 0;
+//
+//		for (s4 = 0; g_BgPortals[s4].unk00 != 0; s4++) { // might not be s4
+//			numportals++;
+//		}
+//
+//		g_NumPortalThings = numportals;
+//		g_PortalThings = malloc(ALIGN16(g_NumPortalThings * sizeof(struct portalthing)), MEMPOOL_STAGE);
+//
+//		// Iterate the portals and update their unk00 value. In storage, the
+//		// g_BgPortals array is followed by vertice data, and each portal's
+//		// unk00 value is an index into the vertice data. Here, the unk00 value
+//		// is being converted to an offset relative to the start of the
+//		// g_BgPortals array. Start by initialising offset past the end of the
+//		// portal array, which is the start of the vertice data.
+//		offset = numportals * sizeof(struct bgportal);
+//		offset += sizeof(struct bgportal);
+//
+//		// Because each group of vertices is variable length, the portals can't
+//		// be iterated in order and have their offset calculated. The vertice
+//		// data has to be iterated in storage order, then iterate all portals to
+//		// see if any refer to this index.
+//		// bd4
+//		for (s4 = 1; true; s4++) {
+//			for (s6 = 0; s6 < numportals; s6++) {
+//				if (g_BgPortals[s6].unk00 == s4) {
+//					g_BgPortals[s6].unk00 = offset;
+//				}
+//			}
+//
+//			pvertices = (struct portalvertices *)((u32)g_BgPortals + offset);
+//
+//			if (pvertices->count <= 0) {
+//				break;
+//			}
+//
+//			offset += pvertices->count * sizeof(struct coord);
+//			offset += 4;
+//		}
+//
+//		// Calculate g_RoomPortals: An array of portal numbers, ordered by room
+//		// number ascending. Each room struct contains an index into this array
+//		// where its portal numbers start.
+//		index = 0;
+//		g_RoomPortals = malloc(ALIGN16((numportals == 0 ? 1 : numportals) * sizeof(s16 *)), MEMPOOL_STAGE);
+//
+//		g_Vars.roomportalrecursionlimit = 0;
+//
+//		// c84
+//		for (s4 = 0; s4 < g_Vars.roomcount; s4++) {
+//			s32 numportalsthisroom = 0;
+//
+//			g_Rooms[s4].roomportallistoffset = index;
+//
+//			// c98
+//			for (s6 = 0; s6 < numportals; s6++) {
+//				if (s4 == g_BgPortals[s6].roomnum1) {
+//					g_RoomPortals[index] = s6;
+//					index++;
+//					numportalsthisroom++;
+//				}
+//
+//				if (s4 == g_BgPortals[s6].roomnum2) {
+//					g_RoomPortals[index] = s6;
+//					index++;
+//					numportalsthisroom++;
+//				}
+//			}
+//
+//
+//			g_Rooms[s4].numportals = numportalsthisroom;
+//
+//			if (numportalsthisroom > g_Vars.roomportalrecursionlimit) {
+//				g_Vars.roomportalrecursionlimit = numportalsthisroom;
+//			}
+//		}
+//
+//		// Sort the portal numbers in g_RoomPortals within their room groups.
+//		// Sorting is done by neighbouring room number ascending.
+//		//
+//		// @bug? The k loop doesn't reset to s6 after doing a swap, which means
+//		// some items may not be sorted correctly.
+//
+//		// d50
+//		for (s4 = 0; s4 < g_Vars.roomcount; s4++) {
+//			// d78
+//			for (s6 = 0; s6 < g_Rooms[s4].numportals; s6++) {
+//				s32 thisportalnum = g_RoomPortals[g_Rooms[s4].roomportallistoffset + s6];
+//				s32 thisneighbournum;
+//
+//				if (g_BgPortals[thisportalnum].roomnum1 == s4) {
+//					thisneighbournum = g_BgPortals[thisportalnum].roomnum2;
+//				} else {
+//					thisneighbournum = g_BgPortals[thisportalnum].roomnum1;
+//				}
+//
+//				// da8
+//				for (k = s6; k < g_Rooms[s4].numportals; k++) {
+//					s32 candportalnum = g_RoomPortals[g_Rooms[s4].roomportallistoffset + k];
+//					s32 swap = false;
+//
+//					// dc4
+//					if (s4 == g_BgPortals[candportalnum].roomnum1) {
+//						if (g_BgPortals[candportalnum].roomnum2 < thisneighbournum) {
+//							swap = true;
+//						}
+//					} else {
+//						if (g_BgPortals[candportalnum].roomnum1 < thisneighbournum) {
+//							swap = true;
+//						}
+//					}
+//
+//					// df0
+//					if (swap) {
+//						g_RoomPortals[g_Rooms[s4].roomportallistoffset + k] = thisportalnum;
+//						g_RoomPortals[g_Rooms[s4].roomportallistoffset + s6] = candportalnum;
+//
+//						// e4c
+//						if (g_BgPortals[g_RoomPortals[g_Rooms[s4].roomportallistoffset + s6]].roomnum1 == s4) {
+//							thisneighbournum = g_BgPortals[g_RoomPortals[g_Rooms[s4].roomportallistoffset + s6]].roomnum2;
+//						} else {
+//							thisneighbournum = g_BgPortals[g_RoomPortals[g_Rooms[s4].roomportallistoffset + s6]].roomnum1;
+//						}
+//					}
+//				}
+//			}
+//		}
+//
+//		// ea8
+//		var800a4cd0 = malloc(ALIGN16(numportals == 0 ? 1 : numportals), MEMPOOL_STAGE);
+//
+//		// edc
+//		for (s4 = 0; s4 < numportals; s4++) {
+//			var800a4cd0[s4] = func0f15b4c0(s4);
+//		}
+//
+//		var800a4ccc = malloc(ALIGN16(numportals * sizeof(struct var800a4ccc)), MEMPOOL_STAGE);
+//
+//		// f38
+//		for (s4 = 0; s4 < numportals; s4++) {
+//			struct coord coord;
+//			f32 min;
+//			f32 max;
+//			struct var800a4ccc *tmp;
+//
+//			coord.f[0] = coord.f[1] = coord.f[2] = 0;
+//
+//			pvertices = (struct portalvertices *)((u32)g_BgPortals + g_BgPortals[s4].unk00);
+//
+//			// f64
+//			for (s6 = 0; s6 < pvertices->count; s6++) {
+//				s32 next = (s6 + 1) % pvertices->count;
+//
+//				coord.f[0] += (pvertices->vertices[s6].f[1] - pvertices->vertices[next].f[1]) * (pvertices->vertices[s6].f[2] + pvertices->vertices[next].f[2]);
+//				coord.f[1] += (pvertices->vertices[s6].f[2] - pvertices->vertices[next].f[2]) * (pvertices->vertices[s6].f[0] + pvertices->vertices[next].f[0]);
+//				coord.f[2] += (pvertices->vertices[s6].f[0] - pvertices->vertices[next].f[0]) * (pvertices->vertices[s6].f[1] + pvertices->vertices[next].f[1]);
+//			}
+//
+//			// 030
+//			fVar35 = -sqrtf(coord.f[0] * coord.f[0] + coord.f[1] * coord.f[1] + coord.f[2] * coord.f[2]);
+//
+//			coord.f[0] = coord.f[0] / fVar35;
+//			coord.f[1] = coord.f[1] / fVar35;
+//			coord.f[2] = coord.f[2] / fVar35;
+//
+//			min = _DMAX;
+//			max = -_DMAX;
+//
+//			// 0bc
+//			for (s6 = 0; s6 < pvertices->count; s6++) {
+//				f32 value = pvertices->vertices[s6].f[0] * coord.f[0]
+//					+ pvertices->vertices[s6].f[1] * coord.f[1]
+//					+ pvertices->vertices[s6].f[2] * coord.f[2];
+//
+//				if (value < min) {
+//					min = value;
+//				}
+//
+//				if (value > max) {
+//					max = value;
+//				}
+//			}
+//
+//			// 130
+//			tmp = &var800a4ccc[s4];
+//			tmp->coord.f[0] = coord.f[0];
+//			tmp->coord.f[1] = coord.f[1];
+//			tmp->coord.f[2] = coord.f[2];
+//			tmp->unk0c = min;
+//			tmp->unk10 = max;
+//		}
+//
+//		// 174
+//		func0f0b65a8(numportals);
+//
+//		// 1a0
+//		if (g_BgPortalCommands != NULL) {
+//			for (s4 = 0; g_BgPortalCommands[s4].type != PORTALCMD_END; s4++) { // might not be s4
+//				if (g_BgPortalCommands[s4].type == PORTALCMD_64) {
+//					g_BgPortalCommands[s4].param = func0f15d870((void *)(g_BgPortalCommands[s4].param + (u32)g_BgPrimaryData + 0xf1000000));
+//				}
+//			}
+//		}
+//
+//		// 220
+//		for (s4 = 0; s4 < g_Vars.roomcount; s4++) {
+//			g_Rooms[s4].flags = 0;
+//			g_Rooms[s4].unk06 = 0;
+//			g_Rooms[s4].unk07 = 1;
+//			g_Rooms[s4].unk02 = 0;
+//			g_Rooms[s4].unk14 = NULL;
+//			g_Rooms[s4].unk80 = -1;
+//			g_Rooms[s4].unk84 = 0;
+//			g_Rooms[s4].unk88 = 0;
+//		}
+//
+//		// 294
+//		func0f013ee0();
+//
+//		g_Rooms[0].bbmin[0] = 0;
+//		g_Rooms[0].bbmin[1] = 0;
+//		g_Rooms[0].bbmin[2] = 0;
+//		g_Rooms[0].bbmax[0] = 0;
+//		g_Rooms[0].bbmax[1] = 0;
+//		g_Rooms[0].bbmax[2] = 0;
+//
+//		// 2cc
+//		func0f13c3f4();
+//
+//		header = (u8 *)ALIGN16((u32)headerbuffer);
+//		bgLoadFile(header, g_BgSection3, 0x40);
+//		inflatedsize = (*(u16 *)&header[0] & 0x7fff) - 1;
+//		section3compsize = *(u16 *)&header[2];
+//		inflatedsize = (inflatedsize | 0xf) + 1;
+//		section3 = malloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
+//		scratch = (u32)section3 + 0x8000;
+//		bgLoadFile((u8 *)scratch, g_BgSection3 + 4, (section3compsize - 1 | 0xf) + 1);
+//		bgInflate((u8 *)scratch, section3, section3compsize);
+//		section3ptr = section3;
+//
+//		// 394
+//		for (s4 = 1; s4 < (u32)g_Vars.roomcount; s4++) {
+//			// Calculate bounding box
+//			g_Rooms[s4].bbmin[0] = g_BgRooms[s4].pos.x + *(s16 *)&section3ptr[0];
+//			g_Rooms[s4].bbmin[1] = g_BgRooms[s4].pos.y + *(s16 *)&section3ptr[2];
+//			g_Rooms[s4].bbmin[2] = g_BgRooms[s4].pos.z + *(s16 *)&section3ptr[4];
+//			g_Rooms[s4].bbmax[0] = g_BgRooms[s4].pos.x + *(s16 *)&section3ptr[6];
+//			g_Rooms[s4].bbmax[1] = g_BgRooms[s4].pos.y + *(s16 *)&section3ptr[8];
+//			g_Rooms[s4].bbmax[2] = g_BgRooms[s4].pos.z + *(s16 *)&section3ptr[10];
+//
+//			// Calculate centre
+//			g_Rooms[s4].centre.x = (g_Rooms[s4].bbmax[0] + g_Rooms[s4].bbmin[0]) * 0.5f;
+//			g_Rooms[s4].centre.y = (g_Rooms[s4].bbmax[1] + g_Rooms[s4].bbmin[1]) * 0.5f;
+//			g_Rooms[s4].centre.z = (g_Rooms[s4].bbmax[2] + g_Rooms[s4].bbmin[2]) * 0.5f;
+//
+//			// Calculate radius
+//			xdiff = g_Rooms[s4].bbmin[0] - g_Rooms[s4].bbmax[0];
+//			ydiff = g_Rooms[s4].bbmin[1] - g_Rooms[s4].bbmax[1];
+//			zdiff = g_Rooms[s4].bbmin[2] - g_Rooms[s4].bbmax[2];
+//
+//			g_Rooms[s4].radius = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff) * 0.5f;
+//
+//			section3ptr += 12;
+//		}
+//
+//		// 574
+//		for (s4 = 1; s4 < (u32)g_Vars.roomcount; s4++) {
+//			g_Rooms[s4].unk80 = ALIGN16(*(u16 *)section3ptr * 0x10 + 0x100);
+//			section3ptr += 2;
+//		}
+//
+//		lightindex = 0;
+//
+//		// 5c8
+//		for (s4 = 1; s4 < (u32)g_Vars.roomcount; s4++) {
+//			g_Rooms[s4].numlights = *section3ptr;
+//
+//			if (g_Rooms[s4].numlights > 0) {
+//				g_Rooms[s4].lightindex = lightindex;
+//				lightindex += g_Rooms[s4].numlights;
+//			} else {
+//				g_Rooms[s4].lightindex = -1;
+//			}
+//
+//			section3ptr++;
+//		}
+//
+//		memReallocate((u32)section3, 0, MEMPOOL_STAGE);
+//
+//		// 64c
+//		for (s4 = 1; s4 < g_Vars.roomcount; s4++) {
+//			roomInitLights(s4);
+//		}
+//
+//		numlights = 0;
+//
+//		// 688
+//		for (s4 = 1; s4 < g_Vars.roomcount; s4++) {
+//			numlights += g_Rooms[s4].numlights;
+//		}
+//
+//		// 6a0
+//		if (numlights) {
+//			var800a41a0 = malloc(ALIGN16(numlights * 3), MEMPOOL_STAGE);
+//
+//			for (s4 = 0; s4 < numlights; s4++) {
+//				var800a41a0[s4 * 3 + 0] = 0;
+//				var800a41a0[s4 * 3 + 1] = 0;
+//				var800a41a0[s4 * 3 + 2] = 0;
+//			}
+//		} else {
+//			var800a41a0 = NULL;
+//		}
+//
+//		// 734
+//		for (s4 = 0; g_BgPortals[s4].unk00; s4++) {
+//			func0f164ab8(s4);
+//		}
+//
+//		// 774
+//		for (s4 = 1; s4 < g_Vars.roomcount; s4++) {
+//			func0f164c64(s4);
+//		}
+//
+//		// 7a0
+//		for (s4 = 1; s4 < g_Vars.roomcount; s4++) {
+//			func0f1648cc(s4);
+//		}
+//
+//		// 7d8
+//		for (s4 = 0; g_BgPortals[s4].unk00; s4++) { // might not be s4
+//			g_BgPortals[s4].flags &= 0xfe;
+//		}
+//	}
+//
+//	// 7f8
+//	func0f165ee4(stagenum);
+//
+//	var8007fc10 = 200;
+//
+//	func0f013550();
+//	func0f002a98();
+//	func0f001c0c();
+//}
+
 void func0f15c850(void)
 {
 	func0f15e538();
@@ -6091,7 +6507,7 @@ void func0f15c920(void)
 		}
 
 		if (checksum != CHECKSUM_PLACEHOLDER) {
-			ptr = (s32 *)&bgRoomsInit + 20;
+			ptr = (s32 *)&bgBuildTables + 20;
 
 			if (1) {
 				end = &ptr[4];
@@ -14591,7 +15007,7 @@ glabel var7f1b76c4
 //{
 //	s32 bestportalnum = -1;
 //	s32 count = 0;
-//	f32 bestthing = F32_MAX;
+//	f32 bestthing = INF;
 //	f32 thisthing;
 //	s32 i;
 //

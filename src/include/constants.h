@@ -9,7 +9,6 @@
 
 #define osSyncPrintf
 
-#define F32_MAX 3.4028234663853E+38 // 7f7fffff
 #define S32_MAX 2147483647
 #define U32_MAX 4294967295
 
@@ -2680,6 +2679,7 @@
 #define PORTALCMD_IF               0x5a
 #define PORTALCMD_TOGGLEEXEC       0x5b
 #define PORTALCMD_ENDIF            0x5c
+#define PORTALCMD_64               0x64
 #define PORTALCMD_TRAILER          0x65
 
 #define PORTALFLAG_ENABLED 0x01

@@ -12748,7 +12748,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 			{
 				u32 checksum = 0;
 				s32 *i = (s32 *)&bgInit;
-				s32 *end = (s32 *)&bgRoomsInit;
+				s32 *end = (s32 *)&bgBuildTables;
 
 				while (i < end) {
 					checksum += *i;

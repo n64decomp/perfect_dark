@@ -688,7 +688,7 @@ extern u32 var800a4184;
 extern u32 var800a418c;
 extern u32 var800a4190;
 extern u32 var800a4194;
-extern u32 var800a41a0;
+extern u8 *var800a41a0;
 extern struct var800a41b0 *var800a41b0; // head
 extern struct var800a41b0 *var800a41b4; // tail
 extern u32 var800a41b8;
