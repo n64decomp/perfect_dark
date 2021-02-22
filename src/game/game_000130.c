@@ -64,8 +64,8 @@ glabel func0f0002a0
 /*  f0002d8:	afa40050 */ 	sw	$a0,0x50($sp)
 /*  f0002dc:	10200014 */ 	beqz	$at,.L0f000330
 /*  f0002e0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0002e4:	3c148008 */ 	lui	$s4,%hi(stagethinglist_22e60)
-/*  f0002e8:	2694ce40 */ 	addiu	$s4,$s4,%lo(stagethinglist_22e60)
+/*  f0002e4:	3c148008 */ 	lui	$s4,%hi(g_ModelTypeChr)
+/*  f0002e8:	2694ce40 */ 	addiu	$s4,$s4,%lo(g_ModelTypeChr)
 /*  f0002ec:	27b50048 */ 	addiu	$s5,$sp,0x48
 .L0f0002f0:
 /*  f0002f0:	00133c00 */ 	sll	$a3,$s3,0x10
@@ -116,8 +116,8 @@ glabel func0f000358
 /*  f000390:	afa40050 */ 	sw	$a0,0x50($sp)
 /*  f000394:	10200013 */ 	beqz	$at,.L0f0003e4
 /*  f000398:	00008825 */ 	or	$s1,$zero,$zero
-/*  f00039c:	3c148008 */ 	lui	$s4,%hi(stagethinglist_22e60)
-/*  f0003a0:	2694ce40 */ 	addiu	$s4,$s4,%lo(stagethinglist_22e60)
+/*  f00039c:	3c148008 */ 	lui	$s4,%hi(g_ModelTypeChr)
+/*  f0003a0:	2694ce40 */ 	addiu	$s4,$s4,%lo(g_ModelTypeChr)
 /*  f0003a4:	27b50044 */ 	addiu	$s5,$sp,0x44
 .L0f0003a8:
 /*  f0003a8:	00133c00 */ 	sll	$a3,$s3,0x10

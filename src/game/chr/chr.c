@@ -2950,13 +2950,13 @@ glabel var7f1a879c
 /*  f021544:	afa5015c */ 	sw	$a1,0x15c($sp)
 /*  f021548:	e7a40154 */ 	swc1	$f4,0x154($sp)
 /*  f02154c:	8cce0020 */ 	lw	$t6,0x20($a2)
-/*  f021550:	3c188008 */ 	lui	$t8,%hi(stagethinglist_22f1c)
+/*  f021550:	3c188008 */ 	lui	$t8,%hi(g_ModelTypeRobot)
 /*  f021554:	00803825 */ 	or	$a3,$a0,$zero
 /*  f021558:	8dcf0008 */ 	lw	$t7,0x8($t6)
-/*  f02155c:	2718cefc */ 	addiu	$t8,$t8,%lo(stagethinglist_22f1c)
-/*  f021560:	3c198008 */ 	lui	$t9,%hi(stagethinglist_22e60)
+/*  f02155c:	2718cefc */ 	addiu	$t8,$t8,%lo(g_ModelTypeRobot)
+/*  f021560:	3c198008 */ 	lui	$t9,%hi(g_ModelTypeChr)
 /*  f021564:	8de20004 */ 	lw	$v0,0x4($t7)
-/*  f021568:	2739ce40 */ 	addiu	$t9,$t9,%lo(stagethinglist_22e60)
+/*  f021568:	2739ce40 */ 	addiu	$t9,$t9,%lo(g_ModelTypeChr)
 /*  f02156c:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f021570:	1702006d */ 	bne	$t8,$v0,.L0f021728
 /*  f021574:	00000000 */ 	nop
@@ -3077,14 +3077,14 @@ glabel var7f1a879c
 /*  f021724:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f021728:
 /*  f021728:	17220006 */ 	bne	$t9,$v0,.L0f021744
-/*  f02172c:	3c0b8008 */ 	lui	$t3,%hi(stagethinglist_22eb8)
+/*  f02172c:	3c0b8008 */ 	lui	$t3,%hi(g_ModelTypeSkedar)
 /*  f021730:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f021734:	24080003 */ 	addiu	$t0,$zero,0x3
 /*  f021738:	240a0001 */ 	addiu	$t2,$zero,0x1
 /*  f02173c:	1000000c */ 	b	.L0f021770
 /*  f021740:	00004825 */ 	or	$t1,$zero,$zero
 .L0f021744:
-/*  f021744:	256bce98 */ 	addiu	$t3,$t3,%lo(stagethinglist_22eb8)
+/*  f021744:	256bce98 */ 	addiu	$t3,$t3,%lo(g_ModelTypeSkedar)
 /*  f021748:	15620006 */ 	bne	$t3,$v0,.L0f021764
 /*  f02174c:	2405ffff */ 	addiu	$a1,$zero,-1
 /*  f021750:	24050003 */ 	addiu	$a1,$zero,0x3
@@ -5614,8 +5614,8 @@ glabel var7f1a87d8
 .L0f0243b0:
 /*  f0243b0:	8fab0208 */ 	lw	$t3,0x208($sp)
 .L0f0243b4:
-/*  f0243b4:	3c198008 */ 	lui	$t9,%hi(stagethinglist_22e60)
-/*  f0243b8:	2739ce40 */ 	addiu	$t9,$t9,%lo(stagethinglist_22e60)
+/*  f0243b4:	3c198008 */ 	lui	$t9,%hi(g_ModelTypeChr)
+/*  f0243b8:	2739ce40 */ 	addiu	$t9,$t9,%lo(g_ModelTypeChr)
 /*  f0243bc:	8d640008 */ 	lw	$a0,0x8($t3)
 /*  f0243c0:	8c880004 */ 	lw	$t0,0x4($a0)
 /*  f0243c4:	5728003e */ 	bnel	$t9,$t0,.L0f0244c0
@@ -5739,7 +5739,7 @@ void chrSetHudpieceVisible(struct chrdata *chr, bool visible)
 {
 	struct modelfiledata *modelfiledata = chr->model->filedata;
 
-	if (modelfiledata->unk04 == &stagethinglist_22e60) {
+	if (modelfiledata->type == &g_ModelTypeChr) {
 		struct modelnode *node = modelGetPart(modelfiledata, MODELPART_HUDPIECE);
 
 		if (node && node->type == MODELNODETYPE_HEADSPOT) {
@@ -5863,8 +5863,8 @@ glabel func0f024738
 /*  f024824:	51e000ac */ 	beqzl	$t7,.L0f024ad8
 /*  f024828:	86820002 */ 	lh	$v0,0x2($s4)
 /*  f02482c:	8ca20004 */ 	lw	$v0,0x4($a1)
-/*  f024830:	3c188008 */ 	lui	$t8,%hi(stagethinglist_20ef8)
-/*  f024834:	2718aed8 */ 	addiu	$t8,$t8,%lo(stagethinglist_20ef8)
+/*  f024830:	3c188008 */ 	lui	$t8,%hi(g_ModelTypeWindowedDoor)
+/*  f024834:	2718aed8 */ 	addiu	$t8,$t8,%lo(g_ModelTypeWindowedDoor)
 /*  f024838:	8c590018 */ 	lw	$t9,0x18($v0)
 /*  f02483c:	00409025 */ 	or	$s2,$v0,$zero
 /*  f024840:	00401825 */ 	or	$v1,$v0,$zero
@@ -6724,8 +6724,8 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 			renderdata.unk30 = 7;
 		}
 
-		// Set Skedar eyes open or closed?
-		if (model->filedata->unk04 == &stagethinglist_22eb8) {
+		// Set Skedar eyes open or closed
+		if (model->filedata->type == &g_ModelTypeSkedar) {
 			struct modelnode *node1 = modelGetPart(model->filedata, MODELPART_04);
 			struct modelnode *node2 = modelGetPart(model->filedata, MODELPART_05);
 
@@ -6743,7 +6743,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 				|| chr->headnum == HEAD_ELVIS
 				|| chr->headnum == HEAD_MAIAN_S
 				|| chr->headnum == HEAD_ELVIS_GOGS) {
-			if (model->filedata->unk04 == &stagethinglist_22e60) {
+			if (model->filedata->type == &g_ModelTypeChr) {
 				struct modelnode *node = modelGetPart(model->filedata, MODELPART_04);
 
 				if (node && node->type == MODELNODETYPE_HEADSPOT) {
@@ -9717,13 +9717,13 @@ glabel func0f028a50
 /*  f028b98:	00001025 */ 	or	$v0,$zero,$zero
 /*  f028b9c:	8d040020 */ 	lw	$a0,0x20($t0)
 .L0f028ba0:
-/*  f028ba0:	3c078008 */ 	lui	$a3,%hi(stagethinglist_22e60)
-/*  f028ba4:	24e7ce40 */ 	addiu	$a3,$a3,%lo(stagethinglist_22e60)
+/*  f028ba0:	3c078008 */ 	lui	$a3,%hi(g_ModelTypeChr)
+/*  f028ba4:	24e7ce40 */ 	addiu	$a3,$a3,%lo(g_ModelTypeChr)
 /*  f028ba8:	8c8b0008 */ 	lw	$t3,0x8($a0)
-/*  f028bac:	3c0c8008 */ 	lui	$t4,%hi(stagethinglist_22eb8)
+/*  f028bac:	3c0c8008 */ 	lui	$t4,%hi(g_ModelTypeSkedar)
 /*  f028bb0:	44806000 */ 	mtc1	$zero,$f12
 /*  f028bb4:	8d620004 */ 	lw	$v0,0x4($t3)
-/*  f028bb8:	258cce98 */ 	addiu	$t4,$t4,%lo(stagethinglist_22eb8)
+/*  f028bb8:	258cce98 */ 	addiu	$t4,$t4,%lo(g_ModelTypeSkedar)
 /*  f028bbc:	14e2000c */ 	bne	$a3,$v0,.L0f028bf0
 /*  f028bc0:	00000000 */ 	nop
 /*  f028bc4:	8c86000c */ 	lw	$a2,0xc($a0)
@@ -9739,7 +9739,7 @@ glabel func0f028a50
 /*  f028bec:	e4aa0008 */ 	swc1	$f10,0x8($a1)
 .L0f028bf0:
 /*  f028bf0:	15820008 */ 	bne	$t4,$v0,.L0f028c14
-/*  f028bf4:	3c0d8008 */ 	lui	$t5,%hi(stagethinglist_22ec8)
+/*  f028bf4:	3c0d8008 */ 	lui	$t5,%hi(g_ModelTypeDrCaroll)
 /*  f028bf8:	8c83000c */ 	lw	$v1,0xc($a0)
 /*  f028bfc:	3c013f00 */ 	lui	$at,0x3f00
 /*  f028c00:	44817000 */ 	mtc1	$at,$f14
@@ -9748,7 +9748,7 @@ glabel func0f028a50
 /*  f028c0c:	10000012 */ 	b	.L0f028c58
 /*  f028c10:	8fa60024 */ 	lw	$a2,0x24($sp)
 .L0f028c14:
-/*  f028c14:	25adcea8 */ 	addiu	$t5,$t5,%lo(stagethinglist_22ec8)
+/*  f028c14:	25adcea8 */ 	addiu	$t5,$t5,%lo(g_ModelTypeDrCaroll)
 /*  f028c18:	55a20009 */ 	bnel	$t5,$v0,.L0f028c40
 /*  f028c1c:	8c8f000c */ 	lw	$t7,0xc($a0)
 /*  f028c20:	8c83000c */ 	lw	$v1,0xc($a0)
@@ -9773,8 +9773,8 @@ glabel func0f028a50
 /*  f028c64:	45020036 */ 	bc1fl	.L0f028d40
 /*  f028c68:	00001025 */ 	or	$v0,$zero,$zero
 /*  f028c6c:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*  f028c70:	3c188008 */ 	lui	$t8,%hi(stagethinglist_22eb8)
-/*  f028c74:	2718ce98 */ 	addiu	$t8,$t8,%lo(stagethinglist_22eb8)
+/*  f028c70:	3c188008 */ 	lui	$t8,%hi(g_ModelTypeSkedar)
+/*  f028c74:	2718ce98 */ 	addiu	$t8,$t8,%lo(g_ModelTypeSkedar)
 /*  f028c78:	8dc20004 */ 	lw	$v0,0x4($t6)
 /*  f028c7c:	14e2000e */ 	bne	$a3,$v0,.L0f028cb8
 /*  f028c80:	00000000 */ 	nop
@@ -9793,14 +9793,14 @@ glabel func0f028a50
 /*  f028cb4:	e4aa0004 */ 	swc1	$f10,0x4($a1)
 .L0f028cb8:
 /*  f028cb8:	17020006 */ 	bne	$t8,$v0,.L0f028cd4
-/*  f028cbc:	3c198008 */ 	lui	$t9,%hi(stagethinglist_22ec8)
+/*  f028cbc:	3c198008 */ 	lui	$t9,%hi(g_ModelTypeDrCaroll)
 /*  f028cc0:	c4700030 */ 	lwc1	$f16,0x30($v1)
 /*  f028cc4:	e4b00000 */ 	swc1	$f16,0x0($a1)
 /*  f028cc8:	c4720034 */ 	lwc1	$f18,0x34($v1)
 /*  f028ccc:	1000000f */ 	b	.L0f028d0c
 /*  f028cd0:	e4b20004 */ 	swc1	$f18,0x4($a1)
 .L0f028cd4:
-/*  f028cd4:	2739cea8 */ 	addiu	$t9,$t9,%lo(stagethinglist_22ec8)
+/*  f028cd4:	2739cea8 */ 	addiu	$t9,$t9,%lo(g_ModelTypeDrCaroll)
 /*  f028cd8:	57220007 */ 	bnel	$t9,$v0,.L0f028cf8
 /*  f028cdc:	8c89000c */ 	lw	$t1,0xc($a0)
 /*  f028ce0:	c4640030 */ 	lwc1	$f4,0x30($v1)

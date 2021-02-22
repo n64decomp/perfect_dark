@@ -4105,20 +4105,20 @@ glabel func0f069850
 /*  f06988c:	0c005775 */ 	jal	func00015dd4
 /*  f069890:	27a50038 */ 	addiu	$a1,$sp,0x38
 /*  f069894:	8e0e0018 */ 	lw	$t6,0x18($s0)
-/*  f069898:	3c0f8008 */ 	lui	$t7,%hi(stagethinglist_20f5c)
-/*  f06989c:	25efaf3c */ 	addiu	$t7,$t7,%lo(stagethinglist_20f5c)
+/*  f069898:	3c0f8008 */ 	lui	$t7,%hi(g_ModelTypeHoverbike)
+/*  f06989c:	25efaf3c */ 	addiu	$t7,$t7,%lo(g_ModelTypeHoverbike)
 /*  f0698a0:	8dc40008 */ 	lw	$a0,0x8($t6)
-/*  f0698a4:	3c188008 */ 	lui	$t8,%hi(stagethinglist_2208c)
-/*  f0698a8:	2718c06c */ 	addiu	$t8,$t8,%lo(stagethinglist_2208c)
+/*  f0698a4:	3c188008 */ 	lui	$t8,%hi(g_ModelTypeBasic)
+/*  f0698a8:	2718c06c */ 	addiu	$t8,$t8,%lo(g_ModelTypeBasic)
 /*  f0698ac:	8c820004 */ 	lw	$v0,0x4($a0)
 /*  f0698b0:	11e20009 */ 	beq	$t7,$v0,.L0f0698d8
 /*  f0698b4:	00000000 */ 	nop
 /*  f0698b8:	13020007 */ 	beq	$t8,$v0,.L0f0698d8
-/*  f0698bc:	3c198008 */ 	lui	$t9,%hi(stagethinglist_20fe8)
-/*  f0698c0:	2739afc8 */ 	addiu	$t9,$t9,%lo(stagethinglist_20fe8)
+/*  f0698bc:	3c198008 */ 	lui	$t9,%hi(g_ModelTypeMaianUfo)
+/*  f0698c0:	2739afc8 */ 	addiu	$t9,$t9,%lo(g_ModelTypeMaianUfo)
 /*  f0698c4:	13220004 */ 	beq	$t9,$v0,.L0f0698d8
-/*  f0698c8:	3c088008 */ 	lui	$t0,%hi(stagethinglist_20e10)
-/*  f0698cc:	2508adf0 */ 	addiu	$t0,$t0,%lo(stagethinglist_20e10)
+/*  f0698c8:	3c088008 */ 	lui	$t0,%hi(g_ModelTypeDropship)
+/*  f0698cc:	2508adf0 */ 	addiu	$t0,$t0,%lo(g_ModelTypeDropship)
 /*  f0698d0:	55020005 */ 	bnel	$t0,$v0,.L0f0698e8
 /*  f0698d4:	8e090010 */ 	lw	$t1,0x10($s0)
 .L0f0698d8:
@@ -19311,8 +19311,8 @@ glabel var7f1aa43c
 /*  f0771fc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f077200:	8fb90070 */ 	lw	$t9,0x70($sp)
 .L0f077204:
-/*  f077204:	3c188008 */ 	lui	$t8,%hi(stagethinglist_20ec8)
-/*  f077208:	2718aea8 */ 	addiu	$t8,$t8,%lo(stagethinglist_20ec8)
+/*  f077204:	3c188008 */ 	lui	$t8,%hi(g_ModelType13)
+/*  f077208:	2718aea8 */ 	addiu	$t8,$t8,%lo(g_ModelType13)
 /*  f07720c:	8f280008 */ 	lw	$t0,0x8($t9)
 /*  f077210:	3c017f1b */ 	lui	$at,%hi(var7f1aa43c)
 /*  f077214:	8d090004 */ 	lw	$t1,0x4($t0)
@@ -19480,7 +19480,7 @@ glabel var7f1aa43c
 //	}
 //
 //	// Consider playing a sound effect
-//	if (model->filedata->unk04 == &stagethinglist_20ec8) {
+//	if (model->filedata->unk04 == &g_ModelType13) {
 //		f32 soundpoint = door->maxfrac * 0.3f;
 //
 //		if (door->frac > soundpoint) {
@@ -19521,7 +19521,7 @@ void doorUpdatePortalIfWindowed(struct prop *doorprop, s32 playercount)
 			canhide = false;
 		}
 
-		if (model->filedata->unk04 == &stagethinglist_20ef8) {
+		if (model->filedata->type == &g_ModelTypeWindowedDoor) {
 			node = modelGetPart(model->filedata, MODELPART_01);
 			partdata = modelGetNodeData(model, node);
 
@@ -19578,13 +19578,13 @@ glabel var7f1aa44c
 /*  f07749c:	0c0056f8 */ 	jal	func00015be0
 /*  f0774a0:	02a02825 */ 	or	$a1,$s5,$zero
 /*  f0774a4:	8ec40008 */ 	lw	$a0,0x8($s6)
-/*  f0774a8:	3c0e8008 */ 	lui	$t6,%hi(stagethinglist_20ea4)
-/*  f0774ac:	25ceae84 */ 	addiu	$t6,$t6,%lo(stagethinglist_20ea4)
+/*  f0774a8:	3c0e8008 */ 	lui	$t6,%hi(g_ModelType11)
+/*  f0774ac:	25ceae84 */ 	addiu	$t6,$t6,%lo(g_ModelType11)
 /*  f0774b0:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f0774b4:	3c0f8008 */ 	lui	$t7,%hi(stagethinglist_20ec8)
+/*  f0774b4:	3c0f8008 */ 	lui	$t7,%hi(g_ModelType13)
 /*  f0774b8:	3c017f1b */ 	lui	$at,%hi(var7f1aa440)
 /*  f0774bc:	15c20024 */ 	bne	$t6,$v0,.L0f077550
-/*  f0774c0:	25efaea8 */ 	addiu	$t7,$t7,%lo(stagethinglist_20ec8)
+/*  f0774c0:	25efaea8 */ 	addiu	$t7,$t7,%lo(g_ModelType13)
 /*  f0774c4:	c42ea440 */ 	lwc1	$f14,%lo(var7f1aa440)($at)
 /*  f0774c8:	c604007c */ 	lwc1	$f4,0x7c($s0)
 /*  f0774cc:	3c017f1b */ 	lui	$at,%hi(var7f1aa444)
@@ -27293,7 +27293,7 @@ s32 objTick(struct prop *prop)
 				sp144 = floorf(model->anim->frame);
 
 				for (i = sp148; i <= sp144; i++) {
-					func00024b64(0, 0, model->filedata->unk04, model->anim->animnum, i, &sp128, 0);
+					func00024b64(0, 0, model->filedata->type, model->anim->animnum, i, &sp128, 0);
 
 					sp116.x += sp128.x * 0.1f;
 					sp112 = sp128.y * 0.1f;
@@ -27456,7 +27456,7 @@ s32 objTick(struct prop *prop)
 
 		if (obj->type == OBJTYPE_FAN) {
 			func0f078be0(prop);
-		} else if (obj->model->filedata->unk04 == &stagethinglist_20e10) {
+		} else if (obj->model->filedata->type == &g_ModelTypeDropship) {
 			func0f07e058(prop);
 		}
 
@@ -31303,8 +31303,8 @@ glabel func0f081c18
 /*  f081c20:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f081c24:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f081c28:	8c8f0004 */ 	lw	$t7,0x4($a0)
-/*  f081c2c:	3c0e8008 */ 	lui	$t6,%hi(stagethinglist_20e60)
-/*  f081c30:	25ceae40 */ 	addiu	$t6,$t6,%lo(stagethinglist_20e60)
+/*  f081c2c:	3c0e8008 */ 	lui	$t6,%hi(g_ModelTypeTerminal)
+/*  f081c30:	25ceae40 */ 	addiu	$t6,$t6,%lo(g_ModelTypeTerminal)
 /*  f081c34:	00808025 */ 	or	$s0,$a0,$zero
 /*  f081c38:	15cf0007 */ 	bne	$t6,$t7,.L0f081c58
 /*  f081c3c:	00a08825 */ 	or	$s1,$a1,$zero
@@ -31317,8 +31317,8 @@ glabel func0f081c18
 .L0f081c58:
 /*  f081c58:	8e190004 */ 	lw	$t9,0x4($s0)
 .L0f081c5c:
-/*  f081c5c:	3c188008 */ 	lui	$t8,%hi(stagethinglist_20e6c)
-/*  f081c60:	2718ae4c */ 	addiu	$t8,$t8,%lo(stagethinglist_20e6c)
+/*  f081c5c:	3c188008 */ 	lui	$t8,%hi(g_ModelTypeCiHub)
+/*  f081c60:	2718ae4c */ 	addiu	$t8,$t8,%lo(g_ModelTypeCiHub)
 /*  f081c64:	17190013 */ 	bne	$t8,$t9,.L0f081cb4
 /*  f081c68:	02002025 */ 	or	$a0,$s0,$zero
 /*  f081c6c:	0c006a47 */ 	jal	modelGetPart
@@ -36020,8 +36020,8 @@ glabel func0f0859a0
 /*  f085cc0:	00008025 */ 	or	$s0,$zero,$zero
 .L0f085cc4:
 /*  f085cc4:	8f290018 */ 	lw	$t1,0x18($t9)
-/*  f085cc8:	3c0a8008 */ 	lui	$t2,%hi(stagethinglist_20ef8)
-/*  f085ccc:	254aaed8 */ 	addiu	$t2,$t2,%lo(stagethinglist_20ef8)
+/*  f085cc8:	3c0a8008 */ 	lui	$t2,%hi(g_ModelTypeWindowedDoor)
+/*  f085ccc:	254aaed8 */ 	addiu	$t2,$t2,%lo(g_ModelTypeWindowedDoor)
 /*  f085cd0:	8d240008 */ 	lw	$a0,0x8($t1)
 /*  f085cd4:	8c8c0004 */ 	lw	$t4,0x4($a0)
 /*  f085cd8:	154c0007 */ 	bne	$t2,$t4,.L0f085cf8
@@ -36455,8 +36455,8 @@ glabel func0f085eac
 /*  f0862e4:	15c00041 */ 	bnez	$t6,.L0f0863ec
 /*  f0862e8:	00000000 */ 	nop
 /*  f0862ec:	8f2f0018 */ 	lw	$t7,0x18($t9)
-/*  f0862f0:	3c188008 */ 	lui	$t8,%hi(stagethinglist_20ef8)
-/*  f0862f4:	2718aed8 */ 	addiu	$t8,$t8,%lo(stagethinglist_20ef8)
+/*  f0862f0:	3c188008 */ 	lui	$t8,%hi(g_ModelTypeWindowedDoor)
+/*  f0862f4:	2718aed8 */ 	addiu	$t8,$t8,%lo(g_ModelTypeWindowedDoor)
 /*  f0862f8:	8deb0008 */ 	lw	$t3,0x8($t7)
 /*  f0862fc:	8d0a0004 */ 	lw	$t2,0x4($t0)
 /*  f086300:	00001825 */ 	or	$v1,$zero,$zero
@@ -36557,9 +36557,9 @@ glabel func0f085eac
 /*  f086458:	afa600d0 */ 	sw	$a2,0xd0($sp)
 /*  f08645c:	8fa600d0 */ 	lw	$a2,0xd0($sp)
 /*  f086460:	8fb9011c */ 	lw	$t9,0x11c($sp)
-/*  f086464:	3c188008 */ 	lui	$t8,%hi(stagethinglist_20ef8)
+/*  f086464:	3c188008 */ 	lui	$t8,%hi(g_ModelTypeWindowedDoor)
 /*  f086468:	84ce000a */ 	lh	$t6,0xa($a2)
-/*  f08646c:	2718aed8 */ 	addiu	$t8,$t8,%lo(stagethinglist_20ef8)
+/*  f08646c:	2718aed8 */ 	addiu	$t8,$t8,%lo(g_ModelTypeWindowedDoor)
 /*  f086470:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f086474:	004e001b */ 	divu	$zero,$v0,$t6
 /*  f086478:	00007810 */ 	mfhi	$t7
@@ -36585,8 +36585,8 @@ glabel func0f085eac
 /*  f0864c4:	8de40008 */ 	lw	$a0,0x8($t7)
 /*  f0864c8:	8c830004 */ 	lw	$v1,0x4($a0)
 .L0f0864cc:
-/*  f0864cc:	3c198008 */ 	lui	$t9,%hi(stagethinglist_20e54)
-/*  f0864d0:	2739ae34 */ 	addiu	$t9,$t9,%lo(stagethinglist_20e54)
+/*  f0864cc:	3c198008 */ 	lui	$t9,%hi(g_ModelTypeCctv)
+/*  f0864d0:	2739ae34 */ 	addiu	$t9,$t9,%lo(g_ModelTypeCctv)
 /*  f0864d4:	17230009 */ 	bne	$t9,$v1,.L0f0864fc
 /*  f0864d8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0864dc:	0c006a47 */ 	jal	modelGetPart
@@ -36690,8 +36690,8 @@ glabel func0f085eac
 /*  f086644:	1441001d */ 	bne	$v0,$at,.L0f0866bc
 /*  f086648:	8fac0100 */ 	lw	$t4,0x100($sp)
 /*  f08664c:	8fae011c */ 	lw	$t6,0x11c($sp)
-/*  f086650:	3c0b8008 */ 	lui	$t3,%hi(stagethinglist_20e54)
-/*  f086654:	256bae34 */ 	addiu	$t3,$t3,%lo(stagethinglist_20e54)
+/*  f086650:	3c0b8008 */ 	lui	$t3,%hi(g_ModelTypeCctv)
+/*  f086654:	256bae34 */ 	addiu	$t3,$t3,%lo(g_ModelTypeCctv)
 /*  f086658:	8dcf0018 */ 	lw	$t7,0x18($t6)
 /*  f08665c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f086660:	8de40008 */ 	lw	$a0,0x8($t7)
@@ -36749,8 +36749,8 @@ glabel func0f085eac
 /*  f086718:	0fc2149c */ 	jal	func0f085270
 /*  f08671c:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f086720:	8fa4011c */ 	lw	$a0,0x11c($sp)
-/*  f086724:	3c0b8008 */ 	lui	$t3,%hi(stagethinglist_20ef8)
-/*  f086728:	256baed8 */ 	addiu	$t3,$t3,%lo(stagethinglist_20ef8)
+/*  f086724:	3c0b8008 */ 	lui	$t3,%hi(g_ModelTypeWindowedDoor)
+/*  f086728:	256baed8 */ 	addiu	$t3,$t3,%lo(g_ModelTypeWindowedDoor)
 /*  f08672c:	8c980018 */ 	lw	$t8,0x18($a0)
 /*  f086730:	8fac0124 */ 	lw	$t4,0x124($sp)
 /*  f086734:	8f190008 */ 	lw	$t9,0x8($t8)
@@ -40152,9 +40152,9 @@ glabel func0f089c70
 /*  f089c84:	afa60030 */ 	sw	$a2,0x30($sp)
 /*  f089c88:	8caf0020 */ 	lw	$t7,0x20($a1)
 /*  f089c8c:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f089c90:	3c0e8008 */ 	lui	$t6,%hi(stagethinglist_22e60)
+/*  f089c90:	3c0e8008 */ 	lui	$t6,%hi(g_ModelTypeChr)
 /*  f089c94:	8df80008 */ 	lw	$t8,0x8($t7)
-/*  f089c98:	25cece40 */ 	addiu	$t6,$t6,%lo(stagethinglist_22e60)
+/*  f089c98:	25cece40 */ 	addiu	$t6,$t6,%lo(g_ModelTypeChr)
 /*  f089c9c:	00c02825 */ 	or	$a1,$a2,$zero
 /*  f089ca0:	8f190004 */ 	lw	$t9,0x4($t8)
 /*  f089ca4:	00808025 */ 	or	$s0,$a0,$zero
@@ -41473,11 +41473,11 @@ glabel func0f08ae54
 /*  f08af38:	54600037 */ 	bnezl	$v1,.L0f08b018
 /*  f08af3c:	8cc40014 */ 	lw	$a0,0x14($a2)
 /*  f08af40:	8e020020 */ 	lw	$v0,0x20($s0)
-/*  f08af44:	3c0c8008 */ 	lui	$t4,%hi(stagethinglist_22e60)
-/*  f08af48:	258cce40 */ 	addiu	$t4,$t4,%lo(stagethinglist_22e60)
+/*  f08af44:	3c0c8008 */ 	lui	$t4,%hi(g_ModelTypeChr)
+/*  f08af48:	258cce40 */ 	addiu	$t4,$t4,%lo(g_ModelTypeChr)
 /*  f08af4c:	8c4a0008 */ 	lw	$t2,0x8($v0)
-/*  f08af50:	3c0d8008 */ 	lui	$t5,%hi(stagethinglist_22eb8)
-/*  f08af54:	25adce98 */ 	addiu	$t5,$t5,%lo(stagethinglist_22eb8)
+/*  f08af50:	3c0d8008 */ 	lui	$t5,%hi(g_ModelTypeSkedar)
+/*  f08af54:	25adce98 */ 	addiu	$t5,$t5,%lo(g_ModelTypeSkedar)
 /*  f08af58:	8d430004 */ 	lw	$v1,0x4($t2)
 /*  f08af5c:	15830032 */ 	bne	$t4,$v1,.L0f08b028
 /*  f08af60:	00000000 */ 	nop
@@ -42392,8 +42392,8 @@ glabel func0f08bb5c
 /*  f08bb94:	52000023 */ 	beqzl	$s0,.L0f08bc24
 /*  f08bb98:	8fad0024 */ 	lw	$t5,0x24($sp)
 /*  f08bb9c:	8e040008 */ 	lw	$a0,0x8($s0)
-/*  f08bba0:	3c0f8008 */ 	lui	$t7,%hi(stagethinglist_220a4)
-/*  f08bba4:	25efc084 */ 	addiu	$t7,$t7,%lo(stagethinglist_220a4)
+/*  f08bba0:	3c0f8008 */ 	lui	$t7,%hi(g_ModelTypeChrGun)
+/*  f08bba4:	25efc084 */ 	addiu	$t7,$t7,%lo(g_ModelTypeChrGun)
 /*  f08bba8:	8c980004 */ 	lw	$t8,0x4($a0)
 /*  f08bbac:	55f8001d */ 	bnel	$t7,$t8,.L0f08bc24
 /*  f08bbb0:	8fad0024 */ 	lw	$t5,0x24($sp)
@@ -42456,8 +42456,8 @@ glabel func0f08bc5c
 /*  f08bc6c:	50c0001d */ 	beqzl	$a2,.L0f08bce4
 /*  f08bc70:	00001025 */ 	or	$v0,$zero,$zero
 /*  f08bc74:	8cc40008 */ 	lw	$a0,0x8($a2)
-/*  f08bc78:	3c0e8008 */ 	lui	$t6,%hi(stagethinglist_220a4)
-/*  f08bc7c:	25cec084 */ 	addiu	$t6,$t6,%lo(stagethinglist_220a4)
+/*  f08bc78:	3c0e8008 */ 	lui	$t6,%hi(g_ModelTypeChrGun)
+/*  f08bc7c:	25cec084 */ 	addiu	$t6,$t6,%lo(g_ModelTypeChrGun)
 /*  f08bc80:	8c8f0004 */ 	lw	$t7,0x4($a0)
 /*  f08bc84:	00002825 */ 	or	$a1,$zero,$zero
 /*  f08bc88:	55cf0016 */ 	bnel	$t6,$t7,.L0f08bce4

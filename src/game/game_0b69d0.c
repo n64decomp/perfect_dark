@@ -2935,7 +2935,7 @@ void func0f0ba190(u32 arg0)
 	func00023d38(g_CameraAnimNum);
 	sp7f = func00023ab0(g_CameraAnimNum, lastframe);
 	func00023d0c();
-	func00024050(0, 0, &stagethinglist_221b4, g_CameraAnimNum, sp7f, &sp94, &sp88, &sp7c);
+	func00024050(0, 0, &g_ModelType20, g_CameraAnimNum, sp7f, &sp94, &sp88, &sp7c);
 	func0001648c(&sp94, &sp38);
 
 	theta = atan2f(-sp38.m[2][0], -sp38.m[2][2]);
@@ -3074,14 +3074,14 @@ glabel var7f1ad5dc
 /*  f0ba458:	0c008f43 */ 	jal	func00023d0c
 /*  f0ba45c:	a3a2015f */ 	sb	$v0,0x15f($sp)
 /*  f0ba460:	93aa015f */ 	lbu	$t2,0x15f($sp)
-/*  f0ba464:	3c068008 */ 	lui	$a2,%hi(stagethinglist_221b4)
+/*  f0ba464:	3c068008 */ 	lui	$a2,%hi(g_ModelType20)
 /*  f0ba468:	27ab0178 */ 	addiu	$t3,$sp,0x178
 /*  f0ba46c:	27ac016c */ 	addiu	$t4,$sp,0x16c
 /*  f0ba470:	27ad0160 */ 	addiu	$t5,$sp,0x160
 /*  f0ba474:	afad001c */ 	sw	$t5,0x1c($sp)
 /*  f0ba478:	afac0018 */ 	sw	$t4,0x18($sp)
 /*  f0ba47c:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f0ba480:	24c6c194 */ 	addiu	$a2,$a2,%lo(stagethinglist_221b4)
+/*  f0ba480:	24c6c194 */ 	addiu	$a2,$a2,%lo(g_ModelType20)
 /*  f0ba484:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0ba488:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0ba48c:	86470000 */ 	lh	$a3,0x0($s2)
@@ -10196,8 +10196,8 @@ glabel var7f1ad710
 /*  f0c2460:	51400030 */ 	beqzl	$t2,.L0f0c2524
 /*  f0c2464:	8e2e00bc */ 	lw	$t6,0xbc($s1)
 /*  f0c2468:	8e2200d4 */ 	lw	$v0,0xd4($s1)
-/*  f0c246c:	3c0b8008 */ 	lui	$t3,%hi(stagethinglist_22e60)
-/*  f0c2470:	256bce40 */ 	addiu	$t3,$t3,%lo(stagethinglist_22e60)
+/*  f0c246c:	3c0b8008 */ 	lui	$t3,%hi(g_ModelTypeChr)
+/*  f0c2470:	256bce40 */ 	addiu	$t3,$t3,%lo(g_ModelTypeChr)
 /*  f0c2474:	8c4c0008 */ 	lw	$t4,0x8($v0)
 /*  f0c2478:	8d8d0004 */ 	lw	$t5,0x4($t4)
 /*  f0c247c:	556d0004 */ 	bnel	$t3,$t5,.L0f0c2490

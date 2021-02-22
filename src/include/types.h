@@ -174,7 +174,7 @@ struct anim {
 	/*0x88*/ f32 animscale;
 };
 
-struct stagethinglist {
+struct modeltype {
 	u16 stage;
 	u16 numthings;
 	u16 *things;
@@ -292,7 +292,7 @@ struct modelnode {
 
 struct modelfiledata {
 	struct modelnode *rootnode;
-	struct stagethinglist *unk04;
+	struct modeltype *type;
 
 	// This is a pointer to a variable length array of pointers to modelnodes,
 	// but the array is followed by an s16 array of part numbers.

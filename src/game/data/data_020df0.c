@@ -39,8 +39,8 @@ u16 var8007add0[] = {
 };
 
 // 20e10
-struct stagethinglist stagethinglist_20e10 = {
-	STAGE_DUEL, 16, var8007add0,
+struct modeltype g_ModelTypeDropship = {
+	MODELTYPE_DROPSHIP, 16, var8007add0,
 };
 
 // 20e18
@@ -66,8 +66,8 @@ u16 var8007adf8[] = {
 };
 
 // 20e3c
-struct stagethinglist stagethinglist_20e3c = {
-	STAGE_MP_VILLA, 18, var8007adf8,
+struct modeltype g_ModelTypeSkedarShuttle = {
+	MODELTYPE_SKEDARSHUTTLE, 18, var8007adf8,
 };
 
 // 20e44
@@ -76,8 +76,8 @@ u16 var8007ae24[] = {
 };
 
 // 20e48
-struct stagethinglist stagethinglist_20e48 = {
-	STAGE_RETAKING, 1, var8007ae24,
+struct modeltype g_ModelTypeLift = {
+	MODELTYPE_LIFT, 1, var8007ae24,
 };
 
 // 20e50
@@ -87,8 +87,8 @@ u16 var8007ae30[] = {
 };
 
 // 20e54
-struct stagethinglist stagethinglist_20e54 = {
-	0x0f, 2, var8007ae30,
+struct modeltype g_ModelTypeCctv = {
+	MODELTYPE_CCTV, 2, var8007ae30,
 };
 
 // 20e5c
@@ -97,8 +97,8 @@ u16 var8007ae3c[] = {
 };
 
 // 20e60
-struct stagethinglist stagethinglist_20e60 = {
-	STAGE_TEST_SILO, 1, var8007ae3c,
+struct modeltype g_ModelTypeTerminal = {
+	MODELTYPE_TERMINAL, 1, var8007ae3c,
 };
 
 // 20e68
@@ -107,8 +107,8 @@ u16 var8007ae48[] = {
 };
 
 // 20e6c
-struct stagethinglist stagethinglist_20e6c = {
-	0x15, 1, var8007ae48,
+struct modeltype g_ModelTypeCiHub = {
+	MODELTYPE_CIHUB, 1, var8007ae48,
 };
 
 // 20e74
@@ -121,8 +121,8 @@ u16 var8007ae54[] = {
 };
 
 // 20e80
-struct stagethinglist stagethinglist_20e80 = {
-	STAGE_ESCAPE, 5, var8007ae54,
+struct modeltype g_ModelType19 = {
+	MODELTYPE_19, 5, var8007ae54,
 };
 
 // 20e88
@@ -136,8 +136,8 @@ u16 var8007ae68[] = {
 };
 
 // 20e94
-struct stagethinglist stagethinglist_20e94 = {
-	STAGE_WAR, 6, var8007ae68,
+struct modeltype g_ModelTypeAutogun = {
+	MODELTYPE_AUTOGUN, 6, var8007ae68,
 };
 
 // 20e9c
@@ -148,8 +148,8 @@ u16 var8007ae7c[] = {
 };
 
 // 20ea4
-struct stagethinglist stagethinglist_20ea4 = {
-	0x11, 3, var8007ae7c,
+struct modeltype g_ModelType11 = {
+	MODELTYPE_11, 3, var8007ae7c,
 };
 
 // 20eac
@@ -170,8 +170,8 @@ u16 var8007ae8c[] = {
 };
 
 // 20ec8
-struct stagethinglist stagethinglist_20ec8 = {
-	0x13, 13, var8007ae8c,
+struct modeltype g_ModelType13 = {
+	MODELTYPE_13, 13, var8007ae8c,
 };
 
 // 20ed0
@@ -184,8 +184,8 @@ u16 var8007aeb0[] = {
 };
 
 // 20edc
-struct stagethinglist stagethinglist_20edc = {
-	STAGE_TEST_ARCH, 5, var8007aeb0,
+struct modeltype g_ModelType18 = {
+	MODELTYPE_18, 5, var8007aeb0,
 };
 
 // 20ee4
@@ -197,8 +197,8 @@ u16 var8007aec4[] = {
 };
 
 // 20eec
-struct stagethinglist stagethinglist_20eec = {
-	0x12, 4, var8007aec4,
+struct modeltype g_ModelType12 = {
+	MODELTYPE_12, 4, var8007aec4,
 };
 
 // 20ef4
@@ -207,8 +207,8 @@ u16 var8007aed4[] = {
 };
 
 // 20ef8
-struct stagethinglist stagethinglist_20ef8 = {
-	0x10, 1, var8007aed4,
+struct modeltype g_ModelTypeWindowedDoor = {
+	MODELTYPE_WINDOWEDDOOR, 1, var8007aed4,
 };
 
 // 20f00
@@ -221,8 +221,8 @@ u16 var8007aee0[] = {
 };
 
 // 20f0c
-struct stagethinglist stagethinglist_20f0c = {
-	STAGE_MP_RAVINE, 5, var8007aee0,
+struct modeltype g_ModelType17 = {
+	MODELTYPE_17, 5, var8007aee0,
 };
 
 // 20f14
@@ -231,8 +231,8 @@ u16 var8007aef4[] = {
 };
 
 // 20f18
-struct stagethinglist stagethinglist_20f18 = {
-	0x0c, 1, var8007aef4,
+struct modeltype g_ModelType0C = {
+	MODELTYPE_0C, 1, var8007aef4,
 };
 
 // 20f20
@@ -241,8 +241,8 @@ u16 var8007af00[] = {
 };
 
 // 20f24
-struct stagethinglist stagethinglist_20f24 = {
-	STAGE_CHICAGO, 1, var8007af00,
+struct modeltype g_ModelTypeLogo = {
+	MODELTYPE_LOGO, 1, var8007af00,
 };
 
 // 20f2c
@@ -267,8 +267,8 @@ u16 var8007af0c[] = {
 };
 
 // 20f50
-struct stagethinglist stagethinglist_20f50 = {
-	STAGE_G5BUILDING, 17, var8007af0c,
+struct modeltype g_ModelTypePdLogo = {
+	MODELTYPE_PDLOGO, 17, var8007af0c,
 };
 
 // 20f58
@@ -277,8 +277,8 @@ u16 var8007af38[] = {
 };
 
 // 20f5c
-struct stagethinglist stagethinglist_20f5c = {
-	STAGE_MP_COMPLEX, 1, var8007af38,
+struct modeltype g_ModelTypeHoverbike = {
+	MODELTYPE_HOVERBIKE, 1, var8007af38,
 };
 
 // 20f64
@@ -294,8 +294,8 @@ u16 var8007af44[] = {
 };
 
 // 20f74
-struct stagethinglist stagethinglist_20f74 = {
-	STAGE_MP_SKEDAR, 8, var8007af44,
+struct modeltype g_ModelTypeJumpship = {
+	MODELTYPE_JUMPSHIP, 8, var8007af44,
 };
 
 // 20f7c
@@ -306,8 +306,8 @@ u16 var8007af5c[] = {
 };
 
 // 20f84
-struct stagethinglist stagethinglist_20f84 = {
-	STAGE_AIRBASE, 3, var8007af5c,
+struct modeltype g_ModelTypeChopper = {
+	MODELTYPE_CHOPPER, 3, var8007af5c,
 };
 
 // 20f8c
@@ -336,8 +336,8 @@ u16 var8007af6c[] = {
 };
 
 // 20fb8
-struct stagethinglist stagethinglist_20fb8 = {
-	STAGE_MP_PIPES, 21, var8007af6c,
+struct modeltype g_ModelTypeRope = {
+	MODELTYPE_ROPE, 21, var8007af6c,
 };
 
 // 20fc0
@@ -356,8 +356,8 @@ u16 var8007afa0[] = {
 };
 
 // 20fd8
-struct stagethinglist stagethinglist_20fd8 = {
-	STAGE_INVESTIGATION, 11, var8007afa0,
+struct modeltype g_ModelTypeBanner = {
+	MODELTYPE_BANNER, 11, var8007afa0,
 };
 
 // 20fe0
@@ -368,8 +368,8 @@ u16 var8007afc0[] = {
 };
 
 // 20fe8
-struct stagethinglist stagethinglist_20fe8 = {
-	STAGE_MP_FORTRESS, 3, var8007afc0,
+struct modeltype g_ModelTypeMaianUfo = {
+	MODELTYPE_MAIANUFO, 3, var8007afc0,
 };
 
 // 20ff0
@@ -380,8 +380,8 @@ u16 var8007afd0[] = {
 };
 
 // 20ff8
-struct stagethinglist stagethinglist_20ff8 = {
-	STAGE_MP_WAREHOUSE, 3, var8007afd0,
+struct modeltype g_ModelTypeCableCar = {
+	MODELTYPE_CABLECAR, 3, var8007afd0,
 };
 
 // 21000
@@ -394,8 +394,8 @@ u16 var8007afe0[] = {
 };
 
 // 2100c
-struct stagethinglist stagethinglist_2100c = {
-	STAGE_MP_FELICITY, 5, var8007afe0,
+struct modeltype g_ModelTypeSubmarine = {
+	MODELTYPE_SUBMARINE, 5, var8007afe0,
 };
 
 // 21014
@@ -404,8 +404,8 @@ u16 var8007aff4[] = {
 };
 
 // 21018
-struct stagethinglist stagethinglist_21018 = {
-	0x8c, 1, var8007aff4,
+struct modeltype g_ModelTypeTarget = {
+	MODELTYPE_TARGET, 1, var8007aff4,
 };
 
 // 21020
@@ -414,8 +414,8 @@ u16 var8007b000[] = {
 };
 
 // 21024
-struct stagethinglist stagethinglist_21024 = {
-	STAGE_VILLA, 1, var8007b000,
+struct modeltype g_ModelTypeRareLogo = {
+	MODELTYPE_RARELOGO, 1, var8007b000,
 };
 
 // 2102c
@@ -426,8 +426,8 @@ u16 var8007b00c[] = {
 };
 
 // 21034
-struct stagethinglist stagethinglist_21034 = {
-	0xc8, 3, var8007b00c,
+struct modeltype g_ModelTypeWireFence = {
+	MODELTYPE_WIREFENCE, 3, var8007b00c,
 };
 
 // 2103c
@@ -470,8 +470,8 @@ u16 var8007b01c[] = {
 };
 
 // 21084
-struct stagethinglist stagethinglist_21084 = {
-	0xbb, 35, var8007b01c,
+struct modeltype g_ModelTypeBB = {
+	MODELTYPE_BB, 35, var8007b01c,
 };
 
 // 2108c
@@ -1418,8 +1418,8 @@ u16 var8007c040[] = {
 };
 
 // 2208c
-struct stagethinglist stagethinglist_2208c = {
-	0x02, 21, var8007c040,
+struct modeltype g_ModelTypeBasic = {
+	MODELTYPE_BASIC, 21, var8007c040,
 };
 
 u32 var8007c074 = 0x00000000;
@@ -1433,8 +1433,8 @@ u16 var8007c080[] = {
 };
 
 // 220a4
-struct stagethinglist stagethinglist_220a4 = {
-	0x03, 2, var8007c080,
+struct modeltype g_ModelTypeChrGun = {
+	MODELTYPE_CHRGUN, 2, var8007c080,
 };
 
 u32 var8007c08c = 0x00000000;
@@ -1459,8 +1459,8 @@ u16 var8007c090[] = {
 };
 
 // 220d0
-struct stagethinglist stagethinglist_220d0 = {
-	0x0b, 15, var8007c090,
+struct modeltype g_ModelType0B = {
+	MODELTYPE_0B, 15, var8007c090,
 };
 
 u32 var8007c0dc;
@@ -1473,7 +1473,7 @@ u32 var8007c148;
 u32 var8007c0b8 = 0x00000000;
 u32 var8007c0bc = 0x00000000;
 u32 var8007c0c0 = (u32) &var8007c0dc;
-u32 var8007c0c4 = (u32) &stagethinglist_220d0;
+u32 var8007c0c4 = (u32) &g_ModelType0B;
 u32 var8007c0c8 = 0x00000000;
 u32 var8007c0cc = 0x00000003;
 u32 var8007c0d0 = 0x4224a519;
@@ -1542,8 +1542,8 @@ u16 var8007c160[] = {
 };
 
 // 221a4
-struct stagethinglist stagethinglist_221a4 = {
-	0x0a, 18, var8007c160,
+struct modeltype g_ModelType0A = {
+	MODELTYPE_0A, 18, var8007c160,
 };
 
 u32 var8007c18c = 0x00000000;
@@ -1553,8 +1553,8 @@ u16 var8007c190[] = {
 };
 
 // 221b4
-struct stagethinglist stagethinglist_221b4 = {
-	STAGE_MP_G5BUILDING, 1, var8007c190,
+struct modeltype g_ModelType20 = {
+	MODELTYPE_20, 1, var8007c190,
 };
 
 u32 var8007c19c = 0x00000000;
@@ -1569,8 +1569,8 @@ u16 var8007c1a0[] = {
 };
 
 // 221cc
-struct stagethinglist stagethinglist_221cc = {
-	0x07, 6, var8007c1a0,
+struct modeltype g_ModelTypeClassicGun = {
+	MODELTYPE_CLASSICGUN, 6, var8007c1a0,
 };
 
 u32 var8007c1b4 = 0x00000000;
@@ -1582,8 +1582,8 @@ u16 var8007c1c0[] = {
 };
 
 // 221e4
-struct stagethinglist stagethinglist_221e4 = {
-	0x08, 1, var8007c1c0,
+struct modeltype g_ModelTypeCasing = {
+	MODELTYPE_CASING, 1, var8007c1c0,
 };
 
 u32 var8007c1cc = 0x00000000;
@@ -1599,8 +1599,8 @@ u16 var8007c1d0[] = {
 };
 
 // 22200
-struct stagethinglist stagethinglist_22200 = {
-	0x06, 7, var8007c1d0,
+struct modeltype g_ModelType06 = {
+	MODELTYPE_06, 7, var8007c1d0,
 };
 
 u32 var8007c1e8 = 0x00000000;
@@ -1617,8 +1617,8 @@ u16 var8007c1f0[] = {
 };
 
 // 22220
-struct stagethinglist stagethinglist_22220 = {
-	0x05, 7, var8007c1f0,
+struct modeltype g_ModelTypeUzi = {
+	MODELTYPE_UZI, 7, var8007c1f0,
 };
 
 u32 var8007c208 = 0x00000000;
@@ -1641,8 +1641,8 @@ u16 var8007c210[] = {
 };
 
 // 2224c
-struct stagethinglist stagethinglist_2224c = {
-	0x04, 13, var8007c210,
+struct modeltype g_ModelTypeJoypad = {
+	MODELTYPE_JOYPAD, 13, var8007c210,
 };
 
 // 22254
@@ -1697,8 +1697,8 @@ u16 var8007c234[] = {
 };
 
 // 222b4
-struct stagethinglist stagethinglist_222b4 = {
-	STAGE_PELAGIC, 47, var8007c234,
+struct modeltype g_ModelType21 = {
+	MODELTYPE_21, 47, var8007c234,
 };
 
 // 222bc
@@ -1752,8 +1752,8 @@ u16 var8007c29c[] = {
 };
 
 // 22318
-struct stagethinglist stagethinglist_22318 = {
-	STAGE_TEST_RUN, 46, var8007c29c,
+struct modeltype g_ModelTypeLaptopGun = {
+	MODELTYPE_LAPTOPGUN, 46, var8007c29c,
 };
 
 // 22320
@@ -1802,8 +1802,8 @@ u16 var8007c300[] = {
 };
 
 // 22374
-struct stagethinglist stagethinglist_22374 = {
-	0x24, 41, var8007c300,
+struct modeltype g_ModelTypeK7Avenger = {
+	MODELTYPE_K7AVENGER, 41, var8007c300,
 };
 
 // 2237c
@@ -1854,8 +1854,8 @@ u16 var8007c35c[] = {
 };
 
 // 223d4
-struct stagethinglist stagethinglist_223d4 = {
-	STAGE_MP_TEMPLE, 43, var8007c35c,
+struct modeltype g_ModelTypeFalcon2 = {
+	MODELTYPE_FALCON2, 43, var8007c35c,
 };
 
 // 223dc
@@ -1898,8 +1898,8 @@ u16 var8007c3bc[] = {
 };
 
 // 22424
-struct stagethinglist stagethinglist_22424 = {
-	STAGE_CITRAINING, 35, var8007c3bc,
+struct modeltype g_ModelTypeKnife = {
+	MODELTYPE_KNIFE, 35, var8007c3bc,
 };
 
 // 2242c
@@ -1947,8 +1947,8 @@ u16 var8007c40c[] = {
 };
 
 // 2247c
-struct stagethinglist stagethinglist_2247c = {
-	STAGE_TEST_MP14, 40, var8007c40c,
+struct modeltype g_ModelTypeCmp150 = {
+	MODELTYPE_CMP150, 40, var8007c40c,
 };
 
 // 22484
@@ -1997,8 +1997,8 @@ u16 var8007c464[] = {
 };
 
 // 224d8
-struct stagethinglist stagethinglist_224d8 = {
-	STAGE_MP_GRID, 41, var8007c464,
+struct modeltype g_ModelTypeDragon = {
+	MODELTYPE_DRAGON, 41, var8007c464,
 };
 
 // 224e0
@@ -2049,8 +2049,8 @@ u16 var8007c4c0[] = {
 };
 
 // 22538
-struct stagethinglist stagethinglist_22538 = {
-	STAGE_TEST_MP16, 43, var8007c4c0,
+struct modeltype g_ModelTypeSuperDragon = {
+	MODELTYPE_SUPERDRAGON, 43, var8007c4c0,
 };
 
 // 22540
@@ -2096,8 +2096,8 @@ u16 var8007c520[] = {
 };
 
 // 2258c
-struct stagethinglist stagethinglist_2258c = {
-	STAGE_TEST_MP17, 38, var8007c520,
+struct modeltype g_ModelTypeRocket = {
+	MODELTYPE_ROCKET, 38, var8007c520,
 };
 
 // 22594
@@ -2138,8 +2138,8 @@ u16 var8007c574[] = {
 };
 
 // 225d8
-struct stagethinglist stagethinglist_225d8 = {
-	STAGE_TEST_MP18, 33, var8007c574,
+struct modeltype g_ModelType4A = {
+	MODELTYPE_4A, 33, var8007c574,
 };
 
 // 225e0
@@ -2186,8 +2186,8 @@ u16 var8007c5c0[] = {
 };
 
 // 22630
-struct stagethinglist stagethinglist_22630 = {
-	STAGE_TEST_MP19, 39, var8007c5c0,
+struct modeltype g_ModelTypeShotgun = {
+	MODELTYPE_SHOTGUN, 39, var8007c5c0,
 };
 
 // 22638
@@ -2243,8 +2243,8 @@ u16 var8007c618[] = {
 };
 
 // 22698
-struct stagethinglist stagethinglist_22698 = {
-	STAGE_TEST_MP20, 48, var8007c618,
+struct modeltype g_ModelTypeFarsight = {
+	MODELTYPE_FARSIGHT, 48, var8007c618,
 };
 
 // 226a0
@@ -2287,8 +2287,8 @@ u16 var8007c680[] = {
 };
 
 // 226e8
-struct stagethinglist stagethinglist_226e8 = {
-	STAGE_TEST_UFF, 35, var8007c680,
+struct modeltype g_ModelType4D = {
+	MODELTYPE_4D, 35, var8007c680,
 };
 
 // 226f0
@@ -2346,8 +2346,8 @@ u16 var8007c6d0[] = {
 };
 
 // 22754
-struct stagethinglist stagethinglist_22754 = {
-	STAGE_TEST_OLD, 50, var8007c6d0,
+struct modeltype g_ModelTypeReaper = {
+	MODELTYPE_REAPER, 50, var8007c6d0,
 };
 
 // 2275c
@@ -2394,8 +2394,8 @@ u16 var8007c73c[] = {
 };
 
 // 227ac
-struct stagethinglist stagethinglist_227ac = {
-	0x64, 39, var8007c73c,
+struct modeltype g_ModelTypeMauler = {
+	MODELTYPE_MAULER, 39, var8007c73c,
 };
 
 // 227b4
@@ -2443,8 +2443,8 @@ u16 var8007c794[] = {
 };
 
 // 22804
-struct stagethinglist stagethinglist_22804 = {
-	0x65, 40, var8007c794,
+struct modeltype g_ModelTypeDevastator = {
+	MODELTYPE_DEVASTATOR, 40, var8007c794,
 };
 
 // 2280c
@@ -2492,8 +2492,8 @@ u16 var8007c7ec[] = {
 };
 
 // 2285c
-struct stagethinglist stagethinglist_2285c = {
-	0x66, 40, var8007c7ec,
+struct modeltype g_ModelTypePistol = {
+	MODELTYPE_PISTOL, 40, var8007c7ec,
 };
 
 // 22864
@@ -2541,8 +2541,8 @@ u16 var8007c844[] = {
 };
 
 // 228b4
-struct stagethinglist stagethinglist_228b4 = {
-	0x67, 40, var8007c844,
+struct modeltype g_ModelTypeAr34 = {
+	MODELTYPE_AR34, 40, var8007c844,
 };
 
 // 228bc
@@ -2597,8 +2597,8 @@ u16 var8007c89c[] = {
 };
 
 // 2291c
-struct stagethinglist stagethinglist_2291c = {
-	0x68, 47, var8007c89c,
+struct modeltype g_ModelTypeMagnum = {
+	MODELTYPE_MAGNUM, 47, var8007c89c,
 };
 
 // 22924
@@ -2643,8 +2643,8 @@ u16 var8007c904[] = {
 };
 
 // 22970
-struct stagethinglist stagethinglist_22970 = {
-	0x69, 37, var8007c904,
+struct modeltype g_ModelTypeSlayerRocket = {
+	MODELTYPE_SLAYERROCKET, 37, var8007c904,
 };
 
 // 22978
@@ -2690,8 +2690,8 @@ u16 var8007c958[] = {
 };
 
 // 229c4
-struct stagethinglist stagethinglist_229c4 = {
-	0x6a, 38, var8007c958,
+struct modeltype g_ModelTypeCyclone = {
+	MODELTYPE_CYCLONE, 38, var8007c958,
 };
 
 // 229cc
@@ -2741,8 +2741,8 @@ u16 var8007c9ac[] = {
 };
 
 // 22a20
-struct stagethinglist stagethinglist_22a20 = {
-	0x6b, 42, var8007c9ac,
+struct modeltype g_ModelTypeSniperRifle = {
+	MODELTYPE_SNIPERRIFLE, 42, var8007c9ac,
 };
 
 // 22a28
@@ -2789,8 +2789,8 @@ u16 var8007ca08[] = {
 };
 
 // 22a78
-struct stagethinglist stagethinglist_22a78 = {
-	0x6c, 39, var8007ca08,
+struct modeltype g_ModelTypeTranquilizer = {
+	MODELTYPE_TRANQUILIZER, 39, var8007ca08,
 };
 
 // 22a80
@@ -2844,8 +2844,8 @@ u16 var8007ca60[] = {
 };
 
 // 22adc
-struct stagethinglist stagethinglist_22adc = {
-	0x6d, 46, var8007ca60,
+struct modeltype g_ModelTypeCrossbow = {
+	MODELTYPE_CROSSBOW, 46, var8007ca60,
 };
 
 // 22ae4
@@ -2887,8 +2887,8 @@ u16 var8007cac4[] = {
 };
 
 // 22b28
-struct stagethinglist stagethinglist_22b28 = {
-	0x6e, 34, var8007cac4,
+struct modeltype g_ModelTypeTimedProxyMine = {
+	MODELTYPE_TIMEDPROXYMINE, 34, var8007cac4,
 };
 
 // 22b30
@@ -2936,8 +2936,8 @@ u16 var8007cb10[] = {
 };
 
 // 22b80
-struct stagethinglist stagethinglist_22b80 = {
-	0x6f, 40, var8007cb10,
+struct modeltype g_ModelTypePhoenix = {
+	MODELTYPE_PHOENIX, 40, var8007cb10,
 };
 
 // 22b88
@@ -2988,8 +2988,8 @@ u16 var8007cb68[] = {
 };
 
 // 22be0
-struct stagethinglist stagethinglist_22be0 = {
-	0x70, 43, var8007cb68,
+struct modeltype g_ModelTypeCallisto = {
+	MODELTYPE_CALLISTO, 43, var8007cb68,
 };
 
 // 22be8
@@ -3038,8 +3038,8 @@ u16 var8007cbc8[] = {
 };
 
 // 22c3c
-struct stagethinglist stagethinglist_22c3c = {
-	0x71, 41, var8007cbc8,
+struct modeltype g_ModelTypeRcp120 = {
+	MODELTYPE_RCP120, 41, var8007cbc8,
 };
 
 // 22c44
@@ -3054,8 +3054,8 @@ u16 var8007cc24[] = {
 };
 
 // 22c54
-struct stagethinglist stagethinglist_22c54 = {
-	STAGE_SKEDARRUINS, 7, var8007cc24,
+struct modeltype g_ModelTypeHudPiece = {
+	MODELTYPE_HUDPIECE, 7, var8007cc24,
 };
 
 // 22c5c
@@ -3096,8 +3096,8 @@ u16 var8007cc3c[] = {
 };
 
 // 22ca0
-struct stagethinglist stagethinglist_22ca0 = {
-	0xfa, 33, var8007cc3c,
+struct modeltype g_ModelTypeHand = {
+	MODELTYPE_HAND, 33, var8007cc3c,
 };
 
 // 22ca8
@@ -3140,8 +3140,8 @@ u16 var8007cc88[] = {
 };
 
 // 22cf0
-struct stagethinglist stagethinglist_22cf0 = {
-	0x72, 35, var8007cc88,
+struct modeltype g_ModelTypeLaser = {
+	MODELTYPE_LASER, 35, var8007cc88,
 };
 
 // 22cf8
@@ -3184,8 +3184,8 @@ u16 var8007ccd8[] = {
 };
 
 // 22d40
-struct stagethinglist stagethinglist_22d40 = {
-	0x73, 35, var8007ccd8,
+struct modeltype g_ModelTypeGrenade = {
+	MODELTYPE_GRENADE, 35, var8007ccd8,
 };
 
 // 22d48
@@ -3228,8 +3228,8 @@ u16 var8007cd28[] = {
 };
 
 // 22d90
-struct stagethinglist stagethinglist_22d90 = {
-	0x74, 35, var8007cd28,
+struct modeltype g_ModelTypeEcmMine = {
+	MODELTYPE_ECMMINE, 35, var8007cd28,
 };
 
 // 22d98
@@ -3272,8 +3272,8 @@ u16 var8007cd78[] = {
 };
 
 // 22de0
-struct stagethinglist stagethinglist_22de0 = {
-	0x75, 35, var8007cd78,
+struct modeltype g_ModelTypeUplink = {
+	MODELTYPE_UPLINK, 35, var8007cd78,
 };
 
 // 22de8
@@ -3318,8 +3318,8 @@ u16 var8007cdc8[] = {
 };
 
 // 22e34
-struct stagethinglist stagethinglist_22e34 = {
-	0x76, 37, var8007cdc8,
+struct modeltype g_ModelTypeRemoteMine = {
+	MODELTYPE_REMOTEMINE, 37, var8007cdc8,
 };
 
 u32 var8007ce1c = 0x00000000;
@@ -3343,8 +3343,8 @@ u16 var8007ce20[] = {
 };
 
 // 22e60
-struct stagethinglist stagethinglist_22e60 = {
-	STAGE_MAIANSOS, 15, var8007ce20,
+struct modeltype g_ModelTypeChr = {
+	MODELTYPE_CHR, 15, var8007ce20,
 };
 
 u32 var8007ce48 = 0x00000000;
@@ -3390,8 +3390,8 @@ u16 var8007ce50[] = {
 };
 
 // 22eb8
-struct stagethinglist stagethinglist_22eb8 = {
-	STAGE_CRASHSITE, 36, var8007ce50,
+struct modeltype g_ModelTypeSkedar = {
+	MODELTYPE_SKEDAR, 36, var8007ce50,
 };
 
 // 22ec0
@@ -3403,8 +3403,8 @@ u16 var8007cea0[] = {
 };
 
 // 22ec8
-struct stagethinglist stagethinglist_22ec8 = {
-	0x28, 4, var8007cea0,
+struct modeltype g_ModelTypeDrCaroll = {
+	MODELTYPE_DRCAROLL, 4, var8007cea0,
 };
 
 // 22ed0
@@ -3442,8 +3442,8 @@ u16 var8007ceb0[] = {
 };
 
 // 22f0c
-struct stagethinglist stagethinglist_22f0c = {
-	STAGE_EXTRACTION, 30, var8007ceb0,
+struct modeltype g_ModelType22 = {
+	MODELTYPE_22, 30, var8007ceb0,
 };
 
 // 22f14
@@ -3454,8 +3454,8 @@ u16 var8007cef4[] = {
 };
 
 // 22f1c
-struct stagethinglist stagethinglist_22f1c = {
-	STAGE_ATTACKSHIP, 3, var8007cef4,
+struct modeltype g_ModelTypeRobot = {
+	MODELTYPE_ROBOT, 3, var8007cef4,
 };
 
 // 22f24

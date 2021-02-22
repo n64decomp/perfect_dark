@@ -34,8 +34,8 @@ glabel func0f0125a0
 /*  f0125e4:	ace00004 */ 	sw	$zero,0x4($a3)
 /*  f0125e8:	1020001d */ 	beqz	$at,.L0f012660
 /*  f0125ec:	ace00008 */ 	sw	$zero,0x8($a3)
-/*  f0125f0:	3c148008 */ 	lui	$s4,%hi(stagethinglist_22e60)
-/*  f0125f4:	2694ce40 */ 	addiu	$s4,$s4,%lo(stagethinglist_22e60)
+/*  f0125f0:	3c148008 */ 	lui	$s4,%hi(g_ModelTypeChr)
+/*  f0125f4:	2694ce40 */ 	addiu	$s4,$s4,%lo(g_ModelTypeChr)
 /*  f0125f8:	27b50048 */ 	addiu	$s5,$sp,0x48
 .L0f0125fc:
 /*  f0125fc:	00133c00 */ 	sll	$a3,$s3,0x10
