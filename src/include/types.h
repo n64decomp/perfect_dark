@@ -375,7 +375,7 @@ struct aibot {
 	/*0x018*/ s8 maxitems;
 	/*0x01c*/ s32 *ammoheld;
 	/*0x020*/ s32 weaponnum;
-	/*0x024*/ s32 unk024[2]; // probably current clip count or reserve count
+	/*0x024*/ s32 loadedammo[2]; // amount of ammo in current clip
 	/*0x02c*/ u16 unk02c[2];
 	/*0x030*/ u32 unk030; // timer of some sort
 	/*0x034*/ u32 unk034;
@@ -387,15 +387,14 @@ struct aibot {
 	/*0x048*/ s16 unk048;
 	/*0x04a*/ s16 unk04a;
 	/*0x04c*/ u8 unk04c_00 : 1;
-	/*0x04c*/ u8 unk04c_01 : 1;
+	/*0x04c*/ u8 iscloserangeweapon : 1;
 	/*0x04c*/ u8 gunfunc : 1;
 	/*0x04c*/ u8 unk04c_03 : 1;
 	/*0x04c*/ u8 unk04c_04 : 1;
 	/*0x04c*/ u8 unk04c_05 : 1;
 	/*0x04c*/ u8 cloakdeviceenabled : 1;
 	/*0x04c*/ u8 unk04c_07 : 1;
-	/*0x04d*/ u8 unk04d;
-	/*0x04e*/ u8 unk04e;
+	/*0x04d*/ u8 unk04d[2];
 	/*0x04f*/ u8 teamisonlyai : 1;
 	/*0x04f*/ u8 unk04f_01 : 1;
 	/*0x04f*/ u8 unk04f_02 : 1;
@@ -451,15 +450,13 @@ struct aibot {
 	/*0x0b8*/ f32 unk0b8;
 	/*0x0bc*/ s32 unk0bc;
 	/*0x0c0*/ s32 attackpropnum;
-	/*0x0c4*/ u32 unk0c4;
-	/*0x0c8*/ u32 unk0c8;
-	/*0x0cc*/ u32 unk0cc;
+	/*0x0c4*/ u32 unk0c4[2];
+	/*0x0cc*/ u32 unk0cc; // Timer? Related to weapon switching
 	/*0x0d0*/ u32 unk0d0;
 	/*0x0d4*/ s32 followprotectpropnum;
 	/*0x0d8*/ s32 unk0d8;
 	/*0x0dc*/ u32 unk0dc;
-	/*0x0e0*/ u16 unk0e0;
-	/*0x0e2*/ u16 unk0e2;
+	/*0x0e0*/ u16 unk0e0[2];
 	/*0x0e4*/ f32 unk0e4[2];
 	/*0x0ec*/ u32 unk0ec;
 	/*0x0f0*/ u32 unk0f0;
@@ -1300,7 +1297,7 @@ struct weaponobj { // objtype 0x08
 	/*0x5c*/ u8 weaponnum;
 	/*0x5d*/ s8 unk5d;
 	/*0x5e*/ s8 unk5e;
-	/*0x5f*/ u8 thrown; // Dragon and Laptop Gun
+	/*0x5f*/ u8 gunfunc;
 	/*0x60*/ s8 unk60;
 	/*0x61*/ s8 dualweaponnum;
 

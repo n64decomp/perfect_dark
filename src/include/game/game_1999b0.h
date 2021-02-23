@@ -5,11 +5,11 @@
 #include "types.h"
 
 s32 weaponGetAmmoTypeByFunction(s32 weaponnum, u32 funcnum);
-s32 weaponGetClipSizeByFunction(s32 weaponnum, u32 funcnum);
-void func0f199a40(struct chrdata *chr, u32 index, bool arg2);
+s32 weaponGetClipCapacityByFunction(s32 weaponnum, u32 funcnum);
+void aibotReloadWeapon(struct chrdata *chr, s32 handnum, bool withsound);
 s32 func0f199be4(struct aibot *aibot, s32 weaponnum, s32 funcnum, bool include_equipped);
 s32 aibotGetAmmoQty(struct aibot *aibot, s32 ammotype, bool include_equipped);
-s32 func0f199d70(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 qty);
+s32 aibotTryRemoveAmmoFromReserve(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 qty);
 void aibotGiveAmmoByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 qty);
 void aibotGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity);
 bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, struct coord *arg3);

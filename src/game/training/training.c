@@ -1947,8 +1947,8 @@ void frEndSession(bool hidetargets)
 								|| weapon->weaponnum == WEAPON_ROCKET
 								|| weapon->weaponnum == WEAPON_TIMEDMINE
 								|| weapon->weaponnum == WEAPON_ROCKET2
-								|| (weapon->weaponnum == WEAPON_DRAGON && weapon->thrown == true)
-								|| (weapon->weaponnum == WEAPON_LAPTOPGUN && weapon->thrown == true)) {
+								|| (weapon->weaponnum == WEAPON_DRAGON && weapon->gunfunc == FUNC_SECONDARY)
+								|| (weapon->weaponnum == WEAPON_LAPTOPGUN && weapon->gunfunc == FUNC_SECONDARY)) {
 							func0f06b34c(obj, true);
 						}
 					}

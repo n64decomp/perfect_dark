@@ -24,7 +24,7 @@ u32 func0f198df8(void);
 u32 func0f198e38(void);
 u32 func0f198e78(void);
 u32 func0f198eec(void);
-void func0f1994b0(struct chrdata *chr, bool arg1, bool arg2);
+bool aibotSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum);
 void func0f19978c(struct chrdata *chr, s32 weaponnum, u8 arg2);
 void func0f199964(struct chrdata *chr, u32 weaponnum);
 void func0f199984(struct chrdata *chr, u32 weaponnum);

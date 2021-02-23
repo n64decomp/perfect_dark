@@ -2448,14 +2448,14 @@ glabel var7f1ade50
 //					if (weapon && weapon->base.type == OBJTYPE_WEAPON) {
 //						switch (weapon->weaponnum) {
 //						case WEAPON_GRENADE:
-//							if (weapon->thrown == true) {
+//							if (weapon->gunfunc == FUNC_SECONDARY) {
 //								textid = L_GUN(212); // "PROXY"
 //							} else {
 //								textid = L_GUN(213); // "TIMED"
 //							}
 //							break;
 //						case WEAPON_NBOMB:
-//							if (weapon->thrown == true) {
+//							if (weapon->gunfunc == FUNC_SECONDARY) {
 //								textid = L_GUN(212); // "PROXY"
 //							} else {
 //								textid = L_GUN(216); // "IMPACT"
@@ -2471,7 +2471,7 @@ glabel var7f1ade50
 //							textid = L_GUN(214); // "REMOTE"
 //							break;
 //						case WEAPON_DRAGON:
-//							if (weapon->thrown == true) {
+//							if (weapon->gunfunc == FUNC_SECONDARY) {
 //								textid = L_GUN(212); // "PROXY"
 //							}
 //							break;

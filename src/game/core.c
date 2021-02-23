@@ -689,7 +689,7 @@ void coreFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playe
 				pass = true;
 				break;
 			case WEAPON_DRAGON:
-				if (weapon->thrown == 1U) {
+				if (weapon->gunfunc == (u32)FUNC_SECONDARY) {
 					pass = true;
 				}
 				break;

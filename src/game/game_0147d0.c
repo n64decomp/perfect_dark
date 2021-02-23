@@ -157,8 +157,8 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 					aibot->unk02c[1] = 0;
 					aibot->unk034 = 0;
 					aibot->unk040 = 0.0f;
-					aibot->unk024[0] = 0;
-					aibot->unk024[1] = 0;
+					aibot->loadedammo[0] = 0;
+					aibot->loadedammo[1] = 0;
 					aibot->unk058 = 0;
 					aibot->unk059 = 0;
 					aibot->unk05c = 0;
@@ -185,13 +185,13 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 
 					aibot->weaponnum = WEAPON_UNARMED;
 
-					aibot->unk04d = 0;
-					aibot->unk04e = 0;
+					aibot->unk04d[0] = 0;
+					aibot->unk04d[1] = 0;
 					aibot->unk044 = NULL;
 					aibot->unk0a0 = 0;
 
 					aibot->gunfunc = 0;
-					aibot->unk04c_01 = 1;
+					aibot->iscloserangeweapon = true;
 					aibot->teamisonlyai = 0;
 					aibot->unk09c_00 = 0;
 					aibot->unk09c_01 = 0;
@@ -206,14 +206,14 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 					aibot->unk04a = -1;
 
 					aibot->unk0bc = -1;
-					aibot->unk0c8 = 0;
-					aibot->unk0c4 = 0;
+					aibot->unk0c4[HAND_LEFT] = 0;
+					aibot->unk0c4[HAND_RIGHT] = 0;
 					aibot->unk0cc = 0;
 					aibot->unk0d0 = 0;
 					aibot->unk0d8 = 0;
 					aibot->unk0dc = 0;
-					aibot->unk0e2 = 0;
-					aibot->unk0e0 = 0;
+					aibot->unk0e0[HAND_LEFT] = 0;
+					aibot->unk0e0[HAND_RIGHT] = 0;
 
 					aibot->unk0e4[1] = 0.0f;
 					aibot->unk0e4[0] = 0.0f;

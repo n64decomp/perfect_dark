@@ -353,7 +353,7 @@ glabel mpChrReset
 //			aibotClearInventory(chr);
 //
 //			aibot->gunfunc = 0;
-//			aibot->unk04c_01 = 1;
+//			aibot->iscloserangeweapon = true;
 //			aibot->unk09c_00 = 0;
 //			aibot->cloakdeviceenabled = false;
 //			aibot->unk04c_04 = 0;
@@ -361,8 +361,8 @@ glabel mpChrReset
 //			aibot->unk09c_01 = 0;
 //			aibot->unk04c_05 = 0;
 //			aibot->weaponnum = WEAPON_UNARMED;
-//			aibot->unk024 = 0;
-//			aibot->unk028 = 0;
+//			aibot->loadedammo[0] = 0;
+//			aibot->loadedammo[1] = 0;
 //			aibot->prop = NULL;
 //			aibot->unk02c = 0;
 //			aibot->unk02e = 0;
@@ -600,7 +600,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				qty = weaponGetPickupAmmoQty(weapon);
 
 				if (qty) {
-					aibotGiveAmmoByWeapon(chr->aibot, weapon->weaponnum, weapon->thrown, qty);
+					aibotGiveAmmoByWeapon(chr->aibot, weapon->weaponnum, weapon->gunfunc, qty);
 				}
 
 				if (itemtype) {
@@ -1101,7 +1101,7 @@ s32 mpObjIsSafe(struct defaultobj *obj)
 				weapon->weaponnum == WEAPON_REMOTEMINE ||
 				weapon->weaponnum == WEAPON_TIMEDMINE ||
 				weapon->weaponnum == WEAPON_ROCKET2 ||
-				(weapon->weaponnum == WEAPON_DRAGON && weapon->thrown == 1)) {
+				(weapon->weaponnum == WEAPON_DRAGON && weapon->gunfunc == FUNC_SECONDARY)) {
 			return false;
 		}
 
@@ -2527,10 +2527,10 @@ void func0f192628(struct chrdata *chr, struct prop *arg1)
 
 		aibotRemoveInvItem(chr, chr->aibot->weaponnum);
 
-		chr->aibot->unk024[0] = 0;
-		chr->aibot->unk024[1] = 0;
+		chr->aibot->loadedammo[0] = 0;
+		chr->aibot->loadedammo[1] = 0;
 
-		func0f1994b0(chr, true, false);
+		aibotSwitchToWeapon(chr, WEAPON_UNARMED, FUNC_PRIMARY);
 	}
 }
 
@@ -3596,7 +3596,7 @@ glabel func0f19369c
 /*  f193710:	afa8001c */ 	sw	$t0,0x1c($sp)
 /*  f193714:	afa70028 */ 	sw	$a3,0x28($sp)
 /*  f193718:	00055880 */ 	sll	$t3,$a1,0x2
-/*  f19371c:	0fc6667e */ 	jal	weaponGetClipSizeByFunction
+/*  f19371c:	0fc6667e */ 	jal	weaponGetClipCapacityByFunction
 /*  f193720:	000b2fc2 */ 	srl	$a1,$t3,0x1f
 /*  f193724:	8fa70028 */ 	lw	$a3,0x28($sp)
 /*  f193728:	8faf002c */ 	lw	$t7,0x2c($sp)
@@ -5022,7 +5022,7 @@ glabel var7f1b8fc8
 /*  f194c20:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f194c24:	02002825 */ 	or	$a1,$s0,$zero
 /*  f194c28:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f194c2c:	0fc66690 */ 	jal	func0f199a40
+/*  f194c2c:	0fc66690 */ 	jal	aibotReloadWeapon
 /*  f194c30:	afa70054 */ 	sw	$a3,0x54($sp)
 /*  f194c34:	10000030 */ 	b	.L0f194cf8
 /*  f194c38:	8fa70054 */ 	lw	$a3,0x54($sp)
@@ -5043,7 +5043,7 @@ glabel var7f1b8fc8
 /*  f194c70:	00054880 */ 	sll	$t1,$a1,0x2
 /*  f194c74:	00092fc2 */ 	srl	$a1,$t1,0x1f
 /*  f194c78:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f194c7c:	0fc6667e */ 	jal	weaponGetClipSizeByFunction
+/*  f194c7c:	0fc6667e */ 	jal	weaponGetClipCapacityByFunction
 /*  f194c80:	afa302e8 */ 	sw	$v1,0x2e8($sp)
 /*  f194c84:	8fa302e8 */ 	lw	$v1,0x2e8($sp)
 /*  f194c88:	8fa70054 */ 	lw	$a3,0x54($sp)
@@ -5105,7 +5105,7 @@ glabel var7f1b8fc8
 /*  f194d58:	00003825 */ 	or	$a3,$zero,$zero
 /*  f194d5c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f194d60:	00002825 */ 	or	$a1,$zero,$zero
-/*  f194d64:	0fc66690 */ 	jal	func0f199a40
+/*  f194d64:	0fc66690 */ 	jal	aibotReloadWeapon
 /*  f194d68:	00003025 */ 	or	$a2,$zero,$zero
 /*  f194d6c:	8e090000 */ 	lw	$t1,0x0($s0)
 /*  f194d70:	24010003 */ 	addiu	$at,$zero,0x3
@@ -5117,7 +5117,7 @@ glabel var7f1b8fc8
 /*  f194d88:	3c071000 */ 	lui	$a3,0x1000
 /*  f194d8c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f194d90:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f194d94:	0fc66690 */ 	jal	func0f199a40
+/*  f194d94:	0fc66690 */ 	jal	aibotReloadWeapon
 /*  f194d98:	00003025 */ 	or	$a2,$zero,$zero
 .L0f194d9c:
 /*  f194d9c:	1000000e */ 	b	.L0f194dd8
@@ -7598,7 +7598,7 @@ glabel var7f1b8fc8
 /*  f1970fc:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f197100:	00066880 */ 	sll	$t5,$a2,0x2
 /*  f197104:	000d37c2 */ 	srl	$a2,$t5,0x1f
-/*  f197108:	0fc6675c */ 	jal	func0f199d70
+/*  f197108:	0fc6675c */ 	jal	aibotTryRemoveAmmoFromReserve
 /*  f19710c:	02e03825 */ 	or	$a3,$s7,$zero
 /*  f197110:	0fc668df */ 	jal	func0f19a37c
 /*  f197114:	02802025 */ 	or	$a0,$s4,$zero
@@ -7618,7 +7618,7 @@ glabel var7f1b8fc8
 /*  f19714c:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f197150:	02802025 */ 	or	$a0,$s4,$zero
 /*  f197154:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f197158:	0fc6652c */ 	jal	func0f1994b0
+/*  f197158:	0fc6652c */ 	jal	aibotSwitchToWeapon
 /*  f19715c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f197160:	8e8902d4 */ 	lw	$t1,0x2d4($s4)
 .L0f197164:

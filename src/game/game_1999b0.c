@@ -32,7 +32,7 @@ s32 weaponGetAmmoTypeByFunction(s32 weaponnum, u32 funcnum)
 	return 0;
 }
 
-s32 weaponGetClipSizeByFunction(s32 weaponnum, u32 funcnum)
+s32 weaponGetClipCapacityByFunction(s32 weaponnum, u32 funcnum)
 {
 	if (weaponnum >= WEAPON_FALCON2 && weaponnum <= WEAPON_SUICIDEPILL) {
 		struct inventory_ammo *ammo = weaponGetAmmoByFunction(weaponnum, funcnum);
@@ -45,24 +45,24 @@ s32 weaponGetClipSizeByFunction(s32 weaponnum, u32 funcnum)
 	return 0;
 }
 
-void func0f199a40(struct chrdata *chr, u32 index, bool arg2)
+void aibotReloadWeapon(struct chrdata *chr, s32 handnum, bool withsound)
 {
 	struct aibot *aibot = chr->aibot;
-	aibot->unk02c[index] = 0;
-	aibot->unk0e4[index] = 0;
+	aibot->unk02c[handnum] = 0;
+	aibot->unk0e4[handnum] = 0;
 
-	if (chr->weapons_held[index]
+	if (chr->weapons_held[handnum]
 			&& func0f19a29c(aibot->weaponnum, aibot->gunfunc) == 0) {
-		s32 clipsize = weaponGetClipSizeByFunction(aibot->weaponnum, aibot->gunfunc);
+		s32 capacity = weaponGetClipCapacityByFunction(aibot->weaponnum, aibot->gunfunc);
 
-		if (clipsize > 0) {
-			s32 a = clipsize - aibot->unk024[index];
-			s32 b = func0f199d70(aibot, aibot->weaponnum, aibot->gunfunc, a);
+		if (capacity > 0) {
+			s32 tryamount = capacity - aibot->loadedammo[handnum];
+			s32 actualamount = aibotTryRemoveAmmoFromReserve(aibot, aibot->weaponnum, aibot->gunfunc, tryamount);
 
-			if (b > 0) {
-				aibot->unk024[index] += b;
+			if (actualamount > 0) {
+				aibot->loadedammo[handnum] += actualamount;
 
-				if (arg2) {
+				if (withsound) {
 					if (aibot->weaponnum == WEAPON_FARSIGHTXR20) {
 						// FarSight reload sound
 						func0f0939f8(NULL, chr->prop, SFX_RELOAD_FARSIGHT, -1,
@@ -98,7 +98,7 @@ s32 func0f199be4(struct aibot *aibot, s32 weaponnum, s32 funcnum, bool include_e
 			equippedammotype = weaponGetAmmoTypeByFunction(aibot->weaponnum, aibot->gunfunc);
 
 			if (equippedammotype == ammotype) {
-				qty += aibot->unk024[1] + aibot->unk024[0];
+				qty += aibot->loadedammo[HAND_LEFT] + aibot->loadedammo[HAND_RIGHT];
 			}
 		}
 	}
@@ -119,38 +119,45 @@ s32 aibotGetAmmoQty(struct aibot *aibot, s32 ammotype, bool include_equipped)
 
 		if (include_equipped
 				&& weaponGetAmmoTypeByFunction(aibot->weaponnum, aibot->gunfunc) == ammotype) {
-			qty += aibot->unk024[1] + aibot->unk024[0];
+			qty += aibot->loadedammo[HAND_LEFT] + aibot->loadedammo[HAND_RIGHT];
 		}
 	}
 
 	return qty;
 }
 
-s32 func0f199d70(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 qty)
+/**
+ * Attempt to remove the given quantity of ammo from the aibot's reserve and
+ * return the amount actually removed.
+ *
+ * The amount removed will be less than the attempted amount if the aibot
+ * doesn't have enough ammo in reserve.
+ */
+s32 aibotTryRemoveAmmoFromReserve(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 tryqty)
 {
 	s32 result;
 	s32 *ammoheld = &aibot->ammoheld[weaponGetAmmoTypeByFunction(weaponnum, funcnum)];
 
-	if (!aibot || *ammoheld <= 0 || qty <= 0) {
+	if (!aibot || *ammoheld <= 0 || tryqty <= 0) {
 		return 0;
 	}
 
 	if (aibot->unk064 & 1) {
-		return qty;
+		return tryqty;
 	}
 
 	dprint();
-	*ammoheld -= qty;
+	*ammoheld -= tryqty;
 
 	if (*ammoheld < 0) {
-		result = qty + *ammoheld;
+		result = tryqty + *ammoheld;
 		*ammoheld = 0;
 
 		if (dprint()) {
 			return result;
 		}
 	} else {
-		result = qty;
+		result = tryqty;
 		dprint();
 	}
 

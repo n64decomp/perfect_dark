@@ -4023,11 +4023,11 @@ void chrUpdateCloak(struct chrdata *chr)
 						qty = chr->aibot->unk2c4;
 						chr->aibot->unk2c4 -= qty;
 
-						if (chr->aibot->unk024[0] > 0) {
-							chr->aibot->unk024[0] -= qty;
+						if (chr->aibot->loadedammo[0] > 0) {
+							chr->aibot->loadedammo[0] -= qty;
 
-							if (chr->aibot->unk024[0] <= 0) {
-								chr->aibot->unk024[0] = 0;
+							if (chr->aibot->loadedammo[0] <= 0) {
+								chr->aibot->loadedammo[0] = 0;
 							}
 						} else {
 							ammotype = weaponGetAmmoTypeByFunction(WEAPON_RCP120, 0);
