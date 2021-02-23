@@ -942,77 +942,48 @@ s16 aibotGetWeaponPad(struct chrdata *chr, u32 weaponnum)
 	return -1;
 }
 
+bool aibotGiveProp(struct chrdata *chr, struct prop *prop)
+{
+	bool result = false;
+	struct defaultobj *obj;
+	s32 i;
+
+	if (!chr || !chr->aibot) {
+		return false;
+	}
+
+	obj = prop->obj;
+
+	if (prop->type == PROPTYPE_WEAPON) {
+		if (obj->type == OBJTYPE_WEAPON) {
+			struct weaponobj *weapon = prop->weapon;
+			s32 weaponnum = weapon->weaponnum;
+			result = aibotGiveSingleWeapon(chr, weaponnum);
+
+			if (result) {
+				struct invitem *item = aibotGetInvItem(chr, weaponnum);
+				item->type_weap.pickuppad = obj->pad;
+			}
+		}
+	} else if (obj->type == OBJTYPE_MULTIAMMOCRATE) {
+		struct multiammocrateobj *multi = (struct multiammocrateobj *)prop->obj;
+
+		for (i = 0; i < 0x13; i++) {
+			if (multi->quantities[i].unk02 > 0) {
+				s32 weaponnum = ammotypeGetWeapon(i + 1);
+
+				if (weaponnum > 0) {
+					aibotGiveSingleWeapon(chr, weaponnum);
+				}
+			}
+		}
+	}
+
+	return result;
+}
+
 GLOBAL_ASM(
-glabel aibotGiveProp
-/*  f197f6c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f197f70:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f197f74:	00809825 */ 	or	$s3,$a0,$zero
-/*  f197f78:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f197f7c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f197f80:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f197f84:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f197f88:	10800004 */ 	beqz	$a0,.L0f197f9c
-/*  f197f8c:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f197f90:	8c8e02d4 */ 	lw	$t6,0x2d4($a0)
-/*  f197f94:	55c00004 */ 	bnezl	$t6,.L0f197fa8
-/*  f197f98:	90af0000 */ 	lbu	$t7,0x0($a1)
-.L0f197f9c:
-/*  f197f9c:	10000029 */ 	b	.L0f198044
-/*  f197fa0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f197fa4:	90af0000 */ 	lbu	$t7,0x0($a1)
-.L0f197fa8:
-/*  f197fa8:	8ca20004 */ 	lw	$v0,0x4($a1)
-/*  f197fac:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f197fb0:	15e10011 */ 	bne	$t7,$at,.L0f197ff8
-/*  f197fb4:	00408825 */ 	or	$s1,$v0,$zero
-/*  f197fb8:	92380003 */ 	lbu	$t8,0x3($s1)
-/*  f197fbc:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f197fc0:	57010020 */ 	bnel	$t8,$at,.L0f198044
-/*  f197fc4:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*  f197fc8:	9050005c */ 	lbu	$s0,0x5c($v0)
-/*  f197fcc:	02602025 */ 	or	$a0,$s3,$zero
-/*  f197fd0:	0fc65fa3 */ 	jal	aibotGiveSingleWeapon
-/*  f197fd4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f197fd8:	10400019 */ 	beqz	$v0,.L0f198040
-/*  f197fdc:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f197fe0:	02602025 */ 	or	$a0,$s3,$zero
-/*  f197fe4:	0fc65f3c */ 	jal	aibotGetInvItem
-/*  f197fe8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f197fec:	86390006 */ 	lh	$t9,0x6($s1)
-/*  f197ff0:	10000013 */ 	b	.L0f198040
-/*  f197ff4:	a4590006 */ 	sh	$t9,0x6($v0)
-.L0f197ff8:
-/*  f197ff8:	92280003 */ 	lbu	$t0,0x3($s1)
-/*  f197ffc:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f198000:	00408825 */ 	or	$s1,$v0,$zero
-/*  f198004:	1501000e */ 	bne	$t0,$at,.L0f198040
-/*  f198008:	00008025 */ 	or	$s0,$zero,$zero
-/*  f19800c:	24120013 */ 	addiu	$s2,$zero,0x13
-.L0f198010:
-/*  f198010:	9629005e */ 	lhu	$t1,0x5e($s1)
-/*  f198014:	59200008 */ 	blezl	$t1,.L0f198038
-/*  f198018:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19801c:	0fc668c7 */ 	jal	ammotypeGetWeapon
-/*  f198020:	26040001 */ 	addiu	$a0,$s0,0x1
-/*  f198024:	18400003 */ 	blez	$v0,.L0f198034
-/*  f198028:	00402825 */ 	or	$a1,$v0,$zero
-/*  f19802c:	0fc65fa3 */ 	jal	aibotGiveSingleWeapon
-/*  f198030:	02602025 */ 	or	$a0,$s3,$zero
-.L0f198034:
-/*  f198034:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f198038:
-/*  f198038:	1612fff5 */ 	bne	$s0,$s2,.L0f198010
-/*  f19803c:	26310004 */ 	addiu	$s1,$s1,0x4
-.L0f198040:
-/*  f198040:	8fa2002c */ 	lw	$v0,0x2c($sp)
-.L0f198044:
-/*  f198044:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f198048:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f19804c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f198050:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f198054:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f198058:	03e00008 */ 	jr	$ra
-/*  f19805c:	27bd0030 */ 	addiu	$sp,$sp,0x30
+glabel func0f198060
 /*  f198060:	03e00008 */ 	jr	$ra
 /*  f198064:	afa40000 */ 	sw	$a0,0x0($sp)
 );
