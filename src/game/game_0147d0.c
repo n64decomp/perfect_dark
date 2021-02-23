@@ -167,7 +167,7 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 					aibot->unk038 = 0;
 					aibot->unk03e = -1;
 					aibot->unk03c = 0;
-					aibot->unk008 = -1;
+					aibot->attackingplayernum = -1;
 					aibot->followingplayernum = -1;
 					aibot->dangerouspropnum = -1;
 					aibot->unk068 = 0;

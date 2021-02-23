@@ -367,7 +367,7 @@ struct aibot {
 	/*0x000*/ u8 unk000;
 	/*0x002*/ s16 aibotnum;
 	/*0x004*/ struct mpsim *simulant;
-	/*0x008*/ s16 unk008;
+	/*0x008*/ s16 attackingplayernum;
 	/*0x00a*/ s16 followingplayernum;
 	/*0x00c*/ s16 dangerouspropnum; // index into g_DangerousProps
 	/*0x010*/ struct prop *prop;
@@ -403,7 +403,7 @@ struct aibot {
 	/*0x04f*/ u8 unk04f_05 : 1;
 	/*0x04f*/ u8 unk04f_06 : 1;
 	/*0x04f*/ u8 unk04f_07 : 1;
-	/*0x050*/ u32 unk050;
+	/*0x050*/ struct prop *unk050;
 	/*0x054*/ u32 unk054;
 	/*0x058*/ u8 unk058; // related to fireslots
 	/*0x059*/ u8 unk059;
@@ -452,7 +452,7 @@ struct aibot {
 	/*0x0c0*/ s32 attackpropnum;
 	/*0x0c4*/ u32 unk0c4[2];
 	/*0x0cc*/ u32 unk0cc; // Timer? Related to weapon switching
-	/*0x0d0*/ u32 unk0d0;
+	/*0x0d0*/ s32 unk0d0;
 	/*0x0d4*/ s32 followprotectpropnum;
 	/*0x0d8*/ s32 unk0d8;
 	/*0x0dc*/ u32 unk0dc;

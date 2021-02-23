@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0f197600(void);
+void func0f197600(struct chrdata *chr);
 void mpAibotApplyCommand(struct chrdata *chr, u32 command);
 void aibotClearInventory(struct chrdata *chr);
 struct invitem *aibotGetFreeInvSlot(struct chrdata *chr);
@@ -21,7 +21,7 @@ s32 mpGetWeaponIndexByWeaponNum(s32 weaponnum);
 u32 func0f198338(void);
 u32 func0f198db4(void);
 u32 func0f198df8(void);
-u32 func0f198e38(void);
+s32 func0f198e38(s32 weaponnum, s32 funcnum);
 u32 func0f198e78(void);
 u32 func0f198eec(void);
 bool aibotSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum);
