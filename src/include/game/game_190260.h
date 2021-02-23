@@ -20,7 +20,7 @@ f32 func0f191fa4(struct chrdata *chr);
 u32 func0f1921f8(void);
 void func0f192628(struct chrdata *chr, struct prop *arg1);
 u32 func0f19277c(void);
-bool func0f19294c(struct chrdata *chr, struct chrdata *chr2);
+bool func0f19294c(struct chrdata *botchr, struct chrdata *otherchr);
 bool chrHasGround(struct chrdata *chr);
 u32 func0f192a74(void);
 u32 func0f192d64(void);

@@ -514,7 +514,7 @@ struct aibot {
 	 */
 	/*0x2c4*/ f32 unk2c4;
 
-	/*0x2c8*/ u32 unk2c8;
+	/*0x2c8*/ s32 unk2c8;
 	/*0x2cc*/ u32 unk2cc;
 	/*0x2d0*/ u32 unk2d0;
 	/*0x2d4*/ f32 unk2d4;

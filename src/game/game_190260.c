@@ -2656,78 +2656,28 @@ glabel func0f19277c
 /*  f192948:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f19294c
-/*  f19294c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f192950:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f192954:	8ca3001c */ 	lw	$v1,0x1c($a1)
-/*  f192958:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f19295c:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x324)
-/*  f192960:	906e0000 */ 	lbu	$t6,0x0($v1)
-/*  f192964:	55c10007 */ 	bnel	$t6,$at,.L0f192984
-/*  f192968:	8cb80018 */ 	lw	$t8,0x18($a1)
-/*  f19296c:	8defa2e4 */ 	lw	$t7,%lo(g_Vars+0x324)($t7)
-/*  f192970:	55e00004 */ 	bnezl	$t7,.L0f192984
-/*  f192974:	8cb80018 */ 	lw	$t8,0x18($a1)
-/*  f192978:	1000002f */ 	b	.L0f192a38
-/*  f19297c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f192980:	8cb80018 */ 	lw	$t8,0x18($a1)
-.L0f192984:
-/*  f192984:	33190400 */ 	andi	$t9,$t8,0x400
-/*  f192988:	53200004 */ 	beqzl	$t9,.L0f19299c
-/*  f19298c:	8ca80014 */ 	lw	$t0,0x14($a1)
-/*  f192990:	10000029 */ 	b	.L0f192a38
-/*  f192994:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f192998:	8ca80014 */ 	lw	$t0,0x14($a1)
-.L0f19299c:
-/*  f19299c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1929a0:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f1929a4:	05210024 */ 	bgez	$t1,.L0f192a38
-/*  f1929a8:	00000000 */ 	nop
-/*  f1929ac:	10800020 */ 	beqz	$a0,.L0f192a30
-/*  f1929b0:	00000000 */ 	nop
-/*  f1929b4:	8c8a02d4 */ 	lw	$t2,0x2d4($a0)
-/*  f1929b8:	1140001d */ 	beqz	$t2,.L0f192a30
-/*  f1929bc:	00000000 */ 	nop
-/*  f1929c0:	848b017e */ 	lh	$t3,0x17e($a0)
-/*  f1929c4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1929c8:	5161000e */ 	beql	$t3,$at,.L0f192a04
-/*  f1929cc:	8c8e02d4 */ 	lw	$t6,0x2d4($a0)
-/*  f1929d0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1929d4:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f1929d8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1929dc:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f1929e0:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f1929e4:	8ca3001c */ 	lw	$v1,0x1c($a1)
-/*  f1929e8:	54430006 */ 	bnel	$v0,$v1,.L0f192a04
-/*  f1929ec:	8c8e02d4 */ 	lw	$t6,0x2d4($a0)
-/*  f1929f0:	8c8c02d4 */ 	lw	$t4,0x2d4($a0)
-/*  f1929f4:	8d8d02c8 */ 	lw	$t5,0x2c8($t4)
-/*  f1929f8:	1da0000b */ 	bgtz	$t5,.L0f192a28
-/*  f1929fc:	00000000 */ 	nop
-/*  f192a00:	8c8e02d4 */ 	lw	$t6,0x2d4($a0)
-.L0f192a04:
-/*  f192a04:	24650008 */ 	addiu	$a1,$v1,0x8
-/*  f192a08:	8dcf009c */ 	lw	$t7,0x9c($t6)
-/*  f192a0c:	000fc8c0 */ 	sll	$t9,$t7,0x3
-/*  f192a10:	07210007 */ 	bgez	$t9,.L0f192a30
-/*  f192a14:	00000000 */ 	nop
-/*  f192a18:	0fc12447 */ 	jal	func0f04911c
-/*  f192a1c:	24060020 */ 	addiu	$a2,$zero,0x20
-/*  f192a20:	10400003 */ 	beqz	$v0,.L0f192a30
-/*  f192a24:	00000000 */ 	nop
-.L0f192a28:
-/*  f192a28:	10000003 */ 	b	.L0f192a38
-/*  f192a2c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f192a30:
-/*  f192a30:	10000001 */ 	b	.L0f192a38
-/*  f192a34:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f192a38:
-/*  f192a38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f192a3c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f192a40:	03e00008 */ 	jr	$ra
-/*  f192a44:	00000000 */ 	nop
-);
+bool func0f19294c(struct chrdata *botchr, struct chrdata *otherchr)
+{
+	if (otherchr->prop->type == PROPTYPE_PLAYER && !g_Vars.bondvisible) {
+		return true;
+	}
+
+	if (otherchr->chrflags & CHRCFLAG_HIDDEN) {
+		return true;
+	}
+
+	if ((otherchr->hidden & CHRHFLAG_CLOAKED)) {
+		if (botchr && botchr->aibot
+				&& ((botchr->target != -1 && chrGetTargetProp(botchr) == otherchr->prop && botchr->aibot->unk2c8 > 0)
+				|| (botchr->aibot->unk09c_03 && func0f04911c(botchr, &otherchr->prop->pos, 0x20)))) {
+			return false;
+		}
+
+		return true;
+	}
+
+	return false;
+}
 
 /**
  * Return true if there's ground between the chr and the death barrier.
