@@ -18,7 +18,7 @@ bool aibotGiveProp(struct chrdata *chr, struct prop *prop);
 u32 func0f198068(void);
 bool mpHasShield(void);
 s32 mpGetWeaponIndexByWeaponNum(s32 weaponnum);
-u32 func0f198338(void);
+void func0f198338(struct chrdata *chr, s32 weaponnum, s32 arg2, s32 arg3, s32 arg4, s32 *arg5, s32 *arg6, s32 arg7, s32 arg8);
 u32 func0f198db4(void);
 u32 func0f198df8(void);
 s32 func0f198e38(s32 weaponnum, s32 funcnum);

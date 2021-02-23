@@ -1355,7 +1355,7 @@ glabel var7f1b8eb4
 /*  f1915b0:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-u32 func0f1915b4(struct chrdata *chr)
+s32 mpchrGetWeaponNum(struct chrdata *chr)
 {
 	if (chr->aibot) {
 		return chr->aibot->weaponnum;
@@ -1364,16 +1364,16 @@ u32 func0f1915b4(struct chrdata *chr)
 	return g_Vars.players[propGetPlayerNum(chr->prop)]->hands[HAND_RIGHT].base.weaponnum;
 }
 
-u8 func0f191600(struct chrdata *chr)
+u8 mpchrGetTargetsWeaponNum(struct chrdata *chr)
 {
-	struct prop *prop = chrGetTargetProp(chr);
-	u8 result = 0;
+	struct prop *target = chrGetTargetProp(chr);
+	u8 weaponnum = 0;
 
-	if (prop) {
-		result = func0f1915b4(prop->chr);
+	if (target) {
+		weaponnum = mpchrGetWeaponNum(target->chr);
 	}
 
-	return result;
+	return weaponnum;
 }
 
 GLOBAL_ASM(
@@ -2776,7 +2776,7 @@ glabel func0f192d64
 /*  f192d80:	91cf0047 */ 	lbu	$t7,0x47($t6)
 /*  f192d84:	55e1000a */ 	bnel	$t7,$at,.L0f192db0
 /*  f192d88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f192d8c:	0fc6456d */ 	jal	func0f1915b4
+/*  f192d8c:	0fc6456d */ 	jal	mpchrGetWeaponNum
 /*  f192d90:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f192d94:	10400004 */ 	beqz	$v0,.L0f192da8
 /*  f192d98:	8fa30018 */ 	lw	$v1,0x18($sp)
@@ -2793,62 +2793,29 @@ glabel func0f192d64
 /*  f192dbc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f192dc0
-/*  f192dc0:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f192dc4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f192dc8:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f192dcc:	8c8302d4 */ 	lw	$v1,0x2d4($a0)
-/*  f192dd0:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f192dd4:	afaf0048 */ 	sw	$t7,0x48($sp)
-/*  f192dd8:	8c780004 */ 	lw	$t8,0x4($v1)
-/*  f192ddc:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f192de0:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f192de4:	93190047 */ 	lbu	$t9,0x47($t8)
-/*  f192de8:	57210025 */ 	bnel	$t9,$at,.L0f192e80
-/*  f192dec:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f192df0:	0fc6456d */ 	jal	func0f1915b4
-/*  f192df4:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f192df8:	8fa3004c */ 	lw	$v1,0x4c($sp)
-/*  f192dfc:	afa20044 */ 	sw	$v0,0x44($sp)
-/*  f192e00:	27a80040 */ 	addiu	$t0,$sp,0x40
-/*  f192e04:	8c650020 */ 	lw	$a1,0x20($v1)
-/*  f192e08:	27a9003c */ 	addiu	$t1,$sp,0x3c
-/*  f192e0c:	afa90018 */ 	sw	$t1,0x18($sp)
-/*  f192e10:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f192e14:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f192e18:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f192e1c:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f192e20:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f192e24:	00003025 */ 	or	$a2,$zero,$zero
-/*  f192e28:	0fc660ce */ 	jal	func0f198338
-/*  f192e2c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f192e30:	27aa0038 */ 	addiu	$t2,$sp,0x38
-/*  f192e34:	27ab0034 */ 	addiu	$t3,$sp,0x34
-/*  f192e38:	afab0018 */ 	sw	$t3,0x18($sp)
-/*  f192e3c:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f192e40:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f192e44:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*  f192e48:	00003025 */ 	or	$a2,$zero,$zero
-/*  f192e4c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f192e50:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f192e54:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f192e58:	0fc660ce */ 	jal	func0f198338
-/*  f192e5c:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f192e60:	8fad0040 */ 	lw	$t5,0x40($sp)
-/*  f192e64:	8fac0038 */ 	lw	$t4,0x38($sp)
-/*  f192e68:	25aeffe2 */ 	addiu	$t6,$t5,-30
-/*  f192e6c:	018e082a */ 	slt	$at,$t4,$t6
-/*  f192e70:	54200003 */ 	bnezl	$at,.L0f192e80
-/*  f192e74:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f192e78:	afa00048 */ 	sw	$zero,0x48($sp)
-/*  f192e7c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f192e80:
-/*  f192e80:	8fa20048 */ 	lw	$v0,0x48($sp)
-/*  f192e84:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f192e88:	03e00008 */ 	jr	$ra
-/*  f192e8c:	00000000 */ 	nop
-);
+bool func0f192dc0(struct chrdata *botchr, struct chrdata *chr)
+{
+	struct aibot *aibot = botchr->aibot;
+	bool result = true;
+	s32 otherweaponnum;
+	s32 sp40;
+	s32 sp3c;
+	s32 sp38;
+	s32 sp34;
+
+	if (aibot->simulant->base.simtype == SIMTYPE_COWARD) {
+		otherweaponnum = mpchrGetWeaponNum(chr);
+
+		func0f198338(botchr, aibot->weaponnum, 0, 1, 0, &sp40, &sp3c, 0, 0);
+		func0f198338(botchr, otherweaponnum, 0, 1, 0, &sp38, &sp34, 0, 0);
+
+		if (sp40 - 30 <= sp38) {
+			result = false;
+		}
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f192e90
