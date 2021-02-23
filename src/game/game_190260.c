@@ -1231,31 +1231,20 @@ glabel func0f19124c
 /*  f1913f4:	27bd02a0 */ 	addiu	$sp,$sp,0x2a0
 );
 
-GLOBAL_ASM(
-glabel func0f1913f8
-/*  f1913f8:	3c0142b4 */ 	lui	$at,0x42b4
-/*  f1913fc:	44812000 */ 	mtc1	$at,$f4
-/*  f191400:	c4800028 */ 	lwc1	$f0,0x28($a0)
-/*  f191404:	3c014307 */ 	lui	$at,0x4307
-/*  f191408:	4604003e */ 	c.le.s	$f0,$f4
-/*  f19140c:	00000000 */ 	nop
-/*  f191410:	45020004 */ 	bc1fl	.L0f191424
-/*  f191414:	44813000 */ 	mtc1	$at,$f6
-/*  f191418:	03e00008 */ 	jr	$ra
-/*  f19141c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f191420:	44813000 */ 	mtc1	$at,$f6
-.L0f191424:
-/*  f191424:	24030002 */ 	addiu	$v1,$zero,0x2
-/*  f191428:	4606003e */ 	c.le.s	$f0,$f6
-/*  f19142c:	00000000 */ 	nop
-/*  f191430:	45000003 */ 	bc1f	.L0f191440
-/*  f191434:	00000000 */ 	nop
-/*  f191438:	03e00008 */ 	jr	$ra
-/*  f19143c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f191440:
-/*  f191440:	03e00008 */ 	jr	$ra
-/*  f191444:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 func0f1913f8(struct chrdata *chr)
+{
+	s32 result;
+
+	if (chr->chrheight <= 90) {
+		result = 0;
+	} else if (chr->chrheight <= 135) {
+		result = 1;
+	} else {
+		result = 2;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f191448

@@ -12,7 +12,7 @@ u32 add87654321(u32 value);
 u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr);
 u32 func0f190be4(void);
 u32 func0f19124c(void);
-u32 func0f1913f8(void);
+s32 func0f1913f8(struct chrdata *chr);
 u32 func0f191448(void);
 u32 func0f191638(void);
 u32 func0f1918d0(void);
