@@ -3038,7 +3038,8 @@ struct cheat {
 
 struct body {
 	/*0x00*/ u16 ismale : 1;
-	/*0x00*/ u16 flags_01 : 15;
+	/*0x00*/ u16 unk00_01 : 5;
+	/*0x00*/ u16 height : 8;
 	/*0x02*/ u16 bodyfileid;
 	/*0x04*/ f32 unk04;
 	/*0x08*/ f32 unk08;

@@ -9767,7 +9767,7 @@ f32 func0f0370a8(struct chrdata *chr)
 	f32 result;
 
 	if (chr->aibot) {
-		result = func0f191fa4(chr);
+		result = aibotCalculateMaxSpeed(chr);
 	} else {
 		s16 animnum = modelGetAnimNum(chr->model);
 		result = func0f02dff0(animnum) * (chr->model->unk14 * 9.999999f);
@@ -9783,7 +9783,7 @@ s32 chrGoPosCalculateBaseTtl(struct chrdata *chr)
 	u32 stack;
 	struct coord pos;
 	s16 rooms[8];
-	f32 divisor;
+	f32 speed;
 
 	chrGoPosGetCurWaypointInfo(chr, &pos, rooms);
 
@@ -9798,17 +9798,17 @@ s32 chrGoPosCalculateBaseTtl(struct chrdata *chr)
 		zdiff = -zdiff;
 	}
 
-	divisor = func0f0370a8(chr);
+	speed = func0f0370a8(chr);
 
 	if (chr->aibot == NULL) {
-		divisor *= modelGetAbsAnimSpeed(chr->model);
+		speed *= modelGetAbsAnimSpeed(chr->model);
 	}
 
-	if (divisor < 0.001f) {
-		divisor = 0.001f;
+	if (speed < 0.001f) {
+		speed = 0.001f;
 	}
 
-	return (xdiff + zdiff) / divisor;
+	return (xdiff + zdiff) / speed;
 }
 
 void chrGoPosClearRestartTtl(struct chrdata *chr)
@@ -17554,7 +17554,7 @@ glabel var7f1a9184
 /*  f0409b4:	46060282 */ 	mul.s	$f10,$f0,$f6
 /*  f0409b8:	11800019 */ 	beqz	$t4,.L0f040a20
 /*  f0409bc:	e7aa01e8 */ 	swc1	$f10,0x1e8($sp)
-/*  f0409c0:	0fc644fe */ 	jal	func0f1913f8
+/*  f0409c0:	0fc644fe */ 	jal	chrGuessCrouchPos
 /*  f0409c4:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f0409c8:	8fb90278 */ 	lw	$t9,0x278($sp)
 /*  f0409cc:	00404825 */ 	or	$t1,$v0,$zero
