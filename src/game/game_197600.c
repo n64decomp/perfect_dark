@@ -459,7 +459,7 @@ void func0f197600(struct chrdata *chr)
 		return;
 	}
 
-	if (!func0f192a48(prop->chr)) {
+	if (!chrHasGround(prop->chr)) {
 		return;
 	}
 

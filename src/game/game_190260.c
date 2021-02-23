@@ -2740,25 +2740,16 @@ glabel func0f19294c
 /*  f192a44:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f192a48
-.late_rodata
-glabel var7f1b8f38
-.word 0xc69c4000
-.text
-/*  f192a48:	3c017f1c */ 	lui	$at,%hi(var7f1b8f38)
-/*  f192a4c:	c4268f38 */ 	lwc1	$f6,%lo(var7f1b8f38)($at)
-/*  f192a50:	c48400b8 */ 	lwc1	$f4,0xb8($a0)
-/*  f192a54:	00001025 */ 	or	$v0,$zero,$zero
-/*  f192a58:	4604303e */ 	c.le.s	$f6,$f4
-/*  f192a5c:	00000000 */ 	nop
-/*  f192a60:	45000002 */ 	bc1f	.L0f192a6c
-/*  f192a64:	00000000 */ 	nop
-/*  f192a68:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f192a6c:
-/*  f192a6c:	03e00008 */ 	jr	$ra
-/*  f192a70:	00000000 */ 	nop
-);
+/**
+ * Return true if there's ground between the chr and the death barrier.
+ *
+ * The death barrier is at -30000.
+ * It's assumed that no walkable ground exists below -20000.
+ */
+bool chrHasGround(struct chrdata *chr)
+{
+	return chr->ground >= -20000;
+}
 
 GLOBAL_ASM(
 glabel func0f192a74
