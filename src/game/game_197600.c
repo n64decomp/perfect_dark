@@ -2673,201 +2673,56 @@ glabel func0f1994b0
 /*  f199788:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-GLOBAL_ASM(
-glabel func0f19978c
-/*  f19978c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f199790:	afb50030 */ 	sw	$s5,0x30($sp)
-/*  f199794:	afb4002c */ 	sw	$s4,0x2c($sp)
-/*  f199798:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f19979c:	00809825 */ 	or	$s3,$a0,$zero
-/*  f1997a0:	30d400ff */ 	andi	$s4,$a2,0xff
-/*  f1997a4:	00a0a825 */ 	or	$s5,$a1,$zero
-/*  f1997a8:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f1997ac:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f1997b0:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f1997b4:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f1997b8:	10800061 */ 	beqz	$a0,.L0f199940
-/*  f1997bc:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f1997c0:	8c8402d4 */ 	lw	$a0,0x2d4($a0)
-/*  f1997c4:	5080005f */ 	beqzl	$a0,.L0f199944
-/*  f1997c8:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f1997cc:	80830018 */ 	lb	$v1,0x18($a0)
-/*  f1997d0:	00009025 */ 	or	$s2,$zero,$zero
-/*  f1997d4:	18600047 */ 	blez	$v1,.L0f1998f4
-/*  f1997d8:	00000000 */ 	nop
-/*  f1997dc:	8c8e0014 */ 	lw	$t6,0x14($a0)
-.L0f1997e0:
-/*  f1997e0:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1997e4:	01d28821 */ 	addu	$s1,$t6,$s2
-/*  f1997e8:	8e220000 */ 	lw	$v0,0x0($s1)
-/*  f1997ec:	54410006 */ 	bnel	$v0,$at,.L0f199808
-/*  f1997f0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1997f4:	00031080 */ 	sll	$v0,$v1,0x2
-/*  f1997f8:	00431021 */ 	addu	$v0,$v0,$v1
-/*  f1997fc:	10000039 */ 	b	.L0f1998e4
-/*  f199800:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f199804:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f199808:
-/*  f199808:	10410003 */ 	beq	$v0,$at,.L0f199818
-/*  f19980c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f199810:	54410030 */ 	bnel	$v0,$at,.L0f1998d4
-/*  f199814:	8e6402d4 */ 	lw	$a0,0x2d4($s3)
-.L0f199818:
-/*  f199818:	16800004 */ 	bnez	$s4,.L0f19982c
-/*  f19981c:	3c050800 */ 	lui	$a1,0x800
-/*  f199820:	862f0004 */ 	lh	$t7,0x4($s1)
-/*  f199824:	56af002b */ 	bnel	$s5,$t7,.L0f1998d4
-/*  f199828:	8e6402d4 */ 	lw	$a0,0x2d4($s3)
-.L0f19982c:
-/*  f19982c:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f199830:	86240004 */ 	lh	$a0,0x4($s1)
-/*  f199834:	1040000d */ 	beqz	$v0,.L0f19986c
-/*  f199838:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x318)
-/*  f19983c:	8f18a2d8 */ 	lw	$t8,%lo(g_Vars+0x318)($t8)
-/*  f199840:	3c19800b */ 	lui	$t9,%hi(g_MpSetup+0x10)
-/*  f199844:	53000023 */ 	beqzl	$t8,.L0f1998d4
-/*  f199848:	8e6402d4 */ 	lw	$a0,0x2d4($s3)
-/*  f19984c:	9339cb98 */ 	lbu	$t9,%lo(g_MpSetup+0x10)($t9)
-/*  f199850:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f199854:	5721001f */ 	bnel	$t9,$at,.L0f1998d4
-/*  f199858:	8e6402d4 */ 	lw	$a0,0x2d4($s3)
-/*  f19985c:	86280004 */ 	lh	$t0,0x4($s1)
-/*  f199860:	24010036 */ 	addiu	$at,$zero,0x36
-/*  f199864:	5501001b */ 	bnel	$t0,$at,.L0f1998d4
-/*  f199868:	8e6402d4 */ 	lw	$a0,0x2d4($s3)
-.L0f19986c:
-/*  f19986c:	0fc4a2bd */ 	jal	weaponGetModel
-/*  f199870:	86240004 */ 	lh	$a0,0x4($s1)
-/*  f199874:	18400016 */ 	blez	$v0,.L0f1998d0
-/*  f199878:	00402825 */ 	or	$a1,$v0,$zero
-/*  f19987c:	86260004 */ 	lh	$a2,0x4($s1)
-/*  f199880:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f199884:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f199888:	02602025 */ 	or	$a0,$s3,$zero
-/*  f19988c:	0fc22e3a */ 	jal	func0f08b8e8
-/*  f199890:	3c072000 */ 	lui	$a3,0x2000
-/*  f199894:	1040000e */ 	beqz	$v0,.L0f1998d0
-/*  f199898:	00408025 */ 	or	$s0,$v0,$zero
-/*  f19989c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1998a0:	0fc20a59 */ 	jal	propobjSetDropped
-/*  f1998a4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1998a8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1998ac:	0fc20c1f */ 	jal	func0f08307c
-/*  f1998b0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1998b4:	86290004 */ 	lh	$t1,0x4($s1)
-/*  f1998b8:	24010057 */ 	addiu	$at,$zero,0x57
-/*  f1998bc:	02602025 */ 	or	$a0,$s3,$zero
-/*  f1998c0:	55210004 */ 	bnel	$t1,$at,.L0f1998d4
-/*  f1998c4:	8e6402d4 */ 	lw	$a0,0x2d4($s3)
-/*  f1998c8:	0fc61ca2 */ 	jal	func0f187288
-/*  f1998cc:	02002825 */ 	or	$a1,$s0,$zero
-.L0f1998d0:
-/*  f1998d0:	8e6402d4 */ 	lw	$a0,0x2d4($s3)
-.L0f1998d4:
-/*  f1998d4:	80830018 */ 	lb	$v1,0x18($a0)
-/*  f1998d8:	00031080 */ 	sll	$v0,$v1,0x2
-/*  f1998dc:	00431021 */ 	addu	$v0,$v0,$v1
-/*  f1998e0:	00021080 */ 	sll	$v0,$v0,0x2
-.L0f1998e4:
-/*  f1998e4:	26520014 */ 	addiu	$s2,$s2,0x14
-/*  f1998e8:	0242082a */ 	slt	$at,$s2,$v0
-/*  f1998ec:	5420ffbc */ 	bnezl	$at,.L0f1997e0
-/*  f1998f0:	8c8e0014 */ 	lw	$t6,0x14($a0)
-.L0f1998f4:
-/*  f1998f4:	12800003 */ 	beqz	$s4,.L0f199904
-/*  f1998f8:	2aa10002 */ 	slti	$at,$s5,0x2
-/*  f1998fc:	50200006 */ 	beqzl	$at,.L0f199918
-/*  f199900:	02602025 */ 	or	$a0,$s3,$zero
-.L0f199904:
-/*  f199904:	56800008 */ 	bnezl	$s4,.L0f199928
-/*  f199908:	8e6b0014 */ 	lw	$t3,0x14($s3)
-/*  f19990c:	8c8a0020 */ 	lw	$t2,0x20($a0)
-/*  f199910:	16aa0004 */ 	bne	$s5,$t2,.L0f199924
-/*  f199914:	02602025 */ 	or	$a0,$s3,$zero
-.L0f199918:
-/*  f199918:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f19991c:	0fc6652c */ 	jal	func0f1994b0
-/*  f199920:	00003025 */ 	or	$a2,$zero,$zero
-.L0f199924:
-/*  f199924:	8e6b0014 */ 	lw	$t3,0x14($s3)
-.L0f199928:
-/*  f199928:	02602025 */ 	or	$a0,$s3,$zero
-/*  f19992c:	356c0001 */ 	ori	$t4,$t3,0x1
-/*  f199930:	16800003 */ 	bnez	$s4,.L0f199940
-/*  f199934:	ae6c0014 */ 	sw	$t4,0x14($s3)
-/*  f199938:	0fc65f65 */ 	jal	aibotRemoveInvItem
-/*  f19993c:	02a02825 */ 	or	$a1,$s5,$zero
-.L0f199940:
-/*  f199940:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f199944:
-/*  f199944:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f199948:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f19994c:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f199950:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f199954:	8fb4002c */ 	lw	$s4,0x2c($sp)
-/*  f199958:	8fb50030 */ 	lw	$s5,0x30($sp)
-/*  f19995c:	03e00008 */ 	jr	$ra
-/*  f199960:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void func0f19978c(struct chrdata *chr, s32 weaponnum, u8 arg2)
+{
+	s32 i;
 
-// Mismatch: The way the loop iterator is handled is different.
-// Goal tracks the iterator as increments of 0x14 (len of thing), while the
-// below tracks it as i and calculates the offset when calculating thing.
-//void func0f19978c(struct chrdata *chr, s32 weaponnum, u8 arg2)
-//{
-//	struct invitem *thing;
-//	s32 i;
-//
-//	if (chr == NULL) {
-//		return;
-//	}
-//
-//	if (chr->aibot == NULL) {
-//		return;
-//	}
-//
-//	for (i = 0; i < chr->aibot->maxitems; i++) {
-//		thing = &chr->aibot->items[i];
-//
-//		if (thing->unk00 == -1) {
-//			i = chr->aibot->maxitems;
-//		} else {
-//			if ((thing->unk00 == 1 || thing->unk00 == 3)
-//					&& (arg2 || weaponnum == thing->weaponnum)) {
-//				if (weaponHasFlag(thing->weaponnum, WEAPONFLAG_08000000) == 0
-//						|| (g_Vars.normmplayerisrunning
-//							&& g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
-//							&& thing->weaponnum == WEAPON_DATAUPLINK)) {
-//					s32 modelnum = weaponGetModel(thing->weaponnum);
-//
-//					if (modelnum > 0) {
-//						struct prop *prop = func0f08b8e8(chr, modelnum, thing->weaponnum, 0x20000000, 0, 0);
-//
-//						if (prop) {
-//							propobjSetDropped(prop, DROPREASON_1);
-//							func0f08307c(prop, true);
-//
-//							if (thing->weaponnum == WEAPON_BRIEFCASE2) {
-//								func0f187288(chr, prop);
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
-//	}
-//
-//	if ((arg2 && weaponnum >= WEAPON_FALCON2)
-//			|| (!arg2 && weaponnum == chr->aibot->weaponnum)) {
-//		func0f1994b0(chr, true, false);
-//	}
-//
-//	chr->hidden |= CHRHFLAG_00000001;
-//
-//	if (!arg2) {
-//		aibotRemoveInvItem(chr, weaponnum);
-//	}
-//}
+	if (!chr || !chr->aibot) {
+		return;
+	}
+
+	for (i = 0; i < chr->aibot->maxitems; i++) {
+		struct invitem *item = &chr->aibot->items[i];
+
+		if (item->type == -1) {
+			continue;
+		}
+
+		if ((item->type == INVITEMTYPE_WEAP || item->type == INVITEMTYPE_DUAL)
+				&& (arg2 || weaponnum == item->type_weap.weapon1)) {
+			if (weaponHasFlag(item->type_weap.weapon1, WEAPONFLAG_08000000) == 0
+					|| (g_Vars.normmplayerisrunning
+						&& g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
+						&& item->type_weap.weapon1 == WEAPON_DATAUPLINK)) {
+				s32 modelnum = weaponGetModel(item->type_weap.weapon1);
+
+				if (modelnum > 0) {
+					struct prop *prop = func0f08b8e8(chr, modelnum, item->type_weap.weapon1, 0x20000000, 0, 0);
+
+					if (prop) {
+						propobjSetDropped(prop, DROPREASON_1);
+						func0f08307c(prop, true);
+
+						if (item->type_weap.weapon1 == WEAPON_BRIEFCASE2) {
+							func0f187288(chr, prop);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	if ((arg2 && weaponnum >= WEAPON_FALCON2)
+			|| (!arg2 && weaponnum == chr->aibot->weaponnum)) {
+		func0f1994b0(chr, true, false);
+	}
+
+	chr->hidden |= CHRHFLAG_00000001;
+
+	if (!arg2) {
+		aibotRemoveInvItem(chr, weaponnum);
+	}
+}
 
 void func0f199964(struct chrdata *chr, u32 weaponnum)
 {
