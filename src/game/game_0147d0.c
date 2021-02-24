@@ -237,7 +237,7 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 
 					for (i = 0; i < 12; i++) {
 						aibot->unk130[i] = -1;
-						aibot->unk13c[i] = U32_MAX;
+						aibot->playerdistances[i] = U32_MAX;
 						aibot->unk16c[i] = 0;
 						aibot->unk178[i] = -1;
 						aibot->unk1a8[i] = -1;
@@ -252,8 +252,8 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 					aibot->unk1e4 = -1;
 					aibot->unk1e8 = 0;
 					aibot->unk208 = 0;
-					aibot->unk210 = random();
-					aibot->unk20c = 0;
+					aibot->rand = random();
+					aibot->randttl60 = 0;
 
 					for (i = 0; i < 6; i++) {
 						aibot->killsbygunfunc[i][0] = 0.0f;
@@ -262,14 +262,14 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 						aibot->suicidesbygunfunc[i][0] = 0.0f;
 						aibot->suicidesbygunfunc[i][1] = 0.0f;
 
-						aibot->unk274[i][0] = 0;
-						aibot->unk274[i][1] = 0;
+						aibot->equipdurations60[i][0] = 0;
+						aibot->equipdurations60[i][1] = 0;
 
 						aibot->unk2a8[i] = 0;
 					}
 
 					aibot->unk2a4 = 0;
-					aibot->unk2c0 = 0;
+					aibot->dampensuicidesttl60 = 0;
 					aibot->unk2c4 = 0.0f;
 					aibot->unk2c8 = 0;
 

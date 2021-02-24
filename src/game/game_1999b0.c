@@ -78,7 +78,7 @@ void aibotReloadWeapon(struct chrdata *chr, s32 handnum, bool withsound)
 	}
 }
 
-s32 func0f199be4(struct aibot *aibot, s32 weaponnum, s32 funcnum, bool include_equipped)
+s32 aibotGetAmmoQuantityByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnum, bool include_equipped)
 {
 	s32 qty = 0;
 	s32 ammotype;
@@ -106,7 +106,7 @@ s32 func0f199be4(struct aibot *aibot, s32 weaponnum, s32 funcnum, bool include_e
 	return qty;
 }
 
-s32 aibotGetAmmoQty(struct aibot *aibot, s32 ammotype, bool include_equipped)
+s32 aibotGetAmmoQuantityByType(struct aibot *aibot, s32 ammotype, bool include_equipped)
 {
 	s32 qty = 0;
 

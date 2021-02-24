@@ -41,7 +41,7 @@ void mpAibotApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 a
 void mpAibotApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3);
 void mpAibotApplyScenarioCommand(struct chrdata *chr, u32 arg1);
 bool mpIsChrFollowedByChr(struct chrdata *leader, struct chrdata *follower);
-s32 func0f193530(struct chrdata *chr, f32 arg1);
+s32 func0f193530(struct chrdata *chr, f32 range);
 bool func0f194670(struct chrdata *chr);
 s32 func0f194694(struct chrdata *chr);
 s32 func0f1946b4(struct chrdata *chr);

@@ -408,7 +408,7 @@ glabel mpChrReset
 //
 //			for (i = 0; i != 12; i++) {
 //				aibot->unk130[i] = -1;
-//				aibot->unk13c[i] = 4294967296;
+//				aibot->playerdistances[i] = U32_MAX;
 //				aibot->unk16c[i] = 0;
 //				aibot->unk178[i] = -1;
 //				aibot->unk1a8[i] = -1;
@@ -416,8 +416,8 @@ glabel mpChrReset
 //
 //			aibot->unk1e8 = 0;
 //			aibot->unk208 = 0;
-//			aibot->unk210 = random();
-//			aibot->unk20c = 0;
+//			aibot->rand = random();
+//			aibot->randttl60 = 0;
 //			aibot->unk2c8 = 0;
 //			aibot->unk09c_03 = 0;
 //			aibot->unk2cc = 0;
@@ -820,7 +820,7 @@ glabel var7f1b8ea8
 /*  f190dd8:	8d0402d4 */ 	lw	$a0,0x2d4($t0)
 /*  f190ddc:	02002825 */ 	or	$a1,$s0,$zero
 /*  f190de0:	9046005f */ 	lbu	$a2,0x5f($v0)
-/*  f190de4:	0fc666f9 */ 	jal	func0f199be4
+/*  f190de4:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
 /*  f190de8:	00003825 */ 	or	$a3,$zero,$zero
 /*  f190dec:	8fa90080 */ 	lw	$t1,0x80($sp)
 /*  f190df0:	00408025 */ 	or	$s0,$v0,$zero
@@ -858,7 +858,7 @@ glabel var7f1b8ea8
 /*  f190e64:	8fae008c */ 	lw	$t6,0x8c($sp)
 /*  f190e68:	00003025 */ 	or	$a2,$zero,$zero
 /*  f190e6c:	8e05005c */ 	lw	$a1,0x5c($s0)
-/*  f190e70:	0fc6672e */ 	jal	aibotGetAmmoQty
+/*  f190e70:	0fc6672e */ 	jal	aibotGetAmmoQuantityByType
 /*  f190e74:	8dc402d4 */ 	lw	$a0,0x2d4($t6)
 /*  f190e78:	8e04005c */ 	lw	$a0,0x5c($s0)
 /*  f190e7c:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
@@ -900,7 +900,7 @@ glabel var7f1b8ea8
 /*  f190f00:	5b20001d */ 	blezl	$t9,.L0f190f78
 /*  f190f04:	24010013 */ 	addiu	$at,$zero,0x13
 /*  f190f08:	8d0402d4 */ 	lw	$a0,0x2d4($t0)
-/*  f190f0c:	0fc6672e */ 	jal	aibotGetAmmoQty
+/*  f190f0c:	0fc6672e */ 	jal	aibotGetAmmoQuantityByType
 /*  f190f10:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f190f14:	02002025 */ 	or	$a0,$s0,$zero
 /*  f190f18:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
@@ -3283,33 +3283,33 @@ bool mpIsChrFollowedByChr(struct chrdata *leader, struct chrdata *follower)
 	return result;
 }
 
-s32 func0f193530(struct chrdata *chr, f32 arg1)
+s32 func0f193530(struct chrdata *chr, f32 range)
 {
 	s32 result = -1;
 
-	if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-		if (chr->myaction != MA_AIBOTFOLLOW && (random() % 100) < chr->aibot->unk000) {
-			f32 bestvalue = 0;
-			s32 bestindex = -1;
-			s32 i;
+	if ((g_MpSetup.options & MPOPTION_TEAMSENABLED)
+			&& chr->myaction != MA_AIBOTFOLLOW
+			&& (random() % 100) < chr->aibot->unk000) {
+		f32 closestdistance = 0;
+		s32 closestplayernum = -1;
+		s32 i;
 
-			for (i = 0; i < g_MpNumPlayers; i++) {
-				if (chr != g_MpPlayerChrs[i] &&
-						!chrIsDead(g_MpPlayerChrs[i]) &&
-						chr->team == g_MpPlayerChrs[i]->team &&
-						mpIsChrFollowedByChr(chr, g_MpPlayerChrs[i])) {
-					f32 value = chr->aibot->unk13c[i];
+		for (i = 0; i < g_MpNumPlayers; i++) {
+			if (chr != g_MpPlayerChrs[i]
+					&& !chrIsDead(g_MpPlayerChrs[i])
+					&& chr->team == g_MpPlayerChrs[i]->team
+					&& mpIsChrFollowedByChr(chr, g_MpPlayerChrs[i])) {
+				f32 distance = chr->aibot->playerdistances[i];
 
-					if (bestindex < 0 || value < bestvalue) {
-						bestindex = i;
-						bestvalue = value;
-					}
+				if (closestplayernum < 0 || distance < closestdistance) {
+					closestplayernum = i;
+					closestdistance = distance;
 				}
 			}
+		}
 
-			if (bestindex >= 0 && bestvalue < arg1) {
-				result = bestindex;
-			}
+		if (closestplayernum >= 0 && closestdistance < range) {
+			result = closestplayernum;
 		}
 	}
 
@@ -4097,7 +4097,7 @@ glabel var7f1b8f50
 .L0f194190:
 /*  f194190:	5080000c */ 	beqzl	$a0,.L0f1941c4
 /*  f194194:	00035c40 */ 	sll	$t3,$v1,0x11
-/*  f194198:	0fc666f9 */ 	jal	func0f199be4
+/*  f194198:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
 /*  f19419c:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1941a0:	0057082a */ 	slt	$at,$v0,$s7
 /*  f1941a4:	5020000f */ 	beqzl	$at,.L0f1941e4
@@ -4112,7 +4112,7 @@ glabel var7f1b8f50
 /*  f1941c4:	05610080 */ 	bgez	$t3,.L0f1943c8
 /*  f1941c8:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1941cc:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f1941d0:	0fc666f9 */ 	jal	func0f199be4
+/*  f1941d0:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
 /*  f1941d4:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f1941d8:	0055082a */ 	slt	$at,$v0,$s5
 /*  f1941dc:	1420007a */ 	bnez	$at,.L0f1943c8
@@ -4145,7 +4145,7 @@ glabel var7f1b8f50
 /*  f194240:	0003c3c2 */ 	srl	$t8,$v1,0xf
 /*  f194244:	5300000c */ 	beqzl	$t8,.L0f194278
 /*  f194248:	00034440 */ 	sll	$t0,$v1,0x11
-/*  f19424c:	0fc666f9 */ 	jal	func0f199be4
+/*  f19424c:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
 /*  f194250:	00003825 */ 	or	$a3,$zero,$zero
 /*  f194254:	0057082a */ 	slt	$at,$v0,$s7
 /*  f194258:	14200012 */ 	bnez	$at,.L0f1942a4
@@ -4160,7 +4160,7 @@ glabel var7f1b8f50
 /*  f194278:	05010007 */ 	bgez	$t0,.L0f194298
 /*  f19427c:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f194280:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f194284:	0fc666f9 */ 	jal	func0f199be4
+/*  f194284:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
 /*  f194288:	00003825 */ 	or	$a3,$zero,$zero
 /*  f19428c:	0055082a */ 	slt	$at,$v0,$s5
 /*  f194290:	14200004 */ 	bnez	$at,.L0f1942a4
@@ -4187,7 +4187,7 @@ glabel var7f1b8f50
 /*  f1942d8:	1180000c */ 	beqz	$t4,.L0f19430c
 /*  f1942dc:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1942e0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1942e4:	0fc666f9 */ 	jal	func0f199be4
+/*  f1942e4:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
 /*  f1942e8:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f1942ec:	0057082a */ 	slt	$at,$v0,$s7
 /*  f1942f0:	5020000f */ 	beqzl	$at,.L0f194330
@@ -4202,7 +4202,7 @@ glabel var7f1b8f50
 /*  f194310:	0701002d */ 	bgez	$t8,.L0f1943c8
 /*  f194314:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f194318:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f19431c:	0fc666f9 */ 	jal	func0f199be4
+/*  f19431c:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
 /*  f194320:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f194324:	0055082a */ 	slt	$at,$v0,$s5
 /*  f194328:	14200027 */ 	bnez	$at,.L0f1943c8
@@ -4226,7 +4226,7 @@ glabel var7f1b8f50
 /*  f194368:	1140000c */ 	beqz	$t2,.L0f19439c
 /*  f19436c:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f194370:	00003025 */ 	or	$a2,$zero,$zero
-/*  f194374:	0fc666f9 */ 	jal	func0f199be4
+/*  f194374:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
 /*  f194378:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f19437c:	0057082a */ 	slt	$at,$v0,$s7
 /*  f194380:	5020000f */ 	beqzl	$at,.L0f1943c0
@@ -4241,7 +4241,7 @@ glabel var7f1b8f50
 /*  f1943a0:	05a10009 */ 	bgez	$t5,.L0f1943c8
 /*  f1943a4:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1943a8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f1943ac:	0fc666f9 */ 	jal	func0f199be4
+/*  f1943ac:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
 /*  f1943b0:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f1943b4:	0055082a */ 	slt	$at,$v0,$s5
 /*  f1943b8:	14200003 */ 	bnez	$at,.L0f1943c8
@@ -4271,7 +4271,7 @@ glabel var7f1b8f50
 /*  f194404:	02e08825 */ 	or	$s1,$s7,$zero
 .L0f194408:
 /*  f194408:	02402825 */ 	or	$a1,$s2,$zero
-/*  f19440c:	0fc6672e */ 	jal	aibotGetAmmoQty
+/*  f19440c:	0fc6672e */ 	jal	aibotGetAmmoQuantityByType
 /*  f194410:	02803025 */ 	or	$a2,$s4,$zero
 /*  f194414:	0051082a */ 	slt	$at,$v0,$s1
 /*  f194418:	10200008 */ 	beqz	$at,.L0f19443c
@@ -4399,7 +4399,7 @@ glabel var7f1b8f50
 /*  f1945c4:	00408025 */ 	or	$s0,$v0,$zero
 /*  f1945c8:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f1945cc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1945d0:	0fc6672e */ 	jal	aibotGetAmmoQty
+/*  f1945d0:	0fc6672e */ 	jal	aibotGetAmmoQuantityByType
 /*  f1945d4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1945d8:	00409025 */ 	or	$s2,$v0,$zero
 /*  f1945dc:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
@@ -4985,7 +4985,7 @@ glabel var7f1b8fc8
 /*  f194f10:	17210033 */ 	bne	$t9,$at,.L0f194fe0
 /*  f194f14:	2405000d */ 	addiu	$a1,$zero,0xd
 /*  f194f18:	00003025 */ 	or	$a2,$zero,$zero
-/*  f194f1c:	0fc666f9 */ 	jal	func0f199be4
+/*  f194f1c:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
 /*  f194f20:	02e03825 */ 	or	$a3,$s7,$zero
 /*  f194f24:	00408025 */ 	or	$s0,$v0,$zero
 /*  f194f28:	02802025 */ 	or	$a0,$s4,$zero
@@ -7029,7 +7029,7 @@ glabel var7f1b8fc8
 /*  f196c58:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f196c5c:	00002825 */ 	or	$a1,$zero,$zero
 .L0f196c60:
-/*  f196c60:	0fc663bb */ 	jal	func0f198eec
+/*  f196c60:	0fc663bb */ 	jal	aibotTickInventory
 /*  f196c64:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196c68:	afa00088 */ 	sw	$zero,0x88($sp)
 /*  f196c6c:	00009825 */ 	or	$s3,$zero,$zero
@@ -7302,7 +7302,7 @@ glabel var7f1b8fc8
 /*  f197044:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f197048:	00003825 */ 	or	$a3,$zero,$zero
 /*  f19704c:	00066880 */ 	sll	$t5,$a2,0x2
-/*  f197050:	0fc666f9 */ 	jal	func0f199be4
+/*  f197050:	0fc666f9 */ 	jal	aibotGetAmmoQuantityByWeapon
 /*  f197054:	000d37c2 */ 	srl	$a2,$t5,0x1f
 /*  f197058:	5c400008 */ 	bgtzl	$v0,.L0f19707c
 /*  f19705c:	868b017e */ 	lh	$t3,0x17e($s4)

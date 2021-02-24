@@ -456,7 +456,7 @@ struct aibot {
 	/*0x0d4*/ s32 followprotectpropnum;
 	/*0x0d8*/ s32 unk0d8;
 	/*0x0dc*/ u32 unk0dc;
-	/*0x0e0*/ u16 unk0e0[2];
+	/*0x0e0*/ s16 unk0e0[2];
 	/*0x0e4*/ f32 unk0e4[2];
 	/*0x0ec*/ u32 unk0ec;
 	/*0x0f0*/ u32 unk0f0;
@@ -476,7 +476,7 @@ struct aibot {
 	/*0x128*/ u32 unk128;
 	/*0x12c*/ u32 unk12c;
 	/*0x130*/ s8 unk130[12];
-	/*0x13c*/ f32 unk13c[12];
+	/*0x13c*/ f32 playerdistances[12];
 	/*0x16c*/ u8 unk16c[12];
 	/*0x178*/ s32 unk178[12];
 	/*0x1a8*/ s16 unk1a8[12];
@@ -499,14 +499,14 @@ struct aibot {
 	/*0x200*/ u32 unk200;
 	/*0x204*/ u32 unk204;
 	/*0x208*/ u32 unk208;
-	/*0x20c*/ u32 unk20c;
-	/*0x210*/ u32 unk210;
+	/*0x20c*/ s32 randttl60;
+	/*0x210*/ u32 rand;
 	/*0x214*/ f32 killsbygunfunc[6][2];
 	/*0x244*/ f32 suicidesbygunfunc[6][2];
-	/*0x274*/ s32 unk274[6][2];
-	/*0x2a4*/ u32 unk2a4;
-	/*0x2a8*/ u32 unk2a8[6];
-	/*0x2c0*/ u32 unk2c0;
+	/*0x274*/ s32 equipdurations60[6][2];
+	/*0x2a4*/ s32 unk2a4;
+	/*0x2a8*/ s32 unk2a8[6];
+	/*0x2c0*/ s32 dampensuicidesttl60;
 
 	/**
 	 * Some kind of cloak counter? Ticks up while cloaked. Over 1 causes RCP120

@@ -4015,7 +4015,7 @@ void chrUpdateCloak(struct chrdata *chr)
 		} else if (chr->aibot->rcp120cloakenabled) {
 			if (chr->aibot->weaponnum == WEAPON_RCP120
 					&& !chrIsDead(chr)
-					&& func0f199be4(chr->aibot, WEAPON_RCP120, 0, 1) > 0) {
+					&& aibotGetAmmoQuantityByWeapon(chr->aibot, WEAPON_RCP120, 0, 1) > 0) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {
 					chr->aibot->unk2c4 += g_Vars.lvupdate240f * 0.4f;
 
