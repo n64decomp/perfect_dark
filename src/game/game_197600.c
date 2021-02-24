@@ -1051,40 +1051,24 @@ s32 func0f198e38(s32 weaponnum, s32 funcnum)
 	return g_AibotWeaponPreferences[weaponnum].unk04_02;
 }
 
-GLOBAL_ASM(
-glabel func0f198e78
-/*  f198e78:	8c8e02d4 */ 	lw	$t6,0x2d4($a0)
-/*  f198e7c:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f198e80:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f198e84:	8dcf0004 */ 	lw	$t7,0x4($t6)
-/*  f198e88:	91f80047 */ 	lbu	$t8,0x47($t7)
-/*  f198e8c:	17010015 */ 	bne	$t8,$at,.L0f198ee4
-/*  f198e90:	00000000 */ 	nop
-/*  f198e94:	10c0000b */ 	beqz	$a2,.L0f198ec4
-/*  f198e98:	00055900 */ 	sll	$t3,$a1,0x4
-/*  f198e9c:	0005c900 */ 	sll	$t9,$a1,0x4
-/*  f198ea0:	3c088008 */ 	lui	$t0,%hi(g_AibotWeaponPreferences+0x4)
-/*  f198ea4:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f198ea8:	95087eb4 */ 	lhu	$t0,%lo(g_AibotWeaponPreferences+0x4)($t0)
-/*  f198eac:	00084d80 */ 	sll	$t1,$t0,0x16
-/*  f198eb0:	00095702 */ 	srl	$t2,$t1,0x1c
-/*  f198eb4:	1140000b */ 	beqz	$t2,.L0f198ee4
-/*  f198eb8:	00000000 */ 	nop
-/*  f198ebc:	03e00008 */ 	jr	$ra
-/*  f198ec0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f198ec4:
-/*  f198ec4:	3c0c8008 */ 	lui	$t4,%hi(g_AibotWeaponPreferences+0x4)
-/*  f198ec8:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f198ecc:	958c7eb4 */ 	lhu	$t4,%lo(g_AibotWeaponPreferences+0x4)($t4)
-/*  f198ed0:	000c6c80 */ 	sll	$t5,$t4,0x12
-/*  f198ed4:	000d7702 */ 	srl	$t6,$t5,0x1c
-/*  f198ed8:	11c00002 */ 	beqz	$t6,.L0f198ee4
-/*  f198edc:	00000000 */ 	nop
-/*  f198ee0:	00001825 */ 	or	$v1,$zero,$zero
-.L0f198ee4:
-/*  f198ee4:	03e00008 */ 	jr	$ra
-/*  f198ee8:	00601025 */ 	or	$v0,$v1,$zero
-);
+bool func0f198e78(struct chrdata *chr, s32 weaponnum, s32 funcnum)
+{
+	bool result = true;
+
+	if (chr->aibot->simulant->base.simtype == SIMTYPE_FIST) {
+		if (funcnum != FUNC_PRIMARY) {
+			if (g_AibotWeaponPreferences[weaponnum].unk04_06) {
+				result = false;
+			}
+		} else {
+			if (g_AibotWeaponPreferences[weaponnum].unk04_02) {
+				result = false;
+			}
+		}
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f198eec
