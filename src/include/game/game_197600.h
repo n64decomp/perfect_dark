@@ -20,7 +20,7 @@ bool mpHasShield(void);
 s32 mpGetWeaponIndexByWeaponNum(s32 weaponnum);
 void aibotScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3, bool arg4, s32 *dst1, s32 *dst2, bool arg7, bool arg8);
 u32 func0f198db4(void);
-u32 func0f198df8(void);
+void func0f198df8(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3, bool arg4, s32 *dst1, s32 *dst2);
 s32 func0f198e38(s32 weaponnum, s32 funcnum);
 bool func0f198e78(struct chrdata *chr, s32 weaponnum, s32 funcnum);
 u32 func0f198eec(void);
