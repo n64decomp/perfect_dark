@@ -6964,9 +6964,8 @@ struct aibotweaponpreference {
 	u8 unk03;
 	u16 unk04_00 : 1;
 	u16 unk04_01 : 1;
-	u16 unk04_02 : 2;
-	u16 unk04_04 : 4;
-	u16 unk04_08 : 4;
+	u16 unk04_02 : 4;
+	u16 unk04_06 : 4;
 	u16 unk06;
 	u16 unk08;
 	u16 unk0a;
