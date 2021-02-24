@@ -15,7 +15,7 @@ bool aibotGiveSingleWeapon(struct chrdata *chr, u32 weaponnum);
 void aibotGiveDualWeapon(struct chrdata *chr, u32 weaponnum);
 s16 aibotGetWeaponPad(struct chrdata *chr, u32 weaponnum);
 bool aibotGiveProp(struct chrdata *chr, struct prop *prop);
-u32 func0f198068(void);
+void func0f198068(struct chrdata *chr, s32 *weaponnums, s32 *scores1, s32 *scores2);
 bool mpHasShield(void);
 s32 mpGetWeaponIndexByWeaponNum(s32 weaponnum);
 void aibotScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3, bool arg4, s32 *dst1, s32 *dst2, bool arg7, bool arg8);
