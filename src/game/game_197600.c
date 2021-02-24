@@ -468,11 +468,10 @@ bool aibotGiveProp(struct chrdata *chr, struct prop *prop)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f198060
-/*  f198060:	03e00008 */ 	jr	$ra
-/*  f198064:	afa40000 */ 	sw	$a0,0x0($sp)
-);
+void func0f198060(u32 arg0)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0f198068
