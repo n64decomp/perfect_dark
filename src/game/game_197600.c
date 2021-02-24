@@ -1001,26 +1001,10 @@ void aibotScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3,
 	*dst2 = score2;
 }
 
-GLOBAL_ASM(
-glabel func0f198db4
-/*  f198db4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f198db8:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f198dbc:	8faf0044 */ 	lw	$t7,0x44($sp)
-/*  f198dc0:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f198dc4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f198dc8:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f198dcc:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f198dd0:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f198dd4:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f198dd8:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f198ddc:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f198de0:	0fc660ce */ 	jal	aibotScoreWeapon
-/*  f198de4:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f198de8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f198dec:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f198df0:	03e00008 */ 	jr	$ra
-/*  f198df4:	00000000 */ 	nop
-);
+void func0f198db4(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3, bool arg4, s32 *dst1, s32 *dst2)
+{
+	aibotScoreWeapon(chr, weaponnum, funcnum, arg3, arg4, dst1, dst2, true, true);
+}
 
 void func0f198df8(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3, bool arg4, s32 *dst1, s32 *dst2)
 {
