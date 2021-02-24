@@ -426,7 +426,7 @@ glabel mpChrReset
 //			aibot->unk2d0 = random();
 //			aibot->aibot = random();
 //			aibot->unk078 = 0;
-//			aibot->unk09c_07 = 0;
+//			aibot->cheap = 0;
 //			aibot->unk050 = 0;
 //			aibot->unk09d = 0;
 //		}
@@ -1573,7 +1573,7 @@ glabel var7f1b8ec8
 );
 
 GLOBAL_ASM(
-glabel func0f1918d0
+glabel aibotTick
 .late_rodata
 glabel var7f1b8ecc
 .word 0x40c907a9
@@ -1971,7 +1971,7 @@ glabel var7f1b8ef0
 /*  f191e14:	460e0000 */ 	add.s	$f0,$f0,$f14
 /*  f191e18:	44050000 */ 	mfc1	$a1,$f0
 .L0f191e1c:
-/*  f191e1c:	0fc0f94e */ 	jal	func0f03e538
+/*  f191e1c:	0fc0f94e */ 	jal	chrSetLookAngle
 /*  f191e20:	02202025 */ 	or	$a0,$s1,$zero
 /*  f191e24:	862c017e */ 	lh	$t4,0x17e($s1)
 /*  f191e28:	44809000 */ 	mtc1	$zero,$f18
@@ -2083,6 +2083,194 @@ glabel var7f1b8ef0
 /*  f191f9c:	03e00008 */ 	jr	$ra
 /*  f191fa0:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
+
+// Mismatch: updateable is calculated differently
+//bool aibotTick(struct prop *prop)
+//{
+//	struct chrdata *chr = prop->chr;
+//	struct aibot *aibot = chr->aibot;
+//	bool result = false;
+//	bool updateable;
+//	f32 oldangle;
+//	f32 newangle;
+//	f32 diffangle;
+//	f32 tweenangle;
+//	s32 i;
+//
+//	updateable = ((prop->flags & PROPFLAG_08) && g_Vars.lvupdate240) != 0;
+//
+//	if (aibot) {
+//		if (updateable && g_Vars.lvframe60 >= 145) {
+//			func0f194b40(chr);
+//
+//			// Calculate cheap
+//			aibot->cheap = true;
+//
+//			for (i = 0; prop->rooms[i] != -1; i++) {
+//				if (roomIsVisibleByAnyPlayer(prop->rooms[i]) || roomIsVisibleByAnyAibot(prop->rooms[i])) {
+//					aibot->cheap = false;
+//					break;
+//				}
+//			}
+//
+//			// Dampen blur
+//			if (chr->blurdrugamount > 0) {
+//				if (chr->blurdrugamount > 5000) {
+//					chr->blurdrugamount = 5000;
+//				}
+//
+//				chr->blurdrugamount -= g_Vars.lvupdate240_60 * (chr->blurnumtimesdied + 1);
+//
+//				if (chr->blurdrugamount <= 0) {
+//					chr->blurdrugamount = 0;
+//					chr->blurnumtimesdied = 0;
+//				}
+//			}
+//
+//			// Calculate target angle
+//			oldangle = chrGetInverseTheta(chr);
+//
+//			if (chrIsDead(chr)) {
+//				newangle = chrGetInverseTheta(chr);
+//			} else if (aibot->unk044) {
+//				newangle = chrGetInverseTheta(chr);
+//			} else if (func0f191638(chr, false)) {
+//				struct prop *target = chrGetTargetProp(chr);
+//				newangle = oldangle + chrGetAngleToPos(chr, &target->pos) + aibot->unk1c0;
+//			} else if (chr->myaction == MA_AIBOTDOWNLOAD && g_ScenarioData.htm.unk0d4 != -1) {
+//				newangle = oldangle + chrGetAngleToPos(chr, &g_ScenarioData.htm.unk07c[g_ScenarioData.htm.unk0d4].prop->pos);
+//			} else if (chr->myaction == MA_AIBOTFOLLOW
+//					&& aibot->followingplayernum >= 0
+//					&& aibot->playerdistances[aibot->followingplayernum] < 300
+//					&& aibot->unk1e4 >= g_Vars.lvframe60 - 60
+//					&& aibot->simulant->difficulty != SIMDIFF_MEAT) {
+//				newangle = chrGetInverseTheta(g_MpPlayerChrs[aibot->followingplayernum]);
+//			} else if (chr->myaction == MA_AIBOTDEFEND
+//					&& aibot->unk1e4 >= g_Vars.lvframe60 - 60
+//					&& aibot->simulant->difficulty != SIMDIFF_MEAT) {
+//				newangle = aibot->unk098;
+//			} else {
+//				newangle = func0f03e578(chr);
+//			}
+//
+//			while (newangle >= M_BADTAU) {
+//				newangle -= M_BADTAU;
+//			}
+//
+//			while (newangle < 0) {
+//				newangle += M_BADTAU;
+//			}
+//
+//			if (chr->blurdrugamount > 0 && !chrIsDead(chr) && aibot->unk044 == NULL) {
+//				newangle += chr->blurdrugamount * 0.00031410926021636f * sinf((g_Vars.lvframe60 % 120) * 0.052351541817188f);
+//
+//				if (newangle >= M_BADTAU) {
+//					newangle -= M_BADTAU;
+//				}
+//
+//				newangle += M_BADTAU;
+//			}
+//
+//			diffangle = newangle - oldangle;
+//			tweenangle = g_Vars.lvupdate240freal * 0.061590049415827f;
+//
+//			// cc8?
+//			if (diffangle < -M_PI) {
+//				diffangle += M_BADTAU;
+//			} else if (diffangle >= M_PI) {
+//				diffangle -= M_BADTAU;
+//			}
+//
+//			// cfc
+//			if (diffangle >= 0) {
+//				if (diffangle >= tweenangle) {
+//					newangle = tweenangle;
+//				} else {
+//					newangle = oldangle + tweenangle;
+//
+//					if (newangle >= M_BADTAU) {
+//						newangle -= M_BADTAU;
+//					}
+//				}
+//			} else {
+//				// d40
+//				if (diffangle <= -tweenangle) {
+//					newangle = tweenangle;
+//				} else {
+//					newangle = oldangle - tweenangle;
+//
+//					if (newangle < 0) {
+//						newangle += M_BADTAU;
+//					}
+//				}
+//			}
+//
+//			aibot->unk0ac = newangle - oldangle;
+//
+//			if (aibot->unk0ac < 0) {
+//				aibot->unk0ac += M_BADTAU;
+//			}
+//
+//			if (aibot->unk0ac >= M_BADPI) {
+//				aibot->unk0ac -= M_BADTAU;
+//			}
+//
+//			aibot->unk0ac /= g_Vars.lvupdate240freal;
+//			aibot->unk0ac *= 16.236389160156f;
+//
+//			while (newangle >= M_BADTAU) {
+//				newangle -= M_BADTAU;
+//			}
+//
+//			while (newangle < 0) {
+//				newangle += M_BADTAU;
+//			}
+//
+//			chrSetLookAngle(chr, newangle);
+//
+//			if (chr->target != -1 && !aibot->iscloserangeweapon) {
+//				bool left = chr->weapons_held[HAND_LEFT] ? true : false;
+//				bool right = chr->weapons_held[HAND_RIGHT] ? true : false;
+//
+//				func0f03e9f4(chr, aibot->unk068, left, right, 0);
+//			} else {
+//				chrResetAimEndProperties(chr);
+//			}
+//
+//			if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD) {
+//				aibot->unk06c = 0;
+//				aibot->unk070 = 0;
+//			} else if (aibot->unk044) {
+//				aibot->unk06c = 0;
+//				aibot->unk070 = 0;
+//				aibot->unk1e4 = g_Vars.lvframe60;
+//			} else if (chr->actiontype == ACT_GOPOS && (chr->act_gopos.flags & GOPOSFLAG_20) == 0) {
+//				aibot->unk06c = 1;
+//				aibot->unk070 = 0;
+//			} else {
+//				aibot->unk06c = 0;
+//				aibot->unk070 = 0;
+//				aibot->unk1e4 = g_Vars.lvframe60;
+//			}
+//		}
+//
+//		func0f191448(chr);
+//
+//		result = func0f023098(prop);
+//
+//		if (g_Vars.lvframe60 >= 145) {
+//			if (updateable) {
+//				scenarioCallback14(chr);
+//			}
+//
+//			if (updateable && !chrIsDead(chr)) {
+//				func0f19124c(chr);
+//			}
+//		}
+//	}
+//
+//	return result;
+//}
 
 f32 aibotCalculateMaxSpeed(struct chrdata *chr)
 {

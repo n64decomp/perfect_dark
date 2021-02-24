@@ -265,7 +265,7 @@ void chrTickKneel(struct chrdata *chr);
 void chrFadeCorpse(struct chrdata *chr);
 void chrEnableReap(struct chrdata *chr);
 void chrTickTest(struct chrdata *chr);
-void func0f03e538(struct chrdata *chr, f32 angle);
+void chrSetLookAngle(struct chrdata *chr, f32 angle);
 f32 func0f03e578(struct chrdata *chr);
 void func0f03e5b0(struct chrdata *chr, f32 arg1);
 void chrResetAimEndProperties(struct chrdata *chr);

@@ -2133,7 +2133,7 @@ glabel var7f1ad5b4
 /*  f0b929c:	8e0d0284 */ 	lw	$t5,0x284($s0)
 /*  f0b92a0:	8fa50114 */ 	lw	$a1,0x114($sp)
 /*  f0b92a4:	8dab00bc */ 	lw	$t3,0xbc($t5)
-/*  f0b92a8:	0fc0f94e */ 	jal	func0f03e538
+/*  f0b92a8:	0fc0f94e */ 	jal	chrSetLookAngle
 /*  f0b92ac:	8d640004 */ 	lw	$a0,0x4($t3)
 /*  f0b92b0:	8fa20110 */ 	lw	$v0,0x110($sp)
 /*  f0b92b4:	8fae0064 */ 	lw	$t6,0x64($sp)
@@ -2296,7 +2296,7 @@ glabel var7f1ad5b4
 /*  f0b9508:	8e180284 */ 	lw	$t8,0x284($s0)
 /*  f0b950c:	8fa50114 */ 	lw	$a1,0x114($sp)
 /*  f0b9510:	8f0800bc */ 	lw	$t0,0xbc($t8)
-/*  f0b9514:	0fc0f94e */ 	jal	func0f03e538
+/*  f0b9514:	0fc0f94e */ 	jal	chrSetLookAngle
 /*  f0b9518:	8d040004 */ 	lw	$a0,0x4($t0)
 /*  f0b951c:	0fc32e31 */ 	jal	bmove0f0cb8c4
 /*  f0b9520:	8e040284 */ 	lw	$a0,0x284($s0)
@@ -2942,7 +2942,7 @@ void func0f0ba190(u32 arg0)
 	theta = (M_BADTAU - theta) * 57.304901123047f;
 	g_Vars.bond->vv_theta = theta;
 
-	func0f03e538(g_Vars.bond->prop->chr, (360 - theta) * 0.017450513318181f);
+	chrSetLookAngle(g_Vars.bond->prop->chr, (360 - theta) * 0.017450513318181f);
 }
 
 GLOBAL_ASM(
@@ -10432,7 +10432,7 @@ glabel var7f1ad710
 .L0f0c27dc:
 /*  f0c27dc:	44050000 */ 	mfc1	$a1,$f0
 .L0f0c27e0:
-/*  f0c27e0:	0fc0f94e */ 	jal	func0f03e538
+/*  f0c27e0:	0fc0f94e */ 	jal	chrSetLookAngle
 /*  f0c27e4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c27e8:	8e0f0018 */ 	lw	$t7,0x18($s0)
 /*  f0c27ec:	35f80001 */ 	ori	$t8,$t7,0x1

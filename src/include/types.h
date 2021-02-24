@@ -417,7 +417,7 @@ struct aibot {
 	 */
 	/*0x064*/ u16 unk064;
 
-	/*0x068*/ u32 unk068;
+	/*0x068*/ struct act_attackamount_2c *unk068;
 	/*0x06c*/ f32 unk06c;
 	/*0x070*/ f32 unk070;
 	/*0x074*/ s8 unk074;
@@ -439,7 +439,7 @@ struct aibot {
 	/*0x09c*/ u8 unk09c_04 : 1;
 	/*0x09c*/ u8 unk09c_05 : 1;
 	/*0x09c*/ u8 unk09c_06 : 1;
-	/*0x09c*/ u8 unk09c_07 : 1;
+	/*0x09c*/ u8 cheap : 1; // True if aibot is not in any visible room
 	/*0x09d*/ u8 unk09d;
 	/*0x0a0*/ s32 unk0a0;
 	/*0x0a4*/ f32 unk0a4;

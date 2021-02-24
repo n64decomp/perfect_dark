@@ -9722,7 +9722,7 @@ void chrGoPosInitCheap(struct chrdata *chr, struct waydata *waydata, struct coor
 	waydata->segdisttotal = sqrtf(xdiff1 * xdiff1 + zdiff1 * zdiff1);
 	waydata->segdistdone = waydata->segdisttotal - sqrtf(xdiff2 * xdiff2 + zdiff2 * zdiff2);
 
-	func0f03e538(chr, angle);
+	chrSetLookAngle(chr, angle);
 }
 
 void chrGoPosGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags)
@@ -10197,7 +10197,7 @@ glabel var7f1a8dac
 /*  f0378bc:	0fc259d4 */ 	jal	atan2f
 /*  f0378c0:	46104381 */ 	sub.s	$f14,$f8,$f16
 /*  f0378c4:	44050000 */ 	mfc1	$a1,$f0
-/*  f0378c8:	0fc0f94e */ 	jal	func0f03e538
+/*  f0378c8:	0fc0f94e */ 	jal	chrSetLookAngle
 /*  f0378cc:	02002025 */ 	or	$a0,$s0,$zero
 .L0f0378d0:
 /*  f0378d0:	12000003 */ 	beqz	$s0,.L0f0378e0
@@ -14782,7 +14782,7 @@ f32 chrGetInverseTheta(struct chrdata *chr)
 	return func0001ae44(chr->model);
 }
 
-void func0f03e538(struct chrdata *chr, f32 angle)
+void chrSetLookAngle(struct chrdata *chr, f32 angle)
 {
 	if (chr->aibot) {
 		chr->aibot->unk0b0 = angle;
@@ -15061,7 +15061,7 @@ glabel var7f1a8f40
 /*  f03e938:	46006301 */ 	sub.s	$f12,$f12,$f0
 /*  f03e93c:	44056000 */ 	mfc1	$a1,$f12
 .L0f03e940:
-/*  f03e940:	0fc0f94e */ 	jal	func0f03e538
+/*  f03e940:	0fc0f94e */ 	jal	chrSetLookAngle
 /*  f03e944:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03e948:	24080003 */ 	addiu	$t0,$zero,0x3
 /*  f03e94c:	1000001c */ 	b	.L0f03e9c0
@@ -15082,7 +15082,7 @@ glabel var7f1a8f40
 /*  f03e984:	46006301 */ 	sub.s	$f12,$f12,$f0
 /*  f03e988:	44056000 */ 	mfc1	$a1,$f12
 .L0f03e98c:
-/*  f03e98c:	0fc0f94e */ 	jal	func0f03e538
+/*  f03e98c:	0fc0f94e */ 	jal	chrSetLookAngle
 /*  f03e990:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03e994:	1000000b */ 	b	.L0f03e9c4
 /*  f03e998:	c7a60030 */ 	lwc1	$f6,0x30($sp)
@@ -15095,7 +15095,7 @@ glabel var7f1a8f40
 /*  f03e9b0:	46006300 */ 	add.s	$f12,$f12,$f0
 /*  f03e9b4:	44056000 */ 	mfc1	$a1,$f12
 .L0f03e9b8:
-/*  f03e9b8:	0fc0f94e */ 	jal	func0f03e538
+/*  f03e9b8:	0fc0f94e */ 	jal	chrSetLookAngle
 /*  f03e9bc:	02002025 */ 	or	$a0,$s0,$zero
 .L0f03e9c0:
 /*  f03e9c0:	c7a60030 */ 	lwc1	$f6,0x30($sp)
@@ -19614,7 +19614,7 @@ void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2)
 	struct prop *prop = chrGetTargetProp(chr);
 	f32 distance = atan2f(prop->pos.x - chr->prop->pos.x, prop->pos.z - chr->prop->pos.z);
 	f32 value = func0001afe8(arg2, distance, arg1);
-	func0f03e538(chr, value);
+	chrSetLookAngle(chr, value);
 }
 
 GLOBAL_ASM(
@@ -24382,7 +24382,7 @@ void chrTickSkJump(struct chrdata *chr)
 		case SKJUMPSTATE_TAKEOFF:
 			fVar6 = chrGetInverseTheta(chr);
 			fVar5 = func0001afe8(fVar6, chr->act_skjump.angle, 0.35);
-			func0f03e538(chr, fVar5);
+			chrSetLookAngle(chr, fVar5);
 			frame = modelGetCurAnimFrame(chr->model);
 
 			if (frame >= modelGetAnimEndFrame(chr->model)) {
@@ -27016,7 +27016,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 		}
 
 		chr->chrflags |= CHRCFLAG_00000001;
-		func0f03e538(chr, angle);
+		chrSetLookAngle(chr, angle);
 
 		if (chr->prop->type == PROPTYPE_PLAYER) {
 			player = g_Vars.players[propGetPlayerNum(chr->prop)];

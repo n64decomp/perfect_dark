@@ -5418,7 +5418,7 @@ void bmoveUpdateVerta(void)
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
 		if (chr && chr->model) {
-			func0f03e538(chr, BADDEG2RAD(360 - g_Vars.currentplayer->vv_theta));
+			chrSetLookAngle(chr, BADDEG2RAD(360 - g_Vars.currentplayer->vv_theta));
 		}
 	}
 }

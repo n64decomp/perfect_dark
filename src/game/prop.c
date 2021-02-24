@@ -3126,7 +3126,7 @@ glabel func0f06302c
 /*  f0634d4:	8c4f02d4 */ 	lw	$t7,0x2d4($v0)
 /*  f0634d8:	11e00005 */ 	beqz	$t7,.L0f0634f0
 /*  f0634dc:	00000000 */ 	nop
-/*  f0634e0:	0fc64634 */ 	jal	func0f1918d0
+/*  f0634e0:	0fc64634 */ 	jal	aibotTick
 /*  f0634e4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0634e8:	10000004 */ 	b	.L0f0634fc
 /*  f0634ec:	00403025 */ 	or	$a2,$v0,$zero
@@ -3290,7 +3290,7 @@ glabel func0f06302c
 /*  f063728:	8c4f02d4 */ 	lw	$t7,0x2d4($v0)
 /*  f06372c:	11e00005 */ 	beqz	$t7,.L0f063744
 /*  f063730:	00000000 */ 	nop
-/*  f063734:	0fc64634 */ 	jal	func0f1918d0
+/*  f063734:	0fc64634 */ 	jal	aibotTick
 /*  f063738:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06373c:	1000003c */ 	b	.L0f063830
 /*  f063740:	00403025 */ 	or	$a2,$v0,$zero

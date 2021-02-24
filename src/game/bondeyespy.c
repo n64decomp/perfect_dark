@@ -2086,7 +2086,7 @@ glabel var7f1adb00
 /*  f0d1cf0:	8fa400e4 */ 	lw	$a0,0xe4($sp)
 /*  f0d1cf4:	46043002 */ 	mul.s	$f0,$f6,$f4
 /*  f0d1cf8:	44050000 */ 	mfc1	$a1,$f0
-/*  f0d1cfc:	0fc0f94e */ 	jal	func0f03e538
+/*  f0d1cfc:	0fc0f94e */ 	jal	chrSetLookAngle
 /*  f0d1d00:	00000000 */ 	nop
 /*  f0d1d04:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0d1d08:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)

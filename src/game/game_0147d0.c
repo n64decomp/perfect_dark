@@ -279,7 +279,7 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 					aibot->unk2d0 = random();
 					aibot->unk2d4 = random() * (1.0f / U32_MAX);
 					aibot->unk078 = 0;
-					aibot->unk09c_07 = 0;
+					aibot->cheap = false;
 					aibot->unk050 = 0;
 					aibot->unk09d = 0;
 				} else {

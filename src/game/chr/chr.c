@@ -2579,7 +2579,7 @@ struct prop *func0f020b14(struct prop *prop, struct model *model,
 	model->chr = chr;
 	model->unk01 = 1;
 	chr->model = model;
-	func0f03e538(chr, arg4);
+	chrSetLookAngle(chr, arg4);
 	modelSetAnimPlaySpeed(model, var80062968, 0);
 
 	testpos.x = pos->x;

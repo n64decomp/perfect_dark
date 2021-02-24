@@ -26,7 +26,7 @@ s32 func0f022be4(struct chrdata *chr);
 void chrSetPoisoned(struct chrdata *chr, struct prop *poisonprop);
 void chrTickPoisoned(struct chrdata *chr);
 bool propchrDoFireslotThing(struct prop *prop);
-u32 func0f023098(void);
+bool func0f023098(struct prop *prop);
 void chrDropItems(struct chrdata *chr);
 void chrSetHudpieceVisible(struct chrdata *chr, bool visible);
 void chrDropWeapons(struct chrdata *chr);
