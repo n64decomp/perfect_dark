@@ -528,7 +528,7 @@ extern struct mppreset g_MpPresets[NUM_MPPRESETS];
 extern u32 g_TeamColours[];
 extern u16 var80087ce4[];
 extern u8 g_NumMpSimulantChrs;
-extern u32 var80087eb0;
+extern struct aibotweaponpreference g_AibotWeaponPreferences[];
 extern u32 var80087eb4;
 extern struct challenge g_MpChallenges[NUM_CHALLENGES];
 extern u8 g_FrIsValidWeapon;

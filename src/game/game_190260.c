@@ -2798,18 +2798,18 @@ bool func0f192dc0(struct chrdata *botchr, struct chrdata *chr)
 	struct aibot *aibot = botchr->aibot;
 	bool result = true;
 	s32 otherweaponnum;
-	s32 sp40;
-	s32 sp3c;
-	s32 sp38;
-	s32 sp34;
+	s32 myscore1;
+	s32 myscore2;
+	s32 theirscore1;
+	s32 theirscore2;
 
 	if (aibot->simulant->base.simtype == SIMTYPE_COWARD) {
 		otherweaponnum = mpchrGetWeaponNum(chr);
 
-		func0f198338(botchr, aibot->weaponnum, 0, 1, 0, &sp40, &sp3c, 0, 0);
-		func0f198338(botchr, otherweaponnum, 0, 1, 0, &sp38, &sp34, 0, 0);
+		aibotScoreWeapon(botchr, aibot->weaponnum, FUNC_PRIMARY, 1, false, &myscore1, &myscore2, false, false);
+		aibotScoreWeapon(botchr, otherweaponnum, FUNC_PRIMARY, 1, false, &theirscore1, &theirscore2, false, false);
 
-		if (sp40 - 30 <= sp38) {
+		if (theirscore1 >= myscore1 - 30) {
 			result = false;
 		}
 	}
@@ -3322,8 +3322,8 @@ glabel func0f19369c
 /*  f1936a0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1936a4:	afa5002c */ 	sw	$a1,0x2c($sp)
 /*  f1936a8:	8c8602d4 */ 	lw	$a2,0x2d4($a0)
-/*  f1936ac:	3c028008 */ 	lui	$v0,%hi(var80087eb0)
-/*  f1936b0:	24427eb0 */ 	addiu	$v0,$v0,%lo(var80087eb0)
+/*  f1936ac:	3c028008 */ 	lui	$v0,%hi(g_AibotWeaponPreferences)
+/*  f1936b0:	24427eb0 */ 	addiu	$v0,$v0,%lo(g_AibotWeaponPreferences)
 /*  f1936b4:	8ccf0020 */ 	lw	$t7,0x20($a2)
 /*  f1936b8:	00054040 */ 	sll	$t0,$a1,0x1
 /*  f1936bc:	00c86021 */ 	addu	$t4,$a2,$t0
@@ -3746,11 +3746,11 @@ glabel var7f1b8f50
 /*  f193c8c:	26730004 */ 	addiu	$s3,$s3,0x4
 .L0f193c90:
 /*  f193c90:	8e6c0000 */ 	lw	$t4,0x0($s3)
-/*  f193c94:	3c038008 */ 	lui	$v1,%hi(var80087eb4)
+/*  f193c94:	3c038008 */ 	lui	$v1,%hi(g_AibotWeaponPreferences+0x4)
 /*  f193c98:	03b61021 */ 	addu	$v0,$sp,$s6
 /*  f193c9c:	000c6900 */ 	sll	$t5,$t4,0x4
 /*  f193ca0:	006d1821 */ 	addu	$v1,$v1,$t5
-/*  f193ca4:	94637eb4 */ 	lhu	$v1,%lo(var80087eb4)($v1)
+/*  f193ca4:	94637eb4 */ 	lhu	$v1,%lo(g_AibotWeaponPreferences+0x4)($v1)
 /*  f193ca8:	8fb900a0 */ 	lw	$t9,0xa0($sp)
 /*  f193cac:	000373c2 */ 	srl	$t6,$v1,0xf
 /*  f193cb0:	15c00003 */ 	bnez	$t6,.L0f193cc0
@@ -4034,10 +4034,10 @@ glabel var7f1b8f50
 /*  f1940a8:	8fb400d8 */ 	lw	$s4,0xd8($sp)
 /*  f1940ac:	8f1800dc */ 	lw	$t8,0xdc($t8)
 /*  f1940b0:	00057100 */ 	sll	$t6,$a1,0x4
-/*  f1940b4:	3c038008 */ 	lui	$v1,%hi(var80087eb4)
+/*  f1940b4:	3c038008 */ 	lui	$v1,%hi(g_AibotWeaponPreferences+0x4)
 /*  f1940b8:	130000e4 */ 	beqz	$t8,.L0f19444c
 /*  f1940bc:	006e1821 */ 	addu	$v1,$v1,$t6
-/*  f1940c0:	94637eb4 */ 	lhu	$v1,%lo(var80087eb4)($v1)
+/*  f1940c0:	94637eb4 */ 	lhu	$v1,%lo(g_AibotWeaponPreferences+0x4)($v1)
 /*  f1940c4:	03b65021 */ 	addu	$t2,$sp,$s6
 /*  f1940c8:	8fab00a0 */ 	lw	$t3,0xa0($sp)
 /*  f1940cc:	0003cbc2 */ 	srl	$t9,$v1,0xf
@@ -4076,8 +4076,8 @@ glabel var7f1b8f50
 /*  f194140:	11c0002a */ 	beqz	$t6,.L0f1941ec
 /*  f194144:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f194148:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f19414c:	3c088008 */ 	lui	$t0,%hi(var80087eb0)
-/*  f194150:	25087eb0 */ 	addiu	$t0,$t0,%lo(var80087eb0)
+/*  f19414c:	3c088008 */ 	lui	$t0,%hi(g_AibotWeaponPreferences)
+/*  f194150:	25087eb0 */ 	addiu	$t0,$t0,%lo(g_AibotWeaponPreferences)
 /*  f194154:	0005c900 */ 	sll	$t9,$a1,0x4
 /*  f194158:	03281021 */ 	addu	$v0,$t9,$t0
 /*  f19415c:	9457000a */ 	lhu	$s7,0xa($v0)
@@ -4103,10 +4103,10 @@ glabel var7f1b8f50
 /*  f1941a4:	5020000f */ 	beqzl	$at,.L0f1941e4
 /*  f1941a8:	240c0001 */ 	addiu	$t4,$zero,0x1
 /*  f1941ac:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f1941b0:	3c038008 */ 	lui	$v1,%hi(var80087eb4)
+/*  f1941b0:	3c038008 */ 	lui	$v1,%hi(g_AibotWeaponPreferences+0x4)
 /*  f1941b4:	00054900 */ 	sll	$t1,$a1,0x4
 /*  f1941b8:	00691821 */ 	addu	$v1,$v1,$t1
-/*  f1941bc:	94637eb4 */ 	lhu	$v1,%lo(var80087eb4)($v1)
+/*  f1941bc:	94637eb4 */ 	lhu	$v1,%lo(g_AibotWeaponPreferences+0x4)($v1)
 /*  f1941c0:	00035c40 */ 	sll	$t3,$v1,0x11
 .L0f1941c4:
 /*  f1941c4:	05610080 */ 	bgez	$t3,.L0f1943c8
@@ -4135,11 +4135,11 @@ glabel var7f1b8f50
 /*  f194218:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
 /*  f19421c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f194220:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f194224:	3c038008 */ 	lui	$v1,%hi(var80087eb4)
+/*  f194224:	3c038008 */ 	lui	$v1,%hi(g_AibotWeaponPreferences+0x4)
 /*  f194228:	0040a825 */ 	or	$s5,$v0,$zero
 /*  f19422c:	00057900 */ 	sll	$t7,$a1,0x4
 /*  f194230:	006f1821 */ 	addu	$v1,$v1,$t7
-/*  f194234:	94637eb4 */ 	lhu	$v1,%lo(var80087eb4)($v1)
+/*  f194234:	94637eb4 */ 	lhu	$v1,%lo(g_AibotWeaponPreferences+0x4)($v1)
 /*  f194238:	8fa40274 */ 	lw	$a0,0x274($sp)
 /*  f19423c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f194240:	0003c3c2 */ 	srl	$t8,$v1,0xf
@@ -4151,10 +4151,10 @@ glabel var7f1b8f50
 /*  f194258:	14200012 */ 	bnez	$at,.L0f1942a4
 /*  f19425c:	00000000 */ 	nop
 /*  f194260:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f194264:	3c038008 */ 	lui	$v1,%hi(var80087eb4)
+/*  f194264:	3c038008 */ 	lui	$v1,%hi(g_AibotWeaponPreferences+0x4)
 /*  f194268:	00057100 */ 	sll	$t6,$a1,0x4
 /*  f19426c:	006e1821 */ 	addu	$v1,$v1,$t6
-/*  f194270:	94637eb4 */ 	lhu	$v1,%lo(var80087eb4)($v1)
+/*  f194270:	94637eb4 */ 	lhu	$v1,%lo(g_AibotWeaponPreferences+0x4)($v1)
 /*  f194274:	00034440 */ 	sll	$t0,$v1,0x11
 .L0f194278:
 /*  f194278:	05010007 */ 	bgez	$t0,.L0f194298
@@ -4176,8 +4176,8 @@ glabel var7f1b8f50
 /*  f1942ac:	15200022 */ 	bnez	$t1,.L0f194338
 /*  f1942b0:	8fb9027c */ 	lw	$t9,0x27c($sp)
 /*  f1942b4:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f1942b8:	3c0b8008 */ 	lui	$t3,%hi(var80087eb0)
-/*  f1942bc:	256b7eb0 */ 	addiu	$t3,$t3,%lo(var80087eb0)
+/*  f1942b8:	3c0b8008 */ 	lui	$t3,%hi(g_AibotWeaponPreferences)
+/*  f1942bc:	256b7eb0 */ 	addiu	$t3,$t3,%lo(g_AibotWeaponPreferences)
 /*  f1942c0:	00055100 */ 	sll	$t2,$a1,0x4
 /*  f1942c4:	014b1021 */ 	addu	$v0,$t2,$t3
 /*  f1942c8:	94430004 */ 	lhu	$v1,0x4($v0)
@@ -4193,10 +4193,10 @@ glabel var7f1b8f50
 /*  f1942f0:	5020000f */ 	beqzl	$at,.L0f194330
 /*  f1942f4:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f1942f8:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f1942fc:	3c038008 */ 	lui	$v1,%hi(var80087eb4)
+/*  f1942fc:	3c038008 */ 	lui	$v1,%hi(g_AibotWeaponPreferences+0x4)
 /*  f194300:	00056900 */ 	sll	$t5,$a1,0x4
 /*  f194304:	006d1821 */ 	addu	$v1,$v1,$t5
-/*  f194308:	94637eb4 */ 	lhu	$v1,%lo(var80087eb4)($v1)
+/*  f194308:	94637eb4 */ 	lhu	$v1,%lo(g_AibotWeaponPreferences+0x4)($v1)
 .L0f19430c:
 /*  f19430c:	0003c440 */ 	sll	$t8,$v1,0x11
 /*  f194310:	0701002d */ 	bgez	$t8,.L0f1943c8
@@ -4215,8 +4215,8 @@ glabel var7f1b8f50
 /*  f19433c:	57210023 */ 	bnel	$t9,$at,.L0f1943cc
 /*  f194340:	00008025 */ 	or	$s0,$zero,$zero
 /*  f194344:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f194348:	3c098008 */ 	lui	$t1,%hi(var80087eb0)
-/*  f19434c:	25297eb0 */ 	addiu	$t1,$t1,%lo(var80087eb0)
+/*  f194348:	3c098008 */ 	lui	$t1,%hi(g_AibotWeaponPreferences)
+/*  f19434c:	25297eb0 */ 	addiu	$t1,$t1,%lo(g_AibotWeaponPreferences)
 /*  f194350:	00054100 */ 	sll	$t0,$a1,0x4
 /*  f194354:	01091021 */ 	addu	$v0,$t0,$t1
 /*  f194358:	94430004 */ 	lhu	$v1,0x4($v0)
@@ -4232,10 +4232,10 @@ glabel var7f1b8f50
 /*  f194380:	5020000f */ 	beqzl	$at,.L0f1943c0
 /*  f194384:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f194388:	8e650000 */ 	lw	$a1,0x0($s3)
-/*  f19438c:	3c038008 */ 	lui	$v1,%hi(var80087eb4)
+/*  f19438c:	3c038008 */ 	lui	$v1,%hi(g_AibotWeaponPreferences+0x4)
 /*  f194390:	00055900 */ 	sll	$t3,$a1,0x4
 /*  f194394:	006b1821 */ 	addu	$v1,$v1,$t3
-/*  f194398:	94637eb4 */ 	lhu	$v1,%lo(var80087eb4)($v1)
+/*  f194398:	94637eb4 */ 	lhu	$v1,%lo(g_AibotWeaponPreferences+0x4)($v1)
 .L0f19439c:
 /*  f19439c:	00036c40 */ 	sll	$t5,$v1,0x11
 /*  f1943a0:	05a10009 */ 	bgez	$t5,.L0f1943c8

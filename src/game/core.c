@@ -276,7 +276,7 @@ void coreLoadStage(s32 stagenum)
 
 	g_Vars.restartlevel = false;
 	g_Vars.unk000478 = 0;
-	g_Vars.unk000488 = 0;
+	g_Vars.totalkills = 0;
 	g_Vars.antiheadnum = -1;
 	g_Vars.antibodynum = -1;
 	g_Vars.dontplaynrg = false;

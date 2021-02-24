@@ -129,7 +129,7 @@ struct g_vars {
 	/*000480*/ u16 unk000480;
 	/*000482*/ u16 unk000482;
 	/*000484*/ s32 mphilltime;
-	/*000488*/ u32 unk000488;
+	/*000488*/ s32 totalkills;
 	/*00048c*/ u32 unk00048c;
 
 	// 1 when entering game setup

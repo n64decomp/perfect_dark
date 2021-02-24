@@ -503,7 +503,7 @@ struct aibot {
 	/*0x210*/ u32 unk210;
 	/*0x214*/ f32 killsbygunfunc[6][2];
 	/*0x244*/ f32 suicidesbygunfunc[6][2];
-	/*0x274*/ u32 unk274[6][2];
+	/*0x274*/ s32 unk274[6][2];
 	/*0x2a4*/ u32 unk2a4;
 	/*0x2a8*/ u32 unk2a8[6];
 	/*0x2c0*/ u32 unk2c0;
@@ -6955,6 +6955,23 @@ struct animationdefinition {
 struct portalvertices {
 	u8 count;
 	struct coord vertices[1];
+};
+
+struct aibotweaponpreference {
+	u8 unk00;
+	u8 unk01;
+	u8 unk02;
+	u8 unk03;
+	u16 unk04_00 : 1;
+	u16 unk04_01 : 1;
+	u16 unk04_02 : 2;
+	u16 unk04_04 : 4;
+	u16 unk04_08 : 4;
+	u16 unk06;
+	u16 unk08;
+	u16 unk0a;
+	u16 unk0c;
+	u16 unk0e;
 };
 
 #endif

@@ -342,5 +342,5 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 		}
 	}
 
-	g_Vars.unk000488++;
+	g_Vars.totalkills++;
 }
