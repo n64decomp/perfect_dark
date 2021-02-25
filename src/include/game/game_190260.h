@@ -10,7 +10,7 @@ void mpInitSimulant(struct chrdata *chr, u8 full);
 void mpInitSimulants(void);
 u32 add87654321(u32 value);
 u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr);
-u32 func0f190be4(void);
+bool func0f190be4(struct prop *prop, struct chrdata *chr);
 void func0f19124c(struct chrdata *chr);
 s32 chrGuessCrouchPos(struct chrdata *chr);
 bool func0f191448(struct chrdata *chr);

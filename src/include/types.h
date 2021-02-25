@@ -1111,7 +1111,7 @@ struct projectile {
 	/*0x0ac*/ u32 unk0ac;
 	/*0x0b0*/ s16 dropreason;
 	/*0x0b2*/ s16 unk0b2;
-	/*0x0b4*/ u32 unk0b4;
+	/*0x0b4*/ s32 unk0b4;
 	/*0x0b8*/ f32 unk0b8;
 	/*0x0bc*/ f32 unk0bc;
 	/*0x0c0*/ f32 unk0c0;

@@ -1101,125 +1101,51 @@ s32 mpObjIsSafe(struct defaultobj *obj)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f19124c
-/*  f19124c:	27bdfd60 */ 	addiu	$sp,$sp,-672
-/*  f191250:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f191254:	0080a025 */ 	or	$s4,$a0,$zero
-/*  f191258:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f19125c:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f191260:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f191264:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f191268:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f19126c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f191270:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f191274:	8c84001c */ 	lw	$a0,0x1c($a0)
-/*  f191278:	27b30064 */ 	addiu	$s3,$sp,0x64
-/*  f19127c:	02602825 */ 	or	$a1,$s3,$zero
-/*  f191280:	0fc195e9 */ 	jal	roomsCopy
-/*  f191284:	24840028 */ 	addiu	$a0,$a0,0x28
-/*  f191288:	8e82001c */ 	lw	$v0,0x1c($s4)
-/*  f19128c:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f191290:	00008025 */ 	or	$s0,$zero,$zero
-/*  f191294:	844e0028 */ 	lh	$t6,0x28($v0)
-/*  f191298:	27b1004c */ 	addiu	$s1,$sp,0x4c
-/*  f19129c:	524e0010 */ 	beql	$s2,$t6,.L0f1912e0
-/*  f1912a0:	27b00090 */ 	addiu	$s0,$sp,0x90
-/*  f1912a4:	84440028 */ 	lh	$a0,0x28($v0)
-/*  f1912a8:	02202825 */ 	or	$a1,$s1,$zero
-.L0f1912ac:
-/*  f1912ac:	0fc5916a */ 	jal	roomGetNeighbours
-/*  f1912b0:	2406000a */ 	addiu	$a2,$zero,0xa
-/*  f1912b4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f1912b8:	02602825 */ 	or	$a1,$s3,$zero
-/*  f1912bc:	0fc195f6 */ 	jal	roomsAppend
-/*  f1912c0:	24060014 */ 	addiu	$a2,$zero,0x14
-/*  f1912c4:	8e8f001c */ 	lw	$t7,0x1c($s4)
-/*  f1912c8:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f1912cc:	01f0c021 */ 	addu	$t8,$t7,$s0
-/*  f1912d0:	87040028 */ 	lh	$a0,0x28($t8)
-/*  f1912d4:	5644fff5 */ 	bnel	$s2,$a0,.L0f1912ac
-/*  f1912d8:	02202825 */ 	or	$a1,$s1,$zero
-/*  f1912dc:	27b00090 */ 	addiu	$s0,$sp,0x90
-.L0f1912e0:
-/*  f1912e0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1912e4:	02602025 */ 	or	$a0,$s3,$zero
-/*  f1912e8:	0fc197e0 */ 	jal	roomGetProps
-/*  f1912ec:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f1912f0:	87b90090 */ 	lh	$t9,0x90($sp)
-/*  f1912f4:	02008825 */ 	or	$s1,$s0,$zero
-/*  f1912f8:	27a80090 */ 	addiu	$t0,$sp,0x90
-/*  f1912fc:	07200034 */ 	bltz	$t9,.L0f1913d0
-/*  f191300:	24160004 */ 	addiu	$s6,$zero,0x4
-/*  f191304:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f191308:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*  f19130c:	85020000 */ 	lh	$v0,0x0($t0)
-/*  f191310:	24150001 */ 	addiu	$s5,$zero,0x1
-/*  f191314:	24120048 */ 	addiu	$s2,$zero,0x48
-.L0f191318:
-/*  f191318:	00520019 */ 	multu	$v0,$s2
-/*  f19131c:	8e6a0338 */ 	lw	$t2,0x338($s3)
-/*  f191320:	00004812 */ 	mflo	$t1
-/*  f191324:	012a8021 */ 	addu	$s0,$t1,$t2
-/*  f191328:	92030000 */ 	lbu	$v1,0x0($s0)
-/*  f19132c:	52a30004 */ 	beql	$s5,$v1,.L0f191340
-/*  f191330:	860b0002 */ 	lh	$t3,0x2($s0)
-/*  f191334:	56c30023 */ 	bnel	$s6,$v1,.L0f1913c4
-/*  f191338:	86220002 */ 	lh	$v0,0x2($s1)
-/*  f19133c:	860b0002 */ 	lh	$t3,0x2($s0)
-.L0f191340:
-/*  f191340:	55600020 */ 	bnezl	$t3,.L0f1913c4
-/*  f191344:	86220002 */ 	lh	$v0,0x2($s1)
-/*  f191348:	8e040004 */ 	lw	$a0,0x4($s0)
-/*  f19134c:	5080001d */ 	beqzl	$a0,.L0f1913c4
-/*  f191350:	86220002 */ 	lh	$v0,0x2($s1)
-/*  f191354:	8c8c0040 */ 	lw	$t4,0x40($a0)
-/*  f191358:	318d0080 */ 	andi	$t5,$t4,0x80
-/*  f19135c:	11a0000a */ 	beqz	$t5,.L0f191388
-/*  f191360:	00000000 */ 	nop
-/*  f191364:	8c820048 */ 	lw	$v0,0x48($a0)
-/*  f191368:	10400007 */ 	beqz	$v0,.L0f191388
-/*  f19136c:	00000000 */ 	nop
-/*  f191370:	8c4e00b4 */ 	lw	$t6,0xb4($v0)
-/*  f191374:	19c00004 */ 	blez	$t6,.L0f191388
-/*  f191378:	00000000 */ 	nop
-/*  f19137c:	8c4f0090 */ 	lw	$t7,0x90($v0)
-/*  f191380:	51e00010 */ 	beqzl	$t7,.L0f1913c4
-/*  f191384:	86220002 */ 	lh	$v0,0x2($s1)
-.L0f191388:
-/*  f191388:	0fc64465 */ 	jal	mpObjIsSafe
-/*  f19138c:	00000000 */ 	nop
-/*  f191390:	1040000b */ 	beqz	$v0,.L0f1913c0
-/*  f191394:	02002025 */ 	or	$a0,$s0,$zero
-/*  f191398:	0fc642f9 */ 	jal	func0f190be4
-/*  f19139c:	02802825 */ 	or	$a1,$s4,$zero
-/*  f1913a0:	10400005 */ 	beqz	$v0,.L0f1913b8
-/*  f1913a4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1913a8:	0fc18ad9 */ 	jal	func0f062b64
-/*  f1913ac:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f1913b0:	10000004 */ 	b	.L0f1913c4
-/*  f1913b4:	86220002 */ 	lh	$v0,0x2($s1)
-.L0f1913b8:
-/*  f1913b8:	0fc47bba */ 	jal	dprint
-/*  f1913bc:	00000000 */ 	nop
-.L0f1913c0:
-/*  f1913c0:	86220002 */ 	lh	$v0,0x2($s1)
-.L0f1913c4:
-/*  f1913c4:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f1913c8:	0441ffd3 */ 	bgez	$v0,.L0f191318
-/*  f1913cc:	00000000 */ 	nop
-.L0f1913d0:
-/*  f1913d0:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f1913d4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1913d8:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f1913dc:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1913e0:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f1913e4:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f1913e8:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f1913ec:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f1913f0:	03e00008 */ 	jr	$ra
-/*  f1913f4:	27bd02a0 */ 	addiu	$sp,$sp,0x2a0
-);
+void func0f19124c(struct chrdata *chr)
+{
+	s32 i;
+	s16 *propnumptr;
+	s16 propnums[260];
+	s16 allrooms[22];
+	s16 neighbours[12];
+
+	roomsCopy(chr->prop->rooms, allrooms);
+
+	for (i = 0; chr->prop->rooms[i] != -1; i++) {
+		roomGetNeighbours(chr->prop->rooms[i], neighbours, 10);
+		roomsAppend(neighbours, allrooms, 20);
+	}
+
+	roomGetProps(allrooms, propnums, 256);
+	propnumptr = propnums;
+
+	while (*propnumptr >= 0) {
+		struct prop *prop = &g_Vars.props[*propnumptr];
+
+		if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+			if (prop->timetoregen == 0) {
+				struct defaultobj *obj = prop->obj;
+
+				if (obj) {
+					if ((obj->hidden & OBJHFLAG_AIRBORNE) == 0
+							|| obj->projectile == NULL
+							|| obj->projectile->unk0b4 <= 0
+							|| obj->projectile->unk090) {
+						if (mpObjIsSafe(obj)) {
+							if (func0f190be4(prop, chr)) {
+								func0f062b64(prop, 1);
+							} else {
+								dprint();
+							}
+						}
+					}
+				}
+			}
+		}
+
+		propnumptr++;
+	}
+}
 
 s32 chrGuessCrouchPos(struct chrdata *chr)
 {
