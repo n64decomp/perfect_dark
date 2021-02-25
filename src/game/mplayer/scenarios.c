@@ -1828,8 +1828,8 @@ void scenarioKohInit(void)
 	g_ScenarioData.koh.unk00 = 0;
 	g_ScenarioData.koh.occupiedteam = -1;
 	g_ScenarioData.koh.unk06 = 0;
-	g_ScenarioData.koh.hillroom = -1;
-	g_ScenarioData.koh.unk10 = -1;
+	g_ScenarioData.koh.hillrooms[0] = -1;
+	g_ScenarioData.koh.hillrooms[1] = -1;
 	g_ScenarioData.koh.hillpos.x = 0;
 	g_ScenarioData.koh.hillpos.y = 0;
 	g_ScenarioData.koh.hillpos.z = 0;
@@ -1857,14 +1857,14 @@ void scenarioKohReset(void)
 	}
 
 	padUnpack(pad_id, PADFIELD_POS | PADFIELD_ROOM, &pad);
-	g_ScenarioData.koh.hillroom = pad.room;
-	g_ScenarioData.koh.unk10 = -1;
+	g_ScenarioData.koh.hillrooms[0] = pad.room;
+	g_ScenarioData.koh.hillrooms[1] = -1;
 	g_ScenarioData.koh.hillpos.x = pad.pos.x;
 	g_ScenarioData.koh.hillpos.y = pad.pos.y;
 	g_ScenarioData.koh.hillpos.z = pad.pos.z;
-	g_ScenarioData.koh.hillpos.y = func0002a36c(&g_ScenarioData.koh.hillpos, &g_ScenarioData.koh.hillroom, 0, 0);
+	g_ScenarioData.koh.hillpos.y = func0002a36c(&g_ScenarioData.koh.hillpos, &g_ScenarioData.koh.hillrooms[0], 0, 0);
 	g_ScenarioData.koh.unk08 = 0;
-	roomSetLighting(g_ScenarioData.koh.hillroom, LIGHTOP_5, 0, 0, 0);
+	roomSetLighting(g_ScenarioData.koh.hillrooms[0], LIGHTOP_5, 0, 0, 0);
 }
 
 GLOBAL_ASM(
@@ -2800,7 +2800,7 @@ void mpKohAddHill(s32 *cmd)
 
 bool scenarioKohIsRoomHighlighted(s16 room)
 {
-	return room == g_ScenarioData.koh.hillroom;
+	return room == g_ScenarioData.koh.hillrooms[0];
 }
 
 GLOBAL_ASM(

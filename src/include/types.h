@@ -4639,8 +4639,7 @@ struct scenariodata_koh {
 	/*0x800ac118*/ s16 unk08;
 	/*0x800ac11a*/ s16 hillindex;
 	/*0x800ac11c*/ s16 hillcount;
-	/*0x800ac11e*/ s16 hillroom;
-	/*0x800ac120*/ s16 unk10;
+	/*0x800ac11e*/ s16 hillrooms[2];
 	/*0x800ac122*/ s16 hillpads[9];
 	/*0x800ac134*/ struct coord hillpos;
 	/*0x800ac140*/ f32 unk30;

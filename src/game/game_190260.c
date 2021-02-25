@@ -63,16 +63,6 @@ u32 g_MpBotCommands[NUM_MPBOTCOMMANDS] = {
 	L_MISC(214), // "Protect"
 };
 
-u32 var80087e2c = 0x00000000;
-u32 var80087e30 = 0x00000000;
-u32 var80087e34 = 0x00000000;
-u32 var80087e38 = 0x00000000;
-u32 var80087e3c = 0x00000000;
-u32 var80087e40 = 0x00000000;
-u32 var80087e44 = 0x00000000;
-u32 var80087e48 = 0x00000000;
-u32 var80087e4c = 0x00000000;
-
 bool func0f190260(struct chrdata *chr)
 {
 	return chr->blurdrugamount >= g_SimDifficulties[chr->aibot->simulant->difficulty].blurdrugamount;
@@ -3492,7 +3482,7 @@ glabel var7f1b8f50
 /*  f193820:	0fc65241 */ 	jal	mpGetNumTeammatesDefendingHill
 /*  f193824:	00000000 */ 	nop
 /*  f193828:	00408025 */ 	or	$s0,$v0,$zero
-/*  f19382c:	0fc65264 */ 	jal	func0f194990
+/*  f19382c:	0fc65264 */ 	jal	mpGetNumOpponentsInHill
 /*  f193830:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f193834:	0202082a */ 	slt	$at,$s0,$v0
 /*  f193838:	14200005 */ 	bnez	$at,.L0f193850
@@ -4590,124 +4580,44 @@ s32 mpGetNumTeammatesDefendingHill(struct chrdata *bot)
 	return count;
 }
 
-GLOBAL_ASM(
-glabel func0f194990
-/*  f194990:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f194994:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f194998:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f19499c:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f1949a0:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f1949a4:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f1949a8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f1949ac:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f1949b0:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f1949b4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f1949b8:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f1949bc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1949c0:	3c188008 */ 	lui	$t8,%hi(var80087e2c)
-/*  f1949c4:	27187e2c */ 	addiu	$t8,$t8,%lo(var80087e2c)
-/*  f1949c8:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f1949cc:	3c1e800b */ 	lui	$s8,%hi(var800ac500)
-/*  f1949d0:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f1949d4:	8f090004 */ 	lw	$t1,0x4($t8)
-/*  f1949d8:	03cef021 */ 	addu	$s8,$s8,$t6
-/*  f1949dc:	8fdec500 */ 	lw	$s8,%lo(var800ac500)($s8)
-/*  f1949e0:	27af0060 */ 	addiu	$t7,$sp,0x60
-/*  f1949e4:	ade10000 */ 	sw	$at,0x0($t7)
-/*  f1949e8:	ade90004 */ 	sw	$t1,0x4($t7)
-/*  f1949ec:	8f09000c */ 	lw	$t1,0xc($t8)
-/*  f1949f0:	8f010008 */ 	lw	$at,0x8($t8)
-/*  f1949f4:	3c0a800b */ 	lui	$t2,%hi(g_MpNumPlayers)
-/*  f1949f8:	ade9000c */ 	sw	$t1,0xc($t7)
-/*  f1949fc:	ade10008 */ 	sw	$at,0x8($t7)
-/*  f194a00:	8f010010 */ 	lw	$at,0x10($t8)
-/*  f194a04:	8f090014 */ 	lw	$t1,0x14($t8)
-/*  f194a08:	3c11800b */ 	lui	$s1,%hi(g_MpPlayerChrs)
-/*  f194a0c:	ade10010 */ 	sw	$at,0x10($t7)
-/*  f194a10:	ade90014 */ 	sw	$t1,0x14($t7)
-/*  f194a14:	8f09001c */ 	lw	$t1,0x1c($t8)
-/*  f194a18:	8f010018 */ 	lw	$at,0x18($t8)
-/*  f194a1c:	00009025 */ 	or	$s2,$zero,$zero
-/*  f194a20:	ade9001c */ 	sw	$t1,0x1c($t7)
-/*  f194a24:	ade10018 */ 	sw	$at,0x18($t7)
-/*  f194a28:	8d4ac530 */ 	lw	$t2,%lo(g_MpNumPlayers)($t2)
-/*  f194a2c:	2631c4d0 */ 	addiu	$s1,$s1,%lo(g_MpPlayerChrs)
-/*  f194a30:	00008025 */ 	or	$s0,$zero,$zero
-/*  f194a34:	1940002b */ 	blez	$t2,.L0f194ae4
-/*  f194a38:	2417004c */ 	addiu	$s7,$zero,0x4c
-/*  f194a3c:	3c16800b */ 	lui	$s6,%hi(g_MpSimulants)
-/*  f194a40:	3c14800b */ 	lui	$s4,%hi(g_MpPlayers)
-/*  f194a44:	3c13800b */ 	lui	$s3,%hi(g_ScenarioData)
-/*  f194a48:	2673c110 */ 	addiu	$s3,$s3,%lo(g_ScenarioData)
-/*  f194a4c:	2694c7b8 */ 	addiu	$s4,$s4,%lo(g_MpPlayers)
-/*  f194a50:	26d6c538 */ 	addiu	$s6,$s6,%lo(g_MpSimulants)
-/*  f194a54:	241500a0 */ 	addiu	$s5,$zero,0xa0
-/*  f194a58:	8e2b0000 */ 	lw	$t3,0x0($s1)
-.L0f194a5c:
-/*  f194a5c:	866e000e */ 	lh	$t6,0xe($s3)
-/*  f194a60:	8d6c001c */ 	lw	$t4,0x1c($t3)
-/*  f194a64:	858d0028 */ 	lh	$t5,0x28($t4)
-/*  f194a68:	15ae0017 */ 	bne	$t5,$t6,.L0f194ac8
-/*  f194a6c:	00000000 */ 	nop
-/*  f194a70:	0fc6341d */ 	jal	func0f18d074
-/*  f194a74:	02002025 */ 	or	$a0,$s0,$zero
-/*  f194a78:	28410004 */ 	slti	$at,$v0,0x4
-/*  f194a7c:	10200006 */ 	beqz	$at,.L0f194a98
-/*  f194a80:	27a90060 */ 	addiu	$t1,$sp,0x60
-/*  f194a84:	00550019 */ 	multu	$v0,$s5
-/*  f194a88:	00004012 */ 	mflo	$t0
-/*  f194a8c:	02881821 */ 	addu	$v1,$s4,$t0
-/*  f194a90:	10000006 */ 	b	.L0f194aac
-/*  f194a94:	90640011 */ 	lbu	$a0,0x11($v1)
-.L0f194a98:
-/*  f194a98:	00570019 */ 	multu	$v0,$s7
-/*  f194a9c:	0000c812 */ 	mflo	$t9
-/*  f194aa0:	02d91821 */ 	addu	$v1,$s6,$t9
-/*  f194aa4:	2463fed0 */ 	addiu	$v1,$v1,-304
-/*  f194aa8:	90640011 */ 	lbu	$a0,0x11($v1)
-.L0f194aac:
-/*  f194aac:	93cf0011 */ 	lbu	$t7,0x11($s8)
-/*  f194ab0:	0004c080 */ 	sll	$t8,$a0,0x2
-/*  f194ab4:	11e40004 */ 	beq	$t7,$a0,.L0f194ac8
-/*  f194ab8:	03091021 */ 	addu	$v0,$t8,$t1
-/*  f194abc:	8c4a0000 */ 	lw	$t2,0x0($v0)
-/*  f194ac0:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*  f194ac4:	ac4b0000 */ 	sw	$t3,0x0($v0)
-.L0f194ac8:
-/*  f194ac8:	3c0c800b */ 	lui	$t4,%hi(g_MpNumPlayers)
-/*  f194acc:	8d8cc530 */ 	lw	$t4,%lo(g_MpNumPlayers)($t4)
-/*  f194ad0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f194ad4:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f194ad8:	020c082a */ 	slt	$at,$s0,$t4
-/*  f194adc:	5420ffdf */ 	bnezl	$at,.L0f194a5c
-/*  f194ae0:	8e2b0000 */ 	lw	$t3,0x0($s1)
-.L0f194ae4:
-/*  f194ae4:	27a20060 */ 	addiu	$v0,$sp,0x60
-/*  f194ae8:	27a40080 */ 	addiu	$a0,$sp,0x80
-/*  f194aec:	8c430000 */ 	lw	$v1,0x0($v0)
-.L0f194af0:
-/*  f194af0:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f194af4:	0243082a */ 	slt	$at,$s2,$v1
-/*  f194af8:	10200002 */ 	beqz	$at,.L0f194b04
-/*  f194afc:	00000000 */ 	nop
-/*  f194b00:	00609025 */ 	or	$s2,$v1,$zero
-.L0f194b04:
-/*  f194b04:	5444fffa */ 	bnel	$v0,$a0,.L0f194af0
-/*  f194b08:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f194b0c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f194b10:	02401025 */ 	or	$v0,$s2,$zero
-/*  f194b14:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f194b18:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f194b1c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f194b20:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f194b24:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f194b28:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f194b2c:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f194b30:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f194b34:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f194b38:	03e00008 */ 	jr	$ra
-/*  f194b3c:	27bd0088 */ 	addiu	$sp,$sp,0x88
-);
+/**
+ * Find the opposing team who has the most players in the hill and return the
+ * number of their players who are in the hill.
+ *
+ * This function is slightly misnamed.
+ */
+s32 mpGetNumOpponentsInHill(struct chrdata *chr)
+{
+	struct mpchr *mpchr = var800ac500[mpPlayerGetIndex(chr)];
+	struct mpchr *loopmpchr;
+	s32 countsperteam[8] = {0};
+	s32 max = 0;
+	s32 i;
+
+	for (i = 0; i < g_MpNumPlayers; i++) {
+		if (g_MpPlayerChrs[i]->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {
+			s32 mpindex = func0f18d074(i);
+
+			if (mpindex < 4) {
+				loopmpchr = &g_MpPlayers[mpindex].base;
+			} else {
+				loopmpchr = &g_MpSimulants[mpindex - 4].base;
+			}
+
+			if (loopmpchr->team != mpchr->team) {
+				countsperteam[loopmpchr->team]++;
+			}
+		}
+	}
+
+	for (i = 0; i < 8; i++) {
+		if (countsperteam[i] > max) {
+			max = countsperteam[i];
+		}
+	}
+
+	return max;
+}
 
 GLOBAL_ASM(
 glabel func0f194b40
@@ -5285,7 +5195,7 @@ glabel var7f1b8fc8
 /*  f195268:	100000af */ 	b	.L0f195528
 /*  f19526c:	00000000 */ 	nop
 .L0f195270:
-/*  f195270:	0fc65264 */ 	jal	func0f194990
+/*  f195270:	0fc65264 */ 	jal	mpGetNumOpponentsInHill
 /*  f195274:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195278:	0050082a */ 	slt	$at,$v0,$s0
 /*  f19527c:	10200012 */ 	beqz	$at,.L0f1952c8

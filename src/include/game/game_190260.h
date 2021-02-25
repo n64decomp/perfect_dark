@@ -28,7 +28,7 @@ bool func0f192dc0(struct chrdata *botchr, struct chrdata *chr);
 u32 func0f192e90(void);
 void func0f19369c(struct chrdata *chr, s32 arg1);
 s32 func0f1937a4(struct chrdata *chr, s32 arg1);
-u32 func0f194990(void);
+s32 mpGetNumOpponentsInHill(struct chrdata *chr);
 void func0f194b40(struct chrdata *chr);
 s32 mpObjIsSafe(struct defaultobj *obj);
 s32 mpchrGetWeaponNum(struct chrdata *chr);
